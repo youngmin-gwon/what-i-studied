@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "git/Git 협업.md",
+            "file": "git/Git Command.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "git/Git 협업.md",
+                "file": "git/Git Command.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "git/Git 협업.md",
+                "file": "git/Git Command.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "git/Git 협업.md"
+                "file": "git/Git Command.md"
               }
             }
           }
@@ -130,15 +130,15 @@
   },
   "active": "682a80849c34528d",
   "lastOpenFiles": [
-    "assets/git_reset.png",
-    "assets/git_revert_2.png",
-    "assets/git_revert_1.png",
+    "git/Git 원리.md",
+    "git/Git 협업.md",
     "git/Git Command.md",
-    "algorithm/python.md",
-    "algorithm/Big O, 자료형.md",
-    "Pasted image 20220920101428.png.md",
-    "assets/o_1_graph.png",
-    "assets/Pasted image 20220920101428.png",
-    "assets/o_graph.png"
+    "assets/git-reset-checkout.png",
+    "assets/git-1.png",
+    "assets/git-6.png",
+    "assets/git-5.png",
+    "assets/git-4.png",
+    "assets/git-3.png",
+    "assets/git-2.png"
   ]
 }
