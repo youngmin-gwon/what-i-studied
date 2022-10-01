@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "git/Git Command.md",
+            "file": "books/Clean Coder.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "git/Git Command.md",
+                "file": "books/Clean Coder.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "git/Git Command.md",
+                "file": "books/Clean Coder.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "git/Git Command.md"
+                "file": "books/Clean Coder.md"
               }
             }
           }
@@ -130,15 +130,15 @@
   },
   "active": "682a80849c34528d",
   "lastOpenFiles": [
+    "YYYY-MM-DD.md",
+    "books/Clean Coder.md",
+    "git/Git Command.md",
     "git/Git 원리.md",
     "git/Git 협업.md",
-    "git/Git Command.md",
     "assets/git-reset-checkout.png",
     "assets/git-1.png",
     "assets/git-6.png",
     "assets/git-5.png",
-    "assets/git-4.png",
-    "assets/git-3.png",
-    "assets/git-2.png"
+    "assets/git-4.png"
   ]
 }
