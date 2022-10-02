@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "682a80849c34528d",
+        "id": "a38963555e82b7f7",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "books/Clean Coder.md",
+            "file": "books/Code Complete.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "books/Clean Coder.md",
+                "file": "books/Code Complete.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "books/Clean Coder.md",
+                "file": "books/Code Complete.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "books/Clean Coder.md"
+                "file": "books/Code Complete.md"
               }
             }
           }
@@ -128,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "682a80849c34528d",
+  "active": "a38963555e82b7f7",
   "lastOpenFiles": [
-    "YYYY-MM-DD.md",
+    "assets/code_complete_3.png",
+    "books/Code Complete.md",
     "books/Clean Coder.md",
+    "assets/code_complete_cover.png",
+    "YYYY-MM-DD.md",
     "git/Git Command.md",
     "git/Git 원리.md",
     "git/Git 협업.md",
     "assets/git-reset-checkout.png",
-    "assets/git-1.png",
-    "assets/git-6.png",
-    "assets/git-5.png",
-    "assets/git-4.png"
+    "assets/git-1.png"
   ]
 }
