@@ -10,3 +10,6 @@
 ![error-handling](mindmap/clean-code-7.png)
 ## 8. Boundary
 ![Boundary](mindmap/clean-code-8.png)
+## 9. Unit Test
+
+![Unit-Test](mindmap/clean-code-9.png)
