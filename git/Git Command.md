@@ -11,16 +11,16 @@
 			- --soft: commit -> staging area
 			- --mixed(default): commit -> working directory
 			- --hard: commit -> none
-	![[git_reset.png]]
+	![[../assets/git_reset.png]]
 		- 커밋을 지정하지 않으면 staging area에 있는 변경사항만 처리
 	- revert
 		- 커밋 내역을 그대로 남겨둔 채 새로운 커밋을 생성해서 되돌림
-		![[git_revert_1.png]]
+		![[../assets/git_revert_1.png]]
 ```shell
 git revert 5lk4er
 git revert 76sdeb
 ```
-![[git_revert_2.png]]
+![[../assets/git_revert_2.png]]
 - 그대로 남겨둔채 새로운 커밋을 생성함
 
 ### 2. git reset --hard vs git clean
@@ -66,7 +66,7 @@ git reset master
 git checkout master
 
 ```
-			![[git-reset-checkout.png]]
+			![[../assets/git-reset-checkout.png]]
 	2. 경로 있음
 		- reset 명령과 비슷하게 HEAD는 움직이지 않음
 		- git reset [branch] file 명령과 비슷함
