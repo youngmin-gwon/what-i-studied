@@ -11,5 +11,10 @@
 ## 8. Boundary
 ![Boundary](../mindmap/clean-code-8.png)
 ## 9. Unit Test
-
-![Unit-Test](../mindmap/clean-code-9.png)
+![Unit-Test](mindmap/clean-code-9.png)
+## 10. Classes
+![classes](mindmap/clean-code-10.png)
+## 11. System
+![system](mindmap/clean-code-11.png)
+## 12. Emergence
+![emergence](mindmap/clean-code-12.png)
