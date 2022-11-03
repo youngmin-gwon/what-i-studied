@@ -1,5 +1,9 @@
 ## 1. Clean Code
 ![Clean-Code](../mindmap/clean-code-1.png)
+## 2. Meaningful Names
+![names](../mindmap/clean-code-2.png)
+## 3.Functions
+![functions](../mindmap/clean-code-3.png)
 ## 4. Comments
 ![Comments](../mindmap/clean-code-4.png)
 ## 5. Formatting
