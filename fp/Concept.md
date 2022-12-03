@@ -276,3 +276,95 @@ Function compose(Function f, Function g) =>(x) => f(g(x));
 // Order of compositon is from left to right.
 Function pipe(Function f, Function g) => (x) => g(f(x));
 ```
+
+## Immutability
+
+> something that cannot be changed
+
+<-> mutability
+
+(Since it does not sound much sense,) what is the use of an application that does not change its state?
+
+## final vs const
+
+Both value cannot be modified after being set
+
+### final
+> `final` variable is evaluated at runtime
+
+### const
+> `const` variable is compile-time constant and is implicitly final
+
+## Why prefer immutability
+
+- Fewer bugs: Immutability helps to avoid accidental reassignments.
+- Code becomes predictable and easier to read
+- As `const` evaluates at compile-time, the compiler knows the value in advance and stores it in the memory. The exact value is referred to throughout the application instead of creating new objects every time. So this helps to save some memory and has small performance benefits.
+
+## How to update immutable states
+
+> Instead of changing values, create of a copy of the instance we need to access and use it
+
+ex) copyWith()
+
+```dart
+void main(List<String> args) {
+	final user = User(name: 'John', age: 18);
+	print(_user); // User(name; 'John', age: 18)
+	final _newUser = _user. copyWith(age: 20);
+	print(_newUser); // User(name: 'John', age: 20)
+}
+
+class User {
+	final String name;
+	final int age;
+
+	const User({required this.name, required this.age});
+
+	User copywith({ 
+		String? name,
+		int? age,
+	}) =>
+		User(
+			name: name ?? this. name,
+			age: age ?? this.age,
+		);
+
+	@override
+	String toString() = 'User(name: $name, age: $age)';
+}
+```
+
+### Immutable lists, Maps
+```dart
+void main() {
+  final _finalList = [1, 2, 3];
+  const _constList = [1, 2, 3];
+
+  final _list = List<int>.unmodifiable([]);
+
+  final _map = Map<String, int>.unmodifiable(
+    <String, int>{
+      "a": 1,
+      "b": 2,
+      "c": 3,
+    },
+  );
+
+  _finalList.add(5);
+  // _constList.add(5); // Unsupported operation: Cannot add to an unmodifiable list
+
+  // _list.add(5); // Unsupported operation: Cannot add to an unmodifiable list
+  // _map["d"] = 4; // Unsupported operation: Cannot add to an unmodifiable map
+}
+
+```
+
+`const` list throws exception at runtime. if you want to check this at compile time, recommend something like `IList` in `dartz`
+
+## Equality
+
+> check if two objects are equal by using the `==` operator
+
+- Referential equality: two objects refer to the same object
+- Value equality: both two objects have the same value
