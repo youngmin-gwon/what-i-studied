@@ -212,3 +212,67 @@ StringCallback curriedGreet(String salutation) {
 
 Curried functions are used to create partial applications, but all partial applications are not curried functions.
 
+## Composition
+
+> a pipeline through which the data flows
+
+In FP, small general-purpose functions are defined and they can be combined to make complex functions. The output of one function becomes the input of another function, and so on. The input gets passed from function to function and finally returns the result.
+
+The matematical notation: `f.g`
+Programming notation: `f(g(x))`
+
+```dart
+Function compose(Function f, Fuction g) => (x) => f(g(x));
+```
+
+the order of execution for compositions is right to left(g => f)
+
+```dart
+import 'package:dartz/dartz.dart';
+
+void main(List<String> args) {
+	final _shout = compose(exclaim,toUpper);
+	print(_shout('Ouch! that hurts')); // "OUCH! THAT HURTS!"
+	// Dartz
+	final _shout2 = composeF<String, String, String>(exclaim, toUpper);
+	print(_shout2( 'Ouch! that hurts')); // "OUCH! THAT HURTS!"
+}
+
+String topper(String value) = value.toUpperCase();
+String exclaim(String value) = '$value!';
+
+Function compose(Function f, Function g) => (x) => f(g(x));
+```
+
+Flutter framework is one of the best example that demonstrate the power of composition. 
+```dart
+// if you want to add some decoration, combine the widget with a [DecoratedBox]
+
+...
+DecoratedBox(
+	decoration:BoxDecoration(...),
+	child: someWidget,
+),
+...
+```
+
+## Compose vs Pipe
+
+FP has similar an utility called pipe like composition. The only difference is that compose performs a right to left execution, and a pipe performs a left to right execution order.
+
+```dart
+void main(List<String> args) {
+	final _compose = compose(doubler, increment);
+	final _pipe = pipe(doubler, increment);
+	print(_compose (10)); // 22
+	print(_pipe(10)); // 21
+}
+
+int increment(int value) = value + 1;
+int doubler(int value) = value * 2;
+
+// Order of compositon is from right to left.
+Function compose(Function f, Function g) =>(x) => f(g(x));
+// Order of compositon is from left to right.
+Function pipe(Function f, Function g) => (x) => g(f(x));
+```
