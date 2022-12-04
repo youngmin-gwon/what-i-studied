@@ -93,13 +93,11 @@ num partialDivide(int dividend, int divider) => dividend ~/ divider;
 1. pure function is easy to unit test
 2. the chances of unexpected bugs reduce
 3. pure function provides caching mechanisms that help in reducing heavy computation
-4. pure function is easy to prallelize
+4. pure function is easy to parallelize
 
 #### referential transparency
 
 > a function call can be reduced by its return value and not affect the rest of the program
-
-
 
 another way to determine if a function is pure
 
@@ -368,3 +366,297 @@ void main() {
 
 - Referential equality: two objects refer to the same object
 - Value equality: both two objects have the same value
+
+## Recursion
+
+> when a function calls itself again and again until a specific condition is met
+
+- Base Condition: acts as an exit point for the recursive function. it is used to stop the recursive function calls.
+- Recursive Condition: the place where the function keeps calling itself again and again
+
+```dart
+void main(List<String> args) {
+	final _recursiveSumResult = _recursiveSum(5);
+	print(_recursiveSumResult); // 15
+}
+
+// recursion is declarative then iteration
+int _recursiveSum(int number) {
+	if (number = 0) return 0;
+	return number + _recursiveSum(number - 1);
+}
+```
+
+## Iteration vs Recursion
+
+> Iteration is imperative, and recursion is declarative
+
+Iteration has to mange state, so it's stateful.
+
+Recursion is self-referencing and stateless, which makes debugging easier. It is subjective, but recursion makes the code look more clean and elegant.
+
+Reading and making sense of a code is easier when it is declarative. Whereas in imperative, one can not just look at the code and tell what exactly it is doing; one has to execute it at least mentally and then understand what the code does.
+
+### Performance
+
+> Recursive functions are not as efficient as iterative ones
+
+How to make recursive functions scalable and performant? -> Memoization
+
+## Higher-Order Function(HOF)
+
+> A function that takes a function as an argument or returns a function.
+
+It is possible when functions are treated as first-class citizens.
+
+### higher order functions: filter
+
+> The filter takes a predicate function and an array and returns a new list with only those values for which the predicate function returns true.
+
+```dart
+const _arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+void main(List<String> args) {
+	// Imperative approach
+	final _result = <int>[];
+	for (final element in _arr) { 
+		if (element.¡sEven) {
+			_result.add(element) ;
+		}
+	}
+
+	print (_result); // [2, 4, 6, 8, 10]
+	// Declarative approach; where in Dart lists
+	final _result2 = _arr.where((element) => element.isEven). tolist () ;
+	print(_result2); // [2, 4, 6, 8, 10]
+	// Declarative approach: Functional API
+	final _evens = filter<int>(isEven, _arr);
+	print(_evens); // [2, 4, 6, 8, 10]
+	final _odds = filter<int>(isodd, _arr);
+	print(_odds); // [1, 3, 5, 7, 9]
+}
+bool isEven(int number) = number % 2 = 0;
+bool isOdd(int number) = !isEven(number);
+```
+### higher order functions: map
+
+> The map works the same way as a filter, except that instead of taking a predicate function, it takes a mapper function, applies it to each element from the list, and returns a new list.
+
+```dart
+import '../utilities/utilities.dart';
+
+const _arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+	void main(List<String> args) {
+	
+	// Imperative approach
+	
+	final _result = <int>[];
+	
+	for (final element in _arr) {
+	
+		_result.add(element * 2);
+	
+	}
+	
+	print(_result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+	
+	// Declarative approach: map method in Dart lists
+	
+	final _result2 = _arr.map((element) => element * 2).toList();
+	
+	print(_result2); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+	
+	// Declarative approach: Functional API
+	
+	final _doubles = map<int>(doubleIt, _arr);
+	
+	print(_doubles); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+
+}
+
+int doubleIt(int number) => number * 2;
+```
+
+### higher order functions: flatMap
+
+> The **flatMap** takes a function and applies it to every element in the collection, and its sub-collection. After mapping, it flattens the list.
+
+```dart
+import 'package:dartz/dartz.dart';
+
+// Flatten: Returns a new collection by taking every element in the collection, and it's subcollection and putting everything into a new collection with single depth.
+
+// Example: [1, 2, [3, 4], 5, [6, 7, [8, 9]]] => [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+// flatMap: is a combination of map and flatten. It takes a function and applies it to every element in the collection, and it's subcollection. After mapping, it flattens the result.
+
+final _arr = IList.from([
+
+1,
+
+2,
+
+IList.from([3, 4]),
+
+5,
+
+IList.from([6, 7, 8]),
+
+9
+
+]);
+
+const _normalArr = [
+
+1,
+
+2,
+
+[3, 4],
+
+5,
+
+[6, 7, 8],
+
+9
+
+];
+
+/// [_arr] is a nested list and lets assume we get such a list from an API \
+
+/// But, we want to flatten it to a single list of integers. \
+
+void main(List<String> args) {
+
+// IList from the dartz package
+
+final _result = _arr.flatMap<int>(
+
+(a) {
+
+if (a is IList<int>) return a;
+
+if (a is int) return IList.from([a]);
+
+return IList.from([]);
+
+},
+
+);
+
+print(_result);
+
+// Dart List
+
+final _result2 = _normalArr.expand<int>((a) {
+
+if (a is List<int>) return a;
+
+if (a is int) return [a];
+
+return [];
+
+}).toList();
+
+print(_result2);
+
+}
+```
+
+### higher order functions: reduce
+
+> It reduces a collection into a single value by combining all the elements using the passed-in function.
+
+```dart
+// Sum all the numbers in the list
+
+import '../utilities/utilities.dart';
+
+const _arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+void main(List<String> args) {
+
+final _imperativeResult = _sumAllImperative(_arr);
+
+print(_imperativeResult); // 55
+
+final _sumAllReduceResult = _sumAllReduce(_arr);
+
+print(_sumAllReduceResult); // 55
+
+final _sumAllFoldResult = _sumAllFold(_arr);
+
+print(_sumAllFoldResult); // 55
+
+// Functional API
+
+final _result = reduce<int>(
+
+(accumulator, element) => accumulator + element,
+
+_arr,
+
+0,
+
+);
+
+print(_result); // 55
+
+}
+
+// Imperative approach
+
+int _sumAllImperative(List<int> arr) {
+
+int _sum = 0;
+
+for (final item in arr) {
+
+_sum += item;
+
+}
+
+return _sum;
+
+}
+
+// Declarative approach
+
+/// Reduce Implementation \
+
+/// Reduces the [Iterable] to a single value. \
+
+/// In step 1, accumulator is set to the first element of the [Iterable]. \
+
+/// For every other steps, Accumulator is the result of the previous reduction. \
+
+/// Input: [0, 1, 2, 3, 4, 5] \
+
+/// Step 1: Accumulator = 0 & element = 1 | accumulator + element = 1 \
+
+/// Step 2: Accumulator = 1 & element = 2 | accumulator + element = 3 \
+
+/// Step 3: Accumulator = 3 & element = 3 | accumulator + element = 6 \
+
+/// Step 4: Accumulator = 6 & element = 4 | accumulator + element = 10 \
+
+/// Step 5: Accumulator = 10 & element = 5 | accumulator + element = 15 \
+
+int _sumAllReduce(List<int> arr) => arr.reduce(
+
+(accumulator, element) => accumulator + element,
+
+);
+
+/// Fold Implementation \
+
+/// Fold is similar to reduce, but we can pass in the initial value of the accumulator. \
+
+int _sumAllFold(List<int> arr) => arr.fold(
+
+0,
+
+(accumulator, element) => accumulator + element,
+
+);
+```
