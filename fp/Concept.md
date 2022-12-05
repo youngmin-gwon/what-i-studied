@@ -79,7 +79,7 @@ int? double2(int value) {
 
 int counter = 0;
 
-int increment(int delta) => (count++) + delta; // total, impure
+int increment(int delta) => (counter++) + delta; // total, impure
 
 // total(if divider == 0, the function will return double.infinity)
 num totalDivide(int dividend, int divider) => dividend / divider;
@@ -90,7 +90,7 @@ num partialDivide(int dividend, int divider) => dividend ~/ divider;
 
 #### benefits
 
-1. pure function is easy to unit test
+1. pure function is easy to unit-test
 2. the chances of unexpected bugs reduce
 3. pure function provides caching mechanisms that help in reducing heavy computation
 4. pure function is easy to parallelize
@@ -123,6 +123,7 @@ bool isOdd(int number) => number %2 == 1;// arity: 1(unary), predicate function(
 ```
 
 ## Closure
+
 > when a function is defined into another function, that inner function remembers the scope of the outer function even if the outer function is executed and no longer available
 
 ```dart
