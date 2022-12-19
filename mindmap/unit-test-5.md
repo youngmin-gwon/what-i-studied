@@ -4,9 +4,9 @@ mindmap-plugin: basic
 
 ---
 
-# 5. Test Smells: Maintainability
+# 5. Test Smells: <br/>Maintainability
 
-## smells that add to your cognitive load
+## smells that <br/>add to your cognitive load
 - Conditional logic
    - it is difficult to parse and understand, even though it is testing a fairly trivial behavior
    - Avoid conditional execution such as if, else, for, while, and switch in your test methods
@@ -24,7 +24,7 @@ mindmap-plugin: basic
    - these fields usually have bad names
    - Coerce the tests to use the same fixture objects
 
-## smells that make for a maintenance nightmare
+## smells that <br/>make for a maintenance nightmare
 - Duplication
    - =needless repetition
    - Category
@@ -42,7 +42,7 @@ mindmap-plugin: basic
    - Replace code with a custom assertion that reads like plain english
    - Express intent at the appropriate level of abstraction
 
-## smells that cause failures
+## smells that <br/>cause failures
 - Flaky test
    - tests that fail intermittently
    - threads,
