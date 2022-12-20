@@ -45,3 +45,7 @@ rename session
 ```zsh
 tmux rename-session -t $session_id $new_session_name
 ```
+
+## customization
+
+go to config file "*~/.tmux.conf*"
