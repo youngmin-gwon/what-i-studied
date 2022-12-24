@@ -46,15 +46,18 @@ mindmap-plugin: basic
 - Flaky test
    - tests that fail intermittently
    - threads,
-         race conditions,
-         current date or time,
-         computer's performance,
-         I/O speed or the CPU load,
-         network
+          race conditions,
+          current date or time,
+          computer's performance,
+          I/O speed or the CPU load,
+          network
    - solution
-      - 1. Avoid it, replacing smells with nondeterministic code
-      - 2. Control it with test doubles
-      - 3. Isolate it in small space
+      -
+         - 1. Avoid it, replacing smells with nondeterministic code
+      -
+         - 2. Control it with test doubles
+      -
+         - 3. Isolate it in small space
 - Crippling file path
    - it causes failure depending on file system
    - it forces developers to place their workspace in the same physical location
@@ -63,8 +66,8 @@ mindmap-plugin: basic
 - Persistent temp files
    - some temp files are not deleted before next test
    - Avoid using files altogether
-         where they are not essential to the objects you are testing
+          where they are not essential to the objects you are testing
    - Keep the use of physical files to a minimum
    - Delete the file before next test
    - Use unique names for temporary files if possible
-   - Be explicit about whether or not a file should exist
+   - Be explicit about whether or not a file should exist with method
