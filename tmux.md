@@ -7,6 +7,7 @@ tmux
 ## window
 
 __ctrl b__ + __c__ : create window
+__ctrl b__ + __&__ : close window
 
 __ctrl b__ + __,__ : edit window name
 
@@ -47,5 +48,10 @@ tmux rename-session -t $session_id $new_session_name
 ```
 
 ## customization
+
+reload tmux configuration
+```zsh
+tmux source-file ~/.tmux.conf
+```
 
 go to config file "*~/.tmux.conf*"
