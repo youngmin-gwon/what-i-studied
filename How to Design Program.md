@@ -38,3 +38,33 @@ The HtDF recipe consists of the following steps:
 ### How many tests are needed for a function
 
 > It depends on code coverage. Write as many test as test covers the code and edge cases.
+
+## How To Design Data (HTDD)
+
+### data definition steps
+
+1.  A possible **structure definition** (not until compound data)
+2.  A **type comment** that defines a new type name and describes how to form data of that type.
+3.  An **interpretation** that describes the correspondence between information and data.
+4.  One or more **examples** of the data.
+5.  A **template** for a 1 argument function operating on data of this type.
+
+### itemization simpler rules
+- if a given class is the last subclass of its type, we can reduce the test just to guard(ie. number? c)
+- if all remaining classes are of the same type, we can eliminate all guards
+
+### Relationship between "How to Define Function" and "How to Define Data"
+- (almost) orthogonal = independent
+- not always orthogonal because data defines the number of tests used in function design
+
+## The Number of Tests by Type
+
+#### Interval
+- When writing tests for functions operating on intervals, be sure to test closed boundaries as well as midpoints
+
+### Enumeration
+- Functions operating on enumerations should have (at least) as many tests as there are cases in the enumeration.
+
+## Itemization
+- As always, itemizations should have enough data examples to clearly illustrate how the type represents information.
+- Functions operating on itemizations should have at least as many tests as there are cases in the itemizations. If there are intervals in the itemization, then there should be tests at all points of variance in the interval. In the case of adjoining intervals it is critical to test the boundaries.
