@@ -1,4 +1,8 @@
 [
   "obsidian-git",
-  "obsidian-markmind"
+  "obsidian-markmind",
+  "obsidian-outliner",
+  "table-editor-obsidian",
+  "obsidian-pandoc",
+  "obsidian-relative-line-numbers"
 ]
