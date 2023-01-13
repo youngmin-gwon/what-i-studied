@@ -7,9 +7,9 @@ mindmap-plugin: basic
 
 # 8. 기능 이동<br/>Moving Features
 
-## 8.1 함수 옮기기<br/>Moving Function
+## 8.1 함수 옮기기<br/>Move Function
 - Background
-   - 함수 옮기기 기법은 모듈성을 적용하기 위한 리팩토링 기법이다.
+   - 모듈성을 적용하기 위한 리팩토링 기법
    - 어떤 악취로 부터 리팩토링을 적용하는가?
       - 뒤엉킨 변경 (목적: 큰 역할을 가진 모듈은 변경 포인트가 너무나도 많다. 그래서 이를 잘게 나눠서 하나의 책임,역할을 가진 모듈로 바꿔줘야 한다.)
       - 산탄총 수술 (목적: 모듈화가 안되어있다면 이것도 변경 포인트가 너무나도 많다. 그래서 이를 모아서 하나의 책임, 역할을 가진 모듈로 만들어줘야 한다.)
@@ -27,6 +27,19 @@ mindmap-plugin: basic
       - 캡술화를 통해 불필요한 부분을 드러내지 않아도 된다. 필요한 부분만 보면 되므로 코드의 이해가 쉬워진다.
    - 어떤 기준으로 그러면 함수 옮기기의 기준을 적용할 수 있을까?
       - 대상 함수의 현재 컨택스트와 후보 컨택스트를 둘러보면서 비교하면 된다. (어떤 데이터를 가지고 있는지, 어떤 함수를 가지고 있는지 등을 비교하면서)
+- Background
+   - Examine all the program elements used by the chosen function in its current context. Consider whether they should move too.
+   - If I find a called function that should also move, I usually move it first. That way, moving a clusters of functions begins with the one that has the least dependency on the others in the group.
+   - If a high­level function is the only caller of subfunctions, then you can inline those functions into the high­level method, move, and reextract at the destination.
+   - Check if the chosen function is a polymorphic method.
+   - If I’m in an object-­oriented language, I have to take account of super­ and subclass declarations.
+   - Copy the function to the target context. Adjust it to fit in its new home.
+   - If the body uses elements in the source context, I need to either pass those elements as parameters or pass a reference to that source context.
+   - Moving a function often means I need to come up with a different name that works better in the new context.
+   - Perform static analysis.
+   - Figure out how to reference the target function from the source context. Turn the source function into a delegating function.
+   - Test.
+   - Consider Inline Function (115) on the source function.
 
 ## 8.2 필드 옮기기<br/>Move Field
 - Background
@@ -48,16 +61,16 @@ mindmap-plugin: basic
       - 그냥 중복 코드 제거 (3장과는 딱히 연관성 없음.)
    - 중복 제거는 코드를 건강하게 만드는 가장 효과적인 방법 중 하나다.
    - 만약 어떤 함수를 호출한 이후에 앞 뒤로 같은 함수를 호출하는 일이 반복된다면 이를 합치는게 좋다.
-   - 이렇게 함치기 위해 문장을 옮길려면 합쳐지는 함수 즉 피호출 함수와 옮겨지는 문장이 한 몸이라는 확신이 있어야 한다.
+   - 이렇게 합치기 위해 문장을 옮길려면 합쳐지는 함수, 즉 피호출 함수와 옮겨지는 문장이 한 몸이라는 확신이 있어야 한다.
    - 한 몸 정도까지는 아니고 그냥 단순히 합쳐지는 경우가 꽤 많다면 그냥 새로운 함수를 추출하는게 낫다.
 
 ## 8.4 문장을 호출한 곳으로 옮기기<br/>Move Statements to Caller
 - Background
    - 함수는 프로그래머가 쌓아 올리는 추상화의 기본 빌딩 블록이다.
    - 그런데 추상화라는 것이 항상 경계가 완벽하게 되는 것은 아니다.
-   - 코드베이스의 기능 범위가 달라진다먄 기존에 하나의 일만 수행하던 함수가 어느새 두 개 이상의 일을 수행하는 경우도 많다. __(오해의 여지가 있을 수 있는데 여기서는 기존의 코드에서 더 추가한 경우를 말하는게 아니다. 기존에 한 가지 일만 수행하도록 코드를 짰는데 어느 시점에 코드를 보니 역할이 커진 경우를 말하는 것.)__
+   - 코드베이스의 기능 범위가 달라진다면 기존에 하나의 일만 수행하던 함수가 어느새 두 개 이상의 일을 수행하는 경우도 많다. __(오해의 여지가 있을 수 있는데 여기서는 기존의 코드에서 더 추가한 경우를 말하는게 아니다. 기존에 한 가지 일만 수행하도록 코드를 짰는데 어느 시점에 코드를 보니 역할이 커진 경우를 말하는 것.)__
    - 즉 여러 곳에서 사용하던 함수가 일부 호출자에게는 다른 기능을 적용하도록 해야한다면 이 코드의 일부를 호출자에게 전달하는게 좋다.
-   - 작은 변경이라면 문장을 호출한 곳으로 옮기는 것으로 충분하지만 호출자와 호출 대상의 경계가 명확하지 않는 경우라면 함수를 먼저 인라인 하고 (6.2 절) 문장 슬라이스 (8.6 절) 와 함수 추출하기 (6.1 절) 로 더 적합한 경계를 설정하면 된다.
+   - 작은 변경이라면 문장을 호출한 곳으로 옮기는 것으로 충분하지만 호출자와 호출 대상의 경계가 명확하지 않는 경우라면 함수를 먼저 _인라인 하고 (6.2 절)_, _문장 슬라이스 (8.6 절)_ 와 _함수 추출하기 (6.1 절)_ 로 더 적합한 경계를 설정하면 된다.
 - Procedure
    - 호출자가 한 개 뿐이고 피호출자도 간단한 거라면 피호출자의 함수를 추출해서 호출자에게 넣고 테스트를 돌려본다. 성공한다면 끝이다.
    - 더 복잡한 상황에서는 이동하지 '않길' 원하는 코드를 함수로 추출한다. (6.1 절) 그 다음 검색하기 쉬운 이름으로 지어준다. __(이 방법은 더 안전한 방법으로 리팩토링을 하기 위한 것이다.)__
@@ -67,19 +80,18 @@ mindmap-plugin: basic
 ## 8.5 인라인 코드를 함수 호출로 바꾸기<br/>Replace Inline Code with Function Call
 - Background
    - 함수는 여러 동작을 하나로 묶어준다.
-   - 그리고 함수의 이름이 코드의 동작보다 목적을 말해주기 때문에 코드를 함수를 활용하면 이해하기가 더 쉬워진다는 장점이 있다.
+   - 함수의 이름이 코드의 동작보다 목적을 말해주기 때문에 코드를 함수를 활용하면 이해하기가 더 쉬워진다는 장점이 있다.
    - 여기서의 리팩토링 기법은 이런 함수를 중복을 없애는데 사용한다.
    - 이렇게 해두면 비슷한 코드를 일일이 찾아 수정하는 대신 함수 하나만 수정하면 된다는 장점이 있다. (물론 모든 호출자가 수정된 코드를 사용하는 게 맞는지 확인해야하지만 이렇게 함수로 만드는편이 더 비용이 싸다.)
    - 이미 존재하는 함수와 똑같은 일을 하는게 있다면 이 코드를 인라인으로 바꾸도록 하자.
    - 인라인 코드 자체가 짧기 때문에 명확히 목적이 드러나기도 하지만 함수의 이름을 잘지어도 목적이 잘 드러난다.
-   - 여기서는 예시랄것도 없기 때문에 방법을 생략한다. 그냥 같은 일을 하는 인라인 코드가 보이면 함수로 바꾸면 된다.
 
 ## 8.6 문장 슬라이스하기<br/>Slide Statements
 - Background
    - 관련된 코드들이 서로 가까이 모여 있다면 이해하기가 더 쉽다.
    - 실제로 나는 문장 슬라이드하기 리팩토링으로 이런 코드들을 한 데 모아둔다.
    - 가장 흔한 사례는 변수를 선언하고 사용할 때인데 모든 변수 선언을 함수 첫머리에 모아두는 사람도 있지만 나는 변수를 처음 사용할 때 선언하는 스타일을 선호한다.
-   - 이런 문장 슬라이스를 통해 관련 코드끼리 모우는 작업은 주로 다른 리팩토링의 준비 단계로 자주 수행한다. (이렇게 관련 있는 코드를 모아서 함수로 추출하는 등)
+   - 이런 문장 슬라이스를 통해 관련 코드끼리 모으는 작업은 주로 다른 리팩토링의 준비 단계로 자주 수행한다. (이렇게 관련 있는 코드를 모아서 함수로 추출하는 등)
 - Procedure
    - 코드 문장들을 보면서 이동할 위치를 찾는다. 코드의 원래 위치와 목표 위치를 보면서 이동하면 동작이 달라지는 코드가 있는지 본다. 문제가 있다면 이 리팩토링을 포기한다.
    - 코드 조각을 원래 위치에서 잘라내어 목표 위치에 붙여 넣는다.
@@ -109,11 +121,11 @@ mindmap-plugin: basic
    - 이렇게 파이프라인은 다음 단계를 위해서 컬렉션을 뱉으므로 논리를 파이프라인으로 표현하면 이해하기가 더 쉽다.
 - Procedure
    - 반복문에서 사용하는 컬렉션을 가리키는 변수를 만든다.
-   - 반복문의 첫 줄부터 시작해서 각각의 단위 행위를 적절한 컬렉션 파이프라인 연산으로 대체한다. 이때 컬렉션 파이프라인 연산은 이전에 만든 변수부터 시작해서 연쇄적으로 수행한다. 하나싞 대체할 때마다 테스트한다.
+   - 반복문의 첫 줄부터 시작해서 각각의 단위 행위를 적절한 컬렉션 파이프라인 연산으로 대체한다. 이때 컬렉션 파이프라인 연산은 이전에 만든 변수부터 시작해서 연쇄적으로 수행한다. 하나씩 대체할 때마다 테스트한다.
    - 반복문의 모든 동작을 대체했다면 반복문 자체를 지운다.
 
 ## 8.9 죽은 코드 제거하기<br/>Remove Dead Code
 - Background
    - 소프트웨어에서 사용되지 않은 코드가 있다면 그 소프트웨어의 동작을 이해하는 데 커다란 어려움을 줄 수 있다.
    - 이 코드들은 절대 호출되지 않으니 무시해도 된다! 라는 신호를 주지 않기 때문이다. __(호출이 되지 않더라도 다른 개발자가 의도적으로 남겨놓았을 수도 있기 떄문에 사용되지 않는다면 삭제하자.)__
-   - 코드가 더 이상 사용되지 않게 됐다면 지웡야한다. 혹시라도 다시 필요해질 날이 오지 않을까 싶다면 버전 관리 시스템을 이용하도록 하자.
+   - 코드가 더 이상 사용되지 않게 됐다면 지워야한다. 혹시라도 다시 필요해질 날이 오지 않을까 싶다면 버전 관리 시스템을 이용하도록 하자.
