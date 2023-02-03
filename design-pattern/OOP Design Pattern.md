@@ -77,11 +77,11 @@
 
 - Structural Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled.png)
+![Untitled](Untitled.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%201.png)
+![Untitled](Untitled%201.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%202.png)
+![Untitled](Untitled%202.png)
 
 - = wrapper
 - 다른 인터페이스 클라이언트가 기대하는대로 인터페이스를 변환함
@@ -98,7 +98,7 @@
     - 위의 과정이 abstraction ⇒  커피 머신  내부에서 어떻게 동작하는지는 알 필요 없이 커피 머신만 가동시키면 커피를 뽑아낼 수 있음
 - 디자인 구조
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%203.png)
+![Untitled](Untitled%203.png)
 
 - (같은 아이디어를 공유하지만) 크게 **1. object**, **2.class** adapter 구조로 나눌 수 있음
     - Target or ITarget은 Client가 사용하는 interface 정의
@@ -114,7 +114,7 @@
     - object adapter는 runtime에 연결되기 때문에 더욱 유연하다(=loosely-coupled) ⇒ SOLID 원칙 중 Liskov substitution 원칙에 부합함
         - class adapter 는 쉽게 override 만 하면 된다는 장점이 있음
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%204.png)
+![Untitled](Untitled%204.png)
 
 - 적용성
     - 기존 클래스를 사용하고 싶지만 인터페이스가 나머지 코드와 호환되지 않을 때 사용
@@ -150,7 +150,7 @@
 
 - Behavioral design pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%205.png)
+![Untitled](Untitled%205.png)
 
 - 알고리즘의 구조를 바꾸지 않고 하위 클래스들이 알고리즘의 몇몇 단계를 재정의하게 함
 - 불변하는 알고리즘의 전체 틀을 기준으로 세부사항을 다양하게 만들고자 할 때 사용하게 됨
@@ -161,7 +161,7 @@
 - **변하지 않는 기능은 슈퍼 클래스에 만들어 두고** **자주 변경하며 확장할 기능은 서브 클래스에 만드는 방식**으로 구동
 - 디자인 구조
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%206.png)
+![Untitled](Untitled%206.png)
 
 - 설명
     - AbstractClass: 알고리즘의 뼈대를 설명하는 templateMethod 포함. primitive operations 나 AbstractClass 혹은 다른 객체들에 정의된 operations 을 호출함
@@ -175,7 +175,7 @@
 - template method는 operations 중 어떤 것이 hook operation인지 abstract operations인지 알려줄 필요가 있음 ⇒ override 되어야 하는 경우 접두사로 "Do-"를 붙여 hook 인지 알려줄 수 있음
 - Hollywood Principle
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%207.png)
+![Untitled](Untitled%207.png)
 
 > Don't call us, we will call you
 > 
@@ -183,7 +183,7 @@
     - abstraction은 details에 의존하면 안되고, details가 abstractions에 의존해야함 ⇒ Dependency Inversion principle in SOLID
 - 적용
     
-    ![template_method.png](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/template_method.png)
+    ![template_method.png](template_method.png)
     
 - 적용성
     - 알고리즘의 특정 단계만 확장하고 전체 알고리즘이나 해당 구조는 확장하지 않도록 할 때 사용
@@ -213,9 +213,9 @@
 
 - Structural pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%208.png)
+![Untitled](Untitled%208.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%209.png)
+![Untitled](Untitled%209.png)
 
 - 부분으로 전체 계층을 표현하도록 tree structure 로 객체를 구성하는 패턴
 - 객체와 객체 구성을 동일하게 사용하게 만들어주는 패턴
@@ -226,7 +226,7 @@
         - leaf : child가 하나도 없는 node
         - composite : 하나 이상의 child를 가지는 node
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2010.png)
+![Untitled](Untitled%2010.png)
 
 - Flutter 의 "Everything is a widget" 의 아이디어와 같음 (widget 의 child로 widget을 가질 수 있음)
 - 패턴
@@ -234,17 +234,17 @@
     - Leaf : 구조의 leaf 객체. child 를 가지지 않음. 객체의 행동 정의.
     - Composite : children을 저장 하고 children과 관련된 행동 정의. leaf에 각자 일을 할당하고, 중간 결과를 처리한 후 client에 마지막 결과를 전달하는 역할을 함.
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2011.png)
+![Untitled](Untitled%2011.png)
 
 - 객체의 "부분으로서 전체" 구조를 만들거나, 객체 구성의 차이를 무시하고 싶을 때 사용
 - 해당 구조를 적용할만한 대상을 찾는게 어려움 ⇒ 어떠한 객체 그룹을 발견했을 때 해당 패턴을 적용할 수 있는지 검토해보는 것이 좋음
 - 예제
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2012.png)
+![Untitled](Untitled%2012.png)
 
 - 폴더 안에 파일, 폴더 모두 존재할 수 있고, 하위 폴더는 또 다시 폴더, 파일 모두 존재할 수 있는 구조
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2013.png)
+![Untitled](Untitled%2013.png)
 
 - 적용성
     - tree 같은 객체 구조를 구현할 때 사용
@@ -282,9 +282,9 @@
 
 - Behavioral pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2014.png)
+![Untitled](Untitled%2014.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2015.png)
+![Untitled](Untitled%2015.png)
 
 - = policy
 - 알고리즘 집단을 만들고, 각각을 캡슐화 한 후, 집단의 각각을 교환가능하게 만드는 것이 목적
@@ -295,7 +295,7 @@
     - Payment strategies : 각각의 결제 방법을 클래스로 만들고 사용자의 선택에 따라 알고리즘 수행
     - Damage calculation in RPG : 각기 다른 동작에 따라 데미지를 계산하는 알고리즘이 있고 각 공격의 문맥에 따라 다른 데미지를 계산하는 알고리즘을 적용
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2016.png)
+![Untitled](Untitled%2016.png)
 
 - 분석
     - Strategy: Concrete Strategies에서 공통적으로 사용되는 interface를 정의. 어떤 strategy를 사용할지는 context에서 정해질 것임
@@ -348,13 +348,13 @@
 
 - Behavioral pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2017.png)
+![Untitled](Untitled%2017.png)
 
 - 객체의 내부 상태가 바뀌었을 때 행동을 바꿀 수 있게 해주는 패턴
 - 상태 전이를 위한 조건 로직이 지나치게 복잡한 경우 이를 해소하기 위한 방법
 - Finite-state machine을 이해해야 아이디어를 이해할 수 있음
     
-    ![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2018.png)
+    ![Untitled](Untitled%2018.png)
     
     - Jira 예시
     - task가 들어갈 수 있는 유한한 상태가 있음
@@ -365,7 +365,7 @@
     - state pattern을 이용하면 새 상태를 추가하는 것이 매우 쉬워지고, 상태 변경도 명백해진다
 - 분석
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2019.png)
+![Untitled](Untitled%2019.png)
 
 1. Context
     - 현재 상태를 가리키는 ConcreteState 인스턴스를 보관
@@ -412,15 +412,15 @@
 
 - Structural pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2020.png)
+![Untitled](Untitled%2020.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2021.png)
+![Untitled](Untitled%2021.png)
 
 - 복잡한 API나 하위시스템의 함수 묶음을 모은 간단한 인터페이스 제공
 - 클라이언트가 하위 시스템과 소통하기 위해서는 퍼사드만 이용하면 된다
 - 클라이언트와 하위 시스템간의 의존성을 줄여줌
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2022.png)
+![Untitled](Untitled%2022.png)
 
 - Facade
     - 어떤 하위시스템 클래스가 요청에 연관되어 있는지 알고, 요청을 하위시스템에 할당하는 역할을 함
@@ -470,7 +470,7 @@
 - 규칙 관리가 쉬워짐
 - 분석
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2023.png)
+![Untitled](Untitled%2023.png)
 
 1. AbstractExpression
     - 추상 구문 트리에 속한 모든 노드에 해당하는 클래스들이 공통으로 가져야 할 `interpret()`연산을 추상 연산으로 정의
@@ -509,14 +509,14 @@
 
 - Behavioral Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2024.png)
+![Untitled](Untitled%2024.png)
 
 - 컬렉션 구현 방법을 노출시키지 않으면서도 그 집합체안에 들어있는 모든 항목을 순회 접근할 수 있게 해 주는 방법을 제공해 주는 패턴
     - 무언가 많이 모여 있는 것을 하나씩 지정해서 순서대로 처리하는 패턴
 - Iterator 패턴을 사용하면 집합체 내에서 어떤 식으로 일이 처리되는지 몰라도 그 안에 들어있는 항목들에 대해서 반복작업을 수행 할 수 있다
 - 실생활 사례
     
-    ![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2025.png)
+    ![Untitled](Untitled%2025.png)
     
     - 며칠 동안 로마를 방문하여 주요 명소와 명소를 모두 방문할 계획입니다. 그러나 일단 거기에 가면 콜로세움조차 찾을 수 없는 원을 그리며 걷는 데 많은 시간을 낭비할 수 있습니다.
     
@@ -527,7 +527,7 @@
     머리 속에서 태어난 임의의 방향, 스마트폰 내비게이터 또는 인간 가이드와 같은 이 모든 옵션은 로마에 있는 방대한 명소와 명소 컬렉션을 반복하는 역할을 합니다.
 - 분석
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2026.png)
+![Untitled](Untitled%2026.png)
 
 1. IterableCollection
     - Iterator를 생성하기 위한 인터페이스
@@ -578,7 +578,7 @@
 
 - Creational pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2027.png)
+![Untitled](Untitled%2027.png)
 
 - = Virtual Constructor
 - 객체를 만드는 인터페이스를 제공하지만, 서브클래스에서 어떤 클래스를 초기화 할지 정하는 패턴
@@ -592,7 +592,7 @@
     - 코드에서 application에 특정된 클래스의 직접 바인딩을 제거할 수 있다. 덕분에 코드는 인터페이스만 신경쓰면 된다
     - 분석
     
-    ![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2028.png)
+    ![Untitled](Untitled%2028.png)
     
     - Creator
         - Product 객체를 반환하는 Factory Method 정의
@@ -637,9 +637,9 @@
 
 - Creational pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2029.png)
+![Untitled](Untitled%2029.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2030.png)
+![Untitled](Untitled%2030.png)
 
 - = Kit
 - concrete class를 구체화 하지 않고 관계있는 혹은 의존적인 객체들의 군집을 만들기 위한 인터페이스 제공
@@ -666,7 +666,7 @@
     - Factory를 Product에 주입하지 않고 Factory가 Product를 생산하는 경우도 있음
 - 구성
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2031.png)
+![Untitled](Untitled%2031.png)
 
 1. Abstract Factory
     - abstract product를 생성하는 interface 선언
@@ -825,9 +825,9 @@ cf) Factory 용어 의미 비교
 
 - Behavioral pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2032.png)
+![Untitled](Untitled%2032.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2033.png)
+![Untitled](Untitled%2033.png)
 
 - = Action = Transaction
 - 요청을 객체로 캡슐화하며, 매개변수를 써서 여러 가지 다른 요구 사항을 집어넣을 수도 있는 패턴
@@ -841,7 +841,7 @@ cf) Factory 용어 의미 비교
 - request 를 보내는 곳(UI)인 “Sender”에서 실제 완성되어야 할 로직을 갖고 있는 “Receiver”에 request를 바로 보내는 대신 “Command”를 내려줌 ⇒ Command가 UI와 logic layers의 coupling을 줄여주는 중간 layer 역할을 하게 됨
 - 구성
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2034.png)
+![Untitled](Untitled%2034.png)
 
 1. Command : 작업을 수행하기 위한 interface 선언
 2. Concrete Command : receiver에 상응하는 작업을 실행하는 requests 선언
@@ -894,7 +894,7 @@ cf) Factory 용어 의미 비교
 
 - Behavioral Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2035.png)
+![Untitled](Untitled%2035.png)
 
 - = Token
 - 캡슐화를 위반하지 않고, 객체의 상태를 외부에 snapshot으로 저장하고, 필요에 의하여 원하는 시점의 데이터를 복원할 수 있는 패턴
@@ -922,7 +922,7 @@ cf) Factory 용어 의미 비교
         - 동시에 originator는 메멘토내의 모든 필드에 접근할 수 있기 때문에 이전 상태를 복구할 수 있게 됨
 - 구성
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2036.png)
+![Untitled](Untitled%2036.png)
 
 1. Memento
     - concrete memento의 fields에 접근을 제한하는 인터페이스
@@ -974,9 +974,9 @@ cf) Factory 용어 의미 비교
 
 - Creational Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2037.png)
+![Untitled](Untitled%2037.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2038.png)
+![Untitled](Untitled%2038.png)
 
 - 원형이 되는 인스턴스를 사용하여 생성할 객체의 종류를 명시하고, 이렇게 만든 견본 인스턴스를 복사하여 새로운 객체를 생성하는 패턴
 - 클래스에 의존하지 않고, 객체를 복사할 수 있음
@@ -993,7 +993,7 @@ cf) Factory 용어 의미 비교
 - Prototype 객체는 런타임에 동적으로 추가 및 제거될 수 있음
 - 분석
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2039.png)
+![Untitled](Untitled%2039.png)
 
 1. Prototype
     - 스스로를 복제하는 interface 선언
@@ -1036,9 +1036,9 @@ cf) Factory 용어 의미 비교
 
 - Structural Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2040.png)
+![Untitled](Untitled%2040.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2041.png)
+![Untitled](Untitled%2041.png)
 
 - 다른 객체에 대한 접근을 제어하기 위한 역할
 - 문제 상황
@@ -1058,7 +1058,7 @@ cf) Factory 용어 의미 비교
     - 가게 주인 역시 보증금을 잃어버릴 위험요소를 감수하지 않아도 되기 때문에 편리함
 - 구조
     
-    ![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2042.png)
+    ![Untitled](Untitled%2042.png)
     
     1. ServiceInterface
         - Service와 Proxy를 위한 인터페이스 정의
@@ -1132,9 +1132,9 @@ cf) Factory 용어 의미 비교
 
 - Structural Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2043.png)
+![Untitled](Untitled%2043.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2044.png)
+![Untitled](Untitled%2044.png)
 
 - 객체에 동적으로 새로운 책임을 추가할 수 있게 해주는 패턴
 - 시나리오
@@ -1150,7 +1150,7 @@ cf) Factory 용어 의미 비교
 - 코드 복잡성을 증가시킬수 있으므로 사용에 주의 해야함
 - 분석
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2045.png)
+![Untitled](Untitled%2045.png)
 
 1. Component
     - 객체를 위한 인터페이스 제공
@@ -1236,9 +1236,9 @@ cf) Factory 용어 의미 비교
 
 - Structural Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2046.png)
+![Untitled](Untitled%2046.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2047.png)
+![Untitled](Untitled%2047.png)
 
 - = handle/body
 - 구현부에 추상적인 부분을 분리하여 독립적으로 다양성을 가질 수 있도록 함
@@ -1259,7 +1259,7 @@ cf) Factory 용어 의미 비교
         - OS와 GUI는 각기 따로따로 발전할 수 있음
 - 구조
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2048.png)
+![Untitled](Untitled%2048.png)
 
 1. ***Abstraction***
     - ***Refined abstraction***을 위한 interface 정의
@@ -1306,9 +1306,9 @@ cf) Factory 용어 의미 비교
 
 - Creational Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2049.png)
+![Untitled](Untitled%2049.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2050.png)
+![Untitled](Untitled%2050.png)
 
 - construction과 representation을 분리하여, 같은 construction process가 여러가지 representation을 만들 수 있게 하는 패턴
 - 주 목적: 생성 과정(logic)이 복잡한 객체(data)를 분리하려는 목적
@@ -1322,7 +1322,7 @@ cf) Factory 용어 의미 비교
     - 필수로 필요한 것은 아님
 - 구조
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2051.png)
+![Untitled](Untitled%2051.png)
 
 1. Builder
     - Product의 부분들을 만들기 위한 모든 종류의 Builder의 interface를 가지고  있는 추상 인터페이스
@@ -1368,7 +1368,7 @@ cf) Factory 용어 의미 비교
 
 - Structural Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2052.png)
+![Untitled](Untitled%2052.png)
 
 - 각 객체의 모든 데이터를 보관하는 대신 여러 개체 간에 공통된 state를 공유하여 RAM을 적개 사용하는 패턴
     - 성능 최적화를 위한 패턴
@@ -1382,7 +1382,7 @@ cf) Factory 용어 의미 비교
 - Flyweight는 객체 내부에 Extrinsic state 저장을 중단할는 대신, 이 상태를 의존하는 특정 메소드에 Extrinsic state를 전달하는 방법 제시
 - 분석
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2053.png)
+![Untitled](Untitled%2053.png)
 
 1. ***Flyweight***
     - Intrinsic state를 포함하는 곳
@@ -1411,7 +1411,7 @@ cf) Factory 용어 의미 비교
 
 - Behavioral Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2054.png)
+![Untitled](Untitled%2054.png)
 
 - 일련의 핸들러를 따라 요청을 전달할 수 있는 패턴
 - 요청을 받으면 각 핸들러는 요청을 처리할지 아니면 체인의 다음 핸들러로 전달할지 결정
@@ -1422,14 +1422,14 @@ cf) Factory 용어 의미 비교
     
     이 상태에서 또 다른 기능을 추가하면 로직은 복잡해진다. 하나를 변경할 때 다른 기능에 영향을 줄 수도 있고, 만약 이 기능들중 일부분의 기능이 다른 기능구현에 필요하다면 중복코드가 발생한다. 이렇게 되면 시스템을 관리하며 유지보수하기가 매우 힘들어진다
     
-    ![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2055.png)
+    ![Untitled](Untitled%2055.png)
     
 - 해결책
     - 다른 행동 패턴들과 유사하게 책임 연쇄 패턴도 핸들러라는 단일 객체를 사용한다. 위의 문제점과 같은 상황에서는 각 단계별 행동들이 단일 메소드를 가지는 클래스가 되고, 요청은 단일 메소드의 인자가 된다.
     - 책임 연쇄 패턴은 핸들러들을 연결하여 체인 형태로 구성한다. 체인에서 각 핸들러들은 다음 핸들러를 참조하는 필드를 가지고 있으며, 요청을 처리하고 넘긴다.
     - 또 하나의 특징이 있는데 마치 알고리즘에서 더 탐색할 필요가 없는 그래프 경로를 탐색하지 않는 가지치기 처럼, 각 핸들러는 요청을 다음 핸들러에 넘길지 말지 결정할 수 있다.
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2056.png)
+![Untitled](Untitled%2056.png)
 
 - 패턴 사용시 여러 핸들러를 하나의 체인으로 연결하고 클라이언트가 해당 체인을 따라 요청을 전달할 수 있음 ⇒ **각 핸들러는 요청을 수신하고 처리 및/또는 추가로 전달**
 - 요청 추가/제거/재정렬/처리순서 변경 할 수 있음
@@ -1439,7 +1439,7 @@ cf) Factory 용어 의미 비교
     - 발신자와 수신자 사이에 느슨한 결합을 도입하고 요청이 체인의 모든 핸들러에 의해 처리될 수 있기 때문에 실제로 처리된다는 보장이 없음
 - 분석
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2057.png)
+![Untitled](Untitled%2057.png)
 
 - ***Handler***
     - 요청을 처리하기 위한 인터페이스 정의
@@ -1491,7 +1491,7 @@ cf) Factory 용어 의미 비교
 
 - Behavioral Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2058.png)
+![Untitled](Untitled%2058.png)
 
 - 알고리즘을 알고리즘을 실행하는 객체로 부터 분리하는 패턴
 - 개체 구조의 요소에 대해 수행할 작업을 나타냄
@@ -1503,7 +1503,7 @@ cf) Factory 용어 의미 비교
     - client가 개체 구조를 탐색할 때, 각 요소의 accept 메서드가 호출되어 요청을 특정 방문자 개체에 위임하고 이 개체는 매개변수로 메서드에 전달. 그런 다음, Visitor 개체의 특정 메서드가 호출되어 실제 요청을 수행
 - 분석
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2059.png)
+![Untitled](Untitled%2059.png)
 
 - ***Visitor***
     - ConcreteElement를 파라미터로 가질 수 있는 일련의 방문 메소드를 선언하는 인터페이스
@@ -1550,9 +1550,9 @@ cf) Factory 용어 의미 비교
 
 - Behavioral Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2060.png)
+![Untitled](Untitled%2060.png)
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2061.png)
+![Untitled](Untitled%2061.png)
 
 - Intermediary/Controller 라고 불리기도 함
 - 상호작용 로직을 객체로부터 분리하고, Mediator라는 컨트롤러에 이동시켜, 상호 교류하는 객체들간의 의존성을 줄여주는 패턴
@@ -1566,7 +1566,7 @@ cf) Factory 용어 의미 비교
     - colleagues들은 communication act는 알아야 하지만, 디테일은 전혀 알 필요가 없음 ⇒ colleagues들을 바꾸지 않고 Mediator를 추가하는 것이 가능해짐
 - 구조
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2062.png)
+![Untitled](Untitled%2062.png)
 
 1. Mediator
     - 컴포넌트들과 상호작용하기 위한 인터페이스 정의
@@ -1623,7 +1623,7 @@ cf) Factory 용어 의미 비교
 
 - Behavioral Pattern
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2063.png)
+![Untitled](Untitled%2063.png)
 
 - Dependents/Publish-Subscribe 라고 불리기도 함
 - Reactive Programming 아이디어가 어떻게 차용되었는지 확인할 수 있는 패턴
@@ -1644,7 +1644,7 @@ cf) Factory 용어 의미 비교
     - Observer의 행위가 Subject에 영향을 주는 경우
 - 구조
 
-![Untitled](OOP%20Design%20Pattern%209afd8ac1e48a41bf81e9c143a8b3eb6a/Untitled%2064.png)
+![Untitled](Untitled%2064.png)
 
 - ***Publisher(Subject)***
     - Subscriber를 붙이고 때는 interface 제공
