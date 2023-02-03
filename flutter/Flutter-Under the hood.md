@@ -365,7 +365,7 @@ RenderView get renderView => _pipelineOwner.rootNode;
 		- 어떤 widgets을 다시 빌드해야하는지 추적
 		- widget tree의 상태를 업데이트 하는 것과 관련된 중요한 업무들을 가짐
 - 이러한 방식으로 세가지 tree (widget: buildOwner, element: renderViewElement, renderObject: renderView) 를 만들고, 세 tree는 Binding을 이용해서 저장, 관리 된다
-		
+
 ### scheduleWarmUpFrame
 - SchedulerBinding에 속한 메소드
 - 시스템의 vsync 신호를 기다리는 것 보다, 최대한 빠르게 수행되기 위해 frame을 예약하기 위해 사용됨
@@ -457,7 +457,7 @@ RenderView get renderView => _pipelineOwner.rootNode;
 // WidgetsBinding.drawFrame
 
 if (renderViewElement !=null)
-		// 3. build step
+	// 3. build step
 	buildOwner.buildScope(renderViewElement);
 // 4~8 : PipelineOwner 부분에서 설명
 super.drawFrame();
