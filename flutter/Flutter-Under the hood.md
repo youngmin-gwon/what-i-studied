@@ -75,6 +75,11 @@
 2. Element
 	- Mutable 객체
 	- 생명주기를 책임지고, widget을 위계로 정렬 및 RenderObject와 연결하는 역할을 함
+	- widget layer와 render layer를 붙이는 glue 역할
+	- widget은 immutable하기 때문에 부모 자식 관계를 기억할 수 없지만, Element는 이를 기억하고 UI의 논리적 구조를 유지한다
+	- widget 설정 변화가 있을 때, 변화를 연관있는 RenderObject에 전달함
+	- StatefulWidget에서는 State 정보 역시 포함 한다
+	- 성능에 대해 걱정하지 않고 widget tree를 자유자재로 없애고 만들게 해주는 역할을 함
 	- Widget과 RederObject의 레퍼런스를 가지고 있음(holds reference)
 		- Life Cycle 역할을 함
 	- Element는 생성이 비싸기 때문에 재사용할 수 있으면 재사용 된다
@@ -100,8 +105,10 @@
 			- element가 다시 element tree로 들어가는 경우(ex. key 재사용) inactive element 리스트에서 제거되고, activate 메소드를 불러 해당 element를 element tree로 다시 포함 되게 됨
 3. RenderObject
 	- Mutable 객체
+	- widget의 configuration을 화면의 pixel로 바꾸는 역할
 	- 직접적으로 화면에 그리는 담당
 	- 기본적인 layout과 paint protocol을 책임진다
+	- 성능 이슈 없이 만들고 없애는 것이 불가능함 ⇒ 재활용(그래서 mutable)
 	- render tree안의 객체
 		- render tree: UI의 geometry정보를 포함하는 data structure
 		- layout 동안 계산되고, painting, hit testing 동안 사용된다
