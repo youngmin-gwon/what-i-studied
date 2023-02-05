@@ -299,6 +299,8 @@ class Logger {
 ## Isolates?
 ---
 ## main() vs. runApp()
+- dart의 시작 포인트
+- flutter의 시작 포인트
 ---
 ## Statement Management?
 ---
