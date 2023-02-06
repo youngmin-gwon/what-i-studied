@@ -111,9 +111,9 @@
 @override
 void didChangeAppLifecycleState(AppLifecycleState state) {
   if (state == AppLifecycleState.inactive) {
-  }else   if (state == AppLifecycleState.paused) {
-  }else   if (state == AppLifecycleState.resumed) {
-  }else   if (state == AppLifecycleState.detached) {
+  }else if (state == AppLifecycleState.paused) {
+  }else if (state == AppLifecycleState.resumed) {
+  }else if (state == AppLifecycleState.detached) {
   }
 }
 ```
@@ -260,11 +260,9 @@ class Logger {
 ## Arrow Operator?
 - 한줄로 이루어진 Function을 위한 축약어 Operator
 ---
-## Asynchrony?
----
 ## Tween?
----
-## BLoC Pattern?
+- 선형 보간법을 이용하여 시작값에서 끝값까지 sequence를 만드는 객체
+- AnimationController와 함께 쓰임
 ---
 ## NetworkImage vs. Image.network?
 - Image.network: widget
@@ -289,18 +287,43 @@ class Logger {
 	- 앱 배포할 때 사용
 	- 설치 공간 크기를 최소화하고 최적화를 극대화
 ---
-## Stream?
-- Types of Stream
----
-## Ticker?
----
-## Test Types?
+## Test Tools?
+- Dart Test
+	- Protocol Test, Unit Test에 적합함
+	- Network Request, File I/O 테스트 할 수 있음
+	- 가장 빠른 테스트
+	- UI 를 테스트해볼 수 없음
+- Widget Test
+	- Flutter Framework 테스트
+	- User Journey Test, User Interaction Test 가능
+	- 필요하지 않은 부분은 무시하고 테스트 할 수 있음
+	- Integration Test 보다 매우 빠름
+	- Network Request, Image Rasterization, FIle I/O 같은 것을 테스트해보기 어려움
+- Integration Test
+	- 실제 앱에서 하는 테스트와 가장 유사한 테스트
+	- 실제 기기의 기능을 사용해서 테스트할 수 있음(ex. Push Notification, Payment Integration, Pixel Density)
+	- 매우 느린 테스트
 ---
 ## Isolates?
+- Isolate에 대한 설명 참고: [[Dart#Isolate]]
 ---
 ## main() vs. runApp()
 - dart의 시작 포인트
 - flutter의 시작 포인트
 ---
-## Statement Management?
+## Optional Parameter in Dart
+- Ordered Optional Parameter: []
+- Named Optional Parameter: {}
+둘중 하나만 사용할 수 있음
+---
+## State Management?
+- 앱 전반에서 같은 데이터를 공유하고 변화에 맞춰서 화면을 변경해주는 방법
+- Ephemeral State
+	- State Management가 필요없다
+- App State
+	- State Management가 필요하다
+---
+## BLoC Pattern?
+- Business Logic Compoent의 줄임말
+- State, Event, Bloc 을 하나의 구성으로 하여 Presentation Layer의 UI가 상태에 따라 표현할 수 있는 UI 나타내는 패턴
 ---
