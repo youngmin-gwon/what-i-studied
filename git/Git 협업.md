@@ -5,7 +5,6 @@
 
 ### 1. Commit Message Structure
 - 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.
-
 ```null
 type : subject
 

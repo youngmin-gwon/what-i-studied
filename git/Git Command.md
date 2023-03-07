@@ -74,3 +74,7 @@ git checkout master
 			- 완전히 git reset --hard [branch] file 명령의 동직이랑 같다
 			- 워킹 디렉토리가 안전하지 않다는 의미
 		- git reset이나 git add 명령처럼 checkout 명령도 --patch 옵션을 사용해서 Hunk 단위로 되돌릴수 있음
+
+## git diff
+
+파일이 변경됐다는 사실이 아니라 어떤 내용이 변경됐는지 살펴볼 때 사용하는 명령어
