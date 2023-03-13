@@ -153,7 +153,7 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
 	- tree 여러 곳에 widget이 삽입 되어 있다면 각각 state를 생성할 것임
  
 ### 1-1. mounted(true)
-- state 객체와 BuildContext를 연결함
+- state 객체와 BuildContext를 연결함
 - state가 현재 element에 inflate 되었는지 나타냄
 - 생명주기 단계에 실제로 표시되지 않고 background에서 처리됨
 
@@ -327,3 +327,28 @@ class Logger {
 - Business Logic Compoent의 줄임말
 - State, Event, Bloc 을 하나의 구성으로 하여 Presentation Layer의 UI가 상태에 따라 표현할 수 있는 UI 나타내는 패턴
 ---
+## How is Flutter native?
+- Flutter 는 native platform의 canvas만 사용하여 처음부터 다시 그리게 됨
+- native 특정 API 와 연결하고 해야할 일이 없기 때문에 빠름
+---
+## AnimationController, Ticker, Tween
+1.  ﻿AnimationController: "Animation"을 관리함. frame 마다 새 값을 생성하고, animation 상태를 추적, forward, reverse, stop 등의 기능을 노출함
+2.  ﻿﻿﻿Animation / Tween: 처음부터 끝까지 curve를 따라 어떻게 값이 변할지 지정할 수 있는 클래스. ValueListenable 프로토콜을 통해서 값 변화를 controller에 알리게됨.
+3.  ﻿﻿﻿Ticker: frameCallback 을 구독하는 클래스. 현재 frame과 이전 frame 사이의 경과 시간을 ticker listener에 전달하는 tick 함수를 호출함.
+---
+## resizeToAvoidBottomInset?
+- true이면 가상 키보드가 화면에 나타날시 MediaQuery의 MediaQueryData.viewInsets.bottom 의 값에 맞춰서 화면이 조정됨
+---
+## TextEditingController?
+- 사용자가 텍스트를 수정한 경우, TextEditingController가 listener들에게 값이 변경됬음을 알림
+---
+## completed vs. dismissed in AnimationController?
+- dismissed: value = 0
+- completed: value = 1
+---
+## Importance of Ticker?
+- Ticker 는 animation의 refresh 주기
+- DevTools을 사용할 때 animation을 천천히 진행할 수 있게 해줌
+---
+## WidgetsBindingObserver?
+- application이 화면에 보여지거나, 사라지는 이벤트를 감지할 수 있는 mixin
