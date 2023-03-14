@@ -37,9 +37,13 @@ catkin_init_workspace
 
 ## roscore
 - ros를 사용할때 가장 먼저 해야하는 일
+- ros master를 구동하는 명령어
 ```
 roscore
 ```
-## rosout
-## roscore
-## rosout
+
+## rosrun
+- ROS의 기본 실행 명령어
+
+## roslaunch
+- rosrun이 하나의 노드를 실행하는 명령어라면 roslaunch는 여러 노드를 실행하는 개념
