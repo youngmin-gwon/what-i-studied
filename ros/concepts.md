@@ -49,8 +49,19 @@ if __name__ == "__main__":
 #### Example: Car Robot with ROS
 ![[ros_structure_with_car_example.png]]
 참고링크: [ROS란 무엇인가](https://velog.io/@7cmdehdrb/whatIsROS)
+## ROS Filesystem
+1. Stack: 높은 수준의 라이브러리를 구성하는 패키지의 집합
+2. Stack Manifest: 보통 매니페스트 와 동일하지만, 스택을 위한 것
+3. Package: ROS 소프트웨어 구성의 가장 기초가 되는 구성. 1) 라이브러리, 2) 도구, 3) 실행파일 등을 포함
+4. Manifest: 패키지의 의존 구성을 설명. 패키지 간의 의존 관계를 설명
+
+: Stack 은 Package를 포함
+- Stack은 stack.xml 파일 하나 존재
+- Package은 manifest.xml 파일 하나 존재
+
 ## Master
-- ROS를 위한 Name Service?
+- ROS를 위한 Name Service
+	- 각 노드들을 검색하도록 도움
 	- ROS Node 사이 연결, 메시지 통신을 위한 네임 서버
 	- 통신 지원
 - 마스터가 없으면 ROS Node 간 메시지, 토픽등을 통신할 수 없음
@@ -58,6 +69,7 @@ if __name__ == "__main__":
 roscore 
 ```
 ## Node
+- ROS 패키지의 실행파일
 - 실행되는 최소 단위의 프로세스
 	- 하나의 프로그램
 	- ROS 에서는 하나의 목적에 하나의 노드를 개발 하는 것을 추천함
@@ -67,13 +79,90 @@ roscore
 ## Package
 - ROS를 구성하는 기본 단위
 	- ROS는 패키지 단위로 개발
-- 최소 하나 이상의 노드를 포함하거나 다른 패키지의 노드를 실행하기 위한 설정파일들을 포함
+- 하나 이상의 노드, 노드 실행을 위한 정보 등을 묶어 놓은 것
 ## Message
-- 구독/배포(subscribing/publishing)할 때 사용하는 ROS 자료형
+- 노드간 데이터 주고 받을 때 사용하는 것
+- 구독/배포(subscribing/publishing)할 때 사용하는 ROS 자료형식
+- integer, floating point, boolean와 같은 변수형태
+	- list, nested json 가능
+ - ROS에서 가장 기본이 되는 기술적 포인트: __노드간 메시지 통신__
+ - 메시지 방식 여러가지
+	 1. Topic: 단방향, 연속성 데이터 통신
+	 2. Service: 양방향, 일회성 데이터 통신
+	 3. Action: 양방향, 연속성 데이터 통신
 ## Topic
-- 메시지의 이름, 주제
-- 노드에서 어떤 메시지를 송신하고 싶으면 토픽으로 마스터에 등록하고 해당 토픽으로 메시지를 보냄
-- 수신을 원하는 구독 노드는 마스터에 등록된 토픽의 이름에 해당하는 퍼블리셔 노드의 정보를 받는다
+- 단방향, 연속성을 갖는 데이터(메시지) 통신 방법 중 하나
+- 1:1, 1:N, N:1, N:M 단방향 통신 가능
+- 대부분의 경우 통신 방법
+- ex) Sensor Data
+- 구성: Topic, Publisher, Subscriber
+- 계속 프로세스를 처리하기 때문에 네트워크, 자원점유가 높지만 간단하기 때문에 끊기 쉬움
+- Topic 통신 프로세스
+	1. master 구동: XMLRPC(XML-Remote Procedure Call)
+	 - 실행되는 노드 정보 관리
+	```bash
+	 roscore
+	```
+	2. subscribe node 구동
+	- 실행되자마자 master에게 정보 전달
+	 <blockquote>
+	/subscribe_node_name<br>
+	/topic_name<br>
+	message_type<br>
+	http://ROS_HOSTNAME:1234<br>
+	 </blockquote>
+	```bash
+	rosrun 패키지이름 노드이름
+	```
+	3. publish node 구동
+	- 실행되자마자 master에게 정보 전달
+	 <blockquote>
+	/publish_node_name<br>
+	/topic_name<br>
+	message_type<br>
+	http://ROS_HOSTNAME:5678<br>
+	 </blockquote>
+	```bash
+	rosrun 패키지이름 노드이름
+	```
+	![[ros_topic_1.png]]
+	4. publisher 정보 알림
+	- master는 subscriber node에게 publisher 정보 알림
+	![[ros_topic_2.png]]
+	5. publisher node에 접속 요청
+	- master로부터 받은 publisher 정보를 이용하여 TCPROS 접속 요청
+	![[ros_topic_3.png]]
+	6. subscriber node에 접속 응답
+	- 접속 응답에 해당되는 자신의 TCP URI 주소와 포트번호를 전송
+	![[ros_topic_4.png]]
+	7. TCP 접속
+	- TCPROS를 이용하여 publisher node와 직접 연결
+	- 이전까지 아주 간단한 server-client 모델인 XMLRPC 모델에서 TCPROS 모델로 변경됨
+	![[ros_topic_5.png]]
+	8. 메시지 전송
+	- publisher node는 subscriber node에게 메시지 전송
+	![[ros_topic_6.png]]
+## Service
+- 양방향, 일회성 데이터 통신 방법
+- 요청 보내고 응답 받는 방식
+	- Publisher와 Subscriber의 통신은 비동기 방식으로 이루어짐
+	- 잘 동작되지만, 경우에 따라서는 요청과 응답이 동시에 이루어져야하는 동기 방식이 필요할 때도 있음
+ - 구성: Service, Service server, Service client
+ - Service 통신 프로세스
+	1~7까지 모두 동일
+	8. 서비스 요청 및 응답
+	 - topic과 달리 1회 한해 접속하고 요청 및 응답 수행한 후에는 서로간의 접속을 끊는다 (1회성)
+  
+  type:std_msgs/Int16
+	![[ros_service_1.png]]
+	
+## Action
+- 양방향, 연속성을 갖는 데이터 통신 방법
+	- 중간값을 받을 수 있음
+	- 복잡한 일 같이 응답까지 오랜 시간이 걸리고 중간 결과값이 필요한 경우 사용
+ - 구성: Action, Action server, Action client
+## Parameter
+- ROS parameter 서버의 데이터를 저장하거나 조종하는 것을 허용
 ## Publish
 - 토픽의 내용에 해당하는 메시지 형태의 데이터를 송신 하는 것. send
 ## Publisher
@@ -108,14 +197,6 @@ roscore
 	5. tcp_nodelay
 	6. buff_size
 	7. _**queue_size**_ : 큐 자료형 사이즈
- 
-## Service
-- ROS에서는 서비스라는 이름으로 메시지 동기 방식을 제공
-	- Publisher와 Subscriber의 통신은 비동기 방식으로 이루어짐
-	- 잘 동작되지만, 경우에 따라서는 요청과 응답이 동시에 이루어져야하는 동기 방식이 필요할 때도 있음
- - API 부르기 위해 API Specification이라고 이해함
-## Action
-- 서비스처럼 양방향을 요구하나 요청 처리 후 응답까지 오랜 시간이 걸리고 중간 결과값이 필요한 경우 사용
 ## rosout
 - ROS의 stdout/stderr
 ## roscore
@@ -129,3 +210,4 @@ roscore
 - ROS의 기본 실행 명령어
 ## roslaunch
 - rosrun이 하나의 노드를 실행하는 명령어라면 roslaunch는 여러 노드를 실행하는 개념
+{"op":"advertise","topic":"/interface_manager/topic_name","type":"interface_manager/MsgType", args:{}}
