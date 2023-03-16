@@ -210,4 +210,3 @@ roscore
 - ROS의 기본 실행 명령어
 ## roslaunch
 - rosrun이 하나의 노드를 실행하는 명령어라면 roslaunch는 여러 노드를 실행하는 개념
-{"op":"advertise","topic":"/interface_manager/topic_name","type":"interface_manager/MsgType", args:{}}
