@@ -5,7 +5,8 @@
 	- 어떤 불편함을 해소해주는가?
 	- 제어, 센서, 인식, 메시지 파킹, 개발환경, 패키지관리 등 다양한 라이브 러리와 개발 및 디버깅 도구를 제공하며 소프트웨어 플랫폼이면서 하드웨어에서 사용가능한 운영체제의 기능을 수행
 - ROS 구조
-![ROS architecture](assets/ros_structure.png)
+![ROS architecture](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_structure.png)
+
 - ROS는 Node 라고 하는 작은 프로그램의 집합이며, 각각의 노드끼리 서로 Message를 주고 받고 할 수 있는 구조
 - 자체적으로 프로그램 스케쥴링, 자원 관리해줌
 - ROS를 사용할 경우 그렇지 않은 경우에 비하여 프로그램 안정성, 스케쥴링, 확장성 등 많은 분야에서 훨씬 편해짐
@@ -47,7 +48,7 @@ if __name__ == "__main__":
 	- 예외 처리 신중하지 않으면 프로그램 전체 멈출 수 있음
 	- 싱글 코어를 이용한 연산이기 때문에 스케쥴링 문제 생김
 #### Example: Car Robot with ROS
-![Ros Structure with Car Example](ros_structure_with_car_example.png)
+![Ros Structure with Car Example](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_structure_with_car_example.png)
 참고링크: [ROS란 무엇인가](https://velog.io/@7cmdehdrb/whatIsROS)
 
 ## ROS Filesystem
@@ -132,23 +133,23 @@ roscore
 	rosrun 패키지이름 노드이름
 	```
 
-	![ROS Topic 1](ros_topic_1.png)
+	![ROS Topic 1](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_topic_1.png)
 	4. publisher 정보 알림
 	- master는 subscriber node에게 publisher 정보 알림
-	![ROS Topic 2](ros_topic_2.png)
+	![ROS Topic 2](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_topic_2.png)
 	5. publisher node에 접속 요청
 	- master로부터 받은 publisher 정보를 이용하여 TCPROS 접속 요청
-	![ROS Topic 3](ros_topic_3.png)
+	![ROS Topic 3](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_topic_3.png)
 	6. subscriber node에 접속 응답
 	- 접속 응답에 해당되는 자신의 TCP URI 주소와 포트번호를 전송
-	![ROS Topic 4](ros_topic_4.png)
+	![ROS Topic 4](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_topic_4.png)
 	7. TCP 접속
 	- TCPROS를 이용하여 publisher node와 직접 연결
 	- 이전까지 아주 간단한 server-client 모델인 XMLRPC 모델에서 TCPROS 모델로 변경됨
-	![ROS Topic 5](ros_topic_5.png)
+	![ROS Topic 5](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_topic_5.png)
 	8. 메시지 전송
 	- publisher node는 subscriber node에게 메시지 전송
-	![ROS Topic 6](ros_topic_6.png)
+	![ROS Topic 6](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_topic_6.png)
 ## Service
 - 양방향, 일회성 데이터 통신 방법
 - 요청 보내고 응답 받는 방식
@@ -160,7 +161,7 @@ roscore
 	8. 서비스 요청 및 응답
 	 - topic과 달리 1회 한해 접속하고 요청 및 응답 수행한 후에는 서로간의 접속을 끊는다 (1회성)
   
-	![ros_service_1.png](assets/ros_service_1.png)
+	![ROS Service 1](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_service_1.png)
 	
 ## Action
 - 양방향, 연속성을 갖는 데이터 통신 방법
@@ -184,7 +185,7 @@ roscore
 	7. _**queue_size**_ : 큐 자료형 사이즈
  
 기본 제공하는 data class(std_msgs 모듈에서 제공)
-![ROS publish data class](assets/ros_pub_data_class.png)
+![Ros Publish Data Service](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/ros_pub_data_class.png)
  - publisher 선언을 하는 부분은 advertise()를 이용
 	 - 마스터가 해당 topic의 메시지를 구독하는 노드에 그 topic으로 발행하는 노드가 있음을 전달
 	 - 이후 publisher와 subscriber가 직접 연결

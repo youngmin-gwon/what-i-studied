@@ -20,7 +20,7 @@ UNIX, IP4, UDP, TCP 등 다양한 통신규격을 지원.<br>
 
 xquartz -> settings -> security -> allow connections from network clients
 
-![XQuartz Setting](xquartz-setting.png)
+![XQuartz Setting](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/xquartz-setting.png)
 
 ## socat & xquartz setup
 

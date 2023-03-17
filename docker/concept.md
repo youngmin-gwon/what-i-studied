@@ -21,8 +21,8 @@
 	- 도커는 가볍고 빠르기 때문에 더 많은 서버 용량을 사용할 수 있음
 
 # Architecture
-![Docker Architecture](docker_architecture.svg)
-## 1. docker daㅓmon
+![Docker Architecture](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/docker_architecture.svg)
+## 1. docker daemon
 - `dockerd`
 - 도커 API 요청을 수신
 - 이미지, 컨테이너, 네트워크 및 볼륨과 같은 도커 객체를 관리
