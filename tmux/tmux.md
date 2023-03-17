@@ -37,7 +37,7 @@ check tmux session list
 tmux ls
 ```
 
-conect to the target session
+connect to the target session
 ```zsh
 tmux a -t $session_id
 ```
