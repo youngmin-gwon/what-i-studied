@@ -105,26 +105,32 @@ roscore
 	```
 	2. subscribe node 구동
 	- 실행되자마자 master에게 정보 전달
+ 
 	 <blockquote>
 	/subscribe_node_name<br>
 	/topic_name<br>
 	message_type<br>
 	http://ROS_HOSTNAME:1234<br>
-	 </blockquote>
+		 </blockquote>
+  
 	```bash
 	rosrun 패키지이름 노드이름
 	```
+ 
 	3. publish node 구동
 	- 실행되자마자 master에게 정보 전달
+ 
 	 <blockquote>
 	/publish_node_name<br>
 	/topic_name<br>
 	message_type<br>
 	http://ROS_HOSTNAME:5678<br>
 	 </blockquote>
+  
 	```bash
 	rosrun 패키지이름 노드이름
 	```
+
 	![[ros_topic_1.png]]
 	4. publisher 정보 알림
 	- master는 subscriber node에게 publisher 정보 알림
