@@ -21,8 +21,8 @@
 	- 도커는 가볍고 빠르기 때문에 더 많은 서버 용량을 사용할 수 있음
 
 # Architecture
-![[docker_architecture.svg]]
-## 1. docker daemon
+![Docker Architecture](docker_architecture.svg)
+## 1. docker daㅓmon
 - `dockerd`
 - 도커 API 요청을 수신
 - 이미지, 컨테이너, 네트워크 및 볼륨과 같은 도커 객체를 관리
@@ -58,9 +58,11 @@
 - 컨테이너가 제거되면, 영구 저장소에 저장되지 않은 상태의 변경 사항이 사라짐
 
 `docker run` 예시
+
 ```bash
 docker run -i -t ubuntu /bin/bash
 ```
+
 - 우분투 컨테이너를 실행하고, local cli 세션에 /bin/bash를 실행
 1. 로컬에 우분투 이미지가 없다면, 도커는 `docker pull ubuntu`를 수동으로 실행한 것처럼 구성된 레지스트리에서 가져옴
 2. `docker container create`을 수동으로 실행한 것처럼 새 컨테이너를 만듬

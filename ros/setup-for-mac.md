@@ -1,4 +1,5 @@
 ## 프로그램 설치
+
 ```bash
 brew install socat
 brew install --cask xquartz
@@ -19,7 +20,7 @@ UNIX, IP4, UDP, TCP 등 다양한 통신규격을 지원.<br>
 
 xquartz -> settings -> security -> allow connections from network clients
 
-![[xquartz-setting.png]]
+![XQuartz Setting](xquartz-setting.png)
 
 ## socat & xquartz setup
 
@@ -50,6 +51,7 @@ ifconfig en0
         status: active
 
 확인한  IP <span style="color:yellow">X.X.X.X</span> 활용하여 컨테이너 실행
+
 ```bash
 docker run -it --privileged --net=host --name={컨테이너 이름} -e DISPLAY=X.X.X.X:0 -p 8888:8888 -p 6006:6006 {docker image} /bin/bash
 ```
@@ -57,6 +59,7 @@ docker run -it --privileged --net=host --name={컨테이너 이름} -e DISPLAY=X
 <span style="color:red">TODO: m1 환경에서 rviz, gazebo 사용 제한되는 경우가 있다하니 문제 해결하여 문서 작성</span>
 
 ## cf) 컨테이너의 ip 변경해야 하는 경우
+
 ```bash
 export DISPLAY=X.X.X.X
 ```
