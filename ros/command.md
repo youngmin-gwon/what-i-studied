@@ -45,5 +45,14 @@ roscore
 ## rosrun
 - ROS의 기본 실행 명령어
 
+```bash
+rosrun 패키지 노드
+```
+
 ## roslaunch
 - rosrun이 하나의 노드를 실행하는 명령어라면 roslaunch는 여러 노드를 실행하는 개념
+
+```bash
+sudo apt install ros-melodic-rosbridge-server
+
+roslaunch rosbridge_server rosbridge_websocket.launch```

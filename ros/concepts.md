@@ -83,12 +83,12 @@ roscore
 	- ROS는 패키지 단위로 개발
 - 하나 이상의 노드, 노드 실행을 위한 정보 등을 묶어 놓은 것
 ## Message
-- 노드간 데이터 주고 받을 때 사용하는 것
+- 노드간 데이터 주고 받을 때 사용하는 데이터의 형태
 - 구독/배포(subscribing/publishing)할 때 사용하는 ROS 자료형식
 - integer, floating point, boolean와 같은 변수형태
 	- list, nested json 가능
  - ROS에서 가장 기본이 되는 기술적 포인트: __노드간 메시지 통신__
- - 메시지 방식 여러가지
+ - Topic, Service, Action 모두 메시지 사용
 	 1. Topic: 단방향, 연속성 데이터 통신
 	 2. Service: 양방향, 일회성 데이터 통신
 	 3. Action: 양방향, 연속성 데이터 통신
@@ -168,8 +168,20 @@ roscore
 	- 중간값을 받을 수 있음
 	- 복잡한 일 같이 응답까지 오랜 시간이 걸리고 중간 결과값이 필요한 경우 사용
  - 구성: Action, Action server, Action client
-## Parameter
-- ROS parameter 서버의 데이터를 저장하거나 조종하는 것을 허용
+## ParameterServer
+- 글로벌 변수를 저장하고, 노드에 제공하는 서버
+	- 읽기/쓰기 모두 가능
+- ROS Master의 기능 중 일부분
+- ![[ros_parameter.png]]
+## Name
+- Node, Message(Topic, Service, Action, Parameter) 가지는 고유 식별자
+- ROS는 graph라는 추상 데이터 형태 지원
+- global
+	- 문자 없이 바로 name 쓰거나, name 앞에 slash 붙임
+- private
+	- name 앞에 tilt 붙임
+## TF(Transform)
+- 각 조인트들의 상대 좌표 변환
 ## Publish
 - 토픽의 내용에 해당하는 메시지 형태의 데이터를 송신 하는 것. send
 ## Publisher
