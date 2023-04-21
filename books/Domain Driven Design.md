@@ -1,3 +1,8 @@
+# Structure
+
+## Hexagonal perspective
+(Center) Domain -> Application -> Infrastructure (Surface)
+
 # Domain Layer
 ## Value Object
 - 도메인 정보 하나를 상징하는 간단한 데이터 형식
@@ -67,3 +72,7 @@
 	- cons
 		- race condition을 피하도록 service를 디자인해야하기 때문에 적용이 어려울 수 있음
 		- service가 event를 발행해야하는 모든 entity를 알고 있어야 하기 때문에 복잡함
+  # Infrastructure layer
+  - 
+  # Application layer
+  -
