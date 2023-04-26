@@ -110,21 +110,21 @@ Linus Torvalds, the founder of LINUX, says,
 # LINUX?
 ## Why use LINUX?
 
-보안에 강함, 안정적 (stable, safe, and reliable)
+stable, safe, and reliable (보안에 강함, 안정적)
 
-유용한 툴이 많음 (many useful tools)
+many useful tools (유용한 툴이 많음)
 
-대부분의 하드웨어에서 작동함 (runs on most of hardward)
+runs on most of hardward (대부분의 하드웨어에서 동작함)
 
 ---
 # LINUX?
 ## Why use LINUX?
 
-보안에 강함, 안정적 (stable, safe, and reliable)
+stable, safe, and reliable (보안에 강함, 안정적)
 
-유용한 툴이 많음 (many useful tools)
+many useful tools (유용한 툴이 많음)
 
-대부분의 하드웨어에서 작동함 (runs on most of hardward)
+runs on most of hardward (대부분의 하드웨어에서 동작함)
 
 Linux is `Free`!
 
@@ -172,7 +172,7 @@ LINUX가 탄생하기까지
 # LINUX가 탄생하기까지
 ---
 # LINUX가 탄생하기까지
-## 1. AT&T Bell Lab.
+## 1. Bell Lab., AT&T
 
 ```
 ~~~figlet -f barbwire
@@ -182,15 +182,32 @@ AT&T
 ~~~jp2a ./assets/atat.png --colors --invert
 
 ~~~
+
+~~~figlet -f slant
+UNIX
+~~~
+
 ```
 ---
 # LINUX가 탄생하기까지
-## 1. AT&T Bell Lab.
+## 1. Bell Lab., AT&T
+
+```
+~~~figlet -f slant
+AT&T UNIX
+~~~
+```
 
 Ken Thompson & Denis Riche
 ---
 # LINUX가 탄생하기까지
-## 1. AT&T Bell Lab.
+## 1. Bell Lab., AT&T
+
+```
+~~~figlet -f slant
+AT&T UNIX
+~~~
+```
 
 Ken Thompson & Denis Riche
 
@@ -207,70 +224,205 @@ Ken Thompson & Denis Riche
 ```
 
 ---
-
-Aug 25, 1991
- 
-```
-~~~graph-easy --as=boxart
-[ A ] - to -> [ B ]
-~~~
-```
-
-```
-~~~cowsay
-hello
-~~~
-```
+# LINUX가 탄생하기까지
+## 1. Bell Lab., AT&T
 
 ```
 ~~~figlet -f slant
-hello
+AT&T UNIX
+~~~
+```
+Ken Thompson
+
+```
+~~~boxes
+brings UNIX University of California, Berkeley
+
+UNIX를 UC Berkeley에 전달
+~~~
+
+```
+---
+# LINUX가 탄생하기까지
+## 2. CSRG, UC Berkeley
+
+```
+~~~figlet -f slant
+BSD UNIX
+~~~
+```
+Bill Joy and Bob Febry
+
+```
+~~~boxes
+modifies and adds new feature to original UNIX code
+
+UNIX code를 수정하고 새로운 기능을 추가
+~~~
+
+~~~boxes
+BSD License
+
+Berkeley
+Software
+Distribution
+
+BSD License 만듬
+~~~
+
+~~~boxes
+BSD is a permissive free software license that allows anyone to use, 
+modify, and distribute the software, including for commercial purposes, 
+without any restriction
+
+BSD license는 제약없이 자유롭게 사용, 수정, 배포할 수 있는 라이센스
+~~~
+
+~~~boxes
+legal issues with AT&T UNIX from 1991 to 1994
+
+AT&T UNIX와 1991~1994 까지 법적 공방
 ~~~
 ```
 
 ---
+# LINUX가 탄생하기까지
+## 3. MIT AI Lab., Harvard
+
+```
+~~~figlet -f slant
+GNU
+~~~
+```
+
+Richard Stallman
+
+```
+~~~boxes
+Hacker culture
+
+해커 문화
+~~~
+
+~~~boxes
+GNU Project
+
+GNU is
+Not
+UNIX
+
+GNU Project 시작
+~~~
+
+~~~boxes
+GPL License
+
+General
+Public
+License
+
+GPL License 만듬
+~~~
+
+~~~boxes
+GPL is free to use and modify, but it should be open to anybody
+
+GPL 라이센스는 free 하고, 마음대로 변경할 수 있지만, 모두에게 공개되어야 함
+~~~
+
+~~~boxes
+gcc 
+gnu c compiler
+
+gcc 발명
+~~~
+```
+---
+
+# LINUX가 탄생하기까지
+## 4. Helsinki Univ.
+
+```
+~~~figlet -f slant
+LINUX
+~~~
+```
+
+Linus Torvalds
+
+```
+~~~boxes
+UNIX-like Operating System Kernel
+
+UNIX 같은 OS Kernel
+~~~
+
+~~~boxes -d parchment
+“솔직히 리차드 스톨만의 연설을 들으며 내가 어떤 ‘빛’을 본 것은 아니었다. 
+하지만, 추측컨대 그의 연설을 듣는 가운데 무엇인가가 내 마음속을 파고들었던 것 같다. 
+훗날 내가 리눅스에 GPL을 적용한 걸 보면 말이다.”
+
+~~~
+```
+---
+```
+~~~boxes -d dog -a c
+
+LINUX Distro?
+
+~~~
+```
+---
+# LINUX Distro?
 ```
 ~~~jp2a ./assets/redhat.png --colors
 
 ~~~
 ```
 ---
+# LINUX Distro?
 ```
 ~~~jp2a ./assets/debian.png --colors
 
 ~~~
 ```
 ---
+# LINUX Distro?
 ```
 ~~~jp2a ./assets/fedora.png --colors
 
 ~~~
 ```
 ---
+# LINUX Distro?
 ```
 ~~~jp2a ./assets/centos.png --colors
 
 ~~~
 ```
 ---
+# LINUX Distro?
 ```
 ~~~jp2a ./assets/archlinux.png --colors
 
 ~~~
 ```
 ---
+# LINUX Distro?
 ```
 ~~~jp2a ./assets/kali.png --colors
 
 ~~~
 ```
 ---
+# LINUX Distro?
 ```
 ~~~jp2a ./assets/android.png --colors
 
 ~~~
 ```
 ---
+# LINUX Distro?
 
 ```
 ~~~jp2a ./assets/redstar.png --colors

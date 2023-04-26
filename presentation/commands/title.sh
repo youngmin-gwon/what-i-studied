@@ -1,3 +1,3 @@
 #!/bin/zsh
 
-figlet "History of LINUX" | lolcat -f | boxes -d unicornthink
+figlet "LINUX? LINUX!" | lolcat -f | boxes -d unicornthink
