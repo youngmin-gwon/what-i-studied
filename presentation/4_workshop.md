@@ -40,7 +40,7 @@ What is LINUX?
 What is LINUX?
 ~~~
 
-> It is one of Operating Systems(OS) in the world.
+> It is Operating Systems(OS) kernel.
 
 ```
 ---
@@ -51,7 +51,7 @@ What is LINUX?
 What is LINUX?
 ~~~
 
-> It is one of Operating Systems(OS) in the world.
+> It is Operating Systems(OS) kernel.
 
 ~~~cowsay -f sheep
 What is Operating System, then?
@@ -66,7 +66,7 @@ What is Operating System, then?
 What is LINUX?
 ~~~
 
-> It is one of Operating Systems(OS) in the world.
+> It is Operating Systems(OS) kernel.
 
 ~~~cowsay -f sheep
 What is Operating System, then?
@@ -175,16 +175,12 @@ LINUX가 탄생하기까지
 ## 1. Bell Lab., AT&T
 
 ```
-~~~figlet -f barbwire
-AT&T
+~~~figlet -f slant
+AT&T UNIX
 ~~~
 
 ~~~jp2a ./assets/atat.png --colors --invert
 
-~~~
-
-~~~figlet -f slant
-UNIX
 ~~~
 
 ```
@@ -313,7 +309,20 @@ UNIX
 
 GNU Project 시작
 ~~~
+```
+---
+# LINUX가 탄생하기까지
+## 3. MIT AI Lab., Harvard
 
+```
+~~~figlet -f slant
+GNU
+~~~
+```
+
+Richard Stallman
+
+```
 ~~~boxes
 GPL License
 
@@ -338,7 +347,6 @@ gcc 발명
 ~~~
 ```
 ---
-
 # LINUX가 탄생하기까지
 ## 4. Helsinki Univ.
 
@@ -374,13 +382,16 @@ LINUX Distro?
 ```
 ---
 # LINUX Distro?
-```
-~~~jp2a ./assets/redhat.png --colors
+## Compositions
 
-~~~
-```
+- LINUX Kernel
+- Packages(GNU)
+- Package Manager
+- Desktop UI
 ---
 # LINUX Distro?
+## Famous Distro
+### 1. Debian
 ```
 ~~~jp2a ./assets/debian.png --colors
 
@@ -388,13 +399,38 @@ LINUX Distro?
 ```
 ---
 # LINUX Distro?
+## Famous Distro
+### 1. Debian
+#### Ubuntu
 ```
-~~~jp2a ./assets/fedora.png --colors
+~~~jp2a ./assets/ubuntu.png --colors
 
 ~~~
 ```
 ---
 # LINUX Distro?
+## Famous Distro
+### 2. Redhat
+```
+~~~jp2a ./assets/redhat.png --colors
+
+~~~
+```
+---
+# LINUX Distro?
+## Famous Distro
+### 2. Redhat
+#### RHEL
+```
+~~~jp2a ./assets/redhat.png --colors
+
+~~~
+```
+---
+# LINUX Distro?
+## Famous Distro
+### 2. Redhat
+#### CentOS
 ```
 ~~~jp2a ./assets/centos.png --colors
 
@@ -402,6 +438,19 @@ LINUX Distro?
 ```
 ---
 # LINUX Distro?
+## Famous Distro
+### 2. Redhat
+#### Fedora
+```
+~~~jp2a ./assets/fedora.png --colors
+
+~~~
+```
+---
+# LINUX Distro?
+## Famous Distro
+### 3. Arch
+#### Arch LINUX
 ```
 ~~~jp2a ./assets/archlinux.png --colors
 
@@ -409,13 +458,8 @@ LINUX Distro?
 ```
 ---
 # LINUX Distro?
-```
-~~~jp2a ./assets/kali.png --colors
-
-~~~
-```
----
-# LINUX Distro?
+## Independent Distro
+### Android
 ```
 ~~~jp2a ./assets/android.png --colors
 
@@ -423,9 +467,43 @@ LINUX Distro?
 ```
 ---
 # LINUX Distro?
+## Independent Distro
+### Kali
+```
+~~~jp2a ./assets/kali.png --colors
 
+~~~
+```
+---
+# LINUX Distro?
+## Weird Distro
+### 붉은별
 ```
 ~~~jp2a ./assets/redstar.png --colors
 
+~~~
+```
+---
+# Summary
+
+LINUX 는 OS Kernel 을 이르는 말
+
+LINUX 는 UNIX 의 소프트웨어와 GNU 의 해커정신을 받음
+
+LINUX Distro는 LINUX Kernel을 사용하는 완전한 OS 이고, 종류는 매우 많다
+---
+# Summary
+
+LINUX 는 OS Kernel 을 이르는 말
+
+LINUX 는 UNIX 의 소프트웨어와 GNU 의 해커정신을 받음
+
+LINUX Distro는 LINUX Kernel을 사용하는 완전한 OS 이고, 종류는 매우 많다
+
+`붉은별` OS 두번 써라
+---
+```
+~~~sh
+./commands/outro.sh
 ~~~
 ```
