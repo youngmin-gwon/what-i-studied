@@ -95,14 +95,32 @@ Navigation stack은 `Page` 객체들의 순서를 이용해서 만듫어짐
 
 ## RouterDelegate
 
-App의 상태에 따라 `Navigatior` widget 을 생성하는 클래스
+App의 상태에 따라 `Navigator` widget 을 생성하는 클래스
 
 pop 요청을 처리함
 
-Navigation의 심장 같은 역할을 함
+Navigation의 `심장` 같은 역할을 함  => 없으면 존재할 수 없음
 
 ## RouteInformationParser
 
+OS 로 부터 들어오는 route 정보를 해석 해서 `RouteDelegate` 가 app 상태를 변경할 수 있게 함
+
+app 상태 변경에 따라 route 정보를 복구 하여 OS 가 navigation 기록에 맞춰 최신 상태로 유지하게 함
+
+Navigation의 `팔` 같은 역할을 함 => 없어도 살 수 있지만 불편함
+
+`RouteInformationParser` 없이 `Router` 를 생성할 수 있음
+
 ## RouteInformationProvider
 
+OS intents 로 부터 route 정보를 생성함
+
+e.g.) Web browser address bar에 URL 입력하면 정보를 해석해서 `Router` widget이 내부적으로 쓰는 entity 로 전달함 
+
+Navigation의 `입,귀` 같은 역할을 함 => `Router`의 `귀`처럼 새로운 정보를 해석하고, `Router`의 `입` 처럼 변경된 route 정보를 OS에 전달함
+
 ## BackButtonDispatcher
+
+system level 의 `pop` 이벤트를 보고하는 역할
+
+Navigation의 `귀` 같은 역할 => OS 로부터 시그널을 전달함
