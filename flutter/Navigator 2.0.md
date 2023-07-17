@@ -99,6 +99,12 @@ App의 상태에 따라 `Navigator` widget 을 생성하는 클래스
 
 pop 요청을 처리함
 
+`Router` widget 에서 가장 중요한 요소: 어떻게 `Navigator` 을 생성하는지 알려주기 때문
+
+listenable 하게 만들기 위해 `ChangeNotifier` mixin 을 구현한 것
+
+listener 들에게 알리고 난 후, `build()` method를 호출함 => `Navigator` 를 반환함
+
 Navigation의 `심장` 같은 역할을 함  => 없으면 존재할 수 없음
 
 ## RouteInformationParser
