@@ -105,6 +105,10 @@ listenable 하게 만들기 위해 `ChangeNotifier` mixin 을 구현한 것
 
 listener 들에게 알리고 난 후, `build()` method를 호출함 => `Navigator` 를 반환함
 
+`Router` widget이 pop 요청을 받는 경우, `RouterDelegate` 의 `popRoute` 를 호출하므로 역할을 대신하게 함
+- `RouterDelegate`을 만들 때, `PopNavigatorRouterDelegateMixin` 을 구현할 수도 있는데, 이렇게 하면 `Router` 의 `popRoute`가 `Navigator` 의 `maybePop` 를 호출하게 됨 
+  - `RouteDelegate` 에 `popRoute` 를 구현할 필요 없음. 대신 `onPopPage` callback 제공해야함
+
 Navigation의 `심장` 같은 역할을 함  => 없으면 존재할 수 없음
 
 ## RouteInformationParser
