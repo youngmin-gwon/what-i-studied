@@ -77,3 +77,6 @@
 
 ## Reference
 [Jordan's video](https://www.youtube.com/watch?v=yYwEnLYT55c)
+
+https://github.com/PLAIF-dev/sw_drink_picker/issues/1#issue-1815011762
+https://github.com/PLAIF-dev/sw_drink_picker/issues/2#issue-1815013122
