@@ -2,7 +2,7 @@
 # Runtime
 # Compiler
 ---
-# Asyncrony
+# Asynchrony
 
 ## Dart: Isolates and Event Loops
 - **Dart**는 **Single-threaded language** 이다
