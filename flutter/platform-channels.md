@@ -59,6 +59,130 @@ class MainActivity: FlutterActivity() {
 }
 ```
 
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class ChannelScreen extends StatefulWidget {
+  const ChannelScreen({super.key});
+
+  @override
+  State<ChannelScreen> createState() => _ChannelScreenState();
+}
+
+class _ChannelScreenState extends State<ChannelScreen> {
+  int counter = 0;
+  String randomName = '';
+
+  static const methodPlatform = MethodChannel('example.com/channel/method');
+
+  Future<void> _generateRandomNumber() async {
+    int random;
+    try {
+      random = await methodPlatform.invokeMethod<int>('getRandomNumber') ?? -1;
+    } on PlatformException {
+      random = 0;
+    }
+
+    setState(() {
+      counter = random;
+    });
+  }
+
+  Future<void> _generateRandomString() async {
+    String name;
+    try {
+      final arguments = {
+        'len': 8,
+        'prefix': 'fl_',
+      };
+      name = await methodPlatform.invokeMethod<String>(
+            'getRandomStringWithNamedArguments',
+            arguments,
+          ) ??
+          '';
+    } on PlatformException {
+      name = 'Something went wrong!';
+    }
+
+    setState(() {
+      randomName = name;
+    });
+  }
+
+  Future<void> _generateRandomStringWithPositionalArgument() async {
+    String name;
+    try {
+      name = await methodPlatform.invokeMethod<String>(
+            'getRandomStringWithPositionArgument',
+            3,
+          ) ??
+          '';
+    } on PlatformException {
+      name = 'Something went wrong!';
+    }
+
+    setState(() {
+      randomName = name;
+    });
+  }
+
+  Future<void> _generateError() async {
+    String name;
+    try {
+      name = await methodPlatform.invokeMethod<String>('getError') ?? '';
+    } on PlatformException catch (e) {
+      name = '''
+PlatformException:
+  Code: ${e.code}
+  Message: ${e.message}
+''';
+    }
+
+    setState(() {
+      randomName = name;
+    });
+  }
+
+  void _onEvent(dynamic event) {
+    setState(() {
+      theme = event == true ? 'dark' : 'light';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('MethodChannel example'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'Kotlin generates the following number:',
+            ),
+            Text(
+              randomName,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        // onPressed: _generateRandomNumber,
+        // onPressed: _generateRandomString,
+        // onPressed: _generateRandomStringWithPositionalArgument,
+        onPressed: _generateError,
+        tooltip: 'Generate',
+        child: const Icon(Icons.refresh),
+      ),
+    );
+  }
+}
+```
+
 ## 2. EventChannel
 
 `Stream` 처럼 비동기적 Event가 들어올 때 사용
@@ -116,6 +240,59 @@ class MainActivity: FlutterActivity() {
 
   fun isDarkMode(config: Configuration?): Boolean {
     return config!!.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+  }
+}
+```
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class ChannelScreen extends StatefulWidget {
+  const ChannelScreen({super.key});
+
+  @override
+  State<ChannelScreen> createState() => _ChannelScreenState();
+}
+
+class _ChannelScreenState extends State<ChannelScreen> {
+  String theme = '';
+
+  static const eventPlatform = EventChannel('example.com/channel/event');
+
+  @override
+  void initState() {
+    super.initState();
+    eventPlatform.receiveBroadcastStream().listen(_onEvent);
+  }
+
+  void _onEvent(dynamic event) {
+    setState(() {
+      theme = event == true ? 'dark' : 'light';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('MethodChannel example'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'System color theme:',
+            ),
+            Text(
+              theme,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 ```
