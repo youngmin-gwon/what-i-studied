@@ -59,8 +59,8 @@
 
 ## Pros
 
-- product를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ Single Responsibility Principle
-- 코드 수정 없이 새로운 product를 추가할 수 있음 ⇒ Open/Closed Principle
+- product를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ [[SRP(Single Responsibility Principle)]]
+- 코드 수정 없이 새로운 product를 추가할 수 있음 ⇒ [[OCP(Open Closed Principle)]]
 - Creator와 ConcreteProduct간의 결합도를 줄일 수 있음
 
 ## Cons

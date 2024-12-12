@@ -11,10 +11,14 @@
             "id": "5bc0f0d241759e25",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Abstract Factory Pattern"
             }
           }
         ]
@@ -173,17 +177,17 @@
   },
   "active": "5bc0f0d241759e25",
   "lastOpenFiles": [
-    ".git/objects/6f/f40945c7c4f7fe8c6f7e348a9796f7aa2b372b",
-    ".git/objects/57/ebb1a158fd3fdd1f7f41d672a500381a8518d5",
-    ".git/objects/f4/debc6b2b5811c621515a856ae0d26a1a060547",
-    ".git/objects/6d/5355207ba04eb9a35f28a9599aa0ff6c1ce956",
-    ".git/objects/77/fecb72cc65d6c2028b576130ed559f9633c898",
-    ".git/objects/4e/44cc159d8b2ebedd83533112eb2b19aae99338",
-    ".git/objects/65/91d613823486ef9da6770be1849c61acf48517",
+    ".git/objects/eb/b0ed749a72c17c9510e43422e55e200f234832",
+    ".git/objects/82/32e341faf0304dc3fc2c5b5ae8a44f0f64d546",
+    ".git/objects/e7/504586b5bac512115ed2d1b0e7ac49a75a2321",
+    ".git/objects/fb/1c0d22b4ed5e1cffc25bd12fa34f317bc66605",
+    ".git/objects/d4/6f2611d34618e7c69e4c4757efec34b12f2740",
+    ".git/objects/ab/dfbb54b549b554956f96786abb94aa820cfaa3",
+    ".git/objects/03/c4c3ee1e9fdd8f75ceb77581194307492f86b0",
+    ".git/objects/5e/66505cca87471157e2f4738c34646297de5e69",
+    ".git/objects/f4/e8cab46532088c44623acb739f72d5f02a0b72",
     ".git/index.lock",
-    ".git/objects/a2/980f3d7d17e0d4e799a8c7283e08003f427fc0",
-    ".git/objects/9c/ccba6c37fc7c41934cbd6ca71c557c3c57c0e2",
-    ".git/objects/57/4bd530465ad30730733ebb3a443d0d1b539ffc",
+    ".git/objects/6f/f40945c7c4f7fe8c6f7e348a9796f7aa2b372b",
     "oop/design-pattern/behavioral/patterns/Memento Pattern.md",
     "oop/design-pattern/creational/patterns/Prototype Pattern.md",
     "oop/design-pattern/behavioral/patterns/Command Pattern.md",
