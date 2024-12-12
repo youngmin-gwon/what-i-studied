@@ -98,116 +98,122 @@
 
 - Abstract Factory는 Singleton 패턴으로 적용될 수 있음
 
-cf) Factory 용어 의미 비교
+## Difference in "factory" keyword
 
-1. Factory
-    - 무언가를 생성하는 function, method, class를 의미하는 모호한 용어
-    - 대부분의 경우, factory는 객체를 생성하지만, 때때로 file, 데이터베이스의 record를 생성하기도 함
-    - 주로 사용하는 상황 예시
-        - 프로그램의 GUI를 생성하는 function 혹은 method
-        - User를 생성하는 클래스
-        - 특정 방식으로 클래스 생성자를 호출하는 정적 메서드.
-        - Creational 디자인 패턴 중 하나
-2. Creation method
-    - 객체를 생성하는 메소드
-        - 팩토리 메소드 패턴의 모든 결과가 "생성 메소드"이지만 반드시 그 반대는 아님을 의미
-    - 동일 의미
-        - *Martin Fowler*가 *Refactoring*에서 언급했던 factory method
-        - *Joshua Bloch*가 *Effective Java*에서 언급했던 static factory method
-    - 실제로 생성 메서드는 생성자 호출을 둘러싼 래퍼일 뿐임
-        - 하지만, 생성자 변경 사항에서 코드를 분리하는 데 도움이 될 수 있음
-        - 또한, 새로 만드는 대신 기존 개체를 반환하는 특정 논리를 포함할 수도 있음
-    - 많은 사람이 factory method 라고 부름 ⇒ 새로운 객체를 만드는 메소드 이기 때문
-    - factory method pattern과는 다르기 때문에 유의하자
-    
-    ```java
-    class Number {
-        private $value;
-    
-        public function __construct($value) {
-            $this->value = $value;
-        }
-    
-        public function next() {
-            return new Number ($this->value + 1);
-        }
-    }
-    ```
-    
-3. Static creation (or factory) method
-    - static으로 선언된 creation method
-        - 즉, 생성을 위해서 객체가 필요하지 않은 경우임
-    - static factory method라고 부르지 않게 유의하자 ⇒ factory method는 상속을 사용하는 디자인 패턴이기 때문. 즉 subclassing 할 수 없음
-    - 다음 같은 경우에 유용함
-        - 여러가지 다른 목적을 위한 여러가지 생성자가 존재해야 하는 경우
-        - 새로 생성하는 것이 아니라 기존에 존재하는 객체들을 제사용하고 싶은 경우
-    
-    ```java
-    class User {
-        private $id, $name, $email, $phone;
-    
-        public function __construct($id, $name, $email, $phone) {
-            $this->id = $id;
-            $this->name = $name;
-            $this->email = $email;
-            $this->phone = $phone;
-        }
-    
-        public static function load($id) {
-            list($id, $name, $email, $phone) = DB::load_data('users', 'id', 'name', 'email', 'phone');
-            $user = new User($id, $name, $email, $phone);
-            return $user;
-        }
-    }
-    ```
-    
-4. Simple factory pattern
-    - 파라미터를 이용한 분기로 생성을 다르게 하는 생성 메소드를 가지고 있는 클래스를 의미함
-    - 주로 일반 factory와 혼동하거나, factory 디자인 패턴들 중 하나와 혼동함
-        - simple factory는 factory method의 도입 전 중간 과정이라고 생각하는 것을 권장
-    - 단일 클래스의 단일 메소드로 표현되다가, 너무 커질 우려가 있어서 subclass로 나눈 경우로 볼 수 있음 ⇒ 몇번 반복하면 factory method pattern이 됨
-    
-    ```java
-    class UserFactory {
-        public static function create($type) {
-            switch ($type) {
-                case 'user': return new User();
-                case 'customer': return new Customer();
-                case 'admin': return new Admin();
-                default:
-                    throw new Exception('Wrong user type passed.');
-            }
-        }
-    }
-    ```
-    
-5. Factory Method pattern
-    - 객체 생성을 위한 인터페이스를 제공하지만 생성될 객체의 유형을 하위 클래스가 변경할 수 있도록 하는 생성 디자인 패턴
-    
-    ```java
-    abstract class Department {
-        public abstract function createEmployee($id);
-    
-        public function fire($id) {
-            $employee = $this->createEmployee($id);
-            $employee->paySalary();
-            $employee->dismiss();
-        }
-    }
-    
-    class ITDepartment extends Department {
-        public function createEmployee($id) {
-            return new Programmer($id);
-        }
-    }
-    
-    class AccountingDepartment extends Department {
-        public function createEmployee($id) {
-            return new Accountant($id);
-        }
-    }
-    ```
-    
-6. Abstract Factory pattern
-    - 구체적인 클래스를 지정하지 않고 관련 또는 종속 개체의 패밀리를 생성할 수 있는 생성 디자인 패턴
+### 1. Factory
 
+- 무언가를 생성하는 function, method, class를 의미하는 모호한 용어
+- 대부분의 경우, factory는 객체를 생성하지만, 때때로 file, 데이터베이스의 record를 생성하기도 함
+- 주로 사용하는 상황 예시
+  - 프로그램의 GUI를 생성하는 function 혹은 method
+  - User를 생성하는 클래스
+  - 특정 방식으로 클래스 생성자를 호출하는 정적 메서드.
+  - Creational 디자인 패턴 중 하나
+
+### 2. Creation method
+
+- 객체를 생성하는 메소드
+  - 팩토리 메소드 패턴의 모든 결과가 "생성 메소드"이지만 반드시 그 반대는 아님을 의미
+- 동일 의미
+  - *Martin Fowler*가 *Refactoring*에서 언급했던 factory method
+  - *Joshua Bloch*가 *Effective Java*에서 언급했던 static factory method
+- 실제로 생성 메서드는 생성자 호출을 둘러싼 래퍼일 뿐임
+  - 하지만, 생성자 변경 사항에서 코드를 분리하는 데 도움이 될 수 있음
+  - 또한, 새로 만드는 대신 기존 개체를 반환하는 특정 논리를 포함할 수도 있음
+- 많은 사람이 factory method 라고 부름 ⇒ 새로운 객체를 만드는 메소드 이기 때문
+- factory method pattern과는 다르기 때문에 유의하자
+
+```java
+class Number {
+    private $value;
+
+    public function __construct($value) {
+        $this->value = $value;
+    }
+
+    public function next() {
+        return new Number ($this->value + 1);
+    }
+}
+```
+
+### 3. Static creation (or factory) method
+
+- static으로 선언된 creation method
+  - 즉, 생성을 위해서 객체가 필요하지 않은 경우임
+- static factory method라고 부르지 않게 유의하자 ⇒ factory method는 상속을 사용하는 디자인 패턴이기 때문. 즉 subclassing 할 수 없음
+- 다음 같은 경우에 유용함
+  - 여러가지 다른 목적을 위한 여러가지 생성자가 존재해야 하는 경우
+  - 새로 생성하는 것이 아니라 기존에 존재하는 객체들을 제사용하고 싶은 경우
+
+```java
+class User {
+    private $id, $name, $email, $phone;
+
+    public function __construct($id, $name, $email, $phone) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
+        $this->phone = $phone;
+    }
+
+    public static function load($id) {
+        list($id, $name, $email, $phone) = DB::load_data('users', 'id', 'name', 'email', 'phone');
+        $user = new User($id, $name, $email, $phone);
+        return $user;
+    }
+}
+```
+
+### 4. Simple factory pattern
+
+- 파라미터를 이용한 분기로 생성을 다르게 하는 생성 메소드를 가지고 있는 클래스를 의미함
+- 주로 일반 factory와 혼동하거나, factory 디자인 패턴들 중 하나와 혼동함
+  - simple factory는 factory method의 도입 전 중간 과정이라고 생각하는 것을 권장
+- 단일 클래스의 단일 메소드로 표현되다가, 너무 커질 우려가 있어서 subclass로 나눈 경우로 볼 수 있음 ⇒ 몇번 반복하면 factory method pattern이 됨
+
+```java
+class UserFactory {
+    public static function create($type) {
+        switch ($type) {
+            case 'user': return new User();
+            case 'customer': return new Customer();
+            case 'admin': return new Admin();
+            default:
+                throw new Exception('Wrong user type passed.');
+        }
+    }
+}
+```
+
+### 5. Factory Method pattern
+
+- 객체 생성을 위한 인터페이스를 제공하지만 생성될 객체의 유형을 하위 클래스가 변경할 수 있도록 하는 생성 디자인 패턴
+
+```java
+abstract class Department {
+    public abstract function createEmployee($id);
+
+    public function fire($id) {
+        $employee = $this->createEmployee($id);
+        $employee->paySalary();
+        $employee->dismiss();
+    }
+}
+
+class ITDepartment extends Department {
+    public function createEmployee($id) {
+        return new Programmer($id);
+    }
+}
+
+class AccountingDepartment extends Department {
+    public function createEmployee($id) {
+        return new Accountant($id);
+    }
+}
+```
+
+### 6. Abstract Factory pattern
+
+- 구체적인 클래스를 지정하지 않고 관련 또는 종속 개체의 패밀리를 생성할 수 있는 생성 디자인 패턴
