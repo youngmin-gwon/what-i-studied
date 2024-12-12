@@ -62,14 +62,17 @@
 3. 클래스간의 관계와 코드가 꼬여버릴 염려가 있다
 4. 일부 클라이언트는 알고리즘이 제공한 skeleton에 의해 제한될 수 있음
 
-## Relationship between other patterns
+## Relationship with other patterns
 
-- [[Factory Method Pattern]]
-  - Factory Method는 Template Method를 구체화 한것. 동시에 Factory Method는 큰 Template Method의 한 단계 역할을 할 수 있음
-- [[Strategy Pattern]]
-  - Template Method는 상속을 기반으로 함 ⇒ 이 메서드를 사용하면 하위 클래스에서 해당 부분을 확장하여 알고리즘의 일부를 변경할 수 있음
-  - Strategy은 구성을 기반으로 함 ⇒ 해당 동작에 해당하는 다른 전략을 제공하여 개체 동작의 일부를 변경할 수 있음
-  - Concrete Algorithm이 선택될 때 차이가 있음
-    - Template Method는 template을 상속하기 때문에 컴파일 타임에 정해짐
-    - Strategy는 런타임에 정해지기 때문에 동적으로 알고리즘 할당 가능
-  - Template Method는 공통된 기능을 공유하도록 설계되어 있지만, Strategy 패턴은 모든 implementation이 독립적이고 공유되는 코드가 없다
+### [[Factory Method Pattern]]
+
+- Factory Method는 Template Method를 구체화 한것. 동시에 Factory Method는 큰 Template Method의 한 단계 역할을 할 수 있음
+
+### [[Strategy Pattern]]
+
+- Template Method는 상속을 기반으로 함 ⇒ 이 메서드를 사용하면 하위 클래스에서 해당 부분을 확장하여 알고리즘의 일부를 변경할 수 있음
+- Strategy은 구성을 기반으로 함 ⇒ 해당 동작에 해당하는 다른 전략을 제공하여 개체 동작의 일부를 변경할 수 있음
+- Concrete Algorithm이 선택될 때 차이가 있음
+  - Template Method는 template을 상속하기 때문에 컴파일 타임에 정해짐
+  - Strategy는 런타임에 정해지기 때문에 동적으로 알고리즘 할당 가능
+- Template Method는 공통된 기능을 공유하도록 설계되어 있지만, Strategy 패턴은 모든 implementation이 독립적이고 공유되는 코드가 없다
