@@ -43,24 +43,24 @@
     - 대부분의 언어에서 Functional type support를 하기 때문에 굳이 코드베이스를 크게 만들이유가 없다
 
 - 다른 패턴과의 관계
-    - Bridge, State, (일부분 Adapter)
+    - [[Bridge Pattern]], [[State Pattern]], (일부분 [[Adapter Pattern]])
         - 구조가 비슷함(다른 객체에 실제 작업을 위임하는 구조)
         - 모두 다른 문제를 풀기 위한 방법
             - 패턴은 특정 방식으로 코드를 구조화하기 위한 단순한 레시피가 아님
             - **해결해야하는 문제를 다른 개발자와 소통하기 위한 방법으로 패턴을 사용해야 함**
-    - Decorator
+    - [[Decorator Pattern]]
         - Decorator는 객체의 겉을 바꾸는 역할, Strategy는 객체의 속을 바꾸는 역할
-    - Command
+    - [[Command Pattern]]
         - 둘다 객체를 파라미터로 갖기 때문에 비슷해보일 수 있음
         - 하지만, 다른 의도로 사용됨
             - Command: 연산을 객체로 바꾸려는 의도 ⇒ 작업 실행을 연기하고, 대기열에 추가하고, 명령 기록을 저장하고, 원격 서비스에 명령을 보내는 등의 작업을 수행할 수 있음
             - Strategy:  같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도
-    - Template method
+    - [[Template Method Pattern]]
         - Template Method 패턴은 상속 기반. subclass에서 수정이 필요한 알고리즘 일부분을 확장하는 방법
         - Strategy 패턴은 구성 기반. 다르게 동작하는 전략을 제공해서 객체의 행위를 변경하는 방법
         - Template Method는 class level에서 동작하고, Strategy는 object level에서 동작함 ⇒ Template Method는 static 하기 때문에 compile-time-safe, Strategy는 runtime-safe 함
         - Template Method 패턴은 공통된 기능을 공유하도록 설계되어 있지만, Strategy 패턴은 모든 implementation이 독립적이고 공유되는 코드가 없다
-    - State
+    - [[State Pattern]]
         - State는 Strategy를 확장한 패턴으로 간주됨
             - 둘 모두 구성 기반
             - helper 객체가 context를 변경하는 것을 도와 줌
