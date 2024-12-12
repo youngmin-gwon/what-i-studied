@@ -71,21 +71,28 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 - 새로운 인터페이스와 클래스를 추가해야하기 때문에 코드 복잡도 증가
   - 때로는 service 클래스를 쉽게 변경하는 것이 더 간단할 때도 있음
 
-## Relationship between other patterns
+## Relationship with other patterns
 
-- [[Bridge Pattern]]
-  - 일반적으로 사전에 설계되어 서로 독립적으로 응용 프로그램의 일부를 개발할 수 있음
-  - 일반적으로 기존 앱과 함께 사용되어 호환되지 않는 일부 클래스가 잘 작동하도록 함
-- [[Decorator Pattern]]
-  - Adapter는 기존 객체의 인터페이스를 변경하지만, Decorator는 인터페이스를 변경하지 않고 기존 객체를 강화함
-  - Decorator는 재귀적 구조를 가지지만, Adapter는 불가능함
-- [[Proxy Pattern]]
-  - Adapter는 감싼 객체에 다른 인터페이스를 제공함
-  - Proxy는 감싼 객체에 같은 인터페이스를 제공함
-  - Decorator는 감싼 객체에 강화된 인터페이스를 제공함
-- [[Facade Pattern]]
-  - Facade는 기존 객체에 새로운 인터페이스를 정의함
-  - Adapter는 기존 존재하는 인터페이스를 유용하게 만들려고 함
+### [[Bridge Pattern]]
+
+- 일반적으로 사전에 설계되어 서로 독립적으로 응용 프로그램의 일부를 개발할 수 있음
+- 일반적으로 기존 앱과 함께 사용되어 호환되지 않는 일부 클래스가 잘 작동하도록 함
+
+### [[Decorator Pattern]]
+
+- Adapter는 기존 객체의 인터페이스를 변경하지만, Decorator는 인터페이스를 변경하지 않고 기존 객체를 강화함
+- Decorator는 재귀적 구조를 가지지만, Adapter는 불가능함
+
+### [[Proxy Pattern]]
+
+- Adapter는 감싼 객체에 다른 인터페이스를 제공함
+- Proxy는 감싼 객체에 같은 인터페이스를 제공함
+- Decorator는 감싼 객체에 강화된 인터페이스를 제공함
+
+### [[Facade Pattern]]
+
+- Facade는 기존 객체에 새로운 인터페이스를 정의함
+- Adapter는 기존 존재하는 인터페이스를 유용하게 만들려고 함
 
 ## Difference with Bridge, State, Strategy, Adapter Pattern
 
