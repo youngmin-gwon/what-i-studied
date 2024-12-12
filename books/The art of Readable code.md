@@ -1097,184 +1097,202 @@ for (int i=0; i < results.size; i++) {
 
 ### 거대한 표현을 잘게 쪼개기
 
-- 핵심: 거대한 표현을 더 소화하기 쉬운 여러 조각으로 나눈다
-- 우리는 보통 한번에 서너 개 일만 생각할 수 있으므로, 코드의 표현을 줄여 이해하기 쉽도록 한다
-1. 설명변수
-    - 거대한 표현을 잘게 쪼개는 가장 쉬운 방법: 작은 하위표현을 담을 “추가변수 extra variable”을 만들어라
-        
-        ```python
-        // before
-        if line.split(":")[0].strip() == "root":
-        
-        // after
-        username = line.split(":")[0].strip()
-        if username == "root":
-        ```
-        
-2. 요약변수
-    - 커다란 코드 덩어리를 짧은 이름으로 대체하여 더 쉽게 관리하고 파악하는 목적을 가진 변수
-    - 의미를 쉽게 파악할 수 있어 설명을 요구하지 않는 표현이라 해도, 새로운 변수로 담아두는 방법은 여전히 유용함
-    - 예시
-        
-        ```dart
-        // before
-        if (request.user.id == document.owner_id) {
-        	// 사용자가 이 문서를 수정할 수 있다
-        }
-        
-        if (request.user.id != document.owner_id) {
-        	// 문서는 읽기 전용이다
-        }
-        
-        // after
-        /// 코드의 핵심 개념 "사용자가 이 문서를 소유하는가" 를 더 명확하게 표현할 수 있음
-        
-        final bool user_owns_document = request.user.id == document.owner_id;
-        if (user_owns_document) {
-        	// 사용자가 이 문서를 수정할 수 있다
-        }
-        if (!user_owns_document) {
-        	// 문서는 읽기 전용이다
-        }
-        
-        /// 코드를 읽는 사람에게 이 함수에서 생각해야 하는 주된 개념을 짚어주는 역할을 함
-        ```
-        
-3. 드모르간의 법칙 사용하기
-    - 드모르간의 법칙(De Morgan’s Laws)
-        1. not (a or b or c) == (not a) and (not b) and (not c)
-        2. not(a and b and c) == (not a) or (not b) or (not c)
-    - 위의 법칙을 이용하여 불리언 표현을 간단하게 만들 수 있음
-        
-        ```jsx
-        // before
-        if (!(file_exists && !is_protected))
-        
-        // after
-        if (!file_exists || is_protected)
-        ```
-        
-4. 쇼트 서킷 논리(Short-Circuit Logic) 오용 말기
-    - 쇼트서킷 논리: if (a || b) 에서 a가 참이면 b는 평가하지 않는 것
-    - 매우 편리하지만 때로는 복잡한 연산을 수행할 때 오용될 수 있음
-    - 예시
-        
-        ```jsx
-        // before
-        assert((!(bucket = FindBucket(key))) || !bucket->IsOccupied());
-        /// 이 키를 위한 바구니를 구하라. 바구니가 null이 아니면,
-        /// 그것을 누군가가 차지하고 있지 않은지 확인하라
-        
-        /// 손을 멈추고 잠시 생각해야 무슨 의미인지 이해할 수 있다
-        
-        // after
-        /// 거대한 코드를 쪼게 2줄로 늘어낫지만 훨씬 이해하기 쉬워졌다
-        bucket = FindBucket(key);
-        if (bucket != null) assert(!bucket->IsOccupied());
-        ```
-        
-    - ‘영리하게’ 작성된 코드에 유의하라. 나중에 다른 사람이 읽으면 그런 코드가 종종 혼란을 초래한다.
-    - 물론 이러한 깔끔한 경우에 쇼트 서킷 연산을 사용하는 것에는 무리가 없다
-        
-        ```jsx
-        if (object && object-> method()) ...
-        
-        x = a || b || c
-        ```
-        
-5. 복잡한 논리와 씨름하기
-    - 반대로 생각해보는 것으로 더욱 우아한 접근 방법을 찾을 수 있다
-        
-        ```go
-        // before
-        struct Range {
-        	int begin
-        	int end // end는 경계를 포함하지 않음. (이전 챕터 참고)
-        	// 예컨대 [0,5)은 [3,8) 와 부분적으로 겹친다
-        	bool OverlapsWith(Range other)
-        }
-        
-        func (r *Range) OverlapsWith(Range other) bool {
-        	// begin이나 end가 other에 속하는지 검사한다
-        	return (r.begin >= other.begin && r.begin <= other.end) || 
-        					(r.end >= other.begin && r.end <= other.end);
-        }
-        
-        // 버그가 있음. end에서 겹치는 것을 제외하지 않음
-        // =>
-        func (r *Range) OverlapsWith(Range other) bool {
-        	// begin이나 end가 other에 속하는지 검사한다
-        	return (r.begin >= other.begin && r.begin < other.end) || 
-        					(r.end > other.begin && r.end <= other.end);
-        }
-        
-        // 또 다른 버그가 있음. begin/end가 other를 완전히 포함하는 경우를 무시하고 있음
-        func (r *Range) OverlapsWith(Range other) bool {
-        	// begin이나 end가 other에 속하는지 검사한다
-        	return (r.begin >= other.begin && r.begin < other.end) || 
-        					(r.end > other.begin && r.end <= other.end) ||
-        					(r.begin <= other.begin &&  r.end >= other.end);
-        }
-        
-        /// 코드가 매우 복잡해졌다
-        
-        // after
-        /// 창의성이 필요하다.
-        /// 반대의 경우를 생각해보자 => 겹치지 않는 경우
-        /// 1. 다른 범위가 이 범위 시작보다 전에 끝난다
-        /// 2. 다른 범위가 이 범위가 끝난 후에 시작한다
-        func (r *Range) OverlapsWith(Range other) bool {
-        	// begin이나 end가 other에 속하는지 검사한다
-        	if (other.end <= r.begin) return false;
-        	if (other.begin >= r.end) return false;
-        
-        	return true;
-        }
-        
-        ```
-        
-6. 거대한 구문 나누기
-    - 개별적인 표현 뿐만 아니라, 거대한 구문도 동일한 테크닉으로 나눌 수 있다
-        
-        ```jsx
-        // before
-        var update_highlight = function (message_num) {
-        	if ($("#vote_value" + message_num).html() === "Up"){
-        		$("#thumbs_up" + message_num).addClass("highlighted");
-        		$("#thumbs_down" + message_num).removeClass("highlighted");
-        	} else if ($("#vote_value" + message_num).html() === "Down"){ 
-        		$("#thumbs_up" + message_num).removeClass("highlighted");
-        		$("#thumbs_down" + message_num).addClass("highlighted");
-        	} else {
-        		$("#thumbs_up" + message_num).removeClass("highlighted");
-        		$("#thumbs_down" + message_num).removeClass("highlighted");
-        	}
-        }
-        /// 개별 표현은 그렇게 크지 않지만, 모두 한곳에 있어서 코드를 읽는 사람의
-        /// 머리를 강타하는 거대한 구문을 형성한다
-        
-        // after
-        /// DRY 원리의 예
-        var update_highlight = function (message_num) {
-        	var thumbs_up = $("#thumbs_up" + message_num);
-        	var thumbs_down = $("#thumbs_down" + message_num);
-        	var vote_value = $("#vote_value" + message_num).html();
-        	var hi = "highlighted";
-        
-        	if (vote_value === "Up"){
-        		thumbs_up.addClass(hi);
-        		thumbs_down.removeClass(hi);
-        	} else if (vote_value === "Down"){ 
-        		thumbs_up.removeClass(hi);
-        		thumbs_down.addClass(hi);
-        	} else {
-        		thumbs_up.removeClass(hi);
-        		thumbs_down.removeClass(hi);
-        	}
-        }
-        ```
-        
-7. 표현을 단순화하는 다른 창의적인 방법들
+> 핵심: 거대한 표현을 더 소화하기 쉬운 여러 조각으로 나눈다
+
+우리는 보통 한번에 서너 개 일만 생각할 수 있으므로, 코드의 표현을 줄여 이해하기 쉽도록 한다
+
+#### 1. 설명변수
+
+거대한 표현을 잘게 쪼개는 가장 쉬운 방법: 작은 하위표현을 담을 “추가변수 extra variable”을 만들어라
+
+```python
+# before
+if line.split(":")[0].strip() == "root":
+
+# after
+username = line.split(":")[0].strip()
+if username == "root":
+```
+
+#### 2. 요약변수
+
+커다란 코드 덩어리를 짧은 이름으로 대체하여 더 쉽게 관리하고 파악하는 목적을 가진 변수
+
+의미를 쉽게 파악할 수 있어 설명을 요구하지 않는 표현이라 해도, 새로운 변수로 담아두는 방법은 여전히 유용함
+
+예시
+
+```dart
+// before
+if (request.user.id == document.owner_id) {
+    // 사용자가 이 문서를 수정할 수 있다
+}
+
+if (request.user.id != document.owner_id) {
+    // 문서는 읽기 전용이다
+}
+
+// after
+/// 코드의 핵심 개념 "사용자가 이 문서를 소유하는가" 를 더 명확하게 표현할 수 있음
+
+final bool user_owns_document = request.user.id == document.owner_id;
+if (user_owns_document) {
+    // 사용자가 이 문서를 수정할 수 있다
+}
+if (!user_owns_document) {
+    // 문서는 읽기 전용이다
+}
+
+/// 코드를 읽는 사람에게 이 함수에서 생각해야 하는 주된 개념을 짚어주는 역할을 함
+```
+
+#### 3. 드모르간의 법칙 사용하기
+
+> 드모르간의 법칙(De Morgan’s Laws)
+
+```plaintext
+1. not (a or b or c) == (not a) and (not b) and (not c)
+2. not(a and b and c) == (not a) or (not b) or (not c)
+```
+
+위의 법칙을 이용하여 불리언 표현을 간단하게 만들 수 있음
+
+```jsx
+// before
+if (!(file_exists && !is_protected))
+
+// after
+if (!file_exists || is_protected)
+```
+
+#### 4. 쇼트 서킷 논리(Short-Circuit Logic) 오용 말기
+
+> 쇼트서킷 논리: if (a || b) 에서 a가 참이면 b는 평가하지 않는 것
+
+매우 편리하지만 때로는 복잡한 연산을 수행할 때 오용될 수 있음
+
+예시
+
+```jsx
+// before
+assert((!(bucket = FindBucket(key))) || !bucket->IsOccupied());
+/// 이 키를 위한 바구니를 구하라. 바구니가 null이 아니면,
+/// 그것을 누군가가 차지하고 있지 않은지 확인하라
+
+/// 손을 멈추고 잠시 생각해야 무슨 의미인지 이해할 수 있다
+
+// after
+/// 거대한 코드를 쪼게 2줄로 늘어낫지만 훨씬 이해하기 쉬워졌다
+bucket = FindBucket(key);
+if (bucket != null) assert(!bucket->IsOccupied());
+```
+
+‘영리하게’ 작성된 코드에 유의하라. 나중에 다른 사람이 읽으면 그런 코드가 종종 혼란을 초래한다.
+
+물론 이러한 깔끔한 경우에 쇼트 서킷 연산을 사용하는 것에는 무리가 없다
+
+```jsx
+if (object && object-> method()) ...
+
+x = a || b || c
+```
+
+#### 5. 복잡한 논리와 씨름하기
+
+반대로 생각해보는 것으로 더욱 우아한 접근 방법을 찾을 수 있다
+
+```go
+// before
+struct Range {
+    int begin
+    int end // end는 경계를 포함하지 않음. (이전 챕터 참고)
+    // 예컨대 [0,5)은 [3,8) 와 부분적으로 겹친다
+    bool OverlapsWith(Range other)
+}
+
+func (r *Range) OverlapsWith(Range other) bool {
+    // begin이나 end가 other에 속하는지 검사한다
+    return (r.begin >= other.begin && r.begin <= other.end) ||
+            (r.end >= other.begin && r.end <= other.end);
+}
+
+// 버그가 있음. end에서 겹치는 것을 제외하지 않음
+// =>
+func (r *Range) OverlapsWith(Range other) bool {
+    // begin이나 end가 other에 속하는지 검사한다
+    return (r.begin >= other.begin && r.begin < other.end) ||
+            (r.end > other.begin && r.end <= other.end);
+}
+
+// 또 다른 버그가 있음. begin/end가 other를 완전히 포함하는 경우를 무시하고 있음
+func (r *Range) OverlapsWith(Range other) bool {
+    // begin이나 end가 other에 속하는지 검사한다
+    return (r.begin >= other.begin && r.begin < other.end) ||
+            (r.end > other.begin && r.end <= other.end) ||
+            (r.begin <= other.begin &&  r.end >= other.end);
+}
+
+/// 코드가 매우 복잡해졌다
+
+// after
+/// 창의성이 필요하다.
+/// 반대의 경우를 생각해보자 => 겹치지 않는 경우
+/// 1. 다른 범위가 이 범위 시작보다 전에 끝난다
+/// 2. 다른 범위가 이 범위가 끝난 후에 시작한다
+func (r *Range) OverlapsWith(Range other) bool {
+    // begin이나 end가 other에 속하는지 검사한다
+    if (other.end <= r.begin) return false;
+    if (other.begin >= r.end) return false;
+
+    return true;
+}
+
+```
+
+#### 6. 거대한 구문 나누기
+
+개별적인 표현 뿐만 아니라, 거대한 구문도 동일한 테크닉으로 나눌 수 있다
+
+```jsx
+// before
+var update_highlight = function (message_num) {
+    if ($("#vote_value" + message_num).html() === "Up"){
+        $("#thumbs_up" + message_num).addClass("highlighted");
+        $("#thumbs_down" + message_num).removeClass("highlighted");
+    } else if ($("#vote_value" + message_num).html() === "Down"){
+        $("#thumbs_up" + message_num).removeClass("highlighted");
+        $("#thumbs_down" + message_num).addClass("highlighted");
+    } else {
+        $("#thumbs_up" + message_num).removeClass("highlighted");
+        $("#thumbs_down" + message_num).removeClass("highlighted");
+    }
+}
+/// 개별 표현은 그렇게 크지 않지만, 모두 한곳에 있어서 코드를 읽는 사람의
+/// 머리를 강타하는 거대한 구문을 형성한다
+
+// after
+/// DRY 원리의 예
+var update_highlight = function (message_num) {
+    var thumbs_up = $("#thumbs_up" + message_num);
+    var thumbs_down = $("#thumbs_down" + message_num);
+    var vote_value = $("#vote_value" + message_num).html();
+    var hi = "highlighted";
+
+    if (vote_value === "Up"){
+        thumbs_up.addClass(hi);
+        thumbs_down.removeClass(hi);
+    } else if (vote_value === "Down"){
+        thumbs_up.removeClass(hi);
+        thumbs_down.addClass(hi);
+    } else {
+        thumbs_up.removeClass(hi);
+        thumbs_down.removeClass(hi);
+    }
+}
+```
+
+#### 7. 표현을 단순화하는 다른 창의적인 방법들
+
     - 매크로 사용을 권장하는 것은 아니지만 때에 따라선 매크로가 간단한 사용과 코드 가독성에 도움을 주기도 함
     - 비슷한 예시
         
@@ -1289,7 +1307,6 @@ for (int i=0; i < results.size; i++) {
         // after
         typedef onProcessed<T> = T Function(String);
         ```
-        
 
 ### 변수와 가독성
 
