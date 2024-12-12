@@ -75,7 +75,7 @@ void main() {
 1. 가독성 향상: 함수 정의와 호출이 간단해지고, 코드를 이해하기 쉬워짐.
 2. 확장성: 매개변수가 늘어나더라도 객체에 필드를 추가하는 방식으로 유연하게 대처 가능.
 3. 중복 제거: 관련 데이터를 묶음으로 처리하여 중복 코드를 줄임.
-4. 재사용성: Parameter Object를 다른 함수나 모듈에서도 재사용 가능.
+4. 재사용성: Parameter Object를 다른 함수나 모듈에서도 재사용 가능. → SRP
 
 ## Cons
 
@@ -85,7 +85,7 @@ void main() {
 
 ## Relationship with other patterns
 
-### Builder Pattern
+### [[Builder Pattern]]
 
 - 두 패턴 모두 복잡한 데이터 구성을 단순화하고 가독성을 높이는 데 중점을 둠.
 - Collecting Parameter Pattern은 데이터를 한 객체에 묶는 데 집중하고, Builder Pattern은 객체 생성을 단계적으로 처리함.
@@ -93,65 +93,10 @@ void main() {
   - Collecting Parameter Pattern은 단순히 데이터를 전달하기 위한 패턴인 반면, Builder Pattern은 복잡한 객체를 생성하는 과정에 대한 패턴.
   - Collecting Parameter Pattern은 함수 호출 시에만 주로 사용되는 반면, Builder Pattern은 객체 초기화 과정 전체에서 사용됨.
 
-### Composite Pattern
+### [[Composite Pattern]]
 
-Collecting Parameter Pattern에서 Parameter Object는 Composite Pattern처럼 여러 속성을 포함하여 복잡한 구조를 나타낼 수도 있음.
+- Collecting Parameter Pattern에서 Parameter Object는 Composite Pattern처럼 여러 속성을 포함하여 복잡한 구조를 나타낼 수도 있음.
 
-	•	DTO (Data Transfer Object):
-	•	Collecting Parameter Pattern의 Parameter Object는 DTO와 유사한 역할을 수행하지만, 주로 함수 호출을 간소화하는 데 초점이 맞춰짐.
+### Data Transfer Object Pattern
 
-## Why?
-
-Allows us to refactor a bulky method in which the results of multiple operations are collected in a single variable. This can be handy if we are sure that our method is violating the Single Responsibility Principle.
-
-```ruby
-class ScienceExperiment
-  def collect_results
-    results = []
-
-    if test_validity_of_outliers?
-      detected_outliers.each do |outlier|
-        results << outlier if valid_outlier?(outlier)
-      end
-    end
-
-    results << result_from_follow_up_check
-
-    control_group.each do |control_group_result|
-      results << reformat_control_group_result(control_group_result)
-    end
-
-    results
-  end
-end
-```
-
-## How?
-
-The above code is pretty messy. Let's apply the Collecting Parameter pattern.
-
-```ruby
-class ScienceExperimentWithCollectingParameter
-  def collect_results
-    results = []
-    collect_valid_outliers(results)
-    collect_results_from_follow_up_check(results)
-    collect_formatted_control_group_results(results)
-    results
-  end
-
-  private
-
-  def collect_valid_outliers(results)
-    # ... extracted code
-  end
-
-  def collect_results_from_follow_up_check(results)
-    # ... extracted code
-  end
-
-  def collect_formatted_control_group_results(results)
-    # ... extracted code
-  end
-end
-```
+- Collecting Parameter Pattern의 Parameter Object는 DTO와 유사한 역할을 수행하지만, 주로 함수 호출을 간소화하는 데 초점이 맞춰짐.

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/structural/patterns/Composite Pattern.md",
+                "file": "oop/design-pattern/general/patterns/Null Object Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Composite Pattern"
+              "title": "Null Object Pattern"
             }
           }
         ]
@@ -178,17 +178,17 @@
   },
   "active": "de94ac38fbb95296",
   "lastOpenFiles": [
+    "oop/design-pattern/structural/patterns/Composite Pattern.md",
+    ".git/objects/52/0b9cc4725c2fadb6d657ddcc4de688ca652efb",
+    ".git/objects/66/5a6e67991208988bb99ac5ded7ca5fa2321370",
+    ".git/objects/9d/e2b8f73c170d6af4126f5627ac4edcda658583",
+    ".git/objects/a7/7a9897f93e1ef36a0715ac6d49e852dadd9ebc",
+    ".git/objects/fd/dfcfd667be21973d83ecbfeed476a985c406df",
+    ".git/objects/c2/4e6f2241602adb8be335730d0b9ca4e0487182",
+    ".git/objects/ad/edef9a6086746d711e769c4447edb10ed4e19d",
     ".git/index.lock",
-    ".git/objects/1b/3490320d861f283eb3ca31d3e5f1f4a79b73b3",
-    ".git/objects/83/0dcb008f9279e7063a5d93c942b65e4e40085e",
-    ".git/objects/cd/6864190f0ebccb9f0781af484bfc7200dd54cd",
-    ".git/objects/99/19df890ab183e39e8e9a18d52ea718efe0be30",
-    ".git/objects/00/c3b49c49d9f88be72eb07c213ecdbe20e18567",
-    ".git/objects/4c/d56237d504c76a2c24cdd0fc1372beb13773d7",
-    ".git/objects/0d/b63e88a997c7e5782d179341724b48ee7c0151",
-    ".git/objects/b3/38a3dbcc3e31e59e29877538430b0fa6105d1f",
-    ".git/objects/42/506ccd2991474659e0c275684f5d36187886e2",
-    ".git/objects/60/b6a8e19c7aeda2d00359894da532907de659df",
+    ".git/objects/50/a68bd1b27fe73bfa78f1a5b2732f3b75596b44",
+    ".git/objects/ef/f6b028e276252fe40eab6c977ef1ced9178692",
     "oop/design-pattern/behavioral/patterns/Double Dispatch Pattern.md",
     "oop/design-pattern/general/patterns/Collecting Parameter Pattern.md",
     "oop/design-pattern/general/patterns/Null Object Pattern.md",
