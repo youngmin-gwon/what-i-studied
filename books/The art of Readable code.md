@@ -1621,7 +1621,7 @@ url_path_name = re.sub(r"['\.]", "", url_path_name)
 url_path_name = re.sub(r"[^a-z0-9]+", "-", url_path_name)
 url_path_name = "/biz/" + url_path_name
 
-business.date_created = datetime.datetime.utcnow()
+business.date_created = datetime.datetime.utc_now()
 business.save_to_database()
 ## 전체 목적과 직접 상관없는 하위문제는 name을 유효한 url로 변환하는 일을 함
 ## 추출하는 것이 바람직함
@@ -1638,7 +1638,7 @@ def make_url_friendly(text):
 
 business = Business()
 business.name = "/biz/" + make_url_friendly(business_name)
-business.date_created = datetime.datetime.utcnow()
+business.date_created = datetime.datetime.utc_now()
 business.save_to_database()
 ## 훨씬 더 정규적인 패턴을 갖게 됨
 ## 정규표현식이나 복잡한 문자열 처리를 신경 쓰지 않아도 되므로 코드의 가독성이 더 좋아짐
@@ -1709,7 +1709,7 @@ cipher = Cipher("aes_128_abc", key=PRIVATE_KEY, init_vector=INIT_VECTOR,
 encrypted_bytes = cipher.update(user_str)
 encrypted_bytes += cipher.final() # 현재의 128 비트 블록을 읽어 들인다
 url = "http://example.com/?user_info="
-        + base64.urlsafe_b64encode(encrypted_bytes)
+        + base64.url_safe_b64encode(encrypted_bytes)
 
 # after
 def url_safe_encrypt(obj):
@@ -1718,7 +1718,7 @@ def url_safe_encrypt(obj):
                         op=ENCODE)
     encrypted_bytes = cipher.update(obj_str)
     encrypted_bytes += cipher.final() # 현재의 128 비트 블록을 읽어 들인다
-    return base64.urlsafe_b64encode(encrypted_bytes)
+    return base64.url_safe_b64encode(encrypted_bytes)
 
 user_info = { "username" : "...", "password" : "..." }
 url = "http://example.com/?user_info=" + url_safe_encrypt(user_info)
@@ -1744,7 +1744,7 @@ def url_safe_encrypt(obj):
 
 def url_safe_encrypt_str(data):
     encrypted_bytes = encrypt(data)
-    return base64.urlsafe_b64encode(encrypted_bytes)
+    return base64.url_safe_b64encode(encrypted_bytes)
 
 def encrypt(data):
     cipher = make_cipher()
@@ -1759,260 +1759,269 @@ def make_cipher():
 
 ### 한번에 하나씩
 
-- 한 번에 하나의 작업만 수행하게 코드를 구성해야 이해하기 쉽다
-- 이 장에서는 코드를 “탈파편화(defragmenting)”하는 방법을 다룸
-- 함수 수준에서 머무르는 것이 아니라, 커다란 함수 안에 있는 코드를 재조직하여 그 안에 여러 개의 독자적인 논리적 영역이 있는 것처럼 만들어야 한다
-- 한가지 일만 수행하게 하는 절차
+한 번에 하나의 작업만 수행하게 코드를 구성해야 이해하기 쉽다
+
+이 장에서는 코드를 `탈파편화(defragmenting)`하는 방법을 다룸
+
+함수 수준에서 머무르는 것이 아니라, 커다란 함수 안에 있는 코드를 재조직하여 그 안에 여러 개의 독자적인 논리적 영역이 있는 것처럼 만들어야 한다
+
+한가지 일만 수행하게 하는 절차
 
 ```plaintext
 1. 코드가 수행하는 모든 ‘작업’을 나열한다. 이 ‘작업’ 이라는 단어는 매우 유연하게 사용된다. 이는 “객체가 정상적으로 존재하는지 확인하라”처럼 작은 일일 수도 있고, “트리 안에 있는 모든 노드를 방문하라”처럼 모호한 일일 수도 있다
 2. 이러한 작업을 분리하여 서로 다른 함수로 혹은 적어도 논리적으로 구분되는 영역에 놓을 수 있는 코드로 만들어라
 ```
 
-1. 작업은 작을 수 있다
-    - 예시
-        
-        ```jsx
-        // 댓글에 추천 반대 의사표시를 할 수 있는 투표 도구 예시
-        
-        // before
-        var vote_changed = function(old_vote, new_vote){ 
-        	// 각 투표는 '추천', '반대' 혹은 '' 이다
-        	var score = get_score();
-        
-        	if (new_vote !== old_vote) {
-        		if (new_vote === "Up") {
-        			score += (old_vote === "Down" ? 2 : 1);			
-        		} else if (new_vote === "Down") {
-        			score -= (old_vote === "Up" ? 2 : 1);			
-        		} else if (new_vote === "") {
-        			score += (old_vote === "Up" ? -1 : 1);
-        		}
-        	}
-        	set_score(score);
-        };
-        /// 코드 길이는 짧지만 많은 일을 수행하기 때문에 미세한 에러, 오자,
-        /// 혹은 다른 버그가 숨어있는지 확인하기 어려움
-        
-        /// 코드는 한가지 일만 수행하는 것 같지만 실제로 한번에 두가지 일을 수행함
-        /// 1. old_vote와 new_vote가 수치값으로 '해석' 된다
-        /// 2. 점수가 변경된다
-        
-        // after
-        var vote_value = function(vote) {
-        	if (vote === "Up") {
-        		return 1;
-        	}
-        	if (vote === "Down") {
-        		return -1;
-        	}
-        	return 0;
+#### 1. 작업은 작을 수 있다
+
+예시
+
+```jsx
+// 댓글에 추천 반대 의사표시를 할 수 있는 투표 도구 예시
+
+// before
+var vote_changed = function(old_vote, new_vote) {
+    // 각 투표는 '추천', '반대' 혹은 '' 이다
+    var score = get_score();
+
+    if (new_vote !== old_vote) {
+        if (new_vote === "Up") {
+            score += (old_vote === "Down" ? 2 : 1);
+        } else if (new_vote === "Down") {
+            score -= (old_vote === "Up" ? 2 : 1);
+        } else if (new_vote === "") {
+            score += (old_vote === "Up" ? -1 : 1);
         }
-        
-        var vote_changed = function(old_vote, new_vote) {
-        	var score = get_score();
-        
-        	score -= vote_value(old_vote); // 이전값 제거
-        	score += vote_value(new_vote); // 새 값을 더함
-        
-        	set_score(score);
-        }
-        ```
-        
-2. 객체에서 값 추출하기
-    - 예시
-        
-        ```jsx
-        // location_info라는 dictionary를 이용하여 "Santa Monica, USA", "Paris, France"
-        // 와 같은 포맷을 만드는 함수
-        
-        // 허나 dictionary 안에 일부 혹은 전체 값이 없는 경우 어떻게 처리해야할까?
-        
-        // before
-        var place = location_info["LocalityName"]; // ex. "Santa Monica"
-        if (!place) {
-        	place = location_info["SubAdministrativeAreaName"]; // ex. Los Angeles
-        }
-        if (!place) {
-        	place = location_info["AdministrativeAreaName"]; // ex. "California"
-        }
-        if (!place) {
-        	place = "Middle-of-Nowhere"
-        }
-        
-        if (!location_info["CountryName"]) {
-        	place += ", " + location_info["CountryName"]; // ex. "USA"
-        } else {
-        	place += ", Planet Earth";
-        }
-        
-        return place;
-        /// 지저분하지만 잘 동작한다
-        /// 개선하고 싶은 상황이 있을때는?
-        ///   - country 대신 state를 표기하고 싶을 때는?
-        ///   => 이러한 기능을 추가하면 더욱 지저분해지게 된다
-        /// -------------------------------------------------------
-        
-        // after
-        // ------------------------------------------------------------------
-        /// 1.
-        /// 사용하기 간편한 변수로 요약
-        var town = location_info["LocalityName"]; // ex. "Santa Monica"
-        var city = location_info["SubAdministrativeAreaName"]; // ex. Los Angeles
-        var state = location_info["AdministrativeAreaName"]; // ex. "California"
-        var country = location_info["CountryName"]; // ex. "USA"
-        
-        /// 반환되는 값의 '두 번째 절반' 이 무엇인지 알아내기
-        /// - 기본값에서 부터 시작하라. 그리고 가장 구체적인 값으로 계속 덮어써라
-        var second_half = "Planet Earth";
-        if (country) {
-        	second_half = country;
-        }
-        if (state && country === "USA") {
-        	second_half = state;
-        }
-        
-        /// 이와 비슷한 방법으로 '첫번째 절반 알아내기'
-        var first_half = "Middle-of-Nowhere";
-        if (state && country !== "USA") {
-        	first_half = state;
-        }
-        if (city) {
-        	first_half = city;
-        }
-        if (town) {
-        	first_half = town;
-        }
-        
-        return first_half + ", " + second_half;
-        /// 다음의 순서로 탈파편화 된 것을 확인하라
-        /// 1. location_info 값 읽기
-        /// 2. 도시의 값을 계산하기
-        /// 3. 나라의 값을 계산하기
-        /// 4. 장소 값을 변경하기
-        
-        // ---------------------------------------------------------------------
-        // 2.
-        /// 사실 일부 코드에서는 두가지 작업이 동시에 일어나고 있다
-        /// - 변수의 리스트를 하나씩 읽어서, 존재하는 값 중 가장 선호되는 값을 선택
-        /// - 나라가 "USA" 인지 아닌지에 따라서 다른 리스트르를 사용함
-        
-        /// if USA 논리가 곳곳에 섞여있음
-        /// a || b || c 문법: 첫번째 참값 리턴
-        var first_half, second_half;
-        
-        if (country === "USA") {
-        	first_half = town || citiy || "Middle-of-Nowhere";
-        	second_half = state || "USA";
-        } else {
-        	first_half = town || citiy || state || "Middle-of-Nowhere";
-        	second_half = country || "Planet Earth";	
-        }
-        return first_half + ", " + second_half;
-        // ---------------------------------------------------------------------
-        ```
-        
-        ```dart
-        // 상황
-        // - 웹크롤링 시스템에서 각각의 웹페이지가 내려받아지면 
-        //   UpdateCounts()라는 함수가 호출됨
-        
-        // 우리가 바라는 코드의 모습
-        void UpdateCounts(HttpDownload hd) {
-        	counts["Exit State"][hd.exit_state()]++;        // ex. "SUCCESS" or "FAILURE"
-        	counts["Http Response"][hd.http_response()]++;  // ex. "404 NOT FOUND"
-        	counts["Content-Type"][hd.content_type()]++;    // ex. "text/html"
-        }
-        
-        // before
-        
-        // 실제 로직
-        void UpdateCounts(HttpDownload hd) {
-        	// 값이 있으면 Exit State 값을 찾는다
-        	if (!hd.has_event_log() || !hd.event_log().has_exit_state()) {
-        		counts["Exit State"]["unknown"]++;	
-        	} else {
-        		String state_str = ExitStateTypeName(hd.event_log().exit_state());
-        		counts["Exit State"][state_str]++;			
-        	}
-        
-        	// 만약 HTTP 헤더가 아예 없으면, 나머지 요소들읠 위해서 "unknown"을 이용
-        	if (!hd.has_http_headers()) {
-        		counts["Http Response"]["unknown"]++;
-        		counts["Content-Type"]["unknown"]++;
-        		return;
-        	}
-        
-        	HttpHeaders headers = hd.http_headers();
-        
-        	// 값이 있으면 HTTP 응답을 기록하고, 아니면 "unknown"을 기록한다.
-        	if (!headers.has_response_code()) {
-        		counts["HTTP Response"]["unknown"]++;
-        	} else {
-        		String code = StringPrintf("%d", headers.response_code());
-        		counts["HTTP Response"][code]++;
-        	}
-        	
-        
-        	// 값이 있으면 Content-Type 값을 기록하고, 아니면 "unknown"을 기록한다.
-        	if (!headers.has_content_type()) {
-        		counts["Content-Type"]["unknown"]++;
-        	} else {
-        		String content_type = ContentTypeMime(headers.content_type());
-        		counts["Content-Type"][content_type]++;
-        	}
-        }
-        
-        // after
-        // 1.
-        void UpdateCounts(HttpDownload hd) {
-        	// 작업: 읽고자 하는 각각의 값을 위한 기본값을 정의
-        	String exit_state = "unknown";
-        	String http_response = "unknown";
-        	String content_type = "unknown";
-        
-        	// 작업: HttpDownload에서 각각의 값을 하나씩 읽는다
-        	if (hd.has_event_log() && hd.event_log().has_exit_state()) {
-        		exit_state = ExitStateTypeName(hd.event_log().exit_state());
-        	}
-        	if (hd.has_http_headers() && hd.http_headers().has_response_code()) {
-        		http_response = StringPrintf("%d", headers.response_code());
-        	} 
-        	if (hd.has_http_headers() && hd.http_headers().has_content_type()) {
-        		content_type = ContentTypeMime(headers.content_type());
-        	} 
-        
-        	// 작업: count[]를 갱신한다
-        	counts["Exit State"][exit_state]++;
-        	counts["HttpResponse"][http_response]++;
-        	counts["Content-Type"][content_type]++;
-        }
-        
-        // 2.
-        void UpdateCounts(HttpDownload hd) {
-        	counts["Exit State"][ExitState(hd)]++;        // ex. "SUCCESS" or "FAILURE"
-        	counts["Http Response"][HttpResponse(hd)]++;  // ex. "404 NOT FOUND"
-        	counts["Content-Type"][ContentType(hd)]++;    // ex. "text/html"
-        }
-        
-        String ExitState(HttpDownload hd) {
-        	if (hd.has_event_log() && hd.event_log().has_exit_state()) {
-        		return ExitStateTypeName(hd.event_log().exit_state());
-        	} else {
-        		return "unknown";
-        	}
-        }
-        ```
-        
+    }
+    set_score(score);
+};
+/// 코드 길이는 짧지만 많은 일을 수행하기 때문에 미세한 에러, 오자,
+/// 혹은 다른 버그가 숨어있는지 확인하기 어려움
+
+/// 코드는 한가지 일만 수행하는 것 같지만 실제로 한번에 두가지 일을 수행함
+/// 1. old_vote와 new_vote가 수치값으로 '해석' 된다
+/// 2. 점수가 변경된다
+
+// after
+var vote_value = function(vote) {
+    if (vote === "Up") {
+        return 1;
+    }
+    if (vote === "Down") {
+        return -1;
+    }
+    return 0;
+}
+
+var vote_changed = function(old_vote, new_vote) {
+    var score = get_score();
+
+    score -= vote_value(old_vote); // 이전값 제거
+    score += vote_value(new_vote); // 새 값을 더함
+
+    set_score(score);
+}
+```
+
+#### 2. 객체에서 값 추출하기
+
+예시
+
+```jsx
+// location_info라는 dictionary를 이용하여 "Santa Monica, USA", "Paris, France"
+// 와 같은 포맷을 만드는 함수
+
+// 허나 dictionary 안에 일부 혹은 전체 값이 없는 경우 어떻게 처리해야할까?
+
+// before
+var place = location_info["LocalityName"]; // ex. "Santa Monica"
+if (!place) {
+    place = location_info["SubAdministrativeAreaName"]; // ex. Los Angeles
+}
+if (!place) {
+    place = location_info["AdministrativeAreaName"]; // ex. "California"
+}
+if (!place) {
+    place = "Middle-of-Nowhere"
+}
+
+if (!location_info["CountryName"]) {
+    place += ", " + location_info["CountryName"]; // ex. "USA"
+} else {
+    place += ", Planet Earth";
+}
+
+return place;
+/// 지저분하지만 잘 동작한다
+/// 개선하고 싶은 상황이 있을때는?
+///   - country 대신 state를 표기하고 싶을 때는?
+///   => 이러한 기능을 추가하면 더욱 지저분해지게 된다
+/// -------------------------------------------------------
+
+// after
+// ------------------------------------------------------------------
+/// 1.
+/// 사용하기 간편한 변수로 요약
+var town = location_info["LocalityName"]; // ex. "Santa Monica"
+var city = location_info["SubAdministrativeAreaName"]; // ex. Los Angeles
+var state = location_info["AdministrativeAreaName"]; // ex. "California"
+var country = location_info["CountryName"]; // ex. "USA"
+
+/// 반환되는 값의 '두 번째 절반' 이 무엇인지 알아내기
+/// - 기본값에서 부터 시작하라. 그리고 가장 구체적인 값으로 계속 덮어써라
+var second_half = "Planet Earth";
+if (country) {
+    second_half = country;
+}
+if (state && country === "USA") {
+    second_half = state;
+}
+
+/// 이와 비슷한 방법으로 '첫번째 절반 알아내기'
+var first_half = "Middle-of-Nowhere";
+if (state && country !== "USA") {
+    first_half = state;
+}
+if (city) {
+    first_half = city;
+}
+if (town) {
+    first_half = town;
+}
+
+return first_half + ", " + second_half;
+/// 다음의 순서로 탈파편화 된 것을 확인하라
+/// 1. location_info 값 읽기
+/// 2. 도시의 값을 계산하기
+/// 3. 나라의 값을 계산하기
+/// 4. 장소 값을 변경하기
+
+// ---------------------------------------------------------------------
+// 2.
+/// 사실 일부 코드에서는 두가지 작업이 동시에 일어나고 있다
+/// - 변수의 리스트를 하나씩 읽어서, 존재하는 값 중 가장 선호되는 값을 선택
+/// - 나라가 "USA" 인지 아닌지에 따라서 다른 리스트르를 사용함
+
+/// if USA 논리가 곳곳에 섞여있음
+/// a || b || c 문법: 첫번째 참값 리턴
+var first_half, second_half;
+
+if (country === "USA") {
+    first_half = town || city || "Middle-of-Nowhere";
+    second_half = state || "USA";
+} else {
+    first_half = town || city || state || "Middle-of-Nowhere";
+    second_half = country || "Planet Earth";
+}
+return first_half + ", " + second_half;
+// ---------------------------------------------------------------------
+```
+
+```dart
+// 상황
+// - 웹크롤링 시스템에서 각각의 웹페이지가 내려받아지면
+//   UpdateCounts()라는 함수가 호출됨
+
+// 우리가 바라는 코드의 모습
+void UpdateCounts(HttpDownload hd) {
+    counts["Exit State"][hd.exit_state()]++;        // ex. "SUCCESS" or "FAILURE"
+    counts["Http Response"][hd.http_response()]++;  // ex. "404 NOT FOUND"
+    counts["Content-Type"][hd.content_type()]++;    // ex. "text/html"
+}
+
+// before
+
+// 실제 로직
+void UpdateCounts(HttpDownload hd) {
+    // 값이 있으면 Exit State 값을 찾는다
+    if (!hd.has_event_log() || !hd.event_log().has_exit_state()) {
+        counts["Exit State"]["unknown"]++;
+    } else {
+        String state_str = ExitStateTypeName(hd.event_log().exit_state());
+        counts["Exit State"][state_str]++;
+    }
+
+    // 만약 HTTP 헤더가 아예 없으면, 나머지 요소들읠 위해서 "unknown"을 이용
+    if (!hd.has_http_headers()) {
+        counts["Http Response"]["unknown"]++;
+        counts["Content-Type"]["unknown"]++;
+        return;
+    }
+
+    HttpHeaders headers = hd.http_headers();
+
+    // 값이 있으면 HTTP 응답을 기록하고, 아니면 "unknown"을 기록한다.
+    if (!headers.has_response_code()) {
+        counts["HTTP Response"]["unknown"]++;
+    } else {
+        String code = StringPrintf("%d", headers.response_code());
+        counts["HTTP Response"][code]++;
+    }
+
+    // 값이 있으면 Content-Type 값을 기록하고, 아니면 "unknown"을 기록한다.
+    if (!headers.has_content_type()) {
+        counts["Content-Type"]["unknown"]++;
+    } else {
+        String content_type = ContentTypeMime(headers.content_type());
+        counts["Content-Type"][content_type]++;
+    }
+}
+
+// after
+// 1.
+void UpdateCounts(HttpDownload hd) {
+    // 작업: 읽고자 하는 각각의 값을 위한 기본값을 정의
+    String exit_state = "unknown";
+    String http_response = "unknown";
+    String content_type = "unknown";
+
+    // 작업: HttpDownload에서 각각의 값을 하나씩 읽는다
+    if (hd.has_event_log() && hd.event_log().has_exit_state()) {
+    	exit_state = ExitStateTypeName(hd.event_log().exit_state());
+    }
+    if (hd.has_http_headers() && hd.http_headers().has_response_code()) {
+    	http_response = StringPrintf("%d", headers.response_code());
+    }
+    if (hd.has_http_headers() && hd.http_headers().has_content_type()) {
+    	content_type = ContentTypeMime(headers.content_type());
+    }
+
+    // 작업: count[]를 갱신한다
+    counts["Exit State"][exit_state]++;
+    counts["HttpResponse"][http_response]++;
+    counts["Content-Type"][content_type]++;
+}
+
+// 2.
+void UpdateCounts(HttpDownload hd) {
+    counts["Exit State"][ExitState(hd)]++;        // ex. "SUCCESS" or "FAILURE"
+    counts["Http Response"][HttpResponse(hd)]++;  // ex. "404 NOT FOUND"
+    counts["Content-Type"][ContentType(hd)]++;    // ex. "text/html"
+}
+
+String ExitState(HttpDownload hd) {
+    if (hd.has_event_log() && hd.event_log().has_exit_state()) {
+        return ExitStateTypeName(hd.event_log().exit_state());
+    } else {
+        return "unknown";
+    }
+}
+```
 
 ### 생각을 코드로 만들기
 
-- “할머니에게 설명할 수 없다면 당신은 제대로 이해한 것이 아닙니다” - Albert Einstein
-- 설명할 내용을 걸러서 요지만 뽑아내서 설명한다면, 듣는 사람이 내용을 잘 이해하게 도와줄 뿐만 아니라 설명하는 사람 자신도 그 내용을 다시 한 번 명확하게 이해하게 도와준다 ⇒ 코드 역시 “쉬운 말” 로 작성해야 함
-    - 간단하게 만드는 과정
-        1. 코드가 할 일을 옆의 동료에게 말하듯이 평범한 영어로 묘사 하라
-        2. 이 설명에 들어가는 핵심적인 단어와 문구를 포착 하라
-        3. 설명과 부합하는 코드를 작성 하라
+> “할머니에게 설명할 수 없다면 당신은 제대로 이해한 것이 아닙니다” - Albert Einstein
+
+설명할 내용을 걸러서 요지만 뽑아내서 설명한다면, 듣는 사람이 내용을 잘 이해하게 도와줄 뿐만 아니라 설명하는 사람 자신도 그 내용을 다시 한 번 명확하게 이해하게 도와준다 ⇒ 코드 역시 “쉬운 말” 로 작성해야 함
+
+간단하게 만드는 과정
+
+```plaintext
+1. 코드가 할 일을 옆의 동료에게 말하듯이 평범한 영어로 묘사 하라
+2. 이 설명에 들어가는 핵심적인 단어와 문구를 포착 하라
+3. 설명과 부합하는 코드를 작성 하라
+```
+
 1. 논리를 명확하게 설명하기
     - 예시
         
@@ -2130,7 +2139,7 @@ def make_cipher():
         	num_shares_iter.NextRow()
         ```
         
-        1. 이 방법을 재귀적으로 적용하기
+        2. 이 방법을 재귀적으로 적용하기
         
         ```python
         # 원래 코드에 있던 지저분한 코드 블록과 같음
