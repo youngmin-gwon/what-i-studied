@@ -35,19 +35,24 @@ code abstraction 을 하므로 domain layer의 unit test 를 보다 쉽게 만�
 
 ![Untitled](Untitled%203.png)
 
-- (같은 아이디어를 공유하지만) 크게 `1. object`, `2.class` adapter 구조로 나눌 수 있음
-    - Target or ITarget은 Client가 사용하는 interface 정의
-    - Client는 Target과 소통함
-    - Adaptee은 Adapter를 연결하여 변환할 것(ex. 3rd party library)
-    - Adapter는 Adaptee의 interface 역할을 하여 Adaptee를  Target과 이어줌
-- 차이점
-    - **class** 는 Adaptee로 부터 Target interface로 전달하기 위해 **상속**을 이용   ⇒ Adaptee의 concrete operation 이 Target의 구현으로 부터 바로 호출됨
-        - 구현하고자 하는 언어가 multiple inheritance 를 지원해야 구현할 수 있음
-    - **object** 는  Adaptee로 부터 Target interface로 전달하기 위해 **객체 구조**를 이용
-- Github에 작성한 예시에서 object implementation 을 사용한 이유
-    - Dart는 multiple inheritance를 지원하지 않음
-    - object adapter는 runtime에 연결되기 때문에 더욱 유연하다(=loosely-coupled) ⇒ SOLID 원칙 중 Liskov substitution 원칙에 부합함
-        - class adapter 는 쉽게 override 만 하면 된다는 장점이 있음
+(같은 아이디어를 공유하지만) 크게 `1. object`, `2.class` adapter 구조로 나눌 수 있음
+
+- Target or ITarget은 Client가 사용하는 interface 정의
+- Client는 Target과 소통함
+- Adaptee은 Adapter를 연결하여 변환할 것(ex. 3rd party library)
+- Adapter는 Adaptee의 interface 역할을 하여 Adaptee를  Target과 이어줌
+
+### Difference
+
+- **class** 는 Adaptee로 부터 Target interface로 전달하기 위해 **상속**을 이용   ⇒ Adaptee의 concrete operation 이 Target의 구현으로 부터 바로 호출됨
+    - 구현하고자 하는 언어가 multiple inheritance 를 지원해야 구현할 수 있음
+- **object** 는  Adaptee로 부터 Target interface로 전달하기 위해 **객체 구조**를 이용
+
+Github에 작성한 예시에서 object implementation 을 사용한 이유
+
+- Dart는 multiple inheritance를 지원하지 않음
+- object adapter는 runtime에 연결되기 때문에 더욱 유연하다(=loosely-coupled) ⇒ SOLID 원칙 중 Liskov substitution 원칙에 부합함
+    - class adapter 는 쉽게 override 만 하면 된다는 장점이 있음
 
 ![Untitled](Untitled%204.png)
 
