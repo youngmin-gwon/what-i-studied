@@ -45,7 +45,7 @@ code abstraction 을 하므로 domain layer의 unit test 를 보다 쉽게 만�
 ### Difference
 
 - **class** 는 Adaptee로 부터 Target interface로 전달하기 위해 **상속**을 이용   ⇒ Adaptee의 concrete operation 이 Target의 구현으로 부터 바로 호출됨
-    - 구현하고자 하는 언어가 multiple inheritance 를 지원해야 구현할 수 있음
+  - 구현하고자 하는 언어가 multiple inheritance 를 지원해야 구현할 수 있음
 - **object** 는  Adaptee로 부터 Target interface로 전달하기 위해 **객체 구조**를 이용
 
 Github에 작성한 예시에서 object implementation 을 사용한 이유
@@ -63,13 +63,16 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 
 ## Pros
 
-    - Single Responsibility Principle
-    - Open/Closed Principle
+- Single Responsibility Principle
+- Open/Closed Principle
 
 ## Cons
+
     - 새로운 인터페이스와 클래스를 추가해야하기 때문에 코드 복잡도 증가
         - 때로는 service 클래스를 쉽게 변경하는 것이 더 간단할 때도 있음
-- 다른 패턴과의 관계
+
+## Relationship between other patterns
+
     - Bridge
         - 일반적으로 사전에 설계되어 서로 독립적으로 응용 프로그램의 일부를 개발할 수 있음
         - 일반적으로 기존 앱과 함께 사용되어 호환되지 않는 일부 클래스가 잘 작동하도록 함
@@ -83,7 +86,9 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
     - Facade
         - Facade는 기존 객체에 새로운 인터페이스를 정의함
         - Adapter는 기존 존재하는 인터페이스를 유용하게 만들려고 함
-- Bridge, State, Strategy, Adapter 차이
-    - 어떤 면에서는 매우 비슷한 구조를 가지고 있음
-        - subclass에 작업을 맡긴다는 구조가 비슷함
-    - 사용 목적이 다름
+
+## Difference with Bridge, State, Strategy, Adapter Pattern
+
+- 어떤 면에서는 매우 비슷한 구조를 가지고 있음
+    - subclass에 작업을 맡긴다는 구조가 비슷함
+- 사용 목적이 다름
