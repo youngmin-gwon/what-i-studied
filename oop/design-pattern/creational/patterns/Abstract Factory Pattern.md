@@ -1,6 +1,28 @@
 
 # Abstract Factory(=Kit)
 
+- [[#Description|Description]]
+- [[#Examples|Examples]]
+- [[#[[Factory Method Pattern]] vs [[Abstract Factory Pattern]]|[[Factory Method Pattern]] vs [[Abstract Factory Pattern]]]]
+- [[#Structure|Structure]]
+- [[#Adaptability|Adaptability]]
+- [[#Pros|Pros]]
+- [[#Cons|Cons]]
+- [[#Relationship with other patterns|Relationship with other patterns]]
+	- [[#Relationship with other patterns#[[Prototype Pattern]], [[Builder Pattern]]|[[Prototype Pattern]], [[Builder Pattern]]]]
+	- [[#Relationship with other patterns#[[Builder Pattern]]|[[Builder Pattern]]]]
+	- [[#Relationship with other patterns#[[Factory Method Pattern]]|[[Factory Method Pattern]]]]
+	- [[#Relationship with other patterns#[[Facade Pattern]]|[[Facade Pattern]]]]
+	- [[#Relationship with other patterns#[[Bridge Pattern]]|[[Bridge Pattern]]]]
+	- [[#Relationship with other patterns#[[Singleton Pattern]]|[[Singleton Pattern]]]]
+- [[#Difference in "factory" keyword|Difference in "factory" keyword]]
+	- [[#Difference in "factory" keyword#1. Factory|1. Factory]]
+	- [[#Difference in "factory" keyword#2. Creation method|2. Creation method]]
+	- [[#Difference in "factory" keyword#3. Static creation (or factory) method|3. Static creation (or factory) method]]
+	- [[#Difference in "factory" keyword#4. Simple factory pattern|4. Simple factory pattern]]
+	- [[#Difference in "factory" keyword#5. Factory Method pattern|5. Factory Method pattern]]
+	- [[#Difference in "factory" keyword#6. Abstract Factory pattern|6. Abstract Factory pattern]]
+
 ## Description
 
 [[Creational Pattern]]
