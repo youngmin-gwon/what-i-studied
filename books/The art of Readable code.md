@@ -186,7 +186,7 @@ Rotate(float angle) => Rotate(float degree_cw)
 password => plaintext_password
 comment => unescaped_comment
 html => html_utf8
-data => data_urlenc
+data => data_url_enc
 ```
 
 #### 5. 사용 범위가 넓으면 긴 이름을 사용하라
@@ -382,86 +382,90 @@ class Logger
 
 ### 주석에 담아야 하는 대상
 
-- 주석의 목적은 코드를 읽는 사람이 코드를 작성한 사람만큼 코드를 잘 이해하게 돕는 데 있다는 것을 명심하자
-- 머릿속에 있는 정보 중 어떤 정보를 언제 적어야 하는지 초점을 맞춤
-1. 설명하지 말아야 할 것
-    - 코드에서 빠르게 유추할 수 있는 내용은 주석으로 달지 말라
-    - 설명 자체를 위한 설명을 달지 말라
-        
-        😱  의미없는 주석 : 코드를 읽는 사람이 코드를 더 잘 이해하도록 도와주지 않음
-        
-        ```dart
-        // 클래스 Account를 위한 정의
-        class Account {
-        	// 생성자
-        	const Account();
-        
-        	// profit에 새로운 값 설정	
-        	void setProfit(double profit);
-        
-        }
-        ```
-        
-        😱  의미없는 주석 : 코드를 읽으면 무슨 일이 수행 되는지 알 수 있음
-        
-        ```python
-        # 두 번째 '*' 뒤에 오는 내용을 모두 제거
-        name = '*'.join(line.split('*')[:2])
-        ```
-        
-        😱  의미없는 주석 → ☺️ 의미있는 주석
-        
-        ```go
-        // ``` bad ```
-        // 주어진 이름과 깊이를 이용해서 서브 트리[h1]에 있는 노드 찾기
-        func FindNodeInSubtree(subtree *Node, name string, depth int) (*Node)
-        
-        // ``` better ```
-        // 주어진 'name' 으로 노드를 찾거나 아니면 null을 반환
-        // 만약 depth <= 0 이면 'subtree'만 검색됨
-        // 만약 depth == N 이면 N 레벨과 그 아래만 검색됨
-        func FindNodeInSubtree(subtree *Node, name string, depth int) (*Node)
-        ```
-        
-    - 나쁜 이름에 주석을 달지 마라 - 대신 이름을 고쳐라
-        - 좋은 이름은 '스스로 설명'하므로 좋은 주석보다 낫다
-        - "좋은 코드 > 나쁜코드 + 좋은 주석" 의 원칙을 기억하자
-        
-        ```dart
-        // ``` bad ```
-        // 반환되는 항목의 수나 전체 바이트 수와 같이
-        // Request가 정하는 대로 Reply에 일정한 한계를 적용
-        void cleanReply(Request request, Reply reply);
-        
-        // ``` better ```
-        // 'reply' 가 count/byte/등과 같이 'request'가 정하는 조건을 만족시키도록 한다
-        void enforceLimitsFromRequest(Request request, Reply reply);
-        ```
-        
-        ```dart
-        // ``` bad ```
-        // 해당 키를 위한 핸들을 놓아준다. 이 함수는 실제 레지스트리를 수정하지 않는다
-        void deleteRegistry(RegistryKey key);
-        
-        // ``` better ```
-        void releaseRegistryHandle(RegistryKey key);
-        ```
-        
-2. 코딩을 수행하면서 머릿속에 있는 정보를 기록하기
-    - '감독의 설명'을 포함하라
-        - 영화에 대한 통찰, 영화가 만들어진 과정을 잘 이해하게 도와주는 '감독의 설명'을 추가하여 중요한 통찰을 전달
-        
-        ```dart
-        // 놀랍게도, 이 데이터에서 이진트리는 해시테이블보다 40% 정도 빠르다
-        // 해시를 계산하는 비용이 좌/우 비교를 능가한다
-        ```
-        
-        - 코드를 읽는 사람이 코드를 최적화 하느라 시간을 허비하지 않게 도와줌
-        
-        ```dart
-        // 이 주먹구구식 논리는 몇 가지 단어를 생략할 수 있다. 상관없다. 100% 해결은 쉽지 않다.
-        ```
-        
+주석의 목적은 코드를 읽는 사람이 코드를 작성한 사람만큼 코드를 잘 이해하게 돕는 데 있다는 것을 명심하자
+머릿속에 있는 정보 중 어떤 정보를 언제 적어야 하는지 초점을 맞춤
+
+#### 1. 설명하지 말아야 할 것
+
+코드에서 빠르게 유추할 수 있는 내용은 주석으로 달지 말라
+설명 자체를 위한 설명을 달지 말라
+
+> 😱 의미없는 주석 : 코드를 읽는 사람이 코드를 더 잘 이해하도록 도와주지 않음
+
+```dart
+// 클래스 Account를 위한 정의
+class Account {
+    // 생성자
+    const Account();
+
+    // profit에 새로운 값 설정
+    void setProfit(double profit);
+}
+```
+
+> 😱  의미없는 주석 : 코드를 읽으면 무슨 일이 수행 되는지 알 수 있음
+
+```python
+# 두 번째 '*' 뒤에 오는 내용을 모두 제거
+name = '*'.join(line.split('*')[:2])
+```
+
+> 😱  의미없는 주석 → ☺️ 의미있는 주석
+
+```go
+// ``` bad ```
+// 주어진 이름과 깊이를 이용해서 서브 트리[h1]에 있는 노드 찾기
+func FindNodeInSubtree(subtree *Node, name string, depth int) (*Node)
+
+// ``` better ```
+// 주어진 'name' 으로 노드를 찾거나 아니면 null을 반환
+// 만약 depth <= 0 이면 'subtree'만 검색됨
+// 만약 depth == N 이면 N 레벨과 그 아래만 검색됨
+func FindNodeInSubtree(subtree *Node, name string, depth int) (*Node)
+```
+
+나쁜 이름에 주석을 달지 마라 - 대신 이름을 고쳐라
+
+- 좋은 이름은 '스스로 설명'하므로 좋은 주석보다 낫다
+- "좋은 코드 > 나쁜코드 + 좋은 주석" 의 원칙을 기억하자
+
+```dart
+// ``` bad ```
+// 반환되는 항목의 수나 전체 바이트 수와 같이
+// Request가 정하는 대로 Reply에 일정한 한계를 적용
+void cleanReply(Request request, Reply reply);
+
+// ``` better ```
+// 'reply' 가 count/byte/등과 같이 'request'가 정하는 조건을 만족시키도록 한다
+void enforceLimitsFromRequest(Request request, Reply reply);
+```
+
+```dart
+// ``` bad ```
+// 해당 키를 위한 핸들을 놓아준다. 이 함수는 실제 레지스트리를 수정하지 않는다
+void deleteRegistry(RegistryKey key);
+
+// ``` better ```
+void releaseRegistryHandle(RegistryKey key);
+```
+
+#### 2. 코딩을 수행하면서 머릿속에 있는 정보를 기록하기
+
+`감독의 설명`을 포함하라
+
+- 영화에 대한 통찰, 영화가 만들어진 과정을 잘 이해하게 도와주는 '감독의 설명'을 추가하여 중요한 통찰을 전달
+
+```dart
+// 놀랍게도, 이 데이터에서 이진트리는 해시테이블보다 40% 정도 빠르다
+// 해시를 계산하는 비용이 좌/우 비교를 능가한다
+```
+
+코드를 읽는 사람이 코드를 최적화 하느라 시간을 허비하지 않게 도와줌
+
+```dart
+// 이 주먹구구식 논리는 몇 가지 단어를 생략할 수 있다. 상관없다. 100% 해결은 쉽지 않다.
+```
+
         - 코드가 훌륭하지 않은지도 설명할 수 있음
         
         ```dart
@@ -501,7 +505,7 @@ class Logger
         ```
         
         - 상수에 대한 주석을 작성하며 상수를 설정할 때 무슨 생각을 하고 있었는지를 밝힐 수 있음
-3. 코드를 읽는 사람의 입장에서 필요한 정보가 무엇인지 유추하기
+#### 3. 코드를 읽는 사람의 입장에서 필요한 정보가 무엇인지 유추하기
     - 나올 것 같은 질문 예측하기
         - 다른 누군가가 읽을 때 '이게 뭐하는 코드야?' 라는 생각이 들 만한 부분에 주석 달기
     - 사람들이 쉽게 빠질 것 같은 함정 경고하기
