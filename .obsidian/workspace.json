@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "aad3eb99a454482e",
+        "id": "9215f3ef8e2d0e27",
         "type": "tabs",
         "children": [
           {
-            "id": "15373bd649c7d9cc",
+            "id": "de94ac38fbb95296",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "oop/design-pattern/structural/patterns/Composite Pattern.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Composite Pattern"
             }
           }
         ]
@@ -172,22 +176,25 @@
       "3d-graph:3D Graph": false
     }
   },
-  "active": "15373bd649c7d9cc",
+  "active": "de94ac38fbb95296",
   "lastOpenFiles": [
+    "oop/design-pattern/general/patterns/Pluggable Selector.md",
+    "oop/design-pattern/general/patterns/Pluggable Object.md",
+    "oop/design-pattern/general/patterns",
+    "oop/design-pattern/testing",
+    "oop/design-pattern/general",
+    ".git/index.lock",
+    "books/TDD by Example.md",
+    "oop/design-pattern/behavioral/patterns/Command Pattern.md",
+    ".git/objects/21/124c8f737f8bb162459e1ad97426010830732c",
+    ".git/objects/eb/1f2a3b2199f6c07a2d385f66f4e3f084c995ad",
+    ".git/objects/b5/4c93686cbabc7a693d2931fdc15e59854b38d4",
+    ".git/objects/24/43f1c38e790d8de53c673ee714cfd50b4cdda1",
+    ".git/objects/bd/43ecee534f37b237b8229f730de77eb05a40e7",
+    ".git/objects/c2/58092047bc0f4f9fd3f84259f17af9cea35f02",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/OOP Design Pattern.md",
-    ".git/objects/9f/d73ba9a3d8053bba15c70cae5cb2a7ace90761",
-    ".git/objects/e3/d063fc9adff072951b196b386ba7a5ff374e5d",
-    ".git/objects/b2/d638c003957e0fc64e368fec7fc9fb048501f3",
-    ".git/objects/de/0ac48052579f016b1ffbe5fd14074d006e70a2",
-    ".git/objects/f9/effa90a6eebc503161569fa15e4464a5537d1a",
-    ".git/objects/41/8c75bca16d38d4220e5a339d8e8c513665e36c",
-    ".git/objects/79/48b3f3c1f2da0f9e5c23ced3fe5b2eab0a6e0a",
-    ".git/index.lock",
-    ".git/objects/19/026bfb208077190988c351decf33ef52e04ff9",
-    ".git/objects/96/da36778c1694ad1a7a7d0283c84c0c786c5be6",
     "oop/design-pattern/structural/Structural Pattern.md",
-    "books/TDD by Example.md",
     "books/The Art of Readable Code.md",
     "books/Refactoring.md",
     "books/Domain Driven Design.md",
@@ -216,9 +223,6 @@
     "interview/Flutter.md",
     "oop/solid/SOLID.md",
     "oop/design-pattern/behavioral/patterns/Visitor Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Strategy Pattern.md",
-    "oop/design-pattern/behavioral/patterns/State Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Observer Pattern.md"
+    "oop/design-pattern/behavioral/patterns/Template Method Pattern.md"
   ]
 }
