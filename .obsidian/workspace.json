@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design-pattern/OOP Design Pattern.md",
+                "file": "design-pattern/creational/Singleton.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OOP Design Pattern"
+              "title": "Singleton"
             }
           },
           {
@@ -209,21 +209,21 @@
   },
   "active": "ce2cd91d0285626f",
   "lastOpenFiles": [
-    "Singleton Pattern.md",
-    "design-pattern/creational/Creational Pattern.md",
-    "design-pattern/OOP Design Pattern.md",
-    ".git/objects/59/1d525d4f09ce7be03d4751f47dd486ae6b808e",
-    ".git/objects/59",
-    ".git/objects/bb/9c9240734c8a58652962f7e8abe596a65b5763",
-    ".git/objects/73/2c51e4faff020fab4180ac99eb154d24b51f15",
-    ".git/objects/98/899d0ad40c3f3b40992950bbcadf74cc93fc9f",
-    ".git/objects/92/4582c974265c8f92da3cceff3558e2220d34b7",
-    ".git/objects/bb/4e9e7fdb4fdd018e60e7ddaccd47ee8488066a",
-    ".git/objects/c0/14b0fae792836feca7afd1f153921456b198a3",
-    ".git/objects/c5/b80d5acbfb226d012ec7d59cb271a15ed44647",
-    ".git/index.lock",
-    "design-pattern/creational/Singleton.md",
     "design-pattern/behavioral/Behavioral Pattern.md",
+    "design-pattern/creational/Creational Pattern.md",
+    "design-pattern/creational/Singleton.md",
+    "design-pattern/OOP Design Pattern.md",
+    ".git/objects/0d/73e5b1cdbf6c04599b31894bae98366d193ae1",
+    ".git/objects/db",
+    ".git/objects/db/a9fb023f0dddcaa4910bd86d7e0a974a6174fa",
+    ".git/objects/46/2ef85b521485c7cf8df1dcf6fc11a76ae6eece",
+    ".git/objects/48",
+    ".git/objects/48/2743384fe795919cd00e07bcd50ada5a7219c8",
+    ".git/objects/6b/44bfc2845aa0059ddae3e1fc908943684b497e",
+    ".git/objects/11/20e7a7299073fa47610ca387df1dc4dc367739",
+    ".git/objects/60",
+    ".git/objects/60/8784897d3300fd4688858c957a8aa5989014ee",
+    "Singleton Pattern.md",
     "design-pattern/structural/Structural Pattern.md",
     "design-pattern/SOLID.md",
     "questions/Question I need to ask.md",
