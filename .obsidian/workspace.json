@@ -25,10 +25,14 @@
             "id": "cb05fd0c41220189",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "oop/design-pattern/structural/patterns/Composite Pattern.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Composite Pattern"
             }
           }
         ],
@@ -188,17 +192,17 @@
   },
   "active": "cb05fd0c41220189",
   "lastOpenFiles": [
+    ".git/index.lock",
+    ".git/objects/40/074b62f14b797368040f34ceba7ce45e7d267e",
+    ".git/objects/b5/7c1efb11b93cce824fa876a0abf7ec69d07c39",
+    ".git/objects/58/64f00712a2a8d14bca4f1fdf9df7536e9b5483",
+    ".git/objects/6b/7386e800bbe56980249d31e66824fb0d9c1f74",
+    ".git/objects/07/4486f8e239afca18047950f843e349a9567300",
+    ".git/objects/37/a134205067dd033bef310788f509f4cb0ae48d",
+    ".git/objects/85/8a8df289f49a7754d68a4fec22b21d050722a3",
+    ".git/objects/b5/a4881a921e8126c0e556420ea9fa7650bf6b0c",
+    ".git/objects/6d/d45fbb7758e5f06c208b62113fe4e3bd2fdb75",
     ".git/objects/97/e935ac60202af9d1b938bdf4e5cbcf749d8138",
-    ".git/objects/9a/3f8a951182d49e371e053a60ee05ed13aabd20",
-    ".git/objects/6c/4a4be5de0c20b0abb728016abc5043a14644e8",
-    ".git/objects/1e/83edce6d1d6d9b4eb10a629f79a76dd18a3108",
-    ".git/objects/bd/b3f8e145879fb5377a6c4e1d73e48e02817352",
-    ".git/objects/85/48a12c7141dfd2a1f3473b4b3cb3918e615208",
-    ".git/objects/d3/21ee42b04749ae2ed9938761e347faa6218954",
-    ".git/objects/ed/63f6d687125a5818661e56b9595c34f74ce110",
-    ".git/objects/e7/6a5d19e980d93fb3ea2d6c44546ab50c278145",
-    ".git/objects/2e/67327f3984321dfe385172deb88515c4d6e1e8",
-    ".git/objects/2f/809d40fa8d37b497ba05b2a3190d64711f5ec5",
     "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
     "oop/design-pattern/structural/patterns/Adapter Pattern.md",
     "oop/design-pattern/structural/Structural Pattern.md",
