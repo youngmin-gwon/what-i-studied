@@ -1,4 +1,6 @@
-# 2. Adapter(=Wrapper)
+# Adapter(=Wrapper)
+
+## Description
 
 - Structural Pattern
 
