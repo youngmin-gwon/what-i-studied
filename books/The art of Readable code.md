@@ -1977,13 +1977,13 @@ void UpdateCounts(HttpDownload hd) {
 
     // 작업: HttpDownload에서 각각의 값을 하나씩 읽는다
     if (hd.has_event_log() && hd.event_log().has_exit_state()) {
-    	exit_state = ExitStateTypeName(hd.event_log().exit_state());
+        exit_state = ExitStateTypeName(hd.event_log().exit_state());
     }
     if (hd.has_http_headers() && hd.http_headers().has_response_code()) {
-    	http_response = StringPrintf("%d", headers.response_code());
+        http_response = StringPrintf("%d", headers.response_code());
     }
     if (hd.has_http_headers() && hd.http_headers().has_content_type()) {
-    	content_type = ContentTypeMime(headers.content_type());
+        content_type = ContentTypeMime(headers.content_type());
     }
 
     // 작업: count[]를 갱신한다
@@ -2022,201 +2022,236 @@ String ExitState(HttpDownload hd) {
 3. 설명과 부합하는 코드를 작성 하라
 ```
 
-1. 논리를 명확하게 설명하기
-    - 예시
-        
-        ```php
-        // 보안 페이지 맨윗 부분: 사용자가 페이지를 볼 수 있는지 허가 여부를 확인하고, 
-        // 만약 허가되어 있지 않으면 그러한 사실을 설명하는 페이지 반환
-        
-        $is_admin = is_admin_request();
-        if ($document) {
-        	if (!is_admin && ($document['username']!=$_SESSION['username'])) {
-        		return not_authorized();
-        	}
-        } else {
-        	if (!$is_admin) {
-        			return not_authorized();
-        	}
-        }
-        // 계속해서 페이지 렌더링
-        ```
-        
-        - 위의 코드는 상당한 논리가 있어 이해하기 어렵다
-        - 논리를 쉬운 말로 묘사하는 것부터 시작해야한다
-            - 사용이 허가되는 방법은 두가지 경우
-                1. 관리자이다
-                2. 만약 문서가 있다면 현재 문서를 소유하고 있다
-        - 이를 이용해 단순하게 만들어보자
-        
-        ```php
-        if (is_admin_request()) {
-        	// 허가
-        } elseif ($document && ($document['username'] == $_SESSION['username'])) {
-        	// 허가
-        } else {
-        	return not_authorized();
-        }
-        
-        // 계속해서 페이지 렌더링 한다
-        ```
-        
-        - 비어 있는 본문 두 개를 포함하므로 조금 이상해 보이지만, 코드 분량이 더 적고, 부정문이 없어 논리도 간단해짐
-2. 라이브러리를 알면 도움이 된다
-    - 라이브러리를 사용하면 간단하게 만들 수 있으면 사용해도 무방하다
-3. 논리를 쉬운 말로 표현하는 방법을 더 큰 문제에 적용하기
-    - 큰 문제에 적용해서 코드를 잘게 쪼갤수도 있다
-        
-        주식 구매 현황을 기록하는 시스템이 있다고 해보자. 이는 주식 목록, 가격, 거래주의 양을 각각 테이블에 따로 저장한다
-        
-        이를 SQL JOIN 연산처럼 결합하는 프로그램
-        
-        ```python
-        # 조건에 일치하는 행을 찾는 코드
-        def PrintStockTransaction():
-        	stock_iter = db_read("SELECT time, ticker_symbol FROM ...")
-        	price_iter = ...
-        	num_shares_iter = ...
-        
-        	# 3 테이블의 모든 행을 동시에 순차적으로 반복한다
-        	while stock_iter and price_iter and number_shares_iter:
-        		stock_time = stock_iter.time
-        		price_time = price_iter.time
-        		number_shares_time = number_shares_iter.time
-        		
-        		# 만약 세 개의 행이 같은 time을 갖지 않으면 가장 오래된 행은 건너뛴다
-        		# 주의: 아래에 있는 '<='은 가장 오래된 행이 2개 있으면 '<'이 될 수 없다
-        		if stock_time != price_time or stock_time != num_shares_time:
-        			if stock_time <= price_time and stock_time <= num_shares_time:
-        			elif price_time <= stock_time and num_shares_time <= price_time:
-        			elif num_shares_time <= stock_time and num_shares_time <= price_time:
-        			else:
-        				continue
-        
-        		assert stock_time == price_time == num_shares_time
-        
-        	# 일치된 행 출력
-        	print "0", stock_time,
-        	print stock_iter.ticker_symbol,
-        	print price_iter.price,
-        	print num_shares_iter.number_of_shares
-        
-        	stock_iter.NextRow()
-        	price_iter.NextRow()
-        	num_shares_iter.NextRow()
-        ```
-        
-        - 코드는 정상적으로 작동하지만 일치하지 않는 행을 건너뛰려고 루프 안에서 많은 일이 일어난다
-        - 읽기 쉬운 코드로 바꿔보자
-        1. 해결책을 영어로 묘사하기
-            - 원래 하려던 일을 쉬운 말로 묘사하는 것부터 시작하자
-        
-        ```python
-        # 세 개 반복자를 병렬적을 동시에 읽는다
-        # 어느 행의 time이 일치하지 않으면 하나 더 나아가서 일치하게 한다
-        # 일치된 행을 출력하고, 다시 앞으로 나아간다
-        # 일치되는 행이 더 이상 없을 때까지 이를 반복한다 << 가장 지저분한 부분
-        
-        # 지저분 한 부분을 깔끔하게 만들기 위해 새로운 함수로 분리할 수 있다
-        def PrintStockTransaction():
-        	stock_iter = ...
-        	price_iter = ...
-        	num_shares_iter = ...
-        
-        	while True:
-        		time = AdvanceToMatchingTime(stock_iter,price_iter,num_shares_iter)
-        		if time is None:
-        			return
-        
-        	# 일치된 행 출력
-        	print "0", stock_time,
-        	print stock_iter.ticker_symbol,
-        	print price_iter.price,
-        	print num_shares_iter.number_of_shares
-        
-        	stock_iter.NextRow()
-        	price_iter.NextRow()
-        	num_shares_iter.NextRow()
-        ```
-        
-        2. 이 방법을 재귀적으로 적용하기
-        
-        ```python
-        # 원래 코드에 있던 지저분한 코드 블록과 같음
-        def AdvanceToMatchingTime(stock_iter,price_iter,num_shares_iter):
-        	stock_time = stock_iter.time
-        	price_time = price_iter.time
-        	number_shares_time = number_shares_iter.time
-        	
-        	# 만약 세 개의 행이 같은 time을 갖지 않으면 가장 오래된 행은 건너뛴다
-        	# 주의: 아래에 있는 '<='은 가장 오래된 행이 2개 있으면 '<'이 될 수 없다
-        	if stock_time != price_time or stock_time != num_shares_time:
-        		if stock_time <= price_time and stock_time <= num_shares_time:
-        		elif price_time <= stock_time and num_shares_time <= price_time:
-        		elif num_shares_time <= stock_time and num_shares_time <= price_time:
-        		else:
-        			assert False # 불가능하다
-        		continue
-        	
-        	assert stock_time == price_time == num_shares_time
-        	return stock_time
-        
-        # 각 테이블의 현재 행에서 time을 확인한다. 값이 모두 같으면 작업이 완료된 것이다.
-        # 그렇지 않으면 값이 '뒤처진' 행을 한 칸 전진시킨다.
-        # 행이 모두 동일한 time을 가질 때까지 혹은 반복자 중의 하나가 끝에 이를 때까지 작업을 반복한다.
-        
-        ```
-        
-- 자신의 문제를 설명할 수 없다면, 해당 문제는 무언가 빠져있거나 아니면 제대로 정의되지 않은 것이다
+#### 1. 논리를 명확하게 설명하기
+
+예시
+
+```php
+// 보안 페이지 맨윗 부분: 사용자가 페이지를 볼 수 있는지 허가 여부를 확인하고,
+// 만약 허가되어 있지 않으면 그러한 사실을 설명하는 페이지 반환
+
+$is_admin = is_admin_request();
+if ($document) {
+    if (!is_admin && ($document['username']!=$_SESSION['username'])) {
+        return not_authorized();
+    }
+} else {
+    if (!$is_admin) {
+        return not_authorized();
+    }
+}
+// 계속해서 페이지 렌더링
+```
+
+위의 코드는 상당한 논리가 있어 이해하기 어렵다
+
+논리를 쉬운 말로 묘사하는 것부터 시작해야한다
+
+- 사용이 허가되는 방법은 두가지 경우
+
+```plaintext
+1. 관리자이다
+2. 만약 문서가 있다면 현재 문서를 소유하고 있다
+```
+
+이를 이용해 단순하게 만들어보자
+
+```php
+if (is_admin_request()) {
+    // 허가
+} elseif ($document && ($document['username'] == $_SESSION['username'])) {
+    // 허가
+} else {
+    return not_authorized();
+}
+
+// 계속해서 페이지 렌더링 한다
+```
+
+비어 있는 본문 두 개를 포함하므로 조금 이상해 보이지만, 코드 분량이 더 적고, 부정문이 없어 논리도 간단해짐
+
+#### 2. 라이브러리를 알면 도움이 된다
+
+라이브러리를 사용하면 간단하게 만들 수 있으면 사용해도 무방하다
+
+#### 3. 논리를 쉬운 말로 표현하는 방법을 더 큰 문제에 적용하기
+
+큰 문제에 적용해서 코드를 잘게 쪼갤수도 있다
+
+주식 구매 현황을 기록하는 시스템이 있다고 해보자. 이는 주식 목록, 가격, 거래주의 양을 각각 테이블에 따로 저장한다
+
+이를 SQL JOIN 연산처럼 결합하는 프로그램
+
+```python
+# 조건에 일치하는 행을 찾는 코드
+def printStockTransaction():
+    stock_iter = db_read("SELECT time, ticker_symbol FROM ...")
+    price_iter = ...
+    num_shares_iter = ...
+
+    # 3 테이블의 모든 행을 동시에 순차적으로 반복한다
+    while stock_iter and price_iter and number_shares_iter:
+        stock_time = stock_iter.time
+        price_time = price_iter.time
+        number_shares_time = number_shares_iter.time
+
+        # 만약 세 개의 행이 같은 time을 갖지 않으면 가장 오래된 행은 건너뛴다
+        # 주의: 아래에 있는 '<='은 가장 오래된 행이 2개 있으면 '<'이 될 수 없다
+        if stock_time != price_time or stock_time != num_shares_time:
+            if stock_time <= price_time and stock_time <= num_shares_time:
+            elif price_time <= stock_time and num_shares_time <= price_time:
+            elif num_shares_time <= stock_time and num_shares_time <= price_time:
+            else:
+                continue
+
+        assert stock_time == price_time == num_shares_time
+
+    # 일치된 행 출력
+    print "0", stock_time,
+    print stock_iter.ticker_symbol,
+    print price_iter.price,
+    print num_shares_iter.number_of_shares
+
+    stock_iter.nextRow()
+    price_iter.nextRow()
+    num_shares_iter.nextRow()
+```
+
+코드는 정상적으로 작동하지만 일치하지 않는 행을 건너뛰려고 루프 안에서 많은 일이 일어난다
+
+읽기 쉬운 코드로 바꿔보자
+
+##### 1. 해결책을 영어로 묘사하기
+
+원래 하려던 일을 쉬운 말로 묘사하는 것부터 시작하자
+
+```python
+# 세 개 반복자를 병렬적을 동시에 읽는다
+# 어느 행의 time이 일치하지 않으면 하나 더 나아가서 일치하게 한다
+# 일치된 행을 출력하고, 다시 앞으로 나아간다
+# 일치되는 행이 더 이상 없을 때까지 이를 반복한다 << 가장 지저분한 부분
+
+# 지저분 한 부분을 깔끔하게 만들기 위해 새로운 함수로 분리할 수 있다
+def printStockTransaction():
+    stock_iter = ...
+    price_iter = ...
+    num_shares_iter = ...
+
+    while True:
+        time = AdvanceToMatchingTime(stock_iter,price_iter,num_shares_iter)
+        if time is None:
+            return
+
+    # 일치된 행 출력
+    print "0", stock_time,
+    print stock_iter.ticker_symbol,
+    print price_iter.price,
+    print num_shares_iter.number_of_shares
+
+    stock_iter.next_row()
+    price_iter.next_row()
+    num_shares_iter.next_row()
+```
+
+##### 2. 이 방법을 재귀적으로 적용하기
+
+```python
+# 원래 코드에 있던 지저분한 코드 블록과 같음
+def advanceToMatchingTime(stock_iter,price_iter,num_shares_iter):
+    stock_time = stock_iter.time
+    price_time = price_iter.time
+    number_shares_time = number_shares_iter.time
+
+    # 만약 세 개의 행이 같은 time을 갖지 않으면 가장 오래된 행은 건너뛴다
+    # 주의: 아래에 있는 '<='은 가장 오래된 행이 2개 있으면 '<'이 될 수 없다
+    if stock_time != price_time or stock_time != num_shares_time:
+        if stock_time <= price_time and stock_time <= num_shares_time:
+        elif price_time <= stock_time and num_shares_time <= price_time:
+        elif num_shares_time <= stock_time and num_shares_time <= price_time:
+        else:
+            assert False # 불가능하다
+        continue
+
+    assert stock_time == price_time == num_shares_time
+    return stock_time
+
+# 각 테이블의 현재 행에서 time을 확인한다. 값이 모두 같으면 작업이 완료된 것이다.
+# 그렇지 않으면 값이 '뒤처진' 행을 한 칸 전진시킨다.
+# 행이 모두 동일한 time을 가질 때까지 혹은 반복자 중의 하나가 끝에 이를 때까지 작업을 반복한다.
+```
+
+자신의 문제를 설명할 수 없다면, 해당 문제는 무언가 빠져있거나 아니면 제대로 정의되지 않은 것이다
 
 ### 코드 분량 줄이기
 
-- 프로그래머가 배워야하는 가장 중요한 기술
-    - 언제 코딩을 해야하는지 아는 것
-        
-        ⇒ 가장 읽기 쉬운 코드는 아무것도 없는 코드이다
-        
-- 프로그래머는 정말로 필요한 기능이 얼마나 있는지 과대평가하는 경향이 있음
-    - YAGNI(You ain’t gonna need it) 철학을 기억하자
-- 반대로 필요한 노력을 과소평가 해서도 안된다
-    - 장차 코드를 유지보수하고, 문서를 만들고, 코드베이스에 새로운 ‘무게’를 더하는 시간까지 항상 고려하자
-- 요구사항에 질문을 던지고 질문을 잘게 나누어 분석하라
-    - 디스크에서 객체를 자주 접근해서 불러오는 경우 캐시를 적용할 필요가 있다
-    - 이런 경우 LRU(Least Recently Used) 캐시를 적용하여 해결하는 대신, 단순하게 1개 항목만 저장하는 캐시를 구현해도 효과적임
-    - “**요구사항 제거하기**” 와 “**더 간단한 문제 해결하기**”가 제공하는 이점을 항상 기억하라
-- 코드베이스를 작게 유지하라
-    - 코드베이스가 커지면 항상 수정은 어렵고 부담스러운 일이 된다
-    - 코드베이스를 최대한 작고 가볍게 유지하는 것을 최선으로 생각하라
-    - 해야할 일
-        - 일반적인 ‘유틸리티’를 많이 생성하여 중복된 코드를 제거(10장 ‘상관없는 하위문제 추출하기’ 확인)
-        - 사용하지 않는 코드 혹은 필요없는 기능 제거
-        - 프로젝트가 서로 분절된 하위프로젝트로 구성되게 하라
-        - 코드베이스의 ‘무게’를 의식하여 항상 가볍고 날렵하게 유지하라
-- 자기 주변에 있는 라이브러리에 친숙해져라
-    - 표준 라이브러리로 문제를 풀 수 있는 상황이 매우 많음
-    - 한 줄, 한 줄 모두 상당한 분량의 설계, 디버깅, 재작성, 문서화, 최적화, 테스트를 거쳤기 때문에 사용해야 시간도 절약하고, 코드량도 줄일 수 있음
-    - **매일 15분씩 표준 라이브러리에 있는 모든 함수/모듈/형들의 이름을 읽어라**
-        - 외우는 것이 아니라 안에 무엇이 들어있는지 감을 잡으라는 의미
-        - 코드를 직접 작성하는 대신 우선적으로 이미 존재하는 라이브러리를 사용하는 습관을 갖게 하기 때문
+프로그래머가 배워야하는 가장 중요한 기술
+
+- 언제 코딩을 해야하는지 아는 것
+    ⇒ 가장 읽기 쉬운 코드는 아무것도 없는 코드이다
+
+프로그래머는 정말로 필요한 기능이 얼마나 있는지 과대평가하는 경향이 있음
+
+- `YAGNI(You ain’t gonna need it)` 철학을 기억하자
+
+반대로 필요한 노력을 과소평가 해서도 안된다
+
+- 장차 코드를 유지보수하고, 문서를 만들고, 코드베이스에 새로운 ‘무게’를 더하는 시간까지 항상 고려하자
+
+요구사항에 질문을 던지고 질문을 잘게 나누어 분석하라
+
+- 디스크에서 객체를 자주 접근해서 불러오는 경우 캐시를 적용할 필요가 있다
+- 이런 경우 LRU(Least Recently Used) 캐시를 적용하여 해결하는 대신, 단순하게 1개 항목만 저장하는 캐시를 구현해도 효과적임
+- “**요구사항 제거하기**” 와 “**더 간단한 문제 해결하기**”가 제공하는 이점을 항상 기억하라
+
+코드베이스를 작게 유지하라
+
+- 코드베이스가 커지면 항상 수정은 어렵고 부담스러운 일이 된다
+- 코드베이스를 최대한 작고 가볍게 유지하는 것을 최선으로 생각하라
+- 해야할 일
+
+```plaintext
+- 일반적인 ‘유틸리티’를 많이 생성하여 중복된 코드를 제거(10장 ‘상관없는 하위문제 추출하기’ 확인)
+- 사용하지 않는 코드 혹은 필요없는 기능 제거
+- 프로젝트가 서로 분절된 하위프로젝트로 구성되게 하라
+- 코드베이스의 ‘무게’를 의식하여 항상 가볍고 날렵하게 유지하라
+```
+
+자기 주변에 있는 라이브러리에 친숙해져라
+
+- 표준 라이브러리로 문제를 풀 수 있는 상황이 매우 많음
+- 한 줄, 한 줄 모두 상당한 분량의 설계, 디버깅, 재작성, 문서화, 최적화, 테스트를 거쳤기 때문에 사용해야 시간도 절약하고, 코드량도 줄일 수 있음
+- **매일 15분씩 표준 라이브러리에 있는 모든 함수/모듈/형들의 이름을 읽어라**
+  - 외우는 것이 아니라 안에 무엇이 들어있는지 감을 잡으라는 의미
+  - 코드를 직접 작성하는 대신 우선적으로 이미 존재하는 라이브러리를 사용하는 습관을 갖게 하기 때문
 
 ## Part 4. 선택된 주제들
 
 ### 테스트와 가독성
 
-- 읽거나 유지보수가 쉽게 만들어라
-    - 실제 코드와 마찬가지로 테스트 코드는 읽기 쉬워야함
-    - 때때로 프로그래머들은 테스트코드가 실제코드가 어떻게 동작해야하는지에 대한 비공식적인 문서라고 생각하기 때문에 동작을 쉽게 이해할 수 있어야 함
-    - 왜 테스트 코드가 실패하는지 쉽게 진단 가능해야하고, 새로운 테스트도 쉽게 덧붙일수 있어야 함
-- 어떤 점이 잘못되었는가
-    - 테스트를 더 쉽게 만들기
-    - 덜 중요한 세부사항은 사용자가 볼 필요 없게 숨겨서 더 중요한 내용이 눈에 잘 띄게 해야함
-- 목적에 맞는 미니-랭귀지 구현하기
-- 읽기 편한 메세지 만들기
-- 좋은 테스트 입력값의 선택
-- 테스트 함수에 이름 붙이기
-- 어떤 점이 잘못되었는가
-- 테스트에 친숙한 개발
-- 지나친 테스트
+읽거나 유지보수가 쉽게 만들어라
+
+- 실제 코드와 마찬가지로 테스트 코드는 읽기 쉬워야함
+- 때때로 프로그래머들은 테스트코드가 실제코드가 어떻게 동작해야하는지에 대한 비공식적인 문서라고 생각하기 때문에 동작을 쉽게 이해할 수 있어야 함
+- 왜 테스트 코드가 실패하는지 쉽게 진단 가능해야하고, 새로운 테스트도 쉽게 덧붙일수 있어야 함
+
+어떤 점이 잘못되었는가
+
+- 테스트를 더 쉽게 만들기
+- 덜 중요한 세부사항은 사용자가 볼 필요 없게 숨겨서 더 중요한 내용이 눈에 잘 띄게 해야함
+
+목적에 맞는 미니-랭귀지 구현하기
+
+읽기 편한 메세지 만들기
+
+좋은 테스트 입력값의 선택
+
+테스트 함수에 이름 붙이기
+
+어떤 점이 잘못되었는가
+
+테스트에 친숙한 개발
+
+지나친 테스트
 
 ### '분/시간 카운터'를 설계하고 구현하기
 
