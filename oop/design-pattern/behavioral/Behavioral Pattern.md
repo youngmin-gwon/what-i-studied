@@ -1,6 +1,6 @@
 # Behavioral Pattern
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 

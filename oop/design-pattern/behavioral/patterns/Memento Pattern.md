@@ -1,6 +1,6 @@
 # Memento(=Token)
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 

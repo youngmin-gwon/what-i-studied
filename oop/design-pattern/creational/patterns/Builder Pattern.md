@@ -1,6 +1,6 @@
 # Builder
 
-#CreationalPattern
+#design-pattern, #creational-pattern
 
 ## Description
 

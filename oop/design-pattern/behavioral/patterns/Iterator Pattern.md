@@ -1,6 +1,6 @@
 # Iterator
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 

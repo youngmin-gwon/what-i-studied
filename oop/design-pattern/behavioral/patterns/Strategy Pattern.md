@@ -1,6 +1,6 @@
 # Strategy(=Policy)
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 

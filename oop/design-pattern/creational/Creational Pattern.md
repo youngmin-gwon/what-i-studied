@@ -1,6 +1,6 @@
 # Creational Pattern
 
-#CreationalPattern
+#design-pattern, #creational-pattern
 
 ## Description
 

@@ -1,6 +1,6 @@
 # Singleton
 
-#CreationalPattern
+#design-pattern, #creational-pattern
 
 ## Description
 

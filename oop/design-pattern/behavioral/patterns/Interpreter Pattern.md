@@ -1,6 +1,6 @@
 # Interpreter
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 

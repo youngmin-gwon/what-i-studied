@@ -1,6 +1,6 @@
 # Template Method
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 

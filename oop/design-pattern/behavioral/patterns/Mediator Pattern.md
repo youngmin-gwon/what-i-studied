@@ -1,6 +1,6 @@
 # Mediator
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 

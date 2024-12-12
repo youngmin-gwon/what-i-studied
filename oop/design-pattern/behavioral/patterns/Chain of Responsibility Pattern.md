@@ -1,6 +1,6 @@
 # Chain of Responsibility
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 

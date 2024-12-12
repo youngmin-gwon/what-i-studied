@@ -1,6 +1,6 @@
 # Observer
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 

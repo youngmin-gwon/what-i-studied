@@ -1,6 +1,6 @@
 # Visitor
 
-#BehavioralPattern
+#design-pattern, #behavioral-pattern
 
 ## Description
 
