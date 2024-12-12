@@ -178,6 +178,13 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
+    ".git/index.lock",
+    ".git/objects/94/f14923bea1cf74fbd7133ffe2d4ab3db31b711",
+    ".git/objects/28/bf52e021375da8ac8f7018a79a3936ec41986e",
+    ".git/objects/bf/3fa1953d844721cf35a6055756f269d098bfb1",
+    ".git/objects/22/c1027dcb71b4110658d358721ce11457bcd401",
+    ".git/objects/50/37e32f5c866c60feec3be5461e09dc4aab07e9",
+    ".git/objects/a1/4c7210b1874df6ba37674c613b3a4e7df1b5fe",
     "books/TDD by Example.md",
     "books/The art of Readable code.md",
     "books/The Art of Readable code.md",
@@ -185,12 +192,6 @@
     ".git/objects/6a/eff34c1d2c40538fad2d2908f0a9614a778e3c",
     ".git/objects/ba/37f28b200b7e4b62dda00f404dfe4400102460",
     ".git/objects/dc/41d19157fc1e2afff1f99ea0de3c5aabe96544",
-    ".git/objects/13/794fe782dde95cfd2f0780368c04b028260c48",
-    ".git/objects/25/c317c33a28f12f58cb3d4496913acdd1d42ceb",
-    ".git/objects/6a/f99a7a879962f68d88bbc9c47393d7249f2899",
-    ".git/objects/0d/a624baeb9b61c38c848db2a95a2cd12aa0837f",
-    ".git/objects/e6/1d965c29ea62d820d96c6fb80ef76f9c2bef5c",
-    ".git/objects/b6/c84a694a8f58ca71d0a6ab9de76c77daf4d3f1",
     "books/Refactoring.md",
     "books/Implementing Domain Driven Design.md",
     "books/Domain Driven Design.md",
@@ -222,7 +223,6 @@
     "oop/design-pattern/behavioral/patterns/Mediator Pattern.md",
     "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
     "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Command Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Chain of Responsibility Pattern.md"
+    "oop/design-pattern/behavioral/patterns/Command Pattern.md"
   ]
 }

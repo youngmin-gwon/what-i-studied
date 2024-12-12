@@ -1,24 +1,28 @@
-# The Art of Readable Code
+# The Art of Readable Code 정리
 
 ## Prolog. 코드는 이해하기 쉬워야 한다
 
-- 무엇이 코드를 좋게 만드는가?
-  - 판단하기 쉽지 않음 ⇒ 이를 판단하기 쉽게 하기 위해 **가독성의 기본 정리** 를 사용
-- The Fundamental Theorem of Readability
-  - 평범한 사람(코드 작성자 포함)이 코드를 읽고 이해하는 데 걸리는 시간을 최소화하는 코드
-- 적은 분량으로 코드를 작성하는 것이 좋은 목표이긴 하지만, 언제나 이해를 위한 시간을 최소화 하는 것으로 해야함
+무엇이 코드를 좋게 만드는가?
+
+- 판단하기 쉽지 않음 ⇒ 이를 판단하기 쉽게 하기 위해 **가독성의 기본 정리** 를 사용
+
+The Fundamental Theorem of Readability
+
+- 평범한 사람(코드 작성자 포함)이 코드를 읽고 이해하는 데 걸리는 시간을 최소화하는 코드
+
+적은 분량으로 코드를 작성하는 것이 좋은 목표이긴 하지만, 언제나 이해를 위한 시간을 최소화 하는 것으로 해야함
 
 ## Part 1. 표면적 수준에서의 개선
 
-- 좋은 이름 짓기, 좋은 설명 달기, 코드를 보기 좋게 정렬하는 것 ⇒ 프로그램이 동작하는 방식을 바꾸지 않고 그 자리에서 곧바로 만들 수 있음
+좋은 이름 짓기, 좋은 설명 달기, 코드를 보기 좋게 정렬하는 것 ⇒ 프로그램이 동작하는 방식을 바꾸지 않고 그 자리에서 곧바로 만들 수 있음
 
 ### 이름에 정보 담기
 
-- size 혹은 get 처럼 그럴 듯 해보이는 이름조차 많은 정보를 담아내지 못하는 경우가 있으므로 다음 원칙을 주의해서 이름을 선택하라
+`size` 혹은 `get` 처럼 그럴 듯 해보이는 이름조차 많은 정보를 담아내지 못하는 경우가 있으므로 다음 원칙을 주의해서 이름을 선택하라
 
 #### 1. 특정 단어 고르기
 
-함수명을 정의할 때 get과 같은 키워드는 너무 보편적이기 때문에 구체적인 단어를 선택하여 무의미한 단어를 피하자
+함수명을 정의할 때 `get`과 같은 키워드는 너무 보편적이기 때문에 구체적인 단어를 선택하여 무의미한 단어를 피하자
 
 ```dart
 // before
@@ -85,7 +89,7 @@ explode();
 split();
 ```
 
-#### 2. tmp나 retval 같은 보편적인 이름 지향하기
+#### 2. tmp 나 retval 같은 보편적인 이름 지향하기
 
 변수의 목적이나 담고 있는 값을 설명하는 기능을 하게 됨
 
@@ -151,212 +155,230 @@ if (right < left) {
 ```
 
 tmp, it, retval 같은 보편적인 이름을 사용하려면, 꼭 그렇게 해야하는 이유가 있어야 함
+
 정말 떠오르지 않는다면 foo 같은 무의미한 이름을 사용하며 앞으로 진전할 수 있지만, 몇 초라도 좋은 이름을 생각하려고 고민하는 습관을 들여 '작명을 위한 내공'을 키우려 노력해야 함
 
 #### 3. 추상적이지 않은, 대상을 자세하게 묘사하는 구체적인 이름을 선호하라
 
-    - 예제로 확인
-        
-        ```markdown
-        DISALLOW_EVIL_CONSTRUCTOR => DISALLOW_COPY_AND_ASSIGN
-        
-        --run_locally => --extra_logging --use_local_database
-        ```
-        
-2. 변수명에 중요한 세부 정보를 덧붙여라
-    - 모든 변수에 추가적인 정보를 담을 필요는 없지만, 보안과 관련된 버그처럼 심각한 결과를 낳을 가능성이 있을 때 중요 세부 정보를 추가해야함
-        
-        ```markdown
-        // 리턴되는 시간범위가 milliseconds인 경우
-        var start => var start_ms
-        var elapsed => var elapsed_ms
-        
-        // 그 밖
-        Start(int delay) => Start(int delay_secs)
-        CreateCache(int size) => CreateCache(int size_mb)
-        ThrottleDownload(float limit) => ThrottleDownload(float max_kbps)
-        Rotate(float angle) => Rotate(float degree_cw)
-        
-        password => plaintext_password
-        comment => unescaped_comment
-        html => html_utf8
-        data => data_urlenc
-        ```
-        
-3. 사용 범위가 넓으면 긴 이름을 사용하라
-    - 기능을 잘 설명하면서 일반적 통용보다 긴 이름은 괜찮음
-    - 좁은 범위에서는 짧은 이름이 괜찮음
-    - eval, doc. str 등 흔한 축약형 혹은 약어는 프로그래머 사이에서 많이 통용되므로 사용해도 무관하나, 자체적으로 만든 축약어는 지향해야함(BEDeveloper ⇒ BackEndDeveloper)
-    - 불필요한 단어는 생략(ConvertToString ⇒ ToString)
-4. 대문자나 밑줄 등을 의미 있는 방식의 포맷팅을 활용하라
-    - 클래스 멤버변수는 _(underscore)을 사용하여 로컬변수와 구분하라
+예제로 확인
 
----
+```markdown
+DISALLOW_EVIL_CONSTRUCTOR => DISALLOW_COPY_AND_ASSIGN
+
+--run_locally => --extra_logging --use_local_database
+```
+
+#### 4. 변수명에 중요한 세부 정보를 덧붙여라
+
+모든 변수에 추가적인 정보를 담을 필요는 없지만, 보안과 관련된 버그처럼 심각한 결과를 낳을 가능성이 있을 때 중요 세부 정보를 추가해야함
+
+```markdown
+// 리턴되는 시간범위가 milliseconds인 경우
+var start => var start_ms
+var elapsed => var elapsed_ms
+
+// 그 밖
+Start(int delay) => Start(int delay_secs)
+CreateCache(int size) => CreateCache(int size_mb)
+ThrottleDownload(float limit) => ThrottleDownload(float max_kbps)
+Rotate(float angle) => Rotate(float degree_cw)
+
+password => plaintext_password
+comment => unescaped_comment
+html => html_utf8
+data => data_urlenc
+```
+
+#### 5. 사용 범위가 넓으면 긴 이름을 사용하라
+
+기능을 잘 설명하면서 일반적 통용보다 긴 이름은 괜찮음
+좁은 범위에서는 짧은 이름이 괜찮음
+eval, doc. str 등 흔한 축약형 혹은 약어는 프로그래머 사이에서 많이 통용되므로 사용해도 무관하나, 자체적으로 만든 축약어는 지향해야함(BEDeveloper ⇒ BackEndDeveloper)
+불필요한 단어는 생략(ConvertToString ⇒ ToString)
+
+#### 6. 대문자나 밑줄 등을 의미 있는 방식의 포맷팅을 활용하라
+
+클래스 멤버변수는 \_(underscore)을 사용하여 로컬변수와 구분하라
 
 ### 오해할 수 없는 이름들
 
-- 지은 이름을 "다른 사람들이 다른 의미로 해석할 수 있을까?"라는 질문을 던져보며 철저히 확인해야 함
-    
-    ```dart
-    final results = Database.all_objects.filter("year <= 2011");
-    
-    // 가능성 
-    // 1) year <= 2011인 객체
-    // 2) year <= 2011이 아닌 객체
-    // 의미가 모호함
-    
-    // 1)의 경우 : select()
-    // 2)의 경우 : extract()
-    // 가 더 적합함
-    ```
-    
-    ```dart
-    String clip(String text, int length) {
-    	...
-    }
-    
-    // 가능성
-    // 1) 문단의 끝에서부터 거꾸로 length만큼 제거
-    // 2) 문단을 처음부터 length만큼 잘라냄
-    
-    // better way
-    String truncate(String text, int maxChars) {
-    	...
-    }
-    ```
-    
-1. 경계를 포함하는 한계값을 다룰 때는 min과 max를 사용
-    - 예시
-        
-        ```dart
-        // before
-        const static int CART_TOO_BIG_LIMIT = 10;
-        
-        if (shopping_cart.num_items() >= CART_TOO_BIG_LIMIT){
-        	Error("Too many items in cart");
-        }
-        
-        // LIMIT을 포함하는지 알 수 없음
-        
-        // after
-        const static int MAX_ITEMS_IN_CART = 10;
-        
-        if (shopping_cart.num_items() >= MAX_ITEMS_IN_CART){
-        	Error("Too many items in cart");
-        }
-        ```
-        
-2. 경계를 포함하는 범위에는 first와 last를 사용
-    - 예시
-        
-        ```dart
-        // before
-        print(integerRange(start=2,stop=4));
-        // [2,3] 인지 [2,3,4] 인지 알 수 없음
-        
-        // after
-        print(integerRange(first=2,last=4));
-        ```
-        
-3. 경계를 포함하고/배제하는 범위에는 begin과 end를 사용
-    - 예시
-        
-        ```dart
-        printEventsInRange(begin:"2021-02-01 00:00:00",  end:"2021-02-02 00:00:00");
-        ```
-        
-4. boolean 변수에 이름 붙이기
-    - is, has,  can, should와 같은 단어를 더하여 불리언 값의 의미를 더 명확하게 만들어야 함
-        
-        ```dart
-        // before
-        bool read_password = true;
-        
-        // after
-        bool isAuthenticated = true;
-        ```
-        
-    - 부정하는 의미를 피하는 것이 좋음
-        
-        ```dart
-        // before
-        bool disable_ssl = false;
-        
-        // after
-        bool useSsl = false;
-        ```
-        
-5. 사용자의 기대에 부응하기
-6. 이름을 짓기 위해 복수의 후보를 평가하기
+지은 이름을 "다른 사람들이 다른 의미로 해석할 수 있을까?"라는 질문을 던져보며 철저히 확인해야 함
+
+```dart
+final results = Database.all_objects.filter("year <= 2011");
+
+// 가능성
+// 1) year <= 2011인 객체
+// 2) year <= 2011이 아닌 객체
+// 의미가 모호함
+
+// 1)의 경우 : select()
+// 2)의 경우 : extract()
+// 가 더 적합함
+```
+
+```dart
+String clip(String text, int length) {
+    ...
+}
+
+// 가능성
+// 1) 문단의 끝에서부터 거꾸로 length만큼 제거
+// 2) 문단을 처음부터 length만큼 잘라냄
+
+// better way
+String truncate(String text, int maxChars) {
+    ...
+}
+```
+
+#### 1. 경계를 포함하는 한계값을 다룰 때는 min과 max를 사용
+
+예시
+
+```dart
+// before
+const static int CART_TOO_BIG_LIMIT = 10;
+
+if (shopping_cart.num_items() >= CART_TOO_BIG_LIMIT){
+    Error("Too many items in cart");
+}
+
+// LIMIT을 포함하는지 알 수 없음
+
+// after
+const static int MAX_ITEMS_IN_CART = 10;
+
+if (shopping_cart.num_items() >= MAX_ITEMS_IN_CART){
+    Error("Too many items in cart");
+}
+```
+
+#### 2. 경계를 포함하는 범위에는 first 와 last 를 사용
+
+예시
+
+```dart
+// before
+print(integerRange(start=2,stop=4));
+// [2,3] 인지 [2,3,4] 인지 알 수 없음
+
+// after
+print(integerRange(first=2,last=4));
+```
+
+#### 3. 경계를 포함하고/배제하는 범위에는 begin과 end를 사용
+
+예시
+
+```dart
+printEventsInRange(begin:"2021-02-01 00:00:00",  end:"2021-02-02 00:00:00");
+```
+
+#### 4. boolean 변수에 이름 붙이기
+
+`is`, `has`, `can`, `should`와 같은 단어를 더하여 불리언 값의 의미를 더 명확하게 만들어야 함
+
+```dart
+// before
+bool read_password = true;
+
+// after
+bool isAuthenticated = true;
+```
+
+부정하는 의미를 피하는 것이 좋음
+
+```dart
+// before
+bool disable_ssl = false;
+
+// after
+bool useSsl = false;
+```
+
+#### 5. 사용자의 기대에 부응하기
+
+#### 6. 이름을 짓기 위해 복수의 후보를 평가하기
 
 ---
 
 ### 미학
 
-- '눈을 편하게' 만드는 코드가 좋은 코드라는 사실을 자각하며 다음 원리를 이용하라
-    1. 코드를 읽는 사람이 이미 친숙한, 일관성 있는 레이아웃을 사용하라
-    2. 비슷한 코드는 서로 비슷해 보이게 만들어라
-    3. 서로 연관된 코드는 하나의 블록으로 묶어라
-1. 미학적으로 보기 좋은 코드가 사용하기 더 편리하다
-    - 코드를 훑어보는 데 걸리는 시간이 적을수록, 사람들은 코드를 더 쉽게 사용할 수 있음
-        
-        ```cpp
-        // before
-        class StatsKeeper {
-        public:
-        // 일련의 더블 변수값을 저장하는 클래스
-        	void Add(double d); // 그리고 그런 값들에 대한 간단한 통계를 계산하는 메소드
-        	private: int count; /* 지금까지 몇 개가 저장 되었는가
-        	*/ public:
-        					double Average();
-        private: double minimum;
-        list<double>
-        	past_items
-        			; double maximum;
-        	
-        }
-        
-        // after
-        class StatsKeeper {
-        	public:
-        		void Add(double d);
-        		double Average();
-        
-        	private:
-        		list<double> past_items;
-        		int count;
-        
-        		double minimum;
-        		double maximum;
-        }
-        ```
-        
-2. 일관성과 간결성을 위해서 줄 바꿈을 재정렬하기
-    - 여러 블록에 담긴 코드가 모두 비슷한 일을 수행하면, 실루엣이 동일해 보이게 만들어라
-3. 메소드를 활용하여 불규칙성을 정리하라
-4. 도움이 된다면 코드의 열을 맞춰라
-5. 의미 있는 순서를 선택하고 일관성 있게 사용하라
-6. 선언문을 블록으로 구성하라
-7. 코드를 '문단'으로 쪼개라
-8. 개인적 스타일 vs 일관성
-    - 개인 스타일을 추구한다고 가독성에 실질적 영향을 주진 않지만, 여러 가지 스타일을 섞어쓰면 가독성에 영향을 줌
-        
-        ```dart
-        // 어느 스타일을 사용해도 상관없으나 한가지 스타일만 전체 코드 베이스에서 사용하자
-        // 1.
-        class Logger{
-        	...
-        }
-        
-        // 2.
-        class Logger
-        {
-        	...
-        }
-        ```
-        
+'눈을 편하게' 만드는 코드가 좋은 코드라는 사실을 자각하며 다음 원리를 이용하라
 
----
+```plaintext
+1. 코드를 읽는 사람이 이미 친숙한, 일관성 있는 레이아웃을 사용하라
+2. 비슷한 코드는 서로 비슷해 보이게 만들어라
+3. 서로 연관된 코드는 하나의 블록으로 묶어라
+```
+
+#### 1. 미학적으로 보기 좋은 코드가 사용하기 더 편리하다
+
+코드를 훑어보는 데 걸리는 시간이 적을수록, 사람들은 코드를 더 쉽게 사용할 수 있음
+
+```cpp
+// before
+class StatsKeeper {
+public:
+    // 일련의 더블 변수값을 저장하는 클래스
+    void Add(double d); // 그리고 그런 값들에 대한 간단한 통계를 계산하는 메소드
+    private: int count; /* 지금까지 몇 개가 저장 되었는가
+    */ public:
+                double Average();
+private: double minimum;
+list<double>
+    past_items
+            ; double maximum;
+
+}
+
+// after
+class StatsKeeper {
+    public:
+        void Add(double d);
+        double Average();
+
+    private:
+        list<double> past_items;
+        int count;
+
+        double minimum;
+        double maximum;
+}
+```
+
+#### 2. 일관성과 간결성을 위해서 줄 바꿈을 재정렬하기
+
+여러 블록에 담긴 코드가 모두 비슷한 일을 수행하면, 실루엣이 동일해 보이게 만들어라
+
+#### 3. 메소드를 활용하여 불규칙성을 정리하라
+
+#### 4. 도움이 된다면 코드의 열을 맞춰라
+
+#### 5. 의미 있는 순서를 선택하고 일관성 있게 사용하라
+
+#### 6. 선언문을 블록으로 구성하라
+
+#### 7. 코드를 '문단'으로 쪼개라
+
+#### 8. 개인적 스타일 vs 일관성
+
+개인 스타일을 추구한다고 가독성에 실질적 영향을 주진 않지만, 여러 가지 스타일을 섞어쓰면 가독성에 영향을 줌
+
+```dart
+// 어느 스타일을 사용해도 상관없으나 한가지 스타일만 전체 코드 베이스에서 사용하자
+// 1.
+class Logger{
+    ...
+}
+
+// 2.
+class Logger
+{
+    ...
+}
+```
 
 ### 주석에 담아야 하는 대상
 
