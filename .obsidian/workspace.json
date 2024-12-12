@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "books/객체 지향의 사실과 오해.md",
+                "file": "books/Clean Architecture.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "객체 지향의 사실과 오해"
+              "title": "Clean Architecture"
             }
           }
         ]
@@ -178,26 +178,27 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
-    "questions/Question I need to ask.md",
-    "books/Clean Architecture.md",
+    ".git/index.lock",
     "books/Code Complete.md",
+    "books/Clean Architecture.md",
     "books/Cracking the Coding Interview 6E.md",
-    "books/TDD by Example.md",
-    ".git/objects/e8/19def987db1f238a86d1c75491f711b9b18466",
-    ".git/objects/ba/a258d4a960158cb0d0b2b0a1e1c56f785ae425",
-    ".git/objects/e6/86a8883083a4896146ea728a1c0152045d3b1f",
-    ".git/objects/29/1a2b09abef0c453c78718f1cd31e97c1613123",
-    ".git/objects/a5/cf4b740a7a7e233391c7ccc37908e2aa377378",
-    ".git/objects/36/533c97d8495decf40328c2756464fe6a800ea0",
-    ".git/objects/c3/9081dc36cb5c560625d5540a2a3191e5b3dc96",
-    ".git/objects/22/39c1fbf6cfd011afa655281d8f9cd738ef21e5",
-    ".git/objects/ea/43fff3e6b2c4b031e6fbea780da5be7f1e0957",
-    ".git/objects/97/0fcde74be3ec764d68c93705ea475bc99a2f43",
-    "books/The Art of Readable Code.md",
-    "books/The art of Readable code.md",
-    "books/Refactoring.md",
-    "books/Implementing Domain Driven Design.md",
     "books/Domain Driven Design.md",
+    "books/Implementing Domain Driven Design.md",
+    "books/Refactoring.md",
+    "books/TDD by Example.md",
+    "books/The Art of Readable Code.md",
+    "books/객체 지향의 사실과 오해.md",
+    ".git/objects/7d/ee4db3e671f5f3cd71438ee5ec817cefea16fd",
+    ".git/objects/ba/895c7afdcd9482ffb7d787367ed6c8b9bf9cdc",
+    ".git/objects/8b/14b1ea77b454a490c79644afcd787008d9b2c7",
+    ".git/objects/43/cadd05a46c40ef4f2d1401c94c47e1092dcad5",
+    ".git/objects/86/67c574903ced3e06eec09e87aa9717035f25bd",
+    ".git/objects/33/01a7e5c1b30db696540aa17933b5a54aab0864",
+    ".git/objects/46/9fbab1f380d819d1555e8f28f382f4f3f58ef6",
+    ".git/objects/fc/dc1231ea9128e7d0a2116969b1a0b6c93f4160",
+    ".git/objects/e0/3bdedebaf8bb3624a9c2228e15d83351605e6c",
+    "questions/Question I need to ask.md",
+    "books/The art of Readable code.md",
     "htdp/How to Design Program.md",
     "interview/interview_questions.md",
     "interview/general questions.md",
@@ -221,8 +222,6 @@
     "oop/design-pattern/behavioral/patterns/State Pattern.md",
     "oop/design-pattern/behavioral/patterns/Observer Pattern.md",
     "oop/design-pattern/behavioral/patterns/Memento Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Mediator Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md"
+    "oop/design-pattern/behavioral/patterns/Mediator Pattern.md"
   ]
 }
