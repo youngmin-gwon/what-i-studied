@@ -59,57 +59,80 @@
 - Decorator가 다른 Decorator에 대해 알아야 할 필요가 있다면, Decorator 패턴의 사용 의도와 어긋나는 작업일 수 있음
 - 재귀적으로 기능을 갖게하는 방법 외에도, Decorator를 추가할 때 마다 얻은 아이템을 List로 관리하는 방법도 있음
 
-- 주의사항
-    - 데코레이터가 여러 개 있다면 순서에 주의
-    - 코드가 여러 클래스로 흩어져 디버깅이 까다로워지고, 이해하기 어려울 수 있음
-    - public 메소드가 많다면 Decorator을 적용하는 것이 바람직하지 않을 수 있음
+## Cautions
 
-- 사용성
-    - 런타임 중 어떤 객체를 사용하는 코드들을 망치지 않고 해당 객체에 행동을 추가하고 싶을 때 사용
-    - 상속을 이용해서 객체의 행동을 확장하는 것이 불가능하거나 어색할 때 사용
+- 데코레이터가 여러 개 있다면 순서에 주의
+- 코드가 여러 클래스로 흩어져 디버깅이 까다로워지고, 이해하기 어려울 수 있음
+- public 메소드가 많다면 Decorator을 적용하는 것이 바람직하지 않을 수 있음
 
-- 장점
-    - 서브클래스를 만들지 않고 객체를 확장할 수 있음
-    - 런타임에 특정 객체로 부터의 책임을 추가하거나 제거할 수 있음
-    - 여러개의 Decorator들로 객체를 합쳐 행동 조합을 합칠수 있음
-    - 여러개의 행위를 하던 monolithic한 클래스를 여러개의 작은 클래스로 나눌수 있게 됨 ⇒ Single Responsibility Principle
+## Adaptability
 
-- 단점
-    - wrapper 스택으로 부터 특정 wrapper를 제거하는 것이 어려움
-    - 동작이 Decorator 스택의 순서에 의존하지 않는 방식으로 Decorator를 구현하는 것은 어려움
-    - 초기 계층 설정에 관한 코드가 깔끔하지 못함
+- 런타임 중 어떤 객체를 사용하는 코드들을 망치지 않고 해당 객체에 행동을 추가하고 싶을 때 사용
+- 상속을 이용해서 객체의 행동을 확장하는 것이 불가능하거나 어색할 때 사용
 
-- 다른 패턴과의 관계
-    - Adapter, Proxy
-        - Adapter는 다른 인터페이스를 제공
-        - Proxy는 같은 인터페이스를 제공
-        - Decorator는 증강된 인터페이스를 제공
-    - Adapter
-        - Adapter는 인터페이스를 변환하지만 Decorator는 인터페이스의 변환없이 객체를 감싼다
-    - Chain of Responsibility
-        - 매우 비슷한 클래스 구조(recursive composition)를 가짐
-        - 차이점
-            - Chain of Responsibility handler 는 서로 독립적으로 임의의 작업을 실행할 수 있음. 또한 언제든지 요청을 더 이상 전달하지 않을 수 있음
-            - 데코레이터는 기본 인터페이스와 일관성을 유지하면서 객체의 동작을 확장할 수 있음. 또한 데코레이터는 요청의 흐름을 중단할 수 없음
-    - Composite
-        - 비슷한 구조 다이어그램을 가짐. 두 패턴 모두 다 재귀 형태를 갖는다
-            - Decorator는 자식이 1개, Composite 패턴은 자식이 1~n개 가능
-            - Decorator는 감싸진 객체에 추가적인 책임을 더하는 반면, Composite은 단지 자식들의 결과를 합산하는 역할만 함
-            - 하지만 두개의 패턴을 합칠 수 있음
-                - Decorator를 사용하여 Composite tree에서 특정 개체의 동작을 확장할 수 있음
-    - Composite, Prototype
-        - Composite과 Decorator를 많이 사용하는 디자인에서는 Prototype을 이용하여 이점을 얻을 수 있음
-            - Prototype을 처음부터 다시 구성하는 대신 복잡한 구조를 복제할 수 있음
-    - Strategy
-        - Decorator는 외부를 바꾸고, Strategy는 속을 바꾸는 역할을 함
-    - Proxy
-        - 공통점
-            - 두 패턴 모두 한 개체가 일부 작업을 다른 개체에 위임해야 하는 구성 원칙을 기반으로 함
-            - (Proxy 패턴에서 원본에 해당하는) ConcreteComponent는 (Proxy 패턴에서 Proxy에 해당하는) Decorator를 통해 호출되는 몇 가지 동작을 구현
-            - 공통 기본 클래스(common base class)로부터 상속
-        - 차이점
-            - 의도에서 차이가 남
-                - 데코레이터는 기능을 추가하거나, (좀 더 일반적으로는) ConcreteComponent의 핵심 기능에 추가 기능을 동적으로 선택할 수 있는 옵션을 제공
-                - 프록시는 세부적으로 정의된 하우스키핑 코드(housekeeping code)를 원본으로부터 분리하는 역할
-            - Proxy는 일반적으로 자체적으로 서비스 개체의 수명 주기를 관리
-            - Decorator의 구성은 항상 클라이언트에 의해 제어됨
+## Pros
+
+- 서브클래스를 만들지 않고 객체를 확장할 수 있음
+- 런타임에 특정 객체로 부터의 책임을 추가하거나 제거할 수 있음
+- 여러개의 Decorator들로 객체를 합쳐 행동 조합을 합칠수 있음
+- 여러개의 행위를 하던 monolithic한 클래스를 여러개의 작은 클래스로 나눌수 있게 됨 ⇒ [[SRP(Single Responsibility Principle)]]
+
+## Cons
+
+- wrapper 스택으로 부터 특정 wrapper를 제거하는 것이 어려움
+- 동작이 Decorator 스택의 순서에 의존하지 않는 방식으로 Decorator를 구현하는 것은 어려움
+- 초기 계층 설정에 관한 코드가 깔끔하지 못함
+
+## Relationship with other patterns
+
+### [[Adapter Pattern]], [[Proxy Pattern]]
+
+- Adapter는 다른 인터페이스를 제공
+- Proxy는 같은 인터페이스를 제공
+- Decorator는 증강된 인터페이스를 제공
+
+### [[Adapter Pattern]]
+
+- Adapter는 인터페이스를 변환하지만 Decorator는 인터페이스의 변환없이 객체를 감싼다
+
+### [[Chain of Responsibility Pattern]]
+
+- 매우 비슷한 클래스 구조(recursive composition)를 가짐
+
+#### Differences
+
+- Chain of Responsibility handler 는 서로 독립적으로 임의의 작업을 실행할 수 있음. 또한 언제든지 요청을 더 이상 전달하지 않을 수 있음
+- 데코레이터는 기본 인터페이스와 일관성을 유지하면서 객체의 동작을 확장할 수 있음. 또한 데코레이터는 요청의 흐름을 중단할 수 없음
+
+### [[Composite Pattern]]
+
+- 비슷한 구조 다이어그램을 가짐. 두 패턴 모두 다 재귀 형태를 갖는다
+  - Decorator는 자식이 1개, Composite 패턴은 자식이 1~n개 가능
+  - Decorator는 감싸진 객체에 추가적인 책임을 더하는 반면, Composite은 단지 자식들의 결과를 합산하는 역할만 함
+  - 하지만 두개의 패턴을 합칠 수 있음
+    - Decorator를 사용하여 Composite tree에서 특정 개체의 동작을 확장할 수 있음
+
+### [[Composite Pattern]], [[Prototype Pattern]]
+
+- Composite과 Decorator를 많이 사용하는 디자인에서는 Prototype을 이용하여 이점을 얻을 수 있음
+  - Prototype을 처음부터 다시 구성하는 대신 복잡한 구조를 복제할 수 있음
+
+### [[Strategy Pattern]]
+
+- Decorator는 외부를 바꾸고, Strategy는 속을 바꾸는 역할을 함
+
+### [[Proxy Pattern]]
+
+#### 1. Commons
+
+- 두 패턴 모두 한 개체가 일부 작업을 다른 개체에 위임해야 하는 구성 원칙을 기반으로 함
+- (Proxy 패턴에서 원본에 해당하는) ConcreteComponent는 (Proxy 패턴에서 Proxy에 해당하는) Decorator를 통해 호출되는 몇 가지 동작을 구현
+- 공통 기본 클래스(common base class)로부터 상속
+
+#### 2. Differences
+
+- 의도에서 차이가 남
+  - 데코레이터는 기능을 추가하거나, (좀 더 일반적으로는) ConcreteComponent의 핵심 기능에 추가 기능을 동적으로 선택할 수 있는 옵션을 제공
+  - 프록시는 세부적으로 정의된 하우스키핑 코드(housekeeping code)를 원본으로부터 분리하는 역할
+- Proxy는 일반적으로 자체적으로 서비스 개체의 수명 주기를 관리
+- Decorator의 구성은 항상 클라이언트에 의해 제어됨

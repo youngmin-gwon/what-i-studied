@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/structural/patterns/Proxy Pattern.md",
+                "file": "oop/design-pattern/structural/patterns/Decorator Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Proxy Pattern"
+              "title": "Decorator Pattern"
             }
           }
         ]
@@ -178,17 +178,17 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
-    ".git/objects/e8/b83583be5ca26d1a596b8a6d11db001c9fb2cf",
-    ".git/objects/83/9224aba131968257d33718d7da99208ae7b7a6",
-    ".git/objects/98/bf7d8a3172b9362a72818231048b33a60a0612",
-    ".git/objects/15/c57638641ba37df47176d68ad10f28c96cd3f4",
-    ".git/objects/c0/0d04aa3f319a17aafa5ec76e22417852a9ae0c",
-    ".git/objects/58/8dc2a1bd72b17105d305d4a20ee6a687f453f8",
-    ".git/objects/6c/de19ba52127fa4f5e035de2f934f16b271da81",
-    ".git/objects/c5/adfd6e25747065d8b6aa52c921ee3873c9330a",
+    "oop/design-pattern/structural/patterns/Proxy Pattern.md",
+    ".git/objects/51/7a66f764fb5b9e3619c68307e4b70dd3a1ae38",
+    ".git/objects/0f/746f83686be2fc710570905669cb659ccc4bb4",
+    ".git/objects/cc/f10c37beddfaef5369ade7e13fb3e7aa3f6499",
+    ".git/objects/42/c501a6f3e2167745c12d1ec09eb37717c6f41a",
+    ".git/objects/bb/62bd073d948c9685e97193a277cdb10a7921cc",
+    ".git/objects/2f/69078cae9c0c77dfc70ae0c5ec118db944b24b",
+    ".git/objects/4e/cab5701ec23ebc4c8e3c11f4748a731c6a6bb4",
     ".git/index.lock",
-    ".git/objects/35/d380c95a89921e8fb726ffb3efed56688e197a",
-    ".git/objects/b0/85f428fc73c13f82444134b30e5542ff5a4dbc",
+    ".git/objects/03/c61691f1dc3a65985050b6c344ffce9502533d",
+    ".git/objects/d6/3c4a180ec56bf01c8c78e16e725e2703cebc25",
     "Memon.md",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
