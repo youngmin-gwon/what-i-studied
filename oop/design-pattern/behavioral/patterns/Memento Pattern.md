@@ -79,13 +79,18 @@
 - 상태를 저장하고 복구하는 데 시간이 오래 걸릴수 있음
   - 직렬화 해서 저장하는 것이 좋음
 
-- 다른 패턴과의 관계
-    - Command
-        - undo 기능을 적용하기 위해서 Command 패턴과 같이 사용할 수 있음
-            - Command는 다양한 연산을 목표 객체에 적용하는 것에만 신경 쓰면 되고, Memento는 Command가 수행되기 전 객체의 상태만 기억하는 것에만 신경 쓰면 됨
-    - Iterator
-        - Memento와 Iterator를 함께 사용하여, 현재 상태를 알고, 또 필요한 경우 되돌릴 수 있음
-    - Prototype
-        - Prototype이 Memento의 간단한 대안이 될 수도 있음
-            - 히스토리에 저장하려는 상태인 객체가 간단하고 외부 리소스에 대한 링크가 없거나 링크가 재설정하기 쉬운 경우 대안으로 채택할 수 있음
+## Relationship with other patterns
 
+### [[Command Pattern]]
+
+- undo 기능을 적용하기 위해서 Command 패턴과 같이 사용할 수 있음
+- Command는 다양한 연산을 목표 객체에 적용하는 것에만 신경 쓰면 되고, Memento는 Command가 수행되기 전 객체의 상태만 기억하는 것에만 신경 쓰면 됨
+
+### [[Iterator Pattern]]
+
+- Memento와 Iterator를 함께 사용하여, 현재 상태를 알고, 또 필요한 경우 되돌릴 수 있음
+
+### [[Prototype Pattern]]
+
+- Prototype이 Memento의 간단한 대안이 될 수도 있음
+- 히스토리에 저장하려는 상태인 객체가 간단하고 외부 리소스에 대한 링크가 없거나 링크가 재설정하기 쉬운 경우 대안으로 채택할 수 있음
