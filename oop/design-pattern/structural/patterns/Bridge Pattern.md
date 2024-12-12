@@ -46,20 +46,21 @@
     - ***Implementation*** interface를 구현
     - platform-specific한 코드를 포함하고 있음
 
-- 적용성
-    - monolithic한 class를 여러가지 기능으로 나누고 싶을 때 사용해야 함
-        - 작아진 클래스로 기존 코드가 망가지는 것을 방지할 수 있음
-        - 코드 유지를 간단하게 만들어줌
-        - 좋은 예시: database와 file system처럼 persistence layer에 여러 가지 접근 방식을 사용하려는 경우
-    - 추상과 구현 모두 subclass로 확장이 가능해야할 때 사용해야함
-    - run-time에 구현을 변경해야 하는 경우 유용함
+## Adaptability
+
+- monolithic한 class를 여러가지 기능으로 나누고 싶을 때 사용해야 함
+  - 작아진 클래스로 기존 코드가 망가지는 것을 방지할 수 있음
+  - 코드 유지를 간단하게 만들어줌
+  - 좋은 예시: database와 file system처럼 persistence layer에 여러 가지 접근 방식을 사용하려는 경우
+- 추상과 구현 모두 subclass로 확장이 가능해야할 때 사용해야함
+- run-time에 구현을 변경해야 하는 경우 유용함
 
 ## Pros
 
 - 플랫폼 독립적인 클래스 및 앱을 만들 수 있음
 - 클라이언트 코드는 높은 수준의 추상화와 함께 작동. 플랫폼 세부정보에게 정보를 노출하지 않음
 - 각각 새로운 Abstraction, Implementation을 도입할 수 있음 ⇒ Open/Closed Principle
-- Abstraction 에서는 상위 레벨 로직에만 집중하면 되고, Implementation 에서는 플랫폼 세부사항에 집중하면 된다 ⇒ Single Responsibility Principle
+- Abstraction 에서는 상위 레벨 로직에만 집중하면 되고, Implementation 에서는 플랫폼 세부사항에 집중하면 된다 ⇒ [[SRP(Single Responsibility Principle)]]
 
 ## Cons
 
@@ -67,16 +68,23 @@
 
 ## Relationship with other patterns
 
-    - Adapter
-        - Bridge는 일반적으로 사전에 설계되어 서로 독립적으로 응용 프로그램의 일부를 개발할 수 있음
-        - Adapter는 일반적으로 기존 앱과 함께 사용되어 호환되지 않는 일부 클래스가 잘 작동하도록 함
-    - Bridge, State, Strategy, (일부 Adapter)
-        - 모두 매우 비슷한 구조를 가지고 있으며, 하위 클래스에 작업을 할당하는 composition을 기반으로 함
-        - 하지만 모두 다른 문제를 해결하기 위한 방법임
-    - Abstract Factory
-        - Bridige 패턴과 함께 사용할 수 있는 패턴
-            - Bridge에서 정의한 일부 Abstractions가 특정 Implementations에서만 작동할 수 있을 때 유용함
-            - 이 경우 Abstract Factory는 이러한 관계를 캡슐화하고 클라이언트 코드에서 복잡성을 숨길 수 있음
-    - Builder
-        - Bridge와 함께 조합하여 사용할 수 있음
-            - Director 클래스는 추상화의 역할을 하는 반면 다른 Builder는 구현의 역할을 하게 하는 방식
+### [[Adapter Pattern]]
+
+- Bridge는 일반적으로 사전에 설계되어 서로 독립적으로 응용 프로그램의 일부를 개발할 수 있음
+- Adapter는 일반적으로 기존 앱과 함께 사용되어 호환되지 않는 일부 클래스가 잘 작동하도록 함
+
+### [[State Pattern]], [[Strategy Pattern]], (일부 [[Adapter Pattern]])
+
+- 모두 매우 비슷한 구조를 가지고 있으며, 하위 클래스에 작업을 할당하는 composition을 기반으로 함
+- 하지만 모두 다른 문제를 해결하기 위한 방법임
+
+### [[Abstract Factory Pattern]]
+
+- Bridge 패턴과 함께 사용할 수 있는 패턴
+  - Bridge에서 정의한 일부 Abstractions가 특정 Implementations에서만 작동할 수 있을 때 유용함
+  - 이 경우 Abstract Factory는 이러한 관계를 캡슐화하고 클라이언트 코드에서 복잡성을 숨길 수 있음
+
+### [[Builder Pattern]]
+
+- Bridge와 함께 조합하여 사용할 수 있음
+  - Director 클래스는 추상화의 역할을 하는 반면 다른 Builder는 구현의 역할을 하게 하는 방식

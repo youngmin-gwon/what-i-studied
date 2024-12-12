@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/creational/patterns/Builder Pattern.md",
+                "file": "oop/design-pattern/structural/patterns/Bridge Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Builder Pattern"
+              "title": "Bridge Pattern"
             }
           }
         ]
@@ -178,17 +178,18 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
-    "oop/design-pattern/structural/patterns/Decorator Pattern.md",
-    ".git/objects/57/9091436e9b66317ecb633d764e3178435f0838",
-    ".git/objects/f6/c3d97f6e32f1fe43eb9d28b37cab1178750aeb",
-    ".git/objects/cb/ee1846d4e6bf7ad125cccfd9cd16c76add692e",
-    ".git/objects/fd/8dc8295710a592878ff81448db1416d4357827",
-    ".git/objects/31/6b74628818f257e0f30f9f4826ea6c27fd2471",
-    ".git/objects/aa/db32550e027016d6ee27ebf83752d80d8bfecb",
-    ".git/objects/18/443e2ce88704f4174be2a14f16ccb1fc6f67b5",
     ".git/index.lock",
-    ".git/objects/3e/e11ff38c7d3c2f4d8a77e9ae321123f4243cda",
-    ".git/objects/a6/7044ec6292e85b484bbe7f1c864fc07edbf038",
+    "oop/design-pattern/creational/patterns/Builder Pattern.md",
+    ".git/objects/71/96f82b8d0a5ae20860350dc5139ed3a2f44224",
+    ".git/objects/70/f9dc50bc1972c64fd4cbfe5f3cc5fc5172fb2c",
+    ".git/objects/4b/bb22c93018f9c027c921c6bf4b9dfaaabe0b1e",
+    ".git/objects/91/3c4e7c4b9cb876da862668e34961ecabead949",
+    ".git/objects/43/a2326338751da433590e1e0a4172fa21e73a89",
+    ".git/objects/23/e741ace91a19a17d554b5e75a95d2b3646b4a4",
+    ".git/objects/27/b3c4534d557ede898c2c27fb3bfa815490029e",
+    ".git/objects/77/90300bf1c8cefa4cb8ba9ef55d4ee08d7dfcff",
+    ".git/objects/4a/c08bcc077f743085d66193fe6afd75a7004cbf",
+    "oop/design-pattern/structural/patterns/Decorator Pattern.md",
     "oop/design-pattern/structural/patterns/Proxy Pattern.md",
     "Memon.md",
     "oop/design-pattern/creational/Creational Pattern.md",
@@ -221,7 +222,6 @@
     "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
     "oop/design-pattern/creational/patterns/Prototype Pattern.md",
     "oop/design-pattern/OOP Design Pattern.md",
-    "git/Git 원리.md",
     "_assets/oop/adapter_overview.png"
   ]
 }
