@@ -25,12 +25,14 @@
             "id": "848318ccbbb88397",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "design-pattern/images/adapter_overview.png"
+                "file": "design-pattern/structural/patterns/Adapter.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "adapter_overview"
+              "icon": "lucide-file",
+              "title": "Adapter"
             }
           },
           {
@@ -220,27 +222,28 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "2f1d28be0471f52d",
+  "active": "848318ccbbb88397",
   "lastOpenFiles": [
+    "design-pattern/structural/Structural Pattern.md",
     "design-pattern/structural/patterns/Adapter.md",
-    "design-pattern/structural/patterns",
+    "design-pattern/images/adapter_overview.png",
+    ".git/objects/06/dc541e769cc3ea2106c2d71eaeb1aed5bc96ea",
+    ".git/objects/bc/348cfc3b6c86ea7b2d85fddad099ae96a22df4",
+    ".git/objects/d1/6f5c1a026399bfc240d51e98daca5c059ce2e1",
+    ".git/objects/80",
+    ".git/objects/80/71def168e2498765a612e74b5655a336944568",
+    ".git/objects/77/2396630f3b53ac33b57a95bfac4ddde6111c17",
+    ".git/objects/58/cbf5e960bb3de3495e6e3c1430e6b4ba192ce7",
+    ".git/objects/11/4f6da49ffbed32050caf55d0fee7e376f8cf07",
+    ".git/objects/5d/6467fe160e8a0cc33e6afe80e5e43e50dbfe38",
+    ".git/objects/06/cb1f2e9efb74805cb8d97823e8d8a5581ff830",
     "design-pattern/creational/patterns/Singleton.md",
-    "design-pattern/creational/patterns",
-    ".git/objects/8a",
-    ".git/objects/8a/0095d57a8fb4411497ba5b79d2703c9e4096c0",
-    ".git/objects/9e",
-    ".git/objects/9e/ff12bebce78e8857b67fc75061933f0bbea97b",
-    ".git/objects/29",
-    ".git/objects/29/89343f40ced85ac4c6bdf092cd4acbb246b207",
-    ".git/objects/32/04e21394aa18eccf36a3b0b56e47b53e277a4d",
-    ".git/objects/c9/3f26e6445996f2916db24eca0f454d31c050d8",
     "design-pattern/structural/Adapter.md",
     "design-pattern/OOP Design Pattern.md",
     "design-pattern/creational/Creational Pattern.md",
     "design-pattern/creational/Singleton.md",
     "design-pattern/behavioral/Behavioral Pattern.md",
     "Singleton Pattern.md",
-    "design-pattern/structural/Structural Pattern.md",
     "design-pattern/SOLID.md",
     "questions/Question I need to ask.md",
     "profile.md",

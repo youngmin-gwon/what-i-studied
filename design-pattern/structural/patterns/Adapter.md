@@ -2,7 +2,7 @@
 
 ## Description
 
-- Structural Pattern
+- [[Structural Pattern]]
 
 ![Untitled](adapter_overview.png)
 
