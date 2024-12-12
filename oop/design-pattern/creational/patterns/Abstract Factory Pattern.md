@@ -67,25 +67,36 @@
 
 - 새로운 종류의 Product를 제공하기 어려울 수 있다
 
-- 다른 패턴과의 관계
-    - [[Prototype Pattern]], [[Builder Pattern]]
-        - 모두 Factory Method를 기반으로 발전 됨
-        - Factory Method보다 자유롭지만, 복잡함
-    - [[Builder Pattern]]
-        - Builder는 복잡한 객체를 단계별로 생성하는 패턴
-        - Abstract Factory는 관계있는 객체의 family를 만드는 패턴
-        - Abstract Factory는 객체를 바로 생성하지만, Builder는 객체 생성까지 추가적인 시간이 필요함
-    - [[Factory Method Pattern]]
-        - Abstract Factory는 Factory Method의 세트를 기반으로 만들어짐
-    - [[Facade Pattern]]
-        - 클라이언트 코드에서 서브시스템 객체가 생성되는 방식을 숨기고 싶을 때 Facade의 대안으로 사용할 수 있음
-    - [[Bridge Pattern]]
-        - Abstract Factory와 Bridge 패턴을 함께 사용할 수 있음
-            - Bridge에서 정의한 일부 추상화가 특정 구현에서만 작동할 수 있을 때 유용함
-            - Abstract Factory는 관계를 캡슐화하고 클라이언트 코드에서 복잡성을 숨길 수 있음
-    - [[Singleton Pattern]]
-        - Abstract Factory는 Singleton 패턴으로 적용될 수 있음
-    
+## Relationship with other patterns
+
+### [[Prototype Pattern]], [[Builder Pattern]]
+
+- 모두 Factory Method를 기반으로 발전 됨
+- Factory Method보다 자유롭지만, 복잡함
+
+### [[Builder Pattern]]
+
+- Builder는 복잡한 객체를 단계별로 생성하는 패턴
+- Abstract Factory는 관계있는 객체의 family를 만드는 패턴
+- Abstract Factory는 객체를 바로 생성하지만, Builder는 객체 생성까지 추가적인 시간이 필요함
+
+### [[Factory Method Pattern]]
+
+- Abstract Factory는 Factory Method의 세트를 기반으로 만들어짐
+
+### [[Facade Pattern]]
+
+- 클라이언트 코드에서 서브시스템 객체가 생성되는 방식을 숨기고 싶을 때 Facade의 대안으로 사용할 수 있음
+
+### [[Bridge Pattern]]
+
+- Abstract Factory와 Bridge 패턴을 함께 사용할 수 있음
+- Bridge에서 정의한 일부 추상화가 특정 구현에서만 작동할 수 있을 때 유용함
+- Abstract Factory는 관계를 캡슐화하고 클라이언트 코드에서 복잡성을 숨길 수 있음
+
+### [[Singleton Pattern]]
+
+- Abstract Factory는 Singleton 패턴으로 적용될 수 있음
 
 cf) Factory 용어 의미 비교
 
