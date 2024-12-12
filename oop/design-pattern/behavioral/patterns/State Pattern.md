@@ -62,14 +62,14 @@
 
 ## Relationship with other patterns
 
-### Bridge, State, (일부분 Adapter)
+### [[Strategy Pattern]] (일부분 [[Adapter Pattern]])
 
 - 구조가 비슷함(다른 객체에 실제 작업을 위임하는 구조)
 - 모두 다른 문제를 풀기 위한 방법
   - 패턴은 특정 방식으로 코드를 구조화하기 위한 단순한 레시피가 아님
   - **해결해야하는 문제를 다른 개발자와 소통하기 위한 방법으로 패턴을 사용해야 함**
 
-### Strategy
+### [[Strategy Pattern]]
 
 - State는 Strategy를 확장한 패턴으로 간주됨
   - 둘 모두 구성 기반

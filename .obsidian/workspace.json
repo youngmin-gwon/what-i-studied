@@ -11,10 +11,14 @@
             "id": "57e4364fde68d212",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "oop/design-pattern/behavioral/patterns/State Pattern.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "State Pattern"
             }
           }
         ]
@@ -173,19 +177,18 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
-    ".git/objects/8b/ea1b697c03891b8817cf07e35e122fd4dcf5f7",
-    ".git/objects/7c/8be7c8434da17c45ecb0cd232b3f0df4d50fe4",
-    ".git/objects/58/806a150045feebbc7f4b42a1f080f400a95b6c",
-    ".git/objects/8a/2ffa5a0527ebf01c9072d88a23d481b23aed00",
-    ".git/objects/46/c24495b75edb05f4618dc1bb132abe21d49d5b",
-    ".git/objects/ad/853403095d00f30a4612a80d2ea67cae932ddc",
-    ".git/objects/8a/fee08b7c92e8577c5d2d63817d9ad357c9a94b",
-    ".git/index.lock",
-    ".git/objects/99/8b6bdaf7282e98e2e38d3252f0e715784b5948",
-    ".git/objects/0c/25a7d5e4c34b294755e966c29cbafc15d9258e",
-    ".git/objects/e5/c1a9552ac6ac8ab02ae207aaedcf61f3e28c10",
-    "oop/design-pattern/behavioral/Behavioral Pattern.md",
     "oop/design-pattern/behavioral/patterns/Strategy Pattern.md",
+    ".git/objects/20/dd354fdf42f3a0f9d64345aeaa5919e7cd3243",
+    ".git/objects/33/d9d24d6b34f0d716e5a936967ace683eee48a9",
+    ".git/objects/5d/43ad95e9527cc769f1c4b3af6f231b4dc66102",
+    ".git/objects/c1/ee6953db470b053e9666e7a781e0af8d593a3b",
+    ".git/objects/bf/513750346d9a8d93db5053d3f7493c769d69f3",
+    ".git/objects/6e/e694b95194a86304fffdc70e418cd0c24a4ec8",
+    ".git/objects/1b",
+    ".git/objects/1b/12cd5dd495ddf8f170e28b50737297f327dc84",
+    ".git/index.lock",
+    ".git/objects/b3/7d12517566a26aa4672a2809624c26bf98aeb5",
+    "oop/design-pattern/behavioral/Behavioral Pattern.md",
     "oop/design-pattern/structural/patterns/Facade Pattern.md",
     "oop/design-pattern/structural/patterns/Adapter Pattern.md",
     "oop/design-pattern/structural/patterns/Composite Pattern.md",
