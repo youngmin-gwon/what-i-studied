@@ -5,7 +5,7 @@
 아래 명령어를 실행하면 commit 시 pre-commit hook 을 `생략`할 수 있다.
 
 ```bash
-$ git commit --no-verify
+git commit --no-verify
 ```
 
 ### prepare-commit-msg
