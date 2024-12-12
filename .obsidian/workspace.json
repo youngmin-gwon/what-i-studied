@@ -11,10 +11,14 @@
             "id": "15373bd649c7d9cc",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "oop/design-pattern/structural/patterns/Proxy Pattern.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Proxy Pattern"
             }
           }
         ]
@@ -69,8 +73,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -175,20 +178,21 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
+    ".git/objects/e8/b83583be5ca26d1a596b8a6d11db001c9fb2cf",
+    ".git/objects/83/9224aba131968257d33718d7da99208ae7b7a6",
+    ".git/objects/98/bf7d8a3172b9362a72818231048b33a60a0612",
+    ".git/objects/15/c57638641ba37df47176d68ad10f28c96cd3f4",
+    ".git/objects/c0/0d04aa3f319a17aafa5ec76e22417852a9ae0c",
+    ".git/objects/58/8dc2a1bd72b17105d305d4a20ee6a687f453f8",
+    ".git/objects/6c/de19ba52127fa4f5e035de2f934f16b271da81",
+    ".git/objects/c5/adfd6e25747065d8b6aa52c921ee3873c9330a",
+    ".git/index.lock",
+    ".git/objects/35/d380c95a89921e8fb726ffb3efed56688e197a",
+    ".git/objects/b0/85f428fc73c13f82444134b30e5542ff5a4dbc",
     "Memon.md",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
     "oop/design-pattern/behavioral/patterns/Command Pattern.md",
-    ".git/objects/26/4b9e66f30f03d350b42ea665dcfbcfd6e1e822",
-    ".git/objects/06/a4bfb1e678dd32c626fd1fb023bcb464cfc3f6",
-    ".git/objects/bd/29e22f8c1de4078d613d10a7d25ac0afed971d",
-    ".git/objects/03/f0778a1d6acb1f279a1be3aec7db1427a315dd",
-    ".git/objects/e4/7fe88ebc7e148c0bda88629482c90c3d10b0ad",
-    ".git/objects/49/bb1db13ccee1492c7ded19ffe06c446b32ba9b",
-    ".git/objects/92/536701faee56cb01e29ff078f5301826f7dc75",
-    ".git/objects/c4/2849f672aa792ba2ce63ba5f711b03b248c078",
-    ".git/objects/7f/114e4647b23a0514c70f475c6e091207c65923",
-    ".git/objects/76/d74b732fc1df9676f5ee0b823525a5bc868a03",
     "oop/design-pattern/behavioral/patterns/Chain of Responsibility Pattern.md",
     "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
     "oop/design-pattern/behavioral/patterns/Mediator Pattern.md",
@@ -219,7 +223,6 @@
     "oop/design-pattern/OOP Design Pattern.md",
     "git/Git 원리.md",
     "git/Git Command.md",
-    "git/gitignore pattern.md",
     "_assets/oop/adapter_overview.png"
   ]
 }
