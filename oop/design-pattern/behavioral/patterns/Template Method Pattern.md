@@ -64,9 +64,9 @@
 
 ## Relationship between other patterns
 
-- Factory Method
+- [[Factory Method Pattern]] 
   - Factory Method는 Template Method를 구체화 한것. 동시에 Factory Method는 큰 Template Method의 한 단계 역할을 할 수 있음
-- Strategy
+- [[Strategy Pattern]]
   - Template Method는 상속을 기반으로 함 ⇒ 이 메서드를 사용하면 하위 클래스에서 해당 부분을 확장하여 알고리즘의 일부를 변경할 수 있음
   - Strategy은 구성을 기반으로 함 ⇒ 해당 동작에 해당하는 다른 전략을 제공하여 개체 동작의 일부를 변경할 수 있음
   - Concrete Algorithm이 선택될 때 차이가 있음

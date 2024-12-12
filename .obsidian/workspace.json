@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/structural/patterns/Adapter Pattern.md",
+                "file": "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Adapter Pattern"
+              "title": "Template Method Pattern"
             }
           }
         ],
@@ -192,18 +192,18 @@
   },
   "active": "cb05fd0c41220189",
   "lastOpenFiles": [
-    ".git/objects/5a/5825e71b5fca70c79eda8b4db370b6c3fc09c4",
-    ".git/objects/5a/301db622164b7155020a4d45d1345457d5f57b",
-    ".git/objects/9f/8bb756d0a6c4fde30c255ab3a1f3d13964d60e",
-    ".git/objects/1f/42079ab936fd04dacd7c94fe7b6fd00f3906bc",
-    ".git/objects/dd/cf546339dede37de50de8ca1654f4b313e2d0f",
-    ".git/objects/d0/1383cdfb430241553a7ee5bee37492ad165dbb",
-    ".git/objects/ea/a8c4701b49a53d5dbf006b2f1d2adfc10712e9",
-    ".git/objects/72",
-    ".git/objects/72/6ee94d420344ab67efbe80a69212a200ec75b3",
+    ".git/index.lock",
+    "oop/design-pattern/structural/patterns/Adapter Pattern.md",
+    ".git/objects/c4/3ea80408f031813224fd30b6795982b4cd3e7f",
+    ".git/objects/92/a5fbc2c03039d64df58135485c8cada922a74c",
+    ".git/objects/60/e4df5494ba3f889a7970745e2949a39421a3ee",
+    ".git/objects/9a/b065bc2c2309c26a00db7130a422eebed8747a",
+    ".git/objects/3c/ff02bb6a1a0c1c2fa2abf309f430119fe27e6a",
+    ".git/objects/ef/bdf3eee475fdaa45b17a1c0c7a1753f88dbbc7",
+    ".git/objects/eb/17ae06cd63947f5310fc3efb850ce67e23dfb8",
+    ".git/objects/b2",
+    ".git/objects/b2/e9b11626e026695b5f9a6bfbdea659f534f57d",
     "oop/design-pattern/structural/Structural Pattern.md",
-    ".git/objects/7a/d8e89b5be6bc6fdab5ff6e187be87ac2294ccf",
-    ".git/objects/41/b8e562fefa0dc7a821e338ad7829ae9b63cef3",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/behavioral/Behavioral Pattern.md",
     "oop/design-pattern/behavioral/patterns/Strategy Pattern.md",
@@ -227,7 +227,6 @@
     "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
     "oop/design-pattern/behavioral/patterns/Command Pattern.md",
     "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
-    "oop/design-pattern/creational/patterns/Singleton Pattern.md",
     "oop/design-pattern/images/template_method.png",
     "oop/design-pattern/images/adapter_overview.png",
     "oop/design-pattern/images/Untitled 9.png",
