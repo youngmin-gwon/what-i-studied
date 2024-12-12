@@ -5,10 +5,10 @@
 - A quote in the book "Design Patterns: Elements of Reusable Object-Oriented Programming" by GoF
 
 > A design pattern names, abstracts, and identifies the key aspects of a common design structure that make it useful for creating a reusable object-oriented design.
-> 
+ 
 
 > 디자인 패턴은 대부분의 프로그래밍 상황에서 유용하게 사용하기 위해 공통적으로 사용 되는 디자인 패턴을 명명, 추상화, 명시화 한것이고, 이는  재사용 가능한 객체지향 디자인을 만들기 위함이다.
-> 
+ 
 - (design 이라는 단어 때문에 혼동이 올 수 있으나) UI/UX 문제를 풀기 위한 것이 아님
 - 특정 객체지향 문제를 풀기 위한 청사진에 가까움
 - 개발 시간을 앞당길 수 있고, 코드를 더욱 유연하고 재사용 가능하게 만들어 줄 수 있음
