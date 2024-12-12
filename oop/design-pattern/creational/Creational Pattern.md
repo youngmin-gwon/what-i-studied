@@ -18,4 +18,4 @@
 
 4. 팩토리 메서드 패턴([[Factory Method Pattern]]) : 생성할 객체의 클래스를 국한하지 않고 객체를 생성
 
-5. 추상 팩토리 패턴(Abstract Factory) : 동일한 주제의 다른 팩토리를 묶어 줌
+5. 추상 팩토리 패턴([[Abstract Factory Pattern]]) : 동일한 주제의 다른 팩토리를 묶어 줌
