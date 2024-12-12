@@ -177,17 +177,18 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
-    "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
-    ".git/objects/e5/a16ce2c97c72eea8805b10a8545159a3d521eb",
-    ".git/objects/0b/9c53647abcfe47efd04f01b1a429cd9b42bda6",
-    ".git/objects/28/42a0678626062e83f24506546ad9478fc4600c",
-    ".git/objects/a4/22c4147b7d4e8f2060deffbbcbe66726693db1",
-    ".git/objects/9d/5e3cb95e25b97c0d66a8e9a1d597671d8e8a74",
-    ".git/objects/d5/e9d099fe181edcf66a4cb4cde57a714c26fdfb",
+    ".git/objects/10/aa37c3baa68a0ac8004ec755c468897306efc4",
+    ".git/objects/af/46fb78ba1a2e0d8812f6764bb7e9b3c0dba682",
+    ".git/objects/75",
+    ".git/objects/75/f1f4214f364710c6cf966003dc0f8664110f44",
+    ".git/objects/b4/a0dd7efb2843f6aa32e7c9fcbee951a6a18c7b",
+    ".git/objects/92/91657e1658af514f4d84e80524dfd007001c40",
+    ".git/objects/e1/5b43ee733f19692abc105b609f6d550341557c",
+    ".git/objects/de",
+    ".git/objects/de/41c308f5e81e865ddd1ea2c24c5005be6fc721",
+    ".git/objects/35/6fb823ef0eba13bfdd83afb7d8d6bc566d6873",
     ".git/index.lock",
-    ".git/objects/ed",
-    ".git/objects/ed/c6a631ada1734f19257816b1507c3f544ac906",
-    ".git/objects/92/132afac7be561599ba83f5f8a1db3c623f1059",
+    "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
     "oop/design-pattern/structural/patterns/Adapter.md",
     "oop/solid/OCP(Open Closed Principle).md",
     "oop/solid/SOLID.md",
@@ -221,7 +222,6 @@
     "design-pattern/structural/Adapter.md",
     "design-pattern/creational/Singleton.md",
     "design-pattern/behavioral/Behavioral Pattern.md",
-    "Singleton Pattern.md",
-    "design-pattern/SOLID.md"
+    "Singleton Pattern.md"
   ]
 }
