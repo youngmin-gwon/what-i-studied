@@ -1293,30 +1293,38 @@ var update_highlight = function (message_num) {
 
 #### 7. 표현을 단순화하는 다른 창의적인 방법들
 
-    - 매크로 사용을 권장하는 것은 아니지만 때에 따라선 매크로가 간단한 사용과 코드 가독성에 도움을 주기도 함
-    - 비슷한 예시
-        
-        ```dart
-        /// C++ 매크로 관련 예시여 비슷하게 적용할 수 있을만한 사례
-        // before
-        void AddStats(String stat){
-        	final void Function(String) onTap;
-        	final String Function(String) onPassed;
-        }
-        
-        // after
-        typedef onProcessed<T> = T Function(String);
-        ```
+매크로 사용을 권장하는 것은 아니지만 때에 따라선 매크로가 간단한 사용과 코드 가독성에 도움을 주기도 함
+
+비슷한 예시
+
+```dart
+/// C++ 매크로 관련 예시여 비슷하게 적용할 수 있을만한 사례
+// before
+void AddStats(String stat){
+    final void Function(String) onTap;
+    final String Function(String) onPassed;
+}
+
+// after
+typedef onProcessed<T> = T Function(String);
+```
 
 ### 변수와 가독성
 
-- 변수를 엉터리로 사용하면?
-    - 변수가 많을수록 기억하고 다루기 어려워짐
-    - 변수의 범위가 넓어질수록 기억하고 다루는 시간이 더 길어짐
-    - 변수값이 자주 바뀔수록 현재값을 기억하고 다루기가 더 어려워짐
-- 이러한 문제는 다음 방법으로 다루어볼 수 있다
-1. 변수 제거하기
-    - 가독성에 도움이 되지 않는 변수들을 제거하라
+변수를 엉터리로 사용하면?
+
+```plaintext
+변수가 많을수록 기억하고 다루기 어려워짐
+변수의 범위가 넓어질수록 기억하고 다루는 시간이 더 길어짐
+변수값이 자주 바뀔수록 현재값을 기억하고 다루기가 더 어려워짐
+```
+
+이러한 문제는 다음 방법으로 다루어볼 수 있다
+
+#### 1. 변수 제거하기
+
+가독성에 도움이 되지 않는 변수들을 제거하라
+
     1. 불필요한 임시 변수들
         
         ```python
@@ -1422,19 +1430,25 @@ var update_highlight = function (message_num) {
             /// 이 예제는 간단하지만, 중첩된 여러 루프 때문에 추가로 break가 필요한 경우
             /// - 루프 안에서 반복되는 코드를 새로운 함수로 만들면 됨
             ```
-            
-2. 변수의 범위를 좁혀라
-    - 각 변수의 위치를 옮겨서 변수가 나타나는 줄의 수를 최소화 하라. 눈에 보이지 않으면 마음에서도 멀어지는 법이다.
-3. 값을 한 번만 할당하는 변수를 선호하라
-    - 한번만 할당되는 const, final 등 불변의 변수가 훨씬 이해하기 쉽다.
-    - 한번만 할당할 수 없다면, 최대한 적은 횟수로 변하게 하는 것이 도움이 된다.
+
+#### 2. 변수의 범위를 좁혀라
+
+각 변수의 위치를 옮겨서 변수가 나타나는 줄의 수를 최소화 하라. 눈에 보이지 않으면 마음에서도 멀어지는 법이다.
+
+#### 3. 값을 한 번만 할당하는 변수를 선호하라
+
+한번만 할당되는 `const`, `final` 등 불변의 변수가 훨씬 이해하기 쉽다.
+한번만 할당할 수 없다면, 최대한 적은 횟수로 변하게 하는 것이 도움이 된다.
 
 ## Part 3. 코드 재작성하기
 
-- 코드를 전체적으로 함수 수준에서 변경하는 방법에 대한 논의
+코드를 전체적으로 함수 수준에서 변경하는 방법에 대한 논의
+
+```plaintext
 1. 프로그램의 주된 목적과 상관없는 하위문제를 추출하라
 2. 코드를 재배열하여 한 번에 한 가지 일만 수행하게 하라
 3. 코드를 우선 단어로 묘사하고, 이 묘사를 이용하여 깔끔한 해결책을 발견하도록 하라
+```
 
 ### 상관없는 하위문제 추출하기
 
@@ -1448,7 +1462,7 @@ var update_highlight = function (message_num) {
     // 다음 코드를 어떻게 바꿀 수 있을까?
     
     // 상위수준 목적: 주어진 점과 가장 가까운 장소를 찾는것
-    var findClosestLocation() = function (lat,lng,array) {
+    var findClosestLocation() = function (lat, lng, array) {
     	var closest;
     	var closest_dist = Number.MAX_VALUE;
     
