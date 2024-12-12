@@ -2,5 +2,6 @@
   "vimMode": true,
   "showLineNumber": true,
   "attachmentFolderPath": "_assets",
-  "showUnsupportedFiles": true
+  "showUnsupportedFiles": true,
+  "alwaysUpdateLinks": true
 }

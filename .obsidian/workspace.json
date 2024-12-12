@@ -27,10 +27,10 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "design-pattern/images/Untitled.png"
+                "file": "design-pattern/images/adapter_overview.png"
               },
               "icon": "lucide-image",
-              "title": "Untitled"
+              "title": "adapter_overview"
             }
           },
           {
@@ -220,21 +220,22 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "848318ccbbb88397",
+  "active": "2f1d28be0471f52d",
   "lastOpenFiles": [
+    "design-pattern/structural/Adapter.md",
+    ".git/objects/0f/1be3523a822d0f1f59a5df8cb9e7a63e0803c4",
+    ".git/objects/6d/a76d23b6d176ef25826cb113c32d9989f06436",
+    ".git/objects/28",
+    ".git/objects/28/fa59a570f7998006be0ce5d6bc4bf84c2b95a4",
+    ".git/objects/32",
+    ".git/objects/32/1b5ddab99231e175832da47d3d3e2831a4d3a4",
     "design-pattern/OOP Design Pattern.md",
     ".git/objects/4c/30f2c3fc2a6f080509bb264f396126dca9db77",
     ".git/objects/c6/f0df3d7c697c787d04e4fc512438bcaf5744e1",
     ".git/objects/51",
     ".git/objects/51/225190a0e1d4d6c45fcad45a7b6e3ff5a6431d",
-    ".git/objects/78/0e9cc3e897de2ac69abfba9078625f8c9bd4c4",
-    ".git/objects/41/df4d65bed36fdb79310a2f9c8995070f0e7c46",
-    ".git/objects/c2/1e229bebf1d1c24acf8cd245b53d3445767868",
-    ".git/objects/12/7de7ae00b35ec322916bbbbfb89eb47d2dddfb",
     "design-pattern/creational/Creational Pattern.md",
     "design-pattern/creational/Singleton.md",
-    ".git/objects/5f/9e5a94e195b28299b2f330ca7e11c3d8136ff4",
-    ".git/objects/7f",
     "design-pattern/behavioral/Behavioral Pattern.md",
     "Singleton Pattern.md",
     "design-pattern/structural/Structural Pattern.md",

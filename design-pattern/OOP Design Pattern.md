@@ -24,7 +24,7 @@
 
 - Structural Pattern
 
-![Untitled](Untitled.png)
+![Untitled](adapter_overview.png)
 
 ![Untitled](Untitled%201.png)
 
