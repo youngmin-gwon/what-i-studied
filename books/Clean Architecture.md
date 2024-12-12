@@ -304,7 +304,7 @@ class EmployFacade {
 		- SRP 원칙에 따라 서로 다른 목적으로 변경되는 요소를 적절하게 분리
 		- DIP 원칙에 따라 요소 사이의 의존성을 체계화
     
-    ![OCP example](../assets/ocp_0.png)
+    ![OCP example](ocp_0.png)
 -   가장 중요한 영감
 	-   보고서 생성이 두 개의 책임으로 분리 됨
 		1.  보고서용 데이터를 계산하는 책임
@@ -315,8 +315,8 @@ class EmployFacade {
 -   달성하기 위한 과정
 	-   처리과정을 클래스 단위로 분할
 	-   클래스를 컴포넌트 단위로 구분
-    ![OCP Example Map](../assets/ocp_1.png)
-    ![OCP Example Map 2](../assets/ocp_2.png)
+    ![OCP Example Map](ocp_1.png)
+    ![OCP Example Map 2](ocp_2.png)
 - **방향성은 오직 한방향으로만 교차**함
 - 다른 어떤 요소를 변경해도 Interactor는 영향을 받지 않는 것을 주목
 	- Interactor는 업무 규칙을 포함하기 때문
@@ -339,11 +339,11 @@ class EmployFacade {
 
 ## 10. ISP: 인터페이스 분리 원칙
 
-![ISP wrong example](../assets/isp_0.png)
+![ISP wrong example](isp_0.png)
 - 다수의 사용자가 OPS 클래스의 오퍼레이션을 사용하지만, User1은 op1, User2은 op2, User3은 op3 만 사용하는 경우가 있다고 한다
 - 전혀 사용하지 않는 코드 에도 의존하게 되는 상황이 발생함
     → Operation을 인터페이스 단위로 분리하여 해결
-![ISP right example](../assets/isp_1.png)
+![ISP right example](isp_1.png)
 - **필요 이상으로 많은 것을 포함하는 모듈에 의존하는 것은 해롭다는 우려가 들어있는 원칙**
     - 불필요한 소스코드 의존성을 만들어 불필요한 재컴파일과 재배포를 강제함
 
@@ -367,7 +367,7 @@ class EmployFacade {
 - 이 규칙을 준수 하려면 변동성이 큰 구체적인 객체는 특별히 주의해서 생성해야 함
 	- 대다수 객체 지향 언어에서 **이처럼 바람직하지 못한 의존성을 처리할 때 추상 팩토리를 사용**하곤 함
 	- 예시
-        ![DIP](../assets/dip.png)
+        ![DIP](dip.png)
 - 곡선은 아키텍처의 경계
 	- 구체적인 것들로부터 추상적인 것들을 분리
 	- 위쪽을 추상 컴포넌트, 아랫쪽을 구체 컴포넌트로 나누게 됨
@@ -425,7 +425,7 @@ class EmployFacade {
 			- REP, CCP는 포함 원칙 → 컴포넌트를 더 크게 만듬
 			- CRP는 배제 원칙 → 컴포넌트를 더욱 작게 만듬
 	- 세 원칙을 조정하면서 균형을 찾아야 함
-    ![Component Triangle](../assets/component_triangle.png)
+    ![Component Triangle](component_triangle.png)
 - 오로지 REP, CRP에만 중점을 두면 사소한 변경이 생겼을 때 너무 많은 컴포넌트에 영향을 미침
 - CCP와 REP에만 집중하면 과도한 릴리스가 너무 빈번해짐
 - 시간이 흐르면서 주의를 기울이는 부분을 변경해야 한다는 것을 알아야 함
@@ -463,20 +463,20 @@ class EmployFacade {
 - Main은 어디에도 영향을 받지 않음
 - Presenters 컴포넌트를 만드는 개발자가 이 컴포넌트를 테스트 하려고 한다면 사용 중인 Interactors 와 Entities를 이용해서 Presenters를 테스트, 빌드하면 된다
 - 시스템 전체를 릴리스 할 때는 Entities → Database, Interactors → Presenters, Authorizer → View, Controllers → Main의 순서로 테스트 후 릴리스 하면 된다
-![ADP 1](../assets/component_adp1.png)
+![ADP 1](component_adp1.png)
 -   의존성 순환이 발생하면 생기는 영향
 -   Database 컴포넌트를 릴리스하려면 Entities 컴포넌트 뿐만 아니라 Entities 컴포넌트는 Authorizer에 의존하므로 Authorizer, 또 연쇄작용으로 Interactors까지 테스트 해야한다
 -   Entities, Authorizer, Interactors가 하나의 거대한 컴포넌트가 되어버림
 -   Entities, Authorizer, Interactors 각각을 테스트 할 때도 다른 컴포넌트 역시 테스트 해야 함
 	-   어떤 순서로 빌드해야 하는지도 알 수 없게 됨
-![ADP 2](../assets/component_adp2.png)
+![ADP 2](component_adp2.png)
 -   의존성 순환 끊는 방법
 	1.  의존성 역전 원칙 적용
 		-   Entities 내의 User가 필요로 하는 Permission Interface를 만들어 의존성 역전 시킴
-![ADP 3](../assets/component_adp3.png)
+![ADP 3](component_adp3.png)
 		2. 양쪽 모두 의존하는 새로운 컴포넌트 생성
 				-   Entities와 Authorizer가 모두 의존하는 새로운 컴포넌트 생성
-![ADP 4](../assets/component_adp4.png)
+![ADP 4](component_adp4.png)
 -   두번째 해결책이 시사하는 바
 -   요구사항이 변경되면 컴포넌트 구조도 변경될 수 있음! ⇒ Jitters(흐트러짐)
 -   애플리케이션이 성장함에 따라 컴포넌트 의존성 구조는 서서히 흐트러지며 또 성장함
@@ -506,11 +506,11 @@ class EmployFacade {
 	-   안정된 컴포넌트
 		-   안쪽으로 들어오는 의존성이 많음
 		-   X는 독립적
-        ![SDP 1](../assets/component_sdp1.png)
+        ![SDP 1](component_sdp1.png)
 -   불안정한 컴포넌트
 	-   어떤 컴포넌트에도 의존하지 않음
 	-   Y는 의존적
-        ![SDP 2](../assets/component_sdp2.png)
+        ![SDP 2](component_sdp2.png)
 	-   안정성 지표
 		-   컴포넌트의 안정성은 컴포넌트로 들어오고 나가는 의존성의 개수로 판단
 		-   Fan-in: 안으로 들어오는 의존성. 컴포넌트 내부의 클래스에 의존하는 컴포넌트 외부 클래스의 개수
@@ -523,12 +523,12 @@ class EmployFacade {
 		-   컴포넌트 구조를 설계할 때 기대하는 것: (불안정한 컴포넌트 + 안정된 컴포넌트) 가 존재하는 상태
 		-   안정적인 구조
 			-   다음처럼 불안정한 컴포넌트를 관례적으로 위로 배치하는데, 이는 위로 향하는 화살표가 있으면 SDP를 어기는지 확인할 수 있기 때문에 유용함
-		![SDP 3](../assets/component_sdp3.png)
+		![SDP 3](component_sdp3.png)
 	-   안정적인 구조를 변경이 발생하는 컴포넌트에 의존하게 만듬 → SDP 위반
-![SDP 4](../assets/component_sdp4.png)
+![SDP 4](component_sdp4.png)
 -   어떻게 해결하는가?
 	-   DIP 사용
-![SDP 5](../assets/component_sdp5.png)
+![SDP 5](component_sdp5.png)
 -   오로지 인터페이스만 포함하는 컴포넌트는 이상하지 않은가?
 	-   전혀 아님. 정적 타입 언어를 사용할 때 이 방식은 상당히 흔하게 쓰임
 	-   상당히 안정적이며, 덜 안정적인 컴포넌트가 의존할 수 있는 이상적인 대상
@@ -560,7 +560,7 @@ class EmployFacade {
         -   0일 때는 추상클래스가 하나도 없음, 1일 때는 오로지 추상클래스만 존재한다는 의미
 -   안정성과 추상화 정도 사이의 관계
     -   안정성과 추상화 정도를 그래프로 나타낸 주계열(Main Sequence)로 판단할 수 있음
-        ![SAP 1](../assets/component_sap1.png)
+        ![SAP 1](component_sap1.png)
     -   (0,1): 최고로 안정적이며 추상화된 컴포넌트
     -   (1,0): 최고로 불안정하며 구체화된 컴포넌트
     -   배제할 구역을 찾게 도와주는 그래프
@@ -588,10 +588,10 @@ class EmployFacade {
         -   주계열에 대체로 일치하도록 설계되었는지 확인
         -   설계를 통계적으로 분석
             -   표준편차에서 벗어난 지역을 확인해볼 수 있음
-        ![SAP 2](../assets/component_sap2.png)
+        ![SAP 2](component_sap2.png)
         -   컴포넌트의 D값을 시간에 따라 그려볼 수 있음
             -   의존성이 어떻게 변해왔는지 확인 가능
-        ![SAP 3](../assets/component_sap3.png)
+        ![SAP 3](component_sap3.png)
     -   지표는 그저 임의로 결정한 기준이기 때문에 불완전하다는 것을 항상 인지하자
         
 

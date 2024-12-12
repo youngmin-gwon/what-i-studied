@@ -2,7 +2,7 @@
 
 - 모두 이해하는데 많은 시간이 걸림
 - 우선 최고의 performance를 위해 무엇을 optimization 해야하는지 이해하자
-![Flutter Pipeline](../assets/flutter_pipeline.jpeg)
+![Flutter Pipeline](flutter_pipeline.jpeg)
 - Flutter Framework와 그 layers를 이해하는데 도움이 되는 그림
     - 각각의 **상위에 있는 layer들은 모두 abstraction**으로 이루어져 있음
 	
@@ -57,7 +57,7 @@
 | --------- | -------- | ------------- |
 | immutable | mutable  | mutable              |
 
-![Flutter Tree](../assets/flutter_tree.png)
+![Flutter Tree](flutter_tree.png)
 
 1. Widget
 	- 오직 Configuration에 관련됨
@@ -117,7 +117,7 @@
 		- Painting 역할을 함
 	- 대부분의 경우 직접 만들 필요는 전혀 없다
 
-![Flutter 3 Structure](../assets/flutter_3_structure.png)
+![Flutter 3 Structure](flutter_3_structure.png)
 
 **왜 3개의 tree로 나눠지는가?**
 
@@ -137,7 +137,7 @@
 
 ## Flutter’s Rendering Pipeline
 
-![Flutter Rendering Pipeline](../assets/flutter_rendering_pipeline.png)
+![Flutter Rendering Pipeline](flutter_rendering_pipeline.png)
 
 vsync : 화면의 트랙을 유지하는 역할
 
@@ -145,7 +145,7 @@ vsync : 화면의 트랙을 유지하는 역할
 
 Rendering에 관련된 타임라인을 Build - Layout - Paint 페이즈로 나눌 수 있음
 
-![Rendering Phase](../assets/flutter_rendering_phase.png)
+![Rendering Phase](flutter_rendering_phase.png)
 
 - 이 페이즈들을 거쳐 Display list 생성 → GPU에 의해 rasterize 됨
 	- rasterize: 벡터 그래픽 형식으로 설명된 이미지를 픽셀로 생성하는 작업
@@ -154,14 +154,14 @@ Rendering에 관련된 타임라인을 Build - Layout - Paint 페이즈로 나�
 	- 대부분의 control을 가지고 있는 곳
 	- Layout과 Painting Phase는 Framework가 처리하기 때문에 신경쓸 필요 없음
 		- 특정 부분은 개발자가 control 할 수 있음
-![Rendering Process 1](../assets/flutter_rendering_process1.png)
+![Rendering Process 1](flutter_rendering_process1.png)
 - Widget Tree와 Element Tree는 같은 Node수를 가지고 있지만, RenderObject는 작은 Node수를 가지고 있다
 	- 몇몇의 Widget은 component여서 RenderObject를 만들지 않기 때문
 - Display list는 Rendered Image
-![Rendering Process 2](../assets/flutter_rendering_process2.png)
+![Rendering Process 2](flutter_rendering_process2.png)
 - 개발자가 정의한 Widget 외에도 Node가 생겼음
 	- Flutter Framework가 자체적으로 생성함
-![Process 3](../assets/flutter_rendering_process3.png)
+![Process 3](flutter_rendering_process3.png)
 - ComponentElement
 	- 다른 Elements를 생성하는 Element (ex. StatelessElement, StatefulElement)
 	- 다른 Element를 생성하므로서 간접적으로 RenderObject를 생성
@@ -220,10 +220,10 @@ RenderObject? get renderObject {
   }
 ```
 - 여기서 확인할 수 있듯이 RenderObjectElement 일때 만 이에 상응하는 RenderObject를 만든다
-![Rendering Process 3](../assets/flutter_rendering_process3.png)
+![Rendering Process 3](flutter_rendering_process3.png)
 - StatefulWidget을 생성하는 경우에는 State는 Element 에 의해 관리됨
-![Rendering Process 4](../assets/flutter_rendering_process4.png)
-![Rendering Process 5](../assets/flutter_rendering_process5.png)
+![Rendering Process 4](flutter_rendering_process4.png)
+![Rendering Process 5](flutter_rendering_process5.png)
 - build, layout, paint, compositing 이후, Flutter framework가 render tree를 마무리하고, 모든 정보를 raster thread로 보낸다
 	- 모든 painting construction을 display list라고 함
 	- display list: 그래픽 명령어 묶음
@@ -232,9 +232,9 @@ RenderObject? get renderObject {
 **Widget Tree가 업데이트 될 때(ex. setState)는 어떻게 되는가?**
 
 - Widget은 immutable하기 때문에 이전 Widget Tree를 모두 버림
-![Rendering Process 6](../assets/flutter_rendering_process6.png)
+![Rendering Process 6](flutter_rendering_process6.png)
 - 새 Widget Tree를 만듬
-![Rendering Process 7](../assets/flutter_rendering_process7.png)
+![Rendering Process 7](flutter_rendering_process7.png)
 - Element와 RenderObject 에게는 다르기 때문에 구성을 바꿈
 	- 언제, 어떻게 바꾸나? ⇒ Element, Element Tree에 의해 관리됨
 - Element.updateChild() method가 Widget으로부터 온 새 configuration을 이용해서 자식을 바꿈
@@ -246,27 +246,27 @@ static bool canUpdate(Widget oldWidget, Widget newWidget) {
     return oldWidget.runtimeType == newWidget.runtimeType && oldWidget.key == newWidget.key;
 }
 ```
-![Rendering Process 8](../assets/flutter_rendering_process8.png)
+![Rendering Process 8](flutter_rendering_process8.png)
 - ComponentElement는 update() method를 사용
-![Rendering Process 9](../assets/flutter_rendering_process9.png)
+![Rendering Process 9](flutter_rendering_process9.png)
 - 중요한 점: 바뀌는 새 Widget은 반드시 같은 runType을 가지는 Widget 이어야 함
 	- performance 에 중요한 영향을 미치는 부분
 	- 만약 다르게 되면, 전체 render tree 를 다시 그려야하기 때문에 비용이 비싸게 됨
 	- 위의 코드 참고
 - configuration 값을 업데이트 한 이후에 updateChild() method 호출
-![Rendering Process 10](../assets/flutter_rendering_process10.png)
+![Rendering Process 10](flutter_rendering_process10.png)
 - RenderObjectElement 역시 update() method를 사용하여 configuration을 바꾼 이후 ComponentElement와 다르게 수행됨
 - updateRenderObject() method를 수행하게 됨
 	- RenderObjectWidget의 configuration을 RenderObject로 복사함
 - 이전 configuration과 변한 것이 없으면 update하지 않음
-![Rendering Process 11](../assets/flutter_rendering_process11.png)
+![Rendering Process 11](flutter_rendering_process11.png)
 
-![Rendering Process 12](../assets/flutter_rendering_process12.png)
+![Rendering Process 12](flutter_rendering_process12.png)
 
-![Rendering Process 13](../assets/flutter_rendering_process13.png)
+![Rendering Process 13](flutter_rendering_process13.png)
 -   앞선 과정을 같은 프로세스로 반복
 -   업데이트가 필요한 Text Widget의 경우, updateRenderObject가 업데이트 됨
-![Rendering Process 14](../assets/flutter_rendering_process14.png)
+![Rendering Process 14](flutter_rendering_process14.png)
 -   Flutter Framework는 RenderObject를 최대한 재사용하려고 한다는 것을 이해해야함
 	-   framework가 똑똑한 선택을 하게 하기 위해 guide를 제공해줄 수 있음
 	1.  Widget: 필요한 부분만 update
@@ -281,7 +281,7 @@ static bool canUpdate(Widget oldWidget, Widget newWidget) {
 ## Binding
 
 - Flutter Scheme
-![System Overview](../assets/flutter_system_overview.png)
+![System Overview](flutter_system_overview.png)
 - Layered Cake 이라고 불림
 	- 큰 layer와 작은 layer로 구성됨
 - 구성
@@ -378,7 +378,7 @@ RenderView get renderView => _pipelineOwner.rootNode;
 - 시스템의 vsync 신호를 기다리는 것 보다, 최대한 빠르게 수행되기 위해 frame을 예약하기 위해 사용됨
 - 앱이 실행될 때 method가 수행되기 때문에(비싼 연산 수행), 첫번째 frame은 실행되는데 시간이 더 소요됨
 - 예약된 프레임이 완료될 때까지 전달되는 이벤트를 잠금
-- ![Flutter Diagram](../assets/flutter_diagram.png)
+- ![Flutter Diagram](flutter_diagram.png)
 ! Binding은 flutter app에서 작업을 구성하는 매우 중요한 매커니즘
 - 앱의 다양한 부분을 묶고 engine과 연결하는 역할을 함
 - 프레임워크의 가장 높은 레벨의 부분을 하위 레벨의 코드를 걱정하지 않고 작성하게 도와줌
@@ -477,18 +477,18 @@ buildOwner.finalizeTree();
 	1. tree가 만들어질 때, BuildOwner에 의해서 호출
 	2. 처음 tree에 inflate될 때, ComponentElement에 의해서 호출
 	3. ComponentElement 가 업데이트 될 때 호출
-	![Element.rebuild](../assets/flutter_element_rebuild.png)
+	![Element.rebuild](flutter_element_rebuild.png)
 	
 	-   rebuild 메소드는 performRebuild 메소드를 호출함
 		-   element마다 구현이 다르기 때문에 흥미로운 메소드
 			-   RenderObjectElement에서는 RenderObject 업데이트
 			-   ComponentElement 에서는 build(StatlessWidget, StatefulWidget 이 가지고 있는 그것)
 	
-	![Element.performRebuild](../assets/flutter_element_perform_rebuild.png)
+	![Element.performRebuild](flutter_element_perform_rebuild.png)
 	- Element.updateChild에 보내는 widget을 리턴
 		- widget은 해당 element에서 mounted 되거나 updated 될 것임
 	
-	![Element.updateChild](../assets/flutter_element_update_child.png)
+	![Element.updateChild](flutter_element_update_child.png)
 	- BuildOwner.buildScope 일 때는 어떤 일이 발생하는가?
 		- dirty라고 표시된 모든 element를 rebuild
 		- dirty 하게 만드는 방법

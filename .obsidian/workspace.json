@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "interview/interview_questions.md",
+                "file": "books/The art of Readable code.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "interview_questions"
+              "title": "The art of Readable code"
             }
           }
         ]
@@ -77,7 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 235.5
   },
   "right": {
     "id": "38514e7488b9ce97",
@@ -178,19 +178,39 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
+    "books/TDD by Example.md",
+    "books/Refactoring.md",
+    "books/Implementing Domain Driven Design.md",
+    "books/Domain Driven Design.md",
+    ".git/index.lock",
+    "books/Code Complete.md",
+    "books/Clean Architecture.md",
+    "htdp/How to Design Program.md",
+    "interview/interview_questions.md",
     "interview/general questions.md",
+    "mindmap/clean_code/clean-code-1.md",
+    "mindmap/clean_code/clean-code-2.md",
+    "_assets/books/code_complete_2.png",
+    "_assets/algorithm/python_type_layer.png",
+    "_assets/books",
+    "_assets/algorithm/interview-process.png",
+    "_assets/books/dip.png",
+    "_assets/flutter/reactive_paradigm.png",
+    "_assets/books/ocp_2.png",
+    "_assets/books/ocp_0.png",
+    "_assets/books/isp_1.png",
+    "_assets/books/isp_0.png",
+    "_assets/books/isp.png",
+    "_assets/algorithm",
+    "_assets/docker",
+    "_assets/flutter",
+    "_assets/git",
+    ".git/objects/ed/b8e18f0603b1176ef0f01fb1bede67b57bd1e0",
+    ".git/objects/94/0aa8126ca125f0dc4c96f22918e8acbe7d4ce2",
+    ".git/objects/4d/da650b8b3d0df1741db361d2810697ee69e771",
+    ".git/objects/df/120a3fd392ca718f98ed69c3788d52377fdc60",
     "interview/Flutter.md",
     "oop/solid/SOLID.md",
-    ".git/objects/51/b8fb813c7c01e6e85163144a858176437e0fdd",
-    ".git/objects/9e/88113e7b0aa26e8096656ab12d2980008a81b4",
-    ".git/objects/5e/57830ef4dc00d65a450930c18bd4b7a6fa7575",
-    ".git/objects/c3/1cc3f9c88e0392e77d6ce5c1c78c1d035285ae",
-    ".git/objects/6e/57eecbdf56b5fff03a49439d8553fe240f7488",
-    ".git/objects/f7/f66971e91c304e27d4612651e5d4fa6d406492",
-    ".git/objects/6e/968c03a99d6b9f00ede1223a0efae151a3e595",
-    ".git/objects/d0/02f82c9c4d45addbf93d1ad604a546dc2544ac",
-    ".git/objects/70/1ddc9b97331a89bd30e65ec7d3d4752d2bd719",
-    ".git/objects/ee/2856cd953e8e436f54484cb4f6b63d182e69c7",
     "oop/design-pattern/behavioral/patterns/Visitor Pattern.md",
     "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
     "oop/design-pattern/behavioral/patterns/Strategy Pattern.md",
@@ -203,26 +223,6 @@
     "oop/design-pattern/behavioral/patterns/Command Pattern.md",
     "oop/design-pattern/behavioral/patterns/Chain of Responsibility Pattern.md",
     "oop/design-pattern/creational/patterns/Singleton Pattern.md",
-    "oop/design-pattern/creational/patterns/Prototype Pattern.md",
-    "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
-    "oop/design-pattern/creational/patterns/Builder Pattern.md",
-    "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
-    "oop/design-pattern/structural/patterns/Proxy Pattern.md",
-    "oop/design-pattern/structural/patterns/Flyweight Pattern.md",
-    "oop/design-pattern/structural/patterns/Facade Pattern.md",
-    "oop/design-pattern/structural/patterns/Decorator Pattern.md",
-    "oop/design-pattern/structural/patterns/Composite Pattern.md",
-    "oop/design-pattern/structural/patterns/Bridge Pattern.md",
-    "oop/design-pattern/structural/patterns/Adapter Pattern.md",
-    "_assets/oop/command_structure.png",
-    "_assets/oop/command_example.png",
-    "_assets/oop/command_overview.png",
-    "_assets/oop/adapter_impl.png",
-    "_assets/oop/adapter_structure.png",
-    "_assets/oop/adapter_after.png",
-    "_assets/oop/adapter_before.png",
-    "_assets/oop/template_method.png",
-    "_assets/oop/Untitled 23.png",
-    "_assets/oop/adapter_overview.png"
+    "oop/design-pattern/creational/patterns/Prototype Pattern.md"
   ]
 }

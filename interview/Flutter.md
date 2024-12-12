@@ -13,7 +13,7 @@
 
 ## Flutter Structure?
 
-![System Overview](../assets/flutter_system_overview.png)
+![System Overview](flutter_system_overview.png)
 
 1. The framework level
    - flutter application을 작성할 때 사용하는 모든 것을 포함함
@@ -49,20 +49,20 @@
      - code 가 줄어들고 declarative 하게 만들어줌
    - language compiler frontend가 개발에 유용한 기능을 제공
      - Analyzer, Language Server
-[Dart Common Front End](../assets/dart_cfe.jpg)
+[Dart Common Front End](dart_cfe.jpg)
 
 2. Fast
    - 빠르게 UI 수정 가능하고 확인이 가능한지
-![Dart VM](../assets/dart_vm.jpg)
+![Dart VM](dart_vm.jpg)
      - CFE가 코드를 컴파일 하여 kernel files or blobs을 내놓으면 VM이 그것을 작동 시킴
        - Runtime은 코드를 최대한 빠르게 동작할 수 있게 하기 위해 동작함
-![Dart VM](../assets/dart_jit_process.jpg)
+![Dart VM](dart_jit_process.jpg)
      - JIT 컴파일 시 변경한 사항만 빠르게 컴파일 해서 VM으로 보내줌 => hot reload 가능한 이유
    - 빠른 성능 60 fps
-![Dart VM](../assets/jit-aot.jpg)
+![Dart VM](jit-aot.jpg)
 
 3. Multi-platform
-![Dart VM](../assets/cross_compile.jpg)
+![Dart VM](cross_compile.jpg)
 
 ## mixins?
 
@@ -125,7 +125,7 @@
   - initState에 WidgetsBinding.instance!.addObserver(this) 추가
   - dispose에 WidgetsBinding.instance!.removeObserver(this) 추가
 - didChangeAppLifecycleState 메소드를 override 하여 각 life cycle에 맞는 로직을 추가할 수 있음
-![Flutter App Life Cycle](../assets/flutter_app_lifecycle.png)
+![Flutter App Life Cycle](flutter_app_lifecycle.png)
 
 ```dart
 @override
@@ -161,13 +161,13 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
 
 ## StatelessWidget
 
-![Flutter StatelessWidget Lifecycle](../assets/flutter_stateless_lifecycle.png)
+![Flutter StatelessWidget Lifecycle](flutter_stateless_lifecycle.png)
 
 - build 된 이후 update 되지 않음
 
 ## StatefulWidget
 
-![Flutter StatefulWidget Lifecycle](../assets/flutter_stateful_lifecycle.jpeg)
+![Flutter StatefulWidget Lifecycle](flutter_stateful_lifecycle.jpeg)
 
 ### 1. createState()
 

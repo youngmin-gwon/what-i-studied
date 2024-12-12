@@ -46,7 +46,7 @@
 - process가 실행되는 동안 microtasks와 events는 각각의 queue로 들어가고 event loop에 의해서 각각의 차례에 처리됨
 - event loop는 수행해야할 코드가 없을 때, 계속해서 microtasks와 events를 확인하는 무한 루프
 
-![Dart Event Loop](../assets/dart_event_loop.png)
+![Dart Event Loop](dart_event_loop.png)
 
 ### Microtasks
 - 비동기적으로 실행되어야 하지만 이벤트 루프에 제어를 반환하기 전에 완료되어야 하는 매우 짧은 코드 작업을 위한 것
@@ -410,7 +410,7 @@ void main() {
 		1. Stream
 		2. StreamSubscription: 스트림과 이벤트의 연결고리, 이벤트에 변경이 생기면 처리함
 		3. Data(이벤트)
-![Dart Stream](../assets/dart_stream.png)
+![Dart Stream](dart_stream.png)
 
 - listen 하기 전 : 강한 연결, 진한 화살표
 - listen 한 후 : 약한 연결, 흐린 화살표, _StreamSubscription과 EventSource가 연결됨_
@@ -481,7 +481,7 @@ subscription.cancel() // 연결 해제
 
 - broadcast- listen을 여러번 할 수 있음
 - 같은 데이터를 다른 뷰에서 처리할 때 효과적으로 쓸 수 있을 듯
-![Stream Broadcast](../assets/dart_stream_broadcast.png)
+![Stream Broadcast](dart_stream_broadcast.png)
 - 함수 사용해서 Stream 생성
 	- async*: 제너레이터를 만든다는 의미
 		- 제너레이터는 게으르게(lazily) 데이터 연산을 할 때 쓰임. 게으르다는 것은 미리 연산을 다하는 게 아니라, 요청이 있을 때까지 연산 하는걸 미루어 두었다가 필요할 때 처리하는 것을 뜻함
@@ -524,7 +524,7 @@ void main() {
 }
 ```
 
-![Stream Controller](../assets/dart_stream_controller.png)
+![Stream Controller](dart_stream_controller.png)
 
 ### Asynchronous Generator: async*
 - Future에서 async 통해 비동기적으로 단일 값을 반환하도록 하는 방법처럼 Stream에서 값을 반환하는 방법

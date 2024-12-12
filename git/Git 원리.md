@@ -23,9 +23,9 @@
 		- 커밋하기 전 Index로 올려놓고 얼마든지 수정할 수 있음
 		- HEAD와 Index는 파일과 내용을 효율적인 형태로 .git 디렉토리에 저장함. 사람이 알아보기 어려움.
 		- 워킹 디렉토리는 실제 파일로 존재하기 때문에 사용자가 편집하기 수월함
-- ![[../assets/git-1.png]]
-- ![[../assets/git-2.png]]
-- ![[../assets/git-3.png]]
-- ![[../assets/git-4.png]]
-- ![[../assets/git-5.png]]
-- ![[../assets/git-6.png]]
+- ![[git-1.png]]
+- ![[git-2.png]]
+- ![[git-3.png]]
+- ![[git-4.png]]
+- ![[git-5.png]]
+- ![[git-6.png]]
