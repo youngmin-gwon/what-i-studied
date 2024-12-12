@@ -23,5 +23,13 @@
       ],
       "key": "P"
     }
+  ],
+  "editor:context-menu": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": ","
+    }
   ]
 }
