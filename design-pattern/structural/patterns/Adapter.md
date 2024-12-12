@@ -2,19 +2,23 @@
 
 ## Description
 
-- [[Structural Pattern]]
-
 ![Untitled](adapter_overview.png)
 
 ![Untitled](Untitled%201.png)
 
 ![Untitled](Untitled%202.png)
 
+- Structural Pattern
+
 - = wrapper
+
 - 다른 인터페이스 클라이언트가 기대하는대로 인터페이스를 변환함
+
 - 함께 할 수 없는 클래스들을 함께 일할 수 있게 만들어줌
+
 - 가장 일반적이고, 가장 유용하게 사용할 수 있는 디자인 패턴 중 하나
     - 예) 형태가 맞지 않은 3rd party library를 Adapter를 생성하여 사용할 수 있게 만들어 줌
+
 - 외부 데이터 저장소 혹은 방식이 다를 때 interface에 맞는 각각의 adapter를 만들어 동일한 형식의 데이터로 만들어 줄 수 있음
 - Adapter로 감싸고, interface만 노출하여 기존의 코드를 재사용 가능하게 만들어 줌
 - code abstraction 을 하므로 domain layer의 unit test 를 보다 쉽게 만들어 줌
