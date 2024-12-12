@@ -33,12 +33,12 @@
 
 - 작업으로 객체를 매개변수화하려는 경우 사용
 - 작업을 대기열에 넣거나 실행을 예약하거나 원격으로 실행하려는 경우 사용
-- 되돌릴 지도 모르는 작업을 구현하려는 경우 사용 ⇒ Memento 와 함께 사용됨
+- 되돌릴 지도 모르는 작업을 구현하려는 경우 사용 ⇒ [[Memento Pattern]] 와 함께 사용됨
 
 ## Pros
 
-- 연산을 유발하는 클래스와 연산을 수행하는 클래스를 분리할 수 있음 ⇒ Single Responsibility Principle
-- 새 command를 코드 수정없이 추가할 수 있음 ⇒ Open/Closed Principle
+- 연산을 유발하는 클래스와 연산을 수행하는 클래스를 분리할 수 있음 ⇒ [[SRP(Single Responsibility Principle)]]
+- 새 command를 코드 수정없이 추가할 수 있음 ⇒ [[OCP(Open Closed Principle)]]
 - undo/redo 기능을 추가할 수 있음
 - 지연 작업 실행을 구현할 수 있음
 - 여러 개 간단한 command를 조합해 하나의 복잡한 command를 만들 수 있음
@@ -80,11 +80,11 @@
   - Command: 연산을 객체로 바꾸려는 의도 ⇒ 작업 실행을 연기하고, 대기열에 추가하고, 명령 기록을 저장하고, 원격 서비스에 명령을 보내는 등의 작업을 수행할 수 있음
   - Strategy:  같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도
 
-### [[Protot]]
+### [[Prototype Pattern]]
 
 - Prototype은 Command 사본을 기록에 저장해야 할 때 도움이 될 수 있음
 
-### Visitor
+### [[Visitor Pattern]]
 
 - Visitor를 Command의 강력한 버전이라고 생각해도 무방함
   - 다른 클래스의 다양한 객체에 대해 작업을 실행할 수 있음
