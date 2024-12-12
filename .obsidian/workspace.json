@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "git/Git Command.md",
+                "file": "oop/design-pattern/OOP Design Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Git Command"
+              "title": "OOP Design Pattern"
             }
           }
         ]
@@ -177,17 +177,19 @@
   },
   "active": "5bc0f0d241759e25",
   "lastOpenFiles": [
+    "git/Git 원리.md",
+    "git/Git Command.md",
+    ".git/objects/c2/af1854e0e69f93a3b8aba0743bdd4eab46137b",
+    ".git/objects/01/1ee7fb59c541f66834caa9af47beee11014d42",
+    ".git/objects/e9/b88fb6c41919cff752e42edf308beca2267c11",
+    ".git/objects/4f/f10b19f0570db99824b29fc10228f883c1113f",
+    ".git/objects/af/83e33b6d2096ace24869b22b525ce327112875",
     "git/gitignore pattern.md",
     ".git/index.lock",
     ".git/objects/c2/ef22d24d2ad4ec97bf15e78d2a2f005f1c8262",
     ".git/objects/bd/f26e48db2dd475bb6085e287ba9c2b4d563592",
     ".git/objects/63/44a7568d0d34edd3a7516ba9026f155b66ed2a",
     ".git/objects/be/a6e4fa9a00589a08fcdca74e11ee93d9f52d53",
-    ".git/objects/1e/1810aa1251495f8e94b324b129ea68539b1216",
-    ".git/objects/45/0b240e8f8676be3e9713430ad06f07be5a2925",
-    ".git/objects/04/593136db5bd0345726b8c2caadfcf50494a156",
-    ".git/objects/6f/0177aa523a436ff39609597181752a865dc7ab",
-    ".git/objects/48/78303a7e1a7df6612c728b445569205c5c8bb0",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
     "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
@@ -211,8 +213,6 @@
     "oop/design-pattern/creational/patterns/Prototype Pattern.md",
     "oop/design-pattern/behavioral/patterns/Memento Pattern.md",
     "oop/design-pattern/behavioral/patterns/Mediator Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Visitor Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Command Pattern.md",
     "oop/design-pattern/images/template_method.png",
     "oop/design-pattern/images/adapter_overview.png",
     "oop/design-pattern/images/Untitled 9.png",
