@@ -58,8 +58,8 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 
 ## Adaptability
 
-    - 기존 클래스를 사용하고 싶지만 인터페이스가 나머지 코드와 호환되지 않을 때 사용
-    - 상위 클래스에 추가할 수 없는 몇 가지 공통 기능이 없는 여러 기존 하위 클래스를 재사용하려는 경우 패턴을 사용
+- 기존 클래스를 사용하고 싶지만 인터페이스가 나머지 코드와 호환되지 않을 때 사용
+- 상위 클래스에 추가할 수 없는 몇 가지 공통 기능이 없는 여러 기존 하위 클래스를 재사용하려는 경우 패턴을 사용
 
 ## Pros
 
@@ -68,8 +68,8 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 
 ## Cons
 
-    - 새로운 인터페이스와 클래스를 추가해야하기 때문에 코드 복잡도 증가
-        - 때로는 service 클래스를 쉽게 변경하는 것이 더 간단할 때도 있음
+- 새로운 인터페이스와 클래스를 추가해야하기 때문에 코드 복잡도 증가
+  - 때로는 service 클래스를 쉽게 변경하는 것이 더 간단할 때도 있음
 
 ## Relationship between other patterns
 
@@ -90,5 +90,5 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 ## Difference with Bridge, State, Strategy, Adapter Pattern
 
 - 어떤 면에서는 매우 비슷한 구조를 가지고 있음
-    - subclass에 작업을 맡긴다는 구조가 비슷함
+  - subclass에 작업을 맡긴다는 구조가 비슷함
 - 사용 목적이 다름
