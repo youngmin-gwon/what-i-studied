@@ -19,6 +19,7 @@
 [Flutter Design Patterns: 1 - Singleton](https://medium.com/flutter-community/flutter-design-patterns-1-singleton-437f04e923ce)
 
 ---
+
 ## 6. State
 
 - Behavioral pattern
