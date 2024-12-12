@@ -64,7 +64,7 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 ## Pros
 
 - [[SRP(Single Responsibility Principle)]]
-- Open/Closed Principle
+- [[OCP(Open Closed Principle)]]
 
 ## Cons
 

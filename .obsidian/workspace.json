@@ -11,14 +11,10 @@
             "id": "57e4364fde68d212",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "oop/design-pattern/structural/patterns/Adapter.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Adapter"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ]
@@ -177,20 +173,20 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
-    ".git/objects/c9/a0a929e3e20c3b3649216125c79e0e2aa488e0",
-    ".git/objects/0c/2f0391a330c56475b652d8939c9e40981fd239",
-    ".git/objects/3a/0e99c2687c5f7d86cb2ea71e71bf72600a745a",
-    ".git/objects/f3/52edfe3d0a3dfc677e54074a353f5e024456b4",
-    ".git/objects/88/8140a6e2c96ba07b343e49ad41cbcc5a25002b",
-    ".git/objects/d4/6564fbb66d45b17d2983c5625633cb4bed14c7",
-    ".git/objects/49/a84eaa66baa133e392c33a875b6f7438f999f6",
+    "oop/design-pattern/structural/patterns/Adapter.md",
+    ".git/objects/15/944a7d587b5cd269f8cda4a5cb4fce8f9415cf",
+    ".git/objects/30/5f9c2c61cc8d812d492a8cfe181cd4a4ade996",
+    ".git/objects/11/29bb15ea115a8c3cdc193b5a32dd287efc0837",
+    ".git/objects/d6/068bb6f9b6c23c371c4228d4b88751aba449c1",
+    ".git/objects/db/f6a514cee3fe8cc11752497a1d6b9bdfb70903",
+    ".git/objects/fa/3d3db3522dd00d9a4fdc72eb860ed70090e3ae",
+    ".git/objects/08/d59121ff7646d78da944fdc9c41bb1e2075bfc",
     ".git/index.lock",
-    ".git/objects/e3/e313a670be25cfdaab4dff0a8542e50d2eefd6",
-    ".git/objects/39/1fbb5ff1861d162d9cc468ee672b61b39a3265",
+    ".git/objects/90/8587b596ef552156aa94a45c9ca3a37780459d",
+    ".git/objects/64/21466803780333403cce27b1ab8cfb826c032d",
     "oop/solid/OCP(Open Closed Principle).md",
     "oop/solid/SOLID.md",
     "oop/design-pattern/creational/patterns/Singleton.md",
-    ".git/objects/57/fecd16934ff5d9c80d09a04395ff22f8cc7694",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/OOP Design Pattern.md",
     "oop/solid/DIP(Dependency Inversion Principle).md",
@@ -201,7 +197,6 @@
     "oop/solid/Single Responsibility Principle.md",
     "oop/design-pattern/SOLID.md",
     "design-pattern/OOP Design Pattern.md",
-    "oop/design-pattern/structural/patterns/Adapter.md",
     "oop/design-pattern/images/template_method.png",
     "oop/design-pattern/images/adapter_overview.png",
     "oop/design-pattern/images/Untitled 9.png",
