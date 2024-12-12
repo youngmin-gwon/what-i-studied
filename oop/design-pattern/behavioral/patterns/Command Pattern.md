@@ -52,35 +52,35 @@
 ### [[Chain of Responsibility Pattern]], [[Mediator Pattern]], [[Observer Pattern]]
 
 - sender와 receiver를 연결하는 여러가지 방법을 보여줌
-  - Chain of Responsibility
+  - [[Chain of Responsibility Pattern]]
     - 잠재적 receiver 중 하나가 처리할 때까지 잠재적 receiver의 동적 사슬을 따라 순차적으로 요청을 전달하는 구조
-  - Command
+  - [[Command Pattern]]
     - receiver와 sender 간 단방향 연결
-  - Mediator
+  - [[Mediator Pattern]]
     - receiver와 sender 간의 직접 연결을 제거하여 mediator 개체를 통해 간접적으로 통신하도록 하는 구조
-  - Observer
+  - [[Observer Pattern]]
     - receiver가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음
 
-### Chain of Responsibility
+### [[Chain of Responsibility Pattern]]
 
 - Chain of Responsibility의 핸들러를 Command 패턴을 이용해서 구현할 수 있음
   - 요청으로 표시되는 동일한 컨텍스트 개체에 대해 다양한 작업을 실행할 수 있음
   - 또 다른 접근 방식: 요청 자체가 Command 개체
     - 체인에 연결된 일련의 서로 다른 컨텍스트에서 동일한 작업을 실행할 수 있음
 
-### Memento
+### [[Memento Pattern]]
 
 - undo 기능을 적용하기 위해서 Command 패턴과 같이 사용할 수 있음
   - Command는 다양한 연산을 목표 객체에 적용하는 것에만 신경 쓰면 되고, Memento는 Command가 수행되기 전 객체의 상태만 기억하는 것에만 신경 쓰면 됨
 
-### Strategy
+### [[Strategy Pattern]]
 
 - 둘다 객체를 파라미터로 갖기 때문에 비슷해보일 수 있음
 - 하지만, 다른 의도로 사용됨
   - Command: 연산을 객체로 바꾸려는 의도 ⇒ 작업 실행을 연기하고, 대기열에 추가하고, 명령 기록을 저장하고, 원격 서비스에 명령을 보내는 등의 작업을 수행할 수 있음
   - Strategy:  같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도
 
-### Prototype
+### [[Protot]]
 
 - Prototype은 Command 사본을 기록에 저장해야 할 때 도움이 될 수 있음
 
