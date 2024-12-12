@@ -1,8 +1,8 @@
 # Template Method Pattern
 
-## Description
+#BehavioralPattern
 
-[[Behavioral Pattern]]
+## Description
 
 ![Untitled](Untitled%205.png)
 

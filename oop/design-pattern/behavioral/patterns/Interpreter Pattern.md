@@ -1,8 +1,8 @@
 # Interpreter
 
-## Description
+#BehavioralPattern
 
-[[Behavioral Pattern]]
+## Description
 
 - 언어를 주고, 문법의 표현을 정의하여 해당 언어로 된 기술 문장을 해석하는 번역기를 함께 정의하는 패턴
 - 규칙을 정의하고 이에 맞춰서 프로세스를 해석하는 패턴

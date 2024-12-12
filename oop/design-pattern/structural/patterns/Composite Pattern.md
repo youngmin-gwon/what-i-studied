@@ -1,6 +1,6 @@
 # Composite
 
-[[Structural Pattern]]
+#StructuralPattern
 
 ![Untitled](Untitled%208.png)
 

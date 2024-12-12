@@ -1,8 +1,8 @@
 # Factory Method(=Virtual Constructor)
 
-## Description
+#CreationalPattern
 
-[[Creational Pattern]]
+## Description
 
 ![Untitled](Untitled%2027.png)
 

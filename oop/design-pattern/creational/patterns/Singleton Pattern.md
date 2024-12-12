@@ -1,8 +1,8 @@
 # Singleton
 
-## Description
+#CreationalPattern
 
-[[Creational Pattern]]
+## Description
 
 하나의 인스턴스만을 만들어 사용하기 위한 패턴.
 

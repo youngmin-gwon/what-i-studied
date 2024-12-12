@@ -1,5 +1,7 @@
 # Adapter(=Wrapper)
 
+#StructuralPattern
+
 ## Description
 
 ![Untitled](adapter_overview.png)
@@ -7,8 +9,6 @@
 ![Untitled](adapter_before.png)
 
 ![Untitled](adapter_after.png)
-
-[[Structural Pattern]]
 
 다른 인터페이스 클라이언트가 기대하는대로 인터페이스를 변환함
 
@@ -31,7 +31,7 @@ code abstraction 을 하므로 domain layer의 unit test 를 보다 쉽게 만�
 
 ## Structure
 
-![Untitled](Untitled%203.png)
+![Untitled](adapter_structure.png)
 
 (같은 아이디어를 공유하지만) 크게 `1. object`, `2.class` adapter 구조로 나눌 수 있음
 
@@ -52,7 +52,7 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 - object adapter는 runtime에 연결되기 때문에 더욱 유연하다(=loosely-coupled) ⇒ [[SOLID]] 원칙 중 [[LSP(Liskov substitution principle)]] 원칙에 부합함
   - class adapter 는 쉽게 override 만 하면 된다는 장점이 있음
 
-![Untitled](Untitled%204.png)
+![Untitled](adapter_impl.png)
 
 ## Adaptability
 

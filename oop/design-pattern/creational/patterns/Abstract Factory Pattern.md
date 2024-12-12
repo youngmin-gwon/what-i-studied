@@ -1,9 +1,9 @@
 
 # Abstract Factory(=Kit)
 
-## Description
+#CreationalPattern
 
-[[Creational Pattern]]
+## Description
 
 ![Untitled](Untitled%2029.png)
 

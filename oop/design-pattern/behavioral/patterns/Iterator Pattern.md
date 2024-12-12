@@ -1,8 +1,8 @@
 # Iterator
 
-## Description
+#BehavioralPattern
 
-[[Behavioral Pattern]]
+## Description
 
 ![Untitled](Untitled%2024.png)
 

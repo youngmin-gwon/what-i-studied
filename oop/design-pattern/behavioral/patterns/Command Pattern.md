@@ -1,13 +1,12 @@
-
 # Command(=Action=Transaction)
+
+#BehavioralPattern
 
 ## Description
 
-[[Behavioral Pattern]]
+![Untitled](command_overview.png)
 
-![Untitled](Untitled%2032.png)
-
-![Untitled](Untitled%2033.png)
+![Untitled](command_example.png)
 
 - 요청을 객체로 캡슐화하며, 매개변수를 써서 여러 가지 다른 요구 사항을 집어넣을 수도 있는 패턴
   - 요청 내역을 큐에 저장하거나 로그로 기록할 수 도 있으며, 작업 취소 기능도 지원 가능
@@ -21,7 +20,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2034.png)
+![Untitled](command_structure.png)
 
 1. Command : 작업을 수행하기 위한 interface 선언
 2. Concrete Command : receiver에 상응하는 작업을 실행하는 requests 선언

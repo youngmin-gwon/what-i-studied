@@ -1,8 +1,8 @@
 # Prototype
 
-## Description
+#CreationalPattern
 
-[[Creational Pattern]]
+## Description
 
 ![Untitled](Untitled%2037.png)
 

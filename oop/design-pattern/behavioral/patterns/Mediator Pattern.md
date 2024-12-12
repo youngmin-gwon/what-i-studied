@@ -1,8 +1,8 @@
 # Mediator
 
-## Description
+#BehavioralPattern
 
-[[Behavioral Pattern]]
+## Description
 
 ![Untitled](Untitled%2060.png)
 
