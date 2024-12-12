@@ -1325,111 +1325,110 @@ typedef onProcessed<T> = T Function(String);
 
 가독성에 도움이 되지 않는 변수들을 제거하라
 
-    1. 불필요한 임시 변수들
-        
-        ```python
-        # before
-        now = datetime.datetime.now()
-        root_message.last_view_time = now
-        ## 변수가 필요하지 않다
-        ### 1. 복잡한 표현을 잘게 나누지 않는다
-        ### 2. 명확성에 도움이 되지 않는다(datetime.datetime.now()은 그자체로 명확)
-        ### 3. 한번만 중복되어 중복된 코드를 압축하지 않는다
-        
-        # after
-        root_message.last_view_time = datetime.datetime.now()
-        ```
-        
-    2. 중간결과 삭제하기
-        - 예시
-            
-            ```jsx
-            // before
-            var remove_one = function(array, value_to_remove) {
-            	var index_to_remove = null;
-            	for (var i = 0; i < array.lengthl i +=1){
-            		if (array[i] == value_to_remove){
-            			index_to_remove = i;
-            			break;
-            		}
-            	}
-            	if (index_to_remove != null){
-            		array.splice(index_to_remove,1);
-            	}
-            }
-            /// index_to_remove 는 단지 중간결과를 저장할 뿐임
-            /// 변수 결과를 얻자마자 바로 제거
-            
-            // after
-            var remove_one = function(array, value_to_remove) {
-            	for (var i = 0; i < array.lengthl i +=1){
-            		if (array[i] == value_to_remove){
-            			array.splice(index_to_remove,1);
-            			break;
-            		}
-            	}
-            	
-            }
-            
-            ```
-            
-            ```jsx
-            // before
-            var remove_one = function(array, value_to_remove) {
-            	var index_to_remove = null;
-            	for (var i = 0; i < array.length; i +=1){
-            		if (array[i] == value_to_remove){
-            			index_to_remove = i;
-            			break;
-            		}
-            	}
-            	if (index_to_remove != null){
-            		array.splice(index_to_remove,1);
-            	}
-            }
-            /// index_to_remove 는 단지 중간결과를 저장할 뿐임
-            /// 변수 결과를 얻자마자 바로 제거
-            
-            // after
-            var remove_one = function(array, value_to_remove) {
-            	for (var i = 0; i < array.length; i +=1){
-            		if (array[i] == value_to_remove){
-            			array.splice(i,1);
-            			break;
-            		}
-            	}
-            }
-            
-            ```
-            
-    3. 흐름 제어 변수 제거하기
-        - 예시
-            
-            ```dart
-            // before
-            bool done = false;
-            
-            while (/*조건*/ && !done){
-            	...
-            
-            	if(...){
-            		done = true;
-            		continue;
-            	}
-            }
-            
-            // after
-            while (/*조건*/){
-            	...
-            
-            	if(...){
-            		break;
-            	}
-            }
-            
-            /// 이 예제는 간단하지만, 중첩된 여러 루프 때문에 추가로 break가 필요한 경우
-            /// - 루프 안에서 반복되는 코드를 새로운 함수로 만들면 됨
-            ```
+##### 1. 불필요한 임시 변수들
+
+```python
+# before
+now = datetime.datetime.now()
+root_message.last_view_time = now
+## 변수가 필요하지 않다
+### 1. 복잡한 표현을 잘게 나누지 않는다
+### 2. 명확성에 도움이 되지 않는다(datetime.datetime.now()은 그자체로 명확)
+### 3. 한번만 중복되어 중복된 코드를 압축하지 않는다
+
+# after
+root_message.last_view_time = datetime.datetime.now()
+```
+
+##### 2. 중간결과 삭제하기
+
+예시
+
+```jsx
+// before
+var remove_one = function(array, value_to_remove) {
+    var index_to_remove = null;
+    for (var i = 0; i < array.length; i +=1) {
+        if (array[i] == value_to_remove){
+            index_to_remove = i;
+            break;
+        }
+    }
+    if (index_to_remove != null) {
+        array.splice(index_to_remove,1);
+    }
+}
+/// index_to_remove 는 단지 중간결과를 저장할 뿐임
+/// 변수 결과를 얻자마자 바로 제거
+
+// after
+var remove_one = function(array, value_to_remove) {
+    for (var i = 0; i < array.length; i +=1){
+        if (array[i] == value_to_remove){
+            array.splice(index_to_remove,1);
+            break;
+        }
+    }
+}
+```
+
+```jsx
+// before
+var remove_one = function(array, value_to_remove) {
+    var index_to_remove = null;
+    for (var i = 0; i < array.length; i +=1) {
+        if (array[i] == value_to_remove) {
+            index_to_remove = i;
+            break;
+        }
+    }
+    if (index_to_remove != null) {
+        array.splice(index_to_remove,1);
+    }
+}
+/// index_to_remove 는 단지 중간결과를 저장할 뿐임
+/// 변수 결과를 얻자마자 바로 제거
+
+// after
+var remove_one = function(array, value_to_remove) {
+    for (var i = 0; i < array.length; i +=1) {
+        if (array[i] == value_to_remove) {
+            array.splice(i,1);
+            break;
+        }
+    }
+}
+```
+
+##### 3. 흐름 제어 변수 제거하기
+
+예시
+
+```dart
+// before
+bool done = false;
+
+while (/*조건*/ && !done) {
+    ...
+
+    if(...){
+        done = true;
+        continue;
+    }
+}
+
+// after
+while (/*조건*/) {
+    ...
+
+    if (...) {
+        break;
+    }
+}
+
+/// 이 예제는 간단하지만, 중첩된 여러 루프 때문에 추가로 break가 필요한 경우
+/// - 루프 안에서 반복되는 코드를 새로운 함수로 만들면 됨
+```
 
 #### 2. 변수의 범위를 좁혀라
 
