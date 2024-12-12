@@ -9,6 +9,7 @@
 - 알고리즘 집단을 만들고, 각각을 캡슐화 한 후, 집단의 각각을 교환가능하게 만드는 것이 목적
 - 가장 실용적인 디자인 패턴 중 하나
 - 객체 내부에서 다른 계산로직을 사용하거나 알고리즘을 run-time 중 동적으로 바꾸고 싶을 때 사용
+- 새로운 알고리즘을 추가함으로 로직을 바꿀 필요가 없으므로 [[SOLID]] 중 Open-Closed Principle (O in SOLID) 를 성립하게 만들어줌 [확장에는 열려있고, 수정에는 닫혀있음]
 - 예시
   - Sorting algorithms: 각각의 정렬 알고리즘을 추출하여 각각의 클래스로 만들고 sort() 할 수 있는 interface를 만들어 사용
   - Payment strategies : 각각의 결제 방법을 클래스로 만들고 사용자의 선택에 따라 알고리즘 수행
@@ -16,12 +17,12 @@
 
 ![Untitled](Untitled%2016.png)
 
-- 분석
-    - Strategy: Concrete Strategies에서 공통적으로 사용되는 interface를 정의. 어떤 strategy를 사용할지는 context에서 정해질 것임
-    - Concrete Strategies: Strategy interface에 맞춰 알고리즘 정의
-    - Context: Strategy 객체를 가지고 있음. 어떤 알고리즘이 사용될지에 대해서는 독립적 ⇒ 동적으로 바뀔 수 있음
-    - Client: Concrete Strategies 중 특정한 알고리즘을 선택하고 Context로 넘김
-- 새로운 알고리즘을 추가함으로 로직을 바꿀 필요가 없으므로 SOLID 중 Open-Closed Principle (O in SOLID) 를 성립하게 만들어줌 [확장에는 열려있고, 수정에는 닫혀있음]
+## Structure
+
+- Strategy: Concrete Strategies에서 공통적으로 사용되는 interface를 정의. 어떤 strategy를 사용할지는 context에서 정해질 것임
+- Concrete Strategies: Strategy interface에 맞춰 알고리즘 정의
+- Context: Strategy 객체를 가지고 있음. 어떤 알고리즘이 사용될지에 대해서는 독립적 ⇒ 동적으로 바뀔 수 있음
+- Client: Concrete Strategies 중 특정한 알고리즘을 선택하고 Context로 넘김
 
 - 적용성
     - 다양한 알고리즘을 사용하고 런타임 중에 한 알고리즘에서 다른 알고리즘으로 전환할 수 있도록 하려는 경우
@@ -40,7 +41,7 @@
     - 사용하는 곳에서 반드시 각 ConcreteStrategy의 차이를 알고 적절하게 사용해야 함
     - 알고리즘이 거의 바뀌지 않는다면, 복잡하게 Stategy패턴을 사용할 이유가 없음
     - 대부분의 언어에서 Functional type support를 하기 때문에 굳이 코드베이스를 크게 만들이유가 없다
-    
+
 - 다른 패턴과의 관계
     - Bridge, State, (일부분 Adapter)
         - 구조가 비슷함(다른 객체에 실제 작업을 위임하는 구조)
@@ -66,4 +67,3 @@
             - Strategy는
         - Strategy는 상속을 대체하려는 목적
         - State는 코드내의 조건문들을 대체하려는 목적
-
