@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/OOP Design Pattern.md",
+                "file": "oop/solid/SRP(Single Responsibility Principle).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OOP Design Pattern"
+              "title": "SRP(Single Responsibility Principle)"
             }
           }
         ]
@@ -177,20 +177,21 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
-    ".git/index.lock",
-    ".git/objects/a1/f685ef33b1845a9222324d6d1fc4fe625c87ba",
-    ".git/objects/e2/c4be5d544f409ea0b2e6b7305e6c5651b22b87",
-    ".git/objects/78/18a086203c51bdcafcc8bb4d7845621fd17300",
-    ".git/objects/8d/5442248e93f0ec59993cb78b6e38393c821fe2",
-    ".git/objects/7f/bc304fd08c4738c9b8bd4347050eb077c709e5",
-    ".git/objects/47/e13e0175c973b5f65b66977d3550828973f021",
-    ".git/objects/a9/5704ef582711740dbdae610afb5731e530f92f",
-    "oop/solid/SRP(Single Responsibility Principle).md",
-    ".git/objects/62/e9f6c37d5d75beb3794f259f1a2e4be631de91",
-    ".git/objects/af/dc049af852ef29758242282812ed76fe9f7799",
-    ".git/objects/2e/83ef58ef3b373569ad72211743ac1c8aa87009",
-    "oop/solid/Single Responsibility Principle.md",
+    "oop/solid/OCP(Open Closed Principle).md",
     "oop/solid/SOLID.md",
+    "oop/design-pattern/OOP Design Pattern.md",
+    ".git/objects/e8",
+    ".git/objects/e8/55253050e47b279e54907cbd007ceeab8a8285",
+    ".git/objects/38/16aa54366453cc5c35ba78e500468f9cd04e64",
+    ".git/objects/70/560a425bc0f1b6c7801a78869e8b497e17db45",
+    ".git/objects/70",
+    ".git/objects/e1/3fa532783e18e21043830d4225327e4d806796",
+    ".git/objects/45/b92be50d6fcc2393de3dd7ad7eb847e956b6ca",
+    ".git/index.lock",
+    ".git/objects/2a/209f93aaedc936aa38a2ef3c72582671c0dcd1",
+    ".git/objects/6c/55f6c5e8cdfd5d4870c4541c543b43725e229c",
+    "oop/solid/SRP(Single Responsibility Principle).md",
+    "oop/solid/Single Responsibility Principle.md",
     "oop/design-pattern/SOLID.md",
     "design-pattern/OOP Design Pattern.md",
     "oop/design-pattern/creational/patterns/Singleton.md",
@@ -208,7 +209,6 @@
     "oop/design-pattern/structural/Structural Pattern.md",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/behavioral/Behavioral Pattern.md",
-    "oop/design-pattern/OOP Design Pattern.md",
     "design-pattern/structural/Structural Pattern.md",
     "design-pattern/creational/Creational Pattern.md",
     "design-pattern/structural/patterns/Adapter.md",
