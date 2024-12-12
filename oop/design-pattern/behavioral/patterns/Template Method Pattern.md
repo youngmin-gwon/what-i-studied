@@ -58,7 +58,7 @@
 ## Cons
 
 1. 추상 메소드가 많아지면 클래스 관리가 복잡해진다
-2. Subclass에서 default 구현을 무시하여 Liskov Substitution Principle을 위반할 수도 있음
+2. Subclass에서 default 구현을 무시하여 [[LSP(Liskov substitution principle)]]을 위반할 수도 있음
 3. 클래스간의 관계와 코드가 꼬여버릴 염려가 있다
 4. 일부 클라이언트는 알고리즘이 제공한 skeleton에 의해 제한될 수 있음
 

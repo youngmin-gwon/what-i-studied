@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "Behavioral Pattern"
             }
+          },
+          {
+            "id": "cb05fd0c41220189",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "oop/design-pattern/behavioral/Behavioral Pattern.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Behavioral Pattern"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -175,24 +190,25 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "57e4364fde68d212",
+  "active": "2f1d28be0471f52d",
   "lastOpenFiles": [
-    "oop/design-pattern/creational/Creational Pattern.md",
-    ".git/objects/51/8f9156377248416f7e077db59ba77cec64c972",
-    ".git/objects/8e/c45b299ec241c00d3e184d9f84845567441b81",
-    ".git/objects/27/7a2d438b43cd5f201227d79dc539a965b5b081",
-    ".git/objects/0a/a21337aa37bffca2b8f3c40420974f5d8490df",
-    ".git/objects/97/122379a1a22f8d5b80388f9b80b95c7cb1a128",
-    ".git/objects/df",
-    ".git/objects/df/1bcfbb71ce99075fb8947db1c22a7d83d8a79d",
-    ".git/objects/a8/90572f6ff9e27f2d68b3ce14f7dc0161a2c17b",
+    "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
+    "oop/design-pattern/behavioral/Behavioral Pattern.md",
+    ".git/objects/57/4a0f7e60e6852be3f97cf9aeb9a7807b2edc1b",
+    ".git/objects/db/1794bab24f8e734b8bd82ea3591109c38fb0f6",
+    ".git/objects/cf/de4ad0841b3c63d447d703aad4c703a7ec5cc2",
+    ".git/objects/17/71a5fe116068eff039140b8dc76d68766dd295",
+    ".git/objects/31/01db7f2ae5476684027e10643e2ddd78c7626d",
+    ".git/objects/24/4a926519886c4241f82adce55b4dd021391b47",
+    ".git/objects/2a/5ddcdee222f68f3ec0161928e0fdbb9dfecf09",
     ".git/index.lock",
-    ".git/objects/49/cfc7c148cc68d76c6bfcbc45e3540501035cf0",
+    ".git/objects/fb/dc4e0e06da27e5e8d1a2241da4ea81d088c950",
+    ".git/objects/bd/92d1c07f2034a49d4e0b8ca7c6b4bbb80035f8",
+    "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/creational/patterns/Singleton Pattern.md",
     "oop/design-pattern/structural/Structural Pattern.md",
     "oop/design-pattern/structural/patterns/Adapter Pattern.md",
     "oop/solid/SOLID.md",
-    "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
     "oop/solid/OCP(Open Closed Principle).md",
     "oop/design-pattern/OOP Design Pattern.md",
     "oop/solid/DIP(Dependency Inversion Principle).md",
@@ -213,7 +229,6 @@
     "oop/design-pattern/images/Untitled 62.png",
     "oop/design-pattern/images/Untitled 61.png",
     "oop/design-pattern/images/Untitled 60.png",
-    "oop/design-pattern/behavioral/Behavioral Pattern.md",
     "design-pattern/structural/Structural Pattern.md",
     "design-pattern/creational/Creational Pattern.md",
     "design-pattern/structural/patterns/Adapter.md",
