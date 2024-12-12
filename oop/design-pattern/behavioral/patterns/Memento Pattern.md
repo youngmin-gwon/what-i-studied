@@ -35,20 +35,20 @@
 ![Untitled](Untitled%2036.png)
 
 1. Memento
-    - concrete memento의 fields에 접근을 제한하는 인터페이스
-    - 오직 memento의 메타데이터, caretaker 에 의해 사용되는 메소드를 정의함
+   - concrete memento의 fields에 접근을 제한하는 인터페이스
+   - 오직 memento의 메타데이터, caretaker 에 의해 사용되는 메소드를 정의함
 2. Concrete Memento
-    - originator의 내부 상태 스냅샷 역할을 하는 값(Value Object)
-    - concrete memento를 생성한 originator를 제외한 다른 객체의 접근을 막음
+   - originator의 내부 상태 스냅샷 역할을 하는 값(Value Object)
+   - concrete memento를 생성한 originator를 제외한 다른 객체의 접근을 막음
 3. Caretaker
-    - memento 보관을 책임지는 보관자
-    - memento의 내용을 검토하거나 그 내용을 건드리지 않음
-    - memento 스택을 저장함으로써 originator의 히스토리 추적
-    - originator가 이전 상태를 알아야 할 때, 스택으로부터 최상위 원소를 가져와서 originator 복구 메소드로 전달함
+   - memento 보관을 책임지는 보관자
+   - memento의 내용을 검토하거나 그 내용을 건드리지 않음
+   - memento 스택을 저장함으로써 originator의 히스토리 추적
+   - originator가 이전 상태를 알아야 할 때, 스택으로부터 최상위 원소를 가져와서 originator 복구 메소드로 전달함
 4. Originator
-    - 원본 객체를 의미
-    - 상태를 저장함
-    - 필요할 때 스냅샷으로 부터 해당 상태를 복구할뿐만 아니라, 자기 자신 상태의 스냅샷을 생산하기도 함
+   - 원본 객체를 의미
+   - 상태를 저장함
+   - 필요할 때 스냅샷으로 부터 해당 상태를 복구할뿐만 아니라, 자기 자신 상태의 스냅샷을 생산하기도 함
 
 - 객체의 fields/getters/setters에 직접 접근이 캡슐화 원칙을 위배할 때, 보안의 이유로도 사용될 수 있음
     - 다른 object가 snapshot을 읽지 못하게 만들어 original object의 state를 안전하고 보안이 강화되게 만듬
