@@ -11,14 +11,10 @@
             "id": "5bc0f0d241759e25",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Abstract Factory Pattern"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ]
@@ -177,21 +173,20 @@
   },
   "active": "5bc0f0d241759e25",
   "lastOpenFiles": [
+    ".git/index.lock",
+    "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
+    ".git/objects/64/bbe239d77c0609ad1bd9103df6273d77281b11",
+    ".git/objects/97/a976031564e137a548c6577e1fa58cab5825a8",
+    ".git/objects/a2/2f478069be1ff2233c77b22363fa9a135da0dd",
+    ".git/objects/8b/61ad4f89427f6a3a86b565be394d8626dfa14c",
     ".git/objects/d9/35fca9cd13c3d7ddadfa0d5283e975aff8d334",
     ".git/objects/dc/c1fead351685305a8bf564613c2288b0b630ba",
     ".git/objects/02/14fca41ff09f0d6272f213951968d53a87dfb1",
     ".git/objects/1d/d6cb119d3b49e3d27da3b184b06703c5880d8b",
-    ".git/index.lock",
     ".git/objects/bf/083ba8e778e7f6b8841e04fe5e64b224e27ae3",
-    ".git/objects/07/ec01cbb8a44f172dd83a89dfa1a177ef4f370b",
-    ".git/objects/cf/5d4d396bc01c12e4c6a8041304e7b5f3687600",
-    ".git/objects/0c/b8e8c6f35d3c3e09dd4e8577a93f181225c1db",
-    ".git/objects/8e/f14e5e0765577a978ef31541d384fa57950be0",
-    ".git/objects/ae/50ca0ab3c1329d04859368f30b7d061b7ebb29",
     "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
     "oop/design-pattern/behavioral/patterns/Command Pattern.md",
     "oop/design-pattern/behavioral/patterns/Memento Pattern.md",
-    "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
     "oop/design-pattern/creational/patterns/Prototype Pattern.md",
     "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
     "oop/design-pattern/OOP Design Pattern.md",
