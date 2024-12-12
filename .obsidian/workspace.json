@@ -11,10 +11,14 @@
             "id": "57e4364fde68d212",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "oop/solid/SOLID.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "SOLID"
             }
           }
         ]
@@ -173,17 +177,18 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
-    "oop/design-pattern/structural/patterns/Adapter.md",
-    ".git/objects/15/944a7d587b5cd269f8cda4a5cb4fce8f9415cf",
-    ".git/objects/30/5f9c2c61cc8d812d492a8cfe181cd4a4ade996",
-    ".git/objects/11/29bb15ea115a8c3cdc193b5a32dd287efc0837",
-    ".git/objects/d6/068bb6f9b6c23c371c4228d4b88751aba449c1",
-    ".git/objects/db/f6a514cee3fe8cc11752497a1d6b9bdfb70903",
-    ".git/objects/fa/3d3db3522dd00d9a4fdc72eb860ed70090e3ae",
-    ".git/objects/08/d59121ff7646d78da944fdc9c41bb1e2075bfc",
+    ".git/objects/ad/98aaa91cd3f807bcb378be4680e5f16cc41c41",
+    ".git/objects/9b",
+    ".git/objects/9b/c33aa6ed8bd22767cdb958ef6fb6393a2807d3",
+    ".git/objects/be/0906db17ecfdc8255f4aac28fba2917804a42b",
+    ".git/objects/52/4bac8db833b65bc378ff16e8ef2a492cbb3a55",
+    ".git/objects/e2/4dbe988847f7d418620825ea58c0177b412ecc",
+    ".git/objects/50/086da9c854786c4053efba2fd0ded22b05622e",
+    ".git/objects/67/0bf18130bd23aee616f90ea40578ff465b639b",
     ".git/index.lock",
-    ".git/objects/90/8587b596ef552156aa94a45c9ca3a37780459d",
-    ".git/objects/64/21466803780333403cce27b1ab8cfb826c032d",
+    ".git/objects/cc/ea6d0c85fc1997100dbd025a57b7bcdb6bcfc7",
+    ".git/objects/f8",
+    "oop/design-pattern/structural/patterns/Adapter.md",
     "oop/solid/OCP(Open Closed Principle).md",
     "oop/solid/SOLID.md",
     "oop/design-pattern/creational/patterns/Singleton.md",
