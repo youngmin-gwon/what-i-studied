@@ -4,10 +4,8 @@
 - A quote in the book "Design Patterns: Elements of Reusable Object-Oriented Programming" by GoF
 
 > A design pattern names, abstracts, and identifies the key aspects of a common design structure that make it useful for creating a reusable object-oriented design.
- 
-
 > 디자인 패턴은 대부분의 프로그래밍 상황에서 유용하게 사용하기 위해 공통적으로 사용 되는 디자인 패턴을 명명, 추상화, 명시화 한것이고, 이는  재사용 가능한 객체지향 디자인을 만들기 위함이다.
- 
+
 - (design 이라는 단어 때문에 혼동이 올 수 있으나) UI/UX 문제를 풀기 위한 것이 아님
 - 특정 객체지향 문제를 풀기 위한 청사진에 가까움
 - 개발 시간을 앞당길 수 있고, 코드를 더욱 유연하고 재사용 가능하게 만들어 줄 수 있음
@@ -15,7 +13,7 @@
 - 크게 3가지로 나눌 수 있음
     1. [[Creational Pattern]]
     2. [[Structural Pattern]]
-    3. [[Behavioral Pattern]] 
+    3. [[Behavioral Pattern]]
 참고한 곳
 
 [Flutter Design Patterns: 1 - Singleton](https://medium.com/flutter-community/flutter-design-patterns-1-singleton-437f04e923ce)
@@ -25,7 +23,7 @@
 - Creational pattern
 - 하나의 인스턴스만을 만들어 사용하기 위한 패턴
 - 커넥션 풀, 스레드 풀, 디바이스 설정 객체 등의 경우 인스턴스를 여러 개 만들게 되면 자원을 낭비하게 되거나 버그를 발생시킬 수 있으므로 오직 하나만 생성하고 그 인스턴스를 사용하도록 하는 것이 이 패턴의 목적
-- class 의 instance 를 만드는 것이 비용이 클 때 사용할 수 있음. ex) 클래스를 인스턴스화 할 때 외부 데이터를 가져오는 시간이 많이 드는 경우
+- class 의 instance 를 만드는 것이 비용이 클 때 사용할 수 있음. ex. 클래스를 인스턴스화 할 때 외부 데이터를 가져오는 시간이 많이 드는 경우
 - 같은 객체를 반복해서 사용해야될 때 사용할 수 있음
 - 하나의 인스턴스만을 사용하게 하도록 하기 위해 인스턴스 생성에 특별한 제약을 걸어둬야 함 → 생성자에 private 접근 제어자를 지정하고, 유일한 단일 객체를 반환할 수 있도록 정적 메소드를 지원해야 함. 또한 유일한 단일 객체를 참조할 정적 참고변수가 필요함.
 - 고려대상
