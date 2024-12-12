@@ -1,158 +1,160 @@
-## Prolog) 코드는 이해하기 쉬워야 한다
+# The Art of Readable Code
+
+## Prolog. 코드는 이해하기 쉬워야 한다
 
 - 무엇이 코드를 좋게 만드는가?
-    - 판단하기 쉽지 않음 ⇒ 이를 판단하기 쉽게 하기 위해 **가독성의 기본 정리** 를 사용
+  - 판단하기 쉽지 않음 ⇒ 이를 판단하기 쉽게 하기 위해 **가독성의 기본 정리** 를 사용
 - The Fundamental Theorem of Readability
-    - 평범한 사람(코드 작성자 포함)이 코드를 읽고 이해하는 데 걸리는 시간을 최소화하는 코드
+  - 평범한 사람(코드 작성자 포함)이 코드를 읽고 이해하는 데 걸리는 시간을 최소화하는 코드
 - 적은 분량으로 코드를 작성하는 것이 좋은 목표이긴 하지만, 언제나 이해를 위한 시간을 최소화 하는 것으로 해야함
-
----
 
 ## Part 1. 표면적 수준에서의 개선
 
 - 좋은 이름 짓기, 좋은 설명 달기, 코드를 보기 좋게 정렬하는 것 ⇒ 프로그램이 동작하는 방식을 바꾸지 않고 그 자리에서 곧바로 만들 수 있음
 
----
-
 ### 이름에 정보 담기
 
 - size 혹은 get 처럼 그럴 듯 해보이는 이름조차 많은 정보를 담아내지 못하는 경우가 있으므로 다음 원칙을 주의해서 이름을 선택하라
-1. 특정 단어 고르기
-    - 함수명을 정의할 때 get과 같은 키워드는 너무 보편적이기 때문에 구체적인 단어를 선택하여 무의미한 단어를 피하자
-        
-        ```dart
-        // before
-        void getPage(String url){
+
+#### 1. 특정 단어 고르기
+
+함수명을 정의할 때 get과 같은 키워드는 너무 보편적이기 때문에 구체적인 단어를 선택하여 무의미한 단어를 피하자
+
+```dart
+// before
+void getPage(String url){
+...
+}
+```
+
+```dart
+// after
+void fetchPage(String url){
+}
+
+// or
+
+void downloadPage(String url){
+}
+```
+
+```dart
+// before
+class Thread{
+
+    void stop(){
         ...
+    }
+
+}
+```
+
+```dart
+// after
+class Thread{
+
+    void kill(){
+        ...
+    }
+
+// or
+    void pause(){
+        ...
+    }
+
+}
+```
+
+상황에 적합할 수 있는 '화려한' 단어를 골라라 (항상 좋은것은 아님)
+
+```markdown
+// thesaurus 참고
+send => deliver, dispatch, announce, distribute, route
+find => search, extract, locate, recover
+start => launch, create, begin, open
+make => create, set up, build, generate, compose, add, new
+```
+
+```dart
+// bad case
+
+// ?
+explode();
+
+// !
+split();
+```
+
+#### 2. tmp나 retval 같은 보편적인 이름 지향하기
+
+변수의 목적이나 담고 있는 값을 설명하는 기능을 하게 됨
+
+```dart
+// before
+var euclidean_norm = Function<void> (v) {
+    var retval = 0.0;
+    for (var i=0; i<v.length; i++){
+        retval = v[i]*v[i];
+    }
+    return retval;
+}
+
+// ```````````````
+
+// after
+var euclidean_norm = Function<void> (v) {
+    var sum_squares = 0.0;
+    for (var i=0; i<v.length; i++){
+        sum_squares = v[i]*v[i];
+    }
+    return sum_squares;
+}
+```
+
+```dart
+// i, j, k 문제 : 인덱스를 잘못 지칭해도 문제를 찾기 어려움
+// before
+for (int i=0;i<clubs.size;i++){
+    for (int j=0;j<clubs[i].members.size;j++){
+        for (int k=0;k<users.size;k++){
+            if (clubs[i].members[k] == users[j]){
+                // do something
+            }
         }
-        ```
-        
-        ```dart
-        // after
-        void fetchPage(String url){
+    }
+}
+
+// ```````````````
+// after
+
+for (int ci=0;ci<clubs.size;ci++){
+    for (int mj=0;mj<clubs[ci].members.size;mj++){
+        for (int uk=0;uk<users.size;uk++){
+            if (clubs[ci].members[mj] == users[uk]){
+                // do something
+            }
         }
-        
-        // or
-        
-        void downloadPage(String url){
-        }
-        ```
-        
-        다른 예제
-        
-        ```dart
-        // before
-        class Thread{
-        	
-        	void stop(){
-        		...
-        	}
-        
-        }
-        ```
-        
-        ```dart
-        // after
-        class Thread{
-        
-        	void kill(){
-        		...
-        	}
-         
-        // or
-        	void pause(){
-        		...
-        	}
-        
-        }
-        ```
-        
-    - 상황에 적합할 수 있는 '화려한' 단어를 골라라 (항상 좋은것은 아님)
-        
-        ```markdown
-        // thesaurus 참고
-        send => deliver, dispatch, announce, distribute, route
-        find => search, extract, locate, recover
-        start => launch, create, begin, open
-        make => create, set up, build, generate, compose, add, new
-        ```
-        
-        ```dart
-        // bad case
-        
-        // ?
-        explode();
-        
-        // !
-        split();
-        ```
-        
-2. tmp나 retval 같은 보편적인 이름 지향하기
-    - 변수의 목적이나 담고 있는 값을 설명하는 기능을 하게 됨
-        
-        ```dart
-        // before
-        var euclidean_norm = Function<void> (v) {
-        	var retval = 0.0;
-        	for (var i=0; i<v.length; i++){
-        		retval = v[i]*v[i];
-        	}
-        	return retval;
-        }
-        
-        // ```````````````
-        
-        // after
-        var euclidean_norm = Function<void> (v) {
-        	var sum_squares = 0.0;
-        	for (var i=0; i<v.length; i++){
-        		sum_squares = v[i]*v[i];
-        	}
-        	return sum_squares;
-        }
-        ```
-        
-        ```dart
-        // i, j, k 문제 : 인덱스를 잘못 지칭해도 문제를 찾기 어려움
-        // before
-        for (int i=0;i<clubs.size;i++){
-        	for (int j=0;j<clubs[i].members.size;j++){
-        		for (int k=0;k<users.size;k++){
-        			if (clubs[i].members[k] == users[j]){
-        				// do something
-        			}
-        		}	
-        	}
-        
-        // ```````````````
-        // after
-        
-        for (int ci=0;ci<clubs.size;ci++){
-        	for (int mj=0;mj<clubs[ci].members.size;mj++){
-        		for (int uk=0;uk<users.size;uk++){
-        			if (clubs[ci].members[mj] == users[uk]){
-        				// do something
-        			}
-        		}	
-        	}
-        }
-        
-        ```
-        
-    - 오히려 보편적인 이름이 필요한 의미를 전달해주는 경우도 있으므로 주의
-        
-        ```dart
-        // 변수 목적이 코드 몇줄에서만 사용되는 임시 저장소 역할을 하기 때문에 tmp라는 이름이 오히려 완벽
-        if (right < left) {
-        	var tmp = right;
-        	right = left;
-        	left = tmp;
-        }
-        ```
-        
-    - tmp, it, retval 같은 보편적인 이름을 사용하려면, 꼭 그렇게 해야하는 이유가 있어야 함
-    - 정말 떠오르지 않는다면 foo 같은 무의미한 이름을 사용하며 앞으로 진전할 수 있지만, 몇 초라도 좋은 이름을 생각하려고 고민하는 습관을 들여 '작명을 위한 내공'을 키우려 노력해야 함
-3. 추상적이지 않은, 대상을 자세하게 묘사하는 구체적인 이름을 선호하라
+    }
+}
+
+```
+
+오히려 보편적인 이름이 필요한 의미를 전달해주는 경우도 있으므로 주의
+
+```dart
+// 변수 목적이 코드 몇줄에서만 사용되는 임시 저장소 역할을 하기 때문에 tmp라는 이름이 오히려 완벽
+if (right < left) {
+    var tmp = right;
+    right = left;
+    left = tmp;
+}
+```
+
+tmp, it, retval 같은 보편적인 이름을 사용하려면, 꼭 그렇게 해야하는 이유가 있어야 함
+정말 떠오르지 않는다면 foo 같은 무의미한 이름을 사용하며 앞으로 진전할 수 있지만, 몇 초라도 좋은 이름을 생각하려고 고민하는 습관을 들여 '작명을 위한 내공'을 키우려 노력해야 함
+
+#### 3. 추상적이지 않은, 대상을 자세하게 묘사하는 구체적인 이름을 선호하라
+
     - 예제로 확인
         
         ```markdown
@@ -161,7 +163,7 @@
         --run_locally => --extra_logging --use_local_database
         ```
         
-4. 변수명에 중요한 세부 정보를 덧붙여라
+2. 변수명에 중요한 세부 정보를 덧붙여라
     - 모든 변수에 추가적인 정보를 담을 필요는 없지만, 보안과 관련된 버그처럼 심각한 결과를 낳을 가능성이 있을 때 중요 세부 정보를 추가해야함
         
         ```markdown
@@ -181,12 +183,12 @@
         data => data_urlenc
         ```
         
-5. 사용 범위가 넓으면 긴 이름을 사용하라
+3. 사용 범위가 넓으면 긴 이름을 사용하라
     - 기능을 잘 설명하면서 일반적 통용보다 긴 이름은 괜찮음
     - 좁은 범위에서는 짧은 이름이 괜찮음
     - eval, doc. str 등 흔한 축약형 혹은 약어는 프로그래머 사이에서 많이 통용되므로 사용해도 무관하나, 자체적으로 만든 축약어는 지향해야함(BEDeveloper ⇒ BackEndDeveloper)
     - 불필요한 단어는 생략(ConvertToString ⇒ ToString)
-6. 대문자나 밑줄 등을 의미 있는 방식의 포맷팅을 활용하라
+4. 대문자나 밑줄 등을 의미 있는 방식의 포맷팅을 활용하라
     - 클래스 멤버변수는 _(underscore)을 사용하여 로컬변수와 구분하라
 
 ---
@@ -741,8 +743,8 @@
         
     - 한 쪽이 읽기 편하다고 느끼는 이유는 다음 규칙을 통해 설명될 수 있다
     
-    | 왼쪽 | 오른쪽 |
-    | --- | --- |
+    | 왼쪽                                | 오른쪽                                     |
+    | ----------------------------------- | ------------------------------------------ |
     | 값이 더 유동적인 ‘질문을 받는’ 표현 | 더 고정적인 값, 비교대상으로 사용되는 표현 |
     - 영어 어순과 일치함
         - 당신이 적어도 18세라면
@@ -876,12 +878,12 @@
         - 함수 끝부분에서 실행되는 cleanup 코드의 호출을 보장하려는 의도
         - 현대 언어는 cleanup 코드를 실행시키는 더 정교한 방법을 제공
         
-        | 언어 | 클린업 코드를 위한 관용적 구조 |
-        | --- | --- |
-        | C++ | destructors |
-        | Java, Python | try finally |
-        | Python | with |
-        | C# | using |
+        | 언어         | 클린업 코드를 위한 관용적 구조 |
+        | ------------ | ------------------------------ |
+        | C++          | destructors                    |
+        | Java, Python | try finally                    |
+        | Python       | with                           |
+        | C#           | using                          |
         - 순수한 C 언어는 함수를 반환할 때 특정한 코드를 실행시키는 방법을 제공. 따라서 함수가 기다란 코드의 중간부분에서 반환될 수 있도록 작성되어 있으면, 반환되는 지점 다음에 위치한 클린업 코드는 실행되지 않는다는 문제가 있음
             - 이러한 경우는 함수를 리팩토링하거나 goto cleanup 같은 명령을 신중하게 사용하는 등의 별도의 방법을 취해야함
     - 이 책에서는 함수 중간에 반환하는 것이 완전히 허용되어야 한다고 함 ⇒ ‘보호장치’ 역할을 하기 때문
@@ -1009,13 +1011,13 @@
 8. 실행 흐름을 따라올 수 있는가?
 - 프로그램 하위 수준의 흐름제어(ex. 루프, 조건문)이 아닌 프로그램 상위수준에서 잘 따라갈 수 있게 만들어라
 
-| 프로그래밍 구조 | 상위수준의 프로그램 흐름이 혼란스러워지는 방식 |
-| --- | --- |
-| 스레딩 | 어느 코드가 언제 실행되는지 불분명 하다 |
-| 시그널/인터럽트 핸들러 | 어떤 코드가 어ㄸ너 시점에 실행될지 모른다 |
-| 예외 | 예외처리가 여러 함수 호출을 거치면서 실행될 수 있다 |
+| 프로그래밍 구조         | 상위수준의 프로그램 흐름이 혼란스러워지는 방식                                            |
+| ----------------------- | ----------------------------------------------------------------------------------------- |
+| 스레딩                  | 어느 코드가 언제 실행되는지 불분명 하다                                                   |
+| 시그널/인터럽트 핸들러  | 어떤 코드가 어ㄸ너 시점에 실행될지 모른다                                                 |
+| 예외                    | 예외처리가 여러 함수 호출을 거치면서 실행될 수 있다                                       |
 | 함수 포인터 & 익명 함수 | 실행할 함수가 런타임에 결정되기 때문에 컴파일 과정에서는 어떤 코드가 실행될지 알기 어렵다 |
-| 가상 메소드 | object.virtualMethod()는 알려지지 않은 하위클래스의 코드를 호출할 지도 모른다 |
+| 가상 메소드             | object.virtualMethod()는 알려지지 않은 하위클래스의 코드를 호출할 지도 모른다             |
 - 위의 예시 중 일부는 매우 유용함 ⇒ 코드를 더 읽기 편하고 덜 중복되게 함
 - 하지만 나중에 코드를 읽는 사람이 버그 추적을 하기 어렵게 만드는 경우가 있으므로 이러한 구조를 사용하는 비율을 너무 높지 않게 해야함
 
