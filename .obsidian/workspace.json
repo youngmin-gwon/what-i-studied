@@ -11,10 +11,14 @@
             "id": "5bc0f0d241759e25",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "git/Git Command.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Git Command"
             }
           }
         ]
@@ -173,19 +177,19 @@
   },
   "active": "5bc0f0d241759e25",
   "lastOpenFiles": [
+    "git/gitignore pattern.md",
+    ".git/index.lock",
+    ".git/objects/c2/ef22d24d2ad4ec97bf15e78d2a2f005f1c8262",
+    ".git/objects/bd/f26e48db2dd475bb6085e287ba9c2b4d563592",
+    ".git/objects/63/44a7568d0d34edd3a7516ba9026f155b66ed2a",
+    ".git/objects/be/a6e4fa9a00589a08fcdca74e11ee93d9f52d53",
     ".git/objects/1e/1810aa1251495f8e94b324b129ea68539b1216",
     ".git/objects/45/0b240e8f8676be3e9713430ad06f07be5a2925",
     ".git/objects/04/593136db5bd0345726b8c2caadfcf50494a156",
     ".git/objects/6f/0177aa523a436ff39609597181752a865dc7ab",
     ".git/objects/48/78303a7e1a7df6612c728b445569205c5c8bb0",
-    ".git/objects/1e/8bc6b9f520bd1436e4a682337e722006feca10",
-    ".git/objects/dd/8c2feee48e42cc08546a4ce90d422665c6e677",
-    ".git/objects/a2/2dea7e53dd356a32da4949e8adab226b0a921b",
-    ".git/objects/ab/0c4edfd92d63e2734d8f0ace197684acc50c73",
-    ".git/index.lock",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
-    ".git/objects/1d/8a602c0e7da24a5a29ab8ee167e0c42a00e8c9",
     "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
     "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
     "oop/design-pattern/structural/patterns/Facade Pattern.md",
