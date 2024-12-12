@@ -1,0 +1,10 @@
+{
+  "vimium:show-markers": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "F"
+    }
+  ]
+}

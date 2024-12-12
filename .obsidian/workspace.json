@@ -1,0 +1,236 @@
+{
+  "main": {
+    "id": "9a8811f228a7c599",
+    "type": "split",
+    "children": [
+      {
+        "id": "83dfa9d901a3122d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ce2cd91d0285626f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "profile.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "profile"
+            }
+          },
+          {
+            "id": "8f597319fff36aa6",
+            "type": "leaf",
+            "state": {
+              "type": "show-hidden-files:documentation",
+              "state": {
+                "show-hidden-files:documentation": {
+                  "data": "# obsidian-show-hidden-files <!-- markdownlint-disable MD024 -->\n\n## 2.3.2\n\n### Patch Changes\n\n- 57436d0: (`1e0447fe9e805b7cb966b1286f6db7042fdd5c56`) Fix misdetecting iPadOS as desktop. Fixes [GH#5](https://github.com/polyipseity/obsidian-show-hidden-files/issues/5).\n- bd38c29: Add note for `Detect all file extensions`. Fixes [GH#4](https://github.com/polyipseity/obsidian-show-hidden-files/issues/4).\n- e77456a: Replace platform detection with feature detection. This is more robust against [GH#5](https://github.com/polyipseity/obsidian-show-hidden-files/issues/5).\n\n## 2.3.1\n\n### Patch Changes\n\n- c932954: Add information about interactions with other plugins to readme. Fixes [GH#3](https://github.com/polyipseity/obsidian-show-hidden-files/issues/3).\n\n## 2.3.0\n\n### Minor Changes\n\n- c18231b: Move settings `recovery` and `lastReadChangelogVersion` to `localStorage`. (6d612c570926387ee6b5991475cb993517a39d45)\n\n### Patch Changes\n\n- 1411e12: Remove debug statements. (f9fc1874e2c0b0b6c486ae6a13e52bf09cef588d)\n\n## 2.2.0\n\n### Minor Changes\n\n- 6ddd1e9: Add setting \"Show configuration folder\". Fixes [GH#2](https://github.com/polyipseity/obsidian-show-hidden-files/issues/2).\n- 9bb810a: Add setting \"Showing rules\" for filtering hidden files to be shown.\n\n## 2.1.2\n\n### Patch Changes\n\n- 0aa7f2b: Attempt to fix `await` loop on mobile.\n\n## 2.1.1\n\n### Patch Changes\n\n- 8238eb0: Fix \"Make a copy\", \"New file\", and \"New folder\" not highlighting the new file or folder if the new file or folder is supposed to be hidden. The code for `patchVault` is also simplified.\n\n## 2.1.0\n\n### Minor Changes\n\n- d55414a: Dummy change.\n\n### Patch Changes\n\n- 3356733: Change settings order.\n\n### Pre-changesets Changelog\n\n#### Features\n\n- Add support for renaming to dotfiles. (`966e528c6a3309777eb09eb2470fdf63bfe40e1b`)\n\n**Full changelog**: [`2.0.0...2.1.0`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/2.0.0...2.1.0)\n\n## 2.0.0 (2023-07-21)\n\n- Update minimum Obsidian version to v1.2.8. (`85d498d7cecf28b07e0562c4d9c1c793bf0344c0`)\n- Use a new safer approach to show hidden dotfiles. (`c8a40e0ecbcd8e3fbca819aee623855fe6b2287b`)\n- Rename name \"Show Dotfiles\" to \"Show Hidden Files\". (`e7d9d3c459cdb3159a9da00109aaf100321ea742`)\n\n### Features\n\n- Add three commands to toggle visibility of hidden files. (`8ccce72c4d35c6aafbc02cec7770a711d278c4f4`)\n- Add setting `Show hidden files`. (`9e7dc20d087895eac06bd356451d77c9d417906a`)\n\n### Fixes\n\n- Fix the command to export settings to clipboard. (`993dff6c94b7e70e53c42afdad3fa8e56324a3aa`)\n- Fix lifecycle management. (`46771b52d6db6c1523a959d8204bc921bd7121ca`)\n- Fix `updateView` not updating the inner title. (`45603f33109f10be0bc7c040fa1addc42153d92f`)\n- Fix failing to load the plugin if settings are malformed. (`45603f33109f10be0bc7c040fa1addc42153d92f`)\n\n**Full changelog**: [`1.0.3...2.0.0`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/1.0.3...2.0.0)\n\n## 1.0.3 (2023-07-01)\n\n### Improvements\n\n- Remove confusing \"Malformed data\" notice. (`8b2e50ffcd085625dde0d0262e20fc1bfca90a8d`)\n- Update npm packages to remove vulnerabilities. (`9f72566d714a238f6ea29aa4783816c2704f93dc`)\n\n**Full changelog**: [`1.0.2...1.0.3`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/1.0.2...1.0.3)\n\n## 1.0.2 (2023-05-18)\n\n### Improvements\n\n- Improve performance. (`742f9abdd559eca0391769a2adf08da27a8f4496`)\n\n**Full changelog**: [`1.0.1...1.0.2`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/1.0.1...1.0.2)\n\n## 1.0.1 (2023-05-17)\n\n### Fixes\n\n- Fix heuristics for detecting other plugin calls to `string#startsWith` not working on iOS. (`f98e1e6151e69c1ea15341956455aa6c59c2f837`)\n- Fix `Override config folder` failing on iOS. (`9a70c32a6f0d484f3a15cb0312944db15c4a36ed`..`7d48bad63088b4d6d65c9555373bd2620b193008`)\n\n### Improvements\n\n- Dynamically calculate overhead just in case someone else also patches `string#startsWith`. (`21779a0535de3a7fe9bf628751fd089576ed7001`)\n\n**Full changelog**: [`1.0.0...1.0.1`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/1.0.0...1.0.1)\n\n## 1.0.0 (2023-05-16)\n\nInitial release! 🥳\n\nPlease report any bugs you have found!\n\nInspired by [this forum post](https://forum.obsidian.md/t/enable-use-of-hidden-files-dotfiles-within-obsidian/26908).\n\n**Full changelog**: [`758424a8d4174f67fc20bdd308060db168eeec34...1.0.0`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/758424a8d4174f67fc20bdd308060db168eeec34...1.0.0)\n",
+                  "displayTextI18nKey": "translation:generic.documentations.changelog",
+                  "iconI18nKey": "asset:generic.documentations.changelog-icon"
+                }
+              },
+              "icon": "file-text",
+              "title": "Changelog"
+            }
+          },
+          {
+            "id": "57e4364fde68d212",
+            "type": "leaf",
+            "state": {
+              "type": "show-hidden-files:documentation",
+              "state": {
+                "show-hidden-files:documentation": {
+                  "data": "# Show Hidden Files for Obsidian [![release](https://img.shields.io/github/v/release/polyipseity/obsidian-show-hidden-files)][latest release] [![Obsidian downloads](https://img.shields.io/badge/dynamic/json?logo=Obsidian&color=%238b6cef&label=downloads&query=$[\"show-hidden-files\"].downloads&url=https://raw.githubusercontent.com/obsidianmd/obsidian-releases/master/community-plugin-stats.json)][community plugin]\n\n[Buy Me a Coffee]: https://buymeacoffee.com/polyipseity\n[Buy Me a Coffee/embed]: https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=polyipseity&button_colour=40DCA5&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00\n[Obsidian]: https://obsidian.md/\n[changelog]: https://github.com/polyipseity/obsidian-show-hidden-files/blob/main/CHANGELOG.md\n[community plugin]: https://obsidian.md/plugins?id=show-hidden-files\n[latest release]: https://github.com/polyipseity/obsidian-show-hidden-files/releases/latest\n[other things]: https://github.com/polyipseity/obsidian-monorepo\n[plugin library]: https://github.com/polyipseity/obsidian-plugin-library\n[repository]: https://github.com/polyipseity/obsidian-show-hidden-files\n[trailer]: https://raw.githubusercontent.com/polyipseity/obsidian-show-hidden-files/main/assets/trailer.png\n\nShow hidden files, like dotfiles, in [Obsidian].\n\n[![Buy Me a Coffee/embed]][Buy Me a Coffee]\n\n__[Repository] · [Changelog] · [Community plugin] · [Other things] · [Features](#features) · [Installation](#installation) · [Usage](#usage) · [Contributing](#contributing) · [Security](#security)__\n\n![Trailer]\n\nFor first time users, read the [installation](#installation) section first!\n\nThis file is automatically opened on first install. You can reopen it in settings or command palette.\n\n## Features\n\n- Show files that are forcefully hidden in vanilla Obsidian.\n- Toggle visibility of hidden files.\n- Interact with hidden files normally like normal files.\n\n## Installation\n\n1. Install plugin.\n    - ~~Community plugins~~\n        1. ~~Install the [plugin][community plugin] from community plugins directly.~~\n    - Manual\n        1. Create directory `show-hidden-files` under `.obsidian/plugins` of your vault.\n        2. Place `manifest.json`, `main.js`, and `styles.css` from the [latest release] into the directory.\n    - Building (latest)\n        1. Clone this repository, including its submodules.\n        2. Install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).\n        3. Run `npm install` in the root directory.\n        4. Run `npm run obsidian:install <vault directory>` in the root directory.\n    - [Obsidian42 - BRAT](https://obsidian.md/plugins?id=obsidian42-brat) (latest)\n        - See [their readme](https://github.com/TfTHacker/obsidian42-brat#readme).\n2. Enable plugin.\n3. (optional) Configure plugin settings.\n\n## Usage\n\n- Enable the plugin.\n- Please also enable `Files & links > Detect all file extensions` to work properly.\n- Note that other plugins will treat visible hidden files as normal files. This may cause issues such as treating plugin JavaScript files as user scripts. To resolve such issues, exclude those hidden files in the other plugins' settings or hide those hidden files in this plugin's settings.\n\n## Contributing\n\nContributions are welcome!\n\nThis project uses [`changesets`](https://github.com/changesets/changesets) to manage the changelog. When creating a pull request, please [add a changeset](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md#adding-changesets) describing the changes. Add multiple changesets if your pull request changes several things. End each changeset with `([PR number](PR link) by [author username](author link))`. For example, the newly created file under the directory `.changeset` should look like:\n\n```Markdown\n---\n\"example\": patch\n---\n\nThis is an example change. ([GH#1](https://github.com/ghost/example/pull/1) by [@ghost](https://github.com/ghost))\n```\n\n### Todos\n\nThe todos here, ordered alphabetically, are things planned for the plugin. There are no guarantees that they will be completed. However, we are likely to accept contributions for them.\n\n- (none)\n\n### Translating\n\nTranslation files are under [`assets/locales/`](assets/locales/). Each locale has its own directory named with its corresponding __[IETF language tag](https://wikipedia.org/wiki/IETF_language_tag)__. Some translation keys are missing here and instead located at [`obsidian-plugin-library`][plugin library].\n\nTo contribute translation for an existing locale, modify the files in the corresponding directory.\n\nFor a new locale, create a new directory named with its language tag and copy [`assets/locales/en/translation.json`](assets/locales/en/translation.json) into it. Then, add an entry to [`assets/locales/en/language.json`](assets/locales/en/language.json) in this format:\n\n```JSONc\n{\n    // ...\n    \"en\": \"English\",\n    \"(your-language-tag)\": \"(Native name of your language)\",\n    \"uwu\": \"Uwuish\",\n    // ...\n}\n```\n\nSort the list of languages by the alphabetical order of their language tags. Then modify the files in the new directory. There will be errors in [`assets/locales.ts`](assets/locales.ts), which you can ignore and we will fix them for you. You are welcome to fix them yourself if you know TypeScript.\n\nWhen translating, keep in mind the following things:\n\n- Do not translate anything between `{{` and `}}` (`{{example}}`). They are __interpolations__ and will be replaced by localized strings at runtime.\n- Do not translate anything between `$t(` and `)` (`$t(example)`). They refer to other localized strings. To find the localized string being referred to, follow the path of the key, which is separated by dots (`.`). For example, the key [`youtu.be./dQw4w9WgXcQ`](https://youtu.be./dQw4w9WgXcQ) refers to:\n\n```JSONc\n{\n    // ...\n    \"youtu\": {\n        // ...\n        \"be\": {\n            // ...\n            \"/dQw4w9WgXcQ\": \"I am 'youtu.be./dQw4w9WgXcQ'!\",\n            // ...\n        },\n        // ...\n    },\n    // ...\n}\n```\n\n- The keys under `generic` are vocabularies. They can be referred in translation strings by `$t(generic.key)`. Refer to them as much as possible to standardize translations for vocabularies that appear in different places.\n- It is okay to move interpolations and references to other localized strings around to make the translation natural. It is also okay to not use some references used in the original translation. However, it is NOT okay to not use all interpolations.\n\n## Security\n\nWe hope that there will never be any security vulnerabilities, but unfortunately it does happen. Please [report](#reporting-a-vulnerability) them!\n\n### Supported versions\n\n| Version | Supported |\n|-|-|\n| latest | ✅ |\n| outdated | ❌ |\n\n### Reporting a vulnerability\n\nPlease report a vulerability by opening an new issue. We will get back to you as soon as possible.\n",
+                  "displayTextI18nKey": "translation:generic.documentations.readme",
+                  "iconI18nKey": "asset:generic.documentations.readme-icon"
+                }
+              },
+              "icon": "file-question",
+              "title": "Readme"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "02c12baa9784ad1c",
+    "type": "split",
+    "children": [
+      {
+        "id": "31ea25ece4334e70",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2f1d28be0471f52d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "052f7a5dac1ce6cb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "07d3dc42e0153c4c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "38514e7488b9ce97",
+    "type": "split",
+    "children": [
+      {
+        "id": "7c3d90f72a376d75",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "47b5421d9a559c58",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "design-pattern/OOP Design Pattern.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for OOP Design Pattern"
+            }
+          },
+          {
+            "id": "de0ae6a73a8f129e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "design-pattern/OOP Design Pattern.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from OOP Design Pattern"
+            }
+          },
+          {
+            "id": "085514e047119628",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "3fb7cc6bacc3187d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "design-pattern/OOP Design Pattern.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of OOP Design Pattern"
+            }
+          },
+          {
+            "id": "b817d40bcd985ef6",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "ce2cd91d0285626f",
+  "lastOpenFiles": [
+    ".git/index.lock",
+    "telephone interview.md",
+    "profile.md",
+    "git/gitignore pattern.md",
+    ".gitignore.sb-a5b334cb-RcrpKt",
+    ".git/objects/91",
+    ".git/objects/91/15e64511b5b23b4bc056683e68169565ccbe96",
+    ".git/objects/23",
+    ".git/objects/23/929cc47c9a4e8f97e3858e52edca3331eeb3d7",
+    ".git/objects/87",
+    ".git/objects/87/7594615b2bf237293b41356c24738b14d062c0",
+    ".git/objects/b6",
+    ".git/objects/b6/9b1a7c2a24012014fc18141388c660af72b4cb",
+    ".git/logs/refs/remotes/origin/main",
+    "git/Git 원리.md",
+    "git/Git 협업.md",
+    "git/githooks.md",
+    "git/Git Command.md",
+    "design-pattern/OOP Design Pattern.md",
+    "Untitled.md",
+    "2024-12-12.md",
+    "design-pattern/SOLID.md",
+    "ux/apple_keynode/Writing for interfaces.md",
+    "ux/apple_keynode/Explore navigation design for iOS.md"
+  ]
+}
