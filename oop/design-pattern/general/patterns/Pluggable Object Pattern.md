@@ -1,6 +1,6 @@
 # Pluggable Object
 
-#design-pattern
+#design-pattern, #general-pattern
 
 ## Description
 

@@ -1,6 +1,6 @@
 # Collecting Parameter
 
-#design-pattern
+#design-pattern, #general-pattern
 
 ## Description
 

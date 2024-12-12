@@ -1,5 +1,7 @@
 # Pluggable Selector
 
+#design-pattern, #general-pattern
+
 **Pluggable Selector Pattern**은 실행 시점에서 데이터를 선택하거나 작업의 흐름을 결정하는 로직을 동적으로 설정할 수 있도록 설계된 패턴
 
 이 패턴은 다양한 선택 기준(Selector)을 캡슐화하여 조건문과 분기 로직을 대체하고, 더 유연하고 확장 가능한 코드를 작성할 수 있게 함
