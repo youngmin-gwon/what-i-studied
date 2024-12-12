@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/solid/SOLID.md",
+                "file": "oop/design-pattern/creational/patterns/Singleton.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SOLID"
+              "title": "Singleton"
             }
           }
         ]
@@ -177,24 +177,25 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
-    "oop/solid/DIP(Dependency Inversion Principle).md",
-    ".git/objects/a0/c9ee7c1c49081b5c85a92822b6250268e2e78b",
-    ".git/objects/a4/fc6d4e66e0ea4599f1a59c222abeb952c99bd3",
-    ".git/objects/b6/e8fee151b7d644be13bf6db47291404014c5f4",
-    ".git/objects/2e/794866cefd7daec900c1fd786d3dee40809cee",
-    ".git/objects/d2/9c62ff7a8ad430f319c072e92be5500d0e8553",
+    "oop/design-pattern/creational/Creational Pattern.md",
     ".git/index.lock",
-    ".git/objects/8f/0835102b9d8a343c175798c884fd9f88672c79",
-    ".git/objects/48/c83c63b131782d7089c97daf5b434b0ed87cd7",
-    ".git/objects/d5/9c5044e32faf032cd4158b1d64cfed00b55c83",
-    ".git/objects/19/312a6661ef642fd8d13011400b9845348011c0",
+    "oop/design-pattern/OOP Design Pattern.md",
+    "oop/solid/SOLID.md",
+    ".git/objects/a9/5e62fb7227e7251a3631ed9bb543eba1871112",
+    ".git/objects/4b/d9fe79567120ac6c31949dbe48a3fbde474535",
+    ".git/objects/dc",
+    ".git/objects/dc/d16cbc9b8e41453cfa61466d10d7a1298a946b",
+    ".git/objects/49/b52cf09b3571ff3449ecf0dee5873a958aeb60",
+    ".git/objects/56/a43de2d0729ec49012df0fbe5b5abb1174574d",
+    ".git/objects/b3/f346a0875e9fc0e8b133537634e7b5dfb89fc8",
+    ".git/objects/cd/4c25d79c7d2a66d7de3b9fcf0edebfa248a44b",
+    ".git/objects/db/76d784e9e222187ae20a47d094f0347a01dc1b",
+    "oop/solid/DIP(Dependency Inversion Principle).md",
     "oop/solid/ISP(Interface Segregation Principle).md",
     "oop/solid/LSP(Liskov substitution principle).md",
     "oop/solid/LSP(Liscov Substitute Principle).md",
     "oop/solid/SRP(Single Responsibility Principle).md",
     "oop/solid/OCP(Open Closed Principle).md",
-    "oop/solid/SOLID.md",
-    "oop/design-pattern/OOP Design Pattern.md",
     "oop/solid/Single Responsibility Principle.md",
     "oop/design-pattern/SOLID.md",
     "design-pattern/OOP Design Pattern.md",
@@ -211,7 +212,6 @@
     "oop/design-pattern/images/Untitled 61.png",
     "oop/design-pattern/images/Untitled 60.png",
     "oop/design-pattern/structural/Structural Pattern.md",
-    "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/behavioral/Behavioral Pattern.md",
     "design-pattern/structural/Structural Pattern.md",
     "design-pattern/creational/Creational Pattern.md",
@@ -221,7 +221,6 @@
     "design-pattern/creational/Singleton.md",
     "design-pattern/behavioral/Behavioral Pattern.md",
     "Singleton Pattern.md",
-    "design-pattern/SOLID.md",
-    "questions/Question I need to ask.md"
+    "design-pattern/SOLID.md"
   ]
 }
