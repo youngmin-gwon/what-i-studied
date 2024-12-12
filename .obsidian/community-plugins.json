@@ -7,5 +7,6 @@
   "vimium",
   "obsidian-git",
   "obsidian-vimrc-support",
-  "show-hidden-files"
+  "show-hidden-files",
+  "obsidian-linter"
 ]
