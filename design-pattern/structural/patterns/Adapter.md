@@ -12,26 +12,30 @@
 
 = wrapper
 
-- 다른 인터페이스 클라이언트가 기대하는대로 인터페이스를 변환함
+다른 인터페이스 클라이언트가 기대하는대로 인터페이스를 변환함
 
-- 함께 할 수 없는 클래스들을 함께 일할 수 있게 만들어줌
+함께 할 수 없는 클래스들을 함께 일할 수 있게 만들어줌
 
-- 가장 일반적이고, 가장 유용하게 사용할 수 있는 디자인 패턴 중 하나
-  - 예) 형태가 맞지 않은 3rd party library를 Adapter를 생성하여 사용할 수 있게 만들어 줌
+가장 일반적이고, 가장 유용하게 사용할 수 있는 디자인 패턴 중 하나
 
-- 외부 데이터 저장소 혹은 방식이 다를 때 interface에 맞는 각각의 adapter를 만들어 동일한 형식의 데이터로 만들어 줄 수 있음
-- Adapter로 감싸고, interface만 노출하여 기존의 코드를 재사용 가능하게 만들어 줌
-- code abstraction 을 하므로 domain layer의 unit test 를 보다 쉽게 만들어 줌
+- eg. 형태가 맞지 않은 3rd party library를 Adapter를 생성하여 사용할 수 있게 만들어 줌
+
+외부 데이터 저장소 혹은 방식이 다를 때 interface에 맞는 각각의 adapter를 만들어 동일한 형식의 데이터로 만들어 줄 수 있음
+
+Adapter로 감싸고, interface만 노출하여 기존의 코드를 재사용 가능하게 만들어 줌
+
+code abstraction 을 하므로 domain layer의 unit test 를 보다 쉽게 만들어 줌
     - 아침에 커피를 마시기 위해 통상적으로 해야할 일
         - (커피 구입과정 제외) 그라인딩 → 브루잉 → 커피 완성
     - 커피 머신을 이용하는 경우
         - 커피 머신 가동 → 커피 완성
     - 위의 과정이 abstraction ⇒  커피 머신  내부에서 어떻게 동작하는지는 알 필요 없이 커피 머신만 가동시키면 커피를 뽑아낼 수 있음
-- 디자인 구조
+
+## Structure
 
 ![Untitled](Untitled%203.png)
 
-- (같은 아이디어를 공유하지만) 크게 **1. object**, **2.class** adapter 구조로 나눌 수 있음
+- (같은 아이디어를 공유하지만) 크게 `1. object`, `2.class` adapter 구조로 나눌 수 있음
     - Target or ITarget은 Client가 사용하는 interface 정의
     - Client는 Target과 소통함
     - Adaptee은 Adapter를 연결하여 변환할 것(ex. 3rd party library)
