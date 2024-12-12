@@ -1,4 +1,3 @@
-# OOP Design Pattern
 
 ## 0. OOP Design Pattern
 

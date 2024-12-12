@@ -3,5 +3,7 @@
   "obsidian-outliner",
   "table-editor-obsidian",
   "obsidian-pandoc",
-  "obsidian-relative-line-numbers"
+  "obsidian-relative-line-numbers",
+  "vimium",
+  "obsidian-git"
 ]
