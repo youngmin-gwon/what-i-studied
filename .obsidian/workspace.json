@@ -4,24 +4,37 @@
     "type": "split",
     "children": [
       {
-        "id": "f98594ba8d15fab1",
+        "id": "aad3eb99a454482e",
         "type": "tabs",
         "children": [
           {
-            "id": "5bc0f0d241759e25",
+            "id": "15373bd649c7d9cc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/behavioral/patterns/Mediator Pattern.md",
+                "file": "oop/design-pattern/structural/patterns/Adapter Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Mediator Pattern"
+              "title": "Adapter Pattern"
+            }
+          },
+          {
+            "id": "2c77d2c7a183afb8",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "_assets/oop/Untitled 3.png"
+              },
+              "icon": "lucide-image",
+              "title": "Untitled 3"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -172,27 +185,39 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "obsidian-git:Open Git source control": false,
-      "markdown-importer:Open format converter": false
+      "markdown-importer:Open format converter": false,
+      "3d-graph:3D Graph": false
     }
   },
-  "active": "5bc0f0d241759e25",
+  "active": "2c77d2c7a183afb8",
   "lastOpenFiles": [
-    "oop/design-pattern/structural/patterns/Facade Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Mediator Pattern.md",
+    "oop/design-pattern/structural/patterns/Adapter Pattern.md",
+    "_assets/oop/adapter_after.png",
+    "_assets/oop/adapter_before.png",
+    "oop/design-pattern/creational/patterns/Singleton Pattern.md",
+    "_assets/oop/template_method.png",
+    "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
+    "Untitled",
+    "_assets/oop/Untitled 23.png",
+    "oop/design-pattern/behavioral/Behavioral Pattern.md",
+    "oop/design-pattern/behavioral/patterns/Chain of Responsibility Pattern.md",
+    "oop/design-pattern/behavioral/patterns/Command Pattern.md",
+    "oop/design-pattern/structural/patterns/Decorator Pattern.md",
     "oop/design-pattern/behavioral/patterns/Observer Pattern.md",
-    ".git/index.lock",
-    ".git/objects/09/9ea8f6e69f592a84f6c9eab2d721ae2b845090",
-    ".git/objects/6e/551f0998a188a561873cc5d149abcaf9bd3f6e",
-    ".git/objects/e4/af52ee9f27e34924e1522ff82d1d1cb11e2211",
-    ".git/objects/4b/876c01fbac32e5fa4e4bb770c6e4091bc92fe3",
-    ".git/objects/47/f30f265cdc040f33673d870b131d5cdffddf10",
-    ".git/objects/4d/a73fab6abaf82b11fcc31c52ffee2959f481a1",
-    ".git/objects/3a/4c643ed296d1db0f30445dbcb58ffac6acd7e2",
-    ".git/objects/86/0d2bf9fd9ec60172cd305250cef04601d7c0e8",
-    ".git/objects/4c/cb6db3ba1c537f5ec0acb69f9285387640452b",
+    "mindmap/oop_thought_process/oop-truth-misconcept-2.md",
+    ".obsidian/plugins/3d-graph/styles.css",
+    ".obsidian/plugins/3d-graph/main.js",
+    ".obsidian/plugins/3d-graph/manifest.json",
+    ".obsidian/plugins/3d-graph",
+    "oop/design-pattern/behavioral/patterns/Mediator Pattern.md",
+    ".git/objects/46/1514bcb1093faf1735bebc2a947e3b11b4f142",
+    ".git/objects/c3",
+    ".git/objects/c3/bfd7eb6a7adf18bb2740085a79605854edcb49",
+    ".git/objects/05/b26c17fa741ec2d0fb2a080288404c4e48b8f8",
+    ".git/objects/4d/2c3e6e3eaff3919182e162edda5d56afc62912",
+    "oop/design-pattern/structural/patterns/Facade Pattern.md",
     "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
     "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Command Pattern.md",
     "oop/design-pattern/behavioral/patterns/Memento Pattern.md",
     "oop/design-pattern/creational/patterns/Prototype Pattern.md",
     "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
@@ -201,27 +226,15 @@
     "git/Git Command.md",
     "git/gitignore pattern.md",
     "oop/design-pattern/creational/Creational Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
     "oop/design-pattern/structural/patterns/Flyweight Pattern.md",
     "oop/design-pattern/behavioral/patterns/State Pattern.md",
     "oop/design-pattern/behavioral/patterns/Strategy Pattern.md",
-    "oop/design-pattern/behavioral/Behavioral Pattern.md",
-    "oop/design-pattern/structural/patterns/Adapter Pattern.md",
     "oop/design-pattern/structural/patterns/Composite Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
-    "oop/design-pattern/structural/Structural Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Chain of Responsibility Pattern.md",
-    "oop/design-pattern/structural/patterns/Proxy Pattern.md",
-    "oop/design-pattern/structural/patterns/Decorator Pattern.md",
-    "oop/design-pattern/images/template_method.png",
-    "oop/design-pattern/images/adapter_overview.png",
-    "oop/design-pattern/images/Untitled 9.png",
-    "oop/design-pattern/images/Untitled 8.png",
-    "oop/design-pattern/images/Untitled 7.png",
-    "oop/design-pattern/images/Untitled 64.png",
-    "oop/design-pattern/images/Untitled 63.png",
-    "oop/design-pattern/images/Untitled 62.png",
-    "oop/design-pattern/images/Untitled 61.png",
-    "oop/design-pattern/images/Untitled 60.png"
+    "_assets/oop/adapter_overview.png",
+    "_assets/oop/Untitled 9.png",
+    "_assets/oop/Untitled 8.png",
+    "_assets/oop/Untitled 7.png",
+    "_assets/oop/Untitled 64.png",
+    "_assets/oop/Untitled 63.png"
   ]
 }

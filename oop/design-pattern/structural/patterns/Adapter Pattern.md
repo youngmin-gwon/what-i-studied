@@ -4,13 +4,11 @@
 
 ![Untitled](adapter_overview.png)
 
-![Untitled](Untitled%201.png)
+![Untitled](adapter_before.png)
 
-![Untitled](Untitled%202.png)
+![Untitled](adapter_after.png)
 
 [[Structural Pattern]]
-
-= wrapper
 
 다른 인터페이스 클라이언트가 기대하는대로 인터페이스를 변환함
 
