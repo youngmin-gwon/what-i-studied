@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "profile.md",
+                "file": "questions/Question I need to ask.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "profile"
+              "title": "Question I need to ask"
             }
           },
           {
@@ -208,20 +208,19 @@
   },
   "active": "ce2cd91d0285626f",
   "lastOpenFiles": [
-    ".git/index.lock",
-    "telephone interview.md",
     "profile.md",
+    ".git/objects/26",
+    ".git/objects/26/911720dfa74b066efb7b54b83612c741085be9",
+    ".git/objects/40",
+    ".git/objects/40/16f8b63af56c0bd87273617e35c85486282e10",
+    ".git/objects/e1/05617459cc58e8bc57ef6599d5267a8eeedbe5",
+    ".git/objects/a9/99fc1fd921453bc675c9acb4419768442835c0",
+    ".git/objects/e1/832bf60061f17892070694ba0baa3805813273",
+    ".git/objects/b1",
+    ".git/objects/b1/a0a5fab11351183877de249e724efbbc19d4c2",
+    ".git/objects/02/4bb5b645f414f6eaf7050de3cde1dc4dd70548",
+    "telephone interview.md",
     "git/gitignore pattern.md",
-    ".gitignore.sb-a5b334cb-RcrpKt",
-    ".git/objects/91",
-    ".git/objects/91/15e64511b5b23b4bc056683e68169565ccbe96",
-    ".git/objects/23",
-    ".git/objects/23/929cc47c9a4e8f97e3858e52edca3331eeb3d7",
-    ".git/objects/87",
-    ".git/objects/87/7594615b2bf237293b41356c24738b14d062c0",
-    ".git/objects/b6",
-    ".git/objects/b6/9b1a7c2a24012014fc18141388c660af72b4cb",
-    ".git/logs/refs/remotes/origin/main",
     "git/Git 원리.md",
     "git/Git 협업.md",
     "git/githooks.md",
