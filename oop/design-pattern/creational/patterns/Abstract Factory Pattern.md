@@ -68,10 +68,10 @@
 - 새로운 종류의 Product를 제공하기 어려울 수 있다
 
 - 다른 패턴과의 관계
-    - Prototype, Builder
+    - [[Prototype Pattern]], [[Builder Pattern]]
         - 모두 Factory Method를 기반으로 발전 됨
         - Factory Method보다 자유롭지만, 복잡함
-    - Builder
+    - [[Builder Pattern]]
         - Builder는 복잡한 객체를 단계별로 생성하는 패턴
         - Abstract Factory는 관계있는 객체의 family를 만드는 패턴
         - Abstract Factory는 객체를 바로 생성하지만, Builder는 객체 생성까지 추가적인 시간이 필요함
