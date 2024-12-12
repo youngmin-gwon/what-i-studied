@@ -51,30 +51,37 @@
 
 ## Relationship with other patterns
 
-  - [[Builder Pattern]]
-    - 복잡한 Composite tree를 생성하기 위해서 Builder 패턴을 사용할 수 있음
-      - 재귀적으로 동작하도록 구성 단계를 프로그래밍 할 수 있음
+### [[Builder Pattern]]
 
-  - [[Chain of Responsibility Pattern]]
-    - 종종 Composite과 함께 사용됨
-    - Leaf 가 요청을 받으면 모든 상위 구성 요소의 체인을 통해 개체 트리의 루트까지 전달할 수 있음
+- 복잡한 Composite tree를 생성하기 위해서 Builder 패턴을 사용할 수 있음
+  - 재귀적으로 동작하도록 구성 단계를 프로그래밍 할 수 있음
 
-  - [[Iterator Pattern]]
-    - Composite tree를 순회하기 위해서 Iterator를 사용
+### [[Chain of Responsibility Pattern]]
 
-  - [[Visitor Pattern]]
-    - Composite tree의 각 operation을 수행하기 위해 사용
+- 종종 Composite과 함께 사용됨
+- Leaf 가 요청을 받으면 모든 상위 구성 요소의 체인을 통해 개체 트리의 루트까지 전달할 수 있음
 
-  - [[Flyweight Pattern]]
-    - Composite tree의 공유된 Leaf를 Flyweight로 구현하여 RAM 자원을 아낄 수 있음
+### [[Iterator Pattern]]
 
-  - [[Decorator Pattern]]
-    - Composite과 Decorator는 모두 재귀적 구성을 가지기 때문에 매우 비슷한 구조 다이어그램을 가짐
-    - Decorator는 오직 하나의 자식 component만을 가진 Composite으로 생각할 수 있음
-    - Decorator는 감싸진 객체에 새로운 책임을 추가하는 반면, Composite는 하위 결과를 "요약"함
-    - 패턴이 때로 협력도 가능함
-      - Decorator를 사용하여 합성 트리에서 특정 개체의 동작을 확장할 수 있음
+- Composite tree를 순회하기 위해서 Iterator를 사용
 
-  - [[Prototype Pattern]]
-    - Composite와 Decorator를 많이 사용하는 디자인은 종종 Prototype을 사용하여 이점을 얻을수 있음
-    - Prototype 패턴을 적용하면 복잡한 구조를 처음부터 다시 구성하는 대신 복제할 수 있음
+### [[Visitor Pattern]]
+
+- Composite tree의 각 operation을 수행하기 위해 사용
+
+### [[Flyweight Pattern]]
+
+- Composite tree의 공유된 Leaf를 Flyweight로 구현하여 RAM 자원을 아낄 수 있음
+
+### [[Decorator Pattern]]
+
+- Composite과 Decorator는 모두 재귀적 구성을 가지기 때문에 매우 비슷한 구조 다이어그램을 가짐
+- Decorator는 오직 하나의 자식 component만을 가진 Composite으로 생각할 수 있음
+- Decorator는 감싸진 객체에 새로운 책임을 추가하는 반면, Composite는 하위 결과를 "요약"함
+- 패턴이 때로 협력도 가능함
+  - Decorator를 사용하여 합성 트리에서 특정 개체의 동작을 확장할 수 있음
+
+### [[Prototype Pattern]]
+
+- Composite와 Decorator를 많이 사용하는 디자인은 종종 Prototype을 사용하여 이점을 얻을수 있음
+- Prototype 패턴을 적용하면 복잡한 구조를 처음부터 다시 구성하는 대신 복제할 수 있음
