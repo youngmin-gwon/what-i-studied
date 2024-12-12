@@ -19,8 +19,19 @@
               },
               "icon": "lucide-file",
               "title": "OOP Design Pattern"
-            },
-            "group": "235b91ccfe6e8efb"
+            }
+          },
+          {
+            "id": "848318ccbbb88397",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "design-pattern/images/Untitled.png"
+              },
+              "icon": "lucide-image",
+              "title": "Untitled"
+            }
           },
           {
             "id": "8f597319fff36aa6",
@@ -54,51 +65,8 @@
               "title": "Readme"
             }
           }
-        ]
-      },
-      {
-        "id": "ce3865553444f653",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "93b0456238565a68",
-            "type": "leaf",
-            "state": {
-              "type": "localgraph",
-              "state": {
-                "file": "design-pattern/OOP Design Pattern.md",
-                "options": {
-                  "collapse-filter": true,
-                  "search": "",
-                  "localJumps": 1,
-                  "localBacklinks": true,
-                  "localForelinks": true,
-                  "localInterlinks": false,
-                  "showTags": false,
-                  "showAttachments": false,
-                  "hideUnresolved": false,
-                  "collapse-color-groups": true,
-                  "colorGroups": [],
-                  "collapse-display": true,
-                  "showArrow": false,
-                  "textFadeMultiplier": 0,
-                  "nodeSizeMultiplier": 1,
-                  "lineSizeMultiplier": 1,
-                  "collapse-forces": true,
-                  "centerStrength": 0.518713248970312,
-                  "repelStrength": 10,
-                  "linkStrength": 1,
-                  "linkDistance": 250,
-                  "scale": 1,
-                  "close": true
-                }
-              },
-              "icon": "lucide-git-fork",
-              "title": "Graph of OOP Design Pattern"
-            },
-            "group": "235b91ccfe6e8efb"
-          }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -252,21 +220,21 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "ce2cd91d0285626f",
+  "active": "848318ccbbb88397",
   "lastOpenFiles": [
-    "design-pattern/creational/Creational Pattern.md",
     "design-pattern/OOP Design Pattern.md",
+    ".git/objects/4c/30f2c3fc2a6f080509bb264f396126dca9db77",
+    ".git/objects/c6/f0df3d7c697c787d04e4fc512438bcaf5744e1",
+    ".git/objects/51",
+    ".git/objects/51/225190a0e1d4d6c45fcad45a7b6e3ff5a6431d",
+    ".git/objects/78/0e9cc3e897de2ac69abfba9078625f8c9bd4c4",
+    ".git/objects/41/df4d65bed36fdb79310a2f9c8995070f0e7c46",
+    ".git/objects/c2/1e229bebf1d1c24acf8cd245b53d3445767868",
+    ".git/objects/12/7de7ae00b35ec322916bbbbfb89eb47d2dddfb",
+    "design-pattern/creational/Creational Pattern.md",
     "design-pattern/creational/Singleton.md",
     ".git/objects/5f/9e5a94e195b28299b2f330ca7e11c3d8136ff4",
     ".git/objects/7f",
-    ".git/objects/7f/cf412863ec1002bc1b2efa3b4e8361b8f83d48",
-    ".git/objects/cb/3930522baddcfa47b47abf4ae42e94c73e150f",
-    ".git/objects/55/523bc636873b46bf1874872bafea75bffdae49",
-    ".git/objects/ee/8d039e2cf36abf332f6064dd38c75fc5004470",
-    ".git/index.lock",
-    ".git/objects/ba",
-    ".git/objects/ba/40570005a793c06abe14c72947c507c25fcbef",
-    ".git/objects/71/378277d4b9fdc921641816676a5a2c6b513fe7",
     "design-pattern/behavioral/Behavioral Pattern.md",
     "Singleton Pattern.md",
     "design-pattern/structural/Structural Pattern.md",
