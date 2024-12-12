@@ -177,18 +177,19 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
+    ".git/objects/4d/0494b57a8c24d94b0a7496eb8621265fa52154",
+    ".git/objects/67/4ab6597f239eef548dd91abce253bfb0cda7e2",
+    ".git/objects/86/2f03195fe13fe56670947b400dd9fa8cf069fa",
+    ".git/objects/12/b4548c7e2a3cca394b95aabd0b66a282d745a1",
+    ".git/objects/74/af863ae5544800613512134ddb3991a5ccc2d1",
+    ".git/objects/83/18efbf90071acddef2f838fad20675ef2452a0",
+    ".git/objects/40/4bb9174998aadfd4f8c8ac22e11e7974ae595b",
     "oop/solid/LSP(Liskov substitution principle).md",
     "oop/solid/LSP(Liscov Substitute Principle).md",
     ".git/objects/4e/8a21bdb39a9a3ff7e1b2d83c0b017f13a00442",
     ".git/objects/c7/9b5bcf98fc002ef4150ce11efd16734912937a",
     ".git/objects/e3/af9e8f3619b26e4646132a486957f4abba1048",
     ".git/objects/a1/75296f1e86b6f184bff67e42ea4eca6f8da6c3",
-    ".git/objects/27",
-    ".git/objects/27/ef0e17bc661ae0492ff35d794147d9e3a58a28",
-    ".git/objects/32/6079d6f2672777267b8ff881bc2913e38e9f0d",
-    ".git/objects/a0",
-    ".git/objects/a0/e096d3307f917218524f8069d16685f218207d",
-    ".git/index.lock",
     "oop/solid/SRP(Single Responsibility Principle).md",
     "oop/solid/OCP(Open Closed Principle).md",
     "oop/solid/SOLID.md",
@@ -221,7 +222,6 @@
     "Singleton Pattern.md",
     "design-pattern/SOLID.md",
     "questions/Question I need to ask.md",
-    "profile.md",
-    "telephone interview.md"
+    "profile.md"
   ]
 }
