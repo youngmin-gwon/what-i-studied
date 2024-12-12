@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "books/TDD by Example.md",
+                "file": "books/객체 지향의 사실과 오해.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TDD by Example"
+              "title": "객체 지향의 사실과 오해"
             }
           }
         ]
@@ -178,25 +178,26 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
+    "questions/Question I need to ask.md",
+    "books/Clean Architecture.md",
+    "books/Code Complete.md",
+    "books/Cracking the Coding Interview 6E.md",
+    "books/TDD by Example.md",
+    ".git/objects/e8/19def987db1f238a86d1c75491f711b9b18466",
+    ".git/objects/ba/a258d4a960158cb0d0b2b0a1e1c56f785ae425",
+    ".git/objects/e6/86a8883083a4896146ea728a1c0152045d3b1f",
+    ".git/objects/29/1a2b09abef0c453c78718f1cd31e97c1613123",
+    ".git/objects/a5/cf4b740a7a7e233391c7ccc37908e2aa377378",
+    ".git/objects/36/533c97d8495decf40328c2756464fe6a800ea0",
     ".git/objects/c3/9081dc36cb5c560625d5540a2a3191e5b3dc96",
     ".git/objects/22/39c1fbf6cfd011afa655281d8f9cd738ef21e5",
     ".git/objects/ea/43fff3e6b2c4b031e6fbea780da5be7f1e0957",
     ".git/objects/97/0fcde74be3ec764d68c93705ea475bc99a2f43",
-    ".git/index.lock",
-    ".git/objects/5f/771fc72970077c3edc6bc274a67996a646f1c9",
-    ".git/objects/b1/3c9023e9c794b7d0d0a4b9c1af8466c8dbe2da",
-    ".git/objects/87/9aa7c0f664d830d1520ab4485d39a3ab9ca0c3",
     "books/The Art of Readable Code.md",
-    ".git/objects/0b/e73090a0bd699735f34c1ff5efd420f39ee352",
-    ".git/objects/af/cd3882a5700f48d71be2550f96c9b4ba7f81d8",
-    ".git/objects/e3/7be4fbef00375a565145a38fa9f09efe670a4d",
-    "books/TDD by Example.md",
     "books/The art of Readable code.md",
     "books/Refactoring.md",
     "books/Implementing Domain Driven Design.md",
     "books/Domain Driven Design.md",
-    "books/Code Complete.md",
-    "books/Clean Architecture.md",
     "htdp/How to Design Program.md",
     "interview/interview_questions.md",
     "interview/general questions.md",
@@ -222,7 +223,6 @@
     "oop/design-pattern/behavioral/patterns/Memento Pattern.md",
     "oop/design-pattern/behavioral/patterns/Mediator Pattern.md",
     "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Command Pattern.md"
+    "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md"
   ]
 }
