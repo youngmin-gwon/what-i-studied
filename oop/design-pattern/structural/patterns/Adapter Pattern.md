@@ -1,6 +1,6 @@
 # Adapter(=Wrapper)
 
-#StructuralPattern
+#design-pattern, #structural-pattern
 
 ## Description
 

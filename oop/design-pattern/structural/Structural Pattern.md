@@ -1,6 +1,6 @@
 # Structural Pattern
 
-#StructuralPattern
+#design-pattern, #structural-pattern
 
 ## Description
 

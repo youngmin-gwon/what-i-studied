@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "books/Clean Architecture.md",
+                "file": "oop/design-pattern/OOP Design Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Clean Architecture"
+              "title": "OOP Design Pattern"
             }
           }
         ]
@@ -178,25 +178,26 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
-    ".git/index.lock",
-    "books/Code Complete.md",
-    "books/Clean Architecture.md",
-    "books/Cracking the Coding Interview 6E.md",
-    "books/Domain Driven Design.md",
-    "books/Implementing Domain Driven Design.md",
-    "books/Refactoring.md",
+    "oop/design-pattern/structural/Structural Pattern.md",
     "books/TDD by Example.md",
     "books/The Art of Readable Code.md",
+    "books/Refactoring.md",
+    "books/Domain Driven Design.md",
+    "books/Clean Architecture.md",
+    ".git/objects/82/dca0b1eafc7e58742f89ba4f1ee79ca376bc80",
+    ".git/objects/7b/f6b5a33992f46821a068dac4f400d492007916",
+    ".git/objects/6b/ca01bf0d73475b607c74b3026908eefb37ce47",
+    ".git/objects/db/74e7e716d15672db06ccadfd808e3234545d18",
+    ".git/index.lock",
+    ".git/objects/3a/42550085ffd5bb7d656cd465cc7b4fac0b150c",
+    ".git/objects/56/e657ec272a045bf7063fc2ce98f526e63c0b7a",
+    ".git/objects/8c/c6548c91d67f6745d43a4847a48da11f013bbd",
+    ".git/objects/59/93bfdd189a7f78bee35e5378257b2b8ecd9b42",
+    "books/Code Complete.md",
+    "books/Cracking the Coding Interview 6E.md",
+    "books/Implementing Domain Driven Design.md",
     "books/객체 지향의 사실과 오해.md",
     ".git/objects/7d/ee4db3e671f5f3cd71438ee5ec817cefea16fd",
-    ".git/objects/ba/895c7afdcd9482ffb7d787367ed6c8b9bf9cdc",
-    ".git/objects/8b/14b1ea77b454a490c79644afcd787008d9b2c7",
-    ".git/objects/43/cadd05a46c40ef4f2d1401c94c47e1092dcad5",
-    ".git/objects/86/67c574903ced3e06eec09e87aa9717035f25bd",
-    ".git/objects/33/01a7e5c1b30db696540aa17933b5a54aab0864",
-    ".git/objects/46/9fbab1f380d819d1555e8f28f382f4f3f58ef6",
-    ".git/objects/fc/dc1231ea9128e7d0a2116969b1a0b6c93f4160",
-    ".git/objects/e0/3bdedebaf8bb3624a9c2228e15d83351605e6c",
     "questions/Question I need to ask.md",
     "books/The art of Readable code.md",
     "htdp/How to Design Program.md",

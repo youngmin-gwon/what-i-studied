@@ -1,6 +1,6 @@
 # Decorator
 
-#StructuralPattern
+#design-pattern, #structural-pattern
 
 ## Description
 

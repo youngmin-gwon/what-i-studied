@@ -1,6 +1,6 @@
 # Proxy
 
-#StructuralPattern
+#design-pattern, #structural-pattern
 
 ## Description
 

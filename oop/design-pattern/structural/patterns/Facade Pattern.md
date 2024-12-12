@@ -1,6 +1,6 @@
 # Facade
 
-#StructuralPattern
+#design-pattern, #structural-pattern
 
 ## Description
 

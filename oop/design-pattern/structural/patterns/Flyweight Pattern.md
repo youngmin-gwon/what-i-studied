@@ -1,6 +1,6 @@
 # Flyweight
 
-#StructuralPattern
+#design-pattern, #structural-pattern
 
 ## Description
 
