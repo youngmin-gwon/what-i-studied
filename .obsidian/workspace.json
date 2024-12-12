@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/general/patterns/Null Object Pattern.md",
+                "file": "oop/design-pattern/general/patterns/Pluggable Object Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Null Object Pattern"
+              "title": "Pluggable Object Pattern"
             }
           }
         ]
@@ -178,21 +178,20 @@
   },
   "active": "de94ac38fbb95296",
   "lastOpenFiles": [
-    ".git/objects/f2/d90de19efb6cba1c8375b26885d7ec74d878f7",
-    ".git/objects/92/5ebac0eb954bdb0e6981e8b77de124a6f46a4d",
-    ".git/objects/ea/e5f51bbac0f813c6a23834d90ec6b66cdf0718",
-    ".git/objects/4c/b4627223e5fe2ba34dadadeb89cd727030e191",
-    ".git/objects/43/16239bc4d18bcaa6aaa81905d0518aca646509",
-    ".git/objects/9e/a5d234bd4feff187f72b888b97a5a4469a29ec",
-    ".git/objects/fa/3a109b35e06d54ab6f61ced1ad77fd6973a7e1",
     ".git/index.lock",
-    ".git/objects/de/a075c3efd975e0c6dd611160c510ecf474ebfe",
-    ".git/objects/f2/7a2e9a2c4b793762034d98328fd762a640039f",
-    ".git/objects/67/b4223287f0446e355ce65dbc30a15797823710",
+    "oop/design-pattern/general/patterns/Null Object Pattern.md",
+    ".git/objects/98/587541b6fde67b640087c71b1500552e7b1a9c",
+    ".git/objects/96/fcab649181590b5b25cbb0a61e22e94f1246c3",
+    ".git/objects/1e/2c60e3a923b3a853ff78d2815f6b145b5ef104",
+    ".git/objects/32/0518de3d64d0585fb9ef05c565c4b69dc6d199",
+    ".git/objects/86/36f6c6b9e74bc38718a3b889f014d989e0044a",
+    ".git/objects/47/202d33ae434b78f75dec1ce60bbc3b23115488",
+    ".git/objects/82/2e6aae90282984eeaaa8dd21ac8175f06d4fd6",
+    ".git/objects/28/b3f41ba6cd706fd6e12b63dde9f748473d0fe5",
+    ".git/objects/04/3bb6737b8f6cfb2c04ff5039da711587d74f3e",
     "oop/design-pattern/structural/patterns/Composite Pattern.md",
     "oop/design-pattern/behavioral/patterns/Double Dispatch Pattern.md",
     "oop/design-pattern/general/patterns/Collecting Parameter Pattern.md",
-    "oop/design-pattern/general/patterns/Null Object Pattern.md",
     "oop/design-pattern/general/patterns/Pluggable Selector Pattern.md",
     "oop/design-pattern/general/patterns/Pluggable Object Pattern.md",
     "oop/design-pattern/testing/patterns/Crash Test Dummy Pattern.md",
