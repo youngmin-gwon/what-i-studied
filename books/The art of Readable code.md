@@ -506,7 +506,7 @@ NUM_THREADS = 8 # 이 상수값이 2 * num_processors보다 크거나 같으면 
 
 ```python
 # 합리적 한계를 설정하라 - 그렇게 많이 읽을 수 있는 사람은 어차피 없다
-MAX_RSS_SUBSRIPTIONS = 8
+MAX_RSS_SUBSCRIPTIONS = 8
 
 IMAGE_QTY = 0.72 # 사용자들은 0.72가 크기/해상도 대비 최선이라고 생각한다
 ```
@@ -1453,40 +1453,42 @@ while (/*조건*/) {
 
 엔지니어링은 커다란 문제를 작은 문제들로 쪼갠 다음, 각각의 문제에 대한 해결책을 구하고, 다시 하나의 해결책으로 맞추는 일련의 작업 ⇒ 이러한 원리를 코드에 적용하면 코드가 더 튼튼해지며 가독성도 좋아짐
 
+```plaintext
 1. ‘상위 수준에서 본 이 코드의 목적은 무엇인가?’ 를 질문하라
 2. 코드의 모든 줄에 질문을 던져라. 예를 들어 ‘이 코드는 직접적으로 목적을 위해서 존재하는가? 혹은 목적을 위해서 필요하긴 하지만 목적 자체와 직접적으로 연관없는 하위문제를 해결하는가’
 3. 만약 상당히 원래의 목적과 직접적으로 관련되지 않은 하위 문제를 해결하는 코드 분량이 많으면, 이를 추출해서 별도의 함수로 만든다
+```
 
 예시
-    
+
 ```jsx
 // 다음 코드를 어떻게 바꿀 수 있을까?
 
 // 상위수준 목적: 주어진 점과 가장 가까운 장소를 찾는것
 var findClosestLocation() = function (lat, lng, array) {
-	var closest;
-	var closest_dist = Number.MAX_VALUE;
+    var closest;
+    var closest_dist = Number.MAX_VALUE;
 
-	for (var i=0; array.length; i+=1) {
-		// 복잡한 기하학 문제이므로 자세하게 알 필요 없다고 책에서 설명함
-		// 두 점 모두를 라디언으로 변환한다
-		var lat_rad = radians(lat);
-		var lng_rad = radians(lng);
-		var lat2_rad = radians(array[i].latitude);
-		var lng2_rad = radians(array[i].longitude);
+    for (var i=0; array.length; i+=1) {
+        // 복잡한 기하학 문제이므로 자세하게 알 필요 없다고 책에서 설명함
+        // 두 점 모두를 라디언으로 변환한다
+        var lat_rad = radians(lat);
+        var lng_rad = radians(lng);
+        var lat2_rad = radians(array[i].latitude);
+        var lng2_rad = radians(array[i].longitude);
 
-		// '코사인의 특별법칙' 공식을 사용
-		var dist = Math.acos(Math.sin(lat_rad) * Math.sin(lat2_rad) + 
-												 Math.cos(lat_rad) * Math.cos(lat2_rad) *
-												 Math.cos(lng2_rad - lng_rad)
-		);
+        // '코사인의 특별법칙' 공식을 사용
+        var dist = Math.acos(Math.sin(lat_rad) * Math.sin(lat2_rad) +
+                             Math.cos(lat_rad) * Math.cos(lat2_rad) *
+                             Math.cos(lng2_rad - lng_rad)
+        );
 
-		if (dist < closest_dist) {
-			closest = array[i];
-			closest_dist = dist;
-		}
-	}
-	return closest;
+        if (dist < closest_dist) {
+            closest = array[i];
+            closest_dist = dist;
+        }
+    }
+    return closest;
 };
 
 // 문제
@@ -1494,16 +1496,16 @@ var findClosestLocation() = function (lat, lng, array) {
 ///   - 구 위에 있는 두 개의 위도/경도 점 사이의 거리를 계산하는데, 이 내용의 분량이 꽤 많으니
 ///     별도의 함수로 추출하는 편이 좋다
 var spherical_distance = function (lat1, lng1, lat2, lng2) {
-	var lat1_rad = radians(lat1);
-	var lng1_rad = radians(lng1);
-	var lat2_rad = radians(lat2);
-	var lng2_rad = radians(lng2);
+    var lat1_rad = radians(lat1);
+    var lng1_rad = radians(lng1);
+    var lat2_rad = radians(lat2);
+    var lng2_rad = radians(lng2);
 
-	// '코사인의 특별법칙' 공식을 사용
-	return Math.acos(Math.sin(lat1_rad) * Math.sin(lat2_rad) + 
-											 Math.cos(lat1_rad) * Math.cos(lat2_rad) *
-											 Math.cos(lng2_rad - lng1_rad)
-	);
+    // '코사인의 특별법칙' 공식을 사용
+    return Math.acos(Math.sin(lat1_rad) * Math.sin(lat2_rad) +
+                     Math.cos(lat1_rad) * Math.cos(lat2_rad) *
+                     Math.cos(lng2_rad - lng1_rad)
+    );
 }
 /// - 코드를 읽는 사람은 밀도 높은 기하 공식에 방해받지 않고 상위수준의 목적에 집중할 수 있으니
 ///   전반적으로 코드의 가독성이 높아짐
@@ -1511,83 +1513,85 @@ var spherical_distance = function (lat1, lng1, lat2, lng2) {
 ///   (의도치 않은 추가적 이점)
 ```
 
-##### 1. 순수한 유틸리티 코드
+#### 1. 순수한 유틸리티 코드
 
-    - 유틸리티 코드: 문자열 변경, 해시테이블 사용, 파일 읽기/쓰기와 같이 프로그램이 수행하는 일에 매우 기본적인 작업을 포괄하는 핵심적 집합
-    - 일반적으로 해당 프로그래밍 언어에 내장된 라이브러리에 있음
-    - 없다면 직접 만들어라 → 대신, 그럴듯한 유틸리티 코드 모음으로 만들어라
+유틸리티 코드: 문자열 변경, 해시테이블 사용, 파일 읽기/쓰기와 같이 프로그램이 수행하는 일에 매우 기본적인 작업을 포괄하는 핵심적 집합
+
+일반적으로 해당 프로그래밍 언어에 내장된 라이브러리에 있음
+
+없다면 직접 만들어라 → 대신, 그럴듯한 유틸리티 코드 모음으로 만들어라
 
 #### 2. 일반적인 목적의 코드
 
-    - 예시
-        
-        ```jsx
-        // 자바스크립트를 디버깅할 때 사용하는 alert()에 관련된 예시
-        /// ajax를 이용하여 데이터를 서버에 제출하고, 서버가 반환한 데이터 딕셔너리를 화면에 나타냄
-        
-        // before
-        ajax_post({
-        	url: "http://example.com/submit",
-        	data: data,
-        	on_success: function (response_data){
-        		// 다음 내용은 직접 상관없는 하위문제, 즉 딕셔너리에 담긴 내용을 예쁘게 출력하는 일
-        		// 이러한 코드는 따로 추출하는 편이 낫다
-        		var str =  "{\n";
-        		for (var key in response_data){
-        			str += " " + key + " = " + respones_data[key] + "\n"; 
-        		}
-        		alert(str + "}");
-        
-        		// 계속해서 "response_data"를 처리
-        
-        	}
-        });
-        
-        // after
-        ajax_post({
-        	url: "http://example.com/submit",
-        	data: data,
-        	on_success: alert(format_pretty(response_data)),
-        });
-        
-        var format_pretty = function (obj) {
-        	var str =  "{\n";
-        	for (var key in response_data){
-        		str += " " + key + " = " + respones_data[key] + "\n"; 
-        	}
-        	return str + "}";
+예시
+
+```jsx
+// 자바스크립트를 디버깅할 때 사용하는 alert()에 관련된 예시
+/// ajax를 이용하여 데이터를 서버에 제출하고, 서버가 반환한 데이터 딕셔너리를 화면에 나타냄
+
+// before
+ajax_post({
+    url: "http://example.com/submit",
+    data: data,
+    on_success: function (response_data){
+        // 다음 내용은 직접 상관없는 하위문제, 즉 딕셔너리에 담긴 내용을 예쁘게 출력하는 일
+        // 이러한 코드는 따로 추출하는 편이 낫다
+        var str =  "{\n";
+        for (var key in response_data){
+            str += " " + key + " = " + response_data[key] + "\n";
         }
-        /// 추출하면 뜻하지 않은 장점이 많아짐
-        /// 1. 호출하는 코드를 간단하게 만듬
-        /// 2. format_pretty()를 다룬 곳에서도 간편하게 사용할 수 있는 함수로 만듬
-        /// 3. 필요할 때 format_pretty() 함수를 손쉽게 개선할 수 있음
-        ///    (별도로 분리된 작은 함수를 다룰 때는 기능을 더하고, 가독성을 개선하고, 
-        ///     코너 케이스를 다루는 일이 상대적으로 쉽게 느껴지기 때문)
-        
-        /// 추출함으로서 쉽게 볼 수 있는 문제점
-        /// 1. obj를 객체라고 간주한다. 문자열 혹은 undefined이면 예외가 발생
-        /// 2. obj의 값이 간단한 값이라고 생각한다. 중첩된 객체면 현재 코드는 [object Object]
-        ///    라는 코드를 출력함(심지어 예쁘지도 않음).
-        
-        /// 개선판
-        var format_pretty = function (obj,indent) {
-        	// null이 되거나 정의되지 않은 문자열, 그리고 객체가 아닌 경우를 처리
-        	if (obj === null) return "null";
-        	if (obj === undefined) return "undefined";
-        	if (typeof obj === "string") return '"' + obj + '"';
-        	if (typeof obj !== "object") return String(obj);
-        
-        	if (indent == undefined) indent = "";
-        
-        	// (null이 아닌) 객체를 처리
-        	var str =  "{\n";
-        	for (var key in response_data){
-        		str += " " + key + " = " + respones_data[key] + "\n"; 
-        	}
-        	return str + "}";
-        }
-        
-        ```
+        alert(str + "}");
+
+        // 계속해서 "response_data"를 처리
+
+    }
+});
+
+// after
+ajax_post({
+    url: "http://example.com/submit",
+    data: data,
+    on_success: alert(format_pretty(response_data)),
+});
+
+var format_pretty = function (obj) {
+    var str =  "{\n";
+    for (var key in response_data) {
+        str += " " + key + " = " + response_data[key] + "\n";
+    }
+    return str + "}";
+}
+/// 추출하면 뜻하지 않은 장점이 많아짐
+/// 1. 호출하는 코드를 간단하게 만듬
+/// 2. format_pretty()를 다룬 곳에서도 간편하게 사용할 수 있는 함수로 만듬
+/// 3. 필요할 때 format_pretty() 함수를 손쉽게 개선할 수 있음
+///    (별도로 분리된 작은 함수를 다룰 때는 기능을 더하고, 가독성을 개선하고,
+///     코너 케이스를 다루는 일이 상대적으로 쉽게 느껴지기 때문)
+
+/// 추출함으로서 쉽게 볼 수 있는 문제점
+/// 1. obj를 객체라고 간주한다. 문자열 혹은 undefined이면 예외가 발생
+/// 2. obj의 값이 간단한 값이라고 생각한다. 중첩된 객체면 현재 코드는 [object Object]
+///    라는 코드를 출력함(심지어 예쁘지도 않음).
+
+/// 개선판
+var format_pretty = function (obj,indent) {
+    // null이 되거나 정의되지 않은 문자열, 그리고 객체가 아닌 경우를 처리
+    if (obj === null) return "null";
+    if (obj === undefined) return "undefined";
+    if (typeof obj === "string") return '"' + obj + '"';
+    if (typeof obj !== "object") return String(obj);
+
+    if (indent == undefined) indent = "";
+
+    // (null이 아닌) 객체를 처리
+    var str =  "{\n";
+    for (var key in response_data){
+        str += " " + key + " = " + response_data[key] + "\n";
+    }
+    return str + "}";
+}
+
+```
 
 ##### 3. 일반적인 목적을 가진 코드를 많이 만들어라
 
@@ -1599,10 +1603,7 @@ var spherical_distance = function (lat1, lng1, lat2, lng2) {
 
 이러한 코드는 개발, 테스트, 이해가 쉽다.
 
-```plaintext
-- 많은 사람들이 사용하는 강력한 라이브러리의 내부는 염려할 필요 없음
-    - 코드베이스가 완전히 분리되어 있기 때문
-```
+- 많은 사람들이 사용하는 강력한 라이브러리의 내부는 염려할 필요 없음.코드베이스가 완전히 분리되어 있기 때문.
 
 ##### 4. 특정한 프로젝트를 위한 기능
 
@@ -1762,8 +1763,12 @@ def make_cipher():
 - 이 장에서는 코드를 “탈파편화(defragmenting)”하는 방법을 다룸
 - 함수 수준에서 머무르는 것이 아니라, 커다란 함수 안에 있는 코드를 재조직하여 그 안에 여러 개의 독자적인 논리적 영역이 있는 것처럼 만들어야 한다
 - 한가지 일만 수행하게 하는 절차
-    1. 코드가 수행하는 모든 ‘작업’을 나열한다. 이 ‘작업’ 이라는 단어는 매우 유연하게 사용된다. 이는 “객체가 정상적으로 존재하는지 확인하라”처럼 작은 일일 수도 있고, “트리 안에 있는 모든 노드를 방문하라”처럼 모호한 일일 수도 있다
-    2. 이러한 작업을 분리하여 서로 다른 함수로 혹은 적어도 논리적으로 구분되는 영역에 놓을 수 있는 코드로 만들어라
+
+```plaintext
+1. 코드가 수행하는 모든 ‘작업’을 나열한다. 이 ‘작업’ 이라는 단어는 매우 유연하게 사용된다. 이는 “객체가 정상적으로 존재하는지 확인하라”처럼 작은 일일 수도 있고, “트리 안에 있는 모든 노드를 방문하라”처럼 모호한 일일 수도 있다
+2. 이러한 작업을 분리하여 서로 다른 함수로 혹은 적어도 논리적으로 구분되는 영역에 놓을 수 있는 코드로 만들어라
+```
+
 1. 작업은 작을 수 있다
     - 예시
         
