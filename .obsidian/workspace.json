@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
+                "file": "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Interpreter Pattern"
+              "title": "Iterator Pattern"
             }
           }
         ]
@@ -177,17 +177,17 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
+    "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
+    ".git/objects/dc/8a15f492c55fd5c8a5370d76260030e4e52178",
+    ".git/objects/5c/33bd9bef730c231b77d26f328b1468bbe50584",
+    ".git/objects/d1/6572c2a10c1b113d20109c79304d2494932696",
+    ".git/objects/19/0a1f733670e0e905c693f9e2c1b44697d3e907",
+    ".git/objects/c2/6fa1b4b29e5623137ea4acb6e5504411406cb4",
+    ".git/objects/2d/b97c6ddbce060548d22f711bf26c8fdca1e8b7",
+    ".git/objects/c5/d9cdc48520b26613576b767b133a03b37344e7",
+    ".git/objects/a9/985cff972573f2937d662f60bbe2d917b26a91",
+    ".git/objects/6d/5741433c65033f19cf1c6757da05c0064bc904",
     ".git/index.lock",
-    ".git/objects/39/99fd561606a42c477f65182828fe000689132c",
-    ".git/objects/79/7021f0bd47533a1ddf93ec8feee226e9040540",
-    ".git/objects/a3/a6931de5540702a26e90bea99ad3b853ba0e7a",
-    ".git/objects/c2/5d62ef4b329174ec9f0a7c31f73db06c2a0cea",
-    ".git/objects/58/daf68332c62fda25e6088032f0145b5664e879",
-    ".git/objects/cd/deb02cd8713d7867403b5b61835fb9c56a1530",
-    ".git/objects/e8/f24190c5da57b4004aed4d322c3d0ddabd139d",
-    ".git/objects/32/3f3f8cd19fd76f77f398b07016f65a10aecd5a",
-    ".git/objects/d7/2920bb9b2a71fbce1706921068ba5572d9c1fe",
-    ".git/objects/e0/32ee281a9008dbf789d83be4d1b543c4c1f4a9",
     "oop/design-pattern/structural/patterns/Facade Pattern.md",
     "oop/design-pattern/structural/patterns/Flyweight Pattern.md",
     "oop/design-pattern/creational/Creational Pattern.md",
@@ -211,7 +211,6 @@
     "oop/design-pattern/behavioral/patterns/Memento Pattern.md",
     "oop/design-pattern/behavioral/patterns/Mediator Pattern.md",
     "oop/design-pattern/behavioral/patterns/Visitor Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
     "oop/design-pattern/behavioral/patterns/Command Pattern.md",
     "oop/design-pattern/images/template_method.png",
     "oop/design-pattern/images/adapter_overview.png",
