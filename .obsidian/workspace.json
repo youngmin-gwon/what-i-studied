@@ -177,17 +177,18 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
+    ".git/objects/13/5f4d53461729560ed223cc5530b2ff1c0ddbcd",
+    ".git/objects/09/810320af6eca6d3ef1af74f584414bcb02983b",
+    ".git/objects/76/690a343cb32a55cc22c72158af85857cd2b335",
+    ".git/objects/06/dc0a2d3d887ed02923fa9d8bb606d181a6e175",
+    ".git/objects/47/a36386a81195a6313ecda5a6ad5173932b0b30",
+    ".git/objects/31/85bd4a53a42e95f703f366ac7778ce604bb547",
+    ".git/index.lock",
     "oop/solid/ISP(Interface Segregation Principle).md",
     ".git/objects/c4/79df1ea088aa0c00714efd323e3512a2ab1a38",
     ".git/objects/0d/dbaf89b7201a4f08ba007958bc16320396e80f",
     ".git/objects/64/bac4d9f31d285f5cc395ef9ec14659249499f3",
     ".git/objects/4e/2295a667143376d8b3a15705a20a13d19f028b",
-    ".git/objects/3b/2212ca11bc099429c09ff03284703693cf6c4b",
-    ".git/objects/8a/d1e7e2f830f706e3c4a86cb9eaf9bfaf00683d",
-    ".git/objects/8a/ed74df76f99056da345c61cf9d88c3a1d27515",
-    ".git/objects/4d/0494b57a8c24d94b0a7496eb8621265fa52154",
-    ".git/objects/67/4ab6597f239eef548dd91abce253bfb0cda7e2",
-    ".git/objects/86/2f03195fe13fe56670947b400dd9fa8cf069fa",
     "oop/solid/LSP(Liskov substitution principle).md",
     "oop/solid/LSP(Liscov Substitute Principle).md",
     "oop/solid/SRP(Single Responsibility Principle).md",
@@ -221,7 +222,6 @@
     "design-pattern/behavioral/Behavioral Pattern.md",
     "Singleton Pattern.md",
     "design-pattern/SOLID.md",
-    "questions/Question I need to ask.md",
-    "profile.md"
+    "questions/Question I need to ask.md"
   ]
 }
