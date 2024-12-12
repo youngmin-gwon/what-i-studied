@@ -1,5 +1,7 @@
 # Behavioral Pattern
 
+#BehavioralPattern
+
 ## Description
 
 객체나 클래스 사이의 알고리즘이나 책임 분배에 관련된 패턴
@@ -29,4 +31,4 @@
 
 10. 상태 패턴([[State Pattern]]) : 동일한 동작을 객체의 상태에 따라 다르게 처리해야 할 때 사용
 
-11. 기념품 패턴([[Memon]]) : ctrl + z 같은 undo 기능 개발할 때 유용한 디자인 패턴. 클래스 설계 관점에서 객체의 정보를 저장
+11. 기념품 패턴([[Memento Pattern]]) : ctrl + z 같은 undo 기능 개발할 때 유용한 디자인 패턴. 클래스 설계 관점에서 객체의 정보를 저장

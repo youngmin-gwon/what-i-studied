@@ -1,5 +1,7 @@
 # Structural Pattern
 
+#StructuralPattern
+
 ## Description
 
 클래스나 객체를 조합해 더 큰 구조를 만드는 패턴
