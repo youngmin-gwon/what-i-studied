@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "books/The Art of Readable Code.md",
+                "file": "books/TDD by Example.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "The Art of Readable Code"
+              "title": "TDD by Example"
             }
           }
         ]
@@ -178,20 +178,19 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
+    "books/The Art of Readable Code.md",
+    ".git/objects/0b/e73090a0bd699735f34c1ff5efd420f39ee352",
+    ".git/objects/af/cd3882a5700f48d71be2550f96c9b4ba7f81d8",
+    ".git/objects/e3/7be4fbef00375a565145a38fa9f09efe670a4d",
+    ".git/objects/2d/e25b2229d32c794020573ae4cba4308265ce35",
+    ".git/objects/37/54570204af0a39c6da967da04d86c79730abab",
+    ".git/objects/88/4c5627b81046214e985f737b3aba765c49f377",
     ".git/index.lock",
     ".git/objects/bf/45c3ab897c6a8feaf2dd80a406e0c4905b2551",
     ".git/objects/5f/b34d84ae397883ee1ef544ac83b806a56b4634",
     ".git/objects/45/88a4dafd0180bfd7fe3539bbde33eb472ea7f2",
-    ".git/objects/8a/d592f84ea46077e65198053d29e1cbcb7c664c",
-    ".git/objects/8f/9d464304159bd054e0c8de36385455ee4dae2e",
-    ".git/objects/c3/a92d2132c29e311681b303d7a7f77ceba1ca4d",
-    ".git/objects/3b/d15b992daf4d1ec3d5198acb90725203eb3626",
-    ".git/objects/5c/3812b7f5217f8bbe595f5bc525692d2c7a3eb9",
-    ".git/objects/b6/b520c44fc8425e5d075495e26c676cd8c2ed98",
-    ".git/objects/8b/a01c6d4a42f5ccea5a7386c2814f820385dce4",
     "books/TDD by Example.md",
     "books/The art of Readable code.md",
-    "books/The Art of Readable Code.md",
     "books/Refactoring.md",
     "books/Implementing Domain Driven Design.md",
     "books/Domain Driven Design.md",
