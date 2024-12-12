@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
+                "file": "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Iterator Pattern"
+              "title": "Factory Method Pattern"
             }
           }
         ]
@@ -177,17 +177,17 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
+    "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
+    ".git/objects/aa/741ef3c1d26bbf5c32229a89a9d7794b8deee5",
+    ".git/objects/5b/e7de5ea907996d60376f597aaff41dfaca9b07",
+    ".git/objects/fe/e06acae41fa4640c3b74362c25b9534805148c",
+    ".git/objects/91/a575d90ff0d79965ae6b0f022310602d4a2ef9",
     ".git/index.lock",
     ".git/objects/85/e3caff4d7471a174ec8c6ccff5bebae4105828",
     ".git/objects/27/10e653ef73f51af4b1bee51339cc52aaa8788f",
     ".git/objects/4b/878e9153774f16488d73e2d17b0482f10e8c97",
     ".git/objects/84/12ba197e7116c5c5ba1670b31078947cdd2ba8",
     ".git/objects/9c/b34e9db6c30114e0eecc4ec618cfb9e3c626aa",
-    ".git/objects/7d/7fa8aeac5e91c4982d9b770f052f5457b261c9",
-    ".git/objects/40/6b3e49f903e612b9017cec8b107c2ae4cccbe7",
-    ".git/objects/37/a732b2a1a45df56a09bce9c3753cc49331d454",
-    ".git/objects/a9/bbce9c777f93c35c28b700387aaf0eebb9adc1",
-    ".git/objects/f5",
     "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
     "oop/design-pattern/structural/patterns/Facade Pattern.md",
     "oop/design-pattern/structural/patterns/Flyweight Pattern.md",
@@ -200,7 +200,6 @@
     "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
     "oop/design-pattern/structural/Structural Pattern.md",
     "oop/design-pattern/behavioral/patterns/Observer Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
     "oop/design-pattern/behavioral/patterns/Chain of Responsibility Pattern.md",
     "oop/design-pattern/structural/patterns/Proxy Pattern.md",
     "oop/design-pattern/structural/patterns/Decorator Pattern.md",
