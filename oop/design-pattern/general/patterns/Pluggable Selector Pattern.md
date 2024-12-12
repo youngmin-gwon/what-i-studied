@@ -147,7 +147,7 @@ State Pattern은 상태에 따라 객체의 동작을 변경하며, Pluggable Se
 
 ### Difference
 
-#### [[Factory Pattern]]
+#### Factory Pattern
 
 Factory Pattern은 객체 생성에 초점, Pluggable Selector Pattern은 동적으로 선택 로직을 변경하는 데 초점.
 

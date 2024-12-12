@@ -128,7 +128,7 @@ Decorator는 동작을 추가하거나 변경하지만, Null Object는 비활성
 
 ### Difference
 
-#### [[Factory Pattern]]
+#### Factory Pattern
 
 Factory Pattern은 객체 생성을 책임지고, Null Object Pattern은 비활성 객체를 제공하여 null을 대체.
 

@@ -1,4 +1,9 @@
+# Docker Command
+
+#docker
+
 - List all docker containers (running and stopped):
+
 ```bash
 docker ps --all
 ```
