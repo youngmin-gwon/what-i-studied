@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "questions/Question I need to ask.md",
+                "file": "design-pattern/OOP Design Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Question I need to ask"
+              "title": "OOP Design Pattern"
             }
           },
           {
@@ -209,17 +209,17 @@
   },
   "active": "ce2cd91d0285626f",
   "lastOpenFiles": [
-    ".obsidian/plugins/obsidian-linter/data.json",
-    ".obsidian/plugins/obsidian-linter/styles.css",
-    ".obsidian/plugins/obsidian-linter/main.js",
-    ".obsidian/plugins/obsidian-linter/manifest.json",
-    ".obsidian/plugins/obsidian-linter",
-    ".git/objects/8e/0bffabf9e12f613de124f2608385183380dbf2",
-    ".git/objects/c8",
-    ".git/objects/c8/78f4167081d0012034d279cec8dde0b5330b5a",
-    ".git/objects/4d",
-    ".git/objects/4d/642d891b438a18bfc11acf64451dc5aa1eb271",
-    ".git/objects/21",
+    "questions/Question I need to ask.md",
+    ".git/objects/01",
+    ".git/objects/01/92e39b5b08995a04690333fb5cddc3df61dc75",
+    ".git/objects/65",
+    ".git/objects/65/82200e30fb6871ada57f5ad7689843af87836f",
+    ".git/objects/b3/55fc957521d54c05d6a211ebb758d0ccff2d2a",
+    ".git/objects/d3",
+    ".git/objects/d3/ecc5d3c5e780f9338e53d66569e9e2038a2b8c",
+    ".git/objects/2f",
+    ".git/objects/2f/c583d534f6fdc155058c34b8d1c641e7e3d171",
+    ".git/objects/a7",
     "profile.md",
     "telephone interview.md",
     "git/gitignore pattern.md",
