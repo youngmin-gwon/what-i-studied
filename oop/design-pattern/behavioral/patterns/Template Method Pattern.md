@@ -21,9 +21,12 @@
 
 ![Untitled](Untitled%206.png)
 
-- 설명
-  - AbstractClass: 알고리즘의 뼈대를 설명하는 templateMethod 포함. primitive operations 나 AbstractClass 혹은 다른 객체들에 정의된 operations 을 호출함
-  - ConcreteClass: 변하지 않는 알고리즘 단계를 구현하기 위해 AbstractClass에 의존
+### Structure Description
+
+- AbstractClass: 알고리즘의 뼈대를 설명하는 templateMethod 포함. primitive operations 나 AbstractClass 혹은 다른 객체들에 정의된 operations 을 호출함
+
+- ConcreteClass: 변하지 않는 알고리즘 단계를 구현하기 위해 AbstractClass에 의존
+
 - Template Method 기능 타입들
   - primitive operations : 하위 클래스에서 반드시 구현되어야 하는 추상 함수. default implementation 을 제공하고 필요한 경우 하위 클래스에서 재정의 될 수 있는 concrete operations.
   - final operations: 하위 클래스에 의해 override 될 수 없는 concrete operations
@@ -32,31 +35,38 @@
 
 - template method는 operations 중 어떤 것이 hook operation인지 abstract operations인지 알려줄 필요가 있음 ⇒ override 되어야 하는 경우 접두사로 "Do-"를 붙여 hook 인지 알려줄 수 있음
 
-- Hollywood Principle
-
-![Untitled](Untitled%207.png)
+- `Hollywood Principle`
 
 > Don't call us, we will call you
 
+![Untitled](Untitled%207.png)
+
 - Template method 는 high-level component로 간주됨 → clients 나 알고리즘의 concrete operations 가 template method에 의해 호출된다는 의미
-    - abstraction은 details에 의존하면 안되고, details가 abstractions에 의존해야함 ⇒ Dependency Inversion principle in SOLID
+  - abstraction은 details에 의존하면 안되고, details가 abstractions에 의존해야함 ⇒ Dependency Inversion principle in SOLID
+
 - 적용
     
     ![template_method.png](template_method.png)
     
-- 적용성
-    - 알고리즘의 특정 단계만 확장하고 전체 알고리즘이나 해당 구조는 확장하지 않도록 할 때 사용
-    - 전체적으로 같지만, 약간의 차이만 있는 알고리즘을 적용할 때 사용
-- 장점
-    1. 중복코드를 줄일수 있다(=DRY)
-    2. 자식 클래스의 역할을 줄여 핵심 로직의 관리가 용이하다
-    3. 좀더 코드를 객체지향적으로 구성할 수 있다
-    4. 클라이언트가 큰 알고리즘의 특정 부분만 재정의하도록 하여 알고리즘의 다른 부분에 발생하는 변경 사항의 영향을 덜 받도록 할 수 있음
-- 단점
-    1. 추상 메소드가 많아지면 클래스 관리가 복잡해진다
-    2. Subclass에서 default 구현을 무시하여 Liskov Substitution Principle을 위반할 수도 있음
-    3. 클래스간의 관계와 코드가 꼬여버릴 염려가 있다
-    4. 일부 클라이언트는 알고리즘이 제공한 skeleton에 의해 제한될 수 있음
+## Adaptability
+
+- 알고리즘의 특정 단계만 확장하고 전체 알고리즘이나 해당 구조는 확장하지 않도록 할 때 사용
+- 전체적으로 같지만, 약간의 차이만 있는 알고리즘을 적용할 때 사용
+
+## Pros
+
+1. 중복코드를 줄일수 있다(=DRY)
+2. 자식 클래스의 역할을 줄여 핵심 로직의 관리가 용이하다
+3. 좀더 코드를 객체지향적으로 구성할 수 있다
+4. 클라이언트가 큰 알고리즘의 특정 부분만 재정의하도록 하여 알고리즘의 다른 부분에 발생하는 변경 사항의 영향을 덜 받도록 할 수 있음
+
+## Cons
+
+1. 추상 메소드가 많아지면 클래스 관리가 복잡해진다
+2. Subclass에서 default 구현을 무시하여 Liskov Substitution Principle을 위반할 수도 있음
+3. 클래스간의 관계와 코드가 꼬여버릴 염려가 있다
+4. 일부 클라이언트는 알고리즘이 제공한 skeleton에 의해 제한될 수 있음
+
 - 다른 패턴과의 관계
     - Factory Method
         - Factory Method는 Template Method를 구체화 한것. 동시에 Factory Method는 큰 Template Method의 한 단계 역할을 할 수 있음
