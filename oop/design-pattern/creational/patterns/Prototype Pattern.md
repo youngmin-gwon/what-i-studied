@@ -51,21 +51,32 @@
 
 - 의존성이 순환하는 복잡한 객체를 복제할 때 까다로움
 
-- 다른 패턴과의 관계
-    - Factory Method
-        - Factory Method에서 조금씩 발전하여 Abstract Factory, Prototype, Builder 패턴으로 발전하였음
-    - Abstract Factory
-        - 보통 Abstract Factory는 Factory Method의 세트로 구성되지만, Prototype의 세트로 구성할 수도 있음
-    - Command
-        - command 복제본을 저장해야 할 때 Prototype이 도움을 줄 수 있음
-    - Composite, Decorator
-        - Composite과 Decorator를 많이 사용하는 디자인에서는 Prototype을 사용하며 이점을 얻을 수 있음
-            - 패턴을 적용하면 처음부터 다시 구성하는 대신 복잡한 구조를 복제할 수 있음
-    - Factory Method
-        - Prototype은 복제된 객체의 복잡한 초기화가 필요하지만, 상속으로 인한 단점이 없음
-        - Factory Method는 상속을 기반으로 하지만 초기화 단계가 필요하지 않음
-    - Memento
-        - Prototype이 Memento의 간단한 대안이 될 수도 있음
-            - 히스토리에 저장하려는 상태 객체가 간단하고 외부 리소스에 대한 링크가 없거나 링크가 재설정하기 쉬운 경우
-    - Singleton
-        - Prototype은 Singleton 로 구현될 수 있음
+## Relationship with other patterns
+
+### [[Factory Method Pattern]]
+
+- Factory Method에서 조금씩 발전하여 Abstract Factory, Prototype, Builder 패턴으로 발전하였음
+- Prototype은 복제된 객체의 복잡한 초기화가 필요하지만, 상속으로 인한 단점이 없음
+- Factory Method는 상속을 기반으로 하지만 초기화 단계가 필요하지 않음
+
+### [[Abstract Factory Pattern]]
+
+- 보통 Abstract Factory는 Factory Method의 세트로 구성되지만, Prototype의 세트로 구성할 수도 있음
+
+### [[Command Pattern]]
+
+- command 복제본을 저장해야 할 때 Prototype이 도움을 줄 수 있음
+
+### [[Composite Pattern]], [[Decorator Pattern]]
+
+- Composite과 Decorator를 많이 사용하는 디자인에서는 Prototype을 사용하며 이점을 얻을 수 있음
+- 패턴을 적용하면 처음부터 다시 구성하는 대신 복잡한 구조를 복제할 수 있음
+
+### [[Memento Pattern]]
+
+- Prototype이 Memento의 간단한 대안이 될 수도 있음
+- 히스토리에 저장하려는 상태 객체가 간단하고 외부 리소스에 대한 링크가 없거나 링크가 재설정하기 쉬운 경우
+
+### [Singleton Pattern]
+
+- Prototype은 Singleton 로 구현될 수 있음
