@@ -51,7 +51,7 @@ code abstraction 을 하므로 domain layer의 unit test 를 보다 쉽게 만�
 Github에 작성한 예시에서 object implementation 을 사용한 이유
 
 - Dart는 multiple inheritance를 지원하지 않음
-- object adapter는 runtime에 연결되기 때문에 더욱 유연하다(=loosely-coupled) ⇒ SOLID 원칙 중 Liskov substitution 원칙에 부합함
+- object adapter는 runtime에 연결되기 때문에 더욱 유연하다(=loosely-coupled) ⇒ [[SOLID]] 원칙 중 [[LSP(Liskov substitution principle)]] 원칙에 부합함
   - class adapter 는 쉽게 override 만 하면 된다는 장점이 있음
 
 ![Untitled](Untitled%204.png)
@@ -63,7 +63,7 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 
 ## Pros
 
-- Single Responsibility Principle
+- [[SRP(Single Responsibility Principle)]]
 - Open/Closed Principle
 
 ## Cons

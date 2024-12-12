@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/solid/OCP(Open Closed Principle).md",
+                "file": "oop/design-pattern/structural/patterns/Adapter.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OCP(Open Closed Principle)"
+              "title": "Adapter"
             }
           }
         ]
@@ -177,26 +177,27 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
+    ".git/objects/c9/a0a929e3e20c3b3649216125c79e0e2aa488e0",
+    ".git/objects/0c/2f0391a330c56475b652d8939c9e40981fd239",
+    ".git/objects/3a/0e99c2687c5f7d86cb2ea71e71bf72600a745a",
+    ".git/objects/f3/52edfe3d0a3dfc677e54074a353f5e024456b4",
+    ".git/objects/88/8140a6e2c96ba07b343e49ad41cbcc5a25002b",
+    ".git/objects/d4/6564fbb66d45b17d2983c5625633cb4bed14c7",
+    ".git/objects/49/a84eaa66baa133e392c33a875b6f7438f999f6",
+    ".git/index.lock",
+    ".git/objects/e3/e313a670be25cfdaab4dff0a8542e50d2eefd6",
+    ".git/objects/39/1fbb5ff1861d162d9cc468ee672b61b39a3265",
+    "oop/solid/OCP(Open Closed Principle).md",
     "oop/solid/SOLID.md",
     "oop/design-pattern/creational/patterns/Singleton.md",
     ".git/objects/57/fecd16934ff5d9c80d09a04395ff22f8cc7694",
-    ".git/objects/9a",
-    ".git/objects/9a/2b6f6769398ff5b95d98d4c0ab0a40f519e18b",
-    ".git/objects/f9/6d97dbc95d1e91a5a6cca0b5644258e94921ec",
-    ".git/objects/22",
-    ".git/objects/22/962b55ab5360523e7c41e85d455bc318c69f6e",
-    ".git/objects/68/b4483a2b230358723e65933daf56719876362a",
-    ".git/objects/15/0752ef063c1650d85d4d889a84242e1e47396b",
-    ".git/objects/0e/6dcf1bd56783a0237056ded203955068e34303",
     "oop/design-pattern/creational/Creational Pattern.md",
-    ".git/index.lock",
     "oop/design-pattern/OOP Design Pattern.md",
     "oop/solid/DIP(Dependency Inversion Principle).md",
     "oop/solid/ISP(Interface Segregation Principle).md",
     "oop/solid/LSP(Liskov substitution principle).md",
     "oop/solid/LSP(Liscov Substitute Principle).md",
     "oop/solid/SRP(Single Responsibility Principle).md",
-    "oop/solid/OCP(Open Closed Principle).md",
     "oop/solid/Single Responsibility Principle.md",
     "oop/design-pattern/SOLID.md",
     "design-pattern/OOP Design Pattern.md",
