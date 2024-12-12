@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/structural/patterns/Composite Pattern.md",
+                "file": "oop/design-pattern/structural/patterns/Facade Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Composite Pattern"
+              "title": "Facade Pattern"
             }
           }
         ],
@@ -192,19 +192,19 @@
   },
   "active": "cb05fd0c41220189",
   "lastOpenFiles": [
-    ".git/objects/03/62347e834f5be843d371054494b426b1408f32",
-    ".git/objects/8a/348cdc6bb141f4cdb780c5b547cca040b041ed",
-    ".git/objects/10/8ec4baf75f1468aad7f2d890ecd378d6a4f20b",
-    ".git/objects/4e/97f0e69791082ecc713fce68c6a8751b68d0d7",
-    ".git/index.lock",
-    ".git/objects/24/71c18cbb69073d260233d428dee2f3899c066c",
-    ".git/objects/76/7abc36a79ea07892f16bebad0c8c7870be4ff1",
-    ".git/objects/8b/77cd4e0af6354e9d3c6f4f468054675af0c09c",
-    ".git/objects/fe/ad856151b6e046b62733691bd83413b5c44fc3",
-    ".git/objects/4d/c03d66c87cfc87603e50901696006322f444fa",
-    ".git/objects/b6/e52d07ab384fdab5e766fc83e4455aa36bac7f",
-    "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
     "oop/design-pattern/structural/patterns/Adapter Pattern.md",
+    "oop/design-pattern/structural/patterns/Composite Pattern.md",
+    ".git/objects/39/8e6bdf5d4e98b23d3e22237a65e516abfc5cf5",
+    ".git/objects/2c/ac21f706dcb457f15fb879cc949c47b7b7c85c",
+    ".git/objects/a6/7fa0b9623d34a327dce96d807d36a0b1b9a8fe",
+    ".git/objects/25",
+    ".git/objects/25/c8f68ef2cfaa3d8929db2f43f3521d3ee791f1",
+    ".git/objects/be/4ee738bc868b4c5307e94335621530b0d5d4b5",
+    ".git/objects/2c/43fad67c1dc84d1e5f05fb56ab6c2af160a3b7",
+    ".git/objects/4f/e597aa54499c4e78534c66b478508aab214624",
+    ".git/index.lock",
+    ".git/objects/02/06c25b52a70ae564693a82c3e7cc001854d6cf",
+    "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
     "oop/design-pattern/structural/Structural Pattern.md",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/behavioral/Behavioral Pattern.md",
@@ -216,7 +216,6 @@
     "oop/design-pattern/structural/patterns/Flyweight Pattern.md",
     "oop/design-pattern/structural/patterns/Facade Pattern.md",
     "oop/design-pattern/structural/patterns/Decorator Pattern.md",
-    "oop/design-pattern/structural/patterns/Composite Pattern.md",
     "oop/design-pattern/structural/patterns/Bridge Pattern.md",
     "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
     "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
