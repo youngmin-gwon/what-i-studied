@@ -177,16 +177,18 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
+    ".git/index.lock",
+    ".git/objects/a1/f685ef33b1845a9222324d6d1fc4fe625c87ba",
+    ".git/objects/e2/c4be5d544f409ea0b2e6b7305e6c5651b22b87",
+    ".git/objects/78/18a086203c51bdcafcc8bb4d7845621fd17300",
+    ".git/objects/8d/5442248e93f0ec59993cb78b6e38393c821fe2",
+    ".git/objects/7f/bc304fd08c4738c9b8bd4347050eb077c709e5",
+    ".git/objects/47/e13e0175c973b5f65b66977d3550828973f021",
+    ".git/objects/a9/5704ef582711740dbdae610afb5731e530f92f",
     "oop/solid/SRP(Single Responsibility Principle).md",
     ".git/objects/62/e9f6c37d5d75beb3794f259f1a2e4be631de91",
     ".git/objects/af/dc049af852ef29758242282812ed76fe9f7799",
     ".git/objects/2e/83ef58ef3b373569ad72211743ac1c8aa87009",
-    ".git/objects/6b/eb92047638b1f3bf46c809f0db825ef0907010",
-    ".git/objects/09/50452f9c4fb4411650eb50d255ef21dfd58472",
-    ".git/objects/f4",
-    ".git/objects/f4/79a181ca90a48ff5e2f206509109c3c54b7400",
-    ".git/objects/d0/50d084a06be3e9c978252f5ef898a9b0b21f96",
-    ".git/index.lock",
     "oop/solid/Single Responsibility Principle.md",
     "oop/solid/SOLID.md",
     "oop/design-pattern/SOLID.md",
@@ -204,7 +206,6 @@
     "oop/design-pattern/images/Untitled 61.png",
     "oop/design-pattern/images/Untitled 60.png",
     "oop/design-pattern/structural/Structural Pattern.md",
-    "oop/design-pattern/structural/patterns",
     "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/behavioral/Behavioral Pattern.md",
     "oop/design-pattern/OOP Design Pattern.md",
@@ -221,7 +222,6 @@
     "profile.md",
     "telephone interview.md",
     "git/gitignore pattern.md",
-    "git/Git 원리.md",
-    "git/Git 협업.md"
+    "git/Git 원리.md"
   ]
 }
