@@ -1451,69 +1451,74 @@ while (/*조건*/) {
 
 ### 상관없는 하위문제 추출하기
 
-- 엔지니어링은 커다란 문제를 작은 문제들로 쪼갠 다음, 각각의 문제에 대한 해결책을 구하고, 다시 하나의 해결책으로 맞추는 일련의 작업 ⇒ 이러한 원리를 코드에 적용하면 코드가 더 튼튼해지며 가독성도 좋아짐
-    1. ‘상위 수준에서 본 이 코드의 목적은 무엇인가?’ 를 질문하라
-    2. 코드의 모든 줄에 질문을 던져라. 예를 들어 ‘이 코드는 직접적으로 목적을 위해서 존재하는가? 혹은 목적을 위해서 필요하긴 하지만 목적 자체와 직접적으로 연관없는 하위문제를 해결하는가’
-    3. 만약 상당히 원래의 목적과 직접적으로 관련되지 않은 하위 문제를 해결하는 코드 분량이 많으면, 이를 추출해서 별도의 함수로 만든다
-- 예시
+엔지니어링은 커다란 문제를 작은 문제들로 쪼갠 다음, 각각의 문제에 대한 해결책을 구하고, 다시 하나의 해결책으로 맞추는 일련의 작업 ⇒ 이러한 원리를 코드에 적용하면 코드가 더 튼튼해지며 가독성도 좋아짐
+
+1. ‘상위 수준에서 본 이 코드의 목적은 무엇인가?’ 를 질문하라
+2. 코드의 모든 줄에 질문을 던져라. 예를 들어 ‘이 코드는 직접적으로 목적을 위해서 존재하는가? 혹은 목적을 위해서 필요하긴 하지만 목적 자체와 직접적으로 연관없는 하위문제를 해결하는가’
+3. 만약 상당히 원래의 목적과 직접적으로 관련되지 않은 하위 문제를 해결하는 코드 분량이 많으면, 이를 추출해서 별도의 함수로 만든다
+
+예시
     
-    ```jsx
-    // 다음 코드를 어떻게 바꿀 수 있을까?
-    
-    // 상위수준 목적: 주어진 점과 가장 가까운 장소를 찾는것
-    var findClosestLocation() = function (lat, lng, array) {
-    	var closest;
-    	var closest_dist = Number.MAX_VALUE;
-    
-    	for (var i=0; array.length; i+=1) {
-    		// 복잡한 기하학 문제이므로 자세하게 알 필요 없다고 책에서 설명함
-    		// 두 점 모두를 라디언으로 변환한다
-    		var lat_rad = radians(lat);
-    		var lng_rad = radians(lng);
-    		var lat2_rad = radians(array[i].latitude);
-    		var lng2_rad = radians(array[i].longitude);
-    
-    		// '코사인의 특별법칙' 공식을 사용
-    		var dist = Math.acos(Math.sin(lat_rad) * Math.sin(lat2_rad) + 
-    												 Math.cos(lat_rad) * Math.cos(lat2_rad) *
-    												 Math.cos(lng2_rad - lng_rad)
-    		);
-    
-    		if (dist < closest_dist) {
-    			closest = array[i];
-    			closest_dist = dist;
-    		}
-    	}
-    	return closest;
-    };
-    
-    // 문제
-    /// 1. 루프의 내부에 있는 코드는 대부분 주요 목적과 직접 상관없는 하위문제를 다룬다
-    ///   - 구 위에 있는 두 개의 위도/경도 점 사이의 거리를 계산하는데, 이 내용의 분량이 꽤 많으니
-    ///     별도의 함수로 추출하는 편이 좋다
-    var spherical_distance = function (lat1, lng1, lat2, lng2) {
-    	var lat1_rad = radians(lat1);
-    	var lng1_rad = radians(lng1);
-    	var lat2_rad = radians(lat2);
-    	var lng2_rad = radians(lng2);
-    
-    	// '코사인의 특별법칙' 공식을 사용
-    	return Math.acos(Math.sin(lat1_rad) * Math.sin(lat2_rad) + 
-    											 Math.cos(lat1_rad) * Math.cos(lat2_rad) *
-    											 Math.cos(lng2_rad - lng1_rad)
-    	);
-    }
-    /// - 코드를 읽는 사람은 밀도 높은 기하 공식에 방해받지 않고 상위수준의 목적에 집중할 수 있으니
-    ///   전반적으로 코드의 가독성이 높아짐
-    /// - spherical_distance()라는 별도의 메소드로 독립하면서 독립적인 테스트도 더 용이하게 됨
-    ///   (의도치 않은 추가적 이점)
-    ```
-    
-1. 순수한 유틸리티 코드
+```jsx
+// 다음 코드를 어떻게 바꿀 수 있을까?
+
+// 상위수준 목적: 주어진 점과 가장 가까운 장소를 찾는것
+var findClosestLocation() = function (lat, lng, array) {
+	var closest;
+	var closest_dist = Number.MAX_VALUE;
+
+	for (var i=0; array.length; i+=1) {
+		// 복잡한 기하학 문제이므로 자세하게 알 필요 없다고 책에서 설명함
+		// 두 점 모두를 라디언으로 변환한다
+		var lat_rad = radians(lat);
+		var lng_rad = radians(lng);
+		var lat2_rad = radians(array[i].latitude);
+		var lng2_rad = radians(array[i].longitude);
+
+		// '코사인의 특별법칙' 공식을 사용
+		var dist = Math.acos(Math.sin(lat_rad) * Math.sin(lat2_rad) + 
+												 Math.cos(lat_rad) * Math.cos(lat2_rad) *
+												 Math.cos(lng2_rad - lng_rad)
+		);
+
+		if (dist < closest_dist) {
+			closest = array[i];
+			closest_dist = dist;
+		}
+	}
+	return closest;
+};
+
+// 문제
+/// 1. 루프의 내부에 있는 코드는 대부분 주요 목적과 직접 상관없는 하위문제를 다룬다
+///   - 구 위에 있는 두 개의 위도/경도 점 사이의 거리를 계산하는데, 이 내용의 분량이 꽤 많으니
+///     별도의 함수로 추출하는 편이 좋다
+var spherical_distance = function (lat1, lng1, lat2, lng2) {
+	var lat1_rad = radians(lat1);
+	var lng1_rad = radians(lng1);
+	var lat2_rad = radians(lat2);
+	var lng2_rad = radians(lng2);
+
+	// '코사인의 특별법칙' 공식을 사용
+	return Math.acos(Math.sin(lat1_rad) * Math.sin(lat2_rad) + 
+											 Math.cos(lat1_rad) * Math.cos(lat2_rad) *
+											 Math.cos(lng2_rad - lng1_rad)
+	);
+}
+/// - 코드를 읽는 사람은 밀도 높은 기하 공식에 방해받지 않고 상위수준의 목적에 집중할 수 있으니
+///   전반적으로 코드의 가독성이 높아짐
+/// - spherical_distance()라는 별도의 메소드로 독립하면서 독립적인 테스트도 더 용이하게 됨
+///   (의도치 않은 추가적 이점)
+```
+
+##### 1. 순수한 유틸리티 코드
+
     - 유틸리티 코드: 문자열 변경, 해시테이블 사용, 파일 읽기/쓰기와 같이 프로그램이 수행하는 일에 매우 기본적인 작업을 포괄하는 핵심적 집합
     - 일반적으로 해당 프로그래밍 언어에 내장된 라이브러리에 있음
     - 없다면 직접 만들어라 → 대신, 그럴듯한 유틸리티 코드 모음으로 만들어라
-2. 일반적인 목적의 코드
+
+#### 2. 일반적인 목적의 코드
+
     - 예시
         
         ```jsx
@@ -1583,157 +1588,173 @@ while (/*조건*/) {
         }
         
         ```
-        
-3. 일반적인 목적을 가진 코드를 많이 만들어라
-    - 앞서 만든 format_pretty()는 상관없는 하위문제를 다루는 대표적 함수 ⇒ 매우 기본적이고 폭넓게 적용할 수 있는 일을 수행하므로 다른 프로젝트에서도 사용할 수 있음
-    - 코드베이스는 이와 같은 코드를 담아두는 디렉터리를 따로 두고 있으므로 쉽게 공유할 수 있음
-    - 일반적인 목적을 가진 코드는 프로젝트의 나머지 부분에서 완전히 분리 되므로 좋다.
-    - 이러한 코드는 개발, 테스트, 이해가 쉽다.
-        - 많은 사람들이 사용하는 강력한 라이브러리의 내부는 염려할 필요 없음
-            - 코드베이스가 완전히 분리되어 있기 때문
-4. 특정한 프로젝트를 위한 기능
-    - 추출한 하위 문제는 사용하는 프로젝트를 전혀 몰라야 하는 것이 이상적이지만, 그렇지 않고 단순히 분리하는 것만으로도 큰 도움이 된다
-    - 예시
-        
-        ```python
-        # before
-        business = Business()
-        business.name = request.POST("name")
-        
-        url_path_name = business.name.lower()
-        url_path_name = re.sub(r"['\.]", "", url_path_name)
-        url_path_name = re.sub(r"[^a-z0-9]+", "-", url_path_name)
-        url_path_name = "/biz/" + url_path_name
-        
-        business.date_created = datetime.datetime.utcnow()
-        business.save_to_database()
-        ## 전체 목적과 직접 상관없는 하위문제는 name을 유효한 url로 변환하는 일을 함
-        ## 추출하는 것이 바람직함
-        
-        # after
-        CHARS_TO_REMOVE = re.compile(r"['\.]+")
-        CHARS_TO_DASH = re.compile(r"[^a-z0-9]+")
-        
-        def make_url_friendly(text):
-        	text = text.lower()
-        	text = CHARS_TO_REMOVE.sub("",text)
-        	text = CHARS_TO_DASH.sub("-",text)
-        	return text.strip("-")
-        
-        business = Business()
-        business.name = "/biz/" + make_url_friendly(business_name)
-        business.date_created = datetime.datetime.utcnow()
-        business.save_to_database()
-        ## 훨씬 더 정규적인 패턴을 갖게 됨
-        ## 정규표현식이나 복잡한 문자열 처리를 신경 쓰지 않아도 되므로 코드의 가독성이 더 좋아짐
-        
-        ## 함수는 util/ 혹은 현재 위치 중 어느 곳에 놔두는 것이 좋을까?
-        ## => 어느 곳에 두어도 상관없음. 필요하면 위치를 언제든지 옮길 수 있음
-        ## - 추출되었다는 사실이 더 중요함
-        ```
-        
-5. 기존 인터페이스를 단순화 하기
-    - 적은 인수를 받으며, 별다른 설정을 요구하지 않고, 사용하기 편한 인터페이스를 맞추는데 초점을 둬라
-        - 누구나 좋아함
-        - 이러한 인터페이스는 코드를 우아하게 만듬
-        - 간단하고 강력하게 만듬
-    - 예시
-        
-        ```jsx
-        // before
-        var max_results;
-        var cookies = document.cookie.split(";");
-        for (var i=0; i < cookies.length; i++){
-        	var c = cookies[i];
-        	c = c.replace(/^[ ]+/, ""); // 앞에 있는 빈칸을 제거
-        	if (c.indexOf("max_results") === 0) {
-        		max_results = Number(c.substring(12, c.length));
-        	}
-        }
-        /// 매우 지저분함
-        /// cookie를 따로 찾는 함수를 만들어야 할 것으로 보임
-        
-        // after
-        /// 인터페이스 형태 참고
-        var max_results = Number(get_cookie("max_results"));
-        
-        // 쿠기 값을 생성하거나 변경하는 작업
-        document.cookie = "max_results=50; expires=Wed, 1 Jan 2020 20:53:47 UTC; path=/";
-        /// 수정
-        set_cookie(name, vaue, days_to_expire);
-        /// 쿠키를 제거하는 작업도 직관에 어긋남 => 쿠기가 만료된 것처럼 억지로 설정해야하기 때문
-        /// 다음이 더 나은 인터페이스
-        delete_cookie(name);
-        
-        // * 이상적이지 않은 인터페이스를 그냥 받아들일 이유는 없다는 것 기억하기
-        //  - 이런 인터페이스는 언제나 이를 둘러싸는 함수를 작성하여 지저분한 내부를 감출 수 있음
-        ```
-        
-6. 자신의 필요에 맞춰서 인터페이스의 형태를 바꾸기
-    - 다른 코드를 지원하려고 존재하는 “접착(glue) 코드”는 프로그램의 실제 논리와 별로 직접적 연관이 없는데, 필요에 따라 따로 분리하여 독자적인 함수를 만들만하다
-    - 예시
-        
-        ```python
-        # 상황
-        ## 민감한 사용자 정보를 담는 dictionary를 Cipher 클래스로 암호화하여 URL로 구성하려함
-        # 문제
-        ## Cipher는 딕셔너리가 아니라 바이트로 이루어진 문자열이 입력되길 바란다
-        ## 또, Cipher는 바이트로 이루어진 문자열을 반환하지만, URL로 이용할 수 있는 문자열을 필요로 함
-        
-        # before
-        user_info = {"username":"...", "password":"..."}
-        user_str = json.dumps(user_info)
-        cipher = Cipher("aes_128_abc", key=PRIVATE_KEY, init_vector=INIT_VECTOR,
-        								op=ENCODE)
-        encrypted_bytes = cipher.update(user_str)
-        encrypted_bytes += cipher.final() # 현재의 128 비트 블록을 읽어 들인다
-        url = "http://example.com/?user_info=" 
-        			+ base64.urlsafe_b64encode(encrypted_bytes)
-        
-        # after
-        def url_safe_encrypt(obj):
-        	obj_str = json.dumps(obj)
-        	cipher = Cipher("aes_128_abc", key=PRIVATE_KEY, init_vector=INIT_VECTOR,
-        									op=ENCODE)
-        	encrypted_bytes = cipher.update(obj_str)
-        	encrypted_bytes += cipher.final() # 현재의 128 비트 블록을 읽어 들인다
-        	return base64.urlsafe_b64encode(encrypted_bytes)
-        
-        user_info = {"username":"...", "password":"..."}
-        url = "http://example.com/?user_info=" + url_safe_encrypt(user_info)
-        ```
-        
-7. 지나치게 추출하기
-    - 상관없는 하위문제를 적극적으로 발견하고 추출하는 것을 잊지말자
-    - 하지만 너무 흥분해서 지나친 수준으로 나아가는 일도 있으니 조심하자
-    - 예시
-        
-        ```python
-        ## 앞의 코드를 다음과 같이 너무 잘게 쪼개면 가독성을 해침
-        
-        user_info = {"username":"...", "password":"..."}
-        url = "http://example.com/?user_info=" + url_safe_encrypt(user_info)
-        
-        def url_safe_encrypt(obj):
-        	obj_str = json.dumps(obj)
-        	return url_safe_encrypt_str(obj_str)
-        
-        def url_safe_encrypt_str(data):
-        	encrypted_bytes = encrypt(data)
-        	return base64.urlsafe_b64encode(encrypted_bytes)
-        
-        def encrypt(data):
-        	cipher = make_cipher()
-        	encrypted_bytes = cipher.update(user_str)
-        	encrypted_bytes += cipher.final() # 현재의 128 비트 블록을 읽어 들인다
-        	return encrypted_bytes
-        	
-        def make_cipher():
-        	return Cipher("aes_128_abc", key=PRIVATE_KEY, 
-        								init_vector=INIT_VECTOR, op=ENCODE)	
-        
-        ```
-        
+
+##### 3. 일반적인 목적을 가진 코드를 많이 만들어라
+
+앞서 만든 `format_pretty()`는 상관없는 하위문제를 다루는 대표적 함수 ⇒ 매우 기본적이고 폭넓게 적용할 수 있는 일을 수행하므로 다른 프로젝트에서도 사용할 수 있음
+
+코드베이스는 이와 같은 코드를 담아두는 디렉터리를 따로 두고 있으므로 쉽게 공유할 수 있음
+
+일반적인 목적을 가진 코드는 프로젝트의 나머지 부분에서 완전히 분리 되므로 좋다.
+
+이러한 코드는 개발, 테스트, 이해가 쉽다.
+
+```plaintext
+- 많은 사람들이 사용하는 강력한 라이브러리의 내부는 염려할 필요 없음
+    - 코드베이스가 완전히 분리되어 있기 때문
+```
+
+##### 4. 특정한 프로젝트를 위한 기능
+
+추출한 하위 문제는 사용하는 프로젝트를 전혀 몰라야 하는 것이 이상적이지만, 그렇지 않고 단순히 분리하는 것만으로도 큰 도움이 된다
+
+예시
+
+```python
+# before
+business = Business()
+business.name = request.POST("name")
+
+url_path_name = business.name.lower()
+url_path_name = re.sub(r"['\.]", "", url_path_name)
+url_path_name = re.sub(r"[^a-z0-9]+", "-", url_path_name)
+url_path_name = "/biz/" + url_path_name
+
+business.date_created = datetime.datetime.utcnow()
+business.save_to_database()
+## 전체 목적과 직접 상관없는 하위문제는 name을 유효한 url로 변환하는 일을 함
+## 추출하는 것이 바람직함
+
+# after
+CHARS_TO_REMOVE = re.compile(r"['\.]+")
+CHARS_TO_DASH = re.compile(r"[^a-z0-9]+")
+
+def make_url_friendly(text):
+    text = text.lower()
+    text = CHARS_TO_REMOVE.sub("",text)
+    text = CHARS_TO_DASH.sub("-",text)
+    return text.strip("-")
+
+business = Business()
+business.name = "/biz/" + make_url_friendly(business_name)
+business.date_created = datetime.datetime.utcnow()
+business.save_to_database()
+## 훨씬 더 정규적인 패턴을 갖게 됨
+## 정규표현식이나 복잡한 문자열 처리를 신경 쓰지 않아도 되므로 코드의 가독성이 더 좋아짐
+
+## 함수는 util/ 혹은 현재 위치 중 어느 곳에 놔두는 것이 좋을까?
+## => 어느 곳에 두어도 상관없음. 필요하면 위치를 언제든지 옮길 수 있음
+## - 추출되었다는 사실이 더 중요함
+```
+
+##### 5. 기존 인터페이스를 단순화 하기
+
+적은 인수를 받으며, 별다른 설정을 요구하지 않고, 사용하기 편한 인터페이스를 맞추는데 초점을 둬라
+
+- 누구나 좋아함
+- 이러한 인터페이스는 코드를 우아하게 만듬
+- 간단하고 강력하게 만듬
+
+예시
+
+```jsx
+// before
+var max_results;
+var cookies = document.cookie.split(";");
+for (var i=0; i < cookies.length; i++) {
+    var c = cookies[i];
+    c = c.replace(/^[ ]+/, ""); // 앞에 있는 빈칸을 제거
+    if (c.indexOf("max_results") === 0) {
+        max_results = Number(c.substring(12, c.length));
+    }
+}
+/// 매우 지저분함
+/// cookie를 따로 찾는 함수를 만들어야 할 것으로 보임
+
+// after
+/// 인터페이스 형태 참고
+var max_results = Number(get_cookie("max_results"));
+
+// 쿠기 값을 생성하거나 변경하는 작업
+document.cookie = "max_results=50; expires=Wed, 1 Jan 2020 20:53:47 UTC; path=/";
+/// 수정
+set_cookie(name, value, days_to_expire);
+/// 쿠키를 제거하는 작업도 직관에 어긋남 => 쿠기가 만료된 것처럼 억지로 설정해야하기 때문
+/// 다음이 더 나은 인터페이스
+delete_cookie(name);
+
+// * 이상적이지 않은 인터페이스를 그냥 받아들일 이유는 없다는 것 기억하기
+//  - 이런 인터페이스는 언제나 이를 둘러싸는 함수를 작성하여 지저분한 내부를 감출 수 있음
+```
+
+##### 6. 자신의 필요에 맞춰서 인터페이스의 형태를 바꾸기
+
+다른 코드를 지원하려고 존재하는 “접착(glue) 코드”는 프로그램의 실제 논리와 별로 직접적 연관이 없는데, 필요에 따라 따로 분리하여 독자적인 함수를 만들만하다
+
+예시
+
+```python
+# 상황
+## 민감한 사용자 정보를 담는 dictionary를 Cipher 클래스로 암호화하여 URL로 구성하려함
+# 문제
+## Cipher는 딕셔너리가 아니라 바이트로 이루어진 문자열이 입력되길 바란다
+## 또, Cipher는 바이트로 이루어진 문자열을 반환하지만, URL로 이용할 수 있는 문자열을 필요로 함
+
+# before
+user_info = {"username":"...", "password":"..."}
+user_str = json.dumps(user_info)
+cipher = Cipher("aes_128_abc", key=PRIVATE_KEY, init_vector=INIT_VECTOR,
+                    op=ENCODE)
+encrypted_bytes = cipher.update(user_str)
+encrypted_bytes += cipher.final() # 현재의 128 비트 블록을 읽어 들인다
+url = "http://example.com/?user_info="
+        + base64.urlsafe_b64encode(encrypted_bytes)
+
+# after
+def url_safe_encrypt(obj):
+    obj_str = json.dumps(obj)
+    cipher = Cipher("aes_128_abc", key=PRIVATE_KEY, init_vector=INIT_VECTOR,
+                        op=ENCODE)
+    encrypted_bytes = cipher.update(obj_str)
+    encrypted_bytes += cipher.final() # 현재의 128 비트 블록을 읽어 들인다
+    return base64.urlsafe_b64encode(encrypted_bytes)
+
+user_info = { "username" : "...", "password" : "..." }
+url = "http://example.com/?user_info=" + url_safe_encrypt(user_info)
+```
+
+##### 7. 지나치게 추출하기
+
+상관없는 하위문제를 적극적으로 발견하고 추출하는 것을 잊지말자
+
+하지만 너무 흥분해서 지나친 수준으로 나아가는 일도 있으니 조심하자
+
+예시
+
+```python
+## 앞의 코드를 다음과 같이 너무 잘게 쪼개면 가독성을 해침
+
+user_info = {"username":"...", "password":"..."}
+url = "http://example.com/?user_info=" + url_safe_encrypt(user_info)
+
+def url_safe_encrypt(obj):
+    obj_str = json.dumps(obj)
+    return url_safe_encrypt_str(obj_str)
+
+def url_safe_encrypt_str(data):
+    encrypted_bytes = encrypt(data)
+    return base64.urlsafe_b64encode(encrypted_bytes)
+
+def encrypt(data):
+    cipher = make_cipher()
+    encrypted_bytes = cipher.update(user_str)
+    encrypted_bytes += cipher.final() # 현재의 128 비트 블록을 읽어 들인다
+    return encrypted_bytes
+
+def make_cipher():
+    return Cipher("aes_128_abc", key=PRIVATE_KEY,
+                    init_vector=INIT_VECTOR, op=ENCODE)
+```
 
 ### 한번에 하나씩
 
