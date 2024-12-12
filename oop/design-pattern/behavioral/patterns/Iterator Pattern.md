@@ -65,18 +65,18 @@
 
 ## Relationship with other patterns
 
-## Composite
+### [[Composite Pattern]]
 
 - Composite와 Iterator를 함께 사용하여, Composite tree를 순회 하게 할 수 있음
 
-## Factory Method
+### [[Factory Method Pattern]]
 
 - Factory Method와 Iterator를 함께 사용하여, 컬렉션 하위 클래스가 컬렉션과 호환되는 다양한 유형의 반복자를 반환하도록 할 수 있음
 
-## Memento
+### [[Memento Pattern]]
 
 - Memento와 Iterator를 함께 사용하여, 현재 상태를 알고, 또 필요한 경우 되돌릴 수 있음
 
-## Visitor
+### [[Visitor Pattern]]
 
 - Visitor와 Iterator를 함께 사용하여, 모두 다른 클래스이더라도, 복잡한 데이터 구조를 순회하고 요소에 대해 일부 작업을 실행할 수 있음
