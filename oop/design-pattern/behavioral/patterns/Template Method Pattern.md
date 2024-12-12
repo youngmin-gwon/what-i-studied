@@ -18,8 +18,6 @@
 
 ![Untitled](Untitled%206.png)
 
-### Structure Description
-
 - AbstractClass: 알고리즘의 뼈대를 설명하는 templateMethod 포함. primitive operations 나 AbstractClass 혹은 다른 객체들에 정의된 operations 을 호출함
 - ConcreteClass: 변하지 않는 알고리즘 단계를 구현하기 위해 AbstractClass에 의존
 - Template Method 기능 타입들
@@ -39,7 +37,7 @@
 - Template method 는 high-level component로 간주됨 → clients 나 알고리즘의 concrete operations 가 template method에 의해 호출된다는 의미
   - abstraction은 details에 의존하면 안되고, details가 abstractions에 의존해야함 ⇒ Dependency Inversion principle in SOLID
 
-## Adaption Example
+## Example
 
 ![template_method.png](template_method.png)
 
