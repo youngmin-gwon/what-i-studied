@@ -1,3 +1,5 @@
+# Creational Pattern
+
 ## Description
 
 객체의 생성에 관련된 패턴. 객체의 생성절차를 추상화 하는 패턴
@@ -8,7 +10,7 @@
 
 ## Type
 
-1. 싱글턴 패턴(Singleton) : 한 클래스에 한 객체만 존재하도록 제한한다
+1. [[Singleton Pattern]] : 한 클래스에 한 객체만 존재하도록 제한한다
 
 2. 프로토타입 패턴(Prototype) : 기존 객체를 복제함으로써 객체를 생성
 

@@ -22,20 +22,6 @@
             }
           },
           {
-            "id": "6014766cce87c857",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "design-pattern/OOP Design Pattern.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "OOP Design Pattern"
-            }
-          },
-          {
             "id": "8f597319fff36aa6",
             "type": "leaf",
             "state": {
@@ -67,8 +53,7 @@
               "title": "Readme"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -222,22 +207,22 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "6014766cce87c857",
+  "active": "ce2cd91d0285626f",
   "lastOpenFiles": [
-    ".git/index.lock",
-    ".git/objects/91/d4c9d4e5e511a35be6d5282b7952a18a3b488b",
-    ".git/objects/af/37b9f4b75022fd41a83f03d634342ff19179c7",
-    ".git/objects/12/178bc263d47828bf80a3336bb57f2afc8d988f",
-    ".git/objects/c4/eee2c42ae092c0a39b467d9a81aee58723f94a",
-    ".git/objects/6b/164ce997664f3f9c411c61f8d45acc9a06d1be",
-    ".git/objects/7b",
-    ".git/objects/7b/d40e24349f2fb8df4c86b2f3fd1ae5f6888dd4",
-    ".git/objects/2c/70f3a2682ad7683a63d60932cddf66c4783592",
-    "design-pattern/creational/Singleton.md",
-    ".git/objects/0d/bba7c678b33fbcd6c1fad3a8c8f78e308713e3",
-    ".git/objects/8e/18850c611aeefd1f24480ffc3bf2ff0c18bfd5",
+    "Singleton Pattern.md",
     "design-pattern/creational/Creational Pattern.md",
     "design-pattern/OOP Design Pattern.md",
+    ".git/objects/59/1d525d4f09ce7be03d4751f47dd486ae6b808e",
+    ".git/objects/59",
+    ".git/objects/bb/9c9240734c8a58652962f7e8abe596a65b5763",
+    ".git/objects/73/2c51e4faff020fab4180ac99eb154d24b51f15",
+    ".git/objects/98/899d0ad40c3f3b40992950bbcadf74cc93fc9f",
+    ".git/objects/92/4582c974265c8f92da3cceff3558e2220d34b7",
+    ".git/objects/bb/4e9e7fdb4fdd018e60e7ddaccd47ee8488066a",
+    ".git/objects/c0/14b0fae792836feca7afd1f153921456b198a3",
+    ".git/objects/c5/b80d5acbfb226d012ec7d59cb271a15ed44647",
+    ".git/index.lock",
+    "design-pattern/creational/Singleton.md",
     "design-pattern/behavioral/Behavioral Pattern.md",
     "design-pattern/structural/Structural Pattern.md",
     "design-pattern/SOLID.md",
