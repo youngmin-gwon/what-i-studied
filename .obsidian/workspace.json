@@ -177,18 +177,19 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
+    "oop/solid/LSP(Liskov substitution principle).md",
+    "oop/solid/LSP(Liscov Substitute Principle).md",
+    ".git/objects/4e/8a21bdb39a9a3ff7e1b2d83c0b017f13a00442",
+    ".git/objects/c7/9b5bcf98fc002ef4150ce11efd16734912937a",
+    ".git/objects/e3/af9e8f3619b26e4646132a486957f4abba1048",
+    ".git/objects/a1/75296f1e86b6f184bff67e42ea4eca6f8da6c3",
+    ".git/objects/27",
+    ".git/objects/27/ef0e17bc661ae0492ff35d794147d9e3a58a28",
+    ".git/objects/32/6079d6f2672777267b8ff881bc2913e38e9f0d",
+    ".git/objects/a0",
+    ".git/objects/a0/e096d3307f917218524f8069d16685f218207d",
     ".git/index.lock",
-    ".git/objects/fa/551435e91929a79d81b09e4800a896931327e3",
-    ".git/objects/32/bb63e49cf6943086d8775a13b2d5a1f9d66e1c",
-    ".git/objects/44/932456141d0757f2dba2ceda79fbe10f6dbd83",
-    ".git/objects/c1",
-    ".git/objects/c1/c8160f5402ad3993172c8c6c187ebeba96c040",
-    ".git/objects/db/4b6fbf57abad0cd4f236930820c725f104185c",
-    ".git/objects/80/9a4974abbe6049190f11c4443d83eba48320ba",
-    ".git/objects/7a/06f7c6a7bba8b4d8488d286e4f1853dcced540",
-    ".git/objects/7e/d05466482446aef44479986f151a6ae78e50b0",
     "oop/solid/SRP(Single Responsibility Principle).md",
-    ".git/objects/7f/383fbd1feb7e454cde6dc58899ad8446452df2",
     "oop/solid/OCP(Open Closed Principle).md",
     "oop/solid/SOLID.md",
     "oop/design-pattern/OOP Design Pattern.md",
@@ -221,7 +222,6 @@
     "design-pattern/SOLID.md",
     "questions/Question I need to ask.md",
     "profile.md",
-    "telephone interview.md",
-    "git/gitignore pattern.md"
+    "telephone interview.md"
   ]
 }
