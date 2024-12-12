@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "83dfa9d901a3122d",
+        "id": "f98594ba8d15fab1",
         "type": "tabs",
         "children": [
           {
-            "id": "57e4364fde68d212",
+            "id": "5bc0f0d241759e25",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Factory Method Pattern"
+              "title": "New tab"
             }
           }
         ]
@@ -175,23 +171,24 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "57e4364fde68d212",
+  "active": "5bc0f0d241759e25",
   "lastOpenFiles": [
-    "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
-    ".git/objects/aa/741ef3c1d26bbf5c32229a89a9d7794b8deee5",
-    ".git/objects/5b/e7de5ea907996d60376f597aaff41dfaca9b07",
-    ".git/objects/fe/e06acae41fa4640c3b74362c25b9534805148c",
-    ".git/objects/91/a575d90ff0d79965ae6b0f022310602d4a2ef9",
+    "oop/design-pattern/creational/Creational Pattern.md",
+    "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
+    ".git/objects/1d/8a602c0e7da24a5a29ab8ee167e0c42a00e8c9",
+    ".git/objects/06/b59a18e4729939d9d2201b59a58e569db25008",
+    ".git/objects/7c/aa2f63f41f4b1188eccc109df8ed6f45808491",
+    ".git/objects/46/e5c623f994a6deea807d871d23697cc392b435",
+    ".git/objects/cc/e13a0230fc597ba0dcdcdff00cd6009da44641",
+    ".git/objects/36/b79105e0fc889638ba592d32cd214d30b16a71",
+    ".git/objects/78/664995a6915e5f0fc600b9f2f6528bb1cb700d",
     ".git/index.lock",
-    ".git/objects/85/e3caff4d7471a174ec8c6ccff5bebae4105828",
-    ".git/objects/27/10e653ef73f51af4b1bee51339cc52aaa8788f",
-    ".git/objects/4b/878e9153774f16488d73e2d17b0482f10e8c97",
-    ".git/objects/84/12ba197e7116c5c5ba1670b31078947cdd2ba8",
-    ".git/objects/9c/b34e9db6c30114e0eecc4ec618cfb9e3c626aa",
+    ".git/objects/59/7467d91660c690efecf61e0b1fb98808a540b2",
+    ".git/objects/fd/acec896d87076417b9017829d46d99c74f67e4",
+    "oop/design-pattern/behavioral/patterns/Iterator Pattern.md",
     "oop/design-pattern/behavioral/patterns/Interpreter Pattern.md",
     "oop/design-pattern/structural/patterns/Facade Pattern.md",
     "oop/design-pattern/structural/patterns/Flyweight Pattern.md",
-    "oop/design-pattern/creational/Creational Pattern.md",
     "oop/design-pattern/behavioral/patterns/State Pattern.md",
     "oop/design-pattern/behavioral/patterns/Strategy Pattern.md",
     "oop/design-pattern/behavioral/Behavioral Pattern.md",
@@ -205,7 +202,6 @@
     "oop/design-pattern/structural/patterns/Decorator Pattern.md",
     "oop/design-pattern/structural/patterns/Bridge Pattern.md",
     "oop/design-pattern/creational/patterns/Abstract Factory Pattern.md",
-    "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
     "oop/design-pattern/creational/patterns/Builder Pattern.md",
     "oop/design-pattern/creational/patterns/Prototype Pattern.md",
     "oop/design-pattern/behavioral/patterns/Memento Pattern.md",

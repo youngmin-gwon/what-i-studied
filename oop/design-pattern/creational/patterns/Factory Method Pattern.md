@@ -56,24 +56,24 @@
 
 ## Relationship with other patterns
 
-### [[Abstract Factory Pattern]], [[Prototype Pattern]], 
+### [[Abstract Factory Pattern]], [[Prototype Pattern]], [[Builder Pattern]]
 
 - 모두 Factory Method를 기반으로 발전 됨
 - Factory Method보다 자유롭지만, 복잡함
 
-### Abstract factory
+### [[Abstract Factory Pattern]]
 
 - Abstract Factory는 Factory Method의 세트를 기반으로 만들어짐
 
-### Iterator
+### [[Iterator Pattern]]
 
 - Factory Method와 Iterator를 함께 사용하여, 컬렉션 하위 클래스가 컬렉션과 호환되는 다양한 유형의 반복자를 반환하도록 할 수 있음
 
-### Prototype
+### [[Prototype Pattern]]
 
 - Prototype은 상속을 기반으로 하지 않지만  복제된 객체의 복잡한 초기화가 필요
 - Factory Method는 상속을 기반으로 하지만 초기화 단계가 필요하지 않음
 
-### Template Method
+### [[Template Method Pattern]]
 
 - Factory Method는 Template Method를 구체화 한것. 동시에 Factory Method는 큰 Template Method의 한 단계 역할을 할 수 있음
