@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/structural/Structural Pattern.md",
+                "file": "oop/design-pattern/structural/patterns/Adapter Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Structural Pattern"
+              "title": "Adapter Pattern"
             }
           }
         ],
@@ -192,17 +192,18 @@
   },
   "active": "cb05fd0c41220189",
   "lastOpenFiles": [
+    "oop/design-pattern/structural/Structural Pattern.md",
+    ".git/objects/7a/d8e89b5be6bc6fdab5ff6e187be87ac2294ccf",
+    ".git/objects/41/b8e562fefa0dc7a821e338ad7829ae9b63cef3",
+    ".git/objects/e7/dcad2f23e93c6a3c63b8a75d8ecd6c063cec72",
+    ".git/objects/b9",
+    ".git/objects/b9/b269df485ca134ccaaafeb4f54fac391b37528",
+    ".git/objects/1a/0e9ab7aff0cb969d0008d35ac111a7d396b9e4",
+    ".git/objects/f1/6201bd8dabb14ec73dddde6c45c44cb241902a",
+    ".git/objects/af/cfc880439c329864337c127781072606b85778",
+    ".git/objects/14/b1aad3f145ad9837c7b7a4ac7ce9fa58f6c7ff",
+    ".git/objects/9e/5730ce9cd76ae80bfbf6d17ec2441b70c42a79",
     "oop/design-pattern/creational/Creational Pattern.md",
-    ".git/objects/81/22deac9d441592921d0a85488c5b5e22f5341f",
-    ".git/objects/ed/028aa58d70a6dfd5bca1b9430fe6f64d48a51d",
-    ".git/objects/d1/59d702bfe0f6c860ea8118e28856471e611885",
-    ".git/objects/84/b62626e9be804a45c0f383ada4a3478e8ddc47",
-    ".git/objects/38/034408279295820d3aa9865567a656449f5f91",
-    ".git/objects/88/9ce3ed3c1c13ff421423b98f0e872bf04d5244",
-    ".git/objects/c2/0f108efa44cc51a073ae7736b8d7868862b49b",
-    ".git/objects/88/7f63c88845d8d8cc46681cbb826c212a3c9b5b",
-    ".git/index.lock",
-    ".git/objects/ce/a6be5ed78863ff07ab32840b79ccc2eaed9b41",
     "oop/design-pattern/behavioral/Behavioral Pattern.md",
     "oop/design-pattern/behavioral/patterns/Strategy Pattern.md",
     "oop/design-pattern/behavioral/patterns/Observer Pattern.md",
@@ -226,7 +227,6 @@
     "oop/design-pattern/behavioral/patterns/Command Pattern.md",
     "oop/design-pattern/behavioral/patterns/Template Method Pattern.md",
     "oop/design-pattern/creational/patterns/Singleton Pattern.md",
-    "oop/design-pattern/structural/Structural Pattern.md",
     "oop/design-pattern/images/template_method.png",
     "oop/design-pattern/images/adapter_overview.png",
     "oop/design-pattern/images/Untitled 9.png",
