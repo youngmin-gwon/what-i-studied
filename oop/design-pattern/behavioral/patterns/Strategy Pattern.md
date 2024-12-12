@@ -1,5 +1,7 @@
 # Strategy(=Policy)
 
+## Description
+
 [[Behavioral Pattern]]
 
 ![Untitled](Untitled%2014.png)
@@ -24,42 +26,50 @@
 - Context: Strategy 객체를 가지고 있음. 어떤 알고리즘이 사용될지에 대해서는 독립적 ⇒ 동적으로 바뀔 수 있음
 - Client: Concrete Strategies 중 특정한 알고리즘을 선택하고 Context로 넘김
 
-- 적용성
-    - 다양한 알고리즘을 사용하고 런타임 중에 한 알고리즘에서 다른 알고리즘으로 전환할 수 있도록 하려는 경우
-    - 일부 동작을 실행하는 방식만 다른 유사한 클래스가 많이 있는 경우 사용
-    - 사용자에게 중요하지 않을 수 있는 알고리즘의 구현 세부 정보에서 클래스의 비즈니스 논리를 분리하기 위해 사용
-    - 알고리즘의  전환 사이 대규모 조건문이 있는 경우 사용
+## Adaptability
 
-- 장점
-    - 연관 있는 알고리즘들을 각각의 추출된 class 에 정의한 후 공통 interface 를 정의 ⇒ compile-time flexibility 를 줌
-        - run-time 중 추출된 클래스를 동적으로 교환할 수 있음
-    - 코드, 내부 데이터, 다양한 알고리즘의 dependencies 를 isolate할 수 있음
-    - 간단한 interface를 사용하여 동적으로 알고리즘 수행 혹은 알고리즘 교체를 할 수 있음
-    - 새로운 ConcreteStrategy를 코드 수정없이 추가할 수 있음 ⇒ Open/Closed Principle
+- 다양한 알고리즘을 사용하고 런타임 중에 한 알고리즘에서 다른 알고리즘으로 전환할 수 있도록 하려는 경우
+- 일부 동작을 실행하는 방식만 다른 유사한 클래스가 많이 있는 경우 사용
+- 사용자에게 중요하지 않을 수 있는 알고리즘의 구현 세부 정보에서 클래스의 비즈니스 논리를 분리하기 위해 사용
+- 알고리즘의  전환 사이 대규모 조건문이 있는 경우 사용
 
-- 단점
-    - 사용하는 곳에서 반드시 각 ConcreteStrategy의 차이를 알고 적절하게 사용해야 함
-    - 알고리즘이 거의 바뀌지 않는다면, 복잡하게 Stategy패턴을 사용할 이유가 없음
-    - 대부분의 언어에서 Functional type support를 하기 때문에 굳이 코드베이스를 크게 만들이유가 없다
+## Pros
 
-- 다른 패턴과의 관계
+- 연관 있는 알고리즘들을 각각의 추출된 class 에 정의한 후 공통 interface 를 정의 ⇒ compile-time flexibility 를 줌
+  - run-time 중 추출된 클래스를 동적으로 교환할 수 있음
+- 코드, 내부 데이터, 다양한 알고리즘의 dependencies 를 isolate할 수 있음
+- 간단한 interface를 사용하여 동적으로 알고리즘 수행 혹은 알고리즘 교체를 할 수 있음
+- 새로운 ConcreteStrategy를 코드 수정없이 추가할 수 있음 ⇒ Open/Closed Principle
+
+## Cons
+
+- 사용하는 곳에서 반드시 각 ConcreteStrategy의 차이를 알고 적절하게 사용해야 함
+- 알고리즘이 거의 바뀌지 않는다면, 복잡하게 Stategy패턴을 사용할 이유가 없음
+- 대부분의 언어에서 Functional type support를 하기 때문에 굳이 코드베이스를 크게 만들이유가 없다
+
+## Relationship with other patterns
+
     - [[Bridge Pattern]], [[State Pattern]], (일부분 [[Adapter Pattern]])
         - 구조가 비슷함(다른 객체에 실제 작업을 위임하는 구조)
         - 모두 다른 문제를 풀기 위한 방법
             - 패턴은 특정 방식으로 코드를 구조화하기 위한 단순한 레시피가 아님
             - **해결해야하는 문제를 다른 개발자와 소통하기 위한 방법으로 패턴을 사용해야 함**
+
     - [[Decorator Pattern]]
         - Decorator는 객체의 겉을 바꾸는 역할, Strategy는 객체의 속을 바꾸는 역할
+
     - [[Command Pattern]]
         - 둘다 객체를 파라미터로 갖기 때문에 비슷해보일 수 있음
         - 하지만, 다른 의도로 사용됨
             - Command: 연산을 객체로 바꾸려는 의도 ⇒ 작업 실행을 연기하고, 대기열에 추가하고, 명령 기록을 저장하고, 원격 서비스에 명령을 보내는 등의 작업을 수행할 수 있음
             - Strategy:  같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도
+
     - [[Template Method Pattern]]
         - Template Method 패턴은 상속 기반. subclass에서 수정이 필요한 알고리즘 일부분을 확장하는 방법
         - Strategy 패턴은 구성 기반. 다르게 동작하는 전략을 제공해서 객체의 행위를 변경하는 방법
         - Template Method는 class level에서 동작하고, Strategy는 object level에서 동작함 ⇒ Template Method는 static 하기 때문에 compile-time-safe, Strategy는 runtime-safe 함
         - Template Method 패턴은 공통된 기능을 공유하도록 설계되어 있지만, Strategy 패턴은 모든 implementation이 독립적이고 공유되는 코드가 없다
+        
     - [[State Pattern]]
         - State는 Strategy를 확장한 패턴으로 간주됨
             - 둘 모두 구성 기반
