@@ -51,25 +51,34 @@
    - 필요할 때 스냅샷으로 부터 해당 상태를 복구할뿐만 아니라, 자기 자신 상태의 스냅샷을 생산하기도 함
 
 - 객체의 fields/getters/setters에 직접 접근이 캡슐화 원칙을 위배할 때, 보안의 이유로도 사용될 수 있음
-    - 다른 object가 snapshot을 읽지 못하게 만들어 original object의 state를 안전하고 보안이 강화되게 만듬
-- Command vs Memento
-    - command 패턴은 redo/undo를 지원할 수 있지만 요청을 단일객체로 만들 수 있음
-    - memento 패턴은 cache/restore 개념으로 객체의 내부 상태를 저장하고 있다는 것이 핵심
-    - command 패턴은 상태를 사용하는 부분에 따로 보관해야했지만, memento 패턴은 state를 originator에 보관하게 되어 상태가 안전할 수 있다
-    - 둘 중 하나만 사용해야 하는 개념은 아님
-        - memento 패턴을 이용하여 객체의 내부 상태를 저장하고 있어야 할 때, 되돌리기 기능 제공시 명령 패턴을 함께 사용할 수 있기 때문
-- 적용성
-    - 객체의 이전 상태를 복원할 수 있도록 객체 상태의 스냅샷을 생성하려는 경우 사용
-    - 객체의 field/getter/setter에 대한 직접 액세스가 캡슐화를 위반할 때 사용
-- 장점
-    - 캡슐화를 위반하지 않고 객체 상태의 스냅샷을 생성할 수 있음
-    - Caretaker가 Originator의 상태 기록을 유지하도록 하여 발신자의 코드를 단순화할 수 있음
-- 단점
-    - Memento를 너무 자주 만들게 되면 메모리 사용이 많아짐
-    - Caretaker는 오래된 Memento를 파괴할 수 있도록 Originator의 수명 주기를 추적해야 함
-    - PHP, Python 및 JavaScript와 같은 대부분의 동적 프로그래밍 언어는 Memento 내의 상태가 그대로 유지된다고 보장할 수 없음
-    - 상태를 저장하고 복구하는 데 시간이 오래 걸릴수 있음
-        - 직렬화 해서 저장하는 것이 좋음
+  - 다른 object가 snapshot을 읽지 못하게 만들어 original object의 state를 안전하고 보안이 강화되게 만듬
+
+## Command vs Memento
+
+- command 패턴은 redo/undo를 지원할 수 있지만 요청을 단일객체로 만들 수 있음
+- memento 패턴은 cache/restore 개념으로 객체의 내부 상태를 저장하고 있다는 것이 핵심
+- command 패턴은 상태를 사용하는 부분에 따로 보관해야했지만, memento 패턴은 state를 originator에 보관하게 되어 상태가 안전할 수 있다
+- 둘 중 하나만 사용해야 하는 개념은 아님
+  - memento 패턴을 이용하여 객체의 내부 상태를 저장하고 있어야 할 때, 되돌리기 기능 제공시 명령 패턴을 함께 사용할 수 있기 때문
+
+## Adaptability
+
+- 객체의 이전 상태를 복원할 수 있도록 객체 상태의 스냅샷을 생성하려는 경우 사용
+- 객체의 field/getter/setter에 대한 직접 액세스가 캡슐화를 위반할 때 사용
+
+## Pros
+
+- 캡슐화를 위반하지 않고 객체 상태의 스냅샷을 생성할 수 있음
+- Caretaker가 Originator의 상태 기록을 유지하도록 하여 발신자의 코드를 단순화할 수 있음
+
+## Cons
+
+- Memento를 너무 자주 만들게 되면 메모리 사용이 많아짐
+- Caretaker는 오래된 Memento를 파괴할 수 있도록 Originator의 수명 주기를 추적해야 함
+- PHP, Python 및 JavaScript와 같은 대부분의 동적 프로그래밍 언어는 Memento 내의 상태가 그대로 유지된다고 보장할 수 없음
+- 상태를 저장하고 복구하는 데 시간이 오래 걸릴수 있음
+  - 직렬화 해서 저장하는 것이 좋음
+
 - 다른 패턴과의 관계
     - Command
         - undo 기능을 적용하기 위해서 Command 패턴과 같이 사용할 수 있음
