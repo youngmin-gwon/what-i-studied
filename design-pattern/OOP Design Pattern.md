@@ -2,7 +2,6 @@
 
 - 일반적인 객체 지향 프로그래밍의 문제 해결 방법
 - A quote in the book "Design Patterns: Elements of Reusable Object-Oriented Programming" by GoF
-
 > A design pattern names, abstracts, and identifies the key aspects of a common design structure that make it useful for creating a reusable object-oriented design.
  
 
