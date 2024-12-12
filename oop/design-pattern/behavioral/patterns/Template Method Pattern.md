@@ -1,4 +1,4 @@
-# Template Method Pattern
+# Template Method
 
 #BehavioralPattern
 

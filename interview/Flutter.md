@@ -1,24 +1,36 @@
 # Flutter interview question
 
 ## Flutter?
+
 - 단일 코드베이스에서 모바일, 웹 및 데스크톱용 클라이언트 애플리케이션을 만들기 위한 UI development framework
 - SDK, not language
 - 대부분 Dart 언어로 만들어짐(engine은 많은 부분 Dart, 나머지 C/C++)
+
 ---
+
 ## SDK?
+
 - 애플리케이션 개발을 도와주는 툴 집합(Software Development Kit)
 - Compiler, Command Line Tools, Static Analyzer, etc.
+
 ---
+
 ## Flutter Structure?
+
 ![System Overview](../assets/flutter_system_overview.png)
+
 1. The framework level
 	- flutter application을 작성할 때 사용하는 모든 것을 포함함
 		- 더 저수준의 엔진 계층과 소통하게 해주는 코드인 service class들도 포함
+
 2. The engine level
 	- Dart VM, Skia 등 프레임워크 레벨의 기능들을 보증하는 클래스와 라이브러리로 구성되어 있음
+
 3. The platform level
 	- 특정 플랫폼(iOS, Android, Windows, …)와 관련된 코드를 포함
+
 ---
+
 ## pubspec.yaml?
 - flutter/dart 프로젝트에 필요한 모든 의존성(패키지, 파일 등)을 선언한 곳
 - 어플리케이션에 대한 제약조건 설정할 수 있음

@@ -1,4 +1,3 @@
-
 # Abstract Factory(=Kit)
 
 #CreationalPattern
@@ -141,7 +140,7 @@ class Number {
 
 - static으로 선언된 creation method
   - 즉, 생성을 위해서 객체가 필요하지 않은 경우임
-- static factory method라고 부르지 않게 유의하자 ⇒ factory method는 상속을 사용하는 디자인 패턴이기 때문. 즉 subclassing 할 수 없음
+- static factory method라고 부르지 않게 유의하자 ⇒ factory method는 상속을 사용하는 디자인 패턴이기 때문. 즉 sub-classing 할 수 없음
 - 다음 같은 경우에 유용함
   - 여러가지 다른 목적을 위한 여러가지 생성자가 존재해야 하는 경우
   - 새로 생성하는 것이 아니라 기존에 존재하는 객체들을 제사용하고 싶은 경우

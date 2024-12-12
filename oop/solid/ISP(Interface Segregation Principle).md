@@ -1,4 +1,6 @@
-# 4. ISP(Interface Segregation Principle)
+# ISP(Interface Segregation Principle)
+
+#solid
 
 - 자신이 사용하지 않는 인터페이스는 구현하지 말아야 한다는 원리
 

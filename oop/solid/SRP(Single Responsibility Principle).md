@@ -1,4 +1,6 @@
-# 1. SRP(Single Responsibility Principle)
+# SRP(Single Responsibility Principle)
+
+#solid
 
 - 클래스는 하나의 책임만 가져야 한다
 

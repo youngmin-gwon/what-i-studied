@@ -1,4 +1,6 @@
-# 5. DIP(Dependency Inversion Principle)
+# DIP(Dependency Inversion Principle)
+
+#solid
 
 - 구체화가 아니라 추상화(역할)에 의존해야 한다는 원칙 ⇒ 구현 클래스가 아니라 인터페이스에 의존해야함
 

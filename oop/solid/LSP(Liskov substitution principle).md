@@ -1,5 +1,7 @@
 # LSP(Liskov substitution principle)
 
+#solid
+
 - 프로그램의 정확성을 깨지 않으면서 하위 타입의 인스턴스로 바꿀수 있어야한다
 
 - 하위 타입은 언제나 기반 타입과 호환될 수 있어야 함. 즉 **서브 타입은 기반 타입과 약속한 규약**(public interface, method exception)**을 지켜야 함**

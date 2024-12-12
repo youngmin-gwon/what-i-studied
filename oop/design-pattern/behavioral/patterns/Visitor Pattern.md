@@ -28,7 +28,7 @@
     - Visitor를 “accept” 메소드 선언하는 인터페이스
     - 선언된 메소드에는 Visitor Interface 유형으로 선언된 매개변수가 하나 있어야 함
 4. ***ConcreteElement***
-    - accpet 메소드 구현
+    - accept 메소드 구현
     - 현재 클래스에 해당하는 적절한 Visitor 메서드로 호출을 리디렉션하는 것이 목적
     - 기본 Element 클래스가 이 메서드를 구현하더라도 모든 하위 클래스는 여전히 자체 클래스에서 이 메서드를 재정의하고 Visitor 개체에서 적절한 메서드를 호출해야 함
 5. ***Client***

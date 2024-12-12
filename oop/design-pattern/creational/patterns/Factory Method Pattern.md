@@ -46,7 +46,7 @@
 - 코드 수정 없이 새로운 product를 추가할 수 있음 ⇒ Open/Closed Principle
 - Creator와 ConcreteProduct간의 결합도를 줄일 수 있음
 - 객체를 사용할 클래스에서 직접 객체를 만들게 되는 문제를 해결할 수 있음
-- subclassing 함으로 compile-time 유연성을 가질 수 있음
+- sub-classing 함으로 compile-time 유연성을 가질 수 있음
 - 코드에서 application에 특정된 클래스의 직접 바인딩을 제거할 수 있다. 덕분에 코드는 인터페이스만 신경쓰면 된다
 
 ## Cons
