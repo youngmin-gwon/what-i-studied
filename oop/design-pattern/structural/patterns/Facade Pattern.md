@@ -1,4 +1,3 @@
-
 # Facade
 
 #StructuralPattern

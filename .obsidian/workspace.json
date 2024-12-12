@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/design-pattern/structural/patterns/Bridge Pattern.md",
+                "file": "oop/design-pattern/structural/patterns/Facade Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Bridge Pattern"
+              "title": "Facade Pattern"
             }
           }
         ]
@@ -178,18 +178,22 @@
   },
   "active": "15373bd649c7d9cc",
   "lastOpenFiles": [
+    "oop/design-pattern/structural/patterns/Flyweight Pattern.md",
+    "oop/design-pattern/structural/patterns/Facade Pattern.md",
+    "oop/design-pattern/structural/patterns/Decorator Pattern.md",
+    "oop/design-pattern/structural/patterns/Composite Pattern.md",
+    "oop/design-pattern/structural/patterns/Bridge Pattern.md",
+    ".git/objects/5c/75f9114e186230930ad0e4b537d2ffae876087",
+    ".git/objects/7e/ec3a6c929bb7f9541ac65b9abbeec4b2f12648",
+    ".git/objects/0e/896a6e074960abe4767756df9b97a413e950c6",
+    ".git/objects/00/d4d6dfa3186c0cc4f541dd23991e7ffe3868f4",
+    ".git/objects/d6/01d5c3ad1ba52c3f2663f1c513a5dc335b294f",
+    ".git/objects/49/2227c2bb1e2c4060f95e4440a7cf9463bbb7f3",
+    ".git/objects/ce/b09fc8994476118de50fc1b63a836a75822c47",
+    ".git/objects/0e/80d51a89ed4d2f80fa61ab6365f5dd3a165192",
+    ".git/objects/ea/800ad7eecbec981104dff80d90e7ea0e8c7427",
     ".git/index.lock",
     "oop/design-pattern/creational/patterns/Builder Pattern.md",
-    ".git/objects/71/96f82b8d0a5ae20860350dc5139ed3a2f44224",
-    ".git/objects/70/f9dc50bc1972c64fd4cbfe5f3cc5fc5172fb2c",
-    ".git/objects/4b/bb22c93018f9c027c921c6bf4b9dfaaabe0b1e",
-    ".git/objects/91/3c4e7c4b9cb876da862668e34961ecabead949",
-    ".git/objects/43/a2326338751da433590e1e0a4172fa21e73a89",
-    ".git/objects/23/e741ace91a19a17d554b5e75a95d2b3646b4a4",
-    ".git/objects/27/b3c4534d557ede898c2c27fb3bfa815490029e",
-    ".git/objects/77/90300bf1c8cefa4cb8ba9ef55d4ee08d7dfcff",
-    ".git/objects/4a/c08bcc077f743085d66193fe6afd75a7004cbf",
-    "oop/design-pattern/structural/patterns/Decorator Pattern.md",
     "oop/design-pattern/structural/patterns/Proxy Pattern.md",
     "Memon.md",
     "oop/design-pattern/creational/Creational Pattern.md",
@@ -218,10 +222,7 @@
     "_assets/oop/template_method.png",
     "_assets/oop/Untitled 23.png",
     "mindmap/oop_thought_process/oop-truth-misconcept-2.md",
-    "oop/design-pattern/structural/patterns/Facade Pattern.md",
     "oop/design-pattern/creational/patterns/Factory Method Pattern.md",
-    "oop/design-pattern/creational/patterns/Prototype Pattern.md",
-    "oop/design-pattern/OOP Design Pattern.md",
     "_assets/oop/adapter_overview.png"
   ]
 }
