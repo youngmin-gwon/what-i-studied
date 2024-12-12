@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "oop/solid/SRP(Single Responsibility Principle).md",
+                "file": "oop/solid/SOLID.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SRP(Single Responsibility Principle)"
+              "title": "SOLID"
             }
           }
         ]
@@ -177,20 +177,20 @@
   },
   "active": "57e4364fde68d212",
   "lastOpenFiles": [
+    "oop/solid/SRP(Single Responsibility Principle).md",
+    ".git/objects/7f/383fbd1feb7e454cde6dc58899ad8446452df2",
+    ".git/objects/2c/841c3b00a62979396edf9dc8ce5d65af20a5b0",
+    ".git/objects/89/b63886926bfa1f4a3a1720daa30f5821346358",
+    ".git/objects/eb/3301be65fa72767fe3c4b317e3b2d3bd7b3588",
+    ".git/objects/86/57e451699ef274357b13a62e6603331e574fd4",
+    ".git/objects/ec/3274b3fa949dbdac78d3f8695feca010314531",
+    ".git/objects/31/c4c53301a4359e5f267662a54fc3ae76219bbc",
+    ".git/objects/31/b3b3f2f162c0c9161a66f4b3c09d908872f3b5",
     "oop/solid/OCP(Open Closed Principle).md",
     "oop/solid/SOLID.md",
     "oop/design-pattern/OOP Design Pattern.md",
     ".git/objects/e8",
     ".git/objects/e8/55253050e47b279e54907cbd007ceeab8a8285",
-    ".git/objects/38/16aa54366453cc5c35ba78e500468f9cd04e64",
-    ".git/objects/70/560a425bc0f1b6c7801a78869e8b497e17db45",
-    ".git/objects/70",
-    ".git/objects/e1/3fa532783e18e21043830d4225327e4d806796",
-    ".git/objects/45/b92be50d6fcc2393de3dd7ad7eb847e956b6ca",
-    ".git/index.lock",
-    ".git/objects/2a/209f93aaedc936aa38a2ef3c72582671c0dcd1",
-    ".git/objects/6c/55f6c5e8cdfd5d4870c4541c543b43725e229c",
-    "oop/solid/SRP(Single Responsibility Principle).md",
     "oop/solid/Single Responsibility Principle.md",
     "oop/design-pattern/SOLID.md",
     "design-pattern/OOP Design Pattern.md",
@@ -221,7 +221,6 @@
     "questions/Question I need to ask.md",
     "profile.md",
     "telephone interview.md",
-    "git/gitignore pattern.md",
-    "git/Git 원리.md"
+    "git/gitignore pattern.md"
   ]
 }
