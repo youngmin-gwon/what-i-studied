@@ -21,9 +21,10 @@
 
 상황에 따라 Android or iOS Theme 을 보여줌
 
-- Factory Method 패턴과 유사한데 차이점은?
-    - Abstract Factory 는 관계되어 있는 객체의 “Family”를 만드는 방법을 제공함
-    - Factory Method 는 쉽게 Abstract Factory의 subset이라고 생각해도 됨
+## [[Factory Method Pattern]] vs [[Abstract Factory Pattern]]
+
+- Abstract Factory 는 관계되어 있는 객체의 “Family”를 만드는 방법을 제공함
+- Factory Method 는 쉽게 Abstract Factory의 subset이라고 생각해도 됨
 - Abstract Factory 패턴은 객체 생성을 더욱 유동적으로 할 수 있게 만듬
     1. Compile-time flexibility
         - 객체 만드는 방법은 사용부분으로부터 독립적으로 선언, 변경될 수 있다: 단지 subclass를 새로 선언하면 된다
@@ -32,10 +33,11 @@
 - application-specific한 binding을 제거해줌
 - 연관되어 있는 객체 군집을 사용해야할 때, 하지만 어떻게 만들어지는지 신경 쓰지 않아야 하고, concrete class에 의존하지 않아야할때, 고려해야할 패턴
 - 딱딱하게 생각하지말자. GoF의 패턴을 조금씩 변형해 사용하는 경우가 많다
-    - ConcreteFactory가 의 AbstractFactory역할도 맡도록 구현하는 경우도 있음
-    - Factory이면서 Product인 경우도 있음
-    - Factory를 Product에 주입하지 않고 Factory가 Product를 생산하는 경우도 있음
-- 구성
+  - ConcreteFactory가 의 AbstractFactory역할도 맡도록 구현하는 경우도 있음
+  - Factory이면서 Product인 경우도 있음
+  - Factory를 Product에 주입하지 않고 Factory가 Product를 생산하는 경우도 있음
+
+## Structure
 
 ![Untitled](Untitled%2031.png)
 
