@@ -100,50 +100,55 @@ void main() {
 }
 ```
 
-## What?
+## Adaptability
 
-Replace subclasses with dynamically generated method calls.
+1. 조건문 및 분기 로직을 줄이고 싶을 때
+   - 복잡한 조건문이 많아지는 경우 이를 각 Selector로 캡슐화하여 가독성을 높일 수 있음.
+2. 동적으로 선택 로직을 변경해야 할 때
+   - 실행 중에 다른 선택 기준으로 교체해야 하는 시스템.
+3. 다양한 선택 기준이 추가될 가능성이 있는 경우
+   - 새로운 선택 기준이 필요할 때 기존 코드에 영향을 주지 않고 새로운 Selector만 추가.
+4. 테스트 가능한 코드가 필요할 때
+   - 각 선택 로직을 별도의 클래스로 캡슐화하면 단위 테스트 작성이 쉬워짐.
 
-## Why?
+## Pros
 
-If we have a large number of subclasses that each implement a single method, the overhead involved in maintaining the code can outweigh the benefit of separating them.
+1. 가독성과 유지보수성 향상
+   - 조건문과 분기를 없애고 로직을 캡슐화하여 코드의 명확성을 높임.
+2. 확장성
+   - 새로운 선택 기준을 추가해도 기존 코드를 수정할 필요 없음(Open/Closed Principle 준수).
+3. 동적 변경 가능
+   - 실행 중에도 선택 로직을 자유롭게 교체 가능.
+4. 테스트 용이성
+   - 각 Selector를 독립적으로 테스트할 수 있어 테스트가 쉬움.
 
-```ruby
-class Person
-  def greeting
-    raise NotImplementedError
-  end
-end
+## Cons
 
-class EnglishSpeaker < Person
-  def greeting
-    'Hello!'
-  end
-end
+1. 추가 클래스 증가:
+   - 각 선택 기준마다 새로운 Selector 클래스를 만들어야 하므로 클래스 수가 많아질 수 있음.
+2. 복잡성 증가:
+   - 간단한 선택 작업에 적용할 경우 오히려 코드가 복잡해질 수 있음.
+3. 초기 설계 비용:
+   - 패턴을 도입하고 구조를 잡는 데 추가적인 시간과 노력이 필요.
 
-class FrenchSpeaker < Person
-  def greeting
-    'Bonjour!'
-  end
-end
-```
+## Relationship with other patterns
 
-## How?
+### Similarity
 
-By dynamically constructing our method call based on the desired type, we limit the area in which our changes must take place and the system is easier to maintain and comprehend.
+#### [[Strategy Pattern]]
 
-```ruby
-class Person
-  def greet(language)
-    send "#{language}_greeting"
-  end
+둘 다 객체의 동작을 캡슐화하여 변경 가능하게 설계하지만, Pluggable Selector Pattern은 선택 로직에 초점을 맞춤.
 
-  def english_greeting
-    'Hello!'
-  end
+#### [[State Pattern]]
 
-  def french_greeting
-    'Bonjour!'
-  end
-end
-```
+State Pattern은 상태에 따라 객체의 동작을 변경하며, Pluggable Selector Pattern은 선택 기준에 따라 데이터를 처리.
+
+### Difference
+
+#### [[Factory Pattern]]
+
+Factory Pattern은 객체 생성에 초점, Pluggable Selector Pattern은 동적으로 선택 로직을 변경하는 데 초점.
+
+#### [[Decorator Pattern]]
+
+Decorator Pattern은 기존 객체에 추가 기능을 덧붙이는 데 사용되지만, Pluggable Selector Pattern은 로직의 “선택” 부분을 교체.
