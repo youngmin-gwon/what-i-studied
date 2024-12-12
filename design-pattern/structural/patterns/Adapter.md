@@ -52,17 +52,21 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 
 - Dart는 multiple inheritance를 지원하지 않음
 - object adapter는 runtime에 연결되기 때문에 더욱 유연하다(=loosely-coupled) ⇒ SOLID 원칙 중 Liskov substitution 원칙에 부합함
-    - class adapter 는 쉽게 override 만 하면 된다는 장점이 있음
+  - class adapter 는 쉽게 override 만 하면 된다는 장점이 있음
 
 ![Untitled](Untitled%204.png)
 
-- 적용성
+## Adaptability
+
     - 기존 클래스를 사용하고 싶지만 인터페이스가 나머지 코드와 호환되지 않을 때 사용
     - 상위 클래스에 추가할 수 없는 몇 가지 공통 기능이 없는 여러 기존 하위 클래스를 재사용하려는 경우 패턴을 사용
-- 장점
+
+## Pros
+
     - Single Responsibility Principle
     - Open/Closed Principle
-- 단점
+
+## Cons
     - 새로운 인터페이스와 클래스를 추가해야하기 때문에 코드 복잡도 증가
         - 때로는 service 클래스를 쉽게 변경하는 것이 더 간단할 때도 있음
 - 다른 패턴과의 관계
