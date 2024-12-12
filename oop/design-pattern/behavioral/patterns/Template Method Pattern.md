@@ -2,19 +2,16 @@
 
 ## Description
 
-- Behavioral design pattern
+[[Behavioral Pattern]]
 
 ![Untitled](Untitled%205.png)
 
 - 알고리즘의 구조를 바꾸지 않고 하위 클래스들이 알고리즘의 몇몇 단계를 재정의하게 함
-
 - 불변하는 알고리즘의 전체 틀을 기준으로 세부사항을 다양하게 만들고자 할 때 사용하게 됨
-
 - 코드 재사용을 위한 핵심적인 기술 → DRY Principle (Don't Repeat Yourself)
   - 여러 단계로 구성된 알고리즘(데이터 가져오기 → 처리 → 계산 결과 제공)이 있을 때 어떤 경우 요구사항은 "3rd-party API로 데이터 가져오기 → 데이터 처리 → 콘솔창에 계산 결과 제공" 일 수 있고, 또 다른 경우 "내장 파일로 데이터 가져오기 → 데이터 처리 → 이메일로 계산 결과 제공" 일 수 있음
   - **세부정보는 다르지만 전체 알고리즘 구조는 같다**: "데이터 가져오기 → 처리 → 계산결과 제공"
   - 이러한 경우 template method 는 유용함 : 각 단계 세부 정보는 변경 할 수 있지만 전체 구조는 지켜야 함
-
 - **변하지 않는 기능은 슈퍼 클래스에 만들어 두고** **자주 변경하며 확장할 기능은 서브 클래스에 만드는 방식**으로 구동
 
 ## Structure
@@ -24,9 +21,7 @@
 ### Structure Description
 
 - AbstractClass: 알고리즘의 뼈대를 설명하는 templateMethod 포함. primitive operations 나 AbstractClass 혹은 다른 객체들에 정의된 operations 을 호출함
-
 - ConcreteClass: 변하지 않는 알고리즘 단계를 구현하기 위해 AbstractClass에 의존
-
 - Template Method 기능 타입들
   - primitive operations : 하위 클래스에서 반드시 구현되어야 하는 추상 함수. default implementation 을 제공하고 필요한 경우 하위 클래스에서 재정의 될 수 있는 concrete operations.
   - final operations: 하위 클래스에 의해 override 될 수 없는 concrete operations
@@ -44,10 +39,10 @@
 - Template method 는 high-level component로 간주됨 → clients 나 알고리즘의 concrete operations 가 template method에 의해 호출된다는 의미
   - abstraction은 details에 의존하면 안되고, details가 abstractions에 의존해야함 ⇒ Dependency Inversion principle in SOLID
 
-- 적용
-    
-    ![template_method.png](template_method.png)
-    
+## Adaption Example
+
+![template_method.png](template_method.png)
+
 ## Adaptability
 
 - 알고리즘의 특정 단계만 확장하고 전체 알고리즘이나 해당 구조는 확장하지 않도록 할 때 사용
