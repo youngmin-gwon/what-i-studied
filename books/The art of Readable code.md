@@ -800,8 +800,10 @@ connect(/* timeout_ms = */ 10, /* use_encryption = */ false);
         - 당신이 적어도 18세라면
         - 18년이 당신의 나이보다 작거나 같다면
         - 둘 중 첫 번째가 자연스럽다
-2. if/else 블록의 순서
-    - 다음 두 가지 중 어떤 코드 블럭을 선택하여 작성해야하는가
+
+#### 2. if/else 블록의 순서
+
+다음 두 가지 중 어떤 코드 블럭을 선택하여 작성해야하는가
         
         ```dart
         if (a == b) {
@@ -818,15 +820,15 @@ connect(/* timeout_ms = */ 10, /* use_encryption = */ false);
         	// 두 번째 경우
         }
         ```
-        
-    - 다음과 같은 규칙을 참고하라
-        
-        1) 부정이 아닌 긍정을 다루어라. 즉, if(!debug) 보다 if(debug)를 선호하자
-        
-        2) 간단한 것을 먼저 처리하라. 이렇게 하면 동시에 같은 화면에 if와 else 구문을 나타낼 수도 있다
-        
-        3) 더 흥미롭고, 확실한 것을 먼저 다루어라
-        
+
+다음과 같은 규칙을 참고하라
+
+```plaintext
+1) 부정이 아닌 긍정을 다루어라. 즉, if(!debug) 보다 if(debug)를 선호하자
+2) 간단한 것을 먼저 처리하라. 이렇게 하면 동시에 같은 화면에 if와 else 구문을 나타낼 수도 있다
+3) 더 흥미롭고, 확실한 것을 먼저 다루어라
+```
+
     - 때때로 이러한 규칙이 서로 충돌을 일으켜 판단해야할 경우의 예시
         
         ```dart
@@ -863,89 +865,100 @@ connect(/* timeout_ms = */ 10, /* use_encryption = */ false);
         	
         # 이런 경우 상세 내용을 따지고 난 이후 판단을 내려야 함
         ```
-        
-3. (삼항 연산자로 알려진)?:를 이용하는 조건문 표현
-    - 줄 수를 최소화 하는 일보다 다른 사람이 코드를 읽고 이해하는데 걸리는 시간을 최소화 하는 일이 더 중요함
-    - 간단하지 않은 코드를 삼항연산자로 바꾸는 것은 모든 것을 한줄에 쓰기 ‘모든 것을 한줄에 쓰기’ 그 이상 아무것도 아니다
-    - 기본적으로 if/else 를 사용하라. ?: 를 이용하는 삼항 연산은 매우 간단한 경우에만 사용해야 한다
-    - 예시
-        
-        ```dart
-        // 삼항 연산자가 적합한 경우
-        time_str += (hour >= 12) ? "pm":"am";
-        
-        // 이런경우는 매우 삼가하라
-        // return exponent >= 0 ? mantissa * (1 << exponent) : mantissa / (1 << exponent);
-        ```
-        
-4. do/while 루프를 피하라
-    - do while문 문법은 조건이 먼저 눈에 띄지 않기 때문에 에러와 혼동의 원인이 되는 경우가 많다
-        
-        ```dart
-        // do while 문의 문제점
-        /// 과연 다음 문장은 몇번 반복되는 것인가?
-        do {
-        	continue;
-        } while(false);
-        
-        /// 1번
-        
-        /// 이런식으로 do while 문은 혼란을 가중 시킨다
-        ```
-        
-        ```dart
-        // before
-        /// node 부터 리스트를 검색하여 주어진 'name'을 찾는다
-        /// 'max_length' 이상의 노드는 고려하지 않는다
-        bool listHasNode(Node node, String name, int max_length){
-        	do {
-        		if (node.name.equals(name)){
-        			return true;
-        		}
-        		node = node.next();
-        	} while (node != null && --max_length > 0);
-        
-        	return false;
+
+#### 3. (삼항 연산자로 알려진)?:를 이용하는 조건문 표현
+
+줄 수를 최소화 하는 일보다 다른 사람이 코드를 읽고 이해하는데 걸리는 시간을 최소화 하는 일이 더 중요함
+
+간단하지 않은 코드를 삼항연산자로 바꾸는 것은 모든 것을 한줄에 쓰기 ‘모든 것을 한줄에 쓰기’ 그 이상 아무것도 아니다
+
+기본적으로 if/else 를 사용하라. ?: 를 이용하는 삼항 연산은 매우 간단한 경우에만 사용해야 한다
+
+예시
+
+```dart
+// 삼항 연산자가 적합한 경우
+time_str += (hour >= 12) ? "pm":"am";
+
+// 이런경우는 매우 삼가하라
+// return exponent >= 0 ? mantissa * (1 << exponent) : mantissa / (1 << exponent);
+```
+
+#### 4. do/while 루프를 피하라
+
+do while문 문법은 조건이 먼저 눈에 띄지 않기 때문에 에러와 혼동의 원인이 되는 경우가 많다
+
+```dart
+// do while 문의 문제점
+/// 과연 다음 문장은 몇번 반복되는 것인가?
+do {
+    continue;
+} while(false);
+
+/// 1번
+
+/// 이런식으로 do while 문은 혼란을 가중 시킨다
+```
+
+```dart
+// before
+/// node 부터 리스트를 검색하여 주어진 'name'을 찾는다
+/// 'max_length' 이상의 노드는 고려하지 않는다
+bool listHasNode(Node node, String name, int max_length) {
+    do {
+        if (node.name.equals(name)){
+            return true;
         }
-        /// 아래에 있는 조건에 따라서 다시 실행될 수도 있다.
-        /// 일반적으로 논리적 조건은 그것을 감싸는 것 위에 놓이는 것이 자연스럽다.
-        /// 코드를 두번 읽어야 하기 때문이다.
-        
-        // after
-        bool listHasNode(Node node, String name, int max_length){
-        	while (node != null && max_length-- > 0) {
-        		if (node.name.equals(name)){
-        			return true;
-        		}
-        		node = node.next();
-        	}
-        	return false;
+        node = node.next();
+    } while (node != null && --max_length > 0);
+
+    return false;
+}
+/// 아래에 있는 조건에 따라서 다시 실행될 수도 있다.
+/// 일반적으로 논리적 조건은 그것을 감싸는 것 위에 놓이는 것이 자연스럽다.
+/// 코드를 두번 읽어야 하기 때문이다.
+
+// after
+bool listHasNode(Node node, String name, int max_length) {
+    while (node != null && max_length-- > 0) {
+        if (node.name.equals(name)){
+            return true;
         }
-        ```
-        
-5. 함수 중간에서 반환하기
-    - 어떤 프로그래머는 한 함수에서 반환하는 곳이 여러 곳이면 안된다고 주장함
-        - 함수 끝부분에서 실행되는 cleanup 코드의 호출을 보장하려는 의도
-        - 현대 언어는 cleanup 코드를 실행시키는 더 정교한 방법을 제공
-        
-        | 언어         | 클린업 코드를 위한 관용적 구조 |
-        | ------------ | ------------------------------ |
-        | C++          | destructors                    |
-        | Java, Python | try finally                    |
-        | Python       | with                           |
-        | C#           | using                          |
-        - 순수한 C 언어는 함수를 반환할 때 특정한 코드를 실행시키는 방법을 제공. 따라서 함수가 기다란 코드의 중간부분에서 반환될 수 있도록 작성되어 있으면, 반환되는 지점 다음에 위치한 클린업 코드는 실행되지 않는다는 문제가 있음
-            - 이러한 경우는 함수를 리팩토링하거나 goto cleanup 같은 명령을 신중하게 사용하는 등의 별도의 방법을 취해야함
-    - 이 책에서는 함수 중간에 반환하는 것이 완전히 허용되어야 한다고 함 ⇒ ‘보호장치’ 역할을 하기 때문
-    - 예시
-        
-        ```dart
-        bool contains(String str, String substr) { 
-        	if (str == null || substr == null) return false;
-        	if (substr == "") return true;
-        	...
-        }
-        ```
+        node = node.next();
+    }
+    return false;
+}
+```
+
+#### 5. 함수 중간에서 반환하기
+
+어떤 프로그래머는 한 함수에서 반환하는 곳이 여러 곳이면 안된다고 주장함
+
+- 함수 끝부분에서 실행되는 cleanup 코드의 호출을 보장하려는 의도
+- 현대 언어는 cleanup 코드를 실행시키는 더 정교한 방법을 제공
+
+| 언어         | 클린업 코드를 위한 관용적 구조 |
+| ------------ | ------------------------------ |
+| C++          | destructors                    |
+| Java, Python | try finally                    |
+| Python       | with                           |
+| C#           | using                          |
+
+순수한 C 언어는 함수를 반환할 때 특정한 코드를 실행시키는 방법을 제공. 따라서 함수가 기다란 코드의 중간부분에서 반환될 수 있도록 작성되어 있으면, 반환되는 지점 다음에 위치한 클린업 코드는 실행되지 않는다는 문제가 있음
+
+- 이러한 경우는 함수를 리팩토링하거나 goto cleanup 같은 명령을 신중하게 사용하는 등의 별도의 방법을 취해야함
+
+이 책에서는 함수 중간에 반환하는 것이 완전히 허용되어야 한다고 함 ⇒ ‘보호장치’ 역할을 하기 때문
+
+예시
+
+```dart
+bool contains(String str, String substr) {
+    if (str == null || substr == null) return false;
+    if (substr == "") return true;
+    ...
+}
+```
 
 #### 6. 악명높은 goto
 
@@ -987,11 +1000,11 @@ reply.done();
 ```dart
 // 원래 코드
 if (user_result == "SUCCESS"){
-	reply.writeErrors("");
+    reply.writeErrors("");
 } else {
-	reply.writeErrors(user_result);
+    reply.writeErrors(user_result);
 }
-reply.Done();
+reply.done();
 
 // 원래 이렇게 단순 했음
 ```
@@ -999,68 +1012,67 @@ reply.Done();
 ```dart
 // 두번째 동작을 추가 => 일리가 있지만 복잡해짐
 if (user_result == "SUCCESS"){
-	if (permission_result != "SUCCESS") {
-		reply.writeErrors("error reading permissions");
-		reply.done();
-		return;
-	}
-	reply.writeErrors("");
+    if (permission_result != "SUCCESS") {
+        reply.writeErrors("error reading permissions");
+        reply.done();
+        return;
+    }
+    reply.writeErrors("");
 }
-
 /// 누군가 다른 사람이 나중에 이 코드를 읽으면, 앞에서 살펴본 종류의 문맥은 모두 사라지게 됨.
 ```
 
-    - 수정해야 하는 상황이라면 작성한 코드를 새로운 관점에서 바라보아야 함. 뒤로 한걸음 물러서서 코드 전체를 보라.
-    
-    (1) 함수 중간에서 반환하여 중첩을 제거하라
-    
-    - ‘실패한 경우’들을 최대한 빠르게 처리하고 함수에서 반환하여 제거할 수 있다
-    - 앞의 코드 수정
-        
-        ```dart
-        if (user_result != "SUCCESS"){
-        	reply.writeErrors(user_result);
-        	reply.done();
-        	return;
+수정해야 하는 상황이라면 작성한 코드를 새로운 관점에서 바라보아야 함. 뒤로 한걸음 물러서서 코드 전체를 보라.
+
+##### (1) 함수 중간에서 반환하여 중첩을 제거하라
+
+‘실패한 경우’들을 최대한 빠르게 처리하고 함수에서 반환하여 제거할 수 있다
+
+앞의 코드 수정
+
+```dart
+if (user_result != "SUCCESS"){
+    reply.writeErrors(user_result);
+    reply.done();
+    return;
+}
+
+if (permission_result != "SUCCESS") {
+    reply.writeErrors(permission_result);
+    reply.done();
+    return;
+}
+
+reply.writeErrors("");
+reply.done();
+```
+
+##### (2) 루프 내부에 있는 중첩 제거하기
+
+루프 내부에 중첩된 코드가 있을 때는 반환할 수 없음
+
+다음과 같은 방법으로 처리
+
+```dart
+// before
+for (int i=0; i < results.size; i++) {
+    if (results[i] != null) {
+        non_null_count++;
+        if (results[i].name != "") {
+            ...
         }
-        
-        if (permission_result != "SUCCESS") {
-        	reply.writeErrors(permission_result);
-        	reply.done();
-        	return;
-        }
-        
-        reply.writeErrors("");
-        reply.done();
-        ```
-        
-    
-    (2) 루프 내부에 있는 중첩 제거하기
-    
-    - 루프 내부에 중첩된 코드가 있을 때는 반환할 수 없음
-    - 다음과 같은 방법으로 처리
-        
-        ```dart
-        // before
-        for (int i=0; i < results.size; i++){
-        	if (results[i] != null){
-        		non_null_count++;
-        		if (results[i].name != ""){
-        			...
-        		}
-        	}
-        }
-        
-        // after
-        for (int i=0; i < results.size; i++){
-        	if (results[i] == null) continue;
-        	non_null_count++;
-        
-        	if (results[i].name == "") continue;
-        	...
-        }
-        
-        ```
+    }
+}
+
+// after
+for (int i=0; i < results.size; i++) {
+    if (results[i] == null) continue;
+    non_null_count++;
+
+    if (results[i].name == "") continue;
+    ...
+}
+```
 
 #### 8. 실행 흐름을 따라올 수 있는가?
 
