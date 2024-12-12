@@ -3,5 +3,6 @@
   "showLineNumber": true,
   "attachmentFolderPath": "_assets",
   "showUnsupportedFiles": true,
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "tabSize": 2
 }
