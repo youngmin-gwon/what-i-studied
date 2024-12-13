@@ -22,7 +22,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2019.png)
+![Untitled](../../../../_assets/oop/Untitled%2019.png)
 
 1. Context
     - 현재 상태를 가리키는 ConcreteState 인스턴스를 보관

@@ -44,7 +44,7 @@
 
 ### 1. Productivity
 
-[Dart Common Front End](../_assets/flutter/dart_cfe.jpg)
+![Dart Common Front End](../_assets/flutter/dart_cfe.jpg)
 
 - Dart는 Multi-Paradigm Modern 언어 이기 때문에 다른 주류언어로 부터 빠르게 적응할 수 있고, 생산성을 위한 중요 기능이 많음
   - Multi-Paradigm: scripting, OOP, functional
