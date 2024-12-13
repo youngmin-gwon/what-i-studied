@@ -11,10 +11,14 @@
             "id": "e3cb19f340295c89",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "flutter/flutter platform channels.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "flutter platform channels"
             }
           }
         ]
@@ -174,6 +178,8 @@
   },
   "active": "e3cb19f340295c89",
   "lastOpenFiles": [
+    "mindmap/clean_code/clean-code-2.md",
+    "flutter/flutter platform channels.md",
     "oop/design-pattern/behavioral/patterns/Command Pattern.md",
     "oop/design-pattern/behavioral/patterns/Chain of Responsibility Pattern.md",
     "_assets/oop/cor_structure.png",
@@ -182,7 +188,6 @@
     "_assets/oop/cor_overview.png",
     "oop/design-pattern/behavioral/Behavioral Pattern.md",
     "flutter/flutter under the hood.md",
-    "flutter/flutter platform channels.md",
     "flutter/flutter navigator 2.md",
     "flutter/flutter.md",
     "flutter/flutter key.md",
@@ -207,7 +212,6 @@
     "docker/docker commands.md",
     "git/git commit convetion.md",
     "git/gitignore pattern.md",
-    "git/gitignore Pattern.md",
     ".git/objects/34/2dc0fc918c63c056859e548280cfbcea108d36",
     ".git/objects/14/f74b60a6b2020a1ec06045aec6e978ef578136",
     ".git/objects/cf/1c3ed4962ec39eacd8f8abaaed995d45cd3529",
