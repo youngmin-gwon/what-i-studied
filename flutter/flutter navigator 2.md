@@ -1,5 +1,7 @@
 # Navigator 2
 
+#flutter, #concept, #navigator
+
 ## Overlay Widget
 
 특별한 형태의 Stack Widget
@@ -11,7 +13,8 @@
 `OverlayEntry` 의 `builder` 라는 field에 widget을 제공하여 `Overlay` Widget에 자식 Widget을 제공한다
 
 `Overlay` 위젯에 `OverlayEntry` 자식을 추가하거나 제거하는 경우, widget tree 에서 가장 가까운 `Overlay` 를 찾아야 한다
-  - 대부분의 경우 가장 가까운 `Overlay` 는 `Navigator` widget 에 의해 생성됨
+
+- 대부분의 경우 가장 가까운 `Overlay` 는 `Navigator` widget 에 의해 생성됨
 
 ```dart
 void showValueIndicator() {
@@ -31,8 +34,7 @@ void showValueIndicator() {
 }
 ```
 
-
-## Navigator Widget 
+## Navigator Widget
 
 대부분 widget tree 최상단에 위치함
 
@@ -42,7 +44,7 @@ stack 자료형 방법을 이용하여 route들을 관리함
 
 `Navigator` widget 이 관리하는 entry
 
-`2 가지 종류`의 `Route`. 1. 화면 전체를 변경, 2. 이전 route 위에 덮어버리는 Popup 
+`2 가지 종류`의 `Route`. 1. 화면 전체를 변경, 2. 이전 route 위에 덮어버리는 Popup
 
 `Route`는 widget이 아님을 유의
 
@@ -72,7 +74,7 @@ declarative API 에서 `Page` 라는 것을 소개함
 
 Navigation stack은 `Page` 객체들의 순서를 이용해서 만듫어짐
 
-`Navigator` 객체는 `Page`의 `Key` 값을 이용하여 `Page`의 값이 기존 widget tree에 있는 것과 같은지 다른지 판별함 
+`Navigator` 객체는 `Page`의 `Key` 값을 이용하여 `Page`의 값이 기존 widget tree에 있는 것과 같은지 다른지 판별함
 `Key` 값이 다르거나, `Page` 가 아직 stack list 에 없다면 `Page`의 `createRoute` 메소드를 호출
 
 ## RouteInormation Class
@@ -80,6 +82,7 @@ Navigation stack은 `Page` 객체들의 순서를 이용해서 만듫어짐
 `Route` 에 대한 정보를 가지고 있는 클래스
 
 2가지 field: `location`, `state`
+
 - `location`: === URL string
 - `state`: 해당 `Route` 에 대한 상태를 보관
 
@@ -88,6 +91,7 @@ Navigation stack은 `Page` 객체들의 순서를 이용해서 만듫어짐
 `Navigator`를 감싸고 navigation 기록을 사용자 상호작용에 따라 변화시킴
 
 `Router` 은 자신의 일을 구성요소들에게 할당함
+
 - `RouterDelegate`
 - `RouteInformationParser`
 - `RouteInformationProvider`
@@ -106,7 +110,8 @@ listenable 하게 만들기 위해 `ChangeNotifier` mixin 을 구현한 것
 listener 들에게 알리고 난 후, `build()` method를 호출함 => `Navigator` 를 반환함
 
 `Router` widget이 pop 요청을 받는 경우, `RouterDelegate` 의 `popRoute` 를 호출하므로 역할을 대신하게 함
-- `RouterDelegate`을 만들 때, `PopNavigatorRouterDelegateMixin` 을 구현할 수도 있는데, 이렇게 하면 `Router` 의 `popRoute`가 `Navigator` 의 `maybePop` 를 호출하게 됨 
+
+- `RouterDelegate`을 만들 때, `PopNavigatorRouterDelegateMixin` 을 구현할 수도 있는데, 이렇게 하면 `Router` 의 `popRoute`가 `Navigator` 의 `maybePop` 를 호출하게 됨
   - `RouteDelegate` 에 `popRoute` 를 구현할 필요 없음. 대신 `onPopPage` callback 제공해야함
 
 Navigation의 `심장` 같은 역할을 함  => 없으면 존재할 수 없음
@@ -125,7 +130,7 @@ Navigation의 `팔` 같은 역할을 함 => 없어도 살 수 있지만 불편�
 
 OS intents 로 부터 route 정보를 생성함
 
-e.g.) Web browser address bar에 URL 입력하면 정보를 해석해서 `Router` widget이 내부적으로 쓰는 entity 로 전달함 
+e.g. Web browser address bar에 URL 입력하면 정보를 해석해서 `Router` widget이 내부적으로 쓰는 entity 로 전달함
 
 Navigation의 `입,귀` 같은 역할을 함 => `Router`의 `귀`처럼 새로운 정보를 해석하고, `Router`의 `입` 처럼 변경된 route 정보를 OS에 전달함
 

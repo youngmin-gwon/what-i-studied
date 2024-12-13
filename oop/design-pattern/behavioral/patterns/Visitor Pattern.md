@@ -4,7 +4,7 @@
 
 ## Description
 
-![Untitled](Untitled%2058.png)
+![Untitled](../../../../_assets/oop/Untitled%2058.png)
 
 - 알고리즘을 알고리즘을 실행하는 객체로 부터 분리하는 패턴
 - 개체 구조의 요소에 대해 수행할 작업을 나타냄
@@ -17,7 +17,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2059.png)
+![Untitled](../../../../_assets/oop/Untitled%2059.png)
 
 1. ***Visitor***
     - ConcreteElement를 파라미터로 가질 수 있는 일련의 방문 메소드를 선언하는 인터페이스

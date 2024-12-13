@@ -4,9 +4,9 @@
 
 ## Description
 
-![Untitled](Untitled%2060.png)
+![Untitled](../../../../_assets/oop/Untitled%2060.png)
 
-![Untitled](Untitled%2061.png)
+![Untitled](../../../../_assets/oop/Untitled%2061.png)
 
 - Intermediary/Controller 라고 불리기도 함
 - 상호작용 로직을 객체로부터 분리하고, Mediator라는 컨트롤러에 이동시켜, 상호 교류하는 객체들간의 의존성을 줄여주는 패턴
@@ -21,7 +21,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2062.png)
+![Untitled](../../../../_assets/oop/Untitled%2062.png)
 
 1. Mediator
    - 컴포넌트들과 상호작용하기 위한 인터페이스 정의

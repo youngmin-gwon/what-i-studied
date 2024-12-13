@@ -1,4 +1,6 @@
-## Flutter Framework
+# flutter framework under the hood
+
+## flutter framework
 
 - 모두 이해하는데 많은 시간이 걸림
 - 우선 최고의 performance를 위해 무엇을 optimization 해야하는지 이해하자
@@ -55,7 +57,7 @@
 
 | Widgets   | Elements | Render Object |
 | --------- | -------- | ------------- |
-| immutable | mutable  | mutable              |
+| immutable | mutable  | mutable       |
 
 ![Flutter Tree](flutter_tree.png)
 
@@ -482,7 +484,7 @@ buildOwner.finalizeTree();
 	-   rebuild 메소드는 performRebuild 메소드를 호출함
 		-   element마다 구현이 다르기 때문에 흥미로운 메소드
 			-   RenderObjectElement에서는 RenderObject 업데이트
-			-   ComponentElement 에서는 build(StatlessWidget, StatefulWidget 이 가지고 있는 그것)
+			-   ComponentElement 에서는 build(StatelessWidget, StatefulWidget 이 가지고 있는 그것)
 	
 	![Element.performRebuild](flutter_element_perform_rebuild.png)
 	- Element.updateChild에 보내는 widget을 리턴

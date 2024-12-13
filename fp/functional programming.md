@@ -1,10 +1,14 @@
+# Function Programming
+
+#functional-programming
+
 ## Motive
 
 > keep the computation and business logic pure and free from side effects.
 
 All of the API calls, database transactions and stuff with side effects move towards the external layer of the application
 
-## Mathmetical Functions
+## Mathematical Functions
 
 In Mathematics, functions are mappers i.e., they map inputs to outputs
 
@@ -12,40 +16,42 @@ In Mathematics, functions are mappers i.e., they map inputs to outputs
 
 > A function defined for all its inputs
 
-![[total_fn.png]]
+![total_fn](../_assets/functional-programming/total_fn.png)
 
 ### Partial Function
 
 > A function that is not defined for some of its inputs
 
-![[partial_fn.png]]
+![partial_fn.png](../_assets/functional-programming/partial_fn.png)
 
 ## Pure function
 
 > A function that is deterministic(always giving same output) and has no side effects.
 
-1. deterministic
+### Feature 1: deterministic
 
-- giving always same output
+giving always same output
 
 ```dart
 void main() {
-	final _result = doubleValue(5);
-	assert(_result == 10);
+  final _result = doubleValue(5);
+  assert(_result == 10);
 }
 
 int doubleValue(int value) => value*2;
 ```
 
-2. has no side effect
-- not dealing with external states
+### Feature 2: has no side effect
+
+not dealing with external states
 
 has side effect
+
 ```dart
 void main() {
-	greetImpure();
-	name = "Bob";
-	greetImpure();
+  greetImpure();
+  name = "Bob";
+  greetImpure();
 }
 
 String name = "John";
@@ -54,16 +60,18 @@ void greetImpure() => "Hello, $name";
 ```
 
 has no side effect
+
 ```dart
 void main() {
-	greet("John");
-	greet("Bob");
+  greet("John");
+  greet("Bob");
 }
 
 void greetImpure(String name) => "Hello, $name";
 ```
 
 more example
+
 ```dart
 DateTime getDateTime() => DateTime.now(); // impure
 
@@ -72,9 +80,9 @@ int add(int a, int b) => a+b; // pure
 int getRandomNumber() => Random().nextInt(100); // impure
 
 int? double2(int value) {
-	if (value == 1) return 2;
-	if (value == 2) return 4;
-	if (value == 3) return 6;
+  if (value == 1) return 2;
+  if (value == 2) return 4;
+  if (value == 3) return 6;
 } // total, pure
 
 int counter = 0;
@@ -88,14 +96,14 @@ num totalDivide(int dividend, int divider) => dividend / divider;
 num partialDivide(int dividend, int divider) => dividend ~/ divider;
 ```
 
-#### benefits
+### Benefits
 
 1. pure function is easy to unit-test
 2. the chances of unexpected bugs reduce
 3. pure function provides caching mechanisms that help in reducing heavy computation
 4. pure function is easy to parallelize
 
-#### referential transparency
+### Referential transparency
 
 > a function call can be reduced by its return value and not affect the rest of the program
 
@@ -104,12 +112,15 @@ another way to determine if a function is pure
 ## Difference between parameter and argument
 
 ### Parameter
+
 > part of function declaration
 
 ### Argument
+
 > values passed to function
 
 ## Arity
+
 > the number of arguments a function takes
 
 ```dart
@@ -130,27 +141,27 @@ bool isOdd(int number) => number %2 == 1;// arity: 1(unary), predicate function(
 typedef IntCallback = int Function(int number);
 
 void main() {
-	final _firstFnResult = _firstFunction();
-	_firstFnResult();
+ final _firstFnResult = _firstFunction();
+ _firstFnResult();
 
-	final _increment = add(1);
-	print(_increment(2));
+ final _increment = add(1);
+ print(_increment(2));
 }
 
 Function _firstFunction() {
-	final _someValue = 'First function scope';
+ final _someValue = 'First function scope';
 
-	void _secondFunction() {
-		print(_someValue);
-	}
+ void _secondFunction() {
+  print(_someValue);
+ }
 
-	return _secondFunction;
+ return _secondFunction;
 }
 
 IntCallback add(int a) {
-	return (int b) {
-		return a+b;
-	}
+ return (int b) {
+  return a+b;
+ }
 }
 ```
 
@@ -170,11 +181,11 @@ The `add` function above needs two arguments in series to return the result, bu
 
 ```dart
 void main() {
-	const _numbers = [1,2,3,4,5];
-	// not point free
-	final result1 = _numbers.map((e)=>increment(e)).toList();
-	// point free
-	final results = _numbers.map(increment).toList();
+ const _numbers = [1,2,3,4,5];
+ // not point free
+ final result1 = _numbers.map((e)=>increment(e)).toList();
+ // point free
+ final results = _numbers.map(increment).toList();
 }
 
 int increment(int number) => number+1;
@@ -186,10 +197,10 @@ int increment(int number) => number+1;
 
 ```dart
 void main(List‹String> args) {
-	// Non curried
-	print(greet('Hello', 'Noah')); // Hello Noah
-	// Curried
-	print(curriedGreet('Hello')('Noah')); // Hello Noah
+ // Non curried
+ print(greet('Hello', 'Noah')); // Hello Noah
+ // Curried
+ print(curriedGreet('Hello')('Noah')); // Hello Noah
 }
 
 String greet(String salutation, String name) = '$salutation $name*';
@@ -198,9 +209,9 @@ typedef StringCallback = String Function(String name);
 
 // to nested? consider packages like dartz, fpdart
 StringCallback curriedGreet(String salutation) {
-	return (String name) {
-		return '$salutation $name';
-	}
+ return (String name) {
+  return '$salutation $name';
+ }
 }
 ```
 
@@ -221,7 +232,7 @@ The matematical notation: `f.g`
 Programming notation: `f(g(x))`
 
 ```dart
-Function compose(Function f, Fuction g) => (x) => f(g(x));
+Function compose(Function f, Function g) => (x) => f(g(x));
 ```
 
 the order of execution for compositions is right to left(g => f)
@@ -230,11 +241,11 @@ the order of execution for compositions is right to left(g => f)
 import 'package:dartz/dartz.dart';
 
 void main(List<String> args) {
-	final _shout = compose(exclaim,toUpper);
-	print(_shout('Ouch! that hurts')); // "OUCH! THAT HURTS!"
-	// Dartz
-	final _shout2 = composeF<String, String, String>(exclaim, toUpper);
-	print(_shout2( 'Ouch! that hurts')); // "OUCH! THAT HURTS!"
+ final _shout = compose(exclaim,toUpper);
+ print(_shout('Ouch! that hurts')); // "OUCH! THAT HURTS!"
+ // Dartz
+ final _shout2 = composeF<String, String, String>(exclaim, toUpper);
+ print(_shout2( 'Ouch! that hurts')); // "OUCH! THAT HURTS!"
 }
 
 String topper(String value) = value.toUpperCase();
@@ -243,14 +254,15 @@ String exclaim(String value) = '$value!';
 Function compose(Function f, Function g) => (x) => f(g(x));
 ```
 
-Flutter framework is one of the best example that demonstrate the power of composition. 
+Flutter framework is one of the best example that demonstrate the power of composition.
+
 ```dart
 // if you want to add some decoration, combine the widget with a [DecoratedBox]
 
 ...
 DecoratedBox(
-	decoration:BoxDecoration(...),
-	child: someWidget,
+ decoration:BoxDecoration(...),
+ child: someWidget,
 ),
 ...
 ```
@@ -261,18 +273,18 @@ FP has similar an utility called pipe like composition. The only difference is t
 
 ```dart
 void main(List<String> args) {
-	final _compose = compose(doubler, increment);
-	final _pipe = pipe(doubler, increment);
-	print(_compose (10)); // 22
-	print(_pipe(10)); // 21
+ final _compose = compose(doubler, increment);
+ final _pipe = pipe(doubler, increment);
+ print(_compose (10)); // 22
+ print(_pipe(10)); // 21
 }
 
 int increment(int value) = value + 1;
 int doubler(int value) = value * 2;
 
-// Order of compositon is from right to left.
+// Order of composition is from right to left.
 Function compose(Function f, Function g) =>(x) => f(g(x));
-// Order of compositon is from left to right.
+// Order of composition is from left to right.
 Function pipe(Function f, Function g) => (x) => g(f(x));
 ```
 
@@ -289,9 +301,11 @@ Function pipe(Function f, Function g) => (x) => g(f(x));
 Both value cannot be modified after being set
 
 ### final
+
 > `final` variable is evaluated at runtime
 
 ### const
+
 > `const` variable is compile-time constant and is implicitly final
 
 ## Why prefer immutability
@@ -304,37 +318,38 @@ Both value cannot be modified after being set
 
 > Instead of changing values, create of a copy of the instance we need to access and use it
 
-ex) copyWith()
+eg. copyWith()
 
 ```dart
 void main(List<String> args) {
-	final user = User(name: 'John', age: 18);
-	print(_user); // User(name; 'John', age: 18)
-	final _newUser = _user. copyWith(age: 20);
-	print(_newUser); // User(name: 'John', age: 20)
+ final user = User(name: 'John', age: 18);
+ print(_user); // User(name; 'John', age: 18)
+ final _newUser = _user. copyWith(age: 20);
+ print(_newUser); // User(name: 'John', age: 20)
 }
 
 class User {
-	final String name;
-	final int age;
+ final String name;
+ final int age;
 
-	const User({required this.name, required this.age});
+ const User({required this.name, required this.age});
 
-	User copywith({ 
-		String? name,
-		int? age,
-	}) =>
-		User(
-			name: name ?? this. name,
-			age: age ?? this.age,
-		);
+ User copyWith({
+  String? name,
+  int? age,
+ }) =>
+  User(
+   name: name ?? this. name,
+   age: age ?? this.age,
+  );
 
-	@override
-	String toString() = 'User(name: $name, age: $age)';
+ @override
+ String toString() = 'User(name: $name, age: $age)';
 }
 ```
 
 ### Immutable lists, Maps
+
 ```dart
 void main() {
   final _finalList = [1, 2, 3];
@@ -377,14 +392,14 @@ void main() {
 
 ```dart
 void main(List<String> args) {
-	final _recursiveSumResult = _recursiveSum(5);
-	print(_recursiveSumResult); // 15
+ final _recursiveSumResult = _recursiveSum(5);
+ print(_recursiveSumResult); // 15
 }
 
 // recursion is declarative then iteration
 int _recursiveSum(int number) {
-	if (number = 0) return 0;
-	return number + _recursiveSum(number - 1);
+ if (number = 0) return 0;
+ return number + _recursiveSum(number - 1);
 }
 ```
 
@@ -417,27 +432,28 @@ It is possible when functions are treated as first-class citizens.
 ```dart
 const _arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 void main(List<String> args) {
-	// Imperative approach
-	final _result = <int>[];
-	for (final element in _arr) { 
-		if (element.¡sEven) {
-			_result.add(element) ;
-		}
-	}
+ // Imperative approach
+ final _result = <int>[];
+ for (final element in _arr) {
+  if (element.¡sEven) {
+   _result.add(element) ;
+  }
+ }
 
-	print (_result); // [2, 4, 6, 8, 10]
-	// Declarative approach; where in Dart lists
-	final _result2 = _arr.where((element) => element.isEven). tolist () ;
-	print(_result2); // [2, 4, 6, 8, 10]
-	// Declarative approach: Functional API
-	final _evens = filter<int>(isEven, _arr);
-	print(_evens); // [2, 4, 6, 8, 10]
-	final _odds = filter<int>(isodd, _arr);
-	print(_odds); // [1, 3, 5, 7, 9]
+ print (_result); // [2, 4, 6, 8, 10]
+ // Declarative approach; where in Dart lists
+ final _result2 = _arr.where((element) => element.isEven).toList() ;
+ print(_result2); // [2, 4, 6, 8, 10]
+ // Declarative approach: Functional API
+ final _evens = filter<int>(isEven, _arr);
+ print(_evens); // [2, 4, 6, 8, 10]
+ final _odds = filter<int>(isOdd, _arr);
+ print(_odds); // [1, 3, 5, 7, 9]
 }
 bool isEven(int number) = number % 2 = 0;
 bool isOdd(int number) = !isEven(number);
 ```
+
 ### higher order functions: map
 
 > The map works the same way as a filter, except that instead of taking a predicate function, it takes a mapper function, applies it to each element from the list, and returns a new list.
@@ -447,31 +463,31 @@ import '../utilities/utilities.dart';
 
 const _arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-	void main(List<String> args) {
-	
-	// Imperative approach
-	
-	final _result = <int>[];
-	
-	for (final element in _arr) {
-	
-		_result.add(element * 2);
-	
-	}
-	
-	print(_result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-	
-	// Declarative approach: map method in Dart lists
-	
-	final _result2 = _arr.map((element) => element * 2).toList();
-	
-	print(_result2); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-	
-	// Declarative approach: Functional API
-	
-	final _doubles = map<int>(doubleIt, _arr);
-	
-	print(_doubles); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+ void main(List<String> args) {
+ 
+ // Imperative approach
+ 
+ final _result = <int>[];
+ 
+ for (final element in _arr) {
+ 
+  _result.add(element * 2);
+ 
+ }
+ 
+ print(_result); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+ 
+ // Declarative approach: map method in Dart lists
+ 
+ final _result2 = _arr.map((element) => element * 2).toList();
+ 
+ print(_result2); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+ 
+ // Declarative approach: Functional API
+ 
+ final _doubles = map<int>(doubleIt, _arr);
+ 
+ print(_doubles); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
 }
 

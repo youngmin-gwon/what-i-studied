@@ -4,13 +4,13 @@
 
 ## Description
 
-![Untitled](Untitled%2017.png)
+![Untitled](../../../../_assets/oop/Untitled%2017.png)
 
 - 객체의 내부 상태가 바뀌었을 때 행동을 바꿀 수 있게 해주는 패턴
 - 상태 전이를 위한 조건 로직이 지나치게 복잡한 경우 이를 해소하기 위한 방법
 - Finite-state machine을 이해해야 아이디어를 이해할 수 있음
 
-![Untitled](Untitled%2018.png)
+![Untitled](../../../../_assets/oop/Untitled%2018.png)
 
 - Jira 예시
 - task가 들어갈 수 있는 유한한 상태가 있음

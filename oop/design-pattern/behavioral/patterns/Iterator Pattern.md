@@ -4,7 +4,7 @@
 
 ## Description
 
-![Untitled](Untitled%2024.png)
+![Untitled](../../../../_assets/oop/Untitled%2024.png)
 
 - 컬렉션 구현 방법을 노출시키지 않으면서도 그 집합체안에 들어있는 모든 항목을 순회 접근할 수 있게 해 주는 방법을 제공해 주는 패턴
   - 무언가 많이 모여 있는 것을 하나씩 지정해서 순서대로 처리하는 패턴
@@ -12,7 +12,7 @@
 
 ## Examples
 
-![Untitled](Untitled%2025.png)
+![Untitled](../../../../_assets/oop/Untitled%2025.png)
 
 - 며칠 동안 로마를 방문하여 주요 명소와 명소를 모두 방문할 계획입니다. 그러나 일단 거기에 가면 콜로세움조차 찾을 수 없는 원을 그리며 걷는 데 많은 시간을 낭비할 수 있습니다.
 - 반면에 스마트폰용 가상 가이드 앱을 구입하여 내비게이션에 사용할 수 있습니다. 그것은 똑똑하고 저렴하며 원하는만큼 흥미로운 장소에 머물 수 있습니다.
@@ -21,7 +21,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2026.png)
+![Untitled](../../../../_assets/oop/Untitled%2026.png)
 
 1. IterableCollection
    - Iterator를 생성하기 위한 인터페이스

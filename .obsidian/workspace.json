@@ -11,10 +11,14 @@
             "id": "de94ac38fbb95296",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "oop/design-pattern/behavioral/patterns/Command Pattern.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Command Pattern"
             }
           }
         ]
@@ -174,6 +178,26 @@
   },
   "active": "de94ac38fbb95296",
   "lastOpenFiles": [
+    "oop/design-pattern/behavioral/patterns/Chain of Responsibility Pattern.md",
+    "_assets/oop/cor_structure.png",
+    "_assets/oop/cor_example_2.png",
+    "_assets/oop/cor_example_1.png",
+    "_assets/oop/cor_overview.png",
+    "oop/design-pattern/behavioral/Behavioral Pattern.md",
+    "flutter/flutter under the hood.md",
+    "flutter/flutter platform channels.md",
+    "flutter/flutter navigator 2.md",
+    "flutter/flutter.md",
+    "flutter/flutter key.md",
+    "flutter/dart asynchrony.md",
+    "fp/functional programming.md",
+    "fp",
+    "_assets/functional-programming/functional programming.md",
+    "_assets/functional-programming/total_fn.png",
+    "_assets/functional-programming/partial_fn.png",
+    "_assets/functional-programming/Concept.md",
+    "_assets/functional-programming",
+    "interview/questions I need to ask.md",
     "interview/Flutterd.md",
     "interview/Flutter.md",
     "interview/flutter.md",
@@ -187,19 +211,6 @@
     "git/git commit convetion.md",
     "git/gitignore pattern.md",
     "git/gitignore Pattern.md",
-    "docker/docker command.md",
-    "docker/docker_.md",
-    "docker/docker.md",
-    "docker/rrrr.md",
-    "docker/Docker.md",
-    "git/git.md",
-    "git/git cconvetion.md",
-    "git/git Convetion.md",
-    "git/git convetion.md",
-    "git/git commands.md",
-    "git/githooks.md",
-    "git/Git 협업.md",
-    "git/Git 원리.md",
     ".git/objects/34/2dc0fc918c63c056859e548280cfbcea108d36",
     ".git/objects/14/f74b60a6b2020a1ec06045aec6e978ef578136",
     ".git/objects/cf/1c3ed4962ec39eacd8f8abaaed995d45cd3529",
@@ -208,17 +219,9 @@
     ".git/AUTO_MERGE",
     ".git/objects/3c/e886d5a8fd67dff28c8c38a4398cc6545c8e25",
     ".git/objects/a5/d81a9808aa9edac77857d660caeba30efd9d0f",
-    ".git/objects/d9/f46d451aee6d26ecb2d30a06ca355aa1878190",
-    ".git/objects/6f/320fffff2cb60bac90ff617705f3e9d4cdd411",
     "_assets/books/code_complete_2.png",
     "_assets/algorithm/python_type_layer.png",
     "_assets/algorithm/interview-process.png",
-    "_assets/books/dip.png",
-    "_assets/flutter/reactive_paradigm.png",
-    "_assets/books/ocp_2.png",
-    "_assets/books/ocp_0.png",
-    "_assets/books/isp_1.png",
-    "_assets/books/isp_0.png",
-    "_assets/books/isp.png"
+    "_assets/books/dip.png"
   ]
 }

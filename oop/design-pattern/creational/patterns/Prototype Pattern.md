@@ -4,9 +4,9 @@
 
 ## Description
 
-![Untitled](Untitled%2037.png)
+![Untitled](../../../../_assets/oop/Untitled%2037.png)
 
-![Untitled](Untitled%2038.png)
+![Untitled](../../../../_assets/oop/Untitled%2038.png)
 
 - 원형이 되는 인스턴스를 사용하여 생성할 객체의 종류를 명시하고, 이렇게 만든 견본 인스턴스를 복사하여 새로운 객체를 생성하는 패턴
 - 클래스에 의존하지 않고, 객체를 복사할 수 있음
@@ -24,7 +24,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2039.png)
+![Untitled](../../../../_assets/oop/Untitled%2039.png)
 
 1. Prototype
    - 스스로를 복제하는 interface 선언

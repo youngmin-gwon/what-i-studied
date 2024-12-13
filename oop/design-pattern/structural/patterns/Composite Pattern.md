@@ -2,9 +2,9 @@
 
 #oop, #design-pattern, #structural-pattern
 
-![Untitled](Untitled%208.png)
+![Untitled](../../../../_assets/oop/Untitled%208.png)
 
-![Untitled](Untitled%209.png)
+![Untitled](../../../../_assets/oop/Untitled%209.png)
 
 - 부분으로 전체 계층을 표현하도록 tree structure 로 객체를 구성하는 패턴
 - 객체와 객체 구성을 동일하게 사용하게 만들어주는 패턴
@@ -15,7 +15,7 @@
     - leaf : child가 하나도 없는 node
     - composite : 하나 이상의 child를 가지는 node
 
-![Untitled](Untitled%2010.png)
+![Untitled](../../../../_assets/oop/Untitled%2010.png)
 
 - Flutter 의 "Everything is a widget" 의 아이디어와 같음 (widget 의 child로 widget을 가질 수 있음)
 - 패턴
@@ -23,17 +23,17 @@
   - Leaf : 구조의 leaf 객체. child 를 가지지 않음. 객체의 행동 정의.
   - Composite : children을 저장 하고 children과 관련된 행동 정의. leaf에 각자 일을 할당하고, 중간 결과를 처리한 후 client에 마지막 결과를 전달하는 역할을 함.
 
-![Untitled](Untitled%2011.png)
+![Untitled](../../../../_assets/oop/Untitled%2011.png)
 
 - 객체의 "부분으로서 전체" 구조를 만들거나, 객체 구성의 차이를 무시하고 싶을 때 사용
 - 해당 구조를 적용할만한 대상을 찾는게 어려움 ⇒ 어떠한 객체 그룹을 발견했을 때 해당 패턴을 적용할 수 있는지 검토해보는 것이 좋음
 - 예제
 
-![Untitled](Untitled%2012.png)
+![Untitled](../../../../_assets/oop/Untitled%2012.png)
 
 - 폴더 안에 파일, 폴더 모두 존재할 수 있고, 하위 폴더는 또 다시 폴더, 파일 모두 존재할 수 있는 구조
 
-![Untitled](Untitled%2013.png)
+![Untitled](../../../../_assets/oop/Untitled%2013.png)
 
 - 적용성
   - tree 같은 객체 구조를 구현할 때 사용

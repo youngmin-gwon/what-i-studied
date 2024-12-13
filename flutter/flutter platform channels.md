@@ -1,5 +1,7 @@
 # Platform Channel: Native Platform 과 연결하는 방법
 
+#flutter, #concept, #platform-channel
+
 ## 1. MethodChannel
 
 `RPC` 처럼 1회성 요청을 사용할 때 사용
@@ -28,7 +30,7 @@ class MainActivity: FlutterActivity() {
           val rand = Random.nextInt(100)
           result.success(rand)
         }
-        // named arguments 있는 경우 
+        // named arguments 있는 경우
         else if (call.method == "getRandomStringWithNamedArguments") {
           val limit = call.argument("len") ?: 4
           val prefix = call.argument("prefix") ?: ""
@@ -296,4 +298,3 @@ class _ChannelScreenState extends State<ChannelScreen> {
   }
 }
 ```
-

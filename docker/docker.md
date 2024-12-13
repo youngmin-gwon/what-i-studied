@@ -27,7 +27,7 @@
 
 ## Architecture
 
-![Docker Architecture](https://raw.githubusercontent.com/youngmin-gwon/what-i-studied/main/assets/docker_architecture.svg)
+![Docker Architecture](../_assets/docker/docker_architecture.svg)
 
 ### 1. docker daemon
 

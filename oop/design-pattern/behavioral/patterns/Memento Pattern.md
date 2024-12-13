@@ -4,7 +4,7 @@
 
 ## Description
 
-![Untitled](Untitled%2035.png)
+![Untitled](../../../../_assets/oop/Untitled%2035.png)
 
 - 캡슐화를 위반하지 않고, 객체의 상태를 외부에 snapshot으로 저장하고, 필요에 의하여 원하는 시점의 데이터를 복원할 수 있는 패턴
 - 다음 예시 상황을 참고
@@ -32,7 +32,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2036.png)
+![Untitled](../../../../_assets/oop/Untitled%2036.png)
 
 1. Memento
    - concrete memento의 fields에 접근을 제한하는 인터페이스

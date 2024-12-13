@@ -4,9 +4,9 @@
 
 ## Description
 
-![Untitled](Untitled%2049.png)
+![Untitled](../../../../_assets/oop/Untitled%2049.png)
 
-![Untitled](Untitled%2050.png)
+![Untitled](../../../../_assets/oop/Untitled%2050.png)
 
 - construction과 representation을 분리하여, 같은 construction process가 여러가지 representation을 만들 수 있게 하는 패턴
 - 주 목적: 생성 과정(logic)이 복잡한 객체(data)를 분리하려는 목적
@@ -21,7 +21,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2051.png)
+![Untitled](../../../../_assets/oop/Untitled%2051.png)
 
 1. Builder
     - Product의 부분들을 만들기 위한 모든 종류의 Builder의 interface를 가지고  있는 추상 인터페이스

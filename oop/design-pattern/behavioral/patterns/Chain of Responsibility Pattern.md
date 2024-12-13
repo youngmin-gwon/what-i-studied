@@ -4,7 +4,7 @@
 
 ## Description
 
-![Untitled](Untitled%2054.png)
+![Untitled](../../../../_assets/oop/cor_overview.png)
 
 - 일련의 핸들러를 따라 요청을 전달할 수 있는 패턴
 - 요청을 받으면 각 핸들러는 요청을 처리할지 아니면 체인의 다음 핸들러로 전달할지 결정
@@ -17,7 +17,7 @@
 - 시스템이 비대해져가면서 비밀번호 brute force 어택을 막기 위한 기능, 요청에 대한 validation, 같은 요청에 대해 cache를 반환하는 기능이 필요할수도 있다.
 - 이 상태에서 또 다른 기능을 추가하면 로직은 복잡해진다. 하나를 변경할 때 다른 기능에 영향을 줄 수도 있고, 만약 이 기능들중 일부분의 기능이 다른 기능구현에 필요하다면 중복코드가 발생한다. 이렇게 되면 시스템을 관리하며 유지보수하기가 매우 힘들어진다
 
-![Untitled](Untitled%2055.png)
+![Untitled](../../../../_assets/oop/cor_example_1.png)
 
 ### Solution
 
@@ -28,7 +28,7 @@
 - 요청 추가/제거/재정렬/처리순서 변경 할 수 있음
 - 여러 종류의 요청을 다양한 방식으로 처리할 것이 예상되지만, 요청이나 처리 순서가 컴파일 타임에 정해지지 않는 경우 사용 해야함
 
-![Untitled](Untitled%2056.png)
+![Untitled](../../../../_assets/oop/cor_example_2.png)
 
 ## Cautions
 
@@ -37,7 +37,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2057.png)
+![Untitled](cor_structure.png)
 
 1. ***Handler***
     - 요청을 처리하기 위한 인터페이스 정의

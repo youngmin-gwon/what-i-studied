@@ -4,7 +4,7 @@
 
 ## Description
 
-![Untitled](Untitled%2063.png)
+![Untitled](../../../../_assets/oop/Untitled%2063.png)
 
 - Dependents/Publish-Subscribe 라고 불리기도 함
 - Reactive Programming 아이디어가 어떻게 차용되었는지 확인할 수 있는 패턴
@@ -28,7 +28,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2064.png)
+![Untitled](../../../../_assets/oop/Untitled%2064.png)
 
 1. ***Publisher(Subject)***
     - Subscriber를 붙이고 때는 interface 제공

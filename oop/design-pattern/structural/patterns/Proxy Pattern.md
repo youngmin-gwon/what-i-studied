@@ -4,9 +4,9 @@
 
 ## Description
 
-![Untitled](Untitled%2040.png)
+![Untitled](../../../../_assets/oop/Untitled%2040.png)
 
-![Untitled](Untitled%2041.png)
+![Untitled](../../../../_assets/oop/Untitled%2041.png)
 
 - 다른 객체에 대한 접근을 제어하기 위한 역할
 
@@ -35,7 +35,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2042.png)
+![Untitled](../../../../_assets/oop/Untitled%2042.png)
 
 1. ServiceInterface
     - Service와 Proxy를 위한 인터페이스 정의

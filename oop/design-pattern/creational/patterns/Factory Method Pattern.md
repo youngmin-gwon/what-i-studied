@@ -4,14 +4,14 @@
 
 ## Description
 
-![Untitled](Untitled%2027.png)
+![Untitled](../../../../_assets/oop/Untitled%2027.png)
 
 - = Virtual Constructor
 - 객체를 만드는 인터페이스를 제공하지만, 서브클래스에서 어떤 클래스를 초기화 할지 정하는 패턴
 
 ## Structure
 
-![Untitled](Untitled%2028.png)
+![Untitled](../../../../_assets/oop/Untitled%2028.png)
 
 - Creator
   - Product 객체를 반환하는 Factory Method 정의

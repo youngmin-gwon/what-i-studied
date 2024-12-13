@@ -4,7 +4,7 @@
 
 ## Description
 
-![Untitled](Untitled%2052.png)
+![Untitled](../../../../_assets/oop/Untitled%2052.png)
 
 - 각 객체의 모든 데이터를 보관하는 대신 여러 개체 간에 공통된 state를 공유하여 RAM을 적개 사용하는 패턴
   - 성능 최적화를 위한 패턴
@@ -19,7 +19,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2053.png)
+![Untitled](../../../../_assets/oop/Untitled%2053.png)
 
 1. ***Flyweight***
     - Intrinsic state를 포함하는 곳

@@ -11,7 +11,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2023.png)
+![Untitled](../../../../_assets/oop/Untitled%2023.png)
 
 1. AbstractExpression
     - 추상 구문 트리에 속한 모든 노드에 해당하는 클래스들이 공통으로 가져야 할 `interpret()`연산을 추상 연산으로 정의

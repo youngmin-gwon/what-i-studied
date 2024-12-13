@@ -4,9 +4,9 @@
 
 ## Description
 
-![Untitled](Untitled%2014.png)
+![Untitled](../../../../_assets/oop/Untitled%2014.png)
 
-![Untitled](Untitled%2015.png)
+![Untitled](../../../../_assets/oop/Untitled%2015.png)
 
 - 알고리즘 집단을 만들고, 각각을 캡슐화 한 후, 집단의 각각을 교환가능하게 만드는 것이 목적
 - 가장 실용적인 디자인 패턴 중 하나
@@ -17,7 +17,7 @@
   - Payment strategies : 각각의 결제 방법을 클래스로 만들고 사용자의 선택에 따라 알고리즘 수행
   - Damage calculation in RPG : 각기 다른 동작에 따라 데미지를 계산하는 알고리즘이 있고 각 공격의 문맥에 따라 다른 데미지를 계산하는 알고리즘을 적용
 
-![Untitled](Untitled%2016.png)
+![Untitled](../../../../_assets/oop/Untitled%2016.png)
 
 ## Structure
 

@@ -88,7 +88,7 @@ void printNames(List<String> names) {
 }
 ```
 
-- $O(n*log(n))$ (Quasi-Linar Time Complexity)
+- $O(n*log(n))$ (Quasi-Linear Time Complexity)
   - 큰 데이터 세트에서는 "kind of" linear time
   - 적어도 모든 수에 대해 한번 이상은 비교해야 하는 비교 기반 정렬 알고리즘은 아무리 좋은 알고리즘도 $O(n*log(n))$ 보다 빠를 수 없음
   - 입력값이 최선인 경우, 비교를 건너뛰어 $O(n)$ 이 될 수도 있음

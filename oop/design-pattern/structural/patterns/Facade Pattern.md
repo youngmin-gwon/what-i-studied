@@ -4,15 +4,15 @@
 
 ## Description
 
-![Untitled](Untitled%2020.png)
+![Untitled](../../../../_assets/oop/Untitled%2020.png)
 
-![Untitled](Untitled%2021.png)
+![Untitled](../../../../_assets/oop/Untitled%2021.png)
 
 - 복잡한 API나 하위시스템의 함수 묶음을 모은 간단한 인터페이스 제공
 - 클라이언트가 하위 시스템과 소통하기 위해서는 퍼사드만 이용하면 된다
 - 클라이언트와 하위 시스템간의 의존성을 줄여줌
 
-![Untitled](Untitled%2022.png)
+![Untitled](../../../../_assets/oop/Untitled%2022.png)
 
 - Facade
   - 어떤 하위시스템 클래스가 요청에 연관되어 있는지 알고, 요청을 하위시스템에 할당하는 역할을 함

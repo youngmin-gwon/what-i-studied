@@ -4,11 +4,11 @@
 
 ## Description
 
-![Untitled](adapter_overview.png)
+![Untitled](../../../../_assets/oop/adapter_overview.png)
 
-![Untitled](adapter_before.png)
+![Untitled](../../../../_assets/oop/adapter_before.png)
 
-![Untitled](adapter_after.png)
+![Untitled](../../../../_assets/oop/adapter_after.png)
 
 다른 인터페이스 클라이언트가 기대하는대로 인터페이스를 변환함
 
@@ -52,7 +52,7 @@ Github에 작성한 예시에서 object implementation 을 사용한 이유
 - object adapter는 runtime에 연결되기 때문에 더욱 유연하다(=loosely-coupled) ⇒ [[SOLID]] 원칙 중 [[LSP(Liskov substitution principle)]] 원칙에 부합함
   - class adapter 는 쉽게 override 만 하면 된다는 장점이 있음
 
-![Untitled](adapter_impl.png)
+![Untitled](../../../../_assets/oop/adapter_impl.png)
 
 ## Adaptability
 

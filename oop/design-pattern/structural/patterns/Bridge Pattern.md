@@ -4,9 +4,9 @@
 
 ## Description
 
-![Untitled](Untitled%2046.png)
+![Untitled](../../../../_assets/oop/Untitled%2046.png)
 
-![Untitled](Untitled%2047.png)
+![Untitled](../../../../_assets/oop/Untitled%2047.png)
 
 - 구현부에 추상적인 부분을 분리하여 독립적으로 다양성을 가질 수 있도록 함
   - 추상과 구현 사이에 다리를 연결하여 각각 따로 발전시킨 두 가지를 연결해준다
@@ -31,7 +31,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2048.png)
+![Untitled](../../../../_assets/oop/Untitled%2048.png)
 
 1. ***Abstraction***
     - ***Refined abstraction***을 위한 interface 정의

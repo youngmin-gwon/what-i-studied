@@ -4,9 +4,9 @@
 
 ## Description
 
-![Untitled](Untitled%2043.png)
+![Untitled](../../../../_assets/oop/Untitled%2043.png)
 
-![Untitled](Untitled%2044.png)
+![Untitled](../../../../_assets/oop/Untitled%2044.png)
 
 - 객체에 동적으로 새로운 책임을 추가할 수 있게 해주는 패턴
 - decorator는 각각 서로 독립적이므로 다양한 동작을 구현하기 위해 추가하고 합쳐질 수 있음

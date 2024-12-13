@@ -4,9 +4,9 @@
 
 ## Description
 
-![Untitled](Untitled%2029.png)
+![Untitled](../../../../_assets/oop/Untitled%2029.png)
 
-![Untitled](Untitled%2030.png)
+![Untitled](../../../../_assets/oop/Untitled%2030.png)
 
 - concrete class를 구체화 하지 않고 관계있는 혹은 의존적인 객체들의 군집을 만들기 위한 인터페이스 제공
 - 객체 군집을 만드는 것을 캡슐화 ⇒ 객체 생성을 추상화 하게 됨
@@ -33,7 +33,7 @@
 
 ## Structure
 
-![Untitled](Untitled%2031.png)
+![Untitled](../../../../_assets/oop/Untitled%2031.png)
 
 1. Abstract Factory
     - abstract product를 생성하는 interface 선언

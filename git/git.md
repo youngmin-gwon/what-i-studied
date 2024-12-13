@@ -41,14 +41,14 @@ HEAD와 Index는 파일과 내용을 효율적인 형태로 .git 디렉토리에
 
 워킹 디렉토리는 실제 파일로 존재하기 때문에 사용자가 편집하기 수월함
 
-![[../_assets/git/git-1.png]]
+![git process 1](../_assets/git/git-1.png)
 
-![[../_assets/git/git-2.png]]
+![git process 2](../_assets/git/git-2.png)
 
-![[../_assets/git/git-3.png]]
+![git process 3](../_assets/git/git-3.png)
 
-![[../_assets/git/git-4.png]]
+![git process 4](../_assets/git/git-4.png)
 
-![[../_assets/git/git-5.png]]
+![git process 5](../_assets/git/git-5.png)
 
-![[../_assets/git/git-6.png]]
+![git process 6](../_assets/git/git-6.png)

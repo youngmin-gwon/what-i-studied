@@ -44,6 +44,8 @@
 
 ### 1. Productivity
 
+[Dart Common Front End](../_assets/flutter/dart_cfe.jpg)
+
 - Dart는 Multi-Paradigm Modern 언어 이기 때문에 다른 주류언어로 부터 빠르게 적응할 수 있고, 생산성을 위한 중요 기능이 많음
   - Multi-Paradigm: scripting, OOP, functional
     - Modern: lambda, type checker, generic class, type inference
@@ -52,8 +54,6 @@
   - code 가 줄어들고 declarative 하게 만들어줌
 - language compiler frontend가 개발에 유용한 기능을 제공
   - Analyzer, Language Server
-
-[Dart Common Front End](../_assets/flutter/dart_cfe.jpg)
 
 ### 2. Fast
 
@@ -96,7 +96,7 @@
 
 ## Flutter는 어떻게 동작하는가?
 
-- Flutter 내부 설명 참고: [[Flutter-Under the hood]]
+- Flutter 내부 설명 참고: [[flutter under the hood]]
 
 ## StatelessWidget vs. StatefulWidget
 
@@ -365,7 +365,7 @@ class Logger {
 
 ## Isolates?
 
-- Isolate에 대한 설명 참고: [[Dart#Isolate]]
+- Isolate에 대한 설명 참고: [[dart asynchrony##Isolate]]
 
 ## main() vs. runApp()
 
@@ -389,7 +389,7 @@ class Logger {
 
 ## BLoC Pattern?
 
-- Business Logic Compoent의 줄임말
+- Business Logic Component의 줄임말
 - State, Event, Bloc 을 하나의 구성으로 하여 Presentation Layer의 UI가 상태에 따라 표현할 수 있는 UI 나타내는 패턴
 
 ## How is Flutter native?
