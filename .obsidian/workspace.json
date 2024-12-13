@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "9215f3ef8e2d0e27",
+        "id": "82acf0abcb595f55",
         "type": "tabs",
         "children": [
           {
-            "id": "de94ac38fbb95296",
+            "id": "e3cb19f340295c89",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "oop/design-pattern/behavioral/patterns/Command Pattern.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Command Pattern"
+              "title": "New tab"
             }
           }
         ]
@@ -176,8 +172,9 @@
       "3d-graph:3D Graph": false
     }
   },
-  "active": "de94ac38fbb95296",
+  "active": "e3cb19f340295c89",
   "lastOpenFiles": [
+    "oop/design-pattern/behavioral/patterns/Command Pattern.md",
     "oop/design-pattern/behavioral/patterns/Chain of Responsibility Pattern.md",
     "_assets/oop/cor_structure.png",
     "_assets/oop/cor_example_2.png",

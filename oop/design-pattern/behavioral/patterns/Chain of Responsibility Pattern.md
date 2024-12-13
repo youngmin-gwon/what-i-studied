@@ -37,7 +37,7 @@
 
 ## Structure
 
-![Untitled](cor_structure.png)
+![Untitled](../../../../_assets/oop/cor_structure.png)
 
 1. ***Handler***
     - 요청을 처리하기 위한 인터페이스 정의
