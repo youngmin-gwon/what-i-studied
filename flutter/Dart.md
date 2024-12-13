@@ -1,19 +1,25 @@
-# Platforms
-# Runtime
-# Compiler
----
-# Asynchrony
+# Dart
 
-## Dart: Isolates and Event Loops
+## Platforms
+
+## Runtime
+
+## Compiler
+
+## Asynchrony
+
+### Dart: Isolates and Event Loops
+
 - **Dart**는 **Single-threaded language** 이다
-	- 하지만 이 말은 병렬로 코드를 수행할수 없다는 의미가 아니다
+  - 하지만 이 말은 병렬로 코드를 수행할수 없다는 의미가 아니다
 - 현대 언어는 Modern, Asynchronous, Reactive 한 방법을 제공해야한다
 - 그렇다면 어떻게 Future, Stream을 지원하는가?
-	- Isolate이 Dart의 Asynchrony를 가능하게 함
-	- isolate이라는 이름은 runtime이 다른 isolate들을 메모리 공간에서 철저하게 분리하기 때문에 붙은 이름
-		- race condition을 막기 위함
+  - Isolate이 Dart의 Asynchrony를 가능하게 함
+  - isolate이라는 이름은 runtime이 다른 isolate들을 메모리 공간에서 철저하게 분리하기 때문에 붙은 이름
+    - race condition을 막기 위함
 
-### Isolate
+#### Isolate
+
 - 모든 Dart 코드가 구동되는 곳
 - 각각의 isolate은 각각 독립적인 event queue와 operation을 가짐
 - Memory 일부를 할당한 곳
@@ -32,12 +38,14 @@
 		- isolate 안에서의 memory allocation, garbage collection은 locking을 요구하지 않는다(main isolate이 바쁘지 않다면 mutating하지 않기 때문에, 오직 하나의 thread만 가지고 있기 때문)
 		- Flutter app은 많은 widget을 빠르게 쌓거나, 쪼개야할 일이 많기 때문에 잘 맞음
 
-### Synchrony
+#### Synchrony
+
 - 각각의 isolate은 한번에 하나의 연산만 수행함 ⇒ synchrony
 - 긴 연산이 있으면 thread를 막아버릴 것이고, user interaction에 대응하거나 화면을 업데이트할 시간이 없기 때문에 사용자들이 사용하지 않을 것임
 - 해결하기 위한 방법은?
 
-### Thread 안에 있는 것
+#### Thread 안에 있는 것
+
 - Dart 앱이 실행되면 런타임이 격리된 스레드 프로세스를 만듬
 - 그 스레드를 위해 2개의 queue가 생성됨
 	1. microtasks를 위한 queue
@@ -48,7 +56,8 @@
 
 ![Dart Event Loop](dart_event_loop.png)
 
-### Microtasks
+#### Microtasks
+
 - 비동기적으로 실행되어야 하지만 이벤트 루프에 제어를 반환하기 전에 완료되어야 하는 매우 짧은 코드 작업을 위한 것
 - 이벤트보다 우선 순위가 높기 때문에 항상 이벤트 대기열이 확인되기 전에 처리됨
 - 일반적인 Flutter 또는 Dart 앱이 microtask queue에 코드를 추가하는 것은 비교적 드뭄
@@ -63,13 +72,15 @@ void updateState() {
   });
 }
 ```
+
 - scheduleMicrotask 안의 익명 콜백은 대기 중인 다른 microtask가 완료된 후 실행되지만 실행이 비동기식이기 때문에 updateState()가 반환된 후에도 실행됨
 - microtask의 콜백을 매우 짧고 빠르게 만드는게 매우 중요함
 - microtasks queue 는 events queue 보다 우선 순위가 높기 때문에 microtask 로 실행되는 긴 프로세스는 표준 이벤트가 처리되지 않도록 하여 처리가 완료될 때까지 애플리케이션이 응답하지 않을 수 있음
 - 대부분의 앱에서는 microtask로 문제를 겪지 않음
 	- event queue와 계속 상호 작용하기 때문에 event queue에서 문제를 겪을 가능성이 높음
 
-### Event
+#### Event
+
 - 더이상 microtask가 없을 때, event queue가 처리됨
 - 앱이 시작되고 끝나는동안 많은 event가 생성되고 처리됨
 	- User Input(taps, clicks, keypress)
@@ -78,7 +89,8 @@ void updateState() {
 	- Future
 	- Stream
 
-### Event Loop
+#### Event Loop
+
 - Dart의 async 코드를 가능하게 만들어주는 것
 - App의 Lifecycle에서 중간에 작은 이벤트들(ex. 디스크 IO, 사용자의 tab)은 언제 발생할지, 어떠한 순서로 발생할지 모르고, 이 모든 일을 막힘 없이 Single Thread로 해내야 한다
 	- 이러한 이유로 event loop을 구동한다
@@ -112,7 +124,8 @@ ElevatedButton(
 - 이 widget 뒤에 숨겨져 있는 것은 event stream임
 - onTap은 tap을 기다리고, Future은 network 데이터를 기다리지만, Dart 언어의 입장에서 이것들은 그냥 queue안의 이벤트중 하나일 뿐이다
 
-### Future
+#### Future
+
 - 다른 언어의 future 기능과 비슷함
 - data를 담고 있는 조그마한 선물 상자라고 생각하자
     - 선물 상자를 받아서, 선물 상자를 열고, 선물 상자 안에는 data나 error가 들어있음
@@ -120,14 +133,15 @@ ElevatedButton(
 - event loop를 만들고 사용하는 쉬운 방법을 제공하는 고수준 API
 - data 요청 process 이벤트가 event loop에 의해 처리 요청 한 후, event loop는 data가 올때 까지 대기하다, data event가 돌아오면 event loop에서 data event 처리
 - 패턴
+
 ```dart
 // 1. with callback
 http.get("<https://example.com>").then((response) {
   if (response.statusCode == 200) {
-	print("Response received.");
+    print("Response received.");
   }
   else {
-	print("Bad response.");
+    print("Bad response.");
   }
 }).catchError(() {
   print("Error!");
@@ -141,6 +155,7 @@ Future<String> getData() async {
   return response.body;
 }
 ```
+
 - try, catch, finally와 상응하는 .then(), .catchError(), .whenCompleted() 같은 callback이 있으므로 상황에 맞춰서 잘 사용해주면 된다
 - async: 함수안에 비동기 호출이 있을 때 함수에 사용하는 키워드
 - Flutter SDK는 FutureBuilder를 사용할수도 있다는 것도 알고 가자
@@ -205,13 +220,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 }
 ```
 
-### Completer
+#### Completer
+
 - Future을 만들고, 관리하게 해줌
 - asynchrony하지 않은 callback 라이브러리나 future로 동작하지 않는 지속연결 상황 같은 것과 소통하기 위해 사용할 수 있음
 - completer를 인스턴스화하면 이를 사용하여 API 호출자에게 future를 반환할 수 있으며, 긴 비동기 호출이 데이터나 오류를 반환하면 해당 future를 완료하여 결과를 전달할 수 있음
-1. 비동기 데이터를 비동기로 받지 않게 설계된 라이브러리의 경우
-	- 위의 사례와 각각의 callback(=onComplete, onError)에 completer를 연결하여 사용
-	- 이렇게 하므로 더욱 간단한 Future API를 설계할 수 있게 됨
+
+##### 1. 비동기 데이터를 비동기로 받지 않게 설계된 라이브러리의 경우
+
+- 위의 사례와 각각의 callback(=onComplete, onError)에 completer를 연결하여 사용
+- 이렇게 하므로 더욱 간단한 Future API를 설계할 수 있게 됨
 
 ```dart
 import 'dart:async';
@@ -231,26 +249,29 @@ Future<String> asyncQuery() {
   return completer.future;
 }
 ```
-2. 지속적인 연결로 메시지를 받는 경우
+
+##### 2. 지속적인 연결로 메시지를 받는 경우
+
 - socket 등 과 같이 지속 연결과 소통해야한다면, 요청을 보낸후 소켓 서버로 부터 응답을 기다리게 됨
-	- 언제 어떤 순서로 응답 혹은 에러가 도착할지 알 수 없음
+  - 언제 어떤 순서로 응답 혹은 에러가 도착할지 알 수 없음
 - completer와 future를 사용하여 UI 코드가 이러한 예측 불가능성을 인식하지 못하게 할 수 있음
 - 소켓이란?
-	- 서버와 클라이언트 간 통신을 위해 계속 지속되는 연결을 만드는 방법
-	- 서버와 클라이언트가 통신하기 위해서는 2가지 방법이 있음
-	1. Stateless Scenario
-		- REST API 같은 것들
-		- 클라이언트가 요청을 할 때, connection이 만들어지고, 요청이 끝나면 제거됨
-	2. Stateful Scenario
-		- Socket 같은 것들
-		- 서버와 클라이언트 간 통신을 위해 지속 연결을 만듬
-		- 인증은 오직 한번만 거치고, 이후 채널을 통해 자유롭게 소통함
+  - 서버와 클라이언트 간 통신을 위해 계속 지속되는 연결을 만드는 방법
+  - 서버와 클라이언트가 통신하기 위해서는 2가지 방법이 있음
+  1. Stateless Scenario
+     - REST API 같은 것들
+     - 클라이언트가 요청을 할 때, connection이 만들어지고, 요청이 끝나면 제거됨
+  2. Stateful Scenario
+     - Socket 같은 것들
+     - 서버와 클라이언트 간 통신을 위해 지속 연결을 만듬
+     - 인증은 오직 한번만 거치고, 이후 채널을 통해 자유롭게 소통함
+
 ```dart
 class SocketService {
   final _socketConnection = SomeSocketConnection();
   final Map<String, Completer<String>> _requests = {};
 
-	// socket이 request 받고 예약 처리
+  // socket이 request 받고 예약 처리
   Future<String> sendSocketMessage(String data) {
     final completer = Completer<String>();
     final requestId = getUniqueId();
@@ -267,7 +288,7 @@ class SocketService {
     return completer.future;
   }
 
-	// request 받은걸 확인하고 response 마무리
+  // request 받은걸 확인하고 response 마무리
   void _onSocketMessage(String json) {
     final decodedJson = jsonDecode(json);
     final requestId = decodedJson['id'];
@@ -281,7 +302,8 @@ class SocketService {
 }
 ```
 
-### Stream
+#### Stream
+
 - 순차적으로 전달되는 비동기 이벤트의 소스
 - 데이터 이벤트와 실패 알림인 오류 이벤트가 있음
 - 모든 데이터 요소가 내보내지면 stream이 완료되었음을 알리는 특수 이벤트가 모든 리스너에게 더 이상 데이터 요소가 없음을 알림
@@ -306,6 +328,7 @@ class SocketService {
 	- EventSink는 새로운 데이터를 Stream에 추가하기 위해 사용됨
 	- Stream Subscriber는 StreamSubscription 인스턴스로 구독을 관리할 수 있음
 - 주로 controller와 sink는 private으로 관리되고 stream은 노출시킨다
+
 ```dart
 import 'dart:async';
 
@@ -314,11 +337,13 @@ class MyDataService {
   Stream<String> get onNewData => _onNewData.stream;
 }
 ```
+
 - 다음과 같이 이해할 수도 있음
+
 | Sync     | Async  |
 | -------- | ------ |
 | Int      | Future |
-| Iterable | Stream | 
+| Iterable | Stream |
 
 ```dart
 void main(){
@@ -356,6 +381,7 @@ Future<String> getData() async {
 ```
 
 - .stream을 구독하기 위해서는 .listen() 메소드 사용
+
 ```dart
 void main(){
   var stream = Stream.fromIterable([1,2,3,4,5]);
@@ -526,7 +552,8 @@ void main() {
 
 ![Stream Controller](dart_stream_controller.png)
 
-### Asynchronous Generator: async*
+#### Asynchronous Generator: async*
+
 - Future에서 async 통해 비동기적으로 단일 값을 반환하도록 하는 방법처럼 Stream에서 값을 반환하는 방법
 - async*라고 선언하면 이는 generator function이라고 불리게 됨
 	- function이 단일 값이 아닌 복수의 값 시퀀스를 생성하는 기능자

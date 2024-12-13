@@ -1,3 +1,7 @@
+# tmux commands
+
+#tmux, #command
+
 ## open
 
 ```bash
@@ -7,6 +11,7 @@ tmux
 ## window
 
 __ctrl b__ + __c__ : create window
+
 __ctrl b__ + __&__ : close window
 
 __ctrl b__ + __,__ : edit window name
@@ -28,21 +33,25 @@ __ctrl b__ + __"__ : vertical split
 __ctrl b__ + __d__ : close tmux but leave session
 
 connect to the last session
+
 ```zsh
 tmux attach
 ```
 
 check tmux session list
+
 ```zsh
 tmux ls
 ```
 
 connect to the target session
+
 ```zsh
 tmux a -t $session_id
 ```
 
 rename session
+
 ```zsh
 tmux rename-session -t $session_id $new_session_name
 ```
@@ -50,6 +59,7 @@ tmux rename-session -t $session_id $new_session_name
 ## customization
 
 reload tmux configuration
+
 ```zsh
 tmux source-file ~/.tmux.conf
 ```

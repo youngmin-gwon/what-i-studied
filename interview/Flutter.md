@@ -1,5 +1,7 @@
 # Flutter interview question
 
+#flutter, #concept
+
 ## Flutter?
 
 - 단일 코드베이스에서 모바일, 웹 및 데스크톱용 클라이언트 애플리케이션을 만들기 위한 UI development framework
@@ -13,7 +15,7 @@
 
 ## Flutter Structure?
 
-![System Overview](flutter_system_overview.png)
+![System Overview](../_assets/flutter/flutter_system_overview.png)
 
 1. The framework level
    - flutter application을 작성할 때 사용하는 모든 것을 포함함
@@ -40,29 +42,38 @@
   3. Multi-platform: 다양한 플랫폼 지원
 - 이러한 사항들을 이루기 위해 Dart가 가지고 있었던 것들
 
-1. Productivity
-   - Dart는 Multi-Paradigm Modern 언어 이기 때문에 다른 주류언어로 부터 빠르게 적응할 수 있고, 생산성을 위한 중요 기능이 많음
-     - Multi-Paradigm: scripting, OOP, functional
-       - Modern: lambda, type checker, generic class, type inference
-       - feature: type inference
-   - UI as a code를 지원하게 만들어줌
-     - code 가 줄어들고 declarative 하게 만들어줌
-   - language compiler frontend가 개발에 유용한 기능을 제공
-     - Analyzer, Language Server
-[Dart Common Front End](dart_cfe.jpg)
+### 1. Productivity
 
-2. Fast
-   - 빠르게 UI 수정 가능하고 확인이 가능한지
-![Dart VM](dart_vm.jpg)
-     - CFE가 코드를 컴파일 하여 kernel files or blobs을 내놓으면 VM이 그것을 작동 시킴
-       - Runtime은 코드를 최대한 빠르게 동작할 수 있게 하기 위해 동작함
-![Dart VM](dart_jit_process.jpg)
-     - JIT 컴파일 시 변경한 사항만 빠르게 컴파일 해서 VM으로 보내줌 => hot reload 가능한 이유
-   - 빠른 성능 60 fps
-![Dart VM](jit-aot.jpg)
+- Dart는 Multi-Paradigm Modern 언어 이기 때문에 다른 주류언어로 부터 빠르게 적응할 수 있고, 생산성을 위한 중요 기능이 많음
+  - Multi-Paradigm: scripting, OOP, functional
+    - Modern: lambda, type checker, generic class, type inference
+    - feature: type inference
+- UI as a code를 지원하게 만들어줌
+  - code 가 줄어들고 declarative 하게 만들어줌
+- language compiler frontend가 개발에 유용한 기능을 제공
+  - Analyzer, Language Server
 
-3. Multi-platform
-![Dart VM](cross_compile.jpg)
+[Dart Common Front End](../_assets/flutter/dart_cfe.jpg)
+
+### 2. Fast
+
+- 빠르게 UI 수정 가능하고 확인이 가능한지
+
+![Dart VM](../_assets/flutter/dart_vm.jpg)
+
+- CFE가 코드를 컴파일 하여 kernel files or blobs을 내놓으면 VM이 그것을 작동 시킴
+- Runtime은 코드를 최대한 빠르게 동작할 수 있게 하기 위해 동작함
+
+![Dart VM](../_assets/flutter/dart_jit_process.jpg)
+
+- JIT 컴파일 시 변경한 사항만 빠르게 컴파일 해서 VM으로 보내줌 => hot reload 가능한 이유
+- 빠른 성능 60 fps
+
+![Dart VM](../_assets/flutter/jit-aot.jpg)
+
+### 3. Multi-platform
+
+![Dart VM](../_assets/flutter/cross_compile.jpg)
 
 ## mixins?
 
@@ -125,7 +136,8 @@
   - initState에 WidgetsBinding.instance!.addObserver(this) 추가
   - dispose에 WidgetsBinding.instance!.removeObserver(this) 추가
 - didChangeAppLifecycleState 메소드를 override 하여 각 life cycle에 맞는 로직을 추가할 수 있음
-![Flutter App Life Cycle](flutter_app_lifecycle.png)
+
+![Flutter App Life Cycle](../_assets/flutter/flutter_app_lifecycle.png)
 
 ```dart
 @override
@@ -161,13 +173,13 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
 
 ## StatelessWidget
 
-![Flutter StatelessWidget Lifecycle](flutter_stateless_lifecycle.png)
+![Flutter StatelessWidget Lifecycle](../_assets/flutter/flutter_stateless_lifecycle.png)
 
 - build 된 이후 update 되지 않음
 
 ## StatefulWidget
 
-![Flutter StatefulWidget Lifecycle](flutter_stateful_lifecycle.jpeg)
+![Flutter StatefulWidget Lifecycle](../_assets/flutter/flutter_stateful_lifecycle.jpeg)
 
 ### 1. createState()
 
