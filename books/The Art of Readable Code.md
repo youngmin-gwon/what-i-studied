@@ -1,5 +1,7 @@
 # The Art of Readable Code 정리
 
+#book, #code-readability
+
 ## Prolog. 코드는 이해하기 쉬워야 한다
 
 무엇이 코드를 좋게 만드는가?

@@ -1,6 +1,6 @@
 # Creational Pattern
 
-#design-pattern, #creational-pattern
+#oop, #design-pattern, #creational-pattern
 
 ## Description
 

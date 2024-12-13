@@ -1,6 +1,6 @@
 # OOP Design Pattern
 
-#design-pattern
+#oop, #design-pattern
 
 일반적인 객체 지향 프로그래밍의 문제 해결 방법
 

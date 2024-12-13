@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "Creational"
-    ]
+    ],
+    "markdownlint.config": {
+        "MD018": false
+    },
 }

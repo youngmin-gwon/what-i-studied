@@ -1,6 +1,6 @@
 # Null Object
 
-#design-pattern, #general-pattern
+#oop, #design-pattern, #general-pattern
 
 ## Description
 

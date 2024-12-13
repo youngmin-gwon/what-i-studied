@@ -11,14 +11,10 @@
             "id": "de94ac38fbb95296",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docker/command.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "command"
+              "title": "New tab"
             }
           }
         ]
@@ -178,19 +174,20 @@
   },
   "active": "de94ac38fbb95296",
   "lastOpenFiles": [
+    "docker/Docker Concept.md",
+    "docker/command.md",
+    "docker/Docker Command.md",
+    ".git/objects/34/2dc0fc918c63c056859e548280cfbcea108d36",
+    ".git/objects/14/f74b60a6b2020a1ec06045aec6e978ef578136",
+    ".git/objects/cf/1c3ed4962ec39eacd8f8abaaed995d45cd3529",
+    ".git/objects/70/848ee8e68cc2ab9ef716c40bdd22dc22acf303",
     ".git/objects/aa/6ca3f0464597ace0312015ce45b0d7f065efdb",
     ".git/AUTO_MERGE",
     ".git/objects/3c/e886d5a8fd67dff28c8c38a4398cc6545c8e25",
     ".git/objects/a5/d81a9808aa9edac77857d660caeba30efd9d0f",
     ".git/objects/d9/f46d451aee6d26ecb2d30a06ca355aa1878190",
     ".git/objects/6f/320fffff2cb60bac90ff617705f3e9d4cdd411",
-    ".git/objects/f9/ef0de06a6d80c2905451589e0ca0d936374463",
-    ".git/objects/2e/ea01be0fdfd3c7d6559f522988acb26b24ae45",
-    ".git/objects/8d/0d16b2cc3723f5bb05e3fb86adab0937829527",
-    ".git/objects/a0/2dcfc603b99cde633db6bac7759fa859b28ebc",
-    ".git/objects/a1/4caa7e1b4241a32775c1740eee5ed06ab789b6",
     "docker/concept.md",
-    "docker/command.md",
     "flutter/Dart.md",
     "interview/telephone interview.md",
     "books/TDD by Example.md",
@@ -213,7 +210,6 @@
     "books/Refactoring.md",
     "books/Domain Driven Design.md",
     "books/Clean Architecture.md",
-    "books/Code Complete.md",
     "_assets/books/code_complete_2.png",
     "_assets/algorithm/python_type_layer.png",
     "_assets/algorithm/interview-process.png",

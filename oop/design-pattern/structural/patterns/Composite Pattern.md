@@ -1,6 +1,6 @@
 # Composite
 
-#design-pattern, #structural-pattern
+#oop, #design-pattern, #structural-pattern
 
 ![Untitled](Untitled%208.png)
 

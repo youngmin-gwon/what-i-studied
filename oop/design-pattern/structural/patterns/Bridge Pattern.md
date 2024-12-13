@@ -1,6 +1,6 @@
 # Bridge(=handler/body)
 
-#design-pattern, #structural-pattern
+#oop, #design-pattern, #structural-pattern
 
 ## Description
 

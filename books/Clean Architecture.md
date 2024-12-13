@@ -1,5 +1,7 @@
 # Clean Architecture 정리
 
+#book, #clean-architecture
+
 ## 서문
 
 - 소프트웨어 아키텍처라는 말은 뜬구름처럼 손에 잡히지 않는 어떤 것처럼 느껴짐

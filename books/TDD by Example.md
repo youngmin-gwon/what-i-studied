@@ -1,5 +1,7 @@
 # TDD by Example 정리
 
+#book, #tdd, #oop
+
 TDD에서는 두 가지 규칙을 따른다.
 
 ```plaintext

@@ -1,6 +1,6 @@
 # Factory Method(=Virtual Constructor)
 
-#design-pattern, #creational-pattern
+#oop, #design-pattern, #creational-pattern
 
 ## Description
 

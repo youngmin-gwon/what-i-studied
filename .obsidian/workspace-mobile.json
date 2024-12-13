@@ -11,30 +11,10 @@
             "id": "ad48f9c5054c9ea0",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "oop/solid/SOLID.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "SOLID"
-            }
-          },
-          {
-            "id": "20e62ae7596f1fc9",
-            "type": "leaf",
-            "state": {
-              "type": "show-hidden-files:documentation",
-              "state": {
-                "show-hidden-files:documentation": {
-                  "data": "# obsidian-show-hidden-files <!-- markdownlint-disable MD024 -->\n\n## 2.3.2\n\n### Patch Changes\n\n- 57436d0: (`1e0447fe9e805b7cb966b1286f6db7042fdd5c56`) Fix misdetecting iPadOS as desktop. Fixes [GH#5](https://github.com/polyipseity/obsidian-show-hidden-files/issues/5).\n- bd38c29: Add note for `Detect all file extensions`. Fixes [GH#4](https://github.com/polyipseity/obsidian-show-hidden-files/issues/4).\n- e77456a: Replace platform detection with feature detection. This is more robust against [GH#5](https://github.com/polyipseity/obsidian-show-hidden-files/issues/5).\n\n## 2.3.1\n\n### Patch Changes\n\n- c932954: Add information about interactions with other plugins to readme. Fixes [GH#3](https://github.com/polyipseity/obsidian-show-hidden-files/issues/3).\n\n## 2.3.0\n\n### Minor Changes\n\n- c18231b: Move settings `recovery` and `lastReadChangelogVersion` to `localStorage`. (6d612c570926387ee6b5991475cb993517a39d45)\n\n### Patch Changes\n\n- 1411e12: Remove debug statements. (f9fc1874e2c0b0b6c486ae6a13e52bf09cef588d)\n\n## 2.2.0\n\n### Minor Changes\n\n- 6ddd1e9: Add setting \"Show configuration folder\". Fixes [GH#2](https://github.com/polyipseity/obsidian-show-hidden-files/issues/2).\n- 9bb810a: Add setting \"Showing rules\" for filtering hidden files to be shown.\n\n## 2.1.2\n\n### Patch Changes\n\n- 0aa7f2b: Attempt to fix `await` loop on mobile.\n\n## 2.1.1\n\n### Patch Changes\n\n- 8238eb0: Fix \"Make a copy\", \"New file\", and \"New folder\" not highlighting the new file or folder if the new file or folder is supposed to be hidden. The code for `patchVault` is also simplified.\n\n## 2.1.0\n\n### Minor Changes\n\n- d55414a: Dummy change.\n\n### Patch Changes\n\n- 3356733: Change settings order.\n\n### Pre-changesets Changelog\n\n#### Features\n\n- Add support for renaming to dotfiles. (`966e528c6a3309777eb09eb2470fdf63bfe40e1b`)\n\n**Full changelog**: [`2.0.0...2.1.0`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/2.0.0...2.1.0)\n\n## 2.0.0 (2023-07-21)\n\n- Update minimum Obsidian version to v1.2.8. (`85d498d7cecf28b07e0562c4d9c1c793bf0344c0`)\n- Use a new safer approach to show hidden dotfiles. (`c8a40e0ecbcd8e3fbca819aee623855fe6b2287b`)\n- Rename name \"Show Dotfiles\" to \"Show Hidden Files\". (`e7d9d3c459cdb3159a9da00109aaf100321ea742`)\n\n### Features\n\n- Add three commands to toggle visibility of hidden files. (`8ccce72c4d35c6aafbc02cec7770a711d278c4f4`)\n- Add setting `Show hidden files`. (`9e7dc20d087895eac06bd356451d77c9d417906a`)\n\n### Fixes\n\n- Fix the command to export settings to clipboard. (`993dff6c94b7e70e53c42afdad3fa8e56324a3aa`)\n- Fix lifecycle management. (`46771b52d6db6c1523a959d8204bc921bd7121ca`)\n- Fix `updateView` not updating the inner title. (`45603f33109f10be0bc7c040fa1addc42153d92f`)\n- Fix failing to load the plugin if settings are malformed. (`45603f33109f10be0bc7c040fa1addc42153d92f`)\n\n**Full changelog**: [`1.0.3...2.0.0`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/1.0.3...2.0.0)\n\n## 1.0.3 (2023-07-01)\n\n### Improvements\n\n- Remove confusing \"Malformed data\" notice. (`8b2e50ffcd085625dde0d0262e20fc1bfca90a8d`)\n- Update npm packages to remove vulnerabilities. (`9f72566d714a238f6ea29aa4783816c2704f93dc`)\n\n**Full changelog**: [`1.0.2...1.0.3`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/1.0.2...1.0.3)\n\n## 1.0.2 (2023-05-18)\n\n### Improvements\n\n- Improve performance. (`742f9abdd559eca0391769a2adf08da27a8f4496`)\n\n**Full changelog**: [`1.0.1...1.0.2`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/1.0.1...1.0.2)\n\n## 1.0.1 (2023-05-17)\n\n### Fixes\n\n- Fix heuristics for detecting other plugin calls to `string#startsWith` not working on iOS. (`f98e1e6151e69c1ea15341956455aa6c59c2f837`)\n- Fix `Override config folder` failing on iOS. (`9a70c32a6f0d484f3a15cb0312944db15c4a36ed`..`7d48bad63088b4d6d65c9555373bd2620b193008`)\n\n### Improvements\n\n- Dynamically calculate overhead just in case someone else also patches `string#startsWith`. (`21779a0535de3a7fe9bf628751fd089576ed7001`)\n\n**Full changelog**: [`1.0.0...1.0.1`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/1.0.0...1.0.1)\n\n## 1.0.0 (2023-05-16)\n\nInitial release! 🥳\n\nPlease report any bugs you have found!\n\nInspired by [this forum post](https://forum.obsidian.md/t/enable-use-of-hidden-files-dotfiles-within-obsidian/26908).\n\n**Full changelog**: [`758424a8d4174f67fc20bdd308060db168eeec34...1.0.0`](https://github.com/polyipseity/obsidian-show-hidden-files/compare/758424a8d4174f67fc20bdd308060db168eeec34...1.0.0)\n",
-                  "displayTextI18nKey": "translation:generic.documentations.changelog",
-                  "iconI18nKey": "asset:generic.documentations.changelog-icon"
-                }
-              },
-              "icon": "file-text",
-              "title": "Changelog"
+              "title": "New tab"
             }
           }
         ]
@@ -154,38 +134,30 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian-git:Open Git source control": false,
+      "3d-graph:3D Graph": false,
       "markdown-importer:Open format converter": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "obsidian-git:Open Git source control": false,
-      "3d-graph:3D Graph": false
+      "command-palette:Open command palette": false
     }
   },
   "active": "ad48f9c5054c9ea0",
   "lastOpenFiles": [
-    ".git/objects/4d/010da4fbaf87b63e6ec3be9759afa63e47fcc4",
-    ".git/objects/90/2ad367e217d12414f77a7112f7c67728361856",
-    ".git/objects/77/1f7fdab96d356fca70053b0118ae48a9e28cbc",
-    ".git/objects/f4/0bc8f99ef7b8ca55a842bf3b8ecbc4384faa84",
-    ".git/objects/a1/cbc3daff6de0282afeddfff33bfdb34919d878",
-    ".git/objects/72/d1545d54f6d8586946a7cd1908276c66116e8b",
-    ".git/objects/27/dc359994ae25501148c552ab215cf509aa17eb",
-    ".git/objects/fc/d318800ffa2fb57198559cf08e6efaa8e299b0",
-    ".git/objects/53/a311e7ade32beb401e66af8312d854b9314db6",
-    ".git/objects/2f/d8eed247cc139f94aca20ad54801d7723286ad",
-    ".git/objects/7b/861e98425f6a576415bef4c2f1efe4c7e10504",
-    "interview/telephone interview.md",
-    "oop/design-pattern/testing/patterns/Self Shunt Pattern.md",
-    "oop/design-pattern/testing/patterns/Crash Test Dummy Pattern.md",
-    "oop/design-pattern/behavioral/patterns/Double Dispatch Pattern.md",
-    "oop/design-pattern/general/patterns/Pluggable Selector Pattern.md",
-    "oop/design-pattern/general/patterns/Collecting Parameter Pattern.md",
-    "oop/design-pattern/general/patterns/Pluggable Object Pattern.md",
-    "oop/design-pattern/general/patterns/Null Object Pattern.md",
+    ".git/logs/refs/remotes/origin/main",
+    ".git/logs/refs/remotes/origin/HEAD",
+    ".git/refs/remotes/origin/main",
+    ".git/refs/remotes/origin/HEAD",
+    ".git/logs/refs/remotes/origin",
+    ".git/logs/refs/heads/main",
+    ".git/refs/remotes/origin",
+    ".git/refs/heads/main",
+    ".git/logs/refs/remotes",
+    ".git/logs/refs/heads",
+    ".git/objects/25/ad2ee24003f7201aa307f5bcf6c9b49eeb8897",
     "design-pattern/OOP Design Pattern.md",
     "htdp/How to Design Program.md"
   ]

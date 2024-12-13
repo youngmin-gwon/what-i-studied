@@ -1,6 +1,6 @@
 # Pluggable Selector
 
-#design-pattern, #general-pattern
+#oop, #design-pattern, #general-pattern
 
 **Pluggable Selector Pattern**은 실행 시점에서 데이터를 선택하거나 작업의 흐름을 결정하는 로직을 동적으로 설정할 수 있도록 설계된 패턴
 

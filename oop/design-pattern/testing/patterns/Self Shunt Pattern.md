@@ -1,6 +1,6 @@
 # Self Shunt
 
-#design-pattern, #test-pattern
+#oop, #design-pattern, #test-pattern
 
 ## Description
 
