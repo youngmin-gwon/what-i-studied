@@ -4,7 +4,7 @@
 
 ## 1. MethodChannel
 
-`RPC` 처럼 1회성 요청을 사용할 때 사용
+`RPC` 처럼 1 회성 요청을 사용할 때 사용
 
 Example
 
@@ -187,7 +187,7 @@ PlatformException:
 
 ## 2. EventChannel
 
-`Stream` 처럼 비동기적 Event가 들어올 때 사용
+`Stream` 처럼 비동기적 Event 가 들어올 때 사용
 
 ```kotlin
 package ...

@@ -4,5 +4,9 @@
   "attachmentFolderPath": "_assets",
   "showUnsupportedFiles": true,
   "alwaysUpdateLinks": true,
-  "tabSize": 2
+  "tabSize": 2,
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative",
+  "showRibbon": true,
+  "showInlineTitle": false
 }
