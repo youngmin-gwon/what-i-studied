@@ -1,6 +1,12 @@
-# Navigator 2
-
-#flutter, #concept, #navigator
+---
+title: flutter navigator 2.0
+created at: 2024-12-12
+tags:
+  - concept
+  - flutter
+  - navigator
+aliases:
+---
 
 ## Overlay Widget
 
@@ -137,5 +143,5 @@ Navigation 의 `입,귀` 같은 역할을 함 => `Router` 의 `귀` 처럼 새�
 ## BackButtonDispatcher
 
 system level 의 `pop` 이벤트를 보고하는 역할
-
+¬
 Navigation 의 `귀` 같은 역할 => OS 로부터 시그널을 전달함

@@ -1,6 +1,13 @@
-# Adapter(=Wrapper)
-
-#oop, #design-pattern, #structural-pattern
+---
+title: Adapter(=Wrapper)
+created at: 2024-12-12
+tags:
+  - gof
+  - oop
+  - design-pattern
+  - structural-pattern
+aliases:
+---
 
 ## Description
 

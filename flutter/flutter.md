@@ -1,6 +1,12 @@
-# Flutter interview question
-
-#flutter, #concept
+---
+title: flutter interview question
+created at: 2024-12-12
+tags:
+  - concept
+  - flutter
+  - interview
+aliases:
+---
 
 ## Flutter?
 

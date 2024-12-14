@@ -1,6 +1,13 @@
-# Facade
-
-#oop, #design-pattern, #structural-pattern
+---
+title: Facade
+created at: 2024-12-12
+tags:
+  - gof
+  - oop
+  - design-pattern
+  - structural-pattern
+aliases:
+---
 
 ## Description
 

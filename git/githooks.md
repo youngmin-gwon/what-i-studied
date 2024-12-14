@@ -1,12 +1,18 @@
-# githooks
-
-#git, #githooks, #concept
+---
+title: githooks concept
+created at: 2024-12-12
+tags:
+  - concept
+  - githooks
+  - git
+aliases:
+---
 
 ## pre-commit
 
 커밋할 때 가장 먼저 호출되는 Hook 으로 커밋 메시지를 작성하기 전에 호출된다. pre-commit hook 에서는 린트를 실행하여 코드 스타일을 검사하거나, 라인 끝의 공백 문자를 검사하거나 테스트를 한다.
 
-아래 명령어를 실행하면 commit 시 pre-commit hook 을 `생략`할 수 있다.
+아래 명령어를 실행하면 commit 시 pre-commit hook 을 `생략` 할 수 있다.
 
 ```bash
 git commit --no-verify
@@ -18,11 +24,11 @@ git commit --no-verify
 
 ## commit-msg
 
-이 hook 은 커밋 메시지가 들어 있는 임시 파일의 경로를 argument 로 받고 스크립트가 0이 아닌 값을 반환하면 커밋이 되지 않는다. 이 hook에서는 최종적으로 커밋이 완료되기 전에 프로젝트 상태나 커밋 메시지를 검증한다.
+이 hook 은 커밋 메시지가 들어 있는 임시 파일의 경로를 argument 로 받고 스크립트가 0 이 아닌 값을 반환하면 커밋이 되지 않는다. 이 hook 에서는 최종적으로 커밋이 완료되기 전에 프로젝트 상태나 커밋 메시지를 검증한다.
 
 ## post-commit
 
-커밋이 완료되면 post-commit hook이 실행되므로 post-commit 은 커밋한 것을 동료나 다른 프로그램에 노티를 줄 때 사용할 수 있다.
+커밋이 완료되면 post-commit hook 이 실행되므로 post-commit 은 커밋한 것을 동료나 다른 프로그램에 노티를 줄 때 사용할 수 있다.
 
 ## pre-rebase
 
@@ -34,4 +40,4 @@ rebase 하기 전에 실행되는 훅으로 이미 push 한 커밋을 rebase 하
 
 ## post-merge
 
-Merge 가 끝나고 나서 실행되는 hook이다.
+Merge 가 끝나고 나서 실행되는 hook 이다.

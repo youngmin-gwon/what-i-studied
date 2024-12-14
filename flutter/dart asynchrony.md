@@ -1,6 +1,13 @@
-# Dart: Isolates and Event Loops
-
-#flutter, #dart, #concept, #async
+---
+title: dart asynchrony
+created at: 2024-12-12
+tags:
+  - concept
+  - async
+  - dart
+  - flutter
+aliases:
+---
 
 - **Dart**는 **Single-threaded language** 이다
   - 하지만 이 말은 병렬로 코드를 수행할수 없다는 의미가 아니다

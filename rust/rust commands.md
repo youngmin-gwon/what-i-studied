@@ -1,6 +1,11 @@
-# Rust Command
-
-#rust, #command
+---
+title: rust commands
+created at: 2024-12-12
+tags:
+  - command
+  - rust
+aliases:
+---
 
 ```bash
 rustup --version
@@ -40,5 +45,5 @@ cargo run
 cargo check
 ```
 
-- check your code to make sure it compiles but doesn’t produce an executable
+- check your code to make sure it compiles but doesn't produce an executable
 - much faster than `cargo build`

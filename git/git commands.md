@@ -1,30 +1,35 @@
-# git 커맨드 요약
-
-#git, #command
+---
+title: git commands
+created at: 2024-12-12
+tags:
+  - command
+  - git
+aliases:
+---
 
 ## git reset
 
-### 1. HEAD가 가리키는 브랜치를 옮김(--soft or hash key)
+### 1. HEAD 가 가리키는 브랜치를 옮김 (--soft or hash key)
 
-`checkout` 명령처럼 HEAD가 가리키는 브랜치를 바꾸지 않음
+`checkout` 명령처럼 HEAD 가 가리키는 브랜치를 바꾸지 않음
 
-HEAD는 계속해서 현재 브랜치를 가리키고 있고, 현재 브랜치가 가리키는 커밋을 바꿈
+HEAD 는 계속해서 현재 브랜치를 가리키고 있고, 현재 브랜치가 가리키는 커밋을 바꿈
 
-### 2. Index를 HEAD가 가리키는 상태로 만듬(--mixed)
+### 2. Index 를 HEAD 가 가리키는 상태로 만듬 (--mixed)
 
 reset 기본 옵션
 
-### 3. 워킹 디렉토리를 Index 상태로 만듬(--hard)
+### 3. 워킹 디렉토리를 Index 상태로 만듬 (--hard)
 
 `--hard` 옵션은 되돌리는 것이 없기 때문에 항상 주의
 
 reset 명령을 위험하게 만드는 유일한 옵션
 
-특정 커밋을 명시하면 `git` 은 HEAD에서 파일을 가져오는 것이 아니라 그 커밋에서 파일을 가져옴
+특정 커밋을 명시하면 `git` 은 HEAD 에서 파일을 가져오는 것이 아니라 그 커밋에서 파일을 가져옴
 
-합치기(squash) 역할도 가능함
+합치기 (squash) 역할도 가능함
 
-- 명령어가 따로 있지만 reset으로도 가능함
+- 명령어가 따로 있지만 reset 으로도 가능함
 
 ```shell
 git reset --soft HEAD~2 # 이와 같은 명령으로 몇 단계 전으로 돌려서 다시 커밋할 수 있음
@@ -36,8 +41,8 @@ git reset --soft HEAD~2 # 이와 같은 명령으로 몇 단계 전으로 돌려
 
 ##### 요약
 
-`reset`: 로컬의 커밋을 되돌리고 싶을 때 사용(기록 남지 않음)
-`revert`: 공유 repository의 커밋을 되돌리고 싶을 때 사용(기록 남음)
+`reset`: 로컬의 커밋을 되돌리고 싶을 때 사용 (기록 남지 않음)
+`revert`: 공유 repository 의 커밋을 되돌리고 싶을 때 사용 (기록 남음)
 
 ##### 상세
 
@@ -55,7 +60,7 @@ git reset --soft HEAD~2 # 이와 같은 명령으로 몇 단계 전으로 돌려
 
 ![[../_assets/git/git_reset.png]]
 
-커밋을 지정하지 않으면 staging area에 있는 변경사항만 처리
+커밋을 지정하지 않으면 staging area 에 있는 변경사항만 처리
 
 `revert`
 
@@ -74,9 +79,9 @@ git revert 76sdeb
 
 #### [2] git reset --hard vs git clean
 
-`git reset --hard`: staging area에 있는 변경 사항 삭제
+`git reset --hard`: staging area 에 있는 변경 사항 삭제
 
-`git clean`: working directory에 있는 변경 사항 삭제
+`git clean`: working directory 에 있는 변경 사항 삭제
 
 #### [3] git reset vs git checkout
 
@@ -85,7 +90,7 @@ git revert 76sdeb
 `git reset --hard [branch]` 명령과 비슷하게 [branch] 스냅샷을 기준으로 세 트리를 조작하지만 두가지 사항이 다름
 
 1. 워킹 디렉토리를 안전하게 다뤄 저장하지 않은 것을 날리지 않음
-2. reset 명령은 HEAD가 가리키는 브랜치를 움직이지만, checkout 명령은 HEAD 자체를 다른 브랜치로 옮김
+2. reset 명령은 HEAD 가 가리키는 브랜치를 움직이지만, checkout 명령은 HEAD 자체를 다른 브랜치로 옮김
 
 결과적으로 같은 커밋을 가리키게 되지만 방식은 완전히 다름
 
@@ -100,7 +105,7 @@ git checkout master
 
 ##### {2} 경로 있음
 
-reset 명령과 비슷하게 HEAD는 움직이지 않음
+reset 명령과 비슷하게 HEAD 는 움직이지 않음
 
 `git reset [branch] file` 명령과 비슷함
 
@@ -108,16 +113,16 @@ Index 내용이 해당 커밋 버전으로 변경될 뿐만 아니라 워킹 디
 
 완전히 `git reset --hard [branch] file` 명령의 동직이랑 같다 → 워킹 디렉토리가 안전하지 않다는 의미
 
-`git reset`이나 `git add` 명령처럼 `git checkout` 명령도 `--patch` 옵션을 사용해서 Hunk 단위로 되돌릴수 있음
+`git reset` 이나 `git add` 명령처럼 `git checkout` 명령도 `--patch` 옵션을 사용해서 Hunk 단위로 되돌릴수 있음
 
 ## git checkout
 
-reset과 마찬가지로 HEAD, Index, Working Directory 트리를 조작함
+reset 과 마찬가지로 HEAD, Index, Working Directory 트리를 조작함
 checkout 역시 파일 경로를 쓰느냐 안쓰느냐에 따라 동작이 다름
 
 ## git clean
 
-> working directory에 있는 변경 사항 삭제
+> working directory 에 있는 변경 사항 삭제
 
 옵션을 주지 않으면 사용할 수 없음
 

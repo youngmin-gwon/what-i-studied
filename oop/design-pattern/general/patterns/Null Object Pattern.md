@@ -1,6 +1,12 @@
-# Null Object
-
-#oop, #design-pattern, #general-pattern
+---
+title: Null Object
+created at: 2024-12-12
+tags:
+  - oop
+  - design-pattern
+  - general-pattern
+aliases:
+---
 
 ## Description
 
@@ -10,7 +16,7 @@
 
 ## Structure
 
-1. **Abstract Interface**: 공통 작업(메서드)을 정의하는 인터페이스나 추상 클래스.
+1. **Abstract Interface**: 공통 작업 (메서드) 을 정의하는 인터페이스나 추상 클래스.
 2. **Concrete Implementation**: 실제 동작을 수행하는 클래스.
 3. **Null Object**: 아무 동작도 하지 않거나 기본 동작을 제공하는 클래스.
 
@@ -103,16 +109,16 @@ void main() {
 3. 다형성 활용:
     - null 대신 인터페이스 구현체를 사용하여 다형성을 유지.
 4. 버그 감소:
-    - null로 인해 발생할 수 있는 런타임 오류(NullPointerException 등)를 방지.
+    - null 로 인해 발생할 수 있는 런타임 오류 (NullPointerException 등) 를 방지.
 
 ## Cons
 
 1. 추가 클래스 생성:
-    - Null Object를 구현하기 위해 추가 클래스가 필요, 코드 복잡도가 증가할 수 있음.
+    - Null Object 를 구현하기 위해 추가 클래스가 필요, 코드 복잡도가 증가할 수 있음.
 2. 의도 파악 어려움:
-    - Null Object의 동작이 명확하지 않으면 실제 객체와의 차이를 이해하기 어려울 수 있음.
+    - Null Object 의 동작이 명확하지 않으면 실제 객체와의 차이를 이해하기 어려울 수 있음.
 3. 메모리 오버헤드:
-    - null을 사용하는 것보다 객체를 생성하고 유지하는 데 추가 메모리가 필요.
+    - null 을 사용하는 것보다 객체를 생성하고 유지하는 데 추가 메모리가 필요.
 
 ## Relationship with other patterns
 
@@ -120,18 +126,18 @@ void main() {
 
 #### [[Strategy Pattern]]
 
-둘 다 인터페이스를 사용하여 다양한 동작을 캡슐화하지만, Null Object Pattern은 비활성 동작을 제공하는 데 초점이 있음.
+둘 다 인터페이스를 사용하여 다양한 동작을 캡슐화하지만, Null Object Pattern 은 비활성 동작을 제공하는 데 초점이 있음.
 
 #### [[Decorator Pattern]]
 
-Decorator는 동작을 추가하거나 변경하지만, Null Object는 비활성 또는 기본 동작을 제공함.
+Decorator 는 동작을 추가하거나 변경하지만, Null Object 는 비활성 또는 기본 동작을 제공함.
 
 ### Difference
 
 #### Factory Pattern
 
-Factory Pattern은 객체 생성을 책임지고, Null Object Pattern은 비활성 객체를 제공하여 null을 대체.
+Factory Pattern 은 객체 생성을 책임지고, Null Object Pattern 은 비활성 객체를 제공하여 null 을 대체.
 
 #### [[State Pattern]]
 
-State Pattern은 객체 상태에 따라 동작이 변하지만, Null Object Pattern은 null을 처리하기 위한 고정된 동작을 제공.
+State Pattern 은 객체 상태에 따라 동작이 변하지만, Null Object Pattern 은 null 을 처리하기 위한 고정된 동작을 제공.

@@ -1,6 +1,11 @@
-# Function Programming
-
-#functional-programming
+---
+title: functional programming
+created at: 2024-12-12
+tags:
+  - concept
+  - fp
+aliases:
+---
 
 ## Motive
 

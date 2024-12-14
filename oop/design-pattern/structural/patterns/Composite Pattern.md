@@ -1,6 +1,15 @@
-# Composite
+---
+title: Composite
+created at: 2024-12-12
+tags:
+  - gof
+  - oop
+  - design-pattern
+  - structural-pattern
+aliases:
+---
 
-#oop, #design-pattern, #structural-pattern
+## Description
 
 ![Untitled](../../../../_assets/oop/Untitled%208.png)
 

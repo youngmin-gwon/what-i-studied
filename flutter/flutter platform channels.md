@@ -1,6 +1,12 @@
-# Platform Channel: Native Platform 과 연결하는 방법
-
-#flutter, #concept, #platform-channel
+---
+title: platform channel - Native Platform 과 연결하는 방법
+created at: 2024-12-12
+tags:
+  - concept
+  - flutter
+  - platform-channel
+aliases:
+---
 
 ## 1. MethodChannel
 

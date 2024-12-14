@@ -1,6 +1,12 @@
-# Crash Test Dummy
-
-#oop, #design-pattern, #test-pattern
+---
+title: Crash Test Dummy
+created at: 2024-12-12
+tags:
+  - oop
+  - design-pattern
+  - testing-pattern
+aliases:
+---
 
 ## Description
 
@@ -13,14 +19,14 @@
 1. **Dummy Object**:
    - 의도적으로 잘못된 값을 제공하는 객체. 실제 로직을 실행하는 데 사용되는 것이 아니라 테스트나 예외 처리 용도로만 사용
 2. **System Under Test (SUT)**:
-   - Dummy Object가 주입되어 테스트되는 시스템. 시스템은 정상적인 객체가 아닌 Dummy Object를 처리하도록 설계
+   - Dummy Object 가 주입되어 테스트되는 시스템. 시스템은 정상적인 객체가 아닌 Dummy Object 를 처리하도록 설계
 3. **Test Handler**:
-   - Crash Test Dummy가 주입된 후 시스템이 어떻게 반응하는지, 예외 처리가 어떻게 이루어지는지를 처리하고 검증하는 역할
+   - Crash Test Dummy 가 주입된 후 시스템이 어떻게 반응하는지, 예외 처리가 어떻게 이루어지는지를 처리하고 검증하는 역할
 
 ### Details
 
-- Crash Test Dummy가 시스템에 주입
-- 시스템은 정상적으로 작동해야 하지만, Dummy Object로 인해 예외적인 상황이나 오류가 발생할 수 있음
+- Crash Test Dummy 가 시스템에 주입
+- 시스템은 정상적으로 작동해야 하지만, Dummy Object 로 인해 예외적인 상황이나 오류가 발생할 수 있음
 - 시스템이 이러한 오류를 어떻게 처리하는지, 그리고 테스트가 성공적으로 완료되었는지를 확인
 
 ## 3. Example
@@ -73,7 +79,7 @@ void main() {
 - UserInput 클래스는 사용자가 입력한 이름을 검증
 - CrashTestDummy 클래스는 의도적으로 잘못된 입력을 제공하여 시스템이 어떻게 반응하는지를 테스트
 - SystemUnderTest 클래스는 입력을 처리하고 검증
-- CrashTestDummy는 의도적인 잘못된 데이터를 주입하여 시스템의 예외 처리 로직을 테스트
+- CrashTestDummy 는 의도적인 잘못된 데이터를 주입하여 시스템의 예외 처리 로직을 테스트
 
 ## Adaptability
 
@@ -93,7 +99,7 @@ void main() {
 2. 예기치 않은 상황에 대한 대비
    - 현실적인 예외 상황을 시뮬레이션함으로써 시스템이 실제 운영 환경에서도 안전하게 동작하도록 만듦.
 3. 예외 처리 로직 개선
-   - Crash Test Dummy를 사용하여 예외 처리 코드가 제대로 작동하는지 검증하고 개선할 수 있음.
+   - Crash Test Dummy 를 사용하여 예외 처리 코드가 제대로 작동하는지 검증하고 개선할 수 있음.
 4. 테스트 커버리지 확대
    - 다양한 비정상적인 상황을 테스트하여 시스템의 신뢰성을 높일 수 있음.
 
@@ -114,18 +120,18 @@ void main() {
 
 #### [[Strategy Pattern]]
 
-Crash Test Dummy Pattern은 시스템의 동작을 변경할 수 있도록 주입하는 방식으로 Strategy Pattern과 유사하게 동작을 교체하지만, 주로 오류나 예외 처리를 위한 테스트 용도로 사용됨
+Crash Test Dummy Pattern 은 시스템의 동작을 변경할 수 있도록 주입하는 방식으로 Strategy Pattern 과 유사하게 동작을 교체하지만, 주로 오류나 예외 처리를 위한 테스트 용도로 사용됨
 
 #### [[Observer Pattern]]
 
-Observer Pattern은 상태 변화에 대한 반응을 캡슐화하지만, Crash Test Dummy Pattern은 시스템이 예외 상황에 어떻게 반응하는지 확인하는 데 초점을 맞추고 있음
+Observer Pattern 은 상태 변화에 대한 반응을 캡슐화하지만, Crash Test Dummy Pattern 은 시스템이 예외 상황에 어떻게 반응하는지 확인하는 데 초점을 맞추고 있음
 
 ### Difference
 
 #### [[State Pattern]]
 
-State Pattern은 객체의 상태에 따라 동작을 변경하는 패턴으로, 시스템의 상태에 맞춰 동작을 정의하지만, Crash Test Dummy Pattern은 의도적으로 비정상적인 입력을 주어 시스템의 반응을 테스트하는 데 사용됨
+State Pattern 은 객체의 상태에 따라 동작을 변경하는 패턴으로, 시스템의 상태에 맞춰 동작을 정의하지만, Crash Test Dummy Pattern 은 의도적으로 비정상적인 입력을 주어 시스템의 반응을 테스트하는 데 사용됨
 
 #### [[Prototype Pattern]]
 
-Prototype Pattern은 객체의 복제에 중점을 둡니다. 반면 Crash Test Dummy는 객체가 특정 동작을 어떻게 처리하는지, 특히 예외적인 상황을 시뮬레이션하는 데 중점을 둡니다.
+Prototype Pattern 은 객체의 복제에 중점을 둡니다. 반면 Crash Test Dummy 는 객체가 특정 동작을 어떻게 처리하는지, 특히 예외적인 상황을 시뮬레이션하는 데 중점을 둡니다.

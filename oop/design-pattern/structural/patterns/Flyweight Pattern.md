@@ -1,6 +1,13 @@
-# Flyweight
-
-#oop, #design-pattern, #structural-pattern
+---
+title: Flyweight
+created at: 2024-12-12
+tags:
+  - gof
+  - oop
+  - design-pattern
+  - structural-pattern
+aliases:
+---
 
 ## Description
 

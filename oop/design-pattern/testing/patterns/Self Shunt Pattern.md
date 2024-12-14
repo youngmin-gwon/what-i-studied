@@ -1,6 +1,12 @@
-# Self Shunt
-
-#oop, #design-pattern, #test-pattern
+---
+title: Self Shunt
+created at: 2024-12-12
+tags:
+  - oop
+  - design-pattern
+  - testing-pattern
+aliases:
+---
 
 ## Description
 
@@ -67,8 +73,8 @@ void main() {
 }
 ```
 
-- Worker 클래스는 작업을 진행하는 객체입니다. doWork() 메서드를 통해 작업을 수행하고, pauseWork()와 resumeWork() 메서드를 통해 작업을 일시 중지하거나 재개할 수 있음
-- shunt() 메서드는 Self Shunt Pattern을 구현한 예시로, 객체가 일시적으로 자신을 “paused” 상태로 변경하여 doWork() 메서드의 동작을 우회하도록 함
+- Worker 클래스는 작업을 진행하는 객체입니다. doWork() 메서드를 통해 작업을 수행하고, pauseWork() 와 resumeWork() 메서드를 통해 작업을 일시 중지하거나 재개할 수 있음
+- shunt() 메서드는 Self Shunt Pattern 을 구현한 예시로, 객체가 일시적으로 자신을 "paused" 상태로 변경하여 doWork() 메서드의 동작을 우회하도록 함
 - 이렇게 하면 객체는 외부에서 호출되는 동작을 변경하지 않고도 자신 내부에서 잠시 다른 방식으로 동작할 수 있음
 
 ## Adaptability
@@ -110,20 +116,20 @@ void main() {
 
 #### [[State Pattern]]
 
-State Pattern과 유사하게 객체가 상태에 따라 동작을 변경
+State Pattern 과 유사하게 객체가 상태에 따라 동작을 변경
 
-그러나 Self Shunt Pattern은 상태를 바꿀 때마다 반드시 동작을 우회하는 특징이 있음
+그러나 Self Shunt Pattern 은 상태를 바꿀 때마다 반드시 동작을 우회하는 특징이 있음
 
 #### [[Strategy Pattern]]
 
-Strategy Pattern은 객체가 동작을 변경할 수 있도록 인터페이스를 사용하여 외부에서 동작을 주입하는 방식인데, Self Shunt Pattern은 내부에서 동작을 직접 변경
+Strategy Pattern 은 객체가 동작을 변경할 수 있도록 인터페이스를 사용하여 외부에서 동작을 주입하는 방식인데, Self Shunt Pattern 은 내부에서 동작을 직접 변경
 
 ### Difference
 
 #### [[Command Pattern]]
 
-Command Pattern은 명령 객체를 사용하여 동작을 캡슐화하고, 외부에서 동작을 실행하는 반면, Self Shunt Pattern은 객체가 자신의 동작을 일시적으로 변경하여 실행
+Command Pattern 은 명령 객체를 사용하여 동작을 캡슐화하고, 외부에서 동작을 실행하는 반면, Self Shunt Pattern 은 객체가 자신의 동작을 일시적으로 변경하여 실행
 
 #### [[Decorator Pattern]]
 
-Decorator Pattern은 객체의 기능을 동적으로 추가하는 데 사용되며, Self Shunt Pattern은 객체의 동작을 일시적으로 변경하는 데 초점
+Decorator Pattern 은 객체의 기능을 동적으로 추가하는 데 사용되며, Self Shunt Pattern 은 객체의 동작을 일시적으로 변경하는 데 초점

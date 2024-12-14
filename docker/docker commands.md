@@ -1,6 +1,11 @@
-# Docker Command
-
-#docker, #command
+---
+title: docker commands
+created at: 2024-12-12
+tags:
+  - command
+  - docker
+aliases:
+---
 
 - List all docker containers (running and stopped):
 

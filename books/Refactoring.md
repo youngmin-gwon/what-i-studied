@@ -1,8 +1,17 @@
-# Refactoring 정리
+---
+title: Refactoring 정리
+created at: 2024-12-12
+tags:
+  - book
+  - code-quality
+  - ddd
+  - architecture
+aliases:
+---
 
-## 1장. 리팩토링 예시
+## 1 장. 리팩토링 예시
 
-### 1단계
+### 1 단계
 
 - 리팩토링하기 전에 제대로 된 테스트를 마련한다. 테스트는 반드시 자가진단하도록 한다.
 
@@ -10,7 +19,7 @@
 
 ### Inline Variable
 
-- variable 자리를 function으로 대체하기
+- variable 자리를 function 으로 대체하기
 
 ### Replace Temp(variable) with Query(function)
 
@@ -21,7 +30,7 @@
 
 ### Slide Statements
 
-- variable을 사용되는 곳 근처로 가져옴
+- variable 을 사용되는 곳 근처로 가져옴
 - 추후 `Split Loop` 등을 위해 가져옴
 
 ### Split Loop

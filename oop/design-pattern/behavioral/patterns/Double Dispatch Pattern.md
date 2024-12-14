@@ -1,4 +1,12 @@
-# Double Dispatch
+---
+title: Double Dispatch
+created at: 2024-12-12
+tags:
+  - oop
+  - design-pattern
+  - behavioral-pattern
+aliases:
+---
 
 ## What?
 

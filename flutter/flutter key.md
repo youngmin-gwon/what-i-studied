@@ -1,6 +1,12 @@
-# Key
-
-#flutter, #concept, #key
+---
+title: flutter key
+created at: 2024-12-12
+tags:
+  - concept
+  - flutter
+  - key
+aliases:
+---
 
 Widget 이 Widget Tree 를 이동할 때 State 를 보존하게 도와주는 역할
 

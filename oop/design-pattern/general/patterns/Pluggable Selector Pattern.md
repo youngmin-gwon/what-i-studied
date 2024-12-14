@@ -1,10 +1,18 @@
-# Pluggable Selector
+---
+title: Pluggable Selector
+created at: 2024-12-12
+tags:
+  - oop
+  - design-pattern
+  - general-pattern
+aliases:
+---
 
-#oop, #design-pattern, #general-pattern
+## Description
 
 **Pluggable Selector Pattern**은 실행 시점에서 데이터를 선택하거나 작업의 흐름을 결정하는 로직을 동적으로 설정할 수 있도록 설계된 패턴
 
-이 패턴은 다양한 선택 기준(Selector)을 캡슐화하여 조건문과 분기 로직을 대체하고, 더 유연하고 확장 가능한 코드를 작성할 수 있게 함
+이 패턴은 다양한 선택 기준 (Selector) 을 캡슐화하여 조건문과 분기 로직을 대체하고, 더 유연하고 확장 가능한 코드를 작성할 수 있게 함
 
 ## Structure
 
@@ -17,9 +25,9 @@
 
 ### Details
 
-`Selector Host`는 선택 작업을 외부에서 주입된 `Selector` 객체에 위임
+`Selector Host` 는 선택 작업을 외부에서 주입된 `Selector` 객체에 위임
 
-선택 기준이 변경되면 새로운 `Selector`를 주입하여 동작을 유연하게 변경 가능
+선택 기준이 변경되면 새로운 `Selector` 를 주입하여 동작을 유연하게 변경 가능
 
 ## Example
 
@@ -105,11 +113,11 @@ void main() {
 ## Adaptability
 
 1. 조건문 및 분기 로직을 줄이고 싶을 때
-   - 복잡한 조건문이 많아지는 경우 이를 각 Selector로 캡슐화하여 가독성을 높일 수 있음.
+   - 복잡한 조건문이 많아지는 경우 이를 각 Selector 로 캡슐화하여 가독성을 높일 수 있음.
 2. 동적으로 선택 로직을 변경해야 할 때
    - 실행 중에 다른 선택 기준으로 교체해야 하는 시스템.
 3. 다양한 선택 기준이 추가될 가능성이 있는 경우
-   - 새로운 선택 기준이 필요할 때 기존 코드에 영향을 주지 않고 새로운 Selector만 추가.
+   - 새로운 선택 기준이 필요할 때 기존 코드에 영향을 주지 않고 새로운 Selector 만 추가.
 4. 테스트 가능한 코드가 필요할 때
    - 각 선택 로직을 별도의 클래스로 캡슐화하면 단위 테스트 작성이 쉬워짐.
 
@@ -118,11 +126,11 @@ void main() {
 1. 가독성과 유지보수성 향상
    - 조건문과 분기를 없애고 로직을 캡슐화하여 코드의 명확성을 높임.
 2. 확장성
-   - 새로운 선택 기준을 추가해도 기존 코드를 수정할 필요 없음(Open/Closed Principle 준수).
+   - 새로운 선택 기준을 추가해도 기존 코드를 수정할 필요 없음 (Open/Closed Principle 준수).
 3. 동적 변경 가능
    - 실행 중에도 선택 로직을 자유롭게 교체 가능.
 4. 테스트 용이성
-   - 각 Selector를 독립적으로 테스트할 수 있어 테스트가 쉬움.
+   - 각 Selector 를 독립적으로 테스트할 수 있어 테스트가 쉬움.
 
 ## Cons
 
@@ -139,18 +147,18 @@ void main() {
 
 #### [[Strategy Pattern]]
 
-둘 다 객체의 동작을 캡슐화하여 변경 가능하게 설계하지만, Pluggable Selector Pattern은 선택 로직에 초점을 맞춤.
+둘 다 객체의 동작을 캡슐화하여 변경 가능하게 설계하지만, Pluggable Selector Pattern 은 선택 로직에 초점을 맞춤.
 
 #### [[State Pattern]]
 
-State Pattern은 상태에 따라 객체의 동작을 변경하며, Pluggable Selector Pattern은 선택 기준에 따라 데이터를 처리.
+State Pattern 은 상태에 따라 객체의 동작을 변경하며, Pluggable Selector Pattern 은 선택 기준에 따라 데이터를 처리.
 
 ### Difference
 
 #### Factory Pattern
 
-Factory Pattern은 객체 생성에 초점, Pluggable Selector Pattern은 동적으로 선택 로직을 변경하는 데 초점.
+Factory Pattern 은 객체 생성에 초점, Pluggable Selector Pattern 은 동적으로 선택 로직을 변경하는 데 초점.
 
 #### [[Decorator Pattern]]
 
-Decorator Pattern은 기존 객체에 추가 기능을 덧붙이는 데 사용되지만, Pluggable Selector Pattern은 로직의 “선택” 부분을 교체.
+Decorator Pattern 은 기존 객체에 추가 기능을 덧붙이는 데 사용되지만, Pluggable Selector Pattern 은 로직의 " 선택 " 부분을 교체.

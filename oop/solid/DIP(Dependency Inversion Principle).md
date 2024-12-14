@@ -1,8 +1,14 @@
-# DIP(Dependency Inversion Principle)
+---
+title: Dependency Inversion Principle
+created at: 2024-12-12
+tags:
+  - oop
+  - solid
+  - dip
+aliases:
+---
 
-#solid
-
-- 구체화가 아니라 추상화(역할)에 의존해야 한다는 원칙 ⇒ 구현 클래스가 아니라 인터페이스에 의존해야함
+- 구체화가 아니라 추상화 (역할) 에 의존해야 한다는 원칙 ⇒ 구현 클래스가 아니라 인터페이스에 의존해야함
 
 - 예시
   - 연극은 특정 배우를 염두에 두고 기획되는 것 보다는 배역에 집중되서 기획되어야 한다

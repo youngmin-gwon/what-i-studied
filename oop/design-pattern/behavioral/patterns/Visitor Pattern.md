@@ -1,6 +1,13 @@
-# Visitor
-
-#oop, #design-pattern, #behavioral-pattern
+---
+title: Visitor
+created at: 2024-12-12
+tags:
+  - gof
+  - oop
+  - design-pattern
+  - behavioral-pattern
+aliases:
+---
 
 ## Description
 
@@ -9,23 +16,23 @@
 - 알고리즘을 알고리즘을 실행하는 객체로 부터 분리하는 패턴
 - 개체 구조의 요소에 대해 수행할 작업을 나타냄
 - 작동하는 요소의 클래스를 변경하지 않고 새 작업을 정의할 수 있음
-- tree나 collection의 복잡한 데이터 구조가 있고, 각 데이터 요소 클래스를 변경하지 않고 기능을 변경하고 싶을 때 사용
+- tree 나 collection 의 복잡한 데이터 구조가 있고, 각 데이터 요소 클래스를 변경하지 않고 기능을 변경하고 싶을 때 사용
 - 핵심 아이디어
   - 각각의 특정 복합 객체 클래스에 대해 double-dispatch 작업을 정의하는 것
-  - Visitor 패턴의 맥락에서 이를 accept라고 함
-  - client가 개체 구조를 탐색할 때, 각 요소의 accept 메서드가 호출되어 요청을 특정 방문자 개체에 위임하고 이 개체는 매개변수로 메서드에 전달. 그런 다음, Visitor 개체의 특정 메서드가 호출되어 실제 요청을 수행
+  - Visitor 패턴의 맥락에서 이를 accept 라고 함
+  - client 가 개체 구조를 탐색할 때, 각 요소의 accept 메서드가 호출되어 요청을 특정 방문자 개체에 위임하고 이 개체는 매개변수로 메서드에 전달. 그런 다음, Visitor 개체의 특정 메서드가 호출되어 실제 요청을 수행
 
 ## Structure
 
 ![Untitled](../../../../_assets/oop/Untitled%2059.png)
 
 1. ***Visitor***
-    - ConcreteElement를 파라미터로 가질 수 있는 일련의 방문 메소드를 선언하는 인터페이스
-    - Overloading을 취하는 언어라면,  같은 이름을 가질 수도 있지만 Element 타입은 반드시 달라야 함
+    - ConcreteElement 를 파라미터로 가질 수 있는 일련의 방문 메소드를 선언하는 인터페이스
+    - Overloading 을 취하는 언어라면, 같은 이름을 가질 수도 있지만 Element 타입은 반드시 달라야 함
 2. ***ConcreteVisitor***
     - 다른 ConcreteElement 클래스에 맞게 조정된 동일한 동작의 여러 버전을 구현
 3. ***Element***
-    - Visitor를 “accept” 메소드 선언하는 인터페이스
+    - Visitor 를 "accept" 메소드 선언하는 인터페이스
     - 선언된 메소드에는 Visitor Interface 유형으로 선언된 매개변수가 하나 있어야 함
 4. ***ConcreteElement***
     - accept 메소드 구현
@@ -58,19 +65,19 @@
 
 ### [[Command Pattern]]
 
-- Visitor를 Command의 강력한 버전이라고 생각할 수 있음
+- Visitor 를 Command 의 강력한 버전이라고 생각할 수 있음
 - Visitor 객체는 다른 클래스의 다양한 객체에서도 작업을 수행할 수 있음
 
 ### [[Composite Pattern]]
 
-- Composite Tree의 연산을 수행할 때 Visitor를 사용할 수 있음
+- Composite Tree 의 연산을 수행할 때 Visitor 를 사용할 수 있음
 
 ### [[Iterator Pattern]]
 
-- 복잡한 데이터 구조를 순환하면서 연산을 수행할 때 Visitor와 Iterator를 같이 사용할 수 있음
+- 복잡한 데이터 구조를 순환하면서 연산을 수행할 때 Visitor 와 Iterator 를 같이 사용할 수 있음
 
 ### [[Strategy Pattern]]
 
-- Visitor를 어떤 의미에서 방문하는 전략이라고 생각할 수 있음
-- Visitor의 목적은 자료 구조의 각 노드를 방문하면서 무언가 한다는 것
-- Strategy는 훨씬 일반적이고 자료 구조와 특별환 연관이 없음
+- Visitor 를 어떤 의미에서 방문하는 전략이라고 생각할 수 있음
+- Visitor 의 목적은 자료 구조의 각 노드를 방문하면서 무언가 한다는 것
+- Strategy 는 훨씬 일반적이고 자료 구조와 특별환 연관이 없음

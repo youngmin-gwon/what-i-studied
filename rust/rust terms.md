@@ -1,6 +1,11 @@
-# rust 용어
-
-#rust, #terms
+---
+title: rust terms
+created at: 2024-12-12
+tags:
+  - term
+  - rust
+aliases:
+---
 
 ## macro
 
@@ -10,7 +15,7 @@
 println!();
 ```
 
-추후에 추가할테니 현재로서는 !가 들어가면 function이 아니라 macro가 불린다는 것만 이해
+추후에 추가할테니 현재로서는 !가 들어가면 function 이 아니라 macro 가 불린다는 것만 이해
 
 ## Prelude
 

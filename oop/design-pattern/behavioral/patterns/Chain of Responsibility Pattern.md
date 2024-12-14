@@ -1,6 +1,13 @@
-# Chain of Responsibility
-
-#oop, #design-pattern, #behavioral-pattern
+---
+title: Chain of Responsibility
+created at: 2024-12-12
+tags:
+  - gof
+  - oop
+  - design-pattern
+  - behavioral-pattern
+aliases:
+---
 
 ## Description
 
@@ -14,7 +21,7 @@
 ### Situation
 
 - 온라인 주문 시스템을 구축한다고 가정해보자. 많은 기능들이 필요하겠지만 유저에 대한 인증이나, Admin 권한을 가진 사용자의 경우 모든 주문을 조회한다던지 하는 기능들이 필요할것이다.
-- 시스템이 비대해져가면서 비밀번호 brute force 어택을 막기 위한 기능, 요청에 대한 validation, 같은 요청에 대해 cache를 반환하는 기능이 필요할수도 있다.
+- 시스템이 비대해져가면서 비밀번호 brute force 어택을 막기 위한 기능, 요청에 대한 validation, 같은 요청에 대해 cache 를 반환하는 기능이 필요할수도 있다.
 - 이 상태에서 또 다른 기능을 추가하면 로직은 복잡해진다. 하나를 변경할 때 다른 기능에 영향을 줄 수도 있고, 만약 이 기능들중 일부분의 기능이 다른 기능구현에 필요하다면 중복코드가 발생한다. 이렇게 되면 시스템을 관리하며 유지보수하기가 매우 힘들어진다
 
 ![Untitled](../../../../_assets/oop/cor_example_1.png)
@@ -41,15 +48,15 @@
 
 1. ***Handler***
     - 요청을 처리하기 위한 인터페이스 정의
-    - 모든 핸들러가 BaseHandler를 상속받아 사용한다면 하지 않아도 됨
+    - 모든 핸들러가 BaseHandler 를 상속받아 사용한다면 하지 않아도 됨
 2. ***BaseHandler***
-    - chain 다음 객체의 reference를 가짐
+    - chain 다음 객체의 reference 를 가짐
     - default 행위를 정의함
     - 모든 핸들러 클래스 공통 보일러플레이트 코드 포함
 3. ***ConcreteHandler***
     - 요청을 실제 처리하는 코드 정의
       - 해당 객체에서 처리하거나 다음으로 넘기거나 하는 방식
-      - 핸들러는 초기화 된 이후로는 immutable함
+      - 핸들러는 초기화 된 이후로는 immutable 함
 4. ***Client***
     - 필요에 따라 핸들러 체인을 만들고 요청을 보냄
 
@@ -81,15 +88,15 @@
 
 ### [[Composite Pattern]]
 
-- CoR은 주로 Composite과 함께 사용됨
-  - 이 경우 leaf component가 요청을 받으면 모든 상위 component의 체인을 통해 component tree의 root까지 전달할 수 있음
+- CoR 은 주로 Composite 과 함께 사용됨
+  - 이 경우 leaf component 가 요청을 받으면 모든 상위 component 의 체인을 통해 component tree 의 root 까지 전달할 수 있음
 
 ### [[Command Pattern]]
 
-- CoR의 핸들러를 Command를 이용해서 구현할 수 있음
+- CoR 의 핸들러를 Command 를 이용해서 구현할 수 있음
 - 이 경우, 요청으로 표시되는 동일한 컨텍스트 개체에 대해 다양한 작업을 실행할 수 있음
 - 다른 방법
-  - request 자체를 command로 구현
+  - request 자체를 command 로 구현
   - 이 경우, 체인으로 연결된 일련의 다른 컨텍스트에서 동일한 작업을 실행할 수 있음
 
 ### [[Decorator Pattern]]

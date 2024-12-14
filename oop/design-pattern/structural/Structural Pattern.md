@@ -1,6 +1,13 @@
-# Structural Pattern
-
-#oop, #design-pattern, #structural-pattern
+---
+title: Structural Pattern
+created at: 2024-12-12
+tags:
+  - gof
+  - oop
+  - design-pattern
+  - structural-pattern
+aliases:
+---
 
 ## Description
 

@@ -1,6 +1,11 @@
-# tmux commands
-
-#tmux, #command
+---
+title: tmux commands
+created at: 2024-12-12
+tags:
+  - command
+  - tmux
+aliases:
+---
 
 ## open
 

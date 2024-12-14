@@ -1,6 +1,13 @@
-# Prototype
-
-#oop, #design-pattern, #creational-pattern
+---
+title: Prototype
+created at: 2024-12-12
+tags:
+  - gof
+  - oop
+  - design-pattern
+  - creational-pattern
+aliases:
+---
 
 ## Description
 
@@ -14,7 +21,7 @@
   - 프레임워크에 추상화된 Graphic 클래스가 정의되어 있음
   - Graphic 객체의 인스턴스를 생성해서 문서에 추가하는 도구에 대한 GraphicTool 서브클래스 정의되어 있음
   - GraphicTool 클래스가 응용프로그램에만 국한된 게 아니고 범용 프레임워크임
-    - GraphicTool 클래스가 어떻게 Graphic의 서브클래스들을 생성해야 하는지 알 수 없음
+    - GraphicTool 클래스가 어떻게 Graphic 의 서브클래스들을 생성해야 하는지 알 수 없음
     - 이렇게 되면 각 Graphic 객체마다 서브클래스들을 만들어야 함
   - 이러한 문제를 해결하기 위해서는 GraphicTool 클래스가 Graphic 서브클래스의 인스턴스들을 복제하여 새로운 Graphic 인스턴스를 생성해야 하며, Graphic 서브 클래스의 인스턴스가 프로토타입이 됨
 - 세부사항은 알 필요 없이, 복잡한 상태의 개체를 복사하려는 경우 유용함
@@ -33,12 +40,12 @@
    - 스스로 복제하는 기능 구현
    - 원본 복사하는 것 외에도, 연결된 객체 복제, 재귀 종속성 풀기 등과 관련된 복제 프로세스의 일부 극단적인 경우를 처리할 수도 있음
 3. SubclassPrototype
-   - ConcretePrototype과 같은 목적을 가지지만, 때로는 행위 같은 인자를 정의하여 base class를 확장할 수 있음
+   - ConcretePrototype 과 같은 목적을 가지지만, 때로는 행위 같은 인자를 정의하여 base class 를 확장할 수 있음
 
 ## Adaptability
 
 - 복제해야 하는 구체 클래스에 코드가 종속되지 않게 하기 위해 사용
-- 오직 초기화 하는 방법만 다른 각각의 subclass를 줄이기 위해 사용
+- 오직 초기화 하는 방법만 다른 각각의 subclass 를 줄이기 위해 사용
 
 ## Pros
 
@@ -55,28 +62,28 @@
 
 ### [[Factory Method Pattern]]
 
-- Factory Method에서 조금씩 발전하여 Abstract Factory, Prototype, Builder 패턴으로 발전하였음
-- Prototype은 복제된 객체의 복잡한 초기화가 필요하지만, 상속으로 인한 단점이 없음
-- Factory Method는 상속을 기반으로 하지만 초기화 단계가 필요하지 않음
+- Factory Method 에서 조금씩 발전하여 Abstract Factory, Prototype, Builder 패턴으로 발전하였음
+- Prototype 은 복제된 객체의 복잡한 초기화가 필요하지만, 상속으로 인한 단점이 없음
+- Factory Method 는 상속을 기반으로 하지만 초기화 단계가 필요하지 않음
 
 ### [[Abstract Factory Pattern]]
 
-- 보통 Abstract Factory는 Factory Method의 세트로 구성되지만, Prototype의 세트로 구성할 수도 있음
+- 보통 Abstract Factory 는 Factory Method 의 세트로 구성되지만, Prototype 의 세트로 구성할 수도 있음
 
 ### [[Command Pattern]]
 
-- command 복제본을 저장해야 할 때 Prototype이 도움을 줄 수 있음
+- command 복제본을 저장해야 할 때 Prototype 이 도움을 줄 수 있음
 
 ### [[Composite Pattern]], [[Decorator Pattern]]
 
-- Composite과 Decorator를 많이 사용하는 디자인에서는 Prototype을 사용하며 이점을 얻을 수 있음
+- Composite 과 Decorator 를 많이 사용하는 디자인에서는 Prototype 을 사용하며 이점을 얻을 수 있음
 - 패턴을 적용하면 처음부터 다시 구성하는 대신 복잡한 구조를 복제할 수 있음
 
 ### [[Memento Pattern]]
 
-- Prototype이 Memento의 간단한 대안이 될 수도 있음
+- Prototype 이 Memento 의 간단한 대안이 될 수도 있음
 - 히스토리에 저장하려는 상태 객체가 간단하고 외부 리소스에 대한 링크가 없거나 링크가 재설정하기 쉬운 경우
 
 ### [Singleton Pattern]
 
-- Prototype은 Singleton 로 구현될 수 있음
+- Prototype 은 Singleton 로 구현될 수 있음

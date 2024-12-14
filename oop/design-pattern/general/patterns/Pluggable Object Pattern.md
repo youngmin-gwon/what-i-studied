@@ -1,12 +1,18 @@
-# Pluggable Object
-
-#oop, #design-pattern, #general-pattern
+---
+title: Pluggable Object
+created at: 2024-12-12
+tags:
+  - oop
+  - design-pattern
+  - general-pattern
+aliases:
+---
 
 ## Description
 
 **Pluggable Object Pattern**은 객체의 동작이나 기능을 실행 시간에 동적으로 변경할 수 있도록 설계된 패턴
 
-이 패턴은 동작을 외부에서 주입(plug-in)받아 실행하므로, 조건문을 줄이고 객체 간의 결합도를 낮추는 데 유용함
+이 패턴은 동작을 외부에서 주입 (plug-in) 받아 실행하므로, 조건문을 줄이고 객체 간의 결합도를 낮추는 데 유용함
 
 **Pluggable Object Pattern**은 알려진 인터페이스를 구현한 객체에 대한 참조를 저장하고, 이를 통해 나머지 객체가 동작을 수행하도록 설계함
 
@@ -16,13 +22,13 @@
 
 다음과 같은 상황을 고려
 
-- 사람(Person)이 "운전 중"이거나 "걷는 중"일 때 움직임을 제어하는 코드가 있음.
+- 사람 (Person) 이 " 운전 중 " 이거나 " 걷는 중 " 일 때 움직임을 제어하는 코드가 있음.
 - 조건문을 사용하면 코드가 복잡해지고, 새로운 이동 방식이 추가되면 복잡성이 더 심화됨.
-- Pluggable Object Pattern을 사용하면 이동 방식을 캡슐화하고, 동작을 외부에서 주입함으로써 조건문을 없앨 수 있음.
+- Pluggable Object Pattern 을 사용하면 이동 방식을 캡슐화하고, 동작을 외부에서 주입함으로써 조건문을 없앨 수 있음.
 
 ## Structure
 
-1. **Interface or Abstract Class**: 공통 동작(메서드)을 정의.
+1. **Interface or Abstract Class**: 공통 동작 (메서드) 을 정의.
 2. **Concrete Implementations**: 구체적인 동작을 구현하는 클래스.
 3. **Pluggable Host Object**: 동작을 실행 시간에 주입받아 사용하는 객체.
 
@@ -134,18 +140,18 @@ void main() {
 #### [[Strategy Pattern]]
 
 둘 다 인터페이스를 사용하여 동작을 캡슐화하고, 실행 시점에 교체 가능
-Pluggable Object Pattern은 주로 객체 동작을 교체하는 데 초점이 있음
+Pluggable Object Pattern 은 주로 객체 동작을 교체하는 데 초점이 있음
 
 #### [[State Pattern]]
 
-State Pattern은 객체의 상태에 따라 동작을 변경, Pluggable Object Pattern은 플러그인을 통해 동작을 교체
+State Pattern 은 객체의 상태에 따라 동작을 변경, Pluggable Object Pattern 은 플러그인을 통해 동작을 교체
 
 ### Difference
 
 #### [[Decorator Pattern]]
 
-Decorator는 기존 동작에 새로운 기능을 추가하지만, Pluggable Object Pattern은 동작을 완전히 교체
+Decorator 는 기존 동작에 새로운 기능을 추가하지만, Pluggable Object Pattern 은 동작을 완전히 교체
 
 #### Dependency Injection
 
-Dependency Injection은 객체 생성을 초기화 단계에서 결정, Pluggable Object Pattern은 실행 중에도 동작을 교체 가능
+Dependency Injection 은 객체 생성을 초기화 단계에서 결정, Pluggable Object Pattern 은 실행 중에도 동작을 교체 가능

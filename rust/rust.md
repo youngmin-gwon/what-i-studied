@@ -1,6 +1,11 @@
-# rust 컨셉
-
-#rust, #concept
+---
+title: rust concepts
+created at: 2024-12-12
+tags:
+  - concept
+  - rust
+aliases:
+---
 
 ## Rust is ahead-of-time compiled language
 
@@ -14,7 +19,7 @@ not like python, javascript, ruby
 
 not directly used
 
-## `cargo` is Rust’s build system and package manager
+## `cargo` is Rust's build system and package manager
 
 what cargo does
 
@@ -74,7 +79,7 @@ edition = "2021"
 
 `[dependencies]`
 
-- the start of a section for you to list any of your project’s dependencies
+- the start of a section for you to list any of your project's dependencies
 
 ## Crates
 
@@ -122,7 +127,7 @@ An old variable with name "a" is replaced by a new variable with name "a"
 ### Difference between mut and shadowing
 
 1. we'll get compile-time error if we accidentally try to reassign to this variable without using the let keyword
-2. because we’re effectively creating a new variable when we use the `let` keyword again, we can change the type of the value but reuse the same name.
+2. because we're effectively creating a new variable when we use the `let` keyword again, we can change the type of the value but reuse the same name.
 
 ## Ownership
 

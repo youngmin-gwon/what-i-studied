@@ -1,4 +1,11 @@
-# flutter framework under the hood
+---
+title: flutter framework under the hood
+created at: 2024-12-12
+tags:
+  - concept
+  - flutter
+aliases:
+---
 
 ## flutter framework
 
