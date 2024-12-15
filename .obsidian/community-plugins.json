@@ -8,5 +8,9 @@
   "obsidian-vimrc-support",
   "obsidian-linter",
   "3d-graph",
-  "templater-obsidian"
+  "templater-obsidian",
+  "settings-search",
+  "slash-commander",
+  "cmdr",
+  "url-into-selection"
 ]

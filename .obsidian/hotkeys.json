@@ -40,5 +40,39 @@
       ],
       "key": "G"
     }
+  ],
+  "cycle-in-sidebar:cycle-left-sidebar": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "["
+    }
+  ],
+  "cycle-in-sidebar:cycle-left-sidebar-reverse": [
+    {
+      "modifiers": [
+        "Ctrl",
+        "Shift"
+      ],
+      "key": "["
+    }
+  ],
+  "cycle-in-sidebar:cycle-right-sidebar": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "]"
+    }
+  ],
+  "cycle-in-sidebar:cycle-right-sidebar-reverse": [
+    {
+      "modifiers": [
+        "Ctrl",
+        "Shift"
+      ],
+      "key": "]"
+    }
   ]
 }
