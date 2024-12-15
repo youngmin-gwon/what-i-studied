@@ -1,4 +1,12 @@
-# Python 알고리즘 구조 공부
+---
+title: python coding interview 정리
+created at: 2024-12-12
+tags:
+  - interview
+  - big-o
+  - python
+aliases:
+---
 
 ## 파이썬 자료형
 
