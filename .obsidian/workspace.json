@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "b18b85d57a774e48",
+        "id": "e4332f6b4b5e8f16",
         "type": "tabs",
         "children": [
           {
-            "id": "010d0e7ae639dbbd",
+            "id": "1b05271099e9a7bb",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "git/git.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "git"
+              "title": "New tab"
             }
           }
         ]
@@ -77,8 +73,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 332.5,
-    "collapsed": true
+    "width": 246.5
   },
   "right": {
     "id": "38514e7488b9ce97",
@@ -94,7 +89,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "git/git.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +98,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for git"
+              "title": "Backlinks"
             }
           },
           {
@@ -113,12 +107,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "git/git.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from git"
+              "title": "Outgoing links"
             }
           },
           {
@@ -139,11 +132,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "git/git.md"
-              },
+              "state": {},
               "icon": "lucide-list",
-              "title": "Outline of git"
+              "title": "Outline"
             }
           },
           {
@@ -156,7 +147,8 @@
               "title": "Source Control"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -165,15 +157,15 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "templater-obsidian:Templater": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-git:Open Git source control": false,
       "markdown-importer:Open format converter": false,
+      "templater-obsidian:Templater": false,
+      "obsidian-git:Open Git source control": false,
       "3d-graph:3D Graph": false,
       "obsidian-projects:Open projects": false,
       "dbfolder:Create a new database table": false,
@@ -183,53 +175,53 @@
       "janitor:Janitor: scan vault": false
     }
   },
-  "active": "010d0e7ae639dbbd",
+  "active": "2f1d28be0471f52d",
   "lastOpenFiles": [
+    "profile.md",
+    "01_inbox/highlighted/books/Android Test-Driven Development by Tutorials.md",
+    "01_inbox/highlighted/books/Git for Teams.md",
+    "01_inbox/highlighted/books/Microinteractions.md",
+    "01_inbox/highlighted/books/Test-Driven Development By Example.md",
+    "01_inbox/highlighted/books/Ansible for DevOps.md",
+    "01_inbox/highlighted/books/The Robert C. Martin Clean Code Collection (Collection).md",
+    "01_inbox/highlighted/books/Pro Git.md",
+    "01_inbox/highlighted/books/The Design of Everyday Things  Revised and Expanded Edition.md",
+    "01_inbox/highlighted/books/Hackers & Painters.md",
+    "01_inbox/highlighted/books/The Rust Programming Language.md",
+    "01_inbox/highlighted/books/Extreme Programming Explained - Embrace Change, Second Edition @Team LiB.md",
+    "01_inbox/highlighted/books/Secure Coding - Principles and Practices.md",
+    "01_inbox/highlighted/books/Zero To Production In Rust.md",
+    "01_inbox/highlighted/books/Implementing Domain-Driven Design.md",
+    "01_inbox/highlighted/books/유닉스의 탄생.md",
+    "01_inbox/highlighted/books/Developer Testing  Building Quality into Software (SHARLA SORGE's Library).md",
+    "01_inbox/highlighted/books/Refactoring.md",
+    "01_inbox/highlighted/books",
+    "01_inbox/highlighted/web_contents/A Philosophy Professor’s Final Class.md",
+    "01_inbox/highlighted/web_contents/The Many Worlds of Enough.md",
+    "01_inbox/highlighted/web_contents",
+    "01_inbox/highlighted",
+    "01_inbox/Untitled",
+    "reading_list/A Philosophy Professor’s Final Class.md",
+    "reading_list/The Many Worlds of Enough.md",
+    "02_references/ui_ux_design/apple_keynotes/Explore navigation design for iOS.md",
+    "reading_list",
+    "02_references/ui_ux_design/apple_keynotes",
+    "02_references/ui_ux_design/apple_keynotes/Writing for interfaces.md",
+    "02_references/ui_ux_design/tips/principle_of_layout.md",
+    "02_references/ui_ux_design/tips/by_flux.md",
+    "02_references/standards",
+    "02_references/articles",
+    "Untitled",
+    "02_references/tools",
     "_assets/flutter/flutter_stateful_lifecycle.jpeg",
     "_assets/flutter/flutter_stateful_lifecycle.png",
-    "books/Code Complete.md",
-    "books/Clean Architecture.md",
     "_assets/books/code_complete_cover.png",
     "_assets/books/code_complete_3.png",
     "_assets/books/code_complete_2.png",
     "_assets/books/isp_1.png",
     "_assets/books/isp.png",
     "_assets/books/isp_0.png",
-    "profile.md",
-    "books/Cracking the Coding Interview 6E.md",
-    "books/Domain Driven Design.md",
-    "books/Implementing Domain Driven Design.md",
-    "books/Python Coding Interview.md",
-    "books/Refactoring.md",
-    "books/TDD by Example.md",
-    "oop/design-pattern/testing/patterns/Self Shunt Pattern.md",
-    "[Self Shunt Pattern.md",
-    "books/The Art of Readable Code.md",
-    "books/객체 지향의 사실과 오해.md",
-    "interview/questions I need to ask.md",
-    "interview/telephone interview.md",
-    "interview/general questions.md",
-    "interview/interview_questions.md",
-    "reading_list",
-    "design/typography/tips_korean.md",
-    "books_apple/Android Test-Driven Development by Tutorials.md",
-    "books_apple/Git for Teams.md",
-    "books_apple/Microinteractions.md",
-    "books_apple/Test-Driven Development By Example.md",
-    "books_apple/Ansible for DevOps.md",
-    "books_apple/The Robert C. Martin Clean Code Collection (Collection).md",
-    "books_apple/Pro Git.md",
-    "books_apple",
-    "books",
-    "_template",
-    "Apple Books Highlights",
     "_assets/oop/cor_structure.png",
-    "_assets/oop/cor_example_2.png",
-    "_assets/oop/cor_example_1.png",
-    "fp",
-    "_assets/functional-programming",
-    ".git/objects/34/2dc0fc918c63c056859e548280cfbcea108d36",
-    ".git/objects/14/f74b60a6b2020a1ec06045aec6e978ef578136",
-    ".git/objects/cf/1c3ed4962ec39eacd8f8abaaed995d45cd3529"
+    "_assets/oop/cor_example_2.png"
   ]
 }

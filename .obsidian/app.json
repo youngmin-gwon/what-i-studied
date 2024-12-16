@@ -9,5 +9,7 @@
   "newLinkFormat": "relative",
   "showRibbon": true,
   "showInlineTitle": false,
-  "promptDelete": false
+  "promptDelete": false,
+  "strictLineBreaks": true,
+  "defaultViewMode": "source"
 }

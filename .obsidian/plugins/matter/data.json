@@ -2,15 +2,18 @@
   "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1MDEwODM1LCJqdGkiOiJkMGM3YjgxNjU0OTE0OTliYjM3YzVkZWI4YTJmOTViNSIsInVzZXJfaWQiOjIyMjc4NCwiY2xpZW50X3R5cGUiOiJpbnRlZ3JhdGlvbiIsImxvZ2luX3Nlc3Npb25faWQiOiI3ZDM2YTk3Mi1hN2IyLTQzMjYtYjBkMy0wOGIyZWE3YjQzNDUifQ.oOfkNOE8d5tMRo4WFbRhOYmPArvMlOoOssSuOxCsuiY",
   "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MjA5NTYzNSwianRpIjoiODI4YjI0ZjRiOWVkNDRlZjhkNDRlMjFlZTIwNDM5YTQiLCJ1c2VyX2lkIjoyMjI3ODQsImNsaWVudF90eXBlIjoiaW50ZWdyYXRpb24iLCJsb2dpbl9zZXNzaW9uX2lkIjoiN2QzNmE5NzItYTdiMi00MzI2LWIwZDMtMDhiMmVhN2I0MzQ1In0.HrQRf-fTv6AU58Z9ZpIq8lHH3JHl0984JL1awCl3yxE",
   "qrSessionToken": "96e2033d6ea4d44119c393b1af9b8eadcc80fe97f14c4ef5f17c82c2f8b31aa3",
-  "dataDir": "reading_list",
+  "dataDir": "01_inbox/highlighted/web_contents",
   "syncInterval": 60,
   "syncOnLaunch": true,
   "notifyOnSync": "always",
   "hasCompletedInitialSetup": true,
-  "lastSync": "2024-12-16T05:32:52.226Z",
+  "lastSync": "2024-12-16T08:43:43.144Z",
   "isSyncing": false,
-  "contentMap": {},
+  "contentMap": {
+    "A Philosophy Professor’s Final Class.md": "4_19983697",
+    "The Many Worlds of Enough.md": "4_1180703"
+  },
   "recreateIfMissing": true,
-  "metadataTemplate": null,
-  "highlightTemplate": null
+  "metadataTemplate": "---\nurl: {{url}}\n{% if author %}\nauthor: {{author}}\n{% endif %}\n{% if publisher %}\npublisher: {{publisher}}\n{% endif %}\n{% if published_date %}\npublished at: {{published_date|date(\"YYYY-MM-DD\")}}\n{% endif %}\n{% if note %}\nnote: {{note}}\n{% endif %}\n{% if tags %}\ntags: {% for tag in tags %}#{{tag | replace(' ', '_')}}{% if not loop.last %}, {% endif %}{% endfor%}\n{% endif %}\n\n---",
+  "highlightTemplate": "* {{text}}\n{% if note %}\n  * **Note**: {{note}}\n{% endif %}"
 }
