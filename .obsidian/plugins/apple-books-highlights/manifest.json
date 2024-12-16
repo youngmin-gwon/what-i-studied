@@ -1,0 +1,10 @@
+{
+	"id": "apple-books-highlights",
+	"name": "Apple Books Highlights",
+	"version": "1.0.1",
+	"minAppVersion": "0.15.0",
+	"description": "Sync your Apple Books highlights automatically",
+	"author": "Atif Afzal",
+	"authorUrl": "https://atfzl.com",
+	"isDesktopOnly": true
+}
