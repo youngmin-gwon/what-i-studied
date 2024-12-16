@@ -1,10 +1,9 @@
 ---
-title: git concept
-created at: 2024-12-12
-tags:
-  - concept
-  - git
-aliases:
+aliases: []
+date created: 2024-12-09 21:31:10 +09:00
+date modified: 2024-12-16 12:21:06 +09:00
+tags: [concept, git]
+title: git
 ---
 
 ## git 의 주 목적

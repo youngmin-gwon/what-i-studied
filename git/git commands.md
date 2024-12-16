@@ -1,10 +1,9 @@
 ---
+aliases: []
+date created: 2024-12-09 21:31:10 +09:00
+date modified: 2024-12-16 12:21:06 +09:00
+tags: [command, git]
 title: git commands
-created at: 2024-12-12
-tags:
-  - command
-  - git
-aliases:
 ---
 
 ## git reset
@@ -42,6 +41,7 @@ git reset --soft HEAD~2 # 이와 같은 명령으로 몇 단계 전으로 돌려
 ##### 요약
 
 `reset`: 로컬의 커밋을 되돌리고 싶을 때 사용 (기록 남지 않음)
+
 `revert`: 공유 repository 의 커밋을 되돌리고 싶을 때 사용 (기록 남음)
 
 ##### 상세
@@ -118,6 +118,7 @@ Index 내용이 해당 커밋 버전으로 변경될 뿐만 아니라 워킹 디
 ## git checkout
 
 reset 과 마찬가지로 HEAD, Index, Working Directory 트리를 조작함
+
 checkout 역시 파일 경로를 쓰느냐 안쓰느냐에 따라 동작이 다름
 
 ## git clean

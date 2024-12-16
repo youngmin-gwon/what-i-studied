@@ -1,12 +1,10 @@
 ---
-title: Refactoring 정리
+aliases: []
 created at: 2024-12-12
-tags:
-  - book
-  - code-quality
-  - ddd
-  - architecture
-aliases:
+date created: 2024-12-16 12:12:44 +09:00
+date modified: 2024-12-16 12:21:50 +09:00
+tags: [architecture, book, code-quality, ddd]
+title: Refactoring
 ---
 
 ## 1 장. 리팩토링 예시

@@ -1,11 +1,9 @@
 ---
-title: flutter interview question
-created at: 2024-12-12
-tags:
-  - concept
-  - flutter
-  - interview
-aliases:
+aliases: []
+date created: 2024-12-14 11:17:03 +09:00
+date modified: 2024-12-16 12:21:14 +09:00
+tags: [concept, flutter, interview]
+title: flutter
 ---
 
 ## Flutter?

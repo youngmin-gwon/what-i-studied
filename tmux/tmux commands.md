@@ -1,10 +1,9 @@
 ---
+aliases: []
+date created: 2024-12-09 21:31:10 +09:00
+date modified: 2024-12-16 12:20:56 +09:00
+tags: [command, tmux]
 title: tmux commands
-created at: 2024-12-12
-tags:
-  - command
-  - tmux
-aliases:
 ---
 
 ## open

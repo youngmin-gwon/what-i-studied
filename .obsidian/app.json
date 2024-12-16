@@ -8,5 +8,6 @@
   "useMarkdownLinks": true,
   "newLinkFormat": "relative",
   "showRibbon": true,
-  "showInlineTitle": false
+  "showInlineTitle": false,
+  "promptDelete": false
 }

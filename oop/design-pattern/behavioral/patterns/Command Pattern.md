@@ -1,12 +1,9 @@
 ---
-title: Command(=Action=Transaction)
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - behavioral-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 15:47:04 +09:00
+date modified: 2024-12-16 12:20:02 +09:00
+tags: [behavioral-pattern, design-pattern, gof, oop]
+title: Command Pattern
 ---
 
 ## Description
@@ -52,7 +49,6 @@ aliases:
 ## Cons
 
 - sender 와 receiver 사이에 새로운 layer 를 추가하는 것이기 때문에 코드가 다소 복잡해질 수 있음
-
 - 다른 패턴과의 관계
 
 ### [[Chain of Responsibility Pattern]], [[Mediator Pattern]], [[Observer Pattern]]

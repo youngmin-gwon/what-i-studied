@@ -1,10 +1,9 @@
 ---
-title: flutter framework under the hood
-created at: 2024-12-12
-tags:
-  - concept
-  - flutter
-aliases:
+aliases: []
+date created: 2024-12-14 11:17:03 +09:00
+date modified: 2024-12-16 12:21:24 +09:00
+tags: [concept, flutter]
+title: flutter under the hood
 ---
 
 ## flutter framework
@@ -255,7 +254,9 @@ static bool canUpdate(Widget oldWidget, Widget newWidget) {
     return oldWidget.runtimeType == newWidget.runtimeType && oldWidget.key == newWidget.key;
 }
 ```
+
 ![Rendering Process 8](flutter_rendering_process8.png)
+
 - ComponentElement 는 update() method 를 사용
 ![Rendering Process 9](flutter_rendering_process9.png)
 - 중요한 점: 바뀌는 새 Widget 은 반드시 같은 runType 을 가지는 Widget 이어야 함
@@ -273,6 +274,7 @@ static bool canUpdate(Widget oldWidget, Widget newWidget) {
 ![Rendering Process 12](flutter_rendering_process12.png)
 
 ![Rendering Process 13](flutter_rendering_process13.png)
+
 - 앞선 과정을 같은 프로세스로 반복
 - 업데이트가 필요한 Text Widget 의 경우, updateRenderObject 가 업데이트 됨
 ![Rendering Process 14](flutter_rendering_process14.png)
@@ -306,7 +308,6 @@ static bool canUpdate(Widget oldWidget, Widget newWidget) {
 
 > 코어 플러터 프레임워크 기초요소
   - 이 라이브러리에 정의된 기능은 Flutter 프레임워크의 다른 모든 계층에서 사용되는 가장 낮은 수준의 유틸리티 클래스 및 기능입니다.
-
 - 이 계층은 모든 결합 (Bindings) 의 기본 클래스인 BindingBase 도 포함하고 있음
 - 결합 (바인딩) 이란?
 
@@ -494,10 +495,12 @@ buildOwner.finalizeTree();
 			- ComponentElement 에서는 build(StatelessWidget, StatefulWidget 이 가지고 있는 그것)
 
 	![Element.performRebuild](flutter_element_perform_rebuild.png)
+
 	- Element.updateChild 에 보내는 widget 을 리턴
 		- widget 은 해당 element 에서 mounted 되거나 updated 될 것임
 
 	![Element.updateChild](flutter_element_update_child.png)
+
 	- BuildOwner.buildScope 일 때는 어떤 일이 발생하는가?
 		- dirty 라고 표시된 모든 element 를 rebuild
 		- dirty 하게 만드는 방법

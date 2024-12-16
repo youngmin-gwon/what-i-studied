@@ -1,11 +1,9 @@
 ---
-title: githooks concept
-created at: 2024-12-12
-tags:
-  - concept
-  - githooks
-  - git
-aliases:
+aliases: []
+date created: 2024-12-09 21:31:10 +09:00
+date modified: 2024-12-16 12:21:08 +09:00
+tags: [concept, git, githooks]
+title: githooks
 ---
 
 ## pre-commit

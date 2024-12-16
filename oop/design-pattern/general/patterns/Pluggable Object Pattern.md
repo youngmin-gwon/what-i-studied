@@ -1,11 +1,9 @@
 ---
-title: Pluggable Object
-created at: 2024-12-12
-tags:
-  - oop
-  - design-pattern
-  - general-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 23:54:34 +09:00
+date modified: 2024-12-16 12:20:45 +09:00
+tags: [design-pattern, general-pattern, oop]
+title: Pluggable Object Pattern
 ---
 
 ## Description
@@ -140,6 +138,7 @@ void main() {
 #### [[Strategy Pattern]]
 
 둘 다 인터페이스를 사용하여 동작을 캡슐화하고, 실행 시점에 교체 가능
+
 Pluggable Object Pattern 은 주로 객체 동작을 교체하는 데 초점이 있음
 
 #### [[State Pattern]]

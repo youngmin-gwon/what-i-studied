@@ -1,12 +1,9 @@
 ---
-title: Abstract Factory(=Kit)
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - creational-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 15:51:24 +09:00
+date modified: 2024-12-16 12:20:12 +09:00
+tags: [creational-pattern, design-pattern, gof, oop]
+title: Abstract Factory Pattern
 ---
 
 ## Description

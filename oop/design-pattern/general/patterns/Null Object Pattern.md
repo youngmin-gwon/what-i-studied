@@ -1,11 +1,9 @@
 ---
-title: Null Object
-created at: 2024-12-12
-tags:
-  - oop
-  - design-pattern
-  - general-pattern
-aliases:
+aliases: []
+date created: 2024-12-13 00:00:26 +09:00
+date modified: 2024-12-16 12:20:18 +09:00
+tags: [design-pattern, general-pattern, oop]
+title: Null Object Pattern
 ---
 
 ## Description

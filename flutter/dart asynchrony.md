@@ -1,12 +1,9 @@
 ---
+aliases: []
+date created: 2024-12-14 11:17:03 +09:00
+date modified: 2024-12-16 12:21:13 +09:00
+tags: [async, concept, dart, flutter]
 title: dart asynchrony
-created at: 2024-12-12
-tags:
-  - concept
-  - async
-  - dart
-  - flutter
-aliases:
 ---
 
 - **Dart**는 **Single-threaded language** 이다

@@ -1,17 +1,15 @@
 ---
-title: Collecting Parameter
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - structural-pattern
-aliases:
+aliases: []
+date created: 2024-12-13 00:02:00 +09:00
+date modified: 2024-12-16 12:20:17 +09:00
+tags: [design-pattern, general-pattern, oop]
+title: Collecting Parameter Pattern
 ---
 
 ## Description
 
 Collecting Parameter Pattern 은 여러 데이터를 함수로 전달해야 할 때, 단일 객체를 통해 이 데이터를 수집하고 전달하는 패턴입니다.
+
 이는 인수 목록이 길어지거나 복잡한 경우 코드를 간결하고 가독성 있게 만들기 위해 사용됩니다.
 
 ## Structure

@@ -1,11 +1,9 @@
 ---
-title: Pluggable Selector
-created at: 2024-12-12
-tags:
-  - oop
-  - design-pattern
-  - general-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 23:55:33 +09:00
+date modified: 2024-12-16 12:20:22 +09:00
+tags: [design-pattern, general-pattern, oop]
+title: Pluggable Selector Pattern
 ---
 
 ## Description

@@ -1,4 +1,10 @@
-## 1.  Design is the process of going from a poorly formed problem to a well structured solution.
+---
+date created: 2024-12-09 21:31:10 +09:00
+date modified: 2024-12-16 12:22:36 +09:00
+title: How to Design Program
+---
+
+## 1. Design is the process of going from a poorly formed problem to a well structured solution
 
 ## Primitive rules
 - left to right
@@ -17,20 +23,20 @@ The HtDF recipe consists of the following steps:
 	- Type -> Type
 	2. purpose
 	- purpose is a line description of what the function produces in terms of what it consumes
-	- it must be more deliberate than signature. 
+	- it must be more deliberate than signature.
 	- `Do not just repeat signature. Add more info.`
 	3. stub
 	- has correct function name
 	- has correct number of parameters
 	- produces dummy result of correct type
 2. Define examples, wrap each in check-expect.
-	- Examples help us understand what function must do. 
+	- Examples help us understand what function must do.
 	- Multiple examples to illustrate behavior
 	- Wrapping in check-expect means they will also serve as unit tests for the completed function.
 3. Template and inventory.
 	- template is a function with right function name and right function parameter.
 	- body template is simplified like this method
-		- (...ReturnValue)
+		- (…ReturnValue)
 4. Code the function body.
 	- In this phase, developers use everything written before to help them know how to finish the function body.
 5. Test and debug until correct
@@ -43,11 +49,11 @@ The HtDF recipe consists of the following steps:
 
 ### data definition steps
 
-1.  A possible **structure definition** (not until compound data)
-2.  A **type comment** that defines a new type name and describes how to form data of that type.
-3.  An **interpretation** that describes the correspondence between information and data.
-4.  One or more **examples** of the data.
-5.  A **template** for a 1 argument function operating on data of this type.
+1. A possible **structure definition** (not until compound data)
+2. A **type comment** that defines a new type name and describes how to form data of that type.
+3. An **interpretation** that describes the correspondence between information and data.
+4. One or more **examples** of the data.
+5. A **template** for a 1 argument function operating on data of this type.
 
 ### itemization simpler rules
 - if a given class is the last subclass of its type, we can reduce the test just to guard(ie. number? c)
@@ -59,10 +65,10 @@ The HtDF recipe consists of the following steps:
 
 ## The Number of Tests by Type
 
-#### Interval
+### Interval
 - When writing tests for functions operating on intervals, be sure to test closed boundaries as well as midpoints
 
-### Enumeration
+## Enumeration
 - Functions operating on enumerations should have (at least) as many tests as there are cases in the enumeration.
 
 ## Itemization

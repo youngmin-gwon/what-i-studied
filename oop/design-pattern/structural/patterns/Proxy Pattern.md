@@ -1,12 +1,9 @@
 ---
-title: Proxy
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - structural-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 15:53:12 +09:00
+date modified: 2024-12-16 12:20:27 +09:00
+tags: [design-pattern, gof, oop, structural-pattern]
+title: Proxy Pattern
 ---
 
 ## Description
@@ -22,7 +19,7 @@ aliases:
 ### Situation
 
 - 많은 시스템의 리소스를 사용하는 객체가 있으나 언제나 필요한건 아님
-- Lazy Loading으로 구현이 가능하지만, 필요 시점에만 객체를 생성하고, 후에 모든 클라이언트는 해당 객체를 초기화 하는 방법은 코드 중복이 너무 많이 발생하게 됨
+- Lazy Loading 으로 구현이 가능하지만, 필요 시점에만 객체를 생성하고, 후에 모든 클라이언트는 해당 객체를 초기화 하는 방법은 코드 중복이 너무 많이 발생하게 됨
 - 해당 객체에 직접 주입하는 방법도 있지만, 3rd-party 라이브러리 라면 이 방법 역시 불가능
 
 ### Solution
@@ -45,7 +42,7 @@ aliases:
 ![Untitled](../../../../_assets/oop/Untitled%2042.png)
 
 1. ServiceInterface
-    - Service와 Proxy를 위한 인터페이스 정의
+    - Service 와 Proxy 를 위한 인터페이스 정의
 2. Service
     - 비즈니스 로직을 포함하고 있는 사용해야할 실제 객체 정의
 3. Proxy
@@ -54,7 +51,7 @@ aliases:
     - 실제 객체를 생성, 삭제 하는데 책임이 있을 수 있음
 4. Client
     - 같은 인터페이스를 이용해 Service, Proxy 모두 소통함
-    - service 객체를 요구하는 어떤 코드에 proxy를 할당할 수 있음
+    - service 객체를 요구하는 어떤 코드에 proxy 를 할당할 수 있음
 
 ## Type
 
@@ -76,22 +73,22 @@ aliases:
 
 ### Commons
 
-- (Proxy 패턴에서 원본에 해당하는) ConcreteComponent는 (Proxy 패턴에서 프록시에 해당하는) 데코레이터를 통해 호출되는 몇 가지 동작을 구현
-- 공통 기본 클래스(common base class)로부터 상속
+- (Proxy 패턴에서 원본에 해당하는) ConcreteComponent 는 (Proxy 패턴에서 프록시에 해당하는) 데코레이터를 통해 호출되는 몇 가지 동작을 구현
+- 공통 기본 클래스 (common base class) 로부터 상속
 
 ### Differences
 
 - 의도에서 차이가 남
-  - 데코레이터는 기능을 추가하거나, (좀 더 일반적으로는) ConcreteComponent의 핵심 기능에 추가 기능을 동적으로 선택할 수 있는 옵션을 제공
-  - 프록시는 세부적으로 정의된 하우스키핑 코드(housekeeping code)를 원본으로부터 분리하는 역할
+  - 데코레이터는 기능을 추가하거나, (좀 더 일반적으로는) ConcreteComponent 의 핵심 기능에 추가 기능을 동적으로 선택할 수 있는 옵션을 제공
+  - 프록시는 세부적으로 정의된 하우스키핑 코드 (housekeeping code) 를 원본으로부터 분리하는 역할
 
 ## Adaptability
 
-- 초기화 지연(Lazy Initialization)가 필요할 때 사용
-- 접근 제한(Access Control)이 필요할 때 사용
-- 원격 서비스 실행(Remote Service Execution)이 필요할 때 사용
-- 요청 정보를 캐시에 보관(Caching request result)할 필요가 있을 때 사용
-- 원본 서비스 접근 기록(Logging Request)이 필요할 때 사용
+- 초기화 지연 (Lazy Initialization) 가 필요할 때 사용
+- 접근 제한 (Access Control) 이 필요할 때 사용
+- 원격 서비스 실행 (Remote Service Execution) 이 필요할 때 사용
+- 요청 정보를 캐시에 보관 (Caching request result) 할 필요가 있을 때 사용
+- 원본 서비스 접근 기록 (Logging Request) 이 필요할 때 사용
 - 무거운 객체를 사용 하지 않을 때 자동으로 메모리에서 제거하는 스마트 레퍼런스를 위해 사용
 
 ## Pros
@@ -99,7 +96,7 @@ aliases:
 - 서비스 개체를 알고 있는 클라이언트 없이 서비스 개체를 제어할 수 있음
 - 클라이언트가 신경 쓰지 않아도 서비스 개체의 수명 주기를 관리할 수 있음
 - 서비스 개체가 준비되지 않았거나 사용할 수 없는 경우에도 사용할 수 있음
-- 새로운 Proxy를 기존 코드 수정 없이 추가할 수 있음 ⇒ [[OCP(Open Closed Principle)]]
+- 새로운 Proxy 를 기존 코드 수정 없이 추가할 수 있음 ⇒ [[OCP(Open Closed Principle)]]
 
 ## Cons
 
@@ -110,27 +107,27 @@ aliases:
 
 ### [[Adapter Pattern]], [[Decorator Pattern]]
 
-- Adapter는 감싸진 객체에 다른 인터페이스를 제공
-- Proxy는 감싸진 객체에 같은 인터페이스를 제공
-- Decorator는 감싸진 객체에 증강된 인터페이스를 제공
+- Adapter 는 감싸진 객체에 다른 인터페이스를 제공
+- Proxy 는 감싸진 객체에 같은 인터페이스를 제공
+- Decorator 는 감싸진 객체에 증강된 인터페이스를 제공
 
 ### [[Facade Pattern]]
 
 - 둘 다 복잡한 엔티티를 버퍼링하고 자체적으로 초기화함
-- Proxy는 서비스 객체와 동일한 인터페이스를 가지고 있어 상호 교환이 가능함
+- Proxy 는 서비스 객체와 동일한 인터페이스를 가지고 있어 상호 교환이 가능함
 
 ### [[Decorator Pattern]]
 
 #### 1. Commons
 
 - 두 패턴 모두 한 개체가 일부 작업을 다른 개체에 위임해야 하는 구성 원칙을 기반으로 함
-- (Proxy 패턴에서 원본에 해당하는) ConcreteComponent는 (Proxy 패턴에서 Proxy에 해당하는) Decorator를 통해 호출되는 몇 가지 동작을 구현
-- 공통 기본 클래스(common base class)로부터 상속
+- (Proxy 패턴에서 원본에 해당하는) ConcreteComponent 는 (Proxy 패턴에서 Proxy 에 해당하는) Decorator 를 통해 호출되는 몇 가지 동작을 구현
+- 공통 기본 클래스 (common base class) 로부터 상속
 
 #### 2. Differences
 
 - 의도에서 차이가 남
-  - 데코레이터는 기능을 추가하거나, (좀 더 일반적으로는) ConcreteComponent의 핵심 기능에 추가 기능을 동적으로 선택할 수 있는 옵션을 제공
-  - 프록시는 세부적으로 정의된 하우스키핑 코드(housekeeping code)를 원본으로부터 분리하는 역할
-- Proxy는 일반적으로 자체적으로 서비스 개체의 수명 주기를 관리
-- Decorator의 구성은 항상 클라이언트에 의해 제어됨
+  - 데코레이터는 기능을 추가하거나, (좀 더 일반적으로는) ConcreteComponent 의 핵심 기능에 추가 기능을 동적으로 선택할 수 있는 옵션을 제공
+  - 프록시는 세부적으로 정의된 하우스키핑 코드 (housekeeping code) 를 원본으로부터 분리하는 역할
+- Proxy 는 일반적으로 자체적으로 서비스 개체의 수명 주기를 관리
+- Decorator 의 구성은 항상 클라이언트에 의해 제어됨

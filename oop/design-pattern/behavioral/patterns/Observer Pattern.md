@@ -1,12 +1,9 @@
 ---
-title: Observer
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - behavioral-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 15:47:43 +09:00
+date modified: 2024-12-16 12:19:52 +09:00
+tags: [behavioral-pattern, design-pattern, gof, oop]
+title: Observer Pattern
 ---
 
 ## Description

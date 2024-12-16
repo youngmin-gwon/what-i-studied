@@ -1,12 +1,9 @@
 ---
-title: Singleton
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - creational-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 14:53:18 +09:00
+date modified: 2024-12-16 12:20:15 +09:00
+tags: [creational-pattern, design-pattern, gof, oop]
+title: Singleton Pattern
 ---
 
 ## Description
@@ -16,7 +13,9 @@ aliases:
 커넥션 풀, 스레드 풀, 디바이스 설정 객체 등의 경우 인스턴스를 여러 개 만들게 되면 자원을 낭비하게 되거나 버그를 발생시킬 수 있으므로 오직 하나만 생성하고 그 인스턴스를 사용하도록 하는 것이 이 패턴의 목적.
 
 class 의 instance 를 만드는 것이 비용이 클 때 사용할 수 있음. ex. 클래스를 인스턴스화 할 때 외부 데이터를 가져오는 시간이 많이 드는 경우
+
 같은 객체를 반복해서 사용해야될 때 사용할 수 있음
+
 하나의 인스턴스만을 사용하게 하도록 하기 위해 인스턴스 생성에 특별한 제약을 걸어둬야 함 → 생성자에 private 접근 제어자를 지정하고, 유일한 단일 객체를 반환할 수 있도록 정적 메소드를 지원해야 함. 또한 유일한 단일 객체를 참조할 정적 참고변수가 필요함.
 
 ## Consideration

@@ -1,22 +1,16 @@
 ---
-title: Dependency Inversion Principle
-created at: 2024-12-12
-tags:
-  - oop
-  - solid
-  - dip
-aliases:
+aliases: []
+date created: 2024-12-12 15:29:14 +09:00
+date modified: 2024-12-16 12:20:46 +09:00
+tags: [dip, oop, solid]
+title: DIP(Dependency Inversion Principle)
 ---
 
 - 구체화가 아니라 추상화 (역할) 에 의존해야 한다는 원칙 ⇒ 구현 클래스가 아니라 인터페이스에 의존해야함
-
 - 예시
   - 연극은 특정 배우를 염두에 두고 기획되는 것 보다는 배역에 집중되서 기획되어야 한다
-
 - 하위 레벨의 변경이 상위 레벨 모듈의 변경을 요구하는 위계관계를 끊는 의미 역전
-
 - 추상을 매개로 메시지를 주고 받음으로써 관계를 느슨하게 만드는 원칙
-
 - 키워드
     1. IoC
     2. 훅 메소드

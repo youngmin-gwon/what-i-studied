@@ -1,12 +1,9 @@
 ---
+aliases: [oop]
+date created: 2024-12-13 00:03:10 +09:00
+date modified: 2024-12-16 12:20:34 +09:00
+tags: [design-pattern, gof, oop]
 title: OOP Design Pattern
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-aliases:
-  - oop
 ---
 
 일반적인 객체 지향 프로그래밍의 문제 해결 방법

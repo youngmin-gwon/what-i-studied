@@ -1,17 +1,16 @@
 ---
-title: Domain Driven Design 정리
+aliases: []
 created at: 2024-12-12
-tags:
-  - book
-  - code-quality
-  - ddd
-  - architecture
-aliases:
+date created: 2024-12-16 12:12:56 +09:00
+date modified: 2024-12-16 12:21:46 +09:00
+tags: [architecture, book, code-quality, ddd]
+title: Domain Driven Design
 ---
 
 ## Structure
 
 ### Hexagonal perspective
+
 (Center) Domain -> Application -> Infrastructure (Surface)
 
 ---

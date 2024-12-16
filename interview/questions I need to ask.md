@@ -1,11 +1,17 @@
-# Questions
+---
+date created: Monday, December 9th 2024, 12:31:10 pm
+date modified: Monday, December 16th 2024, 2:45:16 am
+title: questions I need to ask
+---
 
-## Market: How much company can grow
+## Questions
 
-## Mission: What company pursues
+### Market: How much company can grow
 
-## Vision: Where company goes
+### Mission: What company pursues
 
-## Culture: How company sees members
+### Vision: Where company goes
 
-## Money Source: Where money comes from
+### Culture: How company sees members
+
+### Money Source: Where money comes from

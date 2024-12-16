@@ -1,12 +1,9 @@
 ---
-title: Iterator
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - behavioral-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 15:47:31 +09:00
+date modified: 2024-12-16 12:19:51 +09:00
+tags: [behavioral-pattern, design-pattern, gof, oop]
+title: Iterator Pattern
 ---
 
 ## Description

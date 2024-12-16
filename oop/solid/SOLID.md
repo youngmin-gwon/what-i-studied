@@ -1,10 +1,9 @@
 ---
+aliases: []
+date created: 2024-12-09 21:31:10 +09:00
+date modified: 2024-12-16 12:20:50 +09:00
+tags: [oop, solid]
 title: SOLID
-created at: 2024-12-12
-tags:
-  - oop
-  - solid
-aliases:
 ---
 
 작가 미상의 명언

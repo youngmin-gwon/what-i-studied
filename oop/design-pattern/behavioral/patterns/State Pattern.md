@@ -1,12 +1,9 @@
 ---
-title: State
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - behavioral-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 15:48:27 +09:00
+date modified: 2024-12-16 12:19:50 +09:00
+tags: [behavioral-pattern, design-pattern, gof, oop]
+title: State Pattern
 ---
 
 ## Description

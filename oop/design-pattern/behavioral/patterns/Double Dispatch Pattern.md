@@ -1,11 +1,9 @@
 ---
-title: Double Dispatch
-created at: 2024-12-12
-tags:
-  - oop
-  - design-pattern
-  - behavioral-pattern
-aliases:
+aliases: []
+date created: 2024-12-13 00:03:10 +09:00
+date modified: 2024-12-16 12:20:03 +09:00
+tags: [behavioral-pattern, design-pattern, oop]
+title: Double Dispatch Pattern
 ---
 
 ## What?
@@ -61,7 +59,9 @@ end
 The problem with the above is twofold:
 
 Each object must know the rendering internals of multiple media.
+
 If we add a new medium, all of our objects must be updated to account for it.
+
 Applying the Double Dispatch Pattern allows us to bring the rendering logic out of our objects and in to a more sensible place, as well as reducing the number of classes that must be edited if we add a new medium in which our objects can be displayed.
 
 ## How?

@@ -1,11 +1,9 @@
 ---
-title: flutter navigator 2.0
-created at: 2024-12-12
-tags:
-  - concept
-  - flutter
-  - navigator
-aliases:
+aliases: []
+date created: 2024-12-14 11:17:03 +09:00
+date modified: 2024-12-16 12:21:16 +09:00
+tags: [concept, flutter, navigator]
+title: flutter navigator 2
 ---
 
 ## Overlay Widget
@@ -55,6 +53,7 @@ stack 자료형 방법을 이용하여 route 들을 관리함
 `Route` 는 widget 이 아님을 유의
 
 `RouteSettings` 라는 객체를 가짐.
+
 nullable 한 `name` 과 `arguments` 로 구성.
 
 각 `Route` class 는 `Navigator` 의 `Overlay` widget 이 관리하는 `OverlayEntry` 목록을 가짐
@@ -81,6 +80,7 @@ declarative API 에서 `Page` 라는 것을 소개함
 Navigation stack 은 `Page` 객체들의 순서를 이용해서 만듫어짐
 
 `Navigator` 객체는 `Page` 의 `Key` 값을 이용하여 `Page` 의 값이 기존 widget tree 에 있는 것과 같은지 다른지 판별함
+
 `Key` 값이 다르거나, `Page` 가 아직 stack list 에 없다면 `Page` 의 `createRoute` 메소드를 호출
 
 ## RouteInormation Class
@@ -143,5 +143,7 @@ Navigation 의 `입,귀` 같은 역할을 함 => `Router` 의 `귀` 처럼 새�
 ## BackButtonDispatcher
 
 system level 의 `pop` 이벤트를 보고하는 역할
+
 ¬
+
 Navigation 의 `귀` 같은 역할 => OS 로부터 시그널을 전달함

@@ -1,11 +1,9 @@
 ---
-title: Crash Test Dummy
-created at: 2024-12-12
-tags:
-  - oop
-  - design-pattern
-  - testing-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 23:57:29 +09:00
+date modified: 2024-12-16 12:20:31 +09:00
+tags: [design-pattern, oop, testing-pattern]
+title: Crash Test Dummy Pattern
 ---
 
 ## Description

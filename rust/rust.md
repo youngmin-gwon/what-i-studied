@@ -1,10 +1,9 @@
 ---
-title: rust concepts
-created at: 2024-12-12
-tags:
-  - concept
-  - rust
-aliases:
+aliases: []
+date created: 2024-12-12 15:53:04 +09:00
+date modified: 2024-12-16 12:20:57 +09:00
+tags: [concept, rust]
+title: rust
 ---
 
 ## Rust is ahead-of-time compiled language
@@ -117,11 +116,13 @@ a command line tool for managing Rust versions and associated tools
 ## naming convention
 
 `variable` : camel_case_with_lower_case
+
 `constant` : CAMEL_CASE_WITH_UPPER_CASE
 
 ## Shadow?
 
 An old variable with name "a" is replaced by a new variable with name "a"
+
 => The second variable overshadows the first variable
 
 ### Difference between mut and shadowing

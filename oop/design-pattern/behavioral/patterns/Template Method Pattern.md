@@ -1,12 +1,9 @@
 ---
-title: Template Method
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - behavioral-pattern
-aliases:
+aliases: []
+date created: 2024-12-12 15:35:58 +09:00
+date modified: 2024-12-16 12:19:55 +09:00
+tags: [behavioral-pattern, design-pattern, gof, oop]
+title: Template Method Pattern
 ---
 
 ## Description
@@ -32,9 +29,7 @@ aliases:
   - final operations: 하위 클래스에 의해 override 될 수 없는 concrete operations
   - hook operations: 필요한 경우 하위 클래스가 확장할 수 있는 default behavior 을 제공하는 concrete operations. 대부분의 경우 default 가 아무것도 안하는 것임
   - template method itself: final 로 정의 될 수 있기 때문에 하위 클래스에 의해 override 될 수 없음
-
 - template method 는 operations 중 어떤 것이 hook operation 인지 abstract operations 인지 알려줄 필요가 있음 ⇒ override 되어야 하는 경우 접두사로 "Do-" 를 붙여 hook 인지 알려줄 수 있음
-
 - `Hollywood Principle`
 
 > Don't call us, we will call you

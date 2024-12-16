@@ -1,11 +1,9 @@
 ---
-title: git commit convention
-created at: 2024-12-12
-tags:
-  - convention
-  - git
-  - commit
-aliases:
+aliases: []
+date created: 2024-12-13 11:55:03 +09:00
+date modified: 2024-12-16 12:21:07 +09:00
+tags: [commit, convention, git]
+title: git commit convetion
 ---
 
 ## 커밋 메세지

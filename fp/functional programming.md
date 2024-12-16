@@ -1,10 +1,9 @@
 ---
+aliases: []
+date created: 2024-12-09 21:31:10 +09:00
+date modified: 2024-12-16 12:22:16 +09:00
+tags: [concept, fp]
 title: functional programming
-created at: 2024-12-12
-tags:
-  - concept
-  - fp
-aliases:
 ---
 
 ## Motive
@@ -234,6 +233,7 @@ Curried functions are used to create partial applications, but all partial appli
 In FP, small general-purpose functions are defined and they can be combined to make complex functions. The output of one function becomes the input of another function, and so on. The input gets passed from function to function and finally returns the result.
 
 The matematical notation: `f.g`
+
 Programming notation: `f(g(x))`
 
 ```dart

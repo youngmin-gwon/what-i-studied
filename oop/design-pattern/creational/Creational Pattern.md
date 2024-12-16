@@ -1,12 +1,9 @@
 ---
+aliases: []
+date created: 2024-12-12 14:23:28 +09:00
+date modified: 2024-12-16 12:20:15 +09:00
+tags: [creational-pattern, design-pattern, gof, oop]
 title: Creational Pattern
-created at: 2024-12-12
-tags:
-  - gof
-  - oop
-  - design-pattern
-  - creational-pattern
-aliases:
 ---
 
 ## Description
@@ -20,11 +17,7 @@ aliases:
 ## Type
 
 1. 싱글턴 패턴 ([[Singleton Pattern]]) : 한 클래스에 한 객체만 존재하도록 제한한다
-
 2. 프로토타입 패턴 ([[Prototype Pattern]]) : 기존 객체를 복제함으로써 객체를 생성
-
 3. 빌더 패턴 ([[Builder Pattern]]) : 생성 (construction) 과 표기 (representation) 를 분리해 복잡한 객체를 생성
-
 4. 팩토리 메서드 패턴 ([[Factory Method Pattern]]) : 생성할 객체의 클래스를 국한하지 않고 객체를 생성
-
 5. 추상 팩토리 패턴 ([[Abstract Factory Pattern]]) : 동일한 주제의 다른 팩토리를 묶어 줌
