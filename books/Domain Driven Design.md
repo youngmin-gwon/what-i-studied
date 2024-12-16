@@ -1,8 +1,7 @@
 ---
 aliases: []
-created at: 2024-12-12
 date created: 2024-12-16 12:12:56 +09:00
-date modified: 2024-12-16 12:21:46 +09:00
+date modified: 2024-12-16 13:53:32 +09:00
 tags: [architecture, book, code-quality, ddd]
 title: Domain Driven Design
 ---

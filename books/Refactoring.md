@@ -1,12 +1,10 @@
 ---
 aliases: []
-created at: 2024-12-12
 date created: 2024-12-16 12:12:44 +09:00
-date modified: 2024-12-16 12:21:50 +09:00
+date modified: 2024-12-16 13:53:25 +09:00
 tags: [architecture, book, code-quality, ddd]
 title: Refactoring
 ---
-
 ## 1 장. 리팩토링 예시
 
 ### 1 단계

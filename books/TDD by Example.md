@@ -1,8 +1,7 @@
 ---
 aliases: []
-created at: 2024-12-12
 date created: 2024-12-16 11:58:50 +09:00
-date modified: 2024-12-16 12:21:52 +09:00
+date modified: 2024-12-16 13:55:46 +09:00
 tags: [book, code-quality, tdd, test]
 title: TDD by Example
 ---

@@ -53,8 +53,10 @@ title: Memento Pattern
    - 원본 객체를 의미
    - 상태를 저장함
    - 필요할 때 스냅샷으로 부터 해당 상태를 복구할뿐만 아니라, 자기 자신 상태의 스냅샷을 생산하기도 함
-- 객체의 fields/getters/setters 에 직접 접근이 캡슐화 원칙을 위배할 때, 보안의 이유로도 사용될 수 있음
-  - 다른 object 가 snapshot 을 읽지 못하게 만들어 original object 의 state 를 안전하고 보안이 강화되게 만듬
+
+객체의 fields/getters/setters 에 직접 접근이 캡슐화 원칙을 위배할 때, 보안의 이유로도 사용될 수 있음
+
+- 다른 object 가 snapshot 을 읽지 못하게 만들어 original object 의 state 를 안전하고 보안이 강화되게 만듬
 
 ## Command vs Memento
 

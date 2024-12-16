@@ -1,8 +1,7 @@
 ---
 aliases: []
-created at: 2024-12-12
 date created: 2024-12-16 12:13:12 +09:00
-date modified: 2024-12-16 12:21:34 +09:00
+date modified: 2024-12-16 15:00:18 +09:00
 tags: [architecture, book, code-quality]
 title: Clean Architecture
 ---

@@ -23,6 +23,7 @@
   "obsidian-plugin-update-tracker",
   "nldates-obsidian",
   "note-refactor-obsidian",
-  "obsidian-plugin-toc",
-  "matter"
+  "matter",
+  "janitor",
+  "emoji-shortcodes"
 ]

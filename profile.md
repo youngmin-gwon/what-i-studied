@@ -1,3 +1,8 @@
+---
+date created: 2024-12-15 23:06:53 +09:00
+date modified: 2024-12-16 15:06:13 +09:00
+title: profile
+---
 <div align=center>
 	<h3>📚 Tech Stack 📚</h3>
 	<p>✨ Platforms & Languages ✨</p>
@@ -54,4 +59,5 @@
 <p>🏆 Baekjoon solved rank 🏆</p>
 
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=kycasdzxc)](https://solved.ac/kycasdzxc)
+
 </div>

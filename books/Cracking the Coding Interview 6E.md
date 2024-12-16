@@ -1,11 +1,12 @@
 ---
 aliases: []
-created at: 2024-12-12
 date created: 2024-12-16 12:13:01 +09:00
-date modified: 2024-12-16 12:21:46 +09:00
+date modified: 2024-12-16 13:57:13 +09:00
 tags: [1, 2, 3, 4, 5, book, code-quality, interview]
 title: Cracking the Coding Interview 6E
 ---
+
+## 0. 서두
 
 문제를 흠결없이 풀어냈느냐 보다 ' 다른 지원자보다 나은 답변을 했느냐 ' 가 더 중요하다!
 

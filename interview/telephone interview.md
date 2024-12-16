@@ -1,6 +1,6 @@
 ---
-date created: Monday, December 9th 2024, 12:31:10 pm
-date modified: Monday, December 16th 2024, 2:45:26 am
+date created: 2024-12-09 21:31:10 +09:00
+date modified: 2024-12-16 13:42:14 +09:00
 title: telephone interview
 ---
 
