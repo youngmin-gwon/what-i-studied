@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "e4332f6b4b5e8f16",
+        "id": "4509724f8bf84da7",
         "type": "tabs",
         "children": [
           {
-            "id": "1b05271099e9a7bb",
+            "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -89,6 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "01_inbox/highlighted/books/Git for Teams.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -98,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for Git for Teams"
             }
           },
           {
@@ -107,11 +108,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "01_inbox/highlighted/books/Git for Teams.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links"
+              "title": "Outgoing links from Git for Teams"
             }
           },
           {
@@ -132,9 +134,11 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {},
+              "state": {
+                "file": "01_inbox/highlighted/books/Git for Teams.md"
+              },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of Git for Teams"
             }
           },
           {
@@ -175,11 +179,13 @@
       "janitor:Janitor: scan vault": false
     }
   },
-  "active": "2f1d28be0471f52d",
+  "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
-    "profile.md",
-    "01_inbox/highlighted/books/Android Test-Driven Development by Tutorials.md",
     "01_inbox/highlighted/books/Git for Teams.md",
+    "01_inbox/highlighted/books/Android Test-Driven Development by Tutorials.md",
+    "02_references/books/Domain Driven Design.md",
+    "02_references/books/Python Coding Interview.md",
+    "profile.md",
     "01_inbox/highlighted/books/Microinteractions.md",
     "01_inbox/highlighted/books/Test-Driven Development By Example.md",
     "01_inbox/highlighted/books/Ansible for DevOps.md",
@@ -207,8 +213,6 @@
     "reading_list",
     "02_references/ui_ux_design/apple_keynotes",
     "02_references/ui_ux_design/apple_keynotes/Writing for interfaces.md",
-    "02_references/ui_ux_design/tips/principle_of_layout.md",
-    "02_references/ui_ux_design/tips/by_flux.md",
     "02_references/standards",
     "02_references/articles",
     "Untitled",
