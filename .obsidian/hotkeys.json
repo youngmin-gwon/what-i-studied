@@ -92,5 +92,13 @@
       ],
       "key": "P"
     }
+  ],
+  "quick-explorer:browse-vault": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "H"
+    }
   ]
 }

@@ -2,7 +2,7 @@
 title: Big O, 자료형
 tags: [big-o, concept, interview]
 aliases: []
-date modified: 2024-12-16 15:32:13 +09:00
+date modified: 2024-12-16 23:30:30 +09:00
 date created: 2024-12-09 21:31:10 +09:00
 ---
 
