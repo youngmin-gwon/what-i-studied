@@ -11,32 +11,13 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "02_references/algorithm/Big O, 자료형.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Big O, 자료형"
-            }
-          },
-          {
-            "id": "96907658519c7b2a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01_inbox/highlighted/books/Android Test-Driven Development by Tutorials.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Android Test-Driven Development by Tutorials"
+              "title": "New tab"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -198,17 +179,14 @@
       "janitor:Janitor: scan vault": false
     }
   },
-  "active": "96907658519c7b2a",
+  "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
-    "02_references/algorithm/Big O, 자료형.md",
     "01_inbox/highlighted/books/Android Test-Driven Development by Tutorials.md",
     "01_inbox/highlighted/books/Git for Teams.md",
     "01_inbox/highlighted/books/Microinteractions.md",
     "01_inbox/highlighted/books/Test-Driven Development By Example.md",
     "01_inbox/highlighted/books/Ansible for DevOps.md",
-    "01_inbox/highlighted/books/The Robert C. Martin Clean Code Collection (Collection).md",
     "01_inbox/highlighted/books/Pro Git.md",
-    "01_inbox/highlighted/books/The Design of Everyday Things  Revised and Expanded Edition.md",
     "01_inbox/highlighted/books/Hackers & Painters.md",
     "01_inbox/highlighted/books/The Rust Programming Language.md",
     "01_inbox/highlighted/books/Extreme Programming Explained - Embrace Change, Second Edition @Team LiB.md",
@@ -219,6 +197,9 @@
     "01_inbox/highlighted/books/Developer Testing  Building Quality into Software (SHARLA SORGE's Library).md",
     "01_inbox/highlighted/books/Refactoring.md",
     "01_inbox/highlighted/books",
+    "02_references/algorithm/Big O, 자료형.md",
+    "01_inbox/highlighted/books/The Robert C. Martin Clean Code Collection (Collection).md",
+    "01_inbox/highlighted/books/The Design of Everyday Things  Revised and Expanded Edition.md",
     "02_references/books/Clean Architecture.md",
     "Untitled.md",
     "02_references/books/Domain Driven Design.md",
@@ -229,7 +210,6 @@
     "01_inbox/highlighted/web_contents",
     "01_inbox/highlighted",
     "01_inbox/Untitled",
-    "reading_list/A Philosophy Professor’s Final Class.md",
     "reading_list",
     "02_references/ui_ux_design/apple_keynotes",
     "02_references/standards",
