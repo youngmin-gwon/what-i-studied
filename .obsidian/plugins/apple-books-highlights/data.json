@@ -1,4 +1,4 @@
 {
   "highlightsFolder": "01_inbox/highlighted/books",
-  "syncOnStartup": true
+  "syncOnStartup": false
 }

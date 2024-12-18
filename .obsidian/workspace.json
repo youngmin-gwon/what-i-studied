@@ -11,10 +11,14 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "02_references/tests/test-related terms.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "test-related terms"
             }
           }
         ]
@@ -69,8 +73,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -181,6 +184,28 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "02_references/tests/test principles.md",
+    "02_references/tests/bdd test.md",
+    "02_references/tests/test-related terms.md",
+    "_assets/tests/Untitled.png",
+    "02_references/uml/uml.md",
+    "_assets/uml/Untitled-1.png",
+    "_assets/uml/Untitled-2.png",
+    "_assets/uml/Untitled-3.png",
+    "_assets/uml/Untitled-4.png",
+    "_assets/uml/Untitled-5.png",
+    "_assets/uml/Untitled-6.png",
+    "_assets/uml/Untitled-7.png",
+    "_assets/uml/Untitled-8.png",
+    "_assets/uml/Untitled-9.png",
+    "_assets/uml",
+    "02_references/uml",
+    "_assets/tests",
+    "02_references/tests/test principle.md",
+    "().md",
+    "02_references/algorithm/최대공약수 최소공배수 알고리즘 설명.md",
+    "02_references/tests",
+    "Untitled",
     "01_inbox/highlighted/books/Android Test-Driven Development by Tutorials.md",
     "01_inbox/highlighted/books/Git for Teams.md",
     "01_inbox/highlighted/books/Microinteractions.md",
@@ -200,31 +225,9 @@
     "01_inbox/highlighted/books/The Design of Everyday Things  Revised and Expanded Edition.md",
     "02_references/algorithm/Big O, 자료형.md",
     "01_inbox/highlighted/books/The Robert C. Martin Clean Code Collection (Collection).md",
-    "02_references/books/Clean Architecture.md",
-    "Untitled.md",
-    "02_references/books/Domain Driven Design.md",
-    "02_references/books/Python Coding Interview.md",
-    "profile.md",
-    "01_inbox/highlighted/web_contents/A Philosophy Professor’s Final Class.md",
-    "01_inbox/highlighted/web_contents/The Many Worlds of Enough.md",
     "01_inbox/highlighted/web_contents",
     "01_inbox/highlighted",
     "01_inbox/Untitled",
-    "reading_list",
-    "02_references/ui_ux_design/apple_keynotes",
-    "02_references/standards",
-    "02_references/articles",
-    "Untitled",
-    "02_references/tools",
-    "_assets/flutter/flutter_stateful_lifecycle.jpeg",
-    "_assets/flutter/flutter_stateful_lifecycle.png",
-    "_assets/books/code_complete_cover.png",
-    "_assets/books/code_complete_3.png",
-    "_assets/books/code_complete_2.png",
-    "_assets/books/isp_1.png",
-    "_assets/books/isp.png",
-    "_assets/books/isp_0.png",
-    "_assets/oop/cor_structure.png",
-    "_assets/oop/cor_example_2.png"
+    "reading_list"
   ]
 }
