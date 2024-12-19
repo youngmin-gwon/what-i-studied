@@ -11,14 +11,10 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "02_references/tests/test-related terms.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "test-related terms"
+              "title": "New tab"
             }
           }
         ]
@@ -184,9 +180,9 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
-    "02_references/tests/test principles.md",
     "02_references/tests/bdd test.md",
     "02_references/tests/test-related terms.md",
+    "02_references/tests/test principles.md",
     "_assets/tests/Untitled.png",
     "02_references/uml/uml.md",
     "_assets/uml/Untitled-1.png",
