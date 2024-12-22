@@ -2,7 +2,7 @@
 title: dart asynchrony
 tags: [async, concept, dart, flutter]
 aliases: []
-date modified: 2024-12-16 15:42:20 +09:00
+date modified: 2024-12-22 18:43:13 +09:00
 date created: 2024-12-14 11:17:03 +09:00
 ---
 
