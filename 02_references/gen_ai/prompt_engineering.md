@@ -2,13 +2,13 @@
 title: prompt_engineering
 tags: []
 aliases: []
-date modified: 2024-12-23 12:52:29 +09:00
+date modified: 2024-12-24 00:45:06 +09:00
 date created: 2024-12-22 19:35:50 +09:00
 ---
 
 ## Tips
 
-### 간결하게 작성하기(Be Concise)
+### 간결하게 작성하기 (Be Concise)
 
 너무 불필요하게 부연설명을 많이 적지 말자. 명령형으로 작성하기.
 
@@ -24,7 +24,7 @@ after
 Suggest a name for a flower shop that sells bouquets of dried flowers
 ```
 
-### 구체적이고 명확하게 정의하기(Be specific, and well-defined)
+### 구체적이고 명확하게 정의하기 (Be specific, and well-defined)
 
 before
 
@@ -88,6 +88,7 @@ c. learn Fortran
 질문 안에 아무른 예시도 제공하지 않은 프롬프트
 
 다른 프롬프트 보다 창의적인 답변을 얻을 수 있음
+
 하지만 일관적이지 않을 수 있음
 
 ```python
