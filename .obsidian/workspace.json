@@ -11,10 +11,12 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "mindmapview",
+              "state": {
+                "file": "02_references/mindmap/clean_code/clean-code-1.md"
+              },
+              "icon": "blocks",
+              "title": "clean-code-1"
             }
           }
         ]
@@ -175,11 +177,15 @@
       "apple-books-highlights:Apple Books Sync Highlights": false,
       "homepage:Open homepage": false,
       "dashboard-navigator:Open dashboard navigator": false,
-      "janitor:Janitor: scan vault": false
+      "janitor:Janitor: scan vault": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "Excalidraw/Drawing 2025-01-04 12.13.40.excalidraw.md",
+    "02_references/mindmap/clean_code/clean-code-1.md",
+    "Excalidraw",
     "02_references/gen_ai/prompt_engineering.md",
     "02_references/gen_ai/terms.md",
     "02_references/flutter/dart asynchrony.md",
@@ -220,11 +226,8 @@
     "01_inbox/highlighted/books/Implementing Domain-Driven Design.md",
     "01_inbox/highlighted/books/유닉스의 탄생.md",
     "01_inbox/highlighted/books/Developer Testing  Building Quality into Software (SHARLA SORGE's Library).md",
-    "01_inbox/highlighted/books/Refactoring.md",
     "01_inbox/highlighted/books",
-    "01_inbox/highlighted/books/The Design of Everyday Things  Revised and Expanded Edition.md",
     "01_inbox/highlighted/web_contents",
-    "01_inbox/highlighted",
-    "01_inbox/Untitled"
+    "01_inbox/highlighted"
   ]
 }

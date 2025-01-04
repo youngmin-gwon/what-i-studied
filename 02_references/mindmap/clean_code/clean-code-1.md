@@ -1,14 +1,15 @@
 ---
-
+title: clean-code-1
+tags: []
+aliases: []
+date modified: 2025-01-04 12:13:40 +09:00
+date created: 2024-12-09 21:31:10 +09:00
 mindmap-plugin: basic
-
 ---
 
+## 1. Clean Code
 
-
-# 1. Clean Code
-
-## good code
+### good code
 - Bjarne Stroustrup
   - elegant
   - efficient
@@ -33,15 +34,15 @@ mindmap-plugin: basic
   - expected
   - beauty
 
-## bad code
+### bad code
 - temps the mess grow
 - slow programmers down
 - brings company down
 
-## code
+### code
 - the language in which we ultimately express the requirements
 
-## job ethics
+### job ethics
 - Defend the code clean
 - Be professional
 - Remember you are an author, writing for readers who will judge your effort
