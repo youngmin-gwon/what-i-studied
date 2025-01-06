@@ -11,12 +11,10 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "mindmapview",
-              "state": {
-                "file": "02_references/mindmap/clean_code/clean-code-1.md"
-              },
-              "icon": "blocks",
-              "title": "clean-code-1"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -183,8 +181,8 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
-    "Excalidraw/Drawing 2025-01-04 12.13.40.excalidraw.md",
     "02_references/mindmap/clean_code/clean-code-1.md",
+    "Excalidraw/Drawing 2025-01-04 12.13.40.excalidraw.md",
     "Excalidraw",
     "02_references/gen_ai/prompt_engineering.md",
     "02_references/gen_ai/terms.md",

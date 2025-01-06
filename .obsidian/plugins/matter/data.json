@@ -1,13 +1,13 @@
 {
-  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTg2ODUxLCJqdGkiOiJiYTY4ODQ1NzI5NjU0ODAwYTE2OTQyOTY1ODhjOWQ2OCIsInVzZXJfaWQiOjIyMjc4NCwiY2xpZW50X3R5cGUiOiJpbnRlZ3JhdGlvbiIsImxvZ2luX3Nlc3Npb25faWQiOiI3ZDM2YTk3Mi1hN2IyLTQzMjYtYjBkMy0wOGIyZWE3YjQzNDUifQ.Um2GqvKSkeJOIBi4TnSYzPI5gDI1G-Pz6AE4clz6-Yw",
-  "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MzA3MTY1MSwianRpIjoiNmY0MTUwOTZhYjlmNGY2NWIwN2YyNjQ1NDdlYWU0MGMiLCJ1c2VyX2lkIjoyMjI3ODQsImNsaWVudF90eXBlIjoiaW50ZWdyYXRpb24iLCJsb2dpbl9zZXNzaW9uX2lkIjoiN2QzNmE5NzItYTdiMi00MzI2LWIwZDMtMDhiMmVhN2I0MzQ1In0.zlvt6fjzO5diJPOyrK6lRU9p09_d78DuYPKr8tgRH0c",
+  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2ODE0NzUxLCJqdGkiOiIzYmRkNjBlYjdjOTI0OWZlYWU1ZGY5Mjk0OWI4NTJhMSIsInVzZXJfaWQiOjIyMjc4NCwiY2xpZW50X3R5cGUiOiJpbnRlZ3JhdGlvbiIsImxvZ2luX3Nlc3Npb25faWQiOiI3ZDM2YTk3Mi1hN2IyLTQzMjYtYjBkMy0wOGIyZWE3YjQzNDUifQ.ya1bPYocu1XcbPSKnDu9tH31vimsqQAQUeBxO29MSp4",
+  "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0Mzg5OTU1MSwianRpIjoiOGE1NzM0OTY3YmVmNGE0Zjk4Nzg4MDQ4NWJjZDBmNTAiLCJ1c2VyX2lkIjoyMjI3ODQsImNsaWVudF90eXBlIjoiaW50ZWdyYXRpb24iLCJsb2dpbl9zZXNzaW9uX2lkIjoiN2QzNmE5NzItYTdiMi00MzI2LWIwZDMtMDhiMmVhN2I0MzQ1In0.Y0aXtb_5roCsh4kNWP2YwAecm6aAslade3gOKqZQQ5c",
   "qrSessionToken": "96e2033d6ea4d44119c393b1af9b8eadcc80fe97f14c4ef5f17c82c2f8b31aa3",
   "dataDir": "01_inbox/highlighted/web_contents",
   "syncInterval": 60,
   "syncOnLaunch": true,
   "notifyOnSync": "always",
   "hasCompletedInitialSetup": true,
-  "lastSync": "2025-01-04T04:44:52.070Z",
+  "lastSync": "2025-01-06T00:32:33.034Z",
   "isSyncing": false,
   "contentMap": {
     "A Philosophy Professor’s Final Class.md": "4_19983697",
