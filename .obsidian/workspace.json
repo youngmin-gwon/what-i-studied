@@ -11,10 +11,14 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "02_references/gen_ai/gemini curl.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "gemini curl"
             }
           }
         ]
@@ -181,11 +185,12 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "02_references/gen_ai/prompt_engineering.md",
+    "02_references/gen_ai/gemini curl.md",
+    "02_references/gen_ai/terms.md",
     "02_references/mindmap/clean_code/clean-code-1.md",
     "Excalidraw/Drawing 2025-01-04 12.13.40.excalidraw.md",
     "Excalidraw",
-    "02_references/gen_ai/prompt_engineering.md",
-    "02_references/gen_ai/terms.md",
     "02_references/flutter/dart asynchrony.md",
     "02_references/gen_ai",
     "02_references/tests/bdd test.md",
@@ -223,7 +228,6 @@
     "01_inbox/highlighted/books/Zero To Production In Rust.md",
     "01_inbox/highlighted/books/Implementing Domain-Driven Design.md",
     "01_inbox/highlighted/books/유닉스의 탄생.md",
-    "01_inbox/highlighted/books/Developer Testing  Building Quality into Software (SHARLA SORGE's Library).md",
     "01_inbox/highlighted/books",
     "01_inbox/highlighted/web_contents",
     "01_inbox/highlighted"
