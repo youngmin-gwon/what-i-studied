@@ -2,7 +2,7 @@
 title: terms
 tags: [ai, terms]
 aliases: []
-date modified: 2025-01-07 23:51:49 +09:00
+date modified: 2025-01-08 12:22:10 +09:00
 date created: 2024-12-22 18:43:02 +09:00
 ---
 
