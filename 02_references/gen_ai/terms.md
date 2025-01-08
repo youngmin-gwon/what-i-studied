@@ -2,7 +2,7 @@
 title: terms
 tags: [ai, terms]
 aliases: []
-date modified: 2024-12-22 19:36:15 +09:00
+date modified: 2025-01-07 23:51:49 +09:00
 date created: 2024-12-22 18:43:02 +09:00
 ---
 
@@ -23,6 +23,10 @@ e.g. Gen AI 에게 영어 -> 프랑스어로 번역해달라고 요청하려면 
 Gen AI 시스템의 능력을 향상시키도록 맞춤 프롬프트를 생성하는 작업
 
 e.g. 도메인 지식 주입, 원하는 답변 예시 제공, AI 에게 효과적인 키워드 사용하기
+
+#### Grounding
+
+AI 시스템을 현실 세계 또는 공유 지식 기반에 연결하는 프로세스
 
 ## Chain-of-thought reasoning
 
