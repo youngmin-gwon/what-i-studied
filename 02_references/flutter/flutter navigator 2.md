@@ -2,7 +2,7 @@
 title: flutter navigator 2
 tags: [concept, flutter, navigator]
 aliases: []
-date modified: 2025-02-11 22:19:48 +09:00
+date modified: 2025-02-12 21:20:12 +09:00
 date created: 2024-12-14 11:17:03 +09:00
 ---
 
