@@ -7,7 +7,6 @@
   "tabSize": 2,
   "useMarkdownLinks": true,
   "newLinkFormat": "relative",
-  "showRibbon": true,
   "showInlineTitle": false,
   "promptDelete": false,
   "strictLineBreaks": true,

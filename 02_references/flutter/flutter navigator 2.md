@@ -2,7 +2,7 @@
 title: flutter navigator 2
 tags: [concept, flutter, navigator]
 aliases: []
-date modified: 2024-12-16 15:31:52 +09:00
+date modified: 2025-02-11 22:19:48 +09:00
 date created: 2024-12-14 11:17:03 +09:00
 ---
 
@@ -83,7 +83,7 @@ Navigation stack 은 `Page` 객체들의 순서를 이용해서 만듫어짐
 
 `Key` 값이 다르거나, `Page` 가 아직 stack list 에 없다면 `Page` 의 `createRoute` 메소드를 호출
 
-## RouteInormation Class
+## RouteInformation Class
 
 `Route` 에 대한 정보를 가지고 있는 클래스
 
@@ -143,7 +143,5 @@ Navigation 의 `입,귀` 같은 역할을 함 => `Router` 의 `귀` 처럼 새�
 ## BackButtonDispatcher
 
 system level 의 `pop` 이벤트를 보고하는 역할
-
-¬
 
 Navigation 의 `귀` 같은 역할 => OS 로부터 시그널을 전달함
