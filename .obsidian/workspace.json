@@ -11,14 +11,10 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "02_references/uml/uml.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "uml"
+              "title": "New tab"
             }
           }
         ]
@@ -187,6 +183,13 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "01_inbox/blog/Untitled.md",
+    "01_inbox/books/퍼스널 브랜딩에도 공식이 있다.md",
+    "01_inbox/blog",
+    "02_references/rust/rust commands.md",
+    "02_references/rust/rust terms.md",
+    "02_references/rust/rust.md",
+    "02_references/uml/uml.md",
     "02_references/flutter/flutter navigator 2.md",
     "01_inbox/books/A Project Guide To Design.md",
     "2025-01-10.md",
@@ -202,7 +205,6 @@
     "02_references/tests/test-related terms.md",
     "02_references/tests/test principles.md",
     "_assets/tests/Untitled.png",
-    "02_references/uml/uml.md",
     "_assets/uml/Untitled-1.png",
     "_assets/uml/Untitled-2.png",
     "_assets/uml/Untitled-3.png",
@@ -219,17 +221,11 @@
     "().md",
     "02_references/algorithm/최대공약수 최소공배수 알고리즘 설명.md",
     "02_references/tests",
-    "Untitled",
     "01_inbox/highlighted/books/Android Test-Driven Development by Tutorials.md",
     "01_inbox/highlighted/books/Git for Teams.md",
     "01_inbox/highlighted/books/Microinteractions.md",
     "01_inbox/highlighted/books/Test-Driven Development By Example.md",
     "01_inbox/highlighted/books/Ansible for DevOps.md",
-    "01_inbox/highlighted/books/Pro Git.md",
-    "01_inbox/highlighted/books/Hackers & Painters.md",
-    "01_inbox/highlighted/books/The Rust Programming Language.md",
-    "01_inbox/highlighted/books/Extreme Programming Explained - Embrace Change, Second Edition @Team LiB.md",
-    "01_inbox/highlighted/books/Secure Coding - Principles and Practices.md",
     "01_inbox/highlighted/books",
     "01_inbox/highlighted/web_contents",
     "01_inbox/highlighted"
