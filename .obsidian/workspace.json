@@ -183,7 +183,8 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
-    "01_inbox/blog/Untitled.md",
+    "01_inbox/blog/self-hosting.md",
+    "02_references/gen_ai/prompt_engineering.md",
     "01_inbox/books/퍼스널 브랜딩에도 공식이 있다.md",
     "01_inbox/blog",
     "02_references/rust/rust commands.md",
@@ -193,7 +194,6 @@
     "02_references/flutter/flutter navigator 2.md",
     "01_inbox/books/A Project Guide To Design.md",
     "2025-01-10.md",
-    "02_references/gen_ai/prompt_engineering.md",
     "02_references/gen_ai/terms.md",
     "02_references/gen_ai/gemini curl.md",
     "02_references/mindmap/clean_code/clean-code-1.md",
