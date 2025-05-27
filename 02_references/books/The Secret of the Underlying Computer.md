@@ -162,7 +162,7 @@ f(x) = f(x-1) + f(x-2)
 
 추상화된 단어는 단순한 대치가 아니기 때문에 이를 어떻게 기계어로 대치할지의 문제가 남는다. 이는 나무의 가지가 뻗어나가는 특징을 기반으로 만들어진다.
 
-![natural tree](image-1.png)
+![natural tree](../../_assets/books/tree.png)
 
 코드를 syntax tree로 표현하고 leaf node에서부터 부모 node로 차례대로 올라가다 보면, 전체 syntax tree를 모두 기계어로 바꿀 수 있게 된다.
 
