@@ -323,7 +323,7 @@ Android 앱의 메타데이터를 정의하는 핵심파일.
         - UI 화면 중 하나 정의
 
         android:name=".MainActivity"
-        - 액티비티 클래스 경로입니다. `.`으로 시작하면 기본 패키지 기준으로 com.example.yourapp.MainActivity가 됩니다.
+        - 액티비티 클래스 경로입니다. `.`으로 시작하면 기본 패키지 기준으로 com.example.your-app.MainActivity가 됩니다.
 
         android:exported="true"
         - 이 액티비티가 외부 앱에서 인텐트로 호출 가능한지를 나타냅니다.
@@ -363,7 +363,7 @@ Android 앱의 메타데이터를 정의하는 핵심파일.
 
 ### /app/src/res
 
-- `/drawble` : 벡터나 비트맵 이미지
+- `/drawable` : 벡터나 비트맵 이미지
 - `mipmap-*/`: 런처 아이콘용 이미지 (해상도별로 나뉨)
 - `values/`: 공통 리소스 정의
   - `colors.xml`: 색상
@@ -380,3 +380,110 @@ Android 앱의 메타데이터를 정의하는 핵심파일.
 
 단위 테스트(JVM 실행)
 로컬 JVM 기반 테스트
+
+## Gradle
+
+JVM 기반 언어의 빌드 툴.
+
+다음과 같은 작업을 할 수 있음.
+
+- 소스 코드를 컴파일해서 클래스 파일(.class)을 생성
+  - java or kotlin 플러그인이 자동으로 컴파일
+- 코딩 규약에 맞게 작성했는지 확인
+  - checkstyle, ktlint, spotless 같은 플러그인 사용
+- 정적 코드 분석
+  - SonarQube, Detekt, PMD, ErrorProne 등과 연동
+- 테스트 하고 테스트 결과나 커버리지 측정 결과를 리포트로 출력
+  - JUnit, TestNG, Jacoco, Kover 등으로 리포트 생성
+- javadoc 문서 작성
+  - javadoc 태스크 자동 생성 (java 플러그인 포함 시)
+- 클래스 파일과 리소스 파일을 패키징해서 압축 파일 만들기(.jar, .war)
+  - jar, war 태스크로 빌드 아티팩트 생성
+- 압축파일을 테스트 환경이나 스테이징 환경에 배포
+  - scp, ssh, docker, kubernetes, Ansible 등과 연동 가능
+- 압축 파일을 저장소에 등록
+  - maven-publish, nexus-publish, artifactory 등 사용
+
+특징
+
+| 항목                               | 설명                                                                            |
+| ---------------------------------- | ------------------------------------------------------------------------------- |
+| **확장 가능한 DSL 제공**           | Groovy/Kotlin 기반 DSL로 사용자 정의 태스크, 플러그인 구성 가능                 |
+| **빌드 분할·공통 컴포넌트 체계화** | `buildSrc/`, 플러그인 분리, 공통 빌드 설정 공유 가능                            |
+| **IDE와 연계된 API 제공**          | IntelliJ/Android Studio에서 Gradle 모델 연동 API 존재 (Tooling API)             |
+| **변경 내역 기반 빌드, 병렬 빌드** | Incremental Build, Configuration Cache, Parallel Execution 등 지원              |
+| **멀티 프로젝트 지원**             | `settings.gradle.kts`, `include()` 등으로 하위 모듈 관리                        |
+| **유연한 의존성 관리**             | `mavenCentral`, `google`, `file()`, `flatDir()` 등 지원                         |
+| **Ant 통합 가능**                  | `ant.importBuild`, `ant.taskdef` 등으로 기존 Ant 프로젝트와 연동 가능           |
+| **Gradle Wrapper 제공**            | `./gradlew`로 로컬에 Gradle 없어도 지정된 버전 자동 설치                        |
+| **호환성 배려**                    | 다양한 Gradle/Java 버전 조합 및 하위 호환성 고려 (플러그인 제한은 있을 수 있음) |
+
+### ios 와 flutter build system 과 비교
+
+공통점
+
+| 기능                          | Gradle                        | Flutter (Dart)                 | iOS (Xcode)                            |
+| ----------------------------- | ----------------------------- | ------------------------------ | -------------------------------------- |
+| **의존성 관리**               | ✅ (Maven, Ivy, etc.)          | ✅ (`pubspec.yaml`)             | ✅ (CocoaPods, SwiftPM)                 |
+| **스크립트 기반 빌드 구성**   | ✅ DSL 기반 (Groovy/Kotlin)    | ✅ Dart 기반 일부 CLI           | ✅ Xcode Build Settings + 스크립트      |
+| **멀티 모듈 지원**            | ✅ `multi-project` 구조        | ✅ 패키지/모듈 나눌 수 있음     | ✅ Workspace, Project, Target 구조      |
+| **캐시 및 Incremental Build** | ✅ 매우 강력함                 | ⚠️ 일부 캐시 있음 (비교적 단순) | ⚠️ 있음 (하지만 복잡하고 느릴 수 있음)  |
+| **외부/로컬 저장소 지원**     | ✅ 다양하게 지원               | ✅ pub.dev + git + path 등      | ✅ CocoaPods/SwiftPM도 다양한 소스 지원 |
+| **IDE 통합**                  | ✅ Android Studio, IntelliJ 등 | ✅ VSCode, Android Studio       | ✅ Xcode                                |
+
+차이점
+
+| 항목                            | Gradle                                           | Flutter                   | iOS (Xcode)                  |
+| ------------------------------- | ------------------------------------------------ | ------------------------- | ---------------------------- |
+| **DSL 확장성**                  | 매우 높음 (Groovy/Kotlin)                        | 낮음 (CLI에 가까움)       | 낮음 (Xcode 설정 UI 기반)    |
+| **사용자 정의 태스크/플러그인** | 완전 가능                                        | 불편하거나 거의 없음      | 매우 제한적 (스킴/스텝 기반) |
+| **멀티 플랫폼 대응성**          | ✅ JVM, Android, Kotlin Multiplatform 등          | ✅ Android + iOS 모두 대응 | ❌ iOS 전용                   |
+| **병렬 빌드/캐시 효율화**       | 고성능 설정 가능 (`--parallel`, `--build-cache`) | 덜 최적화됨               | 자동 캐시 있지만 설정이 복잡 |
+| **오픈 구조 유연성**            | 매우 높음                                        | 중간                      | 낮음 (Xcode 의존)            |
+
+### 조각지식: Maven
+
+ant 다음 세대, gradle 이전 세대 빌드 툴.
+의존 라이브러리를 관리하기 위해 Maven Central Repository(mavenCenter) 제공.
+Sonatype 에서 관리함.
+
+### 조각지식: google()
+
+Google 에서 관리하는 의존 라이브러리 관리 공간.
+Google은 Android 생태계를 강화하면서, Android 관련 라이브러리(예: Jetpack, AndroidX, Play Services 등)를 빠르게 배포하기 위해 자체 Maven 저장소를 운영하게 됨.
+Android 관련 라이브러리를 Maven Central에 올리기엔 승인 절차가 오래 걸림.
+Android Studio + Gradle 환경에 최적화된 릴리스 속도와 배포 제어 필요.
+
+### 조각지식: Groovy
+
+JVM 기반의 동적 타입 언어이며, Java와 매우 밀접한 관계를 가진 스크립트 언어.
+
+| 항목        | 설명                                                       |
+| ----------- | ---------------------------------------------------------- |
+| 플랫폼      | JVM 기반 (Java Virtual Machine)                            |
+| 타입 시스템 | **동적 타입** (필요시 정적 타입도 가능)                    |
+| 문법 특징   | Java와 거의 동일하지만 훨씬 간결                           |
+| 주요 용도   | 스크립트 작성, 빌드 도구(Gradle), DSL, 테스트 코드, 자동화 |
+| 처음 등장   | 2003년경 (James Strachan에 의해 시작)                      |
+| 버전 관리   | Apache Software Foundation에서 관리 중                     |
+
+어떤 맥락에서 나왔나?
+
+> 📌 Java의 한계를 보완하기 위해
+
+- 너무 장황한 문법 (Boilerplate)
+- 동적 프로그래밍이 거의 불가능
+- 스크립팅/자동화가 어려움
+- Java로 간단한 작업하기엔 무거움
+
+| 개선 포인트                       | 설명                                      |
+| --------------------------------- | ----------------------------------------- |
+| 타입 생략 가능                    | `def name = "groovy"` 처럼 동적 타입 가능 |
+| 컬렉션 리터럴                     | `[]`, `[:]` 등 Python처럼 간단하게        |
+| 클로저 지원                       | `list.each { println it }`                |
+| 문자열 템플릿                     | `"Hello, ${name}"`                        |
+| 빌드 스크립트에 최적화된 DSL 구조 | Gradle의 `task {}` 문법에 딱 맞음         |
+
+Groovy는 동적 타입 기반이라 런타임 에러가 더 많을 수 있고, 정적 분석이 어려움.
+성능도 Java에 비해 다소 느릴 수 있음.
+이런 이유로 최근에는 Gradle에서도 Groovy DSL → Kotlin DSL로 전환하는 흐름이 강해짐.
