@@ -530,3 +530,166 @@ Kotlin DSL은 Kotlin 언어를 기반으로 작성된 DSL(Domain-Specific Langua
 
 일반적인 Kotlin 애플리케이션은 main() 함수가 있고, JVM에서 실행됨.
 Gradle의 Kotlin DSL은 Gradle이 실행할 때 스크립트처럼 해석되며, 특정 DSL 문법을 통해 Gradle의 API를 호출.
+
+```groovy
+apply plugin: 'java' // 플러그인 적용
+
+/* Kotlin DSL 으로는
+plugins {
+  java
+}
+*/
+
+repositories { // 의존관계를 해결하기 위한 저장소로 메이븐 중앙 저장소를 지정. dependencies 블록에서 지정한 의존 라이브러리를 메이븐 중앙 저장소에서 자동으로 내려받음.
+  mavenCentral()
+}
+
+/* Kotlin DSL 으로는
+repositories {
+    mavenCentral()
+}
+*/
+
+dependencies { // 의존 라이브러리 선언
+  compile 'org.slf4j:slf4j-api:1.7.5' // compile: 프로덕션 코드를 컴파일하고 실행할 때 필요
+  testCompile 'junit:junit:4.11' // testCompile: 테스트 코드를 컴파일하고 실행할 때 필요
+}
+
+/* Kotlin DSL 으로는
+dependencies {
+    implementation("org.slf4j:slf4j-api:1.7.5")
+    testImplementation("junit:junit:4.11")
+}
+*/
+```
+
+빌드 스크립트 작성 방식
+
+```groovy
+buildscript {
+  // Gradle 빌드 스크립트 자체가 실행되기 위해 필요한 플러그인이나 클래스패스 의존성을 다운로드할 저장소를 지정.
+  // Gradle이 빌드 스크립트를 파싱하고 설정을 구성하는 단계
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.bmuschko:gradle-tomcat-plugin:2.0'
+  }
+}
+
+// apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+
+// 실제 프로젝트 코드(컴파일, 테스트, 런타임 등)에 필요한 라이브러리 의존성을 다운로드할 저장소 지정.
+// 이 시점은 Gradle이 빌드 구성이 끝난 뒤, 프로젝트 코드를 빌드하는 단계.
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  providedCompile 'javax:javee-web-api:6.0'
+  compile 'org.slf4j:slf4j-api:1.7.5'
+  testCompile 'junit:junit:4.11'
+
+  def tomcatVersion = '7.0.52'
+  tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+          "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+  tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+      exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+  }
+}
+```
+
+```kotlin
+// Android 프로젝트에서는 대부분의 플러그인을 plugins {} 블록으로 선언하고, buildscript를 안 쓰도록 점차 전환하는 추세
+(특히 Kotlin DSL + Version Catalog 사용 시).
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("com.bmuschko:gradle-tomcat-plugin:2.0")
+    }
+}
+
+plugins {
+    // 'java'는 war 플러그인을 적용하기 위해 자동으로 필요하지만 명시해도 무방
+    war
+    id("com.bmuschko.tomcat")
+}
+
+/*
+Android 및 Gradle 최신 프로젝트에서는 repositories {} 블록을 직접 build.gradle.kts에 안 쓰는 경우가 많음.
+하지만 그렇다고 해서 repositories 자체가 사라지거나 필요 없어졌다는 건 아님.
+
+요새는 settings.gradle.kts에서 전역 선언. 이로 인해
+- 중앙 집중 관리: 모든 모듈이 같은 저장소를 사용하도록 강제할 수 있음
+- 중복 제거: 각 모듈에서 repositories {} 반복 선언할 필요가 없음
+- 빠른 설정 단계 처리: Gradle이 설정 단계에서 필요한 저장소를 일찍 알 수 있음
+- Kotlin DSL 친화적: pluginManagement와 함께 플러그인 해석도 개선됨
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+*/
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile("javax:javee-web-api:6.0")
+    implementation("org.slf4j:slf4j-api:1.7.5")
+    testImplementation("junit:junit:4.11")
+
+    val tomcatVersion = "7.0.52"
+
+    tomcat("org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion")
+    tomcat("org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcatVersion")
+    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatVersion") {
+        exclude(group = "org.eclipse.jdt.core.compiler", module = "ecj")
+    }
+}
+```
+
+### Gradle 플러그인과 라이브러리의 핵심 차이
+
+#### 플러그인
+
+Gradle 플러그인은 빌드 스크립트를 자동화하거나 편리하게 확장하기 위한 코드 묶음.
+Gradle의 빌드 생명주기 안에 Task를 자동으로 등록하고, 설정까지 자동화.
+
+#### 라이브러리
+
+앱의 실행 시 동작에 필요한 코드를 포함한 외부 패키지.
+
+| 항목               | Gradle **플러그인**                                 | 일반 **라이브러리**                            |
+| ------------------ | --------------------------------------------------- | ---------------------------------------------- |
+| **목적**           | \*\*빌드 도구(Groovy/Kotlin DSL)\*\*의 기능 확장    | 앱/라이브러리 **코드에서 사용하는 기능**       |
+| **언제 사용됨?**   | Gradle이 프로젝트를 빌드할 때                       | 앱이 실행되거나 테스트될 때                    |
+| **어디에 선언함?** | `plugins {}` 또는 `buildscript {}`                  | `dependencies {}`                              |
+| **예시**           | `com.android.application`, `kotlin("jvm")`          | `org.jetbrains.kotlinx:kotlin-coroutines-core` |
+| **파일에 포함됨?** | 일반적으로 **APK/WAR에 포함되지 않음**              | 포함됨 (`.jar`, `.apk` 등 안에 들어감)         |
+| **기능 예시**      | `kapt`, `dagger.hilt.android.plugin`, `spring-boot` | Retrofit, OkHttp, Room, JUnit 등               |
+
+### pluginManagement vs dependencyResolutionManagement
+
+| 항목               | `pluginManagement`                                | `dependencyResolutionManagement`                     |
+| ------------------ | ------------------------------------------------- | ---------------------------------------------------- |
+| **목적**           | Gradle **플러그인**을 어디서 어떻게 가져올지 지정 | 프로젝트 **라이브러리 의존성**을 어디서 받을지 지정  |
+| **적용 대상**      | `plugins {}` 블록에서 사용하는 플러그인           | `dependencies {}` 블록에서 사용하는 라이브러리       |
+| **주로 선언 위치** | `settings.gradle.kts`                             | `settings.gradle.kts`                                |
+| **저장소 지정**    | 플러그인용 저장소 (`gradlePluginPortal`, etc.)    | 라이브러리용 저장소 (`mavenCentral`, `google`)       |
+| **버전 지정**      | 플러그인 ID 및 버전 (`id("xxx") version "x.y"`)   | 라이브러리 버전은 보통 `libs.versions.toml`에서 관리 |
+| **사용 예시**      | Android Gradle Plugin, Kotlin plugin 등           | Retrofit, Room, JUnit, Glide 등 앱 라이브러리        |
