@@ -81,6 +81,13 @@ res/
 
 **Intent는 "의도"**.
 "무언가를 하고 싶다"는 요청을 Android 시스템에 전달하는 메시지.
+화면 간 이동, 데이터 전달, 시스템 동작 요청 등을 할 수 있는 메시지 객체.
+
+| 용도                    | Android (Intent)                  |
+| ----------------------- | --------------------------------- |
+| **다른 화면으로 이동**  | `startActivity(Intent)`           |
+| **화면 간 데이터 전달** | `intent.putExtra("key", value)`   |
+| **시스템 기능 실행**    | 전화 걸기, 이메일 보내기, 공유 등 |
 
 e.g.
 
@@ -124,6 +131,51 @@ startActivity(intent)
 "나는 이런 요청(intent)을 받아들일 수 있어요!" 라고 선언하는 부분
 **앱의 구성요소(Activity, Service, BroadcastReceiver 등)**가
 어떤 종류의 요청을 받아서 처리할 수 있는지를 정의하는 XML 설정
+
+## Back Stack
+
+- Android에서 `Back Stack`은 Activity들이 쌓여 있는 스택 구조.
+- 사용자가 **뒤로 가기 버튼**을 누를 때 이 스택에서 Activity가 제거됨.
+- **Flutter에서 `Navigator.push()` / `pop()`과 유사한 개념**
+
+```dart
+// Flutter 예시
+Navigator.push(context, MaterialPageRoute(builder: (_) => PageB()));
+```
+
+➡ Android에서는 startActivity(Intent)로 Activity를 실행하면 Back Stack에 쌓임.
+
+## Task
+
+하나의 Task는 하나의 Back Stack을 관리하는 단위.
+일반적으로 앱을 실행하면 하나의 Task가 생성되며, 그 안에 여러 개의 Activity가 들어감.
+다른 앱에서 특정 Activity를 실행할 때는 새로운 Task가 생성될 수도 있음.
+📌 Flutter는 Android의 시스템 레벨 Task 및 Back Stack에 직접 접근하거나 제어할 수 없음. Flutter는 일반적으로 단일 Activity 내에서 실행되며, 화면 전환은 Navigator를 통해 자체적으로 관리하는 라우팅 시스템을 사용.
+
+## Launch Mode
+
+Activity를 실행할 때 Android가 어떻게 인스턴스를 생성하고 Back Stack에 추가할지 결정하는 방식.
+
+Manifest에 설정:
+
+```xml
+<activity
+    android:name=".YourActivity"
+    android:launchMode="singleTop" />
+```
+
+| Launch Mode       | 설명                                                 | Flutter에서 비슷한 개념                         |
+| ----------------- | ---------------------------------------------------- | ----------------------------------------------- |
+| `standard` (기본) | 매번 새 인스턴스 생성                                | `Navigator.push()`                              |
+| `singleTop`       | 이미 맨 위에 있으면 재사용                           | 비슷한 개념은 없음 (`pushReplacement`에 가까움) |
+| `singleTask`      | 이미 존재하면 해당 Task를 앞으로, 위의 Activity 제거 | Navigator 스택 초기화와 비슷 (`popUntil`)       |
+| `singleInstance`  | Activity는 자신만의 Task를 가짐                      | Flutter에서는 흉내내기 어려움                   |
+
+| 상황                                       | 적절한 launchMode |
+| ------------------------------------------ | ----------------- |
+| 알림 클릭 시 Activity 중복 없이 실행       | `singleTop`       |
+| 홈 화면 역할의 Activity를 항상 하나만 유지 | `singleTask`      |
+| 시스템 설정 등 독립된 화면으로 분리        | `singleInstance`  |
 
 ## Project Structure
 
@@ -693,3 +745,7 @@ Gradle의 빌드 생명주기 안에 Task를 자동으로 등록하고, 설정�
 | **저장소 지정**    | 플러그인용 저장소 (`gradlePluginPortal`, etc.)    | 라이브러리용 저장소 (`mavenCentral`, `google`)       |
 | **버전 지정**      | 플러그인 ID 및 버전 (`id("xxx") version "x.y"`)   | 라이브러리 버전은 보통 `libs.versions.toml`에서 관리 |
 | **사용 예시**      | Android Gradle Plugin, Kotlin plugin 등           | Retrofit, Room, JUnit, Glide 등 앱 라이브러리        |
+
+### classpath?
+
+Gradle 자체의 확장을 위한 도구. 즉, 빌드 도구 설정을 위한 의존성 선언.
