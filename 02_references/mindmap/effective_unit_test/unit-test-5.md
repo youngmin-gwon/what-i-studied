@@ -1,12 +1,15 @@
 ---
-
+title: unit-test-5
+tags: []
+aliases: []
+date modified: 2025-11-07 08:44:54 +09:00
+date created: 2024-12-09 21:31:10 +09:00
 mindmap-plugin: basic
-
 ---
 
-# 5. Test Smells: <br/>Maintainability
+## 5. Test Smells: <br/>Maintainability
 
-## smells that <br/>add to your cognitive load
+### smells that <br/>add to your cognitive load
 - Conditional logic
    - it is difficult to parse and understand, even though it is testing a fairly trivial behavior
    - Avoid conditional execution such as if, else, for, while, and switch in your test methods
@@ -24,7 +27,7 @@ mindmap-plugin: basic
    - these fields usually have bad names
    - Coerce the tests to use the same fixture objects
 
-## smells that <br/>make for a maintenance nightmare
+### smells that <br/>make for a maintenance nightmare
 - Duplication
    - =needless repetition
    - Category
@@ -42,7 +45,7 @@ mindmap-plugin: basic
    - Replace code with a custom assertion that reads like plain english
    - Express intent at the appropriate level of abstraction
 
-## smells that <br/>cause failures
+### smells that <br/>cause failures
 - Flaky test
    - tests that fail intermittently
    - threads,
@@ -52,11 +55,8 @@ mindmap-plugin: basic
           I/O speed or the CPU load,
           network
    - solution
-      -
          - 1. Avoid it, replacing smells with nondeterministic code
-      -
          - 2. Control it with test doubles
-      -
          - 3. Isolate it in small space
 - Crippling file path
    - it causes failure depending on file system

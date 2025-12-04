@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:19:39 +09:00
-date modified: 2024-12-16 12:20:49 +09:00
-tags: [ocp, oop, solid]
 title: OCP(Open Closed Principle)
+tags: [ocp, oop, solid]
+aliases: []
+date modified: 2025-10-17 18:42:48 +09:00
+date created: 2024-12-12 15:19:39 +09:00
 ---
 
 - 높은 응집도와 낮은 결합도를 유지하는 원리

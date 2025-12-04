@@ -1,6 +1,8 @@
 ---
 title: interview_questions
-date modified: 2024-12-16 15:31:01 +09:00
+tags: []
+aliases: []
+date modified: 2025-11-07 08:43:06 +09:00
 date created: 2024-12-09 21:31:10 +09:00
 ---
 

@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 14:59:28 +09:00
-date modified: 2024-12-16 12:20:23 +09:00
-tags: [design-pattern, gof, oop, structural-pattern]
 title: Adapter Pattern
+tags: [design-pattern, gof, oop, structural-pattern]
+aliases: []
+date modified: 2025-10-17 18:44:12 +09:00
+date created: 2024-12-12 14:59:28 +09:00
 ---
 
 ## Description

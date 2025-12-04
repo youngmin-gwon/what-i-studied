@@ -1,3 +1,10 @@
+---
+title: xp-1
+tags: []
+aliases: []
+date modified: 2025-11-07 08:45:18 +09:00
+date created: 2024-12-09 21:31:10 +09:00
+---
 
 ---
 
@@ -5,9 +12,8 @@ mindmap-plugin: basic
 
 ---
 
-    
-# 1. Software Development
-## risks of software development
+## 1. Software Development
+### risks of software development
 - Schedule slips
   - XP calls for short release cycles
   - XP calls for implementing the highest priority features first
@@ -26,7 +32,7 @@ mindmap-plugin: basic
 - Staff turnover
   - XP asks programmers to accept responsibility for estimating and completing their own work, gives them feedback about the actual time taken so their estimates can improve, and respects those estimates
   - XP encourages human contact among the team, reducing the loneliness
-## Economics
+### Economics
 - factors
   - cash flow in and out
   - interest rates
@@ -46,7 +52,7 @@ mindmap-plugin: basic
   - many opportunities to dramatically change the requirements
   - a smaller initial investment
   - the opportunity to go faster
-## Four variables to control the project
+### Four variables to control the project
 - values customers and managers get to pick
   - cost
     - the most constrained variable
@@ -63,7 +69,7 @@ mindmap-plugin: basic
     - the most important variable to be aware of
     - the easiest variable to control if we see the requirement changes as an opportunity, not a problem
       - we would fix the date, quality, and cost by developing the most urgent features (changing scope)
-## XP
+### XP
 - Basic principles
   - central
     - rapid feedback

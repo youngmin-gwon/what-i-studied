@@ -1,12 +1,15 @@
 ---
-
+title: unit-test-7
+tags: []
+aliases: []
+date modified: 2025-11-07 08:44:52 +09:00
+date created: 2024-12-09 21:31:10 +09:00
 mindmap-plugin: basic
-
 ---
 
-# 7. Testable
+## 7. Testable
 
-## What is
+### What is
 - testable design
    - "A given piece of code should be easy
            and quick to write a unit test against."
@@ -102,7 +105,7 @@ mindmap-plugin: basic
    - it can't override a method
       - **private, final, static** keywords
 
-## Guidelines
+### Guidelines
 - Avoid complex private methods
    - you fell you don't need to test your private method directly
    - it means
@@ -128,7 +131,7 @@ mindmap-plugin: basic
    - Every time you "new up" an object,
        you are nailing down its exact implementation
    - Pass the object into the method
-       rather than instantiating it within the method 
+       rather than instantiating it within the method
        if it is a true collaborator
 - Avoid logic in constructors
    - constructor is hard to bypass because
@@ -140,14 +143,14 @@ mindmap-plugin: basic
    - it is hard to mock
    - Make a promise in team
        that team will only instantiate
-       one of objects in production 
+       one of objects in production
        rather than singleton
 - Favor composition over inheritance
    - inheritance does allow you to reuse code
-       but it also brings a rigid class hierarchy that 
+       but it also brings a rigid class hierarchy that
        inhibits testability
    - the point of inheritance is
-       to take advantage of polymorphic behavior 
+       to take advantage of polymorphic behavior
        NOT to reuse code
 - Wrap external libraries
    - Be extremely wary of inheriting from

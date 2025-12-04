@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:47:04 +09:00
-date modified: 2024-12-16 12:20:02 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Command Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-11-07 08:46:05 +09:00
+date created: 2024-12-12 15:47:04 +09:00
 ---
 
 ## Description

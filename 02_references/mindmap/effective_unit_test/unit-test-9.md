@@ -1,12 +1,15 @@
 ---
-
+title: unit-test-9
+tags: []
+aliases: []
+date modified: 2025-11-07 08:44:53 +09:00
+date created: 2024-12-09 21:31:10 +09:00
 mindmap-plugin: basic
-
 ---
 
-# Speeding up<br/>test execution
+## Speeding up<br/>test execution
 
-## how to make<br/>test code run faster
+### how to make<br/>test code run faster
 - Don't sleep unless you are tired
    - thread.sleep
    - a surprisingly common issue
@@ -26,14 +29,14 @@ mindmap-plugin: basic
    - Cache data in memory
    - Turning off logging is huge
 
-## why speed needs?
+### why speed needs?
 - we lose the flow
 - we trigger off the build
 - delayed feedback causes trouble
    - if test is slow, then devs only run a subset of
       their test suites before checking in
 
-## how to find the bottleneck
+### how to find the bottleneck
 - Identify the hot spots and<br/>and figure out why<br/>the performance is what it is
 - Avoid making assumptions<br/>about what the problem is, and,<br/>instead, gather data about the situation<br/>by analyzing the test execution
 - Profile test

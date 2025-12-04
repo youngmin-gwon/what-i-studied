@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:52:49 +09:00
-date modified: 2024-12-16 12:20:25 +09:00
-tags: [design-pattern, gof, oop, structural-pattern]
 title: Decorator Pattern
+tags: [design-pattern, gof, oop, structural-pattern]
+aliases: []
+date modified: 2025-10-17 18:44:11 +09:00
+date created: 2024-12-12 15:52:49 +09:00
 ---
 
 ## Description

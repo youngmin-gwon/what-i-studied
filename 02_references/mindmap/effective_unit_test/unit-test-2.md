@@ -1,3 +1,10 @@
+---
+title: unit-test-2
+tags: []
+aliases: []
+date modified: 2025-11-07 08:44:48 +09:00
+date created: 2024-12-09 21:31:10 +09:00
+---
 
 ---
 
@@ -5,9 +12,8 @@ mindmap-plugin: basic
 
 ---
 
-    
-# 2. In search of good
-## What makes a test "good"?
+## 2. In search of good
+### What makes a test "good"?
 - readability and maintainability
   - we cannot edit code when we don't understand code
 - structure

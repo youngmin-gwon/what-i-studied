@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:35:58 +09:00
-date modified: 2024-12-16 12:19:55 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Template Method Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-10-17 18:41:21 +09:00
+date created: 2024-12-12 15:35:58 +09:00
 ---
 
 ## Description

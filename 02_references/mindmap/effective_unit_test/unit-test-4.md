@@ -1,3 +1,10 @@
+---
+title: unit-test-4
+tags: []
+aliases: []
+date modified: 2025-11-07 08:44:50 +09:00
+date created: 2024-12-09 21:31:10 +09:00
+---
 
 ---
 
@@ -5,9 +12,8 @@ mindmap-plugin: basic
 
 ---
 
-    
-# 4. Test Smells: Readability
-## Test smells around assertions
+## 4. Test Smells: Readability
+### Test smells around assertions
 - Primitive Assertions
   - assertion should express an assumption or intent
   - level of abstraction is too low when it comes to asserting stuff
@@ -23,7 +29,7 @@ mindmap-plugin: basic
   - Bit operation is powerful feature but too abstract to understand
   - we are not in the domain of bits and bytes
   - Replace the bit operator with one or more boolean operators, expressing the expectations clearly one by one
-## Test smells around information scatter within the code base
+### Test smells around information scatter within the code base
 - Split Logic
   - tests that span several screenfuls of code
   - Chunk test code into smaller pieces
@@ -34,7 +40,7 @@ mindmap-plugin: basic
       - Trim your data to bare essentials
       - Place such data files in the same folder as the tests that use them
       - Whatever structure you end up with, make it a convention with your team and stick to it
-## Test smells around excess or irrelevant detail
+### Test smells around excess or irrelevant detail
 - Incidental Details
   - test has too much details
   - how to express core assertion

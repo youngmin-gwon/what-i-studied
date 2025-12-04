@@ -1,3 +1,10 @@
+---
+title: clean-code-6
+tags: []
+aliases: []
+date modified: 2025-11-07 08:43:22 +09:00
+date created: 2024-12-09 21:31:10 +09:00
+---
 
 ---
 
@@ -5,12 +12,11 @@ mindmap-plugin: basic
 
 ---
 
-    
-# 6. Objects and Data Structures
-## Object
+## 6. Objects and Data Structures
+### Object
 - exposes behaviors
 - hides data
-- easy to add new classes without changing exisiting functions
+- easy to add new classes without changing existing functions
 - The Law of Demeter
   - A module should not know about the innards of the objects it manipulates
   - methods that method f of a class C should only call
@@ -29,8 +35,8 @@ mindmap-plugin: basic
   - An interface class exposes abstract interfaces that allow its users to manipulate the essence of the data, without having to know its implementation
   - Developers do not want to expose the details of class data
   - Abstraction is not merely accomplished by using interfaces and/or getters and setters. Serious thought need to be put into the best way to represent the data that an object contains
-## Object is not always an answer. Data structure is sometimes the answer. 
-## Data Structure
+### Object is not always an answer. Data structure is sometimes the answer
+### Data Structure
 - exposes data
 - no behaviors
 - easy to add new functions without changing the existing data structures

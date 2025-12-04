@@ -1,3 +1,10 @@
+---
+title: clean-code-5
+tags: []
+aliases: []
+date modified: 2025-11-07 08:43:18 +09:00
+date created: 2024-12-09 21:31:10 +09:00
+---
 
 ---
 
@@ -5,12 +12,11 @@ mindmap-plugin: basic
 
 ---
 
-    
-# 5. Formatting
-## Your style and displine survives, even though your code does not
-## Follow team's formatting rule
+## 5. Formatting
+### Your style and displine survives, even though your code does not
+### Follow team's formatting rule
 - But all developers in team should agree upon the formatting style
-## Horizontal Formatting
+### Horizontal Formatting
 - Openness and Density
   - use whitespace to accentuate like the precedence of operators
 - Alignment
@@ -19,7 +25,7 @@ mindmap-plugin: basic
   - allow developers quickly hop over scopes, such as if/else
 - Breaking Indentation
   - some doesn't like collapsing scopes down to one line
-## Vertical Formatting
+### Vertical Formatting
 - Write code like newspaper article
   - simple, but explanatory name
   - high level concepts first, and supporting details later
@@ -36,4 +42,4 @@ mindmap-plugin: basic
   - the stronger that affinity, the less vertical distance there should be between them
 - Ordering
   - a function called should be below a function calling
-## Small chunk is better
+### Small chunk is better

@@ -1,3 +1,10 @@
+---
+title: oop-thought-process-1
+tags: []
+aliases: []
+date modified: 2025-11-07 08:45:22 +09:00
+date created: 2024-12-09 21:31:10 +09:00
+---
 
 ---
 
@@ -5,9 +12,8 @@ mindmap-plugin: basic
 
 ---
 
-    
-# 1. Introduction to Object-Oriented Concept
-## Object-Oriented concepts
+## 1. Introduction to Object-Oriented Concept
+### Object-Oriented concepts
 - Encapsulation
   - data hiding is a major part of encapsulation
   - object need not reveal all the attributes and methods
@@ -34,10 +40,10 @@ mindmap-plugin: basic
   - objects are built, or composed, from other objects
   - users can use the common functionality in various classes by using composition
   - has-a relationship
-## Class
+### Class
 - blueprint for an object
 - an object cannot instantiated without class
-## Object
+### Object
 - a building block of OO program
 - a complete package containing both data and behaviors
   - you can control access to the data in the object using encapsulation

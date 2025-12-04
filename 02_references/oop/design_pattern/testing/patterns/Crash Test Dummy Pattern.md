@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 23:57:29 +09:00
-date modified: 2024-12-16 12:20:31 +09:00
-tags: [design-pattern, oop, testing-pattern]
 title: Crash Test Dummy Pattern
+tags: [design-pattern, oop, testing-pattern]
+aliases: []
+date modified: 2025-10-17 18:38:40 +09:00
+date created: 2024-12-12 23:57:29 +09:00
 ---
 
 ## Description

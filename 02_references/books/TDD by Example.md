@@ -2,7 +2,7 @@
 title: TDD by Example
 tags: [book, code-quality, tdd, test]
 aliases: []
-date modified: 2024-12-16 17:03:25 +09:00
+date modified: 2025-10-17 18:38:45 +09:00
 date created: 2024-12-16 11:58:50 +09:00
 author: Kent Beck
 published at: 2002-11-08

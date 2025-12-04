@@ -1,3 +1,10 @@
+---
+title: clean-code-9
+tags: []
+aliases: []
+date modified: 2025-11-07 08:43:24 +09:00
+date created: 2024-12-09 21:31:10 +09:00
+---
 
 ---
 
@@ -5,20 +12,19 @@ mindmap-plugin: basic
 
 ---
 
-    
-# 9. Unit Tests
-## TDD
+## 9. Unit Tests
+### TDD
 - Laws
   - 1. You may not write production code until you have written a failing unit test
   - 2. You may not write more of a unit test than is sufficient to fail, and not compiling is failing
   - You may not write more production code than is sufficient to pass the currently failing test
 - These three laws lock you into 30 seconds-long cycle
-## Keep tests clean
+### Keep tests clean
 - Test code is just as important as production code
 - Having dirty tests means having no tests
 - Tests must change as the production code evolves
 - The dirtier the tests, the harder they are to change
-## Readability
+### Readability
 - principles
   - clarity
   - simplicity
@@ -28,15 +34,15 @@ mindmap-plugin: basic
 - Domain-Specific Testing Language
   - Rather than using the test APIs, we build up a set of functions that make use of test APIs more convenient to write and easier to read
   - succinct and expressive forms
-## A dual standard
+### A dual standard
 - Test environment and production environment have very different needs
 - Test code must still be simple, succinct, and expressive but not as efficient as production code
   - assertEquals("HBchL", hw.getState());
-## Never make test as ad hoc code
-## Test suite
+### Never make test as ad hoc code
+### Test suite
 - key to keep your design and architecture as clean as possible
 - The higher test coverage, the less your fear
-## Test unit
+### Test unit
 - one assert per test
   - defects
     - a lot of duplicate code
@@ -45,8 +51,8 @@ mindmap-plugin: basic
 - single concept per test
   - hard to figure out why section is there if more than one concept
   - minimize the number of asserts per concept
-## Given-When-Then Convention
-## F.I.R.S.T.
+### Given-When-Then Convention
+### F.I.R.S.T
 - 1. Fast
   - when test runs slow, you won't want to run test frequently
 - 2. Independent

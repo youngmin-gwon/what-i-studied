@@ -2,65 +2,76 @@
 title: Explore navigation design for iOS
 tags: []
 aliases: []
-date modified: 2024-12-16 17:31:27 +09:00
+date modified: 2025-11-07 08:58:20 +09:00
 date created: 2024-12-09 21:31:10 +09:00
 ---
 
-## Navigation teaches people about
-- how things behave
-- where things belong
-- how things work
+## 🧭 내비게이션 (Navigation) 의 역할
 
-## Goal of navigation
-- to provide enough of a foundation of familiarity
+사람들에게 다음 세 가지를 이해하도록 돕습니다.
 
-## Focus and Intention
+- **어떻게 작동하는지:** 사물 (콘텐츠, 기능) 이 어떻게 움직이고 반응하는지.
+- **어디에 속하는지:** 사물이 앱 내 정보 구조의 어느 위치에 있는지.
+- **어떻게 쓰이는지:** 사물이 어떤 방식으로 사용되는지.
+
+### **내비게이션의 목표**
+
+사용자에게 **친숙함의 기반 (foundation of familiarity)** 을 충분히 제공하는 것입니다. 즉, 앱을 편안하게 느끼고 쉽게 사용할 수 있게 하는 것이죠.
+
 ---
-## Tab bars
-- a global navigation tool that sits at the bottom of the screen
-	- **categorizing** an app's content into different sections
-### Guidelines
-1. Use tabs to reflect your information hierarchy
-2. Balance features throughout tabs
-	- Do not put all functionalities in one tab
-		- Users cannot help but scrolling to find what functionality they want to use
-	- Ask yourself why people use your app: great apps have focused solutions
-	- Part of designing great tab bars is organizing your contents
-3. Avoid duplicating functionality into a single tab
-	- Home tab or overview tab is a confusion
-	- It may cause "tab-jump", a function of routing to a certain functionality, which is jarring and disorienting
-4. Keep tabs persisent throughout your app
-5. Use clear and concise labels
+
+## 👆 탭 바 (Tab Bars)
+
+앱 콘텐츠를 여러 섹션으로 **분류**하는 **글로벌 내비게이션 도구**로, 화면 하단에 고정되어 있습니다.
+
+### **가이드라인**
+
+1. **정보 계층을 반영하여 탭을 사용하세요.**
+2. **기능을 탭에 균형 있게 분배하세요.**
+    
+    - 모든 기능을 하나의 탭에 몰아넣지 마세요. 사용자는 원하는 기능을 찾기 위해 계속 스크롤해야 합니다.
+    - ' 사람들이 왜 앱을 사용하는가?' 를 자문하고, 핵심 기능을 중심으로 콘텐츠를 정리하세요.
+        
+3. **단일 탭에 기능을 중복시키지 마세요.**
+    
+    - ' 홈 ' 탭이나 ' 개요 ' 탭에 다른 탭의 기능까지 포함하면 혼란을 줄 수 있습니다.
+    - 특정 기능으로 이동시키는 ' 탭 점프 (tab-jump)' 기능은 사용자가 당황하거나 방향 감각을 잃게 만들 수 있습니다.
+        
+4. **앱 전체에서 탭을 지속적으로 유지하세요.**
+5. **명확하고 간결한 레이블을 사용하세요.**
+
 ---
-## Hierarchical navigation
 
-### Ways to navigate between screens of an app
+## 🌳 계층적 내비게이션 (Hierarchical Navigation)
 
-1. Push
-	- directly reflect information hierarchy
-	- an expected default when drilling further into an app's hierarchy
-	- a literal representation of moving through content and drilling into details
-2. Modal presentation
-	- a self-contained task in an interface
-		- self-contained?
-			- simple task, multi-step, or full screen
-	- this prevents people from drilling further into your app
-		- intentional disruption because the purpose is the reinforce the focus
-	- good for independent workflows
-	- it creates focus by separating people from the information hierarchy
+앱 화면 간 이동하는 두 가지 주요 방법이 있습니다.
 
-### Guidelines
+### **1. 푸시 (Push) 방식**
 
-#### 1. Hierarchical navigation
-- Use a push transition to navigate between different levels of your app's hierarchy
-	- Hierarchical navigation reinforces the relationship between top-level and secondary content
-- Keep the tab bar anchored to the bottom of the screen
-- Use the navigation bar to orient people
-- Use with a disclosure indicator
-- When navigating frequently between content
+- **정보 계층을 직접적으로 반영**합니다.
+- 앱의 계층을 더 깊이 탐색할 때 예상되는 기본값입니다.
+- 콘텐츠를 통해 **움직이며 세부 사항으로 깊이 들어가는 것을 문자 그대로 표현**합니다.
 
-#### 2. Modal presentation
-- Present from the bottom of the screen
-- Use for a simple task, multi-step(to reinforce the focus), or full screen
-- Dismiss a modal with 'cancel' and preferred actions
-- Limit modals over modals
+### **2. 모달 프레젠테이션 (Modal Presentation) 방식**
+
+- 인터페이스 내에서 **자체 완결적인 작업**을 수행합니다. (간단한 작업, 여러 단계 작업, 전체 화면 작업 등)
+- 사용자가 앱의 계층 구조를 더 깊이 탐색하는 것을 **의도적으로 방해**합니다. **(집중 강화를 위한 의도적인 방해)**
+- 독립적인 워크플로우에 적합합니다.
+- 정보 계층에서 사용자를 분리함으로써 **집중도를 높입니다.**
+
+### **가이드라인**
+
+#### **1. 계층적 내비게이션 (푸시)**
+
+- **푸시 전환**을 사용하여 앱 계층의 다른 레벨 간을 이동합니다.
+    - 이는 상위 레벨과 하위 레벨 콘텐츠 간의 관계를 강화합니다.
+- **탭 바**는 화면 하단에 고정된 상태로 유지합니다.
+- **내비게이션 바**를 사용하여 사용자에게 현재 위치를 알려줍니다.
+- 콘텐츠 사이를 자주 이동해야 할 때 **공개 표시기 (Disclosure indicator)**와 함께 사용합니다.
+
+#### **2. 모달 프레젠테이션**
+
+- 화면 **하단에서부터** 나타나게 합니다.
+- **간단한 작업, 여러 단계의 작업 (집중 강화 목적), 또는 전체 화면 작업**에 사용합니다.
+- ' 취소 (Cancel)' 버튼과 선호하는 액션 버튼으로 모달을 닫습니다.
+- **모달 위에 모달이 뜨는 것을 제한**합니다. (너무 복잡해지면 안 됩니다.)
