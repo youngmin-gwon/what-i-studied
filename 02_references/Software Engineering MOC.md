@@ -1,24 +1,32 @@
-# 💻 Software Engineering MOC
+---
+title: Software Engineering MOC
+tags: []
+aliases: []
+date modified: 2025-12-09 11:57:41 +09:00
+date created: 2025-12-09 10:59:24 +09:00
+---
 
-## 🧠 Paradigms
+## 💻 Software Engineering MOC
+
+### 🧠 Paradigms
 - **Functional Programming**: [[fp/intro|Introduction to FP]] (Check `02_references/fp`)
 - **OOP**: [[OOP MOC]]
 
-## 🗣️ Languages
+### 🗣️ Languages
 - **Dart**: [[dart asynchrony]]
 - **Rust**: [[rust]] (Check `02_references/rust`)
 
-## 🤖 Generative AI
+### 🤖 Generative AI
 - [[gen_ai]]
 
-## 🧪 Testing
+### 🧪 Testing
 - [[tests]]: Unit Testing, Integration Testing.
 
-## 📐 UML & Modeling
+### 📐 UML & Modeling
 - [[uml]]
 - [[mindmap]]: Visual summaries.
 
-## 🎓 References
+### 🎓 References
 - [[books/Books MOC|Reading List & Summaries]]
 - [[algorithm/Algorithm MOC|Algorithms & Data Structures]]
 - [[interview]]: Interview Prep.

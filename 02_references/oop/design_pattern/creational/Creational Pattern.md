@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 14:23:28 +09:00
-date modified: 2024-12-16 12:20:15 +09:00
-tags: [creational-pattern, design-pattern, gof, oop]
 title: Creational Pattern
+tags: [creational-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 12:01:51 +09:00
+date created: 2024-12-12 14:23:28 +09:00
 ---
 
 ## Description

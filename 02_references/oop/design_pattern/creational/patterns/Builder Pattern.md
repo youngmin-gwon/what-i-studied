@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:51:01 +09:00
-date modified: 2024-12-16 12:20:13 +09:00
-tags: [creational-pattern, design-pattern, gof, oop]
 title: Builder Pattern
+tags: [creational-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 11:58:19 +09:00
+date created: 2024-12-12 15:51:01 +09:00
 ---
 
 ## Description

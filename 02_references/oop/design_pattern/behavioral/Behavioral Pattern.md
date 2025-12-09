@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 14:42:07 +09:00
-date modified: 2024-12-16 12:20:01 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Behavioral Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 12:02:06 +09:00
+date created: 2024-12-12 14:42:07 +09:00
 ---
 
 ## Description

@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 14:38:36 +09:00
-date modified: 2024-12-16 12:20:29 +09:00
-tags: [design-pattern, gof, oop, structural-pattern]
 title: Structural Pattern
+tags: [design-pattern, gof, oop, structural-pattern]
+aliases: []
+date modified: 2025-12-09 12:01:58 +09:00
+date created: 2024-12-12 14:38:36 +09:00
 ---
 
 ## Description

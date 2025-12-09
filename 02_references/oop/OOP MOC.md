@@ -1,29 +1,22 @@
-# 🧩 OOP Map of Content
+---
+title: OOP MOC
+tags: []
+aliases: []
+date modified: 2025-12-09 13:05:55 +09:00
+date created: 2025-12-09 10:48:05 +09:00
+---
 
-## 🔑 Core Concepts
-- [[Solid Principles]]
-- [[Encapsulation]]
-- [[Inheritance]]
-- [[Polymorphism]]
+## 🧩 OOP Map of Content
 
-## 🛠️ Design Patterns
+### 🔑 Core Concepts
+- [SOLID](solid/SOLID.md)
+
+### 🛠️ [Object Oriented Programming Design Patterns](design_pattern/OOP%20Design%20Pattern.md)
+
 > [!NOTE]
 > Patterns for solving common object-oriented design problems.
 
-### Creational
-- [[Singleton Pattern]]
-- [[Factory Pattern]]
-- [[Builder Pattern]]
+#### [Creational Pattern](design_pattern/creational/Creational%20Pattern.md)
 
-### Structural
-- [[Adapter Pattern]]
-- [[Decorator Pattern]]
-- [[Facade Pattern]]
-
-### Behavioral
-- [[Observer Pattern]]
-- [[Strategy Pattern]]
-- [[Command Pattern]]
-
-## 📚 References
-- [[OOP Design Pattern]] (`02_references/oop/design_pattern/OOP Design Pattern.md`)
+#### [Structural Pattern](design_pattern/structural/Structural%20Pattern.md)
+#### [Behavioral Pattern](design_pattern/behavioral/Behavioral%20Pattern.md)
