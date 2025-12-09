@@ -11,7 +11,7 @@ date created: 2025-12-09 18:37:02 +09:00
 **CoAP (Constrained Application Protocol)** 는 소형 저전력 IoT 기기를 위해 설계된 매우 가벼운 웹 전송 프로토콜입니다. 쉽게 말해 **"IoT 를 위한 다이어트 버전의 HTTP"** 입니다.
 
 >[!NOTE]
->[Matter](Matter.md) 는 기기 간 통신을 위해 내부적으로 CoAP 를 사용합니다. 우리가 웹에서 HTTP 를 쓰듯, Matter 기기들은 CoAP 를 통해 서로 명령 (TurnOn) 과 상태 (Status) 를 주고받습니다.
+>[Matter](../matter/Matter.md) 는 기기 간 통신을 위해 내부적으로 CoAP 를 사용합니다. 우리가 웹에서 HTTP 를 쓰듯, Matter 기기들은 CoAP 를 통해 서로 명령 (TurnOn) 과 상태 (Status) 를 주고받습니다.
 
 ## 🏗️ 특징 (Features)
 
@@ -41,5 +41,5 @@ date created: 2025-12-09 18:37:02 +09:00
 | :--- | :--- | :--- |
 | **기반 프로토콜** | TCP (무거움, 연결 지향) | **UDP** (가벼움, 비연결) |
 | **헤더 크기** | 수십~수백 바이트 | **4 바이트** (매우 작음) |
-| **주 사용처** | 웹 브라우저, 스마트폰 앱 | **IoT 센서**, **[[Matter]]** 기기 |
+| **주 사용처** | 웹 브라우저, 스마트폰 앱 | **IoT 센서**, **[[../matter/Matter]]** 기기 |
 | **자원 식별** | URI (http://…) | URI (coap://…) |

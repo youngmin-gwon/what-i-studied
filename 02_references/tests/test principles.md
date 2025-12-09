@@ -2,7 +2,7 @@
 title: test principles
 tags: [concept, test]
 aliases: []
-date modified: 2024-12-18 12:29:29 +09:00
+date modified: 2025-12-10 00:22:51 +09:00
 date created: 2024-12-18 11:57:07 +09:00
 ---
 

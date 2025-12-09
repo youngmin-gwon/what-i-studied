@@ -10,29 +10,30 @@ date created: 2024-12-09 21:31:10 +09:00
 
 > 객체에게 데이터를 요구하지 말고 작업을 요청해라
 
-- 초보가 힘든 것
+- **초보가 힘든 것**
   - 무엇을 객체화 할 것인가?
   - 위의 명언에서 얻어갈 수 있는 힌트 ⇒ 작업 (기능) 을 하는 것을 객체로 잡아보는 건 어떤가?
-- 객체에게 데이터를 요구하는 행위는 객체화를 손상시키는 행동일 수 있으니 다시 한번 생각해보자 ⇒ 데이터는 감춰라
-- 들어가기 전에 알고 가야하는 것
-  - OOP 를 이야기할 때 빠질 수 없는 이야기 ⇒ 유지보수성
+- 객체에게 데이터를 요구하는 행위는 객체화를 손상시키는 행동일 수 있으니 다시 한번 생각해보자 ⇒ **데이터는 감춰라 (Information Hiding)**
+
+- **들어가기 전에 알고 가야하는 것**
+  - OOP 를 이야기할 때 빠질 수 없는 이야기 ⇒ **유지보수성**
   - 유지보수성 vs 성능
     - 유지보수성에 손을 들어줄 수 밖에 없음
     - 소프트웨어는 빠르게 대응해야하는 것이 숙명이기 때문
-  - SOLID 는 유지보수성에 철저히 관점이 맞춰져 있음
+  - **SOLID** 는 유지보수성에 철저히 관점이 맞춰져 있음
 
 ## Type
 
-1. [[SRP(Single Responsibility Principle)]]
-2. [[OCP(Open Closed Principle)]]
-3. [[LSP(Liskov substitution principle)]]
-4. [[ISP(Interface Segregation Principle)]]
-5. [[DIP(Dependency Inversion Principle)]]
+1. [SRP(Single Responsibility Principle)](SRP(Single%20Responsibility%20Principle).md)
+2. [OCP(Open Closed Principle)](OCP(Open%20Closed%20Principle).md)
+3. [LSP(Liskov substitution principle)](LSP(Liskov%20substitution%20principle).md)
+4. [ISP(Interface Segregation Principle)](ISP(Interface%20Segregation%20Principle).md)
+5. [DIP(Dependency Inversion Principle)](DIP(Dependency%20Inversion%20Principle).md)
 
 ## 추가 내용
 
 - SOLID 가 매우 추상적, 관념적으로 보임
-- OOP 에 접근하는 방법
+- **OOP 에 접근하는 방법**
   1. 다음 세 가지는 무조건 분할해서 객체화 해보자
      - Data 자료를 다루는 부분
      - UI

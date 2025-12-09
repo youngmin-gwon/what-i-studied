@@ -77,5 +77,5 @@ sequenceDiagram
 ## 🏠 스마트홈에서의 역할 (Smart Home Role)
 
 - **상호 운용성 (Interoperability)**: 스마트홈의 "만국 공통어" 역할을 합니다.
-- **로컬 제어 (Local Control)**: Matter 기기는 LAN/[Thread](Thread.md) 메시 내에서 로컬로 통신합니다. 클라우드 연결은 선택 사항입니다.
+- **로컬 제어 (Local Control)**: Matter 기기는 LAN/[Thread](../thread/Thread.md) 메시 내에서 로컬로 통신합니다. 클라우드 연결은 선택 사항입니다.
 - **보안 (Security)**: 기기 인증 (DAC - Device Attestation Certificates) 을 위해 블록체인 스타일의 분산 원장을 사용합니다.

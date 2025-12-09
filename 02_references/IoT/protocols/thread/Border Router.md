@@ -44,4 +44,4 @@ date created: 2025-12-09 18:43:18 +09:00
 - **Samsung**: SmartThings Hub (v3, Station), 일부 TV/냉장고
 
 >[!TIP]
-> **[[Matter]]** 환경에서는 어떤 제조사의 TBR 을 쓰든 상관없습니다. 모든 Thread 기기는 공통된 Thread 네트워크 (Credential 공유 시) 를 형성합니다.
+> **[[../matter/Matter]]** 환경에서는 어떤 제조사의 TBR 을 쓰든 상관없습니다. 모든 Thread 기기는 공통된 Thread 네트워크 (Credential 공유 시) 를 형성합니다.
