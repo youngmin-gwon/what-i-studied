@@ -2,7 +2,7 @@
 title: Matter Roles
 tags: [iot, matter, roles]
 aliases: [Matter Device Core Roles]
-date modified: 2025-12-09 18:57:14 +09:00
+date modified: 2025-12-09 23:58:44 +09:00
 date created: 2025-12-09 18:17:49 +09:00
 ---
 

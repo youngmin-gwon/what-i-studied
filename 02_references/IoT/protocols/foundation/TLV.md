@@ -2,7 +2,7 @@
 title: TLV
 tags: [data-serialization, efficiency, encoding, iot, standard]
 aliases: [Type Length Value]
-date modified: 2025-12-09 18:55:08 +09:00
+date modified: 2025-12-09 23:58:47 +09:00
 date created: 2025-12-09 18:53:36 +09:00
 ---
 

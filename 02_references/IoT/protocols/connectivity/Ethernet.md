@@ -2,7 +2,7 @@
 title: Ethernet
 tags: [backbone, iot, network, wired]
 aliases: [LAN, Wired Network]
-date modified: 2025-12-09 18:39:36 +09:00
+date modified: 2025-12-09 23:59:32 +09:00
 date created: 2025-12-09 18:29:27 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: Smart Home Protocols Overview
 tags: [index, iot, map, overview]
 aliases: [IoT Protocols Map]
-date modified: 2025-12-09 18:52:21 +09:00
+date modified: 2025-12-09 23:51:31 +09:00
 date created: 2025-12-09 18:49:52 +09:00
 ---
 
@@ -31,9 +31,11 @@ date created: 2025-12-09 18:49:52 +09:00
 데이터가 지나가는 물리적인 **운송 수단**들입니다.
 
 - **[Wi-Fi](connectivity/Wi-Fi.md)**: 고속, 대용량, 상시 전원.
+- **[IEEE 802.11](connectivity/IEEE_802_11/IEEE%20802.11.md)**: Wi-Fi 의 기술 표준 명세.
 - **[Ethernet](connectivity/Ethernet.md)**: 유선, 백본, 최고의 안정성.
 - **[Bluetooth](connectivity/Bluetooth.md)**: 초기 설정 (Commissioning) 및 1:1 연결.
 - **[Zigbee](connectivity/Zigbee.md)**: Matter 이전의 메시 표준 (Legacy & Stable).
+- **[IEEE 802.15.4](connectivity/IEEE_802_15_4/IEEE%20802.15.4.md)**: Zigbee/Thread 의 기반이 되는 저전력 무선 표준.
 - **[Z-Wave](connectivity/Z-Wave.md)**: Sub-GHz 대역의 장거리/보안 특화 표준.
 
 ### 4. 📂 [Foundation](foundation/CoAP.md) (Core Tech)
@@ -41,8 +43,12 @@ date created: 2025-12-09 18:49:52 +09:00
 프로토콜을 지탱하는 **기반 기술**들입니다.
 
 - **[CoAP](foundation/CoAP.md)**: IoT 를 위한 가벼운 HTTP (UDP 기반).
+- **[IPv6](foundation/IPv6.md)**: 무한한 주소를 제공하는 차세대 인터넷 프로토콜.
+- **[6LoWPAN](foundation/6LoWPAN.md)**: IPv6 패킷을 압축하여 저전력 무선으로 전송.
 - **[ZCL](foundation/ZCL.md)**: Zigbee 와 Matter 의 데이터 모델 (DNA).
 - **[MQTT](foundation/MQTT.md)**: 서버 중심의 메시징 프로토콜 (Pub/Sub).
+- **[CSMA/CA](foundation/CSMA-CA.md)**: 무선 네트워크의 충돌 회피 알고리즘.
+- **[OFDM](foundation/OFDM.md)**: 고속 데이터 전송을 위한 직교 주파수 분할 변조.
 - **[TLV](foundation/TLV.md)**: 효율적인 바이너리 데이터 인코딩.
 - **[mDNS](foundation/mDNS.md)**: 로컬 네트워크 기기 자동 발견 (ZeroConf).
 

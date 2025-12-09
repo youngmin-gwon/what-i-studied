@@ -2,7 +2,7 @@
 title: Matter Architecture
 tags: [architecture, concept, iot, matter]
 aliases: [Matter Layers, Matter vs Transport]
-date modified: 2025-12-09 18:59:33 +09:00
+date modified: 2025-12-09 23:58:36 +09:00
 date created: 2025-12-09 18:24:05 +09:00
 ---
 
@@ -19,7 +19,7 @@ date created: 2025-12-09 18:24:05 +09:00
 - **Matter** = **"우리 이제부터 영어로 대화하자!"** (공통 언어 약속)
 - **Thread / Wi-Fi / Bluetooth** = **"전화로 할래? 편지로 할래?"** (전달 수단)
 
-즉, **Matter**는 **대화하는 규칙**이고, **Wi-Fi 나 Thread**는 그 대화가 지나가는 **길 (Road)**입니다.
+즉, **Matter**는 **대화하는 규칙**이고, **Wi-Fi 나 Thread**는 그 대화가 지나가는 **길 (Road)** 입니다.
 
 ### 2. 💻 초급 개발자 (Beginner Dev)
 
@@ -57,7 +57,7 @@ Matter 는 **IPv6** 위에서 동작하는 **Application Layer** 프로토콜이
 4. **Security**:
     - **PASE** (Password Authenticated Session Establishment): 초기 설정 시 사용 (PIN 코드).
     - **CASE** (Certificate Authenticated Session Establishment): 운영 중 기기 간 상호 인증 (mTLS 와 유사).
-5. **Discovery**: **[mDNS / DNS-SD](../foundation/mDNS.md)**를 사용하여 로컬 네트워크 내에서 별도 서버 없이 기기를 찾음.
+5. **Discovery**: **[mDNS / DNS-SD](../foundation/mDNS.md)** 를 사용하여 로컬 네트워크 내에서 별도 서버 없이 기기를 찾음.
 
 ---
 

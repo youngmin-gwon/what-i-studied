@@ -2,7 +2,7 @@
 title: Border Router
 tags: [bridge, iot, router, thread]
 aliases: [Border Router, TBR]
-date modified: 2025-12-09 18:53:52 +09:00
+date modified: 2025-12-09 23:49:36 +09:00
 date created: 2025-12-09 18:43:18 +09:00
 ---
 

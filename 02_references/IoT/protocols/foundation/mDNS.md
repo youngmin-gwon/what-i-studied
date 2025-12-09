@@ -2,7 +2,7 @@
 title: mDNS
 tags: [discovery, dns, iot, network, zeroconf]
 aliases: [Bonjour, DNS-SD, ZeroConf]
-date modified: 2025-12-09 18:56:39 +09:00
+date modified: 2025-12-10 00:07:52 +09:00
 date created: 2025-12-09 18:53:54 +09:00
 ---
 
@@ -32,4 +32,4 @@ date created: 2025-12-09 18:53:54 +09:00
 2. **운영 중 발견 (Operational Discovery)**: 이미 네트워크에 붙은 기기들이 서로의 최신 IP 주소를 알아낼 때 사용합니다. (예: 허브가 전구의 바뀐 IP 를 찾을 때).
 
 >[!TIP]
-> **Thread** 네트워크 내부에서는 mDNS 패킷이 너무 시끄럽기 때문에 (트래픽 과다), **SRP (Service Registration Protocol)**라는 더 효율적인 방식을 사용합니다. 하지만 **[Border Router](../thread/Border%20Router.md)**가 이를 다시 mDNS 로 변환하여 Wi-Fi 네트워크에 뿌려주므로, 사용자 입장에서는 어디에 있든 똑같이 보입니다.
+> **Thread** 네트워크 내부에서는 mDNS 패킷이 너무 시끄럽기 때문에 (트래픽 과다), **SRP (Service Registration Protocol)** 라는 더 효율적인 방식을 사용합니다. 하지만 **[Border Router](../thread/Border%20Router.md)** 가 이를 다시 mDNS 로 변환하여 Wi-Fi 네트워크에 뿌려주므로, 사용자 입장에서는 어디에 있든 똑같이 보입니다.

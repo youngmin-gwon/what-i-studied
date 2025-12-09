@@ -2,14 +2,15 @@
 title: ZCL
 tags: [data-model, iot, matter, protocol, zigbee]
 aliases: [Dotdot, Zigbee Cluster Library]
-date modified: 2025-12-09 18:35:18 +09:00
+date modified: 2025-12-09 23:58:50 +09:00
 date created: 2025-12-09 18:33:42 +09:00
 ---
 
 ## 🌐 개요 (Overview)
+
 **ZCL (Zigbee Cluster Library)** 는 기기가 **"무엇을 할 수 있는지"** 를 정의하는 표준 애플리케이션 계층 (Layer 7) 언어입니다.
 
-> [!NOTE]
+>[!NOTE]
 > **[Zigbee](../connectivity/Zigbee.md)** 뿐만 아니라 **[Matter](../matter/Matter.md)**의 데이터 모델 (Data Model) 의 모태가 된 매우 중요한 표준입니다. Matter 는 사실상 "IP 위의 ZCL"이라고 봐도 무방할 정도로 ZCL 의 구조를 계승했습니다.
 
 ## 🏗️ 구조 (Structure)
@@ -51,5 +52,5 @@ ZCL 은 단순한 Zigbee 용 언어를 넘어 스마트홈 업계의 표준 모�
 2. **Dotdot**: Thread Group 과 Zigbee Alliance 가 ZCL 을 IP 네트워크에서도 쓰자고 만든 규격.
 3. **[Matter](../matter/Matter.md)**: Dotdot 의 개념을 이어받아, ZCL 을 현대적으로 다듬어 (Interaction Model) Matter 의 핵심 데이터 모델로 채택함.
 
-> [!TIP]
-> 개발자 입장에서 **[Zigbee](../connectivity/Zigbee.md)** 를 다뤄봤다면 **[Matter](../matter/Matter.md)** 개발이 익숙하게 느껴지는 이유가 바로 이 **ZCL 기반의 공통된 DNA** 때문입니다.
+>[!TIP]
+>개발자 입장에서 **[Zigbee](../connectivity/Zigbee.md)** 를 다뤄봤다면 **[Matter](../matter/Matter.md)** 개발이 익숙하게 느껴지는 이유가 바로 이 **ZCL 기반의 공통된 DNA** 때문입니다.

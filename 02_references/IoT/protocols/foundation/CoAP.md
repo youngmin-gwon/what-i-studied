@@ -2,7 +2,7 @@
 title: CoAP
 tags: [iot, light-weight, messaging, protocol, udp]
 aliases: [RFC 7252]
-date modified: 2025-12-09 18:40:00 +09:00
+date modified: 2025-12-09 23:58:46 +09:00
 date created: 2025-12-09 18:37:02 +09:00
 ---
 

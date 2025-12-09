@@ -2,13 +2,13 @@
 title: Matter
 tags: [iot, matter, protocol, standard]
 aliases: []
-date modified: 2025-12-09 18:59:01 +09:00
+date modified: 2025-12-09 23:57:48 +09:00
 date created: 2025-12-09 11:59:02 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**Matter**는 스마트홈 기기를 위한 오픈 소스, 로열티 프리 연결 표준으로, **CSA (Connectivity Standards Alliance)**가 관리합니다. 서로 다른 생태계 (Apple, Google, Amazon, Samsung) 간의 파편화 문제를 해결하여 기기들이 기본적으로 상호 운용될 수 있도록 하는 것을 목표로 합니다.
+**Matter**는 스마트홈 기기를 위한 오픈 소스, 로열티 프리 연결 표준으로, **CSA (Connectivity Standards Alliance)** 가 관리합니다. 서로 다른 생태계 (Apple, Google, Amazon, Samsung) 간의 파편화 문제를 해결하여 기기들이 기본적으로 상호 운용될 수 있도록 하는 것을 목표로 합니다.
 
 >[!IMPORTANT]
 >Matter 는 **애플리케이션 계층 (Application Layer)** 프로토콜입니다. 무선 라디오 프로토콜이 아니며, 기존의 IP 네트워크 *위에서* 동작합니다.
@@ -34,7 +34,7 @@ Matter 는 [Zigbee](../connectivity/Zigbee.md) 나 [Z-Wave](../connectivity/Z-Wa
 
 1. **데이터 모델 (Data Model)**: [Zigbee](../connectivity/Zigbee.md) 의 **[ZCL](../foundation/ZCL.md) (Zigbee Cluster Library)** 에서 크게 파생되었습니다. "클러스터 (Cluster)"를 사용하여 기능 (예: On/Off 클러스터, 레벨 제어 클러스터) 을 정의합니다. 즉, Matter 는 Zigbee 의 입증된 언어를 IP 세상으로 확장한 직계 후손입니다.
 2. **멀티 어드민 (Multi-Admin)**: 하나의 기기를 여러 생태계에 동시에 연결할 수 있습니다 (예: Siri 와 Alexa 로 동시에 제어 가능).
-3. **보더 라우터 (Border Routers)**: Matter 는 IPv6 를 사용하므로, 특정 라디오 ([Thread](../thread/Thread.md)) 의 IPv6 패킷을 메인 [Wi-Fi](../connectivity/Wi-Fi.md)/이더넷 네트워크로 변환해 줄 **[Thread Border Router](../thread/Border%20Router.md)**가 필요합니다. 이는 로직을 번역하는 독점적 허브/브리지와 달리, 단순히 패킷 라우팅 (Routing) 역할만 수행합니다.
+3. **보더 라우터 (Border Routers)**: Matter 는 IPv6 를 사용하므로, 특정 라디오 ([Thread](../thread/Thread.md)) 의 IPv6 패킷을 메인 [Wi-Fi](../connectivity/Wi-Fi.md)/이더넷 네트워크로 변환해 줄 **[Thread Border Router](../thread/Border%20Router.md)** 가 필요합니다. 이는 로직을 번역하는 독점적 허브/브리지와 달리, 단순히 패킷 라우팅 (Routing) 역할만 수행합니다.
 
 ## 🌉 Wi-Fi 와 Thread 의 역할 분담
 
