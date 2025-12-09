@@ -1,8 +1,8 @@
 ---
 title: Thread
-tags: [iot, network, protocol]
+tags: [iot, network, protocol, thread]
 aliases: []
-date modified: 2025-12-09 18:25:26 +09:00
+date modified: 2025-12-09 18:59:23 +09:00
 date created: 2025-12-09 11:59:10 +09:00
 ---
 
@@ -22,20 +22,20 @@ Thread 는 신뢰성 높고 전력 소모가 적은 패킷 전달에 집중합�
 | :--- | :--- | :--- |
 | **Layer 7** (Application) | **없음 (None)** | Thread 자체는 애플리케이션을 정의하지 않음. 주로 **[Matter](../matter/Matter.md)**가 사용됨. |
 | **Layer 4** (Transport) | **UDP** + 6LoWPAN | IPv6 패킷을 압축하여 전송. |
-| **Layer 2-3** (Mac/Network) | **IEEE 802.15.4** | [Zigbee](../connectivity/Zigbee.md) 와 동일한 물리 계층(PHY)을 사용하지만, **IPv6** 라우팅을 수행합니다. |
+| **Layer 2-3** (Mac/Network) | **IEEE 802.15.4** | [Zigbee](../connectivity/Zigbee.md) 와 동일한 물리 계층 (PHY) 을 사용하지만, **IPv6** 라우팅을 수행합니다. |
 
 ### 🛠️ 주요 구성 요소 및 역할 (Roles)
-> [!TIP] 자세한 역할 정의
-> FTD, MTD, Leader 등 각 장치의 역할에 대한 상세 정의는 **[Thread Roles](Thread%20Roles.md)** 문서를 참고하세요.
+>[!TIP] 자세한 역할 정의
+>FTD, MTD, Leader 등 각 장치의 역할에 대한 상세 정의는 **[Thread Roles](Thread%20Roles.md)** 문서를 참고하세요.
 
-1. **Border Router (보더 라우터, TBR)**: Thread 네트워크와 인터넷 ([Wi-Fi](../connectivity/Wi-Fi.md)/이더넷)을 연결하는 게이트웨이입니다. **[Thread Border Router](Border%20Router.md)** 문서를 참고하세요.
+1. **Border Router (보더 라우터, TBR)**: Thread 네트워크와 인터넷 ([Wi-Fi](../connectivity/Wi-Fi.md)/이더넷) 을 연결하는 게이트웨이입니다. **[Thread Border Router](Border%20Router.md)** 문서를 참고하세요.
 2. **Router**: 패킷을 중계하는 상시 전원 기기.
 3. **End Device**: 배터리로 동작하는 말단 기기. (Deep Sleep 가능 - **SED**)
 
 ## 특징
 
 **단일 장애 지점 없음 (No Single Point of Failure)**:- **자가 치유 (Self-Healing)**: 라우터 하나가 고장 나면 자동으로 다른 경로를 찾습니다.
-- **안정성 (Reliability)**: 단일 실패 지점 (Single Point of Failure)이 없습니다 (Border Router 도 여러 대 설치 가능).
+- **안정성 (Reliability)**: 단일 실패 지점 (Single Point of Failure) 이 없습니다 (Border Router 도 여러 대 설치 가능).
 - **IP 기반**: **[Bluetooth](../connectivity/Bluetooth.md)**나 **[Zigbee](../connectivity/Zigbee.md)**와 달리, 인터넷과 직접 통신이 가능한 **End-to-End Connectivity**를 제공합니다.
 
 ## 🌉 Wi-Fi vs Thread vs Zigbee

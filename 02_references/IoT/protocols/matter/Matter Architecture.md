@@ -2,7 +2,7 @@
 title: Matter Architecture
 tags: [architecture, concept, iot, matter]
 aliases: [Matter Layers, Matter vs Transport]
-date modified: 2025-12-09 18:52:42 +09:00
+date modified: 2025-12-09 18:59:33 +09:00
 date created: 2025-12-09 18:24:05 +09:00
 ---
 

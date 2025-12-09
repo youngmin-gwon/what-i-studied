@@ -43,6 +43,8 @@ date created: 2025-12-09 18:49:52 +09:00
 - **[CoAP](foundation/CoAP.md)**: IoT 를 위한 가벼운 HTTP (UDP 기반).
 - **[ZCL](foundation/ZCL.md)**: Zigbee 와 Matter 의 데이터 모델 (DNA).
 - **[MQTT](foundation/MQTT.md)**: 서버 중심의 메시징 프로토콜 (Pub/Sub).
+- **[TLV](foundation/TLV.md)**: 효율적인 바이너리 데이터 인코딩.
+- **[mDNS](foundation/mDNS.md)**: 로컬 네트워크 기기 자동 발견 (ZeroConf).
 
 ---
 

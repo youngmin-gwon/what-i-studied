@@ -11,10 +11,14 @@
             "id": "a829d7ee921395e0",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "02_references/iot/protocols/thread/Thread Roles.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Thread Roles"
             }
           }
         ]
@@ -185,10 +189,14 @@
   },
   "active": "a829d7ee921395e0",
   "lastOpenFiles": [
-    "02_references/iot/protocols/foundation/mDNS.md",
-    "02_references/iot/protocols/thread/Border Router.md",
-    "02_references/iot/protocols/foundation/TLV.md",
+    "02_references/iot/protocols/matter/Matter Roles.md",
     "02_references/iot/protocols/matter/Matter Architecture.md",
+    "02_references/iot/protocols/matter/Matter.md",
+    "02_references/iot/protocols/thread/Border Router.md",
+    "02_references/iot/protocols/thread/Thread.md",
+    "02_references/iot/protocols/thread/Thread Roles.md",
+    "02_references/iot/protocols/foundation/mDNS.md",
+    "02_references/iot/protocols/foundation/TLV.md",
     "02_references/iot/protocols/Smart Home Protocols Overview.md",
     "01_inbox/2025년 회고.md",
     "02_references/iot/protocols/foundation/MQTT.md",
@@ -199,14 +207,10 @@
     "02_references/iot/protocols/connectivity/Bluetooth.md",
     "02_references/iot/protocols/connectivity/Ethernet.md",
     "02_references/iot/protocols/connectivity/Wi-Fi.md",
-    "02_references/iot/protocols/thread/Thread Roles.md",
-    "02_references/iot/protocols/thread/Thread.md",
     "02_references/iot/protocols/Matter Architecture.md",
     "02_references/iot/protocols/foundation",
     "02_references/iot/protocols/connectivity",
     "02_references/iot/protocols/thread",
-    "02_references/iot/protocols/matter/Matter.md",
-    "02_references/iot/protocols/matter/Matter Roles.md",
     "02_references/iot/protocols/matter",
     "02_references/iot/protocols/Border Router.md",
     "02_references/iot/protocols/Matter.md",
