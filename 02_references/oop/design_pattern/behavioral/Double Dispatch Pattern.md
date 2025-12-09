@@ -16,13 +16,13 @@ You are probably used to looking at code such as the following.
 user.validate_password(password)
 ```
 
-In the above code, the specific method that ends up being executed depends on the runtime type of a single object: user.
+In the above code, the specific method that ends up being executed depends on the runtime type of a single object: `user`.
 
-This is known as single dispatch.
+This is known as **single dispatch**.
 
-In a multiple dispatch system, the implementation of validate_password that ends up being invoked would depend on the runtime types of both user and password.
+In a **multiple dispatch** system, the implementation of `validate_password` that ends up being invoked would depend on the runtime types of both `user` and `password`.
 
-When working with languages that don't directly support double dispatch (like Ruby), we can implement the Double Dispatch Pattern to gain the benefits.
+When working with languages that don't directly support double dispatch (like Ruby), we can implement the **Double Dispatch Pattern** to gain the benefits.
 
 ## Why?
 
@@ -58,9 +58,8 @@ end
 
 The problem with the above is twofold:
 
-Each object must know the rendering internals of multiple media.
-
-If we add a new medium, all of our objects must be updated to account for it.
+1. Each object must know the rendering internals of multiple media.
+2. If we add a new medium, all of our objects must be updated to account for it.
 
 Applying the Double Dispatch Pattern allows us to bring the rendering logic out of our objects and in to a more sensible place, as well as reducing the number of classes that must be edited if we add a new medium in which our objects can be displayed.
 
