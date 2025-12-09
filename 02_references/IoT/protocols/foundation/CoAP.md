@@ -18,7 +18,7 @@ date created: 2025-12-09 18:37:02 +09:00
 ### 1. UDP 기반 (Over UDP)
 
 - HTTP 가 신뢰성 있는 TCP 를 사용하는 것과 달리, CoAP 는 가벼운 **UDP**를 사용합니다.
-- 패킷 오버헤드가 극도로 작아 배터리 구동 기기 ([[Thread]] 등) 에 최적화되어 있습니다.
+- 패킷 오버헤드가 극도로 작아 배터리 구동 기기 (**[Thread](../thread/Thread.md)** 등) 에 최적화되어 있습니다.
 - 신뢰성 (메시지 도달 보장) 은 애플리케이션 계층에서 "Confirmable Message" 등을 통해 확보합니다.
 
 ### 2. HTTP 와 유사한 구조 (RESTful)
@@ -32,8 +32,8 @@ date created: 2025-12-09 18:37:02 +09:00
 
 ## 🏠 Matter 에서의 역할
 
-- **교통 정리**: [Matter](Matter.md) 의 모든 상호작용 (Interaction Model) 은 CoAP 메시지로 포장되어 전송됩니다.
-- **효율성**: [Thread](Thread.md) 네트워크 위에서 데이터 트래픽을 최소화하여 느린 속도에서도 쾌적한 반응 속도를 만들어냅니다.
+- **교통 정리**: **[Matter](../matter/Matter.md)** 의 모든 상호작용 (Interaction Model) 은 CoAP 메시지로 포장되어 전송됩니다.
+- **효율성**: **[Thread](../thread/Thread.md)** 네트워크 위에서 데이터 트래픽을 최소화하여 느린 속도에서도 쾌적한 반응 속도를 만들어냅니다.
 
 ### 🆚 HTTP vs CoAP 비교
 

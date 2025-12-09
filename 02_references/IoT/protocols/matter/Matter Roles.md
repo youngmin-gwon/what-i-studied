@@ -35,7 +35,7 @@ Matter 는 배터리 기기의 효율성을 위해 **ICD (Intermittently Connect
 
 | 구분 | **SED** (Sleepy End Device) | **ICD** (Intermittently Connected Device) |
 | :--- | :--- | :--- |
-| **소속** | **[[Thread]]** 프로토콜 용어 | **[[Matter]]** 프로토콜 용어 (Wi-Fi 포함) |
+| **소속** | **[Thread](../thread/Thread.md)** 프로토콜 용어 | **[Matter](Matter.md)** 프로토콜 용어 (Wi-Fi 포함) |
 | **연결 방식** | 주기적 (Polling) 으로 깨어나 부모에게 데이터 요청 | 필요할 때만 연결 (LIT) 또는 주기적 연결 (SIT) |
 | **전력 소비** | 낮음 (주기적 깨어남으로 소량 소모) | **매우 낮음** (Long Idle Time 지원 시 극대화) |
 | **통신 지연** | 짧음~중간 (Polling 주기에 따름) | 높을 수 있음 (기기가 깨어날 때까지 대기 필요) |

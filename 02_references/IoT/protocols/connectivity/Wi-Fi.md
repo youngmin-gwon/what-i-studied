@@ -20,7 +20,19 @@ Wi-Fi 장치는 PC 와 유사하게 완전한 TCP/IP 스택을 실행합니다.
 | 계층 (Layer)                | 기술 (Technology)     | 상세 내용 (Details)                                              |
 | :------------------------ | :------------------ | :----------------------------------------------------------- |
 | **Layer 7** (Application) | **다양함 (Various)**   | 독점 프로토콜 (HTTP/Cloud), **[Matter](Matter.md)**, CoAP, MQTT 등. |
-| **Layer 4** (Transport)   | **TCP / UDP**       | [Zigbee](Zigbee.md)/[Thread](Thread.md) 에 비해 오버헤드가 큽니다.      |
+| **Layer 4** (Transport)   | **TCP / UDP**       | [Zigbee](Zigbee.md)/[Thread](Thread.md) 에 비해 오버헤드가 큽니다.    ### 🆚 Wi-Fi vs. [Thread](../thread/Thread.md) / [Zigbee](Zigbee.md)
+
+| 특징 | **Wi-Fi** | **Thread / Zigbee** |
+| :--- | :--- | :--- |
+| **대역폭 (Bandwidth)** | 매우 큼 (영상 스트리밍 가능) | 매우 작음 (센서 데이터 전송용) |
+| **전력 소모 (Power)** | **높음** (Keep-Alive 유지 필요) | **매우 낮음** (Deep Sleep 가능) |
+| **도달 거리 (Range)** | 공유기 성능에 의존 (비교적 짧음) | **Mesh**로 무한 확장 가능 |
+| **주 사용처** | AI 스피커, 카메라, 월패드 | 건전지 넣는 모든 센서류 |
+| **간섭 (Interference)** | 심함 (이웃집 공유기와 경쟁) | 채널 회피 기술 등으로 관리됨 |
+
+> [!IMPORTANT]
+> **[Matter](../matter/Matter.md)** 표준에서도 Wi-Fi는 고속/상시 전원 기기를 담당하고, 저전력/배터리 기기는 **[Thread](../thread/Thread.md)**가 담당하는 것으로 역할이 명확히 나뉘어 있습니다.
+> 즉, "건전지 들어가는 Wi-Fi 센서"는 점차 사라질 운명입니다.         |
 | **Layer 3** (Network)     | **IPv4 / IPv6**     | LAN 내에서 주소 지정이 가능합니다.                                        |
 | **Layer 2** (MAC)         | **IEEE 802.11 MAC** | 매체 접근 제어, CSMA/CA 를 처리합니다.                                   |
 | **Layer 1** (PHY)         | **IEEE 802.11 PHY** | **2.4 GHz / 5 GHz / 6 GHz**. OFDM 변조를 사용합니다.                 |

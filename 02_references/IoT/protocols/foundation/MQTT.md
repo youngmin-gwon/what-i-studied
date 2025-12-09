@@ -11,7 +11,7 @@ date created: 2025-12-09 18:29:44 +09:00
 
 >[!NOTE]
 >MQTT 는 **Application Layer** 프로토콜이며, 주로 **TCP/IP** 위에서 동작합니다.
-> **[[Matter]]**와는 경쟁 관계라기보다 상호 보완적이거나 다른 계층의 솔루션으로 볼 수 있습니다 (Matter 는 자체적인 CoAP 기반 통신을 사용).
+> **[Matter](../matter/Matter.md)**와는 경쟁 관계라기보다 상호 보완적이거나 다른 계층의 솔루션으로 볼 수 있습니다 (Matter 는 자체적인 CoAP 기반 통신을 사용).
 
 ## 🏗️ 아키텍처 (Pub/Sub)
 
@@ -22,14 +22,16 @@ date created: 2025-12-09 18:29:44 +09:00
 3. **Subscriber (구독자)**: "거실 온도" 주제를 구독하고 있다가 메시지를 받습니다.
 
 ### 🛠️ 주요 특징
+
 - **가벼움 (Lightweight)**: 헤더가 최소 2 바이트로 매우 작습니다.
 - **QoS (Quality of Service)**: 메시지 전송 품질을 3 단계로 보장합니다 (0: 최대 한 번, 1: 최소 한 번, 2: 정확히 한 번).
 - **Retain Message**: 브로커가 최신 값을 기억하고 있다가, 새로운 구독자가 오면 즉시 알려줍니다.
 - **LWT (Last Will and Testament)**: 기기가 실수로 끊어졌을 때 "나 죽었어"라는 유언 메시지를 브로커가 대신 뿌려줍니다 (오프라인 감지에 유용).
 
 ## 🏠 스마트홈에서의 역할 (Usage)
+
 - **통합의 제왕 (Integration)**: 서로 다른 제조사의 기기들을 하나로 묶는 "공용 버스" 역할을 합니다.
-- **Zigbee2MQTT**: [Zigbee](Zigbee.md) 기기들의 신호 (ZCL) 를 MQTT 메시지 (JSON) 로 변환하여, Home Assistant 같은 플랫폼이 쉽게 제어할 수 있게 해줍니다.
+- **Zigbee2MQTT**: **[Zigbee](../connectivity/Zigbee.md)** 기기들의 신호 (ZCL) 를 MQTT 메시지 (JSON) 로 변환하여, Home Assistant 같은 플랫폼이 쉽게 제어할 수 있게 해줍니다.
 - **커스텀 IoT 기기**: ESP32/Arduino 등으로 DIY 센서를 만들 때 가장 흔히 사용되는 프로토콜입니다.
 
 ### 🆚 Matter vs MQTT

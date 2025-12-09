@@ -2,7 +2,7 @@
 title: Matter Architecture
 tags: [architecture, concept, iot, matter]
 aliases: [Matter Layers, Matter vs Transport]
-date modified: 2025-12-09 18:43:18 +09:00
+date modified: 2025-12-09 18:52:42 +09:00
 date created: 2025-12-09 18:24:05 +09:00
 ---
 
@@ -40,23 +40,24 @@ Matter 는 철저하게 **IP (Internet Protocol)** 위에서 동작합니다.
 | :-------------------- | :------------------------------------------------------------------ | :--------------------------------------- |
 | **Application**       | **[Matter](Matter.md)**                                             | 상호운용성 규격 (Data Model, Interaction Model) |
 | **Transport/Network** | **TCP/UDP, IPv6**                                                   | 데이터 패킷 전송 및 주소 지정                        |
-| **PHY/MAC**           | **[Wi-Fi](Wi-Fi.md), [Thread](Thread.md), [Ethernet](Ethernet.md)** | 실제 무선/유선 신호 전달                           |
-| **Commissioning**     | **[Bluetooth](Bluetooth.md) LE**                                    | 초기 설정을 위한 임시 통신 (IP 아님)                  |
+| **PHY/MAC**           | **[Wi-Fi](../connectivity/Wi-Fi.md), [Thread](../thread/Thread.md), [Ethernet](../connectivity/Ethernet.md)** | 실제 무선/유선 신호 전달                           |
+| **Commissioning**     | **[Bluetooth](../connectivity/Bluetooth.md) LE**                                    | 초기 설정을 위한 임시 통신 (IP 아님)                  |
 
 - **핵심**: Matter 는 **IP 네트워크**라면 어디든 올라갈 수 있습니다. Bluetooth 는 IP 가 아니므로 **초기 설정 (Commissioning)** 때만 길잡이 역할로 쓰고 빠집니다.
 
 ### 4. 🧑‍💻 고급 개발자 (Advanced Dev)
+
 > **Protocol Stack Deep Dive**
 
 Matter 는 **IPv6** 위에서 동작하는 **Application Layer** 프로토콜이며, 내부적으로 다음과 같은 기술 스택을 사용합니다.
 
 1. **Transport Layer**: **UDP**를 주로 사용 (신뢰성 확보를 위해 자체적인 Message Reliability 메커니즘 보유).
-2. **Messaging**: **[CoAP](CoAP.md) (Constrained Application Protocol)** 기반의 가벼운 메시징.
-3. **Data Serialization**: **TLV (Type-Length-Value)** 포맷으로 데이터를 바이너리 인코딩하여 효율성 극대화.
+2. **Messaging**: **[CoAP](../foundation/CoAP.md) (Constrained Application Protocol)** 기반의 가벼운 메시징.
+3. **Data Serialization**: **[TLV](../foundation/TLV.md) (Type-Length-Value)** 포맷으로 데이터를 바이너리 인코딩하여 효율성 극대화.
 4. **Security**:
     - **PASE** (Password Authenticated Session Establishment): 초기 설정 시 사용 (PIN 코드).
     - **CASE** (Certificate Authenticated Session Establishment): 운영 중 기기 간 상호 인증 (mTLS 와 유사).
-5. **Discovery**: **mDNS / DNS-SD**를 사용하여 로컬 네트워크 내에서 별도 서버 없이 기기를 찾음.
+5. **Discovery**: **[mDNS / DNS-SD](../foundation/mDNS.md)**를 사용하여 로컬 네트워크 내에서 별도 서버 없이 기기를 찾음.
 
 ---
 
@@ -136,5 +137,5 @@ class BR,T_Mesh,T_Bulb thread;
 **핵심**: Wi-Fi 기기와 Thread 기기는 물리적으로 다른 길을 쓰지만, **[Matter](Matter.md)** 라는 논리적 계층에서 하나로 연결됩니다.
 
 - **Wi-Fi 전구**가 **Thread 스위치**의 신호를 받을 수 있는 이유:
-    1. Thread 스위치 → Border Router (IP 변환) → Wi-Fi 공유기 → Wi-Fi 전구
+    1. Thread 스위치 → [Border Router](../thread/Border%20Router.md) (IP 변환) → Wi-Fi 공유기 → Wi-Fi 전구
     2. 이 모든 과정에서 데이터 내용 (Matter Command) 은 변하지 않음.
