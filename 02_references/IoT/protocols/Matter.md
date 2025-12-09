@@ -1,8 +1,8 @@
 ---
 title: Matter
-tags: [iot, protocol, standard]
+tags: [iot, matter, protocol, standard]
 aliases: []
-date modified: 2025-12-09 17:56:43 +09:00
+date modified: 2025-12-09 18:21:23 +09:00
 date created: 2025-12-09 11:59:02 +09:00
 ---
 
@@ -11,6 +11,9 @@ date created: 2025-12-09 11:59:02 +09:00
 
 >[!IMPORTANT]
 >Matter 는 **애플리케이션 계층 (Application Layer)** 프로토콜입니다. 무선 라디오 프로토콜이 아니며, 기존의 IP 네트워크 *위에서* 동작합니다.
+>
+> 🧩 **개념 이해**: "Matter는 언어이고, Thread는 도로입니다."
+> 👉 자세한 설명과 아키텍처 다이어그램은 **[[Matter Architecture]]** 문서를 참고하세요.
 
 ## 🏗️ 프로토콜 스택 (Protocol Stack)
 
@@ -23,8 +26,11 @@ Matter 는 [[Zigbee]] 나 [[Z-Wave]] 와 같은 풀 스택 (Full-Stack) 프로�
 | **Layer 3** (Network)     | **IPv6**                                             | **필수 (Mandatory)**입니다. Matter 기기는 반드시 IPv6 주소를 가져야 합니다.         |
 | **Layer 1-2** (PHY/MAC)   | **[Thread](Thread.md), [Wi-Fi](Wi-Fi.md), Ethernet** | 물리적 라디오 계층입니다. Matter 는 이러한 전송 기술들을 명시적으로 지원합니다.                 |
 
-### 🛠️ 주요 구성 요소 (Key Components)
-1. **데이터 모델 (Data Model)**: [Zigbee](Zigbee.md) 의 **ZCL (Zigbee Cluster Library)** 에서 크게 파생되었습니다. "클러스터 (Cluster)"를 사용하여 기능 (예: On/Off 클러스터, 레벨 제어 클러스터) 을 정의합니다. 즉, Matter 는 Zigbee 의 입증된 언어를 IP 세상으로 확장한 직계 후손입니다.
+### 🛠️ 주요 구성 요소 및 역할
+>[!TIP] 자세한 역할 정의
+>Controller, Commissioner, Bridge 등 각 장치의 역할에 대한 상세 정의는 **[[Matter Roles]]** 문서를 참고하세요.
+
+1. **데이터 모델 (Data Model)**: [Zigbee](Zigbee.md) 의 **[[ZCL]] (Zigbee Cluster Library)** 에서 크게 파생되었습니다. "클러스터 (Cluster)"를 사용하여 기능 (예: On/Off 클러스터, 레벨 제어 클러스터) 을 정의합니다. 즉, Matter 는 Zigbee 의 입증된 언어를 IP 세상으로 확장한 직계 후손입니다.
 2. **멀티 어드민 (Multi-Admin)**: 하나의 기기를 여러 생태계에 동시에 연결할 수 있습니다 (예: Siri 와 Alexa 로 동시에 제어 가능).
 3. **보더 라우터 (Border Routers)**: Matter 는 IPv6 를 사용하므로, 특정 라디오 ([Thread](Thread.md)) 의 IPv6 패킷을 메인 [Wi-Fi](Wi-Fi.md)/이더넷 네트워크로 변환해 줄 **Thread Border Router**가 필요합니다. 이는 로직을 번역하는 독점적 허브/브리지와 달리, 단순히 패킷 라우팅 (Routing) 역할만 수행합니다.
 

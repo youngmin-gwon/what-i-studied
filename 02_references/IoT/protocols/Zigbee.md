@@ -27,7 +27,7 @@ IP 를 사용하지 않으므로, Zigbee 기기는 라우터나 스마트폰과 
 1. **Coordinator (코디네이터)**: 네트워크의 "두뇌"입니다. 네트워크당 단 *하나*만 존재합니다.
 2. **Router (라우터)**: 상시 전원 기기 (전구, 플러그 등). 신호 범위를 확장 (Mesh) 합니다.
 3. **End Device (엔드 디바이스)**: 배터리 구동 기기. 평소엔 슬립 모드에 있습니다.
-4. **ZCL (Zigbee Cluster Library)**: Zigbee 기기의 표준 언어입니다. 현재 **[Matter](Matter.md)** 의 데이터 모델은 이 ZCL 을 계승하여 만들어졌습니다. (성공적인 유산)
+4. **ZCL**([[ZCL]]): Zigbee 기기의 표준 언어입니다. 현재 **[Matter](Matter.md)** 의 데이터 모델은 이 ZCL 을 계승하여 만들어졌습니다. (성공적인 유산)
 
 ## 🔄 Zigbee to IP Bridging (MQTT)
 
