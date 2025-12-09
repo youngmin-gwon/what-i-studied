@@ -2,7 +2,7 @@
 title: Zigbee
 tags: [iot, legacy, protocol]
 aliases: []
-date modified: 2025-12-09 18:01:43 +09:00
+date modified: 2025-12-09 18:35:56 +09:00
 date created: 2025-12-09 11:59:05 +09:00
 ---
 
