@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:47:43 +09:00
-date modified: 2024-12-16 12:19:52 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Observer Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:24:30 +09:00
+date created: 2024-12-12 15:47:43 +09:00
 ---
 
 ## Description
@@ -45,7 +45,7 @@ title: Observer Pattern
     - 알림 (notification) 인터페이스 적용
     - subject 의 상태와 일관되게 유지할 수 있도록 처리
 
-## [[Observer Pattern]] vs [[Mediator Pattern]]
+## [Observer Pattern](Observer%20Pattern.md) vs [Mediator Pattern](Mediator%20Pattern.md)
 
 - Mediator 의 가장 큰 목적은 N:M 의 관계를 1:N 으로 변환하는 것. Observer 는 몇몇의 객체는 다른 객체에 종속체 처럼 행동하며, 객체간 동적인 one way 연결을 허용.
 
@@ -65,7 +65,7 @@ title: Observer Pattern
 
 ## Relationship with other patterns
 
-### [[Chain of Responsibility Pattern]], [[Command Pattern]], [[Observer Pattern]]
+### [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md), [Command Pattern](Command%20Pattern.md)
 
 - 요청의 sender 와 receiver 을 연결하는 다양한 방법 제시
   - CoR : 잠재적 수신자 중 하나가 처리할 때까지 잠재적 수신자의 동적 사슬을 따라 순차적으로 요청을 전달
@@ -73,7 +73,7 @@ title: Observer Pattern
   - Mediator : 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함
   - Observer : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음
 
-### [[Observer Pattern]]
+### [Mediator Pattern](Mediator%20Pattern.md)
 
 - 차이를 구별하기 어려움
 - 하나를 구현해서 쓰기도 하나, 때로는 두 가지를 동시에 적용하기도 함

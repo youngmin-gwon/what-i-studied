@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:48:37 +09:00
-date modified: 2024-12-16 12:19:50 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Memento Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:25:26 +09:00
+date created: 2024-12-12 15:48:37 +09:00
 ---
 
 ## Description
@@ -86,16 +86,16 @@ title: Memento Pattern
 
 ## Relationship with other patterns
 
-### [[Command Pattern]]
+### [Command Pattern](Command%20Pattern.md)
 
 - undo 기능을 적용하기 위해서 Command 패턴과 같이 사용할 수 있음
 - Command 는 다양한 연산을 목표 객체에 적용하는 것에만 신경 쓰면 되고, Memento 는 Command 가 수행되기 전 객체의 상태만 기억하는 것에만 신경 쓰면 됨
 
-### [[Iterator Pattern]]
+### [Iterator Pattern](Iterator%20Pattern.md)
 
 - Memento 와 Iterator 를 함께 사용하여, 현재 상태를 알고, 또 필요한 경우 되돌릴 수 있음
 
-### [[../../creational/patterns/Prototype Pattern]]
+### [Prototype Pattern](../../creational/patterns/Prototype%20Pattern.md)
 
 - Prototype 이 Memento 의 간단한 대안이 될 수도 있음
 - 히스토리에 저장하려는 상태인 객체가 간단하고 외부 리소스에 대한 링크가 없거나 링크가 재설정하기 쉬운 경우 대안으로 채택할 수 있음

@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:52:40 +09:00
-date modified: 2024-12-16 12:20:24 +09:00
-tags: [design-pattern, gof, oop, structural-pattern]
 title: Composite Pattern
+tags: [design-pattern, gof, oop, structural-pattern]
+aliases: []
+date modified: 2025-12-09 17:32:50 +09:00
+date created: 2024-12-12 15:52:40 +09:00
 ---
 
 ## Description
@@ -57,29 +57,29 @@ title: Composite Pattern
 
 ## Relationship with other patterns
 
-### [[../../creational/patterns/Builder Pattern]]
+### [Builder Pattern](../../creational/patterns/Builder%20Pattern.md)
 
 - 복잡한 Composite tree 를 생성하기 위해서 Builder 패턴을 사용할 수 있음
   - 재귀적으로 동작하도록 구성 단계를 프로그래밍 할 수 있음
 
-### [[../../behavioral/patterns/Chain of Responsibility Pattern]]
+### [Chain of Responsibility Pattern](../../behavioral/patterns/Chain%20of%20Responsibility%20Pattern.md)
 
 - 종종 Composite 과 함께 사용됨
 - Leaf 가 요청을 받으면 모든 상위 구성 요소의 체인을 통해 개체 트리의 루트까지 전달할 수 있음
 
-### [[../../behavioral/patterns/Iterator Pattern]]
+### [Iterator Pattern](../../behavioral/patterns/Iterator%20Pattern.md)
 
 - Composite tree 를 순회하기 위해서 Iterator 를 사용
 
-### [[../../behavioral/patterns/Visitor Pattern]]
+### [Visitor Pattern](../../behavioral/patterns/Visitor%20Pattern.md)
 
 - Composite tree 의 각 operation 을 수행하기 위해 사용
 
-### [[Flyweight Pattern]]
+### [Flyweight Pattern](Flyweight%20Pattern.md)
 
 - Composite tree 의 공유된 Leaf 를 Flyweight 로 구현하여 RAM 자원을 아낄 수 있음
 
-### [[Decorator Pattern]]
+### [Decorator Pattern](Decorator%20Pattern.md)
 
 - Composite 과 Decorator 는 모두 재귀적 구성을 가지기 때문에 매우 비슷한 구조 다이어그램을 가짐
 - Decorator 는 오직 하나의 자식 component 만을 가진 Composite 으로 생각할 수 있음
@@ -87,7 +87,7 @@ title: Composite Pattern
 - 패턴이 때로 협력도 가능함
   - Decorator 를 사용하여 합성 트리에서 특정 개체의 동작을 확장할 수 있음
 
-### [[../../creational/patterns/Prototype Pattern]]
+### [Composite Pattern](Composite%20Pattern.md)
 
 - Composite 와 Decorator 를 많이 사용하는 디자인은 종종 Prototype 을 사용하여 이점을 얻을수 있음
 - Prototype 패턴을 적용하면 복잡한 구조를 처음부터 다시 구성하는 대신 복제할 수 있음

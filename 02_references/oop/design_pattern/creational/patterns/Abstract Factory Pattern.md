@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:51:24 +09:00
-date modified: 2024-12-16 12:20:12 +09:00
-tags: [creational-pattern, design-pattern, gof, oop]
 title: Abstract Factory Pattern
+tags: [creational-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:37:27 +09:00
+date created: 2024-12-12 15:51:24 +09:00
 ---
 
 ## Description
@@ -19,7 +19,7 @@ title: Abstract Factory Pattern
 
 상황에 따라 Android or iOS Theme 을 보여줌
 
-## [[Factory Method Pattern]] vs [[Abstract Factory Pattern]]
+## [Factory Method Pattern](Factory%20Method%20Pattern.md) vs [Abstract Factory Pattern](Abstract%20Factory%20Pattern.md)
 
 - Abstract Factory 는 관계되어 있는 객체의 "Family" 를 만드는 방법을 제공함
 - Factory Method 는 쉽게 Abstract Factory 의 subset 이라고 생각해도 됨
@@ -62,8 +62,8 @@ title: Abstract Factory Pattern
 
 ## Pros
 
-- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ [[../../../solid/SRP(Single Responsibility Principle)]]
-- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ [[../../../solid/OCP(Open Closed Principle)]]
+- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ [SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)
+- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)
 - Creator 와 ConcreteProduct 간의 결합도를 줄일 수 있음
 
 ## Cons
@@ -72,32 +72,32 @@ title: Abstract Factory Pattern
 
 ## Relationship with other patterns
 
-### [[Prototype Pattern]], [[Builder Pattern]]
+### [Prototype Pattern](Prototype%20Pattern.md), [Builder Pattern](Builder%20Pattern.md)
 
 - 모두 Factory Method 를 기반으로 발전 됨
 - Factory Method 보다 자유롭지만, 복잡함
 
-### [[Builder Pattern]]
+### [Builder Pattern](Builder%20Pattern.md)
 
 - Builder 는 복잡한 객체를 단계별로 생성하는 패턴
 - Abstract Factory 는 관계있는 객체의 family 를 만드는 패턴
 - Abstract Factory 는 객체를 바로 생성하지만, Builder 는 객체 생성까지 추가적인 시간이 필요함
 
-### [[Factory Method Pattern]]
+### [Factory Method Pattern](Factory%20Method%20Pattern.md)
 
 - Abstract Factory 는 Factory Method 의 세트를 기반으로 만들어짐
 
-### [[../../structural/patterns/Facade Pattern]]
+### [Facade Pattern](../../structural/patterns/Facade%20Pattern.md)
 
 - 클라이언트 코드에서 서브시스템 객체가 생성되는 방식을 숨기고 싶을 때 Facade 의 대안으로 사용할 수 있음
 
-### [[../../structural/patterns/Bridge Pattern]]
+### [Bridge Pattern](../../structural/patterns/Bridge%20Pattern.md)
 
 - Abstract Factory 와 Bridge 패턴을 함께 사용할 수 있음
 - Bridge 에서 정의한 일부 추상화가 특정 구현에서만 작동할 수 있을 때 유용함
 - Abstract Factory 는 관계를 캡슐화하고 클라이언트 코드에서 복잡성을 숨길 수 있음
 
-### [[Singleton Pattern]]
+### [Singleton Pattern](Singleton%20Pattern.md)
 
 - Abstract Factory 는 Singleton 패턴으로 적용될 수 있음
 

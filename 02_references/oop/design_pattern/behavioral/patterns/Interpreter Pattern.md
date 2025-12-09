@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:47:19 +09:00
-date modified: 2024-12-16 12:20:04 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Interpreter Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:27:49 +09:00
+date created: 2024-12-12 15:47:19 +09:00
 ---
 
 ## Description
@@ -33,7 +33,7 @@ title: Interpreter Pattern
     - 추상 구문 트리는 NonTerminalExpression 과 TerminalExpression 클래스의 인스턴스로 구성
     - 이 인스턴스의 `interpret()` 연산을 호출
 
-## [[../../structural/patterns/Composite Pattern]] vs Interpreter
+## [Composite Pattern](../../structural/patterns/Composite%20Pattern.md) vs [Iterator Pattern](Iterator%20Pattern.md)
 
 - Composite 패턴은 오직 static 한 시스템 특성을 정의하거나 구조를 정의하기 위해서 사용됨
 - Interpreter 패턴은 언어를 상징하고, 행위를 정의하고, 트리 안의 구성 노드들의 해석 방법을 제시하고, 문맥을 공유하기 위해 사용됨

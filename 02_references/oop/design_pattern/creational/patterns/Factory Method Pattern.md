@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:51:15 +09:00
-date modified: 2024-12-16 12:20:14 +09:00
-tags: [creational-pattern, design-pattern, gof, oop]
 title: Factory Method Pattern
+tags: [creational-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:29:21 +09:00
+date created: 2024-12-12 15:51:15 +09:00
 ---
 
 ## Description
@@ -60,24 +60,24 @@ title: Factory Method Pattern
 
 ## Relationship with other patterns
 
-### [[Abstract Factory Pattern]], [[Prototype Pattern]], [[Builder Pattern]]
+### [Abstract Factory Pattern](Abstract%20Factory%20Pattern.md), [Prototype Pattern](Prototype%20Pattern.md), [Builder Pattern](Builder%20Pattern.md)
 
 - 모두 Factory Method 를 기반으로 발전 됨
 - Factory Method 보다 자유롭지만, 복잡함
 
-### [[Abstract Factory Pattern]]
+### [Abstract Factory Pattern](Abstract%20Factory%20Pattern.md)
 
 - Abstract Factory 는 Factory Method 의 세트를 기반으로 만들어짐
 
-### [[../../behavioral/patterns/Iterator Pattern]]
+### [Iterator Pattern](../../behavioral/patterns/Iterator%20Pattern.md)
 
 - Factory Method 와 Iterator 를 함께 사용하여, 컬렉션 하위 클래스가 컬렉션과 호환되는 다양한 유형의 반복자를 반환하도록 할 수 있음
 
-### [[Prototype Pattern]]
+### [Prototype Pattern](Prototype%20Pattern.md)
 
 - Prototype 은 상속을 기반으로 하지 않지만 복제된 객체의 복잡한 초기화가 필요
 - Factory Method 는 상속을 기반으로 하지만 초기화 단계가 필요하지 않음
 
-### [[../../behavioral/patterns/Template Method Pattern]]
+### [Template Method Pattern](../../behavioral/patterns/Template%20Method%20Pattern.md)
 
 - Factory Method 는 Template Method 를 구체화 한것. 동시에 Factory Method 는 큰 Template Method 의 한 단계 역할을 할 수 있음

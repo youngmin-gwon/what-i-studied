@@ -2,7 +2,7 @@
 title: Template Method Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-10-17 18:41:21 +09:00
+date modified: 2025-12-09 17:08:22 +09:00
 date created: 2024-12-12 15:35:58 +09:00
 ---
 
@@ -58,17 +58,17 @@ date created: 2024-12-12 15:35:58 +09:00
 ## Cons
 
 1. 추상 메소드가 많아지면 클래스 관리가 복잡해진다
-2. Subclass 에서 default 구현을 무시하여 [[../../../solid/LSP(Liskov substitution principle)]] 을 위반할 수도 있음
+2. Subclass 에서 default 구현을 무시하여 [LSP(Liskov substitution principle)](../../../solid/LSP(Liskov%20substitution%20principle).md) 을 위반할 수도 있음
 3. 클래스간의 관계와 코드가 꼬여버릴 염려가 있다
 4. 일부 클라이언트는 알고리즘이 제공한 skeleton 에 의해 제한될 수 있음
 
 ## Relationship with other patterns
 
-### [[../../creational/patterns/Factory Method Pattern]]
+### [Factory Method Pattern](../../creational/patterns/Factory%20Method%20Pattern.md)
 
 - Factory Method 는 Template Method 를 구체화 한것. 동시에 Factory Method 는 큰 Template Method 의 한 단계 역할을 할 수 있음
 
-### [[Strategy Pattern]]
+### [Strategy Pattern](Strategy%20Pattern.md)
 
 - Template Method 는 상속을 기반으로 함 ⇒ 이 메서드를 사용하면 하위 클래스에서 해당 부분을 확장하여 알고리즘의 일부를 변경할 수 있음
 - Strategy 은 구성을 기반으로 함 ⇒ 해당 동작에 해당하는 다른 전략을 제공하여 개체 동작의 일부를 변경할 수 있음

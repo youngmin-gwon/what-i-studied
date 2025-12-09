@@ -119,7 +119,7 @@
     },
     "blockquote-style": {
       "enabled": true,
-      "style": "space"
+      "style": "no space"
     },
     "convert-bullet-list-markers": {
       "enabled": true
@@ -238,8 +238,8 @@
     },
     "space-between-chinese-japanese-or-korean-and-english-or-numbers": {
       "enabled": true,
-      "english-symbols-punctuation-before": "-+;:'\"°%$)]",
-      "english-symbols-punctuation-after": "-+'\"([¥$"
+      "english-symbols-punctuation-before": "-+;:°%$)]",
+      "english-symbols-punctuation-after": "-+([¥$"
     },
     "trailing-spaces": {
       "enabled": true,

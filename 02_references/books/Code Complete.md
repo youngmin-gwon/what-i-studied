@@ -2,7 +2,7 @@
 title: Code Complete
 tags: [book, code-quality]
 aliases: []
-date modified: 2024-12-16 17:04:05 +09:00
+date modified: 2025-12-09 17:34:47 +09:00
 date created: 2024-12-16 12:13:07 +09:00
 author: Steve McConnell
 published at: 2004-07-07

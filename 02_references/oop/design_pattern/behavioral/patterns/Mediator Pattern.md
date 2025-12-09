@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:48:17 +09:00
-date modified: 2024-12-16 12:19:51 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Mediator Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:26:30 +09:00
+date created: 2024-12-12 15:48:17 +09:00
 ---
 
 ## Description
@@ -50,8 +50,8 @@ title: Mediator Pattern
 
 ## Pros
 
-- 여러개의 컴포넌트 간 상호작용을 하나로 묶을 수 있다 ⇒ [[../../../solid/SRP(Single Responsibility Principle)]]
-- 기존 코드 수정 없이 새로운 Mediator 를 추가할 수 있음 ⇒ [[../../../solid/OCP(Open Closed Principle)]]
+- 여러개의 컴포넌트 간 상호작용을 하나로 묶을 수 있다 ⇒ [SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)
+- 기존 코드 수정 없이 새로운 Mediator 를 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)
 - 각각의 컴포넌트를 쉽게 재사용할 수 있다
 
 ## Cons
@@ -60,7 +60,7 @@ title: Mediator Pattern
 
 ## Relationship with other patterns
 
-### [[Chain of Responsibility Pattern]], [[Command Pattern]], [[Observer Pattern]]
+### [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md), [Command Pattern](Command%20Pattern.md), [Observer Pattern](Observer%20Pattern.md)
 
 - 요청의 sender 와 receiver 을 연결하는 다양한 방법 제시
   - CoR : 잠재적 수신자 중 하나가 처리할 때까지 잠재적 수신자의 동적 사슬을 따라 순차적으로 요청을 전달
@@ -68,13 +68,13 @@ title: Mediator Pattern
   - Mediator : 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함
   - Observer : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음
 
-### [[../../structural/patterns/Facade Pattern]]
+### [Facade Pattern](../../structural/patterns/Facade%20Pattern.md)
 
 - 밀접하게 coupled 된 클래스 사이의 상호작용을 정리해준다는 비슷한 역할을 함
 - Facade: 간단한 subsystem 인터페이스를 제공하지만, 새로운 기능을 추가하진 않음. subsystem 은 facade 를 모르고 subsystem 객체들은 서로서로 소통함
 - Mediator: system 의 컴포넌트간의 상호작용을 중재함. 각각의 컴포넌트는 mediator 만 알고 다른 컴포넌트는 아예 모름
 
-### [[Observer Pattern]]
+### [Observer Pattern](Observer%20Pattern.md)
 
 - 차이를 구별하기 어려움
 - 하나를 구현해서 쓰기도 하나, 때로는 두 가지를 동시에 적용하기도 함

@@ -2,7 +2,7 @@
 title: Self Shunt Pattern
 tags: [design-pattern, oop, testing-pattern]
 aliases: []
-date modified: 2025-10-17 18:50:23 +09:00
+date modified: 2025-12-09 17:19:55 +09:00
 date created: 2024-12-12 23:58:38 +09:00
 ---
 
@@ -112,22 +112,22 @@ void main() {
 
 ### Similarity
 
-#### [[../../behavioral/patterns/State Pattern]]
+#### [State Pattern](../../behavioral/patterns/State%20Pattern.md)
 
 State Pattern 과 유사하게 객체가 상태에 따라 동작을 변경
 
 그러나 Self Shunt Pattern 은 상태를 바꿀 때마다 반드시 동작을 우회하는 특징이 있음
 
-#### [[../../behavioral/patterns/Strategy Pattern]]
+#### [Strategy Pattern](../../behavioral/patterns/Strategy%20Pattern.md)
 
 Strategy Pattern 은 객체가 동작을 변경할 수 있도록 인터페이스를 사용하여 외부에서 동작을 주입하는 방식인데, Self Shunt Pattern 은 내부에서 동작을 직접 변경
 
 ### Difference
 
-#### [[../../behavioral/patterns/Command Pattern]]
+#### [Command Pattern](../../behavioral/patterns/Command%20Pattern.md)
 
 Command Pattern 은 명령 객체를 사용하여 동작을 캡슐화하고, 외부에서 동작을 실행하는 반면, Self Shunt Pattern 은 객체가 자신의 동작을 일시적으로 변경하여 실행
 
-#### [[../../structural/patterns/Decorator Pattern]]
+#### [Decorator Pattern](../../structural/patterns/Decorator%20Pattern.md)
 
 Decorator Pattern 은 객체의 기능을 동적으로 추가하는 데 사용되며, Self Shunt Pattern 은 객체의 동작을 일시적으로 변경하는 데 초점

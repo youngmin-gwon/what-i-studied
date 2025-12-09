@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:47:31 +09:00
-date modified: 2024-12-16 12:19:51 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Iterator Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:27:54 +09:00
+date created: 2024-12-12 15:47:31 +09:00
 ---
 
 ## Description
@@ -51,14 +51,14 @@ title: Iterator Pattern
 - 일일이 접근하는 작업을 컬렉션 객체가 아닌 반복자 객체에서 맡게 됨
   - 집합체 인터페이스 구현이 간단해짐
   - 집합체에서는 반복작업에 손을 떼고 원래 자신이 할일에만 전념할 수 있음
-    - [[../../../solid/SRP(Single Responsibility Principle)]], DRY 준수하게 됨
+    - [SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md), DRY 준수하게 됨
   - 같은 collection 을 다른 규칙으로 순회하는 방법이 필요할 때, 하나의 인터페이스를 부풀리는 것이 아니라 iterator 클래스를 하나 더 구현하기만 하면 되기 때문에 유용하게 사용할 수 있음
   - 데이터 구조 구현을 확정할 수 없지만, 순회하는 방법이 필요할때 유용함
 
 ## Pros
 
-- 장황한 순회 알고리즘을 별도의 클래스로 추출하여 클라이언트 코드와 컬렉션을 정리할 수 있음 ⇒ [[../../../solid/SRP(Single Responsibility Principle)]]
-- 기존 코드 수정 없이 새로운 유형의 컬렉션 및 반복자를 추가할 수 있음 ⇒ [[../../../solid/OCP(Open Closed Principle)]]
+- 장황한 순회 알고리즘을 별도의 클래스로 추출하여 클라이언트 코드와 컬렉션을 정리할 수 있음 ⇒ [SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)
+- 기존 코드 수정 없이 새로운 유형의 컬렉션 및 반복자를 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)
 - 각 iterator 객체에는 고유한 반복 상태가 포함되어 있으므로 동일한 collection 을 병렬로 순회 할 수 있음
 - 원할 때 순회를 중단/재개 할 수 있음
 
@@ -69,18 +69,18 @@ title: Iterator Pattern
 
 ## Relationship with other patterns
 
-### [[../../structural/patterns/Composite Pattern]]
+### [Composite Pattern](../../structural/patterns/Composite%20Pattern.md)
 
 - Composite 와 Iterator 를 함께 사용하여, Composite tree 를 순회 하게 할 수 있음
 
-### [[../../creational/patterns/Factory Method Pattern]]
+### [Factory Method Pattern](../../creational/patterns/Factory%20Method%20Pattern.md)
 
 - Factory Method 와 Iterator 를 함께 사용하여, 컬렉션 하위 클래스가 컬렉션과 호환되는 다양한 유형의 반복자를 반환하도록 할 수 있음
 
-### [[Memento Pattern]]
+### [Memento Pattern](Memento%20Pattern.md)
 
 - Memento 와 Iterator 를 함께 사용하여, 현재 상태를 알고, 또 필요한 경우 되돌릴 수 있음
 
-### [[Visitor Pattern]]
+### [Visitor Pattern](Visitor%20Pattern.md)
 
 - Visitor 와 Iterator 를 함께 사용하여, 모두 다른 클래스이더라도, 복잡한 데이터 구조를 순회하고 요소에 대해 일부 작업을 실행할 수 있음

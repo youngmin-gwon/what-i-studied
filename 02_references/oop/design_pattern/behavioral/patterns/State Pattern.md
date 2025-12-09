@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:48:27 +09:00
-date modified: 2024-12-16 12:19:50 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: State Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:18:44 +09:00
+date created: 2024-12-12 15:48:27 +09:00
 ---
 
 ## Description
@@ -66,14 +66,14 @@ title: State Pattern
 
 ## Relationship with other patterns
 
-### [[Strategy Pattern]] (일부분 [[../../structural/patterns/Adapter Pattern]])
+### [Strategy Pattern](Strategy%20Pattern.md) (일부분 [Adapter Pattern](../../structural/patterns/Adapter%20Pattern.md))
 
 - 구조가 비슷함 (다른 객체에 실제 작업을 위임하는 구조)
 - 모두 다른 문제를 풀기 위한 방법
   - 패턴은 특정 방식으로 코드를 구조화하기 위한 단순한 레시피가 아님
   - **해결해야하는 문제를 다른 개발자와 소통하기 위한 방법으로 패턴을 사용해야 함**
 
-### [[Strategy Pattern]]
+### [Strategy Pattern](Strategy%20Pattern.md)
 
 - State 는 Strategy 를 확장한 패턴으로 간주됨
   - 둘 모두 구성 기반

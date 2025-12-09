@@ -2,7 +2,7 @@
 title: Chain of Responsibility Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-10-17 18:44:34 +09:00
+date modified: 2025-12-09 17:07:29 +09:00
 date created: 2024-12-12 15:46:36 +09:00
 ---
 
@@ -83,12 +83,12 @@ date created: 2024-12-12 15:46:36 +09:00
   - Mediator : 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함
   - Observer : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음
 
-### [[../../structural/patterns/Composite Pattern]]
+### [Composite Pattern](../../structural/patterns/Composite%20Pattern.md)
 
 - CoR 은 주로 Composite 과 함께 사용됨
   - 이 경우 leaf component 가 요청을 받으면 모든 상위 component 의 체인을 통해 component tree 의 root 까지 전달할 수 있음
 
-### [[Command Pattern]]
+### [Command Pattern](Command%20Pattern.md)
 
 - CoR 의 핸들러를 Command 를 이용해서 구현할 수 있음
 - 이 경우, 요청으로 표시되는 동일한 컨텍스트 개체에 대해 다양한 작업을 실행할 수 있음
@@ -96,7 +96,7 @@ date created: 2024-12-12 15:46:36 +09:00
   - request 자체를 command 로 구현
   - 이 경우, 체인으로 연결된 일련의 다른 컨텍스트에서 동일한 작업을 실행할 수 있음
 
-### [[../../structural/patterns/Decorator Pattern]]
+### [Decorator Pattern](../../structural/patterns/Decorator%20Pattern.md)
 
 - 매우 비슷한 클래스 구조를 가지고 있음
   - 재귀 구성을 이용해서 연속된 객체의 연산을 수행함

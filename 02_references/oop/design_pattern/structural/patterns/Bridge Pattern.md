@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:52:30 +09:00
-date modified: 2024-12-16 12:20:23 +09:00
-tags: [design-pattern, gof, oop, structural-pattern]
 title: Bridge Pattern
+tags: [design-pattern, gof, oop, structural-pattern]
+aliases: []
+date modified: 2025-12-09 17:03:12 +09:00
+date created: 2024-12-12 15:52:30 +09:00
 ---
 
 ## Description
@@ -64,7 +64,7 @@ title: Bridge Pattern
 - 플랫폼 독립적인 클래스 및 앱을 만들 수 있음
 - 클라이언트 코드는 높은 수준의 추상화와 함께 작동. 플랫폼 세부정보에게 정보를 노출하지 않음
 - 각각 새로운 Abstraction, Implementation 을 도입할 수 있음 ⇒ Open/Closed Principle
-- Abstraction 에서는 상위 레벨 로직에만 집중하면 되고, Implementation 에서는 플랫폼 세부사항에 집중하면 된다 ⇒ [[../../../solid/SRP(Single Responsibility Principle)]]
+- Abstraction 에서는 상위 레벨 로직에만 집중하면 되고, Implementation 에서는 플랫폼 세부사항에 집중하면 된다 ⇒ [SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)
 
 ## Cons
 

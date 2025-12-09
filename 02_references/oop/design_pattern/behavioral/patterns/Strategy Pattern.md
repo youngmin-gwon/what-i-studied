@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:48:00 +09:00
-date modified: 2024-12-16 12:19:40 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Strategy Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:11:22 +09:00
+date created: 2024-12-12 15:48:00 +09:00
 ---
 
 ## Description
@@ -53,32 +53,32 @@ title: Strategy Pattern
 
 ## Relationship with other patterns
 
-### [[../../structural/patterns/Bridge Pattern]], [[State Pattern]], (일부분 [[../../structural/patterns/Adapter Pattern]])
+### [Bridge Pattern](../../structural/patterns/Bridge%20Pattern.md), [State Pattern](State%20Pattern.md), (일부분 [Adapter Pattern](../../structural/patterns/Adapter%20Pattern.md))
 
 - 구조가 비슷함 (다른 객체에 실제 작업을 위임하는 구조)
 - 모두 다른 문제를 풀기 위한 방법
   - 패턴은 특정 방식으로 코드를 구조화하기 위한 단순한 레시피가 아님
   - **해결해야하는 문제를 다른 개발자와 소통하기 위한 방법으로 패턴을 사용해야 함**
 
-### [[../../structural/patterns/Decorator Pattern]]
+### [Decorator Pattern](../../structural/patterns/Decorator%20Pattern.md)
 
 - Decorator 는 객체의 겉을 바꾸는 역할, Strategy 는 객체의 속을 바꾸는 역할
 
-### [[Command Pattern]]
+### [Command Pattern](Command%20Pattern.md)
 
 - 둘다 객체를 파라미터로 갖기 때문에 비슷해보일 수 있음
 - 하지만, 다른 의도로 사용됨
   - Command: 연산을 객체로 바꾸려는 의도 ⇒ 작업 실행을 연기하고, 대기열에 추가하고, 명령 기록을 저장하고, 원격 서비스에 명령을 보내는 등의 작업을 수행할 수 있음
   - Strategy: 같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도
 
-### [[Template Method Pattern]]
+### [Template Method Pattern](Template%20Method%20Pattern.md)
 
 - Template Method 패턴은 상속 기반. subclass 에서 수정이 필요한 알고리즘 일부분을 확장하는 방법
 - Strategy 패턴은 구성 기반. 다르게 동작하는 전략을 제공해서 객체의 행위를 변경하는 방법
 - Template Method 는 class level 에서 동작하고, Strategy 는 object level 에서 동작함 ⇒ Template Method 는 static 하기 때문에 compile-time-safe, Strategy 는 runtime-safe 함
 - Template Method 패턴은 공통된 기능을 공유하도록 설계되어 있지만, Strategy 패턴은 모든 implementation 이 독립적이고 공유되는 코드가 없다
 
-### [[State Pattern]]
+### [State Pattern](State%20Pattern.md)
 
 - State 는 Strategy 를 확장한 패턴으로 간주됨
   - 둘 모두 구성 기반

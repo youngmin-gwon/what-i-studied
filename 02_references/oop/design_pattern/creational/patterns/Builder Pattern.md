@@ -2,7 +2,7 @@
 title: Builder Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 11:58:19 +09:00
+date modified: 2025-12-09 17:06:24 +09:00
 date created: 2024-12-12 15:51:01 +09:00
 ---
 
@@ -52,7 +52,7 @@ date created: 2024-12-12 15:51:01 +09:00
 
 - 개체를 단계별로 구성하거나 구성 단계를 연기하거나 재귀적으로 단계를 실행할 수 있음
 - 제품의 다양한 표현을 작성할 때 동일한 구성 코드를 재사용할 수 있음
-- 복잡한 객체 생성 코드를 비즈니스 로직과 분리할 수 있음 ⇒ [[../../../solid/SRP(Single Responsibility Principle)]]
+- 복잡한 객체 생성 코드를 비즈니스 로직과 분리할 수 있음 ⇒ [SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)
 
 ## Cons
 
@@ -60,26 +60,26 @@ date created: 2024-12-12 15:51:01 +09:00
 
 ## Relationship with other patterns
 
-### [[Factory Method Pattern]]
+### [Abstract Factory Pattern](Abstract%20Factory%20Pattern.md)
 
 - Builder 는 Factory Method 로부터 시작하여 발달한 패턴
 
-### [[Abstract Factory Pattern]]
+### [Abstract Factory Pattern](Abstract%20Factory%20Pattern.md)
 
 - Builder 는 복잡한 객체를 단계별로 구성하는데 중점을 둠
 - Abstract Factory 는 관련 객체의 패밀리 생성에 중점을 둠
 - Abstract Factory 는 객체를 즉시 반환하지만 Builder 를 사용하면 객체를 가져오기 전에 몇 가지 추가 구성 단계를 실행할 수 있음
 
-### [[../../structural/patterns/Composite Pattern]]
+### [Composite Pattern](../../structural/patterns/Composite%20Pattern.md)
 
 - Composite tree 를 구성할 때 Builder 패턴을 사용할 수 있음
   - 재귀적으로 작동하도록 생성 step 을 프로그래밍 할 수 있기 때문
 
-### [[../../structural/patterns/Bridge Pattern]]
+### [Bridge Pattern](../../structural/patterns/Bridge%20Pattern.md)
 
 - Builder 패턴과 Bridge 패턴을 합쳐서 사용할 수 있음
   - Director 클래스는 Abstraction 역할을 하는 반면 다른 Builder 는 Implementation 역할을 함
 
-### [[Singleton Pattern]]
+### [Singleton Pattern](Singleton%20Pattern.md)
 
 - Builder 패턴은 Singleton 으로 구현 될 수 있음

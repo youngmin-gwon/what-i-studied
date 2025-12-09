@@ -2,7 +2,7 @@
 title: Decorator Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2025-10-17 18:44:11 +09:00
+date modified: 2025-12-09 17:31:24 +09:00
 date created: 2024-12-12 15:52:49 +09:00
 ---
 
@@ -79,7 +79,7 @@ date created: 2024-12-12 15:52:49 +09:00
 - 서브클래스를 만들지 않고 객체를 확장할 수 있음
 - 런타임에 특정 객체로 부터의 책임을 추가하거나 제거할 수 있음
 - 여러개의 Decorator 들로 객체를 합쳐 행동 조합을 합칠수 있음
-- 여러개의 행위를 하던 monolithic 한 클래스를 여러개의 작은 클래스로 나눌수 있게 됨 ⇒ [[../../../solid/SRP(Single Responsibility Principle)]]
+- 여러개의 행위를 하던 monolithic 한 클래스를 여러개의 작은 클래스로 나눌수 있게 됨 ⇒ [SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)
 
 ## Cons
 
@@ -89,17 +89,17 @@ date created: 2024-12-12 15:52:49 +09:00
 
 ## Relationship with other patterns
 
-### [[Adapter Pattern]], [[Proxy Pattern]]
+### [Adapter Pattern](Adapter%20Pattern.md), [Proxy Pattern](Proxy%20Pattern.md)
 
 - Adapter 는 다른 인터페이스를 제공
 - Proxy 는 같은 인터페이스를 제공
 - Decorator 는 증강된 인터페이스를 제공
 
-### [[Adapter Pattern]]
+### [Adapter Pattern](Adapter%20Pattern.md)
 
 - Adapter 는 인터페이스를 변환하지만 Decorator 는 인터페이스의 변환없이 객체를 감싼다
 
-### [[../../behavioral/patterns/Chain of Responsibility Pattern]]
+### [Chain of Responsibility Pattern](../../behavioral/patterns/Chain%20of%20Responsibility%20Pattern.md)
 
 - 매우 비슷한 클래스 구조 (recursive composition) 를 가짐
 
@@ -108,7 +108,7 @@ date created: 2024-12-12 15:52:49 +09:00
 - Chain of Responsibility handler 는 서로 독립적으로 임의의 작업을 실행할 수 있음. 또한 언제든지 요청을 더 이상 전달하지 않을 수 있음
 - 데코레이터는 기본 인터페이스와 일관성을 유지하면서 객체의 동작을 확장할 수 있음. 또한 데코레이터는 요청의 흐름을 중단할 수 없음
 
-### [[Composite Pattern]]
+### [Composite Pattern](Composite%20Pattern.md)
 
 - 비슷한 구조 다이어그램을 가짐. 두 패턴 모두 다 재귀 형태를 갖는다
   - Decorator 는 자식이 1 개, Composite 패턴은 자식이 1~n 개 가능
@@ -116,16 +116,16 @@ date created: 2024-12-12 15:52:49 +09:00
   - 하지만 두개의 패턴을 합칠 수 있음
     - Decorator 를 사용하여 Composite tree 에서 특정 개체의 동작을 확장할 수 있음
 
-### [[Composite Pattern]], [[../../creational/patterns/Prototype Pattern]]
+### [Composite Pattern](Composite%20Pattern.md), [Prototype Pattern](../../creational/patterns/Prototype%20Pattern.md)
 
 - Composite 과 Decorator 를 많이 사용하는 디자인에서는 Prototype 을 이용하여 이점을 얻을 수 있음
   - Prototype 을 처음부터 다시 구성하는 대신 복잡한 구조를 복제할 수 있음
 
-### [[../../behavioral/patterns/Strategy Pattern]]
+### [Strategy Pattern](../../behavioral/patterns/Strategy%20Pattern.md)
 
 - Decorator 는 외부를 바꾸고, Strategy 는 속을 바꾸는 역할을 함
 
-### [[Proxy Pattern]]
+### [Proxy Pattern](Proxy%20Pattern.md)
 
 #### 1. Commons
 

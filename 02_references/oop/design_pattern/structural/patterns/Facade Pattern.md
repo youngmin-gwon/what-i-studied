@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:52:57 +09:00
-date modified: 2024-12-16 12:20:25 +09:00
-tags: [design-pattern, gof, oop, structural-pattern]
 title: Facade Pattern
+tags: [design-pattern, gof, oop, structural-pattern]
+aliases: []
+date modified: 2025-12-09 17:30:06 +09:00
+date created: 2024-12-12 15:52:57 +09:00
 ---
 
 ## Description
@@ -45,21 +45,21 @@ title: Facade Pattern
 
 ## Relationship with other patterns
 
-### [[Adapter Pattern]]
+### [Adapter Pattern](Adapter%20Pattern.md)
 
 - Facade 는 기존 객체에 새로운 인터페이스를 정의함
 - Adapter 는 기존 존재하는 인터페이스를 유용하게 만들려고 함
 
-### [[../../creational/patterns/Abstract Factory Pattern]]
+### [Abstract Factory Pattern](../../creational/patterns/Abstract%20Factory%20Pattern.md)
 
 - Abstract Factory 는 클라이언트 코드에서 서브시스템 객체가 생성되는 방식을 숨기고 싶을 때 Facade 의 대안으로 사용할 수 있음
 
-### [[Flyweight Pattern]]
+### [Flyweight Pattern](Flyweight%20Pattern.md)
 
 - Flyweight 는 조그마한 많은 객체들은 만드는 방법을 보여줌
 - Facade 는 전체 시스템을 상징하는 단일 객체를 만드는 방법을 보여줌
 
-### [[../../behavioral/patterns/Mediator Pattern]]
+### [Mediator Pattern](../../behavioral/patterns/Mediator%20Pattern.md)
 
 - 둘 다 밀접하게 연결된 많은 클래스 간의 협업을 조직하려고 함
 - Facade 는 Subsystem 의 단순화된 인터페이스를 제공하지만, 새로운 기능을 추가하진 않음
@@ -68,11 +68,11 @@ title: Facade Pattern
 - Mediator 는 system 구성요소 간의 소통을 중재함
   - 구성요소들은 Mediator 만 알고, 직접 소통하지 않음
 
-### [[../../creational/patterns/Singleton Pattern]]
+### [Singleton Pattern](../../creational/patterns/Singleton%20Pattern.md)
 
 - 단일 Facade 객체로 충분하기 때문에 Facade 클래스는 종종 Singleton 으로 변환될 수 있음
 
-### [[Proxy Pattern]]
+### [Proxy Pattern](Proxy%20Pattern.md)
 
 - 둘 다 복잡한 엔티티를 버퍼링하고 자체적으로 초기화함
 - Proxy 는 서비스 객체와 동일한 인터페이스를 가지고 있어 상호 교환이 가능함

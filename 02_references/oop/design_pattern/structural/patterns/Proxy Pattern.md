@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:53:12 +09:00
-date modified: 2024-12-16 12:20:27 +09:00
-tags: [design-pattern, gof, oop, structural-pattern]
 title: Proxy Pattern
+tags: [design-pattern, gof, oop, structural-pattern]
+aliases: []
+date modified: 2025-12-09 17:20:50 +09:00
+date created: 2024-12-12 15:53:12 +09:00
 ---
 
 ## Description
@@ -69,7 +69,7 @@ title: Proxy Pattern
 5. Caching Proxy (caching request results)
    - 캐시를 보관하는 프록시
 
-## [[Decorator Pattern]] vs [[Proxy Pattern]]
+## [Decorator Pattern](Decorator%20Pattern.md) vs [Proxy Pattern](Proxy%20Pattern.md)
 
 ### Commons
 
@@ -96,7 +96,7 @@ title: Proxy Pattern
 - 서비스 개체를 알고 있는 클라이언트 없이 서비스 개체를 제어할 수 있음
 - 클라이언트가 신경 쓰지 않아도 서비스 개체의 수명 주기를 관리할 수 있음
 - 서비스 개체가 준비되지 않았거나 사용할 수 없는 경우에도 사용할 수 있음
-- 새로운 Proxy 를 기존 코드 수정 없이 추가할 수 있음 ⇒ [[../../../solid/OCP(Open Closed Principle)]]
+- 새로운 Proxy 를 기존 코드 수정 없이 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)
 
 ## Cons
 
@@ -105,18 +105,18 @@ title: Proxy Pattern
 
 ## Relationship with other patterns
 
-### [[Adapter Pattern]], [[Decorator Pattern]]
+### [Adapter Pattern](Adapter%20Pattern.md), [Decorator Pattern](Decorator%20Pattern.md)
 
 - Adapter 는 감싸진 객체에 다른 인터페이스를 제공
 - Proxy 는 감싸진 객체에 같은 인터페이스를 제공
 - Decorator 는 감싸진 객체에 증강된 인터페이스를 제공
 
-### [[Facade Pattern]]
+### [Facade Pattern](Facade%20Pattern.md)
 
 - 둘 다 복잡한 엔티티를 버퍼링하고 자체적으로 초기화함
 - Proxy 는 서비스 객체와 동일한 인터페이스를 가지고 있어 상호 교환이 가능함
 
-### [[Decorator Pattern]]
+### [Decorator Pattern](Decorator%20Pattern.md)
 
 #### 1. Commons
 

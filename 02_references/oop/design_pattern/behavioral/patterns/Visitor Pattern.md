@@ -1,9 +1,9 @@
 ---
-aliases: []
-date created: 2024-12-12 15:48:10 +09:00
-date modified: 2024-12-16 12:19:59 +09:00
-tags: [behavioral-pattern, design-pattern, gof, oop]
 title: Visitor Pattern
+tags: [behavioral-pattern, design-pattern, gof, oop]
+aliases: []
+date modified: 2025-12-09 17:07:10 +09:00
+date created: 2024-12-12 15:48:10 +09:00
 ---
 
 ## Description

@@ -2,7 +2,7 @@
 title: flutter
 tags: [concept, flutter, interview]
 aliases: []
-date modified: 2024-12-16 15:31:51 +09:00
+date modified: 2025-12-09 17:28:24 +09:00
 date created: 2024-12-14 11:17:03 +09:00
 ---
 
