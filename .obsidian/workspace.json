@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 246.5
+    "width": 246.5,
+    "collapsed": true
   },
   "right": {
     "id": "38514e7488b9ce97",
@@ -189,6 +190,14 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "2025년 회고.pdf",
+    "_assets/Pasted image 20251208215502.png",
+    "_assets/Pasted image 20251208213909.png",
+    "_assets/Pasted image 20251208213905.png",
+    "_assets/Pasted image 20251208213833.png",
+    "_assets/Screenshot 2025-12-08 at 9.37.00 PM.png",
+    "_assets/20251207_234907.mp4",
+    "_assets/Screenshot 2025-12-08 at 9.31.00 PM.png",
     "01_inbox/2025년 회고.md",
     "01_inbox/blog/Smart Home Protocol.md",
     "02_references/ui_ux_design/apple_keynotes/Explore navigation design for iOS.md",
@@ -201,12 +210,6 @@
     "_assets/books/component_sdp3.png",
     "_assets/books/component_sdp1.png",
     "_assets/books/component_sap1.png",
-    "_assets/books/component_adp2.png",
-    "_assets/books/code_complete_2.png",
-    "_assets/books/code_complete_3.png",
-    "_assets/books/code_complete_cover.png",
-    "_assets/books/binary_code.png",
-    "_assets/algorithm/python_type_layer.png",
     "_templates/book.md",
     "_templates/daily.md",
     "02_references/uml/uml.md",
@@ -224,7 +227,6 @@
     "02_references/mindmap/refactoring/refactoring-2.md",
     "02_references/mindmap/oop_thought_process/oop-truth-misconcept-4.md",
     "02_references/mindmap/oop_thought_process/oop-truth-misconcept-2.md",
-    "02_references/mindmap/oop_thought_process/oop-truth-misconcept-1.md",
     "01_inbox/blog",
     "Excalidraw",
     "02_references/gen_ai",
@@ -233,7 +235,6 @@
     "_assets/tests",
     "02_references/tests",
     "01_inbox/highlighted/books",
-    "01_inbox/highlighted/web_contents",
-    "01_inbox/highlighted"
+    "01_inbox/highlighted/web_contents"
   ]
 }

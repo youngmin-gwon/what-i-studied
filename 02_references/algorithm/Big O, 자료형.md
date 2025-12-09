@@ -23,7 +23,7 @@ date created: 2024-12-09 21:31:10 +09:00
     - 입력값이 아무리 커도 실행시간은 일정
     - 최고의 알고리즘
     - 그런 경우가 잘 없음
-    - eg. 해시테이블의 조회 및 삽입
+    - eg. [[Hash Table|해시테이블]]의 조회 및 삽입
 
 ![[../../_assets/algorithm/o_1_graph.png]]
 
@@ -41,7 +41,7 @@ void checkFist(List<String> names) {
 - 실행 시간은 입력값에 영향을 받기 시작함
 - 매우 큰 입력값에도 크게 영향을 받지 않는 편
 - 매우 견고한 알고리즘인 편
-- eg. 이진 검색
+- eg. [[Binary Search|이진 검색]]
 
 ![[../../_assets/algorithm/o_log_n_graph.png]]
 
@@ -97,14 +97,14 @@ void printNames(List<String> names) {
   - 큰 데이터 세트에서는 "kind of" linear time
   - 적어도 모든 수에 대해 한번 이상은 비교해야 하는 비교 기반 정렬 알고리즘은 아무리 좋은 알고리즘도 $O(n*log(n))$ 보다 빠를 수 없음
   - 입력값이 최선인 경우, 비교를 건너뛰어 $O(n)$ 이 될 수도 있음
-    - eg. 팀소트 (Tim-sort)
-  - Dart 의 list.sort 알고리즘은 32 개 이하에서는 insertion sort, 그 이상은 Dual-Pivot Quicksort 를 사용함
-  - eg. 병합정렬
+    - eg. [[Tim Sort|팀소트]] (Tim-sort)
+  - Dart 의 list.sort 알고리즘은 32 개 이하에서는 [[Insertion Sort|insertion sort]], 그 이상은 [[Quick Sort|Dual-Pivot Quicksort]] 를 사용함
+  - eg. [[Merge Sort|병합정렬]]
 
 ![[../../_assets/algorithm/o_n_log_n_graph.png]]
 
 - $O(n^2)$ (Polynomial Time Complexity)
-  - 버블 정렬같은 비효율적인 정렬 알고리즘
+  - [[Bubble Sort|버블 정렬]]같은 비효율적인 정렬 알고리즘
 
 ![[o_n_2_graph.png]]
 
