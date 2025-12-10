@@ -2,7 +2,7 @@
 title: Border Router
 tags: [bridge, iot, router, thread]
 aliases: [Border Router, TBR]
-date modified: 2025-12-09 23:49:36 +09:00
+date modified: 2025-12-10 15:33:53 +09:00
 date created: 2025-12-09 18:43:18 +09:00
 ---
 
@@ -38,6 +38,7 @@ date created: 2025-12-09 18:43:18 +09:00
 | **종속성** | 특정 제조사 허브에 종속됨 (SmartThings, Hue) | 제조사 상관없이 표준만 맞으면 호환됨 |
 
 ## 🛠️ 대표적인 기기
+
 - **Apple**: HomePod mini, Apple TV 4K (2 세대 이상)
 - **Google**: Nest Hub (2 세대), Nest WiFi Pro
 - **Amazon**: Echo (4 세대)

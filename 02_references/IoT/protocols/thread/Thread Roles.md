@@ -2,7 +2,7 @@
 title: Thread Roles
 tags: [iot, roles, thread]
 aliases: [Thread Device Types]
-date modified: 2025-12-10 09:56:15 +09:00
+date modified: 2025-12-10 15:34:04 +09:00
 date created: 2025-12-09 18:18:05 +09:00
 ---
 

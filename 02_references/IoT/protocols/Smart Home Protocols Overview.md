@@ -2,7 +2,7 @@
 title: Smart Home Protocols Overview
 tags: [index, iot, map, overview]
 aliases: [IoT Protocols Map]
-date modified: 2025-12-10 14:29:11 +09:00
+date modified: 2025-12-10 15:33:46 +09:00
 date created: 2025-12-09 18:49:52 +09:00
 ---
 

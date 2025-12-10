@@ -2,7 +2,7 @@
 title: Thread
 tags: [iot, network, protocol, thread]
 aliases: []
-date modified: 2025-12-09 23:57:28 +09:00
+date modified: 2025-12-10 15:34:00 +09:00
 date created: 2025-12-09 11:59:10 +09:00
 ---
 

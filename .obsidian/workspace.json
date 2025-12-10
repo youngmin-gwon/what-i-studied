@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_references/iot/protocols/Smart Home Protocols Overview.md",
+                "file": "02_references/iot/protocols/matter/Matter.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Smart Home Protocols Overview"
+              "title": "Matter"
             }
           }
         ]
@@ -189,8 +189,11 @@
   },
   "active": "a829d7ee921395e0",
   "lastOpenFiles": [
-    "fix_formatting_global.py",
     "02_references/iot/protocols/Smart Home Protocols Overview.md",
+    "02_references/iot/protocols/thread/Thread Roles.md",
+    "02_references/iot/protocols/thread/Thread.md",
+    "02_references/iot/protocols/thread/Border Router.md",
+    "fix_formatting_global.py",
     "02_references/oop/cleanup_bold_formatting_v2.py",
     "02_references/oop/cleanup_bold_formatting.py",
     "02_references/oop/fix_bold_spacing.py",
@@ -217,14 +220,11 @@
     "02_references/oop/design_pattern/behavioral/Memento Pattern.md",
     "02_references/oop/design_pattern/fix_design_pattern_links.py",
     "02_references/oop/design_pattern/behavioral/Behavioral Pattern.md",
-    "02_references/iot/protocols/thread/Thread Roles.md",
-    "02_references/oop/design_pattern/structural/Proxy Pattern.md",
     "02_references/iot/protocols/connectivity/Zigbee_Core",
     "02_references/iot/protocols/connectivity/IEEE_802_15_4",
     "02_references/iot/protocols/connectivity/IEEE_802_11",
     "02_references/iot/protocols/foundation",
     "02_references/iot/protocols/connectivity",
-    "02_references/iot/protocols/thread",
     "_assets/Pasted image 20251208215502.png",
     "_assets/Pasted image 20251208213909.png",
     "_assets/Pasted image 20251208213905.png",
