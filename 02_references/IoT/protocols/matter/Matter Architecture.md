@@ -2,7 +2,7 @@
 title: Matter Architecture
 tags: [architecture, concept, iot, matter]
 aliases: [Matter Layers, Matter vs Transport]
-date modified: 2025-12-09 23:58:36 +09:00
+date modified: 2025-12-10 16:07:32 +09:00
 date created: 2025-12-09 18:24:05 +09:00
 ---
 
@@ -45,13 +45,13 @@ date created: 2025-12-09 18:24:05 +09:00
 
 > **Protocol Stack Deep Dive** Matter 는**IPv6** 위에서 동작하는**Application Layer** 프로토콜이며, 내부적으로 다음과 같은 기술 스택을 사용합니다.
 
-1. **Transport Layer**:** UDP**를 주로 사용 (신뢰성 확보를 위해 자체적인 Message Reliability 메커니즘 보유).
+1. **Transport Layer**: **UDP** 를 주로 사용 (신뢰성 확보를 위해 자체적인 Message Reliability 메커니즘 보유).
 2. **Messaging**:**[CoAP](../foundation/CoAP.md) (Constrained Application Protocol)** 기반의 가벼운 메시징.
 3. **Data Serialization**:**[TLV](../foundation/TLV.md) (Type-Length-Value)** 포맷으로 데이터를 바이너리 인코딩하여 효율성 극대화.
 4. **Security**:
     - **PASE** (Password Authenticated Session Establishment): 초기 설정 시 사용 (PIN 코드).
     - **CASE** (Certificate Authenticated Session Establishment): 운영 중 기기 간 상호 인증 (mTLS 와 유사).
-5. **Discovery**:**[mDNS / DNS-SD](../foundation/mDNS.md)** 를 사용하여 로컬 네트워크 내에서 별도 서버 없이 기기를 찾음.
+5. **Discovery**: **[mDNS / DNS-SD](../foundation/mDNS.md)** 를 사용하여 로컬 네트워크 내에서 별도 서버 없이 기기를 찾음.
 
 ---
 
