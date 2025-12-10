@@ -12,7 +12,7 @@ date created: 2024-12-14 11:17:03 +09:00
 - 우선 최고의 performance 를 위해 무엇을 optimization 해야하는지 이해하자
 ![Flutter Pipeline](flutter_pipeline.jpeg)
 - Flutter Framework 와 그 layers 를 이해하는데 도움이 되는 그림
-    - 각각의 **상위에 있는 layer 들은 모두 abstraction**으로 이루어져 있음
+    - 각각의 **상위에 있는 layer 들은 모두 abstraction** 으로 이루어져 있음
 
 ### dart:ui
 
@@ -102,7 +102,7 @@ date created: 2024-12-14 11:17:03 +09:00
 	- element life cycle
 		- Widget.createElement() 로 element 가 생성됨
 		- **mount** 메소드가 새롭게 추가된 element 를 주어진 parent 에 맞는 주어진 slot 에 element 를 추가함
-		- element 가 추가 되면서, element 는 **active**한 상태로 변경되고 화면에 나타남
+		- element 가 추가 되면서, element 는 **active** 한 상태로 변경되고 화면에 나타남
 		- element 와 연관된 widget 이 바뀌었을 때
 			1. newWidget 이 oldWidget 의 runtimeType 과 key 가 같다면 element 는 newWidget 과 새로 연결되고 계속 사용됨
 			2. 그렇지 않은 경우, element 는 tree 로 부터 제거되고 새 element 가 만들어짐

@@ -6,7 +6,7 @@ date modified: 2025-12-09 17:31:42 +09:00
 date created: 2024-12-14 11:17:03 +09:00
 ---
 
-- **Dart**는 **Single-threaded language** 이다
+- **Dart** 는**Single-threaded language** 이다
   - 하지만 이 말은 병렬로 코드를 수행할수 없다는 의미가 아니다
 - 현대 언어는 Modern, Asynchronous, Reactive 한 방법을 제공해야한다
 - 그렇다면 어떻게 Future, Stream 을 지원하는가?

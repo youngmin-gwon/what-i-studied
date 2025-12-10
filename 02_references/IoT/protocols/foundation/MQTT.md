@@ -7,15 +7,15 @@ date created: 2025-12-09 18:29:44 +09:00
 ---
 
 ## 🌐 개요 (Overview)
-**MQTT (Message Queuing Telemetry Transport)**는 경량의 **발행 - 구독 (Publish-Subscribe)** 기반 메시징 프로토콜입니다. 대역폭이 제한적이거나 신뢰할 수 없는 네트워크 환경에서도 효율적으로 동작하도록 설계되었습니다.
+**MQTT (Message Queuing Telemetry Transport)** 는 경량의**발행 - 구독 (Publish-Subscribe)** 기반 메시징 프로토콜입니다. 대역폭이 제한적이거나 신뢰할 수 없는 네트워크 환경에서도 효율적으로 동작하도록 설계되었습니다.
 
 >[!NOTE]
->MQTT 는 **Application Layer** 프로토콜이며, 주로 **TCP/IP** 위에서 동작합니다.
-> **[Matter](../matter/Matter.md)**와는 경쟁 관계라기보다 상호 보완적이거나 다른 계층의 솔루션으로 볼 수 있습니다 (Matter 는 자체적인 CoAP 기반 통신을 사용).
+>MQTT 는 **Application Layer** 프로토콜이며, 주로**TCP/IP** 위에서 동작합니다.
+> **[Matter](../matter/Matter.md)** 와는 경쟁 관계라기보다 상호 보완적이거나 다른 계층의 솔루션으로 볼 수 있습니다 (Matter 는 자체적인 CoAP 기반 통신을 사용).
 
 ## 🏗️ 아키텍처 (Pub/Sub)
 
-전통적인 클라이언트 - 서버 모델과 달리, MQTT 는 **브로커 (Broker)**를 중계자로 사용합니다.
+전통적인 클라이언트 - 서버 모델과 달리, MQTT 는 **브로커 (Broker)** 를 중계자로 사용합니다.
 
 1. **Publisher (발행자)**: "거실 온도가 25 도야"라고 주제 (Topic) 에 메시지를 보냅니다.
 2. **Broker (중계자)**: 메시지를 받아서 해당 주제를 구독한 사람들에게 배달합니다. (예: Mosquitto, EMQX)
@@ -31,12 +31,12 @@ date created: 2025-12-09 18:29:44 +09:00
 ## 🏠 스마트홈에서의 역할 (Usage)
 
 - **통합의 제왕 (Integration)**: 서로 다른 제조사의 기기들을 하나로 묶는 "공용 버스" 역할을 합니다.
-- **Zigbee2MQTT**: **[Zigbee](../connectivity/Zigbee.md)** 기기들의 신호 (ZCL) 를 MQTT 메시지 (JSON) 로 변환하여, Home Assistant 같은 플랫폼이 쉽게 제어할 수 있게 해줍니다.
+- **Zigbee2MQTT**:**[Zigbee](../connectivity/Zigbee.md)** 기기들의 신호 (ZCL) 를 MQTT 메시지 (JSON) 로 변환하여, Home Assistant 같은 플랫폼이 쉽게 제어할 수 있게 해줍니다.
 - **커스텀 IoT 기기**: ESP32/Arduino 등으로 DIY 센서를 만들 때 가장 흔히 사용되는 프로토콜입니다.
 
 ### 🆚 Matter vs MQTT
 
-| 특징 | **Matter** | **MQTT** |
+| 특징 | **Matter**|** MQTT** |
 | :--- | :--- | :--- |
 | **방식** | 로컬 표준 규격 (직접 통신 위주) | 중앙집중형 브로커 경유 |
 | **데이터** | 표준화된 데이터 모델 (Cluster) | 자유로운 형식 (주로 JSON payload) |

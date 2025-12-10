@@ -12,7 +12,7 @@ date created: 2025-12-09 18:49:52 +09:00
 
 ### 1. 📂 [Matter](matter/Matter.md) (The Language)
 
-스마트홈의 **표준 언어**입니다. 기기들이 서로 이해할 수 있는 "말"을 정의합니다.
+스마트홈의 **표준 언어** 입니다. 기기들이 서로 이해할 수 있는 "말"을 정의합니다.
 
 - **[Matter](matter/Matter.md)**: 통합 표준 프로토콜.
 - **[Matter Architecture](matter/Matter%20Architecture.md)**: Matter 가 어떻게 동작하는지 설명하는 개념도.
@@ -20,7 +20,7 @@ date created: 2025-12-09 18:49:52 +09:00
 
 ### 2. 📂 [Thread](thread/Thread.md) (The Road)
 
-저전력/배터리 기기를 위한 **전용 도로**입니다.
+저전력/배터리 기기를 위한 **전용 도로** 입니다.
 
 - **[Thread](thread/Thread.md)**: IP 기반의 저전력 메시 네트워크.
 - **[Thread Roles](thread/Thread%20Roles.md)**: FTD, MTD, Leader 등 역할 정의.
@@ -28,7 +28,7 @@ date created: 2025-12-09 18:49:52 +09:00
 
 ### 3. 📂 [Connectivity](connectivity/Wi-Fi.md) (Transports)
 
-데이터가 지나가는 물리적인 **운송 수단**들입니다.
+데이터가 지나가는 물리적인 **운송 수단** 들입니다.
 
 - **[Wi-Fi](connectivity/Wi-Fi.md)**: 고속, 대용량, 상시 전원.
 - **[IEEE 802.11](connectivity/IEEE_802_11/IEEE%20802.11.md)**: Wi-Fi 의 기술 표준 명세.
@@ -40,7 +40,7 @@ date created: 2025-12-09 18:49:52 +09:00
 
 ### 4. 📂 [Foundation](foundation/CoAP.md) (Core Tech)
 
-프로토콜을 지탱하는 **기반 기술**들입니다.
+프로토콜을 지탱하는 **기반 기술** 들입니다.
 
 - **[CoAP](foundation/CoAP.md)**: IoT 를 위한 가벼운 HTTP (UDP 기반).
 - **[IPv6](foundation/IPv6.md)**: 무한한 주소를 제공하는 차세대 인터넷 프로토콜.
@@ -56,11 +56,11 @@ date created: 2025-12-09 18:49:52 +09:00
 
 ## 🧩 핵심 개념 요약
 
->"Matter 는 **언어**이고, Thread/Wi-Fi 는 **도로**이다."
+>"Matter 는 **언어** 이고, Thread/Wi-Fi 는**도로** 이다."
 
 1. **Application Layer (언어)**: 기기가 "무엇을 할지" 정의합니다.
    - 👉 **[Matter](matter/Matter.md)**, HomeKit, [ZCL](foundation/ZCL.md)
 2. **Transport Layer (도로)**: 데이터를 "어떻게 나를지" 정의합니다.
-   - 👉 **[Wi-Fi](connectivity/Wi-Fi.md)**, **[Thread](thread/Thread.md)**, [Bluetooth](connectivity/Bluetooth.md)
+   - 👉 **[Wi-Fi](connectivity/Wi-Fi.md)**,**[Thread](thread/Thread.md)**, [Bluetooth](connectivity/Bluetooth.md)
 
 자세한 아키텍처 설명은 **[Matter Architecture](matter/Matter%20Architecture.md)** 문서를 참고하세요.

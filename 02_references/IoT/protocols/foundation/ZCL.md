@@ -8,10 +8,10 @@ date created: 2025-12-09 18:33:42 +09:00
 
 ## 🌐 개요 (Overview)
 
-**ZCL (Zigbee Cluster Library)** 는 기기가 **"무엇을 할 수 있는지"** 를 정의하는 표준 애플리케이션 계층 (Layer 7) 언어입니다.
+**ZCL (Zigbee Cluster Library)** 는 기기가**"무엇을 할 수 있는지"** 를 정의하는 표준 애플리케이션 계층 (Layer 7) 언어입니다.
 
 >[!NOTE]
-> **[Zigbee](../connectivity/Zigbee.md)** 뿐만 아니라 **[Matter](../matter/Matter.md)**의 데이터 모델 (Data Model) 의 모태가 된 매우 중요한 표준입니다. Matter 는 사실상 "IP 위의 ZCL"이라고 봐도 무방할 정도로 ZCL 의 구조를 계승했습니다.
+> **[Zigbee](../connectivity/Zigbee.md)** 뿐만 아니라**[Matter](../matter/Matter.md)** 의 데이터 모델 (Data Model) 의 모태가 된 매우 중요한 표준입니다. Matter 는 사실상 "IP 위의 ZCL"이라고 봐도 무방할 정도로 ZCL 의 구조를 계승했습니다.
 
 ## 🏗️ 구조 (Structure)
 
@@ -28,7 +28,7 @@ ZCL 은 기기의 기능을 **클러스터 (Cluster)** 라는 단위로 묶어�
 
 ### 2. Attribute (속성)
 
-클러스터 내부의 **상태 값**입니다. 읽기 (Read) 또는 쓰기 (Write) 가 가능합니다.
+클러스터 내부의 **상태 값** 입니다. 읽기 (Read) 또는 쓰기 (Write) 가 가능합니다.
 
 - **On/Off 클러스터의 예**:
     - `OnOff` (Boolean): 현재 켜져 있는지 꺼져 있는지 (True/False).
@@ -37,7 +37,7 @@ ZCL 은 기기의 기능을 **클러스터 (Cluster)** 라는 단위로 묶어�
 
 ### 3. Command (명령)
 
-기기에게 특정 **행동**을 수행하도록 지시하는 메시지입니다.
+기기에게 특정 **행동** 을 수행하도록 지시하는 메시지입니다.
 
 - **On/Off 클러스터의 예**:
     - `TurnOn`: 켜라.
@@ -53,4 +53,4 @@ ZCL 은 단순한 Zigbee 용 언어를 넘어 스마트홈 업계의 표준 모�
 3. **[Matter](../matter/Matter.md)**: Dotdot 의 개념을 이어받아, ZCL 을 현대적으로 다듬어 (Interaction Model) Matter 의 핵심 데이터 모델로 채택함.
 
 >[!TIP]
->개발자 입장에서 **[Zigbee](../connectivity/Zigbee.md)** 를 다뤄봤다면 **[Matter](../matter/Matter.md)** 개발이 익숙하게 느껴지는 이유가 바로 이 **ZCL 기반의 공통된 DNA** 때문입니다.
+>개발자 입장에서 **[Zigbee](../connectivity/Zigbee.md)** 를 다뤄봤다면**[Matter](../matter/Matter.md)** 개발이 익숙하게 느껴지는 이유가 바로 이**ZCL 기반의 공통된 DNA** 때문입니다.

@@ -19,30 +19,30 @@ Wi-Fi 장치는 PC 와 유사하게 완전한 TCP/IP 스택을 실행합니다.
 
 | 계층 (Layer)                | 기술 (Technology)     | 상세 내용 (Details)                                              |
 | :------------------------ | :------------------ | :----------------------------------------------------------- |
-| **Layer 7** (Application) | **다양함 (Various)**   | 독점 프로토콜 (HTTP/Cloud), **[Matter](../matter/Matter.md)**, CoAP, MQTT 등. |
-| **Layer 4** (Transport)   | **TCP / UDP**       | [Zigbee](Zigbee.md)/[Thread](../thread/Thread.md) 에 비해 오버헤드가 큽니다.    ### 🆚 Wi-Fi vs. [Thread](../thread/Thread.md) / [Zigbee](Zigbee.md)
+| **Layer 7**(Application) |** 다양함 (Various)**| 독점 프로토콜 (HTTP/Cloud),**[Matter](../matter/Matter.md)**, CoAP, MQTT 등. |
+| **Layer 4**(Transport)   |** TCP / UDP**       | [Zigbee](Zigbee.md)/[Thread](../thread/Thread.md) 에 비해 오버헤드가 큽니다.    ### 🆚 Wi-Fi vs. [Thread](../thread/Thread.md) / [Zigbee](Zigbee.md)
 
-| 특징                    | **Wi-Fi**                 | **Thread / Zigbee**       |
+| 특징                    | **Wi-Fi**|** Thread / Zigbee**       |
 | :-------------------- | :------------------------ | :------------------------ |
 | **대역폭 (Bandwidth)**   | 매우 큼 (영상 스트리밍 가능)         | 매우 작음 (센서 데이터 전송용)        |
-| **전력 소모 (Power)**     | **높음** (Keep-Alive 유지 필요) | **매우 낮음** (Deep Sleep 가능) |
-| **도달 거리 (Range)**     | 공유기 성능에 의존 (비교적 짧음)       | **Mesh**로 무한 확장 가능        |
+| **전력 소모 (Power)**|** 높음**(Keep-Alive 유지 필요) |** 매우 낮음** (Deep Sleep 가능) |
+| **도달 거리 (Range)**| 공유기 성능에 의존 (비교적 짧음)       |** Mesh**로 무한 확장 가능        |
 | **주 사용처**             | AI 스피커, 카메라, 월패드          | 건전지 넣는 모든 센서류             |
 | **간섭 (Interference)** | 심함 (이웃집 공유기와 경쟁)          | 채널 회피 기술 등으로 관리됨          |
 
 >[!IMPORTANT]
-> **[Matter](../matter/Matter.md)** 표준에서도 Wi-Fi 는 고속/상시 전원 기기를 담당하고, 저전력/배터리 기기는 **[Thread](../thread/Thread.md)**가 담당하는 것으로 역할이 명확히 나뉘어 있습니다.
+> **[Matter](../matter/Matter.md)** 표준에서도 Wi-Fi 는 고속/상시 전원 기기를 담당하고, 저전력/배터리 기기는**[Thread](../thread/Thread.md)** 가 담당하는 것으로 역할이 명확히 나뉘어 있습니다.
 >즉, "건전지 들어가는 Wi-Fi 센서"는 점차 사라질 운명입니다.
 
-| **Layer 3** (Network) | **IPv4 / IPv6**                                           | LAN 내에서 주소 지정이 가능합니다.                                                 |
+| **Layer 3**(Network) |** IPv4 / IPv6**                                           | LAN 내에서 주소 지정이 가능합니다.                                                 |
 | --------------------- | --------------------------------------------------------- | --------------------------------------------------------------------- |
-| **Layer 2** (MAC)     | **[IEEE 802.11 MAC](IEEE_802_11/IEEE%20802.11%20MAC.md)** | 매체 접근 제어, **[CSMA-CA](../foundation/CSMA-CA.md)** 를 처리합니다.            |
-| **Layer 1** (PHY)     | **[IEEE 802.11 PHY](IEEE_802_11/IEEE%20802.11%20PHY.md)** | 2.4 GHz / 5 GHz / 6 GHz. **[OFDM](../foundation/OFDM.md)** 변조를 사용합니다. |
+| **Layer 2**(MAC)     |**[IEEE 802.11 MAC](IEEE_802_11/IEEE%20802.11%20MAC.md)**| 매체 접근 제어,**[CSMA-CA](../foundation/CSMA-CA.md)** 를 처리합니다.            |
+| **Layer 1**(PHY)     |**[IEEE 802.11 PHY](IEEE_802_11/IEEE%20802.11%20PHY.md)**| 2.4 GHz / 5 GHz / 6 GHz.**[OFDM](../foundation/OFDM.md)** 변조를 사용합니다. |
 
 ### 🛠️ IoT 에서의 주요 특징 (Key Components in IoT)
 1. **높은 전력 소모 (High Power Consumption)**: 연결 유지 (비콘, Keep-alive) 를 위해 [Zigbee](Zigbee.md)/[Thread](../thread/Thread.md) 보다 훨씬 많은 에너지를 소모합니다. 코인 배터리 센서에는 부적합합니다.
 2. **스타 토폴로지 (Star Topology)**: 전통적으로 포인트 - 대 - 허브 (라우터) 방식입니다. Wi-Fi Mesh 가 존재하지만, 개별 IoT 장치는 일반적으로 단일 액세스 포인트 (AP) 에 연결됩니다.
-3. **대역폭 (Bandwidth)**: 데이터 처리량이 중요한 **비디오 도어벨**, **보안 카메라**, **음성 비서**를 위한 유일한 선택지입니다.
+3. **대역폭 (Bandwidth)**: 데이터 처리량이 중요한** 비디오 도어벨**,** 보안 카메라**,** 음성 비서**를 위한 유일한 선택지입니다.
 
 ## 🔋 왜 전력을 많이 쓰는가? (Why High Power?)
 

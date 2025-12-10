@@ -102,7 +102,7 @@ e.g.
 
 ### Explicit Intent
 
-인텐트가 **정확히 어떤 컴포넌트(Activity, Service 등)**를 호출할지 명확히 지정하는 방식
+인텐트가 **정확히 어떤 컴포넌트(Activity, Service 등)** 를 호출할지 명확히 지정하는 방식
 
 ```kotlin
 val intent = Intent(this, DetailActivity::class.java)
@@ -129,13 +129,13 @@ startActivity(intent)
 ## Intent-Filter?
 
 "나는 이런 요청(intent)을 받아들일 수 있어요!" 라고 선언하는 부분
-**앱의 구성요소(Activity, Service, BroadcastReceiver 등)**가
+**앱의 구성요소(Activity, Service, BroadcastReceiver 등)** 가
 어떤 종류의 요청을 받아서 처리할 수 있는지를 정의하는 XML 설정
 
 ## Back Stack
 
 - Android에서 `Back Stack`은 Activity들이 쌓여 있는 스택 구조.
-- 사용자가 **뒤로 가기 버튼**을 누를 때 이 스택에서 Activity가 제거됨.
+- 사용자가 **뒤로 가기 버튼** 을 누를 때 이 스택에서 Activity가 제거됨.
 - **Flutter에서 `Navigator.push()` / `pop()`과 유사한 개념**
 
 ```dart
@@ -379,7 +379,7 @@ Android 앱의 메타데이터를 정의하는 핵심파일.
 
         android:exported="true"
         - 이 액티비티가 외부 앱에서 인텐트로 호출 가능한지를 나타냅니다.
-        - **Android 12(API 31)**부터는 intent-filter가 있으면 반드시 exported="true" 또는 "false"를 명시해야 함.
+        - **Android 12(API 31)** 부터는 intent-filter가 있으면 반드시 exported="true" 또는 "false"를 명시해야 함.
 
         android:label="@string/app_name"
         - 이 액티비티의 표시 이름 (앱 바 등).
@@ -726,20 +726,20 @@ Gradle의 빌드 생명주기 안에 Task를 자동으로 등록하고, 설정�
 
 앱의 실행 시 동작에 필요한 코드를 포함한 외부 패키지.
 
-| 항목               | Gradle **플러그인**                                 | 일반 **라이브러리**                            |
+| 항목               | Gradle **플러그인**| 일반** 라이브러리**                            |
 | ------------------ | --------------------------------------------------- | ---------------------------------------------- |
-| **목적**           | \*\*빌드 도구(Groovy/Kotlin DSL)\*\*의 기능 확장    | 앱/라이브러리 **코드에서 사용하는 기능**       |
+| **목적**| \*\*빌드 도구(Groovy/Kotlin DSL)\*\*의 기능 확장    | 앱/라이브러리** 코드에서 사용하는 기능**       |
 | **언제 사용됨?**   | Gradle이 프로젝트를 빌드할 때                       | 앱이 실행되거나 테스트될 때                    |
 | **어디에 선언함?** | `plugins {}` 또는 `buildscript {}`                  | `dependencies {}`                              |
 | **예시**           | `com.android.application`, `kotlin("jvm")`          | `org.jetbrains.kotlinx:kotlin-coroutines-core` |
-| **파일에 포함됨?** | 일반적으로 **APK/WAR에 포함되지 않음**              | 포함됨 (`.jar`, `.apk` 등 안에 들어감)         |
+| **파일에 포함됨?**| 일반적으로** APK/WAR에 포함되지 않음**              | 포함됨 (`.jar`, `.apk` 등 안에 들어감)         |
 | **기능 예시**      | `kapt`, `dagger.hilt.android.plugin`, `spring-boot` | Retrofit, OkHttp, Room, JUnit 등               |
 
 ### pluginManagement vs dependencyResolutionManagement
 
 | 항목               | `pluginManagement`                                | `dependencyResolutionManagement`                     |
 | ------------------ | ------------------------------------------------- | ---------------------------------------------------- |
-| **목적**           | Gradle **플러그인**을 어디서 어떻게 가져올지 지정 | 프로젝트 **라이브러리 의존성**을 어디서 받을지 지정  |
+| **목적**| Gradle** 플러그인**을 어디서 어떻게 가져올지 지정 | 프로젝트** 라이브러리 의존성**을 어디서 받을지 지정  |
 | **적용 대상**      | `plugins {}` 블록에서 사용하는 플러그인           | `dependencies {}` 블록에서 사용하는 라이브러리       |
 | **주로 선언 위치** | `settings.gradle.kts`                             | `settings.gradle.kts`                                |
 | **저장소 지정**    | 플러그인용 저장소 (`gradlePluginPortal`, etc.)    | 라이브러리용 저장소 (`mavenCentral`, `google`)       |

@@ -5,7 +5,7 @@ aliases: [Internet Protocol version 6]
 ---
 
 ## 🌐 개요 (Overview)
-**IPv6 (Internet Protocol version 6)**는 IPv4의 주소 고갈 문제를 해결하고 차세대 인터넷 환경을 지원하기 위해 개발된 네트워크 계층 표준입니다. IoT 환경, 특히 **[Matter](../matter/Matter.md)**와 **[Thread](../thread/Thread.md)**에서 핵심적인 역할을 수행합니다.
+**IPv6 (Internet Protocol version 6)** 는 IPv4의 주소 고갈 문제를 해결하고 차세대 인터넷 환경을 지원하기 위해 개발된 네트워크 계층 표준입니다. IoT 환경, 특히**[Matter](../matter/Matter.md)** 와**[Thread](../thread/Thread.md)** 에서 핵심적인 역할을 수행합니다.
 
 ## 🔑 주요 특징 (Key Features)
 
@@ -15,7 +15,7 @@ aliases: [Internet Protocol version 6]
 2.  **헤더 단순화 (Simplified Header)**:
     *   IPv4 헤더의 불필요한 필드를 제거하고 고정 길이 헤더를 사용하여 라우팅 효율성을 높였습니다.
 3.  **자동 구성 (SLAAC)**:
-    *   DHCP 서버 없이도 기기 스스로 주소를 생성할 수 있는 **Stateless Address Autoconfiguration**을 지원합니다.
+    *   DHCP 서버 없이도 기기 스스로 주소를 생성할 수 있는 **Stateless Address Autoconfiguration** 을 지원합니다.
 4.  **보안 내장 (Built-in Security)**:
     *   IPsec 지원이 필수(Mandatory)사항으로 설계되었습니다.
 
@@ -29,7 +29,7 @@ aliases: [Internet Protocol version 6]
 
 ## 🏠 IoT에서의 IPv6 (Role in IoT)
 
-**[Thread](../thread/Thread.md)**와 **[Matter](../matter/Matter.md)**는 기본적으로 IPv6 기반입니다.
+**[Thread](../thread/Thread.md)** 와**[Matter](../matter/Matter.md)** 는 기본적으로 IPv6 기반입니다.
 
 *   **End-to-End Connectivity**: 클라우드 서버와 전구(End Device)가 NAT 없이 직접 통신할 수 있습니다.
 *   **[6LoWPAN](6LoWPAN.md)**: 무거운 IPv6 패킷을 저전력 무선 구간(IEEE 802.15.4)으로 보내기 위해 압축 기술을 사용합니다.
