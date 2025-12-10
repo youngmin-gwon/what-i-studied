@@ -2,13 +2,13 @@
 title: CSMA-CA
 tags: [algorithm, foundation, mac, network]
 aliases: [Carrier Sense Multiple Access with Collision Avoidance]
-date modified: 2025-12-10 15:37:09 +09:00
+date modified: 2025-12-10 18:32:46 +09:00
 date created: 2025-12-10 09:55:45 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**CSMA/CA**(Carrier Sense Multiple Access with Collision Avoidance) 는 **[Wi-Fi](../connectivity/Wi-Fi.md)** (IEEE 802.11) 와 **[Zigbee](../connectivity/Zigbee.md) / [Thread](../thread/Thread.md)** ([IEEE 802.15.4](../connectivity/IEEE_802_15_4/IEEE%20802.15.4.md)) 에서 사용하는 매체 접근 제어 방식입니다. 무선 공간은 모두가 공유하는 자원이므로, 서로 부딪히지 않고 "눈치껏" 데이터를 보내는 기술입니다.
+**CSMA/CA**(Carrier Sense Multiple Access with Collision Avoidance) 는 **[Wi-Fi](../connectivity/Wi-Fi.md)** ([IEEE 802.11](../connectivity/IEEE_802_11/IEEE%20802.11.md)) 와 **[Zigbee](../connectivity/Zigbee.md) / [Thread](../thread/Thread.md)** ([IEEE 802.15.4](../connectivity/IEEE_802_15_4/IEEE%20802.15.4.md)) 에서 사용하는 매체 접근 제어 방식입니다. 무선 공간은 모두가 공유하는 자원이므로, 서로 부딪히지 않고 "눈치껏" 데이터를 보내는 기술입니다.
 
 ## 🚦 동작 원리 (Mechanism)
 
