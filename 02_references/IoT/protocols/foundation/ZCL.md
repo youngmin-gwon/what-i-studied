@@ -2,7 +2,7 @@
 title: ZCL
 tags: [data-model, iot, matter, protocol, zigbee]
 aliases: [Dotdot, Zigbee Cluster Library]
-date modified: 2025-12-09 23:58:50 +09:00
+date modified: 2025-12-10 15:34:59 +09:00
 date created: 2025-12-09 18:33:42 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: MQTT
 tags: [iot, messaging, middleware, protocol]
 aliases: [Message Queuing Telemetry Transport]
-date modified: 2025-12-09 23:58:45 +09:00
+date modified: 2025-12-10 15:34:57 +09:00
 date created: 2025-12-09 18:29:44 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: mDNS
 tags: [discovery, dns, iot, network, zeroconf]
 aliases: [Bonjour, DNS-SD, ZeroConf]
-date modified: 2025-12-10 00:07:52 +09:00
+date modified: 2025-12-10 15:34:52 +09:00
 date created: 2025-12-09 18:53:54 +09:00
 ---
 
