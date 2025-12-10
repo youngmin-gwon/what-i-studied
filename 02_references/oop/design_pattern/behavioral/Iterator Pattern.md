@@ -27,18 +27,15 @@ date created: 2024-12-12 15:47:31 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2026.png)
 
-1. **IterableCollection**
-   - Iterator 를 생성하기 위한 인터페이스.
+1. **IterableCollection**- Iterator 를 생성하기 위한 인터페이스.
    - 컬렉션과 호환되는 Iterator 를 얻기 위한 하나 이상의 메서드를 선언.
      - ConcreteCollection 이 다양한 종류의 Iterator 를 반환할 수 있도록 메서드의 반환 유형은 Iterator 인터페이스로 선언.
-2. **ConcreteCollection**
-   - 특정 ConcreteIterator 의 새 인스턴스를 반환하기 위해 Iterator 생성을 구현.
+2.**ConcreteCollection**- 특정 ConcreteIterator 의 새 인스턴스를 반환하기 위해 Iterator 생성을 구현.
      - 클라이언트가 요청할 때마다 특정 ConcreteIterator 클래스의 새 인스턴스를 반환.
-3. **Iterator**
+3.**Iterator**
    - Collection 에 접근하고 순차 순회 하기 위한 인터페이스.
    - 컬렉션 순회에 필요한 작업 (다음 요소 가져오기, 현재 위치 검색, 반복 다시 시작 등) 을 선언.
-4. **ConcreteIterator**
-   - iterator 인터페이스를 구현.
+4. **ConcreteIterator**- iterator 인터페이스를 구현.
    - 컬렉션을 순회하기 위한 특정 알고리즘을 구현.
    - 자체적으로 순회 진행을 추적해야 함.
      - 이를 통해 여러 Iterator 가 서로 독립적으로 동일한 컬렉션을 순회할 수 있음.
@@ -51,14 +48,14 @@ date created: 2024-12-12 15:47:31 +09:00
 - 일일이 접근하는 작업을 컬렉션 객체가 아닌 반복자 객체에서 맡게 됨.
   - 집합체 인터페이스 구현이 간단해짐.
   - 집합체에서는 반복 작업에 손을 떼고 원래 자신이 할 일에만 전념할 수 있음.
-    - **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**, DRY 준수하게 됨.
+    -**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**, DRY 준수하게 됨.
   - 같은 collection 을 다른 규칙으로 순회하는 방법이 필요할 때, 하나의 인터페이스를 부풀리는 것이 아니라 iterator 클래스를 하나 더 구현하기만 하면 되기 때문에 유용하게 사용할 수 있음.
   - 데이터 구조 구현을 확정할 수 없지만, 순회하는 방법이 필요할 때 유용함.
 
 ## Pros
 
-- 장황한 순회 알고리즘을 별도의 클래스로 추출하여 클라이언트 코드와 컬렉션을 정리할 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 기존 코드 수정 없이 새로운 유형의 컬렉션 및 반복자를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 장황한 순회 알고리즘을 별도의 클래스로 추출하여 클라이언트 코드와 컬렉션을 정리할 수 있음 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 기존 코드 수정 없이 새로운 유형의 컬렉션 및 반복자를 추가할 수 있음 ⇒**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - 각 iterator 객체에는 고유한 반복 상태가 포함되어 있으므로 동일한 collection 을 병렬로 순회 할 수 있음.
 - 원할 때 순회를 중단/재개 할 수 있음.
 

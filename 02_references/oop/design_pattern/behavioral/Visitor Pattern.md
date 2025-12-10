@@ -10,7 +10,7 @@ date created: 2024-12-12 15:48:10 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2058.png)
 
-**Visitor Pattern**은 **데이터 구조**(Data Structure)와 **데이터에 수행할 연산**(Operation)을 분리하는 디자인 패턴입니다.
+**Visitor Pattern** 은**데이터 구조**(Data Structure)와** 데이터에 수행할 연산**(Operation)을 분리하는 디자인 패턴입니다.
 
 - **핵심**: 데이터 구조 안의 요소(Element)들을 수정하지 않고도, 새로운 동작(기능)을 추가할 수 있게 합니다.
 - **방식**: "방문자(Visitor)"라는 객체가 각 요소를 돌아다니며 작업을 수행합니다.
@@ -26,20 +26,15 @@ date created: 2024-12-12 15:48:10 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2059.png)
 
-1. ***Visitor***
-    - ConcreteElement 를 파라미터로 가질 수 있는 일련의 방문 메소드를 선언하는 인터페이스.
+1. ***Visitor***- ConcreteElement 를 파라미터로 가질 수 있는 일련의 방문 메소드를 선언하는 인터페이스.
     - Overloading 을 취하는 언어라면, 같은 이름을 가질 수도 있지만 Element 타입은 반드시 달라야 함.
-2. ***ConcreteVisitor***
-    - 다른 ConcreteElement 클래스에 맞게 조정된 동일한 동작의 여러 버전을 구현.
-3. ***Element***
-    - Visitor 를 "accept" 메소드 선언하는 인터페이스.
+2.***ConcreteVisitor***- 다른 ConcreteElement 클래스에 맞게 조정된 동일한 동작의 여러 버전을 구현.
+3.***Element***- Visitor 를 "accept" 메소드 선언하는 인터페이스.
     - 선언된 메소드에는 Visitor Interface 유형으로 선언된 매개변수가 하나 있어야 함.
-4. ***ConcreteElement***
-    - accept 메소드 구현.
+4.***ConcreteElement***- accept 메소드 구현.
     - 현재 클래스에 해당하는 적절한 Visitor 메서드로 호출을 리디렉션하는 것이 목적.
     - 기본 Element 클래스가 이 메서드를 구현하더라도 모든 하위 클래스는 여전히 자체 클래스에서 이 메서드를 재정의하고 Visitor 개체에서 적절한 메서드를 호출해야 함.
-5. ***Client***
-    - 복잡한 컬렉션이나 트리 객체를 포함.
+5.***Client***- 복잡한 컬렉션이나 트리 객체를 포함.
     - 일반적으로 클라이언트는 추상 인터페이스를 통해 해당 컬렉션의 개체와 작업하기 때문에 모든 구체적인 요소 클래스를 인식하지 못함.
 
 ## Adaptability
@@ -51,8 +46,8 @@ date created: 2024-12-12 15:48:10 +09:00
 
 ## Pros
 
-- 같은 동작에 대한 여러 버전을 하나의 클래스로 이동 시킬 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 기존 코드 수정 없이 새로운 동작을 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 같은 동작에 대한 여러 버전을 하나의 클래스로 이동 시킬 수 있음 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 기존 코드 수정 없이 새로운 동작을 추가할 수 있음 ⇒**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - 다양한 개체로 작업하는 동안 유용한 정보를 축적할 수 있음.
   - 개체 트리와 같은 복잡한 개체 구조를 탐색하고 구조의 각 개체에 방문자를 적용하려는 경우에 유용할 수 있음.
 

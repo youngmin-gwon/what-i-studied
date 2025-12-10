@@ -8,39 +8,34 @@ date created: 2024-12-12 15:51:24 +09:00
 
 ## Description
 
-**Abstract Factory Pattern**은 구체적인 클래스(Concrete Class)에 의존하지 않고, 서로 연관되거나 의존적인 객체들의 **제품군(Family)을 생성하는 인터페이스**를 제공하는 패턴입니다.
+**Abstract Factory Pattern** 은 구체적인 클래스(Concrete Class)에 의존하지 않고, 서로 연관되거나 의존적인 객체들의** 제품군(Family)을 생성하는 인터페이스** 를 제공하는 패턴입니다.
 
-- **핵심**: "관련된 객체들을 한 번에 모아서 만든다."
-- **목적**: 객체 생성 로직을 클라이언트로부터 분리(캡슐화)하여, 제품군을 쉽게 교체할 수 있도록 함.
+-**핵심**: "관련된 객체들을 한 번에 모아서 만든다."
+-**목적**: 객체 생성 로직을 클라이언트로부터 분리(캡슐화)하여, 제품군을 쉽게 교체할 수 있도록 함.
 
 ## Examples
 
 - **UI 테마**: `Light Theme` vs `Dark Theme`. 버튼, 텍스트박스, 체크박스 등 모든 UI 요소가 테마에 맞춰 세트로 생성되어야 함.
-- **OS 호환**: `Windows` vs `Mac`. 각 OS에 맞는 버튼, 창, 마우스 커서 객체들이 세트로 생성되어야 함.
+-**OS 호환**: `Windows` vs `Mac`. 각 OS에 맞는 버튼, 창, 마우스 커서 객체들이 세트로 생성되어야 함.
 
 ## [Factory Method](Factory%20Method%20Pattern.md)와의 차이점
 
 | 구분 | Factory Method | Abstract Factory |
 | :--- | :--- | :--- |
-| **목적** | **단일 객체** 생성의 처리를 서브클래스에 위임 | **관련된 객체 제품군(Family)** 생성의 인터페이스 제공 |
-| **유연성** | 상속(Inheritance)을 통해 객체 생성 로직 변경 | 구성(Composition)을 통해 객체 생성 팩토리 자체를 교체 |
+| **목적**|** 단일 객체** 생성의 처리를 서브클래스에 위임 |** 관련된 객체 제품군(Family)** 생성의 인터페이스 제공 |
+|**유연성** | 상속(Inheritance)을 통해 객체 생성 로직 변경 | 구성(Composition)을 통해 객체 생성 팩토리 자체를 교체 |
 | **관점** | "어떤 객체 하나를 만들까?" | "어떤 스타일의 객체 세트를 만들까?" |
 
 ## Structure
 
 ![Untitled](../../../../../_assets/oop/Untitled%2031.png)
 
-1. **Abstract Factory**
-    - abstract product 를 생성하는 interface 선언.
-2. **Concrete Factory**
-    - concrete product 객체들을 생성하는 operations 를 적용.
-    - **각각의 Concrete Factory 는 오직 하나의 variant 와 일치한다**.
-3. **Product**
-    - product 객체의 interface 선언.
-4. **Concrete Product**
-    - 상응하는 Concrete Factory 에 의해 만들어지는 product 채택.
-5. **Client**
-    - Abstract factory 만 사용하여 product 사용.
+1. **Abstract Factory**- abstract product 를 생성하는 interface 선언.
+2.**Concrete Factory**- concrete product 객체들을 생성하는 operations 를 적용.
+    -**각각의 Concrete Factory 는 오직 하나의 variant 와 일치한다**.
+3.**Product**- product 객체의 interface 선언.
+4.**Concrete Product**- 상응하는 Concrete Factory 에 의해 만들어지는 product 채택.
+5.**Client**- Abstract factory 만 사용하여 product 사용.
 
 ## Adaptability
 
@@ -53,8 +48,8 @@ date created: 2024-12-12 15:51:24 +09:00
 
 ## Pros
 
-- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - Creator 와 ConcreteProduct 간의 결합도를 줄일 수 있음.
 
 ## Cons
@@ -109,8 +104,8 @@ date created: 2024-12-12 15:51:24 +09:00
 - 객체를 생성하는 메소드.
   - 팩토리 메소드 패턴의 모든 결과가 " 생성 메소드 " 이지만 반드시 그 반대는 아님을 의미.
 - 동일 의미
-  - **Martin Fowler**가 *Refactoring*에서 언급했던 factory method.
-  - **Joshua Bloch**가 *Effective Java*에서 언급했던 static factory method.
+  - **Martin Fowler** 가 *Refactoring*에서 언급했던 factory method.
+  - **Joshua Bloch** 가 *Effective Java*에서 언급했던 static factory method.
 - 실제로 생성 메서드는 생성자 호출을 둘러싼 래퍼일 뿐임.
   - 하지만, 생성자 변경 사항에서 코드를 분리하는 데 도움이 될 수 있음.
   - 또한, 새로 만드는 대신 기존 개체를 반환하는 특정 논리를 포함할 수도 있음.

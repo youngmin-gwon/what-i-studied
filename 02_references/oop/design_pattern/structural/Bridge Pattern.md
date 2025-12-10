@@ -37,17 +37,13 @@ date created: 2024-12-12 15:52:30 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2048.png)
 
-1. ***Abstraction***
-    - ***Refined abstraction***을 위한 interface 정의.
-    - ***Implementation*** type 객체를 참고하는 역할.
-2. ***Refined abstraction***
-    - ***Abstraction*** interface 를 구현.
+1. ***Abstraction***-*** Refined abstraction***을 위한 interface 정의.
+    -***Implementation*** type 객체를 참고하는 역할.
+2.***Refined abstraction***-*** Abstraction***interface 를 구현.
     - 각각 다른 조작 논리를 제공.
-3. ***Implementation***
-    - ***Concrete Implementation***을 위한 interface 정의.
-    - ***Abstraction***은 오직 이곳에 정의된 method 를 통해서만 ***Implementation*** 객체와 소통할 수 있음.
-4. ***Concrete Implementation***
-    - ***Implementation*** interface 를 구현.
+3.***Implementation***-*** Concrete Implementation***을 위한 interface 정의.
+    -***Abstraction*** 은 오직 이곳에 정의된 method 를 통해서만***Implementation*** 객체와 소통할 수 있음.
+4.***Concrete Implementation***-*** Implementation***interface 를 구현.
     - platform-specific 한 코드를 포함하고 있음.
 
 ## Adaptability
@@ -63,8 +59,8 @@ date created: 2024-12-12 15:52:30 +09:00
 
 - 플랫폼 독립적인 클래스 및 앱을 만들 수 있음.
 - 클라이언트 코드는 높은 수준의 추상화와 함께 작동. 플랫폼 세부정보에게 정보를 노출하지 않음.
-- 각각 새로운 Abstraction, Implementation 을 도입할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
-- Abstraction 에서는 상위 레벨 로직에만 집중하면 되고, Implementation 에서는 플랫폼 세부사항에 집중하면 된다 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 각각 새로운 Abstraction, Implementation 을 도입할 수 있음 ⇒**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- Abstraction 에서는 상위 레벨 로직에만 집중하면 되고, Implementation 에서는 플랫폼 세부사항에 집중하면 된다 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
 
 ## Cons
 

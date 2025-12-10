@@ -8,11 +8,11 @@ date created: 2024-12-12 23:54:34 +09:00
 
 ## Description
 
-**Pluggable Object Pattern**은 객체의 동작이나 기능을 실행 시간에 동적으로 변경할 수 있도록 설계된 패턴
+**Pluggable Object Pattern** 은 객체의 동작이나 기능을 실행 시간에 동적으로 변경할 수 있도록 설계된 패턴
 
 이 패턴은 동작을 외부에서 주입 (plug-in) 받아 실행하므로, 조건문을 줄이고 객체 간의 결합도를 낮추는 데 유용함
 
-**Pluggable Object Pattern**은 알려진 인터페이스를 구현한 객체에 대한 참조를 저장하고, 이를 통해 나머지 객체가 동작을 수행하도록 설계함
+**Pluggable Object Pattern** 은 알려진 인터페이스를 구현한 객체에 대한 참조를 저장하고, 이를 통해 나머지 객체가 동작을 수행하도록 설계함
 
 이렇게 하면 코드 전반에서 동작을 명시적으로 정의하지 않고, 참조된 객체를 통해 간접적으로 실행할 수 있음
 
@@ -28,7 +28,7 @@ date created: 2024-12-12 23:54:34 +09:00
 
 1. **Interface or Abstract Class**: 공통 동작 (메서드) 을 정의.
 2. **Concrete Implementations**: 구체적인 동작을 구현하는 클래스.
-3. **Pluggable Host Object**: 동작을 실행 시간에 주입받아 사용하는 객체.
+3.**Pluggable Host Object**: 동작을 실행 시간에 주입받아 사용하는 객체.
 
 ## Example
 

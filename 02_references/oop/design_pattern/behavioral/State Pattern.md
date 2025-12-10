@@ -32,12 +32,10 @@ date created: 2024-12-12 15:48:27 +09:00
     - 현재 상태를 가리키는 ConcreteState 인스턴스를 보관.
     - ConcreteState 구현에 대해서는 전혀 모름 (=State interface 이용).
     - 현재 상태를 바꾸기 위해서 setter 메소드를 가짐.
-2. **State**
-    - 특정한 state 의 행동과 상태를 캡슐화하기 위한 인터페이스 제공.
-3. **ConcreteStates**
-    - Context 와 관련된 상태의 행동을 정의.
+2. **State**- 특정한 state 의 행동과 상태를 캡슐화하기 위한 인터페이스 제공.
+3.**ConcreteStates**- Context 와 관련된 상태의 행동을 정의.
     - State 객체들은 Context 정보를 위해, 또는 state 변화를 위해 Context 를 참조할 수도 있음.
-4. **Client**
+4.**Client**
     - 현재 상태를 알기 위해 Context 를 사용.
     - 상태 변화 명령을 내림.
     - 필요하다면 Context 의 초기 상태를 정의.
@@ -57,7 +55,7 @@ date created: 2024-12-12 15:48:27 +09:00
 ## Pros
 
 - 특정 상태에 관련된 코드를 분리된 클래스로 만들어줌 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 새 상태를 코드 수정없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 새 상태를 코드 수정없이 추가할 수 있음 ⇒**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - 조건문을 없애 코드를 더욱 간단하게 만들 수 있음.
 
 ## Cons

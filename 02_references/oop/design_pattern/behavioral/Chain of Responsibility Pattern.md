@@ -44,19 +44,15 @@ date created: 2024-12-12 15:46:36 +09:00
 
 ![Untitled](../../../../../_assets/oop/cor_structure.png)
 
-1. ***Handler***
-    - 요청을 처리하기 위한 인터페이스 정의.
+1. ***Handler***- 요청을 처리하기 위한 인터페이스 정의.
     - 모든 핸들러가 BaseHandler 를 상속받아 사용한다면 하지 않아도 됨.
-2. ***BaseHandler***
-    - chain 다음 객체의 reference 를 가짐.
+2.***BaseHandler***- chain 다음 객체의 reference 를 가짐.
     - default 행위를 정의함.
     - 모든 핸들러 클래스 공통 보일러플레이트 코드 포함.
-3. ***ConcreteHandler***
-    - 요청을 실제 처리하는 코드 정의.
+3.***ConcreteHandler***- 요청을 실제 처리하는 코드 정의.
       - 해당 객체에서 처리하거나 다음으로 넘기거나 하는 방식.
       - 핸들러는 초기화 된 이후로는 immutable 함.
-4. ***Client***
-    - 필요에 따라 핸들러 체인을 만들고 요청을 보냄.
+4.***Client***- 필요에 따라 핸들러 체인을 만들고 요청을 보냄.
 
 ## Adaptability
 
@@ -67,8 +63,8 @@ date created: 2024-12-12 15:46:36 +09:00
 ## Pros
 
 - 요청 처리 순서를 제어할 수 있음.
-- 작업을 수행하는 클래스에서 작업을 호출하는 클래스를 분리할 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 기존 코드를 손상시키지 않고 새 핸들러를 도입할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 작업을 수행하는 클래스에서 작업을 호출하는 클래스를 분리할 수 있음 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 기존 코드를 손상시키지 않고 새 핸들러를 도입할 수 있음 ⇒**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 
 ## Cons
 
@@ -79,10 +75,10 @@ date created: 2024-12-12 15:46:36 +09:00
 ### [Command Pattern](Command%20Pattern.md), [Mediator Pattern](Mediator%20Pattern.md), [Observer Pattern](Observer%20Pattern.md)
 
 - 모두 요청의 발신자와 수신자를 연결하는 다양한 방법을 다룸.
-  - **CoR** : 잠재적 수신자 중 하나가 처리할 때까지 잠재적 수신자의 동적 사슬을 따라 순차적으로 요청을 전달.
-  - **Command** : 발신자와 수신자 간의 단방향 연결을 설정.
-  - **Mediator** : 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함.
-  - **Observer** : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
+  - **CoR**: 잠재적 수신자 중 하나가 처리할 때까지 잠재적 수신자의 동적 사슬을 따라 순차적으로 요청을 전달.
+  -**Command**: 발신자와 수신자 간의 단방향 연결을 설정.
+  -**Mediator**: 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함.
+  -**Observer** : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
 
 ### [Composite Pattern](../structural/Composite%20Pattern.md)
 
@@ -102,5 +98,5 @@ date created: 2024-12-12 15:46:36 +09:00
 - 매우 비슷한 클래스 구조를 가지고 있음.
   - 재귀 구성을 이용해서 연속된 객체의 연산을 수행함.
 - 하지만 결정적으로 다른 점이 있음.
-  - **CoR** : 서로 독립적으로 임의의 작업을 실행할 수 있음. 언제든지 요청을 다음으로 전달하지 않고 끝낼 수 있음.
-  - **Decorator** : 기본 인터페이스와 일관성을 유지하면서 객체의 동작을 확장함. 요청 중간에 끝내는 것이 불가능.
+  - **CoR**: 서로 독립적으로 임의의 작업을 실행할 수 있음. 언제든지 요청을 다음으로 전달하지 않고 끝낼 수 있음.
+  -**Decorator** : 기본 인터페이스와 일관성을 유지하면서 객체의 동작을 확장함. 요청 중간에 끝내는 것이 불가능.

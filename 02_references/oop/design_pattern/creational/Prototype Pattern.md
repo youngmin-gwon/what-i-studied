@@ -30,13 +30,11 @@ date created: 2024-12-12 15:50:52 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2039.png)
 
-1. **Prototype**
-   - 스스로를 복제하는 interface 선언.
+1. **Prototype**- 스스로를 복제하는 interface 선언.
    - 주로 clone 이라는 이름의 메소드를 가지지만, declared/defined 라는 메소드를 가질 수도 있음.
-2. **ConcretePrototype**
-   - 스스로 복제하는 기능 구현.
+2.**ConcretePrototype**- 스스로 복제하는 기능 구현.
    - 원본 복사하는 것 외에도, 연결된 객체 복제, 재귀 종속성 풀기 등과 관련된 복제 프로세스의 일부 극단적인 경우를 처리할 수도 있음.
-3. **SubclassPrototype**
+3.**SubclassPrototype**
    - ConcretePrototype 과 같은 목적을 가지지만, 때로는 행위 같은 인자를 정의하여 base class 를 확장할 수 있음.
 
 ## Adaptability

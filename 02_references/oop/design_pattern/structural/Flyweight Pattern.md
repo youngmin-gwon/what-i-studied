@@ -18,26 +18,23 @@ date created: 2024-12-12 15:53:04 +09:00
 - 몇 가지를 제외하고 비슷하게 여러 개 사용되는 객체에 적용.
 - 객체를 두 가지로 나눠서 사용.
   - **Intrinsic state**: 변하지 않는 데이터 ⇒ Flyweight 에 저장.
-  - **Extrinsic state**: 각 인스턴스마다 변하는 데이터 ⇒ Context 에 저장.
+  -**Extrinsic state**: 각 인스턴스마다 변하는 데이터 ⇒ Context 에 저장.
 - Flyweight 는 객체 내부에 Extrinsic state 저장을 중단하는 대신, 이 상태를 의존하는 특정 메소드에 Extrinsic state 를 전달하는 방법 제시.
 
 ## Structure
 
 ![Untitled](../../../../../_assets/oop/Untitled%2053.png)
 
-1. ***Flyweight***
-    - Intrinsic state 를 포함하는 곳.
+1. ***Flyweight***- Intrinsic state 를 포함하는 곳.
     - 변하지 않으니 Intrinsic state 는 immutable 해야 함.
     - method 로 extrinsic state 가 전달 됨.
     - 이 객체는 많은 다른 context 에서 공유가 가능해야 함.
-2. ***FlyweightFactory***
-    - Flyweight 객체를 만들고 관리하는 곳.
+2.***FlyweightFactory***- Flyweight 객체를 만들고 관리하는 곳.
     - Client 가 Factory 를 호출할 때 특정 Flyweight 객체가 존재하는지 확인.
       - 존재하지 않으면 새 인스턴스 생성한 다음 반환.
-3. ***Context***
-    - Extrinsic state 를 포함하는 곳.
+3.***Context***- Extrinsic state 를 포함하는 곳.
       - Extrinsic state 는 유일 값.
-4. ***Client***
+4.***Client***
     - Flyweight 의 Extrinsic state 를 저장, 계산, 유지하는 역할.
 
 ## Adaptability

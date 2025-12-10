@@ -18,7 +18,7 @@ date created: 2024-12-12 15:47:04 +09:00
 
 ![Untitled](../../../../../_assets/oop/command_example.png)
 
-**Command Pattern**은 **요청(Request)을 객체로 캡슐화**하여, 사용자가 보낸 요청을 나중에 이용할 수 있도록 매개변수화하거나, 요청을 큐(Queue)에 저장/로깅하고, 실행된 작업을 취소(Undo)할 수 있게 해주는 패턴입니다.
+**Command Pattern** 은**요청(Request)을 객체로 캡슐화** 하여, 사용자가 보낸 요청을 나중에 이용할 수 있도록 매개변수화하거나, 요청을 큐(Queue)에 저장/로깅하고, 실행된 작업을 취소(Undo)할 수 있게 해주는 패턴입니다.
 
 - **핵심**: "실행하고 싶은 동작"을 객체로 감싸서(Command), "동작을 요청하는 쪽(Sender)"과 "동작을 수행하는 쪽(Receiver)"을 분리(Decoupling)합니다.
 - **활용**:
@@ -31,11 +31,11 @@ date created: 2024-12-12 15:47:04 +09:00
 
 ![Untitled](../../../../../_assets/oop/command_structure.png)
 
-1. **Command** : 작업을 수행하기 위한 interface 선언.
-2. **Concrete Command** : receiver 에 상응하는 작업을 실행하는 requests 선언.
-3. **Invoker(=Sender)** : request 를 직접 Receiver 에게 보내는 대신 command 를 발동 시킴. 명령의 리스트를 저장하고 이 리스트에 맞춰서 동시 수행, 이전 수행 취소 등을 함.
-4. **Receiver** : request 를 수행과 관련된 작업을 어떻게 수행하는지 아는 클래스. 어떠한 클래스도 receiver 역할 가능.
-5. **Client**: Concrete Command object 를 선언하고 Receiver 를 묶음.
+1. **Command**: 작업을 수행하기 위한 interface 선언.
+2.**Concrete Command**: receiver 에 상응하는 작업을 실행하는 requests 선언.
+3.**Invoker(=Sender)**: request 를 직접 Receiver 에게 보내는 대신 command 를 발동 시킴. 명령의 리스트를 저장하고 이 리스트에 맞춰서 동시 수행, 이전 수행 취소 등을 함.
+4.**Receiver**: request 를 수행과 관련된 작업을 어떻게 수행하는지 아는 클래스. 어떠한 클래스도 receiver 역할 가능.
+5.**Client**: Concrete Command object 를 선언하고 Receiver 를 묶음.
 
 ## Adaptability
 
@@ -60,13 +60,10 @@ date created: 2024-12-12 15:47:04 +09:00
 ### [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md), [Mediator Pattern](Mediator%20Pattern.md), [Observer Pattern](Observer%20Pattern.md)
 
 - sender 와 receiver 를 연결하는 여러가지 방법을 보여줌.
-  - **[Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md)**
-    - 잠재적 receiver 중 하나가 처리할 때까지 잠재적 receiver 의 동적 사슬을 따라 순차적으로 요청을 전달하는 구조.
-  - **[Command Pattern](Command%20Pattern.md)**
-    - receiver 와 sender 간 단방향 연결.
-  - **[Mediator Pattern](Mediator%20Pattern.md)**
-    - receiver 와 sender 간의 직접 연결을 제거하여 mediator 개체를 통해 간접적으로 통신하도록 하는 구조.
-  - **[Observer Pattern](Observer%20Pattern.md)**
+  - **[Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md)**- 잠재적 receiver 중 하나가 처리할 때까지 잠재적 receiver 의 동적 사슬을 따라 순차적으로 요청을 전달하는 구조.
+  -**[Command Pattern](Command%20Pattern.md)**- receiver 와 sender 간 단방향 연결.
+  -**[Mediator Pattern](Mediator%20Pattern.md)**- receiver 와 sender 간의 직접 연결을 제거하여 mediator 개체를 통해 간접적으로 통신하도록 하는 구조.
+  -**[Observer Pattern](Observer%20Pattern.md)**
     - receiver 가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
 
 ### [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md)
@@ -86,7 +83,7 @@ date created: 2024-12-12 15:47:04 +09:00
 - 둘 다 객체를 파라미터로 갖기 때문에 비슷해 보일 수 있음.
 - 하지만, 다른 의도로 사용됨.
   - **Command**: 연산을 객체로 바꾸려는 의도 ⇒ 작업 실행을 연기하고, 대기열에 추가하고, 명령 기록을 저장하고, 원격 서비스에 명령을 보내는 등의 작업을 수행할 수 있음.
-  - **Strategy**: 같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도.
+  -**Strategy**: 같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도.
 
 ### [Prototype Pattern](../creational/Prototype%20Pattern.md)
 

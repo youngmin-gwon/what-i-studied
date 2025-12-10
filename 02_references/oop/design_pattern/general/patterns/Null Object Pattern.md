@@ -16,7 +16,7 @@ date created: 2024-12-13 00:00:26 +09:00
 
 1. **Abstract Interface**: 공통 작업 (메서드) 을 정의하는 인터페이스나 추상 클래스.
 2. **Concrete Implementation**: 실제 동작을 수행하는 클래스.
-3. **Null Object**: 아무 동작도 하지 않거나 기본 동작을 제공하는 클래스.
+3.**Null Object**: 아무 동작도 하지 않거나 기본 동작을 제공하는 클래스.
 
 ## Example
 

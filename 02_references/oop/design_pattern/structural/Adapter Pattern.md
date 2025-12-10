@@ -34,15 +34,15 @@ date created: 2024-12-12 14:59:28 +09:00
 (같은 아이디어를 공유하지만) 크게 `1. object`, `2.class` adapter 구조로 나눌 수 있음.
 
 - **Target or ITarget** 은 Client 가 사용하는 interface 정의.
-- **Client** 는 Target 과 소통함.
-- **Adapted** 은 Adapter 를 연결하여 변환할 것 (ex. 3rd party library).
+-**Client** 는 Target 과 소통함.
+-**Adapted** 은 Adapter 를 연결하여 변환할 것 (ex. 3rd party library).
 - **Adapter** 는 Adapted 의 interface 역할을 하여 Adapted 를 Target 과 이어줌.
 
 ### Difference
 
-- **class** 는 Adapted 로 부터 Target interface 로 전달하기 위해 **상속**을 이용 ⇒ Adapted 의 concrete operation 이 Target 의 구현으로 부터 바로 호출됨.
-  - 구현하고자 하는 언어가 **multiple inheritance** 를 지원해야 구현할 수 있음.
-- **object** 는 Adapted 로 부터 Target interface 로 전달하기 위해 **객체 구조**를 이용.
+-**class** 는 Adapted 로 부터 Target interface 로 전달하기 위해** 상속** 을 이용 ⇒ Adapted 의 concrete operation 이 Target 의 구현으로 부터 바로 호출됨.
+  - 구현하고자 하는 언어가**multiple inheritance** 를 지원해야 구현할 수 있음.
+-**object** 는 Adapted 로 부터 Target interface 로 전달하기 위해** 객체 구조** 를 이용.
 
 Github 에 작성한 예시에서 object implementation 을 사용한 이유.
 
@@ -60,7 +60,7 @@ Github 에 작성한 예시에서 object implementation 을 사용한 이유.
 ## Pros
 
 - **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+-**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 
 ## Cons
 

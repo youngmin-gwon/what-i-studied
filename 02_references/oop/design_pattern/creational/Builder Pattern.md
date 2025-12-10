@@ -19,7 +19,7 @@ date created: 2024-12-12 15:51:01 +09:00
 - 객체 생성 코드를 본래의 클래스로부터 builder 라는 것을 분리할 수 있게 만드는 패턴.
   - **builder**: 같은 interface 를 따르고 분리된 생성 과정을 채택한 것.
   - 객체의 다른 representation 을 만들고 싶다면, 다른 builder class 를 만들고, 생성 과정을 추가하면 됨.
-- **director** 라는 layer 를 추가하여 객체 생성의 세부사항을 숨길 수 있음.
+-**director** 라는 layer 를 추가하여 객체 생성의 세부사항을 숨길 수 있음.
   - builder interface 와 생성 순서를 알고 있음.
   - 필수로 필요한 것은 아님.
 
@@ -27,15 +27,11 @@ date created: 2024-12-12 15:51:01 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2051.png)
 
-1. **Builder**
-    - Product 의 부분들을 만들기 위한 모든 종류의 Builder 의 interface 를 가지고 있는 추상 인터페이스.
-2. **Concrete Builder**
-    - 상세한 제조 과정을 정의. 각 Concrete Builder 가 Product 를 정의하고 상태를 추적함.
-3. **Director**
-    - Builder interface 를 사용하여 객체를 생성하고, 생성 순서를 정의하여 외부에서 사용할 수 있게 함.
-4. **Product**
-    - 복잡하게 생성되는 객체를 의미하고, 각 파트들을 최종 결과로 만드는 interface/methods 를 외부에서 사용할 수 있게 만듬.
-5. **Client**
+1. **Builder**- Product 의 부분들을 만들기 위한 모든 종류의 Builder 의 interface 를 가지고 있는 추상 인터페이스.
+2.**Concrete Builder**- 상세한 제조 과정을 정의. 각 Concrete Builder 가 Product 를 정의하고 상태를 추적함.
+3.**Director**- Builder interface 를 사용하여 객체를 생성하고, 생성 순서를 정의하여 외부에서 사용할 수 있게 함.
+4.**Product**- 복잡하게 생성되는 객체를 의미하고, 각 파트들을 최종 결과로 만드는 interface/methods 를 외부에서 사용할 수 있게 만듬.
+5.**Client**
     - 특정 Builder 객체를 Director 와 연결함. Product 객체는 Director class 인스턴스를 호출하여 생성.
 
 ## Adaptability
@@ -67,7 +63,7 @@ date created: 2024-12-12 15:51:01 +09:00
 ### [Abstract Factory Pattern](Abstract%20Factory%20Pattern.md)
 
 - **Builder** 는 복잡한 객체를 단계별로 구성하는데 중점을 둠.
-- **Abstract Factory** 는 관련 객체의 패밀리 생성에 중점을 둠.
+-**Abstract Factory** 는 관련 객체의 패밀리 생성에 중점을 둠.
 - Abstract Factory 는 객체를 즉시 반환하지만 Builder 를 사용하면 객체를 가져오기 전에 몇 가지 추가 구성 단계를 실행할 수 있음.
 
 ### [Composite Pattern](../structural/Composite%20Pattern.md)

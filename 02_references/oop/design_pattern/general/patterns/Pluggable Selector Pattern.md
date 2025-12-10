@@ -10,7 +10,7 @@ date created: 2024-12-12 23:55:33 +09:00
 
 ## Description
 
-**Pluggable Selector Pattern**은 호출할 메서드를 하드코딩하지 않고, 실행 시점(Runtime)에 메서드의 이름이나 식별자(Selector)를 동적으로 결정하여 실행하는 디자인 패턴입니다.
+**Pluggable Selector Pattern** 은 호출할 메서드를 하드코딩하지 않고, 실행 시점(Runtime)에 메서드의 이름이나 식별자(Selector)를 동적으로 결정하여 실행하는 디자인 패턴입니다.
 
 - **핵심**: 인터페이스를 구현한 여러 클래스를 만드는 대신(Strategy), 하나의 클래스 안에서 Reflection이나 동적 호출 기능을 이용해 메서드 이름만 바꿔서 다른 로직을 수행합니다.
 - **주 사용처**: 리플렉션(Reflection)을 지원하는 언어(Smalltalk, Java, Ruby 등)에서, 비슷한 서명(Signature)을 가진 메서드들 중 하나를 동적으로 골라 실행할 때 사용합니다.
@@ -61,12 +61,12 @@ class Calculator {
 ## Adaptability
 
 1. **Strategy 패턴의 클래스 폭발 방지**: 아주 간단한 로직 차이 때문에 수많은 Strategy 클래스를 만드는 것을 피하고 싶을 때.
-2. **동적 메서드 매핑**: 외부 설정 파일이나 사용자 입력 문자열에 따라 실행할 메서드가 결정도야 할 때.
+2.**동적 메서드 매핑**: 외부 설정 파일이나 사용자 입력 문자열에 따라 실행할 메서드가 결정도야 할 때.
 
 ## Pros
 
-1. **클래스 수 감소**: 비슷비슷한 작은 클래스들을 만들지 않아도 됨.
-2. **유연성**: 문자열(Selector)만 바꾸면 실행 로직이 바뀜.
+1.**클래스 수 감소**: 비슷비슷한 작은 클래스들을 만들지 않아도 됨.
+2.**유연성**: 문자열(Selector)만 바꾸면 실행 로직이 바뀜.
 
 ## Cons
 
@@ -78,8 +78,8 @@ class Calculator {
 
 ### [Strategy Pattern](../../behavioral/Strategy%20Pattern.md)
 
-- **Strategy**: 인터페이스를 구현한 **객체(Object)**를 교체하여 로직을 변경. (더 안전함, 권장됨)
-- **Pluggable Selector**: 호출할 **메서드 이름(String)**을 교체하여 로직을 변경. (더 가벼움, 위험함)
+- **Strategy**: 인터페이스를 구현한** 객체(Object)** 를 교체하여 로직을 변경. (더 안전함, 권장됨)
+- **Pluggable Selector**: 호출할** 메서드 이름(String)** 을 교체하여 로직을 변경. (더 가벼움, 위험함)
 
 ### [Command Pattern](../../behavioral/Command%20Pattern.md)
 

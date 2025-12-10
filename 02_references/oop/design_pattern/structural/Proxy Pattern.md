@@ -41,32 +41,24 @@ date created: 2024-12-12 15:53:12 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2042.png)
 
-1. **ServiceInterface**
-    - Service 와 Proxy 를 위한 인터페이스 정의.
-2. **Service**
-    - 비즈니스 로직을 포함하고 있는 사용해야 할 실제 객체 정의.
-3. **Proxy**
-    - 실제 서비스와 동일한 인터페이스를 구현.
+1. **ServiceInterface**- Service 와 Proxy 를 위한 인터페이스 정의.
+2.**Service**- 비즈니스 로직을 포함하고 있는 사용해야 할 실제 객체 정의.
+3.**Proxy**- 실제 서비스와 동일한 인터페이스를 구현.
     - 접근을 제어하는 service 객체를 가리키는 참조도 포함해야 함.
     - 실제 객체를 생성, 삭제 하는데 책임이 있을 수 있음.
-4. **Client**
-    - 같은 인터페이스를 이용해 Service, Proxy 모두 소통함.
+4.**Client**- 같은 인터페이스를 이용해 Service, Proxy 모두 소통함.
     - service 객체를 요구하는 어떤 코드에 proxy 를 할당할 수 있음.
 
 ## Type
 
-1. **Virtual Proxy (lazy initialization)**
-   - Lazy Loading 개념으로, 요청이 필요한 때만 고비용 객체를 생성함.
+1.**Virtual Proxy (lazy initialization)**- Lazy Loading 개념으로, 요청이 필요한 때만 고비용 객체를 생성함.
    - 초기 비용이 많이 드는 연산이 포함된 객체의 경우 가상 프록시를 사용했을 때 효과를 볼 수 있음.
-2. **Protection Proxy (access control)**
-   - 원격 객체에 대한 실제 접근을 제어함.
+2.**Protection Proxy (access control)**- 원격 객체에 대한 실제 접근을 제어함.
    - 객체 별로 접근 권한이 다를 때 유용하게 사용 가능.
-3. **Remote Proxy (local execution of remote service)**
-   - 서로 다른 주소 공간에 존재하는 객체를 가리키는 대표 객체.
+3.**Remote Proxy (local execution of remote service)**- 서로 다른 주소 공간에 존재하는 객체를 가리키는 대표 객체.
    - 로컬 환경에 위치함.
-4. **Logging Proxy (logging request)**
-   - 원본 서비스에 접근하는 요청에 대한 기록을 남길 수 있음.
-5. **Caching Proxy (caching request results)**
+4.**Logging Proxy (logging request)**- 원본 서비스에 접근하는 요청에 대한 기록을 남길 수 있음.
+5.**Caching Proxy (caching request results)**
    - 캐시를 보관하는 프록시.
 
 ## [Decorator Pattern](Decorator%20Pattern.md) vs [Proxy Pattern](Proxy%20Pattern.md)

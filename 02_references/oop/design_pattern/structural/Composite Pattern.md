@@ -18,16 +18,16 @@ date created: 2024-12-12 15:52:40 +09:00
   - nodes(=elements), edges(=relations) 로 구성.
   - 각 node 는 여러 개의 children 을 가질 수 있음. 허나 children 은 오직 하나의 parent 만 가질 수 있음.
   - node 는 2 개의 타입으로 나눌 수 있음.
-    - **leaf** : child 가 하나도 없는 node.
-    - **composite** : 하나 이상의 child 를 가지는 node.
+    - **leaf**: child 가 하나도 없는 node.
+    -**composite** : 하나 이상의 child 를 가지는 node.
 
 ![Untitled](../../../../../_assets/oop/Untitled%2010.png)
 
 - Flutter 의 "Everything is a widget" 의 아이디어와 같음 (widget 의 child 로 widget 을 가질 수 있음).
 - 패턴
-  - **Component** : 구조 안의 객체들의 interface 제공.
-  - **Leaf** : 구조의 leaf 객체. child 를 가지지 않음. 객체의 행동 정의.
-  - **Composite** : children 을 저장 하고 children 과 관련된 행동 정의. leaf 에 각자 일을 할당하고, 중간 결과를 처리한 후 client 에 마지막 결과를 전달하는 역할을 함.
+  - **Component**: 구조 안의 객체들의 interface 제공.
+  -**Leaf**: 구조의 leaf 객체. child 를 가지지 않음. 객체의 행동 정의.
+  -**Composite** : children 을 저장 하고 children 과 관련된 행동 정의. leaf 에 각자 일을 할당하고, 중간 결과를 처리한 후 client 에 마지막 결과를 전달하는 역할을 함.
 
 ![Untitled](../../../../../_assets/oop/Untitled%2011.png)
 

@@ -20,7 +20,7 @@ In the above code, the specific method that ends up being executed depends on th
 
 This is known as **single dispatch**.
 
-In a **multiple dispatch** system, the implementation of `validate_password` that ends up being invoked would depend on the runtime types of both `user` and `password`.
+In a**multiple dispatch** system, the implementation of `validate_password` that ends up being invoked would depend on the runtime types of both `user` and `password`.
 
 When working with languages that don't directly support double dispatch (like Ruby), we can implement the **Double Dispatch Pattern** to gain the benefits.
 

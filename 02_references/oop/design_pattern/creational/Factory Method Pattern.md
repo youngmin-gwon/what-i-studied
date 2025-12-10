@@ -17,17 +17,13 @@ date created: 2024-12-12 15:51:15 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2028.png)
 
-- **Creator**
-  - Product 객체를 반환하는 Factory Method 정의.
+- **Creator**- Product 객체를 반환하는 Factory Method 정의.
   - Factory Method 는 서브클래스들이 구현하도록 추상으로 정의할 수 있음.
   - 혹은 ConcreteProduct 를 제공하는 Factory Method 의 default 구현을 제공할 수도 있음.
-- **ConcreteCreator**
-  - Factory Method 를 오버라이드하고 ConcreteProduct 인스턴스를 반환.
+-**ConcreteCreator**- Factory Method 를 오버라이드하고 ConcreteProduct 인스턴스를 반환.
     - factory method 는 매번 새로운 인스턴스를 만들 필요가 없다는 것 주목.
-- **Product**
-  - Factory Method 가 생성하는 모든 객체에 대한 인터페이스 정의.
-- **ConcreteProduct**
-  - Product 인터페이스 구현.
+-**Product**- Factory Method 가 생성하는 모든 객체에 대한 인터페이스 정의.
+-**ConcreteProduct**- Product 인터페이스 구현.
   - 각 객체의 인스턴스는 특정한 ConcreteCreator 에 의해서 반환됨.
 
 ## Examples
@@ -46,8 +42,8 @@ date created: 2024-12-12 15:51:15 +09:00
 
 ## Pros
 
-- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - Creator 와 ConcreteProduct 간의 결합도를 줄일 수 있음.
 - 객체를 사용할 클래스에서 직접 객체를 만들게 되는 문제를 해결할 수 있음.
 - sub-classing 함으로 compile-time 유연성을 가질 수 있음.

@@ -189,6 +189,8 @@
   },
   "active": "a829d7ee921395e0",
   "lastOpenFiles": [
+    "02_references/oop/cleanup_bold_formatting_v2.py",
+    "02_references/oop/cleanup_bold_formatting.py",
     "02_references/oop/fix_bold_spacing.py",
     "02_references/iot/protocols/Smart Home Protocols Overview.md",
     "02_references/iot/self-hosting.md",
@@ -223,8 +225,6 @@
     "02_references/iot/protocols/connectivity",
     "02_references/iot/protocols/thread",
     "02_references/iot/protocols/matter",
-    "Untitled.base",
-    "Untitled 1.base",
     "_assets/Pasted image 20251208215502.png",
     "_assets/Pasted image 20251208213909.png",
     "_assets/Pasted image 20251208213905.png",

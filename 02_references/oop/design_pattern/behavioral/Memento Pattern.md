@@ -38,19 +38,16 @@ date created: 2024-12-12 15:48:37 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2036.png)
 
-1. **Memento**
-   - concrete memento 의 fields 에 접근을 제한하는 인터페이스.
+1. **Memento**- concrete memento 의 fields 에 접근을 제한하는 인터페이스.
    - 오직 memento 의 메타데이터, caretaker 에 의해 사용되는 메소드를 정의함.
-2. **Concrete Memento**
+2.**Concrete Memento**
    - originator 의 내부 상태 스냅샷 역할을 하는 값 (Value Object).
    - concrete memento 를 생성한 originator 를 제외한 다른 객체의 접근을 막음.
-3. **Caretaker**
-   - memento 보관을 책임지는 보관자.
+3. **Caretaker**- memento 보관을 책임지는 보관자.
    - memento 의 내용을 검토하거나 그 내용을 건드리지 않음.
    - memento 스택을 저장함으로써 originator 의 히스토리 추적.
    - originator 가 이전 상태를 알아야 할 때, 스택으로부터 최상위 원소를 가져와서 originator 복구 메소드로 전달함.
-4. **Originator**
-   - 원본 객체를 의미.
+4.**Originator**- 원본 객체를 의미.
    - 상태를 저장함.
    - 필요할 때 스냅샷으로 부터 해당 상태를 복구할 뿐만 아니라, 자기 자신 상태의 스냅샷을 생산하기도 함.
 
@@ -60,8 +57,8 @@ date created: 2024-12-12 15:48:37 +09:00
 
 ## Command vs Memento
 
-- **command** 패턴은 redo/undo 를 지원할 수 있지만 요청을 단일 객체로 만들 수 있음.
-- **memento** 패턴은 cache/restore 개념으로 객체의 내부 상태를 저장하고 있다는 것이 핵심.
+-**command** 패턴은 redo/undo 를 지원할 수 있지만 요청을 단일 객체로 만들 수 있음.
+-**memento** 패턴은 cache/restore 개념으로 객체의 내부 상태를 저장하고 있다는 것이 핵심.
 - command 패턴은 상태를 사용하는 부분에 따로 보관해야 했지만, memento 패턴은 state 를 originator 에 보관하게 되어 상태가 안전할 수 있다.
 - 둘 중 하나만 사용해야 하는 개념은 아님.
   - memento 패턴을 이용하여 객체의 내부 상태를 저장하고 있어야 할 때, 되돌리기 기능 제공 시 명령 패턴을 함께 사용할 수 있기 때문.

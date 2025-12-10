@@ -31,18 +31,13 @@ date created: 2024-12-12 15:52:49 +09:00
 
 ![Untitled](Untitled%2045.png)
 
-1. **Component**
-   - 객체를 위한 인터페이스 제공.
-2. **Concrete Component**
-   - 기본적인 동작 선언.
+1. **Component**- 객체를 위한 인터페이스 제공.
+2.**Concrete Component**- 기본적인 동작 선언.
    - decorator 에 의해서 기본 동작은 변경될 수 있음.
-3. **Base Decorator**
-   - component 인터페이스로 선언된 객체를 감싼 객체를 참조하는 필드를 가짐.
+3.**Base Decorator**- component 인터페이스로 선언된 객체를 감싼 객체를 참조하는 필드를 가짐.
    - concrete components 와 decorators 를 모두 가질 수 있음.
-4. **Concrete Decorators**
-   - component 에 동적으로 추가할 수 있는 행동 선언.
-5. **Client**
-   - concrete component 를 선언하고 여러 층의 decorator 로 감싸 사용.
+4.**Concrete Decorators**- component 에 동적으로 추가할 수 있는 행동 선언.
+5.**Client**- concrete component 를 선언하고 여러 층의 decorator 로 감싸 사용.
 
 ## Considerations
 
@@ -79,7 +74,7 @@ date created: 2024-12-12 15:52:49 +09:00
 - 서브클래스를 만들지 않고 객체를 확장할 수 있음.
 - 런타임에 특정 객체로부터의 책임을 추가하거나 제거할 수 있음.
 - 여러 개의 Decorator 들로 객체를 합쳐 행동 조합을 합칠 수 있음.
-- 여러 개의 행위를 하던 monolithic 한 클래스를 여러 개의 작은 클래스로 나눌 수 있게 됨 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 여러 개의 행위를 하던 monolithic 한 클래스를 여러 개의 작은 클래스로 나눌 수 있게 됨 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
 
 ## Cons
 

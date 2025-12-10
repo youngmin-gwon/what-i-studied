@@ -16,19 +16,19 @@ date created: 2024-12-12 15:35:58 +09:00
   - 여러 단계로 구성된 알고리즘 (데이터 가져오기 → 처리 → 계산 결과 제공) 이 있을 때 어떤 경우 요구사항은 "3rd-party API 로 데이터 가져오기 → 데이터 처리 → 콘솔창에 계산 결과 제공 " 일 수 있고, 또 다른 경우 " 내장 파일로 데이터 가져오기 → 데이터 처리 → 이메일로 계산 결과 제공 " 일 수 있음.
   - **세부정보는 다르지만 전체 알고리즘 구조는 같다**: " 데이터 가져오기 → 처리 → 계산결과 제공 ".
   - 이러한 경우 template method 는 유용함 : 각 단계 세부 정보는 변경 할 수 있지만 전체 구조는 지켜야 함.
-- **변하지 않는 기능은 슈퍼 클래스에 만들어 두고** **자주 변경하며 확장할 기능은 서브 클래스에 만드는 방식**으로 구동.
+-**변하지 않는 기능은 슈퍼 클래스에 만들어 두고**** 자주 변경하며 확장할 기능은 서브 클래스에 만드는 방식** 으로 구동.
 
 ## Structure
 
 ![Untitled](../../../../../_assets/oop/Untitled%206.png)
 
 - **AbstractClass**: 알고리즘의 뼈대를 설명하는 templateMethod 포함. primitive operations 나 AbstractClass 혹은 다른 객체들에 정의된 operations 을 호출함.
-- **ConcreteClass**: 변하지 않는 알고리즘 단계를 구현하기 위해 AbstractClass 에 의존.
+-**ConcreteClass**: 변하지 않는 알고리즘 단계를 구현하기 위해 AbstractClass 에 의존.
 - Template Method 기능 타입들
-  - **primitive operations** : 하위 클래스에서 반드시 구현되어야 하는 추상 함수. default implementation 을 제공하고 필요한 경우 하위 클래스에서 재정의 될 수 있는 concrete operations.
-  - **final operations**: 하위 클래스에 의해 override 될 수 없는 concrete operations.
-  - **hook operations**: 필요한 경우 하위 클래스가 확장할 수 있는 default behavior 을 제공하는 concrete operations. 대부분의 경우 default 가 아무것도 안 하는 것임.
-  - **template method itself**: final 로 정의 될 수 있기 때문에 하위 클래스에 의해 override 될 수 없음.
+  -**primitive operations**: 하위 클래스에서 반드시 구현되어야 하는 추상 함수. default implementation 을 제공하고 필요한 경우 하위 클래스에서 재정의 될 수 있는 concrete operations.
+  -**final operations**: 하위 클래스에 의해 override 될 수 없는 concrete operations.
+  -**hook operations**: 필요한 경우 하위 클래스가 확장할 수 있는 default behavior 을 제공하는 concrete operations. 대부분의 경우 default 가 아무것도 안 하는 것임.
+  -**template method itself**: final 로 정의 될 수 있기 때문에 하위 클래스에 의해 override 될 수 없음.
 - template method 는 operations 중 어떤 것이 hook operation 인지 abstract operations 인지 알려줄 필요가 있음 ⇒ override 되어야 하는 경우 접두사로 "Do-" 를 붙여 hook 인지 알려줄 수 있음.
 - `Hollywood Principle`
 

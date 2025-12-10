@@ -16,12 +16,10 @@ date created: 2024-12-12 15:47:43 +09:00
 - 이 디자인 패턴이 생기게 된 배경
   - 한 객체의 변화가 다른 것들의 변화를 일으키는 tightly coupled 객체들 때문에 생기게 됨.
 - 패턴 안의 객체들은 두 가지 역할을 수행함
-  1. **Subject ⇒ Publisher**
-      - 알림을 배포하는 주체.
+  1.**Subject ⇒ Publisher**- 알림을 배포하는 주체.
       - 알림을 구독, 취소할 수 있게 하는 방법도 제공함.
-  2. **Observer (= Subscriber)**
-      - 알림을 받아 변화하는 객체.
-- observers 가 누구인지 몰라도 변하게 하는 것이 가능함 ⇒ **loosely coupled** 하게 만듬.
+  2.**Observer (= Subscriber)**- 알림을 받아 변화하는 객체.
+- observers 가 누구인지 몰라도 변하게 하는 것이 가능함 ⇒**loosely coupled** 하게 만듬.
 
 ## Consideration
 
@@ -37,9 +35,8 @@ date created: 2024-12-12 15:47:43 +09:00
 1. ***Publisher(Subject)***
     - Subscriber 를 붙이고 떼는 interface 제공.
     - Observers 목록을 보관함.
-2. (Optional) ***ConcretePublishers***
-    - 관심 상태를 저장하고, 상태 변했을 때 Observers 에 알림 전송.
-3. ***Subscriber(Observer)***
+2. (Optional) ***ConcretePublishers***- 관심 상태를 저장하고, 상태 변했을 때 Observers 에 알림 전송.
+3.***Subscriber(Observer)***
     - 알림 (notification) 인터페이스 선언.
 4. ***ConcreteSubscribers***
     - 알림 (notification) 인터페이스 적용.
@@ -68,10 +65,10 @@ date created: 2024-12-12 15:47:43 +09:00
 ### [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md), [Command Pattern](Command%20Pattern.md)
 
 - 요청의 sender 와 receiver 을 연결하는 다양한 방법 제시.
-  - **CoR** : 잠재적 수신자 중 하나가 처리할 때까지 잠재적 수신자의 동적 사슬을 따라 순차적으로 요청을 전달.
-  - **Command** : 발신자와 수신자 간의 단방향 연결을 설정.
-  - **Mediator** : 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함.
-  - **Observer** : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
+  - **CoR**: 잠재적 수신자 중 하나가 처리할 때까지 잠재적 수신자의 동적 사슬을 따라 순차적으로 요청을 전달.
+  -**Command**: 발신자와 수신자 간의 단방향 연결을 설정.
+  -**Mediator**: 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함.
+  -**Observer** : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
 
 ### [Mediator Pattern](Mediator%20Pattern.md)
 
