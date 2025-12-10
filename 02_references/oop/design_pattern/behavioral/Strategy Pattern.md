@@ -2,7 +2,7 @@
 title: Strategy Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:11:22 +09:00
+date modified: 2025-12-10 10:01:45 +09:00
 date created: 2024-12-12 15:48:00 +09:00
 ---
 
@@ -15,7 +15,7 @@ date created: 2024-12-12 15:48:00 +09:00
 - 알고리즘 집단을 만들고, 각각을 캡슐화 한 후, 집단의 각각을 교환 가능하게 만드는 것이 목적.
 - 가장 실용적인 디자인 패턴 중 하나.
 - 객체 내부에서 다른 계산 로직을 사용하거나 알고리즘을 run-time 중 동적으로 바꾸고 싶을 때 사용.
-- 새로운 알고리즘을 추가함으로 로직을 바꿀 필요가 없으므로 **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)** 를 성립하게 만들어줌.
+- 새로운 알고리즘을 추가함으로 로직을 바꿀 필요가 없으므로 **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)** 를 성립하게 만들어줌.
 - 예시
   - **Sorting algorithms**: 각각의 정렬 알고리즘을 추출하여 각각의 클래스로 만들고 sort() 할 수 있는 interface 를 만들어 사용.
   - **Payment strategies**: 각각의 결제 방법을 클래스로 만들고 사용자의 선택에 따라 알고리즘 수행.
@@ -43,7 +43,7 @@ date created: 2024-12-12 15:48:00 +09:00
   - run-time 중 추출된 클래스를 동적으로 교환할 수 있음.
 - 코드, 내부 데이터, 다양한 알고리즘의 dependencies 를 isolate 할 수 있음.
 - 간단한 interface 를 사용하여 동적으로 알고리즘 수행 혹은 알고리즘 교체를 할 수 있음.
-- 새로운 ConcreteStrategy 를 코드 수정없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 새로운 ConcreteStrategy 를 코드 수정없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 
 ## Cons
 
@@ -53,7 +53,7 @@ date created: 2024-12-12 15:48:00 +09:00
 
 ## Relationship with other patterns
 
-### [Bridge Pattern](../../structural/Bridge%20Pattern.md), [State Pattern](State%20Pattern.md), (일부분 [Adapter Pattern](../../structural/Adapter%20Pattern.md))
+### [Bridge Pattern](../structural/Bridge%20Pattern.md), [State Pattern](State%20Pattern.md), (일부분 [Adapter Pattern](../../structural/Adapter%20Pattern.md))
 
 - 구조가 비슷함 (다른 객체에 실제 작업을 위임하는 구조).
 - 모두 다른 문제를 풀기 위한 방법.
