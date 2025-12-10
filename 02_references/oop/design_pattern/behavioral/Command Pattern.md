@@ -12,18 +12,20 @@ date created: 2024-12-12 15:47:04 +09:00
 
 ![Untitled](../../../../../_assets/oop/command_example.png)
 
-- 요청을 객체로 캡슐화하며, 매개변수를 써서 여러 가지 다른 요구 사항을 집어넣을 수도 있는 패턴.
-  - 요청 내역을 큐에 저장하거나 로그로 기록할 수도 있으며, 작업 취소 기능도 지원 가능.
-  - Client 는 Command 가 어떻게 생성되는지, 어떻게 수행되는지 전혀 신경 안 써도 됨 ⇒ **Decoupling!**
-- 기능을 실행하고, 수행 스케쥴을 만들고, 먼 곳에서 사용할 때 유용함.
-- Command 는 간단한 클래스이므로, 이것을 직렬화하고, 저장 (database or text file) 하고, 나중에 initial command 로 복원하여 사용할 수도 있음.
-    - 특정한 시간이나 특정한 상황에 command 를 수행할 수 있게 만들기 유용함.
-- 복원되어야 하는 커맨드에 적용하는 것이 가장 유명함 (ex. undo).
-    - 이러한 경우 수행된 기능의 history 를 stack 으로 가지고 있어야 함.
-- 재사용 가능하고 깔끔한 코드를 만드는 것이 가능하게 만들어줌! ⇒[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md), [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)
-- 주로 UI 와 business logic 을 연결하는 역할을 함.
-- request 를 보내는 곳 (UI) 인 "Sender" 에서 실제 완성되어야 할 로직을 갖고 있는 "Receiver" 에 request 를 바로 보내는 대신 "Command" 를 내려줌.
-    - Command 가 UI 와 logic layers 의 coupling 을 줄여주는 중간 layer 역할을 하게 됨.
+## Description
+
+![Untitled](../../../../../_assets/oop/command_overview.png)
+
+![Untitled](../../../../../_assets/oop/command_example.png)
+
+**Command Pattern**은 **요청(Request)을 객체로 캡슐화**하여, 사용자가 보낸 요청을 나중에 이용할 수 있도록 매개변수화하거나, 요청을 큐(Queue)에 저장/로깅하고, 실행된 작업을 취소(Undo)할 수 있게 해주는 패턴입니다.
+
+- **핵심**: "실행하고 싶은 동작"을 객체로 감싸서(Command), "동작을 요청하는 쪽(Sender)"과 "동작을 수행하는 쪽(Receiver)"을 분리(Decoupling)합니다.
+- **활용**:
+  - 버튼 클릭 등의 UI 이벤트 처리.
+  - 작업 예약(Scheduling), 매크로(Macro) 기록.
+  - 트랜잭션(Transaction) 관리 및 롤백(Undo) 기능 구현.
+- **장점**: Sender는 Receiver가 누구인지, 어떻게 동작하는지 알 필요 없이 그저 "Command를 실행해라"라고 명령만 내리면 됩니다.
 
 ## Structure
 

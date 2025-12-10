@@ -12,14 +12,19 @@ date created: 2024-12-12 15:48:00 +09:00
 
 ![Untitled](../../../../../_assets/oop/Untitled%2015.png)
 
-- 알고리즘 집단을 만들고, 각각을 캡슐화 한 후, 집단의 각각을 교환 가능하게 만드는 것이 목적.
-- 가장 실용적인 디자인 패턴 중 하나.
-- 객체 내부에서 다른 계산 로직을 사용하거나 알고리즘을 run-time 중 동적으로 바꾸고 싶을 때 사용.
-- 새로운 알고리즘을 추가함으로 로직을 바꿀 필요가 없으므로 **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)** 를 성립하게 만들어줌.
-- 예시
-  - **Sorting algorithms**: 각각의 정렬 알고리즘을 추출하여 각각의 클래스로 만들고 sort() 할 수 있는 interface 를 만들어 사용.
-  - **Payment strategies**: 각각의 결제 방법을 클래스로 만들고 사용자의 선택에 따라 알고리즘 수행.
-  - **Damage calculation in RPG**: 각기 다른 동작에 따라 데미지를 계산하는 알고리즘이 있고 각 공격의 문맥에 따라 다른 데미지를 계산하는 알고리즘을 적용.
+**Strategy Pattern**은 실행 중에(Runtime) 알고리즘을 선택할 수 있게 해주는 행위(Behavioral) 디자인 패턴입니다.
+
+- **핵심**: 특정한 목적을 위한 여러 알고리즘(전략)을 각각 별도의 클래스로 캡슐화하고, 이들을 공통 인터페이스로 교체 가능하게 만듭니다.
+- **목적**:
+  1. 알고리즘을 사용하는 클라이언트와 알고리즘의 구현을 분리합니다.
+  2. 런타임에 로직을 변경하고 싶거나, 조건문(if-else)을 줄이고 싶을 때 사용합니다.
+  3. 새로운 전략을 추가하더라도 기존 코드를 수정하지 않도록 하여 **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**를 준수합니다.
+
+## Examples
+
+- **정렬(Sorting)**: `QuickSort`, `MergeSort`, `BubbleSort` 등을 Strategy로 만들고, 데이터 양에 따라 자동으로 적절한 정렬 방식을 선택.
+- **결제(Payment)**: `CreditCard`, `PayPal`, `ApplePay` 등을 Strategy로 만들고 사용자의 선택에 따라 결제 로직 교체.
+- **게임(RPG)**: 무기에 따른 공격 방식(`SwordAttack`, `BowAttack`)을 Strategy로 구현하여 무기 교체 시 공격 로직도 즉시 변경.
 
 ![Untitled](../../../../../_assets/oop/Untitled%2016.png)
 

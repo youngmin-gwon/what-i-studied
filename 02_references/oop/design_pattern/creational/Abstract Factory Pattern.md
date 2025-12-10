@@ -8,32 +8,23 @@ date created: 2024-12-12 15:51:24 +09:00
 
 ## Description
 
-![Untitled](../../../../../_assets/oop/Untitled%2029.png)
+**Abstract Factory Pattern**은 구체적인 클래스(Concrete Class)에 의존하지 않고, 서로 연관되거나 의존적인 객체들의 **제품군(Family)을 생성하는 인터페이스**를 제공하는 패턴입니다.
 
-![Untitled](../../../../../_assets/oop/Untitled%2030.png)
-
-- Concrete class 를 구체화 하지 않고 관계있는 혹은 의존적인 객체들의 군집을 만들기 위한 인터페이스 제공.
-- 객체 군집을 만드는 것을 캡슐화 ⇒ 객체 생성을 추상화 하게 됨.
+- **핵심**: "관련된 객체들을 한 번에 모아서 만든다."
+- **목적**: 객체 생성 로직을 클라이언트로부터 분리(캡슐화)하여, 제품군을 쉽게 교체할 수 있도록 함.
 
 ## Examples
 
-상황에 따라 Android or iOS Theme 을 보여줌.
+- **UI 테마**: `Light Theme` vs `Dark Theme`. 버튼, 텍스트박스, 체크박스 등 모든 UI 요소가 테마에 맞춰 세트로 생성되어야 함.
+- **OS 호환**: `Windows` vs `Mac`. 각 OS에 맞는 버튼, 창, 마우스 커서 객체들이 세트로 생성되어야 함.
 
-## [Factory Method Pattern](Factory%20Method%20Pattern.md) vs [Abstract Factory Pattern](Abstract%20Factory%20Pattern.md)
+## [Factory Method](Factory%20Method%20Pattern.md)와의 차이점
 
-- **Abstract Factory** 는 관계되어 있는 객체의 "Family" 를 만드는 방법을 제공함.
-- **Factory Method** 는 쉽게 Abstract Factory 의 subset 이라고 생각해도 됨.
-- Abstract Factory 패턴은 객체 생성을 더욱 유동적으로 할 수 있게 만듬.
-    1. **Compile-time flexibility**
-        - 객체 만드는 방법은 사용부분으로부터 독립적으로 선언, 변경될 수 있다: 단지 subclass 를 새로 선언하면 된다.
-    2. **Run-time flexibility**
-        - factory object 는 동적으로 변화될 수 있다.
-- application-specific 한 binding 을 제거해줌.
-- 연관되어 있는 객체 군집을 사용해야 할 때, 하지만 어떻게 만들어지는지 신경 쓰지 않아야 하고, concrete class 에 의존하지 않아야 할 때, 고려해야 할 패턴.
-- 딱딱하게 생각하지 말자. GoF 의 패턴을 조금씩 변형해 사용하는 경우가 많다.
-  - ConcreteFactory 가 의 AbstractFactory 역할도 맡도록 구현하는 경우도 있음.
-  - Factory 이면서 Product 인 경우도 있음.
-  - Factory 를 Product 에 주입하지 않고 Factory 가 Product 를 생산하는 경우도 있음.
+| 구분 | Factory Method | Abstract Factory |
+| :--- | :--- | :--- |
+| **목적** | **단일 객체** 생성의 처리를 서브클래스에 위임 | **관련된 객체 제품군(Family)** 생성의 인터페이스 제공 |
+| **유연성** | 상속(Inheritance)을 통해 객체 생성 로직 변경 | 구성(Composition)을 통해 객체 생성 팩토리 자체를 교체 |
+| **관점** | "어떤 객체 하나를 만들까?" | "어떤 스타일의 객체 세트를 만들까?" |
 
 ## Structure
 

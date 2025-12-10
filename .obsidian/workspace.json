@@ -11,10 +11,14 @@
             "id": "a829d7ee921395e0",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "02_references/iot/protocols/Smart Home Protocols Overview.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Smart Home Protocols Overview"
             }
           }
         ]
@@ -185,6 +189,7 @@
   },
   "active": "a829d7ee921395e0",
   "lastOpenFiles": [
+    "02_references/oop/fix_bold_spacing.py",
     "02_references/iot/protocols/Smart Home Protocols Overview.md",
     "02_references/iot/self-hosting.md",
     "02_references/oop/design_pattern/testing/patterns/Crash Test Dummy Pattern.md",
@@ -211,7 +216,6 @@
     "02_references/oop/design_pattern/behavioral/Behavioral Pattern.md",
     "02_references/iot/protocols/thread/Thread Roles.md",
     "02_references/oop/design_pattern/structural/Proxy Pattern.md",
-    "02_references/oop/design_pattern/structural/Flyweight Pattern.md",
     "02_references/iot/protocols/connectivity/Zigbee_Core",
     "02_references/iot/protocols/connectivity/IEEE_802_15_4",
     "02_references/iot/protocols/connectivity/IEEE_802_11",
