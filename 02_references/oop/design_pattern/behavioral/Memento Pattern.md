@@ -2,7 +2,7 @@
 title: Memento Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:25:26 +09:00
+date modified: 2025-12-10 13:09:31 +09:00
 date created: 2024-12-12 15:48:37 +09:00
 ---
 

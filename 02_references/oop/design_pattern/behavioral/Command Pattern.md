@@ -2,7 +2,7 @@
 title: Command Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:34:12 +09:00
+date modified: 2025-12-10 13:10:13 +09:00
 date created: 2024-12-12 15:47:04 +09:00
 ---
 
@@ -20,7 +20,7 @@ date created: 2024-12-12 15:47:04 +09:00
     - 특정한 시간이나 특정한 상황에 command 를 수행할 수 있게 만들기 유용함.
 - 복원되어야 하는 커맨드에 적용하는 것이 가장 유명함 (ex. undo).
     - 이러한 경우 수행된 기능의 history 를 stack 으로 가지고 있어야 함.
-- 재사용 가능하고 깔끔한 코드를 만드는 것이 가능하게 만들어줌! ⇒ [SRP](../../../solid/SRP(Single%20Responsibility%20Principle).md), [OCP](../../../solid/OCP(Open%20Closed%20Principle).md).
+- 재사용 가능하고 깔끔한 코드를 만드는 것이 가능하게 만들어줌! ⇒ [SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md), [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)
 - 주로 UI 와 business logic 을 연결하는 역할을 함.
 - request 를 보내는 곳 (UI) 인 "Sender" 에서 실제 완성되어야 할 로직을 갖고 있는 "Receiver" 에 request 를 바로 보내는 대신 "Command" 를 내려줌.
     - Command 가 UI 와 logic layers 의 coupling 을 줄여주는 중간 layer 역할을 하게 됨.
@@ -44,7 +44,7 @@ date created: 2024-12-12 15:47:04 +09:00
 ## Pros
 
 - 연산을 유발하는 클래스와 연산을 수행하는 클래스를 분리할 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 새 command 를 코드 수정없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 새 command 를 코드 수정없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](OCP(Open%20Closed%20Principle).md)**.
 - undo/redo 기능을 추가할 수 있음.
 - 지연 작업 실행을 구현할 수 있음.
 - 여러 개 간단한 command 를 조합해 하나의 복잡한 command 를 만들 수 있음.
