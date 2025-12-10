@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_references/oop/design_pattern/general/patterns/Pluggable Object Pattern.md",
+                "file": "02_references/oop/design_pattern/behavioral/Strategy Pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Pluggable Object Pattern"
+              "title": "Strategy Pattern"
             }
           }
         ]
@@ -189,7 +189,10 @@
   },
   "active": "a829d7ee921395e0",
   "lastOpenFiles": [
+    "02_references/oop/design_pattern/testing/patterns/Self Shunt Pattern.md",
     "02_references/oop/design_pattern/general/patterns/Pluggable Object Pattern.md",
+    "02_references/oop/design_pattern/structural/Decorator Pattern.md",
+    "02_references/oop/design_pattern/behavioral/State Pattern.md",
     "02_references/oop/design_pattern/behavioral/Strategy Pattern.md",
     "02_references/oop/design_pattern/behavioral/Command Pattern.md",
     "02_references/oop/design_pattern/creational/Prototype Pattern.md",
@@ -197,8 +200,6 @@
     "02_references/oop/design_pattern/fix_design_pattern_links.py",
     "02_references/oop/solid/OCP(Open Closed Principle).md",
     "02_references/oop/design_pattern/behavioral/Chain of Responsibility Pattern.md",
-    "02_references/oop/design_pattern/structural/Decorator Pattern.md",
-    "02_references/oop/design_pattern/behavioral/State Pattern.md",
     "02_references/oop/design_pattern/structural/Adapter Pattern.md",
     "02_references/oop/design_pattern/behavioral/Behavioral Pattern.md",
     "02_references/iot/protocols/thread/Thread Roles.md",
@@ -215,7 +216,6 @@
     "02_references/oop/design_pattern/behavioral/Template Method Pattern.md",
     "02_references/oop/design_pattern/behavioral/Observer Pattern.md",
     "02_references/oop/design_pattern/behavioral/Mediator Pattern.md",
-    "02_references/oop/design_pattern/behavioral/Iterator Pattern.md",
     "02_references/iot/protocols/connectivity/Zigbee_Core",
     "02_references/iot/protocols/connectivity/IEEE_802_15_4",
     "02_references/iot/protocols/connectivity/IEEE_802_11",

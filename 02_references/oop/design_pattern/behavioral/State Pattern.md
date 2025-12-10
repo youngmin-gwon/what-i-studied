@@ -2,7 +2,7 @@
 title: State Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 11:46:24 +09:00
+date modified: 2025-12-10 14:01:44 +09:00
 date created: 2024-12-12 15:48:27 +09:00
 ---
 
