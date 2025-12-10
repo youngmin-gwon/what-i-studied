@@ -47,7 +47,7 @@ date created: 2024-12-12 15:52:40 +09:00
 
 ## Pros
 
-- 기존 코드를 수정하지 않고 새 요소를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 기존 코드를 수정하지 않고 새 요소를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - 복잡한 트리 구조를 쉽게 사용할 수 있게 하여 Recursion 계산을 쉽게 만듬.
 
 ## Cons
@@ -57,21 +57,21 @@ date created: 2024-12-12 15:52:40 +09:00
 
 ## Relationship with other patterns
 
-### [Builder Pattern](../../creational/Builder%20Pattern.md)
+### [Builder Pattern](../creational/Builder%20Pattern.md)
 
 - 복잡한 Composite tree 를 생성하기 위해서 Builder 패턴을 사용할 수 있음.
   - 재귀적으로 동작하도록 구성 단계를 프로그래밍 할 수 있음.
 
-### [Chain of Responsibility Pattern](../../behavioral/Chain%20of%20Responsibility%20Pattern.md)
+### [Chain of Responsibility Pattern](../behavioral/Chain%20of%20Responsibility%20Pattern.md)
 
 - 종종 Composite 과 함께 사용됨.
 - Leaf 가 요청을 받으면 모든 상위 구성 요소의 체인을 통해 개체 트리의 루트까지 전달할 수 있음.
 
-### [Iterator Pattern](../../behavioral/Iterator%20Pattern.md)
+### [Iterator Pattern](../behavioral/Iterator%20Pattern.md)
 
 - Composite tree 를 순회하기 위해서 Iterator 를 사용.
 
-### [Visitor Pattern](../../behavioral/Visitor%20Pattern.md)
+### [Visitor Pattern](../behavioral/Visitor%20Pattern.md)
 
 - Composite tree 의 각 operation 을 수행하기 위해 사용.
 

@@ -50,8 +50,8 @@ date created: 2024-12-12 15:48:17 +09:00
 
 ## Pros
 
-- 여러 개의 컴포넌트 간 상호작용을 하나로 묶을 수 있다 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 기존 코드 수정 없이 새로운 Mediator 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 여러 개의 컴포넌트 간 상호작용을 하나로 묶을 수 있다 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 기존 코드 수정 없이 새로운 Mediator 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - 각각의 컴포넌트를 쉽게 재사용할 수 있다.
 
 ## Cons
@@ -68,7 +68,7 @@ date created: 2024-12-12 15:48:17 +09:00
   - **Mediator** : 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함.
   - **Observer** : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
 
-### [Facade Pattern](../../structural/Facade%20Pattern.md)
+### [Facade Pattern](../structural/Facade%20Pattern.md)
 
 - 밀접하게 coupled 된 클래스 사이의 상호작용을 정리해준다는 비슷한 역할을 함.
 - **Facade**: 간단한 subsystem 인터페이스를 제공하지만, 새로운 기능을 추가하진 않음. subsystem 은 facade 를 모르고 subsystem 객체들은 서로서로 소통함.

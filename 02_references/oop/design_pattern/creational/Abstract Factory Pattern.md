@@ -62,8 +62,8 @@ date created: 2024-12-12 15:51:24 +09:00
 
 ## Pros
 
-- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - Creator 와 ConcreteProduct 간의 결합도를 줄일 수 있음.
 
 ## Cons
@@ -87,11 +87,11 @@ date created: 2024-12-12 15:51:24 +09:00
 
 - Abstract Factory 는 Factory Method 의 세트를 기반으로 만들어짐.
 
-### [Facade Pattern](../../structural/Facade%20Pattern.md)
+### [Facade Pattern](../structural/Facade%20Pattern.md)
 
 - 클라이언트 코드에서 서브시스템 객체가 생성되는 방식을 숨기고 싶을 때 Facade 의 대안으로 사용할 수 있음.
 
-### [Bridge Pattern](../../structural/Bridge%20Pattern.md)
+### [Bridge Pattern](../structural/Bridge%20Pattern.md)
 
 - Abstract Factory 와 Bridge 패턴을 함께 사용할 수 있음.
 - Bridge 에서 정의한 일부 추상화가 특정 구현에서만 작동할 수 있을 때 유용함.

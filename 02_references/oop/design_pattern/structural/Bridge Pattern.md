@@ -63,8 +63,8 @@ date created: 2024-12-12 15:52:30 +09:00
 
 - 플랫폼 독립적인 클래스 및 앱을 만들 수 있음.
 - 클라이언트 코드는 높은 수준의 추상화와 함께 작동. 플랫폼 세부정보에게 정보를 노출하지 않음.
-- 각각 새로운 Abstraction, Implementation 을 도입할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
-- Abstraction 에서는 상위 레벨 로직에만 집중하면 되고, Implementation 에서는 플랫폼 세부사항에 집중하면 된다 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 각각 새로운 Abstraction, Implementation 을 도입할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- Abstraction 에서는 상위 레벨 로직에만 집중하면 되고, Implementation 에서는 플랫폼 세부사항에 집중하면 된다 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
 
 ## Cons
 
@@ -77,18 +77,18 @@ date created: 2024-12-12 15:52:30 +09:00
 - Bridge 는 일반적으로 사전에 설계되어 서로 독립적으로 응용 프로그램의 일부를 개발할 수 있음.
 - Adapter 는 일반적으로 기존 앱과 함께 사용되어 호환되지 않는 일부 클래스가 잘 작동하도록 함.
 
-### [State Pattern](../../behavioral/State%20Pattern.md), [Strategy Pattern](../../behavioral/Strategy%20Pattern.md), (일부 [Adapter Pattern](Adapter%20Pattern.md))
+### [State Pattern](../behavioral/State%20Pattern.md), [Strategy Pattern](../behavioral/Strategy%20Pattern.md), (일부 [Adapter Pattern](Adapter%20Pattern.md))
 
 - 모두 매우 비슷한 구조를 가지고 있으며, 하위 클래스에 작업을 할당하는 composition 을 기반으로 함.
 - 하지만 모두 다른 문제를 해결하기 위한 방법임.
 
-### [Abstract Factory Pattern](../../creational/Abstract%20Factory%20Pattern.md)
+### [Abstract Factory Pattern](../creational/Abstract%20Factory%20Pattern.md)
 
 - Bridge 패턴과 함께 사용할 수 있는 패턴.
   - Bridge 에서 정의한 일부 Abstractions 가 특정 Implementations 에서만 작동할 수 있을 때 유용함.
   - 이 경우 Abstract Factory 는 이러한 관계를 캡슐화하고 클라이언트 코드에서 복잡성을 숨길 수 있음.
 
-### [Builder Pattern](../../creational/Builder%20Pattern.md)
+### [Builder Pattern](../creational/Builder%20Pattern.md)
 
 - Bridge 와 함께 조합하여 사용할 수 있음.
   - Director 클래스는 추상화의 역할을 하는 반면 다른 Builder 는 구현의 역할을 하게 하는 방식.

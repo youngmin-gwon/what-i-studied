@@ -116,7 +116,7 @@ void main() {
 1. 유연성
    - 실행 중에 객체 동작을 쉽게 변경할 수 있음.
 2. 확장성
-   - 새로운 동작을 추가하더라도 기존 코드를 변경할 필요 없음 → [OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)
+   - 새로운 동작을 추가하더라도 기존 코드를 변경할 필요 없음 → [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)
 3. 결합도 감소
    - 조건문 대신 플러그인 객체에 위임하여 결합도를 낮춤
 4. 가독성 향상
@@ -135,19 +135,19 @@ void main() {
 
 ### Similarity
 
-#### [Strategy Pattern](../../behavioral/patterns/Strategy%20Pattern.md)
+#### [Strategy Pattern](../behavioral/patterns/Strategy%20Pattern.md)
 
 둘 다 인터페이스를 사용하여 동작을 캡슐화하고, 실행 시점에 교체 가능
 
 Pluggable Object Pattern 은 주로 객체 동작을 교체하는 데 초점이 있음
 
-#### [State Pattern](../../behavioral/patterns/State%20Pattern.md)
+#### [State Pattern](../behavioral/patterns/State%20Pattern.md)
 
 State Pattern 은 객체의 상태에 따라 동작을 변경, Pluggable Object Pattern 은 플러그인을 통해 동작을 교체
 
 ### Difference
 
-#### [Decorator Pattern](../../structural/patterns/Decorator%20Pattern.md)
+#### [Decorator Pattern](../structural/patterns/Decorator%20Pattern.md)
 
 Decorator 는 기존 동작에 새로운 기능을 추가하지만, Pluggable Object Pattern 은 동작을 완전히 교체
 

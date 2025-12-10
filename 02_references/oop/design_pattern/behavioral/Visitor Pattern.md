@@ -48,8 +48,8 @@ date created: 2024-12-12 15:48:10 +09:00
 
 ## Pros
 
-- 같은 동작에 대한 여러 버전을 하나의 클래스로 이동 시킬 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 기존 코드 수정 없이 새로운 동작을 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 같은 동작에 대한 여러 버전을 하나의 클래스로 이동 시킬 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 기존 코드 수정 없이 새로운 동작을 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - 다양한 개체로 작업하는 동안 유용한 정보를 축적할 수 있음.
   - 개체 트리와 같은 복잡한 개체 구조를 탐색하고 구조의 각 개체에 방문자를 적용하려는 경우에 유용할 수 있음.
 
@@ -65,7 +65,7 @@ date created: 2024-12-12 15:48:10 +09:00
 - Visitor 를 Command 의 강력한 버전이라고 생각할 수 있음.
 - Visitor 객체는 다른 클래스의 다양한 객체에서도 작업을 수행할 수 있음.
 
-### [Composite Pattern](../../structural/Composite%20Pattern.md)
+### [Composite Pattern](../structural/Composite%20Pattern.md)
 
 - Composite Tree 의 연산을 수행할 때 Visitor 를 사용할 수 있음.
 

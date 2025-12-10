@@ -56,8 +56,8 @@ date created: 2024-12-12 15:48:27 +09:00
 
 ## Pros
 
-- 특정 상태에 관련된 코드를 분리된 클래스로 만들어줌 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 새 상태를 코드 수정없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 특정 상태에 관련된 코드를 분리된 클래스로 만들어줌 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 새 상태를 코드 수정없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - 조건문을 없애 코드를 더욱 간단하게 만들 수 있음.
 
 ## Cons
@@ -66,7 +66,7 @@ date created: 2024-12-12 15:48:27 +09:00
 
 ## Relationship with other patterns
 
-### [Strategy Pattern](Strategy%20Pattern.md) (일부분 [Adapter Pattern](../../structural/Adapter%20Pattern.md))
+### [Strategy Pattern](Strategy%20Pattern.md) (일부분 [Adapter Pattern](../structural/Adapter%20Pattern.md))
 
 - 구조가 비슷함 (다른 객체에 실제 작업을 위임하는 구조).
 - 모두 다른 문제를 풀기 위한 방법.

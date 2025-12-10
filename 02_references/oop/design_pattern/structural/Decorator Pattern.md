@@ -79,7 +79,7 @@ date created: 2024-12-12 15:52:49 +09:00
 - 서브클래스를 만들지 않고 객체를 확장할 수 있음.
 - 런타임에 특정 객체로부터의 책임을 추가하거나 제거할 수 있음.
 - 여러 개의 Decorator 들로 객체를 합쳐 행동 조합을 합칠 수 있음.
-- 여러 개의 행위를 하던 monolithic 한 클래스를 여러 개의 작은 클래스로 나눌 수 있게 됨 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 여러 개의 행위를 하던 monolithic 한 클래스를 여러 개의 작은 클래스로 나눌 수 있게 됨 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
 
 ## Cons
 
@@ -99,7 +99,7 @@ date created: 2024-12-12 15:52:49 +09:00
 
 - Adapter 는 인터페이스를 변환하지만 Decorator 는 인터페이스의 변환 없이 객체를 감싼다.
 
-### [Chain of Responsibility Pattern](../../behavioral/Chain%20of%20Responsibility%20Pattern.md)
+### [Chain of Responsibility Pattern](../behavioral/Chain%20of%20Responsibility%20Pattern.md)
 
 - 매우 비슷한 클래스 구조 (recursive composition) 를 가짐.
 
@@ -116,12 +116,12 @@ date created: 2024-12-12 15:52:49 +09:00
   - 하지만 두 개의 패턴을 합칠 수 있음.
     - Decorator 를 사용하여 Composite tree 에서 특정 개체의 동작을 확장할 수 있음.
 
-### [Composite Pattern](Composite%20Pattern.md), [Prototype Pattern](../../creational/Prototype%20Pattern.md)
+### [Composite Pattern](Composite%20Pattern.md), [Prototype Pattern](../creational/Prototype%20Pattern.md)
 
 - Composite 과 Decorator 를 많이 사용하는 디자인에서는 Prototype 을 이용하여 이점을 얻을 수 있음.
   - Prototype 을 처음부터 다시 구성하는 대신 복잡한 구조를 복제할 수 있음.
 
-### [Strategy Pattern](../../behavioral/Strategy%20Pattern.md)
+### [Strategy Pattern](../behavioral/Strategy%20Pattern.md)
 
 - Decorator 는 외부를 바꾸고, Strategy 는 속을 바꾸는 역할을 함.
 

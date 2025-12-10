@@ -23,5 +23,5 @@ class 의 instance 를 만드는 것이 비용이 클 때 사용할 수 있음. 
 - 필요할 때만 사용하기 위해서 **lazy construction** 을 고려해야 함.
 - 대부분의 경우 singleton class 를 생성하기 위해 parameters 가 필요하지 않아야 함 ⇒ parameter 를 받는 다는 것은 조건에 따라 다른 객체가 생성된다는 의미이고 이것은 더 이상 singleton 이라고 할 수 없음.
 - **multi-threaded** 환경에서 safe 하게 사용할 수 있도록 해야 함 (만약, singleton 이 mutable data 를 가지고 있다면 예상하지 못한 결과를 만들어낼 수 있음).
-- 때로는, singleton 은 **anti-pattern** 이라는 것을 숙지해야 함 (OOP [SOLID](../../../solid/SOLID.md) principle 에서 **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)** 을 위배함).
+- 때로는, singleton 은 **anti-pattern** 이라는 것을 숙지해야 함 (OOP [SOLID](../../solid/SOLID.md) principle 에서 **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)** 을 위배함).
 - 타입으로 제공되는 인터페이스가 있지 않다면 singleton 을 복제하는 것이 불가능하기 때문에 unit test 를 어렵게 함.

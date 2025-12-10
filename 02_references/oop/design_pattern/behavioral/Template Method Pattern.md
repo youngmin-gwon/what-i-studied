@@ -37,7 +37,7 @@ date created: 2024-12-12 15:35:58 +09:00
 ![Untitled](../../../../../_assets/oop/Untitled%207.png)
 
 - Template method 는 high-level component 로 간주됨 → clients 나 알고리즘의 concrete operations 가 template method 에 의해 호출된다는 의미.
-  - abstraction 은 details 에 의존하면 안 되고, details 가 abstractions 에 의존해야 함 ⇒ **[DIP(Dependency Inversion Principle)](../../../solid/DIP(Dependency%20Inversion%20Principle).md)**.
+  - abstraction 은 details 에 의존하면 안 되고, details 가 abstractions 에 의존해야 함 ⇒ **[DIP(Dependency Inversion Principle)](../../solid/DIP(Dependency%20Inversion%20Principle).md)**.
 
 ## Example
 
@@ -58,13 +58,13 @@ date created: 2024-12-12 15:35:58 +09:00
 ## Cons
 
 1. 추상 메소드가 많아지면 클래스 관리가 복잡해진다.
-2. Subclass 에서 default 구현을 무시하여 **[LSP(Liskov substitution principle)](../../../solid/LSP(Liskov%20substitution%20principle).md)** 을 위반할 수도 있음.
+2. Subclass 에서 default 구현을 무시하여 **[LSP(Liskov substitution principle)](../../solid/LSP(Liskov%20substitution%20principle).md)** 을 위반할 수도 있음.
 3. 클래스 간의 관계와 코드가 꼬여버릴 염려가 있다.
 4. 일부 클라이언트는 알고리즘이 제공한 skeleton 에 의해 제한될 수 있음.
 
 ## Relationship with other patterns
 
-### [Factory Method Pattern](../../creational/Factory%20Method%20Pattern.md)
+### [Factory Method Pattern](../creational/Factory%20Method%20Pattern.md)
 
 - Factory Method 는 Template Method 를 구체화 한 것. 동시에 Factory Method 는 큰 Template Method 의 한 단계 역할을 할 수 있음.
 

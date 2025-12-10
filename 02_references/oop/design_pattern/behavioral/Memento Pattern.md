@@ -2,7 +2,7 @@
 title: Memento Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 13:09:31 +09:00
+date modified: 2025-12-10 13:17:16 +09:00
 date created: 2024-12-12 15:48:37 +09:00
 ---
 
@@ -95,7 +95,7 @@ date created: 2024-12-12 15:48:37 +09:00
 
 - Memento 와 Iterator 를 함께 사용하여, 현재 상태를 알고, 또 필요한 경우 되돌릴 수 있음.
 
-### [Prototype Pattern](../../creational/Prototype%20Pattern.md)
+### [Prototype Pattern](../creational/Prototype%20Pattern.md)
 
 - Prototype 이 Memento 의 간단한 대안이 될 수도 있음.
 - 히스토리에 저장하려는 상태인 객체가 간단하고 외부 리소스에 대한 링크가 없거나 링크가 재설정하기 쉬운 경우 대안으로 채택할 수 있음.

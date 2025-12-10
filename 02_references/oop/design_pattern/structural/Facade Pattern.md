@@ -50,7 +50,7 @@ date created: 2024-12-12 15:52:57 +09:00
 - Facade 는 기존 객체에 새로운 인터페이스를 정의함.
 - Adapter 는 기존 존재하는 인터페이스를 유용하게 만들려고 함.
 
-### [Abstract Factory Pattern](../../creational/Abstract%20Factory%20Pattern.md)
+### [Abstract Factory Pattern](../creational/Abstract%20Factory%20Pattern.md)
 
 - Abstract Factory 는 클라이언트 코드에서 서브시스템 객체가 생성되는 방식을 숨기고 싶을 때 Facade 의 대안으로 사용할 수 있음.
 
@@ -59,7 +59,7 @@ date created: 2024-12-12 15:52:57 +09:00
 - Flyweight 는 조그마한 많은 객체들은 만드는 방법을 보여줌.
 - Facade 는 전체 시스템을 상징하는 단일 객체를 만드는 방법을 보여줌.
 
-### [Mediator Pattern](../../behavioral/Mediator%20Pattern.md)
+### [Mediator Pattern](../behavioral/Mediator%20Pattern.md)
 
 - 둘 다 밀접하게 연결된 많은 클래스 간의 협업을 조직하려고 함.
 - Facade 는 Subsystem 의 단순화된 인터페이스를 제공하지만, 새로운 기능을 추가하진 않음.
@@ -68,7 +68,7 @@ date created: 2024-12-12 15:52:57 +09:00
 - Mediator 는 system 구성 요소 간의 소통을 중재함.
   - 구성 요소들은 Mediator 만 알고, 직접 소통하지 않음.
 
-### [Singleton Pattern](../../creational/Singleton%20Pattern.md)
+### [Singleton Pattern](../creational/Singleton%20Pattern.md)
 
 - 단일 Facade 객체로 충분하기 때문에 Facade 클래스는 종종 Singleton 으로 변환될 수 있음.
 

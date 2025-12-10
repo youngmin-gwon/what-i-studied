@@ -96,7 +96,7 @@ date created: 2024-12-12 15:53:12 +09:00
 - 서비스 개체를 알고 있는 클라이언트 없이 서비스 개체를 제어할 수 있음.
 - 클라이언트가 신경 쓰지 않아도 서비스 개체의 수명 주기를 관리할 수 있음.
 - 서비스 개체가 준비되지 않았거나 사용할 수 없는 경우에도 사용할 수 있음.
-- 새로운 Proxy 를 기존 코드 수정 없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 새로운 Proxy 를 기존 코드 수정 없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 
 ## Cons
 

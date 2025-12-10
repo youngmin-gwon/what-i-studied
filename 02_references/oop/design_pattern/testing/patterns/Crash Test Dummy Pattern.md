@@ -116,20 +116,20 @@ void main() {
 
 ### Similarity
 
-#### [Strategy Pattern](../../behavioral/patterns/Strategy%20Pattern.md)
+#### [Strategy Pattern](../behavioral/patterns/Strategy%20Pattern.md)
 
 Crash Test Dummy Pattern 은 시스템의 동작을 변경할 수 있도록 주입하는 방식으로 Strategy Pattern 과 유사하게 동작을 교체하지만, 주로 오류나 예외 처리를 위한 테스트 용도로 사용됨
 
-#### [Observer Pattern](../../behavioral/patterns/Observer%20Pattern.md)
+#### [Observer Pattern](../behavioral/patterns/Observer%20Pattern.md)
 
 Observer Pattern 은 상태 변화에 대한 반응을 캡슐화하지만, Crash Test Dummy Pattern 은 시스템이 예외 상황에 어떻게 반응하는지 확인하는 데 초점을 맞추고 있음
 
 ### Difference
 
-#### [State Pattern](../../behavioral/patterns/State%20Pattern.md)
+#### [State Pattern](../behavioral/patterns/State%20Pattern.md)
 
 State Pattern 은 객체의 상태에 따라 동작을 변경하는 패턴으로, 시스템의 상태에 맞춰 동작을 정의하지만, Crash Test Dummy Pattern 은 의도적으로 비정상적인 입력을 주어 시스템의 반응을 테스트하는 데 사용됨
 
-#### [Prototype Pattern](../../creational/patterns/Prototype%20Pattern.md)
+#### [Prototype Pattern](../creational/patterns/Prototype%20Pattern.md)
 
 Prototype Pattern 은 객체의 복제에 중점을 둡니다. 반면 Crash Test Dummy 는 객체가 특정 동작을 어떻게 처리하는지, 특히 예외적인 상황을 시뮬레이션하는 데 중점을 둡니다.

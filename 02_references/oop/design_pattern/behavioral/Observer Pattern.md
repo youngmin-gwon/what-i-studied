@@ -56,7 +56,7 @@ date created: 2024-12-12 15:47:43 +09:00
 
 ## Pros
 
-- 기존 코드 변경 없이, 새로운 Subscriber 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 기존 코드 변경 없이, 새로운 Subscriber 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - 객체 간의 관계를 runtime 에 만들 수 있다.
 
 ## Cons

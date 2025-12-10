@@ -2,7 +2,7 @@
 title: Command Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 13:10:13 +09:00
+date modified: 2025-12-10 13:19:25 +09:00
 date created: 2024-12-12 15:47:04 +09:00
 ---
 
@@ -86,7 +86,7 @@ date created: 2024-12-12 15:47:04 +09:00
   - **Command**: 연산을 객체로 바꾸려는 의도 ⇒ 작업 실행을 연기하고, 대기열에 추가하고, 명령 기록을 저장하고, 원격 서비스에 명령을 보내는 등의 작업을 수행할 수 있음.
   - **Strategy**: 같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도.
 
-### [Prototype Pattern](../../creational/Prototype%20Pattern.md)
+### [Prototype Pattern](../creational/Prototype%20Pattern.md)
 
 - Prototype 은 Command 사본을 기록에 저장해야 할 때 도움이 될 수 있음.
 

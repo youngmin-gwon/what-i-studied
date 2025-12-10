@@ -2,7 +2,7 @@
 title: Prototype Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:21:41 +09:00
+date modified: 2025-12-10 13:15:48 +09:00
 date created: 2024-12-12 15:50:52 +09:00
 ---
 
@@ -67,16 +67,16 @@ date created: 2024-12-12 15:50:52 +09:00
 
 - 보통 Abstract Factory 는 Factory Method 의 세트로 구성되지만, Prototype 의 세트로 구성할 수도 있음.
 
-### [Command Pattern](../../behavioral/Command%20Pattern.md)
+### [Command Pattern](../behavioral/Command%20Pattern.md)
 
 - command 복제본을 저장해야 할 때 Prototype 이 도움을 줄 수 있음.
 
-### [Composite Pattern](../../structural/Composite%20Pattern.md), [Decorator Pattern](../../structural/Decorator%20Pattern.md)
+### [Composite Pattern](../structural/Composite%20Pattern.md), [Decorator Pattern](../structural/Decorator%20Pattern.md)
 
 - Composite 과 Decorator 를 많이 사용하는 디자인에서는 Prototype 을 사용하며 이점을 얻을 수 있음.
 - 패턴을 적용하면 처음부터 다시 구성하는 대신 복잡한 구조를 복제할 수 있음.
 
-### [Memento Pattern](../../behavioral/Memento%20Pattern.md)
+### [Memento Pattern](../behavioral/Memento%20Pattern.md)
 
 - Prototype 이 Memento 의 간단한 대안이 될 수도 있음.
 - 히스토리에 저장하려는 상태 객체가 간단하고 외부 리소스에 대한 링크가 없거나 링크가 재설정하기 쉬운 경우.

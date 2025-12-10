@@ -33,7 +33,7 @@ date created: 2024-12-12 15:47:19 +09:00
     - 추상 구문 트리는 NonTerminalExpression 과 TerminalExpression 클래스의 인스턴스로 구성.
     - 이 인스턴스의 `interpret()` 연산을 호출.
 
-## [Composite Pattern](../../structural/Composite%20Pattern.md) vs [Iterator Pattern](Iterator%20Pattern.md)
+## [Composite Pattern](../structural/Composite%20Pattern.md) vs [Iterator Pattern](Iterator%20Pattern.md)
 
 - **Composite** 패턴은 오직 static 한 시스템 특성을 정의하거나 구조를 정의하기 위해서 사용됨.
 - **Interpreter** 패턴은 언어를 상징하고, 행위를 정의하고, 트리 안의 구성 노드들의 해석 방법을 제시하고, 문맥을 공유하기 위해 사용됨.

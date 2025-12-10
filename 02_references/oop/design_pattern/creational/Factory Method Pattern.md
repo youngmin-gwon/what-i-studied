@@ -46,8 +46,8 @@ date created: 2024-12-12 15:51:15 +09:00
 
 ## Pros
 
-- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - Creator 와 ConcreteProduct 간의 결합도를 줄일 수 있음.
 - 객체를 사용할 클래스에서 직접 객체를 만들게 되는 문제를 해결할 수 있음.
 - sub-classing 함으로 compile-time 유연성을 가질 수 있음.
@@ -69,7 +69,7 @@ date created: 2024-12-12 15:51:15 +09:00
 
 - Abstract Factory 는 Factory Method 의 세트를 기반으로 만들어짐.
 
-### [Iterator Pattern](../../behavioral/Iterator%20Pattern.md)
+### [Iterator Pattern](../behavioral/Iterator%20Pattern.md)
 
 - Factory Method 와 Iterator 를 함께 사용하여, 컬렉션 하위 클래스가 컬렉션과 호환되는 다양한 유형의 반복자를 반환하도록 할 수 있음.
 
@@ -78,6 +78,6 @@ date created: 2024-12-12 15:51:15 +09:00
 - Prototype 은 상속을 기반으로 하지 않지만 복제된 객체의 복잡한 초기화가 필요.
 - Factory Method 는 상속을 기반으로 하지만 초기화 단계가 필요하지 않음.
 
-### [Template Method Pattern](../../behavioral/Template%20Method%20Pattern.md)
+### [Template Method Pattern](../behavioral/Template%20Method%20Pattern.md)
 
 - Factory Method 는 Template Method 를 구체화 한 것. 동시에 Factory Method 는 큰 Template Method 의 한 단계 역할을 할 수 있음.

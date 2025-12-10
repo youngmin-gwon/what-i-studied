@@ -52,7 +52,7 @@ date created: 2024-12-12 15:51:01 +09:00
 
 - 개체를 단계별로 구성하거나 구성 단계를 연기하거나 재귀적으로 단계를 실행할 수 있음.
 - 제품의 다양한 표현을 작성할 때 동일한 구성 코드를 재사용할 수 있음.
-- 복잡한 객체 생성 코드를 비즈니스 로직과 분리할 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 복잡한 객체 생성 코드를 비즈니스 로직과 분리할 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
 
 ## Cons
 
@@ -70,12 +70,12 @@ date created: 2024-12-12 15:51:01 +09:00
 - **Abstract Factory** 는 관련 객체의 패밀리 생성에 중점을 둠.
 - Abstract Factory 는 객체를 즉시 반환하지만 Builder 를 사용하면 객체를 가져오기 전에 몇 가지 추가 구성 단계를 실행할 수 있음.
 
-### [Composite Pattern](../../structural/Composite%20Pattern.md)
+### [Composite Pattern](../structural/Composite%20Pattern.md)
 
 - Composite tree 를 구성할 때 Builder 패턴을 사용할 수 있음.
   - 재귀적으로 작동하도록 생성 step 을 프로그래밍 할 수 있기 때문.
 
-### [Bridge Pattern](../../structural/Bridge%20Pattern.md)
+### [Bridge Pattern](../structural/Bridge%20Pattern.md)
 
 - Builder 패턴과 Bridge 패턴을 합쳐서 사용할 수 있음.
   - Director 클래스는 Abstraction 역할을 하는 반면 다른 Builder 는 Implementation 역할을 함.
