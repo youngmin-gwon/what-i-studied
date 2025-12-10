@@ -2,7 +2,7 @@
 title: Chain of Responsibility Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:07:29 +09:00
+date modified: 2025-12-10 11:49:34 +09:00
 date created: 2024-12-12 15:46:36 +09:00
 ---
 
@@ -67,8 +67,8 @@ date created: 2024-12-12 15:46:36 +09:00
 ## Pros
 
 - 요청 처리 순서를 제어할 수 있음.
-- 작업을 수행하는 클래스에서 작업을 호출하는 클래스를 분리할 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 기존 코드를 손상시키지 않고 새 핸들러를 도입할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../../solid/OCP(Open%20Closed%20Principle).md)**.
+- 작업을 수행하는 클래스에서 작업을 호출하는 클래스를 분리할 수 있음 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 기존 코드를 손상시키지 않고 새 핸들러를 도입할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 
 ## Cons
 
@@ -84,7 +84,7 @@ date created: 2024-12-12 15:46:36 +09:00
   - **Mediator** : 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함.
   - **Observer** : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
 
-### [Composite Pattern](../../structural/Composite%20Pattern.md)
+### [Composite Pattern](../structural/Composite%20Pattern.md)
 
 - CoR 은 주로 Composite 과 함께 사용됨.
   - 이 경우 leaf component 가 요청을 받으면 모든 상위 component 의 체인을 통해 component tree 의 root 까지 전달할 수 있음.
@@ -97,7 +97,7 @@ date created: 2024-12-12 15:46:36 +09:00
   - request 자체를 command 로 구현.
   - 이 경우, 체인으로 연결된 일련의 다른 컨텍스트에서 동일한 작업을 실행할 수 있음.
 
-### [Decorator Pattern](../../structural/Decorator%20Pattern.md)
+### [Decorator Pattern](../structural/Decorator%20Pattern.md)
 
 - 매우 비슷한 클래스 구조를 가지고 있음.
   - 재귀 구성을 이용해서 연속된 객체의 연산을 수행함.

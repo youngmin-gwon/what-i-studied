@@ -2,14 +2,14 @@
 title: OCP(Open Closed Principle)
 tags: [ocp, oop, solid]
 aliases: []
-date modified: 2025-10-17 18:42:48 +09:00
+date modified: 2025-12-10 11:47:27 +09:00
 date created: 2024-12-12 15:19:39 +09:00
 ---
 
 ## 개요
 
-> "Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification."
-> Bertrand Meyer
+>"Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification."
+>Bertrand Meyer
 
 - **Open for Extension (확장에 열려 있다)**: 새로운 변경사항이 발생했을 때 유연하게 코드를 추가할 수 있어야 한다.
 - **Closed for Modification (변경에 닫혀 있다)**: 기존 코드를 직접 수정하지 않고도 새로운 기능을 추가할 수 있어야 한다.
@@ -28,6 +28,6 @@ date created: 2024-12-12 15:19:39 +09:00
 
 ## Implementation
 
-- **추상화(Abstraction)와 다형성(Polymorphism)** 이 OCP를 가능하게 하는 핵심 메커니즘.
+- **추상화 (Abstraction) 와 다형성 (Polymorphism)** 이 OCP 를 가능하게 하는 핵심 메커니즘.
   - 인터페이스를 통해 의존성을 역전시키면 구현체가 바뀌어도 클라이언트 코드는 변경되지 않음.
-- 전역 변수를 사용하는 것은 OCP를 위배하기 쉬우므로 자제해야 함.
+- 전역 변수를 사용하는 것은 OCP 를 위배하기 쉬우므로 자제해야 함.

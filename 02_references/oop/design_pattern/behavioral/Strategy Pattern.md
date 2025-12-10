@@ -2,7 +2,7 @@
 title: Strategy Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 11:33:43 +09:00
+date modified: 2025-12-10 11:47:15 +09:00
 date created: 2024-12-12 15:48:00 +09:00
 ---
 
@@ -53,14 +53,14 @@ date created: 2024-12-12 15:48:00 +09:00
 
 ## Relationship with other patterns
 
-### [Bridge Pattern](../structural/Bridge%20Pattern.md), [State Pattern](State%20Pattern.md), (일부분 [Adapter Pattern](../../structural/Adapter%20Pattern.md))
+### [Bridge Pattern](../structural/Bridge%20Pattern.md), [State Pattern](State%20Pattern.md), (일부분 [Adapter Pattern](../structural/Adapter%20Pattern.md))
 
 - 구조가 비슷함 (다른 객체에 실제 작업을 위임하는 구조).
 - 모두 다른 문제를 풀기 위한 방법.
   - 패턴은 특정 방식으로 코드를 구조화하기 위한 단순한 레시피가 아님.
   - **해결해야 하는 문제를 다른 개발자와 소통하기 위한 방법으로 패턴을 사용해야 함.**
 
-### [Decorator Pattern](../../structural/Decorator%20Pattern.md)
+### [Decorator Pattern](../structural/Decorator%20Pattern.md)
 
 - Decorator 는 객체의 **겉**을 바꾸는 역할, Strategy 는 객체의 **속**을 바꾸는 역할.
 
