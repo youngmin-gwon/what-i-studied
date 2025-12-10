@@ -2,7 +2,7 @@
 title: Thread
 tags: [iot, network, protocol, thread]
 aliases: []
-date modified: 2025-12-10 15:34:00 +09:00
+date modified: 2025-12-10 16:30:01 +09:00
 date created: 2025-12-09 11:59:10 +09:00
 ---
 
@@ -18,12 +18,12 @@ date created: 2025-12-09 11:59:10 +09:00
 
 Thread 는 신뢰성 높고 전력 소모가 적은 패킷 전달에 집중합니다.
 
-| 계층 (Layer)                  | 기술 (Technology)   | 상세 내용 (Details)                                                                     |
-| :-------------------------- | :---------------- | :---------------------------------------------------------------------------------- |
-| **Layer 7**(Application)   |** 없음 (None)**| Thread 자체는 애플리케이션을 정의하지 않음. 주로**[Matter](../matter/Matter.md)** 가 사용됨.              |
-| **Layer 4**(Transport)     |** UDP** + 6LoWPAN | IPv6 패킷을 압축하여 전송.                                                                   |
-| **Layer 2-3**(Mac/Network) |**[IEEE 802.15.4](../connectivity/IEEE_802_15_4/IEEE%20802.15.4.md)**| [Zigbee](../connectivity/Zigbee.md) 와 동일한 물리 계층 (PHY) 을 사용하지만,** IPv6** 라우팅을 수행합니다. |
-|                             |                   |                                                                                     |
+| 계층 (Layer)                 | 기술 (Technology)                                                       | 상세 내용 (Details)                                                                     |
+| :------------------------- | :-------------------------------------------------------------------- | :---------------------------------------------------------------------------------- |
+| **Layer 7**(Application)   | ** 없음 (None)**                                                        | Thread 자체는 애플리케이션을 정의하지 않음. 주로**[Matter](../matter/Matter.md)** 가 사용됨.              |
+| **Layer 4**(Transport)     | ** UDP** + [6LoWPAN](../foundation/6LoWPAN.md)                        | IPv6 패킷을 압축하여 전송.                                                                   |
+| **Layer 2-3**(Mac/Network) | **[IEEE 802.15.4](../connectivity/IEEE_802_15_4/IEEE%20802.15.4.md)** | [Zigbee](../connectivity/Zigbee.md) 와 동일한 물리 계층 (PHY) 을 사용하지만,** IPv6** 라우팅을 수행합니다. |
+|                            |                                                                       |                                                                                     |
 
 ### 🛠️ 주요 구성 요소 및 역할 (Roles)
 >[!TIP] 자세한 역할 정의
