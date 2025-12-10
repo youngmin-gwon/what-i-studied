@@ -2,7 +2,7 @@
 title: Strategy Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 10:01:45 +09:00
+date modified: 2025-12-10 11:33:43 +09:00
 date created: 2024-12-12 15:48:00 +09:00
 ---
 
