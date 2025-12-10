@@ -2,7 +2,7 @@
 title: IPv6
 tags: [foundation, internet, network, protocol]
 aliases: [Internet Protocol version 6]
-date modified: 2025-12-10 15:35:10 +09:00
+date modified: 2025-12-10 15:59:30 +09:00
 date created: 2025-12-10 09:55:45 +09:00
 ---
 
@@ -32,7 +32,7 @@ date created: 2025-12-10 09:55:45 +09:00
 
 ## 🏠 IoT 에서의 IPv6 (Role in IoT)
 
-**[Thread](../thread/Thread.md)** 와**[Matter](../matter/Matter.md)** 는 기본적으로 IPv6 기반입니다.
+**[Thread](../thread/Thread.md)** 와 **[Matter](../matter/Matter.md)** 는 기본적으로 IPv6 기반입니다.
 
 - **End-to-End Connectivity**: 클라우드 서버와 전구 (End Device) 가 NAT 없이 직접 통신할 수 있습니다.
 - **[6LoWPAN](6LoWPAN.md)**: 무거운 IPv6 패킷을 저전력 무선 구간 (IEEE 802.15.4) 으로 보내기 위해 압축 기술을 사용합니다.

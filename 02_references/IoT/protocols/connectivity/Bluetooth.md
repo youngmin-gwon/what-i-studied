@@ -20,7 +20,7 @@ BLE 스택은 크게 컨트롤러 (Controller) 와 호스트 (Host) 로 나뉩�
 | 계층 (Layer)                | 기술 (Technology)      | 상세 내용 (Details)                                                                                                                                             |
 | :------------------------ | :------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Layer 7**(Application) |** GATT / GAP**|** Generic Attribute Profile**: 서비스 (Services) 와 특성 (Characteristics, 데이터) 을 정의합니다.<br>** Generic Access Profile**: 스캔 (Scanning) 및 광고 (Advertising) 를 관리합니다. |
-| **Layer 4-6**(Host)      |** L2CAP / ATT / SM**|** Attribute Protocol**(데이터 전송),** Security Manager**(페어링),** L2CAP** (멀티플렉싱).                                                                             |
+| **Layer 4-6**(Host)      |** L2CAP / ATT / SM**|** Attribute Protocol**(데이터 전송),** Security Manager**(페어링),** L2CAP** (멀티플렉싱 & **[MTU](../foundation/MTU.md)** 관리).                                                                             |
 | **Layer 2**(Link Layer)  |** Link Layer (LL)**  | 라디오 상태 관리 (Advertising, Scanning, Connected).                                                                                                               |
 | **Layer 1**(PHY)         |** Bluetooth PHY**|** 2.4 GHz** 대역 (FHSS - 주파수 도약 확산 스펙트럼) 을 사용하여 간섭을 견딥니다.                                                                                                     |
 

@@ -2,13 +2,13 @@
 title: CoAP
 tags: [iot, light-weight, messaging, protocol, udp]
 aliases: [RFC 7252]
-date modified: 2025-12-09 23:58:46 +09:00
+date modified: 2025-12-10 16:03:27 +09:00
 date created: 2025-12-09 18:37:02 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**CoAP (Constrained Application Protocol)** 는 소형 저전력 IoT 기기를 위해 설계된 매우 가벼운 웹 전송 프로토콜입니다. 쉽게 말해**"IoT 를 위한 다이어트 버전의 HTTP"** 입니다.
+**CoAP (Constrained Application Protocol)** 는 소형 저전력 IoT 기기를 위해 설계된 매우 가벼운 웹 전송 프로토콜입니다. 쉽게 말해 **"IoT 를 위한 다이어트 버전의 HTTP"** 입니다.
 
 >[!NOTE]
 >[Matter](../matter/Matter.md) 는 기기 간 통신을 위해 내부적으로 CoAP 를 사용합니다. 우리가 웹에서 HTTP 를 쓰듯, Matter 기기들은 CoAP 를 통해 서로 명령 (TurnOn) 과 상태 (Status) 를 주고받습니다.
