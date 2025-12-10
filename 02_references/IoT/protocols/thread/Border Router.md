@@ -2,7 +2,7 @@
 title: Border Router
 tags: [bridge, iot, router, thread]
 aliases: [Border Router, TBR]
-date modified: 2025-12-10 16:29:14 +09:00
+date modified: 2025-12-10 16:45:16 +09:00
 date created: 2025-12-09 18:43:18 +09:00
 ---
 
@@ -15,13 +15,13 @@ date created: 2025-12-09 18:43:18 +09:00
 
 ### 1. IP 라우팅 (IP Routing) 및 6LoWPAN 적응
 
-- **IP 라우팅**: 기본적으로 TBR은 패킷의 내용을 건드리지 않고 목적지 주소만 보고 전달합니다.
+- **IP 라우팅**: 기본적으로 TBR 은 패킷의 내용을 건드리지 않고 목적지 주소만 보고 전달합니다.
 - **6LoWPAN 적응 (Adaptation Layer)**: 하지만 물리적으로는 "변환"이 일어납니다.
     - **Thread 내부**: 패킷은 **[6LoWPAN](../foundation/6LoWPAN.md)** 기술로 압축되고 조각나서 이동합니다.
-    - **TBR의 역할**:
-        - **Thread → Wi-Fi**: 압축된 6LoWPAN 패킷을 풀어서 온전한 표준 IPv6 패킷으로 복원(Decompression)하여 Wi-Fi로 보냅니다.
-        - **Wi-Fi → Thread**: 큰 IPv6 패킷을 받아서 6LoWPAN으로 압축 및 단편화(Compression & Fragmentation)하여 Thread 망으로 보냅니다.
-    - 즉, **내용(Payload)은 건드리지 않지만 패킷의 포장(Header/Framing)은 바꿉니다.**
+    - **TBR 의 역할**:
+        - **Thread → Wi-Fi**: 압축된 6LoWPAN 패킷을 풀어서 온전한 표준 IPv6 패킷으로 복원 (Decompression) 하여 Wi-Fi 로 보냅니다.
+        - **Wi-Fi → Thread**: 큰 IPv6 패킷을 받아서 6LoWPAN 으로 압축 및 단편화 (Compression & Fragmentation) 하여 Thread 망으로 보냅니다.
+    - 즉, **내용 (Payload) 은 건드리지 않지만 패킷의 포장 (Header/Framing) 은 바꿉니다.**
 
 ### 2. 양방향 통신
 
@@ -40,7 +40,7 @@ date created: 2025-12-09 18:43:18 +09:00
 | 특징 | **IoT Hub (Zigbee/Z-Wave 코디네이터)** | **Thread Border Router (TBR)** |
 | :--- | :--- | :--- |
 | **역할** | **통역사 (Gateway)** | **우체부 (Router)** |
-| **데이터 처리** | 패킷을 **뜯어서** 내용을 이해하고, 다른 언어(JSON/HTTP)로 **번역**해서 전달합니다. | 패킷을 **뜯지 않고** 겉면의 주소만 보고 전달합니다. (내용물은 암호화되어 있어 모름) |
+| **데이터 처리** | 패킷을 **뜯어서** 내용을 이해하고, 다른 언어 (JSON/HTTP) 로 **번역**해서 전달합니다. | 패킷을 **뜯지 않고** 겉면의 주소만 보고 전달합니다. (내용물은 암호화되어 있어 모름) |
 | **의존성** | 허브 제조사가 번역 규칙을 업데이트해줘야 새 기기를 지원함. | 새 기기가 나와도 라우터는 알 필요 없음. 그냥 배달만 함. |
 | **통신 계층** | **L7 (Application Layer)** 변환 | **L3 (Network Layer)** 라우팅 + **L2** 적응 |
 
@@ -49,26 +49,28 @@ date created: 2025-12-09 18:43:18 +09:00
 #### 1. Zigbee Hub (번역 과정)
 
 사용자가 스마트폰으로 **"전구 켜"** 명령을 보낼 때:
-1.  **스마트폰**: `HTTP POST /lights/1/state { "on": true }` (JSON 데이터)를 허브로 전송.
-2.  **허브**:
-    -   JSON 메시지를 받아서 해석. "아, 1번 전구를 켜라는 거구나."
-    -   Zigbee 언어인 **ZCL (Zigbee Cluster Library)** 커맨드로 변환. (`Cluster: OnOff, Command: On`).
-    -   Zigbee 주소 체계(16-bit Short Address)로 포장하여 전송.
-3.  **Zigbee 전구**: ZCL 명령을 받고 불을 켬.
+
+1. **스마트폰**: `HTTP POST /lights/1/state { "on": true }` (JSON 데이터) 를 허브로 전송.
+2. **허브**:
+    - JSON 메시지를 받아서 해석. "아, 1 번 전구를 켜라는 거구나."
+    - Zigbee 언어인 **ZCL (Zigbee Cluster Library)** 커맨드로 변환. (`Cluster: OnOff, Command: On`).
+    - Zigbee 주소 체계 (16-bit Short Address) 로 포장하여 전송.
+3. **Zigbee 전구**: ZCL 명령을 받고 불을 켬.
 
 #### 2. Thread Border Router (전달 과정)
 
-사용자가 스마트폰(Matter Controller)으로 **"전구 켜"** 명령을 보낼 때:
-1.  **스마트폰**: `IPv6 패킷 [ 목적지: 전구IP, 내용: Matter "On" Command ]`를 생성하여 Wi-Fi로 전송.
-2.  **Thread Border Router**:
-    -   Wi-Fi로 들어온 IPv6 패킷을 받음.
-    -   **내용(Matter Command)은 전혀 보지 않음 (알 수도 없음).**
-    -   단지 "이 IP 주소는 Thread 망에 있는 녀석이네?" 하고 **6LoWPAN**으로 압축해서 Thread 망으로 쏘아보냄.
-3.  **Thread 전구**: IPv6 패킷을 직접 받아서(스스로 압축을 풀고) Matter 명령을 해석해 불을 켬.
+사용자가 스마트폰 (Matter Controller) 으로 **"전구 켜"** 명령을 보낼 때:
 
-> [!TIP]
-> 즉, **Zigbee Hub**는 "스마트싱스 서버 ↔ **[번역]** ↔ 전구" 구조라서 허브가 똑똑해야 하지만,
-> **Border Router**는 "스마트폰 ↔ **[통로]** ↔ 전구" 구조라서 라우터는 멍청해도(단순해도) 됩니다. 이것이 Thread/Matter의 확장성이 뛰어난 이유입니다.
+1. **스마트폰**: `IPv6 패킷 [ 목적지: 전구IP, 내용: Matter "On" Command ]` 를 생성하여 Wi-Fi 로 전송.
+2. **Thread Border Router**:
+    - Wi-Fi 로 들어온 IPv6 패킷을 받음.
+    - **내용 (Matter Command) 은 전혀 보지 않음 (알 수도 없음).**
+    - 단지 "이 IP 주소는 Thread 망에 있는 녀석이네?" 하고 **6LoWPAN**으로 압축해서 Thread 망으로 쏘아보냄.
+3. **Thread 전구**: IPv6 패킷을 직접 받아서 (스스로 압축을 풀고) Matter 명령을 해석해 불을 켬.
+
+>[!TIP]
+>즉, **Zigbee Hub**는 "스마트싱스 서버 ↔ **[번역]** ↔ 전구" 구조라서 허브가 똑똑해야 하지만,
+> **Border Router**는 "스마트폰 ↔ **[통로]** ↔ 전구" 구조라서 라우터는 멍청해도 (단순해도) 됩니다. 이것이 Thread/Matter 의 확장성이 뛰어난 이유입니다.
 
 ## 🛠️ 대표적인 기기
 
