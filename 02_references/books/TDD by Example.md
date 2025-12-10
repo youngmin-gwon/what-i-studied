@@ -2,7 +2,7 @@
 title: TDD by Example
 tags: [book, code-quality, tdd, test]
 aliases: []
-date modified: 2025-12-09 17:10:17 +09:00
+date modified: 2025-12-10 14:24:16 +09:00
 date created: 2024-12-16 11:58:50 +09:00
 author: Kent Beck
 published at: 2002-11-08
@@ -211,7 +211,7 @@ TDD 기반 추상화 과정을 거칠 때, 예가 두 개 이상일 때만 추�
 
 TDD 의 어느 단계에서 사용되느냐에 따라 디자인 패턴도 다양하게 활용된다.
 
-#### [Command Pattern](../oop/design_pattern/behavioral/patterns/Command%20Pattern.md)
+#### [Command Pattern](../oop/design_pattern/behavioral/Command%20Pattern.md)
 
 메세지를 보냈다는 것만으로 충분할 때가 있으나, 메세지를 보낸다는 인터페이스에 관한 구현 및 테스트를 하면 된다. 복잡한 구현을 할 필요가 없다.
 
@@ -225,7 +225,7 @@ TDD 의 어느 단계에서 사용되느냐에 따라 디자인 패턴도 다양
 
 널 객체 활용의 적절성에 대해서는 여러 이야기가 있으니 취사선택을 할 필요가 있다.
 
-#### [Template Method Pattern](../oop/design_pattern/behavioral/patterns/Template%20Method%20Pattern.md)
+#### [Template Method Pattern](../oop/design_pattern/behavioral/Template%20Method%20Pattern.md)
 
 상위 클래스에서 다른 메서드를 호출하는 내용으로만 이루어진 메서드를 만들고, 하위 클래스에서 각각의 메서드를 서로 다른 방식으로 구현한다.
 
@@ -239,13 +239,13 @@ TDD 의 어느 단계에서 사용되느냐에 따라 디자인 패턴도 다양
 
 예를 들어 마우스의 각 액션마다 single select, multi select 상태인경우를 고려하는 조건문이 발생한다면 아예 모드 객체를 만들어서 그 모드가 해당 상태를 관리하도록 만들고, 액션들은 그 모드에서 제공하는 인터페이스만 가져다 쓰는 것이다.
 
-#### [Factory Method Pattern](../oop/design_pattern/creational/patterns/Factory%20Method%20Pattern.md)
+#### [Factory Method Pattern](../oop/design_pattern/creational/Factory%20Method%20Pattern.md)
 
 생성자는 표현력과 유연함이 떨어지는 경향이 있다. 그래서 이전 예제 작성 시 도입했던 `Money.dollar` 같은 템플릿 메서드를 활용할 수 있다. 이로 인해 테스트를 변경하지 않고도 다른 클래스의 인스턴스를 반환하는 유연함을 얻을 수 있다.
 
 다만 덜 직관적이라는 단점이 있기 떄문에, 유연함이 굳이 필요하지 않다면 직접 생성자를 사용해도 무관하다.
 
-#### [Composite Pattern](../oop/design_pattern/structural/patterns/Composite%20Pattern.md)
+#### [Composite Pattern](../oop/design_pattern/structural/Composite%20Pattern.md)
 
 하나의 객체가 다른 객체 목록의 행위를 조합한 것 처럼 행동하게 만들 때 사용한다.
 
@@ -279,7 +279,7 @@ TDD 의 어느 단계에서 사용되느냐에 따라 디자인 패턴도 다양
 
 #### 테스트 할 필요가 없는 것은 무엇인가?
 
-> " 두려움이 지루함으로 변할 때까지 테스트를 만들어라 "
+>" 두려움이 지루함으로 변할 때까지 테스트를 만들어라 "
 
 불신할 이유가 없다면 다른 사람이 만든 코드를 테스트하지 마라. 때때로 외부 코드 때문에 자신만의 로직을 더 작성해야 하는 경우도 있다.
 

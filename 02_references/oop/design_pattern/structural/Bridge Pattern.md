@@ -2,7 +2,7 @@
 title: Bridge Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2025-12-09 17:03:12 +09:00
+date modified: 2025-12-10 14:21:29 +09:00
 date created: 2024-12-12 15:52:30 +09:00
 ---
 

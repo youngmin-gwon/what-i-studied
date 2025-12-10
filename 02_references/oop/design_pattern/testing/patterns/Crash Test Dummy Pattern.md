@@ -2,7 +2,7 @@
 title: Crash Test Dummy Pattern
 tags: [design-pattern, oop, testing-pattern]
 aliases: []
-date modified: 2025-12-09 17:32:08 +09:00
+date modified: 2025-12-10 14:23:17 +09:00
 date created: 2024-12-12 23:57:29 +09:00
 ---
 

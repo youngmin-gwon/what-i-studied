@@ -2,7 +2,7 @@
 title: Strategy Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 13:20:17 +09:00
+date modified: 2025-12-10 14:21:06 +09:00
 date created: 2024-12-12 15:48:00 +09:00
 ---
 
@@ -43,7 +43,7 @@ date created: 2024-12-12 15:48:00 +09:00
   - run-time 중 추출된 클래스를 동적으로 교환할 수 있음.
 - 코드, 내부 데이터, 다양한 알고리즘의 dependencies 를 isolate 할 수 있음.
 - 간단한 interface 를 사용하여 동적으로 알고리즘 수행 혹은 알고리즘 교체를 할 수 있음.
-- 새로운 ConcreteStrategy 를 코드 수정없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../solid/OCP(Open%20Closed%20Principle).md)**.
+- 새로운 ConcreteStrategy 를 코드 수정없이 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)
 
 ## Cons
 

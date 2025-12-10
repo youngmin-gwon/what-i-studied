@@ -2,14 +2,14 @@
 title: SRP(Single Responsibility Principle)
 tags: [oop, solid, srp]
 aliases: []
-date modified: 2024-12-16 15:31:22 +09:00
+date modified: 2025-12-10 14:22:26 +09:00
 date created: 2024-12-12 15:16:57 +09:00
 ---
 
 ## 개요
 
-> "A class should have one, and only one, reason to change."
-> Robert C. Martin
+>"A class should have one, and only one, reason to change."
+>Robert C. Martin
 
 - **클래스는 하나의 책임만 가져야 한다.**
 - 클래스 하나에 이것저것 다 넣지 말아라. (God Object 방지)

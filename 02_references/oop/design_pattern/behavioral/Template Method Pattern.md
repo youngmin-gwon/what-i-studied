@@ -2,7 +2,7 @@
 title: Template Method Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:08:22 +09:00
+date modified: 2025-12-10 14:21:41 +09:00
 date created: 2024-12-12 15:35:58 +09:00
 ---
 
@@ -32,7 +32,7 @@ date created: 2024-12-12 15:35:58 +09:00
 - template method 는 operations 중 어떤 것이 hook operation 인지 abstract operations 인지 알려줄 필요가 있음 ⇒ override 되어야 하는 경우 접두사로 "Do-" 를 붙여 hook 인지 알려줄 수 있음.
 - `Hollywood Principle`
 
-> Don't call us, we will call you
+>Don't call us, we will call you
 
 ![Untitled](../../../../../_assets/oop/Untitled%207.png)
 

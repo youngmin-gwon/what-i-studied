@@ -2,7 +2,7 @@
 title: Null Object Pattern
 tags: [design-pattern, general-pattern, oop]
 aliases: []
-date modified: 2025-12-09 17:24:56 +09:00
+date modified: 2025-12-10 14:23:35 +09:00
 date created: 2024-12-13 00:00:26 +09:00
 ---
 
