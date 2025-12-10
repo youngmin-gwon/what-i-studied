@@ -2,18 +2,18 @@
 title: IEEE 802.11 PHY
 tags: [ofdm, phy, radio, wifi]
 aliases: []
-date modified: 2025-12-10 00:12:04 +09:00
+date modified: 2025-12-10 18:39:47 +09:00
 date created: 2025-12-10 00:10:35 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**IEEE 802.11 PHY** 계층은 고속 데이터 전송을 위해**[OFDM](../../foundation/OFDM.md)** 과 같은 복잡한 변조 기술을 사용합니다. 벽을 뚫고 대용량 데이터를 보내는 "고속도로" 역할을 합니다.
+**IEEE 802.11 PHY** 계층은 고속 데이터 전송을 위해 **[OFDM](../../foundation/OFDM.md)** 과 같은 복잡한 변조 기술을 사용합니다. 벽을 뚫고 대용량 데이터를 보내는 "고속도로" 역할을 합니다.
 
 ## 📈 주요 기술 (Technologies)
 
 1. **[OFDM](../../foundation/OFDM.md) (Orthogonal Frequency Division Multiplexing)**:
-    - 채널 하나를 수백 개의 작은 서브캐리어로 쪼갭니다. 802.11a/g 부터 기본 기술이 되었습니다.
+    - 채널 하나를 수백 개의 작은 서브캐리어로 쪼갭니다. [IEEE 802.11](IEEE%20802.11.md)a/g 부터 기본 기술이 되었습니다.
 2. **MIMO (Multiple Input Multiple Output)**:
     - 안테나를 여러 개 (2x2, 4x4 등) 사용하여 속도를 배로 늘리고, 신호 도달 범위를 넓힙니다. "다다익선" 전략입니다.
 3. **Channel Bonding (채널 본딩)**:

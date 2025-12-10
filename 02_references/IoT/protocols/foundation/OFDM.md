@@ -2,13 +2,13 @@
 title: OFDM
 tags: [foundation, modulation, phy, signal]
 aliases: [Orthogonal Frequency Division Multiplexing]
-date modified: 2025-12-10 18:22:37 +09:00
+date modified: 2025-12-10 18:40:01 +09:00
 date created: 2025-12-10 09:55:45 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**OFDM**(Orthogonal Frequency Division Multiplexing, 직교 주파수 분할 다중화) 은 고속 데이터를 여러 개의 느린 서브캐리어 (Subcarrier) 에 나누어 실어 보내는 변조 기술입니다. **[Wi-Fi](../connectivity/Wi-Fi.md)**(802.11a/g/n/ac/ax) 와 **LTE/5G** 통신의 핵심 기술입니다. (구형 802.15.4/Zigbee 는 O-QPSK 를 사용하지만, Wi-SUN 등 최신 표준은 OFDM 을 도입하기도 합니다.)
+**OFDM**(Orthogonal Frequency Division Multiplexing, 직교 주파수 분할 다중화) 은 고속 데이터를 여러 개의 느린 서브캐리어 (Subcarrier) 에 나누어 실어 보내는 변조 기술입니다. **[Wi-Fi](../connectivity/Wi-Fi.md)**(802.11a/g/n/ac/ax) 와 **LTE/5G** 통신의 핵심 기술입니다. (구형 802.15.4/Zigbee 는 [O-QPSK](O-QPSK.md) 를 사용하지만, [Wi-SUN](../connectivity/Wi-SUN.md) 등 최신 표준은 OFDM 을 도입하기도 합니다.)
 
 ## 📡 핵심 원리 (Core Principle)
 

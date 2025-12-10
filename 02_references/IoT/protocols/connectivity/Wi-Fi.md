@@ -2,15 +2,15 @@
 title: Wi-Fi
 tags: [high-bandwidth, iot, network]
 aliases: []
-date modified: 2025-12-10 18:25:21 +09:00
+date modified: 2025-12-10 18:38:45 +09:00
 date created: 2025-12-09 11:59:13 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 **Wi-Fi ([IEEE 802.11](IEEE_802_11/IEEE%20802.11.md))** 는 고대역폭 무선 네트워킹을 위한 보편적인 표준입니다. 스마트홈에서는 허브, 카메라, 그리고 인터넷을 연결하는 중추 (Backbone) 역할을 합니다.
 
-> [!NOTE]
-> Wi-Fi 표준의 세대별 진화 (802.11a/b/g/n/ac/ax/be) 에 대한 자세한 내용은 **[IEEE 802.11](IEEE_802_11/IEEE%20802.11.md)** 문서를 참고하세요.
+>[!NOTE]
+>Wi-Fi 표준의 세대별 진화 (802.11a/b/g/n/ac/ax/be) 에 대한 자세한 내용은 **[IEEE 802.11](IEEE_802_11/IEEE%20802.11.md)** 문서를 참고하세요.
 
 >[!WARNING]
 >Wi-Fi 는 기술적으로 **물리 및 데이터 링크 계층** (Layer 1-2) 을 의미합니다.
@@ -20,10 +20,10 @@ date created: 2025-12-09 11:59:13 +09:00
 
 Wi-Fi 장치는 PC 와 유사하게 완전한 TCP/IP 스택을 실행합니다.
 
-| 계층 (Layer)               | 기술 (Technology)    | 상세 내용 (Details)                                                       |
-| :----------------------- | :----------------- | :-------------------------------------------------------------------- |
-| **Layer 7**(Application) | ** 다양함 (Various)** | 독점 프로토콜 (HTTP/Cloud),**[Matter](../matter/Matter.md)**, CoAP, MQTT 등. |
-| **Layer 4**(Transport)   | ** TCP / UDP**     | [Zigbee](Zigbee.md)/[Thread](../thread/Thread.md) 에 비해 오버헤드가 큽니다.     |
+| 계층 (Layer)               | 기술 (Technology)    | 상세 내용 (Details)                                                                                                         |
+| :----------------------- | :----------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| **Layer 7**(Application) | ** 다양함 (Various)** | 독점 프로토콜 (HTTP/Cloud),**[Matter](../matter/Matter.md)**, [CoAP](../foundation/CoAP.md), [MQTT](../foundation/MQTT.md) 등. |
+| **Layer 4**(Transport)   | ** TCP / UDP**     | [Zigbee](Zigbee.md)/[Thread](../thread/Thread.md) 에 비해 오버헤드가 큽니다.                                                       |
 
 ### 🆚 Wi-Fi vs. [Thread](../thread/Thread.md) / [Zigbee](Zigbee.md)
 
@@ -39,10 +39,10 @@ Wi-Fi 장치는 PC 와 유사하게 완전한 TCP/IP 스택을 실행합니다.
 > **[Matter](../matter/Matter.md)** 표준에서도 Wi-Fi 는 고속/상시 전원 기기를 담당하고, 저전력/배터리 기기는**[Thread](../thread/Thread.md)** 가 담당하는 것으로 역할이 명확히 나뉘어 있습니다.
 >즉, "건전지 들어가는 Wi-Fi 센서"는 점차 사라질 운명입니다.
 
-| **Layer 3**(Network) |** IPv4 / IPv6**                                           | LAN 내에서 주소 지정이 가능합니다.                                                 |
-| --------------------- | --------------------------------------------------------- | --------------------------------------------------------------------- |
-| **Layer 2**(MAC)     |**[IEEE 802.11 MAC](IEEE_802_11/IEEE%20802.11%20MAC.md)**| 매체 접근 제어,**[CSMA-CA](../foundation/CSMA-CA.md)** 를 처리합니다.            |
-| **Layer 1**(PHY)     |**[IEEE 802.11 PHY](IEEE_802_11/IEEE%20802.11%20PHY.md)**| 2.4 GHz / 5 GHz / 6 GHz.**[OFDM](../foundation/OFDM.md)** 변조를 사용합니다. |
+| **Layer 3**(Network) | ** IPv4 / IPv6**                                          | LAN 내에서 주소 지정이 가능합니다.                                                |
+| -------------------- | --------------------------------------------------------- | -------------------------------------------------------------------- |
+| **Layer 2**(MAC)     | **[IEEE 802.11 MAC](IEEE_802_11/IEEE%20802.11%20MAC.md)** | 매체 접근 제어,**[CSMA-CA](../foundation/CSMA-CA.md)** 를 처리합니다.            |
+| **Layer 1**(PHY)     | **[IEEE 802.11 PHY](IEEE_802_11/IEEE%20802.11%20PHY.md)** | 2.4 GHz / 5 GHz / 6 GHz.**[OFDM](../foundation/OFDM.md)** 변조를 사용합니다. |
 
 ### 🛠️ IoT 에서의 주요 특징 (Key Components in IoT)
 1. **높은 전력 소모 (High Power Consumption)**: 연결 유지 (비콘, Keep-alive) 를 위해 [Zigbee](Zigbee.md)/[Thread](../thread/Thread.md) 보다 훨씬 많은 에너지를 소모합니다. 코인 배터리 센서에는 부적합합니다.

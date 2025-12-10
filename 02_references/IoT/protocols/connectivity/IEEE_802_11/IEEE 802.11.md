@@ -2,7 +2,7 @@
 title: IEEE 802.11
 tags: [standard, wifi, wlan]
 aliases: [Wi-Fi Standard, Wireless LAN, WLAN]
-date modified: 2025-12-10 00:11:05 +09:00
+date modified: 2025-12-10 18:37:49 +09:00
 date created: 2025-12-10 00:10:27 +09:00
 ---
 
@@ -16,21 +16,21 @@ IEEE 802.11 은 지속적으로 발전하며 더 빠른 속도와 더 나은 효
 
 ### 📊 세대별 비교표
 
-| 세대 (Generation) | 표준명 | 주파수 | 최대 속도 | 변조 방식 | 주요 특징 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Wi-Fi 7** | **802.11be** | 2.4/5/6 GHz | 46 Gbps | 4096-QAM | MLO (Multi-Link Operation), 초저지연 |
-| **Wi-Fi 6E** | **802.11ax** | 2.4/5/6 GHz | 9.6 Gbps | 1024-QAM | **[OFDMA](../../foundation/OFDMA.md)**, TWT, 6 GHz 대역 추가 |
-| **Wi-Fi 6** | **802.11ax** | 2.4/5 GHz | 9.6 Gbps | 1024-QAM | **[OFDMA](../../foundation/OFDMA.md)** 도입 (IoT 효율성 증대) |
-| **Wi-Fi 5** | **802.11ac** | 5 GHz | 3.5 Gbps | 256-QAM | 빔포밍, MU-MIMO 하향, 5 GHz 전용 |
-| **Wi-Fi 4** | **802.11n** | 2.4/5 GHz | 600 Mbps | 64-QAM | MIMO 도입, 듀얼 밴드 |
-| Legacy | **802.11g** | 2.4 GHz | 54 Mbps | **[OFDM](../../foundation/OFDM.md)** | 802.11b 와 호환 |
-| Legacy | **802.11a** | 5 GHz | 54 Mbps | **[OFDM](../../foundation/OFDM.md)** | 최초의 5 GHz 표준 |
-| Legacy | **802.11b** | 2.4 GHz | 11 Mbps | DSSS | 최초의 대중화된 Wi-Fi |
+| 세대 (Generation) | 표준명          | 주파수         | 최대 속도    | 변조 방식                                | 주요 특징                                                    |
+| :-------------- | :----------- | :---------- | :------- | :----------------------------------- | :------------------------------------------------------- |
+| **Wi-Fi 7**     | **802.11be** | 2.4/5/6 GHz | 46 Gbps  | 4096-QAM                             | MLO (Multi-Link Operation), 초저지연                         |
+| **Wi-Fi 6E**    | **802.11ax** | 2.4/5/6 GHz | 9.6 Gbps | 1024-QAM                             | **[OFDMA](../../foundation/OFDMA.md)**, TWT, 6 GHz 대역 추가 |
+| **Wi-Fi 6**     | **802.11ax** | 2.4/5 GHz   | 9.6 Gbps | 1024-QAM                             | **[OFDMA](../../foundation/OFDMA.md)** 도입 (IoT 효율성 증대)   |
+| **Wi-Fi 5**     | **802.11ac** | 5 GHz       | 3.5 Gbps | 256-QAM                              | 빔포밍, MU-MIMO 하향, 5 GHz 전용                                |
+| **Wi-Fi 4**     | **802.11n**  | 2.4/5 GHz   | 600 Mbps | 64-QAM                               | MIMO 도입, 듀얼 밴드                                           |
+| Legacy          | **802.11g**  | 2.4 GHz     | 54 Mbps  | **[OFDM](../../foundation/OFDM.md)** | 802.11b 와 호환                                             |
+| Legacy          | **802.11a**  | 5 GHz       | 54 Mbps  | **[OFDM](../../foundation/OFDM.md)** | 최초의 5 GHz 표준                                             |
+| Legacy          | **802.11b**  | 2.4 GHz     | 11 Mbps  | DSSS                                 | 최초의 대중화된 Wi-Fi                                           |
 
 ### 🔍 주요 변조 기술
 
 - **[OFDM](../../foundation/OFDM.md)** (Orthogonal Frequency-Division Multiplexing): 802.11a/g 부터 사용. 여러 주파수를 동시에 사용하여 간섭에 강함.
-- **OFDMA** (Orthogonal Frequency-Division Multiple Access): Wi-Fi 6 (802.11ax) 의 핵심. 여러 기기가 동시에 채널을 나눠 쓸 수 있어 **IoT 환경**에 최적화.
+- **[OFDMA](../../foundation/OFDMA.md)** (Orthogonal Frequency-Division Multiple Access): Wi-Fi 6 (802.11ax) 의 핵심. 여러 기기가 동시에 채널을 나눠 쓸 수 있어 **IoT 환경** 에 최적화.
 - **QAM** (Quadrature Amplitude Modulation): 위상과 진폭을 모두 변조. 숫자가 클수록 (64-QAM → 1024-QAM) 더 많은 데이터를 한 번에 전송.
 
 ## 🕸️ 네트워크 모드 (Modes)
