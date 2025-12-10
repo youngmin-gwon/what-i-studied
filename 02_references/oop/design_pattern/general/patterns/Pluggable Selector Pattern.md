@@ -8,155 +8,79 @@ date created: 2024-12-12 23:55:33 +09:00
 
 ## Description
 
-**Pluggable Selector Pattern**은 실행 시점에서 데이터를 선택하거나 작업의 흐름을 결정하는 로직을 동적으로 설정할 수 있도록 설계된 패턴
+## Description
 
-이 패턴은 다양한 선택 기준 (Selector) 을 캡슐화하여 조건문과 분기 로직을 대체하고, 더 유연하고 확장 가능한 코드를 작성할 수 있게 함
+**Pluggable Selector Pattern**은 호출할 메서드를 하드코딩하지 않고, 실행 시점(Runtime)에 메서드의 이름이나 식별자(Selector)를 동적으로 결정하여 실행하는 디자인 패턴입니다.
+
+- **핵심**: 인터페이스를 구현한 여러 클래스를 만드는 대신(Strategy), 하나의 클래스 안에서 Reflection이나 동적 호출 기능을 이용해 메서드 이름만 바꿔서 다른 로직을 수행합니다.
+- **주 사용처**: 리플렉션(Reflection)을 지원하는 언어(Smalltalk, Java, Ruby 등)에서, 비슷한 서명(Signature)을 가진 메서드들 중 하나를 동적으로 골라 실행할 때 사용합니다.
 
 ## Structure
 
-1. **Selector Interface**:
-   - 선택 로직을 정의하는 공통 인터페이스.
-2. **Concrete Selector**:
-   - 특정 조건에 따라 선택 로직을 구현한 클래스.
-3. **Selector Host**:
-   - Selector 객체를 주입받아 선택 로직을 실행하는 클래스.
-
-### Details
-
-`Selector Host` 는 선택 작업을 외부에서 주입된 `Selector` 객체에 위임
-
-선택 기준이 변경되면 새로운 `Selector` 를 주입하여 동작을 유연하게 변경 가능
+1. **Client**: 실행하고 싶은 메서드의 이름(Selecter)을 결정하고 전달함.
+2. **Invoker**: 전달받은 Selector를 이용해 실제 메서드를 찾아 실행(Invoke)함.
 
 ## Example
 
-### Before
+### Before (Switch/Case or Strategy)
+
+비슷한 로직을 수행하는 메서드가 많을 때, 이를 분기문으로 처리하거나 각각 클래스로 만들면 코드가 길어집니다.
 
 ```dart
-String selectCategory(String itemType) {
-  if (itemType == "fruit") {
-    return "Fruits Section";
-  } else if (itemType == "vegetable") {
-    return "Vegetables Section";
-  } else {
-    return "Miscellaneous Section";
-  }
-}
-
-void main() {
-  print(selectCategory("fruit"));      // Output: Fruits Section
-  print(selectCategory("vegetable")); // Output: Vegetables Section
+String calculate(String type, int a, int b) {
+  if (type == "add") return add(a, b);
+  else if (type == "sub") return sub(a, b);
+  // ... 계속 늘어남
 }
 ```
 
-### After
+### After (Pluggable Selector)
+
+Dart는 Reflection(Mirrors)을 지원하지만, 여기서는 개념적인 설명을 위해 `Function` 맵을 사용하는 방식(또는 리플렉션과 유사한 방식)으로 예시를 듭니다. (동적 언어에서는 메서드 이름을 문자열로 받아 실행합니다).
 
 ```dart
-// Selector Interface
-abstract class Selector {
-  String select(String itemType);
-}
+class Calculator {
+  // 실제 로직들
+  int add(int a, int b) => a + b;
+  int sub(int a, int b) => a - b;
+  int mul(int a, int b) => a * b;
 
-// Concrete Selectors
-class FruitSelector implements Selector {
-  @override
-  String select(String itemType) {
-    return "Fruits Section";
+  // Pluggable Selector Execution
+  int execute(String selectorName, int a, int b) {
+    // Reflection을 사용한 동적 호출 (개념적 예시)
+    // 실제 Dart 환경(Flutter 등)에서는 Mirror 사용이 제한될 수 있으므로
+    // Map<String, Function> 등으로 구현하는 경우가 많음.
+    
+    // instance.invoke(selectorName, [a, b]);
+    // 여기서는 개념적으로 "이름으로 함수를 찾는다"는 것이 중요함.
+    throw UnimplementedError("Use Reflection or Map to find method by name: $selectorName");
   }
-}
-
-class VegetableSelector implements Selector {
-  @override
-  String select(String itemType) {
-    return "Vegetables Section";
-  }
-}
-
-class DefaultSelector implements Selector {
-  @override
-  String select(String itemType) {
-    return "Miscellaneous Section";
-  }
-}
-
-// Selector Host
-class CategorySelector {
-  Selector _selector;
-
-  CategorySelector(this._selector);
-
-  void setSelector(Selector selector) {
-    _selector = selector;
-  }
-
-  String execute(String itemType) {
-    return _selector.select(itemType);
-  }
-}
-
-void main() {
-  // Initial setup with FruitSelector
-  CategorySelector categorySelector = CategorySelector(FruitSelector());
-  print(categorySelector.execute("fruit")); // Output: Fruits Section
-
-  // Dynamically switch to VegetableSelector
-  categorySelector.setSelector(VegetableSelector());
-  print(categorySelector.execute("vegetable")); // Output: Vegetables Section
-
-  // Switch to DefaultSelector
-  categorySelector.setSelector(DefaultSelector());
-  print(categorySelector.execute("other")); // Output: Miscellaneous Section
 }
 ```
 
 ## Adaptability
 
-1. 조건문 및 분기 로직을 줄이고 싶을 때
-   - 복잡한 조건문이 많아지는 경우 이를 각 Selector 로 캡슐화하여 가독성을 높일 수 있음.
-2. 동적으로 선택 로직을 변경해야 할 때
-   - 실행 중에 다른 선택 기준으로 교체해야 하는 시스템.
-3. 다양한 선택 기준이 추가될 가능성이 있는 경우
-   - 새로운 선택 기준이 필요할 때 기존 코드에 영향을 주지 않고 새로운 Selector 만 추가.
-4. 테스트 가능한 코드가 필요할 때
-   - 각 선택 로직을 별도의 클래스로 캡슐화하면 단위 테스트 작성이 쉬워짐.
+1. **Strategy 패턴의 클래스 폭발 방지**: 아주 간단한 로직 차이 때문에 수많은 Strategy 클래스를 만드는 것을 피하고 싶을 때.
+2. **동적 메서드 매핑**: 외부 설정 파일이나 사용자 입력 문자열에 따라 실행할 메서드가 결정도야 할 때.
 
 ## Pros
 
-1. 가독성과 유지보수성 향상
-   - 조건문과 분기를 없애고 로직을 캡슐화하여 코드의 명확성을 높임.
-2. 확장성
-   - 새로운 선택 기준을 추가해도 기존 코드를 수정할 필요 없음 (Open/Closed Principle 준수).
-3. 동적 변경 가능
-   - 실행 중에도 선택 로직을 자유롭게 교체 가능.
-4. 테스트 용이성
-   - 각 Selector 를 독립적으로 테스트할 수 있어 테스트가 쉬움.
+1. **클래스 수 감소**: 비슷비슷한 작은 클래스들을 만들지 않아도 됨.
+2. **유연성**: 문자열(Selector)만 바꾸면 실행 로직이 바뀜.
 
 ## Cons
 
-1. 추가 클래스 증가:
-   - 각 선택 기준마다 새로운 Selector 클래스를 만들어야 하므로 클래스 수가 많아질 수 있음.
-2. 복잡성 증가:
-   - 간단한 선택 작업에 적용할 경우 오히려 코드가 복잡해질 수 있음.
-3. 초기 설계 비용:
-   - 패턴을 도입하고 구조를 잡는 데 추가적인 시간과 노력이 필요.
+1. **타입 안정성 감소**: 컴파일 타임에 메서드 존재 여부를 확인하기 어려움 (오타 나면 런타임 에러).
+2. **리팩토링 어려움**: IDE가 메서드 사용처를 추적하기 어려워짐 (이름이 문자열로 관리되므로).
+3. **보안 이슈**: 의도치 않은 내부 메서드가 호출될 수 있음.
 
 ## Relationship with other patterns
 
-### Similarity
+### [Strategy Pattern](../../behavioral/Strategy%20Pattern.md)
 
-#### [Strategy Pattern](../../behavioral/Strategy%20Pattern.md)
+- **Strategy**: 인터페이스를 구현한 **객체(Object)**를 교체하여 로직을 변경. (더 안전함, 권장됨)
+- **Pluggable Selector**: 호출할 **메서드 이름(String)**을 교체하여 로직을 변경. (더 가벼움, 위험함)
 
-둘 다 객체의 동작을 캡슐화하여 변경 가능하게 설계하지만, Pluggable Selector Pattern 은 선택 로직에 초점을 맞춤.
+### [Command Pattern](../../behavioral/Command%20Pattern.md)
 
-#### [State Pattern](../../behavioral/State%20Pattern.md)
-
-State Pattern 은 상태에 따라 객체의 동작을 변경하며, Pluggable Selector Pattern 은 선택 기준에 따라 데이터를 처리.
-
-### Difference
-
-#### Factory Pattern
-
-Factory Pattern 은 객체 생성에 초점, Pluggable Selector Pattern 은 동적으로 선택 로직을 변경하는 데 초점.
-
-#### [Decorator Pattern](../../structural/Decorator%20Pattern.md)
-
-Decorator Pattern 은 기존 객체에 추가 기능을 덧붙이는 데 사용되지만, Pluggable Selector Pattern 은 로직의 " 선택 " 부분을 교체.
+- Command 패턴은 요청 자체를 객체로 캡슐화하는 것이고, Pluggable Selector는 단순히 어떤 메서드를 때릴지 고르는 방법론에 가까움.
