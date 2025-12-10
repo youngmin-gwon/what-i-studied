@@ -2,7 +2,7 @@
 title: Mediator Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:26:30 +09:00
+date modified: 2025-12-10 14:26:32 +09:00
 date created: 2024-12-12 15:48:17 +09:00
 ---
 

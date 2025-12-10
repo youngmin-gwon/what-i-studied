@@ -2,7 +2,7 @@
 title: Null Object Pattern
 tags: [design-pattern, general-pattern, oop]
 aliases: []
-date modified: 2025-12-10 14:23:35 +09:00
+date modified: 2025-12-10 14:27:23 +09:00
 date created: 2024-12-13 00:00:26 +09:00
 ---
 
@@ -122,11 +122,11 @@ void main() {
 
 ### Similarity
 
-#### [Strategy Pattern](../behavioral/patterns/Strategy%20Pattern.md)
+#### [Strategy Pattern](../../behavioral/Strategy%20Pattern.md)
 
 둘 다 인터페이스를 사용하여 다양한 동작을 캡슐화하지만, Null Object Pattern 은 비활성 동작을 제공하는 데 초점이 있음.
 
-#### [Decorator Pattern](../structural/patterns/Decorator%20Pattern.md)
+#### [Decorator Pattern](../../structural/Decorator%20Pattern.md)
 
 Decorator 는 동작을 추가하거나 변경하지만, Null Object 는 비활성 또는 기본 동작을 제공함.
 

@@ -2,7 +2,7 @@
 title: Collecting Parameter Pattern
 tags: [design-pattern, general-pattern, oop]
 aliases: []
-date modified: 2025-12-09 17:34:39 +09:00
+date modified: 2025-12-10 14:28:00 +09:00
 date created: 2024-12-13 00:02:00 +09:00
 ---
 
@@ -90,7 +90,7 @@ void main() {
 
 ## Relationship with other patterns
 
-### [Builder Pattern](../creational/patterns/Builder%20Pattern.md)
+### [Builder Pattern](../../creational/Builder%20Pattern.md)
 
 - 두 패턴 모두 복잡한 데이터 구성을 단순화하고 가독성을 높이는 데 중점을 둠.
 - Collecting Parameter Pattern 은 데이터를 한 객체에 묶는 데 집중하고, Builder Pattern 은 객체 생성을 단계적으로 처리함.
@@ -98,7 +98,7 @@ void main() {
   - Collecting Parameter Pattern 은 단순히 데이터를 전달하기 위한 패턴인 반면, Builder Pattern 은 복잡한 객체를 생성하는 과정에 대한 패턴.
   - Collecting Parameter Pattern 은 함수 호출 시에만 주로 사용되는 반면, Builder Pattern 은 객체 초기화 과정 전체에서 사용됨.
 
-### [Composite Pattern](../structural/patterns/Composite%20Pattern.md)
+### [Composite Pattern](../../structural/Composite%20Pattern.md)
 
 - Collecting Parameter Pattern 에서 Parameter Object 는 Composite Pattern 처럼 여러 속성을 포함하여 복잡한 구조를 나타낼 수도 있음.
 

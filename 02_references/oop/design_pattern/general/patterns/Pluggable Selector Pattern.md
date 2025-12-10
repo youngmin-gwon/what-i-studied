@@ -2,7 +2,7 @@
 title: Pluggable Selector Pattern
 tags: [design-pattern, general-pattern, oop]
 aliases: []
-date modified: 2025-12-09 17:22:23 +09:00
+date modified: 2025-12-10 14:25:15 +09:00
 date created: 2024-12-12 23:55:33 +09:00
 ---
 
@@ -143,11 +143,11 @@ void main() {
 
 ### Similarity
 
-#### [Strategy Pattern](../behavioral/patterns/Strategy%20Pattern.md)
+#### [Strategy Pattern](../../behavioral/Strategy%20Pattern.md)
 
 둘 다 객체의 동작을 캡슐화하여 변경 가능하게 설계하지만, Pluggable Selector Pattern 은 선택 로직에 초점을 맞춤.
 
-#### [State Pattern](../behavioral/patterns/State%20Pattern.md)
+#### [State Pattern](../../behavioral/State%20Pattern.md)
 
 State Pattern 은 상태에 따라 객체의 동작을 변경하며, Pluggable Selector Pattern 은 선택 기준에 따라 데이터를 처리.
 
@@ -157,6 +157,6 @@ State Pattern 은 상태에 따라 객체의 동작을 변경하며, Pluggable S
 
 Factory Pattern 은 객체 생성에 초점, Pluggable Selector Pattern 은 동적으로 선택 로직을 변경하는 데 초점.
 
-#### [Decorator Pattern](../structural/patterns/Decorator%20Pattern.md)
+#### [Decorator Pattern](../../structural/Decorator%20Pattern.md)
 
 Decorator Pattern 은 기존 객체에 추가 기능을 덧붙이는 데 사용되지만, Pluggable Selector Pattern 은 로직의 " 선택 " 부분을 교체.
