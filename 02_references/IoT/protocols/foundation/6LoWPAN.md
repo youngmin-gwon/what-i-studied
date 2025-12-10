@@ -2,7 +2,7 @@
 title: 6LoWPAN
 tags: [foundation, iot, network, optimization]
 aliases: [IPv6 over Low-Power Wireless Personal Area Networks]
-date modified: 2025-12-10 16:38:05 +09:00
+date modified: 2025-12-10 18:17:37 +09:00
 date created: 2025-12-10 00:08:39 +09:00
 ---
 
@@ -65,11 +65,11 @@ block-beta
   Adapt --> L2
 ```
 
-1.  **L3 (IPv6)**: 거대한 원본 패킷입니다. 1280 바이트 이상일 수 있습니다.
-2.  **Adaptation (6LoWPAN)**:
-    -   거대한 **헤더(40B)**를 **2B** 로 압축합니다.
-    -   나머지 데이터가 127 바이트보다 크면 **조각(Fragments)** 냅니다.
-3.  **L2 (802.15.4)**: 실제로 공중으로 날아가는 작은 무선 프레임들입니다.
+1. **L3 (IPv6)**: 거대한 원본 패킷입니다. 1280 바이트 이상일 수 있습니다.
+2. **Adaptation (6LoWPAN)**:
+    - 거대한 **헤더 (40B)**를 **2B** 로 압축합니다.
+    - 나머지 데이터가 127 바이트보다 크면 **조각 (Fragments)** 냅니다.
+3. **L2 (802.15.4)**: 실제로 공중으로 날아가는 작은 무선 프레임들입니다.
 
 ## 🧠 활용 (Applications)
 

@@ -2,7 +2,7 @@
 title: MTU
 tags: [concept, network, parameter, performance]
 aliases: [Maximum Transmission Unit, MTU]
-date modified: 2025-12-10 16:13:48 +09:00
+date modified: 2025-12-10 18:19:44 +09:00
 date created: 2025-12-10 16:03:09 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2025-12-10 16:03:09 +09:00
 
 **MTU** (Maximum Transmission Unit) 는 네트워크 인터페이스가 한 번에 전송할 수 있는 **[패킷](IPv6.md)**(또는 프레임) 의 **최대 크기 (Byte)**를 의미합니다.
 
-- 쉽게 말해 **"트럭 한 대에 실을 수 있는 최대 화물의 양"**입니다.
+- 쉽게 말해 **"트럭 한 대에 실을 수 있는 최대 화물의 양"** 입니다.
 - 이 크기를 초과하는 데이터는 여러 개의 패킷으로 **쪼개져서 (Fragmentation)** 전송되어야 합니다.
 
 ## 📉 IoT 에서의 중요성 (Why it matters)
@@ -27,14 +27,14 @@ IoT 환경, 특히 저전력 무선 네트워크에서는 MTU 가 성능에 결�
 
 ## 🗂️ 프로토콜별 MTU 비교
 
-| 프로토콜 | 일반적인 MTU 크기 | 특징 |
-| :--- | :--- | :--- |
-| **Ethernet** | 1,500 Bytes | 유선 네트워크의 표준. |
-| **Wi-Fi** | 2,304 Bytes | 보통 Ethernet 과 호환성을 위해 1,500 으로 제한하여 사용. |
-| **IPv6** | 최소 1,280 Bytes | IPv6 표준을 따르려면 링크는 최소 1280 바이트를 지원해야 함. |
-| **IEEE 802.15.4** | **127 Bytes** | Zigbee, Thread 가 사용하는 저전력 표준. 매우 작음. |
-| **BLE (v4.0)** | 23 Bytes | 기본 ATT MTU. (헤더 3B + 데이터 20B) |
-| **BLE (v4.2+)** | **Up to 247+ Bytes** | DLE(Data Length Extension) 로 확장 가능. |
+| 프로토콜              | 일반적인 MTU 크기          | 특징                                      |
+| :---------------- | :------------------- | :-------------------------------------- |
+| **Ethernet**      | 1,500 Bytes          | 유선 네트워크의 표준.                            |
+| **Wi-Fi**         | 2,304 Bytes          | 보통 Ethernet 과 호환성을 위해 1,500 으로 제한하여 사용. |
+| **IPv6**          | 최소 1,280 Bytes       | IPv6 표준을 따르려면 링크는 최소 1280 바이트를 지원해야 함.  |
+| **IEEE 802.15.4** | **127 Bytes**        | Zigbee, Thread 가 사용하는 저전력 표준. 매우 작음.    |
+| **BLE (v4.0)**    | 23 Bytes             | 기본 ATT MTU. (헤더 3B + 데이터 20B)           |
+| **BLE (v4.2+)**   | **Up to 247+ Bytes** | DLE(Data Length Extension) 로 확장 가능.     |
 
 ---
 
@@ -44,12 +44,12 @@ IoT 환경, 특히 저전력 무선 네트워크에서는 MTU 가 성능에 결�
 
 가장 극적인 MTU 차이를 해결하는 사례입니다.
 
-- **문제**: **[IPv6](IPv6.md)**는 최소 **1280 바이트**를 요구하지만, 하위 물리 계층인 **[IEEE 802.15.4](../connectivity/IEEE_802_15_4/IEEE%20802.15.4.md)**는 **127 바이트**밖에 못 보냅니다.
+- **문제**: **[IPv6](IPv6.md)** 는 최소 **1280 바이트** 를 요구하지만, 하위 물리 계층인 **[IEEE 802.15.4](../connectivity/IEEE_802_15_4/IEEE%20802.15.4.md)** 는 **127 바이트** 밖에 못 보냅니다.
 - **해결**: **[6LoWPAN](6LoWPAN.md)** 계층이 중간에서 "코끼리를 냉장고에 넣는 작업"을 수행합니다.
     - **Header Compression**: 헤더를 압축해서 공간을 확보.
     - **Fragmentation**: 1280 바이트 패킷을 여러 개의 127 바이트 프레임으로 쪼개서 전송하고 수신 측에서 재조립.
 
-### 2. Bluetooth (BLE)
+### 2. [Bluetooth](../connectivity/Bluetooth.md) (BLE)
 
 BLE 개발에서 MTU 는 데이터 전송 속도 (Throughput) 를 결정하는 핵심 파라미터입니다.
 
