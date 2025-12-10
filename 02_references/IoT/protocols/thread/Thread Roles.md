@@ -2,7 +2,7 @@
 title: Thread Roles
 tags: [iot, roles, thread]
 aliases: [Thread Device Types]
-date modified: 2025-12-09 18:59:42 +09:00
+date modified: 2025-12-09 19:00:19 +09:00
 date created: 2025-12-09 18:18:05 +09:00
 ---
 
@@ -16,7 +16,7 @@ date created: 2025-12-09 18:18:05 +09:00
 | **Leader**                              | 네트워크 관리자                      | - 네트워크 파라미터 (PAN ID 등) 관리<br>- 라우터 중 한 대가 동적으로 선출됨 (고장 시 자동 승계)                                                               |
 | **Router**                              | 메시지 중계자                       | - 상시 전원 (Mains Powered) 기기<br>- 패킷을 다른 노드로 전달하여 **Mesh** 네트워크 확장                                                              |
 | **Proxy Device**                        | 메시지 중계 대행                     | - Border Router 역할을 일부 보조하거나 메시지 중계<br>- 네트워크 경계 (Border) 는 아니지만 확장성 향상에 기여                                                   |
-| **End Device** | 말단 장치 | - 라우팅 (중계) 기능 없음. 주로 데이터의 최종 목적지/생성지. |
+| **End Device**                          | 말단 장치                         | - 라우팅 (중계) 기능 없음. 주로 데이터의 최종 목적지/생성지.                                                                                         |
 
 ### 🆚 비교: Router vs Border Router
 
