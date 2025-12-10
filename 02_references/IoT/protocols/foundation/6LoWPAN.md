@@ -2,7 +2,7 @@
 title: 6LoWPAN
 tags: [foundation, iot, network, optimization]
 aliases: [IPv6 over Low-Power Wireless Personal Area Networks]
-date modified: 2025-12-10 16:03:11 +09:00
+date modified: 2025-12-10 16:38:05 +09:00
 date created: 2025-12-10 00:08:39 +09:00
 ---
 
@@ -28,6 +28,48 @@ date created: 2025-12-10 00:08:39 +09:00
     - 1280 바이트짜리 큰 패킷을 127 바이트 이하의 작은 조각으로 잘라서 (Slicing) 보내고, 수신 측에서 다시 조립합니다.
 3. **계층 2.5 (Layer 2.5)**:
     - OSI 모델에서 데이터 링크 계층 (MAC) 과 네트워크 계층 (IP) 사이에 위치합니다.
+
+## 📐 패킷 구조 및 처리 과정 (Packet Structure)
+
+IPv6 패킷이 802.15.4 무선 프레임으로 변환되는 과정의 도식화입니다.
+
+```mermaid
+block-beta
+  columns 1
+  
+  block:L3["Layer 3 (Network): Original IPv6 Packet"]
+    IPv6["IPv6 Header (40B)"]
+    UDP["UDP (8B)"]
+    Payload["Payload (Matter Data)"]
+  end
+
+  space
+
+  block:Adapt["Adaptation Layer (6LoWPAN): Compression & Fragmentation"]
+    HC["Header Compression (IPHC)"]
+    Frag1["Fragment 1"]
+    Frag2["Fragment 2"]
+    Frag3["..."]
+  end
+
+  space
+
+  block:L2["Layer 2 (PHY/MAC): IEEE 802.15.4 Frames"]
+    PHY1["PHY/MAC Header"]
+    Data1["Compressed Header + Frag 1"]
+    PHY2["PHY/MAC Header"]
+    Data2["Frag header + Frag 2"]
+  end
+
+  L3 --> Adapt
+  Adapt --> L2
+```
+
+1.  **L3 (IPv6)**: 거대한 원본 패킷입니다. 1280 바이트 이상일 수 있습니다.
+2.  **Adaptation (6LoWPAN)**:
+    -   거대한 **헤더(40B)**를 **2B** 로 압축합니다.
+    -   나머지 데이터가 127 바이트보다 크면 **조각(Fragments)** 냅니다.
+3.  **L2 (802.15.4)**: 실제로 공중으로 날아가는 작은 무선 프레임들입니다.
 
 ## 🧠 활용 (Applications)
 
