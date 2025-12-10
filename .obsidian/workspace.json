@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_references/iot/protocols/matter/Matter Roles.md",
+                "file": "02_references/iot/protocols/thread/Border Router.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Matter Roles"
+              "title": "Border Router"
             }
           }
         ]
@@ -189,13 +189,13 @@
   },
   "active": "a829d7ee921395e0",
   "lastOpenFiles": [
+    "02_references/iot/protocols/matter/Matter.md",
+    "02_references/iot/protocols/thread/Border Router.md",
+    "02_references/iot/protocols/matter/Matter Roles.md",
     "02_references/iot/protocols/foundation/MTU.md",
     "02_references/iot/protocols/connectivity/Bluetooth.md",
     "02_references/iot/protocols/thread/Thread Roles.md",
-    "02_references/iot/protocols/thread/Border Router.md",
     "02_references/iot/protocols/matter/Matter Architecture.md",
-    "02_references/iot/protocols/matter/Matter Roles.md",
-    "02_references/iot/protocols/matter/Matter.md",
     "02_references/iot/protocols/foundation/CoAP.md",
     "02_references/iot/protocols/foundation/6LoWPAN.md",
     "02_references/iot/protocols/foundation/CSMA-CA.md",
