@@ -2,7 +2,7 @@
 title: chapter4
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 13:54:43 +09:00
+date modified: 2025-12-11 13:56:47 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -26,10 +26,10 @@ mindmap
     동작 원리<br>Operation
       요청 Request
         브로드캐스트 Broadcast
-        "누가 이 IP를 가졌니?"
+        누가 이 IP를 가졌니?
       응답 Reply
         유니캐스트 Unicast
-        "내가 가졌고 내 MAC은 이거야"
+        내가 가졌고 내 MAC은 이거야
       캐싱 Caching
         효율성 증대
         요청자 및 대상 모두 학습
