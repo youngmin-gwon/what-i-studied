@@ -2,12 +2,13 @@
 title: Thread
 tags: [iot, network, protocol, thread]
 aliases: []
-date modified: 2025-12-10 16:30:01 +09:00
+date modified: 2025-12-11 14:52:06 +09:00
 date created: 2025-12-09 11:59:10 +09:00
 ---
 
 ## 🌐 개요 (Overview)
-**Thread** 는 IoT 기기를 위해 설계된 저전력 무선 메시 네트워킹 프로토콜입니다.**[IPv6](../foundation/IPv6.md)** 와**[6LoWPAN](../foundation/6LoWPAN.md)** 을 기반으로 합니다.
+
+**Thread** 는 IoT 기기를 위해 설계된 저전력 무선 메시 네트워킹 프로토콜입니다.**[IPv6](../foundation/IPv6.md)** 와 **[6LoWPAN](../foundation/6LoWPAN.md)** 을 기반으로 합니다.
 
 >[!WARNING]
 >Thread 는 **Full Stack** 프로토콜이**아닙니다**. 네트워킹 (Layers 1-4) 만 정의하며 애플리케이션 계층은 정의하지 *않습니다*.
