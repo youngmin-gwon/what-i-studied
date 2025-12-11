@@ -2,7 +2,7 @@
 title: IEEE 802.11
 tags: [standard, wifi, wlan]
 aliases: [Wi-Fi Standard, Wireless LAN, WLAN]
-date modified: 2025-12-10 18:37:49 +09:00
+date modified: 2025-12-11 13:37:14 +09:00
 date created: 2025-12-10 00:10:27 +09:00
 ---
 

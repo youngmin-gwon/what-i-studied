@@ -2,7 +2,7 @@
 title: OFDMA
 tags: [foundation, modulation, wifi6, wireless]
 aliases: [Orthogonal Frequency-Division Multiple Access]
-date modified: 2025-12-10 18:55:07 +09:00
+date modified: 2025-12-11 13:37:30 +09:00
 date created: 2025-12-10 18:31:53 +09:00
 ---
 
@@ -62,7 +62,7 @@ block-beta
 
 - Wi-Fi 5 에서는 10~20 개 기기가 한계였다면, Wi-Fi 6 는 **수십~수백 개** 를 동시에 처리 가능.
 
-## 🆚 비교: Thread/Zigbee vs Wi-Fi 6 (OFDMA)
+## 🆚 비교: Thread/Zigbee vs Wi-Fi 6 ([OFDMA](OFDMA.md))
 
 | 특징        | **[Thread](../thread/Thread.md)/[Zigbee](../connectivity/Zigbee.md)** | **Wi-Fi 6 (OFDMA)** |
 | :-------- | :-------------------------------------------------------------------- | :------------------ |
