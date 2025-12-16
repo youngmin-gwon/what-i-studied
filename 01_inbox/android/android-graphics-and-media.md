@@ -1,78 +1,38 @@
----
-title: android-graphics-and-media
-tags: [android, android/graphics, android/media]
-aliases: []
-date modified: 2025-12-16 15:41:48 +09:00
-date created: 2025-12-16 15:27:42 +09:00
----
+# Graphics & Media Pipeline #android #android/graphics #android/media
 
-## Graphics & Media Pipeline android android/graphics android/media
+화면에 그림을 띄우고 소리를 재생하는 길을 쉽게 정리했다. 용어는 [[android-glossary]].
 
-[[android-architecture-stack]] · [[android-performance-and-debug]] · [[android-hal-and-kernel]]
+## 화면이 그려지는 길
+- 앱(UI Toolkit/Compose/View)이 버퍼를 만든다.
+- RenderThread/Skia가 GPU 친화적으로 꾸민다.
+- BufferQueue를 통해 SurfaceFlinger로 보내고, SurfaceFlinger가 HWC와 함께 최종 합성한다.
+- VSync/Choreographer가 타이밍을 맞춰 끊김을 줄인다.
 
-### 렌더링 스택
-- UI Toolkit(View/Compose) → RenderThread/DisplayList → Skia → HWUI → SurfaceControl/BufferQueue → SurfaceFlinger → HWC.
-- VSync/Choreographer 가 프레임 스케줄 관리. `SurfaceControl.Transaction` 으로 atomic 레이어 업데이트.
-- BufferQueue: producer/consumer 모델; app produces buffers, SF/HWC consumes. BLASTBufferQueue 로 latency 감소.
-- Frame timeline API 로 producers/consumers 간 타임스탬프 교환. choreographer callback order(input→animation→traversal→commit).
-- HDR/wide color: color space metadata 전달, Display P3, BT2020; tone mapping at HWC/GPU.
+## Compose와 View
+- Compose는 선언형 UI, View는 전통적인 트리 구조. 둘 다 같은 렌더 경로를 쓴다.
+- ComposeView/AndroidView로 서로 섞어 쓸 수 있다. 느려지면 재구성이 자주 일어나는지 확인한다.
 
-### Compose vs View
-- Compose: recomposition, snapshot system, `remember`/`derivedStateOf`, composition locals. Skia pipeline 동일하지만 레이아웃/측정 모델 간단.
-- View: measure/layout/draw pass, ViewRootImpl, DisplayList caching. Invalidations propagate from view tree.
-- Interop: ComposeView/AndroidView, performance trade-offs.
+## 그래픽 메모리
+- gralloc/DMABuf로 큰 버퍼를 공유한다. 복사를 줄여 속도와 배터리를 아낀다.
+- 보호된 콘텐츠(드라마/영화 DRM)는 안전한 경로로만 렌더링한다.
 
-### SurfaceFlinger & HWC
-- SurfaceFlinger 합성 단계에서 각 layer 의 blend/transform/clip/z-order 결정. Color management/Render intent 지원.
-- HWC2 HAL 로 오프로드: client composition(GPU) vs device composition(HWC). Present fences, retire fences 로 sync.
-- Refresh rate switching/Frame rate API, touch latency alignment, async vsync.
-- Layer stack/virtual display mirroring, screen recording path(media projection) 에서 buffer duplication. frame rate overlay/debug.\n
+## 입력과 렌더링
+- InputDispatcher가 포커스 창에 이벤트를 준다.
+- Choreographer가 “입력→애니메이션→그리기→합성” 순서를 일정하게 반복한다.
 
-### Graphics 메모리
-- GraphicBuffer allocation via gralloc HAL; DMABuf handle. ION legacy. AHARDWAREBUFFER for NDK.
-- Protected content/DRM surfaces require secure buffers + HWC path.
-- GPU memory accounting, `dumpsys meminfo <pid> graphics`.
-- Vulkan memory model vs OpenGL ES; descriptor sets/pipelines. ANGLE translating GL to Vulkan/D3D.
-- GPU driver updates via Play System Update(GPU inspector). Adreno/Mali/PowerVR 차이.\n
+## 카메라·미디어 캡처
+- Camera HAL3가 요청/응답으로 버퍼를 주고받는다. MediaCodec이 인코딩해 저장/스트리밍한다.
+- 권한(카메라/마이크/저장소)과 [[android-glossary#scoped-storage|Scoped Storage]] 규칙을 따른다.
 
-### Input & Rendering 연계
-- InputReader timestamps events, InputDispatcher delivers to focused window. `Choreographer` posts input vsync for latency smoothing.
-- Touch resampling/prediction, display pipeline vs input sampling alignment.
+## 미디어 재생
+- ExoPlayer가 스트리밍(DASH/HLS)과 로컬 재생을 맡는다.
+- AudioTrack/AAudio/Oboe가 소리를 낸다. AudioFocus로 앱끼리 소리 충돌을 피한다.
+- DRM은 MediaDrm으로 키를 받아 안전하게 디코딩한다.
 
-### Camera/Media capture
-- Camera HAL3 pipeline: request/result, stream config, sync fences, buffer formats(YUV/RAW), reprocessing.
-- CameraX simplifies use cases; camera2 offers fine control. Permissions + concurrent camera limits.
-- MediaRecorder/MediaCodec pipelines: hardware codecs via Codec2, buffer queue to encoder, muxer output.
-- multi-camera, logical camera, depth/ultra-wide fusion. camera privacy switch/indicator wiring.
-- image stabilization(EIS/Is) metadata, rolling shutter correction, latency budgets for preview vs capture.\n
+## 디버깅
+- `dumpsys SurfaceFlinger/gfxinfo`로 프레임 지연을 본다.
+- `dumpsys media.audio_flinger/audio_policy/media.codec`으로 오디오/코덱 상태를 확인한다.
+- Perfetto/AGI로 GPU·미디어 타임라인을 살핀다.
 
-### Media Playback
-- ExoPlayer: modular renderers/audio/video/text/drm. Adaptive streaming(DASH/HLS/SmoothStreaming), ABR algorithms, buffering/seek strategies.
-- Audio: AudioTrack/AudioRecord, AAudio/Oboe for low latency. Audio focus/ducking, session IDs for effects.
-- DRM: MediaDrm with Widevine, key status, offline keys, secure decoder surface.
-- Subtitle pipelines(Cues), text rendering, font fallback. Live playback latency tuning(low-latency HLS/DASH).
-- spatial audio/binaural rendering, head tracking, Bluetooth LE Audio/LC3.
-- Mixer paths: AudioFlinger mixer vs direct output, offload playback for low power. Audio effects(EQ/BassBoost/Virtualizer) chains.
-- Audio focus types(gain/transient/mayduck), audio attributes usage, volume shaping. record vs playback routing.
-
-### Graphics Debugging
-- GPU Inspector, Frame Profiler, `dumpsys SurfaceFlinger --latency`, `gfxinfo framestats`.
-- Perfetto tracks: `gfx`, `view`, `sched`, `binder_driver`, `hwc`. GPU counters via AGI/Perfetto.
-- Skia tracing, `adb shell setprop debug.hwui.profile visual_bars`.
-
-### Media Debugging
-- `dumpsys media.audio_flinger`, `media.audio_policy`, `media.metrics`, `media.player`, `mediadrm`, `cameraserver`.
-- codec dumps: `dumpsys media.codec` to check component state, buffers. stagefright logging.
-- Latency measurements: audio latency test loopback, camera capture latency traces.
-- `atrace gfx view res` overlays, GPU counters via AGI, SurfaceFlinger latency histogram. media.metrics proto 분석.
-- AudioThread timing logs, xruns detection, `audioserver` crash dumps, `ACDB`/audio calibration data issues.
-- logcat tags: ExoPlayer event logs, `libc/avc/mediaserver` errors, `MediaCodec` state transitions. perfetto tracks for audio/codec.
-
-### Evolution 포인트
-- OpenGL ES → Vulkan adoption; ANGLE for compatibility. HDR/wide color gamut pipeline, tonemapping.
-- MediaCodec2 replacing stagefright monolith; separated processes(media swcodec).
-- AAudio for pro audio, Oboe wrapper. Spatial audio/ultra-low latency work.
-- HEVC/AV1 hardware decode adoption, HDR10+/Dolby Vision metadata pass-through. Codec2 plugin model for vendor.
-
-### Graph Links
-- [[android-binder-and-ipc]] for buffer transactions, [[android-adb-and-images]] for trace collection, [[android-evolution-history]] for graphics/media 전환.
+## 더 보기
+[[android-binder-and-ipc]](버퍼 전달), [[android-adb-and-images]](트레이스 수집), [[android-evolution-history]](그래픽·미디어 변화).

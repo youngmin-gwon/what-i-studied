@@ -2,7 +2,7 @@
 title: android-os-development-guide
 tags: [android, android/aosp, android/build, android/osdev]
 aliases: []
-date modified: 2025-12-16 15:41:58 +09:00
+date modified: 2025-12-16 15:52:33 +09:00
 date created: 2025-12-16 15:27:24 +09:00
 ---
 
@@ -28,7 +28,7 @@ date created: 2025-12-16 15:27:24 +09:00
 - apex payload 는 dm-verity hash tree 포함. `apexd` 가 install/activate 관리, rollback data 유지.
 
 ### Device Bring-up
-- device/<vendor>/<product> tree: BoardConfig, kernel config, fstab, init scripts, sepolicy, overlays.
+- `device/<vendor>/<product>` tree: BoardConfig, kernel config, fstab, init scripts, sepolicy, overlays.
 - blobs: proprietary vendor files pulled via `extract_utils`. VINTF manifest + matrix alignment.
 - Treble: system/vendor 인터페이스 명확화, GSI 부팅 확인.
 - boot image signing keys, AVB key provisioning, fastbootd/dynamic partitions 지원 확인.

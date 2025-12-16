@@ -1,70 +1,44 @@
----
-title: android-boot-flow
-tags: [android, android/boot, android/system-images]
-aliases: []
-date modified: 2025-12-16 15:41:40 +09:00
-date created: 2025-12-16 15:24:47 +09:00
----
+# Boot Flow & System Images #android #android/boot #android/system-images
 
-## Boot Flow & System Images android android/boot android/system-images
+기기가 켜질 때 일어나는 일을 순서대로 적었다. 낯선 용어는 [[android-glossary]].
 
-[[android-architecture-stack]] · [[android-hal-and-kernel]] · [[android-zygote-and-runtime]]
+## 순서 한눈에 보기
+1) 부트 ROM: 칩에 박힌 코드가 첫 부트로더를 읽는다.
+2) 부트로더: [[android-glossary#verified-boot|부팅 무결성]]을 확인하고, 어느 슬롯을 쓸지 고른다.
+3) [[android-glossary#boot-image|커널+램디스크]] 로드: 장치 트리, 명령줄을 건넨다.
+4) init: rc 스크립트를 읽고 기본 서비스를 켠다.
+5) [[android-glossary#zygote|Zygote]]/[[android-glossary#system-server|system_server]]: 앱 공장과 핵심 서비스가 뜬다.
+6) System UI/런처: 사용자가 만나는 화면이 보인다.
 
-### 부팅 단계
-1. Boot ROM: SoC 별 mask ROM 이 부트로더 1 단계 실행, 서명 검사.
-2. Bootloader: fastboot/download 모드, verified boot(VB1/AVB2) chain 수행. A/B slot 선택, rollback index 체크.
-3. Kernel + ramdisk: dtb/dtbo 로딩, kernel command line 전달. dm-verity 활성화.
-4. init: init.rc 파싱, SELinux policy 로딩, 서비스/파티션 마운트.
-5. zygote/system_server 기동: [[android-zygote-and-runtime]] 참고.
-6. System UI/Launcher 스타트, 데이터스톱 복원.
-- OTA 후 첫 부팅: slot switching, postinstall scripts, dexopt/dalvik cache rebuild, OTA resume-on-reboot credential 해제.
+## 파티션 구조(간단)
+- boot/vendor_boot: 커널+램디스크.
+- system/system_ext/vendor/odm/product: OS와 업체 맞춤 부분.
+- userdata: 사용자 데이터, [[android-glossary#fbe|암호화]] 적용.
+- super: 위 파티션을 논리적으로 담는 큰 그릇.
 
-### 파티션 구조
-- boot/boot_a/boot_b: 커널 +ramdisk. vendor_boot 분리 (Android 11+).
-- system/system_ext/vendor/odm/product: 파트별 역할 분리. read-only + dm-verity.
-- userdata: FBE. metadata 파티션에 key 저장.
-- recovery: OTA 적용/공장 초기화. logical partitions(super) 로 동적 파티션 관리.
-- misc/metadata 파티션이 boot slot/state 저장. super 파티션은 dynamic logical partition table(LPT) 로 구성.
+## 업데이트 방식
+- [[android-glossary#ota|A/B OTA]]: 보이지 않는 슬롯에 미리 설치하고, 다음 부팅 때 바꾼다. 실패하면 되돌릴 수 있다.
+- Virtual A/B: 스냅샷을 써서 공간을 덜 차지한다.
 
-### Verified Boot & AVB
-- vbmeta 서명 검증. top-level vbmeta 가 chain vbmeta_system/vendor 등으로 이어짐.
-- rollback protection: fuse/Replay-protected memory(RPMB).
-- device locked/unlocked 플래그, fastboot flashing unlock 효과 (데이터 초기화).
-- dm-verity hash tree, verity metadata. vbmeta flags(e.g., VERIFICATION_DISABLED) 로 userdebug 편의 제공.
+## Fastboot/Recovery/ADB 모드
+- Fastboot: 부트로더 모드에서 이미지 정보를 읽고 굽는다.
+- fastbootd: 사용자 공간 fastboot. 동적 파티션을 손댈 때 쓴다.
+- Recovery: update.zip을 적용하거나 공장 초기화.
+- [[android-glossary#adb|ADB]]: USB/Wi‑Fi 디버깅. userdebug/eng만 루트·verity 해제가 된다.
 
-### A/B OTA
-- seamless update: active/inactive slot. update_engine 가 payload 를 inactive slot 에 적용.
-- post-install scripts, slot metadata, bootctl. resume-on-reboot 로 암호화 잠금 자동 입력.
-- non-A/B 기기는 recovery-based OTA.
-- payload format: block-based, delta/Full. payload properties(version, block size). payload_verifier 검증.
-- dynamic partitions: payload metadata 가 super partition LPT 를 업데이트, fastbootd 에서 flash.\n
-- Virtual A/B 는 snapshots 기반으로 공간 절약하며 OTA 실패 시 롤백 용이.\n
+## Init와 서비스
+- init.rc는 트리거(`on boot`, `on property:...`)와 서비스 정의(`service name path`)를 담는다.
+- property 서비스가 `setprop` 요청을 받고, 필요하면 서비스 시작/중지를 건드린다.
+- [[android-init-and-services]]에서 더 길게 설명한다.
 
-### Fastboot/Recovery/ADB 모드
-- Fastboot: boot image 플래싱, getvar. AVB unlock 여부에 따라 제한.
-- Recovery: update.zip 설치, adb sideload. UI 는 recovery ramdisk 에서 실행.
-- ADB: USB/Wi-Fi debugging. secure adb 는 RSA key + pairing. `adb root`/`adb disable-verity` 는 eng/userdebug 에서만.
-- fastbootd: userspace fastboot for dynamic partitions; logical partition resize/flash without recovery. slot metadata 관리에 사용.
+## 부팅 최적화 포인트
+- 필요 없는 서비스는 나중에 켜거나 끈다.
+- [[android-glossary#zygote#preload|Preload]] 목록을 조정해 메모리/속도를 균형 잡는다.
+- bootstat/trace로 시간이 어디서 쓰이는지 본다.
 
-### System Image 구성
-- system.img(ext4/sparse), vendor.img, product.img 등. dynamic partition(super.img) 로 묶어 OTA 최적화.
-- ramdisk 에 init scripts, default.prop. bootconfig(Android 12+) 로 커널 cmdline 일부 대체.
-- system-as-root: ramdisk 가 system 파티션 루트로 마운트.
-- OEM 는 vbmeta chaining 과 rolling key update 를 관리해야 함. fastboot flashing lock/unlock 이 키 체인에 영향.
+## 이미지와 무결성
+- system/vendor 등은 dm-verity로 보호된다.
+- [[android-glossary#verified-boot|AVB]] 키가 맞아야 부팅한다. 잠금 해제 시 데이터가 초기화된다.
 
-### Init 및 서비스 관리
-- init language: `service`/`on`/`setprop`/`import`. selabel/oneshot/user/group/capabilities 설정.
-- property service: system properties(`ro.*`, `persist.*`) 관리. init trigger 와 연동.
-- ueventd: 디바이스 노드 권한 설정. vold: storage mount/obb/secure containers.
-- `early-init`/`early-boot`/`late-start` 단계별 파이프라인. watchdog/bootstat 로그로 타이밍 측정.
-
-### 부팅 최적화 포인트
-- zygote preload 튜닝, dexopt 부팅 후 연기 (PGO). lazy HAL/system service init.
-- fs-verity/dm-verity overhead 고려. compressed APEX, fused load time.
-- bootchart/trace 로 boot time 측정.
-- init rc minimalism, console spam 제거, parallel service start 여부. initfirststage vs secondstage 차이.\n
-- bootstat metrics(boot_complete_time_ms, factory_reset_boot_complete_time_ms 등) 으로 회귀 감지. boot resiliency 를 위한 watchdog 설정.\n
-
-### Links
-- [[android-adb-and-images]]: adb/fastboot 사용법, 이미지 생성.
-- [[android-evolution-history]]: system/vendor 분리와 mainline 화 배경.
+## 링크
+[[android-adb-and-images]], [[android-hal-and-kernel]], [[android-init-and-services]], [[android-evolution-history]].

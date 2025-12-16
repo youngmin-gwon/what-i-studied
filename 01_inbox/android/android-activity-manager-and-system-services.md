@@ -2,76 +2,58 @@
 title: android-activity-manager-and-system-services
 tags: [android, android/ams, android/system-services]
 aliases: []
-date modified: 2025-12-16 15:41:13 +09:00
+date modified: 2025-12-16 15:59:09 +09:00
 date created: 2025-12-16 15:24:09 +09:00
 ---
 
 ## ActivityManager & System Services android android/system-services android/ams
 
-[[android-foundations]] · [[android-binder-and-ipc]] · [[android-zygote-and-runtime]]
+앱의 생명주기와 화면 전환을 돌보는 주인공은 ActivityManagerService(AMS) 와 ActivityTaskManagerService(ATMS) 다. 낯선 용어는 [[android-glossary]] 에서 확인한다.
 
-### AMS/ATMS 역할
-- ActivityTaskManagerService(ATMS) 가 task/stack/transition 을 관리, ActivityManagerService(AMS) 가 프로세스 생애주기/메모리 정책을 담당.
-- `ActivityRecord`/`Task`/`DisplayContent` 구조로 창/태스크 계층을 표현. WindowManagerService(WMS) 와 협조.
-- 프로세스 상태 계산: TOP/FOREGROUND_SERVICE/BOUND_TOP_APP/VISIBLE/SERVICE/CACHED 등. OOM adj 점수는 LMKD 의 기준.
+### 왜 중요한가
+- 어떤 앱이 살아 있고 우선순위가 높은지 정한다.
+- 화면 이동, 창 쌓기, 멀티 윈도우, 최근 앱 등을 관리한다.
+- 시스템 메모리가 부족할 때 어떤 앱을 먼저 닫을지 판단한다.
 
-### 생명주기 관리
-- startActivity → task 선택/재사용 → launch mode(singleTop/task/instance) → transition animation.
-- process death 후 `onSaveInstanceState`/`ViewModel`/`SavedStateHandle` 조합으로 복원.
-- 백그라운드 제한: API 26 이후 background execution limit, foreground service requirement, background start restrictions.
+### 앱 생명주기
+- Activity 는 시작→보임→포커스→정지→종료 단계를 돈다.
+- Task/Back stack 은 사용자가 뒤로가기를 눌렀을 때 돌아갈 화면 순서를 담는다.
+- 백그라운드에서 멋대로 시작하는 것을 막아 배터리와 보안을 지킨다.
 
 ### 프로세스 관리
-- `ProcessRecord` 가 앱 프로세스 메타데이터 보유. AMS 가 LRU list, cached/empty app trim 정책 적용.
-- `trimApplications`/`collectProcesses` 로 메모리 해제. `killProcessQuiet`/`forceStopPackage` 코드 경로.
-- frozen processes: freezer cgroup 로 프로세스 일시 정지. cached app compaction(zram) 과 연계.
-- cached/empty app eviction 은 LMKD psi 신호와 연동되어 앱 경험에 직접 영향. 중요 앱은 setProcessImportant(visibility) 로 보호.
-- process state stats 가 JobScheduler/AppStandby/Alarm throttle 에 사용.
+- 프로세스마다 "중요도" 점수를 매긴다 (앞에 보이는 앱이 가장 중요).
+- [[android-glossary#lmkd|LMKD]] 가 점수가 낮은 프로세스부터 닫아 메모리를 확보한다.
+- freezer/compaction 같은 기능으로 백그라운드 프로세스를 잠시 얼리거나 눌러 메모리를 줄인다.
 
-### 브로드캐스트/Job
-- BroadcastQueue: foreground/ordered vs background/parallel 큐; ANR 타임아웃 상이.
-- JobScheduler: network/battery/idle 조건. UID states 와 연동해 throttling.
-- AlarmManager: exact/RTC/ELAPSED_REALTIME; doze 앱 standby 고려.
-- sticky broadcast 는 제한적 (배터리/보안 이유). manifest-registered vs context-registered 차이 주의.
-- expedited jobs 는 foreground service 비중을 낮추기 위한 최신 옵션.
+### 브로드캐스트와 작업 예약
+- BroadcastReceiver 는 짧게 처리하고, 길면 [[android-glossary#workmanager|WorkManager/JobScheduler]] 에 맡긴다.
+- JobScheduler 는 "충전 중일 때만", "와이파이일 때만" 같은 조건을 걸 수 있다.
+- AlarmManager 는 정확 알람을 제한해 배터리를 지킨다.
 
-### ContentProvider 관리
-- App start 시 Provider 초기화 순서 관리 (Dependency graph). `Authority` 충돌 처리.
-- `ContentResolver` 호출은 Binder IPC; sync adapter, persistable URI permission.
+### 창과 입력
+- WindowManager 는 화면 레이어와 회전을 다룬다. SurfaceFlinger 와 연결되어 실제로 그린다.
+- InputDispatcher 가 포커스 창으로 터치/키 이벤트를 보낸다. 오래 막히면 [[android-glossary#anr|ANR]].
 
-### WindowManagerService 협업
-- WMS 는 SurfaceFlinger 와 연결해 surface 할당, input focus, rotation, display cutout 관리.
-- InputDispatcher 는 포커스 윈도우로 이벤트 전달; ANR 시 input dispatching timeouts 기록.
-- Transition/Animation: TransitionController(Shell), SurfaceControl transaction, BLASTBufferQueue.
+### 패키지/설치
+- PackageManager 가 앱을 스캔하고 권한을 기록한다.
+- 설치 후 [[android-glossary#dex|dexopt]] 로 실행 속도를 조정한다.
 
-### Notification/Foreground Service
-- NotificationManagerService 가 알림 채널/중요도/doze mode 제어. Foreground service 는 ongoing notification 필요.
-- AppOpsManager 로 사용 권한 기록; [[android-security-and-sandboxing]] 참조.
+### 네트워크·위치
+- ConnectivityService 가 어떤 네트워크를 쓸지 결정하고, Private DNS/VPN 정책을 적용한다.
+- Location 서비스는 백그라운드 위치를 제한해 프라이버시를 지킨다.
 
-### PackageManagerService
-- install/update/remove, permission grant, split APK 관리. SettingsProvider 에 패키지 스테이트 저장.
-- Dexopt scheduler 가 background 에서 컴파일 작업 실행. Incremental FS 로 스트리밍 설치.
+### 안정성 장치
+- system_server watchdog 이 멈춘 스레드를 감시한다.
+- 반복 크래시나 부팅 실패가 이어지면 Rescue Party 가 설정을 초기화해 복구를 시도한다.
 
-### Connectivity/Location
-- ConnectivityService 는 network score, policy, VPN, Private DNS, tethering/eBPF offload 관리.
-- Location: FusedLocationProvider, gnss HAL, background location 제한, NMEA/measurement API.
-- Bluetooth/Wi-Fi: 각각 separate system service(bluetooth_manager/wifi). location permission 과 연동된 스캔 정책.
+### 디버깅
+- `adb shell dumpsys activity`/`cmd activity` 로 상태를 본다.
+- [[android-glossary#bugreport|Bugreport]] 에 task/메모리/ANR 정보가 들어 있다.
 
-### Watchdog 과 안정성
-- system_server watchdog 이 binder thread/handler thread 응답 확인; 60s ANR 시 tombstone 작성.
-- native 서비스 크래시 시 restarter 가 재시작, critical service 반복 크래시 시 boot loop 보호.
-- reboot escalation: persistent failure 시 Rescue Party 가 설정/overlays 초기화 후 복구를 시도.
+### 더 보기
 
-### Dumpsys/Debugging
-- `adb shell dumpsys activity` 로 task/process/oom adj 확인. `cmd activity` 로 인텐트/force-stop 등 제어.
-- `dumpsys package`, `dumpsys window`, `dumpsys meminfo`, `dumpsys batterystats` 등.
-- `cmd` 하위 명령: `cmd stats print-logs`, `cmd jobscheduler monitor-battery`, `cmd power set-mode`. bugreport 시 snapshot.
+[[android-security-and-sandboxing]]: 권한/보안 정책.
 
-### 정책 변천사
-- Background execution limits(API 26), foreground service requirements(API 28), background activity start limits(API 29+), scoped storage(API 30), notification trampolines 금지 (API 31).
-- Task/Window model 변화: multi-window, freeform, bubbles, predictive back.
-- Notification runtime permission(API 33), exact alarm permission(API 31+), foreground service types(API 34) 등으로 점진적 제한 강화.
+[[android-performance-and-debug]]: ANR/성능 추적.
 
-### 연계 링크
-- [[android-security-and-sandboxing]]: permission/AppOps/UID policies.
-- [[android-performance-and-debug]]: ANR trace/Perfetto.
-- [[android-evolution-history]]: 정책 변화 배경.
+[[android-evolution-history]]: 백그라운드 제한 변화.

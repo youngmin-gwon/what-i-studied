@@ -1,79 +1,53 @@
----
-title: android-performance-and-debug
-tags: [android, android/debugging, android/performance]
-aliases: []
-date modified: 2025-12-16 15:42:15 +09:00
-date created: 2025-12-16 15:26:05 +09:00
----
+# Performance & Debugging #android #android/performance #android/debugging
 
-## Performance & Debugging android android/performance android/debugging
+앱을 부드럽고 튼튼하게 만드는 쉬운 체크리스트. 도구/용어는 [[android-glossary]].
 
-[[android-foundations]] · [[android-zygote-and-runtime]] · [[android-binder-and-ipc]]
+## 목표
+- 시작: 차가운 시작 몇 초 안, 뜨거운 시작 1초 내.
+- 프레임: 16ms 안에 그려서 끊김을 줄이기.
+- 메모리: 누수 없이, [[android-glossary#lmkd|LMKD]]가 닫지 않도록 적정선 유지.
+- 배터리: 불필요한 깨움([[android-glossary#wakelock|Wakelock]]) 줄이기.
 
-### 성능 목표 설정
-- 지연: cold start < 5s, hot start < 1s, frame time 16ms 이하 (60fps).
-- 메모리: heap leak 최소화, native/graphics/bitmap 별도 추적. LMKD 킬 회피 위해 RSS/Swap 모니터.
-- 배터리: wakelock 시간, network/batch 작업, JobScheduler constraints 사용.
+## 시작 빠르게
+- Baseline/Cloud 프로필로 자주 쓰는 코드를 먼저 준비한다.
+- Application/DI 초기화를 늦추고, Splash 뒤에서 비동기로 처리한다.
+- WebView/지도 같은 무거운 SDK는 필요할 때만 예열한다.
 
-### 스타트업 최적화
-- Baseline Profiles + cloud profile push. `Macrobenchmark` 로 cold/hot start 측정.
-- Lazy init/DI entry point 최소화. SplashScreen API 활용하되 작업은 비동기 전환.
-- App Startup Library/Delayed initialization, ContentProvider auto-init 제거.
-- Prewarmers: WebView/지도/미디어 SDK warmup, Trusted Web Activity 예열. Perfetto startup trace 로 blocking call 을 찾아 제거.
-- cold/warm/hot start 정의와 cached process 유지 전략을 명확히 하고, start-up task 우선순위/병렬화 조정.
+## 렌더링 매끄럽게
+- Compose: 재구성이 자주 일어나는지 체크, 상태를 화면 가까이 두기.
+- View: RecyclerView 재사용/차이 계산, 중첩 레이아웃 줄이기, 과도한 그림자/투명도 줄이기.
+- SurfaceView/TextureView 선택을 상황에 맞게. 프레임 지연 원인이 입력/CPU/GPU 중 어디인지 구분한다.
 
-### 렌더링 최적화
-- Compose: recomposition scope 최소화, remember/derivedStateOf, snapshot state ho 이스팅.
-- View: RecyclerView diffing, ConstraintLayout vs LinearLayout 깊이 최적화, overdraw 줄이기.
-- RenderThread/Skia GPU: `adb shell dumpsys gfxinfo`, `FrameMetricsAggregator`. HWC composition fallback 체크.
-- 카메라/지도처럼 무거운 surface 는 SurfaceView/TextureView trade-off 고려. Jank 유형: input latency vs scheduling vs GPU stall 을 구분.
-- FrameTimeline API 와 choreographer callback 순서를 이해해 input-to-render latency 를 줄인다.
+## 메모리 관리
+- LeakCanary/Profiler로 누수 탐지. `dumpsys meminfo`로 Java/Native/Graphics 비율을 본다.
+- 큰 이미지/버퍼는 재사용 풀을 쓰고, 필요 없으면 바로 해제한다.
+- 네이티브 메모리도 모니터링(simpleperf/Perfetto/`meminfo --unreachable`).
 
-### 메모리 분석
-- LeakCanary/Android Studio Profiler. `dumpsys meminfo <pkg>` 로 java/native/graphics/stack/pixels/malloc breakdown.
-- `heapprofd`/`meminfo --unreachable`/`simpleperf` for native. `perfetto --txt` heap tracks.
-- Bitmap reuse/inBitmap, hardware bitmaps 제한, Glide/Picasso/Coil tuning.
-- jemalloc/malloc debug options, `mallinfo`/`malloc_debug` system properties. Bitmap pool sizing vs memory class.
-- native heap tagging(MTE/HWASAN) 로 out-of-bounds 탐지; pointer tagging/Scudo adoption 흐름 주시.
+## 스레드/동시성
+- 메인 스레드에는 화면·입력만. 나머지는 IO/Default 스레드 풀이나 [[android-glossary#workmanager|WorkManager]].
+- [[android-glossary#binder|Binder]] 호출은 짧게, 큰 일은 비동기. 과한 oneway 호출은 큐를 막는다.
+- [[android-glossary#anr|ANR]] 로그(`traces.txt`, Perfetto)로 어디서 멈췄는지 찾는다.
 
-### 쓰레드/동시성
-- Main dispatcher 순수 유지, long work 는 IO/Default dispatcher 로. Structured concurrency + SupervisorJob.
-- ANR: input dispatch timeout(5s), broadcast receiver timeout(10s), service timeout(20s). `data/anr/traces.txt` 분석.
-- Binder: oneway flood 주의, binder thread pool saturation. `adb shell dumpsys binder --stacks`.
-- StrictMode thread/VM policies: disk/network on main, leaked closable, file URI exposure. penaltyLog/dialog/dropbox.
-- coroutine cancellation/timeout 사용으로 작업 중단. executor saturation 모니터링 (queued tasks, thread pool size).
+## 저장소/네트워크 효율
+- Room 인덱스, WAL 사용, Paging으로 큰 목록 나누기.
+- HTTP는 캐시/압축을 활용하고, 백오프/재시도 정책을 세운다.
+- 네트워크 상태/비용을 보고 작업을 예약한다(JobScheduler/WorkManager).
 
-### 저장소/네트워크 효율
-- Room 쿼리 index, WAL/foreign key. Paging3 for list streaming.
-- DataStore/ProtoStore 로 스레드 안전 설정 저장.
-- HTTP: caching, gzip, HTTP/2/QUIC; WorkManager + backoff for retries. Metered network awareness.
-- SQLite perf: PRAGMA synchronous/foreign_keys/wal_autocheckpoint, statement logging, I/O scheduler 영향.
-- Network: DNS caching, okhttp connection pool, TLS session resumption. backpressure/Flow for streaming.\n
+## 배터리 지키기
+- Doze/App Standby를 존중하고, 정확 알람은 꼭 필요할 때만.
+- Foreground Service는 사용자에게 보이는 일에만 사용, 알림을 항상 표시.
+- Battery Historian/`dumpsys batterystats`로 상위 소비자를 찾는다.
 
-### 배터리/BG 정책 대응
-- JobScheduler/WorkManager constraints 로 doze/standby 대응. Foreground service 는 실제 사용자 가시성 필요.
-- Alarm exact 제한, setAlarmClock/use-case 명확화.
-- Battery Historian/`dumpsys batterystats`/`bugreport` 로 wakelock/alarms/Job stats 확인.
-- Power KPI: doze maintenance budget, wakelock tag/uid attribution, network stats top offenders.
+## 도구
+- Perfetto/atrace: 전체 타임라인 추적.
+- `dumpsys gfxinfo/frameStats`와 FrameMetrics: 렌더링 확인.
+- `simpleperf`/`android-addr2line`: CPU/네이티브 심볼 분석.
+- [[android-glossary#bugreport|Bugreport]]: 종합 스냅샷.
 
-### 네이티브 프로파일링
-- `simpleperf record` + `report_html`. `perfetto` 로 CPU/GPU timeline, binder latency, frame slices.
-- `atrace gfx view sched freq idle binder_driver` for quick trace. Systrace legacy.
-- perf maps, `android-addr2line`, `ndk-stack` 로 tombstone 심볼화.
-- HW events via perf PMU; eBPF tracing for network/binder; kernel tracepoints for sched/wakeup.
-- simpleperf unwinding, dwarf info in ndk builds, symbolization pipelines. jemalloc heap profiling hooks.
+## 릴리즈 안전망
+- Lint/Detekt/CI 테스트로 기본 품질 확보.
+- R8 난독화 후 mapping 파일 보관, Play Vitals로 크래시/ANR 모니터링.
+- 실험/롤백을 위한 리모트 설정과 안전 스위치 마련.
 
-### Crash/ANR 대응
-- Java crash: `Thread.setDefaultUncaughtExceptionHandler` 로 로깅, but avoid swallowing.
-- Native crash: tombstone in `/data/tombstones`. `debuggerd -b` attach.
-- ANR: `traces.txt` + Perfetto slice. Input dispatch/executors blocked 원인 찾기.
-- StrictMode death-on-file-uri, VMPolicy class instance limits. ANR repro 스크립트와 trace bookmark 유지.\n
-
-### 릴리즈 안정성
-- R8 shrinking/obfuscation; mapping file 관리. Play Console vitals(ANR/Crash), Pre-launch reports.
-- Feature flags/remote config for safe rollout. Staged rollout/Canary channels.
-- StrictMode/NetworkOnMainThread, `StrictMode.VmPolicy` for leaks/file/closers.
-- metrics pipeline: logs → analytics → dashboards; alert on regressions. kill switches for experiments, remote config rollback.
-
-### Graph Links
-- [[android-activity-manager-and-system-services]], [[android-security-and-sandboxing]], [[android-adb-and-images]], [[android-evolution-history]].
+## 더 보기
+[[android-activity-manager-and-system-services]], [[android-security-and-sandboxing]], [[android-adb-and-images]], [[android-testing-and-quality]].

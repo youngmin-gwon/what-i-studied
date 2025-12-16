@@ -2,93 +2,72 @@
 title: android-architecture-stack
 tags: [android, android/architecture, android/layers]
 aliases: []
-date modified: 2025-12-16 15:41:28 +09:00
+date modified: 2025-12-16 15:59:56 +09:00
 date created: 2025-12-16 15:22:42 +09:00
 ---
 
 ## Android Architecture Stack android android/architecture android/layers
 
-[[android-foundations]] · [[android-hal-and-kernel]] · [[android-zygote-and-runtime]] · [[android-binder-and-ipc]]
+안드로이드는 층층이 쌓인 케이크처럼 만든다. 각 층이 하는 일을 간단히 적었다. 모르는 단어는 [[android-glossary]] 를 본다.
 
-### 계층 개요
-1. Linux Kernel: 프로세스/스레드, 메모리 관리, SELinux, cgroups, ION/DMABuf, 커널 드라이버.
-2. Hardware Abstraction Layer(HAL): 공급업체 구현이 준수해야 할 C/C++ 인터페이스. HIDL→AIDL 전환 중.
-3. Native Services: SurfaceFlinger, MediaServer, AudioFlinger, sensors, keystore 등.
-4. Android Runtime(ART): DEX 실행, JIT/AOT, GC, JNI bridge.
-5. System Services(Java framework): ActivityManagerService, PackageManagerService, WindowManagerService, ConnectivityService 등.
-6. Framework APIs & Jetpack: SDK/Jetpack, compatibility shims, AndroidX.
-7. Apps: 앱 샌드박스에서 동작하는 Activity/Service/Receiver/Provider.
+### 층 소개
+1. [[android-glossary#리눅스 커널|커널]]: 프로세스·메모리·보안·전원 같은 기초.
+2. [[android-glossary#hal|HAL]]: 기기별 하드웨어와 안드로이드를 잇는 통역.
+3. 네이티브 서비스: SurfaceFlinger, Media, Audio 등 그림·소리·센서를 처리.
+4. [[android-glossary#art|ART]]: 앱 코드를 실행하는 엔진.
+5. [[android-glossary#system-server|system_server]] 의 서비스: Activity/Window/Package/Network 등 핵심 관리자.
+6. SDK/Jetpack: 앱이 쓰는 공식 API 와 라이브러리.
+7. 앱: 샌드박스 안에서 돌아가는 Activity/Service/Receiver/Provider.
 
-### 리눅스 커널 역할
-- 스케줄링: CFS + RT class; freezer cgroup 으로 백그라운드 작업 일시 정지.
-- 메모리: overcommit, lowmemorykiller daemon(LMKD) 와 psi 기반 pressure stall metrics 로 OOM 조정.
-- 보안: SELinux enforcing(denial→audit); seccomp-BPF 필터로 syscalls 제한; namespaces(UTS, PID, mount, net) 와 capabilities.
-- 파워: wakelock 커널 인터페이스, cpuidle/cpufreq scaling, suspend blockers, wakelock_stats.
-- 디바이스: binder driver, ashmem→memfd, ion→dmabuf, display/audio/camera drivers.
+### 커널이 하는 일
+- 스케줄링, 메모리 관리 ([[android-glossary#lmkd|LMKD]] 포함), 전원 관리 ([[android-glossary#wakelock|Wakelock]] 처리).
+- [[android-glossary#selinux|SELinux]] 와 seccomp 로 보안 규칙을 적용.
+- 드라이버: [[android-glossary#binder|Binder]], 디스플레이, 오디오, 카메라, 센서.
 
-### HAL 세부
-- HIDL(HAL Interface Definition Language): older binderized HAL 정의; 버전별 안정성을 제공하지만 언어 제약이 있음.
-- AIDL(HAL 용): Android 11+ 에서 mainline 화, stability annotations(@VintfStability), frozen parcelables, 테스트 편의성.
-- Passthrough HAL → binderized HAL 전환: 프로세스 격리 강화, 안정성/보안 개선.
-- VINTF(Vendor Interface): framework/hal 호환성 계약 (manifest + matrix). System/vendor 파티션 독립적 업데이트를 가능하게 함.
+### HAL
+- 하드웨어를 표준 모양으로 보여주는 C/C++ 인터페이스.
+- 예전엔 HIDL, 지금은 AIDL HAL 을 주로 쓴다. 둘 다 Binder 를 통해 격리된 프로세스로 동작한다.
+- VINTF 계약으로 시스템/업체 파티션이 맞는지 확인한다.
 
-### Native 서비스와 그래픽 파이프라인
-- SurfaceFlinger: 컴포지터; HWC2 와 협업, layer stack, transaction + fences. [[android-performance-and-debug]] 참고.
-- RenderThread: View/Compose 렌더링을 오프로딩; Skia GPU backend(ANGLE/Vulkan/OpenGL).
-- AudioFlinger/AudioPolicy: 스트림 믹싱, 정책 라우팅, 효과 체인, AAudio/AAudio MMAP.
-- MediaServer(MediaCodec/Extractor/Drm): codec2/codec1, stagefright; DRM 은 clearkey/widevine plugin 모델.
-
-### 앱 호환성 계층
-- Compatibility Framework: change ID 토글로 targetSdk 별 behavioral change 를 관리. `adb shell am compat` 로 테스트.
-- hidden API enforcement: whitelist/greylist/blacklist; reflection 제한을 통해 안정성 확보.
-- AndroidX 는 백포트 라이브러리 역할을 하며, SplashScreen/Activity/Lifecycle/Compose/Navigation 등으로 OS 버전 차이를 평탄화.
-- Mainline(APEX) 모듈: ART/Media/NNAPI/Conscrypt/PermissionController/Statsd/Connectivity 등이 독립 업데이트되어 보안/호환성 개선.
-- WebView 는 별도 APK 로 업데이트되며, Trichrome 라이브러리 분리 모델로 크기 최적화.
+### 네이티브 서비스·그래픽
+- SurfaceFlinger 가 화면을 합친다. HWC 가 지원하면 더 적은 전력으로 그린다.
+- RenderThread/Skia 가 UI 를 GPU 에 맞게 준비한다.
+- AudioFlinger/Policy 가 소리를 섞고 길을 정한다. MediaServer 가 인코딩·디코딩을 맡는다.
 
 ### ART 층
-- GC: generational/region-based, concurrent mark-sweep, TLAB. Pause time 목표로 다양 조정.
-- JIT/AOT: profile-guided; quick vs speed vs speed-profile filters; app startup 중 warmup compile.
-- Images: boot image + app image; preloaded classes reduce startup. Relocation vs shared relro.
-- JNI: local/global refs, critical sections, CheckJNI, native bridge(houdini) for ABI translation.
+- [[android-glossary#zygote#preload|Preload]] 한 클래스/리소스로 메모리를 아낀다.
+- 프로필 기반 JIT/AOT 로 자주 쓰는 코드를 빠르게 만든다.
+- GC 로 메모리를 돌려받는다. 멈춤 시간을 줄이는 것이 목표다.
 
-### 시스템 서비스 (Java)
-- SystemServer 프로세스에서 기동. AMS/WMS/PMS/ConnectivityService/JobScheduler/AlarmManager/NotificationManager 등.
-- ServiceManager 는 binder 서비스 registry 역할; lazy HAL/service init 로 부팅 최적화.
-- Permission enforcement: 시스템 서비스 경계에서 binder transaction 마다 체크.
-- System UI 는 별도 프로세스 (launcher/status bar) 로 동작, binder 통해 시스템 서비스 호출.
+### 시스템 서비스
+- [[android-glossary#system-server|system_server]] 프로세스에서 돌며, [[android-glossary#binder|Binder]] 로 앱과 통신한다.
+- ActivityManager/WindowManager/PackageManager/Connectivity/JobScheduler 등.
+- 권한 검사는 여기서 대부분 이뤄진다.
 
-### 프레임워크 레이어
-- SDK API surface 는 backward compatibility 에 민감; hidden API list(whitelist/greylist/blacklist) 로 동적 차단.
-- Jetpack(AndroidX) 은 OS 버전 차이를 라이브러리로 보완; Compose/Activity/Fragment/KTX 등.
-- Compatibility Modules(Mainline): ART, Media, NNAPI, Conscrypt, PermissionController 등 APEX 로 배포.
+### 프레임워크/라이브러리
+- 공개 SDK 와 Jetpack 이 앱 개발자가 만나는 면이다.
+- 숨겨진 API([[android-glossary#hidden-api|Hidden API]]) 는 호환성을 위해 막아 둔다.
+- [[android-glossary#apex|Mainline/APEX]] 모듈은 ART/Media/PermissionController 같은 핵심을 따로 업데이트한다.
 
-### 앱 레이어
-- 앱은 sandboxed UID + SELinux domain 으로 격리. Permission 기반 access 제어.
-- 프로세스 생성은 [[android-zygote-and-runtime]] 에서 설명한 zygote/fork 메커니즘.
-- IPC 는 [[android-binder-and-ipc]] 를 통해 시스템 서비스와 통신.
+### 앱
+- 각자 UID, [[android-glossary#selinux|SELinux]] 도메인, 스토리지 샌드박스를 가진다.
+- 프로세스 생성은 [[android-glossary#zygote|Zygote]] 가 포크해서 빠르게 만든다.
+- 시스템과의 대화는 [[android-glossary#binder|Binder]] 를 통해 이뤄진다.
 
-### 스택 간 협업 흐름 예시: Activity start
-1. 앱이 Intent 로 startActivity 호출 → ActivityTaskManager/ActivityManager binder 트랜잭션.
-2. AMS 가 프로세스 존재 여부 확인→없으면 zygote 에 fork 요청.
-3. 새 프로세스가 ActivityThread main 을 실행→Application/Activity 초기화→Binder attach→WindowManager 와 연결.
-4. Input/Render 파이프라인이 붙으면서 최종 화면이 나타남.
+### 예시 흐름: 화면 띄우기
+1. 앱이 startActivity 를 부른다.
+2. ActivityManager 가 필요하면 새 프로세스를 [[android-glossary#zygote#fork|fork]] 한다.
+3. Activity 가 뜨고 WindowManager/SurfaceFlinger 가 화면을 만든다.
+4. 입력과 렌더링이 이어져 사용자가 본다.
 
-### 스택 간 협업 흐름 예시: 카메라 캡처
-1. 앱이 CameraX/Camera2 로 요청 → camera service binder.
-2. HAL 이 sensor/ISP 와 인터랙트→DMABuf 공유 메모리→SurfaceFlinger/HWC 로 전달.
-3. MediaCodec 이 인코딩→MediaMuxer/MediaStore 로 저장→Scoped storage 정책 적용.
+### 예시 흐름: 사진 찍기
+1. Camera2/CameraX 가 카메라 서비스에 요청한다.
+2. HAL 이 센서에서 버퍼를 받아 공유 메모리로 보낸다.
+3. MediaCodec 이 인코딩하고, MediaStore 에 저장된다. 저장 권한/범위는 [[android-glossary#scoped-storage|Scoped Storage]] 규칙을 따른다.
 
-### 전환기술 사례
-- Dalvik VM → ART: ahead-of-time 컴파일로 성능·배터리 향상, 프로파일 기반 컴파일로 JIT 보완.
-- HIDL → AIDL for HALs: 언어 호환성, 테스트 용이성, stability annotation 으로 vendor/framework 분리 강화.
-- ION → DMABuf: 표준화된 buffer sharing, 보안/호환성 개선.
-- Ashmem → memfd: upstream-friendly, sealing 지원으로 안전한 공유 메모리.
-- kernel module → GKI + vendor modules: 커널 ABI 안정성과 OTA 간소화.
+### 기술이 바뀐 예
+- Dalvik→ART, HIDL→AIDL HAL, ION/ashmem→DMABuf/memfd, 커널 모듈→GKI.
 
-### 플랫폼 UX 계층
-- System UI/Launcher 는 별도 프로세스로, status bar/notifications/quick settings/nav bar 를 제공. Shell transitions 로 애니메이션.
-- Accessibility services 가 입력/윈도우 이벤트를 관찰·변형하며, TalkBack/Select-to-speak/Color correction 포함.
-- InputMethod(IME)/Clipboard/Drag&Drop/DisplayManager 와 상호작용.
+### 더 보기
 
-### 그래프 뷰를 위한 주요 링크
-- [[android-boot-flow]], [[android-activity-manager-and-system-services]], [[android-security-and-sandboxing]], [[android-adb-and-images]], [[android-customization-and-oem]], [[android-evolution-history]].
+[[android-boot-flow]], [[android-activity-manager-and-system-services]], [[android-security-and-sandboxing]], [[android-adb-and-images]], [[android-customization-and-oem]], [[android-evolution-history]].
