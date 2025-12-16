@@ -2,7 +2,7 @@
 title: android-connectivity-and-networking
 tags: [android, android/connectivity, android/net]
 aliases: []
-date modified: 2025-12-16 16:02:53 +09:00
+date modified: 2025-12-16 20:46:57 +09:00
 date created: 2025-12-16 15:35:13 +09:00
 ---
 

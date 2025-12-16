@@ -2,7 +2,7 @@
 title: android-boot-flow
 tags: [android, android/boot, android/system-images]
 aliases: []
-date modified: 2025-12-16 16:02:50 +09:00
+date modified: 2025-12-16 20:46:54 +09:00
 date created: 2025-12-16 15:24:47 +09:00
 ---
 

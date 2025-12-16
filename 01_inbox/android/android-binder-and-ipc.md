@@ -2,7 +2,7 @@
 title: android-binder-and-ipc
 tags: [android, android/binder, android/ipc, systems]
 aliases: []
-date modified: 2025-12-16 16:02:43 +09:00
+date modified: 2025-12-16 20:45:26 +09:00
 date created: 2025-12-16 15:23:24 +09:00
 ---
 
