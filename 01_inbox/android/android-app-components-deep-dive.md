@@ -1,8 +1,8 @@
 ---
 title: android-app-components-deep-dive
-tags: [android, android/components, android/activity, android/service, android/fundamentals]
+tags: [android, android/activity, android/components, android/fundamentals, android/service]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2025-12-16 20:28:11 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 
@@ -116,7 +116,7 @@ Service 는 백그라운드에서 오래 실행되는 작업을 처리한다.
 
 1. **Foreground Service**: 사용자가 인지할 수 있는 작업 (음악 재생, 운동 추적). 알림이 필수.
 2. **Background Service**: Android 8.0+ 에서 크게 제한됨. WorkManager 사용 권장.
-3. **Bound Service**: 클라이언트-서버 인터페이스 제공. 바인드된 컴포넌트가 없으면 종료.
+3. **Bound Service**: 클라이언트 - 서버 인터페이스 제공. 바인드된 컴포넌트가 없으면 종료.
 
 #### Foreground Service 예시
 
@@ -265,7 +265,7 @@ class MainActivity : AppCompatActivity() {
 #### 제약사항
 
 - Android 8.0+ 에서 암시적 브로드캐스트 수신이 크게 제한됨
-- `onReceive()` 는 10초 안에 완료해야 함 ([[android-glossary#anr|ANR]] 방지)
+- `onReceive()` 는 10 초 안에 완료해야 함 ([[android-glossary#anr|ANR]] 방지)
 - 긴 작업은 [[android-glossary#workmanager|WorkManager]] 나 `goAsync()` 사용
 
 ```kotlin

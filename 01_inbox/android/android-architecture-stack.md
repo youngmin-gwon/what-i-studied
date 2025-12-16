@@ -2,7 +2,7 @@
 title: android-architecture-stack
 tags: [android, android/architecture, android/layers]
 aliases: []
-date modified: 2025-12-16 15:59:56 +09:00
+date modified: 2025-12-16 20:28:06 +09:00
 date created: 2025-12-16 15:22:42 +09:00
 ---
 

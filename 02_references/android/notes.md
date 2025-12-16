@@ -1,8 +1,8 @@
 ---
-title: android
+title: notes
 tags: [android, mobile]
 aliases: []
-date modified: 2025-07-06 20:56:13 +09:00
+date modified: 2025-12-16 20:28:00 +09:00
 date created: 2025-07-06 20:27:45 +09:00
 ---
 
@@ -43,9 +43,12 @@ date created: 2025-07-06 20:27:45 +09:00
 
 ## mipmap?
 
-컴퓨터 그래픽스 용어. 3D 게임이나 이미지 렌더링에서 텍스처(이미지)를 다양한 해상도로 미리 만들어 두는 기법.
+컴퓨터 그래픽스 용어. 3D 게임이나 이미지 렌더링에서 텍스처 (이미지) 를 다양한 해상도로 미리 만들어 두는 기법.
+
     - mipmap = "Multum In Parvo" map = "a lot in a small space"
+
     - 즉 "이미지 레벨이 여러 개 있는 구조", 여러 해상도 이미지를 계층 구조로 나열한 지도
+
     - 여러 해상도 버전의 이미지를 하나로 다루는 구조
 
 이걸 통해:
@@ -63,7 +66,7 @@ date created: 2025-07-06 20:27:45 +09:00
 | 목적         | **앱 아이콘 등**, 다양한 화면 밀도에서 최적화 | 일반 이미지 (버튼, 배경 등)        |
 | 용도         | 런처 아이콘, 라운드 아이콘 등                 | 버튼 아이콘, 배경, UI 요소         |
 | 성능         | 시스템이 런처에서 아이콘을 더 효율적으로 로딩 | 일반적인 이미지 처리 방식          |
-| Android 권장 | ✅ **아이콘은 mipmap에** 저장 권장             | ❌ 아이콘을 drawable에 넣는 건 비추 |
+| Android 권장 | ✅ **아이콘은 mipmap 에** 저장 권장             | ❌ 아이콘을 drawable 에 넣는 건 비추 |
 
 ### 폴더 구조
 
@@ -79,7 +82,7 @@ res/
 
 ## Intent?
 
-**Intent는 "의도"**.
+**Intent 는 "의도"**.
 "무언가를 하고 싶다"는 요청을 Android 시스템에 전달하는 메시지.
 화면 간 이동, 데이터 전달, 시스템 동작 요청 등을 할 수 있는 메시지 객체.
 
@@ -92,17 +95,20 @@ res/
 e.g.
 
 어떤 액티비티를 열고 싶을 때:
+
 → "이 화면을 열어줘!"
 
 연락처에서 사람을 선택하고 싶을 때:
+
 → "연락처 앱에게 사람 하나 골라달라고 부탁!"
 
 사진을 찍고 싶을 때:
+
 → "카메라 앱, 사진 좀 찍어줘!"
 
 ### Explicit Intent
 
-인텐트가 **정확히 어떤 컴포넌트(Activity, Service 등)** 를 호출할지 명확히 지정하는 방식
+인텐트가 **정확히 어떤 컴포넌트 (Activity, Service 등)** 를 호출할지 명확히 지정하는 방식
 
 ```kotlin
 val intent = Intent(this, DetailActivity::class.java)
@@ -114,7 +120,7 @@ startActivity(intent)
 
 ### Implicit Intent
 
-인텐트가 무엇을 하고 싶은지만 설명하고, 어떤 앱(또는 컴포넌트)이 그걸 처리할지는 Android 시스템이 결정
+인텐트가 무엇을 하고 싶은지만 설명하고, 어떤 앱 (또는 컴포넌트) 이 그걸 처리할지는 Android 시스템이 결정
 
 ```kotlin
 val intent = Intent(Intent.ACTION_VIEW)
@@ -123,40 +129,45 @@ startActivity(intent)
 ```
 
 - 의도만 표현함
-- Android가 적절한 앱(예: Chrome, 네이버 앱)을 찾아 실행해줌
-- 이럴 땐 그 앱의 intent-filter가 이 요청을 받을 수 있어야 함
+- Android 가 적절한 앱 (예: Chrome, 네이버 앱) 을 찾아 실행해줌
+- 이럴 땐 그 앱의 intent-filter 가 이 요청을 받을 수 있어야 함
 
 ## Intent-Filter?
 
-"나는 이런 요청(intent)을 받아들일 수 있어요!" 라고 선언하는 부분
-**앱의 구성요소(Activity, Service, BroadcastReceiver 등)** 가
+"나는 이런 요청 (intent) 을 받아들일 수 있어요!" 라고 선언하는 부분
+
+**앱의 구성요소 (Activity, Service, BroadcastReceiver 등)** 가
+
 어떤 종류의 요청을 받아서 처리할 수 있는지를 정의하는 XML 설정
 
 ## Back Stack
 
-- Android에서 `Back Stack`은 Activity들이 쌓여 있는 스택 구조.
-- 사용자가 **뒤로 가기 버튼** 을 누를 때 이 스택에서 Activity가 제거됨.
-- **Flutter에서 `Navigator.push()` / `pop()`과 유사한 개념**
+- Android 에서 `Back Stack` 은 Activity 들이 쌓여 있는 스택 구조.
+- 사용자가 **뒤로 가기 버튼** 을 누를 때 이 스택에서 Activity 가 제거됨.
+- **Flutter 에서 `Navigator.push()` / `pop()` 과 유사한 개념**
 
 ```dart
 // Flutter 예시
 Navigator.push(context, MaterialPageRoute(builder: (_) => PageB()));
 ```
 
-➡ Android에서는 startActivity(Intent)로 Activity를 실행하면 Back Stack에 쌓임.
+➡ Android 에서는 startActivity(Intent) 로 Activity 를 실행하면 Back Stack 에 쌓임.
 
 ## Task
 
-하나의 Task는 하나의 Back Stack을 관리하는 단위.
-일반적으로 앱을 실행하면 하나의 Task가 생성되며, 그 안에 여러 개의 Activity가 들어감.
-다른 앱에서 특정 Activity를 실행할 때는 새로운 Task가 생성될 수도 있음.
-📌 Flutter는 Android의 시스템 레벨 Task 및 Back Stack에 직접 접근하거나 제어할 수 없음. Flutter는 일반적으로 단일 Activity 내에서 실행되며, 화면 전환은 Navigator를 통해 자체적으로 관리하는 라우팅 시스템을 사용.
+하나의 Task 는 하나의 Back Stack 을 관리하는 단위.
+
+일반적으로 앱을 실행하면 하나의 Task 가 생성되며, 그 안에 여러 개의 Activity 가 들어감.
+
+다른 앱에서 특정 Activity 를 실행할 때는 새로운 Task 가 생성될 수도 있음.
+
+📌 Flutter 는 Android 의 시스템 레벨 Task 및 Back Stack 에 직접 접근하거나 제어할 수 없음. Flutter 는 일반적으로 단일 Activity 내에서 실행되며, 화면 전환은 Navigator 를 통해 자체적으로 관리하는 라우팅 시스템을 사용.
 
 ## Launch Mode
 
-Activity를 실행할 때 Android가 어떻게 인스턴스를 생성하고 Back Stack에 추가할지 결정하는 방식.
+Activity 를 실행할 때 Android 가 어떻게 인스턴스를 생성하고 Back Stack 에 추가할지 결정하는 방식.
 
-Manifest에 설정:
+Manifest 에 설정:
 
 ```xml
 <activity
@@ -164,17 +175,17 @@ Manifest에 설정:
     android:launchMode="singleTop" />
 ```
 
-| Launch Mode       | 설명                                                 | Flutter에서 비슷한 개념                         |
+| Launch Mode       | 설명                                                 | Flutter 에서 비슷한 개념                         |
 | ----------------- | ---------------------------------------------------- | ----------------------------------------------- |
 | `standard` (기본) | 매번 새 인스턴스 생성                                | `Navigator.push()`                              |
-| `singleTop`       | 이미 맨 위에 있으면 재사용                           | 비슷한 개념은 없음 (`pushReplacement`에 가까움) |
-| `singleTask`      | 이미 존재하면 해당 Task를 앞으로, 위의 Activity 제거 | Navigator 스택 초기화와 비슷 (`popUntil`)       |
-| `singleInstance`  | Activity는 자신만의 Task를 가짐                      | Flutter에서는 흉내내기 어려움                   |
+| `singleTop`       | 이미 맨 위에 있으면 재사용                           | 비슷한 개념은 없음 (`pushReplacement` 에 가까움) |
+| `singleTask`      | 이미 존재하면 해당 Task 를 앞으로, 위의 Activity 제거 | Navigator 스택 초기화와 비슷 (`popUntil`)       |
+| `singleInstance`  | Activity 는 자신만의 Task 를 가짐                      | Flutter 에서는 흉내내기 어려움                   |
 
 | 상황                                       | 적절한 launchMode |
 | ------------------------------------------ | ----------------- |
 | 알림 클릭 시 Activity 중복 없이 실행       | `singleTop`       |
-| 홈 화면 역할의 Activity를 항상 하나만 유지 | `singleTask`      |
+| 홈 화면 역할의 Activity 를 항상 하나만 유지 | `singleTask`      |
 | 시스템 설정 등 독립된 화면으로 분리        | `singleInstance`  |
 
 ## Project Structure
@@ -202,14 +213,15 @@ Manifest에 설정:
 
 ### build.gradle.kts
 
-전체 프로젝트에 적용되는 공통 설정(모듈 레벨 아님)
+전체 프로젝트에 적용되는 공통 설정 (모듈 레벨 아님)
+
 e.g. 리포지토리 설정, 전역 플러그인, 버전 카탈로그 참조 등
 
-- 플러그인 관리, dependency version 설정 등(보통 많이 비워져 있음)
+- 플러그인 관리, dependency version 설정 등 (보통 많이 비워져 있음)
 
 ### settings.gradle.kts
 
-프로젝트에 포함된 모듈 목록 정의(`include(":app")`)
+프로젝트에 포함된 모듈 목록 정의 (`include(":app")`)
 
 - gradle 빌드 구성 초기화
 
@@ -223,7 +235,7 @@ Gradle 빌드 시 사용되는 속성값 정의
 
 로컬 환경 전용 설정 파일 (예: SDK 경로)
 
-버전 관리에 포함시키지 않음 (.gitignore에 포함됨)
+버전 관리에 포함시키지 않음 (.gitignore 에 포함됨)
 
 ### gradlew, gradlew.bat
 
@@ -235,7 +247,7 @@ Gradle 설치없이도 동일한 버전으로 빌드 가능하게 해줌
 
 ### gradle/libs.versions.toml
 
-kotlin DSL에서 사용하는 버전 카탈로그 정의 파일
+kotlin DSL 에서 사용하는 버전 카탈로그 정의 파일
 
 gradle 7.0 이상 부터 실험적으로 도입된 이후, 7.4 부터 안정화.
 
@@ -248,14 +260,14 @@ gradle 7.0 이상 부터 실험적으로 도입된 이후, 7.4 부터 안정화.
 Version Catalog (libs.versions.toml) 도입 목적:
 
 - ✅ 버전 정의의 중앙 집중화
-- ✅ 의존성 사용 시 alias로 짧고 명확하게 표현
+- ✅ 의존성 사용 시 alias 로 짧고 명확하게 표현
 - ✅ 코드 자동 완성 지원 & IDE 연동 강화
 - ✅ 중복 방지, 오류 줄이기
 
-특별한 설정을 하지 않아도 경로에 파일 존재하면 Gradle이 자동으로 인식함.
+특별한 설정을 하지 않아도 경로에 파일 존재하면 Gradle 이 자동으로 인식함.
 
 - 버전, 라이브러리 그룹, 모듈 이름을 분리해서 관리
-- build.gradle.kts에서 alias로 접근 가능
+- build.gradle.kts 에서 alias 로 접근 가능
 
 사용 방법: `build.gradle.kts`
 
@@ -288,18 +300,19 @@ plugins {
 
 ### /app/build.gradle.kts
 
-앱 모듈(`:app`)의 개별 빌드 설정
+앱 모듈 (`:app`) 의 개별 빌드 설정
+
 e.g. 컴파일 SDK, 의존성, 빌드 타입, Proguard 설정 등
 
-- 플러그인, 의존성, 빌드 설정 포함(e.g. `compileSdk`, `defaultConfig`)
+- 플러그인, 의존성, 빌드 설정 포함 (e.g. `compileSdk`, `defaultConfig`)
 
 ### /app/proguard-rules.pro
 
-릴리즈 빌드 시 사용하는 난독화(Proguard/R8) 규칙
+릴리즈 빌드 시 사용하는 난독화 (Proguard/R8) 규칙
 
 ### /app/src/main/AndroidManifest.xml
 
-앱의 기본 정보와 컴포넌트 등록(e.g. 액티비티, 퍼미션)
+앱의 기본 정보와 컴포넌트 등록 (e.g. 액티비티, 퍼미션)
 
 Android 앱의 메타데이터를 정의하는 핵심파일.
 
@@ -425,12 +438,14 @@ Android 앱의 메타데이터를 정의하는 핵심파일.
 
 ### /app/src/androidTest
 
-계측 테스트(디바이스/에뮬레이터 필요)
+계측 테스트 (디바이스/에뮬레이터 필요)
+
 안드로이드 환경에서의 테스트
 
 ### /app/src/test
 
-단위 테스트(JVM 실행)
+단위 테스트 (JVM 실행)
+
 로컬 JVM 기반 테스트
 
 ## Gradle
@@ -439,17 +454,17 @@ JVM 기반 언어의 빌드 툴.
 
 다음과 같은 작업을 할 수 있음.
 
-- 소스 코드를 컴파일해서 클래스 파일(.class)을 생성
+- 소스 코드를 컴파일해서 클래스 파일 (.class) 을 생성
   - java or kotlin 플러그인이 자동으로 컴파일
 - 코딩 규약에 맞게 작성했는지 확인
   - checkstyle, ktlint, spotless 같은 플러그인 사용
 - 정적 코드 분석
-  - SonarQube, Detekt, PMD, ErrorProne 등과 연동
+  - SonarQube, Detekt, PMD, Error-prone 등과 연동
 - 테스트 하고 테스트 결과나 커버리지 측정 결과를 리포트로 출력
-  - JUnit, TestNG, Jacoco, Kover 등으로 리포트 생성
+  - JUnit, Testing, Jacoco, Kover 등으로 리포트 생성
 - javadoc 문서 작성
   - javadoc 태스크 자동 생성 (java 플러그인 포함 시)
-- 클래스 파일과 리소스 파일을 패키징해서 압축 파일 만들기(.jar, .war)
+- 클래스 파일과 리소스 파일을 패키징해서 압축 파일 만들기 (.jar, .war)
   - jar, war 태스크로 빌드 아티팩트 생성
 - 압축파일을 테스트 환경이나 스테이징 환경에 배포
   - scp, ssh, docker, kubernetes, Ansible 등과 연동 가능
@@ -460,28 +475,26 @@ JVM 기반 언어의 빌드 툴.
 
 | 항목                               | 설명                                                                            |
 | ---------------------------------- | ------------------------------------------------------------------------------- |
-| **확장 가능한 DSL 제공**           | Groovy/Kotlin 기반 DSL로 사용자 정의 태스크, 플러그인 구성 가능                 |
+| **확장 가능한 DSL 제공**           | Groovy/Kotlin 기반 DSL 로 사용자 정의 태스크, 플러그인 구성 가능                 |
 | **빌드 분할·공통 컴포넌트 체계화** | `buildSrc/`, 플러그인 분리, 공통 빌드 설정 공유 가능                            |
-| **IDE와 연계된 API 제공**          | IntelliJ/Android Studio에서 Gradle 모델 연동 API 존재 (Tooling API)             |
+| **IDE 와 연계된 API 제공**          | IntelliJ/Android Studio 에서 Gradle 모델 연동 API 존재 (Tooling API)             |
 | **변경 내역 기반 빌드, 병렬 빌드** | Incremental Build, Configuration Cache, Parallel Execution 등 지원              |
 | **멀티 프로젝트 지원**             | `settings.gradle.kts`, `include()` 등으로 하위 모듈 관리                        |
 | **유연한 의존성 관리**             | `mavenCentral`, `google`, `file()`, `flatDir()` 등 지원                         |
 | **Ant 통합 가능**                  | `ant.importBuild`, `ant.taskdef` 등으로 기존 Ant 프로젝트와 연동 가능           |
-| **Gradle Wrapper 제공**            | `./gradlew`로 로컬에 Gradle 없어도 지정된 버전 자동 설치                        |
+| **Gradle Wrapper 제공**            | `./gradlew` 로 로컬에 Gradle 없어도 지정된 버전 자동 설치                        |
 | **호환성 배려**                    | 다양한 Gradle/Java 버전 조합 및 하위 호환성 고려 (플러그인 제한은 있을 수 있음) |
 
 ### 장점
 
 - (ant 나 maven 에 비해) 생산성이 높다
-  - 규칙 기반 빌드 접근법(=규칙을 따라 프로젝트 구조를 만드는 방법)을 사용하기 때문에 빌드 스크립트 내용 줄일 수 있음
+  - 규칙 기반 빌드 접근법 (=규칙을 따라 프로젝트 구조를 만드는 방법) 을 사용하기 때문에 빌드 스크립트 내용 줄일 수 있음
   - 빌드 스크립트에서 java, kotlin 유틸리티를 쉽게 사용할 수 있음
-
 - 빌드 순서를 제어하기 쉽다
-  - 변경 가능한 기본 빌드 순서를 제공하여 언제든 재정의 해서 바꿀 수 있음(Maven의 표준 빌드 순서 와 Ant 의ㅂ자유로운 빌드 순서의 중간 접근법)
+  - 변경 가능한 기본 빌드 순서를 제공하여 언제든 재정의 해서 바꿀 수 있음 (Maven 의 표준 빌드 순서 와 Ant 의ㅂ자유로운 빌드 순서의 중간 접근법)
   - "Task(빌드 순서의 각 단계)" 를 도입. 이 Task 의존관계에 따라 빌드 순서가 정해 진다.
     - Ant 의 문제였던 '빌드 스크립트의 복잡성' 은 플러그인을 사용해서 Task 의존 관계의 기본 구성을 할 수 있게 함
     - 이 의존관계는 어디까지나 기본 구성이므로 얼마든지 빌드 순서를 재정의해서 바꿀 수 있음
-
 - 멀티 프로젝트 대응
   - 규모가 커지는 경우 한 프로젝트를 여러개의 서브 프로젝트로 나누는 경우가 생김. 이런 경우 서브 프로젝트 간 의존관계나 서브 프로젝트들의 공통 빌드 설정을 어떻게 효율적으로 관리하느냐 문제가 생김.
   - 다음 같은 기능으로 서브 프로젝트로 구성된 전체 프로젝트의 빌드를 지원
@@ -489,17 +502,14 @@ JVM 기반 언어의 빌드 툴.
     - 서브 프로젝트에 공통 빌드 스크립트를 집약하는 기능
     - 서브 프로젝트 간 의존관계를 정의하는 기능
     - 의존관계를 고려해서 변경 내역만 빌드하는 기능
-
 - 컴포넌트로 만들기 쉽다
   - 빌드 스크립트에서 메서드나 클래스 추출
-  - 빌드 스크립트의 분할과 재사용(apply from 이용)
-  - 프로젝트에서만 사용할 수 있는 확장 모듈(buildSrc 프로젝트)
+  - 빌드 스크립트의 분할과 재사용 (apply from 이용)
+  - 프로젝트에서만 사용할 수 있는 확장 모듈 (buildSrc 프로젝트)
   - 여러 프로젝트에서 범용적으로 재사용할 수 있는 라이브러리
-
 - 별도 설치할 필요 없음
   - gradle wrapper 제공하여, gradle project 안에 bootstrap 심어서 지정한 버전의 gradle 을 자동으로 설치해주는 기능 제공
     - gradlew 명령어 실행하면 gradle binary 다운되면서 빌드 실행됨
-
 - 호환성 최대한 배려
   - 기존 기능을 갑자기 사용할 수 없게 되는 변경은 하지 않음
   - 기능을 제거해야 한다면 장래에 폐지될 가능성이 있음을 명시하고 단계적으로 제거
@@ -515,14 +525,14 @@ JVM 기반 언어의 빌드 툴.
 | **스크립트 기반 빌드 구성**   | ✅ DSL 기반 (Groovy/Kotlin)    | ✅ Dart 기반 일부 CLI           | ✅ Xcode Build Settings + 스크립트      |
 | **멀티 모듈 지원**            | ✅ `multi-project` 구조        | ✅ 패키지/모듈 나눌 수 있음     | ✅ Workspace, Project, Target 구조      |
 | **캐시 및 Incremental Build** | ✅ 매우 강력함                 | ⚠️ 일부 캐시 있음 (비교적 단순) | ⚠️ 있음 (하지만 복잡하고 느릴 수 있음)  |
-| **외부/로컬 저장소 지원**     | ✅ 다양하게 지원               | ✅ pub.dev + git + path 등      | ✅ CocoaPods/SwiftPM도 다양한 소스 지원 |
+| **외부/로컬 저장소 지원**     | ✅ 다양하게 지원               | ✅ pub.dev + git + path 등      | ✅ CocoaPods/SwiftPM 도 다양한 소스 지원 |
 | **IDE 통합**                  | ✅ Android Studio, IntelliJ 등 | ✅ VSCode, Android Studio       | ✅ Xcode                                |
 
 차이점
 
 | 항목                            | Gradle                                           | Flutter                   | iOS (Xcode)                  |
 | ------------------------------- | ------------------------------------------------ | ------------------------- | ---------------------------- |
-| **DSL 확장성**                  | 매우 높음 (Groovy/Kotlin)                        | 낮음 (CLI에 가까움)       | 낮음 (Xcode 설정 UI 기반)    |
+| **DSL 확장성**                  | 매우 높음 (Groovy/Kotlin)                        | 낮음 (CLI 에 가까움)       | 낮음 (Xcode 설정 UI 기반)    |
 | **사용자 정의 태스크/플러그인** | 완전 가능                                        | 불편하거나 거의 없음      | 매우 제한적 (스킴/스텝 기반) |
 | **멀티 플랫폼 대응성**          | ✅ JVM, Android, Kotlin Multiplatform 등          | ✅ Android + iOS 모두 대응 | ❌ iOS 전용                   |
 | **병렬 빌드/캐시 효율화**       | 고성능 설정 가능 (`--parallel`, `--build-cache`) | 덜 최적화됨               | 자동 캐시 있지만 설정이 복잡 |
@@ -531,57 +541,66 @@ JVM 기반 언어의 빌드 툴.
 ### 조각지식: Maven
 
 ant 다음 세대, gradle 이전 세대 빌드 툴.
+
 의존 라이브러리를 관리하기 위해 Maven Central Repository(mavenCenter) 제공.
+
 Sonatype 에서 관리함.
 
 ### 조각지식: google()
 
 Google 에서 관리하는 의존 라이브러리 관리 공간.
-Google은 Android 생태계를 강화하면서, Android 관련 라이브러리(예: Jetpack, AndroidX, Play Services 등)를 빠르게 배포하기 위해 자체 Maven 저장소를 운영하게 됨.
-Android 관련 라이브러리를 Maven Central에 올리기엔 승인 절차가 오래 걸림.
+
+Google 은 Android 생태계를 강화하면서, Android 관련 라이브러리 (예: Jetpack, AndroidX, Play Services 등) 를 빠르게 배포하기 위해 자체 Maven 저장소를 운영하게 됨.
+
+Android 관련 라이브러리를 Maven Central 에 올리기엔 승인 절차가 오래 걸림.
+
 Android Studio + Gradle 환경에 최적화된 릴리스 속도와 배포 제어 필요.
 
 ### 조각지식: Groovy
 
-JVM 기반의 동적 타입 언어이며, Java와 매우 밀접한 관계를 가진 스크립트 언어.
+JVM 기반의 동적 타입 언어이며, Java 와 매우 밀접한 관계를 가진 스크립트 언어.
 
 | 항목        | 설명                                                       |
 | ----------- | ---------------------------------------------------------- |
 | 플랫폼      | JVM 기반 (Java Virtual Machine)                            |
 | 타입 시스템 | **동적 타입** (필요시 정적 타입도 가능)                    |
-| 문법 특징   | Java와 거의 동일하지만 훨씬 간결                           |
-| 주요 용도   | 스크립트 작성, 빌드 도구(Gradle), DSL, 테스트 코드, 자동화 |
-| 처음 등장   | 2003년경 (James Strachan에 의해 시작)                      |
-| 버전 관리   | Apache Software Foundation에서 관리 중                     |
+| 문법 특징   | Java 와 거의 동일하지만 훨씬 간결                           |
+| 주요 용도   | 스크립트 작성, 빌드 도구 (Gradle), DSL, 테스트 코드, 자동화 |
+| 처음 등장   | 2003 년경 (James Strachan 에 의해 시작)                      |
+| 버전 관리   | Apache Software Foundation 에서 관리 중                     |
 
 어떤 맥락에서 나왔나?
 
-> 📌 Java의 한계를 보완하기 위해
+>📌 Java 의 한계를 보완하기 위해
 
 - 너무 장황한 문법 (Boilerplate)
 - 동적 프로그래밍이 거의 불가능
 - 스크립팅/자동화가 어려움
-- Java로 간단한 작업하기엔 무거움
+- Java 로 간단한 작업하기엔 무거움
 
 | 개선 포인트                       | 설명                                      |
 | --------------------------------- | ----------------------------------------- |
 | 타입 생략 가능                    | `def name = "groovy"` 처럼 동적 타입 가능 |
-| 컬렉션 리터럴                     | `[]`, `[:]` 등 Python처럼 간단하게        |
+| 컬렉션 리터럴                     | `[]`, `[:]` 등 Python 처럼 간단하게        |
 | 클로저 지원                       | `list.each { println it }`                |
 | 문자열 템플릿                     | `"Hello, ${name}"`                        |
-| 빌드 스크립트에 최적화된 DSL 구조 | Gradle의 `task {}` 문법에 딱 맞음         |
+| 빌드 스크립트에 최적화된 DSL 구조 | Gradle 의 `task {}` 문법에 딱 맞음         |
 
-Groovy는 동적 타입 기반이라 런타임 에러가 더 많을 수 있고, 정적 분석이 어려움.
-성능도 Java에 비해 다소 느릴 수 있음.
-이런 이유로 최근에는 Gradle에서도 Groovy DSL → Kotlin DSL로 전환하는 흐름이 강해짐.
+Groovy 는 동적 타입 기반이라 런타임 에러가 더 많을 수 있고, 정적 분석이 어려움.
+
+성능도 Java 에 비해 다소 느릴 수 있음.
+
+이런 이유로 최근에는 Gradle 에서도 Groovy DSL → Kotlin DSL 로 전환하는 흐름이 강해짐.
 
 ### Kotlin DSL
 
-Kotlin DSL은 Kotlin 언어를 기반으로 작성된 DSL(Domain-Specific Language).
+Kotlin DSL 은 Kotlin 언어를 기반으로 작성된 DSL(Domain-Specific Language).
+
 즉, 빌드 스크립트를 Kotlin 문법으로 작성하는 방법. 스크립트 역할을 하는 kotlin 코드.
 
-일반적인 Kotlin 애플리케이션은 main() 함수가 있고, JVM에서 실행됨.
-Gradle의 Kotlin DSL은 Gradle이 실행할 때 스크립트처럼 해석되며, 특정 DSL 문법을 통해 Gradle의 API를 호출.
+일반적인 Kotlin 애플리케이션은 main() 함수가 있고, JVM 에서 실행됨.
+
+Gradle 의 Kotlin DSL 은 Gradle 이 실행할 때 스크립트처럼 해석되며, 특정 DSL 문법을 통해 Gradle 의 API 를 호출.
 
 ```groovy
 apply plugin: 'java' // 플러그인 적용
@@ -720,7 +739,8 @@ dependencies {
 #### 플러그인
 
 Gradle 플러그인은 빌드 스크립트를 자동화하거나 편리하게 확장하기 위한 코드 묶음.
-Gradle의 빌드 생명주기 안에 Task를 자동으로 등록하고, 설정까지 자동화.
+
+Gradle 의 빌드 생명주기 안에 Task 를 자동으로 등록하고, 설정까지 자동화.
 
 #### 라이브러리
 
@@ -728,11 +748,11 @@ Gradle의 빌드 생명주기 안에 Task를 자동으로 등록하고, 설정�
 
 | 항목               | Gradle **플러그인**| 일반** 라이브러리**                            |
 | ------------------ | --------------------------------------------------- | ---------------------------------------------- |
-| **목적**| \*\*빌드 도구(Groovy/Kotlin DSL)\*\*의 기능 확장    | 앱/라이브러리** 코드에서 사용하는 기능**       |
-| **언제 사용됨?**   | Gradle이 프로젝트를 빌드할 때                       | 앱이 실행되거나 테스트될 때                    |
+| **목적**| \*\* 빌드 도구 (Groovy/Kotlin DSL)\*\* 의 기능 확장    | 앱/라이브러리** 코드에서 사용하는 기능**       |
+| **언제 사용됨?**   | Gradle 이 프로젝트를 빌드할 때                       | 앱이 실행되거나 테스트될 때                    |
 | **어디에 선언함?** | `plugins {}` 또는 `buildscript {}`                  | `dependencies {}`                              |
 | **예시**           | `com.android.application`, `kotlin("jvm")`          | `org.jetbrains.kotlinx:kotlin-coroutines-core` |
-| **파일에 포함됨?**| 일반적으로** APK/WAR에 포함되지 않음**              | 포함됨 (`.jar`, `.apk` 등 안에 들어감)         |
+| **파일에 포함됨?**| 일반적으로** APK/WAR 에 포함되지 않음**              | 포함됨 (`.jar`, `.apk` 등 안에 들어감)         |
 | **기능 예시**      | `kapt`, `dagger.hilt.android.plugin`, `spring-boot` | Retrofit, OkHttp, Room, JUnit 등               |
 
 ### pluginManagement vs dependencyResolutionManagement
@@ -743,7 +763,7 @@ Gradle의 빌드 생명주기 안에 Task를 자동으로 등록하고, 설정�
 | **적용 대상**      | `plugins {}` 블록에서 사용하는 플러그인           | `dependencies {}` 블록에서 사용하는 라이브러리       |
 | **주로 선언 위치** | `settings.gradle.kts`                             | `settings.gradle.kts`                                |
 | **저장소 지정**    | 플러그인용 저장소 (`gradlePluginPortal`, etc.)    | 라이브러리용 저장소 (`mavenCentral`, `google`)       |
-| **버전 지정**      | 플러그인 ID 및 버전 (`id("xxx") version "x.y"`)   | 라이브러리 버전은 보통 `libs.versions.toml`에서 관리 |
+| **버전 지정**      | 플러그인 ID 및 버전 (`id("xxx") version "x.y"`)   | 라이브러리 버전은 보통 `libs.versions.toml` 에서 관리 |
 | **사용 예시**      | Android Gradle Plugin, Kotlin plugin 등           | Retrofit, Room, JUnit, Glide 등 앱 라이브러리        |
 
 ### classpath?

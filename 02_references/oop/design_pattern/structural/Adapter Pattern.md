@@ -2,7 +2,7 @@
 title: Adapter Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2025-12-11 14:51:12 +09:00
+date modified: 2025-12-16 20:27:49 +09:00
 date created: 2024-12-12 14:59:28 +09:00
 ---
 

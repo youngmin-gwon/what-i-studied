@@ -2,7 +2,7 @@
 title: android-activity-manager-and-system-services
 tags: [android, android/ams, android/system-services]
 aliases: []
-date modified: 2025-12-16 15:59:09 +09:00
+date modified: 2025-12-16 20:28:32 +09:00
 date created: 2025-12-16 15:24:09 +09:00
 ---
 

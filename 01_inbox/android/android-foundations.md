@@ -2,7 +2,7 @@
 title: android-foundations
 tags: [android, android/architecture, android/fundamentals, mobile/os]
 aliases: []
-date modified: 2025-12-16 16:00:20 +09:00
+date modified: 2025-12-16 20:30:00 +09:00
 date created: 2025-12-16 15:22:14 +09:00
 ---
 
