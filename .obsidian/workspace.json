@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01_inbox/apple/apple-watchos-wearables.md",
+                "file": "01_inbox/apple/apple-macos-desktop.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "apple-watchos-wearables"
+              "title": "apple-macos-desktop"
             }
           },
           {
@@ -203,6 +203,18 @@
   },
   "active": "a829d7ee921395e0",
   "lastOpenFiles": [
+    "01_inbox/apple/apple-ipados-multitasking.md",
+    "01_inbox/apple/apple-interprocess-and-xpc.md",
+    "01_inbox/apple/apple-glossary.md",
+    "01_inbox/apple/apple-history-and-evolution.md",
+    "01_inbox/apple/apple-foundations.md",
+    "01_inbox/apple/apple-distribution-and-policies.md",
+    "01_inbox/apple/apple-build-and-distribution.md",
+    "01_inbox/apple/apple-boot-flow-and-images.md",
+    "01_inbox/apple/apple-architecture-stack.md",
+    "01_inbox/apple/apple-app-lifecycle-and-ui.md",
+    "01_inbox/apple/apple-accessibility-and-internationalization.md",
+    "01_inbox/apple/apple-watchos-wearables.md",
     "01_inbox/apple/tvos/apple-tvos-design-patterns.md",
     "01_inbox/apple/watchos/apple-watchos-battery-and-performance.md",
     "01_inbox/apple/macos/apple-system-extensions-and-driverkit.md",
@@ -217,18 +229,6 @@
     "01_inbox/apple/common-network/apple-offline-and-resilience.md",
     "01_inbox/android/android-permissions-deep-dive.md",
     "01_inbox/android/android-process-and-memory.md",
-    "01_inbox/apple/tvos/apple-tvos-media.md",
-    "01_inbox/apple/watchos/apple-watchos-fitness-guide.md",
-    "01_inbox/apple/visionos/apple-visionos-immersion-guide.md",
-    "01_inbox/apple/macos/apple-macos-advanced.md",
-    "01_inbox/apple/ipados/apple-ipados-productivity-deep.md",
-    "01_inbox/apple/ios/apple-ios-playbook.md",
-    "01_inbox/apple/common-security/apple-cryptography-and-keychain.md",
-    "01_inbox/apple/common-security/apple-privacy-and-tcc-details.md",
-    "01_inbox/apple/common-security/apple-security-models.md",
-    "01_inbox/android/android-app-components-deep-dive.md",
-    "01_inbox/apple/common-graphics/apple-media-pipeline-deep.md",
-    "01_inbox/apple/common-graphics/apple-ui-performance-guide.md",
     "01_inbox/apple/tvos",
     "01_inbox/apple/watchos",
     "01_inbox/apple/visionos",
