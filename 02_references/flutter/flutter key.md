@@ -2,7 +2,7 @@
 title: flutter key
 tags: [concept, flutter, key]
 aliases: []
-date modified: 2024-12-16 15:31:51 +09:00
+date modified: 2025-12-16 15:43:09 +09:00
 date created: 2024-12-14 11:17:03 +09:00
 ---
 
@@ -37,7 +37,7 @@ collection 의 전체 subtree 가 stateless 이면 key 는 필요하지 않음. 
 
 ## 어디에 사용해야하는가
 
-> 보존해야하는 sub widget tree 최상단에 넣어줘라
+>보존해야하는 sub widget tree 최상단에 넣어줘라
 
 첫번째 stateful widget 에 넣어주는 것 아님 ⇒ 만약 Stateless Widget 으로 감싼 Stateful Widget 을 실험해본다면 매우 이상한 현상을 볼 수 있을 것임
 
@@ -48,19 +48,19 @@ collection 의 전체 subtree 가 stateless 이면 key 는 필요하지 않음. 
 
 ### 1. ValueKey
 
-> 하나의 값으로 유효함을 증명할 수 있을 때
+>하나의 값으로 유효함을 증명할 수 있을 때
 
 eg. (중복 아이템이 등록되지 않았다는 상황에서) Todo-List item 의 task
 
 ### 2. ObjectKey
 
-> 하나의 값은 안되지만 여러 값의 조합으로 유효함을 증명할 수 있을 때
+>하나의 값은 안되지만 여러 값의 조합으로 유효함을 증명할 수 있을 때
 
 eg. 전화번호부의 사용자 정보
 
 ### 3. UniqueKey
 
-> build method 전에 비교할만한 값이 없을 때 사용
+>build method 전에 비교할만한 값이 없을 때 사용
 
 하지만 사용에 주의해야함
 
@@ -72,11 +72,11 @@ eg. 전화번호부의 사용자 정보
 
 ### 4. PageStorageKey
 
-> Scroll location 을 담고 있는 특별한 키, 여러개의 Scroll 이 있는 경우 사용하면 좋을 듯
+>Scroll location 을 담고 있는 특별한 키, 여러개의 Scroll 이 있는 경우 사용하면 좋을 듯
 
 ### 5. GlobalKey
 
-> Widget tree 에서 widget 의 위치가 완전히 바뀌지만, RenderObject 를 사용하고 싶다면 사용할 수 있는 key
+>Widget tree 에서 widget 의 위치가 완전히 바뀌지만, RenderObject 를 사용하고 싶다면 사용할 수 있는 key
 
 performance optimization!
 
