@@ -2,71 +2,55 @@
 title: android-testing-and-quality
 tags: [android, android/quality, android/testing]
 aliases: []
-date modified: 2025-12-16 15:42:18 +09:00
+date modified: 2025-12-16 16:03:36 +09:00
 date created: 2025-12-16 15:27:59 +09:00
 ---
 
 ## Testing & Quality android android/testing android/quality
 
-[[android-foundations]] · [[android-performance-and-debug]] · [[android-os-development-guide]]
+앱과 시스템을 안전하게 내놓기 위한 테스트 기본기를 쉽게 정리했다. 용어는 [[android-glossary]].
 
-### 테스트 유형
-- Unit tests: JVM(local) vs Instrumentation(device). Mockito/Truth/Kotlinx Coroutines test. Robolectric for framework shadowing.
-- UI tests: Espresso(View), Compose UI test rule, macrobenchmark for startup/render/perf.
-- End-to-end: orchestrator, Gradle Managed Devices, Firebase Test Lab/cloud farm.
-- Native tests: GTest, instrumentation for JNI, fuzzing(libFuzzer) on native libs.
-- Contract tests: AIDL/IPC stability tests, Compatibility Test Suite(CTS) subsets for SDK/library behavior.
+### 어떤 테스트가 있나
+- 단위 테스트: 비즈니스 로직을 JVM 에서 빠르게 돌린다.
+- 기기/에뮬레이터 테스트: UI(Espresso/Compose), 통합 (Instr), 성능 (Macrobenchmark).
+- 플랫폼 호환성: CTS/VTS/GTS 로 OS/HAL 이 규격을 지키는지 확인.
+- 퍼지·샌리타이저: 네이티브 코드 안전성 강화.
 
-### 아키텍처와 테스트 용이성
-- MVVM/MVI/Clean architecture 로 비즈니스 로직을 View/IO 에서 분리해 테스트 가능성 향상.
-- Repository + use case layer, interface-driven design. Dependency injection(Hilt/Koin/Dagger) 로 mock 교체 용이.
-- State holders(ViewModel/Presenter) 에서 pure function/Flow 기반 설계.
-- Compose UI tests: semantics tree, `performClick/TouchInput`, screenshot baselines. View tests: IdlingResource/CountingIdlingResource.
-- Fake vs mock 구분; in-memory DB/HTTP fake 로 flaky 를 줄임. Clock abstraction 으로 시간 의존성 제거.
+### 설계와 테스트 용이성
+- MVVM/MVI 로 UI 와 로직을 분리하면 테스트가 쉽다.
+- 의존성 주입 (Hilt/Koin/Dagger) 으로 가짜 (Stub/Fake) 를 넣어볼 수 있다.
+- 시간/네트워크/저장을 추상화해 빠르게 반복 테스트한다.
 
-### 도구/프레임워크
-- JUnit4→JUnit5(gradle support), AssertJ/Truth, Kotlin test. CoroutineTestRule/MainDispatcherRule for dispatcher swap.
-- Espresso IdlingResource/CountingIdlingResource, Compose `awaitIdle`, `runOnIdle`.
-- Test orchestrator clears app state between tests; `clearPackageData` helps isolation.
-- Snapshot/Golden tests: Paparazzi/Shot, Compose screenshot. Baseline images 관리 정책.
-- Detekt/Lint custom rules to enforce architecture boundaries; API lint for libraries.
+### 도구
+- JUnit + Truth/AssertJ, Coroutine Test Rule 로 스레드를 제어.
+- Espresso IdlingResource, Compose Semantics 테스트 API.
+- Snapshot/Screenshot 테스트로 UI 깨짐을 감시.
 
-### 장치 구성 관리
-- Gradle Managed Devices/AVD definitions. Snapshot boot for speed. `adb` selectors with `-s`.
-- Device farm: FTL, AWS Device Farm. Sharding/parameterized runs. locale/orientation/density matrix.
-- Performance-sensitive tests pin to hw accelerated emulators or physical devices; CPU/GPU throttling off. Thermal state control.
+### 기기 관리
+- Gradle Managed Devices/에뮬레이터 스냅샷으로 빠르게 실행.
+- FTL/클라우드 팜으로 여러 기기에서 병렬 테스트.
+- 로캘/화면 크기/회전/다크 모드 매트릭스로 돌려본다.
 
-### 안정성/회귀 방지
-- Contract tests for IPC/ContentProvider. Baseline profiles verification. API surface tests for libraries.
-- Mutation testing(PIT), coverage reporting(Jacoco/Gradle). flaky test quarantine policies.
-- Test impact analysis to select affected modules. incremental test runs; hermetic data seeds.
-- Regression triage rituals: sheriffs/oncall rotation, automated bug filing with stacktrace clustering.
+### 회귀를 막는 법
+- 변경된 코드에 영향 있는 테스트만 추려 실행 (테스트 영향 분석).
+- 플래키 테스트는 격리·수정 후 다시 합친다.
+- 커버리지/린트/CI 에서 빨간불이면 고치고 넘어간다.
 
-### 성능/배터리 테스트
-- Macrobenchmark: startup/scroll/Jank. Perfetto trace parsing, metrics export.
-- Microbenchmark(JMH/Jetpack Benchmark) for tight loops/allocations. Compose recomposition counts.
-- Battery/thermal: `dumpsys batterystats --enable full-wake-history`, `perfetto power rail`. Game Mode/GameManager integration.
-- Network/CPU/GPU/Memory KPIs tracked per build; threshold-based gating. E2E flows measured with scenario scripts.\n
+### 성능·배터리 테스트
+- Macrobenchmark 로 시작/스크롤/자원 사용을 잰다.
+- Perfetto 로 CPU/GPU/네트워크 타임라인을 확인한다.
+- batterystats/Battery Historian 으로 상위 소모원을 찾는다.
 
-### 네이티브/플랫폼 테스팅
-- CTS/VTS for compatibility. `atest <module>` to target specific suites. Tradefed/sharding.
-- sepolicy tests, hidden API enforcement tests, CTS verifier(manual). GSI device bring-up verification.
-- vendor test suites(VTS) focus on HAL stability; MTS(Mainline Test Suite) for APEX.\n
+### 출시 준비 체크
+- 권한/프라이버시 흐름 검토, 접근성 (글자 크기/콘트라스트/포커스) 확인.
+- R8 난독화 경고, 크래시/ANR 지표 (Play Vitals) 를 모니터링.
+- 롤백·원격 플래그로 위험을 줄인다.
 
-### 릴리즈 품질 게이팅
-- Static analysis: Android Lint/Detekt/Spotless, API lint. R8 shrink/obfuscate warnings budget.
-- Crashlytics/Play Vitals ANR/crash rate gating. staged rollout with metrics. Feature flag kill switch.
-- Accessibility checks: TalkBack, focus order, color contrast, font scaling. Pre-launch report bots.
-- Release checklist: perf budgets, bundle size, baseline profile present, privacy/security review, changelog/rollback plan.
-- rollout stages: internal dogfood → alpha → beta → prod staged; guardrails on ANR/Crash/FS violations.
+### 문화
+- 버그 재현 로그 (스크린레코드 +bugreport) 를 남기고 공유한다.
+- 실험은 작은 비율부터, 실패 시 빠른 롤백.
+- 회고/기술 문서를 남겨 다음에 같은 실수를 줄인다.
 
-### 디버깅/실험 문화
-- Canary/internal builds with runtime flags(DeviceConfig/remote config). Experiment analysis dashboards.
-- Structured logging with event IDs/tags, log sampling. PII redaction guidelines.
-- Postmortem/RCAs on regressions, blameless culture, runbooks for incident response.
-- SLO/SLA 정의: availability, crash-free sessions, latency targets. Error budgets 와 릴리즈 동결 정책.
+### 링크
 
-### 문서화/지식 공유
-- ADR(Architecture Decision Record), design doc templates. code owners/review rotations.
-- Onboarding playbook for new modules: build/run/test commands, trace recipes, perf baselines.
-- Graph links for knowledge mapping: [[android-activity-manager-and-system-services]], [[android-security-and-sandboxing]], [[android-evolution-history]].
+[[android-foundations]], [[android-performance-and-debug]], [[android-os-development-guide]].

@@ -2,82 +2,54 @@
 title: android-evolution-history
 tags: [android, android/history, android/transitions]
 aliases: []
-date modified: 2025-12-16 15:41:44 +09:00
+date modified: 2025-12-16 16:03:01 +09:00
 date created: 2025-12-16 15:25:47 +09:00
 ---
 
 ## Evolution & Technology Transitions android android/history android/transitions
 
-[[android-foundations]] · [[android-architecture-stack]] · [[android-hal-and-kernel]]
+안드로이드가 어떻게 변해왔는지 큰 흐름만 쉽게 짚었다. 용어는 [[android-glossary]].
 
-### 런타임/언어 전환
-- Dalvik→ART: 2014 Lollipop 에서 AOT 로 부팅/실행 속도 개선. Nougat 에서 hybrid profile-guided JIT/AOT 도입해 디스크/시간 균형.
-- Java 6→8→11 desugaring: D8/R8 가 람다/default method/backport 지원. Kotlin 우선 정책으로 null-safety, coroutine 기반 구조 확산.
-- Instant Apps→App Bundles(AAB)+Play Feature Delivery: split APK, asset delivery(install-time, on-demand, fast-follow, instant) 로 배포 최적화.
-- Jack/Jill 실험적 toolchain 폐기 후 D8/R8 가 표준화.\n
+### 런타임/언어
+- Dalvik(옛 VM) → [[android-glossary#art|ART]]: 더 빠르고 배터리 친화적.
+- 자바 6 → 8 → 11, Kotlin 우선. 람다/코루틴/Null- 안전 등이 기본이 되었다.
+- APK → [[android-glossary#apk|App Bundle]](AAB) 로 전환해 기기별로 필요한 조각만 배포한다.
 
-### IPC/HAL 전환
-- HIDL→AIDL HAL: interface stability 단순화, 언어 중립성, 테스트 용이성. Stable AIDL(@VintfStability) 로 vendor-framework decoupling.
-- ashmem→memfd: upstream 호환성, sealing. ion→dmabuf: 표준 buffer sharing.
-- binderized HAL 로 프로세스 격리 강화; passthrough HAL 감소.
-- binderfs 도입으로 namespace/권한 분리. binder caching, lazy init 연구.
+### IPC/HAL
+- HIDL → AIDL HAL: 테스트와 호환성 개선, 언어 제약 완화.
+- 공유 메모리/버퍼: ashmem/ION → memfd/DMABuf 로 더 안전하고 표준화됨.
+- Binder 네임스페이스 (binderfs) 로 보안을 강화.
 
 ### 그래픽/미디어
-- OpenGL ES→Vulkan: low-overhead rendering, ANGLE adoption for compatibility.
-- SurfaceFlinger → HWC2/Composer2: HW composer 우선, BLASTBufferQueue 로 transaction latency 감소.
-- MediaCodec2/Codec2: modular codec interface, DRM 개선 (keystore2/KeyMint).
+- OpenGL ES 중심 → Vulkan/ANGLE 로 옮겨가며 성능·호환성을 높임.
+- SurfaceFlinger/HWC2/BLAST 로 합성 경로를 단순화하고 지연을 줄임.
+- MediaCodec2 로 모듈화, DRM/보안 강화.
 
-### 보안 정책 변화
-- install location/open external storage → scoped storage + SAF + MediaStore.
-- background execution → foreground service requirement, JobScheduler/WorkManager 중심.
-- Permission 모델 진화: runtime permissions, one-time, approximate location, notification runtime opt-in, photo picker.
-- Verified Boot→AVB2 + rollback protection; SafetyNet→Play Integrity.
-- AppOps 확장, restricted settings(API 33), clipboard autoredaction, mic/camera indicators/toggles.
+### 보안/프라이버시
+- 저장소: 무제한 외부 저장소 → [[android-glossary#scoped-storage|Scoped Storage]].
+- 권한: 설치 시 묻기 → 실행 중/한 번만 허용/대략적 위치/알림 런타임 권한 등 점진적 강화.
+- 부팅: Verified Boot → AVB2, Play Integrity.
 
-### 배포/업데이트
-- Non-A/B OTA → A/B seamless; dynamic partitions(super) 로 공간 유연성.
-- Mainline/APEX: ART/Media/NNAPI/PermissionController 등 모듈 업데이트. Google Play System Updates.
-- Incremental FS & Play Asset Delivery 로 스트리밍 설치.
-- Project Treble 로 system/vendor 분리, GSI 를 통한 호환성 테스트 필수화.
+### 업데이트/배포
+- Non-A/B → A/B/Virtual A/B 로 중단 없는 OTA.
+- [[android-glossary#apex|Mainline/APEX]] 로 ART/Media/NetworkStack 등 핵심 모듈을 따로 업데이트.
+- Incremental 파일 시스템/Play Asset Delivery 로 설치를 스트리밍.
 
-### 디버깅/프로파일링
-- systrace → Perfetto, simpleperf, heapprofd/memtrack. bugreport 개선 (zip bundle, timestamps).
-- StrictMode 확장, ANR trace quality 개선.
+### UI
+- View 시스템 → Jetpack Compose 병행.
+- Material → Material 3/Monet(동적 색상), 제스처 내비게이션, 폴더블/대화면 대응.
 
-### UI 패러다임
-- View system → Jetpack Compose: declarative, recomposition, state hoisting. ConstraintLayout→MotionLayout. Navigation component.
-- Material Design → Material 3/You/Monet(dynamic color).
-- Gesture navigation, predictive back, lockscreen personalization 진화. Foldable/large screen 대응 가이드 추가.\n
-
-### 버전별 하이라이트 (요약)
-- Cupcake~Gingerbread: 앱 위젯, copy/paste, NFC 초창기, Dalvik JIT. Holo 디자인 전개 준비.
-- Honeycomb: tablet 전용 UI, SystemBar/Fragment 등장, RenderScript(후퇴).
-- Ice Cream Sandwich/Jelly Bean: Holo + hardware acceleration, Project Butter(60fps), Doze 개념 전조.
-- KitKat: Immersive mode, ART 프리뷰, NFC host card emulation, Storage Access Framework 시작.
-- Lollipop: ART 기본, Material Design 1, JobScheduler, Camera2, Project Volta(배터리).
-- Marshmallow: runtime permissions, Doze/App Standby, adoptable storage, fingerprint API.
-- Nougat: multi-window, Vulkan 1.0, File-based encryption, Doze on the go.
-- Oreo: Project Treble, notification channels, background limits, AAudio, Autofill.
-- Pie: App Standby Buckets, slices/app actions, display cutouts, Digital Wellbeing.
-- 10: gesture navigation, scoped storage(soft launch), privacy toggles(location/mic/camera indicators later).
-- 11: one-time permissions, Bubbles, HAF/pandemic-driven background start limits, incremental FS.
-- 12: Material You/Monet, Private Compute Core, approximate location, rich haptics.
-- 13/14: per-app language, photo picker, predictive back, FGS types, Health Connect, partial screen sharing.
-
-### 배터리/성능 정책
-- Doze/App Standby introduced in Marshmallow; adaptive battery/standby buckets in Pie; expedited jobs/FGS restrictions in Android 13/14.
-- LMKD psi 기반 → freezer cgroup/cached compaction.
-
-### DevOps 변화
-- Gradle plugin incremental improvements, configuration cache. Bazel adoption in AOSP.
-- Firebase Test Lab/cloud device farm commonplace.
-
-### 앞으로의 흐름 (추정)
-- Rust adoption in platform code(binder/USB/bluetooth), memory safety 확대.
-- Better isolation for ML/AI workloads; NNAPI/MediaPipe integration.
-- Privacy sandbox on Android(PSA) for 광고 추적 제한.
+### 버전별 한 줄 메모
+- 5.0 Lollipop: ART 기본, Material 1, JobScheduler.
+- 6.0 Marshmallow: 런타임 권한, Doze.
+- 7.0 Nougat: 멀티 윈도우, Vulkan, FBE.
+- 8.0 Oreo: Treble, 알림 채널, 백그라운드 제한.
+- 9 Pie: 앱 대기 버킷, Digital Wellbeing.
+- 10: 제스처 내비, Scoped Storage(도입), Dark Theme.
+- 11: 한 번만 권한, Bubbles, Incremental FS.
+- 12: Material You/Monet, Private Compute Core.
+- 13/14: per-app 언어, Photo Picker, 예측적 뒤로가기, FGS 타입, Health Connect.
 
 ### 링크
-- [[android-customization-and-oem]]: Treble/Mainline 영향.
-- [[android-security-and-sandboxing]]: 정책 변화와 보안.
-- [[android-performance-and-debug]]: Perfetto 등 신형 도구.
+
+[[android-customization-and-oem]], [[android-security-and-sandboxing]], [[android-performance-and-debug]].
