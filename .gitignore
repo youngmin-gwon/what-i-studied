@@ -1,2 +1,4 @@
 .DSStore
 **/*.DS_Store
+
+.obsidian/workspace.json
