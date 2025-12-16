@@ -43,3 +43,4 @@ date created: 2025-12-16 15:56:51 +09:00
 - **[[android-glossary#perfetto]] Perfetto**: 시스템 전체를 시간 순서로 기록해 병목을 찾는 도구.
 - **[[android-glossary#bugreport]] Bugreport**: 기기 상태를 압축해 담은 큰 로그 묶음.
 - **[[android-glossary#apm]] App Standby/Doze**: 배터리를 아끼기 위해 앱의 활동을 쉬게 하는 모드.
+- **[[android-glossary#mipmap]] mipmap**: 다양한 화면 밀도에 맞춰 앱 아이콘을 최적화해 저장하는 디렉토리. drawable과 달리 런처가 효율적으로 로딩할 수 있다.
