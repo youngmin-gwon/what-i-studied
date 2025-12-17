@@ -1496,82 +1496,572 @@ git sparse-checkout set src/important/
 git lfs migrate import --include="*.zip,*.mp4"
 ```
 
-## 예방 방법
+## 예방 방법 - 문제가 생기기 전에
+
+대부분의 Git 문제는 좋은 습관과 예방적 설정으로 예방할 수 있습니다.
+
+```mermaid
+graph TB
+    A[예방 전략] --> B[좋은 습관]
+    A --> C[예방적 설정]
+    A --> D[백업 전략]
+
+    B --> B1["커밋 전 확인"]
+    B --> B2["작은 단위 커밋"]
+    B --> B3["정기적 동기화"]
+
+    C --> C1["hooks 활용"]
+    C --> C2[".gitignore 설정"]
+    C --> C3["자동 검사"]
+
+    D --> D1["중요 작업 전 백업"]
+    D --> D2["원격 브랜치 유지"]
+    D --> D3["주기적 카피"]
+
+    style A fill:#90ee90
+```
 
 ### 1. 좋은 습관들
-- 커밋하기 전에 `git status`와 `git diff` 확인
-- 중요한 작업 전에 브랜치 생성
-- 정기적으로 원격 저장소와 동기화
-- 큰 변경사항은 작은 단위로 나누어 커밋
 
-### 2. 유용한 설정
 ```bash
-# 자동으로 공백 문제 확인
+# 작업 시작 전 루틴
+git status              # 현재 상태 파악
+git pull origin main    # 최신 변경사항 동기화
+git checkout -b feature/new-feature  # 새 작업 브랜치
+
+# 커밋 전 체크리스트
+git status              # 변경된 파일 확인
+git diff                # 미리보기
+git add -p              # 선별적 스테이징
+git commit -m "의미있는 메시지"  # 명확한 메시지
+
+# 작업 끝난 후
+git push origin feature/new-feature  # 백업
+```
+
+**한 커밋에 한 기능** 원칙:
+- ✅ 좋은 예: "로그인 버튼 색상 변경"
+- ❌ 나쁜 예: "로그인 기능 + 사용자 프로필 + 버그 수정"
+
+### 2. 예방적 설정
+
+**전역 설정**:
+```bash
+# 사용자 정보 (중요!)
+git config --global user.name "이름"
+git config --global user.email "email@example.com"
+
+# 자동 공백 문제 감지
 git config --global core.whitespace trailing-space,space-before-tab
 
-# 푸시 전 자동 테스트 (pre-push hook)
-# .git/hooks/pre-push 파일 생성
+# 색상 표시 활성화
+git config --global color.ui auto
+
+# 기본 브랜치명 설정
+git config --global init.defaultBranch main
+
+# 풀 전략 설정 (병합 커밋 없이 리베이스)
+git config --global pull.rebase true
+
+# 라인 엔딩 통일
+git config --global core.autocrlf input  # Mac/Linux
+# 또는 git config --global core.autocrlf true  # Windows
+```
+
+**프로젝트별 예방 설정**:
+```bash
+# .gitignore 파일 작성
+cat > .gitignore << 'EOF'
+# 빌드 결과물
+node_modules/
+dist/
+build/
+*.log
+
+# IDE 설정
+.vscode/
+.idea/
+*.swp
+
+# OS 파일
+.DS_Store
+Thumbs.db
+
+# 임시 파일
+*.tmp
+*.temp
+*.backup
+EOF
+
+# 커밋 메시지 템플릿
+mkdir -p .gitmessage
+cat > .gitmessage/template << 'EOF'
+# 제목: 50자 이내로 요약
+
+# 본문: 72자마다 줄바꿈, 처리 이유 설명
+# 예시:
+# - 왜 이 변경이 필요한가?
+# - 어떻게 이 문제를 해결했는가?
+# - 어떤 다른 영향이 있는가?
+
+# 관련 이슈: #
+EOF
+
+git config commit.template .gitmessage/template
+```
+
+### 3. Git Hooks로 자동 검사
+
+**Pre-commit Hook** (커밋 전 실행):
+```bash
+# .git/hooks/pre-commit 파일 생성
+cat > .git/hooks/pre-commit << 'EOF'
 #!/bin/sh
-npm test
+
+# 디버깅 로그 제거 검사
+if git diff --cached | grep -E "(console\.log|debugger|TODO:|FIXME:)"; then
+    echo "오류: 디버깅 코드가 포함되어 있습니다!"
+    exit 1
+fi
+
+# 코드 린터 실행 (예: ESLint, Prettier)
+if command -v npm >/dev/null 2>&1; then
+    npm run lint || exit 1
+fi
+
+echo "✅ Pre-commit 검사 통과"
+EOF
+
+chmod +x .git/hooks/pre-commit
 ```
 
-### 3. 백업 전략
+**Pre-push Hook** (푸시 전 실행):
 ```bash
-# 중요한 작업 전 백업 브랜치 생성
-git checkout -b backup-before-rebase
+# .git/hooks/pre-push 파일 생성
+cat > .git/hooks/pre-push << 'EOF'
+#!/bin/sh
 
-# 정기적으로 원격에 백업
-git push origin feature-branch
+# 테스트 실행
+if command -v npm >/dev/null 2>&1; then
+    echo "테스트 실행 중..."
+    npm test || {
+        echo "오류: 테스트 실패! push를 중단합니다."
+        exit 1
+    }
+fi
+
+# main/master 브랜치에 직접 push 방지
+protected_branch='main'
+local_ref=$(git symbolic-ref HEAD)
+local_branch=${local_ref#refs/heads/}
+
+if [ "$local_branch" = "$protected_branch" ]; then
+    echo "오류: $protected_branch 브랜치에 직접 push할 수 없습니다!"
+    echo "Pull Request를 사용하세요."
+    exit 1
+fi
+
+echo "✅ Pre-push 검사 통과"
+EOF
+
+chmod +x .git/hooks/pre-push
 ```
 
-## 복구 불가능한 상황
+### 4. 백업 전략
 
-### 1. `git reset --hard` 후 변경사항 복구
+**중요한 작업 전 백업**:
 ```bash
-# reflog에서 이전 상태 찾기
+# 작업 시작 전 백업 브랜치 생성
+git checkout -b backup-$(date +%Y%m%d-%H%M%S)
+git checkout -  # 원래 브랜치로 돌아가기
+
+# 위험한 작업 (rebase, force push 등) 전
+git tag backup-before-rebase
+# 또는
+git checkout -b backup-before-dangerous-operation
+
+# 상태 저장 (스테이시 활용)
+git stash save "중요한 작업 중 - 대기 중"
+```
+
+**원격 백업 습관**:
+```bash
+# 매일 작업 끝에
+git push origin feature/my-work  # 원격에 백업
+
+# 주기적인 복수 원격 백업
+git remote add backup-gitlab https://gitlab.com/user/repo.git
+git push backup-gitlab --all     # 모든 브랜치
+git push backup-gitlab --tags    # 모든 태그
+
+# 로컬 디스크 백업 스크립트
+cat > backup-git-repo.sh << 'EOF'
+#!/bin/bash
+BACKUP_DIR="/backup/git-repos/$(date +%Y%m%d)"
+mkdir -p "$BACKUP_DIR"
+git clone --mirror . "$BACKUP_DIR/$(basename $(pwd))"
+echo "백업 완료: $BACKUP_DIR"
+EOF
+chmod +x backup-git-repo.sh
+```
+
+### 5. 팀 규칙 및 가이드라인
+
+**CONTRIBUTING.md 예시**:
+```markdown
+# 기여 가이드
+
+## 브랜치 전략
+- `main`: 안정된 버전만
+- `develop`: 개발 중인 기능들
+- `feature/*`: 새로운 기능 개발
+- `hotfix/*`: 긴급 버그 수정
+
+## 커밋 메시지 규칙
+- feat: 새로운 기능
+- fix: 버그 수정
+- docs: 문서 수정
+- style: 코드 포매팅
+- refactor: 리팩토링
+
+## 금지사항
+- main 브랜치에 직접 push 금지
+- force push 사용 금지 (예외: 개인 브랜치)
+- 대용량 파일 커밋 금지
+```
+
+## 상황별 대처법 - 이것만은 알아두자
+
+정말 대처 방법이 없는 상황과 그 해결책을 알아보겠습니다.
+
+### 1. "Git 저장소가 완전히 망가졌어!" 상황
+
+**reflog는 Git의 중요한 안전망입니다**. 대부분의 작업은 복구 가능합니다.
+
+```mermaid
+flowchart TD
+    A["회복 불가능해 보이는 상황"] --> B["git reflog 확인"]
+    B --> C{작업 기록 있음?}
+    C --> D[Yes: 대부분 복구 가능]
+    C --> E[No: 다른 방법 시도]
+
+    D --> F["git reset --hard HEAD@{n}"]
+    E --> G["원격 저장소에서 복구"]
+    E --> H["팀원의 로컬 저장소"]
+    E --> I["백업에서 복구"]
+
+    style A fill:#ffcccb
+    style D fill:#90ee90
+```
+
+**`git reset --hard` 후 변경사항 복구**:
+```bash
+# 1. reflog에서 이전 상태 찾기
 git reflog
+# 7d3a8b2 HEAD@{0}: reset: moving to HEAD~1
+# a1b2c3d HEAD@{1}: commit: 중요한 작업 완료
+# e4f5g6h HEAD@{2}: commit: 다른 작업
 
-# 이전 상태로 복구
-git reset --hard HEAD@{1}
+# 2. 원하는 시점으로 복구
+git reset --hard HEAD@{1}  # "중요한 작업 완료" 로 돌아가기
+
+# 3. 복구 확인
+git log --oneline -5
 ```
 
-### 2. 실수로 삭제한 브랜치 복구
+**실수로 삭제한 브랜치 복구**:
 ```bash
-# reflog에서 브랜치의 마지막 커밋 찾기
-git reflog --all
+# 1. 삭제된 브랜치 찾기
+git reflog --all | grep "feature/important"
+# 또는 브랜치 삭제 시점 찾기
+git reflog | grep "branch"
 
-# 브랜치 재생성
-git checkout -b recovered-branch <commit-hash>
+# 2. 브랜치 재생성
+git checkout -b feature/important-recovered a1b2c3d
+
+# 3. 원격에 백업 (즉시!)
+git push origin feature/important-recovered
 ```
 
-### 3. 강제 푸시로 덮어쓴 원격 브랜치 복구
+### 2. 강제 푸시로 인한 히스토리 손실
+
+**최악의 시나리오**: 누군가 `git push --force`로 중요한 작업을 덮어쓸 때
+
 ```bash
-# 다른 팀원의 로컬 복사본에서 복구
-# 또는 GitHub/GitLab의 보호된 브랜치 기능 활용
+# 1. 타임라인 조사
+echo "누가 force push 했나?"
+git log --all --full-history --graph --color --oneline --since="1 day ago"
+
+# 2. 다른 팀원들에게 지원 요청
+echo "모든 팀원에게: 로컬 저장소를 검사해주세요!"
+
+# 3. 팀원의 로컬에서 복구
+# 팀원: 로컬에 아직 남아있다면
+git log --oneline
+git push origin feature/lost-work --force-with-lease
+
+# 4. GitHub/GitLab의 보호 기능 활용
+# GitHub: Settings → Branches → main → Restrict pushes that create files
+# GitLab: Settings → Repository → Push Rules
 ```
+
+### 3. 저장소 완전 첨해 (Corruption)
+
+**증상**: `git status`나 다른 Git 명령어가 오류를 낼 때
+
+```bash
+# 1. 문제 진단
+git fsck --full
+# error: object file .git/objects/xx/xxxxxx is empty
+# error: xxxxx: invalid sha1 pointer in cache-tree
+
+# 2. 경미한 첨해 수정 시도
+git gc --aggressive
+git repack -Ad
+
+# 3. 인덱스 재구성
+rm .git/index
+git reset
+
+# 4. 이것도 안 되면 원격에서 새로 클론
+cd ..
+mv broken-repo broken-repo-backup
+git clone <remote-url> broken-repo
+cd broken-repo
+
+# 5. 작업 중인 파일들만 복사
+cp ../broken-repo-backup/src/* ./src/  # 작업 디렉토리만
+```
+
+### 4. 대용량 파일로 인한 충돌
+
+**상황**: Git LFS 또는 대용량 파일 문제로 아무것도 할 수 없을 때
+
+```bash
+# 1. 원격 저장소 확인
+git remote -v
+
+# 2. fresh start 전략
+cd ..
+mv problematic-repo problematic-repo-backup
+git clone --depth 1 <remote-url> problematic-repo  # 얇은 클론
+cd problematic-repo
+
+# 3. 필요한 파일들만 전수 쿠키
+scp -r ../problematic-repo-backup/src/ ./
+scp ../problematic-repo-backup/package.json ./
+# 대용량 파일은 제외
+
+# 4. 새 커밋으로 시작
+git add .
+git commit -m "프로젝트 청소 후 새 시작"
+git push origin main
+```
+
+### 5. "그냥 포기할까?" 판단 기준
+
+```mermaid
+graph TD
+    A["문제 상황"] --> B{"매우 심각함?"}
+    B --> C[Yes: 포기 고려]
+    B --> D[No: 다양한 방법 시도]
+
+    C --> E{"대체 수단 있음?"}
+    E --> F[Yes: 새로 시작]
+    E --> G[No: 동료/커뮤니티 지원 요청]
+
+    D --> H["reflog, 백업, 원격 저장소 활용"]
+
+    style A fill:#ffcccb
+    style F fill:#90ee90
+    style G fill:#fff3cd
+    style H fill:#e6f3ff
+```
+
+**포기 기준**:
+- ✅ 포기해도 될 때: 측체 프로젝트, 학습용 저장소
+- ❌ 절대 포기하면 안 될 때: 회사 프로젝트, 중요한 개인 작업
+
+**원칙**: **대체 수단이 있는 경우에만 포기**
+- 원격 저장소에 백업 있음
+- 다른 개발자들도 같은 파일들을 가지고 있음
+- 없어도 상관없는 작업이었음
 
 ## 도움이 되는 도구들
 
-### Git GUI 도구
-- **GitHub Desktop**: 초보자 친화적
-- **Sourcetree**: 고급 기능 지원
-- **GitKraken**: 시각적 브랜치 관리
-- **VS Code Git**: 에디터 통합
+문제를 더 쉽게 해결하고 예방하기 위한 도구들을 소개합니다.
 
-### 명령어 도구
-```bash
-# 더 예쁜 로그 보기
-git log --oneline --graph --decorate --all
+### Git GUI 도구들
 
-# 파일별 변경 통계
-git log --stat
+```mermaid
+graph LR
+    A[사용자 수준] --> B[초보자]
+    A --> C[중급자]
+    A --> D[고급자]
 
-# 특정 단어가 언제 추가/삭제되었는지 추적
-git log -S "search_term" --source --all
+    B --> B1["GitHub Desktop<br/>이해하기 쉬움"]
+    B --> B2["VS Code Git<br/>에디터 내장"]
+
+    C --> C1["Sourcetree<br/>기능 풍부"]
+    C --> C2["GitKraken<br/>시각적 브랜치"]
+
+    D --> D1["IntelliJ Git<br/>IDE 통합"]
+    D --> D2["명령어 + GUI"]
+
+    style B1 fill:#e6f3ff
+    style B2 fill:#e6f3ff
+    style C1 fill:#fff3cd
+    style C2 fill:#fff3cd
+    style D1 fill:#ffe6e6
+    style D2 fill:#ffe6e6
 ```
 
-## 관련 문서
-- [[Git 기본 개념]]
-- [[Git 명령어 비교]]
-- [[Git 고급 워크플로우]]
-- [[Git 브랜치 전략]]
+**상황별 추천 도구**:
+
+1. **초보자 친화적**:
+   - **GitHub Desktop**: 드래그 앤 드롭으로 간단한 기능
+   - **VS Code Git**: 에디터에 내장, 명령어 병행 학습 가능
+
+2. **기능 풍부**:
+   - **Sourcetree**: 고급 기능 (인터랙티브 리베이스, 체리픽 등)
+   - **GitKraken**: 브랜치 시각화가 뛰어남, 충돌 해결 도구
+
+3. **개발자용**:
+   - **IntelliJ/WebStorm Git**: 강력한 IDE 통합
+   - **VS Code GitLens**: Git 블레임, 히스토리 확장
+
+### 매우 유용한 맥 오열이들
+
+```bash
+# .gitconfig에 추가할 수 있는 유용한 alias들
+[alias]
+    # 로그 및 히스토리
+    lg = log --oneline --graph --decorate --all
+    hist = log --graph --pretty=format:'%h %ad | %s%d [%an]' --date=short
+    timeline = log --all --graph --pretty=format:'%C(auto)%h%d %s %C(black)%C(bold)%cr'
+
+    # 상태 확인
+    st = status -sb
+    unstage = reset HEAD --
+    last = log -1 HEAD
+
+    # 변경사항 확인
+    dc = diff --cached
+    changes = diff --name-status
+    diffstat = diff --stat
+
+    # 브랜치 관리
+    co = checkout
+    br = branch
+    ci = commit
+    merged = branch --merged main
+    unmerged = branch --no-merged main
+
+    # 청소 작업
+    cleanup = "!git branch --merged main | grep -v main | xargs git branch -d"
+    prune-all = "!git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
+
+    # 백업
+    backup = "!git checkout -b backup-$(date +%Y%m%d-%H%M%S)"
+    snapshot = "!git stash save 'snapshot: $(date)' && git stash apply 'stash@{0}'"
+
+# 사용법
+git lg           # 예쁜 로그
+git hist         # 상세 히스토리
+git st           # 상태 요약
+git cleanup      # 병합된 브랜치 정리
+git backup       # 빠른 백업 브랜치 생성
+```
+
+### 명령어 도구들
+
+**문제 진단용**:
+```bash
+# 저장소 건강 상태 체크
+git fsck --full --strict
+
+# 충돌 배경 조사
+git log --merge --left-right --oneline
+
+# 누가 언제 무엇을 바꿨는지 추적
+git blame -L 100,110 filename.js  # 100-110번 줄 추적
+git log -S "function_name" --source --all  # 함수 추적
+git log --follow filename.js     # 파일명 변경도 추적
+
+# 바이너리 서치로 버그 찾기
+git bisect start
+git bisect bad HEAD
+git bisect good v1.0
+# Git이 자동으로 커밋들을 테스트해줌
+```
+
+**간단한 모니터링**:
+```bash
+# 바로 쓸 수 있는 스크립트들
+cat > git-health-check.sh << 'EOF'
+#!/bin/bash
+echo "=== Git 건강 체크 ==="
+echo "저장소 크기: $(du -sh .git | cut -f1)"
+echo "커밋 수: $(git rev-list --all --count)"
+echo "브랜치 수: $(git branch -r | wc -l)"
+echo "스테이시 수: $(git stash list | wc -l)"
+echo "대용량 파일:"
+git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |
+sed -n 's/^blob //p' | sort --numeric-sort --key=2 | tail -5
+EOF
+chmod +x git-health-check.sh
+
+# 사용법
+./git-health-check.sh
+```
+
+### 웹 기반 도구들
+
+**GitHub/GitLab 기능 활용**:
+- **Insights/Analytics**: 프로젝트 활동 분석
+- **Blame View**: 웹에서 쉽게 코드 추적
+- **Network Graph**: 브랜치 관계 시각화
+- **Compare**: 브랜치 사이 변경사항 비교
+
+**온라인 학습 도구**:
+- [Learn Git Branching](https://learngitbranching.js.org/) - 인터랙티브 Git 학습
+- [Git Explorer](https://gitexplorer.com/) - 상황별 명령어 추천
+- [Oh My Git!](https://ohmygit.org/) - 게임으로 Git 학습
+
+### 산체 플래그
+
+**⚠️ 도구만으로는 해결 불가능**:
+Git 도구들은 문제를 시각화하고 더 쉽게 해결할 수 있게 도와주지만, **기본 개념 이해가 선행되어야 합니다**. 도구는 보조 수단일 뿐입니다.
+
+**추천 학습 순서**:
+1. 명령어로 기본 이해 (이 문서들)
+2. GUI 도구로 시각적 확인
+3. 복잡한 상황에서는 명령어 + GUI 혼용
+
+## 참고 문서
+
+### 전체 Git 학습 로드맵
+- [[Git 마스터 가이드]] - 전체 학습 계획 및 단계별 가이드
+- [[Git 기본 개념]] - 기본적인 Git 개념 이해
+- [[Git 명령어 비교]] - 상황별 적절한 명령어 선택
+
+### 실무 전략
+- [[Git 브랜치 전략]] - 팀 프로젝트에서의 브랜치 관리 전략
+- [[Git 커밋 메시지 작성법]] - 명확하고 이해하기 쉬운 커밋 메시지 작성
+- [[Git 고급 워크플로우]] - 복잡한 상황을 다루는 고급 기법
+
+---
+
+## 훈장: 진정한 Git 마스터의 마음가짐
+
+> "진정한 Git 마스터는 문제를 위거하는 사람이 아니라, 문제를 예방하고 발생해도 잘 대처하는 사람이다."
+
+### 문제 해결의 3단계
+1. **진정**: 뭔가 잘못되었는지 정확히 파악
+2. **침착**: 감정적으로 서두르지 말고 체계적으로 접근
+3. **학습**: 같은 문제가 재발하지 않도록 예방책 마련
+
+### 마지막 메시지
+문제가 발생했을 때 당황하지 마세요. Git은 변경사항을 안전하게 관리하기 위해 만들어진 도구입니다. 대부분의 상황에서 어떤 방식으로든 복구나 해결 방법이 존재합니다.
+
+**중요한 과제**: 이 문서의 예방 방법들을 실제로 적용해보세요. 문제가 생기고 난 후에 해결하는 것보다 예방하는 것이 훨씬 당신과 팀에게 도움이 될 것입니다.
