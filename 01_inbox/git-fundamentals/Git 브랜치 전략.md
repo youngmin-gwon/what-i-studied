@@ -439,6 +439,120 @@ git push origin production       # 자동으로 프로덕션에 배포
 - 스테이징 환경이 있는 프로젝트
 - CI/CD가 잘 구축된 환경
 
+## 브랜치 명명 규칙과 관리
+
+### 효과적인 브랜치 명명법
+
+좋은 브랜치 이름은 **무엇을 하는 브랜치인지 즉시 알 수 있게** 해줍니다:
+
+```mermaid
+graph TD
+    A[브랜치 명명법] --> B[타입 접두사]
+    A --> C[설명 부분]
+    A --> D[구분자]
+
+    B --> B1[feature/]
+    B --> B2[bugfix/]
+    B --> B3[hotfix/]
+    B --> B4[release/]
+    B --> B5[refactor/]
+    B --> B6[docs/]
+
+    C --> C1[간결하고 명확한 설명]
+    C --> C2[소문자와 하이픈 사용]
+    C --> C3[이슈 번호 포함 가능]
+
+    D --> D1[슬래시 (/)]
+    D --> D2[하이픈 (-)]
+```
+
+#### 브랜치 타입별 명명 예시
+
+```bash
+# 기능 개발
+feature/user-authentication
+feature/shopping-cart-ui
+feature/payment-integration
+feature/JIRA-123-user-profile    # 이슈 번호 포함
+
+# 버그 수정
+bugfix/login-validation-error
+bugfix/memory-leak-fix
+bugfix/ISSUE-456-checkout-crash
+
+# 긴급 수정
+hotfix/security-vulnerability
+hotfix/payment-gateway-down
+hotfix/critical-data-loss
+
+# 릴리스 준비
+release/v2.1.0
+release/2024-spring-release
+
+# 리팩토링
+refactor/database-optimization
+refactor/api-structure-cleanup
+
+# 문서화
+docs/api-documentation
+docs/deployment-guide
+
+# 실험/프로토타입
+exp/new-ui-framework
+prototype/machine-learning-model
+```
+
+#### 피해야 할 브랜치 이름
+
+```bash
+# ❌ 나쁜 예시
+temp
+test
+my-branch
+fix
+new-stuff
+branch-20241217
+user-김개발
+
+# ✅ 좋은 예시
+feature/user-dashboard
+bugfix/checkout-validation
+experiment/performance-optimization
+```
+
+### 브랜치 수명 주기 관리
+
+```mermaid
+stateDiagram-v2
+    [*] --> Created: git checkout -b
+    Created --> Active: 개발 작업
+    Active --> Active: 커밋 추가
+    Active --> ReadyForReview: 작업 완료
+    ReadyForReview --> UnderReview: Pull Request
+    UnderReview --> Active: 수정 요청
+    UnderReview --> Merged: 승인 후 병합
+    Merged --> Deleted: 브랜치 정리
+    Active --> Abandoned: 작업 중단
+    Abandoned --> Deleted: 정리
+    Deleted --> [*]
+```
+
+#### 브랜치 정리 자동화
+
+```bash
+# 병합된 로컬 브랜치들 자동 삭제
+git branch --merged main | grep -v "main\|develop" | xargs -n 1 git branch -d
+
+# 원격에서 삭제된 브랜치 참조 정리
+git remote prune origin
+
+# 또는
+git fetch --prune
+
+# 오래된 브랜치 찾기 (30일 이상)
+git for-each-ref --format='%(refname:short) %(committerdate)' refs/heads | awk '$2 <= "'$(date -d '30 days ago' '+%Y-%m-%d')'"'
+```
+
 #### 브랜치 구조
 - **main**: 배포된 안정적인 코드만
 - **develop**: 개발 중인 코드들이 모이는 곳
@@ -732,7 +846,8 @@ jobs:
 ```
 
 ## 관련 문서
-- [[Git 기본 개념]]
-- [[Git 명령어 비교]]
-- [[Git 고급 워크플로우]]
-- [[Git 커밋 메시지 작성법]]
+- [[Git 기본 개념]] - Git의 핵심 개념과 작동 원리
+- [[Git 명령어 비교]] - 브랜치 작업에 필요한 명령어들
+- [[Git 고급 워크플로우]] - 복잡한 브랜치 시나리오 처리법
+- [[Git 커밋 메시지 작성법]] - 브랜치별 커밋 메시지 전략
+- [[Git 트러블슈팅]] - 브랜치 관련 문제 해결법
