@@ -92,11 +92,11 @@ graph TD
 
 #### 4. 시스템 콜 인터페이스
 
-프로그램이 하드웨어를 직접 제어하면 위험하다. 예를 들어, 프로그램이 다른 프로세스의 메모리를 읽거나, 디스크를 임의로 포맷할 수 있다. **특권 모드(Privileged Mode)**와 **사용자 모드(User Mode)** 분리가 필요했다.
+프로그램이 하드웨어를 직접 제어하면 위험하다. 예를 들어, 프로그램이 다른 프로세스의 메모리를 읽거나, 디스크를 임의로 포맷할 수 있다. **[[cpu-privilege-levels|특권 모드(Privileged Mode)]]**와 **사용자 모드(User Mode)** 분리가 필요했다.
 
 CPU는 두 가지 모드를 지원한다:
-- **커널 모드(Ring 0)**: 모든 명령 실행 가능, 하드웨어 직접 제어.
-- **사용자 모드(Ring 3)**: 제한된 명령만 실행 가능, 시스템 콜을 통해 커널에 요청.
+- **[[cpu-privilege-levels#Ring 0 (Kernel Mode)|커널 모드(Ring 0)]**: 모든 명령 실행 가능, 하드웨어 직접 제어.
+- **[[cpu-privilege-levels#Ring 3 (User Mode)|사용자 모드(Ring 3)]**: 제한된 명령만 실행 가능, 시스템 콜을 통해 커널에 요청.
 
 **시스템 콜(System Call)**은 사용자 프로그램이 커널에게 "이 작업을 대신 해줘"라고 요청하는 메커니즘이다. 예를 들어, 파일을 읽으려면 `read()` 시스템 콜을 호출한다. 커널은 권한을 확인하고, 디스크 드라이버를 통해 데이터를 읽어 돌려준다.
 
@@ -253,13 +253,15 @@ Spinlock을 잡고 sleep하면, 다른 CPU가 같은 락을 기다리며 무한 
 
 ---
 
-## 커널 모드 vs 유저 모드
+## [[cpu-privilege-levels|커널 모드 vs 유저 모드]]
 
 ### 왜 두 모드로 나눴나?
 
 초기 컴퓨터는 모든 코드가 같은 권한으로 실행되었다. 프로그램의 버그나 악의적인 코드가 전체 시스템을 망칠 수 있었다.
 
-**보호 링(Protection Ring)** 개념은 1970년대 **Multics**에서 도입되었다. Intel x86은 Ring 0~3까지 4단계를 지원하지만, 대부분 OS는 Ring 0(커널)과 Ring 3(유저)만 사용한다.
+**[[cpu-privilege-levels#Intel x86의 보호 링|보호 링(Protection Ring)]]** 개념은 1970년대 **Multics**에서 도입되었다. Intel x86은 Ring 0~3까지 4단계를 지원하지만, 대부분 OS는 Ring 0(커널)과 Ring 3(유저)만 사용한다.
+
+상세한 내용은 [[cpu-privilege-levels]] 문서 참고.
 
 ### 모드 전환의 실제 비용
 
@@ -301,11 +303,11 @@ Spinlock을 잡고 sleep하면, 다른 CPU가 같은 락을 기다리며 무한 
 
 **KASLR**(Kernel ASLR)은 커널 자체의 주소도 랜덤화한다.
 
-### 3. SELinux / AppArmor (Mandatory Access Control)
+### 3. [[selinux|SELinux]] / AppArmor (Mandatory Access Control)
 
 전통적인 권한은 **DAC(Discretionary Access Control)**: 파일 소유자가 권한을 결정한다. 하지만 프로세스가 루트 권한을 얻으면 모든 파일에 접근할 수 있다.
 
-**MAC(Mandatory Access Control)**은 시스템 관리자가 정책을 설정한다. SELinux는 각 프로세스와 파일에 **레이블**(도메인/타입)을 붙이고, "domain X가 type Y에 어떤 작업을 할 수 있는가" 정의한다.
+**MAC(Mandatory Access Control)**은 시스템 관리자가 정책을 설정한다. [[selinux|SELinux]]는 각 프로세스와 파일에 **레이블**(도메인/타입)을 붙이고, "domain X가 type Y에 어떤 작업을 할 수 있는가" 정의한다.
 
 예: 웹 서버(httpd_t)는 `/var/www/html`(httpd_sys_content_t)은 읽을 수 있지만, `/etc/shadow`(shadow_t)는 읽을 수 없다. 루트로 실행되어도 정책이 차단한다.
 

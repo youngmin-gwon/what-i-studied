@@ -69,14 +69,14 @@ sequenceDiagram
 
 #### 보안 강화
 
-Binder는 SELinux 정책과 통합된다. 예를 들어:
+Binder는 [[selinux|SELinux]] 정책과 통합된다. 예를 들어:
 
 ```
 allow untrusted_app surfaceflinger_service:service_manager find;
 allow untrusted_app surfaceflinger:binder call;
 ```
 
-위 정책이 없으면, 일반 앱은 SurfaceFlinger에 접근할 수 없다. 루트 권한을 얻어도 SELinux가 차단한다.
+위 정책이 없으면, 일반 앱은 SurfaceFlinger에 접근할 수 없다. 루트 권한을 얻어도 [[selinux|SELinux]]가 차단한다.
 
 ---
 
@@ -300,19 +300,19 @@ adb shell modinfo /vendor/lib/modules/wlan.ko
 
 ---
 
-### 6. SELinux: 강제 접근 제어
+### 6. [[selinux|SELinux]]: 강제 접근 제어
 
 #### DAC의 한계
 
 전통적인 Unix 권한(UID/GID/permission bits)은 **DAC(Discretionary Access Control)**다. 파일 소유자가 권한을 결정한다. 
 
 문제:
-- 루트 권한을 얻으면 모든 제약이 사라진다.
+- [[cpu-privilege-levels#Ring 0 (Kernel Mode)|루트 권한]]을 얻으면 모든 제약이 사라진다.
 - setuid 바이너리(예: `su`, `passwd`)가 뚫리면 공격자도 루트 권한을 얻는다.
 
-#### SELinux의 도입
+#### [[selinux|SELinux]]의 도입
 
-안드로이드 4.3(2013)부터 **SELinux**가 permissive 모드로 도입되었고, 5.0(2014)부터 enforcing 모드가 필수가 되었다.
+안드로이드 4.3(2013)부터 **[[selinux|SELinux]]가 permissive 모드로 도입되었고, 5.0(2014)부터 enforcing 모드가 필수가 되었다.
 
 **MAC(Mandatory Access Control)**: 시스템 관리자가 정책을 설정하고, 프로세스는 이를 우회할 수 없다.
 
@@ -342,7 +342,7 @@ graph LR
 
 #### Binder와의 통합
 
-Binder 호출도 SELinux로 제어된다:
+Binder 호출도 [[selinux|SELinux]]로 제어된다:
 
 ```
 allow untrusted_app activity_service:service_manager find;
@@ -350,6 +350,8 @@ allow untrusted_app system_server:binder call;
 ```
 
 이 정책이 없으면, 앱이 `ActivityManager`를 찾을 수 없다.
+
+상세한 내용은 [[selinux]] 문서 참고.
 
 #### 디버깅
 
@@ -615,4 +617,4 @@ adb pull /data/misc/perfetto-traces/trace
 [[android-boot-flow]] - 부팅 과정에서 커널의 역할  
 [[android-binder-and-ipc]] - Binder 상세  
 [[android-process-and-memory]] - 프로세스/메모리 관리  
-[[android-security-and-sandboxing]] - SELinux 정책
+[[android-security-and-sandboxing]] - [[selinux|SELinux]] 정책
