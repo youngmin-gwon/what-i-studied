@@ -1,60 +1,141 @@
 ---
 title: apple-runtime-and-swift
-tags: [apple, objc, runtime, swift]
+tags: [apple, objc, runtime, swift, internals, dispatch, isa]
 aliases: []
-date modified: 2025-12-16 16:15:46 +09:00
+date modified: 2025-12-17 16:00:00 +09:00
 date created: 2025-12-16 16:08:12 +09:00
 ---
 
-## Runtime & Swift/ObjC apple runtime swift objc
+## Runtime & Swift/ObjC Internals
 
-앱 코드가 실제로 실행되는 길을 쉬운 말로 정리했다. 용어는 [[apple-glossary]].
+Apple 플랫폼의 근간이 되는 Objective-C Runtime과 Swift Runtime의 내부 동작 원리 상세 분석.
 
-### 실행 준비
-- [[apple-glossary#dyld|dyld]] 가 [[apple-glossary#Mach-O|Mach-O]] 를 읽고 의존 라이브러리를 맵핑한다.
-- 코드 서명/[[apple-glossary#Entitlement|Entitlement]]/[[apple-glossary#Sandbox|샌드박스]] 프로필을 검증한다.
-- Swift 런타임이 타입/제네릭 메타데이터를, ObjC 런타임이 클래스/메서드를 등록한다.
+### 📚 외부 리소스 및 참고 자료
 
-### Swift vs Objective-C
-- Swift: 값 타입, 안전한 기본값 (옵셔널), ABI 안정화 (iOS 12+/macOS 10.14+).
-- ObjC: 동적 디스패치/메시지 전송, 카테고리/런타임 스위즐. 오래된 API 와 깊게 연결.
-- 대부분 앱은 Swift 로 작성하고, 필요한 곳에 ObjC 브리징을 사용한다.
+#### 공식 문서 및 소스 코드
 
-### 메모리 모델
-- ARC 가 참조 카운트를 관리한다. 강/약 참조, 순환 참조를 피하기 위해 weak/unowned 를 사용.
-- Swift Concurrency(actors, async/await) 는 데이터 경합을 줄인다. actor 는 내부 상태를 직렬화한다.
+- [Objective-C Runtime Source - GitHub](https://github.com/apple-oss-distributions/objc4) - `objc_msgSend` 등의 실제 구현 확인 가능.
+- [Swift Runtime Source - GitHub](https://github.com/apple/swift/tree/main/stdlib/public/runtime)
+- [Objective-C Runtime Programming Guide](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html)
 
-### 모듈과 프레임워크
-- Swift 모듈 (.swiftmodule) 과 프레임워크 (.framework/.xcframework) 로 코드/리소스를 묶는다.
-- Static vs Dynamic 프레임워크: 링크 방식과 앱 크기/시작 속도에 영향.
-- XCFramework 는 여러 아키텍처/플랫폼을 하나로 묶은 포맷. SPM 패키지는 소스 기반 배포를 돕는다.
-- dyld cache 에 포함되면 시작이 빠르지만, 앱 번들에 포함된 동적 프레임워크가 많으면 시작이 느려질 수 있다.
+#### 📖 기술 아티클 & Reverse Engineering
 
-### 런타임 특징
-- dynamic replacement(테스트/프리뷰), function inlining/optimizations, resilience(ABI 안정).
-- ObjC KVO/KVC 는 동적 특성을 사용하므로 Swift 에서 사용 시 주의.
-- Swift 리플렉션은 런타임 비용이 있으므로 로깅/디버깅 용도로 제한. Codable 은 런타임 메타데이터를 활용한다.
-- @objc 노출은 브리징을 위해 필요하지만, 남용 시 바이너리 크기/성능에 영향.
+- [Understanding Swift Method Dispatch](https://www.rightpoint.com/rplabs/switch-method-dispatch-table)
+- [Friday Q&A: objc_msgSend Tour](https://www.mikeash.com/pyblog/friday-qa-2012-11-16-lets-build-objc_msgsend.html)
+- [The Swift ABI](https://github.com/apple/swift/blob/main/docs/ABI/TypeMetadata.rst)
 
-### 예외/에러
-- Swift Error 는 do/try/catch 로 잡는다. ObjC 예외 (NSException) 는 논리 에러/프로그래밍 오류에 가깝다.
-- fatalError/assert 는 개발 중 버그를 드러내기 위해 사용.
-- Result/async throws 를 통해 비동기 에러를 일관되게 표현. Task.cancelled 도 에러 흐름으로 처리.
+---
 
-### 진단/디버깅
-- `po`/`lldb` 로 런타임 객체를 본다. Swift 리플렉션으로 타입 확인 가능.
-- `malloc_history`, `leaks`, Instruments(Allocations/Leaks), Address Sanitizer, Thread Sanitizer 로 안정성을 확인.
-- Swift Concurrency Runtime 은 `Tasks`/`Actors` 상태를 표시하는 디버그 지원을 제공한다.
-- `DYLD_PRINT_STATISTICS` 로 로더 시간 측정, `OS_ACTIVITY_MODE=disable` 로 로그 노이즈 줄이기.
-- Swift backtrace 는 `bt all` + 디버그 심볼로 확인. release 빌드는 최적화로 줄줄이 인라인될 수 있다.
+### 🔍 Method Dispatch (메서드 디스패치)
 
-### 성능 포인트
-- 값 타입 구조체로 불필요한 힙 할당을 줄이고, Copy-on-Write 로 복사 비용을 완화.
-- async/await 에서 불필요한 hop 최소화, Task.priority 로 QoS 조율.
-- ObjC 메시지 전송은 동적이라 약간 느리지만 유연; 성능이 중요한 루프에는 Swift/구조체 사용 권장.
-- @inlinable/@usableFromInline 로 모듈 경계 최적화 제어. Whole-module optimization 빌드 사용.
-- String/Collection 은 값 타입이지만 내부 버퍼 공유를 통해 성능을 유지한다. 무거운 조작은 Substring/indices 로 신중히.
+메서드 호출 시 **어떤 코드를 실행할지 결정하는 과정**입니다. Swift는 3가지 방식을 모두 사용합니다.
 
-### 링크
+#### 1. Static Dispatch (Direct Dispatch)
+- **동작**: 컴파일 타임에 호출할 함수 주소가 확정됩니다. (`call 0x123456`)
+- **사용처**: `struct`, `enum`의 메서드, `final class`, `extension`에 정의된 메서드 (단, `@objc` 제외), `private`.
+- **특징**: 가장 빠르며 인라인 최적화 가능.
 
-[[apple-architecture-stack]], [[apple-interprocess-and-xpc]], [[apple-performance-and-debug]], [[apple-build-and-distribution]].
+#### 2. Table Dispatch (Witness Table / V-Table)
+- **동작**: 런타임에 **함수 포인터 테이블(Table)**을 참조하여 주소를 찾습니다.
+- **사용처**: Swift `class`의 메서드 (초기 선언부), 프로토콜 요구사항.
+- **구조**:
+    - **V-Table (Virtual Table)**: 클래스 상속 계층 지원.
+    - **PWT (Protocol Witness Table)**: 프로토콜 채택 시 생성. 각 타입마다 해당 프로토콜 요구사항을 어디서 구현했는지 매핑.
+
+#### 3. Message Dispatch (`objc_msgSend`)
+- **동작**: 런타임에 문자열(Selector)로 메서드를 검색합니다. 실패 시 전달(Forwarding) 가능.
+- **사용처**: Objective-C 클래스, `dynamic` 키워드가 붙은 Swift 메서드.
+- **특징**: 가장 느리지만 가장 유연함 (KVO, Swizzling 가능).
+
+| 타입 | 초기 선언 (Initial Declaration) | Extension |
+|------|--------------------------------|-----------|
+| **Value Type** | Static | Static |
+| **Protocol** | Table (Witness) | Static |
+| **Class** | Table (V-Table) | Static |
+| **NSObject** | Table (V-Table) | Message |
+
+---
+
+### 🧠 Objective-C Runtime Internals
+
+#### 1. `isa` Pointer & Class Structure
+모든 ObjC 객체(그리고 Swift 클래스 인스턴스)의 첫 번째 필드는 `isa` 포인터입니다.
+- **Non-pointer isa**: 64비트 아키텍처에서 포인터의 남는 비트에 Reference Count, Weakly Referenced 여부 등을 함께 저장하는 최적화 기법. (`1`비트만 실제 클래스 주소 판별에 사용하고 나머지는 플래그로 씀)
+- **Metaclass**: `isa`가 가리키는 `Class` 객체의 `isa`는 `Metaclass`를 가리킵니다. 클래스 메서드(`+func`)는 메타클래스에 저장됩니다.
+
+#### 2. `objc_msgSend` Anatomy
+```c
+id objc_msgSend(id self, SEL op, ...)
+```
+이 함수는 어셈블리로 작성되어 있으며, 극도로 최적화되어 있습니다:
+1. `self`가 `nil`인지 체크 (nil이면 0 리턴하고 종료).
+2. `self->isa`를 통해 클래스 객체 로드.
+3. **Cache Lookup**: 클래스의 메서드 캐시 해시테이블에서 Selector 검색 **(가장 중요, 여기서 대부분 리턴)**.
+4. **Method List Search**: 캐시 미스 시, 클래스(및 슈퍼클래스)의 `rw` 영역 메서드 리스트 선형 검색.
+5. **Dynamic Method Resolution**: 못 찾으면 `resolveInstanceMethod:` 호출.
+6. **Forwarding**: 그래도 없으면 `forwardInvocation:` 호출 (크래시 전 마지막 기회).
+
+#### 3. Method Swizzling
+런타임에 메서드 구현(IMP)을 바꿔치기하는 기술. 주로 로깅, 분석 SDK, 디버깅 툴이 사용함.
+
+```swift
+extension UIViewController {
+    // +load는 앱 시작 시 런타임에 의해 호출됨 (Swift에서는 initialize 등으로 대체 권장되나 여전히 쓰임)
+    static func swizzleViewDidLoad() {
+        let original = class_getInstanceMethod(UIViewController.self, #selector(viewDidLoad))
+        let swizzled = class_getInstanceMethod(UIViewController.self, #selector(myViewDidLoad))
+        method_exchangeImplementations(original!, swizzled!)
+    }
+    
+    @objc func myViewDidLoad() {
+        print("Logged ViewDidLoad: \(self)")
+        self.myViewDidLoad() // 재귀 호출 아님! 원본 viewDidLoad가 호출됨 (Swizzled)
+    }
+}
+```
+
+---
+
+### 🧬 Swift Runtime & Metadata
+
+#### 1. Type Metadata
+Swift는 런타임에 제네릭과 동적 타입 확인을 위해 풍부한 메타데이터를 유지합니다.
+- **Nominal Type Descriptor**: 타입의 이름, 필드 이름 등 정적 정보.
+- **Type Metadata Records**: 런타임에 인스턴스화된 타입 정보 (예: `Array<Int>`와 `Array<String>`은 다른 메타데이터를 가짐).
+
+#### 2. Protocol Witness Table (PWT)
+프로토콜을 통한 메서드 호출은 PWT를 거칩니다.
+```swift
+func process(item: Runnable) { // Runnable 프로토콜 타입
+    item.run() 
+    // 컴파일러는 item의 PWT를 찾고, 
+    // run() 함수 포인터 offset을 더해 실제 함수 주소를 호출함.
+}
+```
+
+#### 3. Existential Container
+프로토콜 타입 변수(Existential)는 크기가 제각각인 구현체를 담기 위해 컨테이너 구조를 가집니다.
+- **작은 값**: **Inline Buffer** (3 pointers size)에 직접 저장.
+- **큰 값**: 힙에 할당하고 포인터만 저장.
+- **VWT (Value Witness Table)**: 할당/복사/해제 방법을 아는 테이블 포인터.
+- **PWT**: 프로토콜 메서드 테이블 포인터.
+
+---
+
+### 🛡️ 실무 성능 및 최적화 포인트
+
+#### 1. Static Dispatch 유도
+- 성능이 중요한 루프 내부에서는 `final`, `private`을 적극 사용하여 컴파일러가 Static Dispatch 및 Inlining을 할 수 있게 돕습니다.
+- `WMO (Whole Module Optimization)`을 켜면 모듈 전체를 분석하여 `internal` 메서드도 자동으로 최적화할 수 있습니다.
+
+#### 2. @objc의 비용
+- Swift 메서드에 `@objc`를 붙이면 Thunk(변환 코드)가 생성되고, Objective-C 런타임에 메타데이터가 등록됩니다.
+- 바이너리 크기가 증가하고, 호출 시 브리징 비용이 발생할 수 있습니다. 꼭 필요한 곳(Selector 등)에만 사용하세요.
+
+#### 3. 다이나믹 캐스팅 (as?, as!)
+- `as?`는 런타임 메타데이터를 순회하며 타입 호환성을 검사하므로 비용이 발생합니다.
+- 특히 `Any` 타입에서 구체 타입으로 캐스팅하는 것은 무겁습니다.
+
+### 더 보기
+- [[apple-memory-management]] - 객체 레이아웃과 메모리 관리
+- [[apple-uikit-lifecycle]] - Swizzling이 자주 사용되는 UIKit 내부

@@ -1,62 +1,122 @@
 ---
 title: apple-glossary
-tags: [apple, glossary, ios, ipados, macos, visionos, watchos]
+tags: [apple, glossary, reference, terms, dictionary]
 aliases: []
-date modified: 2025-12-16 16:15:27 +09:00
+date modified: 2025-12-18 03:00:00 +09:00
 date created: 2025-12-16 16:06:41 +09:00
 ---
 
-## Apple OS Glossary (쉬운 설명) apple ios macos watchos ipados visionos glossary
+# Apple Developer Glossary
 
-기초 용어를 한 곳에 모았다. 다른 노트에서 모르는 말이 나오면 여기 링크 ([[apple-glossary#...]] ) 로 오면 된다.
+"애플 문서를 읽는데 외계어 같아요."
+이 문서는 단순한 사전이 아닙니다. Apple 생태계에서 사용되는 **핵심 용어의 맥락(Context)**을 설명합니다.
+이 용어들을 알면 문서가 보이고, 로그가 읽히고, 에러의 원인이 보입니다.
 
-- **Darwin**: macOS/iOS 의 땅바닥 (OS 커널 + 기초). XNU 커널과 BSD 유틸리티가 들어 있다.
-- **XNU**: macOS/iOS 커널 이름. Mach 메시지와 BSD 를 섞었다.
-- **Kext/DriverKit**: 하드웨어 드라이버. kext 는 커널 안에서, DriverKit 은 유저 공간에서 돈다.
-- **Mach-O**: 실행 파일/라이브러리 포맷. 심볼/섹션/코드 서명이 담긴다.
-- **dyld**: 런타임 로더. 앱이 켜질 때 라이브러리를 붙인다.
-- **Code Signing**: 앱/라이브러리가 변조되지 않았는지 확인하는 서명.
-- **Entitlement**: 앱이 쓸 수 있는 특별한 권한 목록. Info.plist 와 별도로 서명에 포함된다.
-- **Sandbox**: 앱이 파일·네트워크·장치를 제한된 범위에서만 쓰게 하는 울타리.
-- **TCC (Transparency, Consent, Control)**: 카메라/마이크/위치 같은 민감한 권한을 사용자에게 묻는 체계.
-- **App Sandbox Container**: 앱 전용 폴더. Documents/Library/tmp 등으로 나뉜다.
-- **Extension**: 앱 밖에서 작동하는 작은 모듈 (위젯, 공유 시트, Siri Intent 등).
-- **XPC**: 프로세스 사이를 잇는 간단한 메시지 통로. 딕셔너리 형태로 주고받는다.
-- **Grand Central Dispatch(GCD)**: 작업을 큐에 올려 스레드를 자동 관리하는 시스템.
-- **Run Loop**: 이벤트를 받고 타이머를 돌리는 반복 루프. 메인 스레드는 UI 를 담당한다.
-- **UIKit / AppKit / SwiftUI**: 화면을 만드는 도구. iOS/iPadOS 는 UIKit/SwiftUI, macOS 는 AppKit/SwiftUI.
-- **Metal**: GPU 에 명령을 보내는 그래픽/컴퓨팅 API.
-- **Scene**: iOS13+ 에서 하나의 창 (윈도우) 에 해당하는 단위. iPadOS/visionOS 멀티 윈도우에 중요.
-- **Process / PID**: 실행 중인 프로그램 단위. 각자 PID 와 권한을 가진다.
-- **Daemon**: 백그라운드에서 도는 시스템 서비스. launchd 가 관리한다.
-- **launchd**: 서비스/에이전트를 시작·감시하는 관리자. plist 로 설정.
-- **plist**: 설정/메타데이터를 담는 XML/바이너리 포맷.
-- **ATS (App Transport Security)**: 기본 TLS 강제 규칙. 평문/낮은 TLS 를 막는다.
-- **APNs**: 애플 Push 알림 서비스. 토큰으로 기기를 식별.
-- **Keychain**: 비밀번호·토큰을 안전하게 보관하는 저장소.
-- **Secure Enclave**: 별도 칩/프로세서. Touch ID/Face ID, 키 보호를 맡는다.
-- **FileVault**: macOS 전 디스크 암호화. iOS 는 기본으로 데이터 보호가 켜져 있다.
-- **Data Protection Class**: 파일이 언제 (잠금/해제) 접근 가능한지 정의하는 속성.
-- **Power Assertions**: 기기가 잠들지 않게 잠시 잡아두는 요청. (iOS 의 [[android-glossary#wakelock|Wakelock]] 과 비슷)
-- **Background Modes**: 백그라운드에서 허용되는 작업 종류 (오디오, 위치, VoIP, BLE 등).
-- **Sideloading/TestFlight**: 앱을 스토어 밖 (개발/테스트) 에서 설치하는 방법.
-- **App Store Review**: 앱이 스토어에 올라가기 전 검토 프로세스.
-- **Provisioning Profile**: 어떤 기기/팀/권한으로 앱을 설치/디버그할 수 있는지 담은 문서.
-- **Team ID / Bundle ID**: 개발자 팀 식별자 / 앱 고유 식별자.
-- **Symbolication**: 크래시 보고서의 주소를 사람 읽을 수 있는 함수/파일로 바꾸는 과정.
-- **Instruments**: 성능·메모리·에너지·네트워킹 등을 측정하는 도구 묶음.
-- **Time Profiler / Allocations / Leaks**: Instruments 에서 자주 쓰는 프로파일러.
-- **Crash Report**: 기기에서 나온 크래시 로그. UUID/DSYM 과 매칭해야 읽을 수 있다.
-- **DSYM**: 디버그 심볼 파일. 비공개/릴리스 앱 분석에 필요.
-- **Rosetta**: 다른 CPU 아키텍처용 바이너리를 번역 실행하는 계층 (Apple Silicon 에서 x86_64 앱 실행 시).
-- **App Intent / SiriKit / Shortcuts**: 사용자가 음성·자동화로 앱 기능을 쓰게 하는 인터페이스.
-- **WidgetKit / Live Activity**: 홈/잠금화면, 다이내믹 아일랜드 등에 정보를 보여주는 확장.
-- **SceneKit / RealityKit / ARKit**: 3D/AR/VR/Spatial 앱을 만드는 도구.
-- **Reality Composer Pro**: 비전 OS/AR 자산을 만드는 편집기.
-- **Window Server**: macOS 의 창·레이어 관리 서비스.
-- **Backboardd / SpringBoard**: iOS 에서 입력/애니메이션 (Backboardd) 과 홈 화면/런처 (SpringBoard) 를 맡는 데몬.
-- **JetSam**: 메모리 부족 시 앱을 종료하는 정책 (안드로이드 LMKD 와 비슷한 역할).
-- **JetsamEvent**: 메모리로 종료된 로그 기록.
-- **Entrypoint**: 앱이 시작하는 함수. iOS 는 `@UIApplicationMain`/`@main` 에서 시작.
-- **Bundle**: 리소스/바이너리가 들어 있는 디렉터리 구조 (.app/.framework/.appex 등).
-- **Tweak/Hook (비공식)**: 탈옥 환경에서 함수를 갈아끼우는 것. 정식 앱은 사용할 수 없다.
+---
+
+## 🏗️ Architecture & Kernel (기반)
+
+이 시스템이 어떻게 돌아가는지 이해하기 위한 용어들입니다.
+
+### **Darwin**
+- **정의**: macOS, iOS, watchOS, visionOS의 뿌리가 되는 오픈소스 유닉스 운영체제입니다.
+- **Context**: 터미널에서 `ls`, `cd`, `ps` 같은 명령어가 먹히는 이유입니다. iOS는 예쁜 껍데기를 쓴 유닉스입니다.
+- **Deep Dive**: [[apple-architecture-stack#Core OS Layer]]
+
+### **XNU (X is Not Unix)**
+- **정의**: Darwin의 커널입니다. Mach 마이크로커널(메시지 전달)과 BSD(파일/네트워크)를 섞었습니다.
+- **Context**: 앱이 느리거나 죽을 때 "Mach Message"나 "BSD System Call" 관련 로그가 보이면 커널 레벨의 문제입니다.
+
+### **Sandbox**
+- **정의**: 앱을 가두는 울타리입니다. 앱은 자신의 컨테이너(폴더) 밖으로 나갈 수 없습니다.
+- **Context**: 파일을 저장했는데 파일 앱에서 안 보이나요? 샌드박스 규칙 때문입니다. 다른 앱과 대화하려면 XPC나 App Group 같은 공식 통로를 써야 합니다.
+- **Deep Dive**: [[apple-sandbox-and-security]]
+
+### **Daemon (데몬)**
+- **정의**: 백그라운드에서 조용히 도는 시스템 서비스입니다. 이름 끝에 `d`가 붙습니다 (`locationd`, `bluetoothd`, `backboardd`).
+- **Context**: 내 앱이 위치를 못 잡는다면 `locationd`가 죽었거나 권한 문제일 수 있습니다. 시스템 로그에서 이 데몬들의 이름을 찾아보세요.
+
+---
+
+## 📦 App Structure (앱 구조)
+
+앱이 어떻게 포장되고 설치되는지 설명합니다.
+
+### **Bundle (번들)**
+- **정의**: 실행 파일, 이미지, 소리, 서명 등을 하나로 묶은 디렉터리입니다 (`.app`).
+- **Context**: 파인더에서는 파일처럼 보이지만 우클릭 > "패키지 내용 보기"를 하면 폴더임이 드러납니다. 리소스 로딩(`Bundle.main.url`)은 이 폴더 안을 뒤지는 것입니다.
+
+### **Info.plist**
+- **정의**: 앱의 신분증이자 설정 파일입니다.
+- **Context**: "카메라 권한 팝업이 안 떠요" -> 99% 확률로 `Info.plist`에 설명 문구(`Privacy - Camera Usage Description`)를 안 적어서 그렇습니다.
+
+### **Entitlement (엔타이틀먼트)**
+- **정의**: "이 앱은 iCloud를 쓸 수 있음", "Push 알림을 받을 수 있음" 같은 특수 권한 목록입니다. 코드 서명에 박제됩니다.
+- **Context**: 코드는 완벽한데 기능이 안 된다면 `Signing & Capabilities` 탭을 확인하세요. 이 "딱지"가 없으면 OS가 API 호출을 거절합니다.
+- **Deep Dive**: [[apple-sandbox-and-security#Entitlements]]
+
+---
+
+## 🎨 UI & Graphics (화면)
+
+화면에 픽셀을 그리는 과정과 관련된 용어입니다.
+
+### **WindowServer**
+- **정의**: 여러 앱이 그린 화면을 모아서 최종적으로 디스플레이에 합성해 주는 시스템 프로세스입니다.
+- **Context**: 맥이 버벅거릴 때 활성 상태 보기에서 `WindowServer` CPU가 높다면, 너무 많은 투명 효과나 그래픽 부하가 원인입니다.
+
+### **Scene**
+- **정의**: iOS 13부터 도입된 개념으로, 앱의 "UI 인스턴스" 하나를 의미합니다.
+- **Context**: 아이패드에서는 한 앱이 두 개의 창(Scene)을 띄울 수 있습니다. `AppDelegate`가 아니라 `SceneDelegate`에서 UI 초기화를 해야 하는 이유입니다.
+- **Deep Dive**: [[apple-app-lifecycle-and-ui]]
+
+### **Main Run Loop**
+- **정의**: 터치, 이벤트, 화면 갱신을 처리하는 무한 루프입니다. 메인 스레드에서 돌아갑니다.
+- **Context**: "앱이 멈췄어요" -> 메인 런루프에서 무거운 작업(JSON 파싱, DB 읽기)을 했기 때문입니다. UI는 오직 메인 런루프에서만 고쳐야 합니다.
+
+---
+
+## ⚡️ Concurrency & Runtime (실행)
+
+코드가 실제로 어떻게 실행되는지 설명합니다.
+
+### **GCD (Grand Central Dispatch)**
+- **정의**: 작업을 큐(Queue)에 넣으면 시스템이 알아서 스레드를 만들어 처리해 주는 기술입니다 (`DispatchQueue`).
+- **Context**: 직접 스레드를 만들지 마세요. GCD가 CPU 코어 수에 맞춰 최적으로 조절해 줍니다. 이제는 Swift Concurrency (`Task`)로 넘어가는 추세입니다.
+- **Deep Dive**: [[apple-gcd-deep-dive]]
+
+### **dyld (Dynamic Link Editor)**
+- **정의**: 앱이 켜질 때 필요한 라이브러리(UIKit, Foundation 등)를 연결해 주는 로더입니다.
+- **Context**: 앱 실행 속도(Launch Time)를 줄이려면 dyld가 할 일을 줄여야 합니다 (사용하지 않는 프레임워크 링크 해제).
+
+### **Retain Cycle (순환 참조)**
+- **정의**: A가 B를 잡고, B가 A를 잡아서 메모리가 해제되지 않는 상황입니다 (메모리 누수).
+- **Context**: `weak self`를 써야 하는 이유입니다. 메모리 누수가 쌓이면 앱이 결국 강제 종료(OOM)됩니다.
+- **Deep Dive**: [[apple-memory-management]]
+
+---
+
+## 🔐 Security & Privacy (보안)
+
+### **Keychain**
+- **정의**: 암호화된 시스템 데이터베이스입니다. 앱을 지워도 남습니다.
+- **Context**: `UserDefaults`에 비밀번호 저장하지 마세요. 탈옥된 폰에서는 다 보입니다. 중요 정보는 무조건 키체인입니다.
+- **Deep Dive**: [[apple-keychain-biometrics]]
+
+### **TCC (Transparency, Consent, and Control)**
+- **정의**: "카메라에 접근하려고 합니다" 팝업을 띄우고 사용자의 허락을 관리하는 시스템입니다.
+- **Context**: 사용자가 한 번 거절하면 앱 내에서 다시 팝업을 띄울 수 없습니다. 설정 앱으로 유도해야 합니다.
+- **Deep Dive**: [[apple-privacy-and-tcc-details]]
+
+---
+
+## 🛠️ Tools (도구)
+
+### **Instruments**
+- **정의**: 성능 분석 도구 종합 선물 세트입니다. (Time Profiler, Leaks, Network...)
+- **Context**: "앱이 느려요"라고 감으로 찍지 말고, Instruments를 돌려서 "이 함수가 300ms 걸립니다"라고 말해야 합니다.
+- **Deep Dive**: [[apple-instruments-profiling]]
+
+### **TestFlight**
+- **정의**: 앱스토어 배포 전에 베타 테스터에게 앱을 뿌리는 공식 도구입니다.
+- **Context**: 개발 빌드(Debug)와 배포 빌드(Release)는 다릅니다. 꼭 TestFlight(Release) 환경에서 테스트해야 실제 버그를 잡을 수 있습니다.

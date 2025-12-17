@@ -1,53 +1,46 @@
 ---
 title: apple-history-and-evolution
-tags: [apple, history]
+tags: [apple, history, evolution, legacy]
 aliases: []
-date modified: 2025-12-16 16:15:28 +09:00
+date modified: 2025-12-17 17:15:00 +09:00
 date created: 2025-12-16 16:11:27 +09:00
 ---
 
-## History & Evolution apple history
+## History & Evolution of Apple Platforms
 
-애플 플랫폼이 어떻게 변해왔는지 큰 흐름을 요약했다. 용어는 [[apple-glossary]].
+**"과거를 알면 현재의 코드가 보입니다."**
+왜 iOS 코드에 아직도 `NS`Object가 있을까요? 왜 SwiftUI는 갑자기 등장했을까요? 역사를 알면 **API의 설계 의도**와 **레거시 코드**를 이해할 수 있습니다.
 
-### 커널/보안
-- 초기 OS X 는 Mach/BSD 기반 XNU 커널 도입 → iPhone OS 에서도 재사용.
-- Code Signing/Entitlement 강화, SIP/SSV/AMFI 로 루트 조작 방지.
-- kext 에서 DriverKit(유저 공간) 으로 전환 추세.
+### 💡 왜 이것을 알아야 하나요? (Why it matters)
+- **API 이름의 유래**: `NSString`, `NSArray`의 **NS**는 NeXTSTEP의 약자입니다. Apple의 뿌리가 1980년대 NeXT OS에 있음을 알면 문서 읽기가 편해집니다.
+- **기술의 전환점**: Objective-C → Swift, OpenGL → Metal, UIKit → SwiftUI 같은 대전환의 흐름을 알면, **"앞으로 무엇을 공부해야 할지"**가 보입니다.
 
-### 언어/런타임
-- Objective-C 중심 → Swift 등장 (2014) → Swift Concurrency(2021) 로 안전성/성능 개선.
-- Swift ABI 안정화로 XCFramework/배포가 쉬워졌다.
+---
 
-### UI
-- UIKit(멀티터치) → Auto Layout/Size Class → SwiftUI(2019) 선언형 UI.
-- iPadOS 멀티 윈도우/Stage Manager, macOS Catalyst/SwiftUI 로 코드 공유 증가.
-- visionOS 는 공간 UI(윈도우/볼륨/풀 스페이스) 로 확장.
+### ⏳ 시대별 대전환 (The Eras)
 
-### 하드웨어/칩
-- Intel 맥 → Apple Silicon(M1~) 전환, [[apple-glossary#Rosetta|Rosetta2]] 로 이행.
-- Neural Engine, UWB, LiDAR, ProMotion, Always-on 디스플레이 등 센서/가속기 추가.
+#### 1. The NeXT Era (1980s ~ 1990s)
+- **Objective-C & Cocoa**: 스티브 잡스가 만든 NeXTSTEP OS가 현대 macOS와 iOS의 조상입니다.
+- **Legacy**: 지금도 쓰이는 `Foundation`, `AppKit` 프레임워크의 근간이 이때 만들어졌습니다. 동적 런타임(`objc_msgSend`)의 유연함이 핵심이었습니다.
 
-### 그래픽/미디어
-- OpenGL → Metal 로 전환, ProRes/ProRAW 지원, Spatial Audio/ARKit/RealityKit 확장.
+#### 2. The iPhone OS (2007 ~ 2013)
+- **Touch First**: 마우스용 AppKit을 버리고, 멀티터치에 최적화된 **UIKit**을 새로 만들었습니다.
+- **Memory Constraint**: 초창기 아이폰은 메모리가 128MB뿐이었습니다. 그래서 가비지 컬렉션(GC) 대신 **Reference Counting (MRC/ARC)** 방식을 채택했고, 이는 지금까지 이어져 **저전력 고효율**의 기반이 되었습니다.
 
-### 네트워크/클라우드
-- ATS 기본화, QUIC/HTTP3 지원, iCloud/CloudKit 확장.
-- APNs 개선, PushKit 제한 강화 (VoIP 남용 방지).
+#### 3. The Swift Revolution (2014 ~ 2018)
+- **Safety First**: Objective-C의 동적 특성은 버그를 만들기 쉬웠습니다. Apple은 "안전성(Safety)"을 최우선으로 하는 **Swift**를 발표했습니다.
+- **Metal**: OpenGL을 버리고 하드웨어에 직접 명령을 내리는 그래픽 API Metal을 도입해 그래픽 성능을 비약적으로 높였습니다.
 
-### 배포/정책
-- App Store 심사 기준 강화, 개인정보 라벨/ATT 도입.
-- TestFlight 확대, notarization 요구 (macOS) 확립.
+#### 4. The Declarative Era (2019 ~ Present)
+- **SwiftUI & Combine**: 화면 해상도가 다양해지고 다크 모드 등 상태가 복잡해지자, 명령형(UIKit)보다 선언형(SwiftUI)이 유리해졌습니다.
+- **Apple Silicon**: Intel을 버리고 M1 칩을 도입하면서, 아이폰과 맥의 경계가 하드웨어 레벨에서 통합되었습니다.
 
-### 플랫폼 별 이정표 (간단)
-- iPhone OS 1: 멀티터치, 앱 스토어는 2 에서 도입.
-- iOS 7: 플랫 디자인, AirDrop, 백그라운드 fetch.
-- iOS 13: 다크 모드, SwiftUI, 멀티 윈도우 (Scene).
-- iPadOS 분리: 멀티태스킹 강화, Stage Manager(16).
-- watchOS: 컴플리케이션/헬스, 독립 앱 (6), SwiftUI 기본 (7).
-- macOS: Gatekeeper/노타리제이션, Apple Silicon 지원 (Big Sur), SSV(11).
-- visionOS 1: 공간 윈도우/볼륨, 패스스루, SwiftUI/RealityKit 우선.
+---
 
-### 링크
+### 🔮 미래 : 공간 컴퓨팅 (Spatial Computing)
+- **visionOS**: 2D 화면을 넘어 3D 공간으로 UI를 확장합니다.
+- 기존의 UIKit/SwiftUI 지식이 그대로 이어지지만, **"시선(Eye) + 손(Hand)"**이라는 새로운 입력 방식에 적응해야 합니다.
 
-[[apple-architecture-stack]], [[apple-build-and-distribution]], [[apple-platform-differences]].
+### 📚 더 보기
+- [[apple-platform-differences]] - 변화의 결과물인 플랫폼별 차이
+- [[apple-runtime-and-swift]] - Objective-C 유산과 현대적 런타임

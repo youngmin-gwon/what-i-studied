@@ -2,74 +2,85 @@
 title: apple-foundations
 tags: [apple, fundamentals, ios, ipados, macos, visionos, watchos]
 aliases: []
-date modified: 2025-12-16 16:15:26 +09:00
+date modified: 2025-12-17 17:00:00 +09:00
 date created: 2025-12-16 16:07:21 +09:00
 ---
 
-## Apple Platforms Foundations apple ios ipados macos watchos visionos fundamentals
+## Apple Platforms Foundations
 
-이 묶음은 iOS/iPadOS/macOS/watchOS/visionOS 를 한 눈에 이해하도록 쉽게 풀어쓴 지도다. 모르는 말은 [[apple-glossary]] 에서 바로 찾아볼 수 있게 링크했다. 큰 흐름은 동일하고, 기기 특성에 따라 조금씩 다르게 움직인다.
+iOS, macOS, visionOS 등 모든 Apple 플랫폼을 관통하는 **공통 철학**과 **시스템 기반 지식**입니다.
+이 문서는 특정 API(UIKit, SwiftUI) 사용법보다는, **"Apple 생태계에서 앱이 돌아가는 근본 원리"**를 이해하는 데 초점을 맞춥니다.
 
-### 공통 철학
-- 하드웨어와 소프트웨어를 함께 설계한다. 전력/보안/성능 목표가 명확해, 앱/OS 가 "예상 가능한" 방식으로 움직인다.
-- 모든 실행 파일은 [[apple-glossary#Code Signing|코드 서명]] 과 [[apple-glossary#Entitlement|Entitlement]] 를 요구한다. 서명 없는 코드는 돌아가지 않는다는 점이 기본 보안 장치다.
-- UI 는 [[apple-glossary#SwiftUI|SwiftUI]]/UIKit/AppKit 로 만들고, 비즈니스 로직은 Swift(또는 Objective-C) 로 작성한다. 같은 Swift 코드를 여러 플랫폼에서 재사용할 수 있다.
-- 앱은 [[apple-glossary#Sandbox|샌드박스]] 안에서 돌아가고, 민감 자원은 [[apple-glossary#TCC|TCC]] 가 묻고 허락받는다.
+### 💡 왜 이것을 알아야 하나요? (Why it matters)
+- **버그의 원인**: "권한 오류", "샌드박스 위반", "메인 스레드 멈춤" 등의 문제는 대부분 이 기초 원리를 벗어났을 때 발생합니다.
+- **크로스 플랫폼 설계**: iOS 앱을 macOS나 visionOS로 확장할 때, 무엇이 공통점이고 차이점인지 알면 코드 재사용률을 높일 수 있습니다.
+- **성능 최적화**: 런타임이 어떻게 로딩되고 메모리가 어떻게 관리되는지 이해해야 "진짜 최적화"를 할 수 있습니다.
 
-### 계층 한 눈에
-- 바닥: [[apple-glossary#Darwin|Darwin]]([[apple-glossary#XNU|XNU]] 커널 + BSD).
-- 드라이버: [[apple-glossary#Kext/DriverKit|Kext/DriverKit]] 가 하드웨어를 잇는다.
-- 런타임/로더: [[apple-glossary#Mach-O|Mach-O]] 실행 파일을 [[apple-glossary#dyld|dyld]] 가 읽고, Objective-C/Swift 런타임이 클래스/메서드를 등록한다.
-- 시스템 서비스: launchd 가 [[apple-glossary#Daemon|데몬]] 을 관리하고, WindowServer(맥), SpringBoard/Backboardd(iOS) 등이 UI/입력을 담당한다.
-- 프레임워크: Foundation/Swift/SwiftUI/UIKit/AppKit/Metal 등 SDK.
-- 앱/확장: .app/.appex 번들, [[apple-glossary#Extension|Extension]](위젯, 공유 시트, 인텐트, 라이브 액티비티 등).
+---
 
-### 앱 구성요소 (플랫폼 공통 시각)
-- Entrypoint: `@main`(SwiftUI) 또는 `@UIApplicationMain`(UIKit) 에서 시작해 Run Loop 를 연다.
-- Scene: iOS/iPadOS/visionOS 에서는 하나의 창 단위. 멀티 윈도우/다중 화면에 중요하다.
-- View 계층: SwiftUI(선언형) 또는 UIKit/AppKit(명령형) 으로 화면을 구성한다.
-- Extension: 메인 앱과 별도 프로세스이며, [[apple-glossary#XPC|XPC]] 로 통신한다.
+### 🍏 공통 디자인 철학 (Common Philosophy)
 
-### 프로세스/스레드 기본기
-- 메인 스레드는 UI 를 담당하므로 오래 막으면 안 된다 (ANR 에 해당하는 앱 응답 없음 경고가 뜰 수 있다).
-- [[apple-glossary#GCD|GCD]] 큐를 사용해 작업을 분산한다. QoS(사용자 인터랙티브, 유저 이니시에이티드, 백그라운드 등) 로 우선순위를 정한다.
-- [[apple-glossary#Run Loop|Run Loop]] 는 입력/타이머/포트 이벤트를 처리한다.
+Apple 플랫폼은 **하드웨어와 소프트웨어의 통합**을 전제로 설계되었습니다.
 
-### 메모리/전원 정책
-- iOS/watchOS 는 메모리가 부족하면 [[apple-glossary#JetSam|JetSam]] 정책으로 앱을 종료한다. 메모리 경고를 받으면 자원을 줄여야 한다.
-- 백그라운드 실행은 [[apple-glossary#Background Modes|백그라운드 모드]] 에 따라 제한된다 (오디오, 위치, BLE, VoIP 등만 허용).
-- 전원 절약: Low Power Mode 가 네트워크/CPU 활동을 줄인다. watchOS 는 더 공격적으로 절전한다.
+1. **보안이 최우선 (Security First)**:
+   - 모든 코드는 **서명(Code Signing)**되어야 실행됩니다.
+   - 모든 앱은 **샌드박스(Sandbox)**라는 격리된 공간에서 돕니다. 옆집 앱의 데이터를 훔쳐볼 수 없습니다.
+   - 사용자의 민감한 정보(위치, 사진 등)는 **TCC(투명성 및 동의)** 시스템을 통해 사용자가 매번 허락해야만 접근 가능합니다.
 
-### 파일·데이터 기초
-- 앱 샌드박스에는 Documents/Library/Caches/tmp 등이 있다. iCloud 백업 대상인지 구분되어 있다.
-- 파일에 [[apple-glossary#Data Protection Class|Data Protection Class]] 를 설정해 잠금 상태에 따라 접근을 제한할 수 있다.
-- Keychain 은 비밀번호·토큰을 저장하는 안전한 금고다.
+2. **반응성 (Responsiveness)**:
+   - **메인 스레드(Main Thread)**는 오직 UI 렌더링만을 위해 존재해야 합니다.
+   - 시스템은 배터리 수명을 위해 백그라운드 작업을 엄격하게 제한하거나 죽입니다(Jetsam).
 
-### 네트워크 기초
-- [[apple-glossary#ATS|ATS]] 로 HTTPS 를 기본 강제한다. 필요 시 예외를 Info.plist 에 명시해야 한다.
-- [[apple-glossary#APNs|APNs]] 로 푸시 알림을 받고, Background App Refresh/Push 로 작업을 깨운다.
-- Bonjour/mDNS 로 근거리 검색, NEHotspot/NetworkExtension 으로 VPN/프록시를 설정할 수 있다 (Entitlement 필요).
-- 연결 품질이 나쁘면 시스템이 자동으로 재시도/지연을 조정한다. Low Data/Power Mode 에서는 더 조심스럽게 움직인다.
-- watchOS/visionOS 는 페어링 기기 (iPhone/Mac) 와의 연결이 중요하며, Reachability 로 상태를 확인한다.
+3. **통합된 개발 환경**:
+   - 언어: **Swift** (현대적, 안전함) 및 Objective-C (레거시, 런타임).
+   - UI: **SwiftUI** (선언형, 멀티플랫폼) 및 UIKit/AppKit (네이티브).
+   - 도구: Xcode 하나로 모든 플랫폼 개발 가능.
 
-### 보안 기초
-- 모든 바이너리는 [[apple-glossary#Code Signing|서명]]/[[apple-glossary#Entitlement|Entitlement]]/[[apple-glossary#Provisioning Profile|프로비저닝]] 을 만족해야 한다.
-- 민감 권한: 카메라/마이크/위치/연락처/사진/블루투스/알림 등은 TCC 알림을 통해 사용자 동의를 받는다.
-- Secure Enclave/Touch ID/Face ID 가 인증·키 보호를 담당한다.
-- 개인정보 라벨/ATT 는 사용자가 데이터 수집을 이해하고 선택하도록 돕는다. 스토어 심사에서 확인한다.
+---
 
-### 배포 채널
-- 개발: Xcode + 프로비저닝 프로파일, 테스트는 [[apple-glossary#Sideloading/TestFlight|TestFlight]] 로 배포.
-- 상용: App Store 심사를 거쳐 배포. 기업용 (Enterprise) 배포는 내부 직원용으로만 제한.
-- macOS: App Store 외 배포 시 notarization 이 필요하고, Gatekeeper 가 서명/노타리제이션을 검사한다.
+### 🏗️ 시스템 계층 구조 (Architecture Stack)
 
-### 학습 로드맵
+앱 개발자가 바라보는 시스템은 다음과 같이 층층이 쌓여 있습니다. 아래로 갈수록 기계와 가깝고 다루기 어렵지만 강력합니다.
 
-[[apple-architecture-stack]] → [[apple-runtime-and-swift]] → [[apple-interprocess-and-xpc]] → [[apple-sandbox-and-security]] → [[apple-app-lifecycle-and-ui]] → [[apple-rendering-and-media]] → [[apple-networking-and-cloud]] → [[apple-storage-and-filesystems]] → [[apple-boot-flow-and-images]] → [[apple-build-and-distribution]] → [[apple-performance-and-debug]] → [[apple-testing-and-quality]] → [[apple-platform-differences]] → [[apple-history-and-evolution]].
+| 계층 (Layer) | 주요 구성요소 | 역할 |
+|---|---|---|
+| **App & Extensions** | Your App, Widget, Share Extension | 여러분이 만드는 결과물. `.app` 번들 형태. |
+| **User Experience** | SwiftUI, UIKit, AppKit | 화면을 그리고 이벤트를 받는 최상위 프레임워크. |
+| **System Frameworks** | Foundation, AVFoundation, Core Data | 파일, 네트워크, 미디어 등 핵심 기능. |
+| **System Services** | `launchd`, `SpringBoard`, `backboardd` | 앱을 실행하고 관리하는 시스템 데몬들. |
+| **Kernel (Darwin)** | **XNU**, Mach, BSD, Drivers | 하드웨어 제어, 메모리 관리, 프로세스 스케줄링. |
 
-### 플랫폼 한 줄 요약
-- iOS: 터치/카메라/센서 중심. 백그라운드·파일 접근 제한이 가장 엄격.
-- iPadOS: 큰 화면, 멀티 윈도우 (스테이지 매니저). 키보드/포인터/펜 지원.
-- macOS: 다중 창/파일 시스템에 자유롭지만, 샌드박스 +TCC 로 민감 자원은 보호.
-- watchOS: 짧은 세션, 헬스/피트니스/알림 위주. 배터리 예산이 매우 작다.
-- visionOS: 공간 UI, 시선 + 손 + 음성 입력. SwiftUI/RealityKit 우선.
+👉 **Deep Dive**: 더 자세한 커널 구조는 [[apple-architecture-stack]]에서 다룹니다.
+
+---
+
+### 📦 앱의 실행 환경 (Execution Environment)
+
+앱 아이콘을 누르면 무슨 일이 일어날까요?
+
+1. **Entrypoint**: C언어의 `main` 함수에서 시작하여, Swift 런타임을 초기화하고 **Run Loop**를 돕니다.
+2. **Bundle**: 앱은 단순한 파일이 아니라, 코드(실행 파일), 리소스(이미지), 설정(Info.plist)이 담긴 디렉토리 패키지입니다.
+3. **Container**: 앱은 자신만의 디렉토리(`Documents`, `Library`, `tmp`)를 부여받습니다. 이 밖의 파일(예: 사용자 사진첩)에는 마음대로 접근할 수 없습니다.
+
+---
+
+### 🛤️ 학습 로드맵 (Roadmap)
+
+이 폴더의 문서들은 다음 순서로 읽으면 좋습니다:
+
+1. **기반 다지기**:
+   - [[apple-architecture-stack]]: XNU 커널과 Darwin의 이해
+   - [[apple-runtime-and-swift]]: Swift 언어가 돌아가는 원리
+   - [[apple-boot-flow-and-images]]: 전원 버튼부터 앱 실행까지
+
+2. **보안과 시스템**:
+   - [[apple-sandbox-and-security]]: 왜 내 파일에 접근 못 할까?
+   - [[apple-interprocess-and-xpc]]: 앱과 위젯은 어떻게 대화할까?
+
+3. **플랫폼별 특징**:
+   - [[apple-platform-differences]]: iOS vs macOS 차이점 정복
+
+---
+
+### 📚 더 보기
+- 용어가 헷갈린다면? 👉 [[apple-glossary]]
