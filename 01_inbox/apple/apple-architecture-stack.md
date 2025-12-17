@@ -1,70 +1,108 @@
 ---
 title: apple-architecture-stack
-tags: [apple, architecture, darwin]
+tags: [apple, architecture, darwin, kernel, xnu, internals]
 aliases: []
-date modified: 2025-12-16 16:15:15 +09:00
+date modified: 2025-12-17 14:15:00 +09:00
 date created: 2025-12-16 16:07:53 +09:00
 ---
 
-## Apple Architecture Stack apple architecture darwin
+## Apple System Architecture & Kernel Internals
 
-층층이 쌓인 구조를 쉽게 살펴본다. 모르는 용어는 [[apple-glossary]].
+Apple 운영체제의 기반인 Darwin과 XNU 커널의 아키텍처 심층 분석. 용어 정의는 [[apple-glossary]] 참고.
 
-### 계층
-1. 커널 [[apple-glossary#XNU|XNU]]: Mach 메시지 + BSD. 스케줄링, 메모리, 보안, 파일 시스템.
-2. 드라이버: [[apple-glossary#Kext/DriverKit|kext/DriverKit]] 로 하드웨어 연결.
-3. 런타임: [[apple-glossary#dyld|dyld]] 가 [[apple-glossary#Mach-O|Mach-O]] 를 로드, ObjC/Swift 런타임이 메서드 테이블을 만든다.
-4. 시스템 서비스: [[apple-glossary#launchd|launchd]] 가 데몬을 관리. WindowServer/macOS, Backboardd+SpringBoard/iOS.
-5. 프레임워크: Foundation, Swift, SwiftUI, UIKit/AppKit, Metal, CoreData, CloudKit, HealthKit 등.
-6. 앱/확장: .app 과 .appex 가 샌드박스에서 실행, [[apple-glossary#XPC|XPC]] 로 통신.
+### 📚 외부 리소스 및 참고 자료
 
-### 커널과 보안
-- 모든 실행은 [[apple-glossary#Code Signing|서명]] 과 [[apple-glossary#Entitlement|엔타이틀먼트]] 검사를 통과해야 한다.
-- [[apple-glossary#Sandbox|샌드박스]] 프로필과 [[apple-glossary#TCC|TCC]] 팝업이 접근을 제한한다.
-- SIP(System Integrity Protection, macOS) 은 루트도 손대지 못하는 영역을 지킨다.
-- 카메라/마이크/네트워크 확장/가상화/드라이버 등은 별도 Entitlement 로 접근을 쪼갠다.
-- 커널은 메모리 압박 시 [[apple-glossary#JetSam|JetSam]] 정책을 통해 앱을 종료한다 (iOS/watchOS). macOS 는 메모리 압박 시 압축/스왑을 우선 사용.
+#### 커널 소스 및 공식 문서
+- **XNU Kernel Source**: [apple-oss-distributions/xnu](https://github.com/apple-oss-distributions/xnu) - 메인 커널 소스 (GitHub)
+- **Darwin Open Source**: [Apple Open Source](https://opensource.apple.com/)
+- **Kernel Programming Guide**: [Apple Developer Archive](https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/KernelProgramming/)
+- **Mach Microkernel**: [CMU Mach Project](https://www.cs.cmu.edu/afs/cs/project/mach/public/www/mach.html) - XNU의 기반이 된 마이크로커널
 
-### 로더와 바이너리
-- [[apple-glossary#dyld|dyld]] 가 의존성 체인을 따라 프레임워크를 맵핑한다.
-- [[apple-glossary#Mach-O|Mach-O]] 에는 코드 서명/LC_UUID/아키텍처 (Universal) 정보가 담긴다.
-- [[apple-glossary#Rosetta|Rosetta]] 가 필요하면 다른 CPU 용 코드를 번역한다.
-- dyld shared cache 가 시스템 프레임워크를 묶어 앱 시작 속도를 높인다. iOS 는 항상 사용, macOS 는 대부분 사용.
-- PIE(Position Independent Executable) 와 ASLR 로 메모리 주소 무작위화.
+#### 📖 기술 서적 및 심화 학습
+- **Mac OS X Internals**: [System Approach](https://www.amazon.com/Mac-OS-Internals-Systems-Approach/dp/0321278542) - 클래식하지만 여전히 유효한 바이블
+- **OS X & iOS Kernel Programming**: [Book Link](https://www.amazon.com/OS-iOS-Kernel-Programming-Ole/dp/1430235973)
+- [NewOSXBook](http://newosxbook.com/index.php) - Jonathan Levin의 현대적인 iOS 내부 구조 분석
 
-### 시스템 서비스 예시
-- WindowServer: macOS 창·레이어 합성.
-- SpringBoard/Backboardd: 홈 화면, 앱 전환, 입력/제스처.
-- configd: 네트워크 설정, 네임서비스.
-- distnoted/notifyd: 시스템 알림/옵저버 패턴.
-- powerd: 전원/슬립 관리.
+---
 
-### 앱 계층
-- SwiftUI/Storyboard/XIB 를 통해 UI 를 만들고, [[apple-glossary#GCD|GCD]] 와 [[apple-glossary#Run Loop|Run Loop]] 로 이벤트를 처리한다.
-- Extension 은 별도 번들이며 .appex, 예) WidgetKit, Share, Intents, Safari Web Extension.
+### 🏛️ XNU 커널 아키텍처 (Hybrid Kernel)
 
-### 플랫폼 별 차이 간단 메모
-- iOS/watchOS/visionOS: 터치·센서 중심, 강한 샌드박스, 백그라운드 제한 많음.
-- macOS: 파일 시스템 접근이 넓지만, 앱 샌드박스와 TCC 가 점차 강화됨.
-- iPadOS: 멀티 윈도우 (Stage Manager), 외장 디스플레이, 포인터 지원.
-- watchOS: 에너지/메모리 제약이 가장 큼, 앱 수명 짧음.
-- visionOS: 공간 윈도우/볼륨/풀 스페이스 개념, 패스스루 렌더링.
-- tvOS(보너스): 단순한 입력 (리모컨), 백그라운드 제한 강함, 앱 크기/온디맨드 리소스 제약.
+XNU("X is Not Unix")는 **Mach 마이크로커널**의 유연성과 **BSD**의 실용성을 결합한 하이브리드 커널입니다.
 
-### 예시 흐름: 앱 실행
-1. 사용자 터치/아이콘 선택.
-2. SpringBoard 가 launchd 에 프로세스 생성 요청, 서명/프로비저닝 검사.
-3. dyld 가 프레임워크 로드, 런타임이 클래스 등록.
-4. @main 이 Run Loop 시작, Scene/Window 생성.
-5. [[apple-glossary#TCC|TCC]]/샌드박스 규칙에 따라 자원 접근.
-- watchOS 는 Complication/Notification/Shortcuts 등 "앱 없이" 동작하는 진입점이 많다.
-- visionOS 는 창 (윈도우)/볼륨/풀 스페이스 중 어디서 열렸는지에 따라 렌더링 경로가 달라진다.
+#### 1. Mach (Microkernel Layer)
+커널의 가장 안쪽 심장부입니다. 추상화와 리소스 관리를 담당합니다.
+- **Tasks & Threads**: 프로세스(Task)와 실행 단위(Thread) 관리. BSD의 프로세스 모델은 Mach Task 위에서 구현됩니다.
+- **IPC (Inter-Process Communication)**: **Mach Message**는 시스템 전체의 통신 동맥입니다. 매우 빠르고 안전하게 커널-유저, 유저-유저 간 데이터를 전달합니다.
+- **Virtual Memory**: 가상 메모리 객체(Memory Object) 관리, 페이지 폴트 처리.
 
-### 예시 흐름: 알림 받기
-1. 서버→[[apple-glossary#APNs|APNs]]→기기 토큰 대상 전송.
-2. APS 데몬이 수신 후 시스템 UI 가 표시.
-3. 사용자가 누르면 앱이 깨워져 처리. 백그라운드 작업은 제한된 시간/모드에만 허용.
+#### 2. BSD (Berkley Software Distribution Layer)
+Mach 위에서 POSIX 호환성과 고수준 시스템 기능을 제공합니다.
+- **File Systems (VFS)**: APFS, HFS+ 등 파일 시스템 추상화.
+- **Networking**: TCP/IP 스택, 소켓 계층.
+- **Security**: User ID (uid), Group ID (gid), 권한 관리.
+- **System Calls**: `open()`, `read()`, `write()`, `fork()` 등 표준 유닉스 API 제공.
 
-### 링크
+#### 3. I/O Kit
+객체 지향(C++ 부분집합) 디바이스 드라이버 프레임워크입니다.
+- 하드웨어(USB, Bluetooth, GPU 등)와 동적으로 연결되며, 전원 관리(Power Management) 기능을 내장하고 있습니다.
 
-[[apple-foundations]], [[apple-runtime-and-swift]], [[apple-sandbox-and-security]], [[apple-app-lifecycle-and-ui]], [[apple-platform-differences]].
+---
+
+### 🚀 시스템 부팅과 앱 실행 과정 (Process Launch)
+
+#### 1. Boot Chain (Secure Boot)
+1. **Boot ROM**: 칩에 구워진 불변의 코드. Apple Root CA 공개키가 들어있음.
+2. **iBoot (LLB)**: Low Level Bootloader. 서명을 검증하고 커널을 로드합니다.
+3. **Kernel Boot**: XNU 커널 초기화. 드라이버 로드.
+
+#### 2. User Space 시작 (Launchd)
+- **launchd (PID 1)**: 커널이 띄우는 첫 번째 유저 프로세스. 모든 프로세스의 조상입니다.
+- `/System/Library/LaunchDaemons` 등의 설정을 읽어 시스템 데몬(syslogd, backboardd 등)을 실행합니다.
+
+#### 3. 앱 실행 시퀀스 (App Launch Detail)
+사용자가 아이콘을 탭하면 어떤 일이 일어날까요?
+
+1. **Request**: SpringBoard(홈 화면)가 `launchd`에게 앱 실행 요청 (XPC/Mach IPC).
+2. **Fork/Exec**: `launchd`가 `posix_spawn()` 시스템 콜 호출.
+3. **Dyld**: 동적 링커(`dyld`)가 프로세스 메모리에 로드됨.
+   - **Shared Cache Map**: `/System/Library/Caches/com.apple.dyld/`에 있는 거대한 시스템 프레임워크 뭉치(Shared Cache)를 공유 메모리에 매핑. (앱 실행 속도 핵심)
+   - **Load Dylibs**: 앱이 사용하는 dylib들을 로드하고 심볼 바인딩(Rebase/Bind).
+4. **Runtime Init**: Objective-C `+load` 메서드, Swift 런타임 초기화.
+5. **Main**: `main()` 함수 호출 -> `UIApplicationMain` -> Run Loop 시작.
+
+---
+
+### 🛡️ 보안 모델 (Security Model)
+
+#### 1. Code Signing & Entitlements
+단순히 "누가 만들었나" 서명뿐만 아니라, **"무엇을 할 수 있는가"** 권한(Entitlements)을 바이너리에 박아넣습니다.
+- 커널의 **AMFI (Apple Mobile File Integrity)** 데몬이 실행 시 강제 검사합니다.
+- 예: `com.apple.developer.nfc.readersession.formats` 엔타이틀먼트가 없으면 NFC 하드웨어 접근 불가.
+
+#### 2. Sandbox (Seatbelt)
+앱이 파일 시스템의 어디를 읽고 쓸 수 있는지 커널 레벨에서 차단합니다.
+- `Container` 디렉토리 내부에 `Documents/`, `Library/`, `tmp/` 등을 격리.
+- 외부 접근 시 커널 패닉이나 'Operation not permitted' 에러 발생.
+
+#### 3. TCC (Transparency, Consent, and Control)
+사용자 프라이버시 데이터 접근 제어.
+- 카메라, 마이크, 사진첩 접근 시 뜨는 팝업.
+- `tccd` 데몬이 관리하며 데이터베이스로 권한 상태 저장.
+
+---
+
+### 🧱 플랫폼 아키텍처 차이
+
+| Feature | macOS | iOS/iPadOS/visionOS |
+|---------|-------|-------------------|
+| **파일 시스템** | 사용자 접근 비교적 자유로움 (Finder) | 철저한 샌드박스 격리 |
+| **메모리(Swap)** | 디스크 스왑 사용 (Compressor + Swap) | **Swap 없음** (Compressor + Jetsam) |
+| **앱 생명주기** | 사용자가 종료할 때까지 유지 | 백그라운드 시 적극적으로 Suspend/Terminate |
+| **권한 관리** | Gatekeeper, SIP, TCC | Code Signing, Provisioning Profile, TCC |
+
+---
+
+### 더 보기
+- [[apple-foundations]] - 시스템 기초
+- [[apple-uikit-lifecycle]] - 앱 수준의 생명주기
+- [[apple-memory-management]] - 메모리 관리 상세: Jetsam과 Swap

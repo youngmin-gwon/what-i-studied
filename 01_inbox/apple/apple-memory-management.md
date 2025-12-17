@@ -1,351 +1,197 @@
 ---
 title: apple-memory-management
-tags: [apple, memory, arc, performance]
+tags: [apple, memory, arc, performance, internals, profiling]
 aliases: []
-date modified: 2025-12-16 17:01:32 +09:00
+date modified: 2025-12-17 14:10:00 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
-## Memory Management apple memory arc performance
+## Memory Management Deep Dive
 
-ARC 와 메모리 최적화. 기본은 [[apple-runtime-and-swift]] 참고.
+ARC(Automatic Reference Counting)의 내부 동작 원리와 고급 메모리 최적화 기법. 기본 개념은 [[apple-runtime-and-swift]] 참고.
 
-### ARC (Automatic Reference Counting)
+### 📚 외부 리소스 및 참고 자료
 
-컴파일 타임에 retain/release 코드를 자동 삽입.
+#### 공식 문서 및 소스 코드
+- [Automatic Reference Counting - Swift.org](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/)
+- [Swift Runtime Source - GitHub](https://github.com/apple/swift/tree/main/stdlib/public/runtime) - 실제 ARC 구현체 확인 가능
+- [Memory Management Programming Guide for Cocoa](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html)
 
-```swift
-class Person {
-    let name: String
-    
-    init(name: String) {
-        self.name = name
-        print("\(name) is being initialized")
-    }
-    
-    deinit {
-        print("\(name) is being deinitialized")
-    }
-}
+#### 🎥 WWDC 세션
+- [WWDC 2021: ARC in Swift: Basics and beyond](https://developer.apple.com/videos/play/wwdc2021/10216/) - ARC 최적화 및 Side Table 설명
+- [WWDC 2018: iOS Memory Deep Dive](https://developer.apple.com/videos/play/wwdc2018/416/) - dirty memory, compressed memory 개념
 
-var person1: Person? = Person(name: "John") // retain count: 1
-var person2 = person1 // retain count: 2
-person1 = nil // retain count: 1
-person2 = nil // retain count: 0, deinit 호출
-```
+#### 💻 심화 학습
+- [Swift's Object Layout - Mike Ash](https://www.mikeash.com/pyblog/friday-qa-2014-07-18-exploring-swift-memory-layout.html)
+- [Side Tables in Swift](https://swiftrocks.com/weak-references-and-side-tables-in-swift)
 
-### Strong, Weak, Unowned
+---
 
-#### Strong (기본)
+### 🔍 ARC 내부 동작 원리 (ARC Internals)
 
-강한 참조. retain count 증가.
+#### 1. Object Memory Layout & RefCounts
+Swift 객체는 힙에 할당될 때, 메타데이터와 함께 두 개의 숨겨진 Reference Count 필드를 가집니다 (최적화에 따라 다름).
+- **Strong Reference Count**: 객체를 유지하는 강한 참조 수.
+- **Unowned Reference Count**: unowned 참조 수.
+- *Weak Reference Count?* → 객체 내부에 없고 **Side Table**에 있을 수 있습니다.
 
-```swift
-class Owner {
-    var pet: Pet?
-}
+#### 2. Side Table (사이드 테이블) 메커니즘
+강한 참조 카운트나 약한 참조 카운트를 위해 객체 헤더 공간이 부족하거나, **Weak Reference**가 생성될 때 "Side Table"이라는 별도의 메모리 블록이 할당됩니다.
 
-class Pet {
-    var owner: Owner? // Strong reference
-}
+- **Why?** Weak 참조는 객체가 힙에서 할당 해제(Deallocated)된 후에도 nil임을 확인하기 위해 주소를 추적해야 합니다 (Zombie Object 방지).
+- **Process**:
+    1. 객체에 첫 Weak 참조가 생기면 Side Table을 할당합니다.
+    2. 객체 헤더는 Side Table을 가리키는 포인터로 대체됩니다(Bitmasking trick 사용).
+    3. Weak 참조들은 객체가 아닌 Side Table을 가리킵니다.
+    4. 객체가 해제되어도 Side Table은 Weak 참조 카운트가 0이 될 때까지 살아남습니다.
 
-let owner = Owner()
-let pet = Pet()
-owner.pet = pet
-pet.owner = owner // 순환 참조!
-```
+#### 3. Tagged Pointers
+작은 데이터(예: 작은 숫자, 날짜, 일부 짧은 문자열)는 힙에 할당하지 않고 포인터 자체에 데이터를 저장합니다.
+- 64비트 포인터 중 일부 비트를 Tag로 사용하고 나머지를 데이터로 사용.
+- `retain`/`release` 연산이 필요 없어 매우 빠릅니다.
 
-#### Weak
+---
 
-약한 참조. retain count 증가 안 함. 참조 대상이 해제되면 자동으로 nil.
+### 순환 참조 심화 및 해결 (Retain Cycles)
 
-```swift
-class Pet {
-    weak var owner: Owner? // Weak reference
-}
-
-let owner = Owner()
-let pet = Pet()
-owner.pet = pet
-pet.owner = owner // 순환 참조 해결
-
-// owner 가 해제되면 pet.owner 는 자동으로 nil
-```
-
-#### Unowned
-
-약한 참조이지만 항상 값이 있다고 가정. 참조 대상이 해제되면 크래시.
-
-```swift
-class CreditCard {
-    unowned let customer: Customer // 항상 customer 존재
-    
-    init(customer: Customer) {
-        self.customer = customer
-    }
-}
-
-class Customer {
-    var card: CreditCard?
-    
-    init() {
-        self.card = CreditCard(customer: self)
-    }
-}
-```
-
-### 순환 참조 패턴
-
-#### 클로저 캡처
+#### 클로저 캡처 (Deep Dive)
+클로저는 참조 타입이므로 힙에 존재하며, 캡처된 변수들을 강하게 참조합니다.
 
 ```swift
 class ViewController: UIViewController {
     var name = "ViewController"
+    var onCompletion: (() -> Void)?
     
     func setupHandler() {
-        // ❌ 순환 참조
-        someAsyncOperation {
-            print(self.name) // self 강하게 캡처
+        // ❌ [강한 참조 순환]
+        // self -> onCompletion -> Closure -> self
+        self.onCompletion = {
+            print(self.name) 
         }
         
-        // ✅ weak self
-        someAsyncOperation { [weak self] in
-            guard let self = self else { return }
+        // ✅ [Weak Self]
+        // Closure -> self (Weak)
+        // self가 해제되면 closure 내부의 self는 nil이 됨.
+        self.onCompletion = { [weak self] in
+            guard let self = self else { return } // Strongify
             print(self.name)
         }
         
-        // ✅ unowned self (self 가 항상 존재한다고 확신할 때)
-        someAsyncOperation { [unowned self] in
+        // ✅ [Unowned Self]
+        // self가 클로저보다 오래 산다는 것이 "100% 확실할 때만" 사용.
+        // 아니면 크래시 발생.
+        self.onCompletion = { [unowned self] in
             print(self.name)
         }
     }
 }
 ```
 
-#### Delegate 패턴
+---
+
+### 🛡️ 실무 메모리 최적화 (Memory Optimization)
+
+#### 1. Autoreleasepool 활용
+대량의 임시 객체가 루프 안에서 생성될 때 메모리 피크(Peak)를 낮춥니다.
 
 ```swift
-protocol DataSourceDelegate: AnyObject {
-    func dataDidUpdate()
-}
-
-class DataSource {
-    weak var delegate: DataSourceDelegate? // weak 필수!
-}
-
-class ViewController: UIViewController, DataSourceDelegate {
-    let dataSource = DataSource()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        dataSource.delegate = self
+func processLargeImages() {
+    // ❌ 메모리가 계속 증가하다가 루프 종료 후 한꺼번에 해제됨
+    for filename in filenames {
+        let image = UIImage(contentsOfFile: filename)
+        let processed = filter(image)
+        save(processed)
     }
-    
-    func dataDidUpdate() {
-        // 처리
-    }
-}
-```
 
-### Autoreleasepool
-
-임시 객체의 메모리를 즉시 해제.
-
-```swift
-func processLargeData() {
-    for i in 0..<1000000 {
+    // ✅ 루프 돌 때마다 즉시 해제하여 메모리 평탄화
+    for filename in filenames {
         autoreleasepool {
-            let data = createTemporaryData(index: i)
-            process(data)
-            // data 는 여기서 즉시 해제됨
+            let image = UIImage(contentsOfFile: filename)
+            let processed = filter(image)
+            save(processed)
         }
     }
 }
 ```
 
-**사용 시기:**
-- 루프에서 많은 임시 객체 생성
-- 백그라운드 스레드에서 Cocoa API 사용
-- 메모리 압박 상황
-
-### Memory Footprint 최적화
-
-#### 값 타입 vs 참조 타입
+#### 2. COW (Copy-On-Write) 커스텀 구현
+Swift의 `Array`, `Dictionary`처럼 값을 수정할 때만 복사하는 동작을 커스텀 타입에 적용하기.
 
 ```swift
-// ✅ 값 타입 (struct): 스택에 할당, 빠름
-struct Point {
-    var x: Double
-    var y: Double
-}
-
-// ❌ 참조 타입 (class): 힙에 할당, 느림
-class PointClass {
-    var x: Double
-    var y: Double
+struct MyData {
+    private var dataWrapper: DataWrapper
     
-    init(x: Double, y: Double) {
-        self.x = x
-        self.y = y
-    }
-}
-```
-
-#### Copy-on-Write
-
-Swift 컬렉션은 COW 최적화.
-
-```swift
-var array1 = [1, 2, 3] // 메모리 할당
-var array2 = array1 // 복사 안 함, 같은 메모리 공유
-
-array2.append(4) // 이제 복사 발생
-```
-
-**커스텀 COW:**
-```swift
-struct MyArray {
-    private var storage: Storage
+    init() { dataWrapper = DataWrapper() }
     
-    private final class Storage {
-        var elements: [Int]
-        
-        init(elements: [Int]) {
-            self.elements = elements
+    var value: Int {
+        get { return dataWrapper.value }
+        set {
+            // 참조 카운트가 1보다 크면(공유 중이면) 복사본 생성
+            if !isKnownUniquelyReferenced(&dataWrapper) {
+                dataWrapper = dataWrapper.copy()
+            }
+            dataWrapper.value = newValue
         }
     }
-    
-    init(elements: [Int]) {
-        storage = Storage(elements: elements)
-    }
-    
-    mutating func append(_ element: Int) {
-        if !isKnownUniquelyReferenced(&storage) {
-            storage = Storage(elements: storage.elements)
-        }
-        storage.elements.append(element)
+}
+
+private class DataWrapper {
+    var value: Int = 0
+    func copy() -> DataWrapper { 
+        let new = DataWrapper()
+        new.value = self.value
+        return new
     }
 }
 ```
 
-### 메모리 누수 감지
+---
 
-#### Instruments - Leaks
+### 🐞 메모리 누수 디버깅 (Profiling)
 
-```bash
-# Xcode → Product → Profile → Leaks
-```
+#### 1. Xcode Memory Graph Debugger
+**사용법**:
+1. 앱 실행 중 하단 디버그 바의 "연결된 3개의 사각형 아이콘" 클릭.
+2. 실행이 일시 정지되고 힙 메모리 스냅샷을 뜹니다.
+3. 좌측 네비게이터에서 노란색 경고(⚠️)가 뜨는 항목 확인. 보라색(🟣)은 누수 가능성 높음.
+4. 객체를 클릭하여 참조 그래프(Reference Chain)를 확인. 굵은 선이 Strong Reference. **순환 참조 고리**를 찾으세요.
 
-**주요 패턴:**
-1. 순환 참조
-2. Notification Observer 미제거
-3. Timer 미해제
-4. Delegate 강한 참조
+#### 2. Instruments - Allocations & Leaks
+**Allocations**: 객체의 생존 주기를 시각적으로 확인.
+- "Mark Generation" 기능을 사용해 화면 진입/이탈 시 **Persistent Bytes**가 증가하는지 확인합니다(Dirty Memory 증가 추적).
 
-#### 코드로 확인
+**Leaks**: 자동으로 누수 탐지.
+- 하지만 순환 참조(Retain Cycle)는 레퍼런스 카운트가 0이 아니므로 Leaks 악기(Instrument)가 못 잡는 경우가 많습니다. Memory Graph가 더 유용할 때가 많습니다.
+
+#### 3. 코드로 누수 탐지 (Deinit Logger)
+디버깅용으로 특정 객체가 제대로 해제되는지 로그를 심을 때 유용합니다.
 
 ```swift
 class LeakDetector {
     static func track(_ object: AnyObject, file: String = #file, line: Int = #line) {
-        let address = String(format: "%p", unsafeBitCast(object, to: Int.self))
-        print("[\(file):\(line)] Allocated: \(address)")
+        let address = Unmanaged.passUnretained(object).toOpaque()
+        let className = String(describing: type(of: object))
+        print("🟢 Init: \(className) (\(address)) at \(file):\(line)")
         
-        // deinit 시 로그
-        objc_setAssociatedObject(object, &AssociatedKeys.deinitKey, DeinitLogger {
-            print("[\(file):\(line)] Deallocated: \(address)")
+        // Associated Object로 DeinitTracker 연결
+        objc_setAssociatedObject(object, &AssociatedKeys.tracker, DeinitTracker {
+            print("🔴 Deinit: \(className) (\(address))")
         }, .OBJC_ASSOCIATION_RETAIN)
     }
 }
 
-private enum AssociatedKeys {
-    static var deinitKey = "deinitKey"
-}
+private enum AssociatedKeys { static var tracker = "tracker" }
 
-private class DeinitLogger {
-    let closure: () -> Void
-    
-    init(_ closure: @escaping () -> Void) {
-        self.closure = closure
-    }
-    
-    deinit {
-        closure()
-    }
-}
-
-// 사용
-let person = Person(name: "John")
-LeakDetector.track(person)
-```
-
-### 메모리 경고 처리
-
-```swift
-class ViewController: UIViewController {
-    var imageCache: [String: UIImage] = [:]
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-        // 캐시 정리
-        imageCache.removeAll()
-        
-        // 재생성 가능한 데이터 제거
-        clearTemporaryData()
-    }
-}
-
-// App Delegate
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        // 전역 캐시 정리
-        URLCache.shared.removeAllCachedResponses()
-    }
+private class DeinitTracker {
+    let callback: () -> Void
+    init(_ callback: @escaping () -> Void) { self.callback = callback }
+    deinit { callback() }
 }
 ```
 
-### 성능 측정
-
-#### Memory Graph Debugger
-
-```bash
-# Xcode → Debug → View Memory Graph
-```
-
-**확인 사항:**
-- 순환 참조
-- 예상치 못한 객체 유지
-- 메모리 사용량
-
-#### Allocations Instrument
-
-```swift
-// 메모리 할당 추적
-class MemoryTracker {
-    static func measure(label: String, block: () -> Void) {
-        let before = mach_task_basic_info.memoryUsage
-        block()
-        let after = mach_task_basic_info.memoryUsage
-        print("\(label): \(after - before) bytes")
-    }
-}
-
-extension mach_task_basic_info {
-    static var memoryUsage: UInt64 {
-        var info = mach_task_basic_info()
-        var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size) / 4
-        
-        let result = withUnsafeMutablePointer(to: &info) {
-            $0.withMemoryRebound(to: integer_t.self, capacity: 1) {
-                task_info(mach_task_self_, task_flavor_t(MACH_TASK_BASIC_INFO), $0, &count)
-            }
-        }
-        
-        return result == KERN_SUCCESS ? info.resident_size : 0
-    }
-}
-```
+---
 
 ### 더 보기
-
-[[apple-runtime-and-swift]], [[apple-swift-concurrency]], [[apple-performance-and-debug]], [[apple-instruments-profiling]]
+- [[apple-uikit-lifecycle]] - 생명주기에 따른 메모리 관리
+- [[apple-performance-and-debug]] - Instruments 상세 사용법
+- [[apple-runtime-and-swift]] - Swift 런타임 구조
