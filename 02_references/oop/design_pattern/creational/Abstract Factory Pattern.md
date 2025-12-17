@@ -2,28 +2,30 @@
 title: Abstract Factory Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:37:27 +09:00
+date modified: 2025-12-17 10:28:29 +09:00
 date created: 2024-12-12 15:51:24 +09:00
 ---
 
 ## Description
 
-**Abstract Factory Pattern** 은 구체적인 클래스(Concrete Class)에 의존하지 않고, 서로 연관되거나 의존적인 객체들의** 제품군(Family)을 생성하는 인터페이스** 를 제공하는 패턴입니다.
+![Untitled 29](../../../../_assets/oop/Untitled%2029.png)
+
+**Abstract Factory Pattern** 은 구체적인 클래스 (Concrete Class) 에 의존하지 않고, 서로 연관되거나 의존적인 객체들의** 제품군 (Family) 을 생성하는 인터페이스** 를 제공하는 패턴입니다.
 
 -**핵심**: "관련된 객체들을 한 번에 모아서 만든다."
--**목적**: 객체 생성 로직을 클라이언트로부터 분리(캡슐화)하여, 제품군을 쉽게 교체할 수 있도록 함.
+-**목적**: 객체 생성 로직을 클라이언트로부터 분리 (캡슐화) 하여, 제품군을 쉽게 교체할 수 있도록 함.
 
 ## Examples
 
 - **UI 테마**: `Light Theme` vs `Dark Theme`. 버튼, 텍스트박스, 체크박스 등 모든 UI 요소가 테마에 맞춰 세트로 생성되어야 함.
--**OS 호환**: `Windows` vs `Mac`. 각 OS에 맞는 버튼, 창, 마우스 커서 객체들이 세트로 생성되어야 함.
+-**OS 호환**: `Windows` vs `Mac`. 각 OS 에 맞는 버튼, 창, 마우스 커서 객체들이 세트로 생성되어야 함.
 
-## [Factory Method](Factory%20Method%20Pattern.md)와의 차이점
+## [Factory Method](Factory%20Method%20Pattern.md) 와의 차이점
 
 | 구분 | Factory Method | Abstract Factory |
 | :--- | :--- | :--- |
-| **목적**|** 단일 객체** 생성의 처리를 서브클래스에 위임 |** 관련된 객체 제품군(Family)** 생성의 인터페이스 제공 |
-|**유연성** | 상속(Inheritance)을 통해 객체 생성 로직 변경 | 구성(Composition)을 통해 객체 생성 팩토리 자체를 교체 |
+| **목적**|** 단일 객체** 생성의 처리를 서브클래스에 위임 |** 관련된 객체 제품군 (Family)** 생성의 인터페이스 제공 |
+|**유연성** | 상속 (Inheritance) 을 통해 객체 생성 로직 변경 | 구성 (Composition) 을 통해 객체 생성 팩토리 자체를 교체 |
 | **관점** | "어떤 객체 하나를 만들까?" | "어떤 스타일의 객체 세트를 만들까?" |
 
 ## Structure

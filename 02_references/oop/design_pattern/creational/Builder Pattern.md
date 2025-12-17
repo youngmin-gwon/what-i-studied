@@ -2,7 +2,7 @@
 title: Builder Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:06:24 +09:00
+date modified: 2025-12-17 10:29:26 +09:00
 date created: 2024-12-12 15:51:01 +09:00
 ---
 
@@ -28,10 +28,10 @@ date created: 2024-12-12 15:51:01 +09:00
 ![Untitled](../../../../../_assets/oop/Untitled%2051.png)
 
 1. **Builder**- Product 의 부분들을 만들기 위한 모든 종류의 Builder 의 interface 를 가지고 있는 추상 인터페이스.
-2.**Concrete Builder**- 상세한 제조 과정을 정의. 각 Concrete Builder 가 Product 를 정의하고 상태를 추적함.
-3.**Director**- Builder interface 를 사용하여 객체를 생성하고, 생성 순서를 정의하여 외부에서 사용할 수 있게 함.
-4.**Product**- 복잡하게 생성되는 객체를 의미하고, 각 파트들을 최종 결과로 만드는 interface/methods 를 외부에서 사용할 수 있게 만듬.
-5.**Client**
+2. **Concrete Builder**- 상세한 제조 과정을 정의. 각 Concrete Builder 가 Product 를 정의하고 상태를 추적함.
+3. **Director**- Builder interface 를 사용하여 객체를 생성하고, 생성 순서를 정의하여 외부에서 사용할 수 있게 함.
+4. **Product**- 복잡하게 생성되는 객체를 의미하고, 각 파트들을 최종 결과로 만드는 interface/methods 를 외부에서 사용할 수 있게 만듬.
+5. **Client**
     - 특정 Builder 객체를 Director 와 연결함. Product 객체는 Director class 인스턴스를 호출하여 생성.
 
 ## Adaptability
