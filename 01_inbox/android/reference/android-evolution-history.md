@@ -1,14 +1,14 @@
 ---
 title: android-evolution-history
-tags: [android, android/history, android/evolution]
+tags: [android, android/evolution, android/history]
 aliases: [Android History, 안드로이드 역사]
-date modified: 2025-12-17 14:06:18 +09:00
+date modified: 2025-12-17 18:01:26 +09:00
 date created: 2025-12-16 15:25:47 +09:00
 ---
 
 ## Android 기술 진화
 
-안드로이드는 2008년 첫 출시 이후 모바일 환경의 변화에 맞춰 지속적으로 진화해왔다. 이 문서는 주요 기술적 전환점과 그 배경을 정리한다.
+안드로이드는 2008 년 첫 출시 이후 모바일 환경의 변화에 맞춰 지속적으로 진화해왔다. 이 문서는 주요 기술적 전환점과 그 배경을 정리한다.
 
 ### Timeline
 
@@ -66,7 +66,7 @@ ART (현대, Profile-Guided):
 ```
 
 **성능 개선**:
-- 앱 시작: 2배 빨라짐
+- 앱 시작: 2 배 빨라짐
 - 배터리: 15-20% 절약
 - GC 개선: Stop-the-World → Concurrent
 
@@ -97,7 +97,7 @@ button.setOnClickListener {
 **현재 상태** (2023):
 - Google 공식 권장: Kotlin-first
 - 신규 Jetpack 라이브러리: Kotlin 우선 설계
-- Coroutine으로 비동기 처리 간소화
+- Coroutine 으로 비동기 처리 간소화
 
 ---
 
@@ -139,7 +139,7 @@ interface ICameraDevice {
 ```
 
 **문제**:
-- C++만 지원
+- C++ 만 지원
 - 복잡한 문법
 - 버전 관리 어려움
 
@@ -152,8 +152,8 @@ interface ICameraDevice {
 ```
 
 **장점**:
-- Java/Rust도 지원
-- 간단한 문법 (기존 AIDL과 유사)
+- Java/Rust 도 지원
+- 간단한 문법 (기존 AIDL 과 유사)
 - 더 나은 버전 호환성
 
 ---
@@ -247,7 +247,7 @@ Slot B (업데이트 설치 중)
 실패 시 → Slot A 자동 롤백
 ```
 
-**문제**: 2배 저장 공간 필요
+**문제**: 2 배 저장 공간 필요
 
 **Virtual A/B** (Android 11, 2020):
 ```
@@ -285,7 +285,7 @@ VINTF로 호환성 보장
 
 **효과**:
 - 업데이트 속도 향상
-- Google이 /system만 업데이트 가능
+- Google 이 /system 만 업데이트 가능
 - OEM 부담 감소
 
 ---
@@ -322,7 +322,7 @@ com.android.conscrypt        # TLS/SSL
 
 ### UI: View → Compose (2021)
 
-**View System** (2008-현재):
+**View System** (2008- 현재):
 ```xml
 <!-- XML로 정의 -->
 <LinearLayout>
@@ -338,7 +338,7 @@ button.setOnClickListener { }
 ```
 
 **문제**:
-- XML과 코드 분리 → 유지보수 어려움
+- XML 과 코드 분리 → 유지보수 어려움
 - Boilerplate 많음
 - 상태 관리 복잡
 
@@ -358,7 +358,7 @@ fun Greeting(name: String) {
 ```
 
 **장점**:
-- 선언형 UI (React/SwiftUI와 유사)
+- 선언형 UI (React/SwiftUI 와 유사)
 - 상태 자동 업데이트
 - Preview 지원
 
@@ -366,7 +366,7 @@ fun Greeting(name: String) {
 
 ### 그래픽: OpenGL → Vulkan (2016)
 
-**OpenGL ES** (2008-현재):
+**OpenGL ES** (2008- 현재):
 ```cpp
 // High-level API
 glClear(GL_COLOR_BUFFER_BIT);
@@ -392,7 +392,7 @@ vkCmdEndRenderPass(...);
 - 더 나은 제어
 
 **현재**:
-- OpenGL은 ANGLE로 Vulkan 위에서 실행
+- OpenGL 은 ANGLE 로 Vulkan 위에서 실행
 - 게임/고성능: Vulkan 직접 사용
 
 ---
@@ -427,14 +427,14 @@ vkCmdEndRenderPass(...);
 - 📊 Digital Wellbeing
 - 🔒 Biometric API 통합
 
-### Android 10 (2019) - 프라이버시 1단계
+### Android 10 (2019) - 프라이버시 1 단계
 - 🌗 Dark Theme (시스템 전체)
 - 📁 Scoped Storage (부분 강제)
 - 📍 백그라운드 위치 별도 권한
 - 🎨 Bubbles
 - ♿ Live Caption
 
-### Android 11 (2020) - 프라이버시 2단계
+### Android 11 (2020) - 프라이버시 2 단계
 - 🔐 일회성 권한
 - 💬 Conversations (알림)
 - 📱 Device Controls (스마트홈)
@@ -473,8 +473,8 @@ vkCmdEndRenderPass(...);
 
 ## 연결 문서
 
-[[android-customization-and-oem]] - OEM의 버전 적용  
-[[android-security-and-sandboxing]] - 보안 진화  
-[[android-zygote-and-runtime]] - Dalvik→ART  
-[[android-hal-and-kernel]] - HIDL→AIDL  
+[[android-customization-and-oem]] - OEM 의 버전 적용
+[[android-security-and-sandboxing]] - 보안 진화
+[[android-zygote-and-runtime]] - Dalvik→ART
+[[android-hal-and-kernel]] - HIDL→AIDL
 [[android-overview]] - 현재 아키텍처
