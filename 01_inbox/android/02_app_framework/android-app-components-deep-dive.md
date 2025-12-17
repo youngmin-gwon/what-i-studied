@@ -102,6 +102,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
+더 자세한 내용은 [[android-viewmodel]] 참고.
+
 #### Task 와 Back Stack
 
 Task 는 사용자가 작업을 수행하는 Activity 의 스택이다.

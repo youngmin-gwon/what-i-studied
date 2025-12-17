@@ -25,7 +25,7 @@ Data Sources (Room, Retrofit, DataStore)
 
 ### ViewModel
 
-설정 변경에서 살아남는 UI 상태 홀더.
+설정 변경에서 살아남는 UI 상태 홀더. 자세한 내용은 [[android-viewmodel]] 참고.
 
 ```kotlin
 class UserViewModel : ViewModel() {
@@ -697,4 +697,4 @@ class UserViewModel(
 
 ### 더 보기
 
-[[android-compose-internals]], [[android-app-components-deep-dive]], [[android-storage-systems]], [[android-dependency-injection]], [[android-testing-and-quality]]
+[[android-viewmodel]], [[android-compose-internals]], [[android-app-components-deep-dive]], [[android-storage-systems]], [[android-dependency-injection]], [[android-testing-and-quality]]
