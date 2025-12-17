@@ -2,7 +2,7 @@
 title: buffer
 tags: [buffer, data-structures, memory, os]
 aliases: [Buffer, 버퍼, 버퍼링]
-date modified: 2025-12-17 10:51:06 +09:00
+date modified: 2025-12-17 11:49:06 +09:00
 date created: 2025-12-16 21:11:55 +09:00
 ---
 
@@ -187,7 +187,7 @@ graph LR
 
 ### 터미널 버퍼
 
-키보드 입력은 **라인 버퍼링 (Line Buffering)**된다. Enter 키를 누를 때까지 버퍼에 모았다가, 한 줄 전체를 애플리케이션에 전달한다.
+키보드 입력은 **라인 버퍼링 (Line Buffering)** 된다. Enter 키를 누를 때까지 버퍼에 모았다가, 한 줄 전체를 애플리케이션에 전달한다.
 
 ```bash
 $ cat
@@ -323,10 +323,12 @@ void safe_function(char *input) {
 ## 버퍼 크기 설정의 트레이드오프
 
 ### 작은 버퍼
+
 - **장점**: 메모리 절약, 낮은 지연 (latency).
 - **단점**: 자주 I/O 발생, 오버헤드 증가. Overflow 위험.
 
 ### 큰 버퍼
+
 - **장점**: I/O 횟수 감소, throughput 향상.
 - **단점**: 메모리 소비, 지연 증가. 캐시 친화성 저하.
 
@@ -408,10 +410,6 @@ setvbuf(fp, NULL, _IOFBF, 4096);  // fully buffered
 **책**:
 - *The Linux Programming Interface* (Michael Kerrisk): 파일/네트워크 버퍼링 상세.
 - *Computer Graphics: Principles and Practice*: Frame buffer, Z-buffer.
-
-**온라인**:
-- [Linux I/O Buffering](https://www.kernel.org/doc/html/latest/filesystems/buffered-writeback.html)
-- [TCP Buffer Tuning](https://fasterdata.es.net/network-tuning/tcp-tuning/)
 
 ---
 
