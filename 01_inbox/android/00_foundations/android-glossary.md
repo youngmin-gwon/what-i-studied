@@ -2,7 +2,7 @@
 title: android-glossary
 tags: [android, android/glossary, android/reference]
 aliases: [Android Glossary, 안드로이드 용어집]
-date modified: 2025-12-17 18:39:11 +09:00
+date modified: 2025-12-17 21:16:08 +09:00
 date created: 2025-12-16 15:56:51 +09:00
 ---
 
@@ -269,8 +269,8 @@ adb bugreport bugreport.zip
 **정의**: 앱 환경에 대한 전역 정보 접근 인터페이스 (God Object)
 
 **상세**:
-Android 시스템의 핵심 핸들로, 리소스 로드, 컴포넌트 실행(Activity/Service), 시스템 서비스 접근 등 거의 모든 작업에 필요하다.
-`ApplicationContext` (싱글톤)와 `ActivityContext` (UI 관련)의 수명 주기가 다르므로 메모리 누수에 주의해야 한다.
+Android 시스템의 핵심 핸들로, 리소스 로드, 컴포넌트 실행 (Activity/Service), 시스템 서비스 접근 등 거의 모든 작업에 필요하다.
+`ApplicationContext` (싱글톤) 와 `ActivityContext` (UI 관련) 의 수명 주기가 다르므로 메모리 누수에 주의해야 한다.
 
 **사용**:
 ```kotlin
@@ -435,9 +435,9 @@ adb shell lshal
 **정의**: 스레드의 메시지 루프를 관리하는 메커니즘
 
 **상세**:
-안드로이드의 **메인 스레드**는 본질적으로 `Looper.loop()`를 핑핑 도는 무한 루프입니다.
--   **Looper**: 우체통(MessageQueue)에 편지가 오나 감시하다가, 오면 배달부(Handler)에게 줍니다.
--   **Handler**: 편지를 보내는 역할(sendMessage)과 받는 역할(handleMessage)을 동시에 합니다.
+안드로이드의 **메인 스레드**는 본질적으로 `Looper.loop()` 를 핑핑 도는 무한 루프입니다.
+- **Looper**: 우체통 (MessageQueue) 에 편지가 오나 감시하다가, 오면 배달부 (Handler) 에게 줍니다.
+- **Handler**: 편지를 보내는 역할 (sendMessage) 과 받는 역할 (handleMessage) 을 동시에 합니다.
 
 **구조**:
 ```
@@ -653,9 +653,9 @@ adb logcat | grep avc
 **정의**: 화면에 표시될 픽셀 데이터를 담는 원시 버퍼
 
 **상세**:
--   **Surface**: 앱(Producer)이 그림을 그리는 도화지. 텍스처나 비트맵 데이터가 들어있습니다.
--   **SurfaceFlinger**: 여러 앱의 Surface들을 수거해서 물리적 디스플레이에 최종 합성(Composition)하는 시스템 서비스입니다.
--   **BufferQueue**: Surface와 SurfaceFlinger 사이의 파이프라인. (Producer -> Buffer -> Consumer)
+- **Surface**: 앱 (Producer) 이 그림을 그리는 도화지. 텍스처나 비트맵 데이터가 들어있습니다.
+- **SurfaceFlinger**: 여러 앱의 Surface 들을 수거해서 물리적 디스플레이에 최종 합성 (Composition) 하는 시스템 서비스입니다.
+- **BufferQueue**: Surface 와 SurfaceFlinger 사이의 파이프라인. (Producer -> Buffer -> Consumer)
 
 **구조**:
 ```
@@ -733,12 +733,12 @@ adb shell ls -la /data/data/com.example
 
 ### Vsync / Choreographer
 
-**정의**: 화면 주사율(60Hz, 120Hz)에 맞춰 프레임 그리기 타이밍을 맞추는 신호
+**정의**: 화면 주사율 (60Hz, 120Hz) 에 맞춰 프레임 그리기 타이밍을 맞추는 신호
 
 **상세**:
--   **Vsync (Vertical Synchronization)**: 디스플레이가 "나 이제 그릴 준비 됐어!"라고 쏘는 하드웨어 신호.
--   **Choreographer**: Vsync 신호를 받아서 앱에게 "자, 다음 프레임 그려!"(`doFrame`)라고 알려주는 지휘자.
--   만약 앱이 Vsync 주기(16.6ms) 안에 그림을 다 못 그리면 **Jank**(버벅임)가 발생합니다.
+- **Vsync (Vertical Synchronization)**: 디스플레이가 "나 이제 그릴 준비 됐어!"라고 쏘는 하드웨어 신호.
+- **Choreographer**: Vsync 신호를 받아서 앱에게 "자, 다음 프레임 그려!"(`doFrame`) 라고 알려주는 지휘자.
+- 만약 앱이 Vsync 주기 (16.6ms) 안에 그림을 다 못 그리면 **Jank**(버벅임) 가 발생합니다.
 
 **흐름**:
 ```
