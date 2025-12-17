@@ -2,7 +2,7 @@
 title: android-boot-flow
 tags: [android, android/boot, android/system-images]
 aliases: [Boot Flow, 부팅 흐름]
-date modified: 2025-12-17 13:51:04 +09:00
+date modified: 2025-12-17 19:03:44 +09:00
 date created: 2025-12-16 15:24:47 +09:00
 ---
 
@@ -10,10 +10,10 @@ date created: 2025-12-16 15:24:47 +09:00
 
 이 문서는 안드로이드 부팅 과정의 **전체 흐름**을 개괄적으로 설명한다. 각 단계의 상세 내용은 해당 문서 참고.
 
-> [!NOTE]
-> Init 프로세스 상세: [[android-init-and-services]]  
-> Zygote 상세: [[android-zygote-and-runtime]]  
-> HAL 초기화: [[android-hal-and-kernel]]
+>[!NOTE]
+>Init 프로세스 상세: [[android-init-and-services]]
+>Zygote 상세: [[android-zygote-and-runtime]]
+>HAL 초기화: [[android-hal-and-kernel]]
 
 ### 부팅 순서 (한눈에)
 
@@ -35,15 +35,17 @@ graph TD
 ### 1. Boot ROM (하드웨어)
 
 칩에 내장된 코딩 불가능한 코드:
-- 첫 부트로더를 eMMC/UFS에서 로드
+
+- 첫 부트로더를 eMMC/UFS 에서 로드
 - 서명 검증 (OEM public key)
 - 실패 시 Fastboot 모드
 
 ### 2. Bootloader
 
 Android Bootloader (ABL, 대부분 Qualcomm LK 기반):
+
 - **Verified Boot**: vbmeta 검증 → system/vendor 무결성
-- **A/B 슬롯** 선택: 활성 슬롯 부팅 (_a, _b)
+- **A/B 슬롯** 선택: 활성 슬롯 부팅 (a, b)
 - 커널 + ramdisk 메모리에 로드
 
 **특수 모드**:
@@ -72,7 +74,8 @@ Android Bootloader (ABL, 대부분 Qualcomm LK 기반):
 ### 5. Zygote
 
 앱 프로세스 템플릿:
-- Framework 클래스 preload (~4000개)
+
+- Framework 클래스 preload (~4000 개)
 - 소켓 대기 (`/dev/socket/zygote`)
 - System Server fork
 
@@ -81,10 +84,11 @@ Android Bootloader (ABL, 대부분 Qualcomm LK 기반):
 ### 6. System Server
 
 Java 시스템 서비스 시작:
+
 - ActivityManagerService
 - PackageManagerService
 - WindowManagerService
-- +100여 개 서비스
+- +100 여 개 서비스
 
 ### 7. PackageManager
 
@@ -147,10 +151,10 @@ Slot B: [boot_b, system_b, vendor_b] ← 업데이트 다운로드 중
 ```
 
 **업데이트 과정**:
-1. 백그라운드에서 Slot B에 다운로드
+1. 백그라운드에서 Slot B 에 다운로드
 2. 완료 후 boot control 변경: active=B
-3. 재부팅 → Slot B로 부팅
-4. 성공 시 Slot B 확정, 실패 시 Slot A로 자동 롤백
+3. 재부팅 → Slot B 로 부팅
+4. 성공 시 Slot B 확정, 실패 시 Slot A 로 자동 롤백
 
 ### Virtual A/B (Android 11+)
 
@@ -257,9 +261,14 @@ fastboot oem get-log
 
 ## 연결 문서 (상세)
 
-[[android-init-and-services]] - Init 프로세스 상세, RC 문법, Property 시스템  
-[[android-zygote-and-runtime]] - Zygote fork, Preloading, ART  
-[[android-hal-and-kernel]] - HAL 초기화, 드라이버 로드  
-[[android-kernel]] - 커널 수정 사항  
-[[android-security-and-sandboxing]] - Verified Boot, dm-verity  
+[[android-init-and-services]] - Init 프로세스 상세, RC 문법, Property 시스템
+
+[[android-zygote-and-runtime]] - Zygote fork, Preloading, ART
+
+[[android-hal-and-kernel]] - HAL 초기화, 드라이버 로드
+
+[[android-kernel]] - 커널 수정 사항
+
+[[android-security-and-sandboxing]] - Verified Boot, dm-verity
+
 [[android-customization-and-oem]] - OEM bootloader 커스터마이징
