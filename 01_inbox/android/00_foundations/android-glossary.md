@@ -260,6 +260,40 @@ adb bugreport bugreport.zip
 
 ---
 
+---
+
+## C
+
+### Context
+
+**정의**: 앱 환경에 대한 전역 정보 접근 인터페이스 (God Object)
+
+**상세**:
+Android 시스템의 핵심 핸들로, 리소스 로드, 컴포넌트 실행(Activity/Service), 시스템 서비스 접근 등 거의 모든 작업에 필요하다.
+`ApplicationContext` (싱글톤)와 `ActivityContext` (UI 관련)의 수명 주기가 다르므로 메모리 누수에 주의해야 한다.
+
+**사용**:
+```kotlin
+// 리소스 접근
+val color = context.getColor(R.color.black)
+
+// 시스템 서비스
+val am = context.getSystemService(Context.ACTIVITY_SERVICE)
+```
+
+**Memory Leak 주의**:
+```kotlin
+// ❌ Activity Context를 오래 사는 객체에 저장하면 누수!
+Singleton.context = activity // Activity가 파괴되어도 못 놓아줌
+
+// ✅ Application Context 사용
+Singleton.context = activity.applicationContext
+```
+
+**관련**: [[android-activity-lifecycle]]
+
+---
+
 ## D
 
 ### DEX (Dalvik Executable)
@@ -392,7 +426,39 @@ adb shell lshal
 
 ---
 
+---
+
 ## L
+
+### Looper / Handler
+
+**정의**: 스레드의 메시지 루프를 관리하는 메커니즘
+
+**상세**:
+안드로이드의 **메인 스레드**는 본질적으로 `Looper.loop()`를 핑핑 도는 무한 루프입니다.
+-   **Looper**: 우체통(MessageQueue)에 편지가 오나 감시하다가, 오면 배달부(Handler)에게 줍니다.
+-   **Handler**: 편지를 보내는 역할(sendMessage)과 받는 역할(handleMessage)을 동시에 합니다.
+
+**구조**:
+```
+Thread
+ └─ Looper (무한 루프)
+     └─ MessageQueue (작업 대기열)
+         ├─ Message (UI 업데이트)
+         └─ Runnable (postDelayed)
+```
+
+**예시**:
+```kotlin
+// 메인 스레드로 작업 보내기
+Handler(Looper.getMainLooper()).post {
+    textView.text = "Hello"
+}
+```
+
+**관련**: [[android-performance-and-debug]]
+
+---
 
 ### LMKD (Low Memory Killer Daemon)
 
@@ -580,6 +646,26 @@ adb logcat | grep avc
 
 ---
 
+---
+
+### Surface / SurfaceFlinger
+
+**정의**: 화면에 표시될 픽셀 데이터를 담는 원시 버퍼
+
+**상세**:
+-   **Surface**: 앱(Producer)이 그림을 그리는 도화지. 텍스처나 비트맵 데이터가 들어있습니다.
+-   **SurfaceFlinger**: 여러 앱의 Surface들을 수거해서 물리적 디스플레이에 최종 합성(Composition)하는 시스템 서비스입니다.
+-   **BufferQueue**: Surface와 SurfaceFlinger 사이의 파이프라인. (Producer -> Buffer -> Consumer)
+
+**구조**:
+```
+App (Canvas/OpenGL) -> Surface -> BufferQueue -> SurfaceFlinger -> Hardware Composer -> Display
+```
+
+**관련**: [[android-graphics-and-media]]
+
+---
+
 ### system_server
 
 **정의**: 시스템 서비스들이 실행되는 Java 프로세스
@@ -641,7 +727,27 @@ adb shell ls -la /data/data/com.example
 
 ---
 
+---
+
 ## V
+
+### Vsync / Choreographer
+
+**정의**: 화면 주사율(60Hz, 120Hz)에 맞춰 프레임 그리기 타이밍을 맞추는 신호
+
+**상세**:
+-   **Vsync (Vertical Synchronization)**: 디스플레이가 "나 이제 그릴 준비 됐어!"라고 쏘는 하드웨어 신호.
+-   **Choreographer**: Vsync 신호를 받아서 앱에게 "자, 다음 프레임 그려!"(`doFrame`)라고 알려주는 지휘자.
+-   만약 앱이 Vsync 주기(16.6ms) 안에 그림을 다 못 그리면 **Jank**(버벅임)가 발생합니다.
+
+**흐름**:
+```
+Vsync 발생 -> Choreographer.onVsync() -> App.doFrame() -> Measure/Layout/Draw -> SurfaceFlinger
+```
+
+**관련**: [[android-performance-and-debug]], [[android-graphics-and-media]]
+
+---
 
 ### Verified Boot (AVB)
 
