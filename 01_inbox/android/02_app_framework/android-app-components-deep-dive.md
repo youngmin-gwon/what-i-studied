@@ -2,11 +2,11 @@
 title: android-app-components-deep-dive
 tags: [android, android/activity, android/components, android/fundamentals, android/service]
 aliases: []
-date modified: 2025-12-16 20:28:11 +09:00
+date modified: 2025-12-17 21:26:18 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 
-## Android App Components Deep Dive android android/components android/fundamentals
+## Android App Components Deep Dive
 
 안드로이드 앱을 이루는 네 가지 핵심 컴포넌트를 깊이 있게 다룬다. 기본은 [[android-foundations]] 에서 확인한다.
 
@@ -22,6 +22,49 @@ Activity 는 사용자가 보는 화면이며, 복잡한 생명주기를 가진�
 4. **onPause()**: 포커스를 잃음. 다른 Activity 가 위에 뜨거나 멀티윈도우 상태. 중요한 데이터를 저장한다.
 5. **onStop()**: 완전히 가려짐. 무거운 리소스 (카메라, 위치 리스너) 를 해제한다.
 6. **onDestroy()**: Activity 가 종료됨. 메모리 누수를 막기 위해 리스너를 정리한다.
+
+```mermaid
+stateDiagram-v2
+    [*] --> onCreate: Activity 시작
+    onCreate --> onStart
+    onStart --> onResume
+    onResume --> Running: 포커스 획득
+    
+    Running --> onPause: 포커스 상실
+    onPause --> onResume: 다시 포커스
+    onPause --> onStop: 완전히 가려짐
+    
+    onStop --> onRestart: 다시 보임
+    onRestart --> onStart
+    onStop --> onDestroy: Activity 종료
+    
+    onDestroy --> [*]
+    
+    note right of onCreate
+        레이아웃 설정
+        ViewModel 초기화
+    end note
+    
+    note right of onResume
+        사용자 상호작용 가능
+        애니메이션/센서 시작
+    end note
+    
+    note right of onPause
+        중요 데이터 저장
+        일시 정지 가능한 작업
+    end note
+    
+    note right of onStop
+        리소스 해제
+        (카메라, 위치 등)
+    end note
+    
+    note right of onDestroy
+        메모리 누수 방지
+        리스너 정리
+    end note
+```
 
 #### 설정 변경과 상태 보존
 
