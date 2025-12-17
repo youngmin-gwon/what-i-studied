@@ -2,11 +2,11 @@
 title: android-foundations
 tags: [android, android/architecture, android/fundamentals, mobile/os]
 aliases: []
-date modified: 2025-12-16 20:30:00 +09:00
+date modified: 2025-12-17 18:40:33 +09:00
 date created: 2025-12-16 15:22:14 +09:00
 ---
 
-## Android Foundations android android/fundamentals android/architecture mobile/os
+## Android Foundations
 
 이 묶음은 안드로이드가 어떻게 움직이는지 아주 쉽게 풀어쓴 지도다. 어려운 말은 [[android-glossary]] 에 따로 정리했다.
 
@@ -36,7 +36,7 @@ date created: 2025-12-16 15:22:14 +09:00
 
 ### 리소스와 화면
 - 기기 크기, 방향, 언어에 따라 알맞은 리소스를 자동으로 고른다.
-- 앱 아이콘은 mipmap 디렉토리에, 일반 이미지는 drawable 디렉토리에 저장한다. mipmap은 다양한 화면 밀도에 최적화된 아이콘용 구조다.
+- 앱 아이콘은 mipmap 디렉토리에, 일반 이미지는 drawable 디렉토리에 저장한다. mipmap 은 다양한 화면 밀도에 최적화된 아이콘용 구조다.
 - 입력은 [[android-activity-manager-and-system-services]] 와 SurfaceFlinger 가 이어 받아 화면에 그린다.
 
 ### 데이터 보관

@@ -2,7 +2,7 @@
 title: android-kernel
 tags: [android, android/kernel, linux, osdev]
 aliases: [Android Kernel, 안드로이드 커널]
-date modified: 2025-12-17 11:51:04 +09:00
+date modified: 2025-12-17 18:36:55 +09:00
 date created: 2025-12-16 21:01:14 +09:00
 ---
 
@@ -226,19 +226,20 @@ lmkd 는 PSI 값을 모니터링하다가, 임계값을 초과하면 `oom_score_
 
 ActivityManager 가 각 프로세스의 중요도를 평가해 `oom_score_adj` 를 설정한다:
 
-| 상태 | oom_score_adj | 설명 |
-|------|---------------|------|
-| **Foreground** | 0 | 화면에 표시 중 |
-| **Visible** | 100 | 보이진 않지만 영향을 줌 (예: foreground service) |
-| **Perceptible** | 200 | 사용자가 인지 가능 (예: 음악 재생) |
-| **Service** | 500+ | 백그라운드 작업 |
-| **Cached** | 900+ | 최근 사용했지만 현재는 안 씀 |
+| 상태              | oom_score_adj | 설명                                    |
+| --------------- | ------------- | ------------------------------------- |
+| **Foreground**  | 0             | 화면에 표시 중                              |
+| **Visible**     | 100           | 보이진 않지만 영향을 줌 (예: foreground service) |
+| **Perceptible** | 200           | 사용자가 인지 가능 (예: 음악 재생)                 |
+| **Service**     | 500+          | 백그라운드 작업                              |
+| **Cached**      | 900+          | 최근 사용했지만 현재는 안 씀                      |
+|                 |               |                                       |
 
 ```mermaid
 graph TD
     PSI[PSI 모니터] -->|압력 상승| LMKD
-    LMKD -->|프로세스 목록 읽기| ProcFS[/proc/<pid>/oom_score_adj]
-    LMKD -->|highest score| Kill[kill -9 <pid>]
+    LMKD -->|프로세스 목록 읽기| ProcFS["/proc/'pid'/oom_score_adj"]
+    LMKD -->|highest score| Kill[kill -9 'pid']
     Kill -->|메모리 해제| Kernel[커널]
 ```
 
@@ -620,9 +621,15 @@ adb pull /data/misc/perfetto-traces/trace
 ## 연결 문서
 
 [[kernel]] - 범용 커널 기초 개념
+
 [[android-hal-and-kernel]] - HAL 과 커널의 연결
+
 [[android-architecture-stack]] - 안드로이드 전체 아키텍처
+
 [[android-boot-flow]] - 부팅 과정에서 커널의 역할
+
 [[android-binder-and-ipc]] - Binder 상세
+
 [[android-process-and-memory]] - 프로세스/메모리 관리
+
 [[android-security-and-sandboxing]] - SELinux 정책

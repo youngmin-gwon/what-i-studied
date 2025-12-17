@@ -1,8 +1,8 @@
 ---
 title: android-overview
-tags: [android, android/overview, android/architecture, android/fundamentals]
+tags: [android, android/architecture, android/fundamentals, android/overview]
 aliases: [Android Overview, 안드로이드 개요]
-date modified: 2025-12-17 14:06:18 +09:00
+date modified: 2025-12-17 18:34:49 +09:00
 date created: 2025-12-17 14:06:18 +09:00
 ---
 
@@ -15,6 +15,7 @@ date created: 2025-12-17 14:06:18 +09:00
 ## 안드로이드란?
 
 스마트폰/태블릿을 위한 **오픈소스 운영체제**로:
+
 - **Linux 커널** 기반
 - **Java/Kotlin**으로 앱 개발
 - **Google Play** 앱 스토어
@@ -75,7 +76,7 @@ graph TB
 - 프로세스 스케줄링
 - 메모리 관리
 - 드라이버 (디스플레이, 카메라, 센서)
-- 보안 ([[selinux|SELinux]])
+- 보안 ([SELinux](../../../02_references/operating-systems/selinux.md))
 
 **안드로이드 수정**:
 - [[android-binder-and-ipc|Binder]] 드라이버 (IPC)
@@ -92,7 +93,7 @@ graph TB
 
 **왜 필요한가**:
 - 칩셋마다 다른 드라이버
-- OEM별 다른 하드웨어
+- OEM 별 다른 하드웨어
 - → 표준 인터페이스로 추상화
 
 **예시**:
@@ -107,7 +108,7 @@ Audio HAL → Qualcomm/MediaTek 오디오 칩 통합
 
 ### 3. Native Services
 
-C/C++로 작성된 시스템 서비스:
+C/C++ 로 작성된 시스템 서비스:
 
 | 서비스 | 역할 |
 |--------|------|
@@ -165,7 +166,7 @@ class MainActivity : AppCompatActivity() {
 
 ### 6. 앱 (최상단)
 
-**4대 컴포넌트**:
+**4 대 컴포넌트**:
 
 1. **Activity**: 화면
    ```kotlin
@@ -248,7 +249,7 @@ val intent = Intent("com.example.b.SERVICE")
 bindService(intent, connection, Context.BIND_AUTO_CREATE)
 ```
 
-**Binder가 하는 일**:
+**Binder 가 하는 일**:
 - 프로세스 간 메시지 전달
 - 자동 신원 확인 (UID/PID)
 - 권한 검사
@@ -273,11 +274,11 @@ graph LR
 
 **과정**:
 1. 앱이 Camera2 API 호출
-2. Camera Service (Binder)로 요청
-3. Camera HAL이 센서에서 데이터 읽기
-4. 공유 메모리 (DMABuf)로 전달
-5. MediaCodec이 JPEG 인코딩
-6. MediaStore에 저장 (권한 확인)
+2. Camera Service (Binder) 로 요청
+3. Camera HAL 이 센서에서 데이터 읽기
+4. 공유 메모리 (DMABuf) 로 전달
+5. MediaCodec 이 JPEG 인코딩
+6. MediaStore 에 저장 (권한 확인)
 
 ---
 
@@ -376,22 +377,22 @@ adb logcat
 
 ## 용어 참고
 
-낯선 용어는 [[android-glossary]]에서 빠르게 확인 가능.
+낯선 용어는 [[android-glossary]] 에서 빠르게 확인 가능.
 
 ---
 
 ## 연결 문서
 
 **기초**:
-[[android-glossary]] - 용어집  
+[[android-glossary]] - 용어집
 [[android-evolution-history]] - 역사와 진화
 
 **시스템 핵심**:
-[[android-kernel]] - 커널  
-[[android-binder-and-ipc]] - IPC  
-[[android-zygote-and-runtime]] - 런타임  
-[[android-hal-and-kernel]] - HAL  
+[[android-kernel]] - 커널
+[[android-binder-and-ipc]] - IPC
+[[android-zygote-and-runtime]] - 런타임
+[[android-hal-and-kernel]] - HAL
 
 **보안**:
-[[android-security-and-sandboxing]] - 보안 모델  
+[[android-security-and-sandboxing]] - 보안 모델
 [[selinux]] - SELinux 상세

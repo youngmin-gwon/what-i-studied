@@ -2,7 +2,7 @@
 title: android-glossary
 tags: [android, android/glossary, android/reference]
 aliases: [Android Glossary, 안드로이드 용어집]
-date modified: 2025-12-17 14:55:53 +09:00
+date modified: 2025-12-17 18:39:11 +09:00
 date created: 2025-12-16 15:56:51 +09:00
 ---
 
@@ -16,10 +16,10 @@ date created: 2025-12-16 15:56:51 +09:00
 
 ### ADB (Android Debug Bridge)
 
-**정의**: PC와 안드로이드 기기를 연결하는 명령줄 도구
+**정의**: PC 와 안드로이드 기기를 연결하는 명령줄 도구
 
 **상세**:
-개발/디버깅 시 필수 도구로, USB 또는 Wi-Fi를 통해 기기에 명령을 전송하고 로그를 확인한다. 앱 설치, 파일 전송, 쉘 접근, 디버깅 등 다양한 작업에 사용된다.
+개발/디버깅 시 필수 도구로, USB 또는 Wi-Fi 를 통해 기기에 명령을 전송하고 로그를 확인한다. 앱 설치, 파일 전송, 쉘 접근, 디버깅 등 다양한 작업에 사용된다.
 
 **예시**:
 ```bash
@@ -45,7 +45,7 @@ adb shell
 **정의**: 앱 생명주기와 Activity 스택을 관리하는 시스템 서비스
 
 **상세**:
-Android 10부터 분리되었다. AMS는 프로세스/Service/Broadcast를 관리하고, ATMS는 Activity/Task/Window를 담당한다. 앱 시작, 종료, 프로세스 우선순위 결정 등 핵심 역할을 한다.
+Android 10 부터 분리되었다. AMS 는 프로세스/Service/Broadcast 를 관리하고, ATMS 는 Activity/Task/Window 를 담당한다. 앱 시작, 종료, 프로세스 우선순위 결정 등 핵심 역할을 한다.
 
 **예시**:
 ```bash
@@ -62,10 +62,10 @@ adb shell dumpsys activity processes
 
 ### ANR (Application Not Responding)
 
-**정의**: 앱이 5초 이상 응답하지 않을 때 표시되는 경고
+**정의**: 앱이 5 초 이상 응답하지 않을 때 표시되는 경고
 
 **상세**:
-메인 스레드가 블로킹되면 발생한다. 원인은 네트워크 요청, 디스크 I/O, 무한 루프 등이다. ANR 발생 시 `/data/anr/traces.txt`에 스택 트레이스가 기록된다.
+메인 스레드가 블로킹되면 발생한다. 원인은 네트워크 요청, 디스크 I/O, 무한 루프 등이다. ANR 발생 시 `/data/anr/traces.txt` 에 스택 트레이스가 기록된다.
 
 **해결**:
 ```kotlin
@@ -95,7 +95,7 @@ adb pull /data/anr/traces.txt
 **정의**: 모듈식 시스템 컴포넌트 업데이트 형식
 
 **상세**:
-Android 10부터 도입되어 시스템 모듈을 APK처럼 Google Play를 통해 업데이트할 수 있다. ART, Media, NetworkStack 등 핵심 모듈이 APEX로 제공된다.
+Android 10 부터 도입되어 시스템 모듈을 APK 처럼 Google Play 를 통해 업데이트할 수 있다. ART, Media, NetworkStack 등 핵심 모듈이 APEX 로 제공된다.
 
 **예시**:
 ```bash
@@ -126,7 +126,7 @@ adb shell pm list packages -apex
 
 **상세**:
 - **APK**: 모든 리소스/코드를 포함한 단일 파일
-- **AAB**: Play Store가 기기별로 최적화된 APK 생성
+- **AAB**: Play Store 가 기기별로 최적화된 APK 생성
 
 **차이**:
 ```
@@ -176,10 +176,10 @@ adb shell appops set com.example.app CAMERA deny
 
 ### ART (Android Runtime)
 
-**정의**: 안드로이드 앱 실행 엔진 (Dalvik의 후속)
+**정의**: 안드로이드 앱 실행 엔진 (Dalvik 의 후속)
 
 **상세**:
-Android 5.0부터 기본값. DEX 바이트코드를 실행하며, 설치 시 AOT 컴파일과 실행 중 JIT 컴파일을 병행한다. Profile-Guided Optimization으로 자주 사용하는 코드를 최적화한다.
+Android 5.0 부터 기본값. DEX 바이트코드를 실행하며, 설치 시 AOT 컴파일과 실행 중 JIT 컴파일을 병행한다. Profile-Guided Optimization 으로 자주 사용하는 코드를 최적화한다.
 
 **진화**:
 ```
@@ -206,10 +206,10 @@ adb shell getprop persist.sys.dalvik.vm.lib.2
 
 ### Binder
 
-**정의**: 안드로이드의 프로세스 간 통신(IPC) 메커니즘
+**정의**: 안드로이드의 프로세스 간 통신 (IPC) 메커니즘
 
 **상세**:
-커널 드라이버 기반으로 앱과 시스템 서비스 간 메시지를 전달한다. 전통적인 Unix IPC와 달리 자동으로 호출자의 UID/PID를 확인하고 권한을 검사한다. 하나의 메모리 복사만으로 데이터 전달이 가능하여 성능이 우수하다.
+커널 드라이버 기반으로 앱과 시스템 서비스 간 메시지를 전달한다. 전통적인 Unix IPC 와 달리 자동으로 호출자의 UID/PID 를 확인하고 권한을 검사한다. 하나의 메모리 복사만으로 데이터 전달이 가능하여 성능이 우수하다.
 
 **예시**:
 ```kotlin
@@ -267,7 +267,7 @@ adb bugreport bugreport.zip
 **정의**: 안드로이드 앱의 바이트코드 형식
 
 **상세**:
-Java/Kotlin 코드를 컴파일하면 JVM `.class` 파일이 생성되고, 이를 `dx` 도구로 `.dex`로 변환한다. DEX는 모바일에 최적화되어 있어 파일 크기가 작고 실행 효율이 높다.
+Java/Kotlin 코드를 컴파일하면 JVM `.class` 파일이 생성되고, 이를 `dx` 도구로 `.dex` 로 변환한다. DEX 는 모바일에 최적화되어 있어 파일 크기가 작고 실행 효율이 높다.
 
 **프로세스**:
 ```
@@ -338,7 +338,7 @@ adb shell dumpsys deviceidle unforce
 **정의**: 파일별로 다른 키로 암호화하는 방식
 
 **상세**:
-전체 디스크 암호화(FDE)와 달리 사용자 잠금 상태에 따라 일부 파일은 접근 가능하다. Direct Boot 기능으로 부팅 후 잠금 해제 전에도 알람/전화 수신이 가능하다.
+전체 디스크 암호화 (FDE) 와 달리 사용자 잠금 상태에 따라 일부 파일은 접근 가능하다. Direct Boot 기능으로 부팅 후 잠금 해제 전에도 알람/전화 수신이 가능하다.
 
 **저장 영역**:
 ```
@@ -367,7 +367,7 @@ val ceFile = File(context.filesDir, "user_data.txt")
 **정의**: 하드웨어와 안드로이드 프레임워크를 연결하는 인터페이스
 
 **상세**:
-기기마다 다른 하드웨어(카메라, 센서, GPS 등)를 표준 API로 추상화한다. HIDL(Legacy) 또는 AIDL(Modern)로 정의되며, Vendor 파티션에 구현체가 위치한다.
+기기마다 다른 하드웨어 (카메라, 센서, GPS 등) 를 표준 API 로 추상화한다. HIDL(Legacy) 또는 AIDL(Modern) 로 정의되며, Vendor 파티션에 구현체가 위치한다.
 
 **진화**:
 ```
@@ -399,7 +399,7 @@ adb shell lshal
 **정의**: 메모리 부족 시 프로세스를 종료하는 데몬
 
 **상세**:
-프로세스마다 OOM Adjuster가 부여한 우선순위를 기반으로 메모리가 부족하면 낮은 우선순위 프로세스부터 종료한다. 커널의 OOM Killer를 대체한다.
+프로세스마다 OOM Adjuster 가 부여한 우선순위를 기반으로 메모리가 부족하면 낮은 우선순위 프로세스부터 종료한다. 커널의 OOM Killer 를 대체한다.
 
 **우선순위**:
 ```
@@ -430,7 +430,7 @@ adb logcat | grep lmkd
 **정의**: 무선으로 시스템 업데이트를 전송하는 방식
 
 **상세**:
-사용자가 Wi-Fi를 통해 업데이트를 다운로드하고 설치한다. A/B 업데이트는 백그라운드에서 설치하고 재부팅 시 교체하여 중단 없는 업데이트를 제공한다.
+사용자가 Wi-Fi 를 통해 업데이트를 다운로드하고 설치한다. A/B 업데이트는 백그라운드에서 설치하고 재부팅 시 교체하여 중단 없는 업데이트를 제공한다.
 
 **방식**:
 ```
@@ -457,10 +457,10 @@ adb shell getprop ro.boot.slot_suffix
 
 ### Parcelable
 
-**정의**: Binder로 전송하기 위한 객체 직렬화 인터페이스
+**정의**: Binder 로 전송하기 위한 객체 직렬화 인터페이스
 
 **상세**:
-Java Serializable보다 빠르다. 객체를 Parcel로 변환하여 프로세스 간 전달한다. Android Studio가 자동 생성을 지원한다.
+Java Serializable 보다 빠르다. 객체를 Parcel 로 변환하여 프로세스 간 전달한다. Android Studio 가 자동 생성을 지원한다.
 
 **예시**:
 ```kotlin
@@ -488,7 +488,7 @@ val user = intent.getParcelableExtra<User>("user")
 **정의**: 시스템 전체 성능을 추적하는 도구
 
 **상세**:
-CPU, 메모리, 디스크, 네트워크, 프레임 렌더링 등을 시간 순서대로 기록한다. Systrace의 후속으로 더 많은 정보와 분석 기능을 제공한다.
+CPU, 메모리, 디스크, 네트워크, 프레임 렌더링 등을 시간 순서대로 기록한다. Systrace 의 후속으로 더 많은 정보와 분석 기능을 제공한다.
 
 **수집**:
 ```bash
@@ -524,7 +524,7 @@ adb pull /data/local/tmp/trace trace.perfetto-trace
 **정의**: 앱별로 외부 저장소 접근을 제한하는 정책
 
 **상세**:
-Android 10부터 도입되어 앱은 자신의 디렉토리와 MediaStore로만 접근 가능하다. 다른 앱 파일이나 임의 경로 접근이 차단된다.
+Android 10 부터 도입되어 앱은 자신의 디렉토리와 MediaStore 로만 접근 가능하다. 다른 앱 파일이나 임의 경로 접근이 차단된다.
 
 **접근 방식**:
 ```kotlin
@@ -585,7 +585,7 @@ adb logcat | grep avc
 **정의**: 시스템 서비스들이 실행되는 Java 프로세스
 
 **상세**:
-Zygote가 fork하여 생성하며, ActivityManager, WindowManager, PackageManager 등 100여 개 서비스를 호스팅한다. system_server가 크래시하면 기기 재부팅된다.
+Zygote 가 fork 하여 생성하며, ActivityManager, WindowManager, PackageManager 등 100 여 개 서비스를 호스팅한다. system_server 가 크래시하면 기기 재부팅된다.
 
 **확인**:
 ```bash
@@ -612,7 +612,7 @@ system_server 죽음 → Zygote가 재시작 감지 → 기기 재부팅
 **정의**: 앱마다 부여되는 고유 번호
 
 **상세**:
-Linux UID 시스템을 활용하여 앱을 격리한다. 각 앱은 독립된 UID를 받아 다른 앱의 파일에 접근할 수 없다. SharedUserID로 여러 앱이 같은 UID를 공유할 수도 있다.
+Linux UID 시스템을 활용하여 앱을 격리한다. 각 앱은 독립된 UID 를 받아 다른 앱의 파일에 접근할 수 없다. SharedUserID 로 여러 앱이 같은 UID 를 공유할 수도 있다.
 
 **범위**:
 ```
@@ -648,7 +648,7 @@ adb shell ls -la /data/data/com.example
 **정의**: 부팅 이미지의 무결성을 검증하는 메커니즘
 
 **상세**:
-부트로더가 vbmeta를 검증하고, vbmeta가 system/vendor 파티션을 검증한다. 변조된 이미지는 부팅이 차단되거나 경고가 표시된다.
+부트로더가 vbmeta 를 검증하고, vbmeta 가 system/vendor 파티션을 검증한다. 변조된 이미지는 부팅이 차단되거나 경고가 표시된다.
 
 **검증 체인**:
 ```
@@ -758,7 +758,7 @@ jobScheduler.schedule(job)
 **정의**: 모든 앱 프로세스를 생성하는 부모 프로세스
 
 **상세**:
-부팅 시 Framework 클래스와 리소스를 미리 로드(Preload)한 후 대기한다. 앱 시작 요청이 오면 자신을 fork하여 새 프로세스를 빠르게 만든다. Copy-on-Write로 메모리를 절약한다.
+부팅 시 Framework 클래스와 리소스를 미리 로드 (Preload) 한 후 대기한다. 앱 시작 요청이 오면 자신을 fork 하여 새 프로세스를 빠르게 만든다. Copy-on-Write 로 메모리를 절약한다.
 
 **프로세스**:
 ```
@@ -821,7 +821,7 @@ dependencies {
 **정의**: 앱 아이콘을 저장하는 리소스 디렉토리
 
 **상세**:
-Drawable과 달리 런처가 아이콘을 로딩할 때 최적화되어 있다. 다양한 화면 밀도(mdpi, hdpi, xhdpi 등)별로 제공해야 한다.
+Drawable 과 달리 런처가 아이콘을 로딩할 때 최적화되어 있다. 다양한 화면 밀도 (mdpi, hdpi, xhdpi 등) 별로 제공해야 한다.
 
 **구조**:
 ```
@@ -844,6 +844,8 @@ res/
 
 ## 관련 문서
 
-[[android-overview]] - 시스템 전체 개요  
-[[android-evolution-history]] - 기술 진화  
+[[android-overview]] - 시스템 전체 개요
+
+[[android-evolution-history]] - 기술 진화
+
 [[android-debugging-techniques]] - 디버깅 도구

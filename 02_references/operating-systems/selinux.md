@@ -1,20 +1,20 @@
 ---
 title: selinux
-tags: [os, security, selinux, linux, access-control]
-aliases: [SELinux, Security-Enhanced Linux, 보안 강화 리눅스]
-date modified: 2025-12-17 11:27:16 +09:00
+tags: [access-control, linux, os, security, selinux]
+aliases: [Security-Enhanced Linux, SELinux, 보안 강화 리눅스]
+date modified: 2025-12-17 18:33:39 +09:00
 date created: 2025-12-17 11:27:16 +09:00
 ---
 
-## SELinux(Security-Enhanced Linux)란
+## SELinux(Security-Enhanced Linux) 란
 
-SELinux는 **Mandatory Access Control(MAC, 강제 접근 제어)** 을 구현하는 리눅스 보안 모듈이다. 전통적인 파일 권한(소유자, 그룹, 기타)만으로는 막을 수 없는 공격을 방어하기 위해, 시스템 관리자가 정의한 정책에 따라 모든 접근을 제어한다.
+SELinux 는 **Mandatory Access Control(MAC, 강제 접근 제어)** 을 구현하는 리눅스 보안 모듈이다. 전통적인 파일 권한 (소유자, 그룹, 기타) 만으로는 막을 수 없는 공격을 방어하기 위해, 시스템 관리자가 정의한 정책에 따라 모든 접근을 제어한다.
 
-### 왜 SELinux가 필요했나
+### 왜 SELinux 가 필요했나
 
 #### 전통적인 Unix 보안의 한계 (DAC)
 
-Unix/Linux는 **DAC(Discretionary Access Control, 임의 접근 제어)** 를 사용한다:
+Unix/Linux 는 **DAC(Discretionary Access Control, 임의 접근 제어)** 를 사용한다:
 
 ```bash
 -rw-r--r-- 1 alice users  file.txt
@@ -25,11 +25,9 @@ Unix/Linux는 **DAC(Discretionary Access Control, 임의 접근 제어)** 를 �
 
 **근본적인 문제들**:
 
-1. **루트 권한의 전능함**: root(UID 0)는 모든 파일에 접근 가능. 하나의 취약점으로 root 권한을 얻으면 시스템 전체가 장악된다.
-   
-2. **소유자 결정권**: 파일 소유자가 권한을 설정. 악의적이거나 부주의한 사용자가 중요한 파일을 `chmod 777`로 설정하면 누구나 접근 가능.
-
-3. **setuid의 위험성**: `setuid` 바이너리(예: `passwd`, `su`)는 일시적으로 root 권한으로 실행. 취약점이 있으면 공격 벡터가 된다.
+1. **루트 권한의 전능함**: root(UID 0) 는 모든 파일에 접근 가능. 하나의 취약점으로 root 권한을 얻으면 시스템 전체가 장악된다.
+2. **소유자 결정권**: 파일 소유자가 권한을 설정. 악의적이거나 부주의한 사용자가 중요한 파일을 `chmod 777` 로 설정하면 누구나 접근 가능.
+3. **setuid 의 위험성**: `setuid` 바이너리 (예: `passwd`, `su`) 는 일시적으로 root 권한으로 실행. 취약점이 있으면 공격 벡터가 된다.
 
 ```c
 // setuid 취약점 예시
@@ -39,11 +37,11 @@ int main(int argc, char **argv) {
 }
 ```
 
-4. **프로세스 간 격리 부족**: 같은 UID로 실행되는 프로세스는 서로의 메모리를 읽을 수 있다 (`/proc/<pid>/mem`).
+1. **프로세스 간 격리 부족**: 같은 UID 로 실행되는 프로세스는 서로의 메모리를 읽을 수 있다 (`/proc/<pid>/mem`).
 
 #### 실제 공격 시나리오
 
-**케이스1: 웹 서버 침투**
+**케이스 1: 웹 서버 침투**
 
 ```
 1. 공격자가 웹 애플리케이션 취약점 발견 (SQL Injection 등)
@@ -53,7 +51,7 @@ int main(int argc, char **argv) {
 5. SSH로 시스템 접근
 ```
 
-DAC로는 "apache가 웹 디렉토리만 접근"하도록 강제할 방법이 없다.
+DAC 로는 "apache 가 웹 디렉토리만 접근"하도록 강제할 방법이 없다.
 
 **케이스 2: 컨테이너 탈출**
 
@@ -67,22 +65,24 @@ DAC로는 "apache가 웹 디렉토리만 접근"하도록 강제할 방법이 �
 
 ---
 
-## SELinux의 역사
+## SELinux 의 역사
 
-### 1. 탄생: NSA의 Flask(1990년대 후반)
+### 1. 탄생: NSA 의 Flask(1990 년대 후반)
 
-**NSA(National Security Agency)** 와 SCC(Secure Computing Corporation)가 **Flask** 아키텍처를 개발했다. 군사/정부 시스템의 엄격한 보안 요구사항(Multi-Level Security, MLS)을 충족하기 위해.
+**NSA(National Security Agency)** 와 SCC(Secure Computing Corporation) 가 **Flask** 아키텍처를 개발했다. 군사/정부 시스템의 엄격한 보안 요구사항 (Multi-Level Security, MLS) 을 충족하기 위해.
 
 핵심 아이디어:
+
 - **보안 정책을 코드에서 분리**: 정책을 변경해도 커널 재컴파일 불필요
 - **최소 권한 원칙**: 프로세스는 작업에 필요한 최소한의 권한만 가짐
-- **타입 강제(Type Enforcement)**: 모든 객체(파일, 프로세스, 소켓 등)에 "타입" 레이블 부여
+- **타입 강제 (Type Enforcement)**: 모든 객체 (파일, 프로세스, 소켓 등) 에 "타입" 레이블 부여
 
-### 2. 리눅스로의 이식(2000~2003)
+### 2. 리눅스로의 이식 (2000~2003)
 
-NSA가 Flask을 리눅스 커널에 포팅해 **SELinux**로 공개. 
-- 2003년: Linux 2.6에 **LSM(Linux Security Modules)** 프레임워크 추가
-- SELinux가 LSM의 첫 번째 주요 사용자
+NSA 가 Flask 을 리눅스 커널에 포팅해 **SELinux**로 공개.
+
+- 2003 년: Linux 2.6 에 **LSM(Linux Security Modules)** 프레임워크 추가
+- SELinux 가 LSM 의 첫 번째 주요 사용자
 
 ```mermaid
 graph TD
@@ -96,12 +96,13 @@ graph TD
 
 ### 3. 배포판 채택
 
-- **2003**: Fedora Core 2가 기본 활성화 (최초의 주요 배포판)
+- **2003**: Fedora Core 2 가 기본 활성화 (최초의 주요 배포판)
 - **2005**: Red Hat Enterprise Linux 4
 - **2013**: Android 4.3 (permissive 모드)
 - **2014**: Android 5.0 (enforcing 모드 필수)
 
 초기에는 **사용성 문제**로 많은 사용자가 비활성화했다:
+
 ```bash
 setenforce 0  # 비활성화 (permissive 모드)
 ```
@@ -110,7 +111,7 @@ setenforce 0  # 비활성화 (permissive 모드)
 
 ---
 
-## SELinux의 핵심 개념
+## SELinux 의 핵심 개념
 
 ### Mandatory vs Discretionary Access Control
 
@@ -138,14 +139,14 @@ graph TB
     end
 ```
 
-**MAC의 특징**:
-- 사용자(심지어 root)도 정책을 우회할 수 없음
+**MAC 의 특징**:
+- 사용자 (심지어 root) 도 정책을 우회할 수 없음
 - 정책 변경은 시스템 관리자만 가능
 - 프로세스가 root 권한을 얻어도 정책이 허용하지 않으면 차단
 
-### 레이블(Labels)과 컨텍스트(Context)
+### 레이블 (Labels) 과 컨텍스트 (Context)
 
-모든 **주체(Subject, 프로세스)**와 **객체(Object, 파일/소켓/etc)**는 **보안 컨텍스트**를 가진다.
+모든 **주체 (Subject, 프로세스)**와 **객체 (Object, 파일/소켓/etc)**는 **보안 컨텍스트**를 가진다.
 
 ```bash
 ls -Z /etc/shadow
@@ -159,12 +160,12 @@ system_u:system_r:sshd_t:s0-s0:c0.c1023 1234 ? 00:00:00 sshd
 
 - **user**: SELinux 사용자 (Linux 사용자와 별개). 예: `system_u`, `user_u`
 - **role**: 역할. 사용자가 가질 수 있는 타입을 제한. 예: `object_r`, `system_r`
-- **type**: 가장 중요. Type Enforcement의 기반. 예: `httpd_t`, `shadow_t`
+- **type**: 가장 중요. Type Enforcement 의 기반. 예: `httpd_t`, `shadow_t`
 - **level**: MLS/MCS 레벨 (선택적). `s0`, `s0-s0:c0.c1023` (범위)
 
 ### Type Enforcement (TE)
 
-SELinux 정책의 핵심. **타입(Type)** 간의 허용된 작업을 정의.
+SELinux 정책의 핵심. **타입 (Type)** 간의 허용된 작업을 정의.
 
 ```
 allow <source_type> <target_type>:<class> { <permissions> };
@@ -217,7 +218,7 @@ FILE *f = fopen("/etc/shadow", "r");  // SELinux가 차단!
 // Permission denied (DAC는 root라서 허용하지만, SELinux가 정책으로 거부)
 ```
 
-### 도메인 전환(Domain Transition)
+### 도메인 전환 (Domain Transition)
 
 프로세스가 다른 도메인으로 전환되는 규칙.
 
@@ -245,7 +246,7 @@ sequenceDiagram
     Process->>Process: /etc/shadow 업데이트
 ```
 
-일반 사용자(user_t)는 `/etc/shadow`를 수정할 수 없지만, `passwd_t` 도메인으로 전환된 프로세스는 가능.
+일반 사용자 (user_t) 는 `/etc/shadow` 를 수정할 수 없지만, `passwd_t` 도메인으로 전환된 프로세스는 가능.
 
 ---
 
@@ -294,9 +295,9 @@ SELINUX=disabled
 
 ## SELinux 정책 작성
 
-### Boolean을 통한 간단한 조정
+### Boolean 을 통한 간단한 조정
 
-미리 정의된 Boolean로 정책 일부를 켜고 끌 수 있다.
+미리 정의된 Boolean 로 정책 일부를 켜고 끌 수 있다.
 
 ```bash
 # 웹 서버가 홈 디렉토리 접근 허용 여부
@@ -329,7 +330,7 @@ cat my_policy.te
 semodule -i my_policy.pp
 ```
 
-**주의**: `audit2allow`의 제안을 맹목적으로 적용하면 보안 구멍이 생길 수 있다. 정책을 이해하고 최소 권한 원칙을 따라야 한다.
+**주의**: `audit2allow` 의 제안을 맹목적으로 적용하면 보안 구멍이 생길 수 있다. 정책을 이해하고 최소 권한 원칙을 따라야 한다.
 
 ---
 
@@ -337,7 +338,7 @@ semodule -i my_policy.pp
 
 ### 도입 배경
 
-안드로이드는 수백만 개의 써드파티 앱을 실행한다. DAC만으로는 부족:
+안드로이드는 수백만 개의 써드파티 앱을 실행한다. DAC 만으로는 부족:
 
 1. 앱이 root 권한을 획득하면 (루팅, 취약점) 모든 데이터 접근 가능
 2. System 앱과 일반 앱을 명확히 격리 필요
@@ -347,7 +348,7 @@ semodule -i my_policy.pp
 
 - **Android 4.3 (2013)**: SELinux permissive 모드 도입, 로그만 기록
 - **Android 4.4**: 일부 도메인 enforcing (installd, netd, vold 등)
-- **Android 5.0 (2014)**: **전체 enforcing 필수**, CTS(Compatibility Test Suite)에서 검증
+- **Android 5.0 (2014)**: **전체 enforcing 필수**, CTS(Compatibility Test Suite) 에서 검증
 - **Android 8.0+**: Treble 아키텍처로 정책 분리 (platform/vendor)
 
 ### 주요 도메인 (Domain)
@@ -390,9 +391,9 @@ allow untrusted_app surfaceflinger_service:service_manager find;
 allow untrusted_app surfaceflinger:binder call;
 ```
 
-### Binder와 SELinux 통합
+### Binder 와 SELinux 통합
 
-Binder 서비스도 SELinux로 보호:
+Binder 서비스도 SELinux 로 보호:
 
 ```bash
 # ServiceManager에 서비스 등록 시 타입 확인
@@ -540,7 +541,7 @@ adb logcat | grep avc
 
 **원인**: 앱이 허용되지 않은 system service 접근 시도.
 
-**해결**: 
+**해결**:
 1. 정당한 접근이라면 정책 추가 (OEM/커스텀 ROM)
 2. 앱 버그라면 수정
 
@@ -558,7 +559,7 @@ adb logcat | grep avc
 - *SELinux by Example* (Frank Mayer et al.)
 
 **도구**:
-- `audit2allow`: denial을 정책으로 변환
+- `audit2allow`: denial 을 정책으로 변환
 - `sesearch`: 정책 검색
 - `seinfo`: 정책 정보
 - `sepolicy-analyze` (Android): 안드로이드 정책 분석
@@ -567,9 +568,9 @@ adb logcat | grep avc
 
 ## 마무리
 
-SELinux는 **복잡하지만 강력하다**. 초기 설정과 정책 이해에 시간이 걸리지만, 올바르게 설정되면:
+SELinux 는 **복잡하지만 강력하다**. 초기 설정과 정책 이해에 시간이 걸리지만, 올바르게 설정되면:
 
-- 제로데이 취약점의 피해 최소화 (공격자가 root를 얻어도 정책이 제한)
+- 제로데이 취약점의 피해 최소화 (공격자가 root 를 얻어도 정책이 제한)
 - 시스템 서비스와 데이터 격리
 - Compliance 요구사항 충족 (HIPAA, PCI-DSS 등)
 
@@ -578,12 +579,14 @@ SELinux는 **복잡하지만 강력하다**. 초기 설정과 정책 이해에 �
 2. **명시적 허용**: 기본은 차단, 필요한 것만 허용
 3. **계층적 방어**: DAC + SELinux + 네트워크 방화벽
 
-안드로이드에서 SELinux는 **필수**이며, 모든 기기가 enforcing 모드로 출하되어야 CTS를 통과한다.
+안드로이드에서 SELinux 는 **필수**이며, 모든 기기가 enforcing 모드로 출하되어야 CTS 를 통과한다.
 
 ---
 
 ## 연결 문서
 
-[[kernel]] - 리눅스 커널의 보안 메커니즘  
-[[cpu-privilege-levels]] - 하드웨어 권한 레벨과 MAC의 조합  
+[[kernel]] - 리눅스 커널의 보안 메커니즘
+
+[[cpu-privilege-levels]] - 하드웨어 권한 레벨과 MAC 의 조합
+
 [[android-kernel]] - 안드로이드에서의 SELinux 활용

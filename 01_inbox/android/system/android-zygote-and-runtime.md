@@ -1,18 +1,18 @@
 ---
 title: android-zygote-and-runtime
 tags: [android, android/runtime, android/zygote]
-aliases: [Zygote, ART, Android Runtime]
-date modified: 2025-12-17 11:57:09 +09:00
+aliases: [Android Runtime, ART, Zygote]
+date modified: 2025-12-17 18:39:04 +09:00
 date created: 2025-12-16 15:23:47 +09:00
 ---
 
-## Zygote와 Android Runtime
+## Zygote 와 Android Runtime
 
-Zygote와 ART(Android Runtime)는 안드로이드 앱 실행의 핵심이다. Zygote는 **앱 프로세스를 빠르게 생성**하는 특수한 프로세스이고, ART는 **DEX 바이트코드를 실행**하는 런타임이다. 이 두 가지가 협력하여 앱 시작 속도를 극적으로 개선하고 메모리를 효율적으로 사용한다.
+Zygote 와 ART(Android Runtime) 는 안드로이드 앱 실행의 핵심이다. Zygote 는 **앱 프로세스를 빠르게 생성**하는 특수한 프로세스이고, ART 는 **DEX 바이트코드를 실행**하는 런타임이다. 이 두 가지가 협력하여 앱 시작 속도를 극적으로 개선하고 메모리를 효율적으로 사용한다.
 
-### 왜 Zygote가 필요했나
+### 왜 Zygote 가 필요했나
 
-#### 모바일 앱 실행의 문제 (2000년대 초반)
+#### 모바일 앱 실행의 문제 (2000 년대 초반)
 
 초기 안드로이드 개발 시 직면한 문제:
 
@@ -36,9 +36,9 @@ if (pid == 0) {
 - Framework 클래스 로딩 (Activity, View 등): ~500ms
 - **총 앱 시작 시간: ~750ms** (사용자 체감 불가능)
 
-#### Zygote의 해결책
+#### Zygote 의 해결책
 
-**핵심 아이디어**: 미리 초기화된 "템플릿" 프로세스를 만들고, 필요할 때 **복사(fork)**만 한다.
+**핵심 아이디어**: 미리 초기화된 "템플릿" 프로세스를 만들고, 필요할 때 **복사 (fork)**만 한다.
 
 ```mermaid
 graph TB
@@ -57,8 +57,8 @@ graph TB
 ```
 
 **이점**:
-1. **속도**: fork()만 수행 (~10ms, exec 없음)
-2. **메모리**: Copy-on-Write로 클래스 공유 → 메모리 절약
+1. **속도**: fork() 만 수행 (~10ms, exec 없음)
+2. **메모리**: Copy-on-Write 로 클래스 공유 → 메모리 절약
 3. **예측 가능**: 모든 앱이 동일한 상태에서 시작
 
 ---
@@ -130,7 +130,7 @@ java.util.ArrayList
 ...
 ```
 
-총 ~4000개 클래스, 순서는 런타임 프로파일링 결과 기반.
+총 ~4000 개 클래스, 순서는 런타임 프로파일링 결과 기반.
 
 ### 앱 프로세스 생성 흐름
 
@@ -226,7 +226,7 @@ Zygote:              [Code | Preloaded] | [Heap]
 
 **메모리 절약 효과**:
 - Preloaded classes: ~30MB
-- 100개 앱 실행 시: 30MB × 100 = 3GB → 실제 30MB + α
+- 100 개 앱 실행 시: 30MB × 100 = 3GB → 실제 30MB + α
 - **90% 이상 메모리 절약**
 
 ---
@@ -239,17 +239,17 @@ Zygote:              [Code | Preloaded] | [Heap]
 
 **특징**:
 - **JIT (Just-In-Time) 컴파일**: 실행 중 자주 쓰는 메서드를 네이티브 코드로 변환
-- **레지스터 기반 VM**: 스택 기반 JVM보다 모바일에 효율적
-- **.dex 파일 포맷**: 여러 .class를 하나로 합쳐 크기 절감
+- **레지스터 기반 VM**: 스택 기반 JVM 보다 모바일에 효율적
+- **.dex 파일 포맷**: 여러 .class 를 하나로 합쳐 크기 절감
 
 **문제점**:
 - JIT 컴파일 시간이 앱 실행 시간에 포함 → 지연
-- GC(Garbage Collection)가 stop-the-world → UI 프레임 드롭
+- GC(Garbage Collection) 가 stop-the-world → UI 프레임 드롭
 - 메모리 사용량 높음
 
 #### ART (Android 5.0+)
 
-2014년 Android 5.0 Lollipop에서 Dalvik 완전 교체.
+2014 년 Android 5.0 Lollipop 에서 Dalvik 완전 교체.
 
 **핵심 변화**:
 1. **AOT (Ahead-Of-Time) 컴파일**: 앱 설치 시 네이티브 코드로 미리 변환
@@ -276,7 +276,7 @@ dex2oat --dex-file=/data/app/com.example/base.apk \
         --instruction-set=arm64
 ```
 
-**장점**: 앱 실행이 빠름 (이미 네이티브 코드)  
+**장점**: 앱 실행이 빠름 (이미 네이티브 코드)
 **단점**: 설치 시간 길어짐 (수 분), 저장 공간 많이 사용
 
 #### 2. Profile-Guided Compilation (Android 7.0+)
@@ -321,7 +321,7 @@ HSPLandroidx/compose/ui/Modifier;->then(Landroidx/compose/ui/Modifier;)Landroidx
 HSPLcom/example/ui/HomeScreen;->HomeScreen(...)V
 ```
 
-빌드 시 APK에 포함 → 설치 직후 해당 코드만 AOT 컴파일.
+빌드 시 APK 에 포함 → 설치 직후 해당 코드만 AOT 컴파일.
 
 **효과** (Google 측정):
 - 앱 시작 30% 빠름
@@ -358,7 +358,7 @@ Before:  [Object A][ free ][Object B][ free ]
 After:   [Object A][Object B][       free      ]
 ```
 
-**Pause 시간**: ~3ms  
+**Pause 시간**: ~3ms
 **부작용**: Read Barrier 오버헤드 (~5% 성능 저하)
 
 ---
@@ -436,6 +436,7 @@ u:r:untrusted_app:s0:c512,c768  # 앱마다 고유 카테고리
 ```
 
 정책 예시:
+
 ```bash
 # Zygote가 untrusted_app으로 전환 가능
 allow zygote untrusted_app:process transition;
@@ -460,6 +461,7 @@ DENY(mount);          // 파일시스템 조작 금지
 ```
 
 위반 시:
+
 ```
 F/libc: FORTIFY: syscall not allowed: 101 (ptrace)
 ```
@@ -521,7 +523,8 @@ perfetto -t 10s -o trace.perfetto sched freq idle am wm gfx view \
          binder_driver dalvik vm art gc
 ```
 
-Perfetto UI에서 확인:
+Perfetto UI 에서 확인:
+
 - GC pause 시간
 - 메모리 할당 패턴
 - ART JIT 컴파일 이벤트
@@ -543,7 +546,7 @@ adb shell am start -W com.example.app/.MainActivity
 
 ### Zygote Preload 커스터마이징
 
-OEM/커스텀 ROM에서 preload 클래스 수정:
+OEM/커스텀 ROM 에서 preload 클래스 수정:
 
 ```xml
 <!-- frameworks/base/config/preloaded-classes -->
@@ -552,6 +555,7 @@ com.example.CustomFramework  <!-- 추가 -->
 ```
 
 재빌드 후:
+
 ```bash
 adb root
 adb shell stop zygote
@@ -561,7 +565,7 @@ adb shell start zygote
 
 ### App Zygote (Android 10+)
 
-앱이 자체 Zygote를 만들어 자신의 자식 프로세스 생성:
+앱이 자체 Zygote 를 만들어 자신의 자식 프로세스 생성:
 
 ```xml
 <application android:zygotePreloadName=".MyZygotePreload" />
@@ -573,7 +577,7 @@ adb shell start zygote
 
 ### Usap (Unspecialized App Process, Android 10+)
 
-미리 fork한 "예비" 프로세스 풀:
+미리 fork 한 "예비" 프로세스 풀:
 
 ```
 Zygote → [Usap1] [Usap2] [Usap3]  ← 대기 중
@@ -605,9 +609,9 @@ Zygote → [Usap1] [Usap2] [Usap3]  ← 대기 중
 
 ## 연결 문서
 
-[[android-kernel]] - Zygote fork와 [[cpu-privilege-levels|프로세스 권한]]  
-[[android-binder-and-ipc]] - 프로세스 간 통신  
-[[android-init-and-services]] - Zygote 부팅 과정  
-[[selinux]] - 프로세스 격리와 도메인 전환  
-[[virtual-memory]] - Copy-on-Write 메커니즘  
+[[android-kernel]] - Zygote fork 와 [[cpu-privilege-levels|프로세스 권한]]
+[[android-binder-and-ipc]] - 프로세스 간 통신
+[[android-init-and-services]] - Zygote 부팅 과정
+[[selinux]] - 프로세스 격리와 도메인 전환
+[[virtual-memory]] - Copy-on-Write 메커니즘
 [[android-activity-manager-and-system-services]] - 앱 시작 요청 흐름

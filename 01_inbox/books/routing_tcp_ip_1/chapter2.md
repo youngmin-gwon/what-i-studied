@@ -2,14 +2,11 @@
 title: chapter2
 tags: [book, network, routing_tcp_ip]
 aliases: []
-date modified: 2025-12-11 13:59:37 +09:00
+date modified: 2025-12-17 18:38:28 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
 [[01_inbox/books/routing_tcp_ip_1/roadmap|📖 Return to Roadmap]]
-
-## See Also
-- [[01_inbox/books/tcp_ip_illustrated_1/chapter2|TCP/IP Illustrated Vol.1 - Ch.2 Internet Address Architecture]]
 
 ## 1. Mermaid Mindmap 요약
 
