@@ -2,7 +2,7 @@
 title: android-zygote-and-runtime
 tags: [android, android/runtime, android/zygote]
 aliases: [Android Runtime, ART, Zygote]
-date modified: 2025-12-17 18:39:04 +09:00
+date modified: 2025-12-17 18:41:21 +09:00
 date created: 2025-12-16 15:23:47 +09:00
 ---
 
@@ -610,8 +610,13 @@ Zygote → [Usap1] [Usap2] [Usap3]  ← 대기 중
 ## 연결 문서
 
 [[android-kernel]] - Zygote fork 와 [[cpu-privilege-levels|프로세스 권한]]
+
 [[android-binder-and-ipc]] - 프로세스 간 통신
+
 [[android-init-and-services]] - Zygote 부팅 과정
+
 [[selinux]] - 프로세스 격리와 도메인 전환
+
 [[virtual-memory]] - Copy-on-Write 메커니즘
+
 [[android-activity-manager-and-system-services]] - 앱 시작 요청 흐름
