@@ -2,7 +2,7 @@
 title: virtual-memory
 tags: [memory-management, os, paging, virtual-memory]
 aliases: [Virtual Memory, 가상 메모리, 가상 주소 공간]
-date modified: 2025-12-17 11:50:51 +09:00
+date modified: 2025-12-17 11:55:15 +09:00
 date created: 2025-12-16 21:21:23 +09:00
 ---
 
@@ -68,7 +68,7 @@ graph LR
 
 가상 주소를 물리 주소로 매핑하는 자료구조. 커널이 각 프로세스마다 유지한다.
 
-```
+```plaintext
 가상 페이지 번호 → 물리 페이지 번호
 
 예시 (4KB 페이지):
