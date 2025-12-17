@@ -2,7 +2,7 @@
 title: android-app-components-deep-dive
 tags: [android, android/activity, android/components, android/fundamentals, android/service]
 aliases: []
-date modified: 2025-12-17 21:26:18 +09:00
+date modified: 2025-12-17 21:57:44 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 

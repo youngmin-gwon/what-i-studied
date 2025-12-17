@@ -1,27 +1,29 @@
 ---
-title: android-activity-manager
+title: android-activity-manager-and-system-services
 tags: [android, android/ams, android/system-services]
 aliases: [ActivityManager, ActivityManagerService, AMS, ATMS]
-date modified: 2025-12-17 13:47:28 +09:00
+date modified: 2025-12-17 21:58:26 +09:00
 date created: 2025-12-16 15:24:09 +09:00
 ---
 
-## ActivityManager와 System Services
+## ActivityManager 와 System Services
 
-ActivityManagerService(AMS)와 ActivityTaskManagerService(ATMS)는 안드로이드의 **앱 생명주기 관리자**다. 언제 앱을 시작하고, 어느 Activity를 보여주고, 메모리가 부족할 때 어떤 프로세스를 종료할지 결정한다. System Server 내에서 실행되며, 모든 앱의 생사여탈권을 가진 핵심 서비스다.
+ActivityManagerService(AMS) 와 ActivityTaskManagerService(ATMS) 는 안드로이드의 **앱 생명주기 관리자**다. 언제 앱을 시작하고, 어느 Activity 를 보여주고, 메모리가 부족할 때 어떤 프로세스를 종료할지 결정한다. System Server 내에서 실행되며, 모든 앱의 생사여탈권을 가진 핵심 서비스다.
 
-### 왜 ActivityManager가 필요한가
+### 왜 ActivityManager 가 필요한가
 
-#### 모바일 멀티태스킹의 도전 (2000년대 후반)
+#### 모바일 멀티태스킹의 도전 (2000 년대 후반)
 
 **데스크톱 vs 모바일**:
 
 데스크톱:
+
 - 메모리: 4-16GB
-- 앱 개수: 10-20개 동시 실행
+- 앱 개수: 10-20 개 동시 실행
 - 사용자 패턴: 앱을 명시적으로 종료
 
 모바일 (Android 초기):
+
 - 메모리: 192MB-512MB
 - 앱 개수: 수십 개 설치, 빈번한 전환
 - 사용자 패턴: 홈 버튼 → 앱이 "사라짐" (실제로는 백그라운드)
@@ -65,7 +67,7 @@ graph TB
 - ContentProvider
 - 권한 검사
 
-**문제**: 하나의 거대한 클래스 (~30,000줄), 유지보수 어려움
+**문제**: 하나의 거대한 클래스 (~30,000 줄), 유지보수 어려움
 
 ### 분리 이후 (Android 10+)
 
@@ -123,7 +125,7 @@ public static final int CACHED_APP_MAX_ADJ = 999;        // 캐시된 앱 (끝)
 
 ### OOM Adjuster
 
-메모리 부족 시 [[android-kernel#4 LMKD 선제적 프로세스 종료|LMKD]]와 협력하여 프로세스 종료:
+메모리 부족 시 [[android-kernel#4 LMKD 선제적 프로세스 종료|LMKD]] 와 협력하여 프로세스 종료:
 
 ```java
 // ProcessRecord.java
@@ -265,9 +267,10 @@ WorkManager.getInstance(context).enqueue(
 
 **제한 사항** (Android 8.0+):
 - 백그라운드 앱은 startService() 호출 불가
-- 예외: 
+- 예외:
 
 위치 추적, 음악 재생 등
+
 - 대부분의 경우 WorkManager/JobScheduler 사용 권장
 
 #### 3. Bound Service
@@ -475,9 +478,9 @@ private static class AnrMonitor implements Runnable {
 ```
 
 **ANR 트리거**:
-1. Input event 5초 미응답
-2. BroadcastReceiver 10초 미응답 (포그라운드) / 60초 (백그라운드)
-3. Service 20초 미응답
+1. Input event 5 초 미응답
+2. BroadcastReceiver 10 초 미응답 (포그라운드) / 60 초 (백그라운드)
+3. Service 20 초 미응답
 
 ### Rescue Party
 
@@ -548,8 +551,8 @@ adb shell pm clear com.example
 
 ## 연결 문서
 
-[[android-binder-and-ipc]] - System Service 통신  
-[[android-zygote-and-runtime]] - 프로세스 생성  
-[[android-kernel]] - LMKD와 메모리 관리  
-[[android-security-and-sandboxing]] - 권한 검사  
+[[android-binder-and-ipc]] - System Service 통신
+[[android-zygote-and-runtime]] - 프로세스 생성
+[[android-kernel]] - LMKD 와 메모리 관리
+[[android-security-and-sandboxing]] - 권한 검사
 [[android-process-and-memory]] - 메모리 관리 상세
