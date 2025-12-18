@@ -126,8 +126,11 @@ def prim(n, graph, start=1):
 
 ---
 
-### 📚 연결 문서
-- [[01_data-structures/disjoint-set|Union-Find]] - 크루스칼 알고리즘의 핵심 엔진
-- [[01_data-structures/heap-and-priority-queue|Heap]] - 프림 알고리즘의 핵심 엔진
-- [[02_algorithms/shortest-path|Shortest Path]] - MST vs 다익스트라 차이점 이해
-- [[02_algorithms/greedy|Greedy]] - MST는 그리디 전략의 성공 사례
+---
+
+## 📚 관련 문서
+- [[01_data-structures/disjoint-set|서로소 집합]] - 크루스칼 알고리즘의 사이클 판별 엔진
+- [[01_data-structures/heap-and-priority-queue|힙과 우선순위 큐]] - 프림 알고리즘의 최소 간선 탐색 엔진
+- [[02_algorithms/shortest-path|최단 경로 알고리즘]] - MST와 다익스트라(Dijkstra)의 개념적 차이
+- [[02_algorithms/greedy|그리디 알고리즘]] - MST 설계의 근간이 되는 탐욕적 선택 전략
+- [[01_data-structures/tree-and-graph|트리와 그래프]] - 그래프 내 수많은 스패닝 트리 중 최소를 찾는 문제

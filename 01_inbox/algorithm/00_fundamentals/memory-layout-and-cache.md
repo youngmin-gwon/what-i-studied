@@ -96,7 +96,10 @@ CPU에 가까울수록 빠르고 비싸며 용량이 적습니다.
 
 ---
 
-### 📚 연결 문서
-- [[01_data-structures/linear|선형 자료구조]] - Array vs Linked List의 하드웨어적 차이
-- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - Big-O가 놓치는 상수 상수의 비밀
-- [[02_algorithms/search-and-sort|정렬]] - Quick Sort가 Merge Sort보다 빠른 이유 (캐시 친화성)
+---
+
+## 📚 관련 문서
+- [[00_fundamentals/complexity-and-big-o|복잡도와 Big-O]] - 캐시 효율이 알고리즘 성능에 미치는 영향
+- [[01_data-structures/linear|선형 자료구조]] - 상반된 물리적 배치를 가지는 Array와 Linked List
+- [[01_data-structures/tree-and-graph|트리와 그래프]] - Pointer 기반 구조의 성능 한계
+- [[00_fundamentals/recursion-and-stack|재귀와 호출 스택]] - 스택 메모리와 캐시 계층

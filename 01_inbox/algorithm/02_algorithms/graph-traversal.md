@@ -547,8 +547,11 @@ struct Queue<T> {
 
 ---
 
-### 📚 연결 문서
-- [[01_data-structures/tree-and-graph|트리와 그래프]] - 그래프 기초
-- [[01_data-structures/linear|선형 자료구조]] - Queue, Stack
-- [[01_data-structures/disjoint-set|Union-Find]] - 연결 컴포넌트 대안
-- [[00_fundamentals/complexity-and-big-o|복잡도]] - O(V + E) 이해
+---
+
+## 📚 관련 문서
+- [[01_data-structures/tree-and-graph|트리와 그래프]] - 인접 행렬과 인접 리스트 등 그래프 표현법
+- [[01_data-structures/linear|선형 자료구조]] - 큐(BFS)와 스택(DFS) 자료구조의 이해
+- [[01_data-structures/disjoint-set|서로소 집합]] - 연결 컴포넌트 찾기의 효율적 대안
+- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - $O(V + E)$ 시간 복잡도의 의미와 공간 효율성
+- [[02_algorithms/backtracking|백트래킹]] - DFS에 가지치기를 더한 최적화 탐색

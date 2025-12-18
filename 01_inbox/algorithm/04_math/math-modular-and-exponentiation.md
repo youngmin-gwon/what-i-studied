@@ -120,8 +120,11 @@ $$(A \div B) \mod M \Rightarrow (A \times B^{M-2}) \mod M$$
 
 ---
 
-### 📚 연결 문서
-- [[04_math/math-prime-number|소수]] - 페르마의 소정리 사용 시 M 이 소수여야 함
-- [[04_math/math-combinatorics|조합론]] - nCr 계산 시 모듈러 역원 활용
-- [[02_algorithms/dynamic-programming|DP]] - 결과값이 커질 때 모듈러 연산 필수 적용
-- [[00_fundamentals/complexity-and-big-o|복잡도]] - $O(\log N)$ 의 효율성
+---
+
+## 📚 관련 문서
+- [[04_math/math-prime-number|소수와 수론]] - 페르마의 소정리 적용을 위한 소수의 성질 이해
+- [[04_math/math-combinatorics|조합론]] - 대규모 조합($nCr$) 계산 시 모듈러 역원 활용 전술
+- [[02_algorithms/dynamic-programming|동적 계획법]] - 상태 전이 값이 커질 때 모듈러 연산의 필수 적용
+- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 분할 정복을 통한 $O(\log N)$ 연산의 성능 이점
+- [[00_fundamentals/floating-point-guide|부동 소수점과 정밀도]] - 실수 오차를 피하기 위한 정수 기반 나머지 연산의 중요성

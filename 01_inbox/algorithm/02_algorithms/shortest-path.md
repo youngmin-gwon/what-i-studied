@@ -170,9 +170,11 @@ def floyd_warshall(matrix, n):
 
 ---
 
-### 📚 연결 문서
-- [[02_algorithms/graph-traversal|그래프 탐색]] - 가중치 없는 최단 경로는 BFS 로!
-- [[01_data-structures/heap-and-priority-queue|Heap]] - 다익스트라의 핵심 엔진
-- [[01_data-structures/disjoint-set|Union-Find]] - 그래프 연결 상태 확인의 달인
-- [[02_algorithms/greedy|Greedy]] - 다익스트라가 그리디인 이유
-- [[02_algorithms/dynamic-programming|DP]] - 플로이드-와샬이 DP 인 이유
+---
+
+## 📚 관련 문서
+- [[02_algorithms/graph-traversal|그래프 탐색]] - 가중치 없는 그래프에서의 BFS 최단 경로 탐색
+- [[01_data-structures/heap-and-priority-queue|힙과 우선순위 큐]] - 다익스트라 알고리즘의 성능 최적화 핵심
+- [[02_algorithms/greedy|그리디 알고리즘]] - 다익스트라가 국소 최적해를 찾는 방식의 이해
+- [[02_algorithms/dynamic-programming|동적 계획법]] - 플로이드-와샬 알고리즘의 점화식 설계 원리
+- [[02_algorithms/minimum-spanning-tree|최소 신장 트리]] - MST와 최단 경로 문제의 목적 차이 분석

@@ -480,8 +480,11 @@ for i in range(1, n+1):
 
 ---
 
-### 📚 연결 문서
-- [[00_fundamentals/complexity-and-big-o|복잡도]] - DP의 시간/공간 복잡도
-- [[03_patterns/optimization|최적화 패턴]] - Greedy vs DP
-- [[02_algorithms/graph-traversal|그래프 탐색]] - State Space 탐색
-- [[01_data-structures/linear|선형 자료구조]] - DP 테이블 구현
+---
+
+## 📚 관련 문서
+- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - DP를 통한 기하급수적 시간 단축의 원리
+- [[03_patterns/optimization|최적화 전략]] - 그리디 vs DP 선택 기준과 성능 개선
+- [[02_algorithms/graph-traversal|그래프 탐색]] - 상태 공간 탐색과 최단 거리 문제 활용
+- [[01_data-structures/linear|선형 자료구조]] - 효율적인 DP 테이블(Array, Hash Map) 설계
+- [[02_algorithms/backtracking|백트래킹]] - 중복 계산을 허용하는 완전 탐색과의 비교

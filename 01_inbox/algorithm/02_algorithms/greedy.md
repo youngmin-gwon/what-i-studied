@@ -216,8 +216,11 @@ def build_huffman_tree(frequencies):
 
 ---
 
-### 📚 연결 문서
-- [[02_algorithms/dynamic-programming|DP]] - 그리디의 상위 호환 기법
-- [[01_data-structures/heap-and-priority-queue|Heap]] - 그리디 구현의 핵심 친구
-- [[01_data-structures/disjoint-set|Union-Find]] - Kruskal 알고리즘의 짝꿍
-- [[02_algorithms/search-and-sort|정렬]] - 그리디의 기초 전처리
+---
+
+## 📚 관련 문서
+- [[02_algorithms/dynamic-programming|동적 계획법]] - 그리디가 해결하지 못하는 전역 최적해 문제의 해법
+- [[01_data-structures/heap-and-priority-queue|힙과 우선순위 큐]] - 매 순간 최적의 요소를 찾기 위한 효율적 도구
+- [[01_data-structures/disjoint-set|서로소 집합]] - 크루스칼(Kruskal) 알고리즘의 핵심 구현체
+- [[02_algorithms/search-and-sort|검색과 정렬]] - 그리디 적용 전 데이터 정렬의 중요성
+- [[03_patterns/optimization|최적화 전략]] - 다양한 문제 상황에 따른 그리디 vs DP 선택 기준

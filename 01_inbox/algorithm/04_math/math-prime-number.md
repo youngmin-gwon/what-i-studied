@@ -130,7 +130,11 @@ def prime_factorization(n):
 
 ---
 
-### 📚 연결 문서
-- [GCD & LCM](gcd-lcm.md) - 서로소 관계의 핵심
-- [큰 숫자를 다루는 기술](math-modular-and-exponentiation.md) - 소수 모듈러 역원(페르마의 소정리)
-- [Big-O](../00_fundamentals/complexity-and-big-o.md) - 루트 N 과 로그 로그 N 의 이해
+---
+
+## 📚 관련 문서
+- [[04_math/gcd-lcm|최대공약수와 최소공배수]] - 정수론의 기초와 서로소 관계의 이해
+- [[04_math/math-modular-and-exponentiation|나머지 연산]] - 페르마의 소정리와 소수를 활용한 모듈러 역원 계산
+- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 에라토스테네스의 체($O(N \log \log N)$)의 효율성 분석
+- [[03_patterns/prefix-sum|누적 합]] - 특정 범위 내 소수 개수를 빠르게 조회하는 최적화 기법
+- [[01_data-structures/bit-manipulation|비트 조작]] - 대규모 소수 판별 배열의 메모리 사용량 최적화

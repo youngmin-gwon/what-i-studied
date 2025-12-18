@@ -1,8 +1,8 @@
 ---
-title: README
+title: git-study-guide
 tags: [git, index, pro-git, roadmap]
 aliases: [Git 인덱스, Git 학습 가이드, Pro Git 마스터 가이드]
-date modified: 2025-12-18 15:22:36 +09:00
+date modified: 2025-12-18 15:37:56 +09:00
 date created: 2025-12-18 13:58:00 +09:00
 ---
 

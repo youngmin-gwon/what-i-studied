@@ -2,7 +2,7 @@
 title: complexity-and-big-o
 tags: [algorithm, big-o, complexity, optimization, performance]
 aliases: [Big-O, 공간 복잡도, 시간 복잡도]
-date modified: 2025-12-18 11:40:07 +09:00
+date modified: 2025-12-18 15:38:57 +09:00
 date created: 2025-12-17 19:00:00 +09:00
 ---
 
@@ -314,7 +314,10 @@ Big-O 는 **상한 (Upper Bound)**을 나타냅니다. "최악의 경우에도 �
 
 ---
 
-#### 📚 연결 문서
-- [[algo-ds-linear]] - 메모리 레이아웃과 캐시 효율성
-- [[algo-ds-hash-and-map]] - O(1) 의 비밀과 해시 충돌
-- [[kernel#2. NUMA (Non-Uniform Memory Access)]] - 메모리 접근 비용의 심화
+---
+
+## 📚 관련 문서
+- [[00_fundamentals/memory-layout-and-cache|메모리 레이아웃과 캐시]] - 하드웨어 관점의 복잡도 이해
+- [[00_fundamentals/problem-solving-process|문제 해결 프로세스]] - 알고리즘 설계를 시작하는 4 단계 프레임워크
+- [[01_data-structures/linear|선형 자료구조]] - 데이터 구조에 따른 성능 실체
+- [[03_patterns/optimization|최적화 전략]] - N 의 크기에 따른 알고리즘 선택 가이드

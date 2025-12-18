@@ -97,8 +97,11 @@ $$C_n = \frac{1}{n+1} \binom{2n}{n}$$
 
 ---
 
-### 📚 연결 문서
-- [[02_algorithms/dynamic-programming|DP]] - 파스칼의 삼각형은 DP의 대표 사례
-- [[02_algorithms/backtracking|백트래킹]] - 실제 모든 순열과 조합을 나열할 때 사용
-- [[04_math/math-modular-and-exponentiation|나머지 연산]] - 거대 조합 값 계산을 위한 모듈러 역원
-- [[00_fundamentals/complexity-and-big-o|복잡도]] - $O(n^2)$ DP vs $O(1)$ 공식 사용의 차이
+---
+
+## 📚 관련 문서
+- [[02_algorithms/dynamic-programming|동적 계획법]] - 파스칼의 삼각형을 활용한 이항 계수 계산의 최적화
+- [[02_algorithms/backtracking|백트래킹]] - 실제 모든 순열과 조합의 리스트를 생성하는 탐색 기법
+- [[04_math/math-modular-and-exponentiation|나머지 연산]] - 거대 조합 값 계산을 위한 페르마의 소정리와 모듈러 역원
+- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 팩토리얼($O(N!)$) 시간 복잡도의 폭발적 증가 이해
+- [[03_patterns/optimization|최적화 전략]] - 수학적 공식을 활용한 완전 탐색($O(2^N)$)의 효율적 대체

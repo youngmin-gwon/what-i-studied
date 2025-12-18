@@ -75,7 +75,10 @@ if abs((a + b) - 0.3) < EPSILON:
 
 ---
 
-### 📚 연결 문서
-- [[04_math/math-modular-and-exponentiation|수학]] - 정수 기반의 모듈러 연산
-- [[03_patterns/optimization|최적화 전략]] - 수치적 근사치(Heuristics)
-- [[00_fundamentals/problem-solving-process|문제 해결 프로세스]] - 설계 단계에서 자료형 선택의 중요성
+---
+
+## 📚 관련 문서
+- [[04_math/math-modular-and-exponentiation|수학적 기초]] - 정수 기반 연산과 모듈러 연산
+- [[00_fundamentals/problem-solving-process|문제 해결 프로세스]] - 설계 단계에서 부동 소수점 오차 고려하기
+- [[03_patterns/optimization|최적화 전략]] - 수치적 안정성과 근사 알고리즘
+- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 부동 소수점 연산의 상수 시간 복잡도

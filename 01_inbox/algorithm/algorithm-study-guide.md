@@ -1,8 +1,8 @@
 ---
-title: README
+title: algorithm-study-guide
 tags: [algorithm, data-structures, index]
 aliases: [알고리즘 인덱스, 자료구조 인덱스]
-date modified: 2025-12-18 13:12:38 +09:00
+date modified: 2025-12-18 15:40:14 +09:00
 date created: 2025-12-18 11:33:14 +09:00
 ---
 
@@ -18,22 +18,22 @@ date created: 2025-12-18 11:33:14 +09:00
 
 이론과 하드웨어, 사고 체계까지 아우르는 단단한 기초를 다집니다.
 
-1. [[00_fundamentals/complexity-and-big-o|복잡도와 Big-O]] ⭐
+1. [복잡도와 Big-O](00_fundamentals/complexity-and-big-o.md) ⭐
    - 알고리즘 성능 평가의 절대 기준.
 
-2. [[00_fundamentals/memory-layout-and-cache|메모리 레이아웃과 캐시]]
+2. [메모리 레이아웃과 캐시](00_fundamentals/memory-layout-and-cache.md)
    - 하드웨어 구조가 실제 성능에 미치는 영향.
 
-3. [[00_fundamentals/recursion-and-stack|재귀와 호출 스택]]
+3. [재귀와 호출 스택](00_fundamentals/recursion-and-stack.md)
    - 문제를 쪼개는 논리와 실행 구조의 이해.
 
-4. [[00_fundamentals/problem-solving-process|문제 해결 프로세스]] ⭐
+4. [문제 해결 프로세스](00_fundamentals/problem-solving-process.md) ⭐
    - 문제를 분석하고 설계하는 4 단계 프레임워크.
 
-5. [[00_fundamentals/floating-point-guide|실수와 정밀도]]
+5. [실수와 정밀도](00_fundamentals/floating-point-guide.md)
    - 수치 오차를 방지하는 실전 지침.
 
-6. [[01_data-structures/linear|선형 자료구조]]
+6. [선형 자료 구조](01_data-structures/linear.md)
    - Array, Linked List 의 물리적 배치와 하드웨어 효율성.
 
 ---
@@ -44,19 +44,19 @@ date created: 2025-12-18 11:33:14 +09:00
 
 ##### 자료구조 (Data Structures)
 
-1. [[01_data-structures/stack-and-queue|스택과 큐 (Stack & Queue)]] ⭐
+1. [스택과 큐 (Stack & Queue)](01_data-structures/stack-and-queue.md) ⭐
    - 데이터 순서 제어의 기초 (LIFO, FIFO)
    - 구현 방식에 따른 성능 차이 ($O(1)$ vs $O(N)$)
 
-2. [[01_data-structures/hash-and-map|해시 테이블]]
+2. [해시 테이블](01_data-structures/hash-and-map.md)
    - Hash Map, Hash Collision 처리
    - O(1) 조회의 비밀
 
-3. [[01_data-structures/tree-and-graph|트리와 그래프]]
+3. [트리와 그래프](01_data-structures/tree-and-graph.md)
    - Binary Search Tree, BFS/DFS
    - 그래프 탐색의 기초
 
-4. [[01_data-structures/heap-and-priority-queue|힙과 우선순위 큐]] ⭐
+4. [힙과 우선순위 큐](01_data-structures/heap-and-priority-queue.md) ⭐
    - Top-K, 실시간 중앙값
    - OS 스케줄러, 다익스트라 필수
 
@@ -66,19 +66,19 @@ date created: 2025-12-18 11:33:14 +09:00
 
 난이도 높은 문제를 위한 특수 자료구조입니다.
 
-1. [[01_data-structures/string-advanced|고급 문자열]]
+1. [고급 문자열](01_data-structures/string-advanced.md)
    - Trie (자동완성, IP 라우팅)
    - KMP (패턴 매칭)
 
-2. [[01_data-structures/disjoint-set|Union-Find]]
+1. [Union Find](01_data-structures/disjoint-set.md)
    - 사이클 탐지, MST (Kruskal)
    - 거의 O(1) 연결성 판별
 
-3. [[01_data-structures/segment-tree|세그먼트 트리]] ⭐
+1. [세그먼트 트리](01_data-structures/segment-tree.md) ⭐
    - 구간 합, 최소/최대 $O(\log N)$ 업데이트 및 조회
    - 동적 데이터의 구간 쿼리 끝판왕
 
-4. [[01_data-structures/specialized-queues|특수 큐/스택]]
+1. [특수 큐](01_data-structures/specialized-queues.md)
    - Deque, Monotonic Stack/Queue
    - Sliding Window Maximum, Next Greater Element
 
@@ -124,7 +124,8 @@ date created: 2025-12-18 11:33:14 +09:00
 ---
 
 #### 🔢 04. Math (수학)
-- [[04_math/gcd-lcm|GCD & LCM]]
+
+- [GCD & LCm](04_math/gcd-lcm.md)
   - 유클리드 호제법, 최소공배수
   - Juggling Algorithm
   - RSA 암호화, 배열 회전

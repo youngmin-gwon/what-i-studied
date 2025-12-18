@@ -102,8 +102,10 @@ def tail_fact(n, acc=1):
 
 ---
 
-### 📚 연결 문서
-- [[00_fundamentals/memory-layout-and-cache|메모리 기초]] - Stack 영역의 이해
-- [[02_algorithms/graph-traversal|그래프 탐색]] - 실전 DFS 재귀
-- [[02_algorithms/dynamic-programming|DP]] - 재귀의 중복 계산을 막는 최적화
-- [[01_data-structures/linear|선형 자료구조]] - Stack 자료구조의 원리
+---
+
+## 📚 관련 문서
+- [[00_fundamentals/memory-layout-and-cache|메모리 레이아웃과 캐시]] - 스택 메모리의 물리적 위치
+- [[02_algorithms/divide-and-conquer|분할 정복]] - 재귀를 활용한 문제 해결 패러다임
+- [[02_algorithms/backtracking|백트래킹]] - 상태 공간 트리와 DFS 탐색
+- [[00_fundamentals/problem-solving-process|문제 해결 프로세스]] - 재귀적 사고 설계법
