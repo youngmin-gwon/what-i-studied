@@ -2,7 +2,7 @@
 title: complexity-and-big-o
 tags: [algorithm, big-o, complexity, optimization, performance]
 aliases: [Big-O, 공간 복잡도, 시간 복잡도]
-date modified: 2025-12-18 16:06:55 +09:00
+date modified: 2025-12-18 16:29:22 +09:00
 date created: 2025-12-17 19:00:00 +09:00
 ---
 
@@ -240,6 +240,7 @@ List<String> stuffList(int length) {
 "시간을 아끼려면 메모리를 써라. 메모리를 아끼려면 시간을 써라."
 
 #### 1. Space-Time Trade-off
+
 - **Hash Table**: 메모리를 많이 써서 (공간 O(n)), 검색을 빠르게 (시간 O(1)) 만듭니다.
 - **Memoization (DP)**: 이미 계산한 값을 메모배열에 저장해 (공간 O(n)), 중복 계산을 없앰 (시간 O(2^n) -> O(n)).
 

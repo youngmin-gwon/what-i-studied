@@ -2,7 +2,7 @@
 title: heap-and-priority-queue
 tags: [algorithm, data-structures, heap, heapify, priority-queue, top-k]
 aliases: [Max Heap, Min Heap, 우선순위 큐, 힙]
-date modified: 2025-12-18 11:41:39 +09:00
+date modified: 2025-12-18 16:24:49 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 
@@ -287,6 +287,6 @@ struct Heap<T: Comparable> {
 ---
 
 #### 📚 연결 문서
-- [algo-complexity-and-big-o](../../../../algo-complexity-and-big-o.md) - O(log n)의 힘
-- [algo-ds-tree-and-graph](../../../../algo-ds-tree-and-graph.md) - 완전 이진 트리 구조
-- [algo-pattern-search-and-sort](../../../../algo-pattern-search-and-sort.md) - Heap Sort 응용
+- [Big-O](../00_fundamentals/complexity-and-big-o.md) - O(log n)의 힘
+- [tree-and-graph](tree-and-graph.md) - 완전 이진 트리 구조
+- [search-and-sort](../02_algorithms/search-and-sort.md) - Heap Sort 응용

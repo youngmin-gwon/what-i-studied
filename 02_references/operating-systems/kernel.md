@@ -2,7 +2,7 @@
 title: kernel
 tags: [kernel, linux, operating-systems, os]
 aliases: [OS 커널, 운영체제 커널, 커널]
-date modified: 2025-12-18 10:05:18 +09:00
+date modified: 2025-12-18 16:25:39 +09:00
 date created: 2025-12-16 21:01:14 +09:00
 ---
 

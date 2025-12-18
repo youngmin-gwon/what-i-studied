@@ -2,7 +2,7 @@
 title: string-advanced
 tags: [algorithm, data-structures, kmp, string, trie]
 aliases: [KMP 알고리즘, Trie, 문자열 검색, 접두사 트리, 트라이]
-date modified: 2025-12-18 11:42:05 +09:00
+date modified: 2025-12-18 16:27:12 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 
@@ -340,6 +340,6 @@ class CompactTrieNode:
 ---
 
 #### 📚 연결 문서
-- [algo-ds-tree-and-graph](../../../../algo-ds-tree-and-graph.md) - Trie 는 트리의 특수한 형태
-- [algo-complexity-and-big-o](../../../../algo-complexity-and-big-o.md) - 시간 복잡도 분석
-- [algo-pattern-two-pointers](../../../../algo-pattern-two-pointers.md) - KMP 의 투 포인터 활용
+- [tree-and-graph](tree-and-graph.md) - Trie 는 트리의 특수한 형태
+- [Big-O](../00_fundamentals/complexity-and-big-o.md) - 시간 복잡도 분석
+- [two-pointers](../03_patterns/two-pointers.md) - KMP 의 투 포인터 활용

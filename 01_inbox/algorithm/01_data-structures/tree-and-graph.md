@@ -2,7 +2,7 @@
 title: tree-and-graph
 tags: [algorithm, bfs, data-structures, dfs, graph, heap, tree]
 aliases: [그래프, 깊이 우선 탐색, 너비 우선 탐색, 이진 탐색 트리, 트리, 힙]
-date modified: 2025-12-18 11:42:09 +09:00
+date modified: 2025-12-18 16:26:53 +09:00
 date created: 2025-12-17 19:30:00 +09:00
 ---
 
@@ -53,6 +53,6 @@ date created: 2025-12-17 19:30:00 +09:00
 - **Context (OS Scheduler)**: 운영체제는 수천 개의 프로세스 중 **우선순위가 가장 높은 놈**을 다음에 실행해야 합니다. 이때 전체를 정렬 (`O(n log n)`) 하는 건 낭비입니다. 힙을 쓰면 `O(log n)` 만에 다음 타자를 뽑을 수 있습니다.
 
 #### 📚 연결 문서
-- [algo-complexity-and-big-o](../../../../algo-complexity-and-big-o.md) - O(log n) 의 위대함
-- [algo-ds-linear](../../../../algo-ds-linear.md) - BFS 에 쓰이는 Queue 구현
-- [kernel#1. 프로세스 스케줄링](kernel#1. 프로세스 스케줄링.md) - 힙 자료구조가 쓰이는 곳
+- [Big-O](../00_fundamentals/complexity-and-big-o.md) - O(log n) 의 위대함
+- [linear](linear.md) - BFS 에 쓰이는 Queue 구현
+- [kernel: 프로세스 스케줄링](../../../02_references/operating-systems/kernel.md) - 힙 자료구조가 쓰이는 곳

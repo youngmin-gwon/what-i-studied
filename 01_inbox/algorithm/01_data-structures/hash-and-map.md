@@ -2,7 +2,7 @@
 title: hash-and-map
 tags: [algorithm, collision, data-structures, dictionary, hash-table, map, security]
 aliases: [딕셔너리, 해시 맵, 해시 테이블]
-date modified: 2025-12-18 11:41:26 +09:00
+date modified: 2025-12-18 16:22:31 +09:00
 date created: 2025-12-17 19:20:00 +09:00
 ---
 
@@ -64,6 +64,5 @@ date created: 2025-12-17 19:20:00 +09:00
 - Swift, Python, Rust 등 현대 언어들은 기본적으로 이 방어 기법을 내장하고 있습니다.
 
 #### 📚 연결 문서
-- [algo-ds-linear](../../../../algo-ds-linear.md) - 충돌 해결에 쓰이는 Linked List
-- [algo-complexity-and-big-o](../../../../algo-complexity-and-big-o.md) - O(1) 의 의미
-- [apple-foundation](../../../../apple-foundation.md) - Swift Dictionary 구현체
+- [linear](linear.md) - 충돌 해결에 쓰이는 Linked List
+- [Big-O](../00_fundamentals/complexity-and-big-o.md) - O(1) 의 의미
