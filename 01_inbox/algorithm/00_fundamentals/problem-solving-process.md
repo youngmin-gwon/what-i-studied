@@ -2,7 +2,7 @@
 title: problem-solving-process
 tags: [debugging, framework, fundamentals, logic, problem-solving]
 aliases: [문제 접근법, 문제 해결 프로세스, 사고 프레임워크, 해결 전략]
-date modified: 2025-12-18 18:39:56 +09:00
+date modified: 2025-12-18 18:45:57 +09:00
 date created: 2025-12-18 12:00:00 +09:00
 ---
 
@@ -101,6 +101,7 @@ date created: 2025-12-18 12:00:00 +09:00
 ---
 
 ## 📚 관련 문서
+
 - [복잡도 분석](complexity-and-big-o.md) - 알고리즘 선택의 척도인 시간/공간 복잡도
 - [최적화 전략](../03_patterns/optimization.md) - 비효율적인 코드의 병목 현상 개선
 - [부동 소수점과 정밀도](floating-point-guide.md) - 실수 연산 시 주의해야 할 정밀도 오차
