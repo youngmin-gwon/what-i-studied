@@ -52,9 +52,9 @@ Big-O 는 **상한선 (Upper Bound)** 입니다. "아무리 느려도 이 정도
 ```mermaid
 xychart-beta
     title "O(1) - Constant Time (항상 1)"
-    x-axis "Input Size (N)" [0, 32, 64, 96, 128, 160, 192, 224, 256]
+    x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
     y-axis "Operations" 0 --> 10
-    line "O(1)" [1, 1, 1, 1, 1, 1, 1, 1, 1]
+    line "O(1)" [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ```
 
 **O(log n) - Logarithmic Time**
@@ -65,10 +65,10 @@ xychart-beta
 
 ```mermaid
 xychart-beta
-    title "O(log n) - Logarithmic Time (N=256일 때 8번만!)"
-    x-axis "Input Size (N)" [0, 32, 64, 96, 128, 160, 192, 224, 256]
+    title "O(log n) - Logarithmic Time (N=512일 때 9번만!)"
+    x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
     y-axis "Operations" 0 --> 10
-    line "O(log n)" [0, 5, 6, 6.6, 7, 7.3, 7.6, 7.8, 8]
+    line "O(log n)" [0, 5.4, 6.4, 7, 7.4, 7.7, 8, 8.2, 8.4, 8.6, 8.7, 8.9, 9]
 ```
 
 **O(n) - Linear Time**
@@ -80,9 +80,9 @@ xychart-beta
 ```mermaid
 xychart-beta
     title "O(n) - Linear Time (정비례 직선)"
-    x-axis "Input Size (N)" [0, 32, 64, 96, 128, 160, 192, 224, 256]
-    y-axis "Operations" 0 --> 300
-    line "O(n)" [0, 32, 64, 96, 128, 160, 192, 224, 256]
+    x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
+    y-axis "Operations" 0 --> 550
+    line "O(n)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
 ```
 
 **O(n log n) - Quasi-linear Time**
@@ -94,9 +94,9 @@ xychart-beta
 ```mermaid
 xychart-beta
     title "O(n log n) - Quasi-linear Time (위로 휘기 시작)"
-    x-axis "Input Size (N)" [0, 32, 64, 96, 128, 160, 192, 224, 256]
-    y-axis "Operations" 0 --> 2200
-    line "O(n log n)" [0, 160, 384, 631, 896, 1173, 1459, 1754, 2048]
+    x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
+    y-axis "Operations" 0 --> 5000
+    line "O(n log n)" [0, 227, 546, 896, 1259, 1641, 2048, 2450, 2872, 3296, 3727, 4165, 4608]
 ```
 
 **O(n²) - Quadratic Time**
@@ -108,9 +108,9 @@ xychart-beta
 ```mermaid
 xychart-beta
     title "O(n²) - Quadratic Time (폭발적 증가! 💥)"
-    x-axis "Input Size (N)" [0, 32, 64, 96, 128, 160, 192, 224, 256]
-    y-axis "Operations" 0 --> 70000
-    line "O(n²)" [0, 1024, 4096, 9216, 16384, 25600, 36864, 50176, 65536]
+    x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
+    y-axis "Operations" 0 --> 270000
+    line "O(n²)" [0, 1764, 7225, 16384, 28900, 45369, 65536, 88804, 116281, 147456, 181476, 218961, 262144]
 ```
 
 > [!WARNING] **N=10,000 이면 1 억 연산!**
@@ -128,13 +128,13 @@ xychart-beta
 %%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'backgroundColor': 'transparent'}}}}%%
 xychart-beta
     title "Big-O Complexity Growth (입력 크기 N에 따른 연산 횟수)"
-    x-axis "Input Size (N)" [0, 32, 64, 96, 128, 160, 192, 224, 256]
-    y-axis "Operations" 0 --> 70000
-    line "O(1)" [1, 1, 1, 1, 1, 1, 1, 1, 1]
-    line "O(log n)" [0, 5, 6, 6.6, 7, 7.3, 7.6, 7.8, 8]
-    line "O(n)" [0, 32, 64, 96, 128, 160, 192, 224, 256]
-    line "O(n log n)" [0, 160, 384, 631, 896, 1173, 1459, 1754, 2048]
-    line "O(n²)" [0, 1024, 4096, 9216, 16384, 25600, 36864, 50176, 65536]
+    x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
+    y-axis "Operations" 0 --> 270000
+    line "O(1)" [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    line "O(log n)" [0, 5.4, 6.4, 7, 7.4, 7.7, 8, 8.2, 8.4, 8.6, 8.7, 8.9, 9]
+    line "O(n)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
+    line "O(n log n)" [0, 227, 546, 896, 1259, 1641, 2048, 2450, 2872, 3296, 3727, 4165, 4608]
+    line "O(n²)" [0, 1764, 7225, 16384, 28900, 45369, 65536, 88804, 116281, 147456, 181476, 218961, 262144]
 ```
 
 > [!NOTE] **차트 해석**
