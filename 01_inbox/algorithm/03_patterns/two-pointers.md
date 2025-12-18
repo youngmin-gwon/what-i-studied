@@ -1,44 +1,125 @@
 ---
 title: two-pointers
 tags: [algorithm, array, pattern, sliding-window, two-pointers]
-aliases: [슬라이딩 윈도우, 투 포인터]
-date modified: 2025-12-18 11:42:32 +09:00
+aliases: [슬라이딩 윈도우, 투 포인터, Two Pointers, Sliding Window]
+date modified: 2025-12-18 11:53:38 +09:00
 date created: 2025-12-17 20:00:00 +09:00
 ---
 
-## Two Pointers & Sliding Window: O(n^2) 을 O(n) 으로
+## Two Pointers & Sliding Window: O(n²)을 O(n)으로
 
-배열에서 "구간"이나 "쌍 (Pair)"을 구할 때, 이중 for loop(`O(n^2)`) 를 쓰기 쉽습니다.
+배열에서 "구간"이나 "쌍 (Pair)"을 구할 때, 단순하게 2중 루프를 돌리면 $O(n^2)$이 걸립니다. 하지만 포인터 두 개를 영리하게 움직이면 **$O(n)$**으로 최적화할 수 있습니다.
 
-하지만 포인터 두 개를 동시에 움직이면 `O(n)` 으로 최적화할 수 있습니다.
+### 💡 Why it matters (Context)
 
-### 👈👉 Two Pointers (양쪽에서 조이기)
-
-주로 **정렬된 배열**에서 두 수의 합 (Two Sum) 등을 찾을 때 씁니다.
-
-1. `Left` 는 0, `Right` 는 끝 (n-1) 에 둡니다.
-2. 두 합이 목표보다 크면? `Right` 를 줄여서 합을 작게 만듭니다.
-3. 두 합이 목표보다 작으면? `Left` 를 키워서 합을 크게 만듭니다.
-- **Why O(n)?**: `Left` 와 `Right` 는 각각 최대 N 번만 움직입니다.
+- **데이터 스트리밍**: 실시간으로 흘러들어오는 데이터의 최근 1시간 평균 구하기.
+- **메모리 최적화**: 정렬된 거대 데이터에서 특정 조건을 만족하는 쌍 찾기.
+- **가변 길이 구간**: 합이 S 이상인 가장 짧은 연속 부분 배열 찾기.
 
 ---
 
-### 🪟 Sliding Window (창문 밀기)
+### 🏢 실무 사례
 
-배열의 **연속된 구간 (Subarray)**을 처리할 때 씁니다. 창문틀 (Window) 을 만들어 오른쪽으로 스르륵 밉니다.
+#### Sliding Window 활용
+- **네트워크 (TCP)**: 패킷 흐름 제어 (Sliding Window Protocol).
+- **영상 알고리즘**: 프레임 내 윈도우 이동을 통한 객체 탐지.
+- **로그 분석**: 대량의 로그 중 특정 패턴이 나타나는 연속 구간 탐색.
+- **스트리밍 대시보드**: "최근 5분간의 에러율" 실시간 계산.
 
-- **핵심**: 창문이 한 칸 이동할 때, **새로 들어온 놈 (Add)**과 **나가는 놈 (Remove)**만 처리합니다.
-- **Complexity**: 창문의 크기가 커져도, 각 요소는 창문에 '들어올 때'와 '나갈 때' 딱 두 번만 계산됩니다. -> **O(n)**.
+#### Two Pointers 활용
+- **데이터 정제**: 정렬된 로그에서 중복 항목 제거.
+- **압축 알고리즘**: 유사한 데이터 구간을 찾아 압축 최적화.
+- **검색 엔진**: 두 문자의 거리 차이가 최소인 문서 위치 찾기.
 
-#### Context: TCP Sliding Window
+---
 
-TCP 프로토콜도 이 알고리즘을 씁니다.
+## 👈👉 Two Pointers (양쪽에서 조이기)
 
-- 패킷 하나 보내고 ACK 기다리면 너무 느립니다.
-- "아직 ACK 안 왔어도 10 개까지는 미리 보내자 (Window Size = 10)"라고 약속합니다.
-- ACK 가 오면 윈도우를 오른쪽으로 밀어서 (Slide) 다음 패킷을 보냅니다. 이를 통해 **네트워크 대역폭을 꽉 채워 (Throughput)** 통신합니다.
+주로 **정렬된 배열**에서 두 노드를 양 끝이나 같은 방향에서 출발시켜 조건을 만족하는 쌍을 찾습니다.
 
-#### 📚 연결 문서
-- [[algo-complexity-and-big-o]] - O(n^2) vs O(n) 효율 비교
-- [[algo-ds-linear]] - 배열 접근 방식
-- [[algo-pattern-search-and-sort]] - 정렬된 상태의 이점
+### 🔧 구현: Two Sum (Sorted)
+```python
+def two_sum_sorted(nums, target):
+    left, right = 0, len(nums) - 1
+    
+    while left < right:
+        current_sum = nums[left] + nums[right]
+        if current_sum == target:
+            return [left, right]
+        elif current_sum < target:
+            left += 1  # 합을 키워야 함
+        else:
+            right -= 1 # 합을 줄여야 함
+    return []
+```
+
+---
+
+## 🪟 Sliding Window (창문 밀기)
+
+연속된 구간(Subarray)을 처리할 때, 창문을 오른쪽으로 밀어가며 **새로 들어오는 값**과 **나가는 값**만 갱신합니다.
+
+### 1. 고정 길이 윈도우 (Fixed Size)
+```python
+def fixed_sliding_window(arr, k):
+    # 첫 k개 합 구하기
+    current_sum = sum(arr[:k])
+    max_sum = current_sum
+    
+    for i in range(k, len(arr)):
+        # 나가는 놈(arr[i-k]) 빼고, 들어오는 놈(arr[i]) 더하기
+        current_sum += arr[i] - arr[i-k]
+        max_sum = max(max_sum, current_sum)
+    return max_sum
+```
+
+### 2. 가변 길이 윈도우 (Variable Size)
+"합이 S 이상인 가장 짧은 구간의 길이 구하기"
+
+```python
+def min_subarray_len(target, nums):
+    left = 0
+    current_sum = 0
+    min_len = float('inf')
+    
+    for right in range(len(nums)):
+        current_sum += nums[right]
+        
+        # 조건을 만족하는 동안 왼쪽 포인터를 당김
+        while current_sum >= target:
+            min_len = min(min_len, right - left + 1)
+            current_sum -= nums[left]
+            left += 1
+            
+    return min_len if min_len != float('inf') else 0
+```
+
+---
+
+## 🚨 흔한 실수 (Common Mistakes)
+
+1. **정렬 여부 확인 망각** ❌
+   - 양방향 투 포인터(`left`, `right`) 전략은 대부분 **정렬된 배열**에서만 유효합니다. 정렬되지 않았다면 정렬부터 하거나 [[01_data-structures/hash-and-map|Hash Map]]을 고려하세요.
+2. **인덱스 범위 에러 (Off-by-one)**
+   - `while left < right` 인지 `left <= right` 인지 상황에 따라 정확히 결정해야 합니다. (쌍을 찾을 땐 보통 `<`)
+3. **윈도우 갱신 순서**
+   - 가변 길이 윈도우에서 `left`를 옮기기 전/후에 값을 뺄 때 인덱스 주의.
+4. **무한 루프**
+   - `left`나 `right`가 특정 조건에서 멈추어 루프가 끝나지 않는 경우.
+
+---
+
+## ⚔️ Two Pointers vs Sliding Window
+
+| 특징 | Two Pointers | Sliding Window |
+|:---|:---|:---|
+| **배열 상태** | 보통 정렬됨 | 정렬 안 되어도 무관 |
+| **관심 영역** | 두 지점의 **값** (쌍) | 두 지점 사이의 **구간** |
+| **포인터 방향** | 양 끝에서 안으로 (보통) | 같은 방향으로 (Slide) |
+
+---
+
+### 📚 연결 문서
+- [[00_fundamentals/complexity-and-big-o|복잡도]] - $O(n^2)$을 $O(n)$으로 줄이는 위력
+- [[01_data-structures/linear|선형 자료구조]] - 배열과 연결 리스트에서의 활용
+- [[03_patterns/prefix-sum|누적 합]] - 구간 합을 구하는 또 다른 강력한 방법
