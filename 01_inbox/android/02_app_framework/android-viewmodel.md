@@ -1,20 +1,20 @@
 ---
 title: android-viewmodel
-tags: [android, android/viewmodel, android/jetpack, android/architecture, android/lifecycle]
+tags: [android, android/architecture, android/jetpack, android/lifecycle, android/viewmodel]
 aliases: []
-date modified: 2025-12-17 21:34:44 +09:00
+date modified: 2025-12-19 00:00:30 +09:00
 date created: 2025-12-17 21:34:44 +09:00
 ---
 
 ## Android ViewModel
 
-ViewModel은 Android Jetpack의 핵심 아키텍처 컴포넌트로, **UI 상태를 관리하고 설정 변경에서 살아남는** 클래스다. UI 로직과 비즈니스 로직을 분리하여 테스트 가능하고 유지보수하기 쉬운 코드를 작성할 수 있다.
+ViewModel 은 Android Jetpack 의 핵심 아키텍처 컴포넌트로, **UI 상태를 관리하고 설정 변경에서 살아남는** 클래스다. UI 로직과 비즈니스 로직을 분리하여 테스트 가능하고 유지보수하기 쉬운 코드를 작성할 수 있다.
 
-### ViewModel의 목적
+### ViewModel 의 목적
 
 #### 1. 설정 변경에서 데이터 유지
 
-화면 회전, 언어 변경 등으로 Activity가 재생성될 때 ViewModel의 데이터는 유지된다.
+화면 회전, 언어 변경 등으로 Activity 가 재생성될 때 ViewModel 의 데이터는 유지된다.
 
 ```kotlin
 // ❌ 나쁜 예: Activity에서 직접 데이터 관리
@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-#### 2. UI와 비즈니스 로직 분리
+#### 2. UI 와 비즈니스 로직 분리
 
-Activity/Fragment는 UI 표시에만 집중하고, 데이터 로직은 ViewModel이 담당한다.
+Activity/Fragment 는 UI 표시에만 집중하고, 데이터 로직은 ViewModel 이 담당한다.
 
 ```kotlin
 class UserViewModel(
@@ -94,11 +94,11 @@ class UserListActivity : AppCompatActivity() {
 
 #### 3. 메모리 누수 방지
 
-Activity가 종료되면 ViewModel도 자동으로 정리되어 메모리 누수를 방지한다.
+Activity 가 종료되면 ViewModel 도 자동으로 정리되어 메모리 누수를 방지한다.
 
 ### ViewModel 생명주기
 
-ViewModel은 Activity/Fragment의 생명주기보다 길게 살아남는다.
+ViewModel 은 Activity/Fragment 의 생명주기보다 길게 살아남는다.
 
 ```mermaid
 sequenceDiagram
@@ -122,9 +122,9 @@ sequenceDiagram
 ```
 
 **주요 특징:**
-- Activity가 `finish()` 되거나 Fragment가 제거될 때만 `onCleared()` 호출
-- 설정 변경으로 재생성될 때는 ViewModel이 유지됨
-- `onCleared()`에서 코루틴 취소, 리스너 정리 등 수행
+- Activity 가 `finish()` 되거나 Fragment 가 제거될 때만 `onCleared()` 호출
+- 설정 변경으로 재생성될 때는 ViewModel 이 유지됨
+- `onCleared()` 에서 코루틴 취소, 리스너 정리 등 수행
 
 ```kotlin
 class MyViewModel : ViewModel() {
@@ -206,7 +206,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-#### Jetpack Compose에서 사용
+#### Jetpack Compose 에서 사용
 
 ```kotlin
 // 1. StateFlow 사용 (Compose 권장)
@@ -325,14 +325,14 @@ class DetailActivity : AppCompatActivity() {
 
 | SavedStateHandle | onSaveInstanceState |
 |-----------------|---------------------|
-| ViewModel 내부에서 사용 | Activity/Fragment에서 사용 |
+| ViewModel 내부에서 사용 | Activity/Fragment 에서 사용 |
 | 자동으로 저장/복원 | 수동으로 Bundle 처리 |
-| 타입 안전 | Bundle로 타입 캐스팅 필요 |
+| 타입 안전 | Bundle 로 타입 캐스팅 필요 |
 | 권장 방식 | 레거시 방식 |
 
-### ViewModelScope와 코루틴
+### ViewModelScope 와 코루틴
 
-`viewModelScope`는 ViewModel의 생명주기에 맞춰 자동으로 취소되는 코루틴 스코프다.
+`viewModelScope` 는 ViewModel 의 생명주기에 맞춰 자동으로 취소되는 코루틴 스코프다.
 
 ```kotlin
 class UserViewModel : ViewModel() {
@@ -402,7 +402,7 @@ class UserViewModel : ViewModel() {
 ```
 
 **장점:**
-- 생명주기 자동 인식 (Activity가 백그라운드면 업데이트 안 함)
+- 생명주기 자동 인식 (Activity 가 백그라운드면 업데이트 안 함)
 - 메인 스레드에서만 관찰 가능
 - 간단한 API
 
@@ -456,15 +456,15 @@ fun UserScreen(viewModel: UserViewModel = viewModel()) {
 **장점:**
 - 초기값 설정 가능
 - 코루틴 Flow API 활용 가능
-- Compose와 완벽 통합
-- cold stream을 hot stream으로 변환
+- Compose 와 완벽 통합
+- cold stream 을 hot stream 으로 변환
 
 **단점:**
 - 생명주기 자동 인식 안 함 (직접 처리 필요)
 
 ### Factory 패턴
 
-ViewModel에 파라미터를 전달해야 할 때 사용한다.
+ViewModel 에 파라미터를 전달해야 할 때 사용한다.
 
 ```kotlin
 // 1. ViewModelProvider.Factory 구현
@@ -533,7 +533,7 @@ class UserActivity : AppCompatActivity() {
 
 ### 모범 사례
 
-#### 1. ViewModel은 Android 프레임워크 참조 금지
+#### 1. ViewModel 은 Android 프레임워크 참조 금지
 
 ```kotlin
 // ❌ 나쁜 예
@@ -562,7 +562,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-**예외:** `AndroidViewModel`은 `Application` 컨텍스트를 받을 수 있음
+**예외:** `AndroidViewModel` 은 `Application` 컨텍스트를 받을 수 있음
 
 ```kotlin
 class MyViewModel(application: Application) : AndroidViewModel(application) {

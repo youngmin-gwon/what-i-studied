@@ -2,7 +2,7 @@
 title: algorithm-study-guide
 tags: [algorithm, data-structures, index]
 aliases: [알고리즘 인덱스, 자료구조 인덱스]
-date modified: 2025-12-18 16:29:01 +09:00
+date modified: 2025-12-19 00:00:36 +09:00
 date created: 2025-12-18 11:33:14 +09:00
 ---
 
@@ -103,10 +103,10 @@ date created: 2025-12-18 11:33:14 +09:00
 
 2. [투 포인터 & 슬라이딩 윈도우](03_patterns/two-pointers.md)
     - Fast & Slow Runner, Sliding Window
-    - O(n^2)을 O(n)으로 최적화
+    - O(n^2) 을 O(n) 으로 최적화
 
 3. [누적합(Prefix Sum)](03_patterns/prefix-sum.md)
-    - 구간 합을 O(1)에 구하기
+    - 구간 합을 O(1) 에 구하기
     - 2D Prefix Sum (Image Processing)
 
 4. [비트 연산(Bit Manipulation)](03_patterns/bit-manipulation.md)
@@ -243,4 +243,4 @@ date created: 2025-12-18 11:33:14 +09:00
 - **알고리즘 & 패턴 (Algorithms)**: 18/18 완료 (100%) 🎉 (Specialized 4/4 포함)
 
 >[!NOTE]
-> **Next Objective**: 실제 기업(Kakao, Google) 기출 유형의 복합 문제 풀이 및 위 심화 주제 중 하나를 선택하여 깊이 있게 탐구하는 것을 권장합니다.
+> **Next Objective**: 실제 기업 (Kakao, Google) 기출 유형의 복합 문제 풀이 및 위 심화 주제 중 하나를 선택하여 깊이 있게 탐구하는 것을 권장합니다.
