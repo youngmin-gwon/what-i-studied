@@ -1,20 +1,20 @@
 ---
-title: algo-ds-specialized-queues
+title: specialized-queues
 tags: [algorithm, data-structures, deque, monotonic-queue, monotonic-stack, sliding-window]
-aliases: [Deque, Monotonic Stack, Monotonic Queue, 덱, 단조 스택, 단조 큐]
-date modified: 2025-12-18 11:28:51 +09:00
+aliases: [Deque, Monotonic Queue, Monotonic Stack, 단조 스택, 단조 큐, 덱]
+date modified: 2025-12-18 11:42:04 +09:00
 date created: 2025-12-18 11:28:51 +09:00
 ---
 
 ## Deque & Monotonic Structures: 특수 용도 큐/스택
 
-일반 Stack/Queue로는 해결하기 어려운 문제를 위한 **특수화된 자료구조** 입니다.
+일반 Stack/Queue 로는 해결하기 어려운 문제를 위한 **특수화된 자료구조** 입니다.
 
 ### 🔄 Deque (Double-Ended Queue)
 
-Deque는 **양쪽 끝**에서 삽입/삭제가 모두 O(1)인 자료구조입니다.
+Deque 는 **양쪽 끝**에서 삽입/삭제가 모두 O(1)인 자료구조입니다.
 
-**일반 Queue와의 차이**:
+**일반 Queue 와의 차이**:
 - Queue: 뒤에서 넣고(enqueue) 앞에서 뺌(dequeue)
 - Deque: **양쪽 모두** 가능 (앞/뒤 삽입, 앞/뒤 삭제)
 
@@ -104,9 +104,9 @@ struct Deque<T> {
 
 ### 🎯 Deque 실전 패턴
 
-#### Pattern 1: Sliding Window (K개씩 묶어서 보기)
+#### Pattern 1: Sliding Window (K 개씩 묶어서 보기)
 
-"배열에서 K개씩 윈도우를 이동하며 처리"
+"배열에서 K 개씩 윈도우를 이동하며 처리"
 
 ```python
 def process_sliding_window(arr, k):
@@ -206,7 +206,7 @@ def next_greater_element(nums):
 #    2의 다음 큰 값은 4
 ```
 
-**시간 복잡도**: O(n) (각 원소는 최대 1번 push, 1번 pop)
+**시간 복잡도**: O(n) (각 원소는 최대 1 번 push, 1 번 pop)
 
 **응용**:
 - 주식 가격 변동 분석
@@ -274,7 +274,7 @@ def daily_temperatures(temps):
 
 ### 📊 Monotonic Queue (단조 큐)
 
-**목적**: Sliding Window에서 **최댓값/최솟값을 O(1)로 유지**
+**목적**: Sliding Window 에서 **최댓값/최솟값을 O(1)로 유지**
 
 #### Pattern: Sliding Window Maximum (최고난이도!)
 
@@ -312,11 +312,11 @@ def max_sliding_window(nums, k):
 **핵심 인사이트**:
 - Deque 맨 앞 = 현재 윈도우의 최댓값 인덱스
 - 새 값이 들어올 때 그보다 작은 값들은 **절대 답이 될 수 없음** → 제거
-- 시간 복잡도: O(n) (각 원소는 최대 1번 삽입, 1번 삭제)
+- 시간 복잡도: O(n) (각 원소는 최대 1 번 삽입, 1 번 삭제)
 
 ---
 
-### 🧪 심화: Monotonic Stack의 변형
+### 🧪 심화: Monotonic Stack 의 변형
 
 #### 양방향 Next Greater (왼쪽/오른쪽)
 
@@ -366,13 +366,13 @@ dq.popleft()      # O(1)
 
 ### 🚨 흔한 실수
 
-1. **Deque를 Array로 대체** ❌
+1. **Deque 를 Array 로 대체** ❌
    ```python
    arr.insert(0, x)  # O(n) - 느림!
    deque.appendleft(x)  # O(1) - 빠름!
    ```
 
-2. **Monotonic Stack에서 값 대신 인덱스 저장 안 함** ❌
+2. **Monotonic Stack 에서 값 대신 인덱스 저장 안 함** ❌
    - 인덱스를 저장해야 거리/위치 계산 가능
 
 3. **윈도우 범위 체크 누락**
@@ -396,7 +396,7 @@ dq.popleft()      # O(1)
 | **Monotonic Stack** | Next Greater/Smaller | O(n) | 히스토그램, 온도 변화 |
 | **Monotonic Queue** | Sliding Max/Min | O(n) | Sliding Window Maximum |
 
-> [!TIP] **언제 쓰나?**
+>[!TIP] **언제 쓰나?**
 > - **"다음으로 큰/작은 값"** → Monotonic Stack
 > - **"윈도우 최댓값/최솟값"** → Monotonic Queue
 > - **"양쪽에서 처리"** → Deque

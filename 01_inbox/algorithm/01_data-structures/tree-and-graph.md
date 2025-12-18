@@ -1,8 +1,8 @@
 ---
-title: algo-ds-tree-and-graph
+title: tree-and-graph
 tags: [algorithm, bfs, data-structures, dfs, graph, heap, tree]
 aliases: [그래프, 깊이 우선 탐색, 너비 우선 탐색, 이진 탐색 트리, 트리, 힙]
-date modified: 2025-12-18 10:05:57 +09:00
+date modified: 2025-12-18 11:42:09 +09:00
 date created: 2025-12-17 19:30:00 +09:00
 ---
 

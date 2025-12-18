@@ -1,8 +1,8 @@
 ---
-title: algo-ds-string-advanced
+title: string-advanced
 tags: [algorithm, data-structures, kmp, string, trie]
 aliases: [KMP 알고리즘, Trie, 문자열 검색, 접두사 트리, 트라이]
-date modified: 2025-12-18 11:28:06 +09:00
+date modified: 2025-12-18 11:42:05 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 

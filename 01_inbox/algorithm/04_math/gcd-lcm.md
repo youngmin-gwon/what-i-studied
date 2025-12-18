@@ -1,8 +1,8 @@
 ---
-title: algo-math-gcd-lcm
+title: gcd-lcm
 tags: [algorithm, euclidean-algorithm, gcd, lcm, math, number-theory]
 aliases: [유클리드 호제법, 최대공약수, 최소공배수]
-date modified: 2025-12-18 10:10:17 +09:00
+date modified: 2025-12-18 11:42:47 +09:00
 date created: 2025-12-18 10:07:51 +09:00
 ---
 
@@ -96,7 +96,7 @@ GCD 를 이용해 **배열을 O(n) 시간, O(1) 공간**으로 회전시키는 �
 
 #### 원리
 
-GCD(n, k) 개의 **독립적인 사이클 (Cycle)**로 나눠서 회전합니다.
+GCD(n, k) 개의 **독립적인 사이클 (Cycle)** 로 나눠서 회전합니다.
 
 - `n=6, k=2` → `gcd(6, 2) = 2` → 2 개의 사이클
 - **사이클 1**: `[0] → [2] → [4] → [0]` (인덱스: 0, 2, 4)

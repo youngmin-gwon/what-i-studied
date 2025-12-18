@@ -1,8 +1,8 @@
 ---
-title: algo-ds-linear
+title: linear
 tags: [algorithm, array, cache, data-structures, linked-list, queue, stack]
 aliases: [배열, 스택, 연결 리스트, 큐]
-date modified: 2025-12-18 10:05:54 +09:00
+date modified: 2025-12-18 11:41:53 +09:00
 date created: 2025-12-17 19:10:00 +09:00
 ---
 

@@ -1,8 +1,8 @@
 ---
-title: algo-ds-heap-and-priority-queue
+title: heap-and-priority-queue
 tags: [algorithm, data-structures, heap, heapify, priority-queue, top-k]
 aliases: [Max Heap, Min Heap, 우선순위 큐, 힙]
-date modified: 2025-12-18 11:27:53 +09:00
+date modified: 2025-12-18 11:41:39 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 

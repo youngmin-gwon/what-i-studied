@@ -1,8 +1,8 @@
 ---
-title: algo-pattern-two-pointers
+title: two-pointers
 tags: [algorithm, array, pattern, sliding-window, two-pointers]
 aliases: [슬라이딩 윈도우, 투 포인터]
-date modified: 2025-12-18 10:06:01 +09:00
+date modified: 2025-12-18 11:42:32 +09:00
 date created: 2025-12-17 20:00:00 +09:00
 ---
 

@@ -1,8 +1,8 @@
 ---
-title: algo-pattern-optimization
+title: optimization
 tags: [algorithm, dynamic-programming, greedy, optimization, pattern]
 aliases: [그리디, 동적 계획법, 최적화 알고리즘]
-date modified: 2025-12-18 10:05:58 +09:00
+date modified: 2025-12-18 11:42:30 +09:00
 date created: 2025-12-17 19:50:00 +09:00
 ---
 

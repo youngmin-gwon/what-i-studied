@@ -1,8 +1,8 @@
 ---
-title: algo-complexity-and-big-o
+title: complexity-and-big-o
 tags: [algorithm, big-o, complexity, optimization, performance]
 aliases: [Big-O, 공간 복잡도, 시간 복잡도]
-date modified: 2025-12-18 11:20:56 +09:00
+date modified: 2025-12-18 11:40:07 +09:00
 date created: 2025-12-17 19:00:00 +09:00
 ---
 

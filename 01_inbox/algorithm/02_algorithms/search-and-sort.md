@@ -1,8 +1,8 @@
 ---
-title: algo-pattern-search-and-sort
+title: search-and-sort
 tags: [algorithm, binary-search, merge-sort, pattern, quick-sort, search, sort]
 aliases: [병합 정렬, 이진 탐색, 정렬 알고리즘, 퀵 정렬]
-date modified: 2025-12-18 10:06:00 +09:00
+date modified: 2025-12-18 11:42:13 +09:00
 date created: 2025-12-17 19:40:00 +09:00
 ---
 

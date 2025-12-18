@@ -1,23 +1,23 @@
 ---
-title: algo-ds-disjoint-set
+title: disjoint-set
 tags: [algorithm, cycle-detection, data-structures, disjoint-set, mst, union-find]
-aliases: [Union-Find, 분리 집합, 서로소 집합, Path Compression]
-date modified: 2025-12-18 11:22:52 +09:00
+aliases: [Path Compression, Union-Find, 분리 집합, 서로소 집합]
+date modified: 2025-12-18 11:40:32 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 
 ## Disjoint Set (Union-Find): 연결성의 마법사
 
-Union-Find는 **"이 두 노드가 연결되어 있나?"**를 **거의 O(1)**에 판별하는 자료구조입니다.
+Union-Find 는 **"이 두 노드가 연결되어 있나?"** 를 **거의 O(1)** 에 판별하는 자료구조입니다.
 
 **용도**: 그래프 연결성, 사이클 탐지, 최소 신장 트리 (MST), 네트워크 연결 상태 등
 
 ### 💡 Why it matters (Context)
 
-**문제**: SNS에서 "친구의 친구"까지 고려했을 때, 두 사람이 같은 네트워크에 있는가?
+**문제**: SNS 에서 "친구의 친구"까지 고려했을 때, 두 사람이 같은 네트워크에 있는가?
 
 **Naive 방식**:
-- DFS/BFS로 탐색 → `O(V + E)` (매번 그래프 전체 순회)
+- DFS/BFS 로 탐색 → `O(V + E)` (매번 그래프 전체 순회)
 
 **Union-Find 방식**:
 - `Find(A) == Find(B)`? → `O(α(n))` ≈ **O(1)** (아커만 역함수, 사실상 상수)
@@ -48,8 +48,8 @@ Union(0, 2):
 ```
 
 **핵심 연산**:
-1. **Find(x)**: x의 대표자 찾기
-2. **Union(x, y)**: x와 y를 같은 집합으로 합치기
+1. **Find(x)**: x 의 대표자 찾기
+2. **Union(x, y)**: x 와 y 를 같은 집합으로 합치기
 
 ---
 
@@ -77,7 +77,7 @@ class UnionFind:
             self.parent[root_x] = root_y  # x의 루트를 y에 연결
 ```
 
-**문제점**: 트리가 한쪽으로 치우치면 (Skewed) `Find`가 `O(N)`이 됨
+**문제점**: 트리가 한쪽으로 치우치면 (Skewed) `Find` 가 `O(N)` 이 됨
 
 ```
 최악의 경우:
@@ -120,7 +120,7 @@ class UnionFind:
         return True
 ```
 
-**효과**: 트리 높이를 `O(log N)`으로 유지
+**효과**: 트리 높이를 `O(log N)` 으로 유지
 
 ---
 
@@ -137,7 +137,7 @@ def find(self, x):
 
 **과정**:
 
-```
+```plaintext
 Before:        After (find(4) 호출 후):
     0              0
    /              /|\
@@ -150,7 +150,7 @@ Before:        After (find(4) 호출 후):
 4
 ```
 
-**효과**: 다음 `Find`는 `O(1)`!
+**효과**: 다음 `Find` 는 `O(1)`!
 
 ---
 
@@ -193,7 +193,7 @@ class UnionFind:
 
 **시간 복잡도**: `O(α(n))` ≈ **O(1)** (아커만 역함수, 사실상 상수)
 
-> [!IMPORTANT] **α(n)이란?**
+>[!IMPORTANT] **α(n)이란?**
 > - Inverse Ackermann function
 > - n = 10^80 (우주의 원자 수)일 때도 α(n) ≤ 5
 > - 실전에서는 완전히 상수로 취급 가능
@@ -378,11 +378,11 @@ class UnionFind {
 
 ### 🚨 흔한 실수
 
-1. **Path Compression만 쓰기** ❌
-   - Union by Rank도 함께 써야 최적 성능
+1. **Path Compression 만 쓰기** ❌
+   - Union by Rank 도 함께 써야 최적 성능
 
 2. **Union 반환값 무시** ❌
-   - `union`이 `False`면 이미 연결됨 (사이클)
+   - `union` 이 `False` 면 이미 연결됨 (사이클)
 
 3. **루트 비교 대신 parent 직접 비교** ❌
    ```python
