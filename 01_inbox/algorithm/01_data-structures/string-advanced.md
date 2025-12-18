@@ -2,7 +2,7 @@
 title: algo-ds-string-advanced
 tags: [algorithm, data-structures, kmp, string, trie]
 aliases: [KMP 알고리즘, Trie, 문자열 검색, 접두사 트리, 트라이]
-date modified: 2025-12-18 11:27:59 +09:00
+date modified: 2025-12-18 11:28:06 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 
@@ -16,7 +16,7 @@ Trie 는 **"공통 접두사를 공유하는"** 문자열들을 효율적으로 
 
 #### 구조
 
-```
+```plaintext
          (root)
         /  |  \
        c   t   a
