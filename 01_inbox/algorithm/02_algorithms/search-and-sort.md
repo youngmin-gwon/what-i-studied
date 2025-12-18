@@ -79,7 +79,17 @@ def merge(left, right):
 ```
 
 #### 3. Timsort (현실의 승자)
-Python, Java, Swift(`sort()`) 의 기본 정렬입니다. **Insertion Sort**와 **Merge Sort**를 섞어 현실 데이터에서 최강의 성능을 냅니다.
+
+Python, Java, Android, Swift(`sort()`) 의 기본 정렬입니다. **Insertion Sort**의 소량 데이터 강점과 **Merge Sort**의 대량 데이터 안정성을 결합한 **하이브리드 정렬**입니다.
+
+- **핵심 원리 (The "Runs")**: 
+  - 현실의 데이터는 완전히 무작위가 아니라 **이미 정렬된 부분(Runs)** 이 많다는 점에 주목합니다.
+  - 작은 단위로 쪼개 정렬할 때는 **[삽입 정렬](../01_data-structures/linear.md)** 을 사용하여 오버헤드를 줄입니다.
+  - 정렬된 덩어리들을 **[병합 정렬](divide-and-conquer.md)** 로 합쳐나갑니다.
+- **특징**:
+  - 최선의 경우 **O(n)** (이미 정렬된 경우), 최악의 경우 **O(n log n)** 을 보장합니다.
+  - **Stable Sorting** 입니다.
+- **Galloping Mode**: 병합 시 한쪽 배열의 요소가 연속적으로 선택되면, 하나씩 비교하는 대신 건너뛰며 찾는 최적화 기술을 사용합니다.
 
 ---
 
