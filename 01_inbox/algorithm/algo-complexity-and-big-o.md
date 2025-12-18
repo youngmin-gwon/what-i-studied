@@ -49,11 +49,27 @@ Big-O 는 **상한선 (Upper Bound)** 입니다. "아무리 느려도 이 정도
 
 입력 크기와 무관하게 항상 일정한 시간이 걸립니다.
 
+```mermaid
+xychart-beta
+    title "O(1) - Constant Time"
+    x-axis "Input Size (N)" [1, 10, 100, 1000, 10000]
+    y-axis "Operations" 0 --> 2
+    line "O(1)" [1, 1, 1, 1, 1]
+```
+
 **O(log n) - Logarithmic Time**
 
 ![[../../_assets/algorithm/o_log_n_graph.png]]
 
 입력이 커져도 실행 시간은 완만하게 증가합니다. 매우 효율적입니다.
+
+```mermaid
+xychart-beta
+    title "O(log n) - Logarithmic Time"
+    x-axis "Input Size (N)" [1, 10, 100, 1000, 10000]
+    y-axis "Operations" 0 --> 15
+    line "O(log n)" [0, 3, 7, 10, 13]
+```
 
 **O(n) - Linear Time**
 
@@ -61,11 +77,27 @@ Big-O 는 **상한선 (Upper Bound)** 입니다. "아무리 느려도 이 정도
 
 입력 크기에 비례해서 시간이 증가합니다.
 
+```mermaid
+xychart-beta
+    title "O(n) - Linear Time"
+    x-axis "Input Size (N)" [1, 10, 100, 1000, 10000]
+    y-axis "Operations" 0 --> 10000
+    line "O(n)" [1, 10, 100, 1000, 10000]
+```
+
 **O(n log n) - Quasi-linear Time**
 
 ![[../../_assets/algorithm/o_n_log_n_graph.png]]
 
 효율적인 정렬 알고리즘들이 이 복잡도를 가집니다.
+
+```mermaid
+xychart-beta
+    title "O(n log n) - Quasi-linear Time"
+    x-axis "Input Size (N)" [1, 10, 100, 1000, 10000]
+    y-axis "Operations" 0 --> 140000
+    line "O(n log n)" [0, 33, 664, 9966, 132877]
+```
 
 **O(n²) - Quadratic Time**
 
@@ -73,11 +105,44 @@ Big-O 는 **상한선 (Upper Bound)** 입니다. "아무리 느려도 이 정도
 
 입력이 2 배가 되면 시간은 4 배가 됩니다. 큰 데이터에는 부적합합니다.
 
+```mermaid
+xychart-beta
+    title "O(n²) - Quadratic Time (위험!)"
+    x-axis "Input Size (N)" [1, 10, 100, 1000]
+    y-axis "Operations" 0 --> 1000000
+    line "O(n²)" [1, 100, 10000, 1000000]
+```
+
+> [!WARNING] **N=10,000 이면 1 억 연산!**
+> 제곱 복잡도는 입력이 조금만 커져도 감당할 수 없는 수준이 됩니다.
+
 **전체 복잡도 비교**
 
 ![[../../_assets/algorithm/o_graph.png]]
 
 위 그래프는 각 복잡도가 입력 크기에 따라 어떻게 증가하는지 한눈에 보여줍니다.
+
+**코드형 인터랙티브 차트**
+
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'backgroundColor': 'transparent'}}}}%%
+xychart-beta
+    title "Big-O Complexity Growth (입력 크기 N에 따른 연산 횟수)"
+    x-axis "Input Size (N)" [1, 2, 4, 8, 16, 32, 64, 128]
+    y-axis "Operations" 0 --> 16000
+    line "O(1)" [1, 1, 1, 1, 1, 1, 1, 1]
+    line "O(log n)" [0, 1, 2, 3, 4, 5, 6, 7]
+    line "O(n)" [1, 2, 4, 8, 16, 32, 64, 128]
+    line "O(n log n)" [0, 2, 8, 24, 64, 160, 384, 896]
+    line "O(n²)" [1, 4, 16, 64, 256, 1024, 4096, 16384]
+```
+
+> [!NOTE] **차트 해석**
+> - **O(1)**: 완전히 수평선 (입력 크기와 무관)
+> - **O(log n)**: 거의 수평에 가까운 완만한 증가
+> - **O(n)**: 정비례 직선
+> - **O(n log n)**: 약간 위로 휘는 곡선
+> - **O(n²)**: 급격하게 치솟는 곡선 (위험 구간)
 
 ---
 
