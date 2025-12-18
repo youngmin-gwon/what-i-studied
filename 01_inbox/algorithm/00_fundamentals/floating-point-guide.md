@@ -2,7 +2,7 @@
 title: floating-point-guide
 tags: [error-handling, floating-point, fundamentals, math, precision]
 aliases: [부동 소수점, 수치 에러, 실수 연산, 정밀도]
-date modified: 2025-12-19 00:01:07 +09:00
+date modified: 2025-12-19 00:02:15 +09:00
 date created: 2025-12-18 12:00:00 +09:00
 ---
 
