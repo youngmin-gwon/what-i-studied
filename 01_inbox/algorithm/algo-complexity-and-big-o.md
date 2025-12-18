@@ -2,7 +2,7 @@
 title: algo-complexity-and-big-o
 tags: [algorithm, big-o, complexity, optimization, performance]
 aliases: [Big-O, 공간 복잡도, 시간 복잡도]
-date modified: 2025-12-18 10:04:37 +09:00
+date modified: 2025-12-18 10:15:31 +09:00
 date created: 2025-12-17 19:00:00 +09:00
 ---
 
@@ -38,6 +38,144 @@ Big-O 는 **상한선 (Upper Bound)** 입니다. "아무리 느려도 이 정도
 >[!TIP] **현실적인 한계**
 > -   **O(n^2)**: N=10,000 을 넘어가면 타임아웃 (1 초) 위험이 큽니다.
 > -   **O(n!)**: N=12 만 돼도 4 억 7 천만입니다. 순열 (Permutation) 문제는 N 이 작을 때만 가능합니다.
+
+---
+
+#### 📊 복잡도별 성장률 그래프
+
+**O(1) - Constant Time**
+
+![[../../_assets/algorithm/o_1_graph.png]]
+
+입력 크기와 무관하게 항상 일정한 시간이 걸립니다.
+
+**O(log n) - Logarithmic Time**
+
+![[../../_assets/algorithm/o_log_n_graph.png]]
+
+입력이 커져도 실행 시간은 완만하게 증가합니다. 매우 효율적입니다.
+
+**O(n) - Linear Time**
+
+![[../../_assets/algorithm/o_n_graph.png]]
+
+입력 크기에 비례해서 시간이 증가합니다.
+
+**O(n log n) - Quasi-linear Time**
+
+![[../../_assets/algorithm/o_n_log_n_graph.png]]
+
+효율적인 정렬 알고리즘들이 이 복잡도를 가집니다.
+
+**O(n²) - Quadratic Time**
+
+![[../../_assets/algorithm/o_n_2_graph.png]]
+
+입력이 2 배가 되면 시간은 4 배가 됩니다. 큰 데이터에는 부적합합니다.
+
+**전체 복잡도 비교**
+
+![[../../_assets/algorithm/o_graph.png]]
+
+위 그래프는 각 복잡도가 입력 크기에 따라 어떻게 증가하는지 한눈에 보여줍니다.
+
+---
+
+### 📝 Code Examples (Dart)
+
+실제 코드로 각 복잡도를 체험해봅시다.
+
+#### O(1) - Constant Time
+
+```dart
+void checkFirst(List<String> names) {
+  if (names.isNotEmpty) {
+    print(names.first);
+  } else {
+    print("no names");
+  }
+}
+```
+
+입력 리스트의 크기와 무관하게 첫 번째 요소만 확인합니다.
+
+#### O(log n) - Logarithmic Time
+
+```dart
+// 1. contains()의 가장 단순한 방법 - O(n)
+const numbers = [1, 3, 56, 66, 68, 80, 99, 105, 450];
+
+bool naiveContains(int value, List<int> list) {
+  for (final element in list) {
+    if (element == value) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// 2. contains() 개선된 방법 (정렬된 경우) - O(log n)
+bool betterNaiveContains(int value, List<int> list) {
+  if (list.isEmpty) return false;
+  final middleIndex = list.length ~/ 2;
+
+  if (value > list[middleIndex]) {
+    for (var i = middleIndex; i < list.length; i++) {
+      if (list[i] == value) return true;
+    }
+  } else {
+    for (var i = middleIndex; i >= 0; i--) {
+      if (list[i] == value) return true;
+    }
+  }
+
+  return false;
+}
+```
+
+정렬된 리스트에서 중간값을 기준으로 범위를 절반으로 줄입니다.
+
+#### O(n) - Linear Time
+
+```dart
+void printNames(List<String> names) {
+  for (final name in names) {
+    print(name);
+  }
+}
+```
+
+모든 요소를 정확히 한 번씩 순회합니다.
+
+#### O(n²) - Quadratic Time
+
+```dart
+void printMoreNames(List<String> names) {
+  for (final _ in names) {
+    for (final name in names) {
+      print(name);
+    }
+  }
+}
+```
+
+중첩된 루프로 인해 입력 크기의 제곱만큼 연산이 발생합니다.
+
+#### 공간 복잡도 예제
+
+```dart
+// O(n) Space
+List<String> fillList(int length) {
+  return List.filled(length, 'a');
+}
+
+// O(n²) Space
+List<String> stuffList(int length) {
+  return List.filled(length, 'a' * length);
+}
+```
+
+`stuffList` 는 각 요소가 `length` 만큼의 문자열이므로 총 공간은 O(n²) 입니다.
 
 ---
 
@@ -86,6 +224,44 @@ Big-O 는 **상한선 (Upper Bound)** 입니다. "아무리 느려도 이 정도
 - **Packet Roundtrip (CA->Netherlands)**: 150,000,000 ns (150ms)
 
 👉 **결론**: 네트워크 호출 한 번 (150ms) 줄이는 게, Bubble Sort 를 Quick Sort 로 바꾸는 것 (수 ms 절약) 보다 훨씬 큰 성능 향상을 가져옵니다. **병목 (Bottleneck)**을 먼저 찾으세요.
+
+---
+
+### 🎯 상한 (Upper Bound) vs 최악 (Worst Case)
+
+Big-O 는 **상한 (Upper Bound)**을 나타냅니다. "최악의 경우에도 이 정도 이하"라는 보장입니다.
+
+#### Big-O 표기법의 3 형제
+
+- **O (Big-O)**: 상한선. "최악의 경우에도 이것보다 느리지 않다"
+- **Ω (Big Omega)**: 하한선. "최선의 경우에도 이것보다 빠르지 않다" (덜 유용함)
+- **Θ (Big Theta)**: 상한과 하한이 같을 때. "항상 정확히 이 정도다"
+
+>[!WARNING] **상한 ≠ 최악**
+>Big-O 는 **점근적 상한 (Asymptotic Upper Bound)**이지, 특정 입력에서의 최악 케이스가 아닙니다.
+>
+>예: Quick Sort 의 경우
+> - **평균 케이스**: O(n log n)
+> - **최악 케이스**: O(n²) (이미 정렬된 경우)
+>
+>하지만 "Quick Sort 는 O(n²) 이다"라고 말하는 것도 틀린 표현은 아닙니다. 다만 **평균적으로 O(n log n)**이라고 말하는 것이 더 유용합니다.
+
+---
+
+### 🚀 병렬화 (Parallelization)
+
+딥러닝의 등장 이후, 알고리즘의 **병렬화 가능성 (Parallelizability)** 이 중요한 평가 지표가 되었습니다.
+
+- **병렬화 가능**: Matrix Multiplication, Map-Reduce 같은 작업은 여러 코어에서 동시에 실행할 수 있습니다. GPU 가 빠른 이유입니다.
+- **병렬화 불가능**: Linked List 순회처럼 "이전 결과를 알아야 다음을 계산할 수 있는 (Sequential Dependency)" 구조는 병렬화가 어렵습니다.
+
+>[!TIP] **현대적 관점**
+> - **Single-threaded O(n log n)** 알고리즘보다
+> - **Parallelizable O(n²)** 알고리즘이 GPU 환경에서 더 빠를 수 있습니다.
+>
+>예: Naive Matrix Multiplication (O(n³), 병렬화 쉬움) vs Strassen Algorithm (O(n^2.8), 병렬화 어려움)
+
+---
 
 #### 📚 연결 문서
 - [[algo-ds-linear]] - 메모리 레이아웃과 캐시 효율성

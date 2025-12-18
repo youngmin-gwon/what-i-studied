@@ -2,7 +2,7 @@
 title: Big O, 자료형
 tags: [big-o, concept, interview]
 aliases: []
-date modified: 2024-12-16 23:30:30 +09:00
+date modified: 2025-12-18 10:14:50 +09:00
 date created: 2024-12-09 21:31:10 +09:00
 ---
 
@@ -23,7 +23,7 @@ date created: 2024-12-09 21:31:10 +09:00
     - 입력값이 아무리 커도 실행시간은 일정
     - 최고의 알고리즘
     - 그런 경우가 잘 없음
-    - eg. [[Hash Table|해시테이블]]의 조회 및 삽입
+    - eg. [[Hash Table|해시테이블]] 의 조회 및 삽입
 
 ![[../../_assets/algorithm/o_1_graph.png]]
 
@@ -104,7 +104,7 @@ void printNames(List<String> names) {
 ![[../../_assets/algorithm/o_n_log_n_graph.png]]
 
 - $O(n^2)$ (Polynomial Time Complexity)
-  - [[Bubble Sort|버블 정렬]]같은 비효율적인 정렬 알고리즘
+  - [[Bubble Sort|버블 정렬]] 같은 비효율적인 정렬 알고리즘
 
 ![[o_n_2_graph.png]]
 
