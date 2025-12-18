@@ -2,7 +2,7 @@
 title: dynamic-programming
 tags: [algorithm, dp, dynamic-programming, memoization, optimization]
 aliases: [DP, Memoization, 다이나믹 프로그래밍, 동적 계획법]
-date modified: 2025-12-18 18:59:19 +09:00
+date modified: 2025-12-18 19:07:20 +09:00
 date created: 2025-12-18 11:43:01 +09:00
 ---
 
@@ -64,7 +64,11 @@ F(5) 계산 시:
 
 ### 1️⃣ Top-Down (Memoization) - 재귀 + 캐싱
 
-"필요할 때 계산하고 저장"
+"위에서 아래로: 큰 문제를 쪼개며 필요한 것만 해결"
+
+- **핵심 원리**: **[메모이제이션 (Memoization)](../00_fundamentals/memoization.md)** 기법을 사용하여 중복 계산을 방지합니다.
+- **비유**: 회장님이 부장님에게 지시하고, 부장님이 과장님에게 지시하는 방식. 이미 과장님이 보고서를 써놨다면(캐싱), 부장님은 새로 시키지 않고 그 보고서를 회장님께 올립니다.
+- **방식**: 재귀(Recursion) 기반. 위(n)에서 시작하여 기저 사례(Base Case)인 아래(0, 1)까지 내려갑니다.
 
 ```python
 # 피보나치 - Top-Down
@@ -95,7 +99,11 @@ def fib_memo(n, memo={}):
 
 ### 2️⃣ Bottom-Up (Tabulation) - 반복문 + 테이블
 
-"작은 것부터 차례대로 계산"
+"아래에서 위로: 작은 기초부터 차근차근 벽돌 쌓기"
+
+- **핵심 원리**: **[타블레이션 (Tabulation)](../00_fundamentals/tabulation.md)** 기법을 사용하여 아래에서부터 목표까지 테이블을 채웁니다.
+- **비유**: 1 층부터 벽돌을 한 장씩 쌓아 100 층 빌딩을 올리는 방식. 무조건 아래에서부터 순서대로 다 쌓아야 100 층에 도달할 수 있습니다.
+- **방식**: 반복문(Iteration) 기반. 기저 사례(0, 1)부터 시작하여 목표(n)까지 테이블을 채워나갑니다.
 
 ```python
 # 피보나치 - Bottom-Up
@@ -103,22 +111,34 @@ def fib_tab(n):
     if n <= 1:
         return n
     
-    dp = [0] * (n + 1)
-    dp[1] = 1
+    # n 번째 결과를 저장할 테이블 (배열) 생성
+    results_table = [0] * (n + 1)
+    results_table[1] = 1
     
-    # 작은 것부터 채우기
+    # 작은 것부터 차례대로 테이블 채우기
     for i in range(2, n + 1):
-        dp[i] = dp[i-1] + dp[i-2]
+        results_table[i] = results_table[i-1] + results_table[i-2]
     
-    return dp[n]
+    return results_table[n]
 ```
 
-**장점**:
-- 스택 오버플로우 없음
-- 보통 더 빠름 (함수 호출 X)
+---
 
-**단점**:
-- 모든 부분 문제를 계산 (불필요한 것도)
+## ⚖️ 한눈에 비교: Top-Down vs Bottom-Up
+
+| 특징 | Top-Down (Memoization) | Bottom-Up (Tabulation) |
+| :--- | :--- | :--- |
+| **핵심 기법** | 재귀 (Recursion) | 반복문 (Iteration) |
+| **저장 방식** | 메모이제이션 (필요할 때만 저장) | 타블레이션 (순서대로 표 채우기) |
+| **방향** | 큰 문제 → 작은 문제 | 작은 문제 → 큰 문제 |
+| **성능** | 상대적으로 느림 (재귀 오버헤드) | 상대적으로 빠름 |
+| **메모리** | 스택 메모리 사용 (오버플로우 위험) | 배열/테이블 메모리 사용 |
+| **특징** | 필요한 부분 문제만 계산 가능 | 모든 부분 문제를 차례대로 계산 |
+
+### 🤔 어떤 것을 선택해야 할까?
+
+- **Top-Down**: 문제의 상태 공간이 너무 커서 어떤 부분을 계산해야 할지 미리 알기 어려울 때, 또는 재귀적인 사고가 더 직관적일 때 사용합니다.
+- **Bottom-Up**: 모든 부분 문제를 풀어야 하거나, 스택 오버플로우 걱정 없이 안정적인 성능이 필요할 때 권장됩니다. (대부분의 알고리즘 대회나 실무 최적화는 이 방식을 선호합니다.)
 
 ---
 
@@ -133,15 +153,15 @@ def climb_stairs(n):
     if n <= 2:
         return n
     
-    dp = [0] * (n + 1)
-    dp[1] = 1  # 1칸 가는 방법: 1가지
-    dp[2] = 2  # 2칸 가는 방법: 2가지 (1+1, 2)
+    ways_to_climb = [0] * (n + 1)
+    ways_to_climb[1] = 1  # 1칸 가는 방법: 1가지
+    ways_to_climb[2] = 2  # 2칸 가는 방법: 2가지 (1+1, 2)
     
     for i in range(3, n + 1):
         # 현재 칸은 "1칸 전" 또는 "2칸 전"에서 올 수 있음
-        dp[i] = dp[i-1] + dp[i-2]
+        ways_to_climb[i] = ways_to_climb[i-1] + ways_to_climb[i-2]
     
-    return dp[n]
+    return ways_to_climb[n]
 
 # 공간 최적화 버전 - O(1) Space
 def climb_stairs_opt(n):
@@ -168,18 +188,19 @@ def climb_stairs_opt(n):
 ```python
 def lcs(text1, text2):
     m, n = len(text1), len(text2)
-    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    # lcs_table[i][j]: text1 의 i 개와 text2 의 j 개 간의 LCS 길이
+    lcs_table = [[0] * (n + 1) for _ in range(m + 1)]
     
     for i in range(1, m + 1):
         for j in range(1, n + 1):
             if text1[i-1] == text2[j-1]:
                 # 같으면: 이전 LCS + 1
-                dp[i][j] = dp[i-1][j-1] + 1
+                lcs_table[i][j] = lcs_table[i-1][j-1] + 1
             else:
                 # 다르면: 둘 중 더 긴 것
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+                lcs_table[i][j] = max(lcs_table[i-1][j], lcs_table[i][j-1])
     
-    return dp[m][n]
+    return lcs_table[m][n]
 
 # "ABCDE", "ACE" → 3 (ACE)
 ```
@@ -204,8 +225,8 @@ E    0  1  2  3  ← 답: 3
 ```python
 def knapsack(weights, values, capacity):
     n = len(weights)
-    # dp[i][w] = 첫 i개 물건, 용량 w일 때 최대 가치
-    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+    # max_value_table[i][w] = 첫 i개 물건, 용량 w일 때 최대 가치
+    max_value_table = [[0] * (capacity + 1) for _ in range(n + 1)]
     
     for i in range(1, n + 1):
         for w in range(capacity + 1):
@@ -214,15 +235,15 @@ def knapsack(weights, values, capacity):
             
             if weight <= w:
                 # 넣을 수 있으면: max(넣기, 안 넣기)
-                dp[i][w] = max(
-                    dp[i-1][w],              # 안 넣기
-                    dp[i-1][w-weight] + value  # 넣기
+                max_value_table[i][w] = max(
+                    max_value_table[i-1][w],              # 안 넣기
+                    max_value_table[i-1][w-weight] + value  # 넣기
                 )
             else:
                 # 못 넣으면: 이전 값 그대로
-                dp[i][w] = dp[i-1][w]
+                max_value_table[i][w] = max_value_table[i-1][w]
     
-    return dp[n][capacity]
+    return max_value_table[n][capacity]
 
 # 공간 최적화: O(W) Space
 def knapsack_opt(weights, values, capacity):
@@ -244,16 +265,16 @@ def knapsack_opt(weights, values, capacity):
 
 ```python
 def coin_change(coins, amount):
-    dp = [float('inf')] * (amount + 1)
-    dp[0] = 0  # 0원 만들기: 0개
+    min_coins_table = [float('inf')] * (amount + 1)
+    min_coins_table[0] = 0  # 0원 만들기: 0개
     
     for coin in coins:
         for x in range(coin, amount + 1):
             # 현재 금액 x를 만들 때:
             # "coin을 하나 더 쓴다"
-            dp[x] = min(dp[x], dp[x - coin] + 1)
+            min_coins_table[x] = min(min_coins_table[x], min_coins_table[x - coin] + 1)
     
-    return dp[amount] if dp[amount] != float('inf') else -1
+    return min_coins_table[amount] if min_coins_table[amount] != float('inf') else -1
 
 # coins=[1,2,5], amount=11
 # → 3 (5+5+1)
@@ -272,15 +293,16 @@ def lis_dp(nums):
         return 0
     
     n = len(nums)
-    dp = [1] * n  # 최소 길이는 자기 자신 1
+    # lis_lengths[i] = i 번째 원소를 마지막으로 하는 LIS 길이
+    lis_lengths = [1] * n  # 최소 길이는 자기 자신 1
     
     for i in range(1, n):
         for j in range(i):
             if nums[j] < nums[i]:
                 # j까지의 LIS + 현재
-                dp[i] = max(dp[i], dp[j] + 1)
+                lis_lengths[i] = max(lis_lengths[i], lis_lengths[j] + 1)
     
-    return max(dp)
+    return max(lis_lengths)
 
 # [10, 9, 2, 5, 3, 7, 101, 18]
 # → 4  ([2, 3, 7, 101] or [2, 3, 7, 18])
@@ -312,28 +334,29 @@ def lis_optimized(nums):
 ```python
 def edit_distance(word1, word2):
     m, n = len(word1), len(word2)
-    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    # edit_dist_table[i][j] = word1[:i] 와 word2[:j] 간의 편집 거리
+    edit_dist_table = [[0] * (n + 1) for _ in range(m + 1)]
     
     # 초기화
     for i in range(m + 1):
-        dp[i][0] = i  # word1[:i]를 ""로: i번 삭제
+        edit_dist_table[i][0] = i  # word1[:i]를 ""로: i번 삭제
     for j in range(n + 1):
-        dp[0][j] = j  # ""를 word2[:j]로: j번 삽입
+        edit_dist_table[0][j] = j  # ""를 word2[:j]로: j번 삽입
     
     for i in range(1, m + 1):
         for j in range(1, n + 1):
             if word1[i-1] == word2[j-1]:
                 # 같으면: 이전 상태 그대로
-                dp[i][j] = dp[i-1][j-1]
+                edit_dist_table[i][j] = edit_dist_table[i-1][j-1]
             else:
                 # 다르면: min(삽입, 삭제, 교체) + 1
-                dp[i][j] = 1 + min(
-                    dp[i-1][j],    # 삭제
-                    dp[i][j-1],    # 삽입
-                    dp[i-1][j-1]   # 교체
+                edit_dist_table[i][j] = 1 + min(
+                    edit_dist_table[i-1][j],    # 삭제
+                    edit_dist_table[i][j-1],    # 삽입
+                    edit_dist_table[i-1][j-1]   # 교체
                 )
     
-    return dp[m][n]
+    return edit_dist_table[m][n]
 
 # "horse" → "ros"
 # → 3 (replace h→r, remove o, remove e)
@@ -357,19 +380,20 @@ def max_profit_k_transactions(prices, k):
     if k >= n // 2:
         return max_profit_unlimited(prices)
     
-    dp = [[[0, 0] for _ in range(k + 1)] for _ in range(n)]
+    # profit_table[day][j][0/1] = i일째, j번 거래 완료, 주식 보유(1)/미보유(0)
+    profit_table = [[[0, 0] for _ in range(k + 1)] for _ in range(n)]
     
     for j in range(1, k + 1):
-        dp[0][j][1] = -prices[0]  # 첫날 구매
+        profit_table[0][j][1] = -prices[0]  # 첫날 구매
     
     for i in range(1, n):
         for j in range(1, k + 1):
             # 오늘 미보유: max(어제도 미보유, 오늘 팔기)
-            dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1] + prices[i])
+            profit_table[i][j][0] = max(profit_table[i-1][j][0], profit_table[i-1][j][1] + prices[i])
             # 오늘 보유: max(어제도 보유, 오늘 사기)
-            dp[i][j][1] = max(dp[i-1][j][1], dp[i-1][j-1][0] - prices[i])
+            profit_table[i][j][1] = max(profit_table[i-1][j][1], profit_table[i-1][j-1][0] - prices[i])
     
-    return dp[n-1][k][0]
+    return profit_table[n-1][k][0]
 
 def max_profit_unlimited(prices):
     profit = 0
@@ -389,7 +413,7 @@ def max_profit_unlimited(prices):
 
 ```python
 # 예: Knapsack
-# dp[i][w] = "첫 i개 물건, 용량 w일 때 최대 가치"
+# max_value_table[i][w] = "첫 i개 물건, 용량 w일 때 최대 가치"
 ```
 
 ### 2. **점화식** (Recurrence Relation)
@@ -399,9 +423,9 @@ def max_profit_unlimited(prices):
 ```python
 # 예: LCS
 # if s1[i] == s2[j]:
-#     dp[i][j] = dp[i-1][j-1] + 1
+#     lcs_table[i][j] = lcs_table[i-1][j-1] + 1
 # else:
-#     dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+#     lcs_table[i][j] = max(lcs_table[i-1][j], lcs_table[i][j-1])
 ```
 
 ### 3. **초기 조건** (Base Case)
@@ -410,7 +434,7 @@ def max_profit_unlimited(prices):
 
 ```python
 # 예: Fibonacci
-# dp[0] = 0, dp[1] = 1
+# results_table[0] = 0, results_table[1] = 1
 ```
 
 ### 4. **계산 순서** (Fill Order)
@@ -436,10 +460,10 @@ for i in range(1, n+1):
 2. **초기값 설정 오류**
    ```python
    # 최솟값 찾기: float('inf')로 초기화
-   dp = [float('inf')] * n  # ✅
+   min_coins_table = [float('inf')] * n  # ✅
    
    # 최댓값 찾기: 0 또는 -float('inf')
-   dp = [0] * n  # ✅
+   max_value_table = [0] * n  # ✅
    ```
 
 3. **공간 최적화 시 순서 주의**
@@ -487,6 +511,8 @@ for i in range(1, n+1):
 
 ## 📚 관련 문서
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - DP 를 통한 기하급수적 시간 단축의 원리
+- [메모이제이션](../00_fundamentals/memoization.md) - 중복 계산 방지를 위한 핵심 저장 기법 (Top-Down)
+- [타블레이션](../00_fundamentals/tabulation.md) - 반복문을 통한 안정적인 테이블 채우기 기법 (Bottom-Up)
 - [최적화 전략](../03_patterns/optimization.md) - 그리디 vs DP 선택 기준과 성능 개선
 - [그래프 탐색](graph-traversal.md) - 상태 공간 탐색과 최단 거리 문제 활용
 - [선형 자료구조](../01_data-structures/linear.md) - 효율적인 DP 테이블(Array, Hash Map) 설계

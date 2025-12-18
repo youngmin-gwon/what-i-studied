@@ -107,6 +107,7 @@ def tail_fact(n, acc=1):
 
 ## 📚 관련 문서
 - [메모리 레이아웃과 캐시](memory-layout-and-cache.md) - 스택 메모리의 물리적 위치
+- [메모이제이션](memoization.md) - 재귀의 중복 계산을 해결하는 최적화 기법
 - [분할 정복](../02_algorithms/divide-and-conquer.md) - 재귀를 활용한 문제 해결 패러다임
 - [백트래킹](../02_algorithms/backtracking.md) - 상태 공간 트리와 DFS 탐색
 - [문제 해결 프로세스](problem-solving-process.md) - 재귀적 사고 설계법
