@@ -21,6 +21,7 @@ date created: 2025-12-18 12:00:00 +09:00
 ### 🏢 실무 사례
 
 #### Floating Point 활용 및 대응
+
 - **금융 시스템**: 돈 계산 시 절대 `float` 이나 `double` 을 쓰지 않고, 정수(cent 단위)로 계산하거나 **Decimal** 자료형을 사용합니다.
 - **그래픽스 (OpenGL/DirectX)**: 3D 공간의 충돌 감지 시 `== 0` 대신 매우 작은 값(epsilon)보다 작은지로 판단합니다.
 - **머신러닝**: 가중치(Weight) 연산 시 소수점 아래 정밀도가 모델의 성능과 수렴에 영향을 미칩니다. (FP32 vs FP16 vs INT8)
@@ -62,6 +63,7 @@ if abs((a + b) - 0.3) < EPSILON:
 - **길이**: 1.25m → 125cm
 
 ### 3. 언어별 전용 라이브러리 사용
+
 - **Python**: `decimal.Decimal`
 - **Java**: `BigDecimal`
 - **JavaScript**: `BigInt` (정수용), 특정 라이브러리 사용
@@ -82,6 +84,7 @@ if abs((a + b) - 0.3) < EPSILON:
 ---
 
 ## 📚 관련 문서
+
 - [수학적 기초](../04_math/math-modular-and-exponentiation.md) - 정수 기반 연산과 모듈러 연산
 - [문제 해결 프로세스](problem-solving-process.md) - 설계 단계에서 부동 소수점 오차 고려하기
 - [최적화 전략](../03_patterns/optimization.md) - 수치적 안정성과 근사 알고리즘

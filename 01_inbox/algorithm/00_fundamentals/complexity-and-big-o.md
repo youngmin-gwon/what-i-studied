@@ -2,7 +2,7 @@
 title: complexity-and-big-o
 tags: [algorithm, big-o, complexity, optimization, performance]
 aliases: [Big-O, 공간 복잡도, 시간 복잡도]
-date modified: 2025-12-18 16:29:22 +09:00
+date modified: 2025-12-18 16:36:12 +09:00
 date created: 2025-12-17 19:00:00 +09:00
 ---
 
@@ -276,17 +276,17 @@ List<String> stuffList(int length) {
 - **Branch Mispredict**: 5 ns
 - **L2 Cache 참조**: 7 ns
 - **Mutex Lock/Unlock**: 25 ns
-- **Main Memory 참조**: 100 ns (L1 보다 200 배 느림) -> [Linked List가 느린 이유](../../../../algo-ds-linear.md)
-- **SSD Random Read**: 150,000 ns
+- **Main Memory 참조**: 100 ns (L1 보다 200 배 느림) -> [Linked List가 느린 이유](../01_data-structures/linear.md)
+- **SSD [Random Read](../../../02_references/computer-science/random-access.md)**: 150,000 ns
 - **Packet Roundtrip (CA->Netherlands)**: 150,000,000 ns (150ms)
 
-👉 **결론**: 네트워크 호출 한 번 (150ms) 줄이는 게, Bubble Sort 를 Quick Sort 로 바꾸는 것 (수 ms 절약) 보다 훨씬 큰 성능 향상을 가져옵니다. **병목 (Bottleneck)**을 먼저 찾으세요.
+👉 **결론**: 네트워크 호출 한 번 (150ms) 줄이는 게, Bubble Sort 를 Quick Sort 로 바꾸는 것 (수 ms 절약) 보다 훨씬 큰 성능 향상을 가져옵니다. **병목 (Bottleneck)** 을 먼저 찾으세요.
 
 ---
 
 ### 🎯 상한 (Upper Bound) vs 최악 (Worst Case)
 
-Big-O 는 **상한 (Upper Bound)**을 나타냅니다. "최악의 경우에도 이 정도 이하"라는 보장입니다.
+Big-O 는 **상한 (Upper Bound)** 을 나타냅니다. "최악의 경우에도 이 정도 이하"라는 보장입니다.
 
 #### Big-O 표기법의 3 형제
 
@@ -317,8 +317,6 @@ Big-O 는 **상한 (Upper Bound)**을 나타냅니다. "최악의 경우에도 �
 > - **Parallelizable O(n²)** 알고리즘이 GPU 환경에서 더 빠를 수 있습니다.
 >
 >예: Naive Matrix Multiplication (O(n³), 병렬화 쉬움) vs Strassen Algorithm (O(n^2.8), 병렬화 어려움)
-
----
 
 ---
 
