@@ -2,7 +2,7 @@
 title: README
 tags: [algorithm, data-structures, index]
 aliases: [알고리즘 인덱스, 자료구조 인덱스]
-date modified: 2025-12-18 12:04:05 +09:00
+date modified: 2025-12-18 13:04:34 +09:00
 date created: 2025-12-18 11:33:14 +09:00
 ---
 
@@ -33,8 +33,8 @@ date created: 2025-12-18 11:33:14 +09:00
 5. [[00_fundamentals/floating-point-guide|실수와 정밀도]]
    - 수치 오차를 방지하는 실전 지침.
 
-6. [[01_data-structures/linear|선형 자료구조]]
-   - Array, Linked List, Stack, Queue.
+4. [[01_data-structures/linear|선형 자료구조]]
+   - Array, Linked List의 물리적 배치와 하드웨어 효율성.
 
 ---
 
@@ -44,15 +44,19 @@ date created: 2025-12-18 11:33:14 +09:00
 
 ##### 자료구조 (Data Structures)
 
-1. [[01_data-structures/hash-and-map|해시 테이블]]
+1. [[01_data-structures/stack-and-queue|스택과 큐 (Stack & Queue)]] ⭐
+   - 데이터 순서 제어의 기초 (LIFO, FIFO)
+   - 구현 방식에 따른 성능 차이 ($O(1)$ vs $O(N)$)
+
+2. [[01_data-structures/hash-and-map|해시 테이블]]
    - Hash Map, Hash Collision 처리
    - O(1) 조회의 비밀
 
-2. [[01_data-structures/tree-and-graph|트리와 그래프]]
+3. [[01_data-structures/tree-and-graph|트리와 그래프]]
    - Binary Search Tree, BFS/DFS
    - 그래프 탐색의 기초
 
-3. [[01_data-structures/heap-and-priority-queue|힙과 우선순위 큐]] ⭐
+4. [[01_data-structures/heap-and-priority-queue|힙과 우선순위 큐]] ⭐
    - Top-K, 실시간 중앙값
    - OS 스케줄러, 다익스트라 필수
 
