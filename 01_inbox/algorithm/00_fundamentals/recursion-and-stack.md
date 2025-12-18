@@ -2,7 +2,7 @@
 title: recursion-and-stack
 tags: [call-stack, fundamentals, recursion, stack, tail-recursion]
 aliases: [Base Case, 재귀, 재귀의 기초, 호출 스택]
-date modified: 2025-12-18 17:12:30 +09:00
+date modified: 2025-12-18 18:17:53 +09:00
 date created: 2025-12-18 11:58:00 +09:00
 ---
 
@@ -64,7 +64,7 @@ def factorial(n):
 재귀의 "스택 소모"라는 단점을 해결하기 위한 최적화 기법입니다.
 
 - **조건**: 함수의 마지막 연산이 `자신을 호출` 하는 것뿐이어야 합니다. (호출 후 추가 연산이 없어야 함)
-- **효과**: 컴파일러가 이를 알아차리고 스택을 새로 쌓는 대신 **루프(Iteration)**로 변환하여 실행합니다.
+- **효과**: 컴파일러가 이를 알아차리고 스택을 새로 쌓는 대신 **루프(Iteration)** 로 변환하여 실행합니다.
 
 ```python
 # 일반 재귀 (factorial * n 이라는 연산이 남아있음)
