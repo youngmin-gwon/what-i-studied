@@ -2,7 +2,7 @@
 title: algorithm-study-guide
 tags: [algorithm, data-structures, index]
 aliases: [알고리즘 인덱스, 자료구조 인덱스]
-date modified: 2025-12-18 15:40:14 +09:00
+date modified: 2025-12-18 15:50:28 +09:00
 date created: 2025-12-18 11:33:14 +09:00
 ---
 
@@ -66,19 +66,19 @@ date created: 2025-12-18 11:33:14 +09:00
 
 난이도 높은 문제를 위한 특수 자료구조입니다.
 
-1. [고급 문자열](01_data-structures/string-advanced.md)
-   - Trie (자동완성, IP 라우팅)
-   - KMP (패턴 매칭)
+1. [고급 문자열 I](01_data-structures/string-advanced.md), [고급 문자열 II](01_data-structures/string-advanced-2.md)
+   - I: Trie, KMP
+   - II: Aho-Corasick, Suffix Array
 
-1. [Union Find](01_data-structures/disjoint-set.md)
+2. [Union Find](01_data-structures/disjoint-set.md)
    - 사이클 탐지, MST (Kruskal)
    - 거의 O(1) 연결성 판별
 
-1. [세그먼트 트리](01_data-structures/segment-tree.md) ⭐
+3. [세그먼트 트리](01_data-structures/segment-tree.md) ⭐
    - 구간 합, 최소/최대 $O(\log N)$ 업데이트 및 조회
    - 동적 데이터의 구간 쿼리 끝판왕
 
-1. [특수 큐](01_data-structures/specialized-queues.md)
+4. [특수 큐와 스택](01_data-structures/specialized-queues.md)
    - Deque, Monotonic Stack/Queue
    - Sliding Window Maximum, Next Greater Element
 
@@ -88,36 +88,36 @@ date created: 2025-12-18 11:33:14 +09:00
 
 #### 검색과 정렬 & 정복
 
-1. [[02_algorithms/search-and-sort|검색과 정렬]]
+1. [검색과 정렬](02_algorithms/search-and-sort.md)
    - Binary Search, Quick Sort, Merge Sort, Timsort
 
-2. [[02_algorithms/divide-and-conquer|분할 정복 (Divide & Conquer)]]
+2. [분할 정복 (Divide & Conquer)](02_algorithms/divide-and-conquer.md)
     - 문제를 쪼개어 해결하는 근본 패러다임
     - 병렬 처리 및 대규모 데이터 처리의 기초
 
 #### 최적화 및 실전 패턴
 
-1. [[03_patterns/optimization|최적화 전략]] ⭐
+1. [최적화 전략](03_patterns/optimization.md) ⭐
     - 어떤 알고리즘을 쓸 것인가? (N 에 따른 선택)
     - Caching, Pruning, Heuristics
 
-2. [[03_patterns/two-pointers|투 포인터 & 슬라이딩 윈도우]]
+2. [투 포인터 & 슬라이딩 윈도우](03_patterns/two-pointers.md)
     - Fast & Slow Runner, Sliding Window
     - O(n^2)을 O(n)으로 최적화
 
-3. [[03_patterns/prefix-sum|누적 합 (Prefix Sum)]]
+3. [누적합(Prefix Sum)](03_patterns/prefix-sum.md)
     - 구간 합을 O(1)에 구하기
     - 2D Prefix Sum (Image Processing)
 
-4. [[03_patterns/bit-manipulation|비트 연산 (Bit Manipulation)]]
+4. [비트 연산(Bit Manipulation)](03_patterns/bit-manipulation.md)
     - 비트 마스킹을 이용한 공간/속도 최적화
     - 집합 표현, XOR 트릭
 
-5. [[03_patterns/interval-patterns|구간 패턴 (Interval)]]
+5. [구간 패턴](03_patterns/interval-patterns.md)
     - 구간 병합, 겹침 감지, 회의실 문제
     - 스케줄링 및 리소스 관리
 
-6. [[03_patterns/binary-search-optimization|이진 탐색 최적화 (Parametric Search)]] ⭐
+6. [이진 탐색 최적화 (Parametric Search)](03_patterns/binary-search-optimization.md) ⭐
     - 최적화 문제를 결정 문제로 변환
     - 공유기 설치, 나무 자르기 등 고난도 패턴
 
@@ -129,9 +129,9 @@ date created: 2025-12-18 11:33:14 +09:00
   - 유클리드 호제법, 최소공배수
   - Juggling Algorithm
   - RSA 암호화, 배열 회전
-- [[04_math/math-prime-number|Prime Numbers]] - 소수 판별, 에라토스테네스의 체
-- [[04_math/math-modular-and-exponentiation|Modular & Exponentiation]] - 나머지 연산, 빠른 거듭제곱
-- [[04_math/math-combinatorics|Combinatorics]] - 순열과 조합, 파스칼의 삼각형
+- [Prime Numbers](04_math/math-prime-number.md) - 소수 판별, 에라토스테네스의 체
+- [Modular & Exponentiation](04_math/math-modular-and-exponentiation.md) - 나머지 연산, 빠른 거듭제곱
+- [Combinatorics](04_math/math-combinatorics.md) - 순열과 조합, 파스칼의 삼각형
 
 ---
 
@@ -157,7 +157,7 @@ date created: 2025-12-18 11:33:14 +09:00
 #### 🔥 난이도별 학습 순서
 
 ##### 🟢 Easy (기초 다지기)
-1. [[00_fundamentals/complexity-and-big-o]]
+1. [[comple]]
 2. [[01_data-structures/linear]]
 3. [[01_data-structures/hash-and-map]]
 4. [[03_patterns/two-pointers]]
@@ -187,9 +187,9 @@ date created: 2025-12-18 11:33:14 +09:00
 - [x] [[02_algorithms/shortest-path|Shortest Path]]
 - [x] [[02_algorithms/minimum-spanning-tree|Minimum Spanning Tree (MST)]]
 
-#### 심화 및 특수 주제 (선택)
-- [ ] **Geometry** - CCW, Convex Hull
-- [ ] **String Advanced 2** - Aho-Corasick, Suffix Array
+#### 심화 및 특수 주제 (완료)
+- [x] **Geometry** - [[05_geometry/geometry-fundamentals|기초]], [[05_geometry/convex-hull|볼록 껍질]], [[05_geometry/line-sweep|스윕 라인]]
+- [x] **String Advanced 2** - [[01_data-structures/string-advanced-2|아호-코라식, 접미사 배열]]
 - [x] [[01_data-structures/segment-tree|Segment Tree / Fenwick Tree]]
 
 ---
@@ -204,7 +204,7 @@ date created: 2025-12-18 11:33:14 +09:00
 - [x] Trie
 - [x] Union-Find
 - [x] Deque, Monotonic Stack/Queue
-- [ ] Segment Tree (선택)
+- [x] Segment Tree / Fenwick Tree
 
 #### ✅ 알고리즘 완성도
 - [x] Binary Search
@@ -238,42 +238,25 @@ date created: 2025-12-18 11:33:14 +09:00
 
 기초부터 심화 패턴까지 필수적인 '기초 체력'은 모두 갖춰졌습니다. 다음은 마스터 레벨로 가기 위한 **Phase 2: Engineering & Mastering** 로드맵 보고입니다.
 
-#### 1. 기하 및 고난도 수학 정복 (Geometry)
+#### 1. 기하 및 고난도 수학 정복 (Geometry) ✅
+- [x] [[05_geometry/geometry-fundamentals|Geometry 기초]]: CCW(방향 판별), 선분 교차 판별
+- [x] [[05_geometry/convex-hull|볼록 껍질 (Convex Hull)]]: 점들을 포함하는 가장 작은 다각형 찾기
+- [x] [[05_geometry/line-sweep|평면 스위핑 (Line Sweep)]]: 겹치는 사각형 넓이 등 공간 쿼리 최적화
 
-그래픽스 엔진이나 지리 정보(GIS) 처리를 위한 수치 해석 능력을 기릅니다.
+#### 2. 고급 그래프 및 네트워크 이론 (Advanced Graph) ✅
+- [x] [[02_algorithms/advanced-graph|Advanced Graph]]: SCC, 네트워크 플로우, 이분 매칭
 
-- [ ] **Geometry 기초**: CCW(방향 판별), 선분 교차 판별
-- [ ] **볼록 껍질 (Convex Hull)**: 점들을 포함하는 가장 작은 다각형 찾기
-- [ ] **평면 스위핑 (Line Sweep)**: 겹치는 사각형 넓이 등 공간 쿼리 최적화
+#### 3. 대규모 문자열 처리 (String Advanced II) ✅
+- [x] [[01_data-structures/string-advanced-2|String Advanced II]]: 아호 - 코라식, 접미사 배열
 
-#### 2. 고급 그래프 및 네트워크 이론 (Advanced Graph)
-
-복잡한 연결 관계와 자원 배정 최적화를 다룹니다.
-
-- [ ] **강결합 컴포넌트 (SCC)**: 타잔(Tarjan) 알고리즘으로 사이클 구조 분석
-- [ ] **네트워크 플로우 (Network Flow)**: 최대 유량 최소 컷 문제 해결
-- [ ] **이분 매칭 (Bipartite Matching)**: 작업 - 사람 - 자원 간의 최적 배정
-
-#### 3. 대규모 문자열 처리 (String Advanced II)
-
-검색 엔진 및 보안 필터링의 핵심 기술을 정복합니다.
-
-- [ ] **아호 - 코라식 (Aho-Corasick)**: 수만 개의 키워드를 동시 탐색하는 다중 패턴 매칭
-- [ ] **접미사 배열 (Suffix Array)**: 모든 부분 문자열을 초고속으로 검색하는 자료구조
-
-#### 4. 실무 시스템 아키텍처 결합 (System Engineering) 🎯 **추천**
-
-알고리즘이 실제 대규모 시스템(Redis, DB, Git)에서 어떻게 쓰이는지 분석합니다.
-
-- [ ] **Redis 분석**: Skip List 와 Hash Slot 의 작동 원리
-- [ ] **Git 스토리지**: Directed Acyclic Graph(DAG)와 델타 압축 메커니즘
-- [ ] **Database**: LSM Tree(Write-Intensive) vs B+ Tree(Read-Intensive) 비교
+#### 4. 실무 시스템 아키텍처 결합 (System Engineering) ✅
+- [x] [[06_system-engineering/system-architecture-algorithms|System Architecture Algorithms]]: Redis, Database, Git 내부 알고리즘
 
 ---
 
 - **기초 (Fundamentals)**: 5/5 완료 (100%) ✅
-- **자료구조 (Data Structures)**: 9/9 완료 (100%) 🎉
-- **알고리즘 & 패턴 (Algorithms)**: 17/17 완료 (100%) 🎉
+- **자료구조 (Data Structures)**: 10/10 완료 (100%) 🎉
+- **알고리즘 & 패턴 (Algorithms)**: 18/18 완료 (100%) 🎉 (Specialized 4/4 포함)
 
 >[!NOTE]
 > **Next Objective**: 실제 기업(Kakao, Google) 기출 유형의 복합 문제 풀이 및 위 심화 주제 중 하나를 선택하여 깊이 있게 탐구하는 것을 권장합니다.

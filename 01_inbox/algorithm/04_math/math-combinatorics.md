@@ -1,8 +1,8 @@
 ---
 title: math-combinatorics
-tags: [algorithm, math, combinatorics, factorial, permutation, combination]
-aliases: [조합론, 순열, 조합, 팩토리얼, nCr, 이항 계수]
-date modified: 2025-12-18 11:52:16 +09:00
+tags: [algorithm, combination, combinatorics, factorial, math, permutation]
+aliases: [nCr, 순열, 이항 계수, 조합, 조합론, 팩토리얼]
+date modified: 2025-12-18 15:47:27 +09:00
 date created: 2025-12-18 11:52:16 +09:00
 ---
 
@@ -32,15 +32,21 @@ date created: 2025-12-18 11:52:16 +09:00
 ## 🧮 기본 공식
 
 ### 1. Factorial (팩토리얼) - $n!$
+
 $n$ 개를 일렬로 나열하는 방법의 수.
+
 $$n! = n \times (n-1) \times \dots \times 1$$
 
 ### 2. Permutation (순열) - $nP_r$
+
 $n$ 개 중 $r$ 개를 선택하여 **순서 있게** 나열하는 방법.
+
 $$nP_r = \frac{n!}{(n-r)!}$$
 
 ### 3. Combination (조합) - $nC_r$ (이항 계수)
+
 $n$ 개 중 $r$ 개를 선택하는 방법 (**순서 무지**).
+
 $$nC_r = \binom{n}{r} = \frac{n!}{r!(n-r)!} = \frac{nP_r}{r!}$$
 
 ---
@@ -50,6 +56,7 @@ $$nC_r = \binom{n}{r} = \frac{n!}{r!(n-r)!} = \frac{nP_r}{r!}$$
 ### 파스칼의 삼각형 (Pascal's Triangle)
 
 조합에는 중요한 성질이 있습니다:
+
 $$\binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}$$
 
 이를 이용하면 팩토리얼 계산 없이 **Dynamic Programming**으로 조합을 구할 수 있습니다. (오버플로우 방지에 유리)
@@ -73,27 +80,30 @@ def get_combination_table(n):
 
 ## 🎯 실전 패턴
 
-#### Pattern 1: 중복 순열 & 중복 조합
-- **중복 순열 ($n^r$)**: 비밀번호 4자리 (0~9 중복 허용)
-- **중복 조합 ($nH_r = n+r-1C_r$)**: 사과, 배, 귤 중 5개 사기 (종류별 개수만 중요)
+### Pattern 1: 중복 순열 & 중복 조합
+- **중복 순열 ($n^r$)**: 비밀번호 4 자리 (0~9 중복 허용)
+- **중복 조합 ($nH_r = n+r-1C_r$)**: 사과, 배, 귤 중 5 개 사기 (종류별 개수만 중요)
 
-#### Pattern 2: 카탈란 수 (Catalan Number)
+### Pattern 2: 카탈란 수 (Catalan Number)
+
 괄호 쌍 맞추기, 다각형 삼각형 분할 등 특정 기하학적/구조적 문제를 풀 때 사용되는 수열.
+
 $$C_n = \frac{1}{n+1} \binom{2n}{n}$$
 
-#### Pattern 3: 포함 배제 원리 (Inclusion-Exclusion)
+### Pattern 3: 포함 배제 원리 (Inclusion-Exclusion)
+
 여러 사건이 겹칠 때 전체 개수 구하기. (A∪B = A + B - A∩B)
 
 ---
 
 ## 🚨 흔한 실수
 
-1.  **순서가 중요한지 헷갈림** ❌
+1. **순서가 중요한지 헷갈림** ❌
     - "선택해서 나열"하면 순열(P), "그냥 선택"만 하면 조합(C)입니다.
-2.  **팩토리얼 오버플로우**
-    - 20! 만 넘어가도 64비트 정수 범위를 초과합니다. 큰 수의 조합을 구할 때는 반드시 중간에 나누거나 [[04_math/math-modular-and-exponentiation|모듈러 역원]]을 사용하세요.
-3.  **그리드 경로 문제**
-    - $(0,0)$ 에서 $(m,n)$ 까지 최단 경로의 수는 $\binom{m+n}{m}$ 입니다. 이를 모르고 DFS로 풀면 시간이 초과될 수 있습니다.
+2. **팩토리얼 오버플로우**
+    - 20! 만 넘어가도 64 비트 정수 범위를 초과합니다. 큰 수의 조합을 구할 때는 반드시 중간에 나누거나 [[04_math/math-modular-and-exponentiation|모듈러 역원]] 을 사용하세요.
+3. **그리드 경로 문제**
+    - $(0,0)$ 에서 $(m,n)$ 까지 최단 경로의 수는 $\binom{m+n}{m}$ 입니다. 이를 모르고 DFS 로 풀면 시간이 초과될 수 있습니다.
 
 ---
 
