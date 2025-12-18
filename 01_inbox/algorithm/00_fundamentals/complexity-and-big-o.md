@@ -270,7 +270,7 @@ List<String> stuffList(int length) {
 - **Branch Mispredict**: 5 ns
 - **L2 Cache 참조**: 7 ns
 - **Mutex Lock/Unlock**: 25 ns
-- **Main Memory 참조**: 100 ns (L1 보다 200 배 느림) -> [[algo-ds-linear|Linked List가 느린 이유]]
+- **Main Memory 참조**: 100 ns (L1 보다 200 배 느림) -> [Linked List가 느린 이유](../algo-ds-linear.md)
 - **SSD Random Read**: 150,000 ns
 - **Packet Roundtrip (CA->Netherlands)**: 150,000,000 ns (150ms)
 
@@ -317,7 +317,7 @@ Big-O 는 **상한 (Upper Bound)**을 나타냅니다. "최악의 경우에도 �
 ---
 
 ## 📚 관련 문서
-- [[00_fundamentals/memory-layout-and-cache|메모리 레이아웃과 캐시]] - 하드웨어 관점의 복잡도 이해
-- [[00_fundamentals/problem-solving-process|문제 해결 프로세스]] - 알고리즘 설계를 시작하는 4 단계 프레임워크
-- [[01_data-structures/linear|선형 자료구조]] - 데이터 구조에 따른 성능 실체
-- [[03_patterns/optimization|최적화 전략]] - N 의 크기에 따른 알고리즘 선택 가이드
+- [메모리 레이아웃과 캐시](memory-layout-and-cache.md) - 하드웨어 관점의 복잡도 이해
+- [문제 해결 프로세스](problem-solving-process.md) - 알고리즘 설계를 시작하는 4 단계 프레임워크
+- [선형 자료구조](../01_data-structures/linear.md) - 데이터 구조에 따른 성능 실체
+- [최적화 전략](../03_patterns/optimization.md) - N 의 크기에 따른 알고리즘 선택 가이드

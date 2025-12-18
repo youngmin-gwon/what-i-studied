@@ -2,7 +2,7 @@
 title: algorithm-study-guide
 tags: [algorithm, data-structures, index]
 aliases: [알고리즘 인덱스, 자료구조 인덱스]
-date modified: 2025-12-18 15:50:28 +09:00
+date modified: 2025-12-18 15:52:22 +09:00
 date created: 2025-12-18 11:33:14 +09:00
 ---
 
@@ -139,58 +139,42 @@ date created: 2025-12-18 11:33:14 +09:00
 
 | 문제 유형 | 추천 자료구조/알고리즘 | 파일 링크 |
 |:---|:---|:---|
-| **"다음으로 큰/작은 값"** | Monotonic Stack | [[01_data-structures/specialized-queues]] |
-| **"윈도우 최댓값/최솟값"** | Monotonic Queue | [[01_data-structures/specialized-queues]] |
-| **"가장 큰 K 개"** | Min Heap | [[01_data-structures/heap-and-priority-queue]] |
-| **"실시간 중앙값"** | 2 Heaps | [[01_data-structures/heap-and-priority-queue]] |
-| **"접두사 검색/자동완성"** | Trie | [[01_data-structures/string-advanced]] |
-| **"패턴 매칭"** | KMP | [[01_data-structures/string-advanced]] |
-| **"사이클 탐지"** | Union-Find / DFS | [[01_data-structures/disjoint-set]], [[02_algorithms/graph-traversal]] |
-| **"최소 신장 트리"** | Kruskal + Union-Find | [[01_data-structures/disjoint-set]] |
-| **"가장 빠른 길 (가중치 X)"** | BFS | [[02_algorithms/graph-traversal]] |
-| **"가장 빠른 길 (가중치 O)"** | Dijkstra | [[02_algorithms/shortest-path]] |
-| **"O(1) 조회"** | Hash Map | [[01_data-structures/hash-and-map]] |
-| **"O(1) 구간 합"** | Prefix Sum | [[03_patterns/prefix-sum]] |
+| **"다음으로 큰/작은 값"** | Monotonic Stack | [specialized-queues](01_data-structures/specialized-queues.md) |
+| **"윈도우 최댓값/최솟값"** | Monotonic Queue | [specialized-queues](01_data-structures/specialized-queues.md) |
+| **"가장 큰 K 개"** | Min Heap | [heap-and-priority-queue](01_data-structures/heap-and-priority-queue.md) |
+| **"실시간 중앙값"** | 2 Heaps | [heap-and-priority-queue](01_data-structures/heap-and-priority-queue.md) |
+| **"접두사 검색/자동완성"** | Trie | [string-advanced](01_data-structures/string-advanced.md) |
+| **"패턴 매칭"** | KMP | [string-advanced](01_data-structures/string-advanced.md) |
+| **"사이클 탐지"** | Union-Find / DFS | [disjoint-set](01_data-structures/disjoint-set.md), [graph-traversal](02_algorithms/graph-traversal.md) |
+| **"최소 신장 트리"** | Kruskal + Union-Find | [disjoint-set](01_data-structures/disjoint-set.md) |
+| **"가장 빠른 길 (가중치 X)"** | BFS | [graph-traversal](02_algorithms/graph-traversal.md) |
+| **"가장 빠른 길 (가중치 O)"** | Dijkstra | [shortest-path](02_algorithms/shortest-path.md) |
+| **"O(1) 조회"** | Hash Map | [hash-and-map](01_data-structures/hash-and-map.md) |
+| **"O(1) 구간 합"** | Prefix Sum | [prefix-sum](03_patterns/prefix-sum.md) |
 
 ---
 
 #### 🔥 난이도별 학습 순서
 
 ##### 🟢 Easy (기초 다지기)
-1. [[comple]]
-2. [[01_data-structures/linear]]
-3. [[01_data-structures/hash-and-map]]
-4. [[03_patterns/two-pointers]]
+1. [complexity-and-big-o](00_fundamentals/complexity-and-big-o.md)
+2. [linear](01_data-structures/linear.md)
+3. [hash-and-map](01_data-structures/hash-and-map.md)
+4. [two-pointers](03_patterns/two-pointers.md)
 
 ##### 🟡 Medium (실전 준비)
-1. [[01_data-structures/tree-and-graph]]
-2. [[02_algorithms/search-and-sort]]
-3. [[01_data-structures/heap-and-priority-queue]]
-4. [[01_data-structures/specialized-queues]]
+1. [tree-and-graph](01_data-structures/tree-and-graph.md)
+2. [search-and-sort](02_algorithms/search-and-sort.md)
+3. [heap-and-priority-queue](01_data-structures/heap-and-priority-queue.md)
+4. [specialized-queues](01_data-structures/specialized-queues.md)
 
 ##### 🔴 Hard (고득점 목표)
-1. [[01_data-structures/string-advanced]]
-2. [[01_data-structures/disjoint-set]]
-3. [[02_algorithms/dynamic-programming]]
-4. [[02_algorithms/backtracking]]
-5. [[03_patterns/bit-manipulation]]
-
----
-
-### 🚧 앞으로 추가 예정
-
-#### 필수 알고리즘 (완료)
-- [x] [[02_algorithms/graph-traversal|BFS / DFS (상세)]]
-- [x] [[02_algorithms/dynamic-programming|Dynamic Programming (DP)]]
-- [x] [[02_algorithms/backtracking|Backtracking]]
-- [x] [[02_algorithms/greedy|Greedy Algorithm]]
-- [x] [[02_algorithms/shortest-path|Shortest Path]]
-- [x] [[02_algorithms/minimum-spanning-tree|Minimum Spanning Tree (MST)]]
-
-#### 심화 및 특수 주제 (완료)
-- [x] **Geometry** - [[05_geometry/geometry-fundamentals|기초]], [[05_geometry/convex-hull|볼록 껍질]], [[05_geometry/line-sweep|스윕 라인]]
-- [x] **String Advanced 2** - [[01_data-structures/string-advanced-2|아호-코라식, 접미사 배열]]
-- [x] [[01_data-structures/segment-tree|Segment Tree / Fenwick Tree]]
+1. [string-advanced1](01_data-structures/string-advanced.md)
+2. [string-advanced2](01_data-structures/string-advanced-2.md)
+3. [disjoint-set](01_data-structures/disjoint-set.md)
+4. [dynamic-programming](02_algorithms/dynamic-programming.md)
+5. [backtracking](02_algorithms/backtracking.md)
+6. [bit-manipulation](03_patterns/bit-manipulation.md)
 
 ---
 
@@ -239,18 +223,18 @@ date created: 2025-12-18 11:33:14 +09:00
 기초부터 심화 패턴까지 필수적인 '기초 체력'은 모두 갖춰졌습니다. 다음은 마스터 레벨로 가기 위한 **Phase 2: Engineering & Mastering** 로드맵 보고입니다.
 
 #### 1. 기하 및 고난도 수학 정복 (Geometry) ✅
-- [x] [[05_geometry/geometry-fundamentals|Geometry 기초]]: CCW(방향 판별), 선분 교차 판별
-- [x] [[05_geometry/convex-hull|볼록 껍질 (Convex Hull)]]: 점들을 포함하는 가장 작은 다각형 찾기
-- [x] [[05_geometry/line-sweep|평면 스위핑 (Line Sweep)]]: 겹치는 사각형 넓이 등 공간 쿼리 최적화
+- [x] [Geometry 기초](05_geometry/geometry-fundamentals.md): CCW(방향 판별), 선분 교차 판별
+- [x] [볼록 껍질 (Convex Hull)](05_geometry/convex-hull.md): 점들을 포함하는 가장 작은 다각형 찾기
+- [x] [평면 스위핑 (Line Sweep)](05_geometry/line-sweep.md): 겹치는 사각형 넓이 등 공간 쿼리 최적화
 
 #### 2. 고급 그래프 및 네트워크 이론 (Advanced Graph) ✅
-- [x] [[02_algorithms/advanced-graph|Advanced Graph]]: SCC, 네트워크 플로우, 이분 매칭
+- [x] [Advanced Graph](02_algorithms/advanced-graph.md): SCC, 네트워크 플로우, 이분 매칭
 
 #### 3. 대규모 문자열 처리 (String Advanced II) ✅
-- [x] [[01_data-structures/string-advanced-2|String Advanced II]]: 아호 - 코라식, 접미사 배열
+- [x] [String Advanced II](01_data-structures/string-advanced-2.md): 아호 - 코라식, 접미사 배열
 
 #### 4. 실무 시스템 아키텍처 결합 (System Engineering) ✅
-- [x] [[06_system-engineering/system-architecture-algorithms|System Architecture Algorithms]]: Redis, Database, Git 내부 알고리즘
+- [x] [System Architecture Algorithms](06_system-engineering/system-architecture-algorithms.md): Redis, Database, Git 내부 알고리즘
 
 ---
 

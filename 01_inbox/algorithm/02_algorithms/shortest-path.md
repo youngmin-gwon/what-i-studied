@@ -173,8 +173,8 @@ def floyd_warshall(matrix, n):
 ---
 
 ## 📚 관련 문서
-- [[02_algorithms/graph-traversal|그래프 탐색]] - 가중치 없는 그래프에서의 BFS 최단 경로 탐색
-- [[01_data-structures/heap-and-priority-queue|힙과 우선순위 큐]] - 다익스트라 알고리즘의 성능 최적화 핵심
-- [[02_algorithms/greedy|그리디 알고리즘]] - 다익스트라가 국소 최적해를 찾는 방식의 이해
-- [[02_algorithms/dynamic-programming|동적 계획법]] - 플로이드-와샬 알고리즘의 점화식 설계 원리
-- [[02_algorithms/minimum-spanning-tree|최소 신장 트리]] - MST와 최단 경로 문제의 목적 차이 분석
+- [그래프 탐색](graph-traversal.md) - 가중치 없는 그래프에서의 BFS 최단 경로 탐색
+- [힙과 우선순위 큐](../01_data-structures/heap-and-priority-queue.md) - 다익스트라 알고리즘의 성능 최적화 핵심
+- [그리디 알고리즘](greedy.md) - 다익스트라가 국소 최적해를 찾는 방식의 이해
+- [동적 계획법](dynamic-programming.md) - 플로이드-와샬 알고리즘의 점화식 설계 원리
+- [최소 신장 트리](minimum-spanning-tree.md) - MST와 최단 경로 문제의 목적 차이 분석

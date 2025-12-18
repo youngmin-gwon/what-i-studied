@@ -53,6 +53,6 @@ date created: 2025-12-17 19:30:00 +09:00
 - **Context (OS Scheduler)**: 운영체제는 수천 개의 프로세스 중 **우선순위가 가장 높은 놈**을 다음에 실행해야 합니다. 이때 전체를 정렬 (`O(n log n)`) 하는 건 낭비입니다. 힙을 쓰면 `O(log n)` 만에 다음 타자를 뽑을 수 있습니다.
 
 #### 📚 연결 문서
-- [[algo-complexity-and-big-o]] - O(log n) 의 위대함
-- [[algo-ds-linear]] - BFS 에 쓰이는 Queue 구현
-- [[kernel#1. 프로세스 스케줄링]] - 힙 자료구조가 쓰이는 곳
+- [algo-complexity-and-big-o](../algo-complexity-and-big-o.md) - O(log n) 의 위대함
+- [algo-ds-linear](../algo-ds-linear.md) - BFS 에 쓰이는 Queue 구현
+- [kernel#1. 프로세스 스케줄링](kernel#1. 프로세스 스케줄링.md) - 힙 자료구조가 쓰이는 곳

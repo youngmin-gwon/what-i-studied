@@ -45,14 +45,14 @@ Linked List 구현 시 `head`나 `tail`이 `null`인지 매번 검사하는 if �
 2. **Linked List의 메모리 누수**
    - C++/Swift처럼 직접 관리하는 언어에서 이전 노드의 참조를 끊지 않아 메모리가 해제되지 않는 경우.
 3. **Array 중간 삽입을 O(1)로 착각** ❌
-   - `list.insert(0, x)`는 최악의 경우 O(N)입니다. 성능이 중요하다면 [[01_data-structures/stack-and-queue|Stack/Queue]]나 `Deque`를 고려하세요.
+   - `list.insert(0, x)`는 최악의 경우 O(N)입니다. 성능이 중요하다면 [Stack/Queue](stack-and-queue.md)나 `Deque`를 고려하세요.
 4. **포인터 소실**
    - 연결 리스트 노드 삭제 시 `prev.next = current.next`를 하기 전 `current`를 먼저 지워버려 연결이 끊기는 실수.
 
 ---
 
 ### 📚 연결 문서
-- [[00_fundamentals/memory-layout-and-cache|메모리 레이아웃]] - 캐시 지역성과 하드웨어 기초
-- [[01_data-structures/stack-and-queue|스택과 큐]] - 선형 구조를 활용한 ADT
-- [[01_data-structures/specialized-queues|덱(Deque)]] - 양방향 삽입/삭제 최적화
-- [[00_fundamentals/complexity-and-big-o|복잡도]] - 선형 탐색의 비용
+- [메모리 레이아웃](../00_fundamentals/memory-layout-and-cache.md) - 캐시 지역성과 하드웨어 기초
+- [스택과 큐](stack-and-queue.md) - 선형 구조를 활용한 ADT
+- [덱(Deque)](specialized-queues.md) - 양방향 삽입/삭제 최적화
+- [복잡도](../00_fundamentals/complexity-and-big-o.md) - 선형 탐색의 비용

@@ -107,8 +107,8 @@ Python, Java, Swift(`sort()`) 의 기본 정렬입니다. **Insertion Sort**와 
 ---
 
 ## 📚 관련 문서
-- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 정렬 알고리즘별 시간/공간 효율성 비교
-- [[02_algorithms/divide-and-conquer|분할 정복]] - 퀵 정렬과 병합 정렬의 설계 패러다임
-- [[01_data-structures/linear|배열과 리스트]] - 배열이 퀵 정렬의 캐시 지역성에 유리한 이유
-- [[01_data-structures/tree-and-graph|트리와 그래프]] - 이진 탐색의 논리적 구조인 BST(Binary Search Tree)
-- [[03_patterns/two-pointers|투 포인터]] - 이진 탐색의 구현적 변형과 정렬된 배열 활용법
+- [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 정렬 알고리즘별 시간/공간 효율성 비교
+- [분할 정복](divide-and-conquer.md) - 퀵 정렬과 병합 정렬의 설계 패러다임
+- [배열과 리스트](../01_data-structures/linear.md) - 배열이 퀵 정렬의 캐시 지역성에 유리한 이유
+- [트리와 그래프](../01_data-structures/tree-and-graph.md) - 이진 탐색의 논리적 구조인 BST(Binary Search Tree)
+- [투 포인터](../03_patterns/two-pointers.md) - 이진 탐색의 구현적 변형과 정렬된 배열 활용법

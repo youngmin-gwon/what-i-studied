@@ -122,8 +122,8 @@ def maximum_distance(houses, C):
 ---
 
 ## 📚 관련 문서
-- [[02_algorithms/search-and-sort|검색과 정렬]] - 이진 탐색의 기본 원리와 정렬의 중요성
-- [[03_patterns/optimization|최적화 전략]] - 최적화 문제를 결정 문제로 변환하는 설계 패러다임
-- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - $O(N \log (\text{Range}))$ 복잡도의 효율성 이해
-- [[02_algorithms/greedy|그리디 알고리즘]] - 결정 함수(`is_possible`) 내부 로직 설계 기법
-- [[03_patterns/two-pointers|투 포인터]] - 정렬된 배열에서 범위를 좁혀가는 유사한 접근법
+- [검색과 정렬](../02_algorithms/search-and-sort.md) - 이진 탐색의 기본 원리와 정렬의 중요성
+- [최적화 전략](optimization.md) - 최적화 문제를 결정 문제로 변환하는 설계 패러다임
+- [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - $O(N \log (\text{Range}))$ 복잡도의 효율성 이해
+- [그리디 알고리즘](../02_algorithms/greedy.md) - 결정 함수(`is_possible`) 내부 로직 설계 기법
+- [투 포인터](two-pointers.md) - 정렬된 배열에서 범위를 좁혀가는 유사한 접근법

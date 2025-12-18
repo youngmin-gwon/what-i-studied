@@ -340,6 +340,6 @@ class CompactTrieNode:
 ---
 
 #### 📚 연결 문서
-- [[algo-ds-tree-and-graph]] - Trie 는 트리의 특수한 형태
-- [[algo-complexity-and-big-o]] - 시간 복잡도 분석
-- [[algo-pattern-two-pointers]] - KMP 의 투 포인터 활용
+- [algo-ds-tree-and-graph](../algo-ds-tree-and-graph.md) - Trie 는 트리의 특수한 형태
+- [algo-complexity-and-big-o](../algo-complexity-and-big-o.md) - 시간 복잡도 분석
+- [algo-pattern-two-pointers](../algo-pattern-two-pointers.md) - KMP 의 투 포인터 활용

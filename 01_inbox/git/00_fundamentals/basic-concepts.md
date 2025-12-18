@@ -2,7 +2,7 @@
 title: basic-concepts
 tags: [fundamentals, git, three-trees, workflow]
 aliases: [Git 3가지 영역, Git 기본 개념, Git 기초, Three Trees]
-date modified: 2025-12-18 15:21:12 +09:00
+date modified: 2025-12-18 15:59:27 +09:00
 date created: 2025-12-18 13:30:00 +09:00
 ---
 

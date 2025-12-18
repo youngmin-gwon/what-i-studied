@@ -404,6 +404,6 @@ dq.popleft()      # O(1)
 ---
 
 #### 📚 연결 문서
-- [[algo-ds-linear]] - Stack, Queue 기초
-- [[algo-pattern-two-pointers]] - Sliding Window 기법
-- [[algo-complexity-and-big-o]] - 분할 상환 분석 (Amortized O(1))
+- [algo-ds-linear](../algo-ds-linear.md) - Stack, Queue 기초
+- [algo-pattern-two-pointers](../algo-pattern-two-pointers.md) - Sliding Window 기법
+- [algo-complexity-and-big-o](../algo-complexity-and-big-o.md) - 분할 상환 분석 (Amortized O(1))

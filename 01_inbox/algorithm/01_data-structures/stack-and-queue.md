@@ -94,7 +94,7 @@ queue.popleft()    # Dequeue
 ---
 
 ### 📚 연결 문서
-- [[00_fundamentals/recursion-and-stack|재귀와 스택]] - 논리적/물리적 실행 스택의 이해
-- [[01_data-structures/specialized-queues|특수 큐/스택]] - Deque, Monotonic Stack, Monotonic Queue
-- [[02_algorithms/graph-traversal|그래프 탐색]] - BFS(Queue 사용) vs DFS(Stack 사용)
-- [[01_data-structures/linear|선형 자료구조]] - Array와 Linked List를 이용한 구현 원리
+- [재귀와 스택](../00_fundamentals/recursion-and-stack.md) - 논리적/물리적 실행 스택의 이해
+- [특수 큐/스택](specialized-queues.md) - Deque, Monotonic Stack, Monotonic Queue
+- [그래프 탐색](../02_algorithms/graph-traversal.md) - BFS(Queue 사용) vs DFS(Stack 사용)
+- [선형 자료구조](linear.md) - Array와 Linked List를 이용한 구현 원리

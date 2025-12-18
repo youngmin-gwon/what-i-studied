@@ -91,8 +91,8 @@ date created: 2025-12-18 12:05:00 +09:00
 ---
 
 ## 📚 관련 문서
-- [[02_algorithms/search-and-sort|검색과 정렬]] - 병합 정렬과 퀵 정렬 등 D&C의 대표 응용 사례
-- [[00_fundamentals/recursion-and-stack|재귀와 스택]] - 분할 정복의 논리적/물리적 실행 기반
-- [[02_algorithms/dynamic-programming|동적 계획법]] - 하위 문제의 중복 여부에 따른 D&C와의 비교
-- [[04_math/math-modular-and-exponentiation|수학적 기초]] - 빠른 거듭제곱 알고리즘 ($O(\log N)$)
-- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 마스터 정리(Master Theorem)를 통한 D&C 시간 복잡도 이해
+- [검색과 정렬](search-and-sort.md) - 병합 정렬과 퀵 정렬 등 D&C의 대표 응용 사례
+- [재귀와 스택](../00_fundamentals/recursion-and-stack.md) - 분할 정복의 논리적/물리적 실행 기반
+- [동적 계획법](dynamic-programming.md) - 하위 문제의 중복 여부에 따른 D&C와의 비교
+- [수학적 기초](../04_math/math-modular-and-exponentiation.md) - 빠른 거듭제곱 알고리즘 ($O(\log N)$)
+- [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 마스터 정리(Master Theorem)를 통한 D&C 시간 복잡도 이해

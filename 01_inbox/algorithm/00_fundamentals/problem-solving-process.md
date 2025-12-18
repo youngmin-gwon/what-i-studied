@@ -83,7 +83,7 @@ date created: 2025-12-18 12:00:00 +09:00
 ---
 
 ## 📚 관련 문서
-- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 알고리즘 선택의 척도인 시간/공간 복잡도
-- [[03_patterns/optimization|최적화 전략]] - 비효율적인 코드의 병목 현상 개선
-- [[00_fundamentals/floating-point-guide|부동 소수점과 정밀도]] - 실수 연산 시 주의해야 할 정밀도 오차
-- [[02_algorithms/divide-and-conquer|분할 정복]] - 복잡한 문제를 작은 단위로 쪼개는 설계 기법
+- [복잡도 분석](complexity-and-big-o.md) - 알고리즘 선택의 척도인 시간/공간 복잡도
+- [최적화 전략](../03_patterns/optimization.md) - 비효율적인 코드의 병목 현상 개선
+- [부동 소수점과 정밀도](floating-point-guide.md) - 실수 연산 시 주의해야 할 정밀도 오차
+- [분할 정복](../02_algorithms/divide-and-conquer.md) - 복잡한 문제를 작은 단위로 쪼개는 설계 기법

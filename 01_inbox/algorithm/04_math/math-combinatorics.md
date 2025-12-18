@@ -101,7 +101,7 @@ $$C_n = \frac{1}{n+1} \binom{2n}{n}$$
 1. **순서가 중요한지 헷갈림** ❌
     - "선택해서 나열"하면 순열(P), "그냥 선택"만 하면 조합(C)입니다.
 2. **팩토리얼 오버플로우**
-    - 20! 만 넘어가도 64 비트 정수 범위를 초과합니다. 큰 수의 조합을 구할 때는 반드시 중간에 나누거나 [[04_math/math-modular-and-exponentiation|모듈러 역원]] 을 사용하세요.
+    - 20! 만 넘어가도 64 비트 정수 범위를 초과합니다. 큰 수의 조합을 구할 때는 반드시 중간에 나누거나 [모듈러 역원](math-modular-and-exponentiation.md) 을 사용하세요.
 3. **그리드 경로 문제**
     - $(0,0)$ 에서 $(m,n)$ 까지 최단 경로의 수는 $\binom{m+n}{m}$ 입니다. 이를 모르고 DFS 로 풀면 시간이 초과될 수 있습니다.
 
@@ -110,8 +110,8 @@ $$C_n = \frac{1}{n+1} \binom{2n}{n}$$
 ---
 
 ## 📚 관련 문서
-- [[02_algorithms/dynamic-programming|동적 계획법]] - 파스칼의 삼각형을 활용한 이항 계수 계산의 최적화
-- [[02_algorithms/backtracking|백트래킹]] - 실제 모든 순열과 조합의 리스트를 생성하는 탐색 기법
-- [[04_math/math-modular-and-exponentiation|나머지 연산]] - 거대 조합 값 계산을 위한 페르마의 소정리와 모듈러 역원
-- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 팩토리얼($O(N!)$) 시간 복잡도의 폭발적 증가 이해
-- [[03_patterns/optimization|최적화 전략]] - 수학적 공식을 활용한 완전 탐색($O(2^N)$)의 효율적 대체
+- [동적 계획법](../02_algorithms/dynamic-programming.md) - 파스칼의 삼각형을 활용한 이항 계수 계산의 최적화
+- [백트래킹](../02_algorithms/backtracking.md) - 실제 모든 순열과 조합의 리스트를 생성하는 탐색 기법
+- [나머지 연산](math-modular-and-exponentiation.md) - 거대 조합 값 계산을 위한 페르마의 소정리와 모듈러 역원
+- [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 팩토리얼($O(N!)$) 시간 복잡도의 폭발적 증가 이해
+- [최적화 전략](../03_patterns/optimization.md) - 수학적 공식을 활용한 완전 탐색($O(2^N)$)의 효율적 대체

@@ -543,8 +543,8 @@ if col in cols:  # O(1) vs 리스트 탐색 O(n)
 ---
 
 ## 📚 관련 문서
-- [[02_algorithms/graph-traversal|그래프 탐색]] - 모든 검색 공간을 탐색하는 DFS 기초
-- [[02_algorithms/dynamic-programming|동적 계획법]] - 백트래킹과 DP의 결정적 차이점 (중복 부분 문제)
-- [[01_data-structures/tree-and-graph|트리와 그래프]] - 백트래킹의 무대인 상태 공간 트리
-- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 지수 시간 복잡도($O(2^N)$)의 위험성과 가지치기의 필요성
-- [[02_algorithms/divide-and-conquer|분할 정복]] - 문제를 쪼개어 해결하는 또 다른 패러다임
+- [그래프 탐색](graph-traversal.md) - 모든 검색 공간을 탐색하는 DFS 기초
+- [동적 계획법](dynamic-programming.md) - 백트래킹과 DP의 결정적 차이점 (중복 부분 문제)
+- [트리와 그래프](../01_data-structures/tree-and-graph.md) - 백트래킹의 무대인 상태 공간 트리
+- [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 지수 시간 복잡도($O(2^N)$)의 위험성과 가지치기의 필요성
+- [분할 정복](divide-and-conquer.md) - 문제를 쪼개어 해결하는 또 다른 패러다임

@@ -12,7 +12,7 @@ date created: 2025-12-18 12:15:00 +09:00
 
 ### 💡 Why it matters (Context)
 
-- **동적 데이터**: 배열의 값이 자꾸 바뀌는데, 구간 합 질문이 수만 번 들어올 때 사용합니다. (배열이 고정이라면 [[03_patterns/prefix-sum|Prefix Sum]]이 더 빠릅니다)
+- **동적 데이터**: 배열의 값이 자꾸 바뀌는데, 구간 합 질문이 수만 번 들어올 때 사용합니다. (배열이 고정이라면 [Prefix Sum](../03_patterns/prefix-sum.md)이 더 빠릅니다)
 - **효율성**: 단순 $O(N)$ 조회를 $O(\log N)$으로 줄여, 대규모 시뮬레이션이나 실시간 시스템을 가능하게 합니다.
 
 ---
@@ -155,7 +155,7 @@ class FenwickTree:
 ---
 
 ### 📚 연결 문서
-- [[03_patterns/prefix-sum|누적 합]] - 정적 데이터의 구간 합 최강자
-- [[00_fundamentals/complexity-and-big-o|복잡도]] - $O(N)$ 조회를 $O(\log N)$으로 줄이는 위력
-- [[02_algorithms/divide-and-conquer|분할 정복]] - 트리를 쪼개고 합치는 근본 패러다임
-- [[01_data-structures/tree-and-graph|트리]] - 세그먼트 트리의 물리적 구조
+- [누적 합](../03_patterns/prefix-sum.md) - 정적 데이터의 구간 합 최강자
+- [복잡도](../00_fundamentals/complexity-and-big-o.md) - $O(N)$ 조회를 $O(\log N)$으로 줄이는 위력
+- [분할 정복](../02_algorithms/divide-and-conquer.md) - 트리를 쪼개고 합치는 근본 패러다임
+- [트리](tree-and-graph.md) - 세그먼트 트리의 물리적 구조

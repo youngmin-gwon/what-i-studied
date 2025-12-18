@@ -287,6 +287,6 @@ struct Heap<T: Comparable> {
 ---
 
 #### 📚 연결 문서
-- [[algo-complexity-and-big-o]] - O(log n)의 힘
-- [[algo-ds-tree-and-graph]] - 완전 이진 트리 구조
-- [[algo-pattern-search-and-sort]] - Heap Sort 응용
+- [algo-complexity-and-big-o](../algo-complexity-and-big-o.md) - O(log n)의 힘
+- [algo-ds-tree-and-graph](../algo-ds-tree-and-graph.md) - 완전 이진 트리 구조
+- [algo-pattern-search-and-sort](../algo-pattern-search-and-sort.md) - Heap Sort 응용

@@ -65,7 +65,7 @@ def ccw(p1, p2, p3):
 ---
 
 ## 📚 관련 문서
-- [[04_math/gcd-lcm|수학적 기초]] - 벡터와 좌표 연산
-- [[00_fundamentals/floating-point-guide|부동 소수점 가이드]] - 기하 연산의 정밀도 문제
-- [[05_geometry/convex-hull|볼록 껍질]] - CCW를 활용한 다각형 생성
-- [[05_geometry/line-sweep|평면 스위핑]] - 대량의 기하 객체 처리 최적화
+- [수학적 기초](../04_math/gcd-lcm.md) - 벡터와 좌표 연산
+- [부동 소수점 가이드](../00_fundamentals/floating-point-guide.md) - 기하 연산의 정밀도 문제
+- [볼록 껍질](convex-hull.md) - CCW를 활용한 다각형 생성
+- [평면 스위핑](line-sweep.md) - 대량의 기하 객체 처리 최적화

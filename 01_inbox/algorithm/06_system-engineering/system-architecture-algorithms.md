@@ -61,7 +61,7 @@ date created: 2025-12-18 15:58:00 +09:00
 ---
 
 ## 📚 관련 문서
-- [[01_data-structures/hash-and-map|해시와 맵]] - 시스템 분산 저장의 기초
-- [[01_data-structures/tree-and-graph|트리와 그래프]] - B+ Tree, DAG의 원형
-- [[00_fundamentals/memory-layout-and-cache|메모리와 캐시]] - 하드웨어 최적화의 근본
-- [[00_fundamentals/complexity-and-big-o|복잡도 분석]] - 시스템 설계의 성능 척도
+- [해시와 맵](../01_data-structures/hash-and-map.md) - 시스템 분산 저장의 기초
+- [트리와 그래프](../01_data-structures/tree-and-graph.md) - B+ Tree, DAG의 원형
+- [메모리와 캐시](../00_fundamentals/memory-layout-and-cache.md) - 하드웨어 최적화의 근본
+- [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 시스템 설계의 성능 척도
