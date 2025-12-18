@@ -2,7 +2,7 @@
 title: OFDMA
 tags: [foundation, modulation, wifi6, wireless]
 aliases: [Orthogonal Frequency-Division Multiple Access]
-date modified: 2025-12-11 13:37:30 +09:00
+date modified: 2025-12-18 15:25:10 +09:00
 date created: 2025-12-10 18:31:53 +09:00
 ---
 
@@ -73,5 +73,5 @@ block-beta
 
 >[!TIP]
 > **[Matter](../matter/Matter.md)** 는 두 세계의 장점을 결합합니다:
-> - 배터리 기기 → **[Thread](../connectivity/Thread.md)** (저전력)
+> - 배터리 기기 → **[Thread](../thread/Thread.md)** (저전력)
 > - 상시 전원 기기 → **Wi-Fi 6** (고속 + OFDMA 효율성)

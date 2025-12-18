@@ -1,8 +1,8 @@
 ---
 title: math-modular-and-exponentiation
-tags: [algorithm, math, modular, fast-exponentiation, recursion]
-aliases: [나머지 연산, 빠른 거듭제곱, 모듈러, 분할 정복을 이용한 거듭제곱]
-date modified: 2025-12-18 11:52:16 +09:00
+tags: [algorithm, fast-exponentiation, math, modular, recursion]
+aliases: [나머지 연산, 모듈러, 분할 정복을 이용한 거듭제곱, 빠른 거듭제곱]
+date modified: 2025-12-18 15:26:28 +09:00
 date created: 2025-12-18 11:52:16 +09:00
 ---
 
@@ -32,14 +32,15 @@ date created: 2025-12-18 11:52:16 +09:00
 ## ➗ 나머지 연산 (Modular Arithmetic)
 
 ### 성질
+
 나머지 연산은 더하기, 빼기, 곱하기에 대해 분배 법칙이 성립합니다.
 
-1.  $(A + B) \mod M = ((A \mod M) + (B \mod M)) \mod M$
-2.  $(A - B) \mod M = ((A \mod M) - (B \mod M) + M) \mod M$ (음수 방지)
-3.  $(A \times B) \mod M = ((A \mod M) \times (B \mod M)) \mod M$
+1. $(A + B) \mod M = ((A \mod M) + (B \mod M)) \mod M$
+2. $(A - B) \mod M = ((A \mod M) - (B \mod M) + M) \mod M$ (음수 방지)
+3. $(A \times B) \mod M = ((A \mod M) \times (B \mod M)) \mod M$
 
-> [!CAUTION] **나누기는 안 됩니다!**
-> $(A / B) \mod M$ 은 단순히 나눠서 나머지를 취하면 안 됩니다. **페르마의 소정리**를 이용해 **모듈러 역원**을 구해야 합니다.
+>[!CAUTION] **나누기는 안 됩니다!**
+>$(A / B) \mod M$ 은 단순히 나눠서 나머지를 취하면 안 됩니다. **페르마의 소정리**를 이용해 **모듈러 역원**을 구해야 합니다.
 
 ---
 
@@ -91,27 +92,30 @@ $M$ 이 소수이고 $A$ 가 $M$ 의 배수가 아닐 때, $A^{M-1} \equiv 1 \pm
 즉, $A \times A^{M-2} \equiv 1 \pmod M$ 이므로, **$A$ 의 모듈러 역원은 $A^{M-2}$** 입니다.
 
 ### 활용: (A / B) mod M 구하기
+
 $$(A \div B) \mod M \Rightarrow (A \times B^{M-2}) \mod M$$
 
 ---
 
 ## 🎯 실전 패턴
 
-#### Pattern 1: 조합(nCr)의 나머지를 구할 때
+### Pattern 1: 조합(nCr)의 나머지를 구할 때
+
 팩토리얼 값이 매우 커지므로 중간중간 모듈러를 적용하고, 분모 부분은 페르마의 소정리로 역원을 구해 곱해줍니다.
 
-#### Pattern 2: 거듭제곱 행렬 (Matrix Exponentiation)
+### Pattern 2: 거듭제곱 행렬 (Matrix Exponentiation)
+
 피보나치 수열이나 복잡한 점화식을 $O(\log N)$ 만에 해결하고 싶을 때, 행렬의 거듭제곱을 빠른 거듭제곱 방식으로 계산합니다.
 
 ---
 
 ## 🚨 흔한 실수
 
-1.  **뺄셈 모듈러 누락** ❌
+1. **뺄셈 모듈러 누락** ❌
     - `(A - B) % M` 은 결과가 음수가 나올 수 있습니다. 반드시 `(A - B + M) % M` 처럼 처리하세요.
-2.  **중간 곱셈 시 오버플로우**
-    - `(A * B) % M` 을 할 때 `A * B` 자체가 사용 언어의 정수 범위를 넘지 않는지 확인하세요. (Python은 안전하지만 C++/Java는 `long long` 사용 필수)
-3.  **나누기 오해** ❌
+2. **중간 곱셈 시 오버플로우**
+    - `(A * B) % M` 을 할 때 `A * B` 자체가 사용 언어의 정수 범위를 넘지 않는지 확인하세요. (Python 은 안전하지만 C++/Java 는 `long long` 사용 필수)
+3. **나누기 오해** ❌
     - `(A / B) % M` 을 `(A % M) / (B % M)` 으로 계산하는 실수. 역원을 구해야 합니다.
 
 ---
