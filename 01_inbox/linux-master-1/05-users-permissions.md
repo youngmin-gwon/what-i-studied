@@ -505,5 +505,5 @@ session    required     pam_unix.so
 
 ---
 
-**이전 챕터**: [[04-basic-commands|기본 명령어 및 셸]]  
-**다음 챕터**: [[06-process-management|프로세스 및 작업 관리]]
+**이전 챕터**: [기본 명령어 및 셸](04-basic-commands.md)  
+**다음 챕터**: [프로세스 및 작업 관리](06-process-management.md)

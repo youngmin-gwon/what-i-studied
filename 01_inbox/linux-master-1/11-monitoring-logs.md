@@ -524,5 +524,5 @@ aureport -f                      # 파일 리포트
 
 ---
 
-**이전 챕터**: [[10-shell-scripting|셸 스크립팅]]  
-**다음 챕터**: [[12-backup-recovery|백업 및 복구]]
+**이전 챕터**: [셸 스크립팅](10-shell-scripting.md)  
+**다음 챕터**: [백업 및 복구](12-backup-recovery.md)

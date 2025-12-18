@@ -74,5 +74,5 @@ iPad의 트랙패드 커서는 둥근 원입니다. 버튼 위에 올라가면 �
 - **UIKeyCommand**: 뷰 컨트롤러나 `AppDelegate`에서 단축키를 정의하면, 사용자가 Command를 꾹 눌렀을 때 단축키 목록(HUD)에 자동으로 뜹니다.
 
 ### 더 보기
-- [[apple-app-lifecycle-and-ui]] - Scene 아키텍처 상세
-- [[apple-platform-differences]] - iOS vs iPadOS 레이아웃 전략
+- [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - Scene 아키텍처 상세
+- [apple-platform-differences](../00_foundations/apple-platform-differences.md) - iOS vs iPadOS 레이아웃 전략

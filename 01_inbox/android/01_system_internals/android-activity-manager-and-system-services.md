@@ -539,20 +539,20 @@ adb shell pm clear com.example
 ## 학습 리소스
 
 **공식 문서**:
-- [ActivityManager](https://developer.android.com/reference/android/app/ActivityManager)
-- [Services](https://developer.android.com/guide/components/services)
-- [Processes and App Lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle)
+- [ActivityManager](../../../../https:/developer.android.com/reference/android/app/ActivityManager.md)
+- [Services](../../../../https:/developer.android.com/guide/components/services.md)
+- [Processes and App Lifecycle](../../../../https:/developer.android.com/guide/components/activities/process-lifecycle.md)
 
 **소스 코드**:
-- [ActivityManagerService](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java)
-- [ActivityTaskManagerService](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/wm/ActivityTaskManagerService.java)
+- [ActivityManagerService](../../../../https:/cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java.md)
+- [ActivityTaskManagerService](../../../../https:/cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/wm/ActivityTaskManagerService.java.md)
 
 ---
 
 ## 연결 문서
 
-[[android-binder-and-ipc]] - System Service 통신
-[[android-zygote-and-runtime]] - 프로세스 생성
-[[android-kernel]] - LMKD 와 메모리 관리
-[[android-security-and-sandboxing]] - 권한 검사
-[[android-process-and-memory]] - 메모리 관리 상세
+[android-binder-and-ipc](android-binder-and-ipc.md) - System Service 통신
+[android-zygote-and-runtime](android-zygote-and-runtime.md) - 프로세스 생성
+[android-kernel](android-kernel.md) - LMKD 와 메모리 관리
+[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 권한 검사
+[android-process-and-memory](android-process-and-memory.md) - 메모리 관리 상세

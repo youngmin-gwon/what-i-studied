@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Android Profiling Tools android android/profiling android/performance
 
-성능 분석 도구 사용법. 기본은 [[android-performance-and-debug]] 참고.
+성능 분석 도구 사용법. 기본은 [android-performance-and-debug](android-performance-and-debug.md) 참고.
 
 ### Android Studio Profiler
 
@@ -435,4 +435,4 @@ class MyApplication : Application() {
 
 ### 더 보기
 
-[[android-performance-and-debug]], [[android-testing-and-quality]], [[android-compose-internals]], [[android-process-and-memory]]
+[android-performance-and-debug](android-performance-and-debug.md), [android-testing-and-quality](android-testing-and-quality.md), [android-compose-internals](../02_app_framework/android-compose-internals.md), [android-process-and-memory](../01_system_internals/android-process-and-memory.md)

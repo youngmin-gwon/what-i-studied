@@ -565,19 +565,19 @@ val engine = CronetEngine.Builder(context)
 ## 학습 리소스
 
 **공식 문서**:
-- [Connectivity](https://developer.android.com/training/basics/network-ops/managing)
-- [Network Security Config](https://developer.android.com/training/articles/security-config)
-- [VpnService](https://developer.android.com/reference/android/net/VpnService)
+- [Connectivity](../../../../https:/developer.android.com/training/basics/network-ops/managing.md)
+- [Network Security Config](../../../../https:/developer.android.com/training/articles/security-config.md)
+- [VpnService](../../../../https:/developer.android.com/reference/android/net/VpnService.md)
 
 **소스 코드**:
-- [ConnectivityService](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/ConnectivityService.java)
-- [netd](https://cs.android.com/android/platform/superproject/+/master:system/netd/)
+- [ConnectivityService](../../../../https:/cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/ConnectivityService.java.md)
+- [netd](../../../../https:/cs.android.com/android/platform/superproject/+/master:system/netd/.md)
 
 ---
 
 ## 연결 문서
 
-[[android-kernel]] - eBPF 네트워크 필터링  
-[[android-hal-and-kernel]] - Wi-Fi/Modem HAL  
-[[android-security-and-sandboxing]] - 네트워크 보안 정책  
-[[android-activity-manager-and-system-services]] - ConnectivityService
+[android-kernel](android-kernel.md) - eBPF 네트워크 필터링  
+[android-hal-and-kernel](android-hal-and-kernel.md) - Wi-Fi/Modem HAL  
+[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 네트워크 보안 정책  
+[android-activity-manager-and-system-services](android-activity-manager-and-system-services.md) - ConnectivityService

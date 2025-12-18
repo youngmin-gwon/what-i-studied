@@ -171,7 +171,7 @@ done >usage.csv
 ```bash
 path=${1:?usage: cleanup PATH}
 case $path in /|/*..|""|"~"|/home|/root) echo "danger" >&2; exit 2;; esac
-if [[ ${DRY_RUN:-0} -eq 1 ]]; then
+if [${DRY_RUN:-0} -eq 1](../../${DRY_RUN:-0} -eq 1.md); then
   printf 'would remove %s\n' "$path"
 else
   read -rp "Remove $path? [y/N] " ans
@@ -189,8 +189,8 @@ fi
 ```bash
 tests=(test_sum test_trim)
 fail=0
-test_sum(){ [[ $((1+1)) -eq 2 ]]; }
-test_trim(){ [[ $(echo ' a ' | xargs) == 'a' ]]; }
+test_sum(){ [$((1+1)) -eq 2](../../$((1+1.md)) -eq 2.md); }
+test_trim(){ [xargs) == 'a'](../../$(echo ' a '.md); }
 for t in "${tests[@]}"; do
   if "$t"; then echo "PASS $t"; else echo "FAIL $t"; fail=1; fi
 done

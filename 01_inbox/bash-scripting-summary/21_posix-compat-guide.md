@@ -4,7 +4,7 @@
 
 ## 핵심 원칙
 - **배열/연관배열 없음**: 공백 포함 데이터는 NUL-종단(find -print0) 또는 구분자+while read 패턴으로 다룬다.
-- **`[[ ]]`, `(( ))`, `function`, `local`, `<<<`, process substitution 없음**: `[ ]`, `$(( ))`, POSIX 함수 `name(){ ...; }`, 전역 변수 사용.
+- **`[](../.md)`, `(( ))`, `function`, `local`, `<<<`, process substitution 없음**: `[ ]`, `$(( ))`, POSIX 함수 `name(){ ...; }`, 전역 변수 사용.
 - **확장 글로브/brace 없음**: `{1..3}`, `@( )`, `**` 미지원. 단순 패턴(`*`, `?`, `[...]`)만 사용.
 - **내장 echo 옵션 불확실**: `printf` 사용. `echo -e`, `-n` 동작이 구현마다 다르다.
 - **옵션 차이**: `readlink -f`, `sed -i`, `date -d`, `timeout` 등은 없다. 대안 사용.
@@ -43,7 +43,7 @@
 - **임시 파일/디렉터리**: `tmp=$(mktemp /tmp/app.XXXXXX) || exit 1`; 디렉터리는 `mktemp -d /tmp/app.XXXXXX`
 
 ## Bash 전용 기능 → POSIX 대체
-- `[[ ]]` → `[ ]` + 인용, 정규식 필요 시 `grep`/`expr`/`case`
+- `[](../.md)` → `[ ]` + 인용, 정규식 필요 시 `grep`/`expr`/`case`
 - 배열 → 파일/여러 변수/줄 단위 처리. 공백이 있으면 NUL-종단 사용.
 - `(( ))` → `$(( ))` 산술 확장(지원), 또는 `expr`
 - brace expansion → `seq`/`printf '%s\n' 1 2 3`/루프
@@ -88,7 +88,7 @@ mv "$tmp" "$out"
 - 포인트: `set -eu`, 인용, CR 제거+빈 줄 제거, mktemp+trap, POSIX 도구만 사용.
 
 ## 시험 대비 요약(단답)
-- `/bin/sh`에서 실패하는 Bash 기능 4가지는? → 배열, `[[ ]]`, `(( ))` 확장, process substitution/brace expansion.
+- `/bin/sh`에서 실패하는 Bash 기능 4가지는? → 배열, `[](../.md)`, `(( ))` 확장, process substitution/brace expansion.
 - `set -o pipefail`이 없는 환경에서 파이프라인 실패를 잡는 방법은? → 단계 분리, 임시 파일, 종료 코드 변수 저장.
 - macOS에서 `readlink -f` 대체는? → `python3 - <<'PY'` realpath 또는 coreutils `greadlink`.
 - `sed -i`가 없을 때 안전하게 덮어쓰는 절차는? → `sed ... >tmp && mv tmp file`.

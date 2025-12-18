@@ -8,7 +8,7 @@ date created: 2025-12-16 15:27:59 +09:00
 
 ## Testing & Quality android android/testing android/quality
 
-앱과 시스템을 안전하게 내놓기 위한 테스트 기본기를 쉽게 정리했다. 용어는 [[android-glossary]].
+앱과 시스템을 안전하게 내놓기 위한 테스트 기본기를 쉽게 정리했다. 용어는 [android-glossary](../00_foundations/android-glossary.md).
 
 ### 어떤 테스트가 있나
 - 단위 테스트: 비즈니스 로직을 JVM 에서 빠르게 돌린다.
@@ -53,4 +53,4 @@ date created: 2025-12-16 15:27:59 +09:00
 
 ### 링크
 
-[[android-foundations]], [[android-performance-and-debug]], [[android-os-development-guide]].
+[android-foundations](../00_foundations/android-foundations.md), [android-performance-and-debug](android-performance-and-debug.md), [android-os-development-guide](../02_app_framework/android-os-development-guide.md).

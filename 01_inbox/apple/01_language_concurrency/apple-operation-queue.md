@@ -128,5 +128,5 @@ class AsyncOperation: Operation {
 ```
 
 ### 더 보기
-- [[apple-gcd-deep-dive]] - 더 가볍고 빠른 대안
-- [[apple-swift-concurrency]] - 최신 비동기 모델 (Task Group이 의존성 관리 대체 가능)
+- [apple-gcd-deep-dive](apple-gcd-deep-dive.md) - 더 가볍고 빠른 대안
+- [apple-swift-concurrency](apple-swift-concurrency.md) - 최신 비동기 모델 (Task Group이 의존성 관리 대체 가능)

@@ -2,7 +2,7 @@
 title: complexity-and-big-o
 tags: [algorithm, big-o, complexity, optimization, performance]
 aliases: [Big-O, 공간 복잡도, 시간 복잡도]
-date modified: 2025-12-18 15:38:57 +09:00
+date modified: 2025-12-18 16:06:55 +09:00
 date created: 2025-12-17 19:00:00 +09:00
 ---
 
@@ -48,6 +48,7 @@ Big-O 는 **상한선 (Upper Bound)** 입니다. "아무리 느려도 이 정도
 입력 크기와 무관하게 항상 일정한 시간이 걸립니다.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'backgroundColor': 'transparent', 'plotColorPalette': '#FF0000'}}}}%%
 xychart-beta
     title "O(1) - Constant Time (항상 1)"
     x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
@@ -60,6 +61,7 @@ xychart-beta
 입력이 커져도 실행 시간은 완만하게 증가합니다. 매우 효율적입니다.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'backgroundColor': 'transparent', 'plotColorPalette': '#FF0000'}}}}%%
 xychart-beta
     title "O(log n) - Logarithmic Time (N=512일 때 9번만!)"
     x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
@@ -72,6 +74,7 @@ xychart-beta
 입력 크기에 비례해서 시간이 증가합니다.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'backgroundColor': 'transparent', 'plotColorPalette': '#FF0000'}}}}%%
 xychart-beta
     title "O(n) - Linear Time (정비례 직선)"
     x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
@@ -84,6 +87,7 @@ xychart-beta
 효율적인 정렬 알고리즘들이 이 복잡도를 가집니다.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'backgroundColor': 'transparent', 'plotColorPalette': '#FF0000'}}}}%%
 xychart-beta
     title "O(n log n) - Quasi-linear Time (위로 휘기 시작)"
     x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
@@ -96,6 +100,7 @@ xychart-beta
 입력이 2 배가 되면 시간은 4 배가 됩니다. 큰 데이터에는 부적합합니다.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'backgroundColor': 'transparent', 'plotColorPalette': '#FF0000'}}}}%%
 xychart-beta
     title "O(n²) - Quadratic Time (폭발적 증가! 💥)"
     x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
@@ -111,7 +116,7 @@ xychart-beta
 **코드형 인터랙티브 차트**
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'backgroundColor': 'transparent'}}}}%%
+%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'backgroundColor': 'transparent', 'plotColorPalette': '#FF0000, #0FF000, #00FF00, #000FF0 #0000FF'}}}}%%
 xychart-beta
     title "Big-O Complexity Growth (입력 크기 N에 따른 연산 횟수)"
     x-axis "Input Size (N)" [0, 42, 85, 128, 170, 213, 256, 298, 341, 384, 426, 469, 512]
@@ -270,7 +275,7 @@ List<String> stuffList(int length) {
 - **Branch Mispredict**: 5 ns
 - **L2 Cache 참조**: 7 ns
 - **Mutex Lock/Unlock**: 25 ns
-- **Main Memory 참조**: 100 ns (L1 보다 200 배 느림) -> [Linked List가 느린 이유](../algo-ds-linear.md)
+- **Main Memory 참조**: 100 ns (L1 보다 200 배 느림) -> [Linked List가 느린 이유](../../../../algo-ds-linear.md)
 - **SSD Random Read**: 150,000 ns
 - **Packet Roundtrip (CA->Netherlands)**: 150,000,000 ns (150ms)
 

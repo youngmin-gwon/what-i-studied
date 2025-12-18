@@ -1,6 +1,6 @@
 # iOS Advanced Capabilities #apple #ios #advanced
 
-iOS에서 고급 기능을 쓸 때 주의할 점을 쉽게 정리했다. 용어는 [[apple-glossary]].
+iOS에서 고급 기능을 쓸 때 주의할 점을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 네비게이션/지도
 - MapKit: 지도/핀/경로. 정확/대략 위치 권한 구분.
@@ -51,4 +51,4 @@ iOS에서 고급 기능을 쓸 때 주의할 점을 쉽게 정리했다. 용어�
 - 피처 플래그/원격 설정으로 점진적 롤아웃.
 
 ## 링크
-[[apple-ios-playbook]], [[apple-performance-and-debug]], [[apple-network-basics]], [[apple-sandbox-and-security]], [[apple-distribution-and-policies]].
+[apple-ios-playbook](apple-ios-playbook.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-network-basics](../../../../../../../apple-network-basics.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-distribution-and-policies](../../05_security_privacy/apple-distribution-and-policies.md).

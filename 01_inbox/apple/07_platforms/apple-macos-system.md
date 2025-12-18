@@ -57,5 +57,5 @@ iOS와 가장 큰 차이점입니다. "창(Window)이 없어도 앱은 살아있
 - **Menu Bar**: `Main.storyboard`나 코드에서 메뉴 아이템을 관리해야 합니다. Responder Chain을 통해 현재 포커스된 윈도우로 액션(`copy:`, `paste:`)이 전달됩니다.
 
 ### 더 보기
-- [[apple-build-and-distribution]] - 공증(Notarization) 과정
-- [[apple-sandbox-and-security]] - 샌드박스 파일 접근 (Security Scoped Bookmark)
+- [apple-build-and-distribution](../05_security_privacy/apple-build-and-distribution.md) - 공증(Notarization) 과정
+- [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 샌드박스 파일 접근 (Security Scoped Bookmark)

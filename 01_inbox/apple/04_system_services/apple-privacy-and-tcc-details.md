@@ -1,6 +1,6 @@
 # Privacy & TCC Details #apple #privacy #tcc #common
 
-민감 권한(TCC)과 프라이버시 정책을 쉽게 풀어쓴다. 용어는 [[apple-glossary]].
+민감 권한(TCC)과 프라이버시 정책을 쉽게 풀어쓴다. 용어는 [apple-glossary](../00_foundations/apple-glossary.md).
 
 ## TCC가 하는 일
 - 카메라/마이크/사진/연락처/캘린더/리마인더/블루투스/위치/알림 등 민감 자원에 접근할 때 사용자에게 묻는다.
@@ -43,4 +43,4 @@
 - 데이터 사용/공유/추적을 개인정보 라벨/ATT에 반영했는가?
 
 ## 링크
-[[apple-sandbox-and-security]], [[apple-security-models]], [[apple-distribution-and-policies]], [[apple-accessibility-and-internationalization]].
+[apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md), [apple-security-models](../../../../apple-security-models.md), [apple-distribution-and-policies](../05_security_privacy/apple-distribution-and-policies.md), [apple-accessibility-and-internationalization](../02_ui_frameworks/apple-accessibility-and-internationalization.md).

@@ -85,5 +85,5 @@ Apple 플랫폼은 기본적으로 평문 통신(HTTP)을 차단하고 **HTTPS (
 3. **Reachability**: `NWPathMonitor`로 "인터넷 끊김"을 감지하고 UI에 보여줍니다. 사용자가 "앱이 고장 났다"고 오해하지 않게 합니다.
 
 ### 더 보기
-- [[apple-urlsession-deep-dive]] - 실무 코드 레시피 (Async/Await)
-- [[apple-offline-and-resilience]] - 오프라인 모드와 재시도 전략
+- [apple-urlsession-deep-dive](apple-urlsession-deep-dive.md) - 실무 코드 레시피 (Async/Await)
+- [apple-offline-and-resilience](apple-offline-and-resilience.md) - 오프라인 모드와 재시도 전략

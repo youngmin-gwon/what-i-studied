@@ -78,5 +78,5 @@ XPC가 강력한 이유는 **"아무나 연결할 수 없다"**는 점입니다.
 - **Audit Token**: 연결 수락 여부를 결정할 때, 상대방의 PID, UID, Entitlement를 검사할 수 있습니다.
 
 ### 더 보기
-- [[apple-sandbox-and-security]] - 샌드박스가 IPC를 차단하는 원리
-- [[apple-storage-and-filesystems]] - App Group을 이용한 파일 공유
+- [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 샌드박스가 IPC를 차단하는 원리
+- [apple-storage-and-filesystems](../03_data_networking/apple-storage-and-filesystems.md) - App Group을 이용한 파일 공유

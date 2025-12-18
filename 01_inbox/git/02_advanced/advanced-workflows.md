@@ -71,6 +71,6 @@ date created: 2025-12-18 14:30:00 +09:00
 
 ### 📚 연결 문서
 
-- [[02_advanced/troubleshooting|트러블슈팅]] - 복구와 충돌 해결
-- [[00_fundamentals/git-internals|Git 인턴십]] - 객체와 `replace` 매커니즘의 이해
-- [[02_advanced/command-comparisons|명령어 비교]] - Stash vs. Worktree 선택 기준
+- [트러블슈팅](troubleshooting.md) - 복구와 충돌 해결
+- [Git 인턴십](../00_fundamentals/git-internals.md) - 객체와 `replace` 매커니즘의 이해
+- [명령어 비교](command-comparisons.md) - Stash vs. Worktree 선택 기준

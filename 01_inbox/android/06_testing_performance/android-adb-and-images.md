@@ -8,7 +8,7 @@ date created: 2025-12-16 15:25:10 +09:00
 
 ## ADB, Fastboot, System Images android android/adb android/fastboot android/tools
 
-PC 에서 기기를 다루는 기본 도구를 쉽게 정리했다. 용어는 [[android-glossary]].
+PC 에서 기기를 다루는 기본 도구를 쉽게 정리했다. 용어는 [android-glossary](../00_foundations/android-glossary.md).
 
 ### ADB
 - PC↔기기 통신용 다리. 명령 실행, 파일 복사, 로그 보기, 포트 포워딩을 한다.
@@ -46,4 +46,4 @@ PC 에서 기기를 다루는 기본 도구를 쉽게 정리했다. 용어는 [[
 
 ### 링크
 
-[[android-boot-flow]], [[android-performance-and-debug]], [[android-customization-and-oem]].
+[android-boot-flow](../01_system_internals/android-boot-flow.md), [android-performance-and-debug](android-performance-and-debug.md), [android-customization-and-oem](../01_system_internals/android-customization-and-oem.md).

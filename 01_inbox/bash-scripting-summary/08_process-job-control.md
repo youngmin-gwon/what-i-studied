@@ -74,7 +74,7 @@ trap 'echo interrupted >&2; exit 130' INT
 ## 병렬 실행 패턴
 - **간단 병렬**: `pids=(); for f in *.log; do process \"$f\" & pids+=($!); done; for p in \"${pids[@]}\"; do wait $p || exit $?; done`
 - **리소스 제한**: 병렬 4개만 실행: `sem=4; running=0; for task in ...; do ...; ((running++)); ((running==sem)) && { wait -n; ((running--)); }; done` (Bash 5 `wait -n`).
-- **타임아웃+kill**: `timeout 10s cmd || { rc=$?; [[ $rc -eq 124 ]] && echo timeout; }`
+- **타임아웃+kill**: `timeout 10s cmd || { rc=$?; [$rc -eq 124](../../$rc -eq 124.md) && echo timeout; }`
 
 ## 실전 트랩 설계 사례
 ```bash

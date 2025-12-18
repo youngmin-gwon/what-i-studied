@@ -63,5 +63,5 @@ Xcode에는 강력한 무기들이 내장되어 있습니다. `print()`로 디�
 - 개발자 설정에서 네트워크 환경을 `High Latency DNS`, `Edge`, `100% Loss` 등으로 시뮬레이션할 수 있습니다. 로딩 인디케이터나 에러 처리를 검증할 때 필수입니다.
 
 ### 더 보기
-- [[apple-instruments-profiling]] - 범인을 잡는 정밀 분석 도구
-- [[apple-rendering-and-media]] - 그래픽 파이프라인 심화
+- [apple-instruments-profiling](apple-instruments-profiling.md) - 범인을 잡는 정밀 분석 도구
+- [apple-rendering-and-media](../02_ui_frameworks/apple-rendering-and-media.md) - 그래픽 파이프라인 심화

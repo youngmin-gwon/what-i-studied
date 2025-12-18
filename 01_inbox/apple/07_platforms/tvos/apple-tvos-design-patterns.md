@@ -1,6 +1,6 @@
 # tvOS Design Patterns #apple #tvos #design
 
-거실 환경에 맞는 tvOS UI/UX 패턴을 쉽게 정리했다. 용어는 [[apple-glossary]].
+거실 환경에 맞는 tvOS UI/UX 패턴을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 포커스 중심 내비게이션
 - 포커스 엔진이 기본. 포커스 이동 경로를 단순하게 설계하고, 포커스된 항목은 크기/빛/음향으로 명확히 표시.
@@ -34,4 +34,4 @@
 - On-Demand Resources로 초기 앱 크기를 줄이고, 백그라운드에서 필요한 리소스를 내려받는다.
 
 ## 링크
-[[apple-tvos-media]], [[apple-animation-and-motion]], [[apple-network-basics]], [[apple-accessibility-and-internationalization]].
+[apple-tvos-media](apple-tvos-media.md), [apple-animation-and-motion](../../../../../../../apple-animation-and-motion.md), [apple-network-basics](../../../../../../../apple-network-basics.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).

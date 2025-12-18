@@ -72,7 +72,7 @@ git merge-base branch-A branch-B
 
 ### 📚 연결 문서
 
-- [[02_advanced/command-comparisons|명령어 비교]] - Merge vs. Rebase 상세 비교
-- [[02_advanced/troubleshooting|트러블슈팅]] - 기본적인 충돌 해결 방법
-- [[00_fundamentals/git-internals|Git 인턴십]] - 머지 커밋의 내부 구조 이해
-- [[02_advanced/reset-demystified|Reset 완벽 분석]] - 잘못된 머지 후 상태 복구하기
+- [명령어 비교](command-comparisons.md) - Merge vs. Rebase 상세 비교
+- [트러블슈팅](troubleshooting.md) - 기본적인 충돌 해결 방법
+- [Git 인턴십](../00_fundamentals/git-internals.md) - 머지 커밋의 내부 구조 이해
+- [Reset 완벽 분석](reset-demystified.md) - 잘못된 머지 후 상태 복구하기

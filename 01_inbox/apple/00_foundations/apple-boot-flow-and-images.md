@@ -69,5 +69,5 @@ macOS Big Sur부터 도입된 강력한 보안 기능입니다.
 - 새로운 파티션에 업데이트된 이미지를 준비해두고, **부팅 순서를 바꿔치기**하는 방식(A/B Update와 유사)이라 안전합니다.
 
 ### 더 보기
-- [[apple-architecture-stack]] - 커널과 유저 공간의 분리
-- [[apple-sandbox-and-security]] - 앱 실행 후의 보안 (샌드박스)
+- [apple-architecture-stack](apple-architecture-stack.md) - 커널과 유저 공간의 분리
+- [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 앱 실행 후의 보안 (샌드박스)

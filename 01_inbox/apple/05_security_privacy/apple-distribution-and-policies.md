@@ -62,5 +62,5 @@ App Store가 유일한 길은 아닙니다.
 - Apple이 남용(도박 앱 배포 등)을 감시하여 계정을 영구 정지시키기도 합니다.
 
 ### 더 보기
-- [[apple-build-and-distribution]] - 심사 통과 후 기술적인 배포 과정
-- [[apple-app-tracking-privacy]] - 심사의 또 다른 벽, 개인정보 정책
+- [apple-build-and-distribution](apple-build-and-distribution.md) - 심사 통과 후 기술적인 배포 과정
+- [apple-app-tracking-privacy](apple-app-tracking-privacy.md) - 심사의 또 다른 벽, 개인정보 정책

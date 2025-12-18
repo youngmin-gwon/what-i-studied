@@ -89,7 +89,7 @@ done
 ## 실무 빈출 패턴
 - **기본값 주입**: `: "${CONFIG_DIR:=${HOME}/.config/app}"`로 한 번만 설정 후 재사용.
 - **불리언 처리**: `case ${DEBUG,,} in (1|true|yes|on) DEBUG=1 ;; (*) DEBUG=0 ;; esac` → 소문자 변환 후 패턴 매칭.
-- **배열 필터링**: `filtered=(); for x in "${arr[@]}"; do [[ $x == pat* ]] && filtered+=("$x"); done`.
+- **배열 필터링**: `filtered=(); for x in "${arr[@]}"; do [$x == pat*](../../$x == pat*.md) && filtered+=("$x"); done`.
 - **연관배열 설정을 텍스트로**: `while IFS='=' read -r k v; do conf[$k]=$v; done < config.env` (공백/주석 처리 추가 필요).
 
 ## 자주 틀리는 부분

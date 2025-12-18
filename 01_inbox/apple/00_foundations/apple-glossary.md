@@ -30,7 +30,7 @@ date created: 2025-12-16 16:06:41 +09:00
 ### **Sandbox**
 - **정의**: 앱을 가두는 울타리입니다. 앱은 자신의 컨테이너(폴더) 밖으로 나갈 수 없습니다.
 - **Context**: 파일을 저장했는데 파일 앱에서 안 보이나요? 샌드박스 규칙 때문입니다. 다른 앱과 대화하려면 XPC나 App Group 같은 공식 통로를 써야 합니다.
-- **Deep Dive**: [[apple-sandbox-and-security]]
+- **Deep Dive**: [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md)
 
 ### **Daemon (데몬)**
 - **정의**: 백그라운드에서 조용히 도는 시스템 서비스입니다. 이름 끝에 `d`가 붙습니다 (`locationd`, `bluetoothd`, `backboardd`).
@@ -68,7 +68,7 @@ date created: 2025-12-16 16:06:41 +09:00
 ### **Scene**
 - **정의**: iOS 13부터 도입된 개념으로, 앱의 "UI 인스턴스" 하나를 의미합니다.
 - **Context**: 아이패드에서는 한 앱이 두 개의 창(Scene)을 띄울 수 있습니다. `AppDelegate`가 아니라 `SceneDelegate`에서 UI 초기화를 해야 하는 이유입니다.
-- **Deep Dive**: [[apple-app-lifecycle-and-ui]]
+- **Deep Dive**: [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md)
 
 ### **Main Run Loop**
 - **정의**: 터치, 이벤트, 화면 갱신을 처리하는 무한 루프입니다. 메인 스레드에서 돌아갑니다.
@@ -83,7 +83,7 @@ date created: 2025-12-16 16:06:41 +09:00
 ### **GCD (Grand Central Dispatch)**
 - **정의**: 작업을 큐(Queue)에 넣으면 시스템이 알아서 스레드를 만들어 처리해 주는 기술입니다 (`DispatchQueue`).
 - **Context**: 직접 스레드를 만들지 마세요. GCD가 CPU 코어 수에 맞춰 최적으로 조절해 줍니다. 이제는 Swift Concurrency (`Task`)로 넘어가는 추세입니다.
-- **Deep Dive**: [[apple-gcd-deep-dive]]
+- **Deep Dive**: [apple-gcd-deep-dive](../01_language_concurrency/apple-gcd-deep-dive.md)
 
 ### **dyld (Dynamic Link Editor)**
 - **정의**: 앱이 켜질 때 필요한 라이브러리(UIKit, Foundation 등)를 연결해 주는 로더입니다.
@@ -92,7 +92,7 @@ date created: 2025-12-16 16:06:41 +09:00
 ### **Retain Cycle (순환 참조)**
 - **정의**: A가 B를 잡고, B가 A를 잡아서 메모리가 해제되지 않는 상황입니다 (메모리 누수).
 - **Context**: `weak self`를 써야 하는 이유입니다. 메모리 누수가 쌓이면 앱이 결국 강제 종료(OOM)됩니다.
-- **Deep Dive**: [[apple-memory-management]]
+- **Deep Dive**: [apple-memory-management](../01_language_concurrency/apple-memory-management.md)
 
 ---
 
@@ -101,12 +101,12 @@ date created: 2025-12-16 16:06:41 +09:00
 ### **Keychain**
 - **정의**: 암호화된 시스템 데이터베이스입니다. 앱을 지워도 남습니다.
 - **Context**: `UserDefaults`에 비밀번호 저장하지 마세요. 탈옥된 폰에서는 다 보입니다. 중요 정보는 무조건 키체인입니다.
-- **Deep Dive**: [[apple-keychain-biometrics]]
+- **Deep Dive**: [apple-keychain-biometrics](../05_security_privacy/apple-keychain-biometrics.md)
 
 ### **TCC (Transparency, Consent, and Control)**
 - **정의**: "카메라에 접근하려고 합니다" 팝업을 띄우고 사용자의 허락을 관리하는 시스템입니다.
 - **Context**: 사용자가 한 번 거절하면 앱 내에서 다시 팝업을 띄울 수 없습니다. 설정 앱으로 유도해야 합니다.
-- **Deep Dive**: [[apple-privacy-and-tcc-details]]
+- **Deep Dive**: [apple-privacy-and-tcc-details](../04_system_services/apple-privacy-and-tcc-details.md)
 
 ---
 
@@ -115,7 +115,7 @@ date created: 2025-12-16 16:06:41 +09:00
 ### **Instruments**
 - **정의**: 성능 분석 도구 종합 선물 세트입니다. (Time Profiler, Leaks, Network...)
 - **Context**: "앱이 느려요"라고 감으로 찍지 말고, Instruments를 돌려서 "이 함수가 300ms 걸립니다"라고 말해야 합니다.
-- **Deep Dive**: [[apple-instruments-profiling]]
+- **Deep Dive**: [apple-instruments-profiling](../06_testing_performance/apple-instruments-profiling.md)
 
 ### **TestFlight**
 - **정의**: 앱스토어 배포 전에 베타 테스터에게 앱을 뿌리는 공식 도구입니다.

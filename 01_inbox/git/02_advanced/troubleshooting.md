@@ -22,7 +22,7 @@ Git 의 진가는 성공할 때가 아니라 **실수했을 때** 나타납니�
 
 ## 🏗️ 3 단계 되돌리기 가이드 (Undo Levels)
 
-실수를 발견한 시점에 따라 해결 방법이 달라집니다. (자세한 원리는 [[02_advanced/reset-demystified|Reset 완벽 분석]] 참조)
+실수를 발견한 시점에 따라 해결 방법이 달라집니다. (자세한 원리는 [Reset 완벽 분석](reset-demystified.md) 참조)
 
 ### 1 단계: Working Directory (작업 중 실패)
 - **명령어**: `git restore <file>`
@@ -80,7 +80,7 @@ git fsck --full --unreachable
 
 ### 📚 연결 문서
 
-- [[00_fundamentals/git-internals|Git 인턴십]] - 객체가 물리적으로 어떻게 저장되는지
-- [[02_advanced/reset-demystified|Reset 완벽 분석]] - 영역별 데이터 이동의 원리
-- [[02_advanced/advanced-workflows|고급 워크플로우]] - Rebase 중 발생하는 충돌 해결
-- [[03_tools/git-customization|Git 커스텀]] - 사고를 예방하는 훅(Hook) 설정
+- [Git 인턴십](../00_fundamentals/git-internals.md) - 객체가 물리적으로 어떻게 저장되는지
+- [Reset 완벽 분석](reset-demystified.md) - 영역별 데이터 이동의 원리
+- [고급 워크플로우](advanced-workflows.md) - Rebase 중 발생하는 충돌 해결
+- [Git 커스텀](../03_tools/git-customization.md) - 사고를 예방하는 훅(Hook) 설정

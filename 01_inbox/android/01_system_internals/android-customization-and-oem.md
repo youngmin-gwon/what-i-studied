@@ -450,9 +450,9 @@ brunch <device>
 ## 학습 리소스
 
 **공식 문서**:
-- [AOSP](https://source.android.com/)
-- [Treble](https://source.android.com/docs/core/architecture/treble)
-- [Building for Devices](https://source.android.com/docs/setup/build)
+- [AOSP](../../../../https:/source.android.com/.md)
+- [Treble](../../../../https:/source.android.com/docs/core/architecture/treble.md)
+- [Building for Devices](../../../../https:/source.android.com/docs/setup/build.md)
 
 **커뮤니티**:
 - XDA Developers
@@ -463,8 +463,8 @@ brunch <device>
 
 ## 연결 문서
 
-[[android-hal-and-kernel]] - Treble, VINTF, HAL  
-[[android-init-and-services]] - Init RC 커스터마이징  
-[[android-boot-flow]] - Verified Boot  
-[[android-kernel]] - 커널 수정  
-[[android-security-and-sandboxing]] - Knox, SafetyNet
+[android-hal-and-kernel](android-hal-and-kernel.md) - Treble, VINTF, HAL  
+[android-init-and-services](android-init-and-services.md) - Init RC 커스터마이징  
+[android-boot-flow](android-boot-flow.md) - Verified Boot  
+[android-kernel](android-kernel.md) - 커널 수정  
+[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - Knox, SafetyNet

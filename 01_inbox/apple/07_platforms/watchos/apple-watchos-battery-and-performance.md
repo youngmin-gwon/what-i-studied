@@ -1,6 +1,6 @@
 # watchOS Battery & Performance #apple #watchos #performance
 
-애플워치에서 배터리를 아끼고 성능을 유지하는 방법을 쉽게 정리했다. 용어는 [[apple-glossary]].
+애플워치에서 배터리를 아끼고 성능을 유지하는 방법을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 제약 이해하기
 - 작은 배터리/메모리, 강한 백그라운드 제한. [[apple-glossary#JetSam|Jetsam]]이 자주 발생할 수 있다.
@@ -40,4 +40,4 @@
 - 배터리 부족 시 기능 축소/저품질 모드 안내.
 
 ## 링크
-[[apple-watchos-wearables]], [[apple-watchos-fitness-guide]], [[apple-offline-and-resilience]], [[apple-performance-and-debug]].
+[apple-watchos-wearables](../../../../../../../apple-watchos-wearables.md), [apple-watchos-fitness-guide](apple-watchos-fitness-guide.md), [apple-offline-and-resilience](../../03_data_networking/apple-offline-and-resilience.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).

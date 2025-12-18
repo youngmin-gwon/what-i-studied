@@ -71,7 +71,7 @@ git init --bare my_project.git
 
 ### 📚 연결 문서
 
-- [[00_fundamentals/git-internals|Git 인턴십]] - Smart/Dumb 프로토콜의 기술적 차이
-- [[01_strategies/branching-strategies|브랜치 전략]] - 서버를 활용한 분산 워크플로우 설계
-- [[02_advanced/troubleshooting|트러블슈팅]] - 네트워크 연결 및 권한 문제 해결
-- [[03_tools/credential-storage.md|인증 관리]] - 서버 로그인 정보 안전하게 저장하기
+- [Git 인턴십](../00_fundamentals/git-internals.md) - Smart/Dumb 프로토콜의 기술적 차이
+- [브랜치 전략](../01_strategies/branching-strategies.md) - 서버를 활용한 분산 워크플로우 설계
+- [트러블슈팅](troubleshooting.md) - 네트워크 연결 및 권한 문제 해결
+- [인증 관리](../03_tools/credential-storage.md) - 서버 로그인 정보 안전하게 저장하기

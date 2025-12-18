@@ -78,6 +78,6 @@ func sceneDidEnterBackground(_ scene: UIScene) {
 - **공존**: `UIHostingController`(UIKit 안에 SwiftUI), `UIViewRepresentable`(SwiftUI 안에 UIKit) 통해 점진적 도입이 가능합니다.
 
 ### 📚 더 보기
-- [[apple-uikit-lifecycle]] - UIViewController의 상세 생명주기
-- [[apple-swiftui-deep-dive]] - SwiftUI 렌더링 원리
-- [[apple-background-tasks]] - 백그라운드에서 오래 살아남는 법
+- [apple-uikit-lifecycle](apple-uikit-lifecycle.md) - UIViewController의 상세 생명주기
+- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - SwiftUI 렌더링 원리
+- [apple-background-tasks](../04_system_services/apple-background-tasks.md) - 백그라운드에서 오래 살아남는 법

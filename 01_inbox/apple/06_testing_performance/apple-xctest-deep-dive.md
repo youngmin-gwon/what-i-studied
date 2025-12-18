@@ -86,5 +86,5 @@ XCTAssertTrue(welcomeLabel.waitForExistence(timeout: 5.0))
 ```
 
 ### 더 보기
-- [[apple-testing-and-quality]] - 테스트 전략 (Pyramid)
-- [[apple-instruments-profiling]] - 테스트 통과 후 성능 최적화
+- [apple-testing-and-quality](apple-testing-and-quality.md) - 테스트 전략 (Pyramid)
+- [apple-instruments-profiling](apple-instruments-profiling.md) - 테스트 통과 후 성능 최적화

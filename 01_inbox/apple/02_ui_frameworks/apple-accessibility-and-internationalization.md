@@ -82,5 +82,5 @@ formatter.locale = Locale.current // 시스템 설정을 따름 ($10, 10 €, 10
 ```
 
 ### 📚 더 보기
-- [[apple-platform-differences]] - 플랫폼별 접근성 특징 (watchOS 탭틱 등)
-- [[apple-testing-and-quality]] - UI 테스트 자동화
+- [apple-platform-differences](../00_foundations/apple-platform-differences.md) - 플랫폼별 접근성 특징 (watchOS 탭틱 등)
+- [apple-testing-and-quality](../06_testing_performance/apple-testing-and-quality.md) - UI 테스트 자동화

@@ -2,7 +2,7 @@
 title: revision-selection
 tags: [fundamentals, git, ranges, revisions, sha]
 aliases: [Git 리비전 선택, 커밋 범위 지정, 특정 커밋 지칭하기]
-date modified: 2025-12-18 15:21:51 +09:00
+date modified: 2025-12-18 16:08:04 +09:00
 date created: 2025-12-18 16:40:00 +09:00
 ---
 
@@ -62,6 +62,6 @@ Git 에서 특정 작업을 수행할 때(show, log, checkout 등), 어떤 커�
 ---
 
 ### 📚 연결 문서
-- [[00_fundamentals/git-internals|Git 인턴십]] - SHA-1 해시가 생성되는 원리
-- [[02_advanced/troubleshooting|트러블슈팅]] - `reflog` 를 이용한 유실 커밋 복구
-- [[02_advanced/reset-demystified|Reset 완벽 분석]] - 대상 커밋을 지정할 때의 리비전 활용
+- [Git 인턴십](git-internals.md) - SHA-1 해시가 생성되는 원리
+- [트러블슈팅](../02_advanced/troubleshooting.md) - `reflog` 를 이용한 유실 커밋 복구
+- [Reset 완벽 분석](../02_advanced/reset-demystified.md) - 대상 커밋을 지정할 때의 리비전 활용

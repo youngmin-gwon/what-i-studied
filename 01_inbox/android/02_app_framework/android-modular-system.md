@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Android Modular System android android/apex android/mainline
 
-[[android-glossary#apex|APEX]] 와 Mainline 모듈 시스템. 기본은 [[android-evolution-history]] 참고.
+[[android-glossary#apex|APEX]] 와 Mainline 모듈 시스템. 기본은 [android-evolution-history](../00_foundations/android-evolution-history.md) 참고.
 
 ### Mainline 이란
 
@@ -328,4 +328,4 @@ Vendor Modules (OEM 드라이버)
 
 ### 더 보기
 
-[[android-evolution-history]], [[android-customization-and-oem]], [[android-boot-flow]], [[android-hal-and-kernel]]
+[android-evolution-history](../00_foundations/android-evolution-history.md), [android-customization-and-oem](../01_system_internals/android-customization-and-oem.md), [android-boot-flow](../01_system_internals/android-boot-flow.md), [android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md)

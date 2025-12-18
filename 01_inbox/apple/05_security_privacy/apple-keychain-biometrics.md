@@ -92,5 +92,5 @@ let access = SecAccessControlCreateWithFlags(
 ```
 
 ### 더 보기
-- [[apple-sandbox-and-security]] - 앱 샌드박스 구조
-- [[apple-ios-system]] - iOS 부팅 과정과 보안 체인
+- [apple-sandbox-and-security](apple-sandbox-and-security.md) - 앱 샌드박스 구조
+- [apple-ios-system](../07_platforms/apple-ios-system.md) - iOS 부팅 과정과 보안 체인

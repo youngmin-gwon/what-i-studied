@@ -83,5 +83,5 @@ if url.startAccessingSecurityScopedResource() {
 2. **Key Rotation**: API Key나 인증서가 털렸을 때, 서버에서 키를 바꾸고 앱이 새 키를 받아올 수 있는 구조(Config API)를 만들어야 합니다. 하드코딩된 키는 앱 업데이트 전까지 수정 불가능합니다.
 
 ### 더 보기
-- [[apple-keychain-biometrics]] - 비밀번호와 생체 정보 보호
-- [[apple-build-and-distribution]] - 서명과 배포 프로세스
+- [apple-keychain-biometrics](apple-keychain-biometrics.md) - 비밀번호와 생체 정보 보호
+- [apple-build-and-distribution](apple-build-and-distribution.md) - 서명과 배포 프로세스

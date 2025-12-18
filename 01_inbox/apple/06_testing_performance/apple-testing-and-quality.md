@@ -67,5 +67,5 @@ func testLoginSuccess() {
 - **GitHub Actions**: 가장 대중적입니다. PR이 올라올 때마다 `xcodebuild test`를 돌려서 빨간 줄(실패)이 뜨면 머지를 막으세요.
 
 ### 더 보기
-- [[apple-performance-and-debug]] - 성능 테스트(XCTMetric) 방법
-- [[apple-xctest-deep-dive]] - XCTest 프레임워크 상세 사용법
+- [apple-performance-and-debug](apple-performance-and-debug.md) - 성능 테스트(XCTMetric) 방법
+- [apple-xctest-deep-dive](apple-xctest-deep-dive.md) - XCTest 프레임워크 상세 사용법

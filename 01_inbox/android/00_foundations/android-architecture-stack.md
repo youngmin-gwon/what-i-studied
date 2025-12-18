@@ -70,6 +70,6 @@ date created: 2025-12-16 15:22:42 +09:00
     - Binder 를 통해 앱과 통신합니다.
 
 #### 📚 연결 문서
-- [[android-glossary]] - 용어 사전
-- [[android-boot-flow]] - 부팅 시 이 레이어들이 초기화되는 순서
-- [[reference/android-activity-manager-and-system-services]] - System Server 심화
+- [android-glossary](android-glossary.md) - 용어 사전
+- [android-boot-flow](../01_system_internals/android-boot-flow.md) - 부팅 시 이 레이어들이 초기화되는 순서
+- [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md) - System Server 심화

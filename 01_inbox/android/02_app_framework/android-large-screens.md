@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Large Screen Support android android/tablet android/foldable
 
-태블릿, 폴더블, 데스크톱 모드 대응. 기본은 [[android-compose-internals]] 참고.
+태블릿, 폴더블, 데스크톱 모드 대응. 기본은 [android-compose-internals](android-compose-internals.md) 참고.
 
 ### 화면 크기 분류
 
@@ -585,4 +585,4 @@ Text(
 
 ### 더 보기
 
-[[android-compose-internals]], [[android-jetpack-architecture]], [[android-app-components-deep-dive]], [[android-testing-and-quality]]
+[android-compose-internals](android-compose-internals.md), [android-jetpack-architecture](android-jetpack-architecture.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)

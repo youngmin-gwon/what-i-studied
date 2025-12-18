@@ -467,4 +467,4 @@ ls app/build/intermediates/cmake/debug/obj/arm64-v8a/
 
 ### 더 보기
 
-[[android-performance-and-debug]], [[android-gradle-build-system]], [[android-native-services]]
+[android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md), [android-gradle-build-system](android-gradle-build-system.md), [android-native-services](../../../../android-native-services.md)

@@ -72,5 +72,5 @@ func requestPermission() {
 - **문제**: 나중에 사용자가 사진을 더 추가하려 할 때, 시스템 팝업(`PHPhotoLibrary.shared().presentLimitedLibraryPicker(...)`)을 띄워줘야 합니다. 아니면 3장만 계속 보입니다.
 
 ### 더 보기
-- [[apple-sandbox-and-security]] - 권한을 관리하는 TCC 데몬의 원리
-- [[apple-distribution-and-policies]] - 앱스토어 심사 가이드라인 (Privacy 관련)
+- [apple-sandbox-and-security](apple-sandbox-and-security.md) - 권한을 관리하는 TCC 데몬의 원리
+- [apple-distribution-and-policies](apple-distribution-and-policies.md) - 앱스토어 심사 가이드라인 (Privacy 관련)

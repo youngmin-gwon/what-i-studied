@@ -82,5 +82,5 @@ init(from decoder: Decoder) throws {
 ```
 
 ### 📚 더 보기
-- [[apple-networking-and-cloud]] - URLSession과 Codable 연동
-- [[apple-coredata-deep-dive]] - `NSManagedObject`를 Codable로 만들기 (주의사항 많음)
+- [apple-networking-and-cloud](apple-networking-and-cloud.md) - URLSession과 Codable 연동
+- [apple-coredata-deep-dive](apple-coredata-deep-dive.md) - `NSManagedObject`를 Codable로 만들기 (주의사항 많음)

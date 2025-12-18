@@ -1,6 +1,6 @@
 # tvOS Media & Living Room Guide #apple #tvos #media
 
-tvOS에서 거실용 앱/미디어 경험을 만들 때 필요한 내용을 쉽게 정리했다. 용어는 [[apple-glossary]].
+tvOS에서 거실용 앱/미디어 경험을 만들 때 필요한 내용을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 거실 UX 원칙
 - 멀리서 보는 큰 화면. 텍스트/버튼/포커스 상태를 큼직하게.
@@ -41,4 +41,4 @@ tvOS에서 거실용 앱/미디어 경험을 만들 때 필요한 내용을 쉽�
 - 리모컨 입력/포커스 상태/자막/다국어/이동 경로.
 
 ## 링크
-[[apple-rendering-and-media]], [[apple-network-basics]], [[apple-performance-and-debug]], [[apple-accessibility-and-internationalization]].
+[apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-network-basics](../../../../../../../apple-network-basics.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).

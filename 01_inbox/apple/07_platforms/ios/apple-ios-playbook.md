@@ -1,6 +1,6 @@
 # iOS Playbook #apple #ios #playbook
 
-iPhone을 위한 앱을 만들 때 알아야 할 실전 가이드를 쉽게 모았다. 용어는 [[apple-glossary]].
+iPhone을 위한 앱을 만들 때 알아야 할 실전 가이드를 쉽게 모았다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 기기 특성
 - 터치/제스처, 카메라/마이크/센서가 핵심. 한 손 사용/짧은 세션이 많다.
@@ -61,4 +61,4 @@ iPhone을 위한 앱을 만들 때 알아야 할 실전 가이드를 쉽게 모�
 - 접근성/다국어/다크 모드 대응이 되었는가?
 
 ## 링크
-[[apple-foundations]], [[apple-app-lifecycle-and-ui]], [[apple-sandbox-and-security]], [[apple-performance-and-debug]], [[apple-distribution-and-policies]].
+[apple-foundations](../../00_foundations/apple-foundations.md), [apple-app-lifecycle-and-ui](../../02_ui_frameworks/apple-app-lifecycle-and-ui.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-distribution-and-policies](../../05_security_privacy/apple-distribution-and-policies.md).

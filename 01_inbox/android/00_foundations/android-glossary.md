@@ -36,7 +36,7 @@ adb logcat
 adb shell
 ```
 
-**관련**: [[android-debugging-techniques]]
+**관련**: [android-debugging-techniques](../06_testing_performance/android-debugging-techniques.md)
 
 ---
 
@@ -56,7 +56,7 @@ adb shell dumpsys activity activities
 adb shell dumpsys activity processes
 ```
 
-**관련**: [[android-activity-manager-and-system-services]]
+**관련**: [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)
 
 ---
 
@@ -86,7 +86,7 @@ lifecycleScope.launch {
 adb pull /data/anr/traces.txt
 ```
 
-**관련**: [[android-debugging-techniques]]
+**관련**: [android-debugging-techniques](../06_testing_performance/android-debugging-techniques.md)
 
 ---
 
@@ -116,7 +116,7 @@ adb shell pm list packages -apex
 └─ apex_manifest.json
 ```
 
-**관련**: [[android-customization-and-oem]]
+**관련**: [android-customization-and-oem](../01_system_internals/android-customization-and-oem.md)
 
 ---
 
@@ -170,7 +170,7 @@ adb shell appops get com.example.app
 adb shell appops set com.example.app CAMERA deny
 ```
 
-**관련**: [[android-permissions-deep-dive]]
+**관련**: [android-permissions-deep-dive](../05_security_privacy/android-permissions-deep-dive.md)
 
 ---
 
@@ -198,7 +198,7 @@ adb shell getprop persist.sys.dalvik.vm.lib.2
 # 출력: libart.so
 ```
 
-**관련**: [[android-zygote-and-runtime]]
+**관련**: [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md)
 
 ---
 
@@ -228,7 +228,7 @@ adb shell service list
 adb shell dumpsys activity services
 ```
 
-**관련**: [[android-binder-and-ipc]]
+**관련**: [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md)
 
 ---
 
@@ -256,7 +256,7 @@ adb bugreport bugreport.zip
 - /proc, /sys 정보
 - ANR traces
 
-**관련**: [[android-debugging-techniques]]
+**관련**: [android-debugging-techniques](../06_testing_performance/android-debugging-techniques.md)
 
 ---
 
@@ -290,7 +290,7 @@ Singleton.context = activity // Activity가 파괴되어도 못 놓아줌
 Singleton.context = activity.applicationContext
 ```
 
-**관련**: [[android-activity-lifecycle]]
+**관련**: [android-activity-lifecycle](../02_app_framework/android-activity-lifecycle.md)
 
 ---
 
@@ -326,7 +326,7 @@ unzip -l app.apk | grep dex
 # → .vdex (Verified DEX, ART)
 ```
 
-**관련**: [[android-zygote-and-runtime]]
+**관련**: [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md)
 
 ---
 
@@ -361,7 +361,7 @@ adb shell dumpsys deviceidle force-idle
 adb shell dumpsys deviceidle unforce
 ```
 
-**관련**: [[android-performance-and-debug]]
+**관련**: [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md)
 
 ---
 
@@ -390,7 +390,7 @@ val deFile = File(deContext.filesDir, "alarm.txt")
 val ceFile = File(context.filesDir, "user_data.txt")
 ```
 
-**관련**: [[android-security-and-sandboxing]]
+**관련**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md)
 
 ---
 
@@ -422,7 +422,7 @@ adb shell lshal
 # android.hardware.audio@7.0::IDevicesFactory/default
 ```
 
-**관련**: [[android-hal-and-kernel]]
+**관련**: [android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md)
 
 ---
 
@@ -456,7 +456,7 @@ Handler(Looper.getMainLooper()).post {
 }
 ```
 
-**관련**: [[android-performance-and-debug]]
+**관련**: [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md)
 
 ---
 
@@ -485,7 +485,7 @@ adb shell cat /proc/$(pidof com.example)/oom_score_adj
 adb logcat | grep lmkd
 ```
 
-**관련**: [[android-kernel]], [[android-activity-manager-and-system-services]]
+**관련**: [android-kernel](../01_system_internals/android-kernel.md), [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)
 
 ---
 
@@ -515,7 +515,7 @@ adb shell getprop ro.boot.slot_suffix
 # 출력: _a 또는 _b
 ```
 
-**관련**: [[android-boot-flow]], [[android-customization-and-oem]]
+**관련**: [android-boot-flow](../01_system_internals/android-boot-flow.md), [android-customization-and-oem](../01_system_internals/android-customization-and-oem.md)
 
 ---
 
@@ -545,7 +545,7 @@ startActivity(intent)
 val user = intent.getParcelableExtra<User>("user")
 ```
 
-**관련**: [[android-binder-and-ipc]]
+**관련**: [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md)
 
 ---
 
@@ -579,7 +579,7 @@ adb pull /data/local/tmp/trace trace.perfetto-trace
 # 분석: https://ui.perfetto.dev/
 ```
 
-**관련**: [[android-profiling-tools]], [[android-performance-and-debug]]
+**관련**: [android-profiling-tools](../06_testing_performance/android-profiling-tools.md), [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md)
 
 ---
 
@@ -608,7 +608,7 @@ intent.type = "*/*"
 startActivityForResult(intent, REQUEST_CODE)
 ```
 
-**관련**: [[android-security-and-sandboxing]], [[android-storage-systems]]
+**관련**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md), [android-storage-systems](../02_app_framework/android-storage-systems.md)
 
 ---
 
@@ -642,7 +642,7 @@ adb logcat | grep avc
 # avc: denied { read } for scontext=u:r:untrusted_app:s0 ...
 ```
 
-**관련**: [[selinux]], [[android-security-and-sandboxing]]
+**관련**: [selinux](../../../../selinux.md), [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md)
 
 ---
 
@@ -662,7 +662,7 @@ adb logcat | grep avc
 App (Canvas/OpenGL) -> Surface -> BufferQueue -> SurfaceFlinger -> Hardware Composer -> Display
 ```
 
-**관련**: [[android-graphics-and-media]]
+**관련**: [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md)
 
 ---
 
@@ -687,7 +687,7 @@ adb shell service list
 system_server 죽음 → Zygote가 재시작 감지 → 기기 재부팅
 ```
 
-**관련**: [[android-activity-manager-and-system-services]]
+**관련**: [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)
 
 ---
 
@@ -723,7 +723,7 @@ adb shell ls -la /data/data/com.example
 #             (UID만 접근 가능)
 ```
 
-**관련**: [[android-security-and-sandboxing]]
+**관련**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md)
 
 ---
 
@@ -745,7 +745,7 @@ adb shell ls -la /data/data/com.example
 Vsync 발생 -> Choreographer.onVsync() -> App.doFrame() -> Measure/Layout/Draw -> SurfaceFlinger
 ```
 
-**관련**: [[android-performance-and-debug]], [[android-graphics-and-media]]
+**관련**: [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md), [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md)
 
 ---
 
@@ -780,7 +780,7 @@ adb shell getprop ro.boot.verifiedbootstate
 # green / yellow / orange / red
 ```
 
-**관련**: [[android-security-and-sandboxing]], [[android-boot-flow]]
+**관련**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md), [android-boot-flow](../01_system_internals/android-boot-flow.md)
 
 ---
 
@@ -817,7 +817,7 @@ adb shell dumpsys power | grep Wake
 adb shell dumpsys batterystats
 ```
 
-**관련**: [[android-performance-and-debug]]
+**관련**: [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md)
 
 ---
 
@@ -853,7 +853,7 @@ val job = JobInfo.Builder(JOB_ID, componentName)
 jobScheduler.schedule(job)
 ```
 
-**관련**: [[android-activity-manager-and-system-services]]
+**관련**: [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)
 
 ---
 
@@ -894,7 +894,7 @@ adb shell ls -la /dev/socket/zygote*
 # /dev/socket/zygote_secondary (32-bit)
 ```
 
-**관련**: [[android-zygote-and-runtime]]
+**관련**: [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md)
 
 ---
 
@@ -918,7 +918,7 @@ dependencies {
 ./gradlew :app:generateBaselineProfile
 ```
 
-**관련**: [[android-zygote-and-runtime]]
+**관련**: [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md)
 
 ---
 
@@ -950,8 +950,8 @@ res/
 
 ## 관련 문서
 
-[[android-overview]] - 시스템 전체 개요
+[android-overview](android-overview.md) - 시스템 전체 개요
 
-[[android-evolution-history]] - 기술 진화
+[android-evolution-history](android-evolution-history.md) - 기술 진화
 
-[[android-debugging-techniques]] - 디버깅 도구
+[android-debugging-techniques](../06_testing_performance/android-debugging-techniques.md) - 디버깅 도구

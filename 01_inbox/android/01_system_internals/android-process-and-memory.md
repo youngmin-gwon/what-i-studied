@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Process and Memory Management android android/process android/memory systems
 
-안드로이드의 프로세스 생성과 메모리 관리를 깊이 있게 다룬다. 기본은 [[android-zygote-and-runtime]] 과 [[android-foundations]] 참고.
+안드로이드의 프로세스 생성과 메모리 관리를 깊이 있게 다룬다. 기본은 [android-zygote-and-runtime](android-zygote-and-runtime.md) 과 [android-foundations](../00_foundations/android-foundations.md) 참고.
 
 ### 프로세스 생성 흐름
 
@@ -22,7 +22,7 @@ date created: 2025-12-16 16:19:14 +09:00
 3. Unix 소켓 `/dev/socket/zygote` 를 열고 대기
 
 **앱 시작 시:**
-1. [[android-activity-manager-and-system-services|ActivityManagerService]] 가 "이 앱 프로세스가 없다" 판단
+1. [ActivityManagerService](android-activity-manager-and-system-services.md) 가 "이 앱 프로세스가 없다" 판단
 2. Zygote 소켓으로 요청 전송 (UID, GID, 권한, 패키지명, nice 값 등)
 3. Zygote 가 `fork()` 시스템 콜로 자신을 복사
 4. 자식 프로세스에서:
@@ -275,7 +275,7 @@ adb shell ls -l /data/data/com.example.app
 **주의사항:**
 - 각 프로세스는 별도의 Application 인스턴스를 가짐
 - static 변수가 공유되지 않음
-- 프로세스 간 통신은 [[android-binder-and-ipc|Binder/AIDL]] 필요
+- 프로세스 간 통신은 [Binder/AIDL](android-binder-and-ipc.md) 필요
 
 ```kotlin
 class MyApplication : Application() {
@@ -444,4 +444,4 @@ adb shell am dumpheap <pid> /data/local/tmp/heap.hprof
 
 ### 더 보기
 
-[[android-zygote-and-runtime]], [[android-activity-manager-and-system-services]], [[android-performance-and-debug]], [[android-app-components-deep-dive]], [[android-security-and-sandboxing]]
+[android-zygote-and-runtime](android-zygote-and-runtime.md), [android-activity-manager-and-system-services](android-activity-manager-and-system-services.md), [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md), [android-app-components-deep-dive](../02_app_framework/android-app-components-deep-dive.md), [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md)

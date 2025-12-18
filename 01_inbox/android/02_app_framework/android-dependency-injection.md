@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Dependency Injection android android/di android/hilt
 
-Hilt, Dagger, Koin 을 사용한 의존성 주입. 기본은 [[android-jetpack-architecture]] 참고.
+Hilt, Dagger, Koin 을 사용한 의존성 주입. 기본은 [android-jetpack-architecture](android-jetpack-architecture.md) 참고.
 
 ### 의존성 주입이란
 
@@ -529,4 +529,4 @@ val testModule = module {
 
 ### 더 보기
 
-[[android-jetpack-architecture]], [[android-testing-and-quality]], [[android-gradle-build-system]]
+[android-jetpack-architecture](android-jetpack-architecture.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md), [android-gradle-build-system](android-gradle-build-system.md)

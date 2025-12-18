@@ -191,11 +191,11 @@ fi
 [ condition1 -o condition2 ]      # OR (구식)
 ```
 
-**이중 대괄호 `[[ ]]`** (bash 확장):
+**이중 대괄호 `[](../.md)`** (bash 확장):
 ```bash
-[[ $str =~ regex ]]     # 정규식 매칭
-[[ $str == pattern ]]   # 패턴 매칭
-[[ $a > $b ]]           # 문자열 비교 (이스케이프 불필요)
+[$str =~ regex](../../$str =~ regex.md)     # 정규식 매칭
+[$str == pattern](../../$str == pattern.md)   # 패턴 매칭
+[$a > $b](../../$a > $b.md)           # 문자열 비교 (이스케이프 불필요)
 ```
 
 **예제**:
@@ -663,5 +663,5 @@ fi
 
 ---
 
-**이전 챕터**: [[09-services-daemons|시스템 서비스 및 데몬]]  
-**다음 챕터**: [[11-monitoring-logs|시스템 모니터링 및 로그]]
+**이전 챕터**: [시스템 서비스 및 데몬](09-services-daemons.md)  
+**다음 챕터**: [시스템 모니터링 및 로그](11-monitoring-logs.md)

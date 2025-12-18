@@ -8,7 +8,7 @@ date created: 2025-12-16 15:27:24 +09:00
 
 ## Android OS Development Guide android android/osdev android/aosp android/build
 
-AOSP 로 기기 OS 를 만들 때 알아두면 좋은 길잡이. 낯선 말은 [[android-glossary]].
+AOSP 로 기기 OS 를 만들 때 알아두면 좋은 길잡이. 낯선 말은 [android-glossary](../00_foundations/android-glossary.md).
 
 ### 소스와 빌드
 - `repo init/sync` 로 소스를 받는다. `source build/envsetup.sh` 후 `lunch` 로 타깃을 고른다.
@@ -30,7 +30,7 @@ AOSP 로 기기 OS 를 만들 때 알아두면 좋은 길잡이. 낯선 말은 [
 
 ### init/서비스
 - init.rc 로 서비스와 트리거를 정의한다. APEX 모듈도 자신의 rc 를 자동으로 가져온다.
-- property/selabel/권한이 맞지 않으면 서비스가 뜨지 않는다. [[android-init-and-services]] 참고.
+- property/selabel/권한이 맞지 않으면 서비스가 뜨지 않는다. [android-init-and-services](../01_system_internals/android-init-and-services.md) 참고.
 
 ### HAL/드라이버
 - AIDL/HIDL HAL 인터페이스를 정의하고, binderized 서비스로 등록한다.
@@ -54,4 +54,4 @@ AOSP 로 기기 OS 를 만들 때 알아두면 좋은 길잡이. 낯선 말은 [
 
 ### 링크
 
-[[android-customization-and-oem]], [[android-hal-and-kernel]], [[android-boot-flow]], [[android-adb-and-images]].
+[android-customization-and-oem](../01_system_internals/android-customization-and-oem.md), [android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md), [android-boot-flow](../01_system_internals/android-boot-flow.md), [android-adb-and-images](../06_testing_performance/android-adb-and-images.md).

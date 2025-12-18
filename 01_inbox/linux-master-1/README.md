@@ -15,25 +15,25 @@ date created: 2025-12-10 19:23:54 +09:00
 ### 📖 목차
 
 #### 기초 개념
-1. [[linux-master-1/01-linux-overview|리눅스 개요 및 역사]]
-2. [[linux-master-1/02-installation-boot|시스템 설치 및 부팅 프로세스]]
-3. [[linux-master-1/03-filesystem|파일 시스템 및 디렉토리 구조]]
+1. [리눅스 개요 및 역사](01-linux-overview.md)
+2. [시스템 설치 및 부팅 프로세스](02-installation-boot.md)
+3. [파일 시스템 및 디렉토리 구조](03-filesystem.md)
 
 #### 기본 운영
-1. [[linux-master-1/04-basic-commands|기본 명령어 및 셸]]
-2. [[linux-master-1/05-users-permissions|사용자 및 권한 관리]]
-3. [[linux-master-1/06-process-management|프로세스 및 작업 관리]]
+1. [기본 명령어 및 셸](04-basic-commands.md)
+2. [사용자 및 권한 관리](05-users-permissions.md)
+3. [프로세스 및 작업 관리](06-process-management.md)
 
 #### 시스템 관리
-1. [[linux-master-1/07-package-management|패키지 관리]]
-2. [[linux-master-1/08-network-config|네트워크 설정]]
-3. [[linux-master-1/09-services-daemons|시스템 서비스 및 데몬]]
+1. [패키지 관리](07-package-management.md)
+2. [네트워크 설정](08-network-config.md)
+3. [시스템 서비스 및 데몬](09-services-daemons.md)
 
 #### 고급 주제
-1. [[linux-master-1/10-shell-scripting|셸 스크립팅]]
-2. [[linux-master-1/11-monitoring-logs|시스템 모니터링 및 로그]]
-3. [[linux-master-1/12-backup-recovery|백업 및 복구]]
-4. [[linux-master-1/13-vim-quota-modules|vi/vim, 쿼터, 커널 모듈]]
+1. [셸 스크립팅](10-shell-scripting.md)
+2. [시스템 모니터링 및 로그](11-monitoring-logs.md)
+3. [백업 및 복구](12-backup-recovery.md)
+4. [vi/vim, 쿼터, 커널 모듈](13-vim-quota-modules.md)
 
 ### 🎯 학습 전략
 

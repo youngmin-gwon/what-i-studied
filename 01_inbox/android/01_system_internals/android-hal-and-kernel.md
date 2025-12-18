@@ -60,6 +60,6 @@ Android 12부터는 **GKI**가 도입되었습니다.
 -   **Effect**: 보안 패치가 나오면 구글이 커널만 쏙 바꿔 끼울 수 있게 되었습니다.
 
 ### 📚 연결 문서
-- [[android-architecture-stack]] - HAL의 위치
-- [[android-binder-and-ipc]] - HAL과 통신하는 수단
-- [[android-boot-flow]] - Vendor 파티션 마운트 과정
+- [android-architecture-stack](../00_foundations/android-architecture-stack.md) - HAL의 위치
+- [android-binder-and-ipc](android-binder-and-ipc.md) - HAL과 통신하는 수단
+- [android-boot-flow](android-boot-flow.md) - Vendor 파티션 마운트 과정

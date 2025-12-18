@@ -75,5 +75,5 @@ Xcode 프로젝트 하나에 여러 타겟(Target)을 둡니다.
 - **xcconfig**: 빌드 설정 파일로 버전 번호나 API 키를 통합 관리하세요.
 
 ### 더 보기
-- [[apple-build-and-distribution]] - 타겟별 빌드 및 배포 설정
-- [[apple-swiftui-deep-dive]] - SwiftUI의 플랫폼별 동작 차이
+- [apple-build-and-distribution](../05_security_privacy/apple-build-and-distribution.md) - 타겟별 빌드 및 배포 설정
+- [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - SwiftUI의 플랫폼별 동작 차이

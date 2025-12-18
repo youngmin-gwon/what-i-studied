@@ -129,9 +129,9 @@ func handleRequest() async {
 ```
 
 ### 📚 외부 리소스
-- **[Swift Concurrency Documentation](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/)**: 공식 문서.
-- **[WWDC 2021: Swift concurrency: Behind the scenes](https://developer.apple.com/videos/play/wwdc2021/10254/)**: 내부 스레딩 모델을 이해하려면 필수.
+- **[Swift Concurrency Documentation](../../../../https:/docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/.md)**: 공식 문서.
+- **[WWDC 2021: Swift concurrency: Behind the scenes](../../../../https:/developer.apple.com/videos/play/wwdc2021/10254/.md)**: 내부 스레딩 모델을 이해하려면 필수.
 
 ### 더 보기
-- [[apple-gcd-deep-dive]] - 기존 GCD와의 차이점
-- [[apple-combine-framework]] - 비동기 "스트림" 처리에는 Combine/AsyncSequence가 유리함
+- [apple-gcd-deep-dive](apple-gcd-deep-dive.md) - 기존 GCD와의 차이점
+- [apple-combine-framework](../03_data_networking/apple-combine-framework.md) - 비동기 "스트림" 처리에는 Combine/AsyncSequence가 유리함

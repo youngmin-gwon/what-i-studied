@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Android Permissions Deep Dive android android/permissions android/security android/privacy
 
-안드로이드 권한 시스템을 깊이 있게 다룬다. 기본은 [[android-security-and-sandboxing]] 참고.
+안드로이드 권한 시스템을 깊이 있게 다룬다. 기본은 [android-security-and-sandboxing](android-security-and-sandboxing.md) 참고.
 
 ### 권한 시스템 개요
 
@@ -415,7 +415,7 @@ val pendingIntent = PendingIntent.getActivity(
 앱이 권한이 필요한 API 를 호출하면:
 
 1. **Framework 레이어**: `Context.checkPermission()` 호출
-2. **[[android-activity-manager-and-system-services|ActivityManagerService]]**: UID/PID 와 권한 매핑 확인
+2. **[ActivityManagerService](../01_system_internals/android-activity-manager-and-system-services.md)**: UID/PID 와 권한 매핑 확인
 3. **PackageManagerService**: 앱이 해당 권한을 선언했는지 확인
 4. **AppOpsService**: 런타임 권한 상태 확인
 5. **[[android-glossary#selinux|SELinux]]**: 도메인 간 접근 규칙 확인
@@ -508,4 +508,4 @@ adb shell dumpsys package com.example.app | grep "granted=true"
 
 ### 더 보기
 
-[[android-security-and-sandboxing]], [[android-app-components-deep-dive]], [[android-storage-systems]], [[android-privacy-features]], [[android-activity-manager-and-system-services]]
+[android-security-and-sandboxing](android-security-and-sandboxing.md), [android-app-components-deep-dive](../02_app_framework/android-app-components-deep-dive.md), [android-storage-systems](../02_app_framework/android-storage-systems.md), [android-privacy-features](android-privacy-features.md), [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)

@@ -14,15 +14,15 @@ Apple 플랫폼의 근간이 되는 Objective-C Runtime과 Swift Runtime의 내�
 
 #### 공식 문서 및 소스 코드
 
-- [Objective-C Runtime Source - GitHub](https://github.com/apple-oss-distributions/objc4) - `objc_msgSend` 등의 실제 구현 확인 가능.
-- [Swift Runtime Source - GitHub](https://github.com/apple/swift/tree/main/stdlib/public/runtime)
-- [Objective-C Runtime Programming Guide](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html)
+- [Objective-C Runtime Source - GitHub](../../../../https:/github.com/apple-oss-distributions/objc4.md) - `objc_msgSend` 등의 실제 구현 확인 가능.
+- [Swift Runtime Source - GitHub](../../../../https:/github.com/apple/swift/tree/main/stdlib/public/runtime.md)
+- [Objective-C Runtime Programming Guide](../../../../https:/developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html.md)
 
 #### 📖 기술 아티클 & Reverse Engineering
 
-- [Understanding Swift Method Dispatch](https://www.rightpoint.com/rplabs/switch-method-dispatch-table)
-- [Friday Q&A: objc_msgSend Tour](https://www.mikeash.com/pyblog/friday-qa-2012-11-16-lets-build-objc_msgsend.html)
-- [The Swift ABI](https://github.com/apple/swift/blob/main/docs/ABI/TypeMetadata.rst)
+- [Understanding Swift Method Dispatch](../../../../https:/www.rightpoint.com/rplabs/switch-method-dispatch-table.md)
+- [Friday Q&A: objc_msgSend Tour](../../../../https:/www.mikeash.com/pyblog/friday-qa-2012-11-16-lets-build-objc_msgsend.html.md)
+- [The Swift ABI](../../../../https:/github.com/apple/swift/blob/main/docs/ABI/TypeMetadata.rst.md)
 
 ---
 
@@ -137,5 +137,5 @@ func process(item: Runnable) { // Runnable 프로토콜 타입
 - 특히 `Any` 타입에서 구체 타입으로 캐스팅하는 것은 무겁습니다.
 
 ### 더 보기
-- [[apple-memory-management]] - 객체 레이아웃과 메모리 관리
-- [[apple-uikit-lifecycle]] - Swizzling이 자주 사용되는 UIKit 내부
+- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - 객체 레이아웃과 메모리 관리
+- [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - Swizzling이 자주 사용되는 UIKit 내부

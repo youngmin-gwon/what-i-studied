@@ -8,7 +8,7 @@ date created: 2025-12-16 15:26:05 +09:00
 
 ## Performance & Debugging android android/performance android/debugging
 
-앱을 부드럽고 튼튼하게 만드는 쉬운 체크리스트. 도구/용어는 [[android-glossary]].
+앱을 부드럽고 튼튼하게 만드는 쉬운 체크리스트. 도구/용어는 [android-glossary](../00_foundations/android-glossary.md).
 
 ### 목표
 - 시작: 차가운 시작 몇 초 안, 뜨거운 시작 1 초 내.
@@ -59,4 +59,4 @@ date created: 2025-12-16 15:26:05 +09:00
 
 ### 더 보기
 
-[[android-activity-manager-and-system-services]], [[android-security-and-sandboxing]], [[android-adb-and-images]], [[android-testing-and-quality]].
+[android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md), [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md), [android-adb-and-images](android-adb-and-images.md), [android-testing-and-quality](android-testing-and-quality.md).

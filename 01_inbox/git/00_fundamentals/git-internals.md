@@ -2,7 +2,7 @@
 title: git-internals
 tags: [architecture, git, internals, maintenance, objects, packfiles, refspec]
 aliases: [GC, Git 내부 구조, Git 데이터 모델, Git 원리, Git 인턴십, Prune]
-date modified: 2025-12-18 15:21:34 +09:00
+date modified: 2025-12-18 16:08:01 +09:00
 date created: 2025-12-18 14:00:00 +09:00
 ---
 
@@ -91,6 +91,6 @@ Git 은 데이터베이스의 건강을 위해 주기적으로 '청소' 작업�
 
 ### 📚 연결 문서
 
-- [[02_advanced/troubleshooting|트러블슈팅]] - `fsck` 로 댕글링 오브젝트 찾기
-- [[02_advanced/reset-demystified|Reset 완벽 분석]] - 영역별 데이터 이동
-- [[03_tools/git-security-and-staging|보안 및 스테이징]] - 서명된 객체의 내부 구조
+- [트러블슈팅](../02_advanced/troubleshooting.md) - `fsck` 로 댕글링 오브젝트 찾기
+- [Reset 완벽 분석](../02_advanced/reset-demystified.md) - 영역별 데이터 이동
+- [보안 및 스테이징](../03_tools/git-security-and-staging.md) - 서명된 객체의 내부 구조

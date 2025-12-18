@@ -61,6 +61,6 @@ GitHub 내장 CI/CD 도구로, 특정 이벤트 발생 시 자동으로 스크�
 
 ### 📚 연결 문서
 
-- [[01_strategies/branching-strategies|브랜치 전략]] - GitHub Flow 와 Git Flow 의 실무 적용
-- [[03_tools/git-customization|Git 커스텀]] - GitHub Actions 의 기반이 되는 Git Hooks 이해
-- [[02_advanced/git-server|Git 서버]] - GitHub 가 내부적으로 사용하는 전송 프로토콜
+- [브랜치 전략](branching-strategies.md) - GitHub Flow 와 Git Flow 의 실무 적용
+- [Git 커스텀](../03_tools/git-customization.md) - GitHub Actions 의 기반이 되는 Git Hooks 이해
+- [Git 서버](../02_advanced/git-server.md) - GitHub 가 내부적으로 사용하는 전송 프로토콜

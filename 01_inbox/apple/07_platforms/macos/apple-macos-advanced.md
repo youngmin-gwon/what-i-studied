@@ -1,6 +1,6 @@
 # macOS Advanced Notes #apple #macos #desktop
 
-macOS 데스크탑 앱을 더 깊게 만들 때 필요한 내용을 쉽게 정리했다. 용어는 [[apple-glossary]].
+macOS 데스크탑 앱을 더 깊게 만들 때 필요한 내용을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 샌드박스 vs 비샌드박스
 - Mac App Store 앱은 샌드박스 필수. 파일은 Security-scoped bookmark/파일 선택기로 접근.
@@ -42,4 +42,4 @@ macOS 데스크탑 앱을 더 깊게 만들 때 필요한 내용을 쉽게 정�
 - 입력 장치(마우스/트랙패드/키보드/펜/게임패드) 다양성 체크.
 
 ## 링크
-[[apple-macos-desktop]], [[apple-build-and-distribution]], [[apple-sandbox-and-security]], [[apple-performance-and-debug]].
+[apple-macos-desktop](../../../../../../../apple-macos-desktop.md), [apple-build-and-distribution](../../05_security_privacy/apple-build-and-distribution.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).

@@ -8,7 +8,7 @@ date created: 2025-12-16 15:24:27 +09:00
 
 ## Android Security와 Sandboxing
 
-안드로이드 보안 모델은 **Defense in Depth(다층 방어)** 원칙을 따른다. 앱 샌드박싱, 권한 시스템, [[selinux|SELinux]], 암호화, Verified Boot 등 여러 계층의 보안 메커니즘이 협력하여 사용자 데이터와 시스템을 보호한다. 모바일 환경의 특성상 ― 신뢰할 수 없는 써드파티 앱 수백만 개, 분실/도난 위험, 다양한 공격 벡터 ― 때문에 매우 정교한 보안 아키텍처가 필요하다.
+안드로이드 보안 모델은 **Defense in Depth(다층 방어)** 원칙을 따른다. 앱 샌드박싱, 권한 시스템, [SELinux](../../../../selinux.md), 암호화, Verified Boot 등 여러 계층의 보안 메커니즘이 협력하여 사용자 데이터와 시스템을 보호한다. 모바일 환경의 특성상 ― 신뢰할 수 없는 써드파티 앱 수백만 개, 분실/도난 위험, 다양한 공격 벡터 ― 때문에 매우 정교한 보안 아키텍처가 필요하다.
 
 ### 왜 안드로이드는 특별한 보안이 필요한가
 
@@ -61,7 +61,7 @@ graph TB
 |-------------|----------------|
 | **1.0** (2008) | UID 기반 샌드박싱, 권한 시스템 |
 | **3.0** (2011) | 전체 디스크 암호화 |
-| **4.3** (2013) | [[selinux|SELinux]] (permissive) |
+| **4.3** (2013) | [SELinux](../../../../selinux.md) (permissive) |
 | **5.0** (2014) | SELinux enforcing, Smart Lock |
 | **6.0** (2015) | **런타임 권한**, 지문인증 API |
 | **7.0** (2016) | 파일 기반 암호화 (FBE), Direct Boot |
@@ -123,7 +123,7 @@ $ cat /data/data/com.example.app1/databases/data.db
 
 ### 프로세스 간 격리
 
-[[cpu-privilege-levels|UID 기반]] + [[selinux|SELinux]] + Seccomp:
+[UID 기반](../../../../cpu-privilege-levels.md) + [SELinux](../../../../selinux.md) + Seccomp:
 
 ```mermaid
 graph TB
@@ -234,7 +234,7 @@ adb shell appops get com.example.app
 
 ---
 
-## [[selinux|SELinux]] 통합
+## [SELinux](../../../../selinux.md) 통합
 
 ### 앱 도메인
 
@@ -614,12 +614,12 @@ adb logcat | grep avc
 ## 학습 리소스
 
 **공식 문서**:
-- [Security Overview](https://source.android.com/docs/security)
-- [App Sandboxing](https://source.android.com/docs/security/app-sandbox)
-- [Permissions](https://developer.android.com/guide/topics/permissions/overview)
+- [Security Overview](../../../../https:/source.android.com/docs/security.md)
+- [App Sandboxing](../../../../https:/source.android.com/docs/security/app-sandbox.md)
+- [Permissions](../../../../https:/developer.android.com/guide/topics/permissions/overview.md)
 
 **보안 테스트**:
-- [Android Security Checklist](https://developer.android.com/privacy-and-security/security-checklist)
+- [Android Security Checklist](../../../../https:/developer.android.com/privacy-and-security/security-checklist.md)
 - OWASP Mobile Top 10
 
 **도구**:
@@ -631,9 +631,9 @@ adb logcat | grep avc
 
 ## 연결 문서
 
-[[selinux]] - SELinux 정책 상세  
-[[android-kernel]] - 커널 보안 (SELinux, Seccomp)  
-[[cpu-privilege-levels]] - UID 기반 격리  
-[[android-binder-and-ipc]] - Binder 보안  
-[[android-init-and-services]] - Verified Boot 부팅 체인  
-[[android-zygote-and-runtime]] - 앱 프로세스 격리
+[selinux](../../../../selinux.md) - SELinux 정책 상세  
+[android-kernel](../01_system_internals/android-kernel.md) - 커널 보안 (SELinux, Seccomp)  
+[cpu-privilege-levels](../../../../cpu-privilege-levels.md) - UID 기반 격리  
+[android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) - Binder 보안  
+[android-init-and-services](../01_system_internals/android-init-and-services.md) - Verified Boot 부팅 체인  
+[android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md) - 앱 프로세스 격리

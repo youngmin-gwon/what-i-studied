@@ -62,5 +62,5 @@ iOS는 스왑(Disk Swap)이 없습니다. 메모리가 부족하면 누군가를
 7. **Responder Chain**: 버튼이 처리 안 하면 상위 뷰로 전달.
 
 ### 더 보기
-- [[apple-app-lifecycle-and-ui]] - 앱 생명주기
-- [[apple-memory-management]] - 메모리 관리 기법
+- [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱 생명주기
+- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - 메모리 관리 기법

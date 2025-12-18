@@ -98,5 +98,5 @@ func handleProcessingTask(task: BGProcessingTask) {
 4. 디버거 재개(Resume) -> 즉시 태스크 실행됨.
 
 ### 더 보기
-- [[apple-uikit-lifecycle]] - 앱이 백그라운드로 가는 시점
-- [[apple-networking-and-cloud]] - Background URLSession과의 차이 (파일 다운로드는 URLSession이 더 유리함)
+- [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - 앱이 백그라운드로 가는 시점
+- [apple-networking-and-cloud](../03_data_networking/apple-networking-and-cloud.md) - Background URLSession과의 차이 (파일 다운로드는 URLSession이 더 유리함)

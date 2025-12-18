@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Android Debugging Techniques android android/debugging android/tools
 
-크래시 분석, ANR 디버깅, 로깅 기법. 기본은 [[android-performance-and-debug]] 참고.
+크래시 분석, ANR 디버깅, 로깅 기법. 기본은 [android-performance-and-debug](android-performance-and-debug.md) 참고.
 
 ### Logcat
 
@@ -438,4 +438,4 @@ adb logcat
 
 ### 더 보기
 
-[[android-performance-and-debug]], [[android-profiling-tools]], [[android-testing-and-quality]], [[android-ndk-jni]]
+[android-performance-and-debug](android-performance-and-debug.md), [android-profiling-tools](android-profiling-tools.md), [android-testing-and-quality](android-testing-and-quality.md), [android-ndk-jni](../02_app_framework/android-ndk-jni.md)

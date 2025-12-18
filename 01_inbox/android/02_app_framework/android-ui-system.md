@@ -80,6 +80,6 @@ XML 속성(`android:padding`, `android:background`) 대신 **Modifier 체인**�
 -   **Code**: `items(list) { item -> Text(item) }`. 끝입니다.
 
 ### 📚 연결 문서
-- [[android-compose-internals]] - Compose 사용법 심화
-- [[android-graphics-and-media]] - SurfaceFlinger로 그림이 넘어가는 과정
-- [[android-activity-lifecycle]] - 생명주기에 따른 UI 상태 저장
+- [android-compose-internals](android-compose-internals.md) - Compose 사용법 심화
+- [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md) - SurfaceFlinger로 그림이 넘어가는 과정
+- [android-activity-lifecycle](android-activity-lifecycle.md) - 생명주기에 따른 UI 상태 저장

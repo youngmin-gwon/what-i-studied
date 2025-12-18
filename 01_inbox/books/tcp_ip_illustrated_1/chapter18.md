@@ -6,7 +6,7 @@ date modified: 2025-12-11 14:04:32 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
-[[01_inbox/books/tcp_ip_illustrated_1/roadmap|📖 Return to Roadmap]]
+[📖 Return to Roadmap](roadmap.md)
 
 ## 1. Mermaid Mindmap
 

@@ -63,7 +63,7 @@
 log_dir=${LOG_DIR:-/var/log/myapp}
 file="$log_dir/$(date +%Y-%m-%d).log"
 mkdir -p "$log_dir"
-if [[ -n ${DEBUG:-} ]]; then set -x; fi
+if [-n ${DEBUG:-}](../../-n ${DEBUG:-}.md); then set -x; fi
 some_cmd --output "$file" --filter "${pattern:-.*}"  # 단어 분리, 글로브 예방
 ```
 
@@ -84,7 +84,7 @@ some_cmd --output "$file" --filter "${pattern:-.*}"  # 단어 분리, 글로브 
 - **확장 순서 착각**: `echo $foo*`는 `$foo` 확장 후 글로브 동작. 의도치 않은 매칭 방지 위해 `echo "$foo"*`처럼 분리.
 - **IFS 오염**: `IFS=:`로 바꾼 뒤 복원하지 않으면 이후 `"$@"` 확장 결과가 달라짐. 함수 내부에서 `local IFS`로 제한.
 - **명령 치환 트레일링 개행**: `$(cmd)`는 마지막 개행 제거. 개행 보존이 필요하면 `mapfile -t arr < <(cmd)` 사용.
-- **정규식 구분**: `[[ $s =~ regex ]]`에서 regex는 인용하면 리터럴. 변수에 담긴 정규식을 쓰려면 `[[ $s =~ $re ]]`(단어 분리/글로브 위험은 없음).
+- **정규식 구분**: `[$s =~ regex](../../$s =~ regex.md)`에서 regex는 인용하면 리터럴. 변수에 담긴 정규식을 쓰려면 `[$s =~ $re](../../$s =~ $re.md)`(단어 분리/글로브 위험은 없음).
 - **brace vs glob**: `foo{bar,baz}`는 파일 없어도 두 인자로 분리, `foo*`는 파일 없으면 그대로 또는 빈(옵션에 따라). 스크립트에서 brace 사용 시 의도적으로 인자 늘어난다는 점을 문서화.
 
 ## 실전 패턴 모음
@@ -96,6 +96,6 @@ some_cmd --output "$file" --filter "${pattern:-.*}"  # 단어 분리, 글로브 
 ## 연습 문제
 1. `files=$(ls *.txt)`가 왜 위험한지 설명하고, 안전한 대안 코드를 작성하라.  
 2. `${var:-default}`와 `${var:+alt}`의 차이를 표로 정리하고, unset/null/set 세 경우의 결과를 적으라.  
-3. `[[ $path == *.txt ]]`와 `[ "$path" = *.txt ]`의 동작 차이를 설명하라.  
+3. `[$path == *.txt](../../$path == *.txt.md)`와 `[ "$path" = *.txt ]`의 동작 차이를 설명하라.  
 4. `echo {01..05..2}`의 결과를 예측하고, 숫자 패딩 규칙을 설명하라.  
 5. `foo=$(printf 'a\nb\n')` 이후 `${foo%%$'\n'*}`와 `${foo%$'\n'*}`의 차이를 설명하라.

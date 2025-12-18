@@ -86,5 +86,5 @@ if httpResponse.statusCode == 401 {
 ```
 
 ### 더 보기
-- [[apple-networking-and-cloud]] - URLSession의 내부 구조와 보안
-- [[apple-codable-json]] - JSON 파싱 성능 최적화
+- [apple-networking-and-cloud](apple-networking-and-cloud.md) - URLSession의 내부 구조와 보안
+- [apple-codable-json](apple-codable-json.md) - JSON 파싱 성능 최적화

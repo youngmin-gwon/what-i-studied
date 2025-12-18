@@ -1,6 +1,6 @@
 # macOS System Extensions & DriverKit #apple #macos #driverkit #systemextensions
 
-macOS에서 시스템 확장/드라이버를 만들 때 알아야 할 내용을 쉽게 정리했다. 용어는 [[apple-glossary]].
+macOS에서 시스템 확장/드라이버를 만들 때 알아야 할 내용을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 왜 바뀌었나?
 - 커널 확장(kext)은 안정성/보안 위험이 커서, 사용자 공간으로 옮긴 [[apple-glossary#Kext/DriverKit|DriverKit]]/시스템 확장이 권장된다.
@@ -38,4 +38,4 @@ macOS에서 시스템 확장/드라이버를 만들 때 알아야 할 내용을 
 - Intel/Apple Silicon 모두 지원하는지, Rosetta에서도 동작하는지 테스트.
 
 ## 링크
-[[apple-macos-advanced]], [[apple-sandbox-and-security]], [[apple-distribution-and-policies]], [[apple-network-basics]].
+[apple-macos-advanced](apple-macos-advanced.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-distribution-and-policies](../../05_security_privacy/apple-distribution-and-policies.md), [apple-network-basics](../../../../../../../apple-network-basics.md).

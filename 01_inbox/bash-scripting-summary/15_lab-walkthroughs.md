@@ -63,7 +63,7 @@
 - **단계**:
   1. `PS4='+${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]} ' bash -x unquoted.sh 2>trace.log` 실행 후 로그 분석.
   2. `shellcheck unquoted.sh` 결과를 보고 SC2086, SC2164 등을 수정.
-  3. 간단 테스트 함수: `assert_eq(){ [[ $1 == $2 ]] || { echo "FAIL $1/$2" >&2; return 1; }; }` 작성 후 케이스 추가.
+  3. 간단 테스트 함수: `assert_eq(){ [$1 == $2](../../$1 == $2.md) || { echo "FAIL $1/$2" >&2; return 1; }; }` 작성 후 케이스 추가.
   4. `RUN_TESTS=1 bash script.sh` 패턴으로 테스트 실행 플래그 도입.
 - **검증**: 수정 후 shellcheck 경고 0, 테스트 전부 통과.
 - **확장 미션**: CI에서 실행될 수 있도록 `Makefile` 또는 `justfile`에 lint/test 타겟 추가.

@@ -66,6 +66,6 @@ date created: 2025-12-18 15:40:00 +09:00
 
 ### 📚 연결 문서
 
-- [[00_fundamentals/basic-concepts|Git 기본 개념]] - 세 가지 나무(Three Trees) 기초
-- [[00_fundamentals/git-internals|Git 인턴십]] - HEAD 와 Ref 가 내부적으로 어떻게 저장되는지
-- [[02_advanced/troubleshooting|트러블슈팅]] - Reset 실수를 복구하는 `reflog` 활용법
+- [Git 기본 개념](../00_fundamentals/basic-concepts.md) - 세 가지 나무(Three Trees) 기초
+- [Git 인턴십](../00_fundamentals/git-internals.md) - HEAD 와 Ref 가 내부적으로 어떻게 저장되는지
+- [트러블슈팅](troubleshooting.md) - Reset 실수를 복구하는 `reflog` 활용법

@@ -75,5 +75,5 @@ Mac 앱에는 강력한 단축키 메뉴를 추가하고, iPad 앱에는 펜슬 
 - **macOS**: Menu Bar Commands (`Command + S`), Drag & Drop 파일 처리.
 
 ### 📚 더 보기
-- [[apple-foundations]] - 공통 철학
-- [[apple-build-and-distribution]] - 플랫폼별 배포 방식 차이
+- [apple-foundations](apple-foundations.md) - 공통 철학
+- [apple-build-and-distribution](../05_security_privacy/apple-build-and-distribution.md) - 플랫폼별 배포 방식 차이

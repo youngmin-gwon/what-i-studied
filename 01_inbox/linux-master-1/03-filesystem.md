@@ -409,5 +409,5 @@ du -h --max-depth=1 /   # 1단계 하위 디렉토리 크기
 
 ---
 
-**이전 챕터**: [[02-installation-boot|시스템 설치 및 부팅 프로세스]]  
-**다음 챕터**: [[04-basic-commands|기본 명령어 및 셸]]
+**이전 챕터**: [시스템 설치 및 부팅 프로세스](02-installation-boot.md)  
+**다음 챕터**: [기본 명령어 및 셸](04-basic-commands.md)

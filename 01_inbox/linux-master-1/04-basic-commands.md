@@ -423,5 +423,5 @@ export PATH=$PATH:/new/path
 
 ---
 
-**이전 챕터**: [[03-filesystem|파일 시스템 및 디렉토리 구조]]  
-**다음 챕터**: [[05-users-permissions|사용자 및 권한 관리]]
+**이전 챕터**: [파일 시스템 및 디렉토리 구조](03-filesystem.md)  
+**다음 챕터**: [사용자 및 권한 관리](05-users-permissions.md)

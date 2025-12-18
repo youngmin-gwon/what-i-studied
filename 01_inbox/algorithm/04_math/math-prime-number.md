@@ -137,4 +137,4 @@ def prime_factorization(n):
 - [나머지 연산](math-modular-and-exponentiation.md) - 페르마의 소정리와 소수를 활용한 모듈러 역원 계산
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 에라토스테네스의 체($O(N \log \log N)$)의 효율성 분석
 - [누적 합](../03_patterns/prefix-sum.md) - 특정 범위 내 소수 개수를 빠르게 조회하는 최적화 기법
-- [비트 조작](../01_data-structures/bit-manipulation.md) - 대규모 소수 판별 배열의 메모리 사용량 최적화
+- [비트 조작](../03_patterns/bit-manipulation.md) - 대규모 소수 판별 배열의 메모리 사용량 최적화

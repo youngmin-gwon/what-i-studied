@@ -1,6 +1,6 @@
 # watchOS Fitness & Health Guide #apple #watchos #health
 
-워치에서 피트니스/헬스 앱을 만들 때 알아야 할 내용을 쉽게 정리했다. 용어는 [[apple-glossary]].
+워치에서 피트니스/헬스 앱을 만들 때 알아야 할 내용을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 핵심 개념
 - 짧은 상호작용, 빠른 피드백. 손목을 올리는 순간 바로 보여야 한다.
@@ -42,4 +42,4 @@
 - 컴플리케이션/알림이 과도하지 않은가?
 
 ## 링크
-[[apple-watchos-wearables]], [[apple-network-basics]], [[apple-performance-and-debug]], [[apple-sandbox-and-security]].
+[apple-watchos-wearables](../../../../../../../apple-watchos-wearables.md), [apple-network-basics](../../../../../../../apple-network-basics.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md).

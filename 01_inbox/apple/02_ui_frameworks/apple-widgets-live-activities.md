@@ -80,5 +80,5 @@ func updateLiveActivity(activity: Activity<DeliveryAttributes>) {
 Live Activity 푸시는 일반 푸시보다 우선순위가 높습니다(High Priority). 하지만 너무 자주 보내면 시스템이 과부하(Throttling)를 걸 수 있습니다. (권장: 정말 상태가 변했을 때만)
 
 ### 📚 더 보기
-- [[apple-app-lifecycle-and-ui]] - Extension의 생명주기
-- [[apple-swiftui-deep-dive]] - 위젯 UI는 100% SwiftUI
+- [apple-app-lifecycle-and-ui](apple-app-lifecycle-and-ui.md) - Extension의 생명주기
+- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 위젯 UI는 100% SwiftUI

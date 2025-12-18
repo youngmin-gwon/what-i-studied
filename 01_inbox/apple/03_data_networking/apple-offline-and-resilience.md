@@ -60,5 +60,5 @@ func retry<T>(maxAttempts: Int, delay: Double, task: () async throws -> T) async
 3. **Sequence**: 좋아요 -> 취소 -> 좋아요 순서가 꼬이면 안 됩니다. 타임스탬프나 순차 ID로 순서를 보장해야 합니다.
 
 ### 더 보기
-- [[apple-networking-and-cloud]] - 네트워크 기본 원리
-- [[apple-cloud-sync-patterns]] - 데이터 동기화 아키텍처
+- [apple-networking-and-cloud](apple-networking-and-cloud.md) - 네트워크 기본 원리
+- [apple-cloud-sync-patterns](apple-cloud-sync-patterns.md) - 데이터 동기화 아키텍처

@@ -65,7 +65,7 @@ date created: 2025-12-18 17:55:00 +09:00
 
 ### 📚 연결 문서
 
-- [[00_fundamentals/basic-concepts|Git 기본 개념]] - 스테이징 영역(Index)의 기본 원리
-- [[01_strategies/commit-messages|커밋 메시지]] - 정제된 커밋을 위한 메시지 작성법
-- [[02_advanced/reset-demystified|Reset 완벽 분석]] - Reset 과 스테이징의 관계
-- [[03_tools/credential-storage|인증 관리]] - 보안 키와 자격 증명 관리
+- [Git 기본 개념](../00_fundamentals/basic-concepts.md) - 스테이징 영역(Index)의 기본 원리
+- [커밋 메시지](../01_strategies/commit-messages.md) - 정제된 커밋을 위한 메시지 작성법
+- [Reset 완벽 분석](../02_advanced/reset-demystified.md) - Reset 과 스테이징의 관계
+- [인증 관리](credential-storage.md) - 보안 키와 자격 증명 관리

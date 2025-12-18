@@ -30,7 +30,7 @@ parse_args(){
   done
   shift $((OPTIND-1))
   ARGS=($@)
-  [[ -n ${FILE:-} ]] || { log_err "-f is required"; exit 2; }
+  [-n ${FILE:-}](../../-n ${FILE:-}.md) || { log_err "-f is required"; exit 2; }
 }
 ```
 
@@ -38,7 +38,7 @@ parse_args(){
 ```bash
 clean_file(){
   local src=$1 dst=$2
-  [[ -r $src ]] || { log_err "cannot read $src"; return 1; }
+  [-r $src](../../-r $src.md) || { log_err "cannot read $src"; return 1; }
   sed 's/\r$//; /^#/d; /^$/d' "$src" | awk '{$1=$1; print}' >"$dst"
 }
 ```
@@ -67,9 +67,9 @@ printf '%s\n' "${urls[@]}" | xargs -P4 -n1 -I{} bash -c 'download "$1" "$2"' _ {
 rotate(){
   local file=$1 max=${2:-5}
   for ((i=max; i>=1; i--)); do
-    [[ -e ${file}.${i} ]] && mv -f "${file}.${i}" "${file}.$((i+1))"
+    [-e ${file}.${i}](../../-e ${file}.${i}.md) && mv -f "${file}.${i}" "${file}.$((i+1))"
   done
-  [[ -e $file ]] && mv -f "$file" "${file}.1"
+  [-e $file](../../-e $file.md) && mv -f "$file" "${file}.1"
 }
 ```
 
@@ -102,7 +102,7 @@ printf "${RED}ERROR${RESET}: %s\n" "message" >&2
 
 ## 마무리 요약(초단기 암기)
 - 인용: **항상 `"$var"`**
-- 조건: 문자열 `[[ ]]`, 산술 `(( ))`, 파일 `[[ -f file ]]`
+- 조건: 문자열 `[](../.md)`, 산술 `(( ))`, 파일 `[-f file](../../-f file.md)`
 - 흐름: `set -Eeuo pipefail`, 필요 시 `IFS` 조정, 에러는 stderr
 - 데이터: 안전한 읽기 `while IFS= read -r`, 출력은 `printf`
 - 정리: `trap`으로 임시 리소스/자식 프로세스 정리
@@ -125,7 +125,7 @@ printf "${RED}ERROR${RESET}: %s\n" "message" >&2
   - **핵심**: 조건문/파이프라인 예외, 함수 내 명령 치환에서 예기치 않은 종료, ERR trap/pipefail로 보완.  
   - **예시 코드**: `set -Eeuo pipefail; trap 'echo err at $LINENO' ERR; if ! output=$(cmd); then ...; fi`\n- **질문**: \"파일 이름에 공백이 있을 때 안전한 루프?\"  
   - **핵심**: NUL-종단, `while IFS= read -r -d '' f; do ...; done < <(find . -print0)`\n- **질문**: \"POSIX sh와 Bash 차이?\"  
-  - **핵심**: 배열/연관배열, `[[ ]]`, `(( ))`, process substitution, brace expansion, `echo -e` 동작.  
+  - **핵심**: 배열/연관배열, `[](../.md)`, `(( ))`, process substitution, brace expansion, `echo -e` 동작.  
   - **대응**: POSIX 필요 시 `set -o posix`, 호환 코드 제시.
 
 ## 자기 점검 퀴즈(단답형)
@@ -133,7 +133,7 @@ printf "${RED}ERROR${RESET}: %s\n" "message" >&2
 - `set -u`가 켜진 상태에서 `${var:-default}`는 어떻게 동작하는가?  
 - `trap 'handler' EXIT`와 `trap 'handler' ERR`의 차이는?  
 - `read -r`에서 `-r` 옵션이 없는 경우 어떤 문제가 발생할 수 있는가?  
-- `[[ $a == $b ]]`와 `[[ $a = $b ]]`의 차이는? (Bash에서는 동일, test는 다름)
+- `[$a == $b](../../$a == $b.md)`와 `[$a = $b](../../$a = $b.md)`의 차이는? (Bash에서는 동일, test는 다름)
 
 ## 간단 실습 루브릭
 - 각 장의 5분 실습을 모두 수행하고, 스스로 점검한다.  

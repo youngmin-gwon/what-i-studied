@@ -62,5 +62,5 @@ visionOS 앱은 더 이상 사각 화면에 갇혀 있지 않습니다. 사용�
 - **ARKit**: (Full Space에서만) 사용자의 손 관절 위치, 방의 바닥/벽 인식(Plane Detection) 등 현실 세계 데이터를 제공합니다.
 
 ### 📚 더 보기
-- [[apple-platform-differences]] - 다른 플랫폼과의 차이점
-- [[apple-rendering-and-media]] - RealityKit과 Metal 렌더링
+- [apple-platform-differences](../00_foundations/apple-platform-differences.md) - 다른 플랫폼과의 차이점
+- [apple-rendering-and-media](apple-rendering-and-media.md) - RealityKit과 Metal 렌더링

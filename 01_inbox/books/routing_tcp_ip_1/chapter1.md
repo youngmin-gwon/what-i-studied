@@ -6,11 +6,11 @@ date modified: 2025-12-11 13:59:35 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
-[[01_inbox/books/routing_tcp_ip_1/roadmap|📖 Return to Roadmap]]
+[📖 Return to Roadmap](../tcp_ip_illustrated_1/roadmap.md)
 
 ## See Also
-- [[01_inbox/books/tcp_ip_illustrated_1/chapter5|TCP/IP Illustrated Vol.1 - Ch.5 IP]]
-- [[01_inbox/books/tcp_ip_illustrated_1/chapter4|TCP/IP Illustrated Vol.1 - Ch.4 ARP]]
+- [TCP/IP Illustrated Vol.1 - Ch.5 IP](../tcp_ip_illustrated_1/chapter5.md)
+- [TCP/IP Illustrated Vol.1 - Ch.4 ARP](../tcp_ip_illustrated_1/chapter4.md)
 
 ## 1. Mermaid Mindmap 요약
 

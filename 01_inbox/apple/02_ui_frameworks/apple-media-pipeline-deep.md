@@ -63,5 +63,5 @@ session.startRunning() // Blocking Call, Main Thread에서 절대 호출 금지!
 - **HLS (HTTP Live Streaming)**: 네트워크 상태에 따라 1080p -> 720p -> 480p로 자동으로 갈아탑니다(Adaptive Bitrate).
 
 ### 더 보기
-- [[apple-rendering-and-media]] - Metal을 이용한 비디오 렌더링
-- [[apple-privacy-and-tcc-details]] - 카메라/마이크 권한 상세
+- [apple-rendering-and-media](apple-rendering-and-media.md) - Metal을 이용한 비디오 렌더링
+- [apple-privacy-and-tcc-details](../04_system_services/apple-privacy-and-tcc-details.md) - 카메라/마이크 권한 상세

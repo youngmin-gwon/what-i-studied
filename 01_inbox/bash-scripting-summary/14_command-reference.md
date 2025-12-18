@@ -8,7 +8,7 @@
 - `echo`: 이식성 불안. 개행 억제는 `printf '%s'`. `echo -n`/`-e` 동작이 셸마다 다름.
 - `printf`: 포맷 안전. `%q`로 셸 이스케이프된 형태 출력 가능.
 - `read`: `-r`로 백슬래시 무시, `-d ''`로 NUL 종단. `-t` 타임아웃, `-n` 글자수, `-s` silent.
-- `test`/`[`: POSIX 조건. `[[ ]]`는 Bash 확장.
+- `test`/`[`: POSIX 조건. `[](../../.md)`는 Bash 확장.
 - `declare`/`typeset`: 변수 속성 부여, `-p`로 덤프. `-a/-A/-i/-r/-x` 등.
 - `set`: 옵션 관리. `set -euo pipefail` 조합은 스크립트 첫 줄에서.
 - `shopt`: Bash 전용 옵션. `nullglob`, `dotglob`, `extglob`, `globstar`, `lastpipe` 등.
@@ -89,7 +89,7 @@
 - **배열 기반 옵션 조립**
   ```bash
   args=(--silent --location)
-  [[ -n ${TOKEN:-} ]] && args+=(--header "Authorization: Bearer $TOKEN")
+  [-n ${TOKEN:-}](../../-n ${TOKEN:-}.md) && args+=(--header "Authorization: Bearer $TOKEN")
   curl "${args[@]}" "$url"
   ```
 - **에러 로깅 후 종료**
@@ -102,13 +102,13 @@
 - `for f in $(ls)` → 단어 분리/글로브 위험. `for f in *; do ...; done` 또는 find 사용.
 - `cat file | grep` → UUOC 경고. `grep pattern file`.
 - `rm -rf /tmp/$user`에서 `$user` 비어있을 때 대참사 → `${user:?}` 사용.
-- `[[ $var == foo|bar ]]`는 잘못된 정규식. `[[ $var == foo || $var == bar ]]` 또는 `[[ $var =~ ^(foo|bar)$ ]]`.
+- `[bar](../../$var == foo.md)`는 잘못된 정규식. `[| $var == bar](../../$var == foo.md)` 또는 `[bar)$](../../$var =~ ^(foo.md)`.
 
 ## 정리용 테이블: 표현식 비교
-- **문자열 비교**: `[ "$a" = "$b" ]`, `[[ $a == $b ]]`
+- **문자열 비교**: `[ "$a" = "$b" ]`, `[$a == $b](../../$a == $b.md)`
 - **산술 비교**: `[ "$a" -lt "$b" ]`, `(( a < b ))`
 - **파일 비교**: `[ -f file ]`, `[ -d dir ]`, `[ file1 -nt file2 ]`
-- **조건 조합**: `[[ cond1 && cond2 ]]`, `[[ cond1 || cond2 ]]`, `! cond`
+- **조건 조합**: `[cond1 && cond2](../../cond1 && cond2.md)`, `[| cond2](../../cond1.md)`, `! cond`
 
 ## 정리용 테이블: 리디렉션
 - `>` 덮어쓰기, `>>` 추가, `<` 입력, `2>` stderr, `&>` stdout+stderr(Bash), `>|` noclobber 무시

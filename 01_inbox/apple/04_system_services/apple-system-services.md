@@ -77,5 +77,5 @@ func requestCameraPermission() {
 - **권한 리셋**: 터미널에서 `xcrun simctl privacy booted reset all` 명령어로 권한 상태를 초기화할 수 있습니다.
 
 ### 더 보기
-- [[apple-interprocess-and-xpc]] - 데몬과 통신하는 원리
-- [[apple-background-tasks]] - 위치 서비스를 백그라운드에서 쓰기 위한 조건
+- [apple-interprocess-and-xpc](apple-interprocess-and-xpc.md) - 데몬과 통신하는 원리
+- [apple-background-tasks](apple-background-tasks.md) - 위치 서비스를 백그라운드에서 쓰기 위한 조건

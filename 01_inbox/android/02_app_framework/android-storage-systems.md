@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Android Storage Systems android android/storage android/filesystem
 
-안드로이드의 파일 시스템과 저장소 접근 방식을 깊이 있게 다룬다. 기본은 [[android-foundations]] 참고.
+안드로이드의 파일 시스템과 저장소 접근 방식을 깊이 있게 다룬다. 기본은 [android-foundations](../00_foundations/android-foundations.md) 참고.
 
 ### 저장소 종류
 
@@ -613,4 +613,4 @@ adb shell content query --uri content://media/external/images/media
 
 ### 더 보기
 
-[[android-permissions-deep-dive]], [[android-security-and-sandboxing]], [[android-app-components-deep-dive]], [[android-jetpack-architecture]]
+[android-permissions-deep-dive](../05_security_privacy/android-permissions-deep-dive.md), [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-jetpack-architecture](android-jetpack-architecture.md)

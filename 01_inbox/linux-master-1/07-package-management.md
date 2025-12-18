@@ -395,5 +395,5 @@ sudo checkinstall               # DEB/RPM 생성 및 설치
 
 ---
 
-**이전 챕터**: [[06-process-management|프로세스 및 작업 관리]]  
-**다음 챕터**: [[08-network-config|네트워크 설정]]
+**이전 챕터**: [프로세스 및 작업 관리](06-process-management.md)  
+**다음 챕터**: [네트워크 설정](08-network-config.md)

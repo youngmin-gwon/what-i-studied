@@ -69,6 +69,6 @@ git svn clone http://my-svn-repo.com/trunk -T trunk -b branches -t tags
 
 ### 📚 연결 문서
 
-- [[02_advanced/advanced-workflows|고급 워크플로우]] - 마이그레이션 후 대용량 파일 처리를 위한 `filter-repo`
-- [[00_fundamentals/git-internals|Git 인턴십]] - 타 VCS 와 Git 의 데이터 모델 차이 이해
-- [[03_tools/git-customization|Git 커스텀]] - 마이그레이션 후 필요한 설정 최적화
+- [고급 워크플로우](../02_advanced/advanced-workflows.md) - 마이그레이션 후 대용량 파일 처리를 위한 `filter-repo`
+- [Git 인턴십](../00_fundamentals/git-internals.md) - 타 VCS 와 Git 의 데이터 모델 차이 이해
+- [Git 커스텀](git-customization.md) - 마이그레이션 후 필요한 설정 최적화

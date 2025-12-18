@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Android Privacy Features android android/privacy android/security
 
-최신 Android 프라이버시 기능. 기본은 [[android-permissions-deep-dive]] 와 [[android-security-and-sandboxing]] 참고.
+최신 Android 프라이버시 기능. 기본은 [android-permissions-deep-dive](android-permissions-deep-dive.md) 와 [android-security-and-sandboxing](android-security-and-sandboxing.md) 참고.
 
 ### Privacy Dashboard (Android 12+)
 
@@ -314,7 +314,7 @@ fun requestBackgroundLocation() {
 
 ### Scoped Storage (Android 10+)
 
-앱별로 저장소 격리. 자세한 내용은 [[android-storage-systems]] 참고.
+앱별로 저장소 격리. 자세한 내용은 [android-storage-systems](../02_app_framework/android-storage-systems.md) 참고.
 
 ```kotlin
 // ✅ 앱 전용 저장소 (권한 불필요)
@@ -454,4 +454,4 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 ### 더 보기
 
-[[android-permissions-deep-dive]], [[android-security-and-sandboxing]], [[android-storage-systems]], [[android-app-components-deep-dive]]
+[android-permissions-deep-dive](android-permissions-deep-dive.md), [android-security-and-sandboxing](android-security-and-sandboxing.md), [android-storage-systems](../02_app_framework/android-storage-systems.md), [android-app-components-deep-dive](../02_app_framework/android-app-components-deep-dive.md)

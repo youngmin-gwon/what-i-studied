@@ -62,5 +62,5 @@ Snapshot(Mark Generation) 기능을 활용하세요.
 - **Location**: GPS(High Accuracy)는 배터리 킬러입니다. 필요 없을 땐 과감히 꺼야 합니다.
 
 ### 더 보기
-- [[apple-performance-and-debug]] - 성능 최적화 목표 설정
-- [[apple-memory-management]] - 메모리 누수 원리 (ARC)
+- [apple-performance-and-debug](apple-performance-and-debug.md) - 성능 최적화 목표 설정
+- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - 메모리 누수 원리 (ARC)

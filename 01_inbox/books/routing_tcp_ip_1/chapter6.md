@@ -6,7 +6,7 @@ date modified: 2025-12-11 13:59:43 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
-[[01_inbox/books/routing_tcp_ip_1/roadmap|📖 Return to Roadmap]]
+[📖 Return to Roadmap](../tcp_ip_illustrated_1/roadmap.md)
 
 ## 1. Mermaid Mindmap 요약
 

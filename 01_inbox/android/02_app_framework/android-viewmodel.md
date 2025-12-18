@@ -282,7 +282,7 @@ fun NavGraph() {
 
 ### SavedStateHandle
 
-프로세스 사망 후에도 데이터를 복원할 수 있게 해주는 기능이다. [[android-process-and-memory]] 참고.
+프로세스 사망 후에도 데이터를 복원할 수 있게 해주는 기능이다. [android-process-and-memory](../01_system_internals/android-process-and-memory.md) 참고.
 
 ```kotlin
 class DetailViewModel(
@@ -529,7 +529,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-더 자세한 내용은 [[android-dependency-injection]] 참고.
+더 자세한 내용은 [android-dependency-injection](android-dependency-injection.md) 참고.
 
 ### 모범 사례
 
@@ -809,8 +809,8 @@ class UserViewModelTest {
 }
 ```
 
-더 자세한 내용은 [[android-testing-and-quality]] 참고.
+더 자세한 내용은 [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md) 참고.
 
 ### 더 보기
 
-[[android-app-components-deep-dive]], [[android-jetpack-architecture]], [[android-compose-internals]], [[android-dependency-injection]], [[android-process-and-memory]], [[android-testing-and-quality]]
+[android-app-components-deep-dive](android-app-components-deep-dive.md), [android-jetpack-architecture](android-jetpack-architecture.md), [android-compose-internals](android-compose-internals.md), [android-dependency-injection](android-dependency-injection.md), [android-process-and-memory](../01_system_internals/android-process-and-memory.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)

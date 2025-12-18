@@ -21,7 +21,7 @@
 
 ## 포터빌리티 체크포인트
 - `/bin/sh`가 dash인지 Bash인지 확인 불가 → POSIX 문법만 사용해야 함.
-- Bash 확장: 배열, `[[ ]]`, `[[ =~ ]]`, `function`, `(( ))`, `echo -e` 동작 차이.
+- Bash 확장: 배열, `[](../.md)`, `[=~](../../=~.md)`, `function`, `(( ))`, `echo -e` 동작 차이.
 - `readlink -f`는 BSD/macOS 없음 → `perl -MCwd=realpath -e 'print realpath($ARGV[0])' file` 또는 `python - <<'PY'` 대체. macOS는 `greadlink`(coreutils) 설치.
 - `sed -i` 백업 옵션 차이(BSD: `-i ''`). `date`의 `-d` vs `-v` 옵션 차이.
 - `timeout` 명령 GNU만. POSIX 대체 스크립트 필요.

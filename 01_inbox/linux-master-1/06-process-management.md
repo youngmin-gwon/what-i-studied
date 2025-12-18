@@ -436,5 +436,5 @@ ipcrm -s <semid>        # 세마포어 제거
 
 ---
 
-**이전 챕터**: [[05-users-permissions|사용자 및 권한 관리]]  
-**다음 챕터**: [[07-package-management|패키지 관리]]
+**이전 챕터**: [사용자 및 권한 관리](05-users-permissions.md)  
+**다음 챕터**: [패키지 관리](07-package-management.md)

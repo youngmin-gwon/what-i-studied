@@ -71,6 +71,6 @@ Git 2.23 버전부터 너무 많은 기능을 가진 `checkout` 의 역할을 �
 
 ### 📚 연결 문서
 
-- [[02_advanced/troubleshooting|트러블슈팅]] - 각 명령어로 인한 실수 복구법
-- [[01_strategies/branching-strategies|브랜치 전략]] - 팀 차원의 병합 전략 수립
-- [[00_fundamentals/git-internals|Git 인턴십]] - 커밋 해시가 Rebase 시 왜 변하는지 이해
+- [트러블슈팅](troubleshooting.md) - 각 명령어로 인한 실수 복구법
+- [브랜치 전략](../01_strategies/branching-strategies.md) - 팀 차원의 병합 전략 수립
+- [Git 인턴십](../00_fundamentals/git-internals.md) - 커밋 해시가 Rebase 시 왜 변하는지 이해

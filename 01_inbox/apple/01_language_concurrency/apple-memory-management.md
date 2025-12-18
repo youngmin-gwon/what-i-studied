@@ -181,9 +181,9 @@ private class DeinitTracker {
 ```
 
 ### 📚 외부 리소스 및 참고 자료
-- **[WWDC 2021: ARC in Swift](https://developer.apple.com/videos/play/wwdc2021/10216/)**: Side Table과 ARC 최적화의 바이블.
-- **[Swift Runtime Source](https://github.com/apple/swift/tree/main/stdlib/public/runtime)**: 실제 C++ 구현체 확인.
+- **[WWDC 2021: ARC in Swift](../../../../https:/developer.apple.com/videos/play/wwdc2021/10216/.md)**: Side Table과 ARC 최적화의 바이블.
+- **[Swift Runtime Source](../../../../https:/github.com/apple/swift/tree/main/stdlib/public/runtime.md)**: 실제 C++ 구현체 확인.
 
 ### 더 보기
-- [[apple-uikit-lifecycle]] - 생명주기에 따른 메모리 관리
-- [[apple-performance-and-debug]] - Instruments 상세 사용법
+- [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - 생명주기에 따른 메모리 관리
+- [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - Instruments 상세 사용법

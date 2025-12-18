@@ -21,16 +21,16 @@ RxSwift, ReactiveSwift를 시스템 레벨로 흡수했으며, **SwiftUI의 데�
 ### 📚 외부 리소스 및 참고 자료
 
 #### 공식 문서 (Official Docs)
-- [Combine Documentation](https://developer.apple.com/documentation/combine)
-- [Using Combine for Your App](https://developer.apple.com/documentation/combine/using-combine-for-your-app)
+- [Combine Documentation](../../../../https:/developer.apple.com/documentation/combine.md)
+- [Using Combine for Your App](../../../../https:/developer.apple.com/documentation/combine/using-combine-for-your-app.md)
 
 #### 🎥 WWDC 세션
-- [WWDC 2019: Introducing Combine](https://developer.apple.com/videos/play/wwdc2019/722/)
-- [WWDC 2019: Combine in Practice](https://developer.apple.com/videos/play/wwdc2019/721/)
+- [WWDC 2019: Introducing Combine](../../../../https:/developer.apple.com/videos/play/wwdc2019/722/.md)
+- [WWDC 2019: Combine in Practice](../../../../https:/developer.apple.com/videos/play/wwdc2019/721/.md)
 
 #### 💻 심화 학습
-- [Using Combine (Book)](https://heckj.github.io/swiftui-notes/) - 무료이자 최고의 가이드북
-- [OpenCombine](https://github.com/OpenCombine/OpenCombine) - Combine의 오픈소스 구현 (리눅스 호환용이지만 내부 이해에 도움됨)
+- [Using Combine (Book)](../../../../https:/heckj.github.io/swiftui-notes/.md) - 무료이자 최고의 가이드북
+- [OpenCombine](../../../../https:/github.com/OpenCombine/OpenCombine.md) - Combine의 오픈소스 구현 (리눅스 호환용이지만 내부 이해에 도움됨)
 
 ---
 
@@ -120,5 +120,5 @@ Combine 체인은 블랙박스 같아서 디버깅이 어렵습니다.
 ```
 
 ### 더 보기
-- [[apple-swift-concurrency]] - 비동기 작업의 또 다른 축 (단발성 작업)
-- [[apple-uikit-lifecycle]] - MVVM 패턴과 Combine의 결합
+- [apple-swift-concurrency](../01_language_concurrency/apple-swift-concurrency.md) - 비동기 작업의 또 다른 축 (단발성 작업)
+- [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - MVVM 패턴과 Combine의 결합

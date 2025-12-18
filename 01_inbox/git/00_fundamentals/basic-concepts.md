@@ -2,7 +2,7 @@
 title: basic-concepts
 tags: [fundamentals, git, three-trees, workflow]
 aliases: [Git 3가지 영역, Git 기본 개념, Git 기초, Three Trees]
-date modified: 2025-12-18 15:59:27 +09:00
+date modified: 2025-12-18 16:07:57 +09:00
 date created: 2025-12-18 13:30:00 +09:00
 ---
 
@@ -76,7 +76,7 @@ stateDiagram-v2
 
 ### 📚 연결 문서
 
-- [[00_fundamentals/git-internals|Git 인턴십]] - 데이터가 실제로 어떻게 저장되는지 원리
-- [[02_advanced/reset-demystified|Reset 완벽 가이드]] - Three Trees 를 이용한 심화 학습
-- [[01_strategies/commit-messages|커밋 메시지]] - 의미 있는 스냅샷을 남기는 법
-- [[02_advanced/troubleshooting|트러블슈팅]] - 실수를 되돌리는 다양한 방법
+- [Git 인턴십](git-internals.md) - 데이터가 실제로 어떻게 저장되는지 원리
+- [Reset 완벽 가이드](../02_advanced/reset-demystified.md) - Three Trees 를 이용한 심화 학습
+- [커밋 메시지](../01_strategies/commit-messages.md) - 의미 있는 스냅샷을 남기는 법
+- [트러블슈팅](../02_advanced/troubleshooting.md) - 실수를 되돌리는 다양한 방법

@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Android App Components Deep Dive
 
-안드로이드 앱을 이루는 네 가지 핵심 컴포넌트를 깊이 있게 다룬다. 기본은 [[android-foundations]] 에서 확인한다.
+안드로이드 앱을 이루는 네 가지 핵심 컴포넌트를 깊이 있게 다룬다. 기본은 [android-foundations](../00_foundations/android-foundations.md) 에서 확인한다.
 
 ### Activity 생명주기 상세
 
@@ -102,7 +102,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-더 자세한 내용은 [[android-viewmodel]] 참고.
+더 자세한 내용은 [android-viewmodel](android-viewmodel.md) 참고.
 
 #### Task 와 Back Stack
 
@@ -215,7 +215,7 @@ class MusicService : Service() {
 
 #### Bound Service 와 AIDL
 
-[[android-binder-and-ipc]] 를 통해 프로세스 간 통신이 가능하다.
+[android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) 를 통해 프로세스 간 통신이 가능하다.
 
 ```kotlin
 // 같은 프로세스 내 Binder
@@ -577,4 +577,4 @@ adb shell dumpsys activity providers
 
 ### 더 보기
 
-[[android-foundations]], [[android-activity-manager-and-system-services]], [[android-binder-and-ipc]], [[android-process-and-memory]], [[android-permissions-deep-dive]]
+[android-foundations](../00_foundations/android-foundations.md), [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md), [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md), [android-process-and-memory](../01_system_internals/android-process-and-memory.md), [android-permissions-deep-dive](../05_security_privacy/android-permissions-deep-dive.md)

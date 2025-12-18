@@ -230,7 +230,7 @@ git commit -m "refactor: 데이터베이스 연결 로직 개선"
 
 ## 관련 문서
 
-- [[00_fundamentals/basic-concepts|Git 기본 개념]]
-- [[02_advanced/reset-demystified|Reset 완벽 분석]]
-- [[01_strategies/branching-strategies|브랜치 전략]]
-- [[02_advanced/advanced-workflows|고급 워크플로우]]
+- [Git 기본 개념](../00_fundamentals/basic-concepts.md)
+- [Reset 완벽 분석](../02_advanced/reset-demystified.md)
+- [브랜치 전략](branching-strategies.md)
+- [고급 워크플로우](../02_advanced/advanced-workflows.md)

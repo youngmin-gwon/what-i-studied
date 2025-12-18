@@ -320,5 +320,5 @@ systemctl hybrid-sleep  # 하이브리드 절전
 
 ---
 
-**이전 챕터**: [[01-linux-overview|리눅스 개요 및 역사]]  
-**다음 챕터**: [[03-filesystem|파일 시스템 및 디렉토리 구조]]
+**이전 챕터**: [리눅스 개요 및 역사](01-linux-overview.md)  
+**다음 챕터**: [파일 시스템 및 디렉토리 구조](03-filesystem.md)

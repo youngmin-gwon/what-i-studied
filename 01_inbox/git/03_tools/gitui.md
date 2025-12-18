@@ -52,6 +52,6 @@ date created: 2025-12-18 14:40:00 +09:00
 
 ### 📚 연결 문서
 
-- [[00_fundamentals/basic-concepts|Git 기본 개념]] - 스테이징과 커밋의 원리
-- [[02_advanced/troubleshooting|트러블슈팅]] - CLI 를 통한 고급 복구
-- [[02_advanced/command-comparisons|명령어 비교]] - GitUI 내부에서 일어나는 명령어 분석
+- [Git 기본 개념](../00_fundamentals/basic-concepts.md) - 스테이징과 커밋의 원리
+- [트러블슈팅](../02_advanced/troubleshooting.md) - CLI 를 통한 고급 복구
+- [명령어 비교](../02_advanced/command-comparisons.md) - GitUI 내부에서 일어나는 명령어 분석

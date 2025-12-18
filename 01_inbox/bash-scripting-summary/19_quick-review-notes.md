@@ -6,7 +6,7 @@
 - **쉘 개요**: 셔뱅/로그인·비로그인/인터랙티브 구분, PATH 탐색과 해시. shebang 없으면 `/bin/sh`로 실행될 수 있음.
 - **인용·확장**: 확장 순서(브레이스→틸드→파라미터→명령→산술→글로브→단어분리), 항상 `"$var"`, `${var:?msg}`로 필수 인자 검증.
 - **변수·배열**: `local/export/readonly`, 배열/연관배열 인용, `${var/pat/repl}` 패턴, 특수변수 `$?/$#/$@/$*`.
-- **조건·루프**: `[[ ]]` vs `[ ]`, 정규식 `=~`, `(( ))` 산술, `while read` 패턴, `set -e` 예외 인지.
+- **조건·루프**: `[](../.md)` vs `[ ]`, 정규식 `=~`, `(( ))` 산술, `while read` 패턴, `set -e` 예외 인지.
 - **함수/모듈**: `local`, `return` vs `exit`, `getopts`에 `local OPTIND`, source 시 경로/존재 확인.
 - **I/O/파이프**: `> >> < 2> &>` 차이, 히어독 인용, pipefail/PIPESTATUS, 프로세스 서브스티튜션.
 - **텍스트 툴**: grep/sed/awk/coreutils 옵션, 인코딩/CRLF 주의, NUL-종단 처리.
@@ -20,7 +20,7 @@
 1. `set -e`가 작동하지 않는 3가지 맥락은?  
 2. `${var:=default}`와 `${var:-default}` 차이는?  
 3. 파일명에 공백이 있을 때 안전한 루프는?  
-4. `/bin/sh`에서 `[[ -f file ]]`가 실패하는 이유와 대안은?  
+4. `/bin/sh`에서 `[-f file](../../-f file.md)`가 실패하는 이유와 대안은?  
 5. `PIPESTATUS`가 무엇을 담는지 예시와 함께 설명하라.  
 6. `mapfile` 대신 `arr=($(cmd))`가 위험한 이유는?  
 7. `trap '...' EXIT`와 `trap '...' ERR`의 차이점은?  
@@ -38,7 +38,7 @@
 - **ERR trap**: `set -E`로 함수/서브셸 전파. `set -e`와 다름.
 - **nullglob/failglob**: 글로브 매칭 실패 시 빈/오류. 파일 없을 때 루프 안전성.
 - **lastpipe**: 마지막 파이프 명령을 현재 셸에서 실행(비인터랙티브, `set +m` 필요).
-- **`[[ =~ ]]`**: 정규식 매칭, 인용하면 리터럴. `BASH_REMATCH`에 캡처.
+- **`[=~](../../=~.md)`**: 정규식 매칭, 인용하면 리터럴. `BASH_REMATCH`에 캡처.
 - **`<<<`**: 히어스트링, 한 줄을 stdin으로. POSIX 아님.
 - **`mapfile/readarray`**: 파일을 배열로. Bash 4+, `-t`로 개행 제거.
 - **`getopts`**: POSIX 옵션 파서, `OPTIND`는 함수마다 `local` 필요.
@@ -53,7 +53,7 @@
 ## 4) 하루 전 점검표
 - [ ] 시험 환경(배포판/Bash 버전/`/bin/sh` 구현) 확인
 - [ ] 옵션 세트, 히어독/인용/글로브/IFS 개념 재점검
-- [ ] POSIX vs Bash 차이 암기(`[[ ]]`, 배열, `<<<`, process substitution)
+- [ ] POSIX vs Bash 차이 암기(`[](../.md)`, 배열, `<<<`, process substitution)
 - [ ] `grep/sed/awk` 옵션 숙지, macOS/BSD 차이(`sed -i`, `date -v`)
 - [ ] `trap`/시그널 흐름, `timeout`/`wait`/`jobs` 명령 사용법 복습
 - [ ] cron/systemd 실행 환경 차이와 PATH 설정법 숙지
@@ -79,7 +79,7 @@
 
 ## 7) 초간단 요약 슬로건
 - **인용**: 모르면 `"$var"`
-- **조건**: 문자열 `[[ ]]`, 파일 `[ -f ]`, 산술 `(( ))`
+- **조건**: 문자열 `[](../.md)`, 파일 `[ -f ]`, 산술 `(( ))`
 - **입력**: `while IFS= read -r` + `mapfile` 기억
 - **오류**: `set -Eeuo pipefail` + `trap` + 명시적 종료 코드
 - **휴대성**: Bash 확장 vs POSIX, GNU vs BSD 옵션 차이 명시

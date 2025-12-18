@@ -4,7 +4,7 @@ tags: [network, book, tcp_ip_illustrated]
 date modified: 2025-12-10
 ---
 
-[[01_inbox/books/tcp_ip_illustrated_1/roadmap|📖 Return to Roadmap]]
+[📖 Return to Roadmap](roadmap.md)
 
 ### 1. Mermaid Mindmap
 

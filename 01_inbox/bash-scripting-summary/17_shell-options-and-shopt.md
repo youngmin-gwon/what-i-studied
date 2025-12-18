@@ -46,7 +46,7 @@ trap 'echo "ERR at $BASH_SOURCE:$LINENO" >&2' ERR
 ## POSIX 모드에서 달라지는 점(발췌)
 - `set -o posix` 또는 `/bin/sh` 실행 시 적용 가능. 주요 차이:
   - `echo`가 `-e`/`-n`을 옵션으로 인식하지 않을 수 있음. `printf` 사용 권장.
-  - `local` 키워드, 배열, 연관배열, `[[ ]]`, `==` 패턴 매칭, `<<<` 히어스트링, 프로세스 서브스티튜션 `<( )` 미지원.
+  - `local` 키워드, 배열, 연관배열, `[](../.md)`, `==` 패턴 매칭, `<<<` 히어스트링, 프로세스 서브스티튜션 `<( )` 미지원.
   - `source` 대신 `.` 사용. `function` 키워드 비권장.
   - `set -o pipefail` 지원 여부 환경에 따라 다름(dash 없음).
 
@@ -65,7 +65,7 @@ trap 'echo "ERR at $BASH_SOURCE:$LINENO" >&2' ERR
 - **Q:** `set -o posix`가 필요한 경우는?  
   **A:** 시스템 스크립트 호환성 테스트, `/bin/sh`로 실행될 코드를 Bash에서 시험할 때. Bash 확장이 무시될 수 있으므로 코드 차이를 검출.
 - **Q:** `shopt -s extglob`을 켜면 어떤 패턴을 쓸 수 있는가?  
-  **A:** `@(pat1|pat2)`, `?(pat)`, `*(pat)`, `+(pat)`, `!(pat)` 등. 예: `[[ $file == @(*.jpg|*.png) ]]`.
+  **A:** `@(pat1|pat2)`, `?(pat)`, `*(pat)`, `+(pat)`, `!(pat)` 등. 예: `[*.png)](../../$file == @(*.jpg.md)`.
 
 ## 옵션 디폴트 값 요약
 - `set -e`: 기본 off
@@ -80,14 +80,14 @@ trap 'echo "ERR at $BASH_SOURCE:$LINENO" >&2' ERR
 1. `set -Eeuo pipefail` 켜진 상태와 껐을 때, 동일 스크립트가 어떻게 다르게 종료되는지 비교 보고서 작성.  
 2. `shopt -s failglob` 후 존재하지 않는 패턴을 사용하는 스크립트를 작성하고, try/catch처럼 오류를 처리하는 함수를 만들어라.  
 3. `lastpipe` 옵션을 켜고 끈 상태에서 `printf 'a\\nb' | while read -r line; do arr+=($line); done; declare -p arr`를 실행해 배열 내용 차이를 기록.  
-4. `set -o posix`에서 배열/연관배열/`[[ ]]`를 사용해보고 나오는 오류 메시지를 캡처.  
+4. `set -o posix`에서 배열/연관배열/`[](../.md)`를 사용해보고 나오는 오류 메시지를 캡처.  
 5. `shopt -s globstar`와 `find`를 비교해 장단점을 표로 작성.  
 
 ## 옵션별 빠른 실습 가이드
 - **pipefail**: `false | true` 실행 후 `$?` 확인. pipefail off면 0, on이면 1.
 - **nounset**: `set -u; echo $UNSET` → 종료 코드 확인. `${UNSET:-ok}` 패턴으로 회피.
 - **errexit**: `set -e; false; echo after` → 실행되지 않아야 함. `if false; then :; fi` 예외 확인.
-- **extglob**: `shopt -s extglob; [[ abc == @(ab|abc) ]] && echo match` → off면 패턴 인식 실패.
+- **extglob**: `shopt -s extglob; [abc)](../../abc == @(ab.md) && echo match` → off면 패턴 인식 실패.
 - **nullglob/failglob**: 빈 디렉터리에서 `for f in *.zzz; do echo $f; done` → nullglob이면 출력 없음, failglob이면 오류.
 - **globstar**: `shopt -s globstar; printf '%s\\n' **/*.sh`로 재귀 목록.
 - **lastpipe**: `shopt -s lastpipe; set +m; printf 'a\\nb' | while read -r line; do out=$line; done; echo $out` → lastpipe off면 빈 출력.

@@ -8,17 +8,17 @@ date created: 2025-12-16 21:01:14 +09:00
 
 ## 안드로이드 커널의 탄생 배경
 
-안드로이드 커널은 리눅스 커널을 기반으로 하지만, 스마트폰과 모바일 기기의 특수한 요구사항을 해결하기 위해 상당한 수정이 가해졌다. 일반적인 커널의 기초는 [[kernel]] 문서를 먼저 참고하고, 여기서는 **왜 안드로이드가 리눅스를 수정해야 했는지**, 그리고 **어떤 문제를 해결하려 했는지** 에 집중한다.
+안드로이드 커널은 리눅스 커널을 기반으로 하지만, 스마트폰과 모바일 기기의 특수한 요구사항을 해결하기 위해 상당한 수정이 가해졌다. 일반적인 커널의 기초는 [kernel](../../../../kernel.md) 문서를 먼저 참고하고, 여기서는 **왜 안드로이드가 리눅스를 수정해야 했는지**, 그리고 **어떤 문제를 해결하려 했는지** 에 집중한다.
 
 ### 모바일 환경의 제약과 도전 과제
 
 2000 년대 초반, 구글이 안드로이드를 개발할 당시 스마트폰은 다음과 같은 특성을 가졌다:
 
 1. **배터리 제약**: 데스크톱은 항상 전원에 연결되어 있지만, 스마트폰은 배터리로 8~12 시간 버텨야 한다.
-2. **제한된 메모리**: 초기 안드로이드 기기는 128MB~512MB [[random-access|RAM]] 을 가졌다 (현재는 8~16GB).
+2. **제한된 메모리**: 초기 안드로이드 기기는 128MB~512MB [RAM](../../../../random-access.md) 을 가졌다 (현재는 8~16GB).
 3. **빈번한 절전**: 사용자가 화면을 끄면 대부분의 시스템이 정지해야 한다. 하지만 알림, 타이머, 배경 동기화는 작동해야 한다.
 4. **신뢰할 수 없는 앱**: 앱 스토어에서 수백만 개의 써드파티 앱이 설치된다. 악의적이거나 버그가 있는 앱이 시스템 전체를 멈추면 안 된다.
-5. **멀티미디어 중심**: 카메라, 비디오, 게임이 주 용도다. 큰 [[buffer|버퍼]] 를 여러 하드웨어 (GPU, Camera, Display) 간에 효율적으로 공유해야 한다.
+5. **멀티미디어 중심**: 카메라, 비디오, 게임이 주 용도다. 큰 [버퍼](../../../../buffer.md) 를 여러 하드웨어 (GPU, Camera, Display) 간에 효율적으로 공유해야 한다.
 
 일반 리눅스 커널은 서버와 데스크톱 환경에 최적화되어 있었다. **"항상 켜져 있고, 충분한 메모리가 있고, 신뢰할 수 있는 소프트웨어만 실행된다"** 는 가정 하에 설계되었다. 안드로이드는 이 모든 가정을 뒤집어야 했다.
 
@@ -70,7 +70,7 @@ sequenceDiagram
 
 #### 보안 강화
 
-Binder 는 [[selinux|SELinux]] 정책과 통합된다. 예를 들어:
+Binder 는 [SELinux](../../../../selinux.md) 정책과 통합된다. 예를 들어:
 
 ```
 allow untrusted_app surfaceflinger_service:service_manager find;
@@ -83,12 +83,12 @@ allow untrusted_app surfaceflinger:binder call;
 
 ### 2. Ashmem 과 공유 메모리의 진화
 
-#### 문제: 멀티미디어 [[buffer|버퍼]] 공유
+#### 문제: 멀티미디어 [버퍼](../../../../buffer.md) 공유
 
 카메라로 사진을 찍으면:
 
-1. Camera HAL 이 [[buffer|버퍼]] 에 이미지 데이터를 쓴다.
-2. 앱이 [[buffer|버퍼]] 를 처리한다 (회전, 필터 등).
+1. Camera HAL 이 [버퍼](../../../../buffer.md) 에 이미지 데이터를 쓴다.
+2. 앱이 [버퍼](../../../../buffer.md) 를 처리한다 (회전, 필터 등).
 3. MediaStore 에 JPEG 로 저장한다.
 4. Gallery 앱이 썸네일을 표시한다.
 
@@ -117,7 +117,7 @@ Ashmem 은 CPU 접근용이었다. 하지만 GPU, Camera, Video Decoder 같은 �
 - **Carveout heap**: 부팅 시 예약된 물리 연속 메모리.
 - **CMA heap**: Contiguous Memory Allocator.
 
-**DMABuf**(2012 년 리눅스 메인라인) 는 하드웨어 간 [[buffer|버퍼]] 공유를 표준화했다. 안드로이드는 ION 에서 DMABuf Heaps 으로 마이그레이션 중이다 (Android 11+).
+**DMABuf**(2012 년 리눅스 메인라인) 는 하드웨어 간 [버퍼](../../../../buffer.md) 공유를 표준화했다. 안드로이드는 ION 에서 DMABuf Heaps 으로 마이그레이션 중이다 (Android 11+).
 
 ```mermaid
 graph LR
@@ -306,7 +306,7 @@ adb shell modinfo /vendor/lib/modules/wlan.ko
 
 ---
 
-### 6. [[selinux|SELinux]]: 강제 접근 제어
+### 6. [SELinux](../../../../selinux.md): 강제 접근 제어
 
 #### DAC 의 한계
 
@@ -574,7 +574,7 @@ adb shell perfetto -c trace_config.pbtxt -o /data/misc/perfetto-traces/trace
 adb pull /data/misc/perfetto-traces/trace
 ```
 
-[perfetto.dev](https://ui.perfetto.dev) 에서 분석.
+[perfetto.dev](../../../../https:/ui.perfetto.dev.md) 에서 분석.
 
 ---
 
@@ -605,12 +605,12 @@ adb pull /data/misc/perfetto-traces/trace
 ## 학습 리소스
 
 **소스**:
-- [Android Common Kernel](https://android.googlesource.com/kernel/common/)
-- [AOSP Kernel Docs](https://source.android.com/docs/core/architecture/kernel)
+- [Android Common Kernel](../../../../https:/android.googlesource.com/kernel/common/.md)
+- [AOSP Kernel Docs](../../../../https:/source.android.com/docs/core/architecture/kernel.md)
 
 **도구**:
-- [Perfetto](https://perfetto.dev): 트레이싱.
-- [Systrace](https://developer.android.com/topic/performance/tracing): 부팅 분석.
+- [Perfetto](../../../../https:/perfetto.dev.md): 트레이싱.
+- [Systrace](../../../../https:/developer.android.com/topic/performance/tracing.md): 부팅 분석.
 
 **책**:
 - *Embedded Android* (Karim Yaghmour)
@@ -620,16 +620,16 @@ adb pull /data/misc/perfetto-traces/trace
 
 ## 연결 문서
 
-[[kernel]] - 범용 커널 기초 개념
+[kernel](../../../../kernel.md) - 범용 커널 기초 개념
 
-[[android-hal-and-kernel]] - HAL 과 커널의 연결
+[android-hal-and-kernel](android-hal-and-kernel.md) - HAL 과 커널의 연결
 
-[[android-architecture-stack]] - 안드로이드 전체 아키텍처
+[android-architecture-stack](../00_foundations/android-architecture-stack.md) - 안드로이드 전체 아키텍처
 
-[[android-boot-flow]] - 부팅 과정에서 커널의 역할
+[android-boot-flow](android-boot-flow.md) - 부팅 과정에서 커널의 역할
 
-[[android-binder-and-ipc]] - Binder 상세
+[android-binder-and-ipc](android-binder-and-ipc.md) - Binder 상세
 
-[[android-process-and-memory]] - 프로세스/메모리 관리
+[android-process-and-memory](android-process-and-memory.md) - 프로세스/메모리 관리
 
-[[android-security-and-sandboxing]] - SELinux 정책
+[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - SELinux 정책

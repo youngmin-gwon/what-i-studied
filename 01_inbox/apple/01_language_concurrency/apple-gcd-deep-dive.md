@@ -23,13 +23,13 @@ Swift Concurrency가 나왔지만, **GCD(libdispatch)** 는 여전히 Apple 플�
 
 #### 공식 문서 및 소스 코드
 
-- [Apple Open Source - libdispatch](https://github.com/apple/swift-corelibs-libdispatch) - GCD는 오픈소스입니다! C로 짜여진 내부 구현을 볼 수 있습니다.
-- [Dispatch Documentation](https://developer.apple.com/documentation/dispatch)
+- [Apple Open Source - libdispatch](../../../../https:/github.com/apple/swift-corelibs-libdispatch.md) - GCD는 오픈소스입니다! C로 짜여진 내부 구현을 볼 수 있습니다.
+- [Dispatch Documentation](../../../../https:/developer.apple.com/documentation/dispatch.md)
 
 #### 🎥 WWDC 세션
 
-- [WWDC 2015: Building Responsive and Efficient Apps with GCD](https://developer.apple.com/videos/play/wwdc2015/718/) - QoS 개념 도입
-- [WWDC 2017: Modernizing Grand Central Dispatch Usage](https://developer.apple.com/videos/play/wwdc2017/706/) - 스레드 폭발(Thread Explosion) 문제와 해결책
+- [WWDC 2015: Building Responsive and Efficient Apps with GCD](../../../../https:/developer.apple.com/videos/play/wwdc2015/718/.md) - QoS 개념 도입
+- [WWDC 2017: Modernizing Grand Central Dispatch Usage](../../../../https:/developer.apple.com/videos/play/wwdc2017/706/.md) - 스레드 폭발(Thread Explosion) 문제와 해결책
 
 ---
 
@@ -134,5 +134,5 @@ DispatchQueue.main.sync {
 
 ### 더 보기
 
-- [[apple-swift-concurrency]] - GCD의 현대적 대안
-- [[apple-operation-queue]] - GCD 기반의 객체지향 래퍼 (의존성 관리 가능)
+- [apple-swift-concurrency](apple-swift-concurrency.md) - GCD의 현대적 대안
+- [apple-operation-queue](apple-operation-queue.md) - GCD 기반의 객체지향 래퍼 (의존성 관리 가능)

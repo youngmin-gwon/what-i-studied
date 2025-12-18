@@ -8,7 +8,7 @@ date created: 2025-12-16 15:22:14 +09:00
 
 ## Android Foundations
 
-이 묶음은 안드로이드가 어떻게 움직이는지 아주 쉽게 풀어쓴 지도다. 어려운 말은 [[android-glossary]] 에 따로 정리했다.
+이 묶음은 안드로이드가 어떻게 움직이는지 아주 쉽게 풀어쓴 지도다. 어려운 말은 [android-glossary](android-glossary.md) 에 따로 정리했다.
 
 ### 안드로이드가 하는 일
 - 스마트폰을 켜고, 앱을 실행하고, 배터리를 아끼고, 데이터를 지키는 일을 동시에 한다.
@@ -16,8 +16,8 @@ date created: 2025-12-16 15:22:14 +09:00
 - 앱은 샌드박스 안에서 돌아가며, 서로와 시스템과 말할 때는 Binder 를 쓴다.
 
 ### 앱을 이루는 네 가지
-- Activity: 화면을 보여주는 부분. 생명주기를 따라 켜고 끈다. [[android-activity-manager-and-system-services]]
-- Service: 화면 없이 오래 일하는 부분. 음악 재생·위치 기록 같은 일을 맡는다. [[android-binder-and-ipc]]
+- Activity: 화면을 보여주는 부분. 생명주기를 따라 켜고 끈다. [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)
+- Service: 화면 없이 오래 일하는 부분. 음악 재생·위치 기록 같은 일을 맡는다. [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md)
 - BroadcastReceiver: 짧게 깨어나 알림을 받고 반응한다. 오래 하는 일은 WorkManager 에 넘긴다.
 - ContentProvider: 앱 사이에 데이터를 안전하게 공유하는 창구.
 
@@ -37,7 +37,7 @@ date created: 2025-12-16 15:22:14 +09:00
 ### 리소스와 화면
 - 기기 크기, 방향, 언어에 따라 알맞은 리소스를 자동으로 고른다.
 - 앱 아이콘은 mipmap 디렉토리에, 일반 이미지는 drawable 디렉토리에 저장한다. mipmap 은 다양한 화면 밀도에 최적화된 아이콘용 구조다.
-- 입력은 [[android-activity-manager-and-system-services]] 와 SurfaceFlinger 가 이어 받아 화면에 그린다.
+- 입력은 [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md) 와 SurfaceFlinger 가 이어 받아 화면에 그린다.
 
 ### 데이터 보관
 - 앱 전용 데이터는 앱만 읽을 수 있는 경로에 저장된다.
@@ -61,8 +61,8 @@ date created: 2025-12-16 15:22:14 +09:00
 ### 개발 기본기
 - Kotlin/Jetpack 을 권장한다. Compose(새 UI) 와 View(기존 UI) 를 함께 쓸 수 있다.
 - Gradle/AGP 로 빌드하고, Lint/Detekt 등으로 품질을 챙긴다.
-- [[android-performance-and-debug]] 에서 성능과 디버깅 흐름을 더 자세히 본다.
+- [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md) 에서 성능과 디버깅 흐름을 더 자세히 본다.
 
 ### 읽는 순서 제안
 
-[[android-architecture-stack]] → [[android-hal-and-kernel]] → [[android-zygote-and-runtime]] → [[android-binder-and-ipc]] → [[android-activity-manager-and-system-services]] → [[android-security-and-sandboxing]] → [[android-boot-flow]]/[[android-init-and-services]] → [[android-adb-and-images]] → [[android-graphics-and-media]]/[[android-connectivity-and-networking]] → [[android-customization-and-oem]]/[[android-os-development-guide]] → [[android-evolution-history]] → [[android-performance-and-debug]]/[[android-testing-and-quality]].
+[android-architecture-stack](android-architecture-stack.md) → [android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md) → [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md) → [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) → [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md) → [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) → [android-boot-flow](../01_system_internals/android-boot-flow.md)/[android-init-and-services](../01_system_internals/android-init-and-services.md) → [android-adb-and-images](../06_testing_performance/android-adb-and-images.md) → [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md)/[android-connectivity-and-networking](../01_system_internals/android-connectivity-and-networking.md) → [android-customization-and-oem](../01_system_internals/android-customization-and-oem.md)/[android-os-development-guide](../02_app_framework/android-os-development-guide.md) → [android-evolution-history](android-evolution-history.md) → [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md)/[android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md).

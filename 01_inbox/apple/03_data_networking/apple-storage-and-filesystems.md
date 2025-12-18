@@ -84,5 +84,5 @@ let fileURL = docDir.appendingPathComponent(fileName)
 - `Memory Mapped File` (mmap)을 쓰면 가상 메모리를 활용해 큰 파일도 빠르게 읽을 수 있습니다(`Data(contentsOf: url, options: .mappedIfSafe)`).
 
 ### 더 보기
-- [[apple-platform-differences]] - macOS 샌드박스와 iOS 차이
-- [[apple-security-privacy]] - Keychain과 파일 보안 등급
+- [apple-platform-differences](../00_foundations/apple-platform-differences.md) - macOS 샌드박스와 iOS 차이
+- [apple-security-privacy](../../../../apple-security-privacy.md) - Keychain과 파일 보안 등급

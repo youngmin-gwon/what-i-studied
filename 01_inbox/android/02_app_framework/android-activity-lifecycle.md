@@ -99,6 +99,6 @@ Activity가 스택(Task)에 쌓이는 방식입니다.
 -   **SingleTask**: "이 앱의 메인 화면은 딱 하나만 있어야 해" (카카오톡 채팅방 -> 메인)
 
 ### 📚 연결 문서
-- [[android-architecture-stack]] - LMKD가 프로세스를 죽이는 이유
-- [[android-process-and-memory]] - 프로세스 수명주기
-- [[android-app-components-deep-dive]] - (Legacy) 컴포넌트 기초
+- [android-architecture-stack](../00_foundations/android-architecture-stack.md) - LMKD가 프로세스를 죽이는 이유
+- [android-process-and-memory](../01_system_internals/android-process-and-memory.md) - 프로세스 수명주기
+- [android-app-components-deep-dive](android-app-components-deep-dive.md) - (Legacy) 컴포넌트 기초

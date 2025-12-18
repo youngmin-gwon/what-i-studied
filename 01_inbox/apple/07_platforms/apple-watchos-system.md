@@ -58,5 +58,5 @@ Watch 앱은 독립적일 수도 있지만, 여전히 iPhone(Companion)과 데�
 **주의**: WCSession은 매우 불안정할 수 있습니다. iPhone이 안 켜져 있거나 거리가 멀면 실패합니다. 반드시 에러 처리를 해야 합니다.
 
 ### 더 보기
-- [[apple-ios-system]] - iOS 백그라운드 정책 비교
-- [[apple-swiftui-deep-dive]] - watchOS UI의 표준인 SwiftUI
+- [apple-ios-system](apple-ios-system.md) - iOS 백그라운드 정책 비교
+- [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - watchOS UI의 표준인 SwiftUI

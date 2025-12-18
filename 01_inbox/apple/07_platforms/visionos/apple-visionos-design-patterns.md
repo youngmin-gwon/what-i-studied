@@ -1,6 +1,6 @@
 # visionOS Design Patterns #apple #visionos #design
 
-비전OS에서 자주 쓰는 설계 패턴을 쉽게 정리했다. 용어는 [[apple-glossary]].
+비전OS에서 자주 쓰는 설계 패턴을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 공간 배치 패턴
 - 정보 패널: 창(Window)에 텍스트/리스트/버튼을 배치, 주변에 볼륨/3D 미니뷰를 둔다.
@@ -41,4 +41,4 @@
 - 프레임/열/배터리/메모리 모니터링.
 
 ## 링크
-[[apple-visionos-immersion-guide]], [[apple-visionos-spatial]], [[apple-ui-performance-guide]], [[apple-accessibility-and-internationalization]].
+[apple-visionos-immersion-guide](apple-visionos-immersion-guide.md), [apple-visionos-spatial](../../02_ui_frameworks/apple-visionos-spatial.md), [apple-ui-performance-guide](../../../../../../../apple-ui-performance-guide.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).

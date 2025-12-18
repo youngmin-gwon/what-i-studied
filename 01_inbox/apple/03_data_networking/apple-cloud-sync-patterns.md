@@ -64,5 +64,5 @@ REST API를 직접 쓴다면 아래 패턴을 구현해야 합니다.
 2. **Resumable**: 업로드가 99%에서 끊기면, 처음부터가 아니라 99%부터 다시 보내야 합니다(`Content-Range` 헤더 활용).
 
 ### 더 보기
-- [[apple-offline-and-resilience]] - 오프라인 큐와 회복 탄력성 상세
-- [[apple-coredata-deep-dive]] - 로컬 데이터베이스 설계
+- [apple-offline-and-resilience](apple-offline-and-resilience.md) - 오프라인 큐와 회복 탄력성 상세
+- [apple-coredata-deep-dive](apple-coredata-deep-dive.md) - 로컬 데이터베이스 설계

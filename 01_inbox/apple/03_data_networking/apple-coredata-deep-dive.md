@@ -22,12 +22,12 @@ CRUD(Create, Read, Update, Delete)를 넘어, 객체 간의 **관계(Relationshi
 ### 📚 외부 리소스 및 참고 자료
 
 #### 공식 문서 (Official Docs)
-- [Core Data Documentation](https://developer.apple.com/documentation/coredata)
-- [Core Data Programming Guide](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/index.html) (아카이브되었지만 개념 설명은 최고입니다)
+- [Core Data Documentation](../../../../https:/developer.apple.com/documentation/coredata.md)
+- [Core Data Programming Guide](../../../../https:/developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/index.html.md) (아카이브되었지만 개념 설명은 최고입니다)
 
 #### 🎥 WWDC 세션
-- [WWDC 2019: Making Apps with Core Data](https://developer.apple.com/videos/play/wwdc2019/230/)
-- [WWDC 2020: Optimize Core Data Performance](https://developer.apple.com/videos/play/wwdc2020/10017/) (Batch Insert)
+- [WWDC 2019: Making Apps with Core Data](../../../../https:/developer.apple.com/videos/play/wwdc2019/230/.md)
+- [WWDC 2020: Optimize Core Data Performance](../../../../https:/developer.apple.com/videos/play/wwdc2020/10017/.md) (Batch Insert)
 
 ---
 
@@ -114,5 +114,5 @@ lazy var persistentContainer: NSPersistentContainer = {
 ```
 
 ### 더 보기
-- [[apple-app-lifecycle-and-ui]] - 앱 종료 시 저장(`saveContext`) 시점
-- [[apple-combine-framework]] - Core Data 변경 사항을 Combine으로 구독하기
+- [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱 종료 시 저장(`saveContext`) 시점
+- [apple-combine-framework](apple-combine-framework.md) - Core Data 변경 사항을 Combine으로 구독하기

@@ -514,5 +514,5 @@ iptables-restore < /etc/iptables.rules
 
 ---
 
-**이전 챕터**: [[07-package-management|패키지 관리]]  
-**다음 챕터**: [[09-services-daemons|시스템 서비스 및 데몬]]
+**이전 챕터**: [패키지 관리](07-package-management.md)  
+**다음 챕터**: [시스템 서비스 및 데몬](09-services-daemons.md)

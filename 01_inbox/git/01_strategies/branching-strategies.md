@@ -99,7 +99,7 @@ Pro Git 에서는 서비스 규모와 참여 방식에 따른 세 가지 주요 
 
 ### 📚 연결 문서
 
-- [[00_fundamentals/basic-concepts|Git 기본 개념]] - 브랜치 포인터와 Three Trees 이해
-- [[02_advanced/reset-demystified|Reset 완벽 분석]] - 브랜치 이동과 데이터 흐름
-- [[01_strategies/commit-messages|커밋 메시지]] - 브랜치 작업의 기록 방식
-- [[02_advanced/advanced-workflows|고급 워크플로우]] - Rebase vs Merge 선택 기준
+- [Git 기본 개념](../00_fundamentals/basic-concepts.md) - 브랜치 포인터와 Three Trees 이해
+- [Reset 완벽 분석](../02_advanced/reset-demystified.md) - 브랜치 이동과 데이터 흐름
+- [커밋 메시지](commit-messages.md) - 브랜치 작업의 기록 방식
+- [고급 워크플로우](../02_advanced/advanced-workflows.md) - Rebase vs Merge 선택 기준

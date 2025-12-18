@@ -1,6 +1,6 @@
 # visionOS Immersion Guide #apple #visionos #spatial
 
-비전OS에서 몰입감 있는 앱을 만들기 위한 깊은 가이드. 용어는 [[apple-glossary]].
+비전OS에서 몰입감 있는 앱을 만들기 위한 깊은 가이드. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ## 공간 경험 설계
 - 윈도우: 평면 UI, 컨트롤/리스트/폼에 적합.
@@ -51,4 +51,4 @@
 - 프라이버시/권한/안전 안내가 충분한가?
 
 ## 링크
-[[apple-visionos-spatial]], [[apple-rendering-and-media]], [[apple-network-basics]], [[apple-accessibility-and-internationalization]].
+[apple-visionos-spatial](../../02_ui_frameworks/apple-visionos-spatial.md), [apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-network-basics](../../../../../../../apple-network-basics.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).

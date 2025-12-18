@@ -50,5 +50,5 @@ visionOS 앱의 90%는 SwiftUI로 만듭니다.
 - **Ornaments**: 윈도우 밖으로 튀어나온 툴바/탭바. 시선을 따라다니지 않고 윈도우에 붙어 있습니다. (Floating UI)
 
 ### 더 보기
-- [[apple-rendering-and-media]] - Metal 렌더링 파이프라인
-- [[apple-ipados-multitasking]] - 멀티 윈도우 관리 (비슷한 개념)
+- [apple-rendering-and-media](../02_ui_frameworks/apple-rendering-and-media.md) - Metal 렌더링 파이프라인
+- [apple-ipados-multitasking](../04_system_services/apple-ipados-multitasking.md) - 멀티 윈도우 관리 (비슷한 개념)

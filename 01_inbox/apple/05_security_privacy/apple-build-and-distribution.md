@@ -66,5 +66,5 @@ macOS 앱을 웹에서 배포하려면 **공증(Notarization)**을 받아야 합
 - App Store Connect에 업로드할 때 체크하거나, Firebase Crashlytics에 별도로 올려야 합니다.
 
 ### 더 보기
-- [[apple-sandbox-and-security]] - 서명이 완료된 앱이 실행될 때 일어나는 일
-- [[apple-history-and-evolution]] - PowerPC에서 Apple Silicon까지의 아키텍처 변화
+- [apple-sandbox-and-security](apple-sandbox-and-security.md) - 서명이 완료된 앱이 실행될 때 일어나는 일
+- [apple-history-and-evolution](../00_foundations/apple-history-and-evolution.md) - PowerPC에서 Apple Silicon까지의 아키텍처 변화

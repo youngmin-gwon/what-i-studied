@@ -58,6 +58,6 @@ HTTP(S) 프로토콜을 사용하여 Git 서버와 통신할 때, 매번 아이�
 
 ### 📚 연결 문서
 
-- [[02_advanced/git-server|Git 서버]] - HTTP vs SSH 프로토콜의 인증 차이
-- [[03_tools/git-customization|Git 커스텀]] - 설정 파일의 계층 구조 이해
-- [[01_strategies/github-mastery|GitHub 마스터]] - GitHub 토큰 생성 및 관리
+- [Git 서버](../02_advanced/git-server.md) - HTTP vs SSH 프로토콜의 인증 차이
+- [Git 커스텀](git-customization.md) - 설정 파일의 계층 구조 이해
+- [GitHub 마스터](../01_strategies/github-mastery.md) - GitHub 토큰 생성 및 관리

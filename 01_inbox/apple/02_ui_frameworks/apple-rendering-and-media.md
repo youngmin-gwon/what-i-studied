@@ -82,5 +82,5 @@ Apple의 로우 레벨 3D 그래픽 API입니다. Core Animation도 내부적으
 - **Zero-copy Flow**: 카메라 -> Metal -> 인코더까지 데이터 복사 없이 메모리 주소만 넘깁니다.
 
 ### 더 보기
-- [[apple-uikit-lifecycle]] - 렌더링 루프와 연동
-- [[apple-instruments-profiling]] - Core Animation FPS 및 Offscreen Rendering 감지 방법
+- [apple-uikit-lifecycle](apple-uikit-lifecycle.md) - 렌더링 루프와 연동
+- [apple-instruments-profiling](../06_testing_performance/apple-instruments-profiling.md) - Core Animation FPS 및 Offscreen Rendering 감지 방법

@@ -42,5 +42,5 @@ date created: 2025-12-16 16:11:27 +09:00
 - 기존의 UIKit/SwiftUI 지식이 그대로 이어지지만, **"시선(Eye) + 손(Hand)"**이라는 새로운 입력 방식에 적응해야 합니다.
 
 ### 📚 더 보기
-- [[apple-platform-differences]] - 변화의 결과물인 플랫폼별 차이
-- [[apple-runtime-and-swift]] - Objective-C 유산과 현대적 런타임
+- [apple-platform-differences](apple-platform-differences.md) - 변화의 결과물인 플랫폼별 차이
+- [apple-runtime-and-swift](apple-runtime-and-swift.md) - Objective-C 유산과 현대적 런타임

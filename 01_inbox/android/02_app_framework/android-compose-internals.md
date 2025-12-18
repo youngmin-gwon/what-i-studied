@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Jetpack Compose Internals android android/compose android/ui
 
-Jetpack Compose 의 내부 동작과 성능 최적화. 기본은 [[android-jetpack-architecture]] 참고.
+Jetpack Compose 의 내부 동작과 성능 최적화. 기본은 [android-jetpack-architecture](android-jetpack-architecture.md) 참고.
 
 ### Compose 기본 개념
 
@@ -588,4 +588,4 @@ fun DebugComposable() {
 
 ### 더 보기
 
-[[android-jetpack-architecture]], [[android-app-components-deep-dive]], [[android-performance-and-debug]], [[android-testing-and-quality]]
+[android-jetpack-architecture](android-jetpack-architecture.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)

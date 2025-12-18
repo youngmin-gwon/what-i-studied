@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Android Jetpack Architecture Components android android/jetpack android/architecture
 
-Jetpack 라이브러리로 견고한 앱 아키텍처를 만드는 방법. 기본은 [[android-foundations]] 참고.
+Jetpack 라이브러리로 견고한 앱 아키텍처를 만드는 방법. 기본은 [android-foundations](../00_foundations/android-foundations.md) 참고.
 
 ### 아키텍처 개요
 
@@ -25,7 +25,7 @@ Data Sources (Room, Retrofit, DataStore)
 
 ### ViewModel
 
-설정 변경에서 살아남는 UI 상태 홀더. 자세한 내용은 [[android-viewmodel]] 참고.
+설정 변경에서 살아남는 UI 상태 홀더. 자세한 내용은 [android-viewmodel](android-viewmodel.md) 참고.
 
 ```kotlin
 class UserViewModel : ViewModel() {
@@ -174,7 +174,7 @@ fun UserScreen(viewModel: UserViewModel = viewModel()) {
 
 ### Room Database
 
-이미 [[android-storage-systems]] 에서 다뤘으나 추가 기능 소개.
+이미 [android-storage-systems](android-storage-systems.md) 에서 다뤘으나 추가 기능 소개.
 
 #### 관계 (Relation)
 
@@ -697,4 +697,4 @@ class UserViewModel(
 
 ### 더 보기
 
-[[android-viewmodel]], [[android-compose-internals]], [[android-app-components-deep-dive]], [[android-storage-systems]], [[android-dependency-injection]], [[android-testing-and-quality]]
+[android-viewmodel](android-viewmodel.md), [android-compose-internals](android-compose-internals.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-storage-systems](android-storage-systems.md), [android-dependency-injection](android-dependency-injection.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)

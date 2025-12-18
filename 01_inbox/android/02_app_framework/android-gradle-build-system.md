@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Android Gradle Build System android android/build android/gradle
 
-Android Gradle Plugin (AGP) 과 빌드 시스템 최적화. 기본은 [[android-os-development-guide]] 참고.
+Android Gradle Plugin (AGP) 과 빌드 시스템 최적화. 기본은 [android-os-development-guide](android-os-development-guide.md) 참고.
 
 ### Gradle 기본 구조
 
@@ -562,4 +562,4 @@ gradle-profiler --benchmark --project-dir . assembleDebug
 
 ### 더 보기
 
-[[android-os-development-guide]], [[android-jetpack-architecture]], [[android-dependency-injection]], [[android-testing-and-quality]]
+[android-os-development-guide](android-os-development-guide.md), [android-jetpack-architecture](android-jetpack-architecture.md), [android-dependency-injection](android-dependency-injection.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)

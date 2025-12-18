@@ -402,7 +402,7 @@ vkCmdEndRenderPass(...);
 ### Android 5.0 Lollipop (2014) - 대전환
 - ✨ ART 기본 런타임
 - 🎨 Material Design
-- 🔒 [SELinux](../../../02_references/operating-systems/selinux.md) Enforcing
+- 🔒 [SELinux](../../../../../../02_references/operating-systems/selinux.md) Enforcing
 - 💼 JobScheduler
 
 ### Android 6.0 Marshmallow (2015) - 권한 혁명
@@ -462,23 +462,23 @@ vkCmdEndRenderPass(...);
 ## 학습 리소스
 
 **공식**:
-- [Platform Releases](https://developer.android.com/about/versions)
-- [Android History](https://en.wikipedia.org/wiki/Android_version_history)
+- [Platform Releases](../../../../https:/developer.android.com/about/versions.md)
+- [Android History](../../../../https:/en.wikipedia.org/wiki/Android_version_history.md)
 
 **심화**:
-- [Google I/O Sessions](https://www.youtube.com/googleio)
-- [Android Developers Blog](https://android-developers.googleblog.com/)
+- [Google I/O Sessions](../../../../https:/www.youtube.com/googleio.md)
+- [Android Developers Blog](../../../../https:/android-developers.googleblog.com/.md)
 
 ---
 
 ## 연결 문서
 
-[[android-customization-and-oem]] - OEM 의 버전 적용
+[android-customization-and-oem](../01_system_internals/android-customization-and-oem.md) - OEM 의 버전 적용
 
-[[android-security-and-sandboxing]] - 보안 진화
+[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 보안 진화
 
-[[android-zygote-and-runtime]] - Dalvik→ART
+[android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md) - Dalvik→ART
 
-[[android-hal-and-kernel]] - HIDL→AIDL
+[android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md) - HIDL→AIDL
 
-[[android-overview]] - 현재 아키텍처
+[android-overview](android-overview.md) - 현재 아키텍처

@@ -520,5 +520,5 @@ ExecStart=/usr/local/bin/backup.sh
 
 ---
 
-**이전 챕터**: [[11-monitoring-logs|시스템 모니터링 및 로그]]  
-**메인으로**: [[README|리눅스마스터 1급 자격증 학습 가이드]]
+**이전 챕터**: [시스템 모니터링 및 로그](11-monitoring-logs.md)  
+**메인으로**: [리눅스마스터 1급 자격증 학습 가이드](../bash-scripting-summary/README.md)

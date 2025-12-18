@@ -68,6 +68,6 @@ interface IRemoteService {
 -   **해결**: Binder 호출은 락 구간 밖에서 하거나, `oneway`를 적절히 사용해야 합니다.
 
 ### 📚 연결 문서
-- [[android-architecture-stack]] - Binder가 위치한 곳
-- [[android-activity-manager-and-system-services]] - Binder의 최대 고객
-- [[android-hal-and-kernel]] - 하드웨어 통신용 Binder (HIDL/AIDL)
+- [android-architecture-stack](../00_foundations/android-architecture-stack.md) - Binder가 위치한 곳
+- [android-activity-manager-and-system-services](android-activity-manager-and-system-services.md) - Binder의 최대 고객
+- [android-hal-and-kernel](android-hal-and-kernel.md) - 하드웨어 통신용 Binder (HIDL/AIDL)

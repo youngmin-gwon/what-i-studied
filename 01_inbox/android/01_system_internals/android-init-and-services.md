@@ -8,7 +8,7 @@ date created: 2025-12-16 15:34:24 +09:00
 
 ## Init과 Service Lifecycle
 
-`init`은 안드로이드 부팅 후 **가장 먼저 실행되는 프로세스**(PID 1)다. 모든 시스템 서비스를 시작하고, 파일시스템을 마운트하며, [[selinux|SELinux]] 정책을 로드하고, property 시스템을 관리한다. Unix/Linux 전통의 init 프로세스 역할을 하면서도 안드로이드 고유의 요구사항을 반영한 독특한 구조를 가진다.
+`init`은 안드로이드 부팅 후 **가장 먼저 실행되는 프로세스**(PID 1)다. 모든 시스템 서비스를 시작하고, 파일시스템을 마운트하며, [SELinux](../../../../selinux.md) 정책을 로드하고, property 시스템을 관리한다. Unix/Linux 전통의 init 프로세스 역할을 하면서도 안드로이드 고유의 요구사항을 반영한 독특한 구조를 가진다.
 
 ### 왜 init이 중요한가
 
@@ -31,7 +31,7 @@ Unix/Linux에서 PID 1은 특별한 의미를 가진다:
 **Android init 추가 기능**:
 - **Property 시스템**: key-value 저장소 (`setprop`/`getprop`)
 - **Ueventd**: 커널 디바이스 이벤트 처리 (`/dev` 노드 생성)
-- **[[selinux|SELinux]] 강제**: 정책 로딩 및 컨텍스트 설정
+- **[SELinux](../../../../selinux.md) 강제**: 정책 로딩 및 컨텍스트 설정
 - **파일 암호화**: FBE(File-Based Encryption) 조기 마운트
 - **Vendor 분리**: [[android-hal-and-kernel#Treble 아키텍처|Treble]] 지원
 
@@ -366,7 +366,7 @@ wait_for_prop sys.boot_completed 1
 | `ctl.*` | 서비스 제어 (특수) | `ctl.start`, `ctl.stop` |
 | `vendor.*` | Vendor partition | `vendor.audio.hal` |
 
-### Property Contexts ([[selinux|SELinux]])
+### Property Contexts ([SELinux](../../../../selinux.md))
 
 ```bash
 # /system/etc/selinux/plat_property_contexts
@@ -593,7 +593,7 @@ dmesg | grep "init:"
 
 ## 보안
 
-### [[selinux|SELinux]] 통합
+### [SELinux](../../../../selinux.md) 통합
 
 Init의 도메인 전환:
 
@@ -678,12 +678,12 @@ service charger /system/bin/charger
 ## 학습 리소스
 
 **공식 문서**:
-- [Init Language](https://android.googlesource.com/platform/system/core/+/refs/heads/main/init/README.md)
-- [Property System](https://source.android.com/docs/core/architecture/configuration/add-system-properties)
+- [Init Language](../../bash-scripting-summary/README.md)
+- [Property System](../../../../https:/source.android.com/docs/core/architecture/configuration/add-system-properties.md)
 
 **소스 코드**:
-- [Init](https://android.googlesource.com/platform/system/core/+/refs/heads/main/init/)
-- [RC Files](https://android.googlesource.com/platform/system/core/+/refs/heads/main/rootdir/)
+- [Init](../../../../https:/android.googlesource.com/platform/system/core/+/refs/heads/main/init/.md)
+- [RC Files](../../../../https:/android.googlesource.com/platform/system/core/+/refs/heads/main/rootdir/.md)
 
 **도구**:
 - `bootchart`: 부팅 프로파일링
@@ -694,8 +694,8 @@ service charger /system/bin/charger
 
 ## 연결 문서
 
-[[android-boot-flow]] - 전체 부팅 과정  
-[[android-zygote-and-runtime]] - Zygote 시작  
-[[android-hal-and-kernel]] - HAL 서비스 시작  
-[[selinux]] - Init의 SELinux 정책  
-[[android-security-and-sandboxing]] - 부팅 보안 (Verified Boot)
+[android-boot-flow](android-boot-flow.md) - 전체 부팅 과정  
+[android-zygote-and-runtime](android-zygote-and-runtime.md) - Zygote 시작  
+[android-hal-and-kernel](android-hal-and-kernel.md) - HAL 서비스 시작  
+[selinux](../../../../selinux.md) - Init의 SELinux 정책  
+[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 부팅 보안 (Verified Boot)

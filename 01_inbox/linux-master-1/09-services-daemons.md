@@ -492,5 +492,5 @@ at -f script.sh now + 1 hour
 
 ---
 
-**이전 챕터**: [[08-network-config|네트워크 설정]]  
-**다음 챕터**: [[10-shell-scripting|셸 스크립팅]]
+**이전 챕터**: [네트워크 설정](08-network-config.md)  
+**다음 챕터**: [셸 스크립팅](10-shell-scripting.md)

@@ -22,18 +22,18 @@
 
 ## shellcheck 활용
 - 설치 후 `shellcheck script.sh`. 경고 ID(SC2086 등)를 보고 해결.
-- 빈출 해결: 단어 분리 경고 → 인용, `[[ ]]` 사용, `read`에 `-r`, 임시 파일은 `mktemp`.
+- 빈출 해결: 단어 분리 경고 → 인용, `[](../.md)` 사용, `read`에 `-r`, 임시 파일은 `mktemp`.
 - disable 필요 시 `# shellcheck disable=SC2086` 주석 추가(정당한 이유와 함께).
 - 실행 팁: `shellcheck -x script.sh`로 소스 포함 추적, 여러 스크립트는 `shellcheck **/*.sh`(globstar 지원 환경) 또는 `find . -name '*.sh' -print0 | xargs -0 shellcheck`.
 
 ## 테스트 스켈레톤(bats 없이)
 ```bash
-test_eq() { [[ "$1" == "$2" ]] || { echo "FAIL: $1 != $2" >&2; return 1; }; }
+test_eq() { ["$1" == "$2"](../../"$1" == "$2".md) || { echo "FAIL: $1 != $2" >&2; return 1; }; }
 run_tests() {
   output=$(echo foo | tr a-z A-Z)
   test_eq "$output" FOO
 }
-if [[ ${RUN_TESTS:-0} -eq 1 ]]; then run_tests; fi
+if [${RUN_TESTS:-0} -eq 1](../../${RUN_TESTS:-0} -eq 1.md); then run_tests; fi
 ```
 - 외부 의존성은 `command -v`로 모킹 가능: `PATH="$PWD/fakes:$PATH"`
 - 테스트는 독립 실행 가능하도록 입력/출력을 고정.

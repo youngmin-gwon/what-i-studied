@@ -50,7 +50,7 @@ Apple 플랫폼은 **하드웨어와 소프트웨어의 통합**을 전제로 �
 | **System Services** | `launchd`, `SpringBoard`, `backboardd` | 앱을 실행하고 관리하는 시스템 데몬들. |
 | **Kernel (Darwin)** | **XNU**, Mach, BSD, Drivers | 하드웨어 제어, 메모리 관리, 프로세스 스케줄링. |
 
-👉 **Deep Dive**: 더 자세한 커널 구조는 [[apple-architecture-stack]]에서 다룹니다.
+👉 **Deep Dive**: 더 자세한 커널 구조는 [apple-architecture-stack](apple-architecture-stack.md)에서 다룹니다.
 
 ---
 
@@ -69,18 +69,18 @@ Apple 플랫폼은 **하드웨어와 소프트웨어의 통합**을 전제로 �
 이 폴더의 문서들은 다음 순서로 읽으면 좋습니다:
 
 1. **기반 다지기**:
-   - [[apple-architecture-stack]]: XNU 커널과 Darwin의 이해
-   - [[apple-runtime-and-swift]]: Swift 언어가 돌아가는 원리
-   - [[apple-boot-flow-and-images]]: 전원 버튼부터 앱 실행까지
+   - [apple-architecture-stack](apple-architecture-stack.md): XNU 커널과 Darwin의 이해
+   - [apple-runtime-and-swift](apple-runtime-and-swift.md): Swift 언어가 돌아가는 원리
+   - [apple-boot-flow-and-images](apple-boot-flow-and-images.md): 전원 버튼부터 앱 실행까지
 
 2. **보안과 시스템**:
-   - [[apple-sandbox-and-security]]: 왜 내 파일에 접근 못 할까?
-   - [[apple-interprocess-and-xpc]]: 앱과 위젯은 어떻게 대화할까?
+   - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md): 왜 내 파일에 접근 못 할까?
+   - [apple-interprocess-and-xpc](../04_system_services/apple-interprocess-and-xpc.md): 앱과 위젯은 어떻게 대화할까?
 
 3. **플랫폼별 특징**:
-   - [[apple-platform-differences]]: iOS vs macOS 차이점 정복
+   - [apple-platform-differences](apple-platform-differences.md): iOS vs macOS 차이점 정복
 
 ---
 
 ### 📚 더 보기
-- 용어가 헷갈린다면? 👉 [[apple-glossary]]
+- 용어가 헷갈린다면? 👉 [apple-glossary](apple-glossary.md)

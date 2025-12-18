@@ -6,10 +6,10 @@ date modified: 2025-12-11 14:04:08 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
-[[01_inbox/books/tcp_ip_illustrated_1/roadmap|📖 Return to Roadmap]]
+[📖 Return to Roadmap](roadmap.md)
 
 ## See Also
-- [[01_inbox/books/routing_tcp_ip_1/chapter1|Routing TCP/IP Vol.1 - Ch.1 TCP/IP Review]]
+- [Routing TCP/IP Vol.1 - Ch.1 TCP/IP Review](chapter1.md)
 
 ## 1. Mermaid Mindmap
 

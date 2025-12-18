@@ -9,7 +9,7 @@
 1. `01_overview-shell-basics.md` — Bash/쉘 개념, 인터렉티브 셸 vs 스크립트, 실행 흐름 이해
 2. `02_commands-expansions.md` — 명령 구조, 인용/이스케이프, 글로브·대체·산술 확장
 3. `03_variables-strings-arrays.md` — 변수 스코프, 파라미터 확장, 배열·연관배열 패턴
-4. `04_control-flow-and-loops.md` — test/[[ ]] 문법, if/case, for/while, exit/status 설계
+4. `04_control-flow-and-loops.md` — test/[](../.md) 문법, if/case, for/while, exit/status 설계
 5. `05_functions-and-modularity.md` — 함수 선언/반환, 네임스페이스, 모듈화, 소스 관리
 6. `06_io-redirection-pipelines.md` — 표준 입출력, 리디렉션, 파이프, 프로세스 서브스티튜션
 7. `07_text-processing-toolkit.md` — grep/sed/awk/coreutils 조합, 인코딩/필터링 실전

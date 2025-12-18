@@ -94,7 +94,7 @@ parse_args() {
 ```bash
 load_env_file() {
   local file=$1
-  [[ -r $file ]] || { log_err "missing $file"; return 1; }
+  [-r $file](../../-r $file.md) || { log_err "missing $file"; return 1; }
   while IFS='=' read -r k v; do
     [[ $k =~ ^[A-Z0-9_]+$ ]] || continue
     printf -v "$k" '%s' "$v"
