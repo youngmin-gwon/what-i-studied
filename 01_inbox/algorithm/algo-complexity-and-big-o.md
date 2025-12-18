@@ -2,7 +2,7 @@
 title: algo-complexity-and-big-o
 tags: [algorithm, big-o, complexity, optimization, performance]
 aliases: [Big-O, 공간 복잡도, 시간 복잡도]
-date modified: 2025-12-18 10:15:31 +09:00
+date modified: 2025-12-18 11:20:56 +09:00
 date created: 2025-12-17 19:00:00 +09:00
 ---
 
@@ -45,8 +45,6 @@ Big-O 는 **상한선 (Upper Bound)** 입니다. "아무리 느려도 이 정도
 
 **O(1) - Constant Time**
 
-![[../../_assets/algorithm/o_1_graph.png]]
-
 입력 크기와 무관하게 항상 일정한 시간이 걸립니다.
 
 ```mermaid
@@ -58,8 +56,6 @@ xychart-beta
 ```
 
 **O(log n) - Logarithmic Time**
-
-![[../../_assets/algorithm/o_log_n_graph.png]]
 
 입력이 커져도 실행 시간은 완만하게 증가합니다. 매우 효율적입니다.
 
@@ -73,8 +69,6 @@ xychart-beta
 
 **O(n) - Linear Time**
 
-![[../../_assets/algorithm/o_n_graph.png]]
-
 입력 크기에 비례해서 시간이 증가합니다.
 
 ```mermaid
@@ -86,8 +80,6 @@ xychart-beta
 ```
 
 **O(n log n) - Quasi-linear Time**
-
-![[../../_assets/algorithm/o_n_log_n_graph.png]]
 
 효율적인 정렬 알고리즘들이 이 복잡도를 가집니다.
 
@@ -101,8 +93,6 @@ xychart-beta
 
 **O(n²) - Quadratic Time**
 
-![[../../_assets/algorithm/o_n_2_graph.png]]
-
 입력이 2 배가 되면 시간은 4 배가 됩니다. 큰 데이터에는 부적합합니다.
 
 ```mermaid
@@ -113,14 +103,10 @@ xychart-beta
     line "O(n²)" [0, 1764, 7225, 16384, 28900, 45369, 65536, 88804, 116281, 147456, 181476, 218961, 262144]
 ```
 
-> [!WARNING] **N=10,000 이면 1 억 연산!**
-> 제곱 복잡도는 입력이 조금만 커져도 감당할 수 없는 수준이 됩니다.
+>[!WARNING] **N=10,000 이면 1 억 연산!**
+>제곱 복잡도는 입력이 조금만 커져도 감당할 수 없는 수준이 됩니다.
 
 **전체 복잡도 비교**
-
-![[../../_assets/algorithm/o_graph.png]]
-
-위 그래프는 각 복잡도가 입력 크기에 따라 어떻게 증가하는지 한눈에 보여줍니다.
 
 **코드형 인터랙티브 차트**
 
@@ -137,7 +123,7 @@ xychart-beta
     line "O(n²)" [0, 1764, 7225, 16384, 28900, 45369, 65536, 88804, 116281, 147456, 181476, 218961, 262144]
 ```
 
-> [!NOTE] **차트 해석**
+>[!NOTE] **차트 해석**
 > - **O(1)**: 완전히 수평선 (입력 크기와 무관)
 > - **O(log n)**: 거의 수평에 가까운 완만한 증가
 > - **O(n)**: 정비례 직선
