@@ -2,7 +2,7 @@
 title: README
 tags: [algorithm, data-structures, index]
 aliases: [알고리즘 인덱스, 자료구조 인덱스]
-date modified: 2025-12-18 13:04:34 +09:00
+date modified: 2025-12-18 13:12:38 +09:00
 date created: 2025-12-18 11:33:14 +09:00
 ---
 
@@ -33,8 +33,8 @@ date created: 2025-12-18 11:33:14 +09:00
 5. [[00_fundamentals/floating-point-guide|실수와 정밀도]]
    - 수치 오차를 방지하는 실전 지침.
 
-4. [[01_data-structures/linear|선형 자료구조]]
-   - Array, Linked List의 물리적 배치와 하드웨어 효율성.
+6. [[01_data-structures/linear|선형 자료구조]]
+   - Array, Linked List 의 물리적 배치와 하드웨어 효율성.
 
 ---
 
@@ -233,10 +233,46 @@ date created: 2025-12-18 11:33:14 +09:00
 
 ---
 
-### 📊 전체 진행도
+### 📊 전체 진행도 및 향후 로드맵 (Phase 2)
+
+기초부터 심화 패턴까지 필수적인 '기초 체력'은 모두 갖춰졌습니다. 다음은 마스터 레벨로 가기 위한 **Phase 2: Engineering & Mastering** 로드맵 보고입니다.
+
+#### 1. 기하 및 고난도 수학 정복 (Geometry)
+
+그래픽스 엔진이나 지리 정보(GIS) 처리를 위한 수치 해석 능력을 기릅니다.
+
+- [ ] **Geometry 기초**: CCW(방향 판별), 선분 교차 판별
+- [ ] **볼록 껍질 (Convex Hull)**: 점들을 포함하는 가장 작은 다각형 찾기
+- [ ] **평면 스위핑 (Line Sweep)**: 겹치는 사각형 넓이 등 공간 쿼리 최적화
+
+#### 2. 고급 그래프 및 네트워크 이론 (Advanced Graph)
+
+복잡한 연결 관계와 자원 배정 최적화를 다룹니다.
+
+- [ ] **강결합 컴포넌트 (SCC)**: 타잔(Tarjan) 알고리즘으로 사이클 구조 분석
+- [ ] **네트워크 플로우 (Network Flow)**: 최대 유량 최소 컷 문제 해결
+- [ ] **이분 매칭 (Bipartite Matching)**: 작업 - 사람 - 자원 간의 최적 배정
+
+#### 3. 대규모 문자열 처리 (String Advanced II)
+
+검색 엔진 및 보안 필터링의 핵심 기술을 정복합니다.
+
+- [ ] **아호 - 코라식 (Aho-Corasick)**: 수만 개의 키워드를 동시 탐색하는 다중 패턴 매칭
+- [ ] **접미사 배열 (Suffix Array)**: 모든 부분 문자열을 초고속으로 검색하는 자료구조
+
+#### 4. 실무 시스템 아키텍처 결합 (System Engineering) 🎯 **추천**
+
+알고리즘이 실제 대규모 시스템(Redis, DB, Git)에서 어떻게 쓰이는지 분석합니다.
+
+- [ ] **Redis 분석**: Skip List 와 Hash Slot 의 작동 원리
+- [ ] **Git 스토리지**: Directed Acyclic Graph(DAG)와 델타 압축 메커니즘
+- [ ] **Database**: LSM Tree(Write-Intensive) vs B+ Tree(Read-Intensive) 비교
+
+---
 
 - **기초 (Fundamentals)**: 5/5 완료 (100%) ✅
 - **자료구조 (Data Structures)**: 9/9 완료 (100%) 🎉
 - **알고리즘 & 패턴 (Algorithms)**: 17/17 완료 (100%) 🎉
 
-**다음 목표**: 실제 코딩 테스트 기출 유형 분석 및 실무 시스템 결합 사례 심화
+>[!NOTE]
+> **Next Objective**: 실제 기업(Kakao, Google) 기출 유형의 복합 문제 풀이 및 위 심화 주제 중 하나를 선택하여 깊이 있게 탐구하는 것을 권장합니다.
