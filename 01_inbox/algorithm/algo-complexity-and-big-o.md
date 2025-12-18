@@ -53,7 +53,7 @@ Big-O 는 **상한선 (Upper Bound)** 입니다. "아무리 느려도 이 정도
 xychart-beta
     title "O(1) - Constant Time"
     x-axis "Input Size (N)" [1, 2, 4, 8, 16, 32, 64, 128, 256]
-    y-axis "Operations" 0 --> 2
+    y-axis "Operations" 0 --> 70000
     line "O(1)" [1, 1, 1, 1, 1, 1, 1, 1, 1]
 ```
 
@@ -67,7 +67,7 @@ xychart-beta
 xychart-beta
     title "O(log n) - Logarithmic Time"
     x-axis "Input Size (N)" [1, 2, 4, 8, 16, 32, 64, 128, 256]
-    y-axis "Operations" 0 --> 9
+    y-axis "Operations" 0 --> 70000
     line "O(log n)" [0, 1, 2, 3, 4, 5, 6, 7, 8]
 ```
 
@@ -81,7 +81,7 @@ xychart-beta
 xychart-beta
     title "O(n) - Linear Time"
     x-axis "Input Size (N)" [1, 2, 4, 8, 16, 32, 64, 128, 256]
-    y-axis "Operations" 0 --> 260
+    y-axis "Operations" 0 --> 70000
     line "O(n)" [1, 2, 4, 8, 16, 32, 64, 128, 256]
 ```
 
@@ -95,7 +95,7 @@ xychart-beta
 xychart-beta
     title "O(n log n) - Quasi-linear Time"
     x-axis "Input Size (N)" [1, 2, 4, 8, 16, 32, 64, 128, 256]
-    y-axis "Operations" 0 --> 2100
+    y-axis "Operations" 0 --> 70000
     line "O(n log n)" [0, 2, 8, 24, 64, 160, 384, 896, 2048]
 ```
 
