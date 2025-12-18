@@ -1,14 +1,14 @@
 ---
 title: recursion-and-stack
-tags: [fundamentals, recursion, stack, call-stack, tail-recursion]
-aliases: [재귀, 호출 스택, Base Case, 재귀의 기초]
-date modified: 2025-12-18 11:58:00 +09:00
+tags: [call-stack, fundamentals, recursion, stack, tail-recursion]
+aliases: [Base Case, 재귀, 재귀의 기초, 호출 스택]
+date modified: 2025-12-18 17:00:19 +09:00
 date created: 2025-12-18 11:58:00 +09:00
 ---
 
 ## Recursion & Call Stack: 자신을 부르는 논리
 
-**재귀(Recursion)**는 자신을 정의할 때 자신을 다시 참조하는 방법입니다. 알고리즘에서 복잡한 문제를 단순한 하위 문제로 쪼개는 핵심 도구입니다.
+**재귀(Recursion)** 는 자신을 정의할 때 자신을 다시 참조하는 방법입니다. 알고리즘에서 복잡한 문제를 단순한 하위 문제로 쪼개는 핵심 도구입니다.
 
 ### 💡 Why it matters (Context)
 
@@ -28,7 +28,7 @@ date created: 2025-12-18 11:58:00 +09:00
 
 ---
 
-## 🔑 재귀의 2가지 필수 조건
+## 🔑 재귀의 2 가지 필수 조건
 
 이 중 하나라도 없으면 재귀는 끝나지 않고 무한 루프에 빠집니다.
 
@@ -51,8 +51,10 @@ def factorial(n):
 함수가 호출될 때마다 컴퓨터 메모리의 **Stack** 영역에는 함수의 매개변수, 지역 변수, 돌아갈 주소가 차곡차곡 쌓입니다.
 
 ### Stack Overflow
+
 재귀가 너무 깊어지면 메모리의 Stack 영역이 꽉 차서 프로그램이 죽어버리는 현상입니다.
-- **Python**: 기본 재귀 한도가 약 1,000회로 설정되어 있어 주의가 필요합니다.
+
+- **Python**: 기본 재귀 한도가 약 1,000 회로 설정되어 있어 주의가 필요합니다.
 
 ---
 
@@ -60,7 +62,7 @@ def factorial(n):
 
 재귀의 "스택 소모"라는 단점을 해결하기 위한 최적화 기법입니다.
 
-- **조건**: 함수의 마지막 연산이 `자신을 호출`하는 것뿐이어야 합니다. (호출 후 추가 연산이 없어야 함)
+- **조건**: 함수의 마지막 연산이 `자신을 호출` 하는 것뿐이어야 합니다. (호출 후 추가 연산이 없어야 함)
 - **효과**: 컴파일러가 이를 알아차리고 스택을 새로 쌓는 대신 **루프(Iteration)**로 변환하여 실행합니다.
 
 ```python
@@ -75,8 +77,8 @@ def tail_fact(n, acc=1):
     return tail_fact(n - 1, n * acc)
 ```
 
-> [!NOTE] **언어별 지원**
-> Swift, Kotlin, Haskell 등은 지원하지만, **Java, Python 등은 기본적으로 이를 지원하지 않습니다.**
+>[!NOTE] **언어별 지원**
+>Swift, Kotlin, Haskell 등은 지원하지만, **Java, Python 등은 기본적으로 이를 지원하지 않습니다.**
 
 ---
 
