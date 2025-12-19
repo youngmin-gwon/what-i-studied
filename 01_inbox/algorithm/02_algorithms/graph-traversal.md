@@ -22,6 +22,7 @@ date created: 2025-12-18 11:39:21 +09:00
 ### 🏢 실무 사례
 
 #### BFS 활용
+
 - **LinkedIn/Facebook 친구 추천**: "아는 사람일 수도" (2촌, 3촌 찾기)
 - **Google Maps 경로 찾기**: 가중치 없는 경우 BFS로 최단 경로
 - **Netflix 추천 알고리즘**: 사용자 관계 그래프 탐색
@@ -29,6 +30,7 @@ date created: 2025-12-18 11:39:21 +09:00
 - **네트워크 패킷 라우팅**: 최소 홉(hop) 경로 찾기
 
 #### DFS 활용
+
 - **WebCrawler (검색엔진)**: 한 사이트를 깊게 파고들며 크롤링
 - **파일 시스템 검색**: `find` 명령어 (디렉토리 깊이 우선)
 - **IDE 코드 네비게이션**: "Find all references" (의존성 그래프)
@@ -547,9 +549,8 @@ struct Queue<T> {
 
 ---
 
----
-
 ## 📚 관련 문서
+
 - [트리와 그래프](../01_data-structures/tree-and-graph.md) - 인접 행렬과 인접 리스트 등 그래프 표현법
 - [선형 자료구조](../01_data-structures/linear.md) - 큐(BFS)와 스택(DFS) 자료구조의 이해
 - [서로소 집합](../01_data-structures/disjoint-set.md) - 연결 컴포넌트 찾기의 효율적 대안

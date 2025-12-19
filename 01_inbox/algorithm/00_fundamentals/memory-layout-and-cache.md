@@ -100,8 +100,6 @@ CPU 에 가까울수록 빠르고 비싸며 용량이 적습니다.
 
 ---
 
----
-
 ## 📚 관련 문서
 - [복잡도와 Big-O](complexity-and-big-o.md) - 캐시 효율이 알고리즘 성능에 미치는 영향
 - [선형 자료구조](../01_data-structures/linear.md) - 상반된 물리적 배치를 가지는 Array 와 Linked List

@@ -77,6 +77,7 @@ def fib_memo(n, memo={}):
 ---
 
 ## 📚 관련 문서
+
 - [동적 계획법 (DP)](../02_algorithms/dynamic-programming.md): 메모이제이션을 활용한 최적화의 대표 사례.
 - [타블레이션 (Tabulation)](tabulation.md): 메모이제이션과 대비되는 최적화 기법.
 - [재귀와 호출 스택](recursion-and-stack.md): 메모이제이션이 해결하고자 하는 재귀의 한계.
