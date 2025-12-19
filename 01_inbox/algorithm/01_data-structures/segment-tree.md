@@ -155,6 +155,7 @@ class FenwickTree:
 ---
 
 ### 📚 연결 문서
+
 - [누적 합](../03_patterns/prefix-sum.md) - 정적 데이터의 구간 합 최강자
 - [복잡도](../00_fundamentals/complexity-and-big-o.md) - $O(N)$ 조회를 $O(\log N)$으로 줄이는 위력
 - [분할 정복](../02_algorithms/divide-and-conquer.md) - 트리를 쪼개고 합치는 근본 패러다임

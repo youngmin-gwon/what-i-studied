@@ -64,5 +64,6 @@ date created: 2025-12-17 19:20:00 +09:00
 - Swift, Python, Rust 등 현대 언어들은 기본적으로 이 방어 기법을 내장하고 있습니다.
 
 #### 📚 연결 문서
+
 - [linear](linear.md) - 충돌 해결에 쓰이는 Linked List
 - [Big-O](../00_fundamentals/complexity-and-big-o.md) - O(1) 의 의미

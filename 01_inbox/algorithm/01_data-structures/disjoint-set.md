@@ -396,6 +396,7 @@ class UnionFind {
 ---
 
 #### 📚 연결 문서
+
 - [tree-and-graph](tree-and-graph.md) - 그래프 기초와 연결성
 - [Big-O](../00_fundamentals/complexity-and-big-o.md) - α(n) 복잡도 이해
 - [search-and-sort](../02_algorithms/search-and-sort.md) - Kruskal MST 응용

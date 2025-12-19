@@ -52,6 +52,7 @@ Linked List 구현 시 `head`나 `tail`이 `null`인지 매번 검사하는 if �
 ---
 
 ### 📚 연결 문서
+
 - [메모리 레이아웃](../00_fundamentals/memory-layout-and-cache.md) - 캐시 지역성과 하드웨어 기초
 - [스택과 큐](stack-and-queue.md) - 선형 구조를 활용한 ADT
 - [덱(Deque)](specialized-queues.md) - 양방향 삽입/삭제 최적화

@@ -69,6 +69,7 @@ def fib_tab(n):
 ---
 
 ## 📚 관련 문서
+
 - [동적 계획법 (DP)](../02_algorithms/dynamic-programming.md): 타블레이션이 구현되는 대표적인 알고리즘 패러다임.
 - [메모이제이션 (Memoization)](memoization.md): 타블레이션과 대비되는 최적화 기법.
 - [재귀와 호출 스택](recursion-and-stack.md): 타블레이션이 재귀의 한계를 극복하는 방식.
