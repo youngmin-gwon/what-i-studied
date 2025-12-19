@@ -418,5 +418,6 @@ List<String> stuffList(int length) {
 
 - [메모리 계층 구조](../../../02_references/computer-science/memory-layout-and-cache.md) - 하드웨어 관점의 복잡도 이해
 - [문제 해결 프로세스](problem-solving-process.md) - 알고리즘 설계를 시작하는 4 단계 프레임워크
+- [알고리즘 선택 결정 트리](algorithm-selection-decision-tree.md) ⭐ - 어떤 상황에서 어떤 무기를 쓸지 결정하는 나침반
 - [선형 자료구조](../01_data-structures/linear.md) - 데이터 구조에 따른 성능 실체
 - [최적화 전략](../03_patterns/optimization.md) - N 의 크기에 따른 알고리즘 선택 가이드

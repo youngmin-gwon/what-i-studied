@@ -2,7 +2,7 @@
 title: problem-solving-process
 tags: [debugging, framework, fundamentals, logic, problem-solving]
 aliases: [문제 접근법, 문제 해결 프로세스, 사고 프레임워크, 해결 전략]
-date modified: 2025-12-18 18:59:24 +09:00
+date modified: 2025-12-19 18:39:54 +09:00
 date created: 2025-12-18 12:00:00 +09:00
 ---
 
@@ -106,7 +106,8 @@ HackerRank나 프로그래머스 같은 플랫폼은 테스트 케이스의 일�
 -   **표준 입력(`input()`)보다는 매개변수 활용**: `def solution(n, lost, reserve):` 와 같은 형태에 익숙해져야 합니다.
 -   **상대 평가**: 합격 컷은 항상 지원자들의 수준에 따라 변하므로, 한 문제라도 더 '정확하게' 푸는 확률을 높여야 합니다.
 
-### 4. 백준(BOJ) 전용 Python 필승법
+### 6. 백준(BOJ) 전용 Python 필승법
+
 백준은 C++과 파이썬에 동일한 시간 제한을 주는 경우가 많아, 파이썬 유저에게 조금 까다로울 수 있습니다. 이때 다음 두 가지를 기억하세요.
 
 1.  **PyPy3로 제출하기**: 일반 Python3보다 실행 속도가 훨씬 빠릅니다. (JIT 컴파일러 활용) 로직이 맞는데 시간 초과가 난다면 PyPy3로 다시 제출해 보세요.

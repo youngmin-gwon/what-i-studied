@@ -82,4 +82,5 @@ date created: 2025-12-17 19:50:00 +09:00
 - [투 포인터](two-pointers.md) - $O(N^2)$ 문제를 $O(N)$ 으로 변환하는 대표적 최적화 패턴
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 최적화의 대상을 선별하기 위한 성능 척도 이해
 - [문제 해결 프로세스](../00_fundamentals/problem-solving-process.md) - 설계 단계에서의 알고리즘 선택 가이드
+- [알고리즘 선택 결정 트리](../00_fundamentals/algorithm-selection-decision-tree.md) ⭐ - 어떤 알고리즘을 쓸지 결정하는 시각적 나침반
 - [그리디 알고리즘](../02_algorithms/greedy.md) - 국소적 최적해를 통한 빠른 문제 해결 전략
