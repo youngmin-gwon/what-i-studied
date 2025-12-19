@@ -2,7 +2,7 @@
 title: memoization
 tags: [algorithm, dp, fundamentals, memoization, optimization, recursion]
 aliases: [기억하며 풀기, 메모이제이션, 캐싱]
-date modified: 2025-12-19 15:14:58 +09:00
+date modified: 2025-12-19 18:08:41 +09:00
 date created: 2025-12-18 19:07:00 +09:00
 ---
 
@@ -67,12 +67,12 @@ def fib_memo(n, memo={}):
 
 메모이제이션은 주로 **[동적 계획법 (DP)](../02_algorithms/dynamic-programming.md)** 의 Top-Down 방식에서 사용된다.
 
-| 특징 | 메모이제이션 (Memoization) | 타블레이션 (Tabulation) |
-| :--- | :--- | :--- |
-| **방향** | Top-Down (위에서 아래로) | **[Bottom-Up (아래에서 위로)](tabulation.md)** |
-| **구현** | 재귀 (Recursion) | 반복문 (Loop) |
-| **특징** | 필요한 부분 문제만 계산 가능 | 모든 부분 문제를 순서대로 계산 |
-| **위험** | 스택 오버플로우 가능성 | 상대적으로 안전하고 빠름 |
+| 특징     | 메모이제이션 (Memoization) | 타블레이션 (Tabulation)                       |
+| :----- | :------------------- | :--------------------------------------- |
+| **방향** | Top-Down (위에서 아래로)   | **[Bottom-Up (아래에서 위로)](tabulation.md)** |
+| **구현** | 재귀 (Recursion)       | 반복문 (Loop)                               |
+| **특징** | 필요한 부분 문제만 계산 가능     | 모든 부분 문제를 순서대로 계산                        |
+| **위험** | 스택 오버플로우 가능성         | 상대적으로 안전하고 빠름                            |
 
 ---
 
