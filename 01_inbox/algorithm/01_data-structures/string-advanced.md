@@ -340,6 +340,7 @@ class CompactTrieNode:
 ---
 
 #### 📚 연결 문서
+
 - [tree-and-graph](tree-and-graph.md) - Trie 는 트리의 특수한 형태
 - [Big-O](../00_fundamentals/complexity-and-big-o.md) - 시간 복잡도 분석
 - [two-pointers](../03_patterns/two-pointers.md) - KMP 의 투 포인터 활용

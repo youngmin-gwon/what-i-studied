@@ -18,6 +18,9 @@ date created: 2025-12-18 11:33:14 +09:00
 
 이론과 하드웨어, 사고 체계까지 아우르는 단단한 기초를 다집니다.
 
+0. [코딩테스트 입문 가이드](00_fundamentals/coding-test-introduction.md) ⭐
+   - 응시 환경, 합격 기준, 실전략 및 단계별 학습 목표.
+
 1. [복잡도와 Big-O](00_fundamentals/complexity-and-big-o.md) ⭐
    - 알고리즘 성능 평가의 절대 기준.
 
@@ -35,6 +38,9 @@ date created: 2025-12-18 11:33:14 +09:00
 
 6. [선형 자료 구조](01_data-structures/linear.md)
    - Array, Linked List 의 물리적 배치와 하드웨어 효율성.
+
+7. [Python 기초 자료구조](01_data-structures/python-basics.md) ⭐
+   - 코딩테스트 실전을 위한 Python 주요 자료형 활용법과 복잡도.
 
 ---
 

@@ -290,4 +290,5 @@ struct Heap<T: Comparable> {
 
 - [Big-O](../00_fundamentals/complexity-and-big-o.md) - O(log n)의 힘
 - [tree-and-graph](tree-and-graph.md) - 완전 이진 트리 구조
+- [Python 기초 자료구조](python-basics.md) - 실전 Heap 사용법
 - [search-and-sort](../02_algorithms/search-and-sort.md) - Heap Sort 응용

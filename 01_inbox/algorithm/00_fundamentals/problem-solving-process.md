@@ -102,6 +102,7 @@ date created: 2025-12-18 12:00:00 +09:00
 
 ## 📚 관련 문서
 
+- [코딩테스트 입문](coding-test-introduction.md) - 환경, 합격 기준 및 실전략
 - [복잡도 분석](complexity-and-big-o.md) - 알고리즘 선택의 척도인 시간/공간 복잡도
 - [최적화 전략](../03_patterns/optimization.md) - 비효율적인 코드의 병목 현상 개선
 - [부동 소수점과 정밀도](floating-point-guide.md) - 실수 연산 시 주의해야 할 정밀도 오차

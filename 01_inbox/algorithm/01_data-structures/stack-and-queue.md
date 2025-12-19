@@ -96,5 +96,6 @@ queue.popleft()    # Dequeue
 ### 📚 연결 문서
 - [재귀와 스택](../00_fundamentals/recursion-and-stack.md) - 논리적/물리적 실행 스택의 이해
 - [특수 큐/스택](specialized-queues.md) - Deque, Monotonic Stack, Monotonic Queue
+- [Python 기초 자료구조](python-basics.md) - 실전 Stack/Queue 활용법
 - [그래프 탐색](../02_algorithms/graph-traversal.md) - BFS(Queue 사용) vs DFS(Stack 사용)
 - [선형 자료구조](linear.md) - Array와 Linked List를 이용한 구현 원리

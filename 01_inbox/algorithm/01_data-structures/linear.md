@@ -55,5 +55,6 @@ Linked List 구현 시 `head`나 `tail`이 `null`인지 매번 검사하는 if �
 
 - [메모리 레이아웃](../00_fundamentals/memory-layout-and-cache.md) - 캐시 지역성과 하드웨어 기초
 - [스택과 큐](stack-and-queue.md) - 선형 구조를 활용한 ADT
+- [Python 기초 자료구조](python-basics.md) - 실전 리스트 활용법
 - [덱(Deque)](specialized-queues.md) - 양방향 삽입/삭제 최적화
 - [복잡도](../00_fundamentals/complexity-and-big-o.md) - 선형 탐색의 비용
