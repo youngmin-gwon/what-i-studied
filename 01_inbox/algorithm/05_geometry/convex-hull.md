@@ -46,6 +46,7 @@ date created: 2025-12-18 15:50:00 +09:00
 ---
 
 ## 📚 관련 문서
+
 - [기하 기초](geometry-fundamentals.md) - CCW를 이용한 방향성 판별
 - [정렬](../02_algorithms/search-and-sort.md) - 효율적인 껍질 구성을 위한 정렬의 중요성
 - [스택](../01_data-structures/stack-and-queue.md) - Graham Scan의 핵심 자료구조

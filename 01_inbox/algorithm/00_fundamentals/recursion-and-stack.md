@@ -8,7 +8,10 @@ date created: 2025-12-18 11:58:00 +09:00
 
 ## Recursion & Call Stack: 자신을 부르는 논리
 
-**재귀(Recursion)** 는 자신을 정의할 때 자신을 다시 참조하는 방법입니다. 알고리즘에서 복잡한 문제를 단순한 하위 문제로 쪼개는 핵심 도구입니다.
+**재귀(Recursion)** 는 자신을 정의할 때 자신을 다시 참조하는 방법입니다. 문제를 풀 때 필요한 **가장 강력한 기초 도구** 중 하나로, 복잡한 문제를 단순한 하위 문제로 쪼개 해결하는 논리적 프레임워크를 제공합니다.
+
+> [!NOTE] **기초 다지기**
+> 재귀는 처음엔 낯설 수 있지만, 이후의 챕터에서 문제를 풀며 반복적으로 등장하므로 이번에 완벽히 이해하지 못해도 괜찮습니다. 하지만 그 **구조** 와 **구현 방식** 을 익히는 것은 매우 중요합니다.
 
 ### 💡 Why it matters (Context)
 
@@ -44,6 +47,17 @@ def factorial(n):
     # 2. Recursive Step (더 작은 n-1로 호출)
     return n * factorial(n - 1)
 ```
+
+---
+
+## 🧩 재귀 기반의 주요 알고리즘
+
+현업과 코딩테스트에서 재귀는 다음과 같은 핵심 알고리즘들의 뼈대가 됩니다.
+
+- **조합(Combination) / 순열(Permutation)**: 모든 경우의 수를 탐색해야 할 때.
+- **분할 정복(Divide & Conquer)**: 병합 정렬(Merge Sort), 퀵 정렬(Quick Sort).
+- **탐색(Search)**: 이분 탐색(Binary Search), 깊이 우선 탐색(DFS).
+- **동적 계획법(DP)**: 하향식(Top-down) 접근 시 메모이제이션과 함께 사용.
 
 ---
 
@@ -107,7 +121,7 @@ def tail_fact(n, acc=1):
 
 ## 📚 관련 문서
 
-- [메모리 레이아웃과 캐시](memory-layout-and-cache.md) - 스택 메모리의 물리적 위치
+- [메모리 계층 구조](../../../02_references/computer-science/memory-layout-and-cache.md) - 스택 메모리의 물리적 위치
 - [메모이제이션](memoization.md) - 재귀의 중복 계산을 해결하는 최적화 기법
 - [분할 정복](../02_algorithms/divide-and-conquer.md) - 재귀를 활용한 문제 해결 패러다임
 - [백트래킹](../02_algorithms/backtracking.md) - 상태 공간 트리와 DFS 탐색

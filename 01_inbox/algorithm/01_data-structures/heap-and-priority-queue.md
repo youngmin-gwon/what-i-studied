@@ -288,7 +288,33 @@ struct Heap<T: Comparable> {
 
 #### 📚 연결 문서
 
+---
+
+## 🐍 실전 Python 활용 (Applied Python)
+
+Python의 `heapq` 모듈은 이진 힙(Binary Heap) 기반의 **최소 힙(Min Heap)**을 제공합니다.
+
+#### 💻 주요 연산
+```python
+import heapq
+
+hq = []
+heapq.heappush(hq, 10) # 삽입 O(log N)
+min_val = heapq.heappop(hq) # 삭제 O(log N)
+top_val = hq[0] # 최상단 조회 O(1)
+```
+
+> [!TIP] **최대 힙(Max Heap)이 필요한 경우**
+> Python의 `heapq`는 최소 힙만 지원하므로, 값을 **음수**로 바꾸어 저장한 뒤 꺼낼 때 다시 부호를 바꾸는 트릭을 사용합니다.
+> ```python
+> heapq.heappush(hq, -value)
+> max_val = -heapq.heappop(hq)
+> ```
+
+---
+
+## 📚 관련 문서
+
 - [Big-O](../00_fundamentals/complexity-and-big-o.md) - O(log n)의 힘
 - [tree-and-graph](tree-and-graph.md) - 완전 이진 트리 구조
-- [Python 기초 자료구조](python-basics.md) - 실전 Heap 사용법
 - [search-and-sort](../02_algorithms/search-and-sort.md) - Heap Sort 응용

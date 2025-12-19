@@ -2,7 +2,7 @@
 title: disjoint-set
 tags: [algorithm, cycle-detection, data-structures, disjoint-set, mst, union-find]
 aliases: [Path Compression, Union-Find, 분리 집합, 서로소 집합]
-date modified: 2025-12-18 16:24:08 +09:00
+date modified: 2025-12-19 15:58:57 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 
@@ -28,7 +28,7 @@ Union-Find 는 **"이 두 노드가 연결되어 있나?"** 를 **거의 O(1)** 
 
 #### 개념
 
-각 노드는 **대표자 (Representative)**를 가집니다. 같은 집합의 모든 노드는 같은 대표자를 가리킵니다.
+각 노드는 **대표자 (Representative)** 를 가집니다. 같은 집합의 모든 노드는 같은 대표자를 가리킵니다.
 
 ```
 초기 상태 (각자 독립):

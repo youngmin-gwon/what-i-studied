@@ -21,6 +21,7 @@ date created: 2025-12-18 11:53:38 +09:00
 ### 🏢 실무 사례
 
 #### Prefix Sum 활용
+
 - **이미지 필터링 (Box Blur)**: 2D 구간 합을 빠르게 계산하여 흐림 효과 적용.
 - **금융 데이터**: 특정 기간 내 주가 수익률 또는 거래량 합계 실시간 조회.
 - **게임 엔진**: 특정 영역 내의 유닛 개수 또는 데미지 총합 계산.
@@ -62,6 +63,7 @@ def query_sum(s, L, R):
 이미지 처리 등에서 사용되는 2차원 누적 합입니다.
 
 ### 💻 구현 (2D)
+
 ```python
 def get_2d_prefix_sum(matrix):
     rows, cols = len(matrix), len(matrix[0])
@@ -101,9 +103,8 @@ def query_2d_sum(s, r1, c1, r2, c2):
 
 ---
 
----
-
 ## 📚 관련 문서
+
 - [투 포인터](two-pointers.md) - 가변 구간 탐색 및 슬라이딩 윈도우와의 차이점
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - $O(N)$ 전처리 후 $O(1)$ 조회의 성능 이점
 - [배열과 리스트](../01_data-structures/linear.md) - 연속된 메모리 공간에서의 구간 데이터 처리

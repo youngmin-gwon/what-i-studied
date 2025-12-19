@@ -93,9 +93,41 @@ queue.popleft()    # Dequeue
 
 ---
 
+## 🐍 실전 Python 활용 (Applied Python)
+
+Python에서는 별도의 Stack/Queue 클래스 대신 `list`나 `collections.deque`를 활용합니다. 특히 큐의 경우 성능 차이가 극명하므로 주의가 필요합니다.
+
+### 1. 스택 (Stack)
+그냥 기본 `list`를 사용해도 무방합니다. (LIFO)
+
+#### 💻 활용법
+```python
+stk = []
+stk.append(1) # Push
+stk.pop()      # Pop
+stk[-1]        # Peek
+```
+
+### 2. 큐 (Queue)
+반드시 `collections.deque`를 사용해야 합니다. (FIFO)
+
+#### 💻 활용법
+```python
+from collections import deque
+q = deque()
+
+q.append(1)    # Enqueue
+q.popleft()    # Dequeue (O(1))
+```
+
+> [!CAUTION] **`list.pop(0)`은 금지!**
+> 리스트에서 첫 번째 원소를 제거하면 뒤의 모든 원소를 한 칸씩 당겨야 하므로 **$O(N)$**이 소요됩니다. 큐 구현 시에는 무조건 `deque`의 **`popleft()`**를 사용하세요.
+
+---
+
 ### 📚 연결 문서
+
 - [재귀와 스택](../00_fundamentals/recursion-and-stack.md) - 논리적/물리적 실행 스택의 이해
 - [특수 큐/스택](specialized-queues.md) - Deque, Monotonic Stack, Monotonic Queue
-- [Python 기초 자료구조](python-basics.md) - 실전 Stack/Queue 활용법
 - [그래프 탐색](../02_algorithms/graph-traversal.md) - BFS(Queue 사용) vs DFS(Stack 사용)
 - [선형 자료구조](linear.md) - Array와 Linked List를 이용한 구현 원리

@@ -64,7 +64,7 @@ date created: 2025-12-18 15:45:00 +09:00
 
 ## 📚 관련 문서
 
-- [고급 문자열 I](string-advanced.md) - Trie 와 KMP 기초
+- [고급 문자열 I](string-advanced-1.md) - Trie 와 KMP 기초
 - [트리와 그래프](tree-and-graph.md) - 아호 - 코라식의 기반이 되는 Trie 구조
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - $O(N + M + K)$ 아호 - 코라식의 선형 시간 효율성
 - [검색과 정렬](../02_algorithms/search-and-sort.md) - 접미사 배열에서의 이진 탐색 활용

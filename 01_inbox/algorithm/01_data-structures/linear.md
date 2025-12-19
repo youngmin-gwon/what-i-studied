@@ -38,6 +38,29 @@ Linked List 구현 시 `head`나 `tail`이 `null`인지 매번 검사하는 if �
 
 ---
 
+## 🐍 실전 Python 활용 (Applied Python)
+
+### 1. 리스트 (List)
+Python의 `list`는 내부적으로 **동적 배열(Dynamic Array)**로 구현되어 있습니다.
+
+#### 💻 주요 연산 및 복잡도
+| 연산 | 코드 | 시간 복잡도 | 비고 |
+| :--- | :--- | :--- | :--- |
+| **맨 뒤 삽입/삭제** | `append()`, `pop()` | $O(1)$ | 분할 상환(Amortized) |
+| **특정 인덱스 삽입/삭제** | `insert(i, x)`, `pop(i)` | $O(N)$ | 뒤의 원소들을 시프트해야 함 |
+| **임의 접근** | `lst[i]` | $O(1)$ | 메모리 주소 계산으로 즉시 접근 |
+| **포함 확인** | `x in lst` | $O(N)$ | 최악의 경우 전체 순회 |
+
+### 2. 문자열 (String)
+Python의 문자열은 **불변(Immutable)** 자료형입니다. 슬라이싱이나 연결 시 매번 새로운 객체가 생성됨을 유의해야 합니다.
+
+#### ⏱️ 주요 연산 복잡도
+- **연결 (`s1 + s2`)**: $O(N+M)$
+- **슬라이싱 (`s[i:j]`)**: $O(K)$ (추출된 길이 $K$에 비례)
+- **조회 (`s[i]`)**: $O(1)$
+
+---
+
 ### 🚨 흔한 실수 (Common Mistakes)
 
 1. **인덱스 범위 초과 (Out of Bounds)** ❌
@@ -53,8 +76,8 @@ Linked List 구현 시 `head`나 `tail`이 `null`인지 매번 검사하는 if �
 
 ### 📚 연결 문서
 
-- [메모리 레이아웃](../00_fundamentals/memory-layout-and-cache.md) - 캐시 지역성과 하드웨어 기초
+- [메모리 계층 구조](../../../02_references/computer-science/memory-layout-and-cache.md) - 캐시 지역성과 하드웨어 기초
 - [스택과 큐](stack-and-queue.md) - 선형 구조를 활용한 ADT
-- [Python 기초 자료구조](python-basics.md) - 실전 리스트 활용법
+- [스택과 큐](stack-and-queue.md) - 선형 구조를 활용한 ADT
 - [덱(Deque)](specialized-queues.md) - 양방향 삽입/삭제 최적화
 - [복잡도](../00_fundamentals/complexity-and-big-o.md) - 선형 탐색의 비용

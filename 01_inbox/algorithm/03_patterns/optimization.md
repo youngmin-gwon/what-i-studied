@@ -20,6 +20,7 @@ date created: 2025-12-17 19:50:00 +09:00
 ### 🏢 실무 사례
 
 #### 최적화 전략 활용
+
 - **웹 서버 수평 확장**: 캐시(DP 철학)와 로드 밸런싱을 통한 병목 해결.
 - **검색 알고리즘 (Elasticsearch)**: 완벽한 검색 대신 근사치(Approximate Nearest Neighbor)를 통한 속도 확보.
 - **비디오 인코딩**: 시간적 중복(이전 프레임 재사용 = DP)을 제거하여 용량 최적화.
@@ -32,6 +33,7 @@ date created: 2025-12-17 19:50:00 +09:00
 문제를 만났을 때 다음 질문들을 따라가 보세요.
 
 ### 1. 데이터의 크기 (N) 확인
+
 - **$N \le 20$**: 모든 경우의 수 ([Backtracking](../02_algorithms/backtracking.md)) 가능.
 - **$N \le 10^5$**: $O(N \log N)$ 알고리즘 ([정렬](../02_algorithms/search-and-sort.md), [투 포인터](two-pointers.md)) 필요.
 - **$N \ge 10^7$**: $O(N)$ 또는 $O(\log N)$ ([누적 합](prefix-sum.md), [이진 탐색](../02_algorithms/search-and-sort.md)) 필수.
@@ -74,9 +76,8 @@ date created: 2025-12-17 19:50:00 +09:00
 
 ---
 
----
-
 ## 📚 관련 문서
+
 - [동적 계획법](../02_algorithms/dynamic-programming.md) - 중복 계산을 제거하는 최적화의 핵심 기법
 - [투 포인터](two-pointers.md) - $O(N^2)$ 문제를 $O(N)$ 으로 변환하는 대표적 최적화 패턴
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 최적화의 대상을 선별하기 위한 성능 척도 이해

@@ -18,6 +18,7 @@ date created: 2025-12-17 19:40:00 +09:00
 - **조건**: 데이터가 반드시 **정렬**되어 있어야 합니다.
 
 #### 🔧 구현 (iterative)
+
 ```python
 def binary_search(arr, target):
     left, right = 0, len(arr) - 1
@@ -40,6 +41,7 @@ def binary_search(arr, target):
 세상에 "가장 좋은" 정렬 알고리즘은 없습니다. 상황에 따라 다릅니다.
 
 #### 1. Quick Sort (퀵 정렬)
+
 - **전략**: Pivot 을 잡고 좌우로 나눕니다 (분할 정복).
 - **특징**: 평균적으로 가장 빠릅니다. 메모리가 **연속적**이라 Cache Hit 율이 높고, 추가 메모리를 거의 안 씁니다.
 - **구현**:
@@ -55,6 +57,7 @@ def quick_sort(arr):
 ```
 
 #### 2. Merge Sort (병합 정렬)
+
 - **전략**: 반으로 쪼개고 나중에 합칩니다.
 - **특징**: 항상 **O(n log n)**을 보장합니다. **Stable**합니다 (순서 보존).
 - **구현**:
@@ -114,9 +117,8 @@ Python, Java, Android, Swift(`sort()`) 의 기본 정렬입니다. **Insertion S
 
 ---
 
----
-
 ## 📚 관련 문서
+
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 정렬 알고리즘별 시간/공간 효율성 비교
 - [분할 정복](divide-and-conquer.md) - 퀵 정렬과 병합 정렬의 설계 패러다임
 - [배열과 리스트](../01_data-structures/linear.md) - 배열이 퀵 정렬의 캐시 지역성에 유리한 이유

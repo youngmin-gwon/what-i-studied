@@ -15,16 +15,14 @@ date created: 2025-12-18 11:33:14 +09:00
 ### 📖 학습 로드맵
 
 #### 🎯 Level 1: 기초 (Foundation)
+> **Goal**: 백준 실버 5~2 / 프로그래머스 Lv.2 수준 공략 (구현력 중심)
 
 이론과 하드웨어, 사고 체계까지 아우르는 단단한 기초를 다집니다.
-
-0. [코딩테스트 입문 가이드](00_fundamentals/coding-test-introduction.md) ⭐
-   - 응시 환경, 합격 기준, 실전략 및 단계별 학습 목표.
 
 1. [복잡도와 Big-O](00_fundamentals/complexity-and-big-o.md) ⭐
    - 알고리즘 성능 평가의 절대 기준.
 
-2. [메모리 레이아웃과 캐시](00_fundamentals/memory-layout-and-cache.md)
+2. [메모리 계층 구조](../../02_references/computer-science/memory-layout-and-cache.md)
    - 하드웨어 구조가 실제 성능에 미치는 영향.
 
 3. [재귀와 호출 스택](00_fundamentals/recursion-and-stack.md)
@@ -39,12 +37,10 @@ date created: 2025-12-18 11:33:14 +09:00
 6. [선형 자료 구조](01_data-structures/linear.md)
    - Array, Linked List 의 물리적 배치와 하드웨어 효율성.
 
-7. [Python 기초 자료구조](01_data-structures/python-basics.md) ⭐
-   - 코딩테스트 실전을 위한 Python 주요 자료형 활용법과 복잡도.
-
 ---
 
 #### 🚀 Level 2: 핵심 (Core)
+> **Goal**: 백준 실버 2 ~ 골드 5 / 프로그래머스 Lv.2~3 수준 공략 (문제 해결 능력 중심)
 
 코딩테스트 80% 를 커버하는 필수 자료구조입니다.
 
@@ -69,10 +65,11 @@ date created: 2025-12-18 11:33:14 +09:00
 ---
 
 #### 🔥 Level 3: 고급 (Advanced)
+> **Goal**: 백준 골드 5 ~ 2 / 프로그래머스 Lv.3 이상 공략 (복합 사고 및 최적화 중심)
 
 난이도 높은 문제를 위한 특수 자료구조입니다.
 
-1. [고급 문자열 I](01_data-structures/string-advanced.md), [고급 문자열 II](01_data-structures/string-advanced-2.md)
+1. [고급 문자열 I](01_data-structures/string-advanced-1.md), [고급 문자열 II](01_data-structures/string-advanced-2.md)
    - I: Trie, KMP
    - II: Aho-Corasick, Suffix Array
 
@@ -149,8 +146,8 @@ date created: 2025-12-18 11:33:14 +09:00
 | **"윈도우 최댓값/최솟값"** | Monotonic Queue | [specialized-queues](01_data-structures/specialized-queues.md) |
 | **"가장 큰 K 개"** | Min Heap | [heap-and-priority-queue](01_data-structures/heap-and-priority-queue.md) |
 | **"실시간 중앙값"** | 2 Heaps | [heap-and-priority-queue](01_data-structures/heap-and-priority-queue.md) |
-| **"접두사 검색/자동완성"** | Trie | [string-advanced](01_data-structures/string-advanced.md) |
-| **"패턴 매칭"** | KMP | [string-advanced](01_data-structures/string-advanced.md) |
+| **"접두사 검색/자동완성"** | Trie | [string-advanced-1](01_data-structures/string-advanced-1.md) |
+| **"패턴 매칭"** | KMP | [string-advanced-1](01_data-structures/string-advanced-1.md) |
 | **"사이클 탐지"** | Union-Find / DFS | [disjoint-set](01_data-structures/disjoint-set.md), [graph-traversal](02_algorithms/graph-traversal.md) |
 | **"최소 신장 트리"** | Kruskal + Union-Find | [disjoint-set](01_data-structures/disjoint-set.md) |
 | **"가장 빠른 길 (가중치 X)"** | BFS | [graph-traversal](02_algorithms/graph-traversal.md) |
@@ -175,7 +172,7 @@ date created: 2025-12-18 11:33:14 +09:00
 4. [specialized-queues](01_data-structures/specialized-queues.md)
 
 ##### 🔴 Hard (고득점 목표)
-1. [string-advanced1](01_data-structures/string-advanced.md)
+1. [string-advanced1](01_data-structures/string-advanced-1.md)
 2. [string-advanced2](01_data-structures/string-advanced-2.md)
 3. [disjoint-set](01_data-structures/disjoint-set.md)
 4. [dynamic-programming](02_algorithms/dynamic-programming.md)

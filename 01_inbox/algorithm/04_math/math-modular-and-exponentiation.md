@@ -31,6 +31,15 @@ date created: 2025-12-18 11:52:16 +09:00
 
 ## ➗ 나머지 연산 (Modular Arithmetic)
 
+나머지 연산(Modulo)은 나눗셈의 나머지를 구하는 연산입니다. 프로그래밍에서는 보통 `%` 연산자를 사용합니다.
+
+### 💻 기본 예시
+```python
+print(5 % 3)   # 2
+print(10 % 3)  # 1
+print(10 % 2)  # 0 (짝수 판별 등에 활용)
+```
+
 ### 성질
 
 나머지 연산은 더하기, 빼기, 곱하기에 대해 분배 법칙이 성립합니다.
@@ -120,9 +129,8 @@ $$(A \div B) \mod M \Rightarrow (A \times B^{M-2}) \mod M$$
 
 ---
 
----
-
 ## 📚 관련 문서
+
 - [소수와 수론](math-prime-number.md) - 페르마의 소정리 적용을 위한 소수의 성질 이해
 - [조합론](math-combinatorics.md) - 대규모 조합($nCr$) 계산 시 모듈러 역원 활용 전술
 - [동적 계획법](../02_algorithms/dynamic-programming.md) - 상태 전이 값이 커질 때 모듈러 연산의 필수 적용

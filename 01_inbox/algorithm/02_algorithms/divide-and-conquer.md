@@ -40,21 +40,25 @@ date created: 2025-12-18 12:05:00 +09:00
 ## 🔥 대표적인 사례
 
 ### 1. Merge Sort (병합 정렬)
+
 - **Divide**: 배열을 절반으로 나눕니다.
 - **Conquer**: 각 절반을 재귀적으로 정렬합니다.
 - **Combine**: 정렬된 두 배열을 하나로 합칩니다.
 - **효과**: $O(N^2) \rightarrow O(N \log N)$
 
 ### 2. Quick Sort (퀵 정렬)
+
 - **Divide**: 피벗(Pivot)을 기준으로 작은 값과 큰 값으로 나눕니다. (Partition)
 - **Conquer**: 각 구획을 재귀적으로 정렬합니다.
 - **Combine**: (별도의 결합 과정 없음, 이미 정렬됨)
 
 ### 3. Binary Search (이진 탐색)
+
 - **Divide**: 탐색 범위를 절반으로 나눕니다.
 - **Conquer**: 찾는 값이 있는 절반만 다시 탐색합니다. (한쪽은 버림)
 
 ### 4. Fast Exponentiation (빠른 거듭제곱)
+
 - **Divide**: $A^{10} \rightarrow A^5 \times A^5$ 형식으로 지수를 반으로 줄입니다.
 - **효과**: $O(N) \rightarrow O(\log N)$
 
@@ -88,9 +92,8 @@ date created: 2025-12-18 12:05:00 +09:00
 
 ---
 
----
-
 ## 📚 관련 문서
+
 - [검색과 정렬](search-and-sort.md) - 병합 정렬과 퀵 정렬 등 D&C의 대표 응용 사례
 - [재귀와 스택](../00_fundamentals/recursion-and-stack.md) - 분할 정복의 논리적/물리적 실행 기반
 - [동적 계획법](dynamic-programming.md) - 하위 문제의 중복 여부에 따른 D&C와의 비교

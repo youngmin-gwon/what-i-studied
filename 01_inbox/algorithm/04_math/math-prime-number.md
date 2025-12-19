@@ -28,6 +28,39 @@ date created: 2025-12-18 11:52:16 +09:00
 
 ---
 
+## 🔍 약수 (Divisor)
+
+어떤 수 $n$의 약수는 $n$을 나누어 떨어지게 하는 수입니다.
+
+### 1. 단순한 방법 (O(N))
+
+1부터 $n$까지의 모든 수를 순회하며 확인합니다.
+```python
+def get_divisors_naive(n):
+    divisors = []
+    for i in range(1, n + 1):
+        if n % i == 0:
+            divisors.append(i)
+    return divisors
+```
+
+### 2. 효율적인 방법 (O(√N)) ⭐
+
+$a \times b = n$ 일 때, $min(a, b) \le \sqrt{n}$ 임을 이용합니다. $\sqrt{n}$ 까지만 확인하고 나머지는 $n // i$ 로 구합니다.
+```python
+from math import sqrt
+
+def get_divisors(n):
+    divisors = set()
+    for i in range(1, int(sqrt(n)) + 1):
+        if n % i == 0:
+            divisors.add(i)
+            divisors.add(n // i) # 짝이 되는 약수 추가
+    return sorted(list(divisors))
+```
+
+---
+
 ## 🔍 소수 판별 (Primality Test)
 
 ### 1. 단순한 방법 (O(N))
@@ -130,9 +163,8 @@ def prime_factorization(n):
 
 ---
 
----
-
 ## 📚 관련 문서
+
 - [최대공약수와 최소공배수](gcd-lcm.md) - 정수론의 기초와 서로소 관계의 이해
 - [나머지 연산](math-modular-and-exponentiation.md) - 페르마의 소정리와 소수를 활용한 모듈러 역원 계산
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 에라토스테네스의 체($O(N \log \log N)$)의 효율성 분석

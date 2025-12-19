@@ -53,7 +53,7 @@ $$주소 = 시작\_주소 + (인덱스 \times 데이터\_크기)$$
 
 ## 🏗️ 메모리 계층 구조 (Memory Hierarchy) 와 랜덤 액세스
 
-랜덤 액세스가 $O(1)$ 이라고 해서 모든 접근이 물리적으로 같은 속도인 것은 아니다. CPU 와 데이터 사이의 거리(**[메모리 계층 구조](../../01_inbox/algorithm/00_fundamentals/memory-layout-and-cache.md)**)에 따라 실제 소요 시간은 수백 배 차이난다.
+랜덤 액세스가 $O(1)$ 이라고 해서 모든 접근이 물리적으로 같은 속도인 것은 아니다. CPU 와 데이터 사이의 거리(**[메모리 계층 구조](memory-layout-and-cache.md)**)에 따라 실제 소요 시간은 수백 배 차이난다.
 
 1. **Registers**: CPU 내부. 가장 빠른 랜덤 액세스 (1 cycle 이하).
 2. **L1/L2/L3 Cache**: CPU 근처. 매우 빠름.
@@ -87,7 +87,7 @@ $$주소 = 시작\_주소 + (인덱스 \times 데이터\_크기)$$
 
 ## 📚 관련 문서
 
-- [메모리 레이아웃과 캐시](../../01_inbox/algorithm/00_fundamentals/memory-layout-and-cache.md): 캐시 지역성과 하드웨어 성능의 관계.
+- [메모리 계층 구조](memory-layout-and-cache.md): 캐시 지역성과 하드웨어 성능의 관계.
 - [복잡도와 Big-O](../../01_inbox/algorithm/00_fundamentals/complexity-and-big-o.md): $O(1)$ 과 하드웨어 병목 현상 이해.
 - [운영체제 커널](../operating-systems/kernel.md): VFS 와 파일 시스템에서의 입출력 관리.
 - [선형 자료구조](../../01_inbox/algorithm/01_data-structures/linear.md): 배열(랜덤 액세스) vs 연결 리스트(순차 접근).

@@ -507,9 +507,8 @@ for i in range(1, n+1):
 
 ---
 
----
-
 ## 📚 관련 문서
+
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - DP 를 통한 기하급수적 시간 단축의 원리
 - [메모이제이션](../00_fundamentals/memoization.md) - 중복 계산 방지를 위한 핵심 저장 기법 (Top-Down)
 - [타블레이션](../00_fundamentals/tabulation.md) - 반복문을 통한 안정적인 테이블 채우기 기법 (Bottom-Up)

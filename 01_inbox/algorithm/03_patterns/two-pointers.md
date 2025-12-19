@@ -21,12 +21,14 @@ date created: 2025-12-17 20:00:00 +09:00
 ### 🏢 실무 사례
 
 #### Sliding Window 활용
+
 - **네트워크 (TCP)**: 패킷 흐름 제어 (Sliding Window Protocol).
 - **영상 알고리즘**: 프레임 내 윈도우 이동을 통한 객체 탐지.
 - **로그 분석**: 대량의 로그 중 특정 패턴이 나타나는 연속 구간 탐색.
 - **스트리밍 대시보드**: "최근 5분간의 에러율" 실시간 계산.
 
 #### Two Pointers 활용
+
 - **데이터 정제**: 정렬된 로그에서 중복 항목 제거.
 - **압축 알고리즘**: 유사한 데이터 구간을 찾아 압축 최적화.
 - **검색 엔진**: 두 문자의 거리 차이가 최소인 문서 위치 찾기.
@@ -38,6 +40,7 @@ date created: 2025-12-17 20:00:00 +09:00
 주로 **정렬된 배열**에서 두 노드를 양 끝이나 같은 방향에서 출발시켜 조건을 만족하는 쌍을 찾습니다.
 
 ### 🔧 구현: Two Sum (Sorted)
+
 ```python
 def two_sum_sorted(nums, target):
     left, right = 0, len(nums) - 1
@@ -60,6 +63,7 @@ def two_sum_sorted(nums, target):
 연속된 구간(Subarray)을 처리할 때, 창문을 오른쪽으로 밀어가며 **새로 들어오는 값**과 **나가는 값**만 갱신합니다.
 
 ### 1. 고정 길이 윈도우 (Fixed Size)
+
 ```python
 def fixed_sliding_window(arr, k):
     # 첫 k개 합 구하기
@@ -74,6 +78,7 @@ def fixed_sliding_window(arr, k):
 ```
 
 ### 2. 가변 길이 윈도우 (Variable Size)
+
 "합이 S 이상인 가장 짧은 구간의 길이 구하기"
 
 ```python
@@ -119,9 +124,8 @@ def min_subarray_len(target, nums):
 
 ---
 
----
-
 ## 📚 관련 문서
+
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - 2중 루프($O(N^2)$)를 선형 시간($O(N)$)으로 단축하는 원리
 - [배열과 리스트](../01_data-structures/linear.md) - 연속 공간 포인터 이동을 통한 효율적 데이터 접근
 - [누적 합](prefix-sum.md) - 고정 구간 합 조회를 위한 또 다른 최적화 도구

@@ -65,6 +65,7 @@ def ccw(p1, p2, p3):
 ---
 
 ## 📚 관련 문서
+
 - [수학적 기초](../04_math/gcd-lcm.md) - 벡터와 좌표 연산
 - [부동 소수점 가이드](../00_fundamentals/floating-point-guide.md) - 기하 연산의 정밀도 문제
 - [볼록 껍질](convex-hull.md) - CCW를 활용한 다각형 생성
