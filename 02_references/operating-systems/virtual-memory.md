@@ -84,32 +84,44 @@ graph LR
 - **Dirty Bit**: 페이지가 수정되었는가 (디스크와 동기화 필요).
 - **Accessed Bit**: 최근에 접근되었는가 (교체 알고리즘에 사용).
 
-### 가상 주소 공간 레이아웃
+---
 
-프로세스는 독립된 가상 주소 공간을 가진다. Linux x86-64 기준:
+## 가상 주소 공간 레이아웃 (Process Memory Layout)
+
+프로세스가 실행될 때 운영체제는 각 프로세스에게 독립된 가상 주소 공간을 제공하며, 이는 보통 다음과 같은 구조로 표준화되어 있습니다.
 
 ```mermaid
-graph TB
-    subgraph 가상 주소 공간 64-bit
-        Kernel[커널 공간<br/>0xFFFF800000000000~<br/>모든 프로세스 공유]
-        Stack[스택<br/>아래로 성장<br/>0x7FFFFFFFFFFF]
-        Heap[힙<br/>위로 성장<br/>malloc/new]
-        BSS[.bss<br/>초기화 안 된 전역 변수]
-        Data[.data<br/>초기화된 전역 변수]
-        Text[.text<br/>프로그램 코드<br/>0x400000]
-    end
-    
-    Text --> Data
-    Data --> BSS
-    BSS --> Heap
-    Heap -.여유 공간.-> Stack
-    Stack --> Kernel
+block-beta
+    columns 1
+    Stack["Stack (지역변수, 매개변수)"]
+    space
+    Free["Free Space (Memory Mapping)"]
+    space
+    Heap["Heap (동적 할당)"]
+    Data["Data/BSS (전역/정적 변수)"]
+    Text["Text (Code)"]
+
+    Stack -- "Growth ↓" --> Free
+    Heap -- "Growth ↑" --> Free
+
+    style Stack fill:#e1f5fe,stroke:#01579b
+    style Heap fill:#fff9c4,stroke:#fbc02d
+    style Data fill:#f5f5f5,stroke:#9e9e9e
+    style Text fill:#f5f5f5,stroke:#9e9e9e
 ```
 
+| 영역 | 설명 | 관리 주체 | 예시 |
+| :--- | :--- | :--- | :--- |
+| **Stack** | 함수 호출 시 생성되는 지역 변수, 복귀 주소 저장. LIFO 구조. | 컴파일러/런타임 | 함수의 파라미터, `int a = 1;` |
+| **Free Area** | 스택과 힙 사이의 가변 공간. `mmap` 등으로 라이브러리가 로드되기도 함. | 운영체제 | 공유 라이브러리 (`.so`) |
+| **Heap** | 런타임에 크기가 결정되는 동적 데이터 저장. | 개발자 (또는 GC) | `malloc`, `new`, `list()` |
+| **Data/BSS** | 프로그램 전 기간 유지되는 전역/정적 변수. | 시스템 | `static int g = 0;` |
+| **Text** | 컴파일된 기계어 코드가 저장되는 읽기 전용 영역. | 시스템 | 프로그램 소스 코드 |
+
 **장점**:
-- 스택과 힙이 충돌 없이 성장 가능.
-- 코드 영역은 읽기 전용으로 보호 가능.
-- ASLR 로 주소를 랜덤화해 보안 강화.
+- **격리**: 스택과 힙이 서로 반대 방향에서 성장하여 충돌 가능성 최소화.
+- **보안**: 코드 영역은 읽기 전용으로 보호하여 임의 코드 수정을 방지.
+- **ASLR**: (Address Space Layout Randomization) 각 영역의 시작 주소를 랜덤화하여 해킹 방어.
 
 ---
 
