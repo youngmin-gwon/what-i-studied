@@ -30,6 +30,7 @@ date created: 2025-12-18 11:33:14 +09:00
    - [메모이제이션](00_fundamentals/memoization.md) & [타블레이션](00_fundamentals/tabulation.md): 중복 계산을 효율적으로 해결하는 기초.
 
 4. [문제 해결 프로세스](00_fundamentals/problem-solving-process.md) ⭐
+   - [알고리즘 선택 결정 트리](00_fundamentals/algorithm-selection-decision-tree.md): 어떤 무기를 고를지 결정하는 논리 체계.
    - 문제를 분석하고 설계하는 4 단계 프레임워크.
 
 5. [실수와 정밀도](00_fundamentals/floating-point-guide.md)
@@ -159,6 +160,7 @@ date created: 2025-12-18 11:33:14 +09:00
 | **"가장 빠른 길 (가중치 O)"** | Dijkstra | [shortest-path](02_algorithms/shortest-path.md) |
 | **"O(1) 조회"** | Hash Map | [hash-and-map](01_data-structures/hash-and-map.md) |
 | **"O(1) 구간 합"** | Prefix Sum | [prefix-sum](03_patterns/prefix-sum.md) |
+| **"어떤 알고리즘?"** | **Decision Tree** | **[algorithm-selection-decision-tree](00_fundamentals/algorithm-selection-decision-tree.md)** |
 
 ---
 
