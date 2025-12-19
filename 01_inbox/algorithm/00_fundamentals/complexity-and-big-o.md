@@ -356,7 +356,7 @@ List<String> stuffList(int length) {
 - **SSD [Random Read](../../../02_references/computer-science/random-access.md)**: 150,000 ns
 - **Packet Roundtrip (CA->Netherlands)**: 150,000,000 ns (150ms)
 
-👉 **결론**: 네트워크 호출 한 번 (150ms) 줄이는 게, Bubble Sort 를 Quick Sort 로 바꾸는 것 (수 ms 절약) 보다 훨씬 큰 성능 향상을 가져옵니다. **병목 (Bottleneck)** 을 먼저 찾으세요.
+👉 **결론**: 네트워크 호출 한 번 (150ms) 줄이는 게, Bubble Sort 를 Quick Sort 로 바꾸는 것 (수 ms 절약) 보다 훨씬 큰 성능 향상을 가져옵니다. **병목 (Bottleneck)** 을 먼저 찾으세요. (상세 내용은 [메모리 계층 구조와 캐시](../../../02_references/computer-science/memory-layout-and-cache.md) 참조)
 
 ---
 
