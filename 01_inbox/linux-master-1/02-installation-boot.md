@@ -26,7 +26,8 @@
 - **GPT (GUID Partition Table)**: 2TB 이상, 128개 파티션, UEFI 지원
 
 **권장 파티션 구성**:
-```
+
+```plaintext
 /boot      - 500MB~1GB   (부트 로더, 커널 이미지)
 swap       - RAM의 1~2배 (스왑 공간)
 /          - 20GB 이상   (루트 파일시스템)
@@ -34,7 +35,8 @@ swap       - RAM의 1~2배 (스왑 공간)
 ```
 
 **추가 파티션 (서버 환경)**:
-```
+
+```plaintext
 /var       - 로그, 캐시, 스풀
 /tmp       - 임시 파일
 /usr       - 응용 프로그램
@@ -50,6 +52,7 @@ swap       - RAM의 1~2배 (스왑 공간)
 - **swap**: 스왑 공간 전용
 
 **파일 시스템 생성**:
+
 ```bash
 mkfs.ext4 /dev/sda1
 mkfs.xfs /dev/sda2
@@ -60,7 +63,7 @@ mkswap /dev/sda3
 
 ### 2.1 부팅 단계 개요
 
-```
+```plaintext
 1. BIOS/UEFI 초기화
    ↓
 2. 부트 로더 실행 (GRUB)
@@ -98,6 +101,7 @@ mkswap /dev/sda3
 - **설정 적용**: `grub2-mkconfig -o /boot/grub2/grub.cfg`
 
 **주요 설정 옵션**:
+
 ```bash
 GRUB_TIMEOUT=5                    # 부팅 대기 시간
 GRUB_DEFAULT=0                    # 기본 부팅 항목
@@ -106,6 +110,7 @@ GRUB_DISABLE_RECOVERY="true"      # 복구 모드 비활성화
 ```
 
 **GRUB 명령어**:
+
 ```bash
 grub2-install /dev/sda           # GRUB 설치
 grub2-mkconfig -o /boot/grub2/grub.cfg  # 설정 생성
@@ -125,6 +130,7 @@ grubby --default-kernel          # 기본 커널 확인
 - **로딩**: GRUB이 메모리에 로드
 
 **커널 파라미터**:
+
 ```bash
 quiet          # 부팅 메시지 최소화
 splash         # 부팅 스플래시 화면
@@ -134,6 +140,7 @@ init=/bin/bash # 대체 init 프로세스
 ```
 
 **커널 확인**:
+
 ```bash
 uname -r       # 커널 버전
 uname -a       # 전체 시스템 정보
@@ -148,6 +155,7 @@ cat /proc/version  # 커널 상세 정보
 - **위치**: `/boot/initramfs-<version>.img`
 
 **생성 및 관리**:
+
 ```bash
 # Debian/Ubuntu
 update-initramfs -u          # 업데이트
@@ -159,6 +167,7 @@ dracut --force --kver <version>  # 특정 커널용
 ```
 
 **내용 확인**:
+
 ```bash
 lsinitrd /boot/initramfs-$(uname -r).img
 # 또는
@@ -181,6 +190,7 @@ zcat /boot/initrd.img-$(uname -r) | cpio -t
 - **Unit 파일**: `/usr/lib/systemd/system/`, `/etc/systemd/system/`
 
 **systemctl 명령어**:
+
 ```bash
 systemctl start httpd        # 서비스 시작
 systemctl stop httpd         # 서비스 중지
@@ -195,6 +205,7 @@ systemctl list-unit-files    # unit 파일 목록
 ```
 
 **타겟 관리**:
+
 ```bash
 systemctl get-default        # 기본 타겟 확인
 systemctl set-default multi-user.target  # 기본 타겟 설정
@@ -204,7 +215,8 @@ systemctl isolate rescue.target  # 타겟 전환
 ### 3.2 런레벨과 타겟
 
 **전통적 런레벨 (SysV init)**:
-```
+
+```plaintext
 0 - halt (시스템 종료)
 1 - single user mode (싱글 유저, 복구 모드)
 2 - multi-user without networking
@@ -215,7 +227,8 @@ systemctl isolate rescue.target  # 타겟 전환
 ```
 
 **systemd 타겟 매핑**:
-```
+
+```plaintext
 poweroff.target    ← runlevel 0
 rescue.target      ← runlevel 1
 multi-user.target  ← runlevel 3
@@ -224,6 +237,7 @@ reboot.target      ← runlevel 6
 ```
 
 **타겟 전환**:
+
 ```bash
 systemctl isolate multi-user.target  # 텍스트 모드
 systemctl isolate graphical.target   # 그래픽 모드
@@ -242,6 +256,7 @@ systemctl isolate rescue.target      # 복구 모드
 - 최소한의 환경, 루트 파일시스템만 마운트
 
 **부팅 로그 확인**:
+
 ```bash
 journalctl -b           # 현재 부팅 로그
 journalctl -b -1        # 이전 부팅 로그
@@ -259,6 +274,7 @@ dmesg | grep -i error   # 에러 메시지만
 ### 4.1 종료 명령어
 
 **shutdown**:
+
 ```bash
 shutdown -h now         # 즉시 종료
 shutdown -h +10         # 10분 후 종료
@@ -268,6 +284,7 @@ shutdown -c             # 예약된 종료 취소
 ```
 
 **기타 명령어**:
+
 ```bash
 halt                    # 시스템 정지
 poweroff                # 전원 끄기
@@ -286,6 +303,7 @@ systemctl reboot        # systemd 재부팅
 - **하이브리드**: 두 가지 혼합
 
 **명령어**:
+
 ```bash
 systemctl suspend       # 절전 모드
 systemctl hibernate     # 최대 절전 모드
