@@ -2,7 +2,7 @@
 title: memoization
 tags: [algorithm, dp, fundamentals, memoization, optimization, recursion]
 aliases: [기억하며 풀기, 메모이제이션, 캐싱]
-date modified: 2025-12-19 18:08:41 +09:00
+date modified: 2025-12-19 18:11:36 +09:00
 date created: 2025-12-18 19:07:00 +09:00
 ---
 
@@ -16,6 +16,7 @@ date created: 2025-12-18 19:07:00 +09:00
 - **Top-Down DP 의 핵심**: 재귀 알고리즘의 비효율성을 해결하는 가장 강력한 도구이다.
 
 ### 직관적인 비유
+
 - **수학 문제 풀기**: 7 x 8 이 얼마인지 물었을 때, 매번 7 을 8 번 더하는 대신 "56"이라는 답을 머릿속에 **기억(Memo)** 해두는 것과 같다. 다음에 7 x 8 이 나오면 즉시 대답할 수 있다.
 
 ---

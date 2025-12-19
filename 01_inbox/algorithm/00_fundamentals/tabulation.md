@@ -1,8 +1,8 @@
 ---
 title: tabulation
-tags: [algorithm, dp, fundamentals, tabulation, optimization, iteration]
-aliases: [타블레이션, 도표 채우기, 바텀업]
-date modified: 2025-12-18 19:17:00 +09:00
+tags: [algorithm, dp, fundamentals, iteration, optimization, tabulation]
+aliases: [도표 채우기, 바텀업, 타블레이션]
+date modified: 2025-12-19 18:13:06 +09:00
 date created: 2025-12-18 19:17:00 +09:00
 ---
 
@@ -17,6 +17,7 @@ date created: 2025-12-18 19:17:00 +09:00
 - **예측 가능성**: 모든 부분 문제를 순서대로 해결하므로 실행 시간을 정확히 예측하기 쉽다.
 
 ### 직관적인 비유
+
 - **벽돌 쌓기**: 1 층부터 한 장 한 장 벽돌을 쌓아 100 층 빌딩을 올리는 것과 같다. 기초부터 탄탄히 쌓아 올라가야 최종 목표인 100 층에 도달할 수 있다.
 
 ---
