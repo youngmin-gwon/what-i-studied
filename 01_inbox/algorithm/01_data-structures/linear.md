@@ -78,6 +78,5 @@ Python의 문자열은 **불변(Immutable)** 자료형입니다. 슬라이싱이
 
 - [메모리 계층 구조](../../../02_references/computer-science/memory-layout-and-cache.md) - 캐시 지역성과 하드웨어 기초
 - [스택과 큐](stack-and-queue.md) - 선형 구조를 활용한 ADT
-- [스택과 큐](stack-and-queue.md) - 선형 구조를 활용한 ADT
 - [덱(Deque)](specialized-queues.md) - 양방향 삽입/삭제 최적화
 - [복잡도](../00_fundamentals/complexity-and-big-o.md) - 선형 탐색의 비용

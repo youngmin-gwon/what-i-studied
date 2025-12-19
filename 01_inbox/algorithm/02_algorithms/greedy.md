@@ -145,7 +145,7 @@ import heapq
 
 def build_huffman_tree(frequencies):
     # 1. 모든 문자를 우선순위 큐(Min Heap)에 삽입
-    heap = [weight, [char, ""](../../../../weight, [char, "".md) for char, weight in frequencies.items()]
+    heap = [[weight, [char, ""]] for char, weight in frequencies.items()]
     heapq.heapify(heap)
     
     # 2. 가장 작은 빈도 두 개를 합쳐서 부모 노드 생성 반복

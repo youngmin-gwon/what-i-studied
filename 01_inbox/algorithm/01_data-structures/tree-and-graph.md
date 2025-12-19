@@ -56,4 +56,7 @@ date created: 2025-12-17 19:30:00 +09:00
 
 - [Big-O](../00_fundamentals/complexity-and-big-o.md) - O(log n) 의 위대함
 - [linear](linear.md) - BFS 에 쓰이는 Queue 구현
+- [그래프 탐색](../02_algorithms/graph-traversal.md) - BFS/DFS 의 상세 구현과 활용
+- [최단 경로](../02_algorithms/shortest-path.md) - 다익스트라와 플로이드-와샬
+- [최소 신장 트리](../02_algorithms/minimum-spanning-tree.md) - 크루스칼과 프림 알고리즘
 - [kernel: 프로세스 스케줄링](../../../02_references/operating-systems/kernel.md) - 힙 자료구조가 쓰이는 곳

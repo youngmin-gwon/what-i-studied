@@ -2,7 +2,7 @@
 title: algorithm-study-guide
 tags: [algorithm, data-structures, index]
 aliases: [알고리즘 인덱스, 자료구조 인덱스]
-date modified: 2025-12-19 00:00:36 +09:00
+date modified: 2025-12-19 16:00:23 +09:00
 date created: 2025-12-18 11:33:14 +09:00
 ---
 
@@ -27,6 +27,7 @@ date created: 2025-12-18 11:33:14 +09:00
 
 3. [재귀와 호출 스택](00_fundamentals/recursion-and-stack.md)
    - 문제를 쪼개는 논리와 실행 구조의 이해.
+   - [메모이제이션](00_fundamentals/memoization.md) & [타블레이션](00_fundamentals/tabulation.md): 중복 계산을 효율적으로 해결하는 기초.
 
 4. [문제 해결 프로세스](00_fundamentals/problem-solving-process.md) ⭐
    - 문제를 분석하고 설계하는 4 단계 프레임워크.
@@ -60,7 +61,11 @@ date created: 2025-12-18 11:33:14 +09:00
 
 4. [힙과 우선순위 큐](01_data-structures/heap-and-priority-queue.md) ⭐
    - Top-K, 실시간 중앙값
-   - OS 스케줄러, 다익스트라 필수
+   - OS 스케줄러, 다익스트라, 프림 필수
+
+5. [최소 신장 트리 (MST)](02_algorithms/minimum-spanning-tree.md)
+   - 네트워크 연결 최적화 (Kruskal, Prim)
+   - Union-Find 와 힙의 실전 응용
 
 ---
 
@@ -128,7 +133,7 @@ date created: 2025-12-18 11:33:14 +09:00
 
 #### 🔢 04. Math (수학)
 
-- [GCD & LCm](04_math/gcd-lcm.md)
+- [GCD & LCM](04_math/gcd-lcm.md)
   - 유클리드 호제법, 최소공배수
   - Juggling Algorithm
   - RSA 암호화, 배열 회전

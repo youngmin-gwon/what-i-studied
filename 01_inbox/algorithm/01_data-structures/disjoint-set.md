@@ -2,7 +2,7 @@
 title: disjoint-set
 tags: [algorithm, cycle-detection, data-structures, disjoint-set, mst, union-find]
 aliases: [Path Compression, Union-Find, 분리 집합, 서로소 집합]
-date modified: 2025-12-19 15:58:57 +09:00
+date modified: 2025-12-19 15:59:26 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 
@@ -399,4 +399,4 @@ class UnionFind {
 
 - [tree-and-graph](tree-and-graph.md) - 그래프 기초와 연결성
 - [Big-O](../00_fundamentals/complexity-and-big-o.md) - α(n) 복잡도 이해
-- [search-and-sort](../02_algorithms/search-and-sort.md) - Kruskal MST 응용
+- [최소 신장 트리](../02_algorithms/minimum-spanning-tree.md) - 크루스칼(Kruskal) MST 응용

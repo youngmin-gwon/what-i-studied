@@ -32,7 +32,7 @@ date created: 2025-12-17 19:20:00 +09:00
 ##### 1. Separate Chaining (체이닝)
 - **방식**: 각 버킷 (Bucket) 에 **Linked List**를 매달아 둡니다. 충돌이 나면 리스트 뒤에 연결합니다.
 - **장점**: 구현이 쉽고 삭제가 안전합니다.
-- **단점**: 메모리를 추가로 쓰고, Linked List 특성상 [Cache Miss](algo-ds-linear#Cache Locality (캐시 지역성).md) 가 많습니다.
+- **단점**: 메모리를 추가로 쓰고, Linked List 특성상 **[Cache Miss](linear.md#Cache%20Locality%20(캐시%20지역성))** 가 많습니다.
 - **사용**: **Swift**, Java, Go.
 
 ##### 2. Open Addressing (개방 주소법)
@@ -48,7 +48,7 @@ date created: 2025-12-17 19:20:00 +09:00
 해시 테이블은 배열이 꽉 차면 성능이 O(n) 에 가까워집니다. 그래서 보통 75% 정도 차면 (**Load Factor 0.75**), 배열 크기를 2 배로 늘립니다.
 
 - **Rehashing**: 단순히 배열만 늘리는 게 아니라, **모든 키를 다시 해싱해서 새 위치로 옮겨야 합니다.** (`modulo` 값이 바뀌니까요)
-- **비용**: 이 작업은 **O(n)**입니다. [분할 상환 분석](algo-complexity-and-big-o#💾 Amortized Analysis (분할 상환 분석).md) 에 따르면 평균은 O(1) 이지만, Rehashing 이 터지는 순간 렉이 걸릴 수 있습니다.
+- **비용**: 이 작업은 **O(n)**입니다. **[분할 상환 분석](../00_fundamentals/complexity-and-big-o.md#💾%20Amortized%20Analysis%20(분할%20상환%20분석))** 에 따르면 평균은 O(1) 이지만, Rehashing 이 터지는 순간 렉이 걸릴 수 있습니다.
 
 ---
 
