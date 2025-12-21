@@ -2,7 +2,7 @@
 title: memoization
 tags: [algorithm, dp, fundamentals, memoization, optimization, recursion]
 aliases: [기억하며 풀기, 메모이제이션, 캐싱]
-date modified: 2025-12-19 18:11:36 +09:00
+date modified: 2025-12-23 21:51:35 +09:00
 date created: 2025-12-18 19:07:00 +09:00
 ---
 
