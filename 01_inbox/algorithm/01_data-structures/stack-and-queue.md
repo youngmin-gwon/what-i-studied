@@ -2,7 +2,7 @@
 title: stack-and-queue
 tags: [algorithm, data-structure, fifo, lifo, linear, queue, stack]
 aliases: [FIFO, LIFO, Queue, Stack, 스택, 큐]
-date modified: 2025-12-22 09:53:38 +09:00
+date modified: 2025-12-22 10:06:41 +09:00
 date created: 2025-12-18 12:04:02 +09:00
 ---
 
@@ -60,12 +60,13 @@ stack[-1]       # Peek
 
 "First In, First Out" - 먼저 들어온 놈이 먼저 나간다.
 
-| 연산 | 설명 | 복잡도 |
-|:---|:---|:---|
-| **Enqueue** | 뒤(Rear)에 데이터 추가 | $O(1)$ |
+| 연산          | 설명                | 복잡도    |
+| :---------- | :---------------- | :----- |
+| **Enqueue** | 뒤(Rear)에 데이터 추가   | $O(1)$ |
 | **Dequeue** | 앞(Front)에서 데이터 제거 | $O(1)$ |
 
 ### 🔧 구현 (Python - deque 권장)
+
 ```python
 from collections import deque
 queue = deque()
@@ -104,6 +105,7 @@ Python 에서는 별도의 Stack/Queue 클래스 대신 `list` 나 `collections.
 그냥 기본 `list` 를 사용해도 무방합니다. (LIFO)
 
 #### 💻 활용법
+
 ```python
 stk = []
 stk.append(1) # Push
