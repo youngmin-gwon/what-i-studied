@@ -206,6 +206,244 @@ dependencies {
 }
 ```
 
+---
+
+## Compose BOM (Bill of Materials) 심층 가이드
+
+### BOM이란?
+
+**BOM (Bill of Materials)** 은 여러 라이브러리의 호환되는 버전을 하나의 세트로 묶어주는 특수한 의존성입니다.
+
+| 개념 | 설명 |
+| :--- | :--- |
+| **정의** | 테스트를 거친 라이브러리 버전들의 조합을 제공하는 메타데이터 파일 |
+| **목적** | 개별 라이브러리 버전 관리의 복잡성 제거 |
+| **Flutter 비유** | Flutter의 SDK 버전과 유사 - SDK 버전 하나로 모든 Flutter 패키지 버전이 결정됨 |
+
+### 왜 BOM을 사용해야 하는가?
+
+#### ❌ BOM 없이 (수동 버전 관리)
+
+```kotlin
+dependencies {
+    // 각 라이브러리 버전을 일일이 관리해야 함
+    implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
+    implementation("androidx.compose.foundation:foundation:1.5.4")
+    implementation("androidx.compose.runtime:runtime:1.5.4")
+    
+    // 버전 불일치 위험!
+    implementation("androidx.compose.animation:animation:1.4.0") // ⚠️ 다른 버전
+}
+```
+
+**문제점:**
+- 버전 불일치로 인한 런타임 오류
+- 업데이트 시 모든 버전을 수동으로 변경
+- 호환성 테스트 부담
+
+#### ✅ BOM 사용 (권장)
+
+```kotlin
+dependencies {
+    // BOM으로 버전 세트 지정
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    
+    // 개별 라이브러리는 버전 번호 없이 선언
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.runtime:runtime")
+    implementation("androidx.compose.animation:animation")
+    
+    // 모든 라이브러리가 자동으로 호환되는 버전으로 설정됨!
+}
+```
+
+**장점:**
+- ✅ 구글이 테스트한 호환 버전 조합 보장
+- ✅ BOM 버전 하나만 업데이트하면 모든 라이브러리 업데이트
+- ✅ 버전 충돌 걱정 없음
+
+### BOM 버전 관리 프로세스
+
+```mermaid
+graph LR
+    A[Google] -->|테스트| B[Compose 라이브러리 조합]
+    B -->|검증 완료| C[BOM 버전 릴리스]
+    C -->|개발자 사용| D[안정적인 앱]
+```
+
+| 단계 | 설명 |
+| :--- | :--- |
+| **1. 라이브러리 개발** | 각 Compose 라이브러리가 독립적으로 개발됨 |
+| **2. 조합 테스트** | Google이 다양한 버전 조합을 테스트 |
+| **3. BOM 릴리스** | 호환성이 검증된 버전 세트를 BOM으로 배포 |
+| **4. 개발자 사용** | 개발자는 BOM 버전만 선택하면 됨 |
+
+### 실전 사용 예제
+
+#### 기본 설정
+
+```kotlin
+// app/build.gradle.kts
+dependencies {
+    // 1. BOM 선언 (platform 함수 사용)
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
+    
+    // 2. 필요한 Compose 라이브러리 추가 (버전 생략)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    
+    // 3. 디버그 전용 도구
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    
+    // 4. 테스트 의존성도 동일한 BOM 사용
+    androidTestImplementation(composeBom)
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+}
+```
+
+#### Version Catalog와 함께 사용
+
+```toml
+# gradle/libs.versions.toml
+[versions]
+composeBom = "2024.02.00"
+
+[libraries]
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+
+[bundles]
+compose = ["compose-ui", "compose-material3"]
+```
+
+```kotlin
+// app/build.gradle.kts
+dependencies {
+    val composeBom = platform(libs.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.compose.ui.tooling)
+}
+```
+
+### BOM 버전 확인 및 업데이트
+
+```bash
+# 현재 사용 중인 실제 버전 확인
+./gradlew app:dependencies --configuration releaseRuntimeClasspath | grep compose
+
+# 출력 예시:
+# +--- androidx.compose.ui:ui -> 1.6.2
+# +--- androidx.compose.material3:material3 -> 1.2.0
+```
+
+> [!TIP]
+> **BOM 버전 선택 가이드**
+> - **안정성 우선**: 최신 안정 버전 사용 (예: `2024.02.00`)
+> - **최신 기능 필요**: 알파/베타 버전 사용 (예: `2024.03.00-alpha01`)
+> - **프로덕션 앱**: 최소 2주 이상 검증된 버전 사용 권장
+
+### 특정 라이브러리만 버전 오버라이드
+
+```kotlin
+dependencies {
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
+    
+    // 대부분은 BOM 버전 사용
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    
+    // 특정 라이브러리만 다른 버전 사용 (신중하게!)
+    implementation("androidx.compose.animation:animation:1.7.0-alpha01") {
+        // BOM 버전보다 우선
+    }
+}
+```
+
+> [!WARNING]
+> **버전 오버라이드 주의사항**
+> BOM에서 제공하는 버전과 다른 버전을 사용하면 호환성 문제가 발생할 수 있습니다. 반드시 필요한 경우에만 사용하세요.
+
+### BOM vs 개별 버전 관리 비교
+
+| 항목 | BOM 사용 | 개별 버전 관리 |
+| :--- | :--- | :--- |
+| **버전 선언** | BOM 1개 | 라이브러리마다 개별 선언 |
+| **호환성 보장** | ✅ Google 테스트 완료 | ❌ 개발자가 직접 확인 필요 |
+| **업데이트 편의성** | ✅ BOM 버전만 변경 | ❌ 모든 라이브러리 개별 변경 |
+| **버전 충돌** | ✅ 자동 해결 | ❌ 수동 해결 필요 |
+| **유연성** | 🔶 필요시 오버라이드 가능 | ✅ 완전한 제어 |
+
+### 자주 하는 실수
+
+#### ❌ 실수 1: BOM과 버전을 함께 명시
+
+```kotlin
+// 잘못된 예
+implementation("androidx.compose.ui:ui:1.5.4") // BOM 무시됨!
+```
+
+#### ✅ 올바른 방법
+
+```kotlin
+// BOM 사용 시 버전 생략
+implementation("androidx.compose.ui:ui")
+```
+
+#### ❌ 실수 2: 테스트 의존성에 BOM 미적용
+
+```kotlin
+// 잘못된 예
+dependencies {
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
+    
+    // 테스트는 다른 버전 사용 - 버전 불일치!
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.0")
+}
+```
+
+#### ✅ 올바른 방법
+
+```kotlin
+dependencies {
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom) // 테스트도 동일한 BOM 사용
+    
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+}
+```
+
+### BOM 버전 히스토리 (주요 릴리스)
+
+| BOM 버전 | 릴리스 날짜 | 주요 Compose UI 버전 | 비고 |
+| :--- | :--- | :--- | :--- |
+| `2024.02.00` | 2024-02 | 1.6.2 | 안정 버전 |
+| `2023.10.01` | 2023-10 | 1.5.4 | Material3 1.1.2 포함 |
+| `2023.06.01` | 2023-06 | 1.4.3 | 초기 안정 버전 |
+
+> [!NOTE]
+> **최신 BOM 버전 확인**
+> [Compose BOM 릴리스 노트](https://developer.android.com/jetpack/compose/bom/bom-mapping)에서 최신 버전과 포함된 라이브러리 버전을 확인할 수 있습니다.
+
+---
+
 ### 서명 설정
 
 ```kotlin
