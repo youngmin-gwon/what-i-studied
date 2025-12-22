@@ -2,7 +2,7 @@
 title: stack-and-queue
 tags: [algorithm, data-structure, fifo, lifo, linear, queue, stack]
 aliases: [FIFO, LIFO, Queue, Stack, 스택, 큐]
-date modified: 2025-12-19 18:50:40 +09:00
+date modified: 2025-12-22 09:53:38 +09:00
 date created: 2025-12-18 12:04:02 +09:00
 ---
 
