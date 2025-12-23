@@ -20,18 +20,18 @@ date created: 2025-12-20 00:02:18 +09:00
 ## 🏗️ 주요 디렉토리 구조 (Directory Structure)
 
 ```mermaid
-graph TD
-    Root[/ - Root] --> bin[/bin - Essential Binaries]
-    Root --> boot[/boot - Boot Loader Files]
-    Root --> dev[/dev - Device Files]
-    Root --> etc[/etc - Configuration]
-    Root --> home[/home - User Home Directories]
-    Root --> lib[/lib - Shared Libraries]
-    Root --> proc[/proc - Process Info]
-    Root --> sys[/sys - System Info]
-    Root --> tmp[/tmp - Temporary Files]
-    Root --> usr[/usr - User Programs]
-    Root --> var[/var - Variable Data]
+graph LR
+    Root["/" - Root] --> bin["/bin" - Essential Binaries]
+    Root --> boot["/boot" - Boot Loader Files]
+    Root --> dev["/dev" - Device Files]
+    Root --> etc["/etc" - Configuration]
+    Root --> home["/home" - User Home Directories]
+    Root --> lib["/lib" - Shared Libraries]
+    Root --> proc["/proc" - Process Info]
+    Root --> sys["/sys" - System Info]
+    Root --> tmp["/tmp" - Temporary Files]
+    Root --> usr["/usr" - User Programs]
+    Root --> var["/var" - Variable Data]
 ```
 
 ### 필수 디렉토리 (Essential Directories)
