@@ -2,7 +2,7 @@
 title: components-containment-navigation
 tags: [adaptive, cards, design-system, immersive, m3, material-design, navigation, ux-design]
 aliases: [Immersive Design, M3 Containment, M3 Navigation Evolution]
-date modified: 2025-12-27 23:31:28 +09:00
+date modified: 2025-12-27 23:40:10 +09:00
 date created: 2025-12-27 22:57:00 +09:00
 ---
 
@@ -54,3 +54,4 @@ Expressive 디자인에서 네비게이션은 사용자가 '자신이 어디에 
 - [[components-actions|Actions: 버튼과 FAB]]
 - [[components-selection-inputs|Selection & Inputs]]
 - [[components-typography|Typography: 의미론적 가독성과 폰트 역할]]
+- [[components-color-theme|Color & Theme: 지능적인 컬러 시스템과 HCT]]

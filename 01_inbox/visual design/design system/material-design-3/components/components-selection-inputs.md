@@ -43,3 +43,4 @@ M3 스위치는 단순히 크기가 커진 것이 아니라, **내러티브(Narr
 - [[components-actions|Actions: 버튼과 FAB]]
 - [[components-containment-navigation|Containment & Navigation]]
 - [[components-typography|Typography: 의미론적 가독성과 폰트 역할]]
+- [[components-color-theme|Color & Theme: 지능적인 컬러 시스템과 HCT]]
