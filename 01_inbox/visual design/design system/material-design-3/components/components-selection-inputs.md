@@ -2,7 +2,7 @@
 title: components-selection-inputs
 tags: [accessibility, design-system, expressive, input, m3, material-design, selection, typography]
 aliases: [Emphasized Typography, M3 Inputs Evolution, M3 Selection]
-date modified: 2025-12-27 23:22:02 +09:00
+date modified: 2025-12-27 23:31:52 +09:00
 date created: 2025-12-27 22:58:00 +09:00
 ---
 
@@ -38,6 +38,8 @@ M3 스위치는 단순히 크기가 커진 것이 아니라, **내러티브(Narr
 ---
 
 ## 🔗 관련 문서
-- [[../index|Material Design 3 개요 (Expressive Deep Dive)]]
+
+- [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]
 - [[components-actions|Actions: 버튼과 FAB]]
 - [[components-containment-navigation|Containment & Navigation]]
+- [[components-typography|Typography: 의미론적 가독성과 폰트 역할]]
