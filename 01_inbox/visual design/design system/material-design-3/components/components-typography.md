@@ -87,6 +87,22 @@ M3 Typography 는 환경에 따라 지능적으로 반응합니다.
 
 ---
 
+---
+
+## ♿ Accessibility (A11y): 읽기 권권과 포용적 가독성
+
+글꼴은 단순히 정보를 전달하는 것을 넘어, 모든 사용자가 장애 없이 지식을 습득할 권리를 보장해야 합니다.
+
+### 1. Adaptive Scaling (적응형 스케일링)
+- **Dynamic Type (다이내믹 타입)**: 운영체제 설정에서 글꼴 크기를 키웠을 때, 앱의 레이아웃이 깨지지 않고 텍스트가 유연하게 확대되어야 합니다. M3 의 가변 폰트(Variable Fonts) 기술은 이 과정에서 글자의 두께와 간격을 최적으로 자동 조절합니다.
+- **Line Height & Spacing (가독성 유지)**: 글자가 커질 때 행간(Line-height) 과 자간(Letter-spacing) 도 비례하여 조정되어야 함을 기술 사양에 반영하고 있습니다.
+
+### 2. Legibility (판독성)
+- **Minimum Contrast (최소 대비)**: 본문 텍스트(`Body`) 는 배경과 최소 **4.5:1** 의 대비를 가져야 하며, 큰 제목(`Display`) 은 최소 **3:1** 의 대비를 유지해야 합니다.
+- **Font Weight (굵기 활용)**: 중요한 정보는 단순히 크기만 키우는 것이 아니라, 굵기(Weight) 를 다르게 하여 강조 효과를 극대화함으로써 시각 장애나 인지 장애가 있는 사용자의 인지를 돕습니다.
+
+---
+
 ## 🔗 관련 문서
 
 - [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]

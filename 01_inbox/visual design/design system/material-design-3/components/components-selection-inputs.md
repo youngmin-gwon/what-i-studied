@@ -37,6 +37,25 @@ M3 스위치는 단순히 크기가 커진 것이 아니라, **내러티브(Narr
 
 ---
 
+---
+
+## ♿ Accessibility (A11y): 데이터 입력의 정확성과 명확성
+
+입력 도구는 복잡한 상호작용이 수반되므로, 사용자가 현재 무엇을 입력하고 있고 어떤 상태인지를 즉각 알 수 있어야 합니다.
+
+### 1. Labeling & Instruction (레이블과 인스트럭션)
+- **Always Visible Labels (영구 레이블)**: 입력창이 활성화되더라도 레이블(Label) 은 사라지지 않고 상단으로 부유(Floating) 해야 합니다. 이는 인지 장애가 있는 사용자가 "내가 무엇을 쓰고 있었지?" 하는 혼란을 겪지 않게 돕습니다.
+- **Helper Text (보조 텍스트)**: 스크린 리더는 입력창에 포커스가 갈 때 해당 `helperText` 를 함께 읽어주어 입력 형식을 안내합니다.
+
+### 2. Error & Validation (에러와 유효성)
+- **Error Accessibility (에러 접근성)**: 에러 발생 시 단순히 빨간색으로 색을 바꾸는 것에 그치지 않고, 에러 아이콘을 병행하고 명확한 텍스트 메시지를 하단에 노출해야 합니다.
+- **Immediate Feedback (즉각적 피드백)**: 입력 직후 유효성 검사 결과를 알려주어 사용자가 수고스럽게 전체 폼을 제출하고 다시 돌아오는 경험을 최소화합니다.
+
+### 3. Selection Elements (선택 요소)
+- **Touch Target (터치 타겟)**: Checkbox, Switch, Radio Button 은 시각적 크기보다 훨씬 넓은 터치 타겟(최소 48dp) 을 가져야 하며, 보통 옆의 텍스트 레이블을 클릭해도 선택되도록 설계합니다.
+
+---
+
 ## 🔗 관련 문서
 
 - [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]

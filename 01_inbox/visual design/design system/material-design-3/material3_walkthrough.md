@@ -2,7 +2,7 @@
 title: material3_walkthrough
 tags: [design-system, expressive, m3, material-design, material-you, ux-philosophy]
 aliases: [M2 vs M3, M3 Deep Dive, M3 Expressive, Material Design 3 Walkthrough]
-date modified: 2025-12-27 23:51:56 +09:00
+date modified: 2025-12-27 23:56:50 +09:00
 date created: 2025-12-27 22:55:00 +09:00
 ---
 
@@ -52,7 +52,7 @@ Material You 의 핵심은 사용자가 디자인의 공동 제작자가 된다�
 
 ### 1. Motion Physics: Standard vs Expressive Schemes
 
-M3 는 고정된 Easing 곡선 대신 **물리 기반 스프링(Motion Springs)**을 사용합니다.
+M3 는 고정된 Easing 곡선 대신 **물리 기반 스프링(Motion Springs)** 을 사용합니다.
 
 - **Standard Scheme**: 유틸리티 중심의 정밀하고 빠른 피드백. 효율성이 중요한 작업에 사용됩니다.
 - **Expressive Scheme**: 더 탄성 있고 역동적인 움직임. 사용자의 정서적 반응이 중요한 '즐거운 순간'에 적용됩니다.
@@ -71,7 +71,7 @@ M3 는 고정된 Easing 곡선 대신 **물리 기반 스프링(Motion Springs)*
 
 ### 3. Emphasized Typography
 
-단순히 글자 크기를 키우는 것이 아니라, **가변 폰트(Variable Fonts)**의 축을 활용합니다.
+단순히 글자 크기를 키우는 것이 아니라, **가변 폰트(Variable Fonts)** 의 축을 활용합니다.
 
 - 중요한 정보는 굵기(Weight)뿐만 아니라 너비(Width) 등을 미세하게 조정하여 시각적 위계(Hierarchy)를 극적으로 강조합니다.
 

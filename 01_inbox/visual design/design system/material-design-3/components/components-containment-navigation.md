@@ -48,6 +48,22 @@ Expressive 디자인에서 네비게이션은 사용자가 '자신이 어디에 
 
 ---
 
+---
+
+## ♿ Accessibility (A11y): 공간과 흐름의 명확성
+
+사용자가 화면의 어디에 있는지, 어떻게 이동할 수 있는지를 명확히 전달하는 것이 접근성의 핵심입니다.
+
+### 1. Navigation & Focus (이동과 초점)
+- **Focus Order (초점 순서)**: 화면 구성 요소 간의 이동 순서는 시각적 배치와 일치해야 합니다 (일반적으로 왼쪽 → 오른쪽, 위 → 아래). Navigation Bar 는 키보드 탭 순서에서 최상위 혹은 논리적 위치에 고정되어야 합니다.
+- **Focus Indicators (초점 표시기)**: 키보드나 스위치 기기 사용자를 위해 현재 선택된 컨테이너(카드, 탭 등) 에 명확한 시각적 테두리나 강조 효과를 제공해야 합니다. M3 의 필 피드백(Pill Indicator) 은 이 역할을 훌륭히 수행합니다.
+
+### 2. Semantic Hierarchy (의미론적 계층)
+- **Landmarks (랜드마크)**: 스크린 리더 사용자가 화면을 빠르게 훑을 수 있도록 Navigation Rail, Top App Bar 등의 영역을 의미론적 랜드마크로 선언해야 합니다.
+- **Grouping (그룹화)**: 여러 개의 카드가 나열될 때, 각 카드를 독립적인 '포커스 가능 요소' 로 설정하여 콘텐츠가 섞이지 않도록 격리합니다.
+
+---
+
 ## 🔗 관련 문서
 
 - [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]

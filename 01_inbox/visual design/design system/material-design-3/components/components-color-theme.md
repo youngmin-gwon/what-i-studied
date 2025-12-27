@@ -111,6 +111,21 @@ Flutter 는 M2 에서 M3 로 넘어가며 `ColorScheme` 중심으로 모든 컬�
 
 ---
 
+---
+
+## ♿ Accessibility (A11y): HCT 기반의 대비 자동 보장
+
+M3 컬러 시스템의 존재 이유 중 가장 큰 부분은 '누구에게나 잘 보이는 색상' 을 자동으로 만드는 것입니다.
+
+### 1. Contrast by Design (설계에 의한 대비)
+- **The 40-Tone Rule (40 톤 규칙)**: M3 알고리즘은 배경색과 그 위의 글자색(On-colors) 간의 **Tone** 차이를 항상 **40** 이상으로 설정합니다. HCT 의 Tone 은 지각적 밝기이므로, 이 차이만으로도 WCAG AA 기준인 4.5:1 대비가 수학적으로 보장됩니다.
+- **Color Correction (색각 이상 대응)**: HCT 모델은 색맹이나 색약 사용자에게도 동일한 '지각적 밝기' 를 제공하므로, 특정 색상을 구별하지 못하더라도 **밝기 차이**를 통해 정보를 명확히 인지할 수 있게 합니다.
+
+### 2. User Personalization (사용자 개인화)
+- **Contrast Settings (적응형 대비)**: 사용자가 안드로이드 설정에서 '대비 강조' 를 활성화하면, Color Scheme 전체의 톤이 실시간으로 조절되어 시인성을 극대화합니다. 이는 개발자가 별도의 코드를 짤 필요 없이 M3 테마를 사용하는 것만으로 혜택을 얻습니다.
+
+---
+
 ## 🔗 관련 문서
 
 - [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]
