@@ -131,6 +131,32 @@ Actions 컴포넌트는 사용자가 시스템과 직접 소통하는 통로이�
 
 ---
 
+## 🛠️ Floating Toolbar (플로팅 툴바): 맥락 중심의 도구 상자
+
+Floating Toolbar 는 특정 콘텐츠나 페이지와 직접적인 연관이 있는 보조 액션들을 논리적으로 묶어 제공하는 효율적인 컴포넌트입니다.
+
+### 1. UX Rationale (설계 이유)
+
+- **Contextual Focus**: 글로벌 액션(홈, 프로필 등) 이 아닌, 현재 사용자가 보고 있는 콘텐츠(이미지 편집, 텍스트 스타일링 등) 에 집중할 수 있도록 돕습니다.
+- **Flexibility**: 화면 하단에 고정되는 Bottom App Bar 와 달리, 콘텐츠의 흐름에 따라 위치를 유연하게 조정할 수 있어 공간 활용도가 높습니다.
+
+### 2. Layout & Pairing (배치 및 결합)
+
+- **FAB Pairing**: 툴바는 FAB 과 함께 배치되어 '메인 액션 + 보조 도구' 의 완벽한 시각적 위계를 형성합니다.
+- **Orientation**: 가로(Horizontal) 또는 세로(Vertical) 로 방향을 설정할 수 있습니다. 수직 툴바는 태블릿이나 폴더블 기기의 Navigation Rail 반대편에 배치하여 인체공학적 균형을 맞출 때 유용합니다.
+
+### 3. Visual Themes
+
+- **Standard (Low-emphasis)**: 배경색과 유사한 톤을 사용하여 시각적 노이즈를 줄입니다.
+- **Vibrant (High-emphasis)**: 대비가 강한 색상을 적용하여 툴바 자체를 강조하고 싶을 때 사용합니다.
+
+### 4. ♿ Accessibility (A11y)
+
+- **Focus Order**: 키보드 사용자가 툴바 내의 아이콘 사이를 논리적으로 탐색할 수 있도록 `Traversal Order` 를 철저히 관리해야 합니다.
+- **Touch Targets**: 툴바 내 모든 버튼은 최소 **48x48dp** 의 터치 영역을 보장해야 하며, 아이콘 사이의 간격을 충분히 두어 오터치를 방지합니다.
+
+---
+
 ## 🔗 관련 문서
 
 - [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]
