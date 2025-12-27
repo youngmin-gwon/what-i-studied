@@ -2,19 +2,19 @@
 title: material3_walkthrough
 tags: [design-system, expressive, m3, material-design, material-you, ux-philosophy]
 aliases: [M2 vs M3, M3 Deep Dive, M3 Expressive, Material Design 3 Walkthrough]
-date modified: 2025-12-27 23:26:04 +09:00
+date modified: 2025-12-27 23:51:56 +09:00
 date created: 2025-12-27 22:55:00 +09:00
 ---
 
 ## 🎨 Material Design 3 Expressive 개요
 
-**Material Design 3 (M3)**는 "Material You"라는 개인화 철학을 넘어, **"Expressive(표현형)"** 업데이트를 통해 인간의 감성과 기기의 반응성 사이의 간극을 좁혔습니다. 단순히 '예쁜' 디자인을 넘어, 디자인이 사용자에게 어떻게 **말을 거는지**, 그리고 어떻게 **정서적 가치**를 제공하는지에 집중합니다.
+**Material Design 3 (M3)** ㅑ "Material You"라는 개인화 철학을 넘어, **"Expressive(표현형)"** 업데이트를 통해 인간의 감성과 기기의 반응성 사이의 간극을 좁혔습니다. 단순히 '예쁜' 디자인을 넘어, 디자인이 사용자에게 어떻게 **말을 거는지**, 그리고 어떻게 **정서적 가치**를 제공하는지에 집중합니다.
 
 ---
 
 ## 🚀 왜 M3 로 진화했는가? (Evolution: M2 vs M3)
 
-기존 Material Design 2 (M2)가 '일관성'과 '브랜드 정체성'에 집중했다면, M3 는 **'개인화'**와 **'적응성'**, 그리고 **'표현력'**을 최우선 가치로 둡니다.
+기존 Material Design 2 (M2)가 '일관성'과 '브랜드 정체성'에 집중했다면, M3 는 **'개인화'** 와 **'적응성'**, 그리고 **'표현력'** 을 최우선 가치로 둡니다.
 
 | 특징             | Material Design 2 (M2) | Material Design 3 (M3)             | UX 개선점               |
 | :------------- | :--------------------- | :--------------------------------- | :------------------- |
