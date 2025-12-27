@@ -2,7 +2,7 @@
 title: components-color-theme
 tags: [android, color-system, design-system, expressive, flutter, hct, m3, material-design, material-theme, ux-design]
 aliases: [Color Roles, Color Scheme vs Theme, Compose ColorScheme, Dynamic Color, HCT Color Space, M3 Color System, ThemeData Mapping]
-date modified: 2025-12-27 23:53:16 +09:00
+date modified: 2025-12-28 00:11:36 +09:00
 date created: 2025-12-27 23:39:00 +09:00
 ---
 
@@ -17,10 +17,12 @@ Material Design 3 (M3) 의 컬러 시스템은 단순한 색상 가이드라인�
 디자인 시스템에서 이 두 개념을 엄격히 나누는 이유는 **'맥락에 따른 유연성'** 때문입니다.
 
 ### 1. Theme Color (테마 컬러/Seed Color)
+
 - **개념**: 제품의 정체성을 정의하는 '원천(Source)' 입니다. 브랜드 컬러나 사용자가 직접 고른 색상, 혹은 배경화면에서 추출된 색상 등이 시드(Seed) 가 됩니다.
 - **의도**: "이 앱의 무드는 무엇인가?" 에 대답합니다.
 
 ### 2. Color Scheme (컬러 스킴/Roles)
+
 - **개념**: 시드 컬러를 입력받아 **HCT 알고리즘**이 생성한 **26 개 이상의 의미론적 역할(Roles)** 집합입니다.
 - **나누는 이유 (UX 전략)**:
     - **플랫폼 독립성**: 안드로이드 시스템 UI 든, Flutter 앱이든 'Primary' 가 가지는 '가장 중요한 행동' 이라는 의미는 동일합니다. 개발자는 구체적인 HEX 값을 몰라도 '역할' 에만 집중하여 코딩할 수 있습니다.
@@ -57,6 +59,7 @@ M3 Expressive 에서는 Surface 가 더 세밀한 '표현력' 을 위해 5 단�
 | **On Surface / Variant** | 배경 위의 본문 텍스트(On Surface) 및 보조 텍스트(Variant). | Legibility |
 
 ### 3. Utility & Fixed Roles (기능/고정군)
+
 - **Error / On Error**: 시스템 오류 상황 알림용 고대비 레드.
 - **Outline / Variant**: 요소의 경계를 나누는 선. Variant 는 더 낮은 대비로 보조적인 구분에 적합.
 - **Fixed Roles**: 라이트/다크 모드에 관계없이 동일한 톤을 유지해야 하는 특수 상황(예: 미디어 플레이어 제어기) 에서 사용.
@@ -111,17 +114,17 @@ Flutter 는 M2 에서 M3 로 넘어가며 `ColorScheme` 중심으로 모든 컬�
 
 ---
 
----
-
 ## ♿ Accessibility (A11y): HCT 기반의 대비 자동 보장
 
 M3 컬러 시스템의 존재 이유 중 가장 큰 부분은 '누구에게나 잘 보이는 색상' 을 자동으로 만드는 것입니다.
 
 ### 1. Contrast by Design (설계에 의한 대비)
+
 - **The 40-Tone Rule (40 톤 규칙)**: M3 알고리즘은 배경색과 그 위의 글자색(On-colors) 간의 **Tone** 차이를 항상 **40** 이상으로 설정합니다. HCT 의 Tone 은 지각적 밝기이므로, 이 차이만으로도 WCAG AA 기준인 4.5:1 대비가 수학적으로 보장됩니다.
 - **Color Correction (색각 이상 대응)**: HCT 모델은 색맹이나 색약 사용자에게도 동일한 '지각적 밝기' 를 제공하므로, 특정 색상을 구별하지 못하더라도 **밝기 차이**를 통해 정보를 명확히 인지할 수 있게 합니다.
 
 ### 2. User Personalization (사용자 개인화)
+
 - **Contrast Settings (적응형 대비)**: 사용자가 안드로이드 설정에서 '대비 강조' 를 활성화하면, Color Scheme 전체의 톤이 실시간으로 조절되어 시인성을 극대화합니다. 이는 개발자가 별도의 코드를 짤 필요 없이 M3 테마를 사용하는 것만으로 혜택을 얻습니다.
 
 ---
