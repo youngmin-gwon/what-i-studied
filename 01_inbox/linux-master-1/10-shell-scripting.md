@@ -1,665 +1,151 @@
-# 셸 스크립팅
-
-## 1. 셸 스크립트 기초
-
-### 1.1 스크립트 작성
-
-**기본 구조**:
-```bash
-#!/bin/bash
-# 주석: 스크립트 설명
-
-echo "Hello, World!"
-```
-
-**Shebang (`#!`)**:
-- 스크립트 인터프리터 지정
-- `#!/bin/bash`: bash 사용
-- `#!/bin/sh`: POSIX 셸
-- `#!/usr/bin/env python3`: Python
-
-**실행 권한**:
-```bash
-chmod +x script.sh
-./script.sh
-```
-
-**실행 방법**:
-```bash
-./script.sh         # 실행 권한 필요
-bash script.sh      # 권한 불필요
-source script.sh    # 현재 셸에서 실행
-. script.sh         # source와 동일
-```
-
-## 2. 변수
-
-### 2.1 변수 선언 및 사용
-
-```bash
-# 변수 선언 (공백 없이!)
-NAME="John"
-AGE=30
-PATH_DIR="/home/user"
-
-# 변수 사용
-echo $NAME
-echo ${NAME}        # 권장 (명확함)
-echo "My name is $NAME"
-echo "Age: ${AGE}"
-
-# 명령 결과 저장
-CURRENT_DATE=$(date)
-FILES=$(ls -l)
-USER_COUNT=`who | wc -l`  # 구식 문법
-```
-
-### 2.2 특수 변수
-
-```bash
-$0      # 스크립트 이름
-$1-$9   # 위치 매개변수 (인수)
-$#      # 인수 개수
-$@      # 모든 인수 (개별)
-$*      # 모든 인수 (하나의 문자열)
-$?      # 마지막 명령의 종료 상태
-$$      # 현재 프로세스 PID
-$!      # 마지막 백그라운드 프로세스 PID
-```
-
-**예제**:
-```bash
-#!/bin/bash
-echo "Script name: $0"
-echo "First argument: $1"
-echo "Second argument: $2"
-echo "Number of arguments: $#"
-echo "All arguments: $@"
-echo "Process ID: $$"
-```
-
-### 2.3 환경 변수
-
-```bash
-export VAR="value"  # 환경 변수로 내보내기
-unset VAR           # 변수 제거
-
-# 읽기 전용
-readonly PI=3.14
-declare -r CONST="constant"
-```
-
-## 3. 입출력
-
-### 3.1 사용자 입력
-
-```bash
-# read 명령
-read NAME
-echo "Hello, $NAME"
-
-# 프롬프트와 함께
-read -p "Enter your name: " NAME
-
-# 비밀번호 입력 (숨김)
-read -sp "Enter password: " PASSWORD
-
-# 타임아웃
-read -t 5 -p "Enter within 5 seconds: " INPUT
-
-# 배열로 읽기
-read -a ARRAY
-echo ${ARRAY[0]}
-```
-
-### 3.2 출력
-
-```bash
-echo "Text"                 # 기본 출력
-echo -n "No newline"        # 줄바꿈 없이
-echo -e "Line1\nLine2"      # 이스케이프 시퀀스 해석
-
-printf "Name: %s, Age: %d\n" "$NAME" $AGE  # 형식화된 출력
-printf "%.2f\n" 3.14159     # 소수점 2자리
-```
-
-## 4. 조건문
-
-### 4.1 if 문
-
-```bash
-if [ condition ]; then
-    commands
-fi
-
-if [ condition ]; then
-    commands
-else
-    commands
-fi
-
-if [ condition1 ]; then
-    commands
-elif [ condition2 ]; then
-    commands
-else
-    commands
-fi
-```
-
-### 4.2 테스트 조건
-
-**파일 테스트**:
-```bash
-[ -e file ]     # 파일 존재
-[ -f file ]     # 일반 파일
-[ -d dir ]      # 디렉토리
-[ -r file ]     # 읽기 가능
-[ -w file ]     # 쓰기 가능
-[ -x file ]     # 실행 가능
-[ -s file ]     # 크기가 0보다 큼
-[ -L file ]     # 심볼릭 링크
-[ file1 -nt file2 ]  # file1이 더 최신
-[ file1 -ot file2 ]  # file1이 더 오래됨
-```
-
-**문자열 테스트**:
-```bash
-[ -z "$str" ]       # 문자열이 비어있음
-[ -n "$str" ]       # 문자열이 비어있지 않음
-[ "$str1" = "$str2" ]   # 같음
-[ "$str1" != "$str2" ]  # 다름
-[ "$str1" \< "$str2" ]  # 사전순 비교
-```
-
-**숫자 비교**:
-```bash
-[ $a -eq $b ]   # 같음 (equal)
-[ $a -ne $b ]   # 다름 (not equal)
-[ $a -lt $b ]   # 작음 (less than)
-[ $a -le $b ]   # 작거나 같음 (less or equal)
-[ $a -gt $b ]   # 큼 (greater than)
-[ $a -ge $b ]   # 크거나 같음 (greater or equal)
-```
-
-**논리 연산**:
-```bash
-[ condition1 ] && [ condition2 ]  # AND
-[ condition1 ] || [ condition2 ]  # OR
-[ ! condition ]                   # NOT
-[ condition1 -a condition2 ]      # AND (구식)
-[ condition1 -o condition2 ]      # OR (구식)
-```
-
-**이중 대괄호 `[](../.md)`** (bash 확장):
-```bash
-[$str =~ regex](../../$str =~ regex.md)     # 정규식 매칭
-[$str == pattern](../../$str == pattern.md)   # 패턴 매칭
-[$a > $b](../../$a > $b.md)           # 문자열 비교 (이스케이프 불필요)
-```
-
-**예제**:
-```bash
-#!/bin/bash
-if [ -f "/etc/passwd" ]; then
-    echo "File exists"
-fi
-
-if [ $# -eq 0 ]; then
-    echo "No arguments provided"
-    exit 1
-fi
-
-if [[ "$1" =~ ^[0-9]+$ ]]; then
-    echo "Argument is a number"
-fi
-```
-
-### 4.3 case 문
-
-```bash
-case $variable in
-    pattern1)
-        commands
-        ;;
-    pattern2)
-        commands
-        ;;
-    pattern3|pattern4)
-        commands
-        ;;
-    *)
-        default commands
-        ;;
-esac
-```
-
-**예제**:
-```bash
-#!/bin/bash
-case $1 in
-    start)
-        echo "Starting service..."
-        ;;
-    stop)
-        echo "Stopping service..."
-        ;;
-    restart)
-        echo "Restarting service..."
-        ;;
-    *)
-        echo "Usage: $0 {start|stop|restart}"
-        exit 1
-        ;;
-esac
-```
-
-## 5. 반복문
-
-### 5.1 for 루프
-
-```bash
-# 리스트 반복
-for item in list1 list2 list3; do
-    echo $item
-done
-
-# 파일 목록
-for file in *.txt; do
-    echo "Processing $file"
-done
-
-# 범위
-for i in {1..10}; do
-    echo $i
-done
-
-# C 스타일
-for ((i=0; i<10; i++)); do
-    echo $i
-done
-
-# 명령 결과
-for user in $(cat /etc/passwd | cut -d: -f1); do
-    echo "User: $user"
-done
-```
-
-### 5.2 while 루프
-
-```bash
-while [ condition ]; do
-    commands
-done
-
-# 예제: 카운터
-count=1
-while [ $count -le 5 ]; do
-    echo "Count: $count"
-    ((count++))
-done
-
-# 파일 읽기
-while read line; do
-    echo "Line: $line"
-done < file.txt
-
-# 무한 루프
-while true; do
-    echo "Press Ctrl+C to stop"
-    sleep 1
-done
-```
-
-### 5.3 until 루프
-
-```bash
-until [ condition ]; do
-    commands
-done
-
-# 예제
-count=1
-until [ $count -gt 5 ]; do
-    echo "Count: $count"
-    ((count++))
-done
-```
-
-### 5.4 루프 제어
-
-```bash
-break       # 루프 종료
-continue    # 다음 반복으로
-
-# 예제
-for i in {1..10}; do
-    if [ $i -eq 5 ]; then
-        continue    # 5는 건너뛰기
-    fi
-    if [ $i -eq 8 ]; then
-        break       # 8에서 종료
-    fi
-    echo $i
-done
-```
-
-## 6. 함수
-
-### 6.1 함수 정의 및 호출
-
-```bash
-# 정의
-function_name() {
-    commands
-}
-
-# 또는
-function function_name {
-    commands
-}
-
-# 호출
-function_name
-function_name arg1 arg2
-```
-
-**예제**:
-```bash
-#!/bin/bash
-
-greet() {
-    echo "Hello, $1!"
-}
-
-add() {
-    local result=$(($1 + $2))
-    echo $result
-}
-
-# 호출
-greet "John"
-sum=$(add 5 3)
-echo "Sum: $sum"
-```
-
-### 6.2 함수 매개변수 및 반환
-
-```bash
-my_function() {
-    local arg1=$1
-    local arg2=$2
-    
-    # 지역 변수
-    local result=$(($arg1 + $arg2))
-    
-    # 반환 (echo 사용)
-    echo $result
-}
-
-# 호출 및 결과 저장
-result=$(my_function 10 20)
-echo "Result: $result"
-
-# return 사용 (종료 상태만, 0-255)
-check_file() {
-    if [ -f "$1" ]; then
-        return 0    # 성공
-    else
-        return 1    # 실패
-    fi
-}
-
-if check_file "/etc/passwd"; then
-    echo "File exists"
-fi
-```
-
-## 7. 배열
-
-### 7.1 배열 선언 및 사용
-
-```bash
-# 배열 선언
-ARRAY=(value1 value2 value3)
-ARRAY[0]="first"
-ARRAY[1]="second"
-
-# 배열 요소 접근
-echo ${ARRAY[0]}        # 첫 번째 요소
-echo ${ARRAY[@]}        # 모든 요소
-echo ${ARRAY[*]}        # 모든 요소 (하나의 문자열)
-echo ${#ARRAY[@]}       # 배열 크기
-
-# 배열 반복
-for item in "${ARRAY[@]}"; do
-    echo $item
-done
-
-# 인덱스와 함께
-for i in "${!ARRAY[@]}"; do
-    echo "Index $i: ${ARRAY[$i]}"
-done
-
-# 배열 추가
-ARRAY+=(value4)
-
-# 배열 삭제
-unset ARRAY[1]
-unset ARRAY
-```
-
-### 7.2 연관 배열 (bash 4.0+)
-
-```bash
-# 선언
-declare -A ASSOC_ARRAY
-
-# 할당
-ASSOC_ARRAY[key1]="value1"
-ASSOC_ARRAY[key2]="value2"
-
-# 접근
-echo ${ASSOC_ARRAY[key1]}
-
-# 모든 키
-echo ${!ASSOC_ARRAY[@]}
-
-# 모든 값
-echo ${ASSOC_ARRAY[@]}
-```
-
-## 8. 문자열 처리
-
-### 8.1 문자열 연산
-
-```bash
-STRING="Hello, World!"
-
-# 길이
-echo ${#STRING}         # 13
-
-# 부분 문자열
-echo ${STRING:0:5}      # Hello
-echo ${STRING:7}        # World!
-
-# 대소문자 변환
-echo ${STRING^^}        # 대문자
-echo ${STRING,,}        # 소문자
-
-# 치환
-echo ${STRING/World/Bash}       # 첫 번째 매칭
-echo ${STRING//o/O}             # 모든 매칭
-
-# 삭제
-echo ${STRING#Hello, }          # 앞에서부터 최소 매칭 삭제
-echo ${STRING%!}                # 뒤에서부터 최소 매칭 삭제
-```
-
-## 9. 산술 연산
-
-### 9.1 산술 확장
-
-```bash
-# (( )) 사용
-((a = 5 + 3))
-echo $a             # 8
-
-((a++))             # 증가
-((a--))             # 감소
-((a += 5))          # 복합 할당
-
-# $((  )) 사용
-result=$((5 + 3))
-echo $result        # 8
-
-result=$((10 * 2 + 5))
-echo $result        # 25
-
-# let 사용
-let "a = 5 + 3"
-let a++
-
-# expr 사용 (구식)
-result=$(expr 5 + 3)
-```
-
-**연산자**:
-```bash
-+   # 덧셈
--   # 뺄셈
-*   # 곱셈
-/   # 나눗셈
-%   # 나머지
-**  # 거듭제곱
-```
-
-## 10. 디버깅 및 에러 처리
-
-### 10.1 디버깅
-
-```bash
-#!/bin/bash -x      # 디버그 모드
-set -x              # 디버그 활성화
-set +x              # 디버그 비활성화
-
-set -e              # 에러 시 즉시 종료
-set -u              # 미정의 변수 사용 시 에러
-set -o pipefail     # 파이프라인 에러 감지
-
-# 조합
-set -euo pipefail
-```
-
-### 10.2 에러 처리
-
-```bash
-# 종료 상태 확인
-command
-if [ $? -eq 0 ]; then
-    echo "Success"
-else
-    echo "Failed"
-fi
-
-# 또는
-if command; then
-    echo "Success"
-else
-    echo "Failed"
-fi
-
-# trap으로 에러 처리
-trap 'echo "Error occurred"; exit 1' ERR
-
-# 정리 작업
-trap 'rm -f /tmp/tempfile' EXIT
-
-# 시그널 처리
-trap 'echo "Interrupted"; exit' INT TERM
-```
-
-## 11. 실용 예제
-
-### 11.1 백업 스크립트
-
-```bash
-#!/bin/bash
-set -euo pipefail
-
-BACKUP_DIR="/backup"
-SOURCE_DIR="/data"
-DATE=$(date +%Y%m%d_%H%M%S)
-BACKUP_FILE="backup_${DATE}.tar.gz"
-
-echo "Starting backup..."
-tar -czf "${BACKUP_DIR}/${BACKUP_FILE}" "${SOURCE_DIR}"
-
-if [ $? -eq 0 ]; then
-    echo "Backup completed: ${BACKUP_FILE}"
-else
-    echo "Backup failed!"
-    exit 1
-fi
-
-# 7일 이상 된 백업 삭제
-find "${BACKUP_DIR}" -name "backup_*.tar.gz" -mtime +7 -delete
-```
-
-### 11.2 시스템 모니터링
-
-```bash
-#!/bin/bash
-
-# CPU 사용률
-CPU=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | cut -d'%' -f1)
-
-# 메모리 사용률
-MEM=$(free | grep Mem | awk '{print ($3/$2) * 100.0}')
-
-# 디스크 사용률
-DISK=$(df -h / | tail -1 | awk '{print $5}' | cut -d'%' -f1)
-
-echo "CPU: ${CPU}%"
-echo "Memory: ${MEM}%"
-echo "Disk: ${DISK}%"
-
-# 임계값 확인
-if (( $(echo "$CPU > 80" | bc -l) )); then
-    echo "Warning: High CPU usage!"
-fi
-```
-
-## 12. 시험 대비 핵심 요약
-
-### 기본
-- **Shebang**: `#!/bin/bash`
-- **실행**: `chmod +x script.sh`
-- **변수**: `VAR=value`, `$VAR`, `${VAR}`
-
-### 특수 변수
-- `$0`: 스크립트 이름
-- `$1-$9`: 인수
-- `$#`: 인수 개수
-- `$?`: 종료 상태
-
-### 조건문
-- **if**: `if [ condition ]; then ... fi`
-- **case**: `case $var in pattern) ... ;; esac`
-
-### 반복문
-- **for**: `for i in list; do ... done`
-- **while**: `while [ condition ]; do ... done`
-
-### 함수
-- **정의**: `func() { ... }`
-- **호출**: `func arg1 arg2`
-- **반환**: `echo result` 또는 `return status`
-
-### 테스트
-- **파일**: `-f`, `-d`, `-e`, `-r`, `-w`, `-x`
-- **문자열**: `-z`, `-n`, `=`, `!=`
-- **숫자**: `-eq`, `-ne`, `-lt`, `-le`, `-gt`, `-ge`
+# 셸 스크립팅 (Linux Master 대비)
+
+## 1. 셸의 종류 및 특징
+리눅스에서 사용되는 주요 셸의 종류와 특징입니다.
+
+| 셸 (Shell) | 특징 및 설명 |
+| :--- | :--- |
+| **Bourne Shell (sh)** | 1977년 스티븐 본(Stephen Bourne)이 개발한 유닉스 버전 7의 기본 셸입니다. |
+| **bash (Bourne Again Shell)** | GNU 프로젝트를 위해 브라이언 폭스가 개발했습니다. 리눅스의 표준 셸로, sh와 호환되며 명령 히스토리, 별칭(Alias), 명령 행 편집 등을 지원합니다. |
+| **C Shell (csh)** | 1978년 빌 조이가 C언어 문법을 기반으로 개발했습니다. 히스토리, 별칭, 작업 제어 기능을 포함하나 명령 행 편집은 지원하지 않습니다. |
+| **tcsh** | 켄 그리어(Ken Greer)가 C Shell의 기능을 확장하여(The enhanced C shell) 개발했습니다. 명령어 완성, 편집 기능을 추가했습니다. |
+| **ksh (Korn Shell)** | 데이비드 콘(David Korn)이 개발했으며 C 셸의 기능(작업 제어, 히스토리 등)을 포함합니다. |
+| **dash** | 데비안(Debian) 계열 리눅스에서 /bin/sh로 사용되는 가벼운 셸입니다. 스크립트 실행 속도가 빠릅니다. |
+
+## 2. 셸 환경 설정 파일
+로그인 시 셸 환경을 설정하기 위해 읽어들이는 파일들의 종류와 역할입니다.
+
+| 파일 경로 | 적용 대상 | 설명 |
+| :--- | :--- | :--- |
+| `/etc/profile` | 전체 사용자 | 시스템 전체에 적용되는 환경 변수와 시작 관련 프로그램을 설정합니다. |
+| `/etc/bashrc` | 전체 사용자 | 시스템 전체에 적용되는 **별칭(alias)**과 함수를 설정합니다. |
+| `~/.bash_profile` | 개별 사용자 | 개인 사용자의 환경 설정과 시작 프로그램을 설정합니다(PATH 등). 로그인 시 읽어들입니다. |
+| `~/.bashrc` | 개별 사용자 | 개인 사용자가 정의한 **별칭(alias)**과 함수가 있는 파일입니다. |
+| `~/.bash_logout` | 개별 사용자 | 사용자가 로그아웃할 때 수행하는 설정을 저장합니다. |
+
+## 3. Alias (별칭) 관리 및 예시
+사용자가 명령어를 편리하게 줄여 쓰거나 옵션을 기본값으로 지정할 때 사용하는 기능입니다.
+
+| 구분 | 명령어/설정 | 설명 및 예시 |
+| :--- | :--- | :--- |
+| **Alias 지정** | `alias 별칭='명령어'` | 특정 명령어를 별칭으로 지정합니다. |
+| **Alias 해제** | `unalias 별칭` | 지정된 별칭을 해제합니다. (-a 옵션은 모든 alias 해제) |
+| **예시 1** | `alias ls='ls -alF'` | ls 입력 시 파일의 속성, 링크 등을 포함하여 자세히 출력하고 파일 종류를 표시합니다. |
+| **예시 2** | `alias aaa='ls -alF'` | aaa라는 사용자 정의 명령어로 ls -alF 기능을 수행합니다. |
+| **예시 3** | `alias bbb='ls ; pwd'` | bbb 입력 시 ls 실행 후 pwd를 순차적으로 실행합니다. |
+| **예시 4** | `alias c=clear` | c 입력 시 화면을 지우는 clear 명령어가 실행됩니다. |
+| **특징** | 명령 우선순위 | **Alias는 내부 명령어, PATH 경로 명령어보다 우선순위가 높습니다(1순위).** |
+
+## 4. 주요 환경 변수
+셸 환경을 정의하는 중요한 변수들입니다.
+
+| 변수명 | 설명 |
+| :--- | :--- |
+| **HOME** | 사용자의 홈 디렉터리 경로입니다. |
+| **PATH** | 실행 파일을 찾을 디렉터리 경로들의 목록입니다. |
+| **LANG** | 셸 사용 시 기본으로 지원되는 언어입니다. |
+| **SHELL** | 사용자의 로그인 셸 경로를 저장합니다. |
+| **PS1** | 프롬프트(Prompt) 변수로, 셸의 프롬프트 모양을 정의합니다. (예: `[\u@\h \W]\$`) |
+| **HISTSIZE** | 히스토리 스택의 크기(저장되는 명령어 개수)를 지정합니다. |
+| **TMOUT** | 일정 시간 동안 작업이 없을 경우 로그아웃시키는 시간(초 단위)입니다. |
+
+## 5. 셸 메타 문자 및 리다이렉션
+셸에서 특별한 의미를 가지는 문자들과 입출력 방향 전환 기호입니다.
+
+| 기호 | 종류 | 설명 |
+| :--- | :--- | :--- |
+| `~` | Tilde | 홈 디렉터리를 나타냅니다. (~user: 해당 사용자의 홈) |
+| `` ` `` | Backquotes | 문자열을 명령어로 인식하여 실행 결과로 대체합니다. (`$()`와 동일) |
+| `" "` | Double Quotes | `$(변수)`, `` `(명령 대체) ``, `\(escape)`를 제외한 모든 문자를 일반 문자로 취급합니다. |
+| `' '` | Single Quotes | 모든 특수 문자의 의미를 제거하고 문자열 그대로 취급합니다. |
+| `>` | Redirection | 프로세스의 표준 출력을 파일로 내보냅니다(덮어쓰기). |
+| `>>` | Redirection | 프로세스의 표준 출력을 파일 끝에 추가합니다(Append). |
+| `<` | Redirection | 파일의 내용을 표준 입력으로 받습니다. |
+| `\|` | Pipe | 앞 명령어의 출력을 뒤 명령어의 입력으로 전달합니다. |
+
+## 6. 셸 프로그래밍 파라미터 및 위치 매개변수
+스크립트 실행 시 전달되는 인자(Argument)와 상태를 다루는 변수입니다.
+
+| 항목 | 기호/명령어 | 설명 |
+| :--- | :--- | :--- |
+| **위치 변수** | `$0` | 실행된 셸 스크립트 파일명 |
+| **위치 변수** | `$1`, `$2`, ... | 스크립트에 넘겨진 첫 번째, 두 번째 아규먼트 |
+| **특수 변수** | `$#` | 아규먼트의 총 개수 |
+| **특수 변수** | `$*` | 전체 인자를 하나의 문자열로 처리 ("$1 $2 $3") |
+| **특수 변수** | `$@` | 전체 인자를 각각의 문자열로 처리 ("$1" "$2" "$3") |
+| **특수 변수** | `$?` | 바로 이전에 실행된 명령의 종료 상태 값 (0이면 성공) |
+| **특수 변수** | `$$` | 현재 실행 중인 셸의 프로세스 ID(PID) |
+
+## 7. 셸 프로그래밍 테스트 연산자 (조건문 핵심)
+`if`문이나 `while`문 등의 조건식(`[ ]` 또는 `test`) 안에서 사용되는 연산자들입니다.
+
+| 구분 | 연산자 | 설명 및 참(True)인 경우 |
+| :--- | :--- | :--- |
+| **파일 테스트** | `-d 파일` | 파일이 디렉터리이면 참 |
+| | `-f 파일` | 파일이 일반 파일이면 참 |
+| | `-e 파일` | 파일이 존재하면 참 |
+| | `-s 파일` | 파일의 크기가 0보다 크면(내용이 있으면) 참 |
+| | `-r 파일` | 파일이 읽기 가능하면 참 |
+| | `-w 파일` | 파일이 쓰기 가능하면 참 |
+| | `-x 파일` | 파일이 실행 가능하면 참 |
+| | `-L 파일` | 파일이 심볼릭 링크이면 참 |
+| | `-b 파일` | 파일이 블록 장치 파일이면 참 |
+| | `-c 파일` | 파일이 문자 장치 파일이면 참 |
+| **문자열 테스트** | `str1 = str2` | 두 문자열이 같으면 참 |
+| | `str1 != str2` | 두 문자열이 다르면 참 |
+| | `-z string` | 문자열의 길이가 0(null)이면 참 |
+| | `-n string` | 문자열의 길이가 0이 아니면(내용이 있으면) 참 |
+| **산술 테스트** | `-eq` | 두 값이 같으면 참 (Equal) |
+| | `-ne` | 두 값이 다르면 참 (Not Equal) |
+| | `-gt` | 왼쪽이 오른쪽보다 크면 참 (Greater Than) |
+| | `-ge` | 왼쪽이 오른쪽보다 크거나 같으면 참 (Greater Equal) |
+| | `-lt` | 왼쪽이 오른쪽보다 작으면 참 (Less Than) |
+| | `-le` | 왼쪽이 오른쪽보다 작거나 같으면 참 (Less Equal) |
+| **논리 연산자** | `-a` | AND 연산 (두 조건이 모두 참이면 참) |
+| | `-o` | OR 연산 (둘 중 하나라도 참이면 참) |
+| | `!` | NOT 연산 (조건이 거짓이면 참) |
+
+## 8. 셸 변수 확장 및 파라미터 (심화)
+변수의 값 유무에 따라 다른 값을 출력하거나, 패턴을 치환하는 기능입니다.
+
+| 표현식 | 설명 |
+| :--- | :--- |
+| `${var:-word}` | 변수가 설정되지 않았거나 null이면 word를 반환 (변수 값은 변경 안 됨) |
+| `${var:=word}` | 변수가 설정되지 않았거나 null이면 word를 변수에 대입하고 반환 |
+| `${var:?msg}` | 변수가 없으면 msg를 에러로 출력하고 스크립트 종료 |
+| `${var:+word}` | 변수가 설정되어 있으면 word를 반환, 없으면 null 반환 |
+| `${#var}` | 변수 값의 문자열 길이를 반환 |
+| `${var#pattern}` | 변수 앞부분부터 패턴과 일치하는 가장 짧은 부분 삭제 |
+| `${var##pattern}` | 변수 앞부분부터 패턴과 일치하는 가장 긴 부분 삭제 |
+| `${var%pattern}` | 변수 뒷부분부터 패턴과 일치하는 가장 짧은 부분 삭제 |
+| `${var%%pattern}` | 변수 뒷부분부터 패턴과 일치하는 가장 긴 부분 삭제 |
+
+## 9. 제어문 및 반복문 문법
+스크립트의 흐름을 제어하는 핵심 구문입니다.
+
+| 구문 | 형식 및 설명 |
+| :--- | :--- |
+| **if 문** | `if [ 조건 ]; then 명령; elif [ 조건 ]; then 명령; else 명령; fi` <br> 조건의 참/거짓에 따라 분기합니다. |
+| **case 문** | `case $변수 in 패턴1) 명령;; 패턴2) 명령;; *) 기본명령;; esac` <br> 변수 값과 일치하는 패턴을 찾아 실행합니다. |
+| **select 문** | `select 변수 in 목록 do 명령 done` <br> 메뉴 방식을 제공하여 사용자의 선택을 받습니다(주로 ksh, bash). |
+| **for 문** | `for 변수 in 목록 do 명령 done` <br> 목록의 각 항목을 변수에 대입하며 반복합니다. |
+| **while 문** | `while [ 조건 ] do 명령 done` <br> 조건이 참(True)인 동안 반복합니다. |
+| **until 문** | `until [ 조건 ] do 명령 done` <br> 조건이 참이 될 때까지(거짓인 동안) 반복합니다. |
+| **함수(Function)** | `function 이름() { 명령 }` 또는 `이름() { 명령 }` <br> 반복되는 코드를 묶어서 정의하고 호출합니다. |
+
+## 10. 기타 중요 셸 명령어
+스크립트 내부에서 흐름을 제어하거나 연산할 때 쓰입니다.
+
+| 명령어 | 설명 |
+| :--- | :--- |
+| **break [n]** | 반복문(for, while 등)을 즉시 빠져나갑니다. (n단계 루프 탈출) |
+| **continue [n]** | 반복문의 남은 부분을 건너뛰고 다음 반복을 시작합니다. |
+| **exit [n]** | 스크립트를 종료합니다. n은 종료 상태값(0=성공)을 지정합니다. |
+| **shift [n]** | 위치 매개변수($1, $2...)를 왼쪽으로 이동시킵니다. ($2가 $1이 됨) |
+| **read** | 사용자 입력을 받아 변수에 저장합니다. (`read 변수명`) |
+| **expr** | 산술 연산을 수행합니다. (예: `expr 3 + 2`, 곱하기는 `\*` 사용) |
+| **eval** | 문자열을 명령어로 인식하여 실행하거나, 변수 안의 변수를 참조할 때 씁니다. |
+| **printf** | C언어의 printf와 유사하게 형식을 지정하여 출력합니다. |
 
 ---
 

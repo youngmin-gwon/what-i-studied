@@ -45,14 +45,17 @@ Apple 의 디자인은 단순한 심미성을 넘어, 다음과 같은 철학적
 
 ### 🛠️ Foundations (기초 사양)
 - [[foundations/foundations-layout|Layout]]: 안전 영역(Safe Area), 레이아웃 가이드 및 적응형 구조.
-- [[foundations/foundations-color-typography|Color & Typography]]: 시스템 컬러, 다이내믹 타입, SF Symbols.
+- [[foundations/foundations-color-typography|Color & Typography]]: 시스템 컬러, 다이내믹 타입, SF Symbols, 그리고 **Liquid Glass(리퀴드 글래스)** 물성 사양.
 
 ### 🧱 Components (UI 컴포넌트)
 - [[components/components-bars|Bars & Navigation]]: 내비게이션 바, 탭 바, 사이드바.
 - [[components/components-controls|Controls]]: 버튼, 피커, 슬라이더, 스위치.
 - [[components/components-inputs|Inputs]]: 텍스트 필드, 검색바, 선택 패턴.
 - [[components/components-views|Views & Containment]]: 리스트, 테이블, 컬렉션, 스플릿 뷰.
-- [[components/components-feedback|Communication]]: 다이얼로그(Alerts), 시트(Sheets), 알림.
+- [[components/components-feedback|Feedback & Overlays]]: 알림(Alerts), 시트, 팝오버, 햅틱 피드백.
+- [[components/components-system|System Integration]]: 위젯, 실시간 현황(Live Activities), 알림 시스템.
+- [[components/components-macos|macOS Specifics]]: 메뉴 바, 윈도우 스타일, 데스크탑 최적화.
+- [[components/components-spatial|Spatial Computing (visionOS)]]: 윈도우, 볼륨, 오너먼트 및 시선/손 조작 체계.
 
 ---
 
