@@ -2,7 +2,7 @@
 title: 14-command-reference
 tags: [commands, linux, patterns, reference, shell]
 aliases: []
-date modified: 2025-12-28 21:23:12 +09:00
+date modified: 2025-12-28 21:23:42 +09:00
 date created: 2025-12-28 20:45:58 +09:00
 ---
 
