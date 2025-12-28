@@ -2,7 +2,7 @@
 title: 06-io-redirection
 tags: [bash, io, linux, redirection, shell]
 aliases: []
-date modified: 2025-12-28 21:19:09 +09:00
+date modified: 2025-12-28 22:30:49 +09:00
 date created: 2025-12-28 20:44:41 +09:00
 ---
 
