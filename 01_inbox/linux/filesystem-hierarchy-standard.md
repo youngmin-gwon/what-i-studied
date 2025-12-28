@@ -113,7 +113,7 @@ graph LR
 ├── sbin/    - 시스템 관리 명령어
 ├── lib/     - 라이브러리
 ├── local/   - 로컬 설치 소프트웨어
-├── share/   - 아키텍처 독립적 데이터
+├── share/   - 아키텍처 독립적 데이터(앱 아이콘 및 배경 이미지, locale 과 timezone 파일, 시스템의 `man` 페이지와 `info` 문서)
 ├── include/ - C 헤더 파일
 └── src/     - 소스 코드
 ```
