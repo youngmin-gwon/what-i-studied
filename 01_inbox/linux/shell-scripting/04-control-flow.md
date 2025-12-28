@@ -2,7 +2,7 @@
 title: 04-control-flow
 tags: [bash, control-flow, linux, shell]
 aliases: []
-date modified: 2025-12-28 20:54:26 +09:00
+date modified: 2025-12-28 21:11:23 +09:00
 date created: 2025-12-28 20:44:34 +09:00
 ---
 
@@ -35,32 +35,32 @@ Bash 에서는 세 가지 방식의 테스트를 지원합니다.
 
 ### 2. 제어 구조 (Control Structures)
 
-| 구문 | 형식 및 특징 |
-| :--- | :--- |
-| **if 문** | `if [ 조건 ]; then … elif [ 조건 ]; then … else … fi` |
-| **case 문** | `case $VAR in pat1) … ;; pat2|pat3) … ;; *) … esac` |
-| **for 문** | `for x in 리스트; do … done` (리스트 반복) <br> `for ((i=0; i<n; i++)); do … done` (C 스타일) |
-| **while 문** | `while [ 조건 ]; do … done` (조건이 참인 동안 반복) |
-| **until 문** | `until [ 조건 ]; do … done` (조건이 참이 될 때까지 반복) |
-| **select 문** | 사용자의 메뉴 선택을 받는 루프 (입력값은 `$REPLY` 에 저장) |
+| 구문           | 형식 및 특징                                                                            |                       |     |
+| :----------- | :--------------------------------------------------------------------------------- | --------------------- | --- |
+| **if 문**     | `if [ 조건 ]; then … elif [ 조건 ]; then … else … fi`                                  |                       |     |
+| **case 문**   | `case $VAR in pat1) … ;; pat2                                                      | pat3) … ;; *) … esac` |     |
+| **for 문**    | `for x in 리스트; do … done` (리스트 반복) <br> `for ((i=0; i<n; i++)); do … done` (C 스타일) |                       |     |
+| **while 문**  | `while [ 조건 ]; do … done` (조건이 참인 동안 반복)                                           |                       |     |
+| **until 문**  | `until [ 조건 ]; do … done` (조건이 참이 될 때까지 반복)                                        |                       |     |
+| **select 문** | 사용자의 메뉴 선택을 받는 루프 (입력값은 `$REPLY` 에 저장)                                             |                       |     |
 
 ### 3. 루프 제어 및 특수 제어
 
-| 명령어 | 설명 |
-| :--- | :--- |
-| **break [n]** | 루프를 즉시 탈출 (n 은 중첩 레벨) |
-| **continue [n]** | 현재 반복을 건너뛰고 다음 반복 시작 |
-| **shift [n]** | 위치 매개변수($1, $2…)를 왼쪽으로 이동시킴 |
+| 명령어              | 설명                          |
+| :--------------- | :-------------------------- |
+| **break [n]**    | 루프를 즉시 탈출 (n 은 중첩 레벨)       |
+| **continue [n]** | 현재 반복을 건너뛰고 다음 반복 시작        |
+| **shift [n]**    | 위치 매개변수($1, $2…)를 왼쪽으로 이동시킴 |
 
 ### 4. 종료 코드 설계 (Exit Codes)
 
-| 코드 | 관례적 의미 |
-| :---: | :--- |
-| **0** | 성공 (Success) |
-| **1** | 일반 실패 (General Error) |
-| **2** | 사용법 오류 (Usage Error/Misuse) |
+|   코드    | 관례적 의미                                 |
+| :-----: | :------------------------------------- |
+|  **0**  | 성공 (Success)                           |
+|  **1**  | 일반 실패 (General Error)                  |
+|  **2**  | 사용법 오류 (Usage Error/Misuse)            |
 | **126** | 실행 불가 (Command invoked cannot execute) |
-| **127** | 명령 없음 (Command not found) |
+| **127** | 명령 없음 (Command not found)              |
 
 ---
 

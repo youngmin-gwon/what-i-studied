@@ -2,7 +2,7 @@
 title: 14-command-reference
 tags: [commands, linux, patterns, reference, shell]
 aliases: []
-date modified: 2025-12-28 21:03:04 +09:00
+date modified: 2025-12-28 21:09:40 +09:00
 date created: 2025-12-28 20:45:58 +09:00
 ---
 
@@ -22,13 +22,13 @@ date created: 2025-12-28 20:45:58 +09:00
 
 ### 2. 텍스트 필터 및 가공 (Text Filters)
 
-| 도구 (Tool) | 빈출 옵션 요약 | 핵심 패턴 |
-| :--- | :--- | :--- |
-| **grep** | `-i` (무시), `-v` (반전), `-E` (확장 정문제), `-r` (재귀), `-o` (매칭만), `-F` (고정) | `grep -Ei 'error|warn'` |
-| **sed** | `-n` (필요 시만 출력), `-i` (In-place 수정), `s/old/new/g` (치환) | `sed -i 's/foo/bar/g'` |
-| **awk** | `-F` (구분자), `$1, $NF, NR, NF, BEGIN, END` | `awk -F: '{print $1}'` |
-| **sort** | `-n` (숫자), `-r` (역순), `-k` (키 정렬), `-u` (고유값) | `sort -nrk2` |
-| **xargs** | `-0` (NUL 안전), `-I {}` (치환), `-P` (병렬) | `find … | xargs -0 -P4` |
+| 도구 (Tool) | 빈출 옵션 요약                                                              | 핵심 패턴                  |               |
+| :-------- | :-------------------------------------------------------------------- | :--------------------- | ------------- |
+| **grep**  | `-i` (무시), `-v` (반전), `-E` (확장 정문제), `-r` (재귀), `-o` (매칭만), `-F` (고정) | `grep -Ei 'error       | warn'`        |
+| **sed**   | `-n` (필요 시만 출력), `-i` (In-place 수정), `s/old/new/g` (치환)               | `sed -i 's/foo/bar/g'` |               |
+| **awk**   | `-F` (구분자), `$1, $NF, NR, NF, BEGIN, END`                             | `awk -F: '{print $1}'` |               |
+| **sort**  | `-n` (숫자), `-r` (역순), `-k` (키 정렬), `-u` (고유값)                         | `sort -nrk2`           |               |
+| **xargs** | `-0` (NUL 안전), `-I {}` (치환), `-P` (병렬)                                | `find …                | xargs -0 -P4` |
 
 ### 3. 파일 및 시스템 명령
 
