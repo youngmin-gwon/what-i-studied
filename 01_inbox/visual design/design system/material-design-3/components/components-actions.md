@@ -2,7 +2,7 @@
 title: components-actions
 tags: [buttons, design-system, expressive, fab, m3, material-design, ux-design]
 aliases: [Expressive Buttons, M3 Actions, Shape Morphing Feedback]
-date modified: 2025-12-28 00:10:40 +09:00
+date modified: 2025-12-28 20:53:36 +09:00
 date created: 2025-12-27 22:56:00 +09:00
 ---
 

@@ -1,13 +1,16 @@
 ---
-title: 01. Bash 및 셸 기본 개념
-tags: [linux, shell, bash, overview]
+title: 01-overview
+tags: [bash, linux, overview, shell]
+aliases: []
+date modified: 2025-12-28 20:54:11 +09:00
+date created: 2025-12-28 20:44:10 +09:00
 ---
 
-# 01. Bash 및 셸 기본 개념
+## 01. Bash 및 셸 기본 개념
 
 리눅스 셸의 역할과 실행 환경, 그리고 명령어 해석의 기본 원리를 다룹니다.
 
-## 1. 셸의 주요 역할
+### 1. 셸의 주요 역할
 
 | 역할 | 설명 |
 | :--- | :--- |
@@ -16,7 +19,7 @@ tags: [linux, shell, bash, overview]
 | **환경 조율** | 변수, 함수, Alias, ulimit, 셸 옵션(`set`) 등을 관리합니다. |
 | **잡 제어** | 프로세스의 포그라운드/백그라운드 전환 및 시그널 전달을 관리합니다. |
 
-## 2. 셸 환경 설정 로드 순서 (Loading Order)
+### 2. 셸 환경 설정 로드 순서 (Loading Order)
 
 | 환경 | 로드되는 파일 순서 |
 | :--- | :--- |
@@ -24,7 +27,7 @@ tags: [linux, shell, bash, overview]
 | **인터랙티브 비로그인 (터미널)** | `~/.bashrc` |
 | **비인터랙티브 (스크립트 실행)** | `$BASH_ENV` 변수에 지정된 파일 (지정 시에만) |
 
-## 3. 명령어 해석 단계 (Execution Steps)
+### 3. 명령어 해석 단계 (Execution Steps)
 
 | 단계 | 내용 |
 | :---: | :--- |
@@ -33,7 +36,7 @@ tags: [linux, shell, bash, overview]
 | **3** | **리디렉션 (Redirection)**: `<`, `>`, `>>` 등 입출력 방향을 설정합니다. |
 | **4** | **명령 찾기/실행** | **빌트인(Built-in)** → **함수(Function)** → **외부 명령(PATH)** 순으로 찾아 실행합니다. |
 
-## 4. 종료 상태 코드 (Exit Status)
+### 4. 종료 상태 코드 (Exit Status)
 
 | 코드 | 의미 | 설명 |
 | :---: | :--- | :--- |
@@ -42,9 +45,9 @@ tags: [linux, shell, bash, overview]
 | **2** | **Misuse** | 셸 설정이나 옵션 사용 오류 |
 | **126** | **Permission Denied** | 명령은 찾았으나 실행 권한이 없음 |
 | **127** | **Command Not Found** | 명령어를 찾을 수 없음 |
-| **128+N** | **Signal Error** | 시그널 N에 의해 비정상 종료 (예: Ctrl+C = 130) |
+| **128+N** | **Signal Error** | 시그널 N 에 의해 비정상 종료 (예: Ctrl+C = 130) |
 
-## 5. POSIX sh vs Bash 주요 차약
+### 5. POSIX sh vs Bash 주요 차약
 
 | 기능 | POSIX sh (표준) | Bash (확장) |
 | :--- | :--- | :--- |
@@ -55,7 +58,7 @@ tags: [linux, shell, bash, overview]
 
 ---
 
-## 🔗 연결 문서
+### 🔗 연결 문서
 
 - [[02-expansions]] - 명령 확장 및 인용 규칙
 - [[../shell-scripting]] - 전체 가이드 목록
