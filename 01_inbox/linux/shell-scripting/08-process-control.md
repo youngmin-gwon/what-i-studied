@@ -2,7 +2,7 @@
 title: 08-process-control
 tags: [job-control, linux, process, shell, signal]
 aliases: []
-date modified: 2025-12-28 21:10:10 +09:00
+date modified: 2025-12-28 21:18:52 +09:00
 date created: 2025-12-28 20:45:07 +09:00
 ---
 
@@ -22,13 +22,13 @@ date created: 2025-12-28 20:45:07 +09:00
 
 ### 2. 주요 시그널 (Common Signals)
 
-| 번호 | 시그널 | 설명 | 단축키 |
-| :---: | :--- | :--- | :---: |
-| **1** | **SIGHUP** | 터미널 종료 시 전송 (Hang-up) | |
-| **2** | **SIGINT** | 인터럽트 (Interrupt) | `Ctrl+C` |
-| **9** | **SIGKILL** | 강제 종료 (무시 불가) | |
-| **15** | **SIGTERM** | 일반 종료 요청 (Term) | |
-| **19** | **SIGSTOP** | 일시 정지 (Stop, 무시 불가) | |
+|   번호   | 시그널         | 설명                     |   단축키    |
+| :----: | :---------- | :--------------------- | :------: |
+| **1**  | **SIGHUP**  | 터미널 종료 시 전송 (Hang-up)  |          |
+| **2**  | **SIGINT**  | 인터럽트 (Interrupt)       | `Ctrl+C` |
+| **9**  | **SIGKILL** | 강제 종료 (무시 불가)          |          |
+| **15** | **SIGTERM** | 일반 종료 요청 (Term)        |          |
+| **19** | **SIGSTOP** | 일시 정지 (Stop, 무시 불가)    |          |
 | **20** | **SIGTSTP** | 터미널 정지 (Stop from TTY) | `Ctrl+Z` |
 
 ### 3. 트랩 (trap)

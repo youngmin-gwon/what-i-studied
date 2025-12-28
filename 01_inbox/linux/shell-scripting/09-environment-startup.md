@@ -2,7 +2,7 @@
 title: 09-environment-startup
 tags: [bashrc, cron, environnement, linux, profile, shell]
 aliases: []
-date modified: 2025-12-28 21:10:36 +09:00
+date modified: 2025-12-28 21:19:05 +09:00
 date created: 2025-12-28 20:45:09 +09:00
 ---
 
@@ -42,7 +42,6 @@ date created: 2025-12-28 20:45:09 +09:00
 |    `\u`     | 사용지 명               | `\h` / `\H` | 호스트명 (단축/전체) |
 | `\w` / `\W` | 전체 경로 / 마지막 디렉터리    | `\t` / `\d` | 시간 / 날짜      |
 |    `\$`     | 사용자 구분 (`#` or `$`) |    `\n`     | 줄바꿈          |
-|             |                     |             |              |
 
 ---
 

@@ -2,7 +2,7 @@
 title: 12-recipes
 tags: [checklist, linux, recipes, shell, snippets]
 aliases: []
-date modified: 2025-12-28 21:00:30 +09:00
+date modified: 2025-12-28 21:23:02 +09:00
 date created: 2025-12-28 20:45:38 +09:00
 ---
 
@@ -12,13 +12,13 @@ date created: 2025-12-28 20:45:38 +09:00
 
 ### 1. 실전 핵심 스니펫 (Core Snippets)
 
-| 용도        | 코드 (Code)                                                 | 설명           |         |                  |
-| :-------- | :-------------------------------------------------------- | :----------- | ------- | ---------------- |
-| **안전 옵션** | `set -Eeuo pipefail`                                      | 필수 안전 세트     |         |                  |
-| **임시 공간** | `TMP=$(mktemp -d) \|\| exit 1; trap 'rm -rf "$TMP"' EXIT` | 자동 삭제되는 작업장  |         |                  |
-| **파일 읽기** | `while IFS= read -r line; do … done < file`             | 가장 안전한 루프 패턴 |         |                  |
-| **명령 확인** | `command -v jq >/dev/null \|\| exit 1`                    | 외부 의존성 사전 체크 |         |                  |
-| **색상 출력** | `[ -t 1 ] && RED='\e[31m'                                 |              | RED=''` | 터미널 여부에 따른 색상 적용 |
+| 용도 | 코드 (Code) | 설명 |
+| :--- | :--- | :--- |
+| **안전 옵션** | `set -Eeuo pipefail` | 필수 안전 세트 |
+| **임시 공간** | `TMP=$(mktemp -d) \|\| exit 1; trap 'rm -rf "$TMP"' EXIT` | 자동 삭제되는 작업장 |
+| **파일 읽기** | `while IFS= read -r line; do … done < file` | 가장 안전한 루프 패턴 |
+| **명령 확인** | `command -v jq >/dev/null \|\| exit 1` | 외부 의존성 사전 체크 |
+| **색상 출력** | `[ -t 1 ] && RED='\e[31m' \|\| RED=''` | 터미널 여부에 따른 색상 적용 |
 
 ### 2. 필수 인자 파싱 (getopts 템플릿)
 
