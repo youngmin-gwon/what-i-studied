@@ -99,9 +99,9 @@ graph LR
 - **주요 디바이스**:
   - `/dev/sda` - 첫 번째 SATA/SCSI 디스크
   - `/dev/nvme0n1` - NVMe SSD
-  - `/dev/null` - 비트 버킷 (모든 입력 무시)
-  - `/dev/zero` - 0 으로 채워진 무한 스트림
-  - `/dev/random` - 난수 생성기
+  - `/dev/null`: **비트 버킷 (Black Hole)**. 이 파일로 보낸 모든 데이터는 버려지며, 읽으려 하면 즉시 EOF(End of File)를 반환합니다. (출력 제거용)
+  - `/dev/zero`: **0 채움 장치**. 읽을 때마다 `NULL` (0x00) 바이트를 무한히 제공합니다. (특정 크기 파일 생성용)
+  - `/dev/random` / `/dev/urandom`: **난수 생성기**. 시스템 노이즈를 이용해 무작위 바이트를 생성합니다.
 
 ### 애플리케이션 디렉토리 (Application Directories)
 

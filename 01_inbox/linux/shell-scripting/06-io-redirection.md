@@ -51,6 +51,15 @@ Bash 전용 기능으로, 명령의 결과를 파일처럼 취급할 수 있게 
 | `<(cmd)` | 명령의 출력을 입력 파일처럼 사용       | `diff <(ls dir1) <(ls dir2)`         |
 | `>(cmd)` | 파일에 쓰는 출력 대신 명령의 입력으로 전달 | `cmd \| tee >(grep ERROR > err.log)` |
 
+### 6. 주요 가상 장치 (/dev/null, /dev/zero)
+
+리디렉션 시 매우 자주 활용되는 특수 파일들입니다.
+
+| 장치 (Device) | 별칭 | 역할 및 활용 | 예시 |
+| :--- | :--- | :--- | :--- |
+| **`/dev/null`** | **Black Hole** | 모든 입력을 버리고, 읽으면 즉시 종료됨 | `cmd > /dev/null 2>&1` (모든 출력 숨기기) |
+| **`/dev/zero`** | **Zero Filler** | 읽을 때마다 0(NULL) 값을 무한히 제공 | `dd if=/dev/zero of=file bs=1M count=10` (10MB 빈 파일 생성) |
+
 ---
 ### 🔗 연결 문서
 - [[05-functions]] - 함수 및 모듈화
