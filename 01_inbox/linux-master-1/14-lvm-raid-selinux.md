@@ -1,8 +1,16 @@
-# LVM 및 RAID 추가 내용
+---
+title: 14-lvm-raid-selinux
+tags: []
+aliases: []
+date modified: 2025-12-29 10:37:00 +09:00
+date created: 2025-12-11 09:28:32 +09:00
+---
 
-## LVM (Logical Volume Manager)
+## LVM 및 RAID 추가 내용
 
-### LVM 개요
+### LVM (Logical Volume Manager)
+
+#### LVM 개요
 
 **장점**:
 - 유연한 디스크 관리
@@ -23,7 +31,7 @@
 파일시스템
 ```
 
-### LVM 명령어
+#### LVM 명령어
 
 **물리 볼륨 (PV)**:
 ```bash
@@ -84,45 +92,45 @@ mount /dev/vg0/snap0 /mnt/snapshot
 lvremove /dev/vg0/snap0
 ```
 
-## RAID (Redundant Array of Independent Disks)
+### RAID (Redundant Array of Independent Disks)
 
-### RAID 레벨
+#### RAID 레벨
 
 **RAID 0 (Striping)**:
-- 최소 디스크: 2개
+- 최소 디스크: 2 개
 - 용량: 전체 합
 - 성능: 향상
 - 안정성: 없음 (하나 고장 시 전체 손실)
 - 용도: 성능 중시, 임시 데이터
 
 **RAID 1 (Mirroring)**:
-- 최소 디스크: 2개
-- 용량: 1개 디스크 크기
+- 최소 디스크: 2 개
+- 용량: 1 개 디스크 크기
 - 성능: 읽기 향상
 - 안정성: 높음 (하나 고장 시 복구 가능)
 - 용도: 중요 데이터, 시스템 디스크
 
 **RAID 5 (Striping with Parity)**:
-- 최소 디스크: 3개
+- 최소 디스크: 3 개
 - 용량: (N-1) × 디스크 크기
 - 성능: 읽기 향상
-- 안정성: 1개 디스크 고장 허용
+- 안정성: 1 개 디스크 고장 허용
 - 용도: 균형잡힌 선택
 
 **RAID 6 (Double Parity)**:
-- 최소 디스크: 4개
+- 최소 디스크: 4 개
 - 용량: (N-2) × 디스크 크기
-- 안정성: 2개 디스크 고장 허용
+- 안정성: 2 개 디스크 고장 허용
 - 용도: 높은 안정성 필요
 
 **RAID 10 (1+0)**:
-- 최소 디스크: 4개
+- 최소 디스크: 4 개
 - RAID 1 + RAID 0 조합
 - 용량: 전체의 50%
 - 성능: 높음
 - 안정성: 높음
 
-### mdadm 명령어
+#### mdadm 명령어
 
 **RAID 생성**:
 ```bash
@@ -160,9 +168,9 @@ mdadm --detail --scan >> /etc/mdadm/mdadm.conf
 mdadm --monitor --scan --daemonise  # 데몬으로 모니터링
 ```
 
-## SELinux (Security-Enhanced Linux)
+### SELinux (Security-Enhanced Linux)
 
-### SELinux 개요
+#### SELinux 개요
 
 **목적**:
 - 강제 접근 제어 (MAC - Mandatory Access Control)
@@ -174,7 +182,7 @@ mdadm --monitor --scan --daemonise  # 데몬으로 모니터링
 - **Permissive**: 정책 위반 로그만 기록
 - **Disabled**: SELinux 비활성화
 
-### SELinux 명령어
+#### SELinux 명령어
 
 **상태 확인**:
 ```bash
