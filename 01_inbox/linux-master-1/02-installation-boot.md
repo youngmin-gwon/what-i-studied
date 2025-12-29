@@ -1,8 +1,16 @@
-# 시스템 설치 및 부팅 프로세스
+---
+title: 02-installation-boot
+tags: []
+aliases: []
+date modified: 2025-12-29 10:29:00 +09:00
+date created: 2025-12-10 19:26:16 +09:00
+---
 
-## 1. 리눅스 설치
+## 시스템 설치 및 부팅 프로세스
 
-### 1.1 설치 전 준비사항
+### 1. 리눅스 설치
+
+#### 1.1 설치 전 준비사항
 
 **하드웨어 요구사항**:
 - **최소**: CPU 1GHz, RAM 512MB, HDD 10GB
@@ -14,16 +22,16 @@
 - **네트워크 설치**: PXE 부팅을 통한 원격 설치
 - **가상 머신**: VirtualBox, VMware, KVM
 
-### 1.2 파티션 구성
+#### 1.2 파티션 구성
 
 **파티션 종류**:
-- **주 파티션 (Primary)**: 최대 4개, 부팅 가능
-- **확장 파티션 (Extended)**: 주 파티션 1개를 확장으로 사용
+- **주 파티션 (Primary)**: 최대 4 개, 부팅 가능
+- **확장 파티션 (Extended)**: 주 파티션 1 개를 확장으로 사용
 - **논리 파티션 (Logical)**: 확장 파티션 내부에 생성
 
 **파티션 테이블**:
-- **MBR (Master Boot Record)**: 최대 2TB, 4개 주 파티션
-- **GPT (GUID Partition Table)**: 2TB 이상, 128개 파티션, UEFI 지원
+- **MBR (Master Boot Record)**: 최대 2TB, 4 개 주 파티션
+- **GPT (GUID Partition Table)**: 2TB 이상, 128 개 파티션, UEFI 지원
 
 **권장 파티션 구성**:
 
@@ -43,7 +51,7 @@ swap       - RAM의 1~2배 (스왑 공간)
 /opt       - 추가 소프트웨어
 ```
 
-### 1.3 파일 시스템 선택
+#### 1.3 파일 시스템 선택
 
 **주요 파일 시스템**:
 - **ext4**: 리눅스 표준, 저널링, 최대 16TB
@@ -59,9 +67,9 @@ mkfs.xfs /dev/sda2
 mkswap /dev/sda3
 ```
 
-## 2. 부팅 프로세스
+### 2. 부팅 프로세스
 
-### 2.1 부팅 단계 개요
+#### 2.1 부팅 단계 개요
 
 ```plaintext
 1. BIOS/UEFI 초기화
@@ -79,12 +87,12 @@ mkswap /dev/sda3
 7. 로그인 프롬프트
 ```
 
-### 2.2 BIOS vs UEFI
+#### 2.2 BIOS vs UEFI
 
 **BIOS (Basic Input/Output System)**:
-- **레거시 방식**: 1980년대부터 사용
-- **16비트 모드**: 제한적인 기능
-- **MBR 부팅**: 첫 512바이트에서 부트 로더 실행
+- **레거시 방식**: 1980 년대부터 사용
+- **16 비트 모드**: 제한적인 기능
+- **MBR 부팅**: 첫 512 바이트에서 부트 로더 실행
 - **제약**: 2TB 디스크 제한
 
 **UEFI (Unified Extensible Firmware Interface)**:
@@ -93,7 +101,7 @@ mkswap /dev/sda3
 - **Secure Boot**: 서명된 부트 로더만 실행
 - **EFI 시스템 파티션**: FAT32, 100~500MB
 
-### 2.3 GRUB 부트 로더
+#### 2.3 GRUB 부트 로더
 
 **GRUB2 (GRand Unified Bootloader)**:
 - **설정 파일**: `/boot/grub2/grub.cfg` (자동 생성)
@@ -122,12 +130,12 @@ grubby --default-kernel          # 기본 커널 확인
 - `c` 키: GRUB 콘솔
 - 커널 라인에 `single` 또는 `1` 추가: 싱글 유저 모드
 
-### 2.4 커널 부팅
+#### 2.4 커널 부팅
 
 **커널 이미지**:
 - **위치**: `/boot/vmlinuz-<version>`
-- **압축**: gzip 또는 bzip2로 압축된 커널
-- **로딩**: GRUB이 메모리에 로드
+- **압축**: gzip 또는 bzip2 로 압축된 커널
+- **로딩**: GRUB 이 메모리에 로드
 
 **커널 파라미터**:
 
@@ -147,7 +155,7 @@ uname -a       # 전체 시스템 정보
 cat /proc/version  # 커널 상세 정보
 ```
 
-### 2.5 initramfs
+#### 2.5 initramfs
 
 **역할**:
 - **초기 램 디스크**: 임시 루트 파일 시스템
@@ -174,9 +182,9 @@ lsinitrd /boot/initramfs-$(uname -r).img
 zcat /boot/initrd.img-$(uname -r) | cpio -t
 ```
 
-## 3. Init 시스템
+### 3. Init 시스템
 
-### 3.1 systemd
+#### 3.1 systemd
 
 **특징**:
 - **병렬 시작**: 서비스 동시 시작으로 부팅 속도 향상
@@ -185,8 +193,8 @@ zcat /boot/initrd.img-$(uname -r) | cpio -t
 - **표준화**: 대부분의 주요 배포판 채택
 
 **주요 개념**:
-- **Unit**: systemd가 관리하는 객체 (service, socket, target 등)
-- **Target**: 여러 unit의 그룹 (런레벨과 유사)
+- **Unit**: systemd 가 관리하는 객체 (service, socket, target 등)
+- **Target**: 여러 unit 의 그룹 (런레벨과 유사)
 - **Unit 파일**: `/usr/lib/systemd/system/`, `/etc/systemd/system/`
 
 **systemctl 명령어**:
@@ -212,7 +220,7 @@ systemctl set-default multi-user.target  # 기본 타겟 설정
 systemctl isolate rescue.target  # 타겟 전환
 ```
 
-### 3.2 런레벨과 타겟
+#### 3.2 런레벨과 타겟
 
 **전통적 런레벨 (SysV init)**:
 
@@ -244,12 +252,12 @@ systemctl isolate graphical.target   # 그래픽 모드
 systemctl isolate rescue.target      # 복구 모드
 ```
 
-### 3.3 부팅 문제 해결
+#### 3.3 부팅 문제 해결
 
 **싱글 유저 모드 진입**:
 1. GRUB 메뉴에서 `e` 키
 2. 커널 라인 끝에 `single` 또는 `systemd.unit=rescue.target` 추가
-3. `Ctrl+X`로 부팅
+3. `Ctrl+X` 로 부팅
 
 **응급 모드 (Emergency Mode)**:
 - 커널 파라미터: `systemd.unit=emergency.target`
@@ -265,13 +273,13 @@ dmesg | grep -i error   # 에러 메시지만
 ```
 
 **일반적인 문제**:
-- **GRUB 손상**: Live CD로 부팅 후 `grub2-install` 실행
+- **GRUB 손상**: Live CD 로 부팅 후 `grub2-install` 실행
 - **fstab 오류**: 싱글 유저 모드에서 `/etc/fstab` 수정
 - **커널 패닉**: 이전 커널로 부팅 또는 커널 파라미터 조정
 
-## 4. 시스템 종료 및 재부팅
+### 4. 시스템 종료 및 재부팅
 
-### 4.1 종료 명령어
+#### 4.1 종료 명령어
 
 **shutdown**:
 
@@ -295,7 +303,7 @@ systemctl poweroff      # systemd 종료
 systemctl reboot        # systemd 재부팅
 ```
 
-### 4.2 전원 관리
+#### 4.2 전원 관리
 
 **ACPI (Advanced Configuration and Power Interface)**:
 - **절전 모드**: Suspend to RAM (S3)
@@ -310,33 +318,33 @@ systemctl hibernate     # 최대 절전 모드
 systemctl hybrid-sleep  # 하이브리드 절전
 ```
 
-## 5. 시험 대비 핵심 요약
+### 5. 시험 대비 핵심 요약
 
-### 파티션 및 파일시스템
-- **MBR**: 2TB 제한, 4개 주 파티션
-- **GPT**: UEFI, 2TB 이상, 128개 파티션
+#### 파티션 및 파일시스템
+- **MBR**: 2TB 제한, 4 개 주 파티션
+- **GPT**: UEFI, 2TB 이상, 128 개 파티션
 - **ext4**: 리눅스 표준 파일시스템
 - **XFS**: 대용량, 고성능
 
-### 부팅 프로세스
+#### 부팅 프로세스
 1. BIOS/UEFI → 2. GRUB → 3. 커널 → 4. initramfs → 5. systemd → 6. 타겟
 
-### GRUB
+#### GRUB
 - **설정**: `/etc/default/grub`
 - **적용**: `grub2-mkconfig`
 - **설치**: `grub2-install`
 
-### systemd
+#### systemd
 - **서비스 관리**: `systemctl start/stop/restart/status`
 - **부팅 설정**: `systemctl enable/disable`
 - **타겟**: `multi-user.target`, `graphical.target`
 
-### 런레벨
+#### 런레벨
 - **3**: 텍스트 모드 (multi-user.target)
 - **5**: 그래픽 모드 (graphical.target)
 - **1**: 싱글 유저 모드 (rescue.target)
 
 ---
 
-**이전 챕터**: [리눅스 개요 및 역사](01-linux-overview.md)  
+**이전 챕터**: [리눅스 개요 및 역사](01-linux-overview.md)
 **다음 챕터**: [파일 시스템 및 디렉토리 구조](03-filesystem.md)

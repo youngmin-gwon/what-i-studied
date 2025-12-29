@@ -1,15 +1,24 @@
-# 시스템 서비스 및 데몬
+---
+title: 09-services-daemons
+tags: []
+aliases: []
+date modified: 2025-12-29 10:35:11 +09:00
+date created: 2025-12-10 19:33:51 +09:00
+---
 
-## 1. systemd 개요
+## 시스템 서비스 및 데몬
 
-### 1.1 systemd란?
+### 1. systemd 개요
+
+#### 1.1 systemd 란?
+
 - **초기화 시스템**: PID 1, 부팅 시 첫 프로세스
 - **서비스 관리자**: 시스템 서비스 관리
 - **병렬 시작**: 빠른 부팅
 - **의존성 관리**: 자동 의존성 해결
 - **표준화**: 대부분의 주요 배포판 채택
 
-### 1.2 Unit 개념
+#### 1.2 Unit 개념
 
 **Unit 타입**:
 - **service**: 시스템 서비스
@@ -21,9 +30,9 @@
 - **path**: 경로 기반 활성화
 - **slice**: 리소스 관리 그룹
 
-## 2. systemctl 명령어
+### 2. systemctl 명령어
 
-### 2.1 서비스 관리
+#### 2.1 서비스 관리
 
 **기본 제어**:
 ```bash
@@ -48,7 +57,7 @@ systemctl mask httpd            # 서비스 마스킹 (시작 불가)
 systemctl unmask httpd          # 마스킹 해제
 ```
 
-### 2.2 Unit 목록 및 정보
+#### 2.2 Unit 목록 및 정보
 
 **목록**:
 ```bash
@@ -74,7 +83,7 @@ systemctl show httpd -p MainPID # 특정 속성
 systemctl cat httpd             # unit 파일 내용
 ```
 
-### 2.3 시스템 제어
+#### 2.3 시스템 제어
 
 **전원 관리**:
 ```bash
@@ -91,16 +100,16 @@ systemctl daemon-reload         # unit 파일 다시 로드
 systemctl reset-failed          # 실패 상태 초기화
 ```
 
-## 3. Unit 파일
+### 3. Unit 파일
 
-### 3.1 Unit 파일 위치
+#### 3.1 Unit 파일 위치
 
 **우선순위 순**:
 1. `/etc/systemd/system/`: 관리자 설정 (최우선)
 2. `/run/systemd/system/`: 런타임 설정
 3. `/usr/lib/systemd/system/`: 패키지 설치 기본값
 
-### 3.2 Service Unit 파일 구조
+#### 3.2 Service Unit 파일 구조
 
 **예제**: `/etc/systemd/system/myapp.service`
 ```ini
@@ -139,7 +148,7 @@ WantedBy=multi-user.target
 
 **[Service] 섹션**:
 - `Type`: 서비스 타입
-  - `simple`: 기본, ExecStart가 메인 프로세스
+  - `simple`: 기본, ExecStart 가 메인 프로세스
   - `forking`: 포크 후 부모 종료
   - `oneshot`: 한 번 실행 후 종료
   - `notify`: 준비 완료 알림
@@ -158,11 +167,11 @@ WantedBy=multi-user.target
 - `EnvironmentFile`: 환경 변수 파일
 
 **[Install] 섹션**:
-- `WantedBy`: 어떤 target이 이 서비스를 원하는지
-- `RequiredBy`: 어떤 target이 이 서비스를 필요로 하는지
+- `WantedBy`: 어떤 target 이 이 서비스를 원하는지
+- `RequiredBy`: 어떤 target 이 이 서비스를 필요로 하는지
 - `Alias`: 별칭
 
-### 3.3 Unit 파일 생성 및 수정
+#### 3.3 Unit 파일 생성 및 수정
 
 **생성**:
 ```bash
@@ -190,9 +199,9 @@ sudo systemctl daemon-reload
 sudo systemctl restart myapp
 ```
 
-## 4. Target
+### 4. Target
 
-### 4.1 Target 개념
+#### 4.1 Target 개념
 
 **런레벨 대응**:
 ```
@@ -209,7 +218,7 @@ runlevel 6 → reboot.target
 - `rescue.target`: 복구 모드 (싱글 유저)
 - `emergency.target`: 응급 모드 (최소 환경)
 
-### 4.2 Target 관리
+#### 4.2 Target 관리
 
 ```bash
 systemctl get-default           # 기본 target 확인
@@ -218,9 +227,9 @@ systemctl isolate graphical.target  # target 전환
 systemctl list-units --type=target  # target 목록
 ```
 
-## 5. 로그 관리 (journalctl)
+### 5. 로그 관리 (journalctl)
 
-### 5.1 journald
+#### 5.1 journald
 
 **특징**:
 - systemd 통합 로깅
@@ -228,7 +237,7 @@ systemctl list-units --type=target  # target 목록
 - 인덱싱으로 빠른 검색
 - 자동 로테이션
 
-### 5.2 journalctl 명령어
+#### 5.2 journalctl 명령어
 
 **기본 사용**:
 ```bash
@@ -288,9 +297,9 @@ journalctl -o verbose           # 상세 정보
 journalctl -o cat               # 메시지만
 ```
 
-## 6. Timer (cron 대체)
+### 6. Timer (cron 대체)
 
-### 6.1 Timer Unit
+#### 6.1 Timer Unit
 
 **Timer 파일**: `/etc/systemd/system/backup.timer`
 ```ini
@@ -325,7 +334,7 @@ monthly         # 매월 1일 00:00
 Mon *-*-* 10:00:00  # 매주 월요일 10:00
 ```
 
-### 6.2 Timer 관리
+#### 6.2 Timer 관리
 
 ```bash
 systemctl enable backup.timer   # 타이머 활성화
@@ -335,11 +344,11 @@ systemctl list-timers --all     # 모든 타이머
 systemctl status backup.timer   # 타이머 상태
 ```
 
-## 7. cron
+### 7. cron
 
-### 7.1 cron 개요
+#### 7.1 cron 개요
 
-**cron 데몬**: `crond` (systemd에서 관리)
+**cron 데몬**: `crond` (systemd 에서 관리)
 
 **crontab 형식**:
 ```
@@ -352,15 +361,15 @@ systemctl status backup.timer   # 타이머 상태
 - 시: 0-23
 - 일: 1-31
 - 월: 1-12
-- 요일: 0-7 (0과 7은 일요일)
+- 요일: 0-7 (0 과 7 은 일요일)
 
 **특수 문자**:
 - `*`: 모든 값
 - `,`: 여러 값 (1,3,5)
 - `-`: 범위 (1-5)
-- `/`: 간격 (*/5 = 5분마다)
+- `/`: 간격 (*/5 = 5 분마다)
 
-### 7.2 crontab 명령어
+#### 7.2 crontab 명령어
 
 ```bash
 crontab -e                      # 편집
@@ -387,7 +396,7 @@ crontab -u username -e          # 특정 사용자 (root)
 0 0 1 * * /usr/local/bin/monthly.sh
 ```
 
-### 7.3 시스템 cron
+#### 7.3 시스템 cron
 
 **디렉토리**:
 - `/etc/cron.hourly/`: 매시간
@@ -412,7 +421,7 @@ MAILTO=root
 0 2 * * * root /usr/local/bin/backup.sh
 ```
 
-### 7.4 anacron
+#### 7.4 anacron
 
 **용도**: 항상 켜져있지 않은 시스템용
 
@@ -424,9 +433,9 @@ MAILTO=root
 30 15 cron.monthly run-parts /etc/cron.monthly
 ```
 
-## 8. at
+### 8. at
 
-### 8.1 at 명령어
+#### 8.1 at 명령어
 
 **일회성 작업 예약**:
 ```bash
@@ -455,42 +464,42 @@ at -c <job_number>              # 작업 내용 확인
 at -f script.sh now + 1 hour
 ```
 
-## 9. 시험 대비 핵심 요약
+### 9. 시험 대비 핵심 요약
 
-### systemctl
+#### systemctl
 - **시작/중지**: `systemctl start/stop/restart`
 - **상태**: `systemctl status`
 - **자동 시작**: `systemctl enable/disable`
 - **목록**: `systemctl list-units`
 
-### Unit 파일
+#### Unit 파일
 - **위치**: `/etc/systemd/system/`, `/usr/lib/systemd/system/`
 - **재로드**: `systemctl daemon-reload`
 - **편집**: `systemctl edit`
 
-### Target
+#### Target
 - **기본**: `systemctl get-default`
 - **설정**: `systemctl set-default`
 - **전환**: `systemctl isolate`
 
-### journalctl
+#### journalctl
 - **전체**: `journalctl`
 - **실시간**: `journalctl -f`
 - **서비스**: `journalctl -u service`
 - **부팅**: `journalctl -b`
 
-### cron
+#### cron
 - **편집**: `crontab -e`
 - **목록**: `crontab -l`
 - **형식**: `분 시 일 월 요일 명령`
 - **디렉토리**: `/etc/cron.{hourly,daily,weekly,monthly}/`
 
-### at
+#### at
 - **예약**: `at 14:30`
 - **목록**: `atq`
 - **삭제**: `atrm <job>`
 
 ---
 
-**이전 챕터**: [네트워크 설정](08-network-config.md)  
+**이전 챕터**: [네트워크 설정](08-network-config.md)
 **다음 챕터**: [셸 스크립팅](10-shell-scripting.md)

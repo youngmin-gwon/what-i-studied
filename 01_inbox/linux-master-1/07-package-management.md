@@ -1,13 +1,21 @@
-# 패키지 관리
+---
+title: 07-package-management
+tags: []
+aliases: []
+date modified: 2025-12-29 10:33:01 +09:00
+date created: 2025-12-10 19:31:27 +09:00
+---
 
-## 1. 패키지 관리 개요
+## 패키지 관리
 
-### 1.1 패키지란?
+### 1. 패키지 관리 개요
+
+#### 1.1 패키지란?
 - **정의**: 소프트웨어와 메타데이터를 포함한 아카이브
 - **구성**: 바이너리, 라이브러리, 설정 파일, 문서, 의존성 정보
 - **형식**: RPM (Red Hat), DEB (Debian)
 
-### 1.2 패키지 관리자 종류
+#### 1.2 패키지 관리자 종류
 
 **저수준 도구**:
 - **rpm**: RPM 패키지 관리
@@ -19,9 +27,9 @@
 - **apt**: Debian/Ubuntu
 - 의존성 자동 해결
 
-## 2. RPM 패키지 관리
+### 2. RPM 패키지 관리
 
-### 2.1 RPM 기본
+#### 2.1 RPM 기본
 
 **패키지 명명 규칙**:
 ```
@@ -35,12 +43,12 @@ httpd-2.4.6-97.el7.x86_64.rpm
 ```
 
 **아키텍처**:
-- `x86_64`: 64비트
-- `i386`, `i686`: 32비트
+- `x86_64`: 64 비트
+- `i386`, `i686`: 32 비트
 - `noarch`: 아키텍처 독립적
 - `src`: 소스 RPM
 
-### 2.2 rpm 명령어
+#### 2.2 rpm 명령어
 
 **설치**:
 ```bash
@@ -100,9 +108,9 @@ rpm --rebuilddb                 # RPM DB 재구축
 rpm --initdb                    # RPM DB 초기화
 ```
 
-## 3. YUM (Yellowdog Updater Modified)
+### 3. YUM (Yellowdog Updater Modified)
 
-### 3.1 YUM 기본
+#### 3.1 YUM 기본
 
 **특징**:
 - 자동 의존성 해결
@@ -110,7 +118,7 @@ rpm --initdb                    # RPM DB 초기화
 - 트랜잭션 기반
 - RHEL 7 이하 기본
 
-### 3.2 yum 명령어
+#### 3.2 yum 명령어
 
 **패키지 관리**:
 ```bash
@@ -160,7 +168,7 @@ yum clean metadata              # 메타데이터 캐시 삭제
 yum clean all                   # 모든 캐시 삭제
 ```
 
-### 3.3 저장소 관리
+#### 3.3 저장소 관리
 
 **저장소 파일**: `/etc/yum.repos.d/*.repo`
 
@@ -194,19 +202,19 @@ yum-config-manager --enable repo   # 저장소 활성화
 yum-config-manager --disable repo  # 저장소 비활성화
 ```
 
-## 4. DNF (Dandified YUM)
+### 4. DNF (Dandified YUM)
 
-### 4.1 DNF 개요
+#### 4.1 DNF 개요
 
 **특징**:
-- YUM의 차세대 버전
+- YUM 의 차세대 버전
 - 더 빠른 성능
 - 향상된 의존성 해결
 - RHEL 8+, Fedora 기본
 
-### 4.2 dnf 명령어
+#### 4.2 dnf 명령어
 
-**기본 사용** (yum과 유사):
+**기본 사용** (yum 과 유사):
 ```bash
 dnf install package             # 설치
 dnf update                      # 업데이트
@@ -225,16 +233,16 @@ dnf module list                 # 모듈 목록
 dnf module install module:stream  # 모듈 설치
 ```
 
-## 5. APT (Advanced Package Tool)
+### 5. APT (Advanced Package Tool)
 
-### 5.1 APT 개요
+#### 5.1 APT 개요
 
 **특징**:
 - Debian/Ubuntu 패키지 관리자
 - DEB 패키지 형식
 - 자동 의존성 해결
 
-### 5.2 apt 명령어
+#### 5.2 apt 명령어
 
 **패키지 관리**:
 ```bash
@@ -268,7 +276,7 @@ apt-cache depends package       # 의존성
 apt-cache policy package        # 정책 및 버전
 ```
 
-### 5.3 dpkg 명령어
+#### 5.3 dpkg 명령어
 
 **패키지 관리**:
 ```bash
@@ -284,7 +292,7 @@ dpkg -c package.deb             # DEB 파일 내용
 dpkg --configure -a             # 설정되지 않은 패키지 설정
 ```
 
-### 5.4 저장소 관리
+#### 5.4 저장소 관리
 
 **저장소 파일**: `/etc/apt/sources.list`, `/etc/apt/sources.list.d/*.list`
 
@@ -312,9 +320,9 @@ apt-add-repository "deb URL"      # 저장소 추가
 apt update                        # 저장소 목록 업데이트
 ```
 
-## 6. 소스 컴파일
+### 6. 소스 컴파일
 
-### 6.1 컴파일 과정
+#### 6.1 컴파일 과정
 
 **일반적인 절차**:
 ```bash
@@ -346,7 +354,7 @@ apt install build-essential
 yum groupinstall "Development Tools"
 ```
 
-### 6.2 checkinstall
+#### 6.2 checkinstall
 
 **패키지로 설치**:
 ```bash
@@ -359,15 +367,17 @@ sudo checkinstall               # DEB/RPM 생성 및 설치
 - 의존성 추적
 - 업그레이드 용이
 
-## 7. 시험 대비 핵심 요약
+### 7. 시험 대비 핵심 요약
 
-### RPM 명령어
+#### RPM 명령어
+
 - **설치**: `rpm -ivh package.rpm`
 - **제거**: `rpm -e package`
 - **쿼리**: `rpm -qa`, `rpm -qi`, `rpm -ql`
 - **파일 검색**: `rpm -qf /path/to/file`
 
-### YUM/DNF
+#### YUM/DNF
+
 - **설치**: `yum install package`
 - **업데이트**: `yum update`
 - **제거**: `yum remove package`
@@ -375,7 +385,8 @@ sudo checkinstall               # DEB/RPM 생성 및 설치
 - **정보**: `yum info package`
 - **저장소**: `/etc/yum.repos.d/`
 
-### APT
+#### APT
+
 - **업데이트**: `apt update`
 - **업그레이드**: `apt upgrade`
 - **설치**: `apt install package`
@@ -383,17 +394,19 @@ sudo checkinstall               # DEB/RPM 생성 및 설치
 - **완전 제거**: `apt purge package`
 - **저장소**: `/etc/apt/sources.list`
 
-### DPKG
+#### DPKG
+
 - **설치**: `dpkg -i package.deb`
 - **제거**: `dpkg -r package`
 - **목록**: `dpkg -l`
 - **파일 목록**: `dpkg -L package`
 
-### 패키지 형식
+#### 패키지 형식
+
 - **RPM**: Red Hat, CentOS, Fedora
 - **DEB**: Debian, Ubuntu
 
 ---
 
-**이전 챕터**: [프로세스 및 작업 관리](06-process-management.md)  
+**이전 챕터**: [프로세스 및 작업 관리](06-process-management.md)
 **다음 챕터**: [네트워크 설정](08-network-config.md)

@@ -1,14 +1,22 @@
-# 백업 및 복구
+---
+title: 12-backup-recovery
+tags: []
+aliases: []
+date modified: 2025-12-29 10:35:57 +09:00
+date created: 2025-12-18 16:21:20 +09:00
+---
 
-## 1. 백업 전략
+## 백업 및 복구
 
-### 1.1 백업 유형
+### 1. 백업 전략
+
+#### 1.1 백업 유형
 
 **전체 백업 (Full Backup)**:
 - 모든 데이터 백업
 - 복구 간단
 - 시간과 공간 많이 소요
-- 주기: 주 1회 또는 월 1회
+- 주기: 주 1 회 또는 월 1 회
 
 **증분 백업 (Incremental Backup)**:
 - 마지막 백업 이후 변경된 파일만
@@ -20,14 +28,14 @@
 - 마지막 전체 백업 이후 변경된 파일
 - 증분보다 느리지만 복구 쉬움
 - 전체 + 마지막 차등만 필요
-- 주기: 매일 또는 주 2-3회
+- 주기: 매일 또는 주 2-3 회
 
-### 1.2 백업 계획
+#### 1.2 백업 계획
 
 **3-2-1 규칙**:
-- **3개 복사본**: 원본 + 백업 2개
-- **2개 매체**: 다른 저장 매체 사용
-- **1개 오프사이트**: 원격 위치에 보관
+- **3 개 복사본**: 원본 + 백업 2 개
+- **2 개 매체**: 다른 저장 매체 사용
+- **1 개 오프사이트**: 원격 위치에 보관
 
 **고려사항**:
 - **RPO (Recovery Point Objective)**: 허용 가능한 데이터 손실량
@@ -36,9 +44,9 @@
 - **암호화**: 민감한 데이터 보호
 - **테스트**: 정기적인 복구 테스트
 
-## 2. tar를 이용한 백업
+### 2. tar 를 이용한 백업
 
-### 2.1 tar 기본
+#### 2.1 tar 기본
 
 **아카이브 생성**:
 ```bash
@@ -74,7 +82,7 @@ tar -tvf backup.tar                     # 목록 확인
 tar -tvf backup.tar | grep file.txt     # 파일 검색
 ```
 
-### 2.2 증분 백업
+#### 2.2 증분 백업
 
 **스냅샷 파일 사용**:
 ```bash
@@ -98,7 +106,7 @@ tar -xzf incr_day1.tar.gz -g /dev/null
 tar -xzf incr_day2.tar.gz -g /dev/null
 ```
 
-### 2.3 백업 스크립트 예제
+#### 2.3 백업 스크립트 예제
 
 ```bash
 #!/bin/bash
@@ -124,9 +132,9 @@ else
 fi
 ```
 
-## 3. rsync를 이용한 백업
+### 3. rsync 를 이용한 백업
 
-### 3.1 rsync 기본
+#### 3.1 rsync 기본
 
 **특징**:
 - 증분 전송 (변경된 부분만)
@@ -155,7 +163,7 @@ rsync -av --progress /source/ /dest/    # 진행률 표시
 - `--progress`: 진행률
 - `--bwlimit`: 대역폭 제한 (KB/s)
 
-### 3.2 rsync 고급 사용
+#### 3.2 rsync 고급 사용
 
 **제외 패턴**:
 ```bash
@@ -164,7 +172,7 @@ rsync -av --exclude='*.tmp' --exclude='cache/' /source/ /dest/
 rsync -av --exclude-from=exclude.txt /source/ /dest/
 ```
 
-**SSH를 통한 원격 백업**:
+**SSH 를 통한 원격 백업**:
 ```bash
 rsync -avz -e ssh /source/ user@remote:/dest/
 rsync -avz -e "ssh -p 2222" /source/ user@remote:/dest/  # 포트 지정
@@ -202,7 +210,7 @@ else
 fi
 ```
 
-### 3.3 스냅샷 백업
+#### 3.3 스냅샷 백업
 
 **하드 링크를 이용한 공간 절약**:
 ```bash
@@ -222,9 +230,9 @@ rm -f "${CURRENT}"
 ln -s "${SNAPSHOT}" "${CURRENT}"
 ```
 
-## 4. dd를 이용한 백업
+### 4. dd 를 이용한 백업
 
-### 4.1 dd 기본
+#### 4.1 dd 기본
 
 **디스크 이미지 생성**:
 ```bash
@@ -236,7 +244,7 @@ dd if=/dev/sda of=/dev/sdb               # 디스크 복제
 **옵션**:
 - `if`: input file (소스)
 - `of`: output file (대상)
-- `bs`: block size (기본 512바이트)
+- `bs`: block size (기본 512 바이트)
 - `count`: 블록 개수
 - `status=progress`: 진행률 표시
 
@@ -245,7 +253,7 @@ dd if=/dev/sda of=/dev/sdb               # 디스크 복제
 dd if=/dev/sda of=/backup/disk.img bs=4M status=progress
 ```
 
-### 4.2 압축과 함께 사용
+#### 4.2 압축과 함께 사용
 
 ```bash
 # 백업
@@ -255,7 +263,7 @@ dd if=/dev/sda bs=4M | gzip > /backup/disk.img.gz
 gunzip -c /backup/disk.img.gz | dd of=/dev/sda bs=4M
 ```
 
-### 4.3 네트워크를 통한 백업
+#### 4.3 네트워크를 통한 백업
 
 ```bash
 # 서버 (수신)
@@ -265,16 +273,16 @@ nc -l 9000 | dd of=/dev/sdb bs=4M
 dd if=/dev/sda bs=4M | nc server_ip 9000
 ```
 
-### 4.4 주의사항
+#### 4.4 주의사항
 
 - **위험**: 잘못 사용 시 데이터 손실
 - **대상 확인**: of 경로 신중히 확인
 - **크기**: 전체 디스크 복사로 시간 오래 걸림
 - **파일시스템 무관**: 바이트 단위 복사
 
-## 5. 데이터베이스 백업
+### 5. 데이터베이스 백업
 
-### 5.1 MySQL/MariaDB
+#### 5.1 MySQL/MariaDB
 
 **mysqldump**:
 ```bash
@@ -300,7 +308,7 @@ mysql -u root -p database_name < backup.sql
 gunzip < backup.sql.gz | mysql -u root -p database_name
 ```
 
-### 5.2 PostgreSQL
+#### 5.2 PostgreSQL
 
 **pg_dump**:
 ```bash
@@ -320,9 +328,9 @@ psql database_name < backup.sql
 pg_restore -d database_name backup.dump
 ```
 
-## 6. LVM 스냅샷
+### 6. LVM 스냅샷
 
-### 6.1 스냅샷 생성
+#### 6.1 스냅샷 생성
 
 ```bash
 # 스냅샷 생성 (10GB 크기)
@@ -340,15 +348,15 @@ umount /mnt/snapshot
 lvremove /dev/vg0/snap_lv
 ```
 
-### 6.2 장점
+#### 6.2 장점
 
 - **일관성**: 특정 시점의 일관된 백업
 - **온라인**: 서비스 중단 없이 백업
 - **빠름**: 스냅샷 생성 즉시
 
-## 7. 클라우드 백업
+### 7. 클라우드 백업
 
-### 7.1 rclone
+#### 7.1 rclone
 
 **설정**:
 ```bash
@@ -367,7 +375,7 @@ rclone sync /data remote:backup
 rclone copy remote:backup /restore
 ```
 
-### 7.2 AWS S3
+#### 7.2 AWS S3
 
 **aws-cli**:
 ```bash
@@ -381,9 +389,9 @@ aws s3 sync /data s3://bucket/backup/
 aws s3 cp s3://bucket/backup/ /restore --recursive
 ```
 
-## 8. 복구 절차
+### 8. 복구 절차
 
-### 8.1 파일 복구
+#### 8.1 파일 복구
 
 **tar**:
 ```bash
@@ -399,7 +407,7 @@ tar -xzvf backup.tar.gz path/to/file
 rsync -av /backup/current/ /restore/
 ```
 
-### 8.2 시스템 복구
+#### 8.2 시스템 복구
 
 **Live CD/USB 부팅**:
 1. Live 환경 부팅
@@ -432,7 +440,7 @@ umount -R /mnt
 reboot
 ```
 
-### 8.3 데이터베이스 복구
+#### 8.3 데이터베이스 복구
 
 **MySQL**:
 ```bash
@@ -444,9 +452,9 @@ mysql -u root -p database_name < backup.sql
 psql database_name < backup.sql
 ```
 
-## 9. 백업 자동화
+### 9. 백업 자동화
 
-### 9.1 cron을 이용한 스케줄링
+#### 9.1 cron 을 이용한 스케줄링
 
 ```bash
 # crontab -e
@@ -460,7 +468,7 @@ psql database_name < backup.sql
 0 2 * * 1-5 /usr/local/bin/incremental_backup.sh
 ```
 
-### 9.2 systemd timer
+#### 9.2 systemd timer
 
 **backup.timer**:
 ```ini
@@ -486,39 +494,39 @@ Type=oneshot
 ExecStart=/usr/local/bin/backup.sh
 ```
 
-## 10. 시험 대비 핵심 요약
+### 10. 시험 대비 핵심 요약
 
-### 백업 유형
+#### 백업 유형
 - **전체**: 모든 데이터
 - **증분**: 마지막 백업 이후 변경분
 - **차등**: 마지막 전체 백업 이후 변경분
 
-### tar
+#### tar
 - **생성**: `tar -czf backup.tar.gz /data`
 - **추출**: `tar -xzf backup.tar.gz`
 - **목록**: `tar -tzf backup.tar.gz`
 - **증분**: `-g snapshot.snar`
 
-### rsync
+#### rsync
 - **기본**: `rsync -av /source/ /dest/`
 - **삭제 반영**: `rsync -av --delete`
 - **원격**: `rsync -avz user@remote:/dest/`
 - **제외**: `--exclude='*.log'`
 
-### dd
+#### dd
 - **백업**: `dd if=/dev/sda of=disk.img bs=4M`
 - **복구**: `dd if=disk.img of=/dev/sda bs=4M`
 - **압축**: `dd if=/dev/sda | gzip > disk.img.gz`
 
-### 데이터베이스
+#### 데이터베이스
 - **MySQL**: `mysqldump`, `mysql`
 - **PostgreSQL**: `pg_dump`, `psql`
 
-### 자동화
+#### 자동화
 - **cron**: `crontab -e`
 - **systemd**: timer unit
 
 ---
 
-**이전 챕터**: [시스템 모니터링 및 로그](11-monitoring-logs.md)  
+**이전 챕터**: [시스템 모니터링 및 로그](11-monitoring-logs.md)
 **메인으로**: [리눅스마스터 1급 자격증 학습 가이드](../bash-scripting-summary/README.md)

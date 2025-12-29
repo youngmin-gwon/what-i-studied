@@ -1,8 +1,16 @@
-# 네트워크 설정
+---
+title: 08-network-config
+tags: []
+aliases: []
+date modified: 2025-12-29 10:33:49 +09:00
+date created: 2025-12-10 19:33:49 +09:00
+---
 
-## 1. 네트워크 기본 개념
+## 네트워크 설정
 
-### 1.1 TCP/IP 모델
+### 1. 네트워크 기본 개념
+
+#### 1.1 TCP/IP 모델
 
 **계층 구조**:
 ```
@@ -12,10 +20,10 @@
 네트워크 접근 계층 (Link)   - Ethernet, Wi-Fi
 ```
 
-### 1.2 IP 주소
+#### 1.2 IP 주소
 
 **IPv4**:
-- **형식**: 32비트, 점으로 구분된 4개 옥텟
+- **형식**: 32 비트, 점으로 구분된 4 개 옥텟
 - **예**: 192.168.1.100
 - **클래스**:
   - A: 1.0.0.0 ~ 126.255.255.255 (/8)
@@ -40,13 +48,13 @@
 ```
 
 **IPv6**:
-- **형식**: 128비트, 콜론으로 구분된 8개 그룹
+- **형식**: 128 비트, 콜론으로 구분된 8 개 그룹
 - **예**: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
 - **축약**: 2001:db8:85a3::8a2e:370:7334
 
-## 2. 네트워크 인터페이스
+### 2. 네트워크 인터페이스
 
-### 2.1 인터페이스 확인
+#### 2.1 인터페이스 확인
 
 **ip 명령어** (권장):
 ```bash
@@ -73,7 +81,7 @@ ifconfig eth0                   # 특정 인터페이스
   - `enp3s0`: PCI 슬롯 3, 포트 0
   - `wlp2s0`: 무선 PCI 슬롯 2
 
-### 2.2 인터페이스 설정
+#### 2.2 인터페이스 설정
 
 **ip 명령어**:
 ```bash
@@ -97,9 +105,9 @@ ifconfig eth0 down
 ifconfig eth0 hw ether 00:11:22:33:44:55
 ```
 
-## 3. 라우팅
+### 3. 라우팅
 
-### 3.1 라우팅 테이블
+#### 3.1 라우팅 테이블
 
 **확인**:
 ```bash
@@ -115,7 +123,7 @@ default via 192.168.1.1 dev eth0
 192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.100
 ```
 
-### 3.2 라우팅 설정
+#### 3.2 라우팅 설정
 
 **ip 명령어**:
 ```bash
@@ -139,7 +147,7 @@ route del default
 route del -net 10.0.0.0/8
 ```
 
-### 3.3 IP 포워딩
+#### 3.3 IP 포워딩
 
 **일시적 활성화**:
 ```bash
@@ -157,9 +165,9 @@ net.ipv4.ip_forward = 1
 sysctl -p                       # 설정 다시 로드
 ```
 
-## 4. DNS 설정
+### 4. DNS 설정
 
-### 4.1 /etc/resolv.conf
+#### 4.1 /etc/resolv.conf
 
 **DNS 서버 설정**:
 ```
@@ -170,11 +178,11 @@ domain example.com
 ```
 
 **필드**:
-- `nameserver`: DNS 서버 IP (최대 3개)
+- `nameserver`: DNS 서버 IP (최대 3 개)
 - `search`: 검색 도메인 목록
 - `domain`: 로컬 도메인
 
-### 4.2 /etc/hosts
+#### 4.2 /etc/hosts
 
 **정적 호스트 매핑**:
 ```
@@ -190,7 +198,7 @@ hosts: files dns
 - `files`: /etc/hosts
 - `dns`: DNS 서버
 
-### 4.3 DNS 조회 도구
+#### 4.3 DNS 조회 도구
 
 **host**:
 ```bash
@@ -215,9 +223,9 @@ dig -x 8.8.8.8                  # 역방향 조회
 dig example.com ANY             # 모든 레코드
 ```
 
-## 5. 네트워크 진단
+### 5. 네트워크 진단
 
-### 5.1 연결 테스트
+#### 5.1 연결 테스트
 
 **ping**:
 ```bash
@@ -238,7 +246,7 @@ tracepath example.com           # traceroute 대안
 mtr example.com                 # 실시간 경로 추적
 ```
 
-### 5.2 포트 및 연결
+#### 5.2 포트 및 연결
 
 **netstat**:
 ```bash
@@ -278,7 +286,7 @@ nc example.com 1234             # 연결
 telnet example.com 80           # 포트 연결 테스트
 ```
 
-### 5.3 대역폭 및 성능
+#### 5.3 대역폭 및 성능
 
 **iperf**:
 ```bash
@@ -298,9 +306,9 @@ tcpdump -i eth0 -w capture.pcap # 파일로 저장
 tcpdump -r capture.pcap         # 파일 읽기
 ```
 
-## 6. 네트워크 설정 파일
+### 6. 네트워크 설정 파일
 
-### 6.1 RHEL/CentOS
+#### 6.1 RHEL/CentOS
 
 **설정 파일**: `/etc/sysconfig/network-scripts/ifcfg-eth0`
 ```
@@ -326,7 +334,7 @@ nmcli connection reload         # NetworkManager
 nmcli connection up eth0
 ```
 
-### 6.2 Debian/Ubuntu
+#### 6.2 Debian/Ubuntu
 
 **설정 파일**: `/etc/network/interfaces`
 ```
@@ -366,9 +374,9 @@ network:
 netplan apply
 ```
 
-## 7. NetworkManager
+### 7. NetworkManager
 
-### 7.1 nmcli 명령어
+#### 7.1 nmcli 명령어
 
 **연결 관리**:
 ```bash
@@ -409,16 +417,16 @@ nmcli connection modify eth0 ipv4.dns "8.8.8.8 8.8.4.4"
 nmcli connection modify eth0 ipv4.method manual
 ```
 
-### 7.2 nmtui
+#### 7.2 nmtui
 
 **텍스트 UI**:
 ```bash
 nmtui                              # 대화형 인터페이스
 ```
 
-## 8. 방화벽
+### 8. 방화벽
 
-### 8.1 firewalld (RHEL/CentOS)
+#### 8.1 firewalld (RHEL/CentOS)
 
 **기본 명령**:
 ```bash
@@ -448,7 +456,7 @@ firewall-cmd --list-ports          # 포트 목록
 firewall-cmd --reload              # 설정 다시 로드
 ```
 
-### 8.2 iptables
+#### 8.2 iptables
 
 **기본 명령**:
 ```bash
@@ -479,40 +487,40 @@ iptables-save > /etc/iptables.rules
 iptables-restore < /etc/iptables.rules
 ```
 
-## 9. 시험 대비 핵심 요약
+### 9. 시험 대비 핵심 요약
 
-### IP 주소
+#### IP 주소
 - **사설 IP**: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
 - **루프백**: 127.0.0.1
 
-### 인터페이스
+#### 인터페이스
 - **확인**: `ip addr`, `ifconfig`
 - **설정**: `ip addr add`, `ip link set up`
 
-### 라우팅
+#### 라우팅
 - **확인**: `ip route`, `route -n`
 - **기본 게이트웨이**: `ip route add default via`
 
-### DNS
+#### DNS
 - **설정**: `/etc/resolv.conf`
 - **정적**: `/etc/hosts`
 - **조회**: `host`, `dig`, `nslookup`
 
-### 진단
+#### 진단
 - **연결**: `ping`, `traceroute`
 - **포트**: `netstat -tuln`, `ss -tuln`
 - **패킷**: `tcpdump`
 
-### 설정 파일
+#### 설정 파일
 - **RHEL**: `/etc/sysconfig/network-scripts/ifcfg-*`
 - **Debian**: `/etc/network/interfaces`
 
-### NetworkManager
+#### NetworkManager
 - **명령**: `nmcli`
 - **연결**: `nmcli connection show`
 - **디바이스**: `nmcli device status`
 
 ---
 
-**이전 챕터**: [패키지 관리](07-package-management.md)  
+**이전 챕터**: [패키지 관리](07-package-management.md)
 **다음 챕터**: [시스템 서비스 및 데몬](09-services-daemons.md)

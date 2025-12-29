@@ -1,13 +1,23 @@
-# 기본 명령어 및 셸
+---
+title: 04-basic-commands
+tags: []
+aliases: []
+date modified: 2025-12-29 10:28:19 +09:00
+date created: 2025-12-10 19:29:04 +09:00
+---
 
-## 1. 셸(Shell) 개요
+## 기본 명령어 및 셸
 
-### 1.1 셸의 역할
+### 1. 셸(Shell) 개요
+
+#### 1.1 셸의 역할
+
 - **명령어 해석기**: 사용자 명령을 커널에 전달
 - **프로그래밍 환경**: 스크립트 작성 가능
 - **사용자 인터페이스**: CLI 제공
 
-### 1.2 주요 셸 종류
+#### 1.2 주요 셸 종류
+
 - **bash (Bourne Again Shell)**: 가장 널리 사용, 리눅스 기본
 - **sh (Bourne Shell)**: 전통적 유닉스 셸
 - **csh/tcsh**: C 언어 스타일 문법
@@ -21,9 +31,9 @@ echo $0                 # 현재 셸
 cat /etc/shells         # 사용 가능한 셸 목록
 ```
 
-## 2. 파일 및 디렉토리 명령어
+### 2. 파일 및 디렉토리 명령어
 
-### 2.1 디렉토리 탐색
+#### 2.1 디렉토리 탐색
 
 ```bash
 pwd                     # 현재 디렉토리 경로
@@ -34,7 +44,7 @@ cd ..                   # 상위 디렉토리
 cd ../..                # 2단계 상위
 ```
 
-### 2.2 파일 목록
+#### 2.2 파일 목록
 
 ```bash
 ls                      # 파일 목록
@@ -64,7 +74,7 @@ ls -lh /etc/*.conf      # 와일드카드 사용
 └───────── 파일 타입 (-)
 ```
 
-### 2.3 파일 생성 및 삭제
+#### 2.3 파일 생성 및 삭제
 
 ```bash
 touch file.txt          # 빈 파일 생성 또는 타임스탬프 갱신
@@ -77,7 +87,7 @@ rm -rf dir              # 강제 재귀 삭제 (위험!)
 rmdir dir               # 빈 디렉토리 삭제
 ```
 
-### 2.4 파일 복사 및 이동
+#### 2.4 파일 복사 및 이동
 
 ```bash
 cp source.txt dest.txt          # 파일 복사
@@ -89,9 +99,9 @@ mv file.txt /path/to/dir/       # 이동
 mv -i file.txt dest.txt         # 덮어쓰기 확인
 ```
 
-## 3. 파일 내용 확인
+### 3. 파일 내용 확인
 
-### 3.1 파일 보기
+#### 3.1 파일 보기
 
 ```bash
 cat file.txt            # 전체 내용 출력
@@ -106,9 +116,10 @@ less file.txt           # 페이지 단위 보기 (q로 종료)
 more file.txt           # 페이지 단위 보기 (구식)
 ```
 
-### 3.2 파일 검색
+#### 3.2 파일 검색
 
 **grep - 텍스트 검색**:
+
 ```bash
 grep "pattern" file.txt         # 패턴 검색
 grep -i "pattern" file.txt      # 대소문자 무시
@@ -122,6 +133,7 @@ grep -w "word" file.txt         # 단어 단위 매칭
 ```
 
 **find - 파일 찾기**:
+
 ```bash
 find /path -name "*.txt"        # 이름으로 검색
 find /path -iname "*.TXT"       # 대소문자 무시
@@ -136,20 +148,22 @@ find /path -name "*.txt" -exec cat {} \;  # 찾아서 실행
 ```
 
 **locate - 빠른 파일 검색**:
+
 ```bash
 locate filename         # 데이터베이스에서 검색
 updatedb                # 데이터베이스 업데이트 (root)
 ```
 
 **which/whereis**:
+
 ```bash
 which ls                # 명령어 경로
 whereis ls              # 바이너리, 소스, 매뉴얼 위치
 ```
 
-## 4. 리다이렉션 및 파이프
+### 4. 리다이렉션 및 파이프
 
-### 4.1 리다이렉션
+#### 4.1 리다이렉션
 
 **표준 스트림**:
 - **stdin (0)**: 표준 입력
@@ -157,6 +171,7 @@ whereis ls              # 바이너리, 소스, 매뉴얼 위치
 - **stderr (2)**: 표준 에러
 
 **출력 리다이렉션**:
+
 ```bash
 command > file.txt      # 출력을 파일로 (덮어쓰기)
 command >> file.txt     # 출력을 파일에 추가
@@ -167,6 +182,7 @@ command > /dev/null     # 출력 버리기
 ```
 
 **입력 리다이렉션**:
+
 ```bash
 command < input.txt     # 파일에서 입력
 command << EOF          # Here Document
@@ -175,9 +191,10 @@ line 2
 EOF
 ```
 
-### 4.2 파이프
+#### 4.2 파이프
 
 **파이프 (`|`)**: 한 명령의 출력을 다른 명령의 입력으로
+
 ```bash
 ls -l | grep ".txt"             # 파일 목록에서 .txt 검색
 cat file.txt | wc -l            # 줄 수 세기
@@ -187,14 +204,15 @@ cat /etc/passwd | cut -d: -f1   # 사용자 이름만 추출
 ```
 
 **tee**: 출력을 파일과 화면에 동시 표시
+
 ```bash
 ls -l | tee output.txt          # 화면에도 보이고 파일에도 저장
 command | tee -a log.txt        # 추가 모드
 ```
 
-## 5. 와일드카드 및 패턴 매칭
+### 5. 와일드카드 및 패턴 매칭
 
-### 5.1 글로빙 (Globbing)
+#### 5.1 글로빙 (Globbing)
 
 ```bash
 *                       # 0개 이상의 문자
@@ -206,6 +224,7 @@ command | tee -a log.txt        # 추가 모드
 ```
 
 **예제**:
+
 ```bash
 ls *.txt                # 모든 .txt 파일
 ls file?.txt            # file1.txt, fileA.txt 등
@@ -214,9 +233,10 @@ ls file[0-9].txt        # file0.txt ~ file9.txt
 rm *.{log,tmp}          # .log와 .tmp 파일 삭제
 ```
 
-### 5.2 정규 표현식 (Regex)
+#### 5.2 정규 표현식 (Regex)
 
 **기본 메타 문자**:
+
 ```
 .       # 임의의 한 문자
 ^       # 줄 시작
@@ -231,6 +251,7 @@ $       # 줄 끝
 ```
 
 **예제**:
+
 ```bash
 grep "^root" /etc/passwd        # root로 시작하는 줄
 grep "bash$" /etc/passwd        # bash로 끝나는 줄
@@ -239,9 +260,9 @@ grep -E "a+" file.txt           # a가 1개 이상
 grep -E "(cat|dog)" file.txt    # cat 또는 dog
 ```
 
-## 6. 텍스트 처리 명령어
+### 6. 텍스트 처리 명령어
 
-### 6.1 기본 텍스트 도구
+#### 6.1 기본 텍스트 도구
 
 ```bash
 wc file.txt             # 줄, 단어, 바이트 수
@@ -265,7 +286,7 @@ tr 'a-z' 'A-Z' < file.txt       # 소문자를 대문자로
 tr -d '0-9' < file.txt          # 숫자 삭제
 ```
 
-### 6.2 sed (Stream Editor)
+#### 6.2 sed (Stream Editor)
 
 ```bash
 sed 's/old/new/' file.txt       # 첫 번째 매칭 치환
@@ -276,7 +297,7 @@ sed -n '5,10p' file.txt         # 5~10줄만 출력
 sed '/pattern/d' file.txt       # 패턴 매칭 줄 삭제
 ```
 
-### 6.3 awk
+#### 6.3 awk
 
 ```bash
 awk '{print $1}' file.txt       # 첫 번째 필드 출력
@@ -287,9 +308,9 @@ awk 'NR==5' file.txt            # 5번째 줄
 awk 'END {print NR}' file.txt   # 총 줄 수
 ```
 
-## 7. 파일 압축 및 아카이브
+### 7. 파일 압축 및 아카이브
 
-### 7.1 tar (Tape Archive)
+#### 7.1 tar (Tape Archive)
 
 ```bash
 tar -cvf archive.tar dir/       # 아카이브 생성
@@ -303,6 +324,7 @@ tar -xvf archive.tar -C /path/  # 특정 디렉토리에 추출
 ```
 
 **옵션**:
+
 - `-c`: create (생성)
 - `-x`: extract (추출)
 - `-t`: list (목록)
@@ -312,7 +334,7 @@ tar -xvf archive.tar -C /path/  # 특정 디렉토리에 추출
 - `-j`: bzip2
 - `-J`: xz
 
-### 7.2 압축 도구
+#### 7.2 압축 도구
 
 ```bash
 gzip file.txt           # file.txt.gz 생성
@@ -329,9 +351,9 @@ zip archive.zip file1 file2  # zip 생성
 unzip archive.zip            # zip 해제
 ```
 
-## 8. 명령어 히스토리 및 편집
+### 8. 명령어 히스토리 및 편집
 
-### 8.1 히스토리
+#### 8.1 히스토리
 
 ```bash
 history                 # 명령어 히스토리
@@ -350,7 +372,7 @@ HISTFILESIZE=2000       # 파일 히스토리 크기
 HISTCONTROL=ignoredups  # 중복 무시
 ```
 
-### 8.2 명령줄 편집 (Bash)
+#### 8.2 명령줄 편집 (Bash)
 
 **단축키**:
 ```
@@ -364,9 +386,9 @@ Ctrl+R      # 히스토리 검색
 Tab         # 자동 완성
 ```
 
-## 9. 환경 변수
+### 9. 환경 변수
 
-### 9.1 주요 환경 변수
+#### 9.1 주요 환경 변수
 
 ```bash
 echo $PATH              # 명령어 검색 경로
@@ -377,7 +399,7 @@ echo $PWD               # 현재 디렉토리
 echo $LANG              # 로케일 설정
 ```
 
-### 9.2 변수 설정
+#### 9.2 변수 설정
 
 ```bash
 VAR=value               # 변수 설정 (지역)
@@ -389,31 +411,36 @@ set                     # 모든 변수 (지역 포함)
 ```
 
 **PATH 추가**:
+
 ```bash
 export PATH=$PATH:/new/path
 # ~/.bashrc에 추가하여 영구 적용
 ```
 
-## 10. 시험 대비 핵심 요약
+### 10. 시험 대비 핵심 요약
 
-### 필수 명령어
+#### 필수 명령어
+
 - **파일**: `ls`, `cp`, `mv`, `rm`, `touch`, `mkdir`
 - **내용**: `cat`, `head`, `tail`, `less`, `grep`, `find`
 - **텍스트**: `wc`, `sort`, `uniq`, `cut`, `sed`, `awk`
 - **압축**: `tar`, `gzip`, `bzip2`
 
-### 리다이렉션
+#### 리다이렉션
+
 - `>`: 출력 리다이렉션 (덮어쓰기)
 - `>>`: 출력 추가
 - `2>`: 에러 리다이렉션
 - `|`: 파이프
 
-### 와일드카드
-- `*`: 0개 이상 문자
-- `?`: 정확히 1개 문자
+#### 와일드카드
+
+- `*`: 0 개 이상 문자
+- `?`: 정확히 1 개 문자
 - `[abc]`: 문자 클래스
 
-### tar 옵션
+#### tar 옵션
+
 - `-c`: 생성
 - `-x`: 추출
 - `-t`: 목록
@@ -423,5 +450,5 @@ export PATH=$PATH:/new/path
 
 ---
 
-**이전 챕터**: [파일 시스템 및 디렉토리 구조](03-filesystem.md)  
+**이전 챕터**: [파일 시스템 및 디렉토리 구조](03-filesystem.md)
 **다음 챕터**: [사용자 및 권한 관리](05-users-permissions.md)

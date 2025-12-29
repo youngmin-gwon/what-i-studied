@@ -1,8 +1,16 @@
-# vi/vim 에디터 및 추가 필수 개념
+---
+title: 13-vim-quota-modules
+tags: []
+aliases: []
+date modified: 2025-12-29 10:36:22 +09:00
+date created: 2025-12-18 16:21:20 +09:00
+---
 
-## 1. vi/vim 에디터
+## vi/vim 에디터 및 추가 필수 개념
 
-### 1.1 vi 개요
+### 1. vi/vim 에디터
+
+#### 1.1 vi 개요
 
 **특징**:
 - 리눅스 표준 텍스트 에디터
@@ -10,7 +18,7 @@
 - 모드 기반 에디터
 - 시험 필수 출제 항목
 
-### 1.2 vi 모드
+#### 1.2 vi 모드
 
 **세 가지 모드**:
 1. **명령 모드 (Command Mode)**: 기본 모드, 커서 이동 및 편집
@@ -24,7 +32,7 @@
 명령 모드 → 라인 모드: :, /, ?
 ```
 
-### 1.3 기본 명령어
+#### 1.3 기본 명령어
 
 **파일 열기/저장/종료**:
 ```bash
@@ -129,7 +137,7 @@ J       # 다음 줄과 합치기
 :syntax on      # 문법 강조
 ```
 
-### 1.4 vim 추가 기능
+#### 1.4 vim 추가 기능
 
 **비주얼 모드**:
 ```
@@ -148,9 +156,9 @@ Ctrl+v  # 블록 선택
 Ctrl+w w        # 창 전환
 ```
 
-## 2. 디스크 쿼터 (Quota)
+### 2. 디스크 쿼터 (Quota)
 
-### 2.1 쿼터 개요
+#### 2.1 쿼터 개요
 
 **목적**:
 - 사용자/그룹별 디스크 사용량 제한
@@ -169,11 +177,12 @@ Ctrl+w w        # 창 전환
 - **Soft Limit**: 경고 한계 (유예 기간 있음)
 - **Hard Limit**: 절대 한계 (초과 불가)
 
-### 2.2 쿼터 설정
+#### 2.2 쿼터 설정
 
 **1. 파일시스템 마운트 옵션 추가**:
 
 `/etc/fstab` 수정:
+
 ```
 /dev/sda1  /home  ext4  defaults,usrquota,grpquota  1  2
 ```
@@ -213,7 +222,7 @@ quotaon -avug               # 모든 쿼터 활성화
 quotaoff /home              # 쿼터 비활성화
 ```
 
-### 2.3 쿼터 설정 및 관리
+#### 2.3 쿼터 설정 및 관리
 
 **edquota** - 쿼터 편집:
 ```bash
@@ -243,7 +252,7 @@ setquota -u username 50000 60000 500 600 /home
 # 사용자 쿼터: 블록 soft 50MB, hard 60MB, inode soft 500, hard 600
 ```
 
-### 2.4 쿼터 확인
+#### 2.4 쿼터 확인
 
 **quota** - 개인 쿼터 확인:
 ```bash
@@ -273,9 +282,9 @@ john    10000 50000 60000        100   500   600
 warnquota                   # 초과 사용자에게 메일 발송
 ```
 
-## 3. 커널 모듈 관리
+### 3. 커널 모듈 관리
 
-### 3.1 커널 모듈 개요
+#### 3.1 커널 모듈 개요
 
 **모듈이란**:
 - 동적으로 로드/언로드 가능한 커널 코드
@@ -287,7 +296,7 @@ warnquota                   # 초과 사용자에게 메일 발송
 - `/lib/modules/$(uname -r)/kernel/`: 커널 모듈
 - `/lib/modules/$(uname -r)/kernel/drivers/`: 드라이버
 
-### 3.2 모듈 확인
+#### 3.2 모듈 확인
 
 **lsmod** - 로드된 모듈 목록:
 ```bash
@@ -308,7 +317,7 @@ modinfo -p module_name      # 모듈 파라미터
 modinfo -F filename module_name  # 파일 경로만
 ```
 
-### 3.3 모듈 로드/언로드
+#### 3.3 모듈 로드/언로드
 
 **insmod** - 모듈 삽입 (저수준):
 ```bash
@@ -336,7 +345,7 @@ modprobe -l                 # 사용 가능한 모듈 목록
 - 모듈 이름만으로 로드 가능
 - 설정 파일 사용
 
-### 3.4 모듈 설정
+#### 3.4 모듈 설정
 
 **모듈 파라미터 설정**: `/etc/modprobe.d/*.conf`
 
@@ -357,7 +366,7 @@ e1000
 nfs
 ```
 
-### 3.5 depmod
+#### 3.5 depmod
 
 **의존성 업데이트**:
 ```bash
@@ -369,9 +378,9 @@ depmod kernel_version       # 특정 커널 버전
 **생성 파일**:
 - `/lib/modules/$(uname -r)/modules.dep`: 의존성 정보
 
-## 4. 링크 및 파일 찾기 추가
+### 4. 링크 및 파일 찾기 추가
 
-### 4.1 심볼릭 링크 추가 정보
+#### 4.1 심볼릭 링크 추가 정보
 
 **깨진 링크 찾기**:
 ```bash
@@ -385,7 +394,7 @@ readlink linkname               # 링크 대상
 readlink -f linkname            # 절대 경로로 확인
 ```
 
-### 4.2 파일 속성
+#### 4.2 파일 속성
 
 **chattr** - 파일 속성 변경:
 ```bash
@@ -408,9 +417,9 @@ lsattr -d dir/                  # 디렉토리 속성
 - `c`: compressed
 - `s`: secure deletion
 
-## 5. 시험 대비 핵심 요약
+### 5. 시험 대비 핵심 요약
 
-### vi/vim
+#### vi/vim
 - **모드**: 명령(ESC), 입력(i,a,o), 라인(:)
 - **저장/종료**: `:w`, `:q`, `:wq`, `:q!`
 - **이동**: `h,j,k,l`, `gg`, `G`, `:n`
@@ -419,15 +428,15 @@ lsattr -d dir/                  # 디렉토리 속성
 - **검색**: `/pattern`, `n`
 - **치환**: `:%s/old/new/g`
 
-### 디스크 쿼터
-- **설정**: `/etc/fstab`에 `usrquota,grpquota`
+#### 디스크 쿼터
+- **설정**: `/etc/fstab` 에 `usrquota,grpquota`
 - **생성**: `quotacheck -cug`
 - **활성화**: `quotaon -avug`
 - **편집**: `edquota -u username`
 - **확인**: `quota`, `repquota -a`
 - **제한**: soft (경고), hard (절대)
 
-### 커널 모듈
+#### 커널 모듈
 - **목록**: `lsmod`
 - **정보**: `modinfo module_name`
 - **로드**: `modprobe module_name`
@@ -436,7 +445,7 @@ lsattr -d dir/                  # 디렉토리 속성
 - **설정**: `/etc/modprobe.d/`
 - **블랙리스트**: `/etc/modprobe.d/blacklist.conf`
 
-### 파일 속성
+#### 파일 속성
 - **설정**: `chattr +i file` (불변)
 - **확인**: `lsattr file`
 

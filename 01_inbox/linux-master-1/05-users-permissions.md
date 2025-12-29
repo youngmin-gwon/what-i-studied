@@ -1,8 +1,16 @@
-# 사용자 및 권한 관리
+---
+title: 05-users-permissions
+tags: []
+aliases: []
+date modified: 2025-12-29 10:31:53 +09:00
+date created: 2025-12-10 19:29:06 +09:00
+---
 
-## 1. 사용자 계정 관리
+## 사용자 및 권한 관리
 
-### 1.1 사용자 정보 파일
+### 1. 사용자 계정 관리
+
+#### 1.1 사용자 정보 파일
 
 **/etc/passwd**:
 ```
@@ -13,7 +21,7 @@ user1:x:1000:1000:User One:/home/user1:/bin/bash
 
 **필드 설명**:
 1. **사용자명**: 로그인 ID
-2. **비밀번호**: `x` (실제는 /etc/shadow에 저장)
+2. **비밀번호**: `x` (실제는 /etc/shadow 에 저장)
 3. **UID**: 사용자 ID (0=root, 1-999=시스템, 1000+=일반)
 4. **GID**: 기본 그룹 ID
 5. **GECOS**: 사용자 정보 (이름, 연락처 등)
@@ -27,8 +35,8 @@ username:$6$hash:lastchange:min:max:warn:inactive:expire:reserved
 
 **필드 설명**:
 1. **사용자명**
-2. **암호화된 비밀번호**: `$6$`는 SHA-512
-3. **마지막 변경일**: 1970-01-01부터 일 수
+2. **암호화된 비밀번호**: `$6$` 는 SHA-512
+3. **마지막 변경일**: 1970-01-01 부터 일 수
 4. **최소 사용 기간**: 변경 후 재변경까지 최소 일 수
 5. **최대 사용 기간**: 비밀번호 유효 기간
 6. **경고 기간**: 만료 전 경고 일 수
@@ -36,7 +44,7 @@ username:$6$hash:lastchange:min:max:warn:inactive:expire:reserved
 8. **만료일**: 계정 만료일
 9. **예약 필드**
 
-### 1.2 사용자 생성 및 관리
+#### 1.2 사용자 생성 및 관리
 
 **useradd**:
 ```bash
@@ -99,9 +107,9 @@ chage -E 2025-12-31 user1       # 만료일
 chage -d 0 user1                # 다음 로그인 시 변경
 ```
 
-## 2. 그룹 관리
+### 2. 그룹 관리
 
-### 2.1 그룹 정보 파일
+#### 2.1 그룹 정보 파일
 
 **/etc/group**:
 ```
@@ -117,7 +125,7 @@ users:x:100:
 3. **GID**: 그룹 ID
 4. **멤버**: 쉼표로 구분된 사용자 목록
 
-### 2.2 그룹 명령어
+#### 2.2 그룹 명령어
 
 **groupadd**:
 ```bash
@@ -153,9 +161,9 @@ id user1                        # user1 정보
 newgrp developers               # 임시로 그룹 전환
 ```
 
-## 3. 파일 권한
+### 3. 파일 권한
 
-### 3.1 권한 개념
+#### 3.1 권한 개념
 
 **권한 표시**:
 ```
@@ -178,7 +186,7 @@ newgrp developers               # 임시로 그룹 전환
   - 파일: 실행 가능
   - 디렉토리: 진입 가능 (cd)
 
-### 3.2 chmod - 권한 변경
+#### 3.2 chmod - 권한 변경
 
 **심볼릭 모드**:
 ```bash
@@ -218,7 +226,7 @@ r = 4, w = 2, x = 1
 700 = rwx------ (4+2+1=7, 0, 0)
 ```
 
-### 3.3 chown - 소유자 변경
+#### 3.3 chown - 소유자 변경
 
 ```bash
 chown user1 file.txt            # 소유자 변경
@@ -227,16 +235,16 @@ chown :group1 file.txt          # 그룹만 변경
 chown -R user1 dir/             # 재귀적으로 변경
 ```
 
-### 3.4 chgrp - 그룹 변경
+#### 3.4 chgrp - 그룹 변경
 
 ```bash
 chgrp group1 file.txt           # 그룹 변경
 chgrp -R group1 dir/            # 재귀적으로 변경
 ```
 
-## 4. 특수 권한
+### 4. 특수 권한
 
-### 4.1 SetUID (SUID)
+#### 4.1 SetUID (SUID)
 
 **개념**:
 - 파일 실행 시 소유자 권한으로 실행
@@ -251,9 +259,9 @@ ls -l /usr/bin/passwd
 # -rwsr-xr-x 1 root root ... /usr/bin/passwd
 ```
 
-**예**: `passwd` 명령어는 SUID로 일반 사용자도 /etc/shadow 수정 가능
+**예**: `passwd` 명령어는 SUID 로 일반 사용자도 /etc/shadow 수정 가능
 
-### 4.2 SetGID (SGID)
+#### 4.2 SetGID (SGID)
 
 **파일**:
 - 실행 시 그룹 권한으로 실행
@@ -271,7 +279,7 @@ ls -ld dir/
 # drwxr-sr-x 2 user group ... dir/
 ```
 
-### 4.3 Sticky Bit
+#### 4.3 Sticky Bit
 
 **개념**:
 - 디렉토리에 설정
@@ -299,9 +307,9 @@ chmod 6755 file     # SUID + SGID
 chmod 7755 file     # SUID + SGID + Sticky
 ```
 
-## 5. 기본 권한 (umask)
+### 5. 기본 권한 (umask)
 
-### 5.1 umask 개념
+#### 5.1 umask 개념
 
 **역할**:
 - 새 파일/디렉토리의 기본 권한 결정
@@ -322,7 +330,7 @@ umask 027:
   디렉토리: 777 - 027 = 750 (rwxr-x---)
 ```
 
-### 5.2 umask 설정
+#### 5.2 umask 설정
 
 ```bash
 umask                   # 현재 umask 확인
@@ -335,15 +343,15 @@ umask 027               # 더 제한적인 권한
 - `/etc/profile`: 시스템 전역
 - `~/.bashrc`: 사용자별
 
-## 6. ACL (Access Control List)
+### 6. ACL (Access Control List)
 
-### 6.1 ACL 개념
+#### 6.1 ACL 개념
 
 **확장 권한**:
 - 전통적 권한(소유자, 그룹, 기타)의 한계 극복
 - 특정 사용자/그룹에 개별 권한 부여
 
-### 6.2 ACL 명령어
+#### 6.2 ACL 명령어
 
 **getfacl** - ACL 확인:
 ```bash
@@ -376,16 +384,16 @@ ls -l file.txt
 #           ^ ACL이 설정되어 있음을 나타냄
 ```
 
-## 7. sudo
+### 7. sudo
 
-### 7.1 sudo 개념
+#### 7.1 sudo 개념
 
 **특징**:
 - 일반 사용자가 root 권한으로 명령 실행
 - 로그 기록
 - 세밀한 권한 제어
 
-### 7.2 sudo 사용
+#### 7.2 sudo 사용
 
 ```bash
 sudo command                # root 권한으로 실행
@@ -396,7 +404,7 @@ sudo -l                     # 허용된 명령 확인
 sudo -k                     # 인증 캐시 삭제
 ```
 
-### 7.3 sudoers 설정
+#### 7.3 sudoers 설정
 
 **파일**: `/etc/sudoers`
 
@@ -434,15 +442,15 @@ user2 ALL=(ALL) NOPASSWD: /usr/bin/systemctl
 /etc/sudoers.d/             # 추가 설정 파일
 ```
 
-## 8. PAM (Pluggable Authentication Modules)
+### 8. PAM (Pluggable Authentication Modules)
 
-### 8.1 PAM 개념
+#### 8.1 PAM 개념
 
 **역할**:
 - 인증, 계정 관리, 세션 관리, 비밀번호 관리
 - 모듈식 구조로 유연한 인증 정책
 
-### 8.2 PAM 설정
+#### 8.2 PAM 설정
 
 **설정 파일**: `/etc/pam.d/`
 
@@ -474,30 +482,30 @@ session    required     pam_limits.so
 session    required     pam_unix.so
 ```
 
-## 9. 시험 대비 핵심 요약
+### 9. 시험 대비 핵심 요약
 
-### 사용자 관리
+#### 사용자 관리
 - **생성**: `useradd -m user1`
 - **수정**: `usermod -aG group user1`
 - **삭제**: `userdel -r user1`
 - **비밀번호**: `passwd user1`
 
-### 그룹 관리
+#### 그룹 관리
 - **생성**: `groupadd developers`
 - **추가**: `gpasswd -a user1 developers`
 - **확인**: `groups user1`, `id user1`
 
-### 권한
+#### 권한
 - **chmod**: `chmod 755 file`, `chmod u+x file`
 - **chown**: `chown user:group file`
 - **umask**: `umask 022`
 
-### 특수 권한
+#### 특수 권한
 - **SUID**: 4000, `chmod u+s`
 - **SGID**: 2000, `chmod g+s`
 - **Sticky**: 1000, `chmod +t`
 
-### 파일
+#### 파일
 - **/etc/passwd**: 사용자 정보
 - **/etc/shadow**: 비밀번호
 - **/etc/group**: 그룹 정보
@@ -505,5 +513,5 @@ session    required     pam_unix.so
 
 ---
 
-**이전 챕터**: [기본 명령어 및 셸](04-basic-commands.md)  
+**이전 챕터**: [기본 명령어 및 셸](04-basic-commands.md)
 **다음 챕터**: [프로세스 및 작업 관리](06-process-management.md)

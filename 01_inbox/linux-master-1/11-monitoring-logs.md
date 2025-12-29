@@ -1,8 +1,16 @@
-# 시스템 모니터링 및 로그
+---
+title: 11-monitoring-logs
+tags: []
+aliases: []
+date modified: 2025-12-29 10:35:46 +09:00
+date created: 2025-12-10 19:37:23 +09:00
+---
 
-## 1. 시스템 정보 확인
+## 시스템 모니터링 및 로그
 
-### 1.1 시스템 정보
+### 1. 시스템 정보 확인
+
+#### 1.1 시스템 정보
 
 **uname** - 시스템 정보:
 ```bash
@@ -32,7 +40,7 @@ cat /etc/debian_version # Debian 버전
 lsb_release -a          # LSB 정보
 ```
 
-### 1.2 하드웨어 정보
+#### 1.2 하드웨어 정보
 
 **CPU**:
 ```bash
@@ -77,9 +85,9 @@ dmidecode -t memory     # 메모리 정보
 dmidecode -t processor  # 프로세서 정보
 ```
 
-## 2. 리소스 모니터링
+### 2. 리소스 모니터링
 
-### 2.1 CPU 모니터링
+#### 2.1 CPU 모니터링
 
 **top/htop**:
 ```bash
@@ -101,11 +109,11 @@ uptime                  # 가동 시간 및 부하
 ```
 
 **로드 평균**:
-- 1분, 5분, 15분 평균
+- 1 분, 5 분, 15 분 평균
 - CPU 코어 수보다 낮으면 정상
-- 예: 4코어 시스템에서 4.0 = 100% 사용
+- 예: 4 코어 시스템에서 4.0 = 100% 사용
 
-### 2.2 메모리 모니터링
+#### 2.2 메모리 모니터링
 
 **free**:
 ```bash
@@ -135,7 +143,7 @@ vmstat -s               # 메모리 통계
 vmstat -d               # 디스크 통계
 ```
 
-### 2.3 디스크 모니터링
+#### 2.3 디스크 모니터링
 
 **df** - 디스크 사용량:
 ```bash
@@ -167,7 +175,7 @@ iotop                   # 실시간 I/O 모니터링
 iotop -o                # I/O 발생 프로세스만
 ```
 
-### 2.4 네트워크 모니터링
+#### 2.4 네트워크 모니터링
 
 **ifconfig/ip**:
 ```bash
@@ -202,9 +210,9 @@ vnstat -h               # 시간별
 vnstat -l               # 실시간
 ```
 
-## 3. 로그 시스템
+### 3. 로그 시스템
 
-### 3.1 로그 파일 위치
+#### 3.1 로그 파일 위치
 
 **주요 로그 파일**: `/var/log/`
 ```
@@ -222,7 +230,7 @@ vnstat -l               # 실시간
 /var/log/mysql/         # MySQL 로그
 ```
 
-### 3.2 로그 확인
+#### 3.2 로그 확인
 
 **기본 명령**:
 ```bash
@@ -240,7 +248,7 @@ grep -r "error" /var/log/       # 재귀 검색
 zgrep "error" /var/log/*.gz     # 압축 파일 검색
 ```
 
-### 3.3 rsyslog
+#### 3.3 rsyslog
 
 **설정 파일**: `/etc/rsyslog.conf`, `/etc/rsyslog.d/*.conf`
 
@@ -295,7 +303,7 @@ cron.*                          /var/log/cron
 systemctl restart rsyslog
 ```
 
-### 3.4 journalctl (systemd)
+#### 3.4 journalctl (systemd)
 
 **기본 사용**:
 ```bash
@@ -359,7 +367,7 @@ journalctl --vacuum-size=100M   # 100MB로 제한
 journalctl --vacuum-time=1week  # 1주일 이상 삭제
 ```
 
-### 3.5 로그 로테이션
+#### 3.5 로그 로테이션
 
 **logrotate** - 로그 순환
 
@@ -386,11 +394,11 @@ journalctl --vacuum-time=1week  # 1주일 이상 삭제
 
 **옵션**:
 - `daily/weekly/monthly`: 순환 주기
-- `rotate N`: N개 보관
+- `rotate N`: N 개 보관
 - `size 100M`: 크기 기준
 - `compress`: gzip 압축
 - `create mode owner group`: 새 파일 생성
-- `postrotate ... endscript`: 순환 후 실행
+- `postrotate … endscript`: 순환 후 실행
 
 **수동 실행**:
 ```bash
@@ -399,9 +407,9 @@ logrotate -d /etc/logrotate.conf  # 디버그 (실제 실행 안 함)
 logrotate -f /etc/logrotate.conf  # 강제 실행
 ```
 
-## 4. 성능 분석
+### 4. 성능 분석
 
-### 4.1 sar (System Activity Reporter)
+#### 4.1 sar (System Activity Reporter)
 
 **설치**: sysstat 패키지
 
@@ -418,7 +426,7 @@ sar -f /var/log/sa/sa10 # 특정 날짜 (10일)
 
 **데이터 수집**: `/etc/cron.d/sysstat`
 
-### 4.2 dmesg - 커널 메시지
+#### 4.2 dmesg - 커널 메시지
 
 ```bash
 dmesg                   # 커널 링 버퍼
@@ -430,7 +438,7 @@ dmesg -w                # 실시간 모니터링
 dmesg -c                # 버퍼 지우기
 ```
 
-### 4.3 strace - 시스템 콜 추적
+#### 4.3 strace - 시스템 콜 추적
 
 ```bash
 strace ls               # ls 명령 추적
@@ -440,9 +448,9 @@ strace -e open ls       # open 시스템 콜만
 strace -o output.txt ls # 파일로 저장
 ```
 
-## 5. 시스템 감사 (auditd)
+### 5. 시스템 감사 (auditd)
 
-### 5.1 auditd 개요
+#### 5.1 auditd 개요
 
 **설치 및 시작**:
 ```bash
@@ -452,7 +460,7 @@ systemctl start auditd
 systemctl enable auditd
 ```
 
-### 5.2 감사 규칙
+#### 5.2 감사 규칙
 
 **규칙 추가**:
 ```bash
@@ -476,7 +484,7 @@ auditctl -D
 - `-a`: 규칙 추가
 - `-S`: 시스템 콜
 
-### 5.3 감사 로그 검색
+#### 5.3 감사 로그 검색
 
 ```bash
 ausearch -k passwd_changes      # 키로 검색
@@ -490,33 +498,33 @@ aureport -au                     # 인증 리포트
 aureport -f                      # 파일 리포트
 ```
 
-## 6. 시험 대비 핵심 요약
+### 6. 시험 대비 핵심 요약
 
-### 시스템 정보
+#### 시스템 정보
 - **커널**: `uname -r`
 - **CPU**: `lscpu`, `/proc/cpuinfo`
 - **메모리**: `free -h`, `/proc/meminfo`
 - **디스크**: `lsblk`, `fdisk -l`
 
-### 리소스 모니터링
+#### 리소스 모니터링
 - **CPU**: `top`, `mpstat`, `uptime`
 - **메모리**: `free`, `vmstat`
 - **디스크**: `df`, `du`, `iostat`
 - **네트워크**: `ifconfig`, `netstat`, `ss`
 
-### 로그
+#### 로그
 - **위치**: `/var/log/`
 - **시스템**: `/var/log/messages`, `/var/log/syslog`
 - **인증**: `/var/log/secure`, `/var/log/auth.log`
 - **실시간**: `tail -f`
 
-### journalctl
+#### journalctl
 - **전체**: `journalctl`
 - **실시간**: `journalctl -f`
 - **서비스**: `journalctl -u service`
 - **시간**: `journalctl --since "1 hour ago"`
 
-### 기타
+#### 기타
 - **커널 메시지**: `dmesg`
 - **로그 순환**: `logrotate`
 - **성능**: `sar`
@@ -524,5 +532,5 @@ aureport -f                      # 파일 리포트
 
 ---
 
-**이전 챕터**: [셸 스크립팅](10-shell-scripting.md)  
+**이전 챕터**: [셸 스크립팅](10-shell-scripting.md)
 **다음 챕터**: [백업 및 복구](12-backup-recovery.md)
