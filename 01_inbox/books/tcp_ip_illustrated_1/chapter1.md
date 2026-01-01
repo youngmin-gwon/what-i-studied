@@ -2,7 +2,7 @@
 title: chapter1
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-01 22:59:40 +09:00
+date modified: 2026-01-01 23:15:24 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -13,29 +13,29 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((1장: 소개<br>Introduction))
-    아키텍처 원칙<br>Architectural Principles
+  root((1장: 소개))
+    아키텍처 원칙
       패킷과 데이터그램
-        패킷 교환 Packet Switching
+        패킷 교환
         통계적 다중화 Statistical Multiplexing
-        데이터그램 Datagrams
+        데이터그램
       설계 철학
         종단간 논거 End-to-End Argument
         운명 공유 Fate Sharing
       제어 방식
-        오류 제어 Error Control
-        흐름 제어 Flow Control
-        최선형 서비스 Best-effort
-    설계 및 구현<br>Design & Implementation
-      계층화 Layering
+        오류 제어
+        흐름 제어
+        최선형 서비스
+    설계 및 구현
+      계층화
         OSI 모델
         TCP IP 모델
       데이터 처리
         다중화 Multiplexing
         역다중화 Demultiplexing
         캡슐화 Encapsulation
-    TCP IP 아키텍처<br>Protocol Suite
-      계층 구조
+    TCP IP 아키텍처
+      계층 구조 사실 ARPANET 기반
         2.5계층 ARP
         3계층 IP
         3.5계층 ICMP IGMP
@@ -43,18 +43,18 @@ mindmap
         애플리케이션 계층
       식별자
         IP 주소
-        포트 번호 Port Numbers
+        포트 번호
         DNS 이름
-    애플리케이션 및 표준화<br>Apps & Standards
+    애플리케이션 및 표준화
       설계 패턴
-        클라이언트 서버 Client Server
-        P2P Peer-to-Peer
+        Client-Server
+        Peer-to-Peer
       인터페이스
         API Sockets
       표준화
         IETF
         RFC
-    보안 이슈<br>Security
+    보안 이슈
       스푸핑 Spoofing
       서비스 거부 DoS DDoS
 ```
@@ -87,13 +87,13 @@ mindmap
     - **3.5 계층:** ICMP (인터넷 제어 메시지 프로토콜) - 오류 보고 및 정보 교환용 IP 의 보조 프로토콜.
     - **4 계층:** TCP (연결 지향, 신뢰성 보장, 바이트 스트림) 및 UDP (비연결성, 비신뢰성, 데이터그램 보존).
     - **애플리케이션 계층:** 사용자 애플리케이션 (HTTP, DNS 등).
-- **식별자:** 각 계층은 고유한 주소 체계를 가집니다. 링크 계층은 MAC 주소, 네트워크 계층은 IP 주소, 전송 계층은 **포트 번호 (Port Numbers)** 를 사용하여 애플리케이션을 식별합니다.
+- **식별자:** 각 계층은 고유한 주소 체계를 가집니다. 링크 계층은 MAC 주소, 네트워크 계층은 IP 주소, 전송 계층은 **포트 번호 (Port Numbers)** 를 사용하여 애플리케이션을 식별합니다 -.
 - **DNS:** IP 주소를 사람이 기억하기 쉬운 호스트 이름으로 매핑해주는 분산 데이터베이스 시스템입니다.
 
 ### 4. 애플리케이션 설계 및 표준화
 
 - **설계 패턴:**
-    - **클라이언트/서버:** 서버가 서비스를 제공하고 클라이언트가 요청하는 구조입니다. 서버는 반복적 (Iterative) 이거나 병행적 (Concurrent) 일 수 있습니다.
+    - **클라이언트/서버:** 서버가 서비스를 제공하고 클라이언트가 요청하는 구조입니다. 서버는 반복적 (Iterative) 이거나 병행적 (Concurrent) 일 수 있습니다 -.
     - **P2P (Peer-to-Peer):** 중앙 서버 없이 피어들이 클라이언트와 서버 역할을 동시에 수행하며 오버레이 네트워크를 형성합니다.
 - **API:** 애플리케이션은 소켓 (Sockets) API 를 통해 네트워크 기능을 호출합니다.
 - **표준화:** 인터넷 표준은 IETF(Internet Engineering Task Force) 에서 논의되며, 공식 문서는 **RFC(Request for Comments)** 형태로 발행됩니다,.
@@ -101,4 +101,4 @@ mindmap
 ### 5. 보안 (Security)
 
 - 초기 인터넷 아키텍처는 보안을 주요 목표로 설계하지 않았습니다.
-- **주요 위협:** IP 주소 스푸핑 (Spoofing), 서비스 거부 공격 (DoS/DDoS), 패킷 스니핑을 통한 정보 유출 등이 있습니다. 현대에는 IPsec, TLS 등 암호화 프로토콜을 통해 이를 보완합니다.
+- **주요 위협:** IP 주소 스푸핑 (Spoofing), 서비스 거부 공격 (DoS/DDoS), 패킷 스니핑을 통한 정보 유출 등이 있습니다. 현대에는 IPsec, TLS 등 암호화 프로토콜을 통해 이를 보완합니다,.
