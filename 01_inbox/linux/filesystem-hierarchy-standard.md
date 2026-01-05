@@ -78,12 +78,10 @@ graph LR
 
 - **타입**: 가상 파일시스템 (메모리에만 존재)
 - **내용**:
-  - 프로세스 정보: `/proc/[PID]/`
-  - CPU 정보: `/proc/cpuinfo`
-  - 메모리 정보: `/proc/meminfo`
-  - 커널 버전: `/proc/version`
-  - 커널 파라미터: `/proc/sys/`
-- **특징**: 실시간으로 커널 정보에 접근 가능
+  - **프로세스 상태 정보**: `/proc/[PID]/` (실행 중인 각 프로세스의 상세 정보)
+  - **하드웨어 정보**: `/proc/cpuinfo`, `/proc/meminfo`, `/proc/interrupts`
+  - **커널/시스템 정보**: `/proc/version`, `/proc/uptime`, `/proc/sys/` (커널 파라미터 제어)
+- **특징**: 커널의 내부 데이터를 파일 형태로 노출하여, 실시간으로 시스템 정보를 조회하거나 하드웨어 정보를 파악할 때 사용합니다.
 
 #### `/sys` - System Information
 
@@ -97,8 +95,9 @@ graph LR
 - **목적**: 하드웨어 디바이스에 대한 인터페이스
 - **관리**: udev 를 통한 동적 관리
 - **주요 디바이스**:
-  - `/dev/sda` - 첫 번째 SATA/SCSI 디스크
-  - `/dev/nvme0n1` - NVMe SSD
+  - **`/dev/sd[a-z]`**: **SATA, SCSI, USB** 방식의 디스크 장치. (현재 가장 보편적)
+  - **`/dev/hd[a-z]`**: **IDE (PATA)** 방식의 구형 디스크 장치.
+  - `/dev/nvme[0-9]n[1-9]`: NVMe SSD 방식의 장치.
   - `/dev/null`: **비트 버킷 (Black Hole)**. 이 파일로 보낸 모든 데이터는 버려지며, 읽으려 하면 즉시 EOF(End of File)를 반환합니다. (출력 제거용)
   - `/dev/zero`: **0 채움 장치**. 읽을 때마다 `NULL` (0x00) 바이트를 무한히 제공합니다. (특정 크기 파일 생성용)
   - `/dev/random` / `/dev/urandom`: **난수 생성기**. 시스템 노이즈를 이용해 무작위 바이트를 생성합니다.

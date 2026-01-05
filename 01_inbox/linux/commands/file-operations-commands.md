@@ -283,6 +283,30 @@ rmdir emptydir  # 빈 디렉토리만 삭제 (안전)
 >[!WARNING]
 >`rm -rf` 는 매우 위험합니다! 특히 `/` 나 `*` 와 함께 사용 시 시스템 전체를 삭제할 수 있습니다.
 
+### ln - Create Links
+
+파일이나 디렉토리에 대한 링크(지름길)를 생성합니다.
+
+**Syntax**:
+```bash
+ln [OPTIONS] TARGET LINK_NAME
+```
+
+**실용 예제**:
+```bash
+# 하드 링크 생성 (동일 inode 공유)
+ln file.txt hardlink.txt
+
+# 심볼릭 링크 생성 (소프트 링크/지름길)
+ln -s /path/to/original.txt symlink.txt
+
+# 디렉토리 심볼릭 링크
+ln -s /var/log/nginx ~/web_logs
+```
+
+> [!TIP]
+> **하드 링크 vs 심볼릭 링크**의 차이와 **inode**의 원리에 대한 상세한 설명은 [[inode]] 및 [[file-types-links]] 문서를 참조하세요.
+
 ## 🔍 File Search
 
 ### find - Search for Files

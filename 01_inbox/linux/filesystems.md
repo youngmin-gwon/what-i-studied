@@ -413,5 +413,6 @@ mount -o compress=zstd
 ## 🔗 연결 문서 (Related Documents)
 
 - [[lvm]] - 논리 볼륨 관리와 파일시스템 조합
+- [[raid-technologies]] - 디스크 중복성 및 성능 향상 기술
 - [[inode]] - 파일시스템 내부 구조
 - [[filesystem-hierarchy-standard]] - Linux 디렉토리 구조
