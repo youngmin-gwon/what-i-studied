@@ -1,8 +1,8 @@
 ---
 title: Process and Job Control Commands
-tags: [linux, commands, process, job, kill, nice]
-aliases: [프로세스 제어, kill, nice, jobs]
-date modified: 2025-12-20 13:59:24 +09:00
+tags: [linux, commands, process, job, kill, nice, fork, exec, daemon]
+aliases: [프로세스 제어, kill, nice, jobs, fork, exec]
+date modified: 2026-01-06 21:50:00 +09:00
 date created: 2025-12-20 13:59:24 +09:00
 ---
 
@@ -23,19 +23,60 @@ date created: 2025-12-20 13:59:24 +09:00
 | `fg`/`bg` | 포그라운드/백그라운드 |
 | `nohup` | 터미널 종료 후에도 실행 |
 
+---
+
+## 🔀 프로세스 생성 방식
+
+### fork vs exec
+
+| 방식 | 설명 | 원래 프로세스 |
+| :--- | :--- | :--- |
+| **fork** | 새 메모리 할당, **복사본** 생성 | 유지됨 |
+| **exec** | 원래 프로세스를 **덮어씀** | 종료됨 |
+
+- **fork**: 부모 프로세스의 복제본을 생성. 부모 프로세스는 그대로 실행됨
+- **exec**: 현재 프로세스의 메모리에 새 코드를 덮어씀. 원래 프로세스는 사라짐
+
+> [!IMPORTANT]
+> **시험 포인트**: 리눅스 부팅 시 프로세스는 **fork 방식**으로 생성됩니다.
+> systemd(PID **1**)가 최초 프로세스입니다. (PID 0이 아님!)
+
+---
+
+## 🔄 데몬 실행 방식
+
+| 방식 | 설명 | 메모리 |
+| :--- | :--- | :--- |
+| **standalone** | 부팅 시 실행, 항상 메모리 상주 | 항상 사용 |
+| **inet (inetd/xinetd)** | 요청 시에만 실행, 접속 종료 후 종료 | 절약 |
+
+- **standalone**: 항상 대기 (httpd, sshd 등)
+- **inet**: 슈퍼 데몬이 연결 받아 실제 데몬 시작
+
+---
+
 ## 🎯 Process Control
 
 ### kill - Send Signal
 
 **주요 시그널**:
 
-| 시그널 | 번호 | 의미 |
-|--------|------|------|
-| SIGTERM | 15 | 정상 종료 (기본) |
-| SIGKILL | 9 | 강제 종료 |
-| SIGHUP | 1 | 재시작 |
-| SIGSTOP | 19 | 일시정지 |
-| SIGCONT | 18 | 계속 |
+| 시그널 | 번호 | 의미 | 키보드 |
+|--------|------|------|--------|
+| SIGHUP | 1 | 재시작/설정 리로드 | - |
+| **SIGINT** | **2** | 인터럽트 | **Ctrl+C** |
+| **SIGQUIT** | **3** | 종료 + 코어 덤프 | **Ctrl+\\** |
+| SIGKILL | 9 | **강제 종료** (무시 불가) | - |
+| SIGTERM | 15 | 정상 종료 (기본) | - |
+| SIGTSTP | 20 | 일시 정지 | **Ctrl+Z** |
+| SIGSTOP | 19 | 일시정지 (무시 불가) | - |
+| SIGCONT | 18 | 계속 | - |
+
+> [!TIP]
+> **키보드 단축키**:
+> - **Ctrl+C**: SIGINT (인터럽트, 종료)
+> - **Ctrl+Z**: SIGTSTP (일시 정지 → bg/fg로 제어)
+> - **Ctrl+\\**: SIGQUIT (종료 + 코어 덤프)
 
 ```bash
 kill PID                   # SIGTERM (15)
@@ -156,13 +197,54 @@ atrm job_number
 crontab -e                 # 편집
 crontab -l                 # 목록
 crontab -r                 # 삭제
-
-# 형식: 분 시 일 월 요일 명령
-# * * * * * command
-# 0 2 * * * /path/to/backup.sh     # 매일 2:00
-# 0 0 * * 0 /path/to/weekly.sh     # 매주 일요일 0:00
-# */5 * * * * /path/to/check.sh    # 5분마다
+crontab -u username -e     # 다른 사용자 (root만)
 ```
+
+**crontab 형식**:
+
+```
+분 시 일 월 요일 명령
+*  *  *  *  *    command
+│  │  │  │  └── 요일 (0-7, 0과 7은 일요일, 또는 Sun-Sat)
+│  │  │  └───── 월 (1-12 또는 Jan-Dec)
+│  │  └──────── 일 (1-31)
+│  └─────────── 시 (0-23)
+└────────────── 분 (0-59)
+```
+
+**특수 문자**:
+
+| 문자 | 의미 | 예시 |
+| :--- | :--- | :--- |
+| `*` | 모든 값 | `* * * * *` = 매분 |
+| `,` | 여러 값 | `0,30 * * * *` = 매시 0분, 30분 |
+| `-` | 범위 | `0 9-17 * * *` = 9시~17시 정각 |
+| `/` | 간격 | `*/5 * * * *` = 5분마다 |
+
+**자주 사용되는 패턴**:
+
+```bash
+# 매일 새벽 2시
+0 2 * * *   /path/to/backup.sh
+
+# 매주 일요일 0시
+0 0 * * 0   /path/to/weekly.sh
+
+# 매주 월~금 9시
+0 9 * * 1-5 /path/to/work.sh
+
+# 5분마다
+*/5 * * * * /path/to/check.sh
+
+# 매월 1일 0시
+0 0 1 * *   /path/to/monthly.sh
+
+# 매년 1월 1일 0시
+0 0 1 1 *   /path/to/yearly.sh
+```
+
+> [!IMPORTANT]
+> **시험 Tip**: crontab 필드 순서는 **분-시-일-월-요일** (작은 단위부터). 요일에서 0과 7은 둘 다 일요일입니다.
 
 ## 💡 Scenarios
 

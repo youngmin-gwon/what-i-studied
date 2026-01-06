@@ -54,6 +54,29 @@ sequenceDiagram
 3. **MBR 읽기**: 디스크의 첫 섹터 (512바이트) 실행
 4. **부트로더로 제어 이전**
 
+### MBR 구조 상세
+
+**MBR (Master Boot Record)**는 디스크의 첫 512바이트로, 다음과 같이 구성됩니다:
+
+| 영역 | 크기 | 설명 |
+| :--- | :---: | :--- |
+| **Boot Loader (Boot Code)** | 446 bytes | 부트스트랩 코드 (GRUB Stage 1 등) |
+| **Partition Table** | 64 bytes | 4개 파티션 정보 (각 16 bytes) |
+| **Magic Number (Boot Signature)** | 2 bytes | `0x55AA` (유효한 MBR임을 표시) |
+| **합계** | **512 bytes** | 정확히 1 섹터 |
+
+> [!IMPORTANT]
+> **시험 Tip**: MBR = **446 + 64 + 2 = 512 bytes**. Boot Loader 446바이트, Partition Table 64바이트 (4개 × 16바이트), Magic Number 2바이트 (`0x55AA`)를 기억하세요.
+
+```bash
+# MBR 백업 및 확인
+dd if=/dev/sda of=mbr_backup.bin bs=512 count=1
+
+# MBR 끝 2바이트 (Magic Number) 확인
+hexdump -C mbr_backup.bin | tail -1
+# 출력: 000001f0  ... 55 aa
+```
+
 ### UEFI (Unified Extensible Firmware Interface)
 
 **현대적 방식** (2000년대~):
