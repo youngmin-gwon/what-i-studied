@@ -2,7 +2,7 @@
 title: chapter7
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-08 23:56:15 +09:00
+date modified: 2026-01-09 00:04:21 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((7장:<br>방화벽과 NAT))
+  root((7장:<br>방화벽과<br>NAT))
     방화벽
       Packet-Filtering
         Router-based

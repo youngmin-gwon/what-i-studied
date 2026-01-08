@@ -2,7 +2,7 @@
 title: chapter2
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-08 23:40:36 +09:00
+date modified: 2026-01-09 00:02:22 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -15,7 +15,7 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((2장:<br>인터넷 주소 아키텍처))
+  root((2장:<br>인터넷<br>주소<br>아키텍처))
     주소 표현<br>Expression
       IPv4
         32비트 정수

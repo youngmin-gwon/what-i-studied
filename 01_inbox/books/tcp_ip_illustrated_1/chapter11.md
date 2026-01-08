@@ -2,7 +2,7 @@
 title: chapter11
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 14:04:17 +09:00
+date modified: 2026-01-09 00:07:28 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -12,29 +12,29 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((11장: DNS<br>Domain Name System))
-    개요 및 구조<br>Overview & Structure
+  root((11장: DNS<br>Domain<br>Name<br>System))
+    개요 및 구조
       목적
         호스트 이름과 IP 주소 매핑
-        분산 데이터베이스 Distributed Database
-      이름 공간 Name Space
-        계층적 구조 Hierarchy
+        분산 데이터베이스
+      이름 공간
+        계층적 구조
         TLD gTLD ccTLD ARPA
-        레이블 Labels 최대 63바이트
+        레이블 최대 63바이트
         FQDN 완전한 도메인 이름
-    서버 및 운영<br>Servers & Ops
-      존 Zone
-        관리 단위 Administrative Unit
-        위임 Delegation
+    서버 및 운영
+      Zone
+        관리 단위
+        위임
       서버 유형
-        권한 있는 서버 Authoritative
-        캐싱 서버 Caching TTL
-        루트 서버 Root Servers
-      존 전송 Zone Transfer
+        Authoritative
+        Caching TTL
+        Root Servers
+      Zone Transfer
         AXFR 전체 전송 TCP
         IXFR 증분 전송
         NOTIFY 변경 알림
-    프로토콜<br>Protocol
+    프로토콜
       전송
         UDP 포트 53 기본
         TCP 포트 53 크기 초과시 및 전송
@@ -43,8 +43,8 @@ mindmap
         섹션 질문 답변 권한 추가
       확장 기능
         EDNS0 512바이트 제한 극복
-        동적 업데이트 Dynamic Updates
-    리소스 레코드<br>Resource Records
+        동적 업데이트
+    Resource Records
       기본 레코드
         A IPv4 주소
         AAAA IPv6 주소
@@ -55,7 +55,7 @@ mindmap
         PTR 역방향 조회 Pointer
         MX 메일 교환 Mail Exchanger
         TXT 텍스트 SPF
-        SRV 서비스 위치 Service Location
+        SRV 서비스 위치
         NAPTR 정규식 재작성 ENUM SIP
     고급 기능 및 보안<br>Advanced & Security
       변환 및 로컬

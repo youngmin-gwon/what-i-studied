@@ -2,7 +2,7 @@
 title: chapter3
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-08 23:44:57 +09:00
+date modified: 2026-01-09 00:03:23 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((3장:<br>Link Layer))
+  root((3장:<br>Link<br>Layer))
     Basics
       역할
         IP 데이터그램 전송
@@ -58,7 +58,7 @@ mindmap
       기능
         인증 PAP CHAP EAP
         헤더 압축
-    터널링<br>Tunneling
+    Tunneling
       개념
         하위 계층을 상위 계층에 캡슐화
         GRE PPTP L2TP

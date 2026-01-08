@@ -2,7 +2,7 @@
 title: chapter9
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-08 23:56:37 +09:00
+date modified: 2026-01-09 00:05:19 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -12,14 +12,14 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((9장: 브로드캐스팅과<br>멀티캐스팅))
-    개요 및 차이점<br>Overview
-      브로드캐스팅 Broadcasting
-        일대전체 One-to-All
+  root((9장:<br>브로드캐스팅과<br>멀티캐스팅))
+    개요 및 차이점
+      Broadcasting
+        One-to-All
         IPv4 전용
         UDP 사용 TCP 불가
-      멀티캐스팅 Multicasting
-        일대다 One-to-Many
+      Multicasting
+        일대다
         관심 있는 호스트만 수신
         IPv4 및 IPv6 지원
         ASM Any-Source vs SSM Source-Specific
@@ -29,7 +29,7 @@ mindmap
         서브넷 지정 브로드캐스트<br>Directed Subnet
       링크 계층
         MAC 주소 ff:ff:ff:ff:ff:ff
-    멀티캐스팅 주소 매핑<br>Address Mapping
+    멀티캐스팅 주소 매핑
       IPv4 to MAC
         OUI 01:00:5e
         하위 23비트 매핑
@@ -41,7 +41,7 @@ mindmap
       필터링
         NIC 하드웨어 필터링
         소프트웨어 IP UDP 필터링
-    그룹 관리 프로토콜<br>IGMP & MLD
+    그룹 관리 프로토콜<br>IGMP and MLD
       IGMP IPv4
         v1 v2 v3 SSM 지원
         별도 프로토콜 Protocol 2
@@ -53,7 +53,7 @@ mindmap
         라우터 Query 질의
         호스트 Report 응답
         Querier 선출 최저 IP
-    스위칭 및 최적화<br>Optimization
+    스위칭 및 최적화
       IGMP MLD Snooping
         L2 스위치가 L3 헤더 검사
         멀티캐스트 플러딩 방지

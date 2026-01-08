@@ -2,7 +2,7 @@
 title: chapter10
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 14:04:15 +09:00
+date modified: 2026-01-09 00:01:23 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -15,38 +15,38 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((10장: UDP 및<br>IP 단편화))
-    UDP 개요<br>UDP Overview
+  root((10장:<br>UDP 및<br>IP 단편화))
+    개요
       특성
-        비연결성 Connectionless
-        비신뢰성 Unreliable
-        메시지 경계 보존 Message Boundaries
+        Connectionless
+        Unreliable
+        메시지 경계 보존
         간단한 헤더 8바이트
       헤더 구조
         소스 목적지 포트
-        길이 Length
-        체크섬 Checksum
-    UDP 체크섬<br>Checksum
+        길이
+        Checksum
+    UDP Checksum
       동작 원리
-        가상 헤더 Pseudo-header 사용
+        Pseudo-header 사용
         헤더 및 데이터 커버
         IPv4 옵션 IPv6 필수
       UDP-Lite
-        부분 체크섬 Partial Checksum
+        부분 체크섬
         오류 허용 멀티미디어용
-    IP 단편화<br>Fragmentation
+    IP 단편화
       메커니즘
         MTU 제한
-        Identification 식별자
+        식별자
         Flags DF MF
         Fragment Offset
-      재조립 Reassembly
+      재조립
         최종 목적지에서 수행
         단편 손실 시 전체 폐기
       IPv6 차이점
         발신지에서만 단편화 수행
         라우터 단편화 금지
-    UDP와 IPv6<br>UDP & IPv6
+    UDP와 IPv6
       Jumbograms
         64KB 이상 페이로드
         UDP 길이 필드 0 설정
@@ -54,14 +54,14 @@ mindmap
         IPv6 over UDP IPv4 터널링
         NAT 통과 지원
         클라이언트 서버 릴레이 구조
-    서버 설계<br>Server Design
+    서버 설계
       주소 바인딩
-        와일드카드 Wildcard
+        Wildcard
         특정 주소 제한
       흐름 제어 부재
         혼잡 제어 없음
         수신 큐 오버플로 시 폐기
-    보안 이슈<br>Security
+    보안 이슈
       DoS 공격
         Flooding
         Fraggle 증폭 공격
