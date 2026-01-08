@@ -2,7 +2,7 @@
 title: chapter3
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 13:54:10 +09:00
+date modified: 2026-01-08 23:44:57 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -14,15 +14,15 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((3장: 링크 계층<br>Link Layer))
-    기본 개념<br>Basics
+  root((3장:<br>Link Layer))
+    Basics
       역할
         IP 데이터그램 전송
-        프레임 Frame 구성
+        Frame 구성
       MTU
         최대 전송 단위
-        단편화 Fragmentation 기준
-    이더넷<br>Ethernet IEEE 802.3
+        Fragmentation 기준
+    Ethernet IEEE 802.3
       매체 접근 제어
         CSMA CD 충돌 감지
         전이중 Full Duplex
@@ -32,11 +32,11 @@ mindmap
         CRC32 오류 검사
       확장 기능
         VLAN 802.1q 태깅
-        링크 집계 Link Aggregation
+        Link Aggregation
         Wake-on-LAN
-    스위칭 및 브리징<br>Switching
+    스위칭 및 브리징
       동작 원리
-        MAC 주소 학습 Learning
+        MAC 주소 Learning
         필터링 데이터베이스
       루프 방지
         STP 스패닝 트리 프로토콜
@@ -48,7 +48,7 @@ mindmap
       프레임 구조
         관리 제어 데이터 프레임
         3~4개의 주소 필드
-      보안 Security
+      Security
         WEP 취약함
         WPA2 802.11i 권장
     PPP<br>Point-to-Point Protocol

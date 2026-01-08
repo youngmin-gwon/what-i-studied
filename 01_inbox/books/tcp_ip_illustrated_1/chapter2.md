@@ -2,7 +2,7 @@
 title: chapter2
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-01 23:10:55 +09:00
+date modified: 2026-01-08 23:40:36 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -15,7 +15,7 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((2장: 인터넷 주소 아키텍처<br>Internet Address Architecture))
+  root((2장:<br>인터넷 주소 아키텍처))
     주소 표현<br>Expression
       IPv4
         32비트 정수
@@ -25,12 +25,12 @@ mindmap
         16진수 및 콜론 구분
         압축 표기법 ::
         IPv4-Mapped Embedded
-    기본 주소 구조<br>Basic Structure
+    Basic Structure
       클래스 기반 주소 지정 Classful
         Class A B C D E
         네트워크 호스트 구분
       서브넷 Subnetting
-        서브넷 마스크 Subnet Masks
+        Subnet Masks
         VLSM 가변 길이 서브넷 마스크
       브로드캐스트 Broadcast IPv4 Only
         Directed Subnet
@@ -46,23 +46,23 @@ mindmap
         라우팅 테이블 감소
         계층적 라우팅 Hierarchical
     특수 목적 주소<br>Special Use
-      사설 주소 Private Addresses
+      Private Addresses
         Non-routable
         NAT와 함께 사용
-      멀티캐스트 Multicast
+      Multicast
         일대다 통신
         ASM vs SSM
-      애니캐스트 Anycast
+      Anycast
         가장 가까운 노드로 라우팅
-    할당 및 할당<br>Allocation
+    Allocation
       관리 체계
         IANA
-        RIR Regional Internet Registries
+        RIR<br>Regional Internet Registries
         ISP
       할당 유형
         PA Provider-Aggregatable
         PI Provider-Independent
-      멀티호밍 Multihoming
+      Multihoming
 ```
 
 ---

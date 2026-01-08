@@ -2,7 +2,7 @@
 title: chapter4
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 13:56:47 +09:00
+date modified: 2026-01-08 23:46:55 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -15,25 +15,25 @@ date created: 2025-12-11 10:58:04 +09:00
 ```mermaid
 mindmap
   root((4장: ARP<br>Address Resolution Protocol))
-    기본 개념<br>Basic Concepts
+    기본 개념
       역할
         IPv4 주소를 MAC 주소로 매핑
-        동적 매핑 Dynamic Mapping
+        Dynamic Mapping
         브로드캐스트 도메인 내 작동
-      직접 전달 Direct Delivery
+      직접 전달
         동일 서브넷
         목적지 하드웨어 주소 필요
-    동작 원리<br>Operation
-      요청 Request
-        브로드캐스트 Broadcast
+    동작 원리
+      요청
+        Broadcast
         누가 이 IP를 가졌니?
       응답 Reply
-        유니캐스트 Unicast
+        Unicast
         내가 가졌고 내 MAC은 이거야
-      캐싱 Caching
+      Caching
         효율성 증대
         요청자 및 대상 모두 학습
-    패킷 포맷<br>Packet Format
+    Packet Format
       Ethertype 0x0806
       필드 구성
         하드웨어 프로토콜 타입
@@ -51,7 +51,7 @@ mindmap
         RFC 5227
         ARP Probe Sender IP 0
         ARP Announcement
-    관리 및 보안<br>Mgmt & Security
+    관리 및 보안
       ARP Cache
         arp 명령어로 확인
         Timeout 보통 20분

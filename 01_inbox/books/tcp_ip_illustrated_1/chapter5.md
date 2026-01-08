@@ -2,7 +2,7 @@
 title: chapter5
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 13:55:31 +09:00
+date modified: 2026-01-08 23:47:32 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((5장: 인터넷 프로토콜<br>The Internet Protocol))
+  root((5장:<br>인터넷 프로토콜))
     기본 원칙<br>Fundamentals
       최선형 서비스 Best-effort
       비연결성 Connectionless
