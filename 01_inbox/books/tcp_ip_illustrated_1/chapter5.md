@@ -2,7 +2,7 @@
 title: chapter5
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-08 23:47:32 +09:00
+date modified: 2026-01-08 23:50:17 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -15,24 +15,24 @@ date created: 2025-12-11 10:58:04 +09:00
 ```mermaid
 mindmap
   root((5장:<br>인터넷 프로토콜))
-    기본 원칙<br>Fundamentals
-      최선형 서비스 Best-effort
-      비연결성 Connectionless
-      데이터그램 Datagram
-    헤더 구조<br>Headers
+    기본 원칙
+      Best-effort Service
+      Connectionless
+      Datagram
+    헤더 구조
       IPv4
         20바이트 + 옵션
         IHL 헤더 길이
         식별자 및 단편화 Flags Offset
-        헤더 체크섬 Checksum
+        헤더 체크섬
       IPv6
         고정 40바이트
-        체크섬 없음 No Checksum
+        체크섬 없음
         Flow Label
       공통 필드
         DS Field DiffServ
         ECN 명시적 혼잡 알림
-    IPv6 확장 헤더<br>Extension Headers
+    IPv6 확장 헤더
       Next Header 체이닝
       주요 헤더
         Hop-by-Hop Options
@@ -42,23 +42,23 @@ mindmap
       옵션
         Jumbo Payload
         Router Alert
-    IP 포워딩<br>Forwarding
+    IP 포워딩
       전달 방식
-        직접 전달 Direct
-        간접 전달 Indirect via Router
+        Direct
+        Indirect via Router
       테이블 구조
         Destination Mask Next-hop Interface
       알고리즘
-        최장 프리픽스 일치<br>Longest Prefix Match
-    모바일 IP<br>Mobile IP
+        Longest Prefix Match
+    Mobile IP
       구성 요소
         Mobile Node MN
         Home Agent HA
         Care-of Address CoA
       동작 모드
-        양방향 터널링 Bidirectional Tunneling
-        경로 최적화 Route Optimization RRP
-    호스트 처리<br>Host Processing
+        Bidirectional Tunneling
+        Route Optimization RRP
+    호스트 처리
       호스트 모델
         Strong Model 인터페이스 엄격 일치
         Weak Model 유연한 수신 송신

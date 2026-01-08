@@ -2,7 +2,7 @@
 title: chapter6
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 13:57:43 +09:00
+date modified: 2026-01-08 23:51:55 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -10,31 +10,31 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((6장: 시스템 구성<br>DHCP & Autoconfiguration))
-    기본 개념<br>Basics
+  root((6장: 시스템 구성<br>DHCP<br>and Autoconfiguration))
+    기본 개념
       필수 정보
         IP 주소 및 마스크
         라우터 및 DNS 서버
       구성 방법
-        수동 구성 Manual
+        수동 구성
         서버 기반 DHCP
-        자동 구성 Autoconfiguration
+        자동 구성<br>Autoconfiguration
     DHCPv4
       동작 원리
-        DORA Discover Offer Request Ack
+        DORA<br>Discover Offer Request Ack
         임대 Lease 개념
       메시지 포맷
         BOOTP 기반
         UDP 포트 67 Server 68 Client
         옵션 Options 사용
-      릴레이 Relay
-        Relay Agent Information Option RAIO
+      Relay
+        Relay Agent Information Option<br>RAIO
         서브넷 간 전달
     DHCPv6
       특징
         UDP 포트 546 Client 547 Server
         DUID 식별자 사용
-        IA Identity Association
+        IA<br>Identity Association
       모드
         Stateful 주소 할당
         Stateless 정보만 제공
@@ -55,7 +55,7 @@ mindmap
       단계
         Discovery PADI PADO PADR PADS
         Session PPP LCP IPCP
-    보안 및 기타<br>Security & Others
+    보안 및 기타
       보안 위협
         Rogue Server
         주소 고갈 공격

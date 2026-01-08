@@ -2,7 +2,7 @@
 title: chapter8
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 14:04:08 +09:00
+date modified: 2026-01-08 23:57:39 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -16,7 +16,7 @@ date created: 2025-12-11 10:58:04 +09:00
 ```mermaid
 mindmap
   root((8장: ICMP<br>Internet Control Message Protocol))
-    기본 개념<br>Basics
+    기본 개념
       역할
         IP의 보조 프로토콜
         오류 보고 및 진단
@@ -24,13 +24,13 @@ mindmap
       차이점
         ICMPv4 IPv4용
         ICMPv6 IPv6용 필수 요소
-    메시지 유형<br>Message Types
-      오류 메시지 Error
+    메시지 유형
+      오류 메시지
         목적지 도달 불가 Destination Unreachable
         패킷 너무 큼 PTB IPv6 PMTUD
         시간 초과 Time Exceeded TTL Expire
-        파라미터 문제 Parameter Problem
-        리다이렉트 Redirect
+        파라미터 문제
+        리다이렉트
       정보 메시지 Informational
         Echo Request Reply Ping
         Router Discovery
@@ -46,7 +46,7 @@ mindmap
         RA Router Advertisement
         NS Neighbor Solicitation
         NA Neighbor Advertisement
-    보안 및 이슈<br>Security
+    보안 및 이슈
       공격 유형
         Smurf Attack 증폭 공격
         Ping of Death
@@ -55,7 +55,7 @@ mindmap
         SEND Secure ND
         CGA 암호화 생성 주소
         Rate Limiting
-    규칙 및 처리<br>Rules
+    규칙 및 처리
       생성 제한
         오류에 대한 오류 생성 금지
         브로드캐스트 멀티캐스트 응답 제한

@@ -2,7 +2,7 @@
 title: chapter7
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 13:58:22 +09:00
+date modified: 2026-01-08 23:56:15 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -10,30 +10,30 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((7장: 방화벽과 NAT<br>Firewalls and NAT))
-    방화벽<br>Firewalls
-      패킷 필터링 Packet-Filtering
-        라우터 기반 Router-based
+  root((7장:<br>방화벽과 NAT))
+    방화벽
+      Packet-Filtering
+        Router-based
         Stateless vs Stateful
         ACL Access Control Lists
-      프록시 Proxy
+      Proxy
         애플리케이션 계층 게이트웨이 ALG
         HTTP Proxy Web Cache
         SOCKS Protocol
-    NAT 기본<br>Basic NAT
-      유형 Types
+    NAT 기본
+      유형
         Basic NAT IP rewriting
         NAPT IP and Port rewriting Masquerading
-      기능 Features
-        사설 주소 Private Addresses
-        토폴로지 은폐 Topology Hiding
+      기능
+        Private Addresses
+        Topology Hiding
         NAT Editors ALGs for FTP SIP
-    NAT 동작<br>Behaviors
-      매핑 Mapping
+    NAT 동작
+      Mapping
         Endpoint-Independent
         Address-Dependent
         Address-and-Port-Dependent
-      필터링 Filtering
+      Filtering
         Endpoint-Independent
         Address-Dependent
         Address-and-Port-Dependent
@@ -41,22 +41,22 @@ mindmap
         Hairpinning Loopback
         Port Preservation
     NAT 통과<br>Traversal
-      기법 Techniques
+      기법
         Hole Punching
         UNSAF
-      프로토콜 Protocols
+      프로토콜
         STUN Session Traversal Utilities
         TURN Relays around NAT
         ICE Interactive Connectivity Establishment
-    설정 및 제어<br>Config & Control
-      규칙 Rules
+    설정 및 제어
+      규칙
         iptables Linux
         Windows Firewall
       제어 프로토콜
         UPnP IGD
         NAT-PMP
         PCP Port Control Protocol
-    IPv6 공존 및 전환<br>Coexistence
+    IPv6 공존 및 전환
       DS-Lite Dual-Stack Lite
         IPv4-in-IPv6 Tunneling
         SPNAT Carrier-Grade NAT
