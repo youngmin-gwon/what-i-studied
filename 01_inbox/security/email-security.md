@@ -1,8 +1,8 @@
 ---
-title: Email Security (이메일 보안)
-tags: [security, email, pgp, smime, encryption, spam]
-aliases: [이메일 보안, PGP, S/MIME, 이메일 암호화]
-date modified: 2026-01-08 11:15:27 +09:00
+title: email-security
+tags: [email, encryption, pgp, security, smime, spam]
+aliases: [PGP, S/MIME, 이메일 보안, 이메일 암호화]
+date modified: 2026-01-08 15:57:34 +09:00
 date created: 2026-01-08 11:15:27 +09:00
 ---
 
@@ -148,7 +148,7 @@ sequenceDiagram
 - 계층적 인증 구조
 - RSA 공개키 암호화
 - DES 대칭키 암호화
-- 현재는 PGP와 S/MIME가 주로 사용됨
+- 현재는 PGP 와 S/MIME 가 주로 사용됨
 
 ---
 

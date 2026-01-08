@@ -1,8 +1,8 @@
 ---
-title: Secure Operating Systems (보안 운영체제)
-tags: [operating-systems, security, reference-monitor, tcb, tpm, windows-security]
-aliases: [보안 운영체제, Secure OS, Reference Monitor, TCB]
-date modified: 2026-01-08 10:15:25 +09:00
+title: secure-operating-systems
+tags: [operating-systems, reference-monitor, security, tcb, tpm, windows-security]
+aliases: [Reference Monitor, Secure OS, TCB, 보안 운영체제]
+date modified: 2026-01-08 15:57:09 +09:00
 date created: 2026-01-08 10:15:25 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-01-08 10:15:25 +09:00
 
 ## 🎯 보안 운영체제의 필요성
 
-### 기존 OS의 보안 취약점
+### 기존 OS 의 보안 취약점
 
 | 취약점 | 설명 |
 |--------|------|
@@ -21,7 +21,7 @@ date created: 2026-01-08 10:15:25 +09:00
 | **취약한 인증** | 패스워드 기반 인증의 한계 |
 | **커널 취약점** | 커널 버그 시 전체 시스템 침해 |
 
-### 보안 OS의 목표
+### 보안 OS 의 목표
 
 1. **최소 권한 원칙**: 필요한 최소 권한만 부여
 2. **강제적 접근 통제 (MAC)**: 시스템 정책에 의한 접근 제어
@@ -34,7 +34,7 @@ date created: 2026-01-08 10:15:25 +09:00
 
 ### 정의
 
-Secure OS의 핵심 이론으로, **주체(Subject)와 객체(Object) 사이의 모든 접근 요청을 중재**하는 추상 머신입니다.
+Secure OS 의 핵심 이론으로, **주체(Subject)와 객체(Object) 사이의 모든 접근 요청을 중재**하는 추상 머신입니다.
 
 ```mermaid
 graph LR
@@ -52,7 +52,7 @@ graph LR
 - **객체 (Object)**: 접근 대상이 되는 수동적 개체 (파일, 메모리, 포트)
 - **접근 (Access)**: 읽기, 쓰기, 실행 등의 작업
 
-### 참조 모니터의 3대 요건
+### 참조 모니터의 3 대 요건
 
 | 요건 | 설명 | 목적 |
 |------|------|------|
@@ -105,10 +105,10 @@ TCB 구성 요소:
     └── 인증 모듈
 ```
 
-### TCB의 특성
+### TCB 의 특성
 
 - **최소화**: TCB 크기가 작을수록 검증과 보안이 용이
-- **격리**: TCB는 일반 소프트웨어로부터 보호
+- **격리**: TCB 는 일반 소프트웨어로부터 보호
 - **검증**: 모든 TCB 구성 요소는 검증되어야 함
 
 ---
@@ -133,7 +133,7 @@ graph LR
     OS[운영체제] -->|키 요청| KEY
 ```
 
-### TPM의 주요 기능
+### TPM 의 주요 기능
 
 | 기능 | 설명 |
 |------|------|
@@ -284,7 +284,7 @@ manage-bde -protectors -get C:
 
 ### 이벤트 뷰어 (Event Viewer)
 
-Windows는 **이벤트 뷰어(eventvwr.msc)** 를 통해 로그를 관리합니다.
+Windows 는 **이벤트 뷰어(eventvwr.msc)** 를 통해 로그를 관리합니다.
 
 ```powershell
 # 이벤트 뷰어 실행

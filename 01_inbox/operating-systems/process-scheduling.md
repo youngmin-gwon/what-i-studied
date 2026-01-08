@@ -1,22 +1,22 @@
 ---
-title: Process Scheduling (프로세스 스케줄링)
-tags: [operating-systems, scheduling, cpu, process, algorithm]
-aliases: [프로세스 스케줄링, CPU 스케줄링, Scheduling Algorithm]
-date modified: 2026-01-08 10:15:25 +09:00
+title: process-scheduling
+tags: [algorithm, cpu, operating-systems, process, scheduling]
+aliases: [CPU 스케줄링, Scheduling Algorithm, 프로세스 스케줄링]
+date modified: 2026-01-08 15:55:52 +09:00
 date created: 2026-01-08 10:15:25 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**프로세스 스케줄링**은 CPU 자원을 여러 프로세스에게 효율적으로 배분하기 위한 정책입니다. 스케줄러는 Ready Queue에서 다음에 실행할 프로세스를 선택합니다.
+**프로세스 스케줄링**은 CPU 자원을 여러 프로세스에게 효율적으로 배분하기 위한 정책입니다. 스케줄러는 Ready Queue 에서 다음에 실행할 프로세스를 선택합니다.
 
 ## 🎯 스케줄링 목표
 
 | 목표 | 설명 |
 |------|------|
-| **CPU 이용률 (Utilization)** | CPU를 가능한 한 바쁘게 유지 |
+| **CPU 이용률 (Utilization)** | CPU 를 가능한 한 바쁘게 유지 |
 | **처리량 (Throughput)** | 단위 시간당 완료되는 프로세스 수 최대화 |
-| **대기 시간 (Waiting Time)** | Ready Queue에서 대기하는 시간 최소화 |
+| **대기 시간 (Waiting Time)** | Ready Queue 에서 대기하는 시간 최소화 |
 | **응답 시간 (Response Time)** | 요청 후 첫 응답까지의 시간 최소화 |
 | **반환 시간 (Turnaround Time)** | 제출부터 완료까지의 총 시간 최소화 |
 
@@ -43,7 +43,7 @@ graph LR
 
 | 구분 | 선점형 (Preemptive) | 비선점형 (Non-Preemptive) |
 |------|---------------------|-------------------------|
-| **정의** | 실행 중인 프로세스를 강제로 중단 가능 | CPU를 강제로 빼앗을 수 없음 |
+| **정의** | 실행 중인 프로세스를 강제로 중단 가능 | CPU 를 강제로 빼앗을 수 없음 |
 | **응답성** | 빠름 | 느림 |
 | **오버헤드** | Context Switch 빈번 | 적음 |
 | **적용** | 대화형 시스템, 실시간 시스템 | 일괄 처리 시스템 |
@@ -80,7 +80,7 @@ gantt
 
 | Time Slice | 효과 |
 |------------|------|
-| **너무 큼** | FIFO와 동일해짐 (긴 대기 시간) |
+| **너무 큼** | FIFO 와 동일해짐 (긴 대기 시간) |
 | **너무 작음** | Context Switch 오버헤드 증가 |
 | **적절함** | 일반적으로 10~100ms |
 
@@ -95,7 +95,7 @@ gantt
 
 ### 2. SRT (Shortest Remaining Time)
 
-**남아있는 실행 시간이 가장 짧은** 프로세스에게 CPU 할당. SJF의 선점형 버전입니다.
+**남아있는 실행 시간이 가장 짧은** 프로세스에게 CPU 할당. SJF 의 선점형 버전입니다.
 
 **동작 방식**:
 - 새 프로세스가 도착하면 남은 시간 비교
@@ -149,7 +149,7 @@ graph LR
 
 ### 4. MFQ (Multi-Level Feedback Queue)
 
-MLQ를 개선하여 **큐 간 이동이 가능**한 방식입니다.
+MLQ 를 개선하여 **큐 간 이동이 가능**한 방식입니다.
 
 ```mermaid
 graph TD
@@ -245,7 +245,7 @@ P2: 9 + 7 = 16
 
 ### 3. HRN (Highest Response-ratio Next)
 
-SJF의 **기아 현상을 보완**하기 위해 대기 시간도 함께 고려합니다.
+SJF 의 **기아 현상을 보완**하기 위해 대기 시간도 함께 고려합니다.
 
 **우선순위 공식**:
 
@@ -325,11 +325,11 @@ HRN: P3 선택 (우선순위 2.5로 최고)
 (대기 시간이 더 길면 결과가 달라질 수 있음)
 ```
 
-## 🔧 Linux의 스케줄링
+## 🔧 Linux 의 스케줄링
 
 ### CFS (Completely Fair Scheduler)
 
-Linux 2.6.23부터 도입된 기본 스케줄러입니다.
+Linux 2.6.23 부터 도입된 기본 스케줄러입니다.
 
 ```bash
 # 프로세스 우선순위 확인

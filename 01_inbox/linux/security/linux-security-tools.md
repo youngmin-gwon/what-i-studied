@@ -1,8 +1,8 @@
 ---
-title: Linux Security Tools (보안 도구)
-tags: [linux, security, tcp-wrapper, tripwire, audit]
-aliases: [TCP Wrapper, Tripwire, hosts.allow, hosts.deny]
-date modified: 2026-01-08 11:15:27 +09:00
+title: linux-security-tools
+tags: [audit, linux, security, tcp-wrapper, tripwire]
+aliases: [hosts.allow, hosts.deny, TCP Wrapper, Tripwire]
+date modified: 2026-01-08 15:58:30 +09:00
 date created: 2026-01-08 11:15:27 +09:00
 ---
 
@@ -76,7 +76,7 @@ in.telnetd: ALL                        # telnet 전체 거부
 | **LOCAL** | 로컬 호스트 |
 | **KNOWN** | 이름 해석 가능한 호스트 |
 | **UNKNOWN** | 이름 해석 불가능한 호스트 |
-| **PARANOID** | 이름과 IP가 불일치하는 호스트 |
+| **PARANOID** | 이름과 IP 가 불일치하는 호스트 |
 
 ### 확인
 
@@ -253,7 +253,7 @@ aureport --summary
 
 ### fail2ban
 
-**로그인 실패를 감지**하여 IP를 자동 차단합니다.
+**로그인 실패를 감지**하여 IP 를 자동 차단합니다.
 
 ```bash
 # 설치

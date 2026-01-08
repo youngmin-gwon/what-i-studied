@@ -1,8 +1,8 @@
 ---
-title: System Attack Techniques (시스템 공격 기법)
-tags: [security, attack, buffer-overflow, format-string, race-condition]
-aliases: [버퍼 오버플로우, 포맷 스트링, 레이스 컨디션]
-date modified: 2026-01-08 11:15:27 +09:00
+title: system-attacks
+tags: [attack, buffer-overflow, format-string, race-condition, security]
+aliases: [레이스 컨디션, 버퍼 오버플로우, 포맷 스트링]
+date modified: 2026-01-08 15:58:21 +09:00
 date created: 2026-01-08 11:15:27 +09:00
 ---
 
@@ -241,7 +241,7 @@ while true; do
 done
 ```
 
-**대응**: 
+**대응**:
 ```bash
 # 사용자별 디스크 쿼터 설정
 edquota -u username
@@ -298,5 +298,5 @@ diff /var/log/setuid.txt /var/log/setuid.txt.prev
 
 - [[kernel-structure]] - 운영체제 커널 구조
 - [[process-states-lifecycle]] - 프로세스와 메모리 구조
-- [[linux-account-security]] - SetUID와 권한 관리
+- [[linux-account-security]] - SetUID 와 권한 관리
 - [[malware-types]] - 악성코드와 시스템 공격

@@ -1,8 +1,8 @@
 ---
-title: Process States and Lifecycle
-tags: [operating-systems, process, process-management, os, linux]
-aliases: [프로세스 상태, Process Lifecycle, PCB]
-date modified: 2025-12-20 00:02:18 +09:00
+title: process-states-lifecycle
+tags: [linux, operating-systems, os, process, process-management]
+aliases: [PCB, Process Lifecycle, 프로세스 상태]
+date modified: 2026-01-08 15:55:22 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 
@@ -76,7 +76,8 @@ graph TD
 
 ### 5. PCB (Process Control Block)
 
-[[kernel|커널]]이 프로세스를 관리하기 위해 유지하는 자료구조:
+[[kernel|커널]] 이 프로세스를 관리하기 위해 유지하는 자료구조:
+
 - **PID (Process ID)**: 프로세스 고유 식별자
 - **PPID (Parent Process ID)**: 부모 프로세스 ID
 - **프로세스 상태**: Running, Sleeping, Zombie 등
@@ -108,34 +109,34 @@ stateDiagram-v2
 
 - 프로세스가 막 생성된 상태
 - 아직 메모리에 로드되지 않음
-- PCB가 생성됨
+- PCB 가 생성됨
 
 #### 2. Ready (준비)
 
 - 실행 준비가 완료된 상태
-- CPU만 할당받으면 즉시 실행 가능
+- CPU 만 할당받으면 즉시 실행 가능
 - 스케줄러의 준비 큐(Ready Queue)에 대기
 
 #### 3. Running (실행)
 
-- CPU를 할당받아 실제로 실행 중
-- 단일 코어에서는 한 번에 1개 프로세스만 Running
+- CPU 를 할당받아 실제로 실행 중
+- 단일 코어에서는 한 번에 1 개 프로세스만 Running
 - 멀티코어에서는 코어 개수만큼 동시 Running 가능
 
 #### 4. Waiting (대기) = Blocked
 
 - I/O 완료, 이벤트 발생 등을 기다리는 상태
-- CPU를 주어도 실행 불가
+- CPU 를 주어도 실행 불가
 - **Interruptible Sleep (S)**: 시그널로 깨울 수 있음
 - **Uninterruptible Sleep (D)**: 시그널로 깨울 수 없음 (디스크 I/O 등)
 
 #### 5. Terminated (종료)
 
 - 실행이 완료되어 종료된 상태
-- 아직 PCB는 존재 (부모가 종료 상태 수집 전)
+- 아직 PCB 는 존재 (부모가 종료 상태 수집 전)
 - **Zombie (Z)**: 종료되었지만 부모가 회수하지 않은 상태
 
-### Linux에서의 추가 상태
+### Linux 에서의 추가 상태
 
 #### Stopped (T)
 
@@ -146,7 +147,7 @@ stateDiagram-v2
 #### Zombie (Z)
 
 - 프로세스는 종료되었지만 부모가 종료 코드를 읽지 않음
-- 메모리는 해제되었지만 PCB는 남아있음
+- 메모리는 해제되었지만 PCB 는 남아있음
 - `ps aux` 에서 `<defunct>` 로 표시
 
 ```bash
@@ -158,7 +159,7 @@ ps aux | grep 'Z'
 
 ## ⚙️ 프로세스 생성 (Process Creation)
 
-### Unix/Linux의 fork-exec 모델
+### Unix/Linux 의 fork-exec 모델
 
 ```mermaid
 sequenceDiagram

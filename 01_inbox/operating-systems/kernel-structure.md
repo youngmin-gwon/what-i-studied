@@ -1,8 +1,8 @@
 ---
-title: Kernel Structure (커널 구조)
-tags: [operating-systems, kernel, dual-mode, shell, security]
-aliases: [커널, Dual Mode, 이중 모드, User Mode, Kernel Mode]
-date modified: 2026-01-08 10:15:25 +09:00
+title: kernel-structure
+tags: [dual-mode, kernel, operating-systems, security, shell]
+aliases: [Dual Mode, Kernel Mode, User Mode, 이중 모드, 커널]
+date modified: 2026-01-08 15:55:31 +09:00
 date created: 2026-01-08 10:15:25 +09:00
 ---
 
@@ -89,7 +89,7 @@ cat /proc/version
 | **sh (Bourne Shell)** | 최초의 Unix 쉘 | 기본적, 스크립트 표준 |
 | **bash (Bourne Again Shell)** | Linux 기본 쉘 | sh 호환, 기능 확장 |
 | **csh (C Shell)** | C 언어 문법 기반 | 히스토리, 별칭 지원 |
-| **ksh (Korn Shell)** | sh + csh 장점 결합 | 상용 Unix에서 많이 사용 |
+| **ksh (Korn Shell)** | sh + csh 장점 결합 | 상용 Unix 에서 많이 사용 |
 | **zsh (Z Shell)** | 현대적 기능 | 자동완성, 플러그인 |
 
 ```bash
@@ -155,7 +155,7 @@ int main() {
 - **특권 명령(Privileged Instruction)** 포함 모든 명령어 실행 가능
 - 하드웨어에 **직접 접근 가능**
 - 시스템의 **모든 메모리** 접근 가능
-- CPU의 Mode Bit가 0으로 설정됨
+- CPU 의 Mode Bit 가 0 으로 설정됨
 
 **특권 명령 예시**:
 - I/O 장치 접근 (디스크 읽기/쓰기)
@@ -184,7 +184,7 @@ sequenceDiagram
 **모드 전환 발생 시점**:
 1. **시스템 콜**: 사용자 프로그램이 커널 서비스 요청
 2. **인터럽트**: 하드웨어 이벤트 발생 (키보드, 타이머 등)
-3. **예외 (Exception)**: 오류 발생 (0으로 나누기, 잘못된 메모리 접근)
+3. **예외 (Exception)**: 오류 발생 (0 으로 나누기, 잘못된 메모리 접근)
 
 ### 시스템 콜 (System Call)
 
@@ -261,7 +261,7 @@ graph TD
 3. **인증**: 사용자/프로세스의 신원 확인
 4. **암호화**: 데이터 보호
 
-> 💡 **Reference Monitor**에 대한 자세한 내용은 [[secure-operating-systems]] 참조
+>💡 **Reference Monitor**에 대한 자세한 내용은 [[secure-operating-systems]] 참조
 
 ## 💡 실무 예시
 
@@ -312,4 +312,4 @@ cat /proc/sys/kernel/kptr_restrict       # 커널 포인터 제한
 - [[process-scheduling]] - CPU 스케줄링 알고리즘
 - [[virtual-memory]] - 가상 메모리와 메모리 보호
 - [[secure-operating-systems]] - 보안 운영체제와 Reference Monitor
-- [[systemd]] - Linux의 init 시스템
+- [[systemd]] - Linux 의 init 시스템

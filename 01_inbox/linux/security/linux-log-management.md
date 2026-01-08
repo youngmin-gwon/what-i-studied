@@ -1,8 +1,8 @@
 ---
-title: Linux Log Management (로그 관리)
-tags: [linux, security, log, audit, syslog]
-aliases: [로그 관리, syslog, utmp, wtmp, lastlog]
-date modified: 2026-01-08 10:15:25 +09:00
+title: linux-log-management
+tags: [audit, linux, log, security, syslog]
+aliases: [lastlog, syslog, utmp, wtmp, 로그 관리]
+date modified: 2026-01-08 15:56:58 +09:00
 date created: 2026-01-08 10:15:25 +09:00
 ---
 

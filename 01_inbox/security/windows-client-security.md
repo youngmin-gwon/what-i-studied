@@ -1,8 +1,8 @@
 ---
-title: Windows Client Security (Windows 클라이언트 보안)
-tags: [security, windows, registry, smb, rdp, null-session]
-aliases: [Windows 보안, 레지스트리, 공유폴더, 널세션]
-date modified: 2026-01-08 11:15:27 +09:00
+title: windows-client-security
+tags: [null-session, rdp, registry, security, smb, windows]
+aliases: [Windows 보안, 공유폴더, 널세션, 레지스트리]
+date modified: 2026-01-08 15:57:26 +09:00
 date created: 2026-01-08 11:15:27 +09:00
 ---
 
@@ -19,8 +19,8 @@ Windows 클라이언트 보안은 사용자 계정 관리, 레지스트리 보�
 | **GUI** | 아이콘과 윈도우 창을 통한 직관적 인터페이스 |
 | **Plug & Play (PnP)** | 하드웨어 자동 인식 및 드라이버 설치 |
 | **OLE** | 객체 연결 및 삽입 (다른 프로그램 객체 공유) |
-| **긴 파일 이름** | VFAT으로 최대 255자 지원 (기존 8.3 제한 해제) |
-| **선점형 멀티태스킹** | OS가 CPU 제어권을 가지고 프로그램 실행 시간 제어 |
+| **긴 파일 이름** | VFAT 으로 최대 255 자 지원 (기존 8.3 제한 해제) |
+| **선점형 멀티태스킹** | OS 가 CPU 제어권을 가지고 프로그램 실행 시간 제어 |
 
 ### NTFS 파일 시스템
 
@@ -167,7 +167,7 @@ HKLM\SAM
 
 ### 기본 공유 (Default Share)
 
-Windows가 **관리 목적으로 자동 생성**하는 숨겨진 공유 폴더입니다.
+Windows 가 **관리 목적으로 자동 생성**하는 숨겨진 공유 폴더입니다.
 
 | 공유명 | 경로 | 설명 |
 |--------|------|------|
@@ -190,7 +190,7 @@ net share IPC$ /delete
 
 ### ⚠️ 널 세션 (Null Session)
 
-**사용자 ID와 패스워드 없이** IPC$ 공유에 접속하는 것입니다.
+**사용자 ID 와 패스워드 없이** IPC$ 공유에 접속하는 것입니다.
 
 ```cmd
 :: 널 세션 연결 시도

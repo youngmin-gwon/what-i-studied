@@ -1,8 +1,8 @@
 ---
-title: Linux Account Security (계정 및 패스워드 보안)
-tags: [linux, security, account, password, authentication]
-aliases: [계정 보안, passwd, shadow, SetUID]
-date modified: 2026-01-08 10:15:25 +09:00
+title: linux-account-security
+tags: [account, authentication, linux, password, security]
+aliases: [passwd, SetUID, shadow, 계정 보안]
+date modified: 2026-01-08 15:56:43 +09:00
 date created: 2026-01-08 10:15:25 +09:00
 ---
 
@@ -23,7 +23,7 @@ ls -l /etc/passwd
 # -rw-r--r-- 1 root root 2345 Jan 1 00:00 /etc/passwd
 ```
 
-**구조 (7개 필드, 콜론으로 구분)**:
+**구조 (7 개 필드, 콜론으로 구분)**:
 
 ```plaintext
 username:x:UID:GID:Comment:HomeDir:Shell
@@ -56,7 +56,7 @@ nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
 
 ### /etc/shadow
 
-**암호화된 패스워드**를 저장합니다. **root만 읽기 가능**합니다.
+**암호화된 패스워드**를 저장합니다. **root 만 읽기 가능**합니다.
 
 ```bash
 # 파일 확인 (root 권한 필요)
@@ -65,7 +65,7 @@ ls -l /etc/shadow
 # -rw-r----- 1 root shadow 1456 Jan 1 00:00 /etc/shadow
 ```
 
-**구조 (9개 필드)**:
+**구조 (9 개 필드)**:
 
 ```plaintext
 username:hash:lastchange:min:max:warn:inactive:expire:reserved
@@ -226,7 +226,7 @@ graph LR
 ```
 
 **⚠️ 보안 위험**:
-- SetUID가 설정된 취약한 프로그램 = **권한 상승 (Privilege Escalation)** 공격 벡터
+- SetUID 가 설정된 취약한 프로그램 = **권한 상승 (Privilege Escalation)** 공격 벡터
 - 정기적인 감사 필요
 
 ```bash

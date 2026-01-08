@@ -1,8 +1,8 @@
 ---
-title: Digital Forensics (디지털 포렌식)
-tags: [security, forensics, incident-response, evidence, investigation]
-aliases: [디지털 포렌식, 컴퓨터 포렌식, 증거 수집]
-date modified: 2026-01-08 11:15:27 +09:00
+title: digital-forensics
+tags: [evidence, forensics, incident-response, investigation, security]
+aliases: [디지털 포렌식, 증거 수집, 컴퓨터 포렌식]
+date modified: 2026-01-08 15:58:50 +09:00
 date created: 2026-01-08 11:15:27 +09:00
 ---
 
@@ -201,7 +201,7 @@ dd if=/dev/urandom of=/dev/sda bs=4M
 |------|------|
 | **스테가노그래피** | 이미지/음악 파일 안에 데이터 숨기기 |
 | **슬랙 공간** | 파일시스템의 미사용 공간에 숨기기 |
-| **ADS (Windows)** | NTFS의 대체 데이터 스트림에 숨기기 |
+| **ADS (Windows)** | NTFS 의 대체 데이터 스트림에 숨기기 |
 
 ```bash
 # 스테가노그래피 탐지
@@ -226,7 +226,7 @@ stegdetect image.jpg
 | 도구 | 설명 |
 |------|------|
 | **dd** | Unix 기본 이미징 도구 |
-| **dcfldd** | dd의 포렌식 버전 (해시 병행) |
+| **dcfldd** | dd 의 포렌식 버전 (해시 병행) |
 | **FTK Imager** | GUI 기반 이미징 도구 (Windows) |
 | **Guymager** | GUI 기반 (Linux) |
 
