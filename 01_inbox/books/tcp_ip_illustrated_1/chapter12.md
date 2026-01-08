@@ -2,7 +2,7 @@
 title: chapter12
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-09 00:06:06 +09:00
+date modified: 2026-01-09 00:13:35 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -12,31 +12,31 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((12장: TCP 기초<br>Preliminaries))
-    신뢰성 이론<br>Reliability Concepts
+root((12장:<br>TCP<br>기초))
+    Reliability Concepts
       ARQ 자동 반복 요청
         ACK 확인 응답
-        재전송 Retransmission
+        Retransmission
       오류 제어
-        체크섬 Checksum
-        순서 번호 Sequence Numbers
-    슬라이딩 윈도우<br>Sliding Windows
+        체크섬
+        Sequence Numbers
+    Sliding Windows
       개념
         파이프라이닝
         전송 효율 증대
-      흐름 제어 Flow Control
+      흐름 제어
         수신자 보호
-        윈도우 광고 Window Advertisement
-      혼잡 제어 Congestion Control
+        Window Advertisement
+      Congestion Control
         네트워크 보호
         명시적 및 암시적 신호
-    TCP 서비스 모델<br>Service Model
-      연결 지향 Connection-oriented
-      신뢰성 Reliable
-      바이트 스트림 Byte Stream
-        메시지 경계 없음 No Message Boundaries
+    TCP 서비스 모델
+      Connection-oriented
+      Reliable
+      Byte Stream
+        No Message Boundaries
       전이중 Full Duplex
-    TCP 헤더 및 캡슐화<br>Header & Encapsulation
+    TCP 헤더 및 캡슐화
       기본 구조
         20바이트 + 옵션
         IP 프로토콜 번호 6
@@ -44,17 +44,17 @@ mindmap
         포트 번호 Source Dest Port
         순서 번호 Sequence Number 바이트 단위
         확인 응답 번호 ACK Number 누적적
-        헤더 길이 Header Length
-        윈도우 크기 Window Size
-        체크섬 Checksum 가상 헤더 포함
-        긴급 포인터 Urgent Pointer
-      제어 플래그 Flags
+        헤더 길이
+        윈도우 크기
+        체크섬 가상 헤더 포함
+        Urgent Pointer
+      제어 플래그
         SYN FIN RST PSH ACK URG ECE CWR
-      옵션 Options
+      옵션
         MSS 최대 세그먼트 크기
         WSCALE 윈도우 스케일
         SACK 선택적 확인 응답
-        Timestamps 타임스탬프
+        Timestamps
 ```
 
 ---

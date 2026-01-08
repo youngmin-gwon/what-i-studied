@@ -2,7 +2,7 @@
 title: chapter11
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-09 00:07:28 +09:00
+date modified: 2026-01-09 00:13:21 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((11장: DNS<br>Domain<br>Name<br>System))
+  root((11장:<br>DNS<br>Domain<br>Name<br>System))
     개요 및 구조
       목적
         호스트 이름과 IP 주소 매핑
@@ -57,13 +57,13 @@ mindmap
         TXT 텍스트 SPF
         SRV 서비스 위치
         NAPTR 정규식 재작성 ENUM SIP
-    고급 기능 및 보안<br>Advanced & Security
+    고급 기능 및 보안
       변환 및 로컬
         DNS64 IPv6 전환
         mDNS Bonjour
         LLMNR 로컬 멀티캐스트
       보안 위협
-        캐시 중독 Cache Poisoning
+        캐시 중독
         DoS 증폭 공격 Amplification
 ```
 

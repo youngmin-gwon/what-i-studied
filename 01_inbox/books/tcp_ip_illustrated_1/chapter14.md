@@ -2,7 +2,7 @@
 title: chapter14
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 14:04:20 +09:00
+date modified: 2026-01-09 00:16:41 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -12,15 +12,15 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((14장: TCP 타임아웃과<br>재전송))
-    기본 원리<br>Fundamentals
+  root((14장:<br>TCP 타임아웃과<br>재전송))
+    기본 원리
       신뢰성 보장
         손실 패킷 재전송
         ACK 기반 확인
       재전송 방식
         타임아웃 기반 Timer-based
-        빠른 재전송 Fast Retransmit
-    RTO 산정<br>RTO Calculation
+        Fast Retransmit
+    RTO Calculation
       RTT 측정
         샘플링
         타임스탬프 옵션 RTTM
@@ -30,8 +30,8 @@ mindmap
         Linux Method 정밀 클럭 mdev 사용
       Karn 알고리즘
         재전송 모호성 해결
-        지수 백오프 Exponential Backoff
-    재전송 메커니즘<br>Mechanisms
+        Exponential Backoff
+    재전송 메커니즘
       타임머 기반
         RTO 만료 시 발생
         가장 오래된 미확인 데이터 전송
@@ -49,15 +49,15 @@ mindmap
         여러 손실 패킷의 효율적 복구
     불필요한 재전송<br>Spurious Retransmission
       원인
-        지연 스파이크 Delay Spikes
-        패킷 순서 뒤바뀜 Reordering
+        Delay Spikes
+        패킷 순서 뒤바뀜
       탐지 기법
         DSACK 중복 SACK
         Eifel Detection 타임스탬프 활용
         F-RTO 타임아웃 후 신규 데이터 전송
       대응
         Eifel Response 혼잡 제어 복원
-    고급 주제<br>Advanced Topics
+    고급 주제
       패킷 재조합 Repacketization
         재전송 시 더 큰 세그먼트 전송 가능
       목적지 메트릭

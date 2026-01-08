@@ -2,7 +2,7 @@
 title: chapter8
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-09 00:04:15 +09:00
+date modified: 2026-01-09 00:13:37 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -15,7 +15,7 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((8장: ICMP<br>Internet<br>Control<br>Message<br>Protocol))
+  root((8장:<br>ICMP<br>Internet<br>Control<br>Message<br>Protocol))
     기본 개념
       역할
         IP의 보조 프로토콜

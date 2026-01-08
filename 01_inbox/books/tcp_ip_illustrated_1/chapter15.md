@@ -2,7 +2,7 @@
 title: chapter15
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 14:04:26 +09:00
+date modified: 2026-01-09 00:17:02 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -12,13 +12,13 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((15장: TCP 데이터 흐름<br>및 윈도우 관리))
-    상호작용 통신<br>Interactive Comm
+  root((15장:<br>TCP 데이터 흐름<br>및 윈도우 관리))
+    상호작용 통신
       특성
         소량의 데이터 Tinygrams
         실시간성 요구 SSH Telnet
         지연된 ACK Delayed ACK 200-500ms
-    네이글 알고리즘<br>Nagle Algorithm
+    Nagle Algorithm
       목적
         작은 패킷들을 모아서 전송
         WAN 효율성 증대
@@ -26,24 +26,24 @@ mindmap
         ACK 수신 전까지 전송 대기
         Self-clocking
       문제점
-        지연된 ACK와 교착 상태 Deadlock
+        지연된 ACK와 Deadlock
       해결
         TCP_NODELAY 비활성화
-    흐름 제어<br>Flow Control
+    Flow Control
       슬라이딩 윈도우
         수신자 윈도우 Advertised Window
         윈도우 닫힘 열림 수축
       제로 윈도우
         수신 버퍼 가득 참
-        영속 타이머 Persist Timer
-        윈도우 프로브 Window Probe
+        Persist Timer
+        Window Probe
     SWS<br>Silly Window Syndrome
       현상
         작은 데이터 반복 전송 비효율
       회피
         송신자 Nagle 사용 MSS까지 대기
         수신자 작은 윈도우 광고 금지
-    버퍼 관리<br>Buffer Management
+    버퍼 관리
       자동 튜닝 Auto-Tuning
         대역폭 지연 곱 BDP 고려
         동적 버퍼 할당 Windows Linux
