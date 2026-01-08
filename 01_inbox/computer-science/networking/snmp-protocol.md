@@ -1,8 +1,8 @@
 ---
 title: snmp-protocol
-tags: [networking, snmp, monitoring, management, protocol]
-aliases: [SNMP, Simple Network Management Protocol, MIB, OID]
-date modified: 2026-01-08 16:06:40 +09:00
+tags: [management, monitoring, networking, protocol, snmp]
+aliases: [MIB, OID, Simple Network Management Protocol, SNMP]
+date modified: 2026-01-08 16:15:33 +09:00
 date created: 2026-01-08 16:06:40 +09:00
 ---
 
@@ -73,14 +73,14 @@ graph LR
 
 ### Community String
 
-SNMPv1/v2c에서 사용하는 **평문 비밀번호**입니다.
+SNMPv1/v2c 에서 사용하는 **평문 비밀번호**입니다.
 
 | 기본값 | 권한 |
 |--------|------|
 | **public** | 읽기 전용 (Read-Only) |
 | **private** | 읽기/쓰기 (Read-Write) |
 
-**⚠️ 보안 취약점**: Community String이 평문으로 전송되어 스니핑에 취약
+**⚠️ 보안 취약점**: Community String 이 평문으로 전송되어 스니핑에 취약
 
 ---
 
@@ -135,7 +135,7 @@ snmpget -v3 -l authPriv -u admin -a SHA -A authpass -x AES -X privpass 192.168.1
 
 | 취약점 | 설명 |
 |--------|------|
-| **평문 인증** | v1/v2c의 Community String |
+| **평문 인증** | v1/v2c 의 Community String |
 | **기본값 사용** | public/private 그대로 사용 |
 | **정보 노출** | 네트워크 구성 정보 수집 |
 | **설정 변경** | Set 권한으로 장비 조작 |
@@ -174,7 +174,7 @@ rouser admin priv
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[osi-7-layer-model]] - OSI 7계층 (응용 계층)
+- [[osi-7-layer-model]] - OSI 7 계층 (응용 계층)
 - [[tcp-udp-protocols]] - UDP 프로토콜
 - [[firewall-ids-ips]] - 네트워크 보안
 - [[linux-log-management]] - 서버 모니터링

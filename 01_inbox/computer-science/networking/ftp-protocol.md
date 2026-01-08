@@ -2,7 +2,7 @@
 title: ftp-protocol
 tags: [application, file-transfer, ftp, networking, protocol]
 aliases: [Active Mode, File Transfer Protocol, FTP, Passive Mode]
-date modified: 2026-01-08 16:14:24 +09:00
+date modified: 2026-01-08 16:14:54 +09:00
 date created: 2026-01-08 16:06:40 +09:00
 ---
 
