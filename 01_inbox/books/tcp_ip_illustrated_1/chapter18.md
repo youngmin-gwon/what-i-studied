@@ -2,7 +2,7 @@
 title: chapter18
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 14:04:32 +09:00
+date modified: 2026-01-09 00:21:58 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -12,11 +12,11 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((18장: 보안<br>Security Protocols))
-    기본 원리<br>Principles & Threat
+  root((18장:<br>Security<br>Protocols))
+    Principles and Threat
       정보 보안 원칙
-      네트워크 통신 위협 Threats
-    암호화 메커니즘<br>Cryptography
+      네트워크 통신 위협
+    Cryptography
       시스템
         RSA 공개키 Public Key
         Diffie-Hellman DH 키 합의
@@ -32,7 +32,7 @@ mindmap
         X.509 인증서
         CA 인증 기관
         검증 및 폐기 Revocation
-    네트워크 접근 제어<br>NAC
+    네트워크 접근 제어
       프로토콜
         802.1X
         EAP 확장 인증 프로토콜
@@ -40,7 +40,7 @@ mindmap
       기능
         키 파생 Key Derivation
         ERP 재인증
-    IP 계층 보안<br>IPsec
+    IP 계층 보안<br>IPSec
       프로토콜
         IKEv2 키 교환
         AH 인증 헤더
@@ -49,10 +49,10 @@ mindmap
         NAT Traversal
         L2TP/IPsec
         멀티캐스트 지원
-    전송 계층 보안<br>TLS & DTLS
+    전송 계층 보안<br>TLS and DTLS
       TLS 1.2
       DTLS Datagram TLS
-    인프라 보안<br>Infrastructure
+    인프라 보안
       DNSSEC
         리소스 레코드 RRs
         TSIG TKEY SIG0

@@ -2,7 +2,7 @@
 title: chapter15
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-09 00:17:02 +09:00
+date modified: 2026-01-09 00:17:46 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -44,10 +44,10 @@ mindmap
         송신자 Nagle 사용 MSS까지 대기
         수신자 작은 윈도우 광고 금지
     버퍼 관리
-      자동 튜닝 Auto-Tuning
+      Auto-Tuning
         대역폭 지연 곱 BDP 고려
         동적 버퍼 할당 Windows Linux
-    긴급 데이터<br>Urgent Mode
+    Urgent Mode
       기능
         URG 플래그 및 포인터
         Out-of-band 데이터 처리

@@ -2,7 +2,7 @@
 title: chapter17
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 14:04:29 +09:00
+date modified: 2026-01-09 00:20:58 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -12,14 +12,14 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((17장: TCP 킵얼라이브<br>TCP Keepalive))
-    개요 및 설명<br>Intro & Description
-      기본 개념 Introduction
-      상세 설명 Description
-    예제<br>Examples
-      킵얼라이브 예제 Keepalive Examples
-    보안<br>Security
-      관련 공격 Attacks Involving TCP Keepalives
+  root((17장: TCP<br>Keepalive))
+    개요 및 설명
+      기본 개념
+      상세 설명
+    예제
+      Keepalive Examples
+    보안
+      관련 공격
 ```
 
 ---

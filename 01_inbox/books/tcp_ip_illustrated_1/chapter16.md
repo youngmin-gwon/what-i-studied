@@ -2,7 +2,7 @@
 title: chapter16
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2025-12-11 14:04:27 +09:00
+date modified: 2026-01-09 00:19:35 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
@@ -12,15 +12,15 @@ date created: 2025-12-11 10:58:04 +09:00
 
 ```mermaid
 mindmap
-  root((16장: TCP 혼잡 제어<br>Congestion Control))
-    기본 원리<br>Principles
-      패킷 보존 원칙<br>Packet Conservation
-      ACK 클로킹<br>ACK Clocking
+  root((16장:<br>TCP<br>Congestion<br>Control))
+    기본 원리
+      Packet Conservation
+      ACK Clocking
       윈도우 결정
         cwnd 혼잡 윈도우
         awnd 수신자 윈도우
         min cwnd, awnd 사용
-    핵심 알고리즘<br>Classic Algorithms
+    Classic Algorithms
       Slow Start
         초기 연결 또는 RTO 후
         지수적 증가 Exponential
@@ -29,7 +29,7 @@ mindmap
         혼잡 회피
         선형적 증가 Linear
         AIMD 가산 증가 승수 감소
-    손실 복구 및 상태<br>Loss Recovery
+    Loss Recovery
       Fast Retransmit
         3개 중복 ACK
         타이머 만료 전 재전송
@@ -38,8 +38,8 @@ mindmap
         cwnd 팽창 Inflation
         새로운 데이터 전송 허용
       상태 천이
-        Open -> Disorder -> Recovery -> Loss
-    알고리즘 진화<br>Evolution
+        Open - Disorder - Recovery - Loss
+    알고리즘 진화
       NewReno
         Partial ACKs 처리
         한 윈도우 내 다수 손실 복구
@@ -50,7 +50,7 @@ mindmap
       CWR State
         Linux 구현
         로컬 혼잡 또는 ECN 반응
-    기타 메커니즘<br>Advanced
+    Advanced
       CWV
         Congestion Window Validation
         유휴 상태 후 cwnd 조정

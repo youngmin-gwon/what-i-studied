@@ -2,7 +2,7 @@
 title: chapter1
 tags: [book, network, routing_tcp_ip]
 aliases: []
-date modified: 2025-12-11 13:59:35 +09:00
+date modified: 2026-01-09 00:26:07 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
