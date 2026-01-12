@@ -2,7 +2,7 @@
 title: chapter2
 tags: [book, network, tcp_ip_illustrated]
 aliases: []
-date modified: 2026-01-09 00:27:12 +09:00
+date modified: 2026-01-09 00:32:43 +09:00
 date created: 2025-12-11 10:58:04 +09:00
 ---
 
