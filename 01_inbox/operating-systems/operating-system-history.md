@@ -1,8 +1,8 @@
 ---
-title: Operating System History (운영체제 역사)
-tags: [operating-systems, history, unix, windows, ms-dos, linux]
-aliases: [운영체제 역사, OS 역사, 운영체제 발전]
-date modified: 2026-01-12 23:12:00 +09:00
+title: operating-system-history
+tags: [history, linux, ms-dos, operating-systems, unix, windows]
+aliases: [OS 역사, 운영체제 발전, 운영체제 역사]
+date modified: 2026-01-13 00:07:13 +09:00
 date created: 2026-01-12 23:12:00 +09:00
 ---
 
@@ -42,8 +42,8 @@ timeline
 
 | 연도 | 사건 |
 |------|------|
-| **1980** | Tim Paterson이 QDOS (Quick and Dirty OS) 개발 |
-| **1981** | Microsoft가 QDOS 인수, **MS-DOS 1.0** 출시 (IBM PC용) |
+| **1980** | Tim Paterson 이 QDOS (Quick and Dirty OS) 개발 |
+| **1981** | Microsoft 가 QDOS 인수, **MS-DOS 1.0** 출시 (IBM PC 용) |
 | **1983** | MS-DOS 2.0 (디렉토리 구조 도입) |
 | **1984** | MS-DOS 3.0 (하드디스크 지원) |
 | **1988** | MS-DOS 4.0 |
@@ -121,7 +121,7 @@ graph TB
 | **Windows 1.0** | 1985 | GUI 도입, DOS 위에서 실행 |
 | **Windows 3.1** | 1992 | 대중화, 멀티태스킹 지원 |
 | **Windows 95** | 1995 | 시작 메뉴, 작업 표시줄, Plug and Play |
-| **Windows NT** | 1993 | 32비트, 선점형 멀티태스킹, NTFS |
+| **Windows NT** | 1993 | 32 비트, 선점형 멀티태스킹, NTFS |
 | **Windows XP** | 2001 | NT/9x 통합, 안정성 향상 |
 | **Windows 7** | 2009 | 성능 개선, 터치 지원 시작 |
 | **Windows 10** | 2015 | 서비스형 Windows (WaaS), UWP |
@@ -162,9 +162,9 @@ graph TB
 
 ```mermaid
 graph TB
-    MULTICS[MULTICS\n1960s] --> UNIX[Unix\n1969]
-    UNIX --> BSD[BSD\n1977]
-    UNIX --> SYSV[System V\n1983]
+    MULTICS[MULTICS 1960s] --> UNIX[Unix 1969]
+    UNIX --> BSD[BSD 1977]
+    UNIX --> SYSV[System V 1983]
     BSD --> FREEBSD[FreeBSD]
     BSD --> OPENBSD[OpenBSD]
     BSD --> MACOS[macOS/Darwin]
@@ -172,8 +172,8 @@ graph TB
     SYSV --> SOLARIS[Solaris]
     SYSV --> AIX[AIX]
     SYSV --> HPUX[HP-UX]
-    UNIX -.->|영감| LINUX[Linux\n1991]
-    UNIX -.->|영감| MINIX[MINIX\n1987]
+    UNIX -.->|영감| LINUX[Linux 1991]
+    UNIX -.->|영감| MINIX[MINIX 1987]
     MINIX -.->|영감| LINUX
 ```
 
@@ -181,7 +181,7 @@ graph TB
 
 | 연도 | 사건 |
 |------|------|
-| **1969** | Ken Thompson, Dennis Ritchie가 Bell Labs에서 Unix 개발 |
+| **1969** | Ken Thompson, Dennis Ritchie 가 Bell Labs 에서 Unix 개발 |
 | **1973** | C 언어로 재작성 (이식성 확보) |
 | **1977** | BSD (Berkeley Software Distribution) 분기 |
 | **1983** | System V 릴리즈 |
@@ -219,7 +219,7 @@ Unix 설계 철학:
 | **1997** | NeXTSTEP 인수 | Unix 기반 |
 | **2001** | Mac OS X | Darwin (BSD 기반) |
 | **2007** | iPhone OS (iOS) | Darwin |
-| **2012** | OS X | macOS로 명칭 변경 예정 |
+| **2012** | OS X | macOS 로 명칭 변경 예정 |
 | **2016** | macOS Sierra | macOS 명칭 사용 |
 | **2020** | macOS Big Sur | Apple Silicon 지원 |
 
@@ -255,7 +255,7 @@ XNU (X is Not Unix)
 | **라이선스** | 상용 | 상용 | GPL (Linux) | 상용 |
 | **파일시스템** | FAT | NTFS | ext4, XFS | APFS |
 
-### 시장 점유율 (2025년 기준)
+### 시장 점유율 (2025 년 기준)
 
 ```plaintext
 데스크톱 OS:
@@ -264,21 +264,21 @@ XNU (X is Not Unix)
 │ macOS        █████ 15%                 │
 │ Linux        ██ 4%                     │
 │ Chrome OS    ██ 3%                     │
-│ 기타         █ 6%                      │
+│ 기타          █ 6%                      │
 └────────────────────────────────────────┘
 
 서버 OS:
 ┌────────────────────────────────────────┐
 │ Linux        █████████████████████ 80% │
 │ Windows      ████ 15%                  │
-│ Unix 계열    █ 5%                      │
+│ Unix 계열     █ 5%                      │
 └────────────────────────────────────────┘
 
 모바일 OS:
 ┌────────────────────────────────────────┐
 │ Android      █████████████████ 71%     │
 │ iOS          ███████ 28%               │
-│ 기타         █ 1%                      │
+│ 기타          █ 1%                      │
 └────────────────────────────────────────┘
 ```
 
