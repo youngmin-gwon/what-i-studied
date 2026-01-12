@@ -14,17 +14,33 @@ date created: 2026-01-08 18:26:17 +09:00
 
 ## 📌 1장. 시스템 보안
 
+### 운영체제 기초
+
+| 주제 | 문서 |
+|------|------|
+| 운영체제 역사 (MS-DOS, Windows, Unix) | [[operating-system-history]] |
+| 커널과 쉘 구조 | [[kernel-structure]] |
+| Run Level (실행 레벨) | [[run-levels]] |
+
 ### 운영체제 보안
 
 | 주제 | 문서 |
 |------|------|
 | Windows 보안 | [[windows-client-security]] |
+| 보안 운영체제 (Secure OS) | [[secure-operating-systems]] |
 | 시스템 공격 | [[system-attacks]] |
 | 악성코드 | [[malware-types]] |
+
+### 모바일 보안
+
+| 주제 | 문서 |
+|------|------|
+| 모바일 보안 (iOS/Android) | [[mobile-security]] |
 
 ### 참고 문서
 
 - [[authentication-authorization]] - 시스템 인증과 접근 통제
+- [[linux-account-security]] - 리눅스 파일 접근 권한
 
 ---
 
@@ -72,6 +88,7 @@ date created: 2026-01-08 18:26:17 +09:00
 | 주제 | 문서 |
 |------|------|
 | 방화벽/IDS/IPS | [[firewall-ids-ips]] |
+| 허니팟 (Honeypot) | [[honeypot]] |
 | 이메일 보안 | [[email-security]] |
 | 네트워크 보안 프로토콜 | [[network-security-protocols]] |
 
@@ -83,6 +100,7 @@ date created: 2026-01-08 18:26:17 +09:00
 
 | 주제 | 문서 |
 |------|------|
+| 웹 브라우저 보안 (쿠키, ActiveX) | [[web-browser-security]] |
 | 웹 보안 (OWASP) | [[web-security]] |
 | DNS 보안 | [[dns-security]] |
 | IPSec/VPN | [[ipsec-vpn]] |

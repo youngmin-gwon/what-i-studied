@@ -259,31 +259,71 @@ netsh advfirewall firewall add rule name="RDP-Restrict" dir=in action=allow prot
 
 ---
 
-## 📋 Windows 주요 프로세스
+## 📊 이벤트 뷰어 및 로그 관리
 
-### 정상 시스템 프로세스
+### 이벤트 뷰어 (Event Viewer)
 
-| 프로세스 | 설명 | 비고 |
-|---------|------|------|
-| **lsass.exe** | 인증 처리 (LSA) | 악성코드 위장 주의 |
-| **services.exe** | 서비스 관리 | |
-| **svchost.exe** | DLL 기반 서비스 실행 | 여러 인스턴스 정상 |
-| **winlogon.exe** | 로그인 관리 | |
-| **csrss.exe** | Client/Server Runtime | |
-| **smss.exe** | Session Manager | |
+Windows 시스템에서 발생하는 **모든 이벤트를 기록하고 조회**하는 도구입니다.
 
-### 악성코드 탐지
+```cmd
+:: 이벤트 뷰어 실행
+eventvwr.msc
+```
+
+### 주요 로그 유형
+
+| 로그 | 설명 | 주요 이벤트 |
+|------|------|------------|
+| **Application** | 애플리케이션 오류/이벤트 | 앱 충돌, 오류 |
+| **System** | OS 구성 요소 이벤트 | 드라이버 로드, 부팅 |
+| **Security** | 보안 감사 이벤트 | 로그인, 권한 변경 |
+| **Setup** | 설치 관련 | Windows 업데이트 |
+
+### 주요 보안 이벤트 ID
+
+| 이벤트 ID | 설명 | 중요도 |
+|----------|------|--------|
+| **4624** | 로그인 성공 | 정보 |
+| **4625** | 로그인 실패 | ⚠️ 반복 시 공격 의심 |
+| **4648** | 명시적 자격증명 로그인 | 조사 필요 |
+| **4672** | 관리자 권한 로그인 | 모니터링 필요 |
+| **4688** | 새 프로세스 생성 | 악성코드 탐지 |
+| **4697** | 서비스 설치 | 백도어 설치 탐지 |
+| **4720** | 사용자 계정 생성 | 조사 필요 |
+| **4732** | 관리자 그룹에 계정 추가 | ⚠️ 권한 상승 |
+| **1102** | 보안 로그 삭제 | ⚠️ 침해 은폐 시도 |
+
+### 로그 조회 PowerShell
 
 ```powershell
-# 의심스러운 프로세스 확인
-tasklist /v
-Get-Process | Where-Object {$_.Path -notlike "C:\Windows*"}
+# 로그인 실패 확인 (무차별 대입 공격 탐지)
+Get-EventLog -LogName Security -InstanceId 4625 -Newest 50 |
+    Select-Object TimeGenerated, Message
 
-# 네트워크 연결 확인
-netstat -ano | findstr ESTABLISHED
+# 관리자 로그인 확인
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4672} -MaxEvents 20
 
-# 프로세스와 네트워크 연결 연결
-Get-NetTCPConnection | Select-Object LocalAddress,LocalPort,RemoteAddress,RemotePort,OwningProcess
+# 새 서비스 설치 확인 (백도어 탐지)
+Get-WinEvent -FilterHashtable @{LogName='System'; ID=7045} -MaxEvents 10
+
+# 오늘 발생한 오류 이벤트
+Get-EventLog -LogName System -EntryType Error -After (Get-Date).Date
+```
+
+### 감사 정책 설정
+
+```cmd
+:: 로컬 보안 정책에서 감사 정책 설정
+secpol.msc
+:: → 로컬 정책 → 감사 정책
+
+:: 권장 감사 설정:
+:: - 계정 로그온 이벤트 감사: 성공, 실패
+:: - 로그온 이벤트 감사: 성공, 실패
+:: - 개체 액세스 감사: 실패
+:: - 정책 변경 감사: 성공
+:: - 권한 사용 감사: 실패
+:: - 프로세스 추적: 성공 (선택)
 ```
 
 ---
