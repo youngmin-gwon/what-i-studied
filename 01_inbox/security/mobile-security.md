@@ -1,14 +1,14 @@
 ---
-title: Mobile Security (모바일 보안)
-tags: [security, mobile, ios, android, sandbox, jailbreak, rooting]
-aliases: [모바일 보안, iOS 보안, Android 보안, 탈옥, 루팅]
-date modified: 2026-01-12 23:12:00 +09:00
+title: mobile-security
+tags: [android, ios, jailbreak, mobile, rooting, sandbox, security]
+aliases: [Android 보안, iOS 보안, 루팅, 모바일 보안, 탈옥]
+date modified: 2026-01-20 15:54:06 +09:00
 date created: 2026-01-12 23:12:00 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**모바일 보안**은 스마트폰과 태블릿 등 모바일 기기에서의 보안 위협과 보호 메커니즘을 다룹니다. iOS와 Android는 각각 고유한 보안 아키텍처를 가지고 있습니다.
+**모바일 보안**은 스마트폰과 태블릿 등 모바일 기기에서의 보안 위협과 보호 메커니즘을 다룹니다. iOS 와 Android 는 각각 고유한 보안 아키텍처를 가지고 있습니다.
 
 ---
 
@@ -65,14 +65,14 @@ graph TD
 | 기능 | 설명 |
 |------|------|
 | **Secure Enclave** | 암호화 키와 생체인증 데이터를 저장하는 별도의 보안 프로세서 |
-| **코드 서명** | 모든 앱은 Apple의 인증서로 서명되어야 실행 가능 |
+| **코드 서명** | 모든 앱은 Apple 의 인증서로 서명되어야 실행 가능 |
 | **ASLR** | 메모리 주소 무작위화 (Address Space Layout Randomization) |
 | **XN (Execute Never)** | 데이터 영역의 코드 실행 방지 |
 | **Data Protection** | 파일 단위 암호화 (AES-256) |
 
 ### 샌드박스 (Sandbox)
 
-iOS의 핵심 격리 메커니즘입니다.
+iOS 의 핵심 격리 메커니즘입니다.
 
 ```plaintext
 iOS Sandbox 구조:
@@ -116,7 +116,7 @@ iOS Sandbox 구조:
 
 ### 탈옥 (Jailbreak)
 
-**정의**: iOS의 보안 제한을 우회하여 **루트 권한을 획득**하고 비인가 앱을 설치할 수 있게 하는 행위
+**정의**: iOS 의 보안 제한을 우회하여 **루트 권한을 획득**하고 비인가 앱을 설치할 수 있게 하는 행위
 
 ```mermaid
 graph LR
@@ -511,7 +511,7 @@ CVE:
 ## 🔗 연결 문서 (Related Documents)
 
 - [[access-control-models]] - MAC/DAC 접근통제 모델
-- [[selinux]] - Android의 SELinux 구현
+- [[selinux]] - Android 의 SELinux 구현
 - [[secure-operating-systems]] - 보안 운영체제 개념
 - [[authentication-authorization]] - 인증 및 권한 부여
 - [[malware-types]] - 모바일 악성코드
