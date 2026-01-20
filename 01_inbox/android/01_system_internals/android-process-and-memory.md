@@ -1,8 +1,8 @@
 ---
 title: android-process-and-memory
-tags: [android, android/process, android/memory, android/zygote, systems]
+tags: [android, android/memory, android/process, android/zygote, systems]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:33 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 
@@ -18,7 +18,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 **부팅 시 Zygote 초기화:**
 1. `app_process` 가 Zygote 프로세스를 시작
-2. [[android-glossary#zygote#preload|Preload]]: 공통 클래스 (~4000개), 리소스, 공유 라이브러리를 메모리에 적재
+2. [[android-glossary#zygote#preload|Preload]]: 공통 클래스 (~4000 개), 리소스, 공유 라이브러리를 메모리에 적재
 3. Unix 소켓 `/dev/socket/zygote` 를 열고 대기
 
 **앱 시작 시:**
@@ -318,7 +318,7 @@ class MyApplication : Application() {
 
 #### App Standby Buckets
 
-앱 사용 빈도에 따라 5단계로 분류.
+앱 사용 빈도에 따라 5 단계로 분류.
 
 | Bucket | 설명 | 제한 |
 |--------|------|------|
@@ -342,7 +342,7 @@ adb shell am set-standby-bucket com.example.app rare
 
 1. **시스템 종료**: LMKD 에 의한 메모리 회수
 2. **크래시**: 처리되지 않은 예외
-3. **ANR**: 5초 (Service), 10초 (BroadcastReceiver) 응답 없음
+3. **ANR**: 5 초 (Service), 10 초 (BroadcastReceiver) 응답 없음
 4. **사용자 종료**: 설정에서 강제 종료
 
 #### 상태 복원

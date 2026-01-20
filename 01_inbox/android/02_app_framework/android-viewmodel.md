@@ -2,7 +2,7 @@
 title: android-viewmodel
 tags: [android, android/architecture, android/jetpack, android/lifecycle, android/viewmodel]
 aliases: []
-date modified: 2025-12-19 00:00:30 +09:00
+date modified: 2026-01-20 15:55:49 +09:00
 date created: 2025-12-17 21:34:44 +09:00
 ---
 

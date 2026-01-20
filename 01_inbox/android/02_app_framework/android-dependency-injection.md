@@ -1,8 +1,8 @@
 ---
 title: android-dependency-injection
-tags: [android, android/di, android/hilt, android/dagger]
+tags: [android, android/dagger, android/di, android/hilt]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:38 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 

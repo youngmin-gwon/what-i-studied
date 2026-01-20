@@ -2,7 +2,7 @@
 title: android-activity-manager-and-system-services
 tags: [android, android/ams, android/system-services]
 aliases: [ActivityManager, ActivityManagerService, AMS, ATMS]
-date modified: 2025-12-17 21:58:26 +09:00
+date modified: 2026-01-20 15:55:15 +09:00
 date created: 2025-12-16 15:24:09 +09:00
 ---
 
@@ -552,7 +552,11 @@ adb shell pm clear com.example
 ## 연결 문서
 
 [android-binder-and-ipc](android-binder-and-ipc.md) - System Service 통신
+
 [android-zygote-and-runtime](android-zygote-and-runtime.md) - 프로세스 생성
+
 [android-kernel](android-kernel.md) - LMKD 와 메모리 관리
+
 [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 권한 검사
+
 [android-process-and-memory](android-process-and-memory.md) - 메모리 관리 상세

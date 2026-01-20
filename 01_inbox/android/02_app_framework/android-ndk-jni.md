@@ -1,8 +1,8 @@
 ---
 title: android-ndk-jni
-tags: [android, android/ndk, android/jni, android/native, cpp]
+tags: [android, android/jni, android/native, android/ndk, cpp]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:42 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 

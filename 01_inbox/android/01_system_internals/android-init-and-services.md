@@ -1,27 +1,27 @@
 ---
 title: android-init-and-services
 tags: [android, android/boot, android/init]
-aliases: [Init, Android Init, RC Scripts]
-date modified: 2025-12-17 13:14:53 +09:00
+aliases: [Android Init, Init, RC Scripts]
+date modified: 2026-01-20 15:55:25 +09:00
 date created: 2025-12-16 15:34:24 +09:00
 ---
 
-## Init과 Service Lifecycle
+## Init 과 Service Lifecycle
 
-`init`은 안드로이드 부팅 후 **가장 먼저 실행되는 프로세스**(PID 1)다. 모든 시스템 서비스를 시작하고, 파일시스템을 마운트하며, [SELinux](../../../../selinux.md) 정책을 로드하고, property 시스템을 관리한다. Unix/Linux 전통의 init 프로세스 역할을 하면서도 안드로이드 고유의 요구사항을 반영한 독특한 구조를 가진다.
+`init` 은 안드로이드 부팅 후 **가장 먼저 실행되는 프로세스**(PID 1)다. 모든 시스템 서비스를 시작하고, 파일시스템을 마운트하며, [SELinux](../../../../selinux.md) 정책을 로드하고, property 시스템을 관리한다. Unix/Linux 전통의 init 프로세스 역할을 하면서도 안드로이드 고유의 요구사항을 반영한 독특한 구조를 가진다.
 
-### 왜 init이 중요한가
+### 왜 init 이 중요한가
 
-#### PID 1의 특수성
+#### PID 1 의 특수성
 
-Unix/Linux에서 PID 1은 특별한 의미를 가진다:
+Unix/Linux 에서 PID 1 은 특별한 의미를 가진다:
 
 1. **커널이 직접 실행**: 부트로더 → 커널 → `/init` 실행
-2. **절대 종료 불가**: PID 1이 종료하면 커널 패닉
+2. **절대 종료 불가**: PID 1 이 종료하면 커널 패닉
 3. **고아 프로세스 수양**: 부모가 죽은 프로세스의 새 부모가 됨
 4. **시그널 무시**: 일반 시그널로 종료 불가
 
-#### 안드로이드 init의 독특한 역할
+#### 안드로이드 init 의 독특한 역할
 
 **표준 Linux init** (systemd, SysV init):
 - 서비스 시작/정지
@@ -184,7 +184,7 @@ service zygote /system/bin/app_process64 -Xzygote /system/bin --zygote --start-s
 
 ---
 
-## Trigger와 Action
+## Trigger 와 Action
 
 ### 부팅 트리거 순서
 
@@ -360,7 +360,7 @@ wait_for_prop sys.boot_completed 1
 
 | 접두사 | 설명 | 예시 |
 |--------|------|------|
-| `ro.*` | 읽기 전용 (부팅 시 1회만 설정) | `ro.build.version.sdk` |
+| `ro.*` | 읽기 전용 (부팅 시 1 회만 설정) | `ro.build.version.sdk` |
 | `persist.*` | 재부팅 후에도 유지 | `persist.sys.timezone` |
 | `sys.*` | 시스템 property | `sys.boot_completed` |
 | `ctl.*` | 서비스 제어 (특수) | `ctl.start`, `ctl.stop` |
@@ -376,6 +376,7 @@ vendor.             u:object_r:vendor_prop:s0
 ```
 
 권한이 없는 프로세스가 property 설정 시도 → 거부:
+
 ```bash
 # 앱이 시도
 setprop sys.boot_completed 0
@@ -403,11 +404,11 @@ setprop ctl.restart adbd
 
 ## Ueventd
 
-`init`의 특수 모드로, 커널 uevent 처리.
+`init` 의 특수 모드로, 커널 uevent 처리.
 
 ### 역할
 
-커널이 `/sys/class`, `/sys/devices`에 디바이스 추가 → uevent 전송 → ueventd가 `/dev` 노드 생성
+커널이 `/sys/class`, `/sys/devices` 에 디바이스 추가 → uevent 전송 → ueventd 가 `/dev` 노드 생성
 
 ```mermaid
 sequenceDiagram
@@ -466,9 +467,9 @@ product      /product       ext4    ro,barrier=1   wait,slotselect,avb=vbmeta_sy
 
 ### Early Mount
 
-**문제**: `/vendor`의 rc 파일을 읽으려면 `/vendor` 마운트 필요 → 순환 의존성
+**문제**: `/vendor` 의 rc 파일을 읽으려면 `/vendor` 마운트 필요 → 순환 의존성
 
-**해결**: First Stage Init에서 critical 파티션 먼저 마운트
+**해결**: First Stage Init 에서 critical 파티션 먼저 마운트
 
 ```cpp
 // first_stage_init.cpp
@@ -595,7 +596,7 @@ dmesg | grep "init:"
 
 ### [SELinux](../../../../selinux.md) 통합
 
-Init의 도메인 전환:
+Init 의 도메인 전환:
 
 ```bash
 # Init 자체
@@ -607,6 +608,7 @@ service example /system/bin/example
 ```
 
 정책 예:
+
 ```bash
 # init이 example_service로 전환 가능
 allow init example_service:process transition;
@@ -622,7 +624,7 @@ service network-service /system/bin/netd
     capabilities NET_ADMIN NET_RAW NET_BIND_SERVICE
 ```
 
-**최소 권한 원칙**: root가 아니어도 필요한 권한만 부여.
+**최소 권한 원칙**: root 가 아니어도 필요한 권한만 부여.
 
 ---
 
@@ -636,7 +638,7 @@ APEX 모듈이 자체 rc 제공:
 /apex/com.android.wifi/etc/init/wifi-service.rc
 ```
 
-Init이 자동으로 로드 → 모듈 업데이트 시 독립적으로 관리.
+Init 이 자동으로 로드 → 모듈 업데이트 시 독립적으로 관리.
 
 ### Recovery Mode Init
 
@@ -650,7 +652,8 @@ bootloader → kernel → /init → system rc → Zygote
 bootloader → recovery kernel → /init → recovery.rc → recovery binary
 ```
 
-Recovery rc는 최소한의 서비스만:
+Recovery rc 는 최소한의 서비스만:
+
 ```bash
 # /system/etc/init/recovery.rc
 service recovery /system/bin/recovery
@@ -694,8 +697,12 @@ service charger /system/bin/charger
 
 ## 연결 문서
 
-[android-boot-flow](android-boot-flow.md) - 전체 부팅 과정  
-[android-zygote-and-runtime](android-zygote-and-runtime.md) - Zygote 시작  
-[android-hal-and-kernel](android-hal-and-kernel.md) - HAL 서비스 시작  
-[selinux](../../../../selinux.md) - Init의 SELinux 정책  
+[android-boot-flow](android-boot-flow.md) - 전체 부팅 과정
+
+[android-zygote-and-runtime](android-zygote-and-runtime.md) - Zygote 시작
+
+[android-hal-and-kernel](android-hal-and-kernel.md) - HAL 서비스 시작
+
+[selinux](../../../../selinux.md) - Init 의 SELinux 정책
+
 [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 부팅 보안 (Verified Boot)

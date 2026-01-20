@@ -1,8 +1,8 @@
 ---
 title: android-debugging-techniques
-tags: [android, android/debugging, android/tools, android/crash-analysis]
+tags: [android, android/crash-analysis, android/debugging, android/tools]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:59 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 
@@ -124,7 +124,7 @@ retrace.bat -verbose mapping.txt stacktrace.txt
 
 ### ANR 분석
 
-ANR (Application Not Responding) 은 메인 스레드가 5초 이상 블로킹될 때 발생.
+ANR (Application Not Responding) 은 메인 스레드가 5 초 이상 블로킹될 때 발생.
 
 #### ANR Trace 확인
 

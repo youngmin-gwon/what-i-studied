@@ -1,26 +1,26 @@
 ---
 title: android-customization-and-oem
-tags: [android, android/oem, android/customization]
-aliases: [OEM, Customization, AOSP]
-date modified: 2025-12-17 13:51:04 +09:00
+tags: [android, android/customization, android/oem]
+aliases: [AOSP, Customization, OEM]
+date modified: 2026-01-20 15:55:22 +09:00
 date created: 2025-12-16 15:27:42 +09:00
 ---
 
-## OEM Customization과 AOSP
+## OEM Customization 과 AOSP
 
-안드로이드는 **오픈소스**(AOSP)이지만, 실제 출시되는 기기는 각 제조사(OEM)가 커스터마이징한다. Samsung의 One UI, Xiaomi의 MIUI, Google의 Pixel Experience는 모두 AOSP를 기반으로 하지만 매우 다른 경험을 제공한다.
+안드로이드는 **오픈소스**(AOSP)이지만, 실제 출시되는 기기는 각 제조사(OEM)가 커스터마이징한다. Samsung 의 One UI, Xiaomi 의 MIUI, Google 의 Pixel Experience 는 모두 AOSP 를 기반으로 하지만 매우 다른 경험을 제공한다.
 
-### 왜 OEM Customization이 필요한가
+### 왜 OEM Customization 이 필요한가
 
-#### AOSP의 한계
+#### AOSP 의 한계
 
 **AOSP (Android Open Source Project)**:
-- Google이 공개하는 기본 안드로이드
+- Google 이 공개하는 기본 안드로이드
 - Google Play Services **없음**
 - 기본 앱만 포함 (전화, 메시지, 설정 등)
 - 하드웨어 드라이버 없음
 
-**OEM이 해야 할 일**:
+**OEM 이 해야 할 일**:
 1. 하드웨어 지원 (칩셋, 카메라, 센서 등)
 2. Google 인증 (GMS, CTS, VTS)
 3. 차별화된 기능
@@ -177,7 +177,7 @@ adb shell cmd overlay disable com.example.overlay
 - Now Playing (음악 인식)
 - Magic Eraser (사진 편집)
 
-**구현**: APK 형태로 추가 (AOSP는 수정 최소화)
+**구현**: APK 형태로 추가 (AOSP 는 수정 최소화)
 
 ---
 
@@ -203,7 +203,7 @@ com.google.android.gms (Google Play Services)
 
 ### GMS 인증
 
-OEM이 Google 인증 받으려면:
+OEM 이 Google 인증 받으려면:
 
 1. **CTS (Compatibility Test Suite)** 통과
 2. **VTS (Vendor Test Suite)** 통과 (Treble)
@@ -260,7 +260,7 @@ android_app {
 
 ---
 
-## Treble의 영향
+## Treble 의 영향
 
 ### Before Treble (Android 7.x)
 
@@ -291,7 +291,7 @@ android_app {
 ```
 
 **이점**:
-- Google이 /system만 업데이트 가능
+- Google 이 /system 만 업데이트 가능
 - OEM 작업 최소화
 - 업데이트 빨라짐
 
@@ -299,7 +299,7 @@ android_app {
 
 ## Mainline (Project Mainline, Android 10+)
 
-**APEX 모듈**로 Google Play를 통해 시스템 컴포넌트 업데이트:
+**APEX 모듈**로 Google Play 를 통해 시스템 컴포넌트 업데이트:
 
 ```
 com.android.media            # Media 코덱
@@ -332,10 +332,10 @@ graph LR
     Vbmeta --> Vendor[vendor.img]
 ```
 
-**OEM이 해야 할 일**:
-1. OEM private key로 vbmeta 서명
-2. Public key를 기기 eFuse에 기록 (영구)
-3. Bootloader에 검증 로직 추가
+**OEM 이 해야 할 일**:
+1. OEM private key 로 vbmeta 서명
+2. Public key 를 기기 eFuse 에 기록 (영구)
+3. Bootloader 에 검증 로직 추가
 
 **사용자가 bootloader unlock 시**:
 ```bash
@@ -463,8 +463,12 @@ brunch <device>
 
 ## 연결 문서
 
-[android-hal-and-kernel](android-hal-and-kernel.md) - Treble, VINTF, HAL  
-[android-init-and-services](android-init-and-services.md) - Init RC 커스터마이징  
-[android-boot-flow](android-boot-flow.md) - Verified Boot  
-[android-kernel](android-kernel.md) - 커널 수정  
+[android-hal-and-kernel](android-hal-and-kernel.md) - Treble, VINTF, HAL
+
+[android-init-and-services](android-init-and-services.md) - Init RC 커스터마이징
+
+[android-boot-flow](android-boot-flow.md) - Verified Boot
+
+[android-kernel](android-kernel.md) - 커널 수정
+
 [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - Knox, SafetyNet

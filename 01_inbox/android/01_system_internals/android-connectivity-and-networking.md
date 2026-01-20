@@ -1,14 +1,14 @@
 ---
 title: android-connectivity-and-networking
-tags: [android, android/network, android/connectivity]
-aliases: [Network, Connectivity, Wi-Fi, Mobile Data]
-date modified: 2025-12-17 13:51:04 +09:00
+tags: [android, android/connectivity, android/network]
+aliases: [Connectivity, Mobile Data, Network, Wi-Fi]
+date modified: 2026-01-20 15:55:20 +09:00
 date created: 2025-12-16 15:27:42 +09:00
 ---
 
-## Connectivity와 Networking
+## Connectivity 와 Networking
 
-안드로이드 네트워크 스택은 Wi-Fi, 모바일 데이터, 블루투스, VPN 등 다양한 연결을 관리하고, 앱에게 최적의 네트워크를 제공한다. ConnectivityService가 중심이 되어 네트워크 선택, 전환, 정책 적용을 담당한다.
+안드로이드 네트워크 스택은 Wi-Fi, 모바일 데이터, 블루투스, VPN 등 다양한 연결을 관리하고, 앱에게 최적의 네트워크를 제공한다. ConnectivityService 가 중심이 되어 네트워크 선택, 전환, 정책 적용을 담당한다.
 
 ### 왜 복잡한 네트워크 관리가 필요한가
 
@@ -104,7 +104,7 @@ connectivityManager.registerNetworkCallback(request, object : NetworkCallback() 
 **우선순위** (Android 9+):
 1. **Default**: Wi-Fi > Ethernet > Mobile
 2. **사용자 선택**: 설정에서 우선 네트워크 지정
-3. **앱 요구사항**: `NetworkRequest`로 특정 네트워크 요청
+3. **앱 요구사항**: `NetworkRequest` 로 특정 네트워크 요청
 
 **예시**:
 ```kotlin
@@ -334,7 +334,7 @@ netd → DNS-over-TLS (포트 853)
 ```
 
 **이점**:
-- ISP가 DNS 쿼리 감청 불가
+- ISP 가 DNS 쿼리 감청 불가
 - DNS 변조 방지
 
 ---
@@ -577,7 +577,10 @@ val engine = CronetEngine.Builder(context)
 
 ## 연결 문서
 
-[android-kernel](android-kernel.md) - eBPF 네트워크 필터링  
-[android-hal-and-kernel](android-hal-and-kernel.md) - Wi-Fi/Modem HAL  
-[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 네트워크 보안 정책  
+[android-kernel](android-kernel.md) - eBPF 네트워크 필터링
+
+[android-hal-and-kernel](android-hal-and-kernel.md) - Wi-Fi/Modem HAL
+
+[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 네트워크 보안 정책
+
 [android-activity-manager-and-system-services](android-activity-manager-and-system-services.md) - ConnectivityService

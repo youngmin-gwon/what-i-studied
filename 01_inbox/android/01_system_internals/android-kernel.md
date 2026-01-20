@@ -2,7 +2,7 @@
 title: android-kernel
 tags: [android, android/kernel, linux, osdev]
 aliases: [Android Kernel, 안드로이드 커널]
-date modified: 2025-12-17 18:36:55 +09:00
+date modified: 2026-01-20 15:55:30 +09:00
 date created: 2025-12-16 21:01:14 +09:00
 ---
 

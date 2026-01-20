@@ -2,7 +2,7 @@
 title: android-modular-system
 tags: [android, android/apex, android/mainline, android/modules]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:42 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 

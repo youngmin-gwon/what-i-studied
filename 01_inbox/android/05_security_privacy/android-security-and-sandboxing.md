@@ -2,17 +2,17 @@
 title: android-security-and-sandboxing
 tags: [android, android/sandbox, android/security]
 aliases: [Android Security, Sandboxing, 안드로이드 보안]
-date modified: 2025-12-17 13:14:53 +09:00
+date modified: 2026-01-20 15:55:52 +09:00
 date created: 2025-12-16 15:24:27 +09:00
 ---
 
-## Android Security와 Sandboxing
+## Android Security 와 Sandboxing
 
 안드로이드 보안 모델은 **Defense in Depth(다층 방어)** 원칙을 따른다. 앱 샌드박싱, 권한 시스템, [SELinux](../../../../selinux.md), 암호화, Verified Boot 등 여러 계층의 보안 메커니즘이 협력하여 사용자 데이터와 시스템을 보호한다. 모바일 환경의 특성상 ― 신뢰할 수 없는 써드파티 앱 수백만 개, 분실/도난 위험, 다양한 공격 벡터 ― 때문에 매우 정교한 보안 아키텍처가 필요하다.
 
 ### 왜 안드로이드는 특별한 보안이 필요한가
 
-#### 모바일 환경의 위협 (2000년대 후반~현재)
+#### 모바일 환경의 위협 (2000 년대 후반~현재)
 
 **데스크톱과의 차이**:
 
@@ -111,7 +111,7 @@ drwx------   5  u0_a123  u0_a123  code_cache/
 drwx------   2  u0_a123  u0_a123  databases/
 ```
 
-**권한**: `rwx------` (700) → 오직 소유 UID만 접근 가능
+**권한**: `rwx------` (700) → 오직 소유 UID 만 접근 가능
 
 **다른 앱이 접근 시도**:
 ```bash
@@ -190,7 +190,7 @@ public void onRequestPermissionsResult(int requestCode, String[] permissions,
 | **PHONE** | READ_PHONE_STATE, CALL_PHONE, READ_CALL_LOG |
 | **STORAGE** | READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE |
 
-한 권한 허용 시 같은 그룹 다른 권한도 자동 허용 (Android 10까지).
+한 권한 허용 시 같은 그룹 다른 권한도 자동 허용 (Android 10 까지).
 
 ### 세분화된 권한 제어 (Android 11+)
 
@@ -201,7 +201,7 @@ public void onRequestPermissionsResult(int requestCode, String[] permissions,
 ```
 
 **자동 리셋**:
-- 앱을 오래 사용 안 하면 (3개월) 권한 자동 해제
+- 앱을 오래 사용 안 하면 (3 개월) 권한 자동 해제
 - 다음 실행 시 재요청
 
 **백그라운드 위치** (별도 승인):
@@ -272,7 +272,7 @@ neverallow untrusted_app init:process signal;
 ```
 
 **효과**:
-- 루트 권한 획득해도 SELinux가 차단
+- 루트 권한 획득해도 SELinux 가 차단
 - 시스템 파일 수정 불가
 - 다른 앱 공격 불가
 
@@ -332,7 +332,7 @@ Cursor cursor = getContentResolver().query(uri, projection, selection, null, nul
 
 **Direct Boot**:
 - 디바이스 부팅 → FDE 복호화 (비밀번호 불필요)
-- 알람, 전화 앱은 `user_de`에 데이터 저장 → 작동
+- 알람, 전화 앱은 `user_de` 에 데이터 저장 → 작동
 - 사용자 잠금 해제 → CE (Credential Encrypted) 복호화
 
 ```java
@@ -379,7 +379,7 @@ graph LR
 
 **동작**:
 1. 빌드 시 `/system` 파티션의 해시 트리 생성
-2. 루트 해시를 bootloader에 저장
+2. 루트 해시를 bootloader 에 저장
 3. 런타임에 블록 읽을 때마다 해시 검증
 
 ```
@@ -631,9 +631,14 @@ adb logcat | grep avc
 
 ## 연결 문서
 
-[selinux](../../../../selinux.md) - SELinux 정책 상세  
-[android-kernel](../01_system_internals/android-kernel.md) - 커널 보안 (SELinux, Seccomp)  
-[cpu-privilege-levels](../../../../cpu-privilege-levels.md) - UID 기반 격리  
-[android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) - Binder 보안  
-[android-init-and-services](../01_system_internals/android-init-and-services.md) - Verified Boot 부팅 체인  
+[selinux](../../../../selinux.md) - SELinux 정책 상세
+
+[android-kernel](../01_system_internals/android-kernel.md) - 커널 보안 (SELinux, Seccomp)
+
+[cpu-privilege-levels](../../../../cpu-privilege-levels.md) - UID 기반 격리
+
+[android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) - Binder 보안
+
+[android-init-and-services](../01_system_internals/android-init-and-services.md) - Verified Boot 부팅 체인
+
 [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md) - 앱 프로세스 격리

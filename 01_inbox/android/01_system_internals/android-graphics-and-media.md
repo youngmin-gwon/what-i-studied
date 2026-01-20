@@ -1,14 +1,14 @@
 ---
 title: android-graphics-and-media
 tags: [android, android/graphics, android/media]
-aliases: [Graphics, SurfaceFlinger, Media Pipeline]
-date modified: 2025-12-17 13:47:28 +09:00
+aliases: [Graphics, Media Pipeline, SurfaceFlinger]
+date modified: 2026-01-20 15:55:23 +09:00
 date created: 2025-12-16 15:27:42 +09:00
 ---
 
-## Graphics와 Media Pipeline
+## Graphics 와 Media Pipeline
 
-안드로이드의 그래픽 시스템은 **하드웨어 가속 렌더링**과 **다층 합성**을 통해 부드러운 60fps(또는 90/120fps) 화면을 제공한다. Media Framework는 카메라 캡처부터 비디오 재생까지 담당한다.
+안드로이드의 그래픽 시스템은 **하드웨어 가속 렌더링**과 **다층 합성**을 통해 부드러운 60fps(또는 90/120fps) 화면을 제공한다. Media Framework 는 카메라 캡처부터 비디오 재생까지 담당한다.
 
 ### 왜 복잡한 그래픽 파이프라인이 필요한가
 
@@ -64,7 +64,7 @@ override fun onDraw(canvas: Canvas) {
 **Skia**:
 - 2D 그래픽 라이브러리
 - GPU 가속 (OpenGL/Vulkan 백엔드)
-- Chrome도 사용하는 검증된 엔진
+- Chrome 도 사용하는 검증된 엔진
 
 #### 2. RenderThread
 
@@ -89,7 +89,7 @@ void draw(Canvas canvas) {
 
 #### 3. BufferQueue
 
-프로듀서(앱)-컨슈머(SurfaceFlinger) 패턴:
+프로듀서(앱)- 컨슈머(SurfaceFlinger) 패턴:
 
 ```cpp
 // 앱 쪽 (Producer)
@@ -124,7 +124,7 @@ Layer Stack:
 ```
 
 **합성 방법**:
-1. **GPU Composition**: OpenGL로 모든 레이어 합성
+1. **GPU Composition**: OpenGL 로 모든 레이어 합성
 2. **HWC Overlay**: 하드웨어가 직접 합성 (전력 절약)
 
 ```cpp
@@ -142,11 +142,11 @@ void SurfaceFlinger::composite() {
 
 ---
 
-## VSync와 Choreographer
+## VSync 와 Choreographer
 
 ### VSync
 
-디스플레이 수직 동기화 신호 (60Hz = 16.67ms마다):
+디스플레이 수직 동기화 신호 (60Hz = 16.67ms 마다):
 
 ```
 VSync ───┬───┬───┬───┬───→ 시간
@@ -207,7 +207,7 @@ fun Greeting(name: String) {
 **Compose Runtime**:
 1. **Composition**: UI 트리 구축
 2. **Layout**: 위치/크기 계산
-3. **Drawing**: Skia로 그리기
+3. **Drawing**: Skia 로 그리기
 
 ### 리컴포지션 최적화
 
@@ -223,8 +223,8 @@ fun Counter() {
 ```
 
 **스마트 리컴포지션**:
-- 변경된 상태를 사용하는 Composable만 재실행
-- `remember`, `derivedStateOf`로 최적화
+- 변경된 상태를 사용하는 Composable 만 재실행
+- `remember`, `derivedStateOf` 로 최적화
 
 ---
 
@@ -493,10 +493,10 @@ adb shell setprop debug.hwui.overdraw show
 ```
 
 **색상**:
-- 파란색: 1회 그리기
-- 녹색: 2회
-- 분홍색: 3회
-- 빨간색: 4회 이상 (개선 필요!)
+- 파란색: 1 회 그리기
+- 녹색: 2 회
+- 분홍색: 3 회
+- 빨간색: 4 회 이상 (개선 필요!)
 
 ---
 
@@ -547,8 +547,12 @@ adb shell setprop debug.hwui.profile visual_bars
 
 ## 연결 문서
 
-[android-hal-and-kernel](android-hal-and-kernel.md) - Graphics/Camera/Audio HAL  
-[buffer](../../../../buffer.md) - GraphicBuffer와 [[android-kernel#2 Ashmem과 공유 메모리의 진화|DMABuf]]  
-[android-binder-and-ipc](android-binder-and-ipc.md) - SurfaceFlinger 통신  
-[android-compose-internals](../02_app_framework/android-compose-internals.md) - Compose 상세  
+[android-hal-and-kernel](android-hal-and-kernel.md) - Graphics/Camera/Audio HAL
+
+[buffer](../../../../buffer.md) - GraphicBuffer 와 [[android-kernel#2 Ashmem과 공유 메모리의 진화|DMABuf]]
+
+[android-binder-and-ipc](android-binder-and-ipc.md) - SurfaceFlinger 통신
+
+[android-compose-internals](../02_app_framework/android-compose-internals.md) - Compose 상세
+
 [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md) - 렌더링 성능 최적화

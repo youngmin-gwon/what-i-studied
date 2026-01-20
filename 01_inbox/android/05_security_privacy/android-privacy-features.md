@@ -1,8 +1,8 @@
 ---
 title: android-privacy-features
-tags: [android, android/privacy, android/security, android/permissions]
+tags: [android, android/permissions, android/privacy, android/security]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:51 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 

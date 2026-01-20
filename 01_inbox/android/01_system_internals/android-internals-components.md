@@ -2,7 +2,7 @@
 title: android-internals-components
 tags: [android, android/internals, android/system-server]
 aliases: []
-date modified: 2025-12-16 16:03:13 +09:00
+date modified: 2026-01-20 15:55:26 +09:00
 date created: 2025-12-16 15:26:56 +09:00
 ---
 

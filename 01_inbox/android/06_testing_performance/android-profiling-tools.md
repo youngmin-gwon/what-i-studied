@@ -1,8 +1,8 @@
 ---
 title: android-profiling-tools
-tags: [android, android/profiling, android/performance, android/tools]
+tags: [android, android/performance, android/profiling, android/tools]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:56:01 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 

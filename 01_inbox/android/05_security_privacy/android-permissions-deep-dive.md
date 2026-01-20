@@ -1,8 +1,8 @@
 ---
 title: android-permissions-deep-dive
-tags: [android, android/permissions, android/security, android/privacy]
+tags: [android, android/permissions, android/privacy, android/security]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:50 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 

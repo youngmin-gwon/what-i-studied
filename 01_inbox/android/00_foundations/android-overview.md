@@ -2,7 +2,7 @@
 title: android-overview
 tags: [android, android/architecture, android/fundamentals, android/overview]
 aliases: [Android Overview, 안드로이드 개요]
-date modified: 2025-12-17 21:25:21 +09:00
+date modified: 2026-01-20 15:55:14 +09:00
 date created: 2025-12-17 14:06:18 +09:00
 ---
 

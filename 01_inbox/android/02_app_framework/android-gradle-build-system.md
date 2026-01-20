@@ -1,8 +1,8 @@
 ---
 title: android-gradle-build-system
-tags: [android, android/build, android/gradle, android/agp]
+tags: [android, android/agp, android/build, android/gradle]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:39 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 
@@ -52,18 +52,18 @@ tasks.register("clean", Delete::class) {
 | 개념 | 설명 |
 | :--- | :--- |
 | **역할** | 빌드 과정에 특수 기능 추가 (코드 생성, DSL 확장, 빌드 태스크 추가 등) |
-| **Flutter 비유** | `pubspec.yaml`의 `dev_dependencies` + `build_runner` 자동 실행 |
+| **Flutter 비유** | `pubspec.yaml` 의 `dev_dependencies` + `build_runner` 자동 실행 |
 | **결과** | 플러그인이 제공하는 어노테이션, DSL, 빌드 명령어가 활성화됨 |
 
-> [!NOTE]
-> **Flutter와의 차이점**
-> Flutter에서는 `flutter pub run build_runner build`를 수동으로 실행해야 하지만, Android에서는 plugins 블록에 선언하면 빌드 시 자동으로 실행됩니다.
+>[!NOTE]
+> **Flutter 와의 차이점**
+>Flutter 에서는 `flutter pub run build_runner build` 를 수동으로 실행해야 하지만, Android 에서는 plugins 블록에 선언하면 빌드 시 자동으로 실행됩니다.
 
 ### alias vs id: 두 가지 선언 방식
 
 #### 1. alias 방식 (최신 권장 ✅)
 
-`libs.versions.toml`에 정의된 플러그인을 참조하는 방식입니다.
+`libs.versions.toml` 에 정의된 플러그인을 참조하는 방식입니다.
 
 ```kotlin
 // build.gradle.kts
@@ -114,8 +114,8 @@ plugins {
 ```
 
 **언제 사용하나요?**
-- `libs.versions.toml`에 등록하지 않은 플러그인을 쓸 때
-- 버전이 없는 플러그인 (예: `kotlin-kapt`는 Kotlin 플러그인에 포함되어 있어서 버전 불필요)
+- `libs.versions.toml` 에 등록하지 않은 플러그인을 쓸 때
+- 버전이 없는 플러그인 (예: `kotlin-kapt` 는 Kotlin 플러그인에 포함되어 있어서 버전 불필요)
 - 일회성으로 테스트하는 플러그인
 
 ### 주요 플러그인과 역할
@@ -148,13 +148,13 @@ plugins {
 
 | 플러그인 | 활성화하면 생기는 일 | Flutter 비유 |
 | :--- | :--- | :--- |
-| **android-application** | `android { ... }` 블록 사용 가능, APK 빌드 가능 | `flutter build apk` 명령어 사용 가능 |
+| **android-application** | `android { … }` 블록 사용 가능, APK 빌드 가능 | `flutter build apk` 명령어 사용 가능 |
 | **kotlin-android** | Kotlin 코드 컴파일 가능 | Dart 컴파일러 활성화 |
-| **kotlin-compose** | `@Composable` 함수 인식 및 최적화 | Flutter의 Widget 시스템 활성화 |
+| **kotlin-compose** | `@Composable` 함수 인식 및 최적화 | Flutter 의 Widget 시스템 활성화 |
 | **hilt** | `@HiltAndroidApp`, `@Inject` 등 처리 | Provider 코드 생성 (`provider` 패키지) |
 | **kotlin-serialization** | `@Serializable` 어노테이션 처리 | `json_serializable` 실행 |
 | **kotlin-kapt** | 모든 어노테이션 프로세서 실행 가능 | `build_runner` 실행 |
-| **ksp** | kapt보다 빠른 어노테이션 처리 (차세대) | `build_runner`의 최적화 버전 |
+| **ksp** | kapt 보다 빠른 어노테이션 처리 (차세대) | `build_runner` 의 최적화 버전 |
 
 ### 실전 예시: 플러그인의 중요성
 
@@ -198,7 +198,7 @@ dependencies {
 ```
 
 **결과:**
-- ✅ Hilt가 자동으로 의존성 주입 코드를 생성해줍니다
+- ✅ Hilt 가 자동으로 의존성 주입 코드를 생성해줍니다
 - ✅ `@HiltAndroidApp`, `@AndroidEntryPoint` 어노테이션이 정상 작동합니다
 
 ### 플러그인 선언 순서
@@ -223,7 +223,7 @@ plugins {
 }
 ```
 
-> [!TIP]
+>[!TIP]
 > **플러그인 순서 규칙**
 > - 플랫폼 플러그인(`android-application`)이 가장 먼저
 > - 언어 플러그인(`kotlin-android`)이 그 다음
@@ -298,13 +298,13 @@ plugins {
 | 개념 | 설명 |
 | :--- | :--- |
 | **plugins 블록** | 빌드 과정에 특수 기능을 추가하는 곳 |
-| **alias** | `libs.versions.toml`에 정의된 플러그인 참조 (권장) |
+| **alias** | `libs.versions.toml` 에 정의된 플러그인 참조 (권장) |
 | **id** | 플러그인을 직접 선언 (간단한 플러그인이나 버전 불필요 시) |
 | **결과** | 플러그인이 제공하는 어노테이션, DSL, 빌드 명령어 활성화 |
 
-> [!NOTE]
+>[!NOTE]
 > **Flutter 개발자를 위한 한 줄 요약**
-> `plugins`는 `pubspec.yaml`의 `dev_dependencies` + `flutter pub run build_runner build`를 자동화하는 설정입니다!
+>`plugins` 는 `pubspec.yaml` 의 `dev_dependencies` + `flutter pub run build_runner build` 를 자동화하는 설정입니다!
 
 ---
 
@@ -477,7 +477,7 @@ dependencies {
 
 ## Compose BOM (Bill of Materials) 심층 가이드
 
-### BOM이란?
+### BOM 이란?
 
 **BOM (Bill of Materials)** 은 여러 라이브러리의 호환되는 버전을 하나의 세트로 묶어주는 특수한 의존성입니다.
 
@@ -485,9 +485,9 @@ dependencies {
 | :--- | :--- |
 | **정의** | 테스트를 거친 라이브러리 버전들의 조합을 제공하는 메타데이터 파일 |
 | **목적** | 개별 라이브러리 버전 관리의 복잡성 제거 |
-| **Flutter 비유** | Flutter의 SDK 버전과 유사 - SDK 버전 하나로 모든 Flutter 패키지 버전이 결정됨 |
+| **Flutter 비유** | Flutter 의 SDK 버전과 유사 - SDK 버전 하나로 모든 Flutter 패키지 버전이 결정됨 |
 
-### 왜 BOM을 사용해야 하는가?
+### 왜 BOM 을 사용해야 하는가?
 
 #### ❌ BOM 없이 (수동 버전 관리)
 
@@ -548,8 +548,8 @@ graph LR
 | 단계 | 설명 |
 | :--- | :--- |
 | **1. 라이브러리 개발** | 각 Compose 라이브러리가 독립적으로 개발됨 |
-| **2. 조합 테스트** | Google이 다양한 버전 조합을 테스트 |
-| **3. BOM 릴리스** | 호환성이 검증된 버전 세트를 BOM으로 배포 |
+| **2. 조합 테스트** | Google 이 다양한 버전 조합을 테스트 |
+| **3. BOM 릴리스** | 호환성이 검증된 버전 세트를 BOM 으로 배포 |
 | **4. 개발자 사용** | 개발자는 BOM 버전만 선택하면 됨 |
 
 ### 실전 사용 예제
@@ -578,7 +578,7 @@ dependencies {
 }
 ```
 
-#### Version Catalog와 함께 사용
+#### Version Catalog 와 함께 사용
 
 ```toml
 # gradle/libs.versions.toml
@@ -618,11 +618,11 @@ dependencies {
 # +--- androidx.compose.material3:material3 -> 1.2.0
 ```
 
-> [!TIP]
+>[!TIP]
 > **BOM 버전 선택 가이드**
 > - **안정성 우선**: 최신 안정 버전 사용 (예: `2024.02.00`)
 > - **최신 기능 필요**: 알파/베타 버전 사용 (예: `2024.03.00-alpha01`)
-> - **프로덕션 앱**: 최소 2주 이상 검증된 버전 사용 권장
+> - **프로덕션 앱**: 최소 2 주 이상 검증된 버전 사용 권장
 
 ### 특정 라이브러리만 버전 오버라이드
 
@@ -642,15 +642,15 @@ dependencies {
 }
 ```
 
-> [!WARNING]
+>[!WARNING]
 > **버전 오버라이드 주의사항**
-> BOM에서 제공하는 버전과 다른 버전을 사용하면 호환성 문제가 발생할 수 있습니다. 반드시 필요한 경우에만 사용하세요.
+>BOM 에서 제공하는 버전과 다른 버전을 사용하면 호환성 문제가 발생할 수 있습니다. 반드시 필요한 경우에만 사용하세요.
 
 ### BOM vs 개별 버전 관리 비교
 
 | 항목 | BOM 사용 | 개별 버전 관리 |
 | :--- | :--- | :--- |
-| **버전 선언** | BOM 1개 | 라이브러리마다 개별 선언 |
+| **버전 선언** | BOM 1 개 | 라이브러리마다 개별 선언 |
 | **호환성 보장** | ✅ Google 테스트 완료 | ❌ 개발자가 직접 확인 필요 |
 | **업데이트 편의성** | ✅ BOM 버전만 변경 | ❌ 모든 라이브러리 개별 변경 |
 | **버전 충돌** | ✅ 자동 해결 | ❌ 수동 해결 필요 |
@@ -658,7 +658,7 @@ dependencies {
 
 ### 자주 하는 실수
 
-#### ❌ 실수 1: BOM과 버전을 함께 명시
+#### ❌ 실수 1: BOM 과 버전을 함께 명시
 
 ```kotlin
 // 잘못된 예
@@ -705,9 +705,9 @@ dependencies {
 | `2023.10.01` | 2023-10 | 1.5.4 | Material3 1.1.2 포함 |
 | `2023.06.01` | 2023-06 | 1.4.3 | 초기 안정 버전 |
 
-> [!NOTE]
+>[!NOTE]
 > **최신 BOM 버전 확인**
-> [Compose BOM 릴리스 노트](https://developer.android.com/jetpack/compose/bom/bom-mapping)에서 최신 버전과 포함된 라이브러리 버전을 확인할 수 있습니다.
+>[Compose BOM 릴리스 노트](https://developer.android.com/jetpack/compose/bom/bom-mapping) 에서 최신 버전과 포함된 라이브러리 버전을 확인할 수 있습니다.
 
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: android-storage-systems
-tags: [android, android/storage, android/filesystem, android/scoped-storage]
+tags: [android, android/filesystem, android/scoped-storage, android/storage]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:46 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 
@@ -240,7 +240,7 @@ private val openDocumentTreeLauncher = registerForActivityResult(
 
 | 데이터 종류 | 저장 방법 |
 |------------|----------|
-| 키-값 쌍 | SharedPreferences, DataStore |
+| 키 - 값 쌍 | SharedPreferences, DataStore |
 | 구조화된 데이터 | Room, SQLite |
 | 파일 (앱 전용) | 내부 저장소 |
 | 미디어 (공유) | MediaStore |
@@ -249,7 +249,7 @@ private val openDocumentTreeLauncher = registerForActivityResult(
 
 ### SharedPreferences
 
-간단한 키-값 저장.
+간단한 키 - 값 저장.
 
 ```kotlin
 // 저장

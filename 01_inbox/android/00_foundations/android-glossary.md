@@ -2,7 +2,7 @@
 title: android-glossary
 tags: [android, android/glossary, android/reference]
 aliases: [Android Glossary, 안드로이드 용어집]
-date modified: 2025-12-17 21:16:08 +09:00
+date modified: 2026-01-20 15:55:13 +09:00
 date created: 2025-12-16 15:56:51 +09:00
 ---
 

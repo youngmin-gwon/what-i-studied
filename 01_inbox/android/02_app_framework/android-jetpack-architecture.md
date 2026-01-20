@@ -1,8 +1,8 @@
 ---
 title: android-jetpack-architecture
-tags: [android, android/jetpack, android/architecture, android/viewmodel, android/room]
+tags: [android, android/architecture, android/jetpack, android/room, android/viewmodel]
 aliases: []
-date modified: 2025-12-16 16:19:14 +09:00
+date modified: 2026-01-20 15:55:39 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 

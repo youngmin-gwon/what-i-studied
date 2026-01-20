@@ -2,7 +2,7 @@
 title: android-adb-and-images
 tags: [android, android/adb, android/fastboot, android/tools]
 aliases: []
-date modified: 2025-12-16 20:28:06 +09:00
+date modified: 2026-01-20 15:55:58 +09:00
 date created: 2025-12-16 15:25:10 +09:00
 ---
 
