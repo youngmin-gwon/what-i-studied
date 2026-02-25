@@ -2,7 +2,7 @@
 title: 문제모음
 tags: []
 aliases: []
-date modified: 2026-02-25 11:24:06 +09:00
+date modified: 2026-02-25 11:28:51 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -71,6 +71,7 @@ SAM (Security Account Manager), HKEY_LOCAL_MACHINE\SAM
 </blockquote>
 </details>
 
+---
 ### 2. 네트워크 보안
 
 <details>
@@ -118,6 +119,8 @@ AH: 데이터의 무결성과 인증은 제공하지만 암호화(기밀성)는 
 ESP: 무결성, 인증과 함께 데이터 암호화를 통한 기밀성을 제공한다.
 </blockquote>
 </details>
+
+---
 ### 3. 애플리케이션 보안
 
 <details>
@@ -163,6 +166,7 @@ TFTP (Trivial File Transfer Protocol)
 </blockquote>
 </details>
 
+---
 ### 4. 정보보안 일반 및 관리 법규
 
 <details>
@@ -197,11 +201,19 @@ ISO/IEC 27001
 </details>
 
 <details>
-<summary>IPsec(IP Security) 프로토콜의 두 가지 모드(전송 모드, 터널 모드)와 두 가지 프로토콜(AH, ESP)의 조합에 따른 보안 서비스 제공 차이점을 서술하시오.</summary>
+<summary>공공기관이나 기업에서 정보보호 관리체계(ISMS)를 수립할 때 수행하는 '위험 분석(Risk Analysis)'의 4단계 절차를 순서대로 작성하시오.</summary>
 <blockquote>
 1. 자산 식별: 조직의 정보자산(H/W, S/W, 데이터 등)을 식별하고 중요도를 산정한다.<br>
 2. 위협 및 취약점 분석: 자산에 영향을 줄 수 있는 내·외부 위협 요인과 시스템의 약점을 식별한다.<br>
 3. 위험 평가: 식별된 위험을 기반으로 발생 가능성과 영향을 계산하여 위험도를 산정한다.<br>
 4. 정보보호대책 수립: 목표 위험 수준을 초과하는 위험에 대해 적절한 보호 대책과 이행 계획을 수립한다.
+</blockquote>
+</details>
+
+<details>
+<summary>디지털 포렌식(Digital Forensics)의 '연계 보관성(Chain of Custody) 원칙'에 대해 설명하고, 이를 보장하기 위해 증거물 획득 단계에서 수행해야 할 조치를 서술하시오.</summary>
+<blockquote>
+원칙: 증거물이 수집된 순간부터 법정에 제출될 때까지 모든 이동 및 관리 경로가 기록되어 위·변조가 없었음을 입증해야 한다는 원칙이다.<br>
+조치: 증거물 획득 시 원본 매체의 해시(Hash) 값을 산출하여 기록하고, 증거물 봉인 및 이송 시 담당자 서명을 포함한 인수인계 증명서를 작성하여 관리해야 한다.
 </blockquote>
 </details>
