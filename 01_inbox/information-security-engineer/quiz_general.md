@@ -1,8 +1,8 @@
 ---
-title: 문제모음
+title: quiz_general
 tags: []
 aliases: []
-date modified: 2026-02-25 11:28:51 +09:00
+date modified: 2026-02-25 12:13:56 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -125,4 +125,3 @@ BCP (Business Continuity Plan, 업무 연속성 계획)
 APT (Advanced Persistent Threat, 지능형 지속 위협)
 </blockquote>
 </details>
-

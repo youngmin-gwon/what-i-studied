@@ -1,8 +1,8 @@
 ---
-title: 문제모음
+title: quiz_network
 tags: []
 aliases: []
-date modified: 2026-02-25 11:28:51 +09:00
+date modified: 2026-02-25 12:13:52 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -55,8 +55,6 @@ AH: 데이터의 무결성과 인증은 제공하지만 암호화(기밀성)는 
 ESP: 무결성, 인증과 함께 데이터 암호화를 통한 기밀성을 제공한다.
 </blockquote>
 </details>
-
----
 
 <details>
 <summary>IP 단편화(Fragmentation) 프로토콜의 취약점을 이용하여, 조각난 패킷들의 오프셋(Offset)을 겹치게(Overlap) 하거나 변조시켜 수신 측에서 재조합 시 오류와 시스템 과부하를 유발하는 분산서비스거부 공격 기법을 쓰시오.</summary>
@@ -124,4 +122,3 @@ RADIUS (또는 TACACS+)
 IPsec (IP Security)
 </blockquote>
 </details>
-

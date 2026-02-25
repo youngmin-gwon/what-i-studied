@@ -1,8 +1,8 @@
 ---
-title: 문제모음
+title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-02-25 11:28:51 +09:00
+date modified: 2026-02-25 12:13:47 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -143,4 +143,3 @@ ASLR (Address Space Layout Randomization)
 <strong>최적화 방식</strong>: 헤드가 디스크의 한쪽 끝에서 반대쪽 끝으로 이동하면서 그 경로에 있는 모든 입출력 요청을 처리한 후, 반대 방향으로 이동하며 다시 경로상의 요청을 처리하여 디스크 탐색 시간(Seek Time)의 편차를 줄여준다.
 </blockquote>
 </details>
-
