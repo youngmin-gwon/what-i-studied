@@ -91,6 +91,20 @@ HKEY_LOCAL_MACHINE (HKLM)
 </blockquote>
 </details>
 
+<details>
+<summary>다음의 빈칸 (A), (B), (C) 에 적절한 용어를 기술하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(Workgroup) 방식과 (A) 방식이 있으며, 로컬 사용자 계정은 %SystemRoot%\System32\config\(B) 에 저장되고 있고, (A) 방식은 (C) 데이터베이스에 저장된다.
+</div>
+</summary>
+<blockquote>
+(A) 도메인 (Domain)<br>
+(B) SAM<br>
+(C) NTDS.dit (또는 Active Directory)
+</blockquote>
+</details>
+
 #### ✍️ 서술형
 
 <details>
