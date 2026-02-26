@@ -1,14 +1,16 @@
 ---
-title: 문제모음
+title: quiz_application
 tags: []
 aliases: []
-date modified: 2026-02-25 11:28:51 +09:00
+date modified: 2026-02-26 14:24:57 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
 ## 🛡️ 정보보안기사 실기 Quiz
 
 ### 3. 애플리케이션 보안
+
+#### 📝 단답형
 
 <details>
 <summary>전자상거래 지불 프로토콜에서 주문 정보와 지불 정보를 각각 해시한 후 이를 합쳐 다시 해시하여 서명함으로써, 상점은 지불 정보를 알 수 없고 은행은 주문 내용을 알 수 없게 만드는 기술의 명칭을 쓰시오.</summary>
@@ -25,31 +27,9 @@ Stored XSS (저장형 XSS)
 </details>
 
 <details>
-<summary>안드로이드 앱의 필수 권한 선언 및 앱 구성 정보를 담고 있는 설정 파일의 명칭을 작성하시오.</summary>
-<blockquote>
-AndroidManifest.xml
-</blockquote>
-</details>
-
-<details>
 <summary>파일 전송 프로토콜 중 FTP보다 단순하며 별도의 인증 절차가 없어 보안에 취약하지만, 부팅 파일 전송 등에 사용되는 프로토콜의 명칭을 쓰시오.</summary>
 <blockquote>
 TFTP (Trivial File Transfer Protocol)
-</blockquote>
-</details>
-
-<details>
-<summary>SQL 인젝션(Injection) 공격 중 'Blind SQL Injection'의 개념을 설명하고, 이를 탐지하기 위해 공격자가 주로 사용하는 SQL 함수 2가지를 쓰시오.</summary>
-<blockquote>
-개념: 쿼리 결과가 화면에 직접 노출되지 않는 경우, 참(True) 또는 거짓(False)의 응답 차이나 응답 지연 시간 등을 통해 데이터베이스의 정보를 유추해 나가는 공격 기법이다.<br>
-사용 함수: `SUBSTR()` (문자열 추출), `LENGTH()` (문자열 길이 확인), `SLEEP()` (시간 지연 유도) 등.
-</blockquote>
-</details>
-
-<details>
-<summary>안드로이드 애플리케이션 보안을 위해 소스코드 난독화(Obfuscation)를 수행해야 하는 이유를 리버스 엔지니어링(Reverse Engineering) 관점에서 설명하시오.</summary>
-<blockquote>
-안드로이드 앱은 디컴파일 도구를 통해 실행파일(.apk)을 소스코드로 쉽게 변환할 수 있어 로직 분석이 용이하다. 난독화는 변수명이나 메서드명을 무의미하게 변경하거나 코드 흐름을 복잡하게 만들어, 공격자가 화이트박스 분석을 통해 취약점을 찾아내거나 소스코드를 도용하는 리버스 엔지니어링 시도를 어렵게 하기 위해 반드시 필요하다.
 </blockquote>
 </details>
 
@@ -82,6 +62,30 @@ strncpy (또는 strlcpy)
 </details>
 
 <details>
+<summary>OWASP Top 10에 포함되는 취약점 중 하나로, 공격자가 웹 애플리케이션의 파라미터를 조작하여 자신에게 허가되지 않은 다른 사용자의 데이터(예: Mypage?id=admin)나 기능에 직접 접근할 수 있도록 허용하는 취약점의 영문 약어를 쓰시오.</summary>
+<blockquote>
+IDOR (Insecure Direct Object Reference)
+</blockquote>
+</details>
+
+#### ✍️ 서술형
+
+<details>
+<summary>SQL 인젝션(Injection) 공격 중 'Blind SQL Injection'의 개념을 설명하고, 이를 탐지하기 위해 공격자가 주로 사용하는 SQL 함수 2가지를 쓰시오.</summary>
+<blockquote>
+개념: 쿼리 결과가 화면에 직접 노출되지 않는 경우, 참(True) 또는 거짓(False)의 응답 차이나 응답 지연 시간 등을 통해 데이터베이스의 정보를 유추해 나가는 공격 기법이다.<br>
+사용 함수: `SUBSTR()` (문자열 추출), `LENGTH()` (문자열 길이 확인), `SLEEP()` (시간 지연 유도) 등.
+</blockquote>
+</details>
+
+<details>
+<summary>안드로이드 애플리케이션 보안을 위해 소스코드 난독화(Obfuscation)를 수행해야 하는 이유를 리버스 엔지니어링(Reverse Engineering) 관점에서 설명하시오.</summary>
+<blockquote>
+안드로이드 앱은 디컴파일 도구를 통해 실행파일(.apk)을 소스코드로 쉽게 변환할 수 있어 로직 분석이 용이하다. 난독화는 변수명이나 메서드명을 무의미하게 변경하거나 코드 흐름을 복잡하게 만들어, 공격자가 화이트박스 분석을 통해 취약점을 찾아내거나 소스코드를 도용하는 리버스 엔지니어링 시도를 어렵게 하기 위해 반드시 필요하다.
+</blockquote>
+</details>
+
+<details>
 <summary>악성코드가 파일 시스템에 설치되지 않고, 윈도우의 PowerShell, WMI, 레지스트리 등 정상적인 시스템 도구와 메모리 자원만을 악용하여 실행되는 '파일리스(Fileless) 악성코드'의 특징과 전통적인 백신(Anti-Virus) 프로그램이 이를 탐지하기 어려운 이유를 서술하시오.</summary>
 <blockquote>
 <strong>특징</strong>: 하드디스크에 실행 파일(.exe) 형태의 흔적을 남기지 않고 시스템의 메모리(RAM) 상에서만 동작한다.<br>
@@ -105,17 +109,19 @@ strncpy (또는 strlcpy)
 </blockquote>
 </details>
 
+#### 💻 실기형 (실무형)
+
 <details>
-<summary>데이터베이스에서 사용자의 입력값을 통해 동적으로 SQL 쿼리를 생성할 때 발생하는 SQL Injection 취약점을 근본적으로 방어하기 위해, 많은 프로그래밍 언어의 데이터베이스 접근 API 라이브러리가 지원하는 객체(클래스)의 명칭을 쓰시오.</summary>
+<summary>안드로이드 앱의 필수 권한 선언 및 앱 구성 정보를 담고 있는 설정 파일의 명칭을 작성하시오.</summary>
 <blockquote>
-PreparedStatement (또는 Parameterized Query)
+AndroidManifest.xml
 </blockquote>
 </details>
 
 <details>
-<summary>OWASP Top 10에 포함되는 취약점 중 하나로, 공격자가 웹 애플리케이션의 파라미터를 조작하여 자신에게 허가되지 않은 다른 사용자의 데이터(예: Mypage?id=admin)나 기능에 직접 접근할 수 있도록 허용하는 취약점의 영문 약어를 쓰시오.</summary>
+<summary>데이터베이스에서 사용자의 입력값을 통해 동적으로 SQL 쿼리를 생성할 때 발생하는 SQL Injection 취약점을 근본적으로 방어하기 위해, 많은 프로그래밍 언어의 데이터베이스 접근 API 라이브러리가 지원하는 객체(클래스)의 명칭을 쓰시오.</summary>
 <blockquote>
-IDOR (Insecure Direct Object Reference)
+PreparedStatement (또는 Parameterized Query)
 </blockquote>
 </details>
 

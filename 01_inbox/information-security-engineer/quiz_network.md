@@ -2,13 +2,15 @@
 title: quiz_network
 tags: []
 aliases: []
-date modified: 2026-02-25 12:13:52 +09:00
+date modified: 2026-02-26 14:27:53 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
 ## 🛡️ 정보보안기사 실기 Quiz
 
 ### 2. 네트워크 보안
+
+#### 📝 단답형
 
 <details>
 <summary>IP 관리 시스템에서 발전하여 MAC 주소를 기반으로 네트워크 접근 제어 및 인증 기능을 수행하는 보안 시스템의 명칭을 쓰시오.</summary>
@@ -18,18 +20,48 @@ NAC (Network Access Control)
 </details>
 
 <details>
-<summary>ARP 스푸핑(Spoofing) 공격을 방어하기 위해 ARP 테이블을 정적으로 관리하는 명령어를 작성하시오.</summary>
-<blockquote>
-arp -s [IP주소] [MAC주소]
-</blockquote>
-</details>
-
-<details>
 <summary>Tcpdump와 같은 도구로 패킷을 스니핑할 때, 목적지 MAC 주소가 자신의 것과 다르더라도 패킷을 폐기하지 않고 수신하기 위해 네트워크 인터페이스에 설정해야 하는 모드의 명칭을 쓰시오.</summary>
 <blockquote>
 무차별 모드 (Promiscuous Mode)
 </blockquote>
 </details>
+
+<details>
+<summary>IP 단편화(Fragmentation) 프로토콜의 취약점을 이용하여, 조각난 패킷들의 오프셋(Offset)을 겹치게(Overlap) 하거나 변조시켜 수신 측에서 재조합 시 오류와 시스템 과부하를 유발하는 분산서비스거부 공격 기법을 쓰시오.</summary>
+<blockquote>
+티어드롭 (Teardrop) 공격
+</blockquote>
+</details>
+
+<details>
+<summary>2016년에 처음 발견되었으며, 패스워드가 취약한 IP 카메라, 공유기 등 IoT 장비를 스캐닝하여 악성코드에 감염시킨 후 거대한 봇넷(Botnet)을 형성해 DDoS 공격을 수행하는 대표적 공격용 봇넷의 명칭을 쓰시오.</summary>
+<blockquote>
+미라이 (Mirai) 봇넷
+</blockquote>
+</details>
+
+<details>
+<summary>점차 고도화되는 보안 위협에 대처하기 위해 이기종 보안 장비 및 솔루션들을 하나의 시스템으로 통합 연동하고, 위협 탐지 및 대응, 침해 사고 등 보안 운영 업무를 '자동화'함으로써 효율성을 극대화하는 플랫폼 또는 기술의 명칭을 영문 약어로 쓰시오.</summary>
+<blockquote>
+SOAR (Security Orchestration, Automation and Response)
+</blockquote>
+</details>
+
+<details>
+<summary>무선 인증 구조 IEEE 802.1x 에서 AP(Access Point)가 인증 요청을 전달하고 실제 사용자의 권한을 검증하는 서버 프로토콜로 자주 사용되는 인증 서버의 명칭을 쓰시오.</summary>
+<blockquote>
+RADIUS (또는 TACACS+)
+</blockquote>
+</details>
+
+<details>
+<summary>가상사설망(VPN) 환경에서 IP 패킷의 암호화 및 무결성을 보장하기 위해 주로 사용되며, 네트워크 계층에서 동작하는 널리 알려진 보안 프로토콜 모음(Suite)의 명칭을 쓰시오.</summary>
+<blockquote>
+IPsec (IP Security)
+</blockquote>
+</details>
+
+#### ✍️ 서술형
 
 <details>
 <summary>IPsec의 터널 모드(Tunnel Mode)와 전송 모드(Transport Mode)의 차이점을 패킷 구조 관점에서 서술하시오.</summary>
@@ -53,27 +85,6 @@ arp -s [IP주소] [MAC주소]
 터널 모드: 원래 패킷 전체를 캡슐화하여 새로운 IP 헤더를 추가하며, 게이트웨이 간(Site-to-Site) VPN 구축에 사용된다.<br>
 AH: 데이터의 무결성과 인증은 제공하지만 암호화(기밀성)는 제공하지 않는다.<br>
 ESP: 무결성, 인증과 함께 데이터 암호화를 통한 기밀성을 제공한다.
-</blockquote>
-</details>
-
-<details>
-<summary>IP 단편화(Fragmentation) 프로토콜의 취약점을 이용하여, 조각난 패킷들의 오프셋(Offset)을 겹치게(Overlap) 하거나 변조시켜 수신 측에서 재조합 시 오류와 시스템 과부하를 유발하는 분산서비스거부 공격 기법을 쓰시오.</summary>
-<blockquote>
-티어드롭 (Teardrop) 공격
-</blockquote>
-</details>
-
-<details>
-<summary>2016년에 처음 발견되었으며, 패스워드가 취약한 IP 카메라, 공유기 등 IoT 장비를 스캐닝하여 악성코드에 감염시킨 후 거대한 봇넷(Botnet)을 형성해 DDoS 공격을 수행하는 대표적 공격용 봇넷의 명칭을 쓰시오.</summary>
-<blockquote>
-미라이 (Mirai) 봇넷
-</blockquote>
-</details>
-
-<details>
-<summary>점차 고도화되는 보안 위협에 대처하기 위해 이기종 보안 장비 및 솔루션들을 하나의 시스템으로 통합 연동하고, 위협 탐지 및 대응, 침해 사고 등 보안 운영 업무를 '자동화'함으로써 효율성을 극대화하는 플랫폼 또는 기술의 명칭을 영문 약어로 쓰시오.</summary>
-<blockquote>
-SOAR (Security Orchestration, Automation and Response)
 </blockquote>
 </details>
 
@@ -109,16 +120,11 @@ SOAR (Security Orchestration, Automation and Response)
 </blockquote>
 </details>
 
-<details>
-<summary>무선 인증 구조 IEEE 802.1x 에서 AP(Access Point)가 인증 요청을 전달하고 실제 사용자의 권한을 검증하는 서버 프로토콜로 자주 사용되는 인증 서버의 명칭을 쓰시오.</summary>
-<blockquote>
-RADIUS (또는 TACACS+)
-</blockquote>
-</details>
+#### 💻 실기형 (실무형)
 
 <details>
-<summary>가상사설망(VPN) 환경에서 IP 패킷의 암호화 및 무결성을 보장하기 위해 주로 사용되며, 네트워크 계층에서 동작하는 널리 알려진 보안 프로토콜 모음(Suite)의 명칭을 쓰시오.</summary>
+<summary>ARP 스푸핑(Spoofing) 공격을 방어하기 위해 ARP 테이블을 정적으로 관리하는 명령어를 작성하시오.</summary>
 <blockquote>
-IPsec (IP Security)
+arp -s [IP주소] [MAC주소]
 </blockquote>
 </details>
