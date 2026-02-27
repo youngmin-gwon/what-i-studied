@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-02-26 14:27:28 +09:00
+date modified: 2026-02-27 10:13:01 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -23,7 +23,7 @@ SCAN 알고리즘<br>
 <details>
 <summary>IP 관리 시스템에서 발전하여 MAC 기반 통제를 강화한 장비는?</summary>
 <blockquote>
-NAC (Network Access Control)
+NAC (Network Access Control)<br>
 - 주요 기능: 접근 제어 및 인증.
 </blockquote>
 </details>
@@ -93,6 +93,29 @@ HKEY_LOCAL_MACHINE (HKLM)
 
 <details>
 <summary>다음의 빈칸 (A), (B), (C) 에 적절한 용어를 기술하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(Workgroup) 방식과 (A) 방식이 있으며, 로컬 사용자 계정은 %SystemRoot%\System32\config\(B) 에 저장되고 있고, (A) 방식은 (C) 데이터베이스에 저장된다.
+</div>
+</summary>
+<blockquote>
+(A) 도메인 (Domain)<br>
+(B) SAM<br>
+(C) NTDS.dit (또는 Active Directory)
+</blockquote>
+</details>
+
+<details>
+<summary>윈도우(Windows) OS 는 기본적으로 시스템을 관리할 수 있는 다양한 유틸리티(도구)들을 제공하고 있다. OS 유틸리티(도구) 중 로그를 조회하고 관리할 수 있는 도구는 무엇인지 쓰시오.</summary>
+<blockquote>
+Event Viewer<br><br>
+이벤트 뷰어는 윈도우 OS에서 로그를 조회하고 관리하는 도구이다. 응용프로그램(application) 로그, 보안(Security) 로그, 시스템(System) 로그의 3가지 로그를 기본 로그로 한다.
+</blockquote>
+</details>
+
+
+<details>
+<summary>윈도우 시스템은 버전에 따라 차이가 있지만 기본적으로 Application, System, Security 이벤트 로그를 가지고 있다. 현재 시스템이 윈도우 7
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <strong>[보기]</strong><br>
 Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(Workgroup) 방식과 (A) 방식이 있으며, 로컬 사용자 계정은 %SystemRoot%\System32\config\(B) 에 저장되고 있고, (A) 방식은 (C) 데이터베이스에 저장된다.
