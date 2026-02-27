@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-02-27 10:13:01 +09:00
+date modified: 2026-02-27 10:26:43 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -95,7 +95,7 @@ HKEY_LOCAL_MACHINE (HKLM)
 <summary>다음의 빈칸 (A), (B), (C) 에 적절한 용어를 기술하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <strong>[보기]</strong><br>
-Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(Workgroup) 방식과 (A) 방식이 있으며, 로컬 사용자 계정은 %SystemRoot%\System32\config\(B) 에 저장되고 있고, (A) 방식은 (C) 데이터베이스에 저장된다.
+Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(Workgroup) 방식과 <string>(A)</strong> 방식이 있으며, 로컬 사용자 계정은 %SystemRoot%\System32\config\<string>(B)</string> 에 저장되고 있고, <string>(A)</string> 방식은 <string>(C)</string> 데이터베이스에 저장된다.
 </div>
 </summary>
 <blockquote>
@@ -113,18 +113,41 @@ Event Viewer<br><br>
 </blockquote>
 </details>
 
-
 <details>
-<summary>윈도우 시스템은 버전에 따라 차이가 있지만 기본적으로 Application, System, Security 이벤트 로그를 가지고 있다. 현재 시스템이 윈도우 7
+<summary>윈도우 시스템은 버전에 따라 차이가 있지만 기본적으로 Application, System, Security 이벤트 로그를 가지고 있다. 현재 시스템이 윈도우 7이라 가정할 때 아래 이벤트 로그에 대한 로그 파일명을 쓰시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <strong>[보기]</strong><br>
-Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(Workgroup) 방식과 (A) 방식이 있으며, 로컬 사용자 계정은 %SystemRoot%\System32\config\(B) 에 저장되고 있고, (A) 방식은 (C) 데이터베이스에 저장된다.
+애플리케이션 로그: %SystemRoot%\System32\winevt\Logs\<string>(A)</string><br>
+시스템 로그: %SystemRoot%\System32\winevt\Logs\<string>(B)</string><br>
+보안 로그: %SystemRoot%\System32\winevt\Logs\<string>(C)</string><br>
 </div>
 </summary>
 <blockquote>
-(A) 도메인 (Domain)<br>
-(B) SAM<br>
-(C) NTDS.dit (또는 Active Directory)
+(A) application.evtx<br>
+(B) system.evtx<br>
+(C) security.evtx<br><br>
+
+1. 윈도우 XP 이하 버전에서는 이벤트 로그파일이 evt 확장자를 가진다.<br>
+- 애플리케이션 로그: %SystemRoot%\System32\winevt\Logs\<br>
+- 시스템 로그: %SystemRoot%\System32\winevt\Logs\<br>
+- 보안 로그: %SystemRoot%\System32\winevt\Logs\<br>
+</blockquote>
+</details>
+
+<details>
+<summary>다음 빈칸( ) 에 적절한 용어를 쓰시오..
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+( )은/는 윈도우 운영체제 서버 관리자가 로그 관리를 위해 가장 먼저 고려해야 할 정책으로 윈도우 서버에 이것을 설정하면 지정한 이벤트 범주에 대해서만 로그가 남는다.
+</div>
+</summary>
+<blockquote>
+(A) application.evtx<br>
+(B) system.evtx<br>
+(C) security.evtx<br><br>
+
+1. 윈도우 XP 이하 버전에서는 이벤트 로그파일이 evt 확장자를 가진다.<br>
+- 애플리케이션 로그:
 </blockquote>
 </details>
 
