@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-02-27 11:41:39 +09:00
+date modified: 2026-02-27 12:13:00 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -264,10 +264,13 @@ Event Viewer<br><br>
   <tbody>
     <tr>
       <td rowspan="2" style="padding: 8px; text-align: center;"><strong>보안(Security) 로그</strong></td>
-      <td style="padding: 8px;">Login success/fail</td>
+      <td style="padding: 8px;">Attempt login, Login success/fail, Network Login</td>
     </tr>
     <tr>
-      <td style="padding: 8px;">Network login</td>
+      <td style="padding: 8px;">Create process, Service install</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"></td>
     </tr>
     <tr>
       <td rowspan="2" style="padding: 8px; text-align: center;"><strong>시스템(System) 로그</strong></td>
@@ -277,11 +280,14 @@ Event Viewer<br><br>
       <td style="padding: 8px;">RDP Connection</td>
     </tr>
     <tr>
-      <td rowspan="2" style="padding: 8px; text-align: center;"><strong>응용 프로그램(Application) 로그</strong></td>
+      <td rowspan="3" style="padding: 8px; text-align: center;"><strong>응용 프로그램(Application) 로그</strong></td>
       <td style="padding: 8px;">Add/Del member in group</td>
     </tr>
     <tr>
       <td style="padding: 8px;">Application error</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Start service</td>
     </tr>
   </tbody>
 </table>
