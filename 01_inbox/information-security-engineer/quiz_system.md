@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-02-27 10:39:14 +09:00
+date modified: 2026-02-27 10:55:20 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -101,15 +101,20 @@ Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(W
 <blockquote>
 (A) 도메인 (Domain)<br>
 (B) SAM<br>
-(C) NTDS.dit (또는 Active Directory)<br><br>
+(C) Active Directory<br><br>
 
-윈도우 서버의 계정관리방식은 다음과 같이 2개로 구분할 수 있다.<br>
+윈도우 서버의 계정관리방식은 다음과 같이 2 개로 구분할 수 있다.<br>
+
 1. Workgroup 방식<br>
-- 각각의 계정과 자원을 시스템별로 관리하는 방식으로 소규모 네트워크에 적합하다.<br>
-- "피어 투 피어"라고도 하며 전용 서버 없이 모든 시스템이 서버이면서 클라이언트 기능을 가지며 서로 동등하다.<br>
-- .<br>
+	- 각각의 계정과 자원을 시스템별로 관리하는 방식으로 소규모 네트워크에 적합하다.<br>
+	- "피어 투 피어"라고도 하며 전용 서버 없이 모든 시스템이 서버이면서 클라이언트 기능을 가지며 서로 동등하다.<br>
+	- 서버 관리자가 필요 없으며 보안 관련 정보는 각 시스템의 로컬 디렉터리 데이터베이스(SAM DB)에 의해 제공 된다.<br>
+	- Active Directory 가 구축되지 않은 상태로서 다른 시스템에 접근할 때 수시로 엑세스에 필요한 사용자 계정과 암호를 요구한다.<br><br>
 
 2. Domain 방식<br>
+	- 모든 계정과 자원을 특정 서버에서 관리하는 중앙 집중식 방식이다.<br>
+	- 사용자에게 적절한 사용 권한을 설정하면 사용자는 다른 컴퓨터에 자원을 지정한 권한대로 접근할 수 있다.<br>
+	- Active Directory 가 구축된 상태에서 가능하며 기존의 Windows NT 기반의 도메인보다 확장된 기능을 제공한다.<br>
 </blockquote>
 </details>
 
@@ -140,7 +145,7 @@ Event Viewer<br><br>
 - 시스템 로그: %SystemRoot%\System32\winevt\Configs\SysEvent.Evt<br>
 - 보안 로그: %SystemRoot%\System32\winevt\Configs\SecEvent.Evt<br><br>
 
-2. 윈도우 Vista 이상 버전에서는 이벤트 로그파일이 evtx 확장자를 가진다.<br>
+1. 윈도우 Vista 이상 버전에서는 이벤트 로그파일이 evtx 확장자를 가진다.<br>
 - 애플리케이션 로그: %SystemRoot%\System32\winevt\Logs\application.evtx<br>
 - 시스템 로그: %SystemRoot%\System32\winevt\Logs\system.evtx<br>
 - 보안 로그: %SystemRoot%\System32\winevt\Logs\security.evtx<br>
