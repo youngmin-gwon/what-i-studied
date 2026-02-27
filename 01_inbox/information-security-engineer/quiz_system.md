@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-02-27 10:26:43 +09:00
+date modified: 2026-02-27 10:39:14 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -101,7 +101,15 @@ Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(W
 <blockquote>
 (A) 도메인 (Domain)<br>
 (B) SAM<br>
-(C) NTDS.dit (또는 Active Directory)
+(C) NTDS.dit (또는 Active Directory)<br><br>
+
+윈도우 서버의 계정관리방식은 다음과 같이 2개로 구분할 수 있다.<br>
+1. Workgroup 방식<br>
+- 각각의 계정과 자원을 시스템별로 관리하는 방식으로 소규모 네트워크에 적합하다.<br>
+- "피어 투 피어"라고도 하며 전용 서버 없이 모든 시스템이 서버이면서 클라이언트 기능을 가지며 서로 동등하다.<br>
+- .<br>
+
+2. Domain 방식<br>
 </blockquote>
 </details>
 
@@ -128,9 +136,14 @@ Event Viewer<br><br>
 (C) security.evtx<br><br>
 
 1. 윈도우 XP 이하 버전에서는 이벤트 로그파일이 evt 확장자를 가진다.<br>
-- 애플리케이션 로그: %SystemRoot%\System32\winevt\Logs\<br>
-- 시스템 로그: %SystemRoot%\System32\winevt\Logs\<br>
-- 보안 로그: %SystemRoot%\System32\winevt\Logs\<br>
+- 애플리케이션 로그: %SystemRoot%\System32\winevt\Configs\AppEvent.Evt<br>
+- 시스템 로그: %SystemRoot%\System32\winevt\Configs\SysEvent.Evt<br>
+- 보안 로그: %SystemRoot%\System32\winevt\Configs\SecEvent.Evt<br><br>
+
+2. 윈도우 Vista 이상 버전에서는 이벤트 로그파일이 evtx 확장자를 가진다.<br>
+- 애플리케이션 로그: %SystemRoot%\System32\winevt\Logs\application.evtx<br>
+- 시스템 로그: %SystemRoot%\System32\winevt\Logs\system.evtx<br>
+- 보안 로그: %SystemRoot%\System32\winevt\Logs\security.evtx<br>
 </blockquote>
 </details>
 
