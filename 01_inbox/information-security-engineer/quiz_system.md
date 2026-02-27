@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-02-27 11:21:30 +09:00
+date modified: 2026-02-27 11:38:56 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -237,6 +237,71 @@ Event Viewer<br><br>
 </blockquote>
 </details>
 
+<details>
+<summary>윈도우 시스템의 이벤트 로그는 윈도우 운용 과정 중에서 특정 동작(이벤트)을 체계적으로 기록한 바이너리 로깅 시스템이다. 다음 빈칸 ( A ), ( B ), ( C )에 해당하는 용어를  쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+( A ) 로그: Login success/fail, Network login<br>
+( B ) 로그: System start/halt, RDP Connection<br>
+( C ) 로그: Add/Del member in group, Application error
+</div>
+</summary>
+<blockquote>
+( A ) 보안(Security)<br>
+( B ) 시스템(System)<br>
+( C ) 응용 프로그램(Application)<br><br>
+
+윈도우 이벤트 로그는 버전에  따라 차이가 있지만 가장 기본이 되는 세갖
+<br>
+
+<table border="1" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0; color: #333;">감사 정책 명칭</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0; color: #333;">주요 내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px;"><strong>시스템 이벤트</strong></td>
+      <td style="padding: 8px;">시스템 시작/종료, 보안 로그에 영향을 미치는 이벤트 등 시스템 수준의 동작 감사</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>계정 로그온 이벤트</strong></td>
+      <td style="padding: 8px;">계정 식별 및 인증 정보 확인(주로 도메인 컨트롤러에서 인증할 때 생성) 이벤트 감사</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>로그온 이벤트</strong></td>
+      <td style="padding: 8px;">로컬 시스템에 계정 로그온/로그오프 하거나 네트워크를 통해 리소스 연결 시도 이벤트 감사</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>프로세스 추적</strong></td>
+      <td style="padding: 8px;">프로세스 생성/종료, 간접 개체 액세스 등 애플리케이션 문제 분석에 필요한 상세 이벤트 감사</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>개체 액세스</strong></td>
+      <td style="padding: 8px;">파일, 디렉터리, 레지스트리 키 등 SACL이 설정된 개체에 대한 접근 시도 이벤트 감사</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>계정 관리</strong></td>
+      <td style="padding: 8px;">사용자 계정, 컴퓨터 계정, 그룹 등의 생성/수정/삭제 및 패스워드 재설정 이벤트 감사</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>정책 변경</strong></td>
+      <td style="padding: 8px;">사용자 권한 할당 정책, 스레드 수준의 접근 토큰 수정, 신뢰 관계 변경 등의 보안 정책 수정 감사</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>특권(권한) 사용</strong></td>
+      <td style="padding: 8px;">사용자가 시스템 권한(시스템 시간 변경, 백업/복원 등)을 실제로 행사할 때 발생하는 이벤트 감사</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>디렉터리 서비스 액세스</strong></td>
+      <td style="padding: 8px;">Active Directory 환경에서 객체에 접근할 때의 도메인 컨트롤러 수준 서비스 접근 로깅 감사</td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+</details>
 #### ✍️ 서술형
 
 <details>
