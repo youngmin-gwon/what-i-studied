@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-03-04 15:12:40 +09:00
+date modified: 2026-03-04 15:34:14 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -399,9 +399,9 @@ Event Viewer<br><br>
 </details>
 
 <details>
-<summary>윈도우의 SID 구조인 <code>S-1-5-21-[고유식별자]-[사용자 식별자]</code>에서, 맨 앞의 <code>1</code>과 <code>5-21</code>이 각각 공통적으로 무엇을 의미하는지 쓰시오.</summary>
+<summary>윈도우의 SID 구조인 <code>S-1-5-21-[고유식별자]-[사용자 식별자]</code>에서, 맨 앞의 <code>S-1</code>과 <code>5-21</code>이 각각 공통적으로 무엇을 의미하는지 쓰시오.</summary>
 <blockquote>
-<strong>1</strong>: 윈도우 시스템임을 의미<br>
+<strong>S-1</strong>: 윈도우 시스템임을 의미<br>
 <strong>5-21</strong>: 해당 시스템이 도메인 컨트롤러(Domain Controller)이거나 단독 시스템(Stand-alone) 환경임을 의미
 </blockquote>
 </details>
