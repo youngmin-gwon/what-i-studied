@@ -2,7 +2,7 @@
 title: quiz_system
 tags: [0]
 aliases: []
-date modified: 2026-03-04 14:36:31 +09:00
+date modified: 2026-03-04 14:57:14 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -331,8 +331,6 @@ Event Viewer<br><br>
 
 #### 윈도우 보안 식별자
 
-###### 개요
-
 <details>
 <summary>윈도우 운영체제에서 사용자가 로그인을 수행하면 생성되는 객체로, 해당 사용자와 속한 모든 작업 그룹들에 관한 '보안 식별자(SID)' 정보를 담고 있는 것의 명칭을 쓰시오.</summary>
 <blockquote>
@@ -341,27 +339,10 @@ Event Viewer<br><br>
 </details>
 
 <details>
-<summary>(서술형) 윈도우 시스템에서 '보안 식별자(SID)'의 정의를 기술하고, 사용자가 로그인한 이후 실행하는 모든 프로세스에 권한이 어떻게 부여되는지 SID와 접근 토큰을 연관 지어 서술하시오.</summary>
-<blockquote>
-<strong>정의</strong>: 윈도우의 각 사용자나 그룹에 부여되는 고유한 식별 번호이다.<br><br>
-<strong>권한 부여 과정</strong>: 사용자가 로그인을 수행하면 사용자 및 소속 그룹의 SID 정보가 담긴 '접근 토큰(액세스 토큰)'이 생성되며, 이후 해당 사용자가 시작하는 모든 프로세스에 이 접근 토큰의 사본이 할당되어 권한이 상속된다.
-</blockquote>
-</details>
-
-<details>
 <summary>윈도우 시스템에서 사용자 계정의 고유 식별 번호인 SID 정보가 물리적으로 저장되는 레지스트리 기반 데이터베이스 파일의 명칭과 기본 디렉터리 경로를 쓰시오.</summary>
 <blockquote>
 <strong>파일 명칭</strong>: SAM (Security Account Manager)<br>
 <strong>기본 경로</strong>: %SystemRoot%\System32\config (또는 C:\Windows\System32\config)
-</blockquote>
-</details>
-
-###### 구조 및 실습
-
-<details>
-<summary>(서술형) 동일한 하드웨어 시스템에 윈도우 운영체제를 재설치하고 이전과 완전히 동일한 이름(예: 'user01')으로 계정을 생성하더라도, 이전에 해당 계정으로 암호화하거나 권한을 설정해둔 파일에 즉시 접근할 수 없는 이유를 고유 식별자의 관점에서 서술하시오.</summary>
-<blockquote>
-운영체제를 설치할 때마다 해당 시스템만의 고유한 식별자(예: 4243233100-3174512425-4165118588)가 새롭게 난수로 생성되어 SID에 반영되므로, 계정 이름이 동일하더라도 전체 SID가 달라지기 때문에 시스템에서는 서로 다른 사용자로 인식하여 접근이 거부된다.
 </blockquote>
 </details>
 
@@ -388,8 +369,8 @@ Event Viewer<br><br>
 <strong>[명령어 실습 예시]</strong><br>
 <code>C:\> ( A )</code><br>
 <code>wmic:root\cli> ( B ) list brief</code><br>
-<code>AccountType Caption ...</code><br>
-<code>512 WIN2008-01\Guest ... S-1-5-21-...-501</code><br>
+<code>AccountType Caption …</code><br>
+<code>512 WIN2008-01\Guest … S-1-5-21-…-501</code><br>
 </div>
 관리자는 위와 같이 윈도우 관리 명령 콘솔인 <code>( A )</code> 환경에서 <code>( B )</code> 명령어를 입력하여 시스템에 등록된 계정별 SID를 한눈에 확인할 수 있다.
 </summary>
@@ -399,6 +380,20 @@ Event Viewer<br><br>
 </blockquote>
 </details>
 
+<details>
+<summary>(서술형) 윈도우 시스템에서 '보안 식별자(SID)'의 정의를 기술하고, 사용자가 로그인한 이후 실행하는 모든 프로세스에 권한이 어떻게 부여되는지 SID와 접근 토큰을 연관 지어 서술하시오.</summary>
+<blockquote>
+<strong>정의</strong>: 윈도우의 각 사용자나 그룹에 부여되는 고유한 식별 번호이다.<br><br>
+<strong>권한 부여 과정</strong>: 사용자가 로그인을 수행하면 사용자 및 소속 그룹의 SID 정보가 담긴 '접근 토큰(액세스 토큰)'이 생성되며, 이후 해당 사용자가 시작하는 모든 프로세스에 이 접근 토큰의 사본이 할당되어 권한이 상속된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 동일한 하드웨어 시스템에 윈도우 운영체제를 재설치하고 이전과 완전히 동일한 이름(예: 'user01')으로 계정을 생성하더라도, 이전에 해당 계정으로 암호화하거나 권한을 설정해둔 파일에 즉시 접근할 수 없는 이유를 고유 식별자의 관점에서 서술하시오.</summary>
+<blockquote>
+운영체제를 설치할 때마다 해당 시스템만의 고유한 식별자(예: 4243233100-3174512425-4165118588)가 새롭게 난수로 생성되어 SID에 반영되므로, 계정 이름이 동일하더라도 전체 SID가 달라지기 때문에 시스템에서는 서로 다른 사용자로 인식하여 접근이 거부된다.
+</blockquote>
+</details>
 #### 윈도우 인증 구조
 
 <details>
