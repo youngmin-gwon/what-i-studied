@@ -331,6 +331,8 @@ Event Viewer<br><br>
 
 #### 윈도우 보안 식별자
 
+###### 개요
+
 <details>
 <summary>윈도우 운영체제에서 사용자가 로그인을 수행하면 생성되는 객체로, 해당 사용자와 속한 모든 작업 그룹들에 관한 '보안 식별자(SID)' 정보를 담고 있는 것의 명칭을 쓰시오.</summary>
 <blockquote>
@@ -347,19 +349,55 @@ Event Viewer<br><br>
 </details>
 
 <details>
-<summary>다음은 윈도우의 SID(보안 식별자) 구조와 확인 명령어에 대한 설명이다. 빈칸 (A), (B), (C)에 알맞은 내용을 작성하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<strong>[상황 및 설명]</strong><br>
-- 특정 사용자의 SID가 <code>S-1-5-21-4243233100…-500</code>으로 확인되었다. 여기서 맨 앞의 'S-1'은 윈도우 시스템을 의미하고, 마지막 식별자(ID) '500'은 ( A ) 계정을 의미한다. 반면 게스트(Guest) 계정은 501, 일반 사용자는 1000 이상의 값을 가진다.<br>
-- 시스템 내의 사용자 계정 SID 및 패스워드 정보는 주로 <code>%SystemRoot%\System32\config\</code> 경로에 암호화되어 위치한 ( B ) 파일에 저장되고 관리된다.<br>
-- 관리자는 윈도우 관리 명령 콘솔인 ( C ) 환경에서 <code>useraccount list brief</code> 명령어를 실행하여 시스템에 등록된 계정별 SID를 한눈에 확인할 수 있다.
-</div>
-</summary>
-blockquote>
-(A) 관리자 (Administrator)<br>
-(B) SAM<br>
-(C) WMIC (Windows Management Instrumentation Console)
+<summary>윈도우 시스템에서 사용자 계정의 고유 식별 번호인 SID 정보가 물리적으로 저장되는 레지스트리 기반 데이터베이스 파일의 명칭과 기본 디렉터리 경로를 쓰시오.</summary>
+<blockquote>
+<strong>파일 명칭</strong>: SAM (Security Account Manager)<br>
+<strong>기본 경로</strong>: %SystemRoot%\System32\config (또는 C:\Windows\System32\config)
 </blockquote>
+</details>
+
+###### 구조 및 실습
+
+<details>
+<summary>(서술형) 동일한 하드웨어 시스템에 윈도우 운영체제를 재설치하고 이전과 완전히 동일한 이름(예: 'user01')으로 계정을 생성하더라도, 이전에 해당 계정으로 암호화하거나 권한을 설정해둔 파일에 즉시 접근할 수 없는 이유를 고유 식별자의 관점에서 서술하시오.</summary>
+<blockquote>
+운영체제를 설치할 때마다 해당 시스템만의 고유한 식별자(예: 4243233100-3174512425-4165118588)가 새롭게 난수로 생성되어 SID에 반영되므로, 계정 이름이 동일하더라도 전체 SID가 달라지기 때문에 시스템에서는 서로 다른 사용자로 인식하여 접근이 거부된다.
+</blockquote>
+</details>
+
+<details>
+<summary>윈도우의 SID 구조인 <code>S-1-5-21-[고유식별자]-[사용자 식별자]</code>에서, 맨 앞의 <code>1</code>과 <code>5-21</code>이 각각 공통적으로 무엇을 의미하는지 쓰시오.</summary>
+<blockquote>
+<strong>1</strong>: 윈도우 시스템임을 의미<br>
+<strong>5-21</strong>: 해당 시스템이 도메인 컨트롤러(Domain Controller)이거나 단독 시스템(Stand-alone) 환경임을 의미
+</blockquote>
+</details>
+
+<details>
+<summary>SID 구조의 맨 마지막에 위치하는 부분은 사용자 계정별로 부여되는 고유의 사용자 식별자(ID) 값이다. 이 중 내장된 최고 관리자(Administrator), 게스트(Guest), 그리고 일반 사용자 계정에 기본 할당되는 식별 기준 값을 차례대로 쓰시오.</summary>
+<blockquote>
+<strong>관리자(Administrator)</strong>: 500<br>
+<strong>게스트(Guest)</strong>: 501<br>
+<strong>일반 사용자</strong>: 1000 이상 (1000부터 순차 부여)
+</blockquote>
+</details>
+
+<details>
+<summary>다음은 윈도우의 SID(보안 식별자) 구조와 확인 명령어에 대한 설명이다. 빈칸에 알맞은 내용을 작성하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[명령어 실습 예시]</strong><br>
+<code>C:\> ( A )</code><br>
+<code>wmic:root\cli> ( B ) list brief</code><br>
+<code>AccountType Caption ...</code><br>
+<code>512 WIN2008-01\Guest ... S-1-5-21-...-501</code><br>
+</div>
+관리자는 위와 같이 윈도우 관리 명령 콘솔인 <code>( A )</code> 환경에서 <code>( B )</code> 명령어를 입력하여 시스템에 등록된 계정별 SID를 한눈에 확인할 수 있다.
+</summary>
+<blockquote>
+(A) WMIC (Windows Management Instrumentation Console)<br>
+(B) useraccount
+</blockquote>
+</details>
 
 #### 윈도우 인증 구조
 
