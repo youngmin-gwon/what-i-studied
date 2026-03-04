@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-03-04 17:14:10 +09:00
+date modified: 2026-03-04 17:31:06 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -832,11 +832,1075 @@ net share<br><br>
 </details>
 
 ### 2. UNIX/Linux 기본 학습
-#### 시스템 기본
+#### 시스템 기본 명령어
+
+##### 디렉터리 및 파일 탐색 명령어
+
+###### ls (List directory contents)
+
+<details>
+<summary>UNIX/Linux에서 현재 디렉터리의 파일과 폴더 목록을 표시하는 기본 명령어는?</summary>
+<blockquote>
+ls
+</blockquote>
+</details>
+
+<details>
+<summary>다음 중 'ls' 명령어의 옵션에 대한 설명으로 올바른 것은?
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+A) ls -l : 숨겨진 파일(.으로 시작하는 파일)까지 표시<br>
+B) ls -a : 파일의 자세한 정보를 긴 형식으로 표시<br>
+C) ls -la : 숨겨진 파일을 포함하여 자세한 정보를 긴 형식으로 표시<br>
+D) ls -h : 도움말 표시
+</div>
+</summary>
+<blockquote>
+C) ls -la : 숨겨진 파일을 포함하여 자세한 정보를 긴 형식으로 표시<br><br>
+- ls -l : 파일의 자세한 정보를 긴 형식으로 표시<br>
+- ls -a : 숨겨진 파일(.으로 시작하는 파일)까지 표시<br>
+- ls -h : 파일 크기를 사람이 읽기 쉬운 형식으로 표시 (KB, MB, GB)
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 명령어의 실행 결과를 분석하고, 각 필드가 의미하는 바를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ ls -la /tmp/test.txt</code><br>
+<code>-rwsr-xr-x 1 root wheel 2048 Dec 25 10:30 /tmp/test.txt</code>
+</div>
+</summary>
+<blockquote>
+- 첫 번째 문자 '-': 일반 파일을 의미<br>
+- 'rwsr-xr-x': 파일 권한 (소유자:rwx, 그룹:r-x, 기타:r-x, 's'는 SetUID 설정)<br>
+- '1': 하드링크 수<br>
+- 'root': 파일 소유자<br>
+- 'wheel': 그룹 소유자<br>
+- '2048': 파일 크기 (바이트)<br>
+- 'Dec 25 10:30': 마지막 수정 시간<br>
+- '/tmp/test.txt': 파일 경로<br><br>
+특히 권한 부분에서 's'는 SetUID가 설정되어 있어, 이 파일을 실행할 때 소유자(root) 권한으로 실행됨을 의미한다.
+</blockquote>
+</details>
+
+###### cd (Change Directory)
+
+<details>
+<summary>UNIX/Linux에서 현재 작업 디렉터리를 변경하는 명령어는?</summary>
+<blockquote>
+cd
+</blockquote>
+</details>
+
+<details>
+<summary>다음 중 'cd' 명령어 사용법으로 올바르지 않은 것은?
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+A) cd ~ : 홈 디렉터리로 이동<br>
+B) cd .. : 상위 디렉터리로 이동<br>
+C) cd - : 이전 디렉터리로 이동<br>
+D) cd * : 모든 하위 디렉터리로 동시 이동
+</div>
+</summary>
+<blockquote>
+D) cd * : 모든 하위 디렉터리로 동시 이동<br><br>
+cd 명령어는 한 번에 하나의 디렉터리로만 이동할 수 있다. 'cd *'는 유효하지 않은 명령이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 상황에서 각 명령어 실행 후의 현재 디렉터리 경로를 예측하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+초기 상태: /home/user/documents/projects<br>
+1) cd ../../../<br>
+2) cd ./usr/bin<br>
+3) cd -<br>
+4) cd ~user/downloads
+</div>
+</summary>
+<blockquote>
+1) /home (3단계 상위로 이동)<br>
+2) /home/usr/bin (현재 위치에서 상대경로로 이동, 단 해당 경로가 존재한다고 가정)<br>
+3) /home/user/documents/projects (이전 디렉터리로 복귀)<br>
+4) /home/user/downloads (user의 홈 디렉터리 하위 downloads로 이동)
+</blockquote>
+</details>
+
+###### pwd (Print Working Directory)
+
+<details>
+<summary>현재 작업 중인 디렉터리의 절대 경로를 출력하는 명령어는?</summary>
+<blockquote>
+pwd
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 심볼릭 링크 디렉터리에서 pwd 명령어의 동작을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ ln -s /var/log /home/user/logs</code><br>
+<code>$ cd /home/user/logs</code><br>
+<code>$ pwd</code> vs <code>$ pwd -P</code>
+</div>
+</summary>
+<blockquote>
+- pwd : /home/user/logs (논리적 경로, 심볼릭 링크 경로 그대로 표시)<br>
+- pwd -P : /var/log (물리적 경로, 실제 디렉터리 경로 표시)<br><br>
+-P 옵션은 심볼릭 링크를 따라가서 실제 물리적 경로를 출력한다.
+</blockquote>
+</details>
+
+##### 디렉터리 관리 명령어
+
+###### mkdir (Make Directory)
+
+<details>
+<summary>새로운 디렉터리를 생성하는 명령어는?</summary>
+<blockquote>
+mkdir
+</blockquote>
+</details>
+
+<details>
+<summary>다음 중 여러 단계의 디렉터리를 한 번에 생성하는 올바른 명령어는?
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+A) mkdir /home/user/docs/2024/projects<br>
+B) mkdir -p /home/user/docs/2024/projects<br>
+C) mkdir -r /home/user/docs/2024/projects<br>
+D) mkdir -m /home/user/docs/2024/projects
+</div>
+</summary>
+<blockquote>
+B) mkdir -p /home/user/docs/2024/projects<br><br>
+-p 옵션은 상위 디렉터리가 존재하지 않을 경우 함께 생성한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 명령어를 실행했을 때의 결과와 생성된 디렉터리의 권한을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ umask 022</code><br>
+<code>$ mkdir -m 755 /tmp/secure_dir</code><br>
+<code>$ mkdir /tmp/normal_dir</code>
+</div>
+</summary>
+<blockquote>
+- /tmp/secure_dir : 755 권한 (rwxr-xr-x) - -m 옵션으로 명시적 지정<br>
+- /tmp/normal_dir : 755 권한 (rwxr-xr-x) - umask 022가 777에서 022를 뺀 결과<br><br>
+디렉터리의 기본 권한은 777이고, umask 022가 적용되어 755가 된다. -m 옵션은 umask를 무시하고 지정된 권한을 직접 설정한다.
+</blockquote>
+</details>
+
+###### rmdir (Remove Directory)
+
+<details>
+<summary>빈 디렉터리를 삭제하는 명령어는?</summary>
+<blockquote>
+rmdir
+</blockquote>
+</details>
+
+<details>
+<summary>rmdir 명령어와 rm -rf 명령어의 차이점을 설명하시오.</summary>
+<blockquote>
+- rmdir: 빈 디렉터리만 삭제 가능, 안전함<br>
+- rm -rf: 디렉터리와 그 내용을 강제로 삭제, 위험할 수 있음<br><br>
+rmdir은 디렉터리가 비어있지 않으면 삭제를 거부하여 실수로 중요한 파일을 삭제하는 것을 방지한다.
+</blockquote>
+</details>
+
+##### 파일 내용 조회 명령어
+
+###### cat (Concatenate and display files)
+
+<details>
+<summary>파일의 전체 내용을 화면에 출력하는 기본 명령어는?</summary>
+<blockquote>
+cat
+</blockquote>
+</details>
+
+<details>
+<summary>다음 중 cat 명령어의 옵션 설명으로 올바른 것은?
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+A) cat -n : 줄 번호를 표시하여 출력<br>
+B) cat -b : 바이너리 파일 출력<br>
+C) cat -v : 버전 정보 출력<br>
+D) cat -s : 정렬하여 출력
+</div>
+</summary>
+<blockquote>
+A) cat -n : 줄 번호를 표시하여 출력<br><br>
+- cat -b : 비어있지 않은 줄에만 번호를 표시<br>
+- cat -s : 연속된 빈 줄을 하나로 압축<br>
+- cat -v : 비출력 문자를 시각적으로 표시
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 명령어들의 실행 결과와 활용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ cat file1 file2 > merged.txt</code><br>
+<code>$ cat > newfile.txt << EOF</code><br>
+<code>$ cat /dev/null > logfile.txt</code>
+</div>
+</summary>
+<blockquote>
+1) cat file1 file2 > merged.txt : 두 파일을 연결하여 새 파일로 저장<br>
+2) cat > newfile.txt << EOF : HERE 문서를 사용하여 텍스트를 입력받아 파일로 저장 (EOF까지 입력받음)<br>
+3) cat /dev/null > logfile.txt : 파일의 내용을 완전히 비움 (파일 크기를 0으로 만듦)<br><br>
+세 번째 명령은 로그 파일 초기화나 임시 파일 정리 시 자주 사용된다.
+</blockquote>
+</details>
+
+###### more/less (File content pager)
+
+<details>
+<summary>큰 파일의 내용을 페이지 단위로 나누어 볼 수 있는 명령어 2개를 쓰시오.</summary>
+<blockquote>
+more, less
+</blockquote>
+</details>
+
+<details>
+<summary>more와 less 명령어의 주요 차이점을 설명하시오.</summary>
+<blockquote>
+- more: 앞으로만 이동 가능, 기본적인 페이징 기능<br>
+- less: 앞뒤로 자유롭게 이동 가능, 검색 기능, 더 많은 기능 제공<br><br>
+less는 more의 확장된 버전으로 "less is more"라는 의미를 가진다.
+</blockquote>
+</details>
+
+###### head (Display first lines)
+
+<details>
+<summary>파일의 처음 부분을 출력하는 명령어는?</summary>
+<blockquote>
+head
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 명령어들의 실행 결과를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ head -n 20 /var/log/syslog</code><br>
+<code>$ head -c 100 binary_file</code><br>
+<code>$ head -f logfile.txt</code>
+</div>
+</summary>
+<blockquote>
+1) head -n 20 /var/log/syslog : syslog 파일의 처음 20줄을 출력<br>
+2) head -c 100 binary_file : binary_file의 처음 100바이트를 출력<br>
+3) head -f logfile.txt : 잘못된 옵션, head에는 -f 옵션이 없음 (tail -f와 혼동)<br><br>
+head는 기본적으로 10줄을 출력하며, -n 옵션으로 줄 수를 지정할 수 있다.
+</blockquote>
+</details>
+
+###### tail (Display last lines)
+
+<details>
+<summary>파일의 마지막 부분을 출력하는 명령어는?</summary>
+<blockquote>
+tail
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 tail 명령어의 고급 사용법과 실제 활용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ tail -f /var/log/apache2/access.log</code><br>
+<code>$ tail -n +100 large_file.txt</code><br>
+<code>$ tail -f file1.log file2.log</code>
+</div>
+</summary>
+<blockquote>
+1) tail -f /var/log/apache2/access.log : 실시간으로 로그 파일 모니터링 (새로 추가되는 내용 표시)<br>
+2) tail -n +100 large_file.txt : 100번째 줄부터 파일 끝까지 출력<br>
+3) tail -f file1.log file2.log : 여러 파일을 동시에 실시간 모니터링<br><br>
+tail -f는 시스템 관리자가 로그 모니터링할 때 필수적으로 사용하는 명령어이다.
+</blockquote>
+</details>
+
+##### 파일 조작 명령어
+
+###### mv (Move/Rename files)
+
+<details>
+<summary>파일을 이동하거나 이름을 변경하는 명령어는?</summary>
+<blockquote>
+mv
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 mv 명령어 상황들의 결과를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ mv file.txt /tmp/</code><br>
+<code>$ mv file.txt newname.txt</code><br>
+<code>$ mv *.log /backup/</code><br>
+<code>$ mv dir1 dir2</code> (dir2가 존재하지 않는 경우)
+</div>
+</summary>
+<blockquote>
+1) mv file.txt /tmp/ : file.txt를 /tmp/ 디렉터리로 이동<br>
+2) mv file.txt newname.txt : 현재 디렉터리에서 파일 이름을 newname.txt로 변경<br>
+3) mv *.log /backup/ : 모든 .log 확장자 파일을 /backup/ 디렉터리로 이동<br>
+4) mv dir1 dir2 : dir1 디렉터리의 이름을 dir2로 변경<br><br>
+mv는 같은 파일시스템 내에서는 실제로 데이터를 이동하지 않고 inode만 변경한다.
+</blockquote>
+</details>
+
+###### cp (Copy files)
+
+<details>
+<summary>파일이나 디렉터리를 복사하는 명령어는?</summary>
+<blockquote>
+cp
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 cp 명령어들의 차이점과 각각의 사용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ cp -r source_dir target_dir</code><br>
+<code>$ cp -a source_dir target_dir</code><br>
+<code>$ cp -p file.txt backup.txt</code><br>
+<code>$ cp -l file.txt hardlink.txt</code>
+</div>
+</summary>
+<blockquote>
+1) cp -r : 디렉터리를 재귀적으로 복사 (권한, 타임스탬프 등은 변경될 수 있음)<br>
+2) cp -a : 아카이브 모드로 복사 (-dpR과 동일, 모든 속성 보존)<br>
+3) cp -p : 파일의 소유권, 권한, 타임스탬프 등을 보존하여 복사<br>
+4) cp -l : 하드링크 생성 (실제 복사가 아닌 같은 inode를 가리키는 링크)<br><br>
+백업이나 아카이브 작업 시에는 -a 옵션이 가장 적절하다.
+</blockquote>
+</details>
+
+###### rm (Remove files)
+
+<details>
+<summary>파일을 삭제하는 명령어는?</summary>
+<blockquote>
+rm
+</blockquote>
+</details>
+
+<details>
+<summary>(위험수준 고급) 다음 rm 명령어들의 위험성과 안전한 대안을 제시하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ rm -rf /</code><br>
+<code>$ rm -f *.txt</code><br>
+<code>$ find /home -name "*.tmp" -exec rm {} \;</code><br>
+안전한 삭제 방법은?
+</div>
+</summary>
+<blockquote>
+<strong>위험한 명령어들:</strong><br>
+1) rm -rf / : 루트 디렉터리부터 모든 파일 시스템 삭제 (시스템 파괴)<br>
+2) rm -f *.txt : 확인 없이 모든 .txt 파일 강제 삭제<br>
+3) find … -exec rm : 조건에 맞는 모든 파일을 자동 삭제<br><br>
+<strong>안전한 대안:</strong><br>
+- rm -i 옵션으로 삭제 전 확인<br>
+- trash 명령어 사용 (복구 가능)<br>
+- 중요 파일은 백업 후 삭제<br>
+- find … -ok rm 사용 (각 파일마다 확인)<br>
+- 스크립트에서는 절대 경로 사용하고 변수 검증
+</blockquote>
+</details>
+
+###### ln (Create links)
+
+<details>
+<summary>파일에 대한 링크를 생성하는 명령어는?</summary>
+<blockquote>
+ln
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 하드링크와 심볼릭 링크의 차이점을 다음 명령어 예시와 함께 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ ln file.txt hardlink.txt</code><br>
+<code>$ ln -s file.txt symlink.txt</code><br>
+원본 파일 삭제 시 각 링크에 미치는 영향은?
+</div>
+</summary>
+<blockquote>
+<strong>하드링크 (ln file.txt hardlink.txt):</strong><br>
+- 같은 inode를 공유, 원본과 동일한 파일<br>
+- 원본 삭제되어도 하드링크는 여전히 유효<br>
+- 같은 파일시스템 내에서만 생성 가능<br>
+- 디렉터리에는 생성 불가<br><br>
+<strong>심볼릭 링크 (ln -s file.txt symlink.txt):</strong><br>
+- 원본 파일의 경로만 저장하는 별도 파일<br>
+- 원본 삭제 시 심볼릭 링크는 깨짐 (dangling link)<br>
+- 다른 파일시스템에도 생성 가능<br>
+- 디렉터리에도 생성 가능<br><br>
+원본 파일 삭제 시 하드링크는 여전히 데이터에 접근 가능하지만, 심볼릭 링크는 접근 불가능하다.
+</blockquote>
+</details>
+
+##### 권한 및 소유권 관리 명령어
+
+###### chmod (Change file permissions)
+
+<details>
+<summary>파일이나 디렉터리의 권한을 변경하는 명령어는?</summary>
+<blockquote>
+chmod
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 chmod 명령어들의 결과로 설정되는 권한을 8진수와 rwx 형태로 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ chmod 755 script.sh</code><br>
+<code>$ chmod u+x,g-w,o=r file.txt</code><br>
+<code>$ chmod a+w document.txt</code>
+</div>
+</summary>
+<blockquote>
+1) chmod 755 script.sh<br>
+   - 8진수: 755<br>
+   - rwx 형태: rwxr-xr-x<br>
+   - 소유자: 읽기/쓰기/실행, 그룹: 읽기/실행, 기타: 읽기/실행<br><br>
+2) chmod u+x,g-w,o=r file.txt<br>
+   - 소유자에게 실행 권한 추가<br>
+   - 그룹에서 쓰기 권한 제거<br>
+   - 기타 사용자는 읽기 권한만<br><br>
+3) chmod a+w document.txt<br>
+   - 모든 사용자(all)에게 쓰기 권한 추가
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) SetUID, SetGID, Sticky bit의 개념과 보안상 주의사항을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ chmod 4755 /usr/bin/sudo</code><br>
+<code>$ chmod 2755 /shared/project</code><br>
+<code>$ chmod 1777 /tmp</code><br>
+각각의 의미와 보안 위험성은?
+</div>
+</summary>
+<blockquote>
+<strong>SetUID (4755):</strong><br>
+- 파일 실행 시 소유자 권한으로 실행<br>
+- 보안 위험: root 소유 파일에 설정 시 권한 상승 공격 가능<br>
+- 예: sudo 명령어는 root 권한이 필요<br><br>
+<strong>SetGID (2755):</strong><br>
+- 파일: 소유 그룹 권한으로 실행<br>
+- 디렉터리: 생성되는 파일들이 디렉터리의 그룹을 상속<br>
+- 보안 위험: 그룹 권한 상승 가능<br><br>
+<strong>Sticky Bit (1777):</strong><br>
+- 디렉터리에서 파일 소유자만 자신의 파일 삭제 가능<br>
+- 주로 /tmp 디렉터리에 설정<br>
+- 보안: 다른 사용자의 파일 삭제 방지<br><br>
+<strong>보안 주의사항:</strong><br>
+- SetUID/SetGID 파일 정기적 점검 필요<br>
+- 불필요한 특수 권한 제거<br>
+- find / -perm -4000 명령으로 SetUID 파일 검색
+</blockquote>
+</details>
+
+###### chown (Change file ownership)
+
+<details>
+<summary>파일이나 디렉터리의 소유자를 변경하는 명령어는?</summary>
+<blockquote>
+chown
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 chown 명령어들의 실행 결과를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ chown user1 file.txt</code><br>
+<code>$ chown user1:group1 file.txt</code><br>
+<code>$ chown :group1 file.txt</code><br>
+<code>$ chown -R user1:group1 /home/project/</code>
+</div>
+</summary>
+<blockquote>
+1) chown user1 file.txt : 파일 소유자를 user1으로 변경 (그룹은 변경 안됨)<br>
+2) chown user1:group1 file.txt : 소유자를 user1, 그룹을 group1로 변경<br>
+3) chown :group1 file.txt : 그룹만 group1로 변경 (소유자는 변경 안됨)<br>
+4) chown -R user1:group1 /home/project/ : 디렉터리와 모든 하위 파일/디렉터리의 소유자와 그룹을 재귀적으로 변경<br><br>
+주의: 일반 사용자는 자신이 소유한 파일의 소유자만 변경할 수 있으며, root만 모든 파일의 소유자를 변경할 수 있다.
+</blockquote>
+</details>
+
+###### chgrp (Change group ownership)
+
+<details>
+<summary>파일이나 디렉터리의 그룹 소유자를 변경하는 명령어는?</summary>
+<blockquote>
+chgrp
+</blockquote>
+</details>
+
+<details>
+<summary>chown과 chgrp의 차이점과 사용 상황을 설명하시오.</summary>
+<blockquote>
+<strong>chgrp:</strong><br>
+- 그룹 소유자만 변경<br>
+- 더 간단한 문법<br>
+- 그룹 관리에 특화<br><br>
+<strong>chown:</strong><br>
+- 소유자, 그룹 또는 둘 다 변경 가능<br>
+- 더 포괄적인 기능<br>
+- user:group 형태로 동시 변경 가능<br><br>
+<strong>사용 상황:</strong><br>
+- 그룹만 변경: chgrp가 더 직관적<br>
+- 소유자와 그룹 동시 변경: chown이 효율적<br>
+- 스크립트에서는 chown이 더 유연함
+</blockquote>
+</details>
+
+###### touch (Create empty files and change timestamps)
+
+<details>
+<summary>빈 파일을 생성하거나 파일의 타임스탬프를 변경하는 명령어는?</summary>
+<blockquote>
+touch
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 touch 명령어들의 고급 사용법과 실제 활용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ touch -t 202312251030 important.txt</code><br>
+<code>$ touch -r reference.txt newfile.txt</code><br>
+<code>$ touch -a logfile.txt</code><br>
+<code>$ touch -m datafile.txt</code>
+</div>
+</summary>
+<blockquote>
+1) touch -t 202312251030 important.txt<br>
+   - 특정 시간(2023년 12월 25일 10:30)으로 타임스탬프 설정<br>
+   - 용도: 파일 백업 시 원본 시간 정보 보존<br><br>
+2) touch -r reference.txt newfile.txt<br>
+   - reference.txt와 같은 타임스탬프로 설정<br>
+   - 용도: 여러 파일의 시간 정보 동기화<br><br>
+3) touch -a logfile.txt<br>
+   - 접근 시간(atime)만 현재 시간으로 변경<br>
+   - 용도: 파일 접근 로그 관리<br><br>
+4) touch -m datafile.txt<br>
+   - 수정 시간(mtime)만 현재 시간으로 변경<br>
+   - 용도: 빌드 시스템에서 파일 강제 재컴파일 유도<br><br>
+실제 활용: 백업 스크립트, 빌드 시스템, 로그 관리, 테스트 환경 구성
+</blockquote>
+</details>
+
+###### umask (Set default file permissions)
+
+<details>
+<summary>새로 생성되는 파일과 디렉터리의 기본 권한을 설정하는 명령어는?</summary>
+<blockquote>
+umask
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) umask의 동작 원리와 다음 상황에서의 결과를 계산하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+현재 umask 설정들에 따른 새 파일/디렉터리 권한:<br>
+<code>$ umask 022</code> → 파일 권한: ? 디렉터리 권한: ?<br>
+<code>$ umask 077</code> → 파일 권한: ? 디렉터리 권한: ?<br>
+<code>$ umask 002</code> → 파일 권한: ? 디렉터리 권한: ?
+</div>
+</summary>
+<blockquote>
+<strong>umask 동작 원리:</strong><br>
+- 기본 권한에서 umask 값을 차감<br>
+- 파일 기본 권한: 666 (rw-rw-rw-)<br>
+- 디렉터리 기본 권한: 777 (rwxrwxrwx)<br><br>
+<strong>계산 결과:</strong><br>
+1) umask 022<br>
+   - 파일: 666 - 022 = 644 (rw-r--r--)<br>
+   - 디렉터리: 777 - 022 = 755 (rwxr-xr-x)<br><br>
+2) umask 077<br>
+   - 파일: 666 - 077 = 600 (rw-------)<br>
+   - 디렉터리: 777 - 077 = 700 (rwx------)<br><br>
+3) umask 002<br>
+   - 파일: 666 - 002 = 664 (rw-rw-r--)<br>
+   - 디렉터리: 777 - 002 = 775 (rwxrwxr-x)<br><br>
+<strong>실무 적용:</strong><br>
+- 022: 일반적인 시스템 기본값<br>
+- 077: 보안이 중요한 개인 파일<br>
+- 002: 그룹 작업 환경
+</blockquote>
+</details>
+
+##### 텍스트 처리 명령어
+
+###### wc (Word Count)
+
+<details>
+<summary>파일의 줄 수, 단어 수, 문자 수를 계산하는 명령어는?</summary>
+<blockquote>
+wc
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 wc 명령어들의 출력 결과를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ wc /etc/passwd</code><br>
+<code>$ wc -l *.log</code><br>
+<code>$ ps aux | wc -l</code><br>
+<code>$ wc -c large_file.txt</code>
+</div>
+</summary>
+<blockquote>
+1) wc /etc/passwd : /etc/passwd 파일의 줄 수, 단어 수, 문자 수를 모두 출력<br>
+2) wc -l *.log : 모든 .log 파일의 줄 수만 출력<br>
+3) ps aux | wc -l : 현재 실행 중인 프로세스 수 계산<br>
+4) wc -c large_file.txt : 파일의 바이트 수(문자 수) 출력<br><br>
+옵션: -l(줄), -w(단어), -c(문자), -m(멀티바이트 문자)
+</blockquote>
+</details>
+
+###### cut (Extract columns)
+
+<details>
+<summary>파일에서 특정 열(column)이나 문자를 추출하는 명령어는?</summary>
+<blockquote>
+cut
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 cut 명령어들의 실행 결과와 활용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ cut -d: -f1,3 /etc/passwd</code><br>
+<code>$ cut -c1-10 usernames.txt</code><br>
+<code>$ ps aux | cut -c1-11,54-</code><br>
+<code>$ echo "192.168.1.100" | cut -d. -f4</code>
+</div>
+</summary>
+<blockquote>
+1) cut -d: -f1,3 /etc/passwd<br>
+   - 콜론(:)으로 구분된 필드 중 1번째(사용자명)와 3번째(UID) 필드 추출<br>
+   - 활용: 시스템 사용자 정보 분석<br><br>
+2) cut -c1-10 usernames.txt<br>
+   - 각 줄의 1-10번째 문자만 추출<br>
+   - 활용: 긴 사용자명을 짧게 표시<br><br>
+3) ps aux | cut -c1-11,54-<br>
+   - 프로세스 목록에서 사용자(1-11문자)와 명령어(54문자부터 끝까지) 추출<br>
+   - 활용: 프로세스 모니터링<br><br>
+4) echo "192.168.1.100" | cut -d. -f4<br>
+   - IP 주소에서 마지막 옥텟(100) 추출<br>
+   - 활용: 네트워크 스크립트, 로그 분석<br><br>
+실무: 로그 분석, CSV 파일 처리, 시스템 모니터링 스크립트
+</blockquote>
+</details>
+
+###### paste (Merge lines)
+
+<details>
+<summary>여러 파일의 줄을 나란히 합치는 명령어는?</summary>
+<blockquote>
+paste
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) paste와 cut의 조합 활용법을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ paste file1.txt file2.txt</code><br>
+<code>$ paste -d, users.txt ages.txt</code><br>
+<code>$ paste -s numbers.txt</code>
+</div>
+</summary>
+<blockquote>
+1) paste file1.txt file2.txt<br>
+   - 두 파일의 각 줄을 탭으로 구분하여 나란히 출력<br><br>
+2) paste -d, users.txt ages.txt<br>
+   - 쉼표(,)를 구분자로 사용하여 합치기<br>
+   - CSV 형태로 데이터 결합<br><br>
+3) paste -s numbers.txt<br>
+   - 파일의 모든 줄을 하나의 줄로 연결 (수직→수평)<br><br>
+<strong>cut과 paste 조합:</strong><br>
+- cut으로 필요한 열 추출 → paste로 여러 파일 결합<br>
+- 데이터 전처리 및 리포트 생성에 활용<br>
+- 예: cut -d: -f1 /etc/passwd | paste - groups.txt
+</blockquote>
+</details>
+
+###### tr (Translate characters)
+
+<details>
+<summary>문자를 변환하거나 삭제하는 명령어는?</summary>
+<blockquote>
+tr
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 tr 명령어들의 고급 사용법과 정규표현식 활용을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ echo "HELLO WORLD" | tr 'A-Z' 'a-z'</code><br>
+<code>$ tr -d '0-9' mixed.txt</code><br>
+<code>$ tr -s ' ' text.txt</code><br>
+<code>$ cat file.txt | tr '\n' ' '</code>
+</div>
+</summary>
+<blockquote>
+1) echo "HELLO WORLD" | tr 'A-Z' 'a-z'<br>
+   - 대문자를 소문자로 변환: "hello world"<br>
+   - 활용: 대소문자 정규화<br><br>
+2) tr -d '0-9' < mixed.txt<br>
+   - 모든 숫자 삭제<br>
+   - 활용: 텍스트에서 숫자 제거<br><br>
+1) tr -s ' ' text.txt<br>
+   - 연속된 공백을 하나로 압축<br>
+   - 활용: 텍스트 정리, 로그 파일 정규화<br><br>
+4) cat file.txt | tr '\n' ' '<br>
+   - 모든 줄바꿈을 공백으로 변환 (한 줄로 만들기)<br>
+   - 활용: 여러 줄을 하나로 합치기<br><br>
+<strong>고급 활용:</strong><br>
+- tr -cd '[:print:]' : 출력 가능한 문자만 남기기<br>
+- tr '[:lower:]' '[:upper:]' : POSIX 문자 클래스 사용<br>
+- dos2unix 효과: tr -d '\r'
+</blockquote>
+</details>
+
+###### sort (Sort lines)
+
+<details>
+<summary>파일의 내용을 정렬하는 명령어는?</summary>
+<blockquote>
+sort
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 sort 명령어들의 복잡한 정렬 옵션과 실무 활용을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ sort -k2,2n -k1,1 data.txt</code><br>
+<code>$ sort -t: -k3n /etc/passwd</code><br>
+<code>$ ls -l | sort -k5rn</code><br>
+<code>$ sort -u duplicates.txt</code>
+</div>
+</summary>
+<blockquote>
+1) sort -k2,2n -k1,1 data.txt<br>
+   - 2번째 필드를 숫자로 정렬, 같으면 1번째 필드를 문자로 정렬<br>
+   - 복합 정렬 (멀티 키 정렬)<br><br>
+2) sort -t: -k3n /etc/passwd<br>
+   - 콜론(:)을 구분자로 하여 3번째 필드(UID)를 숫자로 정렬<br>
+   - 사용자를 UID 순으로 정렬<br><br>
+3) ls -l | sort -k5rn<br>
+   - 파일 크기(5번째 필드)를 숫자로 역순 정렬<br>
+   - 큰 파일부터 표시<br><br>
+4) sort -u duplicates.txt<br>
+   - 정렬하면서 중복 제거<br>
+   - unique 정렬<br><br>
+<strong>주요 옵션:</strong><br>
+- -n: 숫자 정렬, -r: 역순, -u: 중복 제거<br>
+- -t: 구분자 지정, -k: 키 필드 지정<br>
+- -M: 월 이름 정렬, -h: 사람이 읽기 쉬운 숫자 정렬
+</blockquote>
+</details>
+
+###### uniq (Remove duplicate lines)
+
+<details>
+<summary>연속된 중복 줄을 제거하거나 찾는 명령어는?</summary>
+<blockquote>
+uniq
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) sort와 uniq의 조합 사용법과 차이점을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ sort file.txt | uniq</code><br>
+<code>$ sort file.txt | uniq -c</code><br>
+<code>$ sort file.txt | uniq -d</code><br>
+<code>$ sort file.txt | uniq -u</code><br>
+sort -u와 sort | uniq의 차이는?
+</div>
+</summary>
+<blockquote>
+1) sort file.txt | uniq<br>
+   - 전체 파일에서 중복 제거 (정렬 후 uniq)<br><br>
+2) sort file.txt | uniq -c<br>
+   - 각 줄의 출현 횟수와 함께 출력<br>
+   - 빈도 분석에 활용<br><br>
+3) sort file.txt | uniq -d<br>
+   - 중복된 줄만 출력 (한 번만)<br>
+   - 중복 데이터 찾기<br><br>
+4) sort file.txt | uniq -u<br>
+   - 중복되지 않은 줄만 출력<br>
+   - 유일한 데이터만 추출<br><br>
+<strong>sort -u vs sort | uniq:</strong><br>
+- sort -u: 정렬과 동시에 중복 제거 (더 효율적)<br>
+- sort | uniq: 정렬 후 별도로 중복 제거 (더 세밀한 제어 가능)<br><br>
+<strong>실무 활용:</strong><br>
+- 로그 분석: 고유 IP 수 계산<br>
+- 데이터 클리닝: 중복 데이터 제거<br>
+- 시스템 모니터링: 중복 프로세스 확인
+</blockquote>
+</details>
+
+##### 파일 분할 및 비교 명령어
+
+###### split (Split files)
+
+<details>
+<summary>큰 파일을 여러 개의 작은 파일로 분할하는 명령어는?</summary>
+<blockquote>
+split
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 split 명령어들의 용도와 활용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ split -l 1000 large.log small_</code><br>
+<code>$ split -b 100M backup.tar.gz part_</code><br>
+<code>$ split -n 5 dataset.txt data_</code><br>
+<code>$ split -d -a 3 file.txt chunk_</code>
+</div>
+</summary>
+<blockquote>
+1) split -l 1000 large.log small_<br>
+   - 1000줄씩 분할하여 small_aa, small_ab… 파일 생성<br>
+   - 활용: 큰 로그 파일 분석용 분할<br><br>
+2) split -b 100M backup.tar.gz part_<br>
+   - 100MB 단위로 분할<br>
+   - 활용: 네트워크 전송, 저장 매체 제약<br><br>
+3) split -n 5 dataset.txt data_<br>
+   - 파일을 5개로 균등 분할<br>
+   - 활용: 병렬 처리용 데이터셋 분할<br><br>
+4) split -d -a 3 file.txt chunk_<br>
+   - 숫자 접미사 사용(-d), 3자리 접미사(-a 3)<br>
+   - 결과: chunk_000, chunk_001…<br><br>
+<strong>실무 활용:</strong><br>
+- 로그 분석: 큰 로그 파일 처리<br>
+- 백업: 파일 크기 제한<br>
+- 병렬 처리: 데이터 분산<br>
+- 네트워크: 전송 효율성
+</blockquote>
+</details>
+
+###### cmp (Compare files)
+
+<details>
+<summary>두 파일을 바이트 단위로 비교하는 명령어는?</summary>
+<blockquote>
+cmp
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) cmp와 다른 비교 명령어들의 차이점을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ cmp file1.txt file2.txt</code><br>
+<code>$ cmp -s file1.txt file2.txt; echo $?</code><br>
+<code>$ cmp -l binary1 binary2</code>
+</div>
+</summary>
+<blockquote>
+1) cmp file1.txt file2.txt<br>
+   - 첫 번째 차이점의 위치를 바이트와 줄 번호로 출력<br>
+   - 같으면 아무것도 출력하지 않음<br><br>
+2) cmp -s file1.txt file2.txt; echo $?<br>
+   - 조용한 모드(-s), 결과만 종료 코드로 반환<br>
+   - 0: 동일, 1: 다름, 2: 오류<br><br>
+3) cmp -l binary1 binary2<br>
+   - 모든 차이점을 바이트 위치와 8진수 값으로 출력<br>
+   - 바이너리 파일 비교에 유용<br><br>
+<strong>다른 비교 명령어와의 차이:</strong><br>
+- cmp: 바이트 단위, 빠름, 간단<br>
+- diff: 텍스트 비교, 상세한 차이점<br>
+- comm: 정렬된 파일의 공통/고유 요소
+</blockquote>
+</details>
+
+###### comm (Compare sorted files)
+
+<details>
+<summary>정렬된 두 파일의 공통 부분과 고유 부분을 비교하는 명령어는?</summary>
+<blockquote>
+comm
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) comm 명령어의 출력 형태와 고급 활용법을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ comm file1.txt file2.txt</code><br>
+<code>$ comm -12 sorted1.txt sorted2.txt</code><br>
+<code>$ comm -23 users_old.txt users_new.txt</code><br>
+출력의 3개 열은 무엇을 의미하는가?
+</div>
+</summary>
+<blockquote>
+<strong>comm 출력 형태 (3개 열):</strong><br>
+- 1열: file1에만 있는 줄<br>
+- 2열: file2에만 있는 줄<br>
+- 3열: 두 파일 공통 줄<br><br>
+1) comm file1.txt file2.txt<br>
+   - 기본 출력: 모든 열 표시<br><br>
+2) comm -12 sorted1.txt sorted2.txt<br>
+   - 1열과 2열 숨김 → 공통 부분만 출력<br>
+   - 교집합 구하기<br><br>
+3) comm -23 users_old.txt users_new.txt<br>
+   - 2열과 3열 숨김 → file1에만 있는 항목<br>
+   - 삭제된 사용자 찾기<br><br>
+<strong>고급 활용:</strong><br>
+- comm -13: file2에만 있는 항목 (새로 추가된 것)<br>
+- 집합 연산: 교집합, 차집합, 합집합<br>
+- 시스템 관리: 사용자/그룹 변화 추적<br>
+- 데이터 분석: 목록 비교 및 변화 감지<br><br>
+<strong>주의사항:</strong> 파일이 정렬되어 있어야 올바른 결과
+</blockquote>
+</details>
+
+###### diff (Show differences)
+
+<details>
+<summary>두 파일의 차이점을 상세히 보여주는 명령어는?</summary>
+<blockquote>
+diff
+</blockquote>
+</details>
+
+<details>
+<summary>(전문가급) 다음 diff 명령어들의 출력 형식과 실무 활용을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ diff -u original.txt modified.txt</code><br>
+<code>$ diff -r /etc/old/ /etc/new/</code><br>
+<code>$ diff -w --ignore-blank-lines file1 file2</code><br>
+<code>$ diff -y --left-column file1 file2</code>
+</div>
+</summary>
+<blockquote>
+1) diff -u original.txt modified.txt<br>
+   - Unified format: +/- 기호로 추가/삭제 표시<br>
+   - Git과 같은 형식, 가장 일반적<br><br>
+2) diff -r /etc/old/ /etc/new/<br>
+   - 재귀적 디렉터리 비교<br>
+   - 시스템 설정 변화 추적<br><br>
+3) diff -w --ignore-blank-lines file1 file2<br>
+   - 공백 무시(-w), 빈 줄 무시<br>
+   - 포맷팅 차이 제외하고 내용만 비교<br><br>
+4) diff -y --left-column file1 file2<br>
+   - 나란히 비교(side-by-side)<br>
+   - 시각적 비교에 유용<br><br>
+<strong>출력 형식:</strong><br>
+- 기본: ed 명령어 형식<br>
+- -u: Unified (+ - 기호)<br>
+- -c: Context (*** --- 기호)<br>
+- -y: Side-by-side<br><br>
+<strong>실무 활용:</strong><br>
+- 소스 코드 버전 비교<br>
+- 설정 파일 변화 추적<br>
+- 패치 파일 생성<br>
+- 백업 검증
+</blockquote>
+</details>
+
+##### 검색 및 찾기 명령어
+
+###### grep (Search text patterns)
+
+<details>
+<summary>파일에서 특정 패턴을 검색하는 명령어는?</summary>
+<blockquote>
+grep
+</blockquote>
+</details>
+
+<details>
+<summary>(전문가급) 다음 grep의 고급 정규표현식과 보안 관련 활용을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ grep -E '^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' access.log</code><br>
+<code>$ grep -r --include="*.conf" "password" /etc/</code><br>
+<code>$ grep -v '^#\|^$' config.txt</code><br>
+<code>$ grep -A 3 -B 2 "ERROR" system.log</code>
+</div>
+</summary>
+<blockquote>
+1) grep -E '^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' access.log<br>
+   - 확장 정규표현식으로 IP 주소 패턴 검색<br>
+   - 로그 분석: 접속 IP 추출<br><br>
+2) grep -r --include="*.conf" "password" /etc/<br>
+   - 특정 파일 확장자만 대상으로 재귀 검색<br>
+   - 보안 점검: 설정 파일의 패스워드 노출 검사<br><br>
+3) grep -v '^#\|^$' config.txt<br>
+   - 주석(#)과 빈 줄 제외하고 검색<br>
+   - 실제 설정 내용만 추출<br><br>
+4) grep -A 3 -B 2 "ERROR" system.log<br>
+   - 에러 발생 전후 맥락(context) 표시<br>
+   - 로그 분석: 에러 원인 파악<br><br>
+<strong>보안 활용:</strong><br>
+- 로그 모니터링: grep "Failed.*ssh" /var/log/auth.log<br>
+- 취약점 검사: grep -r "eval.*\$_" /var/www/<br>
+- 권한 검사: find / -perm -4000 | grep -v expected<br>
+- 네트워크: netstat -an | grep LISTEN<br><br>
+<strong>성능 팁:</strong><br>
+- -F: 문자열 고정 검색 (정규표현식 안 사용)<br>
+- -m: 최대 매치 수 제한
+</blockquote>
+</details>
+
+###### find (Find files and directories)
+
+<details>
+<summary>파일과 디렉터리를 검색하는 명령어는?</summary>
+<blockquote>
+find
+</blockquote>
+</details>
+
+<details>
+<summary>(전문가급) 다음 find 명령어들의 고급 사용법과 보안 점검 활용을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ find /home -type f -perm -4000 -ls</code><br>
+<code>$ find / -name "*.php" -exec grep -l "eval.*\$_POST" {} \;</code><br>
+<code>$ find /tmp -type f -mtime +7 -size +100M -delete</code><br>
+<code>$ find /var/log -name "*.log" -newermt "2024-01-01" ! -newermt "2024-01-31"</code>
+</div>
+</summary>
+<blockquote>
+1) find /home -type f -perm -4000 -ls<br>
+   - SetUID 파일 검색 및 상세 정보 출력<br>
+   - 보안 점검: 권한 상승 가능한 파일 찾기<br><br>
+2) find / -name "*.php" -exec grep -l "eval.*\$_POST" {} \;<br>
+   - PHP 파일에서 위험한 코드 패턴 검색<br>
+   - 보안 감사: 코드 인젝션 취약점 검사<br><br>
+3) find /tmp -type f -mtime +7 -size +100M -delete<br>
+   - 7일 이상 된 100MB 이상 파일 삭제<br>
+   - 시스템 관리: 임시 파일 정리<br><br>
+4) find /var/log -name "*.log" -newermt "2024-01-01" ! -newermt "2024-01-31"<br>
+   - 특정 날짜 범위의 로그 파일 검색<br>
+   - 로그 분석: 기간별 로그 추출<br><br>
+<strong>보안 관련 find 활용:</strong><br>
+- find / -perm -2 ! -type l -ls : world-writable 파일<br>
+- find / -nouser -o -nogroup : 소유자 없는 파일<br>
+- find /etc -type f -perm -o+w : 다른 사용자가 쓸 수 있는 설정 파일<br>
+- find / -type f -name ".*" -perm -4000 : 숨겨진 SetUID 파일<br><br>
+<strong>성능 최적화:</strong><br>
+- -prune: 특정 디렉터리 제외<br>
+- -maxdepth: 검색 깊이 제한<br>
+- -daystart: 자정 기준 시간 계산
+</blockquote>
+</details>
+
 ##### 사용자 정보
+
 ##### 그룹 정보
+
 ##### 입출력 재지정(I/O Redirection) 기능
+
 ##### 파이프 또는 파이프라인 기능
+
 ##### 특수 문자(메타 문자, Meta character)
 
 <details>
