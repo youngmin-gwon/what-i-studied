@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-03-04 17:37:19 +09:00
+date modified: 2026-03-04 18:01:13 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -744,20 +744,20 @@ Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <strong>[보기]</strong><br>
 윈도우 서버에서 net 명령을 이용하여 user1, user2 계정이 있는 것을 확인하였다. 그런데 윈도우 서버 재부팅 이후에 user2 계정으로 로그인할 수 없어 그 이유를 확인한 결과 user2 계정의 속성에 (A)이/가 설정되었기 때문이었다. 이를 해제하기 위한 net 명령은 다음과 같다.<br>
-[윈도우 cmd 창] C:\> net (B)
+[윈도우 cmd 창] <code>C:\> net</code> (B)
 </div>
 </summary>
 <blockquote>
 (A) 계정 사용 안 함<br>
 (B) <code>net user user2 /active:yes</code><br><br>
-1) net user 명령어: 윈도우 시스템에서 로컬 계정을 추가/수정/삭제하거나 로컬 계정 정보를 표시하는 명령어<br>
-net user 명령어를 통해 윈도우 시스템의 전체 로컬 계정 정보 확인<br>
+1) <code>net user</code> 명령어: 윈도우 시스템에서 로컬 계정을 추가/수정/삭제하거나 로컬 계정 정보를 표시하는 명령어<br>
+<code>net user</code> 명령어를 통해 윈도우 시스템의 전체 로컬 계정 정보 확인<br>
 계정 속성 확인 결과 user2 계정에만 "계정 사용 안 함" 속성이 설정되어 해당 계정으로 로그인이 불가함<br><br>
 2) user2 "계정 사용 안 함" 속성 해제<br>
-net user: 전체 로컬 계정 정보 확인<br>
-net user 계정명: 해당 계정의 속성 확인<br>
-net user 계정명 /active:yes: 해당 계정 사용함(활성 상태)<br>
-net user 계정명 /active:no: 해당 계정 사용 안함(비활성 상태)
+<code>net user</code>: 전체 로컬 계정 정보 확인<br>
+<code>net user 계정명</code>: 해당 계정의 속성 확인<br>
+<code>net user 계정명 /active:yes</code>: 해당 계정 사용함(활성 상태)<br>
+<code>net user 계정명 /active:no</code>: 해당 계정 사용 안함(비활성 상태)
 </blockquote>
 </details>
 
@@ -765,28 +765,28 @@ net user 계정명 /active:no: 해당 계정 사용 안함(비활성 상태)
 <summary>정보보안기사 교육기관 관리자는 CCTV 모니터링 중 불 꺼진 사무실에 외부 침입자가 들어와 윈도우 웹 서버 콘솔에 명령을 입력하고 있는 것을 확인했다. 경찰에 신고 후 CCTV를 통해 입력하는 명령을 살펴본 결과 다음과 같았다. 각 명령어의 의미를 간단히 쓰시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <strong>[명령어 실행 내용]</strong><br>
-C:\>net user algisa2 @algisa102 /ADD<br>
+<code>C:\>net user algisa2 @algisa102 /ADD</code><br>
 명령을 잘 실행했습니다.<br><br>
-C:\>net user<br>
+<code>C:\>net user</code><br>
 WIN2008-81에 대한 사용자 계정<br>
 -----------<br>
 algisa algisa2 Guest kiwi99<br>
 명령을 잘 실행했습니다.<br><br>
-C:\>net localgroup administrators algisa2 /ADD<br>
+<code>C:\>net localgroup administrators algisa2 /ADD</code><br>
 명령을 잘 실행했습니다.
 </div>
 </summary>
 <blockquote>
-1) net user algisa2 @algisa102 /add<br>
-- net user 명령을 통해 계정명이 'algisa2'이고 비밀번호가 '@algisa102'인 계정을 생성한다.<br>
-- (로컬 계정 생성 명령) net user 계정명 비밀번호 /add<br>
-- (로컬 계정 삭제 명령) net user 계정명 /delete<br><br>
-1) net user<br>
+1) <code>net user algisa2 @algisa102 /add</code><br>
+- <code>net user</code> 명령을 통해 계정명이 'algisa2'이고 비밀번호가 '@algisa102'인 계정을 생성한다.<br>
+- (로컬 계정 생성 명령) <code>net user 계정명 비밀번호 /add</code><br>
+- (로컬 계정 삭제 명령) <code>net user 계정명 /delete</code><br><br>
+1) <code>net user</code><br>
 - 전체 로컬 계정 정보를 확인한다. algisa2 계정이 새롭게 생성된 것을 확인할 수 있다.<br><br>
-3) net localgroup administrators algisa2 /add<br>
-- net localgroup 명령을 통해 'algisa2' 계정을 administrators 그룹에 추가한다.<br>
-- (로컬 그룹에 계정 추가 명령) net localgroup 그룹명 계정명 /add<br>
-- (로컬 그룹에 계정 삭제 명령) net localgroup 그룹명 계정명 /delete<br><br>
+1) <code>net localgroup administrators algisa2 /add</code><br>
+- <code>net localgroup</code> 명령을 통해 'algisa2' 계정을 administrators 그룹에 추가한다.<br>
+- (로컬 그룹에 계정 추가 명령) <code>net localgroup 그룹명 계정명 /add</code><br>
+- (로컬 그룹에 계정 삭제 명령) <code>net localgroup 그룹명 계정명 /delete</code><br><br>
 외부 침입자의 명령 내용을 보면, 관리자 권한의 계정을 몰래 생성하기 위해 algisa2라는 계정을 생성하고 이를 administrators 그룹에 추가하고 있음을 알 수 있다.
 </blockquote>
 </details>
@@ -799,8 +799,8 @@ C:\>net localgroup administrators algisa2 /ADD<br>
 </div>
 </summary>
 <blockquote>
-net share<br><br>
-명령어 형식: net share 공유 폴더(디렉터리) 이름 /delete
+<code>net share</code><br><br>
+명령어 형식: <code>net share 공유 폴더(디렉터리) 이름 /delete</code>
 </blockquote>
 </details>
 
