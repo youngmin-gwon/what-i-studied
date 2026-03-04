@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-03-04 15:58:22 +09:00
+date modified: 2026-03-04 16:19:13 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -344,6 +344,22 @@ Event Viewer<br><br>
 이벤트 뷰어는 윈도우 OS에서 로그를 조회하고 관리하는 도구이다. 응용프로그램(application) 로그, 보안(Security) 로그, 시스템(System) 로그의 3가지 로그를 기본 로그로 한다.
 </blockquote>
 </details>
+
+<details>
+<summary>윈도우 OS는 기본적으로 여러 가지 이벤트 로그를 제공한다. 다음 중 관리자가 시스템으로의 로그온 성공 및 실패, 사용자 계정의 추가 및 삭제 관련 이벤트를 보고자 할 때 어떤 이벤트 로그를 참고해야 하는지 쓰시오.</summary>
+<blockquote>
+보안(Security) 로그
+</blockquote>
+</details>
+
+<details>
+<summary>마이크로소프트사의 윈도우(Windows) 시스템에서 하나 이상의 볼륨(드라이브)을 암호화하는 기능으로 TPM(신뢰할 수 있는 플랫폼 모듈)을 사용하여 초기 시작 구성 요소의 무결성을 검사하는 암호화 방식을 무엇이라 하는가?</summary>
+<blockquote>
+비트로커(BitLocker)<br><br>
+비트로커(BitLocker): 노트북 분실, 디스크 분리 후 중요 데이터 탈취 등의 이유로 기밀 자료가 유출될 상황을 대비한 윈도우에서 자체적으로 제공하는 디스크 암호화 기술이다.<br>
+• TPM (Trusted Platform Module): 하드웨어와 소프트웨어, 펌웨어 인증을 검사하는 전용 칩을 말한다. TPM은 승인 없는 변경을 감지했을 경우 PC는 제한된 모드로 부팅되어 잠재적인 공격자의 악의적인 행위를 차단한다.
+</blockquote>
+</details>
 <details>
 <summary>다음 빈칸( ) 에 적절한 용어를 쓰시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
@@ -378,6 +394,13 @@ Event Viewer<br><br>
 보안 대책:<br>
 1. 'SAM 계정과 공유의 익명 열거 허용 안 함' 정책을 설정하여 공격자가 계정 정보를 수집하지 못하도록 차단한다.<br>
 2. Syskey 등을 사용하여 시스템 부팅 시 추가적인 암호화 키를 요구하도록 설정한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 윈도우 파일 시스템 구조에서 삭제된 파일의 데이터를 덮어쓰지 않고 남아있는 잉여 공간을 '슬랙 공간(Slack Space)'이라 한다. 이러한 슬랙 공간이 디지털 포렌식 관점에서 중요한 의미를 갖는 이유를 설명하시오.</summary>
+<blockquote>
+사용자가 고의적으로 중요한 데이터나 악성코드를 은닉할 수 있는 공간이 됨과 동시에, 삭제된 원본 파일의 파편화된 데이터가 남아 있을 가능성이 높아 삭제된 데이터 복원 및 증거 확보 분석의 핵심 대상이 되기 때문이다.
 </blockquote>
 </details>
 
@@ -598,6 +621,22 @@ NTLM (NT LAN Manager), Kerberos (커버로스)
 </blockquote>
 </details>
 
+<details>
+<summary>다음은 패스워드 크래킹 공격에 관한 지문이다. 빈칸 ( )에 적절한 용어를 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+(A)은/는 패스워드로 자주 사용되는 단어를 사전 파일로 만들어 놓고 자동화된 툴로 사전 파일의 단어를 대입하여 일치 여부를 확인하는 기법이다.<br>
+(B)은/는 패스워드로 사용될 수 있는 영문자(대소문자), 숫자, 특수문자 등을 무작위로 패스워드 자리에 대입하여 패스워드를 알아내는 기법이다.<br>
+(C)은/는 위 두 가지 공격을 혼합한 방식으로 기존 사전 파일 문자열에 문자, 숫자 등을 추가 대입하여 패스워드를 알아내는 기법이다.
+</div>
+</summary>
+<blockquote>
+(A) 사전 공격/사전 대입 공격 (Dictionary Attack)<br>
+(B) 무차별 공격/무작위 대입 공격 (Brute Force Attack)<br>
+(C) 혼합 공격 (Hybrid Attack)
+</blockquote>
+</details>
+
 ##### 레인보우 테이블 (Rainbow Table) 공격
 
 <details>
@@ -618,6 +657,177 @@ R (Reduction) 함수
 <summary>(서술형) 레인보우 테이블을 이용한 패스워드 크래킹 과정에서, 공격자가 시스템으로부터 '탈취한 해시(Hash)'값 하나만 가지고 어떻게 원래 평문 패스워드를 찾아낼 수 있는지 테이블 내 구조(해시 테이블과 기능)를 연관지어 서술하시오.</summary>
 <blockquote>
 레인보우 테이블은 방대한 패스워드와 그 해시값들이 생성 변종인 R(Reduction) 함수 체인으로 이어져 있는 데이터베이스이다. 공격자는 탈취한 목표 해시값을 이 테이블 내부의 R 함수 체인에 반복적으로 수행 대입해 본 뒤, 기존에 저장된 해시 테이블 체인 종단값과 매칭되는 지점과 위치를 찾아내어 체인을 역추적하는 방식으로 원본 패스워드를 신속하게 도출해 낸다.
+</blockquote>
+</details>
+
+##### 고급 패스워드 공격
+
+<details>
+<summary>다음 보기에서 설명하는 공격 명칭을 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+윈도우 운영체제에서 Mimikatz(미미카츠)와 같은 도구를 사용하여 등록된 사용자 계정의 NTLM 또는 LM(Lan Manager) 인증용 해시값을 탈취한 후 원격 서버나 서비스에 인증을 시도하는 공격 기법으로 패스워드 자체를 알지 못해도 접속 인증에 성공할 수 있다.
+</div>
+</summary>
+<blockquote>
+Pass the Hash 공격<br><br>
+Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용하는 환경에서 사용자(희생자)의 해시값을 획득한 후(탈취한 후) 이를 이용하여 인증을 시도하는 형태의 공격으로 원격 서버나 원격 서비스에 접속할 때 사용자의 실제 패스워드를 모르는 상태에서도 탈취한 사용자의 패스워드 해시값을 이용하여 인증을 시도한다.<br>
+• Mimikatz(미미카츠): 윈도우 시스템에서 사용자 계정, 패스워드 등의 자격 증명(Credential) 정보를 수집할 수 있는 도구
+</blockquote>
+</details>
+
+<details>
+<summary>다음 빈칸 ( )에 적절한 용어를 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+( ) 공격은 무작위(무차별) 대입 공격의 일종으로 공격자가 미리 확보해 놓은 사용자(희생자)의 로그인 자격 증명(EX, ID/Password 등)을 다른 사이트(서비스)의 인증 시스템 계정에 무작위로 대입하여 접속을 시도하는 공격 기법을 말한다.
+</div>
+</summary>
+<blockquote>
+크리덴셜 스터핑 (Credential Stuffing)<br><br>
+크리덴셜 스터핑(Credential Stuffing) 공격은 사용자의 계정, 비밀번호, 기타 여러 가지 신원 확인에 필요한 개인정보(자격 증명, Credential)를 다양한 방식으로 탈취하여 사용자가 이용할 만한 시스템 및 사이트에 방문한 후 무작위로 대입(Stuffing)하는 공격 방식을 말한다.<br>
+• 편의를 위해 한 가지 ID와 비밀번호를 여러 시스템/사이트에서 사용하는 사용자의 취약성을 이용한 공격<br>
+• 크리덴셜(Credential)의 사전적 의미는 특정인이 해당 자격을 가졌는지를 증명하는 '자격증명'을 말한다. 일반적으로 로그인 시 신원(신분) 확인 목적으로 사용하는 사용자 ID/비밀번호, 생체 정보 등이 크리덴셜에 해당한다.
+</blockquote>
+</details>
+
+#### 네트워크 취약점
+
+##### Null Session 취약점
+
+<details>
+<summary>다음 보기에서 설명하고 있는 취약점은 무엇인가?
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+네트워크에 연결된 윈도우 시스템 간에 아이디/패스워드 없이 다른 시스템에 접속할 수 있는 취약점으로 시스템 계정, 비밀번호, 공유 정보가 노출될 수 있으므로 제거해야 한다.
+</div>
+</summary>
+<blockquote>
+널 세션 (Null Session) 취약점<br><br>
+널 세션(Null Session)이란 윈도우가 설치된 네트워크의 다른 원격 컴퓨터에 사용자명과 패스워드를 널(NULL, 빈 값)로 해서 접속할 수 있게 해 주는 것을 말한다.
+</blockquote>
+</details>
+
+#### 운영체제 보안 분리
+
+<details>
+<summary>다음의 빈칸 (A), (B), (C)에 적절한 용어를 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+운영체제가 관리하는 메모리, 파일, 입출력 장치, 프로세서와 같은 객체들은 여러 프로그램을 통해 공유될 때 운영체제에 의하여 충분한 보호가 이루어져야 하며, 시스템 자원에 대한 기본적인 보호는 한 사용자의 객체를 다른 사용자로부터 격리하는 분리로 이루어진다.<br>
+운영체제 보안을 위한 분리에는 물리적 분리, 시간적 분리, 논리적 분리, 암호적 분리 등이 있다.<br>
+이 중 (A)은/는 운영체제가 프로그램의 접근을 제한하여 허용된 영역 밖의 객체에 대해서는 접근할 수 없도록 하는 것이고, (B)은/는 다른 프로세스가 인식할 수 없는 방법으로 자신의 데이터와 계산을 감추는 것이며, (C)은/는 프로세스를 서로 다른 시간에 운영하는 것을 말한다.
+</div>
+</summary>
+<blockquote>
+(A) 논리적 분리<br>
+(B) 암호적 분리<br>
+(C) 시간적 분리<br><br>
+1) 운영체제 보안의 기능<br>
+• 메모리 보호, 파일 보호, 접근 통제, 사용자 인증<br><br>
+2) 보호 대상 객체<br>
+• 메모리, 공유 및 재사용이 가능한 I/O 장치, 공유 가능한 프로그램 및 서브 프로그램, 공유 데이터<br><br>
+3) 운영체제 보안을 위한 분리<br>
+• 물리적 분리(Physical separation): 사용자별로 별도의 장비만 사용하도록 제한하는 방법으로 강한 형태의 분리가 되지만 현실적/실용적이지 못하다.<br>
+• 시간적 분리(Temporal separation): 프로세스가 동일 시간에 하나씩만 실행되도록 하는 방법으로 동시 실행으로 발생되는 보안 문제를 제거한다.<br>
+• 논리적 분리(Logical separation): 프로세스별로 논리적인 영역을 갖도록 하는 방법으로 프로세스는 자신의 영역 안에서는 자유로운 작업을 수행하지만 할당된 영역 밖에서의 작업은 엄격하게 제한된다.<br>
+• 암호적 분리(Cryptographic separation): 내부에서 사용되는 정보를 외부에서는 알 수 없도록 암호화하는 방법을 말한다.
+</blockquote>
+</details>
+
+#### 윈도우 관리 명령어
+
+##### net 명령어
+
+<details>
+<summary>다음 보기의 빈 칸 ( )에 적절한 용어를 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+윈도우 서버에서 net 명령을 이용하여 user1, user2 계정이 있는 것을 확인하였다. 그런데 윈도우 서버 재부팅 이후에 user2 계정으로 로그인할 수 없어 그 이유를 확인한 결과 user2 계정의 속성에 (A)이/가 설정되었기 때문이었다. 이를 해제하기 위한 net 명령은 다음과 같다.<br>
+[윈도우 cmd 창] C:\> net (B)
+</div>
+</summary>
+<blockquote>
+(A) 계정 사용 안 함<br>
+(B) user user2 /active:yes<br><br>
+1) net user 명령어: 윈도우 시스템에서 로컬 계정을 추가/수정/삭제하거나 로컬 계정 정보를 표시하는 명령어<br>
+net user 명령어를 통해 윈도우 시스템의 전체 로컬 계정 정보 확인<br>
+계정 속성 확인 결과 user2 계정에만 "계정 사용 안 함" 속성이 설정되어 해당 계정으로 로그인이 불가함<br><br>
+2) user2 "계정 사용 안 함" 속성 해제<br>
+net user: 전체 로컬 계정 정보 확인<br>
+net user <계정명>: 해당 계정의 속성 확인<br>
+net user <계정명> /active:yes: 해당 계정 사용함(활성 상태)<br>
+net user <계정명> /active:no: 해당 계정 사용 안함(비활성 상태)
+</blockquote>
+</details>
+
+<details>
+<summary>정보보안기사 교육기관 관리자는 CCTV 모니터링 중 불 꺼진 사무실에 외부 침입자가 들어와 윈도우 웹 서버 콘솔에 명령을 입력하고 있는 것을 확인했다. 경찰에 신고 후 CCTV를 통해 입력하는 명령을 살펴본 결과 다음과 같았다. 각 명령어의 의미를 간단히 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[명령어 실행 내용]</strong><br>
+C:\>net user algisa2 @algisa102 /ADD<br>
+명령을 잘 실행했습니다.<br><br>
+C:\>net user<br>
+WIN2008-81에 대한 사용자 계정<br>
+-----------<br>
+algisa algisa2 Guest kiwi99<br>
+명령을 잘 실행했습니다.<br><br>
+C:\>net localgroup administrators algisa2 /ADD<br>
+명령을 잘 실행했습니다.
+</div>
+</summary>
+<blockquote>
+1) net user algisa2 @algisa102 /add<br>
+• net user 명령을 통해 계정명이 'algisa2'이고 비밀번호가 '@algisa102'인 계정을 생성한다.<br>
+• (로컬 계정 생성 명령) net user <계정명> <비밀번호> /add<br>
+• (로컬 계정 삭제 명령) net user <계정명> /delete<br><br>
+2) net user<br>
+• 전체 로컬 계정 정보를 확인한다. algisa2 계정이 새롭게 생성된 것을 확인할 수 있다.<br><br>
+3) net localgroup administrators algisa2 /add<br>
+• net localgroup 명령을 통해 'algisa2' 계정을 administrators 그룹에 추가한다.<br>
+• (로컬 그룹에 계정 추가 명령) net localgroup <그룹명> <계정명> /add<br>
+• (로컬 그룹에 계정 삭제 명령) net localgroup <그룹명> <계정명> /delete<br><br>
+외부 침입자의 명령 내용을 보면, 관리자 권한의 계정을 몰래 생성하기 위해 algisa2라는 계정을 생성하고 이를 administrators 그룹에 추가하고 있음을 알 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>다음 보기는 윈도우 시스템에서 공유된 폴더(디렉터리)를 해제하는 명령어이다. 빈 칸 ( )에 명령어를 완성하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+( ) c$ /delete
+</div>
+</summary>
+<blockquote>
+net share<br><br>
+명령어 형식: net share <공유 폴더(디렉터리) 이름> /delete
+</blockquote>
+</details>
+
+#### 윈도우 보안 관리
+
+##### 계정 보안 취약점 분석
+
+<details>
+<summary>다음은 한 Windows Server 시스템의 사용자 계정에 관한 정보를 보여주는 그림들이다. 그림이 보여주는 내용을 분석하여 사용자 계정 관리의 보안 취약점들을 지적하시오.
+(그림에서 Administrator는 시스템 관리자 계정, Guest는 게스트(guest) 계정, algisa는 일반 사용자 계정이다. 또한 시스템의 C: 디스크는 부트(Boot) 디스크이다.)
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[문제]</strong><br>
+(가) Administrator 계정의 보안 취약점<br>
+(나) Guest 계정의 보안 취약점<br>
+(다) algisa 계정의 보안 취약점
+</div>
+</summary>
+<blockquote>
+<strong>(가) Administrator 계정의 보안 취약점</strong><br>
+• Administrator 계정명을 쉽게 유추할 수 없는 이름으로 변경한다.<br>
+• 관리자 계정(Administrator)의 최대 암호 사용 기간이 설정되어 있지 않아 공격자의 무차별 공격으로부터 취약하다. '암호 사용 기간 제한 없음' 체크를 해제한다.<br>
+• 원격 제어는 접속한 사용자의 세션을 모니터링하거나 제어할 수 있는 설정이다. Administrator 세션에 대하여 외부에서 원격 제어를 하지 못하도록 '원격 제어 가능'을 해제하거나, 원격 제어 구성 시 '사용자의 허가 필요' 항목을 체크하여 Administrator 세션에 대하여 악의적인 원격 제어를 차단한다.<br><br>
+<strong>(나) Guest 계정의 보안 취약점</strong><br>
+• Administrators 그룹에서 불필요한 Guest 계정을 제거한다.<br><br>
+<strong>(다) algisa 계정의 보안 취약점</strong><br>
+• Administrators 그룹에서 불필요한 일반 사용자 계정인 algisa 계정을 제거한다.<br>
+• C:(파일 시스템)에 일반 사용자(algisa)가 모든 권한을 가지고 있으면 권한 및 소유자 변경 등의 작업이 가능하므로 관리자 외에는 모든 권한을 제거한다.
 </blockquote>
 </details>
 
@@ -710,18 +920,14 @@ SCAN 알고리즘<br>
 </blockquote>
 </details>
 
-##### 기타
-<details>
-<summary>윈도우 파일 시스템 구조에서 삭제된 파일의 데이터를 덮어쓰지 않고 남아있는 잉여 공간을 '슬랙 공간(Slack Space)'이라 한다. 이러한 슬랙 공간이 디지털 포렌식 관점에서 중요한 의미를 갖는 이유를 설명하시오.</summary>
-<blockquote>
-사용자가 고의적으로 중요한 데이터나 악성코드를 은닉할 수 있는 공간이 됨과 동시에, 삭제된 원본 파일의 파편화된 데이터가 남아 있을 가능성이 높아 삭제된 데이터 복원 및 증거 확보 분석의 핵심 대상이 되기 때문이다.
-</blockquote>
-</details>
-
 #### 네트워크 보안
+
 ##### 보안 쉘(SSH)
+
 ##### 슈퍼 서버(inetd 데몬)
+
 ##### 접근 통제(TCP Wrapper)
+
 <details>
 <summary>IP 관리 시스템에서 발전하여 MAC 기반 통제를 강화한 장비는?</summary>
 <blockquote>
@@ -731,15 +937,25 @@ NAC (Network Access Control)<br>
 </details>
 
 ##### xinetd 슈퍼 데몬
+
 #### PAM(장착형 인증 모듈, Pluggable Authentication Modules)
+
 ##### 개요
+
 ##### PAM 을 사용한 인증 절차
+
 ##### PAM 설정파일(/etc/pam.d/remote 설정파일 일부)
+
 ##### PAM 활용 예 1 (시스템 취약점 분석, 평가 항목)
+
 ##### PAM 활용 예 2(시스템 취약점 분석, 평가 일부 항목)
+
 ##### PAM 활용 예 3(시스템 취약점 분석, 평가 일부 항목)
+
 #### 시스템 로그 설정과 관리
+
 ##### 개요
+
 ##### 유닉스/리눅스 주요 로그 파일
 
 <details>
@@ -750,8 +966,11 @@ NAC (Network Access Control)<br>
 </details>
 
 #### syslog 설정 및 관리
+
 ##### 개요
+
 #### 리눅스 로그 관리
+
 #### 기타 (추가됨)
 
 <details>
@@ -763,6 +982,7 @@ NAC (Network Access Control)<br>
 </details>
 
 ### 5. 시스템 해킹
+
 #### 버퍼 오버플로우 공격(Buffer Overflow Attack)
 
 <details>
@@ -780,6 +1000,7 @@ ASLR (Address Space Layout Randomization)
 </details>
 
 #### 레이스 컨디션 공격(Race Condition Attack)
+
 #### 포맷 스트링 공격(Format String Attack)
 
 <details>
