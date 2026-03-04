@@ -1690,10 +1690,10 @@ cmp
 1) cmp file1.txt file2.txt<br>
    - 첫 번째 차이점의 위치를 바이트와 줄 번호로 출력<br>
    - 같으면 아무것도 출력하지 않음<br><br>
-2) cmp -s file1.txt file2.txt; echo $?<br>
+1) <code>cmp -s file1.txt file2.txt; echo $?<br>
    - 조용한 모드(-s), 결과만 종료 코드로 반환<br>
    - 0: 동일, 1: 다름, 2: 오류<br><br>
-3) cmp -l binary1 binary2<br>
+1) <code>cmp -l binary1 binary2</code><br>
    - 모든 차이점을 바이트 위치와 8진수 값으로 출력<br>
    - 바이너리 파일 비교에 유용<br><br>
 <strong>다른 비교 명령어와의 차이:</strong><br>
