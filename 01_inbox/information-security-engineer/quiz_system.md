@@ -1,8 +1,8 @@
 ---
 title: quiz_system
-tags: [0]
+tags: []
 aliases: []
-date modified: 2026-03-04 14:57:14 +09:00
+date modified: 2026-03-04 15:06:55 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -12,16 +12,6 @@ date created: 2026-02-25 10:46:47 +09:00
 #### 윈도우 인증과정
 
 ##### 윈도우 인증 구성 요소
-
-<details>
-<summary>(서술형) 윈도우 시스템에서 'SAM(Security Account Manager) 파일'의 정의를 쓰고, 이 파일에 대한 공격을 차단하기 위해 적용할 수 있는 보안 대책 2가지를 서술하시오.</summary>
-<blockquote>
-정의: 사용자 계정 및 암호화된 패스워드 정보를 저장하고 있는 윈도우 레지스트리 데이터베이스이다.<br><br>
-보안 대책:<br>
-1. 'SAM 계정과 공유의 익명 열거 허용 안 함' 정책을 설정하여 공격자가 계정 정보를 수집하지 못하도록 차단한다.<br>
-2. Syskey 등을 사용하여 시스템 부팅 시 추가적인 암호화 키를 요구하도록 설정한다.
-</blockquote>
-</details>
 
 <details>
 <summary>시스템 인프라 보안 진단 시 윈도우의 SAM(Security Account Manager) 파일에 대한 접근 통제 설정 상태를 점검하는 것은 매우 중요합니다. 다음 빈칸 (A), (B), (C)에 들어갈 알맞은 내용을 작성하시오.<br>
@@ -51,6 +41,58 @@ lsass.exe (Local Security Authority Subsystem Service)<br><br>
 <summary>윈도우 시스템에서 사용자 계정 및 패스워드 정보를 암호화하여 저장하는 데이터베이스의 명칭과 해당 파일이 저장되는 레지스트리 경로를 작성하시오.</summary>
 <blockquote>
 SAM (Security Account Manager), HKEY_LOCAL_MACHINE\SAM
+</blockquote>
+</details>
+
+<details>
+<summary>윈도우 인증 구성 요소 중 다음 빈칸 (A), (B), (C)에 해당하는 영문 약어를 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+(A): 모든 계정의 로그인에 대한 검증 및 접근 권한을 검사하며, 계정명과 SID를 매칭하고 감사 로그를 기록하는 '보안 서브시스템'이다.<br>
+(B): 사용자 계정 정보와 암호화된 패스워드 정보를 보유한 데이터베이스를 관리하며, 입력된 정보와 저장된 패스워드를 비교하여 인증 여부를 결정한다.<br>
+(C): 인증된 사용자에게 SID를 부여하고, 이를 기반으로 객체(파일, 디렉터리 등)에 대한 접근 허용 여부를 결정하며 관련된 감사 메시지를 생성한다.
+</div>
+</summary>
+<blockquote>
+(A) LSA (Local Security Authority)<br>
+(B) SAM (Security Account Manager)<br>
+(C) SRM (Security Reference Monitor)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 윈도우의 주요 보안 구성 요소인 SRM(Security Reference Monitor)과 LSA(Local Security Authority)는 객체 접근 통제 시 긴밀하게 협력한다. 특히 사용자가 특정 파일이나 디렉터리에 접근하려 할 때, '권한 검사' 및 '감사 로그 처리' 측면에서 두 서비스가 역할을 어떻게 분담하는지 서술하시오.</summary>
+<blockquote>
+SRM은 사용자에게 부여된 특권 및 SID 기반으로 해당 파일이나 디렉터리에 대한 접근 허용 여부를 검사·결정하고, 그에 대한 '감사 메시지'를 독립적으로 생성한다. LSA는 SRM이 생성하여 전달한 이 감사 메시지를 받아 실제 보안 로그(Event Log)에 '기록'하는 역할을 분담하여 수행한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) LSA(lsass.exe) 내에서 실제 패스워드 검증을 수행하는 구성 요소와 저장소인 SAM의 관계를 서술하시오.</summary>
+<blockquote>
+SAM은 계정의 패스워드 해시 값을 보관하는 데이터베이스 역할을 하며, LSA 내의 인증 패키지(MSV1_0 등)가 SAM으로부터 해시 값을 전달받아 사용자가 입력한 값과 비교하여 검증을 수행함.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) Winlogon이 LSA를 직접 실행하지 않음에도 불구하고, 인증 과정에서 수행하는 핵심적인 역할 2가지를 서술하시오.</summary>
+<blockquote>
+1. 사용자가 자격 증명을 입력할 수 있는 대화식 로그온 UI를 제공하고 관리함.<br>
+2. 사용자가 입력한 정보를 보안 서브시스템인 LSA에 전달하여 인증을 요청하고, 성공 시 액세스 토큰을 받아 사용자 세션을 시작함.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 윈도우의 SRM(Security Reference Monitor)이 커널 모드에서 수행하는 보안 통제 기능을 액세스 토큰과 연계하여 설명하시오.</summary>
+<blockquote>
+SRM은 사용자가 파일이나 폴더 등 개체에 접근할 때마다, 해당 사용자의 액세스 토큰에 포함된 권한 정보(SID 등)를 개체의 ACL(Access Control List)과 비교하여 접근 허용 여부를 최종적으로 결정하고 감시함.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 도우에서 지원하는 볼륨 단위 암호화 기능인 BitLocker의 특징 2가지를 서술하시오.</summary>
+<blockquote>
+1. 윈도우 운영체제에서 제공하는 볼륨 단위 암호화 기능이다.<br>2. 컴퓨터 부팅에 필요한 시스템 파티션 부분까지 암호화하여 보호할 수 있다.
 </blockquote>
 </details>
 
@@ -329,6 +371,16 @@ Event Viewer<br><br>
 </blockquote>
 </details>
 
+<details>
+<summary>(서술형) 윈도우 시스템에서 'SAM(Security Account Manager) 파일'의 정의를 쓰고, 이 파일에 대한 공격을 차단하기 위해 적용할 수 있는 보안 대책 2가지를 서술하시오.</summary>
+<blockquote>
+정의: 사용자 계정 및 암호화된 패스워드 정보를 저장하고 있는 윈도우 레지스트리 데이터베이스이다.<br><br>
+보안 대책:<br>
+1. 'SAM 계정과 공유의 익명 열거 허용 안 함' 정책을 설정하여 공격자가 계정 정보를 수집하지 못하도록 차단한다.<br>
+2. Syskey 등을 사용하여 시스템 부팅 시 추가적인 암호화 키를 요구하도록 설정한다.
+</blockquote>
+</details>
+
 #### 윈도우 보안 식별자
 
 <details>
@@ -396,59 +448,70 @@ Event Viewer<br><br>
 </details>
 #### 윈도우 인증 구조
 
+##### 개요
+
 <details>
-<summary>윈도우 인증 구성 요소 중 다음 빈칸 (A), (B), (C)에 해당하는 영문 약어를 쓰시오.<br>
+<summary>윈도우 운영체제에서 비밀번호를 단순 텍스트로 전달하지 않고, 인증을 안전하게 처리하기 위해 사용하는 기본적인 인증 방식의 명칭은?</summary>
+<blockquote>
+Challenge & Response 방식
+</blockquote>
+</details>
+
+<details>
+<summary>다음은 윈도우 인증 구조인 Challenge & Response 방식의 동작 과정이다. 빈칸 (A), (B), (C)에 알맞은 내용을 작성하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<strong>[보기]</strong><br>
-(A): 모든 계정의 로그인에 대한 검증 및 접근 권한을 검사하며, 계정명과 SID를 매칭하고 감사 로그를 기록하는 '보안 서브시스템'이다.<br>
-(B): 사용자 계정 정보와 암호화된 패스워드 정보를 보유한 데이터베이스를 관리하며, 입력된 정보와 저장된 패스워드를 비교하여 인증 여부를 결정한다.<br>
-(C): 인증된 사용자에게 SID를 부여하고, 이를 기반으로 객체(파일, 디렉터리 등)에 대한 접근 허용 여부를 결정하며 관련된 감사 메시지를 생성한다.
+<strong>[동작 과정]</strong><br>
+1. 인증 요청: 사용자가 윈도우 시스템에 인증을 요청한다.<br>
+2. ( A ) 생성 및 전송: 인증 요청을 받은 서버는 특수한 규칙 또는 랜덤한 값인 ( A )를 생성하여 사용자에게 전달한다.<br>
+3. ( B ) 생성 및 전송: 사용자는 전달받은 ( A ) 값과 자신의 ( C ) 정보를 이용하여 최종적으로 ( B ) 값을 생성해 서버에 응답한다.<br>
+4. 응답 확인: 서버는 수신한 ( B ) 값을 검증하여 인증 성공 여부를 기록하고 전달한다.
 </div>
 </summary>
 <blockquote>
-(A) LSA (Local Security Authority)<br>
-(B) SAM (Security Account Manager)<br>
-(C) SRM (Security Reference Monitor)
+(A) Challenge<br>
+(B) Response<br>
+(C) 암호 (패스워드)
 </blockquote>
 </details>
 
 <details>
-<summary>(서술형) 윈도우의 주요 보안 구성 요소인 SRM(Security Reference Monitor)과 LSA(Local Security Authority)는 객체 접근 통제 시 긴밀하게 협력한다. 특히 사용자가 특정 파일이나 디렉터리에 접근하려 할 때, '권한 검사' 및 '감사 로그 처리' 측면에서 두 서비스가 역할을 어떻게 분담하는지 서술하시오.</summary>
+<summary>(서술형) 윈도우 시스템이 단순히 사용자 아이디와 패스워드를 텍스트로 전달하여 인증하는 방식을 채택하지 않고, 굳이 'Challenge & Response' 방식을 사용하는 핵심적인 보안상 이유를 서술하시오.</summary>
 <blockquote>
-SRM은 사용자에게 부여된 특권 및 SID 기반으로 해당 파일이나 디렉터리에 대한 접근 허용 여부를 검사·결정하고, 그에 대한 '감사 메시지'를 독립적으로 생성한다. LSA는 SRM이 생성하여 전달한 이 감사 메시지를 받아 실제 보안 로그(Event Log)에 '기록'하는 역할을 분담하여 수행한다.
-</blockquote>
-</details>
-
-<details>
-<summary>(서술형) LSA(lsass.exe) 내에서 실제 패스워드 검증을 수행하는 구성 요소와 저장소인 SAM의 관계를 서술하시오.</summary>
-<blockquote>
-SAM은 계정의 패스워드 해시 값을 보관하는 데이터베이스 역할을 하며, LSA 내의 인증 패키지(MSV1_0 등)가 SAM으로부터 해시 값을 전달받아 사용자가 입력한 값과 비교하여 검증을 수행함.
-</blockquote>
-</details>
-
-<details>
-<summary>(서술형) Winlogon이 LSA를 직접 실행하지 않음에도 불구하고, 인증 과정에서 수행하는 핵심적인 역할 2가지를 서술하시오.</summary>
-<blockquote>
-1. 사용자가 자격 증명을 입력할 수 있는 대화식 로그온 UI를 제공하고 관리함.<br>
-2. 사용자가 입력한 정보를 보안 서브시스템인 LSA에 전달하여 인증을 요청하고, 성공 시 액세스 토큰을 받아 사용자 세션을 시작함.
-</blockquote>
-</details>
-
-<details>
-<summary>(서술형) 윈도우의 SRM(Security Reference Monitor)이 커널 모드에서 수행하는 보안 통제 기능을 액세스 토큰과 연계하여 설명하시오.</summary>
-<blockquote>
-SRM은 사용자가 파일이나 폴더 등 개체에 접근할 때마다, 해당 사용자의 액세스 토큰에 포함된 권한 정보(SID 등)를 개체의 ACL(Access Control List)과 비교하여 접근 허용 여부를 최종적으로 결정하고 감시함.
-</blockquote>
-</details>
-
-<details>
-<summary>(서술형) 도우에서 지원하는 볼륨 단위 암호화 기능인 BitLocker의 특징 2가지를 서술하시오.</summary>
-<blockquote>
-1. 윈도우 운영체제에서 제공하는 볼륨 단위 암호화 기능이다.<br>2. 컴퓨터 부팅에 필요한 시스템 파티션 부분까지 암호화하여 보호할 수 있다.
+단순히 아이디와 패스워드를 전달하여 인증하는 평문 인중 방식은 네트워크 스니핑을 통한 '정보 노출' 및 탈취한 패스워드를 이용한 '패스워드 재사용(Replay) 공격'에 매우 취약하기 때문이다. 운영체제와 같이 높은 수준의 인증이 필요할 경우, 매번 서버가 생성해주는 임의의 값(Challenge)을 각자의 패스워드와 연산한 뒤 그 결과(Response)만을 보내게 함으로써 원본 패스워드가 노출되는 것을 방지하기 위함이다.
 </blockquote>
 </details>
 
 ##### 인증 암호 알고리즘
+
+<details>
+<summary>윈도우 2000, XP 환경의 기본 해시 알고리즘이었으나, 구조적으로 취약하여 크래킹에 노출되기 쉬워 윈도우 비스타 이후 버전부터는 기본적으로 사용할 수 없게 비활성화된 알고리즘의 명칭을 쓰시오.</summary>
+<blockquote>
+LM (Lan Manager) 해시
+</blockquote>
+</details>
+
+<details>
+<summary>다음 윈도우 패스워드 해시 알고리즘들에 대한 설명 (가), (나), (다)를 읽고, 보기에 주어진 알고리즘과 각각 올바르게 짝지어 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong> NTLM, LM, NTLMv2<br><br>
+(가) 초기 윈도우 시스템의 기본 알고리즘으로 설계되었으나, 패스워드를 짧게 분할하고 대소문자를 구분하지 않아 구조상으로 매우 취약하다.<br>
+(나) (가) 알고리즘의 취약점을 일부 개선하여 MD4 해시가 추가된 형태이다.<br>
+(다) 윈도우 비스타 이후 시스템의 기본 인증 프로토콜이다. 기존 설정과는 설계 관점이 동떨어진 완전히 다른 복잡한 알고리즘을 통해 해시값을 생성하므로 크래킹 방어력이 강력하다.
+</div>
+</summary>
+<blockquote>
+(가) LM<br>
+(나) NTLM<br>
+(다) NTLMv2
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 윈도우 인증 암호 시스템이 진화하면서 LM(Lan Manager) 알고리즘이 점차 퇴출되고, NTLMv2가 최신 운영체제(윈도우 비스타 이후)의 기본 인증 프로토콜로 굳게 자리 잡게 된 이유를 크래킹 방어 관점에서 자세히 서술하시오.</summary>
+<blockquote>
+초기 버전인 LM 해시는 패스워드 알고리즘 구조상 복잡성이 매우 떨어져 무차별 대입이나 사전 공격과 같은 크래킹(Brute Force) 공격 시도에 심각하게 취약했기 때문이다. 따라서 기존 해시들을 보완하고 전혀 다른 방식의 높은 복잡성을 지닌 알고리즘을 사용하여 보안 및 안전성을 확실히 확보한 NTLMv2가 도입되어 현재까지 기본 인증 프로토콜로 사용되고 있다.
+</blockquote>
+</details>
 
 <details>
 <summary>윈도우 인증 프로토콜 중 챌린지-응답 방식을 사용하는 구형 프로토콜과 티켓 기반의 현대적 프로토콜의 명칭을 각각 쓰시오.</summary>
@@ -458,6 +521,32 @@ NTLM (NT LAN Manager), Kerberos (커버로스)
 </details>
 
 ##### LAN Manager 인증 수준
+
+<details>
+<summary>Lan Manager는 네트워크를 통한 여러 공유 작업 시 인증을 담당하는 핵심적인 서비스이다. 보안 분석 및 평가 시 이 시스템의 보호 범위를 정확히 파악하는 것이 중요한데, Lan Manager가 인증을 직접적으로 담당하는 윈도우 네트워크의 대표적인 자원 공유 항목 2가지를 쓰시오.</summary>
+<blockquote>
+파일 공유, 프린터 공유
+</blockquote>
+</details>
+
+<details>
+<summary>다음은 윈도우 시스템 취약점 진단 점검 항목인 'Lan Manager 인증 수준'과 연관된 내용이다. 빈칸에 들어갈 가장 알맞고 강력한 프로토콜의 명칭(영문)을 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[설정 및 조치]</strong><br>
+이 보안 설정은 클라이언트/서버 간에 네트워크 로그온에 사용할 C/R 인증 프로토콜과 협상 세션 보안 수준을 결정한다. 만약 이 인증 수준이 취약하게 설정되어 있으면 패스워드 크래킹 및 네트워크 스니핑 공격에 노출될 수 있으므로, 보안 요구 수준을 높여 반드시 <strong>[ ( A ) ]</strong> 만 응답하도록(버전 2) 양호하게 설정해야 한다.
+</div>
+</summary>
+<blockquote>
+(A) NTLMv2
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 윈도우 시스템 취약점 분석 및 평가 과정에서, 로컬 보안 정책의 『네트워크 보안: LAN Manager 인증 수준』 항목을 점검하여 'LM 및 NTLM'을 완전히 수신 거부하고 가장 방어 수준이 높은 'NTLMv2 응답만 보냄' 모드로 강제 설정할 것을 권고하는 이유를 '세션 보안 결합' 측면에서 구체적으로 서술하시오.</summary>
+<blockquote>
+해당 LAN Manager 인증 수준 설정은 클라이언트가 당장 사용하는 인증 프로토콜을 규정할 뿐만 아니라, 서버가 허가할 수 있는 '협상된 세션 보안 수준' 및 '서버 인증 수준' 전체에 직접적이고 중대한 영향을 미치기 때문이다. 기존 프로토콜(LM, NTLM)은 익히 알려진 취약점들이 많아 릴레이 공격 등에 악용될 수 있으므로, 가장 진보하고 안전한 NTLMv2 프로토콜 통신만을 협상에서 강제함으로써 네트워크 로그온 및 전체 공유 자원의 세션 보안성을 끌어올리기 위함이다.
+</blockquote>
+</details>
 
 #### 패스워드 크래킹
 
