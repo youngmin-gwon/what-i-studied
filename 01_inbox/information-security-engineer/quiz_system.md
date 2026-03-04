@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-03-04 18:38:15 +09:00
+date modified: 2026-03-04 18:53:07 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1649,17 +1649,17 @@ ln
 </div>
 </summary>
 <blockquote>
-1) split -l 1000 large.log small_<br>
+1) <code>split -l 1000 large.log small_</code><br>
    - 1000줄씩 분할하여 small_aa, small_ab… 파일 생성<br>
    - 활용: 큰 로그 파일 분석용 분할<br><br>
-2) split -b 100M backup.tar.gz part_<br>
+2) <code>split -b 100M backup.tar.gz part_</code><br>
    - 100MB 단위로 분할<br>
    - 활용: 네트워크 전송, 저장 매체 제약<br><br>
-3) split -n 5 dataset.txt data_<br>
+3) <code>split -n 5 dataset.txt data_</code><br>
    - 파일을 5개로 균등 분할<br>
    - 활용: 병렬 처리용 데이터셋 분할<br><br>
-4) split -d -a 3 file.txt chunk_<br>
-   - 숫자 접미사 사용(-d), 3자리 접미사(-a 3)<br>
+4) <code>split -d -a 3 file.txt chunk_</code><br>
+   - 숫자 접미사 사용(<code>-d</code>), 3자리 접미사(-a 3)<br>
    - 결과: chunk_000, chunk_001…<br><br>
 <strong>실무 활용:</strong><br>
 - 로그 분석: 큰 로그 파일 처리<br>
@@ -1674,12 +1674,12 @@ ln
 <details>
 <summary>두 파일을 바이트 단위로 비교하는 명령어는?</summary>
 <blockquote>
-cmp
+ <code>cmp</code>
 </blockquote>
 </details>
 
 <details>
-<summary>(중급) cmp와 다른 비교 명령어들의 차이점을 설명하시오.
+<summary>(중급) <code>cmp</code>와 다른 비교 명령어들의 차이점을 설명하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <code>$ cmp file1.txt file2.txt</code><br>
 <code>$ cmp -s file1.txt file2.txt; echo $?</code><br>
@@ -1687,13 +1687,13 @@ cmp
 </div>
 </summary>
 <blockquote>
-1) cmp file1.txt file2.txt<br>
+1) <code>cmp file1.txt file2.txt</code><br>
    - 첫 번째 차이점의 위치를 바이트와 줄 번호로 출력<br>
    - 같으면 아무것도 출력하지 않음<br><br>
-1) <code>cmp -s file1.txt file2.txt; echo $?<br>
-   - 조용한 모드(-s), 결과만 종료 코드로 반환<br>
-   - 0: 동일, 1: 다름, 2: 오류<br><br>
-1) <code>cmp -l binary1 binary2</code><br>
+2) <code>cmp -s file1.txt file2.txt; echo $?</code><br>
+   - 조용한 모드(<code>-s</code>), 결과만 종료 코드로 반환<br>
+   - <code>0</code>: 동일, <code>1</code>: 다름, <code>2</code>: 오류<br><br>
+3) <code>cmp -l binary1 binary2</code><br>
    - 모든 차이점을 바이트 위치와 8진수 값으로 출력<br>
    - 바이너리 파일 비교에 유용<br><br>
 <strong>다른 비교 명령어와의 차이:</strong><br>
