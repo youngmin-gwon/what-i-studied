@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-03-04 18:30:48 +09:00
+date modified: 2026-03-04 18:38:15 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1530,16 +1530,16 @@ ln
 </div>
 </summary>
 <blockquote>
-1) echo "HELLO WORLD" | tr 'A-Z' 'a-z'<br>
+1) <code>echo "HELLO WORLD" | tr 'A-Z' 'a-z'</code><br>
    - 대문자를 소문자로 변환: "hello world"<br>
    - 활용: 대소문자 정규화<br><br>
-2) tr -d '0-9' &lt; mixed.txt<br>
+2) <code>tr -d '0-9' &lt; mixed.txt</code><br>
    - 모든 숫자 삭제<br>
    - 활용: 텍스트에서 숫자 제거<br><br>
-3) tr -s ' ' &lt; text.txt<br>
+3) <code>tr -s ' ' &lt; text.txt</code><br>
    - 연속된 공백을 하나로 압축<br>
    - 활용: 텍스트 정리, 로그 파일 정규화<br><br>
-1) <code>cat file.txt | tr '\n' ' '<code><br>
+4) <code>cat file.txt | tr '\n' ' '</code><br>
    - 모든 줄바꿈을 공백으로 변환 (한 줄로 만들기)<br>
    - 활용: 여러 줄을 하나로 합치기<br><br>
 <strong>고급 활용:</strong><br>
@@ -1554,7 +1554,7 @@ ln
 <details>
 <summary>파일의 내용을 정렬하는 명령어는?</summary>
 <blockquote>
-sort
+<code>sort</code>
 </blockquote>
 </details>
 
@@ -1568,22 +1568,22 @@ sort
 </div>
 </summary>
 <blockquote>
-1) sort -k2,2n -k1,1 data.txt<br>
+1) <code>sort -k2,2n -k1,1 data.txt</code><br>
    - 2번째 필드를 숫자로 정렬, 같으면 1번째 필드를 문자로 정렬<br>
    - 복합 정렬 (멀티 키 정렬)<br><br>
-2) sort -t: -k3n /etc/passwd<br>
+2) <code>sort -t: -k3n /etc/passwd</code><br>
    - 콜론(:)을 구분자로 하여 3번째 필드(UID)를 숫자로 정렬<br>
    - 사용자를 UID 순으로 정렬<br><br>
-3) ls -l | sort -k5rn<br>
+3) <code>ls -l | sort -k5rn</code><br>
    - 파일 크기(5번째 필드)를 숫자로 역순 정렬<br>
    - 큰 파일부터 표시<br><br>
-4) sort -u duplicates.txt<br>
+4) <code>sort -u duplicates.txt</code><br>
    - 정렬하면서 중복 제거<br>
    - unique 정렬<br><br>
 <strong>주요 옵션:</strong><br>
-- -n: 숫자 정렬, -r: 역순, -u: 중복 제거<br>
-- -t: 구분자 지정, -k: 키 필드 지정<br>
-- -M: 월 이름 정렬, -h: 사람이 읽기 쉬운 숫자 정렬
+- <code>-n</code>: 숫자 정렬, <code>-r</code>: 역순, <code>-u</code>: 중복 제거<br>
+- <code>-t</code>: 구분자 지정, <code>-k</code>: 키 필드 지정<br>
+- <code>-M</code>: 월 이름 정렬, <code>-h</code>: 사람이 읽기 쉬운 숫자 정렬
 </blockquote>
 </details>
 
@@ -1592,7 +1592,7 @@ sort
 <details>
 <summary>연속된 중복 줄을 제거하거나 찾는 명령어는?</summary>
 <blockquote>
-uniq
+<code>uniq</code>
 </blockquote>
 </details>
 
@@ -1603,24 +1603,24 @@ uniq
 <code>$ sort file.txt | uniq -c</code><br>
 <code>$ sort file.txt | uniq -d</code><br>
 <code>$ sort file.txt | uniq -u</code><br>
-sort -u와 sort | uniq의 차이는?
+<code>sort -u</code>와 <code>sort | uniq</code>의 차이는?
 </div>
 </summary>
 <blockquote>
-1) sort file.txt | uniq<br>
+1) <code>sort file.txt | uniq</code><br>
    - 전체 파일에서 중복 제거 (정렬 후 uniq)<br><br>
-2) sort file.txt | uniq -c<br>
+2) <code>sort file.txt | uniq -c</code><br>
    - 각 줄의 출현 횟수와 함께 출력<br>
    - 빈도 분석에 활용<br><br>
-3) sort file.txt | uniq -d<br>
+3) <code>sort file.txt | uniq -d</code><br>
    - 중복된 줄만 출력 (한 번만)<br>
    - 중복 데이터 찾기<br><br>
-4) sort file.txt | uniq -u<br>
+4) <code>sort file.txt | uniq -u</code><br>
    - 중복되지 않은 줄만 출력<br>
    - 유일한 데이터만 추출<br><br>
-<strong>sort -u vs sort | uniq:</strong><br>
-- sort -u: 정렬과 동시에 중복 제거 (더 효율적)<br>
-- sort | uniq: 정렬 후 별도로 중복 제거 (더 세밀한 제어 가능)<br><br>
+<strong><code>sort -u vs sort | uniq</code>:</strong><br>
+- <code>sort -u</code>: 정렬과 동시에 중복 제거 (더 효율적)<br>
+- <code>sort | uniq</code>: 정렬 후 별도로 중복 제거 (더 세밀한 제어 가능)<br><br>
 <strong>실무 활용:</strong><br>
 - 로그 분석: 고유 IP 수 계산<br>
 - 데이터 클리닝: 중복 데이터 제거<br>
@@ -1635,7 +1635,7 @@ sort -u와 sort | uniq의 차이는?
 <details>
 <summary>큰 파일을 여러 개의 작은 파일로 분할하는 명령어는?</summary>
 <blockquote>
-split
+<code>split</code>
 </blockquote>
 </details>
 
@@ -1697,9 +1697,9 @@ cmp
    - 모든 차이점을 바이트 위치와 8진수 값으로 출력<br>
    - 바이너리 파일 비교에 유용<br><br>
 <strong>다른 비교 명령어와의 차이:</strong><br>
-- cmp: 바이트 단위, 빠름, 간단<br>
-- diff: 텍스트 비교, 상세한 차이점<br>
-- comm: 정렬된 파일의 공통/고유 요소
+- <code>cmp</code>: 바이트 단위, 빠름, 간단<br>
+- <code>diff</code>: 텍스트 비교, 상세한 차이점<br>
+- <code>comm</code>: 정렬된 파일의 공통/고유 요소
 </blockquote>
 </details>
 
@@ -1708,12 +1708,12 @@ cmp
 <details>
 <summary>정렬된 두 파일의 공통 부분과 고유 부분을 비교하는 명령어는?</summary>
 <blockquote>
-comm
+<code>comm</code>
 </blockquote>
 </details>
 
 <details>
-<summary>(고급) comm 명령어의 출력 형태와 고급 활용법을 설명하시오.
+<summary>(고급) <code>comm</code> 명령어의 출력 형태와 고급 활용법을 설명하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <code>$ comm file1.txt file2.txt</code><br>
 <code>$ comm -12 sorted1.txt sorted2.txt</code><br>
@@ -1722,20 +1722,20 @@ comm
 </div>
 </summary>
 <blockquote>
-<strong>comm 출력 형태 (3개 열):</strong><br>
+<strong><code>comm</code> 출력 형태 (3개 열):</strong><br>
 - 1열: file1에만 있는 줄<br>
 - 2열: file2에만 있는 줄<br>
 - 3열: 두 파일 공통 줄<br><br>
-1) comm file1.txt file2.txt<br>
+1) <code>comm file1.txt file2.txt</code><br>
    - 기본 출력: 모든 열 표시<br><br>
-2) comm -12 sorted1.txt sorted2.txt<br>
+2) <code>comm -12 sorted1.txt sorted2.txt</code><br>
    - 1열과 2열 숨김 → 공통 부분만 출력<br>
    - 교집합 구하기<br><br>
-3) comm -23 users_old.txt users_new.txt<br>
+3) <code>comm -23 users_old.txt users_new.txt</code><br>
    - 2열과 3열 숨김 → file1에만 있는 항목<br>
    - 삭제된 사용자 찾기<br><br>
 <strong>고급 활용:</strong><br>
-- comm -13: file2에만 있는 항목 (새로 추가된 것)<br>
+- <code>comm -13</code>: file2에만 있는 항목 (새로 추가된 것)<br>
 - 집합 연산: 교집합, 차집합, 합집합<br>
 - 시스템 관리: 사용자/그룹 변화 추적<br>
 - 데이터 분석: 목록 비교 및 변화 감지<br><br>
@@ -1748,7 +1748,7 @@ comm
 <details>
 <summary>두 파일의 차이점을 상세히 보여주는 명령어는?</summary>
 <blockquote>
-diff
+<code>diff</code>
 </blockquote>
 </details>
 
@@ -1762,23 +1762,23 @@ diff
 </div>
 </summary>
 <blockquote>
-1) diff -u original.txt modified.txt<br>
+1) <code>diff -u original.txt modified.txt</code><br>
    - Unified format: +/- 기호로 추가/삭제 표시<br>
    - Git과 같은 형식, 가장 일반적<br><br>
-2) diff -r /etc/old/ /etc/new/<br>
+2) <code>diff -r /etc/old/ /etc/new/</code><br>
    - 재귀적 디렉터리 비교<br>
    - 시스템 설정 변화 추적<br><br>
-3) diff -w --ignore-blank-lines file1 file2<br>
-   - 공백 무시(-w), 빈 줄 무시<br>
+3) <code>diff -w --ignore-blank-lines file1 file2</code><br>
+   - 공백 무시(<code>-w</code>), 빈 줄 무시<br>
    - 포맷팅 차이 제외하고 내용만 비교<br><br>
-4) diff -y --left-column file1 file2<br>
+4) <code>diff -y --left-column file1 file2</code><br>
    - 나란히 비교(side-by-side)<br>
    - 시각적 비교에 유용<br><br>
 <strong>출력 형식:</strong><br>
-- 기본: ed 명령어 형식<br>
-- -u: Unified (+ - 기호)<br>
-- -c: Context (*** --- 기호)<br>
-- -y: Side-by-side<br><br>
+- 기본: <code>ed</code> 명령어 형식<br>
+- <code>-u</code>: Unified (+ - 기호)<br>
+- <code>-c</code>: Context (*** --- 기호)<br>
+- <code>-y</code>: Side-by-side<br><br>
 <strong>실무 활용:</strong><br>
 - 소스 코드 버전 비교<br>
 - 설정 파일 변화 추적<br>
