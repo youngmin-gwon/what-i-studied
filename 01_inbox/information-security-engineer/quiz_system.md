@@ -2,7 +2,7 @@
 title: quiz_system
 tags: []
 aliases: []
-date modified: 2026-03-04 16:19:13 +09:00
+date modified: 2026-03-04 17:14:10 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -357,7 +357,7 @@ Event Viewer<br><br>
 <blockquote>
 비트로커(BitLocker)<br><br>
 비트로커(BitLocker): 노트북 분실, 디스크 분리 후 중요 데이터 탈취 등의 이유로 기밀 자료가 유출될 상황을 대비한 윈도우에서 자체적으로 제공하는 디스크 암호화 기술이다.<br>
-• TPM (Trusted Platform Module): 하드웨어와 소프트웨어, 펌웨어 인증을 검사하는 전용 칩을 말한다. TPM은 승인 없는 변경을 감지했을 경우 PC는 제한된 모드로 부팅되어 잠재적인 공격자의 악의적인 행위를 차단한다.
+- TPM (Trusted Platform Module): 하드웨어와 소프트웨어, 펌웨어 인증을 검사하는 전용 칩을 말한다. TPM은 승인 없는 변경을 감지했을 경우 PC는 제한된 모드로 부팅되어 잠재적인 공격자의 악의적인 행위를 차단한다.
 </blockquote>
 </details>
 <details>
@@ -672,7 +672,7 @@ R (Reduction) 함수
 <blockquote>
 Pass the Hash 공격<br><br>
 Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용하는 환경에서 사용자(희생자)의 해시값을 획득한 후(탈취한 후) 이를 이용하여 인증을 시도하는 형태의 공격으로 원격 서버나 원격 서비스에 접속할 때 사용자의 실제 패스워드를 모르는 상태에서도 탈취한 사용자의 패스워드 해시값을 이용하여 인증을 시도한다.<br>
-• Mimikatz(미미카츠): 윈도우 시스템에서 사용자 계정, 패스워드 등의 자격 증명(Credential) 정보를 수집할 수 있는 도구
+- Mimikatz(미미카츠): 윈도우 시스템에서 사용자 계정, 패스워드 등의 자격 증명(Credential) 정보를 수집할 수 있는 도구
 </blockquote>
 </details>
 
@@ -686,8 +686,8 @@ Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용
 <blockquote>
 크리덴셜 스터핑 (Credential Stuffing)<br><br>
 크리덴셜 스터핑(Credential Stuffing) 공격은 사용자의 계정, 비밀번호, 기타 여러 가지 신원 확인에 필요한 개인정보(자격 증명, Credential)를 다양한 방식으로 탈취하여 사용자가 이용할 만한 시스템 및 사이트에 방문한 후 무작위로 대입(Stuffing)하는 공격 방식을 말한다.<br>
-• 편의를 위해 한 가지 ID와 비밀번호를 여러 시스템/사이트에서 사용하는 사용자의 취약성을 이용한 공격<br>
-• 크리덴셜(Credential)의 사전적 의미는 특정인이 해당 자격을 가졌는지를 증명하는 '자격증명'을 말한다. 일반적으로 로그인 시 신원(신분) 확인 목적으로 사용하는 사용자 ID/비밀번호, 생체 정보 등이 크리덴셜에 해당한다.
+- 편의를 위해 한 가지 ID와 비밀번호를 여러 시스템/사이트에서 사용하는 사용자의 취약성을 이용한 공격<br>
+- 크리덴셜(Credential)의 사전적 의미는 특정인이 해당 자격을 가졌는지를 증명하는 '자격증명'을 말한다. 일반적으로 로그인 시 신원(신분) 확인 목적으로 사용하는 사용자 ID/비밀번호, 생체 정보 등이 크리덴셜에 해당한다.
 </blockquote>
 </details>
 
@@ -724,14 +724,14 @@ Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용
 (B) 암호적 분리<br>
 (C) 시간적 분리<br><br>
 1) 운영체제 보안의 기능<br>
-• 메모리 보호, 파일 보호, 접근 통제, 사용자 인증<br><br>
+- 메모리 보호, 파일 보호, 접근 통제, 사용자 인증<br><br>
 2) 보호 대상 객체<br>
-• 메모리, 공유 및 재사용이 가능한 I/O 장치, 공유 가능한 프로그램 및 서브 프로그램, 공유 데이터<br><br>
+- 메모리, 공유 및 재사용이 가능한 I/O 장치, 공유 가능한 프로그램 및 서브 프로그램, 공유 데이터<br><br>
 3) 운영체제 보안을 위한 분리<br>
-• 물리적 분리(Physical separation): 사용자별로 별도의 장비만 사용하도록 제한하는 방법으로 강한 형태의 분리가 되지만 현실적/실용적이지 못하다.<br>
-• 시간적 분리(Temporal separation): 프로세스가 동일 시간에 하나씩만 실행되도록 하는 방법으로 동시 실행으로 발생되는 보안 문제를 제거한다.<br>
-• 논리적 분리(Logical separation): 프로세스별로 논리적인 영역을 갖도록 하는 방법으로 프로세스는 자신의 영역 안에서는 자유로운 작업을 수행하지만 할당된 영역 밖에서의 작업은 엄격하게 제한된다.<br>
-• 암호적 분리(Cryptographic separation): 내부에서 사용되는 정보를 외부에서는 알 수 없도록 암호화하는 방법을 말한다.
+- 물리적 분리(Physical separation): 사용자별로 별도의 장비만 사용하도록 제한하는 방법으로 강한 형태의 분리가 되지만 현실적/실용적이지 못하다.<br>
+- 시간적 분리(Temporal separation): 프로세스가 동일 시간에 하나씩만 실행되도록 하는 방법으로 동시 실행으로 발생되는 보안 문제를 제거한다.<br>
+- 논리적 분리(Logical separation): 프로세스별로 논리적인 영역을 갖도록 하는 방법으로 프로세스는 자신의 영역 안에서는 자유로운 작업을 수행하지만 할당된 영역 밖에서의 작업은 엄격하게 제한된다.<br>
+- 암호적 분리(Cryptographic separation): 내부에서 사용되는 정보를 외부에서는 알 수 없도록 암호화하는 방법을 말한다.
 </blockquote>
 </details>
 
@@ -755,9 +755,9 @@ net user 명령어를 통해 윈도우 시스템의 전체 로컬 계정 정보 
 계정 속성 확인 결과 user2 계정에만 "계정 사용 안 함" 속성이 설정되어 해당 계정으로 로그인이 불가함<br><br>
 2) user2 "계정 사용 안 함" 속성 해제<br>
 net user: 전체 로컬 계정 정보 확인<br>
-net user <계정명>: 해당 계정의 속성 확인<br>
-net user <계정명> /active:yes: 해당 계정 사용함(활성 상태)<br>
-net user <계정명> /active:no: 해당 계정 사용 안함(비활성 상태)
+net user 계정명: 해당 계정의 속성 확인<br>
+net user 계정명 /active:yes: 해당 계정 사용함(활성 상태)<br>
+net user 계정명 /active:no: 해당 계정 사용 안함(비활성 상태)
 </blockquote>
 </details>
 
@@ -778,15 +778,15 @@ C:\>net localgroup administrators algisa2 /ADD<br>
 </summary>
 <blockquote>
 1) net user algisa2 @algisa102 /add<br>
-• net user 명령을 통해 계정명이 'algisa2'이고 비밀번호가 '@algisa102'인 계정을 생성한다.<br>
-• (로컬 계정 생성 명령) net user <계정명> <비밀번호> /add<br>
-• (로컬 계정 삭제 명령) net user <계정명> /delete<br><br>
-2) net user<br>
-• 전체 로컬 계정 정보를 확인한다. algisa2 계정이 새롭게 생성된 것을 확인할 수 있다.<br><br>
+- net user 명령을 통해 계정명이 'algisa2'이고 비밀번호가 '@algisa102'인 계정을 생성한다.<br>
+- (로컬 계정 생성 명령) net user 계정명 비밀번호 /add<br>
+- (로컬 계정 삭제 명령) net user 계정명 /delete<br><br>
+1) net user<br>
+- 전체 로컬 계정 정보를 확인한다. algisa2 계정이 새롭게 생성된 것을 확인할 수 있다.<br><br>
 3) net localgroup administrators algisa2 /add<br>
-• net localgroup 명령을 통해 'algisa2' 계정을 administrators 그룹에 추가한다.<br>
-• (로컬 그룹에 계정 추가 명령) net localgroup <그룹명> <계정명> /add<br>
-• (로컬 그룹에 계정 삭제 명령) net localgroup <그룹명> <계정명> /delete<br><br>
+- net localgroup 명령을 통해 'algisa2' 계정을 administrators 그룹에 추가한다.<br>
+- (로컬 그룹에 계정 추가 명령) net localgroup 그룹명 계정명 /add<br>
+- (로컬 그룹에 계정 삭제 명령) net localgroup 그룹명 계정명 /delete<br><br>
 외부 침입자의 명령 내용을 보면, 관리자 권한의 계정을 몰래 생성하기 위해 algisa2라는 계정을 생성하고 이를 administrators 그룹에 추가하고 있음을 알 수 있다.
 </blockquote>
 </details>
@@ -800,7 +800,7 @@ C:\>net localgroup administrators algisa2 /ADD<br>
 </summary>
 <blockquote>
 net share<br><br>
-명령어 형식: net share <공유 폴더(디렉터리) 이름> /delete
+명령어 형식: net share 공유 폴더(디렉터리) 이름 /delete
 </blockquote>
 </details>
 
@@ -820,14 +820,14 @@ net share<br><br>
 </summary>
 <blockquote>
 <strong>(가) Administrator 계정의 보안 취약점</strong><br>
-• Administrator 계정명을 쉽게 유추할 수 없는 이름으로 변경한다.<br>
-• 관리자 계정(Administrator)의 최대 암호 사용 기간이 설정되어 있지 않아 공격자의 무차별 공격으로부터 취약하다. '암호 사용 기간 제한 없음' 체크를 해제한다.<br>
-• 원격 제어는 접속한 사용자의 세션을 모니터링하거나 제어할 수 있는 설정이다. Administrator 세션에 대하여 외부에서 원격 제어를 하지 못하도록 '원격 제어 가능'을 해제하거나, 원격 제어 구성 시 '사용자의 허가 필요' 항목을 체크하여 Administrator 세션에 대하여 악의적인 원격 제어를 차단한다.<br><br>
+- Administrator 계정명을 쉽게 유추할 수 없는 이름으로 변경한다.<br>
+- 관리자 계정(Administrator)의 최대 암호 사용 기간이 설정되어 있지 않아 공격자의 무차별 공격으로부터 취약하다. '암호 사용 기간 제한 없음' 체크를 해제한다.<br>
+- 원격 제어는 접속한 사용자의 세션을 모니터링하거나 제어할 수 있는 설정이다. Administrator 세션에 대하여 외부에서 원격 제어를 하지 못하도록 '원격 제어 가능'을 해제하거나, 원격 제어 구성 시 '사용자의 허가 필요' 항목을 체크하여 Administrator 세션에 대하여 악의적인 원격 제어를 차단한다.<br><br>
 <strong>(나) Guest 계정의 보안 취약점</strong><br>
-• Administrators 그룹에서 불필요한 Guest 계정을 제거한다.<br><br>
+- Administrators 그룹에서 불필요한 Guest 계정을 제거한다.<br><br>
 <strong>(다) algisa 계정의 보안 취약점</strong><br>
-• Administrators 그룹에서 불필요한 일반 사용자 계정인 algisa 계정을 제거한다.<br>
-• C:(파일 시스템)에 일반 사용자(algisa)가 모든 권한을 가지고 있으면 권한 및 소유자 변경 등의 작업이 가능하므로 관리자 외에는 모든 권한을 제거한다.
+- Administrators 그룹에서 불필요한 일반 사용자 계정인 algisa 계정을 제거한다.<br>
+- C:(파일 시스템)에 일반 사용자(algisa)가 모든 권한을 가지고 있으면 권한 및 소유자 변경 등의 작업이 가능하므로 관리자 외에는 모든 권한을 제거한다.
 </blockquote>
 </details>
 
