@@ -1211,6 +1211,79 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 
 #### 파일 시스템 응용
 ##### 파일 시스템 개요
+
+<details>
+<summary>(단답형) 물리적인 저장 장치에 파일을 생성, 저장, 관리하기 위한 기법으로, 파티션별로 고유하게 생성되는 논리적인 자료 구조를 무엇이라 하는가?</summary>
+<blockquote>
+파일 시스템 (File System)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 파일 시스템을 구성하는 주요 블록 요소 중 파일 시스템 자체를 관리하기 위한 정보를 주로 담고 있는 블록은 무엇인가?</summary>
+<blockquote>
+슈퍼 블록 (Superblock)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 파일의 실제 이름(파일명)은 inode가 아닌 시스템의 어디에서 관리되는가?</summary>
+<blockquote>
+디렉터리 (Directory)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스의 파일 시스템을 구성하는 주요 4가지 블록 영역(부트 블록, 슈퍼 블록, 아이노드 리스트, 데이터 블록)에 대해 각 구역의 역할을 간략히 설명하시오.</summary>
+<blockquote>
+1. 부트 블록(Boot block): 운영체제를 부팅하기 위한 부트스트랩 코드가 저장된다.<br>
+2. 슈퍼 블록(Superblock): 파일 시스템 전체를 관리하고 작동시키기 위한 정보를 담고 있다.<br>
+3. 아이노드 리스트(inode list): 파일의 속성(주요 시간, 소유자, 접근 권한 등)을 담고 있는 inode 구조체 리스트가 위치한다.<br>
+4. 데이터 블록(Data block): 실제 파일의 내용(데이터)이 저장되는 고정 크기의 블록 영역이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) inode 구조체에 저장되는 시간 속성인 MAC Time의 세 가지 요소를 나열하고, 특히 변경 시간(Last Change Time, ctime)과 수정 시간(Last Modification Time, mtime)의 차이점을 구별하여 서술하시오.</summary>
+<blockquote>
+- <strong>요소</strong>: Modification Time(수정 시간), Access Time(접근 시간), Change Time(변경 시간)<br>
+- <strong>차이점</strong>: Modification Time은 파일의 <strong>'실제 내용(데이터)'</strong>이 수정된 최종 시간이다. 반면, Change Time은 내용이 아닌 소유자나 접근 권한의 변경과 같이 파일의 <strong>'inode 속성 정보'</strong>가 갱신된 시간이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 침해 사고 발생 시 시스템 분석을 위해 주로 파일의 inode 시간 정보를 기준으로 타임라인 분석을 수행한다. 공격자가 파일의 속성이나 권한 정보를 무단으로 변경했을 때 MAC Time 중 어떤 시간이 영향을 받는지 설명하시오.</summary>
+<blockquote>
+공격자가 내용 대신 속성(접근 권한, 소유자 UID 등)을 수정하게 되면 inode 관련 정보가 변경되므로, MAC Time 중 <strong>Last Change Time(변경 시간, ctime)</strong>의 갱신이 발생한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 파일 권한 변경, 소유권 수정 등이 아니라, 특정 파일(예: <code>/etc/passwd</code>)의 MAC Time을 포함하여 소유자 및 권한 등의 상세 inode 속성 정보를 리눅스 셸 상에서 직접 확인하고자 할 때 사용하는 가장 기본적인 명령어를 쓰시오.</summary>
+<blockquote>
+<code>stat /etc/passwd</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 공격자가 권한 설정을 공격하기 위해 의도적으로 터미널 셸에서 특정 파일의 속성을 다음과 같이 변경하였다고 가정한다. 이 과정 직후에 파일 시간 검사 시 MAC Time 중 새롭게 변경된 시간은 무엇인가?
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ chmod 777 target_file.txt</code><br>
+<code>$ stat target_file.txt</code>
+</div>
+</summary>
+<blockquote>
+Last Change Time (또는 ctime, 변경 시간)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 분석관이 침해 여부 흔적을 확인하고자 <code>cat log_file.txt</code> 명령 등을 사용해 파일 내용을 스크린으로 여러 번 읽어들였다. 이 과정에서 직접적으로 갱신되는 파일의 inode MAC Time 속성은 무엇인가?</summary>
+<blockquote>
+Access Time (접근 시간)
+</blockquote>
+</details>
+
 ##### 파일 시스템 링크 파일
 
 ###### ln (Create links)
