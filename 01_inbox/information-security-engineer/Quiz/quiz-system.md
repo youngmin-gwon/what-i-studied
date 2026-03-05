@@ -1287,6 +1287,77 @@ Access Time (접근 시간)
 
 ##### 파일 시스템 링크 파일
 
+<details>
+<summary>(단답형) 기존 파일과 동일한 inode number를 공유하여, 원본 파일이 삭제되더라도 계속해서 데이터에 접근할 수 있게 해주는 방식의 링크 파일은 무엇인가?</summary>
+<blockquote>
+하드 링크 (Hard link)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 하드 링크와 달리, inode number 대신 원본 파일에 대한 '파일 경로'를 내용으로 가지며 윈도우의 바로가기 아이콘과 유사한 방식을 가지는 링크를 무엇이라 하는가?</summary>
+<blockquote>
+심볼릭 링크 (Symbolic link / Soft link)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 파일이나 디렉터리에 생성 제한이 없어 자유롭게 사용할 수 있지만, 원본 파일이 삭제되거나 이동하게 되면 링크가 끊겨서 접근이 불가능해지는 링크 파일은 어떤 종류의 링크인가?</summary>
+<blockquote>
+심볼릭 링크 (Symbolic link)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 동일한 파일 시스템 영역 내에서만 하드 링크를 생성할 수 있는 이유를 inode 관점에서 서술하시오.</summary>
+<blockquote>
+하드 링크는 기존 파일과 동일한 <strong>inode number</strong>를 가리키는 방식으로 생성되는데, <strong>inode number는 개별 파일 시스템(파티션)마다 독립적으로 매겨지는 고유한 값</strong>이므로, 다른 파일 시스템의 inode와는 충돌이나 식별 불가 문제가 발생하여 동일 파일 시스템 내에서만 생성될 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 원본 파일에 대해 하드 링크와 심볼릭 링크 파일을 각각 만들었을 때, 원본 파일을 삭제(rm)한 후 하드 링크 파일과 심볼릭 링크 파일에 접근할 때 어떠한 현상이 나타나는지 비교하여 설명하시오.</summary>
+<blockquote>
+하드 링크가 생성되면 해당 inode의 <strong>링크 카운트(link count)</strong>만 1 증가하며 실 데이터는 그대로 존재합니다. 따라서 원본 파일을 삭제(링크 카운트 1 감소)하더라도 링크 카운트가 0이 되지 않기 때문에, <strong>하드 링크 파일은 정상적으로 원본 데이터를 읽을 수 있습니다</strong>.<br>
+반면 심볼릭 링크는 대상의 <strong>경로(path) 문자열</strong>만을 가지고 있어, 연결 대상인 원본 파일이 사라지면 대상을 찾지 못하는 연결 끊김(dangling link) 현상이 발생하여 <strong>접근할 수 없게 됩니다</strong>.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 특정 파일에 대해 하드 링크를 새롭게 하나 생성하였을 때 내부 파일 시스템에서 일어나는 변화(inode 및 link count 관점)와, 추후에 그 파일을 삭제할 때 시스템이 내부 데이터를 실제로 삭제하는 기준에 대해 설명하시오.</summary>
+<blockquote>
+하드 링크를 생성하면 원본 파일과 같은 inode를 참조하는 파일이 추가되므로, <strong>해당 inode의 링트 카운트(link count)가 1 증가</strong>하게 됩니다.<br>
+파일 삭제 시 운영체제는 즉시 데이터를 지우지 않고 <strong>링크 카운트를 먼저 1 감소</strong>시키며, 만약 값이 <strong>0이 되는 순간(즉, 이 inode를 참조하는 링크 파일이 더 이상 없을 때)에만 inode 정보 및 실제 데이터를 파일 시스템에서 안전하게 삭제</strong>합니다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>/test/source.txt</code> 라는 기존 파일이 존재할 때, 이 파일에 대한 심볼릭 링크 파일인 <code>/test/sym_link.txt</code> 를 생성하기 위한 명령어를 쓰시오.</summary>
+<blockquote>
+<code>ln -s /test/source.txt /test/sym_link.txt</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 디렉터리 내에서 <code>ls -li</code> 명령을 실행하여 아래와 같은 결과를 확인하였다. 두 파일이 서로 <strong>하드 링크</strong> 관계에 있다는 사실을 유추할 수 있는 결과의 특징 두 가지를 나열하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>164965 -rw-r--r-- 2 root root 11 Feb  8 00:52 abc.dat</code><br>
+<code>164965 -rw-r--r-- 2 root root 11 Feb  8 00:52 abc_hl.dat</code>
+</div>
+</summary>
+<blockquote>
+1) 첫 번째 필드의 번호인 <strong>inode number가 164965로 완전히 동일</strong>하다.<br>
+2) <code>-rw-r--r--</code> 바로 옆에 위치한 <strong>링크 카운트(link count)가 기본값 1이 아닌 2로 증가</strong>되어 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>ls -l</code> 명령의 결과로 <code>lrwxrwxrwx 1 root root 11 2024-02-08 16:32 xyz_sl.dat -> /abc.dat</code> 가 표시되었다. 이 결과의 <code>ls</code> 출력 정보만 보았을 때 해당 파일이 심볼릭 링크 파일임을 알 수 있는 특징을 쓰시오.</summary>
+<blockquote>
+권한 표시 부분의 첫 번째 문자가 디렉터리(<code>d</code>)나 일반 파일(<code>-</code>)이 아닌 링크(Link)를 의미하는 리눅스 문자 <code>l</code>(소문자 엘)로 시작하며, 맨 뒷부분의 파일명 옆에 <code>-> /abc.dat</code> 식으로 원본 대상 경로가 화살표로 함께 표기되기 때문이다.
+</blockquote>
+</details>
+
 ###### ln (Create links)
 
 <details>
