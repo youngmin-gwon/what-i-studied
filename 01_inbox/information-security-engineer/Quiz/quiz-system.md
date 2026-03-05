@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 16:22:32 +09:00
+date modified: 2026-03-05 16:43:58 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1510,7 +1510,7 @@ Access Time (접근 시간)
 </summary>
 <blockquote>
 - 첫 번째 문자 <code>'-'</code>: 일반 파일을 의미<br>
-- <code>'rwsr-xr-x'</code>: 파일 권한 (소유자:rwx, 그룹:r-x, 기타:r-x, 's'는 SetUID 설정)<br>
+- <code>'rwsr-xr-x'</code>: 파일 권한 (소유자:<code>rwx</code>, 그룹:<code>r-x</code>, 기타:<code>r-x</code>, 's'는 SetUID 설정)<br>
 - <code>'1'</code>: 하드링크 수<br>
 - <code>'root'</code>: 파일 소유자<br>
 - <code>'wheel'</code>: 그룹 소유자<br>
