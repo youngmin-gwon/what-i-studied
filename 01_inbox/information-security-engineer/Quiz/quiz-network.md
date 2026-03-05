@@ -1,8 +1,8 @@
 ---
-title: quiz_network
+title: quiz-network
 tags: []
 aliases: []
-date modified: 2026-02-26 14:27:53 +09:00
+date modified: 2026-03-05 15:05:49 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 14:43:21 +09:00
+date modified: 2026-03-05 15:04:12 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1210,6 +1210,7 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 </details>
 
 #### 파일 시스템 응용
+
 ##### 파일 시스템 개요
 
 <details>
