@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 14:04:43 +09:00
+date modified: 2026-03-05 14:35:19 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1213,82 +1213,6 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 
 ##### 디렉터리 및 파일 탐색 명령어
 
-###### ls (List directory contents)
-
-<details>
-<summary>UNIX/Linux에서 현재 디렉터리의 파일과 폴더 목록을 표시하는 기본 명령어는?</summary>
-<blockquote>
-<code>ls</code>
-</blockquote>
-</details>
-
-<details>
-<summary>ls 명령어에서 숨겨진 파일(.으로 시작하는 파일)을 포함하여 자세한 정보를 긴 형식으로 표시하는 옵션 조합을 쓰시오.</summary>
-<blockquote>
-<code>ls -la</code><br><br>
-- <code>ls -l</code> : 파일의 자세한 정보를 긴 형식으로 표시<br>
-- <code>ls -a</code> : 숨겨진 파일(.으로 시작하는 파일)까지 표시<br>
-- <code>ls -h</code> : 파일 크기를 사람이 읽기 쉬운 형식으로 표시 (KB, MB, GB)
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 명령어의 실행 결과를 분석하고, 각 필드가 의미하는 바를 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ ls -la /tmp/test.txt</code><br>
-<code>-rwsr-xr-x 1 root wheel 2048 Dec 25 10:30 /tmp/test.txt</code>
-</div>
-</summary>
-<blockquote>
-- 첫 번째 문자 <code>'-'</code>: 일반 파일을 의미<br>
-- <code>'rwsr-xr-x'</code>: 파일 권한 (소유자:rwx, 그룹:r-x, 기타:r-x, 's'는 SetUID 설정)<br>
-- <code>'1'</code>: 하드링크 수<br>
-- <code>'root'</code>: 파일 소유자<br>
-- <code>'wheel'</code>: 그룹 소유자<br>
-- <code>'2048'</code>: 파일 크기 (바이트)<br>
-- <code>'Dec 25 10:30'</code>: 마지막 수정 시간<br>
-- <code>'/tmp/test.txt'</code>: 파일 경로<br><br>
-특히 권한 부분에서 's'는 SetUID가 설정되어 있어, 이 파일을 실행할 때 소유자(root) 권한으로 실행됨을 의미한다.
-</blockquote>
-</details>
-
-###### cd (Change Directory)
-
-<details>
-<summary>UNIX/Linux에서 현재 작업 디렉터리를 변경하는 명령어는?</summary>
-<blockquote>
-<code>cd</code>
-</blockquote>
-</details>
-
-<details>
-<summary>cd 명령어를 사용하여 이전 작업 디렉터리로 돌아가는 명령을 쓰시오.</summary>
-<blockquote>
-<code>cd -</code><br><br>
-- <code>cd ~</code> : 홈 디렉터리로 이동<br>
-- <code>cd ..</code> : 상위 디렉터리로 이동<br>
-- <code>cd -</code> : 이전 디렉터리로 이동
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 상황에서 각 명령어 실행 후의 현재 디렉터리 경로를 예측하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-초기 상태: /home/user/documents/projects<br>
-1) <code>$ cd ../../../</code><br>
-2) <code>$ cd ./usr/bin</code><br>
-3) <code>$ cd -</code><br>
-4) <code>$ cd ~user/downloads</code>
-</div>
-</summary>
-<blockquote>
-5) /home (3단계 상위로 이동)<br>
-6) /home/usr/bin (현재 위치에서 상대경로로 이동, 단 해당 경로가 존재한다고 가정)<br>
-7) /home/user/documents/projects (이전 디렉터리로 복귀)<br>
-8) /home/user/downloads (user의 홈 디렉터리 하위 downloads로 이동)
-</blockquote>
-</details>
-
 ###### pwd (Print Working Directory)
 
 <details>
@@ -1313,59 +1237,7 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 </blockquote>
 </details>
 
-##### 디렉터리 관리 명령어
-
-###### mkdir (Make Directory)
-
-<details>
-<summary>새로운 디렉터리를 생성하는 명령어는?</summary>
-<blockquote>
-<code>mkdir</code>
-</blockquote>
-</details>
-
-<details>
-<summary>mkdir 명령어를 사용하여 "/home/user/project/2024/final" 경로의 디렉터리를 상위 디렉터리가 존재하지 않더라도 한 번에 생성하는 명령을 쓰시오.</summary>
-<blockquote>
-<code>mkdir -p /home/user/project/2024/final</code><br><br>
--p 옵션은 상위 디렉터리가 존재하지 않을 경우 함께 생성한다.
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 명령어를 실행했을 때의 결과와 생성된 디렉터리의 권한을 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ umask 022</code><br>
-<code>$ mkdir -m 755 /tmp/secure_dir</code><br>
-<code>$ mkdir /tmp/normal_dir</code>
-</div>
-</summary>
-<blockquote>
-- <code>/tmp/secure_dir</code> : 755 권한 (rwxr-xr-x) - <code>-m</code> 옵션으로 명시적 지정<br>
-- <code>/tmp/normal_dir</code> : 755 권한 (rwxr-xr-x) - <code>umask 022</code>가 <code>777</code>에서 <code>022</code>를 뺀 결과<br><br>
-디렉터리의 기본 권한은 <code>777</code>이고, <code>umask 022</code>가 적용되어 <code>755</code>가 된다. <code>-m</code> 옵션은 <code>umask</code>를 무시하고 지정된 권한을 직접 설정한다.
-</blockquote>
-</details>
-
-###### rmdir (Remove Directory)
-
-<details>
-<summary>빈 디렉터리를 삭제하는 명령어는?</summary>
-<blockquote>
-<code>rmdir</code>
-</blockquote>
-</details>
-
-<details>
-<summary><code>rmdir</code> 명령어와 <code>rm -rf</code> 명령어의 차이점을 설명하시오.</summary>
-<blockquote>
-- <code>rmdir</code>: 빈 디렉터리만 삭제 가능, 안전함<br>
-- <code>rm -rf</code>: 디렉터리와 그 내용을 강제로 삭제, 위험할 수 있음<br><br>
-<code>rmdir</code>은 디렉터리가 비어있지 않으면 삭제를 거부하여 실수로 중요한 파일을 삭제하는 것을 방지한다.
-</blockquote>
-</details>
-
-##### 파일 내용 조회 명령어
+##### 파일 내용 조회
 
 ###### cat (Concatenate and display files)
 
@@ -1476,318 +1348,7 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 
 ##### 파일 조작 명령어
 
-###### mv (Move/Rename files)
-
-<details>
-<summary>현재 디렉터리에 있는 모든 .tmp 확장자 파일을 /tmp/backup/ 디렉터리로 이동시키는 명령을 쓰시오.</summary>
-<blockquote>
-mv *.tmp /tmp/backup/<br><br>
-mv 명령어는 파일 이동과 이름 변경에 사용되며, 와일드카드(*)를 사용하여 여러 파일을 한 번에 처리할 수 있다.
-</blockquote>
-</details>
-
-<details>
-<summary>(중급) 다음 mv 명령어 상황들의 결과를 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ mv file.txt /tmp/</code><br>
-<code>$ mv file.txt newname.txt</code><br>
-<code>$ mv *.log /backup/</code><br>
-<code>$ mv dir1 dir2</code> (dir2가 존재하지 않는 경우)
-</div>
-</summary>
-<blockquote>
-1) <code>mv file.txt /tmp/</code> : file.txt를 /tmp/ 디렉터리로 이동<br>
-2) <code>mv file.txt newname.txt</code> : 현재 디렉터리에서 파일 이름을 newname.txt로 변경<br>
-3) <code>mv *.log /backup/</code> : 모든 .log 확장자 파일을 /backup/ 디렉터리로 이동<br>
-4) <code>mv dir1 dir2</code> : dir1 디렉터리의 이름을 dir2로 변경<br><br>
-<code>mv</code>는 같은 파일시스템 내에서는 실제로 데이터를 이동하지 않고 inode만 변경한다.
-</blockquote>
-</details>
-
-###### cp (Copy files)
-
-<details>
-<summary>중요한 설정 파일 /etc/nginx/nginx.conf의 백업을 동일한 디렉터리에 nginx.conf.backup 이름으로 생성하는 명령을 쓰시오.</summary>
-<blockquote>
-<code>cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup</code><br><br>
-<code>cp</code> 명령어는 파일을 복사할 때 사용하며, 중요한 설정 파일의 백업 생성 시 자주 활용된다.
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 cp 명령어들의 차이점과 각각의 사용 상황을 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ cp -r source_dir target_dir</code><br>
-<code>$ cp -a source_dir target_dir</code><br>
-<code>$ cp -p file.txt backup.txt</code><br>
-<code>$ cp -l file.txt hardlink.txt</code>
-</div>
-</summary>
-<blockquote>
-1) <code>cp -r</code> : 디렉터리를 재귀적으로 복사 (권한, 타임스탬프 등은 변경될 수 있음)<br>
-2) <code>cp -a</code> : 아카이브 모드로 복사 (-dpR과 동일, 모든 속성 보존)<br>
-3) <code>cp -p</code> : 파일의 소유권, 권한, 타임스탬프 등을 보존하여 복사<br>
-4) <code>cp -l</code> : 하드링크 생성 (실제 복사가 아닌 같은 inode를 가리키는 링크)<br><br>
-백업이나 아카이브 작업 시에는 <code>-a</code> 옵션이 가장 적절하다.
-</blockquote>
-</details>
-
-###### rm (Remove files)
-
-<details>
-<summary>파일을 삭제하는 명령어는?</summary>
-<blockquote>
-<code>rm</code>
-</blockquote>
-</details>
-
-<details>
-<summary>(위험수준 고급) 다음 <code>rm</code> 명령어들의 위험성과 안전한 대안을 제시하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ rm -rf /</code><br>
-<code>$ rm -f *.txt</code><br>
-<code>$ find /home -name "*.tmp" -exec rm {} \;</code><br>
-안전한 삭제 방법은?
-</div>
-</summary>
-<blockquote>
-<strong>위험한 명령어들:</strong><br>
-1) <code>rm -rf</code> / : 루트 디렉터리부터 모든 파일 시스템 삭제 (시스템 파괴)<br>
-2) <code>rm -f *.txt</code> : 확인 없이 모든 .txt 파일 강제 삭제<br>
-3) <code>find … -exec rm</code> : 조건에 맞는 모든 파일을 자동 삭제<br><br>
-<strong>안전한 대안:</strong><br>
-- <code>rm -i</code> 옵션으로 삭제 전 확인<br>
-- <code>trash</code> 명령어 사용 (복구 가능)<br>
-- 중요 파일은 백업 후 삭제<br>
-- <code>find … -ok rm</code> 사용 (각 파일마다 확인)<br>
-- 스크립트에서는 절대 경로 사용하고 변수 검증
-</blockquote>
-</details>
-
-###### ln (Create links)
-
-<details>
-<summary>파일에 대한 링크를 생성하는 명령어는?</summary>
-<blockquote>
-ln
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 하드링크와 심볼릭 링크의 차이점을 다음 명령어 예시와 함께 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ ln file.txt hardlink.txt</code><br>
-<code>$ ln -s file.txt symlink.txt</code><br>
-원본 파일 삭제 시 각 링크에 미치는 영향은?
-</div>
-</summary>
-<blockquote>
-<strong>하드링크 (ln file.txt hardlink.txt):</strong><br>
-- 같은 inode를 공유, 원본과 동일한 파일<br>
-- 원본 삭제되어도 하드링크는 여전히 유효<br>
-- 같은 파일시스템 내에서만 생성 가능<br>
-- 디렉터리에는 생성 불가<br><br>
-<strong>심볼릭 링크 (ln -s file.txt symlink.txt):</strong><br>
-- 원본 파일의 경로만 저장하는 별도 파일<br>
-- 원본 삭제 시 심볼릭 링크는 깨짐 (dangling link)<br>
-- 다른 파일시스템에도 생성 가능<br>
-- 디렉터리에도 생성 가능<br><br>
-원본 파일 삭제 시 하드링크는 여전히 데이터에 접근 가능하지만, 심볼릭 링크는 접근 불가능하다.
-</blockquote>
-</details>
-
 ##### 권한 및 소유권 관리 명령어
-
-###### chmod (Change file permissions)
-
-<details>
-<summary>스크립트 파일 /home/user/backup.sh에 소유자는 읽기/쓰기/실행 권한을, 그룹과 기타 사용자에게는 읽기와 실행 권한만 부여하는 명령을 쓰시오.</summary>
-<blockquote>
-<code>chmod 755 /home/user/backup.sh</code><br><br>
-<code>755</code> 권한은 <code>rwxr-xr-x</code>를 의미하며, 스크립트 파일에 일반적으로 설정하는 권한이다.
-</blockquote>
-</details>
-
-<details>
-<summary>(중급) 다음 chmod 명령어들의 결과로 설정되는 권한을 8진수와 rwx 형태로 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ chmod 755 script.sh</code><br>
-<code>$ chmod u+x,g-w,o=r file.txt</code><br>
-<code>$ chmod a+w document.txt</code>
-</div>
-</summary>
-<blockquote>
-1) <code>chmod 755 script.sh</code><br>
-   - 8진수: <code>755</code><br>
-   - rwx 형태: <code>rwxr-xr-x</code><br>
-   - 소유자: 읽기/쓰기/실행, 그룹: 읽기/실행, 기타: 읽기/실행<br><br>
-2) <code>chmod u+x,g-w,o=r file.txt</code><br>
-   - 소유자에게 실행 권한 추가<br>
-   - 그룹에서 쓰기 권한 제거<br>
-   - 기타 사용자는 읽기 권한만<br><br>
-3) <code>chmod a+w document.txt</code><br>
-   - 모든 사용자(all)에게 쓰기 권한 추가
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) SetUID, SetGID, Sticky bit의 개념과 보안상 주의사항을 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ chmod 4755 /usr/bin/sudo</code><br>
-<code>$ chmod 2755 /shared/project</code><br>
-<code>$ chmod 1777 /tmp</code><br>
-각각의 의미와 보안 위험성은?
-</div>
-</summary>
-<blockquote>
-<strong>SetUID (4755):</strong><br>
-- 파일 실행 시 소유자 권한으로 실행<br>
-- 보안 위험: root 소유 파일에 설정 시 권한 상승 공격 가능<br>
-- 예: sudo 명령어는 root 권한이 필요<br><br>
-<strong>SetGID (2755):</strong><br>
-- 파일: 소유 그룹 권한으로 실행<br>
-- 디렉터리: 생성되는 파일들이 디렉터리의 그룹을 상속<br>
-- 보안 위험: 그룹 권한 상승 가능<br><br>
-<strong>Sticky Bit (1777):</strong><br>
-- 디렉터리에서 파일 소유자만 자신의 파일 삭제 가능<br>
-- 주로 /tmp 디렉터리에 설정<br>
-- 보안: 다른 사용자의 파일 삭제 방지<br><br>
-<strong>보안 주의사항:</strong><br>
-- SetUID/SetGID 파일 정기적 점검 필요<br>
-- 불필요한 특수 권한 제거<br>
-- <code>find / -perm -4000</code> 명령으로 SetUID 파일 검색
-</blockquote>
-</details>
-
-###### chown (Change file ownership)
-
-<details>
-<summary>웹 서버 디렉터리 /var/www/html의 모든 파일과 하위 디렉터리의 소유자를 www-data로, 그룹도 www-data로 변경하는 명령을 쓰시오.</summary>
-<blockquote>
-<code>chown -R www-data:www-data /var/www/html</code><br><br>
-<code>-R</code> 옵션은 재귀적으로 하위 디렉터리까지 포함하여 소유권을 변경한다. <code>user:group</code> 형태로 소유자와 그룹을 동시에 지정할 수 있다.
-</blockquote>
-</details>
-
-<details>
-<summary>(중급) 다음 chown 명령어들의 실행 결과를 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ chown user1 file.txt</code><br>
-<code>$ chown user1:group1 file.txt</code><br>
-<code>$ chown :group1 file.txt</code><br>
-<code>$ chown -R user1:group1 /home/project/</code>
-</div>
-</summary>
-<blockquote>
-1) <code>chown user1 file.txt</code> : 파일 소유자를 user1으로 변경 (그룹은 변경 안됨)<br>
-2) <code>chown user1:group1 file.txt</code> : 소유자를 user1, 그룹을 group1로 변경<br>
-3) <code>chown :group1 file.txt</code> : 그룹만 group1로 변경 (소유자는 변경 안됨)<br>
-4) <code>chown -R user1:group1 /home/project/</code> : 디렉터리와 모든 하위 파일/디렉터리의 소유자와 그룹을 재귀적으로 변경<br><br>
-주의: 일반 사용자는 자신이 소유한 파일의 소유자만 변경할 수 있으며, root만 모든 파일의 소유자를 변경할 수 있다.
-</blockquote>
-</details>
-
-###### chgrp (Change group ownership)
-
-<details>
-<summary>파일이나 디렉터리의 그룹 소유자를 변경하는 명령어는?</summary>
-<blockquote>
-<code>chgrp</code>
-</blockquote>
-</details>
-
-<details>
-<summary><code>chown</code>과 <code>chgrp</code>의 차이점과 사용 상황을 설명하시오.</summary>
-<blockquote>
-<strong><code>chgrp</code>:</strong><br>
-- 그룹 소유자만 변경<br>
-- 더 간단한 문법<br>
-- 그룹 관리에 특화<br><br>
-<strong><code>chown</code>:</strong><br>
-- 소유자, 그룹 또는 둘 다 변경 가능<br>
-- 더 포괄적인 기능<br>
-- user:group 형태로 동시 변경 가능<br><br>
-<strong>사용 상황:</strong><br>
-- 그룹만 변경: <code>chgrp</code>가 더 직관적<br>
-- 소유자와 그룹 동시 변경: <code>chown</code>이 효율적<br>
-- 스크립트에서는 <code>chown</code>이 더 유연함
-</blockquote>
-</details>
-
-###### touch (Create empty files and change timestamps)
-
-<details>
-<summary>빈 파일을 생성하거나 파일의 타임스탬프를 변경하는 명령어는?</summary>
-<blockquote>
-<code>touch</code>
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 touch 명령어들의 고급 사용법과 실제 활용 상황을 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ touch -t 202312251030 important.txt</code><br>
-<code>$ touch -r reference.txt newfile.txt</code><br>
-<code>$ touch -a logfile.txt</code><br>
-<code>$ touch -m datafile.txt</code>
-</div>
-</summary>
-<blockquote>
-1) <code>touch -t 202312251030 important.txt</code><br>
-   - 특정 시간(2023년 12월 25일 10:30)으로 타임스탬프 설정<br>
-   - 용도: 파일 백업 시 원본 시간 정보 보존<br><br>
-1) <code>touch -r reference.txt newfile.txt</code><br>
-   - reference.txt와 같은 타임스탬프로 설정<br>
-   - 용도: 여러 파일의 시간 정보 동기화<br><br>
-1) <code>touch -a logfile.txt</code><br>
-   - 접근 시간(atime)만 현재 시간으로 변경<br>
-   - 용도: 파일 접근 로그 관리<br><br>
-1) <code>touch -m datafile.txt</code><br>
-   - 수정 시간(mtime)만 현재 시간으로 변경<br>
-   - 용도: 빌드 시스템에서 파일 강제 재컴파일 유도<br><br>
-실제 활용: 백업 스크립트, 빌드 시스템, 로그 관리, 테스트 환경 구성
-</blockquote>
-</details>
-
-###### umask (Set default file permissions)
-
-<details>
-<summary>새로 생성되는 파일과 디렉터리의 기본 권한을 설정하는 명령어는?</summary>
-<blockquote>
-<code>umask</code>
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) umask의 동작 원리와 다음 상황에서의 결과를 계산하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-현재 umask 설정들에 따른 새 파일/디렉터리 권한:<br>
-<code>$ umask 022</code> → 파일 권한: ? 디렉터리 권한: ?<br>
-<code>$ umask 077</code> → 파일 권한: ? 디렉터리 권한: ?<br>
-<code>$ umask 002</code> → 파일 권한: ? 디렉터리 권한: ?
-</div>
-</summary>
-<blockquote>
-<strong><code>umask</code> 동작 원리:</strong><br>
-- 기본 권한에서 <code>umask</code> 값을 차감<br>
-- 파일 기본 권한: <code>666 (rw-rw-rw-)</code><br>
-- 디렉터리 기본 권한: <code>777 (rwxrwxrwx)</code><br><br>
-<strong>계산 결과:</strong><br>
-1) <code>umask 022</code><br>
-   - 파일: <code>666</code> - <code>022</code> = <code>644 (rw-r--r--)</code><br>
-   - 디렉터리: <code>777</code> - <code>022</code> = <code>755 (rwxr-xr-x)</code><br><br>
-2) <code>umask 077</code><br>
-   - 파일: <code>666</code> - <code>077</code> = <code>600 (rw-------)</code><br>
-   - 디렉터리: <code>777 - 077</code> = <code>700 (rwx------)</code><br><br>
-3) <code>umask 002</code><br>
-   - 파일: <code>666</code> - <code>002</code> = <code>664 (rw-rw-r--)</code><br>
-   - 디렉터리: <code>777</code> - <code>002</code> = <code>775 (rwxrwxr-x)</code><br><br>
-<strong>실무 적용:</strong><br>
-- <code>022</code>: 일반적인 시스템 기본값<br>
-- <code>077</code>: 보안이 중요한 개인 파일<br>
-- <code>002</code>: 그룹 작업 환경
-</blockquote>
-</details>
 
 ##### 텍스트 처리 명령어
 
@@ -2208,6 +1769,453 @@ ln
 - <code>-m</code>: 최대 매치 수 제한
 </blockquote>
 </details>
+#### 파일 시스템 응용
+##### 파일 시스템 개요
+##### 파일 시스템 링크 파일
+
+###### ln (Create links)
+
+<details>
+<summary>파일에 대한 링크를 생성하는 명령어는?</summary>
+<blockquote>
+ln
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 하드링크와 심볼릭 링크의 차이점을 다음 명령어 예시와 함께 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ ln file.txt hardlink.txt</code><br>
+<code>$ ln -s file.txt symlink.txt</code><br>
+원본 파일 삭제 시 각 링크에 미치는 영향은?
+</div>
+</summary>
+<blockquote>
+<strong>하드링크 (ln file.txt hardlink.txt):</strong><br>
+- 같은 inode를 공유, 원본과 동일한 파일<br>
+- 원본 삭제되어도 하드링크는 여전히 유효<br>
+- 같은 파일시스템 내에서만 생성 가능<br>
+- 디렉터리에는 생성 불가<br><br>
+<strong>심볼릭 링크 (ln -s file.txt symlink.txt):</strong><br>
+- 원본 파일의 경로만 저장하는 별도 파일<br>
+- 원본 삭제 시 심볼릭 링크는 깨짐 (dangling link)<br>
+- 다른 파일시스템에도 생성 가능<br>
+- 디렉터리에도 생성 가능<br><br>
+원본 파일 삭제 시 하드링크는 여전히 데이터에 접근 가능하지만, 심볼릭 링크는 접근 불가능하다.
+</blockquote>
+</details>
+
+##### 디렉터리 관리
+
+###### ls (List directory contents)
+
+<details>
+<summary>UNIX/Linux에서 현재 디렉터리의 파일과 폴더 목록을 표시하는 기본 명령어는?</summary>
+<blockquote>
+<code>ls</code>
+</blockquote>
+</details>
+
+<details>
+<summary>ls 명령어에서 숨겨진 파일(.으로 시작하는 파일)을 포함하여 자세한 정보를 긴 형식으로 표시하는 옵션 조합을 쓰시오.</summary>
+<blockquote>
+<code>ls -la</code><br><br>
+- <code>ls -l</code> : 파일의 자세한 정보를 긴 형식으로 표시<br>
+- <code>ls -a</code> : 숨겨진 파일(.으로 시작하는 파일)까지 표시<br>
+- <code>ls -h</code> : 파일 크기를 사람이 읽기 쉬운 형식으로 표시 (KB, MB, GB)
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 명령어의 실행 결과를 분석하고, 각 필드가 의미하는 바를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ ls -la /tmp/test.txt</code><br>
+<code>-rwsr-xr-x 1 root wheel 2048 Dec 25 10:30 /tmp/test.txt</code>
+</div>
+</summary>
+<blockquote>
+- 첫 번째 문자 <code>'-'</code>: 일반 파일을 의미<br>
+- <code>'rwsr-xr-x'</code>: 파일 권한 (소유자:rwx, 그룹:r-x, 기타:r-x, 's'는 SetUID 설정)<br>
+- <code>'1'</code>: 하드링크 수<br>
+- <code>'root'</code>: 파일 소유자<br>
+- <code>'wheel'</code>: 그룹 소유자<br>
+- <code>'2048'</code>: 파일 크기 (바이트)<br>
+- <code>'Dec 25 10:30'</code>: 마지막 수정 시간<br>
+- <code>'/tmp/test.txt'</code>: 파일 경로<br><br>
+특히 권한 부분에서 's'는 SetUID가 설정되어 있어, 이 파일을 실행할 때 소유자(root) 권한으로 실행됨을 의미한다.
+</blockquote>
+</details>
+
+###### cd (Change Directory)
+
+<details>
+<summary>UNIX/Linux에서 현재 작업 디렉터리를 변경하는 명령어는?</summary>
+<blockquote>
+<code>cd</code>
+</blockquote>
+</details>
+
+<details>
+<summary>cd 명령어를 사용하여 이전 작업 디렉터리로 돌아가는 명령을 쓰시오.</summary>
+<blockquote>
+<code>cd -</code><br><br>
+- <code>cd ~</code> : 홈 디렉터리로 이동<br>
+- <code>cd ..</code> : 상위 디렉터리로 이동<br>
+- <code>cd -</code> : 이전 디렉터리로 이동
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 상황에서 각 명령어 실행 후의 현재 디렉터리 경로를 예측하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+초기 상태: /home/user/documents/projects<br>
+1) <code>$ cd ../../../</code><br>
+2) <code>$ cd ./usr/bin</code><br>
+3) <code>$ cd -</code><br>
+4) <code>$ cd ~user/downloads</code>
+</div>
+</summary>
+<blockquote>
+5) /home (3단계 상위로 이동)<br>
+6) /home/usr/bin (현재 위치에서 상대경로로 이동, 단 해당 경로가 존재한다고 가정)<br>
+7) /home/user/documents/projects (이전 디렉터리로 복귀)<br>
+8) /home/user/downloads (user의 홈 디렉터리 하위 downloads로 이동)
+</blockquote>
+</details>
+
+###### mkdir (Make Directory)
+
+<details>
+<summary>새로운 디렉터리를 생성하는 명령어는?</summary>
+<blockquote>
+<code>mkdir</code>
+</blockquote>
+</details>
+
+<details>
+<summary>mkdir 명령어를 사용하여 "/home/user/project/2024/final" 경로의 디렉터리를 상위 디렉터리가 존재하지 않더라도 한 번에 생성하는 명령을 쓰시오.</summary>
+<blockquote>
+<code>mkdir -p /home/user/project/2024/final</code><br><br>
+-p 옵션은 상위 디렉터리가 존재하지 않을 경우 함께 생성한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 명령어를 실행했을 때의 결과와 생성된 디렉터리의 권한을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ umask 022</code><br>
+<code>$ mkdir -m 755 /tmp/secure_dir</code><br>
+<code>$ mkdir /tmp/normal_dir</code>
+</div>
+</summary>
+<blockquote>
+- <code>/tmp/secure_dir</code> : 755 권한 (rwxr-xr-x) - <code>-m</code> 옵션으로 명시적 지정<br>
+- <code>/tmp/normal_dir</code> : 755 권한 (rwxr-xr-x) - <code>umask 022</code>가 <code>777</code>에서 <code>022</code>를 뺀 결과<br><br>
+디렉터리의 기본 권한은 <code>777</code>이고, <code>umask 022</code>가 적용되어 <code>755</code>가 된다. <code>-m</code> 옵션은 <code>umask</code>를 무시하고 지정된 권한을 직접 설정한다.
+</blockquote>
+</details>
+
+###### rmdir (Remove Directory)
+
+<details>
+<summary>빈 디렉터리를 삭제하는 명령어는?</summary>
+<blockquote>
+<code>rmdir</code>
+</blockquote>
+</details>
+
+<details>
+<summary><code>rmdir</code> 명령어와 <code>rm -rf</code> 명령어의 차이점을 설명하시오.</summary>
+<blockquote>
+- <code>rmdir</code>: 빈 디렉터리만 삭제 가능, 안전함<br>
+- <code>rm -rf</code>: 디렉터리와 그 내용을 강제로 삭제, 위험할 수 있음<br><br>
+<code>rmdir</code>은 디렉터리가 비어있지 않으면 삭제를 거부하여 실수로 중요한 파일을 삭제하는 것을 방지한다.
+</blockquote>
+</details>
+
+##### 파일 관리
+
+
+###### touch (Create empty files and change timestamps)
+
+<details>
+<summary>빈 파일을 생성하거나 파일의 타임스탬프를 변경하는 명령어는?</summary>
+<blockquote>
+<code>touch</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 touch 명령어들의 고급 사용법과 실제 활용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ touch -t 202312251030 important.txt</code><br>
+<code>$ touch -r reference.txt newfile.txt</code><br>
+<code>$ touch -a logfile.txt</code><br>
+<code>$ touch -m datafile.txt</code>
+</div>
+</summary>
+<blockquote>
+1) <code>touch -t 202312251030 important.txt</code><br>
+   - 특정 시간(2023년 12월 25일 10:30)으로 타임스탬프 설정<br>
+   - 용도: 파일 백업 시 원본 시간 정보 보존<br><br>
+1) <code>touch -r reference.txt newfile.txt</code><br>
+   - reference.txt와 같은 타임스탬프로 설정<br>
+   - 용도: 여러 파일의 시간 정보 동기화<br><br>
+1) <code>touch -a logfile.txt</code><br>
+   - 접근 시간(atime)만 현재 시간으로 변경<br>
+   - 용도: 파일 접근 로그 관리<br><br>
+1) <code>touch -m datafile.txt</code><br>
+   - 수정 시간(mtime)만 현재 시간으로 변경<br>
+   - 용도: 빌드 시스템에서 파일 강제 재컴파일 유도<br><br>
+실제 활용: 백업 스크립트, 빌드 시스템, 로그 관리, 테스트 환경 구성
+</blockquote>
+</details>
+
+###### mv (Move/Rename files)
+
+<details>
+<summary>현재 디렉터리에 있는 모든 .tmp 확장자 파일을 /tmp/backup/ 디렉터리로 이동시키는 명령을 쓰시오.</summary>
+<blockquote>
+mv *.tmp /tmp/backup/<br><br>
+mv 명령어는 파일 이동과 이름 변경에 사용되며, 와일드카드(*)를 사용하여 여러 파일을 한 번에 처리할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 mv 명령어 상황들의 결과를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ mv file.txt /tmp/</code><br>
+<code>$ mv file.txt newname.txt</code><br>
+<code>$ mv *.log /backup/</code><br>
+<code>$ mv dir1 dir2</code> (dir2가 존재하지 않는 경우)
+</div>
+</summary>
+<blockquote>
+1) <code>mv file.txt /tmp/</code> : file.txt를 /tmp/ 디렉터리로 이동<br>
+2) <code>mv file.txt newname.txt</code> : 현재 디렉터리에서 파일 이름을 newname.txt로 변경<br>
+3) <code>mv *.log /backup/</code> : 모든 .log 확장자 파일을 /backup/ 디렉터리로 이동<br>
+4) <code>mv dir1 dir2</code> : dir1 디렉터리의 이름을 dir2로 변경<br><br>
+<code>mv</code>는 같은 파일시스템 내에서는 실제로 데이터를 이동하지 않고 inode만 변경한다.
+</blockquote>
+</details>
+
+###### cp (Copy files)
+
+<details>
+<summary>중요한 설정 파일 /etc/nginx/nginx.conf의 백업을 동일한 디렉터리에 nginx.conf.backup 이름으로 생성하는 명령을 쓰시오.</summary>
+<blockquote>
+<code>cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup</code><br><br>
+<code>cp</code> 명령어는 파일을 복사할 때 사용하며, 중요한 설정 파일의 백업 생성 시 자주 활용된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 cp 명령어들의 차이점과 각각의 사용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ cp -r source_dir target_dir</code><br>
+<code>$ cp -a source_dir target_dir</code><br>
+<code>$ cp -p file.txt backup.txt</code><br>
+<code>$ cp -l file.txt hardlink.txt</code>
+</div>
+</summary>
+<blockquote>
+1) <code>cp -r</code> : 디렉터리를 재귀적으로 복사 (권한, 타임스탬프 등은 변경될 수 있음)<br>
+2) <code>cp -a</code> : 아카이브 모드로 복사 (-dpR과 동일, 모든 속성 보존)<br>
+3) <code>cp -p</code> : 파일의 소유권, 권한, 타임스탬프 등을 보존하여 복사<br>
+4) <code>cp -l</code> : 하드링크 생성 (실제 복사가 아닌 같은 inode를 가리키는 링크)<br><br>
+백업이나 아카이브 작업 시에는 <code>-a</code> 옵션이 가장 적절하다.
+</blockquote>
+</details>
+
+###### rm (Remove files)
+
+<details>
+<summary>파일을 삭제하는 명령어는?</summary>
+<blockquote>
+<code>rm</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(위험수준 고급) 다음 <code>rm</code> 명령어들의 위험성과 안전한 대안을 제시하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ rm -rf /</code><br>
+<code>$ rm -f *.txt</code><br>
+<code>$ find /home -name "*.tmp" -exec rm {} \;</code><br>
+안전한 삭제 방법은?
+</div>
+</summary>
+<blockquote>
+<strong>위험한 명령어들:</strong><br>
+1) <code>rm -rf</code> / : 루트 디렉터리부터 모든 파일 시스템 삭제 (시스템 파괴)<br>
+2) <code>rm -f *.txt</code> : 확인 없이 모든 .txt 파일 강제 삭제<br>
+3) <code>find … -exec rm</code> : 조건에 맞는 모든 파일을 자동 삭제<br><br>
+<strong>안전한 대안:</strong><br>
+- <code>rm -i</code> 옵션으로 삭제 전 확인<br>
+- <code>trash</code> 명령어 사용 (복구 가능)<br>
+- 중요 파일은 백업 후 삭제<br>
+- <code>find … -ok rm</code> 사용 (각 파일마다 확인)<br>
+- 스크립트에서는 절대 경로 사용하고 변수 검증
+</blockquote>
+</details>
+
+###### chmod (Change file permissions)
+
+<details>
+<summary>스크립트 파일 /home/user/backup.sh에 소유자는 읽기/쓰기/실행 권한을, 그룹과 기타 사용자에게는 읽기와 실행 권한만 부여하는 명령을 쓰시오.</summary>
+<blockquote>
+<code>chmod 755 /home/user/backup.sh</code><br><br>
+<code>755</code> 권한은 <code>rwxr-xr-x</code>를 의미하며, 스크립트 파일에 일반적으로 설정하는 권한이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 chmod 명령어들의 결과로 설정되는 권한을 8진수와 rwx 형태로 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ chmod 755 script.sh</code><br>
+<code>$ chmod u+x,g-w,o=r file.txt</code><br>
+<code>$ chmod a+w document.txt</code>
+</div>
+</summary>
+<blockquote>
+1) <code>chmod 755 script.sh</code><br>
+   - 8진수: <code>755</code><br>
+   - rwx 형태: <code>rwxr-xr-x</code><br>
+   - 소유자: 읽기/쓰기/실행, 그룹: 읽기/실행, 기타: 읽기/실행<br><br>
+2) <code>chmod u+x,g-w,o=r file.txt</code><br>
+   - 소유자에게 실행 권한 추가<br>
+   - 그룹에서 쓰기 권한 제거<br>
+   - 기타 사용자는 읽기 권한만<br><br>
+3) <code>chmod a+w document.txt</code><br>
+   - 모든 사용자(all)에게 쓰기 권한 추가
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) SetUID, SetGID, Sticky bit의 개념과 보안상 주의사항을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ chmod 4755 /usr/bin/sudo</code><br>
+<code>$ chmod 2755 /shared/project</code><br>
+<code>$ chmod 1777 /tmp</code><br>
+각각의 의미와 보안 위험성은?
+</div>
+</summary>
+<blockquote>
+<strong>SetUID (4755):</strong><br>
+- 파일 실행 시 소유자 권한으로 실행<br>
+- 보안 위험: root 소유 파일에 설정 시 권한 상승 공격 가능<br>
+- 예: sudo 명령어는 root 권한이 필요<br><br>
+<strong>SetGID (2755):</strong><br>
+- 파일: 소유 그룹 권한으로 실행<br>
+- 디렉터리: 생성되는 파일들이 디렉터리의 그룹을 상속<br>
+- 보안 위험: 그룹 권한 상승 가능<br><br>
+<strong>Sticky Bit (1777):</strong><br>
+- 디렉터리에서 파일 소유자만 자신의 파일 삭제 가능<br>
+- 주로 /tmp 디렉터리에 설정<br>
+- 보안: 다른 사용자의 파일 삭제 방지<br><br>
+<strong>보안 주의사항:</strong><br>
+- SetUID/SetGID 파일 정기적 점검 필요<br>
+- 불필요한 특수 권한 제거<br>
+- <code>find / -perm -4000</code> 명령으로 SetUID 파일 검색
+</blockquote>
+</details>
+
+###### chown (Change file ownership)
+
+<details>
+<summary>웹 서버 디렉터리 /var/www/html의 모든 파일과 하위 디렉터리의 소유자를 www-data로, 그룹도 www-data로 변경하는 명령을 쓰시오.</summary>
+<blockquote>
+<code>chown -R www-data:www-data /var/www/html</code><br><br>
+<code>-R</code> 옵션은 재귀적으로 하위 디렉터리까지 포함하여 소유권을 변경한다. <code>user:group</code> 형태로 소유자와 그룹을 동시에 지정할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 chown 명령어들의 실행 결과를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ chown user1 file.txt</code><br>
+<code>$ chown user1:group1 file.txt</code><br>
+<code>$ chown :group1 file.txt</code><br>
+<code>$ chown -R user1:group1 /home/project/</code>
+</div>
+</summary>
+<blockquote>
+1) <code>chown user1 file.txt</code> : 파일 소유자를 user1으로 변경 (그룹은 변경 안됨)<br>
+2) <code>chown user1:group1 file.txt</code> : 소유자를 user1, 그룹을 group1로 변경<br>
+3) <code>chown :group1 file.txt</code> : 그룹만 group1로 변경 (소유자는 변경 안됨)<br>
+4) <code>chown -R user1:group1 /home/project/</code> : 디렉터리와 모든 하위 파일/디렉터리의 소유자와 그룹을 재귀적으로 변경<br><br>
+주의: 일반 사용자는 자신이 소유한 파일의 소유자만 변경할 수 있으며, root만 모든 파일의 소유자를 변경할 수 있다.
+</blockquote>
+</details>
+
+###### chgrp (Change group ownership)
+
+<details>
+<summary>파일이나 디렉터리의 그룹 소유자를 변경하는 명령어는?</summary>
+<blockquote>
+<code>chgrp</code>
+</blockquote>
+</details>
+
+<details>
+<summary><code>chown</code>과 <code>chgrp</code>의 차이점과 사용 상황을 설명하시오.</summary>
+<blockquote>
+<strong><code>chgrp</code>:</strong><br>
+- 그룹 소유자만 변경<br>
+- 더 간단한 문법<br>
+- 그룹 관리에 특화<br><br>
+<strong><code>chown</code>:</strong><br>
+- 소유자, 그룹 또는 둘 다 변경 가능<br>
+- 더 포괄적인 기능<br>
+- user:group 형태로 동시 변경 가능<br><br>
+<strong>사용 상황:</strong><br>
+- 그룹만 변경: <code>chgrp</code>가 더 직관적<br>
+- 소유자와 그룹 동시 변경: <code>chown</code>이 효율적<br>
+- 스크립트에서는 <code>chown</code>이 더 유연함
+</blockquote>
+</details>
+
+###### umask (Set default file permissions)
+
+<details>
+<summary>새로 생성되는 파일과 디렉터리의 기본 권한을 설정하는 명령어는?</summary>
+<blockquote>
+<code>umask</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) umask의 동작 원리와 다음 상황에서의 결과를 계산하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+현재 umask 설정들에 따른 새 파일/디렉터리 권한:<br>
+<code>$ umask 022</code> → 파일 권한: ? 디렉터리 권한: ?<br>
+<code>$ umask 077</code> → 파일 권한: ? 디렉터리 권한: ?<br>
+<code>$ umask 002</code> → 파일 권한: ? 디렉터리 권한: ?
+</div>
+</summary>
+<blockquote>
+<strong><code>umask</code> 동작 원리:</strong><br>
+- 기본 권한에서 <code>umask</code> 값을 차감<br>
+- 파일 기본 권한: <code>666 (rw-rw-rw-)</code><br>
+- 디렉터리 기본 권한: <code>777 (rwxrwxrwx)</code><br><br>
+<strong>계산 결과:</strong><br>
+1) <code>umask 022</code><br>
+   - 파일: <code>666</code> - <code>022</code> = <code>644 (rw-r--r--)</code><br>
+   - 디렉터리: <code>777</code> - <code>022</code> = <code>755 (rwxr-xr-x)</code><br><br>
+2) <code>umask 077</code><br>
+   - 파일: <code>666</code> - <code>077</code> = <code>600 (rw-------)</code><br>
+   - 디렉터리: <code>777 - 077</code> = <code>700 (rwx------)</code><br><br>
+3) <code>umask 002</code><br>
+   - 파일: <code>666</code> - <code>002</code> = <code>664 (rw-rw-r--)</code><br>
+   - 디렉터리: <code>777</code> - <code>002</code> = <code>775 (rwxrwxr-x)</code><br><br>
+<strong>실무 적용:</strong><br>
+- <code>022</code>: 일반적인 시스템 기본값<br>
+- <code>077</code>: 보안이 중요한 개인 파일<br>
+- <code>002</code>: 그룹 작업 환경
+</blockquote>
+</details>
+
+##### 파일 검색
 
 ###### find (Find files and directories)
 
@@ -2253,12 +2261,6 @@ ln
 </blockquote>
 </details>
 
-#### 파일 시스템 응용
-##### 파일 시스템 개요
-##### 파일 시스템 링크 파일
-##### 디렉터리 관리
-##### 파일 권한 관리
-##### 파일 검색
 ##### 파일 및 디렉터리 관련 명령어 요약
 #### 프로세스 응용
 ##### 프로세스 개요
