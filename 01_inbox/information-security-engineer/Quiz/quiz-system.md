@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 13:40:51 +09:00
+date modified: 2026-03-05 14:02:34 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1111,7 +1111,7 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 </details>
 
 <details>
-<summary>(작업형) 사용자 계정 정보가 담겨 있는 저장소인 파스워드 파일의 전체 내용을 불러온 후, 파이프 기법을 이용해 <code>alice</code> 라는 특정 문자열(계정명 등)이 포함된 정보 내역만 필터링해 모니터에 출력하려 한다. 이에 알맞은 명령 구문을 작성하시오.</summary>
+<summary>(작업형) 사용자 계정 정보가 담겨 있는 저장소인 패스워드 파일의 전체 내용을 불러온 후, 파이프 기법을 이용해 <code>alice</code> 라는 특정 문자열(계정명 등)이 포함된 정보 내역만 필터링해 모니터에 출력하려 한다. 이에 알맞은 명령 구문을 작성하시오.</summary>
 <blockquote>
 <code>cat /etc/passwd | grep alice</code>
 </blockquote>
