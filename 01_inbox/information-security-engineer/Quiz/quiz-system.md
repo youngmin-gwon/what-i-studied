@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 15:49:37 +09:00
+date modified: 2026-03-05 16:05:37 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1363,7 +1363,7 @@ Access Time (접근 시간)
 <details>
 <summary>파일에 대한 링크를 생성하는 명령어는?</summary>
 <blockquote>
-ln
+<code>ln</code>
 </blockquote>
 </details>
 
@@ -1376,12 +1376,12 @@ ln
 </div>
 </summary>
 <blockquote>
-<strong>하드링크 (ln file.txt hardlink.txt):</strong><br>
+<strong>하드링크 (<code>ln file.txt hardlink.txt</code>):</strong><br>
 - 같은 inode를 공유, 원본과 동일한 파일<br>
 - 원본 삭제되어도 하드링크는 여전히 유효<br>
 - 같은 파일시스템 내에서만 생성 가능<br>
 - 디렉터리에는 생성 불가<br><br>
-<strong>심볼릭 링크 (ln -s file.txt symlink.txt):</strong><br>
+<strong>심볼릭 링크 (<code>ln -s file.txt symlink.txt</code>):</strong><br>
 - 원본 파일의 경로만 저장하는 별도 파일<br>
 - 원본 삭제 시 심볼릭 링크는 깨짐 (dangling link)<br>
 - 다른 파일시스템에도 생성 가능<br>
