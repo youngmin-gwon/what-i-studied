@@ -1,8 +1,8 @@
 ---
-title: quiz_application
+title: quiz-application
 tags: []
 aliases: []
-date modified: 2026-03-05 10:11:27 +09:00
+date modified: 2026-03-05 10:16:35 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
