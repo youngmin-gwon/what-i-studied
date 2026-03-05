@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 11:26:29 +09:00
+date modified: 2026-03-05 11:42:37 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -988,6 +988,88 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 <summary>관리자(root) 권한으로 터미널에 접속한 상태에서 특정 사용자 계정인 <code>algisa</code> 의 패스워드를 강제로 변경(초기화)해주기 위해, 명령 프롬프트에서 입력해야 하는 명령어 전체 구문을 쓰시오.</summary>
 <blockquote>
 <code>passwd algisa</code>
+</blockquote>
+</details>
+
+##### 입출력 재지정 (I/O Redirection)
+
+<details>
+<summary>리눅스/유닉스 시스템에서 커널에 의해 프로세스가 생성될 때, 해당 프로세스가 기본적인 입출력을 수행하기 위해 기본적으로 자동 오픈(할당)하는 3가지 통신 채널(파일)의 명칭과 각 통신 채널에 부여되는 고유한 파일 번호(FD)를 각각 짝지어 쓰시오.</summary>
+<blockquote>
+<strong>표준 입력 (STDIN)</strong>: 0<br>
+<strong>표준 출력 (STDOUT)</strong>: 1<br>
+<strong>표준 에러 (STDERR)</strong>: 2
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 유닉스/리눅스의 '입출력 재지정(I/O Redirection)' 기능의 개념을 표준 채널(표준 입력/출력/에러)과 연관 지어 서술하시오.</summary>
+<blockquote>
+일반적으로 프로세스 실행 시 설정되는 기본 장치인 키보드나 모니터(터미널 화면) 대신, 표준 입력(0), 표준 출력(1), 표준 에러(2)의 방향을 다른 특정 텍스트 파일 등으로 돌려 입력을 받거나 출력결과를 저장하도록 방향을 재지정(Redirection)하는 기능이다.
+</blockquote>
+</details>
+
+<details>
+<summary>명령어 수행 결과 얻어지는 표준 출력이나 표준 에러를 터미널 화면에 띄우지 않고 파일로 덮어쓰거나(overwrite) 추가(append)하기 위해 사용하는 리눅스 터미널 기호 두 가지를 각각 쓰시오.</summary>
+<blockquote>
+<strong>덮어쓰기 (Overwrite)</strong>: <code>></code>  (또는 <code>1></code>)<br>
+<strong>추가하기 (Append)</strong>: <code>>></code> (또는 <code>1>></code>)
+</blockquote>
+</details>
+
+<details>
+<summary>어떤 명령어(예: <code>id alice</code>)의 정상적인 실행 결과(표준 출력)를 터미널 화면이 아닌 <code>id.out</code> 파일에 저장하려 한다. 단, 기존 <code>id.out</code> 파일 내에 이미 저장된 내용을 보존하면서 밑에 이어서 새로운 결과를 기록(Append)하고 싶다면 어떻게 명령어를 작성해야 하는지 전체 문구(기호 포함)를 완성하시오.</summary>
+<blockquote>
+<code>id alice >> id.out</code> (또는 <code>id alice 1>> id.out</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>파일 식별자인 FD(File Descriptor) 중에서 <code>2</code>가 의미하는 바를 쓰고, 이를 활용하여 에러 메시지를 <code>error.log</code> 파일에 덮어써서 기록하는 방법을 기호와 함께 작성하시오.</summary>
+<blockquote>
+<strong>의미</strong>: 표준 에러 (STDERR)<br>
+<strong>작성 방법</strong>: 명령어 <code>2> error.log</code>
+</blockquote>
+</details>
+
+<details>
+<summary>명령어를 실행할 때, 관리자가 FD 기호를 전혀 명시하지 않고 단순히 기호 <code>></code>만 썼을 경우, 쉘(shell)은 이 기호 앞에 어떤 FD 번호가 기본으로 생략된 것으로 간주하는지 쓰시오.</summary>
+<blockquote>
+1 (표준 출력, STDOUT)
+</blockquote>
+</details>
+
+<details>
+<summary>다음 명령어 실행 흐름을 분석하고, 명령어 <code>id bob 1> id.out</code>를 실행했을 때 기존 <code>id.out</code> 파일이 어떻게 변화하는지 서술하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code># id alice > id.out</code><br>
+<code># cat id.out</code> (결과: uid=529(alice) ... )<br>
+<code># id bob 1> id.out</code>
+</div>
+</summary>
+<blockquote>
+<code>></code>(또는 <code>1></code>) 기호는 Overwrite(덮어쓰기) 모드로 동작하기 때문에, 방금 전에 저장해 둔 기존 파일(<code>id.out</code>)의 내용 전체(alice 관련 결과)를 지워버리고 방금 실행한 명령어 결과(bob 관련 결과)만 새롭게 저장하게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 명령어 입력 결과를 분석하시오. 아래 <code>ls -l a.dat b.dat</code> 명령어를 실행했는데 화면에는 에러 한 줄과 정상 출력 한 줄이 섞여 나왔다. 이를 다시 재지정하기 위해 다음과 같이 명령을 입력했다. <code>ls -l a.dat b.dat 1> ls.out 2> ls.err</code>. 이후 <code>cat ls.err</code> 명령을 입력했을 때 화면에 출력될 것으로 예상되는 내용을 문장 구조로 서술하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>[root@Fedora ~]# ls -l a.dat b.dat</code><br>
+<code>ls: cannot access b.dat: No such file or directory</code><br>
+<code>-rw-r--r-- 1 root root 0 2024-02-11 16:11 a.dat</code>
+</div>
+</summary>
+<blockquote>
+<code>2> ls.err</code> 로 표준 에러가 재지정되었기 때문에, 에러 메시지인 <code>ls: cannot access b.dat: No such file or directory</code> 만이 <code>ls.err</code> 파일에 저장되며 터미널(모니터)에는 아무것도 출력되지 않고 오직 파일 안의 에러 내용만 확인된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 어떤 명령이 발생시키는 표준 출력(1)과 표준 에러(2) 메시지를 터미널에 띄우지 않고 몽땅 하나의 파일(예: <code>ls.out</code>)에 한데 모아 저장하고 싶다. 이를 처리하기 위한 리눅스 문법에서 <code>표준 에러(2)</code>를 앞서 정해둔 <code>표준 출력(1)</code>의 결과물로 합쳐서 재지정하겠다는 의미로 사용하는 기호와 명령 구성 방식을 파일명을 이용하여 직접 쓰고 해석하시오.</summary>
+<blockquote>
+<strong>기호 및 명령 구성 예시</strong>: <code>명령어 > ls.out 2>&1</code><br>
+<strong>해석</strong>: 우선 <code>> ls.out</code> (즉, <code>1> ls.out</code>)로 명령의 정상 출력 결과(1)를 <code>ls.out</code> 파일로 보내도록 재지정한다. 그 다음 뒤에 오는 <code>2>&1</code> 문법을 이용해, 표준 에러(2) 또한 이미 설정해 둔 표준 출력(&1)의 경로인 동일 파일(ls.out)로 함께 합쳐서 재지정한다는 뜻이다. 이를 통해 정상 메시지와 에러 메시지가 모두 하나의 파일에 저장된다.
 </blockquote>
 </details>
 
