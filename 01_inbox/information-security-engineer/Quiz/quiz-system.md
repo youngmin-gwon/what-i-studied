@@ -832,6 +832,85 @@ algisa algisa2 Guest kiwi99<br>
 </details>
 
 ### 2. UNIX/Linux 기본 학습
+
+#### 시스템 기본
+
+##### 사용자 정보
+
+<details>
+<summary>리눅스/유닉스 시스템에서 사용자 계정 관련 정보가 저장되며, 콜론(:)을 구분자로 하여 총 7개의 필드로 구성되어 있는 시스템 설정 파일의 절대 경로를 쓰시오.</summary>
+<blockquote>
+/etc/passwd<br><br>
+※ 해당 파일은 사용자 계정명, 패스워드 설정 여부, UID, GID, 설명, 홈 디렉터리, 로그인 쉘 정보를 담고 있습니다.
+</blockquote>
+</details>
+
+<details>
+<summary>다음은 <code>/etc/passwd</code> 파일의 특정 계정 설정 라인이다. 각 빈칸 (가)와 (나)에 들어갈 필드의 정확한 명칭을 차례대로 작성하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>root:x:0:0:root:/root:/bin/bash</code><br>
+순서대로 [계정명] : [사용자 패스워드] : <strong>( 가 )</strong> : <strong>( 나 )</strong> : [설명] : [홈 디렉터리] : [로그인 쉘] 이다.
+</div>
+</summary>
+<blockquote>
+(가) 사용자 ID (UID)<br>
+(나) 사용자 기본 그룹 ID (GID)
+</blockquote>
+</details>
+
+<details>
+<summary>리눅스 시스템의 <code>/etc/passwd</code> 파일 두 번째 필드인 '사용자 패스워드' 영역에 <code>x</code> 기호가 적혀 있는 경우, 시스템이 적용하고 있는 패스워드 보호 정책의 명칭과 실제 암호화된 비밀번호가 보관되는 파일의 절대 경로를 쓰시오.</summary>
+<blockquote>
+<strong>정책 명칭</strong>: shadow 패스워드 정책<br>
+<strong>저장 경로</strong>: /etc/shadow<br><br>
+※ x 기호는 비밀번호가 없다는 뜻이 아니라 패스워드가 암호화되어 shadow 파일에 분리 저장되어 있다는 의미입니다.
+</blockquote>
+</details>
+
+<details>
+<summary><code>/etc/passwd</code> 파일에서 리눅스 시스템 관리자(슈퍼 유저)인 root 계정에게 부여하도록 시스템상 예약되어 있는 사용자 ID(UID)의 번호 값을 적으시오.</summary>
+<blockquote>
+0
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 동일한 리눅스 시스템 내에서 서로 다른 계정명을 가지는 두 개의 계정이 <code>/etc/passwd</code> 상에서 동일한 UID 값으로 설정된 경우, 운영체제(시스템)는 이 두 계정을 어떻게 인지하고 처리하는지 서술하시오.</summary>
+<blockquote>
+시스템은 서로 다른 계정명을 사용하더라도 같은 UID를 가지면 완전히 '동일한 사용자(계정)'로 판단하며, 이에 따라 두 계정은 서로 동일한 파일 접근 권한 및 시스템 통제 권한을 갖게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 관리자가 일반 사용자의 UID가 <code>0</code>으로 설정된 계정이 존재하는지 주기적으로 점검해야 하는 보안상 핵심적인 이유를 권한 관점에서 서술하시오.</summary>
+<blockquote>
+root 계정에 할당되는 UID 0을 일반 계정이 부여받게 되면, 악의적인 사용자가 해당 일반 계정으로 접속하는 즉시 시스템으로부터 최고 관리자(root) 권한으로 취급받게 되어, 이를 통해 악성 파일 설치나 중요 시스템 구성 변조 등 전체 시스템 제어권이 탈취되는 심각한 '권한 상승(탈취)' 취약점이 발생할 수 있기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>리눅스 시스템에서 사용자가 파일을 생성할 때, 생성된 자원(파일 등)의 '소유 그룹(Group Ownership)'을 결정하는 기준으로 작용하며 모든 사용자가 필수적으로 하나씩 소속되어야 하는 그룹을 뜻하는 용어는 무엇인지 쓰시오.</summary>
+<blockquote>
+기본 그룹 (Primary group)
+</blockquote>
+</details>
+
+<details>
+<summary>시스템에서 특정 사용자 계정(예: <code>algisa</code>)에 부여된 UID 번호, 소속된 기본 그룹(gid) ID 파악은 물론 다른 추가적인 보조 그룹(groups) 내역까지 한 번에 조회하고자 할 때, 콘솔에서 사용할 수 있는 가장 기본적인 유닉스/리눅스 명령어는 무엇인지 쓰시오.</summary>
+<blockquote>
+id<br><br>
+※ 예시 명령어: <code>id algisa</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스의 <code>/etc/passwd</code> 파일 맨 마지막 필드인 '로그인 쉘(Login shell)' 구역의 기본 기능과, 공격자가 해당 필드 내용을 다른 경로로 변조하였을 때 우려되는 악용 사례를 보안 관점에서 서술하시오.</summary>
+<blockquote>
+<strong>기본 기능</strong>: 사용자가 로그인을 완료한 후 커널과 상호작용하기 위해 기본적으로 실행될 쉘 프로그램(예: /bin/bash 등)을 지정하는 기능이다.<br>
+<strong>악용 사례</strong>: 공격자가 시스템을 침해하여 본 필드에 정상적인 쉘 대신 악성 프로그램이나 악성 쉘(백도어 등) 파일 경로를 연결해 두면, 이후 사용자가 정상적으로 로그인만 하더라도 본인도 모르게 악성 코드가 백그라운드에서 자동 실행되는 방식으로 악용될 수 있다.
+</blockquote>
+</details>
+
 #### 시스템 기본 명령어
 
 ##### 디렉터리 및 파일 탐색 명령어
