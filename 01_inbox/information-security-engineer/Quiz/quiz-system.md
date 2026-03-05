@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 11:42:37 +09:00
+date modified: 2026-03-05 13:40:51 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1012,7 +1012,7 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 <details>
 <summary>명령어 수행 결과 얻어지는 표준 출력이나 표준 에러를 터미널 화면에 띄우지 않고 파일로 덮어쓰거나(overwrite) 추가(append)하기 위해 사용하는 리눅스 터미널 기호 두 가지를 각각 쓰시오.</summary>
 <blockquote>
-<strong>덮어쓰기 (Overwrite)</strong>: <code>></code>  (또는 <code>1></code>)<br>
+<strong>덮어쓰기 (Overwrite)</strong>: <code>></code> (또는 <code>1></code>)<br>
 <strong>추가하기 (Append)</strong>: <code>>></code> (또는 <code>1>></code>)
 </blockquote>
 </details>
@@ -1043,7 +1043,7 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 <summary>다음 명령어 실행 흐름을 분석하고, 명령어 <code>id bob 1> id.out</code>를 실행했을 때 기존 <code>id.out</code> 파일이 어떻게 변화하는지 서술하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <code># id alice > id.out</code><br>
-<code># cat id.out</code> (결과: uid=529(alice) ... )<br>
+<code># cat id.out</code> (결과: uid=529(alice) … )<br>
 <code># id bob 1> id.out</code>
 </div>
 </summary>
@@ -1070,6 +1070,142 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 <blockquote>
 <strong>기호 및 명령 구성 예시</strong>: <code>명령어 > ls.out 2>&1</code><br>
 <strong>해석</strong>: 우선 <code>> ls.out</code> (즉, <code>1> ls.out</code>)로 명령의 정상 출력 결과(1)를 <code>ls.out</code> 파일로 보내도록 재지정한다. 그 다음 뒤에 오는 <code>2>&1</code> 문법을 이용해, 표준 에러(2) 또한 이미 설정해 둔 표준 출력(&1)의 경로인 동일 파일(ls.out)로 함께 합쳐서 재지정한다는 뜻이다. 이를 통해 정상 메시지와 에러 메시지가 모두 하나의 파일에 저장된다.
+</blockquote>
+</details>
+
+##### 파이프(Pipe) 또는 파이프라인(Pipeline) 기능
+
+<details>
+<summary>유닉스 초기 시절부터 지원하는 프로세스 간 통신(IPC) 기법의 하나로, 한 프로세스의 표준 출력(Standard Output)을 다른 프로세스의 표준 입력(Standard Input)으로 직접 전달해주는 기능의 명칭은?</summary>
+<blockquote>
+파이프 (Pipe) 또는 파이프라인 (Pipeline)
+</blockquote>
+</details>
+
+<details>
+<summary>파이프 기능을 적용하여 앞서 실행되는 명령어의 결과 데이터를 뒤따르는 명령어의 입력 데이터로 넘기고자 할 때, 그 명령어 체인 사이에 삽입해야 하는 특수 기호를 쓰시오.</summary>
+<blockquote>
+<code>|</code> (파이프 기호, 수직선/버티컬 바)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 여러 개의 명령어가 <code>command1 | command2 | command3</code> 형태로 파이프라인을 구축하고 있을 때, 중간에 있는 <code>command2</code> 가 입력과 출력의 관점에서 시스템적으로 어떻게 기능하는지 메커니즘을 구체적으로 서술하시오.</summary>
+<blockquote>
+<code>command2</code>는 <code>command1</code>이 작업을 마치고 뿜어내는 '표준 출력' 데이터를 자신의 '표준 입력'으로 흡수하여 자체 내부 프로세스로 가공 및 처리한 후, 그 변환된 결과를 다시 자신의 '표준 출력'으로 내보내어 다음 순서인 <code>command3</code>의 '표준 입력'으로 안전하게 전달하는 브릿지(파이프) 역할을 수행한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 디렉터리 내에 있는 파일 중 내용이 몹시 긴 파일 <code>syslog</code> 의 출력 결과를 터미널에서 한 번에 스크롤되어 지나가지 않도록 화면 크기 단위로 끊어서 한 페이지씩 조회하고자 한다. 이때 <code>cat</code> 명령과 <code>more</code> 명령을 파이프 기호로 연계하여 하나의 명령 구문으로 작성하시오.</summary>
+<blockquote>
+<code>cat syslog | more</code>
+</blockquote>
+</details>
+
+<details>
+<summary>파이프 기능과 가장 자주 쓰이는 명령어 중 하나로, 파일 내용이나 들어온 입력 스트림 데이터에서 자신이 지정한 특정 패턴(문자열 등)을 필터링하여 일치하는 '행'만 출력해 주는 핵심 필터링 도구의 명칭은 무엇인지 쓰시오.</summary>
+<blockquote>
+<code>grep</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 사용자 계정 정보가 담겨 있는 저장소인 파스워드 파일의 전체 내용을 불러온 후, 파이프 기법을 이용해 <code>alice</code> 라는 특정 문자열(계정명 등)이 포함된 정보 내역만 필터링해 모니터에 출력하려 한다. 이에 알맞은 명령 구문을 작성하시오.</summary>
+<blockquote>
+<code>cat /etc/passwd | grep alice</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 콘솔을 통해 시스템에서 현재 가동 중인 전체 프로세스 목록(ps -ef)을 모두 확인한 후, 그 수많은 프로세스 속에서 아파치 웹 데몬인 <code>httpd</code> 문자열이 포함된 프로세스 라인만 콕 집어 출력하고자 한다. 파이프를 이용한 전체 조합 명령어를 완성하시오.</summary>
+<blockquote>
+<code>ps -ef | grep httpd</code>
+</blockquote>
+</details>
+
+<details>
+<summary><code>grep</code> 명령어를 사용할 때 자신이 조건으로 지정한 특정 패턴(문자열) 데이터가 <strong>포함되지 않은</strong>(제외된) 행 데이터만을 거꾸로 화면에 결과로 출력하고자 할 경우 사용해야 하는 문자 옵션을 기호와 함께 쓰시오.</summary>
+<blockquote>
+<code>-v</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(고급/작업형) 윈도우와는 달리 리눅스 시스템에서 데몬 프로세스를 점검하기 위해 <code>ps -ef | grep vsftpd</code> 명령을 쳤을 때, `vsftpd` 문구가 포함된 내역 뿐 아니라 내가 검색하려고 파이프라인으로 연결하여 입력한 명령 <code>grep vsftpd</code> 프로세스 자체도 결과에 줄바꿈되어 함께 출력된다고 가정하자.<br>이때 다시 한 번 파이프 기호를 연쇄적으로 덧붙여 명령을 내림으로써, 검색을 위해 입력한 grep 구문은 빼고 순수하게 <code>vsftpd</code> 프로세스 라인만 깔끔하게 도출하려 한다. 빈칸에 들어갈 명령어를 작성하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>ps -ef | grep vsftpd |</code> <strong>[ 빈 칸 ]</strong>
+</div>
+</summary>
+<blockquote>
+<code>grep -v grep</code>
+</blockquote>
+</details>
+
+##### 특수 문자 (메타 문자, Meta Character)
+
+<details>
+<summary>쉘 명렁에서 사전에 정의된 특별한 기능이 있는 문자를 메타 문자라고 한다. 이 중 현재 내 작업 위치와 그 위 디렉터리를 지칭하는 각각의 특수 문자 기호를 쓰시오.</summary>
+<blockquote>
+<strong>.</strong> : 현재 작업 디렉터리<br>
+<strong>..</strong> : 상위 디렉터리
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스 쉘에서 <code>cd ~</code> 명령을 입력하면 사용자는 자신의 홈 디렉터리로 즉시 이동한다. 그렇다면 본인의 홈 디렉터리가 아닌 다른 대리 사용자(예: algisa)의 홈 디렉터리(예: /home/algisa)로 단번에 이동하고자 할 때 사용하는 명령어 구문을 기호를 포함해 작성하시오.</summary>
+<blockquote>
+<code>cd ~algisa</code>
+</blockquote>
+</details>
+
+<details>
+<summary>리눅스 쉘(터미널)에서 파일 백업 등 오래 걸리는 특정 명령어를 화면 조작 없이 '백그라운드(Background)' 모드로 안보이게 계속 실행시키려 할 때, 명령어 구문 마지막에 덧붙이는 특수 문자 기호는 무엇인지 쓰시오.</summary>
+<blockquote>
+<code>&</code> (앰퍼샌드 기호)
+</blockquote>
+</details>
+
+<details>
+<summary>쉘 스크립트 작성 시 실행과 무관하게 참고용 설명을 남기기 위해 사용하는 '주석(Comment)' 기호와, 시스템 내부 환경 설정값인 '쉘 변수(Shell Variable)'의 값을 읽어들일 때 변수명 앞에 접두사처럼 붙이는 기호를 각각 차례대로 쓰시오.</summary>
+<blockquote>
+<strong>주석</strong>: <code>#</code><br>
+<strong>쉘 변수 호출</strong>: <code>$</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스의 특수 문자(메타 문자) 중 파일 시스템 검색에 흔히 쓰이는 와일드카드(Wildcard)인 <code>*</code> 기호와 <code>?</code> 기호의 대체(치환) 원리에 대한 차이점을 서술하시오.</summary>
+<blockquote>
+<code>*</code> 기호는 임의의 문자가 0개 이상(길이 무관) 나타나는 모든 문자열을 와일드카드로 대체하지만, <code>?</code> 기호는 정확히 '임의의 1개 문자' 분량만을 제한적으로 와일드카드 치환(대체)한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 디렉터리에 <code>ab.dat</code>, <code>a.dat</code>, <code>ab.txt</code>, <code>a.txt</code> 파일들이 존재하고 있다. 이 중에서 파일 이름이 임의의 '단 한 글자'로 되어 있으며 확장자가 <code>.dat</code>로 일치하는 파일(즉, a.dat)만을 정확히 집어내 출력하고자 한다. 와일드카드 문자를 알맞게 사용하여 파일 목록(<code>ls</code>) 출력 명령어를 작성하시오.</summary>
+<blockquote>
+<code>ls ?.dat</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 이번에는 디렉터리에 존재하는 파일들 중 파일 이름이 <code>ab</code>라는 문자열로 시작하기만 하면 뒤를 잇는 확장자나 문자열 길이에 상관없이 무조건 전부 출력하고자 한다. 와일드카드를 사용해 가장 적절한 <code>ls</code> 검색 명령어를 작성하시오.</summary>
+<blockquote>
+<code>ls ab*</code>
+</blockquote>
+</details>
+
+<details>
+<summary>쉘에서 여러 낱개의 명령어들을 키보드로 한 줄에 길게 기입하여, 첫 번째 명령부터 마지막 명령까지 연속적으로 차례차례 순차 실행하게 해주는 명령 구분자(Separator) 기능의 특수 기호는 무엇인가?</summary>
+<blockquote>
+<code>;</code> (세미콜론 기호)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 시스템 운영 상태 점검 등을 위해, ①현재 날짜와 시간 확인(<code>date</code>), ②현재 사용 중인 본인의 셸 접속 계정명 확인(<code>whoami</code>), ③본인 계정의 그룹/ID 상세 권한 내역 출력(<code>id</code>)이라는 세 가지 독립적인 명령을 마치 하나의 스크립트처럼 엔터 한 번에 연속 실행되도록 만들고자 한다. 명령 구분자 기호를 사용해 한 줄 코드를 작성하시오.</summary>
+<blockquote>
+<code>date; whoami; id</code>
 </blockquote>
 </details>
 
