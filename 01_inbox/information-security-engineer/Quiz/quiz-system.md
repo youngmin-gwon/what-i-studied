@@ -1,8 +1,8 @@
 ---
-title: quiz_system
+title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 10:10:55 +09:00
+date modified: 2026-03-05 11:17:26 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
