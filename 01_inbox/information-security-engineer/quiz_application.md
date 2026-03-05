@@ -2,7 +2,7 @@
 title: quiz_application
 tags: []
 aliases: []
-date modified: 2026-02-26 14:24:57 +09:00
+date modified: 2026-03-05 10:10:57 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -124,4 +124,3 @@ AndroidManifest.xml
 PreparedStatement (또는 Parameterized Query)
 </blockquote>
 </details>
-
