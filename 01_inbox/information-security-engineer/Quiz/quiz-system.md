@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 14:35:19 +09:00
+date modified: 2026-03-05 14:43:21 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1209,9 +1209,43 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 </blockquote>
 </details>
 
-#### 시스템 기본 명령어
+#### 파일 시스템 응용
+##### 파일 시스템 개요
+##### 파일 시스템 링크 파일
 
-##### 디렉터리 및 파일 탐색 명령어
+###### ln (Create links)
+
+<details>
+<summary>파일에 대한 링크를 생성하는 명령어는?</summary>
+<blockquote>
+ln
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 하드링크와 심볼릭 링크의 차이점을 다음 명령어 예시와 함께 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ ln file.txt hardlink.txt</code><br>
+<code>$ ln -s file.txt symlink.txt</code><br>
+원본 파일 삭제 시 각 링크에 미치는 영향은?
+</div>
+</summary>
+<blockquote>
+<strong>하드링크 (ln file.txt hardlink.txt):</strong><br>
+- 같은 inode를 공유, 원본과 동일한 파일<br>
+- 원본 삭제되어도 하드링크는 여전히 유효<br>
+- 같은 파일시스템 내에서만 생성 가능<br>
+- 디렉터리에는 생성 불가<br><br>
+<strong>심볼릭 링크 (ln -s file.txt symlink.txt):</strong><br>
+- 원본 파일의 경로만 저장하는 별도 파일<br>
+- 원본 삭제 시 심볼릭 링크는 깨짐 (dangling link)<br>
+- 다른 파일시스템에도 생성 가능<br>
+- 디렉터리에도 생성 가능<br><br>
+원본 파일 삭제 시 하드링크는 여전히 데이터에 접근 가능하지만, 심볼릭 링크는 접근 불가능하다.
+</blockquote>
+</details>
+
+##### 디렉터리 관리
 
 ###### pwd (Print Working Directory)
 
@@ -1237,120 +1271,133 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 </blockquote>
 </details>
 
-##### 파일 내용 조회
-
-###### cat (Concatenate and display files)
+###### ls (List directory contents)
 
 <details>
-<summary>파일의 전체 내용을 화면에 출력하는 기본 명령어는?</summary>
+<summary>UNIX/Linux에서 현재 디렉터리의 파일과 폴더 목록을 표시하는 기본 명령어는?</summary>
 <blockquote>
-<code>cat</code>
+<code>ls</code>
 </blockquote>
 </details>
 
 <details>
-<summary>cat 명령어를 사용하여 파일 내용을 줄 번호와 함께 출력하는 옵션을 쓰시오.</summary>
+<summary>ls 명령어에서 숨겨진 파일(.으로 시작하는 파일)을 포함하여 자세한 정보를 긴 형식으로 표시하는 옵션 조합을 쓰시오.</summary>
 <blockquote>
-<code>cat -n</code><br><br>
-- <code>cat -n</code> : 모든 줄에 번호를 표시하여 출력<br>
-- <code>cat -b</code> : 비어있지 않은 줄에만 번호를 표시<br>
-- <code>cat -s</code> : 연속된 빈 줄을 하나로 압축<br>
-- <code>cat -v</code> : 비출력 문자를 시각적으로 표시
+<code>ls -la</code><br><br>
+- <code>ls -l</code> : 파일의 자세한 정보를 긴 형식으로 표시<br>
+- <code>ls -a</code> : 숨겨진 파일(.으로 시작하는 파일)까지 표시<br>
+- <code>ls -h</code> : 파일 크기를 사람이 읽기 쉬운 형식으로 표시 (KB, MB, GB)
 </blockquote>
 </details>
 
 <details>
-<summary>(고급) 다음 명령어들의 실행 결과와 활용 상황을 설명하시오.
+<summary>(고급) 다음 명령어의 실행 결과를 분석하고, 각 필드가 의미하는 바를 설명하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ cat file1 file2 > merged.txt</code><br>
-<code>$ cat > newfile.txt << EOF</code><br>
-<code>$ cat /dev/null > logfile.txt</code>
+<code>$ ls -la /tmp/test.txt</code><br>
+<code>-rwsr-xr-x 1 root wheel 2048 Dec 25 10:30 /tmp/test.txt</code>
 </div>
 </summary>
 <blockquote>
-1) <code>cat file1 file2 > merged.txt</code> : 두 파일을 연결하여 새 파일로 저장<br>
-2) <code>cat > newfile.txt</code> << EOF : HERE 문서를 사용하여 텍스트를 입력받아 파일로 저장 (EOF까지 입력받음)<br>
-3) <code>cat /dev/null > logfile.txt</code> : 파일의 내용을 완전히 비움 (파일 크기를 0으로 만듦)<br><br>
-세 번째 명령은 로그 파일 초기화나 임시 파일 정리 시 자주 사용된다.
+- 첫 번째 문자 <code>'-'</code>: 일반 파일을 의미<br>
+- <code>'rwsr-xr-x'</code>: 파일 권한 (소유자:rwx, 그룹:r-x, 기타:r-x, 's'는 SetUID 설정)<br>
+- <code>'1'</code>: 하드링크 수<br>
+- <code>'root'</code>: 파일 소유자<br>
+- <code>'wheel'</code>: 그룹 소유자<br>
+- <code>'2048'</code>: 파일 크기 (바이트)<br>
+- <code>'Dec 25 10:30'</code>: 마지막 수정 시간<br>
+- <code>'/tmp/test.txt'</code>: 파일 경로<br><br>
+특히 권한 부분에서 's'는 SetUID가 설정되어 있어, 이 파일을 실행할 때 소유자(root) 권한으로 실행됨을 의미한다.
 </blockquote>
 </details>
 
-###### more/less (File content pager)
+###### cd (Change Directory)
 
 <details>
-<summary>대용량 로그 파일(/var/log/system.log)을 페이지 단위로 조회하면서 앞뒤로 자유롭게 이동할 수 있는 명령을 쓰시오.</summary>
+<summary>UNIX/Linux에서 현재 작업 디렉터리를 변경하는 명령어는?</summary>
 <blockquote>
-<code>less /var/log/system.log</code><br><br>
-<code>less</code>는 <code>more</code>와 달리 앞뒤로 자유롭게 이동 가능하며, 검색 기능과 더 많은 기능을 제공한다.
+<code>cd</code>
 </blockquote>
 </details>
 
 <details>
-<summary><code>more</code>와 <code>less</code> 명령어의 주요 차이점을 설명하시오.</summary>
+<summary>cd 명령어를 사용하여 이전 작업 디렉터리로 돌아가는 명령을 쓰시오.</summary>
 <blockquote>
-- <code>more</code>: 앞으로만 이동 가능, 기본적인 페이징 기능<br>
-- <code>less</code>: 앞뒤로 자유롭게 이동 가능, 검색 기능, 더 많은 기능 제공<br><br>
-<code>less</code>는 <code>more</code>의 확장된 버전으로 "less is more"라는 의미를 가진다.
-</blockquote>
-</details>
-
-###### head (Display first lines)
-
-<details>
-<summary>보안 로그 파일(/var/log/auth.log)에서 가장 최근의 로그인 시도 20건을 확인하는 명령을 쓰시오.</summary>
-<blockquote>
-<code>tail -n 20 /var/log/auth.log</code><br><br>
-<code>tail</code> 명령어는 파일의 마지막 부분을 출력하며, <code>-n</code> 옵션으로 출력할 줄 수를 지정할 수 있다.
+<code>cd -</code><br><br>
+- <code>cd ~</code> : 홈 디렉터리로 이동<br>
+- <code>cd ..</code> : 상위 디렉터리로 이동<br>
+- <code>cd -</code> : 이전 디렉터리로 이동
 </blockquote>
 </details>
 
 <details>
-<summary>(중급) 다음 명령어들의 실행 결과를 설명하시오.
+<summary>(고급) 다음 상황에서 각 명령어 실행 후의 현재 디렉터리 경로를 예측하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ head -n 20 /var/log/syslog</code><br>
-<code>$ head -c 100 binary_file</code><br>
-<code>$ head -f logfile.txt</code>
+초기 상태: /home/user/documents/projects<br>
+1) <code>$ cd ../../../</code><br>
+2) <code>$ cd ./usr/bin</code><br>
+3) <code>$ cd -</code><br>
+4) <code>$ cd ~user/downloads</code>
 </div>
 </summary>
 <blockquote>
-1) <code>head -n 20 /var/log/syslog</code> : syslog 파일의 처음 20줄을 출력<br>
-2) <code>head -c 100 binary_file</code> : binary_file의 처음 100바이트를 출력<br>
-3) <code>head -f logfile.txt</code> : 잘못된 옵션, <code>head</code>에는 -f 옵션이 없음 (<code>tail -f</code>와 혼동)<br><br>
-<code>head</code>는 기본적으로 10줄을 출력하며, <code>-n</code> 옵션으로 줄 수를 지정할 수 있다.
+5) /home (3단계 상위로 이동)<br>
+6) /home/usr/bin (현재 위치에서 상대경로로 이동, 단 해당 경로가 존재한다고 가정)<br>
+7) /home/user/documents/projects (이전 디렉터리로 복귀)<br>
+8) /home/user/downloads (user의 홈 디렉터리 하위 downloads로 이동)
 </blockquote>
 </details>
 
-###### tail (Display last lines)
+###### mkdir (Make Directory)
 
 <details>
-<summary>웹 서버 액세스 로그를 실시간으로 모니터링하여 새로 추가되는 로그 항목을 지속적으로 화면에 출력하는 명령을 쓰시오.</summary>
+<summary>새로운 디렉터리를 생성하는 명령어는?</summary>
 <blockquote>
-<code>tail -f /var/log/apache2/access.log</code><br><br>
-<code>tail -f</code> 옵션은 파일의 끝을 실시간으로 모니터링하여 새로 추가되는 내용을 지속적으로 출력한다. 시스템 관리자가 로그를 실시간으로 모니터링할 때 필수적으로 사용하는 명령어이다.
+<code>mkdir</code>
 </blockquote>
 </details>
 
 <details>
-<summary>(고급) 다음 tail 명령어의 고급 사용법과 실제 활용 상황을 설명하시오.
+<summary>mkdir 명령어를 사용하여 "/home/user/project/2024/final" 경로의 디렉터리를 상위 디렉터리가 존재하지 않더라도 한 번에 생성하는 명령을 쓰시오.</summary>
+<blockquote>
+<code>mkdir -p /home/user/project/2024/final</code><br><br>
+-p 옵션은 상위 디렉터리가 존재하지 않을 경우 함께 생성한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 명령어를 실행했을 때의 결과와 생성된 디렉터리의 권한을 설명하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ tail -f /var/log/apache2/access.log</code><br>
-<code>$ tail -n +100 large_file.txt</code><br>
-<code>$ tail -f file1.log file2.log</code>
+<code>$ umask 022</code><br>
+<code>$ mkdir -m 755 /tmp/secure_dir</code><br>
+<code>$ mkdir /tmp/normal_dir</code>
 </div>
 </summary>
 <blockquote>
-1) <code>tail -f /var/log/apache2/access.log</code> : 실시간으로 로그 파일 모니터링 (새로 추가되는 내용 표시)<br>
-2) <code>tail -n +100 large_file.txt</code> : 100번째 줄부터 파일 끝까지 출력<br>
-3) <code>tail -f file1.log file2.log</code> : 여러 파일을 동시에 실시간 모니터링<br><br>
-<code>tail -f</code>는 시스템 관리자가 로그 모니터링할 때 필수적으로 사용하는 명령어이다.
+- <code>/tmp/secure_dir</code> : 755 권한 (rwxr-xr-x) - <code>-m</code> 옵션으로 명시적 지정<br>
+- <code>/tmp/normal_dir</code> : 755 권한 (rwxr-xr-x) - <code>umask 022</code>가 <code>777</code>에서 <code>022</code>를 뺀 결과<br><br>
+디렉터리의 기본 권한은 <code>777</code>이고, <code>umask 022</code>가 적용되어 <code>755</code>가 된다. <code>-m</code> 옵션은 <code>umask</code>를 무시하고 지정된 권한을 직접 설정한다.
 </blockquote>
 </details>
 
-##### 파일 조작 명령어
+###### rmdir (Remove Directory)
 
-##### 권한 및 소유권 관리 명령어
+<details>
+<summary>빈 디렉터리를 삭제하는 명령어는?</summary>
+<blockquote>
+<code>rmdir</code>
+</blockquote>
+</details>
 
-##### 텍스트 처리 명령어
+<details>
+<summary><code>rmdir</code> 명령어와 <code>rm -rf</code> 명령어의 차이점을 설명하시오.</summary>
+<blockquote>
+- <code>rmdir</code>: 빈 디렉터리만 삭제 가능, 안전함<br>
+- <code>rm -rf</code>: 디렉터리와 그 내용을 강제로 삭제, 위험할 수 있음<br><br>
+<code>rmdir</code>은 디렉터리가 비어있지 않으면 삭제를 거부하여 실수로 중요한 파일을 삭제하는 것을 방지한다.
+</blockquote>
+</details>
+
+##### 텍스트 처리
 
 ###### wc (Word Count)
 
@@ -1566,7 +1613,286 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 </blockquote>
 </details>
 
-##### 파일 분할 및 비교 명령어
+##### 텍스트 검색
+
+###### grep (Search text patterns)
+
+<details>
+<summary>시스템 로그 파일(/var/log/auth.log)에서 SSH 로그인 실패 기록을 검색하는 명령을 쓰시오.</summary>
+<blockquote>
+<code>grep "Failed.*ssh" /var/log/auth.log</code><br><br>
+<code>grep</code>은 파일에서 특정 패턴을 검색하는 명령어로, 보안 로그 분석에서 핵심적으로 사용된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(전문가급) 다음 grep의 고급 정규표현식과 보안 관련 활용을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ grep -E '^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' access.log</code><br>
+<code>$ grep -r --include="*.conf" "password" /etc/</code><br>
+<code>$ grep -v '^#\|^$' config.txt</code><br>
+<code>$ grep -A 3 -B 2 "ERROR" system.log</code>
+</div>
+</summary>
+<blockquote>
+1) <code>grep -E '^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' access.log</code><br>
+   - 확장 정규표현식으로 IP 주소 패턴 검색<br>
+   - 로그 분석: 접속 IP 추출<br><br>
+1) <code>grep -r --include="*.conf" "password" /etc/</code><br>
+   - 특정 파일 확장자만 대상으로 재귀 검색<br>
+   - 보안 점검: 설정 파일의 패스워드 노출 검사<br><br>
+1) <code>grep -v '^#\|^$' config.txt</code><br>
+   - 주석(#)과 빈 줄 제외하고 검색<br>
+   - 실제 설정 내용만 추출<br><br>
+1) <code>grep -A 3 -B 2 "ERROR" system.log</code><br>
+   - 에러 발생 전후 맥락(context) 표시<br>
+   - 로그 분석: 에러 원인 파악<br><br>
+<strong>보안 활용:</strong><br>
+- 로그 모니터링: <code>grep "Failed.*ssh" /var/log/auth.log</code><br>
+- 취약점 검사: <code>grep -r "eval.*\$_" /var/www/</code><br>
+- 권한 검사: <code>find / -perm -4000 | grep -v expected</code><br>
+- 네트워크: <code>netstat -an | grep LISTEN</code><br><br>
+<strong>성능 팁:</strong><br>
+- <code>-F</code>: 문자열 고정 검색 (정규표현식 안 사용)<br>
+- <code>-m</code>: 최대 매치 수 제한
+</blockquote>
+</details>
+
+##### 파일 관리
+
+###### touch (Create empty files and change timestamps)
+
+<details>
+<summary>빈 파일을 생성하거나 파일의 타임스탬프를 변경하는 명령어는?</summary>
+<blockquote>
+<code>touch</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 touch 명령어들의 고급 사용법과 실제 활용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ touch -t 202312251030 important.txt</code><br>
+<code>$ touch -r reference.txt newfile.txt</code><br>
+<code>$ touch -a logfile.txt</code><br>
+<code>$ touch -m datafile.txt</code>
+</div>
+</summary>
+<blockquote>
+1) <code>touch -t 202312251030 important.txt</code><br>
+   - 특정 시간(2023년 12월 25일 10:30)으로 타임스탬프 설정<br>
+   - 용도: 파일 백업 시 원본 시간 정보 보존<br><br>
+1) <code>touch -r reference.txt newfile.txt</code><br>
+   - reference.txt와 같은 타임스탬프로 설정<br>
+   - 용도: 여러 파일의 시간 정보 동기화<br><br>
+1) <code>touch -a logfile.txt</code><br>
+   - 접근 시간(atime)만 현재 시간으로 변경<br>
+   - 용도: 파일 접근 로그 관리<br><br>
+1) <code>touch -m datafile.txt</code><br>
+   - 수정 시간(mtime)만 현재 시간으로 변경<br>
+   - 용도: 빌드 시스템에서 파일 강제 재컴파일 유도<br><br>
+실제 활용: 백업 스크립트, 빌드 시스템, 로그 관리, 테스트 환경 구성
+</blockquote>
+</details>
+
+###### mv (Move/Rename files)
+
+<details>
+<summary>현재 디렉터리에 있는 모든 .tmp 확장자 파일을 /tmp/backup/ 디렉터리로 이동시키는 명령을 쓰시오.</summary>
+<blockquote>
+mv *.tmp /tmp/backup/<br><br>
+mv 명령어는 파일 이동과 이름 변경에 사용되며, 와일드카드(*)를 사용하여 여러 파일을 한 번에 처리할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 mv 명령어 상황들의 결과를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ mv file.txt /tmp/</code><br>
+<code>$ mv file.txt newname.txt</code><br>
+<code>$ mv *.log /backup/</code><br>
+<code>$ mv dir1 dir2</code> (dir2가 존재하지 않는 경우)
+</div>
+</summary>
+<blockquote>
+1) <code>mv file.txt /tmp/</code> : file.txt를 /tmp/ 디렉터리로 이동<br>
+2) <code>mv file.txt newname.txt</code> : 현재 디렉터리에서 파일 이름을 newname.txt로 변경<br>
+3) <code>mv *.log /backup/</code> : 모든 .log 확장자 파일을 /backup/ 디렉터리로 이동<br>
+4) <code>mv dir1 dir2</code> : dir1 디렉터리의 이름을 dir2로 변경<br><br>
+<code>mv</code>는 같은 파일시스템 내에서는 실제로 데이터를 이동하지 않고 inode만 변경한다.
+</blockquote>
+</details>
+
+###### cp (Copy files)
+
+<details>
+<summary>중요한 설정 파일 /etc/nginx/nginx.conf의 백업을 동일한 디렉터리에 nginx.conf.backup 이름으로 생성하는 명령을 쓰시오.</summary>
+<blockquote>
+<code>cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup</code><br><br>
+<code>cp</code> 명령어는 파일을 복사할 때 사용하며, 중요한 설정 파일의 백업 생성 시 자주 활용된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 cp 명령어들의 차이점과 각각의 사용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ cp -r source_dir target_dir</code><br>
+<code>$ cp -a source_dir target_dir</code><br>
+<code>$ cp -p file.txt backup.txt</code><br>
+<code>$ cp -l file.txt hardlink.txt</code>
+</div>
+</summary>
+<blockquote>
+1) <code>cp -r</code> : 디렉터리를 재귀적으로 복사 (권한, 타임스탬프 등은 변경될 수 있음)<br>
+2) <code>cp -a</code> : 아카이브 모드로 복사 (-dpR과 동일, 모든 속성 보존)<br>
+3) <code>cp -p</code> : 파일의 소유권, 권한, 타임스탬프 등을 보존하여 복사<br>
+4) <code>cp -l</code> : 하드링크 생성 (실제 복사가 아닌 같은 inode를 가리키는 링크)<br><br>
+백업이나 아카이브 작업 시에는 <code>-a</code> 옵션이 가장 적절하다.
+</blockquote>
+</details>
+
+###### rm (Remove files)
+
+<details>
+<summary>파일을 삭제하는 명령어는?</summary>
+<blockquote>
+<code>rm</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(위험수준 고급) 다음 <code>rm</code> 명령어들의 위험성과 안전한 대안을 제시하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ rm -rf /</code><br>
+<code>$ rm -f *.txt</code><br>
+<code>$ find /home -name "*.tmp" -exec rm {} \;</code><br>
+안전한 삭제 방법은?
+</div>
+</summary>
+<blockquote>
+<strong>위험한 명령어들:</strong><br>
+1) <code>rm -rf</code> / : 루트 디렉터리부터 모든 파일 시스템 삭제 (시스템 파괴)<br>
+2) <code>rm -f *.txt</code> : 확인 없이 모든 .txt 파일 강제 삭제<br>
+3) <code>find … -exec rm</code> : 조건에 맞는 모든 파일을 자동 삭제<br><br>
+<strong>안전한 대안:</strong><br>
+- <code>rm -i</code> 옵션으로 삭제 전 확인<br>
+- <code>trash</code> 명령어 사용 (복구 가능)<br>
+- 중요 파일은 백업 후 삭제<br>
+- <code>find … -ok rm</code> 사용 (각 파일마다 확인)<br>
+- 스크립트에서는 절대 경로 사용하고 변수 검증
+</blockquote>
+</details>
+
+##### 파일 내용 조회
+
+###### cat (Concatenate and display files)
+
+<details>
+<summary>파일의 전체 내용을 화면에 출력하는 기본 명령어는?</summary>
+<blockquote>
+<code>cat</code>
+</blockquote>
+</details>
+
+<details>
+<summary>cat 명령어를 사용하여 파일 내용을 줄 번호와 함께 출력하는 옵션을 쓰시오.</summary>
+<blockquote>
+<code>cat -n</code><br><br>
+- <code>cat -n</code> : 모든 줄에 번호를 표시하여 출력<br>
+- <code>cat -b</code> : 비어있지 않은 줄에만 번호를 표시<br>
+- <code>cat -s</code> : 연속된 빈 줄을 하나로 압축<br>
+- <code>cat -v</code> : 비출력 문자를 시각적으로 표시
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 명령어들의 실행 결과와 활용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ cat file1 file2 > merged.txt</code><br>
+<code>$ cat > newfile.txt << EOF</code><br>
+<code>$ cat /dev/null > logfile.txt</code>
+</div>
+</summary>
+<blockquote>
+1) <code>cat file1 file2 > merged.txt</code> : 두 파일을 연결하여 새 파일로 저장<br>
+2) <code>cat > newfile.txt</code> << EOF : HERE 문서를 사용하여 텍스트를 입력받아 파일로 저장 (EOF까지 입력받음)<br>
+3) <code>cat /dev/null > logfile.txt</code> : 파일의 내용을 완전히 비움 (파일 크기를 0으로 만듦)<br><br>
+세 번째 명령은 로그 파일 초기화나 임시 파일 정리 시 자주 사용된다.
+</blockquote>
+</details>
+
+###### more/less (File content pager)
+
+<details>
+<summary>대용량 로그 파일(/var/log/system.log)을 페이지 단위로 조회하면서 앞뒤로 자유롭게 이동할 수 있는 명령을 쓰시오.</summary>
+<blockquote>
+<code>less /var/log/system.log</code><br><br>
+<code>less</code>는 <code>more</code>와 달리 앞뒤로 자유롭게 이동 가능하며, 검색 기능과 더 많은 기능을 제공한다.
+</blockquote>
+</details>
+
+<details>
+<summary><code>more</code>와 <code>less</code> 명령어의 주요 차이점을 설명하시오.</summary>
+<blockquote>
+- <code>more</code>: 앞으로만 이동 가능, 기본적인 페이징 기능<br>
+- <code>less</code>: 앞뒤로 자유롭게 이동 가능, 검색 기능, 더 많은 기능 제공<br><br>
+<code>less</code>는 <code>more</code>의 확장된 버전으로 "less is more"라는 의미를 가진다.
+</blockquote>
+</details>
+
+###### head (Display first lines)
+
+<details>
+<summary>보안 로그 파일(/var/log/auth.log)에서 가장 최근의 로그인 시도 20건을 확인하는 명령을 쓰시오.</summary>
+<blockquote>
+<code>tail -n 20 /var/log/auth.log</code><br><br>
+<code>tail</code> 명령어는 파일의 마지막 부분을 출력하며, <code>-n</code> 옵션으로 출력할 줄 수를 지정할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(중급) 다음 명령어들의 실행 결과를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ head -n 20 /var/log/syslog</code><br>
+<code>$ head -c 100 binary_file</code><br>
+<code>$ head -f logfile.txt</code>
+</div>
+</summary>
+<blockquote>
+1) <code>head -n 20 /var/log/syslog</code> : syslog 파일의 처음 20줄을 출력<br>
+2) <code>head -c 100 binary_file</code> : binary_file의 처음 100바이트를 출력<br>
+3) <code>head -f logfile.txt</code> : 잘못된 옵션, <code>head</code>에는 -f 옵션이 없음 (<code>tail -f</code>와 혼동)<br><br>
+<code>head</code>는 기본적으로 10줄을 출력하며, <code>-n</code> 옵션으로 줄 수를 지정할 수 있다.
+</blockquote>
+</details>
+
+###### tail (Display last lines)
+
+<details>
+<summary>웹 서버 액세스 로그를 실시간으로 모니터링하여 새로 추가되는 로그 항목을 지속적으로 화면에 출력하는 명령을 쓰시오.</summary>
+<blockquote>
+<code>tail -f /var/log/apache2/access.log</code><br><br>
+<code>tail -f</code> 옵션은 파일의 끝을 실시간으로 모니터링하여 새로 추가되는 내용을 지속적으로 출력한다. 시스템 관리자가 로그를 실시간으로 모니터링할 때 필수적으로 사용하는 명령어이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(고급) 다음 tail 명령어의 고급 사용법과 실제 활용 상황을 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>$ tail -f /var/log/apache2/access.log</code><br>
+<code>$ tail -n +100 large_file.txt</code><br>
+<code>$ tail -f file1.log file2.log</code>
+</div>
+</summary>
+<blockquote>
+1) <code>tail -f /var/log/apache2/access.log</code> : 실시간으로 로그 파일 모니터링 (새로 추가되는 내용 표시)<br>
+2) <code>tail -n +100 large_file.txt</code> : 100번째 줄부터 파일 끝까지 출력<br>
+3) <code>tail -f file1.log file2.log</code> : 여러 파일을 동시에 실시간 모니터링<br><br>
+<code>tail -f</code>는 시스템 관리자가 로그 모니터링할 때 필수적으로 사용하는 명령어이다.
+</blockquote>
+</details>
+
+##### 파일 분할 및 비교
 
 ###### split (Split files)
 
@@ -1725,339 +2051,7 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 </blockquote>
 </details>
 
-##### 검색 및 찾기 명령어
-
-###### grep (Search text patterns)
-
-<details>
-<summary>시스템 로그 파일(/var/log/auth.log)에서 SSH 로그인 실패 기록을 검색하는 명령을 쓰시오.</summary>
-<blockquote>
-<code>grep "Failed.*ssh" /var/log/auth.log</code><br><br>
-<code>grep</code>은 파일에서 특정 패턴을 검색하는 명령어로, 보안 로그 분석에서 핵심적으로 사용된다.
-</blockquote>
-</details>
-
-<details>
-<summary>(전문가급) 다음 grep의 고급 정규표현식과 보안 관련 활용을 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ grep -E '^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' access.log</code><br>
-<code>$ grep -r --include="*.conf" "password" /etc/</code><br>
-<code>$ grep -v '^#\|^$' config.txt</code><br>
-<code>$ grep -A 3 -B 2 "ERROR" system.log</code>
-</div>
-</summary>
-<blockquote>
-1) <code>grep -E '^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' access.log</code><br>
-   - 확장 정규표현식으로 IP 주소 패턴 검색<br>
-   - 로그 분석: 접속 IP 추출<br><br>
-1) <code>grep -r --include="*.conf" "password" /etc/</code><br>
-   - 특정 파일 확장자만 대상으로 재귀 검색<br>
-   - 보안 점검: 설정 파일의 패스워드 노출 검사<br><br>
-1) <code>grep -v '^#\|^$' config.txt</code><br>
-   - 주석(#)과 빈 줄 제외하고 검색<br>
-   - 실제 설정 내용만 추출<br><br>
-1) <code>grep -A 3 -B 2 "ERROR" system.log</code><br>
-   - 에러 발생 전후 맥락(context) 표시<br>
-   - 로그 분석: 에러 원인 파악<br><br>
-<strong>보안 활용:</strong><br>
-- 로그 모니터링: <code>grep "Failed.*ssh" /var/log/auth.log</code><br>
-- 취약점 검사: <code>grep -r "eval.*\$_" /var/www/</code><br>
-- 권한 검사: <code>find / -perm -4000 | grep -v expected</code><br>
-- 네트워크: <code>netstat -an | grep LISTEN</code><br><br>
-<strong>성능 팁:</strong><br>
-- <code>-F</code>: 문자열 고정 검색 (정규표현식 안 사용)<br>
-- <code>-m</code>: 최대 매치 수 제한
-</blockquote>
-</details>
-#### 파일 시스템 응용
-##### 파일 시스템 개요
-##### 파일 시스템 링크 파일
-
-###### ln (Create links)
-
-<details>
-<summary>파일에 대한 링크를 생성하는 명령어는?</summary>
-<blockquote>
-ln
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 하드링크와 심볼릭 링크의 차이점을 다음 명령어 예시와 함께 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ ln file.txt hardlink.txt</code><br>
-<code>$ ln -s file.txt symlink.txt</code><br>
-원본 파일 삭제 시 각 링크에 미치는 영향은?
-</div>
-</summary>
-<blockquote>
-<strong>하드링크 (ln file.txt hardlink.txt):</strong><br>
-- 같은 inode를 공유, 원본과 동일한 파일<br>
-- 원본 삭제되어도 하드링크는 여전히 유효<br>
-- 같은 파일시스템 내에서만 생성 가능<br>
-- 디렉터리에는 생성 불가<br><br>
-<strong>심볼릭 링크 (ln -s file.txt symlink.txt):</strong><br>
-- 원본 파일의 경로만 저장하는 별도 파일<br>
-- 원본 삭제 시 심볼릭 링크는 깨짐 (dangling link)<br>
-- 다른 파일시스템에도 생성 가능<br>
-- 디렉터리에도 생성 가능<br><br>
-원본 파일 삭제 시 하드링크는 여전히 데이터에 접근 가능하지만, 심볼릭 링크는 접근 불가능하다.
-</blockquote>
-</details>
-
-##### 디렉터리 관리
-
-###### ls (List directory contents)
-
-<details>
-<summary>UNIX/Linux에서 현재 디렉터리의 파일과 폴더 목록을 표시하는 기본 명령어는?</summary>
-<blockquote>
-<code>ls</code>
-</blockquote>
-</details>
-
-<details>
-<summary>ls 명령어에서 숨겨진 파일(.으로 시작하는 파일)을 포함하여 자세한 정보를 긴 형식으로 표시하는 옵션 조합을 쓰시오.</summary>
-<blockquote>
-<code>ls -la</code><br><br>
-- <code>ls -l</code> : 파일의 자세한 정보를 긴 형식으로 표시<br>
-- <code>ls -a</code> : 숨겨진 파일(.으로 시작하는 파일)까지 표시<br>
-- <code>ls -h</code> : 파일 크기를 사람이 읽기 쉬운 형식으로 표시 (KB, MB, GB)
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 명령어의 실행 결과를 분석하고, 각 필드가 의미하는 바를 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ ls -la /tmp/test.txt</code><br>
-<code>-rwsr-xr-x 1 root wheel 2048 Dec 25 10:30 /tmp/test.txt</code>
-</div>
-</summary>
-<blockquote>
-- 첫 번째 문자 <code>'-'</code>: 일반 파일을 의미<br>
-- <code>'rwsr-xr-x'</code>: 파일 권한 (소유자:rwx, 그룹:r-x, 기타:r-x, 's'는 SetUID 설정)<br>
-- <code>'1'</code>: 하드링크 수<br>
-- <code>'root'</code>: 파일 소유자<br>
-- <code>'wheel'</code>: 그룹 소유자<br>
-- <code>'2048'</code>: 파일 크기 (바이트)<br>
-- <code>'Dec 25 10:30'</code>: 마지막 수정 시간<br>
-- <code>'/tmp/test.txt'</code>: 파일 경로<br><br>
-특히 권한 부분에서 's'는 SetUID가 설정되어 있어, 이 파일을 실행할 때 소유자(root) 권한으로 실행됨을 의미한다.
-</blockquote>
-</details>
-
-###### cd (Change Directory)
-
-<details>
-<summary>UNIX/Linux에서 현재 작업 디렉터리를 변경하는 명령어는?</summary>
-<blockquote>
-<code>cd</code>
-</blockquote>
-</details>
-
-<details>
-<summary>cd 명령어를 사용하여 이전 작업 디렉터리로 돌아가는 명령을 쓰시오.</summary>
-<blockquote>
-<code>cd -</code><br><br>
-- <code>cd ~</code> : 홈 디렉터리로 이동<br>
-- <code>cd ..</code> : 상위 디렉터리로 이동<br>
-- <code>cd -</code> : 이전 디렉터리로 이동
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 상황에서 각 명령어 실행 후의 현재 디렉터리 경로를 예측하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-초기 상태: /home/user/documents/projects<br>
-1) <code>$ cd ../../../</code><br>
-2) <code>$ cd ./usr/bin</code><br>
-3) <code>$ cd -</code><br>
-4) <code>$ cd ~user/downloads</code>
-</div>
-</summary>
-<blockquote>
-5) /home (3단계 상위로 이동)<br>
-6) /home/usr/bin (현재 위치에서 상대경로로 이동, 단 해당 경로가 존재한다고 가정)<br>
-7) /home/user/documents/projects (이전 디렉터리로 복귀)<br>
-8) /home/user/downloads (user의 홈 디렉터리 하위 downloads로 이동)
-</blockquote>
-</details>
-
-###### mkdir (Make Directory)
-
-<details>
-<summary>새로운 디렉터리를 생성하는 명령어는?</summary>
-<blockquote>
-<code>mkdir</code>
-</blockquote>
-</details>
-
-<details>
-<summary>mkdir 명령어를 사용하여 "/home/user/project/2024/final" 경로의 디렉터리를 상위 디렉터리가 존재하지 않더라도 한 번에 생성하는 명령을 쓰시오.</summary>
-<blockquote>
-<code>mkdir -p /home/user/project/2024/final</code><br><br>
--p 옵션은 상위 디렉터리가 존재하지 않을 경우 함께 생성한다.
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 명령어를 실행했을 때의 결과와 생성된 디렉터리의 권한을 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ umask 022</code><br>
-<code>$ mkdir -m 755 /tmp/secure_dir</code><br>
-<code>$ mkdir /tmp/normal_dir</code>
-</div>
-</summary>
-<blockquote>
-- <code>/tmp/secure_dir</code> : 755 권한 (rwxr-xr-x) - <code>-m</code> 옵션으로 명시적 지정<br>
-- <code>/tmp/normal_dir</code> : 755 권한 (rwxr-xr-x) - <code>umask 022</code>가 <code>777</code>에서 <code>022</code>를 뺀 결과<br><br>
-디렉터리의 기본 권한은 <code>777</code>이고, <code>umask 022</code>가 적용되어 <code>755</code>가 된다. <code>-m</code> 옵션은 <code>umask</code>를 무시하고 지정된 권한을 직접 설정한다.
-</blockquote>
-</details>
-
-###### rmdir (Remove Directory)
-
-<details>
-<summary>빈 디렉터리를 삭제하는 명령어는?</summary>
-<blockquote>
-<code>rmdir</code>
-</blockquote>
-</details>
-
-<details>
-<summary><code>rmdir</code> 명령어와 <code>rm -rf</code> 명령어의 차이점을 설명하시오.</summary>
-<blockquote>
-- <code>rmdir</code>: 빈 디렉터리만 삭제 가능, 안전함<br>
-- <code>rm -rf</code>: 디렉터리와 그 내용을 강제로 삭제, 위험할 수 있음<br><br>
-<code>rmdir</code>은 디렉터리가 비어있지 않으면 삭제를 거부하여 실수로 중요한 파일을 삭제하는 것을 방지한다.
-</blockquote>
-</details>
-
-##### 파일 관리
-
-
-###### touch (Create empty files and change timestamps)
-
-<details>
-<summary>빈 파일을 생성하거나 파일의 타임스탬프를 변경하는 명령어는?</summary>
-<blockquote>
-<code>touch</code>
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 touch 명령어들의 고급 사용법과 실제 활용 상황을 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ touch -t 202312251030 important.txt</code><br>
-<code>$ touch -r reference.txt newfile.txt</code><br>
-<code>$ touch -a logfile.txt</code><br>
-<code>$ touch -m datafile.txt</code>
-</div>
-</summary>
-<blockquote>
-1) <code>touch -t 202312251030 important.txt</code><br>
-   - 특정 시간(2023년 12월 25일 10:30)으로 타임스탬프 설정<br>
-   - 용도: 파일 백업 시 원본 시간 정보 보존<br><br>
-1) <code>touch -r reference.txt newfile.txt</code><br>
-   - reference.txt와 같은 타임스탬프로 설정<br>
-   - 용도: 여러 파일의 시간 정보 동기화<br><br>
-1) <code>touch -a logfile.txt</code><br>
-   - 접근 시간(atime)만 현재 시간으로 변경<br>
-   - 용도: 파일 접근 로그 관리<br><br>
-1) <code>touch -m datafile.txt</code><br>
-   - 수정 시간(mtime)만 현재 시간으로 변경<br>
-   - 용도: 빌드 시스템에서 파일 강제 재컴파일 유도<br><br>
-실제 활용: 백업 스크립트, 빌드 시스템, 로그 관리, 테스트 환경 구성
-</blockquote>
-</details>
-
-###### mv (Move/Rename files)
-
-<details>
-<summary>현재 디렉터리에 있는 모든 .tmp 확장자 파일을 /tmp/backup/ 디렉터리로 이동시키는 명령을 쓰시오.</summary>
-<blockquote>
-mv *.tmp /tmp/backup/<br><br>
-mv 명령어는 파일 이동과 이름 변경에 사용되며, 와일드카드(*)를 사용하여 여러 파일을 한 번에 처리할 수 있다.
-</blockquote>
-</details>
-
-<details>
-<summary>(중급) 다음 mv 명령어 상황들의 결과를 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ mv file.txt /tmp/</code><br>
-<code>$ mv file.txt newname.txt</code><br>
-<code>$ mv *.log /backup/</code><br>
-<code>$ mv dir1 dir2</code> (dir2가 존재하지 않는 경우)
-</div>
-</summary>
-<blockquote>
-1) <code>mv file.txt /tmp/</code> : file.txt를 /tmp/ 디렉터리로 이동<br>
-2) <code>mv file.txt newname.txt</code> : 현재 디렉터리에서 파일 이름을 newname.txt로 변경<br>
-3) <code>mv *.log /backup/</code> : 모든 .log 확장자 파일을 /backup/ 디렉터리로 이동<br>
-4) <code>mv dir1 dir2</code> : dir1 디렉터리의 이름을 dir2로 변경<br><br>
-<code>mv</code>는 같은 파일시스템 내에서는 실제로 데이터를 이동하지 않고 inode만 변경한다.
-</blockquote>
-</details>
-
-###### cp (Copy files)
-
-<details>
-<summary>중요한 설정 파일 /etc/nginx/nginx.conf의 백업을 동일한 디렉터리에 nginx.conf.backup 이름으로 생성하는 명령을 쓰시오.</summary>
-<blockquote>
-<code>cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup</code><br><br>
-<code>cp</code> 명령어는 파일을 복사할 때 사용하며, 중요한 설정 파일의 백업 생성 시 자주 활용된다.
-</blockquote>
-</details>
-
-<details>
-<summary>(고급) 다음 cp 명령어들의 차이점과 각각의 사용 상황을 설명하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ cp -r source_dir target_dir</code><br>
-<code>$ cp -a source_dir target_dir</code><br>
-<code>$ cp -p file.txt backup.txt</code><br>
-<code>$ cp -l file.txt hardlink.txt</code>
-</div>
-</summary>
-<blockquote>
-1) <code>cp -r</code> : 디렉터리를 재귀적으로 복사 (권한, 타임스탬프 등은 변경될 수 있음)<br>
-2) <code>cp -a</code> : 아카이브 모드로 복사 (-dpR과 동일, 모든 속성 보존)<br>
-3) <code>cp -p</code> : 파일의 소유권, 권한, 타임스탬프 등을 보존하여 복사<br>
-4) <code>cp -l</code> : 하드링크 생성 (실제 복사가 아닌 같은 inode를 가리키는 링크)<br><br>
-백업이나 아카이브 작업 시에는 <code>-a</code> 옵션이 가장 적절하다.
-</blockquote>
-</details>
-
-###### rm (Remove files)
-
-<details>
-<summary>파일을 삭제하는 명령어는?</summary>
-<blockquote>
-<code>rm</code>
-</blockquote>
-</details>
-
-<details>
-<summary>(위험수준 고급) 다음 <code>rm</code> 명령어들의 위험성과 안전한 대안을 제시하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>$ rm -rf /</code><br>
-<code>$ rm -f *.txt</code><br>
-<code>$ find /home -name "*.tmp" -exec rm {} \;</code><br>
-안전한 삭제 방법은?
-</div>
-</summary>
-<blockquote>
-<strong>위험한 명령어들:</strong><br>
-1) <code>rm -rf</code> / : 루트 디렉터리부터 모든 파일 시스템 삭제 (시스템 파괴)<br>
-2) <code>rm -f *.txt</code> : 확인 없이 모든 .txt 파일 강제 삭제<br>
-3) <code>find … -exec rm</code> : 조건에 맞는 모든 파일을 자동 삭제<br><br>
-<strong>안전한 대안:</strong><br>
-- <code>rm -i</code> 옵션으로 삭제 전 확인<br>
-- <code>trash</code> 명령어 사용 (복구 가능)<br>
-- 중요 파일은 백업 후 삭제<br>
-- <code>find … -ok rm</code> 사용 (각 파일마다 확인)<br>
-- 스크립트에서는 절대 경로 사용하고 변수 검증
-</blockquote>
-</details>
+##### 파일 권한 관리
 
 ###### chmod (Change file permissions)
 
@@ -2261,7 +2255,6 @@ mv 명령어는 파일 이동과 이름 변경에 사용되며, 와일드카드(
 </blockquote>
 </details>
 
-##### 파일 및 디렉터리 관련 명령어 요약
 #### 프로세스 응용
 ##### 프로세스 개요
 ##### 프로세스 정보 확인
