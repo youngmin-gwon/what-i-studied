@@ -1392,6 +1392,72 @@ ln
 
 ##### 디렉터리 관리
 
+<details>
+<summary>(단답형) 파일 시스템 내에서 디스크, 프린터, 터미널과 같은 주변 장치를 사용하기 위해 제공되며 블록 단위 혹은 문자 단위로 입출력하는 파일 객체를 무엇이라 하는가?</summary>
+<blockquote>
+장치 파일 (Device file) 또는 특수 파일 (Special file)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>ls -l</code> 명령의 결과에서 맨 앞에 표시되는 첫 번째 기호가 <code>c</code>인 경우, 이는 어떤 종류의 파일을 의미하는가?</summary>
+<blockquote>
+문자 장치 파일 (Character device file)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>ls -l</code> 명령어를 실행했을 때, 접근 권한 정보 바로 우측 위치에 숫자로 표시되며, 동일한 inode를 참조하는 파일의 총개수를 나타내는 필드의 명칭을 무엇이라 하는가?</summary>
+<blockquote>
+하드 링크 개수 (또는 링크 카운트, Link count)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스의 입출력 객체 중 일반 파일이 아닌 '디렉터리(Directory)' 파일의 내부 구조적 특징과 역할에 대해 서술하시오.</summary>
+<blockquote>
+디렉터리 파일은 디렉터리 내에 포함된 파일들의 <strong>'파일명'</strong>과 해당 파일의 고유 식별자인 <strong>'inode number'</strong> 정보만을 매핑하여 목록 형태로 가지고 있는 특별한 파일이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 일반 사용자가 <code>ls -l</code> 명령어를 통해 파일의 소유자, 권한, 수정 일시 등의 상세 상태 정보를 출력할 수 있는 원리를 디렉터리와 inode 관점에서 설명하시오.</summary>
+<blockquote>
+디렉터리는 내부적으로 파일명과 해당 파일의 inode number 정보만 가질 뿐이다. 하지만 <code>ls</code> 명령어에 <code>-l</code> 옵션을 주어 실행할 경우, 파일 시스템은 <strong>매핑된 inode number를 통해 실제 속성 정보가 담긴 inode 구조체를 참조</strong>함으로써 권한, 시간, 크기 등의 상세 데이터를 화면에 출력할 수 있게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스 환경에서 설정되는 접근 권한인 읽기(r), 쓰기(w), 실행(x)이 '디렉터리' 객체에 부여되었을 때, 각각 어떤 구체적인 행위를 사용자에게 허용하게 되는지 설명하시오.</summary>
+<blockquote>
+- <strong>읽기(r)</strong>: 디렉터리에 있는 파일 목록을 읽고 확인할 수 있도록 허용한다.<br>
+- <strong>쓰기(w)</strong>: 디렉터리 내부에 새로운 파일이나 디렉터리를 생성하고, 기존의 것을 삭제할 수 있도록 허용한다.<br>
+- <strong>실행(x)</strong>: <code>cd</code> 명령 등으로 해당 디렉터리 안으로 진입(이동)할 수 있도록 허용한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 특정 작업 디렉터리 내부 전체를 깊이 탐색하여 하위 디렉터리에 존재하는 모든 파일들의 내용까지 화면에 출력하고자 할 때 필요한 <code>ls</code> 명령어의 옵션을 적으시오.</summary>
+<blockquote>
+<code>ls -R</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 셸 터미널에서 파일과 디렉터리를 눈으로 쉽게 구분하기 위해 파일명 맨 끝에 종류를 기호로 표시(디렉터리이면 <code>/</code>, 실행파일이면 <code>*</code>, 심볼릭 링크면 <code>@</code> 등)하도록 하는 <code>ls</code> 명령어의 추가 대문자 옵션을 쓰시오.</summary>
+<blockquote>
+<code>ls -F</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>ls -l</code> 명령어 실행 결과 권한 표기 부분이 <code>drwxr-xr-x</code> 로 출력되었다고 가정한다. 해당 권한을 8진수 숫자로 변환한 형태를 적고, 소유 그룹과 기타 사용자에게는 어떠한 권한이 부족한 상태인지 설명하시오.</summary>
+<blockquote>
+- <strong>8진수 변환값</strong>: <code>755</code><br>
+- <strong>설명</strong>: 첫 글자 문자 <code>d</code>는 디렉터리임을 의미하고, 뒤따르는 <code>rwxr-xr-x</code>를 해석하면 소유자는 <code>rwx(7)</code> 권한을 가지나, 소유 그룹 및 기타 사용자는 <code>r-x(5)</code> 권한만 가진다. 따라서 해당 그룹과 사용자들은 디렉터리 내에 파일을 임의로 <strong>생성 또는 삭제할 수 있는 '쓰기(w)' 권한이 제한(제외)</strong>된 상태이다.
+</blockquote>
+</details>
+
 ###### pwd (Print Working Directory)
 
 <details>
