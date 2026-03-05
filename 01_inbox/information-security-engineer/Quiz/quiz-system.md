@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 15:04:12 +09:00
+date modified: 2026-03-05 15:49:37 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1341,8 +1341,8 @@ Access Time (접근 시간)
 <details>
 <summary>(작업형) 디렉터리 내에서 <code>ls -li</code> 명령을 실행하여 아래와 같은 결과를 확인하였다. 두 파일이 서로 <strong>하드 링크</strong> 관계에 있다는 사실을 유추할 수 있는 결과의 특징 두 가지를 나열하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-<code>164965 -rw-r--r-- 2 root root 11 Feb  8 00:52 abc.dat</code><br>
-<code>164965 -rw-r--r-- 2 root root 11 Feb  8 00:52 abc_hl.dat</code>
+<code>164965 -rw-r--r-- 2 root root 11 Feb 8 00:52 abc.dat</code><br>
+<code>164965 -rw-r--r-- 2 root root 11 Feb 8 00:52 abc_hl.dat</code>
 </div>
 </summary>
 <blockquote>
@@ -2467,13 +2467,21 @@ mv 명령어는 파일 이동과 이름 변경에 사용되며, 와일드카드(
 </details>
 
 #### 프로세스 응용
+
 ##### 프로세스 개요
+
 ##### 프로세스 정보 확인
+
 ##### 프로세스 간 통신(시그널)
+
 ### 3. UNIX/Linux 시스템 관리
+
 #### 시스템 시작과 종료
+
 ##### 시스템 런 레벨
+
 ##### 시스템 시작
+
 <details>
 <summary>리눅스의 부팅 과정 중 발생할 수 있는 보안 위협을 방지하기 위해 사용되는 '싱글 모드(Single Mode) 진입 시 패스워드 설정'의 필요성과 설정 방법을 설명하시오.</summary>
 <blockquote>
@@ -2505,7 +2513,9 @@ SCAN 알고리즘<br>
 </details>
 
 ##### 시스템 종료
+
 #### 사용자 및 그룹 관리
+
 ##### 사용자 관리(추가, 변경 및 삭제)
 
 <details>
@@ -2516,14 +2526,23 @@ SCAN 알고리즘<br>
 </details>
 
 ##### 그룹 관리(추가, 변경 및 삭제)
+
 #### 파일 시스템 관리
+
 ##### 파일시스템(디스크) 여유 공간 키그 관리(df 명령어)
+
 ##### 디렉터리(파일)별 파일시스템(디스크) 사용량 관리(du 명령어)
+
 #### 작업 스케줄 관리
+
 ##### cron 서비스(정기적 작업 스케줄 관리 서비스)
+
 ### 4. UNIX/Linux 서버 보안
+
 #### 시스템 보안
+
 ##### 사용자의 패스워드 관리
+
 <details>
 <summary>리눅스 환경에서 사용자 계정의 패스워드 만료일, 암호 변경 최소/최대 일수 등 패스워드 에이징(Aging) 정보를 저장하고 있는 파일의 절대 경로를 쓰시오.</summary>
 <blockquote>
@@ -2532,6 +2551,7 @@ SCAN 알고리즘<br>
 </details>
 
 ##### 프로세스 실행권한(SUID,SGID)
+
 <details>
 <summary>리눅스 시스템에서 사용자 및 그룹 권한을 제어하는 특수 권한인 SetUID의 개념을 설명하고, 보안 관점에서 SetUID 설정 파일이 위험한 이유를 서술하시오.</summary>
 <blockquote>
@@ -2591,7 +2611,7 @@ NAC (Network Access Control)<br>
 
 #### 리눅스 로그 관리
 
-#### 기타 (추가됨)
+### 5. 시스템 해킹
 
 <details>
 <summary>파일 무결성 검사 기능 및 접근 제어를 제공하며, 루트킷(Rootkit) 감염 여부나 파일 시스템의 변경 사항을 주기적으로 모니터링하여 관리자에게 알림을 제공하는 대표적인 오픈소스 기반 침입 탐지 도구(HIDS)의 명칭과 그 탐지 원리를 서술하시오.</summary>
@@ -2601,9 +2621,15 @@ NAC (Network Access Control)<br>
 </blockquote>
 </details>
 
-### 5. 시스템 해킹
-
 #### 버퍼 오버플로우 공격(Buffer Overflow Attack)
+
+<details>
+<summary>파일 무결성 검사 기능 및 접근 제어를 제공하며, 루트킷(Rootkit) 감염 여부나 파일 시스템의 변경 사항을 주기적으로 모니터링하여 관리자에게 알림을 제공하는 대표적인 오픈소스 기반 침입 탐지 도구(HIDS)의 명칭과 그 탐지 원리를 서술하시오.</summary>
+<blockquote>
+<strong>명령 및 도구</strong>: 트립와이어 (Tripwire)<br>
+<strong>탐지 원리</strong>: 사전에 시스템 내 중요 파일들의 해시(Hash) 값을 계산하여 데이터베이스에 저장해 둔 뒤, 주기적으로 현재 파일들의 해시 값을 재계산하여 원래의 데이터베이스 값과 비교함으로써 위·변조 여부를 탐지한다.
+</blockquote>
+</details>
 
 <details>
 <summary>버퍼오버플로우 공격을 완화할 수 있는 방법으로 스택과 힙 영역에 쉘코드 등을 실행하지 못하도록 하는 메모리 보호기법의 명칭을 쓰시오.</summary>
