@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 16:05:37 +09:00
+date modified: 2026-03-05 16:22:32 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1568,7 +1568,7 @@ Access Time (접근 시간)
 </details>
 
 <details>
-<summary>mkdir 명령어를 사용하여 "/home/user/project/2024/final" 경로의 디렉터리를 상위 디렉터리가 존재하지 않더라도 한 번에 생성하는 명령을 쓰시오.</summary>
+<summary><code>mkdir</code> 명령어를 사용하여 <code>/home/user/project/2024/final</code> 경로의 디렉터리를 상위 디렉터리가 존재하지 않더라도 한 번에 생성하는 명령을 쓰시오.</summary>
 <blockquote>
 <code>mkdir -p /home/user/project/2024/final</code><br><br>
 -p 옵션은 상위 디렉터리가 존재하지 않을 경우 함께 생성한다.
