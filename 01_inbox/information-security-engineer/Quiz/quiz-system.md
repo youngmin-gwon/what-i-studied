@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-05 16:43:58 +09:00
+date modified: 2026-03-06 16:07:50 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -2332,6 +2332,74 @@ mv 명령어는 파일 이동과 이름 변경에 사용되며, 와일드카드(
 ###### chmod (Change file permissions)
 
 <details>
+<summary>(단답형) 파일이나 디렉터리에 대한 접근 권한을 변경할 때 사용하는 'Change Mode'의 약자인 기본 명령어는 무엇인가?</summary>
+<blockquote>
+chmod
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>chmod</code> 명령어에서 기호(Symbolic)를 이용해 권한을 변경할 때, 기존 권한 상태와 관계없이 지정한 권한만으로 완전히 새롭게 할당(설정)하고자 할 때 사용하는 연산자 기호는 무엇인가?</summary>
+<blockquote>
+<code>=</code> (설정 연산자)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 특정 파일에 대해 <code>chmod</code> 명령을 실행하여 접근 권한을 직접 수정할 수 있는 권한을 가진 주체는, 최고 관리자인 슈퍼 유저(root) 외에 누구뿐인가?</summary>
+<blockquote>
+해당 파일의 소유자 (User)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>chmod</code> 명령의 기호(Symbolic) 모드를 사용할 때 권한을 적용할 대상을 가리키는 식별자 <code>u, g, o, a</code>가 각각 구체적으로 누구를 의미하는지 서술하시오.</summary>
+<blockquote>
+- <strong>u (user)</strong>: 파일의 소유자<br>
+- <strong>g (group)</strong>: 파일의 소유 그룹<br>
+- <strong>o (others)</strong>: 소유자나 그룹에 속하지 않은 기타 모든 사용자<br>
+- <strong>a (all)</strong>: 위의 세 항목을 모두 포함하는 모든 사용자 (대상을 지정하지 않았을 때의 기본값)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 디렉터리 내부에 포함된 수많은 하위 디렉터리 및 파일의 접근 권한을 한 번의 <code>chmod</code> 명령으로 일괄 변경하고자 한다. 이때 함께 사용해야 하는 통용 옵션 기호와 그 구체적인 역할을 서술하시오.</summary>
+<blockquote>
+- <strong>옵션</strong>: <code>-R</code><br>
+- <strong>역할</strong>: 대상 디렉터리에 포함된 모든 하위 계층별 디렉터리와 내부 파일들의 권한까지 재귀적(Recursive)으로 한꺼번에 일괄 변경한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>chmod</code> 명령에 파일 권한을 8진수(숫자) 모드로 지정하는 방식을 사용할 때, 기호 문자 <code>r(읽기)</code>, <code>w(쓰기)</code>, <code>x(실행)</code>에 대응하는 각각의 숫자를 적고, 파일 권한이 <code>-rwxr-xr-x</code>로 표시된다면 이를 세 자리 8진수로 어떻게 표현하는지 설명하시오.</summary>
+<blockquote>
+- <strong>대응 숫자</strong>: <code>r (읽기) = 4</code>, <code>w (쓰기) = 2</code>, <code>x (실행) = 1</code><br>
+- <strong>8진수 표현법</strong>: <code>rwxr-xr-x</code>는 <code>(4+2+1) (4+1) (4+1)</code> 로 나열되므로, 결과적으로 8진수 <code>755</code> 로 표현된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 디렉터리 내의 <code>service.conf</code> 파일에 대해 기타 사용자(Others)에게 실수로 부여되어 있는 쓰기(w) 권한만을 단독으로 제거하는 <code>chmod</code> 명령어를 기호 모드(Symbolic)를 사용해 작성하시오.</summary>
+<blockquote>
+<code>chmod o-w service.conf</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 <code>a.sh</code> 라는 스크립트 파일이 생성만 된 상태라 기본적으로 실행 권한이 없다. 이 파일에 대해 특정한 대상 제한 없이 모든 사용자(all)가 실행(x)할 수 있는 권한을 추가로 부여하는 <code>chmod</code> 명령어를 기호 모드 연산자를 사용하여 작성하시오.</summary>
+<blockquote>
+<code>chmod a+x a.sh</code> (또는 대상을 생략한 <code>chmod +x a.sh</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 보안 강화를 위해 <code>a.sh</code> 파일의 접근 권한을 다음과 같이 8진수 방식을 통해 변경하려고 한다. 소유자(User)에게는 읽고 쓰는 권한만을 주고, 소유 그룹(Group) 및 기타 일반 사용자(Others)에게는 오로지 읽기 권한만을 허용하도록 설정하는 최적의 <code>chmod</code> 단일 명령어를 작성하시오.</summary>
+<blockquote>
+<code>chmod 644 a.sh</code>
+</blockquote>
+</details>
+
+<details>
 <summary>스크립트 파일 /home/user/backup.sh에 소유자는 읽기/쓰기/실행 권한을, 그룹과 기타 사용자에게는 읽기와 실행 권한만 부여하는 명령을 쓰시오.</summary>
 <blockquote>
 <code>chmod 755 /home/user/backup.sh</code><br><br>
@@ -2442,6 +2510,84 @@ mv 명령어는 파일 이동과 이름 변경에 사용되며, 와일드카드(
 - 그룹만 변경: <code>chgrp</code>가 더 직관적<br>
 - 소유자와 그룹 동시 변경: <code>chown</code>이 효율적<br>
 - 스크립트에서는 <code>chown</code>이 더 유연함
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 'Change Owner'의 약자로, 파일이나 디렉터리의 소유자(Owner)를 변경할 때 사용하는 명령어의 명칭을 쓰시오.</summary>
+<blockquote>
+<code>chown</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스 시스템에서 <code>chown</code>이나 <code>chgrp</code> 명령을 사용하여 파일의 소유권이나 그룹을 강제로 변경할 수 있는 권한을 가진 유일한 사용자 계정의 명칭을 쓰시오.</summary>
+<blockquote>
+root (또는 슈퍼 유저)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>chown</code> 명령어 실행 시, 지정한 대상이 심볼릭 링크 파일인 경우 링크가 가리키는 원본이 아닌 '링크 파일 자체'의 소유권을 변경하기 위해 사용하는 옵션 기호를 쓰시오.</summary>
+<blockquote>
+<code>-h</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>chown</code> 명령어를 사용하여 특정 디렉터리의 소유자를 변경할 때, 해당 디렉터리 내부에 포함된 모든 하위 파일과 디렉터리까지 한꺼번에 소유권을 적용하기 위해 사용하는 옵션(<code>-R</code>)의 명칭과 동작 원리를 서술하시오.</summary>
+<blockquote>
+- <strong>옵션 명칭</strong>: Recursive (재귀적 변경)<br>
+- <strong>동작 원리</strong>: 지정한 디렉터리뿐만 아니라 그 하위에 존재하는 모든 파일과 서브 디렉터리들을 시스템이 끝까지 탐색하며 소유권을 일괄적으로 변경한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 일반 사용자 계정(예: algisa)으로 로그인한 상태에서 <code>chown root file.txt</code> 명령을 실행했을 때 'Operation not permitted' 에러가 발생하는 이유를 보안 정책 관점에서 설명하시오.</summary>
+<blockquote>
+리눅스 보안 정책상 파일의 소유권 변경은 시스템 전체의 보안 및 접근 통제에 중대한 영향을 미치므로, 오직 <strong>슈퍼 유저(root, UID 0) 권한을 가진 사용자만이 실행</strong>할 수 있도록 제한되어 있기 때문이다. 일반 사용자가 자신의 파일 소유권을 임의로 타인(특히 root)에게 넘기는 행위는 시스템 관리 원칙에 어긋나므로 허용되지 않는다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>chown</code> 명령어를 사용하여 파일의 '소유자'와 '소유 그룹'을 동시에 변경하고 싶을 때 사용하는 명령문 형식을 예시와 함께 서술하시오.</summary>
+<blockquote>
+- <strong>형식</strong>: <code>chown 소유자명:그룹명 파일명</code><br>
+- <strong>예시</strong>: <code>chown algisa:dev b.sh</code><br>
+- <strong>설명</strong>: 콜론(<code>:</code>) 또는 점(<code>.</code>)을 구분자로 사용하여 소유자와 그룹을 한 번의 명령으로 모두 지정할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 디렉터리에 있는 <code>service.conf</code> 파일의 소유자를 <code>root</code>로, 소유 그룹을 <code>dev</code>로 변경하려 한다. 이를 위해 슈퍼 유저 권한으로 실행해야 하는 단일 <code>chown</code> 명령어를 작성하시오.</summary>
+<blockquote>
+<code>chown root:dev service.conf</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 터미널 명령어 실행 과정에서 빈칸 (A)와 (B)에 들어갈 알맞은 명령어를 작성하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>[algisa@Fedora11]$ ls -l b.sh</code><br>
+<code>-rw-r--r-- 1 algisa dev 0 2024-02-08 22:13 b.sh</code><br>
+<code>[algisa@Fedora11]$ ( A )</code><br>
+<code>Password: (비밀번호 입력)</code><br>
+<code>[root@Fedora11]# ( B ) root b.sh</code><br>
+<code>[root@Fedora11]# ls -l b.sh</code><br>
+<code>-rw-r--r-- 1 root dev 0 2024-02-08 22:13 b.sh</code>
+</div>
+<strong>조건</strong>: (A)는 일반 사용자에서 root로 전환하기 위한 명령이며, (B)는 b.sh 파일의 소유 그룹은 유지한 채 <strong>소유자만</strong> root로 변경하는 명령이다.
+</summary>
+<blockquote>
+(A) <code>su</code> (또는 <code>su -</code>)<br>
+(B) <code>chown</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 특정 디렉터리 <code>/web_root</code>와 그 하위의 모든 파일들에 대하여 소유 그룹을 <code>www-data</code>로 변경하고자 한다. 재귀적 옵션을 사용하여 <code>chgrp</code> 명령어로 작성하시오.</summary>
+<blockquote>
+<code>chgrp -R www-data /web_root</code>
 </blockquote>
 </details>
 
