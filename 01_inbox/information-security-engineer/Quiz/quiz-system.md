@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-06 16:07:50 +09:00
+date modified: 2026-03-06 16:16:45 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -2615,21 +2615,89 @@ root (또는 슈퍼 유저)
 - 파일 기본 권한: <code>666 (rw-rw-rw-)</code><br>
 - 디렉터리 기본 권한: <code>777 (rwxrwxrwx)</code><br><br>
 <strong>계산 결과:</strong><br>
-1) <code>umask 022</code><br>
-   - 파일: <code>666</code> - <code>022</code> = <code>644 (rw-r--r--)</code><br>
-   - 디렉터리: <code>777</code> - <code>022</code> = <code>755 (rwxr-xr-x)</code><br><br>
-2) <code>umask 077</code><br>
-   - 파일: <code>666</code> - <code>077</code> = <code>600 (rw-------)</code><br>
-   - 디렉터리: <code>777 - 077</code> = <code>700 (rwx------)</code><br><br>
-3) <code>umask 002</code><br>
-   - 파일: <code>666</code> - <code>002</code> = <code>664 (rw-rw-r--)</code><br>
-   - 디렉터리: <code>777</code> - <code>002</code> = <code>775 (rwxrwxr-x)</code><br><br>
-<strong>실무 적용:</strong><br>
-- <code>022</code>: 일반적인 시스템 기본값<br>
-- <code>077</code>: 보안이 중요한 개인 파일<br>
-- <code>002</code>: 그룹 작업 환경
-</blockquote>
-</details>
+ 1) <code>umask 022</code><br>
+    - 파일: <code>666</code> - <code>022</code> = <code>644 (rw-r--r--)</code><br>
+    - 디렉터리: <code>777</code> - <code>022</code> = <code>755 (rwxr-xr-x)</code><br><br>
+ 2) <code>umask 077</code><br>
+    - 파일: <code>666</code> - <code>077</code> = <code>600 (rw-------)</code><br>
+    - 디렉터리: <code>777 - 077</code> = <code>700 (rwx------)</code><br><br>
+ 3) <code>umask 002</code><br>
+    - 파일: <code>666</code> - <code>002</code> = <code>664 (rw-rw-r--)</code><br>
+    - 디렉터리: <code>777</code> - <code>002</code> = <code>775 (rwxrwxr-x)</code><br><br>
+ <strong>실무 적용:</strong><br>
+ - <code>022</code>: 일반적인 시스템 기본값<br>
+ - <code>077</code>: 보안이 중요한 개인 파일<br>
+ - <code>002</code>: 그룹 작업 환경
+ </blockquote>
+ </details>
+
+ <details>
+ <summary>(단답형) 파일이나 디렉터리 생성 시 부여될 기본 접근 권한에서 '제거(마스킹)'할 권한을 지정하거나, 현재 설정된 마스크 값을 확인하기 위해 사용하는 명령어의 명칭을 쓰시오.</summary>
+ <blockquote>
+ <code>umask</code>
+ </blockquote>
+ </details>
+
+ <details>
+ <summary>(단답형) 리눅스 시스템에서 관리자가 <code>umask</code> 값을 설정하여 모든 로그인 사용자에게 공통적으로 적용하고자 할 때 주로 사용되는 시스템 전역 환경 설정 파일의 절대 경로를 쓰시오.</summary>
+ <blockquote>
+ <code>/etc/profile</code>
+ </blockquote>
+ </details>
+
+ <details>
+ <summary>(단답형) 현재 시스템의 umask 값을 확인하기 위해 인자 없이 <code>umask</code> 명령을 실행했을 때 출력되는 값의 기본 진수를 쓰시오.</summary>
+ <blockquote>
+ 8진수
+ </blockquote>
+ </details>
+
+ <details>
+ <summary>(서술형) 리눅스에서 <code>umask</code> 연산이 권한을 결정할 때 단순한 '산술적 빼기'가 아니라고 말하는 이유를, 특정 비트(예: 실행 권한)의 제거 관점에서 설명하시오.</summary>
+ <blockquote>
+ <code>umask</code>는 산술적인 뺄셈이 아니라 <strong>비트 마스킹(Bit Masking)</strong> 방식이기 때문이다. '제거(mask)'할 권한이 설정된 비트는 파일 시스템의 기본 권한 비트가 무엇이든 강제로 0으로 만든다. 예를 들어, 기본 권한에 없는 비트를 umask로 제거하더라도 결과가 음수가 되거나 오류가 나지 않고 단지 해당 위치의 비트가 제거된 상태로 유지될 뿐이다.
+ </blockquote>
+ </details>
+
+ <details>
+ <summary>(서술형) 시스템 보안 권고 사항에 따라 <code>umask</code> 값을 <code>022</code>로 설정하였을 때, 새롭게 생성되는 파일이나 디렉터리에 대해 소유 그룹(Group)과 기타 사용자(Others)에게 어떠한 접근이 구체적으로 제한되는지 서술하시오.</summary>
+ <blockquote>
+ <code>022</code>는 소유 그룹과 기타 사용자의 <strong>쓰기(w, 2) 권한을 제거</strong>한다는 의미이다. 따라서 새롭게 생성된 파일은 소유자만 수정할 수 있고, 디렉터리는 소유자만 내부 파일을 생성하거나 삭제할 수 있도록 제한되어 시스템 자원에 대한 임의 변경을 차단한다.
+ </blockquote>
+ </details>
+
+ <details>
+ <summary>(서술형) <code>umask 027</code>이 설정된 환경에서 생성되는 파일과 디렉터리의 권한 차이를 소유 그룹(Group)과 기타 사용자(Others) 관점에서 설명하시오.</summary>
+ <blockquote>
+ <code>umask 027</code>은 그룹의 쓰기(2) 권한을 제거하고, 기타 사용자의 모든 권한(rwx, 7)을 제거한다는 의미이다. 이 경우 소유 그룹은 읽기와 실행은 가능하지만 수정은 불가능하며, <strong>기타 사용자(Others)는 해당 파일이나 디렉터리에 대해 어떠한 접근(읽기, 쓰기, 실행)도 할 수 없는</strong> 강력한 보안 상태가 된다.
+ </blockquote>
+ </details>
+
+ <details>
+ <summary>(작업형) 사용자가 <code>umask 333</code>을 설정한 후 <code>touch afile</code> 명령으로 일반 파일을 생성하였다. 이때 생성된 파일의 8진수 접근 권한값과 <code>ls -l</code> 출력 시의 기호 형태를 쓰시오. (단, 파일 기본 권한은 666 기준)</summary>
+ <blockquote>
+ - <strong>8진수 권한</strong>: <code>444</code><br>
+ - <strong>기호 형태</strong>: <code>-r--r--r--</code><br>
+ - <strong>풀이</strong>: 기본 666(110 110 110)에서 umask 333(011 011 011)에 해당하는 '쓰기(2)'와 '실행(1)' 비트를 제거하면 444(100 100 100)가 된다.
+ </blockquote>
+ </details>
+
+ <details>
+ <summary>(작업형) 현재 umask가 <code>022</code>인 상태에서 <code>mkdir dir022</code>와 <code>touch file022</code> 명령을 실행하여 각각 디렉터리와 파일을 생성했다. <code>ls -ld</code> 명령어로 확인되는 두 객체의 최종 8진수 접근 권한을 각각 계산하여 쓰시오.</summary>
+ <blockquote>
+ - <strong>디렉터리(dir022)</strong>: <code>755</code> (777 - 022)<br>
+ - <strong>일반 파일(file022)</strong>: <code>644</code> (666 - 022)
+ </blockquote>
+ </details>
+
+ <details>
+ <summary>(작업형) 보안 강화를 위해 새로 생성되는 파일에 대해 소유 그룹은 어떠한 권한도 갖지 못하게 하고(---), 기타 사용자는 오직 읽기 권한(r--)만 갖도록 설정하고자 한다. 이때 필요한 <code>umask</code> 값을 계산하여 쓰고, 설정을 위한 명령어를 작성하시오. (단, 파일 기본 권한은 666 기준)</summary>
+ <blockquote>
+ - <strong>필요한 umask 값</strong>: <code>062</code> (또는 x까지 고려한 <code>072</code>)<br>
+ - <strong>설정 명령어</strong>: <code>umask 062</code> (또는 <code>umask 072</code>)<br>
+ - <strong>풀이</strong>: 그룹의 모든 권한(6)을 제거하고 기타 사용자의 쓰기(2) 권한을 제거하면 666에서 604(rw-------r--) 권한이 남게 된다.
+ </blockquote>
+ </details>
 
 ##### 파일 검색
 
