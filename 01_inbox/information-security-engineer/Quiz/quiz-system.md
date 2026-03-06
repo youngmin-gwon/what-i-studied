@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-06 18:27:29 +09:00
+date modified: 2026-03-06 18:37:39 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -2922,6 +2922,34 @@ Z   501  5678  1234  0  80   0 -     0 -      pts/0    00:00:00 &lt;defunct&gt;
 </blockquote>
 </details>
 
+<details>
+<summary>(단답형) <code>ps -el</code> 명령어 실행 결과의 <code>SZ</code> 필드에서 표시되는 프로세스의 메모리 점유 크기를 나타내는 기본 단위(Unit)를 쓰시오.</summary>
+<blockquote>
+Kbyte (킬로바이트)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>ps -el</code> 출력 결과에 나타나는 <code>WCHAN</code> 필드의 구체적인 의미를 기술하고, 이 필드의 값이 공백이 아닌 특정 함수명으로 채워져 있을 때 해당 프로세스의 상태(S 필드)는 어떠한 상황인지 연관 지어 서술하시오.</summary>
+<blockquote>
+- <strong>의미</strong>: 실행 중이지 않고 Sleep(대기) 상태에 있는 프로세스가 현재 기다리고 있는 커널(시스템) 함수명을 나타낸다.<br>
+- <strong>상태 관계</strong>: <code>WCHAN</code>에 값이 존재한다는 것은 해당 프로세스가 특정 자원이나 이벤트를 기다리며 멈춰 있음을 뜻하므로, <code>S</code>(Status) 필드의 값은 대기 상태인 'S'(Interruptible Sleep) 또는 'D'(Uninterruptible Sleep) 중 하나일 가능성이 매우 높다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음의 <code>ps -ef</code> 명령 실행 결과 중 <code>STIME</code>과 <code>TTY</code> 필드 값을 분석하여, 해당 프로세스의 '시작 시간대'와 '제어 터미널 연결 여부'를 각각 판단하여 기술하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<code>root 10430 1 0 Jan31 ? 00:00:01 /sbin/init</code>
+</div>
+</summary>
+<blockquote>
+- <strong>시작 시간대</strong>: 'Jan31'로 표시된 것으로 보아, 현재 날짜 기준으로 당일이 아닌 과거(1월 31일)에 시작된 프로세스임을 알 수 있다. (당일 시작이면 '시:분:초' 형식으로 표시됨)<br>
+- <strong>제어 터미널 연결 여부</strong>: <code>TTY</code> 필드 값이 '?'이므로, 해당 프로세스는 사용자의 제어 터미널(pts 등)에 연결되지 않고 백그라운드(데몬 등)에서 동작 중인 상태이다.
+</blockquote>
+</details>
+
+
 
 <details>
 <summary>(단답형) 프로세스 그룹을 식별하기 위한 고유 ID로, 일반적으로 해당 그룹의 리더 프로세스(쉘로부터 실행된 프로세스)의 PID 값이 할당되는 식별자의 약칭을 쓰시오.</summary>
@@ -2990,11 +3018,133 @@ PID   PPID   PGID    SID CMD<br>
 
 ##### 프로세스 간 통신(시그널)
 
+<details>
+<summary>(단답형) 시그널 번호를 명시적으로 지정하지 않고 <code>kill</code> 명령을 실행했을 때, 대상 프로세스에 기본값(Default)으로 전달되는 시그널의 명칭과 번호를 쓰시오.</summary>
+<blockquote>
+SIGTERM (15)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 포그라운드에서 실행 중인 프로세스 그룹을 즉시 종료시키고자 할 때 사용하는 키보드 조합키 <code>Ctrl + C</code>와 <code>Ctrl + \</code>가 각각 발생시키는 시그널의 명칭을 순서대로 쓰시오.</summary>
+<blockquote>
+SIGINT, SIGQUIT
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 유닉스/리눅스 시스템에서 시그널(Signal)이 발생하는 경로를 4가지 상황으로 구분하고, 각각에 해당하는 구체적인 예시 또는 시그널 명칭을 하나씩 기술하시오.</summary>
+<blockquote>
+1. <strong>에러 상황</strong>: 커널에 의해 발생 (예: 0으로 나누기 연산 시 <code>SIGFPE</code>, 메모리 참조 오류 시 <code>SIGSEGV</code>)<br>
+2. <strong>외부 상황</strong>: 사용자의 키보드 입력 등에 의해 발생 (예: <code>Ctrl+C</code> 입력 시 <code>SIGINT</code>)<br>
+3. <strong>이벤트 발생</strong>: 특정 시스템 함수나 상황에 의해 발생 (예: <code>alarm()</code> 타이머 만료 시 <code>SIGALRM</code>, 자식 종료 시 <code>SIGCHLD</code>)<br>
+4. <strong>인위적 발생</strong>: 시스템 콜이나 명령어로 직접 발생 (예: <code>kill()</code> 함수 호출 또는 <code>kill</code> 명령어 실행)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>SIGKILL</code>(9번)과 <code>SIGSTOP</code>(19번) 시그널이 다른 일반적인 시그널들과 구별되는 결정적인 기술적 특징을 '시그널 핸들러'의 관점에서 서술하시오.</summary>
+<blockquote>
+일반적인 시그널은 프로세스가 무시하거나 별도의 시그널 핸들러 함수를 통해 임의로 처리 정책을 변경할 수 있다. 하지만 <code>SIGKILL</code>과 <code>SIGSTOP</code>은 시스템 관리 및 커널 제어 목적으로 사용되는 특수 시그널이므로, 수신하는 프로세스가 이를 무시하거나 핸들러를 통해 가로채서 처리할 수 없으며 무조건 즉시 종료되도록(또는 정지되도록) 강제된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 시스템에 떠 있는 <code>nc -lvp 8081</code> 프로세스(PID: 4498)를 시그널 번호 9를 사용하여 즉시 강제 종료시키는 명령어를 두 가지 형식(번호 사용, 이름 사용)으로 각각 작성하시오.</summary>
+<blockquote>
+1. 번호 사용: <code>kill -9 4498</code><br>
+2. 이름 사용: <code>kill -KILL 4498</code> (또는 <code>kill -SIGKILL 4498</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 실행 중인 프로세스(PID: 4500)에 <code>SIGSTOP</code> 시그널을 전송했을 때 프로세스에 일어나는 변화를 <code>ps -el</code> 명령의 <code>S</code>(Status) 필드 값 변화와 연관 지어 설명하고, 정지된 이 프로세스를 다시 가동시키기 위해 사용해야 할 시그널 명칭을 제안하시오.</summary>
+<blockquote>
+- <strong>변화</strong>: 프로세스가 즉시 실행을 멈추고 정지 상태가 되며, <code>ps -el</code> 명령으로 확인 시 <code>S</code> 필드의 값이 'T'(Stopped)로 변경된다.<br>
+- <strong>후속 조치</strong>: 정지된 프로세스를 다시 가동(Continue)시키기 위해서는 <code>SIGCONT</code>(18번) 시그널을 해당 프로세스에 전송해야 한다.
+</blockquote>
+</details>
+
+
 ### 3. UNIX/Linux 시스템 관리
 
 #### 시스템 시작과 종료
 
 ##### 시스템 런 레벨
+
+<details>
+<summary>(단답형) 리눅스 시스템에서 GUI 환경(X-Window)을 지원하는 다중 사용자 모드의 런 레벨 번호를 쓰시오.</summary>
+<blockquote>
+5
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스 시스템에서 현재 동작 중인 런 레벨을 확인하기 위해 사용하는 명령어를 쓰시오.</summary>
+<blockquote>
+<code>runlevel</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 유닉스/리눅스 시스템 부팅 시 <code>init</code> 프로세스가 참조하여 기본 런 레벨을 결정하는 설정 파일의 경로를 쓰시오.</summary>
+<blockquote>
+<code>/etc/inittab</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 런 레벨 1(Single User Mode)의 특징과 시스템 관리자가 이 모드를 주로 활용하는 구체적인 용도 2가지를 서술하시오.</summary>
+<blockquote>
+- <strong>특징</strong>: 네트워크 서비스를 지원하지 않는 단일 사용자 모드이며, 오직 루트(root) 관리자만이 시스템에 접근할 수 있다.<br>
+- <strong>용도</strong>: 시스템 장애 복구(파일 시스템 체크 등), 루트 관리자 패스워드 분실 시 초기화, 또는 초기 환경 설정 작업 등에 사용된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>init</code> 프로세스가 특정 런 레벨(예: 3번)로 진입할 때 수행하는 동작 과정을 <code>/etc/rc.d</code> 디렉터리 구조와 연관 지어 설명하시오.</summary>
+<blockquote>
+<code>init</code> 프로세스는 <code>/etc/inittab</code> 파일에 정의된 기본 런 레벨 또는 명령에 의해 변경된 레벨을 확인한다. 이후 해당 런 레벨에 대응하는 전용 디렉터리(예: <code>/etc/rc.d/rc3.d</code>)로 이동하여, 그 내부에 위치한 스크립트들을 정해진 순서에 따라 실행함으로써 시스템 초기 환경 및 필요한 서비스들을 구동시킨다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 런 레벨 0(Halt)과 6(Reboot)이 <code>/etc/inittab</code> 파일 내의 <code>initdefault</code>(기본 런 레벨) 항목으로 설정되어서는 안 되는 보안 및 운영상 이유를 서술하시오.</summary>
+<blockquote>
+운영체제 부팅이 완료되자마자 즉시 시스템을 종료(0번)하거나 무한히 재부팅(6번)하는 루프에 빠지게 되어, 관리자가 정상적인 로그인과 서비스 운영을 전혀 수행할 수 없는 장애 상태가 발생하기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음은 런 레벨 3 디렉터리(<code>/etc/rc.d/rc3.d</code>) 내에 존재하는 초기 프로세스 스크립트 파일 목록의 일부이다. 이 파일명들의 가장 앞 문자인 <code>S</code>와 <code>K</code>의 기술적 의미를 각각 설명하고, 뒤따르는 숫자가 갖는 의미를 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+- K01dnsmasq<br>
+- S13rpcbind<br>
+- S22messagebus
+</div>
+</summary>
+<blockquote>
+- <strong>S (Start)</strong>: 해당 런 레벨로 진입 시 해당 서비를 실행(Start)함을 의미한다.<br>
+- <strong>K (Kill/Stop)</strong>: 해당 런 레벨로 진입 시 기존에 실행 중이던 서비스를 중지(Kill)함을 의미한다.<br>
+- <strong>숫자</strong>: 프로그램이 실행되거나 종료되는 '우선순위(순서)'를 의미하며, 낮은 숫자일수록 먼저 실행/종료된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 한 관리자가 리눅스 서버 점검 중 <code>runlevel</code> 명령을 실행하여 <code>N 3</code>이라는 결과를 확인했다. 이 출력 데이터가 의미하는 내용을 이전 런 레벨과 현재 런 레벨 관점에서 분석하여 서술하시오.</summary>
+<blockquote>
+- <strong>3</strong>: 현재 시스템이 런 레벨 3(네트워크를 지원하는 다중 사용자 모드)으로 동작 중임을 의미한다.<br>
+- <strong>N</strong>: 시스템 부팅 이후 현재까지 런 레벨이 한 번도 변경되지 않았음(None)을 의미한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 유닉스(Solaris 등) 시스템에서 현재 런 레벨 정보를 확인하기 위해 사용하는 <code>who</code> 명령어의 옵션과, 시스템이 런 레벨 3으로 구동 중일 때의 출력 예시를 작성하시오.</summary>
+<blockquote>
+- <strong>옵션</strong>: <code>-r</code> (<code>who -r</code>)<br>
+- <strong>출력 예시</strong>: <code>run-level 3 Feb 10 02:20 3 0 S</code> (형식은 시스템에 따라 다를 수 있으나 'run-level 3'이 포함됨)
+</blockquote>
+</details>
 
 ##### 시스템 시작
 
@@ -3028,7 +3178,79 @@ SCAN 알고리즘<br>
 </blockquote>
 </details>
 
+
+<details>
+<summary>(단답형) 시스템에 전원이 공급된 후 가장 먼저 실행되어 CPU, 메모리 등 주요 하드웨어의 이상 유무를 점검하고 하드웨어 정보를 수집하는 과정의 명칭을 쓰시오.</summary>
+<blockquote>
+바이오스 (BIOS : Basic Input/Output System) 과정
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 커널에 의해 생성되는 시스템의 첫 번째 프로세스로, 모든 프로세스의 부모 역할을 수행하며 PID(Process ID) 1번을 할당받는 프로세스의 명칭을 쓰시오.</summary>
+<blockquote>
+init 프로세스
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 유닉스/리눅스의 시스템 부팅 과정을 주요 4단계(BIOS, 부트 프로그램, 커널, init)로 구분하고, 각 단계에서 수행되는 핵심 작업을 단계별로 요약하여 설명하시오.</summary>
+<blockquote>
+1. <strong>BIOS 과정</strong>: 하드웨어 점검(POST) 및 시스템 하드웨어 정보 수집<br>
+2. <strong>부트 프로그램 과정</strong>: 하드디스크에서 커널을 읽어 메모리에 적재하고 커널에 제어권 인도<br>
+3. <strong>커널 과정</strong>: 추가 커널 모듈 적재 및 시스템 운영을 위한 내부 자료구조 초기화<br>
+4. <strong>init 과정</strong>: PID 1번으로 실행되어 사용자가 시스템을 사용할 수 있도록 초기화 작업(초기 프로세스 기동) 수행
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 커널(Kernel)이 메모리에 적재된 이후, 운영체제가 실제로 하드웨어의 모든 기능을 제어하기 위해 수행하는 내부적인 주요 처리 내용 두 가지를 기술하시오.</summary>
+<blockquote>
+- 하드웨어 점검 완료 및 시스템 운영에 필요한 내부 자료구조 초기화<br>
+- 하드디스크로부터 부가적인 커널 모듈을 메모리로 읽어 들여 적재
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 시스템 부팅 중 특정 하드웨어 드라이버 로드 실패로 인해 'Kernel Panic' 메시지가 출력되며 부팅이 멈췄다. 이 현상은 부팅 4단계 중 어느 과정에서 발생한 것으로 판단할 수 있으며, 그 단계에서 커널이 수행하려고 했던 작업은 무엇인지 기술하시오.</summary>
+<blockquote>
+- <strong>단계</strong>: 커널(Kernel) 과정<br>
+- <strong>작업 내용</strong>: 커널이 메모리에 적재된 후 하드웨어를 제어하기 위해 하드디스크에서 부가적인 커널 모듈(드라이버 등)을 메모리로 로드하고 초기화하는 과정에서 발생한 것으로 판단할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스 서버 가동 시 <code>ps -ef</code> 명령을 실행했을 때, <code>init</code> 프로세스의 PPID(부모 프로세스 ID) 값이 0으로 나타나는 기술적인 이유를 부팅 과정과 연관 지어 서술하시오.</summary>
+<blockquote>
+<code>init</code> 프로세스는 사용자가 실행하는 일반 프로세스와 달리 커널에 의해 직접 생성되는 시스템의 첫 번째 프로세스(PID 1)이기 때문이다. 따라서 논리적으로 부모 프로세스가 존재하지 않음을 나타내기 위해 PPID가 0으로 설정된다.
+</blockquote>
+</details>
+
 ##### 시스템 종료
+
+<details>
+<summary>(단답형) 유닉스/리눅스 시스템을 안전하게 종료하기 위해 사용하는 대표적인 명령어의 명칭을 쓰시오.</summary>
+<blockquote>
+shutdown
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 운영 중인 리눅스 서버를 종료하기 직전, 시스템 관리자가 데이터 손실 방지 및 안정성 확보를 위해 반드시 확인하거나 수행해야 할 주의사항 3가지를 기술하시오.</summary>
+<blockquote>
+1. 현재 접속 중인 사용자들에게 종료 사실을 공지하여 작업을 마무리하도록 안내한다.<br>
+2. 운영 중인 주요 서비스(프로세스)들이 안전하게 종료되도록 조치한다.<br>
+3. 메모리의 변경 내용을 하드디스크에 갱신(Update/Sync)하여 파일 시스템의 무결성을 유지한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 만약 관리자가 <code>shutdown</code> 명령을 사용하지 않고 서버의 전원을 갑자기 차단했을 때, 이후 재부팅 시 발생할 수 있는 파일 시스템 상의 문제점과 이를 방지하기 위한 '종료 전 하드디스크 갱신' 과정의 중요성을 서술하시오.</summary>
+<blockquote>
+- <strong>문제점</strong>: 메모리에 남아있던 데이터가 디스크에 채 기록되지 않아 파일 시스템의 무결성이 훼손되거나 데이터 상호 불일치(Inconsistency)가 발생할 수 있다.<br>
+- <strong>중요성</strong>: 안전한 종료 과정에서는 관리자가 하드디스크를 최신 상태로 갱신하여 커널 메모리의 버퍼 내용과 물리적 디스크 내용을 동시화(Sync)함으로써 파일 시스템의 정합성을 보장해야 한다.
+</blockquote>
+</details>
 
 #### 사용자 및 그룹 관리
 
@@ -3038,6 +3260,83 @@ SCAN 알고리즘<br>
 <summary>리눅스 환경에서 새로 생성되는 사용자 계정의 홈 디렉터리에 자동으로 복사할 기본 설정 파일들(.bashrc 등)을 저장해 두는 디렉터리 경로를 쓰시오.</summary>
 <blockquote>
 /etc/skel
+</blockquote>
+</details>
+
+
+<details>
+<summary>(단답형) <code>useradd</code> 또는 <code>usermod</code> 명령어 사용 시, 기존에 존재하는 UID와 중복된 값을 가진 계정을 생성하거나 변경할 수 있도록 허용하는 옵션을 쓰시오.</summary>
+<blockquote>
+-o (non-unique)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 사용자 계정을 추가할 때 해당 사용자가 속할 '보조 그룹'들을 지정하기 위해 사용하는 옵션을 쓰시오.</summary>
+<blockquote>
+-G
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>userdel</code> 명령어로 계정 삭제 시, 해당 사용자의 홈 디렉터리와 메일 함까지 모두 강제로 삭제하기 위해 반드시 포함해야 하는 옵션을 쓰시오.</summary>
+<blockquote>
+-r
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 관리자가 <code>useradd -o -u 0 hacker</code>와 같은 명령어를 실행했을 때 발생할 수 있는 보안상 위험성을 '권한' 관점에서 서술하시오.</summary>
+<blockquote>
+<code>-o</code> 옵션은 중복 UID를 허용하며, <code>-u 0</code>은 루트(root) 관리자의 UID를 의미한다. 따라서 <code>hacker</code>라는 이름의 일반 계정처럼 보이지만 실제로는 커널 내부적으로 루트와 동일한 권한(UID 0)을 가지게 되어, 공격자가 관리자 권한을 영구적으로 탈취하는 수단으로 악용될 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>useradd</code> 명령어에서 사용자의 그룹을 지정하는 <code>-g</code> 옵션과 <code>-G</code> 옵션의 기술적인 차이점을 설명하시오.</summary>
+<blockquote>
+- <strong>-g 옵션</strong>: 사용자의 '기본 그룹(Primary Group)'을 지정한다. 프로세스 실행 시 기본 GID로 사용된다.<br>
+- <strong>-G 옵션</strong>: 사용자가 추가적으로 속하게 될 '보조 그룹(Supplementary Groups)'을 지정한다. 여러 개의 그룹을 쉼표로 구분하여 등록 가능하다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 아르바이트생의 계정을 <code>userdel worker</code> 명령으로 삭제했다. 이후 신규 사용자가 동일한 아이디 <code>worker</code>를 사용할 경우 발생할 수 있는 잠재적 이슈와 이를 방지하기 위한 권장 옵션을 서술하시오.</summary>
+<blockquote>
+- <strong>이슈</strong>: <code>-r</code> 옵션 없이 삭제하면 기존 사용자의 홈 디렉터리가 시스템에 그대로 남아있어, 신규 사용자가 동일한 이름으로 생성될 경우 이전 사용자의 데이터를 그대로 상속받거나 보안상 노출될 위험이 있다.<br>
+- <strong>방지 옵션</strong>: 반드시 <code>-r</code> 옵션을 사용하여 계정 삭제 시 홈 디렉터리와 메일 스풀을 함께 깔끔하게 제거해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 조건에 부합하는 새로운 사용자 <code>dev01</code>을 생성하는 한 줄의 명령어를 작성하시오.
+- UID 번호: 700<br>
+- 설명(Comment): "Developer 01"<br>
+- 로그인 쉘: /bin/bash<br>
+- 홈 디렉터리 자동 생성 포함</summary>
+<blockquote>
+<code>useradd -u 700 -c "Developer 01" -s /bin/bash -m dev01</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 <code>usermod -G wheel test01</code> 명령을 실행했다. 이후 <code>/etc/group</code> 파일 내에서 <code>wheel</code> 그룹의 정보를 확인했을 때 예상되는 출력 줄의 형태를 기술하시오. (단, 기존 wheel 그룹에 root, algisa가 있었다고 가정)</summary>
+<blockquote>
+<code>wheel:x:10:root,algisa,test01</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 <code>/etc/passwd</code> 설정 내용 중 보안상 가장 큰 위협으로 판단되는 행(Line)을 고르고, 그 이유를 해당 행의 필드 값을 근거로 설명하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+1. user01:x:500:500::/home/user01:/bin/bash<br>
+2. service:x:0:0::/home/service:/bin/bash<br>
+3. guest:x:600:600::/home/guest:/sbin/nologin
+</div>
+</summary>
+<blockquote>
+- <strong>위험한 행</strong>: 2번 (service)<br>
+- <strong>이유</strong>: 세 번째 필드(UID)와 네 번째 필드(GID)가 모두 <code>0</code>으로 설정되어 있다. 이는 <code>service</code>라는 일반 계정 명칭을 사용하고 있지만 권한은 최고 관리자(root)와 완벽히 동일함을 의미하므로, 백도어 계정으로 의심할 수 있다.
 </blockquote>
 </details>
 
