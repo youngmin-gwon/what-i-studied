@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-06 17:18:16 +09:00
+date modified: 2026-03-06 17:20:35 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1300,7 +1300,7 @@ Access Time (접근 시간)
 심볼릭 링크 (Symbolic link / Soft link)
 </blockquote>
 </details>
-- [ ] 
+
 <details>
 <summary>(단답형) 파일이나 디렉터리에 생성 제한이 없어 자유롭게 사용할 수 있지만, 원본 파일이 삭제되거나 이동하게 되면 링크가 끊겨서 접근이 불가능해지는 링크 파일은 어떤 종류의 링크인가?</summary>
 <blockquote>
