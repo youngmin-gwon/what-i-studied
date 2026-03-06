@@ -1524,6 +1524,28 @@ Access Time (접근 시간)
 ###### cd (Change Directory)
 
 <details>
+<summary>(단답형) 최상위 루트 디렉터리(/)를 기준으로 목적지까지 거쳐가는 경로를 모두 표시하는 방식을 무엇이라 하는가?</summary>
+<blockquote>
+절대 경로명 (Absolute pathname)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 파일 시스템 내에서 경로를 지정하는 두 가지 방식인 '절대 경로'와 '상대 경로'의 기준점이 각각 무엇인지 비교하여 서술하시오.</summary>
+<blockquote>
+- <strong>절대 경로명</strong>: 최상위 루트 디렉터리(<code>/</code>)를 기준으로 경로를 표시한다.<br>
+- <strong>상대 경로명</strong>: 현재 작업 중인 디렉터리(<code>.</code>)를 기준으로 경로를 표시한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 사용자의 홈 디렉터리 하위에 있는 <code>work/project</code> 디렉터리로 한 번에 이동하기 위한 <code>cd</code> 명령어를 기호(<code>~</code>)를 사용하여 작성하시오.</summary>
+<blockquote>
+<code>cd ~/work/project</code>
+</blockquote>
+</details>
+
+<details>
 <summary>UNIX/Linux에서 현재 작업 디렉터리를 변경하는 명령어는?</summary>
 <blockquote>
 <code>cd</code>
@@ -1561,6 +1583,28 @@ Access Time (접근 시간)
 ###### mkdir (Make Directory)
 
 <details>
+<summary>(단답형) 운영체제에서 디렉터리를 새로 생성하고자 할 때 사용하는 명령어는 무엇인가?</summary>
+<blockquote>
+mkdir (Make Directory)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 새로운 디렉터리를 생성할 때 <code>mkdir -p</code> 옵션을 사용해야 하는 구체적인 상황과 해당 옵션의 역할에 대해 설명하시오.</summary>
+<blockquote>
+<strong>상황</strong>: 존재하지 않는 여러 상위 계층을 포함하는 하위 디렉터리(예: <code>AA/BB/CC</code>)를 한 번에 동시에 생성해야 할 때 사용한다.<br>
+<strong>역할</strong>: 계층 구조상 누락된 중간 디렉터리들을 에러 없이 알아서 모두 생성해 준다. 만약 <code>-p</code> 옵션을 사용하지 않으면 중간 경로가 없을 때 생성에 실패한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 디렉터리 하위에 <code>work</code> 라는 이름의 디렉터리를 새롭게 생성하는 기본 명령어를 작성하시오.</summary>
+<blockquote>
+<code>mkdir work</code>
+</blockquote>
+</details>
+
+<details>
 <summary>새로운 디렉터리를 생성하는 명령어는?</summary>
 <blockquote>
 <code>mkdir</code>
@@ -1591,6 +1635,27 @@ Access Time (접근 시간)
 </details>
 
 ###### rmdir (Remove Directory)
+
+<details>
+<summary>(단답형) 기존에 생성되어 있는 디렉터리를 삭제할 때 사용하는 명령어로, 삭제하려는 대상이 반드시 비어 있을 때만 동작하는 명령어는 무엇인가?</summary>
+<blockquote>
+rmdir (Remove Directory)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>rmdir</code> 명령어로 기존 디렉터리를 삭제하려고 할 때, 명령이 정상적으로 성공하기 위해 사전에 반드시 충족되어야 하는 내부 조건은 무엇인지 서술하시오.</summary>
+<blockquote>
+삭제 대상이 되는 디렉터리 구역 내부에 어떠한 일반 파일이나 하위 디렉터리도 남아있지 않고 <strong>완벽히 비어있어야만</strong> 성공적으로 삭제할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 디렉터리 하위에 비어 있는 <code>AA/BB/CC</code> 라는 형태의 빈 디렉터리 계층 구조를 한 번의 명령어로 모두 삭제하고자 한다. 이를 위해 필요한 <code>rmdir</code> 명령어와 옵션을 작성하시오.</summary>
+<blockquote>
+<code>rmdir -p AA/BB/CC</code>
+</blockquote>
+</details>
 
 <details>
 <summary>빈 디렉터리를 삭제하는 명령어는?</summary>
