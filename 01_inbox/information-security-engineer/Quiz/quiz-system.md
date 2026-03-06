@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-06 17:20:35 +09:00
+date modified: 2026-03-06 18:27:29 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -2825,7 +2825,168 @@ root (또는 슈퍼 유저)
 
 ##### 프로세스 개요
 
+<details>
+<summary>(단답형) 프로세스가 실행될 때 할당되는 메모리 구조 중, 함수의 로컬 변수, 매개변수, 리턴 값 등이 일시적으로 저장되며 스택 포인터가 가리키는 영역의 명칭을 쓰시오.</summary>
+<blockquote>
+Stack 영역 (스택 영역)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 프로세스가 생성되면 운영체제(커널)가 프로세스별로 생성하는 관리 정보 자료구조로, PID, PC(Program Counter), 프로세스 상태 등을 저장하고 있는 블록의 명칭(약어)을 쓰시오.</summary>
+<blockquote>
+PCB (Process Control Block, 프로세스 제어 블록)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 유닉스/리눅스 시스템에서 프로세스가 처음 생성될 때 기본적으로 할당되는 3가지 표준 스트림인 표준 입력(STDIN), 표준 출력(STDOUT), 표준 에러(STDERR)에 각각 대응되는 파일 디스크립터(FD) 번호를 순서대로 쓰시오.</summary>
+<blockquote>
+0, 1, 2
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스 시스템에서 발생하는 '고아 프로세스(Orphan Process)'와 '좀비 프로세스(Zombie Process)'의 개념적 차이와 발생 원인을 서술하시오.</summary>
+<blockquote>
+- <strong>고아 프로세스</strong>: 자식 프로세스가 실행 중인 상태에서 부모 프로세스가 먼저 종료된 경우를 말하며, 이 경우 PID 1번인 init(또는 systemd) 프로세스가 새로운 부모가 되어 수용한다.<br>
+- <strong>좀비 프로세스</strong>: 자식 프로세스가 모든 실행을 마쳤지만, 부모 프로세스가 자식의 종료 상태 정보(Exit Status)를 회수하지 않아 시스템 커널의 프로세스 테이블에 관리 정보가 남아 있는 상태를 말한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) CPU가 현재 실행 중인 프로세스에서 다른 프로세스로 제어권을 넘길 때 발생하는 '문맥 교환(Context Switching)'의 정의를 쓰고, 이 과정에서 PCB(Process Control Block)가 수행하는 핵심 역할을 설명하시오.</summary>
+<blockquote>
+- <strong>정의</strong>: CPU에서 실행 중인 프로세스가 교체될 때, 현재 프로세스의 상태(PC, 레지스트리 정보 등)를 저장하고 새로운 프로세스의 상태로 복원하는 과정을 말한다.<br>
+- <strong>PCB의 역할</strong>: 문맥 교환 발생 시, 현재 실행 중인 프로세스의 레지스트리 상태 및 PC 값을 해당 프로세스의 PCB 내 'Register save area'에 저장하고, 다음에 실행할 프로세스의 PCB로부터 이전에 저장해둔 상태 정보를 CPU 레지스트리로 복원하여 실행을 재개할 수 있게 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 커널이 시스템 내의 오픈된 파일을 관리하기 위해 사용하는 3단계 자료구조인 '파일 디스크립터 테이블(PDT/FDT)', '시스템 오픈 파일 테이블(System open-file table)', '액티브 vnode 테이블(Active vnode table)' 간의 관계와 각 테이블의 주요 역할을 서술하시오.</summary>
+<blockquote>
+1. <strong>파일 디스크립터 테이블</strong>: 개별 프로세스별로 관리되는 테이블로, 정수 값인 FD를 통해 시스템 오픈 파일 테이블의 항목을 가리킨다.<br>
+2. <strong>시스템 오픈 파일 테이블</strong>: 시스템 전체에서 오픈된 모든 파일을 관리하며, 오픈 모드(Read/Write), 파일 오프셋(현재 위치), 그리고 해당 파일을 참조하는 횟수(Reference count) 등을 저장한다.<br>
+3. <strong>액티브 vnode 테이블</strong>: 파일 시스템의 독립적인 매개체 역할을 하며, 해당 파일의 실제 데이터 위치 정보 등 inode 정보를 캐싱하고 관리한다.
+</blockquote>
+</details>
+
+
+<details>
+<summary>(단답형) 쉘에서 새 프로그램을 실행할 때, 현재 실행 중인 프로세스의 PID는 그대로 유지하면서 실행 코드와 데이터 이미지만 새로운 프로그램으로 교체(전이)하는 시스템 호출의 명칭을 쓰시오.</summary>
+<blockquote>
+exec (또는 execve)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 사용자가 쉘에서 <code>./a.out</code> 명령을 입력하여 프로그램을 실행했을 때, 커널 차원에서 <code>fork()</code>와 <code>exec()</code>가 호출되는 상세 과정과 그 과정에서 '터미널 제어권'이 어떻게 이동하는지 설명하시오.</summary>
+<blockquote>
+1. 쉘 프로세스가 <code>fork()</code>를 호출하여 자신의 복사본인 자식 프로세스를 생성한다.<br>
+2. 터미널 제어권이 쉘에서 생성된 자식 프로세스로 넘어간다.<br>
+3. 자식 프로세스 내에서 <code>exec()</code>를 호출하여 기존 쉘 이미지를 <code>a.out</code> 실행 이미지로 교체한다.<br>
+4. <code>a.out</code> 프로그램이 종료되면 터미널 제어권이 다시 원래의 쉘 프로세스로 반환된다.
+</blockquote>
+</details>
+
 ##### 프로세스 정보 확인
+
+<details>
+<summary>(작업형) 다음의 <code>ps -l</code> 명령 실행 결과에서 좀비 프로세스를 식별하고, 해당 프로세스의 PID를 쓰시오. 또한, 이러한 좀비 프로세스가 시스템 가용성에 미치는 부정적 영향과 이를 제거하기 위한 근본적인 해결 방법을 기술하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[ps -l 결과]</strong><br>
+S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY      TIME CMD<br>
+S   501  1234  1200  0  80   0 -  1234 -      pts/0    00:00:01 bash<br>
+Z   501  5678  1234  0  80   0 -     0 -      pts/0    00:00:00 &lt;defunct&gt;
+</div>
+</summary>
+<blockquote>
+- <strong>좀비 프로세스 PID</strong>: 5678 (상태 값이 'Z'이고 CMD 명칭이 '&lt;defunct&gt;'이므로 좀비임)<br>
+- <strong>부정적 영향</strong>: 좀비 프로세스는 실제 실행 이미지는 없으나 커널 내 프로세스 테이블의 슬롯을 계속 차지한다. 프로세스 ID는 유한한 자원이므로 좀비 프로세스가 과도하게 늘어나면 새로운 프로세스 생성이 불가능해지는 시스템 장애가 발생할 수 있다.<br>
+- <strong>해결 방법</strong>: 좀비 프로세스 자체는 이미 종료된 상태이므로 <code>kill</code> 명령으로 죽일 수 없다. 부모 프로세스(PID: 1234)를 종료시키면 좀비 프로세스들이 고아 프로세스가 되어 init 프로세스에 의해 수집 및 제거되거나, 시스템을 재기동하여 커널 정보를 초기화해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 시스템 전체 프로세스 중 좀비 프로세스만을 검색하여 그 상태와 명령어 이름을 확인하고자 할 때, <code>ps</code> 명령의 옵션과 <code>grep</code> 명령을 사용하여 이를 한 줄로 수행하는 명령어를 작성하시오. (단, 결과에 '&lt;defunct&gt;' 문자열이 포함된 행만 추출하도록 작성)</summary>
+<blockquote>
+<code>ps -ef | grep defunct</code> (또는 <code>ps -el | grep "Z"</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>ps -l</code> 결과의 <code>PRI</code>(Priority) 필드와 <code>NI</code>(Nice) 필드의 관계를 설명하고, 특정 프로세스(PID: 4321)의 우선순위를 낮추기 위해(즉, NI 값을 높이기 위해) 사용하는 명령어를 작성하시오. (단, NI 값을 15로 설정한다고 가정)</summary>
+<blockquote>
+- <strong>관계</strong>: <code>PRI</code>는 시스템에 의해 결정되는 실제 우선순위 값이며, <code>NI</code>는 사용자가 프로세스의 우선순위에 가중치를 주기 위해 설정하는 값이다. 일반적으로 <code>PRI</code> 값은 시스템 기본 우선순위에 <code>NI</code> 값을 더하여 계산되므로, <code>NI</code> 값이 커질수록(Positive) 실제 우선순위는 낮아진다.<br>
+- <strong>명령어</strong>: <code>renice 15 -p 4321</code>
+</blockquote>
+</details>
+
+
+<details>
+<summary>(단답형) 프로세스 그룹을 식별하기 위한 고유 ID로, 일반적으로 해당 그룹의 리더 프로세스(쉘로부터 실행된 프로세스)의 PID 값이 할당되는 식별자의 약칭을 쓰시오.</summary>
+<blockquote>
+PGID (Process Group ID)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 프로그램을 실행할 때 터미널 제어권을 쉘이 계속 유지하게 하여, 사용자가 추가적인 명령을 바로 입력할 수 있도록 백그라운드 모드로 동작시키는 특수 기호를 쓰시오.</summary>
+<blockquote>
+&
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 프로세스 그룹(Process Group)의 정의와, 커널이 프로세스들을 그룹 단위로 관리하여 얻는 주된 효과를 '터미널 제어권' 관점에서 서술하시오.</summary>
+<blockquote>
+- <strong>정의</strong>: 쉘에서 실행된 프로세스와 그로부터 파생된 자식 프로세스들의 집합이다.<br>
+- <strong>효과</strong>: 커널은 터미널로부터 입력되는 데이터(입력값)와 발생하는 시그널(Ctrl+C 등)을 개별 프로세스가 아닌 '프로세스 그룹' 단위로 전달함으로써, 관련된 프로세스들을 한꺼번에 안전하게 제어하고 관리할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 세션(Session) 및 세션 ID(SID)의 개념을 설명하고, 일반적인 유닉스/리눅스 환경에서 SID가 결정되는 기준과 세션 내에 포함될 수 있는 요소들을 서술하시오.</summary>
+<blockquote>
+- <strong>개념</strong>: 세션은 사용자가 터미널과 연결되어 있는 논리적인 연결 상태를 의미한다.<br>
+- <strong>결정 기준</strong>: 해당 세션의 리더 프로세스(일반적으로 사용자가 최초 로그인했을 때 나타나는 로그인 쉘)의 PID가 해당 세션의 SID로 설정된다.<br>
+- <strong>포함 요소</strong>: 하나의 세션 내에는 하나의 포그라운드 프로세스 그룹과 하나 이상의 백그라운드 프로세스 그룹이 존재할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 <code>ps</code> 출력 결과를 분석하여 질문에 답하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[ps -o pid,ppid,pgid,sid,cmd 결과]</strong><br>
+PID   PPID   PGID    SID CMD<br>
+25443 25441 25443  25443 bash<br>
+ 4015 25443  4015  25443 parent.out<br>
+ 4016  4015  4015  25443 child.out
+</div>
+1. <code>parent.out</code>과 <code>child.out</code>이 동일한 프로세스 그룹에 속해 있음을 나타내는 PGID 값은 무엇인가?<br>
+2. 위 상에서 '세션 리더'의 역할을 수행하고 있는 프로세스의 CMD 명칭과 그 근거를 기술하시오.</summary>
+<blockquote>
+1. 4015<br>
+2. <strong>CMD</strong>: bash / <strong>근거</strong>: 모든 프로세스의 SID(25443)가 bash의 PID(25443)와 일치하기 때문에 bash가 해당 세션의 리더라고 판단할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 사용자가 <code>./parent.out &</code> 명령을 입력하여 백그라운드에서 프로그램을 실행했을 때와 <code>./parent.out</code>(포그라운드)으로 실행했을 때를 비교하여, '터미널 제어권'과 '쉘 사용 가능 여부' 측면에서의 차이점을 기술하시오.</summary>
+<blockquote>
+- <strong>백그라운드(&)</strong>: 터미널 제어권을 쉘(bash)이 그대로 가지고 있으므로 프로그램 실행 중에도 사용자가 쉘에 추가 명령을 입력할 수 있다.<br>
+- <strong>포그라운드</strong>: 터미널 제어권이 해당 프로그램(프로세스 그룹)으로 넘어가므로, 프로그램이 종료되거나 중단되기 전까지는 사용자가 쉘을 통해 다른 명령을 실행할 수 없다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) PID가 25443인 bash 쉘에서 <code>parent.out</code>을 포그라운드로 실행하여 PID 4015를 할당받았다. 이후 <code>parent.out</code>이 자식 프로세스 <code>child.out</code>(PID 4016)을 생성했을 때, 자식 프로세스의 PPID와 PGID, SID 값을 예측하여 작성하시오.</summary>
+<blockquote>
+- <strong>PPID</strong>: 4015 (부모인 parent.out의 PID)<br>
+- <strong>PGID</strong>: 4015 (그룹 리더인 parent.out의 PID가 그룹 내 모든 자식에게 상속됨)<br>
+- <strong>SID</strong>: 25443 (해당 세션 리더인 bash의 PID가 상속됨)
+</blockquote>
+</details>
 
 ##### 프로세스 간 통신(시그널)
 
