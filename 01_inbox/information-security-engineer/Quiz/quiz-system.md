@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-06 16:16:45 +09:00
+date modified: 2026-03-06 17:09:16 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -2461,10 +2461,40 @@ chmod
 ###### chown (Change file ownership)
 
 <details>
+<summary>(단답형) 'Change Owner'의 약자로, 파일이나 디렉터리의 소유자(Owner)를 변경할 때 사용하는 명령어의 명칭을 쓰시오.</summary>
+<blockquote>
+<code>chown</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>chown</code> 명령어 실행 시, 지정한 대상이 심볼릭 링크 파일인 경우 링크가 가리키는 원본이 아닌 '링크 파일 자체'의 소유권을 변경하기 위해 사용하는 옵션 기호를 쓰시오.</summary>
+<blockquote>
+<code>-h</code>
+</blockquote>
+</details>
+
+<details>
 <summary>웹 서버 디렉터리 /var/www/html의 모든 파일과 하위 디렉터리의 소유자를 www-data로, 그룹도 www-data로 변경하는 명령을 쓰시오.</summary>
 <blockquote>
 <code>chown -R www-data:www-data /var/www/html</code><br><br>
 <code>-R</code> 옵션은 재귀적으로 하위 디렉터리까지 포함하여 소유권을 변경한다. <code>user:group</code> 형태로 소유자와 그룹을 동시에 지정할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 일반 사용자 계정(예: algisa)으로 로그인한 상태에서 <code>chown root file.txt</code> 명령을 실행했을 때 'Operation not permitted' 에러가 발생하는 이유를 보안 정책 관점에서 설명하시오.</summary>
+<blockquote>
+리눅스 보안 정책상 파일의 소유권 변경은 시스템 전체의 보안 및 접근 통제에 중대한 영향을 미치므로, 오직 <strong>슈퍼 유저(root, UID 0) 권한을 가진 사용자만이 실행</strong>할 수 있도록 제한되어 있기 때문이다. 일반 사용자가 자신의 파일 소유권을 임의로 타인(특히 root)에게 넘기는 행위는 시스템 관리 원칙에 어긋나므로 허용되지 않는다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>chown</code> 명령어를 사용하여 파일의 '소유자'와 '소유 그룹'을 동시에 변경하고 싶을 때 사용하는 명령문 형식을 예시와 함께 서술하시오.</summary>
+<blockquote>
+- <strong>형식</strong>: <code>chown 소유자명:그룹명 파일명</code><br>
+- <strong>예시</strong>: <code>chown algisa:dev b.sh</code><br>
+- <strong>설명</strong>: 콜론(<code>:</code>) 또는 점(<code>.</code>)을 구분자로 사용하여 소유자와 그룹을 한 번의 명령으로 모두 지정할 수 있다.
 </blockquote>
 </details>
 
@@ -2514,13 +2544,6 @@ chmod
 </details>
 
 <details>
-<summary>(단답형) 'Change Owner'의 약자로, 파일이나 디렉터리의 소유자(Owner)를 변경할 때 사용하는 명령어의 명칭을 쓰시오.</summary>
-<blockquote>
-<code>chown</code>
-</blockquote>
-</details>
-
-<details>
 <summary>(단답형) 리눅스 시스템에서 <code>chown</code>이나 <code>chgrp</code> 명령을 사용하여 파일의 소유권이나 그룹을 강제로 변경할 수 있는 권한을 가진 유일한 사용자 계정의 명칭을 쓰시오.</summary>
 <blockquote>
 root (또는 슈퍼 유저)
@@ -2528,33 +2551,10 @@ root (또는 슈퍼 유저)
 </details>
 
 <details>
-<summary>(단답형) <code>chown</code> 명령어 실행 시, 지정한 대상이 심볼릭 링크 파일인 경우 링크가 가리키는 원본이 아닌 '링크 파일 자체'의 소유권을 변경하기 위해 사용하는 옵션 기호를 쓰시오.</summary>
+<summary>(서술형) <code>chown</code> 명령어를 사용하여 특정 디렉터리의 소유자를 변경할 때, 해당 디렉터리 내부에 포함된 모든 하위 파일과 디렉터리까지 한꺼번에 소유권을 적용하기 위해 사용하는 옵션의 명칭과 동작 원리를 서술하시오.</summary>
 <blockquote>
-<code>-h</code>
-</blockquote>
-</details>
-
-<details>
-<summary>(서술형) <code>chown</code> 명령어를 사용하여 특정 디렉터리의 소유자를 변경할 때, 해당 디렉터리 내부에 포함된 모든 하위 파일과 디렉터리까지 한꺼번에 소유권을 적용하기 위해 사용하는 옵션(<code>-R</code>)의 명칭과 동작 원리를 서술하시오.</summary>
-<blockquote>
-- <strong>옵션 명칭</strong>: Recursive (재귀적 변경)<br>
+- <strong>옵션 명칭</strong>: R(Recursive)-재귀적 변경<br>
 - <strong>동작 원리</strong>: 지정한 디렉터리뿐만 아니라 그 하위에 존재하는 모든 파일과 서브 디렉터리들을 시스템이 끝까지 탐색하며 소유권을 일괄적으로 변경한다.
-</blockquote>
-</details>
-
-<details>
-<summary>(서술형) 일반 사용자 계정(예: algisa)으로 로그인한 상태에서 <code>chown root file.txt</code> 명령을 실행했을 때 'Operation not permitted' 에러가 발생하는 이유를 보안 정책 관점에서 설명하시오.</summary>
-<blockquote>
-리눅스 보안 정책상 파일의 소유권 변경은 시스템 전체의 보안 및 접근 통제에 중대한 영향을 미치므로, 오직 <strong>슈퍼 유저(root, UID 0) 권한을 가진 사용자만이 실행</strong>할 수 있도록 제한되어 있기 때문이다. 일반 사용자가 자신의 파일 소유권을 임의로 타인(특히 root)에게 넘기는 행위는 시스템 관리 원칙에 어긋나므로 허용되지 않는다.
-</blockquote>
-</details>
-
-<details>
-<summary>(서술형) <code>chown</code> 명령어를 사용하여 파일의 '소유자'와 '소유 그룹'을 동시에 변경하고 싶을 때 사용하는 명령문 형식을 예시와 함께 서술하시오.</summary>
-<blockquote>
-- <strong>형식</strong>: <code>chown 소유자명:그룹명 파일명</code><br>
-- <strong>예시</strong>: <code>chown algisa:dev b.sh</code><br>
-- <strong>설명</strong>: 콜론(<code>:</code>) 또는 점(<code>.</code>)을 구분자로 사용하여 소유자와 그룹을 한 번의 명령으로 모두 지정할 수 있다.
 </blockquote>
 </details>
 
