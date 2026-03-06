@@ -2712,6 +2712,82 @@ root (또는 슈퍼 유저)
 </details>
 
 <details>
+<summary>(단답형) <code>find</code> 명령어의 <code>-type</code> 옵션을 사용하여 파일 종류별 검색을 수행할 때, 일반 파일(f), 디렉터리(d) 외에 '심볼릭 링크(Symbolic Link)' 파일만을 특정하여 검색하기 위해 지정해야 하는 문자를 쓰시오.</summary>
+<blockquote>
+<code>l</code> (소문자 L)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>find</code> 명령어로 파일 크기를 조건으로 검색할 때, <code>10MB</code>를 초과하는 크기를 가진 파일들만을 찾고자 한다. 이때 <code>-size</code> 옵션 뒤에 입력해야 하는 정확한 인자 형식을 쓰시오.</summary>
+<blockquote>
+<code>+10M</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>find</code> 명령어의 <code>-exec</code> 옵션과 함께 사용되어, 각 검색 결과 파일에 대해 명령 실행을 마무리함을 의미하는 종료 문자를 쓰시오. (단, 백슬래시를 포함한 형태로 작성)</summary>
+<blockquote>
+<code>\;</code> (또는 <code>\+</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>find</code> 명령어의 <code>-exec</code> 옵션을 사용하여 검색된 파일들에 대해 추가 명령을 실행할 때, 검색된 각 파일의 경로(파일명)가 인수로 전달되는 위치를 나타내는 특수 기호 쌍을 쓰시오.</summary>
+<blockquote>
+<code>{}</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>find</code> 명령어에서 여러 검색 조건을 조합하기 위해 사용하는 논리 연산 기호인 <code>-a</code>, <code>-o</code>, <code>!</code> 의 의미를 각각 설명하고, 만약 조건 사이에 어떠한 연산 기호도 명시하지 않았을 때 기본적으로 적용되는 논리 연산은 무엇인지 서술하시오.</summary>
+<blockquote>
+- <strong>-a (또는 -and)</strong>: 두 조건이 모두 참(True)일 때만 결과를 반환한다.<br>
+- <strong>-o (또는 -or)</strong>: 두 조건 중 하나라도 참이면 결과를 반환한다.<br>
+- <strong>! (또는 -not)</strong>: 뒤따르는 조건의 참/거짓을 반전(부정)한다.<br>
+- <strong>기본 연산</strong>: 조건을 나열하고 연산자를 생략하면 기본적으로 <strong>AND(-a)</strong> 연산이 수행된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 보안 점검 중 소유자가 존재하지 않는 파일(<code>-nouser</code>)이나 소유 그룹이 존재하지 않는 파일(<code>-nogroup</code>)이 발견되는 이유와, 이러한 상태가 시스템에 미치는 보안 위협 및 관리자가 취해야 할 조치 방법을 서술하시오.</summary>
+<blockquote>
+- <strong>발생 사유</strong>: 파일의 원래 소유자 계정이나 그룹이 삭제(퇴사 등)되어 시스템에 더 이상 해당 이름이 존재하지 않을 때 발생한다.<br>
+- <strong>보안 위협</strong>: 삭제된 UID/GID를 악의적으로 재사용하는 계정이 생성될 경우, 해당 파일에 대한 소유자 권한을 획득하게 되는 권한 상승 위협이 있다.<br>
+- <strong>조치 방법</strong>: 불필요한 파일인 경우 <code>rm</code> 명령으로 삭제하고, 필요한 파일인 경우 <code>chown</code> 혹은 <code>chgrp</code> 명령을 사용하여 현재 존재하는 유효한 사용자/그룹으로 소유권을 재지정해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>find</code> 명령어에서 <code>-perm 644</code>와 <code>-perm -644</code>를 사용하여 파일을 검색할 때, 두 결과값의 차이를 파일 권한 비트의 포함 여부 관점에서 비교하여 서술하시오.</summary>
+<blockquote>
+- <strong>-perm 644</strong>: 파일의 권한 모드가 정확히 <code>644(rw-r--r--)</code>와 일치하는 파일만 검색한다.<br>
+- <strong>-perm -644</strong>: 명시된 <code>644</code> 권한 비트를 모두 포함(Set)하고 있는 파일을 검색한다. 즉, 소유자의 읽기/쓰기 권한과 그룹/기타 사용자의 읽기 권한을 최소한으로 가진 파일을 모두 찾으므로 <code>644</code>, <code>664</code>, <code>755</code>, <code>777</code> 등이 모두 검색 결과에 포함될 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 디렉터리(<code>.</code>) 이하의 모든 정규 파일(<code>-type f</code>) 중에서, 소유자가 <code>root</code>이거나(OR) 소유 그룹이 <code>dev</code>인 파일을 검색하여 화면에 출력하고자 한다. 연산 우선순위를 위해 소괄호 기호를 적절히 사용하여 단일 명령어를 작성하시오.</summary>
+<blockquote>
+<code>find . -type f \( -user root -o -group dev \) -print</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 시스템 침해 사고 발생 시 무결성 검증을 위해, 최상위 루트(<code>/</code>) 디렉터리부터 시작하여 최근 10일 이내에 수정 또는 생성된(<code>-mtime</code>) 모든 정규 파일들을 검색하고 그 목록을 <code>/tmp/recent_scan.out</code> 파일에 저장하는 명령어를 작성하시오.</summary>
+<blockquote>
+<code>find / -type f -mtime -10 > /tmp/recent_scan.out</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 보안 가이드라인 상 보안 위협이 되는 'World Writable' 파일(기타 사용자에게 쓰기 권한이 부여된 파일)을 <code>/etc</code> 디렉터리 하위에서 검색하여, 발견된 각 파일의 상세 정보(<code>ls -al</code>)를 화면에 출력하는 명령어를 작성하시오.</summary>
+<blockquote>
+<code>find /etc -type f -perm -2 -exec ls -al {} \;</code> (또는 <code>find /etc -type f -perm -o+w -exec ls -al {} \;</code>)
+</blockquote>
+</details>
+
+<details>
 <summary>(전문가급) 다음 find 명령어들의 고급 사용법과 보안 점검 활용을 설명하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <code>$ find /home -type f -perm -4000 -ls</code><br>
