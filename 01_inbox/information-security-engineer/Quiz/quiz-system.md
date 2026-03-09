@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-06 18:37:39 +09:00
+date modified: 2026-03-09 18:37:18 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1605,13 +1605,6 @@ mkdir (Make Directory)
 </details>
 
 <details>
-<summary>새로운 디렉터리를 생성하는 명령어는?</summary>
-<blockquote>
-<code>mkdir</code>
-</blockquote>
-</details>
-
-<details>
 <summary><code>mkdir</code> 명령어를 사용하여 <code>/home/user/project/2024/final</code> 경로의 디렉터리를 상위 디렉터리가 존재하지 않더라도 한 번에 생성하는 명령을 쓰시오.</summary>
 <blockquote>
 <code>mkdir -p /home/user/project/2024/final</code><br><br>
@@ -1654,13 +1647,6 @@ rmdir (Remove Directory)
 <summary>(작업형) 현재 디렉터리 하위에 비어 있는 <code>AA/BB/CC</code> 라는 형태의 빈 디렉터리 계층 구조를 한 번의 명령어로 모두 삭제하고자 한다. 이를 위해 필요한 <code>rmdir</code> 명령어와 옵션을 작성하시오.</summary>
 <blockquote>
 <code>rmdir -p AA/BB/CC</code>
-</blockquote>
-</details>
-
-<details>
-<summary>빈 디렉터리를 삭제하는 명령어는?</summary>
-<blockquote>
-<code>rmdir</code>
 </blockquote>
 </details>
 
@@ -2871,7 +2857,6 @@ PCB (Process Control Block, 프로세스 제어 블록)
 </blockquote>
 </details>
 
-
 <details>
 <summary>(단답형) 쉘에서 새 프로그램을 실행할 때, 현재 실행 중인 프로세스의 PID는 그대로 유지하면서 실행 코드와 데이터 이미지만 새로운 프로그램으로 교체(전이)하는 시스템 호출의 명칭을 쓰시오.</summary>
 <blockquote>
@@ -2895,9 +2880,9 @@ exec (또는 execve)
 <summary>(작업형) 다음의 <code>ps -l</code> 명령 실행 결과에서 좀비 프로세스를 식별하고, 해당 프로세스의 PID를 쓰시오. 또한, 이러한 좀비 프로세스가 시스템 가용성에 미치는 부정적 영향과 이를 제거하기 위한 근본적인 해결 방법을 기술하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <strong>[ps -l 결과]</strong><br>
-S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY      TIME CMD<br>
-S   501  1234  1200  0  80   0 -  1234 -      pts/0    00:00:01 bash<br>
-Z   501  5678  1234  0  80   0 -     0 -      pts/0    00:00:00 &lt;defunct&gt;
+S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD<br>
+S 501 1234 1200 0 80 0 - 1234 - pts/0 00:00:01 bash<br>
+Z 501 5678 1234 0 80 0 - 0 - pts/0 00:00:00 &lt;defunct&gt;
 </div>
 </summary>
 <blockquote>
@@ -2949,8 +2934,6 @@ Kbyte (킬로바이트)
 </blockquote>
 </details>
 
-
-
 <details>
 <summary>(단답형) 프로세스 그룹을 식별하기 위한 고유 ID로, 일반적으로 해당 그룹의 리더 프로세스(쉘로부터 실행된 프로세스)의 PID 값이 할당되는 식별자의 약칭을 쓰시오.</summary>
 <blockquote>
@@ -2986,10 +2969,10 @@ PGID (Process Group ID)
 <summary>(작업형) 다음 <code>ps</code> 출력 결과를 분석하여 질문에 답하시오.
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 <strong>[ps -o pid,ppid,pgid,sid,cmd 결과]</strong><br>
-PID   PPID   PGID    SID CMD<br>
-25443 25441 25443  25443 bash<br>
- 4015 25443  4015  25443 parent.out<br>
- 4016  4015  4015  25443 child.out
+PID PPID PGID SID CMD<br>
+25443 25441 25443 25443 bash<br>
+ 4015 25443 4015 25443 parent.out<br>
+ 4016 4015 4015 25443 child.out
 </div>
 1. <code>parent.out</code>과 <code>child.out</code>이 동일한 프로세스 그룹에 속해 있음을 나타내는 PGID 값은 무엇인가?<br>
 2. 위 상에서 '세션 리더'의 역할을 수행하고 있는 프로세스의 CMD 명칭과 그 근거를 기술하시오.</summary>
@@ -3064,7 +3047,6 @@ SIGINT, SIGQUIT
 - <strong>후속 조치</strong>: 정지된 프로세스를 다시 가동(Continue)시키기 위해서는 <code>SIGCONT</code>(18번) 시그널을 해당 프로세스에 전송해야 한다.
 </blockquote>
 </details>
-
 
 ### 3. UNIX/Linux 시스템 관리
 
@@ -3178,7 +3160,6 @@ SCAN 알고리즘<br>
 </blockquote>
 </details>
 
-
 <details>
 <summary>(단답형) 시스템에 전원이 공급된 후 가장 먼저 실행되어 CPU, 메모리 등 주요 하드웨어의 이상 유무를 점검하고 하드웨어 정보를 수집하는 과정의 명칭을 쓰시오.</summary>
 <blockquote>
@@ -3262,7 +3243,6 @@ shutdown
 /etc/skel
 </blockquote>
 </details>
-
 
 <details>
 <summary>(단답형) <code>useradd</code> 또는 <code>usermod</code> 명령어 사용 시, 기존에 존재하는 UID와 중복된 값을 가진 계정을 생성하거나 변경할 수 있도록 허용하는 옵션을 쓰시오.</summary>
