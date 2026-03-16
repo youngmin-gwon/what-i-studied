@@ -4408,6 +4408,74 @@ lastcomm
 </blockquote>
 </details>
 
+<details>
+<summary>(단답형) 리눅스 서버에서 주로 파일 송수신 전용 서비스(FTP, vsftpd, proftpd)를 통해 <strong>누가 언제 접속해서 어떤 디렉터리 경로의 파일을 얼만큼의 바이트 크기로 업로드·다운로드 해갔는지</strong>를 고스란히 담아두는 로그 파일명(절대 경로)을 적으시오.</summary>
+<blockquote>
+/var/log/xferlog
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 예약된 시간에 반복적으로 자동화 스크립트나 명령들을 실행시켜 주는 작업 스케줄링 데몬이 남기는 흔적으로, <strong>언제 어떠한 설정(배치) 파일이 권한별로 실행을 시작하고 성공적으로 마쳤는지에 대한 내역</strong>을 관찰할 수 있는 파일명(절대경로)을 적으시오.</summary>
+<blockquote>
+/var/log/cron
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) Sendmail 등과 같은 MTA 데몬 시스템과 밀접하게 연동되어, <strong>서버에서 발송되거나 외부 서버로부터 수신된 이메일 패킷의 처리 과정(성공 및 Access denied 에러 등)</strong>을 순서대로 남겨두어 스팸 릴레이나 메일 위변조를 판별하는 용도로 쓰는 파일명을 적으시오.</summary>
+<blockquote>
+/var/log/maillog
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스의 <code>/var/log/boot.log</code> 파일과 앞서 서술했던 <code>/var/log/dmesg</code> 시스템 파일을 비교 설명해보라. 두 파일 모두 '가동 시간(부팅)'에 관여하지만 <strong>결정적으로 '어느 영역의 로그를 담당하느냐'</strong> 하는 목적에 큰 차이가 있다. 이를 커널과 서비스 관점에서 비교하여 서술하시오.</summary>
+<blockquote>
+<code>dmesg</code>가 <strong>시스템의 최하단인 커널(운영체제)이 하드웨어(CPU, 네트워크 어댑터 등)를 찾아내고 적재하는 저수준(디바이스) 과정</strong>과 메세지를 기록하는 곳이라면, <code>boot.log</code>는 그 하드웨어가 다 켜진 이후 리눅스의 시작 스크립트(init/systemd)가 올라가면서 <strong>실질적인 응용 프로그램 데몬들(SSH, FTP, HTTP 등)이 정상 구동(OK)되었는지, 혹은 실패(FAILED)했는지의 상위 서비스 제어 상태</strong>를 남기는 곳이라는 목적의 차이가 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 서버의 <code>xferlog</code> 파일 기록 중 <code>a _ o a algisa ftp 0 * c</code> 라는 포맷 행을 발견하였다. 맨 뒤에서부터 5개 필드 항목들 <code>(o a algisa ftp 0 * c)</code>이 FTP 데이터 송수신 상호작용에서 <strong>순서대로 각각 무엇을 지시하고 있는지</strong>를 해석 서술하시오.</summary>
+<blockquote>
+① <code>o (outgoing)</code>: 서버에서 파일이 외부로 유출(다운로드)되었다는 방향성<br>
+② <code>a (anonymous)</code>: 정규 로컬 권한(r)이 아닌 익명 계정으로 접속했다는 접근 모드<br>
+③ <code>algisa</code>: 실제로 로그인 시 타이핑 제출한 사용자의 문자열 이름<br>
+④ <code>ftp</code>: 해당 로그를 남긴 주체 서비스의 명칭<br>
+⑤ <code>0 * c</code>: 인증 방식(0: 없음), 인증 유저ID 사용여부(*), 최종적으로 파일 전송이 성공적으로 완료(c: complete)되었음을 뜻함
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 인사 정보 연동 배치 쉘 스크립트가 매일 새벽 4시에 수행되도록 잘 셋업(crontab)해 두었는데 어느 날부터 파일이 동기화되지 않고 있다. 당신은 시스템 엔지니어로써 가장 먼저 <code>/var/log/cron</code>을 열었다. <strong>이 파일에서 반드시 마주해야만 하는, 하지만 에러로 인해 보이지 않을 수도 있는 '특정 구문 및 실행 징후 패턴' 두 가지 구성요소</strong>가 무엇인지 서술하시오.</summary>
+<blockquote>
+첫째, 설정해둔 '새벽 4시(04:00)'라는 시각 언저리에 데몬이 시작(started)을 알리는 타임스탬프 기록이 정상적으로 찍혀 있는지 여부와,<br>
+둘째, 정규 크론 양식인 <code>CMD (/배치경로/쉘파일.sh)</code> 혹은 <code>finished</code> 형태의 실행 구문이 관리자(root) 권한 등을 업고 구체적인 작업 스택 메시지로 출력되어 남았는지를 중점적으로 확인해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 서버 관리자가 외부로부터 익명의 해커가 FTP 포트로 다가와 사내의 주요 기술문서(바이너리) 파일들을 무단으로 퍼가고 있는(다운로드) 이상 유출 정황을 의심하고 있다. 보안 감사자가 <strong>이러한 FTP 무단 파일 다이렉트 유출(Outgoing) 흔적만을 빠르게 선별해 내기 위해</strong> 터미널 창에서 <code>xferlog</code> 파일을 상대로 던지는 텍스트 필터형(grep) 읽기 명령어 파이프라인 구조를 작성하시오.</summary>
+<blockquote>
+<code>cat /var/log/xferlog | grep " o "</code> (파일 다운로드(outgoing)를 상징하는 방향성 지시자 'o'를 기준으로 검색한다. 띄어쓰기를 주어 문맥을 한정하는 것이 좋다.)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 특정 사용자의 비밀번호 변경 완료 메일이 수신처(외부 스팸메일사)로 날아가지 않고 계속 튕기거나 실패 중이라는 민원이 제기되었다. 메일 데몬이 <code>Access denied</code>(수신 거부/접근 통제) 처리 당한 실제 원인 로그 행위를 잡기 위해, <strong>관리자가 실시간으로 계속 쌓이고 뒷단에 추가되는 이메일 로깅 상태를 끊이지 않고 터미널 모니터에서 계속 바라보며 감시할 수 있게 해 주는</strong> 동적 열람 명령어 풀 텍스트(옵션 포함)를 쓰시오.</summary>
+<blockquote>
+<code>tail -f /var/log/maillog</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스 서버가 재부팅될 때마다 네트워크 컨트롤러 데몬(NetworkManager)이 알 수 없는 원인으로 자꾸 <code>[ FAILED ]</code> 사인을 출력하며 서비스 적재에 실패한다는 심증이 섰다. 무수한 로그들이 다 지나가 버린 터미널 환경에서, <strong>재부팅 관련 어플리케이션 데몬 상태가 텍스트로 적히는 그 한 개의 특정 로그 파일에 <code>FAILED</code> 라는 문자열이 존재하는지만 쏙 뽑아 확인하려 한다.</strong> 이를 위한 명령어 조합 라인을 정확히 기재하시오.</summary>
+<blockquote>
+<code>grep FAILED /var/log/boot.log</code> (또는 <code>cat /var/log/boot.log | grep FAILED</code>)
+</blockquote>
+</details>
+
 #### syslog 설정 및 관리
 
 ##### 개요
