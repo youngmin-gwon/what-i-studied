@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-09 18:37:18 +09:00
+date modified: 2026-03-16 18:00:08 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -3412,7 +3412,6 @@ groupdel
 </blockquote>
 </details>
 
-
 #### 파일 시스템 관리
 
 ##### 파일시스템(디스크) 여유 공간 크기 관리(df 명령어)
@@ -3481,7 +3480,6 @@ umount
 </blockquote>
 </details>
 
-
 ##### 디렉터리(파일)별 파일시스템(디스크) 사용량 관리(du 명령어)
 
 <details>
@@ -3547,7 +3545,6 @@ umount
 <code>du -h /var/log/messages</code>
 </blockquote>
 </details>
-
 
 #### 작업 스케줄 관리
 
@@ -3617,12 +3614,82 @@ cron.deny
 </blockquote>
 </details>
 
-
 ### 4. UNIX/Linux 서버 보안
 
 #### 시스템 보안
 
 ##### 사용자의 패스워드 관리
+
+<details>
+<summary>(단답형) <code>/etc/passwd</code> 파일에서 사용자의 패스워드 필드(두 번째 필드)에 기재되어 있는 문자 <code>x</code>가 기술적으로 의미하는 바를 구체적으로 쓰시오.</summary>
+<blockquote>
+패스워드를 사용하지 않는다는 의미가 아니며, <strong>shadow 패스워드 정책을 적용하여 실제 암호화된 비밀번호가 <code>/etc/shadow</code> 파일에 별도로 보관되어 있음</strong>을 뜻한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 시스템 데몬 계정이나 애플리케이션 계정 등 '로그인 자체가 불필요한 계정'에 대해 우발적인 접속이나 악의적인 로그인을 원천 차단하기 위해 계정의 '로그인 쉘(Login Shell)' 경로로 지정하는 대표적인 가짜(false) 쉘 경로 두 가지를 쓰시오.</summary>
+<blockquote>
+<code>/sbin/nologin</code> , <code>/bin/false</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 시스템의 패스워드 저장 정책을 기존의 '일반 패스워드 정책(<code>/etc/passwd</code> 단일 파일 사용)'에서 보다 안전한 'Shadow 패스워드 정책(별도 파일 분리)'으로 마이그레이션(변경)할 때 사용하는 관리자용 명령어를 쓰시오.</summary>
+<blockquote>
+<code>pwconv</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 악의적인 해커가 백도어 계정을 만들어 시스템의 <code>/etc/passwd</code> 설정에 <code>hacker:x:0:0::/home/hacker:/bin/bash</code> 처럼 삽입했다. UID(User ID) 필드 관점에서 이 행위가 어떠한 심각한 보안 위협을 유발하는지 서술하시오.</summary>
+<blockquote>
+계정 명칭은 'hacker'일지라도 <strong>UID가 0</strong>으로 설정되어 있기 때문에 리눅스 커널 프로세스 관점에서는 이 계정을 최고 관리자(root)와 완벽히 동일한 권한을 가진 계정으로 인식하게 되어, 시스템 전체의 통제권이 영구적으로 탈취되는 치명적인 루트 권한 스푸핑 위협을 유발한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>/etc/shadow</code> 파일에 패스워드를 저장할 때 '솔트(Salt)'라는 임의의 문자열을 추가로 섞어 해시하는 기법이 어떻게 '레인보우 테이블 공격(Rainbow Table Attack)'을 효과적으로 무력화할 수 있는지 기술적 근거를 들어 서술하시오.</summary>
+<blockquote>
+두 사용자가 우연히 동일한 비밀번호를 사용하더라도, 각 계정마다 난수화된 솔트(Salt)가 별도로 부착된 채 해싱되므로 최종 산출되는 암호화된 해시값이 완전히 달라진다. 따라서 사전에 해시값을 대량으로 계산해둔 레인보우 테이블을 대조하여 원래의 패스워드를 맵핑해내는 공격 기법이 의미가 없어진다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 패스워드 에이징 정보 중 '최대 사용 기간(<code>max_life</code>)'과 '최소 사용 기간(<code>min_life</code>)' 정책을 설정하지 않았을 때 유발될 수 있는 보안 측면의 부작용을 각각 서술하시오.</summary>
+<blockquote>
+- <strong>최소 사용 기간(min_life) 부재 시</strong>: 사용자가 암호 변경 의무를 회피하기 위해 변경 직후 즉시 이전 암호로 롤백(재사용)해버리는 악의적인 반복 우회 현상이 발생할 수 있다.<br>
+- <strong>최대 사용 기간(max_life) 부재 시</strong>: 패스워드 만료일이 사라져 한 번 유출된 패스워드로 공격자가 수십 년간 제약 없이 접속할 수 있게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 보안 점검 중 의심스러운 행위를 하는 <code>kiwi99</code> 계정을 발견하여, 임시 조치로 이 계정의 로컬 패스워드 로그인을 강제로 잠금(Lock) 처리하려고 한다. 이어서 혐의가 벗어져 다시 로그인을 허용(Unlock)하려고 한다. 두 작업을 순서대로 <code>passwd</code> 명령어를 활용하여 각각 작성하시오.</summary>
+<blockquote>
+1. 잠금(Lock): <code>passwd -l kiwi99</code><br>
+2. 해제(Unlock): <code>passwd -u kiwi99</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 <code>/etc/shadow</code> 파일 내부를 들여다보니 <code>kiwi99</code> 사용자의 두 번째 필드(패스워드 해시)가 <code>$6$S1S1$TyCOb...</code> 의 형태로 기록되어 있었다. <code>$6$</code> 이라는 특정 기호가 의미하는 해시 암호화 알고리즘의 명칭을 식별하시오.</summary>
+<blockquote>
+SHA-512 알고리즘
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>/etc/passwd</code> 설정 파일에서 터미널 출력값이 <code>apache:x:48:48:Apache:/var/www:/sbin/nologin</code> 으로 표기된 것을 발견했다. 콜론(<code>:</code>)으로 구분된 총 7가지 속성들의 의미를 순서대로 나열하여 해당 계정의 속성을 풀어 서술하시오.</summary>
+<blockquote>
+1. 계정명 (<code>apache</code>)<br>
+2. 패스워드 위치 식별자 (<code>x</code>, Shadow 사용)<br>
+3. 사용자 ID / UID (<code>48</code>)<br>
+4. 기본 그룹 ID / GID (<code>48</code>)<br>
+5. 계정 설명 / Comment (<code>Apache</code>)<br>
+6. 유저의 홈 디렉터리 경로 (<code>/var/www</code>)<br>
+7. 로그인 쉘 경로 (<code>/sbin/nologin</code>, 로그인 불가)
+</blockquote>
+</details>
 
 <details>
 <summary>리눅스 환경에서 사용자 계정의 패스워드 만료일, 암호 변경 최소/최대 일수 등 패스워드 에이징(Aging) 정보를 저장하고 있는 파일의 절대 경로를 쓰시오.</summary>
@@ -3632,6 +3699,74 @@ cron.deny
 </details>
 
 ##### 프로세스 실행권한(SUID,SGID)
+
+<details>
+<summary>(단답형) 유닉스/리눅스 시스템에서 특정 자원(프로세스)에 대한 접근 권한을 판단하는 속성 중, 그 프로세스를 '최초로 실행시킨 실제 사용자'의 고유 식별 번호를 의미하는 영문 약어를 쓰시오.</summary>
+<blockquote>
+RUID (Real User ID)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 기본적으로 권한이 <code>755</code>로 설정된 <code>a.out</code> 실행 파일에, '사용자(owner)' 관점의 특수 실행 비트인 SUID(SetUID) 권한을 추가로 부여하기 위해 4자리 8진수 숫자를 활용하여 작성하는 <code>chmod</code> 변경 명령어를 쓰시오.</summary>
+<blockquote>
+<code>chmod 4755 a.out</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스 서버에서 일반 사용자는 <code>/etc/shadow</code> 파일을 직접 열거나 수정할 권한이 없지만, 특정 명령어(실행 파일)에 SUID 권한이 기본적으로 부여되어 있기 때문에 권한 상승을 통해 자신의 암호를 바꿀 수 있다. 이 명령어의 이름을 쓰시오.</summary>
+<blockquote>
+<code>passwd</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 특수 비트(SUID나 SGID)가 전혀 부여되지 않은 일반적인 실행 파일을 실행했을 때, 실행 주체가 되는 사용자의 RUID(Real UID)가 프로세스의 실제 권한(EUID)으로 전이되는 과정을 메커니즘 관점에서 서술하시오.</summary>
+<blockquote>
+SUID 등 특수 권한이 없으면 파일을 구동시키는 순간 해당 프로세스의 <strong>RUID(실제 사용자 ID)와 EUID(유효 사용자 ID, 자원 접근권)가 동일하게 세팅</strong>된다. 즉, 프로그램을 실행시킨 사람 원래의 권한 그대로 모든 파일 접근 통제를 받게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 반대로 SUID(SetUID) 특명 권한이 부여된 실행 파일을 임의의 일반 사용자가 실행하였을 경우, 그 프로세스가 백그라운드 메모리에서 동작하는 동안 EUID(Effective UID)가 누구의 권한으로 결정(매핑)되는지 설명하시오.</summary>
+<blockquote>
+프로그램을 구동하고 있는 사용자가 누구인지와 무관하게, 프로세스가 돌고 있는 그 일시적인 시간 동안만큼은 무조건 <strong>'해당 실행 파일의 원본 소유자(Owner) UID'</strong>가 EUID로 강제 승격 매핑된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 관리자(root) 소유의 SUID 파일이 현장 실무에서 꼭 필요한 합법적/기능적 이유 한 가지와, 동시에 만약 불필요한 프로그램에 관리자 소유의 SUID가 켜져 있을 경우 파생될 수 있는 보안 위협을 한 가지씩 서술하시오.</summary>
+<blockquote>
+- <strong>필요 이유</strong>: 시스템 핵심 파일에 일반 유저의 무분별한 접근을 차단하면서도, 암호 변경처럼 극히 일부의 엄격히 통제된 절차적 접근만 허용해야 할 때 효율적이다.<br>
+- <strong>보안 위협</strong>: 검증되지 않거나 버퍼 오버플로우 등의 취약점이 존재하는 파일에 root SUID가 열려있을 경우, 해커가 이를 트리거하여 쉘(Shell)을 획득하면 시스템 전권을 통째로 탈취하는 백도어(Backdoor) 공격의 교두보가 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 특권 권한 관리의 일환으로 기존에 <code>755</code>였던 <code>suid_01</code> 실행 파일의 그룹 통제력을 상향시켜, 누구나 실행 시 '파일 그룹(Group)'의 유효 권한을 임시로 획득할 수 있도록 SGID 권한을 부여하고자 한다. 8진수 모드가 아닌 <strong>심볼릭 기호 모드(Symbolic Mode)</strong>를 사용하여 한 줄의 변경 명령어를 작성하시오.</summary>
+<blockquote>
+<code>chmod g+s suid_01</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 어떤 시스템 파일의 권한 모드를 <code>ls -l</code> 명령으로 확인했더니 문자열 형태가 <code>rwsr-sr-x</code> 로 표현되어 있었다. 여기서 사용자 권한부와 그룹 권한부에 각각 등장한 소문자 <code>s</code> 기호의 합산적 의미를 8진수 기반의 최상위 특수비트 값 수치로 변환하여 분석 서술하시오.</summary>
+<blockquote>
+- 사용자 권한의 <code>s</code>는 SetUID(4000 대역)을 의미하고,<br>
+- 그룹 권한의 <code>s</code>는 SetGID(2000 대역)을 의미한다.<br>
+이 두 가지 <code>s</code> 속성이 중복 부과된 상태이므로 특수 권한 비트의 종합은 <code>6000</code> 대역(결과적으로 전체값은 6755) 권한이 융합되어 설정되었음을 알 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 파일 소유자 및 그룹 소유자가 모두 <code>root</code> 로 되어 있으면서 SUID와 SGID가 동시에 설정된 실행 파일 <code>suid_01</code>이 존재한다. 만약 UID 500에 속하는 <code>kiwi99</code> 라는 일반 계정으로 이 파일을 실행했을 때, 해당 프로세스가 작동하는 순간 메모리상에서 내부적으로 가지는 유효 권한인 EUID와 EGID 상태값을 정확히 판별하시오.</summary>
+<blockquote>
+- <strong>EUID</strong>: 파일의 소유자를 따라가므로 <code>root</code> (UID 0) 가 된다.<br>
+- <strong>EGID</strong>: 파일의 그룹 소유자를 따라가므로 <code>root</code> (GID 0) 가 된다.<br>
+결국 <code>kiwi99</code>가 켰더라도 실행 순간만큼은 완전무결한 root 권한으로 전권을 휘두르게 된다.
+</blockquote>
+</details>
 
 <details>
 <summary>리눅스 시스템에서 사용자 및 그룹 권한을 제어하는 특수 권한인 SetUID의 개념을 설명하고, 보안 관점에서 SetUID 설정 파일이 위험한 이유를 서술하시오.</summary>
@@ -3645,9 +3780,111 @@ cron.deny
 
 ##### 보안 쉘(SSH)
 
+<details>
+<summary>(단답형) 과거의 rlogin, telnet, FTP와 같이 평문을 송수신하여 스니핑 공격에 취약했던 터미널 환경을 대체하기 위해 등장한, 강력한 원격 암호화 터미널 지원 프로토콜(TCP 22번 포트)의 영문 약어를 쓰시오.</summary>
+<blockquote>
+SSH (Secure Shell)
+</blockquote>
+</details>
+
 ##### 슈퍼 서버(inetd 데몬)
 
+<details>
+<summary>(단답형) 여러 개의 네트워크 서비스 데몬들을 백그라운드 메모리에 일일이 상주시킬 경우 발생하는 리소스 낭비를 막고, 클라이언트의 서비스 연결 요청이 올 때마다 적합한 하위 서비스 자식 모듈을 그때그때 호출해주는, 소위 '데몬의 데몬' 역할을 수행하는 슈퍼 서페이스 명칭을 쓰시오.</summary>
+<blockquote>
+슈퍼 데몬 (inetd / xinetd)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>inetd</code> 데몬은 클라이언트로부터 특정 1~65535 포트 번호로 접수된 요청을 인식하면, 해당 포트가 어떤 이름의 서비스인지(명칭 식별 매핑)를 파악하기 위해 시스템 내부의 특정 환경 설정 파일을 읽는다. 이 IANA 기반 포트 정의 파일의 절대 경로를 작성하시오.</summary>
+<blockquote>
+<code>/etc/services</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개별 프로세스들이 각자 홀로 구동하는 'Stand-Alone' 방식 데몬과, 'inetd/xinetd' 슈퍼 데몬 방식 데몬의 구동적 장단점을 '소비 자원(메모리)'과 '응답 속도'의 반비례적 상관성에 초점을 맞추어 비교 서술하시오.</summary>
+<blockquote>
+- <strong>Stand-Alone 방식</strong>: 서비스가 늘 메모리 공간에 떠 있으므로 클라이언트 요청에 즉각적인 반응(<strong>빠른 응답 속도</strong>)을 보이지만, 사용 빈도가 낮아도 항상 상주하므로 <strong>자원이 낭비되는 단점</strong>이 있다.<br>
+- <strong>inetd 방식</strong>: 백그라운드에서는 슈퍼 데몬 단 하나만 대기하고 있어 <strong>시스템 유휴 자원을 대폭 아낄</strong> 수 있으나, 요청이 올 때마다 새로 개별 자식 데몬을 하드디스크에서 깨우는 과정을 거쳐야 하므로 <strong>반응 속도는 약간 느려진다</strong>.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>/etc/inetd.conf</code> 파일의 각 서비스 정의 필드 중 '플래그(Flag)' 항목에 작성되는 <code>wait</code> 옵션과 <code>nowait</code> 옵션의 작동상 차이점을 비동기적 트래픽 처리 관점에서 서술하시오.</summary>
+<blockquote>
+- <strong><code>nowait</code></strong>: 슈퍼 서버가 A 클라이언트로부터 접속 요청을 받아 하위 데몬을 실행해준 직후, 곧바로 대기 모드로 비동기 복귀하여 다른 클라이언트들의 새로운 요청 분기를 병렬로 동시 수신할 수 있다.<br>
+- <strong><code>wait</code></strong>: 슈퍼 데몬이 들어온 현재 요청의 처리가 완벽히 종료될 때까지 Blocking(대기) 상태를 유지하여, 후속 요청을 받을 수 없게 구조화하는 옵션이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 강화 및 보안 감리의 일환으로 서버 점검 시, 흔히 'r-명령어(r-services)'로 불리는 <code>rlogin</code>, <code>rsh</code>, <code>rexec</code> 기능을 서비스 목록에서 반드시 퇴출(비활성화)하라고 권고하는 핵심적인 침해 보안 위험성을 기술하시오.</summary>
+<blockquote>
+이러한 구형 r-명령어 서비스들은 원격 연결 시, 비밀번호 기반의 강력한 사용자 검증 프로세스를 생략하거나 인증 절차 우회가 매우 용이한 IP 의존성 트러스트 구조를 띄고 있어, 해커의 무차별적인 접속이나 스푸핑(Spoofing) 기법에 의해 서버의 최고 권한이 손쉽게 넘어갈 확률이 매우 막대하기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) CentOS/RedHat 리눅스 운영 서버의 <code>/etc/inetd.conf</code> 파일에 기록된 악성 DoS 취약 포트인 <code>chargen</code>, <code>echo</code> 등의 불필요한 테스트용 스트림 서비스가 구동 중이다. 관리자가 해당 설정 파일의 내용을 직접 편집하여 이들을 비활성화하려 한다면 어떠한 기호 기법을 써야 하는지 답안을 작성하시오.</summary>
+<blockquote>
+해당 서비스 설정이 기재된 텍스트 각 줄의 라인 맨 앞부분에 <strong>주석 기호(<code>#</code>)</strong>를 삽입하여, 시스템 데몬이 해당 환경설정을 실행 모듈로 인식하지 않도록 완전히 무시(주석 처리)하게 만들어야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 불필요한 서비스들을 차단할 목적으로 <code>/etc/inetd.conf</code> 설정 파일 내에 <code>#</code> 마크를 추가하고 저장(Save)하고 빠져나왔다. 그러나 여전히 외부에서 취약 코드로 접속이 가능했다. 설정이 OS 커널 레벨 기능에 온전히 결합되게 하기 위해 관리자가 이어서 필수로 터미널에 내렸어야 할 누락된 후속 명령어 액션을 서술하시오.</summary>
+<blockquote>
+설정 파일 텍스트만 바뀌었을 뿐 백그라운드 램(메모리)에서 돌고 있는 inetd 프로세스 자체는 옛날 설정을 그대로 쥐고 있으므로, <strong><code>service inetd restart</code> 등의 프로세스 재시작(Restart) 명령어</strong>를 타건하거나 HUP 시그널을 보내 구성 파일을 메모리에 재갱신하도록 만들어야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>/etc/inetd.conf</code> 설정 파일을 점검하다 보니, 어떤 특정 서비스 줄의 2번째 필드인 소켓 타입(Socket Type)에 <code>stream</code> 이라는 표기가 아닌 <strong><code>dgram</code></strong> 이라는 단어가 명시되어 있는 것을 발견하였다. 이를 근거로 해당 서비스 모듈은 4계층 전송 통신 프로토콜 관점에서 <code>TCP</code>와 <code>UDP</code> 중 어떠한 계열의 서비스인지 판단하여 쓰시오.</summary>
+<blockquote>
+<strong>UDP 계열 프로토콜</strong> 서비스이다. (참고: <code>stream</code>은 TCP, 연결지향성 전송을 의미)
+</blockquote>
+</details>
+
 ##### 접근 통제(TCP Wrapper)
+
+<details>
+<summary>(단답형) TCP Wrapper 환경에서 특정 클라이언트의 접근 허용 및 차단을 판별할 때, 우선순위가 가장 높아 시스템 데몬이 무조건 <strong>제일 먼저 참조하여 검사</strong>하는 필터링 설정 파일의 절대 경로를 쓰시오.</summary>
+<blockquote>
+/etc/hosts.allow
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 원격의 한 클라이언트(IP: 192.168.1.50)가 TCP Wrapper로 보호되는 SSH 포트에 접근을 요청했을 때, 데몬이 <code>hosts.allow</code>와 <code>hosts.deny</code>, 그리고 <code>Default Rule</code>을 거치며 최종 통과/차단 결정을 내리는 3단계 논리 프로세스를 서술하시오.</summary>
+<blockquote>
+1단계: 먼저 <code>hosts.allow</code> 파일을 조회하여 해당 IP가 등록되어 있으면 즉시 접근을 허용하고 검사를 종료한다.<br>
+2단계: 1단계에서 일치 항목이 없다면 <code>hosts.deny</code>를 조회하여 존재할 경우 즉시 접근을 차단하고 튕겨낸다.<br>
+3단계: 두 파일 어느 곳에도 등록된 룰이 없다면 기본 정책(Default)에 의해 <strong>접근을 자동으로 허용</strong>한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 기존의 <code>inetd.conf</code> 설정 파일에서 외부 클라이언트 접근을 TCP Wrapper 기반으로 제어하기 위해서는 6번째 필드(실행 경로) 값을 기존 본래 데몬(예: <code>/usr/sbin/in.telnetd</code>)에서 무조건 <code>/usr/sbin/tcpd</code>로 변경해야 한다. 이렇게 <strong>중간 껍데기(tcpd)</strong>를 씌우는 이유와 역할의 본질을 서술하시오.</summary>
+<blockquote>
+직접 데몬을 호출해버리면 클라이언트 IP를 검열할 틈이 없기 때문에, 가로채기 역할인 <code>tcpd</code>(TCP Wrapper 프로세스)를 먼저 구동시켜 <code>hosts.allow</code> 및 <code>hosts.deny</code>의 판단 로직을 거치게 한 뒤, 접근이 허가된 선별된 요청에 대해서만 실제 백엔드 오리지널 서비스 모듈(인수 필드)을 구동하기 위함이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 TCP Wrapper의 <code>/etc/hosts.allow</code> 파일 한 줄에 <code>ALL: ALL EXCEPT in.telnetd : ALL</code> 이라는 보안 룰을 기입하였다. 전체 데몬을 기준으로 어떠한 접속 허용 효과가 초래되는지 그 의미를 기술하시오.</summary>
+<blockquote>
+특정 예외 처리된 부분인 <strong>telnet (<code>in.telnetd</code>) 서비스를 제외한 나머지 전 서비스 부문에 대해서 전 세계 모든 호스트(ALL)의 접근을 무의미하게 전면 개방(허용)</strong>한다. (바꿔 말해 telnet 접속에 대해서만은 이 파일에서 허용 룰을 부여받지 못한다.)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) TCP Wrapper의 <code>hosts.deny</code> 파일에 <code>in.telnetd : 192.168.0.104 : twist /bin/echo "YOU ARE HACKER!"</code> 라는 탐지 룰을 박아두었다. 만약 블랙리스트 대상인 104번 PC가 서버로 텔넷 접근을 시도했을 때, 데몬 단에서 어떠한 차단 프로세스가 펼쳐지고 클라이언트 모니터 화면에는 무슨 결과가 나타나는지 기술하시오.</summary>
+<blockquote>
+서버는 즉각적으로 해당 소켓 연결의 접속을 거부(차단)할 뿐만 아니라, <code>twist</code> 처리 메커니즘에 의해 연결이 완전히 끊어지기 전 마지막 찰나에 <strong>"YOU ARE HACKER!"</strong> 라는 명시적인 에러 메시지를 104번 공격자 PC 화면 방향으로 직접 쏘아 보내어 출력시키고 강제 종료해 버린다.
+</blockquote>
+</details>
 
 <details>
 <summary>IP 관리 시스템에서 발전하여 MAC 기반 통제를 강화한 장비는?</summary>
@@ -3659,19 +3896,381 @@ NAC (Network Access Control)<br>
 
 ##### xinetd 슈퍼 데몬
 
+<details>
+<summary>(단답형) 보안 강화를 위해 기존의 구형 <code>inetd</code> 방식을 버리고 <code>xinetd</code> 데몬으로 이전했을 때, 각 개별 서비스 설정 파일 내에서 <strong>이 서비스를 구동할지, 아니면 아예 백그라운드 구동에서 제외시킬지</strong> 결정짓는 최상단 블록 지시어 명칭을 쓰시오.</summary>
+<blockquote>
+disable
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>xinetd</code> 데몬 운영 환경에서 외부발 DoS(서비스 거부) 공격이나 트래픽 유발 공격에 대비하여, <strong>'초당 연결될 수 있는 커넥션 개수'</strong>를 1차적으로 강제 임계치 제한을 걸어버리는 통제 지시어를 쓰시오.</summary>
+<blockquote>
+cps
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>xinetd</code> 슈퍼 데몬은 자원 고갈 공격을 방어하기 위해 <code>instances</code> 와 <code>per_source</code> 라는 설정 지시자를 제공한다. 겉보기에 모두 트래픽/연결을 억제하는 기능 같지만, 그 통제 범위 측면에서 어떠한 구조적 방향 차이가 있는지 비교 서술하시오.</summary>
+<blockquote>
+- <strong>instances</strong>: 출발지가 어디든 상관없이, 이 <strong>서버 시스템 자체가 동시에 생성하여 연산 감당할 수 있는 전체 자식 프로세스(서버 개수)의 절대적 최대치 한도</strong>를 묶는 글로벌 제한이다.<br>
+- <strong>per_source</strong>: <strong>동일한 단일 출발지(Source) IP 하나</strong>에서만 무도덕하게 여러 개의 연결 세션을 과도하게 맺으려 할 때, 해당 단일 IP의 진입 한도만을 독립적으로 타겟 제한하는 출발지(Source) 통제 기능이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 당신은 <code>xinetd</code> 방화벽 룰을 설계하고 있다. <strong>192.168.56.0/24 네트워크 대역</strong>(내부망)의 접근 전체는 허용하되, 그 역영 중 유독 감염이 확인된 <strong>192.168.56.110 단일 IP</strong> 하나만 핀셋으로 접근을 튕기도록 <code>xinetd</code> 서비스 설정 블록에 추가할 2줄의 보안 통제 코드를 차례대로 작성하시오.</summary>
+<blockquote>
+<code>only_from = 192.168.56.0/24</code><br>
+<code>no_access = 192.168.56.110</code>
+</blockquote>
+</details>
+
 #### PAM(장착형 인증 모듈, Pluggable Authentication Modules)
 
 ##### 개요
 
+<details>
+<summary>(단답형) 시스템 내에서 로그인, FTP 등 각종 애플리케이션의 인증을 동적으로 통합 관리하고 처리해주기 위해 리눅스가 제공하는 <strong>'장착형(조립형) 인증 모듈'</strong> 공유 라이브러리의 영문 약어(명칭)를 쓰시오.</summary>
+<blockquote>
+PAM (Pluggable Authentication Modules)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) PAM을 활용하는 개별 애플리케이션들의 구체적인 설정 파일(예: <code>login</code>, <code>sshd</code>, <code>su</code> 등) 들이 위치하고 있는 시스템 내부의 <strong>디렉터리 절대 경로</strong>를 쓰시오.</summary>
+<blockquote>
+<code>/etc/pam.d</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) PAM 설정 파일의 4가지 필드(type, control, module-path, module-argument) 구조 중, 패스워드 최소 길이 및 복잡도 설정 등 비밀번호 변경/설정 조건을 지정하는 유형의 <code>type</code> 필드 명칭을 영문으로 쓰시오.</summary>
+<blockquote>
+<code>password</code>
+</blockquote>
+</details>
+
 ##### PAM 을 사용한 인증 절차
+
+<details>
+<summary>(서술형) 애플리케이션 개발자가 사용자 인증 기능을 자체적으로 하드코딩하지 않고, PAM 라이브러리에 연동(Plug-in)시켰을 때 얻을 수 있는 <strong>'개발 및 시스템 운영 측면'에서의 주요 이점</strong>을 서술하시오.</summary>
+<blockquote>
+프로그램 소스 코드를 재수정하지 않고도 독립적인 인증 모듈을 개발/추가할 수 있으며, 시스템 관리자가 필요에 따라 유연하게 새로운 인증 체계(OTP, 생체인증 등)를 선택적으로 갈아 끼워 손쉽게 중앙 통제할 수 있는 막강한 장점이 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) PAM 설정 파일의 <code>type</code> 필드 중, <strong><code>auth</code></strong> 유형과 <strong><code>session</code></strong> 유형이 담당하는 각각의 인증 단계 및 구체적인 역할적 차이를 서술하시오.</summary>
+<blockquote>
+- <strong><code>auth</code></strong>: 패스워드 일치 확인이나 OTP 점검 등 실질적인 사용자의 암호가 맞는지 <strong>신원을 검사(인증)</strong>하는 핵심 역할을 한다.<br>
+- <strong><code>session</code></strong>: 인증 처리 전후에 사용자의 홈 디렉터리를 마운트시키거나 메일함을 생성해주는 등 사용자와 시스템 간의 제반 <strong>환경을 수립</strong>시켜주는 사전 준비 및 사후 정리 역할에 중점을 둔다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) PAM 설정 파일의 <code>control</code> 필드에서 <strong><code>requisite</code></strong>와 <strong><code>required</code></strong> 플래그가 인증 <strong>실패 상황</strong>을 인지했을 때, 후속 모듈 처리 및 응답 시나리오 관점에서 어떻게 다르게 동작하는지 서술하시오.</summary>
+<blockquote>
+- <strong><code>requisite</code></strong>: 인증 모듈 검사가 실패하는 일체 그 즉시 인증을 바로 단절(거부)하고 에러를 밖으로 반환해 버린다.<br>
+- <strong><code>required</code></strong>: 인증 모듈이 실패하더라도 해당 실패 상태를 내부적으로 조용히 쥐고만 있을 뿐, 설정 내의 <strong>남은 모듈들을 전부 끝까지 헛실행</strong>해 준 뒤에야 최종적으로 한꺼번에 인증 실패 판정을 내려서 공격자가 어느 단계나 모듈에서 막혔는지 힌트를 얻어채지 못하게 기만/방어한다.
+</blockquote>
+</details>
 
 ##### PAM 설정파일(/etc/pam.d/remote 설정파일 일부)
 
-##### PAM 활용 예 1 (시스템 취약점 분석, 평가 항목)
+<details>
+<summary>(작업형) 관리자가 PAM을 통해 특정 서비스 설정 파일에 한 줄을 기입하여, 계정의 암호 만료 기간이나 <code>nologin</code> 쉘 규칙 통제 등 '계정 자체가 가진 유효성'을 판단하고자 검사 모듈을 호출하였다. <code>[빈칸] required pam_nologin.so</code> 에 들어갈 올바른 <code>type</code> 지시어 텍스트를 작성하시오.</summary>
+<blockquote>
+<code>account</code>
+</blockquote>
+</details>
 
-##### PAM 활용 예 2(시스템 취약점 분석, 평가 일부 항목)
+<details>
+<summary>(작업형) <code>auth required pam_securetty.so</code> 라는 PAM 설정 라인이 있다. 이를 공백 기반으로 나뉘는 4가지 구문 형식 필드(<code>type</code>, <code>control</code>, <code>module-path</code>, <code>module-arguments</code>) 명칭에 각각 알맞게 매칭하여 하나하나 분석(명시)하여 작성하시오.</summary>
+<blockquote>
+- <strong>type</strong>: <code>auth</code><br>
+- <strong>control</strong>: <code>required</code><br>
+- <strong>module-path</strong>: <code>pam_securetty.so</code><br>
+- <strong>module-arguments</strong>: (존재하지 않음, 생략)
+</blockquote>
+</details>
 
-##### PAM 활용 예 3(시스템 취약점 분석, 평가 일부 항목)
+<details>
+<summary>(작업형) PAM 설정 과정 중, 만약 이전까지의 라인 모듈들이 모두 성공했다는 전제하에 <strong>"이 라인의 특정 모듈 인증이 성공하기만 하면, 뒤에 남은 인증 절차들을 과감히 생략하고 즉시 전체 인증을 성공(Satisfy) 처리하여 검사를 조기 종료"</strong> 하도록 편의성 룰을 규정하는 매력적인 <code>control</code> 필드의 플래그 값을 쓰시오.</summary>
+<blockquote>
+<code>sufficient</code>
+</blockquote>
+</details>
+
+##### PAM 활용 예 1 (시스템 취약점 분석, 평가 일부 항목)
+
+<details>
+<summary>(단답형) 시스템 보안 관점에서 공격자가 네트워크를 통해 원격으로 <code>root</code> 최고 관리자 권한을 직접 획득하는 것을 방지하기 위해, 리눅스가 <code>root</code> 사용자의 로그인 접속을 허용하는 "로컬 물리적 터미널(콘솔)" 목록을 별도로 기재하여 통제하는 설정 파일의 절대 경로를 쓰시오.</summary>
+<blockquote>
+/etc/securetty
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스 환경에서 외부의 패스워드 무작위 대입 공격(Brute Force Attack)이나 사전 대입 공격 확률을 지연시키고 방어할 목적으로, 비밀번호를 연속으로 틀릴 시 계정을 임시로 잠그는(Lock) 기능을 수행하는 대표적인 PAM 모듈 파일명(확장자 포함)을 쓰시오.</summary>
+<blockquote>
+pam_tally2.so (또는 pam_tally.so)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 강력한 암호화 프로토콜인 SSH(Secure Shell)를 사용하더라도 공격 표면을 줄이기 위해 원칙적으로 <code>root</code> 계정의 직접적인 원격 로그인은 금지되어야 한다. 이를 강제하기 위해 <code>/etc/ssh/sshd_config</code> 파일에서 반드시 <code>no</code> 로 설정해 주어야 하는 지시어 명칭을 영문으로 쓰시오.</summary>
+<blockquote>
+PermitRootLogin
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 관리자가 <code>/etc/securetty</code> 파일을 열고 그 안에 적힌 내용 중 <code>pts/0</code>, <code>pts/1</code> 등의 라인들을 전부 지우거나 주석(<code>#</code>) 처리하였다. 이렇게 <code>tty</code>는 남겨둔 채 <strong>가상 터미널(pts) 목록만을 골라 삭제 및 주석 처리한 보안 상의 본질적 이유</strong>를 터미널 개념과 묶어 서술하시오.</summary>
+<blockquote>
+<code>tty</code>는 관리자가 서버 앞 키보드로 직접 조작하는 안전한 로컬 콘솔 환경인 반면, <code>pts</code>는 외부 네트워크(Telnet, SSH 등 가상 터미널)를 다이렉트로 타고 접속하는 논리적 연결 통로이므로, 이 <code>pts</code> 목록을 지움으로써 외부자가 원격에서 직접 <code>root</code> 계정으로 로그인하는 보안 위협을 원천 봉쇄(거부)하기 위함이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) PAM 계정 잠금 모듈인 <code>pam_tally2.so</code> 에 인자로 넘겨주는 <strong><code>deny=5</code></strong>와 <strong><code>unlock_time=120</code></strong> 설정이 서로 어떻게 연계되어, 단기간에 수많은 비밀번호를 찔러보는 무차별 공격으로부터 <strong>시스템의 인증 무결성</strong>을 매끄럽게 보호해 내는지 서술하시오.</summary>
+<blockquote>
+사용자가 패스워드 입력을 연속으로 5회 실패(deny=5)하는 순간 즉시 해당 유저 아이디를 잠그며(Lock), 그 마지막 실패 시점으로부터 정확히 120초(unlock_time=120초, 즉 2분)가 지나가야만 계정 잠금이 자동으로 풀리게 작동하여 암호 사전 대입을 시도하는 해커의 시간적 비용과 공격 주기를 대폭 지연시키는 보호막 역할을 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스의 <code>pam_tally.so</code> (또는 <code>pam_tally2.so</code>) 모듈 설정 라인 끝부분에 기입할 수 있는 계정 통제 부가 옵션 중, <strong><code>no_magic_root</code></strong> 옵션과 <strong><code>reset</code></strong> 옵션이 가지고 있는 기능을 각각 어떠한 목적으로 제정해 둔 것인지 비교 서술하시오.</summary>
+<blockquote>
+- <strong><code>no_magic_root</code></strong>: 공격자가 시스템을 마비시킬 목적으로 <code>root</code> 아이디를 의도적으로 수백 번 틀리게 입력하여 최고 관리자 계정을 영원히 접속 불능 상태(DoS)로 빠뜨리는 것을 막기 위해, 오직 <code>root</code> 계정에게만큼은 아무리 실패해도 잠기지 않는 면책(예외) 적용을 부여한다.<br>
+- <strong><code>reset</code></strong>: 실패가 누적되어 자칫 잠길 위기에 처했더라도 중간에 단 1번이라도 올바른 패스워드로 정상 로그인에 성공하면, 기존에 위험하게 쌓여있던 모든 '로그인 단기 실패 누적 횟수'를 즉각 0으로 깨끗하게 초기화하여 사용자 편의성을 보장해 준다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 정기 보안 점검 중 사내 사용자인 <code>kiwi99</code>가 2분간 계정이 잠긴 것을 발견하였다. 급하게 잠금을 뚫어주기 위해 특권 명령어를 이용해 <code>kiwi99</code> 계정의 누적 실패 카운트를 일자(Latest failure)와 함께 깔끔하게 <strong>조회(확인)함과 동시에 '0'으로 초기화명령(Reset)</strong>을 쉘 프롬프트에 연달아 한 번에 실행하고자 한다. 실패 횟수 통계를 담당하는 <code>pam_tally2</code> 기반의 명령어와 인수 플래그를 정확히 작성하시오.</summary>
+<blockquote>
+<code>pam_tally2 -u kiwi99 -r</code> (또는 <code>pam_tally2 -u kiwi99 --reset</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음과 같이 PAM 시스템 인증(<code>/etc/pam.d/system-auth</code>) 모음 파일에 계정 잠금 정책 기능을 필수 절차로써 새롭게 추가하려고 한다. 문법의 빈칸에 알맞은 제어 텍스트 문구를 채워 넣어 설정을 온전히 완성하시오.
+<code>auth [빈칸] pam_tally2.so deny=5 unlock_time=120</code></summary>
+<blockquote>
+<code>required</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 침해 징후를 판별하기 위해 <code>/var/log/secure</code> 로깅 파일의 꼬리 부분을 점검하던 중 다음과 같은 흔적을 발견하였다.
+<code>FAILED LOGIN 1 FROM 192.168.197.1 FOR kiwi99, Authentication failure</code>
+<code>pam_tally2 (remote:auth): user kiwi99 (500) tally 6, deny 5</code>
+이 두 줄의 로그 덩어리가 연속으로 발생한 의미를 '연결 시도의 출발지', '대상 계정', 그리고 '인증 모듈의 작동 최종 결과'의 세 가지 포인트 관점으로 해석하여 서술하시오.</summary>
+<blockquote>
+192.168.197.1 이라는 위치(출발지)에서 시스템 내에 있는 <code>kiwi99</code> 계정(대상)으로 접속을 인증하려다가 비밀번호가 틀려 1회 실패 기록이 남았으며, 결과적으로 이 누적으로 인해 최종 실패 횟수(tally)가 '6번'에 도달함으로써, 사전에 PAM 모듈 규칙으로 제한해둔 잠금 임계치 조건(deny=5회 초과)을 넘겨버려 <strong>해당 <code>kiwi99</code> 계정이 보안상 강제로 잠금(Account Locked) 조치</strong>되었다는 의미이다.
+</blockquote>
+</details>
+
+##### PAM 활용 예 2 (시스템 취약점 분석, 평가 일부 항목: su 명령어 사용 제한)
+
+<details>
+<summary>(단답형) 권한이 없는 일반 사용자가 무작위 대입 방식을 통해 <code>root</code> 권한을 탈취하는 것을 사전에 차단하기 위해, 오로지 이 특수 그룹에 속한 관리 인원들에게만 <code>su</code> 명령어를 통한 권한 상승을 허용하도록 통제하는 리눅스의 <strong>대표적 관리자 그룹 명칭</strong>을 쓰시오.</summary>
+<blockquote>
+wheel
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) PAM 환경에서 <code>/etc/pam.d/su</code> 설정 파일을 통해, <code>su</code> 명령어를 치고 들어오려는 사용자가 지정된 특정 그룹(예: wheel) 소속자인지를 판별하여 인증 권한을 내주는(또는 거부하는) <strong>핵심 플러그인 모듈 파일명(확장자 포함)</strong>을 쓰시오.</summary>
+<blockquote>
+pam_wheel.so
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 터미널 프롬프트에서 시스템 설정 파일 편집 없이, 기존 사용자인 <code>algisa</code> 계정을 <code>wheel</code> 이라는 보조 그룹 속성으로 '덮어씌우지 않고 추가(Append)' 편입시키기 위해 사용하는 <strong><code>usermod</code> 명령어의 대문자 옵션</strong>을 쓰시오.</summary>
+<blockquote>
+<code>-G</code> (전체 구문 예시: <code>usermod -G wheel algisa</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) PAM을 활용하여 <code>su</code> 명령어의 사용을 <code>wheel</code> 그룹으로 철저히 제한(<code>pam_wheel.so</code> 활성화)해 두었다. 이때 <code>wheel</code> 그룹에 들어있지 않은 일반 사용자(예: <code>kiwi99</code>)가 터미널에서 <code>su -</code> 를 치고 <strong>완벽하게 정확한 <code>root</code> 마스터 비밀번호를 알아내 제대로 입력</strong>했다면, 쉘 내부적으로 어떠한 거부 로직과 보안 결과가 벌어지는지 서술하시오.</summary>
+<blockquote>
+패스워드를 아는 것과 무관하게 PAM의 <code>pam_wheel.so</code> 그룹 검증 모듈 단계에서 자격 미달로 막혀버린다. 터미널에는 고의를 띤 <code>"su: incorrect password"</code> 등의 인증 실패 에러를 띄워 <code>root</code> 권한 상승을 강제로 즉시 차단하며, 백그라운드의 <code>/var/log/secure</code> 로깅 파일에 그룹 권한 부족으로 인한 인증 거부(Access denied) 내역을 남긴다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>/etc/pam.d/su</code> 파일의 보안 통제 로직 중 <code>auth required pam_wheel.so use_uid</code> 라는 구문에서 마주치는 <strong><code>use_uid</code> 인자</strong>가 플러그인 내부에서 수행하는 구체적인 검증 역할과 보안 원리를 서술하시오.</summary>
+<blockquote>
+<code>su</code>를 요청한 현재 터미널 세션 사용자의 실제 고유 <code>UID</code> 정보를 긁어와, 남의 권한을 사칭한 상태가 아닌 본인 스스로가 <code>wheel</code> 그룹 명단 호적에 정식으로 맵핑(포함)되어 있는지를 엄격하고 견고하게 교차 체크하도록 강제하는 보안용 트리거 옵션이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스와는 궤가 다른 HP-UX나 AIX 등 일부 상용 유닉스 운영체제 계열에서는, PAM 모듈에 전적으로 의존하기보다 근본적인 구조에서 <code>su</code> 명령어의 무분별한 사용을 억제하는 공통된 접근법을 쓴다. 파일 시스템 퍼미션(Permission) 관점에서 이들이 어떠한 보안 점검 원리를 취하는지 서술하시오.</summary>
+<blockquote>
+자체 보안 설정 파일(예: <code>user</code>, <code>security</code> 등)의 특정 옵션을 활용해 직접 권한 그룹을 묶어둘 뿐만 아니라, 파일 시스템 구조상 <strong><code>/usr/bin/su</code> 나 <code>/bin/su</code> 실행 파일 자체에 부여된 권한을 <code>4750</code> (-rwsr-x---) 등의 형태로 아예 깎아내려</strong> 일반 기타 사용자 계층(Others)은 해당 실행 파일의 호출(접근) 자체를 근원적으로 할 수 없도록 통제하는 방식을 쓴다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 CLI 명령어 툴(<code>usermod</code>)을 쓰지 않고 <code>vi</code> 텍스트 편집기만을 이용해 직접 시스템 설정 파일을 제어하여 일반 사용자 <code>algisa</code>를 <code>wheel</code> 그룹에 편입시키고자 한다. 관리자가 <strong>에디터로 열어야 할 파일의 전체 절대경로</strong>와, 해당 파일 <strong>해석 포맷의 맨 마지막 필드에 조치해야 할 구체적 텍스트 편집 액션</strong>을 한 줄로 쓰시오.</summary>
+<blockquote>
+<code>/etc/group</code> 시스템 파일을 열어 <code>wheel:x:10:root</code> 로 끝나는 해당 라인 맨 가장자리 필드 끝에 콤마(<code>,</code>)를 붙이고 <code>algisa</code> 계정을 추가로 문열어 적어주면 된다. (예: <code>wheel:x:10:root,algisa</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 어떤 사용자가 관리 포트에 접속하자마자 본인의 그룹을 타진하고자 <code>id kiwi99</code> 명령어를 쳤고, 그 결과 <code>uid=500(kiwi99) gid=508(channel) groups=500(kiwi99),508(channel)</code> 이 출력되었다. <code>PAM pam_wheel</code> 통제가 활성화된 서버라는 전제 조건을 바탕으로, <strong>이 사용자가 <code>su</code> 타건 시 최고 권한을 탈취해 낼 수 있는지 가능성과 그 물리적 근거</strong>를 <code>groups</code> 출력 텍스트를 이용해 판단하여 쓰시오.</summary>
+<blockquote>
+권한 상승 불가(탈취 불가)하다. <code>groups</code> 필드 결과 목록에 속해 있는 500, 508번 채널 외에 특권을 허락해 주는 단서인 <code>10(wheel)</code> 그룹이 아예 존재하지 않아 물리적으로 걸러지기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 서버 관리자가 <code>/etc/pam.d/su</code> 설정 파일을 열어 보았더니 최상단 첫 줄에 <code>auth sufficient pam_rootok.so</code> 라는 조건 검사 코드가 존재했고, 이 상태에서 저장(wq!)하였다. 이 <strong>단 하나의 모듈 조건 행</strong>이 제대로 가동함으로써 시스템 상에 부여되는 '권한 인증 면책(프리패스)'의 마법 같은 효력과 상황을 서술하시오.</summary>
+<blockquote>
+현재 <code>su</code> 전환을 요청하는 주체의 권한이 이미 가장 최고 신뢰도 등급인 <strong>'root' 본인이라면</strong>, 다른 하위의 어떤 사용자 계정으로 이동할 때 비밀번호를 일일이 묻고 확인하는 절차 등 뒷줄의 모든 <code>auth</code> 모듈 과정을 생략(Sufficient 조기 만족)하고 <strong>암호 기입의 방해 없이 즉각적으로 계정 스위치를 통과(허용)</strong>하게 해주는 프리패스 효력을 지닌다.
+</blockquote>
+</details>
+
+##### PAM 활용 예 3 (시스템 취약점 분석, 평가 일부 항목: sudo 명령을 이용한 관리자 권한 부여)
+
+<details>
+<summary>(단답형) 다른 사용자의 권한(일반적으로 root)으로 시스템의 특정 명령어를 임시로 실행하고자 할 때, 보안을 위해 널리 사용되는 리눅스의 특권 상승 명령어 명칭을 쓰시오.</summary>
+<blockquote>
+sudo
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 시스템 관리자가 특정 일반 사용자나 그룹에게 <code>sudo</code> 권한을 개별적으로 할당하고 제어하기 위해 직접 정책을 기입하는 시스템 내부 설정 파일의 절대 경로를 쓰시오.</summary>
+<blockquote>
+/etc/sudoers
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>sudoers</code> 파일에 정책을 기술할 때, 명령어 실행 인가자는 맞지만 스케줄러나 자동화 스크립트에서 활용할 수 있도록 <strong>실행 시 패스워드를 묻는 프롬프트를 완전히 생략</strong>해버리는 옵션 키워드를 영문으로 쓰시오.</summary>
+<blockquote>
+<code>NOPASSWD:</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 보안 운영 관점에서, 권한 상승 시 <code>su</code> 명령어를 쓰지 않고 굳이 <strong><code>sudo</code> 명령어의 사용을 실무적으로 권장하는 두 가지 핵심적인 근본 이유</strong>를 서술하시오.</summary>
+<blockquote>
+첫째, 관리자(root)의 마스터 비밀번호가 무엇인지 다수의 일반 사용자들에게 절대 직접 알려주거나 공유하지 않아도 된다.<br>
+둘째, '최소 권한의 원칙'에 입각하여 해당 사용자가 업무에 꼭 필요한 일부 명령어들만 root 권한으로 핀셋 지정하여 제한적으로 허용(통제)할 수 있기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>sudoers</code> 파일에 <code>sudo</code> 기능을 개별 사용자 1명이 아니라, '시스템의 특정 그룹(예: devGroup)에 소속된 구성원 전체'에게 한 번에 일괄 부여하려 할 때, 가장 앞단의 '계정명' 필드를 문법적으로 어떻게 작성해야 하는지 그 규칙을 서술하시오.</summary>
+<blockquote>
+아이디(계정명)를 적는 위치에, 해당 명칭이 '그룹명'임을 시스템이 인식할 수 있도록 앞에 반드시 <strong>퍼센트 기호(<code>%</code>)</strong>를 접두사로 붙여서 기입해야 한다. (작성 예: <code>%devGroup</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 터미널 프롬프트에서 <code>sudo -u algisa /batch/batch.sh</code> 와 같이 명령을 실행하였다. 플래그 없이 사용했던 기존의 기본적인 <code>sudo</code> 동작 방식과 비교하여 쉘 내부의 권한 승격 대상(Target)이 어떻게 달라지는지 서술하시오.</summary>
+<blockquote>
+아무 옵션이 없을 때는 무조건 시스템 최고 권한인 'root' 계층으로 권한이 올라가 구동되지만, <strong><code>-u</code> (User) 옵션을 명시</strong>하고 계정명(algisa)을 주었기 때문에, 저 스크립트를 돌리는 동안만큼은 최고 관리자가 아니라 <strong>'algisa' 라는 다른 일반 사용자의 제한된 권한으로 한정되어 위임(실행)</strong>된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 보안 정책을 위반하고 어떠한 제약도 없이 <code>kiwi99</code> 계정이 모든 호스트(서버 접속)에서, root를 포함한 모든 유저의 권한으로, 모든 명령어를 다 타이핑할 수 있도록 <code>sudoers</code> 파일에 허용 구문을 1줄 새로 개통하려고 한다. 포맷(계정명 호스트=(실행권한계정) 명령어)에 맞추어 작성하시오.</summary>
+<blockquote>
+<code>kiwi99 ALL=(ALL) ALL</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 운영팀의 <code>dev01</code> 계정이 <code>/batch/log_batch.sh</code> 파일을 root 권한으로 매일 밤 스케줄링(자동화) 실행하려 한다. 이를 위해 <code>dev01 ALL=(root) /batch/log_batch.sh</code> 룰이 잡혀있는데 이대로 두면 야간에 멈춰서 암호를 입력하라고 프롬프트가 대기하게 된다. 암호 입력을 우회하여 무정지 실행이 되게끔 해당 설정 문구의 중간을 수정해 보시오.</summary>
+<blockquote>
+<code>pwd</code> 패스워드 생략 플래그를 정해진 위치에 삽입하여 무정지로 통과시킨다.<br>
+수정 답안: <code>dev01 ALL=(root) NOPASSWD: /batch/log_batch.sh</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 외부 감사자가 시스템을 점검하다 누군가 고의로 <code>sudoers</code> 파일 맨 아랫줄에 <code>ALL ALL=(ALL) ALL</code> 이라는 극도로 위험한 줄을 한 줄 끼워 넣은 것을 발견했다. 구문 구조 상의 빈칸 4가지(계정, 호스트, 실행 주체, 허용 파일)에 대응시켜, 이 설정이 시스템에 미치고 있는 현재의 치명적 파급 효과(의미)를 논리적으로 서술하시오.</summary>
+<blockquote>
+서버에 존재하는 무수히 많은 <strong>'모든 일반 로그인 계정(ALL)'</strong>이 로그인한 <strong>'모든 서버망(ALL)'</strong> 위에서 <strong>'그 누구의 권한(ALL)'</strong>으로든지 전환할 수 있으며 심지어 <strong>'시스템 내부의 어떠한 명령어 및 파일 실행(ALL)'</strong>까지 제약 없이 모두 가능하다는 뜻으로, 사실상 방어막이 완전히 붕괴되어 아무나 터미널에서 전체 관리자 행세를 할 수 있게 뚫어버린 파멸적 백도어 상황이다.
+</blockquote>
+</details>
+
+##### PAM 활용 예 4 (시스템 취약점 분석, 평가 일부 항목: sudo 실무 권한 심화)
+
+<details>
+<summary>(단답형) <code>/was/batch/log_batch.sh</code> 쉘 스크립트의 소유자와 권한이 <code>-rwx------ root root</code> 로 설정되어 있다. 일반 계정인 <code>algisa</code>가 단순히 터미널에서 <code>/was/batch/log_batch.sh</code> 라고 다이렉트로 입력하여 실행을 시도했을 때, 모니터에 출력되는 <strong>가장 전형적인 리눅스 터미널의 권한 거부 영문 에러 메시지</strong>를 그대로 쓰시오.</summary>
+<blockquote>
+Permission denied
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 위 상황에서 <code>algisa</code> 계정이 <code>sudo /was/batch/log_batch.sh</code> 라고 명령어를 쳤음에도 불구하고 <strong>"algisa is not in the sudoers file. This incident will be reported"</strong> 라는 오류가 출력되었다면, 시스템 보안 관점에서 <code>algisa</code> 계정이 관리자로부터 어떠한 필수 설정 파일에 등재되지 못했기 때문인지 그 파일의 명칭을 쓰시오.</summary>
+<blockquote>
+/etc/sudoers (또는 sudoers 파일)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>sudoers</code> 파일에 <code>algisa ALL=(root, kiwi99, kiwi88) ALL</code> 이라는 설정이 기입되어 있다. 이 상태에서 터미널 접속 관리자가 <code>algisa</code> 계정일 때, <code>sudo -u [특정사용자] cat ~/.bash_profile</code> 구문에서 <code>[특정사용자]</code> 자리에 올 수 없는 계정을 하나 예를 들면 누구인지(명시된 3명 이외) 적으시오.</summary>
+<blockquote>
+(예시) kiwi77 혹은 명시되지 않은 아무 계정 (해당 룰은 오직 root, kiwi99, kiwi88 세 명으로의 전환만을 허용하기 때문)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>sudo</code> 명령어를 사용하여 관리자 권한이 필요한 스크립트를 최초 실행하려고 하면 터미널에 <code>"sudo password for algisa:"</code> 라는 프롬프트가 등장한다. 이 프롬프트가 요구하고 있는 <strong>비밀번호의 진짜(본래) 주인</strong>이 누구인지 시스템 보안 권한 증명(신뢰성) 관점에서 서술하시오.</summary>
+<blockquote>
+이 프롬프트에서 시스템이 요구하는 암호는 최종 획득하려는 목표인 'root'의 패스워드가 아니라, <strong>현재 <code>sudo</code> 통제기를 마주하고 타이핑을 치고 있는 '본인(즉, algisa 사용자)'의 고유 로그인 비밀번호</strong>이다. 권한을 빌려 쓰기 전에 네가 진짜 algisa가 맞는지 본인 확인(인증) 절차를 거치는 것이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>sudoers</code> 파일에 부여된 <code>ALL=(ALL) ALL</code> 옵션과 <code>ALL=(ALL) NOPASSWD: ALL</code> 옵션의 실무적 적용 목적과 동작의 차이를 관리자 접근 편리성(자동화) 측면에서 비교 서술하시오.</summary>
+<blockquote>
+기본 <code>ALL</code>의 경우 명령마다 지속적으로 본인의 비밀번호를 검증받아야 하므로 터미널 대화형 사용에 머무는 반면, <strong><code>NOPASSWD: ALL</code></strong>을 부여하게 되면 모든 권한 스위칭 과정에서 패스워드 검증 절차가 완전히 생략(면제)되므로, 사용자가 쉘 프로비저닝이나 <strong>야간 배치(Batch) 스크립트 등 무인 자동화 작업을 중간 멈춤(블로킹) 없이 원활하게 돌릴 수 있도록 해주는 중대한 차이</strong>가 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 특정한 보안 프로젝트 팀(개발자)인 <code>algisa</code>에게 다른 모든 서버망 명령어 접근은 차단하고, 오직 로컬 장비 내부 1대의 쉘에서 특정 보안 로그 출력기만 관리자급으로 제어하도록 최소 권한 위임을 셋업했다. <code>algisa 192.168.56.100=(ALL) ALL</code> 설정과 <code>algisa ALL=(ALL) /was/batch/log_batch.sh</code> 설정의 권한 박탈 및 제한 방향의 차이점을 서술하시오.</summary>
+<blockquote>
+전자는 <strong>'장소(호스트명/IP)'</strong>를 철저히 제한하여 무조건 <code>192.168.56.100</code> 서버 상에서만 sudo를 치도록 가두어 놓은 접속망 기반 통제이고, 후자는 접속 장소가 어디든 상관하지 않는 대신 <strong>'실행 가능한 명령어(프로그램)' 종류</strong>를 오직 <code>/was/batch/log_batch.sh</code> 단 한 개 파일로만 극단적으로 압축해 통제하는 행위 기반의 제한 기법이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 호스트 PC(로컬)의 터미널이다. 신입 관리자인 <code>algisa</code> 계정이 <code>visudo</code> 명령으로 <code>sudoers</code> 파일을 수정하여, 자기가 소유한 아이디일 경우 <strong>비밀번호를 치지 않고(NOPASSWD) 모든 호스트망에서 root 권한으로 자유롭게 <code>/was/batch/log_batch.sh</code> 파일을 실행</strong>할 수 있도록 맞춤형 룰 한 줄을 작성하려 한다. 포맷에 맞춰 정확한 명령어 텍스트 라인을 완성하시오.</summary>
+<blockquote>
+<code>algisa ALL=(root) NOPASSWD: /was/batch/log_batch.sh</code> (또는 <code>algisa ALL=(ALL) NOPASSWD: /was/batch/log_batch.sh</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>/etc/sudoers</code> 파일에 다음과 같은 룰이 세팅되어 있다.
+<code>algisa ALL=(root, kiwi99) ALL</code>
+이때 터미널에서 <code>algisa</code> 계정이 자신의 <code>sudo</code> 권한을 이용해 일반 사용자 <code>kiwi77</code>의 <code>~/.bash_profile</code> 파일을 <code>cat</code> 명령어로 읽어보려는 커맨드를 1줄로 작성하고, 그 엔터(Enter) 결과가 시스템 로그 상 어떻게 처리될지 결론 지어 작성하시오.</summary>
+<blockquote>
+커맨드: <code>sudo -u kiwi77 cat ~kiwi77/.bash_profile</code><br>
+결론: <code>sudoers</code> 파일 룰셋에 허용된 스위칭 대상자가 <code>root</code>와 <code>kiwi99</code> 단 2명뿐이므로, 그 외의 인물인 <code>kiwi77</code>로의 전환(권한 대행)은 시스템에 의해 철저하게 <strong>실패(차단) 및 오류("Sorry, user algisa is not allowed...")</strong>를 뱉어내고 접근이 거절된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 사용자 <code>kiwi99</code> 계정에게, 자신의 비밀번호를 한 번 입력하여 신원 인증만 거치고 나면 192.168.1.100 번 서버에서 <code>/bin/kill</code> 명령어를 관리자(root) 권한으로 타건할 수 있도록 통제 룰을 부여해야 한다. 설정 파일에 들어갈 적합한 1줄짜리 정규 문법(포맷) 코드를 작성하시오.</summary>
+<blockquote>
+<code>kiwi99 192.168.1.100=(root) /bin/kill</code> (또는 <code>(ALL) /bin/kill</code>)
+</blockquote>
+</details>
 
 #### 시스템 로그 설정과 관리
 
@@ -3680,9 +4279,132 @@ NAC (Network Access Control)<br>
 ##### 유닉스/리눅스 주요 로그 파일
 
 <details>
-<summary>리눅스 시스템 로그 중 다음 설명에 해당하는 로그 파일명을 작성하시오.<br>(가) 사용자의 원격 로그인 정보 저장<br>(나) 시스템 부팅 관련 메시지 저장<br>(다) 사용자가 로그인한 마지막 로그 저장</summary>
+<summary>(단답형) 리눅스는 <code>/var/log</code> 디렉터리, 유닉스는 <code>/var/adm</code> 디렉터리에 주로 시스템 로그를 남기는데, 이처럼 시스템에서 남기는 여러 종류의 시스템 로그 파일들의 고정적인 <strong>최종 저장 위치 파일명(경로)을 정의해두고 배포해 주는 환경 설정 파일명(절대경로)</strong>을 쓰시오.</summary>
 <blockquote>
-(가) 사용자의 원격 로그인 정보 저장: `/var/log/secure`<br>(나) 시스템 부팅 관련 메시지 저장: `/var/log/dmesg`<br>(다) 사용자가 로그인한 마지막 로그 저장: `/var/log/lastlog`
+/etc/syslog.conf (또는 최신 리눅스의 경우 /etc/rsyslog.conf)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 현재 시스템에 <strong>로그인하여 활동 중인 사용자들의 실시간 접속 상태 정보</strong>를 담고 있는 바이너리 로그 파일로서, <code>w</code>, <code>who</code>, <code>finger</code>, <code>users</code> 명령어 등을 타이핑했을 때 이 파일의 데이터를 읽어와 모니터에 뿌려주는 핵심 원천 파일의 절대 경로를 쓰시오 (Linux 기준).</summary>
+<blockquote>
+/var/run/utmp (Unix 계열은 /var/adm/utmpx)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 해커가 서버에 지속적으로 접근하기 위해 백도어를 심거나 비밀번호를 알아내고자 <strong>무작위 대입을 시도하다가 누적시킨 모든 '로그인 실패(Failed login)' 기록들</strong>을 담아두는 리눅스 바이너리 파일명(절대경로)을 쓰시오.</summary>
+<blockquote>
+/var/log/btmp
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스 터미널에서 <code>w kiwi99</code> 명령어를 쳤더니, 열 출력 결과 제일 우측의 <strong><code>WHAT</code> 필드</strong>에 <code>-bash</code> 라는 문구 대신 <code>/usr/bin/vi /etc/passwd</code> 라고 출력되어 있었다. 이 <code>WHAT</code> 필드의 문구가 시스템 운영자(점검자)에게 시사하는 보안 통제 관점에서의 의미를 서술하시오.</summary>
+<blockquote>
+<code>WHAT</code> 필드는 접속한 사용자가 터미널 위에서 '지금 당장 어떠한 명령어 및 프로세스 작업'을 수행하고 있는지를 실시간으로 보여주는 감시 지표다. 이 문구가 떴다는 것은 <code>kiwi99</code> 계정이 일반적인 쉘 대기 상태(bash)가 아니라 <strong>현재 시스템 계정 정보가 담긴 중요한 환경 파일(<code>/etc/passwd</code>)을 텍스트 에디터(vi)로 열어 수정 또는 열람을 시도하고 있다는 중대한 보안 감시 의미</strong>를 시사한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 침해 사고 발생 시 침투 범위를 분석하기 위해 <code>lastlog</code> 명령어를 수행했다. <code>lastlog</code> 파일이 텍스트(Text) 파일이 아닌 <strong>바이너리(Binary) 포맷으로만 저장되어 관리되는 결정적인 보안상의 이유(목적)</strong>를 파일 무결성 관점에서 서술하시오.</summary>
+<blockquote>
+바이너리(이진) 형태로 저장하면 관리자가 제공하는 특정 전용 명령어(예: <code>lastlog</code>, <code>last</code>, <code>lastb</code> 등)를 거치지 않고서는 내용을 인간이 읽거나 쉽게 편집기(vi, nano 등)로 고칠 수 없기 때문에, <strong>공격자가 시스템에 침투한 뒤 텍스트 편집기로 자신의 악성 접속 IP 기록만을 정교하게 한 줄씩 지우거나 조작하는 흔적 은폐 행위를 1차적으로 방어(무결성 보장)</strong>하기 위함이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) SunOS(Solaris)와 같은 유닉스 계열에서 악의적 로그인 시도 실패 기록을 남기는 <code>loginlog</code> 파일은, 1회라도 실패하면 무조건 다 로그에 적어두는 리눅스의 <code>btmp</code> 시스템과 비교하여 <strong>어떠한 조건적 차이(기록 발동 조건)</strong>를 갖고 동작하는지 서술하시오.</summary>
+<blockquote>
+리눅스는 단 1번이라도 비밀번호를 틀리면 <code>btmp</code>에 족족 실패 이력을 누적하지만, 유닉스(SunOS)의 <code>/var/adm/loginlog</code> 파일 체계는 <strong>동일한 사용자가 연속해서 '5회 이상' 로그인을 연달아 실패했을 경우에 한해서만</strong> 비로소 이상 징후로 판단하여 그 실패 내역 전체를 텍스트로 밀어 넣(기록하)는 차이점을 가지고 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 정기 점검을 위해 현재 서버로 실시간 다이렉트 접근해 들어오는 불법 로그인 루트를 점검하려 한다. 수십 개의 <code>utmp</code> 데이터를 모두 열람하는 대신, 시스템 부팅부터의 이력이 담긴 <code>wtmp</code> 를 기반으로 하여 <strong>재부팅(reboot) 관련 정보만을 최근 이력부터 단 5줄로 예쁘게 잘라서 보고자 한다.</strong> 이를 터미널에 한 줄로 조립하여 출력하는 CLI 명령어(파이프 활용)를 정확히 명시하시오.</summary>
+<blockquote>
+<code>last reboot | head -5</code> (또는 <code>last reboot | head -n 5</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 인사팀과 보안팀의 정기 퇴사자 계정 말소 절차를 위해 <strong>모든 시스템 등록 사용자를 통틀어 <code>kiwi99</code> 라는 특정 1개의 계정이 가장 마지막(최근)에 성공적으로 로그인했던 날짜 일시 기록만을 뽑아서 조회</strong>하려 한다. 이 정보를 읽어내기 위한 <code>lastlog</code> 명령어와 타겟 지정 인자 포맷 라인을 명령어 형태로 정확하게 작성하시오.</summary>
+<blockquote>
+<code>lastlog -u kiwi99</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 시스템 백그라운드 환경에 <code>/var/log/btmp</code> 침해 로그 파일이 거대하게 쌓여가고 있다. 관리자가 현재 악의적으로 무차별 대입(Brute-Force)을 던지고 있는 외부 해커가 어떤 타겟팅 아이디들을 찌르고 있는지 분석하기 위해, 이 <strong>바이너리 로그인 실패 기록 파일을 텍스트 형태로 디코딩하여 볼 수 있도록 쉘 프롬프트에서 치는 기본 복원 열람 명령어</strong> 하나를 명시하시오 (Linux 전용).</summary>
+<blockquote>
+<code>lastb</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 유닉스(SunOS) 시스템 환경에서, 어떤 사용자가 다른 사용자의 권한으로 넘어가려 시도했던 특정 명령어(<code>su</code>)의 성공 및 실패 내역을 문자열 기호로 기록해두는 텍스트 로그 파일의 <strong>절대 경로</strong>를 쓰시오.</summary>
+<blockquote>
+/var/adm/sulog
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스 환경에서 시스템 데몬들의 구동 상태, 커널과 네트워크 인터페이스의 로드 정보, TCP Wrapper 통제 상태 등 <strong>시스템 운영 전반에 대한 핵심적인 통합 메시지</strong>들을 수집하여 포괄적으로 저장하는 텍스트 로그 파일의 <strong>절대 경로</strong>를 쓰시오.</summary>
+<blockquote>
+/var/log/messages
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 사용자가 시스템에 로그인한 순간부터 로그아웃할 때까지 입력했던 모든 명령어와 터미널 종류, 프로세스 시작 시간 등을 이진(Binary) 형태로 압축해둔 리눅스 <code>pacct</code>(또는 유닉스 <code>pacct</code>) 파일 정보를, 쉘 프롬프트에 <strong>텍스트로 복원하여 읽어내 표시해 주는 명령어</strong>를 쓰시오.</summary>
+<blockquote>
+lastcomm
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 유닉스의 <code>sulog</code> 로그 텍스트를 파싱(분석)하던 중, <code>SU 02/28 00:49 - pts/4 kiwi88-root</code> 라는 일련의 라인들을 다수 발견하였다. 중간에 표기된 기호 <strong><code>-</code></strong> 과 그 뒤의 <strong><code>kiwi88-root</code></strong> 가 정확히 어떤 행위 내역을 지시하는지 해석하고, 이것이 보안 관점에서 어떠한 위협 상황을 시사하는지 서술하시오.</summary>
+<blockquote>
+중간의 <code>-</code> 기호는 권한 상승을 위한 <code>su</code> 명령이 실패(권한 거부 또는 패스워드 오입력)했음을 뜻한다. 조합해 보면, 터미널(pts/4)을 통해 접속한 일반 권한의 <code>kiwi88</code> 계정이 지속적으로 시스템 최고 관리자인 <code>root</code> 계정으로의 전환을 무단 시도하다가 실패하고 있는, 즉 <strong>관리자 권한 강제 탈취(해킹 시도)가 이뤄지고 있을 가능성이 높은 매우 중대한 보안 위협 징후</strong>를 시사한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 서버 관리자는 종종 침해 대응뿐만 아니라 커널 패닉 등 딥다이브한 물리적 오류를 파악하기 위해 리눅스의 <code>/var/log/dmesg</code> 파일을 점검한다. 해당 파일 안에 담겨있는 <strong>데이터의 근원적 출처와 수집 범위</strong>가 무엇인지 시스템 아키텍처 관점에서 서술하시오.</summary>
+<blockquote>
+운영체제(리눅스)가 가장 처음 <strong>재부팅(Booting)될 때 커널(Kernel)이 직접 인식하고 적재하는 디스크, 메모리, 네트워크 카드 등 하드웨어 디바이스들의 상태 확인 및 오류 메시지들 일체</strong>를 모두 기록해 놓은 근원이기 때문에, 부팅 과정 모니터링 시 스크롤되어 지나가 버린 치명적 커널 에러 내역 등을 나후에 텍스트 형태로 추적 및 트러블슈팅할 목적으로 쓰인다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스의 <code>/var/log/secure</code> 파일은 보안 감사 시 가장 1순위로 지목되는 요충지이다. 해당 로그 파일이 서버 내부의 <strong>'결정적인 인증 이벤트'</strong>들을 어떻게 관제하고 있는지 그 대표적인 기록 대상 행동들을 세 가지 이상 나열하여 서술하시오.</summary>
+<blockquote>
+단순한 앱 실행 로그가 아닌 철저히 <strong>'계정 및 권한'에 밀접한 핵심 인증 내역</strong>만을 전담한다. 대표적으로 ① 백도어를 남기는 시스템 계정/그룹의 신규 생성 및 삭제 상태, ② 외부에서 접근하는 원격 터미널 접속(텔넷, SSH)의 성공 및 실패 내역, ③ 관리자로 빙의하는 <code>su</code> 및 <code>sudo</code> 명령어의 수행 승인 및 실패 내역 등을 중앙에 수집하여 세밀하게 기록한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 계정 침해 이력을 점검하기 위해 보안 담당자가 <code>messages</code> 파일을 검색하던 중, <code>Mar 3 21:15:14 localhost xinetd[2178]: START: telnet pid=3902</code> 라는 한 줄을 식별하였다. 리눅스의 표준 <strong>메시지 로그 배열 5단 구성 형식(Format)</strong> 규칙에 대입하여, 위 문장을 공백을 기준으로 쪼갰을 때 나타나는 독립된 5가지 정보(토큰)들이 각각 시계열의 어떤 값을 상징하는지 순서대로 매칭하여 작성하시오.</summary>
+<blockquote>
+① <code>Mar 3 21:15:14</code>: 로그 메시지 생성 일자 및 시각<br>
+② <code>localhost</code>: 로그 메시지를 생성시킨 호스트(통신 서버) 이름<br>
+③ <code>xinetd</code>: 로그 메시지를 실제 발생시킨 주체 데몬(프로세스/서비스) 이름<br>
+④ <code>[2178]</code>: 로그 메시지를 발생시킨 프로세스의 고유 ID 번호 (PID)<br>
+⑤ <code>START: telnet pid=3902</code>: 해당 프로세스가 구동 결과로서 터미널에 남긴 실제 발생 메시지 본문
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 의심스러운 사용자 <code>kiwi99</code>가 특정 서버에 침투한 뒤 흔적을 인멸하려 본인의 계정 홈 디렉터리 내에 남아있는 과거 CLI 실행 내역(History)을 교묘하게 삭제하려 한다. 관리자가 이를 사전에 방지하고자, <strong>텍스트 편집기를 열지 않고 오로지 해당 유저 디렉터리에 놓인 숨김 타깃 파일(<code>.bash_history</code>) 내용 중 맨 꼭대기(상단) 5줄 부분만을</strong> 즉석에서 잘라서 터미널 화면에 던지기 위해 쓰는 파이프라인(CLI) 읽기 명령어 1줄을 완성하시오.</summary>
+<blockquote>
+<code>cat .bash_history | head -5</code> (또는 <code>cat .bash_history | head -n 5</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스 서버에서, 공격자가 시스템 커맨드를 무결하게 남기는 <code>pacct</code> 로거가 돌아가는 중에도 악성 바이너리를 켰다 강제 종료한 심증이 있다. 불법 악용이 의심되는 단일 특정 사용자인 <code>kiwi99</code> 계정이 <strong>과거부터 지금까지 실행하고 거쳐간 유틸리티 명령어 히스토리만을 모두 출력기 상에 나열해 보기 위해</strong> 필터링을 조립하는 명령어를 영문으로 작성하시오.</summary>
+<blockquote>
+<code>lastcomm kiwi99</code>
 </blockquote>
 </details>
 
