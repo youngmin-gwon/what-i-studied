@@ -3349,15 +3349,274 @@ shutdown
 
 ##### 그룹 관리(추가, 변경 및 삭제)
 
+<details>
+<summary>(단답형) 시스템에 새로운 그룹을 추가할 때, 관리자가 특정 그룹 ID(GID)를 수동으로 지정하기 위해 사용하는 옵션을 쓰시오.</summary>
+<blockquote>
+-g
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 기존에 존재하는 그룹의 '그룹 이름'만을 새로운 이름으로 변경하고자 할 때 사용하는 <code>groupmod</code> 명령어의 옵션을 쓰시오.</summary>
+<blockquote>
+-n
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 시스템에 등록된 특정 그룹을 완전히 삭제하기 위해 사용하는 명령어를 쓰시오.</summary>
+<blockquote>
+groupdel
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>groupadd -g 600 soc</code> 명령어 실행 시 시스템 내부 설정 파밀(예: <code>/etc/group</code>)에 일어나는 변화를 서술하시오.</summary>
+<blockquote>
+해당 파일 마지막에 <code>soc</code>라는 이름의 새로운 그룹이 추가되며, 해당 그룹의 GID 번호가 <code>600</code>으로 기록된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 새로운 사용자를 각각 생성하여 권한을 제어하지 않고 기존의 '그룹'을 생성/변경하여 관리해야 하는 이유를 권한 관리의 관점에서 서술하시오.</summary>
+<blockquote>
+다수의 사용자가 동일한 디렉터리나 파일에 접근해야 하는 공동 작업 환경에서, 사용자 개개인에게 개별 인증/권한을 부여하는 대신 하나의 그룹을 생성하고 사용자들을 그룹에 포함시켜 그룹 권한을 부여함으로써 권한 관리를 통합적이고 효율적으로 수행할 수 있기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 특정 사용자가 포함된 보조 그룹을 <code>groupdel</code> 명령을 통해 삭제했을 때 해당 사용자의 권한 관점에서 발생할 수 있는 영향을 서술하시오.</summary>
+<blockquote>
+해당 보조 그룹에 부여되었던 특정 디렉터리나 파일에 대한 접근 권한(소유 그룹 권한)을 즉각 잃게 되어, 그룹 기반으로 묶여서 제어되던 자원 사용 및 공유가 불가능해진다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) GID 번호가 <code>700</code> 인 <code>sec</code> 라는 이름의 그룹을 시스템에 새롭게 추가하기 위한 한 줄짜리 명령어를 작성하시오.</summary>
+<blockquote>
+<code>groupadd -g 700 sec</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 시스템에 <code>soc</code>라는 그룹이 존재한다. 이 그룹의 명칭을 <code>secure</code>로 변경하고, 그룹의 GID를 <code>800</code>으로 동시에 변경하는 <code>groupmod</code> 명령어 구문을 작성하시오.</summary>
+<blockquote>
+<code>groupmod -g 800 -n secure soc</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 보안 검사 과정에서 <code>unknown</code> 이라는 불필요한 테스트용 그룹이 발견되었다. 이 그룹을 시스템에서 완전히 제거하여 권한 오용의 소지를 없애는 명령어를 작성하시오.</summary>
+<blockquote>
+<code>groupdel unknown</code>
+</blockquote>
+</details>
+
+
 #### 파일 시스템 관리
 
-##### 파일시스템(디스크) 여유 공간 키그 관리(df 명령어)
+##### 파일시스템(디스크) 여유 공간 크기 관리(df 명령어)
+
+<details>
+<summary>(단답형) 디스크 상의 파일 시스템을 유닉스/리눅스 시스템의 특정 디렉터리에 논리적으로 연결하여 사용자가 접근할 수 있도록 하는 과정을 뜻하는 용어를 쓰시오.</summary>
+<blockquote>
+마운트(mount)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>df</code> 명령어 실행 결과를 관리자가 알아보기 쉽도록 M(메가바이트), G(기가바이트) 단위 등 '사람이 읽기 쉬운(Human Readable)' 용량 단위로 변환 출력해주는 옵션을 쓰시오.</summary>
+<blockquote>
+-h
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 시스템에 마운트되어 있는 특정 파일 시스템(예: <code>/dev/sda1</code>)의 연결을 안전하게 해제하여 분리할 때 사용하는 명령어를 쓰시오.</summary>
+<blockquote>
+umount
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 관리자가 주기적으로 <code>df</code> 명령을 통해 파일 시스템의 가용 공간을 모니터링하고 임계치를 설정해야 하는 가장 중요한 가용성 관점의 이유를 서술하시오.</summary>
+<blockquote>
+파일 시스템의 여유 공간이 고갈되면 시스템 구동에 필수적인 로그가 기록되지 못하거나, 새로운 프로세스 생성이 불가하여 데몬이 중단되는 등 치명적인 시스템 서비스 장애(가용성 저하)가 발생할 수 있기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>df</code> 명령어를 아무런 인자나 옵션 없이 단독으로 실행했을 때 보여주는 정보의 범위와 내용에 대해 서술하시오.</summary>
+<blockquote>
+현재 시스템에 마운트되어 있는 <strong>모든 파일 시스템(디스크 파티션)</strong>들의 전체 용량, 사용량, 남은 여유 공간 크기, 사용률, 그리고 각각 마운트된 디렉터리 경로 정보를 모두 나열하여 출력한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>df -h /tmp</code> 처럼 명령의 인수로 '특정 물리 장치 트리'가 아닌 특정 일반 '디렉터리'를 지정했을 때, <code>df</code> 명령이 화면에 출력해주는 정보의 기준점을 설명하시오.</summary>
+<blockquote>
+지정한 <code>/tmp</code> 디렉터리 내부 파일들만의 자체 크기가 아니라, 해당 디렉터리가 속해 있는(마운트된) <strong>시스템 파티션이나 디스크의 전체 용량과 전체 남은 여유 공간 상태</strong>를 출력해 준다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 시스템의 루트(<code>/</code>) 파일 시스템이 위치한 파티션의 남은 여유 용량과 사용률(Use%)을 사람이 보기 편한 단위(K, M, G 등)로 확인하기 위한 명령어를 작성하시오.</summary>
+<blockquote>
+<code>df -h /</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 <code>df -h /dev/sda2</code> 명령을 실행하여 <code>Use%</code> 필드가 100%임을 확인했다. 긴급하게 가용성을 확보하기 위해 관리자가 단계적으로 취할 수 있는 대표적인 조치 방안 두 가지를 서술하시오.</summary>
+<blockquote>
+1. 불필요한 대용량 파일(백업본 등)이나 너무 오래 보관된 각종 로그 파일들을 1차적으로 긴급 삭제하여 즉각적인 여유 공간을 확보한다.<br>
+2. 물리적으로 새로운 여분의 디스크 장치를 증설하고 추가로 마운트하여 실질적인 디스크 용량 한도를 넓힌다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 출력된 <code>df</code> 명령 결과 중 마지막 필드인 <code>Mounted on</code>은 기술적으로 어떤 구체적 의미를 갖는지 서술하시오.</summary>
+<blockquote>
+해당 물리 디스크 파티션(장치 파일)이 논리적인 리눅스 디렉터리 트리 구조상에서 정확히 <strong>어떤 디렉터리를 연결점(마운트 포인트)으로 삼아 동작하고 있는지 그 진입 경로</strong>를 의미한다.
+</blockquote>
+</details>
+
 
 ##### 디렉터리(파일)별 파일시스템(디스크) 사용량 관리(du 명령어)
+
+<details>
+<summary>(단답형) 특정 디렉터리 내에 존재하는 모든 하위 디렉터리뿐만 아니라, 개별 '파일'들에 대한 각각의 디스크 사용량까지 숨김없이 모두 나열해서 출력하도록 지시하는 <code>du</code> 명령어의 옵션을 쓰시오.</summary>
+<blockquote>
+-a
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 특정 디렉터리의 내부 하위 구조나 요소들 크기를 일일이 출력하지 않고, 해당 디렉터리가 차지하는 '전체(총합)' 크기 하나만을 단일값으로 요약해서 보고 싶을 때 사용하는 <code>du</code> 명령어의 옵션을 쓰시오.</summary>
+<blockquote>
+-s
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>df</code> 명령어는 '디스크 파티션' 단위로 공간을 보여준다면, <code>du</code> 명령어는 무엇을 기준으로 크기를 확인하는지 그 대상이 되는 개체 단위 두 가지를 쓰시오.</summary>
+<blockquote>
+디렉터리, 파일
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>df</code> 명령어와 <code>du</code> 명령어가 디스크 용량을 다룬다는 점에서는 유사하나, 시스템을 관리하는 기술적 관점과 확인 '목적'에서 어떠한 구별이 있는지 서술하시오.</summary>
+<blockquote>
+- <strong><code>df</code></strong>: 파일 시스템(파티션) 단위로 '전체 디스크의 가용성(남은 여유 공간)'과 마운트 상태를 전반적으로 파악하고자 할 때 사용된다.<br>
+- <strong><code>du</code></strong>: 가용 공간보다는 특정 디렉터리 구조 내부나 개별 파일들이 한정된 공간 안에서 '실제로 얼마나 용량을 소비(사용)하고 있는지'를 구체적으로 추적하고 확인할 때 사용된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>du -hs /var/log</code> 명령어를 실행했을 때 출력되는 결과값의 형태적 특징을 디렉터리의 하위 요소 출력 여부와 용량 단위를 포함하여 서술하시오.</summary>
+<blockquote>
+<code>/var/log</code> 내부의 수많은 개별 파일이나 폴더 내역은 전혀 출력되지 않고 생략(<code>-s</code>)되며, 오직 <code>/var/log</code> 디렉터리 자체가 차지하는 합산 총 용량만이 인간이 읽기 쉬운 M이나 G 등의 단위(<code>-h</code>)와 함께 한 줄로 압축되어 출력된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 장애 조사 중 관리자가 루트 디렉터리(`/`) 등 상위 경로에서 주기적으로 <code>du -s *</code> 명령을 수행하는 시스템 운영상의 주된 이유를 '용량 추적' 측면에서 서술하시오.</summary>
+<blockquote>
+시스템의 디스크 용량이 부족해지는 문제가 생길 때, 최상위 경로의 각 디렉터리별 총 사용량을 요약함으로써 유독 과도하게 용량을 많이 차지하고 비대해진 디렉터리를 색출하고 그 원인(예: 폭증한 로그 폴더)을 하향식으로 효율적으로 추적하기 위해서이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>/home</code> 디렉터리 내에 있는 각각의 사용자별 폴더가 차지하는 총 요약 용량을, 관리자가 직관적으로 읽기 쉬운 단위(GB, MB 등)로 한눈에 출력하기 위해 사용하는 구체적인 명령어를 작성하시오.</summary>
+<blockquote>
+<code>du -hs /home/*</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>du -h /var/log | head -5</code> 명령 실행 시 화면에 출력되는 데이터가 무슨 내용을 담고 있는지 그 의미를 분석하고 파이프(<code>|</code>)의 역할을 결합하여 서술하시오.</summary>
+<blockquote>
+<code>/var/log</code> 디렉터리와 그 안의 하위 디렉터리들이 각각 사용 중인 디스크 용량을 쉬운 단위(<code>-h</code>)로 나열하여 출력하되, 파이프(<code>|</code>)로 연결된 <code>head -5</code> 필터를 거치게 하여 그 전체 결과 중 상위 5줄까지만 끊어서 화면에 보여준다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 너무 비대해져서 문제를 유발하고 있는 로그 파일인 <code>/var/log/messages</code> 파일 단일 객체만의 현재 남은 용량이 아니라 '직접 사용 중인 크기(MB 지원)'를 빠르고 직관적으로 확인하기 위해 실행해야 할 명령 구문을 작성하시오.</summary>
+<blockquote>
+<code>du -h /var/log/messages</code>
+</blockquote>
+</details>
+
 
 #### 작업 스케줄 관리
 
 ##### cron 서비스(정기적 작업 스케줄 관리 서비스)
+
+<details>
+<summary>(단답형) 관리자가 모든 사용자의 예약 작업을 등록/관리하는 용도로 사용하며, 일반적으로 <code>root</code> 권한으로만 편집할 수 있도록 권장되는 cron 작업 등록 파일의 절대 경로를 쓰시오.</summary>
+<blockquote>
+/etc/crontab
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개별 사용자(예: <code>algisa</code>)가 <code>crontab</code> 명령을 통해 예약 작업을 등록했을 때, 해당 작업 내역이 실제로 저장되는 파일의 절대 경로(계정명 포함)를 쓰시오.</summary>
+<blockquote>
+/var/spool/cron/algisa
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 특정 사용자(예: <code>kiwi99</code>)가 <code>crontab</code> 명령어를 아예 사용할 수 없도록 블랙리스트 방식으로 차단 정책을 적용할 때 설정해야 하는 파일의 명칭(경로 제외)을 쓰시오.</summary>
+<blockquote>
+cron.deny
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 백그라운드 환경에서 정기적으로 실행되는 cron 예약 작업의 결과(표준 출력 및 에러)를 터미널로 출력할 필요가 없을 때 흔히 사용하는 <code>&gt; /dev/null 2&gt;&amp;1</code> 재지정(Redirection) 문법의 구체적인 의미와 목적을 서술하시오.</summary>
+<blockquote>
+- <strong>의미</strong>:명령어 실행 결과로 발생하는 정상 출력(1)과 에러 메시지(2)를 모두 <code>/dev/null</code> 이라는 특수 블랙홀 장치 파일로 던져버리겠다는 뜻이다.<br>
+- <strong>목적</strong>: cron 데몬이 남기는 불필요한 출력물로 인해 시스템 메일이나 로그가 꽉 차는 현상을 방지하기 위해 출력을 완전히 무시(폐기)할 목적으로 사용한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>/etc/crontab</code> 파일과 <code>/var/spool/cron/</code> 하위에 저장되는 개별 사용자용 crontab 파일에 기록할 때 문법 필드 구성상 어떠한 차이가 존재하는지 '계정명' 관점에서 비교 서술하시오.</summary>
+<blockquote>
+<code>/etc/crontab</code>은 관리자가 모든 사용자를 관리하는 파멸이므로 시간 설정 뒤에 실행 주체인 <strong>'계정명(User)' 필드가 반드시 필요</strong>하다. 반면, 개별 사용자 파일은 그 파일 자체가 계정을 의미하므로 <strong>'계정명' 필드를 생략</strong>하고 바로 실행할 명령어를 기입한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템에 <code>/etc/cron.allow</code> 파일과 <code>/etc/cron.deny</code> 파일이 동시에 존재할 경우, 운영체제의 접근 제어 정책이 어떤 우선순위 메커니즘으로 동작하게 되는지 논리적 흐름을 서술하시오.</summary>
+<blockquote>
+<code>cron.allow</code> 파일이 항상 <code>cron.deny</code>보다 높은 최우선 순위를 갖는다. 따라서 시스템은 <code>allow</code> 파일을 먼저 검사하여 허용 목록을 100% 신뢰하며, <code>allow</code> 파일이 존재하는 순간 <code>deny</code> 파일의 내용은 완전히 무시되고 작동하지 않게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자(<code>root</code>)가 <code>/etc/crontab</code> 파일에 아래와 같이 매주 월요일부터 금요일까지 새벽 6시 20분에 <code>/work/batch.sh</code> 스크립트를 <code>root</code> 권한으로 실행하도록 스케줄을 추가하려 한다. 시간 설정 5개 필드(분, 시, 일, 월, 요일)를 정확히 채워서 한 줄의 포맷(형식)을 완성하시오. (단, 요일은 숫자로 표기)</summary>
+<blockquote>
+<code>20 6 * * 1-5 root /work/batch.sh</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자 접속 상태(root)에서 특권 명령어를 사용하여 시스템에 존재하는 일반 계정인 <code>algisa</code> 의 내부에 설정된 cron 작업 목록 전체를 화면에 출력하여 점검(List)하기 위한 명령줄을 작성하시오.</summary>
+<blockquote>
+<code>crontab -u algisa -l</code> (또는 -u algisa 생략 불가)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>0 8-10 * * * algisa /work/batch.sh</code> 이라는 스케줄이 <code>/etc/crontab</code> 파일에 등록되어 있다. 이 작업이 일주일 중 언제, 몇 시 몇 분에 실행되도록 설정되어 있는지 그 주기를 한국어로 명확하게 풀어 쓰시오.</summary>
+<blockquote>
+매일(월~일 무관, 매월 매일) 8시 정각, 9시 정각, 10시 정각마다 하루 총 3번 <code>algisa</code> 계정 권한으로 작업을 실행한다.
+</blockquote>
+</details>
+
 
 ### 4. UNIX/Linux 서버 보안
 
