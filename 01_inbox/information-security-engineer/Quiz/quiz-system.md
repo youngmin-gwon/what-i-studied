@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-16 18:00:08 +09:00
+date modified: 2026-03-17 10:28:49 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -3672,7 +3672,7 @@ cron.deny
 </details>
 
 <details>
-<summary>(작업형) 관리자가 <code>/etc/shadow</code> 파일 내부를 들여다보니 <code>kiwi99</code> 사용자의 두 번째 필드(패스워드 해시)가 <code>$6$S1S1$TyCOb...</code> 의 형태로 기록되어 있었다. <code>$6$</code> 이라는 특정 기호가 의미하는 해시 암호화 알고리즘의 명칭을 식별하시오.</summary>
+<summary>(작업형) 관리자가 <code>/etc/shadow</code> 파일 내부를 들여다보니 <code>kiwi99</code> 사용자의 두 번째 필드(패스워드 해시)가 <code>$6$S1S1$TyCOb…</code> 의 형태로 기록되어 있었다. <code>$6$</code> 이라는 특정 기호가 의미하는 해시 암호화 알고리즘의 명칭을 식별하시오.</summary>
 <blockquote>
 SHA-512 알고리즘
 </blockquote>
@@ -4261,7 +4261,7 @@ Permission denied
 이때 터미널에서 <code>algisa</code> 계정이 자신의 <code>sudo</code> 권한을 이용해 일반 사용자 <code>kiwi77</code>의 <code>~/.bash_profile</code> 파일을 <code>cat</code> 명령어로 읽어보려는 커맨드를 1줄로 작성하고, 그 엔터(Enter) 결과가 시스템 로그 상 어떻게 처리될지 결론 지어 작성하시오.</summary>
 <blockquote>
 커맨드: <code>sudo -u kiwi77 cat ~kiwi77/.bash_profile</code><br>
-결론: <code>sudoers</code> 파일 룰셋에 허용된 스위칭 대상자가 <code>root</code>와 <code>kiwi99</code> 단 2명뿐이므로, 그 외의 인물인 <code>kiwi77</code>로의 전환(권한 대행)은 시스템에 의해 철저하게 <strong>실패(차단) 및 오류("Sorry, user algisa is not allowed...")</strong>를 뱉어내고 접근이 거절된다.
+결론: <code>sudoers</code> 파일 룰셋에 허용된 스위칭 대상자가 <code>root</code>와 <code>kiwi99</code> 단 2명뿐이므로, 그 외의 인물인 <code>kiwi77</code>로의 전환(권한 대행)은 시스템에 의해 철저하게 <strong>실패(차단) 및 오류("Sorry, user algisa is not allowed…")</strong>를 뱉어내고 접근이 거절된다.
 </blockquote>
 </details>
 
@@ -4273,8 +4273,6 @@ Permission denied
 </details>
 
 #### 시스템 로그 설정과 관리
-
-##### 개요
 
 ##### 유닉스/리눅스 주요 로그 파일
 
@@ -4479,6 +4477,71 @@ lastcomm
 #### syslog 설정 및 관리
 
 ##### 개요
+
+<details>
+<summary>(단답형) 리눅스 커널 및 응용 프로그램 데몬들로부터 로그 메시지를 모아서, 정해진 규칙 파일에 따라 특정 로그 파일이나 콘솔, 또는 원격 서버로 체계적으로 분류 및 저장해 주는 핵심 백그라운드 프로세스 이름(최신 환경에서 많이 쓰이는 개선판 제외)을 쓰시오.</summary>
+<blockquote>
+syslogd
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 관리자가 커스텀 환경에서 발생하는 보안 이슈들을 로그 서버로 보내기 위해 <code>syslog.conf</code>를 편집하였다. 이때 <code>syslog</code> 통신이 네트워크 상에서 평문으로 전송되어 탈취(도청) 당하는 것을 방지하고자, TCP 및 BEEP 프로토콜 기반의 신뢰성·기밀성 기능을 덧붙이도록 권고한 국제 인터넷 표준 규격 번호(RFC)를 쓰시오.</summary>
+<blockquote>
+RFC 3195
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>syslog.conf</code> 파일에서 <code>[Facility].[Priority]; [Action]</code> 구조를 통해 룰을 정의할 때, 수많은 서비스 중 유독 **사용자 인증(Authentication) 및 보안(Security) 관련 메시지(ex: su, ssh login 등)**만을 콕 집어 분류하기 위해 지정하는 대표적인 <code>Facility</code> 카테고리 명칭을 쓰시오.</summary>
+<blockquote>
+authpriv (혹은 auth)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 장애 대응 매뉴얼 기준에 따라 디스크나 메모리 불량과 같은 <strong>'치명적인 하드웨어 오류 상황'</strong> 관련 로그들을 집중적으로 분리해 내고자 한다. <code>syslog</code> 설정에서 이러한 장애가 매핑되는 <code>Priority</code>(로그 수준) 지시자(영문 4글자 약어)가 무엇인지 쓰고, 그 상위와 하위를 포함한 해당 레벨의 성격을 서술하시오.</summary>
+<blockquote>
+우선순위 지시자는 <strong><code>crit</code> (Critical)</strong> 이다. 이 레벨은 단순히 조치가 필요한 에러(err)보다는 훨씬 심각하여 시스템 파괴 위험성이 존재하는 하드웨어 오류 등을 의미하고, 반면 즉결 처분(alert)이나 전면 중단(emerg)보다는 한 단계 낮은 수준으로서 하드웨어 및 운영체제 레벨의 중대형 크리티컬 상황을 모니터링할 때 쓰인다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 설정 파일 내에 <code>*.emerg *</code> 라고 한 줄이 잡혀 있다. 이 규칙이 발동했을 때 로그 데몬이 어떠한 판단을 내리고 서버 내의 어떤 대상에게 액션을 취하는지, 양쪽의 <code>*</code>(별표 기호)가 뜻하는 와일드카드의 관점을 포함해 서술하시오.</summary>
+<blockquote>
+앞쪽의 <code>*.emerg</code>는 <strong>어느 데몬(모든 Facility)에서 발생했든 간에 시스템 전면 중단을 알리는 '최고 위험수준(emerg)' 로그</strong>가 터지기만 하면 이 규칙을 발동시키겠다는 뜻이며, 뒤쪽의 <code>*</code>는 파일로 조용히 저장하지 않고 <strong>'현재 터미널이나 콘솔 창을 열고 로그인해 있는 시스템 상의 모든 사용자(All Users)' 모니터 화면 위</strong>에 그 긴급 메시지를 즉시 뿌려(Broadcasting) 강제 경고하라는 강력한 조치 액션이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 기존의 전통적인 <code>syslogd</code>를 대신하여 최근 수동형 리눅스들에서 기본 탑재되어 사용 중인 <strong>개선된 로그 데몬(<code>rsyslogd</code>)</strong>이 기존 버전과 비교해 네트워크 전송 및 설정 측면에서 어떻게 발전했는지, UDP 포트 한계 극복 관점과 프로토콜 측면을 중심으로 서술하시오.</summary>
+<blockquote>
+과거 <code>syslogd</code>는 단순히 514/udp 단일 프로토콜로 로컬이나 평문 원격 전송만 지원하여 로그 유실과 도청에 매우 취약했지만, <code>rsyslogd</code>는 모듈화(imtcp, imudp 등)를 통해 <strong>신뢰성 있는 TCP 통신 포트 전송을 정식 지원</strong>하며, 외부 원격 로깅(Remote Logging) 시 데이터 암호화 등 훨씬 강력해진 엔터프라이즈급 안정성과 세밀한 필터링 문법을 제공하도록 개량되었다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 웹 서버로 운영 중인 시스템에서, 메일 데몬이 내뱉는 수많은 로그들이 자꾸 중요 파일에 섞여 들어오고 있다. 관리자는 <code>메일 서비스(mail)에서 발생하는 모든 로그(모든 수준)들은 절대 남기지 않고 완전히 무시(폐기)하겠다</code>는 룰을 추가하려 한다. <code>[Facility].[Priority]</code> 문법을 이용하여 해당 룰의 앞부분 지시자를 작성하시오.</summary>
+<blockquote>
+<code>mail.none</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 보안팀이 모든 리눅스 서버에서 발생하는 인증 관련 로그들을 중앙에 있는 특정 통합 로그 수집 서버(IP 주소: <strong>192.168.1.250</strong>)로 일제히 쏘아주도록 아키텍처를 변경 중이다. 개별 통신 서버의 <code>syslog.conf</code> 설정 파일 하단에, 인증 서비스의 모든 로깅을 원격 서버로 밀어주는 포맷을 완성해 보시오.</summary>
+<blockquote>
+<code>authpriv.* @192.168.1.250</code> (또는 <code>auth.* @192.168.1.250</code> 등. 원격 호스트로 보낼 때 타겟 IP 앞에 반드시 <code>@</code> 기호가 붙어야 한다.)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 어떤 시스템의 <code>rsyslog.conf</code> 에 다음과 같은 규칙이 발견되었다.
+<code>*.info;mail.none;authpriv.none;cron.none /var/log/messages</code>
+이 문법 덩어리가 전체적으로 시스템 로그를 필터링할 때 달성하고자 하는 <strong>'남기는 대상(포함)'과 '버리는 대상(제외)'의 작동 논리</strong>를 상세히 해석하여 서술하시오.</summary>
+<blockquote>
+해석 로직: 시스템에 존재하는 <strong>모든 데몬들의 평범한 정보성 메시지(info) 그 이상의 중요도를 가진 로그들은 싹 다 긁어모아서 <code>/var/log/messages</code> 파일에 기록(포함)</strong>하라는 기본 전제를 깔아두되, 단 그 범주에 들더라도 <strong>이메일 로깅(mail), 인증 로깅(authpriv), 스케줄러 로깅(cron) 3가지 항목만큼은 다른 전용 파일에 이미 쌓고 있으니 이곳 messages 파일에는 절대로 적지 말고 배제(none)하라</strong>는 양방향 필터링 설계이다.
+</blockquote>
+</details>
 
 #### 리눅스 로그 관리
 
