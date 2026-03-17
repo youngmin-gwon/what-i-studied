@@ -2,11 +2,12 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-17 10:28:49 +09:00
+date modified: 2026-03-17 10:53:27 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
-## 공부노트
+## [1] 시스템 기본 학습
+
 ### 1. 윈도우 기본 학습
 
 #### 윈도우 인증과정
@@ -404,6 +405,59 @@ Event Viewer<br><br>
 </blockquote>
 </details>
 
+##### 윈도우 계정 및 이벤트 감사 보안 (심화 응용)
+
+<details>
+<summary>(서술형) 사내망에 100대가 넘는 윈도우 PC가 새롭게 도입되었다. 관리자가 일일이 돌아다니며 로컬 시스템의 SAM(Security Account Manager) 데이터베이스를 개별 관리하지 않고, 사용자 계정 정책과 자원 접근 권한을 중앙 집중식으로 일괄 통제하기 위해 구축해야 하는 **윈도우 서버 계정 관리 방식의 명칭과 그 핵심 중앙 데이터베이스 기술의 이름** 을 서술하시오.</summary>
+<blockquote>
+가장 권장되는 방식은 <strong>도메인(Domain) 방식</strong>이며, 이를 실현하기 위해 사용자 계정, 컴퓨터, 그룹 정책 정보를 중앙의 트리 구조로 통합 관리하는 핵심 데이터베이스는 <strong>액티브 디렉터리(Active Directory)</strong>이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 새벽 시간대 서버가 예기치 않게 재부팅된 원인을 파악하기 위해 시스템 관리자가 '이벤트 뷰어(eventvwr.msc)'를 실행하여 로그를 점검하려 한다. 이때 장치 드라이버 로드 실패나 운영체제 커널 서비스의 시작/중지 등 <strong>시스템 구성요소 자체의 에러 기록이 집중적으로 남는 3대 윈도우 기본 로그 폴더 중 최우선 탐색 대상</strong>의 명칭은 무엇인가?</summary>
+<blockquote>
+시스템(System) 로그
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 침해 사고 포렌식 중 <code>C:\Windows\System32\winevt\Logs</code> 경로에서 삭제된 공격자의 흔적을 수집 중이다. 이때 <strong>'security.evtx' 파일의 확장자인 'evtx'</strong> 포맷이 기존 'evt' 포맷의 한계를 극복하고 도입된, 차세대 XML 기반의 세밀한 구조를 가진 이벤트 로그 아키텍처는 **어느 윈도우 운영체제 버전** 부터 최초 기본 탑재되기 시작했는가?</summary>
+<blockquote>
+윈도우 비스타 (Windows Vista)
+*(참고: XP 이하 버전은 evt 확장자를 사용한다)*
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 방어자는 공격자의 행위를 철저히 기록하기 위해 윈도우 '감사 정책(Audit Policy)'을 활성화한다. 그러나 만능 방어를 기대하며 **감사 설정 수준을 가장 촘촘하게(모든 성공/실패 이벤트) 지나치게 넓힐 경우 발생할 수 있는 보안 관제 측면의 치명적인 문제점**을 서술하시오.</summary>
+<blockquote>
+불필요한 쓰레기 이벤트 메시지가 폭증하여 디스크 및 시스템 리소스가 고갈될 수 있으며, 정작 경고가 울렸을 때 심각한 보안 침해 징후와 사소한 정상 동작 항목이 혼동되어 <strong>정말 중요하고 치명적인 공격 로그를 시각적으로 간과(탐지 지연 및 오탐)</strong>하게 되는 보안 공백이 발생한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 랜섬웨어의 실행 흐름을 분석하던 중, 시스템에서 원본 이진 파일이 실행 시 메모리에 어떤 악성 자식 프로세스들을 파생시켜 은닉했는지 그 탄생 내역을 역추적(프로세스 핸들과 간접 개체 액세스 포함)하려 한다. 이때, **로컬 보안 구역(secpol.msc)의 로컬 정책 하위에서 반드시 '성공/실패'를 활성화해 두었어야만 기록이 남는 세부 감사 정책 항목의 정확한 명칭**을 쓰시오.</summary>
+<blockquote>
+프로세스 추적
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 윈도우 이벤트 뷰어에서 응용 프로그램(Application) 에러나 시스템(System) 자체 결함이 아닌, 오직 <strong>'보안(Security) 이벤트 로그' 탭만을 단독으로 필터링했을 때 명확히 건져낼 수 있는 대표적인 치명적 침해 의심 행위 2가지 분류(Category)</strong>를 서술하시오.</summary>
+<blockquote>
+1. 외부 또는 로컬에서의 <strong>계정 로그온 성공 및 실패 시도 이력</strong> (무작위 대입 공격 징후 포착 가능).<br>
+2. 관리자 그룹 편입 등 <strong>사용자 계정의 무단 추가/삭제나 권한 변경 시도 징후</strong> (권한 상승 및 백도어 계정 유입 포착 가능).
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 분실된 업무용 노트북에서 하드 디스크가 물리적으로 강제 탈거되어 외부 장비에 연결되더라도 데이터 기밀 유출을 철통같이 방어하는 윈도우 고급 디스크 암호화 솔루션은 '비트로커(BitLocker)'이다. 이 비트로커가 디스크의 복호화 무결성을 검증하고 암호화 키를 안전하게 격리 보관하기 위해 <strong>메인보드 상에 탑재하여 하드웨어적 보증 수단으로 활용하는 전용 마이크로 보안 칩의 영문 약자 3글자</strong>를 쓰시오.</summary>
+<blockquote>
+TPM (Trusted Platform Module)
+</blockquote>
+</details>
+
 #### 윈도우 보안 식별자
 
 <details>
@@ -687,7 +741,28 @@ Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용
 크리덴셜 스터핑 (Credential Stuffing)<br><br>
 크리덴셜 스터핑(Credential Stuffing) 공격은 사용자의 계정, 비밀번호, 기타 여러 가지 신원 확인에 필요한 개인정보(자격 증명, Credential)를 다양한 방식으로 탈취하여 사용자가 이용할 만한 시스템 및 사이트에 방문한 후 무작위로 대입(Stuffing)하는 공격 방식을 말한다.<br>
 - 편의를 위해 한 가지 ID와 비밀번호를 여러 시스템/사이트에서 사용하는 사용자의 취약성을 이용한 공격<br>
-- 크리덴셜(Credential)의 사전적 의미는 특정인이 해당 자격을 가졌는지를 증명하는 '자격증명'을 말한다. 일반적으로 로그인 시 신원(신분) 확인 목적으로 사용하는 사용자 ID/비밀번호, 생체 정보 등이 크리덴셜에 해당한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 타겟 사이트를 직접 해킹하지 않고, 보안이 취약한 다른 개인 사이트 등에서 대량으로 탈취를 한 수많은 사용자의 아이디와 비밀번호(자격 증명) 목록을 확보한 뒤, 여러 주요 포털이나 금융 웹사이트 등에 무작위로 대입 자동화 프로그램을 돌려 로그인을 시도하는 연쇄적 공격 기법은 무엇인가?</summary>
+<blockquote>
+크리덴셜 스터핑 (Credential Stuffing)
+</blockquote>
+</details>
+
+<details>
+<summary>(결합-단답형) 공격자가 대상 시스템의 패스워드를 알아내고자 할 때, 먼저 자주 쓰이는 비밀번호 목록 파일(①)을 대입해보고 실패할 경우, 가능한 모든 문자의 경우의 수를 무작위로 생성(②)하여 접근을 시도한다. 이를 위해 주로 사용하는 2가지 크래킹 공격의 명칭을 차례대로 쓰시오.</summary>
+<blockquote>
+① 사전 공격 / 사전 대입 공격 (Dictionary Attack)<br>
+② 무차별 공격 / 무작위 대입 공격 (Brute Force Attack)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 'Pass the Hash' 공격과 일반적인 패스워드 크래킹 공격(무차별 대입, 사전 공격 등)의 본질적인 차이점을 인증 성공 조건 관점에서 서술하시오.</summary>
+<blockquote>
+일반적인 패스워드 크래킹 공격은 해시값을 바탕으로 역산하거나 대입하여 사용자의 <strong>실제 평문 패스워드를 알아내는 것</strong>이 목표인 반면, Pass the Hash 공격은 평문 패스워드를 알아낼 필요 없이 <strong>탈취한 해시값 그 자체만을 시스템에 전송하여 인증 통과</strong>를 목적으로 한다는 점이 본질적인 차이이다.
 </blockquote>
 </details>
 
@@ -705,6 +780,13 @@ Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용
 <blockquote>
 널 세션 (Null Session) 취약점<br><br>
 널 세션(Null Session)이란 윈도우가 설치된 네트워크의 다른 원격 컴퓨터에 사용자명과 패스워드를 널(NULL, 빈 값)로 해서 접속할 수 있게 해 주는 것을 말한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 윈도우의 '널 세션(Null Session)' 취약점이 위험한 이유를 인증 우회 관점에서 설명하고, 이를 해결하기 위해 보호해야 하는 레지스트리 키나 정책의 방향을 서술하시오.</summary>
+<blockquote>
+널 세션은 인증 과정에서 아이디와 패스워드 없이 빈 값(Null)으로 원격 컴퓨터의 공유 자원(IPC$ 등)에 연결할 수 있도록 허용하는 취약점이다. 이를 통해 공격자는 시스템 계정 목록, 공유 정보, 레지스트리 정보 등을 수집하여 추가 공격의 교두보로 삼을 수 있다. 방어를 위해서는 로컬 보안 정책에서 'SAM 계정과 공유의 익명 열거 허용 안 함'을 설정하여 익명 사용자의 네트워크 접근을 엄격히 차단해야 한다.
 </blockquote>
 </details>
 
@@ -732,6 +814,40 @@ Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용
 - 시간적 분리(Temporal separation): 프로세스가 동일 시간에 하나씩만 실행되도록 하는 방법으로 동시 실행으로 발생되는 보안 문제를 제거한다.<br>
 - 논리적 분리(Logical separation): 프로세스별로 논리적인 영역을 갖도록 하는 방법으로 프로세스는 자신의 영역 안에서는 자유로운 작업을 수행하지만 할당된 영역 밖에서의 작업은 엄격하게 제한된다.<br>
 - 암호적 분리(Cryptographic separation): 내부에서 사용되는 정보를 외부에서는 알 수 없도록 암호화하는 방법을 말한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 운영체제의 보안 분리 기법 중 논리적 분리(Logical Separation)와 물리적 분리(Physical Separation)의 차이점을 효율성과 보안성 측면에서 비교하여 서술하시오.</summary>
+<blockquote>
+물리적 분리는 하드웨어 자체를 분리하므로 최고 수준의 보안성을 제공하지만 비용과 효율성 면에서 비현실적이다. 반면 논리적 분리는 단일 장비 및 자원(메모리 등)을 구역별로 나누어 운영체제가 개별 프로세스의 자유로운 영역 작업을 허용하되, 할당 영역 외의 접근을 차단하므로 효율성이 높으면서도 실용적인 방어책을 제공한다.
+</blockquote>
+</details>
+
+#### 보안 운영체제 (Secure OS)
+
+<details>
+<summary>(융합 기술형) 사용자가 객체에 접근하려는 찰나, 기존 보안 커널의 '참조 모니터(Reference Monitor)'가 주체의 권한을 점검하고 통제를 수행한다. 여기서 점검 절차가 1. 항상 호출되어야 하고 2. 코드가 외부로부터 차단되는 필수 설계 구조를 각각 무엇이라 지칭하며, 만일 감사 추적(Audit Trail) 로깅이 실패했을 때 보안 관리 관점에서 가장 크게 직면하는 문제가 무엇인지 서술하시오.</summary>
+<blockquote>
+<strong>설계 구조</strong>: 강제성(Always invoked) 및 부정 조작 방지(Tamper-proof)<br>
+<strong>감사 로깅 실패 시 문제</strong>: 참조 모니터는 모든 접근 통제 결과를 기록으로 남겨 추후 행위자를 추적해야 하므로, 로깅 실패 시 '사후 추적 및 독립적 검증 가능성'이 파괴되어 불법적 침해 사실의 증명이 불가능해진다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 보안 운영체제(Secure OS)의 아키텍처에 구현된 '보안 커널(Security Kernel)'의 정의와, 그중에서도 중추적인 역할을 담당하는 '참조 모니터(Reference Monitor)'의 주요 기능을 접근 통제 관점에서 서술하시오.</summary>
+<blockquote>
+<strong>보안 커널:</strong> 주체와 객체 간의 모든 접근과 기능을 중재하는 보안 절차를 직접 구현한 하드웨어, 펌웨어 및 소프트웨어의 모음을 말한다.<br>
+<strong>참조 모니터:</strong> 보안 커널의 가장 중요한 핵심 모듈로써, 주체(프로세스, 사용자)가 객체(파일, 프로그램 등)에 접근할 때 사전에 정의된 보안 커널 데이터베이스(SKDB)의 보안 정책을 참조하여 접근 권한을 검사하고 통제하는 역할을 수행한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 참조 모니터(Reference Monitor)가 시스템을 안전하게 통제하기 위해 반드시 만족시켜야 하는 3가지 필수 설계 구조 요구사항은 무엇인지 모두 쓰시오.</summary>
+<blockquote>
+1. 강제성 (Always invoked): 항상 무시되지 않고 모든 접근마다 빠짐없이 호출되어야 한다.<br>
+2. 부정 조작 방지 (Tamper-proof): 인가되지 않은 수정이나 파괴로부터 반드시 안전하게 보호되어야 한다.<br>
+3. 검증 가능성 (Verifiable): 구조가 작고 명확하여 모든 동작이 올바르게 수행되는지 식별, 분석 및 테스트를 통해 독립적으로 확인될 수 있어야 한다.
 </blockquote>
 </details>
 
@@ -804,6 +920,21 @@ algisa algisa2 Guest kiwi99<br>
 </blockquote>
 </details>
 
+<details>
+<summary>(작업형) 윈도우 서버 시스템에서 퇴사한 직원의 계정인 'testuser'가 악용되는 것을 방지하기 위해 계정을 즉시 비활성화(잠금)하고자 한다. 그러나 계정 자체를 삭제하지는 않고 임시로 막아두기 위해 net 명령어를 사용할 때, 입력해야 할 정확한 명령어를 작성하시오.</summary>
+<blockquote>
+<code>net user testuser /active:no</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 악의적인 공격자가 윈도우 서버 콘솔에 접근하여 <code>net localgroup administrators attacker /ADD</code> 명령을 성공적으로 실행하였다. 이 명령의 의미와, 이를 통해 시스템 전체적인 보안에 미칠 수 있는 치명적인 위협을 서술하시오.</summary>
+<blockquote>
+<strong>의미:</strong> 'attacker'라는 일반 계정을 윈도우 시스템의 최고 관리자 그룹인 'administrators'에 추가하는 명령이다.<br>
+<strong>위협:</strong> 공격자는 이제 관리자 권한을 획득하였으므로, 시스템 내의 모든 파일(SAM 등) 접근, 보안 로그 삭제, 기타 악성 소프트웨어 설치 및 백도어 생성이 가능해져 시스템의 완전한 장악 및 무력화 위협이 발생한다.
+</blockquote>
+</details>
+
 #### 윈도우 보안 관리
 
 ##### 계정 보안 취약점 분석
@@ -834,6 +965,42 @@ algisa algisa2 Guest kiwi99<br>
 ### 2. UNIX/Linux 기본 학습
 
 #### 시스템 기본
+
+##### 유닉스/리눅스 아키텍처 핵심 컴포넌트
+
+<details>
+<summary>(서술형) 리눅스 시스템 3대 핵심 컴포넌트인 커널(Kernel), 쉘(Shell), 파일시스템(File System)이 서로 어떠한 관계망을 가지고 동작하여 하드웨어를 통제하고 사용자 응용 프로그램에게 서비스를 무결하게 제공하는지 상호작용 중심으로 서술하시오.</summary>
+<blockquote>
+사용자가 터미널이나 응용 프로그램을 통해 특정 명령을 내리면 <strong>쉘(Shell)</strong>이 이를 해석하여 <strong>커널(Kernel)</strong>에게 전달한다. 커널은 그 명령을 기반으로 CPU, 메모리 자원 할당 등 하드웨어를 제어하고, 필요한 경우 <strong>파일시스템(File System)</strong> 및 디바이스 드라이버를 직접 호출해 디스크 I/O 처리를 동작시킨 뒤, 다시 그 결과를 역순으로 쉘을 통해 사용자에게 화면 출력해 준다.
+</blockquote>
+</details>
+
+##### 인터럽트 메커니즘 (Interrupt Mechanism)
+
+<details>
+<summary>(단답형) 리눅스 OS에서 현재 처리 중인 애플리케이션 코드가 있음에도 불구하고 키보드 입출력이나 장치 장애 등 예기치 않은 하드웨어 이벤트가 발생했다. 커널이 즉각적으로 PC(Program Counter) 레지스터 위치를 백업하고 해당 사태를 수습하기 위해 실행 흐름을 <strong>'예외 긴급 처리 모듈'</strong>로 점프시키는 행위 전반의 과정을 무엇이라 부르며, 이 인터럽트 사태를 실제로 해결해주는 <strong>'특수 커널 내부 처리 루틴'</strong>의 구체적 명칭을 덧붙여 쓰시오.</summary>
+<blockquote>
+<strong>과정</strong>: 인터럽트 발생 (Interrupt)<br>
+<strong>처리 루틴</strong>: 인터럽트 서비스 루틴(ISR) 또는 인터럽트 핸들러(Interrupt Handler)
+</blockquote>
+</details>
+
+##### 프로그램 컴파일 방식
+
+<details>
+<summary>(비교형) 리눅스 환경에서 C 프로그래밍된 소스코드를 정적 링크(Static Link) 방식과 동적 링크(Dynamic Link) 방식으로 각각 컴파일 했을 때, 생성된 최종 바이너리의 '파일 크기 측면'과 '실행 중 동적 메모리 오버헤드 측면'에서의 두 가지 뚜렷한 차이점을 장단점으로 서술하시오.</summary>
+<blockquote>
+<strong>정적 링크</strong>: 프로그램 내부에 호출할 라이브러리 코드가 전부 뭉쳐져 컴파일되므로 파일의 전체 부피가 비대해지지만, 런타임에 외부 참조 오버헤드가 없어서 실행 속도는 가장 빠르다.<br>
+<strong>동적 링크</strong>: 바이너리 안에 라이브러리를 삽입하지 않아 파일 크기가 가볍고 디스크 공간이 절약되지만 점프 지연이 발생하며, 프로그램 실행 도중 백그라운드에서 PLT와 GOT 테이블을 연속적으로 참조하여 외부 공유 라이브러리(<code>.so</code>) 함수의 실제 주소를 재계산하여 동적으로 바인딩해야 하므로 약간의 실행 런타임 성능 저하(오버헤드)가 발생한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 동적 링크(Dynamic Link)된 프로그램이 런타임 시에 외부 공유 라이브러리 함수를 호출하려 시도할 때, 함수가 존재하는 실제 메모리 주소를 즉각적으로 중계(resolve) 및 연결해 주기 위한 필수 시스템 테이블인 PLT(Procedure Linkage Table)와 GOT(Global Offset Table) 중에서, <strong>'해석이 완료된 동적 함수의 절대 메모리 주소 결과값'이 실질적으로 최종 저장(캐싱)되는 종착지 테이블</strong>의 명칭 약자를 쓰시오.</summary>
+<blockquote>
+GOT (Global Offset Table)
+</blockquote>
+</details>
 
 ##### 사용자 정보
 
@@ -992,6 +1159,13 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 </details>
 
 ##### 입출력 재지정 (I/O Redirection)
+
+<details>
+<summary>(작업형) 리눅스 Bash 쉘 프롬프트에서 방대한 디렉터리 탐색 출력이나 복잡한 파이프 명령 도중 정상 스탠다드 로깅과 시스템 에러 경고들이 터미널 화면 한가운데에 범람하는 것을 분리 통제하고자 한다. <code># ls | sort | wc -l (  ) errorlog.txt</code> 명령을 수행하려 할 때, 이미 기존 시스템 에러 로그 문장이 이전에 누적된 <code>errorlog.txt</code> 파일 내부 맨 밑단에 '오직 표준 에러(STDERR) 텍스트들만 기존 문장을 침범해 지우지 않고 새롭게 덧붙여 연장(Append)'시키기 위한 완전한 부호 조합을 괄호 안에 정답으로 작성하시오.</summary>
+<blockquote>
+<code>2&gt;&gt;</code>
+</blockquote>
+</details>
 
 <details>
 <summary>리눅스/유닉스 시스템에서 커널에 의해 프로세스가 생성될 때, 해당 프로세스가 기본적인 입출력을 수행하기 위해 기본적으로 자동 오픈(할당)하는 3가지 통신 채널(파일)의 명칭과 각 통신 채널에 부여되는 고유한 파일 번호(FD)를 각각 짝지어 쓰시오.</summary>
@@ -1268,6 +1442,29 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 2. 슈퍼 블록(Superblock): 파일 시스템 전체를 관리하고 작동시키기 위한 정보를 담고 있다.<br>
 3. 아이노드 리스트(inode list): 파일의 속성(주요 시간, 소유자, 접근 권한 등)을 담고 있는 inode 구조체 리스트가 위치한다.<br>
 4. 데이터 블록(Data block): 실제 파일의 내용(데이터)이 저장되는 고정 크기의 블록 영역이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스의 시스템 표준 디렉터리 역할에 대한 설명이다. 시스템 환경 설정 파일 및 사용자 패스워드(<code>/etc/passwd</code>) 등 시스템 부팅 및 관리에 치명적인 설정 원본들이 존재하는 루트 하위 디렉터리는 (A) 이며, 시스템 구동 중 수시로 변하는 동적 데이터, 즉 운영 임시 로그나 가변적인 스풀 파일이 지속적으로 쌓이는 주된 디렉터리 경로는 (B) 이다. 각각 무엇인가?</summary>
+<blockquote>
+(A) /etc, (B) /var
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 기존 Ext2 파일 시스템 환경에서는 시스템 전원이 비정상적으로 차단되었을 때, 다음 부팅 시 무결성 검사(fsck)를 처음부터 다시 수행하느라 막대한 시스템 복구 지연이 발생했다. 이를 극복하기 위해 Ext3 부터 시스템 레벨에 본격적으로 도입된 '기록 추적 기술명(A)'과, 이 기술이 즉각적인 복원을 가능케 하는 '핵심 원리(B)'를 서술하시오.</summary>
+<blockquote>
+<strong>(A) 저널링 (Journaling)</strong><br>
+<strong>(B) 동작 원리</strong>: 파일 대상의 실제 데이터를 디스크 공간에 쓰기 직전, 처리할 '변경점(트랜잭션)'을 별도의 로그(Log) 영역에 선제적으로 기록해 두는 방식이다. 비정상 종료 시 전체 데이터 블록을 전수 스캔할 필요 없이 해당 로그 기록만 비교 및 롤백시켜 무결성 복구 속도를 혁신적으로 향상시킬 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(비교형) 원본 파일에 대해 새로운 링크를 생성하려 할 때, <strong>하드 링크(Hard Link)</strong>와 <strong>심볼릭 링크(Symbolic Link)</strong>가 타겟 원본 데이터를 가리키기 위해 시스템 내부적으로 소모(의존)하는 <strong>'아이노드(inode) 번호'의 할당 및 참조 방식 차이점</strong>을 서술하시오.</summary>
+<blockquote>
+- <strong>하드 링크</strong>: 원본 파일과 '완전히 동일한 기존의 아이노드 번호'를 고정적으로 공유함으로써 원본 데이터 블록을 똑같이 직접 참조한다.<br>
+- <strong>심볼릭 링크</strong>: 원본과 별개의 '완전히 새로운 독립적 아이노드 번호'를 할당받아 링크 전용 파일을 자체 생성하며, 그 파일의 데이터 영역에 목적지 원본 파일의 '경로 문자열(Path)'만을 텍스트 형태로 담아 간접 참조한다.
 </blockquote>
 </details>
 
@@ -2628,89 +2825,89 @@ root (또는 슈퍼 유저)
 - 파일 기본 권한: <code>666 (rw-rw-rw-)</code><br>
 - 디렉터리 기본 권한: <code>777 (rwxrwxrwx)</code><br><br>
 <strong>계산 결과:</strong><br>
- 1) <code>umask 022</code><br>
-    - 파일: <code>666</code> - <code>022</code> = <code>644 (rw-r--r--)</code><br>
-    - 디렉터리: <code>777</code> - <code>022</code> = <code>755 (rwxr-xr-x)</code><br><br>
- 2) <code>umask 077</code><br>
-    - 파일: <code>666</code> - <code>077</code> = <code>600 (rw-------)</code><br>
-    - 디렉터리: <code>777 - 077</code> = <code>700 (rwx------)</code><br><br>
- 3) <code>umask 002</code><br>
-    - 파일: <code>666</code> - <code>002</code> = <code>664 (rw-rw-r--)</code><br>
-    - 디렉터리: <code>777</code> - <code>002</code> = <code>775 (rwxrwxr-x)</code><br><br>
- <strong>실무 적용:</strong><br>
- - <code>022</code>: 일반적인 시스템 기본값<br>
- - <code>077</code>: 보안이 중요한 개인 파일<br>
- - <code>002</code>: 그룹 작업 환경
- </blockquote>
- </details>
+1) <code>umask 022</code><br>
+   - 파일: <code>666</code> - <code>022</code> = <code>644 (rw-r--r--)</code><br>
+   - 디렉터리: <code>777</code> - <code>022</code> = <code>755 (rwxr-xr-x)</code><br><br>
+2) <code>umask 077</code><br>
+   - 파일: <code>666</code> - <code>077</code> = <code>600 (rw-------)</code><br>
+   - 디렉터리: <code>777 - 077</code> = <code>700 (rwx------)</code><br><br>
+3) <code>umask 002</code><br>
+   - 파일: <code>666</code> - <code>002</code> = <code>664 (rw-rw-r--)</code><br>
+   - 디렉터리: <code>777</code> - <code>002</code> = <code>775 (rwxrwxr-x)</code><br><br>
+<strong>실무 적용:</strong><br>
+- <code>022</code>: 일반적인 시스템 기본값<br>
+- <code>077</code>: 보안이 중요한 개인 파일<br>
+- <code>002</code>: 그룹 작업 환경
+</blockquote>
+</details>
 
- <details>
- <summary>(단답형) 파일이나 디렉터리 생성 시 부여될 기본 접근 권한에서 '제거(마스킹)'할 권한을 지정하거나, 현재 설정된 마스크 값을 확인하기 위해 사용하는 명령어의 명칭을 쓰시오.</summary>
- <blockquote>
- <code>umask</code>
- </blockquote>
- </details>
+<details>
+<summary>(단답형) 파일이나 디렉터리 생성 시 부여될 기본 접근 권한에서 '제거(마스킹)'할 권한을 지정하거나, 현재 설정된 마스크 값을 확인하기 위해 사용하는 명령어의 명칭을 쓰시오.</summary>
+<blockquote>
+<code>umask</code>
+</blockquote>
+</details>
 
- <details>
- <summary>(단답형) 리눅스 시스템에서 관리자가 <code>umask</code> 값을 설정하여 모든 로그인 사용자에게 공통적으로 적용하고자 할 때 주로 사용되는 시스템 전역 환경 설정 파일의 절대 경로를 쓰시오.</summary>
- <blockquote>
- <code>/etc/profile</code>
- </blockquote>
- </details>
+<details>
+<summary>(단답형) 리눅스 시스템에서 관리자가 <code>umask</code> 값을 설정하여 모든 로그인 사용자에게 공통적으로 적용하고자 할 때 주로 사용되는 시스템 전역 환경 설정 파일의 절대 경로를 쓰시오.</summary>
+<blockquote>
+<code>/etc/profile</code>
+</blockquote>
+</details>
 
- <details>
- <summary>(단답형) 현재 시스템의 umask 값을 확인하기 위해 인자 없이 <code>umask</code> 명령을 실행했을 때 출력되는 값의 기본 진수를 쓰시오.</summary>
- <blockquote>
- 8진수
- </blockquote>
- </details>
+<details>
+<summary>(단답형) 현재 시스템의 umask 값을 확인하기 위해 인자 없이 <code>umask</code> 명령을 실행했을 때 출력되는 값의 기본 진수를 쓰시오.</summary>
+<blockquote>
+8진수
+</blockquote>
+</details>
 
- <details>
- <summary>(서술형) 리눅스에서 <code>umask</code> 연산이 권한을 결정할 때 단순한 '산술적 빼기'가 아니라고 말하는 이유를, 특정 비트(예: 실행 권한)의 제거 관점에서 설명하시오.</summary>
- <blockquote>
- <code>umask</code>는 산술적인 뺄셈이 아니라 <strong>비트 마스킹(Bit Masking)</strong> 방식이기 때문이다. '제거(mask)'할 권한이 설정된 비트는 파일 시스템의 기본 권한 비트가 무엇이든 강제로 0으로 만든다. 예를 들어, 기본 권한에 없는 비트를 umask로 제거하더라도 결과가 음수가 되거나 오류가 나지 않고 단지 해당 위치의 비트가 제거된 상태로 유지될 뿐이다.
- </blockquote>
- </details>
+<details>
+<summary>(서술형) 리눅스에서 <code>umask</code> 연산이 권한을 결정할 때 단순한 '산술적 빼기'가 아니라고 말하는 이유를, 특정 비트(예: 실행 권한)의 제거 관점에서 설명하시오.</summary>
+<blockquote>
+<code>umask</code>는 산술적인 뺄셈이 아니라 <strong>비트 마스킹(Bit Masking)</strong> 방식이기 때문이다. '제거(mask)'할 권한이 설정된 비트는 파일 시스템의 기본 권한 비트가 무엇이든 강제로 0으로 만든다. 예를 들어, 기본 권한에 없는 비트를 umask로 제거하더라도 결과가 음수가 되거나 오류가 나지 않고 단지 해당 위치의 비트가 제거된 상태로 유지될 뿐이다.
+</blockquote>
+</details>
 
- <details>
- <summary>(서술형) 시스템 보안 권고 사항에 따라 <code>umask</code> 값을 <code>022</code>로 설정하였을 때, 새롭게 생성되는 파일이나 디렉터리에 대해 소유 그룹(Group)과 기타 사용자(Others)에게 어떠한 접근이 구체적으로 제한되는지 서술하시오.</summary>
- <blockquote>
- <code>022</code>는 소유 그룹과 기타 사용자의 <strong>쓰기(w, 2) 권한을 제거</strong>한다는 의미이다. 따라서 새롭게 생성된 파일은 소유자만 수정할 수 있고, 디렉터리는 소유자만 내부 파일을 생성하거나 삭제할 수 있도록 제한되어 시스템 자원에 대한 임의 변경을 차단한다.
- </blockquote>
- </details>
+<details>
+<summary>(서술형) 시스템 보안 권고 사항에 따라 <code>umask</code> 값을 <code>022</code>로 설정하였을 때, 새롭게 생성되는 파일이나 디렉터리에 대해 소유 그룹(Group)과 기타 사용자(Others)에게 어떠한 접근이 구체적으로 제한되는지 서술하시오.</summary>
+<blockquote>
+<code>022</code>는 소유 그룹과 기타 사용자의 <strong>쓰기(w, 2) 권한을 제거</strong>한다는 의미이다. 따라서 새롭게 생성된 파일은 소유자만 수정할 수 있고, 디렉터리는 소유자만 내부 파일을 생성하거나 삭제할 수 있도록 제한되어 시스템 자원에 대한 임의 변경을 차단한다.
+</blockquote>
+</details>
 
- <details>
- <summary>(서술형) <code>umask 027</code>이 설정된 환경에서 생성되는 파일과 디렉터리의 권한 차이를 소유 그룹(Group)과 기타 사용자(Others) 관점에서 설명하시오.</summary>
- <blockquote>
- <code>umask 027</code>은 그룹의 쓰기(2) 권한을 제거하고, 기타 사용자의 모든 권한(rwx, 7)을 제거한다는 의미이다. 이 경우 소유 그룹은 읽기와 실행은 가능하지만 수정은 불가능하며, <strong>기타 사용자(Others)는 해당 파일이나 디렉터리에 대해 어떠한 접근(읽기, 쓰기, 실행)도 할 수 없는</strong> 강력한 보안 상태가 된다.
- </blockquote>
- </details>
+<details>
+<summary>(서술형) <code>umask 027</code>이 설정된 환경에서 생성되는 파일과 디렉터리의 권한 차이를 소유 그룹(Group)과 기타 사용자(Others) 관점에서 설명하시오.</summary>
+<blockquote>
+<code>umask 027</code>은 그룹의 쓰기(2) 권한을 제거하고, 기타 사용자의 모든 권한(rwx, 7)을 제거한다는 의미이다. 이 경우 소유 그룹은 읽기와 실행은 가능하지만 수정은 불가능하며, <strong>기타 사용자(Others)는 해당 파일이나 디렉터리에 대해 어떠한 접근(읽기, 쓰기, 실행)도 할 수 없는</strong> 강력한 보안 상태가 된다.
+</blockquote>
+</details>
 
- <details>
- <summary>(작업형) 사용자가 <code>umask 333</code>을 설정한 후 <code>touch afile</code> 명령으로 일반 파일을 생성하였다. 이때 생성된 파일의 8진수 접근 권한값과 <code>ls -l</code> 출력 시의 기호 형태를 쓰시오. (단, 파일 기본 권한은 666 기준)</summary>
- <blockquote>
- - <strong>8진수 권한</strong>: <code>444</code><br>
- - <strong>기호 형태</strong>: <code>-r--r--r--</code><br>
- - <strong>풀이</strong>: 기본 666(110 110 110)에서 umask 333(011 011 011)에 해당하는 '쓰기(2)'와 '실행(1)' 비트를 제거하면 444(100 100 100)가 된다.
- </blockquote>
- </details>
+<details>
+<summary>(작업형) 사용자가 <code>umask 333</code>을 설정한 후 <code>touch afile</code> 명령으로 일반 파일을 생성하였다. 이때 생성된 파일의 8진수 접근 권한값과 <code>ls -l</code> 출력 시의 기호 형태를 쓰시오. (단, 파일 기본 권한은 666 기준)</summary>
+<blockquote>
+- <strong>8진수 권한</strong>: <code>444</code><br>
+- <strong>기호 형태</strong>: <code>-r--r--r--</code><br>
+- <strong>풀이</strong>: 기본 666(110 110 110)에서 umask 333(011 011 011)에 해당하는 '쓰기(2)'와 '실행(1)' 비트를 제거하면 444(100 100 100)가 된다.
+</blockquote>
+</details>
 
- <details>
- <summary>(작업형) 현재 umask가 <code>022</code>인 상태에서 <code>mkdir dir022</code>와 <code>touch file022</code> 명령을 실행하여 각각 디렉터리와 파일을 생성했다. <code>ls -ld</code> 명령어로 확인되는 두 객체의 최종 8진수 접근 권한을 각각 계산하여 쓰시오.</summary>
- <blockquote>
- - <strong>디렉터리(dir022)</strong>: <code>755</code> (777 - 022)<br>
- - <strong>일반 파일(file022)</strong>: <code>644</code> (666 - 022)
- </blockquote>
- </details>
+<details>
+<summary>(작업형) 현재 umask가 <code>022</code>인 상태에서 <code>mkdir dir022</code>와 <code>touch file022</code> 명령을 실행하여 각각 디렉터리와 파일을 생성했다. <code>ls -ld</code> 명령어로 확인되는 두 객체의 최종 8진수 접근 권한을 각각 계산하여 쓰시오.</summary>
+<blockquote>
+- <strong>디렉터리(dir022)</strong>: <code>755</code> (777 - 022)<br>
+- <strong>일반 파일(file022)</strong>: <code>644</code> (666 - 022)
+</blockquote>
+</details>
 
- <details>
- <summary>(작업형) 보안 강화를 위해 새로 생성되는 파일에 대해 소유 그룹은 어떠한 권한도 갖지 못하게 하고(---), 기타 사용자는 오직 읽기 권한(r--)만 갖도록 설정하고자 한다. 이때 필요한 <code>umask</code> 값을 계산하여 쓰고, 설정을 위한 명령어를 작성하시오. (단, 파일 기본 권한은 666 기준)</summary>
- <blockquote>
- - <strong>필요한 umask 값</strong>: <code>062</code> (또는 x까지 고려한 <code>072</code>)<br>
- - <strong>설정 명령어</strong>: <code>umask 062</code> (또는 <code>umask 072</code>)<br>
- - <strong>풀이</strong>: 그룹의 모든 권한(6)을 제거하고 기타 사용자의 쓰기(2) 권한을 제거하면 666에서 604(rw-------r--) 권한이 남게 된다.
- </blockquote>
- </details>
+<details>
+<summary>(작업형) 보안 강화를 위해 새로 생성되는 파일에 대해 소유 그룹은 어떠한 권한도 갖지 못하게 하고(---), 기타 사용자는 오직 읽기 권한(r--)만 갖도록 설정하고자 한다. 이때 필요한 <code>umask</code> 값을 계산하여 쓰고, 설정을 위한 명령어를 작성하시오. (단, 파일 기본 권한은 666 기준)</summary>
+<blockquote>
+- <strong>필요한 umask 값</strong>: <code>062</code> (또는 x까지 고려한 <code>072</code>)<br>
+- <strong>설정 명령어</strong>: <code>umask 062</code> (또는 <code>umask 072</code>)<br>
+- <strong>풀이</strong>: 그룹의 모든 권한(6)을 제거하고 기타 사용자의 쓰기(2) 권한을 제거하면 666에서 604(rw-------r--) 권한이 남게 된다.
+</blockquote>
+</details>
 
 ##### 파일 검색
 
@@ -2872,6 +3069,98 @@ PCB (Process Control Block, 프로세스 제어 블록)
 <blockquote>
 - <strong>정의</strong>: CPU에서 실행 중인 프로세스가 교체될 때, 현재 프로세스의 상태(PC, 레지스트리 정보 등)를 저장하고 새로운 프로세스의 상태로 복원하는 과정을 말한다.<br>
 - <strong>PCB의 역할</strong>: 문맥 교환 발생 시, 현재 실행 중인 프로세스의 레지스트리 상태 및 PC 값을 해당 프로세스의 PCB 내 'Register save area'에 저장하고, 다음에 실행할 프로세스의 PCB로부터 이전에 저장해둔 상태 정보를 CPU 레지스트리로 복원하여 실행을 재개할 수 있게 한다.
+</blockquote>
+</details>
+
+##### 프로세스 상태와 동기화
+
+<details>
+<summary>(서술형) 시스템에서 스케줄링 타임 슬라이스(Time Quantum)를 극단적으로 짧게 잡아 문맥 교환(Context Switching)이 지나치게 자주 발생하게 하였을 때, 사용자 프로그램 실행 관점에서 직면하는 성능적 부작용(오버헤드)이 무엇인지 하드웨어 처리 효율과 연관 지어 서술하시오.</summary>
+<blockquote>
+CPU가 실제 응용 프로그램의 유효 명령어를 수행하는 시간보다, 타 프로세스의 레지스터 상태를 PCB에 빈번하게 보관하고 복원하는 '문맥 교환 자체의 무의미한 관리 오버헤드'에 CPU 사이클을 대부분 낭비하게 되어, 결론적으로 전체 시스템의 처리량(Throughput)과 응답성이 극심하게 저하된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 프로세스가 CPU를 할당받아 '실행(Running)' 중일 때, 사용자의 거대한 디스크 I/O 요청 등으로 인해 CPU를 자진 반납하고 '대기(Blocked)' 상태로 진입했다. 마침내 디스크 읽기 작업이 완료되어 I/O 인터럽트가 발생하면, 과연 이 프로세스는 곧바로 예전처럼 '실행' 상태로 복귀하는가? 프로세스의 올바른 다음 상태 전이 패스 웨이를 서술하시오.</summary>
+<blockquote>
+곧바로 실행 상태를 탈환하지 않는다. 인터럽트 발생 후 프로세스는 우선적으로 대기 상태를 벗어나 <strong>'준비(Ready)' 상태의 준비 큐(Ready Queue)로 이동</strong>하게 되며, 추후 CPU 스케줄러 알고리즘에 의해 다시 순서상 선택받아야만 비로소 '실행(Running)' 상태로 재진입할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 둘 이상의 스레드나 프로세스가 동일한 공유 자원에 동시에 접근하여 데이터 불일치가 일어나는 것을 치명적으로 방지하기 위해, 한 프로세스가 자원을 독점 사용하는 동안 락(Lock)을 걸어 타 프로세스의 접근 순서를 완벽히 제어(임계구역 보호)하는 동기화 기법을 무엇이라 하는가?</summary>
+<blockquote>
+상호 배제 (Mutual Exclusion)
+</blockquote>
+</details>
+
+##### 교착상태와 메모리 관리
+
+<details>
+<summary>(서술형) 다중 프로그래밍 환경에서 스레드들이 자원을 무한정 기다리는 교착상태(Deadlock)의 함정에 빠지기 위해서는 4가지 필요조건(상호배제, 점유와 대기, 비선점, 환형 대기)이 전부 성립해야 한다. 이 중 '비선점(Non-preemption)'과 '환형 대기(Circular Wait)'의 의미를 명확히 비교 설명하시오.</summary>
+<blockquote>
+<strong>비선점</strong>: 어떤 프로세스에 한 번 할당된 자원의 사용이 자의로 완전히 끝나기 전에는, 다른 어떤 권한의 프로세스도 이를 중간에 강제로 빼앗을 수 없는 굳건한 특성이다.<br>
+<strong>환형 대기</strong>: 두 개 이상의 프로세스들과 필요한 자원들이 맞물려 점유되면서, 인과적으로 꼬리를 물어 체인처럼 '원형(Cycle)' 구조를 이루고 자신이 점유한 자원을 놓지 않은 채 상대방의 자원을 요구하며 무한 대기하는 아사 상태를 뜻한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(비교형) 시스템 관점에서 CPU 이용률을 '0'에 수렴하도록 극단적으로 마비시키는 치명적 결함 상태로 '교착상태(Deadlock)'와 '스래싱(Thrashing)'이 대표적이다. 두 사태가 발생하게 되는 근본적인 '병목(지연) 발생 구간이나 원인이 되는 객체'의 물리적/논리적 차이점을 서술하시오.</summary>
+<blockquote>
+<strong>교착상태</strong>는 둘 이상의 프로세스가 공유 변수 및 Lock 등 '논리적 소프트웨어/하드웨어 자원 점유 제어권'을 서로 쥔 채 놓아주지 않고 무한정 기다리는 교착 로직 버그에서 기인한다.<br>
+반면 <strong>스래싱</strong>은 시스템의 다중 다중프로그래밍 정도가 한계를 넘어서면 '주기억장치(RAM) 영역 한계와 보조기억장치(Disk)' 사이에서 유발되는 극심하고 물리적인 I/O 스와핑(페이지 부재 및 잦은 교체) 속도 병목에서 단독으로 기인한다는 명백한 차이가 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 다중 프로그래밍의 정도(Degree)가 임계 수준을 넘어 너무 가중되면, 각 프로세스에 할당된 메모리 프레임이 턱없이 부족해져 실제 처리기(CPU) 프로세스 연산 시간보다 무의미한 페이지 교체(Page-in/out)에 소요되는 시간이 오히려 더 많아지면서 CPU의 유효 이용률이 급격히 추락하는 시스템 마비 현상을 무엇이라 하는가?</summary>
+<blockquote>
+스래싱 (Thrashing)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 하드웨어 캐시 메모리 히트율 및 운영체제의 메모리 관리에 지대한 영향을 미치는 이론으로, '한 번 실행 중 참조된 메모리 위치 또는 그 근처의 인접한 영역을 짧은 시간 내에 집중적이고 반복적으로 또 엑세스하는 경향이 있다'는 1960년대 증명된 참조 편향 원리의 명칭을 쓰시오.</summary>
+<blockquote>
+구역성 (또는 지역성, Locality)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 메모리 참조의 구역성(Locality)은 크게 방향성에 따라 '시간적(Temporal)' 구역성과 '공간적(Spatial)' 구역성으로 나뉜다. 시스템 애플리케이션 코딩 내에서 C언어의 'for/while 반복문 루프(Loop)'나 '스택 서브루틴 재귀'가 빈번하게 호출되는 것은 이 두 구역성 중 어느 속성에 더욱 강력하게 부합하는 현상인지 고르고, 그 이유를 서술하시오.</summary>
+<blockquote>
+<strong>시간적 구역성 (Temporal Locality)</strong>.<br>
+반복문(Loop) 블록 내부의 지역 변수 연산이나 조건 명령어들은 동일 명령 주소지에서 시간적으로 맴돌며, 결국 '아주 최근에 참조되었던 특정 로직과 데이터가 아주 짧은 시간 안에 즉각적으로 재차 참조될 확률이 대단히 높음'을 여실히 입증하는 반복 사이클 구조이기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 메모리 고갈로 인한 잦은 페이지 부재 및 스래싱 현상을 선제적으로 방어하기 위해 운영체제가 도입하는 기법으로서, 각 프로세스가 최근 일정 시간 동안 지배적으로 많이 참조했던 '실질 필요 최소한의 페이지 묶음'을 산출한 뒤 이를 보조기억장치로 스왑아웃시키지 않고 주 기억장치에 단단히 상주시켜 유지시키는 이 핵심 대상 집합의 명칭을 쓰시오.</summary>
+<blockquote>
+워킹 세트 (Working Set)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 사용자 프로그램이나 덩치가 큰 프로세스를 실행할 때 현재 장착된 물리적 메모리(RAM)의 가용 공간이 턱없이 부족할 경우, 운영체제가 디스크(보조기억장치)의 일정 구역을 마치 확장된 메모리처럼 차용하여 임시적으로 활용하는 논리적 가상 공간의 명칭을 영문으로 쓰시오.</summary>
+<blockquote>
+Swap space (스왑 공간)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 대표적인 페이지 교체(Page Replacement) 알고리즘인 'LRU(Least Recently Used)'와 'LFU(Least Frequently Used)'가 페이지 부재 시 희생 페이지(Victim)를 선정하는 기준(카운팅 방식의 측면)을 명확히 대조하여 서술하시오.</summary>
+<blockquote>
+- <strong>LRU</strong>: 각 페이지가 '마지막으로 참조된 과거 시점(시간적 접근 기준)'을 따져, 현시점에서 가장 오랫동안 단 한 번도 사용되지 않은 페이지를 우선 포기하고 교체한다.<br>
+- <strong>LFU</strong>: 각 페이지가 '지금까지 얼마나 자주 참조되었는지 전체 누적 횟수(빈도 기준)'를 집계해, 가장 참조 카운터가 낮은 초저빈도 페이지부터 교체한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스 서버에서 자원 고갈 현상이 발생하여 점검할 때 사용하는 명령어들이다. 시스템 전체 성능 및 <b>실시간</b> CPU/메모리 프로세스 모니터링은 (A), 부모-자식 관계의 전체 프로세스 <b>트리 구조</b> 확인은 (B), 실행 중인 <b>프로세스 우선순위(NICE 값)</b> 점유권 조절은 (C) 명령어를 각각 사용한다. 빈칸 (A), (B), (C)에 들어갈 명령어를 쓰시오.</summary>
+<blockquote>
+(A) top, (B) pstree, (C) renice (또는 nice)
 </blockquote>
 </details>
 
@@ -3080,6 +3369,13 @@ SIGINT, SIGQUIT
 #### 시스템 시작과 종료
 
 ##### 시스템 런 레벨
+
+<details>
+<summary>(단답형) 파일시스템 모듈과 함께 커널 부팅이 완전하게 마무리된 직후 가장 먼저 백그라운드로 실행되는 시스템 최초의 대리모 프로세스로서, 부모 프로세스가 죽어서 쉘에 갈 곳 잃어 방황하는 고아(Orphan) 자식 프로세스들을 물려받아 직접 종료 신호를 거두어치워 주는, 부여받은 PID 번호가 '1'번인 이 최상위 부모 프로세스의 명칭 식별자를 쓰시오.</summary>
+<blockquote>
+<code>init</code> 프로세스 (또는 <code>systemd</code>)
+</blockquote>
+</details>
 
 <details>
 <summary>(단답형) 리눅스 시스템에서 GUI 환경(X-Window)을 지원하는 다중 사용자 모드의 런 레벨 번호를 쓰시오.</summary>
@@ -3618,7 +3914,116 @@ cron.deny
 
 #### 시스템 보안
 
+<details>
+<summary>(응용) <code>w</code> 명령어의 결과 필드 중 <strong>IDLE</strong> 시간이 비정상적으로 길게(예: 수일 이상) 유지되는 세션들이 다수 발견되었다. 이를 방치할 경우 발생할 수 있는 보안 위험과, 이를 자동화 기술로 해결하기 위한 쉘(Shell) 변수 설정법을 쓰시오.</summary>
+<blockquote>
+1) <strong>보안 위험</strong>: 사용자가 자리를 비운 사이 타인이 해당 터미널을 무단 사용하거나, 세션 하이재킹 공격의 대상이 될 수 있다.<br>
+2) <strong>해결 방법</strong>: <code>/etc/profile</code> 또는 <code>.bashrc</code> 파일에 <strong><code>TMOUT=600</code></strong> (초 단위, 예: 10분) 변수를 설정하여 일정 시간 활동이 없는 세션을 자동 종료시킨다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 서버 점검 중 <code>lastlog</code> 결과에 <strong>'**Never logged in**'</strong>으로 표시되는 계정들이 다수 발견되었다. 이 계정들이 '시스템 계정(Service Account)'이 아닌 '일반 사용자 계정'일 경우 관리자가 취해야 할 보안 조치를 서술하시오.</summary>
+<blockquote>
+장기간 사용되지 않은 휴면 계정은 공격자의 주요 타겟이 될 수 있으므로, 1) <code>usermod -L [계정명]</code> 명령으로 계정을 잠그거나(Lock), 2) 불필요할 경우 <code>userdel</code>로 삭제하며, 3) 시스템 계정의 경우 <code>/sbin/nologin</code> 쉘을 부여하여 쉘 접속을 원천 차단해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 132) 유닉스/리눅스 시스템 관리자가 <code>PATH</code> 환경변수의 설정이 다음과 같음을 확인하였다. 이 설정의 보안상 취약점과 조치 방안을 서술하시오.
+<code>PATH=.:$PATH:/usr/bin:/sbin...</code></summary>
+<blockquote>
+취약점: <strong>현재 디렉터리(.)</strong>가 PATH의 맨 앞이나 중간에 위치해 있다. 이 경우 공격자가 만든 악의적인 프로그램(예: ls 등)이 정상 명령어보다 먼저 실행되어 관리자 권한을 탈취당할 위험이 있다.<br>
+조치 방안: <code>PATH</code> 환경변수에서 <strong>'.'을 제거</strong>하거나, 반드시 필요한 경우 <strong>맨 뒤로 이동</strong>시킨다.
+</blockquote>
+</details>
+
+
 ##### 사용자의 패스워드 관리
+
+<details>
+<summary>(기출: 128) 다음은 각 OS별 패스워드 최대 사용 기간(Ageing) 설정 파일이다. 빈칸을 채우시오.
+- SunOS: <code>/etc/default/passwd</code> → ( A )=12
+- Linux: ( B ) → <code>PASS_MAX_DAYS 90</code>
+- AIX: <code>/etc/security/user</code> → ( C )=12
+- HP-UX: <code>/etc/default/security</code> → ( D )=90</summary>
+<blockquote>
+(A) MAXWEEKS<br>
+(B) /etc/login.defs<br>
+(C) maxage<br>
+(D) PASSWORD_MAXDAYS
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 129~131) 다음 질문에 답하시오.
+1) 패스워드 최소 길이(Min Length)를 8자리로 설정하기 위한 각 OS별 지시어(Directive)를 쓰시오. (SunOS, Linux, AIX, HP-UX)
+2) 리눅스의 <code>/etc</code> 디렉터리에 있는 패스워드 정책 설정 파일 이름은 무엇인가?</summary>
+<blockquote>
+1) ① SunOS: <code>PASSLENGTH</code> ② Linux: <code>PASS_MIN_LEN</code> ③ AIX: <code>minlen</code> ④ HP-UX: <code>MIN_PASSWORD_LENGTH</code><br>
+2) <strong>/etc/login.defs</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 134~136) 다음 리눅스 <code>/etc/passwd</code> 및 <code>/etc/shadow</code> 파일의 필드 구조를 보고 물음에 답하시오.
+<code>[passwd] root:x:0:0:root:/root:/bin/bash</code> (①, ②, ③)
+<code>[shadow] root:$6$gAWy...:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
+1) 각 번호(①~⑦)가 의미하는 필드 명칭을 쓰시오.
+2) 관리자가 root 계정의 홈 디렉터리를 <code>/hack2</code>로, 로그인 셸을 <code>/bin2/hack3</code>로 변경했다면 <code>/etc/passwd</code>는 어떻게 수정되는가?</summary>
+<blockquote>
+1) ① 패스워드 표시(x는 shadow 사용) ② GID ③ 홈 디렉터리 ④ 암호화된 패스워드 ⑤ 마지막 암호 변경일(1970/1/1 기준 일수) ⑥ 암호 만료 기간 ⑦ 암호 만료 전 경고 기간<br>
+2) <code>root:x:0:0:root:<strong>/hack2</strong>:<strong>/bin2/hack3</strong></code>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 137) 관리자가 <code>vi /etc/passwd</code>를 열어 확인한 결과 다음과 같은 계정이 발견되었다.
+<code>algisa::5:60:games:/usr/games:/bin/sh</code>
+1) 이 계정의 보안상 취약점은 무엇인가?
+2) 이 취약점을 해결하기 위해 관리자가 즉시 수행해야 할 명령어는 무엇인가?</summary>
+<blockquote>
+1) <strong>패스워드가 설정되어 있지 않음</strong>: 두 번째 필드가 비어 있어 누구나 암호 없이 해당 계정으로 로그인할 수 있는 심각한 상태이다.<br>
+2) <code>passwd algisa</code> (패스워드 신규 설정)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>/etc/shadow</code> 파일의 권한이 <strong>600(rw-------)</strong>이 아닌 <strong>644(rw-r--r--)</strong>로 설정되어 있을 때 발생할 수 있는 보안 위협을 <strong>오프라인 사전 공격(Offline Dictionary Attack)</strong> 관점에서 서술하시오.</summary>
+<blockquote>
+일반 사용자가 <code>/etc/shadow</code> 파일을 읽을 수 있게 되면, 그 안에 저장된 <strong>암호 해시값(Hash)</strong>을 자신의 로컬 PC로 가져갈 수 있다. 이후 <code>John the Ripper</code>나 <code>Hashcat</code> 같은 도구를 사용하여 서버의 자원을 쓰지 않고도 자신의 컴퓨터에서 무차별 대입이나 사전 대입을 수행(오프라인 공격)하여 원래 암호를 알아낼 수 있는 위험이 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy...:18290:1:90:7:::</code>를 분석하시오.
+1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy...</strong> 부분의 명칭을 쓰시오.
+2) 이 파일에 솔트(Salt)를 추가함으로써 <strong>레인보우 테이블(Rainbow Table)</strong> 공격을 어떻게 방어하는지 원리를 쓰시오.
+3) <code>pwunconv</code> 명령어의 기능을 쓰시오.</summary>
+<blockquote>
+1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy...</strong>: <strong>솔트(Salt)</strong><br>
+2) 동일한 평문 암호라도 사용자마다 서로 다른 솔트를 섞어서 해싱하므로 <strong>최종 해시값이 다르게 생성</strong>된다. 따라서 미리 해시값들을 계산해 놓은 레인보우 테이블의 무력화를 유도하여 공격을 방해한다.<br>
+3) <code>pwunconv</code>: <code>/etc/shadow</code>의 암호 정보를 <code>/etc/passwd</code>로 옮기고 shadow 파일을 삭제하여 일반 사용자도 해시를 읽을 수 있게 만드는 명령어이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 139) 특정 사용자의 계정을 잠그거나(Lock) 해제(Unlock)하기 위한 <code>passwd</code> 명령어 옵션을 쓰시오.
+1) algisa 사용자 패스워드 잠금
+2) algisa 사용자 패스워드 잠금 해제</summary>
+<blockquote>
+1) <code>passwd -l algisa</code><br>
+2) <code>passwd -u algisa</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 리눅스에서 특정 계정을 <strong>완전하게 무력화</strong>하기 위해 <strong>계정 잠금(passwd -l)</strong> 외에 <strong>로그인 셸(Login Shell)</strong>을 통해 조치할 수 있는 방안을 기술하시오.</summary>
+<blockquote>
+<code>/etc/passwd</code> 파일에서 해당 사용자의 셸 정보를 <strong><code>/sbin/nologin</code></strong> 또는 <strong><code>/bin/false</code></strong>로 변경한다. 이는 사용자가 로그인을 시도해도 셸을 할당받지 못하게 하여 시스템 접근을 물리적으로 원천 차단하는 효과를 준다.
+</blockquote>
+</details>
+
 
 <details>
 <summary>(단답형) <code>/etc/passwd</code> 파일에서 사용자의 패스워드 필드(두 번째 필드)에 기재되어 있는 문자 <code>x</code>가 기술적으로 의미하는 바를 구체적으로 쓰시오.</summary>
@@ -3698,12 +4103,71 @@ SHA-512 알고리즘
 </blockquote>
 </details>
 
+<details>
+<summary>(단답형) 리눅스 <code>/etc/shadow</code> 파일의 두 번째 필드인 암호화 필드는 <code>$ID$Salt$Encrypted_password</code>의 구조를 가진다. 여기서 가장 앞의 <strong><code>$ID$</code></strong> 기호가 의미하는 구체적인 암호학적 설정 정보를 쓰시오.</summary>
+<blockquote>
+암호화에 적용된 <strong>일방향 해시 알고리즘 식별 ID</strong> (예: $1$는 MD5, $6$은 SHA-512)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스 시스템에서 사용자 계정 정보 파일들의 기본 접근 권한과 보안 분리 정책을 고려할 때 빈칸을 채우시오.
+"사용자 목록을 담은 <code>/etc/passwd</code> 파일은 모든 사용자가 볼 수 있도록 통상 ( A )(8진수) 권한을 부여하고, 실제 암호의 해시값이 저장된 <code>/etc/( B )</code> 파일은 root만 읽어들일 수 있도록 접근 권한을 ( C ) 이하(예: 400 또는 000)로 설정하여 강력히 보호한다."</summary>
+<blockquote>
+(A) 644
+(B) shadow
+/C) 400
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 134~136) 다음 리눅스 <code>/etc/passwd</code> 및 <code>/etc/shadow</code> 파일의 필드 구조를 보고 물음에 답하시오.
+<code>[passwd] root:x:0:0:root:/root:/bin/bash</code> (①, ②, ③)
+<code>[shadow] root:$6$gAWy...:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
+1) 각 번호(①~⑦)가 의미하는 필드 명칭을 쓰시오.
+2) 관리자가 root 계정의 홈 디렉터리를 <code>/hack2</code>로, 로그인 셸을 <code>/bin2/hack3</code>로 변경했다면 <code>/etc/passwd</code>는 어떻게 수정되는가?</summary>
+<blockquote>
+1) ① 패스워드 표시(x는 shadow 사용) ② GID ③ 홈 디렉터리 ④ 암호화된 패스워드 ⑤ 마지막 암호 변경일(1970/1/1 기준 일수) ⑥ 암호 만료 기간 ⑦ 암호 만료 전 경고 기간<br>
+2) <code>root:x:0:0:root:<strong>/hack2</strong>:<strong>/bin2/hack3</strong></code>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy...:18290:1:90:7:::</code>를 분석하시오.
+1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy...</strong> 부분의 명칭을 쓰시오.
+2) 이 파일에 솔트(Salt)를 추가함으로써 <strong>레인보우 테이블(Rainbow Table)</strong> 공격을 어떻게 방어하는지 원리를 쓰시오.
+3) <code>pwunconv</code> 명령어의 기능을 쓰시오.</summary>
+<blockquote>
+1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy...</strong>: <strong>솔트(Salt)</strong><br>
+2) 동일한 평문 암호라도 사용자마다 서로 다른 솔트를 섞어서 해싱하므로 <strong>최종 해시값이 다르게 생성</strong>된다. 따라서 미리 해시값들을 계산해 놓은 레인보우 테이블의 무력화를 유도하여 공격을 방해한다.<br>
+3) <code>pwunconv</code>: <code>/etc/shadow</code>의 암호 정보를 <code>/etc/passwd</code>로 옮기고 shadow 파일을 삭제하여 일반 사용자도 해시를 읽을 수 있게 만드는 명령어이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 139) 특정 사용자의 계정을 잠그거나(Lock) 해제(Unlock)하기 위한 <code>passwd</code> 명령어 옵션을 쓰시오.
+1) algisa 사용자 패스워드 잠금
+2) algisa 사용자 패스워드 잠금 해제</summary>
+<blockquote>
+1) <code>passwd -l algisa</code><br>
+2) <code>passwd -u algisa</code>
+</blockquote>
+</details>
+
 ##### 프로세스 실행권한(SUID,SGID)
 
 <details>
 <summary>(단답형) 유닉스/리눅스 시스템에서 특정 자원(프로세스)에 대한 접근 권한을 판단하는 속성 중, 그 프로세스를 '최초로 실행시킨 실제 사용자'의 고유 식별 번호를 의미하는 영문 약어를 쓰시오.</summary>
 <blockquote>
 RUID (Real User ID)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) UNIX/LINUX 운영체제에서 <code>ls -l</code>을 쳤을 때 일반적인 실행 권한을 나타내는 'x' 자리의 문자가, SUID나 SGID로 인해 프로세스 권한 임대 속성이 발동되면 ( A ) 문자로 변경되어 표시된다. 또한 여러 사용자가 퍼미션 제약 없이 파일을 쓸 수 있지만 삭제는 본인만 가능하게끔 <code>/tmp</code> 디렉터리에 특수 권한이 걸렸다면 맨 끝에 ( B ) 문자로 나타나는 특수비트의 명칭을 쓰시오.</summary>
+<blockquote>
+(A) s
+(B) Sticky bit (기호: t)
 </blockquote>
 </details>
 
@@ -3873,6 +4337,14 @@ SSH (Secure Shell)
 </details>
 
 <details>
+<summary>(작업형) TCP Wrapper를 슈퍼 데몬(inetd)에 연동시키기 위해서 관리자는 <code>/etc/inetd.conf</code> 설정 파일의 기존 항목을 개조해야 한다. 원래 클라이언트 요청 시 직접 실행되던 데몬(예: <code>/usr/sbin/in.telnetd</code>)이 있던 6번째 <strong>실행 경로(Server Program)</strong> 자리에 가로채기를 위한 ( A ) 경로를 새롭게 적어 넣고, 7번째 <strong>실행 인수(Arguments)</strong> 자리에 기존 데몬 명칭인 ( B ) 를 위치시켜야 한다.</summary>
+<blockquote>
+(A) /usr/sbin/tcpd
+(B) in.telnetd
+</blockquote>
+</details>
+
+<details>
 <summary>(작업형) 관리자가 TCP Wrapper의 <code>/etc/hosts.allow</code> 파일 한 줄에 <code>ALL: ALL EXCEPT in.telnetd : ALL</code> 이라는 보안 룰을 기입하였다. 전체 데몬을 기준으로 어떠한 접속 허용 효과가 초래되는지 그 의미를 기술하시오.</summary>
 <blockquote>
 특정 예외 처리된 부분인 <strong>telnet (<code>in.telnetd</code>) 서비스를 제외한 나머지 전 서비스 부문에 대해서 전 세계 모든 호스트(ALL)의 접근을 무의미하게 전면 개방(허용)</strong>한다. (바꿔 말해 telnet 접속에 대해서만은 이 파일에서 허용 룰을 부여받지 못한다.)
@@ -3923,6 +4395,42 @@ cps
 <blockquote>
 <code>only_from = 192.168.56.0/24</code><br>
 <code>no_access = 192.168.56.110</code>
+</blockquote>
+</details>
+
+##### RPC(Remote Procedure Call) 서비스 취약점
+
+<details>
+<summary>(단답형) 리눅스/유닉스 시스템에서 분산 환경 원격 호출을 위해 쓰이지만 불필요하게 켜져 있을 경우 버퍼 오버플로우나 Dos의 주요 표적이 되는 RPC 서비스 데몬들의 고유 명칭을 각각 쓰시오.
+(A) CPU 및 가상 메모리 사용 통계, 네트워크 가동 시간 등 주요 시스템 성능정보를 외부에 반환하는 데몬
+(B) 네트워크 내의 다른 모든 사용자에게 터미널 메시지를 일제히 전송(Broadcast)하는 데몬
+(C) 원격지에서 시스템 관리 및 모니터링 작업을 쉽게 수행하도록 권한을 열어주는 데몬</summary>
+<blockquote>
+(A) rstatd
+(B) walld
+(C) sadmind
+</blockquote>
+</details>
+
+##### rsync 서비스 취약점
+
+<details>
+<summary>(작업형) 어떤 서버의 <code>/etc/rsyncd.conf</code> 설정 파일을 점검하던 중 다음과 같은 취약한 전송 설정 블록이 발견되었다. 이 설정이 왜 보안상 치명적인 위험(Risk)을 초래하는지 2가지 핵심 근거를 기술하시오.
+<code>[backup]</code>
+<code>path = /</code>
+<code>uid = root</code>
+<code>gid = root</code></summary>
+<blockquote>
+1) <code>path = /</code>: 동기화 대상 경로가 최상위 루트로 잡혀 있어, 공격자가 rsync를 통해 시스템의 모든 민감 파일(passwd, shadow, config 등)에 접근할 수 있다.<br>
+2) <code>uid/gid = root</code>: rsync 접속 시 프로세스 권한이 root로 실행되므로, 인증이나 제어 장치가 미흡할 경우 공격자가 시스템 최고 관리자 권한으로 파일을 변조하거나 탈취할 수 있는 심각한 위협이 존재한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) rsync를 통해 사내 백업 서버와 데이터를 동기화하려 할 때, 앞선 'root 권한 남용'과 '전면 개방' 문제를 해결하기 위해 관리자가 취해야 할 2가지 보안 강화 조치(Hardenning)를 제안하시오.</summary>
+<blockquote>
+1) <strong>접근 IP 제한</strong>: <code>hosts allow</code> 설정을 통해 오직 신뢰할 수 있는 백업 서버의 IP 주소만 접속이 가능하도록 화이트리스트를 구성한다.<br>
+2) <strong>비특권 계정 운용</strong>: <code>uid</code>와 <code>gid</code>를 root가 아닌, 오직 백업 작업에만 필요한 최소 권한을 가진 별도의 일반 사용자 계정(예: backupuser)으로 지정하여 최소 권한 원칙(Least Privilege)을 준수한다.
 </blockquote>
 </details>
 
@@ -4003,6 +4511,26 @@ PAM (Pluggable Authentication Modules)
 </details>
 
 ##### PAM 활용 예 1 (시스템 취약점 분석, 평가 일부 항목)
+
+<details>
+<summary>(기출: 105) 보안 취약점 점검 가이드라인에 따라 각 OS별로 <strong>root 계정의 원격 접속을 제한</strong>하기 위해 점검해야 하는 설정 파일의 경로를 쓰시오.
+1) SunOS (Solaris): /etc/default/( A ) → <code>CONSOLE=/dev/console</code>
+2) AIX: /etc/security/( B ) → <code>rlogin = false</code>
+3) Linux: /etc/( C ) → <code>tty1</code> 또는 <code>#pts/1</code> 설정 확인</summary>
+<blockquote>
+(A) <strong>login</strong><br>
+(B) <strong>user</strong><br>
+(C) <strong>securetty</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 리눅스 시스템에서 <code>/etc/securetty</code> 파일에 <code>pts/0</code>, <code>pts/1</code> 등의 항목을 모두 제거하거나 주석 처리했을 때 얻을 수 있는 보안 효과를 기술하시오.</summary>
+<blockquote>
+<strong>root 계정으로 직접 원격 접속(Telnet 등)하는 것을 원천 차단</strong>하는 효과가 있다. 공격자가 root 패스워드를 알아내더라도 외부에서는 직접 로그인할 수 없으며, 반드시 일반 사용자로 먼저 접속한 뒤 <code>su</code>나 <code>sudo</code> 등을 통해서만 관리자 권한을 획득하도록 강제하여 보안성을 높인다.
+</blockquote>
+</details>
+
 
 <details>
 <summary>(단답형) 시스템 보안 관점에서 공격자가 네트워크를 통해 원격으로 <code>root</code> 최고 관리자 권한을 직접 획득하는 것을 방지하기 위해, 리눅스가 <code>root</code> 사용자의 로그인 접속을 허용하는 "로컬 물리적 터미널(콘솔)" 목록을 별도로 기재하여 통제하는 설정 파일의 절대 경로를 쓰시오.</summary>
@@ -4274,12 +4802,56 @@ Permission denied
 
 #### 시스템 로그 설정과 관리
 
-##### 유닉스/리눅스 주요 로그 파일
+</details>
 
 <details>
-<summary>(단답형) 리눅스는 <code>/var/log</code> 디렉터리, 유닉스는 <code>/var/adm</code> 디렉터리에 주로 시스템 로그를 남기는데, 이처럼 시스템에서 남기는 여러 종류의 시스템 로그 파일들의 고정적인 <strong>최종 저장 위치 파일명(경로)을 정의해두고 배포해 주는 환경 설정 파일명(절대경로)</strong>을 쓰시오.</summary>
+<summary>(단답형) 다음 리눅스/유닉스의 주요 로그 파일들이 기록하는 이벤트 성격에 맞춰 각각의 명칭을 쓰시오.
+(A) 현재 시스템에 접속해 있는 사용자들의 상태 정보를 담고 있는 바이너리 로그 (<code>who</code>, <code>w</code> 명령어로 확인)
+(B) 과거부터 현재까지의 모든 로그인/로그아웃 이력 및 시스템 부팅/종료 정보를 누적해 기록하는 로그 (<code>last</code> 명령어로 확인)
+(C) 로그인에 실패했을 때의 정보를 기록하며, 주로 무단 침입 시도를 식별할 때 쓰이는 로그 (<code>lastb</code> 명령어로 확인)</summary>
 <blockquote>
-/etc/syslog.conf (또는 최신 리눅스의 경우 /etc/rsyslog.conf)
+(A) utmp (또는 utmpx)<br>
+(B) wtmp (또는 wtmpx)<br>
+(C) btmp
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 시스템 보안 관리 중, 각 사용자가 가장 최근에 성공적으로 로그인한 시간과 접속 지점 정보를 사용자 계정별로 1건씩 관리하는 바이너리 파일과, 시스템의 모든 사용자가 실행한 명령어들을 추적 기록하는 '프로세스 어카운팅' 로그의 명칭을 쓰시오.</summary>
+<blockquote>
+(A) lastlog (기록 위치: /var/log/lastlog)<br>
+(B) acct / pacct (기록 위치: /var/account/pacct 등)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 침해 사고 분석 중 <code>last</code> 명령어 결과와 <code>lastlog</code> 명령어 결과의 근본적인 데이터 저장 방식 차이점을 '데이터 업데이트(Overwrite vs Append)' 관점에서 비교하여 기술하시오.</summary>
+<blockquote>
+<code>last</code> 명령어가 참조하는 <strong>wtmp는 새로운 로그인 이벤트가 발생할 때마다 파일 끝에 데이터를 계속 이어 붙이는(Append) 누적 히스토리 방식</strong>인 반면, <code>lastlog</code> 명령어가 참조하는 <strong>lastlog 파일은 각 사용자(UID/ID)마다 할당된 고정 위치에 '마지막 성공 로그인 정보'만을 매번 덮어쓰기(Overwrite)</strong> 하며 최신 상태 1건만 유지한다는 차이가 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스 터미널에서 <code>w</code> 명령어를 실행했을 때 출력되는 다음 필드들의 보안적 의미를 기술하시오.
+(A) TTY 필드에서 'pts/0'과 'tty1'의 차이
+(B) WHAT 필드가 나타내는 정보</summary>
+<blockquote>
+(A) <strong>pts(pseudo terminal slave)</strong>는 SSH나 텔넷 등을 통한 원격 터미널 접속을 의미하고, <strong>tty(teletypewriter)</strong>는 시스템 전면 콘솔(Console)을 통한 로컬 직접 접속을 의미한다.<br>
+(B) 해당 사용자가 현재 <strong>어떠한 명령어(프로세스)를 실행하여 작업 중인지</strong>를 보여준다. (ex: <code>vi /etc/passwd</code> 등 관리자 파일 접근 여부 모니터링 가능)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 유닉스(Solaris 등) 시스템에서 최고 관리자(root) 권한을 획득하기 위해 일반 사용자가 <code>su</code> 명령어를 사용한 기록(성공/실패 포함)만을 전문적으로 저장하는 로그 파일의 경로명(Unix 기준)을 쓰시오.</summary>
+<blockquote>
+/var/adm/sulog (참고: 리눅스는 주로 /var/log/secure 또는 /var/log/auth.log에 통합 기록됨)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) FTP 서비스를 제공 중인 서버에서 특정 외부 IP가 대량의 기밀 데이터를 유출했는지 확인하려 한다. ProFTPD나 vsftpd 환경에서 <strong>'어떤 계정이, 어떤 파일(경로)을, 몇 바이트 크기로, 언제 업로드/다운로드 했는지'</strong>에 대한 상세 전송 명세가 기록되는 로그 파일명을 쓰시오.</summary>
+<blockquote>
+xferlog (기록 위치: /var/log/xferlog)
 </blockquote>
 </details>
 
@@ -4287,6 +4859,26 @@ Permission denied
 <summary>(단답형) 현재 시스템에 <strong>로그인하여 활동 중인 사용자들의 실시간 접속 상태 정보</strong>를 담고 있는 바이너리 로그 파일로서, <code>w</code>, <code>who</code>, <code>finger</code>, <code>users</code> 명령어 등을 타이핑했을 때 이 파일의 데이터를 읽어와 모니터에 뿌려주는 핵심 원천 파일의 절대 경로를 쓰시오 (Linux 기준).</summary>
 <blockquote>
 /var/run/utmp (Unix 계열은 /var/adm/utmpx)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 유닉스/리눅스 시스템에서 발생한 보안 사고 추적을 위해 다음과 같은 각 상황에서 참조해야 할 전용 로그 파일명(혹은 명령어)을 쓰시오.
+(A) 시스템의 모든 사용자가 실행한 <strong>'개별 명령어들의 실행 기록'</strong>을 전역적으로 로깅하며, <code>lastcomm</code> 명령어로 확인하는 로그
+(B) <code>su</code> 명령어를 사용하여 <strong>다른 사용자로 계정 전환을 시도</strong>한 성공/실패 내역이 기록되는 로그 (Unix 기준)
+(C) ProFTPD나 vsftpd 등 <strong>FTP 데몬을 통한 파일의 업로드/다운로드 전송 내역</strong>이 상세히 기록되는 로그</summary>
+<blockquote>
+(A) acct / pacct (기록 위치: /var/account/pacct 등)<br>
+(B) sulog (기록 위치: /var/adm/sulog)<br>
+(C) xferlog (기록 위치: /var/log/xferlog)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 보안 담당자가 특정 계정(kiwi99)으로 침입한 흔적을 추적 중이다. 이 사용자가 <strong>'가장 마지막으로(최근에) 실제 로그인을 성공시켰던 시간과 IP'</strong>를 핀셋으로 확인하고자 한다. 이때 <code>last</code> 명령어와 <code>lastlog</code> 명령어 중 어떤 것이 더 효율적이고 정확한지 판단하고, 실제 <code>kiwi99</code> 계정에 대해서만 해당 정보를 출력하는 완성된 명령어를 작성하시오.</summary>
+<blockquote>
+<strong><code>lastlog</code></strong> 명령어가 더 효율적이다. (<code>last</code>는 전체 로그인 히스토리를 순차적으로 보여주지만, <code>lastlog</code>는 각 사용자별 '최종 1회'의 기록만 저장하므로 즉각적인 확인이 가능함)<br>
+실행 명령어: <code>lastlog -u kiwi99</code>
 </blockquote>
 </details>
 
@@ -4414,6 +5006,248 @@ lastcomm
 </details>
 
 <details>
+<summary>(기출: 083) 리눅스 시스템에서 <code>w</code> 명령어를 실행한 결과, 특정 사용자의 <strong>WHAT</strong> 필드에 <code>vi /etc/passwd</code>가 표시되었다면, 보안 관리자 입장에서 이 필드가 의미하는 바와 대응 방안을 서술하시오.</summary>
+<blockquote>
+1) <strong>의미</strong>: 해당 사용자가 현재 실시간으로 시스템의 핵심 계정 정보 파일인 <code>/etc/passwd</code>를 편집기(vi)로 열어 수정하거나 열람하고 있음을 의미한다.<br>
+2) <strong>대응</strong>: 해당 사용자가 인가된 관리자가 아닐 경우 계정 탈취나 악성 행위로 판단하여 <code>skill</code> 또는 <code>kill</code> 명령으로 세션을 즉시 종료시키고 감사 로그를 분석해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 084~087) 리눅스/유닉스 로그 관리와 관련하여 다음 질문에 답하시오.
+1) 특정 계정(algisa)의 <strong>최근 성공한 로그인 정보</strong>만 확인하고 싶을 때 사용하는 명령어는?
+2) 로그 파일 <code>/var/log/secure</code>의 내용을 실시간으로 모니터링하기 위해 사용하는 명령어 조합은?
+3) 유닉스(Solaris)에서 5회 이상 로그인 실패 시 기록되는 로그 파일의 절대 경로는?
+4) 리눅스 시스템에서 부팅 시점부터의 모든 로그인/로그아웃 이력을 확인하는 명령어는?</summary>
+<blockquote>
+1) <code>lastlog -u algisa</code><br>
+2) <code>tail -f /var/log/secure</code> (또는 <code>tail -f /var/log/auth.log</code>)<br>
+3) <code>/var/adm/loginlog</code><br>
+4) <code>last</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 서버 점검 중 <code>lastlog</code> 결과에 <strong>'**Never logged in**'</strong>으로 표시되는 계정들이 다수 발견되었다. 이 계정들이 '시스템 계정(Service Account)'이 아닌 '일반 사용자 계정'일 경우 관리자가 취해야 할 보안 조치를 서술하시오.</summary>
+<blockquote>
+장기간 사용되지 않은 휴면 계정은 공격자의 주요 타겟이 될 수 있으므로, 1) <code>usermod -L [계정명]</code> 명령으로 계정을 잠그거나(Lock), 2) 불필요할 경우 <code>userdel</code>로 삭제하며, 3) 시스템 계정의 경우 <code>/sbin/nologin</code> 쉘을 부여하여 쉘 접속을 원천 차단해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 088~089) 다음 로그 파일의 출력 결과와 관련된 로그 명칭을 쓰시오.
+(A) <code>w</code>, <code>who</code>, <code>finger</code> 명령 실행 시 참조되는 파일로 현재 접속자 정보를 담은 바이너리 로그
+(B) <code>Wed Mar 3 17:06:06 2004 20 ... ftp 0 * c</code> 와 같은 형식으로 FTP 전송 내역을 담은 로그</summary>
+<blockquote>
+(A) <strong>utmp</strong> (또는 /var/run/utmp)<br>
+(B) <strong>xferlog</strong> (또는 /var/log/xferlog)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>xferlog</code>의 기록 형식 중 <strong>'i'</strong>는 인바운드(업로드), <strong>'o'</strong>는 아웃바운드(다운로드)를 의미한다. 만약 외부 IP에서 서버로 대용량의 <code>.gz</code> 또는 <code>.sh</code> 파일이 'i' 상태로 다수 기록되었다면 어떤 침해 사고를 의심할 수 있는지 서술하시오.</summary>
+<blockquote>
+공격자가 FTP 취약점이나 계정 탈취를 통해 시스템에 <strong>악성 스크립트(WebShell 등)나 도구(Exploit)를 업로드</strong>하여 권한 상승 또는 추가 공격을 준비하는 상황(Staging)을 의심할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 090~091) 리눅스 시스템의 전반적인 운영 메시지를 담고 있는 <code>/var/log/messages</code> 파일의 로그 형식에 대해 답하시오.
+1) 텔넷(Telnet) 접속이나 PAM 인증 결과 등 보안 관련 민감 정보가 주로 기록되는 또 다른 핵심 로그 파일의 절대 경로는?
+2) 다음 로그 메시지의 각 항목(1~5)이 의미하는 바를 쓰시오.
+<code>Jan 13 00:26:26 CentOS8S system[1]: Starting Vsftpd ftp daemon</code></summary>
+<blockquote>
+1) <strong>/var/log/secure</strong><br>
+2) (1) 로그 메시지 생성 일시, (2) 호스트 이름, (3) 프로세스(서비스) 이름, (4) 프로세스 ID(PID), (5) 발생한 메시지 내용
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>/var/log/messages</code> 파일에 <strong>'kernel: device ens160 entered promiscuous mode'</strong>라는 메시지가 찍혔을 때, 보안 관리자가 의심해야 할 상황과 그 이유를 서술하시오.</summary>
+<blockquote>
+네트워크 인터페이스가 <strong>스니핑(Sniffing)</strong> 모드로 동작하고 있음을 의미한다. 공격자가 해당 시스템에 침투하여 네트워크 패킷을 무단으로 훔쳐보기 위해 <code>tcpdump</code>나 <code>wireshark</code> 같은 도구를 실행했을 가능성이 매우 높으므로 즉각적인 조사가 필요하다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 092~094) 리눅스 시스템 내부에서 발생하는 로그를 체계적으로 관리하는 <code>syslog</code> 시스템에 대해 답하시오.
+1) 리눅스 부팅 시 파일 시스템 체크 및 서비스 시작/실패 여부를 기록하는 로그 파일은?
+2) <code>syslog</code> 시스템을 제어하는 데몬(Daemon) 프로그램과 그 주 설정 파일의 이름을 쓰시오.
+3) 로그 파일들이 종류별로 구분되어 저장되는 기본 디렉터리는 어디인가?</summary>
+<blockquote>
+1) <strong>/var/log/boot.log</strong><br>
+2) 데몬: <strong>syslogd</strong> (최근 리눅스는 rsyslogd), 설정 파일: <strong>/etc/syslog.conf</strong> (또는 /etc/rsyslog.conf)<br>
+3) <strong>/var/log</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 관리자가 <code>/etc/syslog.conf</code> 설정을 통해 <strong>'모든 서비스의 경고(Warning) 및 그 이상의 중요도를 가진 로그'</strong>를 별도의 중앙 로그 서버(IP: 192.168.1.100)로 실시간 전송하고자 한다. 이때 사용할 수 있는 설정 한 줄을 작성하시오.</summary>
+<blockquote>
+설정: <strong>*.warn @192.168.1.100</strong> (또는 rsyslog의 경우 @@192.168.1.100 [TCP 전송])
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 095~096) <code>syslog.conf</code>의 설정 형식 <code>[facility].[priority] [action]</code>과 로그 수준(Priority/Level)에 대해 답하시오.
+1) 모든 요소/서비스를 의미하는 facility 기호는?
+2) 다음 로그 수준의 명칭을 쓰시오.
+(A) 즉각적인 조치가 필요한 상황 (Panic 상태 등)
+(B) 하드웨어 등 심각한 에러가 발생한 상황
+(C) 에러는 아니지만 주의가 필요한 의미 있는 이벤트</summary>
+<blockquote>
+1) <strong>*</strong> (Asterisk)<br>
+2) (A) <strong>emerg</strong> (또는 alert), (B) <strong>crit</strong> (Critical), (C) <strong>notice</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>syslog</code>의 로그 수준 중 <strong>'crit'</strong>으로 설정했을 때 기록되는 실제 로그 범위를 설명하고, 보안 관점에서는 왜 <strong>'info'</strong>나 <strong>'debug'</strong> 수준으로 로깅하는 것이 유리한지 기술하시오.</summary>
+<blockquote>
+1) <strong>로깅 범위</strong>: 설정한 수준인 'crit'을 포함하여 그보다 높은 'alert', 'emerg' 수준의 메시지가 모두 기록된다.<br>
+2) <strong>보안적 이점</strong>: 'info'나 'debug' 수준은 정상적인 접근 이력이나 세부 프로세스 동작 과정까지 모두 기록하므로, 침해 사고 발생 시 공격자의 정교한 이동 경로(Lateral Movement)나 미세한 이상 징후를 추적하는 데 훨씬 더 풍부한 단서를 제공한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 098~099) 로그 파일의 비대해짐을 방지하고 효율적으로 관리하기 위한 도구와 방식에 대해 답하시오.
+1) 분산 시스템의 로그를 중앙 서버로 모으기 위해 사용하는 UDP 기반의 표준 프로토콜은?
+2) 리눅스에서 로그 파일을 정기적으로 순환(Rotate), 압축(Compress), 삭제하는 응용 프로그램의 이름과, 이를 주기적으로 실행시켜주는 데몬의 이름을 쓰시오.</summary>
+<blockquote>
+1) <strong>syslog 프로토콜</strong><br>
+2) 응용 프로그램: <strong>logrotate</strong>, 주기적 실행 데몬: <strong>cron</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>logrotate</code>의 주요 기능 4가지를 서술하고, 만약 특정 로그 파일이 너무 빨리 커져서 일주일 단위(weekly)가 아닌 <strong>'파일 크기 100MB 도달 시'</strong> 즉시 순환시키고 싶을 때 사용하는 지시어(Directive)를 쓰시오.</summary>
+<blockquote>
+1) <strong>주요 기능</strong>: 로그 파일 순환(Rotation), 로그 파일 압축 보관, 오래된 로그 삭제, 작업 결과 이메일 통보<br>
+2) <strong>설정 지시어</strong>: <strong>size 100M</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 100~103) <code>logrotate</code> 설정 파일(<code>/etc/logrotate.conf</code>) 및 관련 옵션에 대해 답하시오.
+1) 다음 옵션의 의미를 쓰시오.
+ (A) <code>weekly</code> (B) <code>rotate 4</code> (C) <code>compress</code>
+2) 로그 파일이 비어있을 경우 순환하지 않도록 설정하는 옵션은?</summary>
+<blockquote>
+1) (A) <strong>주 단위로 순환</strong>, (B) <strong>최대 4개의 백업 파일 유지</strong>(5번째 순환 시 가장 오래된 것 삭제), (C) <strong>순환된 로그 파일을 gzip으로 압축</strong><br>
+2) <strong>notifempty</strong> (반대로 파일이 없어도 오류를 내지 않는 것은 missingok)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>logrotate</code> 설정 중 <strong>postrotate / endscript</strong> 블록의 용도를 설명하고, 웹 서버(httpd) 로그 순환 시 이 블록 내에 <code>/bin/kill -HUP `cat /var/run/httpd.pid`</code> 명령을 실행하는 이유를 보안 및 운영 측면에서 서술하시오.</summary>
+<blockquote>
+1) <strong>용도</strong>: 로그 순환(rename) 작업이 <strong>완료된 직후</strong>에 특정 스크립트나 명령을 실행하기 위해 사용한다.<br>
+2) <strong>이유</strong>: 원본 로그 파일의 이름이 바뀌었으므로, 현재 실행 중인 프로세스(httpd)에게 <code>HUP</code> 신호를 보내서 <strong>새로운 로그 파일에 기록을 시작(Re-open)</strong>하도록 하기 위함이다. 이를 생략하면 프로세스가 기존 파일 핸들을 계속 들고 있어 새 파일에 로그가 쌓이지 않하게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 104) 리눅스 관리자(root)가 <code>cron</code>을 이용하여 매일 새벽 3시에 <code>/root/backup.sh</code> 파일을 실행하고자 한다. <code>crontab -e</code>를 통해 설정해야 할 한 줄을 작성하시오. (분, 시, 일, 월, 요일 순서)</summary>
+<blockquote>
+설정: <strong>0 3 * * * /root/backup.sh</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>cron</code> 설정 필드 중 <strong>'요일'</strong> 항목에 사용할 수 있는 값의 범위(숫자)와, 매주 월, 수, 금 오전 5시에 작업을 수행하고 싶을 때의 설정을 쓰시오.</summary>
+<blockquote>
+1) <strong>값 범위</strong>: <strong>0~6</strong> (0: 일요일, 1: 월요일 ... 6: 토요일, 7도 일요일로 처리되기도 함)<br>
+2) <strong>설정</strong>: <strong>0 5 * * 1,3,5 [실행할_명령]</strong>
+</blockquote>
+</details>
+</details>
+
+<details>
+<summary>(기출: 090) 리눅스 시스템에서 텔넷을 통해 접속한 사용자의 계정과 PID, 접속 시간, 로그인한 터미널 등을 분석하고자 한다. 이때 꼭 살펴봐야 할 로그 파일 2개를 순서에 상관없이 절대경로로 쓰시오.</summary>
+<blockquote>
+/var/log/messages, /var/log/secure
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 침해 사고 조사관이 텔넷 로그 분석 중 <code>/var/log/secure</code>에서 'FAILED LOGIN' 기록이 다수 발견된 직후, <code>/var/log/messages</code>에서 특정 서비스의 'START' 메시지를 발견했다. 이 두 로그의 교차 분석을 통해 파악할 수 있는 시나리오를 서술하시오.</summary>
+<blockquote>
+공격자가 텔넷을 통해 <strong>무력 대입 공격(Brute Force) 등으로 시스템 로그인을 시도하여 결국 성공</strong>했으며, 접속 직후 특정 서비스(데몬)를 실행하여 추가적인 악성 행위를 개시했음을 시나리오상 추론할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 091) 다음 보기는 <code>/var/log/messages</code> 로그 파일의 일부 메시지이다. 로그 메시지 형식을 5개의 항목으로 구분했을 때 (1)~(5)의 의미를 쓰시오.
+<code>Jan 13 00:26:26 CentOS8S system[1]: Starting Vsftpd ftp daemon</code></summary>
+<blockquote>
+(1) 로그 메시지 생성 일시<br>
+(2) 로그 메시지를 생성한 호스트 이름<br>
+(3) 로그 메시지를 발생시킨 프로세스(서비스) 이름<br>
+(4) 로그 메시지를 발생시킨 프로세스 ID(PID)<br>
+(5) 프로세스가 생성한 상세 메시지
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 로그 통합 관리 솔루션(SIEM)을 구축할 때, 위 기출문제의 (2)번 '호스트 이름' 필드를 반드시 수집해야 하는 보안적 이유를 기술하시오.</summary>
+<blockquote>
+다수의 서버 로그가 하나의 저장소로 모이는 통합 환경에서, <strong>어떤 서버에서 사고가 발생했는지 식별할 수 있는 유일한 식별자(Origin)</strong> 역할을 하기 때문이다. 호스트 이름이 누락되면 침해 사고 발생 지점을 특정할 수 없어 대응이 불가능해진다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 092) 리눅스 부팅 시 파일 시스템에 대한 체크와 서비스 데몬들의 실행 상태(성공/실패 여부 등)를 기록하는 로그 파일명을 쓰시오.</summary>
+<blockquote>
+/var/log/boot.log
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 093~094) 리눅스 시스템의 기본적인 로그 파일들은 ( A ) 데몬에 의해 제어되고 ( A )의 설정 파일인 ( B )을 수정함으로써 로그 파일의 저장 위치, 파일명, 로그 레벨 등의 변경이 가능하다. 빈칸을 채우시오.</summary>
+<blockquote>
+(A) syslogd (또는 rsyslogd), (B) syslog.conf (또는 rsyslog.conf)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>syslog.conf</code>에 <code>*.notice</code>라고 설정했을 때 <code>warning</code> 레벨의 로그가 기록되는지 여부와 그 이유를 레벨 계층 구조 관점에서 기술하시오.</summary>
+<blockquote>
+<strong>기본적으로 기록된다.</strong> syslog 설정에서 특정 레벨을 지정하면, <strong>해당 레벨과 그보다 우선순위가 높은(중요한) 모든 상위 레벨의 로그가 하이어라키(Hierarchy) 구조에 따라 포함</strong>되기 때문이다. <code>warning</code>은 <code>notice</code>보다 높은 단계이므로 기록 대상에 포함된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 097~098) 분산 시스템 또는 프로세스의 로그를 중앙 수집기로 보내 분석하기 위한 UDP 기반의 인터넷 표준 프로토콜 명칭과, 이에 대한 신뢰성(Reliability)을 보완하기 위해 제안된 프레임워크 명칭을 쓰시오.</summary>
+<blockquote>
+(A) syslog 프로토콜 (RFC 3164)<br>
+(B) BEEP (RFC 3195)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>syslog</code>의 로그 수준 중 <strong>'crit'</strong>으로 설정했을 때 기록되는 실제 로그 범위를 설명하고, 보안 관점에서는 왜 <strong>'info'</strong>나 <strong>'debug'</strong> 수준으로 로깅하는 것이 유리한지 기술하시오.</summary>
+<blockquote>
+1) <strong>로깅 범위</strong>: 설정한 수준인 'crit'을 포함하여 그보다 높은 'alert', 'emerg' 수준의 메시지가 모두 기록된다.<br>
+2) <strong>보안적 이점</strong>: 'info'나 'debug' 수준은 정상적인 접근 이력이나 세부 프로세스 동작 과정까지 모두 기록하므로, 침해 사고 발생 시 공격자의 정교한 이동 경로(Lateral Movement)나 미세한 이상 징후를 추적하는 데 훨씬 더 풍부한 단서를 제공한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>/var/log/messages</code> 파일에 <strong>'kernel: device ens160 entered promiscuous mode'</strong>라는 메시지가 찍혔을 때, 보안 관리자가 의심해야 할 상황과 그 이유를 서술하시오.</summary>
+<blockquote>
+네트워크 인터페이스가 <strong>스니핑(Sniffing)</strong> 모드로 동작하고 있음을 의미한다. 공격자가 해당 시스템에 침투하여 네트워크 패킷을 무단으로 훔쳐보기 위해 <code>tcpdump</code>나 <code>wireshark</code> 같은 도구를 실행했을 가능성이 매우 높으므로 즉각적인 조사가 필요하다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>syslog</code>의 로그 수준 중 <strong>'crit'</strong>으로 설정했을 때 기록되는 실제 로그 범위를 설명하고, 보안 관점에서는 왜 <strong>'info'</strong>나 <strong>'debug'</strong> 수준으로 로깅하는 것이 유리한지 기술하시오.</summary>
+<blockquote>
+1) <strong>로깅 범위</strong>: 설정한 수준인 'crit'을 포함하여 그보다 높은 'alert', 'emerg' 수준의 메시지가 모두 기록된다.<br>
+2) <strong>보안적 이점</strong>: 'info'나 'debug' 수준은 정상적인 접근 이력이나 세부 프로세스 동작 과정까지 모두 기록하므로, 침해 사고 발생 시 공격자의 정교한 이동 경로(Lateral Movement)나 미세한 이상 징후를 추적하는 데 훨씬 더 풍부한 단서를 제공한다.
+</blockquote>
+</details>
+
+<details>
 <summary>(단답형) 예약된 시간에 반복적으로 자동화 스크립트나 명령들을 실행시켜 주는 작업 스케줄링 데몬이 남기는 흔적으로, <strong>언제 어떠한 설정(배치) 파일이 권한별로 실행을 시작하고 성공적으로 마쳤는지에 대한 내역</strong>을 관찰할 수 있는 파일명(절대경로)을 적으시오.</summary>
 <blockquote>
 /var/log/cron
@@ -4476,8 +5310,6 @@ lastcomm
 
 #### syslog 설정 및 관리
 
-##### 개요
-
 <details>
 <summary>(단답형) 리눅스 커널 및 응용 프로그램 데몬들로부터 로그 메시지를 모아서, 정해진 규칙 파일에 따라 특정 로그 파일이나 콘솔, 또는 원격 서버로 체계적으로 분류 및 저장해 주는 핵심 백그라운드 프로세스 이름(최신 환경에서 많이 쓰이는 개선판 제외)을 쓰시오.</summary>
 <blockquote>
@@ -4503,6 +5335,17 @@ authpriv (혹은 auth)
 <summary>(서술형) 시스템 장애 대응 매뉴얼 기준에 따라 디스크나 메모리 불량과 같은 <strong>'치명적인 하드웨어 오류 상황'</strong> 관련 로그들을 집중적으로 분리해 내고자 한다. <code>syslog</code> 설정에서 이러한 장애가 매핑되는 <code>Priority</code>(로그 수준) 지시자(영문 4글자 약어)가 무엇인지 쓰고, 그 상위와 하위를 포함한 해당 레벨의 성격을 서술하시오.</summary>
 <blockquote>
 우선순위 지시자는 <strong><code>crit</code> (Critical)</strong> 이다. 이 레벨은 단순히 조치가 필요한 에러(err)보다는 훨씬 심각하여 시스템 파괴 위험성이 존재하는 하드웨어 오류 등을 의미하고, 반면 즉결 처분(alert)이나 전면 중단(emerg)보다는 한 단계 낮은 수준으로서 하드웨어 및 운영체제 레벨의 중대형 크리티컬 상황을 모니터링할 때 쓰인다.
+6) <strong>추출된 로그 양식의 의미 및 우선순위 상속(Hierarchy)</strong><br>
+- <code>Jan 13 00:26:26 CentOS8S systemd[1]: Starting Vsftpd...</code> 메시지에서 <code>CentOS8S</code>는 로그를 발생시킨 <strong>호스트(Hostname)</strong>를, <code>systemd[1]</code>은 로그를 생성한 <strong>프로세스 명과 PID</strong>를 의미한다.<br>
+- 만약 <code>syslog.conf</code> 설정 파일에 <code>*.notice  /var/log/messages</code> 라고 정의되어 있다면, <code>notice</code> 레벨을 포함하여 그보다 <strong>우선순위가 높은(중한) <code>warning</code>, <code>err</code>, <code>crit</code>, <code>alert</code>, <code>emerg</code> 레벨의 메시지들까지 모두</strong> 해당 파일에 기록(상속)된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 전통적인 <code>syslog</code> (UDP 514 포트) 시스템을 운영하던 기관에서, 보안 규정을 강화하기 위해 로그 서버로의 전송 프로토콜을 TCP 601 혹은 <strong>BEEP(RFC 3195)</strong> 기반으로 전환하고자 한다. 이렇게 프로토콜을 변경했을 때 얻을 수 있는 보안 및 운영 효율 측면의 핵심적 이점 2가지를 서술하시오.</summary>
+<blockquote>
+1) <strong>신뢰성 보장(Reliable Delivery)</strong>: 비연결성인 UDP와 달리 TCP/BEEP는 3-way handshaking 기반의 연결 지향형 전송을 수행하므로, 네트워크 혼잡이나 패킷 유실로 인해 중요한 보안 감사 로그(Audit trail)가 사라지는 것을 방지할 수 있다.<br>
+2) <strong>기밀성 및 복합 제어</strong>: 평문인 기존 syslog와 달리 BEEP 프레임워크 등을 활용하면 세션 암호화를 덧씌우기가 훨씬 용이하며, 로그 기록의 위변조 여부를 원거리에서 더 정교하게 검증할 수 있는 확장성을 제공한다.
 </blockquote>
 </details>
 
@@ -4545,6 +5388,147 @@ authpriv (혹은 auth)
 
 #### 리눅스 로그 관리
 
+<details>
+<summary>(단답형) 파일(예: <code>secure</code> 로그) 맨 뒷부분에 실시간으로 새롭게 추가·갱신되는 로그 내용을 즉시 추적하며 화면에 계속 뿌려주기 위해 <code>tail</code> 명령어에 부여하는 옵션을 쓰시오.</summary>
+<blockquote>
+-f (또는 --follow)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 데몬 프로세스가 출력하는 로그 파일들이 무한정 커져서 디스크를 100% 점유하는 사태를 막기 위해, 로그를 주기적인 단위로 백업(순환)하고 압축하는 리눅스의 기본 시스템 로그 관리 도구명(명령어)을 쓰시오.</summary>
+<blockquote>
+logrotate
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) <code>logrotate</code> 프로그램에게 전역 지시를 내리기 위해 일일이 전체 룰을 적으면 너무 복잡해진다. 때문에 리눅스는 개별 서비스(예: httpd, vsftpd)들이 패키지 설치 시 점진적으로 자신만의 <code>logrotate</code> 순환 규칙 파일을 떨구고 가게끔 약속된 전용 '디렉터리'를 마련해 두고 이를 불러온다. 이 디폴트 하위 디렉터리의 절대 경로를 쓰시오.</summary>
+<blockquote>
+/etc/logrotate.d
+</blockquote>
+</details>
+</details>
+
+<details>
+<summary>(기출: 099~101) 로그 파일의 크기가 계속 커지는 것을 방지하기 위해 파일 순환, 압축, 삭제, 메일 발송 등을 수행하는 응용 프로그램 (A)와, 이 (A)를 주기적으로 실행하기 위해 이용하는 스케줄 데몬 (B), 그리고 (A)의 개별 설정 파일들이 위치하는 디렉터리 (C)를 쓰시오.</summary>
+<blockquote>
+(A) logrotate<br>
+(B) cron (또는 crond)<br>
+(C) /etc/logrotate.d
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 102~103) logrotate 설정 중 다음 설명에 적절한 옵션을 쓰시오.
+(A) 1주일 단위로 로테이션한다.
+(B) 로그 파일이 1MB가 되면 순환한다.
+(C) 로테이트 후 비어있는 새 로그 파일을 생성한다.
+(D) 로그를 압축하여 저장한다.</summary>
+<blockquote>
+(A) weekly, (B) size 1M, (C) create (또는 nocreate), (D) compress
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>logrotate</code> 설정 중 <strong><code>sharedscripts</code></strong> 옵션을 사용하는 목적을, 다수의 로그 파일을 한꺼번에 로테이트할 때 발생하는 '데몬 재시작 부하' 관점에서 서술하시오.</summary>
+<blockquote>
+로테이트 대상 파일이 여러 개일 때, 개별 파일이 로테이트될 때마다 매번 <code>postrotate</code> 스크립트(데몬 재시작 등)를 실행하는 비효율을 막기 위함이다. 이 옵션을 쓰면 <strong>모든 로그의 로테이션 작업이 완전히 끝난 뒤에 단 한 번만</strong> 스크립트를 수행하여 서버 자원 낭비를 최소화한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 104) 리눅스 관리자가 매일 새벽 3시에 <code>/root/backup.sh</code>를 실행하도록 crontab을 설정했다. 빈칸을 채우시오.
+<code>crontab 설정: (A) (B) (C) (D) (E) /root/backup.sh</code></summary>
+<blockquote>
+(A) 0 (분)<br>
+(B) 3 (시)<br>
+(C) * (일)<br>
+(D) * (월)<br>
+(E) * (요일)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 105) 다음 OS별 보안 취약점 점검 가이드에 따라 root 사용자의 원격 접속을 제한하는 설정 파일 경로를 각각 쓰시오.
+(A) SunOS (Solaris): <code>/etc/default/(  )</code> 내 <code>CONSOLE=/dev/console</code>
+(B) AIX: <code>/etc/security/(  )</code> 내 <code>rlogin = false</code>
+(C) Linux: <code>/etc/(  )</code> 내 터미널(tty/pts) 제한</summary>
+<blockquote>
+(A) login<br>
+(B) user<br>
+(C) securetty
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 리눅스 환경에서 <code>securetty</code> 파일에 <code>pts/0</code>, <code>pts/1</code>과 같은 가상 터미널이 명시되어 있지 않을 때, root 계정으로 원격 SSH 접속(성공 여부 관계없이) 시도가 있을 경우 시스템의 반응을 기술하시오.</summary>
+<blockquote>
+root 계정으로 직접 로그인이 <strong>거부된다.</strong> <code>securetty</code>는 root가 로그인할 수 있는 안전한 터미널을 정의하는데, SSH 등 원격 접속에 쓰이는 pts 장치가 없으면 직접 접속이 차단되어 보안이 강화된다. (단, 일반 사용자로 접속 후 <code>su</code> 전환은 가능)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>logrotate.conf</code> 전역 설정 파일에서 <code>rotate 4</code> 와 <code>dateext</code> 두 개의 옵션을 동시에 활성화해 두었을 때, 특정 웹 서버 로그(ex: <code>access_log</code>)가 어떠한 형태로 파일명과 보관 주기가 나뉘어 갱신되는지 그 물리적 보관 결과를 서술하시오.</summary>
+<blockquote>
+현재 쓰이고 있는 원본 파일은 그대로 두고, <strong>과거의 백업 로그 파일명 뒤쪽에 일자(날짜)가 확장자처럼 붙어 분리</strong>되게 된다(예: <code>access_log-20230510</code>). 이렇게 날짜가 찍혀 분리 보관되는 과거 로그 파일의 <strong>최대 아카이브 개수를 최신 4개까지만 유지</strong>하고, 가장 오래된 파일은 시스템 용량을 위해 자동 삭제(순환) 처리된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개별 웹 서비스 전용 로그 순환 설정(<code>/etc/logrotate.d/httpd</code>) 내부에서 자주 혼용해 쓰이는 <code>missingok</code> 와 <code>notifempty</code> 옵션이 보장해 주는 절차적 지시 내용(의미)에 대해 각각 구분하여 서술하시오.</summary>
+<blockquote>
+<code>missingok</code>는 순환을 시도하는 시점에 만약 지목된 <strong>원본 로그 파일이 삭제되었거나 없더라도 멈추거나 에러 로그를 뿜지 않고 부드럽게 넘어가라</strong>는 예외 허용 조치이며, <code>notifempty</code>는 파일이 멀쩡히 존재하더라도 그 <strong>파일의 용량이 0바이트(내부가 텅 빈 상태)라면 굳이 헛되이 파일 분리 및 압축(순환) 작업을 수행하지 말라</strong>는 효율성 스위치다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개별 데몬 설정에서 <code>sharedscripts</code> 지시자를 선언하고 그 아래에 <code>postrotate … endscript</code> 스크립트를 작성하는 테크닉이 자주 활용된다. 대상 경로에 로그 파일 묶음이 여러 개(예: <code>/var/log/httpd/*log</code>) 존재할 때, <code>sharedscripts</code>가 성능 관점에서 어떠한 중복 통제 역할을 수행하는지 서술하시오.</summary>
+<blockquote>
+만약 이 옵션이 없다면 와일드카드(<code>*</code>)에 매칭된 수많은 개별 로그 파일(access, error 등)이 각각 닫히고 생성될 때마다 매번 데몬 재시작(<code>kill -HUP</code> 등) 스크립트가 중복으로 반복 호출되어 서버에 엄청난 부하가 발생한다. <code>sharedscripts</code>를 선언하면 <strong>조건에 맞는 로그들의 순환(로테이트) 작업을 전부 일괄적으로 마친 뒤, 딱 한 번만 통합적으로 스크립트(데몬 재시작) 체인을 연계 발생시키도록 제어</strong>하여 부하를 낮추고 안정성을 높인다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 관리자가 서비스 이상 징후를 감지하고, 해당 서버의 인증 로그(<code>/var/log/secure</code>) 파일 내역 중 <strong>마지막 20줄부터 텍스트 출력을 시작하되 실시간 침투 모니터링 추적 모드를 끄지 않고 무한정 계속 관찰하려</strong> 한다. 이를 수행하는 <code>tail</code> 기반의 터미널 커맨드를 구문 형식에 맞춰 완성하시오.</summary>
+<blockquote>
+<code>tail -20f /var/log/secure</code> (또는 <code>tail -f -n 20 /var/log/secure</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>logrotate</code> 도구의 기본 동작은 매일마다 반복되도록 서버 백그라운드 스케줄러(cron)에 내장되어 있다. 이 정기적인 로그 순환 잡 트리거를 매일 수행해 주는 데몬 체인용 크론 스크립트 파일명(절대경로)을 하나 쓰시오.</summary>
+<blockquote>
+<code>/etc/cron.daily/logrotate</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 아파치(httpd) 웹 로그 용량이 비대해져 <code>logrotate.conf</code> 전역 설정에 <code>compress</code> 지시어를 추가했다. 이제 설정 파일 변경 직후 정규 시간이 도래하여 분리된 텍스트 로그 파일 <code>access_log-20230510</code>의 용량이 크게 줄어들 예정이다. <strong>분리(로테이트)와 압축(컴프레스) 절차를 동시에 치른 후의 최종적인 리눅스 백업 파일명</strong>을 유추해 명시하시오.</summary></details>
+
+<details>
+<summary>(작업형) <code>logrotate</code> 설정 중 여러 로그 파일을 한꺼번에 관리할 때, 개별 파일이 로테이트될 때마다 매번 데몬을 재시작하는 비효율을 막기 위해 <strong>'모든 로그의 로테이션이 끝난 뒤에 단 한 번만'</strong> <code>postrotate</code> 스크립트를 실행하도록 강제하는 옵션을 명시하시오.</summary>
+<blockquote>
+<code>sharedscripts</code>
+</blockquote>
+</details>
+
+##### 시스템 관리자 및 사용자 보안
+
+<details>
+<summary>(단답형) 리눅스의 <code>/etc/securetty</code> 설정과 유사하게, 각 운영체제별로 <strong>최고 관리자(root)의 원격 직접 접속을 원천 차단</strong>하기 위해 수정해야 하는 고유 환경 설정 파일 경로를 각각 쓰시오.
+(A) SunOS (Solaris): <code>CONSOLE</code> 변수를 수정해야 하는 파일
+(B) AIX: <code>rlogin = false</code> 항목을 지정해야 하는 파일</summary>
+<blockquote>
+(A) /etc/default/login<br>
+(B) /etc/security/user
+</blockquote>
+</details>
+<blockquote>
+<code>access_log-20230510.gz</code>
+</blockquote>
+</details>
+
 ### 5. 시스템 해킹
 
 <details>
@@ -4558,34 +5542,768 @@ authpriv (혹은 auth)
 #### 버퍼 오버플로우 공격(Buffer Overflow Attack)
 
 <details>
-<summary>파일 무결성 검사 기능 및 접근 제어를 제공하며, 루트킷(Rootkit) 감염 여부나 파일 시스템의 변경 사항을 주기적으로 모니터링하여 관리자에게 알림을 제공하는 대표적인 오픈소스 기반 침입 탐지 도구(HIDS)의 명칭과 그 탐지 원리를 서술하시오.</summary>
+<summary>(단답형) 연속된 메모리 공간을 사용하는 프로그램에서 할당된 지역 변수 버퍼의 한계치를 넘어선 데이터가 복사될 때 발생하며, 공격자가 스택의 복귀 주소(Return Address)를 악성 코드로 덮어씌워 제어권을 탈취하는 고전적 시스템 해킹 기법을 쓰시오.</summary>
 <blockquote>
-<strong>명령 및 도구</strong>: 트립와이어 (Tripwire)<br>
-<strong>탐지 원리</strong>: 사전에 시스템 내 중요 파일들의 해시(Hash) 값을 계산하여 데이터베이스에 저장해 둔 뒤, 주기적으로 현재 파일들의 해시 값을 재계산하여 원래의 데이터베이스 값과 비교함으로써 위·변조 여부를 탐지한다.
+스택 버퍼 오버플로우 (Stack Buffer Overflow)
 </blockquote>
 </details>
 
 <details>
-<summary>버퍼오버플로우 공격을 완화할 수 있는 방법으로 스택과 힙 영역에 쉘코드 등을 실행하지 못하도록 하는 메모리 보호기법의 명칭을 쓰시오.</summary>
+<summary>(단답형) 버퍼 오버플로우 취약점을 원천적으로 예방하기 위해, 데이터 원본의 길이를 무한정 신뢰하는 취약 버퍼 복사 함수인 <code>strcpy()</code> 대신 '입력될 공간의 최대 길이(len)'를 인자로 한정받아 지정한 바이트만큼만 복사하는 C언어의 안전한 대체 함수를 쓰시오.</summary>
 <blockquote>
-DEP/NX bit (데이터 실행 방지)
+strncpy()
 </blockquote>
 </details>
 
 <details>
-<summary>메모리 공간에서 버퍼 오버플로우가 발생할 때 실행 흐름이 악성 쉘코드(Shellcode)로 넘어가는 것을 방지하기 위해, 실행 파일이 메모리에 적재될 때마다 스택(Stack), 힙(Heap), 라이브러리 등의 주소를 난수화(Randomize)하여 배치하는 메모리 보안 기법의 명칭을 영문 약어로 쓰시오.</summary>
+<summary>(서술형) 메모리에 탑재된 실행 프로세스의 버퍼 오버플로우(Stack Buffer Overflow)가 극도로 치명적인 이유는 실행 제어권 탈취에 있다. 해커가 할당된 스택 지역변수 공간의 한계를 넘어 고의적인 페이로드(Payload)를 무단으로 초과 삽입할 때, '가장 핵심적으로 덮어씌워 변조(Overwrite)'하려는 대상 메모리 레지스터 주소값의 명칭을 기술하고 그 공격 원리를 기술하시오.</summary>
+<blockquote>
+<strong>타겟: 복귀 주소 (Return Address)</strong>.<br>
+원리: 방어선이 뚫린 스택의 할당 크기를 강제로 덮어쓴 후, 특정 서브 함수 호출이 종료되면서 본래 되돌아가야 할 정상 흐름의 분기 명령어 주소 대신 '공격자가 준비한 환경변수 위치나 쉘코드(임의 악성코드) 주소'를 밀어 넣어 CPU 프로세스 제어권을 완전히 갈취하기 위해서이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 보안 약점 방어 프로그래밍(시큐어 코딩) 가이드 상, 문자열 처리 과정에서 입력 버퍼 경계값을 사전에 단속하지 못해 오버플로우를 가장 빈번히 터뜨리는 취약 C언어 함수 3가지 <code>strcat()</code>, <code>strcpy()</code>, <code>gets()</code> 에 대하여, 보안상 버퍼 범위를 엄격하게 체크하는 권장 '안전(Safe) 함수명'을 각각 1개씩 대응하여 짝지어 쓰시오.</summary>
+<blockquote>
+- <code>strcat()</code>  &rarr;  <strong><code>strcat_s()</code></strong> (또는 <code>strncat()</code>)<br>
+- <code>strcpy()</code>  &rarr;  <strong><code>strcpy_s()</code></strong> (또는 <code>strncpy()</code>)<br>
+- <code>gets()</code>  &rarr;  <strong><code>gets_s()</code></strong> (또는 <code>fgets()</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 운영체제 및 컴파일러 레벨의 가장 강력한 버퍼 오버플로우 등 메모리 해킹 무력화 기법으로 대표되는 두 가지가 있다. 스택 영역에 쉘코드를 올리더라도 시스템 통제하에 해당 구역의 코드를 실행 불가능하도록 강제하는 '실행 불가능 스택(Non-executable stack)' 설정 기능, 그리고 메모리 주소 공간을 프로세스 실행(런타임)마다 매번 무작위 공간으로 재배치하여 해커가 공격 스택 목적 주소(Return Address)를 쉽게 추측하지 못하게 교란하는 이 '메모리 공간 난수화 방어 기법'의 영문 약어를 쓰시오.</summary>
 <blockquote>
 ASLR (Address Space Layout Randomization)
 </blockquote>
 </details>
 
+<details>
+<summary>(단답형) 실행 파일이 메모리에 적재될 때, 공격자가 쉘 코드 메모리를 정적으로 타겟팅하는 것을 완전 방해할 목적으로 스택(Stack), 힙(Heap), 라이브러리 등이 매핑되는 베이스 주소 공간 체계를 매번 무작위 난수로 뒤섞어버리는 보안 기법의 영문 약자 4글자를 쓰시오.</summary>
+<blockquote>
+ASLR (Address Space Layout Randomization)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 스택(Stack) 버퍼 오버플로우 방어를 목적으로 고안된 컴파일러 기법인 <strong>스택 가드(Stack Guard)</strong> 가 카나리(Canary Word)를 삽입하여 침해를 탐지해 내는 메모리 배치 원리와 프로세스 정지 기준 로직을 서술하시오.</summary>
+<blockquote>
+함수에 진입해 스택이 할당될 때 <strong>지역 변수(버퍼)와 복귀 주소(RET) 사이에 특정한 랜덤 인증 문자열인 카나리 단어(Canary Word)를 몰래 끼워 넣는 원리</strong>다. 이후 공격자가 버퍼를 넘치게 만들어 RET로 향하려면 반드시 거쳐야 하는 이 카나리 값이 훼손된 것을 <strong>함수 종료 타임(Return 직전)에 대조 검증하여 값이 바뀌어 있다면 오버플로우 공격으로 간주해 프로그램 실행을 즉각 강제 중단</strong>시킨다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스의 스택 프레임(Stack Frame)에서 BOF 공격 시 버퍼 영역을 쓰레기(ex: A 문자의 반복)로 채운 뒤 SFP를 넘어, 궁극적으로 공격자가 변조하려는 핵심 4바이트 <strong>RET(Return Address)</strong> 영역의 시스템 내 본래 역할이 무엇인지 운영체제 관점에서 서술하시오.</summary>
+<blockquote>
+정상적인 상황에서 RET는 현재 실행 중인 서브 함수 처리가 완전히 종료된 직후, <strong>'호출자를 따라 이전 프로그램 메인 스트림으로 되돌아가 이어서 실행해야 할 다음 명령어의 메모리 주소(EIP 백업)'를 담아두고 가리키는 내비게이션 역할</strong>을 수행한다. 공격자는 이 지시자의 방향을 자신의 악성 쉘코드가 존재하는 메모리로 우회 점프시키기 위해 변조 타겟으로 삼게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 방어 프로그래밍 시, 전송받은 문자열 크기가 버퍼를 넘는지 확인하기 위해 <code>if (strlen(argv[1]) &gt; sizeof(buffer)) { exit(-1); }</code> 와 같은 사전 검증 방식을 종종 구현한다. 이와 같이 검사 로직을 짤 때 치명적인 <strong>'단 1바이트 크기 동일(오프 바이 원)' 취약점 위험</strong>이 여전히 도사리는 원인을 C언어의 문자열 종결 구조와 연관지어 서술하시오.</summary>
+<blockquote>
+C언어의 문자열은 문자가 끝남을 메모리에 알리기 위해 반드시 눈에 보이지 않는 종결 표식인 <strong>널 바이트(NULL, <code>0x00</code>)가 1바이트만큼 추가로 맨 뒤에 적재</strong>되어야 한다. 그러나 <code>strlen()</code> 함수는 오로지 널 문자를 뺀 순수 내용 텍스트 길이만 카운팅해서 반환하므로, 검증문을 통과한 데이터가 만약 실제 버퍼 칸 수와 완전히 꽉 차게 동일한 경우 은밀하게 동반된 널 바이트 1바이트가 끝 버퍼 지붕을 뚫고 초과 기록되어 프레임 포인터를 간섭하게 되는 치명적 허점이 생긴다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>buf_over.c</code> 취약 프로그램 실습 소스코드의 <code>shell_code()</code> 함수 안에 시스템 관리자 권한을 강제로 상속시키기 위한 내부 프로세스 UID 변경 코드(rUID, eUID) 1줄이 포진해 있다. 일반 사용자가 이 쉘을 터뜨렸을 때 <strong>실질적인 최고 통제 권한(root, 사용자 식별 번호 0)으로 자신에 빙의되도록</strong> 작성된 C언어 구문을 유추하여 쓰시오.</summary>
+<blockquote>
+<code>setreuid(0,0);</code> (또는 <code>setuid(0);</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) <code>strcpy()</code> 대신 안전한 버퍼 코딩을 위해 교체 사용된 <code>strncpy(buffer, argv[1], sizeof(buffer) - 1);</code> 문법에서, 길이(len) 부분인 세 번째 인자에 <strong>고의로 버퍼 전체 크기보다 -1 을 명시하고 확보해 둔 남겨진 여백 1Byte 공백 공간이 프로그램 종료 전 어떠한 데이터를 꽂아넣기 위한 자리(예약석)</strong>인지 그 명칭을 영문 또는 기호로 쓰시오.</summary>
+<blockquote>
+NULL 문자 (또는 <code>\0</code>, <code>0x00</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 취약한 바이너리 파일(<code>buf_over</code>)에 오버플로우를 발생시키려 한다. 할당된 타겟 버퍼 크기와 SFP를 덮어쓰기 위해 의미 없는 쓰레기 문자 <code>A</code> 16개를 투입한 뒤, 공격 목적지인 쉘 코드의 메모리 주소 <code>0x08048544</code> 위치로 RET를 덮어쓰려 한다. <strong>리틀 엔디안 방식의 바이트 배열을 파이프 출력해 인자를 먹이기 위해 구성한 다음 인라인 펄(Perl) 스크립트 실행 명령어 구조체 하나</strong>를 그대로 조립해 쓰시오.</summary>
+<blockquote>
+<code>perl -e 'print "A"x16, "\x44\x85\x04\x08"'</code>
+</blockquote>
+</details>
+
 #### 레이스 컨디션 공격(Race Condition Attack)
+
+<details>
+<summary>(단답형) 둘 이상의 프로세스나 스레드가 공유 자원(파일, 메모리 공간 등)에 동시에 접근할 때, 이들이 실행되는 순서나 타이밍에 따라 예측할 수 없는 비정상적인 결과가 발생하는 보안 취약점 환경 조건/상황을 의미하는 용어는?</summary>
+<blockquote>
+레이스 컨디션 (Race Condition)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 레이스 컨디션 공격 구조에서, 공격자가 실행 중인 프로세스의 임의 생성 임시 파일 경로를 탈취하여 최종 목표인 핵심 시스템 파일(<code>/etc/shadow</code> 등)로 몰래 우회 연결시키는 '가짜 길(바로가기)' 기반의 파일 시스템 링크 기법은?</summary>
+<blockquote>
+심볼릭 링크 (Symbolic Link)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 레이스 컨디션 공격을 완화하기 위한 기본적인 대응 절차 중, 임시 파일이 생성될 때 지나친 쓰기 권한이 부여되지 않게 제한하고 공격자에 의해 파일이 임의 삭제(변조)되지 않도록 기본(Default) 파일 퍼미션 마스크를 '최소 022' 정도로 안전하게 유지하도록 제어하는 유닉스/리눅스 환경변수 설정 명령어는?</summary>
+<blockquote>
+umask
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 125~127) 다음 소스코드(<code>victim.c</code>, <code>attacker.c</code>)와 연관된 공격의 명칭과 대응 방안을 서술하시오.
+[victim.c] <code>fd=open(tmp, O_CREAT|...); write(fd, ...); close(fd); remove(tmp);</code>
+[attacker.c] <code>while(1) { system("ln -s /etc/passwd /tmp/race.tmp"); }</code></summary>
+<blockquote>
+공격 명칭: <strong>레이스 컨디션(Race Condition) 공격</strong><br>
+방안: ① 가능하면 임시 파일을 생성하지 않는다. ② 파일 생성 시 이미 동일한 파일이 존재하는지 체크하거나 덮어쓰기를 금지한다. ③ <code>umask</code>를 최소 022 정도로 유지하여 권한을 제한한다. ④ 심볼릭 링크를 확인하여 링크가 걸려 있으면 실행하지 않는다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 레이스 컨디션 공격의 핵심 원리인 <strong>TOCTOU (Time of Check to Time of Use)</strong> 개념을 위 소스코드의 시나리오와 연결하여 설명하시오.</summary>
+<blockquote>
+<strong>검사 시점(Time of Check)</strong>과 <strong>사용 시점(Time of Use)</strong> 사이의 시간 간격을 이용하는 것이다. <code>victim</code>이 임시 파일을 생성/검사하는 타이밍과 실제 데이터를 쓰는 타이밍 사이에, <code>attacker</code>가 동일한 이름의 파일로 <code>/etc/passwd</code>에 대한 심볼릭 링크를 생성함으로써 관리자 권한으로 중요 파일을 변조하게 되는 원리이다.
+</blockquote>
+</details>
+
+
+<details>
+<summary>(서술형) 레이스 컨디션 시나리오에서 일반 사용자(kiwi99)의 C 프로그램 실행 환경이 어떻게 감히 리눅스의 가장 강력한 통제 구역인 <code>/etc/shadow</code> 파일을 조작하고 'root' 레벨로 권한을 탈취(상승)시킬 수 있었는지, 실행 파일에 부여된 <strong>특수 권한 플래그</strong>의 구조적 특성을 포함하여 작동 원리를 서술하시오.</summary>
+<blockquote>
+가장 결정적 이유는 해킹에 악용된 타겟 실행 파일(<code>race_cond</code>)에 <strong>SetUID(Set User ID)</strong> 퍼미션이 이미 부여되어 있었기 때문이다. SetUID가 달린 프로그램을 실행하는 유지 시간 동안에는, 명령을 친 일반 사용자의 껍데기가 아니라 그 **실행 파일의 원론적인 소유자(root) 권한으로 임시 신분 상승(승격)**되어 동작하므로 root만이 건드릴 수 있는 <code>/etc/shadow</code>에도 거침없이 쓰기 명령이 먹혀들어간 것이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 공격자가 악용한 심볼릭 링크(<code>/tmp/tmp.dat</code>)를 통한 무단 덮어쓰기를 사전에 방어하기 위해, C 프로그래밍 소스코드 단계에서 '동일한 이름의 임시 파일이 미리 존재하는지 여부를 체크'하는 검증 로직이 필수로 권장된다. <strong>이러한 사전 파일 검증이 레이스 컨디션 보안 관점에서 근본적으로 어떠한 위협을 끊어내는 목적</strong>인지 서술하시오.</summary>
+<blockquote>
+공격자는 프로그램이 기동하기 직전 타이밍에 <strong>결과 위치가 될 임시 파일명(<code>tmp.dat</code>)으로 심볼릭 링크 파일을 앞질러 생성해 두고(경쟁 우위 선점) 함정을 파서 대기</strong>한다. 따라서 프로그램이 파일을 비로소 생성/쓰기 하려 접근할 때 <strong>이미 동일한 이름의 파일(공격자의 미리 깔린 링크)이 존재한다면 함정에 빠진 것으로 간주하고 프로세스를 즉결 중단</strong>시킴으로써, 원치 않는 목적 파일(shadow)로 유도되어 박살나는 덮어쓰기 하이재킹 피해를 원천 봉쇄하기 위함이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 시스템 관리 측면에서 제시되는 레이스 컨디션 방어 대책 중, <strong>'가능하면 임시 파일을 아예 생성하지 않는다.'</strong> 와 <strong>'어쩔 수 없이 사용하고자 하는 파일에 (l)링크가 걸려 있으면 실행을 중단한다.'</strong> 가 공유하는 본질적인 방어 철학을 '공격의 매개체(경로)' 측면에서 둘을 묶어서 서술하시오.</summary>
+<blockquote>
+레이스 컨디션 취약점의 핵심 매개체는 결국 공격자가 교묘하게 장난칠 대상인 <strong>'임시 파일'</strong>과 그 길을 틀어버리는 <strong>'심볼릭 링크'의 결합 구조</strong>이기 때문이다. 아예 타겟으로 잡힐 중간 거점(임시 파일)을 만들지 않아 길목을 삭제해 버리거나, 어쩔 수 없이 만들어야 하더라도 대상이 심볼릭 링크(Symbolic Link) 속성을 띠는지 파일 타입을 점검하여 조금이라도 변조(링크)의 흔적이 보인다면 쓰기 접근을 원천 거부하는 방식으로, <strong>'파일 연결 고리 기반의 속임수 경로' 자체를 무력화시키는 철학</strong>을 지닌다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 시스템 내 시스템 비밀번호를 관장하는 <code>/etc/shadow</code> 값을 변조할 심산으로, 공격자가 대상 C 프로그램이 뱉어낼 임시 목적지인 <code>/tmp/tmp.dat</code> 파일에서 도착지 <code>/etc/shadow</code>를 향하도록 물리적 <strong>이정표 링크(가짜 길)를 단단히 매어두는 연결 명령어 1줄</strong>을 인자 순서에 맞게 구성하시오.</summary>
+<blockquote>
+<code>ln -s /etc/shadow /tmp/tmp.dat</code> (원본 목적지 타겟 경로가 앞, 새롭게 파놓을 가짜 심볼릭 링크 경로가 뒤에 온다)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 일반 계정 소유의 공격자가 시스템에 등록하고 컴파일한 <code>race_cond</code>라는 이진 실행 파일에, 실행되는 순간 최고 <strong>root 등급의 권한을 실어주기 위해 SetUID 비트 퍼미션(S)을 사용자 권한(u)에 덧씌우는 문자 결합형 터미널 통제 명령어</strong> 구조를 작성하시오.</summary>
+<blockquote>
+<code>chmod u+s race_cond</code> (또는 파일 소유자가 root일 때 <code>chmod 4755 race_cond</code> 로 4000번대 특수 비트 부여)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 취약점이 도사리는 구조상 <code>race_cond</code>라는 실행 파일은 첫 번째 인자로 '대상 파일 경로'를, 두 번째 인자로 '주입할 문자열 데이터'를 받는다. 공격자가 터미널에서 <code>race_cond</code>를 타격하여 가짜 임시 파일인 <code>/tmp/tmp.dat</code> 내부로 <strong>비밀번호가 아예 파기되어 인증 없이 뚫리는 텅 빈 root 해시(<code>root::16118:0:99999:7:</code>) 텍스트를 인자로 꽉꽉 밀어 넣는 명령어 실행 라인 전체</strong>를 똑같이 조립해 작성하시오.</summary>
+<blockquote>
+<code>./race_cond /tmp/tmp.dat root::16118:0:99999:7:</code>
+</blockquote>
+</details>
 
 #### 포맷 스트링 공격(Format String Attack)
 
 <details>
-<summary>공격자가 악성 스크립트나 명령어를 삽입하기 위해 취약한 C언어 함수(printf, sprintf 등)를 악용하여 메모리를 변조하거나 정보를 유출하는 공격 기법을 '포맷 스트링(Format String) 공격'이라 한다. 메모리의 특정 위치에 값을 쓰기 위해 공격자가 주로 사용하는 포맷 스트링 인자(Format Specifier) 하나를 쓰시오.</summary>
+<summary>(단답형) C 언어의 <code>printf()</code> 함수 등에서 인자 값을 출력할 때 사용하는 서식 지시자(포맷 스트링)를 악용하여, 외부로부터 입력된 값을 검증하지 않고 입출력 문자열로 그대로 사용하여 메모리 구조를 읽고/쓰는 공격 기법의 명칭은?</summary>
+<blockquote>
+포맷 스트링 공격 (Format String Attack)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 포맷 스트링 지시자들은 대부분 메모리의 값을 화면에 '출력'하기 위해 쓰인다. 하지만 이 공격의 핵심이 되는 특수 지시자로서, 유일하게 <strong>'이전까지 출력한 문자의 총 바이트 수'를 계산해 특정 메모리 주소 공간에 꽂아 넣는(저장) 용도</strong>로 악용되는 식별자 2글자는?</summary>
 <blockquote>
 %n (또는 %hn)
 </blockquote>
 </details>
+
+<details>
+<summary>(단답형) 공격자가 응용 프로그램에 의도적으로 다수의 <code>%x</code>나 <code>%p</code> 같은 출력 지시자를 밀어 넣어 화면에 에러나 알 수 없는 값들을 무작위로 뜨게 만들 때, 이는 궁극적으로 공격자가 덮어쓸 메모리의 정확한 <strong>어떤 정보 스택 구조 영역</strong>을 엿보기 위한 목적인가?</summary>
+<blockquote>
+스택 메모리 주소 (Stack Memory / Return Address 위치 추적)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 취약한 코드 예시인 <code>printf(argv[1]);</code> 구문이 왜 포맷 스트링 공격에 직격탄을 맞는지, <code>printf</code> 함수의 구조적 해석 방식과 공격자의 조작 관점을 엮어서 서술하시오.</summary>
+<blockquote>
+<code>printf</code> 함수는 들어오는 첫 번째 인자를 '포맷 스트링 식별자(형식 지정자)' 자체가 들어있는 틀로 간주하고 내부 바이트를 샅샅이 파싱한다. 때문에 공격자가 프로그램의 첫 번째 실행 인자인 <code>argv[1]</code> 에 고의로 <code>%x</code>나 <code>%n</code> 같은 서식 문자를 교묘하게 섞어 던지면, 함수는 이를 단순 문자열 데이터가 아닌 '시스템 메타 명령(서식 지시)'으로 착각하고 고스란히 컴파일하여 동작시키므로 메모리 유출이나 변조가 발생하는 취약점이 생긴다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 공격자가 <code>%n</code> 지시자를 활용하여 덮어쓰려 하는 스택의 핵심 과녁인 <strong>Return Address(RET)</strong> 영역의 역할을 서술하고, 왜 이곳에 <code>%n</code> 연산 값을 강제로 채워 넣는 것이 임의의 코드(쉘코드) 실행으로 이어지는지 공격 원리를 서술하시오.</summary>
+<blockquote>
+Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래 프로그램 흐름으로 돌아갈 '다음 명령어 수행 지표 주소'를 가리킨다. 공격자는 <code>%n</code>의 특수 기능(이전까지 출력된 문자열의 누적 바이트 개수 정수 값)을 이용해 자기가 세팅한 쉘코드의 메모리 주소 숫자(예: <code>0x08048544</code>)만큼 교묘하게 공백 문자 체인을 길게 채워 출력하게 만든 뒤, 그 도합 결괏값을 RET 영역에 강제로 덮어씌운다. 그러면 프로그램 종료 시 오염된 RET가 지시하는 쉘코드 주소로 실행 흐름이 강제 우회 점프하여 시스템이 탈취된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) C 언어 취약성 점검 결과, 개발자가 포맷 스트링 값을 사용자 입력으로 조작할 수 없도록 방어하기 위해 <code>printf("%s", argv[1]);</code> 형태로 코드를 견고하게 수정했다. 이렇게 리팩토링된 코드가 어떠한 메커니즘으로 포맷 스트링 공격을 방어해 내는지 서술하시오.</summary>
+<blockquote>
+함수의 첫 번째 인자 자리에 고정된 문자열 틀인 <code>"%s"</code>를 단단히 박아(하드코딩) 포맷 스트링 형식을 개발자가 통제 및 확정 지었다. 그 결과 사용자가 뒤쪽의 <code>argv[1]</code> 값에 제아무리 <code>%x</code>, <code>%n</code> 과 같은 악의적인 서식 문자를 잔뜩 실어 보내도, 시스템은 이를 무조건 '단순한 일반 텍스트 문장 집합(String)' 하나로만 간주하여 기계적으로 취급하고 출력해 버리기 때문에 서식 지시자로서의 파트 기능이 완전 무력화된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 어떤 문자열 출력 프로그램에 공격자가 <code>%x %x %x %x</code> 를 인자로 주어 실행시켰더니 <code>080484e4 bffff904 400155a4 0</code> 같은 메모리 스택 값들이 줄줄이 쏟아져 나왔다. 이때 공격자가 호출하여 <strong>메모리 값을 16진수(Hexadecimal) 텍스트 형태로 시각화해 빼내는 데 악용한 포맷 식별자(Format Specifier)</strong>를 기호로 쓰시오.</summary>
+<blockquote>
+%x
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 포맷 스트링의 <code>%n</code> 공격을 효과적으로 성공시키기 위해, 공격자는 자신이 덮어쓰고 싶은 4바이트 단위 주소 값을 분할하여 처리하기도 한다. 이때 <code>%n</code> 대신 <strong>2바이트(Half word) 단위로 끊어서 더욱 빠르고 정교하게 값을 메모리에 변조 기록할 때 쓰는 파생 식별자</strong>를 기호로 쓰시오.</summary>
+<blockquote>
+%hn
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 개발 중인 모니터링 프로그램 소스코드 중앙에 사용자로부터 입력 받은 문자열 <code>user_input</code> 을 그대로 출력해 주는 <code>printf(user_input);</code> 한 줄이 존재한다. 모의 해킹 결과 이 라인이 포맷 스트링 공격 타겟으로 판정되었다. <strong>이 취약한 라인 단 한 줄을 공격 원천 차단 관점에서 가장 안전하고 표준화된 올바른 형태의 C 구조로 재작성하시오.</strong></summary>
+<blockquote>
+<code>printf("%s", user_input);</code>
+</blockquote>
+</details>
+
+## [2] UNIX/Linux 서버 취약점
+
+### 1. 계정 관리
+
+#### root 이외의 UID가 0 금지
+
+#### 패스워드 복잡성 설정
+
+#### 패스워드 최소 길이 설정
+
+#### 패스워드 최소 사용기간 설정
+
+#### 패스워드 파일 보호
+
+#### Session Timeout 설정
+
+### 2. 파일 및 디렉터리 관리
+
+#### root 홈, 패스 디렉터리 권한 및 패스 설정
+
+#### 파일 및 디렉터리 소유자/소유그룹 설정
+
+#### World writable 파일 점검
+
+#### 주요 파일 소유자 및 권한 설정
+
+<details>
+<summary>(기출: 122) 주요 메모리 해킹법 중 하나인 <strong>버퍼 오버플로우(Buffer Overflow)의 예방책</strong> 4가지를 서술하시오.</summary>
+<blockquote>
+1) <strong>스택가드(StackGuard)</strong>: 스택 상의 복귀주소와 변수 사이에 특정 값(Canary)을 삽입하여 변조 여부를 확인<br>
+2) <strong>스택쉴드(StackShield)</strong>: 함수 시작 시 리턴 주소를 별도의 특수 스택(Global RET)에 저장했다가 종료 시 비교<br>
+3) <strong>ASLR (Address Space Layout Randomization)</strong>: 실행 시마다 메모리 주소 배치를 난수화하여 특정 주소 호출 차단<br>
+4) <strong>안전한 함수 사용</strong>: 입력값 크기 검증이 없는 취약한 함수(strcpy 등) 대신 안전한 함수(strncpy 등) 사용
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 123) 버퍼 오버플로우 대응 기술인 <strong>카나리 단어(Canary Word)</strong>와 <strong>ASLR</strong>의 공격 차단 원리를 각각 설명하시오.</summary>
+<blockquote>
+1) <strong>카나리 단어</strong>: 리턴 주소 앞에 저장된 특정 값이 버퍼 오버플로우로 인해 변조되면, 이를 감지하여 프로그램 실행을 중단함으로써 복귀 주소 조작을 차단한다.<br>
+2) <strong>ASLR</strong>: 스택, 힙, 라이브러리 등의 주소를 매번 랜덤하게 변경하여 공격자가 실행하고자 하는 악성 코드나 함수(libc 등)의 정확한 메모리 주소를 예측하지 못하게 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 124) 다음 리눅스 명령어의 기능과 그 이유를 서술하시오.
+<code>echo 2 > /proc/sys/kernel/randomize_va_space</code></summary>
+<blockquote>
+기능: 리눅스 커널의 <strong>ASLR 설정을 2(Full Randomization)로 활성화</strong>하여 스택, 라이브러리, 힙 영역을 모두 매번 다른 주소에 배치하도록 한다.<br>
+이유: 공격자가 메모리상의 특정 주소를 타겟으로 하는 공격(Return-to-libc 등)을 성공시키기 어렵게 만들어 버퍼 오버플로우 위협에 대비하기 위함이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) ASLR 설정값(0, 1, 2)에 따른 차이점를 기술하고, <strong>DEP(Data Execution Prevention) / NX(No-Execute) Bit</strong>와의 공통점 및 차이점을 간략히 설명하시오.</summary>
+<blockquote>
+1) <strong>설정값 차이</strong>: 0은 해제, 1은 스택/라이브러리 랜덤화, 2는 힙(Heap) 영역까지 포함한 전체 랜덤화를 의미한다.<br>
+2) <strong>비교</strong>: ASLR은 주소를 <strong>숨기는(Randomize)</strong> 기술인 반ment, DEP/NX Bit는 스택/힙 영역의 <strong>실행 권한을 제거(Prevent)</strong>하는 기술이다. 둘 다 메모리 취약점 공격의 성공을 물리적으로 어렵게 만든다는 공통점이 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 125~127) 다음 소스코드(<code>victim.c</code>, <code>attacker.c</code>)와 연관된 공격의 명칭과 대응 방안을 서술하시오.
+[victim.c] <code>fd=open(tmp, O_CREAT|...); write(fd, ...); close(fd); remove(tmp);</code>
+[attacker.c] <code>while(1) { system("ln -s /etc/passwd /tmp/race.tmp"); }</code></summary>
+<blockquote>
+공격 명칭: <strong>레이스 컨디션(Race Condition) 공격</strong><br>
+방안: ① 가능하면 임시 파일을 생성하지 않는다. ② 파일 생성 시 이미 동일한 파일이 존재하는지 체크하거나 덮어쓰기를 금지한다. ③ <code>umask</code>를 최소 022 정도로 유지하여 권한을 제한한다. ④ 심볼릭 링크를 확인하여 링크가 걸려 있으면 실행하지 않는다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 레이스 컨디션 공격의 핵심 원리인 <strong>TOCTOU (Time of Check to Time of Use)</strong> 개념을 위 소스코드의 시나리오와 연결하여 설명하시오.</summary>
+<blockquote>
+<strong>검사 시점(Time of Check)</strong>과 <strong>사용 시점(Time of Use)</strong> 사이의 시간 간격을 이용하는 것이다. <code>victim</code>이 임시 파일을 생성/검사하는 타이밍과 실제 데이터를 쓰는 타이밍 사이에, <code>attacker</code>가 동일한 이름의 파일로 <code>/etc/passwd</code>에 대한 심볼릭 링크를 생성함으로써 관리자 권한으로 중요 파일을 변조하게 되는 원리이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 140) <code>ls -l</code> 명령 실행 후 나타나는 다음 필드들의 의미를 예시에서 선택하시오.
+<code>(1)rwx (2)r-x (3)r-x (4)5 (5)root (6)root (7)59 (8)2012-01-14 18:28 result.dat</code>
+[예시: 그룹, 소유주, 소유주 권한, 그룹 권한, 3자 권한, 하드 링크 수, 크기, 수정 시간, 파일명]</summary>
+<blockquote>
+(1) 소유주 권한 (2) 그룹 권한 (3) 3자 권한 (4) 하드 링크 수 (5) 소유주 (6) 그룹 (7) 크기 (8) 수정 시간
+</blockquote>
+</details>
+
+## [3] 윈도우 서버 취약점
+
+### 1. 계정 관리
+
+#### Administrator 계정 이름 변경 또는 보안성 강화
+
+<details>
+<summary>(기출: 133) 다음은 윈도우의 로컬 보안 설정 중 암호 정책 화면이다. 설정된 각 항목의 보안상 의미를 간략히 설명하시오.
+1) 패스워드는 복잡성을 만족해야 함: <strong>사용</strong>
+2) 최근 암호 기억: <strong>4개 암호 기억됨</strong>
+3) 최대 암호 사용 기간: <strong>90일</strong>
+4) 최소 암호 길이: <strong>8문자</strong>
+5) 최소 암호 사용 기간: <strong>1일</strong></summary>
+<blockquote>
+1) <strong>복잡성 만족</strong>: 영문 대소문자, 숫자, 특수문자 중 3종류 이상을 조합하도록 강제하여 추측 공격에 대비함<br>
+2) <strong>최근 암호 기억</strong>: 이전에 사용했던 4개의 암호를 다시 사용할 수 없게 하여 암호 재사용을 방지함<br>
+3) <strong>최대 사용 기간</strong>: 90일마다 암호를 변경하게 하여 유출된 암호의 유효 기간을 제한함<br>
+4) <strong>최소 암호 길이</strong>: 최소 8자 이상으로 설정하여 무차별 대입 공격(Brute-force)의 소요 시간을 늘림<br>
+5) <strong>최소 사용 기간</strong>: 암호 변경 후 최소 1일은 유지하게 하여, 사용자가 '최근 암호 기억' 제한을 피하기 위해 암호를 연속으로 수차례 바꿔 예전 암호로 되돌리는 행위를 차단함
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 위 설정 중 <strong>'최근 암호 기억'</strong> 설정을 무력화하기 위해 사용자가 시도할 수 있는 편법과, 이를 효과적으로 차단하기 위한 <strong>'최소 암호 사용 기간'</strong>의 적절한 설정 원리를 설명하시오.</summary>
+<blockquote>
+사용자는 자신이 선호하는 예전 암호를 다시 쓰기 위해, 암호를 여러 번 즉시 변경하여 '최근 기억' 리스트에서 예전 암호를 밀어내려 시도할 수 있다. 이를 방지하기 위해 <strong>'최소 암호 사용 기간'을 1일 이상으로 설정</strong>하면, 암호를 바꾼 후 일정 시간이 지나야만 다시 바꿀 수 있으므로 이러한 편법적인 연속 변경 행위를 물리적으로 차단할 수 있다.
+</blockquote>
+</details>
+
+
+#### Guest 계정 비활성화
+
+#### 불필요한 계정 제거
+
+#### 관리자 그룹에 최소한의 사용자 포함
+
+#### 패스워드 정책 설정
+
+<details>
+<summary>(기출: 106) 다음 보기는 리눅스 시스템의 보안 설정에 관한 내용이다. 빈칸 (A), (B)에 적절한 용어를 쓰시오.
+- 설정 1. <code>/etc/securetty</code> 파일에 있는 <code>pts/0</code>, <code>pts/1</code> 등 관련 터미널 설정을 모두 제거 또는 주석 처리한다.
+- 설정 2. <code>/etc/pam.d/login</code> 파일을 수정하여 <code>auth required pam_securetty.so</code>를 활성화한다.
+- 목적: 시스템에 있는 ( A )의 ( B )을/를 제한하기 위함이다.</summary>
+<blockquote>
+(A) 루트(root) 계정<br>
+(B) 원격 접속
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 시스템 관리자가 <code>/etc/securetty</code> 파일을 삭제하거나 비워두었을 때, <code>root</code> 계정의 로컬 콘솔(tty1 등) 접속 가능 여부와 그 결과가 보안에 미치는 영향을 기술하시오.</summary>
+<blockquote>
+로컬 콘솔 접속을 포함한 <strong>모든 root 직접 로그인이 차단된다.</strong> <code>securetty</code> 파일이 존재하지 않거나 내용이 비어있으면 root가 로그인할 수 있는 허용 터미널이 전혀 없는 것으로 간주되어 보안은 극단적으로 강화되지만, 물리적 장애 시 관리 접근이 불가능해질 위험이 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 107) 리눅스 시스템 보안 관리자가 원격에서 root 계정으로 터미널 접속한 로그를 발견했다. 다음 물음에 답하시오.
+1) telnet 접속 시 root 계정 접근 제한을 위한 설정 파일은? (pam 모듈 이용)
+2) ssh 접속 시 root 계정 접근 제한을 위한 설정 파일은?
+3) 실패한 로그인 시도 기록을 담고 있는 파일은?
+4) 최근 성공한 로그인 기록을 확인하기 위한 <code>last</code> 명령어의 출력 필드 4가지를 쓰시오.</summary>
+<blockquote>
+1) /etc/securetty (pam_securetty.so 모듈 참조)<br>
+2) /etc/ssh/sshd_config (PermitRootLogin 옵션)<br>
+3) /var/log/btmp (기록), lastb (확인)<br>
+4) 접속계정명, 접속터미널(TTY), 접속IP주소, 로그인 시간, 로그아웃 시간(또는 지속시간)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>last</code> 명령어 결과에서 <strong>'still logged in'</strong>으로 표시되는 항목의 보안적 의미와, 이를 강제로 로그아웃시켜야 할 상황의 판단 근거를 서술하시오.</summary>
+<blockquote>
+현재 해당 사용자가 <strong>시스템에 세션을 유지하며 접속 중임</strong>을 의미한다. 만약 관리자가 인지하지 못한 시간대에 원격 IP에서 'still logged in' 상태로 비정상적인 프로세스를 실행 중이라면, 계정 탈취를 의심하여 <code>skill</code> 또는 <code>kill</code> 명령으로 세션을 즉시 종료해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 108) 레드햇 계열 리눅스에서 <code>pam_cracklib.so</code> 모듈을 사용하여 비밀번호 복잡성 설정을 적용하려 한다. 다음 설정값의 의미를 쓰시오.
+(A) <code>ucredit=-1</code>
+(B) <code>ocredit=-1</code>
+(C) <code>minlen=10</code></summary>
+<blockquote>
+(A) 최소 1자 이상의 대문자(Upper case) 포함 요구<br>
+(B) 최소 1자 이상의 특수문자(Other character) 포함 요구<br>
+(C) 최소 비밀번호 길이를 10자리 이상으로 설정
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 위 설정 항목 중 <strong><code>difok=N</code></strong> 옵션의 의미와, 이것이 사전 대입 공격(Dictionary Attack)이나 추측 공격 방어에 어떻게 기여하는지 설명하시오.</summary>
+<blockquote>
+<code>difok</code>는 <strong>새로운 비밀번호가 이전 비밀번호와 얼마나 달라야 하는지(비트/글자수 단위)</strong>를 지정하는 옵션이다. 이는 사용자가 기존 비밀번호의 끝자리만 바꾸는 식의 취약한 습관을 방지하여, 유출된 과거 비밀번호를 재활용하는 공격을 효과적으로 차단한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 109) 다음 리눅스 <code>/etc/passwd</code> 파일의 출력 결과에서 비정상적인 것으로 판단되는 계정과 그 이유를 서술하시오.
+<code>root:x:0:0:root:/root:/bin/bash</code>
+<code>bin:x:1:1:bin:/bin:/sbin/nologin</code>
+<code>salesteam:x:0:0::/home/salesteam:/bin/bash</code></summary>
+<blockquote>
+대상: <strong>salesteam</strong> 계정<br>
+이유: UID와 GID가 0으로 설정되어 있어, <strong>계정명은 root가 아니지만 실제로는 최고 관리자(root)와 동일한 권한</strong>을 가진 비정상적인 계정이기 때문이다. (백도어 의심)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 110) 관리자가 <code>/etc/xinetd.conf</code> 파일 파일이 악의적으로 변경된 것을 확인했다. 다음 물음에 답하시오.
+1) <code>/etc/passwd</code> 확인 결과 <code>algisa03:x:0:508::/home/algisa03:/bin/bash</code>가 발견되었다면 어떤 사용자를 의심할 수 있는가?
+2) 의심 사용자의 <code>history</code> 파일이 삭제되었을 때, 어떤 로그파일을 분석하여 명령어 사용 내역을 확인할 수 있는가?</summary>
+<blockquote>
+1) <strong>algisa03</strong> (UID가 0으로 설정되어 관리자 권한을 획득함)<br>
+2) <strong>acct / pacct</strong> 로그파일 (프로세스 어카운팅을 통해 실행된 모든 명령어를 기록함)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>xinetd</code>를 통해 실행되는 특정 서비스(예: Telnet)에 대해 <strong>특정 시간대에만 접속을 허용</strong>하거나, <strong>동시 접속자 수를 제한</strong>하려 할 때 <code>xinetd.conf</code>에서 사용하는 지시어(Directive) 2개를 쓰시오.</summary>
+<blockquote>
+1) <code>access_times</code>: 서비스 이용 가능 시간대 지정 (예: 09:00-18:00)<br>
+2) <code>instances</code>: 최대 동시 실행 서비스 개수 제한
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 116) 사내 홈페이지 서버에 보기와 같은 파일이 있다. 각각의 질문에 적절한 명령어를 쓰시오.
+[보기]
+<code>-rw-rw-r-- 1 algisa dev 21 2023-02-15 08:09 data_01</code>
+<code>-rw-rw-r-- 1 algisa dev 23 2023-02-15 19:21 data_02</code>
+1) data_01 파일의 소유자를 root로 설정하시오.
+2) data_02 파일의 소유그룹을 sec로 설정하시오.</summary>
+<blockquote>
+1) <code>chown root data_01</code><br>
+2) <code>chgrp sec data_02</code> (또는 <code>chown :sec data_02</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 117) 사내 백업 서버에 로그인하면 아래와 같은 파일이 있다. 각각의 질문에 적절한 명령어를 쓰시오.
+[보기]
+<code>-rw-r--r-- 1 algisa dev 21 2022-12-23 08:09 .bash_profile</code>
+<code>-rw-rw-r-- 1 algisa dev 23 2023-01-05 19:21 data_01</code>
+<code>-rw-rw-r-- 1 algisa dev 41 2023-01-06 05:10 data_02</code>
+<code>-rw------- 1 algisa dev 15 2023-01-06 05:11 data_03</code>
+<code>-rw-rw-r-- 1 algisa dev 15 2023-01-06 05:12 a.out</code>
+1) a.out 파일의 소유자는 읽기(r), 쓰기(w), 실행(x) 권한을 부여하고 소유그룹과 기타 사용자는 읽기(r), 실행(x)만 가능하도록 권한을 설정하시오.
+2) data_03 파일의 소유그룹 사용자에게 읽기(r), 쓰기(w) 권한을 추가하시오.</summary>
+<blockquote>
+1) <code>chmod 755 a.out</code> (또는 <code>chmod u=rwx,go=rx a.out</code>)<br>
+2) <code>chmod g+rw data_03</code> (또:: <code>chmod 660 data_03</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 특정 디렉터리 내의 모든 하위 파일과 디렉터리에 대해 소유권을 <code>webmaster:www-data</code>로 한꺼번에 변경하고, 심볼릭 링크 파일 자체의 소유권도 변경하고 싶을 때 사용하는 <code>chown</code>의 옵션 2가지를 기술하시오.</summary>
+<blockquote>
+1) <code>-R</code> (Recursive): 하위 모든 파일/디렉터리에 적용<br>
+2) <code>-h</code> (no-dereference): 심볼릭 링크가 가리키는 타겟이 아닌 링크 파일 자체의 소유권을 변경
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 118) 다음은 리눅스 시스템의 파일 접근권한 정보이다. SetUID, SetGID, Sticky Bit에 대해 아래 파일 및 디렉터리에 관하여 소유자(소유그룹)와 접근권한 관계로 각각 설명하시오. (단, 세 번째 /tmp 디렉터리 내의 파일은 root가 아닌 사용자 권한으로 설명하시오)
+1) <code>-r-sr-xr-x root sys /usr/bin/passwd</code>
+2) <code>-r-xr-sr-x root mail /usr/bin/mail</code>
+3) <code>drwxrwxrwt sys sys /tmp</code></summary>
+<blockquote>
+1) <strong>SetUID</strong>: 실행 권한(x) 자리에 's'가 표시됨. 일반 사용자가 이 파일을 실행하는 동안에는 <strong>파일 소유자인 root의 권한</strong>으로 동작하여 <code>/etc/shadow</code> 파일을 수정할 수 있게 함.<br>
+2) <strong>SetGID</strong>: 그룹 실행 권한(x) 자리에 's'가 표시됨. 실행하는 동안 <strong>소유그룹인 mail의 권한</strong>으로 동작하여 메일 스풀 등의 자원에 접근 가능하게 함.<br>
+3) <strong>Sticky Bit</strong>: 기타 사용자 권한 마지막에 't'가 표시됨. 공용 디렉터리로서 누구나 파일을 생성할 수 있지만, <strong>삭제는 파일 소유자나 관리자(root)만 가능</strong>하도록 제한함.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 119~120) 유닉스/리눅스 파일시스템에서 파일의 <strong>MAC Time</strong>을 확인하여 공격자의 파일 위변조 여부를 파악할 수 있다. 3가지 시간 속성을 모두 기술하고 간략히 설명하시오.</summary>
+<blockquote>
+1) <strong>mtime (Modify Time)</strong>: 파일의 <strong>내용(Contents)</strong>이 마지막으로 수정된 시간<br>
+2) <strong>atime (Access Time)</strong>: 파일에 마지막으로 <strong>접근(Access/Read)</strong>한 시간<br>
+3) <strong>ctime (Change Time)</strong>: 파일의 <strong>속성 정보(Metadata: 소유주, 권한 등)</strong>가 마지막으로 변경된 시간
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 공격자가 시스템 침투 후 백도어의 <code>mtime</code>을 정상 파일과 동일하게 조작(Timestamp Manipulation)했을 때, 침해 사고 분석가가 위변조 흔적을 찾기 위해 가장 신뢰할 수 있는 시간 속성은 무엇인지 그 이유와 함께 기술하시오.</summary>
+<blockquote>
+<strong>ctime</strong>이다. <code>touch</code> 명령 등으로 <code>mtime</code>과 <code>atime</code>은 쉽게 과거로 되돌릴 수 있지만, <code>ctime</code>은 파일의 속성이 바뀔 때마다 <strong>커널에 의해 현재 시간으로 갱신</strong>되며 일반적인 사용자 도구로 과거로 조작하기 매우 까다롭기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 121) 다음 보기는 리눅스 시스템의 사용자 계정에 대한 인증 관련 PAM 모듈 설정이다. 각각의 옵션이 의미하는 바를 서술하시오.
+[보기]
+<code>auth required /lib/security/pam_tally.so deny=5 unlock_time=120 no_magic_root</code>
+<code>account required /lib/security/pam_tally.so no_magic_root reset</code></summary>
+<blockquote>
+(1) <code>deny=5</code>: 로그인 시도 <strong>5회 실패 시 계정을 잠금</strong><br>
+(2) <code>unlock_time=120</code>: 계정 잠금 후 <strong>120초(2분)가 지나면 자동으로 잠금을 해제</strong><br>
+(3) <code>no_magic_root</code>: <strong>root 계정은 이 잠금 설정의 적용을 받지 않음</strong> (관리자 잠금 방지)<br>
+(4) <code>reset</code>: 접속 시도 <strong>성공 시 실패 횟수 카운트를 0으로 초기화</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 111) 다음 지문을 읽고 물음에 답하시오.
+리눅스 시스템에서 일반 사용자가 자신의 패스워드를 변경하고자 할 때 ( A ) 명령어를 사용하고 새로운 패스워드는 ( B ) 파일에 저장된다. 이때 ( A ) 명령어(실행파일)에 부여된 실행 권한을 ( C )(이)라 한다.
+1) 빈칸 (A), (B), (C)에 적절한 용어를 기술하시오.
+2) (C)이/가 설정된 프로그램과 설정되지 않은 프로그램을 실행할 때 차이점을 기술하시오.</summary>
+<blockquote>
+1) (A) passwd, (B) /etc/shadow, (C) SetUID (또는 SUID)<br>
+2) <strong>SetUID가 설정된 프로그램</strong>은 실행 시 해당 파일의 소유자 권한으로 동작하지만, <strong>설정되지 않은 프로그램</strong>은 실행한 사용자의 권한으로 동작한다는 차이가 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 112) 다음은 리눅스 시스템에서 <code>w</code> 명령어를 실행했을 때의 결과이다. 설정상 어떠한 취약점이 있는지 두 가지를 서술하시오.
+<code>USER TTY FROM LOGIN IDLE JCPU PCPU WHAT</code>
+<code>root pts/0 10.0.1.40 Tue 16 9:57m 2.70s 2.67s nslookup</code>
+<code>root pts/1 10.0.1.80 06:22 0.00s 0.05s 0.04s python</code>
+<code>root pts/2 10.0.2.72 07:20 21:44 0.01s 0.01s sh test.sh</code>
+<code>root pts/3 10.0.2.72 06:12 50:59 0.01s 0.00s -bash</code>
+<code>root pts/4 10.0.1.34 Thu 15 15:50 12.02s 0.00s -bash</code></summary>
+<blockquote>
+1) <strong>root 계정 원격 직접 접속 취약점</strong>: root 계정이 pts(원격 터미널)를 통해 직접 접속하고 있는 것을 보여주며, 이는 원격 브루트포스 공격의 표적이 될 수 있어 차단 권고 대상이다.<br>
+2) <strong>비정상적인 유휴 시간(IDLE) 방치</strong>: pts/3 등에서 유휴 시간이 매우 길게(50분 이상) 나타나고 있다. 원격 접속 시 일정 시간 활동이 없으면 세션을 타임아웃(TMOUT 설정)시켜야 하는데, 이를 방치하여 세션 하이재킹 등에 취약하다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 113) <code>last</code> 명령의 실행 결과로 나타나는 <strong>"still logged in"</strong>의 의미를 서술하시오.</summary>
+<blockquote>
+해당 사용자가 로그아웃하지 않고 <strong>현재 시스템에 여전히 로그인하여 접속 중임</strong>을 의미한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 114) 다음은 리눅스 시스템의 로그파일에 관한 내용이다. 빈칸에 적절한 명칭 또는 내용을 서술하시오.
+1) (  ): 사용자의 성공한 로그인/로그아웃 정보, 시스템의 Boot/Shutdown 정보를 담고 있는 로그파일로 <code>last</code> 명령으로 확인한다.
+2) <code>utmp</code>: (  )
+3) <code>btmp</code>: (  )
+4) <code>lastlog</code>: (  )</summary>
+<blockquote>
+1) <strong>wtmp</strong><br>
+2) <strong>현재 시스템에 로그인한 사용자 정보</strong>를 담고 있는 파일<br>
+3) <strong>실패한 로그인 시도</strong>에 대한 기록을 담고 있는 파일<br>
+4) <strong>각 사용자의 가장 최근 로그인 시간(마지막 로그인 일시)</strong> 정보를 담고 있는 파일
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 위 4개 파일(wtmp, utmp, btmp, lastlog) 중 텍스트 편집기(vi 등)로 직접 내용을 볼 수 없는 파일을 모두 고르고, 그 이유를 기술하시오.</summary>
+<blockquote>
+대상: <strong>4개 모두 해당</strong><br>
+이유: 이 파일들은 모두 <strong>바이너리(Binary) 형식</strong>으로 기록되기 때문이다. 시스템의 로그인 기록은 보안상 무결성을 유지하고 처리 속도를 높이기 위해 특정 명령어나 유틸리티(last, who, lastb, lastlog 등)를 통해서만 읽을 수 있는 구조로 되어 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 115) 다음은 리눅스 시스템의 로그파일에 관한 내용이다. 각 질문에 답하시오.
+1) 아이디, 터미널, 원격 호스트 명 등 동일한 레코드 형식을 사용하는 로그파일로 <code>utmp</code>, <code>wtmp</code>가 있다. 해당 로그파일 내용의 차이점 3가지를 서술하시오.
+2) 1)번 로그파일과 동일한 레코드 형식을 사용하는 로그파일로 <code>btmp</code>가 있다. <code>btmp</code> 로그파일의 내용은 무엇이며 이를 확인하기 위한 명령어를 쓰시오.
+3) 리눅스 명령어 <code>lastcomm</code>의 기능은 무엇이며 해당 명령어가 참조하는 로그파일을 쓰시오.</summary>
+<blockquote>
+1) ① <strong>기록 시점</strong>: utmp는 현재 정보만, wtmp는 과거부터의 누적 정보를 기록함 ② <strong>파일 크기</strong>: utmp는 거의 고정적이나 wtmp는 계속 증가함 ③ <strong>확인 명령어</strong>: utmp는 who/w, wtmp는 last 명령을 사용함<br>
+2) <strong>실패한 로그인 시도</strong> 기록을 담으며, <strong>lastb</strong> 명령어로 확인한다.<br>
+3) <strong>시스템에서 실행된 모든 명령어의 내역(프로세스 어카운팅)</strong>을 보여주며, <strong>acct (또는 pacct)</strong> 로그파일을 참조한다.
+</blockquote>
+</details>
+
+#### 계정 잠금 정책
+
+### 2. 서비스 관리
+
+#### 하드디스크 기본 공유 제거
+
+#### 공유 권한 및 사용 그룹 설정
+
+#### 불필요한 서비스 제거
+
+#### NetBIOS 바인딩 서비스 구동 점검
+
+### 3. 로그 관리
+
+#### 감사 정책 설정
+
+<details>
+<summary>(기출: 128) 다음은 각 OS별 패스워드 최대 사용 기간(Ageing) 설정 파일이다. 빈칸을 채우시오.
+- SunOS: <code>/etc/default/passwd</code> → ( A )=12
+- Linux: ( B ) → <code>PASS_MAX_DAYS 90</code>
+- AIX: <code>/etc/security/user</code> → ( C )=12
+- HP-UX: <code>/etc/default/security</code> → ( D )=90</summary>
+<blockquote>
+(A) MAXWEEKS<br>
+(B) /etc/login.defs<br>
+(C) maxage<br>
+(D) PASSWORD_MAXDAYS
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 129~131) 다음 질문에 답하시오.
+1) 패스워드 최소 길이(Min Length)를 8자리로 설정하기 위한 각 OS별 지시어(Directive)를 쓰시오. (SunOS, Linux, AIX, HP-UX)
+2) 리눅스의 <code>/etc</code> 디렉터리에 있는 패스워드 정책 설정 파일 이름은 무엇인가?</summary>
+<blockquote>
+1) ① SunOS: <code>PASSLENGTH</code> ② Linux: <code>PASS_MIN_LEN</code> ③ AIX: <code>minlen</code> ④ HP-UX: <code>MIN_PASSWORD_LENGTH</code><br>
+2) <strong>/etc/login.defs</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 132) 유닉스/리눅스 시스템 관리자가 <code>PATH</code> 환경변수의 설정이 다음과 같음을 확인하였다. 이 설정의 보안상 취약점과 조치 방안을 서술하시오.
+<code>PATH=.:$PATH:/usr/bin:/sbin...</code></summary>
+<blockquote>
+취약점: <strong>현재 디렉터리(.)</strong>가 PATH의 맨 앞이나 중간에 위치해 있다. 이 경우 공격자가 만든 악의적인 프로그램(예: ls 등)이 정상 명령어보다 먼저 실행되어 관리자 권한을 탈취당할 위험이 있다.<br>
+조치 방안: <code>PATH</code> 환경변수에서 <strong>'.'을 제거</strong>하거나, 반드시 필요한 경우 <strong>맨 뒤로 이동</strong>시킨다.
+</blockquote>
+</details>
+
+
+<details>
+<summary>(기출: 104) 리눅스 관리자(root)가 <code>cron</code>을 이용하여 매일 새벽 3시에 <code>/root/backup.sh</code> 파일을 실행하고자 한다. <code>crontab -e</code>를 통해 설정해야 할 한 줄을 작성하시오. (분, 시, 일, 월, 요일 순서)</summary>
+<blockquote>
+설정: <strong>0 3 * * * /root/backup.sh</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>cron</code> 설정 필드 중 <strong>'요일'</strong> 항목에 사용할 수 있는 값의 범위(숫자)와, 매주 월, 수, 금 오전 5시에 작업을 수행하고 싶을 때의 설정을 쓰시오.</summary>
+<blockquote>
+1) <strong>값 범위</strong>: <strong>0~6</strong> (0: 일요일, 1: 월요일 ... 6: 토요일, 7도 일요일로 처리되기도 함)<br>
+2) <strong>설정</strong>: <strong>0 5 * * 1,3,5 [실행할_명령]</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 105) 보안 취약점 점검 가이드라인에 따라 각 OS별로 <strong>root 계정의 원격 접속을 제한</strong>하기 위해 점검해야 하는 설정 파일의 경로를 쓰시오.
+1) SunOS (Solaris): /etc/default/( A ) → <code>CONSOLE=/dev/console</code>
+2) AIX: /etc/security/( B ) → <code>rlogin = false</code>
+3) Linux: /etc/( C ) → <code>tty1</code> 또는 <code>#pts/1</code> 설정 확인</summary>
+<blockquote>
+(A) <strong>login</strong><br>
+(B) <strong>user</strong><br>
+(C) <strong>securetty</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 리눅스 시스템에서 <code>/etc/securetty</code> 파일에 <code>pts/0</code>, <code>pts/1</code> 등의 항목을 모두 제거하거나 주석 처리했을 때 얻을 수 있는 보안 효과를 기술하시오.</summary>
+<blockquote>
+<strong>root 계정으로 직접 원격 접속(Telnet 등)하는 것을 원천 차단</strong>하는 효과가 있다. 공격자가 root 패스워드를 알아내더라도 외부에서는 직접 로그인할 수 없으며, 반드시 일반 사용자로 먼저 접속한 뒤 <code>su</code>나 <code>sudo</code> 등을 통해서만 관리자 권한을 획득하도록 강제하여 보안성을 높인다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 133) 다음은 윈도우의 로컬 보안 설정 중 암호 정책 화면이다. 설정된 각 항목의 보안상 의미를 간략히 설명하시오.
+1) 패스워드는 복잡성을 만족해야 함: <strong>사용</strong>
+2) 최근 암호 기억: <strong>4개 암호 기억됨</strong>
+3) 최대 암호 사용 기간: <strong>90일</strong>
+4) 최소 암호 길이: <strong>8문자</strong>
+5) 최소 암호 사용 기간: <strong>1일</strong></summary>
+<blockquote>
+1) <strong>복잡성 만족</strong>: 영문 대소문자, 숫자, 특수문자 중 3종류 이상을 조합하도록 강제하여 추측 공격에 대비함<br>
+2) <strong>최근 암호 기억</strong>: 이전에 사용했던 4개의 암호를 다시 사용할 수 없게 하여 암호 재사용을 방지함<br>
+3) <strong>최대 사용 기간</strong>: 90일마다 암호를 변경하게 하여 유출된 암호의 유효 기간을 제한함<br>
+4) <strong>최소 암호 길이</strong>: 최소 8자 이상으로 설정하여 무차별 대입 공격(Brute-force)의 소요 시간을 늘림<br>
+5) <strong>최소 사용 기간</strong>: 암호 변경 후 최소 1일은 유지하게 하여, 사용자가 '최근 암호 기억' 제한을 피하기 위해 암호를 연속으로 수차례 바꿔 예전 암호로 되돌리는 행위를 차단함
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 위 설정 중 <strong>'최근 암호 기억'</strong> 설정을 무력화하기 위해 사용자가 시도할 수 있는 편법과, 이를 효과적으로 차단하기 위한 <strong>'최소 암호 사용 기간'</strong>의 적절한 설정 원리를 설명하시오.</summary>
+<blockquote>
+사용자는 자신이 선호하는 예전 암호를 다시 쓰기 위해, 암호를 여러 번 즉시 변경하여 '최근 기억' 리스트에서 예전 암호를 밀어내려 시도할 수 있다. 이를 방지하기 위해 <strong>'최소 암호 사용 기간'을 1일 이상으로 설정</strong>하면, 암호를 바꾼 후 일정 시간이 지나야만 다시 바꿀 수 있으므로 이러한 편법적인 연속 변경 행위를 물리적으로 차단할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 134~136) 다음 리눅스 <code>/etc/passwd</code> 및 <code>/etc/shadow</code> 파일의 필드 구조를 보고 물음에 답하시오.
+<code>[passwd] root:x:0:0:root:/root:/bin/bash</code> (①, ②, ③)
+<code>[shadow] root:$6$gAWy...:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
+1) 각 번호(①~⑦)가 의미하는 필드 명칭을 쓰시오.
+2) 관리자가 root 계정의 홈 디렉터리를 <code>/hack2</code>로, 로그인 셸을 <code>/bin2/hack3</code>로 변경했다면 <code>/etc/passwd</code>는 어떻게 수정되는가?</summary>
+<blockquote>
+1) ① 패스워드 표시(x는 shadow 사용) ② GID ③ 홈 디렉터리 ④ 암호화된 패스워드 ⑤ 마지막 암호 변경일(1970/1/1 기준 일수) ⑥ 암호 만료 기간 ⑦ 암호 만료 전 경고 기간<br>
+2) <code>root:x:0:0:root:<strong>/hack2</strong>:<strong>/bin2/hack3</strong></code>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 137) 관리자가 <code>vi /etc/passwd</code>를 열어 확인한 결과 다음과 같은 계정이 발견되었다.
+<code>algisa::5:60:games:/usr/games:/bin/sh</code>
+1) 이 계정의 보안상 취약점은 무엇인가?
+2) 이 취약점을 해결하기 위해 관리자가 즉시 수행해야 할 명령어는 무엇인가?</summary>
+<blockquote>
+1) <strong>패스워드가 설정되어 있지 않음</strong>: 두 번째 필드가 비어 있어 누구나 암호 없이 해당 계정으로 로그인할 수 있는 심각한 상태이다.<br>
+2) <code>passwd algisa</code> (패스워드 신규 설정)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>/etc/shadow</code> 파일의 권한이 <strong>600(rw-------)</strong>이 아닌 <strong>644(rw-r--r--)</strong>로 설정되어 있을 때 발생할 수 있는 보안 위협을 <strong>오프라인 사전 공격(Offline Dictionary Attack)</strong> 관점에서 서술하시오.</summary>
+<blockquote>
+일반 사용자가 <code>/etc/shadow</code> 파일을 읽을 수 있게 되면, 그 안에 저장된 <strong>암호 해시값(Hash)</strong>을 자신의 로컬 PC로 가져갈 수 있다. 이후 <code>John the Ripper</code>나 <code>Hashcat</code> 같은 도구를 사용하여 서버의 자원을 쓰지 않고도 자신의 컴퓨터에서 무차별 대입이나 사전 대입을 수행(오프라인 공격)하여 원래 암호를 알아낼 수 있는 위험이 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy...:18290:1:90:7:::</code>를 분석하시오.
+1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy...</strong> 부분의 명칭을 쓰시오.
+2) 이 파일에 솔트(Salt)를 추가함으로써 <strong>레인보우 테이블(Rainbow Table)</strong> 공격을 어떻게 방어하는지 원리를 쓰시오.
+3) <code>pwunconv</code> 명령어의 기능을 쓰시오.</summary>
+<blockquote>
+1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy...</strong>: <strong>솔트(Salt)</strong><br>
+2) 동일한 평문 암호라도 사용자마다 서로 다른 솔트를 섞어서 해싱하므로 <strong>최종 해시값이 다르게 생성</strong>된다. 따라서 미리 해시값들을 계산해 놓은 레인보우 테이블의 무력화를 유도하여 공격을 방해한다.<br>
+3) <code>pwunconv</code>: <code>/etc/shadow</code>의 암호 정보를 <code>/etc/passwd</code>로 옮기고 shadow 파일을 삭제하여 일반 사용자도 해시를 읽을 수 있게 만드는 명령어이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 139) 특정 사용자의 계정을 잠그거나(Lock) 해제(Unlock)하기 위한 <code>passwd</code> 명령어 옵션을 쓰시오.
+1) algisa 사용자 패스워드 잠금
+2) algisa 사용자 패스워드 잠금 해제</summary>
+<blockquote>
+1) <code>passwd -l algisa</code><br>
+2) <code>passwd -u algisa</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 리눅스에서 특정 계정을 <strong>완전하게 무력화</strong>하기 위해 <strong>계정 잠금(passwd -l)</strong> 외에 <strong>로그인 셸(Login Shell)</strong>을 통해 조치할 수 있는 방안을 기술하시오.</summary>
+<blockquote>
+<code>/etc/passwd</code> 파일에서 해당 사용자의 셸 정보를 <strong><code>/sbin/nologin</code></strong> 또는 <strong><code>/bin/false</code></strong>로 변경한다. 이는 사용자가 로그인을 시도해도 셸을 할당받지 못하게 하여 시스템 접근을 물리적으로 원천 차단하는 효과를 준다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 140) <code>ls -l</code> 명령 실행 후 나타나는 다음 필드들의 의미를 예시에서 선택하시오.
+<code>(1)rwx (2)r-x (3)r-x (4)5 (5)root (6)root (7)59 (8)2012-01-14 18:28 result.dat</code>
+[예시: 그룹, 소유주, 소유주 권한, 그룹 권한, 3자 권한, 하드 링크 수, 크기, 수정 시간, 파일명]</summary>
+<blockquote>
+(1) 소유주 권한 (2) 그룹 권한 (3) 3자 권한 (4) 하드 링크 수 (5) 소유주 (6) 그룹 (7) 크기 (8) 수정 시간
+</blockquote>
+</details>
+
