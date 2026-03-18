@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-17 10:53:27 +09:00
+date modified: 2026-03-18 10:13:17 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1161,7 +1161,7 @@ uid=519(algisa) gid=514(dev) groups=514(dev),10(wheel)
 ##### 입출력 재지정 (I/O Redirection)
 
 <details>
-<summary>(작업형) 리눅스 Bash 쉘 프롬프트에서 방대한 디렉터리 탐색 출력이나 복잡한 파이프 명령 도중 정상 스탠다드 로깅과 시스템 에러 경고들이 터미널 화면 한가운데에 범람하는 것을 분리 통제하고자 한다. <code># ls | sort | wc -l (  ) errorlog.txt</code> 명령을 수행하려 할 때, 이미 기존 시스템 에러 로그 문장이 이전에 누적된 <code>errorlog.txt</code> 파일 내부 맨 밑단에 '오직 표준 에러(STDERR) 텍스트들만 기존 문장을 침범해 지우지 않고 새롭게 덧붙여 연장(Append)'시키기 위한 완전한 부호 조합을 괄호 안에 정답으로 작성하시오.</summary>
+<summary>(작업형) 리눅스 Bash 쉘 프롬프트에서 방대한 디렉터리 탐색 출력이나 복잡한 파이프 명령 도중 정상 스탠다드 로깅과 시스템 에러 경고들이 터미널 화면 한가운데에 범람하는 것을 분리 통제하고자 한다. <code># ls | sort | wc -l ( ) errorlog.txt</code> 명령을 수행하려 할 때, 이미 기존 시스템 에러 로그 문장이 이전에 누적된 <code>errorlog.txt</code> 파일 내부 맨 밑단에 '오직 표준 에러(STDERR) 텍스트들만 기존 문장을 침범해 지우지 않고 새롭게 덧붙여 연장(Append)'시키기 위한 완전한 부호 조합을 괄호 안에 정답으로 작성하시오.</summary>
 <blockquote>
 <code>2&gt;&gt;</code>
 </blockquote>
@@ -3931,13 +3931,12 @@ cron.deny
 
 <details>
 <summary>(기출: 132) 유닉스/리눅스 시스템 관리자가 <code>PATH</code> 환경변수의 설정이 다음과 같음을 확인하였다. 이 설정의 보안상 취약점과 조치 방안을 서술하시오.
-<code>PATH=.:$PATH:/usr/bin:/sbin...</code></summary>
+<code>PATH=.:$PATH:/usr/bin:/sbin…</code></summary>
 <blockquote>
 취약점: <strong>현재 디렉터리(.)</strong>가 PATH의 맨 앞이나 중간에 위치해 있다. 이 경우 공격자가 만든 악의적인 프로그램(예: ls 등)이 정상 명령어보다 먼저 실행되어 관리자 권한을 탈취당할 위험이 있다.<br>
 조치 방안: <code>PATH</code> 환경변수에서 <strong>'.'을 제거</strong>하거나, 반드시 필요한 경우 <strong>맨 뒤로 이동</strong>시킨다.
 </blockquote>
 </details>
-
 
 ##### 사용자의 패스워드 관리
 
@@ -3968,7 +3967,7 @@ cron.deny
 <details>
 <summary>(기출: 134~136) 다음 리눅스 <code>/etc/passwd</code> 및 <code>/etc/shadow</code> 파일의 필드 구조를 보고 물음에 답하시오.
 <code>[passwd] root:x:0:0:root:/root:/bin/bash</code> (①, ②, ③)
-<code>[shadow] root:$6$gAWy...:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
+<code>[shadow] root:$6$gAWy…:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
 1) 각 번호(①~⑦)가 의미하는 필드 명칭을 쓰시오.
 2) 관리자가 root 계정의 홈 디렉터리를 <code>/hack2</code>로, 로그인 셸을 <code>/bin2/hack3</code>로 변경했다면 <code>/etc/passwd</code>는 어떻게 수정되는가?</summary>
 <blockquote>
@@ -3996,12 +3995,12 @@ cron.deny
 </details>
 
 <details>
-<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy...:18290:1:90:7:::</code>를 분석하시오.
-1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy...</strong> 부분의 명칭을 쓰시오.
+<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy…:18290:1:90:7:::</code>를 분석하시오.
+1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy…</strong> 부분의 명칭을 쓰시오.
 2) 이 파일에 솔트(Salt)를 추가함으로써 <strong>레인보우 테이블(Rainbow Table)</strong> 공격을 어떻게 방어하는지 원리를 쓰시오.
 3) <code>pwunconv</code> 명령어의 기능을 쓰시오.</summary>
 <blockquote>
-1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy...</strong>: <strong>솔트(Salt)</strong><br>
+1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy…</strong>: <strong>솔트(Salt)</strong><br>
 2) 동일한 평문 암호라도 사용자마다 서로 다른 솔트를 섞어서 해싱하므로 <strong>최종 해시값이 다르게 생성</strong>된다. 따라서 미리 해시값들을 계산해 놓은 레인보우 테이블의 무력화를 유도하여 공격을 방해한다.<br>
 3) <code>pwunconv</code>: <code>/etc/shadow</code>의 암호 정보를 <code>/etc/passwd</code>로 옮기고 shadow 파일을 삭제하여 일반 사용자도 해시를 읽을 수 있게 만드는 명령어이다.
 </blockquote>
@@ -4023,7 +4022,6 @@ cron.deny
 <code>/etc/passwd</code> 파일에서 해당 사용자의 셸 정보를 <strong><code>/sbin/nologin</code></strong> 또는 <strong><code>/bin/false</code></strong>로 변경한다. 이는 사용자가 로그인을 시도해도 셸을 할당받지 못하게 하여 시스템 접근을 물리적으로 원천 차단하는 효과를 준다.
 </blockquote>
 </details>
-
 
 <details>
 <summary>(단답형) <code>/etc/passwd</code> 파일에서 사용자의 패스워드 필드(두 번째 필드)에 기재되어 있는 문자 <code>x</code>가 기술적으로 의미하는 바를 구체적으로 쓰시오.</summary>
@@ -4123,7 +4121,7 @@ SHA-512 알고리즘
 <details>
 <summary>(기출: 134~136) 다음 리눅스 <code>/etc/passwd</code> 및 <code>/etc/shadow</code> 파일의 필드 구조를 보고 물음에 답하시오.
 <code>[passwd] root:x:0:0:root:/root:/bin/bash</code> (①, ②, ③)
-<code>[shadow] root:$6$gAWy...:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
+<code>[shadow] root:$6$gAWy…:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
 1) 각 번호(①~⑦)가 의미하는 필드 명칭을 쓰시오.
 2) 관리자가 root 계정의 홈 디렉터리를 <code>/hack2</code>로, 로그인 셸을 <code>/bin2/hack3</code>로 변경했다면 <code>/etc/passwd</code>는 어떻게 수정되는가?</summary>
 <blockquote>
@@ -4133,12 +4131,12 @@ SHA-512 알고리즘
 </details>
 
 <details>
-<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy...:18290:1:90:7:::</code>를 분석하시오.
-1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy...</strong> 부분의 명칭을 쓰시오.
+<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy…:18290:1:90:7:::</code>를 분석하시오.
+1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy…</strong> 부분의 명칭을 쓰시오.
 2) 이 파일에 솔트(Salt)를 추가함으로써 <strong>레인보우 테이블(Rainbow Table)</strong> 공격을 어떻게 방어하는지 원리를 쓰시오.
 3) <code>pwunconv</code> 명령어의 기능을 쓰시오.</summary>
 <blockquote>
-1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy...</strong>: <strong>솔트(Salt)</strong><br>
+1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy…</strong>: <strong>솔트(Salt)</strong><br>
 2) 동일한 평문 암호라도 사용자마다 서로 다른 솔트를 섞어서 해싱하므로 <strong>최종 해시값이 다르게 생성</strong>된다. 따라서 미리 해시값들을 계산해 놓은 레인보우 테이블의 무력화를 유도하여 공격을 방해한다.<br>
 3) <code>pwunconv</code>: <code>/etc/shadow</code>의 암호 정보를 <code>/etc/passwd</code>로 옮기고 shadow 파일을 삭제하여 일반 사용자도 해시를 읽을 수 있게 만드는 명령어이다.
 </blockquote>
@@ -4530,7 +4528,6 @@ PAM (Pluggable Authentication Modules)
 <strong>root 계정으로 직접 원격 접속(Telnet 등)하는 것을 원천 차단</strong>하는 효과가 있다. 공격자가 root 패스워드를 알아내더라도 외부에서는 직접 로그인할 수 없으며, 반드시 일반 사용자로 먼저 접속한 뒤 <code>su</code>나 <code>sudo</code> 등을 통해서만 관리자 권한을 획득하도록 강제하여 보안성을 높인다.
 </blockquote>
 </details>
-
 
 <details>
 <summary>(단답형) 시스템 보안 관점에서 공격자가 네트워크를 통해 원격으로 <code>root</code> 최고 관리자 권한을 직접 획득하는 것을 방지하기 위해, 리눅스가 <code>root</code> 사용자의 로그인 접속을 허용하는 "로컬 물리적 터미널(콘솔)" 목록을 별도로 기재하여 통제하는 설정 파일의 절대 경로를 쓰시오.</summary>
@@ -5037,7 +5034,7 @@ lastcomm
 <details>
 <summary>(기출: 088~089) 다음 로그 파일의 출력 결과와 관련된 로그 명칭을 쓰시오.
 (A) <code>w</code>, <code>who</code>, <code>finger</code> 명령 실행 시 참조되는 파일로 현재 접속자 정보를 담은 바이너리 로그
-(B) <code>Wed Mar 3 17:06:06 2004 20 ... ftp 0 * c</code> 와 같은 형식으로 FTP 전송 내역을 담은 로그</summary>
+(B) <code>Wed Mar 3 17:06:06 2004 20 … ftp 0 * c</code> 와 같은 형식으로 FTP 전송 내역을 담은 로그</summary>
 <blockquote>
 (A) <strong>utmp</strong> (또는 /var/run/utmp)<br>
 (B) <strong>xferlog</strong> (또는 /var/log/xferlog)
@@ -5156,7 +5153,7 @@ lastcomm
 <details>
 <summary>(응용) <code>cron</code> 설정 필드 중 <strong>'요일'</strong> 항목에 사용할 수 있는 값의 범위(숫자)와, 매주 월, 수, 금 오전 5시에 작업을 수행하고 싶을 때의 설정을 쓰시오.</summary>
 <blockquote>
-1) <strong>값 범위</strong>: <strong>0~6</strong> (0: 일요일, 1: 월요일 ... 6: 토요일, 7도 일요일로 처리되기도 함)<br>
+1) <strong>값 범위</strong>: <strong>0~6</strong> (0: 일요일, 1: 월요일 … 6: 토요일, 7도 일요일로 처리되기도 함)<br>
 2) <strong>설정</strong>: <strong>0 5 * * 1,3,5 [실행할_명령]</strong>
 </blockquote>
 </details>
@@ -5336,8 +5333,8 @@ authpriv (혹은 auth)
 <blockquote>
 우선순위 지시자는 <strong><code>crit</code> (Critical)</strong> 이다. 이 레벨은 단순히 조치가 필요한 에러(err)보다는 훨씬 심각하여 시스템 파괴 위험성이 존재하는 하드웨어 오류 등을 의미하고, 반면 즉결 처분(alert)이나 전면 중단(emerg)보다는 한 단계 낮은 수준으로서 하드웨어 및 운영체제 레벨의 중대형 크리티컬 상황을 모니터링할 때 쓰인다.
 6) <strong>추출된 로그 양식의 의미 및 우선순위 상속(Hierarchy)</strong><br>
-- <code>Jan 13 00:26:26 CentOS8S systemd[1]: Starting Vsftpd...</code> 메시지에서 <code>CentOS8S</code>는 로그를 발생시킨 <strong>호스트(Hostname)</strong>를, <code>systemd[1]</code>은 로그를 생성한 <strong>프로세스 명과 PID</strong>를 의미한다.<br>
-- 만약 <code>syslog.conf</code> 설정 파일에 <code>*.notice  /var/log/messages</code> 라고 정의되어 있다면, <code>notice</code> 레벨을 포함하여 그보다 <strong>우선순위가 높은(중한) <code>warning</code>, <code>err</code>, <code>crit</code>, <code>alert</code>, <code>emerg</code> 레벨의 메시지들까지 모두</strong> 해당 파일에 기록(상속)된다.
+- <code>Jan 13 00:26:26 CentOS8S systemd[1]: Starting Vsftpd…</code> 메시지에서 <code>CentOS8S</code>는 로그를 발생시킨 <strong>호스트(Hostname)</strong>를, <code>systemd[1]</code>은 로그를 생성한 <strong>프로세스 명과 PID</strong>를 의미한다.<br>
+- 만약 <code>syslog.conf</code> 설정 파일에 <code>*.notice /var/log/messages</code> 라고 정의되어 있다면, <code>notice</code> 레벨을 포함하여 그보다 <strong>우선순위가 높은(중한) <code>warning</code>, <code>err</code>, <code>crit</code>, <code>alert</code>, <code>emerg</code> 레벨의 메시지들까지 모두</strong> 해당 파일에 기록(상속)된다.
 </blockquote>
 </details>
 
@@ -5438,22 +5435,10 @@ logrotate
 </details>
 
 <details>
-<summary>(기출: 104) 리눅스 관리자가 매일 새벽 3시에 <code>/root/backup.sh</code>를 실행하도록 crontab을 설정했다. 빈칸을 채우시오.
-<code>crontab 설정: (A) (B) (C) (D) (E) /root/backup.sh</code></summary>
-<blockquote>
-(A) 0 (분)<br>
-(B) 3 (시)<br>
-(C) * (일)<br>
-(D) * (월)<br>
-(E) * (요일)
-</blockquote>
-</details>
-
-<details>
 <summary>(기출: 105) 다음 OS별 보안 취약점 점검 가이드에 따라 root 사용자의 원격 접속을 제한하는 설정 파일 경로를 각각 쓰시오.
-(A) SunOS (Solaris): <code>/etc/default/(  )</code> 내 <code>CONSOLE=/dev/console</code>
-(B) AIX: <code>/etc/security/(  )</code> 내 <code>rlogin = false</code>
-(C) Linux: <code>/etc/(  )</code> 내 터미널(tty/pts) 제한</summary>
+(A) SunOS (Solaris): <code>/etc/default/( )</code> 내 <code>CONSOLE=/dev/console</code>
+(B) AIX: <code>/etc/security/( )</code> 내 <code>rlogin = false</code>
+(C) Linux: <code>/etc/( )</code> 내 터미널(tty/pts) 제한</summary>
 <blockquote>
 (A) login<br>
 (B) user<br>
@@ -5566,9 +5551,9 @@ strncpy()
 <details>
 <summary>(작업형) 보안 약점 방어 프로그래밍(시큐어 코딩) 가이드 상, 문자열 처리 과정에서 입력 버퍼 경계값을 사전에 단속하지 못해 오버플로우를 가장 빈번히 터뜨리는 취약 C언어 함수 3가지 <code>strcat()</code>, <code>strcpy()</code>, <code>gets()</code> 에 대하여, 보안상 버퍼 범위를 엄격하게 체크하는 권장 '안전(Safe) 함수명'을 각각 1개씩 대응하여 짝지어 쓰시오.</summary>
 <blockquote>
-- <code>strcat()</code>  &rarr;  <strong><code>strcat_s()</code></strong> (또는 <code>strncat()</code>)<br>
-- <code>strcpy()</code>  &rarr;  <strong><code>strcpy_s()</code></strong> (또는 <code>strncpy()</code>)<br>
-- <code>gets()</code>  &rarr;  <strong><code>gets_s()</code></strong> (또는 <code>fgets()</code>)
+- <code>strcat()</code> &rarr; <strong><code>strcat_s()</code></strong> (또는 <code>strncat()</code>)<br>
+- <code>strcpy()</code> &rarr; <strong><code>strcpy_s()</code></strong> (또는 <code>strncpy()</code>)<br>
+- <code>gets()</code> &rarr; <strong><code>gets_s()</code></strong> (또는 <code>fgets()</code>)
 </blockquote>
 </details>
 
@@ -5653,7 +5638,7 @@ umask
 
 <details>
 <summary>(기출: 125~127) 다음 소스코드(<code>victim.c</code>, <code>attacker.c</code>)와 연관된 공격의 명칭과 대응 방안을 서술하시오.
-[victim.c] <code>fd=open(tmp, O_CREAT|...); write(fd, ...); close(fd); remove(tmp);</code>
+[victim.c] <code>fd=open(tmp, O_CREAT|…); write(fd, …); close(fd); remove(tmp);</code>
 [attacker.c] <code>while(1) { system("ln -s /etc/passwd /tmp/race.tmp"); }</code></summary>
 <blockquote>
 공격 명칭: <strong>레이스 컨디션(Race Condition) 공격</strong><br>
@@ -5667,7 +5652,6 @@ umask
 <strong>검사 시점(Time of Check)</strong>과 <strong>사용 시점(Time of Use)</strong> 사이의 시간 간격을 이용하는 것이다. <code>victim</code>이 임시 파일을 생성/검사하는 타이밍과 실제 데이터를 쓰는 타이밍 사이에, <code>attacker</code>가 동일한 이름의 파일로 <code>/etc/passwd</code>에 대한 심볼릭 링크를 생성함으로써 관리자 권한으로 중요 파일을 변조하게 되는 원리이다.
 </blockquote>
 </details>
-
 
 <details>
 <summary>(서술형) 레이스 컨디션 시나리오에서 일반 사용자(kiwi99)의 C 프로그램 실행 환경이 어떻게 감히 리눅스의 가장 강력한 통제 구역인 <code>/etc/shadow</code> 파일을 조작하고 'root' 레벨로 권한을 탈취(상승)시킬 수 있었는지, 실행 파일에 부여된 <strong>특수 권한 플래그</strong>의 구조적 특성을 포함하여 작동 원리를 서술하시오.</summary>
@@ -5780,7 +5764,7 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 
 ### 1. 계정 관리
 
-#### root 이외의 UID가 0 금지
+#### root 이외의 UID 가 0 금지
 
 #### 패스워드 복잡성 설정
 
@@ -5839,7 +5823,7 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 
 <details>
 <summary>(기출: 125~127) 다음 소스코드(<code>victim.c</code>, <code>attacker.c</code>)와 연관된 공격의 명칭과 대응 방안을 서술하시오.
-[victim.c] <code>fd=open(tmp, O_CREAT|...); write(fd, ...); close(fd); remove(tmp);</code>
+[victim.c] <code>fd=open(tmp, O_CREAT|…); write(fd, …); close(fd); remove(tmp);</code>
 [attacker.c] <code>while(1) { system("ln -s /etc/passwd /tmp/race.tmp"); }</code></summary>
 <blockquote>
 공격 명칭: <strong>레이스 컨디션(Race Condition) 공격</strong><br>
@@ -5891,7 +5875,6 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 사용자는 자신이 선호하는 예전 암호를 다시 쓰기 위해, 암호를 여러 번 즉시 변경하여 '최근 기억' 리스트에서 예전 암호를 밀어내려 시도할 수 있다. 이를 방지하기 위해 <strong>'최소 암호 사용 기간'을 1일 이상으로 설정</strong>하면, 암호를 바꾼 후 일정 시간이 지나야만 다시 바꿀 수 있으므로 이러한 편법적인 연속 변경 행위를 물리적으로 차단할 수 있다.
 </blockquote>
 </details>
-
 
 #### Guest 계정 비활성화
 
@@ -6100,10 +6083,10 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 
 <details>
 <summary>(기출: 114) 다음은 리눅스 시스템의 로그파일에 관한 내용이다. 빈칸에 적절한 명칭 또는 내용을 서술하시오.
-1) (  ): 사용자의 성공한 로그인/로그아웃 정보, 시스템의 Boot/Shutdown 정보를 담고 있는 로그파일로 <code>last</code> 명령으로 확인한다.
-2) <code>utmp</code>: (  )
-3) <code>btmp</code>: (  )
-4) <code>lastlog</code>: (  )</summary>
+1) ( ): 사용자의 성공한 로그인/로그아웃 정보, 시스템의 Boot/Shutdown 정보를 담고 있는 로그파일로 <code>last</code> 명령으로 확인한다.
+2) <code>utmp</code>: ( )
+3) <code>btmp</code>: ( )
+4) <code>lastlog</code>: ( )</summary>
 <blockquote>
 1) <strong>wtmp</strong><br>
 2) <strong>현재 시스템에 로그인한 사용자 정보</strong>를 담고 있는 파일<br>
@@ -6174,13 +6157,12 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 
 <details>
 <summary>(기출: 132) 유닉스/리눅스 시스템 관리자가 <code>PATH</code> 환경변수의 설정이 다음과 같음을 확인하였다. 이 설정의 보안상 취약점과 조치 방안을 서술하시오.
-<code>PATH=.:$PATH:/usr/bin:/sbin...</code></summary>
+<code>PATH=.:$PATH:/usr/bin:/sbin…</code></summary>
 <blockquote>
 취약점: <strong>현재 디렉터리(.)</strong>가 PATH의 맨 앞이나 중간에 위치해 있다. 이 경우 공격자가 만든 악의적인 프로그램(예: ls 등)이 정상 명령어보다 먼저 실행되어 관리자 권한을 탈취당할 위험이 있다.<br>
 조치 방안: <code>PATH</code> 환경변수에서 <strong>'.'을 제거</strong>하거나, 반드시 필요한 경우 <strong>맨 뒤로 이동</strong>시킨다.
 </blockquote>
 </details>
-
 
 <details>
 <summary>(기출: 104) 리눅스 관리자(root)가 <code>cron</code>을 이용하여 매일 새벽 3시에 <code>/root/backup.sh</code> 파일을 실행하고자 한다. <code>crontab -e</code>를 통해 설정해야 할 한 줄을 작성하시오. (분, 시, 일, 월, 요일 순서)</summary>
@@ -6192,7 +6174,7 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 <details>
 <summary>(응용) <code>cron</code> 설정 필드 중 <strong>'요일'</strong> 항목에 사용할 수 있는 값의 범위(숫자)와, 매주 월, 수, 금 오전 5시에 작업을 수행하고 싶을 때의 설정을 쓰시오.</summary>
 <blockquote>
-1) <strong>값 범위</strong>: <strong>0~6</strong> (0: 일요일, 1: 월요일 ... 6: 토요일, 7도 일요일로 처리되기도 함)<br>
+1) <strong>값 범위</strong>: <strong>0~6</strong> (0: 일요일, 1: 월요일 … 6: 토요일, 7도 일요일로 처리되기도 함)<br>
 2) <strong>설정</strong>: <strong>0 5 * * 1,3,5 [실행할_명령]</strong>
 </blockquote>
 </details>
@@ -6242,7 +6224,7 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 <details>
 <summary>(기출: 134~136) 다음 리눅스 <code>/etc/passwd</code> 및 <code>/etc/shadow</code> 파일의 필드 구조를 보고 물음에 답하시오.
 <code>[passwd] root:x:0:0:root:/root:/bin/bash</code> (①, ②, ③)
-<code>[shadow] root:$6$gAWy...:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
+<code>[shadow] root:$6$gAWy…:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
 1) 각 번호(①~⑦)가 의미하는 필드 명칭을 쓰시오.
 2) 관리자가 root 계정의 홈 디렉터리를 <code>/hack2</code>로, 로그인 셸을 <code>/bin2/hack3</code>로 변경했다면 <code>/etc/passwd</code>는 어떻게 수정되는가?</summary>
 <blockquote>
@@ -6270,12 +6252,12 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 </details>
 
 <details>
-<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy...:18290:1:90:7:::</code>를 분석하시오.
-1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy...</strong> 부분의 명칭을 쓰시오.
+<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy…:18290:1:90:7:::</code>를 분석하시오.
+1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy…</strong> 부분의 명칭을 쓰시오.
 2) 이 파일에 솔트(Salt)를 추가함으로써 <strong>레인보우 테이블(Rainbow Table)</strong> 공격을 어떻게 방어하는지 원리를 쓰시오.
 3) <code>pwunconv</code> 명령어의 기능을 쓰시오.</summary>
 <blockquote>
-1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy...</strong>: <strong>솔트(Salt)</strong><br>
+1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy…</strong>: <strong>솔트(Salt)</strong><br>
 2) 동일한 평문 암호라도 사용자마다 서로 다른 솔트를 섞어서 해싱하므로 <strong>최종 해시값이 다르게 생성</strong>된다. 따라서 미리 해시값들을 계산해 놓은 레인보우 테이블의 무력화를 유도하여 공격을 방해한다.<br>
 3) <code>pwunconv</code>: <code>/etc/shadow</code>의 암호 정보를 <code>/etc/passwd</code>로 옮기고 shadow 파일을 삭제하여 일반 사용자도 해시를 읽을 수 있게 만드는 명령어이다.
 </blockquote>
@@ -6306,4 +6288,3 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 (1) 소유주 권한 (2) 그룹 권한 (3) 3자 권한 (4) 하드 링크 수 (5) 소유주 (6) 그룹 (7) 크기 (8) 수정 시간
 </blockquote>
 </details>
-
