@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-18 10:42:11 +09:00
+date modified: 2026-03-18 10:48:02 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -5507,10 +5507,6 @@ root 계정으로 직접 로그인이 <strong>거부된다.</strong> <code>secur
 <blockquote>
 (A) /etc/default/login<br>
 (B) /etc/security/user
-</blockquote>
-</details>
-<blockquote>
-<code>access_log-20230510.gz</code>
 </blockquote>
 </details>
 
