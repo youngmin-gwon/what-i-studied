@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-18 10:48:02 +09:00
+date modified: 2026-03-18 11:01:22 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -4118,40 +4118,6 @@ SHA-512 알고리즘
 </blockquote>
 </details>
 
-<details>
-<summary>(기출: 134~136) 다음 리눅스 <code>/etc/passwd</code> 및 <code>/etc/shadow</code> 파일의 필드 구조를 보고 물음에 답하시오.
-<code>[passwd] root:x:0:0:root:/root:/bin/bash</code> (①, ②, ③)
-<code>[shadow] root:$6$gAWy…:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
-1) 각 번호(①~⑦)가 의미하는 필드 명칭을 쓰시오.
-2) 관리자가 root 계정의 홈 디렉터리를 <code>/hack2</code>로, 로그인 셸을 <code>/bin2/hack3</code>로 변경했다면 <code>/etc/passwd</code>는 어떻게 수정되는가?</summary>
-<blockquote>
-1) ① 패스워드 표시(x는 shadow 사용) ② GID ③ 홈 디렉터리 ④ 암호화된 패스워드 ⑤ 마지막 암호 변경일(1970/1/1 기준 일수) ⑥ 암호 만료 기간 ⑦ 암호 만료 전 경고 기간<br>
-2) <code>root:x:0:0:root:<strong>/hack2</strong>:<strong>/bin2/hack3</strong></code>
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy…:18290:1:90:7:::</code>를 분석하시오.
-1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy…</strong> 부분의 명칭을 쓰시오.
-2) 이 파일에 솔트(Salt)를 추가함으로써 <strong>레인보우 테이블(Rainbow Table)</strong> 공격을 어떻게 방어하는지 원리를 쓰시오.
-3) <code>pwunconv</code> 명령어의 기능을 쓰시오.</summary>
-<blockquote>
-1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy…</strong>: <strong>솔트(Salt)</strong><br>
-2) 동일한 평문 암호라도 사용자마다 서로 다른 솔트를 섞어서 해싱하므로 <strong>최종 해시값이 다르게 생성</strong>된다. 따라서 미리 해시값들을 계산해 놓은 레인보우 테이블의 무력화를 유도하여 공격을 방해한다.<br>
-3) <code>pwunconv</code>: <code>/etc/shadow</code>의 암호 정보를 <code>/etc/passwd</code>로 옮기고 shadow 파일을 삭제하여 일반 사용자도 해시를 읽을 수 있게 만드는 명령어이다.
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 139) 특정 사용자의 계정을 잠그거나(Lock) 해제(Unlock)하기 위한 <code>passwd</code> 명령어 옵션을 쓰시오.
-1) algisa 사용자 패스워드 잠금
-2) algisa 사용자 패스워드 잠금 해제</summary>
-<blockquote>
-1) <code>passwd -l algisa</code><br>
-2) <code>passwd -u algisa</code>
-</blockquote>
-</details>
-
 ##### 프로세스 실행권한(SUID,SGID)
 
 <details>
@@ -6150,121 +6116,3 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 ### 3. 로그 관리
 
 #### 감사 정책 설정
-
-<details>
-<summary>(응용) <code>cron</code> 설정 필드 중 <strong>'요일'</strong> 항목에 사용할 수 있는 값의 범위(숫자)와, 매주 월, 수, 금 오전 5시에 작업을 수행하고 싶을 때의 설정을 쓰시오.</summary>
-<blockquote>
-1) <strong>값 범위</strong>: <strong>0~6</strong> (0: 일요일, 1: 월요일 … 6: 토요일, 7도 일요일로 처리되기도 함)<br>
-2) <strong>설정</strong>: <strong>0 5 * * 1,3,5 [실행할_명령]</strong>
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 105) 보안 취약점 점검 가이드라인에 따라 각 OS별로 <strong>root 계정의 원격 접속을 제한</strong>하기 위해 점검해야 하는 설정 파일의 경로를 쓰시오.
-1) SunOS (Solaris): /etc/default/( A ) → <code>CONSOLE=/dev/console</code>
-2) AIX: /etc/security/( B ) → <code>rlogin = false</code>
-3) Linux: /etc/( C ) → <code>tty1</code> 또는 <code>#pts/1</code> 설정 확인</summary>
-<blockquote>
-(A) <strong>login</strong><br>
-(B) <strong>user</strong><br>
-(C) <strong>securetty</strong>
-</blockquote>
-</details>
-
-<details>
-<summary>(응용) 리눅스 시스템에서 <code>/etc/securetty</code> 파일에 <code>pts/0</code>, <code>pts/1</code> 등의 항목을 모두 제거하거나 주석 처리했을 때 얻을 수 있는 보안 효과를 기술하시오.</summary>
-<blockquote>
-<strong>root 계정으로 직접 원격 접속(Telnet 등)하는 것을 원천 차단</strong>하는 효과가 있다. 공격자가 root 패스워드를 알아내더라도 외부에서는 직접 로그인할 수 없으며, 반드시 일반 사용자로 먼저 접속한 뒤 <code>su</code>나 <code>sudo</code> 등을 통해서만 관리자 권한을 획득하도록 강제하여 보안성을 높인다.
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 133) 다음은 윈도우의 로컬 보안 설정 중 암호 정책 화면이다. 설정된 각 항목의 보안상 의미를 간략히 설명하시오.
-1) 패스워드는 복잡성을 만족해야 함: <strong>사용</strong>
-2) 최근 암호 기억: <strong>4개 암호 기억됨</strong>
-3) 최대 암호 사용 기간: <strong>90일</strong>
-4) 최소 암호 길이: <strong>8문자</strong>
-5) 최소 암호 사용 기간: <strong>1일</strong></summary>
-<blockquote>
-1) <strong>복잡성 만족</strong>: 영문 대소문자, 숫자, 특수문자 중 3종류 이상을 조합하도록 강제하여 추측 공격에 대비함<br>
-2) <strong>최근 암호 기억</strong>: 이전에 사용했던 4개의 암호를 다시 사용할 수 없게 하여 암호 재사용을 방지함<br>
-3) <strong>최대 사용 기간</strong>: 90일마다 암호를 변경하게 하여 유출된 암호의 유효 기간을 제한함<br>
-4) <strong>최소 암호 길이</strong>: 최소 8자 이상으로 설정하여 무차별 대입 공격(Brute-force)의 소요 시간을 늘림<br>
-5) <strong>최소 사용 기간</strong>: 암호 변경 후 최소 1일은 유지하게 하여, 사용자가 '최근 암호 기억' 제한을 피하기 위해 암호를 연속으로 수차례 바꿔 예전 암호로 되돌리는 행위를 차단함
-</blockquote>
-</details>
-
-<details>
-<summary>(응용) 위 설정 중 <strong>'최근 암호 기억'</strong> 설정을 무력화하기 위해 사용자가 시도할 수 있는 편법과, 이를 효과적으로 차단하기 위한 <strong>'최소 암호 사용 기간'</strong>의 적절한 설정 원리를 설명하시오.</summary>
-<blockquote>
-사용자는 자신이 선호하는 예전 암호를 다시 쓰기 위해, 암호를 여러 번 즉시 변경하여 '최근 기억' 리스트에서 예전 암호를 밀어내려 시도할 수 있다. 이를 방지하기 위해 <strong>'최소 암호 사용 기간'을 1일 이상으로 설정</strong>하면, 암호를 바꾼 후 일정 시간이 지나야만 다시 바꿀 수 있으므로 이러한 편법적인 연속 변경 행위를 물리적으로 차단할 수 있다.
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 134~136) 다음 리눅스 <code>/etc/passwd</code> 및 <code>/etc/shadow</code> 파일의 필드 구조를 보고 물음에 답하시오.
-<code>[passwd] root:x:0:0:root:/root:/bin/bash</code> (①, ②, ③)
-<code>[shadow] root:$6$gAWy…:18290:0:99999:7:::</code> (④, ⑤, ⑥, ⑦)
-1) 각 번호(①~⑦)가 의미하는 필드 명칭을 쓰시오.
-2) 관리자가 root 계정의 홈 디렉터리를 <code>/hack2</code>로, 로그인 셸을 <code>/bin2/hack3</code>로 변경했다면 <code>/etc/passwd</code>는 어떻게 수정되는가?</summary>
-<blockquote>
-1) ① 패스워드 표시(x는 shadow 사용) ② GID ③ 홈 디렉터리 ④ 암호화된 패스워드 ⑤ 마지막 암호 변경일(1970/1/1 기준 일수) ⑥ 암호 만료 기간 ⑦ 암호 만료 전 경고 기간<br>
-2) <code>root:x:0:0:root:<strong>/hack2</strong>:<strong>/bin2/hack3</strong></code>
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 137) 관리자가 <code>vi /etc/passwd</code>를 열어 확인한 결과 다음과 같은 계정이 발견되었다.
-<code>algisa::5:60:games:/usr/games:/bin/sh</code>
-1) 이 계정의 보안상 취약점은 무엇인가?
-2) 이 취약점을 해결하기 위해 관리자가 즉시 수행해야 할 명령어는 무엇인가?</summary>
-<blockquote>
-1) <strong>패스워드가 설정되어 있지 않음</strong>: 두 번째 필드가 비어 있어 누구나 암호 없이 해당 계정으로 로그인할 수 있는 심각한 상태이다.<br>
-2) <code>passwd algisa</code> (패스워드 신규 설정)
-</blockquote>
-</details>
-
-<details>
-<summary>(응용) <code>/etc/shadow</code> 파일의 권한이 <strong>600(rw-------)</strong>이 아닌 <strong>644(rw-r--r--)</strong>로 설정되어 있을 때 발생할 수 있는 보안 위협을 <strong>오프라인 사전 공격(Offline Dictionary Attack)</strong> 관점에서 서술하시오.</summary>
-<blockquote>
-일반 사용자가 <code>/etc/shadow</code> 파일을 읽을 수 있게 되면, 그 안에 저장된 <strong>암호 해시값(Hash)</strong>을 자신의 로컬 PC로 가져갈 수 있다. 이후 <code>John the Ripper</code>나 <code>Hashcat</code> 같은 도구를 사용하여 서버의 자원을 쓰지 않고도 자신의 컴퓨터에서 무차별 대입이나 사전 대입을 수행(오프라인 공격)하여 원래 암호를 알아낼 수 있는 위험이 있다.
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 138) 리눅스의 <code>/etc/shadow</code> 파일 정보 <code>algisa:$6$gAWy…:18290:1:90:7:::</code>를 분석하시오.
-1) 두 번째 필드의 <strong>$6$</strong>의 의미와 <strong>gAWy…</strong> 부분의 명칭을 쓰시오.
-2) 이 파일에 솔트(Salt)를 추가함으로써 <strong>레인보우 테이블(Rainbow Table)</strong> 공격을 어떻게 방어하는지 원리를 쓰시오.
-3) <code>pwunconv</code> 명령어의 기능을 쓰시오.</summary>
-<blockquote>
-1) <strong>$6$</strong>: 암호화 알고리즘이 <strong>SHA-512</strong>임을 의미 / <strong>gAWy…</strong>: <strong>솔트(Salt)</strong><br>
-2) 동일한 평문 암호라도 사용자마다 서로 다른 솔트를 섞어서 해싱하므로 <strong>최종 해시값이 다르게 생성</strong>된다. 따라서 미리 해시값들을 계산해 놓은 레인보우 테이블의 무력화를 유도하여 공격을 방해한다.<br>
-3) <code>pwunconv</code>: <code>/etc/shadow</code>의 암호 정보를 <code>/etc/passwd</code>로 옮기고 shadow 파일을 삭제하여 일반 사용자도 해시를 읽을 수 있게 만드는 명령어이다.
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 139) 특정 사용자의 계정을 잠그거나(Lock) 해제(Unlock)하기 위한 <code>passwd</code> 명령어 옵션을 쓰시오.
-1) algisa 사용자 패스워드 잠금
-2) algisa 사용자 패스워드 잠금 해제</summary>
-<blockquote>
-1) <code>passwd -l algisa</code><br>
-2) <code>passwd -u algisa</code>
-</blockquote>
-</details>
-
-<details>
-<summary>(응용) 리눅스에서 특정 계정을 <strong>완전하게 무력화</strong>하기 위해 <strong>계정 잠금(passwd -l)</strong> 외에 <strong>로그인 셸(Login Shell)</strong>을 통해 조치할 수 있는 방안을 기술하시오.</summary>
-<blockquote>
-<code>/etc/passwd</code> 파일에서 해당 사용자의 셸 정보를 <strong><code>/sbin/nologin</code></strong> 또는 <strong><code>/bin/false</code></strong>로 변경한다. 이는 사용자가 로그인을 시도해도 셸을 할당받지 못하게 하여 시스템 접근을 물리적으로 원천 차단하는 효과를 준다.
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 140) <code>ls -l</code> 명령 실행 후 나타나는 다음 필드들의 의미를 예시에서 선택하시오.
-<code>(1)rwx (2)r-x (3)r-x (4)5 (5)root (6)root (7)59 (8)2012-01-14 18:28 result.dat</code>
-[예시: 그룹, 소유주, 소유주 권한, 그룹 권한, 3자 권한, 하드 링크 수, 크기, 수정 시간, 파일명]</summary>
-<blockquote>
-(1) 소유주 권한 (2) 그룹 권한 (3) 3자 권한 (4) 하드 링크 수 (5) 소유주 (6) 그룹 (7) 크기 (8) 수정 시간
-</blockquote>
-</details>
