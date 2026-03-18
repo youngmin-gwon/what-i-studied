@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-18 10:13:17 +09:00
+date modified: 2026-03-18 10:42:11 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -5768,9 +5768,33 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 
 #### 패스워드 복잡성 설정
 
+<details>
+<summary>(기출: 129~131) 다음 질문에 답하시오.
+1) 패스워드 최소 길이(Min Length)를 8자리로 설정하기 위한 각 OS별 지시어(Directive)를 쓰시오. (SunOS, Linux, AIX, HP-UX)
+2) 리눅스의 <code>/etc</code> 디렉터리에 있는 패스워드 정책 설정 파일 이름은 무엇인가?</summary>
+<blockquote>
+3) ① SunOS: <code>PASSLENGTH</code> ② Linux: <code>PASS_MIN_LEN</code> ③ AIX: <code>minlen</code> ④ HP-UX: <code>MIN_PASSWORD_LENGTH</code><br>
+4) <strong>/etc/login.defs</strong>
+</blockquote>
+</details>
+
 #### 패스워드 최소 길이 설정
 
 #### 패스워드 최소 사용기간 설정
+
+<details>
+<summary>(기출: 128) 다음은 각 OS별 패스워드 최대 사용 기간(Ageing) 설정 파일이다. 빈칸을 채우시오.
+- SunOS: <code>/etc/default/passwd</code> → ( A )=12
+- Linux: ( B ) → <code>PASS_MAX_DAYS 90</code>
+- AIX: <code>/etc/security/user</code> → ( C )=12
+- HP-UX: <code>/etc/default/security</code> → ( D )=90</summary>
+<blockquote>
+(A) MAXWEEKS<br>
+(B) /etc/login.defs<br>
+(C) maxage<br>
+(D) PASSWORD_MAXDAYS
+</blockquote>
+</details>
 
 #### 패스워드 파일 보호
 
@@ -6130,46 +6154,6 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 ### 3. 로그 관리
 
 #### 감사 정책 설정
-
-<details>
-<summary>(기출: 128) 다음은 각 OS별 패스워드 최대 사용 기간(Ageing) 설정 파일이다. 빈칸을 채우시오.
-- SunOS: <code>/etc/default/passwd</code> → ( A )=12
-- Linux: ( B ) → <code>PASS_MAX_DAYS 90</code>
-- AIX: <code>/etc/security/user</code> → ( C )=12
-- HP-UX: <code>/etc/default/security</code> → ( D )=90</summary>
-<blockquote>
-(A) MAXWEEKS<br>
-(B) /etc/login.defs<br>
-(C) maxage<br>
-(D) PASSWORD_MAXDAYS
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 129~131) 다음 질문에 답하시오.
-1) 패스워드 최소 길이(Min Length)를 8자리로 설정하기 위한 각 OS별 지시어(Directive)를 쓰시오. (SunOS, Linux, AIX, HP-UX)
-2) 리눅스의 <code>/etc</code> 디렉터리에 있는 패스워드 정책 설정 파일 이름은 무엇인가?</summary>
-<blockquote>
-1) ① SunOS: <code>PASSLENGTH</code> ② Linux: <code>PASS_MIN_LEN</code> ③ AIX: <code>minlen</code> ④ HP-UX: <code>MIN_PASSWORD_LENGTH</code><br>
-2) <strong>/etc/login.defs</strong>
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 132) 유닉스/리눅스 시스템 관리자가 <code>PATH</code> 환경변수의 설정이 다음과 같음을 확인하였다. 이 설정의 보안상 취약점과 조치 방안을 서술하시오.
-<code>PATH=.:$PATH:/usr/bin:/sbin…</code></summary>
-<blockquote>
-취약점: <strong>현재 디렉터리(.)</strong>가 PATH의 맨 앞이나 중간에 위치해 있다. 이 경우 공격자가 만든 악의적인 프로그램(예: ls 등)이 정상 명령어보다 먼저 실행되어 관리자 권한을 탈취당할 위험이 있다.<br>
-조치 방안: <code>PATH</code> 환경변수에서 <strong>'.'을 제거</strong>하거나, 반드시 필요한 경우 <strong>맨 뒤로 이동</strong>시킨다.
-</blockquote>
-</details>
-
-<details>
-<summary>(기출: 104) 리눅스 관리자(root)가 <code>cron</code>을 이용하여 매일 새벽 3시에 <code>/root/backup.sh</code> 파일을 실행하고자 한다. <code>crontab -e</code>를 통해 설정해야 할 한 줄을 작성하시오. (분, 시, 일, 월, 요일 순서)</summary>
-<blockquote>
-설정: <strong>0 3 * * * /root/backup.sh</strong>
-</blockquote>
-</details>
 
 <details>
 <summary>(응용) <code>cron</code> 설정 필드 중 <strong>'요일'</strong> 항목에 사용할 수 있는 값의 범위(숫자)와, 매주 월, 수, 금 오전 5시에 작업을 수행하고 싶을 때의 설정을 쓰시오.</summary>
