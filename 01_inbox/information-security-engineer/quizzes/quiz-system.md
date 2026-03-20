@@ -10,6 +10,65 @@ date created: 2026-02-25 10:46:47 +09:00
 
 ### 1. 윈도우 기본 학습
 
+<details>
+<summary>(기출 23회 1번 문제) (단답형) 윈도우(Windows) 서버의 주요 서비스별 로그 파일 저장 경로 중 빈칸 (A), (B)에 들어갈 내용을 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+- [IIS 로그]: <code>C:\Windows\inetpub\logs\Logfiles\W3SVC1</code><br>
+- [HTTP 에러 로그]: <code>C:\Windows\System32\Logfiles\</code><strong>( A )</strong><br>
+- [DHCP 로그]: <code>C:\Windows\System32\</code><strong>( B )</strong>
+</div>
+</summary>
+<blockquote>
+(A) <strong>HTTPERR</strong><br>
+(B) <strong>dhcp</strong> (또는 DHCP)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출 23회 15번 문제) (서술형/작업형) 인터넷에 직접 연결된 윈도우 시스템에서 원격 공격자가 네트워크 공유 자원에 무단 접근하는 것을 방지하기 위해 'NetBIOS' 설정을 해제하고자 한다. 이때 윈도우 실행창(Win+R)에서 사용하는 네트워크 연결 제어판 명령어와 세부 설정 방법을 서술하시오.</summary>
+<blockquote>
+<strong>명령어</strong>: <code>ncpa.cpl</code><br>
+<strong>설정 방법</strong>: 로컬 영역 연결 속성 > IPv4 속성 > 고급 > WINS 탭에서 <strong>'NetBIOS over TCP/IP 사용 안 함'</strong>을 선택한다.
+</blockquote>
+</details>
+
+<details>
+<summary>[기출 13회 13번 문제] (서술형) 운영체제에서 쉘(Shell)의 역할과 주요 기능 2가지를 서술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+- <strong>역할:</strong> 운영체제의 커널과 사용자 사이를 연결하는 인터페이스(명령어 해석기)<br>
+- <strong>기능 1:</strong> 사용자로부터 명령어를 입력받아 해석하고 커널에 전달하여 실행 결과 반환<br>
+- <strong>기능 2:</strong> 사용자 환경 설정 관리 (환경 변수, 별칭 등) 및 쉘 스크립트 실행 환경 제공
+</blockquote>
+</details>
+
+<details>
+<summary>[기출 13회 16번 문제] (서술형) Windows에서 NetBIOS 바인딩이 활성화되어 있을 때의 보안상 위험과 이를 제거(차단)하기 위한 구체적인 설정 경로를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+- <strong>위험:</strong> 외부 공격자가 NetBIOS 이름을 통해 시스템 정보를 수집하거나, 인증 없이 공유 자원(파일, 프린터 등)에 무단 접근할 가능성<br>
+- <strong>설정 경로:</strong> <code>ncpa.cpl</code> 실행 -> 이더넷 인터페이스 속성 -> 인터넷 프로토콜 버전 4(TCP/IPv4) -> 고급 -> WINS 탭 -> 'NetBIOS over TCP/IP 사용 안 함' 선택
+</blockquote>
+</details>
+
+
+<details>
+<summary>(기출 25회 1번 문제) 다음은 윈도우 OS의 계정 그룹 5가지 유형에 대한 설명이다. ( )에 들어갈 그룹명을 기술하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+- Administrators : 도메인 또는 로컬 컴퓨터에 대한 모든 권한 보유<br>
+- ( A ) : 일반 사용자보다는 많은 권한을 가지나, Administrators 그룹보다는 제한적인 권한 보유<br>
+- ( B ) : 시스템 백업을 목적으로 모든 파일과 디렉터리 접근 가능<br>
+- ( C ) : 도메인 및 로컬 컴퓨터를 일반적으로 사용하는 그룹<br>
+- Guests : 제한된 권한을 가지며 일시적으로 시스템을 사용하는 사용자를 위해 설계됨
+</div>
+</summary>
+<blockquote>
+(A) <strong>Power Users</strong> (전력 사용자)<br>
+(B) <strong>Backup Operators</strong> (백업 운영자)<br>
+(C) <strong>Users</strong> (사용자)
+</blockquote>
+</details>
+
 #### 윈도우 인증과정
 
 ##### 윈도우 인증 구성 요소
@@ -637,6 +696,14 @@ LM (Lan Manager) 해시
 </details>
 
 <details>
+<summary>[기출 24회 17번 문제] (단답형) 유닉스(Solaris 등) 시스템에서 패스워드 최소 길이를 설정하는 설정 파일(A)과 해당 파라미터(B)를 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> (A): <strong>/etc/default/passwd</strong>, (B): <strong>PASSLENGTH</strong><br>
+<strong>해설:</strong> 보편적인 리눅스(RHEL/CentOS)의 경우 <code>/etc/login.defs</code> 파일의 <code>PASS_MIN_LEN</code>이나 PAM 설정을 사용하지만, Solaris의 경우 위 설정을 주로 사용합니다.
+</blockquote>
+</details>
+
+<details>
 <summary>(서술형) 패스워드 크래킹 기법 중 하나인 '사전 공격(Dictionary Attack)'의 원리를 패스워드 설정 관습 측면에서 구체적으로 서술하시오.</summary>
 <blockquote>
 일반 사용자들이 복잡한 비밀번호 대신 기억하기 쉬운 주민등록번호, 이름, 또는 키보드 자판 일련순 문자열(예: asdf, qwer1234 등)을 흔히 사용한다는 점을 악용하여, 패스워드로 자주 쓰일 법한 단어와 문자열들을 미리 ‘사전(Dictionary) 파일’로 대량 구축해 놓고 이를 하나씩 순서대로 대입해가며 일치 여부를 파악하는 방식이다.
@@ -1003,6 +1070,16 @@ GOT (Global Offset Table)
 </details>
 
 ##### 사용자 정보
+
+<details>
+<summary>[기출 22회 3번 문제] (단답형) 유닉스의 <code>/etc/passwd</code>에 등록된 정보 <code>test01:x:100:1000:/home/exam:/bin/bash</code>에서 다음 값의 의미를 설명하시오.<br>
+1. 1000: (A)<br>
+2. /home/exam: (B)<br>
+3. /bin/bash: (C)</summary>
+<blockquote>
+<strong>정답:</strong> (A) <strong>그룹 ID (GID)</strong>, (B) <strong>홈 디렉토리 경로</strong>, (C) <strong>로그인 셸(Login Shell)</strong>
+</blockquote>
+</details>
 
 <details>
 <summary>리눅스/유닉스 시스템에서 사용자 계정 관련 정보가 저장되며, 콜론(:)을 구분자로 하여 총 7개의 필드로 구성되어 있는 시스템 설정 파일의 절대 경로를 쓰시오.</summary>
@@ -4114,7 +4191,7 @@ SHA-512 알고리즘
 <blockquote>
 (A) 644
 (B) shadow
-/C) 400
+(C) 400
 </blockquote>
 </details>
 
@@ -4255,6 +4332,14 @@ SSH (Secure Shell)
 </details>
 
 <details>
+<summary>[기출 24회 14번 문제] (단답형) 리눅스/유닉스 시스템에서 r-명령어(rlogin, rsh 등) 사용 시 접속을 요청하는 원격 호스트들에 대한 트러스트 설정을 위해 사용하는 파일의 명칭과 경로를 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>/etc/hosts.equiv</strong><br>
+<strong>해설:</strong> 해당 파일에 등록된 호스트나 사용자는 패스워드 없이 접속이 가능하므로 보안상 매우 무거운 위험 요소가 됩니다. (개별 사용자 설정은 <code>~/.rhosts</code>)
+</blockquote>
+</details>
+
+<details>
 <summary>(작업형) CentOS/RedHat 리눅스 운영 서버의 <code>/etc/inetd.conf</code> 파일에 기록된 악성 DoS 취약 포트인 <code>chargen</code>, <code>echo</code> 등의 불필요한 테스트용 스트림 서비스가 구동 중이다. 관리자가 해당 설정 파일의 내용을 직접 편집하여 이들을 비활성화하려 한다면 어떠한 기호 기법을 써야 하는지 답안을 작성하시오.</summary>
 <blockquote>
 해당 서비스 설정이 기재된 텍스트 각 줄의 라인 맨 앞부분에 <strong>주석 기호(<code>#</code>)</strong>를 삽입하여, 시스템 데몬이 해당 환경설정을 실행 모듈로 인식하지 않도록 완전히 무시(주석 처리)하게 만들어야 한다.
@@ -4323,6 +4408,55 @@ SSH (Secure Shell)
 </details>
 
 <details>
+<summary>(기출: 153~155) 리눅스 서버 원격 접속 보안을 위해 **TCP Wrapper**를 이용한 접근 제어를 설정하려 한다. 질문에 답하시오.
+1) <code>hosts.allow</code>: <strong>sshd : 192.168.159.133, 10.10.10.0/255.255.255.0</strong>
+2) <code>hosts.deny</code>: <strong>sshd : ALL</strong>
+위 설정이 의미하는 바를 2가지 IP 범위 형식을 포함하여 기술하시오.</summary>
+<blockquote>
+1) <code>192.168.159.133</code> 이라는 <strong>특정 단일 IP 주소</strong>와 <code>10.10.10.0/255.255.255.0</code> 이라는 <strong>C 클래스 대역(서브넷 마스크 지정 방식)</strong>에 대해서만 SSH 접속을 허용한다.<br>
+2) 그 외 나머지 모든 호스트(ALL)에 대해서는 SSH 접속을 거부(차단)한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 특정 서비스가 TCP Wrapper의 통제를 받는지 확인하기 위해 실행 파일(예: <code>/usr/sbin/sshd</code>)에 어떤 동적 라이브러리가 포함되어 있는지 검사해야 하는가? 관련 리눅스 명령어와 라이브러리 명칭을 쓰시오.</summary>
+<blockquote>
+명령어: <code>ldd /usr/sbin/sshd</code> (또는 <code>ldd `which sshd`</code>)<br>
+라이브러리: <strong>libwrap</strong> (libwrap.so.x)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 156) 리눅스/유닉스 시스템 보안 설정 중 지시한 작업을 수행하기 위한 방법을 쓰시오.
+1) 기존 <code>inetd</code>로 제공되는 <strong>FTP 서비스를 영구 중지</strong>시키고, 재부팅 시에도 구동되지 않도록 설정하는 방법
+2) <code>Telnet</code> 서비스에 대해 **TCP Wrapper(tcpd)**를 통한 접근 제어를 적용하고자 할 때 <code>inetd.conf</code> 파일의 6번째(실행경로), 7번째(실행인수) 필드 설정을 어떻게 수정해야 하는지 쓰시오.</summary>
+<blockquote>
+1) <code>/etc/inetd.conf</code> 파일에서 FTP 서비스 행의 맨 앞에 <strong>주석(#) 처리</strong>를 한 후, <code>inetd</code> 데몬을 재기동(HUP 시그널 등)한다. (최신 시스템은 <code>systemctl disable --now vsftpd</code> 등)<br>
+2) 6번째 필드(실행경로): <strong>/usr/sbin/tcpd</strong> 로 변경 / 7번째 필드(실행인수): <strong>in.telnetd</strong> 를 기입한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 157) 다음 조건을 만족하도록 <code>/etc/hosts.deny</code>와 <code>/etc/hosts.allow</code> 파일을 설정하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+- 모든 서비스에 대해 모든 클라이언트의 접속을 차단한다.<br>
+- <code>in.telnetd</code> 서비스는 192.168.1.10 호스트만 허용한다.<br>
+- <code>vsftpd</code> 서비스는 192.168.1.20 호스트만 허용한다.<br>
+- <code>sendmail</code> 서비스는 <code>hacker.co.kr</code> 도메인을 제외한 모든 호스트를 허용한다.<br>
+- 로컬 호스트(localhost)는 모든 서비스 접근을 허용한다.
+</div></summary>
+<blockquote>
+<strong>/etc/hosts.deny 설정</strong>:<br>
+<code>ALL : ALL</code><br><br>
+<strong>/etc/hosts.allow 설정</strong>:<br>
+<code>in.telnetd : 192.168.1.10</code><br>
+<code>vsftpd : 192.168.1.20</code><br>
+<code>sendmail : ALL EXCEPT .hacker.co.kr</code><br>
+<code>ALL : localhost</code>
+</blockquote>
+</details>
+
+<details>
 <summary>IP 관리 시스템에서 발전하여 MAC 기반 통제를 강화한 장비는?</summary>
 <blockquote>
 NAC (Network Access Control)<br>
@@ -4359,6 +4493,38 @@ cps
 <blockquote>
 <code>only_from = 192.168.56.0/24</code><br>
 <code>no_access = 192.168.56.110</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 158~160) 다음은 <code>xinetd</code> 슈퍼 데몬의 <code>telnet</code> 서비스 설정 중 일부이다. 빈칸 (A)~(D)에 알맞은 지시어 또는 설정값을 쓰시오.
+<pre>
+service telnet
+{
+    disable = no
+    ( A ) = 192.168.56.0/24
+    ( B ) = 192.168.56.100
+    access_times = ( C )
+    ( D ) = 10
+}
+</pre>
+1) 192.168.56.0/24 대역의 접속을 허용하는 ( A )는?<br>
+2) 192.168.56.100 호스트의 접속을 차단하는 ( B )는?<br>
+3) 오전 09시부터 18시까지만 접속을 허용하도록 ( C )를 설정하시오.<br>
+4) 동일 IP 주소(출발지)에서 최대 접속 가능 수를 10개로 제한하는 ( D )는?</summary>
+<blockquote>
+(A) <strong>only_from</strong><br>
+(B) <strong>no_access</strong><br>
+(C) <strong>09:00-18:00</strong><br>
+(D) <strong>per_source</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출/응용) <code>xinetd</code> 데몬의 주요 통제 지시어인 <code>cps</code> 와 <code>instances</code> 의 보안적 역할을 기술하시오.</summary>
+<blockquote>
+- <strong>cps</strong>: 순간적인 커넥션 폭주를 제어한다. (예: <code>cps = 50 10</code> 설정 시 초당 50개 초과 접속 시 10초간 서비스 중지)<br>
+- <strong>instances</strong>: 서버 시스템 전체에서 동시에 구동될 수 있는 최대 프로세스 수(절대적 총합)를 제한하여 자원 고갈을 방지한다.
 </blockquote>
 </details>
 
@@ -4760,6 +4926,20 @@ Permission denied
 <summary>(작업형) 사용자 <code>kiwi99</code> 계정에게, 자신의 비밀번호를 한 번 입력하여 신원 인증만 거치고 나면 192.168.1.100 번 서버에서 <code>/bin/kill</code> 명령어를 관리자(root) 권한으로 타건할 수 있도록 통제 룰을 부여해야 한다. 설정 파일에 들어갈 적합한 1줄짜리 정규 문법(포맷) 코드를 작성하시오.</summary>
 <blockquote>
 <code>kiwi99 192.168.1.100=(root) /bin/kill</code> (또는 <code>(ALL) /bin/kill</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 161) 사용자 계정 인증 보안을 위해 <code>PAM</code> 모듈을 설정하려 한다. 다음 <code>/etc/pam.d/system-auth</code> 설정의 빈칸에 알맞은 옵션을 쓰시오.<br>
+<code>auth required /lib/security/pam_tally.so ( A ) ( B ) ( C )</code><br>
+1) 로그인 5회 실패 시 계정을 잠금 설정하는 옵션 ( A )는?<br>
+2) 계정 잠금 후 120초가 지나면 자동으로 잠금을 해제하는 옵션 ( B )는?<br>
+3) root 계정은 이 잠금 정책의 영향을 받지 않도록(제외) 설정하는 옵션 ( C )는?
+</summary>
+<blockquote>
+(A) <strong>deny=5</strong><br>
+(B) <strong>unlock_time=120</strong><br>
+(C) <strong>no_magic_root</strong>
 </blockquote>
 </details>
 
@@ -5274,6 +5454,26 @@ lastcomm
 #### syslog 설정 및 관리
 
 <details>
+<summary>(기출: 152) 관리자가 시스템의 인증 관련 로그(`authpriv.*`)를 텍스트 파일과 함께 **원격 로그 서버(192.168.133.20)**로 동시에 전송하도록 설정하려고 한다. 질문에 답하시오.
+1) <code>syslog.conf</code> 설정 파일에 어떤 내용을 기입해야 하는가?
+2) 원격 로그 서버의 방화벽(iptables)에서 로그 수신을 위해 열어주어야 할 프로토콜과 포트는?</summary>
+<blockquote>
+1) <code>authpriv.*    /var/log/secure</code> (로컬)<br>
+   <code>authpriv.*    @192.168.133.20</code> (원격 서버 지정 시 @ 사용)<br>
+2) <strong>UDP 514번 포트</strong> (명령어 예시: <code>iptables -A INPUT -p udp --dport 514 -j ACCEPT</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 원격 로그 전송 시 보안을 강화하기 위해 <strong>UDP 대신 TCP를 사용</strong>하거나, <strong>TLS 암호화</strong>를 적용할 때 리눅스에서 흔히 쓰이는 최신 로그 데몬의 명칭과 장점을 기술하시오.</summary>
+<blockquote>
+명칭: <strong>rsyslog</strong> (또는 syslog-ng)<br>
+장함: ① 기존 syslog와 호환되면서도 **TCP 프로토콜 지원**으로 전송 신뢰성 확보 ② log 전송 시 **TLS 암호화** 기능을 통해 스니핑 위협 방지 ③ 고성능 멀티스레드 지원 및 다양한 출력 모듈(DB 등)로의 저장이 가능하다.
+</blockquote>
+</details>
+
+
+<details>
 <summary>(단답형) 리눅스 커널 및 응용 프로그램 데몬들로부터 로그 메시지를 모아서, 정해진 규칙 파일에 따라 특정 로그 파일이나 콘솔, 또는 원격 서버로 체계적으로 분류 및 저장해 주는 핵심 백그라운드 프로세스 이름(최신 환경에서 많이 쓰이는 개선판 제외)을 쓰시오.</summary>
 <blockquote>
 syslogd
@@ -5464,6 +5664,131 @@ root 계정으로 직접 로그인이 <strong>거부된다.</strong> <code>secur
 </blockquote>
 </details>
 
+<details>
+<summary>(기출: 163) 리눅스 시스템에서 로그인 기록을 관리하는 로그 파일과 확인 명령어를 바르게 연결하시오.
+(A) 각 사용자의 가장 최근 로그인 정보만 저장하며 <code>lastlog</code> 명령어로 확인한다. (파일: ?)
+(B) 전체 접속 기록(성공)을 담고 있는 <code>wtmp</code> 파일을 조회하는 명령어는?
+(C) 접속 실패(로그인 시도 실패) 기록을 담고 있는 <code>btmp</code> 파일을 조회하는 명령어는?</summary>
+<blockquote>
+(A) <strong>/var/log/lastlog</strong><br>
+(B) <strong>last</strong><br>
+(C) <strong>lastb</strong> (또는 last -f /var/log/btmp)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 시스템 침해 사고 발생 시 공격자가 자신의 흔적을 지우기 위해 <code>wtmp</code> 나 <code>lastlog</code> 파일을 삭제하거나 변조할 수 있다. 이를 방지하기 위해 리눅스 파일 속성을 제어하여 <strong>'로그 추가(Append)'만 가능하고 '삭제나 수정'은 불가능하게</strong> 만드는 명령어와 옵션을 쓰시오.</summary>
+<blockquote>
+명령어: <code>chattr +a [파일명]</code><br>
+- a (append only) 옵션을 부여하면 root일지라도 파일을 덮어쓰거나 삭제할 수 없으며, 오직 내용 추가만 가능해져 로그 무결성이 확보된다.
+</blockquote>
+</details>
+
+<details>
+<summary>[기출 12회 14번 문제] (실무형) 다음은 리눅스(Linux) 시스템에서 침해 사고를 당한 후, 공격자가 심어놓은 루트킷과 변조된 파일을 찾기 위해 수행하는 명령어들이다. 각 물음에 답하시오.
+1) 사용자가 이전에 실행했던 명령어 리스트를 확인하여 공격자의 행적을 추적하는 명령어: <strong>( A )</strong><br>
+2) 리눅스 Ext3/Ext4 파일 시스템에서 파일에 설정된 특수 속성(Immutable 등)을 확인하는 명령어: <strong>( B )</strong><br>
+3) root 권한으로도 삭제되지 않는 파일의 불변 속성(i)을 제거하거나 부여하는 명령어: <strong>( C )</strong>
+</summary>
+<blockquote>
+<strong>정답:</strong><br>
+(A) <strong>history</strong><br>
+(B) <strong>lsattr</strong><br>
+(C) <strong>chattr</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 164) 유닉스 시스템의 <code>sulog</code> 파일 내용의 일부이다. 질문에 답하시오.
+<code>SU 07/12 13:00 + pts/2 admin-root</code>
+<code>SU 07/13 01:01 - pts/11 kisa-root</code>
+1) 로그 내의 <code>+</code> 와 <code>-</code> 의 의미는?
+2) <code>kisa-root</code> 의 의미와 이 파일의 보안 설정을 위해 실행 파일(su)에 적용해야 할 권한(chmod)은?</summary>
+<blockquote>
+1) <code>+</code> : su 명령 성공 (권한 획득 완료), <code>-</code> : su 명령 실패 (패스워드 불일치 등)<br>
+2) 의미: <code>kisa</code> 계정이 <code>root</code> 계정으로의 전환을 시도했음을 의미한다.<br>
+보안 설정: <code>su</code> 프로그램은 실행 시 root 권한이 필요하므로 <strong>SetUID(4xxx)</strong>가 설정되어야 하며, 불필요한 사용자의 su 차단을 위해 소유자/그룹을 root로 잡고 <code>4750</code> 혹은 <code>4755</code> 공정을 수행해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 165) 다음 작업을 수행하기 위한 리눅스 명령어를 작성하시오.
+1) 전체 시스템에서 **최근 3일 이내에 생성되거나 수정된 파일**을 모두 출력하시오.
+2) 최근 3일 이내에 **시스템에 로그인한 사용자 목록**을 출력하시오.
+3) 특정 명령어가 언제, 누구에 의해 실행되었는지 추적하기 위한 **프로세스 어카운팅(Process Accounting)** 출력 명령어는?</summary>
+<blockquote>
+1) <code>find / -mtime -3</code><br>
+2) <code>lastlog -t 3</code> (또는 last 명령 사용)<br>
+3) <strong>lastcomm</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 166) FTP 전송 로그 파일인 <code>xferlog</code> 의 한 행에 대한 분석이다. 질문에 답하시오.
+<code>... 192.168.1.132 34567 /home/user/file.html b T i r algisa ftp 1 * i</code>
+1) 파일 전송 방향 필드 <code>i</code> 의 의미는?
+2) 접근 방식 필드 <code>r</code> 은 어떤 사용자가 접근했음을 의미하는가?
+3) 전송 성공 여부를 나타내는 마지막 필드 <code>i</code> 의 의미는?</summary>
+<blockquote>
+1) <strong>Inbound</strong> (Incoming): 서버로 파일이 업로드되었음을 의미한다. (반대는 <code>o</code> : Outgoing)<br>
+2) <strong>Real</strong>: 로컬 시스템에 계정이 등록된 정식 사용자가 인증을 거쳐 접근했음을 의미한다. (다른 범주: <code>a</code> (Anonymous), <code>g</code> (Guest))<br>
+3) <strong>Incomplete</strong>: 전송이 실패했거나 완료되지 못했음을 의미한다. (성공 시 <code>c</code> : Complete)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 167) 리눅스 서버의 <code>xferlog</code> 내역 중 일부이다. 각 질문에 답하시오.
+<code>Thu May 17 11:54:41 2020 6 file.test.kr 345678 /home/algisa/test1.mp3 b _ i r kiwi99 ftp 0 * c</code>
+1) 전송에 걸린 시간(초)을 나타내는 필드 값은?<br>
+2) 전송된 파일의 유형이 '바이너리(Binary)'임을 나타내는 필드 식별자는?<br>
+3) 파일 전송 결과가 '성공'임을 나타내는 필드 식별자와 그 이유(근거)를 서술하시오.</summary>
+<blockquote>
+1) <strong>6</strong> (초)<br>
+2) <strong>b</strong><br>
+3) 식별자: <strong>c</strong> (Complete)<br>
+근거: 마지막 전송 상태 필드가 <code>c</code> 이면 전체 파일 전송이 성공적으로 완료되었음을 의미하며, <code>i</code> (Incomplete)인 경우 실패나 중단을 의미한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 168) 침해사고 분석 과정에서 특정 사용자가 실행한 명령어 히스토리를 정밀 추적하고자 한다. 질문에 답하시오.
+1) 프로세스 어카운팅 로그를 활성화하여 <code>/var/account/pacct</code> 에 기록을 남기기 시작하는 명령어는?<br>
+2) <code>gcc</code> 명령어를 실행한 사용자들의 실행 시간, 소요 시간 등을 필터링하여 확인하는 <code>lastcomm</code> 기반 커맨드를 작성하시오.<br>
+3) <code>logrotate</code> 설정 중 <code>create 0600 root root</code> 가 의미하는 보안적 설정을 기술하시오.</summary>
+<blockquote>
+1) <strong>accton /var/account/pacct</strong><br>
+2) <strong>lastcomm gcc</strong> (또는 lastcomm | grep gcc)<br>
+3) 의미: 로그를 순환(Rotate)시킨 직후, <strong>새롭게 생성될 로그 파일의 퍼미션을 0600(소유자 읽기/쓰기만 허용)으로 지정하고 소유자 및 소유 그룹을 root로 강제 설정</strong>하여 민감한 로그 데이터의 무단 유출을 차단한다.
+</blockquote>
+</details>
+
+<details>
+<summary>[기출 12회 5번 문제] (단답형) 리눅스 시스템에서 로그 파일의 관리를 자동화하기 위해 사용하는 <code>logrotate</code> 도구의 설정 파일 내 지시어에 관한 질문이다. ( )에 들어갈 내용을 쓰시오.
+1) 로그 파일을 압축하여 보관하도록 설정: <strong>( A )</strong><br>
+2) 로그 파일을 주 단위로 로테이트(순환) 하도록 설정: <strong>( B )</strong><br>
+3) 로테이션 후 새로운 로그 파일을 생성하고 모드, 소유자, 그룹을 지정하는 설정: <strong>( C )</strong>
+</summary>
+<blockquote>
+<strong>정답:</strong><br>
+(A) <strong>compress</strong><br>
+(B) <strong>weekly</strong><br>
+(C) <strong>create</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 169) <code>logrotate</code> 정책 변경 전/후의 설정 파일 일부이다. 각 옵션의 의미를 쓰시오.
+<code>/var/log/btmp { ... (1) missingok (2) monthly (3) rotate 6 (4) dateext }</code>
+1) <code>missingok</code> 의 의미는?<br>
+2) <code>rotate 6</code> 의 의미는?<br>
+3) <code>dateext</code> 옵션을 적용했을 때 생성되는 백업 파일명의 특징을 기술하시오.</summary>
+<blockquote>
+1) <strong>missingok</strong>: 해당 로그 파일이 존재하지 않아도 에러를 발생시키지 않고 다음 작업으로 넘어간다.<br>
+2) <strong>rotate 6</strong>: 순환되어 보관될 백업 파일의 개수를 최대 6개로 유지한다. (7번째 파일 생성 시 가장 오래된 파일 삭제)<br>
+3) <strong>파일명 특징</strong>: 백업 파일명 뒤에 순자(숫자) 대신 <strong>연-월-일(YYYYMMDD) 형태의 날짜 확장자</strong>가 붙어 관리 가독성이 높아진다.
+</blockquote>
+</details>
+
 ##### 시스템 관리자 및 사용자 보안
 
 <details>
@@ -5487,6 +5812,18 @@ root 계정으로 직접 로그인이 <strong>거부된다.</strong> <code>secur
 </details>
 
 #### 버퍼 오버플로우 공격(Buffer Overflow Attack)
+
+<details>
+<summary>(기출: 171) 버퍼 오버플로우 취약점이 존재하는 '취약한 코드'와 이를 보완한 '안전한 코드'이다. 빈칸 (A)와 (B)에 알맞은 코드(연산자/함수)를 완성하시오.
+[취약한 코드] <code>if(argc > 1) { strcpy(buffer, argv[1]); }</code>
+[안전한 코드] <code>if(argc > 1) { if( ( A ) >= ( B ) ) { exit(1); } strncpy(buffer, argv[1], sizeof(buffer)-1); }</code></summary>
+<blockquote>
+(A) <strong>strlen(argv[1])</strong><br>
+(B) <strong>sizeof(buffer)</strong><br><br>
+<strong>해설</strong>: 입력값(argv[1])의 길이를 측정하여 미리 할당된 버퍼 크기와 비교하는 절차가 필수적이다. 또한 <code>strcpy</code> 대신 <strong>strncpy</strong>를 사용하여 복사될 데이터의 최대 길이를 버퍼 크기로 제한함으로써 버퍼 오버플로우 위협을 원천 차단한다.
+</blockquote>
+</details>
+
 
 <details>
 <summary>(단답형) 연속된 메모리 공간을 사용하는 프로그램에서 할당된 지역 변수 버퍼의 한계치를 넘어선 데이터가 복사될 때 발생하며, 공격자가 스택의 복귀 주소(Return Address)를 악성 코드로 덮어씌워 제어권을 탈취하는 고전적 시스템 해킹 기법을 쓰시오.</summary>
@@ -5644,6 +5981,13 @@ umask
 </details>
 
 <details>
+<summary>[기출 19회 3번 문제] (단답형) 여러 개의 프로세스가 공유 자원에 동시에 접근할 때, 접근하는 순서나 타이밍에 따라 비정상적인 결과(공격자가 의도한 결과)가 발생하는 상황을 악용하는 공격 기법은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>레이스 컨디션 (Race Condition)</strong>
+</blockquote>
+</details>
+
+<details>
 <summary>(작업형) 일반 계정 소유의 공격자가 시스템에 등록하고 컴파일한 <code>race_cond</code>라는 이진 실행 파일에, 실행되는 순간 최고 <strong>root 등급의 권한을 실어주기 위해 SetUID 비트 퍼미션(S)을 사용자 권한(u)에 덧씌우는 문자 결합형 터미널 통제 명령어</strong> 구조를 작성하시오.</summary>
 <blockquote>
 <code>chmod u+s race_cond</code> (또는 파일 소유자가 root일 때 <code>chmod 4755 race_cond</code> 로 4000번대 특수 비트 부여)
@@ -5728,6 +6072,39 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 
 #### root 이외의 UID 가 0 금지
 
+<details>
+<summary>(기출: 170) 다음 C 프로그램 소스코드와 실행 결과(ID 정보)를 보고 각 빈칸 (A)~(C)에 알맞은 숫자를 쓰시오.
+(조건: <code>a.out</code>은 root 소유이며 SetUID 권한(4775)이 설정되어 있다. 현재 쉘 접속자는 <code>kiwi99</code>(UID: 500)이다.)
+[실행 결과]
+<code>Before setuid(1000) Real UID: 500 Effective UID: ( A ) Saved UID: ( A )</code>
+<code>After setuid(1000) Real UID: ( B ) Effective UID: ( C ) Saved UID: ( C )</code></summary>
+<blockquote>
+(A) <strong>0</strong><br>
+(B) <strong>500</strong><br>
+(C) <strong>1000</strong><br><br>
+<strong>해설</strong>: SetUID가 설정된 파일을 실행하면 프로세스의 Effective UID와 Saved UID는 파일 소유자(root=0)로 설정된다. 이후 <code>setuid(1000)</code>를 호출하면 특권 권한(EUID=0) 상태였으므로 EUID와 Saved UID를 1000으로 변경 가능하며, Real UID는 변하지 않고 유지된다.
+</blockquote>
+</details>
+
+#### 루트 계정 원격 접속 제한
+
+<details>
+<summary>(기출: 162) 리눅스 시스템에서 루트(root) 계정의 원격 접속을 차단하기 위한 3가지 주요 보안 설정을 기술하시오.</summary>
+<blockquote>
+1) <strong>Telnet 제한</strong>: <code>/etc/securetty</code> 파일에서 가상 터미널(pts/0, pts/1 등) 설정을 모두 제거하거나 주석 처리하여 root의 직접 로그인을 차단한다.<br>
+2) <strong>SSH 제한</strong>: <code>/etc/ssh/sshd_config</code> 파일에서 <code>PermitRootLogin no</code> 로 설정하여 root 원격 접속을 원천 봉쇄한다.<br>
+3) <strong>su/sudo 활용</strong>: <code>/etc/pam.d/su</code> 에서 <code>pam_wheel.so</code> 모듈을 활성화하여 특정 그룹(wheel)만 <code>su</code> 가 가능하게 제한하고, 평소에는 일반 계정으로 접속 후 <code>sudo</code> 명령어를 쓰도록 유도한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) SSH 설정 중 <code>PermitRootLogin prohibit-password</code> 옵션의 의미와 보안상 이점을 서술하시오.</summary>
+<blockquote>
+의미: root 계정으로의 원격 접속을 허용하되, <strong>패스워드 인증 방식만 차단</strong>하고 RSA 키 쌍(Key Pair) 등을 이용한 '공개키 인증' 방식만 허용하겠다는 뜻이다.<br>
+이점: 무작위 대입 공격(Brute-force)을 통한 root 패스워드 탈취 위협을 물리적으로 차단하면서도, 관리자가 안전하게 원격 관리를 수행할 수 있는 최소한의 통로를 확보해준다.
+</blockquote>
+</details>
+
 #### 패스워드 복잡성 설정
 
 <details>
@@ -5762,6 +6139,45 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 
 #### Session Timeout 설정
 
+<details>
+<summary>(기출: 150) 리눅스 시스템에서 루트(root) 계정이 터미널 접속 후 로그아웃하지 않고 방치되었을 때, 일정 시간 동안 활동이 없으면 **자동으로 로그아웃되도록 설정**하는 환경변수 명칭과 설정 파일 경로(모든 사용자 적용)를 쓰시오.</summary>
+<blockquote>
+환경변수: <strong>TMOUT</strong><br>
+설정 파일: <strong>/etc/profile</strong> (또는 /etc/bashrc)<br>
+설정 방법: <code>TMOUT=600</code> (10분), <code>export TMOUT</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>TMOUT</code> 변수를 설정했음에도 불구하고 SSH 세션이 여전히 끊어지지 않는 경우, <code>/etc/ssh/sshd_config</code>에서 확인해야 할 핵심 옵션 2가지를 쓰시오.</summary>
+<blockquote>
+1) <strong>ClientAliveInterval</strong>: 클라이언트가 살아있는지 메시지를 보내는 간격(초)<br>
+2) <strong>ClientAliveCountMax</strong>: 응답이 없을 때 세션을 끊기 전 최대한으로 시도할 횟수
+</blockquote>
+</details>
+
+#### Cron 및 예약 작업 관리
+
+<details>
+<summary>(기출: 151) 리눅스 관리자가 <code>cron</code> 프로그램을 이용하여 작업을 예약하려고 한다. 질문에 답하시오.
+1) 자신의 <code>crontab</code> 파일에 예약된 작업을 **확인(출력)**하기 위한 명령어는?
+2) <code>algisa</code> 사용자의 <code>crontab</code> 파일을 **편집(생성)**하기 위한 명령어는?
+3) 매주 일요일 오전 03:00에 <code>/tmp</code> 내의 모든 파일을 삭제하는 설정을 작성하시오. (단, 표준 에러는 리다이렉트 처리)</summary>
+<blockquote>
+1) <code>crontab -l</code><br>
+2) <code>crontab -u algisa -e</code><br>
+3) <code>0 3 * * 0 /bin/rm -rf /tmp/* > /dev/null 2>&1</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 특정 사용자에게만 <code>cron</code> 명령어 사용 권한을 부여하거나 전면 차단하기 위한 **접근 제어 파일 2개**의 명칭과 우선순위를 설명하시오.</summary>
+<blockquote>
+명칭: <strong>/etc/cron.allow</strong>, <strong>/etc/cron.deny</strong><br>
+우선순위: ① <code>cron.allow</code>가 존재하면 <strong>해당 파일에 명시된 사용자만</strong> 허용됨 (deny 파일은 무시됨) ② allow가 없고 <code>cron.deny</code>만 있으면 <strong>해당 파일에 명시된 사용자만 제외</strong>하고 모두 사용 가능함 ③ 두 파일 모두 없으면 플랫폼에 따라 root만 가능하거나 모두 가능하도록 작동함
+</blockquote>
+</details>
+
 ### 2. 파일 및 디렉터리 관리
 
 #### root 홈, 패스 디렉터리 권한 및 패스 설정
@@ -5771,6 +6187,60 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 #### World writable 파일 점검
 
 #### 주요 파일 소유자 및 권한 설정
+
+<details>
+<summary>(기출: 172) 유닉스 서버의 환경설정파일(.login, .profile) 보안 점검 결과, 아래와 같이 권한이 설정되어 있다. 질문에 답하시오.
+[보기] 운영체제: UNIX, 파일명: <code>.login</code>, <code>.profile</code> / 접근권한: <strong>rwxrwxrwx</strong>
+1) 8진수 표기법을 사용하여 <code>.login</code> 파일에 대해 '일반 사용자'는 '읽기' 권한만 가지도록 수정하는 절차를 쓰시오.<br>
+2) 문자 표기법과 연산자를 사용하여 <code>.profile</code> 파일에 대해 '소유자'를 제외한 모든 사용자의 '쓰기' 권한을 제거하는 절차를 쓰시오.<br>
+3) <code>.profile</code> 파일의 소유자를 <code>another_admin</code> 으로 변경하는 명령어를 쓰시오.<br>
+4) 점(.)으로 시작하는 숨김 파일의 속성과 권한 변경 내역을 터미널에서 확인하기 위한 명령어를 쓰시오.</summary>
+<blockquote>
+1) <strong>chmod 774 .login</strong> (또는 754 등 상황에 따름. 기출 정답 기준 <code>774</code>)<br>
+2) <strong>chmod go-w .profile</strong><br>
+3) <strong>chown another_admin .profile</strong><br>
+4) <strong>ls -al</strong> (또는 ls -alt)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 173) 공격자가 침투 후 나중에 다시 root 권한을 쉽게 얻기 위해 일반 실행파일에 <strong>SUID(setuid)</strong> 비트를 설정해 두는 '백도어(Backdoor)' 기법을 사용하려 한다. 질문에 답하시오.
+1) <code>backdoor</code> 파일에 SUID 비트를 설정하는 명령어를 문자 표기법을 사용하여 쓰시오.<br>
+2) 위 작업을 수행한 직후 <code>ls -l</code> 명령으로 확인했을 때, 소유자 권한 실행(x) 자리에 표시되는 문자와 해당 파일이 실행될 때의 UID 특성을 서술하시오.</summary>
+<blockquote>
+1) <strong>chmod u+s backdoor</strong> (또는 chmod 4xxx backdoor)<br>
+2) 표시 문자: <strong>s</strong> (또는 소유자 실행 권한이 없었을 경우 대문자 <strong>S</strong>)<br>
+UID 특성: 파일을 실행하는 동안 해당 프로세스는 실행 시킨 사용자의 권한이 아닌, <strong>파일 소유자(root 등)의 권한으로 실행</strong>된다.
+</blockquote>
+</details>
+
+<details>
+<summary>[기출 24회 13번 문제] (단답형) 리눅스에서 비권한 사용자가 실행 도중 파일 소유자의 권한을 획득하게 하는 (A) 비트와, 디렉토리 내에서 파일 소유자만이 파일을 삭제할 수 있도록 제한하는 (B) 비트를 각각 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> (A): <strong>SetUID (SUID)</strong>, (B): <strong>Sticky Bit (스티키 비트)</strong><br>
+<strong>해설:</strong> SUID(4000)는 권한 상승을 위해 사용되며 보안상 세심한 관리가 필요합니다. 스티키 비트(1000)는 <code>/tmp</code> 디렉토리와 같은 공용 공간의 파일 보호를 위해 사용됩니다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 174) 공격자가 시스템에 설치한 rootkit 실행파일에 SUID 비트가 설정되었다. 이와 관련하여 질문에 답하시오.
+1) SUID 비트를 설정하는 명령어 <code>chmod ( A ) rootkit</code> 에서 A에 들어갈 8진수 4자리를 쓰시오.<br>
+2) 시스템 내에서 SUID 비트가 설정된 파일들을 전수 조사하여 비정상적인 백도어 존재 여부를 확인하기 위한 <code>find</code> 기반 명령어를 작성하시오.</summary>
+<blockquote>
+1) <strong>4755</strong> (또는 4xxx 계열)<br>
+2) <strong>find / -perm -4000 -print</strong> (또는 find / -user root -perm -4000 -ls)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 175) 유닉스/리눅스 시스템의 <code>/tmp</code> 디렉터리에 설정된 <strong>Sticky Bit (스티키 비트)</strong>와 관련하여 질문에 답하시오.
+1) <code>/tmp</code> 디렉터리의 권한이 <code>1777</code> 일 때, Sticky Bit가 의미하는 보안적 제어 기능을 서술하시오.<br>
+2) 공격자가 <code>/tmp</code> 에서 <code>ln -s system-sh /tmp/ps.12345</code> 와 같이 심볼릭 링크를 생성하여 root 권한 획득을 시도하는 시나리오를 방어하기 위한 Sticky Bit의 역할을 설명하시오.</summary>
+<blockquote>
+1) 의미: 누구나 파일을 생성하고 수정할 수 있지만, <strong>파일의 삭제나 이름 변경은 오직 '파일 소유자'나 'root'만이 할 수 있도록 제한</strong>하는 권한이다.<br>
+2) 역할: <code>/tmp</code> 처럼 공용 쓰기 공간에서 공격자가 다른 사용자의 파일을 마음대로 지우고 그 자리에 악성 심볼릭 링크를 끼워 넣는(Race Condition 등) 행위를 차단하여 하이재킹 공격을 방어한다.
+</blockquote>
+</details>
 
 <details>
 <summary>(기출: 122) 주요 메모리 해킹법 중 하나인 <strong>버퍼 오버플로우(Buffer Overflow)의 예방책</strong> 4가지를 서술하시오.</summary>
@@ -5787,6 +6257,14 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 <blockquote>
 1) <strong>카나리 단어</strong>: 리턴 주소 앞에 저장된 특정 값이 버퍼 오버플로우로 인해 변조되면, 이를 감지하여 프로그램 실행을 중단함으로써 복귀 주소 조작을 차단한다.<br>
 2) <strong>ASLR</strong>: 스택, 힙, 라이브러리 등의 주소를 매번 랜덤하게 변경하여 공격자가 실행하고자 하는 악성 코드나 함수(libc 등)의 정확한 메모리 주소를 예측하지 못하게 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>[기출 24회 9번 문제] (단답형) 유닉스/리눅스 시스템에서 부팅 시 커널 정보를 반영하여 동적으로 생성되며, 시스템의 설정값 확인 및 실시간 변경이 가능한 가상 파일 시스템의 명칭과 해당 디렉토리의 경로를 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>프로세스 파일 시스템 (procfs / /proc)</strong><br>
+<strong>해설:</strong> <code>/proc</code> 디렉토리는 커널과 사용자 공간 간의 인터페이스 역할을 하며, 시스템 상태 정보를 파일 형태로 제공합니다.
 </blockquote>
 </details>
 
@@ -5833,6 +6311,108 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 </blockquote>
 </details>
 
+<details>
+<summary>(기출: 141) 서버 점검 중 <code>/etc/apache/conf</code> 내의 파일이 수정되었음을 발견하였다. 담당자가 10일 이내에 파일을 수정한 적이 없을 때, 파일의 <strong>무결성을 확인하기 위한 <code>find</code> 명령어</strong>를 한 줄로 작성하시오. (단, 최근 10일 이내 수정된 파일 검색)</summary>
+<blockquote>
+<code>find /etc/apache/conf -mtime -10</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) <code>find</code> 명령어의 시간 관련 옵션 3가지(<code>atime</code>, <code>mtime</code>, <code>ctime</code>)를 각각 설명하고, 공격자가 <code>touch</code> 명령으로 <code>mtime</code>을 조작했을 때 위변조 흔적을 찾기 위해 가장 신뢰할 수 있는 옵션은 무엇인지 쓰시오.</summary>
+<blockquote>
+1) <strong>atime (Access Time)</strong>: 파일에 마지막으로 접근(Read)한 시간<br>
+2) <strong>mtime (Modify Time)</strong>: 파일의 내용(Contents)이 마지막으로 수정된 시간<br>
+3) <strong>ctime (Change Time)</strong>: 파일의 속성(Metadata: 권한, 소유주 등)이 변경된 시간<br>
+가장 신뢰할 수 있는 것은 <strong>ctime</strong>이다. <code>mtime</code>은 공격자가 쉽게 과거로 조작(Timestamp Manipulation)할 수 있지만, <code>ctime</code>은 속성 변경 시 커널에 의해 현재 시간으로 강제 갱신되기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 142) 다음은 최근 10일 동안 시스템에 새롭게 생성된 파일(수정된 파일)을 찾아 <code>/tmp/algisa.out</code>에 저장하는 명령어이다. 빈칸 (A), (B)에 적절한 내용을 쓰시오.
+<code>find / ( A ) ( B ) -print -xdev > /tmp/algisa.out</code></summary>
+<blockquote>
+(A) <strong>-mtime</strong> (B) <strong>-10</strong> (또는 10일 이내이므로 -10)
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 위 명령어에서 사용된 <strong><code>-xdev</code></strong> 옵션의 의미와, 보안 점검 시 이 옵션을 사용하는 이유를 기술하시오.</summary>
+<blockquote>
+의미: 현재 파일 시스템 내에서만 검색을 수행하고, <strong>다른 마운트 지점(NFS, 외부 하드 등)의 디렉터리로 넘어가지 않도록</strong> 제한하는 옵션이다.<br>
+이유: 불필요하게 방대한 네트워크 드라이브나 임시 마운트 지점까지 검색하여 속도가 저하되는 것을 방지하고, 로컬 시스템의 실제 무결성만 집중적으로 점검하기 위함이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 143) 시스템 보안에서 SUID(setuid)와 SGID(setgid)가 설정된 파일을 찾기 위한 <code>find</code> 명령어를 작성하시오.
+(A) 전체 디렉터리에서 정규 파일 중 SUID가 설정된 파일 모두 찾기
+(B) 전체 디렉터리에서 정규 파일 중 SGID가 설정된 파일 모두 찾기</summary>
+<blockquote>
+(A) <code>find / -type f -perm -4000</code><br>
+(B) <code>find / -type f -perm -2000</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 144) 다음 리눅스 시스템 보안 점검을 위한 <code>find</code> 명령어의 의미를 각각 쓰시오.
+1) <code>find / -ctime -7 -print</code>
+2) <code>find / -user root -perm -4000 -print</code>
+3) <code>find / -perm 1777 -print</code>
+4) <code>find /dev -type f -print</code>
+5) <code>find / -nouser -print</code></summary>
+<blockquote>
+1) 최근 7일 이내에 <strong>파일의 속성 정보(Metadata)가 변경된</strong> 파일 검색<br>
+2) 소유자가 root이면서 <strong>SUID가 설정된</strong> 실행 파일 검색<br>
+3) <strong>Sticky Bit가 설정</strong>되어 있고 접근 권한이 777인 공용 디렉터리 검색<br>
+4) <code>/dev</code> 디렉터리 내에 존재하는 <strong>일반 파일(Normal File)</strong> 검색 (공격자의 백도어 은닉 장소 점검)<br>
+5) 시스템에 등록된 <strong>소유자가 존재하지 않는(유령 계정 등)</strong> 파일 검색
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 145~147) 침해사고 대응(CERT)을 위한 보안 체크리스트 중 일부이다. 각 명령어의 보안적 목적을 기술하시오.
+1) <code>find / -type f \( -perm -4000 -o -perm -2000 \) -exec ls -al {} \;</code>
+2) <code>find / -type f \( -nouser -o -nogroup \) -print</code>
+3) <code>find / -type f -perm -2 -print</code>
+4) <code>find /home -name .rhosts -print</code></summary>
+<blockquote>
+1) 시스템 내 모든 <strong>SUID/SGID 파일을 나열</strong>하여 비정상적으로 생성된 권한 상승 도구나 백도어를 점검함<br>
+2) <strong>소유자나 소유그룹이 없는 파일</strong>을 찾아, 퇴직자 계정이나 공격자가 남겨둔 의심스러운 자원을 확인함<br>
+3) <strong>Other(기타 사용자)에게 쓰기 권한이 있는</strong> 파일을 찾아, 외부의 무단 변조 위협이 있는 파일을 점검함<br>
+4) 패스워드 없이 원격 접속을 허용하는 <strong><code>.rhosts</code> 파일의 존재 여부</strong>를 확인하여 우회 접속 통로를 차단함
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 148) 다음 질문에 답하시오.
+1) 최근 7일 이내에 변경된 파일을 찾는 <code>find</code> 명령어는?
+2) 사용자(소유자)가 root이고 SUID가 설정된 파일을 찾는 지시어는?</summary>
+<blockquote>
+1) <code>find / -mtime -7</code><br>
+2) <code>-user root -perm -4000</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출: 149) 리눅스 시스템 관리자가 사용하는 백업 스크립트 <code>backup.sh</code>의 내용과 결과 문서이다. 질문에 답하시오.
+[백업 결과 파일 목록]
+<code>-rw-r--r-- 1 root root ... etc_202103101339.tgz</code>
+1) 백업 결과 파일의 접근권한을 검토하여 어떤 보안상의 문제가 있는지 설명하시오.
+2) 문제점 개선을 위해 <code>umask</code>를 변경하여 백업 파일을 생성하는 스크립트 수정 방안을 기술하시오.</summary>
+<blockquote>
+1) 백업 파일이 644(rw-r--r--) 권한으로 생성되어, <strong>일반 사용자도 시스템 설정 백업본을 읽을 수 있게 되어</strong> 기밀 정보가 유출될 수 있다.<br>
+2) <code>tar</code> 명령 실행 직전에 <strong><code>umask 066</code></strong> (또는 077)을 설정하여 생성되는 백업 파일의 권한을 600(또는 600 이하)으로 강화해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 위 백업 시나리오에서 <strong>Sticky Bit</strong>가 적용된 공용 디렉터리에 백업 파일을 저장할 때, 백업 파일 자체의 보안 외에 공격자가 시도할 수 있는 <strong>심볼릭 링크 공격(Symlink Attack)</strong> 위협을 예방하기 위한 조치를 서술하시오.</summary>
+<blockquote>
+공격자가 백업 파일 경로와 동일한 이름의 심볼릭 링크를 생성하여 <code>/etc/passwd</code> 같은 시스템 중요 파일을 가리키게 만들 수 있다. 이를 방지하기 위해 <strong>백업 디렉터리를 root 전용 권한(700)으로 설정</strong>하거나, 스크립트 내에서 파일 생성 전 <strong>기존에 링크나 동일 파일이 있는지 엄격히 검사</strong>하는 로직을 추가해야 한다.
+</blockquote>
+</details>
+
 ## [3] 윈도우 서버 취약점
 
 ### 1. 계정 관리
@@ -5840,12 +6420,47 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 #### Administrator 계정 이름 변경 또는 보안성 강화
 
 <details>
-<summary>(기출: 133) 다음은 윈도우의 로컬 보안 설정 중 암호 정책 화면이다. 설정된 각 항목의 보안상 의미를 간략히 설명하시오.
-1) 패스워드는 복잡성을 만족해야 함: <strong>사용</strong>
-2) 최근 암호 기억: <strong>4개 암호 기억됨</strong>
-3) 최대 암호 사용 기간: <strong>90일</strong>
-4) 최소 암호 길이: <strong>8문자</strong>
-5) 최소 암호 사용 기간: <strong>1일</strong></summary>
+<summary>(기출: 177) 윈도우 서버 시스템의 사용자 및 그룹 관리 현황(lusrmgr.msc)과 개별 계정 속성 화면들이다. 이를 분석하여 다음 각 계정의 보안 취약점과 대응 방안을 서술하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+(가) <code>Administrator</code> 계정<br>
+(나) <code>Guest</code> 계정<br>
+(다) <code>algisa</code> 계정 (일반 사용자 용도)
+</div>
+</summary>
+<blockquote>
+(가) <strong>Administrator 계정</strong><br>
+- <strong>취약점</strong>: 기본 관리자 계정명이 노출되어 있어 무차별 대입 공격(Brute-force)의 집중 표적이 됨. 또한 '암호 사용 기간 제한 없음'으로 설정된 경우 유출 시 장기간 위험에 노출됨.<br>
+- <strong>방안</strong>: 계정명을 제3자가 유추하기 어려운 이름으로 <strong>이름 변경(Rename)</strong>하고, 패스워드 만료 정책을 적용한다.<br><br>
+(나) <strong>Guest 계정</strong><br>
+- <strong>취약점</strong>: 익명 사용자가 시스템에 접근할 수 있는 통로가 되며, 특히 화면상 <code>Administrators</code> 그룹에 포함되어 있을 경우 시스템 전체 권한이 탈취될 수 있음.<br>
+- <strong>방안</strong>: <strong>계정 사용 안 함(Disabled)</strong>으로 설정하고, 관리자 그룹에서 즉각 제거한다.<br><br>
+(다) <strong>algisa 계정</strong><br>
+- <strong>취약점</strong>: 일반 사용자임에도 <code>Administrators</code> 그룹에 소속되어 과도한 권한(최소 권한 원칙 위배)을 가지고 있음.<br>
+- <strong>방안</strong>: 관리자 그룹에서 제거하여 <strong>표준 사용자 권한</strong>만 부여하고, 업무상 필요한 경우에만 <code>Run as administrator</code>(관리자 권한으로 실행)를 사용하도록 통제한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(응용) 윈도우 시스템에서 일반 사용자가 관리자 권한이 필요한 작업을 수행하려 할 때, 화면을 일시적으로 흐리게 만들고 승인/거절을 묻는 보안 메커니즘의 명칭과 그 목적을 서술하시오.</summary>
+<blockquote>
+명칭: <strong>사용자 계정 컨트롤 (UAC, User Account Control)</strong><br>
+목적: 관리자 권한이 없는 상태로 프로그램을 실행하다가, 시스템 설정 변경 등 중요한 동작 시에만 사용자에게 <strong>명시적인 승인</strong>을 요구함으로써 악성 소프트웨어가 사용자 모르게 시스템 레벨의 권한을 획득하고 변조하는 것을 방지하기 위함이다.
+</blockquote>
+</details>
+
+
+<details>
+<summary>(기출: 133) 다음은 윈도우의 로컬 보안 설정 중 암호 정책 화면이다. 설정된 각 항목의 보안상 의미를 간략히 설명하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+<strong>[보기]</strong><br>
+1) 패스워드는 복잡성을 만족해야 함: <strong>사용</strong><br>
+2) 최근 암호 기억: <strong>4개 암호 기억됨</strong><br>
+3) 최대 암호 사용 기간: <strong>90일</strong><br>
+4) 최소 암호 길이: <strong>8문자</strong><br>
+5) 최소 암호 사용 기간: <strong>1일</strong>
+</div>
+</summary>
 <blockquote>
 1) <strong>복잡성 만족</strong>: 영문 대소문자, 숫자, 특수문자 중 3종류 이상을 조합하도록 강제하여 추측 공격에 대비함<br>
 2) <strong>최근 암호 기억</strong>: 이전에 사용했던 4개의 암호를 다시 사용할 수 없게 하여 암호 재사용을 방지함<br>
@@ -5903,6 +6518,13 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 </details>
 
 <details>
+<summary>[기출 13회 7번 문제] (단답형) 리눅스 시스템에서 현재 어떤 파일이 어떤 프로세스에 의해 열려 있는지를 확인할 수 있는 명령어와, 실패한 로그인 기록을 확인할 수 있는 명령어를 각각 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> 열린 파일 확인: <strong>lsof</strong> (List Open Files), 실패 로그인 확인: <strong>lastb</strong>
+</blockquote>
+</details>
+
+<details>
 <summary>(응용) <code>last</code> 명령어 결과에서 <strong>'still logged in'</strong>으로 표시되는 항목의 보안적 의미와, 이를 강제로 로그아웃시켜야 할 상황의 판단 근거를 서술하시오.</summary>
 <blockquote>
 현재 해당 사용자가 <strong>시스템에 세션을 유지하며 접속 중임</strong>을 의미한다. 만약 관리자가 인지하지 못한 시간대에 원격 IP에서 'still logged in' 상태로 비정상적인 프로세스를 실행 중이라면, 계정 탈취를 의심하여 <code>skill</code> 또는 <code>kill</code> 명령으로 세션을 즉시 종료해야 한다.
@@ -5946,6 +6568,14 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 <blockquote>
 1) <strong>algisa03</strong> (UID가 0으로 설정되어 관리자 권한을 획득함)<br>
 2) <strong>acct / pacct</strong> 로그파일 (프로세스 어카운팅을 통해 실행된 모든 명령어를 기록함)
+</blockquote>
+</details>
+
+<details>
+<summary>[기출 24회 18번 문제] (단답형) xinetd 보안 설정 중 동시 접속 가능한 소켓 수(A)와, 각 호스트(IP)당 허용 가능한 최대 접속 건수(B)를 제한하는 지시어를 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> (A): <strong>instances</strong>, (B): <strong>per_source</strong><br>
+<strong>해설:</strong> xinetd를 통한 정교한 제어는 DoS 공격 방어에 효과적입니다.
 </blockquote>
 </details>
 
@@ -6061,6 +6691,19 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 </details>
 
 <details>
+<summary>[기출 19회 11번 문제] (서술형) 다음 파일 또는 디렉터리에 설정된 특수 권한 비트의 의미를 각각 설명하시오.<br>
+1) <code>-r-sr-xr-x root sys /etc/chk/passwd</code><br>
+2) <code>-r-xr-sr-x root mail /etc/chk/mail</code><br>
+3) <code>drwxrwxrwt sys sys /tmp</code></summary>
+<blockquote>
+<strong>정답 및 해설:</strong><br>
+1) <strong>SetUID (s)</strong>: 일반 사용자가 실행하더라도 파일의 소유자(root) 권한으로 실행됨<br>
+2) <strong>SetGID (s)</strong>: 일반 사용자가 실행하더라도 파일의 그룹(mail) 권한으로 실행됨<br>
+3) <strong>Sticky Bit (t)</strong>: 공용 디렉터리(777)이지만, 파일의 소유자나 관리자만이 파일을 삭제하거나 이름을 변경할 수 있도록 제한함
+</blockquote>
+</details>
+
+<details>
 <summary>(기출: 113) <code>last</code> 명령의 실행 결과로 나타나는 <strong>"still logged in"</strong>의 의미를 서술하시오.</summary>
 <blockquote>
 해당 사용자가 로그아웃하지 않고 <strong>현재 시스템에 여전히 로그인하여 접속 중임</strong>을 의미한다.
@@ -6107,6 +6750,15 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 
 #### 하드디스크 기본 공유 제거
 
+<details>
+<summary>(기출: 176) 윈도우(Windows) 시스템에서 관리 목적으로 자동 생성되는 <strong>기본 공유(C$, ADMIN$ 등)</strong>를 터미널 명령어로 직접 해제하려 한다. 빈칸에 알맞은 옵션을 쓰시오.
+- 명령어: <code>net share c$ (  )</code></summary>
+<blockquote>
+<strong>/delete</strong> (또는 /d)<br>
+- <strong>해설</strong>: 기본 공유는 시스템 재시작 시 다시 활성화되므로, 영구적으로 제거하려면 레지스트리의 <code>AutoShareServer</code> 또는 <code>AutoShareWks</code> 값을 0으로 설정해야 한다.
+</blockquote>
+</details>
+
 #### 공유 권한 및 사용 그룹 설정
 
 #### 불필요한 서비스 제거
@@ -6116,3 +6768,79 @@ Return Address(RET)는 함수가 수명을 다하고 정상 종료될 때 원래
 ### 3. 로그 관리
 
 #### 감사 정책 설정
+
+<details>
+<summary>(기출 25회 18번 문제) 윈도우 PE(Portable Executable) 파일은 실행 코드, 데이터, 리소스 및 메타데이터를 포함하는 구조를 가지며, 악성코드 분석 시 난독화나 헤더 변형 등으로 분석을 어렵게 만든다. 이러한 악성파일을 분석하는 다음 3가지 방법에 대하여 설명하시오.
+1. 자동화 분석
+2. 반자동화 분석
+3. 수동 분석
+</summary>
+<blockquote>
+1. <strong>자동화 분석</strong>: 분석 대상 파일을 가상 환경이나 샌드박스 등 자동화된 도구에 업로드하여 파일의 행위(파일 생성, 네트워크 통신 등)를 자동으로 분석하고 리포트를 생성하는 방식이다.<br>
+2. <strong>반자동화 분석</strong>: 자동화된 분석 도구가 추출한 데이터나 특징을 기반으로 분석가가 개입하여 특정 지점을 심층 분석하거나 가설을 검증하는 도구 지원형 분석 방식이다.<br>
+3. <strong>수동 분석</strong>: 분석가가 디버거(Debugger)나 디스어셈블러(Disassembler) 등의 도구를 사용하여 코드의 흐름을 직접 추적하고 리버스 엔지니어링을 통해 프로그램의 상세 기능을 파악하는 정밀 분석 방식이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(기출 23회 2번 문제) (단답형) 64비트 리눅스(x86_64) 시스템에서 함수 호출 시 첫 번째, 두 번째, 세 번째 파라미터가 저장되는 CPU 레지스터의 명칭을 차례대로 쓰시오.</summary>
+<blockquote>
+<strong>RDI, RSI, RDX</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(기출 23회 3번 문제) (단답형) 리눅스 환경에서 컴파일 시 외부 라이브러리 함수 주소를 프로그램 실행 시점에 연결하는 ( A ) 방식을 사용할 때, 실제 함수의 주소를 찾아가기 위해 참조하는 테이블 ( B )와 실제 주소가 저장되는 테이블 ( C )의 명칭을 각각 쓰시오.</summary>
+<blockquote>
+(A) <strong>Dynamic Linking</strong> (동적 링킹)<br>
+(B) <strong>PLT</strong> (Procedure Linkage Table)<br>
+(C) <strong>GOT</strong> (Global Offset Table)
+</blockquote>
+</details>
+
+<details>
+<summary>(기출 23회 5번 문제) (단답형) 리눅스의 <code>/var/log/messages</code> 파일에 기록된 로그의 일반적인 구조 5가지 항목을 순서대로 기술하시오.</summary>
+<blockquote>
+1. 로그 발생 일시 (Date/Time)<br>
+2. 호스트명 (Hostname)<br>
+3. 프로세스명 (또는 서비스명)<br>
+4. 프로세스 ID (PID)<br>
+5. 메시지 내용
+</blockquote>
+</details>
+
+<details>
+<summary>(기출 23회 7번 문제) (단답형) 리눅스 PAM(Pluggable Authentication Module) 설정 파일에서 사용하는 4가지 모듈 유형 중 다음 설명에 해당하는 것을 각각 쓰시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+(A): 실질적인 사용자 인증(패스워드 확인 등)을 담당하는 모듈<br>
+(B): 사용자의 계정 유효성, 접근 시간 등 시스템 사용 권한을 확인하는 모듈<br>
+(C): 사용자가 로그온할 때부터 로그아웃할 때까지의 세션을 관리하며 로그 기록 등을 수행하는 모듈
+</div>
+</summary>
+<blockquote>
+(A) <strong>auth</strong><br>
+(B) <strong>account</strong><br>
+(C) <strong>session</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>[기출 22회 2번 문제] (단답형) 다음 ( )에 들어갈 유닉스 로그 파일명을 기술하시오(경로는 생략해도 됨).<br>
+1. (A): 사용자의 가장 최근 로그인 시각, 접근 호스트 정보 기록<br>
+2. (B): SU(Switch User) 권한 변경(성공 or 실패) 로그 기록<br>
+3. (C): 시스템에 로그인한 모든 사용자가 실행한 명령어 정보 기록</summary>
+<blockquote>
+<strong>정답:</strong> (A) <strong>lastlog</strong>, (B) <strong>sulog</strong>, (C) <strong>pacct (또는 acct)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>[기출 21회 9번 문제] (단답형) 익스플로잇 코드와 관련되어 ( )에 들어갈 용어를 기술하시오.<br>
+(A): 어셈블리어/기계어로 구성되어 있는 익스플로잇 코드의 본체에 해당하는 프로그램<br>
+(B): NoP(No operation)에 해당하는 x86 Hex Code<br>
+(C): ESP(Extended Stack Pointer) 레지스터에 있는 값을 EIP(Extended Instruction Pointer) 레지스터로 옮기는 어셈블리 명령</summary>
+<blockquote>
+<strong>정답:</strong> (A) <strong>Shell Code (쉘코드)</strong>, (B) <strong>0x90</strong>, (C) <strong>RET (또는 JMP ESP/POP EIP 등 환경에 따른 제어권 획득 명령)</strong><br>
+※ 해설: 21회 모범답안에서는 RET, JMP ESP 등을 정답으로 제시함
+</blockquote>
+</details>
