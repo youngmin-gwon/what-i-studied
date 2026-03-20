@@ -366,7 +366,7 @@ VLAN (Virtual LAN, 가상 랜)
 <summary>[기출 24회 5번 문제] (단답형) VLAN 구성 방식 중 스위치의 포트별로 직접 할당하여 관리가 용이하고 보안성이 높은 (A)와, MAC 주소를 기반으로 자동 할당되어 사용자 이동성을 지원하는 (B)를 각각 쓰시오.</summary>
 <blockquote>
 <strong>정답:</strong> (A): <strong>정적 VLAN (포트 기반)</strong>, (B): <strong>동적 VLAN (MAC 주소 기반)</strong><br>
-<strong>해설:</strong> [기출 24회 5번 문제] 정적 VLAN은 관리가 용이하나 유연성이 낮고, 동적 VLAN은 이동성을 지원하지만 관리 오버헤드가 발생할 수 있습니다.
+<strong>해설:</strong>정적 VLAN은 관리가 용이하나 유연성이 낮고, 동적 VLAN은 이동성을 지원하지만 관리 오버헤드가 발생할 수 있습니다.
 </blockquote>
 </details>
 
