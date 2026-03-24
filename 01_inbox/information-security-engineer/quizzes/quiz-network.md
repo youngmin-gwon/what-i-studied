@@ -45,7 +45,40 @@ NAC (Network Access Control)
 
 ### 프로토콜
 
+<details>
+<summary>(단답형) 프로토콜을 구성하는 3대 요소 중, 데이터의 포맷(Format)이나 부호화(Encoding) 등 송수신 데이터의 형식과 구조를 정의하는 요소를 쓰시오.</summary>
+<blockquote>
+<strong>구문 (Syntax)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 프로토콜의 3대 요소 중 '타이밍(Timing)'이 담당하는 구체적인 역할 2가지를 기술하시오.</summary>
+<blockquote>
+1. <strong>속도 조절 (Speed Matching)</strong>: 데이터를 얼마나 빨리 보낼 것인지 정의한다.<br>
+2. <strong>순서 제어 (Order)</strong>: 데이터의 송수신 순서 및 전송 주기 등을 동기화한다.
+</blockquote>
+</details>
+
+
 ### OSI 7 Layer
+
+<details>
+<summary>(단답형) 네트워크에 연결된 모든 물리적·논리적 장치를 통칭하여 <strong>( A )</strong>라 하며, 그 중에서 PC나 서버와 같이 네트워크 주소를 가지고 연산 능력을 갖춘 종단 노드를 일컬어 <strong>( B )</strong>라 부른다.</summary>
+<blockquote>
+(A) <strong>노드 (Node)</strong><br>
+(B) <strong>호스트 (Host)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) OSI 7계층 참조 모델이 '분할 정복(Divide and Conquer)' 아키텍처를 채택함으로써 얻을 수 있는 설계 및 관리상의 이점 2가지를 기술하시오.</summary>
+<blockquote>
+1. <strong>복잡성 감소</strong>: 큰 네트워크 시스템을 독립적인 계층으로 세분화하여 설계 및 구현을 단순화하고 유지보수를 용이하게 한다.<br>
+2. <strong>제조사 간 독립성 확보</strong>: 상위 및 하위 계층 간의 인터페이스 표준만 충족하면, 각 제조사(Vendor)들이 해당 계층의 기술을 독자적으로 개발하고 발전시킬 수 있어 상호 호환성을 유지하면서도 기술 혁신이 가능하다.
+</blockquote>
+</details>
+
 
 <details>
 <summary>(단답형) OSI 7계층 중 2계층(데이터 링크 계층)에서 사용되며, 6바이트로 구성되어 제조사 코드(OUI)와 고유 번호로 이루어진 물리적 주소의 명칭을 쓰시오.</summary>
@@ -122,6 +155,45 @@ MAC 주소 (Media Access Control Address)
 ### OSI 모델 데이터 교환 방식
 
 <details>
+<summary>(단답형) 송신 측에서 상위 계층의 데이터를 하위 계층으로 보낼 때, 각 계층의 프로토콜이 자신의 기능을 수행하기 위해 필요한 제어 정보(Header)를 추가하여 전송 메시지를 완성하는 과정을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>캡슐화 (Encapsulation)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 수신 측에서 상위 계층으로 데이터를 전달할 때, 해당 계층의 헤더 정보를 확인한 후 이를 제거하고 상위 계층으로 데이터를 올려보내는 과정을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>역캡슐화 (Decapsulation)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 수신 측의 특정 계층 프로토콜이 여러 상위 계층 프로토콜 중 데이터가 도달해야 할 정확한 대상을 식별하여 전달하기 위해, 헤더에 포함된 '프로토콜 식별자'를 이용하는 기법을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>역다중화 (Demultiplexing)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) TCP/IP 계층 구조에서 계층 간 데이터 전달 시 상위 프로토콜을 식별하기 위해 각 헤더에 포함되는 '식별자 필드' 3가지를 해당 계층(또는 헤더)과 함께 기술하시오.</summary>
+<blockquote>
+1. <strong>네트워크 인터페이스 - 인터넷 계층</strong>: Frame 헤더의 <strong>Type</strong> 필드<br>
+2. <strong>인터넷 - 전송 계층</strong>: IP 헤더의 <strong>Protocol</strong> 필드<br>
+3. <strong>전송 - 응용 계층</strong>: TCP/UDP 헤더의 <strong>Destination Port</strong> 필드
+</blockquote>
+</details>
+
+
+<details>
+<summary>(서술형) OSI 7계층 중 전송 계층(Layer 4)의 통신 범위를 데이터 링크 계층(Layer 2)과 비교하여 '목적지 식별' 관점에서 설명하시오.</summary>
+<blockquote>
+<strong>데이터 링크 계층</strong>은 인접한 인접한 두 장치 간의 전송인 <strong>Node-to-Node Delivery</strong>를 담당하지만, <strong>전송 계층</strong>은 데이터의 최종 출발지부터 최종 목적지 세그먼트까지의 양 끝단 전송인 <strong>End-to-End Delivery</strong>를 담당하며, 구체적으로는 각 호스트 내에서 동작하는 프로세스 간의 통신용 주소(Port)를 식별한다.
+</blockquote>
+</details>
+
+
+<details>
 <summary>395. (작업형) 다음 TCP <strong>연결 설정(3-way)</strong> 및 <strong>연결 종료(4-way)</strong> 과정의 플래그 비트와 순서 번호를 채우시오.(플래그 비트 예: 010001, 순서: URG, ACK, PSH, RST, SYN, FIN 순)<br>
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 (1) 서버 응답(SYN+ACK): TCP Flag [ <strong>(  A  )</strong> ], SEQ( <strong>(  B  )</strong> ), ACK( X+1 )<br>
@@ -192,6 +264,38 @@ ARQ (Automatic Repeat Request)
 </details>
 
 ### 이더넷(Ethernet) 및 스위칭(Switching) 보안
+
+<details>
+<summary>(서술형) 더미 허브(Dummy Hub) 환경에서 공격자가 스니퍼(Sniffer)를 통해 다른 호스트의 패킷을 엿볼 수 있는 이유를 장비의 물리 계층(Layer 1) 동작 특성과 관련하여 설명하시오.</summary>
+<blockquote>
+더미 허브는 수신한 전기적 신호를 목적지 주소 식별 없이 모든 포트로 단순히 복제하여 전달(Flooding)하기 때문에, 매체에 흐르는 모든 패킷이 물리적으로 공격자의 호스트에도 도달하게 되어 스니핑이 용이해진다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 네트워크 카드(NIC)의 '무차별 모드(Promiscuous Mode)' 설정이 스니핑 공격에서 필수적으로 요구되는 하드웨어적 이유를 기술하시오.</summary>
+<blockquote>
+일반적인 NIC는 자신의 MAC 주소를 목적지로 하지 않는 패킷을 수신하면 하드웨어 수준에서 즉시 폐기(Discard)한다. 무차별 모드를 활성화해야만 목적지 주소와 상관없이 매체 상의 모든 패킷을 가로채서 상위 분석 소프트웨어(Wireshark 등)로 전달할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 장비 장애 발생 시 보안 정책인 'Fail Open'과 'Fail Close'의 개념을 가용성과 보안성 관점에서 비교하여 기술하시오.</summary>
+<blockquote>
+- <strong>Fail Open (장애 안전)</strong>: 시스템 장애 시 모든 트래픽이나 접근을 허용하는 조치로, <strong>가용성</strong>을 최우선으로 하나 보안성이 약화된다 (예: 스위치 장애 시 허브로 동작).<br>
+- <strong>Fail Close (장애 보안)</strong>: 장애 발생 시 모든 통신을 차단하는 조치로, 가용성은 떨어지지만 <strong>보안성</strong>을 일정하게 유지하거나 강화할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 Wireshark 캡처 옵션 중 스니핑을 위해 반드시 체크해야 할 옵션의 명칭과 그 목적을 쓰시오.<br>
+[ ] <code>Use promiscuous mode on all interfaces</code></summary>
+<blockquote>
+- <strong>명칭</strong>: <strong>무차별 모드 (Promiscuous Mode)</strong><br>
+- <strong>목적</strong>: 자신의 MAC 주소가 아닌 패킷도 폐기하지 않고 모두 수신하여 전체 네트워크 트래픽을 모니터링하기 위함이다.
+</blockquote>
+</details>
+
 
 <details>
 <summary>[기출 20회 12번 문제] (서술형) L2 스위칭 허브의 주요 기능과 5가지 동작 원리(Learning, Forwarding, Filtering, Flooding, Aging)에 대해 설명하시오.</summary>
@@ -397,9 +501,132 @@ VLAN (Virtual LAN, 가상 랜)
 </blockquote>
 </details>
 
-### TCP/IP 프로토토콜
+### TCP/IP 프로토콜
+
+<details>
+<summary>(서술형) DNS(Domain Name System)는 기본적으로 UDP 53번 포트를 사용하지만, 특정 환경에서는 신뢰성 보장을 위해 TCP 53번 포트를 사용한다. TCP가 사용되는 주요 상황 2가지를 기술하시오.</summary>
+<blockquote>
+1. <strong>영역 전송 (Zone Transfer)</strong>: 주 영역 서버와 보조 영역 서버 간에 존 파일(Zone File) 정보를 동기화할 때 데이터의 무결성을 위해 TCP를 사용한다.<br>
+2. <strong>메시지 크기 초과</strong>: 응답 데이터의 크기가 <strong>512바이트를 초과</strong>하여 UDP 패킷 하나에 담지 못하는 경우(Truncation 발생 시), TCP로 전환하여 전체 데이터를 전송한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 전자우편 수신 프로토콜인 POP3와 IMAP의 동작 방식 차이점을 '서버의 메일 데이터 관리' 측면에서 비교하여 설명하시오.</summary>
+<blockquote>
+- <strong>POP3</strong>: 서버에서 메일을 로컬로 다운로드한 후 서버의 원본을 삭제하는 방식이 기본이므로, 여러 기기에서 메일을 확인하는 데 제약이 있다.<br>
+- <strong>IMAP</strong>: 서버에서 메일을 관리하며 클라이언트는 서버와 동기화하여 서비스하는 방식이므로, 서버에 원본이 보존되어 스마트폰, PC 등 다양한 환경에서 동일한 메일함을 실시간으로 공유할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 주요 응용 계층 프로토콜과 기본적으로 사용하는 Well-known 포트 번호를 알맞게 연결하시오.<br>
+(A) SSH/SFTP: (  ) (B) SMTP: (  ) (C) POP3: (  ) (D) DHCP Server: (  ) (E) SNMP: (  )</summary>
+<blockquote>
+(A) <strong>22</strong><br>
+(B) <strong>25</strong><br>
+(C) <strong>110</strong><br>
+(D) <strong>67</strong><br>
+(E) <strong>161</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) TCP/IP 인터넷 계층(Internet Layer)에서 수행하는 핵심 기능인 <strong>Host-to-Host Communication</strong>의 의미와, 이를 위해 사용하는 논리적 주소의 명칭 및 종류별 비트 수를 작성하시오.</summary>
+<blockquote>
+- <strong>의미</strong>: 네트워크 상의 서로 다른 두 호스트 간에 최적의 경로를 선택(Routing)하여 패킷을 전달하는 통신을 담당한다.<br>
+- <strong>주소 명칭</strong>: <strong>IP 주소</strong><br>
+- <strong>비트 수</strong>: <strong>IPv4 - 32비트</strong>, <strong>IPv6 - 128비트</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 네트워크 인터페이스 계층(L2)의 물리 주소인 <strong>MAC 주소</strong>(48비트) 중, 하드웨어 제조사를 식별하기 위해 할당된 상위 24비트의 명칭과 나머지 하위 24비트의 의미를 각각 기술하시오.</summary>
+<blockquote>
+- <strong>상위 24비트</strong>: <strong>OUI (Organizationally Unique Identifier)</strong><br>
+- <strong>하위 24비트</strong>: 제조사가 각 인터페이스(NIC)에 부여한 고유한 <strong>일련번호 (Serial Number)</strong>
+</blockquote>
+</details>
+
 
 ### ARP/RARP 프로토콜(TCP/IP 인터넷 계층)
+
+<details>
+<summary>(단답형) 논리적인 IP 주소를 물리적인 MAC 주소로 변환하는 프로토콜을 <strong>( A )</strong>라 하며, 반대로 하드웨어 MAC 주소를 기반으로 호스트의 IP 주소를 알아내는 프로토콜을 <strong>( B )</strong>라 한다.</summary>
+<blockquote>
+(A) <strong>ARP (Address Resolution Protocol)</strong><br>
+(B) <strong>RARP (Reverse Address Resolution Protocol)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) RARP의 주요 사용 사례(Diskless 터미널 등)와 그 구체적인 동작 원리를 간략히 설명하시오.</summary>
+<blockquote>
+<strong>사례</strong>: 하드디스크가 없어 자신의 IP 정보를 로컬에 저장할 수 없는 터미널이나 워크스테이션에서 사용한다.<br>
+<strong>원리</strong>: 장비 가동 시 자신의 MAC 주소를 담은 RARP 요청을 브로드캐스트하면, 네트워크상의 RARP 서버가 해당 MAC에 매핑된 IP 주소를 응답(Reply)해줌으로써 자신의 IP 정보를 획득한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) ARP Request 패킷은 네트워크상의 모든 노드가 수신해야 하므로 이더넷 프레임의 목적지 MAC 주소를 특정 값으로 브로드캐스트 설정한다. 이에 해당하는 48비트 주소 값을 16진수 형식으로 쓰시오.</summary>
+<blockquote>
+<strong>FF:FF:FF:FF:FF:FF</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) ARP 캐시(Cache) 테이블의 'Static(정적)' 타입과 'Dynamic(동적)' 타입이 가지는 수명 및 관리적 측면의 차이점을 설명하시오.</summary>
+<blockquote>
+- <strong>Dynamic</strong>: ARP 요청/응답을 통해 자동으로 생성되며, 일정 시간(약 2분 내외) 동안 통신이 없으면 캐시에서 자동 삭제(Aging)된다.<br>
+- <strong>Static</strong>: 관리자가 명령어로 직접 설정하며, 사용자가 삭제하지 않거나 시스템이 종료되기 전까지 시간이 지나도 삭제되지 않고 유지된다. 주로 게이트웨이 등의 주요 장비에 대한 ARP 스푸핑 방어를 위해 사용된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) ARP 스푸핑(Spoofing) 공격자가 패킷 가로채기(Sniffing) 성공 후에도 희생자들이 정상적인 통신 상태라고 느끼게 하기 위해 공격자 자신의 시스템에서 반드시 활성화해야 하는 기능의 명칭과 그 사유를 기술하시오.</summary>
+<blockquote>
+- <strong>명칭</strong>: <strong>IP Forwarding (IP 포워딩)</strong><br>
+- <strong>사유</strong>: 공격자가 중간에서 패킷을 가로챈 후 이를 다시 정당한 목적지로 전달해 주어야 세션이 끊기지 않고 정상 통신이 유지된다. 만약 이 기능이 없다면 희생자들 간의 통신이 중단되어 공격 사실이 즉시 노출된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) GARP(Gratuitous ARP)의 정의와, 네트워크 관리 및 보안성 측면에서 수행하는 핵심 기능 2가지를 작성하시오.</summary>
+<blockquote>
+- <strong>정의</strong>: ARP 패킷의 송신자 IP(Sender IP)와 목적지 IP(Target IP)가 동일하게 설정된 특수한 ARP 요청 패킷이다.<br>
+- <strong>기능 1 (IP 충돌 감지)</strong>: 동일 네트워크 내에 자신과 같은 IP를 사용하는 호스트가 있는지 확인하여 IP 중복 설정을 방지한다.<br>
+- <strong>기능 2 (ARP 캐시 갱신)</strong>: 자신의 MAC 정보가 변경되었을 때 주변 호스트의 ARP 캐시 테이블 정보를 최신 상태로 갱신하도록 방송한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 실무적인 ARP 관련 조치 사항에 해당하는 명령어를 작성하시오 (Windows/Linux 공명 옵션 기준).<br>
+1) 현재 메모리에 저장된 ARP 캐시 테이블의 내용을 화면에 출력함: ( A )<br>
+2) 캐시 테이블에서 특정 IP(192.168.0.1) 항목을 수동으로 삭제함: ( B )</summary>
+<blockquote>
+(A) <strong><code>arp -a</code></strong><br>
+(B) <strong><code>arp -d 192.168.0.1</code></strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 아래 화면은 게이트웨이(192.168.10.1)에 대한 ARP 스푸핑 공격 성공 시의 결과이다. ( A )와 ( B )에 들어갈 내용을 쓰시오.<br>
+[공격 전] 192.168.10.1 -> 00-50-56-11-22-33 (Gateway 정석 MAC)<br>
+[공격 후] 192.168.10.1 -> 00-0c-29-ba-02-17 ( ( A )의 MAC)<br>
+"공격 성공 시 희생자의 캐시 테이블에는 게이트웨이의 MAC 주소가 <strong>( B )</strong>의 MAC으로 변조되어 모든 외부 전송 패킷이 <strong>( B )</strong>에게 흐르게 된다."</summary>
+<blockquote>
+(A) <strong>공격자</strong><br>
+(B) <strong>공격자</strong> (또는 해커)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 로컬 네트워크(LAN) 구역 내에서 공격자가 자신이 라우터인 것처럼 위조된 MAC 주소 정보를 담은 ARP Reply를 주기적으로 방송하여 외부로 나가는 트래픽을 조작 및 감취하는 공격의 정확한 명칭을 쓰시오.</summary>
+<blockquote>
+<strong>ARP 리다이렉트 (ARP Redirect)</strong>
+</blockquote>
+</details>
+
 
 <details>
 <summary>[기출 22회 7번 문제] (단답형) ARP request 요청을 보내는 경우 목적지(Ethernet) 주소를 형식에 맞춰서 기술하시오.</summary>
@@ -493,6 +720,86 @@ Internet Address &nbsp;&nbsp;&nbsp;&nbsp; Physical Address &nbsp;&nbsp;&nbsp;&nb
 </details>
 
 ### IP(IPv4) 프로토콜
+
+<details>
+<summary>(단답형) IP 패킷이 라우팅 경로 상에서 무한 루핑(Looping)되는 것을 방지하기 위해 사용되는 필드로, 라우터(L3 장비)를 통과할 때마다 1씩 감소하며 그 값이 0이 되면 패킷이 폐기되는 정보의 명칭을 쓰시오.</summary>
+<blockquote>
+<strong>TTL (Time To Live, 생존 시간)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) IP 옵션 헤더는 경로 설정이나 타이밍 관리 등 부가 정보를 위해 존재하지만, 보편적으로 라우터가 사용하지 않으며 이를 이용한 악의적 데이터 전송 위협(Covert Channel 등)이 존재한다. 보안 솔루션을 통해 이러한 <strong>( A )</strong> 정보가 포함된 패킷을 차단하기도 한다.</summary>
+<blockquote>
+(A) <strong>옵션 (Option)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) IP 패킷 전송 도중 단편(Fragment)의 손실이 발생하여 최종 목적지 호스트에서 일정 시간 대기 후 재조합에 실패했을 때, 최초 출발지로 반환되는 ICMP 에러 메시지의 유형(Type)과 코드(Code)를 각각 쓰시오.</summary>
+<blockquote>
+유형: <strong>Type 11 (Time Exceeded)</strong><br>
+코드: <strong>Code 1 (Fragment reassembly time exceeded)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) IP 헤더의 HLEN(Header Length) 필드 값은 4비트로 구성되며 실제 길이를 4바이트 단위로 표현한다. 옵션 필드가 없는 기본 헤더(20바이트)의 경우 HLEN 필드에 기록되는 값과 그 이유를 기술하시오.</summary>
+<blockquote>
+- <strong>기록되는 값</strong>: <strong>5</strong> (또는 0101)<br>
+- <strong>이유</strong>: 실제 헤더 길이가 20바이트일 때, 4바이트 단위를 기준으로 값을 저장하므로 20 / 4 = 5가 기록된다. (최대값인 15(1111)일 경우 60바이트의 헤더를 가짐)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) IP 단편화(Fragmentation)가 발생했을 때 중계 경로 상의 라우터가 아닌 '최종 목적지 호스트'에서만 패킷의 재조합(Reassembly)을 수행하는 주요 사유를 효율성 측면에서 설명하시오.</summary>
+<blockquote>
+중계 기점인 라우터에서 재조합을 수행할 경우 라우터의 처리 부하(CPU/Memory)가 가중되고 전체적인 전송 효율이 저하되기 때문이다. 라우터는 단순 전달(Forwarding) 작업에만 집중하게 하고, 최종 데이터를 소비하는 목적지 호스트에게 재조합 책임을 위임함으로써 네트워크 전체의 전송 속도를 최적화할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 유닉스/리눅스의 '트러스트(Trust)' 관계를 이용한 IP 스푸핑 공격에 대해 설명하고, <code>/etc/hosts.equiv</code> 파일에 설정된 <code>+ +</code> 레코드의 보안상 위험성을 기술하시오.</summary>
+<blockquote>
+- <strong>공격 원리</strong>: ID/PW가 아닌 IP 기반 인증을 수행하는 신뢰 관계(Trust)를 악용하여, 공격자가 신뢰받는 클라이언트의 IP로 위조(Spoofing)한 후 서버에 무인증 원격 접속하는 공격이다.<br>
+- <strong>위험성</strong>: <code>+ +</code> 설정은 전 세계 모든 호스트(+)로부터의 모든 사용자(+)에 대해 무조건적인 신뢰 접속을 허용하겠다는 의미이므로, 공격자가 별도의 인증 없이 서버 권한을 손쉽게 획득할 수 있는 최악의 취약점을 노출하게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 라우팅 테이블(Routing Table)을 보고 목적지 주소가 <code>10.0.122.100</code>인 패킷이 전송될 Gateway 주소를 찾아 기재하고, 그 검색 우선순위 논리를 설명하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+1. Destination: 10.0.96.100, Genmask: 255.255.255.255, Gateway: 10.0.160.1<br>
+2. Destination: 10.0.64.0, Genmask: 255.255.192.0, Gateway: 10.0.160.3<br>
+3. Destination: 0.0.0.0, Genmask: 0.0.0.0, Gateway: 10.0.160.5
+</div></summary>
+<blockquote>
+- <strong>전송될 Gateway</strong>: <strong>10.0.160.3</strong><br>
+- <strong>우선순위 논리</strong>: 라우팅 테이블 검색 시 1) 목적지 호스트 IP와 정확히 일치하는 경로를 먼저 찾고, 없으면 2) 목적지 네트워크 주소(네트워크 ID)와 일치하는 경로를 찾는다. <code>10.0.122.100</code>과 두 번째 행의 마스크(255.255.192.0)를 비트 AND 연산하면 <code>10.0.64.0</code>이 도출되어 일치하므로 해당 게이트웨이를 선택한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) IPv6의 주소 체계와 보안성 특징에 대한 다음 빈칸을 채우시오.<br>
+1) 주소 비트 수: ( A ) 비트<br>
+2) 표기 방식: ( B )진수 8개 블록을 콜론(:)으로 구분<br>
+3) 보안 특징: 패킷 암호화 및 인증 기능을 제공하는 ( C ) 프레임워크를 기본 프로토콜 규격에 포함하여 보안성을 강화함</summary>
+<blockquote>
+(A) <strong>128</strong><br>
+(B) <strong>16</strong><br>
+(C) <strong>IPsec</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) IPv4 환경에서 IPv6로 전환하기 위한 기술 중 다음 설명에 해당하는 방식을 각각 쓰시오.<br>
+(1) 호스트와 라우터에 두 프로토콜 스택을 모두 설치하여 데이터의 목적지에 따라 선택적으로 사용하는 방식: ( A )<br>
+(2) IPv4 네트워크 상에 논리적인 가상 경로(터널)를 설정하여 IPv6 패킷을 IPv4 패킷으로 캡슐화해 전송하는 방식: ( B )</summary>
+<blockquote>
+(A) <strong>듀얼 스택 (Dual Stack)</strong><br>
+(B) <strong>터널링 (Tunneling)</strong>
+</blockquote>
+</details>
 
 <details>
 <summary>(기출 25회 8번 문제) (작업형) 서브넷 마스크(Subnet Mask)가 <code>255.255.255.192</code>인 경우, 이를 2진수(Binary) 형식으로 변환하여 기술하시오.</summary>
@@ -602,6 +909,81 @@ TTL (Time To Live, 생존 시간)
 ### ICMP 프로토콜
 
 <details>
+<summary>(단답형) IP 프로토콜의 비연결성 및 비신뢰성 특성을 보완하기 위해, 전송 중 발생한 오류를 보고하거나 네트워크 상태를 진단할 목적으로 사용되는 캡슐화된 3계층 프로토콜의 명칭을 쓰시오.</summary>
+<blockquote>
+<strong>ICMP (Internet Control Message Protocol)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 특정 서버의 UDP 포트 상태를 점검하기 위해 패킷을 전송했으나 해당 포트가 닫혀 있을 때, 수신 측 호스트가 송신 측에 반환하는 ICMP 에러 메시지의 유형(Type)과 코드(Code)를 각각 쓰시오.</summary>
+<blockquote>
+유형: <strong>Type 3 (Destination Unreachable)</strong><br>
+코드: <strong>Code 3 (Port Unreachable)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) IP 헤더의 DF(Don't Fragment) 플래그가 설정된 패킷이 중계 라우터를 통과하던 중, 해당 라우터 인터페이스의 MTU보다 패킷이 커서 전송에 실패할 때 반환되는 ICMP 메시지의 코드를 쓰시오.</summary>
+<blockquote>
+<strong>Code 4 (Fragmentation needed and DF set)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 네트워크 진단 도구인 'traceroute' 유틸리티가 최종 목적지까지의 경로 상에 있는 라우터 정보를 알아내고 도착 여부를 판단하기 위해 이용하는 ICMP 메시지 유형 2가지와 그 원리를 설명하시오.</summary>
+<blockquote>
+1. <strong>Time Exceeded (Type 11)</strong>: TTL 값을 1부터 순차적으로 증가시키며 패킷을 보내, 각 홉(Hop)의 라우터에서 TTL이 0이 될 때 반환하는 메시지를 통해 경로 상의 IP 주소를 획득한다.<br>
+2. <strong>Destination Unreachable (Type 3)</strong>: 최종 목적지에 도달했을 때 사용하지 않는 높은 포트 번호(UDP)로 전송한 뒤 반환되는 메시지를 통해 도착 완료를 인지한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) ICMP Redirect(유형 5, 코드 1) 공격의 원리를 설명하고, 이 공격이 희생자 시스템에서 조작하는 설정 테이블의 명칭과 보안 위협을 서술하시오.</summary>
+<blockquote>
+- <strong>원리</strong>: 공격자가 희생자의 게이트웨이를 사칭하여 조작된 ICMP Redirect 메시지를 전송함으로써 패킷 경로를 재설정하는 공격이다.<br>
+- <strong>조작 테이블</strong>: <strong>라우팅 테이블 (Routing Table)</strong><br>
+- <strong>보안 위협</strong>: 특정 목적지로 나가는 패킷이 공격자의 시스템을 거치도록 유도하여 스니핑, 변조 등 중간자 공격(MITM)을 수행한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) ARP 리다이렉트 공격과 ICMP 리다이렉트 공격의 공통된 공격 범주와, 데이터 전달 경로를 가로채기 위해 조작하는 대상(Target Table)의 결정적 차이점을 비교 설명하시오.</summary>
+<blockquote>
+- <strong>공통 범주</strong>: 두 공격 모두 네트워크 중간에서 통신 내용을 가로채는 <strong>중간자 공격 (MITM)</strong>에 해당한다.<br>
+- <strong>차이점</strong>: <strong>ARP 리다이렉트</strong>는 희생자의 <strong>ARP 캐시 테이블</strong> 상의 MAC 정보를 변조하며, <strong>ICMP 리다이렉트</strong>는 희생자의 <strong>라우팅 테이블</strong> 상의 경로(Gateway) 정보를 변조한다는 차이가 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 Wireshark 패킷 분석 중, <code>ping</code> 도구가 정상적으로 동작할 때 확인되는 요청 및 응답 패킷의 ICMP 유형(Type) 번호를 쓰시오.<br>
+(A) Echo Request: ( A )<br>
+(B) Echo Reply: ( B )</summary>
+<blockquote>
+(A) <strong>8</strong><br>
+(B) <strong>0</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스 서버 보안 강화 과정에서 ICMP Redirect 메시지를 수신해도 이를 라우팅 테이블에 반영하지 않도록 설정하고자 한다. 커널 파라미터 설정을 위한 명령어를 완성하시오.<br>
+<code>sysctl -w net.ipv4.conf.all.( A ) = ( B )</code></summary>
+<blockquote>
+(A) <strong>accept_redirects</strong><br>
+(B) <strong>0</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) ICMP 에러 메시지 중 <strong>Time Exceeded (Type 11)</strong>의 발생 사유 2가지를 각각의 코드(Code) 번호와 함께 기술하시오.</summary>
+<blockquote>
+- <strong>Code 0</strong>: 패킷이 최종 목적지에 도달하기 전 라우터에서 <strong>TTL 값이 0</strong>이 되어 폐기된 경우<br>
+- <strong>Code 1</strong>: IP 단편화 패킷의 <strong>재조합 대기 시간(Reassembly Timeout)</strong>이 초과되어 전체 데이터그램이 폐기된 경우
+</blockquote>
+</details>
+
+
+<details>
 <summary>(단답형) TCP/IP 프로토콜 그룹 중 하나로, IP 패킷 전송 중 오류 발생 보고나 전송 경로 제어, 네트워크 상태 진단 등을 위해 사용되는 프로토콜의 명칭을 쓰시오.</summary>
 <blockquote>
 ICMP (Internet Control Message Protocol)
@@ -657,6 +1039,86 @@ IGMP 스누핑 (IGMP Snooping)
 </details>
 
 ### TCP 프로토콜
+
+<details>
+<summary>(단답형) TCP 연결 설정(3-Way Handshake) 시 초기 순서 번호(ISN)를 상호 동기화하기 위해 사용하는 제어 플래그(Flag)의 명칭을 쓰시오.</summary>
+<blockquote>
+<strong>SYN (Synchronize)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 수신 측에서 송신 측에 자신의 수신 버퍼 여유 공간 크기를 알려줌으로써, 데이터를 얼마나 보낼지 결정하여 흐름 제어(Flow Control)를 수행할 수 있게 하는 헤더 필드는?</summary>
+<blockquote>
+<strong>Window Size (윈도우 크기)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) TCP 연결 종료 단계 중 능동 종료(Active Close)를 수행한 호스트가 마지막 ACK를 보낸 후, 지연된 패킷 수신 및 재전송 처리를 위해 일정 시간(2MSL) 동안 소켓을 소멸시키지 않고 유지하는 상태는?</summary>
+<blockquote>
+<strong>TIME_WAIT</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) TCP 세그먼트 데이터부의 최대 크기인 MSS(Maximum Segment Size)의 결정 원리와, 일반적인 이더넷(MTU 1500) 환경에서 표준적인 MSS 값이 도출되는 계산 과정을 기술하시오.</summary>
+<blockquote>
+- <strong>결정 원리</strong>: MSS는 하위 물리 계층의 MTU(최대 전송 단위) 크기에 따라 결정되며, IP 단편화가 발생하지 않도록 하여 전송 효율을 극대화하는 수준에서 설정된다.<br>
+- <strong>계산 과정</strong>: <code>MSS = MTU - (IP 헤더 표준 크기: 20바이트) - (TCP 헤더 표준 크기: 20바이트)</code> 공식에 따라 <code>1500 - 40 = 1460 바이트</code>로 계산된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 재전송 타이머(RTO) 만료 전이라도 빠른 데이터 복구를 위해 수행되는 '빠른 재전송(Fast Retransmission)'의 발생 조건과 동작 방식을 '중복 ACK' 관점에서 설명하시오.</summary>
+<blockquote>
+- <strong>발생 조건</strong>: 송신 측이 동일한 응답 번호를 가진 <strong>중복 ACK(Duplicate ACK)를 3회</strong> 연속으로 수신했을 때 발생한다.<br>
+- <strong>동작 방식</strong>: 타이머 만료(RTO)를 기다리지 않고 즉시 해당 순서 번호의 세그먼트가 유실된 것으로 간주하여 즉각 재전송을 수행함으로써 네트워크 전송 지연을 최소화한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) TCP 세션 하이재킹(Session Hijacking) 공격 시 발생하는 'ACK Storm' 현상의 발생 원인과 그 파급 결과에 대해 서술하시오.</summary>
+<blockquote>
+- <strong>발생 원인</strong>: 공격자가 세션을 가로채며 조작한 순서 번호(Sequence Number)가 서버와 클라이언트가 본래 관리하던 번호와 일치하지 않게 되어, 양측이 이를 교정(비동기화 해결)하기 위해 서로에게 계속해서 응답(ACK) 패킷을 보내게 되기 때문이다.<br>
+- <strong>파급 결과</strong>: 무수한 ACK 패킷이 네트워크에 폭주하여 시스템 및 네트워크 부하를 초래하고 통신 장애를 유발하며, 공격자는 최종적으로 한쪽을 강제 종료(RST)시켜 세션을 완전히 탈취한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) TCP 제어 플래그의 6비트 순서(URG-ACK-PSH-RST-SYN-FIN)를 참조하여, 다음 상황에서의 제어 플래그 값을 2진수 6자리로 작성하시오.<br>
+(A) 최초 연결 요성 시 (SYN): ( A )<br>
+(B) 연결 요성 수락 및 동시 요청 시 (SYN+ACK): ( B )<br>
+(C) 정상적인 연결 종료 요청 시 (FIN+ACK): ( C )</summary>
+<blockquote>
+(A) <strong>000010</strong><br>
+(B) <strong>010010</strong><br>
+(C) <strong>010001</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음은 TCP 연결 설정(3-Way Handshake) 과정의 일부이다. 빈칸 (A), (B)에 들어갈 알맞은 숫자를 채우시오.<br>
+1) Client -> Server: [SYN] Seq: 1000<br>
+2) Server -> Client: [SYN+ACK] Seq: 2000, Ack: <strong>( A )</strong><br>
+3) Client -> Server: [ACK] Seq: 1001, Ack: <strong>( B )</strong></summary>
+<blockquote>
+(A) <strong>1001</strong><br>
+(B) <strong>2001</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) TCP 연결 종료(4-Way Handshake) 단계 중 다음 설명에 해당하는 소켓 상태 명칭을 쓰시오.<br>
+(A) 상대방의 FIN 패킷을 받고 자신의 로컬 애플리케이션 종료를 대기하는 상태: <strong>( A )</strong><br>
+(B) 연결 종료 요청(FIN)에 대한 ACK를 받은 후, 상대의 FIN 패킷을 기다리는 상태: <strong>( B )</strong><br>
+(C) 데이터 전송을 모두 마친 후 마지막 ACK를 송신하고 2MSL 동안 머무는 상태: <strong>( C )</strong></summary>
+<blockquote>
+(A) <strong>CLOSE_WAIT</strong><br>
+(B) <strong>FIN_WAIT_2</strong><br>
+(C) <strong>TIME_WAIT</strong>
+</blockquote>
+</details>
 
 <details>
 <summary>(단답형) 전송 계층 프로토콜 중 하나로, 가상 회선을 설정하여 연결을 지향하며 신뢰성 있는 전송과 흐름 제어를 보장하는 프로토콜은 <strong>( A )</strong>이며, 비연결형으로 신뢰성 보장은 없으나 오버헤드가 적어 빠른 전송이 가능한 프로토콜은 <strong>( B )</strong>이다.</summary>
@@ -723,24 +1185,86 @@ SSL/TLS (또는 HTTPS, SSH, VPN 등 기반의 암호화 통신)
 ### 포트 스캐닝(Port Scanning)
 
 <details>
-<summary>398. (작업형/분석) 다음 <strong>Nmap</strong> 스캔 옵션들의 수행 기법을 쓰시오.<br>
-1) <code>-sS</code>: <strong>(  A  )</strong><br>
-2) <code>-sU</code>: <strong>(  B  )</strong><br>
-3) <code>-sF</code>: <strong>(  C  )</strong><br>
-4) <code>-sN</code>: <strong>(  D  )</strong></summary>
+<summary>(단답형) 대상 시스템의 포트 활성화 여부를 확인하기 위해 3-Way Handshake를 완성하지 않고, SYN+ACK 응답을 받은 즉시 연결을 중단하기 위한 RST 패킷을 전송하는 스캔 방식은 무엇인가?</summary>
 <blockquote>
-<strong>정답:</strong> (A) SYN 스캔(Half-Open) (B) UDP 스캔 (C) FIN 스캔 (D) NULL 스캔
+<strong>TCP SYN 스캔 (또는 Half-Open 스캔)</strong>
 </blockquote>
 </details>
 
 <details>
-<summary>399. (서술형) Nmap의 **Stealth Scan(SYN Scan)** 기법이 일반적인 **Connect Scan**에 비해 보안상 유리한 점을 로그 생성 관점에서 설명하시오.</summary>
+<summary>399. (서술형) Nmap의 <strong>Stealth Scan(SYN Scan)</strong> 기법이 일반적인 <strong>Connect Scan</strong>에 비해 보안상 유리한 점을 로그 생성 관점에서 설명하시오.</summary>
 <blockquote>
-<strong>정답:</strong> CONNECT 스캔은 대상 시스템과 완전한 <strong>3-Way Handshake</strong>를 완료하여 세션을 맺으므로 애플리케이션 로그에 접속 기록이 남는다. 반면, SYN 스캔은 연결 과정 도중 중단하여 세션을 완전히 성립하지 않기 때문에 일반적인 애플리케이션 수준의 로그에는 기록이 남지 않아 탐지하기가 더 어렵다.
+<strong>정답:</strong> CONNECT 스캔은 대상 시스템과 완전한 <strong>3-Way Handshake</strong>를 완료하여 세션을 맺으므로 애플리케이션 로그에 접속 기록이 남는다. 반면, SYN 스캔은 연결 과정 도중 중단하여 세션을 완전히 성립하지 않기 때문에 일반적인 애플리케이션 수준의 로그에는 기록이 남지 않아 탐지하기가 더 어렵다.</blockquote>
+</details>
+
+<details>
+<summary>(단답형) TCP FIN, NULL, Xmas 스캔을 수행할 때, 대상 호스트의 해당 포트가 <strong>닫혀(Closed)</strong> 있을 경우 반환되는 공통적인 응답 패킷의 제어 비트 조합을 쓰시오.</summary>
+<blockquote>
+<strong>RST + ACK</strong>
 </blockquote>
 </details>
 
-### ICMP 프로토콜
+
+<details>
+<summary>(단답형) 스캔 대상 호스트의 관리자가 실제 스캐너의 IP 주소를 식별하기 어렵게 하기 위해, 실제 스캐너 주소 외에 다양한 위조된 주소를 섞어서 스캔하는 기법의 명칭은?</summary>
+<blockquote>
+<strong>디코이(Decoy) 스캔</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 일반 사용자 권한으로 수행하는 TCP Connect(Open) 스캔과 관리자 권한으로 수행하는 TCP SYN(Half-Open) 스캔의 가장 큰 차이점을 '시스템 로그' 관점에서 기술하시오.</summary>
+<blockquote>
+- <strong>TCP Connect 스캔</strong>: 운영체제의 <code>connect()</code> 시스템 호출을 통해 3-Way Handshake를 완전히 성립시키므로 대상 시스템의 <strong>애플리케이션 로그에 접속 기록이 남는다.</strong><br>
+- <strong>TCP SYN 스캔</strong>: 세션이 완전히 성립되기 전(ACK 전송 전)에 연결을 강제 중단하므로 <strong>애플리케이션 로그에 흔적이 남지 않아(Stealth)</strong> 탐지하기가 더 어렵다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) SYN, ACK, RST 이외의 비정상적인 플래그를 사용하는 FIN/NULL/Xmas 스캔에서, 대상 포트가 '열린(Open)' 상태일 때 아무런 응답이 없는 기술적 근거를 TCP 표준(RFC 793)과 연관 지어 설명하시오.</summary>
+<blockquote>
+TCP 표준(RFC 793)에 따르면, <strong>열린 포트</strong>는 예상치 못한 형태(SYN/ACK/RST 이외)의 패킷을 수신할 경우 해당 패킷을 <strong>무시(Drop)하고 응답하지 않도록</strong> 규정되어 있다. 따라서 응답이 없는(No Response) 상태를 통해 해당 포트가 열려 있거나 방화벽에 의해 필터링되고 있음을 추측할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) TCP ACK 스캔이 일반적인 포트 스캐닝(Open/Closed 확인)과 다른 주된 목적과, 'Unfiltered' 결과가 의미하는 보안적 해석을 서술하시오.</summary>
+<blockquote>
+- <strong>목적</strong>: 대상 포트의 활성화 여부를 확인하는 것이 아니라, 대상 시스템 앞단에 위치한 <strong>방화벽의 필터링 규칙(룰셋)</strong>을 파악하기 위해 사용된다.<br>
+- <strong>해석</strong>: ACK 패킷에 대해 대상으로부터 RST 응답이 왔다면 'Unfiltered'로 판단하며, 이는 해당 포트가 <strong>방화벽에 의해 차단되지 않고 통과(허용)</strong>되고 있음을 의미한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 Nmap 실행 옵션과 그에 따른 스캔 수행 기법을 알맞게 매칭하시오.<br>
+(1) <code>-sS</code> : ( A )<br>
+(2) <code>-sX</code> : ( B )<br>
+(3) <code>-sA</code> : ( C )<br>
+(4) <code>-sU</code> : ( D )</summary>
+<blockquote>
+(A) <strong>TCP SYN (Half-Open) 스캔</strong><br>
+(B) <strong>TCP Xmas 스캔</strong><br>
+(C) <strong>TCP ACK 스캔</strong><br>
+(D) <strong>UDP 스캔</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) TCP Xmas 스캔 시 전송되는 패킷의 제어 비트(Flags) 중 설정되는 비트 3가지를 쓰시오.</summary>
+<blockquote>
+<strong>FIN, PSH, URG</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) UDP 스캔 시 대상 시스템의 특정 포트가 <strong>닫혀(Closed)</strong> 있을 경우, 목적지 호스트로부터 반환되는 ICMP 에러 메시지의 유형(Type)과 코드(Code)를 각각 기재하시오.</summary>
+<blockquote>
+- 유형: <strong>Type 3 (Destination Unreachable)</strong><br>
+- 코드: <strong>Code 3 (Port Unreachable)</strong>
+</blockquote>
+</details>
+
+### TCP 제어 비트 및 소켓 관리
 
 <details>
 <summary>(단답형) TCP 헤더의 제어 비트(Flags) 중, 연결의 종료를 요청하는 비트와 예기치 못한 원인으로 연결을 즉시 강제 종료(초기화)할 때 사용하는 비트를 각각 쓰시오.</summary>
@@ -905,6 +1429,81 @@ SSL/TLS (또는 HTTPS, SSH, VPN 등 기반의 암호화 통신)
 ### UDP 프로토콜
 
 <details>
+<summary>(단답형) TCP와 달리 논리적인 연결 설정 과정이 없으며, 데이터그램 전송 시마다 주소 정보를 새로 설정하여 전송하는 비연결형 전송 계층 프로토콜의 약칭은?</summary>
+<blockquote>
+<strong>UDP (User Datagram Protocol)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) UDP 헤더의 고정된 총 길이를 바이트(Byte) 단위로 쓰시오.</summary>
+<blockquote>
+<strong>8 바이트</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 다음 서비스들이 기본적으로 사용하는 UDP 포트 번호를 각각 쓰시오.<br>
+(A) NTP (Network Time Protocol): ( A )<br>
+(B) SNMP (Simple Network Management Protocol): ( B )</summary>
+<blockquote>
+(A) <strong>123</strong><br>
+(B) <strong>161</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) UDP 프로토콜이 TCP에 비해 전송 지연이 적고 속도가 빠른 핵심적인 기술 사유 2가지를 설명하시오.</summary>
+<blockquote>
+1. <strong>핸드셰이크 생략</strong>: 연결 설정을 위한 사전 교환 과정이 없어 즉각적인 데이터 전송이 가능하다.<br>
+2. <strong>제어 오버헤드 최소화</strong>: 순서 보장, 흐름 제어, 혼잡 제어 등의 복잡한 신뢰성 보장 메커니즘을 수행하지 않아 헤더가 가볍고 처리 부하가 적기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) UDP의 전송 방식인 '데이터그램(Datagram)' 기반 통신의 특징을 데이터의 단위와 연관 지어 서술하시오.</summary>
+<blockquote>
+UDP는 데이터를 연속적인 바이트 스트림이 아닌 <strong>독립적인 패킷(데이터그램) 단위</strong>로 취급한다. 각 데이터그램은 독립적인 주소 정보를 포함하며, 애플리케이션에서 전달한 데이터 블록의 경계를 그대로 유지하여 상대방에게 전송하는 특성을 가진다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) UDP 헤더의 'Total Length' 필드가 포함하는 정보의 범위와 해당 값이 기록되는 단위를 설명하시오.</summary>
+<blockquote>
+- <strong>정보 범위</strong>: <strong>UDP 헤더(8바이트)와 데이터부(Payload)</strong>를 모두 합산한 전체 데이터그램의 길이를 나타낸다.<br>
+- <strong>기록 단위</strong>: <strong>바이트(Byte)</strong> 단위로 표시되며, 16비트 필드이므로 최대 65,535바이트까지 표현 가능하다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 UDP 헤더 구조의 빈칸 (A), (B)에 들어갈 필드의 명칭을 작성하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+[ ( A ) (16 bits) ] [ Destination Port (16 bits) ]<br>
+[ Total Length (16 bits) ] [ ( B ) (16 bits) ]
+</div></summary>
+<blockquote>
+(A) <strong>Source Port (출발지 포트)</strong><br>
+(B) <strong>Checksum (체크섬)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 서비스들 중 기본적으로 UDP 프로토콜을 기반으로 동작하는 프로토콜을 3가지 이상 골라 쓰시오.<br>
+[ HTTP, DNS, SNMP, FTP, NTP, SSH, DHCP, TELNET ]</summary>
+<blockquote>
+<strong>DNS, SNMP, NTP, DHCP</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 실시간 동영상 스트리밍이나 온라인 게임 등에서 신뢰성 있는 TCP보다 비신뢰적인 UDP를 선호하는 이유를 '패킷 유실 시 대응 방식' 측면에서 설명하시오.</summary>
+<blockquote>
+해당 서비스들은 데이터의 정확한 복구보다 <strong>실시간성(Low Latency)</strong> 유지가 더 중요하다. 패킷 유실 시 TCP처럼 재전송을 기다리게 되면 화면이나 소리가 끊기는 지연(Lag)이 발생하므로, 유실된 패킷은 무시하고 즉시 다음 최신 데이터를 처리하는 UDP 방식이 사용자 경험에 더 적합하기 때문이다.
+</blockquote>
+</details>
+
+
+<details>
 <summary>(단답형) UDP 헤더의 제어 비트(Flags) 중, 연결의 종료를 요청하는 비트와 예기치 못한 원인으로 연결을 즉시 강제 종료(초기화)할 때 사용하는 비트를 각각 쓰시오.</summary>
 <blockquote>
 종료 요청: <code>FIN</code> (Finish)<br>
@@ -913,6 +1512,84 @@ SSL/TLS (또는 HTTPS, SSH, VPN 등 기반의 암호화 통신)
 </details>
 
 ### 네트워크 관리 명령어
+
+<details>
+<summary>(단답형) IP 프로토콜의 신뢰성 없는 전송을 보완하여, 대상 시스템의 네트워크 접근 가능 여부와 왕복 시간(RTT) 및 손실률을 측정하기 위해 ICMP Echo Request와 Reply를 사용하는 명령어는?</summary>
+<blockquote>
+<strong>ping</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스의 <code>ifconfig</code> 실행 결과에서 네트워크 인터페이스가 목적지 주소와 상관없이 통과하는 모든 패킷을 수신할 수 있는 스니핑 모드로 동작 중임을 나타내는 상태 표시어는?</summary>
+<blockquote>
+<strong>PROMISC (Promiscuous Mode)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스 시스템에서 현재 활성화된 TCP 소켓뿐만 아니라 대기(LISTEN) 중인 모든 포트 정보를 조회하며, 해당 소켓을 점유하고 있는 프로세스(PID) 정보까지 조회하는 <code>netstat</code> 옵션 조합은?</summary>
+<blockquote>
+<strong>netstat -antp (또는 -atp)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 윈도우의 <code>tracert</code> 명령과 유닉스/리눅스의 <code>traceroute</code> 명령이 경로 추적 시 최종 목적지에 도달했음을 판단하는 기술적인 차이점(반환되는 메시지 및 포트)을 비교 설명하시오.</summary>
+<blockquote>
+- <strong>윈도우 (tracert)</strong>: 최종 목적지까지 <strong>ICMP Echo Request</strong> 패킷을 보내며, 목적지 호스트로부터 <strong>ICMP Echo Reply(Type 0)</strong> 응답이 오면 도달한 것으로 판단한다.<br>
+- <strong>유닉스/리눅스 (traceroute)</strong>: 33434 이상의 높은 포트 번호를 가진 <strong>UDP 패킷</strong>을 보내며, 최종 목적지에 도달 시 해당 포트가 닫혀 있어 반환되는 <strong>ICMP Destination Unreachable(Type 3, Code 3: Port Unreachable)</strong> 메시지를 통해 도달을 판단한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 네트워크 품질 점검 명령어인 <code>netstat -i</code> 또는 <code>ifconfig</code> 결과에서 'DRP(Drop)'와 'OVR(Overrun)' 수치가 증가하고 있을 때의 의미와 발생 가능한 원인을 서술하시오.</summary>
+<blockquote>
+- <strong>의미</strong>: 인터페이스가 수신(RX) 또는 전송(TX)하려던 패킷이 정상적으로 처리되지 못하고 커널에서 버려지고 있음을 의미한다.<br>
+- <strong>원인</strong>: 유입되는 네트워크 트래픽이 시스템의 인입 인터페이스의 <strong>처리 용량(수신 버퍼)을 초과</strong>하여 오버플로우가 발생했거나, 시스템 사양 대비 과도한 패킷 처리 부하가 걸린 경우에 발생한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스 시스템에서 특정 인터페이스가 프롬스큐어스(Promiscuous) 모드로 전환되었을 때 보안상 발생할 수 있는 잠재적 위험을 기술하고, 관리자가 이 설정을 탐지하기 위해 점검해야 하는 로그 파일의 경로를 쓰시오.</summary>
+<blockquote>
+- <strong>보안 위험</strong>: 자신에게 향하지 않는 모든 네트워크 트래픽을 가로채어 읽을 수 있게 되므로, 공격자에 의한 <strong>네트워크 스니핑(Sniffing)</strong> 및 사용자 계정/패스워드/기밀 데이터 유출의 위험이 대단히 높다.<br>
+- <strong>점검 로그</strong>: <strong><code>/var/log/messages</code></strong> 파일에서 'entered promiscuous mode' 또는 'left promiscuous mode' 커널 메시지가 있는지 확인해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 상황에 맞는 리눅스 및 윈도우 <code>ping</code> 명령어 옵션을 작성하시오.<br>
+(A) 리눅스에서 패킷 전송 횟수를 5회로 제한하여 전송할 때: <code>ping ( A ) 5 도메인</code><br>
+(B) 윈도우에서 전송할 패킷의 크기를 1024바이트로 지정할 때: <code>ping ( B ) 1024 도메인</code></summary>
+<blockquote>
+(A) <strong>-c</strong><br>
+(B) <strong>-l</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스에서 특정 네트워크 인터페이스(eth0)의 프롬스큐어스 모드를 설정 및 해제하는 명령어를 완성하시오.<br>
+(1) eth0에 프롬스큐어스 모드 설정: <code>ifconfig eth0 ( A )</code><br>
+(2) eth0의 프롬스큐어스 모드 해제: <code>ifconfig eth0 ( B )</code></summary>
+<blockquote>
+(A) <strong>promisc</strong><br>
+(B) <strong>-promisc</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 <code>netstat</code> 명령어 옵션에 따른 실행 결과의 핵심 정보를 알맞게 연결하시오.<br>
+- (1) <code>netstat -rn</code> : <strong>(  )</strong><br>
+- (2) <code>netstat -s</code> : <strong>(  )</strong><br>
+- (3) <code>netstat -ntp</code> : <strong>(  )</strong></summary>
+<blockquote>
+(1) <strong>숫자 형식으로 표기된 시스템 라우팅 테이블 정보</strong><br>
+(2) <strong>프로토콜별(IP, TCP, UDP, ICMP 등) 누적 통계 정보</strong><br>
+(3) <strong>PID와 프로그램 명을 포함한 숫자로 환산된 활성 TCP 소켓 정보</strong>
+</blockquote>
+</details>
+
 
 <details>
 <summary>(기출 23회 8번 문제) (단답형) Salvatore Sanfilippo가 개발한 CLI(명령줄) 기반의 네트워크 보안 테스트 도구로, 다양한 프로토콜(ICMP, TCP, UDP 등)을 지원하며 패킷 생성 및 스캔 기능을 통해 침입 테스트나 DDoS 공격 훈련용으로도 사용되는 툴의 이름은?</summary>
@@ -1142,6 +1819,82 @@ TCP 기반의 포트 스캐닝 기법 중 TCP Connect(Open) 스캔 기법은 최
 </details>
 
 ### 서비스 거부(DoS: Denial of Service) 공격
+
+<details>
+<summary>(단답형) 시스템 가용성을 저하시키는 공격으로, 패킷의 출발지 IP와 목적지 IP를 대상 시스템(Target)의 IP로 동일하게 위조하여 수신측이 자기 자신에게 무한 응답하도록 유도하는 공격은?</summary>
+<blockquote>
+<strong>Land Attack (랜드 공격)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) IP 패킷 재조합 과정에서 단편(Fragment)들의 오프셋(Offset) 정보를 중첩되거나 잘못된 값으로 조작하여, 수신 시스템의 커널이 패킷을 재조합하는 도중 오류가 발생하거나 시스템이 마비되도록 하는 공격은?</summary>
+<blockquote>
+<strong>Teardrop Attack (티어드롭 공격)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 스머프(Smurf) 공격을 방지하기 위해 중계지(Amplifier) 역할을 하는 라우터에서 외부로부터 유입되는 직접 브로드캐스트 패킷을 차단하는 설정 명령어는?</summary>
+<blockquote>
+<strong>no ip directed-broadcast</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) Ping of Death 공격의 동작 원리를 'MTU'와 '패킷 재조합' 관점에서 설명하고, 이 공격이 대상 시스템에 미치는 보안적 영향을 기술하시오.</summary>
+<blockquote>
+- <strong>동작 원리</strong>: ICMP 패킷을 IP 데이터그램의 최대 크기인 65,535바이트보다 훨씬 크게 생성하여 전송한다. 이 거대 패킷은 전송 경로 상에서 하위 계층의 <strong>MTU(이더넷 1500바이트 등)</strong>에 의해 수많은 작은 단편으로 쪼개지게 된다.<br>
+- <strong>보안적 영향</strong>: 수신 시스템은 이 다량의 단편화된 패킷들을 다시 하나로 <strong>재조합(Reassembly)</strong>하는 과정에서 시스템 자원(CPU/Memory)에 극심한 부하가 걸리거나, 재조합 버퍼의 <strong>오버플로우(Overflow)</strong>가 발생하여 서비스가 중단되는 가용성 침해를 입게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 스머프(Smurf) 공격에서 발생하는 '트래픽 증폭'의 원리를 공격 흐름에 따라 논리적으로 서술하시오.</summary>
+<blockquote>
+1. 공격자는 출발지 IP를 희생자(Target)의 IP로 위조(Spoofing)한다.<br>
+2. 위조된 IP로 특정 네트워크의 <strong>Directed Broadcast</strong> 주소에 ICMP Echo Request 패킷을 전송한다.<br>
+3. 해당 네트워크 내의 <strong>모든 활성화된 호스트들</strong>이 브로드캐스트된 요청을 수신하고, 위조된 출발지(희생자)로 동시에 ICMP Echo Reply 응답을 전송한다.<br>
+4. 결과적으로 소수의 요청 패킷이 수백, 수천 배로 증폭되어 희생자에게 집중됨으로써 네트워크 대역폭이 고갈된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) IP 단편화를 이용한 보안 장비 우회 공격인 'Tiny Fragment' 공격과 'Fragment Overlap' 공격의 우회 원리를 비교하여 설명하시오.</summary>
+<blockquote>
+- <strong>Tiny Fragment</strong>: TCP/UDP 헤더 정보를 포함하는 첫 번째 단편을 포트 번호가 포함되지 않을 정도로 <strong>매우 작게 쪼개어</strong> 보낸다. 보안 장비는 포트 정보가 없는 첫 번째 단편을 통과시키고 이후 단편들도 신뢰하여 통과시키는 점을 이용한다.<br>
+- <strong>Fragment Overlap</strong>: 첫 번째 단편에는 보안 장비가 허용하는 포트(예: 80)를 넣고, 두 번째 단편의 <strong>오프셋을 조작</strong>하여 재조합 시 첫 번째 포트 정보를 공격자가 원하는 금지된 포트로 덮어쓰게(Overwrite) 하여 우회하는 방식이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 서비스 거부 공격 기법에 대한 설명 중 잘못된 설명이 포함된 항목을 모두 고르시오.<br>
+(A) Land Attack은 대량의 ICMP Echo Reply 패킷 폭주를 유발하는 공격이다.<br>
+(B) DoS는 가용성(Availability)을 해치는 공격 유형에 속한다.<br>
+(C) DDoS 공격은 단일 발신지에서 수행되는 단일 경로 공격이다.<br>
+(D) Teardrop 공격은 IP 단편화 오프셋 중첩을 이용한 취약점 공격이다.</summary>
+<blockquote>
+<strong>(A), (C)</strong><br>
+(설명: A는 Smurf나 Flooding에 가깝고 Land는 무한 루프 유발임. C는 분산된 다수 시스템을 이용하는 공격임)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 패킷 분석 도구인 <code>tcpdump</code> 실행 결과 다음과 같은 데이터가 대량으로 수집되었다면, 의심되는 공격 명칭과 그 근거를 쓰시오.<br>
+<code>IP 10.10.10.50 > 10.10.10.50: ICMP echo request, id 1, seq 1</code></summary>
+<blockquote>
+- <strong>공격 명칭</strong>: <strong>Land Attack (랜드 공격)</strong><br>
+- <strong>판단 근거</strong>: 출발지(Source) IP와 목적지(Destination) IP 주소가 <strong><code>10.10.10.50</code>으로 서로 일치</strong>하며, 이를 통해 루핑을 유도하고 있음을 알 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 스머프 공격을 유발하는 ICMP 요청을 수신했을 때, 대량의 응답 패킷을 생성하여 피해를 입히는 네트워크를 지칭하는 용어와 해당 네트워크의 라우터 측 대응 방안을 쓰시오.</summary>
+<blockquote>
+- <strong>용어</strong>: <strong>Amplifier Network (증폭 네트워크 또는 Bounce Network)</strong><br>
+- <strong>대응 방안</strong>: 라우터 인터페이스에서 <code>no ip directed-broadcast</code> 설정을 적용하여 외부로부터 내부로의 직접 브로드캐스트를 허용하지 않도록 차단한다.
+</blockquote>
+</details>
 
 <details>
 <summary>[기출 22회 16번 문제] (서술형) DNS 증폭 공격(DNS Amplification Attack)에 사용되는 IP 공격 기법을 설명하고, 해당 공격 기법을 사용하는 이유를 설명하시오.</summary>
@@ -1606,13 +2359,236 @@ DNS <strong>( A )</strong> 서비스는 악성 봇에 감염된 PC가 해커의 
 ### 분산 서비스 거부(DDoS: Distributed Denial of Service) 공격
 
 <details>
+<summary>(단답형) 악성 봇에 감염된 좀비 PC가 조종 명령을 받기 위해 해커의 C&C 서버로 접속을 시도할 때, 해당 질의를 가로채어 보안 기관의 가짜 서버로 연결을 유도함으로써 명령을 차단하는 시스템은?</summary>
+<blockquote>
+<strong>DNS 싱크홀 (Sinkhole)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 하나의 C&C 서버 도메인에 수많은 IP 주소를 할당하고 DNS 응답 시 TTL 값을 매우 작게 설정하여, 조종 서버의 IP를 빠르고 지속적으로 변경함으로써 블랙리스트 차단을 우회하는 기법은?</summary>
+<blockquote>
+<strong>Fast Flux</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스 시스템에서 TCP SYN Flooding 공격을 방어하기 위해 사용하는 설정으로, SYN 패킷에 대해 일정한 암호화된 규칙으로 생성된 일회성 응답(Cookie)을 보내 세션을 검증하는 기능을 활성화하는 커널 매개변수는?</summary>
+<blockquote>
+<strong>net.ipv4.tcp_syncookies</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) DDoS 공격을 구성하는 4대 핵심 요소(Attacker, C&C Server, Zombie PC, Target)의 상호 관계와 공격 명령이 하달되는 단계를 설명하시오.</summary>
+<blockquote>
+1. <strong>공격자(Bot Master)</strong>: 해커가 직접 제어하며 C&C 서버에 공격 명령을 전달한다.<br>
+2. <strong>C&C 서버(Master)</strong>: 봇 마스터로부터 받은 명령을 감염된 다수의 봇(좀비 PC)들에게 전파하는 중앙 통제 시스템이다.<br>
+3. <strong>좀비 PC(Bot/Agent)</strong>: 악성 봇에 감염되어 대기하다가 C&C 서버의 명령에 따라 실제 공격 트래픽을 생성한다.<br>
+4. <strong>공격 대상(Target)</strong>: 좀비 PC들로부터 다량의 요청을 받아 마비되는 최종 희생 시스템이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 아파치(Apache) 웹 서버에서 Slowloris(Slow HTTP Header DoS) 공격이 발생하는 기술적 사유와, 이를 효과적으로 차단하기 위한 <code>RequestReadTimeout</code> 설정의 동작 방식(Timeout)을 기술하시오.</summary>
+<blockquote>
+- <strong>발생 사유</strong>: 웹 서버는 HTTP 요청 헤더의 끝을 알리는 <strong>빈 라인(CR/LF, 0x0d0a0d0a)</strong>이 올 때까지 연결을 유지하며 대기한다. 공격자가 불필요한 헤더 정보를 고의로 매우 천천히 혹은 나누어 전송하면 서버의 가용 연결 자원이 소진되어 정상 접속이 불가능해진다.<br>
+- <strong>동작 방식</strong>: <code>RequestReadTimeout header=5</code>와 같이 설정하여, 지정된 시간(예: 5초) 내에 수신되어야 할 헤더 정보가 모두 도착하지 않을 경우 강제로 연결을 종료함으로써 불필요한 자원 점유를 회수한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) TCP SYN Flooding 공격이 대상 시스템의 'Backlog Queue'를 소진시키는 과정을 설명하고, 공격자가 출발지 IP 주소를 도달 불가능한 주소로 위조(Spoofing)하는 이유를 서버의 상태(State)와 연합하여 서술하시오.</summary>
+<blockquote>
+- <strong>소진 과정</strong>: 공격자가 다량의 SYN 패킷을 보내면 서버는 이를 <strong>SYN_RECV</strong> 상태로 전환하고 <strong>Incomplete Connection Queue(Backlog Queue)</strong>에 저장한 뒤 SYN+ACK를 보낸다.<br>
+- <strong>위조 이유</strong>: 도달할 수 없는 IP로 출발지를 위조하면, 서버는 클라이언트로부터 마지막 ACK 응답을 영원히 받지 못하게 된다. 이로 인해 대기 큐의 정보가 삭제되지 않고 금세 가득 차게 되어, 정상적인 사용자의 신규 연결 요청을 수용할 수 없는 '거부' 상태에 빠지게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 DDoS 공격 유형과 그 수행 원리를 알맞게 매칭하시오.<br>
+(1) Cache-Control 헤더의 no-store 설정을 조작해 캐싱 무력화: ( A )<br>
+(2) TCP 윈도우 크기를 0으로 조작해 서버 응답을 대기 상태로 유지: ( B )<br>
+(3) HTTP GET 요청의 URL 파라미터를 지속적으로 변경해 임계값 기반 장비를 우회: ( C )</summary>
+<blockquote>
+(A) <strong>CC Attack (또는 GET Flooding with Cache-Control)</strong><br>
+(B) <strong>Slow HTTP Read DoS</strong><br>
+(C) <strong>Hulk DoS</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 리눅스 및 유닉스(솔라리스) 환경에서 TCP 백로그 큐(Backlog Queue)의 크기를 1024로 증설하기 위한 명령어를 완성하시오.<br>
+(1) Linux: <code>sysctl -w ( A ) = 1024</code><br>
+(2) Solaris: <code>ndd -set /dev/tcp ( B ) 1024</code></summary>
+<blockquote>
+(A) <strong>net.ipv4.tcp_max_syn_backlog</strong><br>
+(B) <strong>tcp_conn_req_max_q0</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 봇넷(Botnet)의 탐지 회피 및 조종 방식 중 다음 설명에 해당하는 기법/명칭을 쓰시오.<br>
+(A) 특정 알고리즘 기반으로 대량의 도메인 명을 동적으로 생성하여 조종 서버 탐지를 피하는 기법: <strong>( A )</strong><br>
+(B) 별도의 중앙 C&C 서버 없이 봇들이 서로 직접 명령을 전파하여 차단이 어려운 분산 모델: <strong>( B )</strong></summary>
+<blockquote>
+(A) <strong>DGA (Domain Generation Algorithm)</strong><br>
+(B) <strong>P2P (Peer-to-Peer) 봇넷</strong>
+</blockquote>
+</details>
+
+<details>
 <summary>(단답형) 2016년에 처음 발견되었으며, 패스워드가 취약한 IP 카메라, 공유기 등 IoT 장비를 스캐닝하여 악성코드에 감염시킨 후 거대한 봇넷(Botnet)을 형성해 <code>DDoS</code> 공격을 수행하는 대표적 공격용 봇넷의 명칭을 쓰시오.</summary>
 <blockquote>
 미라이 (Mirai) 봇넷
 </blockquote>
 </details>
 
+<details>
+<summary>(단답형) HTTP POST 메소드를 사용하며, Content-Length를 비정상적으로 크게 설정한 뒤 1바이트씩 매우 느리게 전송하여 웹 서버의 연결 상태를 장시간 유지시키는 공격 기법은?</summary>
+<blockquote>
+<strong>RUDY (R-U-Dead-Yet?) 또는 Slow HTTP POST DoS</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 네트워크 패킷의 응용 계층(L7) 데이터를 ASCII 형식으로 필터링하여 실시간 분석이 가능하게 해주는 도구의 명칭은?</summary>
+<blockquote>
+<strong>ngrep (Network Grep)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 클라이언트의 첫 번째 SYN 패킷을 강제로 드롭(Drop)한 후, 시스템의 재전송 동작 여부를 통해 실제 접속 시도자임을 검증하여 IP 스푸핑 공격을 차단하는 기법은?</summary>
+<blockquote>
+<strong>First SYN Drop</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) Slow HTTP Read DoS 공격 시 공격자가 전송하는 'Zero Window Packet'의 기술적 의미와, 이로 인해 서버 자원이 고갈되는 원리를 TCP 흐름 제어 관점에서 설명하시오.</summary>
+<blockquote>
+- <strong>기술적 의미</strong>: 공격자가 자신의 수신 버퍼 여유 공간이 0임을 알리는 패킷을 전송하는 것이다.<br>
+- <strong>자원 고갈 원리</strong>: TCP 흐름 제어(Flow Control) 규약에 따라 서버는 클라이언트로부터 버퍼 여유를 알리는 'Window Update' 패킷을 받을 때까지 응답 전송을 중단하고 세션을 유지하며 무한정 대기하게 된다. 이로 인해 서버의 가용 세션 자원이 모두 소진되어 정상적인 서비스를 제공할 수 없게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 리눅스에서 웹 서버 액세스 로그를 대상으로 <code>awk '{print $1}' | sort | uniq -c | sort -rn</code> 명령을 순차적으로 수행하는 목적과 각 단계별 처리 내용을 기술하시오.</summary>
+<blockquote>
+- <strong>수행 목적</strong>: 액세스 로그에서 비정상적으로 요청 빈도가 높은 공격 의심 IP를 식별하기 위함이다.<br>
+- <strong>처리 내용</strong>: 1) <code>awk</code>로 접속 IP 컬럼만 추출, 2) <code>sort</code>로 동일 IP 인접 정렬, 3) <code>uniq -c</code>로 IP별 중복 횟수(요청 수) 카운트, 4) <code>sort -rn</code>으로 요청이 많은 순서대로 내림차순 정렬한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) Hulk DoS 공격이 일반적인 HTTP GET Flooding과 비교하여 보안 장비(DDoS 대응 장비)를 무력화하는 기술적 원리를 '임계치(Threshold)' 관점에서 기술하시오.</summary>
+<blockquote>
+일반적인 GET Flooding은 특정 URL에 요청이 집중되므로 접근 임계치를 설정해 차단이 용이하다. 반면 <strong>Hulk DoS</strong>는 요청 시 파라미터 값을 지속적으로 변경하여 요청 주소(URL)를 매번 다르게 생성한다. 이로 인해 보안 장비가 이를 각각 별개의 정상적인 서비스 요청으로 인식하게 되어 임계치 기반의 자동 차단 시스템을 우회하며 서버 부하를 유발한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 아파치(Apache) 보안 설정의 의미를 '헤더'와 '바디' 관점에서 각각 설명하시오.<br>
+<code>RequestReadTimeout header=5 body=10</code></summary>
+<blockquote>
+- <strong>header=5</strong>: 클라이언트로부터 HTTP 요청 헤더 정보를 모두 수신하는 시간을 5초로 제한한다.<br>
+- <strong>body=10</strong>: 클라이언트로부터 HTTP 요청 바디(메시지 본문) 정보를 모두 수신하는 시간을 10초로 제한한다.<br>
+(※ 지정된 시간 내에 완료되지 않으면 공격으로 간주하여 연결을 종료함)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 리눅스 <code>iptables</code>를 사용하여 80번 포트로 유입되는 트래픽 중, 동일 출발지 IP당 동시 연결 수가 30개를 초과할 경우 차단하는 규칙을 작성하시오.</summary>
+<blockquote>
+<strong>iptables -A INPUT -p tcp --dport 80 -m connlimit --connlimit-above 30 -j DROP</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 패킷 분석 중 다음과 같은 특징이 발견되었다면 의심되는 DDoS 공격 명칭을 쓰시오.<br>
+- 요청 방식: <code>GET /home.php HTTP/1.1</code><br>
+- 전송 형태: 10초 간격으로 무의미한 <code>Pragma: [랜덤값]</code> 헤더 필드만 지속 전송<br>
+- 결정적 근거: 헤더의 끝을 알리는 <strong>빈 라인(CR/LF)이 전송되지 않음</strong></summary>
+<blockquote>
+<strong>Slowloris (Slow HTTP Header DoS)</strong>
+</blockquote>
+</details>
+
 ### DRDoS(Distributed Reflection Denial of Service) 공격
+
+<details>
+<summary>(단답형) 공격자가 출발지 IP 주소를 희생자의 IP로 위조하여 다수의 반사 서버(Reflector)로 요청을 전송하고, 희생자는 반사 서버로부터 대량의 응답을 받아 서비스가 마비되는 공격 기법은?</summary>
+<blockquote>
+<strong>DRDoS (Distributed Reflection Denial of Service)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) DNS 증폭 공격 시, 질의 대비 응답의 크기를 극대화하기 위해 공격자가 주로 사용하는 DNS 질의 레코드 타입 2가지는?</summary>
+<blockquote>
+<strong>ANY, TXT</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 라우터로 유입된 패킷의 출발지 IP에 대해 라우팅 테이블을 조회하여, 해당 패킷이 들어온 인터페이스로 다시 나가는 역경로(Reverse Path)가 존재하는지 확인함으로써 IP 스푸핑 여부를 판별하여 차단하는 기술은?</summary>
+<blockquote>
+<strong>uRPF (Unicast Reverse Path Forwarding)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 일반적인 DDoS(좀비 PC 직접 공격)와 비교하여, 공격자가 DRDoS를 선호하는 이유 두 가지를 '추적'과 '효율' 관점에서 기술하시오.</summary>
+<blockquote>
+- <strong>추적 관점</strong>: 반사 서버(정상적인 서버)를 경유하므로 공격의 근원지인 좀비 PC의 IP가 노출되지 않으며, 모든 공격 트래픽이 반사 서버로부터 오는 것으로 나타나 역추적 및 원점 타격이 매우 어렵다.<br>
+- <strong>효율 관점</strong>: 요청 패킷의 크기보다 응답 패킷의 크기가 수십 배 이상 큰 <strong>증폭(Amplification)</strong> 현상을 이용하므로, 소량의 좀비 PC 자원만으로도 공격 대상에게 막대한 트래픽 부하를 줄 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) TCP 기반 DRDoS 공격에서 '증폭'이 발생하는 기술적 사유를 TCP 재전송 메커니즘과 연관 지어 설명하시오.</summary>
+<blockquote>
+공격자가 희생자 IP로 위조된 SYN 패킷을 반사 서버로 보내면, 반사 서버는 SYN+ACK 응답을 보낸다. 이때 실제 응답을 받은 희생자는 해당 요청을 한 적이 없으므로 ACK를 보내지 않는데, 반사 서버는 TCP 표준 동작에 따라 ACK를 받지 못할 경우 <strong>다수의 SYN+ACK 재전송(Retransmission)</strong>을 수행하게 된다. 이 과정에서 최초 공격자가 보낸 패킷보다 훨씬 많은 양의 데이터가 응답이라는 명목으로 희생자에게 전달되어 증폭이 발생한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) NTP 증폭 공격과 SNMP 증폭 공격에서 각각 대량의 응답 트래픽을 유발하기 위해 활용되는 명령어 및 그 원리를 기술하시오.</summary>
+<blockquote>
+- <strong>NTP</strong>: <code>monlist</code> 명령을 사용한다. 이 명령은 해당 NTP 서버에 최근 접속한 최대 600개의 클라이언트 목록을 반환하므로, 아주 작은 질의로도 거대한 응답 패킷을 생성하게 된다.<br>
+- <strong>SNMP</strong>: <code>GetBulkRequest</code> 방식을 사용한다. 이는 한 번의 요청으로 관리 정보 베이스(MIB)의 방대한 데이터를 연속적으로 회신하게 유도하여 트래픽 효율을 극대화한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 <code>tcpdump</code> 분석 결과 중 (A), (B), (C)에 들어갈 정보를 기입하시오.<br>
+<code>08:05:23 IP 10.10.10.10.51996 > 1.2.3.4.53: 51996+ ANY algisa.com</code><br>
+(1) 반사 서버(Reflector)의 IP 주소: ( A )<br>
+(2) 공격 대상(Target/Victim)의 IP 주소: ( B )<br>
+(3) DNS 질의 종류 및 근거: ( C )</summary>
+<blockquote>
+(A) <strong>1.2.3.4</strong> (목적지 53번 포트로 동작 중인 DNS 서버)<br>
+(B) <strong>10.10.10.10</strong> (위조된 출발지 IP이며, 반사 서버의 응답을 최종적으로 받게 되는 대상)<br>
+(C) <strong>ANY 타입 질의</strong> (패킷 내의 'ANY' 문구와 모든 레코드를 요청하는 질의 특성)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 네트워크 보안 장비에서 수행하는 패킷 필터링 기법 중 Ingress 필터링과 Egress 필터링의 차이점을 패킷의 흐름과 검증 대상을 중심으로 기술하시오.</summary>
+<blockquote>
+- <strong>Ingress 필터링</strong>: 외부 인터넷망에서 <strong>내부 네트워크로 유입</strong>되는 패킷 중, 출발지 IP 주소가 사설 IP나 유효하지 않은 대역 등 외부에서 절대로 올 수 없는 엉뚱한 IP인 경우를 차단한다.<br>
+- <strong>Egress 필터링</strong>: 내부에서 <strong>외부 인터넷망으로 나가는</strong> 패킷 중, 출발지 IP 주소가 내부망에서 실제 할당하여 관리 중인 정당한 대역의 IP가 아닌(위조된) 경우를 차단한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) DNS 증폭 공격의 반사 서버로 악용되지 않기 위해 자사 DNS 서버에서 수행할 수 있는 구체적인 보안 설정 방안 두 가지를 서술하시오.</summary>
+<blockquote>
+1. <strong>재귀 질의(Recursive Query) 제한</strong>: 공개용 서버가 아닌 경우, 내부 사용자나 특정 IP 대역에서만 재귀 쿼리가 가능하도록 ACL을 설정하여 외부 공격자가 질의를 보내지 못하게 한다.<br>
+2. <strong>임계치(Threshold) 기반 차단</strong>: 동일 IP(희생자 주소)에 대해 단위 시간당 비정상적으로 많은 질의가 발생하거나, 특정 바이트 이상의 대형 응답 패킷이 연속 전송될 경우 해당 IP를 일시 차단한다.
+</blockquote>
+</details>
 
 ### 무선랜(Wireless LAN) 보안
 
