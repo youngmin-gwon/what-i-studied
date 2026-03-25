@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-25 16:12:40 +09:00
+date modified: 2026-03-25 17:20:28 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -1019,7 +1019,7 @@ Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용
 
 #### 윈도우 관리 명령어
 
-##### net 명령어
+##### 윈도우 관리 명령어
 
 <details>
 <summary>다음 보기의 빈 칸 ( )에 적절한 용어를 쓰시오.
@@ -1035,11 +1035,69 @@ Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용
 1) <code>net user</code> 명령어: 윈도우 시스템에서 로컬 계정을 추가/수정/삭제하거나 로컬 계정 정보를 표시하는 명령어<br>
 <code>net user</code> 명령어를 통해 윈도우 시스템의 전체 로컬 계정 정보 확인<br>
 계정 속성 확인 결과 user2 계정에만 "계정 사용 안 함" 속성이 설정되어 해당 계정으로 로그인이 불가함<br><br>
-2) user2 "계정 사용 안 함" 속성 해제<br>
+2) user2 "계정 사용 안 함" 속해 해제<br>
 <code>net user</code>: 전체 로컬 계정 정보 확인<br>
 <code>net user 계정명</code>: 해당 계정의 속성 확인<br>
 <code>net user 계정명 /active:yes</code>: 해당 계정 사용함(활성 상태)<br>
-<code>net user 계정명 /active:no</code>: 해당 계정 사용 안함(비활성 상태)
+<code>net user 계정명 /active:no</code>: 해당 계정 사용 안함(비활성 상태)<br><br>
+
+※ <strong>참고: NET 명령어 핵심 요약 가이드</strong>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">명령어</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">사용 목적 및 보안적 의미</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">주요 활용 예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px;"><strong>net user</strong></td>
+      <td style="padding: 8px;">사용자 계정 생성, 삭제, 속성(활성화/만료 등) 관리</td>
+      <td style="padding: 8px;"><code>/add</code>, <code>/delete</code>, <code>/active:no</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>net localgroup</strong></td>
+      <td style="padding: 8px;">로컬 그룹 관리 및 그룹에 계정 추가/삭제 (권한 상승 확인)</td>
+      <td style="padding: 8px;"><code>net localgroup administrators user /add</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>net share</strong></td>
+      <td style="padding: 8px;">공유 자원 설정 및 해제 (C$, ADMIN$ 등 관리 목적 공유 차단)</td>
+      <td style="padding: 8px;"><code>net share C$ /delete</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>net session</strong></td>
+      <td style="padding: 8px;">현재 서버에 접속된 원격 세션 확인 및 강제 종료 (포렌식 활용)</td>
+      <td style="padding: 8px;"><code>net session</code>, <code>net session \\IP /delete</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>net use</strong></td>
+      <td style="padding: 8px;">원격 공유 자원에 연결(맵핑)하거나 연결 해제</td>
+      <td style="padding: 8px;"><code>net use Z: \\Server\Share</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>net view</strong></td>
+      <td style="padding: 8px;">네트워크상의 컴퓨터 목록이나 특정 대상의 공유 목록 확인</td>
+      <td style="padding: 8px;"><code>net view \\IP</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>net statistics</strong></td>
+      <td style="padding: 8px;">서버(srv)나 워크스테이션(work) 서비스 통계 (가동 시간 확인)</td>
+      <td style="padding: 8px;"><code>net stats srv</code>, <code>net stats work</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>net start/stop</strong></td>
+      <td style="padding: 8px;">윈도우 서비스 시작, 중단 (의심 서비스 제어)</td>
+      <td style="padding: 8px;"><code>net stop "Service Name"</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>net file</strong></td>
+      <td style="padding: 8px;">서버에서 열려 있는 파일 목록 확인 및 강제 닫기</td>
+      <td style="padding: 8px;"><code>net file</code></td>
+    </tr>
+  </tbody>
+</table>
 </blockquote>
 </details>
 
@@ -1083,6 +1141,62 @@ algisa algisa2 Guest kiwi99<br>
 <blockquote>
 <code>net share</code><br><br>
 명령어 형식: <code>net share 공유 폴더(디렉터리) 이름 /delete</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 침해사고 조사 중 서버 관리자는 명령 프롬프트에서 현재 자신의 서버에 네트워크를 통해 원격으로 접속해 있는 세션의 목록을 확인하고, 의심스러운 연결을 강제로 끊고자 한다. 이때 사용해야 할 net 명령어(옵션 포함)를 작성하시오.</summary>
+<blockquote>
+확인: <code>net session</code><br>
+강제 종료: <code>net session \\접속IP /delete</code> (또는 <code>net session /delete</code> 로 전체 종료)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 보안 관리자가 윈도우 시스템의 가동 시간(Uptime) 및 서버 서비스의 통계 정보를 확인하여 시스템 재부팅 여부나 오류 발생 횟수를 점검하고자 할 때 입력하는 명령어는?</summary>
+<blockquote>
+<code>net statistics server</code> (또는 줄여서 <code>net stats srv</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 한 공격자가 내부망 내 다른 서버의 공유 자원을 자신의 컴퓨터에 Z드라이브로 연결하여 데이터를 탈취하려고 한다. 이때 사용할 수 있는 net 명령어 형식을 쓰고, 이를 방어하기 위한 근본적인 대책을 한 가지만 제시하시오.</summary>
+<blockquote>
+<strong>명령어:</strong> <code>net use z: \\대상서버IP\공유폴더명</code><br>
+<strong>방어 대책:</strong> <br>
+1. <strong>네트워크 격리 및 접근 제어:</strong> 방화벽(ACL)을 통해 불필요한 SMB(445번 포트) 통신을 차단한다. <br>
+2. <strong>최소 권한 원칙:</strong> 파일 공유 시 '모두(Everyone)' 권한을 배제하고 특정 승인된 사용자에게만 최소한의 접근 권한을 부여한다. <br>
+3. <strong>불필요한 공유 해제:</strong> <code>net share /delete</code> 명령을 통해 사용하지 않는 공유 폴더나 관리 목적 공유(C$, ADMIN$)를 수동으로 제거한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 네트워크 보안 점검 중, 자신의 시스템에서 타겟 서버(192.168.1.10)가 제공하고 있는 모든 공유 자원의 목록을 확인하려고 할 때 입력해야 할 net 명령어는 무엇인가?</summary>
+<blockquote>
+<code>net view \\192.168.1.10</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 윈도우 서버에 침투한 악성코드가 'Windows Defender' 서비스를 제어하려고 한다. 관리자가 이를 탐지하고 해당 서비스를 다시 강제로 즉시 시작시키기 위해 명령 프롬프트에서 입력할 수 있는 net 명령어는?</summary>
+<blockquote>
+<code>net start "Windows Defender Antivirus Service"</code> (또는 실제 서비스 명칭)<br>
+※ 중단 시에는 <code>net stop</code> 명령어를 사용합니다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 한 공격자가 서버의 서버 서비스 운영 정보를 확인하기 위해 <code>net statistics server</code> 명령어를 사용했다. 이 명령어 결과의 'Statistics since' 항목이 가진 보안적 의미를 침해사고 조사 관점에서 서술하시오.</summary>
+<blockquote>
+'Statistics since'는 해당 서버 서비스가 마지막으로 가동을 시작한 날짜와 시간을 나타낸다. 침해사고 조사 시, 관리자가 의도하지 않은 시점에 시스템이 재부팅되었거나 서비스가 재시작된 흔적이 있는지(Uptime 확인)를 파악하여, 공격자에 의한 시스템 변조나 백도어 설치를 위한 강제 리셋 여부를 추적하는 중요한 <strong>타임라인 분석 데이터</strong>로 활용될 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 서버 관리자는 현재 서버의 공유 자원 중에서 누군가 파일을 열고 작업 중인 상세 현황을 모니터링하고, 특정 세션이 열어둔 파일을 보안상의 이유로 즉시 강제 종료(닫기)해야 한다. 이때 사용해야 할 net 명령어 옵션과 절차를 쓰시오.</summary>
+<blockquote>
+1. <code>net file</code> 명령으로 열려 있는 파일 목록과 각각의 <strong>ID(번호)</strong>를 확인한다.<br>
+2. <code>net file [확인된ID] /close</code> 명령을 실행하여 해당 파일을 강제 종료한다.
 </blockquote>
 </details>
 
