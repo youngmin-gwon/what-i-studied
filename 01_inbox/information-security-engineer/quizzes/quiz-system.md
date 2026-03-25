@@ -798,7 +798,60 @@ LM (Lan Manager) 해시
 <summary>[기출 24회 17번 문제] (단답형) 유닉스(Solaris 등) 시스템에서 패스워드 최소 길이를 설정하는 설정 파일(A)과 해당 파라미터(B)를 쓰시오.</summary>
 <blockquote>
 <strong>정답:</strong> (A): <strong>/etc/default/passwd</strong>, (B): <strong>PASSLENGTH</strong><br>
-<strong>해설:</strong> 보편적인 리눅스(RHEL/CentOS)의 경우 <code>/etc/login.defs</code> 파일의 <code>PASS_MIN_LEN</code>이나 PAM 설정을 사용하지만, Solaris의 경우 위 설정을 주로 사용합니다.
+<strong>해설:</strong> 보편적인 리눅스(RHEL/CentOS)의 경우 <code>/etc/login.defs</code> 파일의 <code>PASS_MIN_LEN</code>이나 PAM 설정을 사용하지만, Solaris의 경우 위 설정을 주로 사용합니다. (하단 리눅스 관련 문제의 가이드 표 참조)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 리눅스(RHEL/Ubuntu 등) 시스템에서 전역적인 패스워드 정책(최대/최소 사용 기간, 최소 길이 등)을 설정하는 기본 파일(A)과, 그 중 패스워드 만료 전 사용자에게 경고를 보내는 기간을 설정하는 파라미터(B)를 작성하시오.</summary>
+<blockquote>
+<strong>정답:</strong> (A): <strong>/etc/login.defs</strong>, (B): <strong>PASS_WARN_AGE</strong><br><br>
+
+※ <strong>유닉스/리눅스 주요 OS별 패스워드 설정 파라미터 비교 가이드</strong>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">설정 항목</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">리눅스 (/etc/login.defs 등)</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">솔라리스 (/etc/default/passwd 등)</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">보안적 권고 사항</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px;"><strong>패스워드 최소 길이</strong></td>
+      <td style="padding: 8px;"><code>PASS_MIN_LEN</code></td>
+      <td style="padding: 8px;"><code>PASSLENGTH</code></td>
+      <td style="padding: 8px;">최소 8자 이상(복잡도 혼합 시) 권고</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>최대 사용 기간 (Aging)</strong></td>
+      <td style="padding: 8px;"><code>PASS_MAX_DAYS</code></td>
+      <td style="padding: 8px;"><code>MAXWEEKS</code></td>
+      <td style="padding: 8px;">분기별(90일) 1회 이상 변경 권고</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>최소 변경 기간</strong></td>
+      <td style="padding: 8px;"><code>PASS_MIN_DAYS</code></td>
+      <td style="padding: 8px;"><code>MINWEEKS</code></td>
+      <td style="padding: 8px;">너무 잦은 변경으로 인한 보안성 저하 방지 (1일 권고)</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>만료 전 경고 기간</strong></td>
+      <td style="padding: 8px;"><code>PASS_WARN_AGE</code></td>
+      <td style="padding: 8px;"><code>WARNWEEKS</code></td>
+      <td style="padding: 8px;">사용자 편의 및 서비스 중단 방지 (7일 권고)</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>복잡도 강제 설정</strong></td>
+      <td style="padding: 8px;"><code>/etc/security/pwquality.conf</code> (PAM 활용)</td>
+      <td style="padding: 8px;"><code>MINALPHA</code>, <code>MINNONALPHA</code> 등</td>
+      <td style="padding: 8px;">숫자, 특수문자, 대소문자 혼합 정책 강제</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+* <strong>참고</strong>: 위 설정 파일들은 새 계정 생성 시 적용되는 <strong>전역 설정</strong>입니다. 개별 사용자의 속성을 수정할 때는 리눅스의 경우 <code>chage -M [일수] [아이디]</code> 명령어를, 솔라리스의 경우 <code>passwd -x [일수] [아이디]</code> 명령어를 주로 사용합니다.
 </blockquote>
 </details>
 
