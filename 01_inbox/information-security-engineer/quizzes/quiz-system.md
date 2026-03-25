@@ -290,9 +290,7 @@ Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(W
 ( C ) 프로세스 추적<br><br>
 
 윈도우 운영체제들의 주요 감사 정책 9 가지는 다음과 같이 분류할 수 있습니다.
-
 <br>
-
 <table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
