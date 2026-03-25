@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-25 09:28:16 +09:00
+date modified: 2026-03-25 16:12:40 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -575,8 +575,8 @@ Event Viewer<br><br>
 <details>
 <summary>(단답형) 침해 사고 포렌식 중 <code>C:\Windows\System32\winevt\Logs</code> 경로에서 삭제된 공격자의 흔적을 수집 중이다. 이때 <strong>'security.evtx' 파일의 확장자인 'evtx'</strong> 포맷이 기존 'evt' 포맷의 한계를 극복하고 도입된, 차세대 XML 기반의 세밀한 구조를 가진 이벤트 로그 아키텍처는 어느 윈도우 운영체제 버전 부터 최초 기본 탑재되기 시작했는가?</summary>
 <blockquote>
-윈도우 비스타 (Windows Vista)
-*(참고: XP 이하 버전은 evt 확장자를 사용한다)*
+윈도우 비스타 (Windows Vista)<br>
+(참고: XP 이하 버전은 evt 확장자를 사용한다)
 </blockquote>
 </details>
 
