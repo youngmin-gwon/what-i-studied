@@ -522,7 +522,7 @@ Event Viewer<br><br>
 
 <strong>보안 대책:</strong><br>
 1. <strong>'SAM 계정과 공유의 익명 열거 허용 안 함' 정책 설정 (Network access: Do not allow anonymous enumeration of SAM accounts and shares)</strong>: 인증되지 않은 사용자가 네트워크를 통해 계정 목록을 수집하는 것을 차단합니다.<br>
-2. <strong>Syskey 활성화</strong>: 부팅 시 추가 암호화 키를 요구하여 SAM 데이터베이스에 대한 <strong>오프라인 공격 및 크래킹</strong>을 방어합니다.<br><br>
+2. <strong>전체 디스크 암호화(BitLocker) 또는 Syskey 활성화</strong>: 부팅 시 추가 암호화 키를 요구하여 SAM 데이터베이스에 대한 <strong>오프라인 공격 및 크래킹</strong>을 방어합니다. (현대 윈도우 환경에서는 BitLocker가 표준이며, Syskey는 정보보안기사 시험 등에 자주 등장하는 레거시 대책입니다.)<br><br>
 
 ※ <strong>용어 및 정책 상세 설명</strong>
 <ul>
