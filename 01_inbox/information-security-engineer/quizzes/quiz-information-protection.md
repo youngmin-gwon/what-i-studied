@@ -1,8 +1,8 @@
 ---
 title: quiz-information-protection
-tags: [정보보안실기, 정보보안기사, 정보보호일반]
+tags: [정보보안기사, 정보보안실기, 정보보호일반]
 aliases: []
-date modified: 2026-03-19 14:00:00 +09:00
+date modified: 2026-03-25 09:28:41 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -142,7 +142,6 @@ date created: 2026-02-25 10:46:47 +09:00
 (C) <strong>기술적</strong> (Technical) 통제 (또는 논리적 통제)
 </blockquote>
 </details>
-
 
 <details>
 <summary>(단답형) 공개키 기반 구조(PKI)에서 사용자 인증서의 유효기간이 만료되기 전 사용자 퇴사, 비밀키 유출 등의 이유로 해당 인증서를 사용할 수 없게 되었을 때 인증기관(CA)이 발행하는 폐기된 인증서 목록의 명칭을 영문 약어로 쓰시오.</summary>
@@ -391,7 +390,6 @@ CRL (Certificate Revocation List)
 </blockquote>
 </details>
 
-
 <details>
 <summary>(서술형) 위험 처리 전략 중 4가지 유형(감소, 회피, 전가, 수용)을 나열하고 각각의 의미를 간략히 설명하시오.</summary>
 <blockquote>
@@ -535,7 +533,6 @@ CRL (Certificate Revocation List)
 BCP (Business Continuity Plan, 업무 연속성 계획)
 </blockquote>
 </details>
-
 
 <details>
 <summary>(서술형) 전자서명(Digital Signature)의 메커니즘을 '해시 함수'와 '비대칭키 암호화' 관점에서 요약하여 설명하시오.</summary>
@@ -889,7 +886,6 @@ BCP (Business Continuity Plan, 업무 연속성 계획)
 <strong>정답:</strong> 침해 사고가 발생한 지점을 격리하거나 공격 경로를 차단함으로써, 악성 행위가 다른 시스템이나 네트워크로 확산(횡적 이동)되는 피해를 최소화하는 것이다.
 </blockquote>
 </details>
-
 
 ### 공통평가기준(CC: Common Criteria)
 
