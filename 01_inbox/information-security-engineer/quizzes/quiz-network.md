@@ -11,14 +11,48 @@ date created: 2026-02-25 10:46:47 +09:00
 <details>
 <summary>(단답형) 점차 고도화되는 보안 위협에 대처하기 위해 이기종 보안 장비 및 솔루션들을 하나의 시스템으로 통합 연동하고, 위협 탐지 및 대응, 침해 사고 등 보안 운영 업무를 '자동화'함으로써 효율성을 극대화하는 플랫폼 또는 기술의 명칭을 영문 약어로 쓰시오.</summary>
 <blockquote>
-SOAR (Security Orchestration, Automation and Response)
+<strong>정답:</strong> <strong>SOAR (Security Orchestration, Automation and Response)</strong> (보안 오케스트레이션, 자동화 및 대응)<br><br>
+
+※ <strong>SOAR 기술 상세 가이드</strong><br>
+1) <strong>SOAR의 세 가지 핵심 기둥 (3 Pillars)</strong><br>
+- <strong>오케스트레이션 (Orchestration)</strong>: 서로 다른 제조사의 보안 장비(방화벽, EDR, 이메일 보안 등)들을 하나의 워크플로우로 묶어 협업하게 만드는 '조율' 기능입니다.<br>
+- <strong>자동화 (Automation)</strong>: 사람이 반복적으로 수행하던 단순 작업(IP 평판 조회, 파일 해시 검사 등)을 기계가 자동으로 처리하도록 만드는 기술입니다.<br>
+- <strong>대응 (Response)</strong>: 분석된 위협에 대해 즉각적인 차단, 격리 등 후속 조치를 실행하는 기능입니다.<br><br>
+
+2) <strong>핵심 도구: 플레이북 (Playbook)</strong><br>
+- **플레이북**은 특정 보안 이벤트 발생 시 대응해야 할 표준 운영 절차(SOP)를 <strong>자동화된 워크플로우</strong>로 코딩해 놓은 것입니다. 예를 들어, "악성 메일 유입 시 -> 첨부파일 분석 -> 악성 확인 시 -> 전사 메일 삭제 -> 유포 IP 차단"과 같은 일련의 과정을 사람이 없어도 즉각 수행하게 만듭니다.<br><br>
+
+3) <strong>SIEM과 SOAR의 관계 (탐지 vs 대응)</strong><br>
+- <strong>SIEM</strong>: 전방위적인 로그를 모니터링하여 "침입이 발생했다!"라는 <strong>탐지(Detection)</strong>와 알람 발생에 집중합니다.<br>
+- <strong>SOAR</strong>: 탐지된 알람을 넘겨받아 "어떻게 처리할 것인가?"라는 대응(Response)의 실행 효율에 집중합니다.<br>
+- **결론**: SIEM이 위협을 찾아내면, SOAR가 그 위협을 플레이북에 따라 신속하게 처리함으로써 보안 운영(SOC)의 완성도를 높입니다.<br><br>
+
+4) <strong>보안 운영 효율화 (MTTR 단축)</strong><br>
+- SOAR의 궁극적인 목표는 사고 발생 후 해결까지 걸리는 시간인 <strong>MTTR (Mean Time To Respond, 평균 대응 시간)</strong>을 획기적으로 단축하고, 보안 분석가의 피로도(Burnout)를 낮추는 데 있습니다.
 </blockquote>
 </details>
 
 <details>
 <summary>(단답형) IP 관리 시스템에서 발전하여 MAC 주소를 기반으로 네트워크 접근 제어 및 인증 기능을 수행하는 보안 시스템의 명칭을 쓰시오.</summary>
 <blockquote>
-NAC (Network Access Control)
+<strong>정답:</strong> <strong>NAC (Network Access Control)</strong> (네트워크 접근 제어)<br><br>
+
+※ <strong>NAC 기술 상세 가이드</strong><br>
+1) <strong>정의 및 발전 배경</strong><br>
+- <strong>NAC</strong>는 네트워크에 접속하려는 모든 기기의 신원을 확인하고, 보안 정책(백신 설치, 패치 현황 등)을 준수한 기기만 통과시키는 통합 보안 솔루션입니다. 단순히 내부 IP 자원을 관리하던 <strong>IPMS (IP Management System)</strong>에서 진화하여, 사용자 인증과 단말 무결성 검증 기능을 강화한 형태입니다.<br><br>
+
+2) <strong>계층 Header와 식별 원리 (L2 중심)</strong><br>
+- <strong>계층 식별</strong>: NAC는 주로 **데이터 링크 계층(Layer 2)** 에서 동작합니다. 단말이 네트워크 스위치나 AP에 접속하는 즉시 전송되는 **Ethernet Frame 헤더**의 **Source MAC 주소**를 가로채어 해당 단말이 등록된 장비인지 식별합니다.<br>
+- <strong>연동</strong>: 더 정밀한 인증을 위해 **802.1X** 프로토콜을 사용하거나, 외부 인증 서버(**RADIUS**, LDAP)와 연동하여 사용자 계정(L7 정보)까지 통합 확인합니다.<br><br>
+
+3) <strong>NAC의 4단계 워크플로우 (주요 프로세스)</strong><br>
+- <strong>탐지 (Detection)</strong>: 새로운 단말이 네트워크 접속 시 MAC 주소를 기반으로 존재를 파악합니다.<br>
+- <strong>인증 (Authentication)</strong>: 등록된 유효 사용자인지 확인합니다 (고유 MAC 정보 또는 ID/PW 인증).<br>
+- <strong>검신 (Posture Assessment)</strong>: 접속 단말의 보안 상태(백신 최신화 여부, 필수 SW 설치 등)를 검사하여 '무결성'을 확보합니다.<br>
+- <strong>권한 부여/격리 (Authorization / Quarantine)</strong>: 인증에 성공하고 무결성이 확인되면 네트워크 권한을 부여하고, 실패 시 치료(Remediation) 영역으로 격리하여 보안 업데이트를 유도합니다.<br><br>
+
+4) <strong>구현 방식의 차이</strong><br>
+- <strong>인라인/아웃오브밴드</strong> 방식으로 나뉘며, 스위치 설정을 바꾸지 않고 비인가 단말을 차단하기 위해 **ARP Redirect (ARP Poisoning)** 기술을 사용하여 비인가자의 통신을 NAC 서버로 가로채는 방식이 많이 사용됩니다. 반면, 보안성이 가장 높은 방식은 스위치 포트 자체를 제어하는 **802.1X(Port-based)** 방식입니다.
 </blockquote>
 </details>
 
@@ -32,14 +66,139 @@ NAC (Network Access Control)
 <details>
 <summary>(기출 25회 2번 문제) (단답형) 도청, 해킹 등으로부터 중요 자산의 정보를 보호하기 위해 컴퓨터, 모니터, 키보드 등에서 발생하는 불필요한 전자파 방출을 제어하거나 차단하는 기술의 명칭을 쓰시오.</summary>
 <blockquote>
-<strong>TEMPEST</strong> (전자파 방출 방지 기술)
+<strong>정답:</strong> <strong>TEMPEST</strong> (전자파 방출 방지 기술)<br><br>
+
+※ <strong>TEMPEST 기술 상세 가이드</strong><br>
+1) <strong>용어의 유래와 뉘앙스</strong><br>
+- <strong>Tempest</strong>는 본래 '폭풍우'라는 뜻의 일반 명사입니다. 전자 기기에서 수없이 쏟아져 나오는 불필요한 전자파 신호들이 마치 '폭풍우'처럼 사방으로 퍼져나가는 형상을 비유한 것이며, 미국 NSA(국가안보국)에서 이러한 신호를 통한 도청 위험을 정의할 때 사용한 암호명(Codename)에서 유래되었습니다.<br><br>
+
+2) <strong>Full Name (백로님, Backronym)</strong><br>
+- <strong>T</strong>elecommunications <strong>E</strong>lectronics <strong>M</strong>aterial <strong>P</strong>rotected from <strong>E</strong>manating <strong>S</strong>purious <strong>T</strong>ransmissions<br>
+- (직역: 불필요하게 방출되는 스퓨리어스 전송으로부터 보호되는 통신 전자 장비)<br><br>
+
+3) <strong>기술적 원리 (부채널 공격 방어)</strong><br>
+- 모니터, 키보드, CPU 등 모든 전자 기기는 작동 시 고유한 전자파(EMR)를 방출합니다. 공격자는 특수 안테나를 이용해 멀리서도 이 신호를 수집하여 복원함으로써, 화면에 나오는 내용이나 입력 중인 패스워드를 알아낼 수 있습니다(Van Eck Phreaking). TEMPEST는 이러한 <strong>비의도적인 정보 유출</strong>을 원천적으로 차단하는 기술입니다.<br><br>
+
+4) <strong>주요 대응 방안</strong><br>
+- <strong>차폐 (Shielding)</strong>: 장비나 건물을 구리판 등으로 감싸는 <strong>파라데이 케이지(Faraday Cage)</strong> 기법을 사용합니다.<br>
+- <strong>필터링 (Filtering)</strong>: 전원선이나 통신선을 통해 유출되는 신호를 제거하기 위해 저주파 필터 등을 설치합니다.<br>
+- <strong>차폐대 설정 (Zoning)</strong>: 장비 간의 이격 거리를 충분히 확보하여 신호가 도달하지 못하게 가둡니다.<br>
+- <strong>잡음 생성 (Masking)</strong>: 해석이 불가능하도록 인위적인 전자기 노이즈(Noise)를 발생시켜 신호를 섞어버립니다.
 </blockquote>
 </details>
 
 <details>
-<summary>(기출 25회 12번 문제) (단답형) 기존의 통합 로그 관리(SIEM) 시스템에 인공지능(AI)과 빅데이터 분석 기술을 결합하여, 방대한 보안 이벤트를 스스로 분석하고 우선순위를 부여하며 알려지지 않은 위협(Zero-day)까지 실시간으로 탐지하는 차세대 보안 관제 플랫폼의 명칭을 쓰시오.</summary>
+<summary>(기출 25회 12번 문제 변형) (단답형) 네트워크 내 산재한 이기종 보안 장비의 방대한 이벤트를 통합 수집·분석하는 기존 시스템에 인공지능(AI)과 빅데이터 분석 기술을 결합하여, 스스로 위협 우선순위를 부여하고 알려지지 않은 위협(Zero-day)까지 실시간으로 탐지하는 차세대 지능형 보안 관제 플랫폼의 명칭을 쓰시오.</summary>
 <blockquote>
-<strong>AI-SIEM</strong> (또는 지능형 보안관제 시스템)
+<strong>정답:</strong> <strong>AI-SIEM</strong> (또는 지능형 보안관제 시스템)<br><br>
+
+※ <strong>SIEM(심)과 AI-SIEM 상세 가이드</strong><br>
+1) <strong>SIEM의 의미 (Full Name)</strong><br>
+- <strong>SIEM</strong>: <strong>S</strong>ecurity <strong>I</strong>nformation and <strong>E</strong>vent <strong>M</strong>anagement<br>
+- (직역: 보안 정보 및 이벤트 관리 시스템)<br><br>
+
+2) <strong>SIEM의 탄생 배경 (SIM + SEM)</strong><br>
+- <strong>SIM (Security Information Management)</strong>: 방대한 로그 데이터의 수집, 저장 및 보고서 생성 등 사후 분석에 집중하는 기술입니다.<br>
+- <strong>SEM (Security Event Management)</strong>: 실시간으로 발생하는 보안 이벤트 간의 <strong>상관관계(Correlation)</strong>를 분석하여 즉각적인 경보를 발생시키는 실시간 관제 기술입니다.<br>
+- **SIEM**은 이 두 기술을 통합하여 전사적인 보안 장비(방화벽, IPS, 안티바이러스 등)의 로그를 한곳으로 모아 통합 분석함으로써 가시성을 확보하는 역할을 수행합니다.<br><br>
+
+3) <strong>AI-SIEM으로의 진화 (차세대 보안 관제)</strong><br>
+기존 SIEM은 관리자가 미리 정의한 **'룰(Rule) 기반'** 탐지 방식을 사용하므로 다음과 같은 한계가 있었습니다.<br>
+- **알람 피로도 (Alert Fatigue)**: 너무 많은 오탐(False Positive) 알람이 쏟아져 관리자가 분석에 지치는 현상 발생<br>
+- **알려지지 않은 공격 탐지 불가**: 이미 정의된 패턴만 찾기 때문에 제로데이 공격(Zero-day Attack) 대응 한계<br><br>
+
+**AI-SIEM**은 인공지능(심층 학습, 머신러닝)을 결합하여 다음을 가능하게 합니다.<br>
+- <strong>행위 분석 (Behavioral Analysis)</strong>: 단순 룰이 아닌, 평소와 다른 '이상 행위'를 스스로 학습하여 탐지합니다.<br>
+- <strong>정밀도 향상</strong>: 수많은 이벤트 중 실제 공격 가능성이 높은 위협에 우선순위를 부여하여 오탐을 획기적으로 줄입니다.<br>
+- <strong>대응 자동화</strong>: 빅데이터를 통해 상관관계 분석을 초고속으로 수행하여 실시간 침해 사고 조사를 지원합니다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) "아무것도 신뢰하지 말고 항상 검증하라(Never Trust, Always Verify)"는 철학을 바탕으로, 네트워크 경계 내부라도 무조건 신뢰하지 않고 모든 사용자, 기기, 어플리케이션에 대해 지속적인 인증과 최소 권한을 부여하는 현대 보안 아키텍처의 명칭을 쓰시오.</summary>
+<blockquote>
+<strong>제로 트러스트 (Zero Trust)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 기존의 안티바이러스(Legacy AV)와 비교하여 <strong>EDR (Endpoint Detection and Response)</strong> 솔루션이 가지는 기술적 차별성과 핵심 기능을 2가지 기술하시오.</summary>
+<blockquote>
+1. <strong>차별성 (탐지 중심)</strong>: 기존 AV가 알려진 패턴(Signature) 기반 차단에 집중한다면, EDR은 엔드포인트(PC, 서버 등)에서 발생하는 모든 행위 로그를 수집하여 <strong>실시간 모니터링 및 공격 징후를 탐지</strong>하는 데 집중한다.<br>
+2. <strong>핵심 기능 (조사 및 대응)</strong>: 침해 사고 발생 시 공격의 유입 경로 및 확산 과정을 추적하는 <strong>가시성(Visibility)</strong>을 제공하며, 격리 및 프로세스 강제 종료 등 <strong>신속한 대응 및 사후 조사</strong> 기능을 수행한다.<br><br>
+
+※ <strong>EDR 상세 가이드</strong><br>
+- <strong>탐지 철학의 변화</strong>: "모든 공격을 막을 수 없다"는 전제하에, 침투한 공격자가 시스템 내에서 수행하는 <strong>이상 행위를 끝까지 추적</strong>하는 것에 방점을 둡니다.<br>
+- <strong>위협 헌팅 (Threat Hunting)</strong>: 아직 경보가 울리지 않은 잠재적 위협을 보안 분석가가 로그를 통해 능동적으로 찾아내는 작업을 지원합니다.<br><br>
+
+※ <strong>혼동 방지: AI-SIEM vs EDR 비교</strong><br>
+둘 다 '로그'와 'AI'를 활용하지만, <strong>감시의 범위와 깊이</strong>에서 결정적인 차이가 있습니다.<br>
+- <strong>비유</strong>: **AI-SIEM**은 도시 전체의 CCTV를 한곳에서 감시하는 '통합 관제 센터'이고, **EDR**은 건물 각 방 안에 설치된 '개별 정밀 모니터'입니다.<br>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">구분</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">AI-SIEM (통합 보안 관제)</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">EDR (엔드포인트 탐지/대응)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px;"><strong>감시 범위</strong></td>
+      <td style="padding: 8px;"><strong>광대역(Broad)</strong>: 방화벽, IPS, 서버, DB 등 모든 장비의 로그</td>
+      <td style="padding: 8px;"><strong>심층적(Deep)</strong>: 특정 PC나 서버(엔드포인트) 내부 OS 행위</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>수집 데이터</strong></td>
+      <td style="padding: 8px;">정형화된 <strong>이벤트 로그</strong> (로그 발생 시점 위주)</td>
+      <td style="padding: 8px;">프로세스 트리, 메모리 덤프, 파일 I/O 등 <strong>원천 행위 데이터</strong></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>핵심 가치</strong></td>
+      <td style="padding: 8px;"><strong>상관관계 분석</strong>: "전체 네트워크 요충지에서 무슨 일이 일어나는가?"</td>
+      <td style="padding: 8px;"><strong>정밀 포렌식</strong>: "이 단말 안에서 공격자가 어떻게 권한을 획득했는가?"</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>주요 액션</strong></td>
+      <td style="padding: 8px;">보안 정책 권고, 실시간 경보 발생</td>
+      <td style="padding: 8px;">프로세스 즉시 종료, PC 네트워크 격리 등 직접 제어</td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 보기에서 설명하는 현대 보안 기술 또는 프레임워크의 명칭을 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+(A) 공격자의 전술(Tactics), 기술(Techniques), 절차(Procedures)를 체계적으로 분류하고 데이터베이스화하여 실제 침해 사고 대응 및 위협 헌팅에 활용되는 전 세계 공통의 지식 베이스: <strong>( )</strong><br>
+(B) 네트워크 보안 장비(FW, CASB, ZTNA)와 네트워크 서비스(SD-WAN)를 클라우드 기반의 단일 서비스 모델로 통합하여, 장소에 구애받지 않고 안전한 접근을 보장하는 보안 모델: <strong>( )</strong>
+</div></summary>
+<blockquote>
+(A) <strong>MITRE ATT&CK</strong> (마이프 어택 프레임워크)<br>
+(B) <strong>SASE</strong> (Secure Access Service Edge)<br><br>
+
+※ <strong>주요 현대 보안 프레임워크 상세 가이드</strong><br>
+1) <strong>MITRE ATT&CK (TTP 기반 지식 베이스)</strong><br>
+- <strong>T</strong>actics(전술: 공격 목적), <strong>T</strong>echniques(기술: 목적 달성 방법), <strong>P</strong>rocedures(절차: 실제 실행 단계)를 매트릭스 형태로 정리한 것입니다. 단순 악성코드(CVE) 리스트가 아닌 **공격자의 '수법'** 에 집중하여 방어 전략을 수립하게 돕습니다.<br><br>
+
+2) <strong>SASE (네트워크+보안 통합 서비스)</strong><br>
+- <strong>배경</strong>: 클라우드와 재택 근무 확산으로 인해 "사무실 경계 보안"이 무너지면서 탄생한 모델입니다.<br>
+- <strong>구성 요소</strong>: <br>
+  - <strong>SD-WAN</strong>: 효율적인 네트워크 경로 제어 <br>
+  - <strong>ZTNA (Zero Trust Network Access)</strong>: 지속적 인증 기반 접근 제어 <br>
+  - <strong>CASB (Cloud Access Security Broker)</strong>: 안전한 SaaS 이용 보장 <br>
+  - <strong>SWG (Secure Web Gateway)</strong>: 웹 취약점 및 악성 사이트 차단
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <strong>XDR (Extended Detection and Response)</strong>이 EDR이나 SIEM과 비교하여 가지는 강점을 '통합 분석' 관점에서 서술하시오.</summary>
+<blockquote>
+XDR은 단일 엔드포인트(EDR)를 넘어 네트워크, 클라우드, 이메일 등 **다양한 보안 계층의 데이터를 통합하여 분석** 한다. SIEM이 방대한 로그를 단순 수집하고 규칙 기반으로 분석한다면, XDR은 각 계층의 정밀한 탐지 데이터를 상관관계 분석(Correlation)하고 인공지능을 통해 공격의 전체 맥락을 자동으로 연결함으로써 **탐지의 정확도를 높이고 대응 시간을 획기적으로 단축** 시킨다.<br><br>
+
+※ <strong>XDR의 핵심 가치: 데이터 사일로(Silo) 제거</strong><br>
+- <strong>데이터 사일로 현상</strong>: 각 보안 장비(방화벽, 백신, 이메일 솔루션 등)가 자기 영역만 보고 따로 노는 현상을 말합니다. XDR은 이 장벽을 허물어 단편적인 이벤트들을 하나의 <strong>공격 타임라인(Kill Chain)</strong>으로 엮어냄으로써 보안 가시성을 극대화합니다.
 </blockquote>
 </details>
 
@@ -53,10 +212,41 @@ NAC (Network Access Control)
 </details>
 
 <details>
+<summary>(단답형) 프로토콜의 3대 요소 중 비트 스트림의 각 부분이 나타내는 구체적인 약속, 상호 조정을 위한 전송 제어 정보, 그리고 오류 발생 시 처리 규정 등을 정의하는 요소를 쓰시오.</summary>
+<blockquote>
+<strong>의미 (Semantics)</strong>
+</blockquote>
+</details>
+
+<details>
 <summary>(서술형) 프로토콜의 3대 요소 중 '타이밍(Timing)'이 담당하는 구체적인 역할 2가지를 기술하시오.</summary>
 <blockquote>
 1. <strong>속도 조절 (Speed Matching)</strong>: 데이터를 얼마나 빨리 보낼 것인지 정의한다.<br>
 2. <strong>순서 제어 (Order)</strong>: 데이터의 송수신 순서 및 전송 주기 등을 동기화한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 보기의 각 사례가 프로토콜의 3대 요소(구문, 의미, 타이밍) 중 어느 기능에 해당하는지 연결하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+(A) 패킷 헤더의 9번째부터 16번째 비트까지는 '목적지 주소' 영역으로 정의: <strong>( )</strong><br>
+(B) 전송된 비트 패턴이 '0101'이면 데이터 전송의 '시작'을 의미하는 것으로 약속: <strong>( )</strong><br>
+(C) 수신 측의 버퍼가 가득 찼으므로 송신 측에 일시적인 전송 중단을 요청: <strong>( )</strong>
+</div></summary>
+<blockquote>
+(A) <strong>구문 (Syntax)</strong> (데이터의 물리적 구조 및 형식 정의)<br>
+(B) <strong>의미 (Semantics)</strong> (특정 비트 패턴에 대한 제어 정보 및 의미 부여)<br>
+(C) <strong>타이밍 (Timing)</strong> (속도 조절 및 동기화 제어)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 프로토콜의 3대 요소(구문, 의미, 타이밍)의 핵심 정의를 각각 한 문장으로 기술하시오.</summary>
+<blockquote>
+※ <strong>프로토콜 3요소 핵심 요약</strong><br>
+1. <strong>구문 (Syntax)</strong>: 데이터의 형식, 구조, 부호화 방식을 정의한다.<br>
+2. <strong>의미 (Semantics)</strong>: 원활한 소통을 위한 제어 정보와 오류 처리를 위한 의미를 부여한다.<br>
+3. <strong>타이밍 (Timing)</strong>: 송수신 기간의 통신 속도를 맞추고 데이터 전송 순서를 동기화한다.
 </blockquote>
 </details>
 
@@ -88,9 +278,18 @@ MAC 주소 (Media Access Control Address)
 <details>
 <summary>(서술형) OSI 7계층 모델에서 2계층(데이터 링크 계층)이 데이터 전송의 신뢰성을 보장하기 위해 수행하는 주요 기능 3가지를 기술하시오.</summary>
 <blockquote>
-1. <strong>회선 제어 (Line Discipline)</strong>: 점대점 또는 멀티포인트 회선 구성 방식에 따라 통신 권한을 제어함<br>
+1. <strong>회선 제어 (Line Control)</strong>: 전송 링크에 대한 <strong>제어 규범 (Line Discipline)</strong>을 확립하여 전송 권한 및 순서를 조정함<br>
 2. <strong>흐름 제어 (Flow Control)</strong>: 송신 측과 수신 측의 처리 속도 차이로 인한 데이터 범람을 방지함<br>
-3. <strong>오류 제어 (Error Control)</strong>: 전송 도중 발생한 부호 오류를 검출하고 정정하여 신뢰성을 확보함
+3. <strong>오류 제어 (Error Control)</strong>: 전송 도중 발생한 부호 오류를 검출하고 정정하여 신뢰성을 확보함<br><br>
+
+※ <strong>회선 제어(Line Control) 상세 가이드</strong><br>
+교재의 정의에 따르면, 회선 제어는 다음 환경 요소에 따라 결정되는 **전송 링크에 대한 제어 규범(Line Discipline)**을 의미합니다.<br>
+- <strong>결정 요소</strong>: <br>
+  - <strong>회선 구성 방식 (Line Configuration)</strong>: 점-대-점(Point-to-Point) 또는 다중점(Multi-point)<br>
+  - <strong>전송 방식 (Transmission Mode)</strong>: 단방향(Simplex), 반이중(Half-duplex), 전이중(Full-duplex)<br><br>
+- <strong>주요 제어 방식 (Line Discipline) 실례</strong>:<br>
+  - <strong>ENQ/ACK 방식</strong>: 점-대-점 환경에서 송신 측이 전송 준비를 묻고(ENQ), 수신 측이 수락(ACK)하면 데이터를 보내는 방식<br>
+  - <strong>폴링/셀렉션 (Poll/Select) 방식</strong>: 다중점 환경에서 주 스테이션(Master)이 종속 스테이션(Slave)에게 보낼 데이터 유무를 묻거나(Poll), 데이터를 받을 준비가 되었는지 선택(Select)하는 방식
 </blockquote>
 </details>
 
@@ -99,6 +298,20 @@ MAC 주소 (Media Access Control Address)
 <blockquote>
 (A) <strong>LLC (Logical Link Control)</strong>: 상위 계층과의 인터페이스 및 흐름/오류 제어 담당<br>
 (B) <strong>MAC (Media Access Control)</strong>: 물리적 매체에 대한 다중 접근 제어 담당
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 네트워크 카드(NIC)에 설정되는 동작 모드 중 하나로, 자신의 MAC 주소와 일치하지 않는 패킷이라도 하드웨어 필터링을 거치지 않고 모두 수신하여 상위 계층으로 전달하는 설정 방식의 명칭을 영문으로 쓰시오.</summary>
+<blockquote>
+<strong>프라미스큐어스 모드 (Promiscuous Mode)</strong> (혼재 모드)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 와이어샤크(Wireshark)와 같은 패킷 분석 도구를 사용하여 동일 네트워크 세그먼트 전반의 트래픽을 가로채려 할 때(Sniffing), 반드시 <strong>프라미스큐어스 모드</strong>가 활성화되어야 하는 기술적 이유를 기술하시오.</summary>
+<blockquote>
+일반적인 네트워크 카드는 성능 최적화를 위해 패킷 헤더의 **수신지 MAC 주소** 가 자신의 주소와 일치하거나 브로드캐스트/멀티캐스트인 경우에만 수신하고 나머지는 하드웨어 수준에서 버린다(Discard). 따라서 분석 목적으로 **다른 호스트 간의 유니캐스트 패킷** 까지 모두 수집하기 위해서는, 이 하드웨어 필터링 기능을 해제하고 모든 프레임을 통과시키도록 설정해야 하기 때문이다.
 </blockquote>
 </details>
 
@@ -167,6 +380,13 @@ MAC 주소 (Media Access Control Address)
 </details>
 
 <details>
+<summary>(단답형) OSI 모델의 데이터 교환 방식 중 하나로, 송신 측의 특정 계층에서 여러 상위 계층 프로토콜로부터 전달받은 다수의 데이터 스트림을 하나의 하위 계층 프로토콜 전송 서비스로 통합하여 전달하는 기법을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>다중화 (Multiplexing)</strong>
+</blockquote>
+</details>
+
+<details>
 <summary>(단답형) 수신 측의 특정 계층 프로토콜이 여러 상위 계층 프로토콜 중 데이터가 도달해야 할 정확한 대상을 식별하여 전달하기 위해, 헤더에 포함된 '프로토콜 식별자'를 이용하는 기법을 무엇이라 하는가?</summary>
 <blockquote>
 <strong>역다중화 (Demultiplexing)</strong>
@@ -174,11 +394,37 @@ MAC 주소 (Media Access Control Address)
 </details>
 
 <details>
-<summary>(서술형) TCP/IP 계층 구조에서 계층 간 데이터 전달 시 상위 프로토콜을 식별하기 위해 각 헤더에 포함되는 '식별자 필드' 3가지를 해당 계층(또는 헤더)과 함께 기술하시오.</summary>
+<summary>(서술형) TCP/IP 계층 구조에서 역다중화(Demultiplexing)를 수행할 때, 각 계층의 헤더에서 상위 프로토콜을 식별하기 위해 참조하는 '식별 필드'와 주요 대표값들을 기술하시오.</summary>
 <blockquote>
-1. <strong>네트워크 인터페이스 - 인터넷 계층</strong>: Frame 헤더의 <strong>Type</strong> 필드<br>
-2. <strong>인터넷 - 전송 계층</strong>: IP 헤더의 <strong>Protocol</strong> 필드<br>
-3. <strong>전송 - 응용 계층</strong>: TCP/UDP 헤더의 <strong>Destination Port</strong> 필드
+수신 측은 아래 필드 값들을 확인하여 데이터를 전달할 최적의 차상위 프로토콜을 결정합니다.<br><br>
+1. <strong>네트워크 인터페이스 계층 (L2) → 인터넷 계층</strong>: 이더넷 프레임의 <strong>Type (EtherType)</strong> 필드<br>
+   - <code>0x0800</code>: IPv4 / <code>0x0806</code>: ARP / <code>0x86DD</code>: IPv6<br>
+2. <strong>인터넷 계층 (L3) → 전송 계층</strong>: IP 헤더의 <strong>Protocol</strong> 필드<br>
+   - <code>1</code>: ICMP / <code>6</code>: TCP / <code>17</code>: UDP / <code>89</code>: OSPF<br>
+3. <strong>전송 계층 (L4) → 응용 계층</strong>: TCP/UDP 헤더의 <strong>Destination Port</strong> 필드<br>
+   - <code>22</code>: SSH / <code>53</code>: DNS / <code>80</code>: HTTP / <code>443</code>: HTTPS
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 수신된 IP 패킷을 역캡슐화하여 전송 계층으로 올릴 때, IP 헤더 내의 특정 필드 값을 보고 이 페이로드가 TCP인지 UDP인지를 판단한다. 이때 참조하는 필드의 명칭과 그 크기를 쓰시오.</summary>
+<blockquote>
+명칭: <strong>프로토콜 (Protocol)</strong> 필드<br>
+크기: <strong>8비트</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 데이터 패킷의 헤더 정보와 식별되는 상위 프로토콜 내용을 바르게 연결하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+(A) Ethernet Type: <code>0x0800</code> -> <strong>( )</strong><br>
+(B) IP Protocol Number: <code>1</code> -> <strong>( )</strong><br>
+(C) TCP Destination Port: <code>443</code> -> <strong>( )</strong>
+</div></summary>
+<blockquote>
+(A) <strong>IPv4</strong><br>
+(B) <strong>ICMP</strong><br>
+(C) <strong>HTTPS</strong>
 </blockquote>
 </details>
 
@@ -190,7 +436,7 @@ MAC 주소 (Media Access Control Address)
 </details>
 
 <details>
-<summary>395. (작업형) 다음 TCP <strong>연결 설정(3-way)</strong> 및 <strong>연결 종료(4-way)</strong> 과정의 플래그 비트와 순서 번호를 채우시오.(플래그 비트 예: 010001, 순서: URG, ACK, PSH, RST, SYN, FIN 순)<br>
+<summary>(작업형) 다음 TCP <strong>연결 설정(3-way)</strong> 및 <strong>연결 종료(4-way)</strong> 과정의 플래그 비트와 순서 번호를 채우시오.(플래그 비트 예: 010001, 순서: URG, ACK, PSH, RST, SYN, FIN 순)<br>
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 (1) 서버 응답(SYN+ACK): TCP Flag [ <strong>( A )</strong> ], SEQ( <strong>( B )</strong> ), ACK( X+1 )<br>
 (2) 클라이언트 종료 요청(FIN+ACK): TCP Flag [ <strong>( C )</strong> ], SEQ( 1234 ), ACK( 6789 )<br>
@@ -241,23 +487,6 @@ ARQ (Automatic Repeat Request)
 </blockquote>
 </details>
 
-<details>
-<summary>(기출 23회 14번 문제) (서술형) TCP 헤더에 포함되어 있는 6비트의 플래그(Flag) 중 다음의 역할과 의미를 기술하시오.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-(A) SYN<br>
-(B) ACK<br>
-(C) FIN<br>
-(D) RST
-</div>
-</summary>
-<blockquote>
-(A) <strong>SYN</strong>: 전송 주체 간 세션을 수립할 때 사용하는 동기화 신호로, 순서 번호(Sequence Number)를 동기화한다.<br>
-(B) <strong>ACK</strong>: 상대방으로부터 패킷을 정상적으로 수신했음을 알리는 응답 신호이다.<br>
-(C) <strong>FIN</strong>: 데이터 전송이 완료되어 정상적으로 통신 세션을 종료할 때 사용한다.<br>
-(D) <strong>RST</strong>: 연결 상의 문제가 발생하거나 비정상적인 세션을 강제로 중단할 때 사용한다.
-</blockquote>
-</details>
-
 ### 이더넷(Ethernet) 및 스위칭(Switching) 보안
 
 <details>
@@ -296,7 +525,7 @@ ARQ (Automatic Repeat Request)
 <blockquote>
 1. <strong>주요 기능</strong>: 패킷의 목적지 주소(MAC)를 기반으로 해당 포트에만 전송하여 대역폭 효율을 높이고 충돌을 방지함<br>
 2. <strong>동작 원리</strong><br>
-- <strong>Learning</strong>: 입급되는 프레임의 출발지 MAC 주소를 보고 해당 포트 번호를 MAC 주소 테이블에 저장함<br>
+- <strong>Learning</strong>: 유입되는 프레임의 출발지 MAC 주소를 보고 해당 포트 번호를 MAC 주소 테이블에 저장함<br>
 - <strong>Forwarding</strong>: 목적지 MAC 주소가 테이블에 있는 경우, 해당 포트로만 프레임을 전달함<br>
 - <strong>Filtering</strong>: 목적지 포트 이외의 다른 포트로는 전달되지 않도록 제어함<br>
 - <strong>Flooding</strong>: 목적지 MAC 주소를 모를 경우, 수신 포트를 제외한 모든 포트로 뿌림<br>
@@ -312,8 +541,24 @@ ARQ (Automatic Repeat Request)
 </div>
 </summary>
 <blockquote>
-(A) <code>CSMA/CD</code> (Carrier Sense Multiple Access with Collision Detection)<br>
-(B) <code>CSMA/CA</code> (Carrier Sense Multiple Access with Collision Avoidance)
+(A) <strong>CSMA/CD</strong> (Collision Detection)<br>
+(B) <strong>CSMA/CA</strong> (Collision Avoidance)<br><br>
+
+※ <strong>매체 접근 제어 기술 상세 가이드</strong><br>
+1) <strong>CSMA/CD (유선): "들으면서 말하기"</strong><br>
+- <strong>탐지(Detection)</strong>: 유선 매체는 전기적 신호 변화를 통해 전송 중 실시간으로 충돌을 감지할 수 있습니다.<br>
+- <strong>동작</strong>: 충돌 발생 시 즉시 전송을 멈추고 **잼 신호(Jam Signal)** 를 송출하여 다른 노드에 충돌을 알린 후, **백오프(Backoff)** 시간만큼 기다렸다가 재전송합니다.<br><br>
+
+2) <strong>CSMA/CA (무선): "말하기 전 허락받기"</strong><br>
+- <strong>배경</strong>: 무선 환경은 전파 감쇄가 심하고 자신의 송신 신호 때문에 충돌 여부를 실시간으로 알기 어려운 **반이중(Half-duplex)** 구조이므로, 충돌을 <strong>회피(Avoidance)</strong>하는 방식이 필수적입니다.<br><br>
+
+3) <strong>RTS/CTS와 숨은 노드(Hidden Node) 문제</strong><br>
+- <strong>전제조건</strong>: 무선 네트워크에서 서로 신호가 닿지 않는 두 단말(A, C)이 중앙의 AP(B)와 통신하려 할 때, 서로의 존재를 몰라 동시에 패킷을 보내면 AP에서 충돌이 발생합니다. 이것이 **숨은 노드 문제**입니다.<br>
+- <strong>해결 (RTS/CTS 핸드셰이크)</strong>:<br>
+  1. <strong>RTS (Request to Send)</strong>: 송신 노드가 AP에게 "데이터를 보내도 될까요?"라고 요청을 보냅니다.<br>
+  2. <strong>CTS (Clear to Send)</strong>: AP가 수락 신호를 브로드캐스트합니다. 이때 주변의 모든 단말은 일정 시간(**NAV**) 동안 전송을 중단하고 대기합니다.<br>
+  3. <strong>Data 전송</strong>: 허락받은 단말만 안전하게 데이터를 보냅니다.<br>
+  4. <strong>ACK</strong>: 수신 측은 데이터가 잘 도착했다는 확인 응답(ACK)을 보내 통신을 마무리합니다.
 </blockquote>
 </details>
 
@@ -342,9 +587,12 @@ ARQ (Automatic Repeat Request)
 
 <details>
 <summary>(기출 24회 3번 문제) (단답형) LAN 스위치의 프레임 처리 방식 중 다음 설명에 해당하는 용어를 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 (A) 목적지 주소만 확인하고 즉시 전송하여 가장 빠르지만 에러 체크가 제한적인 방식<br>
 (B) 충돌 가능성이 높은 첫 64바이트(Collision Window)만 검사하는 방식<br>
-(C) 전체 프레임을 수신하여 에러 체크 후 전송하는 신뢰성이 가장 높은 방식</summary>
+(C) 전체 프레임을 수신하여 에러 체크 후 전송하는 신뢰성이 가장 높은 방식
+</div>
+</summary>
 <blockquote>
 <strong>정답:</strong> (A): <strong>Cut Through 방식</strong>, (B): <strong>Fragment-Free 방식</strong>, (C): <strong>Store and Forward 방식</strong><br>
 <strong>해설:</strong> LAN 스위치의 프레임 처리 방식은 성능과 신뢰성의 균형을 고려합니다.
@@ -373,8 +621,11 @@ ARQ (Automatic Repeat Request)
 
 <details>
 <summary>(단답형) 다음 네트워크 장비 (A), (B)에 대한 설명을 읽고 알맞은 명칭을 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 (A) 수신한 신호를 연결된 모든 포트로 단순히 복제하여 전송하며, 충돌 도메인을 나누지 못하는 장비<br>
-(B) 목적지 MAC 주소를 확인하여 해당 포트로만 신호를 전달하며, 각 포트가 독립된 충돌 도메인을 가지도록 분할하는 장비</summary>
+(B) 목적지 MAC 주소를 확인하여 해당 포트로만 신호를 전달하며, 각 포트가 독립된 충돌 도메인을 가지도록 분할하는 장비
+</div>
+</summary>
 <blockquote>
 (A) 허브 (Hub) (또는 더미 허브)<br>
 (B) 스위치 (Switch) (또는 L2 스위치, 스위칭 허브)
@@ -399,8 +650,54 @@ ARQ (Automatic Repeat Request)
 <details>
 <summary>(단답형) <code>161.134.4.0/22</code> 네트워크 환경에서 모든 호스트에게 데이터를 전송하기 위한 <strong>Directed Broadcast</strong> 주소를 쓰시오.</summary>
 <blockquote>
-<code>161.134.7.255</code><br><br>
-※ 풀이: /22는 서브넷 마스크가 255.255.252.0이며, IP 범위는 161.134.4.0 ~ 161.134.7.255가 됩니다.
+<strong>정답:</strong> <code>161.134.7.255</code><br><br>
+
+※ <strong>상세 풀이 과정</strong><br>
+1) <strong>서브넷 마스크 확인 (/22)</strong><br>
+- 앞에서부터 22비트가 네트워크 영역입니다.<br>
+- <strong>1~2번째 옥텟 (16비트)</strong>: <code>255.255</code> (모두 네트워크 고정)<br>
+- <strong>3번째 옥텟 (6비트)</strong>: 네트워크 고정 영역<br>
+- <strong>나머지 (2+8=10비트)</strong>: 호스트 가변 영역<br><br>
+
+2) <strong>3번째 옥텟(4)의 비트 분해 및 경계 설정</strong><br>
+문제의 IP 161.134.<strong>4</strong>.0에서 3번째 옥텟인 **4**를 2진수로 변환하여 22비트 지점에서 선을 긋습니다.
+- **10진수 4** → **2진수 <code>00000100</code>**
+
+```mermaid
+graph TD
+    subgraph "3번째 옥텟: 4 (00000100)"
+    direction LR
+    N1["0"] --- N2["0"] --- N3["0"] --- N4["0"] --- N5["0"] --- N6["1"]
+    style N1 fill:#bbf,stroke:#333
+    style N2 fill:#bbf,stroke:#333
+    style N3 fill:#bbf,stroke:#333
+    style N4 fill:#bbf,stroke:#333
+    style N5 fill:#bbf,stroke:#333
+    style N6 fill:#bbf,stroke:#333
+
+    L[("| 22비트 경계 |")]
+
+    H1["<strong>0</strong>"] --- H2["<strong>0</strong>"]
+    style H1 fill:#f96,stroke:#333
+    style H2 fill:#f96,stroke:#333
+    end
+
+    Note1["네트워크 영역 (고정)"] -.-> N1
+    Note2["호스트 영역 (가변)"] -.-> H1
+```
+- 파란색(상위 6비트): 네트워크 주소의 일부로 **고정**됨 (`000001`)<br>
+- 주황색(하위 2비트): 호스트 주소 영역이며, 문제의 IP에서는 **`00`**으로 되어 있음<br><br>
+
+3) <strong>Broadcast 주소로 변환 (호스트 영역을 모두 1로)</strong><br>
+브로드캐스트 주소는 호스트 영역 비트를 모두 **최대치(1)**로 설정한 주소입니다.
+- **3번째 옥텟 변경**: 고정된 <code>000001</code> 뒤에 <code>11</code>을 붙임<br>
+  - `000001` + `11` = `00000111` (2진수) → <strong>7</strong> (10진수)<br>
+- **4번째 옥텟 변경**: 호스트 영역 전체(8비트)를 1로 설정<br>
+  - `11111111` (2진수) → <strong>255</strong> (10진수)<br><br>
+
+4) <strong>최종 결과</strong><br>
+- 고정된 161.134 뒤에 계산된 7.255를 결합<br>
+- **Directed Broadcast 주소**: <code>161.134.7.255</code>
 </blockquote>
 </details>
 
@@ -421,12 +718,15 @@ VLAN (Virtual LAN, 가상 랜)
 <details>
 <summary>334. (서술형) <strong>VLAN (Virtual LAN)</strong>의 주요 개념과 구성 방식에 따른 4가지 종류를 나열하시오.</summary>
 <blockquote>
-<strong>기본 개념</strong>: 물리적 위치에 관계없이 논리적으로 LAN 영역을 분할하여 브로드캐스트 도메인을 격리하는 기술이다.<br>
-<strong>구성 방식에 따른 종류</strong>:
-1. <strong>Port 기반 VLAN</strong>: 스위치의 각 물리적 포트에 VLAN ID를 할당함
-2. <strong>MAC 기반 VLAN</strong>: 연결된 장치의 고유 MAC 주소별로 VLAN을 할당함
-3. <strong>IP 기반 VLAN</strong>: 장치의 IP 주소 또는 서브넷 대역별로 VLAN을 할당함
-4. <strong>프로토콜 기반 VLAN</strong>: 사용하는 프로토콜(TCP/IP, IPX 등)별로 VLAN을 할당함
+<strong>기본 개념</strong>: 물리적 위치에 관계없이 논리적으로 LAN 영역을 분할하여 브로드캐스트 도메인을 격리하는 기술이다.<br><br>
+
+<strong>※ 할당 방식에 따른 분류</strong><br>
+1. <strong>정적 (Static) VLAN</strong>: 관리자가 스위치의 물리적 포트마다 직접 VLAN ID를 설정하는 방식
+   - <strong>Port 기반 VLAN</strong>: 가장 일반적인 방식으로, 특정 포트에 연결된 모든 장비는 해당 VLAN에 속함<br><br>
+2. <strong>동적 (Dynamic) VLAN</strong>: 접속하는 장비의 정보에 따라 자동으로 VLAN이 결정되는 방식
+   - <strong>MAC 기반 VLAN</strong>: 장비의 고유 MAC 주소를 사전에 데이터베이스화하여 접속 포트와 상관없이 VLAN을 할당함
+   - <strong>IP 기반 VLAN</strong>: 장비의 IP 주소 또는 서브넷 대역별로 계층적으로 VLAN을 할당함
+   - <strong>프로토콜 기반 VLAN</strong>: 상위 계층 프로토콜(IPv4, IPv6, IPX 등)에 따라 VLAN을 다르게 할당함
 </blockquote>
 </details>
 
@@ -514,7 +814,14 @@ VLAN (Virtual LAN, 가상 랜)
 
 <details>
 <summary>(작업형) 다음 주요 응용 계층 프로토콜과 기본적으로 사용하는 Well-known 포트 번호를 알맞게 연결하시오.<br>
-(A) SSH/SFTP: ( ) (B) SMTP: ( ) (C) POP3: ( ) (D) DHCP Server: ( ) (E) SNMP: ( )</summary>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+(A) SSH/SFTP: ( )<br>
+(B) SMTP: ( )<br>
+(C) POP3: ( )<br>
+(D) DHCP Server: ( )<br>
+(E) SNMP: ( )
+</div>
+</summary>
 <blockquote>
 (A) <strong>22</strong><br>
 (B) <strong>25</strong><br>
@@ -534,10 +841,45 @@ VLAN (Virtual LAN, 가상 랜)
 </details>
 
 <details>
-<summary>(작업형) 네트워크 인터페이스 계층(L2)의 물리 주소인 <strong>MAC 주소</strong>(48비트) 중, 하드웨어 제조사를 식별하기 위해 할당된 상위 24비트의 명칭과 나머지 하위 24비트의 의미를 각각 기술하시오.</summary>
+<summary>(작업형) TCP/IP 각 계층별 통신 범위와 식별 주소, 대표 프로토콜을 알맞게 연결하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+(1) 전송 계층 (Transport): [ <strong>( A )</strong> ] 통신 / 주소: [ <strong>( B )</strong> ] / 프로토콜: TCP, UDP, SCTP<br>
+(2) 인터넷 계층 (Internet): [ <strong>( C )</strong> ] 통신 / 주소: IP / 프로토콜: ICMP, IGMP, ARP<br>
+(3) 네트워크 인터페이스: [ <strong>( D )</strong> ] 전송 / 주소: MAC / 프로토콜: Ethernet, PPP
+</div></summary>
 <blockquote>
-- <strong>상위 24비트</strong>: <strong>OUI (Organizationally Unique Identifier)</strong><br>
-- <strong>하위 24비트</strong>: 제조사가 각 인터페이스(NIC)에 부여한 고유한 <strong>일련번호 (Serial Number)</strong>
+(A) <strong>Process-to-Process</strong> (프로세스 간 신뢰성 데이터 전송)<br>
+(B) <strong>Port 주소 (16비트)</strong><br>
+(C) <strong>Host-to-Host</strong> (호스트 간 라우팅 및 경로 선택)<br>
+(D) <strong>Node-to-Node</strong> (인접 노드 간의 데이터 전달)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 전송 계층 프로토콜 중 하나로, TCP의 '연결 지향 및 신뢰성'과 UDP의 '메시지 기반 전송' 특성을 결합하고, 멀티호밍(Multi-homing)과 멀티스트리밍 기능을 지원하여 신뢰성을 극대화한 프로토콜의 명칭을 쓰시오.</summary>
+<blockquote>
+<strong>SCTP (Stream Control Transmission Protocol)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 주요 프로토콜들의 핵심 용도를 간략히 기술하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+(1) <strong>IGMP</strong>: [ <strong>( A )</strong> ]<br>
+(2) <strong>RARP</strong>: [ <strong>( B )</strong> ]<br>
+(3) <strong>PPP</strong>: [ <strong>( C )</strong> ]
+</div></summary>
+<blockquote>
+(A) <strong>IGMP (Internet Group Management Protocol)</strong>: 호스트가 자신의 멀티캐스트 그룹 멤버십을 라우터에 알리기 위한 프로토콜 (멀티캐스트 용)<br>
+(B) <strong>RARP (Reverse ARP)</strong>: 물리적 주소(MAC)를 알고 있을 때 논리적 주소(IP)를 요청하기 위한 프로토콜<br>
+(C) <strong>PPP (Point-to-Point Protocol)</strong>: 점대점 직렬 링크(WAN)에서 데이터 캡슐화, 인증(PAP/CHAP), 압축 등을 위해 사용되는 표준 프로토콜
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 네트워크 인터페이스 계층 프로토콜 중, WAN(Wide Area Network) 환경에서 주로 사용되는 대표적인 캡슐화 프로토콜 3가지를 쓰시오.</summary>
+<blockquote>
+<strong>HDLC, PPP, Frame Relay</strong> (또는 X.25, SLIP 등)
 </blockquote>
 </details>
 
@@ -592,20 +934,61 @@ VLAN (Virtual LAN, 가상 랜)
 </details>
 
 <details>
-<summary>(작업형) 다음 실무적인 ARP 관련 조치 사항에 해당하는 명령어를 작성하시오 (Windows/Linux 공명 옵션 기준).<br>
-1) 현재 메모리에 저장된 ARP 캐시 테이블의 내용을 화면에 출력함: ( A )<br>
-2) 캐시 테이블에서 특정 IP(192.168.0.1) 항목을 수동으로 삭제함: ( B )</summary>
+<summary>(작업형) 다음 실무적인 ARP 관련 조치 사항에 해당하는 명령어를 작성하시오 (Windows/Linux 공통 옵션 기준).<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+1) 현재 메모리에 저장된 ARP 캐시 테이블의 내용을 화면에 출력함: [ <strong>( A )</strong> ]<br>
+2) 캐시 테이블에서 특정 IP(192.168.0.1) 항목을 수동으로 삭제함: [ <strong>( B )</strong> ]<br>
+3) ARP 스푸핑 공격을 방어하기 위해 특정 IP(192.168.10.1)와 MAC 주소(00-aa-bb-cc-dd-ee)를 <strong>정적(Static)으로 고정</strong>함: [ <strong>( C )</strong> ]
+</div></summary>
 <blockquote>
 (A) <strong><code>arp -a</code></strong><br>
-(B) <strong><code>arp -d 192.168.0.1</code></strong>
+(B) <strong><code>arp -d 192.168.0.1</code></strong><br>
+(C) <strong><code>arp -s 192.168.10.1 00-aa-bb-cc-dd-ee</code></strong><br><br>
+
+※ <strong>ARP 명령어 주요 옵션 요약 가이드</strong>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">옵션</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">의미 (Full Word)</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">기능 설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px;"><strong>-a</strong></td>
+      <td style="padding: 8px;"><strong>All / Address</strong></td>
+      <td style="padding: 8px;">현재 캐시 테이블에 저장된 모든 IP-MAC 매핑 정보를 출력합니다.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>-d</strong></td>
+      <td style="padding: 8px;"><strong>Delete</strong></td>
+      <td style="padding: 8px;">캐시 테이블에서 특정 호스트의 항목을 삭제합니다. (IP 지정 필요)</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>-s</strong></td>
+      <td style="padding: 8px;"><strong>Static / Set</strong></td>
+      <td style="padding: 8px;">IP와 MAC 주소를 <strong>정적으로 고정</strong>합니다. 스푸핑 차단 시 핵심 옵션입니다.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>-g</strong></td>
+      <td style="padding: 8px;"><strong>Get</strong></td>
+      <td style="padding: 8px;">-a와 동일한 기능으로 캐시 정보를 가져옵니다. (Windows/UNIX 공통)</td>
+    </tr>
+  </tbody>
+</table>
 </blockquote>
 </details>
 
 <details>
 <summary>(작업형) 아래 화면은 게이트웨이(192.168.10.1)에 대한 ARP 스푸핑 공격 성공 시의 결과이다. ( A )와 ( B )에 들어갈 내용을 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 [공격 전] 192.168.10.1 -> 00-50-56-11-22-33 (Gateway 정석 MAC)<br>
-[공격 후] 192.168.10.1 -> 00-0c-29-ba-02-17 ( ( A )의 MAC)<br>
-"공격 성공 시 희생자의 캐시 테이블에는 게이트웨이의 MAC 주소가 <strong>( B )</strong>의 MAC으로 변조되어 모든 외부 전송 패킷이 <strong>( B )</strong>에게 흐르게 된다."</summary>
+[공격 후] 192.168.10.1 -> 00-0c-29-ba-02-17 ( ( A )의 MAC)<br><br>
+
+"공격 성공 시 희생자의 캐시 테이블에는 게이트웨이의 MAC 주소가 <strong>( B )</strong>의 MAC으로 변조되어 모든 외부 전송 패킷이 <strong>( B )</strong>에게 흐르게 된다."
+</div>
+</summary>
 <blockquote>
 (A) <strong>공격자</strong><br>
 (B) <strong>공격자</strong> (또는 해커)
@@ -645,7 +1028,7 @@ VLAN (Virtual LAN, 가상 랜)
 <blockquote>
 (A) <code>arp -a</code><br>
 (B) <code>ARP Redirect</code> (또는 ARP Spoofing)<br>
-(C) (게이트웨이와 공격자 등) 서로 다른 여러 IP 주소가 **동일한 MAC 주소**로 매핑되어 있는 현상<br>
+(C) (게이트웨이와 공격자 등) 서로 다른 여러 IP 주소가 <strong>동일한 MAC 주소</strong>로 매핑되어 있는 현상<br>
 (D) <code>arp -s 192.168.100.1 00-0a-00-62-c6-09</code> (예시 MAC 주소 포함)
 </blockquote>
 </details>
@@ -669,6 +1052,8 @@ VLAN (Virtual LAN, 가상 랜)
 <summary>(단답형) ARP 스푸핑(Spoofing) 공격을 방어하기 위해 ARP 테이블을 정적으로 관리하는 명령어를 작성하시오.</summary>
 <blockquote>
 <code>arp -s [IP주소] [MAC주소]</code>
+</blockquote>
+</details>
 
 <details>
 <summary>335. (서술형) <strong>ARP 스푸핑(Spoofing)</strong> 공격의 전제 조건과 공격 과정을 기술하시오.</summary>
@@ -684,8 +1069,11 @@ VLAN (Virtual LAN, 가상 랜)
 
 <details>
 <summary>336. (작업형) 윈도우 환경에서 ARP 스푸핑 공격을 탐지하고 대응하기 위한 다음 질문에 답하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 1) 현재 ARP 캐시 테이블을 확인하는 명령어<br>
-2) 특정 항목을 정적(Static)으로 고정하여 공격을 방어하는 명령어 형식</summary>
+2) 특정 항목을 정적(Static)으로 고정하여 공격을 방어하는 명령어 형식
+</div>
+</summary>
 <blockquote>
 <strong>정답:</strong>
 1) <code>arp -a</code>
@@ -701,7 +1089,7 @@ Internet Address &nbsp;&nbsp;&nbsp;&nbsp; Physical Address &nbsp;&nbsp;&nbsp;&nb
 192.168.10.20 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00-0c-29-aa-bb-cc &nbsp;&nbsp;&nbsp;&nbsp; dynamic (PC-A)
 </div></summary>
 <blockquote>
-<strong>공격 판단</strong>: 서로 다른 두 개의 IP 주소(10.1 게이트웨이와 10.20 PC)가 동일한 MAC 주소를 가졌으므로 **ARP 스푸핑** 공격을 받고 있음<br>
+<strong>공격 판단</strong>: 서로 다른 두 개의 IP 주소(10.1 게이트웨이와 10.20 PC)가 동일한 MAC 주소를 가졌으므로 <strong>ARP 스푸핑</strong> 공격을 받고 있음<br>
 <strong>대응 방안</strong>: 게이트웨이 등의 주요 서버 정보를 커맨드를 통해 정적(Static)으로 설정함 (<code>arp -s 192.168.10.1 [정상_MAC]</code>)
 </blockquote>
 </details>
@@ -2575,6 +2963,238 @@ DNS <strong>( A )</strong> 서비스는 악성 봇에 감염된 PC가 해커의 
 ### 무선랜(Wireless LAN) 보안
 
 <details>
+<summary>(단답형) 무선 AP가 자신의 존재와 무선랜 식별 이름(SSID)을 주위에 정기적으로 알리기 위해 전송하는 IEEE 802.11 관리 프레임의 명칭은?</summary>
+<blockquote>
+<strong>비콘(Beacon) 프레임</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 무선랜 보안 규격인 WPA2에서 데이터 암호화와 무결성 보장을 위해 사용하며, AES 블록 암호의 카운터 모드(Counter Mode)와 CBC-MAC을 결합하여 설계된 프로토콜 명칭은?</summary>
+<blockquote>
+<strong>CCMP (Counter mode with CBC-MAC Protocol)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 무선랜 인터페이스의 동작 모드 중 하나로, 자신에게 전달되는 패킷뿐만 아니라 주변의 모든 수신 가능한 무선 패킷을 수집할 수 있는 모드의 명칭은?</summary>
+<blockquote>
+<strong>모니터 모드 (Monitor Mode)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 초기 무선랜 보안 모델인 WEP(Wired Equivalent Privacy)의 구조적 한계로 인한 취약점 두 가지를 '초기화 벡터(IV)'와 '암호 알고리즘' 측면에서 설명하시오.</summary>
+<blockquote>
+- <strong>IV 취약성</strong>: 초기화 벡터(IV)의 길이가 24비트(bit)로 너무 짧아 대량의 데이터 전송 시 동일한 IV가 재사용될 확률이 매우 높으며, 이를 통해 공격자는 암호 키를 몰라도 평문을 유추할 수 있다.<br>
+- <strong>암호 알고리즘</strong>: 보안성이 낮은 스트림 암호 방식인 RC4를 사용하며, 키 스케줄링 알고리즘의 결함으로 인해 대량의 패킷 수집 시 암호 키가 쉽게 노출되는 구조적 결함이 존재한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) WPA/WPA2-Personal(PSK) 방식의 '4-way Handshake' 과정 중 MSG2와 MSG3에서 상호 검증에 사용되는 'MIC(Message Integrity Check)'의 역할과, 이 과정을 통해 최종적으로 인증하고자 하는 핵심 정보가 무엇인지 기술하시오.</summary>
+<blockquote>
+- <strong>역할</strong>: 각 단계에서 단말(Supplicant)과 AP(Authenticator)가 생성한 메시지의 무결성을 검증하고, 양측이 동일한 암호화 키인 <strong>PTK(Pairwise Transient Key)</strong>를 생성했는지 확인한다.<br>
+- <strong>핵심 정보</strong>: MIC 검증에 성공했다는 것은 결과적으로 양측이 사전에 공유한 비밀값인 <strong>PSK(또는 PMK)</strong>가 서로 일치함을 최종적으로 인증하는 것이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 기업용 무선랜 보안 모델인 IEEE 802.1X/EAP 방식의 구성 요소 3가지(단말, 인증자, 인증 서버)의 역할을 기술하고, 인증 서버로 주로 사용되는 프로토콜의 명칭을 명시하시오.</summary>
+<blockquote>
+- <strong>단말(Supplicant)</strong>: 무선랜에 접속하려는 사용자로 인증 서버에 자신의 신원 및 인증 정보를 제공한다.<br>
+- <strong>인증자(Authenticator/AP)</strong>: 단말과 서버 사이에서 인증 메시지를 중계하며, 인증 결과에 따라 해당 단말의 네트워크 포트를 허용하거나 차단한다.<br>
+- <strong>인증 서버(Authentication Server)</strong>: 실제 사용자의 DB를 보유하고 단말이 보낸 정보를 검증하여 최종 승인 여부를 판단한다. 주 사용 프로토콜은 <strong>RADIUS</strong>이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 칼리 리눅스(Kali Linux) 환경에서 실행된 명령어 (1)~(4)의 수행 목적을 순서대로 기술하시오.<br>
+(1) <code>airmon-ng start wlan0</code><br>
+(2) <code>airodump-ng --bssid [AP_MAC] -c 5 -w capfile wlan0mon</code><br>
+(3) <code>aireplay-ng --deauth 100 -a [AP_MAC] -c [ST_MAC] wlan0mon</code><br>
+(4) <code>aircrack-ng -w wordlist.txt capfile-01.cap</code></summary>
+<blockquote>
+(1) 무선랜 카드의 <strong>모니터 모드</strong> 활성화<br>
+(2) 특정 채널 및 AP의 무선 패킷을 실시간 수집하여 파일로 저장<br>
+(3) 대상 단말에 인증 해제 패킷을 전송하여 강제 재인증(Handshake) 유도<br>
+(4) 수집된 핸드쉐이크 패킷과 사전 파일을 비교하여 무차별/사전 공격으로 <strong>비밀번호 크래킹</strong> 수행
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 무선랜 보안 용어에 대한 다음 설명 중 옳은 번호를 모두 고르시오.<br>
+① BSSID는 논리적인 무선랜 이름으로 최대 32바이트의 문자열이다.<br>
+② TKIP은 WEP의 하드웨어 교체 없이 소프트웨어 업데이트만으로 보안성을 높인 방식이다.<br>
+③ SSID 브로드캐스트를 중단(숨김 모드)하면 전문 도구로도 무선 네트워크 탐지가 불가능하다.<br>
+④ DS(Distribution System)는 무선 AP가 연결된 유선 네트워크 시스템을 의미한다.</summary>
+<blockquote>
+<strong>②, ④</strong><br>
+(※ ① BSSID는 AP의 MAC 주소를 의미함, ③ airodump-ng 등의 도구로 숨겨진 SSID도 탐지 가능함)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) WPA-PSK 방식의 사전 공격(Dictionary Attack)을 방어하기 위해 수행할 수 있는 가장 효과적인 대응 방안을 사용자 관점과 기술 표준 관점에서 각각 한 가지씩 기술하시오.</summary>
+<blockquote>
+- <strong>사용자 관점</strong>: 비밀번호를 충분히 길고 유추하기 어려운 복잡한 문자 조합(영문 대소문자, 숫자, 특수문자 포함)으로 설정하여 사전의 단어 조합으로 풀리지 않게 한다.<br>
+- <strong>기술 표준 관점</strong>: 보안성이 낮은 WEP이나 WPA1 대신 최신 규격인 <strong>WPA2</strong> 이상의 표준과 <strong>AES-CCMP</strong> 암호화 방식을 강제 적용한다.
+</blockquote>
+</details>
+
+
+<details>
+<summary>(단답형) WEP 또는 TKIP과 같은 스트림 암호 방식에서 암호화와 복호화에 공통적으로 사용되는 비트 연산으로, 동일한 키스트림을 두 번 적용하면 원래의 평문을 얻을 수 있는 특성을 가진 연산은?</summary>
+<blockquote>
+<strong>XOR (Exclusive OR)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) WPA-PSK 방식에서 사용자의 패스워드(PW)와 SSID, SSID 길이 등을 입력으로 하여 4,096번의 해시 반복을 통해 256비트의 사전 공유 키(PSK)를 생성하는 함수 명칭은?</summary>
+<blockquote>
+<strong>PBKDF2 (Password-Based Key Derivation Function 2)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) WPA-PSK의 4-way 핸드쉐이크를 통해 생성된 PTK(Pairwise Transient Key)로부터 파생되는 3가지 하위 키 중, EAPoL-Key 메시지의 무결성을 검증하기 위한 MIC 생성에 사용되는 키의 명칭은?</summary>
+<blockquote>
+<strong>KCK (EAPoL-Key Confirmation Key)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) WEP의 암호화 과정에서 무결성 보장을 위해 평문 뒤에 추가되는 ICV(Integrity Check Value)를 생성할 때 사용하는 알고리즘과, 수신 측에서 이를 검증하는 기술적 단계를 기술하시오.</summary>
+<blockquote>
+- <strong>사용 알고리즘</strong>: <strong>CRC-32</strong> 알고리즘을 사용한다.<br>
+- <strong>검증 단계</strong>: 1) 수신한 암호문을 키스트림과 XOR하여 복호화된 평문과 ICV를 얻는다. 2) 복호화된 평문에 대해 수신자가 직접 CRC-32를 수행하여 새로운 ICV'를 계산한다. 3) 직접 계산한 ICV'와 패킷에서 복호화된 ICV가 일치하는지 비교하여 데이터 변조 여부를 확인한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 동일한 키스트림($K_s$)을 사용하여 두 개의 평문($P_1, P_2$)이 각각 암호문($C_1, C_2$)으로 생성되었을 때, 공격자가 평문 $P_1$을 알고 있다면 암호 키를 몰라도 $P_2$를 복호화할 수 있는 원리를 비트 연산 수식을 이용하여 증명하시오.</summary>
+<blockquote>
+- <strong>증명</strong>: $C_1 = P_1 \oplus K_s$, $C_2 = P_2 \oplus K_s$ 일 때,<br>
+1) 두 암호문을 XOR하면 $C_1 \oplus C_2 = (P_1 \oplus K_s) \oplus (P_2 \oplus K_s) = P_1 \oplus P_2$ 가 된다.<br>
+2) 공격자는 $P_1$을 알고 있으므로, $(C_1 \oplus C_2) \oplus P_1 = (P_1 \oplus P_2) \oplus P_1 = P_2$ 가 성립한다.<br>
+- <strong>결과</strong>: 따라서 공격자는 암호 키($K_s$)가 없어도 알고 있는 평문($P_1$)을 이용해 다른 암호문을 즉시 복호화할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) WEP 인증 방식은 AP가 단말을 인증하는 '단방향 인증' 구조이다. 이로 인해 발생할 수 있는 보안 위협인 'Rogue AP(비인가 AP)' 공격의 위험성을 단말(사용자) 관점에서 설명하시오.</summary>
+<blockquote>
+WEP 인증은 무선 AP가 사용자에게 도전 문구(Challenge)를 보내 정당한 키를 가졌는지 확인만 할 뿐, 사용자가 접속하려는 AP가 정당한 서버인지 확인하는 상호 인증 절차가 없다. 이로 인해 단말 사용자는 공격자가 설치한 가짜 AP인 <strong>Rogue AP</strong>에 무심코 접속할 수 있으며, 이 경우 모든 네트워크 트래픽이 공격자에게 도청되거나 위변조될 수 있는 치명적 위험이 존재한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 무선랜 보안 기술을 암호 알고리즘과 무결성 보장 알고리즘의 조합으로 올바르게 연결하시오.<br>
+(1) WEP : ( A )<br>
+(2) WPA (WPA1) : ( B )<br>
+(3) WPA2 : ( C )</summary>
+<blockquote>
+(A) <strong>RC4 + CRC-32</strong><br>
+(B) <strong>RC4-TKIP + MIC (Michael)</strong><br>
+(C) <strong>AES-CCMP (AES-CTR + CBC-MAC)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) WPA-PSK 방식의 사전 공격(Dictionary Attack) 시, 공격자가 무선 패킷 스니핑을 통해 반드시 수집해야 하는 4-way 핸드쉐이크 내의 파라미터 4가지와 MIC값 이외에, 패스워드 크래킹을 위해 반드시 알아야 하는 무선 네트워크 설정 정보(이름)를 쓰시오.</summary>
+<blockquote>
+- <strong>파라미터 4가지</strong>: AA(AP MAC), SA(단말 MAC), ANonce(AP 난수), SNonce(단말 난수)<br>
+- <strong>추가 필수 정보</strong>: <strong>SSID</strong> (PBKDF2 알고리즘의 입력값으로 사용되므로 SSID를 모르면 PSK 생성이 불가하여 크래킹에 실패함)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 무선랜 분석 및 해킹 과정에서 사용되는 다음 명령 도구의 수행 목적을 기술하시오.<br>
+(1) <code>iwconfig</code>: ( A )<br>
+(2) <code>airdecap-ng</code>: ( B )</summary>
+<blockquote>
+(A) <strong>무선랜 인터페이스의 정보 확인 및 설정 변경</strong> (유선의 ifconfig와 유사한 역할)<br>
+(B) <strong>이미 수집된 암호화된 덤프 파일(cap/pcap)을 크랙한 패스워드를 이용해 평문으로 복호화</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 무선랜 규격 중 1999년에 제정되었으며, 5GHz 대역의 주파수를 사용하여 최대 54Mbps의 데이터 전송 속도를 제공하는 표준은?</summary>
+<blockquote>
+<strong>IEEE 802.11a</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 무선랜의 구성 단위 중 하나로, 한 개 이상의 BSS(Basic Service Set)가 유선망인 DS(Distribution System)를 통해 논리적으로 하나로 연결된 확장된 집합을 의미하는 용어는?</summary>
+<blockquote>
+<strong>ESS (Extended Service Set)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 기업용 무선랜 보안(WPA-Enterprise)에서 사용하는 인증 프레임워크인 EAP 중, 서버와 클라이언트 모두 디지털 인증서를 사용하여 상호 인증을 수행함으로써 가장 높은 보안 수준을 제공하는 방식은?</summary>
+<blockquote>
+<strong>EAP-TLS</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 무선랜의 관리적/물리적 취약점 중 하나인 '전파 유출(RF Leaking)'의 정의와, 이로 인해 발생할 수 있는 보안 위협을 공격자의 위치 관점에서 설명하시오.</summary>
+<blockquote>
+- <strong>정의</strong>: 무선 AP의 전파 출력을 적절히 조정하지 않아 신호가 건물 내부를 넘어 외부(주차장, 도로 등)까지 도달하는 현상이다.<br>
+- <strong>위협</strong>: 공격자는 건물 내부에 직접 침입하지 않고도 외부에서 고성능 안테나를 이용해 무선 패킷을 스니핑하거나, 내부 네트워크로의 침입 공격을 시도할 수 있는 물리적 접점을 얻게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <code>airmon-ng</code> 명령을 통해 무선 인터페이스를 모니터 모드로 전환했을 때, 인터페이스 명칭이 변경되는 일반적인 관례와 이때 사용할 수 있는 'Managed Mode'와의 결정적인 수집 패킷 범위 차이를 기술하시오.</summary>
+<blockquote>
+- <strong>명칭 변경</strong>: 보통 <code>wlan0</code>에서 <code>wlan0mon</code> 또는 <code>mon0</code>으로 변경된다.<br>
+- <strong>수집 범위 차이</strong>: 관리 모드(Managed Mode)는 자신에게 오거나 자신이 속한 BSS의 패킷만 수신하지만, 모니터 모드(Monitor Mode)는 유선의 무차별 모드와 같이 해당 주파수 채널 내에서 공중에 떠도는 <strong>모든 무선 프레임(관리, 제어, 데이터 프레임 전체)</strong>을 하위 계층에서 수집할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 사설 무선랜 환경(가정용)에서 MAC 주소 필터링을 설정했음에도 불구하고, 공격자가 이를 우회하여 접속하기 위해 수행하는 기술적 절차를 순차적으로 기술하시오.</summary>
+<blockquote>
+1. 공격자는 모니터 모드 도구(airodump-ng 등)로 주변 패킷을 스니핑하여 현재 AP에 정상적으로 접속되어 통신 중인 단말의 MAC 주소를 식별한다.<br>
+2. 공격자는 자신의 무선랜 카드 MAC 주소를 수집한 정상 단말의 MAC 주소로 <strong>변조(Spoofing)</strong>한다.<br>
+3. AP는 공격자의 위조된 MAC 주소를 보고 승인된 단말로 오인하여 접속을 허용하게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 IEEE 802.11 무선랜 표준의 특징을 올바르게 연결하시오.<br>
+(1) 802.11b : ( A )<br>
+(2) 802.11g : ( B )<br>
+(3) 802.11n : ( C )</summary>
+<blockquote>
+(A) <strong>2.4GHz / 11Mbps</strong><br>
+(B) <strong>2.4GHz / 54Mbps</strong><br>
+(C) <strong>2.4GHz 및 5GHz / 300~600Mbps</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 본문 가이드에 명시된 PBKDF2 함수를 이용하여 256비트 PSK(PMK)를 생성할 때 입력값으로 들어가는 5가지 요소를 모두 나열하시오.</summary>
+<blockquote>
+<strong>패스워드(PW), SSID, SSID 길이(또는 Salt), 반복 횟수(4,096), 생성할 키의 비트수(256)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 무선 AP의 물리적/관리적 보안 대책 중 다음 설명에 해당하는 조치 사항을 쓰시오.<br>
+(A) 공격자가 관리자 페이지에 쉽게 접근하지 못하도록 공장 출고 시 설정된 값을 바꾸는 것: ( A )<br>
+(B) 외부인이 무선랜 목록에서 해당 네트워크 이름을 보지 못하게 하는 설정: ( B )</summary>
+<blockquote>
+(A) <strong>디폴트 패스워드(Default Password) 변경</strong><br>
+(B) <strong>SSID 브로드캐스트 금지 (또는 숨김 모드 설정)</strong>
+</blockquote>
+</details>
+
+<details>
 <summary>[기출 22회 13번 문제] (서술형) BYOD 환경에서 모바일 오피스 서비스를 하려고 한다. 관련된 다음의 3가지 보안 기술(MDM, 컨테이너화, 가상화)에 대하여 설명하시오.</summary>
 <blockquote>
 1. <strong>MDM (Mobile Device Management)</strong>: 모바일 기기의 도난/분실 방지 및 보안 정책(앱 차단, 원격 삭제 등)을 중앙에서 관리함<br>
@@ -2863,7 +3483,89 @@ RADIUS (또는 TACACS+)
 </blockquote>
 </details>
 
+
+<details>
+<summary>(단답형) VPN 터널링 과정에서 전송되는 실질적인 데이터인 페이로드를 터널링 프로토콜을 통해 안전하게 감싸는 처리 과정을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>캡슐화 (Encapsulation)</strong>
+</blockquote>
+</details>
+
 ### IP 보안 - IPSec(IP Security)
+
+<details>
+<summary>(단답형) IPsec 터널 모드에서 원본 IP 패킷 전체를 캡슐화한 후, 패킷이 공중망 상에서 목적지 게이트웨이까지 정상적으로 라우팅될 수 있도록 전송용 정보를 담아 새롭게 추가하는 헤더의 명칭은?</summary>
+<blockquote>
+<strong>새로운(New) IP 헤더</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) IPsec 터널 모드에서 캡슐화된 패킷에 '새로운(New) IP 헤더'가 반드시 추가되어야 하는 기술적 이유를 라우팅 관점에서 설명하시오.</summary>
+<blockquote>
+IPsec 터널 모드는 원본 IP 헤더를 포함한 전체 패킷을 IPsec 헤더로 감싸 보호(암호화)한다. 하지만 **IPsec 헤더(AH/ESP) 자체에는 라우팅을 수행하기 위한 주소나 제어 정보가 포함되어 있지 않으므로**, 패킷이 네트워크 상에서 목적지까지 정상적으로 전달(라우팅)되기 위해서는 전송용 정보를 담은 새로운 IP 헤더가 반드시 필요하다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) AH(Authentication Header) 프로토콜이 무결성(MAC)을 계산할 때, IP 헤더 내의 TTL(Time To Live) 필드와 Header Checksum 필드 등을 제외하고 계산하는 통신상의 이유를 기술하시오.</summary>
+<blockquote>
+해당 필드들은 패킷이 네트워크를 통과할 때 라우터를 거치며 값이 동적으로 변경되는 <strong>가변(Mutable) 필드</strong>이기 때문이다. 만약 송신 시점에 이 필드들을 포함하여 인증 데이터를 구하면, 수신 측에서 값을 검증할 때 필드 값의 변화로 인해 무결성 오류가 발생하여 정상적인 패킷도 폐기되기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) NAT(Network Address Translation) 환경에서 AH 프로토콜을 사용하면 무결성 검증 실패가 발생하는 이유와, 이를 ESP 프로토콜로 대체했을 때 정상 통신이 가능한 근거를 비교 설명하시오.</summary>
+<blockquote>
+- <strong>AH</strong>: IP 헤더의 출발지/목적지 주소 등을 인증 대상에 포함시킨다. NAT 장비에서 IP 주소가 바뀌면 수신 측 인증 데이터 불일치로 통신이 실패한다.<br>
+- <strong>ESP</strong>: IP 헤더 자체를 인증 범위에 포함하지 않고 페이로드와 ESP 헤더/트레일러만 인증하므로, 중간에서 NAT에 의해 IP 주소가 바뀌더라도 문제없이 정상 통신이 가능하다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) IKE 프로토콜의 1단계(Phase 1)와 2단계(Phase 2) 협상을 통해 각각 생성되는 '보안 연관(SA)'의 명칭을 쓰고, 각 SA의 '방향성' 차이를 기술하시오.</summary>
+<blockquote>
+1단계: <strong>IKE SA</strong> (양방향성: 송수신 모두 사용 가능)<br>
+2단계: <strong>IPsec SA</strong> (단방향성: 수신용과 송신용이 각각 별도로 생성되어야 함)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) IKE 1단계 협상 모드 중 하나로, 총 3개의 메시지만을 교환하여 빠르게 연결을 수립하지만 세션 ID 등을 암호화하지 않아 보안성은 상대적으로 낮은 방식은?</summary>
+<blockquote>
+<strong>어그레시브 모드 (Aggressive Mode)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) IPsec 패킷 송신 절차에 대한 다음 시나리오의 빈칸을 채우시오.<br>
+(1) 전송할 패킷에 대해 먼저 ( A ) 데이터베이스를 검색하여 보안 정책을 확인한다.<br>
+(2) 정책이 'Protect'인 경우, ( B ) 데이터베이스를 검색하여 적용할 보안 연관(SA)이 있는지 확인한다.<br>
+(3) 일치하는 SA가 없을 경우, ( C ) 프로토콜을 동작시켜 동적으로 보안 연관과 키를 협상한다.</summary>
+<blockquote>
+(A) <strong>SPD (Security Policy Database)</strong><br>
+(B) <strong>SAD (Security Association Database)</strong><br>
+(C) <strong>IKE (Internet Key Exchange)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) IPsec의 주요 프로토콜인 AH와 ESP가 제공하는 보안 서비스를 분류하시오.<br>
+(1) AH 프로토콜 서비스: ( A )<br>
+(2) ESP 프로토콜 서비스: ( B )</summary>
+<blockquote>
+(A) <strong>무결성, 송신처 인증</strong> (암호화 제외)<br>
+(B) <strong>기밀성(암호화), 무결성, 송신처 인증</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) ESP 헤더 및 트레일러 필드 중, 암호화된 페이로드 뒤쪽에 위치하며 블록 암호의 크기를 맞추기 위해 사용되는 필드와 다음 프로토콜 타입을 명시하는 필드의 명칭은?</summary>
+<blockquote>
+<strong>Padding (패딩), Next Header (다음 헤더)</strong>
+</blockquote>
+</details>
+
 
 <details>
 <summary>[기출 20회 6번 문제] (단답형) IPSec에서 실질적으로 제공하는 보안 기능(서비스)을 3가지만 기술하시오.</summary>
@@ -3073,7 +3775,94 @@ RADIUS (또는 TACACS+)
 <blockquote>
 <strong>정답:</strong> (A) 핸드셰이크(Handshake) (B) 변경 암호 규격(Change Cipher Spec) (C) 경보(Alert)
 </blockquote>
+
+<details>
+<summary>(단답형) SSL/TLS 프로토콜이 동작하는 계층은 어디이며, 상위/하위 계층 중 어디에 보안 서비스를 제공하는지 기술하시오.</summary>
+<blockquote>
+<strong>계층:</strong> 전송 계층(Layer 4)과 응용 계층(Layer 7) 사이 (또는 전송 계층 상단)<br>
+<strong>제공 대상:</strong> TCP 기반의 다양한 응용 계층(Application) 프로토콜(HTTP, FTP, SMTP 등)에 종단간 보안 서비스를 제공한다.
+</blockquote>
 </details>
+
+<details>
+<summary>(단답형) SSL/TLS 통신 중 웰노운(Well-known) 포트를 사용하는 서비스 중 <strong>SMTPS</strong>와 <strong>FTPS</strong>의 기본 포트 번호를 각각 쓰시오.</summary>
+<blockquote>
+<strong>SMTPS:</strong> 465 (TCP)<br>
+<strong>FTPS:</strong> 990 (TCP)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) SSL/TLS 키 생성 과정 중, 클라이언트가 생성하여 서버의 공개키로 암호화해 전달하거나 디피-헬만 연산을 통해 도출하는 공통의 초기 비밀값 명칭은?</summary>
+<blockquote>
+<strong>사전 마스터 비밀 (Premaster Secret)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 세션 상태에 저장된 마스터 비밀(Master Secret)과 단축 핸드쉐이크 시 생성된 난수들을 조합하여, 데이터 암호화(Write Key), 무결성(MAC Key), IV 등에 사용될 여러 키들을 한꺼번에 생성하기 위한 데이터 블록 명칭은?</summary>
+<blockquote>
+<strong>키 블록 (Key Block)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) SSL/TLS의 <strong>세션(Session)</strong> 상태 정보와 <strong>연결(Connection)</strong> 상태 정보의 차이점을 '보안 파라미터 재사용' 관점에서 설명하시오.</summary>
+<blockquote>
+<strong>세션:</strong> 완전 핸드쉐이크를 통해 수립되며, 마스터 비밀과 암호 명세 등 공통 보안 파라미터를 유지하여 장기간 지속된다.<br>
+<strong>연결:</strong> 세션 범위 내에서 단축 핸드쉐이크를 통해 생성되며, 실제 데이터 송수신에 필요한 개별 암호키, 인증키, IV 등을 포함하여 수시로 생성 및 소멸된다. 세션 정보를 재사용함으로써 매번 무거운 인증 절차를 거치지 않고도 여러 연결을 빠르게 수립할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) Record 프로토콜의 동작 순서 4단계를 기술하고, '암호화(Encryption)' 단계 직전에 수행되는 두 가지 세부 과정을 설명하시오.</summary>
+<blockquote>
+<strong>1. 단편화 2. 압축 및 MAC 추가 3. 암호화 4. Record 헤더 추가</strong><br>
+<strong>직전 과정:</strong> 단편화된 데이터를 협상된 알고리즘으로 압축(선택적)한 후, 데이터의 무결성 보장을 위해 메지시 인증 코드(MAC)를 계산하여 데이터 뒤에 덧붙인다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <strong>완전 순방향 비밀성(PFS: Perfect Forward Secrecy)</strong>의 개념을 서버의 개인키가 노출된 시나리오와 연관 지어 설명하시오.</summary>
+<blockquote>
+서버의 마스터 개인키가 추후에 탈취되더라도, 과거의 세션 키를 유도해낼 수 없어 이전에 기록된 트래픽의 기밀성이 그대로 유지되는 성질을 말한다. 키 교환 시 RSA 대신 <strong>DHE(Ephemeral Diffie-Hellman)</strong>를 사용하면 매 통신마다 일휘성 키를 생성하므로 서버 개인키 노출로부터 과거 데이터를 보호할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) SSL/TLS 핸드쉐이크 메시지 중 <strong>Server Hello</strong>에 포함되는 주요 결정 정보 3가지를 기술하시오.</summary>
+<blockquote>
+1. 서버가 결정한 <strong>SSL/TLS 버전</strong><br>
+2. 서버가 최종 선택한 <strong>암호 도구(Cipher Suite)</strong><br>
+3. 서버가 생성한 32바이트 난수 값(<strong>Server Random</strong>)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 클라이언트 인증 요청 시, 클라이언트가 자신의 인증서를 전달한 후 해당 인증서에 대응하는 개인키를 실제로 소유하고 있음을 서버에 증명하기 위해 전송하는 메시지의 명칭은?</summary>
+<blockquote>
+<strong>Certificate Verify (인증서 확인)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 Cipher Suite의 구성 항목별 의미를 분석하시오.<br>
+<strong>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</strong></summary>
+<blockquote>
+(1) <strong>ECDHE</strong>: 키 교환 알고리즘 (타원곡선 디피-헬만 에페머럴)<br>
+(2) <strong>RSA</strong>: 인증 및 서명 알고리즘<br>
+(3) <strong>AES_256_GCM</strong>: 대칭 암호 알고리즘(AES), 키 길이(256), 운용 모드(GCM)<br>
+(4) <strong>SHA384</strong>: PRF(의사 난수 함수) 및 HMAC을 위한 해시 알고리즘
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 서버의 세션 정보가 일정 시간 후 만료(Expire)된 상태에서 클라이언트가 기존 Session ID로 재접속을 시도할 때 일어나는 과정을 기술하시오.</summary>
+<blockquote>
+서버는 기존 세션 정보를 찾지 못하므로 <strong>새로운 Session ID</strong>를 생성하여 전달하며, 클라이언트는 세션 재사용이 불가함을 인지하고 다시 <strong>완전 핸드쉐이크(Full Handshake)</strong> 과정을 수행한다.
+</blockquote>
+</details>
+
 
 ### TCP 제어 플래그 및 연결 관리
 
@@ -3238,6 +4027,83 @@ D: 협상된 보안 파라미터를 적용하여 메시지 교환
 ### 라우터 자체 보안
 
 <details>
+<summary>(단답형) 시스코 라우터에서 재부팅이나 라우팅 설정 등 모든 명령어를 수행할 수 있는 모드의 명칭과 해당 모드의 프롬프트 모양을 쓰시오.</summary>
+<blockquote>
+<strong>Privileged EXEC 모드 (관리자 모드), Router#</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 라우터의 전반적인 설정을 변경하기 위해 Privileged EXEC 모드에서 'configure terminal' 명령을 입력하여 진입하는 모드의 명칭은?</summary>
+<blockquote>
+<strong>Global Configuration 모드</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 설정 파일 내의 평문 패스워드들을 Type 7 방식으로 암호화하여 직접적인 노출을 방지하기 위해 수행하는 글로벌 설정 명령어는?</summary>
+<blockquote>
+<strong>service password-encryption</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 라우터 접속 시 처음 마주하는 'User EXEC 모드'와 'Privileged EXEC 모드'의 주요 차이점을 권한 범위를 중심으로 설명하시오.</summary>
+<blockquote>
+- <strong>User EXEC 모드 (Router>)</strong>: 한정된 명령어만 사용 가능하며, 주로 라우터의 기본 상태 조회 및 테스트 용도로 사용된다. 시스템 설정에 영향을 주는 명령은 수행할 수 없다.<br>
+- <strong>Privileged EXEC 모드 (Router#)</strong>: 라우터의 모든 자원에 접근할 수 있는 관리자 권한 모드이다. 시스템 설정 변경, 재부팅, 라우팅 테이블 제어, 설정 저장 등 핵심적인 모든 작업을 수행할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 라우터 패스워드 설정 시 사용하는 'enable password'와 'enable secret'의 결정적인 차이점을 암호화 방식과 보안성 관점에서 기술하시오.</summary>
+<blockquote>
+- <strong>enable password</strong>: 기본적으로 평문(Type 0)으로 저장되며, 암호화 설정을 해도 역함수가 존재하는 취약한 방식인 Type 7로 저장되어 보안성이 낮다.<br>
+- <strong>enable secret</strong>: MD5와 같은 일방향 해시 함수를 사용하는 Type 5 방식으로 암호화되어 저장된다. 원본 파일에서도 평문을 유추할 수 없어 보안성이 훨씬 우수하며 권장되는 방식이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 라우터 설정에 'enable password'와 'enable secret'이 동시에 존재할 경우, 패스워드 검증 시 적용되는 우선순위와 그 이유를 설명하시오.</summary>
+<blockquote>
+- <strong>우선순위</strong>: <strong>enable secret</strong>이 우선 적용된다.<br>
+- <strong>이유</strong>: 보안이 더 취약한 평문 계열(password)보다 강력한 일방향 암호화 방식(secret)을 사용하는 설정을 우선시하여 인가되지 않은 접근으로부터 시스템을 더욱 안전하게 보호하기 위함이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 라우터 설정 모드별 프롬프트 형태를 보고 각 모드의 명칭을 쓰시오.<br>
+(1) Router(config)# : ( A )<br>
+(2) Router(config-if)# : ( B )<br>
+(3) Router# : ( C )</summary>
+<blockquote>
+(A) <strong>Global Configuration 모드</strong><br>
+(B) <strong>Other Configuration 모드 (인터페이스 설정 모드)</strong><br>
+(C) <strong>Privileged EXEC 모드</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 각 패스워드 저장 방식의 'Type' 번호를 기입하시오.<br>
+(1) 평문으로 저장되는 방식: ( A )<br>
+(2) 일방향 함수(MD5)로 암호화되어 원본 유추가 불가능한 방식: ( B )<br>
+(3) service password-encryption 명령으로 암호화되지만 복호화가 가능한 방식: ( C )</summary>
+<blockquote>
+(A) <strong>Type 0</strong><br>
+(B) <strong>Type 5</strong><br>
+(C) <strong>Type 7</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 현재 구성 모드에서 즉시 빠져나와 Privileged EXEC 모드로 돌아가기 위해 사용하는 단축키 또는 명령어 2가지를 쓰시오.</summary>
+<blockquote>
+<strong>end</strong> 또는 <strong>Ctrl + z</strong>
+</blockquote>
+</details>
+
+<details>
+
 <summary>382. (서술형) 라우터 인터페이스에 **no ip unreachables** 설정을 적용해야 하는 보안상 이유 2가지를 기술하시오.</summary>
 <blockquote>
 <strong>이유 1 (정보 노출 방지)</strong>: 공격자가 포트 스캐닝 등을 수행할 때, 차단된 포트로부터 ICMP Unreachable 메시지가 나가게 되면 해당 네트워크의 활성 호스트 정보를 쉽게 노출시켜 정찰(Reconnaissance) 활동에 이용될 수 있다.<br>
@@ -3317,6 +4183,79 @@ D: 협상된 보안 파라미터를 적용하여 메시지 교환
 ### 라우터와 접근제어(ACL)
 
 <details>
+<summary>(단답형) 시스코 라우터에서 패킷의 출발지(Source) IP 주소만을 기준으로 필터링을 수행하며, ACL 번호 대역으로 1~99를 사용하는 ACL의 종류는?</summary>
+<blockquote>
+<strong>표준(Standard) ACL</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 서브넷 마스크의 비트를 반전시킨 형태와 동일하며, 라우터 ACL 설정 시 특정 호스트나 네트워크 대역의 범위를 지정하기 위해 사용하는 마스크의 명칭은?</summary>
+<blockquote>
+<strong>와일드카드 마스크 (Wildcard Mask)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 특정 IP 또는 대역에 대해 비정상적인 시도가 감지되었을 때, 해당 패킷을 가상의 쓰레기 인터페이스인 Null interface로 보내 통신이 되지 않도록 차단하는 기법은?</summary>
+<blockquote>
+<strong>블랙홀 필터링 (Blackhole Filtering) 또는 Null Routing</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) '확장(Extended) ACL'이 '표준(Standard) ACL'에 비해 가지는 기술적 장점과 제어 가능한 패킷 정보의 종류를 기술하시오.</summary>
+<blockquote>
+- <strong>기술적 장점</strong>: 출발지 주소뿐만 아니라 목적지 주소 및 포트, 프로토콜 종류에 따라 정교한 제어가 가능하여 보안 정책을 세밀하게 적용할 수 있다.<br>
+- <strong>제어 가능 정보</strong>: 출발지 IP, 목적지 IP, 프로토콜(TCP/UDP/ICMP 등), 목적지 포트 번호.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 'Egress 필터링'의 개념과, 이를 통해 내부 네트워크에서 외부로 나가는 패킷의 출발지 IP 위조(Spoofing) 여부를 판별하는 원리를 설명하시오.</summary>
+<blockquote>
+- <strong>개념</strong>: 내부에서 외부 인터넷망으로 나가는 패킷의 정보를 체크하여 허용하거나 거부하는 필터링 기법이다.<br>
+- <strong>판별 원리</strong>: 외부로 나가는 패킷의 출발지 IP는 반드시 내부에서 실제 사용 중인 주소 대역이어야 한다. 만약 내부 대역이 아닌 IP를 달고 나가는 패킷이 있다면, 이는 내부 호스트가 출발지 주소를 위조한 비정상 패킷으로 간주하여 즉시 차단한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 'Unicast RPF (Reverse Path Forwarding)' 기법이 별도의 ACL 항목을 일일이 지정하지 않고도 비정상 트래픽을 효율적으로 필터링하는 동작 원리를 라우팅 테이블과 연관 지어 기술하시오.</summary>
+<blockquote>
+인터페이스로 유입된 패킷의 <strong>출발지 IP</strong>를 대상으로 라우팅 테이블을 조회한다. 만약 해당 출발지 IP로 패킷을 보낼 때(역방향 경로) 나가는 인터페이스가 패킷이 유입된 인터페이스와 <strong>동합한지</strong> 확인한다. 만약 경로가 다르거나 존재하지 않는다면, 출발지 주소가 위조된 부적절한 패킷으로 판단하여 즉시 드랍(Drop)시킨다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 ACL 설정 명령어의 의미를 구체적으로 기술하시오.<br>
+<code>access-list 150 deny tcp 192.168.1.0 0.0.0.255 host 10.10.10.5 eq 80</code></summary>
+<blockquote>
+출발지 IP 대역이 <code>192.168.1.0/24</code>이고 목적지 호스트 IP가 <code>10.10.10.5</code>이며 목적지 포트가 <code>80</code>인 <strong>TCP</strong> 패킷에 대해 접근을 <strong>거절(Deny)</strong>한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 출발지 IP가 10.1.1.5인 호스트에서 서버 200.1.1.100으로의 UDP 100~200번 포트 접근을 차단하는 100번대 ACL 규칙을 완성하시오.<br>
+<code>access-list 100 deny ( A ) host 10.1.1.5 host 200.1.1.100 ( B ) 100 200</code></summary>
+<blockquote>
+(A) <strong>udp</strong><br>
+(B) <strong>range</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 와일드카드 마스크 계산 결과 중 빈칸 (A), (B)를 채우시오.<br>
+(1) 서브넷 마스크: 255.255.255.0 → 와일드카드 마스크: 0.0.0.255<br>
+(2) 서브넷 마스크: 255.255.255.252 → 와일드카드 마스크: ( A )<br>
+(3) 특정 호스트 1개 지정(255.255.255.255) 시 → 와일드카드 마스크: ( B )</summary>
+<blockquote>
+(A) <strong>0.0.0.3</strong><br>
+(B) <strong>0.0.0.0</strong>
+</blockquote>
+</details>
+
+
+<details>
 <summary>387. (작업형/분석) 다음 **Simple Access List(ACL 12)**의 설정 순서상 문제점을 찾아서 서술하고, 이를 올바르게 수정하시오.<br>
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 access-list 12 permit 123.123.0.0 0.0.255.255<br>
@@ -3360,6 +4299,85 @@ access-list 12 deny 123.123.2.0 0.0.0.255
 ### 라우터를 통한 네트워크 보안
 
 <details>
+<summary>(단답형) 수동적인 케이블 연결만으로 라우터 설정을 조작할 수 있는 물리적 포트로, 장애 처리 시 주로 사용되지만 외부 노출 시 보안 위협이 크므로 반드시 패스워드를 설정해야 하는 포트는?</summary>
+<blockquote>
+<strong>콘솔(Console) 포트</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 시스코 라우터가 부팅될 때 자동으로 로드되거나 네트워크 관리를 돕는 echo, discard, daytime 등 20번 이하 포트를 사용하는 서비스들을 일컫는 용어와 이를 비활성화하는 명령어를 쓰시오.</summary>
+<blockquote>
+<strong>Small Services (TCP/UDP Small Services)</strong><br>
+명령어: <code>no service tcp-small-servers</code>, <code>no service udp-small-servers</code>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 소스 호스트가 패킷의 전송 경로를 직접 지정할 수 있는 기능으로, 공격자가 방화벽을 우회하거나 경로를 가로채는 데 악용될 수 있어 비활성화가 권장되는 기능은?</summary>
+<blockquote>
+<strong>소스 라우트(Source Route)</strong> (명령어: <code>no ip source-route</code>)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 라우터의 원격 접속 보안을 위해 텔넷(Telnet) 대신 SSH를 설정할 때, 'crypto key generate rsa' 명령 이전에 반드시 설정되어야 하는 전제 조건 2가지를 기술하시오.</summary>
+<blockquote>
+1. <strong>호스트네임(hostname) 설정</strong>: 기본값인 Router가 아닌 고유한 장비 이름이 지정되어야 한다.<br>
+2. <strong>도메인 네임(ip domain-name) 설정</strong>: RSA 키 쌍을 생성할 때 장비 이름과 도메인 정보가 조합되어 키의 식별자로 사용되기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) SNMPv1, v2와 비교하여 SNMPv3가 보안 측면에서 제공하는 결정적인 개선 요소 2가지를 기술하시오.</summary>
+<blockquote>
+이전 버전은 Community String을 평문으로 전송하여 스니핑에 취약했으나, <strong>SNMPv3</strong>는 <strong>사용자 계정 기반 인증(USM)</strong> 기능과 <strong>데이터 암호화(DES, AES 등)</strong> 기능을 도입하여 메시지의 기밀성, 무결성, 인증을 모두 보장한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 'ip proxy-arp' 기능을 라우터 인터페이스에서 비활성화해야 하는 보안상의 이유를 기술하시오.</summary>
+<blockquote>
+Proxy ARP가 활성화되어 있으면 라우터가 클라이언트의 ARP 요청에 대해 자신의 MAC 주소를 목적지인 것처럼 속여 응답하게 된다. 공격자는 이를 이용해 패킷의 주소를 위조하여 라우터가 잘못된 응답을 하게 유도함으로써 네트워크 정보를 획득하거나 트래픽을 가로채는 정찰 및 중간자 공격에 악용할 수 있기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 각 ICMP 관련 보안 설정의 목적을 기술하시오.<br>
+(1) no ip unreachables : ( A )<br>
+(2) no ip mask-reply : ( B )</summary>
+<blockquote>
+(A) <strong>정보 노출 방지 및 CPU 부하 경감</strong>: 공격자의 포트 스캔에 대한 응답을 차단하여 활성 정보를 숨기고, 대량의 ICMP 메시지 생성에 따른 라우터 자원 소모를 막는다.<br>
+(B) <strong>네트워크 구조 정보 노출 차단</strong>: 공격자가 네트워크의 서브넷 마스크 정보를 파악하여 전체 네트워크 구성을 지도화(Mapping)하는 것을 방지한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 라우터로 들어오는 비정상적인 IP 주소를 차단하기 위한 Ingress 필터링 설정을 위해 다음 예약된 IP 대역(RFC 1918 및 기타)을 차단하는 ACL 조건을 완성하시오.<br>
+(1) Loopback 차단: access-list 15 deny ( A ) 0.255.255.255<br>
+(2) Private (Class C) 차단: access-list 15 deny 192.168.0.0 ( B )<br>
+(3) Multicast 차단: access-list 15 deny 224.0.0.0 ( C )</summary>
+<blockquote>
+(A) <strong>127.0.0.0</strong><br>
+(B) <strong>0.0.255.255</strong><br>
+(C) <strong>15.255.255.255</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 라우터의 불필요한 관리 서비스 및 프로토콜을 비활성화하는 시스코 명령어를 기술하시오.<br>
+(1) 웹 기반 설정 서비스 중지: ( A )<br>
+(2) 시스코 장비 간 정보 공유 프로토콜 중지(전체 레벨): ( B )<br>
+(3) 사용자 접속 정보 제공 서비스(Finger) 중지: ( C )</summary>
+<blockquote>
+(A) <strong>no ip http server</strong><br>
+(B) <strong>no cdp run</strong><br>
+(C) <strong>no service finger</strong>
+</blockquote>
+</details>
+
+<details>
+
 <summary>321. (작업형) 리눅스 호스트에서 `netstat -rn` 명령을 수행한 결과의 일부이다. 목적지 IP가 <strong>10.0.192.100</strong>인 패킷이 전송될 때 사용되는 Gateway 주소는 무엇인가?<br>
 <div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 Destination | Gateway | Genmask | Flags | Iface<br>
