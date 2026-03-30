@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-03-25 17:20:28 +09:00
+date modified: 2026-03-30 17:44:56 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -362,6 +362,7 @@ Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(W
 ( E ) 전달된 이벤트(Forwarded Events)<br><br>
 
 ※ <strong>상세 설명 및 분류 체계 정리</strong>
+
 윈도우 이벤트 로그는 시스템의 상태와 보안을 관리하는 핵심 데이터입니다. 아래는 정보보안기사 시험 및 실무에서 중요하게 다루는 세부 항목들입니다.
 
 <br>
@@ -450,6 +451,7 @@ Windows Server 운영체제에서 사용자 계정관리방식은 워크그룹(W
 (F) <strong>Application / System / Security / Setup / ForwardedEvents</strong> (예: Security.evtx)<br><br>
 
 ※ <strong>상세 설명 및 버전별 특징</strong>
+
 <ul>
   <li>윈도우 비스타(Vista) 이후 도입된 <strong>EVTX(Event Log Extended)</strong> 포맷은 XML 기반의 바이너리 형식으로, 기존의 <strong>EVT</strong> 포맷에 비해 검색/필터링 속도가 빠르고 데이터가 압축되어 저장됩니다.</li>
   <li><strong>윈도우 7, 10, 11 및 최신 서버 제품군</strong>은 모두 비스타 모델의 <strong>EVTX 아키텍처</strong>를 동일하게 따르므로 로그 저장 위치와 파일 형식이 같습니다.</li>
@@ -521,10 +523,12 @@ Event Viewer<br><br>
 <strong>정의:</strong> 로컬 사용자 계정 정보(ID)와 암호화된 패스워드(Hash)가 저장된 윈도우의 핵심 <strong>레지스트리 힙(Hive) 파일</strong>입니다.<br><br>
 
 <strong>보안 대책:</strong><br>
+
 1. <strong>'SAM 계정과 공유의 익명 열거 허용 안 함' 정책 설정 (Network access: Do not allow anonymous enumeration of SAM accounts and shares)</strong>: 인증되지 않은 사용자가 네트워크를 통해 계정 목록을 수집하는 것을 차단합니다.<br>
-2. <strong>전체 디스크 암호화(BitLocker) 또는 Syskey 활성화</strong>: 부팅 시 추가 암호화 키를 요구하여 SAM 데이터베이스에 대한 <strong>오프라인 공격 및 크래킹</strong>을 방어합니다. (현대 윈도우 환경에서는 BitLocker가 표준이며, Syskey는 정보보안기사 시험 등에 자주 등장하는 레거시 대책입니다.)<br><br>
+2. <strong>전체 디스크 암호화(BitLocker) 또는 Syskey 활성화</strong>: 부팅 시 추가 암호화 키를 요구하여 SAM 데이터베이스에 대한 <strong>오프라인 공격 및 크래킹</strong>을 방어합니다. (현대 윈도우 환경에서는 BitLocker 가 표준이며, Syskey 는 정보보안기사 시험 등에 자주 등장하는 레거시 대책입니다.)<br><br>
 
 ※ <strong>용어 및 정책 상세 설명</strong>
+
 <ul>
   <li><strong>레지스트리(Registry)란?</strong>: 윈도우 운영체제와 응용 프로그램의 하드웨어 설정, 사용자 프로필, 보안 설정 등을 트리 구조로 관리하는 <strong>중앙 통합 설정 데이터베이스</strong>입니다. (SAM은 이 중 보안 관련 힙 파일에 해당합니다.)</li>
   <li><strong>익명 열거 차단 정책의 효과 및 위치</strong>:
@@ -775,6 +779,7 @@ LM (Lan Manager) 해시
 해당 LAN Manager 인증 수준 설정은 클라이언트가 당장 사용하는 인증 프로토콜을 규정할 뿐만 아니라, 서버가 허가할 수 있는 '협상된 세션 보안 수준' 및 '서버 인증 수준' 전체에 직접적이고 중대한 영향을 미치기 때문이다. 기존 프로토콜(LM, NTLM)은 익히 알려진 취약점들이 많아 릴레이 공격 등에 악용될 수 있으므로, 가장 진보하고 안전한 NTLMv2 프로토콜 통신만을 협상에서 강제함으로써 네트워크 로그온 및 전체 공유 자원의 세션 보안성을 끌어올리기 위함이다.<br><br>
 
 ※ <strong>상세 기술 분석: 이 설정이 '매우 합리적인' 보안 조치인 이유</strong><br>
+
 <ul>
   <li><strong>하향 공격(Downgrade Attack) 차단</strong>: 윈도우 인증은 클라이언트와 서버가 서로 지원 가능한 가장 높은 수준을 협상(Negotiation)합니다. 이때 보안 수준을 낮게 열어두면 공격자가 중간에서 개입하여 강제로 가장 취약한 <strong>LM이나 NTLMv1</strong>을 쓰게 유도할 수 있습니다. 이를 원천 차단하려면 가장 높은 등급인 'NTLMv2만 보냄'으로 강제해야 합니다.</li>
   <li><strong>세션 서명 및 세션 키(Session Key)의 강도</strong>: 인증 과정에서 생성되는 세션 키는 이후 파일 공유(SMB) 등의 통신을 암호화하거나 서명하는 데 쓰입니다. NTLMv2는 HMAC-MD5 기반의 훨씬 강력한 알고리즘을 사용하여 세션 키를 생성하므로, <strong>중간자 공격(MITM)에 의한 세션 가로채기나 변조</strong>를 막는 데 필수적입니다.</li>
@@ -807,7 +812,8 @@ LM (Lan Manager) 해시
 <blockquote>
 <strong>정답:</strong> (A): <strong>/etc/login.defs</strong>, (B): <strong>PASS_WARN_AGE</strong><br><br>
 
-※ <strong>유닉스/리눅스 주요 OS별 패스워드 설정 파라미터 비교 가이드</strong>
+※ <strong>유닉스/리눅스 주요 OS 별 패스워드 설정 파라미터 비교 가이드</strong>
+
 <table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
@@ -1095,6 +1101,7 @@ Pass the Hash 공격은 패스워드에 대한 해시값을 인증 시에 사용
 <code>net user 계정명 /active:no</code>: 해당 계정 사용 안함(비활성 상태)<br><br>
 
 ※ <strong>참고: NET 명령어 핵심 요약 가이드</strong>
+
 <table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
