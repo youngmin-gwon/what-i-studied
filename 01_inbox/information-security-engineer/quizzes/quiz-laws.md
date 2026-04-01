@@ -10,63 +10,726 @@ date created: 2026-03-17 15:13:20 +09:00
 
 ### 법규 개요
 
+<details>
+<summary>(단답형) 대한민국의 모든 법 체계 중 최상위에 위치하며, 정보보안 관련 법령을 포함한 모든 법의 제정 근거가 되는 법은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>헌법</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 헌법을 바탕으로 국민의 대의기관인 <strong>국회</strong>에서 제정 또는 개정하며, 정보보안 의무의 근간을 이루는 법의 단계는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>법률</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 법률에서 위임받은 사항을 구체화하기 위해 <strong>대통령</strong>이 발하는 명령으로, 보통 '○○법 시행령'의 형식을 갖는 것은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>시행령</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 시행령의 범위 내에서 각 부 <strong>장관</strong>이 정하고 공포하는 명령으로, 절차적 세부 사항을 규정하는 단계는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>시행규칙</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 행정기관이 법령의 위임에 따라 발하는 실제 행동 지침으로, 기술적·관리적 세부 기준을 명시하며 위반 시 행정처분 등의 제재가 가능한 것은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>고시</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 법의 구조가 법률(상위)에서 고시(하위)로 내려갈수록 기술되는 내용의 성격이 어떻게 변하는지 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 상위 법령(법률 등)으로 갈수록 국가의 정책 방향이나 법적 원칙 등 <strong>개념적이고 방향 제시적인</strong> 내용을 담고 있으며, 하위 법령(고시 등)으로 내려갈수록 실무에 적용하기 위한 <strong>세부적이고 구체적인</strong> 기술적·관리적 기준을 명시한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 법적 단계(위계)가 다른 하나를 고르고 그 이유를 설명하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+(A) 개인정보 보호법<br>
+(B) 정보통신망 이용촉진 및 정보보호 등에 관한 법률<br>
+(C) 개인정보의 안전성 확보조치 기준<br>
+(D) 정보통신기반 보호법
+</div>
+</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(C)</strong><br>
+<strong>이유:</strong> (A), (B), (D)는 국회에서 제정한 <strong>법률</strong> 단계인 반면, (C)는 개인정보보호위원회 등 행정기관에서 발한 <strong>고시</strong> 단계에 해당하기 때문이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 최신 법규 원문을 확인하기 위해 접속해야 하는 정부 공식 법령 검색 사이트의 명칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>국가법령정보센터</strong> (www.law.go.kr)
+</blockquote>
+</details>
+
+
 ### 개인정보 보호법(시행:2024.03.15)
 
 <details>
-<summary>[기출 19회 12번 문제] (서술형) 개인정보 처리자가 수립해야 하는 '개인정보 처리방침'에 대하여 다음 물음에 답하시오.<br>
-1) 처리방침에 필수적으로 포함되어야 할 사항 4가지는?<br>
-2) 일반 국민에게 처리방침을 알리는 방법 3가지는?</summary>
+<summary>(단답형) 살아있는 개인에 관한 정보로서 성명, 주민등록번호 및 영상 등을 통하여 개인을 알아볼 수 있는 정보의 명칭은?</summary>
 <blockquote>
-1) <strong>필수 포함 사항</strong>: 개인정보의 처리 목적, 처리 및 보유 기간, 제3자 제공에 관한 사항, 정보주체 및 법정대리인의 권리·의무 및 그 행사방법, 파기 절차 및 방법 등<br>
-2) <strong>공개 방법</strong>: 인터넷 홈페이지의 첫 화면 또는 연결 화면에 게시, 사업장 등의 보기 쉬운 장소에 게시, 관보 또는 일반주간신문에 게재
+<strong>정답:</strong> <strong>개인정보</strong>
 </blockquote>
 </details>
 
 <details>
-<summary>[기출 20회 11번 문제] (서술형) 개인정보 '최소수집 원칙'에 의거하여 정보주체의 동의 없이도 개인정보 수집이 가능한 경우 4가지를 기술하시오.</summary>
+<summary>(단답형) 개인정보의 일부를 삭제하거나 대체하여 추가 정보 없이는 특정 개인을 알아볼 수 없도록 처리한 정보를 무엇이라 하는가?</summary>
 <blockquote>
-1. <strong>법률상 의무 준수</strong>: 법령에 특별한 규정이 있거나 법적 의무 이행을 위해 불가피한 경우<br>
-2. <strong>공공기관의 소관 업무 수행</strong>: 법령 등에서 정하는 소관 업무 수행을 위해 불가피한 경우<br>
-3. <strong>계약의 체결 및 이행</strong>: 정보주체와 체결한 계약을 이행하거나 계약 체결 과정에서 정보주체의 요청에 따른 조치를 위해 필요한 경우<br>
-4. <strong>생명·신체·재산의 이익</strong>: 정보주체 또는 그 법정대리인이 의사표시를 할 수 없거나 주소불명 등으로 사전 동의를 받을 수 없는 경우로서 명백히 정보주체 또는 제3자의 이익을 위해 필요하다고 인정되는 경우
+<strong>정답:</strong> <strong>가명정보</strong>
 </blockquote>
 </details>
+
+<details>
+<summary>(단답형) 가명정보와 달리, 더 이상의 비식별 조치가 되어 있어 어떤 방법을 써도 특정 개인을 식별할 수 없는 정보로 개인정보보호법을 적용받지 않는 정보는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>익명정보</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 업무를 목적으로 개인정보파일을 운용하기 위하여 스스로 또는 다른 사람을 통하여 개인정보를 처리하는 공공기관, 법인 등을 지칭하는 용어는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>개인정보처리자</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보처리자의 지휘·감독을 받아 개인정보를 처리하는 임직원, 파견근로자, 시간제 근로자 등을 지칭하는 용어는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>개인정보취급자</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보보호법 제15조에 따라 정보주체로부터 수집·이용 동의를 받을 때 반드시 고지해야 할 필수 항목 4가지는?</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>수집·이용 목적</strong>, 2) <strong>수집 항목</strong>, 3) <strong>보유 및 이용 기간</strong>, 4) <strong>동의 거부권 및 불이익 내용</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보의 이용·제공 내역 통지 의무 대상자에 해당하는 개인정보처리자의 기준 2가지를 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>5만 명 이상의 정보주체</strong>에 관하여 민감정보 또는 고유식별정보를 처리하는 자, 2) <strong>100만 명 이상의 정보주체</strong>에 대한 개인정보를 처리하는 자
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개인정보 수집 시의 <strong>최소 수집 원칙</strong>에 대해 설명하고, 이에 대한 입증 책임은 누가 부담하는지 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+- <strong>원칭</strong>: 개인정보처리자는 수집 목적에 필요한 최소한의 개인정보를 수집해야 하며, 최소한의 정보(필수 정보) 이외의 정보(선택 정보) 수집 시 동의 거부를 이유로 재화나 서비스의 제공을 거부해서는 안 된다.<br>
+- <strong>입증 책임</strong>: <strong>개인정보처리자</strong>가 부담한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 정보주체에게 개인정보의 <strong>제3자 제공</strong>에 대한 동의를 받을 때 고지해야 할 필수 항목 5가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>제공받는 자</strong>, 2) 제공받는 자의 <strong>이용 목적</strong>, 3) <strong>제공 항목</strong>, 4) 제공받는 자의 <strong>보유 및 이용 기간</strong>, 5) <strong>동의 거부권 및 불이익 내용</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개인정보보호법상 <strong>민감정보</strong>와 <strong>고유식별정보</strong>의 종류를 각각 3가지 이상 나열하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+- <strong>민감정보</strong>: 사상·신념, 노동조합·정당 가입, 정치적 견해, 건강, 성생활, 유전정보, 범죄경력정보, 인종·민족정보 등<br>
+- <strong>고유식별정보</strong>: 주민등록번호, 여권번호, 운전면허번호, 외국인등록번호
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 개인정보 수집 시 <strong>별도 동의</strong>를 받아야 하는 항목을 모두 고르시오.<br>
+(A) 성명/연락처, (B) 건강정보, (C) 여권번호, (D) 제3자 제공, (E) 마케팅 목적 이용, (F) 주민등록번호</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(B), (C), (D), (E)</strong><br>
+(※ 주민등록번호는 법령의 구체적 근거 없이는 동의를 받더라도 수집이 원칙적으로 금지됨을 유의)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <strong>주민등록번호</strong> 처리가 원칙적으로 금지됨에도 불구하고 예외적으로 처리가 가능한 경우 2가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>법률·대통령령 등</strong>에서 구체적으로 주민등록번호 처리를 요구하거나 허용한 경우, 2) 정보주체 또는 제3자의 <strong>급박한 생명·신체·재산의 이익</strong>을 위해 명백히 필요한 경우
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 일정한 공간에 설치되어 지속적·주기적으로 사물의 영상을 촬영하는 장치인 '고정형 영상정보처리기기' 안내판에 포함해야 할 필수 항목 3가지는?</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>설치 목적 및 장소</strong>, 2) <strong>촬영 범위 및 시간</strong>, 3) <strong>관리책임자의 성명 및 연락처</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 공통된 실내 장소 중 영상정보처리기기(CCTV 등)의 설치가 <strong>절대적으로 금지</strong>되는 장소를 3곳 이상 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>목욕실, 화장실, 발한실, 탈의실</strong> 등 개인의 사생활을 현저히 침해할 우려가 있는 장소 (교도소, 정신보건 시설 등 법령상 근거가 있는 경우는 제외)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개인정보 <strong>처리 위탁</strong>과 <strong>제3자 제공</strong>의 차이점을 '처리 목적'과 '관리·감독 책임' 관점에서 비교하여 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+- <strong>처리 목적</strong>: <strong>제3자 제공</strong>은 제공받는 자의 업무 및 목적을 위해 데이터가 전달되지만, <strong>위탁</strong>은 위탁자(본래 처리자)의 업무 처리를 위해서만 수탁자에게 데이터가 전달된다.<br>
+- <strong>관리·감독</strong>: 제3자 제공은 제공 후 제공받는 자가 책임을 지지만, 위탁은 본래 처리자인 위탁자가 수탁자를 교육하고 관리·감독할 법적 책임이 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보 처리 업무를 위탁할 때, 위탁자가 정보주체에게 언제든지 확인할 수 있도록 인터넷 홈페이지 등에 공개해야 할 필수 정보 2가지는?</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>위탁 업무의 내용</strong>, 2) <strong>수탁자 (업체명)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 업무 위탁 계약 문서 작성 시 개인정보 보호를 위해 반드시 포함되어야 할 항목 3가지를 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) 위탁업무 수행 목적 외 <strong>개인정보 처리 금지</strong>, 2) 기술적·관리적 <strong>보호조치</strong>, 3) <strong>재위탁 제한</strong>, 4) 관리 현황 점검 등 <strong>감독</strong>, 5) 수탁자 위반 시 <strong>손해배상 등 책임</strong> 사항
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개인정보 처리자가 정보주체의 동의 없이 <strong>가명정보</strong>를 처리할 수 있는 목적 3가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>통계 작성</strong>, 2) <strong>과학적 연구</strong>, 3) <strong>공익적 기록 보존</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개인정보보호법 제29조 '안전조치의무'에 따라 개인정보처리자가 수행해야 할 기술적·관리적·물리적 조치를 5가지 이상 나열하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>내부관리계획</strong> 수립 및 시행, 2) <strong>접근권한</strong>의 제한 및 관리, 3) <strong>접속기록</strong>의 보관 및 위·변조 방지, 4) 개인정보의 <strong>암호화</strong>, 5) <strong>악성프로그램</strong> 방지(백신), 6) <strong>물리적 접근 방지</strong>(출입 통제, 잠금장치)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 공공기관의 장이 대규모 개인정보파일을 운용하려 할 때, 침해 위험을 분석하고 개선 사항을 도출하기 위해 수행하는 평가 제도는 무엇인가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>개인정보 영향평가 (PIA: Privacy Impact Assessment)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 공공기관에서 반드시 개인정보 영향평가를 받아야 하는 기준 3가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>5만 명 이상</strong>의 정보주체에 관한 민감정보 또는 고유식별정보의 처리가 수반되는 경우, 2) 다른 파일과 연계하여 <strong>50만 명 이상</strong>의 개인정보가 포함되는 경우, 3) <strong>100만 명 이상</strong>의 정보주체에 관한 파일인 경우
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보 <strong>유출</strong> 사실을 알게 된 개인정보처리자가 정보주체에게 지체 없이(72시간 이내) 통지해야 할 사항 중 하나로, 정보주체가 추가 피해를 막기 위해 취할 수 있는 조치를 안내하는 항목은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>정보주체가 할 수 있는 피해 최소화 방법</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개인정보 유출 시 정보주체에게 통지해야 할 필수 항목 5가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>유출된 항목</strong>, 2) <strong>유출 시점과 경위</strong>, 3) 정보주체가 할 수 있는 <strong>피해 최소화 방법</strong>, 4) <strong>대응 조치 및 피해 구제 절차</strong>, 5) <strong>담당 부서 및 연락처</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보 유출 신고 시, 1천 명 이상 유출되거나 민감정보·고유식별정보가 유출된 경우 신고를 접수받는 전문기관 2곳은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>개인정보보호위원회</strong>, <strong>한국인터넷진흥원(KISA)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 개인정보 수집 및 이용 동의서 예시의 위반 사항을 찾아 설명하시오.<br>
+[사례] "수집된 개인정보는 내부 규정에 따라 회원 탈퇴 시까지 영구적으로 보존됩니다."</summary>
+<blockquote>
+<strong>정답:</strong><br>
+- <strong>위반 사항</strong>: <strong>과도한 보유 기간 설정</strong> 및 최소 필요 기간 원칙 위배.<br>
+- <strong>해설</strong>: 개인정보는 수집 목적 달성 및 보유 기간 경과 시 지체 없이 파기해야 하며, '영구 보관'은 법적 근거가 없는 한 허용되지 않는다. 필요 최소한의 기간만 보유해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 만 14세 미만 아동의 개인정보 수집 시 <strong>법정대리인</strong>의 동의를 얻기 위해 준수해야 할 사항 2가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) 법정대리인의 동의를 얻어야 함, 2) 법적대리인이 동의했는지를 확인해야 함. (※ 단, 동의를 받기 위해 필요한 최소한의 정보는 아동으로부터 직접 수집 가능)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 개인정보를 파기할 때의 <strong>파기 방법</strong>을 인쇄물과 전자적 파일의 관점에서 각각 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+- <strong>인쇄물/서면</strong>: <strong>파쇄 또는 소각</strong>하여 복구 불가능하게 처리.<br>
+- <strong>전자적 파일</strong>: 복원이 불가능한 방법으로 <strong>완전 삭제(영구 삭제)</strong> 조치.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보보호법과 다른 법률(예: 의료법) 간의 관계에서, 다른 법률에 특별한 규정이 없는 한 어떤 법을 우선 적용하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>개인정보보호법</strong> (일반법 원칙)
+</blockquote>
+</details>
+
 
 ### 개인정보의 안전성 확보조치 기준(시행:2023.09.22)
 
 <details>
-<summary>[기출 22회 11번 문제] (단답형) 개인정보처리시스템 접속기록 보관 기준에 대해 ( )에 들어갈 용어를 기술하시오.<br>
-개인정보처리자는 개인정보취급자가 접속한 기록을 (A)년 이상 보관·관리하여야 한다. 다만, (B)명 이상의 정보주체에 관하여 개인정보를 처리하거나, 고유식별정보 또는 (C)를 처리하는 개인정보처리시스템의 경우에는 2년 이상 보관·관리하여야 한다.</summary>
+<summary>(단답형) 개인정보보호법에 따라 개인정보처리자가 분실·도난·유출 등을 방지하기 위해 내부적으로 수립·시행해야 하는 법적 계획의 명칭은?</summary>
 <blockquote>
-<strong>정답:</strong> (A) <strong>1년</strong>, (B) <strong>5만 명</strong>, (C) <strong>민감정보</strong>
+<strong>정답:</strong> <strong>내부관리계획</strong>
 </blockquote>
 </details>
 
 <details>
-<summary>[기출 21회 13번 문제] (서술형) 개인정보 기술적·관리적 보호조치 기준에 포함된 비밀번호 작성 규칙 3가지를 기술하시오.</summary>
+<summary>(단답형) 개인정보취급자가 개인정보처리시스템에 접속하여 수행한 업무 내역을 식별자, 접속일시, 접속지 정보 등을 포함하여 전자적으로 기록한 것은?</summary>
 <blockquote>
-1. <strong>복잡성 준수</strong>: 2종류 문자 조합 시 10자리 이상, 3종류 문자 조합 시 8자리 이상으로 설정<br>
-2. <strong>추측 방지</strong>: 아이디와 동일하거나 개인 생일, 전화번호 등 추측 가능한 정보 사용 금지<br>
-3. <strong>주기적 변경</strong>: 반기별 1회 이상 변경 및 이전 비밀번호 재사용 제한
+<strong>정답:</strong> <strong>접속기록</strong>
 </blockquote>
 </details>
 
 <details>
-<summary>(기출 23회 17번 문제) (서술형) 개인정보보호법 고시인 '개인정보의 안전성 확보조치 기준'에 따라, 개인정보처리시스템에 대한 접근권한 관리와 접근통제를 위해 준수해야 할 기술적 사항 3가지를 서술하시오.</summary>
+<summary>(단답형) 인터넷망 차단, 접근통제 시스템 등에 의해 외부 인터넷 구간에서의 접근이 통제 또는 차단되는 안전한 구역을 무엇이라 하는가?</summary>
 <blockquote>
-1. <strong>접근권한 관리</strong>: 사용자별로 업무 수행에 필요한 최소한의 범위로 권한을 차등 부여하고, 권한 부여/변경/말소 내역을 3년간 보관한다.<br>
-2. <strong>비밀번호 관리</strong>: 안전한 비밀번호 작성 규칙(문자 혼용, 길이 등)을 수립하여 적용한다.<br>
-3. <strong>접근 통제</strong>: 외부망에서 접속 시 VPN 또는 전용선을 사용하고, 일정 시간 미사용 시 접속이 자동 차단되도록 설정한다.
+<strong>정답:</strong> <strong>내부망</strong>
 </blockquote>
 </details>
+
+<details>
+<summary>(단답형) 개인정보처리자는 개인정보취급자에 대한 <strong>접근권한 부여, 변경 또는 말소</strong>에 대한 내역을 기록하고, 그 기록을 최소 몇 년간 보관해야 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>3년</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보처리자가 개인정보취급자의 개인정보처리시스템 <strong>접속기록을 점검</strong>해야 하는 법적 주기는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>월 1회 이상</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 다음 빈칸 (A), (B), (C)에 알맞은 용어와 수치를 쓰시오.<br>
+개인정보처리자는 접속기록을 1년 이상 보관·관리해야 한다. 다만, <strong>( A )명</strong> 이상의 정보주체 정보를 처리하거나, <strong>( B )</strong> 또는 <strong>( C )</strong>를 처리하는 시스템의 경우 2년 이상 보관해야 한다.</summary>
+<blockquote>
+<strong>정답:</strong> (A) <strong>5만</strong>, (B) <strong>고유식별정보</strong>, (C) <strong>민감정보</strong> (B, C 순서 무관)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <strong>접속기록</strong>에 반드시 포함되어야 하는 5가지 핵심 항목을 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>식별자</strong> (ID), 2) <strong>접속일시</strong>, 3) <strong>접속지 정보</strong> (IP 주소 등), 4) 처리한 <strong>정보주체 정보</strong> (고객번호 등), 5) <strong>수행업무</strong> (열람, 수정, 삭제 등)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 접속기록 점검 시 개인정보의 <strong>다운로드</strong>가 확인된 경우, 개인정보처리자가 내부관리계획에 따라 반드시 수행해야 하는 후속 조치는 무엇인가?</summary>
+<blockquote>
+<strong>정답:</strong> 해당 다운로드 행위가 정당한 권한 내에서 이루어졌는지 <strong>그 사유를 반드시 확인</strong>해야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 비밀번호나 생체인식정보와 같은 인증 정보를 저장할 때, 복호화가 불가능하도록 적용해야 하는 암호화 방식은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>일방향 암호화 (해시 함수)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 비밀번호를 일방향 암호화하여 저장할 때, 무차별 대입 공격(Brute Force) 등을 방어하기 위해 추가로 적용할 수 있는 기법 2가지를 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1) <strong>솔트(Salt)</strong>: 평문에 임의의 값을 추가하여 암호화, 2) <strong>반복 횟수(Iteration Count/Key Stretching)</strong>: 해시 연산을 여러 번 반복
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 <strong>내부망</strong>에 저장할 때도 <strong>반드시 암호화</strong>해야 하는 항목을 모두 고르시오.<br>
+(가) 성명, (나) 비밀번호, (다) 주민등록번호, (라) 계좌번호, (마) 주소, (바) 생체인식정보</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(나), (다), (라), (바)</strong><br>
+(※ 주민등록번호는 내부망 저장 시 예외 없이 암호화 대상임. 여권번호 등 다른 고유식별정보는 위험도 분석 결과에 따라 내부망에서 암호화하지 않을 수 있으나 원칙적으로는 권장됨)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보취급자가 외부에서 정보통신망을 통해 개인정보처리시스템에 접속할 때 적용해야 하는, 두 가지 이상의 인증 요소를 결합한 방식의 명칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>2-Factor 인증 (또는 2단계 인증)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 외부망에서 내부 시스템 접속 시 사용되는 <strong>안전한 인증 수단</strong>과 <strong>안전한 접속 수단</strong>의 사례를 각각 2가지씩 제시하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+- <strong>안전한 인증 수단</strong>: PKI 인증서, 보안토큰, OTP(일회용 비밀번호), 생체인증 등<br>
+- <strong>안전한 접속 수단</strong>: VPN(가상사설망), 전용선 등
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 일일 평균 이용자 수가 <strong>100만 명 이상</strong>이거나 정보보호 관리체계(ISMS) 인증 의무 대상자인 경우, 개인정보 취급자 컴퓨터에 대해 적용해야 하는 인터넷 접속 차단 조치를 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>망분리</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 자기장을 이용하여 하드디스크 등 저장매체의 데이터를 복구 불가능하게 삭제하는 장비의 명칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>디가우저 (Degausser)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 블록체인 등 기술적 특성으로 인해 영구 삭제가 기록상 현저히 곤란한 경우, 어떤 정보로 처리함으로써 파기한 것으로 인정받을 수 있는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>익명정보</strong>
+</blockquote><details>
+<summary>(단답형) '국민생활의 향상과 공공복리의 증진에 이바지함'을 목적으로 하는 <strong>정보통신망 이용촉진 및 정보보호 등에 관한 법률</strong>의 약칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>정보통신망법</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 해킹, 컴퓨터바이러스, 서비스 거부 공격 등으로 정보통신망 또는 정보시스템을 공격하는 행위로 인해 발생하는 사태를 무엇이라 정의하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>침해사고</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 스마트폰 앱 서비스 제공자가 이용자의 단말기 정보에 접근할 때, 서비스 제공을 위해 반드시 필요하지 않은 항목에 대해 동의를 받는 권한을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>선택적 접근권한</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 이용자가 위 문제의 권한(선택적 접근권한)에 동의하지 않았다는 이유로 서비스 제공을 거부하는 행위는 정당한가? 법적 근거를 포함하여 답하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>부당하다(법 위반이다).</strong> 정보통신망법 제22조의2에 따라 선택적 접근권한을 이용자가 동의하지 않는다는 이유로 서비스 제공을 거부해서는 안 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 방송통신위원회로부터 주민등록번호를 수집하지 않고 본인을 확인할 수 있도록 지정받은 이동통신사, 신용평가사 등의 기관을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>본인확인기관</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 주민등록번호를 사용하지 않고 본인을 확인할 수 있는 <strong>대체 수단</strong>의 종류 3가지를 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>휴대폰 본인인증, 아이핀(I-PIN), 인증서</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 새로이 정보통신망을 구축하거나 서비스를 제공하고자 할 때, 해당 계획 또는 설계 단계에서 보안 사항을 미리 고려하도록 하는 제도는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>정보보호 사전점검</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 정보통신시스템 등에 대한 보안 및 정보의 안전한 관리를 총괄하기 위해 대통령령으로 정하는 기준에 따라 지정·신고해야 하는 직책은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>정보보호 최고책임자 (CISO)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <strong>정보보호 최고책임자(CISO)</strong>가 총괄해야 하는 주요 업무 4가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>정보보호 계획의 수립·시행 및 개선</strong><br>
+2. <strong>정보보호 실태와 관행의 정기적인 감사 및 개선</strong><br>
+3. <strong>정보보호 위험의 식별·평가 및 정보보호 대책 마련</strong><br>
+4. <strong>정보보호 교육과 모의훈련 계획의 수립 및 시행</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 정보보호 최고책임자(CISO)는 개인정보 보호법에 따른 어떤 직책과 업무를 겸할 수 있는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>개인정보 보호책임자 (CPO)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 망분리 방식 중 서버 가상화 기술을 기반으로 가상 서버에 접속하여 인터넷 업무를 수행하는 논리적 망분리 방식의 약칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>SBC (Server Based Computing)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) SBC 방식 중 <strong>인터넷망 가상화</strong> 방식의 주요 장점 2가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>악성코드 감염 최소화</strong>: 가상화된 인터넷 환경을 제공하여 사용자 실제 PC로의 위협 전이를 차단한다.<br>
+2. <strong>업무 환경 보호</strong>: 인터넷 영역이 해킹을 당하더라도 업무 수행 환경은 안전하게 유지할 수 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) SBC 방식 중 <strong>업무망 가상화</strong> 방식의 주요 장점 2가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>데이터 중앙 관리 용이</strong>: 업무 정보가 실제 PC가 아닌 가상 서버에 저장되어 백업 및 관리가 효율적이다.<br>
+2. <strong>내부 정보 유출 방지</strong>: 중요 업무 데이터가 실제 단말기로 다운로드되지 않아 정보 유출 방지 효과가 크다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 사용자 PC(Client) 기반 가상화 기술을 적용하여 OS 커널이나 애플리케이션 레벨에서 망을 분리하는 방식의 약칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>CBC (Client Based Computing)</strong>
+</blockquote>
+</details>
+</details>
+
+<details>
+<summary>(작업형) 다음 접속기록 관리 현황을 보고 안전성 확보조치 기준 위반 사항 2가지를 지적하시오.<br>
+[현황] 10만 명의 고유식별정보를 처리하는 시스템의 접속기록을 1년 2개월간 보관하고 있으며, 관련 점검은 분기별(3개월) 1회 수행하고 있다.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>보관 기간 위반</strong>: 5만 명 이상 고유식별정보 처리 시스템은 <strong>2년 이상</strong> 접속기록을 보관해야 하나, 1년 2개월은 이에 미치지 못함.<br>
+2. <strong>점검 주기 위반</strong>: 접속기록 점검은 <strong>월 1회 이상</strong> 수행해야 하나, 분기별 1회는 기준에 미달함.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보처리자가 악성프로그램 방지를 위해 백신 소프트웨어를 운영할 때, 보안 업데이트 공지가 있는 경우 <strong>정당한 사유</strong>가 없는 한 언제까지 업데이트를 실시해야 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>즉시</strong>
+</blockquote>
+</details>
+
 
 ### 정보통신망 이용촉진 및 정보보호 등에 관한 법률(시행:2024.01.23)
 
 ### 정보통신기반 보호법(시행:2022.09.11)
 
+<details>
+<summary>(단답형) 전자적 침해행위에 대비하여 시설의 보호 대책을 수립·시행함으로써 해당 시설을 안정적으로 운용하여 <strong>국가의 안전</strong>과 <strong>국민생활의 안정</strong>을 보장하는 것을 목적으로 하는 법률은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>정보통신기반 보호법</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 해킹, 컴퓨터바이러스, 논리폭탄, 서비스 거부 또는 고출력 전자기파 등의 방법으로 정보통신기반시설을 공격하는 행위를 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>전자적 침해행위</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 사이버 침해에 대해 관련 분야별 공동 대응을 위한 <strong>정보공유·분석센터(ISAC)</strong>의 업무를 2가지 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>취약점 및 침해요인과 그 대응 방안에 관한 정보 제공</strong><br>
+2. <strong>침해사고가 발생하는 경우 실시간 경보 및 분석 체계 운영</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 다음 빈칸 (A), (B), (C)에 들어갈 주요정보통신기반시설 지정 고려 사항을 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+1. 업무의 국가사회적 중요성<br>
+2. 기관 업무의 정보통신기반시설에 대한 <strong>( A )</strong><br>
+3. 다른 정보통신기반시설과의 <strong>( B )</strong><br>
+4. 침해사고 시 피해 규모 및 범위<br>
+5. 침해사고 발생 가능성 또는 복구의 <strong>( C )</strong>
+</div>
+</summary>
+<blockquote>
+<strong>정답:</strong> (A) <strong>의존도</strong>, (B) <strong>상호연계성</strong>, (C) <strong>용이성</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 관리기관의 장은 소관 주요정보통신기반시설에 대하여 얼마의 주기로 취약점 분석·평가를 실시해야 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>정기적 (매년)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 관리기관의 장이 취약점 분석·평가 업무를 직접 수행하지 않고 위탁할 수 있는 전문 기관 4곳을 쓰시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>한국인터넷진흥원(KISA), 정보공유·분석센터(ISAC), 정보보호 전문서비스 기업, 한국전자통신연구원(ETRI)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 새로 출현한 전자적 침해행위로부터 기반시설을 보호하기 위해 중앙행정기관의 장이 관리기관에 내릴 수 있는 조치는 무엇인가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>취약점 분석·평가 실시 명령</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) '침해사고'의 정의를 이 법의 관점에서 서술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>전자적 침해행위로 인하여 발생한 사태</strong>를 의미한다.
+</blockquote>
+</details>
+
+
 ### 전자서명법(시행:2022.10.20)
 
+<details>
+<summary>(단답형) 전자문서의 안전성과 신뢰성을 확보하고 전자서명에 관한 기본적인 사항을 정하여 국민생활의 편익을 증진하는 법률은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>전자서명법</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 2020년 5월 전부개정과 함께 폐지되어, 현재는 다양한 민간 전자서명 수단이 동등한 법적 효력을 갖게 된 제도의 명칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>공인인증서 (또는 공인전자서명 제도)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <strong>전자서명</strong>이 전자문서에 결합되어 증명해야 하는 두 가지 핵심 정보를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>서명자의 신원</strong>을 나타내는 정보<br>
+2. <strong>서명자가 해당 전자문서에 서명하였다는 사실</strong>을 나타내는 정보
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 전자서명 생성정보가 가입자에게 유일하게 속한다는 사실을 확인하고 이를 증명하는 행위를 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>전자서명인증</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 전자서명법 전부개정 이후, 신원확인 방법에서 기존의 '대면 방식' 외에 새롭게 허용된 방식은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>비대면 방식</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 전자서명법 제3조에 명시된 <strong>전자서명의 효력</strong>에 대해 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>효력 부인 불가</strong>: 전자서명은 전자적 형태라는 이유만으로 서명, 서명날인 또는 기명날인으로서의 효력이 부인되지 않는다.<br>
+2. <strong>법적 효력 인정</strong>: 법령 규정 또는 당사자 간 약정에 따라 선택한 전자서명은 서명·날인으로서의 효력을 가진다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 용어에 대한 설명으로 옳지 않은 것을 고르시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
+(가) 전자문서: 정보처리시스템에 의해 전자적 형태로 작성되어 송수신 또는 저장된 정보<br>
+(나) 전자서명 생성정보: 전자서명을 생성하기 위하여 이용하는 전자적 정보<br>
+(다) 인증서: 전자서명 생성정보가 가입자에게 유일하게 속한다는 사실을 확인·증명하는 전자적 정보<br>
+(라) 공인인증기관: 과학기술정보통신부 장관이 지정하여 국가적 독점 권한을 갖는 기관
+</div>
+</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(라)</strong><br>
+(※ 법 개정으로 공인인증기관 및 공인인증서 제도는 폐지되었으며, 현재는 '전자서명인증사업자'가 관련 업무를 수행하며 시장 경쟁 체제로 전환됨)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 전자서명을 발급받기 위해 휴대폰 인증이나 계좌 점검 등을 통해 신원을 확인하는 것은 개정법 이후 가능해진 어떤 방식에 해당하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>비대면 신원확인 방식</strong>
+</blockquote>
+</details>
+
+
 ### 위치정보의 보호 및 이용 등에 관한 법률(시행:2022.04.20)
+
+<details>
+<summary>(단답형) 사생활의 비밀 등을 보호하고 위치정보의 이용을 활성화하여 국민생활의 향상을 목적으로 하는 <strong>위치정보의 보호 및 이용 등에 관한 법률</strong>의 약칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>위치정보법</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 이동성이 있는 물건 또는 개인이 특정한 시간에 존재하거나 존재하였던 장소에 관한 정보를 뜻하는 용어는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>위치정보</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 해당 정보만으로는 특정 개인의 위치를 알 수 없어도 다른 정보와 용이하게 결합하여 특정 개인의 위치를 알 수 있는 정보를 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>개인위치정보</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 긴급한 상황에서 개인위치정보주체의 <strong>동의 없이도</strong> 정보를 수집·이용 또는 제공할 수 있는 예외 사유 2가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>긴급구조기관의 긴급구조 요청</strong> 또는 경보발송 요청이 있는 경우<br>
+2. <strong>경찰관서의 구조 요청</strong>이 있는 경우 (다른 법령에 특별한 규정이 있는 경우 포함)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 위치정보사업자가 위치정보 보호를 위해 수행하는 기술적 조치 중 방화벽 설치나 암호화 소프트웨어 활용 외에, 사실 확인자료 관리를 위해 <strong>위치정보 시스템에 강제되는 기록 방식</strong>은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>자동 기록 (및 보존)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 위치정보법에 따른 보호조치 중 관리 지침 제정, 접근 권한자 지정 등은 어떤 종류의 조치에 해당하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>관리적 조치</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 위치정보 수집 장치가 부착된 중고차를 판매하거나 렌터카를 대여하는 자가 구매자나 대여자에게 반드시 이행해야 하는 법적 고지 의무는?</summary>
+<blockquote>
+<strong>정답:</strong> 해당 물건에 <strong>위치정보 수집장치가 붙여진 사실</strong>을 구매하거나 대여·양도받는 자에게 알려야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 타인의 정보통신기기를 복제하거나 정보를 도용하여 위치정보사업자를 속여 타인의 개인위치정보를 제공받는 행위는 위치정보법상 금지되는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>금지된다.</strong> 누구든지 부정한 방법으로 위치정보사업자 등을 속여 타인의 개인위치정보를 제공받아서는 아니 된다.
+</blockquote>
+</details>
+
 
 ### 개인정보보호법 주요 개정 사항 (2023~2024)
 
@@ -680,8 +1343,10 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(응용) 디지털 포렌식 5원칙(정당성, 재현성, 무결성, 신속성, 연계 보관성) 중 다음 시나리오에서 위배된 원칙을 각각 고르시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 1. 증거 이미지 파일을 복제하지 않고 원본 하드디스크에서 직접 분석을 수행하여 파일 타임스탬프가 변경됨 : <b>( A )</b><br>
 2. 압수한 USB 메모리를 담당 형사가 개인 주머니에 넣고 퇴근한 후 다음 날 분석실에 제출함 : <b>( B )</b>
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 무결성의 원칙(또는 재현성의 원칙), (B) 연계 보관성의 원칙 (Chain of Custody)<br>
@@ -707,10 +1372,12 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [840/841] 사람 사이의 신뢰 관계를 바탕으로 사람들을 속여 보안 절차를 무너뜨리는 비기술적 공격 기법과 그 하위 유형들을 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 공격 기법 명칭 : <b>( A )</b><br>
 - 이메일을 통한 사기 : <b>피싱(Phishing)</b><br>
 - 문자 메시지를 통한 사기 : <b>( B )</b><br>
 - 합법적인 도메인을 탈취하거나 DNS 정보를 변조하여 가짜 사이트로 유도하는 사기 : <b>( C )</b>
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 사회공학 (Social Engineering), (B) 스미싱 (Smishing), (C) 파밍 (Pharming)<br>
@@ -720,10 +1387,12 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [842/843] IT 제품의 보안성을 평가하기 위한 국제 표준(ISO/IEC 15408)의 명칭과 그 구성 요소에 대해 빈칸을 채우시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 국제 표준 명칭 : <b>( A )</b><br>
 - 소비자(사용자)가 요구하는 보안 기능 요구사항을 기술한 문서 : <b>보호 프로파일(PP: Protection Profile)</b><br>
 - 제조자가 특정 제품의 보안 기능을 명세한 문서 : <b>( B )</b><br>
 - 평가를 통해 부여되는 보증 수준의 등급 (1~7등급) : <b>( C )</b>
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 공통 평가 기준 (CC : Common Criteria), (B) 보안 목표 명세서 (ST : Security Target), (C) 평가 보증 등급 (EAL : Evaluation Assurance Level)<br>
@@ -779,10 +1448,12 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [852/853] 클라우드 컴퓨팅 서비스 모델에 대한 다음 설명 중 빈칸에 알맞은 용어를 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 서버, 스토리지 등 하드웨어 인프라 자원만 제공하는 서비스 : <b>( A )</b><br>
 - 애플리케이션 개발, 테스트, 배포를 위한 플랫폼(OS, 미들웨어 포함)을 제공하는 서비스 : <b>( B )</b><br>
 - 인터넷을 통해 완성된 소프트웨어 애플리케이션을 제공하는 서비스 : <b>( C )</b><br>
 - 가상 데스크톱 인프리(VDI) 기술을 활용하여 사용자에게 PC 환경을 제공하는 서비스 : <b>( D )</b>
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) IaaS, (B) PaaS, (C) SaaS, (D) DaaS (Desktop as a Service)<br>
@@ -832,9 +1503,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(서술형) [858] 개인정보 유출 사고 발생 시, 개인정보처리자가 법적으로 준수해야 할 통지 및 신고 의무에 대해 빈칸을 채우시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 통지 시기: 유출 사실을 안 때로부터 지체 없이 (정당한 사유가 없는 한 <b>( A )</b>시간 이내)<br>
 - 신고 기준: <b>( B )</b>명 이상의 정보주체에 관한 개인정보가 유출된 경우 또는 <b>( C )</b>정보, 고유식별정보가 유출된 경우<br>
 - 신고 기관: <b>( D )</b> 또는 한국인터넷진흥원(KISA)
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 72, (B) 1,000, (C) 민감, (D) 개인정보보호위원회<br>
@@ -844,7 +1517,9 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [859] '개인정보 영향평가 수행안내서'에 따른 위험도 산정 공식을 완성하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 위험도 = 개인정보 영향도 + ( ( <b>( A )</b> ) x ( <b>( B )</b> ) ) x 2
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 침해요인 발생가능성, (B) 법적 준거성<br>
@@ -878,9 +1553,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [861/862] 개인정보 보호법에서 정의하는 다음 용어에 알맞은 명칭을 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 업무를 목적으로 개인정보파일을 운용하기 위하여 스스로 또는 다른 사람을 통하여 개인정보를 처리하는 공공기관, 법인, 단체 및 개인 : <b>( A )</b><br>
 - 개인정보처리자의 지휘·감독을 받아 개인정보를 처리하는 임지권, 파견근로자, 시간제근로자 등 : <b>( B )</b><br>
 - 데이터베이스시스템 등 개인정보를 처리할 수 있도록 체적적으로 구성한 시스템 : <b>( C )</b>
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 개인정보처리자, (B) 개인정보취급자, (C) 개인정보처리시스템<br>
@@ -890,9 +1567,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [863/864/866] 개인정보의 안전성 확보조치 기준에 명시된 용어들을 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 물리적·논리적 접근이 통제되거나 차단되는 구간 : <b>( A )</b><br>
 - 개인정보처리시스템에 접속한 자가 수행한 업무내역을 전자적으로 기록한 것 : <b>( B )</b><br>
 - 유출·변조 등을 방지하기 위해 내부적으로 수립·시행하는 관리상의 기준 : <b>( C )</b>
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 내부망, (B) 접속기록, (C) 내부 관리계획<br>
@@ -902,9 +1581,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>[기출 12회 7번 문제] (서술형) 개인정보 안전성 확보조치 기준에 따른 '접속기록 보관 및 점검'과 관련된 다음 질문에 답하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 1) 접속기록(로그)에 반드시 포함되어야 하는 항목 4가지를 쓰시오.<br>
 2) 5만 명 이상의 정보주체에 관하여 개인정보를 처리하거나, 고유식별정보 또는 민감정보를 처리하는 개인정보처리시스템의 접속기록 보관 기간은?<br>
 3) 개인정보처리자는 개인정보의 오·남용, 분실·도난 등을 방지하기 위해 접속기록을 최소 얼마 만에 한 번씩 점검해야 하는가?
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong><br>
@@ -926,9 +1607,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [868] 개인정보 안전성 확보조치 기준 중 '접근 권한의 관리'에 관한 다음 설명의 빈칸을 채우시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 개인정보처리자는 개인정보취급자에게 업무 수행에 필요한 <b>( A )</b>한 범위로 업무상 역할에 따라 권한을 <b>( B )</b> 부여해야 한다.<br>
 - 권한 부여, 변경, 말소 기록은 최소 <b>( C )</b>년간 보관해야 한다.<br>
 - 정당한 사유가 없는 한 개인정보취급자 별로 계정을 발급하고 다른 취급자와 <b>( D )</b>되지 않도록 해야 한다.
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 최소, (B) 차등, (C) 3, (D) 공유<br>
@@ -946,8 +1629,10 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [871] 업무용 모바일 기기를 통해 개인정보가 유출되지 않도록 도입하는 보안 기술들에 대한 명칭을 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 분실·도난 시 원격 잠금, 데이터 삭제 등을 수행하는 기기 관리 솔루션 : <b>( A )</b><br>
 - 분실한 스마트폰을 타인이 사용할 수 없도록 원격으로 기기를 정지시키는 서비스 : <b>( B )</b>
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) MDM (Mobile Device Management), (B) 킬 스위치 (Kill Switch)<br>
@@ -957,8 +1642,10 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [872] 개인정보의 암호화 조치와 관련하여 다음 빈칸에 알맞은 용어를 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 비밀번호는 복호화되지 않도록 <b>( A )</b> 암호화하여 저장해야 한다.<br>
-- 정보통신망을 통해 송·수신하거나 업무용 모바일 기기에 저장할 경우 암호화해야 하는 고유식별정보 4가지는 <b>( B )</b>, 운전면허번호, 외국인등록번호, <b>( 여권번호 )</b>이다.
+- 정보통신망을 통해 송·수신하거나 업무용 모바일 기기에 저장할 경우 암호화해야 하는 고유식별정보 4가지는 <b>( B )</b>, 운전면허번호, 외국인등록번호, <b>( C )</b>이다.
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 일방향(Hash), (B) 주민등록번호, (C) 여권번호<br>
@@ -976,8 +1663,10 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [874] 개인정보 안전성 확보조치 기준에 따른 접속기록 보관 기간에 대한 설명이다. 빈칸을 채우시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 원칙적으로 접속기록은 최소 <b>( A )</b>년 이상 보관·관리해야 한다.<br>
 - 단, <b>( B )</b>만 명 이상의 정보주체 정보를 처리하거나 민감정보/고유식별정보를 처리하는 시스템은 <b>( C )</b>년 이상 보관해야 한다.
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 1, (B) 5, (C) 2<br>
@@ -987,8 +1676,10 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(서술형) [875/877/878] 개인정보 접속기록의 점검 및 관리 절차에 대한 다음 질문에 답하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 1. 개인정보처리자는 접속기록을 최소 <b>( A )</b>회 이상 점검해야 하는가?<br>
 2. 접속기록 점검 시 특히 '개인정보의 <b>( B )</b>'이 확인된 경우, 내부 관리계획에 따라 그 사유를 반드시 확인해야 하는가?
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (1) 월 1, (2) 다운로드<br>
@@ -998,8 +1689,10 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [879/880] 개인정보의 물리적 안전조치 및 재해·재난 대비에 관한 설명이다. 빈칸을 채우시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 전산실, 자료보관실 등 물리적 보관 장소는 <b>( A )</b> 절차를 수립·운영해야 한다.<br>
 - <b>( B )</b> 명 이상의 정보주체 정보를 처리하는 대기업 등은 화재, 홍수 등에 대비하여 <b>( C )</b> 및 복구를 위한 계획을 마련해야 한다.
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) 출입통제, (B) 10만, (C) 백업<br>
@@ -1041,9 +1734,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(계산형) [890] 정량적 위험 분석을 위한 다음 공식의 빈칸을 채우고 그 의미를 설명하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - SLE (단일 예상 손실액) = AV(자산가치) × <b>( A )</b><br>
 - ALE (연간 예상 손실액) = SLE × <b>( B )</b><br>
 - ROI (투자 대비 수익률) = (대책 적용 전 ALE - 대책 적용 후 ALE - 대책 비용) / <b>( C )</b> × 100
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) EF (노출 계수), (B) ARO (연간 발생률), (C) 대책 비용<br>
@@ -1085,9 +1780,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [901] 침해사고 발생 시 휘발성 증거 확보를 위해 윈도우 시스템에서 다음 정보를 확인하는 명령어를 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 1. 시스템 날짜 및 시간 정보 출력 : <b>( A )</b> /t & time /t<br>
 2. 컴퓨터(호스트)의 이름 확인 : <b>( B )</b><br>
 3. 현재 시스템에 로그인한 사용자 정보 확인 : <b>( C )</b>
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) date, (B) hostname, (C) whoami<br>
@@ -1169,9 +1866,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(계산형) [914] 다음 정량적 위험분석 데이터에 기반하여 보안 대책의 투자 대비 수익률(ROI)을 계산하고, 해당 전략이 위험 처리 유형 중 어디에 속하는지 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 대책 적용 전 ALE : 1억 원<br>
 - 대책 적용 후 ALE : 2,000만 원<br>
 - 보안 대책 비용 : 2,000만 원
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> <b>ROI</b>: (1억 - 2,000만 - 2,000만) / 2,000만 × 100 = <b>300%</b>. <b>위험 처리 유형</b>: <b>위험 감소(Risk Reduction)</b>.<br>
@@ -1181,8 +1880,10 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(단답형) [917] 정보자산 식별 과정에서 발생한 시스템 자산 목록 정보(OS: Windows 2003)와 관련하여 다음 질문에 답하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 1. 해당 OS처럼 제조사의 서비스 지원이 종료된 상태를 의미하는 용어는?<br>
 2. 이러한 시스템을 계속 사용할 경우 발생할 수 있는 보안상 치명적인 취약점은 무엇인가?
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (1) <b>EoS (End of Service)</b> 또는 <b>EoL (End of Life)</b>. (2) 최신 보안 패치가 적용되지 않아 <b>알려진 보안 취약점에 무방비로 노출</b>됨.<br>
@@ -1192,9 +1893,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(서술형) [921] 개인정보 보호법에 따른 '안전성 확보조치 기준'을 관리적, 기술적, 물리적 조치로 구분할 때, 다음 각 활동이 어디에 속하는지 분류하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - 개인정보의 안전한 처리를 위한 <b>내부 관리계획</b> 수립·시행 : <b>( A )</b><br>
 - 개인정보에 대한 <b>접근권한</b>의 제한 및 <b>암호화</b> 기술 적용 : <b>( B )</b><br>
 - 전산실, 자료보관실 등 보관 장소의 <b>출입통제</b> 및 잠금장치 설치 : <b>( C )</b>
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (A) <b>관리적</b> 조치, (B) <b>기술적</b> 조치, (C) <b>물리적</b> 조치.<br>
@@ -1220,9 +1923,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>(서술형) [926] 다음 개인정보 처리 흐름에서 발견된 법적 위반사항 3가지를 지적하고 각각의 개선 방안을 기술하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 ① 비밀번호를 <b>MD5</b> 알고리즘을 사용하여 일방향 암호화하여 저장함.<br>
 ② 외부 제휴 업체로 고객 정보를 전송할 때 보안 프로토콜 없이 <b>평문</b>으로 전송함.<br>
 ③ 탈퇴한 회원의 정보를 통계적 목적으로 <b>영구 보관</b>함.
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong> (1) <b>암호화 강도 부적정</b>: MD5는 설계 결함이 발견된 취약한 알고리즘이므로 <b>SHA-256 이상</b>의 안전한 알고리즘으로 변경한다. (2) <b>전송 보안 미비</b>: 평문 전송 시 도청 위험이 있으므로 <b>SSL/TLS</b> 등 가상사설망 또는 암호화 기술을 적용한다. (3) <b>파기 원칙 위반</b>: 영구 보관은 금지되어 있으므로 <b>목적 달성(탈퇴) 시 지체 없이 파기</b>하거나, 통계용일 경우 식별 불가능한 <b>익명/가명정보</b>로 처리한다.<br>
@@ -1240,9 +1945,11 @@ date created: 2026-03-17 15:13:20 +09:00
 
 <details>
 <summary>[기출 12회 16번 문제] (서술형) 개인정보 보호법의 '안전성 확보조치 기준'에 따른 개인정보 암호화와 관련하여 다음 물음에 답하시오.
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 1) 비밀번호를 저장할 때, 복호화되지 않도록 처리해야 하는 방식은 무엇인가? (예: 해시 함수 이용)<br>
 2) 주민등록번호를 정보통신망을 통해 송신하거나 보관할 때 반드시 암호화해야 하는가? (O/X 로 답하시오)<br>
 3) 바이오정보를 보관할 때 암호화해야 하는가? (O/X 로 답하시오)
+</div>
 </summary>
 <blockquote>
 <strong>정답:</strong><br>
@@ -1256,6 +1963,6 @@ date created: 2026-03-17 15:13:20 +09:00
 <summary>(서술형) [927] 비밀번호 암호화 시 적용해야 하는 '일방향 암호화'의 개념을 설명하고, 왜 양방향 암호화를 사용하지 않는지 그 이유를 기술하시오.</summary>
 <blockquote>
 <strong>정답:</strong> <b>개념</b>: 평문을 암호문으로 바꾸는 것은 가능하지만, 암호문을 다시 원래의 평문으로 되돌리는 복호화가 불가능한 해시 함수 기반의 암호화 방식. <b>이유</b>: 관리자나 해커가 암호화된 비밀번호를 획득하더라도 <b>사용자의 실제 비밀번호를 알아낼 수 없도록 하여(복호화 불가)</b> 보안성을 극대화하기 위함.<br>
-<strong>해설:</strong> [927번 문제 복원] 관리자도 사용자의 비밀번호를 알 수 없어야 한다는 '무지의 원칙'이 적용되는 유일한 항목입니다.
+<strong>해설:</strong> 관리자도 사용자의 비밀번호를 알 수 없어야 한다는 '무지의 원칙'이 적용되는 유일한 항목입니다.
 </blockquote>
 </details>

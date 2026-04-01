@@ -126,7 +126,75 @@ date created: 2026-02-25 10:46:47 +09:00
 </blockquote>
 </details>
 
+<details>
+<summary>(단답형) 정보보호의 개념 중, 주체가 해당 정보를 볼 권한이 있더라도 업무 수행을 위해 꼭 필요한 경우에만 접근하도록 제한하는 원칙은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>알 필요성 (Need-to-Know) 원칙</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 가용성을 확보하기 위하여 동일한 서비스를 제공하는 여러 서버를 하나의 그룹으로 묶어 일부 서버에 장애가 발생해도 중단 없이 서비스를 제공하는 기술은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>서버 클러스터링 (Server Clustering)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 여러 개의 디스크를 중복 배열하여 일부 디스크 장애 시에도 정보의 손실을 방지하고 가용성을 높이는 기술의 약칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>RAID (Redundant Array of Inexpensive Disks)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 정보보호의 목표 중 <strong>무결성(Integrity)</strong>을 보장하기 위해 사용되는 암호학적 도구 3가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>암호학적 해시 함수</strong>, <strong>메시지 인증 코드 (MAC)</strong>, <strong>디지털 서명 (전자서명)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 정보보호의 목표 중 <strong>인증성(Authenticity)</strong>을 '사용자 인증'과 '메시지 인증'의 관점에서 구분하여 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>사용자 인증</strong>: 정보 자산에 접근하는 주체(사용자)의 신원이 주장된 실체와 일치함을 보장하는 것 (지식/소유/생체 기반 인증 등 사용)<br>
+2. <strong>메시지 인증</strong>: 수신한 메시지가 제3자가 아닌 올바른 송신자가 보낸 메시지임을 보장하는 것 (MAC, 디지털 서명 등 사용)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 사고나 재해에 대비하여 백업된 데이터를 원본과 물리적으로 떨어진 원격지에 보관하는 관리 방식을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>소산 관리</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 성격이 다른 보안 기술 또는 기법 하나를 고르시오.<br>
+(가) 장비 이중화, (나) RAID 구성, (다) 백업 및 소산 관리, (라) 일항향 해시 함수 적용</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(라) 일방향 해시 함수 적용</strong><br>
+(※ (가), (나), (다)는 가용성 확보를 위한 기법이며, (라)는 무결성 확보를 위한 기법임)
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 메시지 전송 시 <strong>무결성</strong>, <strong>송신처 인증(메시지 인증)</strong>, 그리고 <strong>부인방지</strong> 기능을 한 번에 제공할 수 있는 가장 대표적인 암호학적 수단은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>디지털 서명 (또는 전자서명)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 정보보호산업법에 따른 정보보호의 정의에는 정보의 훼손·변조·유출 방지뿐만 아니라, 사고 발생 시의 대응을 위한 어떤 활동이 포함되어 있는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>복구 (Recovery)</strong>
+</blockquote>
+</details>
+
 ### 접근통제(접근제어, Access Control)
+
 
 <details>
 <summary>(기출 25회 5번 문제) (단답형) 보안 통제(Security Control)는 그 역할과 시점에 따라 예방, 탐지, 교정 통제로 나눌 수 있으며, 구현 방식에 따라 물리적, 기술적, 관리적 통제로 분류된다. 다음 ( )에 알맞은 통제 유형을 쓰시오.
@@ -209,11 +277,261 @@ CRL (Certificate Revocation List)
 <blockquote>
 <strong>정답:</strong> <strong>최소 권한의 원칙 (Least Privilege)</strong>
 </blockquote>
+</details><details>
+<summary>(단답형) 자원을 소유한 주체(사용자)가 자신의 판단에 따라 다른 사용자에게 접근 권한을 부여하고 제한하는 접근 통제 방식은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>DAC (임의적 접근통제 / Discretionary Access Control)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 주체와 객체에 부여된 보안 등급(Security Level)을 비교하여 시스템에 의해 강제적으로 접근을 통제하는 방식은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>MAC (강제적 접근통제 / Mandatory Access Control)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 사용자의 신원보다는 조직 내에서의 직무나 책임에 따라 권한의 묶음(Role)을 부여하고 접근을 통제하는 방식은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>RBAC (역할 기반 접근통제 / Role-Based Access Control)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) DAC의 구현 방식 중, 자원(객체)을 기준으로 해당 자원에 접근 가능한 주체들의 목록을 표시하는 방식은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>ACL (접근 제어 목록 / Access Control List)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) DAC의 구현 방식 중, 주체(사용자)를 기준으로 해당 주체가 접근할 수 있는 객체들의 목록을 표시하는 방식은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>Capability List (자격/능력 목록)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 기밀성 보장을 위한 <strong>벨-라파듈라(BLP) 모델</strong>의 두 가지 핵심 속성을 쓰고 각각을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>Simple Security Property (No Read Up)</strong>: 주체는 자신보다 높은 보안 등급의 객체를 읽을 수 없다.<br>
+2. <strong>Star Property (*-Property, No Write Down)</strong>: 주체는 자신보다 낮은 보안 등급의 객체에 정보를 기록할 수 없다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 무결성 보장을 위한 <strong>비바(Biba) 모델</strong>의 두 가지 핵심 속성을 쓰고 각각을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>Simple Integrity Axiom (No Read Down)</strong>: 주체는 자신보다 무결성 수준이 낮은 객체를 읽을 수 없다.<br>
+2. <strong>Star Integrity Axiom (No Write Up)</strong>: 주체는 자신보다 무결성 수준이 높은 객체에 정보를 기록할 수 없다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 동일한 분야의 상업적 데이터 간 이해 상충(Conflict of Interest)이 발생할 수 있는 경우, 동적으로 접근을 차단하여 기밀성을 보호하는 모델은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>만리장성 (Chinese Wall / Brewer-Nash) 모델</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 서로 다른 유형의 인증 요소(예: 지식 기반 + 소유 기반)를 결합하여 보안을 강화하는 방식은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>2-Factor 인증 (또는 Multi-Factor 인증)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 보안의 기본 원칙 중 <strong>직무 분리(Separation of Duties)</strong>의 정의와 목적을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 업무의 전 과정을 한 사람이 처리할 수 없도록 권한을 분산시키는 원칙으로, 내부자에 의한 부정한 행위나 의도하지 않은 실수를 방지하는 것이 목적이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 인증 유형 분류가 다른 하나를 고르시오.<br>
+(가) 지문 인식, (나) 홍채 인식, (다) 안면 인식, (라) 서명(필체) 인식</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(라) 서명(필체) 인식</strong><br>
+(※ (가), (나), (다)는 신체적 특성을 이용하는 '존재 기반(Type 3)'이며, (라)는 행위적 특성을 이용하는 '행위 기반(Type 5)'임)
+</blockquote>
 </details>
 
 ### 정보 보호 정책
 
+<details>
+<summary>(단답형) 조직의 정보보호 목적과 활동에 관한 방향을 정의하며, 경영진의 의지가 반영된 최상위 보안 문서는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>정보보호 정책 (Security Policy)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 정보보호 정책 구현 요소 중, 정책 달성을 위해 필요한 구체적 요구사항을 정의하며 모든 사용자가 준수해야 하는 <strong>강제성</strong>을 가진 문서는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>표준 (Standards)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 정책에 따라 특정 시스템 또는 분야별 활동에 도움이 되는 사항을 설명하며, 강제성보다는 <strong>권고적이고 선택적인</strong> 성격을 가지는 문서는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>지침 (Guidelines)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 정책, 표준, 지침을 준수하기 위해 수행해야 할 업무들을 <strong>순서에 따라 단계적</strong>으로 상세히 설명한 문서는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>절차 (Procedures)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 정보보호 정책에 반드시 포함되어야 하는 핵심 내용 3가지를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>최고경영자 등 경영진의 의지 및 방향</strong><br>
+2. <strong>조직의 정보보호 역할과 책임 및 대상과 범위</strong><br>
+3. <strong>관리적·기술적·물리적 정보보호 활동의 법적/행정적 근거</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 정보보호 정책이 조직의 공식 문서로 인정받아 시행되기 위해 거쳐야 하는 <strong>최종적인 승인 단계</strong>에 대해 서술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>최고경영자(CEO)</strong> 또는 최고경영자로부터 권한을 위임받은 자(CISO 등)의 공식적인 <strong>승인</strong>을 받아야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) ISMS-P 인증 기준(1.1.5 정책 수립)에 따라 정책 및 지침의 제·개정 시 수행해야 할 업무 절차를 올바른 순서대로 나열하시오.<br>
+(A) 임직원 및 관련자에게 이해하기 쉬운 형태로 전달(게시판, 교육 등)<br>
+(B) 이해관계자와 정책 및 시행 문서의 내용에 대해 충분한 협의 및 검토<br>
+(C) 최고경영자 또는 권한 위임자로부터 공식 승인 획득</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(B) → (C) → (A)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 정보보호 정책의 수립 및 운영에 관한 설명으로 올바르지 않은 것은?<br>
+(가) 정책은 조직의 환경에 맞게 수립되어야 하며 최상위 수준을 유지해야 한다.<br>
+(나) 지침은 표준과 달리 업무의 유연성을 위해 권고적 성격을 가질 수 있다.<br>
+(다) 정책 문서는 보안상 기밀이므로 승인권자 외에 평사원에게는 내용을 공개하지 않는다.<br>
+(라) 정책과 지침은 제·개정 시 반드시 경영진의 승인을 받아야 한다.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(다)</strong><br>
+(※ 해설: 수립된 정책 및 시행 문서는 모든 임직원 및 관련자가 준수할 수 있도록 이해하기 쉬운 형태로 <strong>전달 및 공유</strong>되어야 한다.)
+</blockquote>
+</details>
+
+
+
 ### 위험 관리
+
+<details>
+<summary>(단답형) 조직의 핵심 자산을 보호하기 위해 수용 가능한 수준의 위험도를 정의하고, 이를 유지하기 위한 일련의 분석 및 보안 대책 수립 프로세스는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>위험 관리 (Risk Management)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 경영진에 의해 결정되는, 조직에서 받아들일 수 있는 목표 위험 수준을 뜻하는 용어는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>DoA (Degree of Assurance / 수용 가능한 목표 위험 수준)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 보안 대책(Safeguard)을 구현한 후에도 사라지지 않고 여전히 남아 있는 위험을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>잔여 위험 (Residual Risk)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 위험 분석의 4대 구성 요소를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>자산(Asset), 위협(Threat), 취약성(Vulnerability), 보호 대책(Safeguard 또는 Countermeasure)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 위험 분석 접근 전략 중 **복합 접근법(Combined Approach)**의 수행 방식과 장점을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 고위험(High Risk) 영역에 대해서는 상세 위험 분석을 수행하고, 그 외의 영역은 기준선 접근법을 적용하는 방식이다. 분석 비용과 자원을 효율적으로 사용하면서도 중요한 위험을 빠르게 식별하고 대처할 수 있다는 장점이 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 상세 위험 분석 중 <strong>자산 식별(자산 분석)</strong> 과정에서 <strong>자산 그룹화(Asset Grouping)</strong>를 수행하는 목적을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 유형, 중요도, 용도 등이 유사한 자산들을 하나의 그룹으로 묶어 동일한 위험 분석 및 평가를 수행함으로써, 분석에 소요되는 시간과 비용을 최소화하기 위함이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 정량적 위험 분석 계산법 중, 위협이 성공했을 때의 예상 손실액(SLE)과 해당 위협의 연간 발생률(ARO)을 곱하여 연간 손해 규모를 추정하는 방식의 약어는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>ALE (Annual Loss Expectancy / 연간 예상 손실액)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 특정 자산가치(AV)에 위협이 발생하여 자산에 입히는 손실의 비율(%)을 지칭하는 용어와 해당 수치를 곱해 계산되는 1회 발생 시의 예상 손실액은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>노출 계수 (EF: Exposure Factor)</strong>, <strong>단일 예상 손실액 (SLE: Single Loss Expectancy)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 정성적 위험 분석 방법론 중 <strong>델파이법 (Delphi Method)</strong>의 핵심 수행 방식과 단점을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 특정 분야의 전문가 그룹을 구성하여 익명의 토론이나 설문 조사를 통해 합의된 위험 분석 결과에 도달하는 방식이다. 전문가들의 주관적인 판단에 의존하므로 객관적인 수치로 검증하기 어렵고 정확도가 낮을 수 있다는 단점이 있다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음의 사례들이 설명하는 위험 처리 전략을 각각 분류하시오.<br>
+(A) 자산 가치보다 보안 솔루션 도입 비용이 크므로 현재의 위험을 감수하기로 함.<br>
+(B) 화재 발생 위험에 대비하여 시설 관리 업체에 해당 업무를 위탁하거나 화재 보험에 가입함.<br>
+(C) 웹 서버 해킹 사고를 예방하기 위해 취약점 점검 및 보안 패치를 적용함.<br>
+(D) 고위험 사업 프로세스를 아예 중단하거나 해당 자산을 매각함.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+(A): <strong>위험 수용 (Risk Acceptance)</strong><br>
+(B): <strong>위험 전가 (Risk Transfer)</strong><br>
+(C): <strong>위험 감소 (Risk Reduction)</strong><br>
+(D): <strong>위험 회피 (Risk Avoidance)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형/계산) 자산가치(AV)가 10억 원인 건물에 40년에 한 번 화재(위협)가 발생할 가능성(ARO)이 있고, 화재 발생 시 자산의 약 50%가 손실(EF)될 것으로 예상된다면, 연간 예상 손실액(ALE)은 얼마인가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>1,250만 원</strong><br>
+(※ 계산: SLE = 10억 x 0.5 = 5억 원 | ALE = 5억 x (1/40) = 1,250만 원)
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 위험의 구성 요소 간의 상호관계 도표에 따르면, 위협(Threat)과 취약성(Vulnerability)이 자산(Asset)에 대해 가지는 각각의 역할을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 위협은 자산의 취약점을 <strong>악용(Exploit)</strong>하여 공격을 수행하며, 취약성은 자산을 위협에 <strong>노출(Expose)</strong>시키는 역할을 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 보호 대책 중 '데이터 백업'이나 '재해복구센터(DRC) 운영'과 같이 이미 발생한 사고로 인한 영향을 최소화하거나 정상으로 되돌리기 위한 조치는 어떤 통제 유형에 속하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>교정 통제 (Corrective Control)</strong>
+</blockquote>
+</details>
 
 <details>
 <summary>[기출 19회 1번 문제] (단답형) 위험관리와 관련하여 다음 ( )에 들어갈 용어를 기술하시오.<br>
@@ -535,6 +853,85 @@ BCP (Business Continuity Plan, 업무 연속성 계획)
 </details>
 
 <details>
+<summary>(단답형) 재해 시 중단된 서비스를 복구하는 데 걸리는 <strong>최대 허용 시간</strong>을 뜻하는 용어와 유실을 감내할 수 있는 <strong>데이터의 손실 허용 시점</strong>을 뜻하는 용어의 약어를 순서대로 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>RTO (Recovery Time Objective)</strong>, <strong>RPO (Recovery Point Objective)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) BCP 수립의 핵심 단계로, 핵심 업무 프로세스를 식별하고 업무 중단에 따른 영향도를 분석하여 복구 우선순위 및 목표 시간을 결정하는 과정은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>BIA (업무 영향 분석 / Business Impact Analysis)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 재해 복구 계획(DRP)과 업무 연속성 계획(BCP)의 핵심적인 차이점을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>DRP</strong>는 주로 정보 기술(IT) 인프라와 서비스의 복구에 초점을 맞춘 하위 계획인 반면, <strong>BCP</strong>는 IT뿐만 아니라 인력, 설비, 자금 등 조직의 모든 자원을 대상으로 비즈니스의 생존과 연속성을 보장하기 위한 보다 광범위한 체계이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <strong>미러 사이트(Mirror Site)</strong>와 <strong>핫 사이트(Hot Site)</strong>의 복구 방식과 시간(RTO) 차이를 비교 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>Mirror Site</strong>: 주 센터와 동일한 시스템을 구축하여 실시간으로 동시 서비스(Active-Active)를 제공하며, 재해 시 즉시(RTO=0) 복구가 가능하다.<br>
+2. <strong>Hot Site</strong>: 실시간 데이터 미러링을 수행하지만 시스템은 대기(Standby) 상태로 유지하며, 재해 시 활성화 절차를 거쳐 수 시간 이내에 복구가 가능하다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) <strong>콜드 사이트(Cold Site)</strong>의 구축 방식과 장단점을 비용과 복구 시간 관점에서 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+- <strong>구축 방식</strong>: 데이터만 원격지에 보관하고 최소한의 장소와 통신 설비만 확보한다.<br>
+- <strong>장점</strong>: 구축 및 유지 비용이 가장 저렴하다.<br>
+- <strong>단점</strong>: 재해 시 장비를 새로 구매하고 설치해야 하므로 복구에 수 주에서 수 개월이 소요되며 신뢰성이 낮다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 주 센터와 중요도가 높은 일부 시스템만 원격지에 구축하여, 재해 시 중요 업무를 우선 복구하는 방식의 명칭과 예상되는 RTO 수준은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>웜 사이트 (Warm Site)</strong>, <strong>수 일 ~ 수 주 이내</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 유사한 장비를 가진 기업들 간에 재해 발생 시 서로의 시설물을 사용할 수 있도록 체결하는 계약 방식의 명칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>상호 지원 계약 (Mutual Aid Agreement)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 업무 연속성 계획(BCP)의 5단계 방법론을 올바른 순서대로 나열하시오.<br>
+(A) 복구 전략 개발<br>
+(B) 사업 영향 평가 (BIA)<br>
+(C) 프로젝트 범위 설정 및 기획<br>
+(D) 프로젝트 수행 테스트 및 유지보수<br>
+(E) 복구 계획 수립 (문서화)</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(C) → (B) → (A) → (E) → (D)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 재해 복구 유형(DRS)에 대한 설명으로 올바르지 않은 것은?<br>
+(가) 미러 사이트는 데이터 손실이 거의 없으나 구축 비용이 매우 비싸다.<br>
+(나) 웜 사이트는 핫 사이트에 비해 복구 시간이 길며 데이터 일부 손실 가능성이 있다.<br>
+(다) 콜드 사이트는 RTO가 가장 짧은 방식으로 신속한 업무 재개가 가능하다.<br>
+(라) 핫 사이트는 주 센터와 동일한 최신 상태의 데이터를 유지한다.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(다)</strong><br>
+(※ 해설: 콜드 사이트는 RTO가 가장 <strong>긴</strong> 방식(수 주~수 개월)이며, 가장 짧은 방식은 미러 사이트 또는 핫 사이트이다.)
+</blockquote>
+</details>
+
+<details>
+
 <summary>(서술형) 전자서명(Digital Signature)의 메커니즘을 '해시 함수'와 '비대칭키 암호화' 관점에서 요약하여 설명하시오.</summary>
 <blockquote>
 <strong>정답:</strong> 송신자는 메시지 원본을 해시하여 고유한 해시값을 추출한 뒤, 자신의 <strong>개인키(Private Key)</strong>로 암호화하여 전자서명을 생성한다. 수신자는 송신자의 <strong>공개키(Public Key)</strong>로 서명을 복호화하여 얻은 해시값과, 직접 메시지를 해시한 값을 비교하여 일치 여부를 확인한다.
@@ -676,7 +1073,164 @@ BCP (Business Continuity Plan, 업무 연속성 계획)
 
 ### 침해사고 대응
 
-### Digital Forensic
+<details>
+<summary>(단답형) 정보보호 관련 법령(기반보호법 등)에서 정의하는 침해사고의 원인이 되는 행위로, 해킹, 서비스 거부 공격, 고출력 전자기파 등에 의하여 정보통신망이나 시스템을 공격하는 행위를 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>전자적 침해행위</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 침해사고 대응 7단계 절차 중, 사고가 발생하기 전에 미리 침해사고 대응 팀(CERT)을 조직하고 조직적인 대응을 준비하는 단계는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>사고 전 준비 (Preparation)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 침해사고 대응 7단계 절차 중, 현재 상황에서 최적의 대응 전략을 결정하고 관리자의 승인을 획득하며 수사기관 공조 여부를 판단하는 단계는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>대응 전략 체계화 (Strategy Formulation)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 침해사고 조사의 **데이터 수집** 단계에서 '호스트 기반 증거'와 '네트워크 기반 증거'의 구체적인 예를 각각 2가지 이상 나열하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>호스트 기반 증거</strong>: 시스템 날짜 및 시간, 휘발성 데이터(메모리, 실행 중인 프로세스 등), 디스크 이미지, 레지스트리 정보 등<br>
+2. <strong>네트워크 기반 증거</strong>: IDS/방화벽 로그, 라우터 로그, 웹 서버 로그, 네트워크 패킷 덤프 등
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 침해사고 대응 7단계 절차를 순서대로 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1. <strong>사고 전 준비</strong>, 2. <strong>사고 탐지</strong>, 3. <strong>초기 대응</strong>, 4. <strong>대응 전략 체계화</strong>, 5. <strong>사고 조사</strong>, 6. <strong>보고서 작성</strong>, 7. <strong>해결</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 침해사고 조사의 **데이터 분석** 단계에서 수행하는 구체적인 활동 3가지를 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>휘발성 데이터 분석</strong>: 네트워크 접속 기록 조사 및 악의적인 코드(백도어, 스니퍼 등) 식별<br>
+2. <strong>파일 시간 분석</strong>: 파일 생성/수정 날짜 조사를 통한 공격자의 파일 업로드 및 변조 시점 파악<br>
+3. <strong>로그 분석</strong>: 비인가 계정의 접근 기록이나 숨겨진 파일 검색, 스케줄 서비스에 의한 악성 과업 확인 등
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 침해사고 발생 시 수집해야 할 **휘발성 데이터(Volatile Data)**에 해당하지 않는 요소는?<br>
+(가) 현재 실행 중인 프로세스 및 애플리케이션 목록<br>
+(나) 현재 연결된 네트워크 포트 및 소켓 정보<br>
+(다) 하드디스크의 비활성 영역 파일 시스템 메타데이터<br>
+(라) 시스템 커널 메모리 내 프로세스 정보</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(다)</strong><br>
+(※ 해설: 휘발성 데이터는 전원 차단 시 사라지는 데이터(메모리 정보 등)를 의미하며, 하드디스크에 저장된 메타데이터는 비휘발성 증거에 해당함)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 특정 시점의 시스템 정보(메모리, 파일 시스템 등)를 한 번에 파일이나 이미지 형태로 저장하는 기술을 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>스냅샷 (Snapshot)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 상황에 가장 적절한 침해사고 대응 전략을 서술하시오. "웹 서버에 대규모 분산 서비스 거부(DDoS) 공격이 발생하여 현재 서비스 이용이 불가능한 상태이다."</summary>
+<blockquote>
+<strong>정답:</strong> dDoS 대응 장비의 설정을 변경하여 공격 트래픽을 차단하고, ISP 협업 및 사이버 대피소 전환을 논의하며 수사기관과의 공조를 통해 공격자의 처벌을 위한 증거를 확보한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 디지털 포렌식의 5대 기본 원칙을 모두 기술하고, 그 중 '무결성의 원칙'을 보장하기 위해 일반적으로 사용하는 기술적 수단과 확인 방법을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong><br>
+1. <strong>5대 원칙</strong>: 정당성의 원칙, 재현성의 원칙, 무결성의 원칙, 신속성의 원칙, 연계 보관성(Chain of Custody) 원칙<br>
+2. <strong>무결성 보장 수단</strong>: <strong>해시(Hash) 함수</strong>를 사용하여 최초 수집 시점의 해시값을 산출해 보관하고, 이후 분석 및 제출 단계에서 산출한 해시값과 비교하여 일치 여부를 확인함으로써 위·변조가 없었음을 입증한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 디지털 증거의 수집(획득)부터 이송, 보관, 분석, 법정 제출까지의 각 단계에서 관리 주체와 인수인계 내역을 연속적으로 기록하여 증거의 원본성을 입증하는 원칙은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>연계 보관성 원칙 (Chain of Custody)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 연계 보관성 원칙을 만족시키기 위해 디지털 증거물이 거치는 5가지 주요 단계를 순서대로 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>획득(수집) → 이송(이동) → 보관 → 분석 → 법정 제출</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 윈도우(Windows) 침해사고 조사 시, 휘발성 데이터 수집을 위해 사용하는 내장 명령어 중 다음의 정보를 확인하기 위한 명령어를 각각 기술하시오.<br>
+(A) 시스템의 현재 날짜와 시간 확인<br>
+(B) 현재 열린 포트와 연결된 서비스(PID 포함) 확인<br>
+(C) 실행 중인 프로세스 목록 및 상세 정보 확인<br>
+(D) 외부에서 현재 시스템으로 연결된 세션 정보 확인</summary>
+<blockquote>
+<strong>정답:</strong><br>
+(A): <strong>date /t</strong> 및 <strong>time /t</strong><br>
+(B): <strong>netstat -anob</strong><br>
+(C): <strong>tasklist /v</strong><br>
+(D): <strong>net session</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 범죄학자 에드몽 로카르드가 정의한 원칙으로, "접촉하는 두 물체 간에는 반드시 흔적이 남는다"는 이론은 무엇인가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>로카르드의 교환 법칙</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 사진, 동영상, 음악 파일 등 정상적인 미디어 파일 내에 비밀 정보를 은닉하여 감추는 안티 포렌식 기술의 명칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>스테가노그래피 (Steganography)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 하드디스크에 저장된 데이터를 0, 1 또는 무작위 값으로 여러 번 덮어씌워 소프트웨어적으로 복구를 불가능하게 만드는 기법은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>디스크 와이핑 (Disk Wiping)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 디스크에 강력한 자기장을 가하여 데이터를 물리적으로 파괴함으로써 재사용조차 불가능하게 만드는 안티 포렌식 방식은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>디스크 디가우징 (Disk Degaussing)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 디지털 증거 수집 방법에 대한 설명으로 올바르지 않은 것은?<br>
+(가) <strong>이미징(Imaging)</strong>은 원본 저장 매체의 데이터를 파일 형태의 이미지로 생성하는 것이다.<br>
+(나) <strong>복제(Cloning)</strong>는 동일한 용량이나 특성을 가진 다른 저장 매체에 원본과 똑같이 복제하는 것이다.<br>
+(다) <strong>복사(Copy)</strong>는 윈도우 탐색기 등을 활용하는 방식으로, 삭제된 파일이나 비할당 영역까지 완벽하게 수집할 수 있어 가장 권장된다.<br>
+(라) 모든 수집 과정에서는 무결성 입증을 위한 해시 생성 절차가 수반되어야 한다.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(다)</strong><br>
+(※ 해설: 단순 복사 방식은 삭제된 파일, 슬랙 공간(Slack Space), 파일 시스템의 메타데이터 등을 수집할 수 없으므로 법적 증거 수집 시에는 권장되지 않으며 이미징 또는 복제 방식을 사용해야 한다.)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 디지털 포렌식 5단계 절차 중, 현장의 디지털 기기로부터 무결성을 보장하며 증거를 획득하는 단계의 명칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>증거 수집 (Acquisition)</strong>
+</blockquote>
+</details>
+
 
 <details>
 <summary>(서술형) 디지털 포렌식(Digital Forensics)의 '연계 보관성(Chain of Custody) 원칙'에 대해 설명하고, 이를 보장하기 위해 증거물 획득 단계에서 수행해야 할 조치를 서술하시오.</summary>
@@ -887,11 +1441,199 @@ BCP (Business Continuity Plan, 업무 연속성 계획)
 </blockquote>
 </details>
 
-### 공통평가기준(CC: Common Criteria)
+<details>
+<summary>(단답형) 미국(TCSEC)과 유럽(ITSEC)의 보안성 평가 기준을 통합하여 ISO/IEC 15408로 제정된 국제 표준 평가 기준의 명칭(약어 포함)은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>공통평가기준 (CC: Common Criteria)</strong>
+</blockquote>
+</details>
 
-### 사회공학 기법
+<details>
+<summary>(단답형) CC 인증 과정에서 보안성 평가의 범위가 되는 정보시스템이나 특정 정보기술(IT) 제품을 지칭하는 용어와 약어를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>평가 대상 (TOE: Target of Evaluation)</strong>
+</blockquote>
+</details>
 
-### 정보보호 및 개인정보보호 관리체계(ISMS-P) 인증
+<details>
+<summary>(단답형) 특정 제품의 구현과는 독립적으로 정의되며, 사용자 그룹이 해당 유형의 제품에 대해 요구하는 보안 기능 요구사항을 기술한 문서는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>보호 프로파일 (PP: Protection Profile)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 특정 회사의 구체적인 제품의 보안 기능 요구사항과 구현 내용을 상세히 기술하며, 실제 제품 평가의 근거가 되는 문서는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>보안 목표 명세서 (ST: Security Target)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) CC 인증의 구성 요소인 **PP(Protection Profile)**와 **ST(Security Target)**의 결정적인 차이점을 '구현 종속성' 관점에서 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>PP</strong>는 특정 구현 기술이나 설계에 종속되지 않는 범용적인 요구사항을 기술하는 반면, <strong>ST</strong>는 실제 특정 제품의 구현 내용에 종속되어 있으며 평가의 기준 데이터로 직접 사용된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) CC에서 정의하는 제품의 신뢰성 보증 수준을 나타내는 척도의 명칭과, 가장 보증 수준이 높은 최고 등급 단계를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>평가 보증 등급 (EAL: Evaluation Assurance Level)</strong>, <strong>EAL 7</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) **평가 보증 등급(EAL)**이 높아짐에 따라 평가 과정에서 나타나는 변화를 평가 노력의 3가지 요소(범위, 상세도, 엄격성) 관점에서 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 등급이 높아질수록 평권의 <strong>범위</strong>가 넓어지고, 개발 프로세스나 분석의 <strong>상세도</strong>가 깊어지며, 검증 및 평가 기법의 <strong>엄격성</strong>이 한층 강화되어 더 높은 신뢰성을 보장하게 된다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 중 CC 인증 구성 요소에 대한 설명으로 올바르지 않은 것은?<br>
+(가) TOE는 인증 신청 기관이 평가받고자 하는 보안 기능의 범위를 지정할 수 있다.<br>
+(나) 한 제품은 여러 개의 보호 프로파일(PP)을 준수하도록 개발되어 인증받을 수 있다.<br>
+(다) EAL 1은 최저 등급이며 EAL 7은 수학적으로 증명된 가장 엄격한 보증 수준이다.<br>
+(라) ST는 PP와 무관하게 작성되어야 하며, PP를 준수할 의무는 없다.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>(라)</strong><br>
+(※ 해설: ST는 해당 제품 유형의 PP를 준수하여 작성될 수 있으며, 실제 인증 시 해당 PP의 준수 여부를 함께 평가받는 것이 일반적이다.)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 사람 사이의 신뢰 관계를 이용하거나 심리적 취약점을 속여 보안 정보를 탈취하는 비기술적인 공격 방법의 명칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>사회공학 (Social Engineering) 기법</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 사회공학 기법 중 '인간 기반 공격(Human-based Attack)'에 해당하는 구체적인 수법 3가지 이상 나열하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>직접적 접근(지위 가장), 도청/엿듣기, 쓰레기통 뒤지기, 어깨 너머로 훔쳐보기(Shoulder Surfing)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 개인정보(Private Data)와 낚시(Fishing)의 합성어로, 신뢰할 만한 발신자로 위장한 이메일을 도구로 사용하여 가짜 사이트(피싱 사이트) 접속을 유도하는 수법은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>피싱 (Phishing)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) SMS(단문 메시지)와 피싱(Phishing)의 합성어로, 휴대전화 문자 메시지를 이용해 청첩장, 쿠폰 발송 등으로 위장한 링크 클릭을 유도하여 정보를 탈취하는 수법은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>스미싱 (Smishing)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 사용자가 정상적인 URL 주소를 직접 입력하여 접속하더라도, hosts 파일 변조나 DNS 스푸핑 등을 통해 자동으로 가짜 사이트로 이동되게 하여 정보를 탈취하는 고도의 사기 수법은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>파밍 (Pharming)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) **피싱(Phishing)**과 **파밍(Pharming)**의 결정적인 차이점을 '사용자의 접속 유도 방식'과 '주요 공격 기술' 관점에서 비교 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>피싱</strong>은 주로 발송된 이메일 내의 가짜 링크를 클릭하도록 사람을 직접 속이는 방식이지만, <strong>파밍</strong>은 사용자가 정식 주소를 입력하더라도 시스템의 <strong>hosts 파일</strong>이나 <strong>네트워크(DNS)</strong>를 기술적으로 조작하여 자동으로 가짜 사이트로 연결한다는 점이 다르다.
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) 다음 상황이 설명하는 인간 기반 사회공학 공격의 명칭을 무엇이라 하는가? "공격자가 청소 업체 직원으로 위장하여 중요한 암호화 키나 메모가 적힌 폐기물을 찾기 위해 회사의 전산실 폐기물 박스를 조사함"</summary>
+<blockquote>
+<strong>정답:</strong> <strong>쓰레기통 뒤지기 (Dumpster Diving)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 사회공학 기법이 기계적·시스템적인 보안 솔루션(방화벽, IDS 등)만으로는 방어하기 어려운 이유를 보안의 '주체' 관점에서 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 사회공학 기법은 시스템의 기술적 취약점이 아니라 보안 체계의 가장 약한 연결 고리인 **'사람(사용자)'의 심리적 취약성**과 **신뢰**를 공격 대상으로 삼기 때문이다. 따라서 기술적 조치와 더불어 지속적인 교육과 구성원의 보안 인식 제고가 필수적이다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 정보보호 및 개인정보보호를 위한 일련의 활동이 인증기준에 적합함을 증명하는 제도인 'ISMS-P' 인증의 총 인증항목 개수를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>102개</strong> (1영역 16개, 2영역 64개, 3영역 22개)
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) ISO/IEC 27001 등 국제 표준에서 제시하는 정보보호 관리체계의 라이프사이클 모델로, 계획(Plan) → 실행(Do) → 점검(Check) → 개선(Act)의 4단계를 반복 수행하는 모델은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>PDCA 모델</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) ISMS-P의 3개 인증 영역 중, 개인정보의 수집, 보유, 제공, 파기 단계별 요구사항을 다루는 영역의 명칭은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>개인정보 처리 단계별 요구사항 (3영역)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) 정보보호 정책 수립(1.1.5) 항목과 관련하여, 수립된 정책이 조직 내에서 공식적인 효력을 가지기 위해 반드시 수행해야 하는 두 가지 절차를 기술하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 1. <strong>최고경영자(또는 경영진)의 승인</strong> 획득 <br> 2. <strong>임직원 및 관련자에게 공표(전달)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) ISMS-P 기준에서 **정보보호 최고책임자(CISO)** 및 **개인정보 보호책임자(CPO)**를 지정할 때, 실질적인 의사결정권과 자원 할당 능력을 보장하기 위해 요구되는 직급상의 요건을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> 예산, 인력 등 보안 관련 자원을 할당할 수 있는 권한을 가진 <strong>임원급</strong>으로 지정하여야 한다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 위험 관리의 '정보 자산 식별(1.2.1)' 항목에서, 조직의 업무 특성에 따라 자산 분류 기준을 수립하여 기밀성, 무결성, 가용성 측면에서 산출해야 하는 자산 가치 척도는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>중요도</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 위험 관리의 '위험 평가(1.2.3)' 항목에서, 조직의 내·외부 환경 분석을 통해 자산의 취약점을 악용할 수 있는 잠재적 요인을 수집하는 기초 자료는?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>위협 정보</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(작업형) '보호 대책 요구사항(2영역)'을 구성하는 12개 분야 중 5개 이상의 분야를 나열하시오.</summary>
+<blockquote>
+<strong>정답:</strong> (다음 중 5개 선택) <strong>정책/조직/자산관리, 인적보안, 외부자보안, 물리보안, 인증 및 권한관리, 접근통제, 암호화 적용, 정보시스템 도입 및 개발보안, 시스템 및 서비스 운영관리, 시스템 및 서비스 보안관리, 사고 예방 및 대응, 재해복구</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 물리 보안 분야(2.4) 중, 외부 시스템이나 보조 저장 매체 등 허가되지 않은 기기가 보호 구역 내부로 반입되거나 외부로 유출되는 것을 방지하기 위한 통제 항목은?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>반출입 기기 통제 (2.4.6)</strong>
+</blockquote>
+</details>
+
+<details>
+<summary>(서술형) ISMS 인증과 ISMS-P 인증을 신청할 때, 적용받는 인증 기준 영역의 구성적인 차이점을 설명하시오.</summary>
+<blockquote>
+<strong>정답:</strong> <strong>ISMS 인증</strong>은 1영역(관리체계 수립 및 운영)과 2영역(보호 대책 요구사항)의 총 80개 항목을 평가받지만, <strong>ISMS-P 인증</strong>은 여기에 3영역(개인정보 처리 단계별 요구사항) 22개 항목을 추가하여 총 102개 항목에 대해 평가를 받는다.
+</blockquote>
+</details>
+
+<details>
+<summary>(단답형) 위험 관리 과정에서 수용 가능한 목표 위험 수준을 설정할 때, 경영진의 의사결정에 의해 결정되는 목표 위험 수치를 무엇이라 하는가?</summary>
+<blockquote>
+<strong>정답:</strong> <strong>DoA (Degree of Assurance)</strong>
+</blockquote>
+</details>
 
 <details>
 <summary>[기출 12회 9번 문제] (단답형) 정보보호 제품의 보안성을 평가하기 위한 공통 평가 기준(CC, Common Criteria)의 구성요소 3가지를 쓰시오.</summary>
