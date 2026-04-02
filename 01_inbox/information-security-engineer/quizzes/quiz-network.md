@@ -927,27 +927,46 @@ RARP (Reverse Address Resolution Protocol)
 
 <details>
 <summary>(서술형) ARP 캐시(Cache) 테이블의 'Static(정적)' 타입과 'Dynamic(동적)' 타입이 가지는 수명 및 관리적 측면의 차이점을 설명하시오.</summary>
-<blockquote>
-- <strong>Dynamic</strong>: ARP 요청/응답을 통해 자동으로 생성되며, 일정 시간(약 2분 내외) 동안 통신이 없으면 캐시에서 자동 삭제(Aging)된다.<br>
-- <strong>Static</strong>: 관리자가 명령어로 직접 설정하며, 사용자가 삭제하지 않거나 시스템이 종료되기 전까지 시간이 지나도 삭제되지 않고 유지된다. 주로 게이트웨이 등의 주요 장비에 대한 ARP 스푸핑 방어를 위해 사용된다.
-</blockquote>
+> - <strong>Dynamic</strong>: ARP 요청/응답을 통해 자동으로 생성되며, 일정 시간(약 2분 내외) 동안 통신이 없으면 캐시에서 자동 삭제(Aging)된다.<br>
+> - <strong>Static</strong>: 관리자가 명령어로 직접 설정하며, 사용자가 삭제하지 않거나 시스템이 종료되기 전까지 시간이 지나도 삭제되지 않고 유지된다. 주로 게이트웨이 등의 주요 장비에 대한 ARP 스푸핑 방어를 위해 사용된다.
+</details>
+
+<details>
+<summary>(단답형) IP 프로토콜의 비연결성 및 비신뢰성 특성을 보완하기 위해, 전송 중 발생한 오류를 보고하거나 네트워크 상태를 진단할 목적으로 사용되는 캡슐화된 3계층 프로토콜의 명칭을 쓰시오.</summary>
+
+> **ICMP (Internet Control Message Protocol)**
+>
+> ※ **ICMP 메시지 포맷(Header Structure)**
+>
+> ```mermaid
+> graph LR
+>     T["Type<br/>(8 bits)"] --- C["Code<br/>(8 bits)"] --- CS["Checksum<br/>(16 bits)"]
+>     CS --- RH["Rest of Header<br/>(32 bits)"]
+>     RH --- D["Data<br/>(Variable)"]
+>     
+>     style T fill:#f9f,stroke:#333
+>     style C fill:#f9f,stroke:#333
+>     style CS fill:#bbf,stroke:#333
+>     style RH fill:#dfd,stroke:#333
+>     style D fill:#eee,stroke:#333
+> ```
+>
+> - **Type**: 메시지의 종류 (예: 0-Reply, 8-Request, 3-Unreachable 등)
+> - **Code**: 각 유형에 대한 세부 이유 (예: Type 3의 경우 Code 3은 Port Unreachable)
+> - **Rest of Header**: 메시지 유형에 따라 달라지는 필드 (예: Identifier, Sequence Number 등)
 </details>
 
 <details>
 <summary>(서술형) ARP 스푸핑(Spoofing) 공격자가 패킷 가로채기(Sniffing) 성공 후에도 희생자들이 정상적인 통신 상태라고 느끼게 하기 위해 공격자 자신의 시스템에서 반드시 활성화해야 하는 기능의 명칭과 그 사유를 기술하시오.</summary>
-<blockquote>
-- <strong>명칭</strong>: <strong>IP Forwarding (IP 포워딩)</strong><br>
-- <strong>사유</strong>: 공격자가 중간에서 패킷을 가로챈 후 이를 다시 정당한 목적지로 전달해 주어야 세션이 끊기지 않고 정상 통신이 유지된다. 만약 이 기능이 없다면 희생자들 간의 통신이 중단되어 공격 사실이 즉시 노출된다.
-</blockquote>
+> - <strong>명칭</strong>: <strong>IP Forwarding (IP 포워딩)</strong><br>
+> - <strong>사유</strong>: 공격자가 중간에서 패킷을 가로챈 후 이를 다시 정당한 목적지로 전달해 주어야 세션이 끊기지 않고 정상 통신이 유지된다. 만약 이 기능이 없다면 희생자들 간의 통신이 중단되어 공격 사실이 즉시 노출된다.
 </details>
 
 <details>
 <summary>(서술형) GARP(Gratuitous ARP)의 정의와, 네트워크 관리 및 보안성 측면에서 수행하는 핵심 기능 2가지를 작성하시오.</summary>
-<blockquote>
-- <strong>정의</strong>: ARP 패킷의 송신자 IP(Sender IP)와 목적지 IP(Target IP)가 동일하게 설정된 특수한 ARP 요청 패킷이다.<br>
-- <strong>기능 1 (IP 충돌 감지)</strong>: 동일 네트워크 내에 자신과 같은 IP를 사용하는 호스트가 있는지 확인하여 IP 중복 설정을 방지한다.<br>
-- <strong>기능 2 (ARP 캐시 갱신)</strong>: 자신의 MAC 정보가 변경되었을 때 주변 호스트의 ARP 캐시 테이블 정보를 최신 상태로 갱신하도록 방송한다.
-</blockquote>
+> - <strong>정의</strong>: ARP 패킷의 송신자 IP(Sender IP)와 목적지 IP(Target IP)가 동일하게 설정된 특수한 ARP 요청 패킷이다.<br>
+> - <strong>기능 1 (IP 충돌 감지)</strong>: 동일 네트워크 내에 자신과 같은 IP를 사용하는 호스트가 있는지 확인하여 IP 중복 설정을 방지한다.<br>
+> - <strong>기능 2 (ARP 캐시 갱신)</strong>: 자신의 MAC 정보가 변경되었을 때 주변 호스트의 ARP 캐시 테이블 정보를 최신 상태로 갱신하도록 방송한다.
 </details>
 
 <details>
@@ -1501,7 +1520,24 @@ TTL (Time To Live, 생존 시간)
 <details>
 <summary>(단답형) IP 프로토콜의 비연결성 및 비신뢰성 특성을 보완하기 위해, 전송 중 발생한 오류를 보고하거나 네트워크 상태를 진단할 목적으로 사용되는 캡슐화된 3계층 프로토콜의 명칭을 쓰시오.</summary>
 <blockquote>
-<strong>ICMP (Internet Control Message Protocol)</strong>
+<strong>ICMP (Internet Control Message Protocol)</strong><br><br>
+
+※ <strong>ICMP 메시지 포맷(Header Structure)</strong>
+```mermaid
+graph LR
+    T["Type<br/>(8 bits)"] --- C["Code<br/>(8 bits)"] --- CS["Checksum<br/>(16 bits)"]
+    CS --- RH["Rest of Header<br/>(32 bits)"]
+    RH --- D["Data<br/>(Variable)"]
+    
+    style T fill:#f9f,stroke:#333SR
+    style C fill:#f9f,stroke:#333
+    style CS fill:#bbf,stroke:#333
+    style RH fill:#dfd,stroke:#333
+    style D fill:#eee,stroke:#333
+```
+- <strong>Type</strong>: 메시지의 종류 (예: 0-Reply, 8-Request, 3-Unreachable 등)
+- <strong>Code</strong>: 각 유형에 대한 세부 이유 (예: Type 3의 경우 Code 3은 Port Unreachable)
+- <strong>Rest of Header</strong>: 메시지 유형에 따라 달라지는 필드 (예: Identifier, Sequence Number 등)
 </blockquote>
 </details>
 
@@ -2274,7 +2310,51 @@ en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,<strong>PROMISC</strong>,SIMPLEX,M
 </summary>
 <blockquote>
 (A) <strong>-c</strong><br>
-(B) <strong>-l</strong>
+(B) <strong>-l</strong><br><br>
+
+※ <strong>주요 ping 옵션 비교 가이드 (Linux vs Windows)</strong>
+<table style="border-collapse: collapse; width: 100%; border: 1px solid #ddd;">
+  <thead>
+    <tr>
+      <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">기능</th>
+      <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Linux 옵션</th>
+      <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Windows 옵션</th>
+      <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">명칭 (Full Word)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>횟수 제한</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-c</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-n</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>C</strong>ount / <strong>N</strong>umber</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>패킷 크기</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-s</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-l</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>S</strong>ize / <strong>L</strong>ength</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>지속 전송</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;">(기본 동작)</td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-t</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;">- (무한 전송)</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>TTL 설정</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-t</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-i</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>T</strong>TL / <strong>I</strong> (IP TTL)</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>대기 시간</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-W</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-w</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>W</strong>ait / <strong>W</strong>atch timeout</td>
+    </tr>
+  </tbody>
+</table>
 </blockquote>
 </details>
 
