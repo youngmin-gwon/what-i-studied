@@ -2,7 +2,7 @@
 title: quiz-network
 tags: []
 aliases: []
-date modified: 2026-04-02 14:23:34 +09:00
+date modified: 2026-04-02 15:20:36 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -934,9 +934,9 @@ RARP (Reverse Address Resolution Protocol)
 <details>
 <summary>(단답형) IP 프로토콜의 비연결성 및 비신뢰성 특성을 보완하기 위해, 전송 중 발생한 오류를 보고하거나 네트워크 상태를 진단할 목적으로 사용되는 캡슐화된 3계층 프로토콜의 명칭을 쓰시오.</summary>
 
-> **ICMP (Internet Control Message Protocol)**
+>**ICMP (Internet Control Message Protocol)**
 >
-> ※ **ICMP 메시지 포맷(Header Structure)**
+>※ **ICMP 메시지 포맷(Header Structure)**
 >
 > ```mermaid
 > graph LR
@@ -952,7 +952,7 @@ RARP (Reverse Address Resolution Protocol)
 > ```
 >
 > - **Type**: 메시지의 종류 (예: 0-Reply, 8-Request, 3-Unreachable 등)
-> - **Code**: 각 유형에 대한 세부 이유 (예: Type 3의 경우 Code 3은 Port Unreachable)
+> - **Code**: 각 유형에 대한 세부 이유 (예: Type 3 의 경우 Code 3 은 Port Unreachable)
 > - **Rest of Header**: 메시지 유형에 따라 달라지는 필드 (예: Identifier, Sequence Number 등)
 </details>
 
@@ -2155,7 +2155,7 @@ UDP는 데이터를 연속적인 바이트 스트림이 아닌 <strong>독립적
 <blockquote>
 <strong>PROMISC (Promiscuous Mode)</strong><br><br>
 ※ 실행 예시 (Unix-like 계열 공통)<br>
-네트워크 인터페이스의 <code>flags</code> 항목 내 꺾쇠 괄호(<code>&lt;...&gt;</code>) 안에 해당 키워드가 표시됩니다.<br><br>
+네트워크 인터페이스의 <code>flags</code> 항목 내 꺾쇠 괄호(<code>&lt;…&gt;</code>) 안에 해당 키워드가 표시됩니다.<br><br>
 <code>en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,<strong>PROMISC</strong>,SIMPLEX,MULTICAST&gt; mtu 1500</code><br><br>
 - <strong>위치</strong>: 각 인터페이스 정보의 첫 번째 라인인 <code>flags</code> 필드 내부 리스트에서 확인할 수 있습니다.<br>
 - <strong>보안상 의미</strong>: 이 모드가 켜져 있다면 해당 네트워크 카드가 목적지 주소에 상관없이 해당 세그먼트를 지나가는 <strong>모든 패킷을 수집(Sniffing)</strong>하고 있음을 의미하므로, 인가되지 않은 스니퍼 설치 여부를 확인하는 중요한 점검 포인트입니다.
