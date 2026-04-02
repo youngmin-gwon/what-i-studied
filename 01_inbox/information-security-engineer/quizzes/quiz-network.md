@@ -1520,24 +1520,7 @@ TTL (Time To Live, 생존 시간)
 <details>
 <summary>(단답형) IP 프로토콜의 비연결성 및 비신뢰성 특성을 보완하기 위해, 전송 중 발생한 오류를 보고하거나 네트워크 상태를 진단할 목적으로 사용되는 캡슐화된 3계층 프로토콜의 명칭을 쓰시오.</summary>
 <blockquote>
-<strong>ICMP (Internet Control Message Protocol)</strong><br><br>
-
-※ <strong>ICMP 메시지 포맷(Header Structure)</strong>
-```mermaid
-graph LR
-    T["Type<br/>(8 bits)"] --- C["Code<br/>(8 bits)"] --- CS["Checksum<br/>(16 bits)"]
-    CS --- RH["Rest of Header<br/>(32 bits)"]
-    RH --- D["Data<br/>(Variable)"]
-    
-    style T fill:#f9f,stroke:#333SR
-    style C fill:#f9f,stroke:#333
-    style CS fill:#bbf,stroke:#333
-    style RH fill:#dfd,stroke:#333
-    style D fill:#eee,stroke:#333
-```
-- <strong>Type</strong>: 메시지의 종류 (예: 0-Reply, 8-Request, 3-Unreachable 등)
-- <strong>Code</strong>: 각 유형에 대한 세부 이유 (예: Type 3의 경우 Code 3은 Port Unreachable)
-- <strong>Rest of Header</strong>: 메시지 유형에 따라 달라지는 필드 (예: Identifier, Sequence Number 등)
+ICMP (Internet Control Message Protocol)
 </blockquote>
 </details>
 
@@ -1582,54 +1565,16 @@ graph LR
 </details>
 
 <details>
-<summary>(작업형) 다음 Wireshark 패킷 분석 중, <code>ping</code> 도구가 정상적으로 동작할 때 확인되는 요청 및 응답 패킷의 ICMP 유형(Type) 번호를 쓰시오.<br>
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-(A) Echo Request: ( A )<br>
-(B) Echo Reply: ( B )
-</div>
-</summary>
+<summary>(작업형) <code>ping</code> 정상 동작 시 (A)Echo Request 및 (B)Echo Reply의 ICMP 유형 번호를 쓰시오.</summary>
 <blockquote>
-(A) <strong>8</strong><br>
-(B) <strong>0</strong><br><br>
+(A) 8<br>(B) 0<br><br>
+※ 주요 ICMP 메시지 유형(Type) 요약<br>
+- 0 (Echo Reply): Echo 요청에 대한 응답 (ping 응답 시 확인)<br>
+- 3 (Destination Unreachable): 목적지 도달 불가 (포트 닫힘 등)<br>
+- 5 (Redirect): 최적의 경로로 라우팅 정보 갱신 요청<br>
+- 8 (Echo Request): 상대방 활성화 여부 확인 (ping 요청)<br>
+- 11 (Time Exceeded): TTL 값이 0이 되어 패킷이 폐기된 경우
 
-※ <strong>주요 ICMP 메시지 유형(Type) 요약</strong>
-
-<table border="1" style="border-collapse: collapse; width: 100%;">
-  <thead>
-    <tr>
-      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">유형(Type)</th>
-      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">메시지 명칭</th>
-      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">설명</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 8px;"><strong>0</strong></td>
-      <td style="padding: 8px;"><strong>Echo Reply</strong></td>
-      <td style="padding: 8px;">Echo 요청에 대한 응답 (ping 응답 시 확인)</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>3</strong></td>
-      <td style="padding: 8px;"><strong>Destination Unreachable</strong></td>
-      <td style="padding: 8px;">목적지에 도달할 수 없는 경우 (포트 닫힘 등)</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>5</strong></td>
-      <td style="padding: 8px;"><strong>Redirect</strong></td>
-      <td style="padding: 8px;">최적의 경로로 라우팅 정보를 갱신하도록 요청</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>8</strong></td>
-      <td style="padding: 8px;"><strong>Echo Request</strong></td>
-      <td style="padding: 8px;">상대방의 활성화 여부를 확인 (ping 시 전송)</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>11</strong></td>
-      <td style="padding: 8px;"><strong>Time Exceeded</strong></td>
-      <td style="padding: 8px;">TTL 값이 0이 되어 패킷이 폐기된 경우</td>
-    </tr>
-  </tbody>
-</table>
 </blockquote>
 </details>
 
