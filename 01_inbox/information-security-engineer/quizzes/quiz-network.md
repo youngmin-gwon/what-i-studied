@@ -2,7 +2,7 @@
 title: quiz-network
 tags: []
 aliases: []
-date modified: 2026-04-02 13:58:56 +09:00
+date modified: 2026-04-02 14:02:34 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -5028,9 +5028,6 @@ B) <code>telnet 192.168.0.2 21</code> -> <code>Connected: 220 (vsFTPd 3.0.3)</co
 <strong>대응 방안</strong>: 연결 유지 시간(TimeOut) 설정을 합리적으로 단축하거나, IP당 동시 접속자 수를 제한(LimitConn)하며, 가급적 전단에 공격 차단 솔루션(IPS/WAF)을 배치한다.
 </blockquote>
 </details>
-<blockquote>
-<strong>원리</strong>: 서버가 SYN 패킷을 받았을 때 바로 가용 자원(TCB)을 할당하지 않고, 출발지/목적지 정보 등을 해시값으로 계산하여 SYN+ACK의 <strong>초기 시퀀스 번호(ISN)</strong>에 실어 보낸다. 정상적인 클라이언트라면 이 값에 1을 더한 ACK 응답을 보낼 것이고, 서버는 이 응답의 정당성을 확인한 후에만 비로소 세션을 위한 자원을 할당한다. 이를 통해 Backlog Queue가 가득 차는 것을 방지한다.
-</blockquote>
 
 <details>
 <summary>(작업형) 리눅스 서버에서 현재 시스템이 <strong>TCP SYN Flooding</strong> 공격을 받고 있는지 여부를 `netstat` 명령어를 통해 확인하고자 한다. 이때 출력 결과에서 비정상적으로 많이 발견되는 연결 상태(State)는 무엇인가?</summary>
@@ -5108,8 +5105,11 @@ B) <code>telnet 192.168.0.2 21</code> -> <code>Connected: 220 (vsFTPd 3.0.3)</co
 
 <details>
 <summary>366. (작업형) 리눅스 및 유닉스(Solaris) 계열 서버에서 다음 공격에 대응하기 위한 <strong>커널 파라미터</strong> 설정값을 기술하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 (A) <strong>스머프(Smurf) 공격</strong> 방어 (리눅스 기준)<br>
-(B) <strong>TCP SYN Flooding</strong> 공격 대응 (Backlog Queue 확대 - 리눅스 기준)</summary>
+(B) <strong>TCP SYN Flooding</strong> 공격 대응 (Backlog Queue 확대 - 리눅스 기준)
+</div>
+</summary>
 <blockquote>
 <strong>정답:</strong><br>
 (A) <code>net.ipv4.icmp_echo_ignore_broadcasts = 1</code> (브로드캐스트로 전송된 ICMP Echo Request 무시)<br>
@@ -5127,8 +5127,11 @@ B) <code>telnet 192.168.0.2 21</code> -> <code>Connected: 220 (vsFTPd 3.0.3)</co
 
 <details>
 <summary>(단답형) 다음은 유닉스(Solaris) 환경에서 네트워크 보안 설정을 위해 사용하는 명령어이다. 빈칸을 채우시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - <strong>( A )</strong> -set /dev/ip ip_forward_src_routed 0<br>
-- <strong>( A )</strong> -set /dev/tcp tcp_conn_req_max_q0 1024</summary>
+- <strong>( A )</strong> -set /dev/tcp tcp_conn_req_max_q0 1024
+</div>
+</summary>
 <blockquote>
 <strong>정답:</strong> (A) <code>ndd</code>
 </blockquote>
@@ -5172,8 +5175,11 @@ B) <code>telnet 192.168.0.2 21</code> -> <code>Connected: 220 (vsFTPd 3.0.3)</co
 
 <details>
 <summary>333. (작업형) 네트워크 인터페이스 카드(NIC)의 기본 동작 방식과 보안 관련 설정에 대한 설명이다. 빈칸을 채우시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 - <strong>( A ) 모드</strong>: 수신한 패킷의 목적지 주소가 자신의 주소가 아니더라도 모두 수용하여 분석할 수 있게 하는 NIC의 동작 모드이다.<br>
-- 스위치 환경에서 스니핑을 막기 위해 허브 대신 스위치를 사용하는데, 이는 스위치가 <strong>( B )</strong> 테이블을 참조하여 목적지에 해당하는 포트로만 패킷을 전달하기 때문이다.</summary>
+- 스위치 환경에서 스니핑을 막기 위해 허브 대신 스위치를 사용하는데, 이는 스위치가 <strong>( B )</strong> 테이블을 참조하여 목적지에 해당하는 포트로만 패킷을 전달하기 때문이다.
+</div>
+</summary>
 <blockquote>
 <strong>정답:</strong> (A) 무차별(Promiscuous) (B) MAC Address (주소)
 </blockquote>
@@ -5197,9 +5203,12 @@ B) <code>telnet 192.168.0.2 21</code> -> <code>Connected: 220 (vsFTPd 3.0.3)</co
 
 <details>
 <summary>408. (작업형) 다음 **WPA/WPA2** 무선 랜 보안성 점검 시 사용하는 단계별 명칭과 주요 목적을 쓰시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 1) <code>airodump-ng -c 3 --bssid …</code>: <strong>( A )</strong><br>
 2) <code>aireplay-ng -0 1 -a … -c …</code>: <strong>( B )</strong><br>
-3) <code>aircrack-ng -w pw.lst -b … *.cap</code>: <strong>( C )</strong></summary>
+3) <code>aircrack-ng -w pw.lst -b … *.cap</code>: <strong>( C )</strong>
+</div>
+</summary>
 <blockquote>
 <strong>정답:</strong><br>
 (A) <strong>무선 트래픽 캡처 (스캐닝)</strong>: 특정 채널과 AP의 트래픽을 모니터링하고 4-way handshake 패킷을 수집하기 위해 필요함<br>
@@ -5210,9 +5219,12 @@ B) <code>telnet 192.168.0.2 21</code> -> <code>Connected: 220 (vsFTPd 3.0.3)</co
 
 <details>
 <summary>409. (작업형) 시스코(CISCO) 라우터에서 패스워드 보안 수준을 높이기 위해 사용하는 다음 설정 명령어들의 차이점을 설명하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 (A) <code>enable password [비밀번호]</code><br>
 (B) <code>enable secret [비밀번호]</code><br>
-(C) <code>service password-encryption</code></summary>
+(C) <code>service password-encryption</code>
+</div>
+</summary>
 <blockquote>
 <strong>정답:</strong><br>
 (A) <code>enable password</code>: 예전 방식으로, <code>service password-encryption</code> 미사용 시 설정 파일(Running-config)에 평문으로 저장되며 보안에 취약하다.<br>
@@ -5223,9 +5235,12 @@ B) <code>telnet 192.168.0.2 21</code> -> <code>Connected: 220 (vsFTPd 3.0.3)</co
 
 <details>
 <summary>410. (작업형/분석) 시스코 라우터에서 다음과 같은 보안 정책을 구현하기 위한 **Extended Access Control List (110번)**를 작성하시오.<br>
+<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
 1) 192.168.1.0/24 네트워크에서 오는 Telnet 접근 허용<br>
 2) 192.168.2.5에서 오는 UDP 100~150번 포트 트래픽 허용<br>
-3) 위 조건 외 모든 접근 차단</summary>
+3) 위 조건 외 모든 접근 차단
+</div>
+</summary>
 <blockquote>
 <strong>정답:</strong><br>
 <code>access-list 110 permit tcp 192.168.1.0 0.0.0.255 any eq 23</code><br>
