@@ -2221,15 +2221,15 @@ UDP는 데이터를 연속적인 바이트 스트림이 아닌 <strong>독립적
 </details>
 
 <details>
-<summary>(작업형) 리눅스에서 특정 네트워크 인터페이스(eth0)의 프롬스큐어스 모드를 설정 및 해제하는 명령어를 완성하시오.<br>
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px;">
-(1) eth0에 프롬스큐어스 모드 설정: <code>ifconfig eth0 ( A )</code><br>
-(2) eth0의 프롬스큐어스 모드 해제: <code>ifconfig eth0 ( B )</code>
-</div>
-</summary>
+<summary>(작업형) 리눅스에서 특정 네트워크 인터페이스(eth0)의 프롬스큐어스 모드를 설정 및 해제하는 옵션은?</summary>
 <blockquote>
-(A) <strong>promisc</strong><br>
-(B) <strong>-promisc</strong>
+(A) <strong>promisc</strong> (설정) / <strong>-promisc</strong> (해제)<br><br>
+※ <strong>주요 도구별 프롬스큐어스 모드 설정 명령어 (Linux 기준)</strong><br>
+- <strong>Classic (ifconfig)</strong>: <code>ifconfig eth0 promisc</code> / <code>-promisc</code><br>
+- <strong>Modern (ip command)</strong>: <code>ip link set eth0 promisc on</code> / <code>off</code><br><br>
+※ <strong>운영체제별 실제 동작 차이</strong><br>
+- <strong>Linux (시험 환경)</strong>: 위 명령어가 표준이며 <code>sudo</code>와 함께 사용하여 즉시 설정이 가능합니다.<br>
+- <strong>macOS</strong>: BSD 기반의 <code>ifconfig</code>를 사용하지만, 버전이나 환경에 따라 <code>promisc</code> 옵션을 명령행 인자(Argument)로 직접 지원하지 않아 <code>bad value</code> 에러가 발생할 수 있습니다. macOS에서는 주로 <code>tcpdump</code>나 <code>Wireshark</code> 같은 스니핑 도구가 실행될 때 시스템 내부적으로 활성화되는 방식이 일반적입니다.
 </blockquote>
 </details>
 
