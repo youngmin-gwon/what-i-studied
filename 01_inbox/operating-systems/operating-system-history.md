@@ -2,7 +2,7 @@
 title: operating-system-history
 tags: [history, linux, ms-dos, operating-systems, unix, windows]
 aliases: [OS 역사, 운영체제 발전, 운영체제 역사]
-date modified: 2026-01-13 00:07:13 +09:00
+date modified: 2026-03-24 22:23:22 +09:00
 date created: 2026-01-12 23:12:00 +09:00
 ---
 
@@ -148,6 +148,7 @@ graph TB
 ```
 
 **NT 커널 특징**:
+
 - 선점형 멀티태스킹
 - 메모리 보호
 - 하드웨어 추상화 계층 (HAL)
