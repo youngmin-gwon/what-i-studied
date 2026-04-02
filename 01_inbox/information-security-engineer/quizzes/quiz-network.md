@@ -2154,16 +2154,11 @@ UDP는 데이터를 연속적인 바이트 스트림이 아닌 <strong>독립적
 <summary>(단답형) 리눅스의 <code>ifconfig</code> 실행 결과에서 네트워크 인터페이스가 목적지 주소와 상관없이 통과하는 모든 패킷을 수신할 수 있는 스니핑 모드로 동작 중임을 나타내는 상태 표시어는?</summary>
 <blockquote>
 <strong>PROMISC (Promiscuous Mode)</strong><br><br>
-
-※ <strong>실행 예시 (Unix-like 계열 공통)</strong><br>
-네트워크 인터페이스의 <code>flags</code> 항목 내 꺾쇠 괄호(<code>&lt;...&gt;</code>) 안에 해당 키워드가 표시됩니다.
-<div style="border: 1px solid #777; padding: 10px; margin-top: 10px; border-radius: 5px; font-family: monospace;">
-en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,<strong>PROMISC</strong>,SIMPLEX,MULTICAST&gt; mtu 1500
-</div>
-<ul style="margin-top: 15px; padding-left: 20px;">
-  <li style="margin-bottom: 5px;"><strong>위치</strong>: 각 인터페이스 정보의 첫 번째 라인인 <code>flags</code> 필드 내부 리스트에서 확인할 수 있습니다.</li>
-  <li style="margin-bottom: 5px;"><strong>보안상 의미</strong>: 이 모드가 켜져 있다면 해당 네트워크 카드가 목적지 주소에 상관없이 해당 세그먼트를 지나가는 <strong>모든 패킷을 수집(Sniffing)</strong>하고 있음을 의미하므로, 인가되지 않은 스니퍼 설치 여부를 확인하는 중요한 점검 포인트입니다.</li>
-</ul>
+※ 실행 예시 (Unix-like 계열 공통)<br>
+네트워크 인터페이스의 <code>flags</code> 항목 내 꺾쇠 괄호(<code>&lt;...&gt;</code>) 안에 해당 키워드가 표시됩니다.<br><br>
+<code>en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,<strong>PROMISC</strong>,SIMPLEX,MULTICAST&gt; mtu 1500</code><br><br>
+- <strong>위치</strong>: 각 인터페이스 정보의 첫 번째 라인인 <code>flags</code> 필드 내부 리스트에서 확인할 수 있습니다.<br>
+- <strong>보안상 의미</strong>: 이 모드가 켜져 있다면 해당 네트워크 카드가 목적지 주소에 상관없이 해당 세그먼트를 지나가는 <strong>모든 패킷을 수집(Sniffing)</strong>하고 있음을 의미하므로, 인가되지 않은 스니퍼 설치 여부를 확인하는 중요한 점검 포인트입니다.
 </blockquote>
 </details>
 
@@ -2171,54 +2166,14 @@ en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,<strong>PROMISC</strong>,SIMPLEX,M
 <summary>(단답형) 리눅스 시스템에서 현재 활성화된 TCP 소켓뿐만 아니라 대기(LISTEN) 중인 모든 포트 정보를 조회하며, 해당 소켓을 점유하고 있는 프로세스(PID) 정보까지 조회하는 <code>netstat</code> 옵션 조합은?</summary>
 <blockquote>
 <strong>netstat -antp (또는 -atp)</strong><br><br>
-
-※ <strong>주요 옵션 요약 가이드</strong>
-<table border="1" style="border-collapse: collapse; width: 100%;">
-  <thead>
-    <tr>
-      <th style="padding: 8px; text-align: left; width: 15%;">옵션</th>
-      <th style="padding: 8px; text-align: left; width: 25%;">명칭 (Full Word)</th>
-      <th style="padding: 8px; text-align: left;">기능 설명</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 8px;"><strong>-a</strong></td>
-      <td style="padding: 8px;"><strong>All</strong></td>
-      <td style="padding: 8px;">연결된 소켓뿐만 아니라 <strong>대기(Listening) 중인 소켓까지 모든 소켓</strong> 정보를 보여줍니다.</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>-n</strong></td>
-      <td style="padding: 8px;"><strong>Numeric</strong></td>
-      <td style="padding: 8px;">주소 및 포트 번호를 이름(Hostname/Service)이 아닌 <strong>숫자 형식</strong>으로 표시합니다. (DNS 해석을 하지 않아 속도가 빠릅니다)</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>-t</strong></td>
-      <td style="padding: 8px;"><strong>TCP</strong></td>
-      <td style="padding: 8px;"><strong>TCP 프로토콜</strong> 소켓 정보만 출력합니다.</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>-u</strong></td>
-      <td style="padding: 8px;"><strong>UDP</strong></td>
-      <td style="padding: 8px;"><strong>UDP 프로토콜</strong> 소켓 정보만 출력합니다.</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>-p</strong></td>
-      <td style="padding: 8px;"><strong>Programs / PID</strong></td>
-      <td style="padding: 8px;">해당 소켓을 사용하는 <strong>프로세스의 PID 및 프로그램 명칭</strong>을 함께 표시합니다. (관리자 권한 필요)</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>-l</strong></td>
-      <td style="padding: 8px;"><strong>Listening</strong></td>
-      <td style="padding: 8px;"><strong>대기(Listening) 상태</strong>인 포트 정보만 출력합니다.</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>-r</strong></td>
-      <td style="padding: 8px;"><strong>Routing</strong></td>
-      <td style="padding: 8px;">시스템의 <strong>라우팅 테이블</strong> 정보를 보여줍니다.</td>
-    </tr>
-  </tbody>
-</table>
+※ 주요 옵션 요약 가이드 (Full Word)<br>
+- <strong>-a (All)</strong>: 연결된 소켓뿐만 아니라 대기(Listening) 중인 소켓까지 모든 소켓 정보 출력<br>
+- <strong>-n (Numeric)</strong>: 주소 및 포트를 이름이 아닌 숫자 형식으로 표시 (DNS 미해석으로 빠름)<br>
+- <strong>-t (TCP)</strong>: TCP 프로토콜 소켓 정보만 출력<br>
+- <strong>-u (UDP)</strong>: UDP 프로토콜 소켓 정보만 출력<br>
+- <strong>-p (Programs/PID)</strong>: 소켓을 사용하는 프로세스의 PID 및 프로그램 명칭 표시 (관리자 권한)<br>
+- <strong>-l (Listening)</strong>: 대기(Listening) 상태인 포트 정보만 출력<br>
+- <strong>-r (Routing)</strong>: 시스템의 라우팅 테이블 정보 출력
 </blockquote>
 </details>
 
@@ -2254,52 +2209,14 @@ en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,<strong>PROMISC</strong>,SIMPLEX,M
 </div>
 </summary>
 <blockquote>
-(A) <strong>-c</strong><br>
-(B) <strong>-l</strong><br><br>
-
-※ <strong>주요 ping 옵션 비교 가이드 (Linux vs Windows)</strong>
-<table style="border-collapse: collapse; width: 100%; border: 1px solid #ddd;">
-  <thead>
-    <tr>
-      <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">기능</th>
-      <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Linux 옵션</th>
-      <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Windows 옵션</th>
-      <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">명칭 (Full Word)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>횟수 제한</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-c</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-n</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>C</strong>ount / <strong>N</strong>umber</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>패킷 크기</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-s</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-l</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>S</strong>ize / <strong>L</strong>ength</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>지속 전송</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;">(기본 동작)</td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-t</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;">- (무한 전송)</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>TTL 설정</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-t</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-i</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>T</strong>TL / <strong>I</strong> (IP TTL)</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>대기 시간</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-W</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>-w</strong></td>
-      <td style="padding: 8px; border: 1px solid #ddd;"><strong>W</strong>ait / <strong>W</strong>atch timeout</td>
-    </tr>
-  </tbody>
-</table>
+(A) <strong>-c</strong> (Linux: Count)<br>
+(B) <strong>-l</strong> (Windows: Length)<br><br>
+※ 주요 ping 옵션 비교 가이드 (Linux vs Windows)<br>
+- <strong>횟수 제한</strong>: Linux <strong>-c</strong> (Count) / Windows <strong>-n</strong> (Number)<br>
+- <strong>패킷 크기</strong>: Linux <strong>-s</strong> (Size) / Windows <strong>-l</strong> (Length)<br>
+- <strong>지속 전송</strong>: Linux (기본 동작) / Windows <strong>-t</strong> (Infinite)<br>
+- <strong>TTL 설정</strong>: Linux <strong>-t</strong> (TTL) / Windows <strong>-i</strong> (IP TTL)<br>
+- <strong>대기 시간</strong>: Linux <strong>-W</strong> (Wait) / Windows <strong>-w</strong> (Watch timeout)
 </blockquote>
 </details>
 
