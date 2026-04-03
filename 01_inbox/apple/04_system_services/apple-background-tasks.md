@@ -1,18 +1,19 @@
 ---
 title: apple-background-tasks
-tags: [apple, background, ios, system, multitasking, battery]
+tags: [apple, background, battery, ios, multitasking, system]
 aliases: []
-date modified: 2025-12-17 21:20:00 +09:00
+date modified: 2026-04-03 18:55:41 +09:00
 date created: 2025-12-16 16:50:00 +09:00
 ---
 
 ## Background Tasks Deep Dive
 
-iOS의 앱 생명주기는 데스크톱이나 안드로이드와 다릅니다.
+iOS 의 앱 생명주기는 데스크톱이나 안드로이드와 다릅니다.
+
 홈 화면으로 나가는 순간 앱은 **얼음(Suspended)**이 됩니다. 이를 깨고 작업을 수행하려면 시스템의 허락(Budget)이 필요합니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
-- **배터리 수명**: 사용자가 가장 민감해하는 부분입니다. 백그라운드에서 CPU를 계속 쓰면 폰이 뜨거워지고 배터리가 광탈합니다. Apple이 백그라운드 정책을 엄격하게 잡는 이유입니다.
+- **배터리 수명**: 사용자가 가장 민감해하는 부분입니다. 백그라운드에서 CPU 를 계속 쓰면 폰이 뜨거워지고 배터리가 광탈합니다. Apple 이 백그라운드 정책을 엄격하게 잡는 이유입니다.
 - **예측 불가성**: "왜 내 앱은 백그라운드 작업이 안 돌죠?" -> 시스템이 판단하기에 사용자가 이 앱을 잘 안 쓰거나, 배터리가 부족하면 실행 기회를 주지 않기 때문입니다.
 - **Jetsam**: 메모리가 부족하면 백그라운드 앱부터 죽입니다. 작업을 하다가 갑자기 죽을 수 있음을 방어적으로 코딩해야 합니다.
 
@@ -24,21 +25,22 @@ Capability 탭에서 설정하는 전통적인 방식들입니다. 엄격한 심
 
 | 모드 | 용도 | 특징 |
 |------|------|------|
-| **Audio** | 음악 재생, PiP | 계속 실행됩니다. 단, 소리가 멈추면(일시정지) 10초 뒤 suspend 될 수 있습니다. |
-| **Location** | 내비게이션, 트래킹 | 배터리 소모가 큽니다. `allowsBackgroundLocationUpdates`가 꺼져있으면 백그라운드 진입 시 위치 업데이트가 멈춥니다. |
-| **VoIP** | 인터넷 전화 | `PushKit` 사용. 전화가 오면 앱을 깨웁니다. 일반 푸시와 달리 **반드시** CallKit UI를 띄워야 합니다 (악용 방지). |
+| **Audio** | 음악 재생, PiP | 계속 실행됩니다. 단, 소리가 멈추면(일시정지) 10 초 뒤 suspend 될 수 있습니다. |
+| **Location** | 내비게이션, 트래킹 | 배터리 소모가 큽니다. `allowsBackgroundLocationUpdates` 가 꺼져있으면 백그라운드 진입 시 위치 업데이트가 멈춥니다. |
+| **VoIP** | 인터넷 전화 | `PushKit` 사용. 전화가 오면 앱을 깨웁니다. 일반 푸시와 달리 **반드시** CallKit UI 를 띄워야 합니다 (악용 방지). |
 | **Remote Notification** | Silent Push | 사용자에게 알리지 않고 데이터를 갱신합니다. 시간당 전송 횟수 제한(Throttling)이 있습니다. |
 
 ---
 
 ### 🆕 BGTaskScheduler (Modern Background Tasks)
 
-iOS 13+부터 권장되는 "예약(Schedule)" 방식입니다.
+iOS 13+ 부터 권장되는 "예약(Schedule)" 방식입니다.
+
 "지금 당장 실행해줘"가 아니라, "**이따가 충전 중이고 와이파이 연결되면** 실행해줘"라고 시스템에 부탁하는 것입니다.
 
 #### 1. BGAppRefreshTask (짧은 작업)
 - **목적**: 사용자가 앱을 켰을 때 최신 정보를 보여주기 위함 (스냅샷 갱신).
-- **제약**: 약 30초의 실행 시간.
+- **제약**: 약 30 초의 실행 시간.
 - **빈도**: 사용 패턴 머신러닝에 따라 다름. 자주 쓰는 앱일수록 자주 실행됨.
 
 #### 2. BGProcessingTask (긴 작업)
@@ -48,7 +50,7 @@ iOS 13+부터 권장되는 "예약(Schedule)" 방식입니다.
 
 #### 구현 패턴 (Best Practices)
 
-1. **Info.plist 등록**: `BGTaskSchedulerPermittedIdentifiers`에 태스크 ID를 추가해야 합니다.
+1. **Info.plist 등록**: `BGTaskSchedulerPermittedIdentifiers` 에 태스크 ID 를 추가해야 합니다.
 2. **등록 (Register)**: `application(_:didFinishLaunchingWithOptions:)` 시점에 **반드시** 등록해야 합니다. 앱이 백그라운드에서 깨어날 때, 이 등록 정보를 보고 핸들러를 찾기 때문입니다.
 
 ```swift
@@ -99,4 +101,4 @@ func handleProcessingTask(task: BGProcessingTask) {
 
 ### 더 보기
 - [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - 앱이 백그라운드로 가는 시점
-- [apple-networking-and-cloud](../03_data_networking/apple-networking-and-cloud.md) - Background URLSession과의 차이 (파일 다운로드는 URLSession이 더 유리함)
+- [apple-networking-and-cloud](../03_data_networking/apple-networking-and-cloud.md) - Background URLSession 과의 차이 (파일 다운로드는 URLSession 이 더 유리함)

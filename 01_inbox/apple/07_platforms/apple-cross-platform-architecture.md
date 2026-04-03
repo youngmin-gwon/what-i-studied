@@ -1,27 +1,29 @@
 ---
 title: apple-cross-platform-architecture
-tags: [apple, cross-platform, architecture, spm, uikit, appkit]
+tags: [appkit, apple, architecture, cross-platform, spm, uikit]
 aliases: []
-date modified: 2025-12-18 00:10:00 +09:00
+date modified: 2026-04-03 18:55:54 +09:00
 date created: 2025-12-18 00:10:00 +09:00
 ---
 
 ## Cross-Platform Architecture
 
 "Write Once, Run Anywhere"는 자바의 슬로건이지만, Apple 생태계에서도 반은 맞습니다.
-iOS 앱을 조금만 고치면 iPadOS, macOS, 심지어 visionOS까지 확장할 수 있습니다.
+
+iOS 앱을 조금만 고치면 iPadOS, macOS, 심지어 visionOS 까지 확장할 수 있습니다.
+
 핵심은 **"공유할 것(Logic)"과 "분리할 것(UI)"을 명확히 하는 것**입니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
 - **Universal Purchase**: 앱 하나만 사면 아이폰/맥/워치에서 다 쓸 수 있습니다. 이는 사용자 경험에 엄청난 이점입니다.
-- **Maintenance**: 플랫폼마다 코드를 복사&붙여넣기 하면 버그 수정도 4번 해야 합니다. Core 로직을 하나로 모아야 합니다.
+- **Maintenance**: 플랫폼마다 코드를 복사&붙여넣기 하면 버그 수정도 4 번 해야 합니다. Core 로직을 하나로 모아야 합니다.
 - **Mac Catalyst vs Native**: 아이패드 앱을 그대로 맥에 띄울지(Catalyst), 아니면 진짜 맥 앱(AppKit)을 만들지 결정해야 합니다.
 
 ---
 
 ### 📦 Logic Sharing via Swift PM
 
-가장 좋은 방법은 **비즈니스 로직을 별도의 Swift Package로 분리**하는 것입니다.
+가장 좋은 방법은 **비즈니스 로직을 별도의 Swift Package 로 분리**하는 것입니다.
 
 ```
 MyProject/
@@ -35,16 +37,18 @@ MyProject/
     └── ViewModels/ (ObservableObject)
 ```
 
-- **Imports**: `Core` 패키지 안에서는 `UIKit`이나 `SwiftUI` 같은 UI 프레임워크 임포트를 최소화하세요. 순수 Swift 로직일수록 재사용성이 높습니다.
+- **Imports**: `Core` 패키지 안에서는 `UIKit` 이나 `SwiftUI` 같은 UI 프레임워크 임포트를 최소화하세요. 순수 Swift 로직일수록 재사용성이 높습니다.
 
 ---
 
 ### 🎨 UI Adaptation Strategies
 
 #### 1. SwiftUI (The Best Choice)
-SwiftUI는 태생적으로 크로스 플랫폼입니다. `List`, `NavigationStack`은 각 OS에 맞는 모습으로 자동 렌더링됩니다.
+
+SwiftUI 는 태생적으로 크로스 플랫폼입니다. `List`, `NavigationStack` 은 각 OS 에 맞는 모습으로 자동 렌더링됩니다.
 
 #### 2. Preprocessor Macros (`#if os`)
+
 불가피하게 플랫폼별 코드가 필요할 때 사용합니다.
 
 ```swift
@@ -76,4 +80,4 @@ Xcode 프로젝트 하나에 여러 타겟(Target)을 둡니다.
 
 ### 더 보기
 - [apple-build-and-distribution](../05_security_privacy/apple-build-and-distribution.md) - 타겟별 빌드 및 배포 설정
-- [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - SwiftUI의 플랫폼별 동작 차이
+- [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - SwiftUI 의 플랫폼별 동작 차이

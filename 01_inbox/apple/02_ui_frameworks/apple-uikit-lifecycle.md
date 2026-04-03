@@ -1,19 +1,20 @@
 ---
 title: apple-uikit-lifecycle
-tags: [apple, uikit, ios, lifecycle, internals, optimization]
+tags: [apple, internals, ios, lifecycle, optimization, uikit]
 aliases: []
-date modified: 2025-12-17 19:10:00 +09:00
+date modified: 2026-04-03 18:55:28 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
 ## UIKit Lifecycle & Internals
 
 iOS 앱 개발의 알파이자 오메가인 **UIKit**의 생명주기(Lifecycle)와 렌더링 시스템(Rendering System)을 해부합니다.
-단순히 `viewDidLoad`에 코드를 때려 박는 것을 넘어, **"뷰가 언제 메모리에 올라오고, 언제 레이아웃이 잡히며, 언제 그려지는지"**를 정확히 알게 됩니다.
+
+단순히 `viewDidLoad` 에 코드를 때려 박는 것을 넘어, **"뷰가 언제 메모리에 올라오고, 언제 레이아웃이 잡히며, 언제 그려지는지"**를 정확히 알게 됩니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Why it matters)
-- **레이아웃 버그**: "뷰 크기가 왜 0으로 나오죠?" → 아직 `Layout Pass`가 돌지 않은 시점(`viewDidLoad`)에서 프레임을 참조했기 때문입니다.
-- **성능 최적화**: "스크롤이 버벅거려요" → `Offscreen Rendering`이나 과도한 `Layout Constraint Update`가 원인일 수 있습니다.
+- **레이아웃 버그**: "뷰 크기가 왜 0 으로 나오죠?" → 아직 `Layout Pass` 가 돌지 않은 시점(`viewDidLoad`)에서 프레임을 참조했기 때문입니다.
+- **성능 최적화**: "스크롤이 버벅거려요" → `Offscreen Rendering` 이나 과도한 `Layout Constraint Update` 가 원인일 수 있습니다.
 - **예측 가능성**: 뷰가 사라질 때 타이머를 끄거나(`viewDidDisappear`), 화면 회전 시 레이아웃을 고치는(`viewWillLayoutSubviews`) 정확한 타이밍을 알아야 버그 없는 앱을 만들 수 있습니다.
 
 ---
@@ -123,29 +124,33 @@ class MyViewController: UIViewController {
 ### 🔍 내부 동작 원리 (Deep Dive)
 
 #### 1. NIB/Storyboard 로딩 메커니즘
-`viewDidLoad`가 호출되기 전, 시스템은 어떻게 NIB 파일을 로드할까요?
-1. **Bundle Lookup**: `Bundle.main.path(forResource:...)`를 통해 NIB 바이너리를 찾습니다.
-2. **Unarchiving**: NIB는 `NSKeyedArchiver`로 직렬화된 객체 그래프입니다. `NSCoder`를 통해 객체들이 메모리로 역직렬화(Deserialize)됩니다.
-3. **Initialization**: 각 객체의 `init(coder:)`가 호출됩니다.
-4. **Connections**: Outlet과 Action (`@IBOutlet`, `@IBAction`) 연결이 `setValue(_:forKey:)` (KVC)를 통해 수행됩니다.
-5. **Awake**: 모든 연결이 완료되면 `awakeFromNib()`이 호출됩니다.
+
+`viewDidLoad` 가 호출되기 전, 시스템은 어떻게 NIB 파일을 로드할까요?
+
+1. **Bundle Lookup**: `Bundle.main.path(forResource:…)` 를 통해 NIB 바이너리를 찾습니다.
+2. **Unarchiving**: NIB 는 `NSKeyedArchiver` 로 직렬화된 객체 그래프입니다. `NSCoder` 를 통해 객체들이 메모리로 역직렬화(Deserialize)됩니다.
+3. **Initialization**: 각 객체의 `init(coder:)` 가 호출됩니다.
+4. **Connections**: Outlet 과 Action (`@IBOutlet`, `@IBAction`) 연결이 `setValue(_:forKey:)` (KVC)를 통해 수행됩니다.
+5. **Awake**: 모든 연결이 완료되면 `awakeFromNib()` 이 호출됩니다.
 
 #### 2. Auto Layout 엔진 (Cassowary Algorithm)
-Auto Layout은 단순한 박스 모델이 아니라, **선형 방정식 해결 시스템**입니다.
+
+Auto Layout 은 단순한 박스 모델이 아니라, **선형 방정식 해결 시스템**입니다.
+
 - **Constraint Solving**: `y = mx + b` 형태의 부등식/등식 집합을 풉니다.
 - **Simplex Algorithm**: 내부적으로 최적화 문제를 푸는 Simplex 알고리즘의 변형을 사용합니다.
-- **Cost**: 제약 조건이 n개일 때 최악의 경우 O(n^3)까지 갈 수 있으나, 일반적으로는 선형에 가깝게 최적화되어 있습니다. 하지만 뷰 계층이 깊고 제약 조건이 복잡하면 메인 스레드 병목의 원인이 됩니다.
+- **Cost**: 제약 조건이 n 개일 때 최악의 경우 O(n^3)까지 갈 수 있으나, 일반적으로는 선형에 가깝게 최적화되어 있습니다. 하지만 뷰 계층이 깊고 제약 조건이 복잡하면 메인 스레드 병목의 원인이 됩니다.
 
 ---
 
 ### View 렌더링 사이클 (The Render Loop)
 
-iOS는 `Run Loop`의 한 사이클마다 **Layout -> Display -> Commit** 단계를 거칩니다.
+iOS 는 `Run Loop` 의 한 사이클마다 **Layout -> Display -> Commit** 단계를 거칩니다.
 
-1.  **Constraints Check**: 제약 조건 변경 사항 확인 (`setNeedsUpdateConstraints`) -> `updateConstraints()`
-2.  **Layout Pass**: 프레임 계산 (`setNeedsLayout`) -> `layoutSubviews()`
-3.  **Display Pass**: 실제 그리기 (`setNeedsDisplay`) -> `draw(_:)` (CPU 드로잉 시)
-4.  **Commit**: 렌더링 트리(Render Tree)를 렌더 서버(Render Server)로 전송 (GPU 합성)
+1. **Constraints Check**: 제약 조건 변경 사항 확인 (`setNeedsUpdateConstraints`) -> `updateConstraints()`
+2. **Layout Pass**: 프레임 계산 (`setNeedsLayout`) -> `layoutSubviews()`
+3. **Display Pass**: 실제 그리기 (`setNeedsDisplay`) -> `draw(_:)` (CPU 드로잉 시)
+4. **Commit**: 렌더링 트리(Render Tree)를 렌더 서버(Render Server)로 전송 (GPU 합성)
 
 ```swift
 class CustomView: UIView {
@@ -178,9 +183,11 @@ class CustomView: UIView {
 ### 🛡️ 실무 패턴 및 최적화 (Advanced Patterns)
 
 #### 1. View Controller Containment (컨테이너 패턴)
+
 비대한 ViewController(Fat VC)를 막기 위해 화면을 레고 블록처럼 쪼개 관리합니다.
 
 **올바른 자식 VC 추가 순서:**
+
 ```swift
 func add(childVC: UIViewController) {
     // 1. 부모-자식 관계 수립
@@ -212,7 +219,8 @@ func remove(childVC: UIViewController) {
 ```
 
 #### 2. 메모리 효율적인 이미지 로딩 (Optimized Image Loading)
-`UIImage(named:)`는 캐싱을 하지만, 대용량 이미지를 그대로 로드하면 메모리 스파이크가 발생합니다. `ImageIO`를 사용해 필요한 크기만큼만 다운샘플링하는 것이 좋습니다.
+
+`UIImage(named:)` 는 캐싱을 하지만, 대용량 이미지를 그대로 로드하면 메모리 스파이크가 발생합니다. `ImageIO` 를 사용해 필요한 크기만큼만 다운샘플링하는 것이 좋습니다.
 
 ```swift
 func loadDownsampledImage(at url: URL, for size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage? {
@@ -235,5 +243,5 @@ func loadDownsampledImage(at url: URL, for size: CGSize, scale: CGFloat = UIScre
 ```
 
 ### 더 보기
-- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 선언형 UI의 생명주기
-- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC와 메모리 관리
+- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 선언형 UI 의 생명주기
+- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC 와 메모리 관리
