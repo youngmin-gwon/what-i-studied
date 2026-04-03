@@ -77,8 +77,11 @@ button.accessibilityIdentifier = "login_button" // 사용자에게는 안 보이
 // ❌ Bad
 let title = "설정"
 
-// ✅ Good (UIKit)
+// ✅ Good (Legacy UIKit / iOS 15 이하)
 let title = NSLocalizedString("settings_title", comment: "설정 화면 타이틀")
+
+// ✅ Better (iOS 16+ / Swift 5.7+, 권장)
+let title = String(localized: "settings_title") // comment는 .xcstrings 파일에서 관리
 ```
 
 #### 2. RTL (Right-to-Left)
@@ -98,6 +101,24 @@ formatter.numberStyle = .currency
 formatter.locale = Locale.current // 시스템 설정을 따름 ($10, 10 €, 10원 자동 변환)
 ```
 
+### 🤖 Android 비교: Accessibility vs Semantics
+
+Apple 의 접근성 구조와 유사한 기능을 Android Compose 에서는 **Semantics** 가 담당합니다.
+
+| 특징 | Apple Accessibility | Android Compose Semantics |
+| :--- | :--- | :--- |
+| **핵심 트리** | Accessibility Tree (묵시적/자동) | Semantics Tree (명시적) |
+| **스크린 리더** | VoiceOver | TalkBack |
+| **요소 병합** | `.accessibilityElement(children: .combine)` | `modifier.semantics(mergeDescendants = true)` |
+| **테스트 식별** | `accessibilityIdentifier` | `testTag` 또는 `contentDescription` |
+
+> [!TIP] **Android 개발자를 위한 iOS 접근성**
+> - `AccessibilityTrait` ≃ Android 의 `Role` (Button, Image 등)
+> - `accessibilityLabel` ≃ Android 의 `contentDescription`
+> - `accessibilityValue` ≃ Slider 나 Progress 의 현재 상태 값
+> 상세 비교는 [android-accessibility-compose](../../android/02_app_framework/android-accessibility-compose.md)를 참고하세요.
+
 ### 📚 더 보기
 - [apple-platform-differences](../00_foundations/apple-platform-differences.md) - 플랫폼별 접근성 특징 (watchOS 탭틱 등)
 - [apple-testing-and-quality](../06_testing_performance/apple-testing-and-quality.md) - UI 테스트 자동화
+

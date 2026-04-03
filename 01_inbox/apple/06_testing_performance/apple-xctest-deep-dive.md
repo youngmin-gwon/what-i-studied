@@ -8,6 +8,9 @@ date created: 2025-12-16 17:01:32 +09:00
 
 ## XCTest & UI Testing Cookbook
 
+> [!TIP] **Devil's Advocate : Swift Testing으로의 전환**
+> Xcode 16+/Swift 6부터 **Swift Testing** 프레임워크가 XCTest의 현대적 대안으로 부상했습니다. 단위 테스트에서는 `@Test` 매크로와 `#expect` 어설션이 `XCTAssert*` 계열을 대체합니다. 다만 **UI Testing (XCUITest)은 아직 Swift Testing으로 대체 불가**하므로, XCTest 지식은 여전히 필수입니다.
+
 테스트 코드는 작성하기 귀찮지만, 나중에 "이거 왜 안 되지?"라며 3 시간 동안 디버깅하는 시간을 3 초로 줄여줍니다.
 
 특히 Swift Concurrency 가 도입되면서 비동기 테스트가 훨씬 쉬워졌습니다.

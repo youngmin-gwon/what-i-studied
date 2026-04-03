@@ -84,6 +84,84 @@ func updateLiveActivity(activity: Activity<DeliveryAttributes>) {
 
 Live Activity 푸시는 일반 푸시보다 우선순위가 높습니다(High Priority). 하지만 너무 자주 보내면 시스템이 과부하(Throttling)를 걸 수 있습니다. (권장: 정말 상태가 변했을 때만)
 
+---
+
+### 🆕 Interactive Widgets (iOS 17+)
+
+iOS 17 부터 위젯에서 **버튼을 눌러 동작을 수행**할 수 있습니다. 앱을 열지 않고도 할 일을 완료하거나, 음악을 재생하거나, 타이머를 시작할 수 있습니다.
+
+핵심은 **App Intents** 프레임워크입니다.
+
+#### 1. 버튼 인터랙션
+
+```swift
+import AppIntents
+import WidgetKit
+
+// 동작 정의 (App Intent)
+struct ToggleTodoIntent: AppIntent {
+    static var title: LocalizedStringResource = "할 일 토글"
+    
+    @Parameter(title: "ID")
+    var todoId: String
+    
+    func perform() async throws -> some IntentResult {
+        TodoStore.shared.toggle(id: todoId)
+        return .result()
+    }
+}
+
+// 위젯 뷰에서 버튼으로 연결
+struct TodoWidgetView: View {
+    let todo: TodoItem
+    
+    var body: some View {
+        Button(intent: ToggleTodoIntent(todoId: todo.id)) {
+            Label(todo.title, systemImage: todo.isDone ? "checkmark.circle.fill" : "circle")
+        }
+    }
+}
+```
+
+#### 2. `AppIntentTimelineProvider` (iOS 17+)
+
+기존 `IntentTimelineProvider` 를 대체합니다. 위젯 설정(Configuration)도 App Intents 기반으로 통합됩니다.
+
+```swift
+struct MyWidgetProvider: AppIntentTimelineProvider {
+    typealias Entry = MyEntry
+    typealias Intent = MyWidgetConfigIntent
+    
+    func timeline(for configuration: MyWidgetConfigIntent, in context: Context) async -> Timeline<MyEntry> {
+        // configuration 에서 사용자 설정값을 받아 타임라인 생성
+        let entries = [MyEntry(date: .now, config: configuration)]
+        return Timeline(entries: entries, policy: .after(.now.addingTimeInterval(3600)))
+    }
+}
+```
+
+> [!TIP] **Toggle/Button 제한사항**
+> Interactive Widget 에서 사용할 수 있는 컨트롤은 `Button` 과 `Toggle` 뿐입니다. `TextField`, `Slider` 등 복잡한 입력은 불가능합니다. 복잡한 상호작용이 필요하면 앱을 열어야 합니다.
+
+### 🤖 Android 비교: WidgetKit vs Jetpack Glance
+
+Apple 의 WidgetKit 과 유사한 기능을 Android 에서는 **Jetpack Glance** 가 담당합니다.
+
+| 특징 | Apple WidgetKit | Android Jetpack Glance |
+| :--- | :--- | :--- |
+| **핵심 기술** | SwiftUI 기반 | Compose 기반 (Glance) |
+| **렌더링 방식** | Snapshot-based (Timeline) | RemoteViews-based (Glance) |
+| **실시간성** | Live Activities 지원 | 전용 위젯 업데이트 (제한적) |
+| **인터랙션** | iOS 17+ Button/Toggle 지원 | Glance Action API 지원 |
+
+> [!TIP] **Android 개발자를 위한 WidgetKit**
+> - `TimelineProvider` ≃ Android 위젯의 데이터 갱신 스케줄링 (WorkManager 등 활용)
+> - `ActivityKit` (Live Activities) ≃ Android 에서는 고정된 **Foreground Service Notification** 이 유사한 역할을 함
+> - `AppIntent` ≃ Glance 의 `Action` 인터페이스
+> 상세 비교는 [android-widgets-glance](../../android/02_app_framework/android-widgets-glance.md)를 참고하세요.
+
 ### 📚 더 보기
 - [apple-app-lifecycle-and-ui](apple-app-lifecycle-and-ui.md) - Extension 의 생명주기
 - [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 위젯 UI 는 100% SwiftUI
+- [apple-app-intents](../04_system_services/apple-app-intents.md) - App Intents 프레임워크 상세
+

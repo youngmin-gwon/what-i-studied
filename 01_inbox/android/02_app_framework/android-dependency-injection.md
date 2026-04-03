@@ -315,9 +315,11 @@ class CustomContentProvider : ContentProvider() {
 }
 ```
 
-### Dagger (수동 설정)
+### Dagger (Legacy - 수동 설정)
 
-Hilt 보다 유연하지만 복잡함.
+> [!CAUTION] **Devil's Advocate : 순수 Dagger 2의 악몽**
+> 과거 안드로이드 진영의 DI를 지배하던 Dagger 2는 어마어마한 보일러플레이트(`Component`, `SubComponent`, `Module` 등)와 높은 러닝 커브로 프로젝트를 무겁게 만들었습니다.
+> 현재는 구글이 직접 **Hilt**를 만들어 이 모든 설정을 어노테이션 하나(`@HiltAndroidApp`)로 압축했습니다. 아직도 순수 Dagger를 써서 아키텍처를 자랑하는 코드는 유지보수가 불가능한 기술 부채입니다. 무조건 Hilt나 Koin으로 넘어가야 합니다.
 
 ```kotlin
 // Component

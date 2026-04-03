@@ -173,6 +173,9 @@ fun checkInstallPermission() {
 
 #### 4. MANAGE_EXTERNAL_STORAGE (모든 파일 접근)
 
+> [!CAUTION] **Devil's Advocate : 구글 플레이 검수 거절의 1등 공신**
+> 이 권한은 "파일 매니저"나 "백신" 앱 등 구글이 인정한 극소수의 카테고리만 허용됩니다. 일반적인 유틸리티 앱이 편의성을 이유로 이 권한을 요구하면 100% 리젝(Reject) 당합니다. Storage Access Framework(SAF)로 파일 하나씩 권한을 따내는 귀찮음을 감수해야만 합니다.
+
 ```kotlin
 fun checkAllFilesAccess() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

@@ -10,6 +10,10 @@ date created: 2025-12-16 15:22:14 +09:00
 
 이 묶음은 안드로이드가 어떻게 움직이는지 아주 쉽게 풀어쓴 지도다. 어려운 말은 [android-glossary](android-glossary.md) 에 따로 정리했다.
 
+> [!WARNING] **Devil's Advocate : 앱 개발자와 OS 개발자의 분리**
+> 이 문서에서 설명하는 Zygote, ART, SurfaceFlinger, Binder 등을 깊게 파고드는 것은 플랫폼 깊이를 이해하는 데는 좋으나, 실제 "앱을 잘 만드는 것"과는 거리가 멉니다.
+> **앱 비즈니스 로직 구현**이 목표라면, 이런 깊은 내부 동작(Internals)을 알기 전에 `Jetpack Compose` 모델 최적화나 `Coroutines` 흐름 제어를 아는 것이 100배 더 유용합니다. 여기 있는 지식들은 가볍게 교양으로 넘기십시오.
+
 ### 안드로이드가 하는 일
 - 스마트폰을 켜고, 앱을 실행하고, 배터리를 아끼고, 데이터를 지키는 일을 동시에 한다.
 - 밑바닥에서는 [[android-glossary#리눅스 커널|리눅스 커널]] 이 기초를 잡고, 그 위에 [[android-glossary#binder|Binder]]/[[android-glossary#zygote|Zygote]]/[[android-glossary#art|ART]]/시스템 서비스가 쌓인다.
@@ -57,6 +61,7 @@ date created: 2025-12-16 15:22:14 +09:00
 ### 배포와 업데이트
 - Play 스토어는 점진적 배포, 롤백, 무결성 검사 (Play Integrity) 를 제공한다.
 - 시스템은 [[android-glossary#apex|APEX/Mainline]] 로 일부 모듈을 따로 업데이트한다.
+- **Android 16 (Baklava)**부터는 **Trunk Stable Project**를 통해 더 빠르고 안정적인 빌드 및 배포 주기를 유지한다.
 
 ### 개발 기본기
 - Kotlin/Jetpack 을 권장한다. Compose(새 UI) 와 View(기존 UI) 를 함께 쓸 수 있다.

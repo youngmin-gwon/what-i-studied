@@ -64,10 +64,13 @@ SwiftUI 는 멀티플랫폼을 위해 태어났습니다. 하지만 플랫폼별
 ```swift
 struct MyView: View {
     var body: some View {
+        List {
+            // 컨텐츠
+        }
         #if os(iOS)
-        ListStyle(.insetGrouped) // 모바일용
+        .listStyle(.insetGrouped) // 모바일용
         #elseif os(macOS)
-        ListStyle(.sidebar)      // 데스크탑용
+        .listStyle(.sidebar)      // 데스크탑용
         #endif
     }
 }

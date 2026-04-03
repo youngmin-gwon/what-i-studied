@@ -8,6 +8,13 @@ date created: 2025-12-16 16:10:59 +09:00
 
 ## Testing & Quality Assurance Deep Dive
 
+> [!WARNING] **Devil's Advocate : Swift Testing 프레임워크의 등장**
+> WWDC 2024에서 발표된 **Swift Testing** 프레임워크(`@Test` 매크로, `#expect` 어설션)는 XCTest를 대체하는 차세대 테스트 프레임워크입니다.
+> 1. `XCTAssertEqual` 대신 `#expect(a == b)`로 더 자연스러운 표현식 사용.
+> 2. `@Test("설명", .tags(.networking))` 매크로로 테스트 메타데이터를 선언적으로 관리.
+> 3. 매개변수화된 테스트(`@Test(arguments: [1, 2, 3])`)를 기본 지원.
+> 신규 테스트 코드는 Swift Testing을 우선 채택하되, UI Testing은 아직 XCUITest가 필수입니다.
+
 "테스트 코드가 없는 코드는 레거시 코드다." — 마이클 페더스
 
 앱이 1.0 에서 끝난다면 테스트는 필요 없습니다. 하지만 2.0 을 만들 생각이라면, 테스트는 선택이 아니라 **생명 보험**입니다.
@@ -78,3 +85,4 @@ func testLoginSuccess() {
 ### 더 보기
 - [apple-performance-and-debug](apple-performance-and-debug.md) - 성능 테스트(XCTMetric) 방법
 - [apple-xctest-deep-dive](apple-xctest-deep-dive.md) - XCTest 프레임워크 상세 사용법
+- [Swift Testing Documentation](https://developer.apple.com/documentation/testing) - 차세대 테스트 프레임워크 (WWDC 2024)

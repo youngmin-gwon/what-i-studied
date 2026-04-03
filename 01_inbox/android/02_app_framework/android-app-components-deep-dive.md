@@ -10,6 +10,11 @@ date created: 2025-12-16 16:19:14 +09:00
 
 안드로이드 앱을 이루는 네 가지 핵심 컴포넌트를 깊이 있게 다룬다. 기본은 [android-foundations](../00_foundations/android-foundations.md) 에서 확인한다.
 
+> [!CAUTION] **Devil's Advocate : 앱 컴포넌트에 대한 맹신 주의**
+> 과거 4대 컴포넌트는 안드로이드 개발의 전부였지만, 현대의 순수 앱(App) 개발 환경에서는 위상이 크게 떨어졌습니다.
+> - **Activity**: 화면마다 찍어내던 과거와 달리, 이제는 껍데기(Single Activity) 1개만 존재합니다.
+> - **Service // BroadcastReceiver**: 안드로이드 8.0 이후의 강력한 백그라운드 제약으로 인해 직접 구현할 일이 거의 사라졌으며, 대부분 **`WorkManager`**로 대체되었습니다.
+
 ### Activity 생명주기 상세
 
 Activity 는 사용자가 보는 화면이며, 복잡한 생명주기를 가진다.
@@ -130,7 +135,7 @@ startActivity(intent)
 
 #### Intent Filter 와 암시적 Intent
 
-Activity 가 어떤 작업을 처리할 수 있는지 선언한다.
+Activity 가 어떤 작업을 처리할 수 있는지 선언한다. Intent 에 대한 자세한 내용은 [android-intent-and-ipc](android-intent-and-ipc.md) 참고.
 
 ```xml
 <activity android:name=".ShareActivity">
@@ -153,6 +158,10 @@ val shareIntent = Intent.createChooser(sendIntent, null)
 startActivity(shareIntent)
 ```
 
+> [!WARNING] **Android 11+ `<queries>` 태그 필수**
+> 암시적 Intent 로 외부 앱을 실행하거나 `resolveActivity()` 를 호출하려면 매니페스트에 `<queries>` 를 선언해야 한다. 미선언 시 대상 앱이 보이지 않아 `null` 반환.
+> 상세는 [android-intent-and-ipc](android-intent-and-ipc.md) 참고.
+
 ### Service 심화
 
 Service 는 백그라운드에서 오래 실행되는 작업을 처리한다.
@@ -162,6 +171,33 @@ Service 는 백그라운드에서 오래 실행되는 작업을 처리한다.
 1. **Foreground Service**: 사용자가 인지할 수 있는 작업 (음악 재생, 운동 추적). 알림이 필수.
 2. **Background Service**: Android 8.0+ 에서 크게 제한됨. WorkManager 사용 권장.
 3. **Bound Service**: 클라이언트 - 서버 인터페이스 제공. 바인드된 컴포넌트가 없으면 종료.
+
+> [!CAUTION] **Android 14+ Foreground Service Type 필수 선언**
+> Android 14(API 34)부터 Foreground Service 시작 시 반드시 **`foregroundServiceType`** 을 매니페스트에 명시해야 한다. 미선언 시 `MissingForegroundServiceTypeException` 발생.
+> 또한, 각 타입별로 **필요한 권한**이 다르며, `FOREGROUND_SERVICE_SPECIAL_USE` 등의 새 타입이 추가되었다.
+>
+> **필수 선언 타입**: `camera`, `connectedDevice`, `dataSync`, `health`, `location`, `mediaPlayback`, `mediaProjection`, `microphone`, `phoneCall`, `remoteMessaging`, `shortService`, `specialUse`, `systemExempted`
+
+```xml
+<!-- Android 14+ 필수: type 미선언 시 크래시 -->
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
+<service
+    android:name=".MusicService"
+    android:foregroundServiceType="mediaPlayback"
+    android:exported="false" />
+```
+
+```kotlin
+// 코드에서도 type 명시 필수 (Android 14+)
+ServiceCompat.startForeground(
+    this,
+    NOTIFICATION_ID,
+    notification,
+    ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK  // 필수
+)
+```
 
 #### Foreground Service 예시
 
@@ -577,4 +613,4 @@ adb shell dumpsys activity providers
 
 ### 더 보기
 
-[android-foundations](../00_foundations/android-foundations.md), [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md), [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md), [android-process-and-memory](../01_system_internals/android-process-and-memory.md), [android-permissions-deep-dive](../05_security_privacy/android-permissions-deep-dive.md)
+[android-intent-and-ipc](android-intent-and-ipc.md), [android-deep-links](android-deep-links.md), [android-foundations](../00_foundations/android-foundations.md), [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md), [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md), [android-process-and-memory](../01_system_internals/android-process-and-memory.md), [android-permissions-deep-dive](../05_security_privacy/android-permissions-deep-dive.md)

@@ -33,6 +33,10 @@ val cacheFile = File(cacheDir, "temp.jpg")
 
 #### 2. 외부 저장소 (External Storage)
 
+> [!CAUTION] **Devil's Advocate : `WRITE_EXTERNAL_STORAGE`의 종말과 Photo Picker**
+> Android 13(API 33) 이후 미디어 권한이 세분화되었고, Android 14에서는 일부 미디어만 허용하는 기능이 생겼습니다. 과거처럼 `READ/WRITE_EXTERNAL_STORAGE`를 퉁쳐서 요구하는 앱은 구글 플레이에서 퇴출당하기 십상입니다.
+> 유저의 사진 1~2장을 가져오기 위해 스토리지 권한 전체를 요청하지 마십시오. 권한이 아예 필요 없는 **Android Photo Picker (사진 선택기)**를 사용하는 것이 유일한 Best Practice입니다.
+
 공유 가능한 저장소. [[android-glossary#scoped-storage|Scoped Storage]] 규칙 적용.
 
 ```kotlin
@@ -613,4 +617,5 @@ adb shell content query --uri content://media/external/images/media
 
 ### 더 보기
 
-[android-permissions-deep-dive](../05_security_privacy/android-permissions-deep-dive.md), [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-jetpack-architecture](android-jetpack-architecture.md)
+[android-persistence-room-datastore](android-persistence-room-datastore.md), [android-permissions-deep-dive](../05_security_privacy/android-permissions-deep-dive.md), [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-jetpack-architecture](android-jetpack-architecture.md)
+

@@ -379,7 +379,11 @@ class UserViewModel : ViewModel() {
 
 ### 상태 관리: LiveData vs StateFlow
 
-#### LiveData (View 시스템 권장)
+#### LiveData (Legacy)
+
+> [!CAUTION] **Devil's Advocate : LiveData의 한계와 레거시화**
+> 과거 `LiveData`는 안드로이드 생명주기를 알아서 처리해준다는 이유로 각광받았으나, **코루틴(Flow) 생태계가 안착하면서 완전히 도태된 구시대 기술**이 되었습니다.
+> 비동기 연산의 한계, 메인 스레드 락 등 단점이 명확하여 구글 공식 문서에서조차 신규 개발 시 `StateFlow` 사용을 권장하고 있습니다. View 시스템이더라도 `repeatOnLifecycle`을 사용하는 것이 표준입니다.
 
 ```kotlin
 class UserViewModel : ViewModel() {

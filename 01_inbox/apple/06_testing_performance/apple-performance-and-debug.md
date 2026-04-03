@@ -39,6 +39,10 @@ date created: 2025-12-16 16:10:22 +09:00
 SwiftUI 는 선언형이기 때문에 "Diffing(비교)" 비용을 줄이는 것이 핵심입니다.
 
 1. **State 줄이기**: `@State` 나 `@EnvironmentObject` 가 변경되면, 이를 의존하는 **모든** 뷰의 `body` 가 다시 계산됩니다. 상태를 최하위 뷰로 내리세요(Push State Down).
+
+> [!TIP] **Devil's Advocate : `@Observable` (iOS 17+) 에서는 규칙이 달라집니다**
+> `@Observable` 매크로를 사용하면 **프로퍼티 단위**로 의존성이 추적되므로, 뷰의 `body`에서 실제로 읽은 프로퍼티만 변경될 때 재평가됩니다. 따라서 무조건 "State를 가장 아래로 내려라"는 조언보다 **올바른 관찰 모델 선택(`@Observable` 우선)**이 더 효과적인 최적화입니다.
+
 2. **Stable ID**: `ForEach` 에서 `id: \.self` 를 피하세요. 데이터가 조금만 바뀌어도 전체를 다시 그릴 수 있습니다. 고유한 ID(`UUID`)를 사용하세요.
 3. **Expensive Task**: `body` 프로퍼티 안에서는 절대 무거운 작업(초기화, 데이터 가공)을 하지 마세요. `body` 는 초당 수십 번 호출될 수 있습니다.
 

@@ -46,9 +46,9 @@ Spatial Computing 은 화면의 크기 제한을 없앴지만, 새로운 책임(
 
 ---
 
-### 📦 SwiftUI & Architecture
+### 📦 SwiftUI & Architecture (선택이 아닌 필수)
 
-visionOS 앱의 90% 는 SwiftUI 로 만듭니다.
+visionOS 앱 개발에 있어서 UIKit은 사실상 레거시 브릿지에 불과하며, **100% SwiftUI 및 RealityKit 사용**이 현대의 표준이자 강제 사항에 가깝습니다. 평면적인 2D 윈도우 한계를 넘기 위해서라도 SwiftUI의 볼류메트릭(Volumetric) 문법을 활용해야 합니다.
 
 - **WindowGroup**: 2D 평면 윈도우. 깊이(Depth)를 줄 수 있지만 기본은 판판합니다.
 - **Volumetric Window**: 3D 부피를 가진 큐브 형태. 사용자가 걸어 다니며 360 도로 볼 수 있습니다.

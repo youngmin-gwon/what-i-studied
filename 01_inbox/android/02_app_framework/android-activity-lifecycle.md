@@ -12,6 +12,10 @@ date created: 2025-12-16 16:19:14 +09:00
 
 하지만 **"프로세스 킬(Process Death)"**과 **"구성 변경(Configuration Change)"**의 차이를 모르면 앱은 사용자를 당황하게 만듭니다.
 
+> [!CAUTION] **Devil's Advocate : 다중 Activity 시대의 종말**
+> 안드로이드 초창기에는 화면마다 `Activity`를 하나씩 만들어 매니페스트에 등록하는 것이 국룰이었습니다. 하지만, 현재는 **Single-Activity Architecture (단일 액티비티 구조)**가 완전한 표준입니다.
+> 화면 전환은 Activity 간 `Intent` 통신이 아니라, 하나의 `MainActivity` 위에서 `Compose Navigation` (또는 Fragment) 교체를 통해 이루어집니다. 복잡한 다중 Activity 구조는 명백한 레거시 패턴입니다.
+
 ### 💡 Why it matters (Context)
 
 - **Data Loss**: 사용자가 긴 글을 쓰다가 홈 화면으로 나갔습니다. 유튜브 좀 보다가 돌아왔는데 글이 다 날아갔다면? 이는 **Process Death** 처리를 안 했기 때문입니다.

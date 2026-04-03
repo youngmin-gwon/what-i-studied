@@ -34,8 +34,11 @@ iOS 13 부터는 이 둘이 분리되었습니다.
 
 #### 1. 시작 (Launch)
 - `@main` 어트리뷰트가 붙은 구조체(SwiftUI `App` 또는 `AppDelegate`)가 엔트리포인트입니다.
-- **SwiftUI**: `App` 프로토콜의 `body` 에서 최상위 `Scene` 을 선언합니다.
+- **SwiftUI (현대 기본값, iOS 14+)**: `App` 프로토콜의 `body` 에서 최상위 `Scene` 을 선언합니다. `AppDelegate` 나 `SceneDelegate` 가 필요 없으며, 필요한 경우 `@UIApplicationDelegateAdaptor`로 브릿지합니다.
 - **UIKit**: `application(_:didFinishLaunching…)` 이후 `SceneDelegate` 가 연결됩니다.
+
+> [!TIP] **Devil's Advocate : 신규 프로젝트는 SwiftUI Lifecycle 우선**
+> Xcode 의 새 프로젝트 템플릿(iOS 14+)은 기본적으로 **SwiftUI App Lifecycle**을 사용합니다. `AppDelegate`/`SceneDelegate` 기반 설정은 iOS 13 호환이 필요하거나 UIKit 중심 프로젝트에만 해당합니다.
 
 #### 2. Scene 기반 멀티태스킹
 
@@ -83,7 +86,86 @@ func sceneDidEnterBackground(_ scene: UIScene) {
 - **장점**: 15 년간 쌓인 라이브러리, 완벽한 제어권.
 - **공존**: `UIHostingController`(UIKit 안에 SwiftUI), `UIViewRepresentable`(SwiftUI 안에 UIKit) 통해 점진적 도입이 가능합니다.
 
+### 🔗 딥링크와 앱 진입점 (URL Schemes / Universal Links)
+
+외부에서 앱의 특정 화면으로 바로 진입하는 메커니즘이다.
+
+#### URL Schemes (레거시)
+
+```swift
+// Info.plist 에 CFBundleURLSchemes 등록
+// myapp://product/123 형태
+func application(_ app: UIApplication, open url: URL, options: [...]) -> Bool {
+    guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
+          let host = components.host else { return false }
+    
+    switch host {
+    case "product":
+        let productId = components.path.replacingOccurrences(of: "/", with: "")
+        navigateToProduct(productId)
+    default:
+        break
+    }
+    return true
+}
+```
+
+> [!CAUTION] **Devil's Advocate : URL Scheme 보안 문제**
+> `myapp://` 같은 커스텀 스킴은 **다른 앱이 동일한 스킴을 등록해 가로챌 수 있다**. 프로덕션에서는 반드시 **Universal Links** 를 사용해야 한다.
+> Android 에서도 동일한 이유로 Custom Scheme 대신 **App Links** (HTTPS 검증)를 권장한다.
+
+#### Universal Links (권장, iOS 9+)
+
+HTTPS 도메인 소유 검증을 통해 URL 을 앱으로 직접 라우팅한다.
+
+**1. Associated Domains Entitlement 추가:**
+```
+applinks:www.example.com
+```
+
+**2. Apple App Site Association (AASA) 파일 호스팅:**
+`https://www.example.com/.well-known/apple-app-site-association`
+```json
+{
+    "applinks": {
+        "apps": [],
+        "details": [{
+            "appIDs": ["TEAM_ID.com.example.app"],
+            "components": [
+                { "/": "/product/*", "comment": "상품 상세" },
+                { "/": "/user/*", "comment": "프로필" }
+            ]
+        }]
+    }
+}
+```
+
+**3. SwiftUI 에서 처리:**
+```swift
+@main
+struct MyApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .onOpenURL { url in
+                    // Universal Link 또는 URL Scheme 처리
+                    DeepLinkRouter.handle(url)
+                }
+        }
+    }
+}
+```
+
+> [!NOTE] **Android 비교: Universal Links vs App Links**
+> iOS 의 Universal Links 와 Android 의 App Links 는 동일한 원리다:
+> - **iOS**: `apple-app-site-association` (AASA) → Apple CDN 캐싱
+> - **Android**: `assetlinks.json` → Google 서버 검증
+> 두 플랫폼 모두 HTTPS 도메인 소유를 증명하는 JSON 파일 호스팅이 필요하다.
+> Android 딥링크 상세는 [android-deep-links](../../android/02_app_framework/android-deep-links.md) 참고.
+
 ### 📚 더 보기
 - [apple-uikit-lifecycle](apple-uikit-lifecycle.md) - UIViewController 의 상세 생명주기
 - [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - SwiftUI 렌더링 원리
 - [apple-background-tasks](../04_system_services/apple-background-tasks.md) - 백그라운드에서 오래 살아남는 법
+- [apple-app-intents](../04_system_services/apple-app-intents.md) - Siri/Shortcuts/Apple Intelligence 연동
+

@@ -8,6 +8,13 @@ date created: 2025-12-16 17:01:32 +09:00
 
 ## Operation & OperationQueue Deep Dive
 
+> [!CAUTION] **Devil's Advocate : GCD보다 더 깊은 레거시**
+> OperationQueue는 GCD 위에 구축된 고수준 래퍼로, GCD가 레거시가 된 현재 **이중으로 레거시**입니다.
+> 1. **의존성 관리**: `addDependency`는 `TaskGroup` 또는 `async let`의 구조적 동시성(Structured Concurrency)으로 더 안전하게 대체됩니다.
+> 2. **취소**: `isCancelled` 수동 체크 대신 Swift Concurrency의 `Task.checkCancellation()`이 자동으로 전파됩니다.
+> 3. **KVO 기반 상태 머신**: Objective-C 런타임에 의존하며, Swift 6의 Strict Concurrency와 충돌합니다.
+> 신규 코드에서는 사용을 피하고, 레거시 유지보수 목적으로만 참고하세요.
+
 GCD 가 불(Fire)하고 잊는(Forget) 방식이라면, **Operation**은 작업을 **객체(Object)**로 만들어 관리하는 고수준 API 입니다.
 
 복잡한 의존성(Dependency)이 있거나, 작업 취소(Cancellation) 기능이 필수적일 때 GCD 보다 강력합니다.

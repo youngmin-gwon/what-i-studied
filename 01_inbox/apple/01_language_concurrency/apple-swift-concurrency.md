@@ -8,9 +8,11 @@ date created: 2025-12-16 17:01:32 +09:00
 
 ## Swift Concurrency Deep Dive
 
-Swift 5.5 부터 도입된, 언어 차원에서 보장하는 **안전하고(Safe)**, **구조적인(Structured)** 비동기 프로그래밍 모델입니다.
+## Swift Concurrency Deep Dive
 
-단순히 `async/await` 문법을 쓰는 것을 넘어, **Actor Isolation**과 **Sendable Check** 가 어떻게 데이터 경합(Data Race)을 컴파일 타임에 막아주는지 알아봅니다.
+Swift 5.5부터 도입되어 **Swift 6에서 완전한 Data-Race Safety(엄격한 동시성 검사)**를 통해 완성된 비동기 프로그래밍 모델입니다. 컴파일러가 언어 차원에서 **안전하고(Safe)**, **구조적인(Structured)** 동시성을 보장합니다.
+
+단순히 `async/await` 문법을 쓰는 것을 넘어, **Actor Isolation**과 **Sendable Check** 가 어떻게 데이터 경합(Data Race)을 **컴파일 타임 에러**로 막아주는지 알아봅니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Why it matters)
 - **콜백 지옥 탈출**: 중첩된 클로저(`completion handler`) 때문에 읽기 힘들었던 코드를, 동기 코드처럼 위에서 아래로 읽을 수 있게 해줍니다.
@@ -105,14 +107,14 @@ class MyViewModel: ObservableObject {
 
 #### 2. Sendable 프로토콜
 
-"이 데이터는 스레드를 건너뛰어도 안전한가?"를 컴파일러에게 알려줍니다.
+"이 데이터는 스레드를 건너뛰어도 안전한가?"를 컴파일러에게 확증(Guarantee)하는 프로토콜입니다. **Swift 6 모드에서는 Sendable하지 않은 타입을 동시성 도메인(Actor나 Task) 바깥으로 넘기는 동작이 경고가 아닌 컴파일 에러가 됩니다.**
 
 - **Value Type** (Struct, Enum)은 멤버가 Sendable 이면 자동 준수.
 - **Actor**는 내부 동기화가 있으므로 Sendable.
-- **Class**는 `final` 이고 불변(immutable) 상태만 가져야 Sendable 가능. (아니면 `@unchecked Sendable` 로 수동 보증해야 함)
+- **Class**는 `final` 이고 불변(immutable) 상태만 가져야 Sendable 가능. (아니면 `@unchecked Sendable` 로 수동 락(Lock) 관리를 보증해야 함)
 
 ```swift
-// ❌ 컴파일 경고: Class는 기본적으로 Sendable 아님
+// ❌ 컴파일 에러 (Swift 6): Class는 기본적으로 Sendable 아님
 class MutableData { var x = 0 }
 
 // ✅ Sendable 준수
@@ -138,10 +140,92 @@ func handleRequest() async {
 }
 ```
 
+---
+
+### 🆕 Swift 6 Strict Concurrency (Complete Concurrency Checking)
+
+Swift 6 에서는 Strict Concurrency 가 **기본 활성화**됩니다. 데이터 레이스를 **컴파일 타임**에 잡아내어 런타임 버그를 원천 차단합니다.
+
+#### 1. Region-Based Isolation (SE-0414)
+
+컴파일러가 값의 "격리 영역(Region)"을 추적하여, `Sendable` 하지 않은 값도 **안전하게 전송할 수 있는지** 자동으로 판단합니다.
+
+```swift
+// Swift 6 이전: 에러! MyClass 는 Sendable 아님
+// Swift 6: 컴파일러가 "이 값은 더 이상 원래 도메인에서 사용되지 않음"을 증명 → OK
+class MyClass { var value = 0 }
+
+func example() async {
+    let obj = MyClass()          // 여기서 생성
+    await someActor.process(obj) // obj 가 여기로 "전송"됨
+    // obj 를 여기서 다시 쓰지 않으므로 안전 → 컴파일 성공
+}
+```
+
+이 분석 덕분에 `@Sendable` 보일러플레이트가 크게 줄어듭니다.
+
+#### 2. `sending` 키워드 (SE-0430)
+
+소유권 이전(Ownership Transfer)을 **명시적으로** 선언합니다.
+
+```swift
+// sending: "이 값의 소유권을 넘기겠다"
+func processInBackground(sending data: MyClass) async {
+    // 호출자는 이 함수 호출 이후 data 에 접근할 수 없음
+    await actor.handle(data)
+}
+
+// 반환값에도 사용 가능
+func createConfig() -> sending Config {
+    Config() // 반환 후 이 함수 내에서는 더 이상 접근 불가
+}
+```
+
+**`Sendable` vs `sending`**:
+- `Sendable`: 타입 자체가 스레드 안전함을 **보장** (불변 또는 내부 동기화)
+- `sending`: 특정 값의 **소유권을 이전**하여 안전하게 전달 (타입이 Sendable 이 아니어도 가능)
+
+#### 3. `nonisolated` & `@MainActor` 분리 전략
+
+```swift
+@MainActor
+class ViewController {
+    var title: String = ""
+    
+    // 이 메서드는 메인 스레드 밖에서도 호출 가능
+    nonisolated func computeHash() -> String {
+        // self.title 접근 불가 (격리 위반)
+        return "hash_value"
+    }
+}
+```
+
+**마이그레이션 팁**: Swift 5 → 6 전환 시 `Build Settings` > `Strict Concurrency Checking` 을 `Complete` 로 설정하여 경고를 먼저 확인하세요.
+
 ### 📚 외부 리소스
-- **[Swift Concurrency Documentation](../../../../https:/docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/.md)**: 공식 문서.
-- **[WWDC 2021: Swift concurrency: Behind the scenes](../../../../https:/developer.apple.com/videos/play/wwdc2021/10254/.md)**: 내부 스레딩 모델을 이해하려면 필수.
+- **[Swift Concurrency Documentation](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/)**: 공식 문서.
+- **[WWDC 2021: Swift concurrency: Behind the scenes](https://developer.apple.com/videos/play/wwdc2021/10254/)**: 내부 스레딩 모델을 이해하려면 필수.
+
+### ⚡️ Coroutines (Android) vs Swift Concurrency (iOS)
+
+두 플랫폼 모두 "함수 실행을 일시 중단하고 나중에 재개"하는 개념을 공유하지만, 철학적 차이가 있습니다.
+
+| 특징 | Kotlin Coroutines | Swift Concurrency |
+| :--- | :--- | :--- |
+| **핵심 키워드** | `suspend`, `launch`, `async` | `async`, `await`, `task` |
+| **스레드 전환** | `withContext(Dispatchers.IO)` (명시적) | `actor` / `@MainActor` (격리 기반 자동 전환) |
+| **데이터 경합** | 개발자가 주의 (MutableStateFlow 등 활용) | **컴파일 타임 차단** (Sendable, Actor Isolation) |
+| **비동기 스트림** | `Flow` (Cold), `StateFlow` (Hot) | `AsyncSequence`, `AsyncStream` |
+| **취소 전파** | Structured Concurrency (Job hierarchy) | Task hierarchy & Cooperative cancellation |
+
+> [!TIP] **Android 개발자를 위한 Swift Concurrency**
+> - `viewModelScope.launch` ≃ `Task { ... }` (MainActor 에서 실행 시)
+> - `withContext(Dispatchers.IO)` ≃ `Task.detached { ... }` 또는 `nonisolated` 메서드 활용
+> - `Flow.collect` ≃ `for await in sequence`
+> 상세 비교는 [android-coroutines-flow](../../android/02_app_framework/android-coroutines-flow.md)를 참고하세요.
 
 ### 더 보기
 - [apple-gcd-deep-dive](apple-gcd-deep-dive.md) - 기존 GCD 와의 차이점
-- [apple-combine-framework](../03_data_networking/apple-combine-framework.md) - 비동기 "스트림" 처리에는 Combine/AsyncSequence 가 유리함
+- [apple-observation-framework](apple-observation-framework.md) - Actor 와 @Observable 의 결합
+- [apple-combine-framework](../03_data_networking/apple-combine-framework.md) - 비동기 "스트림" 처리에는 AsyncSequence 가 유리함
+

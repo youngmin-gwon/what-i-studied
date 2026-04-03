@@ -10,6 +10,10 @@ date created: 2025-12-16 15:22:42 +09:00
 
 "안드로이드는 리눅스다." 이 말은 반은 맞고 반은 틀립니다.
 
+> [!CAUTION] **Devil's Advocate : 이 문서는 "앱 개발" 문서가 아닙니다**
+> 안드로이드 스택(Binder, HAL, SurfaceFlinger 등)의 로우레벨 지식은 AOSP(Android Open Source Project) 수정이나 단말 제조사(삼성전자 등)의 프레임워크 개발자에게나 어울리는 과잉 지식(Over-engineering)입니다.
+> **현대의 앱 개발자**는 Jetpack 라이브러리가 제공하는 추상화 계층 위에서만 놀면 되며, 이 문서의 내용에 집착하는 것은 비즈니스 로직 작성 시간을 낭비하는 안티패턴이 될 수 있습니다.
+
 안드로이드는 리눅스 커널을 사용하지만, **Standard Linux 배포판 (Ubuntu, Fedora) 과는 완전히 다른 철학**으로 설계되었습니다.
 
 ### 💡 Why it matters (Context)

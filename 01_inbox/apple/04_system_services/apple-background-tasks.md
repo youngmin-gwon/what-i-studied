@@ -54,12 +54,25 @@ iOS 13+ 부터 권장되는 "예약(Schedule)" 방식입니다.
 2. **등록 (Register)**: `application(_:didFinishLaunchingWithOptions:)` 시점에 **반드시** 등록해야 합니다. 앱이 백그라운드에서 깨어날 때, 이 등록 정보를 보고 핸들러를 찾기 때문입니다.
 
 ```swift
+// UIKit (AppDelegate) 방식
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.example.db_cleanup", using: nil) { task in
         self.handleProcessingTask(task: task as! BGProcessingTask)
     }
     return true
 }
+```
+
+> [!TIP] **SwiftUI App Lifecycle 에서의 등록**
+> SwiftUI `App` 프로토콜을 사용하는 경우, `init()`에서 동일하게 등록합니다:
+> ```swift
+> @main struct MyApp: App {
+>     init() {
+>         BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.example.db_cleanup", using: nil) { task in ... }
+>     }
+>     var body: some Scene { WindowGroup { ContentView() } }
+> }
+> ```
 
 func scheduleProcessing() {
     let request = BGProcessingTaskRequest(identifier: "com.example.db_cleanup")

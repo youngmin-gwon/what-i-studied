@@ -8,10 +8,12 @@ date created: 2025-12-16 17:01:32 +09:00
 
 ## Core Data Deep Dive
 
-"Core Data 는 데이터베이스가 아닙니다."
+> [!CAUTION] **Devil's Advocate : Core Data vs SwiftData (iOS 17+)**
+> Core Data는 십수 년간 Apple 생태계를 지탱한 강력한 프레임워크지만, Objective-C 기반의 낡은 API(`NSManagedObject`)와 복잡한 보일러플레이트로 악명이 높았습니다.
+> iOS 17부터 도입된 **SwiftData**는 내부적으로 Core Data 엔진을 사용하면서도 100% Swift 네이티브(매크로 `@Model` 기반)로 완전히 탈바꿈시킨 차세대 프레임워크입니다.
+> 신규 프로젝트에서는 가급적 SwiftData를 우선 채택해야 하며, 아래의 Core Data 개념은 그 기저(Under the hood)를 이해하거나 레거시 코드를 유지보수하기 위해 알아두어야 합니다.
 
-이 유명한 말은 반은 맞고 반은 틀립니다. Core Data 는 SQLite 를 훌륭하게 추상화한 **객체 그래프 관리자(Object Graph Manager)**입니다.
-
+"Core Data 는 데이터베이스가 아닙니다." SQLite 를 추상화한 **객체 그래프 관리자(Object Graph Manager)**입니다.
 CRUD(Create, Read, Update, Delete)를 넘어, 객체 간의 **관계(Relationship)**와 **메모리 수명(Lifecycle)**을 관리하는 것이 핵심입니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
@@ -107,9 +109,9 @@ backgroundContext.perform {
 }
 ```
 
-### 🧱 Core Data Stack Setup (Modern)
+### 🧱 Legacy Core Data Stack vs Modern SwiftData
 
-이제 `NSPersistentContainer` 가 귀찮은 설정을 다 해줍니다.
+과거(iOS 10+)에는 `NSPersistentContainer` 가 그나마 편리를 주었습니다:
 
 ```swift
 lazy var persistentContainer: NSPersistentContainer = {
@@ -123,6 +125,16 @@ lazy var persistentContainer: NSPersistentContainer = {
     container.viewContext.automaticallyMergesChangesFromParent = true
     return container
 }()
+```
+
+**현대 (SwiftData, iOS 17+)**: 모든 `xcdatamodeld` 파일과 위 설정들이 아래 코드 한 줄로 갈음됩니다.
+```swift
+@Model
+class Task {
+    var isCompleted: Bool
+    init(isCompleted: Bool) { self.isCompleted = isCompleted }
+}
+// 앱 진입점에서 .modelContainer(for: Task.self) 호출
 ```
 
 ### 더 보기

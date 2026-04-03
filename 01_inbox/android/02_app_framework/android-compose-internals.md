@@ -500,26 +500,34 @@ fun UserScreen(
 
 ### Navigation Compose
 
+### Navigation Compose (Type-Safe Routing)
+
+> [!WARNING] **Devil's Advocate : String Route는 이제 그만**
+> 과거 Compose Navigation은 `"detail/{id}"` 와 같은 String URL 기반 라우팅을 사용하여 오타에 취약하고 인수 전달이 불편했습니다.
+> **Navigation 2.8+ 버전부터는 `kotlinx.serialization` 기반의 Type-Safe 라우팅으로 완전히 대체**되었습니다. String 기반 라우팅 코드를 발견하면 리팩토링 대상입니다.
+
 ```kotlin
+// 1. Route 타겟을 Serializable 데이터 구조로 정의
+@Serializable object Home
+@Serializable data class Detail(val userId: String)
+
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
     
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") {
+    NavHost(navController = navController, startDestination = Home) {
+        composable<Home> {
             HomeScreen(
                 onNavigateToDetail = { id ->
-                    navController.navigate("detail/$id")
+                    navController.navigate(Detail(userId = id))
                 }
             )
         }
         
-        composable(
-            route = "detail/{userId}",
-            arguments = listOf(navArgument("userId") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val userId = backStackEntry.arguments?.getString("userId")
-            DetailScreen(userId = userId)
+        composable<Detail> { backStackEntry ->
+            // 2. Type-safe하게 인자 추출
+            val detail = backStackEntry.toRoute<Detail>()
+            DetailScreen(userId = detail.userId)
         }
     }
 }
@@ -586,6 +594,60 @@ fun DebugComposable() {
 // adb shell setprop debug.compose.trace on
 ```
 
+### Kotlin 2.0+ Compose 컴파일러 분리
+
+> [!WARNING] **Kotlin 2.0 마이그레이션 필수 변경**
+> Kotlin 2.0부터 Compose 컴파일러 플러그인이 Kotlin 에 **내장**되었다. 별도의 `compose-compiler` 의존성과 `kotlinCompilerExtensionVersion` 설정이 **삭제**되어야 한다.
+
+```kotlin
+// ❌ Kotlin 1.x (이전 방식)
+android {
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"  // 삭제 대상
+    }
+}
+
+// ✅ Kotlin 2.0+ (현대 방식)
+plugins {
+    alias(libs.plugins.kotlin.compose)  // Compose 컴파일러 플러그인
+}
+// composeOptions 블록 자체가 불필요
+```
+
+**마이그레이션 체크리스트:**
+1. `build.gradle.kts` 에서 `composeOptions { kotlinCompilerExtensionVersion }` 제거
+2. `plugins` 블록에 `kotlin-compose` 플러그인 추가
+3. `libs.versions.toml` 에서 Compose Compiler 버전 참조 제거
+
+### Strong Skipping Mode (Compose 1.6+)
+
+Compose 컴파일러가 더 공격적으로 재구성을 건너뛸 수 있도록 한다. **Kotlin 2.0+ 에서는 기본 활성화.**
+
+**기존**: Unstable 파라미터를 가진 Composable 은 항상 재구성
+**Strong Skipping**: Unstable 파라미터도 `equals()` 비교를 통해 **같으면 건너뜀**
+
+```kotlin
+// 기존: List<User> 는 Unstable → UserList 는 항상 재구성됨
+// Strong Skipping: List<User> 도 equals() 비교 → 같은 리스트면 건너뜀
+@Composable
+fun UserList(users: List<User>) {
+    LazyColumn {
+        items(users) { user -> UserCard(user) }
+    }
+}
+```
+
+**실무 영향:**
+- `@Stable`, `@Immutable` 어노테이션의 필요성이 줄어듦
+- `kotlinx.collections.immutable` (`ImmutableList` 등) 없이도 성능 확보 가능
+- 그래도 `data class` + `val` 조합은 여전히 권장 (의도 명확화)
+
+> [!NOTE] **iOS 비교: SwiftUI 의 렌더링 최적화**
+> SwiftUI 는 `@Observable` 매크로(iOS 17+)를 통해 **프로퍼티 수준 추적**을 자동화한다. Compose 의 Strong Skipping Mode 와 유사하게, 실제로 변경된 프로퍼티를 사용하는 뷰만 다시 그린다.
+> 차이점: SwiftUI 는 프레임워크가 자동으로 감지하는 반면, Compose 는 `equals()` 기반 비교에 의존한다.
+> 자세한 내용은 [apple-observation-framework](../../apple/01_language_concurrency/apple-observation-framework.md) 참고.
+
 ### 더 보기
 
-[android-jetpack-architecture](android-jetpack-architecture.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)
+[android-jetpack-architecture](android-jetpack-architecture.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-coroutines-flow](android-coroutines-flow.md), [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)
+

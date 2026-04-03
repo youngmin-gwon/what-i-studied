@@ -12,7 +12,9 @@ date created: 2025-12-16 15:27:59 +09:00
 
 ### 어떤 테스트가 있나
 - 단위 테스트: 비즈니스 로직을 JVM 에서 빠르게 돌린다.
-- 기기/에뮬레이터 테스트: UI(Espresso/Compose), 통합 (Instr), 성능 (Macrobenchmark).
+- 기기/에뮬레이터 테스트: UI 테스트(**UI Test with Compose**), 통합 (Instr), 성능 (Macrobenchmark).
+> [!WARNING] **Devil's Advocate : 안녕, Espresso**
+> `Espresso`는 레이아웃 계층 `findViewById` 시절에 만들어진 무거운 프레임워크입니다. Compose로 UI를 구축하는 모던 안드로이드 환경에서는 `compose-ui-test` API를 사용해야 하며, Espresso와 UI Automator를 혼용하는 것은 레거시 유지보수 목적일 뿐 신규 구축에서는 배제해야 합니다.
 - 플랫폼 호환성: CTS/VTS/GTS 로 OS/HAL 이 규격을 지키는지 확인.
 - 퍼지·샌리타이저: 네이티브 코드 안전성 강화.
 
@@ -23,7 +25,7 @@ date created: 2025-12-16 15:27:59 +09:00
 
 ### 도구
 - JUnit + Truth/AssertJ, Coroutine Test Rule 로 스레드를 제어.
-- Espresso IdlingResource, Compose Semantics 테스트 API.
+- Compose Semantics 테스트 API. (Espresso IdlingResource 등 레거시 도구 지양)
 - Snapshot/Screenshot 테스트로 UI 깨짐을 감시.
 
 ### 기기 관리
@@ -51,6 +53,56 @@ date created: 2025-12-16 15:27:59 +09:00
 - 실험은 작은 비율부터, 실패 시 빠른 롤백.
 - 회고/기술 문서를 남겨 다음에 같은 실수를 줄인다.
 
+### Screenshot Testing (UI 회귀 방지)
+
+> [!TIP] **스크린샷 테스트 = Compose UI 의 안전장치**
+> 코드 변경 후 UI 가 의도치 않게 깨졌는지 **픽셀 단위 비교**로 자동 검증한다. Compose 앱에서는 Espresso 보다 훨씬 효과적인 UI 품질 보장 수단이다.
+
+**Roborazzi (JVM, 에뮬레이터 불필요, 권장)**:
+```kotlin
+// build.gradle.kts
+plugins {
+    id("io.github.takahirom.roborazzi") version "1.x"
+}
+
+@RunWith(RobolectricTestRunner::class)
+class UserCardScreenshotTest {
+    @get:Rule
+    val composeTestRule = createComposeRule()
+    
+    @Test
+    fun userCard_default() {
+        composeTestRule.setContent {
+            UserCard(User("1", "김영민", "개발자"))
+        }
+        composeTestRule.onRoot().captureRoboImage("UserCard_default.png")
+    }
+}
+```
+
+**Paparazzi (Square, Layout XML + Compose 지원)**:
+```kotlin
+class UserCardTest {
+    @get:Rule
+    val paparazzi = Paparazzi()
+    
+    @Test
+    fun snapshot() {
+        paparazzi.snapshot {
+            UserCard(User("1", "김영민", "개발자"))
+        }
+    }
+}
+```
+
+- **기록(Record)**: `./gradlew recordRoborazziDebug` → 골든 이미지 생성
+- **검증(Verify)**: `./gradlew verifyRoborazziDebug` → CI 에서 비교
+
+> [!NOTE] **iOS 비교: Swift UI Preview Tests**
+> iOS 에서는 Xcode 의 **Preview** 기능과 **`swift-snapshot-testing`** (Point-Free) 라이브러리가 유사한 역할을 한다.
+> Android 의 Roborazzi 가 JVM 에서 실행되는 것처럼, iOS 도 시뮬레이터 없이 스냅샷 테스트가 가능하다.
+
 ### 링크
 
 [android-foundations](../00_foundations/android-foundations.md), [android-performance-and-debug](android-performance-and-debug.md), [android-os-development-guide](../02_app_framework/android-os-development-guide.md).
+

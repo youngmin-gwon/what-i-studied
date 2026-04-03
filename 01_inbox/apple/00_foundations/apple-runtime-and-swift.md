@@ -79,9 +79,14 @@ id objc_msgSend(id self, SEL op, ...)
 5. **Dynamic Method Resolution**: 못 찾으면 `resolveInstanceMethod:` 호출.
 6. **Forwarding**: 그래도 없으면 `forwardInvocation:` 호출 (크래시 전 마지막 기회).
 
-#### 3. Method Swizzling
+#### 3. Method Swizzling (⚠️ Modern Apple Dev 관점: Legacy & Anti-pattern)
 
-런타임에 메서드 구현(IMP)을 바꿔치기하는 기술. 주로 로깅, 분석 SDK, 디버깅 툴이 사용함.
+런타임에 메서드 구현(IMP)을 바꿔치기하는 기술입니다. 과거 Objective-C와 UIKit 시절 로깅, 분석 SDK, 핫픽스에 핵심 기술로 쓰였습니다.
+> [!WARNING] **Devil's Advocate**
+> 현대 Swift 및 SwiftUI 환경에서는 Method Swizzling이 사실상 **금기시(Anti-pattern)** 됩니다. 
+> 1. SwiftUI 컴포넌트는 `objc_msgSend` 기반이 아니므로 Swizzling이 불가능합니다.
+> 2. Swift 런타임의 정적 디스패치 생태계와 충돌하며 예상치 못한 크래시를 유발할 수 있습니다.
+> 3. 앱 추적 투명성(ATT)과 같은 최신 보안 정책은 런타임에 몰래 동작을 가로채는 방식의 SDK를 지양합니다.
 
 ```swift
 extension UIViewController {
@@ -122,15 +127,18 @@ func process(item: Runnable) { // Runnable 프로토콜 타입
 }
 ```
 
-#### 3. Existential Container
+#### 3. Existential Container (`any` vs `some`)
 
 프로토콜 타입 변수(Existential)는 크기가 제각각인 구현체를 담기 위해 컨테이너 구조를 가집니다.
 
 - **작은 값**: **Inline Buffer** (3 pointers size)에 직접 저장.
 - **큰 값**: 힙에 할당하고 포인터만 저장.
-- **VWT (Value Witness Table)**: 할당/복사/해제 방법을 아는 테이블 포인터.
+- **VWT (Value Witness Table)**: 할당/복사/해제 방법을 아는 테이블.
 - **PWT**: 프로토콜 메서드 테이블 포인터.
 
+> [!CAUTION] **Devil's Advocate : Swift 5.7+ 의 `any` 와 `some`**
+> 이전에는 무분별하게 프로토콜을 타입으로 지정했지만, 이는 런타임 오버헤드(Existential Container 생성 및 Heap 할당)를 유발합니다. 
+> 현재는 Opaque Type인 `some Protocol`(컴파일 타임 정적 디스패치)을 우선 사용하고, 다형성 배열 등 꼭 필요한 경우에만 명시적으로 `any Protocol` (런타임 오버헤드 감수)을 사용하도록 언어 차원(Swift 5.7+)에서 강제/권장하고 있습니다.
 ---
 
 ### 🛡️ 실무 성능 및 최적화 포인트

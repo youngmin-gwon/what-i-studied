@@ -779,7 +779,11 @@ dependencies {
 }
 ```
 
-#### buildSrc 패턴
+#### buildSrc 패턴 (Legacy Anti-Pattern)
+
+> [!WARNING] **Devil's Advocate : `buildSrc` 의 캐시 무효화 함정**
+> `libs.versions.toml`이 나오기 전, Kotlin으로 의존성을 깔끔하게 관리하려던 개발자들은 `buildSrc` 디렉토리에 Kotlin Object를 만들어 썼습니다.
+> **하지만 `buildSrc` 내부의 파일이 1줄이라도 바뀌면 전체 프로젝트의 빌드 캐시가 무효화되어 클린 빌드가 돌아가는 치명적인 성능 결함이 있습니다.** 따라서 의존성 관리 용도로 `buildSrc`를 쓰는 것은 명백한 안티패턴이며 언제나 Version Catalog를 써야 합니다.
 
 ```kotlin
 // buildSrc/src/main/kotlin/Dependencies.kt
@@ -1065,6 +1069,87 @@ gradle-profiler --benchmark --project-dir . assembleDebug
 # https://scans.gradle.com 에서 결과 확인
 ```
 
+### KAPT → KSP 마이그레이션 (필수)
+
+> [!CAUTION] **Devil's Advocate : KAPT 는 공식 Deprecated (Kotlin 2.1+)**
+> Google 은 2024년부터 모든 Jetpack 라이브러리(Room, Hilt 등)의 어노테이션 프로세서를 KSP 로 전환했으며, **Kotlin 2.1부터 KAPT 는 유지보수 모드(Maintenance Mode)**에 들어갔다.
+> KAPT 는 Java 스텁을 생성하는 추가 단계가 있어 빌드 시간이 KSP 대비 **2배 이상 느리다**. 신규 프로젝트에서 `id("kotlin-kapt")` 를 사용하는 것은 기술 부채를 의도적으로 쌓는 것이다.
+
+```kotlin
+// ❌ KAPT (Deprecated)
+plugins {
+    id("kotlin-kapt")
+}
+dependencies {
+    kapt(libs.hilt.compiler)
+    kapt(libs.room.compiler)
+}
+
+// ✅ KSP (권장)
+plugins {
+    id("com.google.devtools.ksp") version libs.versions.ksp.get()
+}
+dependencies {
+    ksp(libs.hilt.compiler)
+    ksp(libs.room.compiler)
+}
+```
+
+### Baseline Profiles
+
+앱 시작 및 핵심 사용자 여정의 **AOT 컴파일을 보장**하여 시작 시간을 최대 40% 단축한다.
+
+```kotlin
+// build.gradle.kts (app)
+plugins {
+    id("androidx.baselineprofile")
+}
+
+dependencies {
+    baselineProfile(project(":baselineprofile"))
+}
+
+// baselineprofile/build.gradle.kts
+plugins {
+    id("com.android.test")
+    id("androidx.baselineprofile")
+}
+
+android {
+    targetProjectPath = ":app"
+}
+```
+
+```kotlin
+// BaselineProfileGenerator.kt
+@RunWith(AndroidJUnit4::class)
+class BaselineProfileGenerator {
+    @get:Rule
+    val rule = BaselineProfileRule()
+    
+    @Test
+    fun generateBaselineProfile() {
+        rule.collect(packageName = "com.example.app") {
+            // 핵심 사용자 여정 시뮬레이션
+            pressHome()
+            startActivityAndWait()
+            
+            // 메인 화면 스크롤
+            device.findObject(By.res("user_list"))
+                .also { it.setGestureMargin(device.displayWidth / 5) }
+                .fling(Direction.DOWN)
+            
+            device.waitForIdle()
+        }
+    }
+}
+```
+
+> [!NOTE] **iOS 비교: Baseline Profiles vs iOS 빌드 최적화**
+> iOS 에서는 App Store 배포 시 **App Thinning** 과 기기별 최적화된 바이너리가 자동 생성되며, Swift 컴파일러가 WMO(Whole Module Optimization)로 AOT 컴파일을 수행한다.
+> Android 의 Baseline Profiles 는 ART 런타임의 JIT/AOT 혼합 전략의 한계를 보완하기 위한 것으로, iOS 에는 직접적인 대응 개념이 없다 (필요가 없기 때문).
+
 ### 더 보기
 
 [android-os-development-guide](android-os-development-guide.md), [android-jetpack-architecture](android-jetpack-architecture.md), [android-dependency-injection](android-dependency-injection.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)
+
