@@ -2,7 +2,7 @@
 title: apple-architecture-stack
 tags: [apple, architecture, darwin, internals, kernel, xnu]
 aliases: []
-date modified: 2026-04-03 18:51:15 +09:00
+date modified: 2026-04-05 12:16:37 +09:00
 date created: 2025-12-16 16:07:53 +09:00
 ---
 
@@ -13,12 +13,14 @@ Apple 운영체제의 기반인 Darwin 과 XNU 커널의 아키텍처 심층 분
 ### 📚 외부 리소스 및 참고 자료
 
 #### 커널 소스 및 공식 문서
+
 - **XNU Kernel Source**: [apple-oss-distributions/xnu](https:/github.com/apple-oss-distributions/xnu) - 메인 커널 소스 (GitHub)
 - **Darwin Open Source**: [Apple Open Source](https:/opensource.apple.com)
-- **Kernel Programming Guide**: [Apple Developer Archive](../../../../https:/developer.apple.com/library/archive/documentation/Darwin/Conceptual/KernelProgramming)
-- **Mach Microkernel**: [CMU Mach Project](../../../../https:/www.cs.cmu.edu/afs/cs/project/mach/public/www/mach.html.md) - XNU 의 기반이 된 마이크로커널
+- **Kernel Programming Guide**: [Apple Developer Archive](https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/KernelProgramming)
+- **Mach Microkernel**: [CMU Mach Project](https://www.cs.cmu.edu/afs/cs/project/mach/public/www/mach.html) - XNU 의 기반이 된 마이크로커널
 
 #### 📖 기술 서적 및 심화 학습
+
 - **Mac OS X Internals**: System Approach - 클래식하지만 여전히 유효한 바이블
 - **OS X & iOS Kernel Programming**
 - [NewOSXBook](http:/newosxbook.com/index.php) - Jonathan Levin 의 현대적인 iOS 내부 구조 분석

@@ -1,8 +1,8 @@
 ---
 title: apple-observation-framework
-tags: [apple, macro, observation, observable, state-management, swiftui]
+tags: [apple, macro, observable, observation, state-management, swiftui]
 aliases: []
-date modified: 2026-04-03 23:58:00 +09:00
+date modified: 2026-04-05 12:23:21 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 
@@ -184,8 +184,8 @@ func observeNameChanges(viewModel: UserViewModel) async {
 2. **iOS 17+ 전용**: iOS 16 이하를 지원해야 한다면 여전히 `ObservableObject` 를 사용해야 합니다. `#available` 로 분기하는 것은 권장되지 않습니다.
 3. **Collection 주의**: `@Observable` 객체 안의 배열(`[Item]`)은 배열 자체의 변경(추가/삭제)만 추적합니다. 배열 **내부 요소**의 프로퍼티 변경도 추적하려면 `Item` 도 `@Observable` 이어야 합니다.
 
-> [!WARNING] **Devil's Advocate : 점진적 마이그레이션이 핵심**
-> `@Observable` 이 우월하다고 해서 기존 `ObservableObject` 를 한꺼번에 바꾸면 안 됩니다.
+>[!WARNING] **Devil's Advocate : 점진적 마이그레이션이 핵심**
+>`@Observable` 이 우월하다고 해서 기존 `ObservableObject` 를 한꺼번에 바꾸면 안 됩니다.
 > 1. iOS 17 미만을 지원해야 하는 앱에서는 **기존 패턴을 유지**하세요.
 > 2. 새 ViewModel 부터 `@Observable` 을 적용하고, 기존 것은 자연스러운 리팩토링 시점에 전환하세요.
 > 3. `ObservableObject` 와 `@Observable` 은 같은 앱 내에서 공존할 수 있습니다.

@@ -2,7 +2,7 @@
 title: apple-memory-management
 tags: [apple, arc, internals, memory, performance, profiling]
 aliases: []
-date modified: 2026-04-03 18:54:43 +09:00
+date modified: 2026-04-05 12:23:03 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -196,9 +196,11 @@ private class DeinitTracker {
 ```
 
 ### 📚 외부 리소스 및 참고 자료
-- **[WWDC 2021: ARC in Swift](../../../../https:/developer.apple.com/videos/play/wwdc2021/10216/.md)**: Side Table 과 ARC 최적화의 바이블.
-- **[Swift Runtime Source](../../../../https:/github.com/apple/swift/tree/main/stdlib/public/runtime.md)**: 실제 C++ 구현체 확인.
+
+- **[WWDC 2021: ARC in Swift](https://developer.apple.com/videos/play/wwdc2021/10216)**: Side Table 과 ARC 최적화의 바이블.
+- **[Swift Runtime Source](https://github.com/apple/swift/tree/main/stdlib/public/runtime)**: 실제 C++ 구현체 확인.
 
 ### 더 보기
+
 - [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - 생명주기에 따른 메모리 관리
 - [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - Instruments 상세 사용법

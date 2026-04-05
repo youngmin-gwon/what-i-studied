@@ -2,7 +2,7 @@
 title: apple-glossary
 tags: [apple, dictionary, glossary, reference, terms]
 aliases: []
-date modified: 2026-04-03 18:53:56 +09:00
+date modified: 2026-04-05 12:18:34 +09:00
 date created: 2025-12-16 16:06:41 +09:00
 ---
 

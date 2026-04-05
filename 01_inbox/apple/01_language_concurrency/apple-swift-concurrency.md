@@ -2,15 +2,13 @@
 title: apple-swift-concurrency
 tags: [actor, apple, async-await, concurrency, internals, swift]
 aliases: []
-date modified: 2026-04-03 18:54:44 +09:00
+date modified: 2026-04-05 12:23:37 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
 ## Swift Concurrency Deep Dive
 
-## Swift Concurrency Deep Dive
-
-Swift 5.5부터 도입되어 **Swift 6에서 완전한 Data-Race Safety(엄격한 동시성 검사)**를 통해 완성된 비동기 프로그래밍 모델입니다. 컴파일러가 언어 차원에서 **안전하고(Safe)**, **구조적인(Structured)** 동시성을 보장합니다.
+Swift 5.5 부터 도입되어 **Swift 6 에서 완전한 Data-Race Safety(엄격한 동시성 검사)** 를 통해 완성된 비동기 프로그래밍 모델입니다. 컴파일러가 언어 차원에서 **안전하고(Safe)**, **구조적인(Structured)** 동시성을 보장합니다.
 
 단순히 `async/await` 문법을 쓰는 것을 넘어, **Actor Isolation**과 **Sendable Check** 가 어떻게 데이터 경합(Data Race)을 **컴파일 타임 에러**로 막아주는지 알아봅니다.
 
@@ -107,7 +105,7 @@ class MyViewModel: ObservableObject {
 
 #### 2. Sendable 프로토콜
 
-"이 데이터는 스레드를 건너뛰어도 안전한가?"를 컴파일러에게 확증(Guarantee)하는 프로토콜입니다. **Swift 6 모드에서는 Sendable하지 않은 타입을 동시성 도메인(Actor나 Task) 바깥으로 넘기는 동작이 경고가 아닌 컴파일 에러가 됩니다.**
+"이 데이터는 스레드를 건너뛰어도 안전한가?"를 컴파일러에게 확증(Guarantee)하는 프로토콜입니다. **Swift 6 모드에서는 Sendable 하지 않은 타입을 동시성 도메인(Actor 나 Task) 바깥으로 넘기는 동작이 경고가 아닌 컴파일 에러가 됩니다.**
 
 - **Value Type** (Struct, Enum)은 멤버가 Sendable 이면 자동 준수.
 - **Actor**는 내부 동기화가 있으므로 Sendable.
@@ -182,6 +180,7 @@ func createConfig() -> sending Config {
 ```
 
 **`Sendable` vs `sending`**:
+
 - `Sendable`: 타입 자체가 스레드 안전함을 **보장** (불변 또는 내부 동기화)
 - `sending`: 특정 값의 **소유권을 이전**하여 안전하게 전달 (타입이 Sendable 이 아니어도 가능)
 
@@ -218,14 +217,13 @@ class ViewController {
 | **비동기 스트림** | `Flow` (Cold), `StateFlow` (Hot) | `AsyncSequence`, `AsyncStream` |
 | **취소 전파** | Structured Concurrency (Job hierarchy) | Task hierarchy & Cooperative cancellation |
 
-> [!TIP] **Android 개발자를 위한 Swift Concurrency**
-> - `viewModelScope.launch` ≃ `Task { ... }` (MainActor 에서 실행 시)
-> - `withContext(Dispatchers.IO)` ≃ `Task.detached { ... }` 또는 `nonisolated` 메서드 활용
+>[!TIP] **Android 개발자를 위한 Swift Concurrency**
+> - `viewModelScope.launch` ≃ `Task { … }` (MainActor 에서 실행 시)
+> - `withContext(Dispatchers.IO)` ≃ `Task.detached { … }` 또는 `nonisolated` 메서드 활용
 > - `Flow.collect` ≃ `for await in sequence`
-> 상세 비교는 [android-coroutines-flow](../../android/02_app_framework/android-coroutines-flow.md)를 참고하세요.
+>상세 비교는 [android-coroutines-flow](../../android/02_app_framework/android-coroutines-flow.md) 를 참고하세요.
 
 ### 더 보기
 - [apple-gcd-deep-dive](apple-gcd-deep-dive.md) - 기존 GCD 와의 차이점
 - [apple-observation-framework](apple-observation-framework.md) - Actor 와 @Observable 의 결합
 - [apple-combine-framework](../03_data_networking/apple-combine-framework.md) - 비동기 "스트림" 처리에는 AsyncSequence 가 유리함
-
