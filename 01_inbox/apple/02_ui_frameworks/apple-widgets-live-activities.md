@@ -2,7 +2,7 @@
 title: apple-widgets-live-activities
 tags: [apple, dynamic-island, live-activities, widgetkit, widgets]
 aliases: []
-date modified: 2026-04-03 18:55:30 +09:00
+date modified: 2026-04-05 12:27:56 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -10,10 +10,11 @@ date created: 2025-12-16 17:01:32 +09:00
 
 앱에 들어오지 않아도 중요한 정보를 가장 빠르게 확인할 수 있는 창구입니다.
 
-홈 화면의 **위젯(Widgets)**과 잠금 화면/다이내믹 아일랜드의 **실시간 현황(Live Activities)**은 앱의 재방문율을 높이는 핵심 기능입니다.
+홈 화면의 **위젯(Widgets)** 과 잠금 화면/다이내믹 아일랜드의 **실시간 현황(Live Activities)** 은 앱의 재방문율을 높이는 핵심 기능입니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
-- **Snapshot Limitation**: 위젯은 "미니 앱"이 아닙니다. 매초 움직이거나 복잡한 애니메이션을 넣으려다 실패하는 경우가 많습니다. 위젯은 **"미리 그려진 그림(Snapshot)"**을 시간표(Timeline)에 맞춰 갈아끼우는 방식임을 이해해야 합니다.
+
+- **Snapshot Limitation**: 위젯은 "미니 앱"이 아닙니다. 매초 움직이거나 복잡한 애니메이션을 넣으려다 실패하는 경우가 많습니다. 위젯은 **"미리 그려진 그림(Snapshot)"** 을 시간표(Timeline)에 맞춰 갈아끼우는 방식임을 이해해야 합니다.
 - **Dynamic Island**: 아이폰 14 Pro 이후, 화면 상단의 펀치홀 영역이 정보 창으로 변했습니다. 이곳을 점유하지 못하면 사용자 경험에서 밀려납니다.
 - **실시간성**: 배달 현황, 스포츠 점수처럼 "지금 당장" 변하는 정보는 위젯(갱신 주기 15 분 +)으로는 불가능합니다. 이때 Live Activity 가 필요합니다.
 
@@ -140,8 +141,8 @@ struct MyWidgetProvider: AppIntentTimelineProvider {
 }
 ```
 
-> [!TIP] **Toggle/Button 제한사항**
-> Interactive Widget 에서 사용할 수 있는 컨트롤은 `Button` 과 `Toggle` 뿐입니다. `TextField`, `Slider` 등 복잡한 입력은 불가능합니다. 복잡한 상호작용이 필요하면 앱을 열어야 합니다.
+>[!TIP] **Toggle/Button 제한사항**
+>Interactive Widget 에서 사용할 수 있는 컨트롤은 `Button` 과 `Toggle` 뿐입니다. `TextField`, `Slider` 등 복잡한 입력은 불가능합니다. 복잡한 상호작용이 필요하면 앱을 열어야 합니다.
 
 ### 🤖 Android 비교: WidgetKit vs Jetpack Glance
 
@@ -154,14 +155,13 @@ Apple 의 WidgetKit 과 유사한 기능을 Android 에서는 **Jetpack Glance**
 | **실시간성** | Live Activities 지원 | 전용 위젯 업데이트 (제한적) |
 | **인터랙션** | iOS 17+ Button/Toggle 지원 | Glance Action API 지원 |
 
-> [!TIP] **Android 개발자를 위한 WidgetKit**
+>[!TIP] **Android 개발자를 위한 WidgetKit**
 > - `TimelineProvider` ≃ Android 위젯의 데이터 갱신 스케줄링 (WorkManager 등 활용)
 > - `ActivityKit` (Live Activities) ≃ Android 에서는 고정된 **Foreground Service Notification** 이 유사한 역할을 함
 > - `AppIntent` ≃ Glance 의 `Action` 인터페이스
-> 상세 비교는 [android-widgets-glance](../../android/02_app_framework/android-widgets-glance.md)를 참고하세요.
+>상세 비교는 [android-widgets-glance](../../android/02_app_framework/android-widgets-glance.md) 를 참고하세요.
 
 ### 📚 더 보기
 - [apple-app-lifecycle-and-ui](apple-app-lifecycle-and-ui.md) - Extension 의 생명주기
 - [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 위젯 UI 는 100% SwiftUI
 - [apple-app-intents](../04_system_services/apple-app-intents.md) - App Intents 프레임워크 상세
-

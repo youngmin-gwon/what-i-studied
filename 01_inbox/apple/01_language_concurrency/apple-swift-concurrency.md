@@ -2,7 +2,7 @@
 title: apple-swift-concurrency
 tags: [actor, apple, async-await, concurrency, internals, swift]
 aliases: []
-date modified: 2026-04-05 12:23:37 +09:00
+date modified: 2026-04-05 12:24:15 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 

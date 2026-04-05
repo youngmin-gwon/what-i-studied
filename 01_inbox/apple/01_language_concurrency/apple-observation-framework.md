@@ -2,7 +2,7 @@
 title: apple-observation-framework
 tags: [apple, macro, observable, observation, state-management, swiftui]
 aliases: []
-date modified: 2026-04-05 12:23:21 +09:00
+date modified: 2026-04-05 12:23:51 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 

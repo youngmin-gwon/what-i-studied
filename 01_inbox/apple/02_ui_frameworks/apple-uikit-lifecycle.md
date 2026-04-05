@@ -2,7 +2,7 @@
 title: apple-uikit-lifecycle
 tags: [apple, internals, ios, lifecycle, optimization, uikit]
 aliases: []
-date modified: 2026-04-03 18:55:28 +09:00
+date modified: 2026-04-05 12:27:08 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -13,6 +13,7 @@ iOS 앱 개발의 알파이자 오메가인 **UIKit**의 생명주기(Lifecycle)
 단순히 `viewDidLoad` 에 코드를 때려 박는 것을 넘어, **"뷰가 언제 메모리에 올라오고, 언제 레이아웃이 잡히며, 언제 그려지는지"**를 정확히 알게 됩니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Why it matters)
+
 - **레이아웃 버그**: "뷰 크기가 왜 0 으로 나오죠?" → 아직 `Layout Pass` 가 돌지 않은 시점(`viewDidLoad`)에서 프레임을 참조했기 때문입니다.
 - **성능 최적화**: "스크롤이 버벅거려요" → `Offscreen Rendering` 이나 과도한 `Layout Constraint Update` 가 원인일 수 있습니다.
 - **예측 가능성**: 뷰가 사라질 때 타이머를 끄거나(`viewDidDisappear`), 화면 회전 시 레이아웃을 고치는(`viewWillLayoutSubviews`) 정확한 타이밍을 알아야 버그 없는 앱을 만들 수 있습니다.
@@ -22,14 +23,16 @@ iOS 앱 개발의 알파이자 오메가인 **UIKit**의 생명주기(Lifecycle)
 ### 📚 외부 리소스 및 참고 자료
 
 #### 공식 문서 (Official Docs)
-- [UIViewController - Apple Developer](../../../../https:/developer.apple.com/documentation/uikit/uiviewcontroller.md)
-- [View Controller Programming Guide](../../../../https:/developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/.md)
-- [Auto Layout Guide](../../../../https:/developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/.md)
-- [UIView - Apple Developer](../../../../https:/developer.apple.com/documentation/uikit/uiview.md)
+
+- [UIViewController - Apple Developer](https://developer.apple.com/documentation/uikit/uiviewcontroller)
+- [View Controller Programming Guide](https:/developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS)
+- [Auto Layout Guide](https:/developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG)
+- [UIView - Apple Developer](https:/developer.apple.com/documentation/uikit/uiview)
 
 #### 🎥 WWDC 세션
-- [WWDC 2018: UIKit: Apps for Every Size and Shape](../../../../https:/developer.apple.com/videos/play/wwdc2018/235/.md)
-- [WWDC 2015: Mysteries of Auto Layout, Part 1](../../../../https:/developer.apple.com/videos/play/wwdc2015/218/.md)
+
+- [WWDC 2018: UIKit: Apps for Every Size and Shape](https://developer.apple.com/videos/play/wwdc2018/235)
+- [WWDC 2015: Mysteries of Auto Layout, Part 1](https://developer.apple.com/videos/play/wwdc2015/218)
 
 ---
 
@@ -243,5 +246,6 @@ func loadDownsampledImage(at url: URL, for size: CGSize, scale: CGFloat = UIScre
 ```
 
 ### 더 보기
+
 - [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 선언형 UI 의 생명주기
 - [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC 와 메모리 관리
