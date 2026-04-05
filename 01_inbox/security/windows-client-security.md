@@ -2,7 +2,7 @@
 title: windows-client-security
 tags: [null-session, rdp, registry, security, smb, windows]
 aliases: [Windows 보안, 공유폴더, 널세션, 레지스트리]
-date modified: 2026-01-08 15:57:26 +09:00
+date modified: 2026-04-05 21:01:06 +09:00
 date created: 2026-01-08 11:15:27 +09:00
 ---
 
@@ -198,11 +198,13 @@ net use \\target\IPC$ "" /u:""
 ```
 
 **위험성**:
+
 - 사용자 목록 수집 (Enumeration)
 - 공유 정보 수집
 - 시스템 정보 수집
 
 **대응**:
+
 ```reg
 :: 레지스트리로 널 세션 차단
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa]
@@ -341,6 +343,7 @@ graph LR
 ```
 
 **장점**:
+
 - 네트워크 트래픽 감소
 - 패치 현황 중앙 관리
 - 업데이트 승인/거부 제어

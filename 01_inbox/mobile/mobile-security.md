@@ -2,7 +2,7 @@
 title: mobile-security
 tags: [hub, mobile, moc, security]
 aliases: []
-date modified: 2026-04-05 17:41:58 +09:00
+date modified: 2026-04-05 21:04:01 +09:00
 date created: 2026-04-05 14:48:40 +09:00
 ---
 
@@ -42,11 +42,12 @@ date created: 2026-04-05 14:48:40 +09:00
 
 ---
 
-#### 🚀 최신 보안 트렌드 & AI (2025-2026 Trends)
+#### 🚀 최신 보안 트렌드 & AI (2024-2026 Trends)
 
-양자 내성 암호화, 클라우드 AI 프라이버시 등 최신 기술 스택을 분석합니다.
+양자 내성 암호화, 공급망 보안, 클라우드 AI 프라이버시 등 최신 기술 스택을 분석합니다.
 
-- **Apple Modern Security**:
+- **Modern Threats & Trends**:
+	- [[mobile-dev-security-checkpoints]] - **개발자를 위한 핵심 보안 체크포인트** (전체 단계 필수)
 	- [[apple-security-pq3]] - iMessage 의 양자 내성 암호 프로토콜
 	- [[apple-security-pcc]] - Apple Intelligence 를 위한 Private Cloud Compute
 	- [[apple-security-swift6-safety]] - Swift 6 의 컴파일 타임 동시성 및 메모리 안전성
@@ -58,11 +59,11 @@ date created: 2026-04-05 14:48:40 +09:00
 
 #### 🛡️ 보안 엔지니어링 및 진단 (Engineering & Compliance)
 
-보안 실무자를 위한 취약점 점검표, 무결성 검증 및 법적 거버넌스 가이드입니다.
+보안 실무자와 개발자를 위한 취약점 점검표, 무결성 검증 및 법적 거버넌스 가이드입니다.
 
 - [[android-security-play-integrity]] - **Play Integrity API** 실무 구현
 - [[android-security-practices]] - **Frida/Drozer** 진단 대응 및 국내외 컴플라이언스
-- [[cross-platform-mobile-vulnerability-check]] - OWASP Mobile Top 10 및 점검 가이드
+- [[cross-platform-mobile-vulnerability-check]] - OWASP Mobile Top 10 (2024 반영) 및 점검 가이드
 - [[mobile-advanced-security-tips]] - RASP, Anti-RE, 메모리 보안 및 Zero Trust
 
 ---
@@ -74,6 +75,7 @@ date created: 2026-04-05 14:48:40 +09:00
 - [[cryptography-basics]] - 모바일 암호화의 기초
 - [[network-security-protocols]] - 안전한 통신 인프라 (ATS/TLS)
 - [[digital-forensics]] - 모바일 이미지 획득 및 분석 실무
+- [[mobile-incident-response-2025]] - **최신 침해 사고 대응 가이드** (Zero-Click, AI-Phishing)
 
 #### See Also
 - [[mobile-security]] (This Hub)

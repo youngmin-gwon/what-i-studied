@@ -2,7 +2,7 @@
 title: android-security-permissions
 tags: [android, android/permissions, android/security]
 aliases: []
-date modified: 2026-04-05 17:43:35 +09:00
+date modified: 2026-04-05 21:04:23 +09:00
 date created: 2026-04-05 16:29:23 +09:00
 ---
 
@@ -27,7 +27,7 @@ date created: 2026-04-05 16:29:23 +09:00
 
 #### 런타임 권한 (Android 6.0+)
 
-**위험 권한(Dangerous Permissions)**은 앱 실행 중에 요청해야 하며, 사용자는 이를 거부할 권리가 있습니다.
+**위험 권한(Dangerous Permissions)** 은 앱 실행 중에 요청해야 하며, 사용자는 이를 거부할 권리가 있습니다.
 
 ```kotlin
 // 현대적인 권한 요청 패턴 (ActivityResultLauncher)
@@ -74,7 +74,16 @@ fun checkAndRequestCamera() {
 - `MANAGE_EXTERNAL_STORAGE`: 모든 파일 접근 (구글 플레이 검토 시 엄격한 제한).
 
 ##### 3. 알림 권한 (Android 13+)
-- `POST_NOTIFICATIONS` 가 런타임 권한으로 추가되었습니다. 이전 버전에서 올라온 앱은 시스템이 자동으로 팝업을 띄워 마이그레이션을 돕습니다.
+- `POST_NOTIFICATIONS` 가 런타임 권한으로 추가되었습니다.
+
+##### 4. 미디어 접근 세분화 (Android 14+)
+- **부분 사진 허용 (Selected Photos Access)**: `READ_MEDIA_VISUAL_USER_SELECTED` 권한을 통해 사용자가 전체 갤러리가 아닌 **선택한 특정 사진/비디오**에만 접근권을 부여할 수 있습니다.
+- **연속성 유지**: 사용자 경험을 위해 `READ_MEDIA_IMAGES` 와 함께 요청하며, 시스템이 자동으로 선택 UI 를 제공합니다.
+
+##### 5. 프라이버시 및 보안 강화 (Android 15+)
+- **스크린샷 탐지 (Screenshot Detection)**: `Activity.setScreenCaptureCallback()` 을 통해 앱이 활성화된 상태에서 스크린샷이 찍혔음을 감지하고 대응(예: 민감 정보 가리기)할 수 있습니다.
+- **백그라운드 활동 제한**: 앱이 백그라운드 상태에서 다른 앱의 Activity 를 무단으로 시작하는 것이 더욱 엄격하게 제한됩니다.
+- **개인정보 보호 공간 (Private Space)**: 민감한 앱을 별도의 격리된 공간에 설치하고 생체 인증으로 잠글 수 있는 기능이 추가되었습니다.
 
 ---
 
