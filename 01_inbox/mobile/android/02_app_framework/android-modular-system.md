@@ -1,39 +1,49 @@
-# [[mobile-security]] > [[android-modular-system]]
+---
+title: android-modular-system
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:11 +09:00
+date created: 2026-03-21 16:47:09 +09:00
+---
 
-## Modular System: Mainline & APEX
+## [[mobile-security]] > [[android-modular-system]]
 
-안드로이드 OS의 핵심 컴포넌트를 파편화 없이 업데이트할 수 있게 돕는 **Project Mainline**과 이를 가능케 하는 **APEX(Android Pony EXpress)** 모듈 시스템을 분석합니다. 
+### Modular System: Mainline & APEX
 
-제조사(OEM)의 OS 업데이트 주기와 관계없이 Google Play를 통해 보안 패치와 신규 기능을 실시간으로 배포하는 원리를 이해하는 것이 목표입니다.
+안드로이드 OS 의 핵심 컴포넌트를 파편화 없이 업데이트할 수 있게 돕는 **Project Mainline**과 이를 가능케 하는 **APEX(Android Pony EXpress)** 모듈 시스템을 분석합니다.
+
+제조사(OEM)의 OS 업데이트 주기와 관계없이 Google Play 를 통해 보안 패치와 신규 기능을 실시간으로 배포하는 원리를 이해하는 것이 목표입니다.
 
 ---
 
-### 💡 Context: 파편화 방지와 보안 패치
+#### 💡 Context: 파편화 방지와 보안 패치
 
-안드로이드의 고질적인 파편화 문제를 해결하기 위해 도입된 **Modular System**은 현재 안드로이드 보안 체계의 핵심입니다. [[android-evolution-history]]에서 시작된 OS 구조의 변화가 어떻게 현재의 모듈식 구조로 안착했는지 이해하는 것이 중요합니다.
+안드로이드의 고질적인 파편화 문제를 해결하기 위해 도입된 **Modular System**은 현재 안드로이드 보안 체계의 핵심입니다. [[android-evolution-history]] 에서 시작된 OS 구조의 변화가 어떻게 현재의 모듈식 구조로 안착했는지 이해하는 것이 중요합니다.
 
 ---
 
-### Mainline 이란
+#### Mainline 이란
 
 Android 10 부터 도입된 모듈식 업데이트 시스템. OS 의 핵심 부분을 Google Play 를 통해 독립적으로 업데이트.
 
 **장점:**
+
 - OEM 업데이트 없이 보안 패치 가능
 - 새 기능을 빠르게 배포
 - 파편화 감소
 
-### APEX (Android Pony EXpress)
+#### APEX (Android Pony EXpress)
 
 APK 와 유사하지만 시스템 컴포넌트용 패키지 형식.
 
 **특징:**
+
 - 서명 검증
 - 원자적 업데이트 (실패 시 롤백)
 - 부팅 시 마운트
 - 읽기 전용
 
-### Mainline 모듈 목록
+#### Mainline 모듈 목록
 
 | 모듈 | 설명 |
 |------|------|
@@ -51,7 +61,7 @@ APK 와 유사하지만 시스템 컴포넌트용 패키지 형식.
 | Tethering | 테더링 |
 | Timezone Data | 시간대 데이터 |
 
-### APEX 구조
+#### APEX 구조
 
 ```
 apex_file.apex
@@ -64,7 +74,7 @@ apex_file.apex
 └── apex_pubkey (공개 키)
 ```
 
-### APEX 빌드 (AOSP)
+#### APEX 빌드 (AOSP)
 
 ```python
 # Android.bp
@@ -101,7 +111,7 @@ apex {
 }
 ```
 
-### APEX 설치 흐름
+#### APEX 설치 흐름
 
 1. **다운로드**: Play Store 에서 APEX 다운로드
 2. **검증**: 서명 확인
@@ -110,7 +120,7 @@ apex {
 5. **마운트**: `/apex/<module_name>` 에 마운트
 6. **롤백 준비**: 이전 버전 유지
 
-### APEX 확인
+#### APEX 확인
 
 ```bash
 # 설치된 APEX 목록
@@ -126,7 +136,7 @@ adb shell ls /apex/
 adb shell dumpsys apex
 ```
 
-### 앱에서 모듈 버전 확인
+#### 앱에서 모듈 버전 확인
 
 ```kotlin
 fun getModuleVersion(moduleName: String): Long? {
@@ -147,9 +157,9 @@ val artVersion = getModuleVersion("com.android.runtime")
 Log.d("APEX", "ART version: $artVersion")
 ```
 
-### 모듈 호환성
+#### 모듈 호환성
 
-#### VINTF (Vendor Interface)
+##### VINTF (Vendor Interface)
 
 시스템과 벤더 파티션 간 호환성 계약.
 
@@ -181,7 +191,7 @@ Log.d("APEX", "ART version: $artVersion")
 </compatibility-matrix>
 ```
 
-### SDK Extensions
+#### SDK Extensions
 
 Android 11+ 에서 SDK 를 모듈식으로 업데이트.
 
@@ -207,9 +217,9 @@ android {
 }
 ```
 
-### 모듈 업데이트 정책
+#### 모듈 업데이트 정책
 
-#### 자동 업데이트
+##### 자동 업데이트
 
 ```kotlin
 // Play Core 라이브러리로 모듈 업데이트 확인
@@ -228,7 +238,7 @@ moduleUpdateManager.deferredInstall(request)
     }
 ```
 
-### 롤백
+#### 롤백
 
 APEX 업데이트 실패 시 자동 롤백.
 
@@ -240,9 +250,9 @@ adb shell pm rollback-app com.android.runtime
 adb shell dumpsys rollback
 ```
 
-### 개발자 고려사항
+#### 개발자 고려사항
 
-#### 1. 모듈 의존성
+##### 1. 모듈 의존성
 
 ```kotlin
 // 특정 모듈 버전에 의존
@@ -255,7 +265,7 @@ if (getModuleVersion("com.android.media") ?: 0 < 300000000) {
 }
 ```
 
-#### 2. API 호환성
+##### 2. API 호환성
 
 ```kotlin
 // SDK Extension 기반 분기
@@ -273,7 +283,7 @@ when {
 }
 ```
 
-#### 3. 테스트
+##### 3. 테스트
 
 ```kotlin
 // 다양한 모듈 버전에서 테스트
@@ -296,11 +306,12 @@ fun testWithDifferentModuleVersions() {
 }
 ```
 
-### Treble
+#### Treble
 
 Vendor 와 System 분리 (Android 8.0+).
 
 **구조:**
+
 ```
 System Partition (Google)
     ↓ HIDL/AIDL
@@ -310,15 +321,17 @@ Hardware
 ```
 
 **장점:**
+
 - OEM 이 커널/드라이버만 업데이트하면 됨
 - Google 이 시스템 업데이트 독립적으로 제공
 - 업데이트 속도 향상
 
-### GKI (Generic Kernel Image)
+#### GKI (Generic Kernel Image)
 
 Android 11+ 에서 커널도 모듈화.
 
 **구조:**
+
 ```
 GKI (Generic Kernel)
     ↓
@@ -326,11 +339,12 @@ Vendor Modules (OEM 드라이버)
 ```
 
 **장점:**
+
 - 커널 보안 패치 빠르게 배포
 - OEM 은 드라이버만 관리
 - 파편화 감소
 
-### See Also
+#### See Also
 
 - [[android-evolution-history]]
 - [[android-customization-and-oem]]

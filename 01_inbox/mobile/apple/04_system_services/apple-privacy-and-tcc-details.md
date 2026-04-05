@@ -2,7 +2,7 @@
 title: apple-privacy-and-tcc-details
 tags: [apple, common, privacy, tcc]
 aliases: []
-date modified: 2026-04-03 18:55:47 +09:00
+date modified: 2026-04-05 17:45:13 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2025-12-18 16:21:20 +09:00
 ### TCC 가 하는 일 (⚠️ Modern: Privacy Manifests 필수)
 - 카메라/마이크/사진/연락처/캘린더/리마인더/블루투스/위치/알림 등 민감 자원에 접근할 때 사용자에게 묻는다.
 - 사용자가 허락/거부/한 번만 허락을 선택하면, 그 설정을 저장하고 앱 호출 때마다 검사한다.
-- 과거엔 `Info.plist`에 사용 목적(Usage Description)만 적으면 되었으나, **현재(iOS 17+)는 SDK를 포함한 전사적 차원에서 `PrivacyInfo.xcprivacy` (Privacy Manifests) 작성이 의무화**되었습니다. 지문 수집(Fingerprinting)을 방지하기 위함입니다.
+- 과거엔 `Info.plist` 에 사용 목적(Usage Description)만 적으면 되었으나, **현재(iOS 17+)는 SDK 를 포함한 전사적 차원에서 `PrivacyInfo.xcprivacy` (Privacy Manifests) 작성이 의무화**되었습니다. 지문 수집(Fingerprinting)을 방지하기 위함입니다.
 
 ### 권한 종류별 요약
 - 카메라/마이크: 실시간 영상/음성. 백그라운드 사용은 제한적.
@@ -48,7 +48,7 @@ date created: 2025-12-18 16:21:20 +09:00
 - 권한 설명 문구가 명확한가? (무엇을, 왜 쓰는지)
 - 실제 기능과 권한 사용 타이밍이 맞는가? (앱 진입 즉시 묻는 패턴 리젝 대상)
 - 거부 시 앱이 멈추지 않는가?
-- **[필수]** 서드파티 SDK를 포함하여 앱 내 데이터 추적이 일어나는가? 일어난다면 앱 추적 투명성(ATT, App Tracking Transparency) 프롬프트 팝업 조치를 취했는가?
+- **[필수]** 서드파티 SDK 를 포함하여 앱 내 데이터 추적이 일어나는가? 일어난다면 앱 추적 투명성(ATT, App Tracking Transparency) 프롬프트 팝업 조치를 취했는가?
 - **[필수]** Privacy Manifests (`PrivacyInfo.xcprivacy`)에 Required Reason API 사용 사유를 명시했는가?
 
 ### 링크

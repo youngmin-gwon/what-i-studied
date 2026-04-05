@@ -1,20 +1,28 @@
-# [[mobile-security]] > [[android-dependency-injection]]
+---
+title: android-dependency-injection
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:03 +09:00
+date created: 2026-03-21 16:47:09 +09:00
+---
 
-## Dependency Injection: Hilt, Dagger & Koin
+## [[mobile-security]] > [[android-dependency-injection]]
 
-안드로이드 앱의 확장성과 테스트 가능성을 극대화하는 **의존성 주입(Dependency Injection)** 패턴과 주요 프레임워크들을 분석합니다. 
+### Dependency Injection: Hilt, Dagger & Koin
 
-단순히 라이브러리를 설정하고 사용하는 법을 넘어, **Hilt**와 **Dagger**가 어떻게 컴파일 타임에 의존성 그래프를 검증하고 객체의 생명주기를 관리하는지 이해하는 것이 목표입니다. 
+안드로이드 앱의 확장성과 테스트 가능성을 극대화하는 **의존성 주입(Dependency Injection)** 패턴과 주요 프레임워크들을 분석합니다.
+
+단순히 라이브러리를 설정하고 사용하는 법을 넘어, **Hilt**와 **Dagger**가 어떻게 컴파일 타임에 의존성 그래프를 검증하고 객체의 생명주기를 관리하는지 이해하는 것이 목표입니다.
 
 ---
 
-### 💡 Context: 왜 DI가 필수인가?
+#### 💡 Context: 왜 DI 가 필수인가?
 
-현대적인 안드로이드 앱 개발에서 DI는 선택이 아닌 필수입니다. 컴포넌트 간의 결합도를 낮추고, 단위 테스트를 용이하게 하며, 코드의 재사용성을 획기적으로 높여줍니다. 특히 Google에서 권장하는 [[android-jetpack-architecture]]의 핵심 축 중 하나입니다.
+현대적인 안드로이드 앱 개발에서 DI 는 선택이 아닌 필수입니다. 컴포넌트 간의 결합도를 낮추고, 단위 테스트를 용이하게 하며, 코드의 재사용성을 획기적으로 높여줍니다. 특히 Google 에서 권장하는 [[android-jetpack-architecture]] 의 핵심 축 중 하나입니다.
 
 ---
 
-### 의존성 주입이란
+#### 의존성 주입이란
 
 객체가 필요로 하는 의존성을 외부에서 제공하는 패턴.
 
@@ -32,11 +40,11 @@ class UserRepository(
 }
 ```
 
-### Hilt (권장)
+#### Hilt (권장)
 
 Dagger 기반의 Android 전용 DI 프레임워크.
 
-#### 설정
+##### 설정
 
 ```kotlin
 // build.gradle.kts (프로젝트)
@@ -63,14 +71,14 @@ dependencies {
 }
 ```
 
-#### Application 설정
+##### Application 설정
 
 ```kotlin
 @HiltAndroidApp
 class MyApplication : Application()
 ```
 
-#### Module 정의
+##### Module 정의
 
 ```kotlin
 @Module
@@ -126,7 +134,7 @@ object DatabaseModule {
 }
 ```
 
-#### Binds (인터페이스 바인딩)
+##### Binds (인터페이스 바인딩)
 
 ```kotlin
 interface UserRepository {
@@ -154,7 +162,7 @@ abstract class RepositoryModule {
 }
 ```
 
-#### Qualifiers (같은 타입 구분)
+##### Qualifiers (같은 타입 구분)
 
 ```kotlin
 @Qualifier
@@ -188,7 +196,7 @@ class UserRepository @Inject constructor(
 }
 ```
 
-#### Component Scopes
+##### Component Scopes
 
 | Component | Scope | 생명주기 |
 |-----------|-------|---------|
@@ -213,7 +221,7 @@ object ViewModelModule {
 }
 ```
 
-#### Activity/Fragment 주입
+##### Activity/Fragment 주입
 
 ```kotlin
 @AndroidEntryPoint
@@ -238,7 +246,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-#### ViewModel 주입
+##### ViewModel 주입
 
 ```kotlin
 @HiltViewModel
@@ -258,7 +266,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-#### WorkManager 주입
+##### WorkManager 주입
 
 ```kotlin
 @HiltWorker
@@ -292,7 +300,7 @@ class MyApplication : Application(), Configuration.Provider {
 }
 ```
 
-#### Entry Point (Hilt 가 관리하지 않는 클래스)
+##### Entry Point (Hilt 가 관리하지 않는 클래스)
 
 ```kotlin
 @EntryPoint
@@ -319,11 +327,11 @@ class CustomContentProvider : ContentProvider() {
 }
 ```
 
-### Dagger (Legacy - 수동 설정)
+#### Dagger (Legacy - 수동 설정)
 
-> [!CAUTION] **Devil's Advocate : 순수 Dagger 2의 악몽**
-> 과거 안드로이드 진영의 DI를 지배하던 Dagger 2는 어마어마한 보일러플레이트(`Component`, `SubComponent`, `Module` 등)와 높은 러닝 커브로 프로젝트를 무겁게 만들었습니다.
-> 현재는 구글이 직접 **Hilt**를 만들어 이 모든 설정을 어노테이션 하나(`@HiltAndroidApp`)로 압축했습니다. 아직도 순수 Dagger를 써서 아키텍처를 자랑하는 코드는 유지보수가 불가능한 기술 부채입니다. 무조건 Hilt나 Koin으로 넘어가야 합니다.
+>[!CAUTION] **Devil's Advocate : 순수 Dagger 2 의 악몽**
+>과거 안드로이드 진영의 DI 를 지배하던 Dagger 2 는 어마어마한 보일러플레이트(`Component`, `SubComponent`, `Module` 등)와 높은 러닝 커브로 프로젝트를 무겁게 만들었습니다.
+>현재는 구글이 직접 **Hilt**를 만들어 이 모든 설정을 어노테이션 하나(`@HiltAndroidApp`)로 압축했습니다. 아직도 순수 Dagger 를 써서 아키텍처를 자랑하는 코드는 유지보수가 불가능한 기술 부채입니다. 무조건 Hilt 나 Koin 으로 넘어가야 합니다.
 
 ```kotlin
 // Component
@@ -384,7 +392,7 @@ interface ActivityComponent {
 object SubcomponentModule
 ```
 
-### Koin (경량 DI)
+#### Koin (경량 DI)
 
 리플렉션 기반, 간단하지만 컴파일 타임 검증 없음.
 
@@ -448,9 +456,9 @@ fun UserScreen() {
 }
 ```
 
-### 테스트
+#### 테스트
 
-#### Hilt 테스트
+##### Hilt 테스트
 
 ```kotlin
 // build.gradle.kts
@@ -497,7 +505,7 @@ object FakeNetworkModule {
 }
 ```
 
-#### Koin 테스트
+##### Koin 테스트
 
 ```kotlin
 class UserRepositoryTest : KoinTest {
@@ -522,7 +530,7 @@ val testModule = module {
 }
 ```
 
-### 비교
+#### 비교
 
 | 특징 | Hilt | Dagger | Koin |
 |------|------|--------|------|
@@ -533,6 +541,6 @@ val testModule = module {
 | 보일러플레이트 | 적음 | 많음 | 매우 적음 |
 | 권장 사용 | 대부분의 앱 | 복잡한 앱 | 간단한 앱 |
 
-### 더 보기
+#### 더 보기
 
 [android-jetpack-architecture](android-jetpack-architecture.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md), [android-gradle-build-system](android-gradle-build-system.md)

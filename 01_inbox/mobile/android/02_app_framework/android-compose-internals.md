@@ -2,7 +2,7 @@
 title: android-compose-internals
 tags: [android, android/compose, android/jetpack, android/ui]
 aliases: []
-date modified: 2026-01-20 15:55:37 +09:00
+date modified: 2026-04-05 17:42:59 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 
@@ -287,6 +287,7 @@ fun ScrollToTopButton(listState: LazyListState) {
 Compose 는 타입의 안정성을 분석해 재구성을 건너뛴다.
 
 **Stable 조건:**
+
 1. 같은 인스턴스의 `equals()` 결과가 항상 같음
 2. public 프로퍼티 변경 시 Composition 에 알림
 3. 모든 public 프로퍼티가 stable
@@ -502,9 +503,9 @@ fun UserScreen(
 
 ### Navigation Compose (Type-Safe Routing)
 
-> [!WARNING] **Devil's Advocate : String Route는 이제 그만**
-> 과거 Compose Navigation은 `"detail/{id}"` 와 같은 String URL 기반 라우팅을 사용하여 오타에 취약하고 인수 전달이 불편했습니다.
-> **Navigation 2.8+ 버전부터는 `kotlinx.serialization` 기반의 Type-Safe 라우팅으로 완전히 대체**되었습니다. String 기반 라우팅 코드를 발견하면 리팩토링 대상입니다.
+>[!WARNING] **Devil's Advocate : String Route 는 이제 그만**
+>과거 Compose Navigation 은 `"detail/{id}"` 와 같은 String URL 기반 라우팅을 사용하여 오타에 취약하고 인수 전달이 불편했습니다.
+>**Navigation 2.8+ 버전부터는 `kotlinx.serialization` 기반의 Type-Safe 라우팅으로 완전히 대체**되었습니다. String 기반 라우팅 코드를 발견하면 리팩토링 대상입니다.
 
 ```kotlin
 // 1. Route 타겟을 Serializable 데이터 구조로 정의
@@ -596,8 +597,8 @@ fun DebugComposable() {
 
 ### Kotlin 2.0+ Compose 컴파일러 분리
 
-> [!WARNING] **Kotlin 2.0 마이그레이션 필수 변경**
-> Kotlin 2.0부터 Compose 컴파일러 플러그인이 Kotlin 에 **내장**되었다. 별도의 `compose-compiler` 의존성과 `kotlinCompilerExtensionVersion` 설정이 **삭제**되어야 한다.
+>[!WARNING] **Kotlin 2.0 마이그레이션 필수 변경**
+>Kotlin 2.0 부터 Compose 컴파일러 플러그인이 Kotlin 에 **내장**되었다. 별도의 `compose-compiler` 의존성과 `kotlinCompilerExtensionVersion` 설정이 **삭제**되어야 한다.
 
 ```kotlin
 // ❌ Kotlin 1.x (이전 방식)
@@ -615,6 +616,7 @@ plugins {
 ```
 
 **마이그레이션 체크리스트:**
+
 1. `build.gradle.kts` 에서 `composeOptions { kotlinCompilerExtensionVersion }` 제거
 2. `plugins` 블록에 `kotlin-compose` 플러그인 추가
 3. `libs.versions.toml` 에서 Compose Compiler 버전 참조 제거
@@ -624,6 +626,7 @@ plugins {
 Compose 컴파일러가 더 공격적으로 재구성을 건너뛸 수 있도록 한다. **Kotlin 2.0+ 에서는 기본 활성화.**
 
 **기존**: Unstable 파라미터를 가진 Composable 은 항상 재구성
+
 **Strong Skipping**: Unstable 파라미터도 `equals()` 비교를 통해 **같으면 건너뜀**
 
 ```kotlin
@@ -638,16 +641,16 @@ fun UserList(users: List<User>) {
 ```
 
 **실무 영향:**
+
 - `@Stable`, `@Immutable` 어노테이션의 필요성이 줄어듦
 - `kotlinx.collections.immutable` (`ImmutableList` 등) 없이도 성능 확보 가능
 - 그래도 `data class` + `val` 조합은 여전히 권장 (의도 명확화)
 
-> [!NOTE] **iOS 비교: SwiftUI 의 렌더링 최적화**
-> SwiftUI 는 `@Observable` 매크로(iOS 17+)를 통해 **프로퍼티 수준 추적**을 자동화한다. Compose 의 Strong Skipping Mode 와 유사하게, 실제로 변경된 프로퍼티를 사용하는 뷰만 다시 그린다.
-> 차이점: SwiftUI 는 프레임워크가 자동으로 감지하는 반면, Compose 는 `equals()` 기반 비교에 의존한다.
-> 자세한 내용은 [apple-observation-framework](../../apple/01_language_concurrency/apple-observation-framework.md) 참고.
+>[!NOTE] **iOS 비교: SwiftUI 의 렌더링 최적화**
+>SwiftUI 는 `@Observable` 매크로(iOS 17+)를 통해 **프로퍼티 수준 추적**을 자동화한다. Compose 의 Strong Skipping Mode 와 유사하게, 실제로 변경된 프로퍼티를 사용하는 뷰만 다시 그린다.
+>차이점: SwiftUI 는 프레임워크가 자동으로 감지하는 반면, Compose 는 `equals()` 기반 비교에 의존한다.
+>자세한 내용은 [apple-observation-framework](../../apple/01_language_concurrency/apple-observation-framework.md) 참고.
 
 ### 더 보기
 
 [android-jetpack-architecture](android-jetpack-architecture.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-coroutines-flow](android-coroutines-flow.md), [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)
-

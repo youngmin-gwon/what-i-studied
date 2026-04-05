@@ -2,7 +2,7 @@
 title: apple-macos-system
 tags: [apple, hardened-runtime, macos, sandbox, system, window-server]
 aliases: []
-date modified: 2026-04-03 18:55:55 +09:00
+date modified: 2026-04-05 17:46:27 +09:00
 date created: 2025-12-17 23:40:00 +09:00
 ---
 

@@ -1,23 +1,31 @@
-# [[mobile-security]] > [[android-coroutines-flow]]
+---
+title: android-coroutines-flow
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:01 +09:00
+date created: 2026-04-04 00:13:51 +09:00
+---
 
-## Coroutines & Flow: Asynchronous Mastery
+## [[mobile-security]] > [[android-coroutines-flow]]
 
-Kotlin **Coroutines**와 **Flow**를 활용한 안드로이드의 비동기 프로그래밍 모델을 심층 분석합니다. 
+### Coroutines & Flow: Asynchronous Mastery
+
+Kotlin **Coroutines**와 **Flow**를 활용한 안드로이드의 비동기 프로그래밍 모델을 심층 분석합니다.
 
 단순히 스레드를 바꾸는 도구를 넘어, 어떻게 하면 복잡한 비즈니스 로직을 동기 코드처럼 간결하게 유지하면서도 선언적으로 데이터 스트림을 관리할 수 있을지 이해하는 것이 목표입니다.
 
 ---
 
-### 💡 Context: Kotlin Coroutines vs Swift Concurrency
+#### 💡 Context: Kotlin Coroutines vs Swift Concurrency
 
-비동기 처리의 현대적인 패러다임은 플랫폼마다 유사하지만 명확한 차이가 있습니다. Kotlin의 `suspend`는 Swift의 `async`와 대응되며, `Flow`는 `AsyncSequence`와 많은 개념을 공유합니다.
+비동기 처리의 현대적인 패러다임은 플랫폼마다 유사하지만 명확한 차이가 있습니다. Kotlin 의 `suspend` 는 Swift 의 `async` 와 대응되며, `Flow` 는 `AsyncSequence` 와 많은 개념을 공유합니다.
 
-> [!NOTE] **상호 참조**
-> Swift의 비동기 모델은 [[apple-swift-concurrency]]를 참고하세요.
+>[!NOTE] **상호 참조**
+>Swift 의 비동기 모델은 [[apple-swift-concurrency]] 를 참고하세요.
 
 ---
 
-### 구조적 동시성 (Structured Concurrency)
+#### 구조적 동시성 (Structured Concurrency)
 
 코루틴은 반드시 **CoroutineScope** 안에서 시작되어야 하며, 스코프가 취소되면 하위 코루틴도 모두 취소된다.
 
@@ -39,7 +47,7 @@ GlobalScope.launch {
 }
 ```
 
-#### Android 제공 Scope
+##### Android 제공 Scope
 
 | Scope | 생명주기 | 용도 |
 |-------|----------|------|
@@ -48,7 +56,7 @@ GlobalScope.launch {
 | `repeatOnLifecycle` | STARTED↔STOPPED 반복 | Flow 수집 |
 | `rememberCoroutineScope()` | Composition 이탈 시 취소 | Compose 이벤트 |
 
-### Dispatchers
+#### Dispatchers
 
 ```kotlin
 viewModelScope.launch {
@@ -77,7 +85,7 @@ viewModelScope.launch {
 | `Default` | CPU 코어 수 | 정렬, JSON 파싱, 암호화 |
 | `Unconfined` | 호출 스레드 → 재개 스레드 | 테스트 용도 (실 사용 지양) |
 
-### 예외 처리
+#### 예외 처리
 
 ```kotlin
 // 1. try-catch (가장 일반적)
@@ -111,11 +119,11 @@ viewModelScope.launch {
 }
 ```
 
-> [!WARNING] **`launch` vs `async` 예외 전파 차이**
+>[!WARNING] **`launch` vs `async` 예외 전파 차이**
 > - `launch`: 예외가 **즉시 부모로 전파** → try-catch 가 launch 블록 **내부** 에 있어야 함
 > - `async`: 예외가 `await()` 호출 시 **던져짐** → await 지점에서 catch 가능
 
-### 병렬 실행
+#### 병렬 실행
 
 ```kotlin
 viewModelScope.launch {
@@ -138,7 +146,7 @@ viewModelScope.launch {
 }
 ```
 
-### Flow
+#### Flow
 
 Cold Stream: 수집(collect)할 때만 데이터를 생산한다.
 
@@ -158,7 +166,7 @@ class UserRepository(private val dao: UserDao) {
 }
 ```
 
-#### Flow 연산자
+##### Flow 연산자
 
 ```kotlin
 repository.getUsers()
@@ -173,7 +181,7 @@ repository.getUsers()
     }
 ```
 
-### StateFlow vs SharedFlow
+#### StateFlow vs SharedFlow
 
 | 특성 | StateFlow | SharedFlow |
 |------|-----------|------------|
@@ -205,7 +213,7 @@ class UserViewModel : ViewModel() {
 }
 ```
 
-### stateIn / shareIn
+#### stateIn / shareIn
 
 Cold Flow 를 Hot Flow 로 변환한다.
 
@@ -231,11 +239,11 @@ class UserViewModel(repository: UserRepository) : ViewModel() {
 |------|------|------|
 | `Eagerly` | 즉시 시작, 스코프 종료까지 | 항상 최신 데이터 필요 |
 | `Lazily` | 첫 구독자 등장 시 시작 | 지연 로딩 |
-| `WhileSubscribed(5000)` | 구독자 없으면 5초 후 중단 | **권장** (회전 시 재시작 방지) |
+| `WhileSubscribed(5000)` | 구독자 없으면 5 초 후 중단 | **권장** (회전 시 재시작 방지) |
 
-### UI 에서 Flow 수집
+#### UI 에서 Flow 수집
 
-#### View 시스템
+##### View 시스템
 
 ```kotlin
 class UserActivity : AppCompatActivity() {
@@ -259,7 +267,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-#### Compose
+##### Compose
 
 ```kotlin
 @Composable
@@ -275,7 +283,7 @@ fun UserScreen(viewModel: UserViewModel = hiltViewModel()) {
 }
 ```
 
-### callbackFlow
+#### callbackFlow
 
 콜백 기반 API 를 Flow 로 변환한다.
 
@@ -308,7 +316,7 @@ viewModelScope.launch {
 }
 ```
 
-### 테스팅
+#### 테스팅
 
 ```kotlin
 class UserViewModelTest {
@@ -350,8 +358,8 @@ class MainDispatcherRule(
 }
 ```
 
-### 🔗 연관 문서 및 심화 학습
+#### 🔗 연관 문서 및 심화 학습
 - [[android-viewmodel]] - UI 상태 관리와 생명주기 인식
 - [[android-jetpack-architecture]] - 권장 아키텍처 가이드라인
-- [[android-compose-internals]] - 선언형 UI에서의 상태 변경 및 재구성
+- [[android-compose-internals]] - 선언형 UI 에서의 상태 변경 및 재구성
 - [[android-testing-and-quality]] - 코루틴 및 Flow 단위 테스트 기법

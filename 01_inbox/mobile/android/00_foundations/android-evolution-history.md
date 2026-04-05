@@ -2,7 +2,7 @@
 title: android-evolution-history
 tags: [android, android/evolution, android/history]
 aliases: [Android History, 안드로이드 역사]
-date modified: 2026-01-20 16:42:06 +09:00
+date modified: 2026-04-05 17:42:14 +09:00
 date created: 2025-12-16 15:25:47 +09:00
 ---
 
@@ -43,15 +43,18 @@ timeline
 ### 런타임: Dalvik → ART (2014)
 
 **배경**:
+
 - Dalvik (2008-2013): JIT (Just-In-Time) 컴파일
 - 앱 시작 시마다 컴파일 → 느린 시작
 - 배터리 소모
 
 **ART (Android Runtime)**:
+
 - Android 4.4 (2013): 옵션으로 제공
 - Android 5.0 (2014): 기본값
 
 **장점**:
+
 ```
 Dalvik (JIT):
   앱 시작 → DEX 해석 → 느림
@@ -66,6 +69,7 @@ ART (현대, Profile-Guided):
 ```
 
 **성능 개선**:
+
 - 앱 시작: 2 배 빨라짐
 - 배터리: 15-20% 절약
 - GC 개선: Stop-the-World → Concurrent
@@ -75,10 +79,12 @@ ART (현대, Profile-Guided):
 ### 언어: Java → Kotlin (2017+)
 
 **배경**:
+
 - Java 6 (2008-2014): 람다 없음, verbose
 - Oracle vs Google 소송 (2010-2021)
 
 **Kotlin 공식 지원** (Google I/O 2017):
+
 ```kotlin
 // Java (verbose)
 button.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +101,7 @@ button.setOnClickListener {
 ```
 
 **현재 상태** (2023):
+
 - Google 공식 권장: Kotlin-first
 - 신규 Jetpack 라이브러리: Kotlin 우선 설계
 - Coroutine 으로 비동기 처리 간소화
@@ -104,10 +111,12 @@ button.setOnClickListener {
 ### 배포: APK → App Bundle (2018)
 
 **APK (Android Package)**:
+
 - 모든 리소스/코드 포함
 - 모든 기기에 동일한 파일 → 비효율
 
 **AAB (Android App Bundle, 2018)**:
+
 ```
 Before (APK):
   app-release.apk (50MB)
@@ -123,6 +132,7 @@ After (AAB):
 ```
 
 **효과**:
+
 - 평균 15% 크기 감소
 - Dynamic Feature Module 지원
 
@@ -131,6 +141,7 @@ After (AAB):
 ### HAL: HIDL → AIDL (2019+)
 
 **HIDL (Hardware Interface Definition Language, 2017)**:
+
 ```cpp
 // HIDL (C++ 전용)
 interface ICameraDevice {
@@ -139,11 +150,13 @@ interface ICameraDevice {
 ```
 
 **문제**:
+
 - C++ 만 지원
 - 복잡한 문법
 - 버전 관리 어려움
 
 **AIDL HAL (2019+)**:
+
 ```java
 // AIDL (다중 언어)
 interface ICameraDevice {
@@ -152,6 +165,7 @@ interface ICameraDevice {
 ```
 
 **장점**:
+
 - Java/Rust 도 지원
 - 간단한 문법 (기존 AIDL 과 유사)
 - 더 나은 버전 호환성
@@ -161,6 +175,7 @@ interface ICameraDevice {
 ### 보안: 권한 진화
 
 **Phase 1: 설치 시 권한** (2008-2014)
+
 ```
 설치 화면:
 "이 앱은 다음 권한이 필요합니다"
@@ -174,6 +189,7 @@ interface ICameraDevice {
 **문제**: 사용자가 잘 모르고 승인
 
 **Phase 2: 런타임 권한** (Android 6.0, 2015)
+
 ```kotlin
 // 실행 중 요청
 if (checkSelfPermission(CAMERA) != GRANTED) {
@@ -182,6 +198,7 @@ if (checkSelfPermission(CAMERA) != GRANTED) {
 ```
 
 **Phase 3: 세분화** (Android 10+)
+
 - 2019: 백그라운드 위치 별도 승인
 - 2020: 일회성 권한 ("한 번만 허용")
 - 2021: 자동 권한 리셋 (미사용 앱)
@@ -193,6 +210,7 @@ if (checkSelfPermission(CAMERA) != GRANTED) {
 ### 저장소: 무제한 → Scoped Storage (2019)
 
 **Phase 1: 무제한 접근** (~Android 9)
+
 ```java
 // READ_EXTERNAL_STORAGE만 있으면
 // /sdcard의 모든 파일 읽기 가능
@@ -200,10 +218,12 @@ File photo = new File("/sdcard/DCIM/photo.jpg");
 ```
 
 **문제**:
+
 - 프라이버시 침해 (모든 사진 접근 가능)
 - 앱 삭제 후에도 잔여 파일
 
 **Phase 2: Scoped Storage** (Android 10+)
+
 ```kotlin
 // MediaStore API 사용 필수
 val uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -211,6 +231,7 @@ contentResolver.query(uri, ...) // 권한 있는 파일만
 ```
 
 **Phase 3: Photo Picker** (Android 13, 2022)
+
 ```kotlin
 // 시스템 UI로 사진 선택
 val intent = Intent(MediaStore.ACTION_PICK_IMAGES)
@@ -223,6 +244,7 @@ startActivityForResult(intent, REQUEST_CODE)
 ### 업데이트: Non-A/B → Virtual A/B (2016-2020)
 
 **Non-A/B** (~Android 6.x):
+
 ```
 1. 업데이트 다운로드
 2. Recovery 모드 재부팅
@@ -232,6 +254,7 @@ startActivityForResult(intent, REQUEST_CODE)
 ```
 
 **A/B Seamless Update** (Android 7.0, 2016):
+
 ```
 Slot A (현재 부팅)
   ├─ boot_a
@@ -250,6 +273,7 @@ Slot B (업데이트 설치 중)
 **문제**: 2 배 저장 공간 필요
 
 **Virtual A/B** (Android 11, 2020):
+
 ```
 Slot A (실제 파티션)
 Slot B (스냅샷, 변경된 부분만)
@@ -261,6 +285,7 @@ Slot B (스냅샷, 변경된 부분만)
 ### Treble: System/Vendor 분리 (2017)
 
 **Before Treble**:
+
 ```
 /system
   ├─ framework
@@ -271,6 +296,7 @@ Slot B (스냅샷, 변경된 부분만)
 ```
 
 **After Treble** (Android 8.0):
+
 ```
 /system (Google 관리)
   ├─ framework
@@ -284,6 +310,7 @@ VINTF로 호환성 보장
 ```
 
 **효과**:
+
 - 업데이트 속도 향상
 - Google 이 /system 만 업데이트 가능
 - OEM 부담 감소
@@ -293,10 +320,12 @@ VINTF로 호환성 보장
 ### Mainline: 모듈식 업데이트 (2019)
 
 **문제**:
+
 - 보안 패치도 OEM 업데이트 대기
 - 중요 버그 수정 느림
 
 **Mainline Modules** (Android 10):
+
 ```
 com.android.media            # MediaCodec
 com.android.wifi             # Wi-Fi 스택
@@ -307,6 +336,7 @@ com.android.conscrypt        # TLS/SSL
 ```
 
 **APEX (Android Pony EXpress)**:
+
 ```
 /apex/com.android.media/
   ├─ lib/
@@ -315,6 +345,7 @@ com.android.conscrypt        # TLS/SSL
 ```
 
 **효과**:
+
 - 월별 보안 패치 → 주간 업데이트 가능
 - OEM 무관하게 수정
 
@@ -323,6 +354,7 @@ com.android.conscrypt        # TLS/SSL
 ### UI: View → Compose (2021)
 
 **View System** (2008- 현재):
+
 ```xml
 <!-- XML로 정의 -->
 <LinearLayout>
@@ -338,11 +370,13 @@ button.setOnClickListener { }
 ```
 
 **문제**:
+
 - XML 과 코드 분리 → 유지보수 어려움
 - Boilerplate 많음
 - 상태 관리 복잡
 
 **Jetpack Compose** (2021):
+
 ```kotlin
 @Composable
 fun Greeting(name: String) {
@@ -358,6 +392,7 @@ fun Greeting(name: String) {
 ```
 
 **장점**:
+
 - 선언형 UI (React/SwiftUI 와 유사)
 - 상태 자동 업데이트
 - Preview 지원
@@ -367,6 +402,7 @@ fun Greeting(name: String) {
 ### 그래픽: OpenGL → Vulkan (2016)
 
 **OpenGL ES** (2008- 현재):
+
 ```cpp
 // High-level API
 glClear(GL_COLOR_BUFFER_BIT);
@@ -374,10 +410,12 @@ glDrawArrays(GL_TRIANGLES, 0, 3);
 ```
 
 **문제**:
+
 - 드라이버 오버헤드
 - 멀티스레드 어려움
 
 **Vulkan** (Android 7.0, 2016):
+
 ```cpp
 // Low-level API
 vkCmdBeginRenderPass(...);
@@ -387,11 +425,13 @@ vkCmdEndRenderPass(...);
 ```
 
 **장점**:
+
 - CPU 오버헤드 50% 감소
 - 멀티스레드 네이티브 지원
 - 더 나은 제어
 
 **현재**:
+
 - OpenGL 은 ANGLE 로 Vulkan 위에서 실행
 - 게임/고성능: Vulkan 직접 사용
 
@@ -462,10 +502,12 @@ vkCmdEndRenderPass(...);
 ## 학습 리소스
 
 **공식**:
+
 - [Platform Releases](../../../../https:/developer.android.com/about/versions.md)
 - [Android History](../../../../https:/en.wikipedia.org/wiki/Android_version_history.md)
 
 **심화**:
+
 - [Google I/O Sessions](../../../../https:/www.youtube.com/googleio.md)
 - [Android Developers Blog](../../../../https:/android-developers.googleblog.com/.md)
 

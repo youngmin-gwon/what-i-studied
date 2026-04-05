@@ -2,7 +2,7 @@
 title: apple-app-tracking-privacy
 tags: [ad-tech, apple, att, permissions, privacy, tracking]
 aliases: []
-date modified: 2026-04-03 18:55:54 +09:00
+date modified: 2026-04-05 17:45:22 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 

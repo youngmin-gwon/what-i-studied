@@ -2,7 +2,7 @@
 title: apple-storage-and-filesystems
 tags: [app-group, apple, filemanager, filesystem, sandbox, storage]
 aliases: []
-date modified: 2026-04-03 18:55:38 +09:00
+date modified: 2026-04-05 17:44:57 +09:00
 date created: 2025-12-16 16:09:38 +09:00
 ---
 

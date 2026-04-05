@@ -2,7 +2,7 @@
 title: android-zygote-and-runtime
 tags: [android, art, dalvik, initialization, internals, zygote]
 aliases: [ART, Dalvik, Zygote]
-date modified: 2026-01-20 15:55:31 +09:00
+date modified: 2026-04-05 17:42:48 +09:00
 date created: 2025-12-16 15:22:42 +09:00
 ---
 

@@ -1,14 +1,14 @@
 ---
-title: Web Security
-tags: [security, web, owasp, xss, sql-injection, csrf]
-aliases: [웹 보안, OWASP, SQL Injection, XSS]
-date modified: 2025-12-20 00:17:40 +09:00
+title: web-security
+tags: [csrf, owasp, security, sql-injection, web, xss]
+aliases: [OWASP, SQL Injection, XSS, 웹 보안]
+date modified: 2026-04-05 17:48:11 +09:00
 date created: 2025-12-20 00:17:40 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-웹 애플리케이션은 인터넷에 노출되어 다양한 공격에 취약합니다. OWASP Top 10은 가장 중요한 웹 보안 위협을 정리한 표준입니다.
+웹 애플리케이션은 인터넷에 노출되어 다양한 공격에 취약합니다. OWASP Top 10 은 가장 중요한 웹 보안 위협을 정리한 표준입니다.
 
 ## 🔝 OWASP Top 10 (2021)
 
@@ -30,6 +30,7 @@ date created: 2025-12-20 00:17:40 +09:00
 ### SQL Injection
 
 **취약한 코드**:
+
 ```python
 # ❌ 위험: 사용자 입력을 직접 쿼리에 삽입
 username = request.POST['username']
@@ -38,6 +39,7 @@ query = f"SELECT * FROM users WHERE username='{username}' AND password='{passwor
 ```
 
 **공격**:
+
 ```sql
 -- 입력: username = admin' --
 SELECT * FROM users WHERE username='admin' --' AND password='xxx'
@@ -45,6 +47,7 @@ SELECT * FROM users WHERE username='admin' --' AND password='xxx'
 ```
 
 **안전한 코드**:
+
 ```python
 # ✅ Prepared Statement 사용
 cursor.execute(
@@ -56,6 +59,7 @@ cursor.execute(
 ### Command Injection
 
 **취약한 코드**:
+
 ```python
 # ❌ 위험
 filename = request.GET['file']
@@ -63,12 +67,14 @@ os.system(f"cat {filename}")
 ```
 
 **공격**:
+
 ```bash
 # 입력: file=test.txt; rm -rf /
 cat test.txt; rm -rf /
 ```
 
 **방어**:
+
 - 입력 검증 및 화이트리스트
 - `subprocess` 등 안전한 API 사용
 - 셸 호출 최소화
@@ -152,6 +158,7 @@ if request.form['csrf_token'] != session['csrf_token']:
 ```
 
 **추가 방어**:
+
 - SameSite 쿠키 속성
 - Referer 헤더 검증
 - 중요 작업은 재인증 요구

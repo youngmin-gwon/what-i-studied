@@ -2,7 +2,7 @@
 title: apple-media-pipeline-deep
 tags: [apple, audio, avfoundation, media, video]
 aliases: []
-date modified: 2026-04-03 18:55:26 +09:00
+date modified: 2026-04-05 17:44:42 +09:00
 date created: 2025-12-16 16:09:09 +09:00
 ---
 

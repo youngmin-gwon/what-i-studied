@@ -1,8 +1,8 @@
 ---
 title: digital-content-protection
-tags: [security, drm, watermarking, fingerprinting, copyright]
-aliases: [DRM, 워터마킹, 핑거프린팅, Digital Rights, 저작권 보호]
-date modified: 2026-01-08 18:24:05 +09:00
+tags: [copyright, drm, fingerprinting, security, watermarking]
+aliases: [Digital Rights, DRM, 워터마킹, 저작권 보호, 핑거프린팅]
+date modified: 2026-04-05 17:48:10 +09:00
 date created: 2026-01-08 18:24:05 +09:00
 ---
 
@@ -122,7 +122,7 @@ graph TD
 
 | 특징 | 설명 |
 |------|------|
-| **영구성** | URL이 변해도 DOI는 불변 |
+| **영구성** | URL 이 변해도 DOI 는 불변 |
 | **유일성** | 전 세계에서 유일한 식별자 |
 | **용도** | 논문, 데이터셋 식별 |
 

@@ -1,8 +1,8 @@
 ---
 title: identity-management
-tags: [security, sso, eam, iam, identity, hsm, rfid]
-aliases: [SSO, EAM, IAM, 통합인증, Identity Management, HSM, RFID]
-date modified: 2026-01-08 18:24:05 +09:00
+tags: [eam, hsm, iam, identity, rfid, security, sso]
+aliases: [EAM, HSM, IAM, Identity Management, RFID, SSO, 통합인증]
+date modified: 2026-04-05 17:47:25 +09:00
 date created: 2026-01-08 18:24:05 +09:00
 ---
 
@@ -108,7 +108,7 @@ sequenceDiagram
 
 **SSO + 권한 관리 (Access Control)** + 자원 관리를 통합한 솔루션입니다.
 
-### SSO와 차이
+### SSO 와 차이
 
 | 특성 | SSO | EAM |
 |------|-----|-----|
@@ -127,7 +127,7 @@ sequenceDiagram
 
 ### 정의
 
-사용자 **계정 수명 주기 (Life Cycle)** 전체를 관리하는 솔루션입니다. EAM의 확장 개념입니다.
+사용자 **계정 수명 주기 (Life Cycle)** 전체를 관리하는 솔루션입니다. EAM 의 확장 개념입니다.
 
 ### 주요 기능
 

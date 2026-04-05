@@ -2,7 +2,7 @@
 title: android-boot-flow
 tags: [android, android/boot, android/system-images]
 aliases: [Boot Flow, 부팅 흐름]
-date modified: 2026-01-20 15:55:19 +09:00
+date modified: 2026-04-05 17:42:04 +09:00
 date created: 2025-12-16 15:24:47 +09:00
 ---
 
@@ -49,6 +49,7 @@ Android Bootloader (ABL, 대부분 Qualcomm LK 기반):
 - 커널 + ramdisk 메모리에 로드
 
 **특수 모드**:
+
 - **Fastboot**: `fastboot flash`, `fastboot boot`
 - **Recovery**: OTA 업데이트, 공장 초기화
 
@@ -61,10 +62,12 @@ Android Bootloader (ABL, 대부분 Qualcomm LK 기반):
 ### 4. Init Process
 
 **First Stage**:
+
 - `/dev`, `/proc`, `/sys` 마운트
 - SELinux early init
 
 **Second Stage**:
+
 - RC 스크립트 파싱 (`/system/etc/init/`, `/vendor/etc/init/`)
 - 트리거 실행 (`on early-init`, `on init`, `on boot`)
 - 서비스 시작
@@ -151,6 +154,7 @@ Slot B: [boot_b, system_b, vendor_b] ← 업데이트 다운로드 중
 ```
 
 **업데이트 과정**:
+
 1. 백그라운드에서 Slot B 에 다운로드
 2. 완료 후 boot control 변경: active=B
 3. 재부팅 → Slot B 로 부팅
@@ -179,6 +183,7 @@ OEM Key (eFuse)
 ```
 
 **dm-verity**:
+
 - 블록별 해시 트리
 - 읽기 시 실시간 검증
 - 변조 감지 시 부팅 차단 or 경고
@@ -253,6 +258,7 @@ fastboot oem get-log
 ## 학습 리소스
 
 **공식 문서**:
+
 - [Boot Sequence](../../../../https:/source.android.com/docs/core/architecture/bootloader.md)
 - [Verified Boot](../../../../https:/source.android.com/docs/security/features/verifiedboot.md)
 - [A/B Updates](../../../../https:/source.android.com/docs/core/ota/ab.md)

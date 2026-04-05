@@ -1,20 +1,28 @@
-# [[mobile-security]] > [[android-debugging-techniques]]
+---
+title: android-debugging-techniques
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:44 +09:00
+date created: 2026-03-21 16:47:09 +09:00
+---
 
-## Debugging: Troubleshooting Mastery
+## [[mobile-security]] > [[android-debugging-techniques]]
 
-복잡한 런타임 이슈와 비정상 종료를 해결하기 위한 **고급 디버깅 기법(Debugging Techniques)**을 분석합니다. 
+### Debugging: Troubleshooting Mastery
+
+복잡한 런타임 이슈와 비정상 종료를 해결하기 위한 **고급 디버깅 기법(Debugging Techniques)**을 분석합니다.
 
 **Logcat** 활용법부터 ANR 분석, 스택 트레이스 해석, 그리고 시스템 레벨의 이슈를 추적하기 위한 전략을 수립하는 것이 목표입니다.
 
 ---
 
-### 💡 Context: 문제 해결의 정석
+#### 💡 Context: 문제 해결의 정석
 
-디버깅은 단순히 에러를 고치는 과정이 아니라 시스템의 동작을 이해하는 과정입니다. [[android-performance-and-debug]]에서 발견된 성능 저하 원인을 규명하고, [[android-adb-and-images]]를 통해 기기와 소통하며 문제를 해결합니다.
+디버깅은 단순히 에러를 고치는 과정이 아니라 시스템의 동작을 이해하는 과정입니다. [[android-performance-and-debug]] 에서 발견된 성능 저하 원인을 규명하고, [[android-adb-and-images]] 를 통해 기기와 소통하며 문제를 해결합니다.
 
 ---
 
-### Logcat
+#### Logcat
 
 기본 로깅 도구.
 
@@ -60,7 +68,7 @@ adb logcat -f /sdcard/logcat.txt
 adb logcat -c
 ```
 
-### Timber (구조화된 로깅)
+#### Timber (구조화된 로깅)
 
 ```kotlin
 // build.gradle.kts
@@ -96,9 +104,9 @@ Timber.d("User logged in: %s", userId)
 Timber.e(exception, "Failed to load data")
 ```
 
-### 크래시 분석
+#### 크래시 분석
 
-#### Stack Trace 읽기
+##### Stack Trace 읽기
 
 ```
 FATAL EXCEPTION: main
@@ -111,12 +119,13 @@ java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.Stri
 ```
 
 **분석:**
+
 1. **예외 타입**: NullPointerException
 2. **메시지**: User 객체가 null
 3. **발생 위치**: MainActivity.kt:42
 4. **호출 경로**: onCreate → displayUser
 
-#### ProGuard 매핑
+##### ProGuard 매핑
 
 ```bash
 # mapping.txt 로 난독화 해제
@@ -126,11 +135,11 @@ retrace.bat -verbose mapping.txt stacktrace.txt
 # Build → Analyze APK → Load Proguard Mappings
 ```
 
-### ANR 분석
+#### ANR 분석
 
 ANR (Application Not Responding) 은 메인 스레드가 5 초 이상 블로킹될 때 발생.
 
-#### ANR Trace 확인
+##### ANR Trace 확인
 
 ```bash
 # ANR 발생 시 자동 생성
@@ -141,6 +150,7 @@ adb bugreport bugreport.zip
 ```
 
 **Trace 예시:**
+
 ```
 "main" prio=5 tid=1 Sleeping
   | group="main" sCount=1 dsCount=0 flags=1 obj=0x74b38080 self=0x7f8c001200
@@ -154,6 +164,7 @@ adb bugreport bugreport.zip
 ```
 
 **해결:**
+
 ```kotlin
 // ❌ 나쁜 예: 메인 스레드에서 네트워크
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -173,9 +184,9 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-### Breakpoint Debugging
+#### Breakpoint Debugging
 
-#### Android Studio Debugger
+##### Android Studio Debugger
 
 ```kotlin
 fun processData(items: List<Item>) {
@@ -188,18 +199,20 @@ fun processData(items: List<Item>) {
 ```
 
 **조건부 브레이크포인트:**
+
 ```kotlin
 // 브레이크포인트 우클릭 → Condition
 item.id == "특정ID"
 ```
 
 **로그 브레이크포인트:**
+
 ```kotlin
 // Evaluate and log: "Processing item: " + item.id
 // Suspend: 체크 해제
 ```
 
-#### JDWP (Java Debug Wire Protocol)
+##### JDWP (Java Debug Wire Protocol)
 
 ```bash
 # 디버그 가능한 프로세스 확인
@@ -211,7 +224,7 @@ adb forward tcp:8700 jdwp:12345
 # Android Studio 에서 Attach to Process
 ```
 
-### Native Debugging (lldb)
+#### Native Debugging (lldb)
 
 ```bash
 # lldb 서버 시작
@@ -237,9 +250,9 @@ Java_com_example_app_NativeLib_processImage(
 }
 ```
 
-### Memory Leak 디버깅
+#### Memory Leak 디버깅
 
-#### LeakCanary
+##### LeakCanary
 
 ```kotlin
 // build.gradle.kts
@@ -251,7 +264,7 @@ dependencies {
 // 알림으로 결과 표시
 ```
 
-#### 수동 분석
+##### 수동 분석
 
 ```kotlin
 // 의심되는 객체 추적
@@ -271,9 +284,9 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### Network Debugging
+#### Network Debugging
 
-#### Charles Proxy / Fiddler
+##### Charles Proxy / Fiddler
 
 ```xml
 <!-- network_security_config.xml -->
@@ -297,7 +310,7 @@ class MyActivity : AppCompatActivity() {
 # Settings → Security → Install from storage
 ```
 
-#### OkHttp Interceptor
+##### OkHttp Interceptor
 
 ```kotlin
 val loggingInterceptor = HttpLoggingInterceptor { message ->
@@ -311,20 +324,21 @@ val client = OkHttpClient.Builder()
     .build()
 ```
 
-### Layout Debugging
+#### Layout Debugging
 
-#### Layout Inspector
+##### Layout Inspector
 
 ```
 Tools → Layout Inspector
 ```
 
 **기능:**
+
 - 3D 뷰로 레이어 확인
 - 각 View 의 속성 확인
 - 렌더링 시간 측정
 
-#### Show Layout Bounds
+##### Show Layout Bounds
 
 ```bash
 # 개발자 옵션에서 "레이아웃 경계 표시" 활성화
@@ -332,20 +346,21 @@ adb shell setprop debug.layout true
 adb shell service call activity 1599295570
 ```
 
-### Database Debugging
+#### Database Debugging
 
-#### Database Inspector
+##### Database Inspector
 
 ```
 View → Tool Windows → App Inspection → Database Inspector
 ```
 
 **기능:**
+
 - 실시간 데이터 확인
 - 쿼리 실행
 - 데이터 수정
 
-#### 수동 확인
+##### 수동 확인
 
 ```bash
 # SQLite DB 가져오기
@@ -361,7 +376,7 @@ sqlite3 app.db
 SELECT * FROM users;
 ```
 
-### Stetho (Facebook)
+#### Stetho (Facebook)
 
 웹 브라우저로 앱 디버깅.
 
@@ -394,7 +409,7 @@ val client = OkHttpClient.Builder()
 chrome://inspect/#devices
 ```
 
-### Flipper (Meta)
+#### Flipper (Meta)
 
 강력한 디버깅 플랫폼.
 
@@ -425,9 +440,9 @@ class MyApplication : Application() {
 }
 ```
 
-### 원격 디버깅
+#### 원격 디버깅
 
-#### Wireless ADB
+##### Wireless ADB
 
 ```bash
 # USB 연결 후
@@ -440,7 +455,7 @@ adb connect 192.168.1.100:5555
 adb logcat
 ```
 
-### See Also
+#### See Also
 
 - [[android-performance-and-debug]]
 - [[android-profiling-tools]]

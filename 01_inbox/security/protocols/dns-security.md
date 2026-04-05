@@ -1,8 +1,8 @@
 ---
 title: dns-security
-tags: [security, dns, dnssec, cache-poisoning, zone-transfer]
-aliases: [DNS 보안, DNS Spoofing, Cache Poisoning, DNSSEC, Zone Transfer]
-date modified: 2026-01-08 18:20:05 +09:00
+tags: [cache-poisoning, dns, dnssec, security, zone-transfer]
+aliases: [Cache Poisoning, DNS Spoofing, DNS 보안, DNSSEC, Zone Transfer]
+date modified: 2026-04-05 17:48:05 +09:00
 date created: 2026-01-08 18:20:05 +09:00
 ---
 
@@ -16,7 +16,7 @@ date created: 2026-01-08 18:20:05 +09:00
 
 | 유형 | 설명 |
 |------|------|
-| **Recursive Query** | 캐시 DNS가 최종 IP까지 반복 질의 |
+| **Recursive Query** | 캐시 DNS 가 최종 IP 까지 반복 질의 |
 | **Iterative Query** | 참조할 DNS 서버 정보만 반환 |
 
 ### Zone Transfer (존 전송)
@@ -52,6 +52,7 @@ sequenceDiagram
 ```
 
 **공격 원리**:
+
 1. 공격자가 **Transaction ID (Query ID)** 를 추측
 2. 정상 응답보다 먼저 위조 응답 전송
 3. DNS 캐시에 위조 정보 저장
@@ -102,7 +103,7 @@ zone "example.com" {
 
 ### 3. DNS Amplification Attack (증폭 공격)
 
-[[ddos-attacks]] DRDoS의 일종입니다.
+[[ddos-attacks]] DRDoS 의 일종입니다.
 
 ```plaintext
 1. 공격자: Src IP를 피해자로 위조
@@ -110,7 +111,7 @@ zone "example.com" {
 3. DNS 서버 → 피해자: 대량 응답 (증폭)
 ```
 
-**증폭률**: 약 50배
+**증폭률**: 약 50 배
 
 ---
 
@@ -132,7 +133,7 @@ zone "example.com" {
 |--------|------|
 | **RRSIG** | 리소스 레코드 서명 |
 | **DNSKEY** | Zone 서명에 사용한 공개키 |
-| **DS** | 상위 Zone에서 하위 Zone 신뢰 체인 |
+| **DS** | 상위 Zone 에서 하위 Zone 신뢰 체인 |
 | **NSEC/NSEC3** | 존재하지 않는 레코드 증명 |
 
 ### 동작 원리

@@ -1,14 +1,14 @@
 ---
 title: router-acl-security
-tags: [networking, router, acl, security, firewall, filtering]
-aliases: [ACL, Access Control List, 라우터 보안, Ingress Filtering, uRPF]
-date modified: 2026-01-08 16:15:32 +09:00
+tags: [acl, filtering, firewall, networking, router, security]
+aliases: [Access Control List, ACL, Ingress Filtering, uRPF, 라우터 보안]
+date modified: 2026-04-05 17:47:15 +09:00
 date created: 2026-01-08 16:15:32 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-라우터 보안의 핵심은 **관리자 접근 보호**와 **ACL을 통한 패킷 필터링**입니다. 이 문서에서는 라우터 보안 설정과 ACL 기법을 다룹니다.
+라우터 보안의 핵심은 **관리자 접근 보호**와 **ACL 을 통한 패킷 필터링**입니다. 이 문서에서는 라우터 보안 설정과 ACL 기법을 다룹니다.
 
 ## 🔐 라우터 기본 보안 설정
 
@@ -70,7 +70,7 @@ R1(config-line)# transport input ssh
 
 | 유형 | 번호 | 검사 항목 |
 |------|:----:|----------|
-| **표준 (Standard)** | 1~99 | 출발지 IP만 |
+| **표준 (Standard)** | 1~99 | 출발지 IP 만 |
 | **확장 (Extended)** | 100~199 | 출발지/목적지 IP, 프로토콜, 포트 |
 
 ### 표준 ACL (Standard ACL)
@@ -219,11 +219,11 @@ ip route 192.0.2.0 255.255.255.0 Null0
 ip route 198.51.100.0 255.255.255.0 Null0
 ```
 
-**장점**: ACL보다 **CPU 부하가 적음**
+**장점**: ACL 보다 **CPU 부하가 적음**
 
 ### uRPF (Unicast Reverse Path Forwarding)
 
-들어온 패킷의 출발지 IP가 **라우팅 테이블에서 그 인터페이스로 돌아가는지** 확인합니다.
+들어온 패킷의 출발지 IP 가 **라우팅 테이블에서 그 인터페이스로 돌아가는지** 확인합니다.
 
 ```cisco
 ! Strict Mode: 정확히 같은 인터페이스로 리턴 경로 확인

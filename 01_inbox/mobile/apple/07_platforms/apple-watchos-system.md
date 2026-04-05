@@ -2,7 +2,7 @@
 title: apple-watchos-system
 tags: [apple, budget, complications, snapshot, system, watchos]
 aliases: []
-date modified: 2026-04-03 18:55:57 +09:00
+date modified: 2026-04-05 17:46:30 +09:00
 date created: 2025-12-17 23:50:00 +09:00
 ---
 

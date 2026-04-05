@@ -1,8 +1,8 @@
 ---
 title: access-control-models
-tags: [security, access-control, blp, biba, clark-wilson, model]
-aliases: [접근통제 모델, BLP, Biba, 벨-라파듈라, 비바, Clark-Wilson]
-date modified: 2026-01-08 18:15:47 +09:00
+tags: [access-control, biba, blp, clark-wilson, model, security]
+aliases: [Biba, BLP, Clark-Wilson, 벨-라파듈라, 비바, 접근통제 모델]
+date modified: 2026-04-05 17:47:48 +09:00
 date created: 2026-01-08 18:15:47 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-01-08 18:15:47 +09:00
 
 ---
 
-## 🔐 벨-라파듈라 모델 (BLP: Bell-LaPadula)
+## 🔐 벨 - 라파듈라 모델 (BLP: Bell-LaPadula)
 
 ### 목적
 
@@ -39,7 +39,7 @@ graph TD
 | 규칙 | 이름 | 설명 |
 |------|------|------|
 | **No Read Up** | 단순 보안 속성 | 낮은 등급 주체는 **높은 등급 객체를 읽을 수 없다** |
-| **No Write Down** | *-속성 (Star Property) | 높은 등급 주체는 **낮은 등급 객체에 쓸 수 없다** |
+| **No Write Down** | *- 속성 (Star Property) | 높은 등급 주체는 **낮은 등급 객체에 쓸 수 없다** |
 
 ### 예시
 
@@ -64,14 +64,14 @@ graph TD
 
 ### 목적
 
-**무결성 (Integrity)** 보장에 중점을 둡니다. BLP의 **역방향**입니다.
+**무결성 (Integrity)** 보장에 중점을 둡니다. BLP 의 **역방향**입니다.
 
 ### 규칙
 
 | 규칙 | 이름 | 설명 |
 |------|------|------|
 | **No Read Down** | 단순 무결성 | 높은 등급 주체는 **낮은 등급 객체를 읽을 수 없다** |
-| **No Write Up** | *-무결성 속성 | 낮은 등급 주체는 **높은 등급 객체에 쓸 수 없다** |
+| **No Write Up** | *- 무결성 속성 | 낮은 등급 주체는 **높은 등급 객체에 쓸 수 없다** |
 
 ### 예시
 
@@ -108,7 +108,7 @@ Biba (무결성): "아래는 못 읽고, 위는 못 쓴다"
 
 ---
 
-## 🏢 클락-윌슨 모델 (Clark-Wilson)
+## 🏢 클락 - 윌슨 모델 (Clark-Wilson)
 
 ### 목적
 
@@ -128,10 +128,10 @@ Biba (무결성): "아래는 못 읽고, 위는 못 쓴다"
 |------|------|
 | **CDI (Constrained Data Item)** | 무결성이 보장되어야 하는 데이터 |
 | **UDI (Unconstrained Data Item)** | 무결성이 검증되지 않은 데이터 |
-| **TP (Transformation Procedure)** | CDI를 조작하는 인가된 절차 |
-| **IVP (Integrity Verification Procedure)** | CDI의 무결성 검증 절차 |
+| **TP (Transformation Procedure)** | CDI 를 조작하는 인가된 절차 |
+| **IVP (Integrity Verification Procedure)** | CDI 의 무결성 검증 절차 |
 
-### Biba와 차이점
+### Biba 와 차이점
 
 | 항목 | Biba | Clark-Wilson |
 |------|------|--------------|

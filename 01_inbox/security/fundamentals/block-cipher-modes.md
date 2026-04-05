@@ -1,8 +1,8 @@
 ---
 title: block-cipher-modes
-tags: [security, cryptography, cipher, ecb, cbc, ctr, encryption]
-aliases: [블록 암호 모드, ECB, CBC, CTR, OFB, CFB, 운영 모드]
-date modified: 2026-01-08 18:18:17 +09:00
+tags: [cbc, cipher, cryptography, ctr, ecb, encryption, security]
+aliases: [CBC, CFB, CTR, ECB, OFB, 블록 암호 모드, 운영 모드]
+date modified: 2026-04-05 17:47:23 +09:00
 date created: 2026-01-08 18:18:17 +09:00
 ---
 
@@ -95,7 +95,7 @@ graph TD
 | 항목 | 내용 |
 |------|------|
 | **동작** | 이전 암호문과 XOR 후 암호화 |
-| **IV** | 첫 블록은 IV와 XOR |
+| **IV** | 첫 블록은 IV 와 XOR |
 | **병렬화** | ❌ 불가 (암호화) / ✅ 가능 (복호화) |
 | **에러 전파** | 해당 블록 + 다음 블록 |
 
@@ -163,7 +163,7 @@ graph LR
 | 모드 | IV | 병렬화 | 에러 전파 | 특징 |
 |------|:--:|:------:|:---------:|------|
 | **ECB** | ❌ | ✅ | 해당 블록 | 패턴 노출, **비권장** |
-| **CBC** | ✅ | 복호화만 | 2블록 | **가장 널리 사용** |
+| **CBC** | ✅ | 복호화만 | 2 블록 | **가장 널리 사용** |
 | **CFB** | ✅ | ❌ | 이후 블록 | 스트림처럼 동작 |
 | **OFB** | ✅ | ❌ | ❌ | 잡음 채널 적합 |
 | **CTR** | Nonce | ✅ | ❌ | **최신 권장** |
@@ -174,8 +174,8 @@ graph LR
 
 | 알고리즘 | 블록 | 키 길이 | 구조 | 특징 |
 |----------|:----:|:-------:|------|------|
-| **DES** | 64bit | 56bit | Feistel | 1977년, 현재 취약 |
-| **3DES** | 64bit | 168bit | Feistel | DES 3회, 느림 |
+| **DES** | 64bit | 56bit | Feistel | 1977 년, 현재 취약 |
+| **3DES** | 64bit | 168bit | Feistel | DES 3 회, 느림 |
 | **AES** | 128bit | 128/192/256 | SPN | **NIST 표준**, 빠름 |
 | **IDEA** | 64bit | 128bit | 혼합 | PGP 사용 |
 | **SEED** | 128bit | 128/256 | Feistel | **국내 KISA 표준** |
@@ -196,7 +196,7 @@ graph LR
 |----------|----------|------|
 | **RSA** | 소인수분해 | 암호화, 서명 |
 | **DH** | 이산대수 | **키 교환** |
-| **ElGamal** | 이산대수 | 암호화 (2배 확장) |
+| **ElGamal** | 이산대수 | 암호화 (2 배 확장) |
 | **ECC** | 타원곡선 이산대수 | **짧은 키**, 경량 환경 |
 
 ### ECC 키 길이 비교

@@ -1,8 +1,8 @@
 ---
 title: security-fundamentals
-tags: [security, cia, confidentiality, integrity, availability, management]
-aliases: [정보보호, CIA, 기밀성, 무결성, 가용성, 정보보안]
-date modified: 2026-01-08 17:52:41 +09:00
+tags: [availability, cia, confidentiality, integrity, management, security]
+aliases: [CIA, 가용성, 기밀성, 무결성, 정보보안, 정보보호]
+date modified: 2026-04-05 17:47:27 +09:00
 date created: 2026-01-08 17:52:41 +09:00
 ---
 
@@ -19,7 +19,7 @@ date created: 2026-01-08 17:52:41 +09:00
 
 ---
 
-## 🔐 정보보호 3대 목표 (CIA Triad)
+## 🔐 정보보호 3 대 목표 (CIA Triad)
 
 ```mermaid
 graph TD

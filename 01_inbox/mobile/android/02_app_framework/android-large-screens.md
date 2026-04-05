@@ -1,20 +1,28 @@
-# [[mobile-security]] > [[android-large-screens]]
+---
+title: android-large-screens
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:10 +09:00
+date created: 2026-03-21 16:47:09 +09:00
+---
 
-## Large Screens: Adaptive Layouts
+## [[mobile-security]] > [[android-large-screens]]
 
-태블릿, 폴더블, 가로 모드 및 데스크톱 환경(Samsung DeX, ChromeOS)에 대응하는 **Adaptive Layout** 설계 기법을 분석합니다. 
+### Large Screens: Adaptive Layouts
 
-단순히 화면을 크게 보여주는 것을 넘어, **WindowSizeClass**를 기반으로 최적화된 사용자 경험(UX)을 제공하고, Android 15에서 강화된 **데스크톱 윈도우(Desktop Windowing)** 환경에서의 앱 안정성을 확보하는 것이 목표입니다.
+태블릿, 폴더블, 가로 모드 및 데스크톱 환경(Samsung DeX, ChromeOS)에 대응하는 **Adaptive Layout** 설계 기법을 분석합니다.
+
+단순히 화면을 크게 보여주는 것을 넘어, **WindowSizeClass**를 기반으로 최적화된 사용자 경험(UX)을 제공하고, Android 15 에서 강화된 **데스크톱 윈도우(Desktop Windowing)** 환경에서의 앱 안정성을 확보하는 것이 목표입니다.
 
 ---
 
-### 💡 Context: 대화면 지원의 필연성
+#### 💡 Context: 대화면 지원의 필연성
 
-안드로이드 생태계는 더 이상 스마트폰에 국한되지 않습니다. 폴더블 기기의 대중화와 태블릿 시장의 성장으로 인해, 다양한 화면 비율과 상태(Fold/Unfold)에 유연하게 대응하는 앱 설계는 현대적인 안드로이드 개발의 핵심 요구사항입니다. [[android-compose-internals]]와 밀접하게 연관됩니다.
+안드로이드 생태계는 더 이상 스마트폰에 국한되지 않습니다. 폴더블 기기의 대중화와 태블릿 시장의 성장으로 인해, 다양한 화면 비율과 상태(Fold/Unfold)에 유연하게 대응하는 앱 설계는 현대적인 안드로이드 개발의 핵심 요구사항입니다. [[android-compose-internals]] 와 밀접하게 연관됩니다.
 
 ---
 
-### 화면 크기 분류
+#### 화면 크기 분류
 
 | 크기 | 너비 (dp) | 예시 |
 |------|-----------|------|
@@ -22,7 +30,7 @@
 | Medium | 600 - 839 | 스마트폰 (가로), 작은 태블릿 |
 | Expanded | ≥ 840 | 태블릿, 폴더블 (펼침) |
 
-### WindowSizeClass
+#### WindowSizeClass
 
 화면 크기에 따라 레이아웃 조정.
 
@@ -53,9 +61,9 @@ fun AdaptiveLayout() {
 }
 ```
 
-### Adaptive Layout
+#### Adaptive Layout
 
-#### Navigation Rail (중형 화면)
+##### Navigation Rail (중형 화면)
 
 ```kotlin
 @Composable
@@ -78,7 +86,7 @@ fun MediumScreenLayout() {
 }
 ```
 
-#### List-Detail (대형 화면)
+##### List-Detail (대형 화면)
 
 ```kotlin
 @Composable
@@ -99,9 +107,9 @@ fun ListDetailLayout() {
 }
 ```
 
-### 폴더블 지원
+#### 폴더블 지원
 
-#### Jetpack WindowManager
+##### Jetpack WindowManager
 
 ```kotlin
 // build.gradle.kts
@@ -153,7 +161,7 @@ fun TwoPageLayout(foldingFeature: FoldingFeature) {
 }
 ```
 
-#### 폴더블 상태 감지
+##### 폴더블 상태 감지
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
@@ -190,9 +198,9 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-### 멀티 윈도우
+#### 멀티 윈도우
 
-#### 멀티 윈도우 활성화
+##### 멀티 윈도우 활성화
 
 ```xml
 <!-- AndroidManifest.xml -->
@@ -210,7 +218,7 @@ class MainActivity : AppCompatActivity() {
 </activity>
 ```
 
-#### 멀티 윈도우 상태 감지
+##### 멀티 윈도우 상태 감지
 
 ```kotlin
 override fun onMultiWindowModeChanged(isInMultiWindowMode: Boolean, newConfig: Configuration) {
@@ -227,7 +235,7 @@ override fun onMultiWindowModeChanged(isInMultiWindowMode: Boolean, newConfig: C
 }
 ```
 
-### Picture-in-Picture (PiP)
+#### Picture-in-Picture (PiP)
 
 ```kotlin
 // build.gradle.kts
@@ -291,7 +299,7 @@ class VideoPlayerActivity : AppCompatActivity() {
 }
 ```
 
-### 드래그 앤 드롭
+#### 드래그 앤 드롭
 
 대형 화면에서 앱 간 드래그 앤 드롭 지원.
 
@@ -345,9 +353,9 @@ fun startDrag(view: View, text: String) {
 }
 ```
 
-### 키보드/마우스 지원
+#### 키보드/마우스 지원
 
-#### 단축키
+##### 단축키
 
 ```kotlin
 override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -367,7 +375,7 @@ override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
 }
 ```
 
-#### 마우스 호버
+##### 마우스 호버
 
 ```kotlin
 view.setOnHoverListener { v, event ->
@@ -387,7 +395,7 @@ view.setOnHoverListener { v, event ->
 }
 ```
 
-#### 컨텍스트 메뉴
+##### 컨텍스트 메뉴
 
 ```kotlin
 view.setOnContextClickListener {
@@ -411,14 +419,16 @@ view.setOnContextClickListener {
 }
 ```
 
-### 데스크톱 모드 및 윈도우 (Desktop Windowing)
+#### 데스크톱 모드 및 윈도우 (Desktop Windowing)
 
-#### 1. Android 15 Desktop Windowing (New ✅)
-Android 15부터 태블릿에서 여러 앱을 자유로운 크기의 창(Freeform Windows)으로 실행할 수 있는 **데스크톱 윈도우** 기능이 공식 지원됩니다.
-- **고정된 가로세로비 설정**: 앱이 자유로운 창 크기 조정을 지원하지 않더라도, `android:screenOrientation`이나 `android:minAspectRatio`를 통해 안정적인 비율을 유지할 수 있습니다.
+##### 1. Android 15 Desktop Windowing (New ✅)
+
+Android 15 부터 태블릿에서 여러 앱을 자유로운 크기의 창(Freeform Windows)으로 실행할 수 있는 **데스크톱 윈도우** 기능이 공식 지원됩니다.
+
+- **고정된 가로세로비 설정**: 앱이 자유로운 창 크기 조정을 지원하지 않더라도, `android:screenOrientation` 이나 `android:minAspectRatio` 를 통해 안정적인 비율을 유지할 수 있습니다.
 - **Taskbar 활용**: 대화면 하단의 태스크바를 통해 앱 간 드래그 앤 드롭 및 퀵 런칭이 더욱 고도화되었습니다.
 
-#### 2. Samsung DeX & Chrome OS
+##### 2. Samsung DeX & Chrome OS
 
 ```kotlin
 // 데스크톱 모드 감지
@@ -441,9 +451,9 @@ override fun onConfigurationChanged(newConfig: Configuration) {
 }
 ```
 
-### 반응형 레이아웃 패턴
+#### 반응형 레이아웃 패턴
 
-#### Canonical Layout
+##### Canonical Layout
 
 ```kotlin
 @Composable
@@ -472,7 +482,7 @@ fun CanonicalLayout(
 }
 ```
 
-#### Supporting Pane
+##### Supporting Pane
 
 ```kotlin
 @Composable
@@ -505,7 +515,7 @@ fun SupportingPaneLayout(
 }
 ```
 
-### 테스트
+#### 테스트
 
 ```kotlin
 @Test
@@ -542,9 +552,9 @@ fun testAdaptiveLayout_expanded() {
 }
 ```
 
-### 베스트 프랙티스
+#### 베스트 프랙티스
 
-#### 1. 유연한 레이아웃
+##### 1. 유연한 레이아웃
 
 ```kotlin
 // ❌ 고정 크기
@@ -557,7 +567,7 @@ Box(modifier = Modifier
 )
 ```
 
-#### 2. 적응형 네비게이션
+##### 2. 적응형 네비게이션
 
 ```kotlin
 @Composable
@@ -572,7 +582,7 @@ fun AdaptiveNavigation() {
 }
 ```
 
-#### 3. 터치 타겟 크기
+##### 3. 터치 타겟 크기
 
 ```kotlin
 // 최소 48dp 터치 타겟
@@ -584,7 +594,7 @@ Button(
 }
 ```
 
-#### 4. 폰트 스케일링
+##### 4. 폰트 스케일링
 
 ```kotlin
 // 사용자 폰트 크기 설정 존중
@@ -594,7 +604,7 @@ Text(
 )
 ```
 
-### See Also
+#### See Also
 
 - [[android-compose-internals]]
 - [[android-jetpack-architecture]]

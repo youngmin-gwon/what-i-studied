@@ -1,8 +1,8 @@
 ---
 title: apple-app-intents
-tags: [apple, app-intents, intelligence, shortcuts, siri, spotlight, widgets]
+tags: [app-intents, apple, intelligence, shortcuts, siri, spotlight, widgets]
 aliases: []
-date modified: 2026-04-03 23:58:00 +09:00
+date modified: 2026-04-05 17:45:07 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 
@@ -140,8 +140,8 @@ struct TodoWidgetView: View {
 }
 ```
 
-> [!TIP] **`AppIntentTimelineProvider` (iOS 17+)**
-> 기존 `TimelineProvider` 대신 `AppIntentTimelineProvider` 를 사용하면, 위젯 설정(Configuration)도 App Intents 기반으로 통합할 수 있습니다.
+>[!TIP] **`AppIntentTimelineProvider` (iOS 17+)**
+>기존 `TimelineProvider` 대신 `AppIntentTimelineProvider` 를 사용하면, 위젯 설정(Configuration)도 App Intents 기반으로 통합할 수 있습니다.
 
 ---
 
@@ -163,14 +163,13 @@ Apple 의 App Intents 와 유사한 기능을 Android 에서는 **App Actions** 
 | **데이터 노출** | `AppEntity` 프로토콜 | `shortcuts.xml` 의 `parameter` 매핑 |
 | **AI 연동** | Apple Intelligence (iOS 18+) | AppFunctions (Android 16+), Gemini 연동 |
 
-> [!TIP] **Android 개발자를 위한 App Intents**
+>[!TIP] **Android 개발자를 위한 App Intents**
 > - `AppIntent.perform()` ≃ `shortcuts.xml` 에 정의된 Intent Fulfillment 처리 logic
 > - `AppShortcut` ≃ Android 의 **Static Shortcut** (`shortcuts.xml`)
 > - `AppEntity` ≃ 시스템이 검색할 수 있는 앱 내 데이터 (Search Indexing)
-> 상세 비교는 [android-app-actions-assistant](../../android/02_app_framework/android-app-actions-assistant.md)를 참고하세요.
+>상세 비교는 [android-app-actions-assistant](../../android/02_app_framework/android-app-actions-assistant.md) 를 참고하세요.
 
 ### 더 보기
 - [apple-widgets-live-activities](../02_ui_frameworks/apple-widgets-live-activities.md) - WidgetKit 기본 아키텍처 및 타임라인
 - [apple-system-services](apple-system-services.md) - 시스템 데몬과의 IPC 원리
 - [apple-swift-concurrency](../01_language_concurrency/apple-swift-concurrency.md) - `perform()` 의 `async throws` 이해
-

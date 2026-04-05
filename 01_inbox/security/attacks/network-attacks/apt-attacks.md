@@ -1,8 +1,8 @@
 ---
 title: apt-attacks
-tags: [security, apt, attack, cyber-espionage, advanced-threat]
-aliases: [APT, Advanced Persistent Threat, 지능형 지속 위협]
-date modified: 2026-01-08 16:21:57 +09:00
+tags: [advanced-threat, apt, attack, cyber-espionage, security]
+aliases: [Advanced Persistent Threat, APT, 지능형 지속 위협]
+date modified: 2026-04-05 17:47:08 +09:00
 date created: 2026-01-08 16:21:57 +09:00
 ---
 
@@ -42,7 +42,7 @@ graph LR
     style D fill:#f99
 ```
 
-### 1단계: 침투 (Initial Compromise)
+### 1 단계: 침투 (Initial Compromise)
 
 내부 네트워크 **거점을 확보**합니다.
 
@@ -60,7 +60,7 @@ graph LR
 → 실행 시 백도어 설치
 ```
 
-### 2단계: 검색 (Discovery)
+### 2 단계: 검색 (Discovery)
 
 **내부망 정보를 수집**하고 확장 경로를 탐색합니다.
 
@@ -71,7 +71,7 @@ graph LR
 | **횡적 이동** | 다른 시스템으로 확장 |
 | **키로깅** | 자격 증명 탈취 |
 
-### 3단계: 수집 (Collection)
+### 3 단계: 수집 (Collection)
 
 **중요 데이터를 찾아 수집**합니다.
 
@@ -83,7 +83,7 @@ graph LR
 - 인증서/키
 ```
 
-### 4단계: 유출 (Exfiltration)
+### 4 단계: 유출 (Exfiltration)
 
 수집한 데이터를 **외부로 유출**합니다.
 

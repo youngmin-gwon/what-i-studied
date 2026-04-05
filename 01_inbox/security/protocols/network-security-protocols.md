@@ -1,14 +1,14 @@
 ---
-title: Network Security Protocols
-tags: [security, networking, tls, ssl, ipsec, ssh, vpn]
-aliases: [TLS, SSL, IPSec, VPN, SSH]
-date modified: 2025-12-20 00:17:40 +09:00
+title: network-security-protocols
+tags: [ipsec, networking, security, ssh, ssl, tls, vpn]
+aliases: [IPSec, SSH, SSL, TLS, VPN]
+date modified: 2026-04-05 17:48:08 +09:00
 date created: 2025-12-20 00:17:40 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-네트워크 보안 프로토콜은 [[tcp-ip-model|TCP/IP 네트워크]]에서 안전한 통신을 제공하는 프로토콜입니다. 기밀성, 무결성, 인증을 보장하여 중간자 공격, 도청, 데이터 변조를 방지합니다.
+네트워크 보안 프로토콜은 [[tcp-ip-model|TCP/IP 네트워크]] 에서 안전한 통신을 제공하는 프로토콜입니다. 기밀성, 무결성, 인증을 보장하여 중간자 공격, 도청, 데이터 변조를 방지합니다.
 
 ## 🔐 TLS/SSL (Transport Layer Security)
 
@@ -53,7 +53,7 @@ sequenceDiagram
 
 ### TLS 1.3 개선사항
 
-- **빠른 핸드셰이크**: 1-RTT (왕복 1회)
+- **빠른 핸드셰이크**: 1-RTT (왕복 1 회)
 - **0-RTT 재개**: 이전 세션 재사용
 - **암호 스위트 단순화**: 안전한 알고리즘만
 - **Perfect Forward Secrecy**: 기본 활성화
@@ -96,11 +96,13 @@ graph TB
 ```
 
 **Transport Mode**: 데이터만 암호화 (호스트 간)
+
 **Tunnel Mode**: 전체 IP 패킷 암호화 (VPN)
 
 ### IKE (Internet Key Exchange)
 
 **Phase 1**: SA (Security Association) 수립
+
 **Phase 2**: IPSec SA 협상
 
 ## 🔑 SSH (Secure Shell)
@@ -179,8 +181,8 @@ graph TB
 
 ### WireGuard
 
-- **경량**: 4,000줄 미만 코드
-- **빠름**: 기존 VPN 대비 3~4배
+- **경량**: 4,000 줄 미만 코드
+- **빠름**: 기존 VPN 대비 3~4 배
 - **모던 암호**: ChaCha20, Curve25519
 - **간단한 설정**
 
@@ -219,6 +221,7 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 ```
 
 **효과**:
+
 - HTTP 자동 HTTPS 전환
 - 중간자 공격 방지
 - 인증서 경고 무시 방지

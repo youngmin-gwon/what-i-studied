@@ -1,8 +1,8 @@
 ---
-title: Authentication and Authorization
-tags: [security, authentication, authorization, aaa, sso, mfa]
-aliases: [인증, 인가, AAA, 다중 인증]
-date modified: 2025-12-20 00:17:40 +09:00
+title: authentication-authorization
+tags: [aaa, authentication, authorization, mfa, security, sso]
+aliases: [AAA, 다중 인증, 인가, 인증]
+date modified: 2026-04-05 17:47:49 +09:00
 date created: 2025-12-20 00:17:40 +09:00
 ---
 
@@ -54,6 +54,7 @@ sequenceDiagram
 - **패턴**: 모바일 기기
 
 **취약점**:
+
 - 추측, 무차별 대입 공격
 - 피싱, 소셜 엔지니어링
 - 재사용, 약한 패스워드
@@ -83,7 +84,7 @@ sequenceDiagram
 
 ### 다중 인증 (Multi-Factor Authentication, MFA)
 
-**정의**: 2개 이상의 **서로 다른** 인증 요소 조합
+**정의**: 2 개 이상의 **서로 다른** 인증 요소 조합
 
 ```mermaid
 graph TB
@@ -159,7 +160,7 @@ graph LR
 
 ### Kerberos
 
-MIT에서 개발한 네트워크 인증 프로토콜 (Windows Active Directory의 기본 인증)
+MIT 에서 개발한 네트워크 인증 프로토콜 (Windows Active Directory 의 기본 인증)
 
 ```mermaid
 sequenceDiagram
@@ -182,13 +183,15 @@ sequenceDiagram
 ```
 
 **장점**:
+
 - 패스워드가 네트워크에 전송되지 않음
 - 상호 인증 (클라이언트 ↔ 서버)
 - 티켓 만료로 보안 강화
 
 **단점**:
-- 시간 동기화 필수 (5분 이내)
-- KDC가 단일 장애점
+
+- 시간 동기화 필수 (5 분 이내)
+- KDC 가 단일 장애점
 - 초기 설정 복잡
 
 ### LDAP (Lightweight Directory Access Protocol)
@@ -264,8 +267,9 @@ sequenceDiagram
 ```
 
 **Grant Types**:
+
 1. **Authorization Code**: 가장 안전 (서버 사이드 앱)
-2. **Implicit**: SPA용 (deprecated)
+2. **Implicit**: SPA 용 (deprecated)
 3. **Resource Owner Password**: 신뢰된 앱만
 4. **Client Credentials**: 서버 간 통신
 
@@ -279,6 +283,7 @@ OIDC: 인증 (Authentication) + 인가
 ```
 
 **ID Token** (JWT):
+
 ```json
 {
   "iss": "https://accounts.google.com",
@@ -306,6 +311,7 @@ chown user:group myfile.txt
 ```
 
 **장점**: 유연성
+
 **단점**: 권한 전파 문제, 관리 어려움
 
 #### 2. MAC (Mandatory Access Control)
@@ -319,6 +325,7 @@ chown user:group myfile.txt
 ```
 
 **구현**: SELinux, AppArmor
+
 **용도**: 군사, 정부 시스템
 
 #### 3. RBAC (Role-Based Access Control)
@@ -340,6 +347,7 @@ graph LR
 ```
 
 **예시**:
+
 - Admin: 모든 권한
 - Editor: 읽기/쓰기
 - Viewer: 읽기만
@@ -357,6 +365,7 @@ ELSE DENY
 ```
 
 **속성 예시**:
+
 - 사용자: 부서, 직급, 위치
 - 리소스: 분류, 소유자, 타입
 - 환경: 시간, 위치, 디바이스
@@ -376,6 +385,7 @@ ELSE DENY
 ### 패스워드 해싱
 
 **절대 금지**:
+
 ```python
 # ❌ 절대 사용 금지
 password_hash = md5(password)
@@ -383,6 +393,7 @@ password_hash = sha256(password)
 ```
 
 **권장**:
+
 ```python
 # ✅ bcrypt
 import bcrypt
@@ -401,6 +412,7 @@ hashed = ph.hash(password)
 ### 패스워드 관리자
 
 **장점**:
+
 - 강력하고 고유한 패스워드 생성
 - 안전한 저장
 - 자동 입력
@@ -409,7 +421,7 @@ hashed = ph.hash(password)
 
 ## 💡 실무 권장 사항
 
-### MFA는 필수
+### MFA 는 필수
 
 ```
 Critical Systems: Hardware tokens (FIDO2)
@@ -440,5 +452,5 @@ Absolute Timeout: 8시간
 ## 🔗 연결 문서 (Related Documents)
 
 - [[cryptography-basics]] - 인증에 사용되는 암호화 기술
-- [[network-security-protocols]] - HTTPS, TLS에서의 인증
+- [[network-security-protocols]] - HTTPS, TLS 에서의 인증
 - [[process-states-lifecycle]] - 시스템 레벨 권한과 프로세스

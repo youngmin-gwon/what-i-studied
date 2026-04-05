@@ -2,17 +2,17 @@
 title: apple-combine-framework
 tags: [apple, backpressure, combine, frp, internals, reactive]
 aliases: []
-date modified: 2026-04-03 18:55:35 +09:00
+date modified: 2026-04-05 17:44:53 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
 ## Combine Framework Deep Dive
 
-> [!CAUTION] **Devil's Advocate : Combine의 설 자리 축소 (점진적 Legacy화)**
-> Combine은 RxSwift를 대체하며 화려하게 등장했지만, 현재 Apple의 행보는 **Swift Concurrency (`AsyncSequence`, `AsyncAlgorithms`)** 및 **Observation (`@Observable`)** 프레임워크로의 전환을 확고히 하고 있습니다.
-> 1. SwiftUI의 상태 관리는 `@Published`에서 `@Observable`로 이관되었습니다.
-> 2. URLSession이나 비동기 작업은 `.dataTaskPublisher` 대신 순수 `async/await`를 선호합니다.
-> 복잡한 다중 이벤트 병합(`merge`, `zip`, `CombineLatest`)이 필수인 스트림 처리 외에는 가급적 순수 Swift Concurrency를 사용하는 것이 장기적 관점에서 올바릅니다.
+>[!CAUTION] **Devil's Advocate : Combine 의 설 자리 축소 (점진적 Legacy 화)**
+>Combine 은 RxSwift 를 대체하며 화려하게 등장했지만, 현재 Apple 의 행보는 **Swift Concurrency (`AsyncSequence`, `AsyncAlgorithms`)** 및 **Observation (`@Observable`)** 프레임워크로의 전환을 확고히 하고 있습니다.
+> 1. SwiftUI 의 상태 관리는 `@Published` 에서 `@Observable` 로 이관되었습니다.
+> 2. URLSession 이나 비동기 작업은 `.dataTaskPublisher` 대신 순수 `async/await` 를 선호합니다.
+>복잡한 다중 이벤트 병합(`merge`, `zip`, `CombineLatest`)이 필수인 스트림 처리 외에는 가급적 순수 Swift Concurrency 를 사용하는 것이 장기적 관점에서 올바릅니다.
 
 "시간에 따라 발생하는 값(Stream of Values)"을 처리하는 Apple 의 선언형 프레임워크입니다. 과거 **SwiftUI 의 데이터 흐름을 지탱하는 핵심 엔진**이었습니다.
 
@@ -143,7 +143,7 @@ Combine 의 핵심 역할이었던 "비동기 데이터 스트림"을 **Swift Co
 | Combine | AsyncSequence | 비고 |
 |---------|---------------|------|
 | `Publisher` | `AsyncSequence` | 프로토콜 |
-| `sink { }` | `for await value in ... { }` | 구독/소비 |
+| `sink { }` | `for await value in … { }` | 구독/소비 |
 | `map`, `filter` | `.map { }`, `.filter { }` (그대로) | 내장 연산자 |
 | `PassthroughSubject` | `AsyncStream` | 수동 이벤트 발행 |
 | `CurrentValueSubject` | `AsyncStream` + 초기값 | 현재 값 보유 |
@@ -181,7 +181,7 @@ for await location in stream {
 }
 ```
 
-> [!TIP] **언제 여전히 Combine 을 써야 하나?**
+>[!TIP] **언제 여전히 Combine 을 써야 하나?**
 > 1. **`debounce`, `throttle`, `combineLatest` 등 복잡한 시간 기반 연산**: `swift-async-algorithms` 패키지가 일부를 지원하지만 아직 Combine 만큼 성숙하지 않습니다.
 > 2. **에러 타입이 있는 스트림**: `AsyncThrowingStream` 은 에러 타입을 특정할 수 없지만(`any Error`), Combine 의 `Publisher<Output, MyError>` 는 가능합니다.
 > 3. **iOS 14 이하 지원**: AsyncSequence 는 iOS 15+ 입니다.

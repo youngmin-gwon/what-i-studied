@@ -1,8 +1,8 @@
 ---
-title: Web Browser Security (웹 브라우저 보안)
-tags: [security, browser, cookie, activex, ssl, https]
-aliases: [웹 브라우저 보안, 쿠키 보안, ActiveX, 브라우저 보안 설정]
-date modified: 2026-01-12 23:36:00 +09:00
+title: web-browser-security
+tags: [activex, browser, cookie, https, security, ssl]
+aliases: [ActiveX, 브라우저 보안 설정, 웹 브라우저 보안, 쿠키 보안]
+date modified: 2026-04-05 17:46:59 +09:00
 date created: 2026-01-12 23:36:00 +09:00
 ---
 
@@ -41,8 +41,8 @@ Set-Cookie: session_id=abc123;
 
 | 속성 | 설명 | 방어 대상 |
 |------|------|----------|
-| **Secure** | HTTPS에서만 전송 | 도청 |
-| **HttpOnly** | JavaScript에서 접근 불가 | XSS |
+| **Secure** | HTTPS 에서만 전송 | 도청 |
+| **HttpOnly** | JavaScript 에서 접근 불가 | XSS |
 | **SameSite=Strict** | 동일 사이트 요청만 전송 | CSRF |
 | **SameSite=Lax** | GET 요청만 허용 | CSRF (완화) |
 
@@ -105,7 +105,7 @@ Set-Cookie: session_id=abc123;
 |------|------|----------|----------|
 | **ActiveX** | Microsoft IE 전용 플러그인 | **매우 높음** | IE 지원 종료 |
 | **Java Applet** | 브라우저 내 Java 실행 | 높음 | 대부분 사용 중단 |
-| **Flash** | Adobe Flash Player | 높음 | 2020년 지원 종료 |
+| **Flash** | Adobe Flash Player | 높음 | 2020 년 지원 종료 |
 | **JavaScript** | 모든 브라우저 지원 | 중간 | 현재 표준 |
 | **WebAssembly** | 고성능 바이너리 코드 | 중간 | 현재 표준 |
 
@@ -164,7 +164,7 @@ graph TD
 
 | 영역 | 기본 보안 수준 | 용도 |
 |------|--------------|------|
-| **인터넷** | 중간-높음 | 일반 웹사이트 |
+| **인터넷** | 중간 - 높음 | 일반 웹사이트 |
 | **로컬 인트라넷** | 낮음 | 회사 내부 사이트 |
 | **신뢰할 수 있는 사이트** | 낮음 | 관리자가 지정한 안전 사이트 |
 | **제한된 사이트** | 높음 | 위험한 것으로 알려진 사이트 |
@@ -187,9 +187,9 @@ graph TD
 | 오류 | 원인 | 위험도 | 대응 |
 |------|------|--------|------|
 | **만료됨** | 인증서 유효기간 초과 | 중간 | 사이트 관리자 문의 |
-| **도메인 불일치** | CN/SAN이 URL과 다름 | **높음** | 접속 중단 |
+| **도메인 불일치** | CN/SAN 이 URL 과 다름 | **높음** | 접속 중단 |
 | **신뢰할 수 없는 CA** | 자체 서명 또는 미등록 CA | **높음** | 접속 중단 |
-| **해지됨** | CA가 인증서 폐기 | **매우 높음** | 접속 금지 |
+| **해지됨** | CA 가 인증서 폐기 | **매우 높음** | 접속 금지 |
 
 ### 안전한 연결 확인
 

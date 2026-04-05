@@ -1,29 +1,38 @@
-# [[mobile-security]] > [[android-ndk-jni]]
+---
+title: android-ndk-jni
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:11 +09:00
+date created: 2026-03-21 16:47:09 +09:00
+---
 
-## Native Development: NDK & JNI
+## [[mobile-security]] > [[android-ndk-jni]]
 
-안드로이드에서 C/C++ 코드를 실행하기 위한 **NDK(Native Development Kit)**와 Java/Kotlin 코드와의 가교 역할을 하는 **JNI(Java Native Interface)** 기술을 분석합니다. 
+### Native Development: NDK & JNI
+
+안드로이드에서 C/C++ 코드를 실행하기 위한 **NDK(Native Development Kit)**와 Java/Kotlin 코드와의 가교 역할을 하는 **JNI(Java Native Interface)** 기술을 분석합니다.
 
 성능 최적화, 기존 네이티브 라이브러리 재사용, 그리고 리버스 엔지니어링 방어를 위한 고수준의 보안성 확보가 핵심 목표입니다.
 
 ---
 
-### 💡 Context: 네이티브 개발의 가치
+#### 💡 Context: 네이티브 개발의 가치
 
-최근의 안드로이드 개발은 Kotlin/Compose가 주류이지만, 고성능 연산이 필요한 게임 엔진, 이미지/영상 처리, 보안 모듈 등에서는 여전히 네이티브 개발이 필수적입니다. [[android-os-development-guide]]와 함께 시스템 계층을 이해하는 중요한 도구입니다.
+최근의 안드로이드 개발은 Kotlin/Compose 가 주류이지만, 고성능 연산이 필요한 게임 엔진, 이미지/영상 처리, 보안 모듈 등에서는 여전히 네이티브 개발이 필수적입니다. [[android-os-development-guide]] 와 함께 시스템 계층을 이해하는 중요한 도구입니다.
 
 ---
 
-### NDK 란
+#### NDK 란
 
 C/C++ 코드를 Android 에서 실행할 수 있게 하는 도구.
 
 **사용 이유:**
+
 - 성능 최적화 (이미지 처리, 게임 엔진)
 - 기존 C/C++ 라이브러리 재사용
 - 플랫폼 독립적 코드 공유
 
-### 프로젝트 설정
+#### 프로젝트 설정
 
 ```kotlin
 // build.gradle.kts
@@ -50,7 +59,7 @@ android {
 }
 ```
 
-### CMakeLists.txt
+#### CMakeLists.txt
 
 ```cmake
 cmake_minimum_required(VERSION 3.22.1)
@@ -92,9 +101,9 @@ set_target_properties(opencv PROPERTIES IMPORTED_LOCATION
 target_link_libraries(native-lib opencv)
 ```
 
-### JNI 기본
+#### JNI 기본
 
-#### Kotlin/Java 에서 네이티브 함수 선언
+##### Kotlin/Java 에서 네이티브 함수 선언
 
 ```kotlin
 class NativeLib {
@@ -114,7 +123,7 @@ class NativeLib {
 val result = NativeLib().stringFromJNI()
 ```
 
-#### C++ 구현
+##### C++ 구현
 
 ```cpp
 // native-lib.cpp
@@ -147,7 +156,7 @@ Java_com_example_app_NativeLib_addNumbers(
 }
 ```
 
-### JNI 타입 매핑
+#### JNI 타입 매핑
 
 | Java/Kotlin | JNI | C/C++ |
 |-------------|-----|-------|
@@ -163,7 +172,7 @@ Java_com_example_app_NativeLib_addNumbers(
 | Object | jobject | - |
 | Array | jarray | - |
 
-### 문자열 처리
+#### 문자열 처리
 
 ```cpp
 extern "C" JNIEXPORT jstring JNICALL
@@ -185,7 +194,7 @@ Java_com_example_app_NativeLib_processString(
 }
 ```
 
-### 배열 처리
+#### 배열 처리
 
 ```cpp
 extern "C" JNIEXPORT jintArray JNICALL
@@ -216,7 +225,7 @@ Java_com_example_app_NativeLib_processArray(
 }
 ```
 
-### 객체와 메서드 호출
+#### 객체와 메서드 호출
 
 ```cpp
 extern "C" JNIEXPORT void JNICALL
@@ -257,7 +266,7 @@ class NativeLib {
 }
 ```
 
-### Bitmap 처리
+#### Bitmap 처리
 
 ```cpp
 #include <android/bitmap.h>
@@ -301,7 +310,7 @@ Java_com_example_app_NativeLib_processImage(
 }
 ```
 
-### 전역 참조 (Global Reference)
+#### 전역 참조 (Global Reference)
 
 ```cpp
 // 전역 변수
@@ -346,7 +355,7 @@ Java_com_example_app_NativeLib_cleanup(
 }
 ```
 
-### 스레딩
+#### 스레딩
 
 ```cpp
 #include <pthread.h>
@@ -387,7 +396,7 @@ Java_com_example_app_NativeLib_startNativeThread(
 }
 ```
 
-### 예외 처리
+#### 예외 처리
 
 ```cpp
 extern "C" JNIEXPORT void JNICALL
@@ -421,7 +430,7 @@ Java_com_example_app_NativeLib_checkException(
 }
 ```
 
-### 성능 최적화
+#### 성능 최적화
 
 ```cpp
 // ❌ 나쁜 예: 매번 클래스/메서드 찾기
@@ -453,7 +462,7 @@ for (int i = 0; i < 1000; i++) {
 }
 ```
 
-### 디버깅
+#### 디버깅
 
 ```bash
 # NDK 빌드 로그
@@ -469,7 +478,7 @@ adb logcat | grep "DEBUG"
 ls app/build/intermediates/cmake/debug/obj/arm64-v8a/
 ```
 
-### See Also
+#### See Also
 
 - [[android-performance-and-debug]]
 - [[android-gradle-build-system]]

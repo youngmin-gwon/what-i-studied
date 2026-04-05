@@ -1,27 +1,35 @@
-# [[mobile-security]] > [[android-deep-links]]
+---
+title: android-deep-links
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:02 +09:00
+date created: 2026-04-04 00:14:36 +09:00
+---
 
-## Android Deep Links: Inbound Routing Guide
+## [[mobile-security]] > [[android-deep-links]]
 
-URL을 통해 앱 내부의 특정 화면으로 사용자 여정을 안내하는 **Deep Links** 및 **App Links** 메커니즘을 상세히 분석합니다. 
+### Android Deep Links: Inbound Routing Guide
+
+URL 을 통해 앱 내부의 특정 화면으로 사용자 여정을 안내하는 **Deep Links** 및 **App Links** 메커니즘을 상세히 분석합니다.
 
 단순히 특정 화면으로 진입하는 것을 넘어, 보안 위협으로부터 앱을 보호하고 사용자 경험을 극대화하는 것이 목표입니다.
 
 ---
 
-### 💡 Context: Deep Links vs App Links vs Universal Links
+#### 💡 Context: Deep Links vs App Links vs Universal Links
 
-안드로이드의 딥링크 시스템은 보안성과 사용자 경험을 개선하기 위해 진화해왔습니다. 특히 **App Links**는 iOS의 **Universal Links**와 동일하게 웹 도메인 인증을 기반으로 동작하여 보안 위협을 방지합니다.
+안드로이드의 딥링크 시스템은 보안성과 사용자 경험을 개선하기 위해 진화해왔습니다. 특히 **App Links**는 iOS 의 **Universal Links**와 동일하게 웹 도메인 인증을 기반으로 동작하여 보안 위협을 방지합니다.
 
-> [!NOTE] **상호 참조**
-> iOS의 유사 기능 및 구현 방식은 [[apple-deep-links]]를 참고하세요.
+>[!NOTE] **상호 참조**
+>iOS 의 유사 기능 및 구현 방식은 [[apple-deep-links]] 를 참고하세요.
 
 ---
 > - **iOS**: Associated Domains Entitlement + `apple-app-site-association` (AASA) 파일
 > - **Android**: Intent Filter + `assetlinks.json` 파일
-> 두 플랫폼 모두 **HTTPS 도메인 소유 검증**을 통해 앱과 웹사이트의 신뢰 관계를 증명한다.
-> iOS 의 URL Scheme (`myapp://`) 은 Android 의 Custom Scheme Deep Link 와 동일한 레거시 패턴이며, 두 플랫폼 모두 검증된 HTTPS 기반 방식을 권장한다.
+>두 플랫폼 모두 **HTTPS 도메인 소유 검증**을 통해 앱과 웹사이트의 신뢰 관계를 증명한다.
+>iOS 의 URL Scheme (`myapp://`) 은 Android 의 Custom Scheme Deep Link 와 동일한 레거시 패턴이며, 두 플랫폼 모두 검증된 HTTPS 기반 방식을 권장한다.
 
-### 세 가지 딥링크 종류
+#### 세 가지 딥링크 종류
 
 | 종류 | URL 패턴 | 검증 | 앱 선택 다이얼로그 |
 |------|----------|------|-------------------|
@@ -29,11 +37,11 @@ URL을 통해 앱 내부의 특정 화면으로 사용자 여정을 안내하는
 | **App Links** | `https://example.com/detail/123` | ✅ 도메인 검증 | ❌ 바로 앱 열림 |
 | **Dynamic App Links (Android 15+)** | `assetlinks.json` 기반 동적 규칙 | ✅ 실시간 검증/갱신 | ❌ 서버 설정으로 제어 |
 
-> [!CAUTION] **Devil's Advocate : Custom Scheme 은 보안 구멍**
-> `myapp://` 같은 커스텀 스킴은 **누구나 등록 가능**하여 악성 앱이 동일한 스킴을 선언해 데이터를 가로챌 수 있다.
-> 프로덕션에서는 반드시 **Android App Links** (HTTPS 검증)를 사용해야 한다.
+>[!CAUTION] **Devil's Advocate : Custom Scheme 은 보안 구멍**
+>`myapp://` 같은 커스텀 스킴은 **누구나 등록 가능**하여 악성 앱이 동일한 스킴을 선언해 데이터를 가로챌 수 있다.
+>프로덕션에서는 반드시 **Android App Links** (HTTPS 검증)를 사용해야 한다.
 
-### 1. Custom Scheme Deep Link (레거시)
+#### 1. Custom Scheme Deep Link (레거시)
 
 ```xml
 <!-- AndroidManifest.xml -->
@@ -66,9 +74,9 @@ class DetailActivity : AppCompatActivity() {
 }
 ```
 
-### 2. Android App Links (권장)
+#### 2. Android App Links (권장)
 
-#### Step 1: Intent Filter 선언
+##### Step 1: Intent Filter 선언
 
 ```xml
 <activity android:name=".MainActivity"
@@ -85,7 +93,7 @@ class DetailActivity : AppCompatActivity() {
 </activity>
 ```
 
-#### Step 2: Digital Asset Links 파일 호스팅
+##### Step 2: Digital Asset Links 파일 호스팅
 
 `https://www.example.com/.well-known/assetlinks.json` 에 배포:
 
@@ -111,7 +119,7 @@ adb shell pm verify-app-links --re-verify com.example.app
 adb shell pm get-app-links com.example.app
 ```
 
-#### Step 3: Compose Navigation 딥링크 처리
+##### Step 3: Compose Navigation 딥링크 처리
 
 ```kotlin
 @Serializable object Home
@@ -154,16 +162,16 @@ fun AppNavigation() {
 }
 ```
 
-### 3. Dynamic App Links (Android 15 / API 35+)
+#### 3. Dynamic App Links (Android 15 / API 35+)
 
-Android 15부터는 `assetlinks.json` 파일을 통해 **앱 업데이트 없이** 딥링크 라우팅 규칙을 동적으로 구성할 수 있습니다. 시스템은 약 일주일 단위로 이 파일을 재검층(Periodic Re-verification)하여 규칙을 갱신합니다.
+Android 15 부터는 `assetlinks.json` 파일을 통해 **앱 업데이트 없이** 딥링크 라우팅 규칙을 동적으로 구성할 수 있습니다. 시스템은 약 일주일 단위로 이 파일을 재검층(Periodic Re-verification)하여 규칙을 갱신합니다.
 
-#### 주요 특징
+##### 주요 특징
 - **Exclusions (제외)**: 특정 경로(예: `/private/*`)가 앱에서 열리지 않도록 서버에서 즉시 차단 가능.
 - **Query & Fragment Matching**: 특정 쿼리 파라미터가 포함된 경우에만 앱을 열도록 세분화된 필터링 제공.
 - **Refinement Only**: 동적 규칙은 **이미 Manifest 에 선언된 호스트**에 대해서만 적용 가능하며, 새로운 호스트를 승인할 수는 없습니다.
 
-#### `assetlinks.json` 예시
+##### `assetlinks.json` 예시
 ```json
 [{
   "relation": ["delegate_permission/common.handle_all_urls"],
@@ -190,7 +198,7 @@ Android 15부터는 `assetlinks.json` 파일을 통해 **앱 업데이트 없이
 }]
 ```
 
-### 딥링크에서의 상태 복원
+#### 딥링크에서의 상태 복원
 
 ```kotlin
 @Composable
@@ -213,7 +221,7 @@ fun ProductScreen(productId: String, viewModel: ProductViewModel = hiltViewModel
 }
 ```
 
-### 알림(Notification)에서의 딥링크
+#### 알림(Notification)에서의 딥링크
 
 ```kotlin
 fun createDeepLinkNotification(context: Context, productId: String) {
@@ -240,7 +248,7 @@ fun createDeepLinkNotification(context: Context, productId: String) {
 }
 ```
 
-### 테스트 & 디버깅
+#### 테스트 & 디버깅
 
 ```bash
 # 딥링크 테스트
@@ -262,6 +270,6 @@ adb shell pm verify-app-links --re-verify com.example.app
 adb shell dumpsys package com.example.app | grep -A5 "intent-filter"
 ```
 
-### 더 보기
+#### 더 보기
 
 [android-intent-and-ipc](android-intent-and-ipc.md), [android-compose-internals](android-compose-internals.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-activity-lifecycle](android-activity-lifecycle.md)

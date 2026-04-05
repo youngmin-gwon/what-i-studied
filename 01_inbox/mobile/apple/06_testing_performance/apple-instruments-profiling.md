@@ -2,17 +2,19 @@
 title: apple-instruments-profiling
 tags: [apple, instruments, performance, profiling, xcode]
 aliases: []
-date modified: 2026-04-03 18:56:00 +09:00
+date modified: 2026-04-05 17:45:42 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
 ## Instruments Profiling Deep Dive
 
-> [!TIP] **Devil's Advocate : Swift Concurrency 시대의 Profiling**
-> 전통적인 Time Profiler만으로는 최신 Swift Concurrency(`async/await`, `actor`)의 병목을 추적하기 극히 어렵습니다. 스레드가 중단(Suspend)된 건지 대기 중인지 타임라인에 명확히 표기되지 않기 때문입니다. **현실적으로 현대 앱 프로파일링은 `Swift Concurrency` 템플릿 사용법 숙지가 우선**됩니다.
+>[!TIP] **Devil's Advocate : Swift Concurrency 시대의 Profiling**
+>전통적인 Time Profiler 만으로는 최신 Swift Concurrency(`async/await`, `actor`)의 병목을 추적하기 극히 어렵습니다. 스레드가 중단(Suspend)된 건지 대기 중인지 타임라인에 명확히 표기되지 않기 때문입니다. **현실적으로 현대 앱 프로파일링은 `Swift Concurrency` 템플릿 사용법 숙지가 우선**됩니다.
 
 Instruments 는 Xcode 에 딸려오는 "부록"이 아닙니다.
+
 오히려 Xcode 보다 더 강력한, Apple 엔지니어링의 정수입니다.
+
 "내 앱은 왜 느릴까?"라는 막연한 질문을 "A 함수의 B 루프가 45ms 를 쓴다"는 명확한 팩트로 바꿔줍니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
@@ -45,9 +47,9 @@ Call Tree 옵션에서 이 두 가지를 체크하세요.
 
 `async/await` 환경에서 데드락이나 우선순위 역전(Priority Inversion), 행(Hang)이 발생했을 때 해결하는 필수 도구입니다.
 
-- **Task Lifecycle**: Task가 생성되고(Created) 실행 대기(Runnable), 실행(Running), 멈춤(Suspended) 상태로 변하는 흐름을 타임라인으로 보여줍니다.
-- **Actor Serialization**: 두 개 이상의 Task가 동일한 Actor의 데이터에 접근하려다 병목이 생기는 "Actor Reentrancy / Block" 현상을 시각화하여 보여줍니다.
-- 이 도구 없이는 `Task` 병목 현상을 Time Profiler만으로 분석하는 것이 불가능에 가깝습니다.
+- **Task Lifecycle**: Task 가 생성되고(Created) 실행 대기(Runnable), 실행(Running), 멈춤(Suspended) 상태로 변하는 흐름을 타임라인으로 보여줍니다.
+- **Actor Serialization**: 두 개 이상의 Task 가 동일한 Actor 의 데이터에 접근하려다 병목이 생기는 "Actor Reentrancy / Block" 현상을 시각화하여 보여줍니다.
+- 이 도구 없이는 `Task` 병목 현상을 Time Profiler 만으로 분석하는 것이 불가능에 가깝습니다.
 
 ---
 

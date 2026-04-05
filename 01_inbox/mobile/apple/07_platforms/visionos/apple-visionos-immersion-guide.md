@@ -2,7 +2,7 @@
 title: apple-visionos-immersion-guide
 tags: [apple, spatial, visionos]
 aliases: []
-date modified: 2026-04-03 18:55:50 +09:00
+date modified: 2026-04-05 17:46:08 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
 

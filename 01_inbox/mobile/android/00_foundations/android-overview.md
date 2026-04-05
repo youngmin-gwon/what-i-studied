@@ -1,12 +1,20 @@
-# [[mobile-security]] > [[android-overview]]
+---
+title: android-overview
+tags: []
+aliases: []
+date modified: 2026-04-05 17:42:27 +09:00
+date created: 2026-03-21 16:47:09 +09:00
+---
 
-## Android System Overview: The Big Picture
+## [[mobile-security]] > [[android-overview]]
+
+### Android System Overview: The Big Picture
 
 이 문서는 안드로이드 시스템의 전체 구조를 파악하기 위한 지도입니다. 상세 내용은 연결된 각 전문 문서에서 확인할 수 있습니다.
 
 ---
 
-## 안드로이드란?
+### 안드로이드란?
 
 스마트폰/태블릿을 위한 **오픈소스 운영체제**로:
 
@@ -16,6 +24,7 @@
 - **Open Handset Alliance** (Google, Samsung, etc)
 
 **핵심 특징**:
+
 - 앱 **샌드박싱** (격리된 실행)
 - **멀티태스킹**
 - 풍부한 **하드웨어 지원**
@@ -23,7 +32,7 @@
 
 ---
 
-## 아키텍처 레이어
+### 아키텍처 레이어
 
 ```mermaid
 graph TB
@@ -64,15 +73,17 @@ graph TB
     N1 --> K1
 ```
 
-### 1. Linux Kernel (최하단)
+#### 1. Linux Kernel (최하단)
 
 **역할**: 하드웨어 관리
+
 - 프로세스 스케줄링
 - 메모리 관리
 - 드라이버 (디스플레이, 카메라, 센서)
 - 보안 ([SELinux](../../../../../../02_references/operating-systems/selinux.md))
 
 **안드로이드 수정**:
+
 - [Binder](../01_system_internals/android-binder-and-ipc.md) 드라이버 (IPC)
 - [[android-kernel#LMKD|LMKD]] (메모리 부족 시 프로세스 종료)
 - Wakelock (전원 관리)
@@ -81,16 +92,18 @@ graph TB
 
 ---
 
-### 2. HAL (Hardware Abstraction Layer)
+#### 2. HAL (Hardware Abstraction Layer)
 
 **역할**: 하드웨어와 안드로이드 연결
 
 **왜 필요한가**:
+
 - 칩셋마다 다른 드라이버
 - OEM 별 다른 하드웨어
 - → 표준 인터페이스로 추상화
 
 **예시**:
+
 ```
 Camera HAL → 삼성/LG/Google 카메라 모두 동일 API
 Audio HAL → Qualcomm/MediaTek 오디오 칩 통합
@@ -100,7 +113,7 @@ Audio HAL → Qualcomm/MediaTek 오디오 칩 통합
 
 ---
 
-### 3. Native Services
+#### 3. Native Services
 
 C/C++ 로 작성된 시스템 서비스:
 
@@ -114,17 +127,19 @@ C/C++ 로 작성된 시스템 서비스:
 
 ---
 
-### 4. Android Runtime (ART)
+#### 4. Android Runtime (ART)
 
 **역할**: 앱 코드 실행 엔진
 
 **진화**:
+
 ```
 2008-2013: Dalvik (JIT)
 2014-현재: ART (AOT + JIT)
 ```
 
 **핵심 기능**:
+
 - DEX 바이트코드 실행
 - Garbage Collection
 - Profile-Guided Optimization
@@ -133,7 +148,7 @@ C/C++ 로 작성된 시스템 서비스:
 
 ---
 
-### 5. Java Framework
+#### 5. Java Framework
 
 앱 개발자가 사용하는 API:
 
@@ -148,6 +163,7 @@ class MainActivity : AppCompatActivity() {
 ```
 
 **주요 시스템 서비스**:
+
 - **ActivityManager**: 앱 생명주기
 - **WindowManager**: 화면 관리
 - **PackageManager**: 앱 설치/제거
@@ -158,7 +174,7 @@ class MainActivity : AppCompatActivity() {
 
 ---
 
-### 6. 앱 (최상단)
+#### 6. 앱 (최상단)
 
 **4 대 컴포넌트**:
 
@@ -184,9 +200,9 @@ class MainActivity : AppCompatActivity() {
 
 ---
 
-## 앱 실행 과정
+### 앱 실행 과정
 
-### 1. 앱 시작
+#### 1. 앱 시작
 
 ```mermaid
 sequenceDiagram
@@ -213,7 +229,7 @@ sequenceDiagram
 
 ---
 
-### 2. 프로세스 격리
+#### 2. 프로세스 격리
 
 각 앱은 독립된 환경에서 실행:
 
@@ -235,7 +251,7 @@ sequenceDiagram
 
 ---
 
-### 3. 앱 간 통신 (Binder)
+#### 3. 앱 간 통신 (Binder)
 
 ```kotlin
 // 앱 A → 앱 B 서비스 호출
@@ -244,6 +260,7 @@ bindService(intent, connection, Context.BIND_AUTO_CREATE)
 ```
 
 **Binder 가 하는 일**:
+
 - 프로세스 간 메시지 전달
 - 자동 신원 확인 (UID/PID)
 - 권한 검사
@@ -252,7 +269,7 @@ bindService(intent, connection, Context.BIND_AUTO_CREATE)
 
 ---
 
-## 실전 예시: 사진 찍기
+### 실전 예시: 사진 찍기
 
 ```mermaid
 graph LR
@@ -267,6 +284,7 @@ graph LR
 ```
 
 **과정**:
+
 1. 앱이 Camera2 API 호출
 2. Camera Service (Binder) 로 요청
 3. Camera HAL 이 센서에서 데이터 읽기
@@ -276,16 +294,16 @@ graph LR
 
 ---
 
-## 보안 메커니즘
+### 보안 메커니즘
 
-### 1. 샌드박싱
+#### 1. 샌드박싱
 
 ```
 앱은 자기 데이터만 접근 가능
 다른 앱 파일 → Permission Denied
 ```
 
-### 2. 권한 시스템
+#### 2. 권한 시스템
 
 ```kotlin
 // 런타임 권한 요청
@@ -294,7 +312,7 @@ if (checkSelfPermission(CAMERA) != GRANTED) {
 }
 ```
 
-### 3. SELinux
+#### 3. SELinux
 
 ```bash
 # 앱별 도메인 격리
@@ -306,9 +324,9 @@ u:r:platform_app:s0        # 시스템 앱
 
 ---
 
-## 개발 시작하기
+### 개발 시작하기
 
-### 1. 개발 환경
+#### 1. 개발 환경
 
 ```bash
 # Android Studio 설치
@@ -316,7 +334,7 @@ u:r:platform_app:s0        # 시스템 앱
 # 에뮬레이터 또는 실기기
 ```
 
-### 2. 첫 앱
+#### 2. 첫 앱
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
@@ -332,7 +350,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-### 3. 빌드/실행
+#### 3. 빌드/실행
 
 ```bash
 # Gradle 빌드
@@ -347,21 +365,24 @@ adb logcat
 
 ---
 
-## 학습 경로
+### 학습 경로
 
 **입문자**:
+
 1. ✅ 이 문서 (전체 개요)
 2. [android-app-components-deep-dive](../02_app_framework/android-app-components-deep-dive.md) (앱 구조)
 3. [android-jetpack-architecture](../02_app_framework/android-jetpack-architecture.md) (Jetpack)
 4. [android-compose-internals](../02_app_framework/android-compose-internals.md) (Compose UI)
 
 **시스템 이해**:
+
 1. [android-kernel](../01_system_internals/android-kernel.md) (커널 수정)
 2. [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) (IPC)
 3. [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md) (런타임)
 4. [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md) (시스템 서비스)
 
 **심화**:
+
 1. [android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md) (HAL)
 2. [android-init-and-services](../01_system_internals/android-init-and-services.md) (부팅)
 3. [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md) (그래픽)
@@ -369,24 +390,32 @@ adb logcat
 
 ---
 
-## 용어 참고
+### 용어 참고
 
 낯선 용어는 [android-glossary](android-glossary.md) 에서 빠르게 확인 가능.
 
 ---
 
-## 연결 문서
+### 연결 문서
 
 **기초**:
+
 [android-glossary](android-glossary.md) - 용어집
+
 [android-evolution-history](android-evolution-history.md) - 역사와 진화
 
 **시스템 핵심**:
+
 [android-kernel](../01_system_internals/android-kernel.md) - 커널
+
 [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) - IPC
+
 [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md) - 런타임
+
 [android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md) - HAL
 
 **보안**:
+
 [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 보안 모델
+
 [selinux](../../../../selinux.md) - SELinux 상세

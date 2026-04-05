@@ -2,7 +2,7 @@
 title: apple-cloud-sync-patterns
 tags: [apple, architecture, cloud, cloudkit, icloud, offline-first, sync]
 aliases: []
-date modified: 2026-04-03 18:55:32 +09:00
+date modified: 2026-04-05 17:44:51 +09:00
 date created: 2025-12-16 16:09:23 +09:00
 ---
 

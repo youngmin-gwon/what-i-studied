@@ -2,7 +2,7 @@
 title: android-init-and-services
 tags: [android, android/boot, android/init]
 aliases: [Android Init, Init, RC Scripts]
-date modified: 2026-01-20 15:55:25 +09:00
+date modified: 2026-04-05 17:42:40 +09:00
 date created: 2025-12-16 15:34:24 +09:00
 ---
 
@@ -24,11 +24,13 @@ Unix/Linux 에서 PID 1 은 특별한 의미를 가진다:
 #### 안드로이드 init 의 독특한 역할
 
 **표준 Linux init** (systemd, SysV init):
+
 - 서비스 시작/정지
 - 런레벨 관리
 - 의존성 해결
 
 **Android init 추가 기능**:
+
 - **Property 시스템**: key-value 저장소 (`setprop`/`getprop`)
 - **Ueventd**: 커널 디바이스 이벤트 처리 (`/dev` 노드 생성)
 - **[SELinux](../../../../selinux.md) 강제**: 정책 로딩 및 컨텍스트 설정
@@ -78,6 +80,7 @@ int main(int argc, char** argv) {
 ```
 
 **마운트된 파일시스템** (First Stage 후):
+
 ```
 /dev     tmpfs
 /proc    procfs
@@ -126,6 +129,7 @@ int SecondStageMain(int argc, char** argv) {
 ### 문법 구조
 
 **파일 위치**:
+
 ```
 /system/etc/init/          # AOSP 기본
 /vendor/etc/init/          # OEM/칩셋 벤더
@@ -157,6 +161,7 @@ import /vendor/etc/init/hw/init.$(ro.hardware).rc
 ### 핵심 예시
 
 **Zygote 시작**:
+
 ```bash
 # /system/etc/init/zygote64.rc
 service zygote /system/bin/app_process64 -Xzygote /system/bin --zygote --start-system-server --socket-name=zygote
@@ -177,6 +182,7 @@ service zygote /system/bin/app_process64 -Xzygote /system/bin --zygote --start-s
 ```
 
 **분석**:
+
 - `class main`: 서비스 그룹
 - `priority -20`: 최고 우선순위
 - `socket zygote stream 660`: Unix 도메인 소켓 생성 (`/dev/socket/zygote`)
@@ -449,6 +455,7 @@ subsystem adf
 **위치**: `/vendor/etc/fstab.${ro.hardware}`
 
 **예시** (`/vendor/etc/fstab.qcom`):
+
 ```fstab
 # <device>   <mount_point>  <type>  <mount_flags>  <fs_mgr_flags>
 system       /system        ext4    ro,barrier=1   wait,slotselect,avb=vbmeta_system,logical,first_stage_mount
@@ -458,6 +465,7 @@ product      /product       ext4    ro,barrier=1   wait,slotselect,avb=vbmeta_sy
 ```
 
 **플래그 설명**:
+
 - `wait`: 디바이스 나타날 때까지 대기
 - `check`: `fsck` 실행
 - `formattable`: 포맷 가능 (공장 초기화 시)
@@ -643,11 +651,13 @@ Init 이 자동으로 로드 → 모듈 업데이트 시 독립적으로 관리.
 ### Recovery Mode Init
 
 **일반 부팅**:
+
 ```
 bootloader → kernel → /init → system rc → Zygote
 ```
 
 **Recovery 모드**:
+
 ```
 bootloader → recovery kernel → /init → recovery.rc → recovery binary
 ```
@@ -681,14 +691,17 @@ service charger /system/bin/charger
 ## 학습 리소스
 
 **공식 문서**:
+
 - [Init Language](../../bash-scripting-summary/README.md)
 - [Property System](../../../../https:/source.android.com/docs/core/architecture/configuration/add-system-properties.md)
 
 **소스 코드**:
+
 - [Init](../../../../https:/android.googlesource.com/platform/system/core/+/refs/heads/main/init/.md)
 - [RC Files](../../../../https:/android.googlesource.com/platform/system/core/+/refs/heads/main/rootdir/.md)
 
 **도구**:
+
 - `bootchart`: 부팅 프로파일링
 - `dmesg`: 커널/init 로그
 - `getprop` / `setprop`: Property 확인/설정

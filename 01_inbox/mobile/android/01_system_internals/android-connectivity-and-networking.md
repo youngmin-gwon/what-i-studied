@@ -2,7 +2,7 @@
 title: android-connectivity-and-networking
 tags: [android, android/connectivity, android/network]
 aliases: [Connectivity, Mobile Data, Network, Wi-Fi]
-date modified: 2026-01-20 15:55:20 +09:00
+date modified: 2026-04-05 17:42:35 +09:00
 date created: 2025-12-16 15:27:42 +09:00
 ---
 
@@ -15,17 +15,20 @@ date created: 2025-12-16 15:27:42 +09:00
 #### 모바일 네트워크의 특성
 
 **데스크톱**:
+
 - 유선 이더넷 or Wi-Fi (고정)
 - 항상 연결
 - 무제한 데이터
 
 **모바일**:
+
 - Wi-Fi, 4G/5G, 블루투스 동시 사용
 - 이동 중 네트워크 전환 (Wi-Fi ↔ LTE)
 - 데이터 제한 (요금제)
 - 배터리 고려
 
 **필요한 기능**:
+
 1. **네트워크 선택**: 어떤 네트워크 사용?
 2. **자동 전환**: Wi-Fi ↔ 모바일 데이터 seamless
 3. **데이터 절약**: 백그라운드 제한
@@ -102,11 +105,13 @@ connectivityManager.registerNetworkCallback(request, object : NetworkCallback() 
 ### Network Selection
 
 **우선순위** (Android 9+):
+
 1. **Default**: Wi-Fi > Ethernet > Mobile
 2. **사용자 선택**: 설정에서 우선 네트워크 지정
 3. **앱 요구사항**: `NetworkRequest` 로 특정 네트워크 요청
 
 **예시**:
+
 ```kotlin
 // 계량제가 아닌 네트워크 (Wi-Fi)만
 val request = NetworkRequest.Builder()
@@ -154,6 +159,7 @@ network={
 ```
 
 **연결 과정**:
+
 ```
 1. WifiManager.connect()
 2. WifiService → wpa_supplicant
@@ -216,6 +222,7 @@ graph LR
 ```
 
 **RILD**:
+
 - Vendor 제공 (Qualcomm, MediaTek 등)
 - AT 명령어 → 모뎀 제어
 - 통화, SMS, 데이터 연결
@@ -251,6 +258,7 @@ adb shell cmd netpolicy set restrict-background true
 ```
 
 **eBPF 필터**:
+
 ```c
 // netd가 eBPF 프로그램으로 패킷 필터링
 SEC("cgroupskb/ingress/stats")
@@ -297,6 +305,7 @@ class MyVpnService : VpnService() {
 ```
 
 **작동 원리**:
+
 ```
 앱 → VPN Interface (tun0) → VpnService
 VpnService → 암호화 → VPN 서버
@@ -327,6 +336,7 @@ adb shell getprop net.dns1  # 1.1.1.1 (Cloudflare)
 ```
 
 **동작**:
+
 ```
 앱 → getaddrinfo() → netd
 netd → DNS-over-TLS (포트 853)
@@ -334,6 +344,7 @@ netd → DNS-over-TLS (포트 853)
 ```
 
 **이점**:
+
 - ISP 가 DNS 쿼리 감청 불가
 - DNS 변조 방지
 
@@ -354,6 +365,7 @@ if (capabilities?.hasCapability(
 ```
 
 **감지 방법**:
+
 ```
 1. 연결 후 http://connectivitycheck.gstatic.com/generate_204 접근
 2. HTTP 204 응답 예상
@@ -418,6 +430,7 @@ val totalTx = TrafficStats.getTotalTxBytes()
 ```
 
 **eBPF 기반 추적** (Android 9+):
+
 ```c
 // BPF map으로 UID별 트래픽 카운트
 struct stats_key {
@@ -450,6 +463,7 @@ adb shell iptables -L -n -v
 ```
 
 **Netd 역할**:
+
 - 네트워크 인터페이스 설정
 - 라우팅 테이블 관리
 - 방화벽 (iptables/nftables)
@@ -475,6 +489,7 @@ tetheringManager.startTethering(request, executor, callback)
 ```
 
 **동작**:
+
 ```
 Mobile Data → 공유 → Wi-Fi AP 모드
 다른 기기 → Wi-Fi → 인터넷
@@ -547,6 +562,7 @@ val client = OkHttpClient()
 ```
 
 **이점**:
+
 - 멀티플렉싱 (하나의 연결로 여러 요청)
 - 헤더 압축
 - 서버 푸시
@@ -565,11 +581,13 @@ val engine = CronetEngine.Builder(context)
 ## 학습 리소스
 
 **공식 문서**:
+
 - [Connectivity](../../../../https:/developer.android.com/training/basics/network-ops/managing.md)
 - [Network Security Config](../../../../https:/developer.android.com/training/articles/security-config.md)
 - [VpnService](../../../../https:/developer.android.com/reference/android/net/VpnService.md)
 
 **소스 코드**:
+
 - [ConnectivityService](../../../../https:/cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/ConnectivityService.java.md)
 - [netd](../../../../https:/cs.android.com/android/platform/superproject/+/master:system/netd/.md)
 

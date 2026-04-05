@@ -1,8 +1,8 @@
 ---
-title: Honeypot (허니팟)
-tags: [security, honeypot, deception, ids, intrusion-detection]
-aliases: [허니팟, 허니넷, Honeynet, 유인 시스템]
-date modified: 2026-01-12 23:53:00 +09:00
+title: honeypot
+tags: [deception, honeypot, ids, intrusion-detection, security]
+aliases: [Honeynet, 유인 시스템, 허니넷, 허니팟]
+date modified: 2026-04-05 17:47:13 +09:00
 date created: 2026-01-12 23:53:00 +09:00
 ---
 
@@ -128,6 +128,7 @@ graph TD
 ```
 
 **Honeywall 기능**:
+
 - 모든 트래픽 기록
 - 외부 공격 차단 (발신 제한)
 - 데이터 흐름 통제
@@ -143,7 +144,7 @@ graph TD
 | **Cowrie** | SSH, Telnet | 명령어 기록, 파일 업로드 캡처 |
 | **Dionaea** | SMB, HTTP, FTP 등 | 악성코드 수집에 특화 |
 | **Honeyd** | 다양한 서비스 | 가상 네트워크 생성 |
-| **Kippo** | SSH | Cowrie의 전신 |
+| **Kippo** | SSH | Cowrie 의 전신 |
 
 ### High Interaction
 

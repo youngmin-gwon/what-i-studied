@@ -1,8 +1,8 @@
 ---
 title: ddos-attacks
-tags: [security, ddos, botnet, attack, drds, network-attack]
-aliases: [DDoS, 분산 서비스 거부, DRDoS, Trinoo, TFN, Botnet]
-date modified: 2026-01-08 16:21:57 +09:00
+tags: [attack, botnet, ddos, drds, network-attack, security]
+aliases: [Botnet, DDoS, DRDoS, TFN, Trinoo, 분산 서비스 거부]
+date modified: 2026-04-05 17:47:08 +09:00
 date created: 2026-01-08 16:21:57 +09:00
 ---
 
@@ -54,13 +54,13 @@ graph TD
 | 항목 | 내용 |
 |------|------|
 | **공격 유형** | UDP Flooding |
-| **통신** | 마스터-에이전트 간 **평문** |
+| **통신** | 마스터 - 에이전트 간 **평문** |
 | **탐지** | 비교적 쉬움 |
 | **포트** | Master: 27665/TCP, Agent: 27444/UDP |
 
 ### 2. TFN (Tribe Flood Network)
 
-Trinoo보다 발전된 도구입니다.
+Trinoo 보다 발전된 도구입니다.
 
 | 항목 | 내용 |
 |------|------|
@@ -81,7 +81,7 @@ Trinoo보다 발전된 도구입니다.
 
 ### 4. TFN2K
 
-TFN의 발전형으로 **탐지 회피 기능이 강화**되었습니다.
+TFN 의 발전형으로 **탐지 회피 기능이 강화**되었습니다.
 
 | 항목 | 내용 |
 |------|------|
@@ -130,7 +130,8 @@ sequenceDiagram
 ```
 
 **과정**:
-1. 공격자가 **출발지 IP를 피해자 IP로 위조**
+
+1. 공격자가 **출발지 IP 를 피해자 IP 로 위조**
 2. 정상 서버(반사체)들에게 연결 요청 전송
 3. 반사체들이 응답을 **피해자에게 전송**
 4. 피해자는 요청하지 않은 응답 패킷으로 마비
@@ -161,7 +162,7 @@ sequenceDiagram
 
 ### HTTP GET Flooding
 
-정상 TCP 연결 후 **처리 비용 높은 URL에 반복 요청**합니다.
+정상 TCP 연결 후 **처리 비용 높은 URL 에 반복 요청**합니다.
 
 ```http
 GET /search?q=expensive_query HTTP/1.1
@@ -200,7 +201,7 @@ X-a: b
 
 ### RUDY (R-U-Dead-Yet? / Slow HTTP POST)
 
-**Content-Length를 크게 설정**하고 데이터를 **매우 천천히** 전송합니다.
+**Content-Length 를 크게 설정**하고 데이터를 **매우 천천히** 전송합니다.
 
 ```http
 POST /form HTTP/1.1
@@ -211,9 +212,10 @@ Content-Type: application/x-www-form-urlencoded
 a  (1바이트씩 천천히 전송...)
 ```
 
-**원리**: 
+**원리**:
+
 - `Content-Length: 1000000` 설정
-- 실제 데이터는 1바이트씩 아주 느리게 전송
+- 실제 데이터는 1 바이트씩 아주 느리게 전송
 - 서버는 전체 데이터가 올 때까지 연결 유지
 
 ### Slow 공격 비교
@@ -233,7 +235,7 @@ a  (1바이트씩 천천히 전송...)
 |------|------|
 | **Ingress Filtering** | 스푸핑된 IP 차단 |
 | **Egress Filtering** | 내부에서 스푸핑 방지 |
-| **Null Routing** | 공격 트래픽을 Null0로 폐기 |
+| **Null Routing** | 공격 트래픽을 Null0 로 폐기 |
 | **uRPF** | IP Spoofing 차단 |
 
 ### DNS Sinkhole
@@ -272,5 +274,5 @@ graph LR
 
 - [[dos-attacks]] - 서비스 거부 공격 (단일)
 - [[malware-types]] - 봇넷과 악성코드
-- [[router-acl-security]] - ACL과 Ingress Filtering
+- [[router-acl-security]] - ACL 과 Ingress Filtering
 - [[firewall-ids-ips]] - 방화벽과 IDS/IPS

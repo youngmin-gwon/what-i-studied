@@ -2,7 +2,7 @@
 title: email-security
 tags: [email, encryption, pgp, security, smime, spam]
 aliases: [PGP, S/MIME, 이메일 보안, 이메일 암호화]
-date modified: 2026-01-08 15:57:34 +09:00
+date modified: 2026-04-05 17:48:06 +09:00
 date created: 2026-01-08 11:15:27 +09:00
 ---
 
@@ -66,6 +66,7 @@ graph TD
 ```
 
 **특징**:
+
 - 분산형 신뢰 모델
 - 사용자가 직접 신뢰도 결정
 - 중앙 실패점(Single Point of Failure) 없음
@@ -74,6 +75,7 @@ graph TD
 #### PGP 동작 과정
 
 **암호화 (발신)**:
+
 ```plaintext
 1. 세션 키(대칭키) 생성
 2. 세션 키로 메시지 암호화
@@ -82,12 +84,14 @@ graph TD
 ```
 
 **복호화 (수신)**:
+
 ```plaintext
 1. 자신의 개인키로 세션 키 복호화
 2. 세션 키로 메시지 복호화
 ```
 
 **전자서명**:
+
 ```plaintext
 1. 메시지의 해시값 생성 (SHA-1/MD5)
 2. 발신자의 개인키로 해시값 암호화 (서명)
@@ -145,6 +149,7 @@ sequenceDiagram
 초기에 제안된 이메일 보안 표준이지만, **구현의 복잡성**으로 널리 쓰이지 않았습니다.
 
 **특징**:
+
 - 계층적 인증 구조
 - RSA 공개키 암호화
 - DES 대칭키 암호화
@@ -171,6 +176,7 @@ sequenceDiagram
 원치 않는 대량 이메일입니다.
 
 **대응**:
+
 - SPF (Sender Policy Framework)
 - DKIM (DomainKeys Identified Mail)
 - DMARC (Domain-based Message Authentication)
@@ -191,6 +197,7 @@ _dmarc.example.com TXT "v=DMARC1; p=reject; rua=mailto:report@example.com"
 정상 기관을 사칭하여 개인정보를 탈취합니다.
 
 **유형**:
+
 - **스피어 피싱**: 특정 대상을 겨냥
 - **웨일링**: 고위 경영진 대상
 - **비싱**: 음성 피싱
@@ -198,6 +205,7 @@ _dmarc.example.com TXT "v=DMARC1; p=reject; rua=mailto:report@example.com"
 ### 3. 악성 첨부파일
 
 **위험한 확장자**:
+
 ```plaintext
 실행 파일: .exe, .com, .bat, .cmd, .ps1
 스크립트: .js, .vbs, .wsf

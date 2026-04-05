@@ -1,8 +1,8 @@
 ---
 title: bcp-disaster-recovery
-tags: [security, bcp, dr, disaster-recovery, rto, rpo, business-continuity]
-aliases: [BCP, DR, 재해 복구, 업무 연속성, RTO, RPO, DRS]
-date modified: 2026-01-08 17:52:41 +09:00
+tags: [bcp, business-continuity, disaster-recovery, dr, rpo, rto, security]
+aliases: [BCP, DR, DRS, RPO, RTO, 업무 연속성, 재해 복구]
+date modified: 2026-04-05 17:47:57 +09:00
 date created: 2026-01-08 17:52:41 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-01-08 17:52:41 +09:00
 
 **업무 연속성 계획 (BCP)** 은 재해나 재난으로 인해 조직의 핵심 업무가 **중단되지 않고 지속**될 수 있도록 사전에 수립하는 계획입니다.
 
-## 📋 BCP 수립 5단계
+## 📋 BCP 수립 5 단계
 
 ```mermaid
 graph LR
@@ -90,7 +90,7 @@ RTO = 4시간
 | 항목 | 내용 |
 |------|------|
 | **구성** | 주 센터와 동일 시스템, 실시간 복제 |
-| **RTO** | **즉시 (0에 수렴)** |
+| **RTO** | **즉시 (0 에 수렴)** |
 | **RPO** | **0** |
 | **비용** | 가장 높음 |
 
@@ -164,7 +164,7 @@ graph TD
 | 고려 사항 | 설명 |
 |----------|------|
 | **업무 중요도** | 핵심 업무 → 미러/핫 |
-| **허용 중단 시간** | MTPD가 짧으면 고비용 필요 |
+| **허용 중단 시간** | MTPD 가 짧으면 고비용 필요 |
 | **예산** | 비용 대비 효과 분석 |
 | **규제 요건** | 법적 복구 요구사항 |
 

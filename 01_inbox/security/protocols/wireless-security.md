@@ -1,8 +1,8 @@
 ---
 title: wireless-security
-tags: [security, wireless, wifi, wep, wpa, wpa2, 802.11]
-aliases: [무선 보안, Wi-Fi 보안, WEP, WPA, WPA2, WPA3]
-date modified: 2026-01-08 16:15:32 +09:00
+tags: [802.11, security, wep, wifi, wireless, wpa, wpa2]
+aliases: [WEP, Wi-Fi 보안, WPA, WPA2, WPA3, 무선 보안]
+date modified: 2026-04-05 17:47:40 +09:00
 date created: 2026-01-08 16:15:32 +09:00
 ---
 
@@ -76,9 +76,9 @@ graph LR
 
 | 취약점 | 설명 |
 |--------|------|
-| **IV 재사용** | 24-bit IV가 너무 짧아 반복 사용됨 |
+| **IV 재사용** | 24-bit IV 가 너무 짧아 반복 사용됨 |
 | **고정 키** | 동일한 공유키 계속 사용 |
-| **FMS 공격** | IV와 암호문 분석으로 키 복구 가능 |
+| **FMS 공격** | IV 와 암호문 분석으로 키 복구 가능 |
 | **약한 인증** | Challenge-Response 취약 |
 
 ```plaintext
@@ -92,7 +92,7 @@ WEP 키 = 고정 비밀키 (40/104 bit) + IV (24 bit)
 
 ## ⚠️ WPA (Wi-Fi Protected Access)
 
-WEP의 취약점을 **임시 보완**하기 위한 표준입니다.
+WEP 의 취약점을 **임시 보완**하기 위한 표준입니다.
 
 ### 특징
 
@@ -144,7 +144,7 @@ CCMP = Counter Mode with CBC-MAC Protocol
 
 ## 🔒 WPA3
 
-2018년 발표된 **최신 표준**입니다.
+2018 년 발표된 **최신 표준**입니다.
 
 ### 개선점
 
@@ -222,7 +222,7 @@ sequenceDiagram
 
 ### Evil Twin (쌍둥이 AP)
 
-합법적인 AP와 **동일한 SSID로 위장**하여 사용자 접속을 유도합니다.
+합법적인 AP 와 **동일한 SSID 로 위장**하여 사용자 접속을 유도합니다.
 
 ```mermaid
 graph TD
@@ -232,6 +232,7 @@ graph TD
 ```
 
 **피해**:
+
 - 인증 정보 탈취
 - 중간자 공격 (MITM)
 - 악성코드 삽입
@@ -275,7 +276,7 @@ aireplay-ng --deauth 100 -a [AP MAC] -c [Client MAC] wlan0mon
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[osi-7-layer-model]] - OSI 7계층
+- [[osi-7-layer-model]] - OSI 7 계층
 - [[network-security-protocols]] - TLS/SSL
 - [[cryptography-basics]] - 암호화 알고리즘
 - [[attack-types]] - 네트워크 공격 유형

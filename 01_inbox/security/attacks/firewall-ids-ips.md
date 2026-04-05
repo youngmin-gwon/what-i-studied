@@ -1,14 +1,14 @@
 ---
-title: Firewall, IDS, and IPS
-tags: [security, firewall, ids, ips, network-security]
-aliases: [방화벽, 침입탐지시스템, 침입방지시스템]
-date modified: 2025-12-20 00:17:40 +09:00
+title: firewall-ids-ips
+tags: [firewall, ids, ips, network-security, security]
+aliases: [방화벽, 침입방지시스템, 침입탐지시스템]
+date modified: 2026-04-05 17:47:13 +09:00
 date created: 2025-12-20 00:17:40 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-네트워크 보안의 핵심 방어 시스템인 방화벽, IDS, IPS는 각각 다른 방식으로 네트워크를 보호합니다.
+네트워크 보안의 핵심 방어 시스템인 방화벽, IDS, IPS 는 각각 다른 방식으로 네트워크를 보호합니다.
 
 ## 🔥 방화벽 (Firewall)
 
@@ -28,7 +28,7 @@ graph LR
 | 유형 | 검사 계층 | 상태 추적 | 성능 | 보안성 |
 |------|-----------|----------|------|--------|
 | **Packet Filter** | L3-L4 | ❌ | 매우 빠름 | 낮음 |
-| **Stateful** | L3-L4 | ✅ | 빠름 | 중간 |  
+| **Stateful** | L3-L4 | ✅ | 빠름 | 중간 |
 | **Application** | L7 | ✅ | 느림 | 높음 |
 | **NGFW** | L3-L7 | ✅ | 중간 | 매우 높음 |
 
@@ -43,24 +43,28 @@ iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 ```
 
 **장점**: 빠른 속도
+
 **단점**: 애플리케이션 제어 불가
 
 ### 상태 추적 방화벽 (Stateful Firewall)
 
 **연결 상태 테이블**:
+
 ```
 SRC_IP    DST_IP      SPORT  DPORT  STATE
 10.0.0.1  8.8.8.8     12345  53     ESTABLISHED
 10.0.0.2  192.168.1.1 54321  443    NEW
 ```
 
-**장점**: 
+**장점**:
+
 - 동적 포트 개방/차단
 - TCP 시퀀스 검증
 
 ### 차세대 방화벽 (NGFW)
 
 **주요 기능**:
+
 1. **애플리케이션 제어**: YouTube 차단, Facebook 허용
 2. **사용자 기반 정책**: "마케팅 팀은 LinkedIn 허용"
 3. **IPS 통합**: 공격 패턴 차단
@@ -84,6 +88,7 @@ graph LR
 ```
 
 **특징**:
+
 - **수동적**: 탐지만 수행, 차단 안 함
 - **Out-of-band**: 네트워크 경로 밖
 
@@ -111,23 +116,27 @@ Rule: alert tcp any any -> $HOME_NET 80 (
 ```
 
 **장점**: 낮은 오탐률
+
 **단점**: 알려지지 않은 공격 탐지 불가 (Zero-day)
 
 #### 2. 이상 행위 기반 (Anomaly-based)
 
 **정상 행동 프로파일**:
+
 ```
 평균 트래픽: 100 Mbps
 평균 연결 수: 500/sec
 ```
 
 **이상 탐지**:
+
 ```
 현재 트래픽: 1000 Mbps (⚠️ 10배 증가)
 현재 연결: 50000/sec (⚠️ DDoS 의심)
 ```
 
 **장점**: Zero-day 공격 탐지 가능
+
 **단점**: 높은 오탐률
 
 ### Snort 규칙 예시
@@ -176,7 +185,7 @@ graph LR
    - 공격자 IP 차단
 
 2. **감지 모드 (Detection)**
-   - IDS처럼 동작
+   - IDS 처럼 동작
    - 로그만 기록
    - 테스트/튜닝 용도
 
@@ -191,6 +200,7 @@ graph LR
 ```
 
 **해결 방법**:
+
 - 화이트리스트: 신뢰 IP 예외 처리
 - 규칙 튜닝: 환경에 맞게 조정
 - 임계값 조정: 탐지 민감도 설정
@@ -230,12 +240,14 @@ Internet
 ### UTM (Unified Threat Management)
 
 **통합 보안 장비**:
+
 - 방화벽 + IPS + 안티바이러스
 - Web 필터링
 - VPN
 - DLP (Data Loss Prevention)
 
 **장점**: 통합 관리
+
 **단점**: 단일 장애점
 
 ## 🔗 연결 문서 (Related Documents)

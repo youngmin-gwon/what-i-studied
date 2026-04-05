@@ -2,7 +2,7 @@
 title: apple-secure-coding-checklist
 tags: [apple, best-practice, checklist, security]
 aliases: []
-date modified: 2026-04-03 18:55:59 +09:00
+date modified: 2026-04-05 17:45:27 +09:00
 date created: 2025-12-16 16:08:41 +09:00
 ---
 

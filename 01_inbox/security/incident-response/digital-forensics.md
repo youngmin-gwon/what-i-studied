@@ -2,7 +2,7 @@
 title: digital-forensics
 tags: [evidence, forensics, incident-response, investigation, security]
 aliases: [디지털 포렌식, 증거 수집, 컴퓨터 포렌식]
-date modified: 2026-01-08 15:58:50 +09:00
+date modified: 2026-04-05 17:47:58 +09:00
 date created: 2026-01-08 11:15:27 +09:00
 ---
 
@@ -40,6 +40,7 @@ graph LR
 ```
 
 **기록 내용**:
+
 - 증거 발견 일시 및 장소
 - 수집자 정보
 - 이송 경로 및 담당자

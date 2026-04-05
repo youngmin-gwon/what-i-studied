@@ -2,7 +2,7 @@
 title: android-customization-and-oem
 tags: [android, android/customization, android/oem]
 aliases: [AOSP, Customization, OEM]
-date modified: 2026-01-20 15:55:22 +09:00
+date modified: 2026-04-05 17:42:37 +09:00
 date created: 2025-12-16 15:27:42 +09:00
 ---
 
@@ -15,12 +15,14 @@ date created: 2025-12-16 15:27:42 +09:00
 #### AOSP 의 한계
 
 **AOSP (Android Open Source Project)**:
+
 - Google 이 공개하는 기본 안드로이드
 - Google Play Services **없음**
 - 기본 앱만 포함 (전화, 메시지, 설정 등)
 - 하드웨어 드라이버 없음
 
 **OEM 이 해야 할 일**:
+
 1. 하드웨어 지원 (칩셋, 카메라, 센서 등)
 2. Google 인증 (GMS, CTS, VTS)
 3. 차별화된 기능
@@ -41,12 +43,14 @@ graph TB
 ### 1. AOSP Layer
 
 **포함**:
+
 - Android Framework (Java/Kotlin)
 - System Server
 - 기본 앱 (Phone, Contacts, Settings)
 - Native 라이브러리 (libc, libm 등)
 
 **제외**:
+
 - Google Play Services
 - Gmail, Maps, YouTube 등 Google 앱
 - Pixel 독점 기능
@@ -127,6 +131,7 @@ adb shell cmd overlay disable com.example.overlay
 ```
 
 **사용 예**:
+
 - 테마 변경 (다크 모드)
 - 폰트 변경
 - 아이콘 스타일
@@ -138,6 +143,7 @@ adb shell cmd overlay disable com.example.overlay
 ### Samsung One UI
 
 **주요 변경**:
+
 1. **UI 재디자인**:
    - 큰 헤더 (한 손 조작)
    - 둥근 모서리
@@ -155,6 +161,7 @@ adb shell cmd overlay disable com.example.overlay
    - Secure Folder (Knox 기반)
 
 **구현**:
+
 ```java
 // frameworks/base 수정
 // SystemUI 완전 재작성
@@ -164,6 +171,7 @@ adb shell cmd overlay disable com.example.overlay
 ### Xiaomi MIUI
 
 **특징**:
+
 - iOS 스타일 디자인
 - 광고 내장 (일부 지역)
 - MIUI 최적화 (배터리, 성능)
@@ -172,6 +180,7 @@ adb shell cmd overlay disable com.example.overlay
 ### Google Pixel
 
 **추가 기능**:
+
 - Pixel Launcher
 - Call Screen (전화 스크리닝)
 - Now Playing (음악 인식)
@@ -190,6 +199,7 @@ com.google.android.gms (Google Play Services)
 ```
 
 **포함**:
+
 - Location Services
 - Firebase Cloud Messaging
 - Google Sign-In
@@ -197,6 +207,7 @@ com.google.android.gms (Google Play Services)
 - Google Pay
 
 **없으면**:
+
 - 대부분의 앱 작동 불가 (FCM 의존)
 - 지도 API 사용 불가
 - 위치 정확도 낮아짐
@@ -211,6 +222,7 @@ OEM 이 Google 인증 받으려면:
 4. 계약 체결 및 비용 지불
 
 **인증 실패 시**:
+
 - Play Store 없음
 - GMS 없음
 - "Android" 상표 사용 불가
@@ -291,6 +303,7 @@ android_app {
 ```
 
 **이점**:
+
 - Google 이 /system 만 업데이트 가능
 - OEM 작업 최소화
 - 업데이트 빨라짐
@@ -309,11 +322,13 @@ com.android.conscrypt        # 암호화 라이브러리
 ```
 
 **확인**:
+
 ```bash
 adb shell pm list packages -apex
 ```
 
 **효과**:
+
 - 보안 패치 빠름
 - 버그 수정 신속
 - OEM 업데이트 불필요
@@ -333,11 +348,13 @@ graph LR
 ```
 
 **OEM 이 해야 할 일**:
+
 1. OEM private key 로 vbmeta 서명
 2. Public key 를 기기 eFuse 에 기록 (영구)
 3. Bootloader 에 검증 로직 추가
 
 **사용자가 bootloader unlock 시**:
+
 ```bash
 fastboot flashing unlock
 
@@ -385,6 +402,7 @@ adb shell getprop ro.build.fingerprint
 ```
 
 **형식**:
+
 ```
 brand/product/device:version/ID/incremental:type/tags
 ```
@@ -418,12 +436,14 @@ adb shell getprop ro.treble.enabled
 AOSP 기반, Google 없이:
 
 **특징**:
+
 - Privacy Guard
 - Trust (보안 상태 표시)
 - Lineage Recovery
 - microG 지원 (GMS 대체)
 
 **빌드**:
+
 ```bash
 # 소스 다운로드
 repo init -u https://github.com/LineageOS/android.git -b lineage-20.0
@@ -440,6 +460,7 @@ brunch <device>
 ### GrapheneOS (Privacy-focused)
 
 **강화 사항**:
+
 - Hardened malloc
 - Exec spawning
 - MAC randomization
@@ -450,11 +471,13 @@ brunch <device>
 ## 학습 리소스
 
 **공식 문서**:
+
 - [AOSP](../../../../https:/source.android.com/.md)
 - [Treble](../../../../https:/source.android.com/docs/core/architecture/treble.md)
 - [Building for Devices](../../../../https:/source.android.com/docs/setup/build.md)
 
 **커뮤니티**:
+
 - XDA Developers
 - LineageOS Wiki
 - Android Platform Development (reddit)

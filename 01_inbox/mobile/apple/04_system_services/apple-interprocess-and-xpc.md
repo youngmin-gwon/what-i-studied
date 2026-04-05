@@ -2,7 +2,7 @@
 title: apple-interprocess-and-xpc
 tags: [app-groups, apple, extensions, ipc, security, xpc]
 aliases: []
-date modified: 2026-04-03 18:55:42 +09:00
+date modified: 2026-04-05 17:44:41 +09:00
 date created: 2025-12-16 16:08:27 +09:00
 ---
 

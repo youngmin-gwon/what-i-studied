@@ -2,7 +2,7 @@
 title: system-attacks
 tags: [attack, buffer-overflow, format-string, race-condition, security]
 aliases: [레이스 컨디션, 버퍼 오버플로우, 포맷 스트링]
-date modified: 2026-01-08 15:58:21 +09:00
+date modified: 2026-04-05 17:47:15 +09:00
 date created: 2026-01-08 11:15:27 +09:00
 ---
 
@@ -59,6 +59,7 @@ graph TB
 ```
 
 **공격 과정**:
+
 ```plaintext
 1. 버퍼를 넘치게 하여 Return Address까지 덮어씀
 2. Return Address를 공격자의 쉘코드 주소로 변조
@@ -141,6 +142,7 @@ printf("%s", user_input);
 ### 공격 기법
 
 **메모리 읽기 (%x)**:
+
 ```bash
 $ ./vuln "AAAA.%x.%x.%x.%x"
 AAAA.bffff5a0.100.b7e8b000.41414141
@@ -148,6 +150,7 @@ AAAA.bffff5a0.100.b7e8b000.41414141
 ```
 
 **메모리 쓰기 (%n)**:
+
 ```c
 // %n은 지금까지 출력된 문자 수를 해당 주소에 씀
 // 매우 위험한 공격 벡터
@@ -173,7 +176,7 @@ printf("AAAA%n", &count);  // count에 4가 저장됨
 
 프로세스가 임시 파일 등을 생성할 때 **실행 순서의 틈(TOCTOU)** 을 이용하는 공격입니다.
 
-> **TOCTOU**: Time of Check to Time of Use
+>**TOCTOU**: Time of Check to Time of Use
 
 ### 공격 시나리오
 
@@ -197,6 +200,7 @@ sequenceDiagram
 ```
 
 **공격 과정**:
+
 ```plaintext
 1. SetUID 프로그램이 access()로 파일 권한 확인
 2. 확인 후 open() 전에 공격자가 파일을 심볼릭 링크로 교체
@@ -224,6 +228,7 @@ if (fd != -1 && fstat(fd, &st) == 0) {
 ```
 
 **추가 대응**:
+
 - 임시 파일에 `O_EXCL` 플래그 사용
 - `/tmp` 대신 안전한 디렉토리 사용
 - umask 설정으로 권한 제한
@@ -242,6 +247,7 @@ done
 ```
 
 **대응**:
+
 ```bash
 # 사용자별 디스크 쿼터 설정
 edquota -u username
@@ -256,6 +262,7 @@ edquota -u username
 ```
 
 **대응**:
+
 ```bash
 # ulimit으로 사용자별 제한
 ulimit -u 100      # 최대 프로세스 수

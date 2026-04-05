@@ -1,8 +1,8 @@
 ---
 title: ipsec-vpn
-tags: [security, ipsec, vpn, ah, esp, ike, tunnel]
-aliases: [IPSec, VPN, ESP, AH, IKE, 터널 모드]
-date modified: 2026-01-08 18:20:05 +09:00
+tags: [ah, esp, ike, ipsec, security, tunnel, vpn]
+aliases: [AH, ESP, IKE, IPSec, VPN, 터널 모드]
+date modified: 2026-04-05 17:48:07 +09:00
 date created: 2026-01-08 18:20:05 +09:00
 ---
 
@@ -58,7 +58,7 @@ graph LR
 
 ### 한계
 
-- **NAT 환경에서 동작 불가** (IP 헤더도 인증에 포함되어 NAT가 수정하면 검증 실패)
+- **NAT 환경에서 동작 불가** (IP 헤더도 인증에 포함되어 NAT 가 수정하면 검증 실패)
 
 ---
 
@@ -111,7 +111,7 @@ graph LR
 
 ### 1. 전송 모드 (Transport Mode)
 
-**Payload만 암호화/인증**합니다. 원본 IP 헤더는 유지됩니다.
+**Payload 만 암호화/인증**합니다. 원본 IP 헤더는 유지됩니다.
 
 ```plaintext
 [원본 IP 헤더][ESP/AH 헤더][암호화된 Payload]
@@ -146,7 +146,7 @@ graph LR
 
 | 특성 | 전송 모드 | 터널 모드 |
 |------|----------|----------|
-| **암호화 범위** | Payload만 | IP 패킷 전체 |
+| **암호화 범위** | Payload 만 | IP 패킷 전체 |
 | **헤더** | 원본 유지 | 새 헤더 추가 |
 | **용도** | Host-to-Host | **VPN (GW-to-GW)** |
 | **오버헤드** | 낮음 | 높음 |
@@ -169,7 +169,7 @@ IPSec 통신을 위한 **보안 매개변수 집합**입니다.
 | **키** | 암호화/인증 키 |
 | **수명** | SA 유효 기간 |
 
-### IKE 2단계
+### IKE 2 단계
 
 | 단계 | 목적 | 산출물 |
 |------|------|--------|

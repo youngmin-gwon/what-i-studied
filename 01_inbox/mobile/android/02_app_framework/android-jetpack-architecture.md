@@ -1,22 +1,31 @@
-# [[mobile-security]] > [[android-jetpack-architecture]]
+---
+title: android-jetpack-architecture
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:08 +09:00
+date created: 2026-03-21 16:47:09 +09:00
+---
 
-## Jetpack Architecture: Modern App Foundations
+## [[mobile-security]] > [[android-jetpack-architecture]]
 
-Google이 권장하는 **안드로이드 앱 아키텍처 가이드**와 이를 지탱하는 **Jetpack** 라이브러리 모음을 분석합니다. 
+### Jetpack Architecture: Modern App Foundations
+
+Google 이 권장하는 **안드로이드 앱 아키텍처 가이드**와 이를 지탱하는 **Jetpack** 라이브러리 모음을 분석합니다.
 
 현대적인 안드로이드 개발은 단순히 기능을 구현하는 것을 넘어, **관심사 분리(Separation of Concerns)**와 **데이터 흐름의 단방향성(UDA)**을 유지하는 것이 핵심입니다.
 
 ---
 
-### 💡 Context: 왜 Jetpack 아키텍처인가?
+#### 💡 Context: 왜 Jetpack 아키텍처인가?
 
 Jetpack 라이브러리로 견고한 앱 아키텍처를 만드는 방법. 기본은 [android-foundations](../00_foundations/android-foundations.md) 참고.
 
-### 아키텍처 개요
+#### 아키텍처 개요
 
 **권장 아키텍처 (UDF & MVVM):**
-> [!NOTE] 
-> 현대 아키텍처는 단방향 데이터 흐름(Unidirectional Data Flow)을 강제합니다.
+
+>[!NOTE]
+>현대 아키텍처는 단방향 데이터 흐름(Unidirectional Data Flow)을 강제합니다.
 ```
 UI Layer (Activity/Fragment/Compose)
     ↓
@@ -27,7 +36,7 @@ Repository (데이터 소스 추상화)
 Data Sources (Room, Retrofit, DataStore)
 ```
 
-### ViewModel
+#### ViewModel
 
 설정 변경에서 살아남는 UI 상태 홀더. 자세한 내용은 [android-viewmodel](android-viewmodel.md) 참고.
 
@@ -75,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-#### SavedStateHandle (프로세스 사망 대응)
+##### SavedStateHandle (프로세스 사망 대응)
 
 ```kotlin
 class DetailViewModel(
@@ -96,11 +105,11 @@ class DetailActivity : AppCompatActivity() {
 }
 ```
 
-### LiveData (Legacy API)
+#### LiveData (Legacy API)
 
-> [!WARNING] **Devil's Advocate : LiveData 걷어내기**
-> 젯팩 컴포넌트 등장 초기를 주도한 기술이지만, 현재는 **Kotlin StateFlow**로 대체되어야 마땅한 구시대 유물입니다.
-> 비동기 처리나 스레드 전환 시 `Transformations` 지옥에 빠지기 쉬우며, 도메인 레이어로의 독립성을 해치는 주범입니다. (안드로이드 프레임워크 종속성)
+>[!WARNING] **Devil's Advocate : LiveData 걷어내기**
+>젯팩 컴포넌트 등장 초기를 주도한 기술이지만, 현재는 **Kotlin StateFlow**로 대체되어야 마땅한 구시대 유물입니다.
+>비동기 처리나 스레드 전환 시 `Transformations` 지옥에 빠지기 쉬우며, 도메인 레이어로의 독립성을 해치는 주범입니다. (안드로이드 프레임워크 종속성)
 
 생명주기를 인식하는 Observable 데이터 홀더. (View 시스템에서만 제한적 사용 권장)
 
@@ -132,7 +141,7 @@ val combined = MediatorLiveData<String>().apply {
 }
 ```
 
-### StateFlow (Kotlin Coroutines)
+#### StateFlow (Kotlin Coroutines)
 
 LiveData 의 현대적 대안.
 
@@ -180,11 +189,11 @@ fun UserScreen(viewModel: UserViewModel = viewModel()) {
 }
 ```
 
-### Room Database
+#### Room Database
 
 이미 [android-storage-systems](android-storage-systems.md) 에서 다뤘으나 추가 기능 소개.
 
-#### 관계 (Relation)
+##### 관계 (Relation)
 
 ```kotlin
 // 일대다 관계
@@ -218,7 +227,7 @@ interface UserDao {
 }
 ```
 
-#### Migration
+##### Migration
 
 ```kotlin
 val MIGRATION_1_2 = object : Migration(1, 2) {
@@ -232,7 +241,7 @@ val db = Room.databaseBuilder(context, AppDatabase::class.java, "app_db")
     .build()
 ```
 
-#### FTS (Full-Text Search)
+##### FTS (Full-Text Search)
 
 ```kotlin
 @Entity
@@ -250,7 +259,7 @@ interface ArticleDao {
 }
 ```
 
-### WorkManager
+#### WorkManager
 
 지연 가능한 백그라운드 작업 스케줄링.
 
@@ -310,7 +319,7 @@ WorkManager.getInstance(context)
     }
 ```
 
-#### 주기적 작업
+##### 주기적 작업
 
 ```kotlin
 val periodicWork = PeriodicWorkRequestBuilder<SyncWorker>(
@@ -324,7 +333,7 @@ WorkManager.getInstance(context).enqueueUniquePeriodicWork(
 )
 ```
 
-#### 작업 체인
+##### 작업 체인
 
 ```kotlin
 val cleanup = OneTimeWorkRequestBuilder<CleanupWorker>().build()
@@ -339,18 +348,22 @@ WorkManager.getInstance(context)
 ```
 
 // Safe Args 로 인자 받기
+
 class DetailFragment : Fragment() {
+
     private val args: DetailFragmentArgs by navArgs()
+
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val userId = args.userId
         // 사용
     }
+
 }
 
-### Compose Navigation (Type-safe / Modern ✅)
+#### Compose Navigation (Type-safe / Modern ✅)
 
-Android Gradle Plugin 8.2+ 및 Jetpack Navigation 2.8.0+ 부터는 Kotlin Serialization을 활용한 **완전한 타입 안정성(Full Type-safety)**을 지원합니다.
+Android Gradle Plugin 8.2+ 및 Jetpack Navigation 2.8.0+ 부터는 Kotlin Serialization 을 활용한 **완전한 타입 안정성(Full Type-safety)**을 지원합니다.
 
 ```kotlin
 // 1. Route 정의 (Serialization 필수)
@@ -374,7 +387,7 @@ NavHost(navController = navController, startDestination = Home) {
 }
 ```
 
-> [!TIP] **왜 타입 안정성인가?**
+>[!TIP] **왜 타입 안정성인가?**
  기존의 경로 문자열(`"detail/{id}"`) 방식은 오타에 취약하고 런타임 에러를 유발했습니다. Serialization 기반 방식은 컴파일 타임에 경로와 인자를 검증하므로 안전합니다.
 ```
 
@@ -476,7 +489,7 @@ class UserListFragment : Fragment() {
 }
 ```
 
-### Hilt (Dependency Injection)
+#### Hilt (Dependency Injection)
 
 ```kotlin
 // Application
@@ -530,7 +543,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-### Lifecycle
+#### Lifecycle
 
 생명주기를 인식하는 컴포넌트.
 
@@ -589,11 +602,11 @@ class MyLocationManager(private val context: Context) : DefaultLifecycleObserver
 // }
 ```
 
-### DataBinding (Legacy)
+#### DataBinding (Legacy)
 
-> [!CAUTION] **Devil's Advocate : 최악의 디버깅 경험, DataBinding**
-> XML 파일 내부에 로직과 표현식을 섞어 쓰는 DataBinding은 컴파일 타임을 심각하게 저하시키고, 난해한 바인딩 에러 메시지로 인해 **악명 높은 생산성 저하 원인**입니다.
-> Compose 도입이 불가능한 레거시 프로젝트라도 ViewBinding까지만 허용해야 하며, DataBinding은 절대 피해야 할 안티패턴으로 여겨지고 있습니다.
+>[!CAUTION] **Devil's Advocate : 최악의 디버깅 경험, DataBinding**
+>XML 파일 내부에 로직과 표현식을 섞어 쓰는 DataBinding 은 컴파일 타임을 심각하게 저하시키고, 난해한 바인딩 에러 메시지로 인해 **악명 높은 생산성 저하 원인**입니다.
+>Compose 도입이 불가능한 레거시 프로젝트라도 ViewBinding 까지만 허용해야 하며, DataBinding 은 절대 피해야 할 안티패턴으로 여겨지고 있습니다.
 
 XML 에서 직접 데이터 바인딩. (Compose 도입 이전 과도기 기술)
 
@@ -638,9 +651,9 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-### 아키텍처 패턴
+#### 아키텍처 패턴
 
-#### Repository Pattern
+##### Repository Pattern
 
 ```kotlin
 class UserRepository(
@@ -663,7 +676,7 @@ class UserRepository(
 }
 ```
 
-#### Use Case Pattern
+##### Use Case Pattern
 
 ```kotlin
 class GetUserUseCase(private val repository: UserRepository) {
@@ -685,6 +698,6 @@ class UserViewModel(
 }
 ```
 
-### 더 보기
+#### 더 보기
 
 [android-viewmodel](android-viewmodel.md), [android-compose-internals](android-compose-internals.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-storage-systems](android-storage-systems.md), [android-dependency-injection](android-dependency-injection.md), [android-testing-and-quality](../06_testing_performance/android-testing-and-quality.md)

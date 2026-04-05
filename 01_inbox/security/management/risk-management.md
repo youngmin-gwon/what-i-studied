@@ -1,8 +1,8 @@
 ---
 title: risk-management
-tags: [security, risk, management, assessment, treatment]
-aliases: [위험 관리, Risk Assessment, 위험 분석, ALE, SLE, ARO]
-date modified: 2026-01-08 17:52:41 +09:00
+tags: [assessment, management, risk, security, treatment]
+aliases: [ALE, ARO, Risk Assessment, SLE, 위험 관리, 위험 분석]
+date modified: 2026-04-05 17:48:01 +09:00
 date created: 2026-01-08 17:52:41 +09:00
 ---
 
@@ -100,11 +100,11 @@ ARO (Annualized Rate of Occurrence) = 연간 발생 빈도
 
 | 용어 | 정의 | 예시 |
 |------|------|------|
-| **AV (Asset Value)** | 자산 가치 | 1억 원 |
+| **AV (Asset Value)** | 자산 가치 | 1 억 원 |
 | **EF (Exposure Factor)** | 노출 계수 (피해 비율) | 30% |
-| **SLE** | 단일 손실 예상액 | 1억 × 0.3 = 3,000만 원 |
-| **ARO** | 연간 발생 빈도 | 2회/년 |
-| **ALE** | 연간 예상 손실액 | 3,000만 × 2 = 6,000만 원/년 |
+| **SLE** | 단일 손실 예상액 | 1 억 × 0.3 = 3,000 만 원 |
+| **ARO** | 연간 발생 빈도 | 2 회/년 |
+| **ALE** | 연간 예상 손실액 | 3,000 만 × 2 = 6,000 만 원/년 |
 
 ---
 
@@ -139,7 +139,7 @@ graph TD
 
 ### 3. 위험 전가 (Risk Transfer)
 
-위험 책임을 **제3자에게 이전**합니다.
+위험 책임을 **제 3 자에게 이전**합니다.
 
 ```plaintext
 예: 보험 가입, 외주(Outsourcing)

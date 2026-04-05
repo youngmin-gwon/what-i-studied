@@ -1,22 +1,30 @@
-# [[mobile-security]] > [[android-storage-systems]]
+---
+title: android-storage-systems
+tags: []
+aliases: []
+date modified: 2026-04-05 17:42:48 +09:00
+date created: 2026-03-21 16:47:09 +09:00
+---
 
-## Storage Systems: Data Persistence
+## [[mobile-security]] > [[android-storage-systems]]
 
-안드로이드의 파일 시스템 구조와 현대적인 데이터 저장 프로토콜인 **Scoped Storage**, **MediaStore**, **SAF(Storage Access Framework)**를 심층 분석합니다. 
+### Storage Systems: Data Persistence
+
+안드로이드의 파일 시스템 구조와 현대적인 데이터 저장 프로토콜인 **Scoped Storage**, **MediaStore**, **SAF(Storage Access Framework)**를 심층 분석합니다.
 
 데이터의 무결성을 보장하면서도 사용자 개인정보 보호를 위해 강화된 시스템 제약을 어떻게 준수하고, 효율적인 대용량 파일 처리 및 암호화 전략을 수립할지가 핵심 목표입니다.
 
 ---
 
-### 💡 Context: 저장소 권한의 대변화
+#### 💡 Context: 저장소 권한의 대변화
 
-Android 10부터 도입된 Scoped Storage는 안드로이드 저장소 생태계를 완전히 바꿨습니다. 이제 더 이상 전체 저장소 권한을 요구하는 방식은 통하지 않으며, [[android-security-and-sandboxing]]의 일환으로서 세분화된 접근 제어를 이해하는 것이 필수입니다. [[android-foundations]]에서 시작된 시스템 계층 구조의 실질적인 구현체입니다.
+Android 10 부터 도입된 Scoped Storage 는 안드로이드 저장소 생태계를 완전히 바꿨습니다. 이제 더 이상 전체 저장소 권한을 요구하는 방식은 통하지 않으며, [[android-security-and-sandboxing]] 의 일환으로서 세분화된 접근 제어를 이해하는 것이 필수입니다. [[android-foundations]] 에서 시작된 시스템 계층 구조의 실질적인 구현체입니다.
 
 ---
 
-### 저장소 종류
+#### 저장소 종류
 
-#### 1. 내부 저장소 (Internal Storage)
+##### 1. 내부 저장소 (Internal Storage)
 
 앱 전용 공간. 다른 앱이 접근할 수 없다.
 
@@ -31,15 +39,16 @@ val cacheFile = File(cacheDir, "temp.jpg")
 ```
 
 **특징:**
+
 - 앱 삭제 시 함께 삭제됨
 - 권한 불필요
 - 기기 저장소에 저장 (외장 SD 카드 아님)
 
-#### 2. 외부 저장소 (External Storage)
+##### 2. 외부 저장소 (External Storage)
 
-> [!CAUTION] **Devil's Advocate : `WRITE_EXTERNAL_STORAGE`의 종말과 Photo Picker**
-> Android 13(API 33) 이후 미디어 권한이 세분화되었고, Android 14에서는 일부 미디어만 허용하는 기능이 생겼습니다. 과거처럼 `READ/WRITE_EXTERNAL_STORAGE`를 퉁쳐서 요구하는 앱은 구글 플레이에서 퇴출당하기 십상입니다.
-> 유저의 사진 1~2장을 가져오기 위해 스토리지 권한 전체를 요청하지 마십시오. 권한이 아예 필요 없는 **Android Photo Picker (사진 선택기)**를 사용하는 것이 유일한 Best Practice입니다.
+>[!CAUTION] **Devil's Advocate : `WRITE_EXTERNAL_STORAGE` 의 종말과 Photo Picker**
+>Android 13(API 33) 이후 미디어 권한이 세분화되었고, Android 14 에서는 일부 미디어만 허용하는 기능이 생겼습니다. 과거처럼 `READ/WRITE_EXTERNAL_STORAGE` 를 퉁쳐서 요구하는 앱은 구글 플레이에서 퇴출당하기 십상입니다.
+>유저의 사진 1~2 장을 가져오기 위해 스토리지 권한 전체를 요청하지 마십시오. 권한이 아예 필요 없는 **Android Photo Picker (사진 선택기)**를 사용하는 것이 유일한 Best Practice 입니다.
 
 공유 가능한 저장소. [[android-glossary#scoped-storage|Scoped Storage]] 규칙 적용.
 
@@ -52,15 +61,16 @@ val externalFile = File(getExternalFilesDir(null), "document.pdf")
 // MediaStore 사용 필요
 ```
 
-### Scoped Storage (Android 10+)
+#### Scoped Storage (Android 10+)
 
 앱이 자신의 파일만 직접 접근하고, 다른 파일은 MediaStore/SAF 를 통해 접근한다.
 
-#### MediaStore API
+##### MediaStore API
 
 미디어 파일 (이미지, 비디오, 오디오, 다운로드) 접근.
 
 **이미지 저장:**
+
 ```kotlin
 fun saveImageToGallery(bitmap: Bitmap, displayName: String) {
     val contentValues = ContentValues().apply {
@@ -90,6 +100,7 @@ fun saveImageToGallery(bitmap: Bitmap, displayName: String) {
 ```
 
 **이미지 읽기:**
+
 ```kotlin
 fun loadImagesFromGallery(): List<Uri> {
     val images = mutableListOf<Uri>()
@@ -125,6 +136,7 @@ fun loadImagesFromGallery(): List<Uri> {
 ```
 
 **비디오 저장:**
+
 ```kotlin
 @RequiresApi(Build.VERSION_CODES.Q)
 fun saveVideoToGallery(videoFile: File, displayName: String) {
@@ -149,11 +161,12 @@ fun saveVideoToGallery(videoFile: File, displayName: String) {
 }
 ```
 
-#### Storage Access Framework (SAF)
+##### Storage Access Framework (SAF)
 
 사용자가 직접 파일/폴더를 선택하도록 한다.
 
 **파일 선택:**
+
 ```kotlin
 class MainActivity : AppCompatActivity() {
     private val openDocumentLauncher = registerForActivityResult(
@@ -175,6 +188,7 @@ class MainActivity : AppCompatActivity() {
 ```
 
 **파일 생성:**
+
 ```kotlin
 private val createDocumentLauncher = registerForActivityResult(
     ActivityResultContracts.CreateDocument("text/plain")
@@ -192,6 +206,7 @@ fun createNewDocument() {
 ```
 
 **폴더 선택 (트리 접근):**
+
 ```kotlin
 private val openDocumentTreeLauncher = registerForActivityResult(
     ActivityResultContracts.OpenDocumentTree()
@@ -212,7 +227,7 @@ private val openDocumentTreeLauncher = registerForActivityResult(
 }
 ```
 
-### 파일 시스템 구조
+#### 파일 시스템 구조
 
 ```
 /data/
@@ -244,7 +259,7 @@ private val openDocumentTreeLauncher = registerForActivityResult(
 └── Documents/                    # 문서
 ```
 
-### 데이터 저장 방법 선택
+#### 데이터 저장 방법 선택
 
 | 데이터 종류 | 저장 방법 |
 |------------|----------|
@@ -255,7 +270,7 @@ private val openDocumentTreeLauncher = registerForActivityResult(
 | 문서 (사용자 선택) | SAF |
 | 대용량 파일 | 외부 저장소 + 캐시 |
 
-### SharedPreferences
+#### SharedPreferences
 
 간단한 키 - 값 저장.
 
@@ -275,15 +290,16 @@ val age = sharedPref.getInt("age", 0)
 ```
 
 **문제점:**
+
 - UI 스레드에서 읽기 시 블로킹
 - 타입 안전성 부족
 - 대용량 데이터 부적합
 
-### DataStore (권장)
+#### DataStore (권장)
 
 SharedPreferences 의 현대적 대안.
 
-#### Preferences DataStore
+##### Preferences DataStore
 
 ```kotlin
 // build.gradle.kts
@@ -322,7 +338,7 @@ lifecycleScope.launch {
 }
 ```
 
-#### Proto DataStore (타입 안전)
+##### Proto DataStore (타입 안전)
 
 ```protobuf
 // user_prefs.proto
@@ -368,7 +384,7 @@ suspend fun updateUsername(username: String) {
 }
 ```
 
-### Room Database
+#### Room Database
 
 SQLite 위의 추상화 레이어.
 
@@ -438,9 +454,9 @@ class UserRepository(private val userDao: UserDao) {
 }
 ```
 
-### 파일 암호화
+#### 파일 암호화
 
-#### File-Based Encryption (FBE)
+##### File-Based Encryption (FBE)
 
 [[android-glossary#fbe|FBE]] 는 사용자별로 파일을 암호화한다.
 
@@ -456,7 +472,7 @@ val deFile = File(deContext.filesDir, "boot_count.txt")
 val ceFile = File(filesDir, "user_data.txt")
 ```
 
-#### EncryptedFile
+##### EncryptedFile
 
 ```kotlin
 // build.gradle.kts
@@ -487,7 +503,7 @@ encryptedFile.openFileOutput().use { outputStream ->
 val text = encryptedFile.openFileInput().bufferedReader().readText()
 ```
 
-#### EncryptedSharedPreferences
+##### EncryptedSharedPreferences
 
 ```kotlin
 val masterKey = MasterKey.Builder(context)
@@ -507,7 +523,7 @@ sharedPreferences.edit {
 }
 ```
 
-### 저장소 공간 관리
+#### 저장소 공간 관리
 
 ```kotlin
 // 사용 가능한 공간 확인
@@ -536,9 +552,9 @@ fun clearCache() {
 }
 ```
 
-### 백업과 복원
+#### 백업과 복원
 
-#### Auto Backup (Android 6.0+)
+##### Auto Backup (Android 6.0+)
 
 ```xml
 <!-- AndroidManifest.xml -->
@@ -556,7 +572,7 @@ fun clearCache() {
 </full-backup-content>
 ```
 
-#### Backup Agent (커스텀)
+##### Backup Agent (커스텀)
 
 ```kotlin
 class MyBackupAgent : BackupAgentHelper() {
@@ -572,7 +588,7 @@ class MyBackupAgent : BackupAgentHelper() {
 }
 ```
 
-### 성능 최적화
+#### 성능 최적화
 
 ```kotlin
 // ✅ 버퍼링 사용
@@ -597,7 +613,7 @@ val channel = FileInputStream(file).channel
 val buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size())
 ```
 
-### 디버깅
+#### 디버깅
 
 ```bash
 # 앱 저장소 확인
@@ -619,11 +635,10 @@ adb shell dumpsys diskstats
 adb shell content query --uri content://media/external/images/media
 ```
 
-### See Also
+#### See Also
 
 - [[android-persistence-room-datastore]]
 - [[android-permissions-deep-dive]]
 - [[android-security-and-sandboxing]]
 - [[android-app-components-deep-dive]]
 - [[android-jetpack-architecture]]
-

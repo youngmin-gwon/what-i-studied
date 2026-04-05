@@ -1,8 +1,8 @@
 ---
 title: biometrics-otp
-tags: [security, authentication, biometrics, otp, skey, kerberos]
-aliases: [생체 인증, 지문, 홍채, FRR, FAR, OTP, S/Key]
-date modified: 2026-01-08 18:15:47 +09:00
+tags: [authentication, biometrics, kerberos, otp, security, skey]
+aliases: [FAR, FRR, OTP, S/Key, 생체 인증, 지문, 홍채]
+date modified: 2026-04-05 17:47:51 +09:00
 date created: 2026-01-08 18:15:47 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-01-08 18:15:47 +09:00
 
 ---
 
-## 🔐 인증의 4가지 유형 (Factors)
+## 🔐 인증의 4 가지 유형 (Factors)
 
 | Type | 분류 | 설명 | 예시 |
 |:----:|------|------|------|
@@ -95,7 +95,7 @@ CER이 낮을수록 → 시스템 성능 우수
 |------|------|
 | **시간 동기 (Time Sync)** | 현재 시간 기반으로 OTP 생성 (TOTP) |
 | **이벤트 동기 (Event Sync)** | 버튼 클릭 횟수 기반 (HOTP) |
-| **질의응답 (Challenge-Response)** | 서버 Challenge에 응답 |
+| **질의응답 (Challenge-Response)** | 서버 Challenge 에 응답 |
 
 ### TOTP (Time-based OTP)
 
@@ -140,7 +140,7 @@ H^N(S) → 서버에 저장
 |------|------|
 | **일회용** | 사용한 값 재사용 불가 |
 | **스니핑 저항** | 도청해도 다음 값 유추 불가 |
-| **횟수 제한** | N회 사용 후 재설정 필요 |
+| **횟수 제한** | N 회 사용 후 재설정 필요 |
 
 ### 보안
 
@@ -162,7 +162,7 @@ H^N(S) → H^(N-1)(S) 불가능 (역산 불가)
 
 | 요소 | 역할 |
 |------|------|
-| **KDC** | AS + TGS (신뢰할 수 있는 제3자) |
+| **KDC** | AS + TGS (신뢰할 수 있는 제 3 자) |
 | **AS** | 최초 인증, TGT 발급 |
 | **TGS** | 서비스 티켓 발급 |
 | **TGT** | Ticket Granting Ticket |

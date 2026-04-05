@@ -1,8 +1,8 @@
 ---
 title: ecommerce-security
-tags: [security, ecommerce, set, ssl, tls, dual-signature, payment]
-aliases: [전자상거래 보안, SET, 이중서명, Dual Signature, SSL, TLS]
-date modified: 2026-01-08 18:22:21 +09:00
+tags: [dual-signature, ecommerce, payment, security, set, ssl, tls]
+aliases: [Dual Signature, SET, SSL, TLS, 이중서명, 전자상거래 보안]
+date modified: 2026-04-05 17:47:11 +09:00
 date created: 2026-01-08 18:22:21 +09:00
 ---
 
@@ -16,7 +16,7 @@ date created: 2026-01-08 18:22:21 +09:00
 |----------|------|
 | **구매자 (Card Holder)** | 카드로 결제하는 사람 |
 | **판매자 (Merchant)** | 상품 판매, 결제 요청 |
-| **PG (Payment Gateway)** | 상점-금융망 중계 |
+| **PG (Payment Gateway)** | 상점 - 금융망 중계 |
 | **발급사 (Issuer)** | 구매자에게 카드 발급 |
 | **CA (인증기관)** | 인증서 발급 |
 
@@ -24,13 +24,13 @@ date created: 2026-01-08 18:22:21 +09:00
 
 ## 🔐 SET (Secure Electronic Transaction)
 
-**Visa와 MasterCard**가 개발한 신용카드 전용 결제 프로토콜입니다.
+**Visa 와 MasterCard**가 개발한 신용카드 전용 결제 프로토콜입니다.
 
 ### 특징
 
 | 장점 | 단점 |
 |------|------|
-| SSL보다 높은 보안성 | 복잡한 암호화 |
+| SSL 보다 높은 보안성 | 복잡한 암호화 |
 | 정보 분리 보호 | 전용 S/W 필요 |
 | 이중 서명 | 구현 어려움 |
 
@@ -205,6 +205,7 @@ graph LR
 ```
 
 **역할**:
+
 - 대칭키의 **키 배송 문제** 해결
 - 공개키의 **속도 문제** 해결
 

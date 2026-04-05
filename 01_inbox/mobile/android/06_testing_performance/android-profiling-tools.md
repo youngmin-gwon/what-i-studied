@@ -1,37 +1,48 @@
-# [[mobile-security]] > [[android-profiling-tools]]
+---
+title: android-profiling-tools
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:47 +09:00
+date created: 2026-03-21 16:47:09 +09:00
+---
 
-## Profiling Tools: Data-Driven Analysis
+## [[mobile-security]] > [[android-profiling-tools]]
 
-안드로이드 스토디오의 **프로파일러(Profiler)**를 활용하여 CPU, Memory, Network, Energy 소모를 정밀하게 분석하는 기법을 다룹니다. 
+### Profiling Tools: Data-Driven Analysis
+
+안드로이드 스토디오의 **프로파일러(Profiler)**를 활용하여 CPU, Memory, Network, Energy 소모를 정밀하게 분석하는 기법을 다룹니다.
 
 추측이 아닌 실제 데이터를 기반으로 병목 구간(Bottleneck)을 찾아내고, [[android-performance-and-debug]] 전략을 실질적으로 구현하는 도구 활용 능력을 갖추는 것이 목표입니다.
 
 ---
 
-### 💡 Context: 보이지 않는 문제의 가시화
+#### 💡 Context: 보이지 않는 문제의 가시화
 
 성능 문제는 종종 코드 깊숙한 곳에 숨어 있습니다. 프로파일링 도구는 시스템 내부의 상호작용을 시각화하여 [[android-system-internals]] 수준에서 발생하는 문제를 해결할 수 있는 통찰을 제공합니다.
 
 ---
 
-### Android Studio Profiler
+#### Android Studio Profiler
 
 실시간 CPU, 메모리, 네트워크, 에너지 모니터링.
 
-#### CPU Profiler
+##### CPU Profiler
 
 **사용법:**
+
 1. Android Studio → View → Tool Windows → Profiler
 2. 앱 선택 후 CPU 타임라인 클릭
 3. Record 버튼 → 작업 수행 → Stop
 
 **Trace 종류:**
+
 - **Sample Java Methods**: 낮은 오버헤드, 대략적 분석
 - **Trace Java Methods**: 정확하지만 느림
 - **Sample C/C++ Functions**: 네이티브 코드 분석
 - **Trace System Calls**: 시스템 레벨 추적
 
 **분석:**
+
 ```
 Call Chart: 시간 순서대로 호출 표시
 Flame Chart: 소요 시간 기준 정렬
@@ -39,15 +50,17 @@ Top Down: 호출자 → 피호출자
 Bottom Up: 피호출자 → 호출자 (병목 찾기 좋음)
 ```
 
-#### Memory Profiler
+##### Memory Profiler
 
 **Heap Dump:**
+
 1. Memory 타임라인에서 Dump Java heap 클릭
 2. Class List 에서 메모리 많이 차지하는 클래스 확인
 3. Instance View 에서 개별 객체 검사
 4. References 에서 누가 참조하는지 확인
 
 **Allocation Tracking:**
+
 ```kotlin
 // 특정 구간 추적
 fun loadData() {
@@ -61,6 +74,7 @@ fun loadData() {
 ```
 
 **메모리 누수 감지:**
+
 1. 의심되는 화면 열기
 2. Heap dump 생성
 3. 화면 닫기
@@ -68,9 +82,10 @@ fun loadData() {
 5. 다시 Heap dump
 6. Activity/Fragment 인스턴스가 남아있는지 확인
 
-#### Network Profiler
+##### Network Profiler
 
 **분석 항목:**
+
 - 요청/응답 크기
 - 타임라인
 - 요청 헤더/바디
@@ -88,21 +103,22 @@ val client = OkHttpClient.Builder()
     .build()
 ```
 
-#### Energy Profiler
+##### Energy Profiler
 
 배터리 소모 분석.
 
 **주요 지표:**
+
 - CPU 사용량
 - 네트워크 활동
 - GPS 사용
 - Wakelock 획득
 
-### Perfetto
+#### Perfetto
 
 시스템 전체 성능 추적.
 
-#### 사용법
+##### 사용법
 
 ```bash
 # 1. 추적 시작
@@ -147,7 +163,7 @@ adb pull /data/misc/perfetto-traces/trace trace.perfetto-trace
 # https://ui.perfetto.dev 에서 trace.perfetto-trace 열기
 ```
 
-#### 코드에서 추적
+##### 코드에서 추적
 
 ```kotlin
 import android.os.Trace
@@ -174,7 +190,7 @@ fun asyncOperation() {
 }
 ```
 
-### Simpleperf
+#### Simpleperf
 
 CPU 프로파일링 (네이티브 코드 포함).
 
@@ -192,7 +208,7 @@ simpleperf report -i perf.data
 simpleperf report -i perf.data --gui
 ```
 
-### Macrobenchmark
+#### Macrobenchmark
 
 앱 시작, 스크롤 등 성능 측정.
 
@@ -269,7 +285,7 @@ class StartupBenchmark {
 # benchmark/build/outputs/connected_android_test_additional_output/
 ```
 
-### Baseline Profile
+#### Baseline Profile
 
 자주 사용되는 코드를 미리 컴파일.
 
@@ -319,22 +335,24 @@ class BaselineProfileGenerator {
 # → app/src/main/baseline-prof.txt
 ```
 
-### Layout Inspector
+#### Layout Inspector
 
 UI 계층 구조 분석.
 
 **사용법:**
+
 1. Tools → Layout Inspector
 2. 실행 중인 앱 선택
 3. 3D 뷰로 레이어 확인
 4. 속성 패널에서 각 View 의 속성 확인
 
 **성능 팁:**
+
 - 중첩 깊이 줄이기 (ConstraintLayout 사용)
 - 불필요한 배경 제거
 - ViewStub 으로 지연 로딩
 
-### dumpsys
+#### dumpsys
 
 시스템 서비스 정보 확인.
 
@@ -361,7 +379,7 @@ adb shell dumpsys netstats
 adb shell dumpsys alarm
 ```
 
-### Battery Historian
+#### Battery Historian
 
 배터리 사용 분석.
 
@@ -380,7 +398,7 @@ docker run -p 9999:9999 gcr.io/android-battery-historian/stable:3.1 --port 9999
 # 5. http://localhost:9999 에서 bugreport.zip 업로드
 ```
 
-### LeakCanary
+#### LeakCanary
 
 메모리 누수 자동 감지.
 
@@ -404,7 +422,7 @@ class MyApplication : Application() {
 }
 ```
 
-### StrictMode
+#### StrictMode
 
 메인 스레드 위반 감지.
 
@@ -437,7 +455,7 @@ class MyApplication : Application() {
 }
 ```
 
-### See Also
+#### See Also
 
 - [[android-performance-and-debug]]
 - [[android-testing-and-quality]]

@@ -2,7 +2,7 @@
 title: apple-rendering-and-media
 tags: [animation, apple, coreanimation, graphics, internals, metal, rendering]
 aliases: []
-date modified: 2026-04-03 18:55:27 +09:00
+date modified: 2026-04-05 17:44:44 +09:00
 date created: 2025-12-16 16:09:09 +09:00
 ---
 

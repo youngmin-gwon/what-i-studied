@@ -2,7 +2,7 @@
 title: quiz-information-protection
 tags: [정보보안기사, 정보보안실기, 정보보호일반]
 aliases: []
-date modified: 2026-03-25 09:28:41 +09:00
+date modified: 2026-04-05 17:47:31 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -194,7 +194,6 @@ date created: 2026-02-25 10:46:47 +09:00
 </details>
 
 ### 접근통제(접근제어, Access Control)
-
 
 <details>
 <summary>(기출 25회 5번 문제) (단답형) 보안 통제(Security Control)는 그 역할과 시점에 따라 예방, 탐지, 교정 통제로 나눌 수 있으며, 구현 방식에 따라 물리적, 기술적, 관리적 통제로 분류된다. 다음 ( )에 알맞은 통제 유형을 쓰시오.
@@ -428,8 +427,6 @@ CRL (Certificate Revocation List)
 (※ 해설: 수립된 정책 및 시행 문서는 모든 임직원 및 관련자가 준수할 수 있도록 이해하기 쉬운 형태로 <strong>전달 및 공유</strong>되어야 한다.)
 </blockquote>
 </details>
-
-
 
 ### 위험 관리
 
@@ -1230,7 +1227,6 @@ BCP (Business Continuity Plan, 업무 연속성 계획)
 <strong>정답:</strong> <strong>증거 수집 (Acquisition)</strong>
 </blockquote>
 </details>
-
 
 <details>
 <summary>(서술형) 디지털 포렌식(Digital Forensics)의 '연계 보관성(Chain of Custody) 원칙'에 대해 설명하고, 이를 보장하기 위해 증거물 획득 단계에서 수행해야 할 조치를 서술하시오.</summary>

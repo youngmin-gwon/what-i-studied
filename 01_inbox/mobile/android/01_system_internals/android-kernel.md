@@ -2,7 +2,7 @@
 title: android-kernel
 tags: [android, android/kernel, linux, osdev]
 aliases: [Android Kernel, 안드로이드 커널]
-date modified: 2026-01-20 15:55:30 +09:00
+date modified: 2026-04-05 17:42:42 +09:00
 date created: 2025-12-16 21:01:14 +09:00
 ---
 
@@ -113,6 +113,7 @@ void *ptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 Ashmem 은 CPU 접근용이었다. 하지만 GPU, Camera, Video Decoder 같은 하드웨어 가속기는 **물리적으로 연속된 메모리**가 필요하거나, **IOMMU(Input-Output Memory Management Unit)**를 통해 접근한다.
 
 **ION**(2011~2019) 은 다양한 메모리 heap 을 제공했다:
+
 - **System heap**: 일반 메모리.
 - **Carveout heap**: 부팅 시 예약된 물리 연속 메모리.
 - **CMA heap**: Contiguous Memory Allocator.
@@ -218,6 +219,7 @@ full avg10=0.00 avg60=0.00 avg300=0.00 total=0
 ```
 
 **some**: 적어도 하나의 태스크가 메모리를 기다림.
+
 **full**: 모든 태스크가 블록됨.
 
 lmkd 는 PSI 값을 모니터링하다가, 임계값을 초과하면 `oom_score_adj` 가 높은 프로세스를 찾아 `kill` 시그널을 보낸다.
@@ -392,6 +394,7 @@ audit2allow -i avc_log.txt
 **eBPF**(2014 년 리눅스 메인라인, Android 9 부터 활용) 는 "안전한 커널 프로그램"을 삽입할 수 있게 한다.
 
 **검증기 (Verifier)**가 프로그램을 분석해:
+
 - 무한 루프 불가.
 - 잘못된 메모리 접근 불가.
 - 허용된 헬퍼 함수만 호출.
@@ -401,6 +404,7 @@ audit2allow -i avc_log.txt
 #### 안드로이드에서의 활용
 
 **네트워크 통계**:
+
 `netd` 데몬이 eBPF 프로그램을 소켓에 부착해, 앱별 트래픽을 추적한다.
 
 ```bash
@@ -410,6 +414,7 @@ ls /sys/fs/bpf/map_*
 ```
 
 **방화벽**:
+
 UID 기반 패킷 필터링. iptables 보다 빠르다.
 
 ```c
@@ -424,6 +429,7 @@ int bpf_cgroup_skb(struct __sk_buff *skb) {
 ```
 
 **성능 향상**:
+
 iptables 는 선형 탐색 (O(n)). eBPF 는 해시 맵으로 O(1).
 
 ---
@@ -605,14 +611,17 @@ adb pull /data/misc/perfetto-traces/trace
 ## 학습 리소스
 
 **소스**:
+
 - [Android Common Kernel](../../../../https:/android.googlesource.com/kernel/common/.md)
 - [AOSP Kernel Docs](../../../../https:/source.android.com/docs/core/architecture/kernel.md)
 
 **도구**:
+
 - [Perfetto](../../../../https:/perfetto.dev.md): 트레이싱.
 - [Systrace](../../../../https:/developer.android.com/topic/performance/tracing.md): 부팅 분석.
 
 **책**:
+
 - *Embedded Android* (Karim Yaghmour)
 - *Android Internals* (Jonathan Levin)
 

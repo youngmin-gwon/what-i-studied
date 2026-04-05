@@ -2,13 +2,13 @@
 title: apple-swiftdata-deep-dive
 tags: [apple, data, ios17, persistence, swift, swiftdata]
 aliases: []
-date modified: 2026-04-03 23:58:00 +09:00
+date modified: 2026-04-05 17:44:33 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 
 ## SwiftData Deep Dive
 
-Core Data 가 20년간 해온 일을, Swift 네이티브 문법으로 다시 쓴 것이 **SwiftData** (iOS 17+)입니다.
+Core Data 가 20 년간 해온 일을, Swift 네이티브 문법으로 다시 쓴 것이 **SwiftData** (iOS 17+)입니다.
 
 `NSManagedObject` 를 상속받고, `.xcdatamodeld` 파일과 싸우고, `NSFetchRequest` 를 타이핑하던 시대는 끝났습니다.
 
@@ -104,7 +104,7 @@ struct TodoListView: View {
 private var importantTodos: [Todo]
 ```
 
-#### `FetchDescriptor` (비-SwiftUI 환경)
+#### `FetchDescriptor` (비 -SwiftUI 환경)
 
 ViewModel 이나 Service 레이어에서 데이터를 가져올 때 사용합니다.
 
@@ -137,14 +137,15 @@ context.delete(newTodo)
 try context.save()
 ```
 
-> [!TIP] **자동 저장(Autosave)**
-> SwiftData 의 `ModelContext` 는 기본적으로 자동 저장이 켜져 있습니다. 명시적 `save()` 호출이 필수는 아니지만, 중요한 작업 후에는 호출하는 것이 안전합니다.
+>[!TIP] **자동 저장(Autosave)**
+>SwiftData 의 `ModelContext` 는 기본적으로 자동 저장이 켜져 있습니다. 명시적 `save()` 호출이 필수는 아니지만, 중요한 작업 후에는 호출하는 것이 안전합니다.
 
 ---
 
 ### 🆕 WWDC 2024 & 2025 주요 업데이트
 
 #### 1. `@Index` 매크로 (WWDC 2024)
+
 검색·정렬 성능을 크게 향상시킵니다. 대량 데이터에서 `#Predicate` 필터링이 느리다면 인덱스를 추가하세요.
 
 ```swift
@@ -163,12 +164,15 @@ class Todo {
 ```
 
 #### 2. `@Unique` 매크로 (WWDC 2024)
+
 속성의 고유 제약을 선언합니다. 동일한 값 삽입 시 **Upsert(업데이트 또는 삽입)** 동작을 합니다.
 
 #### 3. `DataStore` 프로토콜 (WWDC 2024)
+
 SQLite 이외의 커스텀 저장소(JSON 파일, 원격 서버 등)를 SwiftData 백엔드로 사용할 수 있습니다.
 
 #### 4. Model Inheritance (WWDC 2025)
+
 `@Model` 클래스의 상속이 가능해졌습니다. Core Data 의 Entity Inheritance 와 유사합니다.
 
 ---
@@ -181,14 +185,14 @@ SQLite 이외의 커스텀 저장소(JSON 파일, 원격 서버 등)를 SwiftDat
 2. **공존 가능**: 하나의 앱에서 Core Data 와 SwiftData 를 동시에 사용할 수 있습니다 (같은 저장소 또는 별도 저장소).
 3. **Lightweight Migration**: 프로퍼티 추가/이름 변경 등 단순한 변경은 자동 마이그레이션됩니다.
 
-> [!WARNING] **Devil's Advocate : SwiftData 의 현실적 한계**
-> SwiftData 는 빠르게 성숙하고 있지만, Core Data 의 모든 기능을 대체하지는 못합니다:
-> 1. **NSFetchedResultsController 의 섹션화(Sectioned Fetch)**: SwiftData `@Query`는 iOS 17 기준으로 섹션 그룹핑이 제한적입니다.
-> 2. **Background Context 패턴**: Core Data의 `performBackgroundTask`만큼 유연한 백그라운드 처리가 아직 부족합니다. `ModelActor`를 사용해야 합니다.
-> 3. **CloudKit 동기화**: Core Data + CloudKit 은 NSPersistentCloudKitContainer로 성숙한 반면, SwiftData의 CloudKit 통합은 아직 초기 단계입니다.
-> **결론**: 신규 프로젝트는 SwiftData 우선, 기존 프로젝트는 점진적 마이그레이션을 권장합니다.
+>[!WARNING] **Devil's Advocate : SwiftData 의 현실적 한계**
+>SwiftData 는 빠르게 성숙하고 있지만, Core Data 의 모든 기능을 대체하지는 못합니다:
+> 1. **NSFetchedResultsController 의 섹션화(Sectioned Fetch)**: SwiftData `@Query` 는 iOS 17 기준으로 섹션 그룹핑이 제한적입니다.
+> 2. **Background Context 패턴**: Core Data 의 `performBackgroundTask` 만큼 유연한 백그라운드 처리가 아직 부족합니다. `ModelActor` 를 사용해야 합니다.
+> 3. **CloudKit 동기화**: Core Data + CloudKit 은 NSPersistentCloudKitContainer 로 성숙한 반면, SwiftData 의 CloudKit 통합은 아직 초기 단계입니다.
+>**결론**: 신규 프로젝트는 SwiftData 우선, 기존 프로젝트는 점진적 마이그레이션을 권장합니다.
 
 ### 더 보기
-- [apple-coredata-deep-dive](apple-coredata-deep-dive.md) - SwiftData의 기반 엔진인 Core Data 내부 동작
+- [apple-coredata-deep-dive](apple-coredata-deep-dive.md) - SwiftData 의 기반 엔진인 Core Data 내부 동작
 - [apple-storage-and-filesystems](apple-storage-and-filesystems.md) - 앱 컨테이너와 파일 저장 정책
 - [apple-swift-concurrency](../01_language_concurrency/apple-swift-concurrency.md) - `ModelActor` 백그라운드 처리에 필요한 Actor 이해

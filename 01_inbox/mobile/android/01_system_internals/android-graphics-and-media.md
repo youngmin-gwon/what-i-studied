@@ -2,7 +2,7 @@
 title: android-graphics-and-media
 tags: [android, android/graphics, android/media]
 aliases: [Graphics, Media Pipeline, SurfaceFlinger]
-date modified: 2026-01-20 15:55:23 +09:00
+date modified: 2026-04-05 17:42:38 +09:00
 date created: 2025-12-16 15:27:42 +09:00
 ---
 
@@ -15,11 +15,13 @@ date created: 2025-12-16 15:27:42 +09:00
 #### 모바일 그래픽의 도전
 
 **데스크톱**:
+
 - 단일 앱의 전체 화면
 - GPU 리소스 독점
 - 60Hz 고정
 
 **모바일**:
+
 - 여러 앱 레이어 (상태바, 네비게이션, 플로팅 윈도우, 키보드)
 - 제한된 GPU/배터리
 - 다양한 화면 주사율 (60/90/120Hz)
@@ -62,6 +64,7 @@ override fun onDraw(canvas: Canvas) {
 ```
 
 **Skia**:
+
 - 2D 그래픽 라이브러리
 - GPU 가속 (OpenGL/Vulkan 백엔드)
 - Chrome 도 사용하는 검증된 엔진
@@ -83,6 +86,7 @@ void draw(Canvas canvas) {
 ```
 
 **RenderThread**:
+
 - DisplayList 구축
 - GPU 명령 생성
 - VSync 대기
@@ -105,6 +109,7 @@ releaseBuffer(&buffer);
 ```
 
 **트리플 버퍼링**:
+
 ```
 Front Buffer:  화면에 표시 중
 Back Buffer 1: GPU가 렌더링 중
@@ -124,6 +129,7 @@ Layer Stack:
 ```
 
 **합성 방법**:
+
 1. **GPU Composition**: OpenGL 로 모든 레이어 합성
 2. **HWC Overlay**: 하드웨어가 직접 합성 (전력 절약)
 
@@ -155,6 +161,7 @@ VSync ───┬───┬───┬───┬───→ 시간
 ```
 
 **문제 (VSync 없이)**:
+
 ```
 GPU가 화면 업데이트 중간에 버퍼 교체
 → Screen Tearing (화면 찢어짐)
@@ -183,6 +190,7 @@ Choreographer.getInstance().postFrameCallback { frameTimeNanos ->
 ```
 
 **프레임 파이프라인**:
+
 ```
 Input → Animation → Measure/Layout → Draw → (다음 VSync) → Display
   2ms      2ms           4ms           6ms        16ms
@@ -205,6 +213,7 @@ fun Greeting(name: String) {
 ```
 
 **Compose Runtime**:
+
 1. **Composition**: UI 트리 구축
 2. **Layout**: 위치/크기 계산
 3. **Drawing**: Skia 로 그리기
@@ -223,6 +232,7 @@ fun Counter() {
 ```
 
 **스마트 리컴포지션**:
+
 - 변경된 상태를 사용하는 Composable 만 재실행
 - `remember`, `derivedStateOf` 로 최적화
 
@@ -367,6 +377,7 @@ stream->start();
 ```
 
 **지연 시간**:
+
 - AAudio/Oboe: ~10ms
 - AudioTrack: ~45ms
 
@@ -411,6 +422,7 @@ player.setMediaSource(dashMediaSource)
 ```
 
 **자동 품질 조정**:
+
 ```
 네트워크 속도 감지 → 낮은 비트레이트로 전환
 속도 회복 → 높은 비트레이트로 전환
@@ -444,6 +456,7 @@ val mediaSource = DashMediaSource.Factory(dataSourceFactory)
 ```
 
 **보안**:
+
 - L1: 하드웨어 보안 (TEE)
 - L3: 소프트웨어 보안
 
@@ -478,6 +491,7 @@ adb shell dumpsys gfxinfo <package_name>
 ```
 
 **출력**:
+
 ```
 Janky frames: 15 (5.2%)
 90th percentile: 18ms
@@ -493,6 +507,7 @@ adb shell setprop debug.hwui.overdraw show
 ```
 
 **색상**:
+
 - 파란색: 1 회 그리기
 - 녹색: 2 회
 - 분홍색: 3 회
@@ -533,12 +548,14 @@ adb shell setprop debug.hwui.profile visual_bars
 ## 학습 리소스
 
 **공식 문서**:
+
 - [Graphics Architecture](../../../../https:/source.android.com/docs/core/graphics.md)
 - [Media](../../../../https:/developer.android.com/guide/topics/media.md)
 - [Camera2](../../../../https:/developer.android.com/training/camera2.md)
 - [ExoPlayer](../../../../https:/exoplayer.dev/.md)
 
 **도구**:
+
 - Perfetto/Systrace
 - AGI (Android GPU Inspector)
 - GPU Profiler

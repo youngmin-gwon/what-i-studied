@@ -2,7 +2,7 @@
 title: quiz-laws
 tags: []
 aliases: []
-date modified: 2026-03-25 09:28:38 +09:00
+date modified: 2026-04-05 17:47:32 +09:00
 date created: 2026-03-17 15:13:20 +09:00
 ---
 
@@ -73,7 +73,6 @@ date created: 2026-03-17 15:13:20 +09:00
 <strong>정답:</strong> <strong>국가법령정보센터</strong> (www.law.go.kr)
 </blockquote>
 </details>
-
 
 ### 개인정보 보호법(시행:2024.03.15)
 
@@ -285,7 +284,6 @@ date created: 2026-03-17 15:13:20 +09:00
 <strong>정답:</strong> <strong>개인정보보호법</strong> (일반법 원칙)
 </blockquote>
 </details>
-
 
 ### 개인정보의 안전성 확보조치 기준(시행:2023.09.22)
 
@@ -527,7 +525,6 @@ date created: 2026-03-17 15:13:20 +09:00
 </blockquote>
 </details>
 
-
 ### 정보통신망 이용촉진 및 정보보호 등에 관한 법률(시행:2024.01.23)
 
 ### 정보통신기반 보호법(시행:2022.09.11)
@@ -597,7 +594,6 @@ date created: 2026-03-17 15:13:20 +09:00
 <strong>정답:</strong> <strong>전자적 침해행위로 인하여 발생한 사태</strong>를 의미한다.
 </blockquote>
 </details>
-
 
 ### 전자서명법(시행:2022.10.20)
 
@@ -669,7 +665,6 @@ date created: 2026-03-17 15:13:20 +09:00
 </blockquote>
 </details>
 
-
 ### 위치정보의 보호 및 이용 등에 관한 법률(시행:2022.04.20)
 
 <details>
@@ -729,7 +724,6 @@ date created: 2026-03-17 15:13:20 +09:00
 <strong>정답:</strong> <strong>금지된다.</strong> 누구든지 부정한 방법으로 위치정보사업자 등을 속여 타인의 개인위치정보를 제공받아서는 아니 된다.
 </blockquote>
 </details>
-
 
 ### 개인정보보호법 주요 개정 사항 (2023~2024)
 

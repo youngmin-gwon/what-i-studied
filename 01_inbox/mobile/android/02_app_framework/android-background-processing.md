@@ -1,27 +1,35 @@
-# [[mobile-security]] > [[android-background-processing]]
+---
+title: android-background-processing
+tags: []
+aliases: []
+date modified: 2026-04-05 17:42:58 +09:00
+date created: 2026-04-04 00:22:18 +09:00
+---
 
-## Background Processing: Execution Strategy
+## [[mobile-security]] > [[android-background-processing]]
 
-안드로이드 앱이 포그라운드에 있지 않을 때 작업을 수행하는 **WorkManager**, **Foreground Service**, **AlarmManager**의 메커니즘을 심층 분석합니다. 
+### Background Processing: Execution Strategy
 
-단순히 비동기 처리를 하는 것을 넘어, 사용자 경험(UX)을 해치지 않으면서 배터리 효율을 극대화하고 OS의 강력한 백그라운드 제약을 어떻게 우회하거나 준수할지 이해하는 것이 목표입니다.
+안드로이드 앱이 포그라운드에 있지 않을 때 작업을 수행하는 **WorkManager**, **Foreground Service**, **AlarmManager**의 메커니즘을 심층 분석합니다.
+
+단순히 비동기 처리를 하는 것을 넘어, 사용자 경험(UX)을 해치지 않으면서 배터리 효율을 극대화하고 OS 의 강력한 백그라운드 제약을 어떻게 우회하거나 준수할지 이해하는 것이 목표입니다.
 
 ---
 
-### 💡 Context: 백그라운드 처리의 진화
+#### 💡 Context: 백그라운드 처리의 진화
 
-안드로이드 OS는 버전이 올라갈수록 백그라운드 작업에 대해 엄격한 제한을 가하고 있습니다. 현대적인 개발에서는 **WorkManager**가 사실상의 표준이며, 즉각적인 반응이 필요한 특수한 경우에만 **Foreground Service**를 사용해야 합니다.
+안드로이드 OS 는 버전이 올라갈수록 백그라운드 작업에 대해 엄격한 제한을 가하고 있습니다. 현대적인 개발에서는 **WorkManager**가 사실상의 표준이며, 즉각적인 반응이 필요한 특수한 경우에만 **Foreground Service**를 사용해야 합니다.
 
-> [!NOTE] **상호 참조**
-> iOS의 백그라운드 처리 방식은 [[apple-background-tasks]]를 참고하세요.
+>[!NOTE] **상호 참조**
+>iOS 의 백그라운드 처리 방식은 [[apple-background-tasks]] 를 참고하세요.
 
 ---
 
-### 1. WorkManager (권장)
+#### 1. WorkManager (권장)
 
 지연 가능(Deferrable)하고 보장된 실행(Guaranteed execution)이 필요한 비동기 작업에 적합하다.
 
-#### 기본 구현: CoroutineWorker
+##### 기본 구현: CoroutineWorker
 
 ```kotlin
 class SyncWorker(
@@ -45,7 +53,7 @@ class SyncWorker(
 }
 ```
 
-#### 제약 조건 및 실행
+##### 제약 조건 및 실행
 
 ```kotlin
 val constraints = Constraints.Builder()
@@ -66,15 +74,15 @@ WorkManager.getInstance(context).enqueueUniqueWork(
 )
 ```
 
-### 2. Foreground Services (Android 14+ 제한)
+#### 2. Foreground Services (Android 14+ 제한)
 
 사용자가 인지해야 하는 즉각적이고 지속적인 작업(음악 재생, 운동 추적)에 사용한다.
 
-> [!CAUTION] **Devil's Advocate : Foreground Service 남용 금지**
-> Android 14부터 `foregroundServiceType` 선언이 강제되었고, 구글 플레이 정책은 "사용자가 인지할 수 없는 백그라운드 작업은 무조건 WorkManager를 쓰라"고 강요한다. 타입을 속여서 승인받으려다가는 앱이 삭제될 수 있다.
+>[!CAUTION] **Devil's Advocate : Foreground Service 남용 금지**
+>Android 14 부터 `foregroundServiceType` 선언이 강제되었고, 구글 플레이 정책은 "사용자가 인지할 수 없는 백그라운드 작업은 무조건 WorkManager 를 쓰라"고 강요한다. 타입을 속여서 승인받으려다가는 앱이 삭제될 수 있다.
 
-#### Android 14+ 구현 규칙
-1. `AndroidManifest.xml`에 특정 타입 권한과 서비스 타입 선언
+##### Android 14+ 구현 규칙
+1. `AndroidManifest.xml` 에 특정 타입 권한과 서비스 타입 선언
 2. `startForeground()` 호출 시 `ForegroundInfo` 전달
 
 ```xml
@@ -87,7 +95,7 @@ WorkManager.getInstance(context).enqueueUniqueWork(
     android:foregroundServiceType="dataSync" />
 ```
 
-### 3. AlarmManager (정교한 타이밍)
+#### 3. AlarmManager (정교한 타이밍)
 
 정확한 시간에 특정 작업을 수행해야 할 때(알람 시계, 약 복용 알림) 사용한다.
 
@@ -108,7 +116,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager.canScheduleEx
 }
 ```
 
-### 📊 언제 무엇을 사용하는가?
+#### 📊 언제 무엇을 사용하는가?
 
 | 분류 | 작업 특성 | 권장 API |
 | :--- | :--- | :--- |
@@ -117,7 +125,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager.canScheduleEx
 | **지연 가능** | 보장된 실행 필요 (업로드, 동기화) | **WorkManager** |
 | **정확한 타이밍** | 정해진 시각에 실행 | **AlarmManager** |
 
-### See Also
+#### See Also
 
 - [[android-app-components-deep-dive]]
 - [[android-coroutines-flow]]

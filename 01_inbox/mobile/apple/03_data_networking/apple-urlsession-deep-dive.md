@@ -2,7 +2,7 @@
 title: apple-urlsession-deep-dive
 tags: [apple, async-await, http, networking, urlsession]
 aliases: []
-date modified: 2026-04-03 18:55:39 +09:00
+date modified: 2026-04-05 17:45:04 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: apple-background-tasks
 tags: [apple, background, battery, ios, multitasking, system]
 aliases: []
-date modified: 2026-04-03 18:55:41 +09:00
+date modified: 2026-04-05 17:45:08 +09:00
 date created: 2025-12-16 16:50:00 +09:00
 ---
 
@@ -63,8 +63,8 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 }
 ```
 
-> [!TIP] **SwiftUI App Lifecycle 에서의 등록**
-> SwiftUI `App` 프로토콜을 사용하는 경우, `init()`에서 동일하게 등록합니다:
+>[!TIP] **SwiftUI App Lifecycle 에서의 등록**
+>SwiftUI `App` 프로토콜을 사용하는 경우, `init()` 에서 동일하게 등록합니다:
 > ```swift
 > @main struct MyApp: App {
 >     init() {
@@ -75,29 +75,41 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 > ```
 
 func scheduleProcessing() {
+
     let request = BGProcessingTaskRequest(identifier: "com.example.db_cleanup")
+
     request.requiresNetworkConnectivity = false
+
     request.requiresExternalPower = true // 충전 중에만
+
     
     do {
         try BGTaskScheduler.shared.submit(request)
     } catch {
         print("스케줄링 실패: \(error)") // 주로 10개 제한 초과 시 발생
     }
+
 }
 
 func handleProcessingTask(task: BGProcessingTask) {
+
     // 1. 만료 핸들러: 시스템이 "이제 그만 해"라고 할 때 호출됨
+
     task.expirationHandler = {
+
         // 하던 저장 작업 취소 및 정리
+
     }
+
     
     // 2. 작업 수행
     heavyJob.run { success in
         // 3. 완료 보고
         task.setTaskCompleted(success: success)
     }
+
 }
+
 ```
 
 ---

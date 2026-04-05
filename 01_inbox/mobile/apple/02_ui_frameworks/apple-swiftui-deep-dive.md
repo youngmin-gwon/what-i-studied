@@ -2,7 +2,7 @@
 title: apple-swiftui-deep-dive
 tags: [apple, attributegraph, declarative, internals, swiftui, ui]
 aliases: []
-date modified: 2026-04-03 18:55:28 +09:00
+date modified: 2026-04-05 17:44:45 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -56,9 +56,9 @@ SwiftUI 는 뷰 계층을 렌더링하기 위해 내부적으로 **AttributeGrap
 
 #### @Observable 매크로 (iOS 17+, Swift 5.9+) vs Legacy (@StateObject)
 
-> [!WARNING] **Devil's Advocate : View 렌더링 최적화의 패러다임 시프트**
-> 기존 `@StateObject` 및 `@ObservedObject`는 뷰모델 내의 어떤 속성 하나만 바뀌어도 전체 렌더링(Diffing)을 유발할 수 있어 성능 최적화가 까다로웠습니다.
-> 현재 현대적인 SwiftUI 코드는 **완전한 Observation 프레임워크(`@Observable` 매크로)**를 채택하고 있습니다. 이것은 프로퍼티 단위로 의존성을 추적하므로 `willSet/didSet` 낭비 없이 뷰 업데이트가 획기적으로 가벼워집니다.
+>[!WARNING] **Devil's Advocate : View 렌더링 최적화의 패러다임 시프트**
+>기존 `@StateObject` 및 `@ObservedObject` 는 뷰모델 내의 어떤 속성 하나만 바뀌어도 전체 렌더링(Diffing)을 유발할 수 있어 성능 최적화가 까다로웠습니다.
+>현재 현대적인 SwiftUI 코드는 **완전한 Observation 프레임워크(`@Observable` 매크로)**를 채택하고 있습니다. 이것은 프로퍼티 단위로 의존성을 추적하므로 `willSet/didSet` 낭비 없이 뷰 업데이트가 획기적으로 가벼워집니다.
 
 과거에는 뷰모델을 다음과 같이 사용했습니다 (Legacy):
 
@@ -142,8 +142,8 @@ var body: some View {
 
 ### 🧭 Navigation (iOS 16+)
 
-> [!CAUTION] **`NavigationView` 는 Deprecated**
-> iOS 16 부터 `NavigationView` 가 더 이상 사용되지 않습니다. 반드시 `NavigationStack` 또는 `NavigationSplitView` 로 대체해야 합니다.
+>[!CAUTION] **`NavigationView` 는 Deprecated**
+>iOS 16 부터 `NavigationView` 가 더 이상 사용되지 않습니다. 반드시 `NavigationStack` 또는 `NavigationSplitView` 로 대체해야 합니다.
 
 #### 1. `NavigationStack` (프로그래매틱 내비게이션)
 
@@ -174,7 +174,7 @@ func popToRoot() {
 
 #### 2. `NavigationSplitView` (다중 컬럼)
 
-iPad/Mac 의 사이드바-디테일 패턴입니다.
+iPad/Mac 의 사이드바 - 디테일 패턴입니다.
 
 ```swift
 NavigationSplitView {
@@ -215,9 +215,10 @@ struct ContentView_Previews: PreviewProvider {
 
 ### 💎 iOS 26: Liquid Glass Design System
 
-iOS 26은 visionOS에서 시작된 **Liquid Glass** 디자인 언어를 시스템 전반에 통합했습니다. SwiftUI는 이를 구현하기 위한 최적의 도구입니다.
+iOS 26 은 visionOS 에서 시작된 **Liquid Glass** 디자인 언어를 시스템 전반에 통합했습니다. SwiftUI 는 이를 구현하기 위한 최적의 도구입니다.
 
 #### 1. Material & Translucency
+
 유리 질감(Glassmorphism)과 동적 투명도를 활용하여 레이어 간의 깊이감을 표현합니다.
 
 ```swift
@@ -235,10 +236,12 @@ struct GlassyCard: View {
 ```
 
 #### 2. Pill-shaped UI (알약형 컴포넌트)
-탭 바, 툴바, 플로팅 버튼 등 모든 주요 컨트롤이 부드러운 곡률의 알약 형태로 변화했습니다. `.clipShape(.capsule)`와 `.containerBackground` 수식어의 중요성이 커졌습니다.
+
+탭 바, 툴바, 플로팅 버튼 등 모든 주요 컨트롤이 부드러운 곡률의 알약 형태로 변화했습니다. `.clipShape(.capsule)` 와 `.containerBackground` 수식어의 중요성이 커졌습니다.
 
 #### 3. Spatial Intelligence (공간 지능)
-visionOS와 공유되는 코드를 통해 2D 화면에서도 그림자와 조명 효과가 실시간으로 변하는 '공간적(Spatial)' 느낌을 줍니다.
+
+visionOS 와 공유되는 코드를 통해 2D 화면에서도 그림자와 조명 효과가 실시간으로 변하는 '공간적(Spatial)' 느낌을 줍니다.
 
 ---
 
