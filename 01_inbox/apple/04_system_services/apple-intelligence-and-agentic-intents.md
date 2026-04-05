@@ -50,9 +50,29 @@ struct ApplyFilterIntent: AppIntent {
 }
 ```
 
-### 3. Private Cloud Compute (PCC) & Security
+### 3. AI 개인정보 보호 및 보안 (AI Privacy & Security)
 
-온디바이스 칩셋(Apple Silicon)만으로 처리하기 힘든 복잡한 요청은 애플의 전용 클라우드 **PCC**에서 익명화되어 처리된다. 이는 데이터가 서버에 저장되지 않고 처리 즉시 파기됨을 기술적으로 보장한다.
+애플의 에이전틱 환경은 **"사용자 데이터가 애플조차 볼 수 없어야 한다"**는 무결성(Integrity) 원칙 위에 구축되었다.
+
+#### 1) Private Cloud Compute (PCC) 아키텍처
+온디바이스 칩셋(Apple Silicon)만으로 처리하기 힘든 복잡한 요청은 애플의 전용 클라우드인 **PCC**로 전송된다.
+- **Stateless Operation**: PCC 노드는 특정 요청을 처리하기 위해 데이터를 임시 로드하지만, 연산 완료 후 즉시 **휘발성 메모리(RAM)**에서 모든 흔적을 삭제한다. (No Persistent Storage)
+- **Verifiable Transparency**: 애플은 PCC 서버의 소프트웨어 빌드를 공개하여 독립적인 보안 전문가들이 이를 분석하고 개인정보 보호 주장이 사실인지 검증할 수 있도록 한다.
+- **End-to-End Encryption**: 사용자 기기에서 PCC 노드까지 데이터는 암호화되어 전송되며, 애플의 네트워크 관리자조차 내용을 볼 수 없다.
+
+#### 2) 대결: Apple Private Cloud Compute (PCC) vs Google Gemini Nano
+
+| 비교 항목 | Apple Private Cloud Compute (PCC) | Google Gemini Nano (On-device) |
+| :--- | :--- | :--- |
+| **핵심 철학** | "클라우드에서도 기기 수준의 보안을 유지한다." | "데이터를 기기 밖으로 내보내지 않는다." |
+| **추론 위치** | **하드웨어 강화 클라우드 노드 (Apple Silicon)** | **온디바이스 (NPU)** |
+| **데이터 상태** | **Stateless**: 연산 후 즉시 파기(No Storage) | 로컬 샌드박스 내부 유지 |
+| **장점** | 복잡한 고성능 모델 구동 가능, 공개 감사 가능 | 오프라인 작동, 제로 레이턴시, 물리적 격리 |
+| **단점** | 네트워크 연결 필수, 서버 인프라 신뢰 필요 | 하드웨어 사양(RAM 등)에 따른 성능 제한 |
+
+#### 3) 에이전틱 보안 (Agentic Security)
+- **App Intents 샌드박싱**: Siri 가 앱 인텐트를 실행할 때, 해당 앱은 오직 `Intent` 수행에 필요한 최소한의 데이터만 공유받는다.
+- **Intent Dispatching**: 시스템은 인텐트의 실행 결과를 가로채서 사용자에게 표시하기 전에 민감 정보 포함 여부를 1차 검증(Semantic Filtering)한다.
 
 ---
 

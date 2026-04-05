@@ -135,7 +135,7 @@ graph TB
     App1 -->|Binder| System
     App2 -->|Binder| System
     
-    Note[앱끼리 직접 통신 불가<br/>System을 통해서만]
+    Note[앱끼리 직접 통신 불가<br/>System을<br>통해서만<br>직접 접근]
 ```
 
 ---
@@ -234,47 +234,32 @@ adb shell appops get com.example.app
 
 ---
 
-## [SELinux](../../../../selinux.md) 통합
+## SEAndroid (Security Enhancements for Android)
 
-### 앱 도메인
+안드로이드는 리눅스 커널의 **LSM(Linux Security Module)** 프레임워크 위에 커스텀된 **SELinux** 정책인 **SEAndroid**를 탑재하여 강제적 접근 통제(MAC)를 수행한다. 이는 루트 권한을 탈취당하더라도 공격자가 시스템 전체를 장악하는 것을 방지하는 핵심 계층이다.
 
-```bash
-# 일반 앱
-u:r:untrusted_app:s0:c512,c768
+### 1. MAC(Mandatory Access Control) vs DAC(Discretionary Access Control)
+- **DAC (전통적 리눅스)**: 파일의 소유자가 권한(`rwx`)을 결정한다. 루트(Root)는 모든 권한을 가진다.
+- **MAC (SEAndroid)**: 시스템 관리자가 정의한 보안 정책에 따라 모든 접근이 결정된다. **루트 사용자라도 정책에 위배되는 행동은 차단된다.**
 
-# 시스템 앱 (/system/app)
-u:r:system_app:s0
-
-# 플랫폼 서명 앱
-u:r:platform_app:s0
-
-# 격리 프로세스
-u:r:isolated_app:s0
-```
-
-**카테고리** (c512, c768):
-- 앱마다 고유한 MLS 카테고리
-- 같은 앱의 프로세스들만 같은 카테고리
-- 다른 앱 데이터 접근 차단
-
-### SELinux 정책 예시
+### 2. 도메인 및 타입 격리 (Domain & Type Enforcement)
+모든 프로세스는 `domain`을, 모든 객체(파일, 소켓 등)는 `type`을 부여받는다.
 
 ```bash
-# untrusted_app이 할 수 있는 것
-allow untrusted_app app_data_file:file { read write };
-allow untrusted_app sdcard_type:file { read write };
-allow untrusted_app system_server:binder call;
+# 앱 프로세스의 보안 컨텍스트 확인
+u:r:untrusted_app:s0:c512,c768  # domain: untrusted_app
 
-# 할 수 없는 것
-neverallow untrusted_app system_data_file:file write;
-neverallow untrusted_app kernel:security *;
-neverallow untrusted_app init:process signal;
+# 파일의 보안 컨텍스트 확인
+u:object_r:app_data_file:s0    # type: app_data_file
 ```
 
-**효과**:
-- 루트 권한 획득해도 SELinux 가 차단
-- 시스템 파일 수정 불가
-- 다른 앱 공격 불가
+**핵심 정책 파일**:
+- `file_contexts`: 하드 코딩된 경로에 대한 레이블 설정.
+- `seapp_contexts`: 앱의 `UID`, `isPrivileged` 여부에 따라 도메인 할당.
+- `property_contexts`: 안드로이드 시스템 속성(`System Properties`)에 대한 접근 제어.
+
+### 3. 실무적 의의: 권한 상승 공격 방어
+공격자가 커널 취약점을 이용해 `UID 0`(Root)을 획득하더라도, SELinux 정책이 `untrusted_app` 도메인에 대해 `/system` 파티션 쓰기나 특정 커널 노드 접근을 금지(`neverallow`)하고 있다면 공격은 실패한다.
 
 ---
 
@@ -298,7 +283,7 @@ graph TB
     App -.SAF.-> SAF[Storage Access Framework<br/>파일 선택기]
     
     App -.X.-> OtherDir[다른 앱 디렉토리]
-    App -.X.-> RootFiles[/sdcard/Download 직접 접근]
+    App -.X.-> RootFiles[/sdcard/Download직접접근]
 ```
 
 **코드 변화**:
@@ -490,36 +475,110 @@ val keyGenParameterSpec = KeyGenParameterSpec.Builder(...)
 
 ---
 
-## Play Integrity API
+## Play Integrity API (Integrity Enforcement)
 
-### 기기 무결성 검증
+과거의 SafetyNet을 대체하는 **Play Integrity API**는 앱이 변조되지 않았으며(App Integrity), 신뢰할 수 있는 구글 인증 기기(Device Integrity)에서 실행 중인지 검증한다.
+
+### 1. Standard Integrity 실무 구현 패턴 (2026 기준)
+
+기존의 Classic 방식보다 레이턴시가 낮고 리플레이 공격 방어에 최적화된 **Standard Integrity** 사용이 권장된다.
+
+#### [Kotlin] Production-ready Integrity Manager
 
 ```kotlin
-val integrityManager = IntegrityManagerFactory.create(context)
-val request = IntegrityTokenRequest.builder()
-    .setCloudProjectNumber(PROJECT_NUMBER)
-    .build()
+// build.gradle (Kotlin DSL)
+// implementation("com.google.android.play:integrity:1.4.0")
 
-integrityManager.requestIntegrityToken(request)
-    .addOnSuccessListener { response ->
-        val token = response.token()
-        // 서버로 전송하여 검증
+class SecurityIntegrityClient(private val context: Context) {
+    private val integrityManager = IntegrityManagerFactory.createStandard(context)
+    private var tokenProvider: StandardIntegrityTokenProvider? = null
+
+    /**
+     * 1. Warm-up (앱 시작 시 또는 민감한 작업 직전에 호출)
+     * Google Cloud Project 번호를 사용하여 프로바이더를 미리 로드한다.
+     */
+    suspend fun prepareIntegrityProvider(cloudProjectNumber: Long): Boolean {
+        return try {
+            val request = StandardIntegrityManager.PrepareIntegrityTokenRequest.builder()
+                .setCloudProjectNumber(cloudProjectNumber)
+                .build()
+            tokenProvider = integrityManager.prepareIntegrityToken(request).await()
+            true
+        } catch (e: Exception) {
+            Log.e("Integrity", "Provider preparation failed", e)
+            false
+        }
     }
+
+    /**
+     * 2. 토큰 요청 및 요청 바인딩 (Binding)
+     * nonce 대신 requestHash를 사용하여 특정 요청과 무결성 결과를 묶는다.
+     */
+    suspend fun requestIntegrityToken(requestPayload: String): String? {
+        val provider = tokenProvider ?: return null
+        
+        // Replay Attack 방지를 위해 실제 요청 데이터의 SHA-256 해시를 생성
+        val requestHash = MessageDigest.getInstance("SHA-256")
+            .digest(requestPayload.toByteArray())
+            .joinToString("") { "%02x".format(it) }
+
+        val tokenRequest = StandardIntegrityManager.StandardIntegrityTokenRequest.builder()
+            .setRequestHash(requestHash) // 요청 데이터와 결과 토큰을 바인딩
+            .build()
+
+        return try {
+            val response = provider.request(tokenRequest).await()
+            response.token()
+        } catch (e: Exception) {
+            Log.e("Integrity", "Token request failed", e)
+            null
+        }
+    }
+}
 ```
 
-**서버 측 검증**:
-```
-MEETS_DEVICE_INTEGRITY: 신뢰할 수 있는 기기
-MEETS_BASIC_INTEGRITY: 기본 무결성 (커스텀 ROM 가능)
-MEETS_STRONG_INTEGRITY: Google 인증 기기
-```
+### 2. 서버 측 검증 및 정책 결정 (Enforcement)
 
-**용도**:
-- 게임 치팅 방지
-- 금융 앱 보안
-- DRM
+클라이언트에서 받은 토큰은 반드시 서버에서 **Google Play Developer API**를 통해 검증해야 한다.
+
+- **Check requestHash**: 서버로 전송된 원본 요청의 해시와 토큰 내부의 `requestHash`가 일치하는지 확인.
+- **Device Integrity Verdict**:
+    - `MEETS_STRONG_INTEGRITY`: 하드웨어 계층의 서명 검증을 통과한 가장 안전한 상태. 금융/결제 앱 필수.
+    - `MEETS_DEVICE_INTEGRITY`: 일반적인 순정 안드로이드 기기. 대부분의 상용 서비스 기준.
+    - `MEETS_BASIC_INTEGRITY`: 부트로더가 언락되었거나 커스텀 롬일 가능성 있음.
 
 ---
+
+## 보안 진단 도구 및 실무 기법 (Engineering Focus)
+
+정보보안 전문가의 관점에서 앱을 진단하고, 이에 대응하는 방어 전략을 구축하는 실무 내용이다.
+
+### 1. Frida를 이용한 동적 분석 (Dynamic Analysis)
+**Frida**는 런타임에 JavaScript를 삽입하여 앱의 동작을 가로채거나 수정하는 강력한 도구이다.
+
+- **진단 시나리오**: SSL Pinning 우회(Bypass), 생체 인증 강제 통과, 로컬 변수 조작.
+- **방어 관점의 대응 (Anti-Frida)**:
+    - **포트 스캔**: Frida 기본 포트(27042) 모니터링 시도.
+    - **메모리 검사**: `/proc/self/maps`에서 `frida-agent.so` 등 의존성 문자열 탐색.
+    - **ptrace 방어**: 이미 디버깅 중인 프로세스인 것처럼 속여 Frida 가 접속하지 못하게 차단.
+
+### 2. Drozer를 이용한 취약점 분석
+안드로이드 컴포넌트(`Activity`, `Provider`)간의 유출 경로를 탐색하는 도구이다.
+
+- **진단**: `run app.activity.info -a com.package` 명령어로 외부 노출된 액티비티 확인 및 인텐트 인젝션 시도.
+- **방어**: `AndroidManifest.xml`에서 의도하지 않은 컴포넌트의 `android:exported="false"` 설정 및 서명 기반 권한(`signature` level permission) 적용.
+
+---
+
+## 모바일 보안 법규 및 컴플라이언스 (Compliance)
+
+**대한민국 개인정보 보호법** 및 관계 법령에 따른 개발 시 필수 준수 사항이다.
+
+- **최소 권한의 법칙**: 앱의 핵심 기능 수행에 불필요한 권한(예: 캘린더 앱이 연락처 요구)은 원천 차단해야 한다. (시험 단골 소재)
+- **모바일 앱 접근권한 고지 (정통망법 제22조의2)**: 
+    - **필수적 접근권한**: 없으면 앱 실행이 불가능한 권한. (고지 및 동의 필수)
+    - **선택적 접근권한**: 없어도 앱 기능 이용은 가능하나 특정 기능이 제한됨. (거부해도 앱 실행 가능해야 함)
+- **민감정보 암호화**: 주민등록번호, 계좌번호, 생체정보 등은 단말기에 저장 시 반드시 **Android Keystore** 기반의 암호화가 적용되어야 한다.
 
 ## 개발자 모범 사례
 

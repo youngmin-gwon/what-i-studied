@@ -44,9 +44,29 @@ suspend fun createNote(
     *   `MapApp / search_poi` (강남역 카페) 호출하여 위치 정보 획득.
     *   `MessengerApp / send_group_message` 호출하여 최종 발송.
 
-### 3. 하이브리드 자동화 (UI Automation)
+### 3. AI 개인정보 보호 및 보안 (AI Privacy & Security)
 
-앱 개발자가 명시적으로 `AppFunction`을 구현하지 않은 경우에도, 시스템은 접근성 트리(Semantics)를 활용한 **UI 자동화(Action)**를 시도한다. (비고: 개발자가 직접 기능을 노출하는 것이 훨씬 정확하고 빠르다.)
+에이전트가 앱의 기능을 자유롭게 호출하는 환경에서는 **데이터 유출(Data Leakage)**과 **권한 오남용** 방지가 핵심이다.
+
+#### 1) Gemini Nano (On-device AICore) 보안 모델
+안드로이드는 **AICore**라는 전 전용 시스템 서비스를 통해 온디바이스 AI 연산을 수행한다.
+- **데이터 격리**: 개별 앱의 민감 데이터가 모델 학습에 사용되지 않으며, 모델 추론 시에만 메모리에 로드된 후 즉시 소멸된다.
+- **Private Compute Core (PCC)**: AICore 는 네트워크 접근권이 없는 격리된 환경(PCC)에서 작동하며, 외부 통신이 필요한 경우에만 별도의 보안 게이트웨이를 거친다.
+
+#### 2) 대결: Google Gemini Nano vs Apple Private Cloud Compute (PCC)
+
+| 비교 항목 | Google Gemini Nano (On-device) | Apple Private Cloud Compute (PCC) |
+| :--- | :--- | :--- |
+| **핵심 철학** | "데이터를 기기 밖으로 내보내지 않는다." | "클라우드에서도 기기 수준의 보안을 유지한다." |
+| **추론 위치** | **온디바이스 (NPU)** | **하드웨어 강화 클라우드 노드 (Apple Silicon)** |
+| **데이터 상태** | 로컬 샌드박스 내부 유지 | **Stateless**: 연산 후 즉시 파기(No Storage) |
+| **장점** | 오프라인 작동, 제로 레이턴시, 물리적 격리 | 복잡한 고성능 모델 구동 가능, 공개 감사 가능 |
+| **단점** | 하드웨어 사양(RAM 등)에 따른 성능 제한 | 네트워크 연결 필수, 서버 인프라 신뢰 필요 |
+
+#### 3) 에이전틱 보안 (Agentic Security)
+AI 에이전트가 도구(`AppFunction`)를 호출할 때 발생할 수 있는 보안 위협과 대응책이다.
+- **도구 호출 권한 위임**: 에이전트는 사용자가 명시적으로 허용한 범위 내에서만 도구에 접근할 수 있다. (예: "메시지 읽기" 권한이 없는 앱의 AppFunction 은 호출 불가)
+- **프롬프트 인젝션 방어**: 외부에서 주입된 악성 프롬프트가 AppFunction 을 통해 시스템 명령을 실행하지 못하도록, 입력값에 대한 엄격한 타입 검증과 샌드박싱이 적용된다.
 
 ---
 
