@@ -312,4 +312,4 @@ cat /proc/sys/kernel/kptr_restrict       # 커널 포인터 제한
 - [[process-scheduling]] - CPU 스케줄링 알고리즘
 - [[virtual-memory]] - 가상 메모리와 메모리 보호
 - [[secure-operating-systems]] - 보안 운영체제와 Reference Monitor
-- [[systemd]] - Linux 의 init 시스템
+- [[init-systems]] - 리눅스의 init 시스템 및 systemd 상세

@@ -2,7 +2,7 @@
 title: README
 tags: []
 aliases: []
-date modified: 2026-04-05 17:47:43 +09:00
+date modified: 2026-04-06 18:59:18 +09:00
 date created: 2025-12-18 17:05:18 +09:00
 ---
 
@@ -25,7 +25,6 @@ date created: 2025-12-18 17:05:18 +09:00
 1. [시스템 보안 문제](quiz-system)
 2. [네트워크 보안 문제](quiz-network)
 3. [응용프로그램 보안 문제](quiz-application)
-4. [정보보안 관리 문제](quiz-general)
 
 ### 🎯 시험 정보
 

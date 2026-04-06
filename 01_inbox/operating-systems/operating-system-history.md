@@ -318,6 +318,7 @@ XNU (X is Not Unix)
 - [[linux-history]] - 리눅스 역사 상세
 - [[kernel-structure]] - 운영체제 커널 구조
 - [[boot-sequence]] - 부팅 과정
+- [[init-systems]] - Init 시스템의 진화 (SysV, systemd)
 - [[filesystems]] - 파일시스템 (FAT, NTFS, ext4)
 - [[windows-client-security]] - Windows 보안
 - [[secure-operating-systems]] - 보안 운영체제

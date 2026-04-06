@@ -2,7 +2,7 @@
 title: mobile-android-secure-storage
 tags: [android, biometric, keystore, security]
 aliases: [Android 보안 저장소, 생체 인증]
-date modified: 2026-04-05 17:43:42 +09:00
+date modified: 2026-04-06 18:50:47 +09:00
 date created: 2026-04-05 12:40:00 +09:00
 ---
 
@@ -118,4 +118,4 @@ biometricPrompt.authenticate(promptInfo)
 #### 📚 연결 문서
 
 - [android-security-and-sandboxing](android-security-and-sandboxing.md) - 안드로이드 기초 보안 아키텍처
-- [cross-platform-mobile-vulnerability-check](../../cross-platform-mobile-vulnerability-check.md) - 모바일 취약점 진단 가이드
+- [mobile-vulnerability-check](../../cross-platform/mobile-vulnerability-check.md)- 모바일 취약점 진단 가이드
