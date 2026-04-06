@@ -2,7 +2,7 @@
 title: apple-xctest-deep-dive
 tags: [apple, async, testing, ui-testing, xctest]
 aliases: []
-date modified: 2026-04-06 18:15:16 +09:00
+date modified: 2026-04-06 18:15:49 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: apple-ios-system
 tags: [apple, ios, jetsam, memory, springboard, system]
 aliases: []
-date modified: 2026-04-03 18:56:25 +09:00
+date modified: 2026-04-06 18:20:05 +09:00
 date created: 2025-12-17 23:30:00 +09:00
 ---
 
@@ -15,6 +15,7 @@ iOS 는 "제약의 예술"입니다.
 이 규칙을 집행하는 **SpringBoard**와 **Jetsam**을 이해해야 앱이 죽지 않고 살아남을 수 있습니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **OOM (Out Of Memory)**: "메모리 경고도 안 받고 그냥 꺼졌어요." -> 100% Jetsam 이 죽인 겁니다. Jetsam 이 누구를 먼저 죽이는지(Priority) 알아야 방어할 수 있습니다.
 - **Touch Responsiveness**: 사용자가 화면을 터치했을 때, 그 이벤트가 내 버튼에 도달하기까지의 여정(IOKit -> SpringBoard -> App)을 알면 "터치 씹힘" 현상을 분석할 수 있습니다.
 - **Background Execution**: "유튜브는 백그라운드 재생 되는데 왜 내 앱은 안 돼요?" -> iOS 의 백그라운드 정책은 철저한 허가제입니다.

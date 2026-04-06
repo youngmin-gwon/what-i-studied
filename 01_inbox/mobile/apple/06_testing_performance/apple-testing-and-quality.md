@@ -2,7 +2,7 @@
 title: apple-testing-and-quality
 tags: [apple, ci, quality, tdd, testing]
 aliases: []
-date modified: 2026-04-06 18:15:07 +09:00
+date modified: 2026-04-06 18:15:40 +09:00
 date created: 2025-12-16 16:10:59 +09:00
 ---
 

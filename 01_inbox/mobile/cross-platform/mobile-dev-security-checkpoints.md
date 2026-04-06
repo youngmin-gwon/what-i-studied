@@ -2,7 +2,7 @@
 title: mobile-dev-security-checkpoints
 tags: [checklist, development, mobile, security]
 aliases: []
-date modified: 2026-04-05 21:02:02 +09:00
+date modified: 2026-04-06 18:22:06 +09:00
 date created: 2026-04-05 20:00:00 +09:00
 ---
 
@@ -69,6 +69,7 @@ date created: 2026-04-05 20:00:00 +09:00
 ---
 
 #### 📚 관련 리소스
-- [[cross-platform-mobile-vulnerability-check]] - OWASP 기반 종합 체크리스트
+
+- [[mobile-vulnerability-check]] - OWASP 기반 종합 체크리스트
 - [[mobile-advanced-security-tips]] - RASP 및 Zero Trust 구현 팁
 - [[android-security-permissions]] - 안드로이드 권한 정책 상세

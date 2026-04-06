@@ -2,7 +2,7 @@
 title: mobile-advanced-security-tips
 tags: [advanced, android, apple, forensics, rasp, security, zero-trust]
 aliases: [심화 보안 가이드, 전문가용 모바일 보안 팁]
-date modified: 2026-04-05 17:46:06 +09:00
+date modified: 2026-04-06 18:21:55 +09:00
 date created: 2026-04-05 12:50:00 +09:00
 ---
 
@@ -70,8 +70,6 @@ date created: 2026-04-05 12:50:00 +09:00
 - **JA3**: 클라이언트가 보내는 TLS Client Hello 패킷의 특징(Cipher Suites, Extensions 등)을 해시화한 값입니다.
 - **Defense**: 정식 배포된 앱의 JA3 해시값과 매칭되지 않는 요청(예: Python 스크립트, Burp Suite 등)은 서버단에서 즉시 차단(WAF 연동)합니다.
 - **Certificate Pinning**: OS 의 신뢰 저장소(Trust Store)를 믿지 않고, 앱 내부에 하드코딩된 특정 인증서와만 통신하도록 강제합니다. (단, 인증서 갱신 전략 필수)
-
----
 
 ---
 

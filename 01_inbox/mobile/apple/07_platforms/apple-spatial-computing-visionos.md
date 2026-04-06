@@ -2,7 +2,7 @@
 title: apple-spatial-computing-visionos
 tags: [apple, apple/26, arkit, spatial-computing, vision-pro, visionos]
 aliases: [Apple Vision Pro, ARKit, Spatial Computing, visionOS]
-date modified: 2026-04-05 17:46:28 +09:00
+date modified: 2026-04-06 18:20:53 +09:00
 date created: 2026-04-04 00:33:00 +09:00
 ---
 
@@ -66,6 +66,7 @@ struct SpatialApp: App {
 >visionOS 에서 앱은 실제 사물처럼 "무게감"과 "공간감"을 가져야 한다. **Liquid Glass** 디자인 언어를 적극 활용하여 그림자와 반사 효과를 통해 앱이 실제 공간에 떠 있는 것처럼 느끼게 하는 것이 핵심이다. 단순한 2D 창 띄우기는 사용자에게 몰입을 방해하는 '불청객'이 될 수 있다.
 
 ### 더 보기
+
 - [apple-app-intents](../04_system_services/apple-app-intents.md) - 공간 상의 기능 실행
 - [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - Liquid Glass 디자인 구현
 - [apple-intelligence-and-agentic-intents](../04_system_services/apple-intelligence-and-agentic-intents.md) - Siri 공간 명령 처리

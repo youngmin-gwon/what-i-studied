@@ -13,7 +13,7 @@ date created: 2026-04-04 00:33:00 +09:00
 >[!NOTE] **Android 비교: FCM vs APNs**
 > - **Android**: `FCM` (Firebase Cloud Messaging)을 사용하며, 데이터 전용(Data-only) 메시지로 백그라운드 조작을 비교적 자유롭게 할 수 있다.
 > - **iOS**: `APNs` 를 사용한다. 애플은 푸시 알림을 단순한 '알림'뿐만 아니라 **배경 작업 수행(Silent Push)** 및 **실시간 현황 업데이트(Live Activity)**의 핵심 트리거로 활용한다.
->자세한 내용은 [android-push-notifications-fcm](../../android/02_app_framework/android-push-notifications-fcm.md) 를 참고하세요.
+>자세한 내용은 [[android-push-notifications-fcm]] 를 참고하세요.
 
 ### 1. APNs 아키텍처 및 인증
 
@@ -56,6 +56,6 @@ date created: 2026-04-04 00:33:00 +09:00
 
 ### 더 보기
 
-- [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱의 상태와 알림 처리
-- [apple-background-tasks](apple-background-tasks.md) - 백그라운드 작업과 푸시의 결합
-- [apple-widgets-live-activities](../02_ui_frameworks/apple-widgets-live-activities.md) - 위젯/실시간 현황 푸시 전략
+- [[apple-app-lifecycle-and-ui]] - 앱의 상태와 알림 처리
+- [[apple-background-tasks]] - 백그라운드 작업과 푸시의 결합
+- [[apple-widgets-live-activities]] - 위젯/실시간 현황 푸시 전략

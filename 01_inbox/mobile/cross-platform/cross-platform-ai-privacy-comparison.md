@@ -2,7 +2,7 @@
 title: cross-platform-ai-privacy-comparison
 tags: []
 aliases: []
-date modified: 2026-04-05 17:46:32 +09:00
+date modified: 2026-04-06 18:21:13 +09:00
 date created: 2026-04-05 12:45:01 +09:00
 ---
 
@@ -61,7 +61,8 @@ date created: 2026-04-05 12:45:01 +09:00
 ---
 
 #### 📚 연관 분석 가이드
+
 - [[android-apple-2026-comparison]] - 2026 년 차세대 플랫폼 통합 비교
 - [[mobile-advanced-security-tips]] - 전문가를 위한 보안 심화 구현 팁
-- [[cross-platform-mobile-vulnerability-check]] - 플랫폼 공통 취약점 점검 리스트
+- [[mobile-vulnerability-check]] - 플랫폼 공통 취약점 점검 리스트
 - [[mobile-security]] - 통합 모바일 보안 가이드

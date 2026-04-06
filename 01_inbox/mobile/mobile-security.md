@@ -2,7 +2,7 @@
 title: mobile-security
 tags: [hub, mobile, moc, security]
 aliases: []
-date modified: 2026-04-06 17:47:59 +09:00
+date modified: 2026-04-06 18:22:49 +09:00
 date created: 2026-04-05 14:48:40 +09:00
 ---
 
@@ -63,7 +63,7 @@ date created: 2026-04-05 14:48:40 +09:00
 
 - [[android-security-play-integrity]] - **Play Integrity API** 실무 구현
 - [[android-security-practices]] - **Frida/Drozer** 진단 대응 및 국내외 컴플라이언스
-- [[cross-platform-mobile-vulnerability-check]] - OWASP Mobile Top 10 (2024 반영) 및 점검 가이드
+- [[mobile-vulnerability-check]] - OWASP Mobile Top 10 (2024 반영) 및 점검 가이드
 - [[mobile-advanced-security-tips]] - RASP, Anti-RE, 메모리 보안 및 Zero Trust
 
 ---
@@ -78,6 +78,7 @@ date created: 2026-04-05 14:48:40 +09:00
 - [[mobile-incident-response-2025]] - **최신 침해 사고 대응 가이드** (Zero-Click, AI-Phishing)
 
 #### See Also
+
 - [[mobile-security]] (This Hub)
 - [[android-foundations]]
 - [[apple-foundations]]

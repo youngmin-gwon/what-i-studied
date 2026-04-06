@@ -144,5 +144,5 @@ class Task {
 
 ### 더 보기
 
-- [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱 종료 시 저장(`saveContext`) 시점
-- [apple-combine-framework](apple-combine-framework.md) - Core Data 변경 사항을 Combine 으로 구독하기
+- [[apple-app-lifecycle-and-ui]] - 앱 종료 시 저장(`saveContext`) 시점
+- [[apple-combine-framework]] - Core Data 변경 사항을 Combine 으로 구독하기

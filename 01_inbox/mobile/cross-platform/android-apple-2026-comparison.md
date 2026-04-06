@@ -2,7 +2,7 @@
 title: android-apple-2026-comparison
 tags: []
 aliases: []
-date modified: 2026-04-05 17:46:31 +09:00
+date modified: 2026-04-06 18:21:31 +09:00
 date created: 2026-04-04 00:42:26 +09:00
 ---
 
@@ -55,11 +55,12 @@ date created: 2026-04-04 00:42:26 +09:00
 
 1. **Functionality-as-Tool**: 앱의 핵심 기능을 AI 에이전트가 호출할 수 있는 '도구' 형태로 설계하십시오. ([[android-appfunctions-and-ai-agents]], [[apple-intelligence-and-agentic-intents]])
 2. **Adaptive Interaction**: 고정된 화면이 아닌 창 모드(Windowing)와 공간(XR) 환경에 최적화된 레이아웃을 구축하십시오. ([[android-xr-and-spatial-computing]], [[apple-spatial-computing-visionos]])
-3. **Security Literacy**: NFC SE 개방이나 PCC 같은 보안 기술을 이해하여 사용자 데이터 주권을 보호하십시오. ([[cross-platform-mobile-vulnerability-check]])
+3. **Security Literacy**: NFC SE 개방이나 PCC 같은 보안 기술을 이해하여 사용자 데이터 주권을 보호하십시오. ([mobile-vulnerability-check]])
 
 ---
 
 #### 📚 연관 비교 분석
+
 - [[cross-platform-ai-privacy-comparison]] - 플랫폼별 AI 프라이버시 기술 비교
 - [[android-nfc-and-contactless]] vs [[apple-nfc-and-contactless]]
 - [[mobile-advanced-security-tips]] - 시대를 앞서가는 보안 구현 팁
