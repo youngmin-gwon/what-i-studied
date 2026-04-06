@@ -44,4 +44,4 @@ Apple 보안의 근간을 이루는 4 대 핵심 계층입니다.
 #### See Also
 - [[mobile-security]] (Hub)
 - [[mobile-advanced-security-tips]] - 시니어용 RASP 및 안티 포렌식 팁
-- [[ai-privacy-comparison]] - AI 에이전트 프라이버시 모델 비교
+- [[cross-platform-ai-privacy-comparison]] - AI 에이전트 프라이버시 모델 비교

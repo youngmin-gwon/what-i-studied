@@ -38,4 +38,4 @@ date created: 2026-04-05 17:08:24 +09:00
 
 - [[cryptography-basics]] - 암호학 기초
 - [[mobile-security]] - 모바일 보안 허브
-- [[ai-privacy-comparison]] - Gemini Nano vs Apple PCC 프라이버시 모델 심층 분석
+- [[cross-platform-ai-privacy-comparison]] - Gemini Nano vs Apple PCC 프라이버시 모델 심층 분석
