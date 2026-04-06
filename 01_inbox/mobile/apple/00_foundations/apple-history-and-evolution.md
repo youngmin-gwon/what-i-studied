@@ -2,7 +2,7 @@
 title: apple-history-and-evolution
 tags: [apple, evolution, history, legacy]
 aliases: []
-date modified: 2026-04-05 12:19:11 +09:00
+date modified: 2026-04-06 17:51:16 +09:00
 date created: 2025-12-16 16:11:27 +09:00
 ---
 

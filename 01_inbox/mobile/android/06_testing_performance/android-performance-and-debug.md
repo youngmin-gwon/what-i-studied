@@ -2,7 +2,7 @@
 title: android-performance-and-debug
 tags: []
 aliases: []
-date modified: 2026-04-05 17:43:45 +09:00
+date modified: 2026-04-06 17:52:35 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 

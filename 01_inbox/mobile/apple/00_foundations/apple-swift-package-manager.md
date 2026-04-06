@@ -2,7 +2,7 @@
 title: apple-swift-package-manager
 tags: [apple, dependencies, modularization, spm, swift, xcode]
 aliases: []
-date modified: 2026-04-05 12:21:46 +09:00
+date modified: 2026-04-06 17:51:30 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 

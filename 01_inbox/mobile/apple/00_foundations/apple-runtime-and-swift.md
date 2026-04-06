@@ -2,7 +2,7 @@
 title: apple-runtime-and-swift
 tags: []
 aliases: []
-date modified: 2026-04-05 17:44:31 +09:00
+date modified: 2026-04-06 17:51:26 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 

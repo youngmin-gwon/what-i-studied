@@ -18,8 +18,9 @@ Apple 플랫폼 보안은 하드웨어와 소프트웨어의 긴밀한 결합을
 
 Apple 보안의 근간을 이루는 4 대 핵심 계층입니다.
 
-1. [[apple-security-sandbox]]: **App Sandbox & MAC** - 앱의 리소스 접근 격리 및 커널 수준의 강제 제어.
-2. [[apple-security-entitlements]]: **Code Signing & Entitlements** - 앱 무결성 및 시스템 기능 권한 증명.
+1. [[apple-sandbox-and-security]]: **Apple Sandbox & Security Diagnosis** - 샌드박스 메커니즘과 앱 무결성 진단.
+2. [[apple-security-sandbox]]: **App Sandbox & MAC Internals** - 리소스 접근 격리 및 커널 수준 제어의 상세 동작.
+3. [[apple-security-entitlements]]: **Code Signing & Entitlements** - 앱 무결성 및 시스템 기능 권한 증명.
 3. [[apple-security-app-attest]]: **App Attest & DeviceCheck** - 서버 측의 앱 무결성 및 기기 신뢰성 검증.
 4. [[apple-security-tcc-compliance]]: **TCC & Legal Compliance** - 프라이버시 승인 시스템과 법적 준수 사항.
 

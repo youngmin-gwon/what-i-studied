@@ -2,7 +2,7 @@
 title: apple-foundations
 tags: []
 aliases: []
-date modified: 2026-04-05 17:43:55 +09:00
+date modified: 2026-04-06 17:48:36 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 

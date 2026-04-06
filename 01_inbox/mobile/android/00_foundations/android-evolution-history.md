@@ -2,7 +2,7 @@
 title: android-evolution-history
 tags: [android, android/evolution, android/history]
 aliases: [Android History, 안드로이드 역사]
-date modified: 2026-04-05 17:42:14 +09:00
+date modified: 2026-04-06 17:53:40 +09:00
 date created: 2025-12-16 15:25:47 +09:00
 ---
 

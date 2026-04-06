@@ -2,7 +2,7 @@
 title: apple-platform-differences
 tags: [apple, cross-platform, ios, macos, platforms, visionos]
 aliases: []
-date modified: 2026-04-05 12:20:21 +09:00
+date modified: 2026-04-06 17:51:18 +09:00
 date created: 2025-12-16 16:11:10 +09:00
 ---
 

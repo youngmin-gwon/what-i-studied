@@ -2,7 +2,7 @@
 title: apple-architecture-stack
 tags: []
 aliases: []
-date modified: 2026-04-05 17:43:53 +09:00
+date modified: 2026-04-06 17:49:46 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -40,6 +40,7 @@ Apple 은 커널 레벨에서 다중 방어 체계를 구축하고 있습니다.
 - **AMFI (Apple Mobile File Integrity)**: 실행되는 모든 바이너리의 코드 서명과 **Entitlements**(권한 명세)를 강제로 검사합니다.
 - **Sandbox (Seatbelt)**: 앱이 접근할 수 있는 파일 시스템 경로와 네트워크 자원을 엄격히 격리합니다.
 - **TCC (Transparency, Consent, and Control)**: 카메라, 마이크 등 민감한 데이터 접근 시 사용자의 명시적 허가를 `tccd` 데몬이 관리합니다.
+- **Private Cloud Compute (PCC)**: 2024 년 이후 도입된 AI 프라이버시 계층으로, Apple Intelligence 의 원격 처리를 로컬 기기와 동일한 수준의 데이터 안전성을 보장하며 수행합니다.
 
 ---
 
