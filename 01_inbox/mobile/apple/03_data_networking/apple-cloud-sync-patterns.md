@@ -2,7 +2,7 @@
 title: apple-cloud-sync-patterns
 tags: [apple, architecture, cloud, cloudkit, icloud, offline-first, sync]
 aliases: []
-date modified: 2026-04-05 17:44:51 +09:00
+date modified: 2026-04-06 18:03:48 +09:00
 date created: 2025-12-16 16:09:23 +09:00
 ---
 
@@ -12,9 +12,10 @@ date created: 2025-12-16 16:09:23 +09:00
 
 동기화(Sync)는 주니어와 시니어를 가르는 가장 큰 장벽 중 하나입니다.
 
-단순히 API 를 호출하는 게 아니라, **"오프라인일 때 쌓인 데이터를 어떻게 할 것인가?"**를 설계해야 하기 때문입니다.
+단순히 API 를 호출하는 게 아니라, **"오프라인일 때 쌓인 데이터를 어떻게 할 것인가?"** 를 설계해야 하기 때문입니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **Offline First**: 사용자는 항상 온라인이 아닙니다. 엘리베이터에서 쓴 메모가 전송 실패했다고 사라지면 안 됩니다. 일단 로컬에 저장하고, 나중에 조용히 보내야 합니다(Outbox Pattern).
 - **Conflict Resolution**: 아이패드에서 "A"라고 수정하고, 동시에 아이폰에서 "B"라고 수정했다면? 서버는 누구 손을 들어줘야 할까요? 이 정책(Last Writer Wins 등)이 없으면 데이터가 날아갑니다.
 - **Battery**: 1 초마다 동기화하면 배터리가 녹습니다. 변경 사항을 모아서(Batch) 보내거나, 푸시가 올 때만 당겨오는 전략이 필요합니다.
@@ -73,5 +74,6 @@ REST API 를 직접 쓴다면 아래 패턴을 구현해야 합니다.
 2. **Resumable**: 업로드가 99% 에서 끊기면, 처음부터가 아니라 99% 부터 다시 보내야 합니다(`Content-Range` 헤더 활용).
 
 ### 더 보기
+
 - [apple-offline-and-resilience](apple-offline-and-resilience.md) - 오프라인 큐와 회복 탄력성 상세
 - [apple-coredata-deep-dive](apple-coredata-deep-dive.md) - 로컬 데이터베이스 설계

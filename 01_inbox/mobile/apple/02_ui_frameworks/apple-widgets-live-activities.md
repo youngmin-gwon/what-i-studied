@@ -2,7 +2,7 @@
 title: apple-widgets-live-activities
 tags: [apple, dynamic-island, live-activities, widgetkit, widgets]
 aliases: []
-date modified: 2026-04-05 12:27:56 +09:00
+date modified: 2026-04-06 18:03:31 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -162,6 +162,7 @@ Apple 의 WidgetKit 과 유사한 기능을 Android 에서는 **Jetpack Glance**
 >상세 비교는 [android-widgets-glance](../../android/02_app_framework/android-widgets-glance.md) 를 참고하세요.
 
 ### 📚 더 보기
+
 - [apple-app-lifecycle-and-ui](apple-app-lifecycle-and-ui.md) - Extension 의 생명주기
 - [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 위젯 UI 는 100% SwiftUI
 - [apple-app-intents](../04_system_services/apple-app-intents.md) - App Intents 프레임워크 상세

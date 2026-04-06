@@ -2,7 +2,7 @@
 title: apple-uikit-lifecycle
 tags: [apple, internals, ios, lifecycle, optimization, uikit]
 aliases: []
-date modified: 2026-04-05 12:27:08 +09:00
+date modified: 2026-04-06 18:03:16 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 

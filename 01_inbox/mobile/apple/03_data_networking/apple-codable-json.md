@@ -2,7 +2,7 @@
 title: apple-codable-json
 tags: [apple, codable, json, performance, serialization, swift]
 aliases: []
-date modified: 2026-04-05 17:44:22 +09:00
+date modified: 2026-04-06 18:03:34 +09:00
 date created: 2025-12-16 16:09:23 +09:00
 ---
 
@@ -10,9 +10,10 @@ date created: 2025-12-16 16:09:23 +09:00
 
 Swift 4 의 기적, `Codable` 은 보일러플레이트 없는 JSON 파싱을 가능하게 했습니다.
 
-하지만 컴파일러가 대신 해주는 이 마법에도 **비용(Cost)**이 따릅니다.
+하지만 컴파일러가 대신 해주는 이 마법에도 **비용(Cost)** 이 따릅니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **성능 이슈**: 수만 개의 JSON 객체를 리스트로 렌더링할 때 버벅거린다면, `JSONDecoder` 가 범인일 확률이 높습니다. 자동 합성은 런타임에 **Reflection**과 유사한 메타데이터 검색 비용이 듭니다.
 - **Any 타입 처리**: "서버에서 Int 로 올 때도 있고 String 으로 올 때도 있어요" -> `Codable` 의 지옥이 시작되는 지점입니다. `KeyedDecodingContainer` 를 열어서 직접 처리하는 법을 알아야 합니다.
 - **날짜 포맷**: ISO8601 이 아닌 괴상한 날짜 포맷이 오면 `DateFormatter` 비용 때문에 파싱 속도가 10 배 느려질 수 있습니다.
@@ -93,5 +94,6 @@ init(from decoder: Decoder) throws {
 ```
 
 ### 📚 더 보기
+
 - [apple-networking-and-cloud](apple-networking-and-cloud.md) - URLSession 과 Codable 연동
 - [apple-coredata-deep-dive](apple-coredata-deep-dive.md) - `NSManagedObject` 를 Codable 로 만들기 (주의사항 많음)

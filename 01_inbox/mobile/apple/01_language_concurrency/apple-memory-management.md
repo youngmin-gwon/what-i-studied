@@ -2,7 +2,7 @@
 title: apple-memory-management
 tags: []
 aliases: []
-date modified: 2026-04-06 17:51:17 +09:00
+date modified: 2026-04-06 18:01:22 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -19,6 +19,7 @@ iOS 앱의 성능과 안정성을 결정짓는 핵심, **ARC(Automatic Reference
 단순히 `weak self` 를 쓰는 것을 넘어, **Side Table**이 어떻게 약한 참조를 관리하고 **Autoreleasepool**이 언제 필요한지 이해합니다.
 
 #### 💡 왜 이것을 알아야 하나요? (Why it matters)
+
 - **앱이 자꾸 죽나요? (OOM)**: 이미지가 많은 피드를 스크롤하다 앱이 튕긴다면, 순환 참조(Retain Cycle)나 메모리 피크(Peak) 관리 실패일 확률이 높습니다.
 - **성능 저하**: 불필요한 객체 복사나 해제 지연은 프레임 드랍의 원인이 됩니다.
 - **면접 단골 질문**: "ARC 와 가비지 컬렉션의 차이", "weak 와 unowned 의 내부 동작 차이"는 시니어 레벨로 가는 관문입니다.

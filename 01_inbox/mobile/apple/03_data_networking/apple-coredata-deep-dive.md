@@ -2,7 +2,7 @@
 title: apple-coredata-deep-dive
 tags: [apple, coredata, database, internals, performance, persistence]
 aliases: []
-date modified: 2026-04-05 17:44:55 +09:00
+date modified: 2026-04-06 18:05:05 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -18,6 +18,7 @@ date created: 2025-12-16 17:01:32 +09:00
 CRUD(Create, Read, Update, Delete)를 넘어, 객체 간의 **관계(Relationship)**와 **메모리 수명(Lifecycle)**을 관리하는 것이 핵심입니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **DB 가 아닌 이유**: SQL 을 날리는 것이 아니라, `department.employees.count` 처럼 점(dot)으로 객체에 접근하면 Core Data 가 알아서 "필요할 때" DB 를 다녀옵니다. 이 마법(Faulting)을 이해해야 성능을 잡을 수 있습니다.
 - **메모리 관리**: 수만 개의 데이터를 다 로드하면 앱이 죽습니다. Core Data 는 어떻게 수천만 건의 데이터를 다루면서도 메모리를 10MB 만 쓸 수 있는지 알아야 합니다.
 - **경쟁자**: Realm 이나 GRDB 보다 설정은 어렵지만, iCloud 동기화(`CloudKit`)와의 무료 연동은 강력한 무기입니다.
@@ -27,10 +28,12 @@ CRUD(Create, Read, Update, Delete)를 넘어, 객체 간의 **관계(Relationshi
 ### 📚 외부 리소스 및 참고 자료
 
 #### 공식 문서 (Official Docs)
+
 - [Core Data Documentation](../../../../https:/developer.apple.com/documentation/coredata.md)
 - [Core Data Programming Guide](../../../../https:/developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/index.html.md) (아카이브되었지만 개념 설명은 최고입니다)
 
 #### 🎥 WWDC 세션
+
 - [WWDC 2019: Making Apps with Core Data](../../../../https:/developer.apple.com/videos/play/wwdc2019/230/.md)
 - [WWDC 2020: Optimize Core Data Performance](../../../../https:/developer.apple.com/videos/play/wwdc2020/10017/.md) (Batch Insert)
 

@@ -2,7 +2,7 @@
 title: apple-swift-concurrency
 tags: []
 aliases: []
-date modified: 2026-04-05 17:44:38 +09:00
+date modified: 2026-04-06 18:01:42 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -230,6 +230,7 @@ class ViewController {
 >상세 비교는 [android-coroutines-flow](../../android/02_app_framework/android-coroutines-flow.md) 를 참고하세요.
 
 #### 🔗 연관 문서 및 심화 학습
+
 - [[apple-gcd-deep-dive]] - 기존 GCD 와의 차이점 및 고해상도 타이머
 - [[apple-observation-framework]] - Actor 와 @Observable 의 결합 및 성능 최적화
 - [[apple-combine-framework]] - 비동기 스트림 처리를 위한 Combine 활용

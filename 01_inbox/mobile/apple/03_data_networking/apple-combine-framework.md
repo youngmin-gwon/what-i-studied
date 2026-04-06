@@ -2,7 +2,7 @@
 title: apple-combine-framework
 tags: [apple, backpressure, combine, frp, internals, reactive]
 aliases: []
-date modified: 2026-04-05 17:44:53 +09:00
+date modified: 2026-04-06 18:04:54 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -17,6 +17,7 @@ date created: 2025-12-16 17:01:32 +09:00
 "시간에 따라 발생하는 값(Stream of Values)"을 처리하는 Apple 의 선언형 프레임워크입니다. 과거 **SwiftUI 의 데이터 흐름을 지탱하는 핵심 엔진**이었습니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **Async/Await 가 있는데 왜?**: (과거의 관점) `async/await` 는 단발성 데이터, Combine 은 "파이프라인" 데이터입니다. 하지만 현재는 `Apple Swift Async Algorithms` 라이브러리가 등장하면서 `debounce`, `combineLatest` 조차 `AsyncSequence` 체이닝으로 처리가 가능해졌습니다.
 - **SwiftUI 필수**: 과거엔 `@Published` 가 Combine 기술이었습니다. iOS 17 이상에서는 `@Observable` 매크로를 통해 Combine 의존 없이 SwiftUI 뷰 바인딩이 가능합니다.
 
@@ -25,14 +26,17 @@ date created: 2025-12-16 17:01:32 +09:00
 ### 📚 외부 리소스 및 참고 자료
 
 #### 공식 문서 (Official Docs)
+
 - [Combine Documentation](../../../../https:/developer.apple.com/documentation/combine.md)
 - [Using Combine for Your App](../../../../https:/developer.apple.com/documentation/combine/using-combine-for-your-app.md)
 
 #### 🎥 WWDC 세션
+
 - [WWDC 2019: Introducing Combine](../../../../https:/developer.apple.com/videos/play/wwdc2019/722/.md)
 - [WWDC 2019: Combine in Practice](../../../../https:/developer.apple.com/videos/play/wwdc2019/721/.md)
 
 #### 💻 심화 학습
+
 - [Using Combine (Book)](../../../../https:/heckj.github.io/swiftui-notes/.md) - 무료이자 최고의 가이드북
 - [OpenCombine](../../../../https:/github.com/OpenCombine/OpenCombine.md) - Combine 의 오픈소스 구현 (리눅스 호환용이지만 내부 이해에 도움됨)
 
@@ -40,7 +44,7 @@ date created: 2025-12-16 17:01:32 +09:00
 
 ### 🔍 내부 동작 원리 (Deep Dive)
 
-Combine 은 **Publisher(생산자)**, **Subscriber(소비자)**, 그리고 **Subscription(구독 티켓)**의 삼각관계로 돌아갑니다.
+Combine 은 **Publisher(생산자)**, **Subscriber(소비자)**, 그리고 **Subscription(구독 티켓)** 의 삼각관계로 돌아갑니다.
 
 #### 1. Backpressure (배압 조절)
 
@@ -83,6 +87,7 @@ $query
 ```
 
 #### 2. Merge vs Zip vs CombineLatest
+
 - **Merge**: A 나 B 중 **아무거나** 오면 방출. (타입이 같아야 함)
 - **Zip**: A 와 B 가 **둘 다 짝이 맞게** 도착해야 방출. (튜플로 묶임)
 - **CombineLatest**: A 나 B 중 하나라도 오면, **가장 최근 값끼리** 묶어서 방출. (UI 갱신에 가장 많이 쓰임 - "아이디나 비번이 바뀔 때마다 버튼 활성 상태 체크")
@@ -187,6 +192,7 @@ for await location in stream {
 > 3. **iOS 14 이하 지원**: AsyncSequence 는 iOS 15+ 입니다.
 
 ### 더 보기
+
 - [apple-swift-concurrency](../01_language_concurrency/apple-swift-concurrency.md) - 비동기 작업의 또 다른 축 (단발성 작업)
 - [apple-observation-framework](../01_language_concurrency/apple-observation-framework.md) - Combine 의 ViewModel 역할을 대체하는 @Observable
 - [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - MVVM 패턴과 Combine 의 결합

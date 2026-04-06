@@ -2,7 +2,7 @@
 title: android-process-and-memory
 tags: []
 aliases: []
-date modified: 2026-04-05 17:42:46 +09:00
+date modified: 2026-04-06 18:00:34 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 
@@ -58,3 +58,4 @@ Zygote 는 안드로이드 모든 앱 프로세스의 시조입니다.
 - [[android-binder-and-ipc]] - 멀티 프로세스 앱 간의 통신 기술
 - [[android-performance-and-debug]] - 메모리 누수 진단 및 프로파일링 실전
 - [[mobile-android-foundation-security]] - 샌드박싱과 유저 ID 기반 보안 아키텍처
+- [[android-process-and-memory-check]] - 핵심 개념 자가 진단 및 면접 대비 질문

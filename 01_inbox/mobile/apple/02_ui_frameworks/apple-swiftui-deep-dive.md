@@ -2,7 +2,7 @@
 title: apple-swiftui-deep-dive
 tags: [apple, attributegraph, declarative, internals, swiftui, ui]
 aliases: []
-date modified: 2026-04-05 17:44:45 +09:00
+date modified: 2026-04-06 18:02:59 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -15,6 +15,7 @@ SwiftUI 는 단순히 새로운 UI 프레임워크가 아니라, **생각하는 
 화면을 "어떻게(How) 그릴지"가 아니라 "무엇(What)을 보여줄지" 정의하면, 나머지는 프레임워크가 알아서 합니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **Mindset Shift**: `view.backgroundColor = .red` 라고 쓰는 습관을 버려야 합니다. "State 가 Error 일 때 배경은 레드다"라고 선언해야 합니다.
 - **성능 이슈 해결**: SwiftUI 뷰가 왜 자꾸 다시 그려지는지 모르겠다면, **Identity(정체성)**와 **Dependency(의존성)** 개념을 모르는 것입니다.
 - **UIKit 통합**: iOS 17/18 시대에는 100% SwiftUI 앱이 충분히 가능해졌지만, 기존 UIKit 기반 라이브러리나 고도로 커스텀된 컨트롤(예: 카메라 프리뷰, 복잡한 텍스트 에디터)이 필요한 경우 `UIViewRepresentable` 을 통한 통합 능력은 여전히 중요합니다.
@@ -134,6 +135,7 @@ var body: some View {
 ```
 
 #### Hang / Hitches 원인
+
 - `body` 내부에서 무거운 계산 수행 (AG 업데이트 지연).
 - `AnyView` 과다 사용으로 인한 Diffing 실패 및 전체 리드로우.
 - 메인 스레드에서 무거운 데이터 로딩 (Swift Concurrency 로 해결).

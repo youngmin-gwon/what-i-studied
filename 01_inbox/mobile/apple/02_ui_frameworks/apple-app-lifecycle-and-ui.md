@@ -2,7 +2,7 @@
 title: apple-app-lifecycle-and-ui
 tags: [appdelegate, apple, lifecycle, scenedelegate, swiftui, uikit]
 aliases: []
-date modified: 2026-04-05 12:24:02 +09:00
+date modified: 2026-04-06 18:02:27 +09:00
 date created: 2025-12-16 16:08:54 +09:00
 ---
 
@@ -13,6 +13,7 @@ date created: 2025-12-16 16:08:54 +09:00
 OS 는 앱을 죽일지 살릴지 끊임없이 고민하며, iOS 13 부터는 "앱 하나에 창 여러 개(Multi-window)"라는 복잡한 개념이 도입되었습니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **앱이 자꾸 죽어요**: 백그라운드로 갔을 때 자원을 해제하지 않거나, 잘못된 타이밍에 네트워크 요청을 하면 OS 가 앱을 강제 종료(Jetsam)합니다.
 - **AppDelegate 가 왜 텅 비었죠?**: 예전엔 `APP` = `UI` 였지만, 지금은 `APP` = `n개의 Scene` 입니다. 이 변화를 모르면 새 프로젝트의 `SceneDelegate` 를 보고 당황하게 됩니다.
 - **iPad 멀티태스킹**: 사용자가 앱을 두 개 띄워놓고 서로 데이터를 옮기는 경험을 제공하려면 `Scene` 개념이 필수입니다.
@@ -33,6 +34,7 @@ iOS 13 부터는 이 둘이 분리되었습니다.
 | **Connection** | X | 화면(Scene) 생성 및 설정 |
 
 #### 1. 시작 (Launch)
+
 - `@main` 어트리뷰트가 붙은 구조체(SwiftUI `App` 또는 `AppDelegate`)가 엔트리포인트입니다.
 - **SwiftUI (현대 기본값, iOS 14+)**: `App` 프로토콜의 `body` 에서 최상위 `Scene` 을 선언합니다. `AppDelegate` 나 `SceneDelegate` 가 필요 없으며, 필요한 경우 `@UIApplicationDelegateAdaptor` 로 브릿지합니다.
 - **UIKit**: `application(_:didFinishLaunching…)` 이후 `SceneDelegate` 가 연결됩니다.
@@ -77,11 +79,13 @@ func sceneDidEnterBackground(_ scene: UIScene) {
 ### 📱 UI 프레임워크 생태계
 
 #### SwiftUI (The Future)
+
 - **특징**: 선언형(Declarative). 상태(State)가 바뀌면 뷰가 다시 만들어집니다.
 - **장점**: 코드량이 적고, iPad/Mac/Watch 등 멀티플랫폼 대응이 쉽습니다.
 - **단점**: OS 버전에 따라 동작이 다르고, 디테일한 제어가 어렵습니다.
 
 #### UIKit / AppKit (The Legacy & Power)
+
 - **특징**: 명령형(Imperative). 뷰 컨트롤러가 뷰를 소유하고 직접 고칩니다.
 - **장점**: 15 년간 쌓인 라이브러리, 완벽한 제어권.
 - **공존**: `UIHostingController`(UIKit 안에 SwiftUI), `UIViewRepresentable`(SwiftUI 안에 UIKit) 통해 점진적 도입이 가능합니다.
@@ -168,6 +172,7 @@ struct MyApp: App {
 >Android 딥링크 상세는 [android-deep-links](../../android/02_app_framework/android-deep-links.md) 참고.
 
 ### 📚 더 보기
+
 - [apple-uikit-lifecycle](apple-uikit-lifecycle.md) - UIViewController 의 상세 생명주기
 - [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - SwiftUI 렌더링 원리
 - [apple-background-tasks](../04_system_services/apple-background-tasks.md) - 백그라운드에서 오래 살아남는 법

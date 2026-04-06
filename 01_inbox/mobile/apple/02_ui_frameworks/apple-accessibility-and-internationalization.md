@@ -2,7 +2,7 @@
 title: apple-accessibility-and-internationalization
 tags: [a11y, apple, color, i18n, localization, quality, sf-symbols]
 aliases: []
-date modified: 2026-04-05 12:25:11 +09:00
+date modified: 2026-04-06 18:02:20 +09:00
 date created: 2025-12-16 16:11:46 +09:00
 ---
 
@@ -120,5 +120,6 @@ Apple 의 접근성 구조와 유사한 기능을 Android Compose 에서는 **Se
 >상세 비교는 [android-accessibility-compose](../../android/02_app_framework/android-accessibility-compose.md) 를 참고하세요.
 
 ### 📚 더 보기
+
 - [apple-platform-differences](../00_foundations/apple-platform-differences.md) - 플랫폼별 접근성 특징 (watchOS 탭틱 등)
 - [apple-testing-and-quality](../06_testing_performance/apple-testing-and-quality.md) - UI 테스트 자동화
