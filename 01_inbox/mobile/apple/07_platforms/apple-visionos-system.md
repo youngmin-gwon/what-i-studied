@@ -2,7 +2,7 @@
 title: apple-visionos-system
 tags: [apple, immersive, mrr, privacy, spatial, visionos]
 aliases: []
-date modified: 2026-04-05 17:46:29 +09:00
+date modified: 2026-04-03 18:56:26 +09:00
 date created: 2025-12-18 00:00:00 +09:00
 ---
 

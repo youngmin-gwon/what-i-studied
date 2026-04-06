@@ -2,7 +2,7 @@
 title: apple-ios-system
 tags: [apple, ios, jetsam, memory, springboard, system]
 aliases: []
-date modified: 2026-04-05 17:46:25 +09:00
+date modified: 2026-04-03 18:56:25 +09:00
 date created: 2025-12-17 23:30:00 +09:00
 ---
 

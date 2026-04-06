@@ -2,7 +2,7 @@
 title: apple-cross-platform-architecture
 tags: [appkit, apple, architecture, cross-platform, spm, uikit]
 aliases: []
-date modified: 2026-04-05 17:46:25 +09:00
+date modified: 2026-04-03 18:56:24 +09:00
 date created: 2025-12-18 00:10:00 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: apple-macos-advanced
 tags: [apple, desktop, macos]
 aliases: []
-date modified: 2026-04-05 17:45:57 +09:00
+date modified: 2026-04-03 18:56:13 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
 
