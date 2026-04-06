@@ -11,9 +11,9 @@ date created: 2025-12-16 15:24:47 +09:00
 이 문서는 안드로이드 부팅 과정의 **전체 흐름**을 개괄적으로 설명한다. 각 단계의 상세 내용은 해당 문서 참고.
 
 >[!NOTE]
->Init 프로세스 상세: [android-init-and-services](android-init-and-services.md)
->Zygote 상세: [android-zygote-and-runtime](android-zygote-and-runtime.md)
->HAL 초기화: [android-hal-and-kernel](android-hal-and-kernel.md)
+>Init 프로세스 상세: [[android-init-and-services]]
+>Zygote 상세: [[android-zygote-and-runtime]]
+>HAL 초기화: [[android-hal-and-kernel]]
 
 ### 부팅 순서 (한눈에)
 
@@ -72,7 +72,7 @@ Android Bootloader (ABL, 대부분 Qualcomm LK 기반):
 - 트리거 실행 (`on early-init`, `on init`, `on boot`)
 - 서비스 시작
 
-**상세**: [android-init-and-services](android-init-and-services.md)
+**상세**: [[android-init-and-services]]
 
 ### 5. Zygote
 
@@ -82,7 +82,7 @@ Android Bootloader (ABL, 대부분 Qualcomm LK 기반):
 - 소켓 대기 (`/dev/socket/zygote`)
 - System Server fork
 
-**상세**: [android-zygote-and-runtime](android-zygote-and-runtime.md)
+**상세**: [[android-zygote-and-runtime]]
 
 ### 6. System Server
 
@@ -259,22 +259,22 @@ fastboot oem get-log
 
 **공식 문서**:
 
-- [Boot Sequence](../../../../https:/source.android.com/docs/core/architecture/bootloader.md)
-- [Verified Boot](../../../../https:/source.android.com/docs/security/features/verifiedboot.md)
-- [A/B Updates](../../../../https:/source.android.com/docs/core/ota/ab.md)
+- [Boot Sequence](https://source.android.com/docs/core/architecture/bootloader)
+- [Verified Boot](https://source.android.com/docs/security/features/verifiedboot)
+- [A/B Updates](https://source.android.com/docs/core/ota/ab)
 
 ---
 
 ## 연결 문서 (상세)
 
-[android-init-and-services](android-init-and-services.md) - Init 프로세스 상세, RC 문법, Property 시스템
+[[android-init-and-services]] - Init 프로세스 상세, RC 문법, Property 시스템
 
-[android-zygote-and-runtime](android-zygote-and-runtime.md) - Zygote fork, Preloading, ART
+[[android-zygote-and-runtime]] - Zygote fork, Preloading, ART
 
-[android-hal-and-kernel](android-hal-and-kernel.md) - HAL 초기화, 드라이버 로드
+[[android-hal-and-kernel]] - HAL 초기화, 드라이버 로드
 
-[android-kernel](android-kernel.md) - 커널 수정 사항
+[[android-kernel]] - 커널 수정 사항
 
-[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - Verified Boot, dm-verity
+[[android-security-and-sandboxing]] - 부팅 보안 (Verified Boot)
 
-[android-customization-and-oem](android-customization-and-oem.md) - OEM bootloader 커스터마이징
+[[android-customization-and-oem]] - OEM bootloader 커스터마이징

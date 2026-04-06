@@ -2,7 +2,7 @@
 title: apple-build-and-distribution
 tags: [apple, build, ci-cd, codesign, distribution, xcode]
 aliases: []
-date modified: 2026-04-05 17:45:23 +09:00
+date modified: 2026-04-06 18:12:34 +09:00
 date created: 2025-12-16 16:10:06 +09:00
 ---
 
@@ -15,6 +15,7 @@ iOS 개발자를 가장 괴롭히는 에러들입니다.
 하지만 이 복잡한 서명(Code Signing) 과정이야말로 Apple 생태계의 **신뢰(Trust)**를 지탱하는 기둥입니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **배포 사고 예방**: 출시 당일에 인증서가 만료되거나, 개발용(Development) 인증서로 빌드해서 스토어 업로드가 막히는 일을 막아야 합니다.
 - **CI/CD 구축**: Jenkins 나 GitHub Actions 에서 빌드를 돌리려면, Xcode 가 자동으로 해주던 서명 과정을 수동으로 설정(`fastlane match` 등)해야 합니다.
 - **해킹 방지**: 내 앱을 누군가 풀어서 악성코드를 심고 재배포하는 것(Repackaging)을 막는 유일한 장치입니다.
@@ -79,5 +80,6 @@ macOS 앱을 웹에서 배포하려면 **공증(Notarization)**을 받아야 합
 - App Store Connect 에 업로드할 때 체크하거나, Firebase Crashlytics 에 별도로 올려야 합니다.
 
 ### 더 보기
+
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 서명이 완료된 앱이 실행될 때 일어나는 일
 - [apple-history-and-evolution](../00_foundations/apple-history-and-evolution.md) - PowerPC 에서 Apple Silicon 까지의 아키텍처 변화

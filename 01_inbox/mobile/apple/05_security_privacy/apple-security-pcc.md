@@ -2,7 +2,7 @@
 title: apple-security-pcc
 tags: [ai, apple, apple/security, cloud, pcc]
 aliases: []
-date modified: 2026-04-05 17:45:30 +09:00
+date modified: 2026-04-06 18:14:08 +09:00
 date created: 2026-04-05 17:08:24 +09:00
 ---
 
@@ -35,6 +35,7 @@ date created: 2026-04-05 17:08:24 +09:00
 - **AI 와 프라이버시의 결합**: 클라우드 AI 의 강력한 성능과 기기 내 AI 의 강력한 프라이버시를 동시에 누릴 수 있는 유일한 모델입니다.
 
 #### 연관 문서
+
 - [[cryptography-basics]] - 암호학 기초
 - [[mobile-security]] - 모바일 보안 허브
 - [[ai-privacy-comparison]] - Gemini Nano vs Apple PCC 프라이버시 모델 심층 분석

@@ -2,7 +2,7 @@
 title: apple-app-tracking-privacy
 tags: [ad-tech, apple, att, permissions, privacy, tracking]
 aliases: []
-date modified: 2026-04-05 17:45:22 +09:00
+date modified: 2026-04-06 18:12:25 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -15,6 +15,7 @@ iOS 14.5 가 모바일 광고 시장을 뒤흔들었죠.
 "추적 금지"가 기본값이 된 세상에서 개발자가 알아야 할 생존 전략입니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **수익 악화**: ATT 동의율이 낮으면 광고 단가(eCPM)가 폭락합니다. 사용자를 설득하지 않고 무작정 팝업을 띄우면 100% 거절당합니다.
 - **IDFA vs IDFV**: IDFA(광고용)를 못 쓴다면 대안은? IDFV(벤더용)는 같은 개발자 계정 내 앱끼리는 공유됩니다. 이를 활용해야 합니다.
 - **Privacy Labels**: 앱스토어에 제출할 때 "이 앱이 수집하는 데이터"를 솔직하게 적어내야 합니다. 거짓말하면 앱이 삭제될 수 있습니다.
@@ -82,5 +83,6 @@ func requestPermission() {
 - **문제**: 나중에 사용자가 사진을 더 추가하려 할 때, 시스템 팝업(`PHPhotoLibrary.shared().presentLimitedLibraryPicker(…)`)을 띄워줘야 합니다. 아니면 3 장만 계속 보입니다.
 
 ### 더 보기
+
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 권한을 관리하는 TCC 데몬의 원리
 - [apple-distribution-and-policies](apple-distribution-and-policies.md) - 앱스토어 심사 가이드라인 (Privacy 관련)

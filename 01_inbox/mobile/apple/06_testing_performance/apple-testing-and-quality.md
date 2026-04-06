@@ -2,7 +2,7 @@
 title: apple-testing-and-quality
 tags: [apple, ci, quality, tdd, testing]
 aliases: []
-date modified: 2026-04-05 17:45:45 +09:00
+date modified: 2026-04-06 18:15:07 +09:00
 date created: 2025-12-16 16:10:59 +09:00
 ---
 
@@ -83,6 +83,7 @@ func testLoginSuccess() {
 - **GitHub Actions**: 가장 대중적입니다. PR 이 올라올 때마다 `xcodebuild test` 를 돌려서 빨간 줄(실패)이 뜨면 머지를 막으세요.
 
 ### 더 보기
+
 - [apple-performance-monitoring](apple-performance-monitoring.md) - 성능 테스트(XCTMetric) 방법
 - [apple-xctest-deep-dive](apple-xctest-deep-dive.md) - XCTest 프레임워크 상세 사용법
 - [Swift Testing Documentation](https://developer.apple.com/documentation/testing) - 차세대 테스트 프레임워크 (WWDC 2024)

@@ -693,12 +693,12 @@ service charger /system/bin/charger
 **공식 문서**:
 
 - [Init Language](../../bash-scripting-summary/README.md)
-- [Property System](../../../../https:/source.android.com/docs/core/architecture/configuration/add-system-properties.md)
+- [Property System](https://source.android.com/docs/core/architecture/configuration/add-system-properties)
 
 **소스 코드**:
 
-- [Init](../../../../https:/android.googlesource.com/platform/system/core/+/refs/heads/main/init/.md)
-- [RC Files](../../../../https:/android.googlesource.com/platform/system/core/+/refs/heads/main/rootdir/.md)
+- [Init](https://android.googlesource.com/platform/system/core/+/refs/heads/main/init/)
+- [RC Files](https://android.googlesource.com/platform/system/core/+/refs/heads/main/rootdir/)
 
 **도구**:
 
@@ -710,12 +710,12 @@ service charger /system/bin/charger
 
 ## 연결 문서
 
-[android-boot-flow](android-boot-flow.md) - 전체 부팅 과정
+[[android-boot-flow]] - 전체 부팅 과정
 
-[android-zygote-and-runtime](android-zygote-and-runtime.md) - Zygote 시작
+[[android-zygote-and-runtime]] - Zygote 시작
 
-[android-hal-and-kernel](android-hal-and-kernel.md) - HAL 서비스 시작
+[[android-hal-and-kernel]] - HAL 서비스 시작
 
-[selinux](../../../../selinux.md) - Init 의 SELinux 정책
+[[selinux]] - Init 의 SELinux 정책
 
-[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 부팅 보안 (Verified Boot)
+[[android-security-and-sandboxing]] - 부팅 보안 (Verified Boot)

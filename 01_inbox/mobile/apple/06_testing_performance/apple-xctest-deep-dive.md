@@ -2,7 +2,7 @@
 title: apple-xctest-deep-dive
 tags: [apple, async, testing, ui-testing, xctest]
 aliases: []
-date modified: 2026-04-05 17:45:20 +09:00
+date modified: 2026-04-06 18:15:16 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -16,6 +16,7 @@ date created: 2025-12-16 17:01:32 +09:00
 특히 Swift Concurrency 가 도입되면서 비동기 테스트가 훨씬 쉬워졌습니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **Async Testing**: 예전에는 `Expectation` 만들고 `wait` 하고 코드가 너저분했습니다. 이제는 테스트 함수에 `async throws` 만 붙이면 됩니다.
 - **UI Testing 의 함정**: UI 테스트는 강력하지만 "깨지기 쉽습니다(Flaky)". 네트워크가 조금만 느려도 실패합니다. UI 테스트를 100% 신뢰하지 말고, 중요한 흐름(Happy Path) 검증용으로만 쓰세요.
 - **Teardown**: 테스트가 끝나면 데이터를 꼭 지워야 합니다. 안 그러면 다음 테스트가 "이미 존재하는 아이디입니다" 에러로 실패합니다. `addTeardownBlock` 을 쓰세요.
@@ -95,5 +96,6 @@ XCTAssertTrue(welcomeLabel.waitForExistence(timeout: 5.0))
 ```
 
 ### 더 보기
+
 - [apple-testing-and-quality](apple-testing-and-quality.md) - 테스트 전략 (Pyramid)
 - [apple-instruments-profiling](apple-instruments-profiling.md) - 테스트 통과 후 성능 최적화

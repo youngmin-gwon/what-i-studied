@@ -2,7 +2,7 @@
 title: apple-sandbox-and-security
 tags: [apple, apple/security, mobile-security, sandbox]
 aliases: []
-date modified: 2026-04-06 17:50:17 +09:00
+date modified: 2026-04-06 18:13:28 +09:00
 date created: 2026-04-06 17:50:00 +09:00
 ---
 
@@ -60,6 +60,7 @@ Apple 은 샌드박스 외에도 여러 계층에서 보안을 강화합니다.
 ---
 
 #### 📚 연관 문서
+
 - [[apple-security-sandbox]] - 샌드박스 기본 개념 및 MAC 프레임워크
 - [[apple-security-entitlements]] - 권한 증명 및 프로비저닝 프로파일
 - [[apple-security-tcc-compliance]] - 프라이버시 승인 및 TCC 데몬 관리

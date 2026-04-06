@@ -2,7 +2,7 @@
 title: apple-push-notifications-apns
 tags: [apns, apple, ios, notifications, push]
 aliases: [APNs, Push Notifications, Remote Notifications]
-date modified: 2026-04-05 17:45:15 +09:00
+date modified: 2026-04-06 18:11:10 +09:00
 date created: 2026-04-04 00:33:00 +09:00
 ---
 
@@ -55,6 +55,7 @@ date created: 2026-04-04 00:33:00 +09:00
 >Silent Push 는 사용자의 배터리와 데이터 보호를 위해 시스템이 언제든지 지연시키거나 버릴 수 있다. 중요한 데이터 동기화는 앱이 켜질 때 직접 요청하는 방식을 병행하라.
 
 ### 더 보기
+
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱의 상태와 알림 처리
 - [apple-background-tasks](apple-background-tasks.md) - 백그라운드 작업과 푸시의 결합
 - [apple-widgets-live-activities](../02_ui_frameworks/apple-widgets-live-activities.md) - 위젯/실시간 현황 푸시 전략

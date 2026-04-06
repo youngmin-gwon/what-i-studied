@@ -2,7 +2,7 @@
 title: apple-nfc-and-contactless
 tags: [apple, contactless, corenfc, ios/26, nfc, payments, secure-element]
 aliases: [Contactless Payments, CoreNFC, NFC, SE Entitlement]
-date modified: 2026-04-05 17:45:12 +09:00
+date modified: 2026-04-06 18:11:04 +09:00
 date created: 2026-04-04 00:33:00 +09:00
 ---
 
@@ -58,6 +58,7 @@ func paymentTagReaderSession(_ session: NFCPaymentTagReaderSession, didDetect ta
 >제 3 자 결제를 구현하더라도 사용자가 Apple Pay 에서 경험하던 "측면 버튼 더블 클릭"과 같은 시스템 통합 경험을 제공해야 한다. 독자적인 UI 만 고집하기보다 시스템 기본 동작에 녹아드는 설계가 필수적이다.
 
 ### 더 보기
+
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱의 상태와 NFC 세션
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 보안 요소(SE)의 구조
 - [apple-intelligence-and-agentic-intents](apple-intelligence-and-agentic-intents.md) - 에이전트 결제 승인

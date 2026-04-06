@@ -2,7 +2,7 @@
 title: mobile-apple-foundation-security
 tags: [apple, apple/security, moc]
 aliases: []
-date modified: 2026-04-05 17:45:05 +09:00
+date modified: 2026-04-06 18:14:49 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -21,8 +21,8 @@ Apple 보안의 근간을 이루는 4 대 핵심 계층입니다.
 1. [[apple-sandbox-and-security]]: **Apple Sandbox & Security Diagnosis** - 샌드박스 메커니즘과 앱 무결성 진단.
 2. [[apple-security-sandbox]]: **App Sandbox & MAC Internals** - 리소스 접근 격리 및 커널 수준 제어의 상세 동작.
 3. [[apple-security-entitlements]]: **Code Signing & Entitlements** - 앱 무결성 및 시스템 기능 권한 증명.
-3. [[apple-security-app-attest]]: **App Attest & DeviceCheck** - 서버 측의 앱 무결성 및 기기 신뢰성 검증.
-4. [[apple-security-tcc-compliance]]: **TCC & Legal Compliance** - 프라이버시 승인 시스템과 법적 준수 사항.
+4. [[apple-security-app-attest]]: **App Attest & DeviceCheck** - 서버 측의 앱 무결성 및 기기 신뢰성 검증.
+5. [[apple-security-tcc-compliance]]: **TCC & Legal Compliance** - 프라이버시 승인 시스템과 법적 준수 사항.
 
 ---
 

@@ -2,7 +2,7 @@
 title: apple-networking-and-cloud
 tags: [apple, internals, network-framework, networking, operations, protocols, security, urlsession]
 aliases: []
-date modified: 2026-04-05 17:44:55 +09:00
+date modified: 2026-04-06 18:06:21 +09:00
 date created: 2025-12-16 16:09:23 +09:00
 ---
 
@@ -13,6 +13,7 @@ iOS 의 네트워킹은 "그냥 API 찌르는 것" 그 이상입니다.
 `URLSession` 의 깊은 내부 동작(Background Session)부터, BSD Socket 을 대체하는 현대적인 `Network.framework`, 그리고 앱의 신뢰성을 지키는 보안(Security)과 운영(Operations)까지 다룹니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **앱이 백그라운드에서 죽어요**: "다운로드 중에 앱을 나갔더니 끊겼어요." → `Background Session` 을 쓰지 않았거나, 시스템이 깨워줬을 때(Delegate) 처리를 제대로 안 했기 때문입니다.
 - ** 소켓 통신 (Chat/Streaming)**: 아직도 C 언어 `socket()` 을 쓰시나요? 이제 애플이 직접 만든 `Network.framework` 로 Swift 스럽게 소켓을 짜야 합니다. (Wi-Fi ↔ LTE 전환 자동 처리 등 혜택이 엄청납니다.)
 - **보안 감사**: "중간자 공격(MITM)에 취약합니다"라는 리포트를 받았다면 `ATS` 예외 처리나 `Certificate Pinning` 을 점검해야 합니다.
@@ -35,6 +36,7 @@ iOS 의 네트워킹은 "그냥 API 찌르는 것" 그 이상입니다.
 ### 🚀 URLSession Internals
 
 #### 1. Configuration & Life Cycle
+
 - `default`: 디스크 기반 캐시, 쿠키 저장소 사용.
 - `ephemeral`: 모든 데이터를 메모리에만 저장 (Secret mode).
 - **`background`**: 앱이 종료되어도 시스템 데몬(`nsurlsessiond`)이 다운로드를 계속 수행.
@@ -91,5 +93,6 @@ Apple 플랫폼은 기본적으로 평문 통신(HTTP)을 차단하고 **HTTPS (
 3. **Reachability**: `NWPathMonitor` 로 "인터넷 끊김"을 감지하고 UI 에 보여줍니다. 사용자가 "앱이 고장 났다"고 오해하지 않게 합니다.
 
 ### 더 보기
+
 - [apple-urlsession-deep-dive](apple-urlsession-deep-dive.md) - 실무 코드 레시피 (Async/Await)
 - [apple-offline-and-resilience](apple-offline-and-resilience.md) - 오프라인 모드와 재시도 전략

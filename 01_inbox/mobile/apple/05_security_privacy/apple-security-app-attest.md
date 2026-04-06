@@ -2,7 +2,7 @@
 title: apple-security-app-attest
 tags: [app-attest, apple, apple/security, devicecheck]
 aliases: []
-date modified: 2026-04-05 17:45:27 +09:00
+date modified: 2026-04-06 18:13:45 +09:00
 date created: 2026-04-05 17:07:59 +09:00
 ---
 
@@ -53,6 +53,7 @@ class SecurityAttestationClient {
 >App Attest 는 탈옥(Jailbreak) 기기에서는 동작하지 않거나 부정확한 결과를 반환할 수 있으므로, 서버 측 로직에서 이를 고려해야 합니다.
 
 #### 연관 문서
+
 - [[apple-security-entitlements]] - 권한 증명
 - [[apple-security-tcc-compliance]] - 프라이버시 법규
 - [[mobile-vulnerability-check]] - 앱 무결성 진단

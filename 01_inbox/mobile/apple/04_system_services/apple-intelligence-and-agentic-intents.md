@@ -2,7 +2,7 @@
 title: apple-intelligence-and-agentic-intents
 tags: [app-intents, apple, apple-intelligence, ios/26, siri]
 aliases: [App Entities, Apple Intelligence, iOS 26, Siri Campos]
-date modified: 2026-04-05 17:45:09 +09:00
+date modified: 2026-04-06 18:10:32 +09:00
 date created: 2026-04-04 00:33:00 +09:00
 ---
 
@@ -70,6 +70,7 @@ struct ApplyFilterIntent: AppIntent {
 > - [[cross-platform-ai-privacy-comparison]] - Apple PCC vs Gemini Nano 심층 분석
 
 #### 3) 에이전틱 보안 (Agentic Security) 실무
+
 - **App Intents 샌드박싱**: Siri 가 앱 인텐트를 실행할 때, 해당 앱은 오직 `Intent` 수행에 필요한 최소한의 데이터만 공유받습니다.
 - **심화 보안 팁**: [[mobile-advanced-security-tips]] - 전문가용 RASP 및 API 보안 가이드
 
@@ -83,6 +84,7 @@ struct ApplyFilterIntent: AppIntent {
 >iOS 26 환경에서 `App Intents` 와 `App Entities` 를 지원하지 않는 앱은 시스템 지능 시스템으로부터 고립된다. 앱의 UI 보다 시스템이 내 앱의 데이터를 얼마나 잘 이해하는지(**Semantic Data Modeling**)가 앱의 점유율을 결정하게 될 것이다.
 
 ### 더 보기
+
 - [apple-app-intents](apple-app-intents.md) - 기본 App Intents 구조
 - [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - Liquid Glass 디자인 구현
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - PCC 및 보안 구조

@@ -2,7 +2,7 @@
 title: apple-security-sandbox
 tags: [apple, apple/security, mac, sandbox]
 aliases: []
-date modified: 2026-04-05 17:45:32 +09:00
+date modified: 2026-04-06 18:14:22 +09:00
 date created: 2026-04-05 17:07:43 +09:00
 ---
 
@@ -50,6 +50,7 @@ if url.startAccessingSecurityScopedResource() {
 ```
 
 #### 연관 문서
+
 - [[apple-security-entitlements]] - 권한 증명 시스템
 - [[apple-security-tcc-compliance]] - 프라이버시 승인 시스템
 - [[mobile-advanced-security-tips]] - RASP 및 우회 방어

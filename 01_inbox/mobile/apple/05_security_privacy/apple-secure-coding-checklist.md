@@ -2,7 +2,7 @@
 title: apple-secure-coding-checklist
 tags: [apple, best-practice, checklist, security]
 aliases: []
-date modified: 2026-04-05 17:45:27 +09:00
+date modified: 2026-04-06 18:13:36 +09:00
 date created: 2025-12-16 16:08:41 +09:00
 ---
 
@@ -55,5 +55,6 @@ date created: 2025-12-16 16:08:41 +09:00
 - [ ] **Strip Symbols**: 앱 바이너리에서 심볼이 제거(Strip)되었는지 Build Settings 를 확인하세요. 심볼이 있으면 해커가 코드를 분석하기 너무 쉽습니다.
 
 ### 더 보기
+
 - [apple-security-models](../../../../apple-security-models.md) - 보안 모델 개요
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 샌드박스와 권한 상세

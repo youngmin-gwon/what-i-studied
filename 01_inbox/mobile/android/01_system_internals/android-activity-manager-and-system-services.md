@@ -122,14 +122,14 @@ adb shell pm clear com.example
 
 **공식 문서**:
 
-- [ActivityManager](../../../../https:/developer.android.com/reference/android/app/ActivityManager.md)
-- [Services](../../../../https:/developer.android.com/guide/components/services.md)
-- [Processes and App Lifecycle](../../../../https:/developer.android.com/guide/components/activities/process-lifecycle.md)
+- [ActivityManager](https://developer.android.com/reference/android/app/ActivityManager)
+- [Services](https://developer.android.com/guide/components/services)
+- [Processes and App Lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle)
 
 **소스 코드**:
 
-- [ActivityManagerService](../../../../https:/cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java.md)
-- [ActivityTaskManagerService](../../../../https:/cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/wm/ActivityTaskManagerService.java.md)
+- [ActivityManagerService](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java)
+- [ActivityTaskManagerService](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/wm/ActivityTaskManagerService.java)
 
 ---
 

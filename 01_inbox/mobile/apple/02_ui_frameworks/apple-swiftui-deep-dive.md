@@ -25,12 +25,12 @@ SwiftUI 는 단순히 새로운 UI 프레임워크가 아니라, **생각하는 
 ### 📚 외부 리소스 및 참고 자료
 
 #### 공식 문서 (Official Docs)
-- [SwiftUI Documentation](../../../../https:/developer.apple.com/documentation/swiftui.md)
-- [SwiftUI View Lifecycle](../../../../https:/developer.apple.com/documentation/swiftui/view-lifecycle.md)
+- [SwiftUI Documentation](https://developer.apple.com/documentation/swiftui)
+- [SwiftUI View Lifecycle](https://developer.apple.com/documentation/swiftui/view-lifecycle)
 
 #### 🎥 WWDC 세션
-- [WWDC 2021: Demystify SwiftUI](../../../../https:/developer.apple.com/videos/play/wwdc2021/10022/.md) - **Identity, Lifetime, Dependency** 핵심 설명 (필독)
-- [WWDC 2023: Explore SwiftUI animation](../../../../https:/developer.apple.com/videos/play/wwdc2023/10156/.md)
+- [WWDC 2021: Demystify SwiftUI](https://developer.apple.com/videos/play/wwdc2021/10022/) - **Identity, Lifetime, Dependency** 핵심 설명 (필독)
+- [WWDC 2023: Explore SwiftUI animation](https://developer.apple.com/videos/play/wwdc2023/10156/)
 
 ---
 

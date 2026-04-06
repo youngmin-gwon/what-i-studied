@@ -2,7 +2,7 @@
 title: apple-distribution-and-policies
 tags: [apple, appstore, gdpr, iap, policy, rejection]
 aliases: []
-date modified: 2026-04-05 17:45:24 +09:00
+date modified: 2026-04-06 18:13:02 +09:00
 date created: 2025-12-16 16:14:32 +09:00
 ---
 
@@ -15,6 +15,7 @@ date created: 2025-12-16 16:14:32 +09:00
 App Store 는 단순한 마켓이 아니라, 엄격한 법률이 지배하는 국가입니다. 이 법(Guideline)을 모르면 앱은 영원히 출시되지 못합니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **리젝(Rejection) 방지**: 기껏 개발 다 해놨는데 "회원가입 기능이 애플 로그인(Sign in with Apple)을 지원하지 않아서 거절"당하면 오픈 일정이 2 주 밀립니다.
 - **수익 모델**: 넷플릭스처럼 외부 결제를 유도하면 앱이 잘립니다. **In-App Purchase(IAP)** 정책은 타협이 불가능한 영역입니다.
 - **Minimum Functionality**: "웹사이트를 그냥 앱으로 감싼 것(Wrapper App)"은 거절됩니다. 앱만의 네이티브 기능이 있어야 합니다.
@@ -80,5 +81,6 @@ App Store 가 유일한 길은 아닙니다.
 - Apple 이 남용(도박 앱 배포 등)을 감시하여 계정을 영구 정지시키기도 합니다.
 
 ### 더 보기
+
 - [apple-build-and-distribution](apple-build-and-distribution.md) - 심사 통과 후 기술적인 배포 과정
 - [apple-app-tracking-privacy](apple-app-tracking-privacy.md) - 심사의 또 다른 벽, 개인정보 정책

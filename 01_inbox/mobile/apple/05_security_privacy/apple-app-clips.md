@@ -2,7 +2,7 @@
 title: apple-app-clips
 tags: [app-clips, apple, clips, distribution, ios]
 aliases: [App Clips, 경량 앱]
-date modified: 2026-04-05 17:45:22 +09:00
+date modified: 2026-04-06 18:12:13 +09:00
 date created: 2026-04-04 00:28:00 +09:00
 ---
 
@@ -68,6 +68,7 @@ App Clip 은 시스템에 의해 호출된다. 각 진입 경로는 `Universal L
 >App Clip 은 사용자가 당면한 특정 과제(커피 주문, 주차료 결제)를 즉시 해결하기 위한 도구이지, 전체 앱 설치를 유도하는 팝업창이 아니다. 사용자가 과제를 성공적으로 마쳤을 때 자연스럽게 전체 앱의 장점을 보여주는 것이 바람직하다.
 
 ### 더 보기
+
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 딥링크/Universal Links 연동
 - [apple-distribution-and-policies](apple-distribution-and-policies.md) - 앱 배포 및 정책 가이드
 - [apple-swift-package-manager](../00_foundations/apple-swift-package-manager.md) - 코드 공유를 위한 SPM 전략

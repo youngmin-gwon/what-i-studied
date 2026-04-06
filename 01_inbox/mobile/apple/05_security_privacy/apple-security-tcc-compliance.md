@@ -2,7 +2,7 @@
 title: apple-security-tcc-compliance
 tags: [apple, apple/security, compliance, privacy, tcc]
 aliases: []
-date modified: 2026-04-05 17:45:34 +09:00
+date modified: 2026-04-06 18:14:43 +09:00
 date created: 2026-04-05 17:08:07 +09:00
 ---
 
@@ -47,6 +47,7 @@ Apple 의 프라이버시 보호를 위한 핵심 프레임워크입니다.
 - **Anti-Debugging**: `ptrace(PT_DENY_ATTACH)` 를 호출하여 상용 디버거(LLDB)의 부착을 차단합니다.
 
 #### 연관 문서
+
 - [[apple-security-sandbox]] - 샌드박싱 격리
 - [[apple-security-app-attest]] - 무결성 검증
 - [[mobile-advanced-security-tips]] - RASP 구현 팁

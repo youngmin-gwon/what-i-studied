@@ -2,7 +2,7 @@
 title: apple-instruments-profiling
 tags: [apple, instruments, performance, profiling, xcode]
 aliases: []
-date modified: 2026-04-05 17:45:42 +09:00
+date modified: 2026-04-06 18:15:13 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -18,6 +18,7 @@ Instruments 는 Xcode 에 딸려오는 "부록"이 아닙니다.
 "내 앱은 왜 느릴까?"라는 막연한 질문을 "A 함수의 B 루프가 45ms 를 쓴다"는 명확한 팩트로 바꿔줍니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **추측 금지**: "이미지 처리가 느린가?"라고 예상하고 최적화했는데, 실제로는 `DateFormatter` 가 범인인 경우가 허다합니다. 프로파일링 없는 최적화는 시간 낭비입니다.
 - **Main Thread Hang**: Time Profiler 를 돌려보면 메인 스레드에서 뭘 하느라 화면이 멈췄는지 초 단위로 보입니다.
 - **Release Mode**: 반드시 `Release` 빌드로 프로파일링해야 합니다. Debug 모드는 컴파일러 최적화가 꺼져있어서 실제 성능과 전혀 다릅니다.
@@ -83,5 +84,6 @@ Snapshot(Mark Generation) 기능을 활용하세요.
 - **Location**: GPS(High Accuracy)는 배터리 킬러입니다. 필요 없을 땐 과감히 꺼야 합니다.
 
 ### 더 보기
+
 - [apple-performance-monitoring](apple-performance-monitoring.md) - 성능 최적화 목표 설정
 - [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - 메모리 누수 원리 (ARC)

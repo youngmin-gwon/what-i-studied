@@ -2,7 +2,7 @@
 title: apple-security-pq3
 tags: [apple, apple/security, cryptography, pq3, quantum]
 aliases: []
-date modified: 2026-04-05 17:45:31 +09:00
+date modified: 2026-04-06 18:14:15 +09:00
 date created: 2026-04-05 17:08:16 +09:00
 ---
 
@@ -38,6 +38,7 @@ date created: 2026-04-05 17:08:16 +09:00
 - **성능 최적화**: 메시지 크기 증가를 최소화하면서도 양자 공격에 대한 강력한 방어력을 갖추고 있습니다.
 
 #### 연관 문서
+
 - [[cryptography-basics]] - 암호학 기초
 - [[network-security-protocols]] - 네트워크 보안 프로토콜
 - [[mobile-security]] - 모바일 보안 허브

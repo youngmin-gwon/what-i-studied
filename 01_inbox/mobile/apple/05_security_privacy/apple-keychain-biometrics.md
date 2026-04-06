@@ -2,7 +2,7 @@
 title: apple-keychain-biometrics
 tags: [apple, biometrics, cryptography, cryptokit, keychain, security, sep]
 aliases: []
-date modified: 2026-04-05 17:45:26 +09:00
+date modified: 2026-04-06 18:13:16 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -15,6 +15,7 @@ date created: 2025-12-16 17:01:32 +09:00
 **UserDefaults**에 저장하면 털리고, 매번 입력받자니 사용자가 떠납니다. 이 딜레마를 해결하는 것이 KeyChain 과 FaceID(SEP)입니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **UserDefaults 는 공공재**: 탈옥된 기기에서 `UserDefaults.standard` 는 XML 파일 하나일 뿐입니다. 누구나 열어서 'accessToken'을 복사해갈 수 있습니다. 절대 비밀 정보를 넣지 마세요.
 - **삭제해도 남는다**: 앱을 지웠다 다시 깔았는데 로그인이 유지되는 경험 해보셨나요? Keychain 은 앱 샌드박스 밖에 저장되므로 앱 삭제 후에도 살아남습니다. (사용자 경험 개선 포인트)
 - **FaceID 의 오해**: "내 얼굴 사진을 앱이 가져가나요?" 절대 아닙니다. 앱은 하드웨어(SEP)에게 "이 사람 맞아요?"라고 묻기만 할 수 있습니다.
@@ -98,5 +99,6 @@ let access = SecAccessControlCreateWithFlags(
 ```
 
 ### 더 보기
+
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 앱 샌드박스 구조
 - [apple-ios-system](../07_platforms/apple-ios-system.md) - iOS 부팅 과정과 보안 체인

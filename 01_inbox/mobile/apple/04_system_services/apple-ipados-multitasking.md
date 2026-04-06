@@ -2,7 +2,7 @@
 title: apple-ipados-multitasking
 tags: [apple, drag-drop, ipados, multitasking, productivity, scene]
 aliases: []
-date modified: 2026-04-05 17:45:11 +09:00
+date modified: 2026-04-06 18:10:55 +09:00
 date created: 2025-12-16 16:14:02 +09:00
 ---
 
@@ -13,6 +13,7 @@ iPadOS 앱은 단순히 "큰 화면의 아이폰 앱"이 아닙니다.
 키보드와 마우스, 그리고 여러 개의 창(Multi-window)을 동시에 다루는 **생산성 도구**여야 합니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **Pro User 경험**: 사용자가 iPad 에서 엑셀 옆에 내 앱을 띄워놓고 사진을 드래그해서 넣고 싶어 합니다. 이걸 지원하지 않는 앱은 "장난감" 취급을 받습니다.
 - **State Restoration**: 멀티태스킹 환경에서는 앱이 언제든 메모리에서 내려갔다가(Background) 다시 올라올 수 있습니다. 사용자가 작성 중이던 글이 날아가면 최악의 경험이 됩니다.
 - **Desktop Class**: 마우스 포인터(Trackpad) 지원과 키보드 단축키는 선택이 아니라 필수입니다.
@@ -87,5 +88,6 @@ iPad 의 트랙패드 커서는 둥근 원입니다. 버튼 위에 올라가면 
 - **UIKeyCommand**: 뷰 컨트롤러나 `AppDelegate` 에서 단축키를 정의하면, 사용자가 Command 를 꾹 눌렀을 때 단축키 목록(HUD)에 자동으로 뜹니다.
 
 ### 더 보기
+
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - Scene 아키텍처 상세
 - [apple-platform-differences](../00_foundations/apple-platform-differences.md) - iOS vs iPadOS 레이아웃 전략

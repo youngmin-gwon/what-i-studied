@@ -27,18 +27,18 @@ date created: 2025-12-16 17:01:32 +09:00
 
 #### 공식 문서 (Official Docs)
 
-- [Combine Documentation](../../../../https:/developer.apple.com/documentation/combine.md)
-- [Using Combine for Your App](../../../../https:/developer.apple.com/documentation/combine/using-combine-for-your-app.md)
+- [Combine Documentation](https://developer.apple.com/documentation/combine)
+- [Using Combine for Your App](https://developer.apple.com/documentation/combine/using-combine-for-your-app)
 
 #### 🎥 WWDC 세션
 
-- [WWDC 2019: Introducing Combine](../../../../https:/developer.apple.com/videos/play/wwdc2019/722/.md)
-- [WWDC 2019: Combine in Practice](../../../../https:/developer.apple.com/videos/play/wwdc2019/721/.md)
+- [WWDC 2019: Introducing Combine](https://developer.apple.com/videos/play/wwdc2019/722/)
+- [WWDC 2019: Combine in Practice](https://developer.apple.com/videos/play/wwdc2019/721/)
 
 #### 💻 심화 학습
 
-- [Using Combine (Book)](../../../../https:/heckj.github.io/swiftui-notes/.md) - 무료이자 최고의 가이드북
-- [OpenCombine](../../../../https:/github.com/OpenCombine/OpenCombine.md) - Combine 의 오픈소스 구현 (리눅스 호환용이지만 내부 이해에 도움됨)
+- [Using Combine (Book)](https://heckj.github.io/swiftui-notes/) - 무료이자 최고의 가이드북
+- [OpenCombine](https://github.com/OpenCombine/OpenCombine) - Combine 의 오픈소스 구현 (리눅스 호환용이지만 내부 이해에 도움됨)
 
 ---
 

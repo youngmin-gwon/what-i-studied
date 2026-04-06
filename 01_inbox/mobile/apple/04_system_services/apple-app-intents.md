@@ -2,7 +2,7 @@
 title: apple-app-intents
 tags: [app-intents, apple, intelligence, shortcuts, siri, spotlight, widgets]
 aliases: []
-date modified: 2026-04-05 17:45:07 +09:00
+date modified: 2026-04-06 18:07:45 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 
@@ -15,6 +15,7 @@ date created: 2026-04-03 23:58:00 +09:00
 App Intents 는 단순히 Siri 용 API 가 아닙니다. **Spotlight, Shortcuts 앱, Action Button, Interactive Widgets, 그리고 Apple Intelligence** 까지 — 앱을 시스템 곳곳에 노출시키는 **유일한 관문**입니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **Apple Intelligence (iOS 18+)**: Apple 의 온디바이스 AI 가 사용자의 의도를 파악하고 앱의 기능을 자동으로 호출합니다. 이때 사용하는 것이 App Intents 입니다. 구현하지 않으면 AI 에게 "보이지 않는" 앱이 됩니다.
 - **Interactive Widgets (iOS 17+)**: 위젯에서 버튼을 누르면 앱을 열지 않고도 동작이 수행됩니다. 이것도 AppIntent 기반입니다.
 - **레거시 교체**: 과거의 `SiriKit Intent Definition (.intentdefinition)` 파일 기반 방식을 **완전히 대체**합니다. 새 프로젝트에서는 .intentdefinition 파일을 만들 일이 없습니다.

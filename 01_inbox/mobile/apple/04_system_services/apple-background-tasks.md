@@ -2,7 +2,7 @@
 title: apple-background-tasks
 tags: [apple, background, battery, ios, multitasking, system]
 aliases: []
-date modified: 2026-04-05 17:45:08 +09:00
+date modified: 2026-04-06 18:08:57 +09:00
 date created: 2025-12-16 16:50:00 +09:00
 ---
 
@@ -10,9 +10,10 @@ date created: 2025-12-16 16:50:00 +09:00
 
 iOS 의 앱 생명주기는 데스크톱이나 안드로이드와 다릅니다.
 
-홈 화면으로 나가는 순간 앱은 **얼음(Suspended)**이 됩니다. 이를 깨고 작업을 수행하려면 시스템의 허락(Budget)이 필요합니다.
+홈 화면으로 나가는 순간 앱은 **얼음(Suspended)** 이 됩니다. 이를 깨고 작업을 수행하려면 시스템의 허락(Budget)이 필요합니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **배터리 수명**: 사용자가 가장 민감해하는 부분입니다. 백그라운드에서 CPU 를 계속 쓰면 폰이 뜨거워지고 배터리가 광탈합니다. Apple 이 백그라운드 정책을 엄격하게 잡는 이유입니다.
 - **예측 불가성**: "왜 내 앱은 백그라운드 작업이 안 돌죠?" -> 시스템이 판단하기에 사용자가 이 앱을 잘 안 쓰거나, 배터리가 부족하면 실행 기회를 주지 않기 때문입니다.
 - **Jetsam**: 메모리가 부족하면 백그라운드 앱부터 죽입니다. 작업을 하다가 갑자기 죽을 수 있음을 방어적으로 코딩해야 합니다.
@@ -72,7 +73,6 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 >     }
 >     var body: some Scene { WindowGroup { ContentView() } }
 > }
-> ```
 
 func scheduleProcessing() {
 

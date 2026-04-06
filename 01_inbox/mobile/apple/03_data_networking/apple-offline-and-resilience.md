@@ -2,7 +2,7 @@
 title: apple-offline-and-resilience
 tags: [apple, circuit-breaker, network, offline, patterns, resilience]
 aliases: []
-date modified: 2026-04-05 17:44:56 +09:00
+date modified: 2026-04-06 18:06:39 +09:00
 date created: 2025-12-16 16:09:23 +09:00
 ---
 
@@ -13,6 +13,7 @@ date created: 2025-12-16 16:09:23 +09:00
 서버가 500 에러를 뱉거나, 와이파이가 1 칸일 때 앱이 그냥 멈춰버린다면 그건 좋은 앱이 아닙니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **Circuit Breaker**: 서버가 아픈데 계속 요청을 날리면 서버는 더 빨리 죽습니다. 잠깐 요청을 멈춰주는 배려(Circuit Open)가 시스템 전체를 살립니다.
 - **Exponential Backoff**: 실패했다고 바로 다시 시도하면 네트워크 폭주(Congestion)를 일으킵니다. 1 초, 2 초, 4 초… 점진적으로 기다렸다가 재시도해야 합니다.
 - **Idempotency**: "결제 요청"을 보냈는데 타임아웃이 났습니다. 다시 보내면 중복 결제가 될까요? (재시도해도 안전한가?)
@@ -62,10 +63,11 @@ func retry<T>(maxAttempts: Int, delay: Double, task: () async throws -> T) async
 
 사용자가 오프라인 상태에서 '좋아요'를 누르면, UI 는 빨간색 하트로 바꾸고 요청은 큐에 넣습니다.
 
-1. **Persist**: 큐는 메모리가 아니라 **디스크(Core Data/Realm)**에 저장해야 합니다. 앱이 꺼져도 날아가면 안 되니까요.
+1. **Persist**: 큐는 메모리가 아니라 **디스크(Core Data/Realm)** 에 저장해야 합니다. 앱이 꺼져도 날아가면 안 되니까요.
 2. **Batch**: 연결이 돌아오면 하나씩 보내지 말고 배열에 담아서(`Bulk Insert`) 한 방에 보내는 게 효율적입니다.
 3. **Sequence**: 좋아요 -> 취소 -> 좋아요 순서가 꼬이면 안 됩니다. 타임스탬프나 순차 ID 로 순서를 보장해야 합니다.
 
 ### 더 보기
+
 - [apple-networking-and-cloud](apple-networking-and-cloud.md) - 네트워크 기본 원리
 - [apple-cloud-sync-patterns](apple-cloud-sync-patterns.md) - 데이터 동기화 아키텍처

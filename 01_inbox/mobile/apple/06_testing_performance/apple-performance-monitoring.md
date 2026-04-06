@@ -2,13 +2,13 @@
 title: apple-performance-monitoring
 tags: [apple, debugging, metrics, optimization, performance, swiftui, uikit]
 aliases: [apple-performance-monitoring]
-date modified: 2026-04-06 17:52:47 +09:00
+date modified: 2026-04-06 18:14:58 +09:00
 date created: 2025-12-16 16:10:22 +09:00
 ---
 
 ## Performance & Debugging Deep Dive
 
-"앱이 느리다"는 사용자의 불만은 대부분 **숫자(Number)**가 아니라 **느낌(Feeling)**에서 옵니다.
+"앱이 느리다"는 사용자의 불만은 대부분 **숫자(Number)** 가 아니라 **느낌(Feeling)** 에서 옵니다.
 
 엔지니어는 0.1 초를 줄이는 것보다, 0.1 초 동안 "멈춘 느낌"을 주지 않는 것에 집중해야 합니다.
 
@@ -22,11 +22,13 @@ date created: 2025-12-16 16:10:22 +09:00
 ### 🚀 Optimization Targets
 
 #### 1. App Launch (앱 실행 속도)
+
 - **목표**: 400ms 이내에 첫 화면 렌더링.
 - **범인**: `AppDelegate` 의 `didFinishLaunching` 에서 하는 무거운 초기화 작업. 서드파티 SDK 초기화는 비동기(`DispatchQueue.global`)로 미룰 수 있는지 확인하세요.
 - **dyld**: 동적 라이브러리가 너무 많으면(50 개 이상) 로딩이 느려집니다. 정적 라이브러리(Static Library)로 합치는 것을 고려하세요.
 
 #### 2. Smooth Scrolling (Hitch Ratio)
+
 - **목표**: 60fps (16.67ms) 또는 120fps (8.33ms) 유지.
 - **범인**: 셀을 그릴 때(`cellForRow`) 일어나는 오토레이아웃 계산, 그림자 그리기(Offscreen Rendering), 이미지 리사이징.
 
@@ -76,5 +78,6 @@ Xcode 에는 강력한 무기들이 내장되어 있습니다. `print()` 로 디
 - 개발자 설정에서 네트워크 환경을 `High Latency DNS`, `Edge`, `100% Loss` 등으로 시뮬레이션할 수 있습니다. 로딩 인디케이터나 에러 처리를 검증할 때 필수입니다.
 
 ### 더 보기
+
 - [apple-instruments-profiling](apple-instruments-profiling.md) - 범인을 잡는 정밀 분석 도구
 - [apple-rendering-and-media](../02_ui_frameworks/apple-rendering-and-media.md) - 그래픽 파이프라인 심화

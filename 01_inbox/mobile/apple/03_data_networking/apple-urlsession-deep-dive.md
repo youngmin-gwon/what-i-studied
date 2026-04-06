@@ -2,7 +2,7 @@
 title: apple-urlsession-deep-dive
 tags: [apple, async-await, http, networking, urlsession]
 aliases: []
-date modified: 2026-04-05 17:45:04 +09:00
+date modified: 2026-04-06 18:08:03 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -13,6 +13,7 @@ date created: 2025-12-16 17:01:32 +09:00
 Alamofire 같은 라이브러리도 훌륭하지만, **Swift Concurrency (`async/await`)**가 도입된 이후로는 순정 `URLSession` 만으로도 충분히 간결하고 강력한 코드를 짤 수 있습니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **Dependency 줄이기**: 서드파티 라이브러리 없이 네트워킹 레이어를 구축하면 앱 용량이 줄고 빌드 속도가 빨라집니다.
 - **Async/Await 의 맛**: 콜백 지옥 없이 `let data = try await session.data(…)` 한 줄로 끝나는 쾌감을 느껴보세요.
 - **Task Cancellation**: 화면을 나가면 네트워크 요청도 취소되어야 합니다. Swift Concurrency 는 이를 구조적으로 지원합니다.
@@ -91,5 +92,6 @@ if httpResponse.statusCode == 401 {
 ```
 
 ### 더 보기
+
 - [apple-networking-and-cloud](apple-networking-and-cloud.md) - URLSession 의 내부 구조와 보안
 - [apple-codable-json](apple-codable-json.md) - JSON 파싱 성능 최적화

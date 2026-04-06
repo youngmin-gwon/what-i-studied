@@ -2,7 +2,7 @@
 title: apple-system-services
 tags: [apple, daemons, privacy, sensors, system, tcc]
 aliases: []
-date modified: 2026-04-05 17:45:16 +09:00
+date modified: 2026-04-06 18:12:02 +09:00
 date created: 2025-12-16 16:13:15 +09:00
 ---
 
@@ -15,6 +15,7 @@ date created: 2025-12-16 16:13:15 +09:00
 개발자로서 시스템 데몬(`tccd`, `locationd`)이 어떻게 내 앱을 감시하고 제어하는지 이해해야 합니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
+
 - **권한 거부 대응**: 사용자가 "허용 안 함"을 누르면 앱은 어떻게 동작해야 할까요? 그냥 크래시 나거나 빈 화면을 보여주면 안 됩니다. `Settings` 로 유도하는 UX 가 필요합니다.
 - **배터리 드레인**: 위치 서비스(`Core Location`)나 센서를 계속 켜두면 `locationd` 데몬이 CPU 를 잡아먹어 배터리 소모의 주범으로 지목됩니다.
 - **Privacy Indicators**: 마이크/카메라 사용 시 상태 표시줄에 뜨는 주황색/초록색 점은 시스템 레벨 강제 사항입니다. 몰래 녹음/촬영은 불가능합니다.
@@ -38,15 +39,18 @@ date created: 2025-12-16 16:13:15 +09:00
 앱은 직접 하드웨어를 제어하지 않습니다. XPC 를 통해 데몬에게 요청할 뿐입니다.
 
 #### 1. locationd (위치 서비스)
+
 - **특징**: 배터리 소모가 가장 큽니다. GPS, Wi-Fi, 셀룰러 기지국, 블루투스 비콘을 모두 사용해 위치를 삼각측량합니다.
 - **최적화**: `desiredAccuracy` 를 최대로 설정하지 마세요. "3km 오차 허용"(`kCLLocationAccuracyThreeKilometers`)으로 설정하면 GPS 를 끄고 기지국만 사용하여 배터리를 아낍니다.
 
 #### 2. mediaserverd (카메라/오디오)
+
 - 카메라 캡처, 오디오 입출력을 총괄합니다.
 - 카메라 셔터 소리는 이 데몬이 강제로 발생시킵니다 (국가별 정책 적용).
 - **Crash**: 만약 `mediaserverd` 가 죽으면(너무 많은 리소스 사용 등), 앱의 카메라 프리뷰가 갑자기 멈춥니다. `AVCaptureSessionRuntimeError` 알림을 받아 세션을 재시작해야 합니다.
 
 #### 3. biometrickitd (FaceID / TouchID)
+
 - 생체 정보는 **Secure Enclave (SEP)** 하드웨어에만 저장되며, 앱은 물론 OS 조차 원본 이미지를 볼 수 없습니다.
 - 데몬은 오직 "일치함/불일치함"이라는 Bool 값만 리턴해줍니다.
 
@@ -84,5 +88,6 @@ func requestCameraPermission() {
 - **권한 리셋**: 터미널에서 `xcrun simctl privacy booted reset all` 명령어로 권한 상태를 초기화할 수 있습니다.
 
 ### 더 보기
+
 - [apple-interprocess-and-xpc](apple-interprocess-and-xpc.md) - 데몬과 통신하는 원리
 - [apple-background-tasks](apple-background-tasks.md) - 위치 서비스를 백그라운드에서 쓰기 위한 조건
