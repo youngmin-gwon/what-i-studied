@@ -8,7 +8,7 @@ date created: 2025-12-18 16:21:20 +09:00
 
 ## tvOS Media & Living Room Guide apple tvos media
 
-tvOS 에서 거실용 앱/미디어 경험을 만들 때 필요한 내용을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
+tvOS 에서 거실용 앱/미디어 경험을 만들 때 필요한 내용을 쉽게 정리했다. 용어는 [[apple-glossary]].
 
 ### 거실 UX 원칙
 
@@ -59,4 +59,4 @@ tvOS 에서 거실용 앱/미디어 경험을 만들 때 필요한 내용을 쉽
 
 ### 링크
 
-[apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-network-basics](../../../../../../../apple-network-basics.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+[[apple-rendering-and-media]], [[apple-network-basics]], [[apple-performance-and-debug]], [[apple-accessibility-and-internationalization]].

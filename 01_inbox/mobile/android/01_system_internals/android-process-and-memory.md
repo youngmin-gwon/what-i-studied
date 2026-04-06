@@ -53,6 +53,7 @@ Zygote 는 안드로이드 모든 앱 프로세스의 시조입니다.
 ---
 
 #### 📚 연관 문서 및 심화 학습
+
 - [[android-zygote-and-runtime]] - Zygote 와 ART 런타임 상세
 - [[android-activity-manager-and-system-services]] - 프로세스의 생사여탈권을 쥔 AMS/ATMS
 - [[android-binder-and-ipc]] - 멀티 프로세스 앱 간의 통신 기술

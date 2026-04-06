@@ -43,6 +43,7 @@ Gradle 의 핵심 구조와 설정 방식을 다룹니다.
 ---
 
 #### 📚 연관 문서
+
 - [[android-os-development-guide]]: OS 개발 관점의 빌드
 - [[android-jetpack-architecture]]: 아키텍처와 라이브러리 상관 관계
 - [[google-play-deployment]]: 스토어 배포 프로세스

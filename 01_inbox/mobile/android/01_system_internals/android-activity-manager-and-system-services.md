@@ -2,7 +2,7 @@
 title: android-activity-manager-and-system-services
 tags: []
 aliases: []
-date modified: 2026-04-05 17:42:30 +09:00
+date modified: 2026-04-06 18:29:21 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 
@@ -55,14 +55,13 @@ date created: 2026-03-21 16:47:09 +09:00
 ---
 
 #### 📚 연관 문서 및 심화 학습
+
 - [[android-binder-and-ipc]] - 시스템 서비스 통신과 Binder 기술
 - [[android-zygote-and-runtime]] - 새로운 앱 프로세스가 생성되는 과정
 - [[android-kernel]] - LMKD 와의 메모리 관리 협업
 - [[mobile-android-foundation-security]] - 권한 검사 및 샌드박싱 보안
 - [[android-process-and-memory]] - 메모리 관리 아키텍처 상세
 - [[android-performance-and-debug]] - dumpsys 등을 활용한 실전 디버깅
-��라운드) / 60 초 (백그라운드)
-1. Service 20 초 미응답
 
 #### Rescue Party
 

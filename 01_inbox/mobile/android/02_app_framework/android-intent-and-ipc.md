@@ -20,7 +20,6 @@ date created: 2026-04-04 00:12:42 +09:00
 
 안드로이드의 Intent 시스템은 iOS 에서 분리되어 있는 여러 개념(URL Scheme, Universal Links, XPC, App Intents)을 **하나의 통합된 메시징 표준**으로 처리합니다.
 
->[!NOTE] **상호 참조**
 >iOS 의 유사 기능은 [[apple-interprocess-and-xpc]] 및 [[apple-app-intents]] 를 참고하세요.
 
 ---
@@ -72,7 +71,7 @@ Intent(this, DownloadService::class.java).also { intent ->
 
 >[!CAUTION] **Devil's Advocate : Single-Activity 시대에서의 Explicit Intent**
 >현대 앱에서 Activity 간 `startActivity(intent)` 호출은 **거의 사라졌다**. 화면 전환은 `Navigation Compose` (또는 Navigation Component)로 처리하며, Explicit Intent 는 **외부 앱 실행**(카메라, 설정 등)이나 **Service 시작** 용도로만 남아있다.
->[android-deep-links](android-deep-links.md) 에서 Navigation 기반 딥링크 처리를 참고하라.
+>[[android-deep-links]] 에서 Navigation 기반 딥링크 처리를 참고하라.
 
 ##### Implicit Intent (암시적)
 
@@ -325,4 +324,4 @@ adb shell dumpsys activity intents
 
 #### 더 보기
 
-[android-app-components-deep-dive](android-app-components-deep-dive.md), [android-deep-links](android-deep-links.md), [android-permissions-deep-dive](../05_security_privacy/android-permissions-deep-dive.md), [android-activity-lifecycle](android-activity-lifecycle.md)
+[[android-app-components-deep-dive]], [[android-deep-links]], [[android-permissions-deep-dive]], [[android-activity-lifecycle]]

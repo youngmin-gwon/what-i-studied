@@ -122,6 +122,7 @@ Android 14 에서 도입되어 16 에서 표준화된 기능으로, 사용자가
 ---
 
 ##### 📚 연결 문서
-- [android-compose-internals](android-compose-internals.md) - Compose 사용법 심화
-- [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md) - SurfaceFlinger 로 그림이 넘어가는 과정
-- [android-activity-lifecycle](android-activity-lifecycle.md) - 생명주기에 따른 UI 상태 저장
+
+- [[android-compose-internals]] - Compose 사용법 심화
+- [[android-graphics-and-media]] - SurfaceFlinger 로 그림이 넘어가는 과정
+- [[android-activity-lifecycle]] - 생명주기에 따른 UI 상태 저장

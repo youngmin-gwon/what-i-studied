@@ -2,7 +2,7 @@
 title: android-foundations
 tags: [android, android/architecture, android/fundamentals, mobile/os]
 aliases: []
-date modified: 2026-04-06 17:54:20 +09:00
+date modified: 2026-04-06 18:29:18 +09:00
 date created: 2025-12-16 15:22:14 +09:00
 ---
 
@@ -64,6 +64,6 @@ date created: 2025-12-16 15:22:14 +09:00
 ---
 
 #### 🔗 관련 문서
+
 - [[android-glossary]] - 안드로이드 주요 용어 사전
 - [[android-evolution-history]] - 안드로이드 버전별 변화와 특징
-- [[android-foundations-check]] - 핵심 개념 자가 진단

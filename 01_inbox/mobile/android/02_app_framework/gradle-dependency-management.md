@@ -50,7 +50,7 @@ dependencies {
 - **Kapt**: Java 기반으로 동작하며 빌드 속도가 상대적으로 느림 (Legacy).
 - **KSP (Kotlin Symbol Processing)**: Kotlin 네이티브 지원으로 **최대 2 배 이상 빠름**. 최신 라이브러리(Room, Hilt 등)는 KSP 사용이 필수적입니다.
 
----
 #### 연관 문서
+
 - [[gradle-build-basics]] - 빌드 기초
 - [[android-jetpack-architecture]] - 라이브러리 활용 아키텍처

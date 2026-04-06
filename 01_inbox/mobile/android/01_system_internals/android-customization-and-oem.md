@@ -494,4 +494,4 @@ brunch <device>
 
 [[android-kernel]] - 커널 수정
 
-[[android-security-and-sandboxing]] - Knox, SafetyNet
+[[android-security-sandbox]] - Knox, SafetyNet

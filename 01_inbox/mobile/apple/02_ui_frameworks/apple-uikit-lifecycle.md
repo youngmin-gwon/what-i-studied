@@ -25,9 +25,9 @@ iOS 앱 개발의 알파이자 오메가인 **UIKit**의 생명주기(Lifecycle)
 #### 공식 문서 (Official Docs)
 
 - [UIViewController - Apple Developer](https://developer.apple.com/documentation/uikit/uiviewcontroller)
-- [View Controller Programming Guide](https:/developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS)
-- [Auto Layout Guide](https:/developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG)
-- [UIView - Apple Developer](https:/developer.apple.com/documentation/uikit/uiview)
+- [View Controller Programming Guide](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS)
+- [Auto Layout Guide](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG)
+- [UIView - Apple Developer](https://developer.apple.com/documentation/uikit/uiview)
 
 #### 🎥 WWDC 세션
 
@@ -247,5 +247,5 @@ func loadDownsampledImage(at url: URL, for size: CGSize, scale: CGFloat = UIScre
 
 ### 더 보기
 
-- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 선언형 UI 의 생명주기
-- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC 와 메모리 관리
+- [[apple-swiftui-deep-dive]] - 선언형 UI 의 생명주기
+- [[apple-memory-management]] - ARC 와 메모리 관리

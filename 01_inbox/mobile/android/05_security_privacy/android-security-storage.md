@@ -42,7 +42,7 @@ val deFile = File(deContext.filesDir, "alarm_config.xml")
 
 암호화 키는 TEE (Trusted Execution Environment) 내부의 하드웨어 보안 모듈(StrongBox)에 저장되어, 소프트웨어(또는 커널) 레벨에서 키를 절대 추출할 수 없도록 보장한다.
 
----
 #### 연관 문서
+
 - [[mobile-android-secure-storage]] - Keystore 실무 구현 가이드
 - [[android-security-sandbox]] - 파일 시스템 격리의 기초

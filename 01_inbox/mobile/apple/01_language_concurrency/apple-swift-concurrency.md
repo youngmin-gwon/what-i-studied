@@ -227,7 +227,7 @@ class ViewController {
 > - `viewModelScope.launch` ≃ `Task { … }` (MainActor 에서 실행 시)
 > - `withContext(Dispatchers.IO)` ≃ `Task.detached { … }` 또는 `nonisolated` 메서드 활용
 > - `Flow.collect` ≃ `for await in sequence`
->상세 비교는 [android-coroutines-flow](../../android/02_app_framework/android-coroutines-flow.md) 를 참고하세요.
+>상세 비교는 [[android-coroutines-flow]] 를 참고하세요.
 
 #### 🔗 연관 문서 및 심화 학습
 

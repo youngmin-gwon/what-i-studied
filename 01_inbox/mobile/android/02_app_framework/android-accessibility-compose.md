@@ -76,9 +76,9 @@ fun PostItem(post: Post) {
 ```kotlin
 Modifier.semantics {
     customActions = listOf(
-        CustomAccessibilityAction("삭제") { 
+        CustomAccessibilityAction("삭제") {
             viewModel.deleteItem()
-            true 
+            true
         }
     )
 }

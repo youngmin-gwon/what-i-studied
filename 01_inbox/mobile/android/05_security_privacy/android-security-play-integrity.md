@@ -65,7 +65,7 @@ class SecurityIntegrityClient(private val context: Context) {
 - **MEETS_DEVICE_INTEGRITY**: 순정 안드로이드 기기 여부.
 - **MEETS_BASIC_INTEGRITY**: 루팅 여부나 에뮬레이터 여부 확인.
 
----
 #### 연관 문서
+
 - [[mobile-android-secure-storage]] - 검증 결과를 바탕으로 한 비밀 데이터 저장
 - [[mobile-vulnerability-check]] - 무결성 검증 우회 진단

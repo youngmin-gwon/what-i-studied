@@ -2,7 +2,7 @@
 title: android-evolution-history
 tags: [android, android/evolution, android/history]
 aliases: [Android History, 안드로이드 역사]
-date modified: 2026-04-06 17:53:40 +09:00
+date modified: 2026-04-06 18:28:05 +09:00
 date created: 2025-12-16 15:25:47 +09:00
 ---
 
@@ -381,7 +381,7 @@ button.setOnClickListener { }
 @Composable
 fun Greeting(name: String) {
     var count by remember { mutableStateOf(0) }
-    
+
     Column {
         Text("Hello $name")
         Button(onClick = { count++ }) {
@@ -440,34 +440,40 @@ vkCmdEndRenderPass(...);
 ## 버전별 주요 변화
 
 ### Android 5.0 Lollipop (2014) - 대전환
+
 - ✨ ART 기본 런타임
 - 🎨 Material Design
 - 🔒 [SELinux](../../../../../../02_references/operating-systems/selinux.md) Enforcing
 - 💼 JobScheduler
 
 ### Android 6.0 Marshmallow (2015) - 권한 혁명
+
 - 🔐 런타임 권한
 - 💤 Doze 모드 (배터리 절약)
 - 🔌 USB Type-C 지원
 
 ### Android 7.0 Nougat (2016) - 생산성
+
 - 📱 멀티 윈도우
 - 🎮 Vulkan API
 - 📲 Direct Boot (FBE)
 - 🔄 A/B Seamless Update
 
 ### Android 8.0 Oreo (2017) - 구조 개편
+
 - 🏗️ **Treble** (System/Vendor 분리)
 - 🔔 알림 채널
 - ⛔ 백그라운드 서비스 제한
 - 🎯 Picture-in-Picture
 
 ### Android 9 Pie (2018) - AI/잠금
+
 - 🤖 Adaptive Battery/Brightness
 - 📊 Digital Wellbeing
 - 🔒 Biometric API 통합
 
 ### Android 10 (2019) - 프라이버시 1 단계
+
 - 🌗 Dark Theme (시스템 전체)
 - 📁 Scoped Storage (부분 강제)
 - 📍 백그라운드 위치 별도 권한
@@ -475,24 +481,28 @@ vkCmdEndRenderPass(...);
 - ♿ Live Caption
 
 ### Android 11 (2020) - 프라이버시 2 단계
+
 - 🔐 일회성 권한
 - 💬 Conversations (알림)
 - 📱 Device Controls (스마트홈)
 - 📦 Incremental File System
 
 ### Android 12 (2021) - Material You
+
 - 🎨 Material You (동적 컬러)
 - 🔒 Privacy Dashboard
 - 📸 Camera/Mic 표시등
 - 🌐 Private Compute Core
 
 ### Android 13 (2022) - 세분화
+
 - 📸 Photo Picker
 - 🔔 알림 권한 (POST_NOTIFICATIONS)
 - 🌍 Per-app 언어 설정
 - 📋 Clipboard 자동 삭제
 
 ### Android 14 (2023) - Health & AI
+
 - ⚕️ Health Connect
 - 📐 예측적 뒤로가기
 - 🔒 Credential Manager
@@ -516,7 +526,11 @@ vkCmdEndRenderPass(...);
 ## 연결 문서
 
 [[android-customization-and-oem]] - OEM 의 버전 적용
-[[android-security-and-sandboxing]] - 보안 진화
+
+[[android-security-sandbox]] - 보안 진화
+
 [[android-zygote-and-runtime]] - Dalvik→ART
+
 [[android-hal-and-kernel]] - HIDL→AIDL
+
 [[android-overview]] - 현재 아키텍처

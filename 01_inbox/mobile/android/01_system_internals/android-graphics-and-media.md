@@ -549,10 +549,10 @@ adb shell setprop debug.hwui.profile visual_bars
 
 **공식 문서**:
 
-- [Graphics Architecture](../../../../https:/source.android.com/docs/core/graphics.md)
-- [Media](../../../../https:/developer.android.com/guide/topics/media.md)
-- [Camera2](../../../../https:/developer.android.com/training/camera2.md)
-- [ExoPlayer](../../../../https:/exoplayer.dev/.md)
+- [Graphics Architecture](https://source.android.com/docs/core/graphics)
+- [Media](https://developer.android.com/guide/topics/media)
+- [Camera2](https://developer.android.com/training/camera2)
+- [ExoPlayer](https://exoplayer.dev/)
 
 **도구**:
 
@@ -564,12 +564,12 @@ adb shell setprop debug.hwui.profile visual_bars
 
 ## 연결 문서
 
-[android-hal-and-kernel](android-hal-and-kernel.md) - Graphics/Camera/Audio HAL
+[[android-hal-and-kernel]] - Graphics/Camera/Audio HAL
 
-[buffer](../../../../buffer.md) - GraphicBuffer 와 [[android-kernel#2 Ashmem과 공유 메모리의 진화|DMABuf]]
+[[buffer]] - GraphicBuffer 와 [[android-kernel#2 Ashmem과 공유 메모리의 진화|DMABuf]]
 
-[android-binder-and-ipc](android-binder-and-ipc.md) - SurfaceFlinger 통신
+[[android-binder-and-ipc]] - SurfaceFlinger 통신
 
-[android-compose-internals](../02_app_framework/android-compose-internals.md) - Compose 상세
+[[android-compose-internals]] - Compose 상세
 
-[android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md) - 렌더링 성능 최적화
+[[android-performance-and-debug]] - 렌더링 성능 최적화

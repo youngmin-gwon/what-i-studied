@@ -32,7 +32,7 @@ date created: 2026-04-05 16:29:38 +09:00
 - **접근권한 고지**: 필수적 접근권한(앱 실행 필수)과 선택적 접근권한(거부 가능)을 명확히 구분하여 사용자에게 동의를 받아야 한다.
 - **민감정보 보호**: 주민번호, 계좌번호 등은 단말기에 평문으로 저장할 수 없으며, 반드시 [[android-security-storage]] 의 Keystore 암호화가 적용되어야 한다.
 
----
 #### 연관 문서
+
 - [[mobile-vulnerability-check]] - 상세 체크리스트
 - [[android-security-play-integrity]] - 무결성 검증의 실무 적용

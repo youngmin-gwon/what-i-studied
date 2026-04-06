@@ -61,8 +61,8 @@ plugins {
 | **kotlin-compose** | `@Composable` 함수 인식 및 최적화 |
 | **hilt** | `@HiltAndroidApp` 등 의존성 주입 코드 자동 생성 |
 
----
 #### 연관 문서
+
 - [[gradle-dependency-management]] - Version Catalog 및 의존성 관리
 - [[gradle-variants-flavors.md]] - 빌드 변형 설정
 - [[android-gradle-build-system]] - Gradle MOC

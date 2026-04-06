@@ -69,6 +69,7 @@ graph TB
 ```
 
 #### 연관 문서
+
 - [[android-security-permissions]] - 권한을 통한 샌드박스 확장
 - [[android-security-selinux]] - MAC 을 통한 강제적 격리
 - [[android-binder-and-ipc]] - 안전한 프로세스 간 통신

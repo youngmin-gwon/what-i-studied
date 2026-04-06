@@ -2,7 +2,7 @@
 title: android-overview
 tags: []
 aliases: []
-date modified: 2026-04-05 17:42:27 +09:00
+date modified: 2026-04-06 18:29:35 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 
@@ -80,15 +80,15 @@ graph TB
 - 프로세스 스케줄링
 - 메모리 관리
 - 드라이버 (디스플레이, 카메라, 센서)
-- 보안 ([SELinux](../../../../../../02_references/operating-systems/selinux.md))
+- **보안**: [[selinux]]
 
 **안드로이드 수정**:
 
-- [Binder](../01_system_internals/android-binder-and-ipc.md) 드라이버 (IPC)
+- [[android-binder-and-ipc|Binder]] 드라이버 (IPC)
 - [[android-kernel#LMKD|LMKD]] (메모리 부족 시 프로세스 종료)
 - Wakelock (전원 관리)
 
-**상세**: [android-kernel](../01_system_internals/android-kernel.md)
+**상세**: [[android-kernel]]
 
 ---
 
@@ -109,7 +109,7 @@ Camera HAL → 삼성/LG/Google 카메라 모두 동일 API
 Audio HAL → Qualcomm/MediaTek 오디오 칩 통합
 ```
 
-**상세**: [android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md)
+**상세**: [[android-hal-and-kernel]]
 
 ---
 
@@ -123,7 +123,7 @@ C/C++ 로 작성된 시스템 서비스:
 | **MediaServer** | 오디오/비디오 코덱 |
 | **AudioFlinger** | 오디오 믹싱 |
 
-**상세**: [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md)
+**상세**: [[android-graphics-and-media]]
 
 ---
 
@@ -144,7 +144,7 @@ C/C++ 로 작성된 시스템 서비스:
 - Garbage Collection
 - Profile-Guided Optimization
 
-**상세**: [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md)
+**상세**: [[android-zygote-and-runtime]]
 
 ---
 
@@ -170,7 +170,7 @@ class MainActivity : AppCompatActivity() {
 - **LocationManager**: 위치
 - **ConnectivityManager**: 네트워크
 
-**상세**: [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)
+**상세**: [[android-activity-manager-and-system-services]]
 
 ---
 
@@ -247,7 +247,7 @@ sequenceDiagram
   SELinux: u:r:untrusted_app:s0:c768
 ```
 
-**상세**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md)
+**상세**: [[android-security-sandbox]]
 
 ---
 
@@ -265,7 +265,7 @@ bindService(intent, connection, Context.BIND_AUTO_CREATE)
 - 자동 신원 확인 (UID/PID)
 - 권한 검사
 
-**상세**: [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md)
+**상세**: [[android-binder-and-ipc]]
 
 ---
 
@@ -370,29 +370,29 @@ adb logcat
 **입문자**:
 
 1. ✅ 이 문서 (전체 개요)
-2. [android-app-components-deep-dive](../02_app_framework/android-app-components-deep-dive.md) (앱 구조)
-3. [android-jetpack-architecture](../02_app_framework/android-jetpack-architecture.md) (Jetpack)
-4. [android-compose-internals](../02_app_framework/android-compose-internals.md) (Compose UI)
+2. [[android-app-components-deep-dive]] (앱 구조)
+3. [[android-jetpack-architecture]] (Jetpack)
+4. [[android-compose-internals]] (Compose UI)
 
 **시스템 이해**:
 
-1. [android-kernel](../01_system_internals/android-kernel.md) (커널 수정)
-2. [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) (IPC)
-3. [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md) (런타임)
-4. [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md) (시스템 서비스)
+1. [[android-kernel]] (커널 수정)
+2. [[android-binder-and-ipc]] (IPC)
+3. [[android-zygote-and-runtime]] (런타임)
+4. [[android-activity-manager-and-system-services]] (시스템 서비스)
 
 **심화**:
 
-1. [android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md) (HAL)
-2. [android-init-and-services](../01_system_internals/android-init-and-services.md) (부팅)
-3. [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md) (그래픽)
-4. [android-customization-and-oem](../01_system_internals/android-customization-and-oem.md) (커스터마이징)
+1. [[android-hal-and-kernel]] (HAL)
+2. [[android-init-and-services]] (부팅)
+3. [[android-graphics-and-media]] (그래픽)
+4. [[android-customization-and-oem]] (커스터마이징)
 
 ---
 
 ### 용어 참고
 
-낯선 용어는 [android-glossary](android-glossary.md) 에서 빠르게 확인 가능.
+낯선 용어는 [[android-glossary]] 에서 빠르게 확인 가능.
 
 ---
 
@@ -400,22 +400,22 @@ adb logcat
 
 **기초**:
 
-[android-glossary](android-glossary.md) - 용어집
+[[android-glossary]] - 용어집
 
-[android-evolution-history](android-evolution-history.md) - 역사와 진화
+[[android-evolution-history]] - 역사와 진화
 
 **시스템 핵심**:
 
-[android-kernel](../01_system_internals/android-kernel.md) - 커널
+[[android-kernel]] - 커널
 
-[android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) - IPC
+[[android-binder-and-ipc]] - IPC
 
-[android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md) - 런타임
+[[android-zygote-and-runtime]] - 런타임
 
-[android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md) - HAL
+[[android-hal-and-kernel]] - HAL
 
 **보안**:
 
-[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 보안 모델
+[[android-security-sandbox]] - 보안 모델
 
-[selinux](../../../../selinux.md) - SELinux 상세
+[[selinux]] - SELinux 상세

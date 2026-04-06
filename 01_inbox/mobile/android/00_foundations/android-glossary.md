@@ -2,7 +2,7 @@
 title: android-glossary
 tags: []
 aliases: []
-date modified: 2026-04-05 17:42:25 +09:00
+date modified: 2026-04-06 18:29:30 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 
@@ -128,7 +128,7 @@ adb shell pm list packages -apex
 └─ apex_manifest.json
 ```
 
-**관련**: [android-customization-and-oem](../01_system_internals/android-customization-and-oem.md)
+**관련**: [[android-customization-and-oem]]
 
 ---
 
@@ -187,7 +187,7 @@ adb shell appops get com.example.app
 adb shell appops set com.example.app CAMERA deny
 ```
 
-**관련**: [android-permissions-deep-dive](../05_security_privacy/android-permissions-deep-dive.md)
+**관련**: [[android-permissions-deep-dive]]
 
 ---
 
@@ -320,7 +320,7 @@ Singleton.context = activity // Activity가 파괴되어도 못 놓아줌
 Singleton.context = activity.applicationContext
 ```
 
-**관련**: [android-activity-lifecycle](../02_app_framework/android-activity-lifecycle.md)
+**관련**: [[android-activity-lifecycle]]
 
 ---
 
@@ -466,7 +466,7 @@ adb shell lshal
 # android.hardware.audio@7.0::IDevicesFactory/default
 ```
 
-**관련**: [android-hal-and-kernel](../01_system_internals/android-hal-and-kernel.md)
+**관련**: [[android-hal-and-kernel]]
 
 ---
 
@@ -536,7 +536,7 @@ adb shell cat /proc/$(pidof com.example)/oom_score_adj
 adb logcat | grep lmkd
 ```
 
-**관련**: [android-kernel](../01_system_internals/android-kernel.md), [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)
+**관련**: [[android-kernel]], [[android-activity-manager-and-system-services]]
 
 ---
 
@@ -569,7 +569,7 @@ adb shell getprop ro.boot.slot_suffix
 # 출력: _a 또는 _b
 ```
 
-**관련**: [android-boot-flow](../01_system_internals/android-boot-flow.md), [android-customization-and-oem](../01_system_internals/android-customization-and-oem.md)
+**관련**: [[android-boot-flow]], [[android-customization-and-oem]]
 
 ---
 
@@ -637,7 +637,7 @@ adb pull /data/local/tmp/trace trace.perfetto-trace
 # 분석: https://ui.perfetto.dev/
 ```
 
-**관련**: [android-profiling-tools](../06_testing_performance/android-profiling-tools.md), [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md)
+**관련**: [[android-profiling-tools]], [[android-performance-and-debug]]
 
 ---
 
@@ -668,7 +668,7 @@ intent.type = "*/*"
 startActivityForResult(intent, REQUEST_CODE)
 ```
 
-**관련**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md), [android-storage-systems](../02_app_framework/android-storage-systems.md)
+**관련**: [[android-security-sandbox]], [[android-storage-systems]]
 
 ---
 
@@ -706,7 +706,7 @@ adb logcat | grep avc
 # avc: denied { read } for scontext=u:r:untrusted_app:s0 ...
 ```
 
-**관련**: [selinux](../../../../selinux.md), [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md)
+**관련**: [[selinux]], [[android-security-sandbox]]
 
 ---
 
@@ -820,7 +820,7 @@ adb shell ls -la /data/data/com.example
 Vsync 발생 -> Choreographer.onVsync() -> App.doFrame() -> Measure/Layout/Draw -> SurfaceFlinger
 ```
 
-**관련**: [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md), [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md)
+**관련**: [[android-performance-and-debug]], [[android-graphics-and-media]]
 
 ---
 
@@ -859,7 +859,7 @@ adb shell getprop ro.boot.verifiedbootstate
 # green / yellow / orange / red
 ```
 
-**관련**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md), [android-boot-flow](../01_system_internals/android-boot-flow.md)
+**관련**: [[android-security-sandbox]], [[android-boot-flow]]
 
 ---
 
@@ -1044,8 +1044,8 @@ res/
 
 ### 관련 문서
 
-[android-overview](android-overview.md) - 시스템 전체 개요
+[[android-overview]] - 시스템 전체 개요
 
-[android-evolution-history](android-evolution-history.md) - 기술 진화
+[[android-evolution-history]] - 기술 진화
 
-[android-debugging-techniques](../06_testing_performance/android-debugging-techniques.md) - 디버깅 도구
+[[android-debugging-techniques]] - 디버깅 도구

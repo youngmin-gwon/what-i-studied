@@ -295,7 +295,7 @@ fun NavGraph() {
 
 #### SavedStateHandle
 
-프로세스 사망 후에도 데이터를 복원할 수 있게 해주는 기능이다. [android-process-and-memory](../01_system_internals/android-process-and-memory.md) 참고.
+프로세스 사망 후에도 데이터를 복원할 수 있게 해주는 기능이다. [[android-process-and-memory]] 참고.
 
 ```kotlin
 class DetailViewModel(
@@ -550,7 +550,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-더 자세한 내용은 [android-dependency-injection](android-dependency-injection.md) 참고.
+더 자세한 내용은 [[android-dependency-injection]] 참고.
 
 #### 모범 사례
 

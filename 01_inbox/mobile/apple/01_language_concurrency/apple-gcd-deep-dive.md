@@ -142,5 +142,5 @@ DispatchQueue.main.sync {
 
 ### 더 보기
 
-- [apple-swift-concurrency](apple-swift-concurrency.md) - GCD 의 현대적 대안
-- [apple-operation-queue](apple-operation-queue.md) - GCD 기반의 객체지향 래퍼 (의존성 관리 가능)
+- [[apple-swift-concurrency]] - GCD 의 현대적 대안
+- [[apple-operation-queue]] - GCD 기반의 객체지향 래퍼 (의존성 관리 가능)

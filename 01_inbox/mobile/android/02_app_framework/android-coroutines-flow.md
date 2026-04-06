@@ -359,6 +359,7 @@ class MainDispatcherRule(
 ```
 
 #### 🔗 연관 문서 및 심화 학습
+
 - [[android-viewmodel]] - UI 상태 관리와 생명주기 인식
 - [[android-jetpack-architecture]] - 권장 아키텍처 가이드라인
 - [[android-compose-internals]] - 선언형 UI 에서의 상태 변경 및 재구성

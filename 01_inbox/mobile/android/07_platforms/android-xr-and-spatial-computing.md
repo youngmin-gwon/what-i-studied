@@ -14,13 +14,9 @@ date created: 2026-04-04 00:37:55 +09:00
 
 단순히 2D 앱을 띄우는 것을 넘어, 사용자의 시선과 제스처를 결합한 몰입형 경험을 설계하고 Gemini AI 에이전트와 통합된 미래지향적 인터페이스를 구축하는 것이 목표입니다.
 
----
-
 #### 💡 Context: 공간 중심의 컴퓨팅 패러다임
 
-모바일의 화면 제약을 벗어나 현실 공간에 디지털 정보를 배치하는 아키텍처입니다. 이는 [[android-foundations]] 의 시각적 한계를 넘어선 단계이며, [[android-security-and-sandboxing]] 이 물리적 공간 정보(Spatial Privacy)로 확장되는 새로운 도전 과제입니다.
-
----
+모바일의 화면 제약을 벗어나 현실 공간에 디지털 정보를 배치하는 아키텍처입니다. 이는 [[android-foundations]] 의 시각적 한계를 넘어선 단계이며, [[android-security-sandbox]] 가 물리적 공간 정보(Spatial Privacy)로 확장되는 새로운 도전 과제입니다.
 
 >[!NOTE] **iOS 비교: visionOS vs Android XR**
 > - **iOS/visionOS**: Apple Vision Pro 를 중심으로 한 고성능, 폐쇄형 공간 컴퓨팅. **Foveated Streaming**과 **Spatial Audio**의 극도로 정밀한 경험이 강점이다. ([[apple-spatial-computing-visionos]])
@@ -57,8 +53,6 @@ fun SpatialCard() {
     }
 }
 ```
-
----
 
 #### 🏛️ 공간 컴퓨팅 시대의 앱 설계
 

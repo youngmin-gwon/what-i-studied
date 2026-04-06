@@ -47,7 +47,7 @@ android {
 - **Incremental Build**: 변경된 부분만 다시 빌드.
 - **Build Scan**: `--scan` 옵션으로 어떤 태스크가 병목인지 분석.
 
----
 #### 연관 문서
+
 - [[gradle-variants-flavors]] - 빌드 타입 기반 설정
 - [[mobile-android-foundation-security]] - 서비스 관점 보안

@@ -119,7 +119,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-더 자세한 내용은 [android-viewmodel](android-viewmodel.md) 참고.
+더 자세한 내용은 [[android-viewmodel]] 참고.
 
 ##### Task 와 Back Stack
 
@@ -147,7 +147,7 @@ startActivity(intent)
 
 ##### Intent Filter 와 암시적 Intent
 
-Activity 가 어떤 작업을 처리할 수 있는지 선언한다. Intent 에 대한 자세한 내용은 [android-intent-and-ipc](android-intent-and-ipc.md) 참고.
+Activity 가 어떤 작업을 처리할 수 있는지 선언한다. Intent 에 대한 자세한 내용은 [[android-intent-and-ipc]] 참고.
 
 ```xml
 <activity android:name=".ShareActivity">
@@ -172,7 +172,7 @@ startActivity(shareIntent)
 
 >[!WARNING] **Android 11+ `<queries>` 태그 필수**
 >암시적 Intent 로 외부 앱을 실행하거나 `resolveActivity()` 를 호출하려면 매니페스트에 `<queries>` 를 선언해야 한다. 미선언 시 대상 앱이 보이지 않아 `null` 반환.
->상세는 [android-intent-and-ipc](android-intent-and-ipc.md) 참고.
+>상세는 [[android-intent-and-ipc]] 참고.
 
 #### Service 심화
 

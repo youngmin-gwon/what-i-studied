@@ -2,7 +2,7 @@
 title: android-architecture-stack
 tags: [android, architecture, binder, hal, internals, kernel]
 aliases: [Android Stack, 안드로이드 아키텍처]
-date modified: 2026-04-05 17:41:49 +09:00
+date modified: 2026-04-06 18:26:27 +09:00
 date created: 2025-12-16 15:22:42 +09:00
 ---
 
@@ -76,6 +76,7 @@ date created: 2025-12-16 15:22:42 +09:00
 ---
 
 #### 📚 연관 문서 및 심화 학습
+
 - [[android-glossary]] - 안드로이드 로우레벨 용어 사전
 - [[android-boot-flow]] - 부팅 시 레이어 초기화 순서
 - [[android-activity-manager-and-system-services]] - System Server 및 프레임워크 심화

@@ -12,20 +12,14 @@ date created: 2026-04-05 12:40:00 +09:00
 
 상용 서비스에서 민감 정보(사용자 토큰, 서명 키 등)를 보호하기 위해 하드웨어 기반의 **Android Keystore**와 **BiometricPrompt**를 결합한 보안 저장소 구현 가이드입니다.
 
----
-
 #### 🛡️ Context: 왜 Keystore 인가?
 
 소프트웨어 수준의 암호화는 기기가 루팅되거나 OS 취약점이 발견될 경우 키가 유출될 위험이 큽니다. Keystore 는 키를 **TEE(Trusted Execution Environment)** 또는 **StrongBox** 등 격리된 하드웨어 영역에 가두어 물리적인 탈취를 방지합니다.
-
----
 
 #### 1. Android Keystore 시스템 아키텍처
 
 - **하드웨어 격리**: 키는 **TEE(Trusted Execution Environment)** 또는 **StrongBox(보안 칩)** 내부에서 생성 및 관리되며, 운영체제(Android)로 키 원본이 유출되지 않습니다.
 - **Keymaster / KeyMint**: 하드웨어 측에서 암호화 연산을 수행하는 인터페이스입니다.
-
----
 
 #### 2. [Kotlin] AES-GCM 암호화 루틴 (Production-ready)
 
@@ -87,8 +81,6 @@ class SecureStorageManager {
 }
 ```
 
----
-
 #### 3. BiometricPrompt 연동 및 보안 등급 (Tiering)
 
 안드로이드 10+ 부터는 **BiometricPrompt**를 통해 일관된 UI 와 보안 등급별 제어를 수행합니다.
@@ -116,8 +108,6 @@ val promptInfo = BiometricPrompt.PromptInfo.Builder()
 
 biometricPrompt.authenticate(promptInfo)
 ```
-
----
 
 #### 🛡️ 정보보안기사 실무 대응 가이드
 
