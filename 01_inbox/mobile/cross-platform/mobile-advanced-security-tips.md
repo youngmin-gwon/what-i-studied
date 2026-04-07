@@ -2,7 +2,7 @@
 title: mobile-advanced-security-tips
 tags: [advanced, android, apple, forensics, rasp, security, zero-trust]
 aliases: [심화 보안 가이드, 전문가용 모바일 보안 팁]
-date modified: 2026-04-06 18:21:55 +09:00
+date modified: 2026-04-07 10:41:49 +09:00
 date created: 2026-04-05 12:50:00 +09:00
 ---
 
@@ -78,5 +78,5 @@ date created: 2026-04-05 12:50:00 +09:00
 - [[android-foundations]]
 - [[apple-foundations]]
 - [[cross-platform-ai-privacy-comparison]]
-- [[cross-platform-mobile-vulnerability-check]]
+- [[mobile-vulnerability-check]]
 - [[mobile-security]]

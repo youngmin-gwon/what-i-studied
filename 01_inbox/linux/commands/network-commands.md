@@ -8,7 +8,7 @@ date created: 2025-12-20 13:59:24 +09:00
 
 ## 🌐 개요 (Overview)
 
-[[tcp-ip-model|네트워크]] 설정, 진단, 데이터 전송 명령어들입니다.
+[[network-standards|네트워크 표준(TCP/IP)]] 설정, 진단, 데이터 전송 명령어들입니다.
 
 ## 📋 Quick Reference
 
@@ -19,7 +19,7 @@ date created: 2025-12-20 13:59:24 +09:00
 | `ping` | 연결 테스트 |
 | `traceroute` | 경로 추적 |
 | `netstat|ss` | 네트워크 연결 |
-| `dig`/`nslookup` | [[dns-fundamentals\|DNS]] 조회 |
+| `dig`/`nslookup` | [[network-fundamentals|DNS 기초]] 조회 |
 | `curl`/`wget` | HTTP 전송 |
 | `scp`/`rsync` | 파일 전송 |
 
@@ -228,8 +228,7 @@ curl -v telnet://host:80
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[tcp-ip-model]] - 네트워크 계층
-- [[ip-addressing]] - IP 주소 체계
-- [[dns-fundamentals]] - DNS
-- [[routing-basics]] - 라우팅
+- [[network-standards]] - 네트워크 표준 (OSI, TCP/IP)
+- [[network-fundamentals]] - IP 주소 및 DNS 기초
+- [[network-configuration]] - 기기 및 라우팅 설정
 - [[network-security-protocols]] - SSH, TLS

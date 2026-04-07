@@ -1,7 +1,7 @@
 ---
-title: 네트워크 설정 파일
+title: 네트워크 설정 (Network Configuration)
 tags: [linux, networking, configuration, redhat, centos]
-aliases: [Network Configuration Files, 네트워크 설정, ifcfg]
+aliases: [network-configuration, 네트워크 설정 파일, ifcfg]
 date modified: 2026-01-06 21:45:00 +09:00
 date created: 2026-01-06 21:45:00 +09:00
 ---
@@ -191,5 +191,5 @@ netstat -ant
 ## 🔗 연결 문서 (Related Documents)
 
 - [[network-fundamentals]] - 네트워크 기초
-- [[network-commands]] - 네트워크 명령어
+- [[commands/network-commands|네트워크 명령어]]
 - [[systemd]] - systemctl 서비스 관리

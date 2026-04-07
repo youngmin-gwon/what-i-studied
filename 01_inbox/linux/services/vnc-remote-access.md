@@ -1,8 +1,8 @@
 ---
-title: VNC Remote Access
-tags: [linux, vnc, remote, x11, desktop]
-aliases: [VNC, 원격 데스크톱, vncserver]
-date modified: 2026-01-06 19:48:00 +09:00
+title: vnc-remote-access
+tags: [desktop, linux, remote, vnc, x11]
+aliases: [VNC, vncserver, 원격 데스크톱]
+date modified: 2026-04-07 10:50:00 +09:00
 date created: 2026-01-06 19:48:00 +09:00
 ---
 
@@ -14,8 +14,8 @@ date created: 2026-01-06 19:48:00 +09:00
 
 ## 📊 VNC 포트 번호
 
-> [!IMPORTANT]
-> **핵심 공식**: VNC 포트 = **5900 + 디스플레이 번호**
+>[!IMPORTANT]
+>**핵심 공식**: VNC 포트 = **5900 + 디스플레이 번호**
 
 | 디스플레이 번호 | VNC 포트 | 웹 브라우저 포트 |
 | :---: | :---: | :---: |
@@ -129,7 +129,7 @@ vncviewer 192.168.1.10:5901
 
 ## 🔐 SSH 터널링 (보안 접속)
 
-VNC는 기본적으로 암호화되지 않으므로, SSH 터널을 통한 접속을 권장합니다.
+VNC 는 기본적으로 암호화되지 않으므로, SSH 터널을 통한 접속을 권장합니다.
 
 ```bash
 # 로컬 포트 5901을 원격 서버의 5901로 포워딩
@@ -163,8 +163,8 @@ echo $DISPLAY
 # localhost:10.0 형태로 표시됨
 ```
 
-> [!TIP]
-> **X11 포워딩** 활성화를 위해 서버의 `/etc/ssh/sshd_config`에서 `X11Forwarding yes` 설정이 필요합니다.
+>[!TIP]
+>**X11 포워딩** 활성화를 위해 서버의 `/etc/ssh/sshd_config` 에서 `X11Forwarding yes` 설정이 필요합니다.
 
 ---
 

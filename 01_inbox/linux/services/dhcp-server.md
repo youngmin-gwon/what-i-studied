@@ -1,8 +1,8 @@
 ---
-title: DHCP Server
-tags: [linux, network, dhcp, dhcpd]
+title: dhcp-server
+tags: [dhcp, dhcpd, linux, network]
 aliases: [DHCP 서버, dhcpd]
-date modified: 2026-01-06 19:44:00 +09:00
+date modified: 2026-04-07 10:42:30 +09:00
 date created: 2026-01-06 19:44:00 +09:00
 ---
 
@@ -52,21 +52,21 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 
 | 옵션 | 설명 | 예시 |
 | :--- | :--- | :--- |
-| **default-lease-time** | 기본 IP 임대 시간 (초) | `600` (10분) |
-| **max-lease-time** | 최대 IP 임대 시간 (초) | `7200` (2시간) |
+| **default-lease-time** | 기본 IP 임대 시간 (초) | `600` (10 분) |
+| **max-lease-time** | 최대 IP 임대 시간 (초) | `7200` (2 시간) |
 | **range** | 동적 할당할 IP 범위 | `192.168.1.100 192.168.1.200` |
 | **option routers** | 기본 게이트웨이 | `192.168.1.1` |
 | **option domain-name-servers** | DNS 서버 | `8.8.8.8, 8.8.4.4` |
 | **option domain-name** | 도메인 이름 | `"example.com"` |
 
-> [!IMPORTANT]
-> **시험 Tip**: `default-lease-time`은 클라이언트가 요청하지 않을 경우의 기본 임대 시간이고, `max-lease-time`은 클라이언트가 요청해도 넘을 수 없는 최대값입니다.
+>[!IMPORTANT]
+>**시험 Tip**: `default-lease-time` 은 클라이언트가 요청하지 않을 경우의 기본 임대 시간이고, `max-lease-time` 은 클라이언트가 요청해도 넘을 수 없는 최대값입니다.
 
 ---
 
 ## 🔒 고정 IP 할당 (예약)
 
-특정 MAC 주소에 항상 같은 IP를 할당합니다.
+특정 MAC 주소에 항상 같은 IP 를 할당합니다.
 
 ```bash
 host printer {

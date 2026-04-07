@@ -2,7 +2,7 @@
 title: 12-backup-recovery
 tags: []
 aliases: []
-date modified: 2025-12-29 10:35:57 +09:00
+date modified: 2026-04-07 10:44:02 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
 
@@ -13,18 +13,21 @@ date created: 2025-12-18 16:21:20 +09:00
 #### 1.1 백업 유형
 
 **전체 백업 (Full Backup)**:
+
 - 모든 데이터 백업
 - 복구 간단
 - 시간과 공간 많이 소요
 - 주기: 주 1 회 또는 월 1 회
 
 **증분 백업 (Incremental Backup)**:
+
 - 마지막 백업 이후 변경된 파일만
 - 빠르고 공간 절약
 - 복구 시 모든 증분 필요
 - 주기: 매일
 
 **차등 백업 (Differential Backup)**:
+
 - 마지막 전체 백업 이후 변경된 파일
 - 증분보다 느리지만 복구 쉬움
 - 전체 + 마지막 차등만 필요
@@ -33,11 +36,13 @@ date created: 2025-12-18 16:21:20 +09:00
 #### 1.2 백업 계획
 
 **3-2-1 규칙**:
+
 - **3 개 복사본**: 원본 + 백업 2 개
 - **2 개 매체**: 다른 저장 매체 사용
 - **1 개 오프사이트**: 원격 위치에 보관
 
 **고려사항**:
+
 - **RPO (Recovery Point Objective)**: 허용 가능한 데이터 손실량
 - **RTO (Recovery Time Objective)**: 허용 가능한 복구 시간
 - **보관 기간**: 법적 요구사항, 비즈니스 요구
@@ -49,6 +54,7 @@ date created: 2025-12-18 16:21:20 +09:00
 #### 2.1 tar 기본
 
 **아카이브 생성**:
+
 ```bash
 tar -cvf backup.tar /path/to/dir        # 아카이브 생성
 tar -czvf backup.tar.gz /path/to/dir    # gzip 압축
@@ -57,6 +63,7 @@ tar -cJvf backup.tar.xz /path/to/dir    # xz 압축
 ```
 
 **옵션**:
+
 - `-c`: create (생성)
 - `-x`: extract (추출)
 - `-t`: list (목록)
@@ -69,6 +76,7 @@ tar -cJvf backup.tar.xz /path/to/dir    # xz 압축
 - `-P`: 절대 경로 사용
 
 **아카이브 추출**:
+
 ```bash
 tar -xvf backup.tar                     # 추출
 tar -xzvf backup.tar.gz                 # gzip 압축 해제
@@ -77,6 +85,7 @@ tar -xvf backup.tar file.txt            # 특정 파일만
 ```
 
 **아카이브 확인**:
+
 ```bash
 tar -tvf backup.tar                     # 목록 확인
 tar -tvf backup.tar | grep file.txt     # 파일 검색
@@ -85,6 +94,7 @@ tar -tvf backup.tar | grep file.txt     # 파일 검색
 #### 2.2 증분 백업
 
 **스냅샷 파일 사용**:
+
 ```bash
 # 전체 백업
 tar -czf full_backup.tar.gz -g snapshot.snar /data
@@ -97,6 +107,7 @@ tar -czf incr_day2.tar.gz -g snapshot.snar /data
 ```
 
 **복구**:
+
 ```bash
 # 전체 백업 복구
 tar -xzf full_backup.tar.gz -g /dev/null
@@ -137,12 +148,14 @@ fi
 #### 3.1 rsync 기본
 
 **특징**:
+
 - 증분 전송 (변경된 부분만)
 - 네트워크 백업 지원
 - 권한, 타임스탬프 보존
 - 압축 전송
 
 **기본 사용**:
+
 ```bash
 rsync -av /source/ /destination/        # 로컬 동기화
 rsync -av --delete /source/ /dest/      # 삭제된 파일도 반영
@@ -151,6 +164,7 @@ rsync -av --progress /source/ /dest/    # 진행률 표시
 ```
 
 **옵션**:
+
 - `-a`: archive (권한, 타임스탬프 등 보존)
 - `-v`: verbose
 - `-z`: 압축 전송
@@ -166,6 +180,7 @@ rsync -av --progress /source/ /dest/    # 진행률 표시
 #### 3.2 rsync 고급 사용
 
 **제외 패턴**:
+
 ```bash
 rsync -av --exclude='*.log' /source/ /dest/
 rsync -av --exclude='*.tmp' --exclude='cache/' /source/ /dest/
@@ -173,17 +188,20 @@ rsync -av --exclude-from=exclude.txt /source/ /dest/
 ```
 
 **SSH 를 통한 원격 백업**:
+
 ```bash
 rsync -avz -e ssh /source/ user@remote:/dest/
 rsync -avz -e "ssh -p 2222" /source/ user@remote:/dest/  # 포트 지정
 ```
 
 **대역폭 제한**:
+
 ```bash
 rsync -avz --bwlimit=1000 /source/ /dest/  # 1000 KB/s 제한
 ```
 
 **백업 스크립트**:
+
 ```bash
 #!/bin/bash
 # rsync 백업 스크립트
@@ -213,6 +231,7 @@ fi
 #### 3.3 스냅샷 백업
 
 **하드 링크를 이용한 공간 절약**:
+
 ```bash
 #!/bin/bash
 # 스냅샷 백업
@@ -235,6 +254,7 @@ ln -s "${SNAPSHOT}" "${CURRENT}"
 #### 4.1 dd 기본
 
 **디스크 이미지 생성**:
+
 ```bash
 dd if=/dev/sda of=/backup/disk.img      # 전체 디스크
 dd if=/dev/sda1 of=/backup/sda1.img     # 파티션
@@ -242,6 +262,7 @@ dd if=/dev/sda of=/dev/sdb               # 디스크 복제
 ```
 
 **옵션**:
+
 - `if`: input file (소스)
 - `of`: output file (대상)
 - `bs`: block size (기본 512 바이트)
@@ -249,6 +270,7 @@ dd if=/dev/sda of=/dev/sdb               # 디스크 복제
 - `status=progress`: 진행률 표시
 
 **블록 크기 최적화**:
+
 ```bash
 dd if=/dev/sda of=/backup/disk.img bs=4M status=progress
 ```
@@ -285,6 +307,7 @@ dd if=/dev/sda bs=4M | nc server_ip 9000
 #### 5.1 MySQL/MariaDB
 
 **mysqldump**:
+
 ```bash
 # 단일 데이터베이스
 mysqldump -u root -p database_name > backup.sql
@@ -303,6 +326,7 @@ mysqldump -h remote_host -u root -p database_name > backup.sql
 ```
 
 **복구**:
+
 ```bash
 mysql -u root -p database_name < backup.sql
 gunzip < backup.sql.gz | mysql -u root -p database_name
@@ -311,6 +335,7 @@ gunzip < backup.sql.gz | mysql -u root -p database_name
 #### 5.2 PostgreSQL
 
 **pg_dump**:
+
 ```bash
 # 단일 데이터베이스
 pg_dump database_name > backup.sql
@@ -323,6 +348,7 @@ pg_dumpall > all_backup.sql
 ```
 
 **복구**:
+
 ```bash
 psql database_name < backup.sql
 pg_restore -d database_name backup.dump
@@ -359,11 +385,13 @@ lvremove /dev/vg0/snap_lv
 #### 7.1 rclone
 
 **설정**:
+
 ```bash
 rclone config              # 대화형 설정
 ```
 
 **사용**:
+
 ```bash
 # 업로드
 rclone copy /data remote:backup
@@ -378,6 +406,7 @@ rclone copy remote:backup /restore
 #### 7.2 AWS S3
 
 **aws-cli**:
+
 ```bash
 # 업로드
 aws s3 cp /data s3://bucket/backup/ --recursive
@@ -394,6 +423,7 @@ aws s3 cp s3://bucket/backup/ /restore --recursive
 #### 8.1 파일 복구
 
 **tar**:
+
 ```bash
 # 전체 복구
 tar -xzvf backup.tar.gz -C /restore/
@@ -403,6 +433,7 @@ tar -xzvf backup.tar.gz path/to/file
 ```
 
 **rsync**:
+
 ```bash
 rsync -av /backup/current/ /restore/
 ```
@@ -410,12 +441,14 @@ rsync -av /backup/current/ /restore/
 #### 8.2 시스템 복구
 
 **Live CD/USB 부팅**:
+
 1. Live 환경 부팅
 2. 파티션 마운트
 3. 백업 복구
 4. GRUB 재설치
 
 **예제**:
+
 ```bash
 # 파티션 마운트
 mount /dev/sda1 /mnt
@@ -443,11 +476,13 @@ reboot
 #### 8.3 데이터베이스 복구
 
 **MySQL**:
+
 ```bash
 mysql -u root -p database_name < backup.sql
 ```
 
 **PostgreSQL**:
+
 ```bash
 psql database_name < backup.sql
 ```
@@ -471,6 +506,7 @@ psql database_name < backup.sql
 #### 9.2 systemd timer
 
 **backup.timer**:
+
 ```ini
 [Unit]
 Description=Daily Backup Timer
@@ -485,6 +521,7 @@ WantedBy=timers.target
 ```
 
 **backup.service**:
+
 ```ini
 [Unit]
 Description=Backup Service
@@ -529,4 +566,5 @@ ExecStart=/usr/local/bin/backup.sh
 ---
 
 **이전 챕터**: [시스템 모니터링 및 로그](11-monitoring-logs.md)
-**메인으로**: [리눅스마스터 1급 자격증 학습 가이드](../bash-scripting-summary/README.md)
+
+**메인으로**: [README](README.md)
