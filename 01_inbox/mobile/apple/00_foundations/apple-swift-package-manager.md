@@ -2,7 +2,7 @@
 title: apple-swift-package-manager
 tags: [apple, dependencies, modularization, spm, swift, xcode]
 aliases: []
-date modified: 2026-04-07 15:38:18 +09:00
+date modified: 2026-04-07 15:40:26 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 
@@ -92,7 +92,7 @@ MyApp/
 
 #### 핵심 원칙
 
-1. **단방향 의존성**: Feature → Domain → Core. Feature 간 직접 의존 금지.
+1. **단방향 의존성**: Feature → Domain → Core Feature 간 직접 의존 금지.
 2. **Interface 분리**: 프로토콜을 별도 타겟으로 분리하면, Mock 을 쉽게 만들 수 있습니다.
 3. **증분 빌드(Incremental Build)**: 변경된 모듈만 재컴파일됩니다. 모노리식 대비 빌드 시간 50-80% 절감 가능.
 
