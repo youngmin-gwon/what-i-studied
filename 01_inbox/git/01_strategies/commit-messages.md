@@ -2,7 +2,7 @@
 title: commit-messages
 tags: [commit, git]
 aliases: []
-date modified: 2025-12-18 15:59:15 +09:00
+date modified: 2026-04-07 18:45:28 +09:00
 date created: 2025-12-18 15:20:50 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: credential-storage
 tags: [auth, credentials, git, keychain, security]
 aliases: [Git Credential Helper, Git 인증 관리, 비밀번호 저장]
-date modified: 2025-12-18 15:22:23 +09:00
+date modified: 2026-04-07 18:45:35 +09:00
 date created: 2025-12-18 17:30:00 +09:00
 ---
 

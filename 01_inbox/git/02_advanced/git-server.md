@@ -2,7 +2,7 @@
 title: git-server
 tags: [git, http, protocols, server, ssh]
 aliases: [Git 서버 구축, Git 프로토콜, 서버 사이드 Git]
-date modified: 2025-12-18 15:22:14 +09:00
+date modified: 2026-04-07 18:45:48 +09:00
 date created: 2025-12-18 16:50:00 +09:00
 ---
 

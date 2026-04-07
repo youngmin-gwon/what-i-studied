@@ -2,7 +2,7 @@
 title: branching-strategies
 tags: [branching, collaboration, distributed, git, workflow]
 aliases: [Git Flow, Git 브랜치 전략, GitHub Flow, 분산 워크플로우, 브랜치 모델]
-date modified: 2025-12-18 15:21:57 +09:00
+date modified: 2026-04-07 18:45:19 +09:00
 date created: 2025-12-18 14:10:00 +09:00
 ---
 
