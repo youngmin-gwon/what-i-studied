@@ -2,7 +2,7 @@
 title: apple-boot-flow-and-images
 tags: []
 aliases: []
-date modified: 2026-04-07 15:15:33 +09:00
+date modified: 2026-04-07 15:21:29 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -47,6 +47,7 @@ date created: 2026-04-03 22:15:19 +09:00
 ---
 
 #### 📚 연관 문서 및 심화 학습
+
 - [[apple-architecture-stack]] - Darwin 커널과 시스템 계층 구조
 - [[apple-foundations]] - Apple 플랫폼 공통 설계 철학
 - [[apple-sandbox-and-security]] - 앱 실행 이후의 보안 샌드박스 메커니즘

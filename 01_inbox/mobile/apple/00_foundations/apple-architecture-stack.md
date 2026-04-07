@@ -2,7 +2,7 @@
 title: apple-architecture-stack
 tags: []
 aliases: []
-date modified: 2026-04-06 17:49:46 +09:00
+date modified: 2026-04-07 15:21:34 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -55,6 +55,7 @@ Apple 은 커널 레벨에서 다중 방어 체계를 구축하고 있습니다.
 ---
 
 #### 📚 연관 문서 및 심화 학습
+
 - [[apple-foundations]] - Apple 플랫폼 공통 철학 및 기초
 - [[apple-boot-flow-and-images]] - 전원 버튼부터 앱 실행까지의 상세 흐름
 - [[apple-runtime-and-swift]] - Objective-C 및 Swift 런타임의 내부 구조

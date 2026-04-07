@@ -2,7 +2,7 @@
 title: apple-runtime-and-swift
 tags: []
 aliases: []
-date modified: 2026-04-06 17:51:26 +09:00
+date modified: 2026-04-07 15:25:30 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -12,8 +12,6 @@ date created: 2026-04-03 22:15:19 +09:00
 
 Apple 플랫폼의 실행 환경을 구성하는 **Objective-C Runtime**과 **Swift Runtime**의 내부 동작 원리를 심층 분석합니다. 이 시스템의 근간이 되는 하이브리드 커널 구조는 [[apple-architecture-stack]] 을 참고하시기 바랍니다.
 
----
-
 #### 🔍 Method Dispatch (메서드 호출 매커니즘)
 
 런타임에 어떤 코드를 실행할지 결정하는 과정으로, 성능과 유연성 사이의 균형을 결정합니다.
@@ -22,15 +20,11 @@ Apple 플랫폼의 실행 환경을 구성하는 **Objective-C Runtime**과 **Sw
 - **Table Dispatch (V-Table / Witness)**: 런타임에 함수 포인터 테이블을 참조합니다. Swift 의 클래스 상속과 프로토콜(PWT) 처리에 주로 사용됩니다.
 - **Message Dispatch (objc_msgSend)**: Selector(문자열) 기반으로 메서드를 검색합니다. 가장 유연하며 **Method Swizzling**이나 KVO 의 기반이 됩니다.
 
----
-
 #### 🧠 Objective-C Runtime Internals
 
 - **isa Pointer**: 모든 객체의 첫 번째 필드로, 클래스 및 메타클래스 정보를 담고 있습니다. 64 비트 환경에서는 **Non-pointer isa** 기술을 통해 참조 카운트 등의 부가 정보를 함께 저장하여 최적화합니다.
 - **Messaging Pipeline**: `objc_msgSend` 호출 시 `Cache Lookup` → `Method List Search` → `Dynamic Resolution` → `Forwarding` 순으로 진행됩니다. 대부분의 호출은 고도로 최적화된 메서드 캐시에서 즉시 반환됩니다.
 - **Method Swizzling**: 런타임에 메서드 구현(IMP)을 교체하는 기술입니다. 메인 스레드 로깅이나 분석 SDK 에서 활용되나, 현대적인 Swift/SwiftUI 환경에서는 예기치 못한 부작용을 유발하는 안티패턴으로 간주되기도 합니다.
-
----
 
 #### 🧬 Swift Runtime & Metadata
 
@@ -38,24 +32,20 @@ Apple 플랫폼의 실행 환경을 구성하는 **Objective-C Runtime**과 **Sw
 - **Existential Container**: 프로토콜 타입(`any` 키워드)을 처리하기 위한 특수 구조체로, 데이터 크기에 따라 인라인 버퍼 혹은 힙 할당을 수행합니다.
 - **some vs any**: Swift 5.7+ 부터는 성능 최적화(Static Dispatch 유도)를 위해 컴파일 타임에 타입이 확정되는 `some`(Opaque Type) 사용이 적극 권장됩니다.
 
----
-
 #### 🛡️ 보안 및 성능 최적화 포인트
 
 - **WMO (Whole Module Optimization)**: 모듈 전체를 분석하여 `internal` 수준에서도 적극적인 정적 디스패치와 인라이닝 최적화를 수행합니다.
 - **@objc 의 오버헤드**: Swift 코드에 `@objc` 를 남용하면 브리징 비용과 바이너리 크기 증가를 유발하므로 Selector 가 필수적인 경우에만 제한적으로 사용해야 합니다.
 - **Dynamic Casting**: `as?` 또는 `as!` 는 런타임 메타데이터 순회를 동반하므로 빈번한 루프 내에서의 사용은 지양하는 것이 좋습니다.
 
----
-
 #### 📚 연관 문서 및 심화 학습
+
 - [[apple-memory-management]] - 객체 레이아웃과 ARC 메모리 관리
 - [[apple-uikit-lifecycle]] - UIKit 프레임워크의 생명주기와 내부 동작
 - [[apple-architecture-stack]] - Darwin 커널과 Mach/BSD 계층 구조
 - [[apple-foundations]] - Apple 플랫폼 공통 설계 철학
 - [[apple-performance-and-debug]] - 런타임 성능 프로파일링 가이드
 - [[mobile-security]] - 통합 모바일 보안 가이드
-�에 인스턴스화된 타입 정보 (예: `Array<Int>` 와 `Array<String>` 은 다른 메타데이터를 가짐).
 
 ##### 2. Protocol Witness Table (PWT)
 

@@ -2,7 +2,7 @@
 title: apple-swift-package-manager
 tags: [apple, dependencies, modularization, spm, swift, xcode]
 aliases: []
-date modified: 2026-04-06 17:51:30 +09:00
+date modified: 2026-04-07 15:27:26 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 
@@ -23,8 +23,6 @@ CocoaPods 의 `Podfile`, Carthage 의 `Cartfile` 시대는 끝났습니다.
 > 1. 일부 라이브러리(Firebase 등 대형 SDK)는 과거 SPM 지원이 불안정했으나, 2024 년 기준 대부분 안정화되었습니다.
 > 2. **Binary Dependency**: 소스가 비공개인 SDK 는 `XCFramework` 를 SPM 패키지로 감싸서 배포합니다.
 > 3. **혼합 사용**: 전환 기간에는 CocoaPods + SPM 을 동시에 사용할 수 있지만, 같은 라이브러리를 양쪽에서 중복 참조하면 링크 에러가 발생합니다.
-
----
 
 ### 📦 Package.swift 구조
 
@@ -62,11 +60,10 @@ let package = Package(
 ```
 
 #### 핵심 개념
+
 - **Product**: 패키지가 외부에 노출하는 모듈. `.library` (다른 타겟이 import 가능) 또는 `.executable`.
 - **Target**: 소스 코드의 논리적 단위. 각 타겟은 `Sources/<TargetName>/` 디렉토리에 코드를 둡니다.
 - **Dependency**: 다른 패키지(원격 URL 또는 로컬 경로)에 대한 의존성.
-
----
 
 ### 🏗️ 앱 모듈화 전략 (Local Packages)
 
@@ -98,8 +95,6 @@ MyApp/
 1. **단방향 의존성**: Feature → Domain → Core. Feature 간 직접 의존 금지.
 2. **Interface 분리**: 프로토콜을 별도 타겟으로 분리하면, Mock 을 쉽게 만들 수 있습니다.
 3. **증분 빌드(Incremental Build)**: 변경된 모듈만 재컴파일됩니다. 모노리식 대비 빌드 시간 50-80% 절감 가능.
-
----
 
 ### 🔧 주요 기능
 
@@ -153,8 +148,6 @@ Swift 5.9+ 매크로를 SPM 패키지로 배포할 수 있습니다.
 ])
 ```
 
----
-
 ### 🛠️ CLI 사용법
 
 Xcode 없이도 터미널에서 패키지를 관리할 수 있습니다.
@@ -175,8 +168,6 @@ swift test
 # Xcode 프로젝트 생성 (필요시)
 swift package generate-xcodeproj  # ⚠️ deprecated, 직접 Package.swift 를 Xcode 에서 열기 권장
 ```
-
----
 
 ### ⚠️ 주의사항 & Best Practices
 
