@@ -98,4 +98,4 @@ let fileURL = docDir.appendingPathComponent(fileName)
 ### 더 보기
 
 - [apple-platform-differences](../00_foundations/apple-platform-differences.md) - macOS 샌드박스와 iOS 차이
-- [apple-security-privacy](../../../../apple-security-privacy.md) - Keychain 과 파일 보안 등급
+- [mobile-apple-foundation-security](../../../../mobile-apple-foundation-security.md) - Keychain 과 파일 보안 등급

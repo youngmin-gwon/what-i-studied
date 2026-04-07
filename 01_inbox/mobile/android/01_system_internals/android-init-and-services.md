@@ -471,7 +471,7 @@ product      /product       ext4    ro,barrier=1   wait,slotselect,avb=vbmeta_sy
 - `formattable`: 포맷 가능 (공장 초기화 시)
 - `slotselect`: A/B 파티션 슬롯 자동 선택
 - `avb`: Android Verified Boot
-- `fileencryption`: [[android-security-and-sandboxing#FBE|파일 기반 암호화]]
+- `fileencryption`: [[android-security-sandbox#FBE|파일 기반 암호화]]
 
 ### Early Mount
 
@@ -718,4 +718,4 @@ service charger /system/bin/charger
 
 [[selinux]] - Init 의 SELinux 정책
 
-[[android-security-and-sandboxing]] - 부팅 보안 (Verified Boot)
+[[android-security-sandbox]] - 부팅 보안 (Verified Boot)

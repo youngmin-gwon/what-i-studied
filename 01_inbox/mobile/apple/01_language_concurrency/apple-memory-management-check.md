@@ -69,5 +69,5 @@ class Worker {
 #### 📚 연관 학습
 
 - [[apple-memory-management]] - ARC 및 메모리 레이아웃 상세
-- [[apple-performance-monitoring]] - 실전 디버깅 및 분석 도구 활용
+- [[apple-performance-and-debug]] - 실전 디버깅 및 분석 도구 활용
 - [[apple-runtime-and-swift]] - 런타임 메타데이터와 객체 구조

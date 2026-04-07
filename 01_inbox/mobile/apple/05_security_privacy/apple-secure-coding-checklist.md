@@ -56,5 +56,5 @@ date created: 2025-12-16 16:08:41 +09:00
 
 ### 더 보기
 
-- [apple-security-models](../../../../apple-security-models.md) - 보안 모델 개요
+- [apple-sandbox-and-security](../../../../apple-sandbox-and-security.md) - 보안 모델 개요
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 샌드박스와 권한 상세

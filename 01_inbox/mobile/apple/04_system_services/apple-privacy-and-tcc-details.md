@@ -60,4 +60,4 @@ date created: 2025-12-18 16:21:20 +09:00
 
 ### 링크
 
-[apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md), [apple-security-models](../../../../apple-security-models.md), [apple-distribution-and-policies](../05_security_privacy/apple-distribution-and-policies.md), [apple-accessibility-and-internationalization](../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+[apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md), [apple-sandbox-and-security](../../../../apple-sandbox-and-security.md), [apple-distribution-and-policies](../05_security_privacy/apple-distribution-and-policies.md), [apple-accessibility-and-internationalization](../02_ui_frameworks/apple-accessibility-and-internationalization.md).

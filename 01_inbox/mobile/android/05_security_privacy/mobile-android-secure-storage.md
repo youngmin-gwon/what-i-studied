@@ -117,5 +117,5 @@ biometricPrompt.authenticate(promptInfo)
 
 #### 📚 연결 문서
 
-- [android-security-and-sandboxing](android-security-and-sandboxing.md) - 안드로이드 기초 보안 아키텍처
+- [android-security-sandbox](android-security-sandbox.md) - 안드로이드 기초 보안 아키텍처
 - [mobile-vulnerability-check](../../cross-platform/mobile-vulnerability-check.md)- 모바일 취약점 진단 가이드

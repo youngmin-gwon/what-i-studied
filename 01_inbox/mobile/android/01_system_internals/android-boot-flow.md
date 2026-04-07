@@ -275,6 +275,6 @@ fastboot oem get-log
 
 [[android-kernel]] - 커널 수정 사항
 
-[[android-security-and-sandboxing]] - 부팅 보안 (Verified Boot)
+[[android-security-sandbox]] - 부팅 보안 (Verified Boot)
 
 [[android-customization-and-oem]] - OEM bootloader 커스터마이징

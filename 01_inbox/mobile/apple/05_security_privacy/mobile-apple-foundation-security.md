@@ -1,7 +1,7 @@
 ---
 title: mobile-apple-foundation-security
 tags: [apple, apple/security, moc]
-aliases: []
+aliases: [apple-security-privacy, mobile-apple-foundation-security, Apple Security Foundation]
 date modified: 2026-04-06 18:14:49 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---

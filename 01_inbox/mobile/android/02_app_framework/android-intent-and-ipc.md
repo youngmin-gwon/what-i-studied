@@ -324,4 +324,4 @@ adb shell dumpsys activity intents
 
 #### 더 보기
 
-[[android-app-components-deep-dive]], [[android-deep-links]], [[android-permissions-deep-dive]], [[android-activity-lifecycle]]
+[[android-app-components-deep-dive]], [[android-deep-links]], [[android-security-permissions]], [[android-activity-lifecycle]]

@@ -1,7 +1,7 @@
 ---
 title: apple-sandbox-and-security
 tags: [apple, apple/security, mobile-security, sandbox]
-aliases: []
+aliases: [apple-security-models, apple-sandbox-and-security, App Sandbox Model, 보안 모듈]
 date modified: 2026-04-06 18:13:28 +09:00
 date created: 2026-04-06 17:50:00 +09:00
 ---

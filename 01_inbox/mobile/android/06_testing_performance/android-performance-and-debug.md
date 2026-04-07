@@ -77,6 +77,6 @@ date created: 2026-03-21 16:47:09 +09:00
 #### See Also
 
 - [[android-activity-manager-and-system-services]]
-- [[android-security-and-sandboxing]]
+- [[android-security-sandbox]]
 - [[android-adb-and-images]]
 - [[android-testing-and-quality]]

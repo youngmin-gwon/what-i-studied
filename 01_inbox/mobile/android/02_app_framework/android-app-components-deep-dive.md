@@ -633,4 +633,4 @@ adb shell dumpsys activity providers
 - [[android-activity-manager-and-system-services]]
 - [[android-binder-and-ipc]]
 - [[android-process-and-memory]]
-- [[android-permissions-deep-dive]]
+- [[android-security-permissions]]

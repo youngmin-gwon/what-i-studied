@@ -53,7 +53,7 @@ Apple 플랫폼의 실행 환경을 구성하는 **Objective-C Runtime**과 **Sw
 - [[apple-uikit-lifecycle]] - UIKit 프레임워크의 생명주기와 내부 동작
 - [[apple-architecture-stack]] - Darwin 커널과 Mach/BSD 계층 구조
 - [[apple-foundations]] - Apple 플랫폼 공통 설계 철학
-- [[apple-performance-monitoring]] - 런타임 성능 프로파일링 가이드
+- [[apple-performance-and-debug]] - 런타임 성능 프로파일링 가이드
 - [[mobile-security]] - 통합 모바일 보안 가이드
 �에 인스턴스화된 타입 정보 (예: `Array<Int>` 와 `Array<String>` 은 다른 메타데이터를 가짐).
 

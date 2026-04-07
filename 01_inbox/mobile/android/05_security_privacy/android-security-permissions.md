@@ -1,7 +1,7 @@
 ---
 title: android-security-permissions
 tags: [android, android/permissions, android/security]
-aliases: []
+aliases: [android-permissions-deep-dive, android-security-permissions, Permission Deep Dive, 권한 심층 분석]
 date modified: 2026-04-05 21:04:23 +09:00
 date created: 2026-04-05 16:29:23 +09:00
 ---

@@ -320,7 +320,7 @@ u:r:untrusted_app:s0:c512  # 앱 1
 u:r:platform_app:s0        # 시스템 앱
 ```
 
-**상세**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md)
+**상세**: [android-security-sandbox](../05_security_privacy/android-security-sandbox.md)
 
 ---
 

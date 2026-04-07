@@ -51,4 +51,4 @@ date created: 2026-04-03 22:15:19 +09:00
 - [[apple-foundations]] - Apple 플랫폼 공통 설계 철학
 - [[apple-sandbox-and-security]] - 앱 실행 이후의 보안 샌드박스 메커니즘
 - [[apple-runtime-and-swift]] - 앱 실행의 내부 런타임 구조
-- [[apple-performance-monitoring]] - 부팅 및 앱 실행 속도 분석 가이드
+- [[apple-performance-and-debug]] - 부팅 및 앱 실행 속도 분석 가이드

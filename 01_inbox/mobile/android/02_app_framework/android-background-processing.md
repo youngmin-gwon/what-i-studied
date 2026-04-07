@@ -129,4 +129,4 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager.canScheduleEx
 
 - [[android-app-components-deep-dive]]
 - [[android-coroutines-flow]]
-- [[android-permissions-deep-dive]]
+- [[android-security-permissions]]

@@ -140,6 +140,6 @@ adb shell pm clear com.example
 
 [android-kernel](android-kernel.md) - LMKD 와 메모리 관리
 
-[android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md) - 권한 검사
+[android-security-sandbox](../05_security_privacy/android-security-sandbox.md) - 권한 검사
 
 [android-process-and-memory](android-process-and-memory.md) - 메모리 관리 상세

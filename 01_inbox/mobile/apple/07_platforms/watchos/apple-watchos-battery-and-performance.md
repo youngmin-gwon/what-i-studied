@@ -57,4 +57,4 @@ date created: 2025-12-18 16:21:20 +09:00
 
 ### 링크
 
-[apple-watchos-wearables](../../../../../../../apple-watchos-wearables.md), [apple-watchos-fitness-guide](apple-watchos-fitness-guide.md), [apple-offline-and-resilience](../../03_data_networking/apple-offline-and-resilience.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).
+[apple-watchos-system](../apple-watchos-system.md), [apple-watchos-fitness-guide](apple-watchos-fitness-guide.md), [apple-offline-and-resilience](../../03_data_networking/apple-offline-and-resilience.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).

@@ -51,4 +51,4 @@ date created: 2025-12-18 16:21:20 +09:00
 
 ### 링크
 
-[[apple-tvos-media]], [[apple-animation-and-motion]], [[apple-network-basics]], [[apple-accessibility-and-internationalization]].
+[[apple-tvos-media]], [[apple-animation-and-motion]], [[apple-networking-and-cloud]], [[apple-accessibility-and-internationalization]].

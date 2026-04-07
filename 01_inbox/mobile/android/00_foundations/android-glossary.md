@@ -187,7 +187,7 @@ adb shell appops get com.example.app
 adb shell appops set com.example.app CAMERA deny
 ```
 
-**관련**: [[android-permissions-deep-dive]]
+**관련**: [[android-security-permissions]]
 
 ---
 
@@ -431,7 +431,7 @@ val deFile = File(deContext.filesDir, "alarm.txt")
 val ceFile = File(context.filesDir, "user_data.txt")
 ```
 
-**관련**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md)
+**관련**: [android-security-sandbox](../05_security_privacy/android-security-sandbox.md)
 
 ---
 
@@ -796,7 +796,7 @@ adb shell ls -la /data/data/com.example
 #             (UID만 접근 가능)
 ```
 
-**관련**: [android-security-and-sandboxing](../05_security_privacy/android-security-and-sandboxing.md)
+**관련**: [android-security-sandbox](../05_security_privacy/android-security-sandbox.md)
 
 ---
 

@@ -70,4 +70,4 @@ iOS 에서 고급 기능을 쓸 때 주의할 점을 쉽게 정리했다. 용어
 
 ### 링크
 
-[apple-ios-playbook](apple-ios-playbook.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-network-basics](../../../../../../../apple-network-basics.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-distribution-and-policies](../../05_security_privacy/apple-distribution-and-policies.md).
+[apple-ios-playbook](apple-ios-playbook.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-distribution-and-policies](../../05_security_privacy/apple-distribution-and-policies.md).

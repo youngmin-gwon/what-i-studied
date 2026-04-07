@@ -1,7 +1,7 @@
 ---
 title: apple-macos-system
 tags: [apple, hardened-runtime, macos, sandbox, system, window-server]
-aliases: [apple-macos-desktop, macOS System, 맥OS 시스템]
+aliases: [apple-macos-system, apple-macos-desktop, macOS System, 맥OS 시스템]
 date modified: 2026-04-06 18:20:48 +09:00
 date created: 2025-12-17 23:40:00 +09:00
 ---
