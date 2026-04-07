@@ -2,7 +2,7 @@
 title: apple-swift-package-manager
 tags: [apple, dependencies, modularization, spm, swift, xcode]
 aliases: []
-date modified: 2026-04-07 15:27:26 +09:00
+date modified: 2026-04-07 15:38:18 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-04-03 23:58:00 +09:00
 
 CocoaPods 의 `Podfile`, Carthage 의 `Cartfile` 시대는 끝났습니다.
 
-**Swift Package Manager**는 Apple 이 공식으로 제공하는 의존성 관리 + 모듈화 도구이며, Xcode 에 완전히 통합되어 있습니다.
+**Swift Package Manager** 는 Apple 이 공식으로 제공하는 의존성 관리 + 모듈화 도구이며, Xcode 에 완전히 통합되어 있습니다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
