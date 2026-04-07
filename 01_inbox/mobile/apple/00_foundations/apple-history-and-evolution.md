@@ -2,7 +2,7 @@
 title: apple-history-and-evolution
 tags: [apple, evolution, history, legacy]
 aliases: []
-date modified: 2026-04-06 17:51:16 +09:00
+date modified: 2026-04-07 18:52:46 +09:00
 date created: 2025-12-16 16:11:27 +09:00
 ---
 
@@ -16,8 +16,6 @@ date created: 2025-12-16 16:11:27 +09:00
 
 - **API 이름의 유래**: `NSString`, `NSArray` 의 **NS**는 NeXTSTEP 의 약자입니다. Apple 의 뿌리가 1980 년대 NeXT OS 에 있음을 알면 문서 읽기가 편해집니다.
 - **기술의 전환점**: Objective-C → Swift, OpenGL → Metal, UIKit → SwiftUI 같은 대전환의 흐름을 알면, **"앞으로 무엇을 공부해야 할지"**가 보입니다.
-
----
 
 ### ⏳ 시대별 대전환 (The Eras)
 
@@ -40,8 +38,6 @@ date created: 2025-12-16 16:11:27 +09:00
 
 - **SwiftUI & Combine**: 화면 해상도가 다양해지고 다크 모드 등 상태가 복잡해지자, 명령형(UIKit)보다 선언형(SwiftUI)이 유리해졌습니다.
 - **Apple Silicon**: Intel 을 버리고 M1 칩을 도입하면서, 아이폰과 맥의 경계가 하드웨어 레벨에서 통합되었습니다.
-
----
 
 ### 🔮 미래 : 공간 컴퓨팅 (Spatial Computing)
 

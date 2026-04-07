@@ -2,7 +2,7 @@
 title: apple-runtime-and-swift
 tags: []
 aliases: []
-date modified: 2026-04-07 15:25:30 +09:00
+date modified: 2026-04-07 18:58:36 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -11,6 +11,22 @@ date created: 2026-04-03 22:15:19 +09:00
 ### Runtime & Swift/ObjC Internals: Dynamic Architecture
 
 Apple 플랫폼의 실행 환경을 구성하는 **Objective-C Runtime**과 **Swift Runtime**의 내부 동작 원리를 심층 분석합니다. 이 시스템의 근간이 되는 하이브리드 커널 구조는 [[apple-architecture-stack]] 을 참고하시기 바랍니다.
+
+#### 🏗️ Architecture Level: How Compiled Code is Processed
+
+컴파일된 코드가 실제 하드웨어(ARM64 CPU)에서 어떻게 인식되고 실행되는지, 언어별 컴파일 과정과 바이너리 구조를 분석합니다.
+
+- **Compilation Pipeline (언어별 컴파일 경로)**:
+    - **Objective-C**: `Clang` 프론트엔드가 C/Obj-C 코드를 분석하여 **LLVM IR**(Intermediate Representation)을 생성합니다. 이후 LLVM 백엔드가 이를 특정 아키텍처(arm64, x86_64)의 기계어로 변환합니다.
+    - **Swift**: `Swift Compiler` 가 구문 분석 후 **SIL**(Swift Intermediate Language)이라는 고수준 중간 언어 단계를 거칩니다. SIL 단계에서 Swift 만의 최적화(ARC 최적화, 제네릭 특수화 등)를 수행한 뒤 LLVM IR 로 넘깁니다.
+- **Mach-O Binary Structure (바이너리 수준의 구분)**:
+    - 컴파일 결과물은 **Mach-O** 형식으로 저장됩니다.
+    - **Objective-C Metadata**: `__DATA` 세그먼트의 `__objc_classlist`, `__objc_methname` 등의 섹션에 클래스 및 메서드 정보가 기록됩니다. 런타임(dyld)은 이 정보를 읽어 메서드 테이블을 구축합니다.
+    - **Swift Metadata**: `__TEXT` 및 `__DATA` 세그먼트에 `__swift5_types`, `__swift5_protos` 등으로 기록됩니다. Swift 런타임은 이를 통해 리플렉션, 제네릭 타입 확인 등을 수행합니다.
+- **CPU Execution & Runtime Intersection**:
+    - CPU 는 Swift 나 Obj-C 를 직접 구분하지 않습니다. 오직 **ARM64 명령어**만 실행합니다.
+    - **Dynamic Dispatch**는 결국 CPU 레벨에서 **간접 점프(Indirect Jump)** 명령어(`br x16` 등)로 처리됩니다.
+    - `dyld`(Dynamic Linker)가 앱 실행 시 공유 라이브러리(`libobjc.A.dylib`, `libswiftCore.dylib`)를 로드하고, `_objc_init` 등의 초기화 함수를 호출하여 런타임 환경을 셋업해야 비로소 메시지 전달이나 타입 확인이 가능해집니다.
 
 #### 🔍 Method Dispatch (메서드 호출 매커니즘)
 
@@ -45,6 +61,7 @@ Apple 플랫폼의 실행 환경을 구성하는 **Objective-C Runtime**과 **Sw
 - [[apple-architecture-stack]] - Darwin 커널과 Mach/BSD 계층 구조
 - [[apple-foundations]] - Apple 플랫폼 공통 설계 철학
 - [[apple-performance-and-debug]] - 런타임 성능 프로파일링 가이드
+- [[objective-c-vs-swift-interoperability]] - Swift 와 Objective-C 의 상호 운용 및 컴파일 심층 비교
 - [[mobile-security]] - 통합 모바일 보안 가이드
 
 ##### 2. Protocol Witness Table (PWT)

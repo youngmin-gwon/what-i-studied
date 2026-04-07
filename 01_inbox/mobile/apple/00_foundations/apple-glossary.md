@@ -2,7 +2,7 @@
 title: apple-glossary
 tags: []
 aliases: []
-date modified: 2026-04-06 17:51:13 +09:00
+date modified: 2026-04-07 18:52:37 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -55,6 +55,7 @@ Apple 생태계의 문서를 읽을 때 마주하게 되는 핵심 기술 용어
 ---
 
 #### 🔗 관련 문서
+
 - [[apple-foundations]] - Apple 플랫폼 공통 철학
 - [[apple-architecture-stack]] - 시스템 계층 구조 및 커널 상세
 - [[apple-history-and-evolution]] - 플랫폼의 변화 과정

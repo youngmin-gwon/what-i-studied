@@ -2,7 +2,7 @@
 title: apple-gcd-deep-dive
 tags: [apple, concurrency, gcd, internals, performance]
 aliases: []
-date modified: 2026-04-06 17:51:40 +09:00
+date modified: 2026-04-07 18:54:39 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -21,8 +21,6 @@ date created: 2025-12-16 17:01:32 +09:00
 - **Low-Level Control**: "특정 스레드에 작업을 꽂아넣기", "정확히 0.3 초 뒤에 실행하기", "반복 작업 동기화" 등은 아직도 GCD 가 가장 직관적일 때가 있습니다.
 - **Under the Hood**: Swift Concurrency(`Executor`)도 내부적으로 GCD 큐를 사용할 수 있습니다.
 
----
-
 ### 📚 외부 리소스 및 참고 자료
 
 #### 공식 문서 및 소스 코드
@@ -34,8 +32,6 @@ date created: 2025-12-16 17:01:32 +09:00
 
 - [WWDC 2015: Building Responsive and Efficient Apps with GCD](https://developer.apple.com/videos/play/wwdc2015/718) - QoS 개념 도입
 - [WWDC 2017: Modernizing Grand Central Dispatch Usage](https://developer.apple.com/videos/play/wwdc2017/706) - 스레드 폭발(Thread Explosion) 문제와 해결책
-
----
 
 ### 🔍 GCD Internals
 
@@ -50,8 +46,6 @@ date created: 2025-12-16 17:01:32 +09:00
 GCD 의 가장 큰 단점입니다. `DispatchQueue.global().async` 를 100 번 호출하면서 내부에서 `sleep`(Block)을 걸면, GCD 는 100 개의 스레드를 생성해버립니다. 이는 컨텍스트 스위칭 오버헤드와 메모리 부족을 야기합니다.
 
 👉 **해결책**: `DispatchSemaphore` 로 동시 실행 수를 제한하거나, Swift Concurrency 로 마이그레이션하세요.
-
----
 
 ### 🛠️ 고급 패턴 (Advanced Patterns)
 
@@ -122,8 +116,6 @@ for url in urls {
     }
 }
 ```
-
----
 
 ### ⚠️ 주의사항 (Troubleshooting)
 

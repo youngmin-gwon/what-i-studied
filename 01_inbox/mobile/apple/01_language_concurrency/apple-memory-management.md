@@ -2,7 +2,7 @@
 title: apple-memory-management
 tags: []
 aliases: []
-date modified: 2026-04-06 18:01:22 +09:00
+date modified: 2026-04-07 18:54:47 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -208,6 +208,7 @@ private class DeinitTracker {
 - **[Swift Runtime Source](https://github.com/apple/swift/tree/main/stdlib/public/runtime)**: 실제 C++ 구현체 확인.
 
 #### 🔗 연관 문서 및 심화 학습
+
 - [[apple-uikit-lifecycle]] - 앱 생명주기에 따른 메모리 관리 및 뷰 컨트롤러 해제 시점
 - [[apple-performance-and-debug]] - Instruments 를 활용한 메모리 누수 및 리테인 사이클 추적
 - [[apple-swift-concurrency]] - 비동기 작업에서의 강한 참조 순환 방지 및 Actor 의 메모리 안전성
