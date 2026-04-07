@@ -2,7 +2,7 @@
 title: android-evolution-history
 tags: [android, android/evolution, android/history]
 aliases: [Android History, 안드로이드 역사]
-date modified: 2026-04-06 18:28:05 +09:00
+date modified: 2026-04-07 10:37:45 +09:00
 date created: 2025-12-16 15:25:47 +09:00
 ---
 
@@ -443,7 +443,7 @@ vkCmdEndRenderPass(...);
 
 - ✨ ART 기본 런타임
 - 🎨 Material Design
-- 🔒 [SELinux](../../../../../../02_references/operating-systems/selinux.md) Enforcing
+- 🔒 [SELinux](../../../linux/security/selinux.md) Enforcing
 - 💼 JobScheduler
 
 ### Android 6.0 Marshmallow (2015) - 권한 혁명

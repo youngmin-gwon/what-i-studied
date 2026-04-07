@@ -2,7 +2,7 @@
 title: apple-watchos-fitness-guide
 tags: [apple, health, watchos]
 aliases: []
-date modified: 2026-04-06 18:19:50 +09:00
+date modified: 2026-04-07 10:32:48 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
 

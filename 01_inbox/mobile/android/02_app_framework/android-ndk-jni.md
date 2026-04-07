@@ -2,7 +2,7 @@
 title: android-ndk-jni
 tags: []
 aliases: []
-date modified: 2026-04-05 17:43:11 +09:00
+date modified: 2026-04-07 10:31:48 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 

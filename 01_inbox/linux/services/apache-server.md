@@ -1,8 +1,8 @@
 ---
-title: Apache HTTP Server
-tags: [linux, network, apache, httpd, webserver]
-aliases: [아파치, httpd, 웹서버]
-date modified: 2026-01-06 19:42:00 +09:00
+title: apache-server
+tags: [apache, httpd, linux, network, webserver]
+aliases: [httpd, 아파치, 웹서버]
+date modified: 2026-04-07 10:37:19 +09:00
 date created: 2026-01-06 19:42:00 +09:00
 ---
 
