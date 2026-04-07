@@ -187,5 +187,5 @@ firewall-cmd --reload
 ## 🔗 연결 문서 (Related Documents)
 
 - [[x-window-system]] - X Window 시스템 개념
-- [[ssh-commands]] - SSH 관련 명령어
+- [[ssh-remote-access]] - SSH 관련 명령어 및 터널링
 - [[security-commands]] - 방화벽 설정

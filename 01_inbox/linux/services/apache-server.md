@@ -2,7 +2,7 @@
 title: apache-server
 tags: [apache, httpd, linux, network, webserver]
 aliases: [httpd, 아파치, 웹서버]
-date modified: 2026-04-07 10:37:19 +09:00
+date modified: 2026-04-07 10:53:27 +09:00
 date created: 2026-01-06 19:42:00 +09:00
 ---
 
@@ -195,4 +195,4 @@ httpd -M
 
 - [[dns-bind-server]] - DNS 서버 설정
 - [[security-commands]] - 방화벽 설정 (HTTP 80, HTTPS 443)
-- [[ssl-tls]] - HTTPS 인증서 설정
+- [[security/ssl-tls|ssl-tls]] - HTTPS 인증서 설정 (OpenSSL, Certbot)

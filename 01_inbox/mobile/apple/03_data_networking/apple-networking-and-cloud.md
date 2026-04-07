@@ -1,7 +1,7 @@
 ---
 title: apple-networking-and-cloud
 tags: [apple, internals, network-framework, networking, operations, protocols, security, urlsession]
-aliases: []
+aliases: [apple-network-basics, Networking & Cloud, 네트워킹 기초]
 date modified: 2026-04-06 18:06:21 +09:00
 date created: 2025-12-16 16:09:23 +09:00
 ---

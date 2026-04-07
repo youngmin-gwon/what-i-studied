@@ -2,7 +2,7 @@
 title: android-init-and-services
 tags: [android, android/boot, android/init]
 aliases: [Android Init, Init, RC Scripts]
-date modified: 2026-04-05 17:42:40 +09:00
+date modified: 2026-04-07 10:55:06 +09:00
 date created: 2025-12-16 15:34:24 +09:00
 ---
 
@@ -692,7 +692,7 @@ service charger /system/bin/charger
 
 **공식 문서**:
 
-- [Init Language](../../bash-scripting-summary/README.md)
+- [Bash](../../../linux/commands/shell-environment-commands.md)
 - [Property System](https://source.android.com/docs/core/architecture/configuration/add-system-properties)
 
 **소스 코드**:

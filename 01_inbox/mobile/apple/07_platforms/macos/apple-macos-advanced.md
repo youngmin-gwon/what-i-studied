@@ -2,7 +2,7 @@
 title: apple-macos-advanced
 tags: [apple, desktop, macos]
 aliases: []
-date modified: 2026-04-06 18:17:08 +09:00
+date modified: 2026-04-07 11:00:43 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
 
@@ -61,4 +61,4 @@ z
 
 ### 링크
 
-[apple-macos-desktop](../../../../../../../apple-macos-desktop.md), [apple-build-and-distribution](../../05_security_privacy/apple-build-and-distribution.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).
+[apple-macos-system](../apple-macos-system.md), [apple-build-and-distribution](../../05_security_privacy/apple-build-and-distribution.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).

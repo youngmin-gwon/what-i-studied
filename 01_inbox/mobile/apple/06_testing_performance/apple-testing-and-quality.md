@@ -84,6 +84,6 @@ func testLoginSuccess() {
 
 ### 더 보기
 
-- [apple-performance-monitoring](apple-performance-monitoring.md) - 성능 테스트(XCTMetric) 방법
+- [apple-performance-and-debug](apple-performance-and-debug.md) - 성능 테스트(XCTMetric) 방법
 - [apple-xctest-deep-dive](apple-xctest-deep-dive.md) - XCTest 프레임워크 상세 사용법
 - [Swift Testing Documentation](https://developer.apple.com/documentation/testing) - 차세대 테스트 프레임워크 (WWDC 2024)
