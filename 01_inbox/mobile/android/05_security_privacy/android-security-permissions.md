@@ -2,7 +2,7 @@
 title: android-security-permissions
 tags: [android, android/permissions, android/security]
 aliases: [android-permissions-deep-dive, android-security-permissions, Permission Deep Dive, 권한 심층 분석]
-date modified: 2026-04-05 21:04:23 +09:00
+date modified: 2026-04-07 22:20:12 +09:00
 date created: 2026-04-05 16:29:23 +09:00
 ---
 
@@ -12,18 +12,14 @@ date created: 2026-04-05 16:29:23 +09:00
 
 권한 시스템은 앱이 민감한 사용자 데이터(연락처, 사진)나 시스템 기능(카메라, 위치)에 접근하는 것을 제어하는 핵심 보안 레이어입니다. 이는 [[android-security-sandbox]] 의 연장선이며, 사용자 프라이버시 보호의 핵심입니다.
 
----
-
 #### 🛡️ 보호 수준 (Protection Levels)
 
-| 수준 | 설명 | 승인 방식 |
-|------|------|----------|
-| **Normal** | 낮은 위험 (인터넷, 진동 등) | 설치 시 자동 승인 |
+| 수준            | 설명                   | 승인 방식            |
+| ------------- | -------------------- | ---------------- |
+| **Normal**    | 낮은 위험 (인터넷, 진동 등)    | 설치 시 자동 승인       |
 | **Dangerous** | 높은 위험 (위치, 카메라, 연락처) | **런타임 시 사용자 승인** |
-| **Signature** | 동일한 서명의 앱끼리만 공유 가능 | 시스템 자동 승인 |
-| **Internal** | 시스템 내부 전용 | 일반 앱 접근 불가 |
-
----
+| **Signature** | 동일한 서명의 앱끼리만 공유 가능   | 시스템 자동 승인        |
+| **Internal**  | 시스템 내부 전용            | 일반 앱 접근 불가       |
 
 #### 런타임 권한 (Android 6.0+)
 
@@ -57,8 +53,6 @@ fun checkAndRequestCamera() {
 }
 ```
 
----
-
 #### 📍 특수 권한 및 세분화된 제어
 
 ##### 1. 위치 권한 (Android 10~12)
@@ -89,8 +83,6 @@ fun checkAndRequestCamera() {
 - **백그라운드 활동 제한**: 앱이 백그라운드 상태에서 다른 앱의 Activity 를 무단으로 시작하는 것이 더욱 엄격하게 제한됩니다.
 - **개인정보 보호 공간 (Private Space)**: 민감한 앱을 별도의 격리된 공간에 설치하고 생체 인증으로 잠글 수 있는 기능이 추가되었습니다.
 
----
-
 #### ⚙️ AppOps (Fine-grained Monitoring)
 
 `AppOps` 는 권한보다 더 세분화된 실행 단위의 기록과 제어를 담당합니다.
@@ -103,8 +95,6 @@ fun checkAndRequestCamera() {
 # 특정 앱의 AppOps 상태 조회
 adb shell appops get com.example.app
 ```
-
----
 
 #### 💡 베스트 프랙티스
 
