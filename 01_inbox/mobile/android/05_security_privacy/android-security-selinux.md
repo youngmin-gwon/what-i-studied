@@ -39,7 +39,7 @@ u:object_r:app_data_file:s0    # type: app_data_file
 
 공격자가 커널 취약점을 이용해 `UID 0`(Root)을 획득하더라도, SELinux 정책이 `untrusted_app` 도메인에 대해 `/system` 파티션 쓰기나 특정 커널 노드 접근을 금지(`neverallow`)하고 있다면 공격은 실패한다. 이는 샌드박스의 "마지막 방어선" 역할을 한다.
 
----
 #### 연관 문서
+
 - [[android-security-sandbox]] - 기본 격리 계층
 - [[android-kernel]] - SELinux 를 구동하는 커널 기초

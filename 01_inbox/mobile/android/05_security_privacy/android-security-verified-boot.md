@@ -35,7 +35,7 @@ graph LR
 
 공격자가 `/system/app` 내부의 바이너리를 수정(Backdoor 삽입)하더라도, `dm-verity` 의 해시 불일치로 인해 부팅 단계에서 차단된다. 이는 OS 의 무결성을 보장하는 가장 강력한 장치 중 하나이다.
 
----
 #### 연관 문서
+
 - [[android-init-and-services]] - 부팅 중 Init 프로세스의 보안 역학
 - [[android-security-selinux]] - 런타임 보안의 핵심
