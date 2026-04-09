@@ -72,13 +72,44 @@ graph LR
 
 위치 서비스는 배터리를 많이 소모하는 주범입니다. 상황에 맞는 전략이 필요합니다.
 
-1. **정확도 타협 (`desiredAccuracy`)**: 
+1. **정확도 타협 (`desiredAccuracy`)**:
    - 내비게이션 앱: `kCLLocationAccuracyBest` (가장 정밀하지만 배터리 소모 극심)
    - 날씨 앱: `kCLLocationAccuracyThreeKilometers` (대략적인 위치만 필요, 배터리 절약)
-2. **Significant Location Change Service**: 
+2. **Significant Location Change Service**:
    - 기지국이 바뀔 때(약 500m~1km 이동)만 알려주는 모드입니다. 배터리 소모가 거의 없어 백그라운드 위치 추적에 최적입니다.
-3. **Geofencing (Region Monitoring)**: 
+3. **Geofencing (Region Monitoring)**:
    - "집 반경 100m 안에 들어오면 알려줘"라고 시스템에 등록해두면, 앱을 완전히 꺼두어도 시스템이 감시하다가 조건이 맞을 때 앱을 깨워줍니다.
+
+---
+
+### 4. 🚀 실전 예시: 위경도로 핀 찍기
+
+실제로 위도(latitude)와 경도(longitude) 값을 이용해 지도에 핀을 꽂는 가장 표준적인 코드 흐름입니다.
+
+```swift
+import MapKit
+
+// 1. 위경도 좌표 정의 (예: 서울 시청)
+let coordinate = CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780)
+
+// 2. 핀(Annotation) 객체 생성 및 설정
+let annotation = MKPointAnnotation()
+annotation.coordinate = coordinate
+annotation.title = "서울 시청"
+annotation.subtitle = "여기가 서울의 중심입니다"
+
+// 3. 지도에 핀 추가
+mapView.addAnnotation(annotation)
+
+// 4. (선택) 핀이 잘 보이도록 지도를 해당 위치로 이동
+let region = MKCoordinateRegion(center: coordinate,
+                                latitudinalMeters: 500,
+                                longitudinalMeters: 500)
+mapView.setRegion(region, animated: true)
+```
+
+- **MKPointAnnotation**: 지도 위의 한 점을 나타내는 가장 기본적인 객체입니다.
+- **setRegion**: 핀만 찍으면 지도가 엉뚱한 곳을 보고 있을 수 있으므로, 핀이 있는 곳을 카메라가 비추도록 범위를 설정해주는 것이 좋습니다.
 
 ---
 
