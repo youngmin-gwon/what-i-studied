@@ -41,7 +41,7 @@ date created: 2025-12-16 16:13:15 +09:00
 #### 1. locationd (위치 서비스)
 
 - **특징**: 배터리 소모가 가장 큽니다. GPS, Wi-Fi, 셀룰러 기지국, 블루투스 비콘을 모두 사용해 위치를 삼각측량합니다.
-- **최적화**: `desiredAccuracy` 를 최대로 설정하지 마세요. "3km 오차 허용"(`kCLLocationAccuracyThreeKilometers`)으로 설정하면 GPS 를 끄고 기지국만 사용하여 배터리를 아낍니다.
+- **최적화**: `desiredAccuracy` 를 최대로 설정하지 마세요. "3km 오차 허용"(`kCLLocationAccuracyThreeKilometers`)으로 설정하면 GPS 를 끄고 기지국만 사용하여 배터리를 아낍니다. 상세한 구현 원리는 [[apple-location-and-maps]] 를 참고하세요.
 
 #### 2. mediaserverd (카메라/오디오)
 
@@ -91,3 +91,4 @@ func requestCameraPermission() {
 
 - [apple-interprocess-and-xpc](apple-interprocess-and-xpc.md) - 데몬과 통신하는 원리
 - [apple-background-tasks](apple-background-tasks.md) - 위치 서비스를 백그라운드에서 쓰기 위한 조건
+- [[apple-location-and-maps]] - Core Location 과 MapKit 기초부터 상세 설명
