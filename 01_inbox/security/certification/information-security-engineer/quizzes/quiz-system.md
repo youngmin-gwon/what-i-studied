@@ -2,7 +2,7 @@
 title: quiz-system
 tags: []
 aliases: []
-date modified: 2026-04-05 12:15:22 +09:00
+date modified: 2026-05-26 15:53:39 +09:00
 date created: 2026-02-25 10:46:47 +09:00
 ---
 
@@ -817,10 +817,10 @@ LM (Lan Manager) 해시
 <table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
-      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">설정 항목</th>
-      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">리눅스 (/etc/login.defs 등)</th>
-      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">솔라리스 (/etc/default/passwd 등)</th>
-      <th style="padding: 8px; text-align: left; background-color: #f0f0f0;">보안적 권고 사항</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0; color: #000000">설정 항목</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0; color: #000000">리눅스 (/etc/login.defs 등)</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0; color: #000000">솔라리스 (/etc/default/passwd 등)</th>
+      <th style="padding: 8px; text-align: left; background-color: #f0f0f0; color: #000000">보안적 권고 사항</th>
     </tr>
   </thead>
   <tbody>
