@@ -91,3 +91,86 @@ date created: 2024-12-12 15:48:00 +09:00
 	- helper 객체가 context 를 변경하는 것을 도와 줌.
 - **Strategy** 는 상속을 대체하려는 목적.
 - **State** 는 코드 내의 조건문들을 대체하려는 목적.
+
+## Modern Applicability (DI/Composition Root)
+
+### 분류: 여전히 설계의 핵심 (규모에 따라 다름)
+
+- 정렬 알고리즘처럼 순수하고 작은 전략은 함수/람다로 충분히 대체됨.
+- 하지만 **Payment, Auth, Retry** 처럼 Transaction, Logging, DI, 생명주기가 얽히는 전략은 "알고리즘" 이 아니라 사실상 **서비스(Service)** 임 ⇒ 함수보다 `interface` + 클래스가 자연스러움.
+
+### "결국 누군가는 concrete 를 알아야 하지 않나?"
+
+GoF 다이어그램만 보면 `Client` 가 `PaypalStrategy` 를 직접 생성해서 `Context` 에 넘기기 때문에, "그럼 뭐가 분리된 거지?" 라는 의문이 생김.
+
+Strategy 패턴이 없애는 것은 **"concrete 를 아는 사람"** 이 아니라, **"concrete 를 아는 위치를 하나로 좁히는 것"** 임. `PaymentStrategy` 를 사용하는 `CheckoutService`(Domain/Application) 는 Paypal 인지 전혀 몰라도 되고, 오직 애플리케이션 조립 지점([Composition Root](../general/patterns/Composition%20Root.md)) 만 concrete 를 앎.
+
+### Android 예시 (Hilt)
+
+```kotlin
+interface PaymentStrategy {
+    fun pay(amount: Int)
+}
+
+class SamsungBillingStrategy @Inject constructor(...) : PaymentStrategy { /* ... */ }
+class GoogleBillingStrategy @Inject constructor(...) : PaymentStrategy { /* ... */ }
+
+@Module
+@InstallIn(SingletonComponent::class)
+object PaymentModule {
+    @Provides
+    fun providePaymentStrategy(
+        samsung: SamsungBillingStrategy,
+        google: GoogleBillingStrategy
+    ): PaymentStrategy {
+        return if (Build.MANUFACTURER == "Samsung") samsung else google
+    }
+}
+
+class CheckoutViewModel @Inject constructor(
+    private val strategy: PaymentStrategy // 구체 구현을 모름
+) : ViewModel()
+```
+
+- `PaymentModule` 이 Composition Root 역할을 함. `CheckoutViewModel` 은 삼성인지 구글인지 모름.
+- 스토어가 늘어나도(Huawei 등) `ViewModel` 은 수정하지 않음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md) 유지.
+
+### Spring 예시
+
+```java
+interface PaymentStrategy {
+    void pay(int amount);
+}
+
+@Component
+class PaypalStrategy implements PaymentStrategy { /* ... */ }
+
+@Component
+class StripeStrategy implements PaymentStrategy { /* ... */ }
+
+@Configuration
+class PaymentConfig {
+
+    @Bean
+    @Primary
+    PaymentStrategy paymentStrategy(
+        @Value("${payment.provider}") String provider,
+        PaypalStrategy paypal,
+        StripeStrategy stripe
+    ) {
+        return provider.equals("paypal") ? paypal : stripe;
+    }
+}
+
+@Service
+class CheckoutService {
+    private final PaymentStrategy strategy; // Bean 만 알고 구현은 모름
+}
+```
+
+- `PaymentConfig` (Spring Context) 가 Composition Root.
+- `CheckoutService` 는 `@Transactional`, 로깅, 재시도 등 부가 관심사가 붙는 "서비스" 이기 때문에, 함수형으로 대체하기보다 인터페이스 + Bean 조합이 자연스러움.
+
+### 결론
+
+Strategy 가 사라진 것이 아니라, **"누가 concrete strategy 를 결정하는가"** 가 명시적인 조립 지점(Hilt Module / Spring `@Configuration`)으로 이동한 것. 알고리즘이 작고 순수하면 함수로 충분하지만, 서비스 성격(트랜잭션/DI/생명주기)이 붙는 순간 다시 Strategy + Composition Root 조합이 필요해짐.
