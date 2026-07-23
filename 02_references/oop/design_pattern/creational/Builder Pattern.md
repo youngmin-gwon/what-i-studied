@@ -2,13 +2,13 @@
 title: Builder Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-17 10:29:26 +09:00
+date modified: 2026-07-23 13:30:32 +09:00
 date created: 2024-12-12 15:51:01 +09:00
 ---
 
 ## Description
 
-복잡한 객체를 생성자 하나로 다 처리하려다 보면 파라미터가 10 개, 20 개까지 늘어나는 "telescoping constructor" 문제가 생김. `House(walls, roof, doors, windows, hasGarage, hasSwimmingPool, hasGarden, hasStatues, ...)` 같은 생성자는 호출부만 봐서는 어떤 인자가 어떤 값인지 알기 어렵고, 대부분의 조합에서 필요 없는 파라미터까지 매번 다 채워야 함.
+복잡한 객체를 생성자 하나로 다 처리하려다 보면 파라미터가 10 개, 20 개까지 늘어나는 "telescoping constructor" 문제가 생김. `House(walls, roof, doors, windows, hasGarage, hasSwimmingPool, hasGarden, hasStatues, …)` 같은 생성자는 호출부만 봐서는 어떤 인자가 어떤 값인지 알기 어렵고, 대부분의 조합에서 필요 없는 파라미터까지 매번 다 채워야 함.
 
 **Builder Pattern** 은 객체의 생성 과정(construction) 과 표현(representation) 을 분리해서, 같은 생성 과정으로 서로 다른 표현을 만들 수 있게 하는 생성(Creational) 패턴. 생성 로직을 `HouseBuilder` 같은 별도 객체로 옮기고, 필요한 부분만 단계별로 호출한 뒤 마지막에 `build()` 로 완성된 객체를 받는 방식으로 telescoping constructor 문제를 해결함.
 

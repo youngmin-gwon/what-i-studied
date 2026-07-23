@@ -111,10 +111,12 @@ flowchart LR
 | [Chain of Responsibility](Chain%20of%20Responsibility%20Pattern.md), [Mediator](Mediator%20Pattern.md), [Observer](Observer%20Pattern.md) | 넷 다 요청의 발신자와 수신자를 연결하는 방식을 다룸 | Command 는 발신자·수신자 간 **단방향** 연결만 만듦. CoR 은 수신자 사슬을 따라 순차 전달, Mediator 는 중재자를 거쳐 통신, Observer 는 수신자가 동적으로 구독/구독 취소. |
 | [Strategy](Strategy%20Pattern.md) | 둘 다 객체를 필드/파라미터로 들고 있어서 구조가 비슷해 보임 | Command 는 **연산 자체**를 객체로 바꿔서 지연 실행·큐잉·기록·원격 전송을 가능하게 함. Strategy 는 **같은 목적의 알고리즘 여러 개**를 자유롭게 교체하는 것이 목적. |
 | [Memento](Memento%20Pattern.md) | 함께 쓰여 Undo 기능을 구현 | Command 는 "무슨 연산을 수행할지" 에 집중하고, Memento 는 "연산 수행 전 객체 상태를 어떻게 저장·복구할지" 에 집중. 역할이 겹치지 않고 상호 보완적임. |
-| [Visitor](Visitor%20Pattern.md) | 둘 다 "동작"을 객체로 다룸 | Visitor 는 Command 의 더 강력한 버전으로 볼 수 있음 — 서로 다른 클래스의 다양한 객체들에 대해 동작을 실행할 수 있다는 점에서 확장된 형태. |
+| [Visitor](Visitor%20Pattern.md) | 둘 다 "동작"을 객체로 다룸 | Command 하나(`BoldCommand`)는 보통 정해진 Receiver 타입 하나만 다룸. Visitor 는 `visit(TypeA)`, `visit(TypeB)` 처럼 타입별 메소드를 여러 개 가져서, 서로 다른 타입이 섞인 구조 전체를 한 번에 순회하며 타입마다 다른 동작을 실행할 수 있음 — 그래서 Visitor 를 "여러 타입에 대응하는, 더 강력해진 Command" 로 볼 수 있음. |
 | [Prototype](../creational/Prototype%20Pattern.md) | 직접적인 구조 유사성은 없음 | Command 실행 이력을 저장할 때, 각 Command 의 복사본을 남겨야 한다면 Prototype 이 도움이 됨. |
 
-Chain of Responsibility 의 핸들러를 Command 로 구현할 수도 있음 — 이 경우 동일한 요청(컨텍스트 객체)에 대해 다양한 연산을 실행할 수 있음.
+### Command × Chain of Responsibility 조합
+
+[Chain of Responsibility](Chain%20of%20Responsibility%20Pattern.md) 의 Handler 를 Command 로 구현하면, 같은 요청(컨텍스트 객체)이 체인을 따라가며 서로 다른 연산을 순서대로 적용받는 파이프라인이 됨. 예: 이미지 파일 하나가 `ResizeCommand → WatermarkCommand → CompressCommand` 체인을 통과하며 리사이즈 → 워터마크 → 압축을 차례로 적용받음. 반대로 요청 자체를 Command 로 만드는 조합도 가능함 — 자세한 예시는 [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md) 문서의 "CoR × Command 조합" 참고.
 
 ## Modern Applicability (DI/Composition Root)
 

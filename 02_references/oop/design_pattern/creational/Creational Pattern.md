@@ -2,7 +2,7 @@
 title: Creational Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 12:01:51 +09:00
+date modified: 2026-07-23 13:27:53 +09:00
 date created: 2024-12-12 14:23:28 +09:00
 ---
 

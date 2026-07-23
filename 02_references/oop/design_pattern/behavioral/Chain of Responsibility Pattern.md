@@ -2,7 +2,7 @@
 title: Chain of Responsibility Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2026-07-23 10:49:42 +09:00
+date modified: 2026-07-23 13:27:48 +09:00
 date created: 2024-12-12 15:46:36 +09:00
 ---
 

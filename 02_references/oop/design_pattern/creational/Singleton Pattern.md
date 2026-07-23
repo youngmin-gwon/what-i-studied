@@ -2,7 +2,7 @@
 title: Singleton Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:19:24 +09:00
+date modified: 2026-07-23 13:28:27 +09:00
 date created: 2024-12-12 14:53:18 +09:00
 ---
 

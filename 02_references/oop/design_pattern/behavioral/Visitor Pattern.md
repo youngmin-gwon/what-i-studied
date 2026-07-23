@@ -103,7 +103,7 @@ flowchart LR
 
 | 비교 대상 | 공통점 | Visitor 와의 차이 |
 | :--- | :--- | :--- |
-| [Command](Command%20Pattern.md) | 둘 다 "동작"을 객체로 다룸 | Visitor 는 Command 의 더 강력한 버전으로 볼 수 있음 — 서로 다른 클래스의 다양한 객체들에 대해 하나의 연산을 일관되게 실행할 수 있다는 점에서 확장된 형태. |
+| [Command](Command%20Pattern.md) | 둘 다 "동작"을 객체로 다룸 | Command 하나(`BoldCommand`)는 보통 정해진 Receiver 타입 하나만 다룸. Visitor 는 `visit(TypeA)`, `visit(TypeB)` 처럼 타입별 메소드를 여러 개 가져서, 서로 다른 타입이 섞인 구조 전체를 한 번에 순회하며 타입마다 다른 동작을 실행할 수 있음(예: `AreaVisitor` 하나가 `Circle`, `Square` 각각에 대해 다른 넓이 계산 로직을 실행) — 그래서 Visitor 를 "여러 타입에 대응하는, 더 강력해진 Command" 로 볼 수 있음. |
 | [Composite](../structural/Composite%20Pattern.md) | 트리 구조와 자주 함께 쓰임 | Composite 는 트리 구조 자체를 정의하고, Visitor 는 그 위에서 수행할 연산을 분리해서 추가하는 역할. |
 | [Iterator](Iterator%20Pattern.md) | 둘 다 구조를 훑으며 무언가 수행 | 복잡한 자료구조를 Iterator 로 순회하면서, 각 요소에 대한 연산은 Visitor 에 위임하는 조합이 가능함. |
 | [Strategy](Strategy%20Pattern.md) | Visitor 를 "자료구조를 방문하는 전략" 정도로 느슨하게 볼 수 있음 | Strategy 는 자료구조와 아무 관련이 없는, 훨씬 더 일반적인 "알고리즘 교체" 패턴. Visitor 는 특정 자료구조의 각 노드를 방문하며 타입별로 다른 연산을 수행한다는 점에서 목적이 더 좁고 구체적임. |

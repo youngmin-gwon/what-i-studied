@@ -2,7 +2,7 @@
 title: Factory Method Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2026-07-23 10:33:45 +09:00
+date modified: 2026-07-23 13:33:23 +09:00
 date created: 2024-12-12 15:51:15 +09:00
 ---
 

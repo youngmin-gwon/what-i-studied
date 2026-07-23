@@ -2,7 +2,7 @@
 title: Abstract Factory Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-17 10:28:29 +09:00
+date modified: 2026-07-23 13:34:38 +09:00
 date created: 2024-12-12 15:51:24 +09:00
 ---
 
