@@ -2,7 +2,7 @@
 title: Template Method Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 14:21:41 +09:00
+date modified: 2026-07-23 10:06:53 +09:00
 date created: 2024-12-12 15:35:58 +09:00
 ---
 
@@ -23,12 +23,12 @@ date created: 2024-12-12 15:35:58 +09:00
 ![Untitled](../../../../../_assets/oop/Untitled%206.png)
 
 - **AbstractClass**: 알고리즘의 뼈대를 설명하는 templateMethod 포함. primitive operations 나 AbstractClass 혹은 다른 객체들에 정의된 operations 을 호출함.
--**ConcreteClass**: 변하지 않는 알고리즘 단계를 구현하기 위해 AbstractClass 에 의존.
+- **ConcreteClass**: 변하지 않는 알고리즘 단계를 구현하기 위해 AbstractClass 에 의존.
 - Template Method 기능 타입들
-  -**primitive operations**: 하위 클래스에서 반드시 구현되어야 하는 추상 함수. default implementation 을 제공하고 필요한 경우 하위 클래스에서 재정의 될 수 있는 concrete operations.
-  -**final operations**: 하위 클래스에 의해 override 될 수 없는 concrete operations.
-  -**hook operations**: 필요한 경우 하위 클래스가 확장할 수 있는 default behavior 을 제공하는 concrete operations. 대부분의 경우 default 가 아무것도 안 하는 것임.
-  -**template method itself**: final 로 정의 될 수 있기 때문에 하위 클래스에 의해 override 될 수 없음.
+	- **primitive operations**: 하위 클래스에서 반드시 구현되어야 하는 추상 함수. default implementation 을 제공하고 필요한 경우 하위 클래스에서 재정의 될 수 있는 concrete operations.
+	- **final operations**: 하위 클래스에 의해 override 될 수 없는 concrete operations.
+	- **hook operations**: 필요한 경우 하위 클래스가 확장할 수 있는 default behavior 을 제공하는 concrete operations. 대부분의 경우 default 가 아무것도 안 하는 것임.
+	- **template method itself**: final 로 정의 될 수 있기 때문에 하위 클래스에 의해 override 될 수 없음.
 - template method 는 operations 중 어떤 것이 hook operation 인지 abstract operations 인지 알려줄 필요가 있음 ⇒ override 되어야 하는 경우 접두사로 "Do-" 를 붙여 hook 인지 알려줄 수 있음.
 - `Hollywood Principle`
 
