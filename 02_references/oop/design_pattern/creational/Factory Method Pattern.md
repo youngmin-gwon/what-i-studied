@@ -2,7 +2,7 @@
 title: Factory Method Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:29:21 +09:00
+date modified: 2026-07-23 10:30:40 +09:00
 date created: 2024-12-12 15:51:15 +09:00
 ---
 
@@ -42,8 +42,8 @@ date created: 2024-12-12 15:51:15 +09:00
 
 ## Pros
 
-- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ [SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - Creator 와 ConcreteProduct 간의 결합도를 줄일 수 있음.
 - 객체를 사용할 클래스에서 직접 객체를 만들게 되는 문제를 해결할 수 있음.
 - sub-classing 함으로 compile-time 유연성을 가질 수 있음.
