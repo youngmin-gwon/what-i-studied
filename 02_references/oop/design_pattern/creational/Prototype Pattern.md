@@ -2,7 +2,7 @@
 title: Prototype Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 13:15:48 +09:00
+date modified: 2026-07-23 09:49:42 +09:00
 date created: 2024-12-12 15:50:52 +09:00
 ---
 
