@@ -8,9 +8,11 @@ date created: 2024-12-12 15:51:01 +09:00
 
 ## Description
 
-복잡한 객체를 생성자 하나로 다 처리하려다 보면 파라미터가 10 개, 20 개까지 늘어나는 "telescoping constructor" 문제가 생김. `House(walls, roof, doors, windows, hasGarage, hasSwimmingPool, hasGarden, hasStatues, …)` 같은 생성자는 호출부만 봐서는 어떤 인자가 어떤 값인지 알기 어렵고, 대부분의 조합에서 필요 없는 파라미터까지 매번 다 채워야 함.
+복잡한 객체를 생성자 하나로 다 처리하려다 보면 파라미터가 10 개, 20 개까지 늘어나는 "telescoping constructor" 문제가 생김. 예를 들어 HTTP 클라이언트를 만든다면 `HttpClient(timeout, interceptors, cache, retryPolicy, followRedirects, …)` 같은 생성자는 호출부만 봐서는 어떤 인자가 어떤 값인지 알기 어렵고, 대부분의 조합에서 필요 없는 파라미터까지 매번 다 채워야 함.
 
-**Builder Pattern** 은 객체의 생성 과정(construction) 과 표현(representation) 을 분리해서, 같은 생성 과정으로 서로 다른 표현을 만들 수 있게 하는 생성(Creational) 패턴. 생성 로직을 `HouseBuilder` 같은 별도 객체로 옮기고, 필요한 부분만 단계별로 호출한 뒤 마지막에 `build()` 로 완성된 객체를 받는 방식으로 telescoping constructor 문제를 해결함.
+**Builder Pattern** 은 객체의 생성 과정(construction) 과 표현(representation) 을 분리해서, 같은 생성 과정으로 서로 다른 표현을 만들 수 있게 하는 생성(Creational) 패턴. 생성 로직을 `HttpClientBuilder` 같은 별도 객체로 옮기고, 필요한 부분만 단계별로 호출한 뒤 마지막에 `build()` 로 완성된 `HttpClient` 를 받는 방식으로 telescoping constructor 문제를 해결함.
+
+이 문서에서는 이 **HTTP 클라이언트(HttpClientBuilder)** 예시를 Structure → Pros/Cons → Modern Applicability 까지 계속 이어서 사용함.
 
 - **핵심**: 복잡한 객체의 생성 과정을 별도의 Builder 객체로 옮기고, 필요한 단계만 호출해서 원하는 표현을 조립.
 - **목적**:
@@ -20,7 +22,8 @@ date created: 2024-12-12 15:51:01 +09:00
 
 ## Examples
 
-- **HTTP 클라이언트 설정**: 타임아웃, 인터셉터, 캐시 등 선택적 설정이 많음. 생성자 하나로 다 받으면 대부분 기본값인 파라미터까지 매번 채워야 함. Builder 면 필요한 옵션만 체이닝하고 나머지는 기본값을 그대로 씀.
+HTTP 클라이언트 예시 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 예시 두 개. (아래 Structure 부터는 다시 HTTP 클라이언트 예시로 돌아감.)
+
 - **이메일/문서 생성기**: 제목, 본문, 첨부파일, 서명처럼 선택적 요소가 많은 객체. Director 를 두면 "청구서 이메일" 처럼 정해진 조합을 재사용 가능 — 매번 같은 순서로 필드를 채우는 코드를 반복하지 않아도 됨.
 - **Composite 트리 조립**: HTML DOM 이나 UI 레이아웃처럼 재귀적으로 자식을 추가해야 하는 구조. 생성 단계를 Builder 로 표현하면 "트리를 조립하는 코드" 와 "실제 트리 구조" 가 분리되어 각각 독립적으로 테스트하고 재사용할 수 있음.
 
@@ -55,6 +58,25 @@ sequenceDiagram
     B->>P: new HttpClient(timeout=30, interceptors=[logging])
     P-->>Client: HttpClient 인스턴스
     Note over Client: 필요한 옵션만 체이닝하고<br/>나머지는 기본값 사용
+```
+
+```kotlin
+class HttpClient(val timeout: Int, val interceptors: List<Interceptor>)
+
+interface Builder {
+    fun setTimeout(seconds: Int): Builder
+    fun addInterceptor(interceptor: Interceptor): Builder
+    fun build(): HttpClient
+}
+
+class HttpClientBuilder : Builder {
+    private var timeout: Int = 10
+    private val interceptors = mutableListOf<Interceptor>()
+
+    override fun setTimeout(seconds: Int) = apply { timeout = seconds }
+    override fun addInterceptor(interceptor: Interceptor) = apply { interceptors.add(interceptor) }
+    override fun build(): HttpClient = HttpClient(timeout, interceptors)
+}
 ```
 
 - **Builder**: Product 를 이루는 각 부분을 만드는 단계(step) 들을 선언하는 인터페이스.
@@ -114,25 +136,23 @@ flowchart LR
 
 ```kotlin
 // Java 스타일이었다면 Builder 가 필요했을 클래스
-data class Pizza(
-    val size: Int = 30,
-    val cheese: Boolean = true,
-    val pepperoni: Boolean = false,
-    val mushroom: Boolean = false,
+data class HttpClientConfig(
+    val timeout: Int = 10,
+    val followRedirects: Boolean = true,
+    val cache: Boolean = false,
 )
 
-val myPizza = Pizza(size = 25, pepperoni = true) // 필요한 파라미터만 이름으로 지정
-val vegPizza = myPizza.copy(cheese = false, mushroom = true) // 기존 값 기반으로 변형
+val client = HttpClientConfig(timeout = 30, cache = true) // 필요한 파라미터만 이름으로 지정
+val debugClient = client.copy(followRedirects = false) // 기존 값 기반으로 변형
 ```
 
-**여전히 Builder(DSL) 형태가 남는 경우**: Android 플랫폼 API 중 상당수(`AlertDialog.Builder`, `NotificationCompat.Builder`) 는 Java 로 작성된 외부 API 라서 그대로 존재함. 새로 Kotlin API 를 설계한다면 체이닝 대신 람다 수신 객체(lambda with receiver) 기반 DSL 로 같은 역할을 대체하는 경우가 많음.
+**여전히 Builder(DSL) 형태가 남는 경우**: Android 플랫폼 API 중 상당수(`AlertDialog.Builder`, `NotificationCompat.Builder`) 는 Java 로 작성된 외부 API 라서 그대로 존재함. 새로 Kotlin API 를 설계한다면 체이닝 대신 람다 수신 객체(lambda with receiver) 기반 DSL 로 같은 역할을 대체하는 경우가 많음. `HttpClientBuilder` 를 DSL 로 다시 설계하면 아래처럼 됨.
 
 ```kotlin
 // 체이닝 대신 DSL 로 단계별 구성을 표현
-myDialog {
-    title = "삭제할까요?"
-    message = "되돌릴 수 없습니다"
-    onConfirm { viewModel.delete() }
+val client = httpClient {
+    timeout = 30
+    addInterceptor(LoggingInterceptor())
 }
 ```
 

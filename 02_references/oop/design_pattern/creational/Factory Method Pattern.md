@@ -20,7 +20,8 @@ date created: 2024-12-12 15:51:15 +09:00
 
 ## Examples
 
-- **물류(Logistics)**: `RoadLogistics`, `SeaLogistics` 가 각각 `Truck`, `Ship` 을 생성. Factory Method 가 없으면 운송 수단이 늘어날 때마다 `Logistics` 의 핵심 로직(`planDelivery()`)까지 다시 열어봐야 함. 있으면 새 `ConcreteCreator` 하나만 추가하면 됨.
+물류 예시 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 예시 두 개. (아래 Structure 부터는 다시 물류 예시로 돌아감.)
+
 - **문서 편집기**: `TextEditor` 가 `createDocument()` 를 factory method 로 두면, `PdfEditor`/`WordEditor` 가 각각 `PdfDocument`/`WordDocument` 를 반환. 없으면 `TextEditor` 안에 문서 타입별 분기가 계속 늘어남.
 - **알림(Notification)**: `NotificationSender` 가 `createChannel()` 을 factory method 로 두면, `EmailSender`/`PushSender` 가 각자의 `Channel` 구현체를 반환. 공통 발송 로직(`send()`)은 어떤 채널인지 몰라도 그대로 재사용됨.
 
@@ -59,6 +60,37 @@ sequenceDiagram
     RL->>T: new Truck()
     RL->>T: transport.deliver()
     Note over RL: planDelivery() 는 Transport 인터페이스로만 호출.<br/>Truck 인지 전혀 모름.
+```
+
+```kotlin
+interface Transport {
+    fun deliver()
+}
+
+class Truck : Transport {
+    override fun deliver() { /* 도로로 배송 */ }
+}
+
+class Ship : Transport {
+    override fun deliver() { /* 해상으로 배송 */ }
+}
+
+abstract class Logistics {
+    abstract fun createTransport(): Transport // factory method
+
+    fun planDelivery() {
+        val transport = createTransport()
+        transport.deliver() // Truck 인지 Ship 인지 모름
+    }
+}
+
+class RoadLogistics : Logistics() {
+    override fun createTransport(): Transport = Truck()
+}
+
+class SeaLogistics : Logistics() {
+    override fun createTransport(): Transport = Ship()
+}
 ```
 
 - **Creator**: Product 를 반환하는 factory method 를 선언. 추상 메소드로 둘 수도, 기본 구현(default ConcreteProduct 반환)을 둘 수도 있음. Product 를 사용하는 공통 로직(`planDelivery()`)도 보통 여기에 있음.

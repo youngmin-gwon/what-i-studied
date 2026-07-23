@@ -20,6 +20,9 @@ date created: 2024-12-12 15:47:19 +09:00
 ## Examples
 
 - **하드코딩된 할인 조건**: `if (tier == "VIP" && hasCoupon)` 을 규칙이 늘어날 때마다 계속 고쳐야 했다면, `AndExpression(TierExpression("VIP"), HasCouponExpression())` 같은 트리 조합으로 표현해 규칙 변경이 앱 배포 없이도 가능해짐(규칙을 서버에서 내려받는 구조라면 특히).
+
+다른 도메인에도 같은 구조가 쓰임. (아래 Structure 부터는 다시 할인 정책 예시로 돌아감.)
+
 - **검색 필터 문법**: 사용자가 `"tag:sale AND price<10000"` 같은 검색식을 입력하면, 이를 직접 파싱해 조건 검사 코드를 매번 새로 짜는 대신 `AndExpression`, `TagExpression`, `PriceExpression` 조합으로 해석하면 새 필터 종류가 추가돼도 기존 파서 로직은 그대로 둘 수 있음.
 - **정규식/사칙연산처럼 아주 단순한 언어**: `"3 + 5 * 2"` 를 직접 문자열 파싱해서 계산하는 코드를 짤 수도 있지만, `NumberExpression`, `AddExpression`, `MultiplyExpression` 으로 문법을 모델화하면 연산자가 추가돼도 기존 클래스를 건드리지 않음.
 

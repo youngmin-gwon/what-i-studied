@@ -22,7 +22,8 @@ date created: 2024-12-12 15:47:04 +09:00
 
 - **Undo/Redo 가 없는 에디터**: `Toolbar` 가 `Editor.bold()` 를 직접 호출하면 취소 기능을 넣을 방법이 없음. `BoldCommand` 로 감싸고 실행 이력을 스택에 쌓으면, 스택에서 꺼내 `undo()` 만 호출하는 것으로 되돌리기가 가능해짐.
 - **UI 버튼과 메뉴, 단축키가 같은 동작을 호출**하는 경우, 각 진입점마다 로직을 복붙하는 대신 동일한 `Command` 객체 하나를 공유해서 실행하면 중복이 사라짐.
-- **작업 큐/재시도**: "파일 업로드" 요청을 즉시 실행하는 대신 `UploadCommand` 객체로 만들어 큐에 쌓아두면, 네트워크가 끊겨도 나중에 큐에서 꺼내 재시도할 수 있음. 즉시 실행하는 구조라면 재시도를 위해 원래 호출 맥락을 다시 만들어야 함.
+
+다른 도메인에도 같은 구조가 쓰임 — **작업 큐/재시도**: "파일 업로드" 요청을 즉시 실행하는 대신 `UploadCommand` 객체로 만들어 큐에 쌓아두면, 네트워크가 끊겨도 나중에 큐에서 꺼내 재시도할 수 있음. 즉시 실행하는 구조라면 재시도를 위해 원래 호출 맥락을 다시 만들어야 함.
 
 ## Structure
 
@@ -56,6 +57,22 @@ sequenceDiagram
     Toolbar->>Cmd: execute()
     Cmd->>Editor: editor.applyBold()
     Note over Cmd: 실행 정보를 기억해두면<br/>이후 undo() 로 되돌릴 수 있음
+```
+
+```kotlin
+interface EditorCommand {
+    fun execute()
+    fun undo()
+}
+
+class BoldCommand(private val editor: TextEditor) : EditorCommand {
+    override fun execute() = editor.applyBold()
+    override fun undo() = editor.removeBold()
+}
+
+class Toolbar(private val boldCommand: EditorCommand) {
+    fun onBoldClicked() = boldCommand.execute() // BoldCommand 가 TextEditor 를 어떻게 다루는지 모름
+}
 ```
 
 - **Command**: 작업을 실행하기 위한 인터페이스 (보통 `execute()`, 필요하면 `undo()`).

@@ -20,9 +20,10 @@ date created: 2024-12-12 15:51:24 +09:00
 
 ## Examples
 
+크로스플랫폼 위젯 예시 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 예시 두 개. (아래 Structure 부터는 다시 크로스플랫폼 위젯 예시로 돌아감.)
+
 - **UI 테마**: Light/Dark 테마 전환 시 `Button`, `Checkbox`, `TextField` 가 모두 같은 테마여야 함. Abstract Factory 가 없으면 컴포넌트를 개별적으로 생성하면서 테마 일관성이 깨질 위험이 있음. 있으면 `LightThemeFactory` / `DarkThemeFactory` 중 하나만 고르면 전체 세트가 함께 바뀜.
 - **DB 드라이버**: MySQL/PostgreSQL 용 `Connection`, `Command`, `Transaction` 객체는 서로 호환되어야 함. 없으면 `MySqlConnection` 에 `PostgresCommand` 를 잘못 조합하는 버그가 날 수 있음. 있으면 `MySqlFactory` 하나로 항상 맞는 세트를 받음.
-- **크로스플랫폼 위젯**: Windows/Mac 각각의 `Button`, `Checkbox`. 없으면 어디서 어떤 OS 용 위젯을 만들지 코드 곳곳에 분기가 흩어짐. 있으면 OS 를 결정하는 지점이 팩토리 선택 한 곳으로 모임.
 
 ## Structure
 
@@ -61,6 +62,36 @@ sequenceDiagram
     Dialog->>Factory: factory.createCheckbox()
     Factory-->>Dialog: WindowsCheckbox
     Note over Dialog: Button 과 Checkbox 가 항상<br/>같은 OS 스타일로 짝을 이룸
+```
+
+```kotlin
+interface Button
+interface Checkbox
+
+class WindowsButton : Button
+class WindowsCheckbox : Checkbox
+class MacButton : Button
+class MacCheckbox : Checkbox
+
+interface UIFactory {
+    fun createButton(): Button
+    fun createCheckbox(): Checkbox
+}
+
+class WinFactory : UIFactory {
+    override fun createButton(): Button = WindowsButton()
+    override fun createCheckbox(): Checkbox = WindowsCheckbox()
+}
+
+class MacFactory : UIFactory {
+    override fun createButton(): Button = MacButton()
+    override fun createCheckbox(): Checkbox = MacCheckbox()
+}
+
+class SettingsDialog(factory: UIFactory) {
+    private val button = factory.createButton()
+    private val checkbox = factory.createCheckbox() // 항상 같은 OS 스타일 세트로 짝을 이룸
+}
 ```
 
 - **AbstractFactory**: 제품군을 구성하는 여러 `createXxx()` 메소드를 선언하는 인터페이스. 예: `UIFactory`.
@@ -123,41 +154,40 @@ flowchart LR
 
 [Composition Root](../general/patterns/Composition%20Root.md) 관점에서 Abstract Factory 는 **2 그룹: DI Container 가 흡수** 에 속함. DI Container(Metro `AppGraph`, Dagger/Hilt 등) 자체가 거대한 Abstract Factory — 여러 관련 객체들을 그래프 하나가 일관성 있게 만들어 줌.
 
-**"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** [Strategy Pattern](../behavioral/Strategy%20Pattern.md) 과 같은 답. Abstract Factory 가 없애는 건 "아는 사람" 이 아니라 **"아는 위치의 개수"**. `CrashReporter` 는 Debug/Release 구현을 모르고, Composition Root 한 곳만 알면 됨.
+**"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** [Strategy Pattern](../behavioral/Strategy%20Pattern.md) 과 같은 답. Abstract Factory 가 없애는 건 "아는 사람" 이 아니라 **"아는 위치의 개수"**. `SettingsScreen` 은 Light 인지 Dark 인지 모르고, Composition Root 한 곳만 알면 됨.
 
-**Android 예시 (Metro)** — Debug/Release 환경마다 `Logger` 와 `AnalyticsClient` 가 항상 짝이 맞아야 하는 경우 (Debug 로거가 Release 분석 클라이언트와 섞이면 안 됨).
+**Android 예시 (Metro)** — Windows/Mac 대신, Android 에서 실제로 자주 만나는 변형인 Light/Dark 테마로 바꿔서 씀. `Button`/`Checkbox`/`UIFactory` 는 Structure 절과 동일한 인터페이스를 그대로 이어서 쓰고, `WinFactory`/`MacFactory` 자리에 `LightThemeFactory`/`DarkThemeFactory` 가 들어감(Examples 절의 "UI 테마" 예시와 동일한 이름).
 
 ```kotlin
-interface Logger
-interface AnalyticsClient
+class LightButton : Button
+class LightCheckbox : Checkbox
+class DarkButton : Button
+class DarkCheckbox : Checkbox
 
-@Inject class DebugLogger : Logger
-@Inject class DebugAnalyticsClient : AnalyticsClient
+@Inject class LightThemeFactory : UIFactory {
+    override fun createButton(): Button = LightButton()
+    override fun createCheckbox(): Checkbox = LightCheckbox()
+}
 
-@Inject class ReleaseLogger : Logger
-@Inject class ReleaseAnalyticsClient : AnalyticsClient
+@Inject class DarkThemeFactory : UIFactory {
+    override fun createButton(): Button = DarkButton()
+    override fun createCheckbox(): Checkbox = DarkCheckbox()
+}
 
 @Inject
-class CrashReporter(
-    private val logger: Logger,
-    private val analytics: AnalyticsClient,
-) // 어떤 조합인지 모름
+class SettingsScreen(private val factory: UIFactory) // Light 인지 Dark 인지 모름
 
 @DependencyGraph(AppScope::class)
 interface AppGraph {
-    val crashReporter: CrashReporter
+    val settingsScreen: SettingsScreen
 
     @Provides
-    fun provideLogger(): Logger =
-        if (BuildConfig.DEBUG) DebugLogger() else ReleaseLogger()
-
-    @Provides
-    fun provideAnalyticsClient(): AnalyticsClient =
-        if (BuildConfig.DEBUG) DebugAnalyticsClient() else ReleaseAnalyticsClient()
+    fun provideUIFactory(isSystemInDarkTheme: Boolean): UIFactory =
+        if (isSystemInDarkTheme) DarkThemeFactory() else LightThemeFactory()
 }
 ```
 
-`BuildConfig.DEBUG` 분기가 `AppGraph` 한 곳에만 있기 때문에 `Logger` 와 `AnalyticsClient` 는 항상 짝이 맞게(둘 다 Debug 이거나 둘 다 Release) 생성됨 — Abstract Factory 가 지키려던 "제품군 간 일관성" 이 그대로 유지됨. ConcreteFactory 라는 별도 클래스가 사라진 게 아니라, 그 역할이 `AppGraph` 의 `@Provides` 함수들로 흡수된 것.
+`isSystemInDarkTheme` 분기가 `AppGraph` 한 곳에만 있기 때문에 `Button` 과 `Checkbox` 는 항상 같은 테마로(둘 다 Light 이거나 둘 다 Dark) 짝을 맞춰 생성됨 — Abstract Factory 가 지키려던 "제품군 간 일관성" 이 그대로 유지됨. ConcreteFactory 라는 별도 클래스가 사라진 게 아니라, 그 역할이 `AppGraph` 의 `@Provides` 함수들로 흡수된 것.
 
 ## "Factory" 용어 정리
 
