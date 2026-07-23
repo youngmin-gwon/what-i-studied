@@ -85,6 +85,15 @@ class HttpClientBuilder : Builder {
 - **Product**: 복잡하게 생성되는 결과 객체.
 - **Client**: 특정 ConcreteBuilder 를 골라 Director 에 연결하거나(있다면), Builder 를 직접 호출해서 Product 를 얻음.
 
+Client 사용 예는 아래처럼 필요한 단계만 호출한 뒤 `build()` 로 끝남.
+
+```kotlin
+val client: HttpClient = HttpClientBuilder()
+    .setTimeout(30)
+    .addInterceptor(loggingInterceptor)
+    .build()
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

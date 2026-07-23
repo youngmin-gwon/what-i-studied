@@ -2,7 +2,7 @@
 title: Proxy Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2025-12-11 14:51:08 +09:00
+date modified: 2026-07-23 14:52:19 +09:00
 date created: 2024-12-12 15:53:12 +09:00
 ---
 
@@ -23,7 +23,7 @@ date created: 2024-12-12 15:53:12 +09:00
 아래 세 가지는 Proxy 의 대표적인 활용 유형(Virtual/Protection/Caching Proxy)을 보여주는 예시들. 이 중 **이미지 갤러리(Virtual Proxy)** 예시를 Structure 부터 Modern Applicability 까지 계속 이어서 씀.
 
 - **신용카드 (Virtual/Protection Proxy)**: 신용카드는 현금(원본)에 대한 프록시임. 소비자는 현금을 직접 들고 다닐 필요가 없고, 가게 주인도 보증금을 떼일 위험을 감수하지 않아도 됨 — 카드와 현금은 "결제한다" 는 같은 인터페이스를 구현하지만, 카드는 그 사이에 인증·한도 확인 같은 접근 제어를 끼워 넣음.
-- **이미지 갤러리 (Virtual Proxy)**: 리스트에 이미지 100장을 보여줄 때 원본 이미지를 전부 미리 로드하면 느림. `ImageProxy` 가 실제 로드는 화면에 보일 때(스크롤로 진입할 때)까지 미루면, 클라이언트(리스트 어댑터) 코드는 "지금 로드해야 하나" 를 신경 쓸 필요가 없음.
+- **이미지 갤러리 (Virtual Proxy)**: 리스트에 이미지 100 장을 보여줄 때 원본 이미지를 전부 미리 로드하면 느림. `ImageProxy` 가 실제 로드는 화면에 보일 때(스크롤로 진입할 때)까지 미루면, 클라이언트(리스트 어댑터) 코드는 "지금 로드해야 하나" 를 신경 쓸 필요가 없음.
 - **API 요청 캐싱 (Caching Proxy)**: 같은 API 를 반복 호출하는 코드가 여러 곳에 있다면, 매번 캐시 확인 로직을 중복해서 짜는 대신 `CachingApiProxy` 가 그 사이에서 캐시 적중 여부를 판단하고 없을 때만 실제 API 를 호출하게 만들 수 있음.
 
 ## Structure
@@ -85,6 +85,13 @@ fun renderGallery(paths: List<String>) {
 - **Service**: 실제 비즈니스 로직을 담고 있는 원본 객체 (`RealImage`).
 - **Proxy**: `Service` 와 동일한 인터페이스를 구현하면서, `Service` 에 대한 참조를 필드로 들고 접근을 제어함. 실제 객체의 생성/삭제 시점을 결정할 수도 있음 (`LazyImageProxy`).
 - **Client**: `ServiceInterface` 를 통해서만 소통하므로, 실제로 `RealService` 를 받았는지 `Proxy` 를 받았는지 구분하지 않음.
+
+Client 사용 예는 아래처럼 Proxy 를 실제 서비스와 같은 `ImageSource` 로 받음.
+
+```kotlin
+val image: ImageSource = LazyImageProxy("/photos/large.jpg")
+image.display()
+```
 
 ## Adaptability
 

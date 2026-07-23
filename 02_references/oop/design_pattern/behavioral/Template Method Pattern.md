@@ -90,6 +90,13 @@ class FilePipeline(private val file: File) : DataPipeline() {
 
 여기서는 `DataPipeline` 이 `templateMethod()` 의 실행 순서와 `process()` 공통 처리를 실제로 제공하므로 abstract class 가 정당함. 공유 구현 없이 추상 단계만 나열하는 구조라면 interface 가 낫지만, Template Method 의 핵심은 바로 이 공통 알고리즘 골격을 상위 클래스가 소유한다는 점임.
 
+Client 사용 예는 아래처럼 구체 파이프라인을 `DataPipeline` 으로 잡고 템플릿 메소드만 호출함.
+
+```kotlin
+val pipeline: DataPipeline = ApiPipeline(remoteApi)
+pipeline.templateMethod()
+```
+
 `Hollywood Principle` — *"Don't call us, we will call you"* — 이 패턴을 잘 설명해줌.
 
 ## Adaptability

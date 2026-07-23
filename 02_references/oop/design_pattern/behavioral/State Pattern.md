@@ -90,6 +90,14 @@ class MediaPlayer {
 - **ConcreteState**: Context 와 관련된 상태별 행동을 구현함. 다음 상태로의 전이가 필요하면, Context 를 참조해서 스스로 상태를 바꿈.
 - **Client**: Context 를 사용해 현재 상태를 확인하거나 상태 변화를 유발하는 명령을 내림. Context 의 초기 상태를 정의하는 쪽이기도 함.
 
+Client 사용 예는 아래처럼 Context 에 명령만 보내고 현재 State 구체 타입은 신경 쓰지 않음.
+
+```kotlin
+val player = MediaPlayer()
+player.play()
+player.pause()
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

@@ -93,6 +93,14 @@ class RegistrationFormController(
 - **Colleague(Component)**: Mediator 와만 소통하는 요소들. 서로를 직접 알아서는 안 되고, 반드시 Mediator 를 거쳐야 함.
 - **Client**: ConcreteMediator 를 만들고 Colleague 들을 여기에 등록하는 쪽. 실무에서는 이 역할을 [Composition Root](../general/patterns/Composition%20Root.md) 가 담당하는 경우가 많음 — 아래 [Modern Applicability](#modern-applicability-di-composition-root) 참고.
 
+Client 사용 예는 아래처럼 컴포넌트들을 직접 엮지 않고 Mediator 하나만 공유하게 함.
+
+```kotlin
+val mediator: FormMediator = RegistrationFormController(StateField(), SubmitButton())
+val countryField = CountryField(mediator)
+countryField.onSelected("KR")
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

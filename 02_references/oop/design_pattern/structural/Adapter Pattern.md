@@ -80,6 +80,14 @@ class CoreClasses(private val dataSource: JsonDataSource) { // Client
 - **Adapter**: Target 을 구현하면서 내부적으로 Adapted 를 감싸 호출을 위임. 변환 로직이 이 클래스 안에 갇혀 있음.
 - **Client**: Target 인터페이스만 알고 사용. Adapted 의 존재를 몰라도 됨.
 
+Client 사용 예는 아래처럼 Adapter 를 `JsonDataSource` 로만 다룸.
+
+```kotlin
+val dataSource: JsonDataSource = XmlToJsonAdapter(XmlStockProvider())
+val core = CoreClasses(dataSource)
+core.process()
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

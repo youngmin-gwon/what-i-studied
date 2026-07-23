@@ -2,7 +2,7 @@
 title: Bridge Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2026-07-23 14:40:18 +09:00
+date modified: 2026-07-23 14:50:00 +09:00
 date created: 2024-12-12 15:52:30 +09:00
 ---
 
@@ -87,6 +87,14 @@ class UrgentNotification(private val sender: MessageSender) : Notification { // 
 - **Implementation**: 플랫폼/구현 세부사항에 대한 인터페이스. `Abstraction` 은 오직 이 인터페이스를 통해서만 구현체와 소통함 (`MessageSender`).
 - **Concrete Implementation**: `Implementation` 인터페이스를 구현한 실제 클래스 (`SmsSender`, `EmailSender`). 플랫폼 종속적인 코드가 여기 들어감.
 - **Client**: `Abstraction` 과만 상호작용하고, 필요하면 어떤 `Concrete Implementation` 을 연결할지 결정.
+
+Client 사용 예는 아래처럼 두 축을 따로 고른 뒤 `Notification` 인터페이스만 호출함.
+
+```kotlin
+val sender: MessageSender = SmsSender()
+val notification: Notification = UrgentNotification(sender)
+notification.send("서버 다운!")
+```
 
 ## Adaptability
 

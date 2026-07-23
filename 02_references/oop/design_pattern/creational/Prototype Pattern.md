@@ -82,6 +82,14 @@ class GraphicTool {
 - **SubclassPrototype**: ConcretePrototype 과 같은 목적을 가지면서, 베이스 클래스가 갖지 않은 추가 필드/동작을 확장.
 - **Client**: 구체 클래스를 몰라도 `clone()` 만 호출해서 복제본을 얻음.
 
+Client 사용 예는 아래처럼 원본의 구체 타입을 분기하지 않고 복제함.
+
+```kotlin
+val tool = GraphicTool()
+val selected: Shape = Circle(radius = 10, color = "red")
+val duplicated: Shape = tool.duplicate(selected)
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

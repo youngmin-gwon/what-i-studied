@@ -100,6 +100,14 @@ class SettingsDialog(factory: UIFactory) {
 - **ConcreteProduct**: 특정 variant 에 속한 실제 구현 (`WindowsButton`, `MacButton`).
 - **Client**: `AbstractFactory` 와 `AbstractProduct` 인터페이스만 사용. 실무에서는 어떤 `ConcreteFactory` 를 쓸지 [Composition Root](../general/patterns/Composition%20Root.md) 가 결정 — 자세한 내용은 아래 [Modern Applicability](#modern-applicability-di-composition-root) 참고.
 
+Client 사용 예는 아래처럼 `UIFactory` 하나만 주입받는 형태가 됨.
+
+```kotlin
+val factory: UIFactory = WinFactory()
+val dialog = SettingsDialog(factory)
+// SettingsDialog 는 Button/Checkbox 구체 타입을 모른 채 같은 제품군을 사용함
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

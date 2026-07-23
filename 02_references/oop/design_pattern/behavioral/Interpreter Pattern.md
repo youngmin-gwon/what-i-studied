@@ -89,6 +89,13 @@ class AndExpression(
 - **Context**: 여러 Expression 인스턴스가 공유하는 값(변수 등)을 담음.
 - **Client**: 문장을 나타내는 추상 구문 트리(AST)를 조립하고 `interpret()` 을 호출함.
 
+Client 사용 예는 아래처럼 규칙 트리를 `Expression` 으로 조립한 뒤 Context 를 넣어 해석함.
+
+```kotlin
+val rule: Expression = AndExpression(TierExpression("VIP"), HasCouponExpression())
+val eligible = rule.interpret(PromotionContext(userTier = "VIP", hasCoupon = true))
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

@@ -84,6 +84,14 @@ class CheckoutService(private val strategy: PaymentStrategy) {
 - **Context**: Strategy 객체를 필드로 들고 있고, 실제 실행은 Strategy 에 위임함(`CheckoutService`). 어떤 알고리즘이 들어올지는 신경 쓰지 않기 때문에 런타임에 자유롭게 교체 가능.
 - **Client**: 상황에 맞는 Concrete Strategy 를 골라서 Context 에 주입하는 쪽. 실무에서는 이 역할을 애플리케이션의 조립 지점([Composition Root](../general/patterns/Composition%20Root.md))이 담당하는 경우가 많음 — 자세한 내용은 아래 [Modern Applicability](#modern-applicability-di-composition-root) 참고.
 
+Client 사용 예는 아래처럼 전략을 고른 뒤 Context 는 `PaymentStrategy` 로만 사용함.
+
+```kotlin
+val strategy: PaymentStrategy = PaypalPayment(paypalSdk)
+val checkout = CheckoutService(strategy)
+checkout.checkout(12_000)
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

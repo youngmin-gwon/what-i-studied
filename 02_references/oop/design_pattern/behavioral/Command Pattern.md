@@ -81,6 +81,14 @@ class Toolbar(private val boldCommand: EditorCommand) {
 - **Receiver**: 요청을 실제로 어떻게 수행하는지 아는 클래스. 어떤 클래스든 Receiver 가 될 수 있음.
 - **Client**: ConcreteCommand 객체를 만들고 Receiver 와 엮어주는 쪽. 실무에서는 이 역할을 [Composition Root](../general/patterns/Composition%20Root.md) 가 담당하는 경우가 많음 — 아래 [Modern Applicability](#modern-applicability-di-composition-root) 참고.
 
+Client 사용 예는 아래처럼 Receiver 를 Command 에 묶고, Invoker 는 Command 인터페이스만 호출함.
+
+```kotlin
+val command: EditorCommand = BoldCommand(editor)
+val toolbar = Toolbar(command)
+toolbar.onBoldClicked()
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

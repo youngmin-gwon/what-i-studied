@@ -88,6 +88,15 @@ class DepthFirstIterator(root: Comment) : Iterator<Comment> {
 - **Iterator**: 컬렉션을 순차 접근하기 위한 인터페이스 (`next()`, `hasNext()`, 필요하면 현재 위치 조회/리셋 등).
 - **ConcreteIterator**: 특정 순회 알고리즘을 구현. 순회 진행 상태를 자체적으로 추적하므로, 여러 Iterator 가 같은 컬렉션을 독립적으로 순회할 수 있음.
 
+Client 사용 예는 아래처럼 컬렉션 내부 구조를 모른 채 Iterator 로만 순회함.
+
+```kotlin
+val iterator = commentTree.createIterator()
+while (iterator.hasNext()) {
+    println(iterator.next())
+}
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

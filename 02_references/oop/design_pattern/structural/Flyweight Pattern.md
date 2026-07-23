@@ -2,7 +2,7 @@
 title: Flyweight Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2025-12-09 17:28:15 +09:00
+date modified: 2026-07-23 14:50:27 +09:00
 date created: 2024-12-12 15:53:04 +09:00
 ---
 
@@ -19,12 +19,12 @@ date created: 2024-12-12 15:53:04 +09:00
 
 ## Examples
 
-- **게임 파티클/총알**: 총알마다 스프라이트 이미지를 새로 로드하면 총알 10 만 개 = 이미지 10 만 장이 메모리에 올라감. Flyweight 로 스프라이트를 공유하면 이미지는 1장, 위치 데이터만 10 만 개가 됨.
+- **게임 파티클/총알**: 총알마다 스프라이트 이미지를 새로 로드하면 총알 10 만 개 = 이미지 10 만 장이 메모리에 올라감. Flyweight 로 스프라이트를 공유하면 이미지는 1 장, 위치 데이터만 10 만 개가 됨.
 
 총알 예시 외에 다른 도메인에서도 같은 구조가 쓰임. (아래 Structure 부터는 다시 총알 예시로 돌아감.)
 
 - **텍스트 에디터의 문자 렌더링**: 문서에 있는 글자 하나하나를 객체로 만들 때, 폰트·크기·색상(Intrinsic) 은 같은 스타일을 쓰는 글자끼리 공유하고, 위치(Extrinsic) 만 글자마다 따로 저장하면 수십만 글자도 감당 가능함.
-- **지도 앱의 마커 아이콘**: 지도에 마커 5000개를 찍을 때 아이콘 이미지를 마커마다 복제하지 않고 하나만 만들어 공유하면, 좌표 데이터만 5000개 있으면 됨.
+- **지도 앱의 마커 아이콘**: 지도에 마커 5000 개를 찍을 때 아이콘 이미지를 마커마다 복제하지 않고 하나만 만들어 공유하면, 좌표 데이터만 5000 개 있으면 됨.
 
 ## Structure
 
@@ -42,7 +42,7 @@ flowchart LR
     ContextB -- "extrinsic state 보유,<br/>호출 시 자신을 인자로 전달" --> Flyweight
 ```
 
-총알 2개가 스프라이트 하나를 공유하며 렌더링되는 흐름은 아래와 같음.
+총알 2 개가 스프라이트 하나를 공유하며 렌더링되는 흐름은 아래와 같음.
 
 ```mermaid
 sequenceDiagram
@@ -86,6 +86,14 @@ val bullets = List(100_000) { Bullet(x = it, y = 0, sprite = factory.getFlyweigh
 - **Context**: 각 인스턴스마다 고유한 Extrinsic state 를 담는 클래스 (`Bullet` 의 좌표·속도). Flyweight 를 참조하되, 상태 자체는 Flyweight 밖에서 관리됨.
 - **Client**: Extrinsic state 를 계산·저장하고, Flyweight 의 메서드를 호출할 때 그 값을 전달함.
 
+Client 사용 예는 아래처럼 공유 Sprite 는 Factory 에서 받고, 좌표는 Context 가 따로 들고 있음.
+
+```kotlin
+val factory = FlyweightFactory()
+val bullets = List(100_000) { Bullet(x = it, y = 0, sprite = factory.getFlyweight("basic_bullet")) }
+bullets.forEach { it.draw() }
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.
@@ -97,7 +105,7 @@ RAM 문제가 실제로 없다면 적용할 이유가 없는 패턴 — "혹시 
 
 ## Pros
 
-- **비슷한 객체를 대량으로 쓸 때 RAM 을 크게 아낄 수 있음**: 총알 10 만 개가 스프라이트 1개를 공유하면, 스프라이트를 10 만 번 복제하는 것보다 메모리 사용량이 훨씬 적음.
+- **비슷한 객체를 대량으로 쓸 때 RAM 을 크게 아낄 수 있음**: 총알 10 만 개가 스프라이트 1 개를 공유하면, 스프라이트를 10 만 번 복제하는 것보다 메모리 사용량이 훨씬 적음.
 
 ## Cons
 
@@ -122,7 +130,7 @@ flowchart LR
 | :--- | :--- | :--- |
 | [Composite](Composite%20Pattern.md) | 함께 쓰기 좋음 | Composite 트리에 동일한 Leaf 가 대량으로 반복된다면, 그 Leaf 를 Flyweight 로 구현해 RAM 을 아낄 수 있음 — 서로 다른 문제(트리 구조 vs 메모리 절약)를 풀지만 조합이 자연스러움. |
 | [Facade](Facade%20Pattern.md) | 둘 다 구조적 복잡도를 다룸 | Flyweight 는 작고 가벼운 객체를 **많이 공유**해서 메모리를 아끼는 방법. Facade 는 복잡한 서브시스템을 **단순한 인터페이스 하나**로 감추는 방법. 다루는 객체 수의 방향이 정반대. |
-| [Singleton](../creational/Singleton%20Pattern.md) | 공유되는 인스턴스를 통제한다는 점이 비슷해 보임 | 겉보기엔 "모든 공유 상태를 Flyweight 객체 하나로 줄이면 Singleton 아닌가" 싶을 수 있지만 두 가지가 다름. (1) Singleton 은 인스턴스가 정확히 1개여야 하지만, Flyweight 는 서로 다른 Intrinsic state 조합마다 여러 인스턴스가 존재할 수 있음(Factory 가 종류별로 캐싱). (2) Singleton 객체는 가변(mutable)이어도 되지만, Flyweight 객체는 여러 Context 가 동시에 공유하므로 반드시 불변(immutable)이어야 함. |
+| [Singleton](../creational/Singleton%20Pattern.md) | 공유되는 인스턴스를 통제한다는 점이 비슷해 보임 | 겉보기엔 "모든 공유 상태를 Flyweight 객체 하나로 줄이면 Singleton 아닌가" 싶을 수 있지만 두 가지가 다름. (1) Singleton 은 인스턴스가 정확히 1 개여야 하지만, Flyweight 는 서로 다른 Intrinsic state 조합마다 여러 인스턴스가 존재할 수 있음(Factory 가 종류별로 캐싱). (2) Singleton 객체는 가변(mutable)이어도 되지만, Flyweight 객체는 여러 Context 가 동시에 공유하므로 반드시 불변(immutable)이어야 함. |
 
 ## Modern Applicability (DI/Composition Root)
 

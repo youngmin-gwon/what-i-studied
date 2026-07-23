@@ -90,6 +90,12 @@ fun onCheckoutClicked(orderFacade: OrderFacade, cart: Cart) {
 - **Subsystem**: 실제 기능을 구현하는 클래스들 (`Warehouse`, `PaymentProcessing`, `Delivery`). Facade 의 존재를 전혀 모르고, 서브시스템 객체들끼리는 직접 소통할 수 있음.
 - **Client**: 서브시스템을 직접 호출하지 않고 Facade 를 통해서만 기능을 사용함.
 
+Client 사용 예는 아래처럼 Facade 의 단일 진입점만 호출함.
+
+```kotlin
+val result: OrderResult = orderFacade.placeOrder(cart)
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

@@ -77,6 +77,15 @@ val poolB = ConnectionPool.getInstance()
 - **Singleton**: `private` 생성자, 유일한 인스턴스를 담는 static 필드, 그 인스턴스를 반환하는 static `getInstance()` 를 가진 클래스.
 - **Client**: 항상 `getInstance()` 를 통해서만 인스턴스에 접근. 직접 생성자를 호출할 방법이 없음.
 
+Client 사용 예는 아래처럼 생성자를 호출하지 않고 전역 접근점만 사용함.
+
+```kotlin
+fun loadOrders() {
+    val pool = ConnectionPool.getInstance()
+    // pool 로 커넥션을 빌려 주문 데이터를 읽음
+}
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

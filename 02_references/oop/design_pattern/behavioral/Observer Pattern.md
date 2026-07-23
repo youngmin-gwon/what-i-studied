@@ -89,6 +89,15 @@ class BottomTabBadge : Observer {
 - **Subscriber(Observer)**: 알림을 받기 위한 인터페이스(`onUpdate` 등)를 선언함.
 - **ConcreteSubscriber**: 알림 인터페이스를 구현해서, Subject 의 상태와 자신을 일관되게 맞추는 처리를 함.
 
+Client 사용 예는 아래처럼 Observer 를 등록만 하고, 이후 알림 전파는 Publisher 에 맡김.
+
+```kotlin
+val cart = CartManager()
+cart.subscribe(ToolbarBadge())
+cart.subscribe(BottomTabBadge())
+cart.addItem()
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

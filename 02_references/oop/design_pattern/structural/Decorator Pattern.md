@@ -95,6 +95,13 @@ println(order.cost()) // 4000
 - **Concrete Decorator**: `Component` 를 직접 구현하고, 감싼 객체(wrappee)를 생성자로 받아 필요한 동작만 덧붙임 (`MilkDecorator`, `SyrupDecorator`). 공유 구현이 없으면 Base Decorator abstract class 는 불필요하고, Kotlin 에서는 `Coffee by wrappee` 로 대부분의 메소드를 그대로 위임할 수 있음.
 - **Client**: `Concrete Component` 를 원하는 `Decorator` 들로 겹겹이 감싸 조립하는 쪽. 조합의 순서와 개수를 Client 가 결정함.
 
+Client 사용 예는 아래처럼 완성된 wrapper 스택을 다시 `Coffee` 로만 다룸.
+
+```kotlin
+val order: Coffee = MilkDecorator(SyrupDecorator(Espresso()))
+println("${order.description()} = ${order.cost()}")
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

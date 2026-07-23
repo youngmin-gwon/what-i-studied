@@ -83,6 +83,16 @@ class HistoryManager {
 - **Caretaker**: Memento 보관을 책임짐. Memento 의 내용을 검토하거나 건드리지 않고, 스택 등으로 히스토리를 추적함.
 - **Originator**: 상태를 실제로 소유한 객체. 필요할 때 자기 상태의 스냅샷을 만들고, 스냅샷으로부터 상태를 복원함.
 
+Client 사용 예는 아래처럼 `HistoryManager` 가 Memento 를 보관하고, 복원은 `TextEditor` 에게 다시 맡김.
+
+```kotlin
+val editor = TextEditor("draft")
+val history = HistoryManager()
+
+history.push(editor.save())
+history.pop()?.let { editor.restore(it) }
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

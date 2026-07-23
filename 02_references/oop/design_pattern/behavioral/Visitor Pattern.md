@@ -95,6 +95,15 @@ class AreaVisitor : Visitor {
 - **ConcreteElement**: `accept()` 를 구현해서, 자신에 맞는 Visitor 메소드로 호출을 리다이렉트함.
 - **Client**: 복잡한 컬렉션이나 트리 구조를 다루며, 보통 추상 인터페이스를 통해서만 요소들과 상호작용하므로 구체적인 Element 클래스를 몰라도 됨.
 
+Client 사용 예는 아래처럼 구조는 `Shape` 목록으로 순회하고, 연산은 Visitor 객체에 모음.
+
+```kotlin
+val shapes: List<Shape> = listOf(Circle(2.0), Square(3.0))
+val areaVisitor = AreaVisitor()
+shapes.forEach { it.accept(areaVisitor) }
+println(areaVisitor.totalArea)
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

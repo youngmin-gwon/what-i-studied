@@ -83,6 +83,13 @@ fun printTotalSize(root: FileSystemItem) { // Client
 - **Composite**: 자식들(`Component` 목록)을 들고 있고, 자신에게 온 요청을 각 자식에게 위임한 뒤 결과를 취합 (`Folder`).
 - **Client**: `Component` 인터페이스로만 트리와 상호작용. 지금 다루는 노드가 Leaf 인지 Composite 인지 구분하지 않음.
 
+Client 사용 예는 아래처럼 루트 노드를 `FileSystemItem` 으로만 다룸.
+
+```kotlin
+val root: FileSystemItem = Folder(listOf(File(10), Folder(listOf(File(5)))))
+printTotalSize(root)
+```
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.
