@@ -5,7 +5,9 @@
       "Bash(mv:*)",
       "WebSearch",
       "WebFetch(domain:zacsweers.github.io)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(node -e ' *)",
+      "Bash(git check-ignore *)"
     ],
     "deny": [],
     "ask": []

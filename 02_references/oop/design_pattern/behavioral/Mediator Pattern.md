@@ -2,13 +2,13 @@
 title: Mediator Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2026-07-23 10:55:25 +09:00
+date modified: 2026-07-23 12:36:09 +09:00
 date created: 2024-12-12 15:48:17 +09:00
 ---
 
 ## Description
 
-회원가입 화면을 만든다고 해보자. "국가" 드롭다운을 바꾸면 "주/도" 목록이 바뀌어야 하고, "우편번호" 를 입력하면 "주소" 가 자동완성돼야 하고, 필수 항목이 다 채워져야 "가입" 버튼이 활성화돼야 함. 이 상호작용들을 각 View 가 서로 직접 참조해서 처리하면 (`countrySpinner.setOnItemSelectedListener { stateSpinner.update(...); zipField.validate(...); submitButton.isEnabled = ... }`), View 가 하나 늘어날 때마다 서로를 참조하는 연결이 N:M 으로 불어남.
+회원가입 화면을 만든다고 해보자. "국가" 드롭다운을 바꾸면 "주/도" 목록이 바뀌어야 하고, "우편번호" 를 입력하면 "주소" 가 자동완성돼야 하고, 필수 항목이 다 채워져야 "가입" 버튼이 활성화돼야 함. 이 상호작용들을 각 View 가 서로 직접 참조해서 처리하면 (`countrySpinner.setOnItemSelectedListener { stateSpinner.update(…); zipField.validate(…); submitButton.isEnabled = … }`), View 가 하나 늘어날 때마다 서로를 참조하는 연결이 N:M 으로 불어남.
 
 **Mediator Pattern** 은 객체들이 서로 직접 참조하는 대신, 중재자(Mediator) 라는 객체 하나를 통해서만 소통하게 만드는 행위 패턴. 위 예시라면 각 View(Colleague)는 Mediator 인 `RegistrationFormController` 하나만 알면 되고, 다른 View 는 전혀 몰라도 됨 — N:M 으로 얽혀있던 관계가 Mediator 를 중심으로 1:N 으로 단순해짐.
 
