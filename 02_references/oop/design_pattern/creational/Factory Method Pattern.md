@@ -98,6 +98,8 @@ class SeaLogistics : Logistics() {
 - **Product**: factory method 가 생성하는 모든 객체가 따라야 할 인터페이스.
 - **ConcreteProduct**: Product 인터페이스의 실제 구현. 특정 ConcreteCreator 에 의해서만 만들어짐.
 
+여기서는 `Logistics` 가 `planDelivery()` 라는 공통 작업 흐름을 실제로 제공하고, `createTransport()` 라는 한 단계만 하위 클래스에 맡기므로 abstract class 가 정당함. 만약 `Logistics` 가 `createTransport()` 시그니처만 선언하고 공유 로직이 없다면 interface 로 충분했을 것임.
+
 ## Adaptability
 
 다음 상황에서 특히 유용함.

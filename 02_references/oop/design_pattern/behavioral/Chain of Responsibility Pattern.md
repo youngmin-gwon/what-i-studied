@@ -2,7 +2,7 @@
 title: Chain of Responsibility Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2026-07-23 13:27:48 +09:00
+date modified: 2026-07-23 14:44:10 +09:00
 date created: 2024-12-12 15:46:36 +09:00
 ---
 
@@ -88,6 +88,8 @@ class CacheHandler(next: Handler?, private val cache: Cache) : BaseHandler(next)
 - **BaseHandler**: 다음 핸들러에 대한 참조를 갖고, `setNext`/기본 위임 동작 등 공통 보일러플레이트를 담당.
 - **ConcreteHandler**: 요청을 실제로 처리하거나, 다음 핸들러로 넘기는 판단을 하는 클래스 (`AuthHandler`, `CacheHandler` 등). 초기화 이후에는 불변으로 유지하는 것이 보통.
 - **Client**: 필요한 핸들러들을 원하는 순서로 엮어 체인을 구성하고 요청을 흘려보내는 쪽. 실무에서는 이 역할을 [Composition Root](../general/patterns/Composition%20Root.md) 가 담당하는 경우가 많음 — 아래 [Modern Applicability](#modern-applicability-di-composition-root) 참고.
+
+여기서는 `BaseHandler` 가 `next` 보관과 `next?.handle(request) ?: NotHandled` 라는 공통 위임 로직을 실제로 공유하므로 abstract class 가 정당함. 인터페이스만 쓰면 이 위임 코드를 모든 핸들러에 반복하거나 별도 helper 로 빼야 해서, 이 예시에서는 상속이 중복 제거 역할을 함.
 
 ## Adaptability
 

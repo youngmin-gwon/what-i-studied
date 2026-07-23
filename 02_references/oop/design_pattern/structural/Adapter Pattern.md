@@ -2,7 +2,7 @@
 title: Adapter Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2026-07-23 13:34:48 +09:00
+date modified: 2026-07-23 14:39:45 +09:00
 date created: 2024-12-12 14:59:28 +09:00
 ---
 
@@ -55,7 +55,7 @@ sequenceDiagram
     Adapter-->>Client: JSON 반환
 ```
 
-(object adapter 기준. 다중 상속을 지원하는 언어라면 Adapter 가 Target 을 구현함과 동시에 Adaptee 를 상속하는 class adapter 도 가능하지만, Kotlin/Java 등 대부분의 현대 언어는 클래스 다중 상속을 지원하지 않아 object adapter 가 사실상 표준.)
+(object adapter 기준. 다중 상속을 지원하는 언어라면 Adapter 가 Target 을 구현함과 동시에 Adapted 를 상속하는 class adapter 도 가능하지만, Kotlin/Java 등 대부분의 현대 언어는 클래스 다중 상속을 지원하지 않아 object adapter 가 사실상 표준.)
 
 ```kotlin
 interface JsonDataSource { // Target
@@ -76,9 +76,9 @@ class CoreClasses(private val dataSource: JsonDataSource) { // Client
 ```
 
 - **Target**: Client 가 기대하는 인터페이스 (`JsonDataSource`).
-- **Adaptee**: 기존에 존재하지만 Target 과 인터페이스가 다른 클래스 (`XmlStockProvider`, 3rd-party 라이브러리 등).
-- **Adapter**: Target 을 구현하면서 내부적으로 Adaptee 를 감싸 호출을 위임. 변환 로직이 이 클래스 안에 갇혀 있음.
-- **Client**: Target 인터페이스만 알고 사용. Adaptee 의 존재를 몰라도 됨.
+- **Adapted**: 기존에 존재하지만 Target 과 인터페이스가 다른 클래스 (`XmlStockProvider`, 3rd-party 라이브러리 등).
+- **Adapter**: Target 을 구현하면서 내부적으로 Adapted 를 감싸 호출을 위임. 변환 로직이 이 클래스 안에 갇혀 있음.
+- **Client**: Target 인터페이스만 알고 사용. Adapted 의 존재를 몰라도 됨.
 
 ## Adaptability
 
@@ -125,7 +125,7 @@ flowchart LR
 
 [Composition Root](../general/patterns/Composition%20Root.md) 관점에서 Adapter 는 **3 그룹: 여전히 설계의 핵심** 에 속함. Adapter 는 "누구를 생성할지" 를 다루는 패턴이 아니라 "서로 다른 두 인터페이스 사이를 어떻게 연결할지" 를 다루는 객체 관계 패턴이라, DI Container 가 아무리 발전해도 Container 가 대신 판단해 줄 수 없음 — 변환 로직 자체는 여전히 사람이 짜야 함.
 
-**"그래도 결국 누군가는 Adaptee 를 알아야 하지 않나?"** 맞음. Adapter 패턴은 그 지식을 없애는 게 아니라 `XmlToJsonAdapter` 라는 한 클래스 안에 가둠. 나머지 코드는 `JsonDataSource` 인터페이스만 알면 됨. Composition Root 는 여기서 "어떤 Adapter 구현체를 Target 인터페이스에 묶을지" 를 선언하는 지점 역할을 함.
+**"그래도 결국 누군가는 Adapted 를 알아야 하지 않나?"** 맞음. Adapter 패턴은 그 지식을 없애는 게 아니라 `XmlToJsonAdapter` 라는 한 클래스 안에 가둠. 나머지 코드는 `JsonDataSource` 인터페이스만 알면 됨. Composition Root 는 여기서 "어떤 Adapter 구현체를 Target 인터페이스에 묶을지" 를 선언하는 지점 역할을 함.
 
 **Android 예시 (Metro)** — 콜백 기반 3rd-party SDK 를 코루틴/Flow 인터페이스로 맞추는, Compose 시대에 가장 흔한 Adapter 활용 사례.
 

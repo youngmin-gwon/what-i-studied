@@ -88,6 +88,8 @@ class FilePipeline(private val file: File) : DataPipeline() {
   - **final operations**: 하위 클래스가 오버라이드할 수 없도록 고정된 연산.
   - **template method 자체**: 보통 `final` 로 선언해서 하위 클래스가 전체 순서 자체는 바꾸지 못하게 함.
 
+여기서는 `DataPipeline` 이 `templateMethod()` 의 실행 순서와 `process()` 공통 처리를 실제로 제공하므로 abstract class 가 정당함. 공유 구현 없이 추상 단계만 나열하는 구조라면 interface 가 낫지만, Template Method 의 핵심은 바로 이 공통 알고리즘 골격을 상위 클래스가 소유한다는 점임.
+
 `Hollywood Principle` — *"Don't call us, we will call you"* — 이 패턴을 잘 설명해줌.
 
 ## Adaptability
@@ -108,6 +110,7 @@ class FilePipeline(private val file: File) : DataPipeline() {
 - **추상 메소드가 많아지면 클래스 계층 관리가 복잡해짐**: 단계가 세분화될수록 하위 클래스가 구현해야 할 메소드 수도 늘어남.
 - **[LSP(Liskov substitution principle)](../../solid/LSP(Liskov%20substitution%20principle).md) 를 위반할 위험이 있음**: 하위 클래스가 기본 구현(hook)을 무시하거나 예상과 다르게 오버라이드하면, `AbstractClass` 타입으로 다뤄질 때 예상치 못하게 동작할 수 있음.
 - **상속 기반이라 컴파일 타임에 알고리즘 변형이 고정됨**: 런타임에 알고리즘을 바꿔야 한다면 Template Method 가 아니라 [Strategy Pattern](Strategy%20Pattern.md) 이 더 적합함.
+- **앱 코드에서는 Strategy/Composition 이 더 나은 경우가 많음**: Template Method 는 프레임워크나 라이브러리처럼 "확장 지점은 열어두되 실행 순서는 강제"해야 할 때 특히 적합함. 화면/도메인 로직에서 실행 흐름을 런타임에 바꿔 끼워야 한다면 상속보다 Strategy 나 작은 함수 조합을 우선 검토하는 편이 Kotlin 스타일에 맞음.
 - **알고리즘 구조 자체가 클라이언트를 제한할 수 있음**: 상위 클래스가 정해둔 뼈대를 벗어나는 흐름은 표현하기 어려움.
 
 ## Relationship with other patterns

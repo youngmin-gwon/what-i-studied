@@ -2,7 +2,7 @@
 title: Bridge Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2026-07-23 14:25:47 +09:00
+date modified: 2026-07-23 14:40:18 +09:00
 date created: 2024-12-12 15:52:30 +09:00
 ---
 
@@ -32,15 +32,15 @@ date created: 2024-12-12 15:52:30 +09:00
 ```mermaid
 flowchart LR
     Client["Client"]
-    Abstraction["Abstraction<br/>예: Notification"]
+    Abstraction{{"Abstraction interface<br/>예: Notification"}}
     RefinedAbstraction["Refined Abstraction<br/>예: UrgentNotification"]
     Implementation{{"Implementation interface<br/>예: MessageSender"}}
     ConcreteImplA["Concrete Implementation A<br/>예: SmsSender"]
     ConcreteImplB["Concrete Implementation B<br/>예: EmailSender"]
 
     Client --> Abstraction
-    RefinedAbstraction -- 상속 --> Abstraction
-    Abstraction -- "① 필드로 참조 + 위임" --> Implementation
+    RefinedAbstraction -. 구현 .-> Abstraction
+    RefinedAbstraction -- "① 필드로 참조 + 위임" --> Implementation
     ConcreteImplA -. 구현 .-> Implementation
     ConcreteImplB -. 구현 .-> Implementation
 ```
@@ -73,17 +73,17 @@ class EmailSender : MessageSender {
     override fun transmit(text: String) { /* 이메일 발송 */ }
 }
 
-abstract class Notification(protected val sender: MessageSender) { // Abstraction
-    abstract fun send(message: String)
+interface Notification { // Abstraction
+    fun send(message: String)
 }
 
-class UrgentNotification(sender: MessageSender) : Notification(sender) { // Refined Abstraction
+class UrgentNotification(private val sender: MessageSender) : Notification { // Refined Abstraction
     override fun send(message: String) = sender.transmit("[긴급] $message")
 }
 ```
 
-- **Abstraction**: 상위 수준의 제어 로직을 담음. `Implementation` 타입 객체를 필드로 들고, 실제 작업은 위임함 (`Notification`).
-- **Refined Abstraction**: `Abstraction` 을 상속해 변형을 추가한 것 (`UrgentNotification`). 없어도 됨 — 선택 사항.
+- **Abstraction**: Client 가 쓰는 상위 수준 인터페이스 (`Notification`). 공유 구현이 없으므로 abstract class 가 아니라 interface 로 충분함.
+- **Refined Abstraction**: `Abstraction` 을 구현하고, `Implementation` 타입 객체를 생성자로 받아 실제 작업을 위임함 (`UrgentNotification`). 없어도 됨 — 선택 사항.
 - **Implementation**: 플랫폼/구현 세부사항에 대한 인터페이스. `Abstraction` 은 오직 이 인터페이스를 통해서만 구현체와 소통함 (`MessageSender`).
 - **Concrete Implementation**: `Implementation` 인터페이스를 구현한 실제 클래스 (`SmsSender`, `EmailSender`). 플랫폼 종속적인 코드가 여기 들어감.
 - **Client**: `Abstraction` 과만 상호작용하고, 필요하면 어떤 `Concrete Implementation` 을 연결할지 결정.
@@ -101,7 +101,7 @@ class UrgentNotification(sender: MessageSender) : Notification(sender) { // Refi
 
 - **플랫폼 독립적인 클래스/앱을 만들 수 있음**: `Notification` 은 `MessageSender` 가 SMS 인지 이메일인지 모르고도 동작함.
 - **클라이언트 코드는 상위 수준 추상화와만 작동**: 클라이언트는 `Notification.send()` 만 호출하면 됨 — 내부에서 어떤 `MessageSender` 가 쓰이는지는 노출되지 않음.
-- **추상화와 구현을 각각 독립적으로 확장 가능**: `Notification` 서브클래스(`UrgentNotification`)를 추가하거나 `MessageSender` 구현(`PushSender`)을 추가해도 서로 영향 없음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- **추상화와 구현을 각각 독립적으로 확장 가능**: `Notification` 구현체(`UrgentNotification`)를 추가하거나 `MessageSender` 구현(`PushSender`)을 추가해도 서로 영향 없음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 - **관심사가 분리됨**: `Abstraction` 은 상위 로직에만, `Implementation` 은 플랫폼 세부사항에만 집중 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
 
 ## Cons
@@ -147,7 +147,7 @@ flowchart LR
 @Inject class EmailSender : MessageSender { /* ... */ }
 
 @Inject
-class UrgentNotification(sender: MessageSender) : Notification(sender) {
+class UrgentNotification(private val sender: MessageSender) : Notification {
     override fun send(message: String) = sender.transmit("[긴급] $message")
 }
 

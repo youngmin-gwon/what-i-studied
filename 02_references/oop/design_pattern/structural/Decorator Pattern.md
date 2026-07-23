@@ -2,7 +2,7 @@
 title: Decorator Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2026-07-23 14:25:08 +09:00
+date modified: 2026-07-23 14:42:37 +09:00
 date created: 2024-12-12 15:52:49 +09:00
 ---
 
@@ -36,16 +36,15 @@ flowchart LR
     Client["Client"]
     Component{{"Component interface<br/>예: Coffee"}}
     ConcreteComponent["Concrete Component<br/>예: Espresso"]
-    BaseDecorator["Base Decorator<br/>예: CoffeeDecorator"]
     ConcreteDecoratorA["Concrete Decorator A<br/>예: MilkDecorator"]
     ConcreteDecoratorB["Concrete Decorator B<br/>예: SyrupDecorator"]
 
     Client -- "① 감싸며 조립" --> ConcreteDecoratorB
     ConcreteComponent -. 구현 .-> Component
-    BaseDecorator -. 구현 .-> Component
-    BaseDecorator -- "② wrappee 필드로 참조" --> Component
-    ConcreteDecoratorA -- 상속 --> BaseDecorator
-    ConcreteDecoratorB -- 상속 --> BaseDecorator
+    ConcreteDecoratorA -. 구현 .-> Component
+    ConcreteDecoratorB -. 구현 .-> Component
+    ConcreteDecoratorA -- "② wrappee 필드로 참조" --> Component
+    ConcreteDecoratorB -- "② wrappee 필드로 참조" --> Component
 ```
 
 `MilkDecorator(SyrupDecorator(espresso))` 를 호출하면 아래처럼 안쪽부터 바깥쪽 순서로 실행됨.
@@ -68,20 +67,22 @@ sequenceDiagram
 ```kotlin
 interface Coffee { // Component
     fun cost(): Int
+    fun description(): String
 }
 
 class Espresso : Coffee { // Concrete Component
     override fun cost() = 3000
+    override fun description() = "에스프레소"
 }
 
-abstract class CoffeeDecorator(protected val wrappee: Coffee) : Coffee // Base Decorator
-
-class MilkDecorator(wrappee: Coffee) : CoffeeDecorator(wrappee) { // Concrete Decorator A
+class MilkDecorator(private val wrappee: Coffee) : Coffee by wrappee { // Concrete Decorator A
     override fun cost() = wrappee.cost() + 500
+    override fun description() = "${wrappee.description()} + 우유"
 }
 
-class SyrupDecorator(wrappee: Coffee) : CoffeeDecorator(wrappee) { // Concrete Decorator B
+class SyrupDecorator(private val wrappee: Coffee) : Coffee by wrappee { // Concrete Decorator B
     override fun cost() = wrappee.cost() + 500
+    override fun description() = "${wrappee.description()} + 시럽"
 }
 
 // Client: 필요한 토핑만큼 겹겹이 감싸며 조립
@@ -91,8 +92,7 @@ println(order.cost()) // 4000
 
 - **Component**: `Concrete Component` 와 `Decorator` 가 공통으로 구현하는 인터페이스 (`Coffee`). 상태를 갖지 않는, 가볍고 순수한 인터페이스로 유지하는 게 좋음.
 - **Concrete Component**: 기본 동작을 구현하는 원본 객체 (`Espresso`). Decorator 에 의해 동작이 바뀔 수 있음.
-- **Base Decorator**: `Component` 인터페이스로 감싼 객체(wrappee)를 필드로 참조. `Concrete Component` 든 다른 `Decorator` 든 감쌀 수 있음.
-- **Concrete Decorator**: `Base Decorator` 를 상속해 실제로 추가할 동작을 정의 (`MilkDecorator`, `SyrupDecorator`).
+- **Concrete Decorator**: `Component` 를 직접 구현하고, 감싼 객체(wrappee)를 생성자로 받아 필요한 동작만 덧붙임 (`MilkDecorator`, `SyrupDecorator`). 공유 구현이 없으면 Base Decorator abstract class 는 불필요하고, Kotlin 에서는 `Coffee by wrappee` 로 대부분의 메소드를 그대로 위임할 수 있음.
 - **Client**: `Concrete Component` 를 원하는 `Decorator` 들로 겹겹이 감싸 조립하는 쪽. 조합의 순서와 개수를 Client 가 결정함.
 
 ## Adaptability
