@@ -8,88 +8,161 @@ date created: 2024-12-12 15:47:04 +09:00
 
 ## Description
 
-![Untitled](../../../../../_assets/oop/command_overview.png)
+텍스트 에디터에 실행 취소(Undo) 기능을 만든다고 해보자. `Toolbar` 가 `Editor.bold()`, `Editor.deleteLine()` 같은 메소드를 직접 호출하는 구조라면, "방금 한 작업을 취소해줘" 라는 요청을 처리할 방법이 없음 — 이미 호출은 끝났고, 무엇을 어떻게 되돌려야 하는지에 대한 정보가 남아있지 않기 때문. 버튼과 메뉴, 단축키가 같은 동작을 여러 경로로 호출하게 되면 중복 호출 코드도 계속 늘어남.
 
-![Untitled](../../../../../_assets/oop/command_example.png)
-
-## Description
+**Command Pattern** 은 "실행하고 싶은 요청(작업)" 자체를 하나의 객체로 캡슐화하는 행위 패턴. 요청을 객체로 만들어두면 그 요청을 매개변수로 넘기거나, 큐에 저장하거나, 로그로 남기거나, 나중에 취소하는 것이 모두 가능해짐. 위 예시라면 `BoldCommand`, `DeleteLineCommand` 를 각각 객체로 만들고 `Toolbar` 는 `Command` 인터페이스의 `execute()` 만 호출하면 됨 — 실제로 무엇을 어떻게 수행하는지는 `Command` 가 알아서 함.
 
 ![Untitled](../../../../../_assets/oop/command_overview.png)
 
-![Untitled](../../../../../_assets/oop/command_example.png)
+>버튼을 누르면("SAVE") 그 요청이 컨베이어 벨트를 타고 멀리 있는 수신자(Receiver)에게 전달되어 처리되는 그림. 버튼을 누르는 쪽은 누가 처리하는지, 어떻게 처리하는지 몰라도 됨 — Command 는 이 "요청을 보내는 행위" 자체를 독립된 객체로 만들어서 발신자와 수신자를 떼어놓음.
 
-**Command Pattern** 은**요청(Request)을 객체로 캡슐화** 하여, 사용자가 보낸 요청을 나중에 이용할 수 있도록 매개변수화하거나, 요청을 큐(Queue)에 저장/로깅하고, 실행된 작업을 취소(Undo)할 수 있게 해주는 패턴입니다.
+- **핵심**: "실행하고 싶은 동작" 을 객체(Command)로 감싸서, 동작을 요청하는 쪽(Invoker)과 실제로 동작을 수행하는 쪽(Receiver)을 분리함.
+- **목적**:
+  1. 요청을 매개변수화하고, 큐에 저장하거나 지연 실행하거나 원격으로 전송할 수 있게 함.
+  2. 실행된 작업의 실행 취소(Undo)/다시 실행(Redo) 을 구현할 수 있게 함.
+  3. 새로운 Command 를 추가해도 `Invoker` 코드를 건드리지 않도록 하여 [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md) 를 준수.
 
-- **핵심**: "실행하고 싶은 동작"을 객체로 감싸서(Command), "동작을 요청하는 쪽(Sender)"과 "동작을 수행하는 쪽(Receiver)"을 분리(Decoupling)합니다.
-- **활용**:
-  - 버튼 클릭 등의 UI 이벤트 처리.
-  - 작업 예약(Scheduling), 매크로(Macro) 기록.
-  - 트랜잭션(Transaction) 관리 및 롤백(Undo) 기능 구현.
-- **장점**: Sender 는 Receiver 가 누구인지, 어떻게 동작하는지 알 필요 없이 그저 "Command 를 실행해라"라고 명령만 내리면 됩니다.
+## Examples
+
+- **Undo/Redo 가 없는 에디터**: `Toolbar` 가 `Editor.bold()` 를 직접 호출하면 취소 기능을 넣을 방법이 없음. `BoldCommand` 로 감싸고 실행 이력을 스택에 쌓으면, 스택에서 꺼내 `undo()` 만 호출하는 것으로 되돌리기가 가능해짐.
+- **UI 버튼과 메뉴, 단축키가 같은 동작을 호출**하는 경우, 각 진입점마다 로직을 복붙하는 대신 동일한 `Command` 객체 하나를 공유해서 실행하면 중복이 사라짐.
+- **작업 큐/재시도**: "파일 업로드" 요청을 즉시 실행하는 대신 `UploadCommand` 객체로 만들어 큐에 쌓아두면, 네트워크가 끊겨도 나중에 큐에서 꺼내 재시도할 수 있음. 즉시 실행하는 구조라면 재시도를 위해 원래 호출 맥락을 다시 만들어야 함.
 
 ## Structure
 
-![Untitled](../../../../../_assets/oop/command_structure.png)
+```mermaid
+flowchart LR
+    Client["Client<br/>(실무에서는 Composition Root)"]
+    Invoker["Invoker<br/>예: Toolbar"]
+    Command{{"Command interface<br/>execute() / undo()"}}
+    CC["ConcreteCommand<br/>예: BoldCommand"]
+    Receiver["Receiver<br/>예: TextEditor"]
 
-1. **Command**: 작업을 수행하기 위한 interface 선언.
-2.**Concrete Command**: receiver 에 상응하는 작업을 실행하는 requests 선언.
-3.**Invoker(=Sender)**: request 를 직접 Receiver 에게 보내는 대신 command 를 발동 시킴. 명령의 리스트를 저장하고 이 리스트에 맞춰서 동시 수행, 이전 수행 취소 등을 함.
-4.**Receiver**: request 를 수행과 관련된 작업을 어떻게 수행하는지 아는 클래스. 어떠한 클래스도 receiver 역할 가능.
-5.**Client**: Concrete Command object 를 선언하고 Receiver 를 묶음.
+    Client -- "① 생성 + Receiver 연결" --> CC
+    Client -- "② 주입" --> Invoker
+    Invoker -- "③ execute() 호출" --> Command
+    CC -. 구현 .-> Command
+    CC -- "④ 실제 작업 위임" --> Receiver
+```
+
+버튼 클릭 한 번이 실제로 처리되는 흐름을 시퀀스로 그리면 아래와 같음.
+
+```mermaid
+sequenceDiagram
+    participant Root as Composition Root
+    participant Toolbar as Toolbar (Invoker)
+    participant Cmd as BoldCommand
+    participant Editor as TextEditor (Receiver)
+
+    Root->>Root: bold = new BoldCommand(editor)
+    Root->>Toolbar: bindButton(bold)
+    Note over Toolbar: Command 객체만 들고 있음.<br/>Editor 를 직접 모름.
+    Toolbar->>Cmd: execute()
+    Cmd->>Editor: editor.applyBold()
+    Note over Cmd: 실행 정보를 기억해두면<br/>이후 undo() 로 되돌릴 수 있음
+```
+
+- **Command**: 작업을 실행하기 위한 인터페이스 (보통 `execute()`, 필요하면 `undo()`).
+- **ConcreteCommand**: `Receiver` 에 해당하는 작업을 실제로 호출하는 요청을 구현 (`BoldCommand` 등). 실행에 필요한 파라미터와 Receiver 참조를 갖고 있음.
+- **Invoker(Sender)**: 요청을 Receiver 에게 직접 보내는 대신 Command 를 실행시킴. 명령 이력을 저장해두면 순차 실행이나 undo 를 관리할 수 있음.
+- **Receiver**: 요청을 실제로 어떻게 수행하는지 아는 클래스. 어떤 클래스든 Receiver 가 될 수 있음.
+- **Client**: ConcreteCommand 객체를 만들고 Receiver 와 엮어주는 쪽. 실무에서는 이 역할을 [Composition Root](../general/patterns/Composition%20Root.md) 가 담당하는 경우가 많음 — 아래 [Modern Applicability](#modern-applicability-di-composition-root) 참고.
 
 ## Adaptability
 
-- 작업으로 객체를 매개변수화하려는 경우 사용.
-- 작업을 대기열에 넣거나 실행을 예약하거나 원격으로 실행하려는 경우 사용.
-- 되돌릴 지도 모르는 작업을 구현하려는 경우 사용 ⇒ [Memento Pattern](Memento%20Pattern.md) 와 함께 사용됨.
+다음 상황에서 특히 유용함.
+
+- 작업을 객체로 매개변수화하고 싶은 경우.
+- 작업을 큐에 넣거나, 실행을 예약하거나, 원격으로 실행하고 싶은 경우.
+- 되돌릴 수도 있는 작업을 구현하고 싶은 경우 ⇒ [Memento Pattern](Memento%20Pattern.md) 과 함께 사용됨.
 
 ## Pros
 
-- 연산을 유발하는 클래스와 연산을 수행하는 클래스를 분리할 수 있음 ⇒ [SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)
-- 새 command 를 코드 수정없이 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)
-- undo/redo 기능을 추가할 수 있음.
-- 지연 작업 실행을 구현할 수 있음.
-- 여러 개 간단한 command 를 조합해 하나의 복잡한 command 를 만들 수 있음.
+- **요청을 유발하는 클래스와 요청을 수행하는 클래스가 분리**됨 ⇒ [SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md). `Toolbar` 는 편집 로직을 전혀 몰라도 됨.
+- **새 Command 를 기존 코드 수정 없이 추가**할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md).
+- **Undo/Redo 기능을 자연스럽게 구현**할 수 있음: Command 가 실행 정보를 스스로 들고 있으므로, 실행 이력 스택만 있으면 됨.
+- **지연 실행/큐잉이 쉬워짐**: Command 를 객체로 만들어뒀기 때문에 지금 당장 실행하지 않고 나중에 실행할 수 있음.
+- **여러 개의 간단한 Command 를 조합해서 복합 Command(매크로)** 를 만들 수 있음.
 
 ## Cons
 
-- sender 와 receiver 사이에 새로운 layer 를 추가하는 것이기 때문에 코드가 다소 복잡해질 수 있음.
+- **Sender 와 Receiver 사이에 새 레이어(Command, Invoker)가 추가**되므로 아주 단순한 상황에서는 코드가 오히려 장황해질 수 있음. 클릭 한 번에 메소드 한 줄만 호출하면 되는 경우까지 Command 클래스로 감쌀 필요는 없음.
 
 ## Relationship with other patterns
 
-### [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md), [Mediator Pattern](Mediator%20Pattern.md), [Observer Pattern](Observer%20Pattern.md)
+```mermaid
+flowchart LR
+    Command((Command))
+    CoR[Chain of<br/>Responsibility]
+    Mediator[Mediator]
+    Observer[Observer]
+    Memento[Memento]
+    Strategy[Strategy]
+    Visitor[Visitor]
+    Prototype[Prototype]
 
-- sender 와 receiver 를 연결하는 여러가지 방법을 보여줌.
-  - **[Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md)**- 잠재적 receiver 중 하나가 처리할 때까지 잠재적 receiver 의 동적 사슬을 따라 순차적으로 요청을 전달하는 구조.
-  -**[Command Pattern](Command%20Pattern.md)**- receiver 와 sender 간 단방향 연결.
-  -**[Mediator Pattern](Mediator%20Pattern.md)**- receiver 와 sender 간의 직접 연결을 제거하여 mediator 개체를 통해 간접적으로 통신하도록 하는 구조.
-  -**[Observer Pattern](Observer%20Pattern.md)**
-    - receiver 가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
+    CoR -- "sender/receiver 연결 방식 비교" --- Command
+    Mediator -- "sender/receiver 연결 방식 비교" --- Command
+    Observer -- "sender/receiver 연결 방식 비교" --- Command
+    Memento -- "Undo 구현 시 함께 사용" --- Command
+    Strategy -- "연산 객체화 vs 알고리즘 교체" --- Command
+    Visitor -- "Command 의 확장판" --- Command
+    Prototype -- "Command 이력 저장에 도움" --- Command
+```
 
-### [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md)
+| 비교 대상 | 공통점 | Command 와의 차이 |
+| :--- | :--- | :--- |
+| [Chain of Responsibility](Chain%20of%20Responsibility%20Pattern.md), [Mediator](Mediator%20Pattern.md), [Observer](Observer%20Pattern.md) | 넷 다 요청의 발신자와 수신자를 연결하는 방식을 다룸 | Command 는 발신자·수신자 간 **단방향** 연결만 만듦. CoR 은 수신자 사슬을 따라 순차 전달, Mediator 는 중재자를 거쳐 통신, Observer 는 수신자가 동적으로 구독/구독 취소. |
+| [Strategy](Strategy%20Pattern.md) | 둘 다 객체를 필드/파라미터로 들고 있어서 구조가 비슷해 보임 | Command 는 **연산 자체**를 객체로 바꿔서 지연 실행·큐잉·기록·원격 전송을 가능하게 함. Strategy 는 **같은 목적의 알고리즘 여러 개**를 자유롭게 교체하는 것이 목적. |
+| [Memento](Memento%20Pattern.md) | 함께 쓰여 Undo 기능을 구현 | Command 는 "무슨 연산을 수행할지" 에 집중하고, Memento 는 "연산 수행 전 객체 상태를 어떻게 저장·복구할지" 에 집중. 역할이 겹치지 않고 상호 보완적임. |
+| [Visitor](Visitor%20Pattern.md) | 둘 다 "동작"을 객체로 다룸 | Visitor 는 Command 의 더 강력한 버전으로 볼 수 있음 — 서로 다른 클래스의 다양한 객체들에 대해 동작을 실행할 수 있다는 점에서 확장된 형태. |
+| [Prototype](../creational/Prototype%20Pattern.md) | 직접적인 구조 유사성은 없음 | Command 실행 이력을 저장할 때, 각 Command 의 복사본을 남겨야 한다면 Prototype 이 도움이 됨. |
 
-- Chain of Responsibility 의 핸들러를 Command 패턴을 이용해서 구현할 수 있음.
-  - 요청으로 표시되는 동일한 컨텍스트 개체에 대해 다양한 작업을 실행할 수 있음.
-  - 또 다른 접근 방식: 요청 자체가 Command 개체.
-    - 체인에 연결된 일련의 서로 다른 컨텍스트에서 동일한 작업을 실행할 수 있음.
+Chain of Responsibility 의 핸들러를 Command 로 구현할 수도 있음 — 이 경우 동일한 요청(컨텍스트 객체)에 대해 다양한 연산을 실행할 수 있음.
 
-### [Memento Pattern](Memento%20Pattern.md)
+## Modern Applicability (DI/Composition Root)
 
-- undo 기능을 적용하기 위해서 Command 패턴과 같이 사용할 수 있음.
-  - Command 는 다양한 연산을 목표 객체에 적용하는 것에만 신경 쓰면 되고, Memento 는 Command 가 수행되기 전 객체의 상태만 기억하는 것에만 신경 쓰면 됨.
+[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 Command 는 **3 그룹: 여전히 설계의 핵심** 에 속함. 언어나 프레임워크가 대신해주는 영역이 아니라, "요청을 객체로 만들어 지연 실행·취소가 가능하게 한다" 는 목적 자체가 여전히 설계자의 판단을 필요로 함.
 
-### [Strategy Pattern](Strategy%20Pattern.md)
+**"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** 맞음. `Toolbar` 는 `BoldCommand` 를 몰라도 되지만, 어떤 버튼에 어떤 Command 를 연결할지 결정하는 지점은 필요함. 이 지점을 [Composition Root](../general/patterns/Composition%20Root.md) 로 명시적으로 몰아두면 됨.
 
-- 둘 다 객체를 파라미터로 갖기 때문에 비슷해 보일 수 있음.
-- 하지만, 다른 의도로 사용됨.
-  - **Command**: 연산을 객체로 바꾸려는 의도 ⇒ 작업 실행을 연기하고, 대기열에 추가하고, 명령 기록을 저장하고, 원격 서비스에 명령을 보내는 등의 작업을 수행할 수 있음.
-  -**Strategy**: 같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도.
+**Android 예시 (Metro)** — Undo/Redo 가 가능한 에디터 액션.
 
-### [Prototype Pattern](../creational/Prototype%20Pattern.md)
+```kotlin
+interface EditorCommand {
+    fun execute()
+    fun undo()
+}
 
-- Prototype 은 Command 사본을 기록에 저장해야 할 때 도움이 될 수 있음.
+@Inject
+class BoldCommand(private val editor: TextEditor) : EditorCommand {
+    override fun execute() = editor.applyBold()
+    override fun undo() = editor.removeBold()
+}
 
-### [Visitor Pattern](Visitor%20Pattern.md)
+@Inject
+class CommandHistory {
+    private val stack = ArrayDeque<EditorCommand>()
+    fun execute(command: EditorCommand) {
+        command.execute()
+        stack.addLast(command)
+    }
+    fun undo() = stack.removeLastOrNull()?.undo()
+}
 
-- Visitor 를 Command 의 강력한 버전이라고 생각해도 무방함.
-  - 다른 클래스의 다양한 객체에 대해 작업을 실행할 수 있음.
+@Inject
+class EditorViewModel(
+    private val history: CommandHistory,
+    private val boldCommand: EditorCommand,
+) {
+    fun onBoldClicked() = history.execute(boldCommand)
+    fun onUndoClicked() = history.undo()
+}
+
+@DependencyGraph(AppScope::class)
+interface AppGraph {
+    val editorViewModel: EditorViewModel
+}
+```
+
+`EditorViewModel` 은 `BoldCommand` 가 내부에서 `TextEditor` 를 어떻게 다루는지 모름. 새 액션(`ItalicCommand` 등)이 추가돼도 `CommandHistory` 는 한 글자도 안 바뀜 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md) 유지. `AppGraph` 가 어떤 Command 를 어떤 뷰모델에 연결할지 아는 유일한 지점.

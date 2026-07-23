@@ -8,79 +8,138 @@ date created: 2024-12-12 15:48:17 +09:00
 
 ## Description
 
-![Untitled](../../../../../_assets/oop/Untitled%2060.png)
+회원가입 화면을 만든다고 해보자. "국가" 드롭다운을 바꾸면 "주/도" 목록이 바뀌어야 하고, "우편번호" 를 입력하면 "주소" 가 자동완성돼야 하고, 필수 항목이 다 채워져야 "가입" 버튼이 활성화돼야 함. 이 상호작용들을 각 View 가 서로 직접 참조해서 처리하면 (`countrySpinner.setOnItemSelectedListener { stateSpinner.update(...); zipField.validate(...); submitButton.isEnabled = ... }`), View 가 하나 늘어날 때마다 서로를 참조하는 연결이 N:M 으로 불어남.
+
+**Mediator Pattern** 은 객체들이 서로 직접 참조하는 대신, 중재자(Mediator) 라는 객체 하나를 통해서만 소통하게 만드는 행위 패턴. 위 예시라면 각 View(Colleague)는 Mediator 인 `RegistrationFormController` 하나만 알면 되고, 다른 View 는 전혀 몰라도 됨 — N:M 으로 얽혀있던 관계가 Mediator 를 중심으로 1:N 으로 단순해짐.
 
 ![Untitled](../../../../../_assets/oop/Untitled%2061.png)
 
-- **Intermediary/Controller** 라고 불리기도 함.
-- 상호작용 로직을 객체로부터 분리하고, Mediator 라는 컨트롤러에 이동시켜, 상호 교류하는 객체들간의 의존성을 줄여주는 패턴.
-- 객체 묶음이 어떻게 상호작용 하는지를 묶은 객체를 정의.
-- 객체끼리 서로 선언되는 것을 막아 **loose coupling** 을 장려함.
-- 상호작용을 다양하게 만들어 줌.
-- **colleagues**: 서로 상호작용하는 객체들.
-	- colleagues 는 서로에 대한 정보가 없고, 오직 mediator 만 알고 있음 ⇒ colleagues 들은 loosely coupled.
-- 객체끼리 상호작용 하는 것을 간단화, 추상화 함.
-	- 기존의 N:M 의 객체 간 상호작용을, Mediator 를 통해 1:N 의 상호작용으로 만들어줌 ⇒ 이해하고 유지하기 쉬움.
-	- colleagues 들은 communication act 는 알아야 하지만, 디테일은 전혀 알 필요가 없음 ⇒ colleagues 들을 바꾸지 않고 Mediator 를 추가하는 것이 가능해짐.
+>공항 관제탑을 생각하면 쉬움. 조종사들은 서로 무전을 직접 주고받지 않고, 관제탑(Mediator)하고만 교신함. 비행기가 늘어나도 비행기끼리 서로를 알 필요가 없고, 관제탑 하나만 이착륙 순서를 조율하면 됨.
+
+- **핵심**: 객체 묶음이 서로 직접 참조하는 대신, 상호작용 로직을 Mediator 라는 별도 객체로 옮겨서 결합을 느슨하게 함.
+- **목적**:
+  1. 컴포넌트들 사이의 N:M 관계를, Mediator 를 통한 1:N 관계로 단순화함.
+  2. 각 컴포넌트를 다른 컴포넌트로부터 독립시켜서 재사용 가능하게 함.
+  3. 상호작용 로직이 흩어져 있지 않고 한 곳(Mediator)에 모여있어 이해·유지보수가 쉬워지게 함.
+
+## Examples
+
+- **View 들이 서로를 직접 참조**하는 폼 화면은, View 하나를 재사용하려고 다른 화면에 갖다 놓으면 참조하던 다른 View 가 없어서 깨짐. Mediator 를 두면 각 View 는 Mediator 하고만 소통하므로, 다른 화면에서도 그대로 재사용할 수 있음.
+- **채팅방의 참가자들**이 서로에게 직접 메시지를 보낸다면 참가자가 늘어날수록 연결(그리고 예외 처리)이 기하급수적으로 늘어남. `ChatRoom` 이라는 Mediator 를 통해서만 메시지를 주고받으면, 참가자는 방(Mediator)에만 접속하면 됨.
+- **여러 다이얼로그/위젯이 서로의 상태를 알아야 하는 설정 화면**(예: "자동 백업" 체크박스를 끄면 "백업 주기" 드롭다운이 비활성화)에서, 위젯끼리 직접 참조하는 대신 Mediator 가 상태 변화를 감지해서 관련 위젯들에 지시하면 위젯 각각은 다른 위젯의 존재를 몰라도 됨.
 
 ## Structure
 
-![Untitled](../../../../../_assets/oop/Untitled%2062.png)
+```mermaid
+flowchart TB
+    ColleagueA["Colleague A<br/>예: CountrySpinner"]
+    ColleagueB["Colleague B<br/>예: StateSpinner"]
+    ColleagueC["Colleague C<br/>예: SubmitButton"]
+    Mediator{{"Mediator interface<br/>notify(sender, event)"}}
+    ConcreteMediator["ConcreteMediator<br/>예: RegistrationFormController"]
 
-1. **Mediator**- 컴포넌트들과 상호작용하기 위한 인터페이스 정의.
-2.**Concrete Mediator**
-   - 컴포넌트를 정의하여 컴포넌트간의 관계를 묶음.
-3. (Optional) **Abstract Component or Component Interface**- 유사하게 상호작용하는 컴포넌트가 상속할 수 있는 클래스.
-4.**Concrete component or Colleague**- Mediator 가 참고하는 요소.
-   - 각각의 colleague 는 다른 colleague 와 소통하기 위해 Mediator 와 소통함.
-   - Component 들은 서로를 알고 있어서는 안됨 ⇒ 무조건 Mediator 를 거쳐서 소통해야 함.
+    ColleagueA -- "① notify" --> Mediator
+    ColleagueB -- "notify" --> Mediator
+    ColleagueC -- "notify" --> Mediator
+    ConcreteMediator -. 구현 .-> Mediator
+    ConcreteMediator -- "② 필요한 Colleague 에 지시" --> ColleagueB
+    ConcreteMediator -- "② 필요한 Colleague 에 지시" --> ColleagueC
+```
+
+국가를 선택했을 때의 흐름을 시퀀스로 보면 아래와 같음.
+
+```mermaid
+sequenceDiagram
+    participant Country as CountrySpinner
+    participant Mediator as RegistrationFormController
+    participant State as StateSpinner
+    participant Submit as SubmitButton
+
+    Country->>Mediator: notify(this, "countrySelected")
+    Note over Mediator: CountrySpinner 는 StateSpinner 를 전혀 모름
+    Mediator->>State: updateStates(country)
+    Mediator->>Submit: revalidate()
+```
+
+- **Mediator**: 컴포넌트들과 상호작용하기 위한 인터페이스 (`notify(sender, event)` 등).
+- **ConcreteMediator**: 실제 컴포넌트들을 참조하고, 어떤 이벤트가 오면 어떤 컴포넌트에 어떻게 지시할지 구현.
+- **Colleague(Component)**: Mediator 와만 소통하는 요소들. 서로를 직접 알아서는 안 되고, 반드시 Mediator 를 거쳐야 함.
+- **Client**: ConcreteMediator 를 만들고 Colleague 들을 여기에 등록하는 쪽. 실무에서는 이 역할을 [Composition Root](../general/patterns/Composition%20Root.md) 가 담당하는 경우가 많음 — 아래 [Modern Applicability](#modern-applicability-di-composition-root) 참고.
 
 ## Adaptability
 
-- 다른 클래스와 밀접하게 coupled 되어 있기 때문에 일부 클래스를 변경하기 어려울 때 사용.
-- 컴포넌트가 다른 컴포넌트에 너무 의존적이어서 다른 프로그램에서 컴포넌트를 재사용할 수 없을 때 사용.
-- 다양한 컨텍스트에서 몇 가지 기본 동작을 재사용하기 위해 수많은 구성 요소 하위 클래스를 만들어야 한 경우 대신 사용.
-- 구동 중에 컴포넌트를 추가할 필요가 있을 때 사용.
-    💣 모든 communication logic 을 추가하면 God Object 가 될 가능성이 존재함.
-- Mediator 는 오직 communication 만 책임진다는 것을 유의하고 사용해야 함.
-- 연산, 데이터 변환 등 관계없는 기능이 Mediator 에 없도록 잘 작성해야 함.
+다음 상황에서 특히 유용함.
+
+- 다른 클래스와 밀접하게 결합되어 있어서 일부 클래스만 따로 바꾸기 어려운 경우.
+- 컴포넌트가 다른 컴포넌트에 너무 의존적이라 다른 화면/프로그램에서 재사용할 수 없는 경우.
+- 여러 컨텍스트에서 재사용하려고 기본 동작이 조금씩 다른 하위 클래스를 잔뜩 만들어야 하는 상황을 피하고 싶은 경우.
+- 실행 중에 컴포넌트를 추가/교체할 필요가 있는 경우.
+
+Mediator 가 통신 조율 외의 연산·데이터 변환 로직까지 떠안기 시작하면 God Object 가 될 위험이 있으므로, 책임을 "통신 조율" 로만 한정해서 설계해야 함.
 
 ## Pros
 
-- 여러 개의 컴포넌트 간 상호작용을 하나로 묶을 수 있다 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 기존 코드 수정 없이 새로운 Mediator 를 추가할 수 있음 ⇒**[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
-- 각각의 컴포넌트를 쉽게 재사용할 수 있다.
+- **여러 컴포넌트 간 상호작용 로직을 한 곳으로 모을 수 있음** ⇒ [SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md). 상호작용 규칙이 바뀌어도 `RegistrationFormController` 하나만 고치면 됨.
+- **기존 코드 수정 없이 새로운 Mediator 로 교체**할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md).
+- **각 컴포넌트가 다른 컴포넌트를 몰라도 되므로 재사용이 쉬워짐**: `StateSpinner` 를 다른 화면에 그대로 갖다 써도 깨지지 않음.
 
 ## Cons
 
-- Mediator 가 God Object 가 될 수도 있음.
+- **Mediator 자체가 God Object 가 될 수 있음**: 컴포넌트가 늘어날수록 Mediator 가 알아야 할 상호작용 규칙도 함께 늘어나서, 결국 Mediator 하나가 시스템의 모든 로직을 떠안게 될 위험이 있음.
 
 ## Relationship with other patterns
 
-### [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md), [Command Pattern](Command%20Pattern.md), [Observer Pattern](Observer%20Pattern.md)
+```mermaid
+flowchart LR
+    Mediator((Mediator))
+    CoR[Chain of<br/>Responsibility]
+    Command[Command]
+    Observer[Observer]
+    Facade[Facade]
 
-- 요청의 sender 와 receiver 을 연결하는 다양한 방법 제시.
-  - **CoR**: 잠재적 수신자 중 하나가 처리할 때까지 잠재적 수신자의 동적 사슬을 따라 순차적으로 요청을 전달.
-  -**Command**: 발신자와 수신자 간의 단방향 연결을 설정.
-  -**Mediator**: 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함.
-  -**Observer** : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
+    CoR -- "sender/receiver 연결 방식 비교" --- Mediator
+    Command -- "sender/receiver 연결 방식 비교" --- Mediator
+    Observer -- "종종 함께 쓰이거나 겹쳐 보임" --- Mediator
+    Facade -- "결합을 정리한다는 점에서 유사, 목적 다름" --- Mediator
+```
 
-### [Facade Pattern](../structural/Facade%20Pattern.md)
+| 비교 대상 | 공통점 | Mediator 와의 차이 |
+| :--- | :--- | :--- |
+| [Chain of Responsibility](Chain%20of%20Responsibility%20Pattern.md), [Command](Command%20Pattern.md) | 셋 다 요청의 발신자와 수신자를 연결하는 방식을 다룸 | CoR 은 수신자 사슬을 순차적으로 따라감. Command 는 발신자·수신자 간 단방향 연결. Mediator 는 발신자·수신자의 직접 연결을 아예 없애고, 중재자를 거쳐서만 통신하게 함. |
+| [Observer](Observer%20Pattern.md) | 둘 다 컴포넌트 간 결합을 낮추는 목적, 실제로 함께 구현되는 경우가 많아 경계가 흐릿함 | Mediator 의 목표는 컴포넌트 집합 간의 **상호 종속성 자체를 제거**하는 것 — 대신 컴포넌트들은 단일 Mediator 객체에만 종속됨. Observer 의 목표는 한 객체가 다른 객체에 대해 **동적인 단방향 구독 관계**를 맺는 것. Mediator 를 Publisher 로, Colleague 를 그 이벤트를 구독하는 Subscriber 로 구현하면 두 패턴을 조합한 형태가 되는데, 이 경우 매우 비슷해 보일 수 있음. |
+| [Facade](../structural/Facade%20Pattern.md) | 밀접하게 결합된 클래스들 사이의 상호작용을 정리해준다는 점이 비슷함 | Facade 는 서브시스템에 대한 **단순화된 진입점**을 제공할 뿐, 서브시스템 내부 객체들끼리는 여전히 서로 직접 소통함(Facade 는 서브시스템을 모름 → 단방향). Mediator 는 컴포넌트 간의 상호작용 **자체를 중재**함 — 각 컴포넌트는 Mediator 만 알고 다른 컴포넌트는 아예 모름(양방향, 컴포넌트도 Mediator 를 앎). |
 
-- 밀접하게 coupled 된 클래스 사이의 상호작용을 정리해준다는 비슷한 역할을 함.
-- **Facade**: 간단한 subsystem 인터페이스를 제공하지만, 새로운 기능을 추가하진 않음. subsystem 은 facade 를 모르고 subsystem 객체들은 서로서로 소통함.
--**Mediator**: system 의 컴포넌트간의 상호작용을 중재함. 각각의 컴포넌트는 mediator 만 알고 다른 컴포넌트는 아예 모름.
+## Modern Applicability (DI/Composition Root)
 
-### [Observer Pattern](Observer%20Pattern.md)
+[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 Mediator 는 **3 그룹: 여전히 설계의 핵심** 에 속함. 여러 View/컴포넌트 간의 상호작용 조율은 프레임워크가 대신해줄 수 없는, 화면마다 다른 도메인 로직이기 때문.
 
-- 차이를 구별하기 어려움.
-- 하나를 구현해서 쓰기도 하나, 때로는 두 가지를 동시에 적용하기도 함.
-  - Mediator 의 목표는 시스템 구성 요소 집합 간의 상호 종속성 제거 ⇒ 대신 구성 요소는 단일 중재자 개체에 종속됨.
-  - Observer 의 목표는 일부 개체가 다른 개체의 종속 역할을 하는 개체 간에 동적 단방향 연결을 설정.
-  - 두 가지를 합쳐서 **Observer 에 의존하는 Mediator** 객체를 만들어 내는 것이 대중적임.
-    - Mediator 는 Publisher 역할을 하고 Component 는 Mediator 의 이벤트를 구독 및 취소하는 Observer 역할을 함.
-    - 이러한 방식으로 Mediator 를 구현하면 Observer 와 매우 유사하게 보일 수 있음.
-  - 혼란스러우면 다른 방법으로 Mediator 패턴을 구현할 수 있음.
-    - 예를 들어 모든 구성 요소를 동일한 Mediator 개체에 영구적으로 연결할 수 있습니다. 이 구현은 Observer 와 유사하지 않지만 여전히 Mediator 패턴의 인스턴스임.
-    - 이제 모든 구성 요소가 Publisher 가 되어 서로 간의 동적 연결을 허용하는 프로그램을 상상해 보기.
-      - 중앙 집중식 Mediator 개체는 없고 분산된 Publisher 집합만 있을 것임.
+**"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** 맞음. `RegistrationFormController` 는 각 View 를 구체적으로 알아야 함 — 다만 그 지식이 View 들 사이에 N:M 으로 흩어지지 않고 Mediator 하나에만 모여있다는 점이 핵심.
+
+**Android 예시 (Metro)** — 여러 View 간 상호작용을 조율하는 화면 Mediator.
+
+```kotlin
+interface FormMediator {
+    fun onCountrySelected(country: String)
+}
+
+@Inject
+class RegistrationFormMediator(
+    private val stateField: StateFieldController,
+    private val submitButton: SubmitButtonController,
+) : FormMediator {
+    override fun onCountrySelected(country: String) {
+        stateField.updateStates(country) // Colleague 들은 서로를 모름
+        submitButton.revalidate()
+    }
+}
+
+@Inject
+class RegistrationViewModel(private val mediator: FormMediator)
+
+@DependencyGraph(AppScope::class)
+interface AppGraph {
+    val registrationViewModel: RegistrationViewModel
+}
+```
+
+`StateFieldController` 와 `SubmitButtonController` 는 서로의 존재를 모름. 상호작용 규칙이 바뀌어도 `RegistrationFormMediator` 하나만 고치면 되고, `AppGraph` 가 어떤 Colleague 들을 Mediator 에 엮을지 아는 유일한 지점.

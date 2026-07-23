@@ -8,95 +8,140 @@ date created: 2024-12-12 15:46:36 +09:00
 
 ## Description
 
+주문 API 하나를 만든다고 해보자. 처음엔 주문 저장 로직만 있으면 됐는데, 인증 체크, 관리자 권한 체크, brute-force 방지, 요청 검증(validation), 캐시 조회가 하나씩 추가되면서 `OrderController` 하나가 이 모든 관심사를 떠안게 됨. 기능 하나를 고치면 다른 기능에 영향을 주고, 순서를 바꾸고 싶어도 거대한 메소드 하나를 통째로 헤집어야 하는 게 문제.
+
+**Chain of Responsibility Pattern** 은 요청을 처리할 수 있는 핸들러들을 사슬(Chain)처럼 연결해두고, 요청이 이 사슬을 따라 흐르게 만드는 행위 패턴. 각 핸들러는 요청을 직접 처리할지, 처리하지 않고 다음 핸들러로 넘길지를 스스로 결정함. 위 예시라면 `AuthHandler → CacheHandler → ValidationHandler → OrderHandler` 순으로 체인을 구성하고, 각 핸들러는 자기 몫만 처리한 뒤 다음으로 넘기면 됨.
+
 ![Untitled](../../../../../_assets/oop/cor_overview.png)
 
-- 일련의 핸들러를 따라 요청을 전달할 수 있는 패턴.
-- 요청을 받으면 각 핸들러는 요청을 처리할지 아니면 체인의 다음 핸들러로 전달할지 결정한다.
+>불을 끄기 위해 양동이를 한 사람씩 릴레이로 전달하는 소방대를 생각하면 쉬움. 각 사람(핸들러)은 양동이(요청)를 받아서 직접 쓰거나, 옆 사람에게 넘김 — 누가 처음 받는지와 몇 명을 거치는지는 상황에 따라 달라져도 릴레이 방식 자체는 그대로 유지됨.
 
-## Case
+- **핵심**: 요청을 처리할 수 있는 핸들러들을 체인으로 연결하고, 요청이 순서대로 핸들러를 거치며 처리되게 함.
+- **목적**:
+  1. 요청을 보내는 쪽(Sender)과 처리하는 쪽(Receiver)의 결합을 느슨하게 함.
+  2. 핸들러의 추가/제거/순서 변경을 기존 코드 수정 없이 가능하게 함 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md).
+  3. 정확히 어떤 핸들러가 요청을 처리할지 컴파일 타임에 정해지지 않아도 되는 구조를 만듦.
 
-### Situation
+## Examples
 
-- 온라인 주문 시스템을 구축한다고 가정해보자. 많은 기능들이 필요하겠지만 유저에 대한 인증이나, Admin 권한을 가진 사용자의 경우 모든 주문을 조회한다던지 하는 기능들이 필요할 것이다.
-- 시스템이 비대해져가면서 비밀번호 brute force 어택을 막기 위한 기능, 요청에 대한 validation, 같은 요청에 대해 cache 를 반환하는 기능이 필요할 수도 있다.
-- 이 상태에서 또 다른 기능을 추가하면 로직은 복잡해진다. 하나를 변경할 때 다른 기능에 영향을 줄 수도 있고, 만약 이 기능들 중 일부분의 기능이 다른 기능구현에 필요하다면 중복코드가 발생한다. 이렇게 되면 시스템을 관리하며 유지보수하기가 매우 힘들어진다.
-
-![Untitled](../../../../../_assets/oop/cor_example_1.png)
-
-### Solution
-
-- 다른 행동 패턴들과 유사하게 책임 연쇄 패턴도 핸들러라는 단일 객체를 사용한다. 위의 문제점과 같은 상황에서는 각 단계별 행동들이 단일 메소드를 가지는 클래스가 되고, 요청은 단일 메소드의 인자가 된다.
-- 책임 연쇄 패턴은 핸들러들을 연결하여 체인 형태로 구성한다. 체인에서 각 핸들러들은 다음 핸들러를 참조하는 필드를 가지고 있으며, 요청을 처리하고 넘긴다.
-- 또 하나의 특징이 있는데 마치 알고리즘에서 더 탐색할 필요가 없는 그래프 경로를 탐색하지 않는 가지치기처럼, 각 핸들러는 요청을 다음 핸들러에 넘길지 말지 결정할 수 있다.
-- 패턴 사용 시 여러 핸들러를 하나의 체인으로 연결하고 클라이언트가 해당 체인을 따라 요청을 전달할 수 있음.
-    - **각 핸들러는 요청을 수신하고 처리 및/또는 추가로 전달**.
-- 요청 추가/제거/재정렬/처리 순서 변경할 수 있음.
-- 여러 종류의 요청을 다양한 방식으로 처리할 것이 예상되지만, 요청이나 처리 순서가 컴파일 타임에 정해지지 않는 경우 사용해야 함.
-
-![Untitled](../../../../../_assets/oop/cor_example_2.png)
-
-## Cautions
-
-- **요청 수행이 보장되지 않음**.
-- 발신자와 수신자 사이에 느슨한 결합을 도입하고 요청이 체인의 모든 핸들러에 의해 처리될 수 있기 때문에 실제로 처리된다는 보장이 없음.
+- **인증 미들웨어 없이 API 컨트롤러 여러 개에 인증 로직을 복붙**했다면, 인증 정책이 바뀔 때마다 모든 컨트롤러를 찾아 고쳐야 함. `AuthHandler` 하나를 체인 앞단에 두면 컨트롤러는 인증을 신경 쓸 필요가 없어짐.
+- **고객센터 티켓 라우팅**: 상담원 레벨 1 이 처리 못하면 레벨 2, 레벨 2 도 못하면 매니저에게 전달. 이 흐름을 조건문으로 짜면 레벨이 늘어날 때마다 분기가 늘어나지만, 체인이라면 핸들러 순서만 조정하면 됨.
+- **캐시 조회**: `CacheHandler` 가 캐시에 값이 있으면 그대로 응답하고 체인을 끝냄. 없으면 다음 `DbHandler` 로 넘어감. 캐시 유무를 판단하는 조건문이 비즈니스 로직 안에 섞이지 않음.
 
 ## Structure
 
-![Untitled](../../../../../_assets/oop/cor_structure.png)
+```mermaid
+flowchart LR
+    Client["Client<br/>(실무에서는 Composition Root)"]
+    H1["ConcreteHandler A<br/>예: AuthHandler"]
+    H2["ConcreteHandler B<br/>예: CacheHandler"]
+    H3["ConcreteHandler C<br/>예: OrderHandler"]
 
-1. ***Handler***- 요청을 처리하기 위한 인터페이스 정의.
-    - 모든 핸들러가 BaseHandler 를 상속받아 사용한다면 하지 않아도 됨.
-2. ***BaseHandler***- chain 다음 객체의 reference 를 가짐.
-    - default 행위를 정의함.
-    - 모든 핸들러 클래스 공통 보일러플레이트 코드 포함.
-3. ***ConcreteHandler***- 요청을 실제 처리하는 코드 정의.
-      - 해당 객체에서 처리하거나 다음으로 넘기거나 하는 방식.
-      - 핸들러는 초기화 된 이후로는 immutable 함.
-4. ***Client*** - 필요에 따라 핸들러 체인을 만들고 요청을 보냄.
+    Client -- "① 체인 구성" --> H1
+    H1 -- "② next" --> H2
+    H2 -- "③ next" --> H3
+    H1 -. 구현 .-> Handler{{"Handler interface<br/>handle(request)"}}
+    H2 -. 구현 .-> Handler
+    H3 -. 구현 .-> Handler
+```
+
+요청 하나가 체인을 타고 흐르는 흐름을 시퀀스로 그리면 아래와 같음.
+
+```mermaid
+sequenceDiagram
+    participant Req as Request
+    participant Auth as AuthHandler
+    participant Cache as CacheHandler
+    participant Order as OrderHandler
+
+    Req->>Auth: handle(request)
+    Note over Auth: 인증 OK → 다음으로 전달
+    Auth->>Cache: next.handle(request)
+    Note over Cache: 캐시 없음 → 다음으로 전달
+    Cache->>Order: next.handle(request)
+    Note over Order: 여기서 실제 처리 후 종료
+    Order-->>Req: response
+```
+
+- **Handler**: 요청 처리를 위한 공통 인터페이스. 모든 핸들러가 `BaseHandler` 를 상속받는 구조라면 별도로 없어도 됨.
+- **BaseHandler**: 다음 핸들러에 대한 참조를 갖고, `setNext`/기본 위임 동작 등 공통 보일러플레이트를 담당.
+- **ConcreteHandler**: 요청을 실제로 처리하거나, 다음 핸들러로 넘기는 판단을 하는 클래스 (`AuthHandler`, `CacheHandler` 등). 초기화 이후에는 불변으로 유지하는 것이 보통.
+- **Client**: 필요한 핸들러들을 원하는 순서로 엮어 체인을 구성하고 요청을 흘려보내는 쪽. 실무에서는 이 역할을 [Composition Root](../general/patterns/Composition%20Root.md) 가 담당하는 경우가 많음 — 아래 [Modern Applicability](#modern-applicability-di-composition-root) 참고.
 
 ## Adaptability
 
-- 프로그램이 다양한 방식으로 다양한 종류의 요청을 처리할 것으로 예상되지만 정확한 요청 유형과 순서를 미리 알 수 없는 경우 사용.
-- 특정 순서로 여러 핸들러를 실행해야 하는 경우 사용.
-- 핸들러 세트와 그 순서가 런타임에 변경되어야 하는 경우 사용.
+다음 상황에서 특히 유용함.
+
+- 프로그램이 다양한 방식으로 다양한 종류의 요청을 처리해야 하지만, 정확한 요청 유형과 처리 순서를 미리 알 수 없는 경우.
+- 여러 핸들러를 특정 순서로 실행해야 하는 경우.
+- 핸들러 구성과 순서가 런타임에 바뀔 수 있어야 하는 경우.
 
 ## Pros
 
-- 요청 처리 순서를 제어할 수 있음.
-- 작업을 수행하는 클래스에서 작업을 호출하는 클래스를 분리할 수 있음 ⇒ [SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 기존 코드를 손상시키지 않고 새 핸들러를 도입할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- **요청 처리 순서를 자유롭게 제어**할 수 있음: 핸들러를 엮는 순서만 바꾸면 되고, 각 핸들러 내부 로직은 건드릴 필요 없음.
+- **호출하는 클래스와 실제 작업을 수행하는 클래스가 분리**됨 ⇒ [SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md). `OrderController` 는 더 이상 인증/캐시/검증을 직접 알 필요가 없음.
+- **기존 코드를 건드리지 않고 새 핸들러를 추가**할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md). Rate-limit 핸들러를 새로 추가해도 기존 `AuthHandler`, `CacheHandler` 는 수정하지 않음.
 
 ## Cons
 
-- 일부 요청은 처리되지 않을 수 있음.
+- **요청이 처리된다는 보장이 없음**: 체인 끝까지 갔는데 아무도 처리하지 않으면 요청이 조용히 버려질 수 있음. 마지막에 기본 처리(default handler)를 두거나 명시적으로 예외를 던지는 안전장치가 필요함.
+- **디버깅이 어려워질 수 있음**: 실제로 어떤 핸들러가 요청을 처리했는지 추적하려면 체인 전체를 따라가 봐야 함.
 
 ## Relationship with other patterns
 
-### [Command Pattern](Command%20Pattern.md), [Mediator Pattern](Mediator%20Pattern.md), [Observer Pattern](Observer%20Pattern.md)
+```mermaid
+flowchart LR
+    CoR((Chain of<br/>Responsibility))
+    Command[Command]
+    Mediator[Mediator]
+    Observer[Observer]
+    Composite[Composite]
+    Decorator[Decorator]
 
-- 모두 요청의 발신자와 수신자를 연결하는 다양한 방법을 다룸.
-  - **CoR**: 잠재적 수신자 중 하나가 처리할 때까지 잠재적 수신자의 동적 사슬을 따라 순차적으로 요청을 전달.
-  - **Command**: 발신자와 수신자 간의 단방향 연결을 설정.
-  - **Mediator**: 송신자와 수신자 간의 직접 연결을 제거하여 중재자 개체를 통해 간접적으로 통신하도록 함.
-  - **Observer** : 수신자가 수신 요청을 동적으로 구독 및 구독 취소할 수 있음.
+    Command -- "핸들러를 Command 로 구현 가능" --- CoR
+    Mediator -- "sender/receiver 연결 방식 비교" --- CoR
+    Observer -- "sender/receiver 연결 방식 비교" --- CoR
+    Composite -- "함께 자주 사용" --- CoR
+    Decorator -- "구조 비슷, 의도 다름" --- CoR
+```
 
-### [Composite Pattern](../structural/Composite%20Pattern.md)
+| 비교 대상 | 공통점 | CoR 와의 차이 |
+| :--- | :--- | :--- |
+| [Command](Command%20Pattern.md), [Mediator](Mediator%20Pattern.md), [Observer](Observer%20Pattern.md) | 넷 다 요청의 발신자와 수신자를 연결하는 방식을 다룸 | CoR 은 잠재적 수신자들의 사슬을 따라 **순차적으로** 전달하다 하나가 처리하면 멈춤. Command 는 발신자·수신자 간 **단방향** 연결만 만듦. Mediator 는 발신자·수신자의 직접 연결을 없애고 **중재자를 거쳐** 통신하게 함. Observer 는 수신자가 **구독/구독 취소**를 동적으로 할 수 있게 함. |
+| [Composite](../structural/Composite%20Pattern.md) | 트리 구조와 자주 함께 쓰임 | CoR 이 Composite 와 결합되면, leaf 컴포넌트가 받은 요청을 부모 체인을 따라 트리 루트까지 전달하는 식으로 쓰임. Composite 자체는 트리 구조를 정의하는 패턴이고, CoR 은 그 트리를 따라 요청을 흘려보내는 패턴. |
+| [Decorator](../structural/Decorator%20Pattern.md) | 재귀적으로 객체를 연쇄시키는 구조가 비슷함 | CoR 의 핸들러들은 서로 독립적으로 임의의 작업을 수행하고, 아무 때나 요청을 다음으로 넘기지 않고 끝낼 수 있음. Decorator 는 기존 인터페이스를 유지하며 동작을 계속 덧붙이는 것이 목적이라, 중간에 처리를 끝내버리는 건 Decorator 의 의도가 아님. |
 
-- CoR 은 주로 Composite 과 함께 사용됨.
-	- 이 경우 leaf component 가 요청을 받으면 모든 상위 component 의 체인을 통해 component tree 의 root 까지 전달할 수 있음.
+CoR 의 핸들러는 [Command Pattern](Command%20Pattern.md) 으로 구현할 수도 있음 — 이 경우 같은 요청(컨텍스트 객체)에 대해 다양한 연산을 실행할 수 있음. 반대로 요청 자체를 Command 객체로 만들면, 체인으로 연결된 서로 다른 컨텍스트에서 동일한 커맨드를 실행하는 것도 가능함.
 
-### [Command Pattern](Command%20Pattern.md)
+## Modern Applicability (DI/Composition Root)
 
-- CoR 의 핸들러를 Command 를 이용해서 구현할 수 있음.
-- 이 경우, 요청으로 표시되는 동일한 컨텍스트 개체에 대해 다양한 작업을 실행할 수 있음.
-- 다른 방법
-	- request 자체를 command 로 구현.
-	- 이 경우, 체인으로 연결된 일련의 다른 컨텍스트에서 동일한 작업을 실행할 수 있음.
+[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 CoR 은 **3 그룹: 여전히 설계의 핵심** 에 속함. 실무에서는 이 패턴이 사라지기는커녕, **HTTP 클라이언트의 Interceptor 체인**이라는 이름으로 거의 모든 네트워킹 라이브러리에 내장되어 있음.
 
-### [Decorator Pattern](../structural/Decorator%20Pattern.md)
+**"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** 맞음. 다만 그 "누군가" 는 각 핸들러를 사용하는 코드가 아니라, 체인을 조립하는 지점 하나로 좁혀짐.
 
-- 매우 비슷한 클래스 구조를 가지고 있음.
-	- 재귀 구성을 이용해서 연속된 객체의 연산을 수행함.
-- 하지만 결정적으로 다른 점이 있음.
-	- **CoR**: 서로 독립적으로 임의의 작업을 실행할 수 있음. 언제든지 요청을 다음으로 전달하지 않고 끝낼 수 있음.
-	- **Decorator** : 기본 인터페이스와 일관성을 유지하면서 객체의 동작을 확장함. 요청 중간에 끝내는 것이 불가능.
+**Android 예시 (OkHttp + Metro)** — 인증 헤더 추가, 캐시, 로깅을 각각 Interceptor(=Handler) 로 분리하고, 어떤 Interceptor 를 어떤 순서로 묶을지는 Composition Root 가 결정.
+
+```kotlin
+interface Interceptor // OkHttp 의 Interceptor 도 사실상 CoR 의 Handler
+
+@Inject class AuthInterceptor(private val tokenStore: TokenStore) : Interceptor
+@Inject class CacheInterceptor(private val cache: Cache) : Interceptor
+@Inject class LoggingInterceptor : Interceptor
+
+@DependencyGraph(AppScope::class)
+interface AppGraph {
+    @Provides
+    fun provideOkHttpClient(
+        auth: AuthInterceptor,
+        cache: CacheInterceptor,
+        logging: LoggingInterceptor,
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(auth)
+            .addInterceptor(cache)
+            .addInterceptor(logging)
+            .build()
+}
+```
+
+`ApiService` 를 사용하는 어떤 코드도 `AuthInterceptor` 나 `CacheInterceptor` 라는 이름을 알 필요가 없음. 체인의 구성 순서를 아는 곳은 `AppGraph` 하나뿐 — CoR 이 없어진 게 아니라, "체인을 조립하는 위치" 가 명시적인 한 곳으로 모인 것.

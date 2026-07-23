@@ -8,118 +8,141 @@ date created: 2024-12-12 15:53:12 +09:00
 
 ## Description
 
-![Untitled](../../../../../_assets/oop/Untitled%2040.png)
+초기화 비용이 큰 객체(예: 고해상도 이미지, DB 커넥션)가 있는데, 항상 필요한 건 아니라고 해보자. 필요할 때만 만들도록 Lazy Loading 을 직접 구현하면, 그 객체를 사용하는 모든 클라이언트 코드에 "생성됐는지 확인 → 없으면 생성 → 사용" 하는 코드가 중복됨. 게다가 3rd-party 라이브러리 객체라면 그 안에 지연 초기화 로직을 직접 심는 것 자체가 불가능함.
 
-![Untitled](../../../../../_assets/oop/Untitled%2041.png)
+**Proxy Pattern** 은 이럴 때 원본 객체와 똑같은 인터페이스를 구현하는 대역(Proxy) 객체를 하나 만들어서, 클라이언트가 원본인 줄 알고 그 대역을 대신 사용하게 하는 구조(Structural) 패턴. `Proxy` 가 요청을 가로채서 지연 생성, 접근 제어, 로깅 같은 부가 작업을 처리한 뒤 실제 객체(`RealService`)에 위임하면, 클라이언트 코드는 그 사실을 전혀 몰라도 됨.
 
-- 다른 객체에 대한 접근을 제어하기 위한 역할.
-
-## Case
-
-### Situation
-
-- 많은 시스템의 리소스를 사용하는 객체가 있으나 언제나 필요한 건 아님.
-- Lazy Loading 으로 구현이 가능하지만, 필요 시점에만 객체를 생성하고, 후에 모든 클라이언트는 해당 객체를 초기화 하는 방법은 코드 중복이 너무 많이 발생하게 됨.
-- 해당 객체에 직접 주입하는 방법도 있지만, 3rd-party 라이브러리 라면 이 방법 역시 불가능.
-
-### Solution
-
-- 프록시 패턴이 원본 서비스를 제공하는 객체와 동일한 인터페이스를 구현하는 새로운 프록시 클래스를 생성하여 이 문제를 해결함.
-- 클라이언트가 요청을 보내면, 프록시 클래스는 실제 서비스 객체를 만들고, 요청을 위임.
-- 이렇게 하면 좋은 점?
-  - 원본 서비스 클래스의 변경 없이 전처리나 후처리 기능을 제공할 수 있음.
-  - 원본 서비스 객체의 인터페이스를 동일하게 구현하기 때문에 클라이언트 입장에서는 원본 서비스를 사용하는 것과 다를 바가 없음.
+- **핵심**: 원본 객체와 동일한 인터페이스를 갖는 대역 객체를 두어, 원본에 대한 접근을 제어하거나 부가 작업(지연 생성, 캐싱, 로깅, 권한 검사 등)을 끼워 넣음.
+- **목적**:
+  1. 원본 서비스 클래스를 수정하지 않고 전처리/후처리 로직을 추가함.
+  2. 클라이언트 입장에서는 Proxy 를 쓰는 것과 원본을 직접 쓰는 것이 구분되지 않게 함 — 인터페이스가 동일하기 때문.
+  3. 무거운 객체의 생성 시점을 제어(Lazy Initialization)하거나, 원격/외부 자원에 대한 접근을 로컬 객체처럼 다룰 수 있게 함.
 
 ## Examples
 
-- 신용카드는 은행 계좌를 위한 프록시이며, 은행 계좌는 현금을 위한 프록시임.
-- 둘 다 결제 행위를 할 수 있는 같은 인터페이스를 구현하고 있음.
-- 소비자는 돈을 직접 들고 다니지 않아도 되기 때문에 상당히 편리함.
-- 가게 주인 역시 보증금을 잃어버릴 위험 요소를 감수하지 않아도 되기 때문에 편리함.
+- **신용카드 (Virtual/Protection Proxy)**: 신용카드는 현금(원본)에 대한 프록시임. 소비자는 현금을 직접 들고 다닐 필요가 없고, 가게 주인도 보증금을 떼일 위험을 감수하지 않아도 됨 — 카드와 현금은 "결제한다" 는 같은 인터페이스를 구현하지만, 카드는 그 사이에 인증·한도 확인 같은 접근 제어를 끼워 넣음.
+- **이미지 갤러리 (Virtual Proxy)**: 리스트에 이미지 100장을 보여줄 때 원본 이미지를 전부 미리 로드하면 느림. `ImageProxy` 가 실제 로드는 화면에 보일 때(스크롤로 진입할 때)까지 미루면, 클라이언트(리스트 어댑터) 코드는 "지금 로드해야 하나" 를 신경 쓸 필요가 없음.
+- **API 요청 캐싱 (Caching Proxy)**: 같은 API 를 반복 호출하는 코드가 여러 곳에 있다면, 매번 캐시 확인 로직을 중복해서 짜는 대신 `CachingApiProxy` 가 그 사이에서 캐시 적중 여부를 판단하고 없을 때만 실제 API 를 호출하게 만들 수 있음.
 
 ## Structure
 
-![Untitled](../../../../../_assets/oop/Untitled%2042.png)
+```mermaid
+flowchart LR
+    Client["Client"]
+    ServiceInterface{{"ServiceInterface<br/>예: ImageSource"}}
+    RealService["Real Service<br/>예: RealImage"]
+    Proxy["Proxy<br/>예: LazyImageProxy"]
 
-1. **ServiceInterface**- Service 와 Proxy 를 위한 인터페이스 정의.
-2.**Service**- 비즈니스 로직을 포함하고 있는 사용해야 할 실제 객체 정의.
-3.**Proxy**- 실제 서비스와 동일한 인터페이스를 구현.
-    - 접근을 제어하는 service 객체를 가리키는 참조도 포함해야 함.
-    - 실제 객체를 생성, 삭제 하는데 책임이 있을 수 있음.
-4.**Client**- 같은 인터페이스를 이용해 Service, Proxy 모두 소통함.
-    - service 객체를 요구하는 어떤 코드에 proxy 를 할당할 수 있음.
+    Client -- "① 같은 인터페이스로 호출" --> ServiceInterface
+    RealService -. 구현 .-> ServiceInterface
+    Proxy -. 구현 .-> ServiceInterface
+    Proxy -- "② 필요할 때만 생성 후 위임" --> RealService
+```
 
-## Type
+첫 호출에서만 실제 로딩이 일어나고, 이후엔 캐시된 결과를 바로 반환하는 흐름은 아래와 같음.
 
-1.**Virtual Proxy (lazy initialization)**- Lazy Loading 개념으로, 요청이 필요한 때만 고비용 객체를 생성함.
-   - 초기 비용이 많이 드는 연산이 포함된 객체의 경우 가상 프록시를 사용했을 때 효과를 볼 수 있음.
-1.**Protection Proxy (access control)**- 원격 객체에 대한 실제 접근을 제어함.
-   - 객체 별로 접근 권한이 다를 때 유용하게 사용 가능.
-2.**Remote Proxy (local execution of remote service)**- 서로 다른 주소 공간에 존재하는 객체를 가리키는 대표 객체.
-   - 로컬 환경에 위치함.
-3.**Logging Proxy (logging request)**- 원본 서비스에 접근하는 요청에 대한 기록을 남길 수 있음.
-4.**Caching Proxy (caching request results)**
-   - 캐시를 보관하는 프록시.
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Proxy as LazyImageProxy
+    participant Real as RealImage
 
-## [Decorator Pattern](Decorator%20Pattern.md) vs [Proxy Pattern](Proxy%20Pattern.md)
+    Client->>Proxy: display()
+    Note over Proxy: 아직 RealImage 없음
+    Proxy->>Real: new RealImage(path) (비로소 생성)
+    Real-->>Proxy: 로드 완료
+    Proxy-->>Client: 화면에 표시
 
-### Commons
+    Client->>Proxy: display() (두 번째 호출)
+    Note over Proxy: 이미 있는 RealImage 재사용
+    Proxy-->>Client: 즉시 표시
+```
 
-- (Proxy 패턴에서 원본에 해당하는) ConcreteComponent 는 (Proxy 패턴에서 프록시에 해당하는) 데코레이터를 통해 호출되는 몇 가지 동작을 구현.
-- 공통 기본 클래스 (common base class) 로부터 상속.
-
-### Differences
-
-- 의도에서 차이가 남.
-  - 데코레이터는 기능을 추가하거나, (좀 더 일반적으로는) ConcreteComponent 의 핵심 기능에 추가 기능을 동적으로 선택할 수 있는 옵션을 제공.
-  - 프록시는 세부적으로 정의된 하우스키핑 코드 (housekeeping code) 를 원본으로부터 분리하는 역할.
+- **ServiceInterface**: `Service` 와 `Proxy` 가 공통으로 구현하는 인터페이스 (`ImageSource`). Client 는 이 인터페이스만 앎.
+- **Service**: 실제 비즈니스 로직을 담고 있는 원본 객체 (`RealImage`).
+- **Proxy**: `Service` 와 동일한 인터페이스를 구현하면서, `Service` 에 대한 참조를 필드로 들고 접근을 제어함. 실제 객체의 생성/삭제 시점을 결정할 수도 있음 (`LazyImageProxy`).
+- **Client**: `ServiceInterface` 를 통해서만 소통하므로, 실제로 `RealService` 를 받았는지 `Proxy` 를 받았는지 구분하지 않음.
 
 ## Adaptability
 
-- 초기화 지연 (Lazy Initialization) 가 필요할 때 사용.
-- 접근 제한 (Access Control) 이 필요할 때 사용.
-- 원격 서비스 실행 (Remote Service Execution) 이 필요할 때 사용.
-- 요청 정보를 캐시에 보관 (Caching request result) 할 필요가 있을 때 사용.
-- 원본 서비스 접근 기록 (Logging Request) 이 필요할 때 사용.
-- 무거운 객체를 사용 하지 않을 때 자동으로 메모리에서 제거하는 스마트 레퍼런스를 위해 사용.
+다음 상황에서 특히 유용함.
+
+- **Virtual Proxy (Lazy Initialization)**: 생성 비용이 큰 객체를 실제로 필요한 시점까지 미루고 싶을 때.
+- **Protection Proxy (Access Control)**: 클라이언트마다 접근 권한이 다른 객체를 다룰 때.
+- **Remote Proxy**: 다른 주소 공간(다른 프로세스, 다른 서버)에 있는 객체를 로컬 객체처럼 다루고 싶을 때.
+- **Logging Proxy**: 원본 서비스에 대한 요청 기록을 남기고 싶을 때, 원본 코드는 건드리지 않고.
+- **Caching Proxy**: 요청 결과를 캐시해서 반복 요청 비용을 줄이고 싶을 때.
+- **Smart Reference**: 더 이상 사용되지 않는 무거운 객체를 자동으로 해제하고 싶을 때.
 
 ## Pros
 
-- 서비스 개체를 알고 있는 클라이언트 없이 서비스 개체를 제어할 수 있음.
-- 클라이언트가 신경 쓰지 않아도 서비스 개체의 수명 주기를 관리할 수 있음.
-- 서비스 개체가 준비되지 않았거나 사용할 수 없는 경우에도 사용할 수 있음.
-- 새로운 Proxy 를 기존 코드 수정 없이 추가할 수 있음 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- **클라이언트가 서비스 객체의 존재조차 모르게 접근을 제어할 수 있음**: `ImageSource` 인터페이스만 아는 클라이언트는 지금 다루는 게 진짜 이미지인지 아직 안 만들어진 지연 로딩 대역인지 구분하지 못함.
+- **클라이언트가 신경 쓰지 않아도 서비스 객체의 생명주기를 관리할 수 있음**: `RealImage` 를 언제 만들지, 언제 해제할지를 `Proxy` 가 대신 결정함.
+- **서비스 객체가 아직 준비되지 않았거나 사용할 수 없는 상황에도 동작함**: 네트워크가 아직 안 붙었거나 리소스가 아직 로드되지 않았어도, Proxy 는 우선 존재하고 있다가 준비되면 위임함.
+- **기존 코드 수정 없이 새 Proxy 를 추가할 수 있음**: `LoggingProxy` 를 새로 추가해도 `RealImage` 나 `Client` 코드는 안 바뀜 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
 
 ## Cons
 
-- 새로운 클래스를 생성해야 하므로 코드가 복잡해질 수 있음.
-- 서비스 객체로부터 응답이 늦을 수 있음.
+- **새로운 클래스가 늘어나 코드가 복잡해질 수 있음**: 인터페이스 하나에 Proxy 종류(Caching, Logging, Protection 등)만큼 클래스가 늘어남.
+- **응답이 지연될 수 있음**: Proxy 가 중간에서 캐시 확인, 권한 검사 같은 부가 작업을 하는 동안 원본을 직접 호출할 때보다 응답이 늦어질 수 있음.
 
 ## Relationship with other patterns
 
-### [Adapter Pattern](Adapter%20Pattern.md), [Decorator Pattern](Decorator%20Pattern.md)
+```mermaid
+flowchart LR
+    Proxy((Proxy))
+    Adapter[Adapter]
+    Decorator[Decorator]
+    Facade[Facade]
 
-- Adapter 는 감싸진 객체에 다른 인터페이스를 제공.
-- Proxy 는 감싸진 객체에 같은 인터페이스를 제공.
-- Decorator 는 감싸진 객체에 증강된 인터페이스를 제공.
+    Adapter -- "인터페이스 변경 여부" --- Proxy
+    Decorator -- "접근 제어 vs 기능 추가" --- Proxy
+    Facade -- "교환 가능 여부" --- Proxy
+```
 
-### [Facade Pattern](Facade%20Pattern.md)
+| 비교 대상 | 공통점 | Proxy 와의 차이 |
+| :--- | :--- | :--- |
+| [Adapter](Adapter%20Pattern.md) | 둘 다 감싼 객체에 위임하는 Wrapper 구조 | Adapter 는 감싼 객체에 **다른** 인터페이스를 제공(호환이 목적). Proxy 는 감싼 객체와 **같은** 인터페이스를 제공(접근 제어가 목적) — 그래서 Client 입장에선 원본과 Proxy 가 상호 교환 가능함. |
+| [Decorator](Decorator%20Pattern.md) | 둘 다 같은 인터페이스를 유지한 채 감싼 객체에 위임하는 구조가 거의 동일해서 가장 헷갈림 | 의도가 다름: Decorator 는 **기능을 추가**하는 게 목적이고, 무엇을 얼마나 감쌀지는 항상 **Client 가 결정**함. Proxy 는 **접근 제어/housekeeping**(지연 생성, 권한 검사, 로깅, 캐싱)이 목적이고, 보통 **Proxy 자신이 서비스 객체의 생명주기를 관리**함 — Client 는 Proxy 를 진짜 서비스인 줄 알고 쓰는 경우가 많다는 점에서 Decorator 보다 더 "숨겨져" 있음. |
+| [Facade](Facade%20Pattern.md) | 둘 다 복잡한 대상을 감싸고 스스로 초기화함 | Proxy 는 서비스 객체와 **동일한 인터페이스**를 가져서 상호 교환 가능함. Facade 는 서브시스템의 어떤 개별 인터페이스와도 일치할 필요 없는 **완전히 새로운 인터페이스**를 정의함. |
 
-- 둘 다 복잡한 엔티티를 버퍼링하고 자체적으로 초기화함.
-- Proxy 는 서비스 객체와 동일한 인터페이스를 가지고 있어 상호 교환이 가능함.
+## Modern Applicability (DI/Composition Root)
 
-### [Decorator Pattern](Decorator%20Pattern.md)
+[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 Proxy 는 **3 그룹: 여전히 설계의 핵심** 에 속함. 다만 Proxy 는 다른 structural 패턴보다 DI Container/프레임워크와 맞닿는 지점이 유독 많은 패턴임 — 현대 DI Container 와 ORM 라이브러리들이 내부적으로 Proxy 패턴 그 자체로 동작하기 때문.
 
-#### 1. Commons
+**"그래도 결국 누군가는 RealService 를 알아야 하지 않나?"** 맞음. Proxy 가 없애는 건 "원본을 아는 코드" 가 아니라, 접근 제어/지연 생성 로직이 클라이언트 곳곳에 중복되는 것. Composition Root 는 "이 인터페이스에 원본을 연결할지, Proxy 를 연결할지" 를 한 곳에서 결정하는 지점이 됨.
 
-- 두 패턴 모두 한 개체가 일부 작업을 다른 개체에 위임해야 하는 구성 원칙을 기반으로 함.
-- (Proxy 패턴에서 원본에 해당하는) ConcreteComponent 는 (Proxy 패턴에서 Proxy 에 해당하는) Decorator 를 통해 호출되는 몇 가지 동작을 구현.
-- 공통 기본 클래스 (common base class) 로부터 상속.
+**Android 예시 (Metro) — Room/Retrofit 이 만들어주는 프록시.** Room 은 `@Dao` 인터페이스에 대해 컴파일 타임에 실제 구현 클래스(`UserDao_Impl` 같은)를 자동 생성하고, Retrofit 은 런타임에 `interface` 하나로 동적 프록시(dynamic proxy) 를 만들어 HTTP 호출로 위임함. 둘 다 개발자가 인터페이스만 선언하면, "SQL 실행" 또는 "HTTP 요청 변환" 이라는 housekeeping 코드를 프레임워크가 대신 만들어주는 Proxy 패턴의 실사례임. Hilt/Dagger 의 `@AroundInvoke`, Spring AOP 의 프록시 기반 `@Transactional` 도 같은 원리 — 인터페이스 뒤에 프레임워크가 만든 Proxy 를 세워서 부가 로직(트랜잭션, 로깅)을 가로챔.
 
-#### 2. Differences
+```kotlin
+interface UserApi { // ServiceInterface
+    suspend fun getUser(id: String): User
+}
 
-- 의도에서 차이가 남.
-  - 데코레이터는 기능을 추가하거나, (좀 더 일반적으로는) ConcreteComponent 의 핵심 기능에 추가 기능을 동적으로 선택할 수 있는 옵션을 제공.
-  - 프록시는 세부적으로 정의된 하우스키핑 코드 (housekeeping code) 를 원본으로부터 분리하는 역할.
-- Proxy 는 일반적으로 자체적으로 서비스 개체의 수명 주기를 관리.
-- Decorator 의 구성은 항상 클라이언트에 의해 제어됨.
+// Retrofit 이 런타임에 이 인터페이스의 Proxy 구현체를 동적으로 생성함.
+// 개발자는 RealService 에 해당하는 클래스를 직접 작성하지 않음.
+@Provides
+fun provideUserApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
+
+// 직접 구현하는 경우: 인증 토큰 검사를 끼워 넣는 Protection Proxy
+@Inject
+class AuthCheckingUserApi(
+    private val real: UserApi,
+    private val session: SessionManager,
+) : UserApi {
+    override suspend fun getUser(id: String): User {
+        check(session.isLoggedIn()) { "로그인 필요" }
+        return real.getUser(id)
+    }
+}
+
+@DependencyGraph(AppScope::class)
+interface AppGraph {
+    val userApi: UserApi
+
+    @Provides
+    fun provideRetrofitUserApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
+}
+```
+
+여기서 핵심은, Retrofit 이 `retrofit.create(UserApi::class.java)` 를 호출하는 순간 그 자체가 이미 하나의 **작은 Composition Root**라는 점 — "이 인터페이스에 어떤 Proxy 구현을 연결할지" 를 Retrofit 이라는 프레임워크가 대신 결정해줌. `AppGraph` 는 이 결정을 다시 한 번 감싸서 앱 전체의 단일 배선 지점으로 흡수함. `UserViewModel` 은 지금 손에 든 게 Retrofit 이 만든 동적 프록시인지, 그 위에 인증 체크가 한 겹 더 씌워진 Proxy 인지 전혀 모름.

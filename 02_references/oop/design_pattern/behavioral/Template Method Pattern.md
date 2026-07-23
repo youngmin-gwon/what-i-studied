@@ -8,71 +8,140 @@ date created: 2024-12-12 15:35:58 +09:00
 
 ## Description
 
-![Untitled](../../../../../_assets/oop/Untitled%205.png)
+데이터 처리 파이프라인을 여러 개 만든다고 해보자. "3rd-party API 로 데이터 가져오기 → 처리 → 콘솔에 출력" 과 "내장 파일에서 데이터 가져오기 → 처리 → 이메일로 전송" 은 세부 단계는 다르지만 "가져오기 → 처리 → 제공" 이라는 전체 구조는 똑같음. 이 구조를 매번 복붙해서 구현하면, 전체 흐름이 바뀔 때(예: 로깅 단계 추가) 모든 구현체를 찾아다니며 똑같이 고쳐야 함.
 
-- 알고리즘의 구조를 바꾸지 않고 하위 클래스들이 알고리즘의 몇몇 단계를 재정의하게 함.
-- 불변하는 알고리즘의 전체 틀을 기준으로 세부사항을 다양하게 만들고자 할 때 사용하게 됨.
-- 코드 재사용을 위한 핵심적인 기술 → **DRY Principle (Don't Repeat Yourself)**.
-  - 여러 단계로 구성된 알고리즘 (데이터 가져오기 → 처리 → 계산 결과 제공) 이 있을 때 어떤 경우 요구사항은 "3rd-party API 로 데이터 가져오기 → 데이터 처리 → 콘솔창에 계산 결과 제공 " 일 수 있고, 또 다른 경우 " 내장 파일로 데이터 가져오기 → 데이터 처리 → 이메일로 계산 결과 제공 " 일 수 있음.
-  - **세부정보는 다르지만 전체 알고리즘 구조는 같다**: " 데이터 가져오기 → 처리 → 계산결과 제공 ".
-  - 이러한 경우 template method 는 유용함 : 각 단계 세부 정보는 변경 할 수 있지만 전체 구조는 지켜야 함.
--**변하지 않는 기능은 슈퍼 클래스에 만들어 두고**** 자주 변경하며 확장할 기능은 서브 클래스에 만드는 방식** 으로 구동.
-
-## Structure
-
-![Untitled](../../../../../_assets/oop/Untitled%206.png)
-
-- **AbstractClass**: 알고리즘의 뼈대를 설명하는 templateMethod 포함. primitive operations 나 AbstractClass 혹은 다른 객체들에 정의된 operations 을 호출함.
-- **ConcreteClass**: 변하지 않는 알고리즘 단계를 구현하기 위해 AbstractClass 에 의존.
-- Template Method 기능 타입들
-	- **primitive operations**: 하위 클래스에서 반드시 구현되어야 하는 추상 함수. default implementation 을 제공하고 필요한 경우 하위 클래스에서 재정의 될 수 있는 concrete operations.
-	- **final operations**: 하위 클래스에 의해 override 될 수 없는 concrete operations.
-	- **hook operations**: 필요한 경우 하위 클래스가 확장할 수 있는 default behavior 을 제공하는 concrete operations. 대부분의 경우 default 가 아무것도 안 하는 것임.
-	- **template method itself**: final 로 정의 될 수 있기 때문에 하위 클래스에 의해 override 될 수 없음.
-- template method 는 operations 중 어떤 것이 hook operation 인지 abstract operations 인지 알려줄 필요가 있음 ⇒ override 되어야 하는 경우 접두사로 "Do-" 를 붙여 hook 인지 알려줄 수 있음.
-- `Hollywood Principle`
-
->Don't call us, we will call you
-
-![Untitled](../../../../../_assets/oop/Untitled%207.png)
-
-- Template method 는 high-level component 로 간주됨 → clients 나 알고리즘의 concrete operations 가 template method 에 의해 호출된다는 의미.
-  - abstraction 은 details 에 의존하면 안 되고, details 가 abstractions 에 의존해야 함 ⇒ **[DIP(Dependency Inversion Principle)](../../solid/DIP(Dependency%20Inversion%20Principle).md)**.
-
-## Example
+**Template Method Pattern** 은 알고리즘의 전체 구조(뼈대)는 상위 클래스에 고정해두고, 그중 일부 단계만 하위 클래스가 재정의하게 하는 행위 패턴. 위 예시라면 `DataPipeline` 추상 클래스가 "가져오기 → 처리 → 제공" 순서를 `templateMethod()` 로 고정하고, `fetchData()`/`provideResult()` 만 하위 클래스(`ApiPipeline`, `FilePipeline`)가 구현하면 됨 — 전체 흐름을 바꾸고 싶으면 상위 클래스 하나만 고치면 모든 하위 클래스에 반영됨.
 
 ![template_method.png](../../../../../_assets/oop/template_method.png)
 
+>집을 지을 때 기초 → 벽 → 창문/문 → 지붕 순서는 항상 같지만, 각 단계의 세부 재료나 방식(차고 유무, 창문 개수 등)은 집마다 다를 수 있음. 전체 시공 순서(템플릿)는 고정하고, 세부 단계만 바꾸는 것이 Template Method 의 핵심.
+
+- **핵심**: 알고리즘의 뼈대를 상위 클래스(AbstractClass)에 고정하고, 세부 단계만 하위 클래스(ConcreteClass)가 오버라이드하게 함.
+- **목적**:
+  1. 여러 클래스에 반복되는 알고리즘 구조를 한 곳에 모아 중복을 없앰 ⇒ **DRY(Don't Repeat Yourself)**.
+  2. 전체 구조는 지키면서 세부 단계만 다르게 만들고 싶을 때 사용.
+  3. 하위 클래스가 알고리즘의 특정 부분만 재정의하도록 강제해서, 다른 부분의 변경 영향을 덜 받게 함.
+
+## Examples
+
+- **결제 처리 흐름**: "검증 → 결제 → 영수증 발급" 이라는 순서를 각 결제 수단(카드/포인트)마다 복붙하면, 검증 로직에 로깅을 추가해야 할 때 모든 결제 수단 클래스를 다 고쳐야 함. `AbstractPaymentFlow` 에 순서를 고정하고 `charge()` 만 하위 클래스가 구현하면, 검증/로깅 변경은 상위 클래스 한 곳만 고치면 됨.
+- **리포트 생성**: "데이터 조회 → 가공 → 포맷팅(PDF/CSV) → 저장" 구조가 리포트 종류마다 같다면, 포맷팅 단계만 하위 클래스가 다르게 구현하고 나머지는 상위 클래스가 통제함.
+- **API 응답 파싱**: "네트워크 호출 → 에러 체크 → JSON 파싱 → 캐시 저장" 순서가 API 마다 같다면, 에러 체크나 캐시 저장 로직이 하나 바뀔 때 API 클래스 개수만큼 고치는 대신 템플릿 하나만 고치면 됨.
+
+## Structure
+
+```mermaid
+flowchart TB
+    Client["Client"]
+    Abstract["AbstractClass<br/>templateMethod() { step1(); step2(); }"]
+    Concrete["ConcreteClass<br/>step1(), step2() 구현"]
+
+    Client -- "① 호출" --> Abstract
+    Concrete -- "상속" --> Abstract
+    Abstract -- "② step1()/step2() 는<br/>하위 클래스에 위임" --> Concrete
+```
+
+파이프라인 실행 흐름을 시퀀스로 보면 아래와 같음.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Pipeline as DataPipeline (AbstractClass)
+    participant Api as ApiPipeline (ConcreteClass)
+
+    Client->>Pipeline: templateMethod()
+    Note over Pipeline: 전체 순서는 여기서 고정됨
+    Pipeline->>Api: fetchData()
+    Api-->>Pipeline: rawData
+    Pipeline->>Pipeline: process(rawData)
+    Pipeline->>Api: provideResult(processed)
+```
+
+- **AbstractClass**: 알고리즘의 뼈대를 정의하는 `templateMethod()` 를 포함. 하위 클래스가 구현해야 할 추상 연산이나, 필요하면 재정의 가능한 기본 구현을 함께 선언함.
+- **ConcreteClass**: 변하지 않는 단계는 AbstractClass 를 그대로 상속받아 쓰고, 세부 단계만 자신에 맞게 구현함.
+- Template Method 안의 연산 종류
+  - **primitive operations**: 하위 클래스가 반드시 구현해야 하는 추상 연산.
+  - **hook operations**: 기본 동작(대개 아무것도 안 함)을 제공하고, 필요할 때만 하위 클래스가 오버라이드하는 연산.
+  - **final operations**: 하위 클래스가 오버라이드할 수 없도록 고정된 연산.
+  - **template method 자체**: 보통 `final` 로 선언해서 하위 클래스가 전체 순서 자체는 바꾸지 못하게 함.
+
+`Hollywood Principle` — *"Don't call us, we will call you"* — 이 패턴을 잘 설명해줌.
+
+![Untitled](../../../../../_assets/oop/Untitled%207.png)
+
+>고수준 컴포넌트(`AbstractClass`)가 언제, 어떻게 저수준 컴포넌트(`ConcreteClass`)를 호출할지 통제함. 저수준 컴포넌트가 고수준 컴포넌트를 직접 호출하는 일은 없음 — 추상화가 세부사항에 의존하지 않고, 세부사항이 추상화에 의존해야 한다는 [DIP(Dependency Inversion Principle)](../../solid/DIP(Dependency%20Inversion%20Principle).md) 의 방향과 일치함.
+
 ## Adaptability
 
-- 알고리즘의 특정 단계만 확장하고 전체 알고리즘이나 해당 구조는 확장하지 않도록 할 때 사용.
-- 전체적으로 같지만, 약간의 차이만 있는 알고리즘을 적용할 때 사용.
+다음 상황에서 특히 유용함.
+
+- 알고리즘의 특정 단계만 확장하고, 전체 구조는 확장하지 못하게 하고 싶은 경우.
+- 전체적으로는 같지만 세부 단계만 조금씩 다른 알고리즘 여러 개를 다뤄야 하는 경우.
 
 ## Pros
 
-1. 중복 코드를 줄일 수 있다 (=DRY).
-2. 자식 클래스의 역할을 줄여 핵심 로직의 관리가 용이하다.
-3. 좀 더 코드를 객체지향적으로 구성할 수 있다.
-4. 클라이언트가 큰 알고리즘의 특정 부분만 재정의하도록 하여 알고리즘의 다른 부분에 발생하는 변경 사항의 영향을 덜 받도록 할 수 있음.
+- **중복 코드를 줄일 수 있음**(=DRY): 공통 구조를 상위 클래스 한 곳에 모음.
+- **하위 클래스의 역할이 좁아져서 핵심 로직 관리가 쉬워짐**: 하위 클래스는 자신이 담당하는 단계만 신경 쓰면 됨.
+- **알고리즘의 다른 부분이 바뀌어도 영향을 덜 받음**: 클라이언트가 오버라이드하는 부분이 명확히 제한되어 있기 때문.
 
 ## Cons
 
-1. 추상 메소드가 많아지면 클래스 관리가 복잡해진다.
-2. Subclass 에서 default 구현을 무시하여 **[LSP(Liskov substitution principle)](../../solid/LSP(Liskov%20substitution%20principle).md)** 을 위반할 수도 있음.
-3. 클래스 간의 관계와 코드가 꼬여버릴 염려가 있다.
-4. 일부 클라이언트는 알고리즘이 제공한 skeleton 에 의해 제한될 수 있음.
+- **추상 메소드가 많아지면 클래스 계층 관리가 복잡해짐**: 단계가 세분화될수록 하위 클래스가 구현해야 할 메소드 수도 늘어남.
+- **[LSP(Liskov substitution principle)](../../solid/LSP(Liskov%20substitution%20principle).md) 를 위반할 위험이 있음**: 하위 클래스가 기본 구현(hook)을 무시하거나 예상과 다르게 오버라이드하면, `AbstractClass` 타입으로 다뤄질 때 예상치 못하게 동작할 수 있음.
+- **상속 기반이라 컴파일 타임에 알고리즘 변형이 고정됨**: 런타임에 알고리즘을 바꿔야 한다면 Template Method 가 아니라 [Strategy Pattern](Strategy%20Pattern.md) 이 더 적합함.
+- **알고리즘 구조 자체가 클라이언트를 제한할 수 있음**: 상위 클래스가 정해둔 뼈대를 벗어나는 흐름은 표현하기 어려움.
 
 ## Relationship with other patterns
 
-### [Factory Method Pattern](../creational/Factory%20Method%20Pattern.md)
+```mermaid
+flowchart LR
+    TM((Template Method))
+    FactoryMethod[Factory Method]
+    Strategy[Strategy]
 
-- Factory Method 는 Template Method 를 구체화 한 것. 동시에 Factory Method 는 큰 Template Method 의 한 단계 역할을 할 수 있음.
+    FactoryMethod -- "TM 의 한 단계로 쓰이거나, TM 을 구체화한 특수 사례" --- TM
+    Strategy -- "상속 vs 구성" --- TM
+```
 
-### [Strategy Pattern](Strategy%20Pattern.md)
+| 비교 대상 | 공통점 | Template Method 와의 차이 |
+| :--- | :--- | :--- |
+| [Factory Method](../creational/Factory%20Method%20Pattern.md) | 둘 다 하위 클래스가 특정 단계를 오버라이드하는 구조 | Factory Method 는 "객체 생성" 이라는 한 단계만 다루는, Template Method 를 특수화한 형태로 볼 수 있음. 동시에 Factory Method 자체가 더 큰 Template Method 안의 한 단계로 쓰이기도 함. |
+| [Strategy](Strategy%20Pattern.md) | 둘 다 알고리즘의 일부를 바꿔 끼우는 용도 | Template Method 는 **상속** 기반이라 어떤 동작이 실행될지가 "어떤 서브클래스인지"(컴파일 타임, class level)로 고정됨. Strategy 는 **구성** 기반이라 Context 에 어떤 Strategy 객체가 들어있는지(런타임, object level)로 정해짐. 또한 Template Method 는 하위 클래스들이 상위 클래스의 공통 코드를 공유하지만, Strategy 는 각 ConcreteStrategy 구현이 서로 독립적이라 공유하는 코드가 없음. |
 
-- Template Method 는 상속을 기반으로 함 ⇒ 이 메서드를 사용하면 하위 클래스에서 해당 부분을 확장하여 알고리즘의 일부를 변경할 수 있음.
-- Strategy 은 구성을 기반으로 함 ⇒ 해당 동작에 해당하는 다른 전략을 제공하여 개체 동작의 일부를 변경할 수 있음.
-- Concrete Algorithm 이 선택될 때 차이가 있음.
-  - Template Method 는 template 을 상속하기 때문에 컴파일 타임에 정해짐.
-  - Strategy 는 런타임에 정해지기 때문에 동적으로 알고리즘 할당 가능.
-- Template Method 는 공통된 기능을 공유하도록 설계되어 있지만, Strategy 패턴은 모든 implementation 이 독립적이고 공유되는 코드가 없다.
+## Modern Applicability (DI/Composition Root)
+
+[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 Template Method 는 **3 그룹: 여전히 설계의 핵심** 에 속함. "공통 흐름은 고정하고 일부만 바꾼다" 는 상속 기반 재사용은 언어가 대신해줄 수 없는, 여전히 설계자가 직접 짜야 하는 구조임.
+
+**"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** Template Method 는 애초에 상속 관계이므로, 어떤 ConcreteClass 를 쓸지는 **컴파일 타임에 코드 자체(어떤 클래스를 선언했는지)** 로 정해짐 — Strategy 처럼 "누가 concrete 를 배선하는가" 라는 질문보다는, "공통 의존성을 상위 클래스에 어떻게 주입하는가" 가 Composition Root 의 역할이 됨.
+
+**Android 예시 (Metro)** — `BaseFragment` 의 lifecycle 훅.
+
+```kotlin
+abstract class BaseFragment(private val analytics: Analytics) : Fragment() {
+    // templateMethod 역할. final 로 순서를 고정.
+    final override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        analytics.logScreenView(screenName()) // 공통 로직
+        setupViews() // primitive operation, 하위 클래스가 구현
+        onReady() // hook operation, 기본은 아무것도 안 함
+    }
+
+    abstract fun screenName(): String
+    abstract fun setupViews()
+    open fun onReady() {}
+}
+
+@Inject
+class ProfileFragment(analytics: Analytics) : BaseFragment(analytics) {
+    override fun screenName() = "profile"
+    override fun setupViews() { /* ... */ }
+}
+
+@DependencyGraph(AppScope::class)
+interface AppGraph {
+    @Provides
+    fun provideAnalytics(): Analytics = FirebaseAnalytics()
+}
+```
+
+`analytics` 라는 공통 의존성은 `AppGraph` 가 배선하고, `BaseFragment` 는 이를 받아 모든 하위 화면에 로깅 순서를 강제함. `ProfileFragment` 는 `setupViews()` 만 구현하면 되고, 화면 진입 로깅 순서 자체는 신경 쓰지 않아도 됨.

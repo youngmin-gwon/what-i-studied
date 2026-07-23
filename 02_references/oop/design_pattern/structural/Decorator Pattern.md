@@ -8,130 +8,165 @@ date created: 2024-12-12 15:52:49 +09:00
 
 ## Description
 
-![Untitled](../../../../../_assets/oop/Untitled%2043.png)
+`TextView` 에 스크롤 기능이나 테두리를 추가해야 한다고 해보자. 상속으로 풀면 `ScrollableTextView`, `BorderedTextView`, `ScrollableBorderedTextView` 처럼 조합 경우의 수만큼 서브클래스가 늘어나고, 이걸 "모든 `TextView` 가 아니라 특정 인스턴스에만" 적용하고 싶다면 상속으로는 아예 불가능함 — 상속은 클래스 단위로 고정되지, 인스턴스 하나만 골라서 기능을 얹을 수 없기 때문.
+
+**Decorator Pattern** 은 이럴 때 객체를 감싸는 wrapper 객체를 겹겹이 쌓아서, 기존 인터페이스는 그대로 유지한 채 런타임에 필요한 인스턴스에만 책임을 추가하는 구조(Structural) 패턴. `ScrollDecorator(BorderDecorator(textView))` 처럼 필요한 조합만 그때그때 쌓으면, 서브클래스를 미리 다 만들어둘 필요가 없음.
 
 ![Untitled](../../../../../_assets/oop/Untitled%2044.png)
 
-- 객체에 동적으로 새로운 책임을 추가할 수 있게 해주는 패턴.
-- decorator 는 각각 서로 독립적이므로 다양한 동작을 구현하기 위해 추가하고 합쳐질 수 있음.
-- 상속을 이용한 확장이 실용적이지 못할 때 유용한 패턴.
-- 코드 복잡성을 증가시킬 수 있으므로 사용에 주의 해야함.
+>추운 날 몸을 데우는 방법을 생각하면 쉬움. "추위에 강한 사람" 이라는 별도 클래스를 만드는 대신, 그냥 입고 있는 옷 위에 스웨터를 입고 그 위에 비옷을 덧입으면 됨. 사람(원본 객체)은 그대로고, 옷(Decorator)을 몇 겹 두르느냐만 상황에 따라 달라짐.
 
-## Case
+- **핵심**: 객체를 wrapper 로 감싸서, 원래 인터페이스를 유지한 채 동적으로 새 책임을 추가·제거함.
+- **목적**:
+  1. 상속으로 확장하면 서브클래스가 조합 폭발하는 문제를 Composition 으로 풀어냄.
+  2. 런타임에 특정 인스턴스에만 기능을 추가/제거할 수 있게 함 — 상속은 이게 불가능함.
+  3. 여러 책임을 가진 monolithic 클래스를 작은 클래스들로 쪼개서 **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)** 를 지킴.
 
-- GUI 툴킷이 있다고 가정. 모든 사용자 UI 요소에는 필요 없지만, 어떤 특정 사용자 UI 요소에만 스크롤링이나 테두리 같은 속성을 추가할 필요가 있음.
-- Text 를 출력하는 서비스를 제공하는 TextView 클래스가 있다고 가정하자. 이 TextView 에 스크롤 기능이나 두꺼운 테두리가 필요하다면 어떻게 해결해야 할까.
-  - 직관적인 해결책은 상속.
-  - 이미 존재하는 클래스를 상속받고, 또 다른 클래스에서 테두리 속성을 상속받으면 이 서브 클래스 인스턴스는 테두리라는 속성을 갖는다.
-- 하지만 언제 어떻게 테두리를 장식해야 할지 제어해야 한다면 난감한 상황이 펼쳐짐.
-- 모든 TextView 가 아니라 특정 TextView 에만 스크롤이나 테두리 기능이 필요하다면, 상속보다는 장식자 (Decorator) 패턴을 사용하는 것이 좋음.
-  - 테두리를 추가해야 하는 객체를 한번 더 감싸는 것.
+## Examples
+
+- **UI 위젯 꾸미기**: `TextView` 에 스크롤 기능이 필요한 화면과 아닌 화면이 섞여 있다면, 상속 없이 `ScrollDecorator(textView)` 로 감싸기만 하면 됨. 상속으로 풀면 필요 없는 화면까지 스크롤 로직을 상속받거나, 서브클래스가 계속 늘어남.
+- **네트워크 요청 처리**: 로깅, 재시도, 캐싱을 각각 `LoggingSender`, `RetrySender`, `CachingSender` 로 만들어 겹겹이 감싸면, 특정 요청에만 캐싱을 빼는 식으로 조합을 자유롭게 바꿀 수 있음. 하나의 `Sender` 클래스에 다 넣으면 필요 없는 기능도 항상 따라옴.
+- **음료 주문 시스템(카페 예제)**: `Coffee` 에 `MilkDecorator`, `SyrupDecorator` 를 씌우면 가격과 설명이 자동으로 누적됨. 상속으로 풀면 `MilkSyrupCoffee`, `MilkCoffee`, `SyrupCoffee` 처럼 토핑 조합 개수만큼 클래스가 생겨야 함.
 
 ## Structure
 
-![Untitled](Untitled%2045.png)
+```mermaid
+flowchart LR
+    Client["Client"]
+    Component{{"Component interface<br/>예: Coffee"}}
+    ConcreteComponent["Concrete Component<br/>예: Espresso"]
+    BaseDecorator["Base Decorator<br/>예: CoffeeDecorator"]
+    ConcreteDecoratorA["Concrete Decorator A<br/>예: MilkDecorator"]
+    ConcreteDecoratorB["Concrete Decorator B<br/>예: SyrupDecorator"]
 
-1. **Component**- 객체를 위한 인터페이스 제공.
-2.**Concrete Component**- 기본적인 동작 선언.
-   - decorator 에 의해서 기본 동작은 변경될 수 있음.
-3.**Base Decorator**- component 인터페이스로 선언된 객체를 감싼 객체를 참조하는 필드를 가짐.
-   - concrete components 와 decorators 를 모두 가질 수 있음.
-4.**Concrete Decorators**- component 에 동적으로 추가할 수 있는 행동 선언.
-5.**Client**- concrete component 를 선언하고 여러 층의 decorator 로 감싸 사용.
+    Client -- "① 감싸며 조립" --> ConcreteDecoratorB
+    ConcreteComponent -. 구현 .-> Component
+    BaseDecorator -. 구현 .-> Component
+    BaseDecorator -- "② wrappee 필드로 참조" --> Component
+    ConcreteDecoratorA -- 상속 --> BaseDecorator
+    ConcreteDecoratorB -- 상속 --> BaseDecorator
+```
 
-## Considerations
+`MilkDecorator(SyrupDecorator(espresso))` 를 호출하면 아래처럼 안쪽부터 바깥쪽 순서로 실행됨.
 
-- Component 는 장식을 추가할 베이스가 되는 역할이므로 작고 가볍게 정의.
-  - 가급적 인터페이스만 정의.
-  - 무언가 저장하는 변수를 정의하지 않음.
-  - 저장할 것이 있으면 서브클래스에서 하자.
-- 상속 구조를 통해 Decorator 와 Component 가 같은 구조를 갖게 하자.
-  - 투과적 인터페이스: Decorator 로 계속해서 감싸도 Component 메소드는 계속 사용할 수 있음.
-- 코드를 수정하지 않고도 준비된 Decorator 를 조합해 기능을 추가할 수 있도록 생각해서 구현.
-- 비슷한 성질의 작은 클래스가 많아질 수 있다는 단점을 고려.
-- 구현하려는 내용이 객체의 겉을 변경하려는 것인지 속을 변경하려는 것인지 생각해보자.
-  - 속을 변경하는 것이라면 전략 패턴을 선택하는 것이 더 적절할 수 있음.
-- 데코레이터 패턴으로 구현한 다음, 사용이 까다롭게 느껴지거나 자주 쓰는 조합이 있다면 다음 패턴을 사용하는 것을 고려해보자.
-  - Builder pattern.
-  - Factory pattern.
-  - Static factory method.
-- Decorator 가 다른 Decorator 에 대해 알아야 할 필요가 있다면, Decorator 패턴의 사용 의도와 어긋나는 작업일 수 있음.
-- 재귀적으로 기능을 갖게 하는 방법 외에도, Decorator 를 추가할 때 마다 얻은 아이템을 List 로 관리하는 방법도 있음.
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Milk as MilkDecorator
+    participant Syrup as SyrupDecorator
+    participant Espresso as Espresso
 
-## Cautions
+    Client->>Milk: cost()
+    Milk->>Syrup: wrappee.cost()
+    Syrup->>Espresso: wrappee.cost()
+    Espresso-->>Syrup: 3000
+    Syrup-->>Milk: 3000 + 500 (시럽)
+    Milk-->>Client: 3500 + 500 (우유) = 4000
+```
 
-- 데코레이터가 여러 개 있다면 순서에 주의.
-- 코드가 여러 클래스로 흩어져 디버깅이 까다로워지고, 이해하기 어려울 수 있음.
-- public 메소드가 많다면 Decorator 을 적용하는 것이 바람직하지 않을 수 있음.
+- **Component**: `Concrete Component` 와 `Decorator` 가 공통으로 구현하는 인터페이스 (`Coffee`). 상태를 갖지 않는, 가볍고 순수한 인터페이스로 유지하는 게 좋음.
+- **Concrete Component**: 기본 동작을 구현하는 원본 객체 (`Espresso`). Decorator 에 의해 동작이 바뀔 수 있음.
+- **Base Decorator**: `Component` 인터페이스로 감싼 객체(wrappee)를 필드로 참조. `Concrete Component` 든 다른 `Decorator` 든 감쌀 수 있음.
+- **Concrete Decorator**: `Base Decorator` 를 상속해 실제로 추가할 동작을 정의 (`MilkDecorator`, `SyrupDecorator`).
+- **Client**: `Concrete Component` 를 원하는 `Decorator` 들로 겹겹이 감싸 조립하는 쪽. 조합의 순서와 개수를 Client 가 결정함.
 
 ## Adaptability
 
-- 런타임 중 어떤 객체를 사용하는 코드들을 망치지 않고 해당 객체에 행동을 추가하고 싶을 때 사용.
-- 상속을 이용해서 객체의 행동을 확장하는 것이 불가능하거나 어색할 때 사용.
+다음 상황에서 특히 유용함.
+
+- 런타임 중 특정 객체에만 행동을 추가하고 싶고, 그 객체를 쓰는 다른 코드는 건드리고 싶지 않을 때.
+- 상속으로 객체 행동을 확장하는 게 불가능하거나(final 클래스 등) 어색할 때(조합 폭발).
+- 준비된 여러 개의 작은 Decorator 를 자유롭게 조합해서 기능을 만들고 싶을 때.
+
+주의할 점도 있음.
+
+- Decorator 가 몇 개 겹쳐 있는지에 따라 동작이 달라진다면 순서 관리에 신경 써야 함.
+- 코드를 짜다가 "이게 객체의 겉을 바꾸는 건지 속(알고리즘)을 바꾸는 건지" 헷갈린다면, 속을 바꾸는 거라면 [Strategy Pattern](../behavioral/Strategy%20Pattern.md) 이 더 적절할 수 있음.
+- 같은 조합을 자주 쓴다면 Decorator 만으로 계속 조립하기보다 [Builder Pattern](../creational/Builder%20Pattern.md) 이나 static factory method 로 조합 자체를 감싸는 것도 고려할 만함.
 
 ## Pros
 
-- 서브클래스를 만들지 않고 객체를 확장할 수 있음.
-- 런타임에 특정 객체로부터의 책임을 추가하거나 제거할 수 있음.
-- 여러 개의 Decorator 들로 객체를 합쳐 행동 조합을 합칠 수 있음.
-- 여러 개의 행위를 하던 monolithic 한 클래스를 여러 개의 작은 클래스로 나눌 수 있게 됨 ⇒**[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- **서브클래스 없이 객체를 확장 가능**: `Espresso` 를 상속하지 않고도 `MilkDecorator` 로 감싸서 우유 추가 기능을 만듦.
+- **런타임에 책임을 추가/제거 가능**: 주문이 들어올 때마다 필요한 Decorator 만 그때그때 씌우면 됨 — 컴파일 타임에 클래스를 미리 정해둘 필요 없음.
+- **여러 Decorator 를 조합해서 행동을 자유롭게 합칠 수 있음**: `MilkDecorator(SyrupDecorator(espresso))` 처럼 순서와 개수를 자유롭게 바꿀 수 있음.
+- **monolithic 클래스를 작은 클래스들로 쪼갤 수 있음**: "우유 추가", "시럽 추가" 로직이 각각 독립된 클래스에 들어가서 하나씩 테스트/수정 가능 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
 
 ## Cons
 
-- wrapper 스택으로부터 특정 wrapper 를 제거하는 것이 어려움.
-- 동작이 Decorator 스택의 순서에 의존하지 않는 방식으로 Decorator 를 구현하는 것은 어려움.
-- 초기 계층 설정에 관한 코드가 깔끔하지 못함.
+- **wrapper 스택 중간에서 특정 wrapper 를 제거하기 어려움**: `MilkDecorator(SyrupDecorator(espresso))` 에서 시럽만 빼려면 스택을 통째로 다시 조립해야 함 — wrapper 는 자신을 감싼 다른 wrapper 를 모름.
+- **Decorator 끼리 순서에 의존하지 않게 구현하는 게 까다로움**: 예를 들어 "할인율 적용" Decorator 와 "세금 적용" Decorator 의 순서가 바뀌면 최종 가격이 달라질 수 있음 — 이런 부작용 없이 구현하려면 신경 쓸 게 많음.
+- **초기 조립 코드가 지저분해지기 쉬움**: `new C(new B(new A(base)))` 식으로 감싸는 코드 자체가 길어지고 가독성이 떨어짐.
 
 ## Relationship with other patterns
 
-### [Adapter Pattern](Adapter%20Pattern.md), [Proxy Pattern](Proxy%20Pattern.md)
+```mermaid
+flowchart LR
+    Decorator((Decorator))
+    Adapter[Adapter]
+    Proxy[Proxy]
+    Composite[Composite]
+    ChainOfResponsibility[Chain of Responsibility]
+    Strategy[Strategy]
+    Prototype[Prototype]
 
-- Adapter 는 다른 인터페이스를 제공.
-- Proxy 는 같은 인터페이스를 제공.
-- Decorator 는 증강된 인터페이스를 제공.
+    Adapter -- "인터페이스 변경 여부" --- Decorator
+    Proxy -- "기능 추가 vs 접근 제어" --- Decorator
+    Composite -- "자식 1개 vs 자식 N개" --- Decorator
+    ChainOfResponsibility -- "흐름 중단 가능 여부" --- Decorator
+    Strategy -- "겉 vs 속" --- Decorator
+    Prototype -- "wrapper 스택 복제" --- Decorator
+```
 
-### [Adapter Pattern](Adapter%20Pattern.md)
+| 비교 대상 | 공통점 | Decorator 와의 차이 |
+| :--- | :--- | :--- |
+| [Adapter](Adapter%20Pattern.md) | 둘 다 객체를 감싸는 Wrapper 구조 | Adapter 는 인터페이스를 **바꿔서** 호환을 맞춤. Decorator 는 인터페이스를 **그대로 유지**하면서 기능을 덧붙임. |
+| [Proxy](Proxy%20Pattern.md) | 둘 다 같은 인터페이스를 유지한 채 감싼 객체에 위임하는 구조 | Decorator 는 **기능을 추가**하는 게 목적이고, 무엇을 얼마나 감쌀지는 항상 **Client 가 결정**함(합성이 Client 통제 하에 있음). Proxy 는 **접근을 제어**(지연 생성·권한 검사·로깅 등 housekeeping)하는 게 목적이고, 보통 Proxy 자신이 감싼 서비스 객체의 생명주기를 관리함 — Client 는 Proxy 를 진짜 서비스인 줄 알고 쓰는 경우가 많음. |
+| [Composite](Composite%20Pattern.md) | 둘 다 재귀적 Composition 구조라 다이어그램이 비슷함 | Decorator 는 자식이 **1개**뿐이고 감싼 객체에 새 책임을 "더함". Composite 는 자식이 **여러 개**이고 자식들의 결과를 "합산/요약" 함. Decorator 를 자식이 1개인 Composite 로 볼 수 있고, 둘을 함께 써서 Composite 트리의 특정 노드만 Decorator 로 확장하는 것도 가능함. |
+| [Chain of Responsibility](../behavioral/Chain%20of%20Responsibility%20Pattern.md) | 둘 다 재귀적 구조(감싸거나 연결된 객체에 위임)를 가짐 | Chain of Responsibility 의 handler 는 서로 독립적으로 임의의 처리를 하고, 원하면 요청을 더 이상 전달하지 않을 수 있음(흐름 중단 가능). Decorator 는 항상 감싼 객체를 호출해서 기본 인터페이스와 일관성을 유지해야 하고, 요청의 흐름을 중간에 끊을 수 없음. |
+| [Strategy](../behavioral/Strategy%20Pattern.md) | 둘 다 Composition 기반 | Decorator 는 객체의 **겉**(기존 인터페이스는 유지한 채 책임을 덧붙임)을 바꾸고, Strategy 는 객체의 **속**(특정 동작의 알고리즘 자체)을 교체함. |
+| [Prototype](../creational/Prototype%20Pattern.md) | 함께 쓰기 좋음 | Decorator(그리고 Composite)를 많이 쓰는 설계에서는, 여러 겹으로 감싼 wrapper 스택을 처음부터 다시 조립하는 대신 Prototype 으로 통째로 복제하면 이득을 볼 수 있음. |
 
-- Adapter 는 인터페이스를 변환하지만 Decorator 는 인터페이스의 변환 없이 객체를 감싼다.
+## Modern Applicability (DI/Composition Root)
 
-### [Chain of Responsibility Pattern](../behavioral/Chain%20of%20Responsibility%20Pattern.md)
+[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 Decorator 는 **3 그룹: 여전히 설계의 핵심** 에 속함. Decorator 는 "객체를 몇 겹으로, 어떤 순서로 감쌀지" 를 다루는 패턴이라 DI Container 가 조립 자체는 도와줄 수 있어도, 겹치는 순서와 조합 로직은 여전히 설계자가 정해야 함.
 
-- 매우 비슷한 클래스 구조 (recursive composition) 를 가짐.
+**"그래도 결국 누군가는 조합 순서를 알아야 하지 않나?"** 맞음. Decorator 가 없애는 건 "조합을 아는 코드" 가 아니라, 조합 경우의 수만큼 서브클래스를 미리 만들어야 하는 부담. Composition Root 에서 wrapper 를 몇 겹, 어떤 순서로 씌울지 한 번만 결정하면 됨.
 
-#### Differences
+**Android 예시 (Metro)** — OkHttp 의 `Interceptor` 체인이 Decorator 패턴의 대표적인 실사례임: 각 Interceptor 가 `Chain` 을 감싸고, 로깅·인증·재시도를 겹겹이 쌓음. 같은 아이디어를 도메인 계층의 `Repository` 에 적용하면 아래처럼 됨.
 
-- Chain of Responsibility handler 는 서로 독립적으로 임의의 작업을 실행할 수 있음. 또한 언제든지 요청을 더 이상 전달하지 않을 수 있음.
-- 데코레이터는 기본 인터페이스와 일관성을 유지하면서 객체의 동작을 확장할 수 있음. 또한 데코레이터는 요청의 흐름을 중단할 수 없음.
+```kotlin
+interface UserRepository { // Component
+    suspend fun getUser(id: String): User
+}
 
-### [Composite Pattern](Composite%20Pattern.md)
+@Inject
+class RemoteUserRepository(private val api: UserApi) : UserRepository { // Concrete Component
+    override suspend fun getUser(id: String) = api.fetchUser(id)
+}
 
-- 비슷한 구조 다이어그램을 가짐. 두 패턴 모두 다 재귀 형태를 갖는다.
-  - Decorator 는 자식이 1 개, Composite 패턴은 자식이 1~n 개 가능.
-  - Decorator 는 감싸진 객체에 추가적인 책임을 더하는 반면, Composite 은 단지 자식들의 결과를 합산하는 역할만 함.
-  - 하지만 두 개의 패턴을 합칠 수 있음.
-    - Decorator 를 사용하여 Composite tree 에서 특정 개체의 동작을 확장할 수 있음.
+@Inject
+class CachingUserRepository(private val wrappee: UserRepository) : UserRepository { // Decorator
+    private val cache = mutableMapOf<String, User>()
+    override suspend fun getUser(id: String) =
+        cache.getOrPut(id) { wrappee.getUser(id) }
+}
 
-### [Composite Pattern](Composite%20Pattern.md), [Prototype Pattern](../creational/Prototype%20Pattern.md)
+@Inject
+class LoggingUserRepository(private val wrappee: UserRepository) : UserRepository { // Decorator
+    override suspend fun getUser(id: String): User {
+        println("fetching $id")
+        return wrappee.getUser(id)
+    }
+}
 
-- Composite 과 Decorator 를 많이 사용하는 디자인에서는 Prototype 을 이용하여 이점을 얻을 수 있음.
-  - Prototype 을 처음부터 다시 구성하는 대신 복잡한 구조를 복제할 수 있음.
+@DependencyGraph(AppScope::class)
+interface AppGraph {
+    val userRepository: UserRepository
 
-### [Strategy Pattern](../behavioral/Strategy%20Pattern.md)
+    @Provides
+    fun provideUserRepository(remote: RemoteUserRepository): UserRepository =
+        LoggingUserRepository(CachingUserRepository(remote)) // 감싸는 순서를 여기서 결정
+}
+```
 
-- Decorator 는 외부를 바꾸고, Strategy 는 속을 바꾸는 역할을 함.
-
-### [Proxy Pattern](Proxy%20Pattern.md)
-
-#### 1. Commons
-
-- 두 패턴 모두 한 개체가 일부 작업을 다른 개체에 위임해야 하는 구성 원칙을 기반으로 함.
-- (Proxy 패턴에서 원본에 해당하는) ConcreteComponent 는 (Proxy 패턴에서 Proxy 에 해당하는) Decorator 를 통해 호출되는 몇 가지 동작을 구현.
-- 공통 기본 클래스 (common base class) 로부터 상속.
-
-#### 2. Differences
-
-- 의도에서 차이가 남.
-  - 데코레이터는 기능을 추가하거나, (좀 더 일반적으로는) ConcreteComponent 의 핵심 기능에 추가 기능을 동적으로 선택할 수 있는 옵션을 제공.
-  - 프록시는 세부적으로 정의된 하우스키핑 코드 (housekeeping code) 를 원본으로부터 분리하는 역할.
-- Proxy 는 일반적으로 자체적으로 서비스 개체의 수명 주기를 관리.
-- Decorator 의 구성은 항상 클라이언트에 의해 제어됨.
+`AppGraph` 의 `provideUserRepository` 가 "몇 겹을, 어떤 순서로 씌울지" 를 결정하는 유일한 지점. `ViewModel` 은 `UserRepository` 뒤에 로깅과 캐싱이 몇 겹 감싸져 있는지 전혀 모름.

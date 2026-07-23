@@ -8,72 +8,137 @@ date created: 2024-12-12 15:51:15 +09:00
 
 ## Description
 
-![Untitled](../../../../../_assets/oop/Untitled%2027.png)
+물류 앱을 만든다고 해보자. 처음엔 `Truck` 하나만 지원하면 됐고, 코드 곳곳에 `new Truck()` 을 직접 흩뿌려 놨음. 그런데 사업이 잘 돼서 `Ship` 도 지원해야 한다면, `new Truck()` 을 호출하던 모든 자리를 찾아서 고쳐야 함.
 
-- **= Virtual Constructor**
-- 객체를 만드는 인터페이스를 제공하지만, 서브클래스에서 어떤 클래스를 초기화 할지 정하는 패턴.
+**Factory Method Pattern**(= Virtual Constructor) 은 객체를 만드는 인터페이스는 상위 클래스가 제공하되, 실제로 어떤 클래스를 만들지는 서브클래스가 정하도록 위임하는 생성(Creational) 패턴. `Logistics` 라는 상위 클래스에 `createTransport()` 라는 factory method 를 두고, `RoadLogistics` 는 `Truck` 을, `SeaLogistics` 는 `Ship` 을 반환하도록 오버라이드하면, `Logistics` 의 나머지 로직(`planDelivery()` 등)은 `Transport` 인터페이스만 알면 되고 실제로 Truck 인지 Ship 인지는 몰라도 됨.
 
-## Structure
+![Untitled](../../../../_assets/oop/Untitled%2027.png)
 
-![Untitled](../../../../../_assets/oop/Untitled%2028.png)
+>Road Logistics 와 Sea Logistics 는 각각 트럭과 배로 물건을 나르는, 서로 다른 구체적인 운송 방식을 씀. 하지만 둘 다 "Logistics" 라는 같은 틀 안에서 동작함 — 어떤 운송 수단을 쓸지는 각 하위 물류 회사가 정하고, 전체 물류 프로세스 자체는 공통으로 재사용됨.
 
-- **Creator**- Product 객체를 반환하는 Factory Method 정의.
-	- Factory Method 는 서브클래스들이 구현하도록 추상으로 정의할 수 있음.
-	- 혹은 ConcreteProduct 를 제공하는 Factory Method 의 default 구현을 제공할 수도 있음.
-- **ConcreteCreator**- Factory Method 를 오버라이드하고 ConcreteProduct 인스턴스를 반환.
-    - factory method 는 매번 새로운 인스턴스를 만들 필요가 없다는 것 주목.
-- **Product**- Factory Method 가 생성하는 모든 객체에 대한 인터페이스 정의.
-- **ConcreteProduct**- Product 인터페이스 구현.
-	- 각 객체의 인스턴스는 특정한 ConcreteCreator 에 의해서 반환됨.
+- **핵심**: 객체 생성을 서브클래스가 결정하도록 위임.
+- **목적**:
+  1. Product 를 사용하는 코드와 Product 의 구체 타입을 결정/생성하는 코드를 분리.
+  2. 새로운 Product 를 추가할 때 기존 Creator 코드는 건드리지 않고 새 ConcreteCreator 만 추가 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+  3. 상속 계층이 이미 존재하는 코드베이스에 자연스럽게 녹아듦.
 
 ## Examples
 
-- Logistic 에 관련된 앱을 만들었다. 처음에는 Truck 만 신경 쓰면 되어서 Truck 을 코드 전체에 작성했다.
-- Logistic 이 잘 되어서 Ship 도 추가하고 싶다. 허나 Ship 을 추가하기 위해 코드 베이스 전체를 수정해야 할 것이다.
-- Transport 인터페이스를 만들고 Factory Method 패턴을 사용해서 하위 클래스에서 Truck 인지, Ship 인지 정하게 만든다.
+- **물류(Logistics)**: `RoadLogistics`, `SeaLogistics` 가 각각 `Truck`, `Ship` 을 생성. Factory Method 가 없으면 운송 수단이 늘어날 때마다 `Logistics` 의 핵심 로직(`planDelivery()`)까지 다시 열어봐야 함. 있으면 새 `ConcreteCreator` 하나만 추가하면 됨.
+- **문서 편집기**: `TextEditor` 가 `createDocument()` 를 factory method 로 두면, `PdfEditor`/`WordEditor` 가 각각 `PdfDocument`/`WordDocument` 를 반환. 없으면 `TextEditor` 안에 문서 타입별 분기가 계속 늘어남.
+- **알림(Notification)**: `NotificationSender` 가 `createChannel()` 을 factory method 로 두면, `EmailSender`/`PushSender` 가 각자의 `Channel` 구현체를 반환. 공통 발송 로직(`send()`)은 어떤 채널인지 몰라도 그대로 재사용됨.
+
+## Structure
+
+```mermaid
+flowchart LR
+    Client["Client"]
+    Creator{{"Creator (abstract)<br/>예: Logistics"}}
+    CCA["ConcreteCreatorA<br/>예: RoadLogistics"]
+    CCB["ConcreteCreatorB<br/>예: SeaLogistics"]
+    Product{{"Product interface<br/>예: Transport"}}
+    CPA["ConcreteProductA<br/>예: Truck"]
+    CPB["ConcreteProductB<br/>예: Ship"]
+
+    Client -- "① 사용" --> CCA
+    CCA -- "② createTransport()" --> CPA
+    CCA -. 상속 .-> Creator
+    CCB -. 상속 .-> Creator
+    CPA -. 구현 .-> Product
+    CPB -. 구현 .-> Product
+```
+
+`RoadLogistics` 를 예로 들면 실제 호출 흐름은 아래와 같음.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant RL as RoadLogistics
+    participant T as Truck
+
+    Client->>RL: planDelivery()
+    Note over RL: Logistics(부모)에 정의된 공통 로직
+    RL->>RL: createTransport()
+    Note over RL: RoadLogistics 가 오버라이드한 factory method
+    RL->>T: new Truck()
+    RL->>T: transport.deliver()
+    Note over RL: planDelivery() 는 Transport 인터페이스로만 호출.<br/>Truck 인지 전혀 모름.
+```
+
+- **Creator**: Product 를 반환하는 factory method 를 선언. 추상 메소드로 둘 수도, 기본 구현(default ConcreteProduct 반환)을 둘 수도 있음. Product 를 사용하는 공통 로직(`planDelivery()`)도 보통 여기에 있음.
+- **ConcreteCreator**: factory method 를 오버라이드해서 특정 ConcreteProduct 를 반환. 매번 새 인스턴스를 만들어야 하는 건 아님 — 캐시된 인스턴스를 반환해도 됨.
+- **Product**: factory method 가 생성하는 모든 객체가 따라야 할 인터페이스.
+- **ConcreteProduct**: Product 인터페이스의 실제 구현. 특정 ConcreteCreator 에 의해서만 만들어짐.
 
 ## Adaptability
 
-- 목적: 실제로 product 를 사용하는 곳과 product 를 생성하는 곳을 분리하기 위함.
-  - 새 concrete product 를 추가해야 되는 경우, 오직 factory method 를 오버라이드하는 새로운 ConcreteCreator 도 생성되야 한다는 것을 인지.
-- 새로운 인스턴스를 계속 생성할 필요가 없는 경우 적용할 수 있음.
-  - 이미 생성된 객체를 추적하는 cache layer 나 저장소를 둬서 반환할 수 있도록 설정하는 방식으로 가능.
-- 추후에 어떠한 타입의 객체를 사용해야 하는지 모를 때 사용.
+다음 상황에서 특히 유용함.
+
+- Product 를 실제로 사용하는 코드와 Product 를 생성하는 코드를 분리하고 싶을 때. 단, 새 ConcreteProduct 를 추가할 때마다 이를 반환하는 새 ConcreteCreator 도 함께 추가해야 한다는 점은 감안해야 함.
+- 매번 새 인스턴스를 만들 필요가 없는 경우 — factory method 안에 캐시/저장소를 두고 이미 만든 객체를 재사용하도록 구현할 수 있음.
+- 나중에 어떤 타입의 객체를 다루게 될지 미리 알 수 없을 때.
+- 클래스 계층 구조가 이미 존재해서, 새 인터페이스를 도입하는 대신 상속에 자연스럽게 얹고 싶을 때.
 
 ## Pros
 
-- product 를 생성하는 곳을 한 곳으로 이동시킬 수 있음 ⇒ [SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- 코드 수정 없이 새로운 product 를 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
-- Creator 와 ConcreteProduct 간의 결합도를 줄일 수 있음.
-- 객체를 사용할 클래스에서 직접 객체를 만들게 되는 문제를 해결할 수 있음.
-- sub-classing 함으로 compile-time 유연성을 가질 수 있음.
-- 코드에서 application 에 특정된 클래스의 직접 바인딩을 제거할 수 있다. 덕분에 코드는 인터페이스만 신경 쓰면 된다.
+- **Product 생성 코드와 사용 코드가 분리됨** ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
+- **새 Product 추가가 기존 Creator 코드에 영향을 주지 않음** ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**: `Plane` 이 추가돼도 `RoadLogistics`/`SeaLogistics` 는 그대로.
+- **이미 상속 계층이 있는 코드베이스에 자연스럽게 녹아듦**: `Logistics` 계층이 이미 존재한다면 별도의 인터페이스 설계 없이 factory method 하나만 오버라이드하면 됨. (반면 [Strategy Pattern](../behavioral/Strategy%20Pattern.md) 은 별도의 인터페이스 + 구성(Composition) 설계가 필요.)
+- **인스턴스 캐싱/재사용 로직을 자연스럽게 숨길 수 있음**: 매번 새로 만드는 대신, factory method 안에서 이미 만든 객체를 반환하도록 구현할 수 있음.
 
 ## Cons
 
-- 패턴을 구현하기 위해 많은 새 하위 클래스를 도입해야 하므로 코드가 더 복잡해질 수 있음.
-  - 가장 좋은 시나리오는 생성자 클래스의 기존 계층 구조에 패턴을 도입하는 경우.
+- **새 Product 하나마다 병렬로 ConcreteCreator 서브클래스가 하나씩 늘어남**: `Plane` 을 추가하려면 `AirLogistics` 도 함께 만들어야 해서 클래스 수가 제품 종류만큼 늘어남.
+- **상속 기반이라 런타임에 Creator 를 교체할 수 없음**: 어떤 Product 가 나올지는 "어떤 ConcreteCreator 의 인스턴스인가" 로 객체 생성 시점에 정해짐. [Strategy Pattern](../behavioral/Strategy%20Pattern.md) 처럼 실행 중에 전략 객체만 갈아 끼우는 방식은 안 됨.
 
 ## Relationship with other patterns
 
-### [Abstract Factory Pattern](Abstract%20Factory%20Pattern.md), [Prototype Pattern](Prototype%20Pattern.md), [Builder Pattern](Builder%20Pattern.md)
+```mermaid
+flowchart LR
+    FM((Factory Method))
+    AF[Abstract Factory]
+    Prototype[Prototype]
+    TM[Template Method]
+    Iterator[Iterator]
 
-- 모두 Factory Method 를 기반으로 발전 됨.
-- Factory Method 보다 자유롭지만, 복잡함.
+    AF -- "Factory Method 들의 집합" --- FM
+    Prototype -- "상속 없이 복제로 대체" --- FM
+    TM -- "생성에 특화된 Template Method" --- FM
+    Iterator -- "컬렉션별 Iterator 반환에 함께 사용" --- FM
+```
 
-### [Abstract Factory Pattern](Abstract%20Factory%20Pattern.md)
+| 비교 대상 | 공통점 | Factory Method 와의 차이 |
+| :--- | :--- | :--- |
+| [Abstract Factory](Abstract%20Factory%20Pattern.md) | Abstract Factory 는 보통 Factory Method 들의 집합으로 구현됨 | Factory Method 는 객체 하나, Abstract Factory 는 관련된 여러 객체(제품군)를 함께 생성. |
+| [Prototype](Prototype%20Pattern.md) | 둘 다 구체 클래스를 몰라도 객체를 생성 가능 | Factory Method 는 상속 기반이라 서브클래싱이 필요한 대신 초기화 단계가 없어도 됨. Prototype 은 상속이 필요 없는 대신 복제 대상의 복잡한 초기화(clone 로직)를 직접 챙겨야 함. |
+| [Template Method](../behavioral/Template%20Method%20Pattern.md) | 둘 다 상속으로 서브클래스가 특정 단계를 오버라이드 | Factory Method 는 오버라이드 대상이 "객체 생성" 한 단계로 한정된, Template Method 의 특수한 형태로 볼 수 있음. 반대로 Factory Method 가 더 큰 Template Method 알고리즘의 한 단계로 쓰이기도 함. |
+| [Iterator](../behavioral/Iterator%20Pattern.md) | 함께 쓰이는 경우가 많음 | 컬렉션의 서브클래스가 자신과 호환되는 다양한 종류의 Iterator 를 반환하도록 factory method 를 활용. |
 
-- Abstract Factory 는 Factory Method 의 세트를 기반으로 만들어짐.
+## Modern Applicability (DI/Composition Root)
 
-### [Iterator Pattern](../behavioral/Iterator%20Pattern.md)
+[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 Factory Method 는 **2 그룹: DI Container 가 흡수** 에 속함. AndroidX 의 `ViewModelProvider.Factory` 가 정확히 GoF Factory Method 형태 — `create()` 라는 팩토리 메소드를 오버라이드해서 어떤 `ViewModel` 을 만들지 정함. DI Container 를 쓰면 이 팩토리를 직접 작성하지 않아도 됨.
 
-- Factory Method 와 Iterator 를 함께 사용하여, 컬렉션 하위 클래스가 컬렉션과 호환되는 다양한 유형의 반복자를 반환하도록 할 수 있음.
+**"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** [Strategy Pattern](../behavioral/Strategy%20Pattern.md) 과 같은 답. Factory Method 가 없애는 건 "아는 사람" 이 아니라 **"아는 위치의 개수"** — Composition Root 하나로 모임.
 
-### [Prototype Pattern](Prototype%20Pattern.md)
+**Android 예시 (Metro)**
 
-- Prototype 은 상속을 기반으로 하지 않지만 복제된 객체의 복잡한 초기화가 필요.
-- Factory Method 는 상속을 기반으로 하지만 초기화 단계가 필요하지 않음.
+```kotlin
+@Inject
+class CheckoutViewModel(private val repository: OrderRepository) // ViewModel()
 
-### [Template Method Pattern](../behavioral/Template%20Method%20Pattern.md)
+interface OrderRepository
+@Inject class RemoteOrderRepository : OrderRepository
 
-- Factory Method 는 Template Method 를 구체화 한 것. 동시에 Factory Method 는 큰 Template Method 의 한 단계 역할을 할 수 있음.
+@DependencyGraph(AppScope::class)
+interface AppGraph {
+    val checkoutViewModel: CheckoutViewModel
+
+    @Binds
+    fun bindOrderRepository(impl: RemoteOrderRepository): OrderRepository
+}
+
+val graph = createGraph<AppGraph>()
+val viewModel = graph.checkoutViewModel // AppGraph 가 사실상 create() 를 구현해주는 팩토리 역할
+```
+
+DI 없이 직접 구현했다면 `CheckoutViewModelFactory : ViewModelProvider.Factory` 를 만들고 `create()` 안에서 `RemoteOrderRepository` 를 직접 생성해 넘겨야 했을 것. Metro 는 `@Inject` 생성자와 그래프 선언만으로 이 팩토리 역할을 대신 만들어 줌 — Factory Method 패턴이 사라진 게 아니라 Container 내부 구현으로 흡수된 것.
