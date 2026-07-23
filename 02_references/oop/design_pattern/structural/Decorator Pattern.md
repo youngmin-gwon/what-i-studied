@@ -2,7 +2,7 @@
 title: Decorator Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2026-07-23 14:42:37 +09:00
+date modified: 2026-07-23 16:48:58 +09:00
 date created: 2024-12-12 15:52:49 +09:00
 ---
 
