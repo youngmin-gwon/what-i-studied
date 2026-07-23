@@ -12,10 +12,6 @@ date created: 2024-12-12 15:51:24 +09:00
 
 **Abstract Factory Pattern** 은 서로 관련되거나 의존적인 객체들의 "제품군(Family)" 을 구체 클래스에 의존하지 않고 생성할 수 있는 인터페이스를 제공하는 생성(Creational) 패턴. `WinFactory` 는 `WindowsButton` + `WindowsCheckbox` 세트만, `MacFactory` 는 `MacButton` + `MacCheckbox` 세트만 만들도록 강제하면, 클라이언트는 팩토리 하나만 골라 쓰는 것만으로 항상 호환되는 제품 세트를 받게 됨.
 
-![Untitled 29](../../../../_assets/oop/Untitled%2029.png)
-
->가구 공장을 생각하면 쉬움. Spheric Factory 는 둥근 스타일의 의자·테이블·소파를 세트로 찍어내고, Pyramidal Factory 는 각진 스타일 세트를 찍어냄. 어느 공장에서 주문하든 "그 공장 안에서 나온 가구끼리는 항상 스타일이 맞는다" 는 게 핵심 — 의자는 Spheric 에서, 테이블은 Pyramidal 에서 따로 주문할 일이 없음.
-
 - **핵심**: 관련된 객체들의 "제품군" 을 한 번에, 서로 호환되도록 생성.
 - **목적**:
   1. 클라이언트가 구체 클래스를 몰라도 제품군을 사용할 수 있게 함.

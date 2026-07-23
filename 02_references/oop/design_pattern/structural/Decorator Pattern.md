@@ -8,13 +8,9 @@ date created: 2024-12-12 15:52:49 +09:00
 
 ## Description
 
-`TextView` 에 스크롤 기능이나 테두리를 추가해야 한다고 해보자. 상속으로 풀면 `ScrollableTextView`, `BorderedTextView`, `ScrollableBorderedTextView` 처럼 조합 경우의 수만큼 서브클래스가 늘어나고, 이걸 "모든 `TextView` 가 아니라 특정 인스턴스에만" 적용하고 싶다면 상속으로는 아예 불가능함 — 상속은 클래스 단위로 고정되지, 인스턴스 하나만 골라서 기능을 얹을 수 없기 때문.
+텍스트 컴포저블에 배경색과 테두리를 추가해야 한다고 해보자. 상속으로 풀면 `BorderedText`, `BackgroundText`, `BorderedBackgroundText` 처럼 조합 경우의 수만큼 컴포넌트가 늘어나고, 이걸 "모든 텍스트가 아니라 특정 인스턴스에만" 적용하고 싶다면 상속으로는 아예 불가능함 — 상속은 클래스 단위로 고정되지, 인스턴스 하나만 골라서 기능을 얹을 수 없기 때문.
 
-**Decorator Pattern** 은 이럴 때 객체를 감싸는 wrapper 객체를 겹겹이 쌓아서, 기존 인터페이스는 그대로 유지한 채 런타임에 필요한 인스턴스에만 책임을 추가하는 구조(Structural) 패턴. `ScrollDecorator(BorderDecorator(textView))` 처럼 필요한 조합만 그때그때 쌓으면, 서브클래스를 미리 다 만들어둘 필요가 없음.
-
-![Untitled](../../../../../_assets/oop/Untitled%2044.png)
-
->추운 날 몸을 데우는 방법을 생각하면 쉬움. "추위에 강한 사람" 이라는 별도 클래스를 만드는 대신, 그냥 입고 있는 옷 위에 스웨터를 입고 그 위에 비옷을 덧입으면 됨. 사람(원본 객체)은 그대로고, 옷(Decorator)을 몇 겹 두르느냐만 상황에 따라 달라짐.
+**Decorator Pattern** 은 이럴 때 객체를 감싸는 wrapper 객체를 겹겹이 쌓아서, 기존 인터페이스는 그대로 유지한 채 런타임에 필요한 인스턴스에만 책임을 추가하는 구조(Structural) 패턴. Jetpack Compose 의 `Modifier` 가 정확히 이 방식으로 동작함 — `Modifier.background(color).border(1.dp, Color.Gray).padding(8.dp)` 처럼 필요한 `Modifier` 만 그때그때 이어붙이면 되고, 조합마다 새 컴포넌트를 미리 만들어둘 필요가 없음. `Modifier` 체인은 내부적으로 각 `Modifier.Element` 가 다음 요소를 감싸며 레이아웃/그리기 동작을 하나씩 추가하는 구조라, Decorator 패턴 그 자체로 볼 수 있음.
 
 - **핵심**: 객체를 wrapper 로 감싸서, 원래 인터페이스를 유지한 채 동적으로 새 책임을 추가·제거함.
 - **목적**:
@@ -24,7 +20,7 @@ date created: 2024-12-12 15:52:49 +09:00
 
 ## Examples
 
-- **UI 위젯 꾸미기**: `TextView` 에 스크롤 기능이 필요한 화면과 아닌 화면이 섞여 있다면, 상속 없이 `ScrollDecorator(textView)` 로 감싸기만 하면 됨. 상속으로 풀면 필요 없는 화면까지 스크롤 로직을 상속받거나, 서브클래스가 계속 늘어남.
+- **Compose `Modifier` 체이닝**: 스크롤 가능한 화면과 아닌 화면이 섞여 있다면, 상속 없이 `Modifier.verticalScroll(state)` 하나만 이어붙이면 됨. 상속 기반이었다면 "스크롤 가능한 버전" 컴포넌트를 따로 만들어야 했음.
 - **네트워크 요청 처리**: 로깅, 재시도, 캐싱을 각각 `LoggingSender`, `RetrySender`, `CachingSender` 로 만들어 겹겹이 감싸면, 특정 요청에만 캐싱을 빼는 식으로 조합을 자유롭게 바꿀 수 있음. 하나의 `Sender` 클래스에 다 넣으면 필요 없는 기능도 항상 따라옴.
 - **음료 주문 시스템(카페 예제)**: `Coffee` 에 `MilkDecorator`, `SyrupDecorator` 를 씌우면 가격과 설명이 자동으로 누적됨. 상속으로 풀면 `MilkSyrupCoffee`, `MilkCoffee`, `SyrupCoffee` 처럼 토핑 조합 개수만큼 클래스가 생겨야 함.
 

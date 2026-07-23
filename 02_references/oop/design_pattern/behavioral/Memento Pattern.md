@@ -124,4 +124,4 @@ interface AppGraph {
 }
 ```
 
-`SearchViewModel` 을 사용하는 `Fragment` 는 프로세스가 죽었다 살아났는지, 상태가 어떻게 저장되고 복원됐는지 전혀 알 필요가 없음. `savedStateHandle["query"]` 라는 제한된 인터페이스로만 접근하기 때문에, 내부적으로 어떤 형태(Bundle)로 저장되는지도 캡슐화되어 있음 — GoF 가 설명한 Memento 의 "제한된 인터페이스" 원칙 그대로.
+`SearchViewModel` 을 사용하는 Composable 화면은 프로세스가 죽었다 살아났는지, 상태가 어떻게 저장되고 복원됐는지 전혀 알 필요가 없음. `savedStateHandle["query"]` 라는 제한된 인터페이스로만 접근하기 때문에, 내부적으로 어떤 형태(Bundle)로 저장되는지도 캡슐화되어 있음 — GoF 가 설명한 Memento 의 "제한된 인터페이스" 원칙 그대로.

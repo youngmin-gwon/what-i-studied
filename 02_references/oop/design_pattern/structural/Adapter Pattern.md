@@ -12,10 +12,6 @@ date created: 2024-12-12 14:59:28 +09:00
 
 **Adapter Pattern** 은 이럴 때 기존 두 인터페이스 중 어느 쪽도 건드리지 않고, 그 사이에 변환 전담 클래스를 하나 끼워 넣어 문제를 해결하는 구조(Structural) 패턴. `XmlToJsonAdapter` 하나만 새로 만들면 `Core Classes` 는 여전히 XML 만 다루면서도 JSON 만 받는 라이브러리와 협업할 수 있음.
 
-![Untitled](../../../../../_assets/oop/adapter_overview.png)
-
->자동차를 기차 선로 위에서 굴리려면 바퀴를 통째로 바꾸는 대신 "차-to-철도 어댑터" 를 바퀴 밑에 끼우면 됨. 자동차도, 선로도 그대로 두고 그 사이의 변환기만 새로 만든다는 게 핵심.
-
 - **핵심**: 서로 호환되지 않는 인터페이스를 가진 두 객체 사이에 변환기를 두어 함께 동작하게 만듦.
 - **목적**:
   1. 이미 존재하는 클래스(주로 3rd-party 라이브러리)를 원본 코드 수정 없이 재사용.
@@ -26,7 +22,7 @@ date created: 2024-12-12 14:59:28 +09:00
 
 - **외부 API 연동**: XML 만 주는 결제 게이트웨이와 JSON 만 받는 내부 서비스가 있다면, Adapter 없이는 내부 서비스 코드에 XML 파싱을 억지로 끼워 넣어야 함. `PaymentGatewayAdapter` 를 두면 내부 서비스는 JSON 인터페이스만 계속 바라봄.
 - **레거시 코드 재사용**: 예전에 짠 `LegacyLogger.writeLog(String)` 을 새 `Logger` 인터페이스(`log(LogEvent)`) 를 쓰는 시스템에 넣고 싶다면, `LegacyLoggerAdapter` 하나로 감싸면 됨. `LegacyLogger` 코드는 한 줄도 안 건드림.
-- **UI 데이터 바인딩**: `RecyclerView` 는 `List<Item>` 이 아니라 `Adapter` 가 정의한 규칙(`getItemCount`, `onBindViewHolder`)으로만 데이터를 앎. Adapter 가 없으면 `RecyclerView` 내부 구현이 매번 우리 데이터 모델을 알아야 함.
+- **콜백 API 를 Flow 로 변환**: 레거시 카메라 SDK 가 `onFrameAvailable(ByteArray)` 같은 콜백 인터페이스만 제공한다면, Compose 화면에서 자연스럽게 구독하려면 `Flow` 로 감싸야 함. `CameraFrameAdapter` 가 콜백을 `callbackFlow { }` 로 변환해주면, 나머지 코드는 `Flow<Bitmap>` 만 알면 됨 — SDK 의 콜백 인터페이스는 한 줄도 안 바꿈.
 
 ## Structure
 
@@ -111,7 +107,7 @@ flowchart LR
 
 **"그래도 결국 누군가는 Adaptee 를 알아야 하지 않나?"** 맞음. Adapter 패턴은 그 지식을 없애는 게 아니라 `XmlToJsonAdapter` 라는 한 클래스 안에 가둠. 나머지 코드는 `JsonDataSource` 인터페이스만 알면 됨. Composition Root 는 여기서 "어떤 Adapter 구현체를 Target 인터페이스에 묶을지" 를 선언하는 지점 역할을 함.
 
-**Android 예시 (Metro)** — RecyclerView Adapter 는 이름 그대로 GoF Adapter 의 실사례임: `List<Item>` 이라는 데이터 모델 인터페이스를 `RecyclerView` 가 기대하는 `getItemCount()/onBindViewHolder()` 인터페이스로 변환함. 여기서는 3rd-party 게이트웨이를 우리 도메인 인터페이스로 맞추는 좀 더 전형적인 예시로 설명함.
+**Android 예시 (Metro)** — 콜백 기반 3rd-party SDK를 코루틴/Flow 인터페이스로 맞추는, Compose 시대에 가장 흔한 Adapter 활용 사례.
 
 ```kotlin
 interface JsonDataSource {

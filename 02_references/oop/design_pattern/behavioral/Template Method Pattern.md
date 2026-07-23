@@ -12,10 +12,6 @@ date created: 2024-12-12 15:35:58 +09:00
 
 **Template Method Pattern** 은 알고리즘의 전체 구조(뼈대)는 상위 클래스에 고정해두고, 그중 일부 단계만 하위 클래스가 재정의하게 하는 행위 패턴. 위 예시라면 `DataPipeline` 추상 클래스가 "가져오기 → 처리 → 제공" 순서를 `templateMethod()` 로 고정하고, `fetchData()`/`provideResult()` 만 하위 클래스(`ApiPipeline`, `FilePipeline`)가 구현하면 됨 — 전체 흐름을 바꾸고 싶으면 상위 클래스 하나만 고치면 모든 하위 클래스에 반영됨.
 
-![template_method.png](../../../../../_assets/oop/template_method.png)
-
->집을 지을 때 기초 → 벽 → 창문/문 → 지붕 순서는 항상 같지만, 각 단계의 세부 재료나 방식(차고 유무, 창문 개수 등)은 집마다 다를 수 있음. 전체 시공 순서(템플릿)는 고정하고, 세부 단계만 바꾸는 것이 Template Method 의 핵심.
-
 - **핵심**: 알고리즘의 뼈대를 상위 클래스(AbstractClass)에 고정하고, 세부 단계만 하위 클래스(ConcreteClass)가 오버라이드하게 함.
 - **목적**:
   1. 여러 클래스에 반복되는 알고리즘 구조를 한 곳에 모아 중복을 없앰 ⇒ **DRY(Don't Repeat Yourself)**.
@@ -67,10 +63,6 @@ sequenceDiagram
 
 `Hollywood Principle` — *"Don't call us, we will call you"* — 이 패턴을 잘 설명해줌.
 
-![Untitled](../../../../../_assets/oop/Untitled%207.png)
-
->고수준 컴포넌트(`AbstractClass`)가 언제, 어떻게 저수준 컴포넌트(`ConcreteClass`)를 호출할지 통제함. 저수준 컴포넌트가 고수준 컴포넌트를 직접 호출하는 일은 없음 — 추상화가 세부사항에 의존하지 않고, 세부사항이 추상화에 의존해야 한다는 [DIP(Dependency Inversion Principle)](../../solid/DIP(Dependency%20Inversion%20Principle).md) 의 방향과 일치함.
-
 ## Adaptability
 
 다음 상황에서 특히 유용함.
@@ -114,27 +106,26 @@ flowchart LR
 
 **"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** Template Method 는 애초에 상속 관계이므로, 어떤 ConcreteClass 를 쓸지는 **컴파일 타임에 코드 자체(어떤 클래스를 선언했는지)** 로 정해짐 — Strategy 처럼 "누가 concrete 를 배선하는가" 라는 질문보다는, "공통 의존성을 상위 클래스에 어떻게 주입하는가" 가 Composition Root 의 역할이 됨.
 
-**Android 예시 (Metro)** — `BaseFragment` 의 lifecycle 훅.
+**Android 예시 (Metro)** — 화면 진입 로깅 순서를 강제하는 `BaseViewModel` 의 초기화 훅.
 
 ```kotlin
-abstract class BaseFragment(private val analytics: Analytics) : Fragment() {
-    // templateMethod 역할. final 로 순서를 고정.
-    final override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+abstract class BaseViewModel(private val analytics: Analytics) : ViewModel() {
+    // templateMethod 역할. init 블록으로 순서를 고정.
+    init {
         analytics.logScreenView(screenName()) // 공통 로직
-        setupViews() // primitive operation, 하위 클래스가 구현
+        loadInitialData() // primitive operation, 하위 클래스가 구현
         onReady() // hook operation, 기본은 아무것도 안 함
     }
 
     abstract fun screenName(): String
-    abstract fun setupViews()
+    abstract fun loadInitialData()
     open fun onReady() {}
 }
 
 @Inject
-class ProfileFragment(analytics: Analytics) : BaseFragment(analytics) {
+class ProfileViewModel(analytics: Analytics) : BaseViewModel(analytics) {
     override fun screenName() = "profile"
-    override fun setupViews() { /* ... */ }
+    override fun loadInitialData() { /* ... */ }
 }
 
 @DependencyGraph(AppScope::class)
@@ -144,4 +135,4 @@ interface AppGraph {
 }
 ```
 
-`analytics` 라는 공통 의존성은 `AppGraph` 가 배선하고, `BaseFragment` 는 이를 받아 모든 하위 화면에 로깅 순서를 강제함. `ProfileFragment` 는 `setupViews()` 만 구현하면 되고, 화면 진입 로깅 순서 자체는 신경 쓰지 않아도 됨.
+`analytics` 라는 공통 의존성은 `AppGraph` 가 배선하고, `BaseViewModel` 은 이를 받아 모든 하위 화면에 로깅 순서를 강제함. `ProfileViewModel` 을 구독하는 Composable 화면은 `loadInitialData()` 만 신경 쓰면 되고, 화면 진입 로깅 순서 자체는 몰라도 됨.

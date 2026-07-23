@@ -12,14 +12,6 @@ date created: 2024-12-12 15:51:01 +09:00
 
 **Builder Pattern** 은 객체의 생성 과정(construction) 과 표현(representation) 을 분리해서, 같은 생성 과정으로 서로 다른 표현을 만들 수 있게 하는 생성(Creational) 패턴. 생성 로직을 `HouseBuilder` 같은 별도 객체로 옮기고, 필요한 부분만 단계별로 호출한 뒤 마지막에 `build()` 로 완성된 객체를 받는 방식으로 telescoping constructor 문제를 해결함.
 
-![Untitled](../../../../_assets/oop/Untitled%2050.png)
-
->기본 `House` 클래스에 옵션(차고, 수영장, 정원, 조각상)을 붙이려고 `HouseWithGarage`, `HouseWithSwimmingPool` 처럼 서브클래스를 하나씩 만들면, 조합이 늘어날 때마다 클래스 수가 기하급수적으로 늘어남. 이게 Builder 없이 상속만으로 해결하려 할 때 생기는 문제.
-
-![Untitled](../../../../_assets/oop/Untitled%2049.png)
-
->해결책은 상속이 아니라 조립 라인(assembly line). Step 1, 2, 3 을 필요한 만큼만 거치게 하고, 마지막에 원하는 결과물(단순한 조각 하나부터 복잡한 로봇까지)을 꺼내면 됨 — Builder 가 하는 일이 정확히 이것.
-
 - **핵심**: 복잡한 객체의 생성 과정을 별도의 Builder 객체로 옮기고, 필요한 단계만 호출해서 원하는 표현을 조립.
 - **목적**:
   1. Telescoping constructor 문제 제거.

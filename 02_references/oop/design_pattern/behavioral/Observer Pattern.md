@@ -74,7 +74,7 @@ sequenceDiagram
 ## Cons
 
 - **구독자가 알림을 받는 순서가 보장되지 않는 경우가 많음**: 표준적인 구현에서는 구독자 목록을 순회하며 알리는 순서가 등록 순서 정도로만 정해질 뿐, 특정 순서를 보장하려면 별도 로직이 필요함.
-- **구독 취소를 깜빡하면 메모리 누수로 이어질 수 있음**: Subject 가 Observer 에 대한 참조를 계속 들고 있으면, Observer(예: 화면이 이미 사라진 View)가 가비지 컬렉션되지 않고 계속 살아있게 됨. Android 에서 `Activity`/`Fragment` 를 구독자로 등록하고 해제를 잊는 것이 대표적인 누수 원인 — 아래 [Modern Applicability](#modern-applicability-di-composition-root) 처럼 생명주기를 아는 스트림(`Flow`)을 쓰면 이 문제가 상당 부분 해소됨.
+- **구독 취소를 깜빡하면 메모리 누수로 이어질 수 있음**: Subject 가 Observer 에 대한 참조를 계속 들고 있으면, Observer(예: 화면이 이미 사라진 컴포넌트)가 가비지 컬렉션되지 않고 계속 살아있게 됨. Android 에서 `Activity`/`ViewModel` 을 구독자로 등록하고 해제를 잊는 것이 대표적인 누수 원인 — 아래 [Modern Applicability](#modern-applicability-di-composition-root) 처럼 생명주기를 아는 스트림(`Flow`)을 쓰면 이 문제가 상당 부분 해소됨.
 
 ## Relationship with other patterns
 

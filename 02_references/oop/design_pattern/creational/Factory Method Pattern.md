@@ -12,10 +12,6 @@ date created: 2024-12-12 15:51:15 +09:00
 
 **Factory Method Pattern**(= Virtual Constructor) 은 객체를 만드는 인터페이스는 상위 클래스가 제공하되, 실제로 어떤 클래스를 만들지는 서브클래스가 정하도록 위임하는 생성(Creational) 패턴. `Logistics` 라는 상위 클래스에 `createTransport()` 라는 factory method 를 두고, `RoadLogistics` 는 `Truck` 을, `SeaLogistics` 는 `Ship` 을 반환하도록 오버라이드하면, `Logistics` 의 나머지 로직(`planDelivery()` 등)은 `Transport` 인터페이스만 알면 되고 실제로 Truck 인지 Ship 인지는 몰라도 됨.
 
-![Untitled](../../../../_assets/oop/Untitled%2027.png)
-
->Road Logistics 와 Sea Logistics 는 각각 트럭과 배로 물건을 나르는, 서로 다른 구체적인 운송 방식을 씀. 하지만 둘 다 "Logistics" 라는 같은 틀 안에서 동작함 — 어떤 운송 수단을 쓸지는 각 하위 물류 회사가 정하고, 전체 물류 프로세스 자체는 공통으로 재사용됨.
-
 - **핵심**: 객체 생성을 서브클래스가 결정하도록 위임.
 - **목적**:
   1. Product 를 사용하는 코드와 Product 의 구체 타입을 결정/생성하는 코드를 분리.
