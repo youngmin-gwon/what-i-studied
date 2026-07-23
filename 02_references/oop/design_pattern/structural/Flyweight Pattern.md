@@ -20,6 +20,9 @@ date created: 2024-12-12 15:53:04 +09:00
 ## Examples
 
 - **게임 파티클/총알**: 총알마다 스프라이트 이미지를 새로 로드하면 총알 10 만 개 = 이미지 10 만 장이 메모리에 올라감. Flyweight 로 스프라이트를 공유하면 이미지는 1장, 위치 데이터만 10 만 개가 됨.
+
+총알 예시 외에 다른 도메인에서도 같은 구조가 쓰임. (아래 Structure 부터는 다시 총알 예시로 돌아감.)
+
 - **텍스트 에디터의 문자 렌더링**: 문서에 있는 글자 하나하나를 객체로 만들 때, 폰트·크기·색상(Intrinsic) 은 같은 스타일을 쓰는 글자끼리 공유하고, 위치(Extrinsic) 만 글자마다 따로 저장하면 수십만 글자도 감당 가능함.
 - **지도 앱의 마커 아이콘**: 지도에 마커 5000개를 찍을 때 아이콘 이미지를 마커마다 복제하지 않고 하나만 만들어 공유하면, 좌표 데이터만 5000개 있으면 됨.
 
@@ -55,6 +58,27 @@ sequenceDiagram
     B1->>Sprite: render(x=10, y=20)
     B2->>Sprite: render(x=30, y=5)
     Note over Sprite: Sprite 객체는 1개,<br/>좌표만 매번 다르게 전달됨
+```
+
+```kotlin
+class BulletSprite(private val texture: Texture) { // Flyweight: intrinsic state (immutable)
+    fun render(x: Int, y: Int) { /* 실제 렌더링, texture 는 공유됨 */ }
+}
+
+class FlyweightFactory {
+    private val cache = mutableMapOf<String, BulletSprite>()
+
+    fun getFlyweight(type: String): BulletSprite =
+        cache.getOrPut(type) { BulletSprite(loadTexture(type)) }
+}
+
+class Bullet(private val x: Int, private val y: Int, private val sprite: BulletSprite) { // Context: extrinsic state
+    fun draw() = sprite.render(x, y) // 좌표(extrinsic)만 넘기고 sprite(intrinsic)는 공유
+}
+
+// Client
+val factory = FlyweightFactory()
+val bullets = List(100_000) { Bullet(x = it, y = 0, sprite = factory.getFlyweight("basic_bullet")) }
 ```
 
 - **Flyweight**: 여러 객체가 공유하는 Intrinsic state 를 담는 클래스 (`BulletSprite`). Intrinsic state 는 절대 바뀌면 안 되므로 immutable 하게 만들어야 함. Extrinsic state 는 메서드 인자로 전달받음.
@@ -106,31 +130,27 @@ flowchart LR
 
 **"그래도 결국 누군가는 캐시 키를 관리해야 하지 않나?"** 맞음. Flyweight 가 없애는 건 "캐시를 관리하는 코드" 가 아니라, 그 캐시 로직이 여러 호출부에 중복되는 것. `FlyweightFactory` 하나에 캐시 관리를 몰아넣고, DI 로는 이 Factory 자체를 하나의 서비스로 주입하는 정도가 실무에서 맞닿는 지점.
 
-**Android 예시 (Metro)** — 이미지/비트맵 캐시가 Android 에서 가장 흔한 Flyweight 사례임. Coil, Glide 같은 이미지 로딩 라이브러리가 내부적으로 동일한 URL 의 `Bitmap` 을 여러 `ImageView` 가 공유하도록 캐싱하는 것 자체가 Flyweight. 직접 구현한다면 아래와 같은 모양이 됨.
+**Android 예시 (Metro)** — 이미지/비트맵 캐시(Coil, Glide 같은 라이브러리가 동일한 URL 의 `Bitmap` 을 여러 `ImageView` 가 공유하도록 캐싱하는 것)도 Flyweight 의 흔한 실사례지만, 여기서는 Structure 절의 총알 예시를 그대로 게임 앱에 옮기면 아래와 같은 모양이 됨.
 
 ```kotlin
-class BitmapFlyweightFactory { // FlyweightFactory
-    private val cache = mutableMapOf<String, Bitmap>() // Flyweight 캐시
-
-    fun get(url: String): Bitmap =
-        cache.getOrPut(url) { downloadAndDecode(url) } // Intrinsic state: 픽셀 데이터
-}
+data class Bullet(val type: String, val x: Int, val y: Int) // Context: extrinsic state
 
 @Inject
-class ImageLoader(private val factory: BitmapFlyweightFactory) {
-    fun loadInto(view: ImageView, url: String, x: Int, y: Int) { // x, y = extrinsic state
-        val bitmap = factory.get(url)
-        view.setImageBitmap(bitmap) // 여러 ImageView 가 같은 Bitmap 인스턴스를 공유
+class BulletRenderer(private val factory: FlyweightFactory) { // Context 들을 순회하며 렌더링
+    fun renderAll(bullets: List<Bullet>) {
+        bullets.forEach { bullet ->
+            factory.getFlyweight(bullet.type).render(bullet.x, bullet.y)
+        }
     }
 }
 
 @DependencyGraph(AppScope::class)
 interface AppGraph {
-    val imageLoader: ImageLoader
+    val bulletRenderer: BulletRenderer
 
     @Provides
-    fun provideBitmapFactory(): BitmapFlyweightFactory = BitmapFlyweightFactory()
+    fun provideFlyweightFactory(): FlyweightFactory = FlyweightFactory()
 }
 ```
 
-`BitmapFlyweightFactory` 를 `AppGraph` 에서 앱 생명주기 동안 하나만 만들어 공유하면, 화면 어디서든 같은 URL 의 `Bitmap` 을 중복 디코딩하지 않음 — DI 는 "Factory 를 하나만 만들어 나눠준다" 는 배선까지만 담당하고, 그 안의 캐시 적중/공유 로직(Flyweight 의 본질)은 여전히 `BitmapFlyweightFactory` 코드가 담당함.
+`FlyweightFactory` 를 `AppGraph` 에서 앱 생명주기 동안 하나만 만들어 공유하면, 총알 10 만 개가 화면에 떠 있어도 텍스처는 종류별로 한 번만 로드됨 — DI 는 "Factory 를 하나만 만들어 나눠준다" 는 배선까지만 담당하고, 그 안의 캐시 적중/공유 로직(Flyweight 의 본질)은 여전히 `FlyweightFactory` 코드가 담당함.

@@ -12,6 +12,8 @@ date created: 2024-12-12 15:50:52 +09:00
 
 **Prototype Pattern** 은 원형이 되는 인스턴스를 미리 만들어두고, 그 인스턴스가 스스로 자신을 복제(clone)하는 메소드를 제공하게 하는 생성(Creational) 패턴. 복제하는 쪽(`GraphicTool`)은 구체 클래스를 몰라도 `shape.clone()` 만 호출하면 동일한 상태를 가진 새 객체를 얻을 수 있음.
 
+이 문서에서는 이 **그래픽 편집기(GraphicTool/Shape)** 예시를 Structure → Pros/Cons → Modern Applicability 까지 계속 이어서 사용함.
+
 - **핵심**: 객체를 새로 생성(`new`)하는 대신, 기존 객체를 복제(clone)해서 새 객체를 만듦.
 - **목적**:
   1. 클라이언트가 복제 대상의 구체 클래스를 몰라도 복제할 수 있게 함.
@@ -20,17 +22,18 @@ date created: 2024-12-12 15:50:52 +09:00
 
 ## Examples
 
+그래픽 편집기 예시 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 예시 두 개. (아래 Structure 부터는 다시 그래픽 편집기 예시로 돌아감.)
+
 - **게임 유닛 스폰**: 몬스터를 매번 `new Monster()` 로 무겁게 초기화(스탯 계산, AI 트리 로드)하는 대신, 미리 만들어둔 템플릿 몬스터를 `clone()` 해서 찍어냄. 없으면 스폰마다 초기화 비용이 반복되고, 있으면 초기화는 한 번, 복제는 N 번으로 끝남.
-- **그래픽 편집기 도형 복사**: `GraphicTool` 은 선택된 도형이 `Circle` 인지 `Rectangle` 인지 몰라도 `shape.clone()` 만 호출하면 동일한 도형을 복제할 수 있음.
 - **설정(Config) 변형 생성**: 기본 설정을 담은 프로토타입을 하나 두고, 필드 몇 개만 다르게 바꾼 변형(Config A/B/C)을 매번 처음부터 조립하지 않고 복제 후 일부만 수정해서 만듦.
 
 ## Structure
 
 ```mermaid
 flowchart LR
-    Client["Client"]
+    Client["Client<br/>예: GraphicTool"]
     Proto{{"Prototype interface<br/>clone(): Prototype"}}
-    CP["ConcretePrototype<br/>예: MonsterTemplate"]
+    CP["ConcretePrototype<br/>예: Circle"]
     Copy1["복제본 1"]
     Copy2["복제본 2"]
 
@@ -41,19 +44,37 @@ flowchart LR
     CP -- "③ 자기 자신 복제" --> Copy2
 ```
 
-몬스터 100 마리를 스폰하는 시나리오로 펼치면 아래와 같음.
+도형을 여러 벌 복제하는 시나리오로 펼치면 아래와 같음.
 
 ```mermaid
 sequenceDiagram
-    participant Client as SpawnManager
-    participant Template as MonsterTemplate (prototype)
+    participant Client as GraphicTool
+    participant Proto as Circle (prototype)
 
-    Client->>Template: new Monster(...) 무거운 초기화, 1회만
-    loop 몬스터 100마리 스폰
-        Client->>Template: template.clone()
-        Template-->>Client: 새 Monster 인스턴스 (동일 스탯)
+    Client->>Proto: new Circle(...) 최초 설정, 1회만
+    loop 복제본 여러 개 필요
+        Client->>Proto: circle.clone()
+        Proto-->>Client: 새 Circle 인스턴스 (동일 상태)
     end
-    Note over Client: Monster 의 구체 클래스나<br/>초기화 로직을 몰라도 됨
+    Note over Client: Circle 의 구체 클래스나<br/>속성을 몰라도 됨
+```
+
+```kotlin
+interface Shape {
+    fun clone(): Shape
+}
+
+class Circle(val radius: Int, val color: String) : Shape {
+    override fun clone(): Shape = Circle(radius, color)
+}
+
+class Rectangle(val width: Int, val height: Int) : Shape {
+    override fun clone(): Shape = Rectangle(width, height)
+}
+
+class GraphicTool {
+    fun duplicate(shape: Shape): Shape = shape.clone() // Circle 인지 Rectangle 인지 몰라도 복제 가능
+}
 ```
 
 - **Prototype**: 스스로를 복제하는 `clone()` 을 선언하는 인터페이스.
@@ -82,11 +103,11 @@ sequenceDiagram
 - **얕은 복사(shallow copy)는 내부 참조를 공유해서 의도치 않은 상태 공유 버그를 만들기 쉬움**: 예를 들어 Kotlin `data class` 의 `copy()` 는 기본적으로 얕은 복사.
 
   ```kotlin
-  data class Monster(val name: String, val inventory: MutableList<Item>)
+  data class Circle(val radius: Int, val color: String, val tags: MutableList<String>)
 
-  val original = Monster("Goblin", mutableListOf(Item("Dagger")))
-  val clone = original.copy() // 얕은 복사: inventory 리스트를 그대로 공유함
-  clone.inventory.add(Item("Shield")) // original.inventory 도 함께 바뀜
+  val original = Circle(10, "red", mutableListOf("decoration"))
+  val clone = original.copy() // 얕은 복사: tags 리스트를 그대로 공유함
+  clone.tags.add("resized") // original.tags 도 함께 바뀜
   ```
 
 ## Relationship with other patterns
@@ -119,20 +140,19 @@ flowchart LR
 
 [Composition Root](../general/patterns/Composition%20Root.md) 관점에서 Prototype 은 **1 그룹: 언어가 흡수** 에 속함. Kotlin `data class` 가 자동으로 만들어주는 `copy()` 가 사실상 얕은 `clone()`. GoF 가 `Prototype` 인터페이스 + `ConcretePrototype.clone()` 으로 직접 구현하던 것을, 컴파일러가 대신 생성해줌.
 
-**깊은 복사가 필요하면 직접 챙겨야 함**: `copy()` 는 얕은 복사이므로, 내부에 mutable 참조 필드가 있다면 위 Cons 예시처럼 상태 공유 버그가 날 수 있음. 이 경우 GoF 가 말하던 "복제 프로세스의 특수 케이스 처리" 가 여전히 필요 — `copy(inventory = inventory.toMutableList())` 처럼 내부 필드를 직접 복제해줘야 함.
+**깊은 복사가 필요하면 직접 챙겨야 함**: `copy()` 는 얕은 복사이므로, 내부에 mutable 참조 필드가 있다면 위 Cons 예시처럼 상태 공유 버그가 날 수 있음. 이 경우 GoF 가 말하던 "복제 프로세스의 특수 케이스 처리" 가 여전히 필요 — `copy(tags = tags.toMutableList())` 처럼 내부 필드를 직접 복제해줘야 함.
 
-**Android(Compose) 예시 — UI 상태 갱신**: Jetpack Compose 의 상태 갱신 패턴 자체가 일상적으로 쓰는 Prototype.
+**Android(Compose) 예시 — UI 상태 갱신**: Jetpack Compose 의 상태 갱신 패턴 자체가 일상적으로 쓰는 Prototype. Structure 절의 `Circle` 을 그대로 이어서, 도형 편집기 화면에서 선택된 도형을 복제하는 경우.
 
 ```kotlin
-data class CheckoutUiState(
-    val items: List<CartItem> = emptyList(),
-    val isLoading: Boolean = false,
-    val error: String? = null,
+data class ShapeEditorUiState(
+    val shapes: List<Circle> = emptyList(),
+    val selectedShapeId: String? = null,
 )
 
-fun onSubmit() {
+fun onDuplicateShape(shape: Circle) {
     // 기존 상태를 복제(clone)하고 일부 필드만 교체 — Prototype 그 자체
-    _uiState.update { it.copy(isLoading = true, error = null) }
+    _uiState.update { it.copy(shapes = it.shapes + shape.copy()) }
 }
 ```
 

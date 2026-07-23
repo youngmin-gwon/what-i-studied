@@ -20,6 +20,9 @@ date created: 2024-12-12 15:47:43 +09:00
 ## Examples
 
 - **`CartManager` 가 화면들을 직접 호출**하는 구조에서 새 화면(예: 위젯)이 추가되면 `CartManager` 코드를 또 고쳐야 하지만, Observer 로 만들면 위젯이 스스로 구독만 하면 되고 `CartManager` 는 손댈 필요가 없음.
+
+다른 도메인에도 같은 구조가 쓰임. (아래 Structure 부터는 다시 장바구니 예시로 돌아감.)
+
 - **다운로드 진행률**을 여러 UI 요소(프로그레스바, 알림, 로그)에 동시에 반영해야 할 때, 다운로드 로직 안에 각 UI 업데이트 코드를 직접 넣는 대신 진행률이 바뀔 때마다 구독자들에게 알리기만 하면 다운로드 로직과 UI 갱신 로직이 분리됨.
 - **설정 값 변경 감지**: "다크 모드" 설정이 바뀌면 여러 화면의 테마가 동시에 바뀌어야 함. 설정 저장소가 Subject 가 되고, 화면들이 Observer 로 구독하면 설정 저장소는 몇 개의 화면이 떠 있는지 신경 쓸 필요가 없음.
 
@@ -53,6 +56,33 @@ sequenceDiagram
     Cart->>Cart: addItem()
     Cart->>Badge: onUpdate(newCount)
     Cart->>Tab: onUpdate(newCount)
+```
+
+```kotlin
+interface Observer {
+    fun onUpdate(count: Int)
+}
+
+class CartManager {
+    private val observers = mutableListOf<Observer>()
+    private var itemCount = 0
+
+    fun subscribe(observer: Observer) { observers += observer }
+    fun unsubscribe(observer: Observer) { observers -= observer }
+
+    fun addItem() {
+        itemCount++
+        observers.forEach { it.onUpdate(itemCount) } // 구체 타입(ToolbarBadge 등)은 모름
+    }
+}
+
+class ToolbarBadge : Observer {
+    override fun onUpdate(count: Int) { /* 배지 숫자 갱신 */ }
+}
+
+class BottomTabBadge : Observer {
+    override fun onUpdate(count: Int) { /* 탭 배지 갱신 */ }
+}
 ```
 
 - **Publisher(Subject)**: Observer 를 구독/구독 취소하는 인터페이스를 제공하고, 구독자 목록을 보관함. 관심 상태가 바뀌면 알림을 전송함.

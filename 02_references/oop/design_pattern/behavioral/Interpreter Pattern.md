@@ -61,6 +61,28 @@ sequenceDiagram
     And-->>Client: true (둘 다 true 라 AND 결과 true)
 ```
 
+```kotlin
+interface Expression {
+    fun interpret(context: PromotionContext): Boolean
+}
+
+class TierExpression(private val tier: String) : Expression {
+    override fun interpret(context: PromotionContext) = context.userTier == tier
+}
+
+class HasCouponExpression : Expression {
+    override fun interpret(context: PromotionContext) = context.hasCoupon
+}
+
+class AndExpression(
+    private val left: Expression,
+    private val right: Expression,
+) : Expression {
+    override fun interpret(context: PromotionContext) =
+        left.interpret(context) && right.interpret(context)
+}
+```
+
 - **AbstractExpression**: 트리에 속한 모든 노드가 공통으로 구현해야 하는 `interpret()` 을 선언하는 인터페이스.
 - **TerminalExpression**: 문법의 터미널 기호에 해당하는 해석을 구현. 사칙연산이라면 숫자, 규칙 엔진이라면 `TierExpression` 처럼 더 쪼갤 수 없는 조건 하나.
 - **NonTerminalExpression**: 터미널이 아닌 기호(연산자)에 대한 해석을 구현. 사칙연산의 `+`, `*`, 규칙 엔진의 `AND`, `OR` 이 여기 해당하며, 보통 다른 Expression 을 자식으로 갖는 [Composite](../structural/Composite%20Pattern.md) 구조.

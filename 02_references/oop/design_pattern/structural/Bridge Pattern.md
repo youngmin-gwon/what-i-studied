@@ -2,27 +2,30 @@
 title: Bridge Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2026-07-23 13:39:42 +09:00
+date modified: 2026-07-23 14:25:47 +09:00
 date created: 2024-12-12 15:52:30 +09:00
 ---
 
 ## Description
 
-도형(`Shape`)을 `Circle`, `Square` 로 나누고, 각 도형을 다시 렌더링 방식(`Raster`, `Vector`)별로 나눈다고 해보자. 상속만으로 풀면 `RasterCircle`, `VectorCircle`, `RasterSquare`, `VectorSquare` 처럼 도형 종류 × 렌더링 방식 조합만큼 클래스가 곱셈으로 늘어남. 렌더링 방식이 하나 더 생기면 기존 도형 개수만큼 클래스를 또 새로 만들어야 함.
+알림(`Notification`)을 일반 알림과 긴급 알림(`UrgentNotification`)으로 나누고, 각 알림을 다시 발송 수단(SMS, Email)별로 나눈다고 해보자. 상속만으로 풀면 `SmsNotification`, `EmailNotification`, `UrgentSmsNotification`, `UrgentEmailNotification` 처럼 알림 종류 × 발송 수단 조합만큼 클래스가 곱셈으로 늘어남. 발송 수단이 하나 더 생기면(Push 등) 기존 알림 종류 개수만큼 클래스를 또 새로 만들어야 함.
 
-**Bridge Pattern** 은 이렇게 독립적으로 변할 수 있는 두 축(추상화·구현)을 하나의 상속 계층에 억지로 우겨넣지 않고, 각각 별도의 계층으로 분리한 뒤 둘을 Composition 으로 연결하는 구조(Structural) 패턴. `Shape` 계층과 `Renderer` 계층을 나누면, 도형이 늘어도 렌더링 방식은 그대로 재사용되고 그 반대도 마찬가지임.
+**Bridge Pattern** 은 이렇게 독립적으로 변할 수 있는 두 축(추상화·구현)을 하나의 상속 계층에 억지로 우겨넣지 않고, 각각 별도의 계층으로 분리한 뒤 둘을 Composition 으로 연결하는 구조(Structural) 패턴. `Notification` 계층(Abstraction)과 `MessageSender` 계층(Implementation)을 나누면, 알림 종류가 늘어도 발송 수단 구현은 재사용되고 그 반대도 마찬가지임.
+
+이 문서에서는 이 **알림 발송(Notification)** 예시를 Structure → Pros/Cons → Modern Applicability 까지 계속 이어서 사용함.
 
 - **핵심**: 추상화(Abstraction)와 구현(Implementation)을 별도의 클래스 계층으로 분리하고, 둘을 Composition 으로 연결해 각각 독립적으로 확장 가능하게 만듦.
 - **목적**:
-  1. 상속 하나로 두 축(예: 도형 종류 × 렌더링 방식)을 표현할 때 생기는 클래스 조합 폭발을 막음.
+  1. 상속 하나로 두 축(예: 알림 종류 × 발송 수단)을 표현할 때 생기는 클래스 조합 폭발을 막음.
   2. 구현을 런타임에 교체 가능하게 만듦 — 상속은 컴파일 타임에 구현이 고정되지만 Bridge 는 그렇지 않음.
   3. 추상화와 구현이 각자 독립적으로 새 서브클래스를 추가해도 서로 영향받지 않도록 하여 **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)** 를 지킴.
 
 ## Examples
 
+알림 발송 예시 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 예시 두 개. (아래 Structure 부터는 다시 알림 발송 예시로 돌아감.)
+
 - **크로스플랫폼 UI**: `Window` 라는 추상화를 Windows/macOS/Linux 용 `WindowImpl` 과 분리하면, 새 위젯(`Dialog`, `Button`)이 추가돼도 플랫폼별 구현 3 개를 새로 안 만들어도 됨. Bridge 없이는 `WindowsDialog`, `MacDialog`, `LinuxDialog` 식으로 조합이 곱셈으로 늘어남.
 - **영속성 계층**: `Repository` 추상화와 `Database`/`FileSystem` 구현을 분리하면, 저장 방식을 DB→파일로 바꿔도 `Repository` 를 쓰는 코드는 그대로임.
-- **메시지 발송**: `Notification`(Abstraction: `send()`, `sendUrgently()`) 과 `MessageSender`(Implementation: `SmsSender`, `EmailSender`) 를 분리하면, 알림 종류가 늘어도 발송 수단 구현은 재사용되고, 발송 수단이 늘어도 알림 종류 쪽 코드는 그대로임.
 
 ## Structure
 
@@ -55,6 +58,28 @@ sequenceDiagram
     Notif->>Notif: 긴급 포맷으로 가공
     Notif->>Sender: sender.transmit(formatted)
     Note over Sender: 실제로는 SmsSender.transmit() 실행
+```
+
+```kotlin
+interface MessageSender { // Implementation
+    fun transmit(text: String)
+}
+
+class SmsSender : MessageSender {
+    override fun transmit(text: String) { /* SMS 발송 */ }
+}
+
+class EmailSender : MessageSender {
+    override fun transmit(text: String) { /* 이메일 발송 */ }
+}
+
+abstract class Notification(protected val sender: MessageSender) { // Abstraction
+    abstract fun send(message: String)
+}
+
+class UrgentNotification(sender: MessageSender) : Notification(sender) { // Refined Abstraction
+    override fun send(message: String) = sender.transmit("[긴급] $message")
+}
 ```
 
 - **Abstraction**: 상위 수준의 제어 로직을 담음. `Implementation` 타입 객체를 필드로 들고, 실제 작업은 위임함 (`Notification`).
@@ -115,19 +140,11 @@ flowchart LR
 
 **"그래도 결국 누군가는 Concrete Implementation 을 알아야 하지 않나?"** 맞음. Bridge 가 없애는 건 그 지식이 아니라, `Abstraction` 코드 곳곳에 플랫폼 분기(if-else)가 흩어지는 것. Composition Root 는 "지금 이 실행 환경에는 어떤 `Implementation` 을 연결할지" 를 한 곳에서 결정하는 지점이 됨.
 
-**Android 예시 (Metro)** — 플랫폼(안드로이드 버전, 디바이스 종류)별로 구현이 갈리는 알림 발송 기능.
+**Android 예시 (Metro)** — 사용자가 알림 설정에서 고른 발송 채널(SMS/이메일)에 따라 `SmsSender`/`EmailSender` 중 하나를 선택하는 경우. Structure 절의 클래스를 그대로 이어서 씀.
 
 ```kotlin
-interface MessageSender { // Implementation
-    fun transmit(text: String)
-}
-
 @Inject class SmsSender : MessageSender { /* ... */ }
-@Inject class PushSender : MessageSender { /* ... */ }
-
-abstract class Notification(protected val sender: MessageSender) { // Abstraction
-    abstract fun send(message: String)
-}
+@Inject class EmailSender : MessageSender { /* ... */ }
 
 @Inject
 class UrgentNotification(sender: MessageSender) : Notification(sender) {
@@ -139,9 +156,13 @@ interface AppGraph {
     val urgentNotification: UrgentNotification
 
     @Provides
-    fun provideMessageSender(sms: SmsSender, push: PushSender): MessageSender =
-        if (Build.VERSION.SDK_INT >= 26) push else sms
+    fun provideMessageSender(
+        userPreferences: UserPreferences,
+        sms: SmsSender,
+        email: EmailSender,
+    ): MessageSender =
+        if (userPreferences.notificationChannel == "sms") sms else email
 }
 ```
 
-`AppGraph` 가 "이 기기에서는 어떤 `MessageSender` 를 쓸지" 를 결정하는 유일한 지점. `UrgentNotification` 은 자신이 SMS 위에서 도는지 Push 위에서 도는지 전혀 모름 — 축 2 개(알림 종류, 발송 수단)가 서로의 존재를 모른 채 각자 확장됨.
+`AppGraph` 가 "이 사용자에게는 어떤 `MessageSender` 를 쓸지" 를 결정하는 유일한 지점. `UrgentNotification` 은 자신이 SMS 위에서 도는지 이메일 위에서 도는지 전혀 모름 — 축 2 개(알림 종류, 발송 수단)가 서로의 존재를 모른 채 각자 확장됨.

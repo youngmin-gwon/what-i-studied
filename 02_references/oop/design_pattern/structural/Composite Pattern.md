@@ -21,6 +21,9 @@ date created: 2024-12-12 15:52:40 +09:00
 ## Examples
 
 - **파일 시스템**: `File`, `Folder` 를 `FileSystemItem` 인터페이스로 묶으면, 폴더 용량 계산 코드가 폴더가 몇 겹 중첩되든 한 함수(재귀 호출)로 끝남. Composite 없이는 중첩 깊이만큼 분기/루프를 직접 손으로 짜야 함.
+
+파일 시스템 예시 외에 다른 도메인에서도 같은 구조가 쓰임. (아래 Structure 부터는 다시 파일 시스템 예시로 돌아감.)
+
 - **UI 컴포넌트 트리**: `Button` 같은 개별 위젯과 `Row`/`Column` 같은 레이아웃 컨테이너를 같은 `Widget` 인터페이스로 다루면, 화면을 그리는 코드는 지금 그리는 게 버튼인지 레이아웃인지 몰라도 됨.
 - **조직도 급여 합산**: `Employee`(개인)와 `Department`(팀)를 `OrgUnit` 인터페이스로 묶으면, "이 부서 전체 인건비" 계산이 부서가 몇 단계로 중첩되든 동일한 `getTotalSalary()` 호출로 끝남.
 
@@ -55,6 +58,24 @@ sequenceDiagram
     Sub-->>Root: 10 (자기 children 합산)
     Root->>Root: 다른 children 도 동일하게 합산
     Root-->>Client: 총합 반환
+```
+
+```kotlin
+interface FileSystemItem { // Component
+    fun getSize(): Int
+}
+
+class File(private val sizeKb: Int) : FileSystemItem { // Leaf
+    override fun getSize() = sizeKb
+}
+
+class Folder(private val children: List<FileSystemItem>) : FileSystemItem { // Composite
+    override fun getSize() = children.sumOf { it.getSize() } // 재귀
+}
+
+fun printTotalSize(root: FileSystemItem) { // Client
+    println(root.getSize()) // File 인지 Folder 인지 몰라도 됨
+}
 ```
 
 - **Component**: `Leaf` 와 `Composite` 가 공통으로 구현하는 인터페이스 (`FileSystemItem`). Client 는 이 인터페이스만 앎.

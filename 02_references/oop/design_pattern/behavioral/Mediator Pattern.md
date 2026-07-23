@@ -21,6 +21,9 @@ date created: 2024-12-12 15:48:17 +09:00
 ## Examples
 
 - **필드/컴포저블이 서로를 직접 참조**하는 폼 화면은, 필드 하나를 재사용하려고 다른 화면에 갖다 놓으면 참조하던 다른 필드가 없어서 깨짐. Mediator 를 두면 각 필드는 Mediator 하고만 소통하므로, 다른 화면에서도 그대로 재사용할 수 있음.
+
+다른 도메인에도 같은 구조가 쓰임. (아래 Structure 부터는 다시 회원가입 폼 예시로 돌아감.)
+
 - **채팅방의 참가자들**이 서로에게 직접 메시지를 보낸다면 참가자가 늘어날수록 연결(그리고 예외 처리)이 기하급수적으로 늘어남. `ChatRoom` 이라는 Mediator 를 통해서만 메시지를 주고받으면, 참가자는 방(Mediator)에만 접속하면 됨.
 - **여러 다이얼로그/위젯이 서로의 상태를 알아야 하는 설정 화면**(예: "자동 백업" 체크박스를 끄면 "백업 주기" 드롭다운이 비활성화)에서, 위젯끼리 직접 참조하는 대신 Mediator 가 상태 변화를 감지해서 관련 위젯들에 지시하면 위젯 각각은 다른 위젯의 존재를 몰라도 됨.
 
@@ -55,6 +58,34 @@ sequenceDiagram
     Note over Mediator: CountryField 는 StateField 를 전혀 모름
     Mediator->>State: updateStates(country)
     Mediator->>Submit: revalidate()
+```
+
+```kotlin
+interface FormMediator {
+    fun onCountrySelected(country: String)
+}
+
+class CountryField(private val mediator: FormMediator) {
+    fun onSelected(country: String) = mediator.onCountrySelected(country) // 다른 필드를 모름
+}
+
+class StateField {
+    fun updateStates(country: String) { /* ... */ }
+}
+
+class SubmitButton {
+    fun revalidate() { /* ... */ }
+}
+
+class RegistrationFormController(
+    private val stateField: StateField,
+    private val submitButton: SubmitButton,
+) : FormMediator {
+    override fun onCountrySelected(country: String) {
+        stateField.updateStates(country) // Colleague 들은 서로를 모름
+        submitButton.revalidate()
+    }
+}
 ```
 
 - **Mediator**: 컴포넌트들과 상호작용하기 위한 인터페이스 (`notify(sender, event)` 등).
@@ -119,9 +150,9 @@ interface FormMediator {
 }
 
 @Inject
-class RegistrationFormMediator(
-    private val stateField: StateFieldController,
-    private val submitButton: SubmitButtonController,
+class RegistrationFormController(
+    private val stateField: StateField,
+    private val submitButton: SubmitButton,
 ) : FormMediator {
     override fun onCountrySelected(country: String) {
         stateField.updateStates(country) // Colleague 들은 서로를 모름
@@ -138,4 +169,4 @@ interface AppGraph {
 }
 ```
 
-`StateFieldController` 와 `SubmitButtonController` 는 서로의 존재를 모름. 상호작용 규칙이 바뀌어도 `RegistrationFormMediator` 하나만 고치면 되고, `AppGraph` 가 어떤 Colleague 들을 Mediator 에 엮을지 아는 유일한 지점.
+`StateField` 와 `SubmitButton` 은 서로의 존재를 모름. 상호작용 규칙이 바뀌어도 `RegistrationFormController` 하나만 고치면 되고, `AppGraph` 가 어떤 Colleague 들을 Mediator 에 엮을지 아는 유일한 지점.

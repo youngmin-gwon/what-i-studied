@@ -148,25 +148,27 @@ flowchart LR
 
 **"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** [Strategy Pattern](../behavioral/Strategy%20Pattern.md) 과 같은 답. Factory Method 가 없애는 건 "아는 사람" 이 아니라 **"아는 위치의 개수"** — Composition Root 하나로 모임.
 
-**Android 예시 (Metro)**
+**Android 예시 (Metro)** — Structure 절의 `Transport`/`Truck`/`Ship` 을 그대로 이어서, 배송 화면이 어떤 운송 수단을 쓸지는 Composition Root 가 결정.
 
 ```kotlin
-@Inject
-class CheckoutViewModel(private val repository: OrderRepository) // ViewModel()
+interface Transport
+@Inject class Truck : Transport
+@Inject class Ship : Transport
 
-interface OrderRepository
-@Inject class RemoteOrderRepository : OrderRepository
+@Inject
+class DeliveryViewModel(private val transport: Transport) // Truck 인지 Ship 인지 모름
 
 @DependencyGraph(AppScope::class)
 interface AppGraph {
-    val checkoutViewModel: CheckoutViewModel
+    val deliveryViewModel: DeliveryViewModel
 
-    @Binds
-    fun bindOrderRepository(impl: RemoteOrderRepository): OrderRepository
+    @Provides
+    fun provideTransport(shipment: ShipmentInfo): Transport =
+        if (shipment.isOverseas) Ship() else Truck()
 }
 
 val graph = createGraph<AppGraph>()
-val viewModel = graph.checkoutViewModel // AppGraph 가 사실상 create() 를 구현해주는 팩토리 역할
+val viewModel = graph.deliveryViewModel // AppGraph 가 사실상 create() 를 구현해주는 팩토리 역할
 ```
 
-DI 없이 직접 구현했다면 `CheckoutViewModelFactory : ViewModelProvider.Factory` 를 만들고 `create()` 안에서 `RemoteOrderRepository` 를 직접 생성해 넘겨야 했을 것. Metro 는 `@Inject` 생성자와 그래프 선언만으로 이 팩토리 역할을 대신 만들어 줌 — Factory Method 패턴이 사라진 게 아니라 Container 내부 구현으로 흡수된 것.
+DI 없이 직접 구현했다면 `DeliveryViewModelFactory : ViewModelProvider.Factory` 를 만들고 `create()` 안에서 `Truck` 또는 `Ship` 을 직접 생성해 넘겨야 했을 것. Metro 는 `@Inject` 생성자와 그래프 선언만으로 이 팩토리 역할을 대신 만들어 줌 — Factory Method 패턴이 사라진 게 아니라 Container 내부 구현으로 흡수된 것.

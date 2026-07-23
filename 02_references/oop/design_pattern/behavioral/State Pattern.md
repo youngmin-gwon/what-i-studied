@@ -20,8 +20,10 @@ date created: 2024-12-12 15:48:27 +09:00
 ## Examples
 
 - **미디어 플레이어의 재생 상태**: 조건문으로 구현하면 버튼 이벤트마다 `if (state == PLAYING)` 분기가 반복되지만, `PlayingState.pause()`, `PausedState.play()` 처럼 상태별 클래스로 나누면 각 상태에서 허용되는 동작만 자연스럽게 구현됨.
-- **이슈 트래커(Jira)의 티켓 상태**: `OPEN → IN PROGRESS → RESOLVED → CLOSED` 처럼 상태마다 허용되는 다음 상태가 다름. 조건문으로 짜면 "이 상태에서 저 상태로 갈 수 있는지" 검증 로직이 여기저기 흩어지지만, State 클래스마다 자신이 전이 가능한 다음 상태를 알고 있게 하면 전이 규칙이 한 곳(해당 State 클래스)에 모임.
 
+다른 도메인에도 같은 구조가 쓰임. (아래 Structure 부터는 다시 미디어 플레이어 예시로 돌아감.)
+
+- **이슈 트래커(Jira)의 티켓 상태**: `OPEN → IN PROGRESS → RESOLVED → CLOSED` 처럼 상태마다 허용되는 다음 상태가 다름. 조건문으로 짜면 "이 상태에서 저 상태로 갈 수 있는지" 검증 로직이 여기저기 흩어지지만, State 클래스마다 자신이 전이 가능한 다음 상태를 알고 있게 하면 전이 규칙이 한 곳(해당 State 클래스)에 모임.
 - **신호등**: 현재 색(빨강/노랑/초록)에 따라 "다음 색으로 바뀌는 시점" 과 "허용되는 동작" 이 다름. 색깔별 조건문 대신 `RedState`, `GreenState` 클래스로 나누면 각 색이 다음에 어떤 색으로 바뀌는지를 스스로 결정하게 만들 수 있음.
 
 ## Structure
@@ -52,6 +54,35 @@ sequenceDiagram
     Player->>Playing: pause()
     Playing->>Player: setState(PausedState())
     Note over Player: 현재 state = PausedState 로 전이 완료.<br/>Context 의 pause() 코드는 그대로.
+```
+
+```kotlin
+interface PlayerState {
+    fun play(context: MediaPlayer): PlayerState
+    fun pause(context: MediaPlayer): PlayerState
+}
+
+class PlayingState : PlayerState {
+    override fun play(context: MediaPlayer) = this // 이미 재생 중이면 무시
+    override fun pause(context: MediaPlayer): PlayerState {
+        println("일시정지")
+        return PausedState() // 다음 상태로 스스로 전이시킴
+    }
+}
+
+class PausedState : PlayerState {
+    override fun play(context: MediaPlayer): PlayerState {
+        println("재생 시작")
+        return PlayingState()
+    }
+    override fun pause(context: MediaPlayer) = this // 이미 정지 상태면 무시
+}
+
+class MediaPlayer {
+    private var state: PlayerState = PausedState()
+    fun play() { state = state.play(this) }
+    fun pause() { state = state.pause(this) }
+}
 ```
 
 - **Context**: 현재 상태를 가리키는 ConcreteState 인스턴스를 필드로 보관함. ConcreteState 의 구체적인 구현은 모르고 `State` 인터페이스로만 다룸. 상태를 바꾸는 setter 를 가짐.
@@ -104,28 +135,28 @@ flowchart LR
 
 ```kotlin
 sealed interface PlayerState {
-    fun play(context: MediaPlayerContext): PlayerState
-    fun pause(context: MediaPlayerContext): PlayerState
+    fun play(context: MediaPlayer): PlayerState
+    fun pause(context: MediaPlayer): PlayerState
 }
 
 class PlayingState(private val audioManager: AudioManager) : PlayerState {
-    override fun play(context: MediaPlayerContext) = this
-    override fun pause(context: MediaPlayerContext): PlayerState {
+    override fun play(context: MediaPlayer) = this
+    override fun pause(context: MediaPlayer): PlayerState {
         audioManager.pause()
         return PausedState(audioManager) // 다음 State 를 직접 앎
     }
 }
 
 class PausedState(private val audioManager: AudioManager) : PlayerState {
-    override fun play(context: MediaPlayerContext): PlayerState {
+    override fun play(context: MediaPlayer): PlayerState {
         audioManager.resume()
         return PlayingState(audioManager)
     }
-    override fun pause(context: MediaPlayerContext) = this
+    override fun pause(context: MediaPlayer) = this
 }
 
 @Inject
-class MediaPlayerContext(private val audioManager: AudioManager) {
+class MediaPlayer(private val audioManager: AudioManager) {
     private var state: PlayerState = PausedState(audioManager)
     fun onPlayClicked() { state = state.play(this) }
     fun onPauseClicked() { state = state.pause(this) }
@@ -133,11 +164,11 @@ class MediaPlayerContext(private val audioManager: AudioManager) {
 
 @DependencyGraph(AppScope::class)
 interface AppGraph {
-    val mediaPlayerContext: MediaPlayerContext
+    val mediaPlayer: MediaPlayer
 
     @Provides
     fun provideAudioManager(): AudioManager = AudioManagerImpl()
 }
 ```
 
-`AppGraph` 는 `MediaPlayerContext` 가 어떤 `AudioManager` 로 시작할지만 배선함. 상태들이 서로를 알고 전이하는 로직 자체는 `AppGraph` 가 아니라 State 클래스들 내부에 있음 — Strategy 였다면 어떤 전략을 쓸지 Composition Root 가 정했겠지만, State 는 "다음 상태가 무엇인지" 를 State 스스로 결정한다는 점이 다름.
+`AppGraph` 는 `MediaPlayer` 가 어떤 `AudioManager` 로 시작할지만 배선함. 상태들이 서로를 알고 전이하는 로직 자체는 `AppGraph` 가 아니라 State 클래스들 내부에 있음 — Strategy 였다면 어떤 전략을 쓸지 Composition Root 가 정했겠지만, State 는 "다음 상태가 무엇인지" 를 State 스스로 결정한다는 점이 다름.

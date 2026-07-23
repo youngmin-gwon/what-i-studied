@@ -2,15 +2,19 @@
 title: Decorator Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2025-12-10 14:01:48 +09:00
+date modified: 2026-07-23 14:25:08 +09:00
 date created: 2024-12-12 15:52:49 +09:00
 ---
 
 ## Description
 
-텍스트 컴포저블에 배경색과 테두리를 추가해야 한다고 해보자. 상속으로 풀면 `BorderedText`, `BackgroundText`, `BorderedBackgroundText` 처럼 조합 경우의 수만큼 컴포넌트가 늘어나고, 이걸 "모든 텍스트가 아니라 특정 인스턴스에만" 적용하고 싶다면 상속으로는 아예 불가능함 — 상속은 클래스 단위로 고정되지, 인스턴스 하나만 골라서 기능을 얹을 수 없기 때문.
+카페 주문 시스템에서 에스프레소(`Espresso`)에 우유·시럽 같은 토핑을 추가해야 한다고 해보자. 상속으로 풀면 `EspressoWithMilk`, `EspressoWithSyrup`, `EspressoWithMilkAndSyrup` 처럼 토핑 조합 경우의 수만큼 클래스가 늘어나고, 이걸 "이 주문 하나에만" 적용하고 싶다면 상속으로는 아예 불가능함 — 상속은 클래스 단위로 고정되지, 인스턴스 하나만 골라서 기능을 얹을 수 없기 때문.
 
-**Decorator Pattern** 은 이럴 때 객체를 감싸는 wrapper 객체를 겹겹이 쌓아서, 기존 인터페이스는 그대로 유지한 채 런타임에 필요한 인스턴스에만 책임을 추가하는 구조(Structural) 패턴. Jetpack Compose 의 `Modifier` 가 정확히 이 방식으로 동작함 — `Modifier.background(color).border(1.dp, Color.Gray).padding(8.dp)` 처럼 필요한 `Modifier` 만 그때그때 이어붙이면 되고, 조합마다 새 컴포넌트를 미리 만들어둘 필요가 없음. `Modifier` 체인은 내부적으로 각 `Modifier.Element` 가 다음 요소를 감싸며 레이아웃/그리기 동작을 하나씩 추가하는 구조라, Decorator 패턴 그 자체로 볼 수 있음.
+**Decorator Pattern** 은 이럴 때 객체를 감싸는 wrapper 객체를 겹겹이 쌓아서, 기존 인터페이스는 그대로 유지한 채 런타임에 필요한 인스턴스에만 책임을 추가하는 구조(Structural) 패턴. `Espresso` 를 `MilkDecorator` 로 감싸고, 그걸 다시 `SyrupDecorator` 로 감싸면 `MilkDecorator(SyrupDecorator(espresso))` 하나로 "우유 + 시럽 에스프레소" 주문이 완성되고, 가격과 설명도 감쌀 때마다 자동으로 누적됨.
+
+Jetpack Compose 의 `Modifier` 도 정확히 이 방식으로 동작함 — `Modifier.background(color).border(1.dp, Color.Gray).padding(8.dp)` 처럼 필요한 `Modifier` 만 그때그때 이어붙이면 되고, 조합마다 새 컴포넌트를 미리 만들어둘 필요가 없음. `Modifier` 체인은 내부적으로 각 `Modifier.Element` 가 다음 요소를 감싸며 레이아웃/그리기 동작을 하나씩 추가하는 구조라, Decorator 패턴 그 자체로 볼 수 있음.
+
+이 문서에서는 이 **카페 주문(Coffee)** 예시를 Structure → Pros/Cons → Modern Applicability 까지 계속 이어서 사용함.
 
 - **핵심**: 객체를 wrapper 로 감싸서, 원래 인터페이스를 유지한 채 동적으로 새 책임을 추가·제거함.
 - **목적**:
@@ -20,9 +24,10 @@ date created: 2024-12-12 15:52:49 +09:00
 
 ## Examples
 
+카페 주문 예시 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 예시 두 개. (아래 Structure 부터는 다시 카페 주문 예시로 돌아감.)
+
 - **Compose `Modifier` 체이닝**: 스크롤 가능한 화면과 아닌 화면이 섞여 있다면, 상속 없이 `Modifier.verticalScroll(state)` 하나만 이어붙이면 됨. 상속 기반이었다면 "스크롤 가능한 버전" 컴포넌트를 따로 만들어야 했음.
 - **네트워크 요청 처리**: 로깅, 재시도, 캐싱을 각각 `LoggingSender`, `RetrySender`, `CachingSender` 로 만들어 겹겹이 감싸면, 특정 요청에만 캐싱을 빼는 식으로 조합을 자유롭게 바꿀 수 있음. 하나의 `Sender` 클래스에 다 넣으면 필요 없는 기능도 항상 따라옴.
-- **음료 주문 시스템(카페 예제)**: `Coffee` 에 `MilkDecorator`, `SyrupDecorator` 를 씌우면 가격과 설명이 자동으로 누적됨. 상속으로 풀면 `MilkSyrupCoffee`, `MilkCoffee`, `SyrupCoffee` 처럼 토핑 조합 개수만큼 클래스가 생겨야 함.
 
 ## Structure
 
@@ -58,6 +63,30 @@ sequenceDiagram
     Espresso-->>Syrup: 3000
     Syrup-->>Milk: 3000 + 500 (시럽)
     Milk-->>Client: 3500 + 500 (우유) = 4000
+```
+
+```kotlin
+interface Coffee { // Component
+    fun cost(): Int
+}
+
+class Espresso : Coffee { // Concrete Component
+    override fun cost() = 3000
+}
+
+abstract class CoffeeDecorator(protected val wrappee: Coffee) : Coffee // Base Decorator
+
+class MilkDecorator(wrappee: Coffee) : CoffeeDecorator(wrappee) { // Concrete Decorator A
+    override fun cost() = wrappee.cost() + 500
+}
+
+class SyrupDecorator(wrappee: Coffee) : CoffeeDecorator(wrappee) { // Concrete Decorator B
+    override fun cost() = wrappee.cost() + 500
+}
+
+// Client: 필요한 토핑만큼 겹겹이 감싸며 조립
+val order: Coffee = MilkDecorator(SyrupDecorator(Espresso()))
+println(order.cost()) // 4000
 ```
 
 - **Component**: `Concrete Component` 와 `Decorator` 가 공통으로 구현하는 인터페이스 (`Coffee`). 상태를 갖지 않는, 가볍고 순수한 인터페이스로 유지하는 게 좋음.
@@ -117,7 +146,7 @@ flowchart LR
 | :--- | :--- | :--- |
 | [Adapter](Adapter%20Pattern.md) | 둘 다 객체를 감싸는 Wrapper 구조 | Adapter 는 인터페이스를 **바꿔서** 호환을 맞춤. Decorator 는 인터페이스를 **그대로 유지**하면서 기능을 덧붙임. |
 | [Proxy](Proxy%20Pattern.md) | 둘 다 같은 인터페이스를 유지한 채 감싼 객체에 위임하는 구조 | Decorator 는 **기능을 추가**하는 게 목적이고, 무엇을 얼마나 감쌀지는 항상 **Client 가 결정**함(합성이 Client 통제 하에 있음). Proxy 는 **접근을 제어**(지연 생성·권한 검사·로깅 등 housekeeping)하는 게 목적이고, 보통 Proxy 자신이 감싼 서비스 객체의 생명주기를 관리함 — Client 는 Proxy 를 진짜 서비스인 줄 알고 쓰는 경우가 많음. |
-| [Composite](Composite%20Pattern.md) | 둘 다 재귀적 Composition 구조라 다이어그램이 비슷함 | Decorator 는 자식이 **1개**뿐이고 감싼 객체에 새 책임을 "더함". Composite 는 자식이 **여러 개**이고 자식들의 결과를 "합산/요약" 함. Decorator 를 자식이 1개인 Composite 로 볼 수 있고, 둘을 함께 써서 Composite 트리의 특정 노드만 Decorator 로 확장하는 것도 가능함. |
+| [Composite](Composite%20Pattern.md) | 둘 다 재귀적 Composition 구조라 다이어그램이 비슷함 | Decorator 는 자식이 **1 개**뿐이고 감싼 객체에 새 책임을 "더함". Composite 는 자식이 **여러 개**이고 자식들의 결과를 "합산/요약" 함. Decorator 를 자식이 1 개인 Composite 로 볼 수 있고, 둘을 함께 써서 Composite 트리의 특정 노드만 Decorator 로 확장하는 것도 가능함. |
 | [Chain of Responsibility](../behavioral/Chain%20of%20Responsibility%20Pattern.md) | 둘 다 재귀적 구조(감싸거나 연결된 객체에 위임)를 가짐 | Chain of Responsibility 의 handler 는 서로 독립적으로 임의의 처리를 하고, 원하면 요청을 더 이상 전달하지 않을 수 있음(흐름 중단 가능). Decorator 는 항상 감싼 객체를 호출해서 기본 인터페이스와 일관성을 유지해야 하고, 요청의 흐름을 중간에 끊을 수 없음. |
 | [Strategy](../behavioral/Strategy%20Pattern.md) | 둘 다 Composition 기반 | Decorator 는 객체의 **겉**(기존 인터페이스는 유지한 채 책임을 덧붙임)을 바꾸고, Strategy 는 객체의 **속**(특정 동작의 알고리즘 자체)을 교체함. |
 | [Prototype](../creational/Prototype%20Pattern.md) | 함께 쓰기 좋음 | Decorator(그리고 Composite)를 많이 쓰는 설계에서는, 여러 겹으로 감싼 wrapper 스택을 처음부터 다시 조립하는 대신 Prototype 으로 통째로 복제하면 이득을 볼 수 있음. |
@@ -128,41 +157,27 @@ flowchart LR
 
 **"그래도 결국 누군가는 조합 순서를 알아야 하지 않나?"** 맞음. Decorator 가 없애는 건 "조합을 아는 코드" 가 아니라, 조합 경우의 수만큼 서브클래스를 미리 만들어야 하는 부담. Composition Root 에서 wrapper 를 몇 겹, 어떤 순서로 씌울지 한 번만 결정하면 됨.
 
-**Android 예시 (Metro)** — OkHttp 의 `Interceptor` 체인이 Decorator 패턴의 대표적인 실사례임: 각 Interceptor 가 `Chain` 을 감싸고, 로깅·인증·재시도를 겹겹이 쌓음. 같은 아이디어를 도메인 계층의 `Repository` 에 적용하면 아래처럼 됨.
+**Android 예시 (Metro)** — OkHttp 의 `Interceptor` 체인이 Decorator 패턴의 대표적인 실사례임: 각 Interceptor 가 `Chain` 을 감싸고, 로깅·인증·재시도를 겹겹이 쌓음. Structure 절의 카페 예시를 그대로 주문 앱에 옮기면, 사용자가 화면에서 고른 토핑에 따라 런타임에 몇 겹을 어떤 순서로 감쌀지가 정해지는 걸 아래처럼 보여줄 수 있음.
 
 ```kotlin
-interface UserRepository { // Component
-    suspend fun getUser(id: String): User
-}
-
 @Inject
-class RemoteUserRepository(private val api: UserApi) : UserRepository { // Concrete Component
-    override suspend fun getUser(id: String) = api.fetchUser(id)
-}
-
-@Inject
-class CachingUserRepository(private val wrappee: UserRepository) : UserRepository { // Decorator
-    private val cache = mutableMapOf<String, User>()
-    override suspend fun getUser(id: String) =
-        cache.getOrPut(id) { wrappee.getUser(id) }
-}
-
-@Inject
-class LoggingUserRepository(private val wrappee: UserRepository) : UserRepository { // Decorator
-    override suspend fun getUser(id: String): User {
-        println("fetching $id")
-        return wrappee.getUser(id)
-    }
-}
+class OrderViewModel(private val menuFactory: (toppings: List<String>) -> Coffee)
 
 @DependencyGraph(AppScope::class)
 interface AppGraph {
-    val userRepository: UserRepository
+    val orderViewModel: OrderViewModel
 
     @Provides
-    fun provideUserRepository(remote: RemoteUserRepository): UserRepository =
-        LoggingUserRepository(CachingUserRepository(remote)) // 감싸는 순서를 여기서 결정
+    fun provideMenuFactory(): (List<String>) -> Coffee = { toppings ->
+        toppings.fold(Espresso() as Coffee) { coffee, topping ->
+            when (topping) {
+                "milk" -> MilkDecorator(coffee)
+                "syrup" -> SyrupDecorator(coffee)
+                else -> coffee
+            }
+        }
+    }
 }
 ```
 
-`AppGraph` 의 `provideUserRepository` 가 "몇 겹을, 어떤 순서로 씌울지" 를 결정하는 유일한 지점. `ViewModel` 은 `UserRepository` 뒤에 로깅과 캐싱이 몇 겹 감싸져 있는지 전혀 모름.
+`AppGraph` 의 `provideMenuFactory` 가 "토핑을 몇 겹, 어떤 순서로 씌울지" 를 결정하는 유일한 지점. `OrderViewModel` 은 사용자가 고른 커피에 우유와 시럽이 몇 겹 감싸져 있는지 전혀 모름 — 주문마다 감싸는 개수와 순서가 자유롭게 달라짐.

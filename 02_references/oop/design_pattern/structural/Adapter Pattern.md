@@ -20,6 +20,8 @@ date created: 2024-12-12 14:59:28 +09:00
 
 ## Examples
 
+주식 시세 예시 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 예시들. (아래 Structure 부터는 다시 주식 시세 예시로 돌아감.)
+
 - **외부 API 연동**: XML 만 주는 결제 게이트웨이와 JSON 만 받는 내부 서비스가 있다면, Adapter 없이는 내부 서비스 코드에 XML 파싱을 억지로 끼워 넣어야 함. `PaymentGatewayAdapter` 를 두면 내부 서비스는 JSON 인터페이스만 계속 바라봄.
 - **레거시 코드 재사용**: 예전에 짠 `LegacyLogger.writeLog(String)` 을 새 `Logger` 인터페이스(`log(LogEvent)`) 를 쓰는 시스템에 넣고 싶다면, `LegacyLoggerAdapter` 하나로 감싸면 됨. `LegacyLogger` 코드는 한 줄도 안 건드림.
 - **콜백 API 를 Flow 로 변환**: 레거시 카메라 SDK 가 `onFrameAvailable(ByteArray)` 같은 콜백 인터페이스만 제공한다면, Compose 화면에서 자연스럽게 구독하려면 `Flow` 로 감싸야 함. `CameraFrameAdapter` 가 콜백을 `callbackFlow { }` 로 변환해주면, 나머지 코드는 `Flow<Bitmap>` 만 알면 됨 — SDK 의 콜백 인터페이스는 한 줄도 안 바꿈.
@@ -55,6 +57,24 @@ sequenceDiagram
 
 (object adapter 기준. 다중 상속을 지원하는 언어라면 Adapter 가 Target 을 구현함과 동시에 Adaptee 를 상속하는 class adapter 도 가능하지만, Kotlin/Java 등 대부분의 현대 언어는 클래스 다중 상속을 지원하지 않아 object adapter 가 사실상 표준.)
 
+```kotlin
+interface JsonDataSource { // Target
+    fun getData(): String
+}
+
+class XmlStockProvider { // Adaptee: 3rd-party, 인터페이스를 바꿀 수 없음
+    fun fetchXml(): String = "<stock>...</stock>"
+}
+
+class XmlToJsonAdapter(private val adaptee: XmlStockProvider) : JsonDataSource {
+    override fun getData(): String = convertXmlToJson(adaptee.fetchXml())
+}
+
+class CoreClasses(private val dataSource: JsonDataSource) { // Client
+    fun process() = dataSource.getData() // XmlStockProvider 존재를 모름
+}
+```
+
 - **Target**: Client 가 기대하는 인터페이스 (`JsonDataSource`).
 - **Adaptee**: 기존에 존재하지만 Target 과 인터페이스가 다른 클래스 (`XmlStockProvider`, 3rd-party 라이브러리 등).
 - **Adapter**: Target 을 구현하면서 내부적으로 Adaptee 를 감싸 호출을 위임. 변환 로직이 이 클래스 안에 갇혀 있음.
@@ -71,8 +91,8 @@ sequenceDiagram
 ## Pros
 
 - **변환 로직이 한 곳에 모임**: XML→JSON 변환 코드가 `XmlToJsonAdapter` 안에만 있어서, 이 변환이 잘못됐을 때 어디를 봐야 하는지 명확함 ⇒ **[SRP(Single Responsibility Principle)](../../solid/SRP(Single%20Responsibility%20Principle).md)**.
-- **기존 코드를 건드리지 않고 새 어댑터를 추가 가능**: 결제 게이트웨이가 하나 더 늘어도 `PaymentGatewayAdapterB` 를 새로 추가할 뿐, 기존 `PaymentGatewayAdapterA` 나 Client 코드는 그대로 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
-- **domain layer 테스트가 쉬워짐**: Client 는 Target 인터페이스에만 의존하므로, 테스트에서는 Adaptee 대신 가짜(Fake/Mock) Target 구현체를 넣어주면 됨.
+- **기존 코드를 건드리지 않고 새 어댑터를 추가 가능**: 새로운 데이터 소스(예: CSV 형식의 `CsvStockProvider`)가 추가돼도 `CsvToJsonAdapter` 하나만 새로 추가하면 되고, 기존 `XmlToJsonAdapter` 나 `Core Classes` 코드는 그대로 ⇒ **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)**.
+- **domain layer 테스트가 쉬워짐**: `Core Classes` 는 `JsonDataSource` 인터페이스에만 의존하므로, 테스트에서는 `XmlStockProvider` 대신 가짜(Fake/Mock) `JsonDataSource` 구현체를 넣어주면 됨.
 
 ## Cons
 
@@ -111,7 +131,7 @@ flowchart LR
 
 ```kotlin
 interface JsonDataSource {
-    fun fetch(): String // JSON
+    fun getData(): String // JSON
 }
 
 // Adaptee: 3rd-party, 인터페이스를 바꿀 수 없음
@@ -120,8 +140,8 @@ class XmlStockProvider {
 }
 
 @Inject
-class XmlToJsonAdapter(private val provider: XmlStockProvider) : JsonDataSource {
-    override fun fetch(): String = convertXmlToJson(provider.fetchXml())
+class XmlToJsonAdapter(private val adaptee: XmlStockProvider) : JsonDataSource {
+    override fun getData(): String = convertXmlToJson(adaptee.fetchXml())
 }
 
 @Inject

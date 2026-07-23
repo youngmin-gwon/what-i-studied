@@ -20,7 +20,8 @@ DB `ConnectionPool` 을 화면마다 `new ConnectionPool()` 로 새로 만든다
 
 ## Examples
 
-- **커넥션 풀**: 화면마다 `new ConnectionPool()` 하면 DB 서버가 허용하는 최대 커넥션 수를 금방 넘겨버림. 하나만 있으면 앱 전체가 커넥션 풀을 공유해서 자원을 관리할 수 있음.
+커넥션 풀 예시 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 예시 두 개. (아래 Structure 부터는 다시 커넥션 풀 예시로 돌아감.)
+
 - **앱 설정 객체(AppConfig)**: 인스턴스가 여러 개면 각자 다른 설정 값을 들고 있어서 "설정을 바꿨는데 다른 화면엔 반영이 안 됨" 같은 버그가 생김. 하나만 있으면 항상 같은 값을 보게 됨.
 - **로그 수집기(Logger)**: 로그를 파일 하나에 순서대로 쓰고 싶은데 인스턴스가 여러 개면 파일 핸들 경합이나 순서 꼬임이 생길 수 있음. 하나로 모으면 순서 보장이 쉬워짐.
 
@@ -56,6 +57,21 @@ sequenceDiagram
     Note over S: instance 이미 있음 → 새로 만들지 않고 그대로 반환
     S-->>B: 같은 instance
     Note over A,B: A와 B는 완전히 동일한 객체를 참조
+```
+
+```kotlin
+class ConnectionPool private constructor() {
+    companion object {
+        private var instance: ConnectionPool? = null
+
+        fun getInstance(): ConnectionPool =
+            instance ?: ConnectionPool().also { instance = it }
+    }
+}
+
+val poolA = ConnectionPool.getInstance()
+val poolB = ConnectionPool.getInstance()
+// poolA 와 poolB 는 완전히 동일한 인스턴스
 ```
 
 - **Singleton**: `private` 생성자, 유일한 인스턴스를 담는 static 필드, 그 인스턴스를 반환하는 static `getInstance()` 를 가진 클래스.

@@ -20,6 +20,8 @@ date created: 2024-12-12 15:53:12 +09:00
 
 ## Examples
 
+아래 세 가지는 Proxy 의 대표적인 활용 유형(Virtual/Protection/Caching Proxy)을 보여주는 예시들. 이 중 **이미지 갤러리(Virtual Proxy)** 예시를 Structure 부터 Modern Applicability 까지 계속 이어서 씀.
+
 - **신용카드 (Virtual/Protection Proxy)**: 신용카드는 현금(원본)에 대한 프록시임. 소비자는 현금을 직접 들고 다닐 필요가 없고, 가게 주인도 보증금을 떼일 위험을 감수하지 않아도 됨 — 카드와 현금은 "결제한다" 는 같은 인터페이스를 구현하지만, 카드는 그 사이에 인증·한도 확인 같은 접근 제어를 끼워 넣음.
 - **이미지 갤러리 (Virtual Proxy)**: 리스트에 이미지 100장을 보여줄 때 원본 이미지를 전부 미리 로드하면 느림. `ImageProxy` 가 실제 로드는 화면에 보일 때(스크롤로 진입할 때)까지 미루면, 클라이언트(리스트 어댑터) 코드는 "지금 로드해야 하나" 를 신경 쓸 필요가 없음.
 - **API 요청 캐싱 (Caching Proxy)**: 같은 API 를 반복 호출하는 코드가 여러 곳에 있다면, 매번 캐시 확인 로직을 중복해서 짜는 대신 `CachingApiProxy` 가 그 사이에서 캐시 적중 여부를 판단하고 없을 때만 실제 API 를 호출하게 만들 수 있음.
@@ -56,6 +58,27 @@ sequenceDiagram
     Client->>Proxy: display() (두 번째 호출)
     Note over Proxy: 이미 있는 RealImage 재사용
     Proxy-->>Client: 즉시 표시
+```
+
+```kotlin
+interface ImageSource { // ServiceInterface
+    fun display(): Bitmap
+}
+
+class RealImage(private val path: String) : ImageSource { // Real Service
+    override fun display(): Bitmap = loadFromDisk(path) // 비용이 큰 작업
+}
+
+class LazyImageProxy(private val path: String) : ImageSource { // Proxy
+    private val real: RealImage by lazy { RealImage(path) } // 필요할 때만 생성
+    override fun display(): Bitmap = real.display()
+}
+
+// Client: 100장을 리스트로 뿌려도 실제 로딩은 표시될 때까지 미뤄짐
+fun renderGallery(paths: List<String>) {
+    val images: List<ImageSource> = paths.map { LazyImageProxy(it) }
+    images.forEach { it.display() }
+}
 ```
 
 - **ServiceInterface**: `Service` 와 `Proxy` 가 공통으로 구현하는 인터페이스 (`ImageSource`). Client 는 이 인터페이스만 앎.
@@ -114,35 +137,23 @@ flowchart LR
 
 **Android 예시 (Metro) — Room/Retrofit 이 만들어주는 프록시.** Room 은 `@Dao` 인터페이스에 대해 컴파일 타임에 실제 구현 클래스(`UserDao_Impl` 같은)를 자동 생성하고, Retrofit 은 런타임에 `interface` 하나로 동적 프록시(dynamic proxy) 를 만들어 HTTP 호출로 위임함. 둘 다 개발자가 인터페이스만 선언하면, "SQL 실행" 또는 "HTTP 요청 변환" 이라는 housekeeping 코드를 프레임워크가 대신 만들어주는 Proxy 패턴의 실사례임. Hilt/Dagger 의 `@AroundInvoke`, Spring AOP 의 프록시 기반 `@Transactional` 도 같은 원리 — 인터페이스 뒤에 프레임워크가 만든 Proxy 를 세워서 부가 로직(트랜잭션, 로깅)을 가로챔.
 
+직접 구현하는 경우라면, Structure 절의 이미지 갤러리 예시를 그대로 리스트 화면에 적용하면 아래와 같은 모양이 됨.
+
 ```kotlin
-interface UserApi { // ServiceInterface
-    suspend fun getUser(id: String): User
-}
+// RealImage/LazyImageProxy 는 Structure 절과 동일 (path 마다 새로 생성되므로 DI 그래프의 싱글턴이 아님)
 
-// Retrofit 이 런타임에 이 인터페이스의 Proxy 구현체를 동적으로 생성함.
-// 개발자는 RealService 에 해당하는 클래스를 직접 작성하지 않음.
-@Provides
-fun provideUserApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
-
-// 직접 구현하는 경우: 인증 토큰 검사를 끼워 넣는 Protection Proxy
 @Inject
-class AuthCheckingUserApi(
-    private val real: UserApi,
-    private val session: SessionManager,
-) : UserApi {
-    override suspend fun getUser(id: String): User {
-        check(session.isLoggedIn()) { "로그인 필요" }
-        return real.getUser(id)
-    }
+class GalleryAdapter(private val imageSourceFactory: (path: String) -> ImageSource) {
+    fun bind(path: String): Bitmap = imageSourceFactory(path).display() // RealImage 인지 Proxy 인지 모름
 }
 
 @DependencyGraph(AppScope::class)
 interface AppGraph {
-    val userApi: UserApi
+    val galleryAdapter: GalleryAdapter
 
     @Provides
-    fun provideRetrofitUserApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
+    fun provideImageSourceFactory(): (String) -> ImageSource = ::LazyImageProxy
 }
 ```
 
-여기서 핵심은, Retrofit 이 `retrofit.create(UserApi::class.java)` 를 호출하는 순간 그 자체가 이미 하나의 **작은 Composition Root**라는 점 — "이 인터페이스에 어떤 Proxy 구현을 연결할지" 를 Retrofit 이라는 프레임워크가 대신 결정해줌. `AppGraph` 는 이 결정을 다시 한 번 감싸서 앱 전체의 단일 배선 지점으로 흡수함. `UserViewModel` 은 지금 손에 든 게 Retrofit 이 만든 동적 프록시인지, 그 위에 인증 체크가 한 겹 더 씌워진 Proxy 인지 전혀 모름.
+`AppGraph` 의 `provideImageSourceFactory` 가 "이 인터페이스에 원본을 연결할지, Proxy 를 연결할지" 를 결정하는 지점. `GalleryAdapter` 는 각 셀이 이미 로드된 `RealImage` 를 들고 있는지, 아직 로드 전인 `LazyImageProxy` 인지 전혀 모름 — Retrofit 이 만든 동적 프록시를 쓰는 코드가 그 프록시의 존재를 모르는 것과 정확히 같은 구조.

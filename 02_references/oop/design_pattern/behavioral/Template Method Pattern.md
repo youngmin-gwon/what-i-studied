@@ -20,6 +20,8 @@ date created: 2024-12-12 15:35:58 +09:00
 
 ## Examples
 
+데이터 파이프라인 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 예시들. (아래 Structure 부터는 다시 파이프라인 예시로 돌아감.)
+
 - **결제 처리 흐름**: "검증 → 결제 → 영수증 발급" 이라는 순서를 각 결제 수단(카드/포인트)마다 복붙하면, 검증 로직에 로깅을 추가해야 할 때 모든 결제 수단 클래스를 다 고쳐야 함. `AbstractPaymentFlow` 에 순서를 고정하고 `charge()` 만 하위 클래스가 구현하면, 검증/로깅 변경은 상위 클래스 한 곳만 고치면 됨.
 - **리포트 생성**: "데이터 조회 → 가공 → 포맷팅(PDF/CSV) → 저장" 구조가 리포트 종류마다 같다면, 포맷팅 단계만 하위 클래스가 다르게 구현하고 나머지는 상위 클래스가 통제함.
 - **API 응답 파싱**: "네트워크 호출 → 에러 체크 → JSON 파싱 → 캐시 저장" 순서가 API 마다 같다면, 에러 체크나 캐시 저장 로직이 하나 바뀔 때 API 클래스 개수만큼 고치는 대신 템플릿 하나만 고치면 됨.
@@ -51,6 +53,31 @@ sequenceDiagram
     Api-->>Pipeline: rawData
     Pipeline->>Pipeline: process(rawData)
     Pipeline->>Api: provideResult(processed)
+```
+
+```kotlin
+abstract class DataPipeline {
+    // templateMethod. final 로 선언해 하위 클래스가 순서 자체는 못 바꾸게 함.
+    fun templateMethod() {
+        val raw = fetchData()          // primitive operation, 하위 클래스가 구현
+        val processed = process(raw)   // 공통 로직, 모든 하위 클래스가 그대로 공유
+        provideResult(processed)       // primitive operation, 하위 클래스가 구현
+    }
+
+    protected abstract fun fetchData(): RawData
+    private fun process(raw: RawData): RawData = raw // 공통 처리 (final operation)
+    protected abstract fun provideResult(data: RawData)
+}
+
+class ApiPipeline(private val api: RemoteApi) : DataPipeline() {
+    override fun fetchData() = api.fetchLatest()
+    override fun provideResult(data: RawData) = println(data) // 콘솔에 출력
+}
+
+class FilePipeline(private val file: File) : DataPipeline() {
+    override fun fetchData() = RawData.fromFile(file)
+    override fun provideResult(data: RawData) = EmailSender.send(data) // 이메일로 전송
+}
 ```
 
 - **AbstractClass**: 알고리즘의 뼈대를 정의하는 `templateMethod()` 를 포함. 하위 클래스가 구현해야 할 추상 연산이나, 필요하면 재정의 가능한 기본 구현을 함께 선언함.
@@ -106,26 +133,30 @@ flowchart LR
 
 **"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** Template Method 는 애초에 상속 관계이므로, 어떤 ConcreteClass 를 쓸지는 **컴파일 타임에 코드 자체(어떤 클래스를 선언했는지)** 로 정해짐 — Strategy 처럼 "누가 concrete 를 배선하는가" 라는 질문보다는, "공통 의존성을 상위 클래스에 어떻게 주입하는가" 가 Composition Root 의 역할이 됨.
 
-**Android 예시 (Metro)** — 화면 진입 로깅 순서를 강제하는 `BaseViewModel` 의 초기화 훅.
+**Android 예시 (Metro)** — Structure 절의 `DataPipeline` 에 로깅이라는 공통 의존성을 추가한 버전. 실행 순서(가져오기 → 가공 → 로깅 → 제공)는 상위 클래스가 고정하고, `Analytics` 처럼 모든 파이프라인이 공유하는 의존성만 Composition Root 가 배선함.
 
 ```kotlin
-abstract class BaseViewModel(private val analytics: Analytics) : ViewModel() {
-    // templateMethod 역할. init 블록으로 순서를 고정.
-    init {
-        analytics.logScreenView(screenName()) // 공통 로직
-        loadInitialData() // primitive operation, 하위 클래스가 구현
-        onReady() // hook operation, 기본은 아무것도 안 함
+abstract class DataPipeline(private val analytics: Analytics) {
+    // templateMethod 역할. 전체 순서를 여기서 고정.
+    fun run() {
+        val raw = fetchData()                           // primitive operation, 하위 클래스가 구현
+        val processed = process(raw)                     // 공통 로직, 모든 하위 클래스가 그대로 공유
+        analytics.logPipelineRun(javaClass.simpleName)    // hook 처럼 끼워둔 공통 로직
+        provideResult(processed)                          // primitive operation, 하위 클래스가 구현
     }
 
-    abstract fun screenName(): String
-    abstract fun loadInitialData()
-    open fun onReady() {}
+    protected abstract fun fetchData(): RawData
+    private fun process(raw: RawData): RawData = raw
+    protected abstract fun provideResult(data: RawData)
 }
 
 @Inject
-class ProfileViewModel(analytics: Analytics) : BaseViewModel(analytics) {
-    override fun screenName() = "profile"
-    override fun loadInitialData() { /* ... */ }
+class ApiPipeline(
+    private val api: RemoteApi,
+    analytics: Analytics,
+) : DataPipeline(analytics) {
+    override fun fetchData() = api.fetchLatest()
+    override fun provideResult(data: RawData) = println(data) // 콘솔에 출력
 }
 
 @DependencyGraph(AppScope::class)
@@ -135,4 +166,4 @@ interface AppGraph {
 }
 ```
 
-`analytics` 라는 공통 의존성은 `AppGraph` 가 배선하고, `BaseViewModel` 은 이를 받아 모든 하위 화면에 로깅 순서를 강제함. `ProfileViewModel` 을 구독하는 Composable 화면은 `loadInitialData()` 만 신경 쓰면 되고, 화면 진입 로깅 순서 자체는 몰라도 됨.
+`analytics` 라는 공통 의존성은 `AppGraph` 가 배선하고, `DataPipeline` 은 이를 받아 모든 하위 파이프라인에 로깅 순서를 강제함. `ApiPipeline` 을 사용하는 쪽은 `fetchData()`/`provideResult()` 만 신경 쓰면 되고, 실행 순서에 로깅이 언제 끼어드는지는 몰라도 됨.

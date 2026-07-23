@@ -20,6 +20,9 @@ date created: 2024-12-12 15:48:37 +09:00
 ## Examples
 
 - **모든 필드를 외부에서 복사해서 저장**하는 방식은 에디터 내부 구조가 바뀔 때마다 저장 로직도 함께 고쳐야 하지만, `editor.save()` 가 스스로 `Memento` 를 만들어 반환하면 에디터 내부가 어떻게 바뀌든 호출부는 영향받지 않음.
+
+다른 도메인에도 같은 구조가 쓰임. (아래 Structure 부터는 다시 에디터 예시로 돌아감.)
+
 - **여러 단계의 폼 입력을 되돌리는 마법사(Wizard) UI**: 단계마다 상태를 통째로 복사해 배열에 저장하면 캡슐화가 깨지지만, 각 단계가 스스로 Memento 를 만들게 하면 "이전 단계로" 버튼은 Memento 를 꺼내 복원 메소드를 호출하기만 하면 됨.
 - **게임의 세이브 포인트**: 캐릭터 객체가 `createMemento()` 로 자기 상태를 캡슐화해서 저장소(Caretaker)에 넘기면, 저장소는 이 스냅샷의 내용을 몰라도 여러 개를 순서대로 보관했다가 필요할 때 캐릭터에게 다시 돌려주는 것만으로 로드가 가능함.
 
@@ -53,6 +56,26 @@ sequenceDiagram
     Note over Editor: ...편집 계속...
     History->>Editor: memento = history.pop()
     Editor->>Editor: restore(memento) → 이전 상태 복원
+```
+
+```kotlin
+interface Memento // 제한된 인터페이스. Caretaker 는 이 타입으로만 다룸(내용은 못 봄).
+
+class TextEditor(private var content: String) {
+    fun save(): Memento = ConcreteMemento(content) // Originator 가 스스로 스냅샷 생성
+
+    fun restore(memento: Memento) {
+        content = (memento as ConcreteMemento).state
+    }
+
+    private class ConcreteMemento(val state: String) : Memento
+}
+
+class HistoryManager {
+    private val history = ArrayDeque<Memento>()
+    fun push(memento: Memento) = history.addLast(memento)
+    fun pop(): Memento? = history.removeLastOrNull() // 내용은 못 보고 보관만 함
+}
 ```
 
 - **Memento**: `ConcreteMemento` 의 필드 접근을 제한하는 인터페이스. `Caretaker` 가 다룰 수 있는 메타데이터(생성 시각, 수행된 행위명 등)만 노출함.
@@ -105,23 +128,23 @@ flowchart LR
 
 **"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** `ViewModel`(Originator)은 자기 상태를 스스로 `SavedStateHandle`(Memento 를 감싼 저장소)에 담고 꺼내오며, 실제로 언제 스냅샷을 만들고 복원할지는 시스템(Caretaker)이 프로세스 종료/재생성 시점에 결정함 — `ViewModel` 을 사용하는 화면 쪽은 이 과정을 전혀 몰라도 됨.
 
-**Android 예시 (Metro)** — `SavedStateHandle` 을 이용한 상태 복원.
+**Android 예시 (Metro)** — 에디터 화면에서 `SavedStateHandle` 을 이용한 상태 복원. Structure 절의 `TextEditor`(Originator)가 하던 역할을, Android 에서는 `ViewModel` 이 이어받음.
 
 ```kotlin
 @Inject
-class SearchViewModel(
+class TextEditorViewModel(
     private val savedStateHandle: SavedStateHandle, // Caretaker 가 시스템 차원에서 주입
 ) {
     // originator 의 상태. 프로세스가 죽었다 살아나도 시스템이 복원해줌.
-    var query: String
-        get() = savedStateHandle["query"] ?: ""
-        set(value) { savedStateHandle["query"] = value }
+    var draftText: String
+        get() = savedStateHandle["draftText"] ?: ""
+        set(value) { savedStateHandle["draftText"] = value }
 }
 
 @DependencyGraph(AppScope::class)
 interface AppGraph {
-    val searchViewModel: SearchViewModel
+    val textEditorViewModel: TextEditorViewModel
 }
 ```
 
-`SearchViewModel` 을 사용하는 Composable 화면은 프로세스가 죽었다 살아났는지, 상태가 어떻게 저장되고 복원됐는지 전혀 알 필요가 없음. `savedStateHandle["query"]` 라는 제한된 인터페이스로만 접근하기 때문에, 내부적으로 어떤 형태(Bundle)로 저장되는지도 캡슐화되어 있음 — GoF 가 설명한 Memento 의 "제한된 인터페이스" 원칙 그대로.
+`TextEditorViewModel` 을 사용하는 Composable 화면은 프로세스가 죽었다 살아났는지, 상태가 어떻게 저장되고 복원됐는지 전혀 알 필요가 없음. `savedStateHandle["draftText"]` 라는 제한된 인터페이스로만 접근하기 때문에, 내부적으로 어떤 형태(Bundle)로 저장되는지도 캡슐화되어 있음 — GoF 가 설명한 Memento 의 "제한된 인터페이스" 원칙 그대로.

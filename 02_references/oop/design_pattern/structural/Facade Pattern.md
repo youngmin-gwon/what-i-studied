@@ -21,6 +21,9 @@ date created: 2024-12-12 15:52:57 +09:00
 ## Examples
 
 - **주문 처리**: `OrderFacade.placeOrder()` 하나로 재고·결제·배송·세금 계산을 다 처리하면, 새로운 화면(모바일 앱, 관리자 콘솔)에서도 5개 서브시스템 호출 순서를 매번 다시 짤 필요가 없음. Facade 없이는 호출 순서가 바뀔 때마다 모든 클라이언트 코드를 찾아 고쳐야 함.
+
+주문 처리 예시 외에 다른 도메인에서도 같은 구조가 쓰임. (아래 Structure 부터는 다시 주문 처리 예시로 돌아감.)
+
 - **미디어 변환 라이브러리**: FFmpeg 같은 라이브러리는 API 가 방대함. `VideoConverterFacade.convertToMp4(file)` 하나만 노출하면, 라이브러리의 나머지 수백 개 API 를 몰라도 필요한 기능은 쓸 수 있음.
 - **부트스트랩 코드**: 앱 시작 시 로깅 설정, 원격 설정 로드, 크래시 리포터 초기화, DB 마이그레이션을 각각 호출하는 대신 `AppBootstrapper.initialize()` 하나로 묶으면, 초기화 순서가 바뀌어도 호출부는 그대로임.
 
@@ -56,6 +59,30 @@ sequenceDiagram
     Facade->>Delivery: schedule(address)
     Facade-->>Client: OrderResult
     Note over Client: 서브시스템 3개의<br/>존재를 전혀 모름
+```
+
+```kotlin
+interface Warehouse { fun reserve(items: List<Item>) }
+interface PaymentProcessing { fun charge(amount: Int) }
+interface Delivery { fun schedule(address: String) }
+
+class OrderFacade(
+    private val warehouse: Warehouse,
+    private val payment: PaymentProcessing,
+    private val delivery: Delivery,
+) {
+    fun placeOrder(cart: Cart): OrderResult {
+        warehouse.reserve(cart.items)
+        payment.charge(cart.amount)
+        delivery.schedule(cart.address)
+        return OrderResult.Success
+    }
+}
+
+// Client
+fun onCheckoutClicked(orderFacade: OrderFacade, cart: Cart) {
+    orderFacade.placeOrder(cart) // Warehouse/PaymentProcessing/Delivery 존재를 모름
+}
 ```
 
 - **Facade**: 어떤 서브시스템 클래스가 요청 처리에 필요한지 알고, 요청을 적절한 순서로 서브시스템에 위임함 (`OrderFacade`).
@@ -115,33 +142,35 @@ flowchart LR
 
 **"그래도 결국 누군가는 서브시스템 5개를 다 알아야 하지 않나?"** 맞음. Facade 가 없애는 건 "서브시스템을 아는 코드" 가 아니라, 그 지식이 여러 클라이언트(화면, 테스트, 다른 서비스)에 중복되는 것. 서브시스템 5개를 아는 코드는 `OrderFacade` 안에만 있으면 됨.
 
-**Android 예시 (Metro)** — 여러 매니저/데이터소스를 감싸는 `Repository` 가 Android 에서 가장 흔한 Facade 사례임.
+**Android 예시 (Metro)** — 여러 매니저/데이터소스를 감싸는 `Repository` 가 Android 에서 가장 흔한 Facade 사례임. Structure 절의 주문 처리 서브시스템을 그대로 이어서 씀.
 
 ```kotlin
-@Inject class LocationManager { /* GPS, 네트워크 위치 */ }
-@Inject class WeatherApi { /* 원격 API */ }
-@Inject class WeatherCache { /* 로컬 캐시 */ }
+@Inject class Warehouse { /* 재고 확인/예약 */ }
+@Inject class PaymentProcessing { /* 결제 처리 */ }
+@Inject class Delivery { /* 배송 예약 */ }
 
 // Facade: 3개 서브시스템을 하나의 단순한 진입점으로 묶음
 @Inject
-class WeatherRepository(
-    private val location: LocationManager,
-    private val api: WeatherApi,
-    private val cache: WeatherCache,
+class OrderFacade(
+    private val warehouse: Warehouse,
+    private val payment: PaymentProcessing,
+    private val delivery: Delivery,
 ) {
-    suspend fun getCurrentWeather(): Weather {
-        val coords = location.getLastKnownLocation()
-        return cache.get(coords) ?: api.fetch(coords).also { cache.put(coords, it) }
+    suspend fun placeOrder(cart: Cart): OrderResult {
+        warehouse.reserve(cart.items)
+        payment.charge(cart.amount)
+        delivery.schedule(cart.address)
+        return OrderResult.Success
     }
 }
 
 @Inject
-class WeatherViewModel(private val repository: WeatherRepository) // 서브시스템 3개를 전혀 모름
+class CheckoutViewModel(private val orderFacade: OrderFacade) // 서브시스템 3개를 전혀 모름
 
 @DependencyGraph(AppScope::class)
 interface AppGraph {
-    val weatherViewModel: WeatherViewModel
+    val checkoutViewModel: CheckoutViewModel
 }
 ```
 
-`WeatherViewModel` 은 `LocationManager`, `WeatherApi`, `WeatherCache` 라는 이름을 몰라도 됨 — `AppGraph` 가 이 셋을 조립해 `WeatherRepository` 를 만들고, `WeatherRepository` 가 셋을 조율하는 Facade 역할을 함.
+`CheckoutViewModel` 은 `Warehouse`, `PaymentProcessing`, `Delivery` 라는 이름을 몰라도 됨 — `AppGraph` 가 이 셋을 조립해 `OrderFacade` 를 만들고, `OrderFacade` 가 셋을 조율하는 Facade 역할을 함.

@@ -58,6 +58,31 @@ sequenceDiagram
     Note over It: 자기만의 순회 상태(스택/인덱스)를<br/>독립적으로 관리
 ```
 
+```kotlin
+interface IterableCollection<T> {
+    fun createIterator(): Iterator<T>
+}
+
+interface Iterator<T> {
+    fun hasNext(): Boolean
+    fun next(): T
+}
+
+class CommentTree(private val root: Comment) : IterableCollection<Comment> {
+    override fun createIterator(): Iterator<Comment> = DepthFirstIterator(root)
+}
+
+class DepthFirstIterator(root: Comment) : Iterator<Comment> {
+    private val stack = ArrayDeque<Comment>().apply { addLast(root) }
+    override fun hasNext() = stack.isNotEmpty()
+    override fun next(): Comment {
+        val comment = stack.removeLast()
+        stack.addAll(comment.replies.asReversed()) // 순회 상태는 이 Iterator 만 갖고 있음
+        return comment
+    }
+}
+```
+
 - **IterableCollection**: 컬렉션과 호환되는 Iterator 를 만들기 위한 인터페이스. 반환 타입을 `Iterator` 로 선언해서, 구현체가 다양한 종류의 Iterator 를 돌려줄 수 있게 함.
 - **ConcreteCollection**: 요청이 올 때마다 자신에게 맞는 ConcreteIterator 의 새 인스턴스를 반환.
 - **Iterator**: 컬렉션을 순차 접근하기 위한 인터페이스 (`next()`, `hasNext()`, 필요하면 현재 위치 조회/리셋 등).
