@@ -107,7 +107,12 @@ flowchart LR
 | [Composite](../structural/Composite%20Pattern.md) | 트리 구조와 자주 함께 쓰임 | CoR 이 Composite 와 결합되면, leaf 컴포넌트가 받은 요청을 부모 체인을 따라 트리 루트까지 전달하는 식으로 쓰임. Composite 자체는 트리 구조를 정의하는 패턴이고, CoR 은 그 트리를 따라 요청을 흘려보내는 패턴. |
 | [Decorator](../structural/Decorator%20Pattern.md) | 재귀적으로 객체를 연쇄시키는 구조가 비슷함 | CoR 의 핸들러들은 서로 독립적으로 임의의 작업을 수행하고, 아무 때나 요청을 다음으로 넘기지 않고 끝낼 수 있음. Decorator 는 기존 인터페이스를 유지하며 동작을 계속 덧붙이는 것이 목적이라, 중간에 처리를 끝내버리는 건 Decorator 의 의도가 아님. |
 
-CoR 의 핸들러는 [Command Pattern](Command%20Pattern.md) 으로 구현할 수도 있음 — 이 경우 같은 요청(컨텍스트 객체)에 대해 다양한 연산을 실행할 수 있음. 반대로 요청 자체를 Command 객체로 만들면, 체인으로 연결된 서로 다른 컨텍스트에서 동일한 커맨드를 실행하는 것도 가능함.
+### CoR × Command 조합
+
+Handler 자체를 [Command Pattern](Command%20Pattern.md) 으로 구현할 수도 있음. 무엇을 Command 로 만드느냐에 따라 정반대 효과가 남.
+
+- **핸들러를 Command 로 구현**: 같은 요청(컨텍스트 객체)이 체인을 따라가며 핸들러마다 다른 연산을 순서대로 적용받음. 예: 이미지 파일 하나가 `ResizeCommand → WatermarkCommand → CompressCommand` 체인을 통과하며 리사이즈 → 워터마크 → 압축을 차례로 적용받는 이미지 처리 파이프라인 — **"같은 대상에 여러 다른 작업을 순서대로"**.
+- **요청 자체를 Command 로 구현**: 반대로 "이 문서를 인쇄해줘" 라는 `PrintCommand` 객체 하나가 `ColorPrinterHandler → MonoPrinterHandler → SaveAsPdfHandler` 체인을 따라 흘러가며, 각기 다른 컨텍스트(프린터)에서 같은 커맨드 실행을 시도함. 컬러 프린터가 안 되면 흑백 프린터로, 그것도 안 되면 PDF 저장으로 자동 대체됨 — **"같은 작업을 여러 다른 대상에 순서대로 시도"**.
 
 ## Modern Applicability (DI/Composition Root)
 

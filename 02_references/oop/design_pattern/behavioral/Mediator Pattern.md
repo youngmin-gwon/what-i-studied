@@ -2,7 +2,7 @@
 title: Mediator Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2026-07-23 12:43:37 +09:00
+date modified: 2026-07-23 13:18:32 +09:00
 date created: 2024-12-12 15:48:17 +09:00
 ---
 
@@ -99,11 +99,11 @@ flowchart LR
     Facade -- "결합을 정리한다는 점에서 유사, 목적 다름" --- Mediator
 ```
 
-| 비교 대상 | 공통점 | Mediator 와의 차이 |
-| :--- | :--- | :--- |
-| [Chain of Responsibility](Chain%20of%20Responsibility%20Pattern.md), [Command](Command%20Pattern.md) | 셋 다 요청의 발신자와 수신자를 연결하는 방식을 다룸 | CoR 은 수신자 사슬을 순차적으로 따라감. Command 는 발신자·수신자 간 단방향 연결. Mediator 는 발신자·수신자의 직접 연결을 아예 없애고, 중재자를 거쳐서만 통신하게 함. |
-| [Observer](Observer%20Pattern.md) | 둘 다 컴포넌트 간 결합을 낮추는 목적, 실제로 함께 구현되는 경우가 많아 경계가 흐릿함 | Mediator 의 목표는 컴포넌트 집합 간의 **상호 종속성 자체를 제거**하는 것 — 대신 컴포넌트들은 단일 Mediator 객체에만 종속됨. Observer 의 목표는 한 객체가 다른 객체에 대해 **동적인 단방향 구독 관계**를 맺는 것. Mediator 를 Publisher 로, Colleague 를 그 이벤트를 구독하는 Subscriber 로 구현하면 두 패턴을 조합한 형태가 되는데, 이 경우 매우 비슷해 보일 수 있음. |
-| [Facade](../structural/Facade%20Pattern.md) | 밀접하게 결합된 클래스들 사이의 상호작용을 정리해준다는 점이 비슷함 | Facade 는 서브시스템에 대한 **단순화된 진입점**을 제공할 뿐, 서브시스템 내부 객체들끼리는 여전히 서로 직접 소통함(Facade 는 서브시스템을 모름 → 단방향). Mediator 는 컴포넌트 간의 상호작용 **자체를 중재**함 — 각 컴포넌트는 Mediator 만 알고 다른 컴포넌트는 아예 모름(양방향, 컴포넌트도 Mediator 를 앎). |
+| 비교 대상                                                                                                | 공통점                                               | Mediator 와의 차이                                                                                                                                                                                                                                      |
+| :--------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Chain of Responsibility](Chain%20of%20Responsibility%20Pattern.md), [Command](Command%20Pattern.md) | 셋 다 요청의 발신자와 수신자를 연결하는 방식을 다룸                     | CoR 은 수신자 사슬을 순차적으로 따라감. Command 는 발신자·수신자 간 단방향 연결. Mediator 는 발신자·수신자의 직접 연결을 아예 없애고, 중재자를 거쳐서만 통신하게 함.                                                                                                                                           |
+| [Observer](Observer%20Pattern.md)                                                                    | 둘 다 컴포넌트 간 결합을 낮추는 목적, 실제로 함께 구현되는 경우가 많아 경계가 흐릿함 | Mediator 의 목표는 컴포넌트 집합 간의 **상호 종속성 자체를 제거**하는 것 — 대신 컴포넌트들은 단일 Mediator 객체에만 종속됨. Observer 의 목표는 한 객체가 다른 객체에 대해 **동적인 단방향 구독 관계**를 맺는 것. Mediator 를 Publisher 로, Colleague 를 그 이벤트를 구독하는 Subscriber 로 구현하면 두 패턴을 조합한 형태가 되는데, 이 경우 매우 비슷해 보일 수 있음. |
+| [Facade](../structural/Facade%20Pattern.md)                                                          | 밀접하게 결합된 클래스들 사이의 상호작용을 정리해준다는 점이 비슷함             | Facade 는 서브시스템에 대한 **단순화된 진입점**을 제공할 뿐, 서브시스템 내부 객체들끼리는 여전히 서로 직접 소통함(Facade 는 서브시스템을 모름 → 단방향). Mediator 는 컴포넌트 간의 상호작용 **자체를 중재**함 — 각 컴포넌트는 Mediator 만 알고 다른 컴포넌트는 아예 모름(양방향, 컴포넌트도 Mediator 를 앎).                                               |
 
 ## Modern Applicability (DI/Composition Root)
 
