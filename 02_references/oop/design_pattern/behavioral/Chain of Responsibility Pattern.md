@@ -20,9 +20,12 @@ date created: 2024-12-12 15:46:36 +09:00
 
 ## Examples
 
+주문 API 예시를 조금 더 구체화하면 이렇게 됨. (아래 Structure 부터는 이 예시를 계속 이어서 씀.)
+
 - **인증 미들웨어 없이 API 컨트롤러 여러 개에 인증 로직을 복붙**했다면, 인증 정책이 바뀔 때마다 모든 컨트롤러를 찾아 고쳐야 함. `AuthHandler` 하나를 체인 앞단에 두면 컨트롤러는 인증을 신경 쓸 필요가 없어짐.
-- **고객센터 티켓 라우팅**: 상담원 레벨 1 이 처리 못하면 레벨 2, 레벨 2 도 못하면 매니저에게 전달. 이 흐름을 조건문으로 짜면 레벨이 늘어날 때마다 분기가 늘어나지만, 체인이라면 핸들러 순서만 조정하면 됨.
-- **캐시 조회**: `CacheHandler` 가 캐시에 값이 있으면 그대로 응답하고 체인을 끝냄. 없으면 다음 `DbHandler` 로 넘어감. 캐시 유무를 판단하는 조건문이 비즈니스 로직 안에 섞이지 않음.
+- **캐시 조회**: `CacheHandler` 가 캐시에 값이 있으면 그대로 응답하고 체인을 끝냄. 없으면 다음 `ValidationHandler` 로 넘어감. 캐시 유무를 판단하는 조건문이 비즈니스 로직 안에 섞이지 않음.
+
+다른 도메인에도 같은 구조가 쓰임 — **고객센터 티켓 라우팅**: 상담원 레벨 1 이 처리 못하면 레벨 2, 레벨 2 도 못하면 매니저에게 전달. 이 흐름을 조건문으로 짜면 레벨이 늘어날 때마다 분기가 늘어나지만, 체인이라면 핸들러 순서만 조정하면 됨.
 
 ## Structure
 
@@ -57,6 +60,28 @@ sequenceDiagram
     Cache->>Order: next.handle(request)
     Note over Order: 여기서 실제 처리 후 종료
     Order-->>Req: response
+```
+
+```kotlin
+interface Handler {
+    fun handle(request: OrderRequest): OrderResponse
+}
+
+abstract class BaseHandler(private val next: Handler?) : Handler {
+    override fun handle(request: OrderRequest): OrderResponse =
+        next?.handle(request) ?: OrderResponse.NotHandled
+}
+
+class AuthHandler(next: Handler?, private val tokenStore: TokenStore) : BaseHandler(next) {
+    override fun handle(request: OrderRequest): OrderResponse =
+        if (!tokenStore.isValid(request.token)) OrderResponse.Unauthorized
+        else super.handle(request) // 다음 핸들러로
+}
+
+class CacheHandler(next: Handler?, private val cache: Cache) : BaseHandler(next) {
+    override fun handle(request: OrderRequest): OrderResponse =
+        cache.get(request.id) ?: super.handle(request) // 캐시 없으면 다음 핸들러로
+}
 ```
 
 - **Handler**: 요청 처리를 위한 공통 인터페이스. 모든 핸들러가 `BaseHandler` 를 상속받는 구조라면 별도로 없어도 됨.
@@ -109,10 +134,10 @@ flowchart LR
 
 ### CoR × Command 조합
 
-Handler 자체를 [Command Pattern](Command%20Pattern.md) 으로 구현할 수도 있음. 무엇을 Command 로 만드느냐에 따라 정반대 효과가 남.
+Handler 자체를 [Command Pattern](Command%20Pattern.md) 으로 구현할 수도 있음. 무엇을 Command 로 만드느냐에 따라 정반대 효과가 남 — 이번에도 같은 주문 API 예시로 설명함.
 
-- **핸들러를 Command 로 구현**: 같은 요청(컨텍스트 객체)이 체인을 따라가며 핸들러마다 다른 연산을 순서대로 적용받음. 예: 이미지 파일 하나가 `ResizeCommand → WatermarkCommand → CompressCommand` 체인을 통과하며 리사이즈 → 워터마크 → 압축을 차례로 적용받는 이미지 처리 파이프라인 — **"같은 대상에 여러 다른 작업을 순서대로"**.
-- **요청 자체를 Command 로 구현**: 반대로 "이 문서를 인쇄해줘" 라는 `PrintCommand` 객체 하나가 `ColorPrinterHandler → MonoPrinterHandler → SaveAsPdfHandler` 체인을 따라 흘러가며, 각기 다른 컨텍스트(프린터)에서 같은 커맨드 실행을 시도함. 컬러 프린터가 안 되면 흑백 프린터로, 그것도 안 되면 PDF 저장으로 자동 대체됨 — **"같은 작업을 여러 다른 대상에 순서대로 시도"**.
+- **핸들러를 Command 로 구현**: 같은 요청(주문 컨텍스트)이 체인을 따라가며 `AuthCommand → CacheCommand → ValidationCommand` 순서로 서로 다른 연산을 순서대로 적용받음 — 지금까지 본 CoR 구조 그대로. 다만 각 핸들러가 Command 이기 때문에, 실행 이력을 스택에 쌓아 특정 단계만 재시도하거나 로그를 남기는 것도 자연스럽게 가능해짐(순수 CoR 만으로는 추가 배관이 필요한 부분) — **"같은 대상에 여러 다른 작업을 순서대로"**.
+- **요청 자체를 Command 로 구현**: 반대로 "이 주문을 결제해줘" 라는 `ProcessPaymentCommand` 객체 하나가 `PrimaryGatewayHandler → BackupGatewayHandler → ManualReviewHandler` 체인을 따라 흘러가며, 각기 다른 컨텍스트(결제 게이트웨이)에서 같은 커맨드 실행을 시도함. 주 결제 게이트웨이가 실패하면 백업 게이트웨이로, 그것도 실패하면 수동 검토로 자동 대체됨 — **"같은 작업을 여러 다른 대상에 순서대로 시도"**.
 
 ## Modern Applicability (DI/Composition Root)
 

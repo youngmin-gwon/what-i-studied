@@ -2,15 +2,15 @@
 title: Composite Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2025-12-09 17:32:50 +09:00
+date modified: 2026-07-23 13:40:54 +09:00
 date created: 2024-12-12 15:52:40 +09:00
 ---
 
 ## Description
 
-파일 탐색기를 만든다고 해보자. `File` 은 크기가 정해져 있고, `Folder` 는 안에 `File` 도 있고 또 다른 `Folder` 도 있을 수 있음. "이 폴더의 전체 용량은?" 을 구하려면 `File` 이면 그냥 크기를 반환하고, `Folder` 면 안에 있는 항목들을 하나씩 다시 검사해야 하는데, 클라이언트 코드에서 매번 `if (item is File) ... else if (item is Folder) ...` 로 분기하면 트리가 깊어질수록 코드가 지저분해짐.
+파일 탐색기를 만든다고 해보자. `File` 은 크기가 정해져 있고, `Folder` 는 안에 `File` 도 있고 또 다른 `Folder` 도 있을 수 있음. "이 폴더의 전체 용량은?" 을 구하려면 `File` 이면 그냥 크기를 반환하고, `Folder` 면 안에 있는 항목들을 하나씩 다시 검사해야 하는데, 클라이언트 코드에서 매번 `if (item is File) … else if (item is Folder) …` 로 분기하면 트리가 깊어질수록 코드가 지저분해짐.
 
-**Composite Pattern** 은 이렇게 부분-전체 계층(part-whole hierarchy)을 가진 구조에서, 개별 객체(Leaf)와 그 객체들의 묶음(Composite)을 같은 인터페이스로 다루게 만드는 구조(Structural) 패턴. `File` 과 `Folder` 가 똑같이 `getSize()` 를 구현하게 만들면, 클라이언트는 지금 다루는 게 파일인지 폴더인지 몰라도 `getSize()` 하나만 호출하면 됨 — 재귀는 `Folder` 내부에 숨음.
+**Composite Pattern** 은 이렇게 부분 - 전체 계층(part-whole hierarchy)을 가진 구조에서, 개별 객체(Leaf)와 그 객체들의 묶음(Composite)을 같은 인터페이스로 다루게 만드는 구조(Structural) 패턴. `File` 과 `Folder` 가 똑같이 `getSize()` 를 구현하게 만들면, 클라이언트는 지금 다루는 게 파일인지 폴더인지 몰라도 `getSize()` 하나만 호출하면 됨 — 재귀는 `Folder` 내부에 숨음.
 
 - **핵심**: 개별 객체(Leaf)와 그 객체들의 집합(Composite)을 같은 인터페이스로 묶어, 클라이언트가 트리 구조를 재귀적으로 다루는 코드를 직접 짜지 않아도 되게 함.
 - **목적**:
@@ -66,7 +66,7 @@ sequenceDiagram
 
 다음 상황에서 특히 유용함.
 
-- 부분-전체 계층(트리 구조)을 구현해야 할 때. 예: 파일 시스템, UI 컴포넌트 트리, 조직도.
+- 부분 - 전체 계층(트리 구조)을 구현해야 할 때. 예: 파일 시스템, UI 컴포넌트 트리, 조직도.
 - 클라이언트 코드가 단순 요소와 복합 요소를 구분하지 않고 균일하게 처리하길 원할 때.
 - 적용 대상을 찾기가 의외로 어려운 패턴이라, "이 객체들 묶음이 트리 구조인가?" 를 발견했을 때 적용을 검토해보는 접근이 잘 맞음.
 
@@ -104,7 +104,7 @@ flowchart LR
 
 | 비교 대상 | 공통점 | Composite 와의 차이 |
 | :--- | :--- | :--- |
-| [Decorator](Decorator%20Pattern.md) | 둘 다 재귀적 Composition 구조라 다이어그램이 비슷함 | Decorator 는 감싼 객체 **1개**에 새 책임을 덧붙이는 것, Composite 는 자식 **여러 개**(0~N개)의 결과를 취합("요약")하는 것. Decorator 를 자식이 1개뿐인 Composite 로 볼 수도 있음. 둘을 함께 써서 Composite 트리의 특정 노드에만 Decorator 로 기능을 얹는 것도 가능함. |
+| [Decorator](Decorator%20Pattern.md) | 둘 다 재귀적 Composition 구조라 다이어그램이 비슷함 | Decorator 는 감싼 객체 **1 개**에 새 책임을 덧붙이는 것, Composite 는 자식 **여러 개**(0~N 개)의 결과를 취합("요약")하는 것. Decorator 를 자식이 1 개뿐인 Composite 로 볼 수도 있음. 둘을 함께 써서 Composite 트리의 특정 노드에만 Decorator 로 기능을 얹는 것도 가능함. |
 | [Builder](../creational/Builder%20Pattern.md) | 함께 쓰기 좋음 | Builder 는 복잡한 Composite 트리를 단계적으로(종종 재귀적으로) 조립하는 역할을 함 — Composite 자체의 구조와는 별개로 "어떻게 생성할지" 를 담당. |
 | [Chain of Responsibility](../behavioral/Chain%20of%20Responsibility%20Pattern.md) | 둘 다 재귀적 구조를 가짐 | Composite 와 자주 함께 쓰임: Leaf 가 요청을 처리하지 못하면 부모(Composite)에게, 부모는 다시 자신의 부모에게 전달하는 식으로 트리의 루트까지 요청을 전파하는 데 Chain of Responsibility 를 활용할 수 있음. |
 | [Iterator](../behavioral/Iterator%20Pattern.md) | 함께 쓰기 좋음 | Composite 트리를 순회(traverse)하는 역할을 Iterator 가 담당. Composite 자체는 순회 방법을 규정하지 않음. |

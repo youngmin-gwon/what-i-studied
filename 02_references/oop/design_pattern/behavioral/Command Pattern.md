@@ -116,7 +116,7 @@ flowchart LR
 
 ### Command × Chain of Responsibility 조합
 
-[Chain of Responsibility](Chain%20of%20Responsibility%20Pattern.md) 의 Handler 를 Command 로 구현하면, 같은 요청(컨텍스트 객체)이 체인을 따라가며 서로 다른 연산을 순서대로 적용받는 파이프라인이 됨. 예: 이미지 파일 하나가 `ResizeCommand → WatermarkCommand → CompressCommand` 체인을 통과하며 리사이즈 → 워터마크 → 압축을 차례로 적용받음. 반대로 요청 자체를 Command 로 만드는 조합도 가능함 — 자세한 예시는 [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md) 문서의 "CoR × Command 조합" 참고.
+[Chain of Responsibility](Chain%20of%20Responsibility%20Pattern.md) 의 Handler 를 Command 로 구현하면, 같은 요청(컨텍스트 객체)이 체인을 따라가며 서로 다른 연산을 순서대로 적용받는 파이프라인이 됨. 예: 주문 요청 하나가 `AuthCommand → CacheCommand → ValidationCommand` 체인을 통과하며 인증 → 캐시 조회 → 검증을 차례로 적용받고, Command 라서 실행 이력을 남기거나 특정 단계만 재시도하기도 쉬워짐. 반대로 요청 자체를 Command 로 만드는 조합도 가능함 — 자세한 예시는 [Chain of Responsibility Pattern](Chain%20of%20Responsibility%20Pattern.md) 문서의 "CoR × Command 조합" 참고.
 
 ## Modern Applicability (DI/Composition Root)
 

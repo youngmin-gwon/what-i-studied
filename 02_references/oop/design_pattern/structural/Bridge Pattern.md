@@ -2,7 +2,7 @@
 title: Bridge Pattern
 tags: [design-pattern, gof, oop, structural-pattern]
 aliases: []
-date modified: 2025-12-10 14:21:29 +09:00
+date modified: 2026-07-23 13:39:42 +09:00
 date created: 2024-12-12 15:52:30 +09:00
 ---
 
@@ -20,7 +20,7 @@ date created: 2024-12-12 15:52:30 +09:00
 
 ## Examples
 
-- **크로스플랫폼 UI**: `Window` 라는 추상화를 Windows/macOS/Linux 용 `WindowImpl` 과 분리하면, 새 위젯(`Dialog`, `Button`)이 추가돼도 플랫폼별 구현 3개를 새로 안 만들어도 됨. Bridge 없이는 `WindowsDialog`, `MacDialog`, `LinuxDialog` 식으로 조합이 곱셈으로 늘어남.
+- **크로스플랫폼 UI**: `Window` 라는 추상화를 Windows/macOS/Linux 용 `WindowImpl` 과 분리하면, 새 위젯(`Dialog`, `Button`)이 추가돼도 플랫폼별 구현 3 개를 새로 안 만들어도 됨. Bridge 없이는 `WindowsDialog`, `MacDialog`, `LinuxDialog` 식으로 조합이 곱셈으로 늘어남.
 - **영속성 계층**: `Repository` 추상화와 `Database`/`FileSystem` 구현을 분리하면, 저장 방식을 DB→파일로 바꿔도 `Repository` 를 쓰는 코드는 그대로임.
 - **메시지 발송**: `Notification`(Abstraction: `send()`, `sendUrgently()`) 과 `MessageSender`(Implementation: `SmsSender`, `EmailSender`) 를 분리하면, 알림 종류가 늘어도 발송 수단 구현은 재사용되고, 발송 수단이 늘어도 알림 종류 쪽 코드는 그대로임.
 
@@ -144,4 +144,4 @@ interface AppGraph {
 }
 ```
 
-`AppGraph` 가 "이 기기에서는 어떤 `MessageSender` 를 쓸지" 를 결정하는 유일한 지점. `UrgentNotification` 은 자신이 SMS 위에서 도는지 Push 위에서 도는지 전혀 모름 — 축 2개(알림 종류, 발송 수단)가 서로의 존재를 모른 채 각자 확장됨.
+`AppGraph` 가 "이 기기에서는 어떤 `MessageSender` 를 쓸지" 를 결정하는 유일한 지점. `UrgentNotification` 은 자신이 SMS 위에서 도는지 Push 위에서 도는지 전혀 모름 — 축 2 개(알림 종류, 발송 수단)가 서로의 존재를 모른 채 각자 확장됨.

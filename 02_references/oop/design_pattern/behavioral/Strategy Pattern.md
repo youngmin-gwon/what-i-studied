@@ -2,15 +2,17 @@
 title: Strategy Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2026-07-23 12:35:20 +09:00
+date modified: 2026-07-23 10:21:36 +09:00
 date created: 2024-12-12 15:48:00 +09:00
 ---
 
 ## Description
 
-결제 로직을 만든다고 해보자. 처음엔 신용카드만 지원하면 됐는데, PayPal, ApplePay 가 하나씩 추가되면서 `CheckoutService` 안에 `if (type == "card") … else if (type == "paypal") …` 같은 분기가 계속 늘어남. 결제 수단이 하나 더 생길 때마다 이미 잘 동작하던 `CheckoutService` 코드를 매번 다시 열어서 고쳐야 하는 게 문제.
+결제 로직을 만든다고 해보자. 처음엔 신용카드만 지원하면 됐는데, PayPal, GooglePay 가 하나씩 추가되면서 `CheckoutService` 안에 `if (type == "card") … else if (type == "paypal") …` 같은 분기가 계속 늘어남. 결제 수단이 하나 더 생길 때마다 이미 잘 동작하던 `CheckoutService` 코드를 매번 다시 열어서 고쳐야 하는 게 문제.
 
-**Strategy Pattern** 은 이렇게 "같은 목적을 이루는 여러 방법(알고리즘)" 을 각각 독립된 클래스로 떼어내고, 공통 인터페이스로 묶어서 실행 중에(Runtime) 서로 교체할 수 있게 만드는 행위(Behavioral) 패턴. 위 예시라면 `CreditCardPayment`, `PaypalPayment`, `ApplePayPayment` 를 각각 클래스로 만들고 `PaymentStrategy` 인터페이스로 묶으면, `CheckoutService` 는 셋 중 무엇이 오는지 몰라도 결제를 처리할 수 있음.
+**Strategy Pattern** 은 이렇게 "같은 목적을 이루는 여러 방법(알고리즘)" 을 각각 독립된 클래스로 떼어내고, 공통 인터페이스로 묶어서 실행 중에(Runtime) 서로 교체할 수 있게 만드는 행위(Behavioral) 패턴. 위 예시라면 `CreditCardPayment`, `PaypalPayment`, `GooglePayPayment` 를 각각 클래스로 만들고 `PaymentStrategy` 인터페이스로 묶으면, `CheckoutService` 는 셋 중 무엇이 오는지 몰라도 결제를 처리할 수 있음.
+
+이 문서에서는 이 **결제(Payment)** 예시를 Structure → Pros/Cons → Modern Applicability 까지 계속 이어서 사용함.
 
 - **핵심**: 여러 알고리즘(전략)을 각각 별도의 클래스로 캡슐화하고, 공통 인터페이스로 교체 가능하게 만듦.
 - **목적**:
@@ -20,8 +22,9 @@ date created: 2024-12-12 15:48:00 +09:00
 
 ## Examples
 
+결제 외에 다른 도메인에서도 같은 구조가 쓰인다는 걸 보여주는 짧은 예시 두 개. (아래 Structure 부터는 다시 결제 예시로 돌아감.)
+
 - **정렬(Sorting)**: 데이터가 적을 땐 `BubbleSort`, 많을 땐 `QuickSort` 를 쓰고 싶다면, 정렬기 코드를 고치는 대신 상황에 맞는 Strategy 를 골라서 넣어주기만 하면 됨.
-- **결제(Payment)**: `CreditCard`, `PayPal`, `ApplePay` 를 Strategy 로 만들면, 사용자가 고른 수단에 따라 `CheckoutService` 코드 수정 없이 결제 로직만 교체됨.
 - **게임(RPG)**: 무기를 바꾸면 공격 방식도 바뀌어야 함. `SwordAttack`, `BowAttack` 을 Strategy 로 구현하면 캐릭터 클래스를 건드리지 않고도 무기 교체만으로 공격 로직이 즉시 바뀜.
 
 ## Structure
@@ -32,7 +35,7 @@ flowchart LR
     Context["Context<br/>예: CheckoutService"]
     Strategy{{"Strategy interface<br/>예: PaymentStrategy"}}
     CSA["ConcreteStrategyA<br/>예: PaypalPayment"]
-    CSB["ConcreteStrategyB<br/>예: ApplePayPayment"]
+    CSB["ConcreteStrategyB<br/>예: GooglePayPayment"]
 
     Client -- "① 생성" --> CSA
     Client -- "② 주입" --> Context
@@ -58,9 +61,27 @@ sequenceDiagram
 
 (`Service` 는 GoF 의 Context, `Strategy` 는 Strategy 인터페이스에 대응됨.)
 
-- **Strategy**: Concrete Strategy 들이 공통으로 구현하는 interface. `Context` 는 이 인터페이스만 앎.
-- **Concrete Strategy**: Strategy 인터페이스에 맞춰 실제 알고리즘을 구현한 클래스들 (`PaypalPayment`, `ApplePayPayment` 등).
-- **Context**: Strategy 객체를 필드로 들고 있고, 실제 실행은 Strategy 에 위임함. 어떤 알고리즘이 들어올지는 신경 쓰지 않기 때문에 런타임에 자유롭게 교체 가능.
+```kotlin
+interface PaymentStrategy {
+    fun pay(amount: Int)
+}
+
+class PaypalPayment(private val paypalSdk: PaypalSdk) : PaymentStrategy {
+    override fun pay(amount: Int) = paypalSdk.charge(amount)
+}
+
+class GooglePayPayment(private val googlePaySdk: GooglePaySdk) : PaymentStrategy {
+    override fun pay(amount: Int) = googlePaySdk.charge(amount)
+}
+
+class CheckoutService(private val strategy: PaymentStrategy) {
+    fun checkout(amount: Int) = strategy.pay(amount) // Paypal 인지 GooglePay 인지 모름
+}
+```
+
+- **Strategy**: Concrete Strategy 들이 공통으로 구현하는 interface (`PaymentStrategy`). `Context` 는 이 인터페이스만 앎.
+- **Concrete Strategy**: Strategy 인터페이스에 맞춰 실제 알고리즘을 구현한 클래스들 (`PaypalPayment`, `GooglePayPayment`).
+- **Context**: Strategy 객체를 필드로 들고 있고, 실제 실행은 Strategy 에 위임함(`CheckoutService`). 어떤 알고리즘이 들어올지는 신경 쓰지 않기 때문에 런타임에 자유롭게 교체 가능.
 - **Client**: 상황에 맞는 Concrete Strategy 를 골라서 Context 에 주입하는 쪽. 실무에서는 이 역할을 애플리케이션의 조립 지점([Composition Root](../general/patterns/Composition%20Root.md))이 담당하는 경우가 많음 — 자세한 내용은 아래 [Modern Applicability](#modern-applicability-di-composition-root) 참고.
 
 ## Adaptability
@@ -74,26 +95,26 @@ sequenceDiagram
 
 ## Pros
 
-- **새 알고리즘 추가가 기존 코드에 영향을 주지 않음**: `HuaweiPayment` 를 새로 추가해도 `CheckoutService` 는 한 글자도 안 바뀜 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md).
+- **새 알고리즘 추가가 기존 코드에 영향을 주지 않음**: `KakaoPayPayment` 를 새로 추가해도 `CheckoutService` 는 한 글자도 안 바뀜 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md).
 - **런타임에 전략을 자유롭게 교체 가능**: 사용자가 결제 수단을 바꾸면 `Context` 에 들어가는 Strategy 객체만 갈아 끼우면 됨. (반대로 Template Method 는 상속 기반이라 컴파일 타임에 클래스가 정해짐 — 아래 Relationship 참고.)
 - **테스트가 쉬워짐**: `if-else` 뭉치 하나를 통째로 테스트하는 대신, `PaypalPayment.pay()` 하나만 독립적으로 단위 테스트할 수 있음.
-- **각 알고리즘의 의존성이 서로 격리됨**: `PaypalPayment` 가 Paypal SDK 를 의존해도 `ApplePayPayment` 나 `CheckoutService` 에는 영향이 없음.
+- **각 알고리즘의 의존성이 서로 격리됨**: `PaypalPayment` 가 `PaypalSdk` 를 의존해도 `GooglePayPayment` 나 `CheckoutService` 에는 영향이 없음.
 
 ## Cons
 
-- **선택하는 쪽은 결국 차이를 알아야 함**: `Context` 에 어떤 Strategy 를 넣을지 결정하는 코드(Client 또는 [Composition Root](../general/patterns/Composition%20Root.md))는 `PaypalPayment` 와 `ApplePayPayment` 의 차이를 알아야 함. Strategy 패턴은 이 "아는 코드" 를 없애는 게 아니라 한 곳으로 모으는 것 — 자세한 내용은 아래 Modern Applicability 참고.
+- **선택하는 쪽은 결국 차이를 알아야 함**: `Context` 에 어떤 Strategy 를 넣을지 결정하는 코드(Client 또는 [Composition Root](../general/patterns/Composition%20Root.md))는 `PaypalPayment` 와 `GooglePayPayment` 의 차이를 알아야 함. Strategy 패턴은 이 "아는 코드" 를 없애는 게 아니라 한 곳으로 모으는 것 — 자세한 내용은 아래 Modern Applicability 참고.
 - **알고리즘이 거의 안 바뀐다면 과한 설계**: 결제 수단이 앞으로도 하나뿐이라면, 인터페이스 + 클래스 여러 개로 나누는 비용이 이득보다 클 수 있음.
-- **작고 순수한 전략은 클래스 대신 함수로 충분한 경우가 많음**: 대부분의 언어가 함수를 값처럼 다룰 수 있기 때문(함수 타입, 람다).
+- **작고 순수한 전략은 클래스 대신 함수로 충분한 경우가 많음**: 대부분의 언어가 함수를 값처럼 다룰 수 있기 때문(함수 타입, 람다). 예를 들어 각 결제 수단의 수수료를 계산하는 로직처럼 외부 SDK 호출 없이 순수 계산만 한다면 클래스로 나눌 필요가 없음.
 
   ```kotlin
-  // 클래스 3개짜리 Strategy 대신, 순수 계산이라면 함수 하나로 충분
-  val discountStrategies: Map<String, (Int) -> Int> = mapOf(
-      "vip" to { price -> price * 8 / 10 },
-      "student" to { price -> price * 9 / 10 },
+  // 순수 계산이라면 PaypalPayment/GooglePayPayment 같은 클래스 대신 함수 하나로 충분
+  val feeCalculators: Map<String, (Int) -> Int> = mapOf(
+      "paypal" to { amount -> amount * 3 / 100 },     // 수수료 3%
+      "googlepay" to { amount -> amount * 2 / 100 },  // 수수료 2%
   )
   ```
 
-단, Payment 처럼 DI·트랜잭션·로깅이 얽히는 "서비스형" 전략이라면 이 이야기가 그대로 적용되지 않음 (아래 Modern Applicability 참고).
+  단, `pay()` 자체처럼 SDK 호출·트랜잭션·로깅이 얽히는 "서비스형" 전략이라면 이 이야기가 그대로 적용되지 않음 (아래 Modern Applicability 참고).
 
 ## Relationship with other patterns
 
@@ -127,22 +148,18 @@ flowchart LR
 
 ## Modern Applicability (DI/Composition Root)
 
-[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 보면 Strategy 는 **3 그룹: 여전히 설계의 핵심** 에 속함. 단, 크기에 따라 갈림.
+[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 보면 Strategy 는 **3그룹: 여전히 설계의 핵심** 에 속함. 단, 크기에 따라 갈림.
 
 - 정렬 알고리즘처럼 순수한 전략 → 함수/람다로 충분.
-- Payment, Auth, Retry 처럼 로깅·DI·생명주기가 얽힌 전략 → "알고리즘" 이 아니라 사실상 **서비스** 라 `interface` + 클래스가 자연스러움.
+- Payment 처럼 로깅·DI·생명주기가 얽힌 전략 → "알고리즘" 이 아니라 사실상 **서비스** 라 `interface` + 클래스가 자연스러움.
 
 **"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** GoF 다이어그램은 여기서 멈춰서 오해를 줌. Strategy 가 없애는 건 "아는 사람" 이 아니라 **"아는 위치의 개수"**. `CheckoutViewModel` 은 Paypal 인지 모르고, [Composition Root](../general/patterns/Composition%20Root.md) 한 곳만 알면 됨.
 
-**Android 예시 (Metro)** — 스토어별로 결제 전략이 갈리는 경우.
+**Android 예시 (Metro)** — 사용자가 설정에서 고른 기본 결제 수단에 따라 `PaypalPayment`/`GooglePayPayment` 중 하나를 선택하는 경우. Structure 절의 클래스를 그대로 이어서 씀.
 
 ```kotlin
-interface PaymentStrategy {
-    fun pay(amount: Int)
-}
-
-@Inject class SamsungBillingStrategy : PaymentStrategy { /* ... */ }
-@Inject class GoogleBillingStrategy : PaymentStrategy { /* ... */ }
+@Inject class PaypalPayment(private val paypalSdk: PaypalSdk) : PaymentStrategy { /* ... */ }
+@Inject class GooglePayPayment(private val googlePaySdk: GooglePaySdk) : PaymentStrategy { /* ... */ }
 
 @Inject
 class CheckoutViewModel(private val strategy: PaymentStrategy) // 구체 구현을 모름
@@ -153,11 +170,12 @@ interface AppGraph {
 
     @Provides
     fun providePaymentStrategy(
-        samsung: SamsungBillingStrategy,
-        google: GoogleBillingStrategy,
+        userPreferences: UserPreferences,
+        paypal: PaypalPayment,
+        googlePay: GooglePayPayment,
     ): PaymentStrategy =
-        if (Build.MANUFACTURER == "Samsung") samsung else google
+        if (userPreferences.defaultPaymentMethod == "paypal") paypal else googlePay
 }
 ```
 
-`AppGraph` 가 Composition Root. 스토어가 늘어나도(Huawei 등) `CheckoutViewModel` 은 수정하지 않음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md) 유지. Strategy 가 사라진 게 아니라 "누가 결정하는가" 가 `AppGraph` 라는 명시적 지점으로 이동했을 뿐.
+`AppGraph` 가 Composition Root. 결제 수단이 늘어나도(`KakaoPayPayment` 등) `CheckoutViewModel` 은 수정하지 않음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md) 유지. Strategy 가 사라진 게 아니라 "누가 결정하는가" 가 `AppGraph` 라는 명시적 지점으로 이동했을 뿐.
