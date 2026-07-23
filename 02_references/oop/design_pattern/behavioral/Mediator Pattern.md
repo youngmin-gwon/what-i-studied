@@ -2,7 +2,7 @@
 title: Mediator Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 14:26:32 +09:00
+date modified: 2026-07-23 10:55:25 +09:00
 date created: 2024-12-12 15:48:17 +09:00
 ---
 
@@ -15,13 +15,13 @@ date created: 2024-12-12 15:48:17 +09:00
 - **Intermediary/Controller** 라고 불리기도 함.
 - 상호작용 로직을 객체로부터 분리하고, Mediator 라는 컨트롤러에 이동시켜, 상호 교류하는 객체들간의 의존성을 줄여주는 패턴.
 - 객체 묶음이 어떻게 상호작용 하는지를 묶은 객체를 정의.
-- 객체끼리 서로 선언되는 것을 막아**loose coupling** 을 장려함.
+- 객체끼리 서로 선언되는 것을 막아 **loose coupling** 을 장려함.
 - 상호작용을 다양하게 만들어 줌.
--**colleagues**: 서로 상호작용하는 객체들.
-  - colleagues 는 서로에 대한 정보가 없고, 오직 mediator 만 알고 있음 ⇒ colleagues 들은 loosely coupled.
+- **colleagues**: 서로 상호작용하는 객체들.
+	- colleagues 는 서로에 대한 정보가 없고, 오직 mediator 만 알고 있음 ⇒ colleagues 들은 loosely coupled.
 - 객체끼리 상호작용 하는 것을 간단화, 추상화 함.
-  - 기존의 N:M 의 객체 간 상호작용을, Mediator 를 통해 1:N 의 상호작용으로 만들어줌 ⇒ 이해하고 유지하기 쉬움.
-  - colleagues 들은 communication act 는 알아야 하지만, 디테일은 전혀 알 필요가 없음 ⇒ colleagues 들을 바꾸지 않고 Mediator 를 추가하는 것이 가능해짐.
+	- 기존의 N:M 의 객체 간 상호작용을, Mediator 를 통해 1:N 의 상호작용으로 만들어줌 ⇒ 이해하고 유지하기 쉬움.
+	- colleagues 들은 communication act 는 알아야 하지만, 디테일은 전혀 알 필요가 없음 ⇒ colleagues 들을 바꾸지 않고 Mediator 를 추가하는 것이 가능해짐.
 
 ## Structure
 

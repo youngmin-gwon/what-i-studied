@@ -2,7 +2,7 @@
 title: Observer Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:24:30 +09:00
+date modified: 2026-07-23 10:54:42 +09:00
 date created: 2024-12-12 15:47:43 +09:00
 ---
 
@@ -36,7 +36,7 @@ date created: 2024-12-12 15:47:43 +09:00
     - Subscriber 를 붙이고 떼는 interface 제공.
     - Observers 목록을 보관함.
 2. (Optional) ***ConcretePublishers***- 관심 상태를 저장하고, 상태 변했을 때 Observers 에 알림 전송.
-3.***Subscriber(Observer)***
+3. ***Subscriber(Observer)***
     - 알림 (notification) 인터페이스 선언.
 4. ***ConcreteSubscribers***
     - 알림 (notification) 인터페이스 적용.
