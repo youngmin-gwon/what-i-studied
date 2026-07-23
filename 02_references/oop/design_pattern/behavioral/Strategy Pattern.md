@@ -8,60 +8,65 @@ date created: 2024-12-12 15:48:00 +09:00
 
 ## Description
 
+결제 로직을 만든다고 해보자. 처음엔 신용카드만 지원하면 됐는데, PayPal, ApplePay 가 하나씩 추가되면서 `CheckoutService` 안에 `if (type == "card") ... else if (type == "paypal") ...` 같은 분기가 계속 늘어남. 결제 수단이 하나 더 생길 때마다 이미 잘 동작하던 `CheckoutService` 코드를 매번 다시 열어서 고쳐야 하는 게 문제.
+
+**Strategy Pattern** 은 이렇게 "같은 목적을 이루는 여러 방법(알고리즘)" 을 각각 독립된 클래스로 떼어내고, 공통 인터페이스로 묶어서 실행 중에(Runtime) 서로 교체할 수 있게 만드는 행위(Behavioral) 패턴. 위 예시라면 `CreditCardPayment`, `PaypalPayment`, `ApplePayPayment` 를 각각 클래스로 만들고 `PaymentStrategy` 인터페이스로 묶으면, `CheckoutService` 는 셋 중 무엇이 오는지 몰라도 결제를 처리할 수 있음.
+
 ![Untitled](../../../../../_assets/oop/Untitled%2014.png)
 
 ![Untitled](../../../../../_assets/oop/Untitled%2015.png)
 
-**Strategy Pattern** 은 실행 중에(Runtime) 알고리즘을 선택할 수 있게 해주는 행위(Behavioral) 디자인 패턴입니다.
-
-- **핵심**: 특정한 목적을 위한 여러 알고리즘(전략)을 각각 별도의 클래스로 캡슐화하고, 이들을 공통 인터페이스로 교체 가능하게 만듭니다.
+- **핵심**: 여러 알고리즘(전략)을 각각 별도의 클래스로 캡슐화하고, 공통 인터페이스로 교체 가능하게 만듦.
 - **목적**:
-  1. 알고리즘을 사용하는 클라이언트와 알고리즘의 구현을 분리합니다.
-  2. 런타임에 로직을 변경하고 싶거나, 조건문(if-else)을 줄이고 싶을 때 사용합니다.
-  3. 새로운 전략을 추가하더라도 기존 코드를 수정하지 않도록 하여 **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)** 를 준수합니다.
+  1. 알고리즘을 사용하는 코드와 알고리즘의 실제 구현을 분리.
+  2. 런타임에 로직을 바꾸거나, if-else 분기가 계속 늘어나는 걸 막고 싶을 때 사용.
+  3. 새로운 전략을 추가해도 기존 코드는 건드리지 않도록 하여 **[OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)** 를 준수.
 
 ## Examples
 
-- **정렬(Sorting)**: `QuickSort`, `MergeSort`, `BubbleSort` 등을 Strategy 로 만들고, 데이터 양에 따라 자동으로 적절한 정렬 방식을 선택.
-- **결제(Payment)**: `CreditCard`, `PayPal`, `ApplePay` 등을 Strategy 로 만들고 사용자의 선택에 따라 결제 로직 교체.
-- **게임(RPG)**: 무기에 따른 공격 방식(`SwordAttack`, `BowAttack`)을 Strategy 로 구현하여 무기 교체 시 공격 로직도 즉시 변경.
+- **정렬(Sorting)**: 데이터가 적을 땐 `BubbleSort`, 많을 땐 `QuickSort` 를 쓰고 싶다면, 정렬기 코드를 고치는 대신 상황에 맞는 Strategy 를 골라서 넣어주기만 하면 됨.
+- **결제(Payment)**: `CreditCard`, `PayPal`, `ApplePay` 를 Strategy 로 만들면, 사용자가 고른 수단에 따라 `CheckoutService` 코드 수정 없이 결제 로직만 교체됨.
+- **게임(RPG)**: 무기를 바꾸면 공격 방식도 바뀌어야 함. `SwordAttack`, `BowAttack` 을 Strategy 로 구현하면 캐릭터 클래스를 건드리지 않고도 무기 교체만으로 공격 로직이 즉시 바뀜.
 
 ![Untitled](../../../../../_assets/oop/Untitled%2016.png)
 
 ## Structure
 
-- **Strategy**: Concrete Strategies 에서 공통적으로 사용되는 interface 를 정의. 어떤 strategy 를 사용할지는 context 에서 정해질 것임.
-- **Concrete Strategies**: Strategy interface 에 맞춰 알고리즘 정의.
-- **Context**: Strategy 객체를 가지고 있음. 어떤 알고리즘이 사용될지에 대해서는 독립적 ⇒ 동적으로 바뀔 수 있음.
-- **Client**: Concrete Strategies 중 특정한 알고리즘을 선택하고 Context 로 넘김.
+Context 는 Strategy 인터페이스만 들고 있고, 그 안에 어떤 알고리즘이 들어있는지는 모름. 실제로 어떤 Concrete Strategy 를 쓸지는 Client 가 정해서 Context 에 넘겨줌.
+
+- **Strategy**: Concrete Strategy 들이 공통으로 구현하는 interface. Context 는 이 인터페이스만 앎.
+- **Concrete Strategy**: Strategy 인터페이스에 맞춰 실제 알고리즘을 구현한 클래스들 (`PaypalPayment`, `ApplePayPayment` 등).
+- **Context**: Strategy 객체를 필드로 들고 있고, 실제 알고리즘 실행을 위임함. 어떤 알고리즘이 들어올지는 신경 쓰지 않기 때문에 런타임에 자유롭게 교체 가능.
+- **Client**: 상황에 맞는 Concrete Strategy 를 골라서 Context 에 주입하는 쪽. (실무에서는 이 역할을 [Composition Root](../general/patterns/Composition%20Root.md) 가 담당하는 경우가 많음.)
 
 ## Adaptability
 
-- 다양한 알고리즘을 사용하고 런타임 중에 한 알고리즘에서 다른 알고리즘으로 전환할 수 있도록 하려는 경우.
-- 일부 동작을 실행하는 방식만 다른 유사한 클래스가 많이 있는 경우 사용.
-- 사용자에게 중요하지 않을 수 있는 알고리즘의 구현 세부 정보에서 클래스의 비즈니스 논리를 분리하기 위해 사용.
-- 알고리즘의 전환 사이 대규모 조건문이 있는 경우 사용.
+다음 상황에서 특히 유용함.
+
+- 같은 일을 하는 방식이 여러 개 있고, 런타임 중에 방식을 전환하고 싶은 경우.
+- 동작 하나만 다르고 나머지는 비슷한 클래스가 여러 개 생기고 있는 경우.
+- 알고리즘의 구현 세부사항을 클래스의 핵심 로직에서 분리하고 싶은 경우.
+- 알고리즘을 고르는 조건문(if-else, switch) 이 점점 커지고 있는 경우.
 
 ## Pros
 
-- 연관 있는 알고리즘들을 각각의 추출된 class 에 정의한 후 공통 interface 를 정의 ⇒**compile-time flexibility** 를 줌.
-	- run-time 중 추출된 클래스를 동적으로 교환할 수 있음.
-- 코드, 내부 데이터, 다양한 알고리즘의 dependencies 를 isolate 할 수 있음.
-- 간단한 interface 를 사용하여 동적으로 알고리즘 수행 혹은 알고리즘 교체를 할 수 있음.
-- 새로운 ConcreteStrategy 를 코드 수정없이 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md)
+- 알고리즘마다 별도 클래스로 분리하고 공통 인터페이스로 묶기 때문에 **compile-time flexibility** 를 얻음.
+  - 게다가 런타임 중에도 전략을 자유롭게 교체할 수 있음.
+- 각 알고리즘의 코드, 내부 데이터, 의존성을 서로 격리할 수 있음.
+- 새 Concrete Strategy 를 기존 코드 수정 없이 추가할 수 있음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md).
 
 ## Cons
 
-- 사용하는 곳에서 반드시 각 ConcreteStrategy 의 차이를 알고 적절하게 사용해야 함.
-- 알고리즘이 거의 바뀌지 않는다면, 복잡하게 Strategy 패턴을 사용할 이유가 없음.
-- 대부분의 언어에서 Functional type support 를 하기 때문에 굳이 코드베이스를 크게 만들 이유가 없다.
+- Context 를 사용하는 쪽에서 각 Concrete Strategy 의 차이를 알고 적절히 선택해야 함.
+- 알고리즘이 거의 바뀌지 않는다면, 굳이 Strategy 패턴으로 나눌 이유가 없음.
+- 대부분의 언어가 함수를 값처럼 다룰 수 있기 때문에(함수 타입, 람다), 아주 작은 전략이라면 클래스 대신 함수 하나로 충분한 경우가 많음.
 
 ## Relationship with other patterns
 
 ### [Bridge Pattern](structural/Bridge%20Pattern.md), [State Pattern](State%20Pattern.md), (일부분 [Adapter Pattern](structural/Adapter%20Pattern.md))
 
 - 구조가 비슷함 (다른 객체에 실제 작업을 위임하는 구조).
-- 모두 다른 문제를 풀기 위한 방법.
+- 하지만 각각 풀려는 문제가 다름.
 - 패턴은 특정 방식으로 코드를 구조화하기 위한 단순한 레시피가 아님.
 	- **해결해야 하는 문제를 다른 개발자와 소통하기 위한 방법으로 패턴을 사용해야 함.**
 
@@ -71,106 +76,57 @@ date created: 2024-12-12 15:48:00 +09:00
 
 ### [Command Pattern](Command%20Pattern.md)
 
-- 둘 다 객체를 파라미터로 갖기 때문에 비슷해 보일 수 있음.
-- 하지만, 다른 의도로 사용됨.
-	- **Command**: 연산을 객체로 바꾸려는 의도 ⇒ 작업 실행을 연기하고, 대기열에 추가하고, 명령 기록을 저장하고, 원격 서비스에 명령을 보내는 등의 작업을 수행할 수 있음.
-	- **Strategy**: 같은 일을 하는 다른 알고리즘을 자유롭게 교체해서 사용하기 위한 의도.
+- 둘 다 객체를 파라미터로 갖기 때문에 비슷해 보일 수 있지만, 의도가 다름.
+	- **Command**: 연산 자체를 객체로 바꾸려는 의도 ⇒ 실행을 연기하거나, 대기열에 쌓거나, 실행 기록을 저장하거나, 원격으로 전송하는 등의 작업이 가능해짐.
+	- **Strategy**: 같은 일을 하는 여러 알고리즘을 자유롭게 교체하려는 의도.
 
 ### [Template Method Pattern](Template%20Method%20Pattern.md)
 
-- **Template Method** 패턴은 상속 기반. subclass 에서 수정이 필요한 알고리즘 일부분을 확장하는 방법.
-- **Strategy** 패턴은 구성 기반. 다르게 동작하는 전략을 제공해서 객체의 행위를 변경하는 방법.
-- Template Method 는 class level 에서 동작하고, Strategy 는 object level 에서 동작함.
-    - Template Method 는 static 하기 때문에 compile-time-safe, Strategy 는 runtime-safe 함.
-- Template Method 패턴은 공통된 기능을 공유하도록 설계되어 있지만, Strategy 패턴은 모든 implementation 이 독립적이고 공유되는 코드가 없다.
+- **Template Method** 는 상속 기반. 알고리즘 중 수정이 필요한 일부분만 서브클래스에서 확장.
+- **Strategy** 는 구성(Composition) 기반. 아예 다르게 동작하는 전략 객체를 갈아 끼워서 행위를 바꿈.
+- 그래서 Template Method 는 class level, Strategy 는 object level 에서 동작함.
+	- Template Method 는 static 이라 compile-time-safe, Strategy 는 런타임에 바뀌므로 runtime-safe.
+- Template Method 는 공통 로직을 서브클래스끼리 공유하지만, Strategy 는 각 구현이 완전히 독립적이라 공유되는 코드가 없음.
 
 ### [State Pattern](State%20Pattern.md)
 
-- State 는 Strategy 를 확장한 패턴으로 간주됨.
-	- 둘 모두 구성 기반.
-	- helper 객체가 context 를 변경하는 것을 도와 줌.
-- **Strategy** 는 상속을 대체하려는 목적.
-- **State** 는 코드 내의 조건문들을 대체하려는 목적.
+- State 는 Strategy 를 확장한 패턴으로 볼 수 있음.
+	- 둘 다 구성(Composition) 기반이고, helper 객체가 Context 의 동작을 바꿔줌.
+- **Strategy** 는 상속을 대체하려는 목적, **State** 는 조건문을 대체하려는 목적.
 
 ## Modern Applicability (DI/Composition Root)
 
-### 분류: 여전히 설계의 핵심 (규모에 따라 다름)
+[Composition Root](../general/patterns/Composition%20Root.md) 관점에서 보면 Strategy 는 **3그룹: 여전히 설계의 핵심** 에 속함. 단, 크기에 따라 갈림.
 
-- 정렬 알고리즘처럼 순수하고 작은 전략은 함수/람다로 충분히 대체됨.
-- 하지만 **Payment, Auth, Retry** 처럼 Transaction, Logging, DI, 생명주기가 얽히는 전략은 "알고리즘" 이 아니라 사실상 **서비스(Service)** 임 ⇒ 함수보다 `interface` + 클래스가 자연스러움.
+- 정렬 알고리즘처럼 순수한 전략 → 함수/람다로 충분.
+- Payment, Auth, Retry 처럼 로깅·DI·생명주기가 얽힌 전략 → "알고리즘" 이 아니라 사실상 **서비스** 라 `interface` + 클래스가 자연스러움.
 
-### "결국 누군가는 concrete 를 알아야 하지 않나?"
+**"그래도 결국 누군가는 concrete 를 알아야 하지 않나?"** GoF 다이어그램은 여기서 멈춰서 오해를 줌. Strategy 가 없애는 건 "아는 사람" 이 아니라 **"아는 위치의 개수"**. `CheckoutViewModel` 은 Paypal 인지 모르고, [Composition Root](../general/patterns/Composition%20Root.md) 한 곳만 알면 됨.
 
-GoF 다이어그램만 보면 `Client` 가 `PaypalStrategy` 를 직접 생성해서 `Context` 에 넘기기 때문에, "그럼 뭐가 분리된 거지?" 라는 의문이 생김.
-
-Strategy 패턴이 없애는 것은 **"concrete 를 아는 사람"** 이 아니라, **"concrete 를 아는 위치를 하나로 좁히는 것"** 임. `PaymentStrategy` 를 사용하는 `CheckoutService`(Domain/Application) 는 Paypal 인지 전혀 몰라도 되고, 오직 애플리케이션 조립 지점([Composition Root](../general/patterns/Composition%20Root.md)) 만 concrete 를 앎.
-
-### Android 예시 (Hilt)
+**Android 예시 (Metro)** — 스토어별로 결제 전략이 갈리는 경우.
 
 ```kotlin
 interface PaymentStrategy {
     fun pay(amount: Int)
 }
 
-class SamsungBillingStrategy @Inject constructor(...) : PaymentStrategy { /* ... */ }
-class GoogleBillingStrategy @Inject constructor(...) : PaymentStrategy { /* ... */ }
+@Inject class SamsungBillingStrategy : PaymentStrategy { /* ... */ }
+@Inject class GoogleBillingStrategy : PaymentStrategy { /* ... */ }
 
-@Module
-@InstallIn(SingletonComponent::class)
-object PaymentModule {
+@Inject
+class CheckoutViewModel(private val strategy: PaymentStrategy) // 구체 구현을 모름
+
+@DependencyGraph(AppScope::class)
+interface AppGraph {
+    val checkoutViewModel: CheckoutViewModel
+
     @Provides
     fun providePaymentStrategy(
         samsung: SamsungBillingStrategy,
-        google: GoogleBillingStrategy
-    ): PaymentStrategy {
-        return if (Build.MANUFACTURER == "Samsung") samsung else google
-    }
-}
-
-class CheckoutViewModel @Inject constructor(
-    private val strategy: PaymentStrategy // 구체 구현을 모름
-) : ViewModel()
-```
-
-- `PaymentModule` 이 Composition Root 역할을 함. `CheckoutViewModel` 은 삼성인지 구글인지 모름.
-- 스토어가 늘어나도(Huawei 등) `ViewModel` 은 수정하지 않음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md) 유지.
-
-### Spring 예시
-
-```java
-interface PaymentStrategy {
-    void pay(int amount);
-}
-
-@Component
-class PaypalStrategy implements PaymentStrategy { /* ... */ }
-
-@Component
-class StripeStrategy implements PaymentStrategy { /* ... */ }
-
-@Configuration
-class PaymentConfig {
-
-    @Bean
-    @Primary
-    PaymentStrategy paymentStrategy(
-        @Value("${payment.provider}") String provider,
-        PaypalStrategy paypal,
-        StripeStrategy stripe
-    ) {
-        return provider.equals("paypal") ? paypal : stripe;
-    }
-}
-
-@Service
-class CheckoutService {
-    private final PaymentStrategy strategy; // Bean 만 알고 구현은 모름
+        google: GoogleBillingStrategy,
+    ): PaymentStrategy =
+        if (Build.MANUFACTURER == "Samsung") samsung else google
 }
 ```
 
-- `PaymentConfig` (Spring Context) 가 Composition Root.
-- `CheckoutService` 는 `@Transactional`, 로깅, 재시도 등 부가 관심사가 붙는 "서비스" 이기 때문에, 함수형으로 대체하기보다 인터페이스 + Bean 조합이 자연스러움.
-
-### 결론
-
-Strategy 가 사라진 것이 아니라, **"누가 concrete strategy 를 결정하는가"** 가 명시적인 조립 지점(Hilt Module / Spring `@Configuration`)으로 이동한 것. 알고리즘이 작고 순수하면 함수로 충분하지만, 서비스 성격(트랜잭션/DI/생명주기)이 붙는 순간 다시 Strategy + Composition Root 조합이 필요해짐.
+`AppGraph` 가 Composition Root. 스토어가 늘어나도(Huawei 등) `CheckoutViewModel` 은 수정하지 않음 ⇒ [OCP(Open Closed Principle)](../../solid/OCP(Open%20Closed%20Principle).md) 유지. Strategy 가 사라진 게 아니라 "누가 결정하는가" 가 `AppGraph` 라는 명시적 지점으로 이동했을 뿐.
