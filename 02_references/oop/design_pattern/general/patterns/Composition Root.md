@@ -1,9 +1,9 @@
 ---
 title: Composition Root
-tags: [design-pattern, general-pattern, oop, architecture, dependency-injection]
+tags: [architecture, dependency-injection, design-pattern, general-pattern, oop]
 aliases: [Composition Root Pattern]
-date modified: 2026-07-23
-date created: 2026-07-23
+date modified: 2026-07-23 11:25:07 +09:00
+date created: 2026-07-23 11:17:30 +09:00
 ---
 
 ## Description
@@ -22,7 +22,7 @@ GoF 다이어그램은 대부분 이렇게 끝남.
 Client → ConcreteStrategy 생성 → Context 에 전달
 ```
 
-"결국 Client 가 Concrete 를 아는데, 뭐가 분리된 거지?" 라는 의문이 자연스럽게 듦. GoF 책은 1994년에 쓰였고 DI Container 라는 개념 자체가 없었기 때문에, "이 생성 코드를 어디에 둘 것인가" 를 설명하지 않고 넘어감.
+"결국 Client 가 Concrete 를 아는데, 뭐가 분리된 거지?" 라는 의문이 자연스럽게 듦. GoF 책은 1994 년에 쓰였고 DI Container 라는 개념 자체가 없었기 때문에, "이 생성 코드를 어디에 둘 것인가" 를 설명하지 않고 넘어감.
 
 현대 아키텍처는 이 지점을 명확히 함.
 
@@ -64,7 +64,7 @@ val graph = createGraph<AppGraph>()
 
 ## GoF 패턴 재분류
 
-DI 시대에 GoF 23개 패턴이 실무에서 어떤 위치에 있는지 3그룹으로 나누면 다음과 같음.
+DI 시대에 GoF 23 개 패턴이 실무에서 어떤 위치에 있는지 3 그룹으로 나누면 다음과 같음.
 
 | 그룹 | 의미 | 해당 패턴 |
 | :--- | :--- | :--- |
@@ -76,7 +76,7 @@ DI 시대에 GoF 23개 패턴이 실무에서 어떤 위치에 있는지 3그룹
 
 ## 결론
 
-> GoF 패턴의 상당수는 "사라진 것" 이 아니라, 언어와 프레임워크가 그 구현을 흡수했거나, 적용 범위가 더 좁고 명확해진 것이다.
+>GoF 패턴의 상당수는 "사라진 것" 이 아니라, 언어와 프레임워크가 그 구현을 흡수했거나, 적용 범위가 더 좁고 명확해진 것이다.
 
 작고 순수한 로직(정렬 알고리즘 등)은 함수로 충분하지만, 생명주기·트랜잭션·DI 가 얽히는 "서비스형" 코드는 여전히 인터페이스와 Composition Root 조합이 필요함.
 
