@@ -2,7 +2,7 @@
 title: Factory Method Pattern
 tags: [creational-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2026-07-23 10:30:40 +09:00
+date modified: 2026-07-23 10:33:45 +09:00
 date created: 2024-12-12 15:51:15 +09:00
 ---
 
@@ -18,13 +18,13 @@ date created: 2024-12-12 15:51:15 +09:00
 ![Untitled](../../../../../_assets/oop/Untitled%2028.png)
 
 - **Creator**- Product 객체를 반환하는 Factory Method 정의.
-  - Factory Method 는 서브클래스들이 구현하도록 추상으로 정의할 수 있음.
-  - 혹은 ConcreteProduct 를 제공하는 Factory Method 의 default 구현을 제공할 수도 있음.
--**ConcreteCreator**- Factory Method 를 오버라이드하고 ConcreteProduct 인스턴스를 반환.
+	- Factory Method 는 서브클래스들이 구현하도록 추상으로 정의할 수 있음.
+	- 혹은 ConcreteProduct 를 제공하는 Factory Method 의 default 구현을 제공할 수도 있음.
+- **ConcreteCreator**- Factory Method 를 오버라이드하고 ConcreteProduct 인스턴스를 반환.
     - factory method 는 매번 새로운 인스턴스를 만들 필요가 없다는 것 주목.
--**Product**- Factory Method 가 생성하는 모든 객체에 대한 인터페이스 정의.
--**ConcreteProduct**- Product 인터페이스 구현.
-  - 각 객체의 인스턴스는 특정한 ConcreteCreator 에 의해서 반환됨.
+- **Product**- Factory Method 가 생성하는 모든 객체에 대한 인터페이스 정의.
+- **ConcreteProduct**- Product 인터페이스 구현.
+	- 각 객체의 인스턴스는 특정한 ConcreteCreator 에 의해서 반환됨.
 
 ## Examples
 
