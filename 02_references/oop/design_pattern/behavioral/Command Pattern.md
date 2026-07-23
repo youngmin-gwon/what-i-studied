@@ -2,7 +2,7 @@
 title: Command Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-10 14:26:21 +09:00
+date modified: 2026-07-23 10:02:30 +09:00
 date created: 2024-12-12 15:47:04 +09:00
 ---
 
@@ -25,7 +25,7 @@ date created: 2024-12-12 15:47:04 +09:00
   - 버튼 클릭 등의 UI 이벤트 처리.
   - 작업 예약(Scheduling), 매크로(Macro) 기록.
   - 트랜잭션(Transaction) 관리 및 롤백(Undo) 기능 구현.
-- **장점**: Sender는 Receiver가 누구인지, 어떻게 동작하는지 알 필요 없이 그저 "Command를 실행해라"라고 명령만 내리면 됩니다.
+- **장점**: Sender 는 Receiver 가 누구인지, 어떻게 동작하는지 알 필요 없이 그저 "Command 를 실행해라"라고 명령만 내리면 됩니다.
 
 ## Structure
 

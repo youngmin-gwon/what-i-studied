@@ -2,7 +2,7 @@
 title: Iterator Pattern
 tags: [behavioral-pattern, design-pattern, gof, oop]
 aliases: []
-date modified: 2025-12-09 17:27:54 +09:00
+date modified: 2026-07-23 09:54:53 +09:00
 date created: 2024-12-12 15:47:31 +09:00
 ---
 
