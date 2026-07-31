@@ -1,21 +1,11 @@
-# RenderThread
+---
+title: 02-renderthread
+tags: [android, redirect]
+date modified: 2026-07-31 23:20:00 +09:00
+date created: 2026-07-31 23:20:00 +09:00
+---
 
-앱의 UI 스레드와 별도로 실행:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```java
-// View.java
-void draw(Canvas canvas) {
-    // UI 스레드: View 트리 순회
-    drawBackground(canvas);
-    onDraw(canvas);
-    dispatchDraw(canvas);  // 자식 View
-    
-    // → RenderThread로 전달
-}
-```
-
-**RenderThread**:
-
-- DisplayList 구축
-- GPU 명령 생성
-- VSync 대기
+- 정본: [renderthread-submits-render-work-without-making-ui-thread-free](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/renderthread-submits-render-work-without-making-ui-thread-free.md)
+- 이전 제목: `02-renderthread`

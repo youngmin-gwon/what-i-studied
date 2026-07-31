@@ -1,31 +1,11 @@
-# SurfaceFlinger
-
-모든 레이어를 합성:
-
-```
-Layer Stack:
-  [Status Bar]       Z-order: 100
-  [Navigation Bar]            90
-  [App Window]                50
-  [Wallpaper]                 10
-```
-
-**합성 방법**:
-
-1. **GPU Composition**: OpenGL 로 모든 레이어 합성
-2. **HWC Overlay**: 하드웨어가 직접 합성 (전력 절약)
-
-```cpp
-// SurfaceFlinger.cpp
-void SurfaceFlinger::composite() {
-    for (Layer* layer : layers) {
-        if (hwc->canUseOverlay(layer)) {
-            hwc->setLayerBuffer(layer);  // 하드웨어 오버레이
-        } else {
-            gpu->compositeLayer(layer);  // GPU 합성
-        }
-    }
-}
-```
-
 ---
+title: 04-surfaceflinger
+tags: [android, redirect]
+date modified: 2026-07-31 23:20:00 +09:00
+date created: 2026-07-31 23:20:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [surfaceflinger-composes-visible-layers-with-hwc](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/surfaceflinger-composes-visible-layers-with-hwc.md)
+- 이전 제목: `04-surfaceflinger`

@@ -1,24 +1,11 @@
-# BufferQueue
+---
+title: 03-bufferqueue
+tags: [android, redirect]
+date modified: 2026-07-31 23:20:00 +09:00
+date created: 2026-07-31 23:20:00 +09:00
+---
 
-프로듀서(앱)- 컨슈머(SurfaceFlinger) 패턴:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```cpp
-// 앱 쪽 (Producer)
-ANativeWindow_Buffer buffer;
-ANativeWindow_lock(window, &buffer, nullptr);
-// buffer에 픽셀 쓰기
-ANativeWindow_unlockAndPost(window);
-
-// SurfaceFlinger 쪽 (Consumer)
-acquireBuffer(&buffer);
-// buffer 합성
-releaseBuffer(&buffer);
-```
-
-**트리플 버퍼링**:
-
-```
-Front Buffer:  화면에 표시 중
-Back Buffer 1: GPU가 렌더링 중
-Back Buffer 2: CPU가 다음 프레임 준비 중
-```
+- 정본: [bufferqueue-separates-producer-and-consumer-with-buffer-ownership](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md)
+- 이전 제목: `03-bufferqueue`

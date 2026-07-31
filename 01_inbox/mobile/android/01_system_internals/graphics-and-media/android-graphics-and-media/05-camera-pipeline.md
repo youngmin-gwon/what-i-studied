@@ -1,48 +1,11 @@
-# Camera Pipeline
-
-상위 노트: [android-graphics-and-media](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-and-media.md)
-
-```mermaid
-graph LR
-    Sensor[Camera Sensor] --> ISP[ISP<br/>Image Signal Processor]
-    ISP --> HAL[Camera HAL3]
-    HAL --> Framework[CameraX/Camera2]
-    Framework --> App[앱]
-    
-    HAL -->|DMABuf| Codec[MediaCodec]
-    Codec --> Storage[저장/스트리밍]
-```
-
-### Camera2 API
-
-```kotlin
-val cameraManager = getSystemService(CameraManager::class.java)
-val cameraId = cameraManager.cameraIdList[0]
-
-cameraManager.openCamera(cameraId, object : CameraDevice.StateCallback() {
-    override fun onOpened(camera: CameraDevice) {
-        val captureRequest = camera.createCaptureRequest(TEMPLATE_PREVIEW)
-        captureRequest.addTarget(surface)
-        
-        camera.createCaptureSession(listOf(surface), callback, handler)
-    }
-}, handler)
-```
-
-### CameraX (권장)
-
-```kotlin
-val preview = Preview.Builder().build()
-val imageCapture = ImageCapture.Builder().build()
-
-cameraProvider.bindToLifecycle(
-    this,
-    cameraSelector,
-    preview,
-    imageCapture
-)
-
-preview.setSurfaceProvider(previewView.surfaceProvider)
-```
-
 ---
+title: 05-camera-pipeline
+tags: [android, redirect]
+date modified: 2026-07-31 23:20:00 +09:00
+date created: 2026-07-31 23:20:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [camera-output-surfaces-define-preview-analysis-and-recording-pipelines](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/camera-output-surfaces-define-preview-analysis-and-recording-pipelines.md)
+- 이전 제목: `05-camera-pipeline`

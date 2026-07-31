@@ -1,33 +1,11 @@
-# DRM
-
-상위 노트: [android-graphics-and-media](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-and-media.md)
-
-### Widevine
-
-```kotlin
-val drmSessionManager = DefaultDrmSessionManager.Builder()
-    .setUuidAndExoMediaDrmProvider(
-        C.WIDEVINE_UUID,
-        FrameworkMediaDrm.DEFAULT_PROVIDER
-    )
-    .build(object : MediaDrmCallback {
-        override fun executeProvisionRequest(request: ProvisionRequest): ByteArray {
-            // 라이선스 서버에서 provision 받기
-        }
-        
-        override fun executeKeyRequest(request: KeyRequest): ByteArray {
-            // 콘텐츠 키 받기
-        }
-    })
-
-val mediaSource = DashMediaSource.Factory(dataSourceFactory)
-    .setDrmSessionManagerProvider { drmSessionManager }
-    .createMediaSource(mediaItem)
-```
-
-**보안**:
-
-- L1: 하드웨어 보안 (TEE)
-- L3: 소프트웨어 보안
-
 ---
+title: 09-drm
+tags: [android, redirect]
+date modified: 2026-07-31 23:20:00 +09:00
+date created: 2026-07-31 23:20:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [drm-protected-media-needs-secure-codec-and-output-path](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/drm-protected-media-needs-secure-codec-and-output-path.md)
+- 이전 제목: `09-drm`
