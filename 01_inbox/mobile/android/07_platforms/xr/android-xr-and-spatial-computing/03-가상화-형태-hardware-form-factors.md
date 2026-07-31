@@ -1,4 +1,12 @@
-# 가상화 형태 (Hardware Form Factors)
+---
+title: 03-가상화-형태-hardware-form-factors
+tags: []
+aliases: []
+date modified: 2026-07-31 17:59:09 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 가상화 형태 (Hardware Form Factors)
 
 Android XR 은 두 가지 핵심 폼 팩터를 지원한다.
 

@@ -1,4 +1,12 @@
-# Android XR 아키텍처
+---
+title: 02-android-xr-아키텍처
+tags: []
+aliases: []
+date modified: 2026-07-31 17:59:09 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## Android XR 아키텍처
 
 Android XR 은 안드로이드 생태계의 풍부한 앱들을 공간 환경으로 확장한다.
 
