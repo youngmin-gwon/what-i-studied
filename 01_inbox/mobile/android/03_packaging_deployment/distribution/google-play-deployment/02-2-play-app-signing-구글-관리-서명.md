@@ -1,9 +1,6 @@
-# 🔐 2. Play App Signing (구글 관리 서명)
+# 02-2-play-app-signing-구글-관리-서명
 
-배포용 키(Signing Key)를 구글이 안전하게 보관하고 관리하는 시스템입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- **Upload Key**: 개발자가 구글 플레이 콘솔로 번들을 올릴 때 사용하는 키.
-- **Deployment Key**: 구글이 최종 사용자에게 전달할 APK 로 재서명할 때 사용하는 키.
-- **Key Recovery**: 업로드 키 분실 시 구글을 통해 재설정이 가능하여 영구적인 배포 중단 방지.
-
----
+- 정본: [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

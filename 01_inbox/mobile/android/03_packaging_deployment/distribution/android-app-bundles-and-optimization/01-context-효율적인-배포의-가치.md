@@ -1,8 +1,6 @@
-# 💡 Context: 효율적인 배포의 가치
+# 01-context-효율적인-배포의-가치
 
-현대의 모바일 사용자는 무거운 앱을 선호하지 않습니다. 안드로이드의 최신 배포 표준인 App Bundle 은 구글 플레이가 직접 Split APK 를 생성하게 함으로써 기기별 맞춤형 설치를 가능케 합니다. [android-gradle-build-system](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-build-system.md) 과 연계된 최적화의 정점입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
->[!NOTE] **상호 참조**
->iOS 의 App Thinning 및 배포 방식은 [apple-distribution-and-policies](01_inbox/mobile/apple/05_security_privacy/apple-distribution-and-policies.md) 를 참고하세요.
-
----
+- 정본: [AAB는 Play가 기기별 APK를 생성하는 게시 아티팩트다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

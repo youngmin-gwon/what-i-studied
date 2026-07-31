@@ -1,9 +1,6 @@
-# Play Asset Delivery (대용량 리소스)
+# 04-play-asset-delivery-대용량-리소스
 
-게임이나 리소스가 많은 앱에서 리버리(Delivery)를 관리한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- **Install-time**: 설치 시 함께 다운로드 (200MB 제한)
-- **Fast-follow**: 설치 직후 자동 다운로드 (512MB 제한)
-- **On-demand**: 앱의 요청 시점에 다운로드
-
----
+- 정본: [Play Asset Delivery는 코드가 아니라 대용량 asset pack을 전달한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-asset-delivery-delivers-large-asset-packs-not-code.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

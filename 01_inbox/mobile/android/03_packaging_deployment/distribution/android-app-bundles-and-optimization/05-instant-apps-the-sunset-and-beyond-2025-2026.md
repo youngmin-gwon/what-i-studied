@@ -1,5 +1,6 @@
-# ⚠️ Instant Apps: The Sunset and Beyond (2025-2026)
+# 05-instant-apps-the-sunset-and-beyond-2025-2026
 
->[!CAUTION] **Devil's Advocate : Instant Apps 대신 딥링크를 고도화하라**
->구글은 2025 년 12 월부터 **Instant Apps** 서비스를 종료할 예정이다. 이제 더 이상 별도의 인스턴트 모듈을 개발하는 데 리소스를 낭비하지 마라.
->대신, **앱 번들 최적화**와 **매끄러운 딥링크(App Links)**를 통해 사용자가 클릭 한 번으로 앱을 설치하고 즉시 원하는 화면으로 진입할 수 있도록 사용자 여정을 설계하는 것이 정석이다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [Google Play Instant는 종료되었고 딥링크 중심 대안으로 전환한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/google-play-instant-is-sunset-and-replaced-by-deeplink-install-flows.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

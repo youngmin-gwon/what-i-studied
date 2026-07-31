@@ -1,15 +1,6 @@
-# 5 Google Play Instant (인스턴트 앱)
+# 05-5-google-play-instant-인스턴트-앱
 
-* **정의:** 사용자가 앱 전체를 설치하지 않고도 웹 링크나 Google Play 스토어의 "지금 해보기" 버튼으로 앱의 일부 기능을 즉시 사용할 수 있도록 제공하는
-  모드입니다. (`dist:instant="true"`)
-* **핵심 설계 규칙:**
-    * **Base Module 연계:** 인스턴트 모듈을 제공하려면 Base Module 역시 인스턴트 모듈로 설정되어 있어야 합니다.
-    * **상호 배타적 설정:** 인스턴트 모드(`dist:instant="true"`)로 구성된 기능 모듈은 manifest 상에서 `dist:on-demand` 설정을
-      동시에 가질 수 없습니다. (단, 런타임 상에서 추가 인스턴트 모듈을 필요 시점에 가져오도록 요청하는 API 호출은 가능)
-    * **용량 제한:** 인스턴트 경험을 원활하게 제공하기 위해 Base Module과 연동되는 인스턴트 기능 모듈의 총용량 합은 일반적으로 **10MB** 이하여야 합니다.
-*   > [!CAUTION]
-    > **중요 업데이트 (서비스 종료):** Google Play Instant 서비스는 **2025년 12월**을 기점으로 전체 지원이 종료되었습니다. 따라서, 새로운
-    아키텍처나 기능 설계 시 인스턴트 앱 활성화 방식은 권장되지 않으며, 대신 사용자 유입 목적을 달성하기 위해 **딥링크(Deep Link)**를 활성화하여 기본 앱 설치 및
-    화면 전환을 유도하는 구조로 가이드를 따르길 적극 권장합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
----
+- 정본: [Google Play Instant는 종료되었고 딥링크 중심 대안으로 전환한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/google-play-instant-is-sunset-and-replaced-by-deeplink-install-flows.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

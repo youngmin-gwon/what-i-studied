@@ -1,25 +1,6 @@
-# 2 Fast-follow Delivery (빠른 후속 배포)
+# 02-2-fast-follow-delivery-빠른-후속-배포
 
-| 항목           | 설명                      |
-|--------------|-------------------------|
-| **동작**       | 앱 설치 직후 백그라운드에서 자동 다운로드 |
-| **사용 가능 시점** | 다운로드 완료 후 (앱은 바로 사용 가능) |
-| **사용자 조작**   | 불필요 (자동)                |
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```xml
-
-<dist:delivery>
-    <dist:fast-follow />
-</dist:delivery>
-```
-
-**적합한 상황:**
-
-- 앱 첫 실행에는 필수가 아니지만, **곧 필요해질 기능**
-- 예: 게임의 추가 레벨 데이터, 튜토리얼 영상, 오프라인 데이터
-- 사용자가 앱을 둘러보는 동안 백그라운드로 준비
-
-> [!IMPORTANT]
-> Fast-follow 모듈은 다운로드 완료 전에 사용자가 해당 기능에 접근할 수 있으므로, **다운로드 상태를 확인하고 적절한 로딩 UI를 제공**해야 합니다.
-
----
+- 정본: [Play Asset Delivery는 코드가 아니라 대용량 asset pack을 전달한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-asset-delivery-delivers-large-asset-packs-not-code.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

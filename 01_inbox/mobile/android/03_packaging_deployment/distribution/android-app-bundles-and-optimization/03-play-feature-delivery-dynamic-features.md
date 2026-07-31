@@ -1,21 +1,6 @@
-# Play Feature Delivery (Dynamic Features)
+# 03-play-feature-delivery-dynamic-features
 
-앱의 특정 기능을 설치 시점이 아닌, 필요할 때(On-demand) 다운로드하도록 구성할 수 있다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### 구조 및 호출
-
-```kotlin
-// build.gradle.kts (feature module)
-plugins {
-    id("com.android.dynamic-feature")
-}
-
-// 코드에서 동적 모듈 다운로드
-val splitInstallManager = SplitInstallManagerFactory.create(context)
-val request = SplitInstallRequest.newBuilder()
-    .addModule("premium_camera_filter")
-    .build()
-
-splitInstallManager.startInstall(request)
-    .addOnSuccessListener { /* 모듈 로드 완료 */ }
-```
+- 정본: [Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-feature-delivery-controls-dynamic-feature-install-timing.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

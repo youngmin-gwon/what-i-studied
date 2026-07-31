@@ -1,9 +1,6 @@
-# Android App Bundle (.aab)
+# 02-android-app-bundle-aab
 
-구글 플레이에 제출하는 단일 아티팩트이지만, 내부적으로는 모든 리소스가 포함된 메타 구조체이다. 구글 플레이는 이를 분석하여 언어별, 이미지 해상도별, CPU 아키텍처별로 **Split APK**를 생성해 각 사용자에게 배포한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-**장점:**
-
-- 바이너리 용량 감소 (평균 20~30%)
-- Unused Code 제거 (Proguard/R8 연계)
-- 보안 강화 (Play App Signing 필수)
+- 정본: [AAB는 Play가 기기별 APK를 생성하는 게시 아티팩트다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

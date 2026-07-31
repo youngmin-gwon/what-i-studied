@@ -1,0 +1,64 @@
+# Compose BOM은 Compose 라이브러리 버전 집합을 관리한다
+
+상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+관련 지도: [의존성, 버전, CI 계약](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)
+관련 정본: [Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-project-and-module-dsl-have-different-responsibilities.md)
+
+## 무엇을 관리하는가
+
+Compose BOM은 여러 Compose 라이브러리에 대응하는 버전 집합을 하나의 플랫폼 버전으로 선택하게 하는 도구다.
+BOM이 앱에 Compose 라이브러리를 자동으로 추가하는 것은 아니다.
+사용할 모듈은 각각 dependency로 선언해야 한다.
+
+```kotlin
+dependencies {
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material3)
+}
+```
+
+## Version Catalog 연결
+
+```toml
+[versions]
+androidxComposeBom = "공식 BOM 버전"
+
+[libraries]
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+```
+
+Catalog에는 BOM 자체의 버전만 두고, BOM이 관리하는 Compose 모듈은 보통 개별 버전을 생략한다.
+테스트 configuration에서 Compose 모듈을 사용한다면 해당 configuration에도 BOM을 전달한다.
+
+## 해석과 예외
+
+BOM은 관련 라이브러리가 함께 잘 동작하도록 테스트된 버전 조합을 제공하지만 절대적인 호환성 보증은 아니다.
+새 BOM이 모든 모듈을 동시에 같은 숫자로 올린다는 뜻도 아니다.
+특정 모듈을 예외적으로 올려야 하면 BOM은 유지하고 해당 dependency에 버전을 명시한다.
+
+```kotlin
+dependencies {
+    implementation(platform(libs.androidx.compose.bom))
+    implementation("androidx.compose.animation:animation:검토한 버전")
+}
+```
+
+이 방식은 BOM과 다른 버전을 의도적으로 선택하므로 전이 의존성 변화와 테스트 범위를 기록한다.
+알파·베타 BOM은 실험 목적이며 운영 사용 여부를 별도로 판단한다.
+
+## Compiler와의 경계
+
+Compose compiler는 Compose 라이브러리 BOM의 구성원이 아니다.
+Kotlin 2.0 이상에서는 공식 Compose Compiler Gradle plugin을 Kotlin compiler와 함께 관리하는 흐름을 사용한다.
+Kotlin 2.0 미만 또는 이전 구성에서는 해당 Kotlin 버전에 맞는 공식 호환성 안내를 확인한다.
+
+## 확인 방법
+
+특정 BOM의 실제 매핑은 [Compose BOM to library version mapping](https://developer.android.com/develop/ui/compose/bom/bom-mapping)에서 확인한다.
+일반 사용법은 [Compose BOM 공식 안내](https://developer.android.com/develop/ui/compose/bom)를 기준으로 한다.

@@ -1,42 +1,6 @@
----
-title: 02-bom을-사용한-의존성-설정-방법
-tags: []
-aliases: []
-date modified: 2026-07-31 17:35:56 +09:00
-date created: 2026-07-31 16:26:40 +09:00
----
+# 02-bom을-사용한-의존성-설정-방법
 
-## BOM 을 사용한 의존성 설정 방법
+이 노트의 내용은 정본 노트로 흡수했다.
 
-Version Catalog(`libs.versions.toml`)와 Gradle 스크립트를 사용하여 BOM 을 설정하면 개별 Compose 라이브러리의 버전 선언을 모두 생략할 수 있습니다.
-
-### 2-1. `libs.versions.toml` 등록
-
-BOM 버전을 관리할 뼈대를 추가합니다.
-
-```toml
-[versions]
-composeBom = "2026.06.01"
-
-[libraries]
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" } # 버전 생략
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" } # 버전 생략
-```
-
-### 2-2. `build.gradle.kts` 반영
-
-의존성 블록 내에 `platform(…)` 키워드를 사용해 BOM 라이브러리를 가져온 후, 나머지 라이브러리들은 별칭(alias)으로 버전 없이 선언합니다.
-
-```kotlin
-dependencies {
-    // 1. BOM 플랫폼 선언 (이 시점에 호환 버전 목록이 내부 로드됨)
-    implementation(platform(libs.androidx.compose.bom))
-
-    // 2. 하위 라이브러리 선언 (버전 번호 기입 불필요)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.material3)
-}
-```
-
----
+- 정본: [Compose BOM은 Compose 라이브러리 버전 집합을 관리한다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/compose-bom-manages-compose-library-version-set.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

@@ -1,56 +1,6 @@
----
-title: gradle-dependency-management
-tags: [android, dependency, gradle]
-aliases: [Compose BOM, kapt vs ksp, toml, Version Catalog]
-date modified: 2026-07-31 17:39:53 +09:00
-date created: 2026-04-05 16:30:04 +09:00
----
+# gradle dependency management
 
-## [mobile-security](01_inbox/mobile/mobile-security.md) > [gradle-dependency-management](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-dependency-management.md)
+이 문서는 원자화 이전의 진입점이다. 현재 내용은 아래 정본 지도로 재구성했다.
 
-### Dependency Management: Modern Patterns
-
-안드로이드의 의존성 관리는 휴먼 에러를 방지하고 속도를 향상시키기 위해 **Version Catalog**와 **BOM** 방식으로 진화했습니다.
-
-#### 1. Version Catalog (`toml`) 권장 ✅
-
-`libs.versions.toml` 파일을 통해 버전을 한 곳에서 관리하는 방식입니다. `buildSrc` 대비 빌드 캐싱 성능이 뛰어납니다.
-
-```toml
-# gradle/libs.versions.toml
-[versions]
-compose = "1.6.0"
-hilt = "2.50"
-
-[libraries]
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-
-[bundles]
-compose = ["compose-ui", "compose-material3"]
-```
-
-#### 2. Compose BOM (Bill of Materials)
-
-BOM 은 구글에서 테스트가 완료된 호환되는 라이브러리 세트를 제공합니다. 개별 버전을 일일이 명시할 필요가 없습니다.
-
-```kotlin
-dependencies {
-    val composeBom = platform(libs.compose.bom)
-    implementation(composeBom)
-    
-    implementation(libs.compose.ui) // 버전 생략 가능
-}
-```
-
-#### 3. Kapt vs KSP
-
-어노테이션 프로세싱(코드 생성) 도구의 차이입니다.
-
-- **Kapt**: Java 기반으로 동작하며 빌드 속도가 상대적으로 느림 (Legacy).
-- **KSP (Kotlin Symbol Processing)**: Kotlin 네이티브 지원으로 **최대 2 배 이상 빠름**. 최신 라이브러리(Room, Hilt 등)는 KSP 사용이 필수적입니다.
-
-#### 연관 문서
-
-- [gradle-build-basics](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-basics.md) - 빌드 기초
-- [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md) - 라이브러리 활용 아키텍처
+- 정본 지도: [의존성, 버전, CI 계약](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)
+- 전체 지도: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
