@@ -1,23 +1,5 @@
 # 디버깅
 
-상위 노트: [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```bash
-# 앱 저장소 확인
-adb shell ls -la /data/data/com.example.app/
-
-# 파일 내용 보기
-adb shell cat /data/data/com.example.app/files/myfile.txt
-
-# 파일 복사 (기기 → PC)
-adb pull /data/data/com.example.app/files/myfile.txt
-
-# 파일 복사 (PC → 기기)
-adb push myfile.txt /data/data/com.example.app/files/
-
-# 저장소 사용량
-adb shell dumpsys diskstats
-
-# MediaStore 확인
-adb shell content query --uri content://media/external/images/media
-```
+정본: [Android 저장소와 영속성](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-persistence.md)

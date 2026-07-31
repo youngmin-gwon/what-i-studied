@@ -1,8 +1,5 @@
 # `remember`에 repository/client 저장하지 않기
 
-```kotlin
-val repository = remember { SessionRepository(...) }
-```
+이 노트의 내용은 정본 노트로 흡수했다.
 
-DI로 조립할 객체를 UI 기억 장치에 넣으면 수명과 테스트 경계가 흐려집니다. Repository, HTTP client, DataStore, cipher 같은
-dependency는 DI에서 만들고 주입하는 편이 맞습니다.
+정본: [Compose 상태 API는 필요한 수명에 맞춰 선택한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-api-selection-by-lifetime.md)

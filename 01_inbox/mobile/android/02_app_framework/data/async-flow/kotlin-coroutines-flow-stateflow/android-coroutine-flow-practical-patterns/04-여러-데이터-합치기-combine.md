@@ -1,24 +1,5 @@
 # 여러 데이터 합치기: combine
 
-홈 화면은 여러 출처의 데이터를 합쳐서 만드는 경우가 많습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-val uiState: StateFlow<HomeUiState> =
-    combine(
-        userRepository.observeUser(),
-        benefitRepository.observeBenefits(),
-        notificationRepository.observeUnreadCount(),
-    ) { user, benefits, unreadCount ->
-        HomeUiState(
-            userName = user.name,
-            benefits = benefits,
-            unreadCount = unreadCount,
-        )
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = HomeUiState(),
-    )
-```
-
-`combine`은 각 Flow의 최신값을 모아 하나의 UI 상태로 만듭니다.
+정본: [여러 원천의 최신값으로 화면 상태를 만들 때 combine을 사용한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/combine-builds-screen-state-from-latest-source-values.md)

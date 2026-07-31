@@ -1,3 +1,5 @@
 # 🛡️ Context: 왜 Keystore 인가?
 
-소프트웨어 수준의 암호화는 기기가 루팅되거나 OS 취약점이 발견될 경우 키가 유출될 위험이 큽니다. Keystore 는 키를 **TEE(Trusted Execution Environment)** 또는 **StrongBox** 등 격리된 하드웨어 영역에 가두어 물리적인 탈취를 방지합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+정본: [Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/sensitive-data-requires-encryption-and-key-ownership.md)

@@ -1,7 +1,5 @@
 # 💡 Context: 저장소 권한의 대변화
 
-상위 노트: [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-Android 10 부터 도입된 Scoped Storage 는 안드로이드 저장소 생태계를 완전히 바꿨습니다. 이제 더 이상 전체 저장소 권한을 요구하는 방식은 통하지 않으며, [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md) 의 일환으로서 세분화된 접근 제어를 이해하는 것이 필수입니다. [android-foundations](01_inbox/mobile/android/00_foundations/overview/android-foundations.md) 에서 시작된 시스템 계층 구조의 실질적인 구현체입니다.
-
----
+정본: [Scoped Storage는 공유 저장소 직접 접근을 제한한다](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/scoped-storage-limits-direct-shared-storage-access.md)

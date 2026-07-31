@@ -1,28 +1,5 @@
 # Repository 패턴과 함께 사용
 
-```kotlin
-// Repository
-class UserRepository(
-    private val api: ApiService,
-    private val dao: UserDao
-) {
-    fun getUsers(): Flow<List<User>> = flow {
-        emit(dao.getAll().first()) // 캐시 먼저
-        val fresh = api.getUsers()  // 네트워크에서 최신 데이터
-        dao.insertAll(fresh)
-        emit(fresh)
-    }
-}
+이 노트의 내용은 정본 노트로 흡수했다.
 
-// ViewModel
-class UserViewModel(
-    private val repository: UserRepository
-) : ViewModel() {
-    val users: StateFlow<List<User>> = repository.getUsers()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
-}
-```
+정본: [Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/repository-exposes-flow-and-viewmodel-composes-screen-state.md)

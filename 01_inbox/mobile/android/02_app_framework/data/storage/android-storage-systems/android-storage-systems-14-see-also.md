@@ -1,9 +1,5 @@
 # See Also
 
-상위 노트: [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- [android-persistence-room-datastore](01_inbox/mobile/android/02_app_framework/data/storage/android-persistence-room-datastore.md)
-- [android-security-permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md)
-- [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
-- [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md)
-- [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
+정본: [Android 저장소와 영속성](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-persistence.md)

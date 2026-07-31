@@ -1,14 +1,5 @@
 # `DisposableEffect`
 
-등록과 해제가 쌍으로 필요한 작업에 씁니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-DisposableEffect(lifecycleOwner) {
-    val observer = LifecycleEventObserver { _, _ -> }
-    lifecycleOwner.lifecycle.addObserver(observer)
-
-    onDispose {
-        lifecycleOwner.lifecycle.removeObserver(observer)
-    }
-}
-```
+정본: [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/disposable-effect-pairs-registration-and-cleanup.md)

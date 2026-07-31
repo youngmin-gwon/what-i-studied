@@ -1,4 +1,5 @@
 # `rememberSaveable`을 영구 저장소처럼 쓰지 않기
 
-`rememberSaveable`은 UI 복원 장치입니다. sessionKey, auth token, 운동 기록, 측정 이력 같은 데이터는 DataStore나 Room에 저장해야
-합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+정본: [Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-saveable-is-for-small-restorable-ui-state.md)

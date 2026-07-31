@@ -1,49 +1,5 @@
 # One-time event 처리
 
-```kotlin
-// LiveData로 일회성 이벤트 처리 (추천하지 않음)
-class EventViewModel : ViewModel() {
-    private val _navigationEvent = MutableLiveData<Event<String>>()
-    val navigationEvent: LiveData<Event<String>> = _navigationEvent
-    
-    fun navigateToDetail() {
-        _navigationEvent.value = Event("detail")
-    }
-}
+이 노트의 내용은 정본 노트로 흡수했다.
 
-// Event wrapper class
-class Event<out T>(private val content: T) {
-    private var hasBeenHandled = false
-    
-    fun getContentIfNotHandled(): T? {
-        return if (hasBeenHandled) {
-            null
-        } else {
-            hasBeenHandled = true
-            content
-        }
-    }
-}
-
-// ✅ Channel 사용 (권장)
-class EventViewModel : ViewModel() {
-    private val _navigationEvents = Channel<String>()
-    val navigationEvents = _navigationEvents.receiveAsFlow()
-    
-    fun navigateToDetail() {
-        viewModelScope.launch {
-            _navigationEvents.send("detail")
-        }
-    }
-}
-
-// Activity에서 수집
-lifecycleScope.launch {
-    repeatOnLifecycle(Lifecycle.State.STARTED) {
-        viewModel.navigationEvents.collect { destination ->
-            // 한 번만 처리됨
-            navigate(destination)
-        }
-    }
-}
-```
+정본: [Snackbar와 Navigation처럼 소비 시점이 중요한 신호만 이벤트 스트림으로 분리한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/consumable-signals-belong-in-event-stream.md)

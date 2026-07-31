@@ -1,11 +1,5 @@
 # Composable body에서 직접 API 호출하지 않기
 
-```kotlin
-@Composable
-fun BadScreen() {
-    repository.load()
-}
-```
+이 노트의 내용은 정본 노트로 흡수했다.
 
-Composable은 recomposition될 수 있으므로 body에 직접 side effect를 두면 호출이 반복될 수 있습니다. ViewModel 또는
-`LaunchedEffect`로 옮겨야 합니다.
+정본: [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md)

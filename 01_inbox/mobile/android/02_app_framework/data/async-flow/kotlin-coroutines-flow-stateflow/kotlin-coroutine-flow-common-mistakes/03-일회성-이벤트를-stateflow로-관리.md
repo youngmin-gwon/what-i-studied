@@ -1,11 +1,5 @@
 # 일회성 이벤트를 StateFlow로 관리
 
-```kotlin
-// 화면 회전 후 Snackbar가 다시 뜰 수 있음
-data class UiState(
-    val snackbarMessage: String? = null,
-)
-```
+이 노트의 내용은 정본 노트로 흡수했다.
 
-이 방식은 상태 복원이나 재구독 시 이벤트가 다시 처리될 수 있습니다. Snackbar, Toast, Navigation은 `SharedFlow`나 `Channel`로 분리하는
-편이 안전합니다.
+정본: [SharedFlow와 Channel은 상태 저장소가 아니라 일회성 신호 전달 수단이다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/sharedflow-and-channel-are-event-signals-not-state-stores.md)

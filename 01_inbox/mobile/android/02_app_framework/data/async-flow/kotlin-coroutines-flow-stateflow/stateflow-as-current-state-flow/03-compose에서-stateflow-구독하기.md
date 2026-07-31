@@ -1,23 +1,5 @@
 # Compose에서 StateFlow 구독하기
 
-Compose에서는 `collectAsStateWithLifecycle()`을 사용해 StateFlow를 구독합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-@Composable
-fun ProfileRoute(
-    viewModel: ProfileViewModel = viewModel(),
-) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    ProfileScreen(
-        uiState = uiState,
-        onRetryClick = viewModel::load,
-    )
-}
-```
-
-`collectAsStateWithLifecycle()`은 화면 생명주기를 고려해, 화면이 보이는 동안에만 안전하게 Flow를 수집합니다.
-
-> [!IMPORTANT]
-> Compose에서 Flow를 직접 `collect`하려고 `LaunchedEffect`를 남발하지 마세요. 화면에 그릴 상태라면 대부분
-`collectAsStateWithLifecycle()`이 맞습니다.
+정본: [ViewModel의 StateFlow는 lifecycle-aware collection으로 화면 상태가 된다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)

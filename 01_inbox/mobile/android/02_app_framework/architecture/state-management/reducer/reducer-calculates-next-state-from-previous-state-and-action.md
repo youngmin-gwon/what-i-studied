@@ -1,0 +1,55 @@
+# Reducer는 이전 상태와 Action만 받아 새 상태를 계산한다
+
+상위 문서: [Android Reducer](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer.md)
+
+
+## 핵심 주장
+
+Reducer의 계약은 `oldState + action -> newState`다.
+Reducer는 상태를 소유하거나 외부 작업을 시작하지 않고, 주어진 입력만으로 다음 상태를 계산한다.
+
+```kotlin
+class SignUpReducer {
+    fun reduce(
+        state: SignUpUiState,
+        action: SignUpAction,
+    ): SignUpUiState = when (action) {
+        is SignUpAction.EmailChanged -> state.copy(
+            email = action.value,
+            canSubmit = action.value.isNotBlank() && state.password.isNotBlank(),
+        )
+        SignUpAction.SubmitStarted -> state.copy(isSubmitting = true)
+        SignUpAction.SubmitFailed -> state.copy(isSubmitting = false)
+    }
+}
+```
+
+같은 상태와 같은 action은 언제 호출해도 같은 결과를 내야 한다.
+현재 시각, 랜덤값, 네트워크 응답처럼 입력에 포함되지 않은 외부 상태를 읽으면 이 계약이 깨진다.
+
+ViewModel은 action을 dispatch하고, Repository 결과를 다시 action으로 바꾸는 조정자다.
+
+```text
+UI action -> ViewModel
+ViewModel -> Reducer(state, action)
+Reducer   -> new state
+ViewModel -> Repository 작업
+Repository 결과 -> success/failure action -> Reducer
+```
+
+Reducer를 별도 클래스로 만들지 않고 ViewModel의 작은 `update` 블록으로 유지해도 계약은 같다.
+핵심은 이름이 아니라 상태 계산과 외부 작업을 분리하는 것이다.
+
+## Reducer의 입력과 출력
+
+Action은 사용자의 행동뿐 아니라 비동기 작업 결과도 표현할 수 있다.
+`SubmitStarted`, `SubmitSucceeded`, `SubmitFailed`는 각각 상태 전이를 명시하는 입력이다.
+Reducer가 결과를 직접 기다리지 않고, 결과를 전달받은 뒤 새 상태를 계산한다는 점이 중요하다.
+
+Reducer는 보통 상태를 mutate하지 않고 `copy` 또는 새 sealed object를 반환한다.
+같은 old state와 action을 여러 번 실행해도 같은 new state가 나와야 한다.
+
+## 테스트 관점
+
+각 action별로 대표적인 이전 상태와 기대 상태를 표로 만들면 전이 규칙의 누락을 찾기 쉽다.
+Repository fake나 `runTest` 없이도 Reducer의 핵심 동작을 검증할 수 있어야 한다.

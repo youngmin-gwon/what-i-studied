@@ -1,35 +1,5 @@
 # 검색 패턴: query StateFlow + flatMapLatest
 
-```kotlin
-class SearchViewModel(
-    private val repository: ProductRepository,
-) : ViewModel() {
-    private val query = MutableStateFlow("")
+이 노트의 내용은 정본 노트로 흡수했다.
 
-    val uiState: StateFlow<SearchUiState> =
-        query
-            .debounce(300)
-            .distinctUntilChanged()
-            .flatMapLatest { keyword ->
-                if (keyword.isBlank()) {
-                    flowOf(emptyList())
-                } else {
-                    repository.searchProducts(keyword)
-                }
-            }
-            .map { products ->
-                SearchUiState.Ready(products)
-            }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = SearchUiState.Ready(emptyList()),
-            )
-
-    fun onQueryChange(value: String) {
-        query.value = value
-    }
-}
-```
-
-`flatMapLatest`가 핵심입니다. 새 검색어가 들어오면 이전 검색 Flow를 취소하고 최신 검색만 유지합니다.
+정본: [새 입력이 이전 작업을 무효화하면 flatMapLatest로 이전 흐름을 취소한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flatmaplatest-cancels-obsolete-work-for-new-input.md)

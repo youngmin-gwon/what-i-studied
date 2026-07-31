@@ -1,11 +1,5 @@
 # `LaunchedEffect`
 
-Composable이 Composition에 들어왔을 때 coroutine 작업을 시작합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-LaunchedEffect(userId) {
-    viewModel.load(userId)
-}
-```
-
-key가 바뀌면 기존 작업이 취소되고 다시 시작됩니다.
+정본: [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md)

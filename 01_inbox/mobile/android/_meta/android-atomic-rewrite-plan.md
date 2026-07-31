@@ -93,7 +93,7 @@ Top-level 구조는 유지한다.
 ```md
 # 주장형 제목
 
-상위 문서: [허브 제목](상대경로.md)
+상위 문서 예시: `허브 제목 -> 상대경로.md`
 
 핵심 주장 2~4문장.
 
@@ -300,3 +300,18 @@ Canonical note 후보:
 5. Performance / Debugging / Build Optimization
 
 첫 구현 패스는 Phase 1부터 시작한다.
+
+## Phase 1 적용 기록
+
+- 적용일: 2026-07-31
+- 범위: ViewModel, UiState, Reducer, Flow/StateFlow, Compose 상태 수명/Effect
+- 정본 지도: [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
+- 원칙: 중복 장문 노트는 삭제하지 않고 기존 링크를 보존하는 경유 노트로 축소한다.
+
+## Phase 3 적용 기록
+
+- 적용일: 2026-07-31
+- 범위: DataStore, Room, SQLite, app-specific files, MediaStore, SAF, Photo Picker, Scoped Storage, Keystore, AES-GCM, BiometricPrompt, FBE, Direct Boot, backup/cache boundary
+- 정본 지도: [Android 저장소와 영속성](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-persistence.md)
+- 보안 정본 지도: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+- 원칙: 파일 접근 계약과 보안 저장소 계약을 분리하고, 기존 장문 노트는 정본 링크를 가진 경유 노트로 축소한다.

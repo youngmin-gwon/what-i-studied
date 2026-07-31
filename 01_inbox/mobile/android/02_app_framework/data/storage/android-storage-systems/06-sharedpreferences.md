@@ -1,26 +1,5 @@
 # SharedPreferences
 
-상위 노트: [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-간단한 키 - 값 저장.
-
-```kotlin
-// 저장
-val sharedPref = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
-with(sharedPref.edit()) {
-    putString("username", "john")
-    putInt("age", 25)
-    putBoolean("is_logged_in", true)
-    apply() // 비동기, commit() 은 동기
-}
-
-// 읽기
-val username = sharedPref.getString("username", "default")
-val age = sharedPref.getInt("age", 0)
-```
-
-**문제점:**
-
-- UI 스레드에서 읽기 시 블로킹
-- 타입 안전성 부족
-- 대용량 데이터 부적합
+정본: [DataStore는 작은 설정과 현재 상태를 저장한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/datastore-stores-small-settings-and-current-state.md)

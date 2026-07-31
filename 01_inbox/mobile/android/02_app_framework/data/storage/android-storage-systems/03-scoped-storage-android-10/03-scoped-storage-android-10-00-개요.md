@@ -1,5 +1,5 @@
 # Scoped Storage (Android 10+) 개요
 
-상위 노트: [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-앱이 자신의 파일만 직접 접근하고, 다른 파일은 MediaStore/SAF 를 통해 접근한다.
+정본: [Scoped Storage는 공유 저장소 직접 접근을 제한한다](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/scoped-storage-limits-direct-shared-storage-access.md)
