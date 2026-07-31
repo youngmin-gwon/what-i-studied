@@ -10,4 +10,4 @@ date created: 2026-07-31 23:59:00 +09:00
 
 흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection/05-이벤트-handler에서-coroutine이-필요할-때.md`
 
-정본 노트: [remember-coroutine-scope-owns-manually-controlled-ui-coroutines](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)
+정본 노트: [사용자 이벤트로 시작하고 수동 제어할 coroutine은 rememberCoroutineScope로 실행한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)

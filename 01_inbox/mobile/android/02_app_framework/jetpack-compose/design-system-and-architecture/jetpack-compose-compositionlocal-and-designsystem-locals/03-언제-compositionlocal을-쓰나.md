@@ -1,25 +1,13 @@
-# 언제 CompositionLocal을 쓰나?
-
-상위 노트: [jetpack-compose-compositionlocal-and-designsystem-locals](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals.md)
-
-CompositionLocal은 아무 값이나 숨겨서 전달하는 도구가 아닙니다.
-
-적합한 경우:
-
-- 앱 또는 하위 tree 전체에 넓게 적용되는 값
-- 중간 Composable이 굳이 몰라도 되는 환경값
-- 화면 대부분이 공통으로 읽을 수 있는 design system 값
-- preview/test 기본값을 둘 수 있는 값
-
-부적합한 경우:
-
-- 특정 화면의 `ViewModel`
-- 버튼 클릭 callback
-- form field 값
-- 한두 Composable만 쓰는 임시 상태
-- 명시적으로 parameter로 넘기는 편이 더 읽기 쉬운 값
-
-이 프로젝트에서 `ViewModel`을 `Local`로 만들지 않는 이유도 여기에 있습니다. `ViewModel`은 화면 상태와 이벤트 처리의 구체적인 owner입니다. 이를
-Local로 숨기면 어떤 UI가 어떤 상태에 의존하는지 추적하기 어려워집니다.
-
 ---
+title: 03-언제-compositionlocal을-쓰나
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals/03-언제-compositionlocal을-쓰나.md`
+
+정본 노트: [CompositionLocal, 파라미터, DI는 서로 다른 문제를 푼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compositionlocal-parameters-and-di-solve-different-problems.md)

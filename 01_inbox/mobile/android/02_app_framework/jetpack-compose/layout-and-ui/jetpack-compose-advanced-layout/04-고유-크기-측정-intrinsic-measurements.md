@@ -1,22 +1,13 @@
-# 고유 크기 측정 (Intrinsic Measurements)
-
-Compose는 단일 패스 측정 원칙을 고수하지만, **"실제 자식들을 측정하기 전에 특정 크기 정보를 미리 조회"** 해야 하는 상황을 해결하기 위해 고유 크기 측정(Intrinsic Measurements) 기능을 제공합니다.
-
-### 4-1. 언제 사용하는가?
-자식 컴포넌트들의 실제 콘텐츠 길이에 의존하여 부모 크기를 결정하고, 그 부모 크기를 다시 모든 자식 컴포넌트에 동일하게 전파해야 할 때 유용합니다.
-
-```
-[Intrinsic Size 적용 예시]
-Column (가장 넓은 버튼 너비에 맞추어 모든 버튼 통일)
-┌────────────────────────┐
-│      [ 짧은 버튼 ]       │ -> IntrinsicSize.Max 너비 적용
-├────────────────────────┤
-│   [ 매우 긴 텍스트 버튼 ]  │ -> 이 버튼의 너비가 기준이 됨
-└────────────────────────┘
-```
-
-### 4-2. 작동 방식
-
-부모 레이아웃(예: `Column`)에 `Modifier.width(IntrinsicSize.Max)`를 설정하면, 실제 세밀한 레이아웃 측정 단계를 밟기 전에 자식들에게 **"너희가 콘텐츠를 다 표현하기 위해 필요한 최대 너비가 얼마니?"** 라고 사전 질의(Pre-measure Query)를 보냅니다. 자식들이 회신한 최댓값을 기준으로 부모의 너비 제약조건을 고정한 뒤 단일 패스 측정을 완수합니다.
-
 ---
+title: 04-고유-크기-측정-intrinsic-measurements
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-advanced-layout/04-고유-크기-측정-intrinsic-measurements.md`
+
+정본 노트: [Intrinsic measurement와 SubcomposeLayout은 특수한 측정 문제를 해결한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/intrinsic-measurement-and-subcompose-layout-solve-special-measurement-problems.md)

@@ -1,22 +1,13 @@
-# 상태 설명 제공 (State Descriptions)
-* **원칙**: 토글 버튼이나 활성화/비활성화 상태의 컴포넌트를 만들 때, 단순히 시각적 상태뿐만 아니라 의미론적인 상태도 제공해야 합니다.
-* **사용 API**: `stateDescription` 속성을 이용해 현재 커스텀 위젯의 특수한 상태 정보를 한글/영어 텍스트로 치환할 수 있습니다.
-
-```kotlin
-val isMuted = remember { mutableStateOf(false) }
-
-IconButton(
-    onClick = { isMuted.value = !isMuted.value },
-    modifier = Modifier.semantics {
-        // TalkBack 포커스 시 단순히 "선택됨/선택 안 됨" 대신 구체적인 상태 안내
-        stateDescription = if (isMuted.value) "음소거 됨" else "소리 켬"
-    }
-) {
-    Icon(
-        imageVector = if (isMuted.value) Icons.Default.VolumeOff else Icons.Default.VolumeUp,
-        contentDescription = "음소거 전환 버튼"
-    )
-}
-```
-
 ---
+title: 06-상태-설명-제공-state-descriptions
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/02-접근성-향상을-위한-7대-핵심-실무-가이드/06-상태-설명-제공-state-descriptions.md`
+
+정본 노트: [시각 정보와 제스처에는 읽을 수 있는 의미와 대체 동작이 필요하다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)

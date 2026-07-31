@@ -1,3 +1,13 @@
-# 참조 문서
+---
+title: jetpack-compose-architectural-layering-05-참조-문서
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-* **AndroidX 모듈화 및 패키지 아키텍처**: 각 레이어별 Gradle 의존성 구조 및 `-runtime` 모듈의 분리 배경은 [jetpack-compose-module-architecture](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-module-architecture.md) 문서를 참조하세요.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-architectural-layering/jetpack-compose-architectural-layering-05-참조-문서.md`
+
+정본 노트: [Compose는 상위 컴포넌트가 맞지 않을 때 낮은 계층으로 내려갈 수 있게 설계됐다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-layers-let-you-drop-down-when-higher-level-components-do-not-fit.md)

@@ -10,4 +10,4 @@ date created: 2026-07-31 23:59:00 +09:00
 
 흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/android-compose-internals-12-테스팅.md`
 
-정본 노트: [testing-quality-contracts](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
+정본 노트: [Testing quality contracts](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)

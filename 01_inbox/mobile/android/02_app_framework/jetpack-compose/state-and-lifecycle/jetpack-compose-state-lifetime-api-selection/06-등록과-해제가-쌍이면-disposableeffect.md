@@ -10,4 +10,4 @@ date created: 2026-07-31 23:59:00 +09:00
 
 흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection/06-등록과-해제가-쌍이면-disposableeffect.md`
 
-정본 노트: [disposable-effect-pairs-registration-and-cleanup](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/disposable-effect-pairs-registration-and-cleanup.md)
+정본 노트: [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/disposable-effect-pairs-registration-and-cleanup.md)

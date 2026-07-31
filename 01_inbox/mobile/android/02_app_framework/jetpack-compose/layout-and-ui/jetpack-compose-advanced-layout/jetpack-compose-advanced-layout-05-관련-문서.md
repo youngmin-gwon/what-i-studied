@@ -1,5 +1,13 @@
-# 관련 문서
+---
+title: jetpack-compose-advanced-layout-05-관련-문서
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-* **제약 조건과 Modifier 순서**: [jetpack-compose-constraints-and-modifier-order](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-constraints-and-modifier-order.md)
-* **렌더링 파이프라인 개요**: [jetpack-compose-phases-and-layout-system](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-phases-and-layout-system.md)
-* **애니메이션 시스템**: [jetpack-compose-animation](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-animation.md)
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-advanced-layout/jetpack-compose-advanced-layout-05-관련-문서.md`
+
+정본 노트: [Custom Layout은 자식 측정과 배치를 직접 책임진다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/custom-layout-measures-and-places-children-explicitly.md)

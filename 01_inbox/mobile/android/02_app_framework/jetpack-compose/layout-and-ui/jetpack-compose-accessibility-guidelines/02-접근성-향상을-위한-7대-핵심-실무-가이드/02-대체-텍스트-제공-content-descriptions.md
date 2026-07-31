@@ -1,19 +1,13 @@
-# 대체 텍스트 제공 (Content Descriptions)
-* **원칙**: 화면의 텍스트가 아닌 시각적 요소(Image, Icon)는 스크린 리더가 읽을 수 있도록 설명 텍스트를 제공해야 합니다.
-* **장식용 이미지 처리**: 레이아웃 장식용이거나 화면의 텍스트 정보와 완벽히 중복되는 이미지에는 `contentDescription = null`을 명시하여 TalkBack이 해당 요소를 건너뛰고 포커스를 잡지 않도록 유도해야 합니다.
-
-```kotlin
-// Case 1: 의미를 가진 이미지 - 상세한 묘사 제공
-Image(
-    painter = painterResource(R.drawable.post_image),
-    contentDescription = "VirtualMate 운동 가이드 화면 캡처 이미지"
-)
-
-// Case 2: 단순 데코레이션/장식용 이미지 - null 설정 (TalkBack 포커스 스킵)
-Image(
-    painter = painterResource(R.drawable.ic_decorator_star),
-    contentDescription = null
-)
-```
-
 ---
+title: 02-대체-텍스트-제공-content-descriptions
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/02-접근성-향상을-위한-7대-핵심-실무-가이드/02-대체-텍스트-제공-content-descriptions.md`
+
+정본 노트: [시각 정보와 제스처에는 읽을 수 있는 의미와 대체 동작이 필요하다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)

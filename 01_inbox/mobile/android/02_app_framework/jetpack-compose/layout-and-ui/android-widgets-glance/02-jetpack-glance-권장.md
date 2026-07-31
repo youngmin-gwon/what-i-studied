@@ -1,32 +1,13 @@
-# Jetpack Glance (권장)
+---
+title: 02-jetpack-glance-권장
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-`RemoteViews` 를 직접 다루는 대신, Compose 의 선언형 문법을 사용하여 위젯을 정의한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### GlanceWidget 구현
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/android-widgets-glance/02-jetpack-glance-권장.md`
 
-```kotlin
-class MyAppWidget : GlanceAppWidget() {
-
-    override suspend fun provideGlance(context: Context, id: GlanceId) {
-        // 데이터 준비 (DataStore 등에서 읽어오기)
-        val data = repository.getData()
-
-        provideContent {
-            GlanceContent(data)
-        }
-    }
-
-    @Composable
-    private fun GlanceContent(data: MyData) {
-        Column(
-            modifier = GlanceModifier.fillMaxSize()
-                .background(GlanceTheme.colors.surface),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = data.title, style = TextStyle(fontSize = 18.sp))
-            Button(text = "새로고침", onClick = actionRunCallback<RefreshAction>())
-        }
-    }
-}
-```
+정본 노트: [Glance는 Compose UI가 아니라 RemoteViews 위젯 경계로 렌더링한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)

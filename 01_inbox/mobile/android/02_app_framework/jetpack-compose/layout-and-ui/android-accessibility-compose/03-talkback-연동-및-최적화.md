@@ -1,22 +1,13 @@
-# TalkBack 연동 및 최적화
+---
+title: 03-talkback-연동-및-최적화
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-TalkBack 은 시맨틱 트리를 탐색하며 사용자에게 정보를 읽어준다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### 요소 그룹화 및 병합 (Merge)
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/android-accessibility-compose/03-talkback-연동-및-최적화.md`
 
-작은 요소들이 흩어져 있으면 TalkBack 사용자가 일일이 클릭해야 하므로 불편하다. 관련된 정보는 하나로 병합하는 것이 UX 에 좋다.
-
-```kotlin
-@Composable
-fun PostItem(post: Post) {
-    Row(
-        modifier = Modifier.semantics(mergeDescendants = true) {
-            // 하위 요소들의 시맨틱 정보를 하나로 합쳐서 읽어줌
-            contentDescription = "${post.author}의 게시글: ${post.content}"
-        }
-    ) {
-        Avatar(post.author)
-        Text(post.content)
-    }
-}
-```
+정본 노트: [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md)

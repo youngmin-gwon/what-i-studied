@@ -1,4 +1,13 @@
-# 참조 문서
+---
+title: jetpack-compose-module-architecture-05-참조-문서
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-* **Compose 아키텍처 레이어링**: 상위 레이어에서 하위 API 수준으로 내려가는 "Dropping Down" 설계 철학 및 포킹 주의사항은 [jetpack-compose-architectural-layering](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-architectural-layering.md) 문서를 참조하세요.
-* **ViewModel과 화면 상태**: `ViewModel`을 화면 단위 state holder로 쓰는 기준, `UiState`, user action, 일회성 이벤트, Reducer 분리 기준은 [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)를 참조하세요.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-module-architecture/jetpack-compose-module-architecture-05-참조-문서.md`
+
+정본 노트: [Compose 모듈 경계는 의존성 범위와 교체 비용을 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-module-boundaries-expose-dependency-scope-and-replacement-cost.md)

@@ -10,4 +10,4 @@ date created: 2026-07-31 23:59:00 +09:00
 
 흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/viewmodel-flow-stateflow-in-compose/viewmodel-flow-stateflow-in-compose-02-flow는-앱-간-데이터-전달-api가-아니다.md`
 
-정본 노트: [viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)
+정본 노트: [ViewModel의 StateFlow는 lifecycle-aware collection으로 화면 상태가 된다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)

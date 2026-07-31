@@ -1,10 +1,13 @@
-# 포킹(Forking)에 대한 아키텍처적 주의사항 (Caution)
-
-> [!WARNING]
-> 상위 컴포넌트를 복사하여 직접 하위 수준 API로 구현하는 포킹(Forking)은 신중히 결정해야 합니다.
-
-* **업스트림 기능 유실**: 상위 컴포넌트(예: Material3 Button)를 직접 포크하여 독자 컴포넌트를 만들 경우, 향후 구글이 해당 상위 컴포넌트에 추가할 **버그 수정, 성능 최적화, 신규 기능 및 접근성 개선 패치**를 자동으로 누릴 수 없게 됩니다.
-* **유지보수 비용 상승**: 프레임워크가 업데이트될 때마다 직접 하위 레이어 바인딩 코드를 업데이트하고 호환성을 확인해야 합니다.
-* **권장 접근**: 가능한 한 최상위 레이어 컴포넌트를 그대로 활용하고, Modifier나 테마 토큰 주입을 통해 커스터마이징을 시도하는 것이 장기적으로 유지보수에 유리합니다.
-
 ---
+title: 04-포킹-forking-에-대한-아키텍처적-주의사항-caution
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-architectural-layering/04-포킹-forking-에-대한-아키텍처적-주의사항-caution.md`
+
+정본 노트: [Compose는 상위 컴포넌트가 맞지 않을 때 낮은 계층으로 내려갈 수 있게 설계됐다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-layers-let-you-drop-down-when-higher-level-components-do-not-fit.md)

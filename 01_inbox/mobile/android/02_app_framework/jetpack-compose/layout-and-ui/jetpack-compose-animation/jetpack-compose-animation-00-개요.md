@@ -1,6 +1,13 @@
-# Jetpack Compose Animation (애니메이션 시스템) 개요
-
-이 문서는 Jetpack Compose의 애니메이션 시스템을 상위 수준(High-level) API부터 하위 수준(Low-level) API까지 단계별 구조와 핵심 사용법, 그리고
-다양한 애니메이션 스펙(AnimationSpec) 설정에 대해 다룹니다.
-
 ---
+title: jetpack-compose-animation-00-개요
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-animation/jetpack-compose-animation-00-개요.md`
+
+정본 노트: [Compose animation API는 변경 단위와 제어 수준으로 선택한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/compose-animation-api-is-selected-by-change-unit-and-control-level.md)

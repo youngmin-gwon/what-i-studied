@@ -1,44 +1,13 @@
-# 7 `MyBenefitWindowFold.kt`
-
-상위 노트: [06-각-파일의-역할](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals/06-%EA%B0%81-%ED%8C%8C%EC%9D%BC%EC%9D%98-%EC%97%AD%ED%95%A0.md)
-
-경로:
-
-```text
-core/designsystem/src/main/java/com/benefit/virtualmate/core/designsystem/adaptive/MyBenefitWindowFold.kt
-```
-
-역할:
-
-- fold/hinge bounds가 있는지 표현합니다.
-- fold/hinge 방향이 가로인지 세로인지 표현합니다.
-- fold/hinge가 logical display area를 나누는지 표현합니다.
-- fold/hinge가 실제 픽셀을 가리거나 사용하기 어려운 영역을 만드는지 표현합니다.
-
-예:
-
-```text
-tablet / desktop
-- windowPosture = Regular
-- windowFold = None
-
-쫙 펼쳐진 foldable
-- windowPosture = Regular
-- windowFold.orientation = Vertical 또는 Horizontal
-- windowFold.isSeparating = false
-- windowFold.isOccluding = false
-
-book posture
-- windowPosture = Book
-- windowFold.orientation = Vertical
-- windowFold.isSeparating = true
-
-tabletop posture
-- windowPosture = Tabletop
-- windowFold.orientation = Horizontal
-- windowFold.isSeparating = true
-```
-
-이 값만으로 layout을 자동 분리하지 않습니다. 각 feature의 `AdaptiveLayoutPolicy`가 해당 화면에 실제로 이점이 있을 때만 사용합니다.
-
 ---
+title: 07-7-mybenefitwindowfold-kt
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals/06-각-파일의-역할/07-7-mybenefitwindowfold-kt.md`
+
+정본 노트: [MyBenefit adaptive Local은 Android 일반 규칙이 아니라 프로젝트 참조다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/mybenefit-adaptive-locals-are-project-reference-not-android-canon.md)

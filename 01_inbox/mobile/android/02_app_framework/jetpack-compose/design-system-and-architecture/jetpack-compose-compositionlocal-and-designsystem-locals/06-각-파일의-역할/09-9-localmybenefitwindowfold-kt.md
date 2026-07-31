@@ -1,18 +1,13 @@
-# 9 `LocalMyBenefitWindowFold.kt`
-
-상위 노트: [06-각-파일의-역할](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals/06-%EA%B0%81-%ED%8C%8C%EC%9D%BC%EC%9D%98-%EC%97%AD%ED%95%A0.md)
-
-경로:
-
-```text
-core/designsystem/src/main/java/com/benefit/virtualmate/core/designsystem/adaptive/LocalMyBenefitWindowFold.kt
-```
-
-역할:
-
-- 현재 fold/hinge만 빠르게 읽을 수 있게 합니다.
-- `LocalMyBenefitWindowAdaptivity.current.windowFold`와 같은 의미입니다.
-
-일반 화면은 이 값을 직접 읽기보다 화면별 `AdaptiveLayoutPolicy`에서 읽는 편이 좋습니다.
-
 ---
+title: 09-9-localmybenefitwindowfold-kt
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals/06-각-파일의-역할/09-9-localmybenefitwindowfold-kt.md`
+
+정본 노트: [MyBenefit adaptive Local은 Android 일반 규칙이 아니라 프로젝트 참조다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/mybenefit-adaptive-locals-are-project-reference-not-android-canon.md)

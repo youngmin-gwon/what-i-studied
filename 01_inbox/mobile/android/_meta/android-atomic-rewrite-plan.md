@@ -366,3 +366,12 @@ Canonical note 후보:
 - 원칙: Runtime mental model은 새 정본으로 묶고, 이미 좋은 state/effect/performance 정본은 재사용하며, 예전 튜토리얼 조각은 redirect stub으로 축소한다.
 - 참고한 공식 문서: [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model), [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state), [State hoisting](https://developer.android.com/develop/ui/compose/state-hoisting), [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects), [Compose phases](https://developer.android.com/develop/ui/compose/phases), [Strong skipping mode](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping)
 
+### Phase 13B 적용 기록
+
+- 적용일: 2026-07-31
+- 범위: Compose layout constraints, modifier order, custom layout, intrinsic measurement, SubcomposeLayout, animation API/spec, accessibility semantics, Material 3 color roles, CompositionLocal/design-system provider, Glance app widget boundary
+- UI 정본 지도: [Compose layout, animation, accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md)
+- Design System 정본 지도: [Compose design system](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system.md)
+- 원칙: Layout/animation/accessibility는 UI surface 계약으로, CompositionLocal/Material color/design-system provider는 architecture/design-system 계약으로 분리한다. Glance는 일반 Compose UI가 아니라 RemoteViews widget surface로 분리한다.
+- 참고한 공식 문서: [Compose layouts](https://developer.android.com/develop/ui/compose/layouts/basics), [Constraints and modifier order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers), [Custom layouts](https://developer.android.com/develop/ui/compose/layouts/custom), [Choose an animation API](https://developer.android.com/develop/ui/compose/animation/choose-api), [Semantics in Compose](https://developer.android.com/develop/ui/compose/accessibility/semantics), [CompositionLocal](https://developer.android.com/develop/ui/compose/compositionlocal), [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3), [Jetpack Glance](https://developer.android.com/develop/ui/compose/glance)
+

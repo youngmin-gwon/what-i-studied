@@ -1,25 +1,13 @@
-# rememberInfiniteTransition
+---
+title: 03-2단계-하위-수준-애니메이션-api-low-level-apis-03-rememberinfinitetransition
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-무한히 반복되는 애니메이션(예: 로딩 인디케이터의 회전, 심장 박동 효과, 그라데이션 쉬머 효과)을 만들 때 사용합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-val infiniteTransition = rememberInfiniteTransition(label = "InfinitePulse")
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-animation/03-2단계-하위-수준-애니메이션-api-low-level-apis/03-2단계-하위-수준-애니메이션-api-low-level-apis-03-rememberinfinitetransition.md`
 
-// 무한히 0.5f에서 1.0f 사이를 펄스 운동하는 애니메이션
-val scale by infiniteTransition.animateFloat(
-    initialValue = 0.5f,
-    targetValue = 1.0f,
-    animationSpec = infiniteRepeatable(
-        animation = tween(1000),
-        repeatMode = RepeatMode.Reverse
-    ),
-    label = "Scale"
-)
-
-Box(
-    modifier = Modifier
-        .size(100.dp)
-        .graphicsLayer(scaleX = scale, scaleY = scale)
-        .background(Color.Magenta)
-)
-```
+정본 노트: [값 애니메이션 API는 단일 target, transition, infinite, coroutine 제어로 나뉜다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/value-animation-apis-separate-single-target-transition-infinite-and-coroutine-control.md)

@@ -1,22 +1,13 @@
-# 터치 대상 크기 확보 (Touch Target Sizes)
-* **요구사항**: 터치하거나 클릭할 수 있는 모든 UI 요소는 최소 **48dp x 48dp** 이상의 크기를 가져야 합니다.
-* **Compose 최적화**: Material Design 컴포저블(Button, IconButton, Switch 등)은 내부적으로 최소 터치 크기 요건을 자동으로 충족하도록 설계되어 있습니다. 하지만 작은 텍스트 버튼이나 커스텀 클릭 컴포저블을 직접 구현할 때는 누락되기 쉽습니다.
-
-```kotlin
-// ❌ 안 좋은 예: 아이콘 크기가 24dp여서 손의 미세 제어가 어려운 사용자는 터치하기 힘듦
-Icon(
-    imageVector = Icons.Default.Share,
-    contentDescription = "공유",
-    modifier = Modifier.clickable { onShare() }
-)
-
-//  올바른 예: IconButton 또는 minimumTouchTargetSize 확보
-IconButton(onClick = onShare) {
-    Icon(
-        imageVector = Icons.Default.Share,
-        contentDescription = "공유"
-    )
-}
-```
-
 ---
+title: 01-터치-대상-크기-확보-touch-target-sizes
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/02-접근성-향상을-위한-7대-핵심-실무-가이드/01-터치-대상-크기-확보-touch-target-sizes.md`
+
+정본 노트: [시각 정보와 제스처에는 읽을 수 있는 의미와 대체 동작이 필요하다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)

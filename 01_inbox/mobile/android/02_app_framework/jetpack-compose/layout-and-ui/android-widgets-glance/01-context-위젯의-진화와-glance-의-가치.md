@@ -1,8 +1,13 @@
-# 💡 Context: 위젯의 진화와 Glance 의 가치
-
-전통적인 XML 기반 위젯 개발은 복잡하고 오류가 잦았으나, Jetpack Glance 는 Compose 의 선언형 모델을 도입하여 이를 획기적으로 개선했습니다. 이제 복잡한 레이아웃과 데이터 바인딩을 보다 직관적으로 처리할 수 있습니다. [android-ui-system](01_inbox/mobile/android/02_app_framework/ui/system/android-ui-system.md) 의 확장된 개념입니다.
-
->[!NOTE] **상호 참조**
->iOS 의 위젯 및 라이브 액티비티 방식은 [apple-widgets-live-activities](01_inbox/mobile/apple/02_ui_frameworks/apple-widgets-live-activities.md) 를 참고하세요.
-
 ---
+title: 01-context-위젯의-진화와-glance-의-가치
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/android-widgets-glance/01-context-위젯의-진화와-glance-의-가치.md`
+
+정본 노트: [Glance는 Compose UI가 아니라 RemoteViews 위젯 경계로 렌더링한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)

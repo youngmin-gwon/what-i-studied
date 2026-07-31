@@ -1,5 +1,13 @@
-# Jetpack Compose 제약 조건과 Modifier 순서 (Constraints & Modifier Order) 개요
-
-이 문서는 Android Developers 공식 **"Constraints and modifier order - MAD Skills"** 기술 영상 분석을 바탕으로, Jetpack Compose의 제약 조건(Constraints) 시스템과 Modifier 체이닝 순서에 따른 작동 메커니즘을 상세히 정리합니다.
-
 ---
+title: jetpack-compose-constraints-and-modifier-order-00-개요
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-constraints-and-modifier-order/jetpack-compose-constraints-and-modifier-order-00-개요.md`
+
+정본 노트: [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/modifier-order-changes-layout-draw-and-input-wrappers.md)

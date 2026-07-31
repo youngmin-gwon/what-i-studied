@@ -1,27 +1,13 @@
-# 커스텀 동작 지원 (Custom Accessibility Actions)
-* **원칙**: 화면의 아이템을 스와이프해서 삭제(`Swipe-to-Dismiss`)하는 등 복잡한 물리 제스처가 동반되는 인터랙션의 경우, 시각 장애를 가진 사용자는 해당 제스처를 수행하기 곤란합니다.
-* **해결책**: 스와이프 등의 행동을 대체할 수 있는 접근성 커스텀 액션(`customActions`)을 제공하여 메뉴 선택만으로 동작을 완수할 수 있게 합니다.
-
-```kotlin
-Row(
-    modifier = Modifier
-        .fillMaxWidth()
-        .semantics {
-            // TalkBack 사용자에게 "사용 가능한 작업이 있습니다. 보려면 스와이프..." 형태의 알림이 가며,
-            // 별도의 접근성 작업 메뉴를 통해 '삭제' 액션을 트리거할 수 있습니다.
-            customActions = listOf(
-                CustomAccessibilityAction(
-                    label = "이 알림 삭제",
-                    action = { 
-                        onDismissNotification() 
-                        true // 처리 성공 반환
-                    }
-                )
-            )
-        }
-) {
-    Text("새로운 알림이 도착했습니다.")
-}
-```
-
 ---
+title: 07-커스텀-동작-지원-custom-accessibility-actions
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/02-접근성-향상을-위한-7대-핵심-실무-가이드/07-커스텀-동작-지원-custom-accessibility-actions.md`
+
+정본 노트: [시각 정보와 제스처에는 읽을 수 있는 의미와 대체 동작이 필요하다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)

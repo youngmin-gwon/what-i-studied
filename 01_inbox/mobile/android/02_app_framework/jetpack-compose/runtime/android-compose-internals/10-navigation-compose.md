@@ -10,4 +10,4 @@ date created: 2026-07-31 23:59:00 +09:00
 
 흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/10-navigation-compose.md`
 
-정본 노트: [navigation-contracts](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)
+정본 노트: [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)

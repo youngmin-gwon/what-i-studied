@@ -1,14 +1,13 @@
-# 헤더(Headers) 표시를 통한 빠른 탐색
-* **원칙**: 긴 텍스트 화면이나 스크롤 화면에서 사용자가 섹션 타이틀만 빠르게 훑어보며 이동할 수 있도록(TalkBack 헤더 네비게이션 모드), 특정 텍스트가 섹션의 대표 제목임을 의미론적으로 표시해줍니다.
-
-```kotlin
-Text(
-    text = "신체 계측 정보",
-    style = MaterialTheme.typography.titleLarge,
-    modifier = Modifier.semantics { 
-        heading() // 접근성 서비스가 헤더로 인식하여 제목 단위 점프 네비게이션이 가능해짐
-    }
-)
-```
-
 ---
+title: 05-헤더-headers-표시를-통한-빠른-탐색
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/02-접근성-향상을-위한-7대-핵심-실무-가이드/05-헤더-headers-표시를-통한-빠른-탐색.md`
+
+정본 노트: [Semantics 병합, 정리, 탐색 순서는 의미 단위를 조정한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-merging-clearing-and-traversal-control-the-unit-of-meaning.md)

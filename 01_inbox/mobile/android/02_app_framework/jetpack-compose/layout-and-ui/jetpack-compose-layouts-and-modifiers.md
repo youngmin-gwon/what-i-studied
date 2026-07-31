@@ -1,6 +1,13 @@
-# Jetpack Compose Layouts & Modifiers 작동 원리
+---
+title: jetpack-compose-layouts-and-modifiers
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-> [!NOTE]
-> 이 문서의 내용은 더 포괄적이고 상세한 통합 문서인 [jetpack-compose-phases-and-layout-system](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-phases-and-layout-system.md)로 이관되었습니다.
->
-> 상세한 Jetpack Compose의 렌더링 3단계 페이즈(Composition, Layout, Drawing) 및 트리 구조, Constraints 전달 원리, Modifier 체이닝과 Arrangement/Alignment 정렬 메커니즘 등은 해당 문서에서 확인하실 수 있습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-layouts-and-modifiers.md`
+
+정본 노트: [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/modifier-order-changes-layout-draw-and-input-wrappers.md)

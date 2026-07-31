@@ -1,32 +1,13 @@
-# Material 3 Expressive와 컬러 스키마 변형 (Color Scheme Variants)
+---
+title: 06-material-3-expressive와-컬러-스키마-변형-color-scheme-variants
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-Material Design 3의 진화 단계인 **Material 3 Expressive** 시스템은 획일화된 컬러 시스템에서 벗어나, 더욱 브랜드 지향적이고 감정 중심의 UI(
-Emotion-driven UX)를 구현할 수 있도록 **컬러 스키마 변형(Color Scheme Variants)** 을 제공합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-시드 컬러(Seed Color) 하나를 기반으로 Tonal Palette를 생성할 때, 수학적 알고리즘을 조절하여 아래의 5가지 다른 "무드(Vibe)"를 만들 수 있습니다.
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/material-3-color-roles/06-material-3-expressive와-컬러-스키마-변형-color-scheme-variants.md`
 
-### 6-1. 대표적인 5대 컬러 스키마 변형
-
-1. **Tonal Spot (톤 스팟 - 기본값)**
-    * **특징**: M3의 디폴트 스키마입니다. 채도(Chroma)를 적당히 억제하여 전반적으로 부드럽고 차분한 파스텔 톤을 형성합니다.
-    * **목적**: 균형 잡힌 가독성과 대중적인 접근성 제공.
-2. **Vibrant (바이브런트 - 활기참)**
-    * **특징**: 기본 엑센트(Primary, Secondary)의 채도와 선명도를 최대로 올려 색을 매우 진하고 밝게 만듭니다.
-    * **목적**: 역동적이고 에너지가 필요한 피트니스, 엔터테인먼트 앱 등에 적합.
-3. **Expressive (익스프레시브 - 개성/고대비)**
-    * **특징**: Primary와 Secondary/Tertiary 사이의 **색조(Hue) 차이를 의도적으로 크게 넓혀** 배치합니다 (예: 메인색이 파란색일 때 보조색을
-      따뜻한 주황색 계열로 90도 회전). 또한 채도를 높여 개성 있고 강렬한 시각적 대비를 이끌어냅니다.
-    * **목적**: 브랜드 정체성을 극대화하거나 다채롭고 독특한 아트워크 중심의 UI 연출.
-4. **Neutral (뉴트럴 - 중립)**
-    * **특징**: 컬러의 채도를 극단적으로 낮추어 무채색(Grayscale)에 가깝게 만듭니다.
-    * **목적**: 콘텐츠(사진, 비디오) 자체가 다채로워 UI 컬러가 시선을 빼앗지 않아야 하는 경우, 혹은 극도의 정갈함과 프로페셔널한 톤앤매너가 필요한 커머스나 핀테크
-      앱.
-5. **Content / Fidelity (콘텐츠 / 피델리티 - 원본 지향)**
-    * **특징**: 입력된 브랜드 로고나 대표 이미지(앨범 커버 등)의 고유한 색상 특성(Hue, Chroma)을 왜곡하지 않고 고스란히 반영하여 파생 롤들을 생성합니다.
-    * **목적**: 앨범 아트를 기반으로 재생화면 테마를 실시간으로 맞출 때 유용.
-
-### 6-2. Jetpack Compose 구현 힌트
-
-안드로이드의 기본 동적 컬러 API(`dynamicLightColorScheme`)는 내부적으로 `Tonal Spot`을 기본 알고리즘으로 채택합니다. 만약 `Vibrant`나
-`Expressive` 같은 감각적인 스키마를 명시적으로 표현하려면, 구글의 오픈소스 라이브러리인 **`Material Color Utilities`** 를 사용하여 직접 테마
-스키마를 파싱하거나, 생성된 스태틱 컬러 세트를 테마에 매핑해주어야 합니다.
+정본 노트: [Dynamic color는 Material color scheme에 들어오는 플랫폼 입력이다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/dynamic-color-is-platform-input-to-a-material-color-scheme.md)

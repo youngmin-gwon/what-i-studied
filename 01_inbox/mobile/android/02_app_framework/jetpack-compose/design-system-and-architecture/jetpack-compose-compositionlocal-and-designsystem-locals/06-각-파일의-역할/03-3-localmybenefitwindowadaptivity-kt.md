@@ -1,32 +1,13 @@
-# 3 `LocalMyBenefitWindowAdaptivity.kt`
-
-상위 노트: [06-각-파일의-역할](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals/06-%EA%B0%81-%ED%8C%8C%EC%9D%BC%EC%9D%98-%EC%97%AD%ED%95%A0.md)
-
-경로:
-
-```text
-core/designsystem/src/main/java/com/benefit/virtualmate/core/designsystem/adaptive/LocalMyBenefitWindowAdaptivity.kt
-```
-
-역할:
-
-- `MyBenefitWindowAdaptivity`를 Compose tree 전체에 전달합니다.
-- 앱 전체 adaptive 상태를 읽는 최상위 Local입니다.
-
-제공 위치:
-
-```text
-ProvideMyBenefitWindowAdaptivity
-```
-
-읽는 위치 예:
-
-```text
-MainShellAdaptivePolicy
-DashboardAdaptiveLayoutPolicy
-각 feature의 layout policy
-```
-
-이 값은 "현재 adaptive 환경을 화면별 정책이 어떻게 해석할지"가 필요할 때 읽습니다.
-
 ---
+title: 03-3-localmybenefitwindowadaptivity-kt
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals/06-각-파일의-역할/03-3-localmybenefitwindowadaptivity-kt.md`
+
+정본 노트: [MyBenefit adaptive Local은 Android 일반 규칙이 아니라 프로젝트 참조다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/mybenefit-adaptive-locals-are-project-reference-not-android-canon.md)

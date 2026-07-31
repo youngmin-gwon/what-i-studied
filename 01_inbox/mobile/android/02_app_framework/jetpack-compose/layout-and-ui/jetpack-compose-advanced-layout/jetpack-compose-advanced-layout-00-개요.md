@@ -1,5 +1,13 @@
-# Jetpack Compose 고급 레이아웃 (Advanced Layouts) 개요
-
-이 문서는 기본 제공 레이아웃(Row, Column 등)만으로 구현하기 어려운 복잡하고 정교한 UI를 구현하기 위한 **고급 레이아웃 개념(Advanced Layout Concepts)** 을 다룹니다.
-
 ---
+title: jetpack-compose-advanced-layout-00-개요
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-advanced-layout/jetpack-compose-advanced-layout-00-개요.md`
+
+정본 노트: [Custom Layout은 자식 측정과 배치를 직접 책임진다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/custom-layout-measures-and-places-children-explicitly.md)

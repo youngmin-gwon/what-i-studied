@@ -1,5 +1,13 @@
-# Androidx Modularization & Jetpack Compose Module Architecture 개요
-
-이 문서는 Android 라이브러리의 핵심인 `androidx`의 역사적 배경부터 시작하여 왜 패키지가 잘게 쪼개져 수많은 import 구조를 가질 수밖에 없는지, 그리고 Jetpack Compose와 Navigation3를 포함한 세분화된 모듈 구조와 의존성 관계를 정리합니다.
-
 ---
+title: jetpack-compose-module-architecture-00-개요
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-module-architecture/jetpack-compose-module-architecture-00-개요.md`
+
+정본 노트: [Compose 모듈 경계는 의존성 범위와 교체 비용을 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-module-boundaries-expose-dependency-scope-and-replacement-cost.md)

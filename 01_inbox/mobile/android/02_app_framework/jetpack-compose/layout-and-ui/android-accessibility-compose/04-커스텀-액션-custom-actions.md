@@ -1,17 +1,13 @@
-# 커스텀 액션 (Custom Actions)
+---
+title: 04-커스텀-액션-custom-actions
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-스와이프나 롱클릭 등 시각적 제스처를 접근성 서비스가 이해할 수 있도록 명시한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-Modifier.semantics {
-    customActions = listOf(
-        CustomAccessibilityAction("삭제") {
-            viewModel.deleteItem()
-            true
-        }
-    )
-}
-```
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/android-accessibility-compose/04-커스텀-액션-custom-actions.md`
 
->[!CAUTION] **Devil's Advocate : 테스트를 위해 접근성을 희생하지 마라**
->Compose UI 테스트에서 요소를 찾기 위해 `testTag` 를 남발하는 대신, 실제 사용자가 접근성 엔진을 통해 보는 정보인 `contentDescription` 이나 `role` 을 기반으로 테스트를 작성하라. 이는 테스트 안정성과 접근성 품질을 동시에 높이는 방법이다.
+정본 노트: [시각 정보와 제스처에는 읽을 수 있는 의미와 대체 동작이 필요하다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)

@@ -10,4 +10,4 @@ date created: 2026-07-31 23:59:00 +09:00
 
 흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-side-effects-and-lifecycle/03-고급-effect-상태-최적화-api/04-snapshotflow-compose-state를-flow로-변환.md`
 
-정본 노트: [snapshot-flow-converts-compose-state-to-cold-flow](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/snapshot-flow-converts-compose-state-to-cold-flow.md)
+정본 노트: [Compose State를 cold Flow로 바꿔 관찰·연산할 때 snapshotFlow를 사용한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/snapshot-flow-converts-compose-state-to-cold-flow.md)

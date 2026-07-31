@@ -1,6 +1,6 @@
 ---
 title: snapshotFlow converts Compose State to cold Flow
-tags: [android, jetpack-compose, compose/runtime]
+tags: [android, jetpack-compose, compose/state]
 aliases: [snapshotFlow]
 date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00

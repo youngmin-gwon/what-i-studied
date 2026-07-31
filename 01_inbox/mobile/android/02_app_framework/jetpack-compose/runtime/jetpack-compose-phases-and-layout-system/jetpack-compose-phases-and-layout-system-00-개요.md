@@ -10,4 +10,4 @@ date created: 2026-07-31 23:59:00 +09:00
 
 흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/jetpack-compose-phases-and-layout-system/jetpack-compose-phases-and-layout-system-00-개요.md`
 
-정본 노트: [compose-frame-work-is-split-into-composition-layout-and-drawing](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-frame-work-is-split-into-composition-layout-and-drawing.md)
+정본 노트: [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)

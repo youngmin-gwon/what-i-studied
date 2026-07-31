@@ -1,12 +1,13 @@
-# 'androidx'는 무엇이며 왜 생겨났는가?
-
-### 1-1. 'androidx'의 어원
-`androidx`는 **Android Extension**의 줄임말입니다. 뒤에 붙은 `x`는 확장(Extension)을 의미하며, 향후 안드로이드 프레임워크와 완전히 분리되어 독립적으로 진화할 수 있도록 설계된 차세대 지원 라이브러리 패키지 명칭입니다.
-
-### 1-2. 역사적 배경: Android Support Library에서 androidx로의 전환
-* **과거 (android.support.*)**: 
-  구글은 안드로이드 OS 버전이 파편화되는 문제를 해결하기 위해 OS 버전에 상관없이 새로운 UI 컴포넌트나 백포트 기능을 쓸 수 있게 `support-v4`, `support-v7` 같은 라이브러리를 배포했습니다. 하지만 버전 숫자가 붙은 이름(v4는 API Level 4 이상 지원을 의미했으나 시간이 흘러 무의미해짐) 때문에 관리가 혼란스러워졌고, 라이브러리들이 서로 엉켜 덩치가 너무 커졌습니다.
-* **현재 (androidx.*)**:
-  2018년 구글은 이를 완전히 리팩토링하여 **Jetpack**이라는 브랜드 하에 모든 확장 라이브러리를 `androidx` 패키지명 아래로 통합시켰습니다. 이때부터 엄격한 시맨틱 버저닝(Semantic Versioning)을 따르고 각 모듈을 철저하게 분리하기 시작했습니다.
-
 ---
+title: 01-androidx-는-무엇이며-왜-생겨났는가
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-module-architecture/01-androidx-는-무엇이며-왜-생겨났는가.md`
+
+정본 노트: [Compose 모듈 경계는 의존성 범위와 교체 비용을 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-module-boundaries-expose-dependency-scope-and-replacement-cost.md)

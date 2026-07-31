@@ -1,20 +1,13 @@
-# Semantics Tree (시맨틱 트리)
+---
+title: 02-semantics-tree-시맨틱-트리
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
 
-Compose 상계(UI Tree)의 각 노드는 '의미'를 담은 시맨틱 노드와 연결될 수 있다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### 기본 속성 설정
+흡수된 이전 노트: `02_app_framework/jetpack-compose/layout-and-ui/android-accessibility-compose/02-semantics-tree-시맨틱-트리.md`
 
-```kotlin
-@Composable
-fun UserProfileImage(description: String) {
-    Image(
-        painter = painterResource(R.drawable.profile),
-        contentDescription = null, // 시각적 요소가 아닌 정보는 null
-        modifier = Modifier.semantics {
-            // 명시적으로 역할과 설명을 부여
-            contentDescription = description
-            role = Role.Image
-        }
-    )
-}
-```
+정본 노트: [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md)

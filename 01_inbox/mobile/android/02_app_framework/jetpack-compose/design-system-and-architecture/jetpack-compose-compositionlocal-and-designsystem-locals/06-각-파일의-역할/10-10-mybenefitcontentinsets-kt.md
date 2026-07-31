@@ -1,42 +1,13 @@
-# 10 `MyBenefitContentInsets.kt`
-
-상위 노트: [06-각-파일의-역할](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals/06-%EA%B0%81-%ED%8C%8C%EC%9D%BC%EC%9D%98-%EC%97%AD%ED%95%A0.md)
-
-경로:
-
-```text
-core/designsystem/src/main/java/com/benefit/virtualmate/core/designsystem/layout/MyBenefitContentInsets.kt
-```
-
-역할:
-
-- layout metrics가 아니라 runtime overlay inset을 표현합니다.
-- floating toolbar처럼 실제 크기를 측정해야 알 수 있는 UI 여백을 하위 화면에 전달합니다.
-
-중요한 차이:
-
-```text
-screen padding
-- 화면 기본 여백
-- MyBenefitLayoutMetrics가 담당
-
-content inset
-- floating toolbar, navigation chrome 때문에 scroll content가 추가로 피해야 하는 여백
-- MyBenefitContentInsets가 담당
-```
-
-특히 compact main shell의 floating toolbar는 overlay입니다.
-
-따라서 화면 전체를 위로 밀면 안 됩니다.
-
-```text
-잘못된 방식:
-전체 화면 Modifier.padding(bottom = toolbarHeight)
-
-의도한 방식:
-LazyColumn contentPadding(bottom = toolbarHeight)
-```
-
-그래야 content는 floating bar 아래까지 뻗고, 마지막 item만 bar 뒤에 가려지지 않습니다.
-
 ---
+title: 10-10-mybenefitcontentinsets-kt
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:30 +09:00
+date created: 2026-07-31 23:59:30 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals/06-각-파일의-역할/10-10-mybenefitcontentinsets-kt.md`
+
+정본 노트: [MyBenefit adaptive Local은 Android 일반 규칙이 아니라 프로젝트 참조다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/mybenefit-adaptive-locals-are-project-reference-not-android-canon.md)
