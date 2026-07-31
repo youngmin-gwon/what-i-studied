@@ -1,27 +1,7 @@
-# Verified Boot (AVB)
+# 04-verified-boot-avb
 
-### 서명 체인
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```
-OEM Key (eFuse) 
-  → vbmeta.img 검증
-    → boot.img 검증
-    → system.img 검증 (dm-verity)
-```
+정본 노트: [avb-verifies-boot-images-and-rollback-protection](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/avb-verifies-boot-images-and-rollback-protection.md)
 
-**dm-verity**:
-
-- 블록별 해시 트리
-- 읽기 시 실시간 검증
-- 변조 감지 시 부팅 차단 or 경고
-
-### Verified Boot States
-
-| State | 설명 |
-|-------|------|
-| **Green** | 완전 검증됨 (OEM key) |
-| **Yellow** | 검증됨 (사용자 key, 커스텀 ROM) |
-| **Orange** | Bootloader unlocked (경고 표시) |
-| **Red** | 검증 실패 (부팅 차단) |
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

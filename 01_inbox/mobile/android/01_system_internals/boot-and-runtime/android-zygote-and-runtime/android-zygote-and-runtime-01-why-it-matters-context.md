@@ -1,7 +1,7 @@
-# 💡 Why it matters (Context)
+# android-zygote-and-runtime-01-why-it-matters-context
 
-- **Launch Speed**: 앱을 켤 때마다 JVM 을 새로 부팅한다면 스마트폰을 쓸 수 없을 것입니다. Zygote 덕분에 우리는 "즉시 실행"을 경험합니다.
-- **Memory Sharing**: 수천 개의 앱이 똑같은 `String`, `TextView` 클래스를 씁니다. Zygote 가 없으면 메모리는 순식간에 동납니다.
-- **Static Initialization Issues**: `static` 블록에 무거운 코드를 넣으면, 앱 시작 속도뿐만 아니라 **시스템 전체 부팅 속도**를 느리게 할 수 있습니다 (Preload 클래스의 경우).
+이 노트의 내용은 정본 노트로 흡수했다.
 
----
+정본 노트: [zygote-preloads-framework-state-before-app-fork](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-preloads-framework-state-before-app-fork.md)
+
+기존 링크 보존을 위해 이 파일은 남긴다.

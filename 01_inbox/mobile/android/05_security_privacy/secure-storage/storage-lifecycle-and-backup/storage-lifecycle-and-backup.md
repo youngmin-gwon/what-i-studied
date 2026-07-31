@@ -1,8 +1,16 @@
-# 저장소 수명과 백업 경계
+---
+title: storage-lifecycle-and-backup
+tags: []
+aliases: []
+date modified: 2026-07-31 18:19:21 +09:00
+date created: 2026-07-31 17:04:40 +09:00
+---
+
+## 저장소 수명과 백업 경계
 
 이 지도는 저장된 데이터가 언제 접근 가능한지, 언제 사라져도 되는지, 어떤 경계를 넘어 백업·복원될 수 있는지를 다룬다.
 
-## 정본 노트
+### 정본 노트
 
 - [FBE는 CE와 DE로 저장소 가용 시점을 나눈다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/fbe-ce-and-de-separate-storage-availability.md)
 - [Direct Boot는 최소한의 device-protected 데이터만 요구한다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/direct-boot-requires-minimal-device-protected-data.md)

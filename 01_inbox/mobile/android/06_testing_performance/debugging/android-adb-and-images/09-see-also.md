@@ -1,4 +1,12 @@
-# 09-see-also
+---
+title: 09-see-also
+tags: []
+aliases: []
+date modified: 2026-07-31 18:23:47 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 09-see-also
 
 이 노트의 내용은 정본 노트로 흡수했다.
 

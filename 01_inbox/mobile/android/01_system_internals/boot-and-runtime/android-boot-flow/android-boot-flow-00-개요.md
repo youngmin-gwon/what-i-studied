@@ -1,9 +1,7 @@
-# android boot flow 개요
+# android-boot-flow-00-개요
 
----
-title: android-boot-flow
-tags: [android, android/boot, android/system-images]
-aliases: [Boot Flow, 부팅 흐름]
-date modified: 2026-07-31 15:21:17 +09:00
-date created: 2025-12-16 15:24:47 +09:00
----
+이 노트의 내용은 정본 노트로 흡수했다.
+
+정본 노트: [boot-flow-contracts](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-flow-contracts.md)
+
+기존 링크 보존을 위해 이 파일은 남긴다.

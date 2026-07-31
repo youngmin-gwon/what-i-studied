@@ -1,9 +1,7 @@
-# Zygote
+# 01-boot-flow-부팅-흐름-개요-06-zygote
 
-앱 프로세스 템플릿:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- Framework 클래스 preload (~4000 개)
-- 소켓 대기 (`/dev/socket/zygote`)
-- System Server fork
+정본 노트: [boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs.md)
 
-**상세**: [android-zygote-and-runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime.md)
+기존 링크 보존을 위해 이 파일은 남긴다.

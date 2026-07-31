@@ -1,12 +1,7 @@
-# Bootloader
+# 01-boot-flow-부팅-흐름-개요-03-bootloader
 
-Android Bootloader (ABL, 대부분 Qualcomm LK 기반):
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- **Verified Boot**: vbmeta 검증 → system/vendor 무결성
-- **A/B 슬롯** 선택: 활성 슬롯 부팅 (a, b)
-- 커널 + ramdisk 메모리에 로드
+정본 노트: [boot-flow-contracts](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-flow-contracts.md)
 
-**특수 모드**:
-
-- **Fastboot**: `fastboot flash`, `fastboot boot`
-- **Recovery**: OTA 업데이트, 공장 초기화
+기존 링크 보존을 위해 이 파일은 남긴다.

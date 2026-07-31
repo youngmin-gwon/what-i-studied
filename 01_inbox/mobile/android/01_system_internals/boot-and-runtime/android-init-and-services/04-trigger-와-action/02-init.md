@@ -1,16 +1,7 @@
-# init
+# 02-init
 
-기본 서비스 시작, 파티션 마운트.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```bash
-on init
-    # /data 마운트
-    wait /dev/block/bootdevice/by-name/userdata
-    mount_all /vendor/etc/fstab.${ro.hardware} --early
-    
-    # Property 초기화
-    setprop ro.build.version.sdk ${ro.system.build.version.sdk}
-    
-    # 클래스 시작
-    class_start core
-```
+정본 노트: [init-triggers-are-event-and-property-gates](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-triggers-are-event-and-property-gates.md)
+
+기존 링크 보존을 위해 이 파일은 남긴다.

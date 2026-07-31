@@ -1,17 +1,7 @@
-# early-init
+# 01-early-init
 
-가장 먼저 실행. 파일시스템 마운트, 커널 파라미터 설정.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```bash
-on early-init
-    # cgroup 마운트
-    mount cgroup none /dev/cpuctl cpu
-    mount cgroup none /dev/cpuset cpuset
-    
-    # SELinux 시작
-    start ueventd
-    
-    # 기본 디렉토리
-    mkdir /dev/socket 0755 root root
-    mkdir /dev/graphics 0775 root graphics
-```
+정본 노트: [init-triggers-are-event-and-property-gates](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-triggers-are-event-and-property-gates.md)
+
+기존 링크 보존을 위해 이 파일은 남긴다.

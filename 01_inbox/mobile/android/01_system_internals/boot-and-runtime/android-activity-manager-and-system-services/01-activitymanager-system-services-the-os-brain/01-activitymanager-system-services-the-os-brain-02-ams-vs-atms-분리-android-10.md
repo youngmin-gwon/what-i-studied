@@ -1,8 +1,7 @@
-# 🧱 AMS vs ATMS 분리 (Android 10+)
+# 01-activitymanager-system-services-the-os-brain-02-ams-vs-atms-분리-android-10
 
-안드로이드 10 이전에는 AMS 가 모든 기능을 담당하는 거대 클래스(3 만 줄 이상)였으나, 현재는 책임이 분리되었습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- **ActivityTaskManagerService (ATMS)**: Activity, Task 스택, Window 관리 등 **사용자 인터페이스(UI) 중심**의 전환을 담당합니다.
-- **ActivityManagerService (AMS)**: 프로세스 생성, Service/Broadcast 관리, 권한 검사 등 **백그라운드 중심**의 운영을 담당합니다.
+정본 노트: [atms-owns-activity-task-and-back-stack-transitions](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/atms-owns-activity-task-and-back-stack-transitions.md)
 
----
+기존 링크 보존을 위해 이 파일은 남긴다.

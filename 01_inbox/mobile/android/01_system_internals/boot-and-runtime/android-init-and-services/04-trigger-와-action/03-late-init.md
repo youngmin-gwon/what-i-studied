@@ -1,21 +1,7 @@
-# late-init
+# 03-late-init
 
-대부분의 서비스 시작.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```bash
-on late-init
-    # 모든 서비스 시작
-    trigger early-fs
-    trigger fs
-    trigger post-fs
-    trigger late-fs
-    trigger post-fs-data
-    
-    # Boot animation 시작
-    trigger load_persist_props_action
-    trigger firmware_mounts_complete
-    
-    # Main 클래스 시작 (Zygote!)
-    trigger early-boot
-    trigger boot
-```
+정본 노트: [init-triggers-are-event-and-property-gates](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-triggers-are-event-and-property-gates.md)
+
+기존 링크 보존을 위해 이 파일은 남긴다.

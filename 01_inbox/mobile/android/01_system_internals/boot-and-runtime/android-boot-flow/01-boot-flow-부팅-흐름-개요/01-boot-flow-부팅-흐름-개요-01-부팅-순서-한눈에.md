@@ -1,16 +1,7 @@
-# 부팅 순서 (한눈에)
+# 01-boot-flow-부팅-흐름-개요-01-부팅-순서-한눈에
 
-```mermaid
-graph TD
-    PowerOn[전원 켜짐] --> BootROM[Boot ROM<br/>하드웨어 내장]
-    BootROM --> Bootloader[Bootloader<br/>AVB 검증]
-    Bootloader --> Kernel[Linux Kernel<br/>+ Ramdisk]
-    Kernel --> InitFirst[First Stage Init<br/>기본 FS 마운트]
-    InitFirst --> InitSecond[Second Stage Init<br/>RC 파싱]
-    InitSecond --> Zygote[Zygote 시작<br/>클래스 Preload]
-    Zygote --> SystemServer[System Server<br/>Java 서비스]
-    SystemServer --> PackageManager[PackageManager<br/>앱 스캔]
-    PackageManager --> SystemUI[System UI]
-    SystemUI --> Launcher[Launcher]
-    Launcher --> Ready[부팅 완료]
-```
+이 노트의 내용은 정본 노트로 흡수했다.
+
+정본 노트: [boot-flow-contracts](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-flow-contracts.md)
+
+기존 링크 보존을 위해 이 파일은 남긴다.

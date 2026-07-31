@@ -1,50 +1,7 @@
-# Service 옵션
+# 05-service-옵션
 
-상위 노트: [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 기본 옵션
+정본 노트: [init-service-is-supervised-process-with-explicit-lifecycle](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-is-supervised-process-with-explicit-lifecycle.md)
 
-```bash
-service <name> <executable>
-    class <class_name>      # 서비스 그룹 (core, main, late_start)
-    user <username>         # UID
-    group <groupname>       # GID
-    seclabel <context>      # SELinux 컨텍스트
-    capabilities <caps>     # Linux capabilities
-    priority <priority>     # 스케줄링 우선순위
-    ioprio <class> <level>  # I/O 우선순위
-```
-
-### 재시작 정책
-
-```bash
-service example /system/bin/example
-    # 한 번만 실행
-    oneshot
-    
-    # 비활성화 (수동 시작만)
-    disabled
-    
-    # 크래시 시 재시작
-    restart_period 5  # 5초 타임아웃
-    
-    # 재시작 시 액션
-    onrestart restart dependent-service
-    onrestart exec -- /system/bin/cleanup.sh
-```
-
-### 리소스 제한
-
-```bash
-service memory-intensive /system/bin/service
-    # OOM 점수 (낮을수록 보호)
-    oom_score_adjust -900
-    
-    # cgroup 설정
-    writepid /dev/cpuset/system-background/tasks
-    
-    # 파일 디스크립터 제한
-    rlimit RLIM_NOFILE 8192 8192
-```
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

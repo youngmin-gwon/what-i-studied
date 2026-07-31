@@ -1,21 +1,7 @@
-# 학습 리소스
+# android-init-and-services-13-학습-리소스
 
-상위 노트: [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-**공식 문서**:
+정본 노트: [init-service-contracts](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md)
 
-- [Bash](01_inbox/linux/commands/shell-environment-commands.md)
-- [Property System](https://source.android.com/docs/core/architecture/configuration/add-system-properties)
-
-**소스 코드**:
-
-- [Init](https://android.googlesource.com/platform/system/core/+/refs/heads/main/init/)
-- [RC Files](https://android.googlesource.com/platform/system/core/+/refs/heads/main/rootdir/)
-
-**도구**:
-
-- `bootchart`: 부팅 프로파일링
-- `dmesg`: 커널/init 로그
-- `getprop` / `setprop`: Property 확인/설정
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

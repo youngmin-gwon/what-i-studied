@@ -1,19 +1,7 @@
-# Trigger 와 Action 개요
+# 04-trigger-와-action-00-개요
 
-상위 노트: [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 부팅 트리거 순서
+정본 노트: [init-triggers-are-event-and-property-gates](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-triggers-are-event-and-property-gates.md)
 
-```mermaid
-graph TD
-    EarlyInit[early-init] --> Init[init]
-    Init --> LateInit[late-init]
-    LateInit --> BootComplete[boot<br/>property:sys.boot_completed=1]
-    
-    style EarlyInit fill:#ffcccc
-    style Init fill:#ccffcc
-    style LateInit fill:#ccccff
-    style BootComplete fill:#ffffcc
-```
-
-### 주요 트리거
+기존 링크 보존을 위해 이 파일은 남긴다.

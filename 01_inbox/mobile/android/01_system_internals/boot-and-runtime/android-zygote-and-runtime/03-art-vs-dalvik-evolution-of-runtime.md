@@ -1,24 +1,7 @@
-# ☕️ ART vs Dalvik: Evolution of Runtime
+# 03-art-vs-dalvik-evolution-of-runtime
 
-안드로이드 런타임은 "배터리와 속도" 사이의 끝없는 줄타기 역사입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-#### 1. Dalvik (Android 4.4 이전)
+정본 노트: [art-runs-dex-with-interpretation-jit-and-aot](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/art-runs-dex-with-interpretation-jit-and-aot.md)
 
-- **JIT (Just-In-Time)**: 앱을 실행할 때마다 매번 기계어로 번역했습니다.
-- **단점**: 실행할 때마다 배터리를 쓰고, 초기 구동이 느립니다.
-
-#### 2. ART 1.0 (Android 5.0 ~ 6.0)
-
-- **AOT (Ahead-Of-Time)**: 앱 설치할 때 **몽땅 다 기계어로 번역**(`dex2oat`)해버립니다.
-- **장점**: 실행 빠름, 배터리 절약.
-- **단점**: 설치 시간이 엄청 오래 걸림 ("앱 최적화 중입니다…" 화면 기억나시나요?), 용량이 커짐.
-
-#### 3. Modern ART (Android 7.0+)
-
-- **Hybrid (JIT + AOT + Profile)**:
-    1. 처음 설치하면 **JIT** 모드로 동작 (설치 즉시 완료).
-    2. 사용자가 자주 쓰는 기능을 **프로파일링(Profile)** 기록.
-    3. 충전 중일 때(Idle), 프로파일을 바탕으로 **자주 쓰는 부분만 AOT 컴파일**.
-    - **결론**: 설치도 빠르고, 쓸수록 앱이 빨라집니다.
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

@@ -1,14 +1,7 @@
-# Init Process
+# 01-boot-flow-부팅-흐름-개요-05-init-process
 
-**First Stage**:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- `/dev`, `/proc`, `/sys` 마운트
-- SELinux early init
+정본 노트: [boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs.md)
 
-**Second Stage**:
-
-- RC 스크립트 파싱 (`/system/etc/init/`, `/vendor/etc/init/`)
-- 트리거 실행 (`on early-init`, `on init`, `on boot`)
-- 서비스 시작
-
-**상세**: [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md)
+기존 링크 보존을 위해 이 파일은 남긴다.

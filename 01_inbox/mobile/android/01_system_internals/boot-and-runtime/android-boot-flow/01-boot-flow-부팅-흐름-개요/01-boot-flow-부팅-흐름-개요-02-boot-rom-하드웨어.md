@@ -1,7 +1,7 @@
-# Boot ROM (하드웨어)
+# 01-boot-flow-부팅-흐름-개요-02-boot-rom-하드웨어
 
-칩에 내장된 코딩 불가능한 코드:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- 첫 부트로더를 eMMC/UFS 에서 로드
-- 서명 검증 (OEM public key)
-- 실패 시 Fastboot 모드
+정본 노트: [partitions-define-system-vendor-and-update-boundaries](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/partitions-define-system-vendor-and-update-boundaries.md)
+
+기존 링크 보존을 위해 이 파일은 남긴다.

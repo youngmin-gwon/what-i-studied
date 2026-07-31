@@ -1,18 +1,7 @@
-# android zygote and runtime
+# android-zygote-and-runtime
 
-## 원자 노트
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 개요
-- [android-zygote-and-runtime-00-개요](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime/android-zygote-and-runtime-00-%EA%B0%9C%EC%9A%94.md)
+정본 노트: [zygote-runtime-contracts](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-runtime-contracts.md)
 
-### 💡 Why it matters (Context)
-- [android-zygote-and-runtime-01-why-it-matters-context](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime/android-zygote-and-runtime-01-why-it-matters-context.md)
-
-### 🦠 Zygote Internals
-- [02-zygote-internals](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime/02-zygote-internals.md)
-
-### ☕️ ART vs Dalvik: Evolution of Runtime
-- [03-art-vs-dalvik-evolution-of-runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime/03-art-vs-dalvik-evolution-of-runtime.md)
-
-### 🛠️ App Process Initialization
-- [04-app-process-initialization](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime/04-app-process-initialization.md)
+기존 링크 보존을 위해 이 파일은 남긴다.

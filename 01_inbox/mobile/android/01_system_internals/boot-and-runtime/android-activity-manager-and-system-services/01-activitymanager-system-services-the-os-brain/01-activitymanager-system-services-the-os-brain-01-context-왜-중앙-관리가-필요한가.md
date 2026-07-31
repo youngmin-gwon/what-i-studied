@@ -1,9 +1,7 @@
-# 💡 Context: 왜 중앙 관리가 필요한가?
+# 01-activitymanager-system-services-the-os-brain-01-context-왜-중앙-관리가-필요한가
 
-모바일 환경은 데스크톱보다 메모리 자원이 훨씬 제한적이며 배터리 소모에 민감합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- **Efficient Multitasking**: 사용자가 홈 버튼을 눌러 앱을 떠날 때, 시스템은 해당 앱을 완전히 종료하지 않고 캐시 상태로 유지하여 재시작 속도를 높입니다.
-- **Priority-based Killing**: 메모리가 부족해지면 시스템은 현재 사용자가 보지 않는 우선순위가 낮은 앱부터 차례로 정리하여 포그라운드 앱의 부드러운 작동을 보장합니다. (LMKD 협업)
-- **Centralized Governance**: 모든 프로세스의 생성과 소멸은 **System Server** 내의 이 서비스들을 통해 엄격하게 통제됩니다.
+정본 노트: [system-server-contracts](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)
 
----
+기존 링크 보존을 위해 이 파일은 남긴다.

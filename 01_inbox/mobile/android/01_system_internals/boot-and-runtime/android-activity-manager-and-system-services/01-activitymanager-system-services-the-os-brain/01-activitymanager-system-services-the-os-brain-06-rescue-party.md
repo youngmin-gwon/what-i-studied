@@ -1,11 +1,7 @@
-# Rescue Party
+# 01-activitymanager-system-services-the-os-brain-06-rescue-party
 
-반복 크래시/ANR 시 복구 시도:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```
-Level 1: 위험 권한 리셋
-Level 2: 모든 앱 데이터 삭제
-Level 3: 공장 초기화 제안
-```
+정본 노트: [rescue-party-recovers-repeated-system-failures-in-stages](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/rescue-party-recovers-repeated-system-failures-in-stages.md)
 
----
+기존 링크 보존을 위해 이 파일은 남긴다.

@@ -1,13 +1,7 @@
-# 연결 문서
+# android-init-and-services-14-연결-문서
 
-상위 노트: [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-[android-boot-flow](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-flow.md) - 전체 부팅 과정
+정본 노트: [init-service-contracts](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md)
 
-[android-zygote-and-runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime.md) - Zygote 시작
-
-[android-hal-and-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-hal-and-kernel.md) - HAL 서비스 시작
-
-[selinux](01_inbox/linux/security/selinux.md) - Init 의 SELinux 정책
-
-[android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md) - 부팅 보안 (Verified Boot)
+기존 링크 보존을 위해 이 파일은 남긴다.
