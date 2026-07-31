@@ -1,5 +1,11 @@
-# SELinux 의 도입
+---
+title: 02-selinux-의-도입
+tags: [android, redirect]
+date modified: 2026-07-31 23:45:00 +09:00
+date created: 2026-07-31 23:45:00 +09:00
+---
 
-안드로이드 4.3(2013) 부터 **SELinux**가 permissive 모드로 도입되었고, 5.0(2014) 부터 enforcing 모드가 필수가 되었다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-**MAC(Mandatory Access Control)**: 시스템 관리자가 정책을 설정하고, 프로세스는 이를 우회할 수 없다.
+- 정본: [selinux-enforces-mac-with-domain-type-policy](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/selinux-enforces-mac-with-domain-type-policy.md)
+- 이전 제목: `02-selinux-의-도입`

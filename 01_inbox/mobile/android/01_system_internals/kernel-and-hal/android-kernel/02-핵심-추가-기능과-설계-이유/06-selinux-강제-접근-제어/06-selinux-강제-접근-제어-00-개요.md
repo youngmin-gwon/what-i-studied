@@ -1,3 +1,11 @@
-# [selinux](01_inbox/linux/security/selinux.md): 강제 접근 제어 개요
+---
+title: 06-selinux-강제-접근-제어-00-개요
+tags: [android, redirect]
+date modified: 2026-07-31 23:45:00 +09:00
+date created: 2026-07-31 23:45:00 +09:00
+---
 
-상위 노트: [02-핵심-추가-기능과-설계-이유](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel/02-%ED%95%B5%EC%8B%AC-%EC%B6%94%EA%B0%80-%EA%B8%B0%EB%8A%A5%EA%B3%BC-%EC%84%A4%EA%B3%84-%EC%9D%B4%EC%9C%A0.md)
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [selinux-enforces-mac-with-domain-type-policy](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/selinux-enforces-mac-with-domain-type-policy.md)
+- 이전 제목: `06-selinux-강제-접근-제어-00-개요`

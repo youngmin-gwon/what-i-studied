@@ -1,11 +1,11 @@
-# 주요 ACK 브랜치
-
-상위 노트: [android-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel.md)
-
-| 브랜치 | 안드로이드 버전 | 커널 버전 | 특징 |
-|--------|-----------------|-----------|------|
-| android12-5.10 | Android 12 | 5.10 LTS | GKI 1.0 |
-| android13-5.15 | Android 13 | 5.15 LTS | GKI 2.0, KMI 안정화 |
-| android14-6.1 | Android 14 | 6.1 LTS | Rust 지원 확장 |
-
 ---
+title: 09-주요-ack-브랜치
+tags: [android, redirect]
+date modified: 2026-07-31 23:45:00 +09:00
+date created: 2026-07-31 23:45:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [android-common-kernel-bridges-upstream-lts-and-android-releases](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/android-common-kernel-bridges-upstream-lts-and-android-releases.md)
+- 이전 제목: `09-주요-ack-브랜치`

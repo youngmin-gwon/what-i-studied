@@ -1,8 +1,11 @@
-# DAC 의 한계
+---
+title: 01-dac-의-한계
+tags: [android, redirect]
+date modified: 2026-07-31 23:45:00 +09:00
+date created: 2026-07-31 23:45:00 +09:00
+---
 
-전통적인 Unix 권한 (UID/GID/permission bits) 은 **DAC(Discretionary Access Control)**다. 파일 소유자가 권한을 결정한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-문제:
-
-- 루트 권한을 얻으면 모든 제약이 사라진다.
-- setuid 바이너리 (예: `su`, `passwd`) 가 뚫리면 공격자도 루트 권한을 얻는다.
+- 정본: [selinux-enforces-mac-with-domain-type-policy](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/selinux-enforces-mac-with-domain-type-policy.md)
+- 이전 제목: `01-dac-의-한계`
