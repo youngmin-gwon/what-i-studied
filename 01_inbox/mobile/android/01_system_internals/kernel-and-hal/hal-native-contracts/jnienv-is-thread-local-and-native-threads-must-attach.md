@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# JNIEnv is thread local and native threads must attach
+
 `JNIEnv*`는 현재 thread의 JNI interface다. 다른 thread로 넘겨 재사용할 수 없고, native code가 thread를 직접 만들었다면 그 thread는 JVM에 attach된 상태가 아니다.
 
 Native thread에서 JNI를 호출하려면 `JavaVM*`를 보관해 두고 `AttachCurrentThread`로 attach한 뒤, thread 종료 전에 `DetachCurrentThread`를 호출해야 한다. Java/Kotlin에서 시작된 thread는 runtime이 이미 attach한 상태다.

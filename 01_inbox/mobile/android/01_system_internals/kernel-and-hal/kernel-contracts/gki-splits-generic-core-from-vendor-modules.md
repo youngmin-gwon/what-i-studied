@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# GKI는 공통 core kernel과 vendor module을 분리한다
+
 Generic Kernel Image(GKI)는 Android kernel fragmentation을 줄이기 위한 구조다. 공통 core kernel은 GKI로 제공하고, SoC나 board에 특화된 기능은 vendor module로 분리한다.
 
 GKI의 목표는 모든 기기가 완전히 같은 driver set을 갖게 하는 것이 아니다. 공통 kernel binary와 안정적인 module interface를 유지해 security fix와 bug fix를 더 일관되게 전달하고, vendor-specific code가 core kernel을 과도하게 fork하지 않게 만드는 것이다.

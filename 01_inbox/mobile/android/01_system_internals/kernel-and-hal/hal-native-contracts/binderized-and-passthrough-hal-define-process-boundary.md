@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# Binderized and passthrough HAL define process boundary
+
 Binderized HAL은 HAL service가 client와 다른 process에서 Binder IPC로 호출되는 형태다. process가 분리되면 crash isolation, SELinux domain 분리, service registration 같은 장점이 생기지만 IPC 비용과 lifecycle 관리도 생긴다.
 
 Passthrough HAL은 client process 안에서 HAL 구현을 직접 호출하는 형태다. legacy 구현을 감싸거나 제한된 same-process HAL로 쓰일 수 있지만, 모든 HAL이 별도 process라고 말하면 이 예외를 놓친다.

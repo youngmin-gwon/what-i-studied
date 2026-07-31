@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# Android kernel build는 branch, toolchain, build system 계약이다
+
 Android kernel build는 단순히 `make`를 실행하는 작업이 아니다. 올바른 kernel manifest branch, AOSP 제공 LLVM toolchain, Kleaf/Bazel 또는 legacy `build.sh`, device/vendor module 구성, boot image packaging 조건이 맞아야 한다.
 
 최근 kernel은 `repo init -u https://android.googlesource.com/kernel/manifest -b BRANCH`로 source와 build tools를 가져오고, Android 13 이후에는 Bazel/Kleaf 흐름이 중심이다. Android 14 이상에서는 `build.sh`가 지원되지 않는다는 점도 문서에 분리해야 한다.

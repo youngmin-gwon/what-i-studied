@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# HAL is a stable userspace contract between framework and vendor
+
 HAL은 하드웨어 제조사 구현을 Android framework 코드와 분리하기 위한 표준 userspace interface다. HAL service가 kernel driver를 호출할 수는 있지만, HAL 자체를 kernel wrapper나 driver와 동일시하면 계층이 흐려진다.
 
 Framework 또는 system component는 HAL client가 되고, vendor/device-specific 구현은 HAL service가 된다. 핵심은 카메라, 오디오, 센서 같은 하드웨어별 차이를 framework가 직접 알지 않아도 된다는 점이다.

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# Kernel contracts
+
 이 묶음은 Android kernel을 “Linux 기능 목록”이 아니라 platform contract 기준으로 정리한다. 핵심은 upstream LTS, ACK, GKI/KMI, vendor module, power, memory, security, shared buffer, debugging의 경계를 구분하는 것이다.
 
 ## 커널 계층과 업데이트

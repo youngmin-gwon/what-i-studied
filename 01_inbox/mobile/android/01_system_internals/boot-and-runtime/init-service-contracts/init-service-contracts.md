@@ -1,3 +1,11 @@
+---
+title: "init와 네이티브 서비스 계약"
+tags: [android, android/system-internals, android/boot-runtime, android/init]
+aliases: ["init와 네이티브 서비스 계약"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # init와 네이티브 서비스 계약
 
 `init`은 Android userspace의 첫 프로세스이며, `.rc` 선언을 읽어 파일시스템, property, SELinux, native daemon, Zygote 시작 순서를 조율한다.

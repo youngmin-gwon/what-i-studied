@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# JNI method field IDs and pending exceptions are runtime state
+
 `GetMethodID`, `GetStaticMethodID`, `GetFieldID`는 이름과 JNI signature를 runtime metadata로 해석해 ID를 돌려준다. 반복 호출 경로에서는 lookup 비용보다 class reference lifetime과 failure path를 함께 고려해 캐시한다.
 
 JNI 호출이 Java exception을 발생시키면 native stack이 C++ exception처럼 자동 unwind되지 않는다. 현재 thread에 pending exception 상태가 남고, 대부분의 JNI 호출을 계속하면 안 된다.

@@ -1,3 +1,11 @@
+---
+title: "프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다"
+tags: [android, android/system-internals, android/boot-runtime, android/system-server]
+aliases: ["프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다
 
 상위 문서: [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)
@@ -14,6 +22,6 @@ Android의 process priority와 OOM adjustment는 메모리 부족 시 어떤 프
 ## 관련 문서
 
 - [ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원까지 보장하지 않는다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-survives-configuration-change-not-process-death.md)
-- [Android 프로세스와 메모리](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory.md)
+- [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 
 공식 문서: [Processes and app lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle)

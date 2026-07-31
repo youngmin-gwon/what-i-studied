@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# Kernel security는 AVB, dm-verity, SELinux, CFI가 나눠 맡는다
+
 Android kernel 보안을 하나의 기능으로 설명하면 안 된다. boot 전에 실행 code와 partition integrity를 검증하는 AVB/dm-verity, runtime access를 제한하는 SELinux, kernel indirect control flow 공격을 줄이는 CFI/KCFI는 서로 다른 실패 모드를 다룬다.
 
 AVB는 boot partition, dtbo, system, vendor 같은 boot 대상 code/data가 기대한 상태인지 검증한다. 큰 partition은 hash tree 기반의 dm-verity로 runtime read path에서 검증될 수 있다.

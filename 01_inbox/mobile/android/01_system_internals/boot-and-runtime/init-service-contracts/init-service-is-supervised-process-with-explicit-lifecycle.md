@@ -1,3 +1,11 @@
+---
+title: "init service는 재시작 정책을 가진 supervised process다"
+tags: [android, android/system-internals, android/boot-runtime, android/init]
+aliases: ["init service는 재시작 정책을 가진 supervised process다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # init service는 재시작 정책을 가진 supervised process다
 
 상위 문서: [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md)

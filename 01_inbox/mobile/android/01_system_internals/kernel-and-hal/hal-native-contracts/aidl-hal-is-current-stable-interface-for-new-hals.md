@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# AIDL HAL is current stable interface for new HALs
+
 AIDL HAL은 Android 11부터 HAL 구현에 사용할 수 있게 된 방식이며, 가능한 신규 HAL에는 Stable AIDL을 사용하는 방향이 권장된다. AIDL은 Java-like interface language지만 backend에 따라 C++, Java, Rust, NDK 경계에서 사용할 수 있다.
 
 Framework component가 `system.img`에 있고 hardware component가 `vendor.img`에 있는 식으로 partition 경계를 넘는 HAL 통신은 stable AIDL을 사용해야 한다. 같은 partition 내부 통신은 같은 제약을 받는 경계가 아니다.

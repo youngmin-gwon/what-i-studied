@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# Vendor kernel module은 first-stage init 경계에서 로드된다
+
 GKI kernel은 모든 device driver를 core image에 포함하지 않는다. device boot에 필요한 vendor module은 vendor ramdisk와 vendor_boot partition 쪽에 놓이고, first-stage init이 module dependency와 load order를 참고해 로드한다.
 
 이 구조는 boot partition과 vendor-specific driver delivery를 분리하기 위한 것이다. GKI kernel과 vendor module이 따로 빌드되더라도, device는 boot 초기에 필요한 storage, filesystem, SoC driver를 로드해야 system/vendor partition을 mount하고 계속 부팅할 수 있다.

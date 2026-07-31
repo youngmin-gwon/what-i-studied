@@ -1,3 +1,11 @@
+---
+title: "Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다"
+tags: [android, android/system-internals, android/boot-runtime, android/runtime]
+aliases: ["Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다
 
 상위 문서: [Zygote와 ART 런타임 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-runtime-contracts.md)

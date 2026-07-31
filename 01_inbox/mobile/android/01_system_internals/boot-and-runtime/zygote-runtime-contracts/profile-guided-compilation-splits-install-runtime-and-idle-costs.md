@@ -1,3 +1,11 @@
+---
+title: "Profile guided compilation은 설치, 실행, idle compile 비용을 나눈다"
+tags: [android, android/system-internals, android/boot-runtime, android/runtime]
+aliases: ["Profile guided compilation은 설치, 실행, idle compile 비용을 나눈다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Profile guided compilation은 설치, 실행, idle compile 비용을 나눈다
 
 상위 문서: [Zygote와 ART 런타임 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-runtime-contracts.md)

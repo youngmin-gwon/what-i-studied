@@ -1,3 +1,11 @@
+---
+title: "ueventd는 kernel uevent를 dev node 권한으로 변환한다"
+tags: [android, android/system-internals, android/boot-runtime, android/init]
+aliases: ["ueventd는 kernel uevent를 dev node 권한으로 변환한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # ueventd는 kernel uevent를 dev node 권한으로 변환한다
 
 상위 문서: [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md)

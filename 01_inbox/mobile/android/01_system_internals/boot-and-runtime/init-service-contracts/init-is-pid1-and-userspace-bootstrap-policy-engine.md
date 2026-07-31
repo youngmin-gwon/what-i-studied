@@ -1,3 +1,11 @@
+---
+title: "init는 PID 1이자 Android userspace의 부트스트랩 정책 엔진이다"
+tags: [android, android/system-internals, android/boot-runtime, android/init]
+aliases: ["init는 PID 1이자 Android userspace의 부트스트랩 정책 엔진이다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # init는 PID 1이자 Android userspace의 부트스트랩 정책 엔진이다
 
 상위 문서: [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md)

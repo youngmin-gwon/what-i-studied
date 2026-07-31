@@ -1,3 +1,11 @@
+---
+title: "init 보안은 SELinux domain과 capability 경계로 정의된다"
+tags: [android, android/system-internals, android/boot-runtime, android/init]
+aliases: ["init 보안은 SELinux domain과 capability 경계로 정의된다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # init 보안은 SELinux domain과 capability 경계로 정의된다
 
 상위 문서: [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md)
@@ -15,4 +23,4 @@ init service를 root로 실행하는 것은 보안 설계가 아니다. Android 
 ## 관련 문서
 
 - [ueventd는 kernel uevent를 dev node 권한으로 변환한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/ueventd-turns-kernel-uevents-into-dev-node-permissions.md)
-- [Android 보안 샌드박스](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
+- [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md)

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# Native service debugging separates init Binder VINTF SELinux and tombstones
+
 Native service나 HAL 문제를 볼 때는 process launch, Binder registration, VINTF declaration, SELinux access, native crash를 같은 문제로 뭉개지 않는다. 증상은 비슷해도 실패 지점이 다르면 보는 로그와 명령이 달라진다.
 
 `adb shell service list`는 Binder service discovery를 확인하는 도구이고, init service 전체 목록이나 모든 HAL instance 목록과 동일하지 않다. `dumpsys`는 등록된 service가 제공하는 dump endpoint를 통해 상태를 확인한다.

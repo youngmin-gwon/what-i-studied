@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# JNI strings and arrays have copy pin and release contracts
+
 JNI string/array API는 raw pointer 접근처럼 보여도 copy 또는 pin이 될 수 있는 runtime contract다. 포인터 주소가 managed object의 실제 주소라고 가정하거나, release 없이 오래 보관하면 GC와 memory behavior를 깨뜨릴 수 있다.
 
 `GetStringUTFChars`와 `NewStringUTF`는 JNI Modified UTF-8 규칙을 전제로 한다. 외부 UTF-8 입력을 그대로 `NewStringUTF`에 넘기는 설계는 인코딩 검증과 변환을 별도 고려해야 한다.

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# JNI is explicit boundary between managed runtime and native code
+
 JNI는 Kotlin/Java managed runtime과 C/C++ native code 사이의 호출 경계다. `external` 함수 선언, `System.loadLibrary`, native method registration 또는 symbol lookup이 모두 이 경계를 구성한다.
 
 `jint`, `jlong`, `jobject`, `jstring`, `jarray`는 C++에서 다루는 값처럼 보여도 JNI 호출 규약의 타입이다. 특히 object 계열은 native pointer가 아니라 runtime이 관리하는 reference handle로 취급해야 한다.

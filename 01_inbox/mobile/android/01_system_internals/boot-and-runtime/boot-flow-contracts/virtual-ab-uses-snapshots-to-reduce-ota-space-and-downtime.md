@@ -1,3 +1,11 @@
+---
+title: "Virtual A/B는 snapshot으로 OTA 공간과 offline 시간을 줄인다"
+tags: [android, android/system-internals, android/boot-runtime, android/boot]
+aliases: ["Virtual A/B는 snapshot으로 OTA 공간과 offline 시간을 줄인다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Virtual A/B는 snapshot으로 OTA 공간과 offline 시간을 줄인다
 
 상위 문서: [부팅 흐름 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-flow-contracts.md)

@@ -1,3 +1,11 @@
+---
+title: "dumpsys는 system service의 현재 상태를 보는 inspection interface다"
+tags: [android, android/system-internals, android/boot-runtime, android/system-server]
+aliases: ["dumpsys는 system service의 현재 상태를 보는 inspection interface다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # dumpsys는 system service의 현재 상태를 보는 inspection interface다
 
 상위 문서: [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)

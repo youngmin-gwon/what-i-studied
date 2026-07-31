@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# zRAM은 메모리 부족 해결책이 아니라 압축 swap 정책이다
+
 zRAM은 block device처럼 동작하는 압축 메모리 영역을 swap으로 사용하는 kernel 기능이다. Android에서는 storage write를 늘리지 않고 anonymous memory pressure를 완화하는 수단으로 쓰일 수 있다.
 
 zRAM은 물리 RAM을 늘려 주지 않는다. 압축률이 좋을 때는 더 많은 working set을 RAM 안에 유지할 수 있지만, 압축·해제 CPU 비용, swap policy, reclaim pressure, thermal 상태에 따라 오히려 지연을 만들 수도 있다.

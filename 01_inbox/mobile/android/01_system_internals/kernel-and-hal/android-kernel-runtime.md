@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# Android kernel runtime
+
 Android kernel 영역은 Linux kernel 지식과 Android platform 정책이 만나는 지점이다. 이 허브는 기존 `android-kernel` 가이드의 내용을 ACK/GKI/KMI, power, memory, shared buffer, SELinux, build/debugging 계약으로 다시 묶는다.
 
 정본 묶음: [Kernel contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kernel-contracts.md)

@@ -1,3 +1,11 @@
+---
+title: "Rescue Party는 반복되는 system failure를 단계적으로 복구한다"
+tags: [android, android/system-internals, android/boot-runtime, android/system-server]
+aliases: ["Rescue Party는 반복되는 system failure를 단계적으로 복구한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Rescue Party는 반복되는 system failure를 단계적으로 복구한다
 
 상위 문서: [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)

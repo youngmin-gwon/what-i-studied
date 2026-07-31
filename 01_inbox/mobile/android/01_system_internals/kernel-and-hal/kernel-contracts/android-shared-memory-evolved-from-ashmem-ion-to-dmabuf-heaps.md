@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# Android shared memory는 ashmem, ION, DMA-BUF heaps로 역할이 분화됐다
+
 Android의 shared memory 문제는 하나가 아니다. 앱과 system service 사이의 CPU 접근 가능한 공유 메모리, camera/GPU/codec/display 사이의 DMA buffer 공유, protected media buffer는 서로 다른 요구를 가진다.
 
 ashmem은 anonymous shared memory를 file descriptor로 표현해 Binder로 전달할 수 있게 만든 초기 Android 메커니즘이다. CPU가 접근하는 공유 메모리에는 유용했지만, GPU나 camera 같은 device DMA buffer 문제를 모두 해결하는 모델은 아니다.

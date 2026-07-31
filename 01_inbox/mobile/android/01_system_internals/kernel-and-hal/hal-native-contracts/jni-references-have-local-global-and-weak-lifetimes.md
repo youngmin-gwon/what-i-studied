@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# JNI references have local global and weak lifetimes
+
 JNI object reference는 native pointer가 아니라 runtime handle이며 수명 규칙이 있다. native method argument와 대부분의 JNI return object는 local reference이고, 현재 native method 호출과 현재 thread 범위에서만 유효하다.
 
 호출 이후에도 객체를 보관해야 하면 `NewGlobalRef`나 `NewWeakGlobalRef`로 별도 reference를 만들어야 한다. global reference는 `DeleteGlobalRef` 전까지 유효하지만 객체를 붙잡을 수 있으므로 callback/cache처럼 필요한 경우에만 쓴다.

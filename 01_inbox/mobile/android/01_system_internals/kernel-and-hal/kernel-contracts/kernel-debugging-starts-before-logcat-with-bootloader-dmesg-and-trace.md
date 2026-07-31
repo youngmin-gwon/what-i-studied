@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# Kernel debugging은 logcat 이전의 신호에서 시작한다
+
 Kernel 문제는 Android framework logcat만으로 충분하지 않다. bootloader verified boot state, kernel command line/bootconfig, dmesg, pstore/ramoops, first-stage init log, module load log, Perfetto trace를 순서대로 봐야 한다.
 
 부팅 전후 문제는 단계가 중요하다. bootloader가 kernel을 로드하지 못했는지, kernel panic이 났는지, first-stage init이 partition이나 module을 준비하지 못했는지, second-stage init 이후 service가 실패했는지에 따라 증거 위치가 다르다.

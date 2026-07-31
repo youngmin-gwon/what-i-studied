@@ -1,3 +1,11 @@
+---
+title: "ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다"
+tags: [android, android/system-internals, android/boot-runtime, android/system-server]
+aliases: ["ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다
 
 상위 문서: [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)

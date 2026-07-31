@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# Treble separates system and vendor through stable interfaces
+
 Project Treble의 실무적 의미는 Android framework 쪽 system image와 vendor implementation 쪽 vendor image 사이에 업데이트 가능한 경계를 세우는 것이다. 이 경계가 없으면 framework 변경이 vendor HAL, driver, device-specific 코드 재작업으로 쉽게 번진다.
 
 Treble 이후 HAL은 단순한 C 함수 묶음보다 stable interface, process boundary, manifest/matrix 검증과 함께 이해해야 한다. framework가 요구하는 interface와 device가 제공하는 interface가 맞아야 system/vendor 조합이 OTA 이후에도 동작할 수 있다.

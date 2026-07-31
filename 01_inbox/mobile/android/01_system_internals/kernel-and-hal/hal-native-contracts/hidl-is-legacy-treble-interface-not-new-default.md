@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# HIDL is legacy Treble interface not new default
+
 HIDL은 Treble 시대에 HAL interface를 명시적으로 정의하고 versioning과 Binder IPC를 제공하기 위해 도입된 HAL interface definition language다. Android 8 이후 HAL을 system/vendor 경계에서 안정적으로 호출하기 위한 중요한 전환점이었다.
 
 하지만 현재 신규 HAL의 기본 방향은 HIDL이 아니다. AOSP 문서는 Android 13 기준 HIDL을 deprecated로 표시하며, 가능한 경우 HAL을 AIDL로 전환하라고 안내한다. 기존 HIDL HAL은 여전히 지원될 수 있으므로 “HIDL이 사라졌다”가 아니라 “신규 선택의 중심이 AIDL로 이동했다”가 정확하다.

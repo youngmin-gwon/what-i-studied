@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# HAL and native boundary
+
 Android의 native 경계는 kernel 자체가 아니라 framework, vendor implementation, native process, 앱 native library가 만나는 계약이다. 이 허브는 기존 HAL, native services, NDK/JNI 문서를 userspace contract 단위로 다시 묶는다.
 
 정본 묶음: [HAL native contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-native-contracts.md)

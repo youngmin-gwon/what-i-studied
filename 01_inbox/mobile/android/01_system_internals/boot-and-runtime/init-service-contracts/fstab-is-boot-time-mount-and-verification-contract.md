@@ -1,3 +1,11 @@
+---
+title: "fstab은 mount와 검증 플래그를 묶은 부팅 계약이다"
+tags: [android, android/system-internals, android/boot-runtime, android/init]
+aliases: ["fstab은 mount와 검증 플래그를 묶은 부팅 계약이다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # fstab은 mount와 검증 플래그를 묶은 부팅 계약이다
 
 상위 문서: [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md)

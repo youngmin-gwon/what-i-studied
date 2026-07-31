@@ -1,3 +1,11 @@
+---
+title: "Zygote fork의 메모리 이점은 copy-on-write가 유지될 때 생긴다"
+tags: [android, android/system-internals, android/boot-runtime, android/runtime]
+aliases: ["Zygote fork의 메모리 이점은 copy-on-write가 유지될 때 생긴다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Zygote fork의 메모리 이점은 copy-on-write가 유지될 때 생긴다
 
 상위 문서: [Zygote와 ART 런타임 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-runtime-contracts.md)
@@ -13,5 +21,5 @@ Zygote fork가 빠른 이유는 부모 메모리를 즉시 복사하지 않고 c
 
 ## 관련 문서
 
-- [Android 프로세스와 메모리](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory.md)
+- [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 - [Zygote는 framework 공통 상태를 preload한 뒤 앱 프로세스를 fork한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-preloads-framework-state-before-app-fork.md)

@@ -1,3 +1,11 @@
+---
+title: "앱 프로세스는 specialization 뒤 ActivityThread로 framework에 attach한다"
+tags: [android, android/system-internals, android/boot-runtime, android/runtime]
+aliases: ["앱 프로세스는 specialization 뒤 ActivityThread로 framework에 attach한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 앱 프로세스는 specialization 뒤 ActivityThread로 framework에 attach한다
 
 상위 문서: [Zygote와 ART 런타임 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-runtime-contracts.md)

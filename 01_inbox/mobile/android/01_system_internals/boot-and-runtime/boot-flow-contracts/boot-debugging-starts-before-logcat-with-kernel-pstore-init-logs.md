@@ -1,3 +1,11 @@
+---
+title: "부팅 디버깅은 logcat 이전의 kernel, pstore, init 로그에서 시작한다"
+tags: [android, android/system-internals, android/boot-runtime, android/boot]
+aliases: ["부팅 디버깅은 logcat 이전의 kernel, pstore, init 로그에서 시작한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 부팅 디버깅은 logcat 이전의 kernel, pstore, init 로그에서 시작한다
 
 상위 문서: [부팅 흐름 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-flow-contracts.md)

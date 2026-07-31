@@ -1,3 +1,11 @@
+---
+title: "system service는 Binder endpoint이자 플랫폼 정책 집행자다"
+tags: [android, android/system-internals, android/boot-runtime, android/system-server]
+aliases: ["system service는 Binder endpoint이자 플랫폼 정책 집행자다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # system service는 Binder endpoint이자 플랫폼 정책 집행자다
 
 상위 문서: [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)
@@ -13,6 +21,6 @@ system service는 앱에 API를 노출하는 Binder endpoint인 동시에 권한
 
 ## 관련 문서
 
-- [Android Binder와 IPC](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md)
+- [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 - [dumpsys는 system service의 현재 상태를 보는 inspection interface다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/dumpsys-is-system-service-state-inspection-interface.md)
-- [Android 보안 샌드박스](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
+- [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md)

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# Wakelock은 background work 권한이 아니라 suspend blocker다
+
 Wakelock은 “작업을 실행해도 된다”는 권한이 아니라, 특정 조건에서 device가 system suspend로 들어가지 않도록 막는 suspend blocker다. 앱 수준에서는 `PowerManager.WakeLock`으로 주로 partial wake lock을 다루고, system/native 쪽에서는 SystemSuspend 경계와 연결된다.
 
 partial wake lock은 화면이 꺼진 뒤에도 CPU가 계속 필요한 작업에서 사용할 수 있지만, 오래 잡고 있으면 배터리 소모로 이어진다. Android vitals도 background 또는 foreground service 중 잡힌 partial wake lock 시간이 과도한지 관찰한다.

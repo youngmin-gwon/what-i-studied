@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# ACK는 upstream LTS와 Android release를 잇는다
+
 Android Common Kernel(ACK)은 upstream Linux LTS kernel에 Android 커뮤니티에 필요한 패치를 더한 kernel tree다. Google의 `kernel/common` repository에서 관리되며, GKI kernel도 ACK source tree에서 빌드된다.
 
 ACK를 이해할 때는 branch 이름을 제품 지식처럼 외우기보다 branch의 의미를 봐야 한다. 예를 들어 `android15-6.6`은 Android 15와 Linux 6.6 계열을 연결하는 ACK KMI branch다.

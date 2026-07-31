@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# VINTF declares framework vendor compatibility
+
 VINTF는 IPC mechanism이 아니라 framework와 device/vendor 쪽 interface 요구사항을 manifest와 compatibility matrix로 표현하는 호환성 체계다. manifest는 제공하는 것을, compatibility matrix는 요구하는 것을 드러낸다.
 
 Device manifest는 보통 vendor/ODM 쪽 HAL service와 instance를 설명하고, framework compatibility matrix는 framework가 기대하는 HAL interface와 version을 표현한다. OTA에서는 이 둘이 서로 맞는지가 중요하다.

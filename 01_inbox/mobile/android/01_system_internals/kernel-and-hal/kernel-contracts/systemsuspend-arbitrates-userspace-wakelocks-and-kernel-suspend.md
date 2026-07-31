@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# SystemSuspend는 userspace wakelock과 kernel suspend를 중재한다
+
 Android 10부터 SystemSuspend service는 userspace suspend blocker 요청과 kernel suspend 진입 사이의 중재자 역할을 한다. 이전의 libsuspend 중심 구조와 `/sys/power/wake_lock` 직접 접근을 더 구조화된 service 경계로 옮긴 것이다.
 
 SystemSuspend는 wakelock count를 관리하고, suspend thread가 `/sys/power/wakeup_count`와 `/sys/power/state`를 사용해 system suspend를 시도한다. main thread는 Binder/HIDL/AIDL 경계에서 clients의 wakelock 요청을 처리한다.

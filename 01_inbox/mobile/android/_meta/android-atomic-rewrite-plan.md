@@ -424,3 +424,21 @@ Canonical note 후보:
 - 원칙: 이미 정본화된 navigation 묶음을 새로 쪼개지 않고, 활성 정본 43개에 frontmatter/H1을 통일하고 13줄 이하 얇은 정본에 판단 기준과 책임 경계를 보강했다.
 - 검증: Navigation 활성 frontmatter 누락 0개, H1 누락 0개, 13줄 이하 얇은 정본 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
+### Phase 34 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: Boot/runtime 정본 문서 품질 보강, 부팅 흐름/system_server/Zygote 지도 보강, redirect 경유 링크 보정
+- 정본 지도: [Android 부팅과 런타임 지도](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-and-runtime.md), [부팅 흐름 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-flow-contracts.md), [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md), [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md), [Zygote와 ART 런타임 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-runtime-contracts.md)
+- 원칙: 이미 정본화된 boot/runtime 묶음을 새로 쪼개지 않고, 활성 정본 40개에 frontmatter를 추가하고 얇은 지도 노트 3개에 경계 규칙을 보강했다.
+- 추가 정리: Boot/runtime 활성 문서의 redirect 경유 링크 7개를 보안, IPC, process 정본 링크로 직접 보정했다.
+- 검증: Boot/runtime 활성 frontmatter 누락 0개, 14줄 이하 얇은 정본 0개, redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+
+### Phase 35 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: Kernel/HAL 정본 문서 품질 보강, H1 보강, HAL native contracts 링크 라벨 보정, redirect 경유 링크 보정
+- 정본 지도: [Android kernel runtime](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel-runtime.md), [HAL and native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md), [Kernel contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kernel-contracts.md), [HAL native contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-native-contracts.md)
+- 원칙: 이미 정본화된 kernel/HAL 묶음을 새로 쪼개지 않고, 활성 정본 39개에 H1을 추가해 단독 노트로 읽히게 만들었다.
+- 추가 정리: Kernel/HAL 활성 문서의 redirect 경유 링크 3개를 보안과 IPC 정본 링크로 직접 보정하고, stem 기반 링크 라벨 17개를 제목 기반 라벨로 바꿨다.
+- 검증: Kernel/HAL 활성 H1 누락 0개, 14줄 이하 얇은 정본 0개, redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+

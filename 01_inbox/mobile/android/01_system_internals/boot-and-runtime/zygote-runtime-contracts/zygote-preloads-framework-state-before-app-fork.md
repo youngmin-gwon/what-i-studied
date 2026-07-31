@@ -1,3 +1,11 @@
+---
+title: "Zygote는 framework 공통 상태를 preload한 뒤 앱 프로세스를 fork한다"
+tags: [android, android/system-internals, android/boot-runtime, android/runtime]
+aliases: ["Zygote는 framework 공통 상태를 preload한 뒤 앱 프로세스를 fork한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Zygote는 framework 공통 상태를 preload한 뒤 앱 프로세스를 fork한다
 
 상위 문서: [Zygote와 ART 런타임 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-runtime-contracts.md)

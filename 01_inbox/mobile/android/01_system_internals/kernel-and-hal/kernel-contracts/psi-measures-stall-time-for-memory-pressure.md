@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# PSI는 free memory가 아니라 stall time을 측정한다
+
 Pressure Stall Information(PSI)은 memory, CPU, I/O 부족으로 task가 실제로 얼마나 기다렸는지를 측정하는 kernel signal이다. Android lmkd는 Android 10 이상에서 PSI monitor 기반 memory pressure detection을 사용할 수 있다.
 
 free memory 숫자는 단독으로 사용자 경험을 잘 설명하지 못한다. page cache, reclaim 가능성, swap, thrashing, allocator latency에 따라 같은 free memory라도 체감 성능은 다를 수 있다. PSI는 task delay를 직접 관찰하므로 memory pressure severity를 판단하는 데 더 적합하다.

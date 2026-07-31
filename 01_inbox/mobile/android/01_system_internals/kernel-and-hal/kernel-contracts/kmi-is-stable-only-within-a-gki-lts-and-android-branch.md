@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
+# KMI 안정성은 같은 GKI LTS/Android branch 안에서만 성립한다
+
 Kernel Module Interface(KMI)는 GKI kernel과 vendor module 사이에서 안정적으로 유지해야 하는 kernel symbol interface다. vendor module은 허용된 KMI symbol에 의존해야 하며, GKI와 별도 tree에서 빌드되더라도 함께 빌드된 것처럼 동작해야 한다.
 
 KMI 안정성은 무제한 ABI 안정성이 아니다. 공식 문서 기준으로 KMI는 같은 LTS와 Android version의 kernel branch 안에서만 유지된다. 예를 들어 `android14-6.1`과 `android15-6.6` 사이의 KMI 호환을 가정하면 안 된다.

@@ -1,3 +1,11 @@
+---
+title: "system_server는 framework service를 한 프로세스 안에서 시작한다"
+tags: [android, android/system-internals, android/boot-runtime, android/system-server]
+aliases: ["system_server는 framework service를 한 프로세스 안에서 시작한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # system_server는 framework service를 한 프로세스 안에서 시작한다
 
 상위 문서: [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)
@@ -14,4 +22,4 @@
 ## 관련 문서
 
 - [Zygote는 framework 공통 상태를 preload한 뒤 앱 프로세스를 fork한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-preloads-framework-state-before-app-fork.md)
-- [Android Binder와 IPC](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md)
+- [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# CMake Gradle and ABI define native build and packaging
+
 CMake는 native source, target, include path, link dependency를 선언한다. Gradle/Android Gradle Plugin은 이 native build를 Android build variant와 연결하고, 결과 `.so`를 ABI별로 앱 패키지에 넣는다.
 
 `abiFilters`는 Gradle이 build 또는 packaging할 ABI 집합을 제한하는 앱 설정이다. 반면 CMake의 `ANDROID_ABI`는 CMake invocation이 어떤 ABI로 configure/build되는지를 나타내는 변수다.

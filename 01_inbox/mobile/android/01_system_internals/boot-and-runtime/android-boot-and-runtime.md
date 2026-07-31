@@ -1,3 +1,11 @@
+---
+title: "Android 부팅과 런타임 지도"
+tags: [android, android/system-internals, android/boot-runtime]
+aliases: ["Android 부팅과 런타임 지도"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android 부팅과 런타임 지도
 
 Android 부팅과 런타임은 기기가 신뢰 가능한 OS 이미지를 선택하고, `init`이 네이티브 서비스를 세우고, Zygote와 `system_server`가 앱 프레임워크를 여는 과정이다.

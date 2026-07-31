@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:58:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
+# AndroidBitmap native access requires format stride and lock lifetime
+
 `AndroidBitmap_*` API는 managed `Bitmap` 객체와 native pixel buffer 사이의 Android 전용 경계다. JNI object reference를 받은 뒤 `AndroidBitmap_getInfo`로 크기, format, stride를 확인하고, `AndroidBitmap_lockPixels`로 유효한 접근 범위를 얻는다.
 
 한 행의 실제 바이트 폭을 `width * bytesPerPixel`로 가정하면 stride padding에서 깨질 수 있다. 다음 행으로 이동할 때는 `AndroidBitmapInfo.stride`를 사용한다.
