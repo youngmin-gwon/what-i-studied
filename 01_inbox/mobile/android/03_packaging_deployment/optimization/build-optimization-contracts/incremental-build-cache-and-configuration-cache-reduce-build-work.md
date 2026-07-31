@@ -2,6 +2,7 @@
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
 관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+관련 노트: [Gradle 빌드 성능은 앱 런타임 성능과 다르다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/gradle-build-performance-is-not-app-runtime-performance.md), [Android Gradle Plugin은 Android 빌드 규칙을 Gradle에 추가한다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/android-gradle-plugin-adds-android-build-rules-to-gradle.md)
 
 ## 캐시를 구분해서 운영하기
 

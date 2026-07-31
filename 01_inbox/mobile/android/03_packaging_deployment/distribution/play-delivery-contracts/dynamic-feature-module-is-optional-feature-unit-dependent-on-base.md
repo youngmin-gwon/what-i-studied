@@ -2,7 +2,7 @@
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
 관련 지도: [Play Delivery 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-contracts.md)
-관련 정본: [AAB는 Play가 기기별 APK를 생성하는 게시 아티팩트다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
+관련 노트: [Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-feature-delivery-controls-dynamic-feature-install-timing.md), [AAB는 Play가 기기별 APK를 생성하는 게시 아티팩트다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
 
 ## 모듈 관계
 

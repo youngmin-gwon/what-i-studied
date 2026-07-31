@@ -1,7 +1,7 @@
-# R8 컴파일러 & 코드 최적화(Code Shrinking) 가이드 개요
+# 이전 노트
 
-이 문서는 Android 앱 패키지(APK/AAB) 용량을 줄이고 실행 성능 및 보안을 극대화하기 위해 **R8 컴파일러(ProGuard 기술 기반)**를 활용하는 가이드와 프로젝트 내 코드 수축/최적화 규칙을 정리합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-본 문서는 Google의 R8 Optimization 가이드 세션 및 최신 AGP (Android Gradle Plugin) 릴리즈 기준을 반영하여 작성되었습니다.
+흡수된 이전 노트: `01_inbox/mobile/android/03_packaging_deployment/optimization/r8-code-shrinking-guidelines/r8-code-shrinking-guidelines-00-개요.md`
 
----
+정본 노트: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)

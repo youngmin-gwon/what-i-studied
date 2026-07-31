@@ -2,6 +2,7 @@
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
 관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md), [R8 결과물은 크기와 런타임 회귀로 검증한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-output-must-be-validated-with-size-and-runtime-regression.md)
 
 ## 핵심 주장
 

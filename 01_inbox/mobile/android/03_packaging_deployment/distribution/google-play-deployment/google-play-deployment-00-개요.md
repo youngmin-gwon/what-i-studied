@@ -1,17 +1,7 @@
-# google play deployment 개요
+# 이전 노트
 
----
-title: google-play-deployment
-tags: [android, deployment, google-play, ci-cd]
-aliases: [구글 플레이 배포 가이드]
-date modified: 2026-04-07 10:40:00 +09:00
-date created: 2026-04-04 15:20:00 +09:00
----
+이 노트의 내용은 정본 노트로 흡수했다.
 
-## [android-gradle-build-system](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-build-system.md) > [google-play-deployment](01_inbox/mobile/android/03_packaging_deployment/distribution/google-play-deployment.md)
+흡수된 이전 노트: `01_inbox/mobile/android/03_packaging_deployment/distribution/google-play-deployment/google-play-deployment-00-개요.md`
 
-### Google Play Store: Publishing & App Bundle Management
-
-안드로이드 앱을 전 세계 사용자에게 배포하기 위한 구글 플레이 스토어의 핵심 프로세스와 관련 기술적 요구사항을 정리합니다.
-
----
+정본 노트: [Play 릴리스와 배포 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/release-distribution-contracts.md)

@@ -1,4 +1,7 @@
-# 📚 See Also
-- [android-gradle-build-system](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-build-system.md) - 아티팩트 생성 및 서명(Signing)
-- [android-cicd-patterns](01_inbox/mobile/android/03_packaging_deployment/ci-cd/android-cicd-patterns.md) - 자동화된 배포 파이프라인
-- [android-security-play-integrity](01_inbox/mobile/android/05_security_privacy/integrity-and-attestation/android-security-play-integrity.md) - Play Integrity API 실무
+# 이전 노트
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/03_packaging_deployment/distribution/google-play-deployment/google-play-deployment-05-see-also.md`
+
+정본 노트: [Play 릴리스와 배포 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/release-distribution-contracts.md)

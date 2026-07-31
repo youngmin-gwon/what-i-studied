@@ -2,6 +2,7 @@
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
 관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+관련 노트: [R8 Full Mode와 Configuration Analyzer는 막힌 최적화를 드러낸다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-full-mode-and-configuration-analyzer-expose-blocked-optimization.md), [Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md)
 
 ## 핵심 주장
 

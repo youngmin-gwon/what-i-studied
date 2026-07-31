@@ -2,7 +2,7 @@
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
 관련 지도: [Play Delivery 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-contracts.md)
-관련 정본: [AAB는 Play가 기기별 APK를 생성하는 게시 아티팩트다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
+관련 노트: [Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/google-play-testing-tracks-split-audience-and-feedback-scope.md), [Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md)
 
 ## 사용자 흐름
 

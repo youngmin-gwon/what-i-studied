@@ -2,6 +2,7 @@
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
 관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+관련 노트: [R8 keep 규칙은 최적화 경계다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/keep-rules-are-optimization-boundaries.md), [리소스 수축은 코드 수축 후 미사용 리소스를 제거한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/resource-shrinking-removes-unused-resources-after-code-shrinking.md)
 
 ## 핵심 주장
 

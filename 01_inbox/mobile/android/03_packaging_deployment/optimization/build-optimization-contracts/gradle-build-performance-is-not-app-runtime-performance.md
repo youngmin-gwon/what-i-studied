@@ -2,6 +2,7 @@
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
 관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+관련 노트: [증분 빌드, 캐시, 구성 캐시는 빌드 작업량을 줄인다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/incremental-build-cache-and-configuration-cache-reduce-build-work.md), [Gradle 빌드 계약](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-build-contracts.md)
 
 ## 핵심 주장
 

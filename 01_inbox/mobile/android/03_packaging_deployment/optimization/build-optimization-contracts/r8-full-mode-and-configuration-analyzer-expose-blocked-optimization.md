@@ -2,6 +2,7 @@
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
 관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+관련 노트: [R8 keep 규칙은 최적화 경계다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/keep-rules-are-optimization-boundaries.md), [R8 결과물은 크기와 런타임 회귀로 검증한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-output-must-be-validated-with-size-and-runtime-regression.md)
 
 ## 핵심 주장
 
