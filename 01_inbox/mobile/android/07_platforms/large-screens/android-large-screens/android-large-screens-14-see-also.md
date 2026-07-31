@@ -1,8 +1,7 @@
-# See Also
+# android-large-screens-14-see-also
 
-상위 노트: [android-large-screens](01_inbox/mobile/android/07_platforms/large-screens/android-large-screens.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
-- [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
-- [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md)
-- [android-testing-and-quality](01_inbox/mobile/android/06_testing_performance/testing/android-testing-and-quality.md)
+정본 노트: [large-screen-contracts](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)
+
+기존 링크 보존을 위해 이 파일은 남긴다.

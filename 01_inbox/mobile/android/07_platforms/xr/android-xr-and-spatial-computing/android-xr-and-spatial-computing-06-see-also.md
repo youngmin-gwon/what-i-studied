@@ -1,5 +1,7 @@
-# See Also
+# android-xr-and-spatial-computing-06-see-also
 
-- [android-appfunctions-and-ai-agents](01_inbox/mobile/android/04_system_services/agents-and-assistant/android-appfunctions-and-ai-agents.md)
-- [android-desktop-windowing-and-multitasking](01_inbox/mobile/android/07_platforms/large-screens/android-desktop-windowing-and-multitasking.md)
-- [android-ui-system](01_inbox/mobile/android/02_app_framework/ui/system/android-ui-system.md)
+이 노트의 내용은 정본 노트로 흡수했다.
+
+정본 노트: [xr-contracts](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)
+
+기존 링크 보존을 위해 이 파일은 남긴다.

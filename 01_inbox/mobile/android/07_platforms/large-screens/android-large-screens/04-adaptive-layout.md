@@ -1,47 +1,7 @@
-# Adaptive Layout
+# 04-adaptive-layout
 
-상위 노트: [android-large-screens](01_inbox/mobile/android/07_platforms/large-screens/android-large-screens.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### Navigation Rail (중형 화면)
+정본 노트: [large-screen-contracts](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)
 
-```kotlin
-@Composable
-fun MediumScreenLayout() {
-    Row {
-        NavigationRail {
-            items.forEach { item ->
-                NavigationRailItem(
-                    icon = { Icon(item.icon, null) },
-                    label = { Text(item.label) },
-                    selected = item == selectedItem,
-                    onClick = { selectedItem = item }
-                )
-            }
-        }
-        
-        // 메인 컨텐츠
-        MainContent(modifier = Modifier.weight(1f))
-    }
-}
-```
-
-##### List-Detail (대형 화면)
-
-```kotlin
-@Composable
-fun ListDetailLayout() {
-    Row {
-        // 리스트 (1/3)
-        ItemList(
-            modifier = Modifier.weight(1f),
-            onItemClick = { selectedItem = it }
-        )
-        
-        // 디테일 (2/3)
-        ItemDetail(
-            item = selectedItem,
-            modifier = Modifier.weight(2f)
-        )
-    }
-}
-```
+기존 링크 보존을 위해 이 파일은 남긴다.

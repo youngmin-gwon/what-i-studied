@@ -1,14 +1,7 @@
-# 데스크탑 윈도잉(Desktop Windowing) 대응
+# 02-데스크탑-윈도잉-desktop-windowing-대응
 
-안드로이드 16 기기에서 사용자는 모든 앱을 창 모드로 전환할 수 있다. 이제 모든 앱은 **가변적인 화면 크기(Resizability)**를 완벽하게 지원해야 한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### 매니페스트 설정 및 처리
+정본 노트: [windowing-multitasking-contracts](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)
 
-```xml
-<activity
-    android:name=".MainActivity"
-    android:resizeableActivity="true"
-    android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation">
-    <!-- 창 크기 변화 시 Activity가 재시작되지 않도록 설정 -->
-</activity>
-```
+기존 링크 보존을 위해 이 파일은 남긴다.

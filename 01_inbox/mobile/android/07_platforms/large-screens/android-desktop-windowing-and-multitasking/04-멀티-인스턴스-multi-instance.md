@@ -1,12 +1,7 @@
-# 멀티 인스턴스 (Multi-instance)
+# 04-멀티-인스턴스-multi-instance
 
-생산성 향상을 위해 한 앱의 창을 여러 개 띄우는 기능이 중요하다. (예: 브라우저 탭, 메모장 여러 개)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-val intent = Intent(this, MainActivity::class.java).apply {
-    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-}
-startActivity(intent)
-```
+정본 노트: [multi-instance-requires-task-and-data-ownership-boundaries](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/multi-instance-requires-task-and-data-ownership-boundaries.md)
 
----
+기존 링크 보존을 위해 이 파일은 남긴다.

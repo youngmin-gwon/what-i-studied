@@ -323,3 +323,12 @@ Canonical note 후보:
 - 정본 지도: [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)
 - 원칙: OS 진입 계약(Intent/Manifest), 외부 URI 계약(Deep Link), 앱 내부 back stack 계약(Navigation 3), adaptive chrome 계약을 분리한다.
 - 참고한 공식 문서: [Intents and intent filters](https://developer.android.com/guide/components/intents-filters), [About App Links](https://developer.android.com/training/app-links/about), [Configure website associations and dynamic rules](https://developer.android.com/training/app-links/configure-assetlinks), [Navigation 3 Deep Link Basic Recipe](https://developer.android.com/guide/navigation/navigation-3/recipes/deeplinks-basic)
+
+## Phase 8 적용 기록
+
+- 적용일: 2026-07-31
+- 범위: 큰 화면, 폴더블, PiP, drag and drop, keyboard/pointer/stylus, desktop windowing, multi-window, multi-instance, caption bar, Android XR, Compose for XR, SceneCore, XR capability
+- 정본 지도: [Android 폼 팩터와 플랫폼 확장 지도](01_inbox/mobile/android/07_platforms/android-platforms-and-form-factors.md)
+- 원칙: 기기명 분기가 아니라 앱 창, posture, 입력 장치, 공간 capability를 기준으로 폼 팩터 대응을 설명한다.
+- 참고한 공식 문서: [Use window size classes](https://developer.android.com/develop/ui/views/layout/use-window-size-classes), [Adaptive do's and don'ts](https://developer.android.com/develop/adaptive-apps/guides/adaptive-dos-and-donts), [Support desktop windowing](https://developer.android.com/develop/adaptive-apps/guides/support-desktop-windowing), [Make your app fold aware](https://developer.android.com/develop/adaptive-apps/guides/foldables/make-your-app-fold-aware), [Develop with the Jetpack XR SDK](https://developer.android.com/develop/xr/jetpack-xr-sdk)
+
