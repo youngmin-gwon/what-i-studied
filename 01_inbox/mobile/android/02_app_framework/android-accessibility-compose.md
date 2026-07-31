@@ -2,7 +2,7 @@
 title: android-accessibility-compose
 tags: []
 aliases: []
-date modified: 2026-04-05 17:42:51 +09:00
+date modified: 2026-07-31 15:17:17 +09:00
 date created: 2026-04-04 00:28:14 +09:00
 ---
 

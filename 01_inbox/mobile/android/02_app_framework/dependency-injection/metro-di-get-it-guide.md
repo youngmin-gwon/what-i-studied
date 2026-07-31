@@ -413,7 +413,7 @@ class DataStoreSessionStorage(
 
 > [!IMPORTANT]
 > 오래 사는 AppGraph에는 Activity Context가 아니라 `applicationContext`를 넣는 편이 안전합니다. Context의 수명
-> 차이는 [[android-context|android_context.md]]를
+> 차이는 [[android-context]]를
 > 참조하세요.
 
 ---
@@ -770,8 +770,8 @@ interface에는 @Provides 또는 @Binds로 구현체 연결하기
 
 > [!NOTE]
 > DI의 큰 그림과 Metro가 Navigation/Dynamic Feature와 연결되는
-> 이유는 [[dependency-injection-dsl-dynamic-feature|di_dsl_and_dynamic_feature.md]]
+> 이유는 [[dependency-injection-dsl-dynamic-feature]]
 > 를 참조하세요.
 > Context의 수명
-> 차이는 [[android-context|android_context.md]]를
+> 차이는 [[android-context]]를
 > 참조하세요.

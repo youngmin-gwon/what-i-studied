@@ -2,7 +2,7 @@
 title: android-overview
 tags: []
 aliases: []
-date modified: 2026-04-06 18:29:35 +09:00
+date modified: 2026-07-31 15:23:38 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 
@@ -400,22 +400,17 @@ adb logcat
 
 **기초**:
 
-[[android-glossary]] - 용어집
-
-[[android-evolution-history]] - 역사와 진화
+- [[android-glossary]] - 용어집
+- [[android-evolution-history]] - 역사와 진화
 
 **시스템 핵심**:
 
-[[android-kernel]] - 커널
-
-[[android-binder-and-ipc]] - IPC
-
-[[android-zygote-and-runtime]] - 런타임
-
-[[android-hal-and-kernel]] - HAL
+- [[android-kernel]] - 커널
+- [[android-binder-and-ipc]] - IPC
+- [[android-zygote-and-runtime]] - 런타임
+- [[android-hal-and-kernel]] - HAL
 
 **보안**:
 
-[[android-security-sandbox]] - 보안 모델
-
-[[selinux]] - SELinux 상세
+- [[android-security-sandbox]] - 보안 모델
+- [[selinux]] - SELinux 상세

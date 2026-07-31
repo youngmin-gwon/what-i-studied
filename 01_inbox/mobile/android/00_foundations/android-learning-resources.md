@@ -75,7 +75,7 @@
 
 | 영상 | 내용 |
 |:---|:---|
-| **[A Compose State of Mind - Using Jetpack Compose's Automatic State Observation](https://www.youtube.com/watch?v=rmv2ug-wW4U)** (Android Developers) | Compose Runtime이 State 읽기/쓰기를 자동 추적해 recomposition을 예약하는 방식. Flutter 개발자 관점 해설은 [[jetpack-compose-automatic-state-observation-for-flutter-developers|compose_automatic_state_observation_flutter_guide.md]] |
+| **[A Compose State of Mind - Using Jetpack Compose's Automatic State Observation](https://www.youtube.com/watch?v=rmv2ug-wW4U)** (Android Developers) | Compose Runtime이 State 읽기/쓰기를 자동 추적해 recomposition을 예약하는 방식. Flutter 개발자 관점 해설은 [[jetpack-compose-automatic-state-observation-for-flutter-developers]] |
 | **[Intents & Intent Filters - Android Basics 2023](https://www.youtube.com/results?search_query=Philipp+Lackner+Intents+Intent+Filters)** (Philipp Lackner) | Jetpack Compose 환경에서 인텐트 필터를 연동하여 Activity를 제어하는 방식 |
 | **[In-depth on Metro — with Zac Sweers](https://www.youtube.com/results?search_query=In-depth+on+Metro+Zac+Sweers)** (Code with the Italians) | Metro DI의 내부 동작, KAPT/KSP → 컴파일러 플러그인 전환, 빌드 속도 벤치마크 |
 

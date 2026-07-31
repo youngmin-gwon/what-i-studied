@@ -87,5 +87,5 @@ Compose의 고수준 컴포넌트들은 마법처럼 새로운 것을 띄우는 
 
 ## 5. 참조 문서
 
-* **AndroidX 모듈화 및 패키지 아키텍처**: 각 레이어별 Gradle 의존성 구조 및 `-runtime` 모듈의 분리 배경은 [[jetpack-compose-module-architecture|compose_architecture_guide.md]] 문서를 참조하세요.
+* **AndroidX 모듈화 및 패키지 아키텍처**: 각 레이어별 Gradle 의존성 구조 및 `-runtime` 모듈의 분리 배경은 [[jetpack-compose-module-architecture]] 문서를 참조하세요.
 

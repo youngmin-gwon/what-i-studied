@@ -2,7 +2,7 @@
 title: android-appfunctions-and-ai-agents
 tags: []
 aliases: []
-date modified: 2026-04-05 17:42:57 +09:00
+date modified: 2026-07-31 15:18:23 +09:00
 date created: 2026-04-04 00:33:57 +09:00
 ---
 

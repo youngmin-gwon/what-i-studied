@@ -505,9 +505,9 @@ password visibility, tooltip expanded처럼 composable 내부에서만 의미 �
 
 ## 15. 관련 문서
 
-- [[jetpack-compose-automatic-state-observation-for-flutter-developers|compose_automatic_state_observation_flutter_guide.md]]
-- [[jetpack-compose-state-management-flutter-comparison|compose_state_management_flutter_comparison.md]]
-- [[jetpack-compose-side-effects-and-lifecycle|compose_side_effects_and_lifecycle.md]]
-- [[viewmodel-ui-state-reducer|viewmodel_ui_state_reducer_guide.md]]
-- [[jetpack-navigation-3-guide|navigation_guide.md]]
-- [[kotlin-coroutines-flow-stateflow|kotlin_coroutines_flow_stateflow.md]]
+- [[jetpack-compose-automatic-state-observation-for-flutter-developers]]
+- [[jetpack-compose-state-management-flutter-comparison]]
+- [[jetpack-compose-side-effects-and-lifecycle]]
+- [[viewmodel-ui-state-reducer]]
+- [[jetpack-navigation-3-guide]]
+- [[kotlin-coroutines-flow-stateflow]]

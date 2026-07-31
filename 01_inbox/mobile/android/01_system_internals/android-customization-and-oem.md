@@ -2,7 +2,7 @@
 title: android-customization-and-oem
 tags: [android, android/customization, android/oem]
 aliases: [AOSP, Customization, OEM]
-date modified: 2026-04-05 17:42:37 +09:00
+date modified: 2026-07-31 15:21:58 +09:00
 date created: 2025-12-16 15:27:42 +09:00
 ---
 

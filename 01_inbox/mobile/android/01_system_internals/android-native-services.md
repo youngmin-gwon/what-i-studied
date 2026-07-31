@@ -1,8 +1,8 @@
 ---
 title: android-native-services
-tags: [android, system, native, binder, hal]
+tags: [android, binder, hal, native, system]
 aliases: [안드로이드 네이티브 서비스]
-date modified: 2026-04-07 10:35:00 +09:00
+date modified: 2026-07-31 15:22:10 +09:00
 date created: 2026-04-07 10:35:00 +09:00
 ---
 
@@ -31,7 +31,7 @@ date created: 2026-04-07 10:35:00 +09:00
 프레임워크(Java/Kotlin)에서 Native 서비스를 호출하는 과정:
 
 1. **ServiceManager**: 모든 시스템 서비스의 이름과 위치를 관리하는 허브.
-2. **BpInterface / BnInterface**: 
+2. **BpInterface / BnInterface**:
    - **Bp (Binder Proxy)**: 클라이언트 측 프록시 (Framework 에서 호출).
    - **Bn (Binder Native)**: 실제 서비스 구현체 (Native 서비스 프로세스 내부).
 3. **AIDL for Native**: C++ 에서도 서비스 인터페이스를 정의하기 위해 AIDL 을 사용합니다. (최신 버전은 NDK Backend 지원)
@@ -56,6 +56,7 @@ date created: 2026-04-07 10:35:00 +09:00
 ---
 
 #### 📚 See Also
+
 - [[android-ndk-jni]] - 앱 수준의 네이티브 개발 (NDK)
 - [[android-os-development-guide]] - 안드로이드 OS 빌드 및 소스 구조
 - [[android-process-and-memory]] - 서비스 프로세스 관리 방식

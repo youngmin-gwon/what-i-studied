@@ -2,7 +2,7 @@
 title: android-compose-internals
 tags: [android, android/compose, android/jetpack, android/ui]
 aliases: []
-date modified: 2026-04-05 17:42:59 +09:00
+date modified: 2026-07-31 15:18:35 +09:00
 date created: 2025-12-16 16:19:14 +09:00
 ---
 

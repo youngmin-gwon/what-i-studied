@@ -1,6 +1,6 @@
 # Adaptive Layout & Navigation 프로젝트 적용 의견
 
-> 이 문서는 [[adaptive-layout-and-navigation|adaptive_layout_and_navigation.md]]의 공식 문서 정리와 분리된 프로젝트 적용 판단입니다.
+> 이 문서는 [[adaptive-layout-and-navigation]]의 공식 문서 정리와 분리된 프로젝트 적용 판단입니다.
 
 ---
 

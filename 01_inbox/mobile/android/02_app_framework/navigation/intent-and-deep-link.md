@@ -83,4 +83,4 @@ sequenceDiagram
 ```
 
 > [!TIP]
-> 이 매커니즘은 인텐트 필터를 등록하는 `AndroidManifest.xml`의 구조와 밀접하게 연결됩니다. 매니페스트 구조에 대한 상세 내용은 [[android-manifest|android_manifest.md]]를 참조하세요.
+> 이 매커니즘은 인텐트 필터를 등록하는 `AndroidManifest.xml`의 구조와 밀접하게 연결됩니다. 매니페스트 구조에 대한 상세 내용은 [[android-manifest]]를 참조하세요.

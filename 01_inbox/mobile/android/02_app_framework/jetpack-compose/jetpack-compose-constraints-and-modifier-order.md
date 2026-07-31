@@ -137,5 +137,5 @@ Box(
 
 ## 5. 관련 문서
 
-* **고급 레이아웃 시스템 (`Modifier.layout` 등)**: [[jetpack-compose-advanced-layout|compose_advanced_layout.md]]
-* **렌더링 파이프라인 개요**: [[jetpack-compose-phases-and-layout-system|compose_phases_and_layout.md]]
+* **고급 레이아웃 시스템 (`Modifier.layout` 등)**: [[jetpack-compose-advanced-layout]]
+* **렌더링 파이프라인 개요**: [[jetpack-compose-phases-and-layout-system]]

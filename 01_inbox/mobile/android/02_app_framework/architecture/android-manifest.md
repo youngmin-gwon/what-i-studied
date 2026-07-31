@@ -231,5 +231,5 @@ fun ShoppingCartButton(onClick: () -> Unit) {
 ```
 
 > [!NOTE]
-> 인텐트와 인텐트 필터의 기초 개념은 [[intent-and-deep-link|intent_and_deep_link.md]]를 참조하세요.
-> Navigation 라이브러리의 딥 링크 처리 방식은 [[jetpack-navigation-3-guide|navigation_guide.md]]를 참조하세요.
+> 인텐트와 인텐트 필터의 기초 개념은 [[intent-and-deep-link]]를 참조하세요.
+> Navigation 라이브러리의 딥 링크 처리 방식은 [[jetpack-navigation-3-guide]]를 참조하세요.

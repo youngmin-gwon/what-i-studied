@@ -2,7 +2,7 @@
 title: android-background-processing
 tags: []
 aliases: []
-date modified: 2026-04-05 17:42:58 +09:00
+date modified: 2026-07-31 15:18:29 +09:00
 date created: 2026-04-04 00:22:18 +09:00
 ---
 

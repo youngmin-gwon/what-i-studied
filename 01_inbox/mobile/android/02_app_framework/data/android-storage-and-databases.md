@@ -235,7 +235,7 @@ context.getExternalCacheDir()
 
 여기서 `context`는 앱 저장소 위치를 OS에 물어보기 위한 Android `Context`입니다. 저장소 객체가 오래 살아야 한다면 Activity Context가 아니라
 Application Context를 쓰는 편이 안전합니다. Context의 종류와 수명
-차이는 [[android-context|android_context.md]]를
+차이는 [[android-context]]를
 참조하세요.
 
 특징:

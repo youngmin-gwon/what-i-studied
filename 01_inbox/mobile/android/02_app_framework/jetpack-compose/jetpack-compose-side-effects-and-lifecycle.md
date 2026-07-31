@@ -2,7 +2,7 @@
 
 이 문서는 Jetpack Compose에서 안전하게 비동기 작업을 처리하고, 외부 시스템과 상태를 동기화하며, 컴포저블의 생명주기(Lifecycle)에 맞추어 부작용(Side Effect)을 제어하는 핵심 API와 설계 패턴을 설명합니다.
 
-상태나 작업이 어떤 owner 수명에 묶여야 하는지부터 판단해야 한다면 [[jetpack-compose-state-lifetime-api-selection|compose_state_lifetime_api_guide.md]]를 먼저 봅니다. 이 문서는 각 effect API의 동작과 사용법에 더 집중합니다.
+상태나 작업이 어떤 owner 수명에 묶여야 하는지부터 판단해야 한다면 [[jetpack-compose-state-lifetime-api-selection]]를 먼저 봅니다. 이 문서는 각 effect API의 동작과 사용법에 더 집중합니다.
 
 ---
 

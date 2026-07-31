@@ -261,5 +261,5 @@ Jetpack Compose에서는 애니메이션의 보간 및 완화 함수(Easing), �
 ## 5. 관련 문서
 
 * **레이아웃 및 렌더링 시스템
-  **: [[jetpack-compose-phases-and-layout-system|compose_phases_and_layout.md]]
+  **: [[jetpack-compose-phases-and-layout-system]]
 

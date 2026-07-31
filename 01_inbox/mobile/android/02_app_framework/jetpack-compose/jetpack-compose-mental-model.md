@@ -61,6 +61,6 @@ graph LR
 
 ## 4. 관련 문서
 
-- [[jetpack-compose-automatic-state-observation-for-flutter-developers|compose_automatic_state_observation_flutter_guide.md]]: Compose Runtime의 automatic state observation을 Flutter 개발자 관점으로 설명합니다.
-- [[jetpack-compose-state-management-flutter-comparison|compose_state_management_flutter_comparison.md]]: `remember`, `rememberSaveable`, state hoisting, ViewModel, Flow API 선택 기준을 비교합니다.
-- [[jetpack-compose-side-effects-and-lifecycle|compose_side_effects_and_lifecycle.md]]: Composable body 밖으로 빼야 하는 작업과 effect API를 정리합니다.
+- [[jetpack-compose-automatic-state-observation-for-flutter-developers]]: Compose Runtime의 automatic state observation을 Flutter 개발자 관점으로 설명합니다.
+- [[jetpack-compose-state-management-flutter-comparison]]: `remember`, `rememberSaveable`, state hoisting, ViewModel, Flow API 선택 기준을 비교합니다.
+- [[jetpack-compose-side-effects-and-lifecycle]]: Composable body 밖으로 빼야 하는 작업과 effect API를 정리합니다.

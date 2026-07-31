@@ -307,5 +307,5 @@ Navigation 내부 시스템이 이 객체를 다른 화면으로 **안전하게 
 > [!NOTE]
 > 컴파일러 플러그인을 활용하는 대표적인 DI 라이브러리 **Metro**에 대한 상세
 >
-내용은 [[dependency-injection-dsl-dynamic-feature|di_dsl_and_dynamic_feature.md]]
+내용은 [[dependency-injection-dsl-dynamic-feature]]
 > 를 참조하세요.

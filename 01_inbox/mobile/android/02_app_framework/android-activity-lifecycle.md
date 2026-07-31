@@ -2,7 +2,7 @@
 title: android-activity-lifecycle
 tags: []
 aliases: []
-date modified: 2026-04-05 17:42:54 +09:00
+date modified: 2026-07-31 15:17:29 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 

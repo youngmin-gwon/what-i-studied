@@ -121,7 +121,7 @@ Column (가장 넓은 버튼 너비에 맞추어 모든 버튼 통일)
 
 ## 5. 관련 문서
 
-* **제약 조건과 Modifier 순서**: [[jetpack-compose-constraints-and-modifier-order|compose_constraints_and_modifiers_order.md]]
-* **렌더링 파이프라인 개요**: [[jetpack-compose-phases-and-layout-system|compose_phases_and_layout.md]]
-* **애니메이션 시스템**: [[jetpack-compose-animation|compose_animation.md]]
+* **제약 조건과 Modifier 순서**: [[jetpack-compose-constraints-and-modifier-order]]
+* **렌더링 파이프라인 개요**: [[jetpack-compose-phases-and-layout-system]]
+* **애니메이션 시스템**: [[jetpack-compose-animation]]
 

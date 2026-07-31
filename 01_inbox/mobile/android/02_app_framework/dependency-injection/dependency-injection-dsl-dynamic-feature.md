@@ -222,7 +222,7 @@ sequenceDiagram
 ```
 
 > [!NOTE]
-> Metro의 초보자용 사용 방법은 [[metro-di-get-it-guide|metro_di_get_it_guide.md]]를 참조하세요.
+> Metro의 초보자용 사용 방법은 [[metro-di-get-it-guide]]를 참조하세요.
 > KAPT/KSP에서 컴파일러 플러그인으로의 진화와 Metro의 빌드 속도 이점에 대한 상세
-> 내용은 [[android-build-system-and-serialization|build_system_and_serialization.md]]
+> 내용은 [[android-build-system-and-serialization]]
 > 를 참조하세요.

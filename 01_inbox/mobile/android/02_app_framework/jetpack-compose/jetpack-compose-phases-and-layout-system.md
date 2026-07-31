@@ -143,12 +143,12 @@ Modifier는 작성된 순서대로 왼쪽에서 오른쪽(Top-to-Bottom)으로 �
 ## 7. 관련 문서
 
 * **제약 조건과 Modifier 순서
-  **: [[jetpack-compose-constraints-and-modifier-order|compose_constraints_and_modifiers_order.md]]
+  **: [[jetpack-compose-constraints-and-modifier-order]]
 * **고급 레이아웃 시스템
-  **: [[jetpack-compose-advanced-layout|compose_advanced_layout.md]]
+  **: [[jetpack-compose-advanced-layout]]
 * **안도르이드 학습 자료
-  **: [[android-learning-resources|learning_resources.md]]
+  **: [[android-learning-resources]]
 * **애니메이션 시스템
-  **: [[jetpack-compose-animation|compose_animation.md]]
+  **: [[jetpack-compose-animation]]
 
 

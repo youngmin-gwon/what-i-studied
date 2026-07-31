@@ -7,8 +7,8 @@
 
 이 문서의 범위는 `remember`, `mutableStateOf`, ViewModel API 사용법 자체가 아니라, Compose Runtime이 상태를 어떻게 관찰하고
 recomposition 범위를 어떻게 결정하는지 이해하는 것입니다. API 선택은
-[[jetpack-compose-state-management-flutter-comparison|compose_state_management_flutter_comparison.md]]와
-[[jetpack-compose-state-lifetime-api-selection|compose_state_lifetime_api_guide.md]]를 기준으로 봅니다.
+[[jetpack-compose-state-management-flutter-comparison]]와
+[[jetpack-compose-state-lifetime-api-selection]]를 기준으로 봅니다.
 
 관련 공식 문서:
 

@@ -215,7 +215,7 @@ NavDisplay(
 
 Navigation 3에서 ViewModel scope는 `NavEntry` 단위로 잡는 것이 기본적으로 가장 예측 가능합니다. 화면이 back stack에서 제거되면 해당 entry의 ViewModel도 정리됩니다.
 
-이 섹션은 Navigation과 ViewModel scope의 연결만 다룹니다. 수명별 state/effect owner 선택은 [[jetpack-compose-state-lifetime-api-selection|compose_state_lifetime_api_guide.md]]를, ViewModel이 `UiState`, user action, 일회성 이벤트, Reducer를 어떻게 다룰지는 [[viewmodel-ui-state-reducer|viewmodel_ui_state_reducer_guide.md]]를 참조하세요.
+이 섹션은 Navigation과 ViewModel scope의 연결만 다룹니다. 수명별 state/effect owner 선택은 [[jetpack-compose-state-lifetime-api-selection]]를, ViewModel이 `UiState`, user action, 일회성 이벤트, Reducer를 어떻게 다룰지는 [[viewmodel-ui-state-reducer]]를 참조하세요.
 
 ```kotlin
 NavDisplay(
@@ -286,7 +286,7 @@ metadata 사용처:
 - dialog, list pane, detail pane 같은 scene strategy hint
 - scene decorator가 top app bar, bottom navigation, chrome 표시 여부를 판단하는 hint
 
-자세한 Kotlin 문법과 metadata DSL은 [[navigation-3-metadata-kotlin-syntax|nav3_metadata_and_kotlin_syntax.md]]를 함께 봅니다.
+자세한 Kotlin 문법과 metadata DSL은 [[navigation-3-metadata-kotlin-syntax]]를 함께 봅니다.
 
 ---
 
@@ -449,7 +449,7 @@ Deep link 설계 기준:
 - 잘못된 URL은 fallback route 또는 error route로 명시적으로 보냅니다.
 - synthetic back stack은 자동으로 생기지 않습니다. 앱이 원하는 `[root, detail]` stack을 직접 만듭니다.
 
-Manifest, intent filter, Android App Links 자체는 [[intent-and-deep-link|intent_and_deep_link.md]]를 참조합니다.
+Manifest, intent filter, Android App Links 자체는 [[intent-and-deep-link]]를 참조합니다.
 
 ---
 
@@ -493,7 +493,7 @@ MainScaffold
 7. Training/Measure처럼 list-detail이 생기는 feature부터 `ListDetailSceneStrategy`를 도입합니다.
 8. deep link parser를 app layer에 만들고 session gate/pending route 처리를 붙입니다.
 
-더 구체적인 프로젝트 적용 판단은 [[adaptive-layout-navigation-project-strategy|adaptive_layout_navigation_project_strategy.md]]를 참조합니다.
+더 구체적인 프로젝트 적용 판단은 [[adaptive-layout-navigation-project-strategy]]를 참조합니다.
 
 ---
 
@@ -530,14 +530,14 @@ Single Activity 구조에서는 외부 intent를 `MainActivity`가 받고, 이�
 
 ## 관련 문서
 
-- [[navigation-3-metadata-kotlin-syntax|nav3_metadata_and_kotlin_syntax.md]]
-- [[adaptive-layout-and-navigation|adaptive_layout_and_navigation.md]]
-- [[adaptive-layout-navigation-project-strategy|adaptive_layout_navigation_project_strategy.md]]
-- [[jetpack-compose-state-lifetime-api-selection|compose_state_lifetime_api_guide.md]]
-- [[viewmodel-ui-state-reducer|viewmodel_ui_state_reducer_guide.md]]
-- [[intent-and-deep-link|intent_and_deep_link.md]]
-- [[android-build-system-and-serialization|build_system_and_serialization.md]]
-- [[dependency-injection-dsl-dynamic-feature|di_dsl_and_dynamic_feature.md]]
+- [[navigation-3-metadata-kotlin-syntax]]
+- [[adaptive-layout-and-navigation]]
+- [[adaptive-layout-navigation-project-strategy]]
+- [[jetpack-compose-state-lifetime-api-selection]]
+- [[viewmodel-ui-state-reducer]]
+- [[intent-and-deep-link]]
+- [[android-build-system-and-serialization]]
+- [[dependency-injection-dsl-dynamic-feature]]
 - [Navigation 3 Get started](https://developer.android.com/guide/navigation/navigation-3/get-started)
 - [Navigation 3 Basics](https://developer.android.com/guide/navigation/navigation-3/basics)
 - [Navigation 3 Save state](https://developer.android.com/guide/navigation/navigation-3/save-state)

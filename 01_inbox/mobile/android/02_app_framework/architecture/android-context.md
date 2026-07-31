@@ -447,11 +447,11 @@ Compose 안에서 잠깐 Android API가 필요한가?
 
 > [!NOTE]
 > 4대 컴포넌트와 OS 진입점의
-> 관계는 [[android-modern-architecture-components|android_components_and_modern_architecture.md]]
+> 관계는 [[android-modern-architecture-components]]
 > 를 참조하세요.
 > Compose 상태 관리와 `LocalContext`의
-> 위치는 [[jetpack-compose-state-management-flutter-comparison|compose_state_management_flutter_comparison.md]]
+> 위치는 [[jetpack-compose-state-management-flutter-comparison]]
 > 를 참조하세요.
 > 저장소 API에서 Context가 필요한
-> 이유는 [[android-storage-and-databases|android_storage_and_databases.md]]
+> 이유는 [[android-storage-and-databases]]
 > 를 참조하세요.
