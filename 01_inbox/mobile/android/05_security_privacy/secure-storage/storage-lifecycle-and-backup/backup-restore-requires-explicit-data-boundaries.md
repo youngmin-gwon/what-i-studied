@@ -1,7 +1,7 @@
 # 백업과 복원에서 데이터 경계를 설계하기
 
 상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
-관련 정본: [Android 보안 저장소는 저장 금지와 백업 정책까지 포함한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-policy-includes-what-not-to-store-and-backup.md)
+관련 노트: [Android 보안 저장소는 저장 금지와 백업 정책까지 포함한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-policy-includes-what-not-to-store-and-backup.md)
 
 
 ## 한 문장 정의

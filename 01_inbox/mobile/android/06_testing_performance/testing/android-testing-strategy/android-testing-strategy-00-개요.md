@@ -1,7 +1,7 @@
-# Jetpack Compose & Android 종합 테스트 전략 가이드 개요
+# 이전 노트
 
-이 문서는 Android 앱의 안정성, 품질 관리, 다국어(i18n) 호환성 및 지속적인 검증을 위해 **Jetpack Compose UI 테스트**, **`testTag` 네이밍 컨벤션**, **E2E(End-to-End) 자동화 테스트** 및 **성능 벤치마킹 전략**을 정리합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-본 문서는 Google의 [Testing in Jetpack Compose 가이드라인](https://developer.android.com/develop/ui/compose/testing) 및 [Now in Android](https://github.com/android/nowinandroid) 오픈소스 프로젝트의 최신 실무 테스트 방식을 바탕으로 작성되었습니다.
+흡수된 이전 노트: `01_inbox/mobile/android/06_testing_performance/testing/android-testing-strategy/android-testing-strategy-00-개요.md`
 
----
+정본 노트: [테스트 품질 계약](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)

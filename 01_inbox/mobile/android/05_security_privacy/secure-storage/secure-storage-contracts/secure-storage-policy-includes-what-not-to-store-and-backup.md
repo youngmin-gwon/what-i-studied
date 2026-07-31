@@ -9,8 +9,8 @@ date created: 2026-07-31 17:04:40 +09:00
 ## Android 보안 저장소는 저장 금지와 백업 정책까지 포함한다
 
 상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+관련 노트: [백업과 복원은 데이터 경계를 명시적으로 설계해야 한다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/backup-restore-requires-explicit-data-boundaries.md)
 
-관련 정본: [백업과 복원은 데이터 경계를 명시적으로 설계해야 한다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/backup-restore-requires-explicit-data-boundaries.md)
 
 ### 핵심 주장
 

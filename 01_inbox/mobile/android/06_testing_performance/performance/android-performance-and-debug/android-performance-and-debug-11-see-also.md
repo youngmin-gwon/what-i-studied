@@ -1,6 +1,7 @@
-# See Also
+# 이전 노트
 
-- [android-activity-manager-and-system-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-activity-manager-and-system-services.md)
-- [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
-- [android-adb-and-images](01_inbox/mobile/android/06_testing_performance/debugging/android-adb-and-images.md)
-- [android-testing-and-quality](01_inbox/mobile/android/06_testing_performance/testing/android-testing-and-quality.md)
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug/android-performance-and-debug-11-see-also.md`
+
+정본 노트: [런타임 성능 계약](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/performance-contracts.md)

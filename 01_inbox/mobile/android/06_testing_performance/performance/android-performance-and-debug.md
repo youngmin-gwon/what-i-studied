@@ -1,6 +1,7 @@
-# android performance and debug
+# 이전 노트
 
-이 문서는 원자화 이전의 진입점이다. 현재 내용은 아래 정본 지도로 재구성했다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- 정본 지도: [런타임 성능 계약](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/performance-contracts.md)
-- 전체 지도: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+흡수된 이전 노트: `01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md`
+
+정본 노트: [런타임 성능 계약](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/performance-contracts.md)

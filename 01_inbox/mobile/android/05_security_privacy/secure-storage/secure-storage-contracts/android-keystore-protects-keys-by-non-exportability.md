@@ -9,6 +9,7 @@ date created: 2026-07-31 17:04:40 +09:00
 ## Android Keystore 키는 비추출성으로 보호한다
 
 상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+관련 노트: [Android AES-GCM은 IV와 인증 태그를 함께 관리한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/aes-gcm-requires-unique-iv-and-authentication-tag.md), [BiometricPrompt는 Keystore 키 사용 권한을 여는 장치다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/biometricprompt-authorizes-keystore-key-use.md)
 
 ### 핵심 주장
 

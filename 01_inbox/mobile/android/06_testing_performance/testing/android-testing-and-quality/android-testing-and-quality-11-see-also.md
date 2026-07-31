@@ -1,5 +1,7 @@
-# See Also
+# 이전 노트
 
-- [android-foundations](01_inbox/mobile/android/00_foundations/overview/android-foundations.md)
-- [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md)
-- [android-os-development-guide](01_inbox/mobile/android/01_system_internals/platform-customization/android-os-development-guide.md)
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/06_testing_performance/testing/android-testing-and-quality/android-testing-and-quality-11-see-also.md`
+
+정본 노트: [테스트 품질 계약](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)

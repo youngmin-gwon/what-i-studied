@@ -1,7 +1,7 @@
 # Direct Boot에서 허용되는 데이터와 실행 수명
 
 상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
-관련 정본: [FBE는 CE와 DE로 저장소 가용 시점을 나눈다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/fbe-ce-and-de-separate-storage-availability.md)
+관련 노트: [FBE는 CE와 DE로 저장소 가용 시점을 나눈다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/fbe-ce-and-de-separate-storage-availability.md)
 
 
 ## 한 문장 정의
