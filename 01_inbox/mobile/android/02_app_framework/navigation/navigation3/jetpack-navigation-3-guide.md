@@ -8,22 +8,22 @@
 
 ## 원자 노트
 
-- [[01-핵심-모델|핵심 모델]]
-- [[02-의존성|의존성]]
-- [[03-route-key-설계|Route Key 설계]]
-- [[04-back-stack-관리|Back Stack 관리]]
-- [[05-entry-provider|Entry Provider]]
-- [[06-navdisplay-기본형|NavDisplay 기본형]]
-- [[07-viewmodel과-state|ViewModel과 State]]
-- [[08-metadata|Metadata]]
-- [[09-scene과-기본-제공-strategy|Scene과 기본 제공 Strategy]]
-- [[10-scene-decorator|Scene Decorator]]
-- [[11-animation|Animation]]
-- [[12-deep-link|Deep Link]]
-- [[13-이-프로젝트-권장-구조|이 프로젝트 권장 구조]]
-- [[14-android-task와-app-back-stack|Android Task와 App Back Stack]]
-- [[15-체크리스트|체크리스트]]
-- [[16-관련-문서|관련 문서]]
+- [핵심 모델](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/01-%ED%95%B5%EC%8B%AC-%EB%AA%A8%EB%8D%B8.md)
+- [의존성](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/02-%EC%9D%98%EC%A1%B4%EC%84%B1.md)
+- [Route Key 설계](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/03-route-key-%EC%84%A4%EA%B3%84.md)
+- [Back Stack 관리](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/04-back-stack-%EA%B4%80%EB%A6%AC.md)
+- [Entry Provider](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/05-entry-provider.md)
+- [NavDisplay 기본형](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/06-navdisplay-%EA%B8%B0%EB%B3%B8%ED%98%95.md)
+- [ViewModel과 State](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/07-viewmodel%EA%B3%BC-state.md)
+- [Metadata](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/08-metadata.md)
+- [Scene과 기본 제공 Strategy](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/09-scene%EA%B3%BC-%EA%B8%B0%EB%B3%B8-%EC%A0%9C%EA%B3%B5-strategy.md)
+- [Scene Decorator](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/10-scene-decorator.md)
+- [Animation](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/11-animation.md)
+- [Deep Link](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/12-deep-link.md)
+- [이 프로젝트 권장 구조](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/13-%EC%9D%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B6%8C%EC%9E%A5-%EA%B5%AC%EC%A1%B0.md)
+- [Android Task와 App Back Stack](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/14-android-task%EC%99%80-app-back-stack.md)
+- [체크리스트](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/15-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8.md)
+- [관련 문서](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide/16-%EA%B4%80%EB%A0%A8-%EB%AC%B8%EC%84%9C.md)
 
 ---
 

@@ -8,7 +8,7 @@ date created: 2026-07-31 15:29:55 +09:00
 
 ## Android 기술 진화
 
-상위 노트: [[android-evolution-history]]
+상위 노트: [android-evolution-history](01_inbox/mobile/android/00_foundations/history/android-evolution-history.md)
 
 안드로이드는 2008 년 첫 출시 이후 모바일 환경의 변화에 맞춰 지속적으로 진화해왔다. 이 문서는 주요 기술적 전환점과 그 배경을 정리한다.
 

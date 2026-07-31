@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:44 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 
-## [[mobile-security]] > [[android-debugging-techniques]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
 
 ### Debugging: Troubleshooting Mastery
 
@@ -20,21 +20,21 @@ date created: 2026-03-21 16:47:09 +09:00
 
 ## 원자 노트
 
-- [[01-context-문제-해결의-정석|💡 Context: 문제 해결의 정석]]
-- [[02-logcat|Logcat]]
-- [[03-timber-구조화된-로깅|Timber (구조화된 로깅)]]
-- [[04-크래시-분석|크래시 분석]]
-- [[05-anr-분석|ANR 분석]]
-- [[06-breakpoint-debugging|Breakpoint Debugging]]
-- [[07-native-debugging-lldb|Native Debugging (lldb)]]
-- [[08-memory-leak-디버깅|Memory Leak 디버깅]]
-- [[09-network-debugging|Network Debugging]]
-- [[10-layout-debugging|Layout Debugging]]
-- [[11-database-debugging|Database Debugging]]
-- [[12-stetho-facebook|Stetho (Facebook)]]
-- [[13-flipper-meta|Flipper (Meta)]]
-- [[14-원격-디버깅|원격 디버깅]]
-- [[15-see-also|See Also]]
+- [💡 Context: 문제 해결의 정석](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/01-context-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%EC%9D%98-%EC%A0%95%EC%84%9D.md)
+- [Logcat](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/02-logcat.md)
+- [Timber (구조화된 로깅)](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/03-timber-%EA%B5%AC%EC%A1%B0%ED%99%94%EB%90%9C-%EB%A1%9C%EA%B9%85.md)
+- [크래시 분석](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/04-%ED%81%AC%EB%9E%98%EC%8B%9C-%EB%B6%84%EC%84%9D.md)
+- [ANR 분석](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/05-anr-%EB%B6%84%EC%84%9D.md)
+- [Breakpoint Debugging](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/06-breakpoint-debugging.md)
+- [Native Debugging (lldb)](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/07-native-debugging-lldb.md)
+- [Memory Leak 디버깅](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/08-memory-leak-%EB%94%94%EB%B2%84%EA%B9%85.md)
+- [Network Debugging](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/09-network-debugging.md)
+- [Layout Debugging](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/10-layout-debugging.md)
+- [Database Debugging](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/11-database-debugging.md)
+- [Stetho (Facebook)](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/12-stetho-facebook.md)
+- [Flipper (Meta)](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/13-flipper-meta.md)
+- [원격 디버깅](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/14-%EC%9B%90%EA%B2%A9-%EB%94%94%EB%B2%84%EA%B9%85.md)
+- [See Also](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/15-see-also.md)
 
 ---
 

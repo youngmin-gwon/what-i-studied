@@ -1,6 +1,6 @@
 # Android 앱에서 어디에 graph를 보관하나?
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 가장 단순한 시작점은 `Application`입니다.
 

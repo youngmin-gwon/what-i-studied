@@ -1,6 +1,6 @@
 # Flipper (Meta)
 
-상위 노트: [[android-debugging-techniques]]
+상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
 
 강력한 디버깅 플랫폼.
 

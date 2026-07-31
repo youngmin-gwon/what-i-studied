@@ -1,6 +1,6 @@
 # get_it과 Metro의 가장 큰 차이
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 Flutter `get_it`은 보통 **전역 서비스 로케이터**처럼 씁니다.
 

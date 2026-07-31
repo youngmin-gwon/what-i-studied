@@ -1,6 +1,6 @@
 # SharedFlow와 Channel: 상태가 아니라 이벤트를 다루는 도구
 
-상위 노트: [[kotlin-coroutines-flow-stateflow]]
+상위 노트: [kotlin-coroutines-flow-stateflow](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow.md)
 
 ### 6-1. 상태와 이벤트는 다르다
 

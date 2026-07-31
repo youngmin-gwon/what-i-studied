@@ -1,6 +1,6 @@
 # Zygote
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 모든 앱 프로세스를 생성하는 부모 프로세스
 
@@ -39,7 +39,7 @@ adb shell ls -la /dev/socket/zygote*
 # /dev/socket/zygote_secondary (32-bit)
 ```
 
-**관련**: [[android-zygote-and-runtime]]
+**관련**: [android-zygote-and-runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime.md)
 
 ---
 

@@ -1,8 +1,8 @@
 # ViewModel
 
-상위 노트: [[android-jetpack-architecture]]
+상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
 
-설정 변경에서 살아남는 UI 상태 홀더. 자세한 내용은 [[android-viewmodel]] 참고.
+설정 변경에서 살아남는 UI 상태 홀더. 자세한 내용은 [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md) 참고.
 
 ```kotlin
 class UserViewModel : ViewModel() {

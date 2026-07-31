@@ -1,6 +1,6 @@
 # 하나의 Composable과 같이 사라져야 하는 상태
 
-상위 노트: [[jetpack-compose-state-lifetime-api-selection]]
+상위 노트: [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)
 
 해당 composable 내부에서만 쓰고, composable이 제거되면 같이 사라져도 되는 상태는 `remember`가 가장 단순합니다.
 

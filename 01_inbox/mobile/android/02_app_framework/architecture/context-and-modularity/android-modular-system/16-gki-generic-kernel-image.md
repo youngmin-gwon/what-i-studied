@@ -1,6 +1,6 @@
 # GKI (Generic Kernel Image)
 
-상위 노트: [[android-modular-system]]
+상위 노트: [android-modular-system](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-modular-system.md)
 
 Android 11+ 에서 커널도 모듈화.
 

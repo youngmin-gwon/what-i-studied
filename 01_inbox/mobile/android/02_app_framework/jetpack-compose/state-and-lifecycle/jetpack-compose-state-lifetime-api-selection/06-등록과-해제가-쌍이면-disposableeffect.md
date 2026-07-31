@@ -1,6 +1,6 @@
 # 등록과 해제가 쌍이면 DisposableEffect
 
-상위 노트: [[jetpack-compose-state-lifetime-api-selection]]
+상위 노트: [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)
 
 listener, observer, callback 등록처럼 반드시 정리해야 하는 작업은 `DisposableEffect`를 씁니다.
 

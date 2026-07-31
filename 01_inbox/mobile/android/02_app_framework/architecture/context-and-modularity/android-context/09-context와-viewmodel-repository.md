@@ -1,6 +1,6 @@
 # Context와 ViewModel/Repository
 
-상위 노트: [[android-context]]
+상위 노트: [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)
 
 현대 Android 구조에서는 ViewModel이 Activity Context를 직접 들고 있지 않게 설계하는 편이 좋습니다.
 

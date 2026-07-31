@@ -1,6 +1,6 @@
 # Connectivity 와 Networking
 
-상위 노트: [[android-connectivity-and-networking]]
+상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
 
 안드로이드 네트워크 스택은 Wi-Fi, 모바일 데이터, 블루투스, VPN 등 다양한 연결을 관리하고, 앱에게 최적의 네트워크를 제공한다. ConnectivityService 가 중심이 되어 네트워크 선택, 전환, 정책 적용을 담당한다.
 

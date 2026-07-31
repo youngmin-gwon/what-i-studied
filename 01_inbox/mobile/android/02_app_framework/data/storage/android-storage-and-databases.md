@@ -11,16 +11,16 @@ storage**의 역할을 정리합니다.
 
 ## 원자 노트
 
-- [[android-storage-and-databases-01-큰-그림|큰 그림]]
-- [[02-datastore|DataStore]]
-- [[03-room|Room]]
-- [[04-sqlite|SQLite]]
-- [[05-mediastore|MediaStore]]
-- [[06-app-specific-files|App-specific Files]]
-- [[07-storage-access-framework|Storage Access Framework]]
-- [[08-이-프로젝트-적용-기준|이 프로젝트 적용 기준]]
-- [[09-모듈-배치-기준|모듈 배치 기준]]
-- [[10-선택-규칙|선택 규칙]]
+- [큰 그림](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/android-storage-and-databases-01-%ED%81%B0-%EA%B7%B8%EB%A6%BC.md)
+- [DataStore](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/02-datastore.md)
+- [Room](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/03-room.md)
+- [SQLite](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/04-sqlite.md)
+- [MediaStore](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/05-mediastore.md)
+- [App-specific Files](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/06-app-specific-files.md)
+- [Storage Access Framework](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/07-storage-access-framework.md)
+- [이 프로젝트 적용 기준](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/08-%EC%9D%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%A0%81%EC%9A%A9-%EA%B8%B0%EC%A4%80.md)
+- [모듈 배치 기준](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/09-%EB%AA%A8%EB%93%88-%EB%B0%B0%EC%B9%98-%EA%B8%B0%EC%A4%80.md)
+- [선택 규칙](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases/10-%EC%84%A0%ED%83%9D-%EA%B7%9C%EC%B9%99.md)
 
 ---
 

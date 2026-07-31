@@ -1,8 +1,8 @@
 # Room Database
 
-상위 노트: [[android-jetpack-architecture]]
+상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
 
-이미 [[android-storage-systems]] 에서 다뤘으나 추가 기능 소개.
+이미 [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md) 에서 다뤘으나 추가 기능 소개.
 
 ##### 관계 (Relation)
 

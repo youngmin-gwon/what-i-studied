@@ -1,6 +1,6 @@
 # APK/AAB (Android Package / Android App Bundle)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 안드로이드 앱 배포 형식
 

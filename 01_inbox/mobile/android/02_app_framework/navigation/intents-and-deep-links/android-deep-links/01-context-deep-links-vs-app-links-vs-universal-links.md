@@ -3,7 +3,7 @@
 안드로이드의 딥링크 시스템은 보안성과 사용자 경험을 개선하기 위해 진화해왔습니다. 특히 **App Links**는 iOS 의 **Universal Links**와 동일하게 웹 도메인 인증을 기반으로 동작하여 보안 위협을 방지합니다.
 
 >[!NOTE] **상호 참조**
->iOS 의 유사 기능 및 구현 방식은 [[apple-deep-links]] 를 참고하세요.
+>iOS 의 유사 기능 및 구현 방식은 [apple-deep-links](01_inbox/mobile/apple/04_system_services/apple-deep-links.md) 를 참고하세요.
 
 ---
 > - **iOS**: Associated Domains Entitlement + `apple-app-site-association` (AASA) 파일

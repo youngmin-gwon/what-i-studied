@@ -1,6 +1,6 @@
 # 런타임 값 넣기: Context, baseUrl, userId
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 `get_it`에서는 외부 값을 등록해 두고 꺼내는 경우가 많습니다.
 
@@ -57,7 +57,7 @@ class DataStoreSessionStorage(
 
 > [!IMPORTANT]
 > 오래 사는 AppGraph에는 Activity Context가 아니라 `applicationContext`를 넣는 편이 안전합니다. Context의 수명
-> 차이는 [[android-context]]를
+> 차이는 [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)를
 > 참조하세요.
 
 ---

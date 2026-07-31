@@ -1,6 +1,6 @@
 # 재구성 (Recomposition)
 
-상위 노트: [[android-compose-internals]]
+상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
 
 상태가 변경되면 Composable 함수가 다시 실행된다.
 

@@ -1,6 +1,6 @@
 # Property 시스템
 
-상위 노트: [[android-init-and-services]]
+상위 노트: [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md)
 
 ### 개요
 
@@ -27,7 +27,7 @@ wait_for_prop sys.boot_completed 1
 | `ctl.*` | 서비스 제어 (특수) | `ctl.start`, `ctl.stop` |
 | `vendor.*` | Vendor partition | `vendor.audio.hal` |
 
-### Property Contexts ([[selinux|SELinux]])
+### Property Contexts ([SELinux](01_inbox/linux/security/selinux.md))
 
 ```bash
 # /system/etc/selinux/plat_property_contexts

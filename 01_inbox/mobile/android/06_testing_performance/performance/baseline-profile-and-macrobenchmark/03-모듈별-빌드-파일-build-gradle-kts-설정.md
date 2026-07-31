@@ -1,6 +1,6 @@
 # 모듈별 빌드 파일 (`build.gradle.kts`) 설정
 
-상위 노트: [[baseline-profile-and-macrobenchmark]]
+상위 노트: [baseline-profile-and-macrobenchmark](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark.md)
 
 기존 프로젝트의 멀티 모듈 의존성 구조를 존중하여 독립된 테스트 모듈 `:baselineprofile`을 등록하고 `:app` 모듈과 연결합니다.
 

@@ -1,6 +1,6 @@
 # `<queries>` 태그 (Package Visibility, Android 11+)
 
-상위 노트: [[android-intent-and-ipc]]
+상위 노트: [android-intent-and-ipc](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/android-intent-and-ipc.md)
 
 Android 11 부터 앱이 다른 앱의 존재를 확인하려면 매니페스트에 명시적으로 선언해야 한다.
 

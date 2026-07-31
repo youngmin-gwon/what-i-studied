@@ -1,6 +1,6 @@
 # ART (Android Runtime)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 안드로이드 앱 실행 엔진 (Dalvik 의 후속)
 
@@ -27,7 +27,7 @@ adb shell getprop persist.sys.dalvik.vm.lib.2
 # 출력: libart.so
 ```
 
-**관련**: [[android-zygote-and-runtime]]
+**관련**: [android-zygote-and-runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime.md)
 
 ---
 

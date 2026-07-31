@@ -1,6 +1,6 @@
 # StrictMode
 
-상위 노트: [[android-profiling-tools]]
+상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
 
 메인 스레드 위반 감지.
 

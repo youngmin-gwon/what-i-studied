@@ -1,10 +1,10 @@
 # ViewModel과 State
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 Navigation 3에서 ViewModel scope는 `NavEntry` 단위로 잡는 것이 기본적으로 가장 예측 가능합니다. 화면이 back stack에서 제거되면 해당 entry의 ViewModel도 정리됩니다.
 
-이 섹션은 Navigation과 ViewModel scope의 연결만 다룹니다. 수명별 state/effect owner 선택은 [[jetpack-compose-state-lifetime-api-selection]]를, ViewModel이 `UiState`, user action, 일회성 이벤트, Reducer를 어떻게 다룰지는 [[viewmodel-ui-state-reducer]]를 참조하세요.
+이 섹션은 Navigation과 ViewModel scope의 연결만 다룹니다. 수명별 state/effect owner 선택은 [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)를, ViewModel이 `UiState`, user action, 일회성 이벤트, Reducer를 어떻게 다룰지는 [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)를 참조하세요.
 
 ```kotlin
 NavDisplay(

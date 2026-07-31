@@ -1,6 +1,6 @@
 # 디버깅
 
-상위 노트: [[android-storage-systems]]
+상위 노트: [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
 
 ```bash
 # 앱 저장소 확인

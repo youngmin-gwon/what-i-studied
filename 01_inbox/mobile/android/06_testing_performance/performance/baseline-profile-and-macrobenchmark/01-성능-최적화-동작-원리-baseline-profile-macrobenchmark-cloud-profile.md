@@ -1,6 +1,6 @@
 # 성능 최적화 동작 원리 (Baseline Profile, Macrobenchmark & Cloud Profile)
 
-상위 노트: [[baseline-profile-and-macrobenchmark]]
+상위 노트: [baseline-profile-and-macrobenchmark](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark.md)
 
 ### 1-1. Baseline Profile 이란?
 안드로이드 앱이 실행될 때 ART(Android Runtime)는 JIT(Just-In-Time) 컴파일과 인터프리터를 통해 기계어로 코드를 해석합니다. 이 과정에서 최초 앱 구동 시 CPU 부하가 집중되어 성능이 저하될 수 있습니다.

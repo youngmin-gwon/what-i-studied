@@ -1,6 +1,6 @@
 # 상태와 일회성 이벤트를 구분한다
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 `UiState`는 "지금 화면이 무엇을 그려야 하는가"입니다. 새 collector가 들어왔을 때 다시 받아도 되는 값이어야 합니다.
 

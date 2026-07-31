@@ -1,6 +1,6 @@
 # Flutter식 rebuild 사고와 Compose식 observation 사고
 
-상위 노트: [[jetpack-compose-automatic-state-observation-for-flutter-developers]]
+상위 노트: [jetpack-compose-automatic-state-observation-for-flutter-developers](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-automatic-state-observation-for-flutter-developers.md)
 
 | 관점       | Flutter                                              | Compose                                                          |
 |:---------|:-----------------------------------------------------|:-----------------------------------------------------------------|

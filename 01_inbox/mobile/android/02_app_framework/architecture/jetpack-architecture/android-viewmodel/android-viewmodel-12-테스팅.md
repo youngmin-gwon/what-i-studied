@@ -1,6 +1,6 @@
 # 테스팅
 
-상위 노트: [[android-viewmodel]]
+상위 노트: [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md)
 
 ```kotlin
 class UserViewModelTest {
@@ -44,4 +44,4 @@ class UserViewModelTest {
 }
 ```
 
-더 자세한 내용은 [[android-testing-and-quality]] 참고.
+더 자세한 내용은 [android-testing-and-quality](01_inbox/mobile/android/06_testing_performance/testing/android-testing-and-quality.md) 참고.

@@ -1,6 +1,6 @@
 # `rememberSaveable`
 
-상위 노트: [[jetpack-compose-state-management-flutter-comparison]]
+상위 노트: [jetpack-compose-state-management-flutter-comparison](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison.md)
 
 `rememberSaveable`은 `remember`처럼 recomposition 사이에 값을 유지하고, 추가로 Activity 재생성이나 프로세스 복원 상황에서도 저장 가능한
 값을 복원합니다.

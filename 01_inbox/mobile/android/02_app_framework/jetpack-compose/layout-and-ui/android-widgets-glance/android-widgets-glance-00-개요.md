@@ -1,0 +1,19 @@
+# android widgets glance 개요
+
+---
+title: android-widgets-glance
+tags: []
+aliases: []
+date modified: 2026-04-05 17:43:20 +09:00
+date created: 2026-04-04 00:22:39 +09:00
+---
+
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-widgets-glance](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/android-widgets-glance.md)
+
+### Widgets & Glance: Snapshot UX
+
+안드로이드 홈 화면에서 한눈에 정보를 제공하는 **홈 화면 위젯(App Widgets)**과 이를 Compose 방식으로 구현하는 **Jetpack Glance** 기술을 분석합니다.
+
+단순히 정보를 표시하는 것을 넘어, 다른 프로세스(홈 화면)에서 렌더링되는 `RemoteViews` 의 제약을 이해하고 효율적인 데이터 갱신 및 실시간 현황(Ongoing Notifications)을 제공하는 전략을 수립하는 것이 목표입니다.
+
+---

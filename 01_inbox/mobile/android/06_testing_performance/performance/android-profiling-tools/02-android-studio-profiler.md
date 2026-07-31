@@ -1,6 +1,6 @@
 # Android Studio Profiler
 
-상위 노트: [[android-profiling-tools]]
+상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
 
 실시간 CPU, 메모리, 네트워크, 에너지 모니터링.
 

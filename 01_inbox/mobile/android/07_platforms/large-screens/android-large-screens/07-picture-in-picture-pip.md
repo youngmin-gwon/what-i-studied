@@ -1,6 +1,6 @@
 # Picture-in-Picture (PiP)
 
-상위 노트: [[android-large-screens]]
+상위 노트: [android-large-screens](01_inbox/mobile/android/07_platforms/large-screens/android-large-screens.md)
 
 ```kotlin
 // build.gradle.kts

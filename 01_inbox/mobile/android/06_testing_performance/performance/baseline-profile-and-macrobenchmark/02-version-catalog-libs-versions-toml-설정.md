@@ -1,6 +1,6 @@
 # Version Catalog (`libs.versions.toml`) 설정
 
-상위 노트: [[baseline-profile-and-macrobenchmark]]
+상위 노트: [baseline-profile-and-macrobenchmark](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark.md)
 
 의존성 격리와 라이브러리 정렬을 위해 Gradle Version Catalog에 관련 라이브러리 및 플러그인을 다음과 같이 설정하여 관리합니다.
 

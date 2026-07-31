@@ -1,6 +1,6 @@
 # 성능 최적화의 대전제: Loop Cycle (Measure -> Debug -> Improve)
 
-상위 노트: [[jetpack-compose-performance-guidelines]]
+상위 노트: [jetpack-compose-performance-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines.md)
 
 성능 최적화는 짐작이나 추측에 기반하여 코드를 조작하는 것이 아니라, **측정(Measure) -> 원인 분석/디버깅(Debug) -> 개선(Improve)**의 선순환 앙상블 순환 프로세스를 지켜야 합니다.
 

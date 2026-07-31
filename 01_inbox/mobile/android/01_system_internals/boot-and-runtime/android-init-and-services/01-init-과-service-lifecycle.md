@@ -1,8 +1,8 @@
 # Init 과 Service Lifecycle
 
-상위 노트: [[android-init-and-services]]
+상위 노트: [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md)
 
-`init` 은 안드로이드 부팅 후 **가장 먼저 실행되는 프로세스**(PID 1)다. 모든 시스템 서비스를 시작하고, 파일시스템을 마운트하며, [[selinux]] 정책을 로드하고, property 시스템을 관리한다. Unix/Linux 전통의 init 프로세스 역할을 하면서도 안드로이드 고유의 요구사항을 반영한 독특한 구조를 가진다.
+`init` 은 안드로이드 부팅 후 **가장 먼저 실행되는 프로세스**(PID 1)다. 모든 시스템 서비스를 시작하고, 파일시스템을 마운트하며, [selinux](01_inbox/linux/security/selinux.md) 정책을 로드하고, property 시스템을 관리한다. Unix/Linux 전통의 init 프로세스 역할을 하면서도 안드로이드 고유의 요구사항을 반영한 독특한 구조를 가진다.
 
 ### 왜 init 이 중요한가
 
@@ -27,8 +27,8 @@ Unix/Linux 에서 PID 1 은 특별한 의미를 가진다:
 
 - **Property 시스템**: key-value 저장소 (`setprop`/`getprop`)
 - **Ueventd**: 커널 디바이스 이벤트 처리 (`/dev` 노드 생성)
-- **[[selinux]] 강제**: 정책 로딩 및 컨텍스트 설정
+- **[selinux](01_inbox/linux/security/selinux.md) 강제**: 정책 로딩 및 컨텍스트 설정
 - **파일 암호화**: FBE(File-Based Encryption) 조기 마운트
-- **Vendor 분리**: [[android-hal-and-kernel#Treble 아키텍처|Treble]] 지원
+- **Vendor 분리**: [Treble](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-hal-and-kernel.md#Treble%20%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98) 지원
 
 ---

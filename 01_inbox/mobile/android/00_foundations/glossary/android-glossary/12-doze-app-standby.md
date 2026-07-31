@@ -1,6 +1,6 @@
 # Doze / App Standby
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 배터리 절약을 위한 앱 활동 제한 모드
 
@@ -35,7 +35,7 @@ adb shell dumpsys deviceidle force-idle
 adb shell dumpsys deviceidle unforce
 ```
 
-**관련**: [[android-performance-and-debug]]
+**관련**: [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md)
 
 ---
 

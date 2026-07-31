@@ -1,6 +1,6 @@
 # ViewModel 생명주기
 
-상위 노트: [[android-viewmodel]]
+상위 노트: [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md)
 
 ViewModel 은 Activity/Fragment 의 생명주기보다 길게 살아남는다.
 

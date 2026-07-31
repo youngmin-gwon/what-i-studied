@@ -1,6 +1,6 @@
 # Koin (경량 DI)
 
-상위 노트: [[android-dependency-injection]]
+상위 노트: [android-dependency-injection](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection.md)
 
 리플렉션 기반, 간단하지만 컴파일 타임 검증 없음.
 

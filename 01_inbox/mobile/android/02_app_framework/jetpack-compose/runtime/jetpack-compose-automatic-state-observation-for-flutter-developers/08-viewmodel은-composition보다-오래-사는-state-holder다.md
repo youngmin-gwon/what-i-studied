@@ -1,6 +1,6 @@
 # ViewModel은 Composition보다 오래 사는 state holder다
 
-상위 노트: [[jetpack-compose-automatic-state-observation-for-flutter-developers]]
+상위 노트: [jetpack-compose-automatic-state-observation-for-flutter-developers](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-automatic-state-observation-for-flutter-developers.md)
 
 Flutter 개발자가 ViewModel을 `StatefulWidget.State`처럼 이해하면 수명이 꼬입니다.
 

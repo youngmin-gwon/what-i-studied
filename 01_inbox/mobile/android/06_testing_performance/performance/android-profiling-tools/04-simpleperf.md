@@ -1,6 +1,6 @@
 # Simpleperf
 
-상위 노트: [[android-profiling-tools]]
+상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
 
 CPU 프로파일링 (네이티브 코드 포함).
 

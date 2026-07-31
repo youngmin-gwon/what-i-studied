@@ -1,6 +1,6 @@
 # HAL (Hardware Abstraction Layer)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 하드웨어와 안드로이드 프레임워크를 연결하는 인터페이스
 
@@ -29,7 +29,7 @@ adb shell lshal
 # android.hardware.audio@7.0::IDevicesFactory/default
 ```
 
-**관련**: [[android-hal-and-kernel]]
+**관련**: [android-hal-and-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-hal-and-kernel.md)
 
 ---
 

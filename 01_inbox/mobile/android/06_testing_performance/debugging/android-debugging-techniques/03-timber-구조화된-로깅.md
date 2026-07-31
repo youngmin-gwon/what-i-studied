@@ -1,6 +1,6 @@
 # Timber (구조화된 로깅)
 
-상위 노트: [[android-debugging-techniques]]
+상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
 
 ```kotlin
 // build.gradle.kts

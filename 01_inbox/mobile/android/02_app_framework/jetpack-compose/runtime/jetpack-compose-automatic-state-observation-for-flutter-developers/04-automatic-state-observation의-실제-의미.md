@@ -1,6 +1,6 @@
 # Automatic State Observation의 실제 의미
 
-상위 노트: [[jetpack-compose-automatic-state-observation-for-flutter-developers]]
+상위 노트: [jetpack-compose-automatic-state-observation-for-flutter-developers](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-automatic-state-observation-for-flutter-developers.md)
 
 다음 코드에서 `Header`와 `Footer`는 `userNameState.value`를 읽지 않습니다.
 

@@ -1,6 +1,6 @@
 # ViewModel은 화면 단위 State Holder다
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 Android 공식 아키텍처에서 `ViewModel`은 화면이나 navigation destination 단위의 **state holder**입니다. 화면이 그릴 `UiState`
 를 만들고, 화면에서 올라온 user action 중 화면 정책이나 비즈니스 처리가 필요한 일을 담당합니다.

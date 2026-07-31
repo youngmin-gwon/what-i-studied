@@ -1,6 +1,6 @@
 # 언제 직접 Local을 읽어도 되나?
 
-상위 노트: [[jetpack-compose-compositionlocal-and-designsystem-locals]]
+상위 노트: [jetpack-compose-compositionlocal-and-designsystem-locals](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals.md)
 
 직접 읽어도 되는 경우:
 

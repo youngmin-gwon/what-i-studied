@@ -2,5 +2,5 @@
 
 - ✨ ART 기본 런타임
 - 🎨 Material Design
-- 🔒 [[selinux|SELinux]] Enforcing
+- 🔒 [SELinux](01_inbox/linux/security/selinux.md) Enforcing
 - 💼 JobScheduler

@@ -1,6 +1,6 @@
 # Scene과 기본 제공 Strategy
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 `Scene`은 하나 이상의 `NavEntry`를 표시하는 단위입니다. `NavDisplay`는 `sceneStrategies`를 순서대로 평가하고, 어떤 strategy도 scene을 만들지 못하면 single-pane scene으로 fallback합니다.
 

@@ -1,6 +1,6 @@
 # NDK 란
 
-상위 노트: [[android-ndk-jni]]
+상위 노트: [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md)
 
 C/C++ 코드를 Android 에서 실행할 수 있게 하는 도구.
 

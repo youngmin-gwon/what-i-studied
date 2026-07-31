@@ -1,6 +1,6 @@
 # Mipmap
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 앱 아이콘을 저장하는 리소스 디렉토리
 
@@ -31,8 +31,8 @@ res/
 
 ### 관련 문서
 
-[[android-overview]] - 시스템 전체 개요
+[android-overview](01_inbox/mobile/android/00_foundations/overview/android-overview.md) - 시스템 전체 개요
 
-[[android-evolution-history]] - 기술 진화
+[android-evolution-history](01_inbox/mobile/android/00_foundations/history/android-evolution-history.md) - 기술 진화
 
-[[android-debugging-techniques]] - 디버깅 도구
+[android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md) - 디버깅 도구

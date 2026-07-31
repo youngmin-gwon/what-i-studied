@@ -1,6 +1,6 @@
 # Android Task와 App Back Stack
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 Navigation 3의 `NavBackStack`은 앱 내부 Compose 화면 이동 상태입니다. Android OS의 `Task`는 Activity 단위 실행 이력입니다. 둘은 이름이 비슷하지만 책임이 다릅니다.
 

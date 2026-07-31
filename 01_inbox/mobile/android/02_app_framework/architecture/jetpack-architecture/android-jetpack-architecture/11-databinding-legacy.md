@@ -1,6 +1,6 @@
 # DataBinding (Legacy)
 
-상위 노트: [[android-jetpack-architecture]]
+상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
 
 >[!CAUTION] **Devil's Advocate : 최악의 디버깅 경험, DataBinding**
 >XML 파일 내부에 로직과 표현식을 섞어 쓰는 DataBinding 은 컴파일 타임을 심각하게 저하시키고, 난해한 바인딩 에러 메시지로 인해 **악명 높은 생산성 저하 원인**입니다.

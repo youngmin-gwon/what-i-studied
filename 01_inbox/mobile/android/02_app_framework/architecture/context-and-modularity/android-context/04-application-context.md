@@ -1,6 +1,6 @@
 # Application Context
 
-상위 노트: [[android-context]]
+상위 노트: [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)
 
 `Application Context`는 앱 프로세스 전체에 묶인 Context입니다.
 

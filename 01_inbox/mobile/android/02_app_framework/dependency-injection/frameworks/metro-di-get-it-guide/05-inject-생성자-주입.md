@@ -1,6 +1,6 @@
 # `@Inject`: 생성자 주입
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 Metro에서 가장 기본은 **생성자 주입(Constructor Injection)**입니다.
 

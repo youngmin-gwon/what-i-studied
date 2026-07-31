@@ -1,6 +1,6 @@
 # Layout Inspector
 
-상위 노트: [[android-profiling-tools]]
+상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
 
 UI 계층 구조 분석.
 

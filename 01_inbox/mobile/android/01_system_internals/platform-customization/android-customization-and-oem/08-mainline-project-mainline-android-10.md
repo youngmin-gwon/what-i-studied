@@ -1,6 +1,6 @@
 # Mainline (Project Mainline, Android 10+)
 
-상위 노트: [[android-customization-and-oem]]
+상위 노트: [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
 
 **APEX 모듈**로 Google Play 를 통해 시스템 컴포넌트 업데이트:
 

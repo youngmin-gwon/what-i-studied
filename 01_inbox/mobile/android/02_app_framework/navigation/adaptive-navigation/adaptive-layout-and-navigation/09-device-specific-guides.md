@@ -1,6 +1,6 @@
 # Device-specific Guides
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 공식 문서는 Android adaptive apps를 여러 device category로 확장해서 설명합니다.
 

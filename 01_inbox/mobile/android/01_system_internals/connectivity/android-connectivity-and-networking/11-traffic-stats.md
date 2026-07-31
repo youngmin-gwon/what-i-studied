@@ -1,6 +1,6 @@
 # Traffic Stats
 
-상위 노트: [[android-connectivity-and-networking]]
+상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
 
 ```kotlin
 // 앱별 네트워크 사용량

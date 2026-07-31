@@ -1,6 +1,6 @@
 # AppOps (App Operations)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 권한보다 세밀한 앱 동작 제어 시스템
 
@@ -22,6 +22,6 @@ adb shell appops get com.example.app
 adb shell appops set com.example.app CAMERA deny
 ```
 
-**관련**: [[android-security-permissions]]
+**관련**: [android-security-permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md)
 
 ---

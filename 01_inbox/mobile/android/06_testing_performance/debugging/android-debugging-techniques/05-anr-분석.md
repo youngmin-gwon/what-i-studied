@@ -1,6 +1,6 @@
 # ANR 분석
 
-상위 노트: [[android-debugging-techniques]]
+상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
 
 ANR (Application Not Responding) 은 메인 스레드가 5 초 이상 블로킹될 때 발생.
 

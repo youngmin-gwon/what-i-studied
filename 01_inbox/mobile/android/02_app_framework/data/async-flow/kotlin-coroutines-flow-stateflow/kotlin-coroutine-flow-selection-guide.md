@@ -1,6 +1,6 @@
 # 선택 기준 요약
 
-상위 노트: [[kotlin-coroutines-flow-stateflow]]
+상위 노트: [kotlin-coroutines-flow-stateflow](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow.md)
 
 | 하고 싶은 일                              | 도구                                  |
 |:-------------------------------------|:------------------------------------|

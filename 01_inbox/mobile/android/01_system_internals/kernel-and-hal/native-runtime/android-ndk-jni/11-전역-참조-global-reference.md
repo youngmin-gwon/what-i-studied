@@ -1,6 +1,6 @@
 # 전역 참조 (Global Reference)
 
-상위 노트: [[android-ndk-jni]]
+상위 노트: [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md)
 
 ```cpp
 // 전역 변수

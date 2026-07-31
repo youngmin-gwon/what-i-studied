@@ -1,6 +1,6 @@
 # View system에서는 repeatOnLifecycle
 
-상위 노트: [[jetpack-compose-state-lifetime-api-selection]]
+상위 노트: [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)
 
 Activity/Fragment/XML View에서 Flow를 수집해 view를 직접 갱신할 때는 `repeatOnLifecycle`이 현대적인 기본 패턴입니다.
 

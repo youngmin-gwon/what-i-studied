@@ -1,6 +1,6 @@
 # Back Stack 관리
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 가장 단순한 형태는 시작 route 하나로 `rememberNavBackStack()`을 만드는 방식입니다.
 

@@ -15,5 +15,5 @@ val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 이 패턴은 "상태의 소유자는 ViewModel이고, UI는 상태를 읽기만 한다"는 구조를 강제합니다.
 
 ViewModel이 어떤 책임을 맡고, 상태 계산이 커졌을 때 Reducer로 어떻게
-분리할지는 [[viewmodel-ui-state-reducer]]를 참조하세요. 이 문서는
+분리할지는 [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)를 참조하세요. 이 문서는
 Flow/StateFlow 자체의 의미와 사용 패턴에 집중합니다.

@@ -6,7 +6,7 @@ date modified: 2026-04-07 10:45:00 +09:00
 date created: 2026-04-05 11:10:00 +09:00
 ---
 
-## [[android-gradle-build-system]] > [[android-cicd-patterns]]
+## [android-gradle-build-system](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-build-system.md) > [android-cicd-patterns](01_inbox/mobile/android/03_packaging_deployment/ci-cd/android-cicd-patterns.md)
 
 ### Android CI/CD: Automated Lifecycle Pipelines
 
@@ -52,6 +52,6 @@ end
 ---
 
 #### 📚 See Also
-- [[android-gradle-build-system]] - Gradle 기반 자동화 기초
-- [[gradle-performance-tuning]] - CI 에서의 빌드 속도 최적화
-- [[google-play-deployment]] - 최종 스토어 제출 단계
+- [android-gradle-build-system](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-build-system.md) - Gradle 기반 자동화 기초
+- [gradle-performance-tuning](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-performance-tuning.md) - CI 에서의 빌드 속도 최적화
+- [google-play-deployment](01_inbox/mobile/android/03_packaging_deployment/distribution/google-play-deployment.md) - 최종 스토어 제출 단계

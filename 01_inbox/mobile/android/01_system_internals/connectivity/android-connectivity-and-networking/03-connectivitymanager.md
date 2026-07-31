@@ -1,6 +1,6 @@
 # ConnectivityManager
 
-상위 노트: [[android-connectivity-and-networking]]
+상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
 
 ### 네트워크 요청
 

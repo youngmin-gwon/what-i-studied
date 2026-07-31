@@ -1,6 +1,6 @@
 # 상태 읽기 지연 (Defer State Reads)
 
-상위 노트: [[jetpack-compose-performance-guidelines]]
+상위 노트: [jetpack-compose-performance-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines.md)
 
 Compose 최적화의 첫 번째 원칙은 **"상태 읽기(State Read)를 가능한 가장 늦은 렌더링 단계로 지연하는 것"**입니다.
 

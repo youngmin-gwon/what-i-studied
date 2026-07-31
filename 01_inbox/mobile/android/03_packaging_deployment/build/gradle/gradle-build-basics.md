@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:22 +09:00
 date created: 2026-04-05 16:29:59 +09:00
 ---
 
-## [[mobile-security]] > [[gradle-build-basics]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [gradle-build-basics](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-basics.md)
 
 ### Gradle Build Basics & Plugins
 
@@ -63,6 +63,6 @@ plugins {
 
 #### 연관 문서
 
-- [[gradle-dependency-management]] - Version Catalog 및 의존성 관리
-- [[gradle-variants-flavors]] - 빌드 변형 설정
-- [[android-gradle-build-system]] - Gradle MOC
+- [gradle-dependency-management](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-dependency-management.md) - Version Catalog 및 의존성 관리
+- [gradle-variants-flavors](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-variants-flavors.md) - 빌드 변형 설정
+- [android-gradle-build-system](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-build-system.md) - Gradle MOC

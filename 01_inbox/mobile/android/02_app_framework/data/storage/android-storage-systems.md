@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:42:48 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 
-## [[mobile-security]] > [[android-storage-systems]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
 
 ### Storage Systems: Data Persistence
 
@@ -20,20 +20,20 @@ date created: 2026-03-21 16:47:09 +09:00
 
 ## 원자 노트
 
-- [[01-context-저장소-권한의-대변화|💡 Context: 저장소 권한의 대변화]]
-- [[02-저장소-종류|저장소 종류]]
-- [[03-scoped-storage-android-10|Scoped Storage (Android 10+)]]
-- [[04-파일-시스템-구조|파일 시스템 구조]]
-- [[05-데이터-저장-방법-선택|데이터 저장 방법 선택]]
-- [[06-sharedpreferences|SharedPreferences]]
-- [[07-datastore-권장|DataStore (권장)]]
-- [[08-room-database|Room Database]]
-- [[09-파일-암호화|파일 암호화]]
-- [[10-저장소-공간-관리|저장소 공간 관리]]
-- [[11-백업과-복원|백업과 복원]]
-- [[12-성능-최적화|성능 최적화]]
-- [[android-storage-systems-13-디버깅|디버깅]]
-- [[android-storage-systems-14-see-also|See Also]]
+- [💡 Context: 저장소 권한의 대변화](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/01-context-%EC%A0%80%EC%9E%A5%EC%86%8C-%EA%B6%8C%ED%95%9C%EC%9D%98-%EB%8C%80%EB%B3%80%ED%99%94.md)
+- [저장소 종류](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/02-%EC%A0%80%EC%9E%A5%EC%86%8C-%EC%A2%85%EB%A5%98.md)
+- [Scoped Storage (Android 10+)](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/03-scoped-storage-android-10.md)
+- [파일 시스템 구조](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/04-%ED%8C%8C%EC%9D%BC-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%A1%B0.md)
+- [데이터 저장 방법 선택](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/05-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%80%EC%9E%A5-%EB%B0%A9%EB%B2%95-%EC%84%A0%ED%83%9D.md)
+- [SharedPreferences](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/06-sharedpreferences.md)
+- [DataStore (권장)](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/07-datastore-%EA%B6%8C%EC%9E%A5.md)
+- [Room Database](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/08-room-database.md)
+- [파일 암호화](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/09-%ED%8C%8C%EC%9D%BC-%EC%95%94%ED%98%B8%ED%99%94.md)
+- [저장소 공간 관리](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/10-%EC%A0%80%EC%9E%A5%EC%86%8C-%EA%B3%B5%EA%B0%84-%EA%B4%80%EB%A6%AC.md)
+- [백업과 복원](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/11-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EC%9B%90.md)
+- [성능 최적화](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/12-%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94.md)
+- [디버깅](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/android-storage-systems-13-%EB%94%94%EB%B2%84%EA%B9%85.md)
+- [See Also](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems/android-storage-systems-14-see-also.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # Layout Containers
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 공식 adaptive guides는 layout container로 Flexbox와 Grid를 별도 주제로 다룹니다.
 

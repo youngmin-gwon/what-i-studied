@@ -1,6 +1,6 @@
 # 이 프로젝트 기준
 
-상위 노트: [[jetpack-compose-state-management-flutter-comparison]]
+상위 노트: [jetpack-compose-state-management-flutter-comparison](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison.md)
 
 현재 프로젝트에서는 다음 기준으로 나누는 편이 좋습니다.
 

@@ -1,6 +1,6 @@
 # Structured Concurrency: 부모가 자식을 책임지는 패턴
 
-상위 노트: [[kotlin-coroutines-flow-stateflow]]
+상위 노트: [kotlin-coroutines-flow-stateflow](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow.md)
 
 Coroutine에서 가장 중요한 설계 원칙은 **Structured Concurrency(구조화된 동시성)**입니다.
 

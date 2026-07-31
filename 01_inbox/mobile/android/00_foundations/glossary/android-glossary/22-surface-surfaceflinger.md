@@ -1,6 +1,6 @@
 # Surface / SurfaceFlinger
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 화면에 표시될 픽셀 데이터를 담는 원시 버퍼
 
@@ -16,6 +16,6 @@
 App (Canvas/OpenGL) -> Surface -> BufferQueue -> SurfaceFlinger -> Hardware Composer -> Display
 ```
 
-**관련**: [[android-graphics-and-media]]
+**관련**: [android-graphics-and-media](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-and-media.md)
 
 ---

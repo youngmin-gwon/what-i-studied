@@ -1,6 +1,6 @@
 # 이 프로젝트의 adaptive 값 흐름
 
-상위 노트: [[jetpack-compose-compositionlocal-and-designsystem-locals]]
+상위 노트: [jetpack-compose-compositionlocal-and-designsystem-locals](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals.md)
 
 현재 흐름은 다음과 같습니다.
 

@@ -1,6 +1,6 @@
 # Scene Decorator
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 `SceneStrategy`가 "어떤 scene을 만들지" 결정한다면, `SceneDecoratorStrategy`는 "계산된 scene을 어떤 공통 UI로 감쌀지" 결정합니다.
 

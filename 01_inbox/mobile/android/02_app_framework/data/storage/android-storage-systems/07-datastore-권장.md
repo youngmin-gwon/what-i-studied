@@ -1,6 +1,6 @@
 # DataStore (권장)
 
-상위 노트: [[android-storage-systems]]
+상위 노트: [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
 
 SharedPreferences 의 현대적 대안.
 

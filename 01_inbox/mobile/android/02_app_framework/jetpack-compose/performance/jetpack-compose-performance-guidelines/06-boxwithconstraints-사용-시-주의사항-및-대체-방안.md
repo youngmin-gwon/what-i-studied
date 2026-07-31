@@ -1,6 +1,6 @@
 # BoxWithConstraints 사용 시 주의사항 및 대체 방안
 
-상위 노트: [[jetpack-compose-performance-guidelines]]
+상위 노트: [jetpack-compose-performance-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines.md)
 
 `BoxWithConstraints`는 하위 컴포저블의 레이아웃 제약조건(`maxWidth`, `maxHeight` 등)을 사전에 확인하여 분기 UI를 그릴 때 매우 유용한 컴포저블입니다.
 

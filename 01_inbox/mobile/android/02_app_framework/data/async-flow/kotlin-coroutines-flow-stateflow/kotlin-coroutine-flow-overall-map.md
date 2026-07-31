@@ -1,6 +1,6 @@
 # 전체 그림
 
-상위 노트: [[kotlin-coroutines-flow-stateflow]]
+상위 노트: [kotlin-coroutines-flow-stateflow](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow.md)
 
 ```mermaid
 graph TD
@@ -31,13 +31,13 @@ graph TD
 > [!NOTE]
 > 4대 컴포넌트와 현대 아키텍처에서 Flow와 WorkManager가 어디에
 >
-배치되는지는 [[android-modern-architecture-components]]
+배치되는지는 [android-modern-architecture-components](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components.md)
 > 를 참조하세요.
 > ViewModel의 화면 상태 소유, user action 처리, Reducer 도입
-> 기준은 [[viewmodel-ui-state-reducer]]를 참조하세요.
+> 기준은 [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)를 참조하세요.
 > Compose에서 `collectAsStateWithLifecycle`, `LaunchedEffect`, `remember`, entry-scoped ViewModel을 수명
-> 기준으로 고르는 방법은 [[jetpack-compose-state-lifetime-api-selection]]를 참조하세요.
+> 기준으로 고르는 방법은 [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)를 참조하세요.
 > Compose Navigation의 화면 전환
 >
-구조는 [[jetpack-navigation-3-guide]]
+구조는 [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 > 를 참조하세요.

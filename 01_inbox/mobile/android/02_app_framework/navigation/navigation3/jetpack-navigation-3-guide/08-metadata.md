@@ -1,6 +1,6 @@
 # Metadata
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 metadata는 `NavEntry`, `Scene`, `NavDisplay`, `SceneStrategy` 사이에서 화면 표시 정책을 전달하는 typed map입니다.
 
@@ -42,6 +42,6 @@ metadata 사용처:
 - dialog, list pane, detail pane 같은 scene strategy hint
 - scene decorator가 top app bar, bottom navigation, chrome 표시 여부를 판단하는 hint
 
-자세한 Kotlin 문법과 metadata DSL은 [[navigation-3-metadata-kotlin-syntax]]를 함께 봅니다.
+자세한 Kotlin 문법과 metadata DSL은 [navigation-3-metadata-kotlin-syntax](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation-3-metadata-kotlin-syntax.md)를 함께 봅니다.
 
 ---

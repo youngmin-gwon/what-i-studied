@@ -1,6 +1,6 @@
 # 접근성 디버깅 및 테스트 방법 (a11y Testing)
 
-상위 노트: [[jetpack-compose-accessibility-guidelines]]
+상위 노트: [jetpack-compose-accessibility-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines.md)
 
 1. **TalkBack 활성화 후 직접 테스트**:
    * Android 설정 -> 접근성 -> TalkBack을 켭니다.

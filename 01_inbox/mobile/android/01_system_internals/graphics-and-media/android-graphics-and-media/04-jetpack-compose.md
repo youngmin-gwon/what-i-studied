@@ -1,6 +1,6 @@
 # Jetpack Compose
 
-상위 노트: [[android-graphics-and-media]]
+상위 노트: [android-graphics-and-media](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-and-media.md)
 
 ### 선언형 UI
 

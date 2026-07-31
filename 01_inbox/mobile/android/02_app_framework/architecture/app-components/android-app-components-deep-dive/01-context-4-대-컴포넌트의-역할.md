@@ -1,6 +1,14 @@
-# 💡 Context: 4 대 컴포넌트의 역할
+---
+title: 01-context-4-대-컴포넌트의-역할
+tags: []
+aliases: []
+date modified: 2026-07-31 16:29:40 +09:00
+date created: 2026-07-31 15:29:55 +09:00
+---
 
-상위 노트: [[android-app-components-deep-dive]]
+## 💡 Context: 4 대 컴포넌트의 역할
+
+상위 노트: [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md)
 
 안드로이드 앱은 진입점이 하나가 아닙니다. 사용자의 요청, 시스템 이벤트, 프로세스 간 통신에 따라 다양한 방식으로 활성화됩니다. 각 컴포넌트의 특성을 정확히 파악하여 안전하고 효율적인 앱을 설계해야 합니다.
 

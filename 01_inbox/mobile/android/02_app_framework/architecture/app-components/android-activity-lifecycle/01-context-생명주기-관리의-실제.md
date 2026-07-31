@@ -1,4 +1,12 @@
-# 💡 Context: 생명주기 관리의 실제
+---
+title: 01-context-생명주기-관리의-실제
+tags: []
+aliases: []
+date modified: 2026-07-31 16:28:08 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 💡 Context: 생명주기 관리의 실제
 
 현대적인 안드로이드 앱 개발에서는 단일 액티비티 구조(Single-Activity Architecture)가 표준입니다. 콜백 메서드의 순서를 아는 것보다, 구성 변경(Configuration Change)과 프로세스 데스의 차이를 명확히 구분하고 데이터 손실을 방지하는 것이 훨씬 중요합니다.
 

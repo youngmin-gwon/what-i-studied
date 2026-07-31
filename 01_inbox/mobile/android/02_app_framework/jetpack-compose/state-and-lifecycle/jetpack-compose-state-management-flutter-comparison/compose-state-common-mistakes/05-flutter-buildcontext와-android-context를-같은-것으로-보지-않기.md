@@ -5,7 +5,7 @@ Flutter의 `BuildContext`는 widget tree 안의 위치에 가깝고, Android의 
 
 Compose에서 Android `Context`가 필요하면 `LocalContext.current`를 사용하지만, Repository나 ViewModel에 오래 보관할 객체로
 넘기는 것은 피하는 편이 좋습니다. 자세한
-내용은 [[android-context]]를
+내용은 [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)를
 참조하세요.
 
 ---

@@ -1,6 +1,6 @@
 # Scoped Storage
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 앱별로 외부 저장소 접근을 제한하는 정책
 
@@ -25,6 +25,6 @@ intent.type = "*/*"
 startActivityForResult(intent, REQUEST_CODE)
 ```
 
-**관련**: [[android-security-sandbox]], [[android-storage-systems]]
+**관련**: [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md), [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
 
 ---

@@ -1,6 +1,6 @@
 # State는 가장 낮은 공통 owner에 둔다
 
-상위 노트: [[jetpack-compose-automatic-state-observation-for-flutter-developers]]
+상위 노트: [jetpack-compose-automatic-state-observation-for-flutter-developers](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-automatic-state-observation-for-flutter-developers.md)
 
 상태를 무조건 ViewModel로 올리는 것은 Flutter에서 모든 값을 전역 Provider로 만드는 것과 비슷한 안티패턴입니다.
 

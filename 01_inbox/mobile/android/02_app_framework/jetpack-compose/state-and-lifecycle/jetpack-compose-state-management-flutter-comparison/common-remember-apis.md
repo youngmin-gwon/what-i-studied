@@ -1,11 +1,11 @@
 # 자주 쓰는 `remember~` 계열
 
-상위 노트: [[jetpack-compose-state-management-flutter-comparison]]
+상위 노트: [jetpack-compose-state-management-flutter-comparison](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison.md)
 
 Compose와 Jetpack 라이브러리에는 `remember`로 시작하는 API가 많습니다. 공통점은 "Composition 수명에 맞춰 어떤 객체를 기억한다"는 것입니다.
 
 상태나 작업이 어떤 수명에 묶여야 하는지부터 판단해야 할
-때는 [[jetpack-compose-state-lifetime-api-selection]]를 먼저 봅니다.
+때는 [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)를 먼저 봅니다.
 
 | API                                 | 역할                                  | 주의점                                              |
 |:------------------------------------|:------------------------------------|:-------------------------------------------------|

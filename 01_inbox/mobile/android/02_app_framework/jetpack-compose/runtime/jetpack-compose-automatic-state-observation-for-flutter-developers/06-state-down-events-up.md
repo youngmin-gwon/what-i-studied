@@ -1,6 +1,6 @@
 # State Down, Events Up
 
-상위 노트: [[jetpack-compose-automatic-state-observation-for-flutter-developers]]
+상위 노트: [jetpack-compose-automatic-state-observation-for-flutter-developers](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-automatic-state-observation-for-flutter-developers.md)
 
 Automatic state observation은 "상태를 아무 데나 둬도 된다"는 뜻이 아닙니다. Compose 코드는 여전히 단방향 데이터 흐름으로 설계해야 합니다.
 

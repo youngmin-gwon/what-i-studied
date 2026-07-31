@@ -1,6 +1,6 @@
 # Route Key 설계
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 Navigation 3의 route는 문자열 주소가 아니라 Kotlin 타입입니다. 이 프로젝트에서는 marker interface로 route의 의미를 구분하는 편이 좋습니다.
 

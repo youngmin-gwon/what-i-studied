@@ -1,6 +1,6 @@
 # Mainline 이란
 
-상위 노트: [[android-modular-system]]
+상위 노트: [android-modular-system](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-modular-system.md)
 
 Android 10 부터 도입된 모듈식 업데이트 시스템. OS 의 핵심 부분을 Google Play 를 통해 독립적으로 업데이트.
 

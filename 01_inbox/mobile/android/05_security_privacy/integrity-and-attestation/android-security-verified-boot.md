@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:41 +09:00
 date created: 2026-04-05 16:29:36 +09:00
 ---
 
-## [[mobile-security]] > [[android-security-verified-boot]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-security-verified-boot](01_inbox/mobile/android/05_security_privacy/integrity-and-attestation/android-security-verified-boot.md)
 
 ### Android Verified Boot (AVB)
 
@@ -37,5 +37,5 @@ graph LR
 
 #### 연관 문서
 
-- [[android-init-and-services]] - 부팅 중 Init 프로세스의 보안 역학
-- [[android-security-selinux]] - 런타임 보안의 핵심
+- [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md) - 부팅 중 Init 프로세스의 보안 역학
+- [android-security-selinux](01_inbox/mobile/android/05_security_privacy/platform-hardening/android-security-selinux.md) - 런타임 보안의 핵심

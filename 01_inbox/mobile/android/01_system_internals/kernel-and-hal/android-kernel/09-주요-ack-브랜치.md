@@ -1,6 +1,6 @@
 # 주요 ACK 브랜치
 
-상위 노트: [[android-kernel]]
+상위 노트: [android-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel.md)
 
 | 브랜치 | 안드로이드 버전 | 커널 버전 | 특징 |
 |--------|-----------------|-----------|------|

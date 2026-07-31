@@ -1,6 +1,6 @@
 # Custom Layouts
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 공식 문서의 custom layout 영역은 특정 component나 canonical layout으로 충분하지 않을 때 Compose로 직접 adaptive layout을 만드는 방법을 다룹니다.
 

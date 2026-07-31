@@ -1,6 +1,6 @@
 # DataStore
 
-상위 노트: [[android-storage-and-databases]]
+상위 노트: [android-storage-and-databases](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases.md)
 
 DataStore는 작은 데이터를 비동기적이고 일관된 방식으로 저장하기 위한 Jetpack 저장소입니다.
 

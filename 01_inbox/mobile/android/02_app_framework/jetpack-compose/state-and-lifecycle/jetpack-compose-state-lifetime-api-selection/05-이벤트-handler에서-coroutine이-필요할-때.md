@@ -1,6 +1,6 @@
 # 이벤트 handler에서 coroutine이 필요할 때
 
-상위 노트: [[jetpack-compose-state-lifetime-api-selection]]
+상위 노트: [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)
 
 버튼 클릭, drawer 열기, scroll animation처럼 event handler 내부에서 coroutine을 시작해야 하면`rememberCoroutineScope()`
 를 씁니다.

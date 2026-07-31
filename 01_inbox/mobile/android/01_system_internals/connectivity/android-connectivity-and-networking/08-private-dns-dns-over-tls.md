@@ -1,6 +1,6 @@
 # Private DNS (DNS-over-TLS)
 
-상위 노트: [[android-connectivity-and-networking]]
+상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
 
 ```bash
 # 설정

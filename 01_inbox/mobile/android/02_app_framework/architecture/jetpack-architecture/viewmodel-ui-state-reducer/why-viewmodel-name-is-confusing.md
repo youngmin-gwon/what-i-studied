@@ -1,6 +1,6 @@
 # ViewModel이라는 이름이 헷갈리는 이유
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 아래 문장은 이해를 돕기 위한 일부러 강한 표현입니다.
 

@@ -1,6 +1,6 @@
 # WindowSizeClass
 
-상위 노트: [[android-large-screens]]
+상위 노트: [android-large-screens](01_inbox/mobile/android/07_platforms/large-screens/android-large-screens.md)
 
 화면 크기에 따라 레이아웃 조정.
 

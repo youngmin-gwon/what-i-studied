@@ -1,6 +1,6 @@
 # Navigation entry 수명에 묶고 싶을 때
 
-상위 노트: [[jetpack-compose-state-lifetime-api-selection]]
+상위 노트: [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)
 
 Navigation 3에서는 화면 destination 단위 수명에 `ViewModel`과 saveable state를 묶을 수 있습니다.
 

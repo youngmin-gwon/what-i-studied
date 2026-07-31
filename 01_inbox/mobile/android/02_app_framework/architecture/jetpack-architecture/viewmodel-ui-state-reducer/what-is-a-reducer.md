@@ -1,6 +1,6 @@
 # Reducer란 무엇인가
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 Reducer는 이전 상태와 action을 받아 새 상태를 계산하는 순수 함수입니다.
 

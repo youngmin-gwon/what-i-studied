@@ -1,6 +1,6 @@
 # State hoisting
 
-상위 노트: [[jetpack-compose-state-management-flutter-comparison]]
+상위 노트: [jetpack-compose-state-management-flutter-comparison](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison.md)
 
 Compose에서는 상태를 가능하면 필요한 곳까지 끌어올립니다. 이를 **state hoisting**이라고 합니다.
 

@@ -1,6 +1,6 @@
 # SQLite
 
-상위 노트: [[android-storage-and-databases]]
+상위 노트: [android-storage-and-databases](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases.md)
 
 SQLite는 Android에 내장된 관계형 데이터베이스 엔진입니다.
 

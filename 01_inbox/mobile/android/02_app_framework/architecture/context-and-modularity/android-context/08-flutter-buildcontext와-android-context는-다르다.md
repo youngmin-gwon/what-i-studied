@@ -1,6 +1,6 @@
 # Flutter BuildContext와 Android Context는 다르다
 
-상위 노트: [[android-context]]
+상위 노트: [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)
 
 이름은 같지만 역할은 꽤 다릅니다.
 

@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:23 +09:00
 date created: 2026-04-05 16:30:04 +09:00
 ---
 
-## [[mobile-security]] > [[gradle-dependency-management]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [gradle-dependency-management](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-dependency-management.md)
 
 ### Dependency Management: Modern Patterns
 
@@ -52,5 +52,5 @@ dependencies {
 
 #### 연관 문서
 
-- [[gradle-build-basics]] - 빌드 기초
-- [[android-jetpack-architecture]] - 라이브러리 활용 아키텍처
+- [gradle-build-basics](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-basics.md) - 빌드 기초
+- [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md) - 라이브러리 활용 아키텍처

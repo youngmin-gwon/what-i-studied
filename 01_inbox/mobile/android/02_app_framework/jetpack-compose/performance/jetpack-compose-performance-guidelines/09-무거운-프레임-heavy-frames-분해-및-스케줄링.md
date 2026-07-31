@@ -1,6 +1,6 @@
 # 무거운 프레임 (Heavy Frames) 분해 및 스케줄링
 
-상위 노트: [[jetpack-compose-performance-guidelines]]
+상위 노트: [jetpack-compose-performance-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines.md)
 
 한 프레임(16ms 또는 8.3ms) 내에 너무 많은 컴포저블을 한 번에 그리려고 하면 16ms 윈도우를 초과하여 프레임이 떨어집니다.
 

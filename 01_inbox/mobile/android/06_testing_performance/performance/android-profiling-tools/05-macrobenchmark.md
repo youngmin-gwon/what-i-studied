@@ -1,6 +1,6 @@
 # Macrobenchmark
 
-상위 노트: [[android-profiling-tools]]
+상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
 
 앱 시작, 스크롤 등 성능 측정.
 

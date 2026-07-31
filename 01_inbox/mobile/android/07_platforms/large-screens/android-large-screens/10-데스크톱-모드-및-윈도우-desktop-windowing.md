@@ -1,6 +1,6 @@
 # 데스크톱 모드 및 윈도우 (Desktop Windowing)
 
-상위 노트: [[android-large-screens]]
+상위 노트: [android-large-screens](01_inbox/mobile/android/07_platforms/large-screens/android-large-screens.md)
 
 ##### 1. Android 15 Desktop Windowing (New ✅)
 

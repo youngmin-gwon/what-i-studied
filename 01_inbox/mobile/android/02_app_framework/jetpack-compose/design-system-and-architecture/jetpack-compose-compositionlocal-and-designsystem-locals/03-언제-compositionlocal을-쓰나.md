@@ -1,6 +1,6 @@
 # 언제 CompositionLocal을 쓰나?
 
-상위 노트: [[jetpack-compose-compositionlocal-and-designsystem-locals]]
+상위 노트: [jetpack-compose-compositionlocal-and-designsystem-locals](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals.md)
 
 CompositionLocal은 아무 값이나 숨겨서 전달하는 도구가 아닙니다.
 

@@ -1,6 +1,6 @@
 # system_server
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 시스템 서비스들이 실행되는 Java 프로세스
 
@@ -24,7 +24,7 @@ adb shell service list
 system_server 죽음 → Zygote가 재시작 감지 → 기기 재부팅
 ```
 
-**관련**: [[android-activity-manager-and-system-services]]
+**관련**: [android-activity-manager-and-system-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-activity-manager-and-system-services.md)
 
 ---
 

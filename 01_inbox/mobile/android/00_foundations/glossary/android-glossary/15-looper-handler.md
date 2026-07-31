@@ -1,6 +1,6 @@
 # Looper / Handler
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 스레드의 메시지 루프를 관리하는 메커니즘
 
@@ -30,6 +30,6 @@ Handler(Looper.getMainLooper()).post {
 }
 ```
 
-**관련**: [[android-performance-and-debug]]
+**관련**: [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md)
 
 ---

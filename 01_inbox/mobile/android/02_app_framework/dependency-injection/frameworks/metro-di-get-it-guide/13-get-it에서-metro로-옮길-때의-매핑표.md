@@ -1,6 +1,6 @@
 # get_it에서 Metro로 옮길 때의 매핑표
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 | get_it 코드/개념                                     | Metro에서의 대응                                                      |
 |:-------------------------------------------------|:-----------------------------------------------------------------|

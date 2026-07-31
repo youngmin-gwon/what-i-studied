@@ -1,6 +1,6 @@
 # 큰 그림
 
-상위 노트: [[android-storage-and-databases]]
+상위 노트: [android-storage-and-databases](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases.md)
 
 Android 저장소는 "DB를 쓸까 말까"보다 먼저 **무엇을 저장하는가**로 나누는 편이 안전합니다.
 

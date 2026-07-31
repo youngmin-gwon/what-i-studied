@@ -1,6 +1,6 @@
 # Service, Receiver, Provider의 Context
 
-상위 노트: [[android-context]]
+상위 노트: [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)
 
 ### 6-1. Service Context
 

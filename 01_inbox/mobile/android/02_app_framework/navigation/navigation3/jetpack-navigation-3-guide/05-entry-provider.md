@@ -1,6 +1,6 @@
 # Entry Provider
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 `entryProvider`는 route key를 실제 화면으로 바꾸는 registry입니다. feature module 경계를 유지하려면 각 feature가 자기 route entry를 제공하고 app layer에서 합치는 구조가 적합합니다.
 

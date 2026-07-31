@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:27 +09:00
 date created: 2026-04-05 16:30:01 +09:00
 ---
 
-## [[mobile-security]] > [[gradle-variants-flavors]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [gradle-variants-flavors](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-variants-flavors.md)
 
 ### Build Variants: Types & Flavors
 
@@ -63,5 +63,5 @@ productFlavors {
 
 #### 연관 문서
 
-- [[gradle-optimization-signing]] - 서명 및 성능 최적화
-- [[gradle-build-basics]] - 빌드 기초
+- [gradle-optimization-signing](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-optimization-signing.md) - 서명 및 성능 최적화
+- [gradle-build-basics](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-basics.md) - 빌드 기초

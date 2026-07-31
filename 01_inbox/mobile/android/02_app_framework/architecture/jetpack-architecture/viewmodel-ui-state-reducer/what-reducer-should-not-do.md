@@ -1,6 +1,6 @@
 # Reducer가 하지 말아야 할 일
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 Reducer의 가치는 "예측 가능한 상태 계산"에 있습니다. 아래가 들어가기 시작하면 Reducer가 아니라 작은 ViewModel이나 UseCase가 되어버립니다.
 

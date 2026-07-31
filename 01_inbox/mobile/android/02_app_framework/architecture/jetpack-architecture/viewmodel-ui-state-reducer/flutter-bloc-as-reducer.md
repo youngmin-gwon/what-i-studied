@@ -1,6 +1,6 @@
 # Flutter Bloc을 Reducer 관점에서 다시 보면
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 앞에서는 Bloc을 Android ViewModel과 역할 관점에서 비교했습니다. 하지만 패턴 관점에서 Bloc은 MVVM보다 MVI/Redux 계열에 가깝습니다. Reducer까지
 도입한 Android 구조를 Flutter Bloc 경험으로 다시 풀면 다음 대응이 더 정확합니다.

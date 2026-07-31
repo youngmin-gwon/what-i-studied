@@ -1,6 +1,6 @@
 # 4대 컴포넌트 한눈에 보기
 
-상위 노트: [[android-modern-architecture-components]]
+상위 노트: [android-modern-architecture-components](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components.md)
 
 | 컴포넌트                  | 전통적 역할         | 쉽게 말하면            | 현대의 주된 위치                                                  |
 |:----------------------|:---------------|:------------------|:-----------------------------------------------------------|

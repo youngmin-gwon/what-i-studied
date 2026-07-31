@@ -1,6 +1,6 @@
 # Context란?
 
-상위 노트: [[android-context]]
+상위 노트: [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)
 
 `Context`는 안드로이드 코드가 **현재 앱/컴포넌트가 놓인 실행 환경을 통해 OS 기능에 접근하기 위한 손잡이**입니다.
 

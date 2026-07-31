@@ -1,0 +1,19 @@
+# android appfunctions and ai agents 개요
+
+---
+title: android-appfunctions-and-ai-agents
+tags: []
+aliases: []
+date modified: 2026-07-31 15:18:23 +09:00
+date created: 2026-04-04 00:33:57 +09:00
+---
+
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-appfunctions-and-ai-agents](01_inbox/mobile/android/04_system_services/agents-and-assistant/android-appfunctions-and-ai-agents.md)
+
+### AI Agents: AppFunctions Platform
+
+Android 15/16(Baklava)에서 도입된 **AppFunctions** 프레임워크와 이를 통한 **에이전틱 플랫폼(Agentic Platform)**으로의 진화를 분석합니다.
+
+앱 내부의 기능을 시스템 AI 에이전트가 발견하고 호출할 수 있는 '도구(Tool)'로 노출하여, 사용자의 복합적인 의도를 여러 앱이 협력하여 수행하는 차세대 연동 아키텍처를 이해하는 것이 목표입니다.
+
+---

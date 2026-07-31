@@ -1,6 +1,6 @@
 # Metro의 3대 기본 요소
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 Metro를 처음 볼 때는 아래 3개만 잡으면 됩니다.
 

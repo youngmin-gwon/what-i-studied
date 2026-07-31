@@ -1,8 +1,8 @@
 # SavedStateHandle
 
-상위 노트: [[android-viewmodel]]
+상위 노트: [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md)
 
-프로세스 사망 후에도 데이터를 복원할 수 있게 해주는 기능이다. [[android-process-and-memory]] 참고.
+프로세스 사망 후에도 데이터를 복원할 수 있게 해주는 기능이다. [android-process-and-memory](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory.md) 참고.
 
 ```kotlin
 class DetailViewModel(

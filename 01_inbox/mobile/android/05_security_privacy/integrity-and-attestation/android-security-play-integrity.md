@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:35 +09:00
 date created: 2026-04-05 16:29:26 +09:00
 ---
 
-## [[mobile-security]] > [[android-security-play-integrity]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-security-play-integrity](01_inbox/mobile/android/05_security_privacy/integrity-and-attestation/android-security-play-integrity.md)
 
 ### Play Integrity API
 
@@ -67,5 +67,5 @@ class SecurityIntegrityClient(private val context: Context) {
 
 #### 연관 문서
 
-- [[mobile-android-secure-storage]] - 검증 결과를 바탕으로 한 비밀 데이터 저장
-- [[mobile-vulnerability-check]] - 무결성 검증 우회 진단
+- [mobile-android-secure-storage](01_inbox/mobile/android/05_security_privacy/secure-storage/mobile-android-secure-storage.md) - 검증 결과를 바탕으로 한 비밀 데이터 저장
+- [mobile-vulnerability-check](01_inbox/mobile/cross-platform/mobile-vulnerability-check.md) - 무결성 검증 우회 진단

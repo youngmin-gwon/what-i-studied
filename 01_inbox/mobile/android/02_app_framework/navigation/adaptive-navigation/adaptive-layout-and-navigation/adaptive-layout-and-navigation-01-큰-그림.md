@@ -1,6 +1,6 @@
 # 큰 그림
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 Adaptive app은 phone, tablet, foldable, ChromeOS, desktop window, connected display, car, TV, XR 등 다양한 form factor에서 앱 window 상태에 맞게 UI 구조를 조정하는 앱입니다.
 

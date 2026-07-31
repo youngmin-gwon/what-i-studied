@@ -1,6 +1,6 @@
 # Factory 패턴
 
-상위 노트: [[android-viewmodel]]
+상위 노트: [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md)
 
 ViewModel 에 파라미터를 전달해야 할 때 사용한다.
 
@@ -67,4 +67,4 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-더 자세한 내용은 [[android-dependency-injection]] 참고.
+더 자세한 내용은 [android-dependency-injection](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection.md) 참고.

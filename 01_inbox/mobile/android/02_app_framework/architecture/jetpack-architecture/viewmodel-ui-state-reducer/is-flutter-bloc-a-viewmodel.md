@@ -1,6 +1,6 @@
 # Flutter Bloc은 ViewModel인가
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 이 질문도 강하게 표현하면 이렇게 정리할 수 있습니다.
 

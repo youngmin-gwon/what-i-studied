@@ -1,6 +1,6 @@
 # Activity Result API (Modern)
 
-상위 노트: [[android-intent-and-ipc]]
+상위 노트: [android-intent-and-ipc](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/android-intent-and-ipc.md)
 
 `startActivityForResult()` / `onActivityResult()` 는 **deprecated** 되었다. 현대적 대안은 `ActivityResultContracts` 이다.
 

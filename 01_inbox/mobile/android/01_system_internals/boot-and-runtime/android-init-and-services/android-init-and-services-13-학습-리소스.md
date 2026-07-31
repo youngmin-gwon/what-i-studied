@@ -1,10 +1,10 @@
 # 학습 리소스
 
-상위 노트: [[android-init-and-services]]
+상위 노트: [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md)
 
 **공식 문서**:
 
-- [[shell-environment-commands|Bash]]
+- [Bash](01_inbox/linux/commands/shell-environment-commands.md)
 - [Property System](https://source.android.com/docs/core/architecture/configuration/add-system-properties)
 
 **소스 코드**:

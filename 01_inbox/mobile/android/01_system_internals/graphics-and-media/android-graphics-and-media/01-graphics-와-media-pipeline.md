@@ -1,6 +1,6 @@
 # Graphics 와 Media Pipeline
 
-상위 노트: [[android-graphics-and-media]]
+상위 노트: [android-graphics-and-media](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-and-media.md)
 
 안드로이드의 그래픽 시스템은 **하드웨어 가속 렌더링**과 **다층 합성**을 통해 부드러운 60fps(또는 90/120fps) 화면을 제공한다. Media Framework 는 카메라 캡처부터 비디오 재생까지 담당한다.
 

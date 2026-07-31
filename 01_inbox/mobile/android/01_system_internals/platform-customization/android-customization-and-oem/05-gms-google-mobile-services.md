@@ -1,6 +1,6 @@
 # GMS (Google Mobile Services)
 
-상위 노트: [[android-customization-and-oem]]
+상위 노트: [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
 
 ### GMS Core
 

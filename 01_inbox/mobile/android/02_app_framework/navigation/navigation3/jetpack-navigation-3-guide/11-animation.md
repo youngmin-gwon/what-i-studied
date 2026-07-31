@@ -1,6 +1,6 @@
 # Animation
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 `NavDisplay`는 scene class와 `Scene.key`에서 파생된 key가 바뀔 때 transition을 실행합니다.
 

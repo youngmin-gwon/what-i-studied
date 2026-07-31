@@ -1,6 +1,6 @@
 # Wi-Fi 관리
 
-상위 노트: [[android-connectivity-and-networking]]
+상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
 
 ### WifiManager
 

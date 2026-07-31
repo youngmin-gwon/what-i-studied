@@ -8,7 +8,7 @@ date created: 2026-07-31 15:38:23 +09:00
 
 ## Mainline: 모듈식 업데이트 (2019)
 
-상위 노트: [[02-주요-기술-전환]]
+상위 노트: [02-주요-기술-전환](01_inbox/mobile/android/00_foundations/history/android-evolution-history/02-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EC%88%A0-%EC%A0%84%ED%99%98.md)
 
 **문제**:
 

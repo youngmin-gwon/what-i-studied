@@ -1,6 +1,6 @@
 # PendingIntent
 
-상위 노트: [[android-intent-and-ipc]]
+상위 노트: [android-intent-and-ipc](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/android-intent-and-ipc.md)
 
 다른 앱(시스템)이 **우리 앱 대신** 나중에 Intent 를 실행할 수 있도록 하는 토큰이다. 주로 **알림(Notification)**, **AlarmManager**, **위젯** 에서 사용된다.
 

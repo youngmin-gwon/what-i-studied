@@ -1,6 +1,6 @@
 # interface와 구현체 연결하기
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 앱 코드에서는 구현체보다 interface에 의존하는 편이 좋습니다.
 

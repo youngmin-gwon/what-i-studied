@@ -1,6 +1,6 @@
 # Context
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 앱 환경에 대한 전역 정보 접근 인터페이스 (God Object)
 
@@ -30,7 +30,7 @@ Singleton.context = activity // Activity가 파괴되어도 못 놓아줌
 Singleton.context = activity.applicationContext
 ```
 
-**관련**: [[android-activity-lifecycle]]
+**관련**: [android-activity-lifecycle](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-activity-lifecycle.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # CompositionLocal이란?
 
-상위 노트: [[jetpack-compose-compositionlocal-and-designsystem-locals]]
+상위 노트: [jetpack-compose-compositionlocal-and-designsystem-locals](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals.md)
 
 Compose에서 기본 데이터 흐름은 명시적인 parameter 전달입니다.
 

@@ -1,6 +1,6 @@
 # Canonical Layouts
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 Canonical layouts는 큰 화면과 다양한 form factor에서 자주 쓰이는 검증된 layout pattern입니다.
 

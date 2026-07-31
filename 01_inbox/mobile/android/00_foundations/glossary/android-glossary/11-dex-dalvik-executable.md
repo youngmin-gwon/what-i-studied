@@ -1,6 +1,6 @@
 # DEX (Dalvik Executable)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 안드로이드 앱의 바이트코드 형식
 
@@ -34,6 +34,6 @@ unzip -l app.apk | grep dex
 # → .vdex (Verified DEX, ART)
 ```
 
-**관련**: [[android-zygote-and-runtime]]
+**관련**: [android-zygote-and-runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime.md)
 
 ---

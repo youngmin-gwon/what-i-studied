@@ -1,6 +1,6 @@
 # 화면에 그릴 Flow는 collectAsStateWithLifecycle
 
-상위 노트: [[jetpack-compose-state-lifetime-api-selection]]
+상위 노트: [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)
 
 Compose에서 `StateFlow<UiState>`를 화면에 그릴 상태로 읽을 때는 `collectAsStateWithLifecycle()`을 우선 사용합니다.
 

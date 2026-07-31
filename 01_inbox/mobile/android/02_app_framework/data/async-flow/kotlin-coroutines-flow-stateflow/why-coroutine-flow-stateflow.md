@@ -1,6 +1,6 @@
 # 왜 Coroutine, Flow, StateFlow가 필요해졌나?
 
-상위 노트: [[kotlin-coroutines-flow-stateflow]]
+상위 노트: [kotlin-coroutines-flow-stateflow](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow.md)
 
 안드로이드 앱은 대부분 기다림의 연속입니다.
 

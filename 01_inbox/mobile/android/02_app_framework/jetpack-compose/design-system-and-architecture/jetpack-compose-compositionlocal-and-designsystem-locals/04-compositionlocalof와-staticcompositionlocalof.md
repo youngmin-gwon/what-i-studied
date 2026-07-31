@@ -1,6 +1,6 @@
 # compositionLocalOf와 staticCompositionLocalOf
 
-상위 노트: [[jetpack-compose-compositionlocal-and-designsystem-locals]]
+상위 노트: [jetpack-compose-compositionlocal-and-designsystem-locals](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals.md)
 
 Compose에는 두 가지 생성 API가 있습니다.
 

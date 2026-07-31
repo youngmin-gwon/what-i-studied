@@ -1,10 +1,18 @@
-# ContentProvider 심화
+---
+title: 05-contentprovider-심화
+tags: []
+aliases: []
+date modified: 2026-07-31 16:29:45 +09:00
+date created: 2026-07-31 15:29:55 +09:00
+---
 
-상위 노트: [[android-app-components-deep-dive]]
+## ContentProvider 심화
+
+상위 노트: [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md)
 
 앱 간 데이터 공유를 위한 표준 인터페이스.
 
-##### 구현 예시
+### 구현 예시
 
 ```kotlin
 class MyContentProvider : ContentProvider() {
@@ -76,7 +84,7 @@ class MyContentProvider : ContentProvider() {
 }
 ```
 
-##### 권한 설정
+### 권한 설정
 
 ```xml
 <provider
@@ -91,7 +99,7 @@ class MyContentProvider : ContentProvider() {
     android:protectionLevel="normal" />
 ```
 
-##### 사용 예시
+### 사용 예시
 
 ```kotlin
 // 다른 앱에서 접근

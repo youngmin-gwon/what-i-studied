@@ -1,6 +1,6 @@
 # State changes need to be tracked by Compose
 
-상위 노트: [[jetpack-compose-automatic-state-observation-for-flutter-developers]]
+상위 노트: [jetpack-compose-automatic-state-observation-for-flutter-developers](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-automatic-state-observation-for-flutter-developers.md)
 
 일반 Kotlin 변수는 Compose가 관찰하지 못합니다.
 

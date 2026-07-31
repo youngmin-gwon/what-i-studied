@@ -1,4 +1,12 @@
-# 🛠️ ViewModel Internals
+---
+title: 04-viewmodel-internals
+tags: []
+aliases: []
+date modified: 2026-07-31 16:28:48 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 🛠️ ViewModel Internals
 
 "ViewModel 은 어떻게 Activity 가 죽어도 살아있을까?"
 

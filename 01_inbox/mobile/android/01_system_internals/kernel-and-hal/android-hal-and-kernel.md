@@ -6,7 +6,7 @@ date modified: 2026-07-31 15:22:09 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 
-## [[mobile-security]] > [[android-hal-and-kernel]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-hal-and-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-hal-and-kernel.md)
 
 ### HAL & Kernel: The Hardware Abstraction Layer
 
@@ -50,7 +50,7 @@ date created: 2026-03-21 16:47:09 +09:00
 ---
 
 #### 📚 연관 문서 및 심화 학습
-- [[android-architecture-stack]] - 안드로이드 전체 계층 구조에서의 HAL
-- [[android-binder-and-ipc]] - HAL 과 프레임워크 간의 통신 수단
-- [[android-boot-flow]] - 부팅 과정에서의 드라이버 및 파티션 로드
-- [[android-kernel]] - 안드로이드 커널 보안 및 특징
+- [android-architecture-stack](01_inbox/mobile/android/00_foundations/overview/android-architecture-stack.md) - 안드로이드 전체 계층 구조에서의 HAL
+- [android-binder-and-ipc](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md) - HAL 과 프레임워크 간의 통신 수단
+- [android-boot-flow](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-flow.md) - 부팅 과정에서의 드라이버 및 파티션 로드
+- [android-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel.md) - 안드로이드 커널 보안 및 특징

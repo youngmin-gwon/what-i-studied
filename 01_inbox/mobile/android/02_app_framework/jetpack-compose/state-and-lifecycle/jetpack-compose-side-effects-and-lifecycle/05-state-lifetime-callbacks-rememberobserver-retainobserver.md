@@ -1,6 +1,6 @@
 # State Lifetime Callbacks (`RememberObserver` & `RetainObserver`)
 
-상위 노트: [[jetpack-compose-side-effects-and-lifecycle]]
+상위 노트: [jetpack-compose-side-effects-and-lifecycle](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-side-effects-and-lifecycle.md)
 
 공식 문서 [State Callbacks in Compose](https://developer.android.com/develop/ui/compose/state-callbacks)에 따르면, `remember`로 관리되는 커스텀 객체나 데이터 홀더가 Composition의 시작/종료 또는 Retain(화면 회전 후 유지) 생명주기를 직접 관찰해야 할 때 전용 Observer 인터페이스를 구현할 수 있습니다.
 

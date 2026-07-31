@@ -1,6 +1,6 @@
 # WorkManager
 
-상위 노트: [[android-jetpack-architecture]]
+상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
 
 지연 가능한 백그라운드 작업 스케줄링.
 

@@ -1,6 +1,6 @@
 # APEX 확인
 
-상위 노트: [[android-modular-system]]
+상위 노트: [android-modular-system](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-modular-system.md)
 
 ```bash
 # 설치된 APEX 목록

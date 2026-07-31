@@ -1,6 +1,6 @@
 # `remember` 내 무거운 연산(Heavy Computation) 격리
 
-상위 노트: [[jetpack-compose-performance-guidelines]]
+상위 노트: [jetpack-compose-performance-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines.md)
 
 `remember`는 화면이 리컴포지션될 때 이전 계산 결과를 보존하여 CPU 낭비를 막아주는 핵심 API입니다.
 

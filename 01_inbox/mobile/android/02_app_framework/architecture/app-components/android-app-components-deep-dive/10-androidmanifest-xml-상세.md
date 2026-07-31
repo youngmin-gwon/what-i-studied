@@ -1,6 +1,14 @@
-# AndroidManifest.xml 상세
+---
+title: 10-androidmanifest-xml-상세
+tags: []
+aliases: []
+date modified: 2026-07-31 16:29:49 +09:00
+date created: 2026-07-31 15:29:55 +09:00
+---
 
-상위 노트: [[android-app-components-deep-dive]]
+## AndroidManifest.xml 상세
+
+상위 노트: [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md)
 
 앱의 진입점과 컴포넌트 설정을 정의하는 핵심 파일이다.
 

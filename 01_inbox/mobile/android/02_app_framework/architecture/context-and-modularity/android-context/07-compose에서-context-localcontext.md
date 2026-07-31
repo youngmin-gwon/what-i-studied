@@ -1,6 +1,6 @@
 # Compose에서 Context: LocalContext
 
-상위 노트: [[android-context]]
+상위 노트: [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)
 
 Compose에는 Flutter의 `BuildContext`처럼 함수 파라미터로 `context`가 자동으로 들어오지 않습니다.
 

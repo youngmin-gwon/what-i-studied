@@ -1,6 +1,6 @@
 # Wakelock
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 기기가 절전 모드로 진입하는 것을 막는 잠금
 
@@ -34,6 +34,6 @@ adb shell dumpsys power | grep Wake
 adb shell dumpsys batterystats
 ```
 
-**관련**: [[android-performance-and-debug]]
+**관련**: [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md)
 
 ---

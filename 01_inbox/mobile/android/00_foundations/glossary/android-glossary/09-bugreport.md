@@ -1,6 +1,6 @@
 # Bugreport
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 기기 상태를 종합적으로 담은 로그 묶음
 
@@ -27,7 +27,7 @@ adb bugreport bugreport.zip
 - /proc, /sys 정보
 - ANR traces
 
-**관련**: [[android-debugging-techniques]]
+**관련**: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
 
 ---
 

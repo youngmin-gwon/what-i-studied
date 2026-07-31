@@ -1,6 +1,14 @@
-# 🧟‍♂️ Handling Process Death
+---
+title: 05-handling-process-death
+tags: []
+aliases: []
+date modified: 2026-07-31 16:28:48 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
 
-##### 1. SavedStateHandle (권장)
+## 🧟‍♂️ Handling Process Death
+
+### 1. SavedStateHandle (권장)
 
 ViewModel 내부에서 `SavedStateHandle` 을 쓰면, 보일러플레이트 코드 없이 프로세스 킬에 대비할 수 있습니다.
 
@@ -15,7 +23,7 @@ class MyViewModel(private val state: SavedStateHandle) : ViewModel() {
 }
 ```
 
-##### 2. onSaveInstanceState (Old School)
+### 2. onSaveInstanceState (Old School)
 
 단순한 View 상태(스크롤 위치, EditText 내용)는 View 시스템이 알아서 저장해 주지만, 커스텀 변수는 직접 저장해야 합니다.
 

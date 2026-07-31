@@ -1,288 +1,36 @@
 # Hilt (권장)
 
-상위 노트: [[android-dependency-injection]]
+## 원자 노트
 
-Dagger 기반의 Android 전용 DI 프레임워크.
+### 개요
+- [03-hilt-권장-00-개요](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-00-%EA%B0%9C%EC%9A%94.md)
 
-##### 설정
+### 설정
+- [03-hilt-권장-01-설정](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-01-%EC%84%A4%EC%A0%95.md)
 
-```kotlin
-// build.gradle.kts (프로젝트)
-plugins {
-    id("com.google.dagger.hilt.android") version "2.48" apply false
-}
+### Application 설정
+- [03-hilt-권장-02-application-설정](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-02-application-%EC%84%A4%EC%A0%95.md)
 
-// build.gradle.kts (앱)
-plugins {
-    id("com.google.dagger.hilt.android")
-    id("kotlin-kapt")
-}
+### Module 정의
+- [03-hilt-권장-03-module-정의](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-03-module-%EC%A0%95%EC%9D%98.md)
 
-dependencies {
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.48")
-    
-    // ViewModel
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-    
-    // WorkManager
-    implementation("androidx.hilt:hilt-work:1.1.0")
-    kapt("androidx.hilt:hilt-compiler:1.1.0")
-}
-```
+### Binds (인터페이스 바인딩)
+- [03-hilt-권장-04-binds-인터페이스-바인딩](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-04-binds-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EB%B0%94%EC%9D%B8%EB%94%A9.md)
 
-##### Application 설정
+### Qualifiers (같은 타입 구분)
+- [03-hilt-권장-05-qualifiers-같은-타입-구분](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-05-qualifiers-%EA%B0%99%EC%9D%80-%ED%83%80%EC%9E%85-%EA%B5%AC%EB%B6%84.md)
 
-```kotlin
-@HiltAndroidApp
-class MyApplication : Application()
-```
+### Component Scopes
+- [03-hilt-권장-06-component-scopes](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-06-component-scopes.md)
 
-##### Module 정의
+### Activity/Fragment 주입
+- [03-hilt-권장-07-activity-fragment-주입](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-07-activity-fragment-%EC%A3%BC%EC%9E%85.md)
 
-```kotlin
-@Module
-@InstallIn(SingletonComponent::class)
-object NetworkModule {
-    
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .build()
-    }
-    
-    @Provides
-    @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://api.example.com")
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-    
-    @Provides
-    @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
-    }
-}
+### ViewModel 주입
+- [03-hilt-권장-08-viewmodel-주입](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-08-viewmodel-%EC%A3%BC%EC%9E%85.md)
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
-    
-    @Provides
-    @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            "app_database"
-        ).build()
-    }
-    
-    @Provides
-    fun provideUserDao(database: AppDatabase): UserDao {
-        return database.userDao()
-    }
-}
-```
+### WorkManager 주입
+- [03-hilt-권장-09-workmanager-주입](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-09-workmanager-%EC%A3%BC%EC%9E%85.md)
 
-##### Binds (인터페이스 바인딩)
-
-```kotlin
-interface UserRepository {
-    suspend fun getUsers(): List<User>
-}
-
-class UserRepositoryImpl @Inject constructor(
-    private val api: ApiService,
-    private val userDao: UserDao
-) : UserRepository {
-    override suspend fun getUsers(): List<User> {
-        return api.getUsers()
-    }
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
-    
-    @Binds
-    @Singleton
-    abstract fun bindUserRepository(
-        impl: UserRepositoryImpl
-    ): UserRepository
-}
-```
-
-##### Qualifiers (같은 타입 구분)
-
-```kotlin
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class IoDispatcher
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class MainDispatcher
-
-@Module
-@InstallIn(SingletonComponent::class)
-object DispatcherModule {
-    
-    @Provides
-    @IoDispatcher
-    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-    
-    @Provides
-    @MainDispatcher
-    fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
-}
-
-// 사용
-class UserRepository @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) {
-    suspend fun loadUsers() = withContext(ioDispatcher) {
-        // IO 작업
-    }
-}
-```
-
-##### Component Scopes
-
-| Component | Scope | 생명주기 |
-|-----------|-------|---------|
-| SingletonComponent | @Singleton | Application |
-| ActivityRetainedComponent | @ActivityRetainedScoped | Activity (설정 변경 유지) |
-| ViewModelComponent | @ViewModelScoped | ViewModel |
-| ActivityComponent | @ActivityScoped | Activity |
-| FragmentComponent | @FragmentScoped | Fragment |
-| ViewComponent | @ViewScoped | View |
-| ServiceComponent | @ServiceScoped | Service |
-
-```kotlin
-@Module
-@InstallIn(ViewModelComponent::class)
-object ViewModelModule {
-    
-    @Provides
-    @ViewModelScoped
-    fun provideAnalytics(): Analytics {
-        return Analytics() // ViewModel 생명주기
-    }
-}
-```
-
-##### Activity/Fragment 주입
-
-```kotlin
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    
-    @Inject
-    lateinit var analytics: Analytics
-    
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        analytics.logEvent("MainActivity_Created")
-    }
-}
-
-@AndroidEntryPoint
-class UserFragment : Fragment() {
-    
-    @Inject
-    lateinit var userRepository: UserRepository
-    
-    private val viewModel: UserViewModel by viewModels()
-}
-```
-
-##### ViewModel 주입
-
-```kotlin
-@HiltViewModel
-class UserViewModel @Inject constructor(
-    private val repository: UserRepository,
-    private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
-    
-    val users = repository.getUsers()
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
-}
-
-// Activity/Fragment 에서 사용
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private val viewModel: UserViewModel by viewModels()
-}
-```
-
-##### WorkManager 주입
-
-```kotlin
-@HiltWorker
-class UploadWorker @AssistedInject constructor(
-    @Assisted context: Context,
-    @Assisted params: WorkerParameters,
-    private val repository: UploadRepository
-) : CoroutineWorker(context, params) {
-    
-    override suspend fun doWork(): Result {
-        return try {
-            repository.upload()
-            Result.success()
-        } catch (e: Exception) {
-            Result.failure()
-        }
-    }
-}
-
-// Application 에 HiltWorkerFactory 설정
-@HiltAndroidApp
-class MyApplication : Application(), Configuration.Provider {
-    
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
-    
-    override fun getWorkManagerConfiguration() =
-        Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
-}
-```
-
-##### Entry Point (Hilt 가 관리하지 않는 클래스)
-
-```kotlin
-@EntryPoint
-@InstallIn(SingletonComponent::class)
-interface AnalyticsEntryPoint {
-    fun analytics(): Analytics
-}
-
-class CustomContentProvider : ContentProvider() {
-    
-    private val analytics: Analytics by lazy {
-        val appContext = context?.applicationContext ?: throw IllegalStateException()
-        val hiltEntryPoint = EntryPointAccessors.fromApplication(
-            appContext,
-            AnalyticsEntryPoint::class.java
-        )
-        hiltEntryPoint.analytics()
-    }
-    
-    override fun onCreate(): Boolean {
-        analytics.logEvent("ContentProvider_Created")
-        return true
-    }
-}
-```
+### Entry Point (Hilt 가 관리하지 않는 클래스)
+- [03-hilt-권장-10-entry-point-hilt-가-관리하지-않는-클래스](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-%EA%B6%8C%EC%9E%A5/03-hilt-%EA%B6%8C%EC%9E%A5-10-entry-point-hilt-%EA%B0%80-%EA%B4%80%EB%A6%AC%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%ED%81%B4%EB%9E%98%EC%8A%A4.md)

@@ -1,6 +1,6 @@
 # SELinux (Security-Enhanced Linux)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: Mandatory Access Control 보안 메커니즘
 
@@ -34,7 +34,7 @@ adb logcat | grep avc
 # avc: denied { read } for scontext=u:r:untrusted_app:s0 ...
 ```
 
-**관련**: [[selinux]], [[android-security-sandbox]]
+**관련**: [selinux](01_inbox/linux/security/selinux.md), [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
 
 ---
 

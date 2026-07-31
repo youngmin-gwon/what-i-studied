@@ -1,6 +1,6 @@
 # 판단 규칙
 
-상위 노트: [[jetpack-compose-state-management-flutter-comparison]]
+상위 노트: [jetpack-compose-state-management-flutter-comparison](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison.md)
 
 Compose 상태 위치는 다음 순서로 판단하면 됩니다.
 

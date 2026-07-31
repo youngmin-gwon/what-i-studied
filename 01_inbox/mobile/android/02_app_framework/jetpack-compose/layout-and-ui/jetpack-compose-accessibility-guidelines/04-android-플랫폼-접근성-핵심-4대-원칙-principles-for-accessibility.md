@@ -1,6 +1,6 @@
 # Android 플랫폼 접근성 핵심 4대 원칙 (Principles for Accessibility)
 
-상위 노트: [[jetpack-compose-accessibility-guidelines]]
+상위 노트: [jetpack-compose-accessibility-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines.md)
 
 Jetpack Compose API 적용을 넘어, Android OS 레벨에서 일관되게 강조하는 접근성 기획/디자인 핵심 원칙 4가지는 다음과 같습니다.
 

@@ -1,6 +1,6 @@
 # ADB (Android Debug Bridge)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: PC 와 안드로이드 기기를 연결하는 명령줄 도구
 
@@ -24,6 +24,6 @@ adb logcat
 adb shell
 ```
 
-**관련**: [[android-debugging-techniques]]
+**관련**: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
 
 ---

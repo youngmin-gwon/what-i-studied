@@ -1,6 +1,6 @@
 # ANR (Application Not Responding)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 앱이 5 초 이상 응답하지 않을 때 표시되는 경고
 
@@ -29,6 +29,6 @@ lifecycleScope.launch {
 adb pull /data/anr/traces.txt
 ```
 
-**관련**: [[android-debugging-techniques]]
+**관련**: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
 
 ---

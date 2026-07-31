@@ -1,6 +1,6 @@
 # Storage Access Framework
 
-상위 노트: [[android-storage-and-databases]]
+상위 노트: [android-storage-and-databases](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases.md)
 
 Storage Access Framework는 유저가 시스템 파일 picker를 통해 문서나 일반 파일을 직접 고르게 하는 방식입니다.
 

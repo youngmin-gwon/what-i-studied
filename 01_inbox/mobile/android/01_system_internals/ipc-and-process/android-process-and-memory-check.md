@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:00:41 +09:00
 date created: 2026-04-06 17:59:00 +09:00
 ---
 
-## [[android-process-and-memory]] > [[android-process-and-memory-check]]
+## [android-process-and-memory](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory.md) > [android-process-and-memory-check](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory-check.md)
 
 ### Process & Memory Management Self-Diagnosis & Interview Prep
 
@@ -49,6 +49,6 @@ date created: 2026-04-06 17:59:00 +09:00
 
 #### 📚 연관 학습
 
-- [[android-process-and-memory]] - 프로세스 및 메모리 관리 아키텍처
-- [[android-zygote-and-runtime]] - Zygote 와 런타임 심화
-- [[android-performance-and-debug]] - 성능 최적화 및 디버깅 실전
+- [android-process-and-memory](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory.md) - 프로세스 및 메모리 관리 아키텍처
+- [android-zygote-and-runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime.md) - Zygote 와 런타임 심화
+- [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md) - 성능 최적화 및 디버깅 실전

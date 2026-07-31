@@ -1,6 +1,6 @@
 # 실무 아키텍처 예시
 
-상위 노트: [[android-modern-architecture-components]]
+상위 노트: [android-modern-architecture-components](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components.md)
 
 아래는 현대 Android 앱에서 흔히 사용하는 책임 분리 구조입니다.
 

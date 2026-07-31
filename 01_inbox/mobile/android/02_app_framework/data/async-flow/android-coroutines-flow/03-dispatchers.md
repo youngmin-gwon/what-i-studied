@@ -1,6 +1,6 @@
 # Dispatchers
 
-상위 노트: [[android-coroutines-flow]]
+상위 노트: [android-coroutines-flow](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow.md)
 
 ```kotlin
 viewModelScope.launch {

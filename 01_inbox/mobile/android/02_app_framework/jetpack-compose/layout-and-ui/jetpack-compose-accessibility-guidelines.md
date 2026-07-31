@@ -10,11 +10,11 @@
 
 ## 원자 노트
 
-- [[01-접근성을-챙겨야-하는-이유|접근성을 챙겨야 하는 이유]]
-- [[02-접근성-향상을-위한-7대-핵심-실무-가이드|접근성 향상을 위한 7대 핵심 실무 가이드]]
-- [[03-고급-접근성-제어-탐색-순서-및-semantics-재정의|고급 접근성 제어: 탐색 순서 및 Semantics 재정의]]
-- [[04-android-플랫폼-접근성-핵심-4대-원칙-principles-for-accessibility|Android 플랫폼 접근성 핵심 4대 원칙 (Principles for Accessibility)]]
-- [[05-접근성-디버깅-및-테스트-방법-a11y-testing|접근성 디버깅 및 테스트 방법 (a11y Testing)]]
+- [접근성을 챙겨야 하는 이유](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/01-%EC%A0%91%EA%B7%BC%EC%84%B1%EC%9D%84-%EC%B1%99%EA%B2%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0.md)
+- [접근성 향상을 위한 7대 핵심 실무 가이드](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/02-%EC%A0%91%EA%B7%BC%EC%84%B1-%ED%96%A5%EC%83%81%EC%9D%84-%EC%9C%84%ED%95%9C-7%EB%8C%80-%ED%95%B5%EC%8B%AC-%EC%8B%A4%EB%AC%B4-%EA%B0%80%EC%9D%B4%EB%93%9C.md)
+- [고급 접근성 제어: 탐색 순서 및 Semantics 재정의](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/03-%EA%B3%A0%EA%B8%89-%EC%A0%91%EA%B7%BC%EC%84%B1-%EC%A0%9C%EC%96%B4-%ED%83%90%EC%83%89-%EC%88%9C%EC%84%9C-%EB%B0%8F-semantics-%EC%9E%AC%EC%A0%95%EC%9D%98.md)
+- [Android 플랫폼 접근성 핵심 4대 원칙 (Principles for Accessibility)](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/04-android-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EC%A0%91%EA%B7%BC%EC%84%B1-%ED%95%B5%EC%8B%AC-4%EB%8C%80-%EC%9B%90%EC%B9%99-principles-for-accessibility.md)
+- [접근성 디버깅 및 테스트 방법 (a11y Testing)](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines/05-%EC%A0%91%EA%B7%BC%EC%84%B1-%EB%94%94%EB%B2%84%EA%B9%85-%EB%B0%8F-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%B0%A9%EB%B2%95-a11y-testing.md)
 
 ---
 

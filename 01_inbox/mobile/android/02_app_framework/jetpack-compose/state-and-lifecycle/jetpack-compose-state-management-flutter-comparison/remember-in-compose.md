@@ -1,6 +1,6 @@
 # `remember`
 
-상위 노트: [[jetpack-compose-state-management-flutter-comparison]]
+상위 노트: [jetpack-compose-state-management-flutter-comparison](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison.md)
 
 `remember`는 Composable이 recomposition되더라도 값을 유지하게 해줍니다.
 

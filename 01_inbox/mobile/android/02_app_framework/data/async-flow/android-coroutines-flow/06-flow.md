@@ -1,6 +1,6 @@
 # Flow
 
-상위 노트: [[android-coroutines-flow]]
+상위 노트: [android-coroutines-flow](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow.md)
 
 Cold Stream: 수집(collect)할 때만 데이터를 생산한다.
 

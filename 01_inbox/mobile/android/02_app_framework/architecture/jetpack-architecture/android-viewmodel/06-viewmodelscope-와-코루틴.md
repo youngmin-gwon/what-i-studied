@@ -1,6 +1,6 @@
 # ViewModelScope 와 코루틴
 
-상위 노트: [[android-viewmodel]]
+상위 노트: [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md)
 
 `viewModelScope` 는 ViewModel 의 생명주기에 맞춰 자동으로 취소되는 코루틴 스코프다.
 

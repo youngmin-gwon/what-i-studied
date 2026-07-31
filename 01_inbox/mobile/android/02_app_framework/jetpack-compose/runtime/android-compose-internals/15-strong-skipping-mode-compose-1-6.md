@@ -1,6 +1,6 @@
 # Strong Skipping Mode (Compose 1.6+)
 
-상위 노트: [[android-compose-internals]]
+상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
 
 Compose 컴파일러가 더 공격적으로 재구성을 건너뛸 수 있도록 한다. **Kotlin 2.0+ 에서는 기본 활성화.**
 
@@ -28,4 +28,4 @@ fun UserList(users: List<User>) {
 >[!NOTE] **iOS 비교: SwiftUI 의 렌더링 최적화**
 >SwiftUI 는 `@Observable` 매크로(iOS 17+)를 통해 **프로퍼티 수준 추적**을 자동화한다. Compose 의 Strong Skipping Mode 와 유사하게, 실제로 변경된 프로퍼티를 사용하는 뷰만 다시 그린다.
 >차이점: SwiftUI 는 프레임워크가 자동으로 감지하는 반면, Compose 는 `equals()` 기반 비교에 의존한다.
->자세한 내용은 [[apple-observation-framework]] 참고.
+>자세한 내용은 [apple-observation-framework](01_inbox/mobile/apple/01_language_concurrency/apple-observation-framework.md) 참고.

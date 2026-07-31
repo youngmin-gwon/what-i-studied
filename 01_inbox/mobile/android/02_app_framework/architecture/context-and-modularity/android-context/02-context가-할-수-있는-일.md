@@ -1,6 +1,6 @@
 # Context가 할 수 있는 일
 
-상위 노트: [[android-context]]
+상위 노트: [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)
 
 | 역할                 | 대표 API                                                 | 예시                          |
 |:-------------------|:-------------------------------------------------------|:----------------------------|

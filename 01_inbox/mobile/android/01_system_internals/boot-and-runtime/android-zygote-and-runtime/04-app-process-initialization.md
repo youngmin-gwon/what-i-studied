@@ -10,6 +10,6 @@
 
 #### 📚 연결 문서
 
-- [[android-boot-flow]] - Zygote 가 시작되는 시점
-- [[android-binder-and-ipc]] - AMS 가 Zygote 에게 fork 요청을 보내는 통로
-- [[android-process-and-memory]] - 프로세스별 메모리 구조
+- [android-boot-flow](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-flow.md) - Zygote 가 시작되는 시점
+- [android-binder-and-ipc](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md) - AMS 가 Zygote 에게 fork 요청을 보내는 통로
+- [android-process-and-memory](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory.md) - 프로세스별 메모리 구조

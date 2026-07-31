@@ -1,6 +1,6 @@
 # Room Database
 
-상위 노트: [[android-storage-systems]]
+상위 노트: [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md)
 
 SQLite 위의 추상화 레이어.
 

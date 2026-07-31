@@ -1,0 +1,17 @@
+# android system internals 개요
+
+---
+title: android-system-internals
+tags: [android, architecture, internals, moc]
+aliases: [안드로이드 시스템 인터널스]
+date modified: 2026-07-31 15:22:28 +09:00
+date created: 2026-04-07 10:45:00 +09:00
+---
+
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-system-internals](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-system-internals.md)
+
+### Android System Internals: Architecture & Low-Level Mechanisms
+
+안드로이드의 핵심 동작 원리, 프로세스 생명주기, 그리고 시스템 계층 간의 상호작용을 심층적으로 분석하는 지식 지도입니다.
+
+---

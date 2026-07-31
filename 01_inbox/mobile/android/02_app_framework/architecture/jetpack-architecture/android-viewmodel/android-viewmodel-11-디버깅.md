@@ -1,6 +1,6 @@
 # 디버깅
 
-상위 노트: [[android-viewmodel]]
+상위 노트: [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md)
 
 ```kotlin
 class DebugViewModel : ViewModel() {

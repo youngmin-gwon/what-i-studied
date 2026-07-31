@@ -1,6 +1,6 @@
 # ViewModel 안의 `copy()`가 많아질 때
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 작은 화면은 ViewModel 안에서 직접 상태를 갱신하는 것이 가장 단순합니다.
 

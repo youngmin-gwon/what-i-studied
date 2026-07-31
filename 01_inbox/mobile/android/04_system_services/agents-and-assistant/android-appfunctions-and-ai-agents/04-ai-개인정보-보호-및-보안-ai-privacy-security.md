@@ -15,10 +15,10 @@
 구글의 온디바이스 중심 보안과 애플의 클라우드 기반 보안(PCC)에 대한 상세 비교는 아래 문서를 참고하세요.
 
 >[!TIP] **상세 비교 문서**
-> - [[cross-platform-ai-privacy-comparison]] - Gemini vs Apple PCC 심층 분석
+> - [cross-platform-ai-privacy-comparison](01_inbox/mobile/cross-platform/cross-platform-ai-privacy-comparison.md) - Gemini vs Apple PCC 심층 분석
 
 ##### 3) 에이전틱 보안 (Agentic Security) 실무
 - **도구 호출 권한 위임**: 에이전트는 사용자가 명시적으로 허용한 범위 내에서만 도구에 접근할 수 있습니다.
-- **심화 보안 팁**: [[mobile-advanced-security-tips]] - 전문가용 RASP 및 API 보안 가이드
+- **심화 보안 팁**: [mobile-advanced-security-tips](01_inbox/mobile/cross-platform/mobile-advanced-security-tips.md) - 전문가용 RASP 및 API 보안 가이드
 
 ---

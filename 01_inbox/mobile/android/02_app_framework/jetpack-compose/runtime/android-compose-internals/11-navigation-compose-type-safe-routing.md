@@ -1,6 +1,6 @@
 # Navigation Compose (Type-Safe Routing)
 
-상위 노트: [[android-compose-internals]]
+상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
 
 >[!WARNING] **Devil's Advocate : String Route 는 이제 그만**
 >과거 Compose Navigation 은 `"detail/{id}"` 와 같은 String URL 기반 라우팅을 사용하여 오타에 취약하고 인수 전달이 불편했습니다.

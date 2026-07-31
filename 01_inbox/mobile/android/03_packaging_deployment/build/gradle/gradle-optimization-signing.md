@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:25 +09:00
 date created: 2026-04-05 16:30:06 +09:00
 ---
 
-## [[mobile-security]] > [[gradle-optimization-signing]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [gradle-optimization-signing](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-optimization-signing.md)
 
 ### Optimization & Signing
 
@@ -49,5 +49,5 @@ android {
 
 #### 연관 문서
 
-- [[gradle-variants-flavors]] - 빌드 타입 기반 설정
-- [[mobile-android-foundation-security]] - 서비스 관점 보안
+- [gradle-variants-flavors](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-variants-flavors.md) - 빌드 타입 기반 설정
+- [mobile-android-foundation-security](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/mobile-android-foundation-security.md) - 서비스 관점 보안

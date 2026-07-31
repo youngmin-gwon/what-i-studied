@@ -1,6 +1,6 @@
 # UID (User ID)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 앱마다 부여되는 고유 번호
 
@@ -34,7 +34,7 @@ adb shell ls -la /data/data/com.example
 #             (UID만 접근 가능)
 ```
 
-**관련**: [[android-security-sandbox]]
+**관련**: [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
 
 ---
 

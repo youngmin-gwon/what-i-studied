@@ -1,6 +1,6 @@
 # Sizing Strategy
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 ### 3.1 Window Size Classes
 

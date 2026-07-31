@@ -1,6 +1,6 @@
 # 실무 운영 및 CI/CD 관리 가이드
 
-상위 노트: [[baseline-profile-and-macrobenchmark]]
+상위 노트: [baseline-profile-and-macrobenchmark](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark.md)
 
 ### 5-1. 로컬 기반의 최적화 생성 및 관리 프로세스 (반자동 방식)
 수동 기기 설정이나 CI 가상 리소스 제한으로 인해 수동 방식을 많이 활용합니다.

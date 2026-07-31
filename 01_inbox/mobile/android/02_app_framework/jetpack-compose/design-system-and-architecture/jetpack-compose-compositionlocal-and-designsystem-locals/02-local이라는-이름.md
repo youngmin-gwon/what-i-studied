@@ -1,6 +1,6 @@
 # Local이라는 이름
 
-상위 노트: [[jetpack-compose-compositionlocal-and-designsystem-locals]]
+상위 노트: [jetpack-compose-compositionlocal-and-designsystem-locals](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals.md)
 
 공식 문서에서도 `CompositionLocal` 값은 보통 `Local` prefix를 붙입니다.
 

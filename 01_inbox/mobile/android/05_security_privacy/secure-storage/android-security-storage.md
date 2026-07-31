@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:39 +09:00
 date created: 2026-04-05 16:29:33 +09:00
 ---
 
-## [[mobile-security]] > [[android-security-storage]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-security-storage](01_inbox/mobile/android/05_security_privacy/secure-storage/android-security-storage.md)
 
 ### Android Storage Security
 
@@ -44,5 +44,5 @@ val deFile = File(deContext.filesDir, "alarm_config.xml")
 
 #### 연관 문서
 
-- [[mobile-android-secure-storage]] - Keystore 실무 구현 가이드
-- [[android-security-sandbox]] - 파일 시스템 격리의 기초
+- [mobile-android-secure-storage](01_inbox/mobile/android/05_security_privacy/secure-storage/mobile-android-secure-storage.md) - Keystore 실무 구현 가이드
+- [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md) - 파일 시스템 격리의 기초

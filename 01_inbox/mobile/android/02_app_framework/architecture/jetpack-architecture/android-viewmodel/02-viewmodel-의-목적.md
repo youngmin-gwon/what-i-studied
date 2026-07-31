@@ -1,6 +1,6 @@
 # ViewModel 의 목적
 
-상위 노트: [[android-viewmodel]]
+상위 노트: [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md)
 
 ##### 1. 설정 변경에서 데이터 유지
 

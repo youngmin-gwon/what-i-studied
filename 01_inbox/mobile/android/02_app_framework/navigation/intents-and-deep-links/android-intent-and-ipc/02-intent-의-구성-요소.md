@@ -1,6 +1,6 @@
 # Intent 의 구성 요소
 
-상위 노트: [[android-intent-and-ipc]]
+상위 노트: [android-intent-and-ipc](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/android-intent-and-ipc.md)
 
 ```kotlin
 val intent = Intent().apply {

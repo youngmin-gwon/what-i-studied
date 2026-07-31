@@ -25,23 +25,23 @@ ViewModel은 화면 단위 상태를 만들고 외부 작업을 조율한다.
 
 ## 원자 노트
 
-- [[viewmodel-as-screen-state-holder|ViewModel은 화면 단위 State Holder다]]
-- [[why-viewmodel-name-is-confusing|ViewModel이라는 이름이 헷갈리는 이유]]
-- [[is-flutter-bloc-a-viewmodel|Flutter Bloc은 ViewModel인가]]
-- [[mvc-mvp-mvvm-mvi-real-differences|MVC, MVP, MVVM, MVI에서 진짜 달라진 것]]
-- [[state-down-action-up|기본 구조: State Down, Action Up]]
-- [[uistate-user-action-event-naming|UiState, User Action, Event 이름 구분]]
-- [[separating-fetch-state-and-interaction-state|Fetch 상태와 Interaction 상태를 꼭 합쳐야 하나]]
-- [[compose-state-holder-in-viewmodel|Compose State Holder를 ViewModel에 둬도 되는가]]
-- [[state-vs-one-off-event|상태와 일회성 이벤트를 구분한다]]
-- [[too-many-copy-calls-in-viewmodel|ViewModel 안의 `copy()`가 많아질 때]]
-- [[what-is-a-reducer|Reducer란 무엇인가]]
-- [[what-reducer-should-not-do|Reducer가 하지 말아야 할 일]]
-- [[when-to-introduce-reducer|Reducer 도입 기준]]
-- [[flutter-bloc-as-reducer|Flutter Bloc을 Reducer 관점에서 다시 보면]]
-- [[viewmodel-reducer-testing-strategy|테스트 전략]]
-- [[viewmodel-reducer-project-guidelines|현재 프로젝트 기준]]
-- [[viewmodel-reducer-checklist|체크리스트]]
+- [ViewModel은 화면 단위 State Holder다](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/viewmodel-as-screen-state-holder.md)
+- [ViewModel이라는 이름이 헷갈리는 이유](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/why-viewmodel-name-is-confusing.md)
+- [Flutter Bloc은 ViewModel인가](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/is-flutter-bloc-a-viewmodel.md)
+- [MVC, MVP, MVVM, MVI에서 진짜 달라진 것](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/mvc-mvp-mvvm-mvi-real-differences.md)
+- [기본 구조: State Down, Action Up](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/state-down-action-up.md)
+- [UiState, User Action, Event 이름 구분](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/uistate-user-action-event-naming.md)
+- [Fetch 상태와 Interaction 상태를 꼭 합쳐야 하나](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/separating-fetch-state-and-interaction-state.md)
+- [Compose State Holder를 ViewModel에 둬도 되는가](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/compose-state-holder-in-viewmodel.md)
+- [상태와 일회성 이벤트를 구분한다](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/state-vs-one-off-event.md)
+- [ViewModel 안의 `copy()`가 많아질 때](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/too-many-copy-calls-in-viewmodel.md)
+- [Reducer란 무엇인가](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/what-is-a-reducer.md)
+- [Reducer가 하지 말아야 할 일](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/what-reducer-should-not-do.md)
+- [Reducer 도입 기준](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/when-to-introduce-reducer.md)
+- [Flutter Bloc을 Reducer 관점에서 다시 보면](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/flutter-bloc-as-reducer.md)
+- [테스트 전략](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/viewmodel-reducer-testing-strategy.md)
+- [현재 프로젝트 기준](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/viewmodel-reducer-project-guidelines.md)
+- [체크리스트](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/viewmodel-reducer-checklist.md)
 
 ---
 

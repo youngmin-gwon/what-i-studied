@@ -1,6 +1,6 @@
 # Vsync / Choreographer
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 화면 주사율 (60Hz, 120Hz) 에 맞춰 프레임 그리기 타이밍을 맞추는 신호
 
@@ -16,6 +16,6 @@
 Vsync 발생 -> Choreographer.onVsync() -> App.doFrame() -> Measure/Layout/Draw -> SurfaceFlinger
 ```
 
-**관련**: [[android-performance-and-debug]], [[android-graphics-and-media]]
+**관련**: [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md), [android-graphics-and-media](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-and-media.md)
 
 ---

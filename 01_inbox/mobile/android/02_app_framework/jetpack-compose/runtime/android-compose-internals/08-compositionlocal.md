@@ -1,6 +1,6 @@
 # CompositionLocal
 
-상위 노트: [[android-compose-internals]]
+상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
 
 트리 전체에 값을 전파.
 

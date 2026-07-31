@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:38 +09:00
 date created: 2026-04-05 16:29:29 +09:00
 ---
 
-## [[mobile-security]] > [[android-security-selinux]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-security-selinux](01_inbox/mobile/android/05_security_privacy/platform-hardening/android-security-selinux.md)
 
 ### SEAndroid (Security Enhancements for Android)
 
@@ -41,5 +41,5 @@ u:object_r:app_data_file:s0    # type: app_data_file
 
 #### 연관 문서
 
-- [[android-security-sandbox]] - 기본 격리 계층
-- [[android-kernel]] - SELinux 를 구동하는 커널 기초
+- [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md) - 기본 격리 계층
+- [android-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel.md) - SELinux 를 구동하는 커널 기초

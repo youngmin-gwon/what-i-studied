@@ -1,6 +1,6 @@
 # Baseline Profile
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 앱에서 자주 사용되는 코드 경로를 기록한 파일
 
@@ -20,6 +20,6 @@ dependencies {
 ./gradlew :app:generateBaselineProfile
 ```
 
-**관련**: [[android-zygote-and-runtime]]
+**관련**: [android-zygote-and-runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime.md)
 
 ---

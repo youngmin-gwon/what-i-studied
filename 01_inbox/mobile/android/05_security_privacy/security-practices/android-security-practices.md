@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:37 +09:00
 date created: 2026-04-05 16:29:38 +09:00
 ---
 
-## [[mobile-security]] > [[android-security-practices]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-security-practices](01_inbox/mobile/android/05_security_privacy/security-practices/android-security-practices.md)
 
 ### Android Security Engineering & Compliance
 
@@ -30,9 +30,9 @@ date created: 2026-04-05 16:29:38 +09:00
 **대한민국 개인정보 보호법** 및 **정통망법** 준수 사항:
 
 - **접근권한 고지**: 필수적 접근권한(앱 실행 필수)과 선택적 접근권한(거부 가능)을 명확히 구분하여 사용자에게 동의를 받아야 한다.
-- **민감정보 보호**: 주민번호, 계좌번호 등은 단말기에 평문으로 저장할 수 없으며, 반드시 [[android-security-storage]] 의 Keystore 암호화가 적용되어야 한다.
+- **민감정보 보호**: 주민번호, 계좌번호 등은 단말기에 평문으로 저장할 수 없으며, 반드시 [android-security-storage](01_inbox/mobile/android/05_security_privacy/secure-storage/android-security-storage.md) 의 Keystore 암호화가 적용되어야 한다.
 
 #### 연관 문서
 
-- [[mobile-vulnerability-check]] - 상세 체크리스트
-- [[android-security-play-integrity]] - 무결성 검증의 실무 적용
+- [mobile-vulnerability-check](01_inbox/mobile/cross-platform/mobile-vulnerability-check.md) - 상세 체크리스트
+- [android-security-play-integrity](01_inbox/mobile/android/05_security_privacy/integrity-and-attestation/android-security-play-integrity.md) - 무결성 검증의 실무 적용

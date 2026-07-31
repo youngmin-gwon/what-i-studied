@@ -1,6 +1,6 @@
 # Perfetto
 
-상위 노트: [[android-profiling-tools]]
+상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
 
 시스템 전체 성능 추적.
 

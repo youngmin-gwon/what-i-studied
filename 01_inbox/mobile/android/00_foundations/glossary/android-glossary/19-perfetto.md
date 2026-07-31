@@ -1,6 +1,6 @@
 # Perfetto
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 시스템 전체 성능을 추적하는 도구
 
@@ -32,7 +32,7 @@ adb pull /data/local/tmp/trace trace.perfetto-trace
 # 분석: https://ui.perfetto.dev/
 ```
 
-**관련**: [[android-profiling-tools]], [[android-performance-and-debug]]
+**관련**: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md), [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md)
 
 ---
 

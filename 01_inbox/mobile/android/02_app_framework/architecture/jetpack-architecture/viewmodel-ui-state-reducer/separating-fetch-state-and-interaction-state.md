@@ -1,11 +1,11 @@
 # Fetch 상태와 Interaction 상태를 꼭 합쳐야 하나
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 같은 화면에 보인다고 해서 모든 상태를 반드시 하나의 ViewModel에 합칠 필요는 없습니다. 기준은 "같은 화면인가"보다 **상태의 수명, 소유자, 변경 주기,
 재사용 범위가 같은가**입니다.
 
-수명별 API 선택을 더 넓게 보려면 [[jetpack-compose-state-lifetime-api-selection]]를 함께 봅니다.
+수명별 API 선택을 더 넓게 보려면 [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)를 함께 봅니다.
 
 ```text
 같은 화면의 최종 UI 상태를 함께 결정한다

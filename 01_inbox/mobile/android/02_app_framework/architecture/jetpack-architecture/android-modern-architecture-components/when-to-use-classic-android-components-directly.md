@@ -1,6 +1,6 @@
 # 언제 전통 컴포넌트를 직접 써야 하나?
 
-상위 노트: [[android-modern-architecture-components]]
+상위 노트: [android-modern-architecture-components](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components.md)
 
 전통 컴포넌트는 구식이라서 버리는 것이 아닙니다. **OS와 직접 계약해야 하는 경계**에서는 여전히 필요합니다.
 

@@ -1,6 +1,6 @@
 # Flutter와 Compose의 큰 차이
 
-상위 노트: [[jetpack-compose-state-management-flutter-comparison]]
+상위 노트: [jetpack-compose-state-management-flutter-comparison](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison.md)
 
 | 관점           | Flutter                                  | Jetpack Compose                             |
 |:-------------|:-----------------------------------------|:--------------------------------------------|

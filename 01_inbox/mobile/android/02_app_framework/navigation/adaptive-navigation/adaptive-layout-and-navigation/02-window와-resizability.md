@@ -1,6 +1,6 @@
 # Window와 Resizability
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 Adaptive layout의 기본 전제는 앱이 여러 window 크기에서 정상적으로 동작해야 한다는 것입니다.
 

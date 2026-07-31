@@ -1,6 +1,6 @@
 # APEX (Android Pony EXpress)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 모듈식 시스템 컴포넌트 업데이트 형식
 
@@ -29,6 +29,6 @@ adb shell pm list packages -apex
 └─ apex_manifest.json
 ```
 
-**관련**: [[android-customization-and-oem]]
+**관련**: [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
 
 ---

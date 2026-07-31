@@ -1,6 +1,6 @@
 # `reportFullyDrawn` API를 이용한 시작 성능 최적화
 
-상위 노트: [[jetpack-compose-performance-guidelines]]
+상위 노트: [jetpack-compose-performance-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines.md)
 
 수동 벤치마크나 Google Play Android Vitals 분석 시, 단순히 화면의 첫 번째 프레임이 렌더링된 속도(TTID, Time to Initial Display)보다 **실제 유저가 데이터를 로딩받아 인터랙션이 가능해진 시점(TTFD, Time to Fully Drawn)**이 더 중요합니다.
 

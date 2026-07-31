@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:38 +09:00
 date created: 2026-04-05 16:29:19 +09:00
 ---
 
-## [[mobile-security]] > [[android-security-sandbox]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
 
 ### Android Sandbox and UID Isolation
 
@@ -53,7 +53,7 @@ $ cat /data/data/com.example.app1/databases/data.db
 
 #### 프로세스 간 격리 (IPC)
 
-앱은 자신의 프로세스 공간 밖으로 직접 접근할 수 없으며, 반드시 [[android-binder-and-ipc]] 를 통해 시스템 서비스를 거쳐야 한다.
+앱은 자신의 프로세스 공간 밖으로 직접 접근할 수 없으며, 반드시 [android-binder-and-ipc](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md) 를 통해 시스템 서비스를 거쳐야 한다.
 
 ```mermaid
 graph TB
@@ -70,6 +70,6 @@ graph TB
 
 #### 연관 문서
 
-- [[android-security-permissions]] - 권한을 통한 샌드박스 확장
-- [[android-security-selinux]] - MAC 을 통한 강제적 격리
-- [[android-binder-and-ipc]] - 안전한 프로세스 간 통신
+- [android-security-permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md) - 권한을 통한 샌드박스 확장
+- [android-security-selinux](01_inbox/mobile/android/05_security_privacy/platform-hardening/android-security-selinux.md) - MAC 을 통한 강제적 격리
+- [android-binder-and-ipc](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md) - 안전한 프로세스 간 통신

@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:01 +09:00
 date created: 2026-04-04 00:13:51 +09:00
 ---
 
-## [[mobile-security]] > [[android-coroutines-flow]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-coroutines-flow](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow.md)
 
 ### Coroutines & Flow: Asynchronous Mastery
 
@@ -20,18 +20,18 @@ Kotlin **Coroutines**와 **Flow**를 활용한 안드로이드의 비동기 프�
 
 ## 원자 노트
 
-- [[01-context-kotlin-coroutines-vs-swift-concurrency|💡 Context: Kotlin Coroutines vs Swift Concurrency]]
-- [[02-구조적-동시성-structured-concurrency|구조적 동시성 (Structured Concurrency)]]
-- [[03-dispatchers|Dispatchers]]
-- [[04-예외-처리|예외 처리]]
-- [[05-병렬-실행|병렬 실행]]
-- [[06-flow|Flow]]
-- [[07-stateflow-vs-sharedflow|StateFlow vs SharedFlow]]
-- [[08-statein-sharein|stateIn / shareIn]]
-- [[09-ui-에서-flow-수집|UI 에서 Flow 수집]]
-- [[10-callbackflow|callbackFlow]]
-- [[11-테스팅|테스팅]]
-- [[12-연관-문서-및-심화-학습|🔗 연관 문서 및 심화 학습]]
+- [💡 Context: Kotlin Coroutines vs Swift Concurrency](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/01-context-kotlin-coroutines-vs-swift-concurrency.md)
+- [구조적 동시성 (Structured Concurrency)](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/02-%EA%B5%AC%EC%A1%B0%EC%A0%81-%EB%8F%99%EC%8B%9C%EC%84%B1-structured-concurrency.md)
+- [Dispatchers](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/03-dispatchers.md)
+- [예외 처리](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/04-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC.md)
+- [병렬 실행](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/05-%EB%B3%91%EB%A0%AC-%EC%8B%A4%ED%96%89.md)
+- [Flow](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/06-flow.md)
+- [StateFlow vs SharedFlow](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/07-stateflow-vs-sharedflow.md)
+- [stateIn / shareIn](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/08-statein-sharein.md)
+- [UI 에서 Flow 수집](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/09-ui-%EC%97%90%EC%84%9C-flow-%EC%88%98%EC%A7%91.md)
+- [callbackFlow](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/10-callbackflow.md)
+- [테스팅](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/11-%ED%85%8C%EC%8A%A4%ED%8C%85.md)
+- [🔗 연관 문서 및 심화 학습](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/12-%EC%97%B0%EA%B4%80-%EB%AC%B8%EC%84%9C-%EB%B0%8F-%EC%8B%AC%ED%99%94-%ED%95%99%EC%8A%B5.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # 부팅 과정과 Init
 
-상위 노트: [[android-init-and-services]]
+상위 노트: [android-init-and-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-init-and-services.md)
 
 ### 전체 부팅 흐름
 

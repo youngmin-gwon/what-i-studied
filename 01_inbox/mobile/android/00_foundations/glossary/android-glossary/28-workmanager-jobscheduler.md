@@ -1,6 +1,6 @@
 # WorkManager / JobScheduler
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 백그라운드 작업을 예약하는 API
 
@@ -35,7 +35,7 @@ val job = JobInfo.Builder(JOB_ID, componentName)
 jobScheduler.schedule(job)
 ```
 
-**관련**: [[android-activity-manager-and-system-services]]
+**관련**: [android-activity-manager-and-system-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-activity-manager-and-system-services.md)
 
 ---
 

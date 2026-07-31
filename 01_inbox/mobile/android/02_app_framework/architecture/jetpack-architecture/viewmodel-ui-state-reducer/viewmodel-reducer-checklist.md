@@ -1,6 +1,6 @@
 # 체크리스트
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 - UI가 `StateFlow<UiState>`를 읽고 있는가?
 - mutable state holder는 ViewModel 내부에 숨겼는가?

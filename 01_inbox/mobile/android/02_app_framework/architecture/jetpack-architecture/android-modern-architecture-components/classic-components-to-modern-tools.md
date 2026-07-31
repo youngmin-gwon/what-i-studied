@@ -1,6 +1,6 @@
 # 전통 컴포넌트와 현대 도구 매핑
 
-상위 노트: [[android-modern-architecture-components]]
+상위 노트: [android-modern-architecture-components](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components.md)
 
 | 예전 접근                       | 현대 접근                                | 핵심 변화                        |
 |:----------------------------|:-------------------------------------|:-----------------------------|

@@ -1,6 +1,6 @@
 # CompositionLocalProvider 및 유사한 스코프 제공 Composable 패턴
 
-상위 노트: [[jetpack-compose-compositionlocal-and-designsystem-locals]]
+상위 노트: [jetpack-compose-compositionlocal-and-designsystem-locals](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/jetpack-compose-compositionlocal-and-designsystem-locals.md)
 
 `CompositionLocalProvider`는 선언형 UI 트리 구조에서 매우 유용한 도구이지만, 그 특성과 유사한 Composable 제공 패턴들을 제대로 이해해야 의도치 않은 버그와 렌더링 누락을 피할 수 있습니다.
 

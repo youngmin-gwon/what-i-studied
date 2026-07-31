@@ -1,10 +1,18 @@
-# BroadcastReceiver 상세
+---
+title: 04-broadcastreceiver-상세
+tags: []
+aliases: []
+date modified: 2026-07-31 16:29:44 +09:00
+date created: 2026-07-31 15:29:55 +09:00
+---
 
-상위 노트: [[android-app-components-deep-dive]]
+## BroadcastReceiver 상세
+
+상위 노트: [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md)
 
 시스템이나 앱이 보내는 방송을 받는다.
 
-##### 등록 방식
+### 등록 방식
 
 **Manifest 등록** (정적):
 
@@ -44,11 +52,11 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-##### 제약사항
+### 제약사항
 
 - Android 8.0+ 에서 암시적 브로드캐스트 수신이 크게 제한됨
-- `onReceive()` 는 10 초 안에 완료해야 함 ([[android-glossary#anr|ANR]] 방지)
-- 긴 작업은 [[android-glossary#workmanager|WorkManager]] 나 `goAsync()` 사용
+- `onReceive()` 는 10 초 안에 완료해야 함 ([ANR](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md#anr) 방지)
+- 긴 작업은 [WorkManager](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md#workmanager) 나 `goAsync()` 사용
 
 ```kotlin
 class MyReceiver : BroadcastReceiver() {

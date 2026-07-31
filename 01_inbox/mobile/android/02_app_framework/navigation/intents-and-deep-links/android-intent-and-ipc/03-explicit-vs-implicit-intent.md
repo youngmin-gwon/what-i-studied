@@ -1,6 +1,6 @@
 # Explicit vs Implicit Intent
 
-상위 노트: [[android-intent-and-ipc]]
+상위 노트: [android-intent-and-ipc](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/android-intent-and-ipc.md)
 
 ##### Explicit Intent (명시적)
 
@@ -21,7 +21,7 @@ Intent(this, DownloadService::class.java).also { intent ->
 
 >[!CAUTION] **Devil's Advocate : Single-Activity 시대에서의 Explicit Intent**
 >현대 앱에서 Activity 간 `startActivity(intent)` 호출은 **거의 사라졌다**. 화면 전환은 `Navigation Compose` (또는 Navigation Component)로 처리하며, Explicit Intent 는 **외부 앱 실행**(카메라, 설정 등)이나 **Service 시작** 용도로만 남아있다.
->[[android-deep-links]] 에서 Navigation 기반 딥링크 처리를 참고하라.
+>[android-deep-links](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/android-deep-links.md) 에서 Navigation 기반 딥링크 처리를 참고하라.
 
 ##### Implicit Intent (암시적)
 

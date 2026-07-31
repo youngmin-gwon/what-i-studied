@@ -1,6 +1,6 @@
 # NavDisplay 기본형
 
-상위 노트: [[jetpack-navigation-3-guide]]
+상위 노트: [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)
 
 앱에서 가장 흔한 `NavDisplay` 구성은 back stack, back 처리, entry decorators, entry provider를 함께 선언하는 형태입니다.
 

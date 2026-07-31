@@ -1,6 +1,6 @@
 # LMKD (Low Memory Killer Daemon)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 메모리 부족 시 프로세스를 종료하는 데몬
 
@@ -28,7 +28,7 @@ adb shell cat /proc/$(pidof com.example)/oom_score_adj
 adb logcat | grep lmkd
 ```
 
-**관련**: [[android-kernel]], [[android-activity-manager-and-system-services]]
+**관련**: [android-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel.md), [android-activity-manager-and-system-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-activity-manager-and-system-services.md)
 
 ---
 

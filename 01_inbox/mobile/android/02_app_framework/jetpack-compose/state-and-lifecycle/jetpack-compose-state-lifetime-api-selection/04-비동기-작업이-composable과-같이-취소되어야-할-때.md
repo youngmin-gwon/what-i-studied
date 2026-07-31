@@ -1,6 +1,6 @@
 # 비동기 작업이 Composable과 같이 취소되어야 할 때
 
-상위 노트: [[jetpack-compose-state-lifetime-api-selection]]
+상위 노트: [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)
 
 composition 진입 시 시작하고, key가 바뀌거나 composable이 사라지면 취소되어야 하는 coroutine은 `LaunchedEffect`를 씁니다.
 

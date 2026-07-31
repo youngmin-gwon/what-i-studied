@@ -1,6 +1,6 @@
 # Baseline Profile
 
-상위 노트: [[android-profiling-tools]]
+상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
 
 자주 사용되는 코드를 미리 컴파일.
 

@@ -1,6 +1,6 @@
 # Foldables
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 Foldable 대응은 단순히 큰 화면 대응이 아니라 posture와 hinge/fold feature를 고려하는 것입니다.
 

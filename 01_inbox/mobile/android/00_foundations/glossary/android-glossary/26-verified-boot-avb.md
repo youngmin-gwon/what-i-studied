@@ -1,6 +1,6 @@
 # Verified Boot (AVB)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 부팅 이미지의 무결성을 검증하는 메커니즘
 
@@ -35,7 +35,7 @@ adb shell getprop ro.boot.verifiedbootstate
 # green / yellow / orange / red
 ```
 
-**관련**: [[android-security-sandbox]], [[android-boot-flow]]
+**관련**: [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md), [android-boot-flow](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-flow.md)
 
 ---
 

@@ -1,0 +1,17 @@
+# android architecture stack 개요
+
+---
+title: android-architecture-stack
+tags: [android, architecture, binder, hal, internals, kernel]
+aliases: [Android Stack, 안드로이드 아키텍처]
+date modified: 2026-04-07 18:45:55 +09:00
+date created: 2025-12-16 15:22:42 +09:00
+---
+
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-architecture-stack](01_inbox/mobile/android/00_foundations/overview/android-architecture-stack.md)
+
+### Android Architecture: Layers & Internals
+
+"안드로이드는 리눅스다." 이 말은 반은 맞고 반은 틀립니다. 안드로이드는 리눅스 커널을 사용하지만, **Standard Linux 배포판 (Ubuntu, Fedora) 과는 완전히 다른 철학**으로 설계되었습니다.
+
+---

@@ -1,6 +1,6 @@
 # Scope: singleton과 factory 감각
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 `get_it`에서 자주 쓰는 두 가지가 있습니다.
 

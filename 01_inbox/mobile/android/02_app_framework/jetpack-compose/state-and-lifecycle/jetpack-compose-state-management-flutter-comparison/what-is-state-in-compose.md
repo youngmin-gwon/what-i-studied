@@ -1,6 +1,6 @@
 # Compose에서 상태란 무엇인가?
 
-상위 노트: [[jetpack-compose-state-management-flutter-comparison]]
+상위 노트: [jetpack-compose-state-management-flutter-comparison](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison.md)
 
 Compose에서 상태는 시간이 지나며 바뀔 수 있고, UI 결과에 영향을 주는 값입니다.
 

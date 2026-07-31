@@ -1,6 +1,6 @@
 # Gradle 설정
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 공식 문서 기준으로 Metro는 Gradle plugin을 적용하는 방식이 기본입니다.
 

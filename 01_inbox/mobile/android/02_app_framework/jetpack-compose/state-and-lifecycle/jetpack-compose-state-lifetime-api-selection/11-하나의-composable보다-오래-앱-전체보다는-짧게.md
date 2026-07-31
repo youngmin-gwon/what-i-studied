@@ -1,6 +1,6 @@
 # 하나의 Composable보다 오래, 앱 전체보다는 짧게
 
-상위 노트: [[jetpack-compose-state-lifetime-api-selection]]
+상위 노트: [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)
 
 상태가 child composable보다 오래 살아야 하면 더 높은 owner로 올립니다.
 

@@ -1,6 +1,6 @@
 # Adaptive Navigation
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 Adaptive navigation은 window size와 posture에 따라 navigation UI를 바꾸는 것입니다.
 

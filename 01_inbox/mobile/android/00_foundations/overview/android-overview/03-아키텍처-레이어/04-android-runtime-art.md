@@ -15,6 +15,6 @@
 - Garbage Collection
 - Profile-Guided Optimization
 
-**상세**: [[android-zygote-and-runtime]]
+**상세**: [android-zygote-and-runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-zygote-and-runtime.md)
 
 ---

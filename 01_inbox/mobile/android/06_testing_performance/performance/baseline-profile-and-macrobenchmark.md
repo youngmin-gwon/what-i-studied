@@ -10,12 +10,12 @@
 
 ## 원자 노트
 
-- [[01-성능-최적화-동작-원리-baseline-profile-macrobenchmark-cloud-profile|성능 최적화 동작 원리 (Baseline Profile, Macrobenchmark & Cloud Profile)]]
-- [[02-version-catalog-libs-versions-toml-설정|Version Catalog (`libs.versions.toml`) 설정]]
-- [[03-모듈별-빌드-파일-build-gradle-kts-설정|모듈별 빌드 파일 (`build.gradle.kts`) 설정]]
-- [[04-최적화-및-벤치마크-코드-구현|최적화 및 벤치마크 코드 구현]]
-- [[05-실무-운영-및-ci-cd-관리-가이드|실무 운영 및 CI/CD 관리 가이드]]
-- [[06-구글-권장-성능-모니터링-및-추가-최적화-도구-google-i-o-요약|구글 권장 성능 모니터링 및 추가 최적화 도구 (Google I/O 요약)]]
+- [성능 최적화 동작 원리 (Baseline Profile, Macrobenchmark & Cloud Profile)](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark/01-%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94-%EB%8F%99%EC%9E%91-%EC%9B%90%EB%A6%AC-baseline-profile-macrobenchmark-cloud-profile.md)
+- [Version Catalog (`libs.versions.toml`) 설정](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark/02-version-catalog-libs-versions-toml-%EC%84%A4%EC%A0%95.md)
+- [모듈별 빌드 파일 (`build.gradle.kts`) 설정](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark/03-%EB%AA%A8%EB%93%88%EB%B3%84-%EB%B9%8C%EB%93%9C-%ED%8C%8C%EC%9D%BC-build-gradle-kts-%EC%84%A4%EC%A0%95.md)
+- [최적화 및 벤치마크 코드 구현](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark/04-%EC%B5%9C%EC%A0%81%ED%99%94-%EB%B0%8F-%EB%B2%A4%EC%B9%98%EB%A7%88%ED%81%AC-%EC%BD%94%EB%93%9C-%EA%B5%AC%ED%98%84.md)
+- [실무 운영 및 CI/CD 관리 가이드](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark/05-%EC%8B%A4%EB%AC%B4-%EC%9A%B4%EC%98%81-%EB%B0%8F-ci-cd-%EA%B4%80%EB%A6%AC-%EA%B0%80%EC%9D%B4%EB%93%9C.md)
+- [구글 권장 성능 모니터링 및 추가 최적화 도구 (Google I/O 요약)](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark/06-%EA%B5%AC%EA%B8%80-%EA%B6%8C%EC%9E%A5-%EC%84%B1%EB%8A%A5-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EB%B0%8F-%EC%B6%94%EA%B0%80-%EC%B5%9C%EC%A0%81%ED%99%94-%EB%8F%84%EA%B5%AC-google-i-o-%EC%9A%94%EC%95%BD.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # Room
 
-상위 노트: [[android-storage-and-databases]]
+상위 노트: [android-storage-and-databases](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases.md)
 
 Room은 SQLite 위에 있는 Jetpack persistence library입니다.
 

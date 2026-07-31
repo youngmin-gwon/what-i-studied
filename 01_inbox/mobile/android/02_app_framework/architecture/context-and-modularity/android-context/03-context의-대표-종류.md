@@ -1,6 +1,6 @@
 # Context의 대표 종류
 
-상위 노트: [[android-context]]
+상위 노트: [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)
 
 `Context`라고 다 같은 Context가 아닙니다. 수명과 역할이 다릅니다.
 

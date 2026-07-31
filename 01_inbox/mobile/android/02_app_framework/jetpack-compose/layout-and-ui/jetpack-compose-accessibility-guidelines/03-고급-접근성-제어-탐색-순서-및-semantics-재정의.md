@@ -1,6 +1,6 @@
 # 고급 접근성 제어: 탐색 순서 및 Semantics 재정의
 
-상위 노트: [[jetpack-compose-accessibility-guidelines]]
+상위 노트: [jetpack-compose-accessibility-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/jetpack-compose-accessibility-guidelines.md)
 
 ### 3-1. 탐색 순서 제어 (Traversal Order: isTraversalGroup, traversalIndex)
 * **원칙**: TalkBack과 같은 스크린 리더는 화면에 표시되는 요소를 기본적으로 위에서 아래로, 왼쪽에서 오른쪽으로 읽습니다. 하지만 논리적으로 하나의 덩어리로 묶여서 읽혀야 하거나, 시각적 레이아웃 배치가 독특할 경우 읽는 순서가 꼬일 수 있습니다.

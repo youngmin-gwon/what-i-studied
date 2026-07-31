@@ -1,6 +1,6 @@
 # Binder
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 안드로이드의 프로세스 간 통신 (IPC) 메커니즘
 
@@ -27,6 +27,6 @@ adb shell service list
 adb shell dumpsys activity services
 ```
 
-**관련**: [[android-binder-and-ipc]]
+**관련**: [android-binder-and-ipc](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md)
 
 ---

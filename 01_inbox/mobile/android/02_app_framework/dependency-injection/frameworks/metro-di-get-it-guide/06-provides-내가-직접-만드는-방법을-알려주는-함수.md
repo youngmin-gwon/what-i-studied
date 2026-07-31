@@ -1,6 +1,6 @@
 # `@Provides`: 내가 직접 만드는 방법을 알려주는 함수
 
-상위 노트: [[metro-di-get-it-guide]]
+상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
 
 모든 객체를 `@Inject` 생성자로 만들 수 있는 것은 아닙니다.
 

@@ -1,6 +1,6 @@
 # JNI 기본
 
-상위 노트: [[android-ndk-jni]]
+상위 노트: [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md)
 
 ##### Kotlin/Java 에서 네이티브 함수 선언
 

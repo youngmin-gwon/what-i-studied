@@ -6,7 +6,7 @@ date modified: 2026-04-05 17:43:06 +09:00
 date created: 2026-03-21 16:47:09 +09:00
 ---
 
-## [[mobile-security]] > [[android-gradle-build-system]]
+## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-gradle-build-system](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-build-system.md)
 
 ### Gradle Build System (MOC)
 
@@ -18,9 +18,9 @@ date created: 2026-03-21 16:47:09 +09:00
 
 Gradle 의 핵심 구조와 설정 방식을 다룹니다.
 
-- [[gradle-build-basics]]: 프로젝트/모듈 구조 및 **Plugins 블록** (alias vs id).
-- [[gradle-dependency-management]]: **Version Catalog (toml)**, **Compose BOM** 및 Kapt vs KSP 비교.
-- [[android-gradle-dsl-reference]]: `build.gradle.kts` 상세 문법 가이드.
+- [gradle-build-basics](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-basics.md): 프로젝트/모듈 구조 및 **Plugins 블록** (alias vs id).
+- [gradle-dependency-management](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-dependency-management.md): **Version Catalog (toml)**, **Compose BOM** 및 Kapt vs KSP 비교.
+- [android-gradle-dsl-reference](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-dsl-reference.md): `build.gradle.kts` 상세 문법 가이드.
 
 ---
 
@@ -28,8 +28,8 @@ Gradle 의 핵심 구조와 설정 방식을 다룹니다.
 
 다양한 제품군과 서명을 관리하는 방법입니다.
 
-- [[gradle-variants-flavors]]: **Build Types** (Debug/Release) 및 **Product Flavors** 환경 구축.
-- [[gradle-optimization-signing]]: **Keystore** 보안 서명 및 **R8/Proguard** 코드 축소/난독화.
+- [gradle-variants-flavors](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-variants-flavors.md): **Build Types** (Debug/Release) 및 **Product Flavors** 환경 구축.
+- [gradle-optimization-signing](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-optimization-signing.md): **Keystore** 보안 서명 및 **R8/Proguard** 코드 축소/난독화.
 
 ---
 
@@ -37,13 +37,13 @@ Gradle 의 핵심 구조와 설정 방식을 다룹니다.
 
 대규모 프로젝트 빌드 최적화와 파이프라인 구축입니다.
 
-- [[gradle-performance-tuning]]: Configuration Caching, 빌드 스캔 및 태스크 병목 분석.
-- [[android-cicd-patterns]]: GitHub Actions/Jenkins 를 활용한 자동 빌드 및 배포.
+- [gradle-performance-tuning](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-performance-tuning.md): Configuration Caching, 빌드 스캔 및 태스크 병목 분석.
+- [android-cicd-patterns](01_inbox/mobile/android/03_packaging_deployment/ci-cd/android-cicd-patterns.md): GitHub Actions/Jenkins 를 활용한 자동 빌드 및 배포.
 
 ---
 
 #### 📚 연관 문서
 
-- [[android-os-development-guide]]: OS 개발 관점의 빌드
-- [[android-jetpack-architecture]]: 아키텍처와 라이브러리 상관 관계
-- [[google-play-deployment]]: 스토어 배포 프로세스
+- [android-os-development-guide](01_inbox/mobile/android/01_system_internals/platform-customization/android-os-development-guide.md): OS 개발 관점의 빌드
+- [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md): 아키텍처와 라이브러리 상관 관계
+- [google-play-deployment](01_inbox/mobile/android/03_packaging_deployment/distribution/google-play-deployment.md): 스토어 배포 프로세스

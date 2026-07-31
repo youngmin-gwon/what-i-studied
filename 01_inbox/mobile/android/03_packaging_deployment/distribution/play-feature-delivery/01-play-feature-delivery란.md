@@ -1,6 +1,6 @@
 # Play Feature Delivery란?
 
-상위 노트: [[play-feature-delivery]]
+상위 노트: [play-feature-delivery](01_inbox/mobile/android/03_packaging_deployment/distribution/play-feature-delivery.md)
 
 Play Feature Delivery는 **Android App Bundle**을 기반으로, 앱의 특정 기능을 **사용자 기기에 언제, 어떻게 다운로드할지** 세밀하게 제어할 수
 있는 Google Play의 기능입니다.

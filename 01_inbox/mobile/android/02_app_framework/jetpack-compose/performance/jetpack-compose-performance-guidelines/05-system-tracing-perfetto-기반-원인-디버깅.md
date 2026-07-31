@@ -1,6 +1,6 @@
 # System Tracing & Perfetto 기반 원인 디버깅
 
-상위 노트: [[jetpack-compose-performance-guidelines]]
+상위 노트: [jetpack-compose-performance-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines.md)
 
 성능 지표(TTID, TTFD)를 측정한 후 프레임 병목이나 병목 구간을 세부 분석하려면 **Tracing (추적) 툴링**을 활용해야 합니다.
 

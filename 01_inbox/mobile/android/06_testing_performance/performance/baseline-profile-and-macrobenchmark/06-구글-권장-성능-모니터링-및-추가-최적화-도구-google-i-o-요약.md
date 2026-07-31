@@ -1,6 +1,6 @@
 # 구글 권장 성능 모니터링 및 추가 최적화 도구 (Google I/O 요약)
 
-상위 노트: [[baseline-profile-and-macrobenchmark]]
+상위 노트: [baseline-profile-and-macrobenchmark](01_inbox/mobile/android/06_testing_performance/performance/baseline-profile-and-macrobenchmark.md)
 
 Google I/O ("What's new in app performance") 세션에서 제시한 안드로이드 앱 성능 극대화를 위한 로드맵 및 핵심 도구 요약입니다.
 

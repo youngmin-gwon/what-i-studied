@@ -1,6 +1,6 @@
 # Lifecycle
 
-상위 노트: [[android-jetpack-architecture]]
+상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
 
 생명주기를 인식하는 컴포넌트.
 

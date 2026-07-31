@@ -1,6 +1,6 @@
 # Reducer 도입 기준
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 Reducer는 생소한 패턴이 아닙니다. Elm, Redux, MVI, Flutter Bloc 계열에서 널리 쓰인 개념입니다. 다만 Android 공식 MVVM에서 별도
 `Reducer` 클래스를 만드는 것은 필수 관례가 아닙니다.

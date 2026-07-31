@@ -1,6 +1,6 @@
 # AMS/ATMS (ActivityManagerService / ActivityTaskManagerService)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 앱 생명주기와 Activity 스택을 관리하는 시스템 서비스
 
@@ -18,6 +18,6 @@ adb shell dumpsys activity activities
 adb shell dumpsys activity processes
 ```
 
-**관련**: [[android-activity-manager-and-system-services]]
+**관련**: [android-activity-manager-and-system-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-activity-manager-and-system-services.md)
 
 ---

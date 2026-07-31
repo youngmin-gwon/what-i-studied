@@ -1,6 +1,6 @@
 # 전체 흐름 요약
 
-상위 노트: [[android-modern-architecture-components]]
+상위 노트: [android-modern-architecture-components](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components.md)
 
 ```mermaid
 graph LR
@@ -26,11 +26,11 @@ graph LR
 * `Service`, `BroadcastReceiver`, `ContentProvider`는 여전히 필요하지만, 사용 범위가 더 명확하고 좁아졌다.
 
 > [!NOTE]
-> 매니페스트에 4대 컴포넌트를 등록하는 방식은 [[android-manifest]]를 참조하세요.
-> Context의 종류와 수명 차이는 [[android-context]]를 참조하세요.
-> Coroutine, Flow, StateFlow의 기본 개념과 실전 패턴은 [[kotlin-coroutines-flow-stateflow]]를 참조하세요.
-> ViewModel의 화면 상태 소유, user action 처리, Reducer 분리 기준은 [[viewmodel-ui-state-reducer]]를 참조하세요.
-> 인텐트와 외부 진입 흐름은 [[intent-and-deep-link]]를 참조하세요.
-> Compose Navigation의 화면 전환 구조는 [[jetpack-navigation-3-guide]]를 참조하세요.
+> 매니페스트에 4대 컴포넌트를 등록하는 방식은 [android-manifest](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-manifest.md)를 참조하세요.
+> Context의 종류와 수명 차이는 [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)를 참조하세요.
+> Coroutine, Flow, StateFlow의 기본 개념과 실전 패턴은 [kotlin-coroutines-flow-stateflow](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow.md)를 참조하세요.
+> ViewModel의 화면 상태 소유, user action 처리, Reducer 분리 기준은 [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)를 참조하세요.
+> 인텐트와 외부 진입 흐름은 [intent-and-deep-link](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-and-deep-link.md)를 참조하세요.
+> Compose Navigation의 화면 전환 구조는 [jetpack-navigation-3-guide](01_inbox/mobile/android/02_app_framework/navigation/navigation3/jetpack-navigation-3-guide.md)를 참조하세요.
 > 백그라운드 작업 선택 기준은 Android Developers의 [Background tasks overview](https://developer.android.com/develop/background-work/background-tasks), [Task scheduling](https://developer.android.com/develop/background-work/background-tasks/persistent), [Foreground services overview](https://developer.android.com/develop/background-work/services/foreground-services)를 함께 보면 좋습니다.
 > App Functions API는 [android.app.appfunctions](https://developer.android.com/reference/android/app/appfunctions/package-summary)와 [androidx.appfunctions](https://developer.android.com/reference/androidx/appfunctions/package-summary)를 참조하세요.

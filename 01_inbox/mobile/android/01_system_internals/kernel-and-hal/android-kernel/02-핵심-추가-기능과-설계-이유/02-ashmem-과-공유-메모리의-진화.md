@@ -1,13 +1,13 @@
 # Ashmem 과 공유 메모리의 진화
 
-상위 노트: [[02-핵심-추가-기능과-설계-이유]]
+상위 노트: [02-핵심-추가-기능과-설계-이유](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel/02-%ED%95%B5%EC%8B%AC-%EC%B6%94%EA%B0%80-%EA%B8%B0%EB%8A%A5%EA%B3%BC-%EC%84%A4%EA%B3%84-%EC%9D%B4%EC%9C%A0.md)
 
-#### 문제: 멀티미디어 [[buffer|버퍼]] 공유
+#### 문제: 멀티미디어 [버퍼](02_references/operating-systems/buffer.md) 공유
 
 카메라로 사진을 찍으면:
 
-1. Camera HAL 이 [[buffer|버퍼]] 에 이미지 데이터를 쓴다.
-2. 앱이 [[buffer|버퍼]] 를 처리한다 (회전, 필터 등).
+1. Camera HAL 이 [버퍼](02_references/operating-systems/buffer.md) 에 이미지 데이터를 쓴다.
+2. 앱이 [버퍼](02_references/operating-systems/buffer.md) 를 처리한다 (회전, 필터 등).
 3. MediaStore 에 JPEG 로 저장한다.
 4. Gallery 앱이 썸네일을 표시한다.
 
@@ -37,7 +37,7 @@ Ashmem 은 CPU 접근용이었다. 하지만 GPU, Camera, Video Decoder 같은 �
 - **Carveout heap**: 부팅 시 예약된 물리 연속 메모리.
 - **CMA heap**: Contiguous Memory Allocator.
 
-**DMABuf**(2012 년 리눅스 메인라인) 는 하드웨어 간 [[buffer|버퍼]] 공유를 표준화했다. 안드로이드는 ION 에서 DMABuf Heaps 으로 마이그레이션 중이다 (Android 11+).
+**DMABuf**(2012 년 리눅스 메인라인) 는 하드웨어 간 [버퍼](02_references/operating-systems/buffer.md) 공유를 표준화했다. 안드로이드는 ION 에서 DMABuf Heaps 으로 마이그레이션 중이다 (Android 11+).
 
 ```mermaid
 graph LR

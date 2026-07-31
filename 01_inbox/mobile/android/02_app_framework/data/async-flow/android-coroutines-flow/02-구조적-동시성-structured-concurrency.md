@@ -1,6 +1,6 @@
 # 구조적 동시성 (Structured Concurrency)
 
-상위 노트: [[android-coroutines-flow]]
+상위 노트: [android-coroutines-flow](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow.md)
 
 코루틴은 반드시 **CoroutineScope** 안에서 시작되어야 하며, 스코프가 취소되면 하위 코루틴도 모두 취소된다.
 

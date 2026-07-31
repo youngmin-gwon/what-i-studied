@@ -1,6 +1,6 @@
 # 기본 구조: State Down, Action Up
 
-상위 노트: [[viewmodel-ui-state-reducer]]
+상위 노트: [viewmodel-ui-state-reducer](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer.md)
 
 Compose 화면의 기본 흐름은 `state down, action up`입니다.
 

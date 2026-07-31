@@ -1,6 +1,6 @@
 # Composable보다 오래 살아야 하는 작은 UI 복원 상태
 
-상위 노트: [[jetpack-compose-state-lifetime-api-selection]]
+상위 노트: [jetpack-compose-state-lifetime-api-selection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-lifetime-api-selection.md)
 
 화면 회전, Activity 재생성, process death 후에도 작은 UI 값이 복원되어야 하면 `rememberSaveable`을 씁니다.
 

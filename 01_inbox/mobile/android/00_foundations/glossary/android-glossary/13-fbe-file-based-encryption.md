@@ -1,6 +1,6 @@
 # FBE (File-Based Encryption)
 
-상위 노트: [[android-glossary]]
+상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
 
 **정의**: 파일별로 다른 키로 암호화하는 방식
 
@@ -26,7 +26,7 @@ val deFile = File(deContext.filesDir, "alarm.txt")
 val ceFile = File(context.filesDir, "user_data.txt")
 ```
 
-**관련**: [[android-security-sandbox]]
+**관련**: [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
 
 ---
 

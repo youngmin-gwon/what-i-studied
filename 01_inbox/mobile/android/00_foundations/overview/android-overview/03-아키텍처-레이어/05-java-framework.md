@@ -20,6 +20,6 @@ class MainActivity : AppCompatActivity() {
 - **LocationManager**: 위치
 - **ConnectivityManager**: 네트워크
 
-**상세**: [[android-activity-manager-and-system-services]]
+**상세**: [android-activity-manager-and-system-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-activity-manager-and-system-services.md)
 
 ---

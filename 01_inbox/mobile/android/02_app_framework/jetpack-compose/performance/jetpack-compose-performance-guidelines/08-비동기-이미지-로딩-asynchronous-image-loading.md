@@ -1,6 +1,6 @@
 # 비동기 이미지 로딩 (Asynchronous Image Loading)
 
-상위 노트: [[jetpack-compose-performance-guidelines]]
+상위 노트: [jetpack-compose-performance-guidelines](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines.md)
 
 화면에 네트워크 URL이나 고해상도 이미지가 포함되어 있을 때 메인 쓰레드에서 비트맵을 직접 디코딩하면 **화면이 수십 ms 동안 멈추는 프레임 멈춤(Jank)**이 발생합니다.
 

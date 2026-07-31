@@ -7,16 +7,16 @@
 
 ## 원자 노트
 
-- [[why-coroutine-flow-stateflow|왜 Coroutine, Flow, StateFlow가 필요해졌나?]]
-- [[coroutine-as-lightweight-async-work|Coroutine: 가벼운 비동기 작업 단위]]
-- [[structured-concurrency-parent-owns-children|Structured Concurrency: 부모가 자식을 책임지는 패턴]]
-- [[flow-as-async-stream|Flow: 시간이 지나며 여러 값을 내보내는 비동기 스트림]]
-- [[stateflow-as-current-state-flow|StateFlow: 현재 상태를 들고 있는 Flow]]
-- [[sharedflow-channel-for-events|SharedFlow와 Channel: 상태가 아니라 이벤트를 다루는 도구]]
-- [[android-coroutine-flow-practical-patterns|Android에서 자주 쓰는 실전 패턴]]
-- [[kotlin-coroutine-flow-common-mistakes|자주 하는 실수]]
-- [[kotlin-coroutine-flow-selection-guide|선택 기준 요약]]
-- [[kotlin-coroutine-flow-overall-map|전체 그림]]
+- [왜 Coroutine, Flow, StateFlow가 필요해졌나?](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/why-coroutine-flow-stateflow.md)
+- [Coroutine: 가벼운 비동기 작업 단위](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/coroutine-as-lightweight-async-work.md)
+- [Structured Concurrency: 부모가 자식을 책임지는 패턴](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/structured-concurrency-parent-owns-children.md)
+- [Flow: 시간이 지나며 여러 값을 내보내는 비동기 스트림](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/flow-as-async-stream.md)
+- [StateFlow: 현재 상태를 들고 있는 Flow](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/stateflow-as-current-state-flow.md)
+- [SharedFlow와 Channel: 상태가 아니라 이벤트를 다루는 도구](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/sharedflow-channel-for-events.md)
+- [Android에서 자주 쓰는 실전 패턴](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/android-coroutine-flow-practical-patterns.md)
+- [자주 하는 실수](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/kotlin-coroutine-flow-common-mistakes.md)
+- [선택 기준 요약](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/kotlin-coroutine-flow-selection-guide.md)
+- [전체 그림](01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/kotlin-coroutine-flow-overall-map.md)
 
 ---
 

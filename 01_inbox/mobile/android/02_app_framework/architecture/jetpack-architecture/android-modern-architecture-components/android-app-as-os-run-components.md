@@ -1,6 +1,6 @@
 # 안드로이드 앱은 "OS가 실행하는 컴포넌트 묶음"이다
 
-상위 노트: [[android-modern-architecture-components]]
+상위 노트: [android-modern-architecture-components](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components.md)
 
 웹 앱이나 데스크톱 앱은 보통 `main()` 함수 하나에서 프로그램이 시작됩니다. 하지만 안드로이드 앱은 다릅니다.
 

@@ -1,6 +1,6 @@
 # LiveData (Legacy API)
 
-상위 노트: [[android-jetpack-architecture]]
+상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
 
 >[!WARNING] **Devil's Advocate : LiveData 걷어내기**
 >젯팩 컴포넌트 등장 초기를 주도한 기술이지만, 현재는 **Kotlin StateFlow**로 대체되어야 마땅한 구시대 유물입니다.

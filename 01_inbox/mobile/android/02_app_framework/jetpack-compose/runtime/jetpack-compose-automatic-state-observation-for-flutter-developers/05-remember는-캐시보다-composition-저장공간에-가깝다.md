@@ -1,6 +1,6 @@
 # `remember`는 캐시보다 Composition 저장공간에 가깝다
 
-상위 노트: [[jetpack-compose-automatic-state-observation-for-flutter-developers]]
+상위 노트: [jetpack-compose-automatic-state-observation-for-flutter-developers](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-automatic-state-observation-for-flutter-developers.md)
 
 Flutter 개발자는 `remember`를 단순 memoization으로 이해하기 쉽습니다. 하지만 Compose에서 더 중요한 관점은
 **Composition에 귀속된 저장공간**입니다.

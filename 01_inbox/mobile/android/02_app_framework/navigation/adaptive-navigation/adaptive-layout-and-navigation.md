@@ -9,16 +9,16 @@
 
 ## 원자 노트
 
-- [[adaptive-layout-and-navigation-01-큰-그림|큰 그림]]
-- [[02-window와-resizability|Window와 Resizability]]
-- [[03-sizing-strategy|Sizing Strategy]]
-- [[04-layout-containers|Layout Containers]]
-- [[05-canonical-layouts|Canonical Layouts]]
-- [[06-adaptive-navigation|Adaptive Navigation]]
-- [[07-custom-layouts|Custom Layouts]]
-- [[08-foldables|Foldables]]
-- [[09-device-specific-guides|Device-specific Guides]]
-- [[10-navigation-3-scenes와-adaptive-libraries|Navigation 3 Scenes와 Adaptive Libraries]]
+- [큰 그림](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/adaptive-layout-and-navigation-01-%ED%81%B0-%EA%B7%B8%EB%A6%BC.md)
+- [Window와 Resizability](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/02-window%EC%99%80-resizability.md)
+- [Sizing Strategy](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/03-sizing-strategy.md)
+- [Layout Containers](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/04-layout-containers.md)
+- [Canonical Layouts](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/05-canonical-layouts.md)
+- [Adaptive Navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/06-adaptive-navigation.md)
+- [Custom Layouts](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/07-custom-layouts.md)
+- [Foldables](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/08-foldables.md)
+- [Device-specific Guides](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/09-device-specific-guides.md)
+- [Navigation 3 Scenes와 Adaptive Libraries](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/10-navigation-3-scenes%EC%99%80-adaptive-libraries.md)
 
 ---
 

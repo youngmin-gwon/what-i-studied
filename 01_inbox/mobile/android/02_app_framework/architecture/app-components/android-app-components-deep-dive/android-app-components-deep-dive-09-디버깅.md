@@ -1,6 +1,14 @@
-# 디버깅
+---
+title: android-app-components-deep-dive-09-디버깅
+tags: []
+aliases: []
+date modified: 2026-07-31 16:29:50 +09:00
+date created: 2026-07-31 15:29:55 +09:00
+---
 
-상위 노트: [[android-app-components-deep-dive]]
+## 디버깅
+
+상위 노트: [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md)
 
 ```bash
 # Activity 스택 확인

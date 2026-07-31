@@ -1,6 +1,6 @@
 # 빌드 파이프라인의 진화: KAPT → KSP → 컴파일러 플러그인
 
-상위 노트: [[android-build-system-and-serialization]]
+상위 노트: [android-build-system-and-serialization](01_inbox/mobile/android/03_packaging_deployment/build/versioning-and-serialization/android-build-system-and-serialization.md)
 
 ### 3-1. 1세대: KAPT (Java의 유산과 억지 합체)
 
@@ -42,5 +42,5 @@
 > [!NOTE]
 > 컴파일러 플러그인을 활용하는 대표적인 DI 라이브러리 **Metro**에 대한 상세
 >
-내용은 [[dependency-injection-dsl-dynamic-feature]]
+내용은 [dependency-injection-dsl-dynamic-feature](01_inbox/mobile/android/02_app_framework/dependency-injection/patterns/dependency-injection-dsl-dynamic-feature.md)
 > 를 참조하세요.

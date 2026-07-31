@@ -1,6 +1,6 @@
 # Navigation 3 Scenes와 Adaptive Libraries
 
-상위 노트: [[adaptive-layout-and-navigation]]
+상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
 사용자가 제공한 adaptive docs 목록에는 포함되지 않았지만, 함께 검토한 Navigation 3 Scenes 문서 기준으로 관계를 정리합니다.
 

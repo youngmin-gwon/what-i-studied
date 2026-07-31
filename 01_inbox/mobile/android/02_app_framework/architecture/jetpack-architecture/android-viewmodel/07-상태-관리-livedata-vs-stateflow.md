@@ -1,6 +1,6 @@
 # 상태 관리: LiveData vs StateFlow
 
-상위 노트: [[android-viewmodel]]
+상위 노트: [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md)
 
 ##### LiveData (Legacy)
 

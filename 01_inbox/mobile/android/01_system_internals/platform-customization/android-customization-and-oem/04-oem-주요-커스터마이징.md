@@ -1,6 +1,6 @@
 # OEM 주요 커스터마이징
 
-상위 노트: [[android-customization-and-oem]]
+상위 노트: [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
 
 ### Samsung One UI
 

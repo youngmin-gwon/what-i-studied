@@ -1,6 +1,6 @@
 # MediaStore
 
-상위 노트: [[android-storage-and-databases]]
+상위 노트: [android-storage-and-databases](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-databases.md)
 
 MediaStore는 앱 내부 DB가 아닙니다.
 

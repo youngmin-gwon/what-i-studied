@@ -9,9 +9,9 @@
 
 ## 원자 노트
 
-- [[01-version-catalog-libs-versions-toml|Version Catalog (`libs.versions.toml`)]]
-- [[02-serialization-kotlinx-serialization|Serialization (`kotlinx.serialization`)]]
-- [[03-빌드-파이프라인의-진화-kapt-ksp-컴파일러-플러그인|빌드 파이프라인의 진화: KAPT → KSP → 컴파일러 플러그인]]
+- [Version Catalog (`libs.versions.toml`)](01_inbox/mobile/android/03_packaging_deployment/build/versioning-and-serialization/android-build-system-and-serialization/01-version-catalog-libs-versions-toml.md)
+- [Serialization (`kotlinx.serialization`)](01_inbox/mobile/android/03_packaging_deployment/build/versioning-and-serialization/android-build-system-and-serialization/02-serialization-kotlinx-serialization.md)
+- [빌드 파이프라인의 진화: KAPT → KSP → 컴파일러 플러그인](01_inbox/mobile/android/03_packaging_deployment/build/versioning-and-serialization/android-build-system-and-serialization/03-%EB%B9%8C%EB%93%9C-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8%EC%9D%98-%EC%A7%84%ED%99%94-kapt-ksp-%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # Dagger (Legacy - 수동 설정)
 
-상위 노트: [[android-dependency-injection]]
+상위 노트: [android-dependency-injection](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection.md)
 
 >[!CAUTION] **Devil's Advocate : 순수 Dagger 2 의 악몽**
 >과거 안드로이드 진영의 DI 를 지배하던 Dagger 2 는 어마어마한 보일러플레이트(`Component`, `SubComponent`, `Module` 등)와 높은 러닝 커브로 프로젝트를 무겁게 만들었습니다.

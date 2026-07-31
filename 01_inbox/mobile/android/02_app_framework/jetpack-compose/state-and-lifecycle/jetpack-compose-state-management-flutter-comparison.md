@@ -19,25 +19,25 @@ Flutter에서 `build()`가 다시 호출되는 것처럼, Compose에서는 `@Com
 - [Side effects in Compose](https://developer.android.com/develop/ui/compose/side-effects)
 
 Compose Runtime이 상태 읽기와 쓰기를 어떻게 추적하는지에 집중해서 보고 싶다면
-[[jetpack-compose-automatic-state-observation-for-flutter-developers]]를 먼저 봅니다.
+[jetpack-compose-automatic-state-observation-for-flutter-developers](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-automatic-state-observation-for-flutter-developers.md)를 먼저 봅니다.
 
 ---
 
 ## 원자 노트
 
-- [[flutter-compose-state-model-differences|Flutter와 Compose의 큰 차이]]
-- [[what-is-state-in-compose|Compose에서 상태란 무엇인가?]]
-- [[mutable-state-of|`mutableStateOf`]]
-- [[remember-in-compose|`remember`]]
-- [[kotlin-by-delegated-property-in-compose|Kotlin `by` 키워드]]
-- [[remember-saveable|`rememberSaveable`]]
-- [[state-hoisting|State hoisting]]
-- [[viewmodel-flow-stateflow-in-compose|ViewModel, Flow, StateFlow와의 관계]]
-- [[common-remember-apis|자주 쓰는 `remember~` 계열]]
-- [[compose-state-related-apis|`remember`는 아니지만 같이 알아야 하는 API]]
-- [[compose-state-project-guidelines|이 프로젝트 기준]]
-- [[compose-state-common-mistakes|실수하기 쉬운 지점]]
-- [[compose-state-selection-rules|판단 규칙]]
+- [Flutter와 Compose의 큰 차이](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/flutter-compose-state-model-differences.md)
+- [Compose에서 상태란 무엇인가?](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/what-is-state-in-compose.md)
+- [`mutableStateOf`](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/mutable-state-of.md)
+- [`remember`](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/remember-in-compose.md)
+- [Kotlin `by` 키워드](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/kotlin-by-delegated-property-in-compose.md)
+- [`rememberSaveable`](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/remember-saveable.md)
+- [State hoisting](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/state-hoisting.md)
+- [ViewModel, Flow, StateFlow와의 관계](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/viewmodel-flow-stateflow-in-compose.md)
+- [자주 쓰는 `remember~` 계열](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/common-remember-apis.md)
+- [`remember`는 아니지만 같이 알아야 하는 API](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-related-apis.md)
+- [이 프로젝트 기준](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-project-guidelines.md)
+- [실수하기 쉬운 지점](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-common-mistakes.md)
+- [판단 규칙](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-selection-rules.md)
 
 ---
 

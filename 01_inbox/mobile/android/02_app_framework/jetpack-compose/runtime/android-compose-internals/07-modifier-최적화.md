@@ -1,6 +1,6 @@
 # Modifier 최적화
 
-상위 노트: [[android-compose-internals]]
+상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
 
 ```kotlin
 // ❌ 나쁜 예: 재구성마다 새 Modifier 생성

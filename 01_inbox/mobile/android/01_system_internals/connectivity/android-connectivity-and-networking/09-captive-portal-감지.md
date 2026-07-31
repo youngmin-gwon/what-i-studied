@@ -1,6 +1,6 @@
 # Captive Portal 감지
 
-상위 노트: [[android-connectivity-and-networking]]
+상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
 
 ```kotlin
 // 커피숍 Wi-Fi 등의 로그인 페이지 감지
