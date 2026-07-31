@@ -1,5 +1,7 @@
-# SavedStateHandle
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md)
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-viewmodel/05-savedstatehandle.md`
+
+정본 노트: [SavedStateHandle](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md)

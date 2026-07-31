@@ -1,5 +1,7 @@
-# 💡 Context: 왜 Jetpack 아키텍처인가?
+# 이전 노트
 
-상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-Jetpack 라이브러리로 견고한 앱 아키텍처를 만드는 방법. 기본은 [android-foundations](01_inbox/mobile/android/00_foundations/overview/android-foundations.md) 참고.
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture/01-context-왜-jetpack-아키텍처인가.md`
+
+정본 노트: [Jetpack Architecture Map](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture-map.md)

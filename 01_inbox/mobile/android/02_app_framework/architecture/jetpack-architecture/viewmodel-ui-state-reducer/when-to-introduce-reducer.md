@@ -1,5 +1,7 @@
-# Reducer 도입 기준
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [상태 전이가 복잡해질 때만 Reducer를 도입한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/introduce-reducer-only-when-state-transitions-are-complex.md)
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/when-to-introduce-reducer.md`
+
+정본 노트: [Reducer](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer.md)

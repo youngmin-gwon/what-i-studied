@@ -1,19 +1,7 @@
----
-title: 04-viewmodel-internals
-tags: []
-aliases: []
-date modified: 2026-07-31 16:28:48 +09:00
-date created: 2026-07-31 16:26:40 +09:00
----
+# 이전 노트
 
-## 🛠️ ViewModel Internals
+이 노트의 내용은 정본 노트로 흡수했다.
 
-"ViewModel 은 어떻게 Activity 가 죽어도 살아있을까?"
+흡수된 이전 노트: `02_app_framework/architecture/app-components/android-activity-lifecycle/04-viewmodel-internals.md`
 
-1. **HolderFragment (Old)**: 예전에는 투명한 Fragment(`setRetainInstance(true)`)를 붙여서 유지했습니다.
-2. **ActivityClientRecord (Modern)**:
-    - `Activity` 가 구성 변경으로 파괴될 때, `ActivityThread` 가 `NonConfigurationInstances` 라는 객체를 따로 챙겨둡니다.
-    - 여기에 ViewModelStore 가 들어있습니다.
-    - 새 Activity 가 만들어질 때 `attach()` 과정에서 이 객체를 다시 넘겨받습니다.
-
----
+정본 노트: [Android State Management](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)

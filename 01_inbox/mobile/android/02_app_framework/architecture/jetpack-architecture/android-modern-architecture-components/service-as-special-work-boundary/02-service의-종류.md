@@ -1,7 +1,7 @@
-# Service의 종류
+# 이전 노트
 
-| 종류                     | 역할                          | 대표 사례               |
-|:-----------------------|:----------------------------|:--------------------|
-| **Started Service**    | 한 번 시작하면 작업이 끝날 때까지 실행      | 예전 다운로드 서비스         |
-| **Bound Service**      | 다른 컴포넌트가 연결해서 메서드를 호출       | 앱 내부 플레이어 컨트롤러      |
-| **Foreground Service** | 유저가 인지해야 하는 장기 실행 작업. 알림 필수 | 음악 재생, 운동 기록, 내비게이션 |
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/service-as-special-work-boundary/02-service의-종류.md`
+
+정본 노트: [Bound Service](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/bound-service-exposes-process-dependency-and-ipc-api.md)

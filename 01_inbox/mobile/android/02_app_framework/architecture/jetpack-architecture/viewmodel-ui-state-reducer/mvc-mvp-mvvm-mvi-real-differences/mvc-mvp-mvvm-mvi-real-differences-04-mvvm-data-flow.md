@@ -1,16 +1,7 @@
-# MVVM data flow
+# 이전 노트
 
-MVVM:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```mermaid
-flowchart TD
-    User[User Input] --> View[View]
-    View -->|user action| ViewModel[ViewModel]
-    ViewModel --> Model[Model / Repository]
-    Model --> ViewModel
-    ViewModel -->|observable UiState| View
-    View -->|render state| View
-```
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/mvc-mvp-mvvm-mvi-real-differences/mvc-mvp-mvvm-mvi-real-differences-04-mvvm-data-flow.md`
 
-MVVM에서는 ViewModel이 View method를 직접 호출하지 않습니다. ViewModel은 observable state를 노출하고, View는 그 state를
-binding하거나 collect해서 다시 그립니다.
+정본 노트: [Reducer](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer.md)

@@ -1,5 +1,7 @@
-# Compose State Holder를 ViewModel에 둬도 되는가
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [ViewModel의 StateFlow는 lifecycle-aware collection으로 화면 상태가 된다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/compose-state-holder-in-viewmodel.md`
+
+정본 노트: [Reducer](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer.md)

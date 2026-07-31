@@ -1,15 +1,7 @@
-# MVP data flow
+# 이전 노트
 
-MVP:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```mermaid
-flowchart TD
-    User[User Input] --> View[View]
-    View -->|delegates event| Presenter[Presenter]
-    Presenter --> Model[Model]
-    Model --> Presenter
-    Presenter -->|calls View interface| View
-```
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/mvc-mvp-mvvm-mvi-real-differences/mvc-mvp-mvvm-mvi-real-differences-03-mvp-data-flow.md`
 
-MVP에서는 Presenter가 View interface를 알고 `showLoading()`, `showError()` 같은 명령형 메서드를 호출합니다. View는
-interface 뒤에 숨길 수 있어서 테스트는 쉬워지지만, Presenter가 여전히 View를 직접 명령합니다.
+정본 노트: [Reducer](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer.md)

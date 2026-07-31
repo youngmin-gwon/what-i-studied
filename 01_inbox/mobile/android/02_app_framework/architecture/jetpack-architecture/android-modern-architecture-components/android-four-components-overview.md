@@ -1,21 +1,7 @@
-# 4대 컴포넌트 한눈에 보기
+# 이전 노트
 
-상위 노트: [android-modern-architecture-components](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-| 컴포넌트                  | 전통적 역할         | 쉽게 말하면            | 현대의 주된 위치                                                  |
-|:----------------------|:---------------|:------------------|:-----------------------------------------------------------|
-| **Activity**          | 유저가 보는 화면 하나   | 앱의 방 / 창문         | 대부분 `MainActivity` 하나만 두고 Compose Navigation이 화면 전환 담당     |
-| **Service**           | 화면 없이 오래 도는 작업 | 뒤에서 일하는 직원        | 즉시 계속 돌아야 하는 작업은 Foreground Service, 예약/보장 작업은 WorkManager |
-| **BroadcastReceiver** | 시스템/앱 이벤트 수신   | 알림 방송을 듣는 귀       | 매니페스트 리시버는 제한적으로 사용, 앱 내부 이벤트는 Flow/SharedFlow로 처리         |
-| **ContentProvider**   | 앱 간 데이터 공유     | 데이터 창구 / 공공 민원 창구 | 외부 공유가 필요할 때만 사용, 앱 내부 DB는 Room/Repository/Flow로 처리        |
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/android-four-components-overview.md`
 
-현대 Android에서는 여기에 **App Functions**라는 새 경계도 추가로 봐야 합니다.
-
-| 현대 경계             | 역할                                 | 쉽게 말하면                   | 위치                                                    |
-|:------------------|:-----------------------------------|:-------------------------|:------------------------------------------------------|
-| **App Functions** | 시스템/신뢰된 agent가 내 앱의 특정 기능을 발견하고 실행 | 앱 기능 API / AI agent용 리모컨 | `Intent`보다 구조화된 기능 호출, `ContentProvider`보다 동작 실행에 가까움 |
-
-과거에는 이 네 컴포넌트를 잘게 나눠 앱 기능을 직접 설계하는 경우가 많았습니다. 현대에는 이 컴포넌트들이 사라진 것이 아니라, **OS와 만나는 가장 바깥 경계로 밀려나고**,
-앱 내부 로직은 Jetpack 아키텍처가 담당하는 방향으로 바뀌었습니다.
-
----
+정본 노트: [Background Work Contracts](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)

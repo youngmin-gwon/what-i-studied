@@ -1,5 +1,7 @@
-# 전통적인(Multi-Activity) 매니페스트 기본 구조
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [AndroidManifest는 OS가 발견할 컴포넌트와 진입점을 선언한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md)
+흡수된 이전 노트: `02_app_framework/architecture/app-components/android-manifest/02-전통적인-multi-activity-매니페스트-기본-구조.md`
+
+정본 노트: [Manifest Component Declarations](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/manifest-declares-components-permissions-features-and-exported-boundaries.md)

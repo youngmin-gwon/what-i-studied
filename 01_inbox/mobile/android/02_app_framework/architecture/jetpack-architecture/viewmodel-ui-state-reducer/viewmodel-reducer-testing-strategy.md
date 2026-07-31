@@ -1,5 +1,7 @@
-# 테스트 전략
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [Reducer는 Repository, Coroutine, Flow, Android API에 의존하지 않는다](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer-does-not-depend-on-repository-coroutine-flow-or-android-api.md)
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/viewmodel-reducer-testing-strategy.md`
+
+정본 노트: [Reducer](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer.md)

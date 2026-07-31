@@ -1,16 +1,7 @@
-# MVC data flow
+# 이전 노트
 
-MVC:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```mermaid
-flowchart TD
-    User[User Input] --> View[View]
-    View --> Controller[Controller]
-    Controller --> Model[Model]
-    Model --> Controller
-    Controller -->|imperative update| View
-    View -.->|sometimes reads| Model
-```
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/mvc-mvp-mvvm-mvi-real-differences/mvc-mvp-mvvm-mvi-real-differences-02-mvc-data-flow.md`
 
-MVC에서는 Controller가 입력을 받아 Model을 바꾸고, View를 직접 갱신하는 흐름이 자연스럽습니다. 구현에 따라 View가 Model을 직접 관찰하거나 읽는 변형도
-많아서 흐름이 느슨하고 양방향처럼 보이기 쉽습니다.
+정본 노트: [Reducer](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer.md)

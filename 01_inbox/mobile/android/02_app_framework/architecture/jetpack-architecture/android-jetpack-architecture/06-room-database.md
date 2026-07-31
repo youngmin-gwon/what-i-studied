@@ -1,71 +1,7 @@
-# Room Database
+# 이전 노트
 
-상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-이미 [android-storage-systems](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-systems.md) 에서 다뤘으나 추가 기능 소개.
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture/06-room-database.md`
 
-##### 관계 (Relation)
-
-```kotlin
-// 일대다 관계
-@Entity
-data class User(
-    @PrimaryKey val userId: Int,
-    val name: String
-)
-
-@Entity
-data class Post(
-    @PrimaryKey val postId: Int,
-    val userId: Int,
-    val title: String
-)
-
-data class UserWithPosts(
-    @Embedded val user: User,
-    @Relation(
-        parentColumn = "userId",
-        entityColumn = "userId"
-    )
-    val posts: List<Post>
-)
-
-@Dao
-interface UserDao {
-    @Transaction
-    @Query("SELECT * FROM User")
-    fun getUsersWithPosts(): Flow<List<UserWithPosts>>
-}
-```
-
-##### Migration
-
-```kotlin
-val MIGRATION_1_2 = object : Migration(1, 2) {
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("ALTER TABLE User ADD COLUMN email TEXT")
-    }
-}
-
-val db = Room.databaseBuilder(context, AppDatabase::class.java, "app_db")
-    .addMigrations(MIGRATION_1_2)
-    .build()
-```
-
-##### FTS (Full-Text Search)
-
-```kotlin
-@Entity
-@Fts4
-data class Article(
-    @PrimaryKey @ColumnInfo(name = "rowid") val id: Int,
-    val title: String,
-    val content: String
-)
-
-@Dao
-interface ArticleDao {
-    @Query("SELECT * FROM Article WHERE Article MATCH :query")
-    fun search(query: String): Flow<List<Article>>
-}
-```
+정본 노트: [Persistence Contracts](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)

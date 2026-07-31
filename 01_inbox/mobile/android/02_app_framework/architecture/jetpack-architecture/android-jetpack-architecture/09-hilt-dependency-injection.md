@@ -1,55 +1,7 @@
-# Hilt (Dependency Injection)
+# 이전 노트
 
-상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// Application
-@HiltAndroidApp
-class MyApplication : Application()
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture/09-hilt-dependency-injection.md`
 
-// Module
-@Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
-    @Provides
-    @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "app_db")
-            .build()
-    }
-    
-    @Provides
-    fun provideUserDao(database: AppDatabase): UserDao {
-        return database.userDao()
-    }
-}
-
-// Repository
-class UserRepository @Inject constructor(
-    private val userDao: UserDao,
-    private val api: ApiService
-) {
-    fun getUsers(): Flow<List<User>> = userDao.getAll()
-}
-
-// ViewModel
-@HiltViewModel
-class UserViewModel @Inject constructor(
-    private val repository: UserRepository
-) : ViewModel() {
-    val users = repository.getUsers()
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
-}
-
-// Activity
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private val viewModel: UserViewModel by viewModels()
-}
-
-// Fragment
-@AndroidEntryPoint
-class UserFragment : Fragment() {
-    private val viewModel: UserViewModel by viewModels()
-}
-```
+정본 노트: [Dependency Injection](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection.md)

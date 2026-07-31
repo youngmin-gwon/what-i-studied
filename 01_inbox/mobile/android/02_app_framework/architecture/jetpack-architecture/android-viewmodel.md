@@ -1,14 +1,7 @@
-# Android ViewModel
+# 이전 노트
 
-이 문서는 기존 ViewModel 설명을 정본 노트로 연결하는 진입점이다. 세부 내용은 아래 의미 단위 노트로 흡수했다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-## 정본
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-viewmodel.md`
 
-- [ViewModel은 화면 단위 상태와 외부 작업을 조율한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-orchestrates-screen-state-and-external-work.md)
-- [ViewModel은 UI 컨트롤러와 Android Context를 장기 보관하지 않는다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-does-not-retain-ui-controller-or-context.md)
-- [ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-survives-configuration-change-not-process-death.md)
-- [SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md)
-- [ViewModel은 외부 작업을 viewModelScope의 수명에 묶는다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodelscope-binds-external-work-to-viewmodel-lifetime.md)
-- [ViewModel은 mutable 상태를 내부에 숨기고 읽기 전용 상태만 노출한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-exposes-read-only-state.md)
-
-관련 지도: [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
+정본 노트: [ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md)

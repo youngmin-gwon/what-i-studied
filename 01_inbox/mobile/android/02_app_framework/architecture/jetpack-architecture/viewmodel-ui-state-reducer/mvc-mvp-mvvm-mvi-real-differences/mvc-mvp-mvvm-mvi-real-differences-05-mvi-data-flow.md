@@ -1,16 +1,7 @@
-# MVI data flow
+# 이전 노트
 
-MVI:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```mermaid
-flowchart TD
-    User[User Input] --> View[View]
-    View -->|Intent / Action| Store[Store / ViewModel / Processor]
-    Store --> Reducer[Reducer]
-    Reducer -->|new State| Store
-    Store -->|single State| View
-    View -->|render State| View
-```
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/viewmodel-ui-state-reducer/mvc-mvp-mvvm-mvi-real-differences/mvc-mvp-mvvm-mvi-real-differences-05-mvi-data-flow.md`
 
-MVI에서는 입력도 `Intent`/`Action` 값으로 모델링하고, 화면도 하나의 `State` 값으로 최대한 결정하려고 합니다. 핵심은 `Intent`가 Controller가
-아니라 Store/ViewModel/Processor에 들어가는 입력값이라는 점입니다.
+정본 노트: [Reducer](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer.md)

@@ -1,6 +1,7 @@
-# 왜 BroadcastReceiver 사용이 줄었나?
+# 이전 노트
 
-과거에는 앱들이 시스템 방송을 광범위하게 받아서 백그라운드 작업을 시작했습니다. 예를 들어 네트워크가 바뀔 때마다 여러 앱이 동시에 깨어나 서버 동기화를 시도할 수 있었습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-이 방식은 배터리와 성능에 매우 나쁩니다. 그래서 Android는 암시적 브로드캐스트와 백그라운드 실행을 점점 제한했고, 앱 내부 이벤트 전달은 더 이상 Receiver에 의존하지
-않는 방향으로 바뀌었습니다.
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/broadcastreceiver-as-boundary-event-handler/03-왜-broadcastreceiver-사용이-줄었나.md`
+
+정본 노트: [BroadcastReceiver](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md)

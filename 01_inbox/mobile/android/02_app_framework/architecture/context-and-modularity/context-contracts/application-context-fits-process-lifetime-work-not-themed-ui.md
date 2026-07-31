@@ -1,0 +1,11 @@
+# Application Context는 프로세스 수명 작업에 맞고 themed UI에는 맞지 않는다
+
+Application context는 앱 프로세스 전체에 연결된 Context다. repository, database, DataStore, file directory, system service 접근처럼 화면 인스턴스와 무관하게 오래 살아야 하는 작업에 적합하다.
+
+Application context가 Activity context의 안전한 범용 대체물은 아니다. Dialog, window, themed resource, activity result, UI navigation처럼 화면과 window token이 필요한 작업에는 Activity나 UI layer가 owner여야 한다.
+
+DI graph에서 Context가 필요할 때도 lifetime을 명확히 해야 한다. singleton graph에는 application context나 좁은 platform abstraction만 넣고, Activity context는 Activity-scoped object나 UI event 경계에서만 사용한다.
+
+관련 정본: [Context leak 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/context-leaks-happen-when-reference-outlives-component-lifetime.md), [DI 정본](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection.md), [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md).
+
+공식 문서: [Context reference](https://developer.android.com/reference/android/content/Context)

@@ -1,60 +1,7 @@
-# Lifecycle
+# 이전 노트
 
-상위 노트: [android-jetpack-architecture](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-생명주기를 인식하는 컴포넌트.
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture/10-lifecycle.md`
 
-```kotlin
-class MyObserver : DefaultLifecycleObserver {
-    override fun onCreate(owner: LifecycleOwner) {
-        // Activity/Fragment onCreate 시
-    }
-    
-    override fun onStart(owner: LifecycleOwner) {
-        // onStart 시
-    }
-    
-    override fun onResume(owner: LifecycleOwner) {
-        // onResume 시
-    }
-    
-    override fun onPause(owner: LifecycleOwner) {
-        // onPause 시
-    }
-    
-    override fun onStop(owner: LifecycleOwner) {
-        // onStop 시
-    }
-    
-    override fun onDestroy(owner: LifecycleOwner) {
-        // onDestroy 시
-    }
-}
-
-// 사용
-class MyActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycle.addObserver(MyObserver())
-    }
-}
-
-// 커스텀 Lifecycle-aware 컴포넌트
-// ✅ DefaultLifecycleObserver 사용 (권장)
-class MyLocationManager(private val context: Context) : DefaultLifecycleObserver {
-    override fun onStart(owner: LifecycleOwner) {
-        // 위치 업데이트 시작
-    }
-    
-    override fun onStop(owner: LifecycleOwner) {
-        // 위치 업데이트 중지
-    }
-}
-
-// ❌ @OnLifecycleEvent — Deprecated (Lifecycle 2.4.0+)
-// 아래 코드는 더 이상 사용하면 안 됨
-// class OldLocationManager : LifecycleObserver {
-//     @OnLifecycleEvent(Lifecycle.Event.ON_START)  // ← 리플렉션 기반, deprecated
-//     fun start() { }
-// }
-```
+정본 노트: [Activity Lifecycle](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md)

@@ -1,44 +1,7 @@
-# 현대 대체재: WorkManager
+# 이전 노트
 
-`WorkManager`는 "언젠가는 반드시 실행되어야 하는 백그라운드 작업"을 위한 Jetpack 라이브러리입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-대표 사례:
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/service-as-special-work-boundary/06-현대-대체재-workmanager.md`
 
-* 서버에 로그 업로드
-* 장바구니/주문 데이터 동기화
-* 이미지 압축 후 업로드
-* 네트워크가 연결되면 재시도해야 하는 작업
-
-```kotlin
-class SyncOrdersWorker(
-    appContext: Context,
-    params: WorkerParameters,
-) : CoroutineWorker(appContext, params) {
-    override suspend fun doWork(): Result {
-        return try {
-            // repository.syncOrders()
-            Result.success()
-        } catch (e: IOException) {
-            Result.retry()
-        } catch (e: Exception) {
-            Result.failure()
-        }
-    }
-}
-```
-
-```kotlin
-val request = OneTimeWorkRequestBuilder<SyncOrdersWorker>()
-    .setConstraints(
-        Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-    )
-    .build()
-
-WorkManager.getInstance(context).enqueueUniqueWork(
-    "sync-orders",
-    ExistingWorkPolicy.KEEP,
-    request,
-)
-```
+정본 노트: [Bound Service](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/bound-service-exposes-process-dependency-and-ipc-api.md)

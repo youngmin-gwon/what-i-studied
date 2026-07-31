@@ -1,37 +1,7 @@
----
-title: 05-handling-process-death
-tags: []
-aliases: []
-date modified: 2026-07-31 16:28:48 +09:00
-date created: 2026-07-31 16:26:40 +09:00
----
+# 이전 노트
 
-## 🧟‍♂️ Handling Process Death
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 1. SavedStateHandle (권장)
+흡수된 이전 노트: `02_app_framework/architecture/app-components/android-activity-lifecycle/05-handling-process-death.md`
 
-ViewModel 내부에서 `SavedStateHandle` 을 쓰면, 보일러플레이트 코드 없이 프로세스 킬에 대비할 수 있습니다.
-
-```kotlin
-class MyViewModel(private val state: SavedStateHandle) : ViewModel() {
-    // 값이 바뀌면 자동으로 Bundle에 저장됨
-    val searchQuery = state.getLiveData("query", "")
-
-    fun setQuery(query: String) {
-        state["query"] = query
-    }
-}
-```
-
-### 2. onSaveInstanceState (Old School)
-
-단순한 View 상태(스크롤 위치, EditText 내용)는 View 시스템이 알아서 저장해 주지만, 커스텀 변수는 직접 저장해야 합니다.
-
-```kotlin
-override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-    outState.putInt("score", currentScore) // 1MB 제한 주의!
-}
-```
-
----
+정본 노트: [Process Death Recovery](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md)

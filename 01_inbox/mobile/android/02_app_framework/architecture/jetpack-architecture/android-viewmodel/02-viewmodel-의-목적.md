@@ -1,5 +1,7 @@
-# ViewModel 의 목적
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [ViewModel은 화면 단위 상태와 외부 작업을 조율한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-orchestrates-screen-state-and-external-work.md)
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-viewmodel/02-viewmodel-의-목적.md`
+
+정본 노트: [ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md)

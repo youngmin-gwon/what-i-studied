@@ -1,30 +1,7 @@
-# Android 4대 컴포넌트와 현대 아키텍처 가이드
+# 이전 노트
 
-이 문서는 안드로이드 앱의 전통적인 핵심 구성 요소였던 **Activity, Service, BroadcastReceiver, ContentProvider**를 바닥부터 설명하고,
-왜 현대 Android 개발에서는 **Jetpack Compose, ViewModel, Kotlin Flow, WorkManager, App Functions,
-Repository,
-Room/DataStore** 중심의 구조로 이동했는지를 다룹니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
----
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components.md`
 
-## 원자 노트
-
-- [안드로이드 앱은 "OS가 실행하는 컴포넌트 묶음"이다](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/android-app-as-os-run-components.md)
-- [4대 컴포넌트 한눈에 보기](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/android-four-components-overview.md)
-- [Activity: 화면 그 자체에서 "앱의 대문"으로](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/activity-as-app-entry-boundary.md)
-- [Service: 백그라운드 만능 도구에서 "특수 작업용 경계"로](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/service-as-special-work-boundary.md)
-- [BroadcastReceiver: 시스템 방송 수신기에서 "경계 이벤트 처리기"로](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/broadcastreceiver-as-boundary-event-handler.md)
-- [ContentProvider: 앱 간 데이터 공유 창구에서 "특수한 공개 API"로](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/contentprovider-as-public-data-api.md)
-- [App Functions: 시스템/AI agent에게 앱 기능을 공개하는 현대 경계](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/app-functions-as-modern-system-agent-boundary.md)
-- [왜 현대 아키텍처로 바뀌었나?](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/why-android-architecture-became-modern.md)
-- [전통 컴포넌트와 현대 도구 매핑](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/classic-components-to-modern-tools.md)
-- [실무 아키텍처 예시](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/android-practical-architecture-example.md)
-- [언제 전통 컴포넌트를 직접 써야 하나?](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/when-to-use-classic-android-components-directly.md)
-- [전체 흐름 요약](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/android-modern-architecture-flow-summary.md)
-
----
-
-## 정리 기준
-
-이 노트는 원래 긴 가이드였고, 각 H2 섹션을 별도 원자 노트로 분리했습니다.
-기존 링크 호환을 위해 이 파일은 허브 노트로 유지합니다.
+정본 노트: [Background Work Contracts](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)

@@ -1,10 +1,7 @@
-# 그래도 ContentProvider가 필요한 경우
+# 이전 노트
 
-ContentProvider는 사라진 기술이 아니라 **앱 간 데이터 공유가 제품 요구사항일 때 필요한 공식 창구**입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-| 상황                             | 예시                             |
-|:-------------------------------|:-------------------------------|
-| 다른 앱이 내 데이터를 검색해야 함            | 연락처, 캘린더, 사전 앱                 |
-| 시스템 검색/추천에 데이터를 노출해야 함         | 검색 가능한 콘텐츠                     |
-| 파일을 안전하게 공유해야 함                | `FileProvider`로 이미지/PDF URI 공유 |
-| 기업/플랫폼 앱이 여러 앱에 공통 데이터를 제공해야 함 | 사내 계정, 공통 인증, 공통 설정            |
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/contentprovider-as-public-data-api/04-그래도-contentprovider가-필요한-경우.md`
+
+정본 노트: [ContentProvider](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md)

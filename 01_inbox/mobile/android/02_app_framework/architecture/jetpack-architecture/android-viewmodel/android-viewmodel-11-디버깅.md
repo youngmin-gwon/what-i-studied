@@ -1,27 +1,7 @@
-# 디버깅
+# 이전 노트
 
-상위 노트: [android-viewmodel](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-viewmodel.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-class DebugViewModel : ViewModel() {
-    init {
-        Log.d("ViewModel", "Created: ${this.hashCode()}")
-    }
-    
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("ViewModel", "Cleared: ${this.hashCode()}")
-    }
-}
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-viewmodel/android-viewmodel-11-디버깅.md`
 
-// Activity
-class MainActivity : AppCompatActivity() {
-    private val viewModel: DebugViewModel by viewModels()
-    
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("Activity", "ViewModel hash: ${viewModel.hashCode()}")
-        // 화면 회전해도 같은 해시코드 출력됨
-    }
-}
-```
+정본 노트: [ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md)

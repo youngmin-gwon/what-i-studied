@@ -1,12 +1,7 @@
-# ContentProvider가 필요한 이유
+# 이전 노트
 
-안드로이드 앱은 기본적으로 각자의 샌드박스 안에 갇혀 있습니다. A 앱은 B 앱의 DB 파일을 직접 열 수 없습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-ContentProvider는 이 문제를 해결하기 위해 **권한, URI, 표준 CRUD 인터페이스를 갖춘 공식 데이터 공유 창구**를 제공합니다.
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/contentprovider-as-public-data-api/02-contentprovider가-필요한-이유.md`
 
-| 역할       | 설명                                    |
-|:---------|:--------------------------------------|
-| 데이터 주소화  | `content://...` URI로 데이터 위치 표현        |
-| 권한 통제    | 읽기/쓰기 권한, URI 임시 권한 부여                |
-| 표준 인터페이스 | `query`, `insert`, `update`, `delete` |
-| 앱 간 공유   | 다른 앱이나 시스템 UI가 안전하게 접근                |
+정본 노트: [ContentProvider](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md)

@@ -1,15 +1,7 @@
-# 02 activity 생명주기 상세 개요
+# 이전 노트
 
----
-title: 02-activity-생명주기-상세
-tags: []
-aliases: []
-date modified: 2026-07-31 16:29:13 +09:00
-date created: 2026-07-31 15:29:55 +09:00
----
+이 노트의 내용은 정본 노트로 흡수했다.
 
-## Activity 생명주기 상세
+흡수된 이전 노트: `02_app_framework/architecture/app-components/android-app-components-deep-dive/02-activity-생명주기-상세/02-activity-생명주기-상세-00-개요.md`
 
-상위 노트: [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md)
-
-Activity 는 사용자가 보는 화면이며, 복잡한 생명주기를 가진다.
+정본 노트: [Activity Lifecycle](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md)

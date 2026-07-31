@@ -1,14 +1,7 @@
-# 왜 Service 사용이 줄었나?
+# 이전 노트
 
-스마트폰은 배터리, 발열, 메모리 제약이 매우 강한 기기입니다. 앱들이 마음대로 Service를 오래 실행하면 폰 전체 성능이 무너집니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-그래서 Android는 시간이 지나며 백그라운드 실행을 강하게 제한했습니다.
+흡수된 이전 노트: `02_app_framework/architecture/jetpack-architecture/android-modern-architecture-components/service-as-special-work-boundary/03-왜-service-사용이-줄었나.md`
 
-| 문제                | OS의 방향                             |
-|:------------------|:-----------------------------------|
-| 앱이 몰래 계속 실행       | 백그라운드 Service 제한 강화                |
-| 배터리 과소모           | Doze, App Standby, 배터리 최적화         |
-| 유저가 모르는 위치/녹음/동기화 | Foreground Service 알림과 권한 요구       |
-| 주기 작업 남발          | JobScheduler/WorkManager로 스케줄링 표준화 |
-
-결과적으로 Service는 **아무 백그라운드 작업에나 쓰는 도구**가 아니라, 정말로 OS 레벨 실행이 필요한 특수 컴포넌트가 되었습니다.
+정본 노트: [Bound Service](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/bound-service-exposes-process-dependency-and-ipc-api.md)
