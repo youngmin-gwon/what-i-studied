@@ -1,42 +1,7 @@
-# Repository는 Flow를 노출하고, ViewModel은 StateFlow로 바꾼다
+# 이전 노트
 
-현대 Android에서 가장 흔한 패턴입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-class BenefitRepository(
-    private val dao: BenefitDao,
-    private val api: BenefitApi,
-) {
-    fun observeBenefits(): Flow<List<Benefit>> {
-        return dao.observeBenefits()
-    }
+흡수된 이전 노트: `01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/flow-as-async-stream/05-repository는-flow를-노출하고-viewmodel은-stateflow로-바꾼다.md`
 
-    suspend fun refreshBenefits() {
-        val remoteBenefits = api.fetchBenefits()
-        dao.replaceAll(remoteBenefits)
-    }
-}
-```
-
-Repository는 데이터 출처를 숨깁니다. UI 입장에서는 이 데이터가 DB에서 오는지, 네트워크에서 오는지, 캐시에서 오는지 몰라도 됩니다.
-
-ViewModel은 이 Flow를 화면 상태로 바꿉니다.
-
-```kotlin
-class BenefitViewModel(
-    repository: BenefitRepository,
-) : ViewModel() {
-    val uiState: StateFlow<BenefitUiState> =
-        repository.observeBenefits()
-            .map { benefits ->
-                BenefitUiState.Ready(benefits)
-            }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = BenefitUiState.Loading,
-            )
-}
-```
-
----
+정본 노트: [Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/repository-exposes-flow-and-viewmodel-composes-screen-state.md)

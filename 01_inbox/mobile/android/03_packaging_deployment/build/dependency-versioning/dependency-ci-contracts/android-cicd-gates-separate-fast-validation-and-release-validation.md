@@ -2,7 +2,7 @@
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
 관련 지도: [의존성, 버전, CI 계약](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)
-관련 정본: [Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-project-and-module-dsl-have-different-responsibilities.md)
+관련 노트: [의존성 변경 체크리스트는 그래프, ABI, 테스트, 배포 위험을 함께 본다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-change-checklist-reviews-graph-abi-tests-and-release-risk.md), [Play release checklist는 artifact, signing, track, rollback 조건을 고정한다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md)
 
 ## 목적
 

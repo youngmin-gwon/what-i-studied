@@ -1,21 +1,11 @@
-# android ui system
+# Android UI System
 
-## 원자 노트
+Android UI 문서는 View System, Compose, system UI, adaptive layout을 한 흐름으로 묶되 각 개념은 정본 노트로 분리한다.
 
-### 개요
-- [android-ui-system-00-개요](01_inbox/mobile/android/02_app_framework/ui/system/android-ui-system/android-ui-system-00-%EA%B0%9C%EC%9A%94.md)
+## 정본 지도
 
-### 💡 Context: UI 패러다임의 변화
-- [01-context-ui-패러다임의-변화](01_inbox/mobile/android/02_app_framework/ui/system/android-ui-system/01-context-ui-%ED%8C%A8%EB%9F%AC%EB%8B%A4%EC%9E%84%EC%9D%98-%EB%B3%80%ED%99%94.md)
-
-### 🏛️ Legacy View System (Imperative)
-- [02-legacy-view-system-imperative](01_inbox/mobile/android/02_app_framework/ui/system/android-ui-system/02-legacy-view-system-imperative.md)
-
-### 🚀 Jetpack Compose (Declarative)
-- [03-jetpack-compose-declarative](01_inbox/mobile/android/02_app_framework/ui/system/android-ui-system/03-jetpack-compose-declarative.md)
-
-### ⚔️ Comparison: RecyclerView vs LazyColumn
-- [04-comparison-recyclerview-vs-lazycolumn](01_inbox/mobile/android/02_app_framework/ui/system/android-ui-system/04-comparison-recyclerview-vs-lazycolumn.md)
-
-### 🎨 2026 현대적 UI 표준 (Android 15-16+)
-- [05-2026-현대적-ui-표준-android-15-16](01_inbox/mobile/android/02_app_framework/ui/system/android-ui-system/05-2026-%ED%98%84%EB%8C%80%EC%A0%81-ui-%ED%91%9C%EC%A4%80-android-15-16.md)
+- [Android UI System Contracts](01_inbox/mobile/android/02_app_framework/ui/system/ui-system-contracts/ui-system-contracts.md)
+- [Compose Runtime과 상태 모델](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md)
+- [Compose Layout, Animation, Accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md)
+- [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)
+- [Adaptive Navigation 계약](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)

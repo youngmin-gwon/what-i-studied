@@ -1,14 +1,7 @@
----
-title: gradle-performance-tuning
-tags: []
-aliases: []
-date modified: 2026-07-31 17:39:57 +09:00
-date created: 2026-04-06 18:57:55 +09:00
----
+# 이전 노트
 
-## gradle performance tuning
+이 노트의 내용은 정본 노트로 흡수했다.
 
-이 문서는 원자화 이전의 진입점이다. 현재 내용은 아래 정본 지도로 재구성했다.
+흡수된 이전 노트: `01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-performance-tuning.md`
 
-- 정본 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
-- 전체 지도: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+정본 노트: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)

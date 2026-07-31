@@ -1,5 +1,7 @@
-# Flow
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/repository-exposes-flow-and-viewmodel-composes-screen-state.md)
+흡수된 이전 노트: `01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/06-flow.md`
+
+정본 노트: [Cold Flow는 collect될 때 실행된다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow/cold-flow-runs-when-collected.md)

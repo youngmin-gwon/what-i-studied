@@ -1,5 +1,7 @@
-# 검색 패턴: query StateFlow + flatMapLatest
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [새 입력이 이전 작업을 무효화하면 flatMapLatest로 이전 흐름을 취소한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flatmaplatest-cancels-obsolete-work-for-new-input.md)
+흡수된 이전 노트: `01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/android-coroutine-flow-practical-patterns/03-검색-패턴-query-stateflow-flatmaplatest.md`
+
+정본 노트: [flatMapLatest는 새 입력이 오면 이전 작업을 취소한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flatmaplatest-cancels-obsolete-work-for-new-input.md)

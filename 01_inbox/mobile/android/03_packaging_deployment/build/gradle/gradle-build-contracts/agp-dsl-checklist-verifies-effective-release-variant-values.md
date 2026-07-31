@@ -2,7 +2,7 @@
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
 관련 지도: [Gradle 빌드 계약](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-build-contracts.md)
-관련 정본: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+관련 노트: [Android 기본 설정은 식별자와 버전 계약을 만든다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/android-default-config-defines-identity-and-version-contracts.md), [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/signing-config-connects-local-signing-and-play-release-identity.md)
 
 ## DSL를 읽는 순서
 

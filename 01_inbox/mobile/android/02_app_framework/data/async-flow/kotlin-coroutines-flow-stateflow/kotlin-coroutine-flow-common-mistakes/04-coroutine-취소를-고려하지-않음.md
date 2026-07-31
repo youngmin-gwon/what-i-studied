@@ -1,12 +1,7 @@
-# Coroutine 취소를 고려하지 않음
+# 이전 노트
 
-Coroutine은 취소될 수 있습니다. 특히 화면이 사라지거나 새 검색어가 들어오면 이전 작업이 취소되는 것이 정상입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-긴 루프를 직접 돌린다면 취소 가능 지점을 고려해야 합니다.
+흡수된 이전 노트: `01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/kotlin-coroutine-flow-common-mistakes/04-coroutine-취소를-고려하지-않음.md`
 
-```kotlin
-while (isActive) {
-    syncOnce()
-    delay(60_000)
-}
-```
+정본 노트: [Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다](01_inbox/mobile/android/02_app_framework/data/async-flow/coroutines/structured-concurrency-parent-owns-child-lifetime.md)

@@ -2,7 +2,7 @@
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
 관련 지도: [의존성, 버전, CI 계약](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)
-관련 정본: [Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-project-and-module-dsl-have-different-responsibilities.md)
+관련 노트: [Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/gradle-dependency-management-controls-resolution-graph-not-requested-versions.md), [Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-project-and-module-dsl-have-different-responsibilities.md)
 
 ## 역할
 

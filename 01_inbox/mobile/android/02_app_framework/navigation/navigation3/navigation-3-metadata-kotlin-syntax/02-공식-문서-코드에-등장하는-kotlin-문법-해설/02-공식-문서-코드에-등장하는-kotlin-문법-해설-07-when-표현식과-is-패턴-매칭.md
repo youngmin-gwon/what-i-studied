@@ -1,9 +1,7 @@
-# `when` 표현식과 `is` 패턴 매칭
-```kotlin
-when (key) {
-    is Home -> NavEntry(key, metadata = mapOf("key" to "value")) {}
-}
-```
-* `when`은 Java/C의 `switch`문과 유사하지만 훨씬 강력합니다.
-* `is Home`은 **"key 변수의 실제 타입이 Home 클래스인가?"**를 확인하는 **타입 체크** 패턴입니다. Java의 `instanceof`에 해당합니다.
-* `->` 뒤에 나오는 코드가 해당 조건이 참일 때 실행됩니다.
+# 이전 노트
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation-3-metadata-kotlin-syntax/02-공식-문서-코드에-등장하는-kotlin-문법-해설/02-공식-문서-코드에-등장하는-kotlin-문법-해설-07-when-표현식과-is-패턴-매칭.md`
+
+정본 노트: [Navigation 3 metadata 예제의 Kotlin 문법은 navigation 계약이 아니다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-metadata-examples-use-kotlin-syntax-but-syntax-is-not-navigation-contract.md)

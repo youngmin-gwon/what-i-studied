@@ -1,10 +1,7 @@
-# 💡 Context: Kotlin Coroutines vs Swift Concurrency
+# 이전 노트
 
-상위 노트: [android-coroutines-flow](01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-비동기 처리의 현대적인 패러다임은 플랫폼마다 유사하지만 명확한 차이가 있습니다. Kotlin 의 `suspend` 는 Swift 의 `async` 와 대응되며, `Flow` 는 `AsyncSequence` 와 많은 개념을 공유합니다.
+흡수된 이전 노트: `01_inbox/mobile/android/02_app_framework/data/async-flow/android-coroutines-flow/01-context-kotlin-coroutines-vs-swift-concurrency.md`
 
->[!NOTE] **상호 참조**
->Swift 의 비동기 모델은 [apple-swift-concurrency](01_inbox/mobile/apple/01_language_concurrency/apple-swift-concurrency.md) 를 참고하세요.
-
----
+정본 노트: [Coroutine은 thread가 아니라 취소 가능한 경량 작업이다](01_inbox/mobile/android/02_app_framework/data/async-flow/coroutines/coroutine-is-lightweight-cancellable-work-not-thread.md)

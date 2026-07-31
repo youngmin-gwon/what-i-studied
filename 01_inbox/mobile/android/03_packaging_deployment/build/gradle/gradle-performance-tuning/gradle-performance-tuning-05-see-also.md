@@ -1,13 +1,7 @@
----
-title: gradle-performance-tuning-05-see-also
-tags: []
-aliases: []
-date modified: 2026-07-31 17:38:52 +09:00
-date created: 2026-07-31 16:26:40 +09:00
----
+# 이전 노트
 
-## 📚 See Also
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- [android-gradle-build-system](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-build-system.md) - 안드로이드 빌드 시스템 허브
-- [android-gradle-dsl-reference](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-dsl-reference.md) - `build.gradle.kts` 상세 문법
-- [android-cicd-patterns](01_inbox/mobile/android/03_packaging_deployment/ci-cd/android-cicd-patterns.md) - 자동화된 CI/CD 파이프라인
+흡수된 이전 노트: `01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-performance-tuning/gradle-performance-tuning-05-see-also.md`
+
+정본 노트: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)

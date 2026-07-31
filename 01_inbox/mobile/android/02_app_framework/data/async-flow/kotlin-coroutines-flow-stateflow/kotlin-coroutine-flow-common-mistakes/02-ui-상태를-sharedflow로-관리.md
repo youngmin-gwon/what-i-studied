@@ -1,5 +1,7 @@
-# UI 상태를 SharedFlow로 관리
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [StateFlow는 현재값이 필요한 화면 상태에 사용하고 Flow는 원천 데이터 흐름에 사용한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md)
+흡수된 이전 노트: `01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/kotlin-coroutine-flow-common-mistakes/02-ui-상태를-sharedflow로-관리.md`
+
+정본 노트: [SharedFlow와 Channel은 상태 저장소가 아니라 일회성 신호 전달 수단이다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/sharedflow-and-channel-are-event-signals-not-state-stores.md)

@@ -1,9 +1,7 @@
-# ViewModel에서 Flow를 만들고 아무도 collect하지 않음
+# 이전 노트
 
-```kotlin
-// collect 또는 stateIn이 없으면 실행되지 않음
-repository.observeBenefits()
-    .map { benefits -> BenefitUiState.Ready(benefits) }
-```
+이 노트의 내용은 정본 노트로 흡수했다.
 
-Flow는 대부분 Cold입니다. `collect`, `stateIn`, `shareIn` 같은 최종 동작이 있어야 실제로 흐릅니다.
+흡수된 이전 노트: `01_inbox/mobile/android/02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/kotlin-coroutine-flow-common-mistakes/01-viewmodel에서-flow를-만들고-아무도-collect하지-않음.md`
+
+정본 노트: [Cold Flow는 collect될 때 실행된다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow/cold-flow-runs-when-collected.md)

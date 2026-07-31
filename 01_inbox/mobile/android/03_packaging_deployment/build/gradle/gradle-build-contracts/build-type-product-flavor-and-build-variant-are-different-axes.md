@@ -2,7 +2,7 @@
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
 관련 지도: [Gradle 빌드 계약](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-build-contracts.md)
-관련 정본: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+관련 노트: [Source set 우선순위는 variant별 코드와 리소스 충돌을 결정한다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/source-set-priority-decides-variant-code-and-resource-conflicts.md), [AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/agp-dsl-checklist-verifies-effective-release-variant-values.md)
 
 ## 세 개념의 관계
 

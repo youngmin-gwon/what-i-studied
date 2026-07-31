@@ -1,10 +1,7 @@
-# `object` 선언 — 싱글톤 객체
-```kotlin
-object NavDisplay {
-    object TransitionKey : NavMetadataKey<...>
-}
-```
-* Kotlin의 `object`는 **클래스 선언과 동시에 단 하나의 인스턴스만 존재하는 싱글톤 객체**를 만듭니다.
-* `new` 같은 키워드로 인스턴스를 만들 필요 없이, 그 자체가 곧 유일한 인스턴스입니다.
-* 여기서 `TransitionKey`는 `NavDisplay`라는 객체 안에 중첩(nested)된 또 다른 싱글톤입니다.
-* 사용할 때는 `NavDisplay.TransitionKey`처럼 마치 Java의 `static` 상수처럼 접근합니다.
+# 이전 노트
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation-3-metadata-kotlin-syntax/02-공식-문서-코드에-등장하는-kotlin-문법-해설/02-공식-문서-코드에-등장하는-kotlin-문법-해설-02-object-선언-싱글톤-객체.md`
+
+정본 노트: [Navigation 3 metadata 예제의 Kotlin 문법은 navigation 계약이 아니다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-metadata-examples-use-kotlin-syntax-but-syntax-is-not-navigation-contract.md)
