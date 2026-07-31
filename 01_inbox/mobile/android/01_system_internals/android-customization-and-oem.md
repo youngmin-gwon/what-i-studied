@@ -20,10 +20,10 @@ date created: 2025-12-16 15:27:42 +09:00
 - [[08-mainline-project-mainline-android-10|Mainline (Project Mainline, Android 10+)]]
 - [[09-verified-boot-avb|Verified Boot (AVB)]]
 - [[10-oem-specific-apis|OEM-specific APIs]]
-- [[11-디버깅|디버깅]]
+- [[android-customization-and-oem-11-디버깅|디버깅]]
 - [[12-custom-rom-개발|Custom ROM 개발]]
-- [[13-학습-리소스|학습 리소스]]
-- [[14-연결-문서|연결 문서]]
+- [[android-customization-and-oem-13-학습-리소스|학습 리소스]]
+- [[android-customization-and-oem-14-연결-문서|연결 문서]]
 
 ---
 

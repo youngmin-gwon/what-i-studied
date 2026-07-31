@@ -28,7 +28,7 @@ date created: 2026-04-04 00:12:42 +09:00
 - [[06-pendingintent|PendingIntent]]
 - [[07-activity-result-api-modern|Activity Result API (Modern)]]
 - [[08-앱-간-데이터-전달-보안|앱 간 데이터 전달 보안]]
-- [[09-디버깅|디버깅]]
+- [[android-intent-and-ipc-09-디버깅|디버깅]]
 - [[10-더-보기|더 보기]]
 
 ---

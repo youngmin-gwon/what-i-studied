@@ -9,7 +9,7 @@
 
 ## 원자 노트
 
-- [[01-큰-그림|큰 그림]]
+- [[adaptive-layout-and-navigation-01-큰-그림|큰 그림]]
 - [[02-window와-resizability|Window와 Resizability]]
 - [[03-sizing-strategy|Sizing Strategy]]
 - [[04-layout-containers|Layout Containers]]

@@ -28,7 +28,7 @@ date created: 2026-03-21 16:47:09 +09:00
 - [[06-컴포넌트-간-통신|컴포넌트 간 통신]]
 - [[07-백그라운드-작업-선택-가이드|백그라운드 작업 선택 가이드]]
 - [[08-성능-최적화|성능 최적화]]
-- [[09-디버깅|디버깅]]
+- [[android-app-components-deep-dive-09-디버깅|디버깅]]
 - [[10-androidmanifest-xml-상세|AndroidManifest.xml 상세]]
 - [[11-see-also|See Also]]
 

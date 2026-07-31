@@ -32,8 +32,8 @@ date created: 2026-03-21 16:47:09 +09:00
 - [[10-저장소-공간-관리|저장소 공간 관리]]
 - [[11-백업과-복원|백업과 복원]]
 - [[12-성능-최적화|성능 최적화]]
-- [[13-디버깅|디버깅]]
-- [[14-see-also|See Also]]
+- [[android-storage-systems-13-디버깅|디버깅]]
+- [[android-storage-systems-14-see-also|See Also]]
 
 ---
 

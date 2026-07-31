@@ -11,7 +11,7 @@ storage**의 역할을 정리합니다.
 
 ## 원자 노트
 
-- [[01-큰-그림|큰 그림]]
+- [[android-storage-and-databases-01-큰-그림|큰 그림]]
 - [[02-datastore|DataStore]]
 - [[03-room|Room]]
 - [[04-sqlite|SQLite]]
