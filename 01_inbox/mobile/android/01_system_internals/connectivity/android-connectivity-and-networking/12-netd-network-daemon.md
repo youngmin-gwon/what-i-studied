@@ -1,24 +1,7 @@
-# Netd (Network Daemon)
+# 12-netd-network-daemon
 
-상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```bash
-# Netd 명령
-adb shell cmd netd network list
+정본 노트: [netd-enforces-routing-dns-firewall-and-tethering-operations](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/netd-enforces-routing-dns-firewall-and-tethering-operations.md)
 
-# Routing table
-adb shell ip route
-
-# iptables 규칙
-adb shell iptables -L -n -v
-```
-
-**Netd 역할**:
-
-- 네트워크 인터페이스 설정
-- 라우팅 테이블 관리
-- 방화벽 (iptables/nftables)
-- DNS 해석
-- 대역폭 제어 (tc - traffic control)
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

@@ -347,3 +347,12 @@ Canonical note 후보:
 - 정본 지도: [Android 부팅과 런타임 지도](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-and-runtime.md)
 - 원칙: 부팅 순서 조각을 나열하지 않고, 신뢰 검증, mount/update 경계, init 선언, 프로세스 생성, framework service 운영 계약으로 나눈다.
 - 참고한 공식 문서: [Bootloader overview](https://source.android.com/docs/core/architecture/bootloader), [Android Verified Boot](https://source.android.com/docs/security/features/verifiedboot/avb), [A/B system updates](https://source.android.com/docs/core/ota/ab), [Android Init Language](https://android.googlesource.com/platform/system/core/+/master/init/README.md), [About the Zygote processes](https://source.android.com/docs/core/runtime/zygote), [Android runtime and Dalvik](https://source.android.com/docs/core/runtime)
+
+## Phase 10 적용 기록
+
+- 적용일: 2026-07-31
+- 범위: ConnectivityService, ConnectivityManager, Network, NetworkCapabilities, LinkProperties, default/requested network, NetworkCallback, metered/Data Saver, captive portal, Wi-Fi APIs, cellular policy, VpnService, always-on/lockdown VPN, Private DNS, Network Security Config, netd, TrafficStats, tethering, network debugging
+- 정본 지도: [Android 연결성과 네트워크 지도](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity.md)
+- 원칙: transport 이름이 아니라 capability, validation, policy, 수명, 보안 경계를 기준으로 네트워크 동작을 설명한다.
+- 참고한 공식 문서: [ConnectivityManager](https://developer.android.com/reference/android/net/ConnectivityManager), [ConnectivityManager.NetworkCallback](https://developer.android.com/reference/android/net/ConnectivityManager.NetworkCallback), [Wi-Fi infrastructure](https://developer.android.com/develop/connectivity/wifi), [VPN](https://developer.android.com/develop/connectivity/vpn), [Network security configuration](https://developer.android.com/privacy-and-security/security-config), [Connectivity module](https://source.android.com/docs/core/architecture/modular-system/connectivity)
+

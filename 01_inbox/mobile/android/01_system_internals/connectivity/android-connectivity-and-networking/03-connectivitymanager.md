@@ -1,61 +1,7 @@
-# ConnectivityManager
+# 03-connectivitymanager
 
-상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 네트워크 요청
+정본 노트: [network-is-connection-instance-and-transport-is-only-one-capability](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/network-is-connection-instance-and-transport-is-only-one-capability.md)
 
-```kotlin
-val connectivityManager = getSystemService(ConnectivityManager::class.java)
-
-// 현재 활성 네트워크
-val activeNetwork = connectivityManager.activeNetwork
-val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
-
-if (capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {
-    // Wi-Fi 연결
-}
-
-// 네트워크 콜백
-val request = NetworkRequest.Builder()
-    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-    .build()
-
-connectivityManager.registerNetworkCallback(request, object : NetworkCallback() {
-    override fun onAvailable(network: Network) {
-        // 네트워크 사용 가능
-    }
-    
-    override fun onLost(network: Network) {
-        // 네트워크 끊김
-    }
-    
-    override fun onCapabilitiesChanged(
-        network: Network,
-        capabilities: NetworkCapabilities
-    ) {
-        val bandwidth = capabilities.linkDownstreamBandwidthKbps
-    }
-})
-```
-
-### Network Selection
-
-**우선순위** (Android 9+):
-
-1. **Default**: Wi-Fi > Ethernet > Mobile
-2. **사용자 선택**: 설정에서 우선 네트워크 지정
-3. **앱 요구사항**: `NetworkRequest` 로 특정 네트워크 요청
-
-**예시**:
-
-```kotlin
-// 계량제가 아닌 네트워크 (Wi-Fi)만
-val request = NetworkRequest.Builder()
-    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
-    .build()
-
-connectivityManager.requestNetwork(request, callback)
-```
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

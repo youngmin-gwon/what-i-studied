@@ -1,50 +1,7 @@
-# VPN
+# 07-vpn
 
-상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### VpnService
+정본 노트: [vpnservice-registers-app-tun-interface-with-system-routing](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/vpnservice-registers-app-tun-interface-with-system-routing.md)
 
-```kotlin
-class MyVpnService : VpnService() {
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val builder = Builder()
-            .addAddress("10.0.0.2", 24)
-            .addRoute("0.0.0.0", 0)  // 모든 트래픽
-            .addDnsServer("8.8.8.8")
-            .setSession("MyVPN")
-        
-        val vpnInterface = builder.establish()
-        
-        // 패킷 읽기/쓰기
-        thread {
-            val buffer = ByteBuffer.allocate(32767)
-            while (true) {
-                val length = vpnInterface.read(buffer)
-                // 패킷 처리 (암호화, 터널링 등)
-            }
-        }
-        
-        return START_STICKY
-    }
-}
-```
-
-**작동 원리**:
-
-```
-앱 → VPN Interface (tun0) → VpnService
-VpnService → 암호화 → VPN 서버
-VPN 서버 → 인터넷
-```
-
-### Always-On VPN
-
-```bash
-# 설정
-adb shell settings put secure always_on_vpn_app com.example.vpn
-adb shell settings put secure always_on_vpn_lockdown 1
-
-# VPN 없으면 네트워크 차단
-```
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

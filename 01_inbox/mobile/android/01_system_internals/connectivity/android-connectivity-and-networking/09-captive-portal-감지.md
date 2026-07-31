@@ -1,26 +1,7 @@
-# Captive Portal 감지
+# 09-captive-portal-감지
 
-상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// 커피숍 Wi-Fi 등의 로그인 페이지 감지
-val cm = getSystemService(ConnectivityManager::class.java)
-val capabilities = cm.getNetworkCapabilities(network)
+정본 노트: [validated-and-captive-portal-are-observed-internet-states](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/validated-and-captive-portal-are-observed-internet-states.md)
 
-if (capabilities?.hasCapability(
-    NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL) == true) {
-    // Captive portal 존재
-    startCaptivePortalApp(network)
-}
-```
-
-**감지 방법**:
-
-```
-1. 연결 후 http://connectivitycheck.gstatic.com/generate_204 접근
-2. HTTP 204 응답 예상
-3. 302 Redirect 받으면 → Captive Portal
-4. 브라우저 팝업
-```
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

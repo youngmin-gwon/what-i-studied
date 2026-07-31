@@ -1,31 +1,7 @@
-# Connectivity 와 Networking
+# 01-connectivity-와-networking
 
-상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-안드로이드 네트워크 스택은 Wi-Fi, 모바일 데이터, 블루투스, VPN 등 다양한 연결을 관리하고, 앱에게 최적의 네트워크를 제공한다. ConnectivityService 가 중심이 되어 네트워크 선택, 전환, 정책 적용을 담당한다.
+정본 노트: [connectivity-contracts](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)
 
-### 왜 복잡한 네트워크 관리가 필요한가
-
-#### 모바일 네트워크의 특성
-
-**데스크톱**:
-
-- 유선 이더넷 or Wi-Fi (고정)
-- 항상 연결
-- 무제한 데이터
-
-**모바일**:
-
-- Wi-Fi, 4G/5G, 블루투스 동시 사용
-- 이동 중 네트워크 전환 (Wi-Fi ↔ LTE)
-- 데이터 제한 (요금제)
-- 배터리 고려
-
-**필요한 기능**:
-
-1. **네트워크 선택**: 어떤 네트워크 사용?
-2. **자동 전환**: Wi-Fi ↔ 모바일 데이터 seamless
-3. **데이터 절약**: 백그라운드 제한
-4. **네트워크 보안**: VPN, Private DNS
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

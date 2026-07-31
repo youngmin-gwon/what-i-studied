@@ -1,37 +1,7 @@
-# Traffic Stats
+# 11-traffic-stats
 
-상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// 앱별 네트워크 사용량
-val uid = android.os.Process.myUid()
-val rxBytes = TrafficStats.getUidRxBytes(uid)  // 수신
-val txBytes = TrafficStats.getUidTxBytes(uid)  // 송신
+정본 노트: [trafficstats-observes-uid-usage-not-cost-policy](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/trafficstats-observes-uid-usage-not-cost-policy.md)
 
-Log.d(TAG, "Received: ${rxBytes / 1024} KB")
-Log.d(TAG, "Sent: ${txBytes / 1024} KB")
-
-// 총 사용량
-val totalRx = TrafficStats.getTotalRxBytes()
-val totalTx = TrafficStats.getTotalTxBytes()
-```
-
-**eBPF 기반 추적** (Android 9+):
-
-```c
-// BPF map으로 UID별 트래픽 카운트
-struct stats_key {
-    uint32_t uid;
-    uint32_t tag;
-    uint32_t interface_index;
-};
-
-struct stats_value {
-    uint64_t rx_bytes;
-    uint64_t tx_bytes;
-    uint64_t rx_packets;
-    uint64_t tx_packets;
-};
-```
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.

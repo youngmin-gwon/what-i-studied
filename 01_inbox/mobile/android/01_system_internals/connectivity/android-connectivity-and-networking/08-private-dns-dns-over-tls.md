@@ -1,27 +1,7 @@
-# Private DNS (DNS-over-TLS)
+# 08-private-dns-dns-over-tls
 
-상위 노트: [android-connectivity-and-networking](01_inbox/mobile/android/01_system_internals/connectivity/android-connectivity-and-networking.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```bash
-# 설정
-adb shell settings put global private_dns_mode hostname
-adb shell settings put global private_dns_specifier dns.google
+정본 노트: [private-dns-encrypts-dns-but-does-not-replace-app-tls-validation](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/private-dns-encrypts-dns-but-does-not-replace-app-tls-validation.md)
 
-# 확인
-adb shell getprop net.dns1  # 1.1.1.1 (Cloudflare)
-```
-
-**동작**:
-
-```
-앱 → getaddrinfo() → netd
-netd → DNS-over-TLS (포트 853)
-→ dns.google (8.8.8.8)
-```
-
-**이점**:
-
-- ISP 가 DNS 쿼리 감청 불가
-- DNS 변조 방지
-
----
+기존 링크 보존을 위해 이 파일은 남긴다.
