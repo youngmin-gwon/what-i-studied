@@ -6,4 +6,4 @@ Android의 큰 변화는 단순한 UI feature 추가보다 platform constraint �
 
 history 문서는 이 흐름을 설명하고 세부 구현은 각 canonical map으로 넘긴다.
 
-관련 정본: [platform modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md), [large screen](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md), [XR](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md), [security practices](01_inbox/mobile/android/05_security_privacy/security-practices/android-security-practices.md).
+관련 노트: [platform modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md), [large screen](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md), [XR](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md), [security practices](01_inbox/mobile/android/05_security_privacy/security-practices/android-security-practices.md).

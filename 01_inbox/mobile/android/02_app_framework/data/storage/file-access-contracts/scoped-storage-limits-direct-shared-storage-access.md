@@ -1,7 +1,7 @@
 # Scoped Storage: 저장소 접근 경계를 선택하는 규칙
 
 상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
-관련 정본: [Scoped Storage와 암호화는 서로 다른 경계를 보호한다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/scoped-storage-and-encryption-protect-different-boundaries.md)
+관련 노트: [Scoped Storage와 암호화는 서로 다른 경계를 보호한다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/scoped-storage-and-encryption-protect-different-boundaries.md)
 
 
 Scoped Storage는 앱이 기기 전체 파일을 직접 훑는 모델에서 벗어나게 한 저장소 규칙이다.

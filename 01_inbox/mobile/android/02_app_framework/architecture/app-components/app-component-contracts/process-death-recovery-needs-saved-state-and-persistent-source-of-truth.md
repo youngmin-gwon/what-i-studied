@@ -6,6 +6,6 @@ Android는 메모리 확보를 위해 background 프로세스를 종료할 수 �
 
 ViewModel은 configuration change에는 유용하지만 process death persistence가 아니다. ViewModel 안의 값은 재생성 이후 새로 만들어질 수 있으므로, 복구해야 하는 최소 정보는 `SavedStateHandle`이나 durable storage에 남겨야 한다.
 
-관련 정본: [ViewModel 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md), [SavedStateHandle 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md), [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md).
+관련 노트: [ViewModel 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md), [SavedStateHandle 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md), [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md).
 
 공식 문서: [Activity state changes](https://developer.android.com/guide/components/activities/state-changes)

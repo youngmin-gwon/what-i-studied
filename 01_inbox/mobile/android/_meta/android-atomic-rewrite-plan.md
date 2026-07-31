@@ -375,3 +375,18 @@ Canonical note 후보:
 - 원칙: Layout/animation/accessibility는 UI surface 계약으로, CompositionLocal/Material color/design-system provider는 architecture/design-system 계약으로 분리한다. Glance는 일반 Compose UI가 아니라 RemoteViews widget surface로 분리한다.
 - 참고한 공식 문서: [Compose layouts](https://developer.android.com/develop/ui/compose/layouts/basics), [Constraints and modifier order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers), [Custom layouts](https://developer.android.com/develop/ui/compose/layouts/custom), [Choose an animation API](https://developer.android.com/develop/ui/compose/animation/choose-api), [Semantics in Compose](https://developer.android.com/develop/ui/compose/accessibility/semantics), [CompositionLocal](https://developer.android.com/develop/ui/compose/compositionlocal), [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3), [Jetpack Glance](https://developer.android.com/develop/ui/compose/glance)
 
+### Phase 28 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: Binder IPC, Binder transaction, AIDL, oneway call, Binder thread pool, IPC debugging, process/system service 경계 연결
+- 정본 지도: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
+- 원칙: IPC 고유 계약은 Binder/AIDL/process boundary 로 새로 정리하고, Zygote, system_server, LMKD, sandbox, graphics/media, storage/security 같은 이미 정본이 있는 주제는 중복 작성하지 않고 해당 정본으로 연결한다.
+- 추가 정리: Android 전체 문서에서 `관련 정본:`을 `관련 노트:`로 통일하고, `- 정본:` 형식의 legacy redirect stub을 표준 redirect 문서로 변환했다.
+
+### Phase 29 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: AOSP/OEM customization, partition ownership, product configuration, RRO, GMS, AOSP build, device bring-up, platform compatibility tests, platform signing, OEM API, custom ROM, platform debugging
+- 정본 지도: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
+- 원칙: OEM customization 과 OS development guide 조각을 플랫폼 통합 계약으로 재작성하고, Treble/VINTF/HAL, Mainline/APEX, AVB, 앱 배포 서명처럼 이미 정본이 있는 주제는 중복 작성하지 않고 해당 정본으로 연결한다.
+

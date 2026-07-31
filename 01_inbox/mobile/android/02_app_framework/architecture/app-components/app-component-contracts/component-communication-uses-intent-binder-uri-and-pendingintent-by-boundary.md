@@ -6,6 +6,6 @@ Android component communication은 하나의 event bus가 아니다. Activity, S
 
 특히 Service 시작에는 explicit Intent를 선호해야 한다. implicit Intent는 resolution과 hijacking 위험이 있고, 공개 component와 권한 경계를 명확히 하지 못하면 보안 문제가 된다.
 
-관련 정본: [intent/manifest 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md), [Binder/IPC 정본](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md), [PendingIntent 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md).
+관련 노트: [intent/manifest 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md), [Binder/IPC 정본](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md), [PendingIntent 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md).
 
 공식 문서: [Application fundamentals](https://developer.android.com/guide/components/fundamentals)

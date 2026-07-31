@@ -1,10 +1,7 @@
-# ⚖️ 프로세스 우선순위 (oom_adj)
+# 이전 노트
 
-시스템은 가용 메모리가 부족해지면 `oom_adj` 점수가 높은 프로세스부터 종료합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- **Foreground (ADJ 0)**: 사용자가 현재 상호작용 중인 앱. 절대로 종료되지 않아야 합니다.
-- **Visible (ADJ 100)**: 화면에 보이지만 포커스는 없는 앱. (예: 반투명 다이얼로그 뒤의 Activity)
-- **Service (ADJ 200~500)**: 포그라운드 서비스 등이 실행 중인 중요 프로세스.
-- **Cached (ADJ 900~999)**: 백그라운드에 있는 앱. 메모리가 필요할 때 가장 먼저 정리되는 대상입니다.
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory/03-프로세스-우선순위-oom-adj.md`
 
----
+정본 노트: [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)

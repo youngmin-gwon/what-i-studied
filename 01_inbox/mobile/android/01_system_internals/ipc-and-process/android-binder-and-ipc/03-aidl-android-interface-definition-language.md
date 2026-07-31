@@ -1,9 +1,7 @@
-# 🛠️ AIDL (Android Interface Definition Language)
+# 이전 노트
 
-복잡한 IPC 통신 코드를 자동으로 생성해주는 도구입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- **Stub**: 서버(수신) 측 구현체로, 들어오는 트랜잭션을 처리합니다.
-- **Proxy**: 클라이언트(발신) 측 대리인으로, 원격 프로세스의 메서드를 마치 로컬 메서드처럼 호출하게 해줍니다.
-- **oneway**: 이 키워드를 사용하면 클라이언트가 서버의 처리를 기다리지 않는 비동기(Non-blocking) 호출이 가능해집니다.
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc/03-aidl-android-interface-definition-language.md`
 
----
+정본 노트: [AIDL은 process boundary 계약이지 비즈니스 프로토콜이 아니다](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/aidl-defines-process-boundary-contract-not-business-protocol.md)

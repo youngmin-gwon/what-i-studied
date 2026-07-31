@@ -6,6 +6,6 @@ Foreground Service는 사용자가 인지해야 하는 즉시성, 진행 중 작
 
 지연 가능하고 네트워크/충전/재시도 제약을 가진 작업은 WorkManager가 더 적합한 경우가 많다. Foreground Service는 background-work API 선택표의 한 칸이지 우회 수단이 아니다.
 
-관련 정본: [background-work의 foreground service 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/foreground-service-is-for-visible-continuous-work.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md).
+관련 노트: [background-work의 foreground service 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/foreground-service-is-for-visible-continuous-work.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md).
 
 공식 문서: [Foreground services](https://developer.android.com/develop/background-work/services/fgs)

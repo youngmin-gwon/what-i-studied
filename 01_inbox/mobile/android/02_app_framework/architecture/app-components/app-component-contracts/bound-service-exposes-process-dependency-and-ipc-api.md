@@ -6,6 +6,6 @@ Bound Service는 클라이언트가 `bindService`로 연결해 `IBinder`를 통�
 
 AIDL은 대부분 앱의 기본 선택지가 아니다. IPC 실패, thread, permission, versioning, exported surface를 감당할 필요가 있을 때만 명시적으로 도입한다.
 
-관련 정본: [Binder/IPC 정본](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md), [exported/permission 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/exported-and-permission-boundaries-decide-external-component-access.md), [컴포넌트 통신 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md).
+관련 노트: [Binder/IPC 정본](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md), [exported/permission 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/exported-and-permission-boundaries-decide-external-component-access.md), [컴포넌트 통신 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md).
 
 공식 문서: [Bound services](https://developer.android.com/develop/background-work/services/bound-services)

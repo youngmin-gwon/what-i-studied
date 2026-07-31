@@ -1,7 +1,7 @@
 # ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
-관련 정본: [StateFlow는 현재값이 필요한 화면 상태에 사용하고 Flow는 원천 데이터 흐름에 사용한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md), [ViewModel은 mutable 상태를 숨기고 읽기 전용 상태만 노출한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-exposes-read-only-state.md)
+관련 노트: [StateFlow는 현재값이 필요한 화면 상태에 사용하고 Flow는 원천 데이터 흐름에 사용한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md), [ViewModel은 mutable 상태를 숨기고 읽기 전용 상태만 노출한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-exposes-read-only-state.md)
 
 
 ViewModel이 노출한 `StateFlow<UiState>`는 Compose가 직접 그리는 값이 아니다.

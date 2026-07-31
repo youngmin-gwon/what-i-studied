@@ -4,4 +4,4 @@ DI graph는 타입만으로 binding을 찾는 경우가 많다. 같은 `String`,
 
 Qualifier는 같은 타입의 값을 의미별로 분리하는 이름표다. `@ApplicationContext`와 `@ActivityContext`, `@IoDispatcher`와 `@MainDispatcher`처럼 lifetime이나 역할이 다른 값을 구분할 때 사용한다.
 
-관련 정본: [Context boundaries](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context-boundaries.md).
+관련 노트: [Context boundaries](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context-boundaries.md).

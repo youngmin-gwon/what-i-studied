@@ -1,7 +1,7 @@
 # MediaStore: 공유 미디어의 등록과 접근
 
 상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
-관련 정본: [Photo Picker는 필요한 미디어 접근 범위를 줄인다](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/photo-picker-minimizes-media-access.md)
+관련 노트: [Photo Picker는 필요한 미디어 접근 범위를 줄인다](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/photo-picker-minimizes-media-access.md)
 
 
 MediaStore는 앱 전용 데이터베이스가 아니다.

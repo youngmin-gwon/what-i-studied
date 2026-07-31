@@ -1,9 +1,7 @@
-# 🏛️ 1. 핵심 아키텍처 (Core Architecture)
+# 이전 노트
 
-안드로이드의 전체적인 층구조와 기반 기술에 대해 다룹니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- [android-architecture-stack](01_inbox/mobile/android/00_foundations/overview/android-architecture-stack.md): 전체 계층(Kernel, HAL, Framework) 구조 및 Binder IPC 기본.
-- [android-internals-components](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-internals-components.md): `system_server` 내부 구성 요소 및 역할.
-- [android-os-development-guide](01_inbox/mobile/android/01_system_internals/platform-customization/android-os-development-guide.md): AOSP 전체 빌드 및 OS 레이어 개발 가이드.
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/ipc-and-process/android-system-internals/01-1-핵심-아키텍처-core-architecture.md`
 
----
+정본 노트: [Android foundation map](01_inbox/mobile/android/00_foundations/android-foundation-map.md)

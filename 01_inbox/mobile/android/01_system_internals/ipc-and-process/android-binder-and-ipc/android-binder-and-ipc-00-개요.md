@@ -1,17 +1,7 @@
-# android binder and ipc 개요
+# 이전 노트
 
----
-title: android-binder-and-ipc
-tags: []
-aliases: []
-date modified: 2026-07-31 15:21:12 +09:00
-date created: 2026-03-21 16:47:09 +09:00
----
+이 노트의 내용은 정본 노트로 흡수했다.
 
-## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-binder-and-ipc](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md)
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc/android-binder-and-ipc-00-개요.md`
 
-### Binder: The Nervous System of Android
-
-안드로이드 시스템 서비스(ActivityManager, PackageManager 등)와 앱 간의 모든 대화는 **Binder**를 통해 이루어집니다. Binder 가 없다면 안드로이드는 뇌(System Server)와 팔다리(App)가 연결되지 않은 것과 같습니다.
-
----
+정본 노트: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)

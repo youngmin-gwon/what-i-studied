@@ -6,6 +6,6 @@
 
 Receiver는 callback context를 보관하지 않고 즉시 필요한 값만 추출한 뒤, 오래 걸리는 일은 lifecycle에 맞는 owner나 scheduler로 넘긴다.
 
-관련 정본: [component Context 수명](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/component-context-lifetime-follows-service-receiver-provider-boundary.md), [BroadcastReceiver 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md).
+관련 노트: [component Context 수명](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/component-context-lifetime-follows-service-receiver-provider-boundary.md), [BroadcastReceiver 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md).
 
 공식 문서: [Broadcasts overview](https://developer.android.com/develop/background-work/background-tasks/broadcasts)

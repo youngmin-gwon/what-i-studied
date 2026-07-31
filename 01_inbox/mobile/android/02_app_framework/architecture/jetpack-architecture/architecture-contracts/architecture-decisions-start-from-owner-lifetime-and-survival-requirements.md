@@ -6,6 +6,6 @@ UI-only state는 Composition이나 UI controller가 소유할 수 있고, screen
 
 이 기준을 통과하지 않은 layer 추가는 구조를 좋아 보이게 만들 뿐이다. 예외를 둘 때도 "왜 이 owner와 lifetime이 맞는지"를 노트나 코드 경계에 남기는 것이 좋다.
 
-관련 정본: [state-management 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md), [프로세스 종료 복구](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
+관련 노트: [state-management 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md), [프로세스 종료 복구](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
 
 공식 문서: [Recommendations for Android architecture](https://developer.android.com/topic/architecture/recommendations)

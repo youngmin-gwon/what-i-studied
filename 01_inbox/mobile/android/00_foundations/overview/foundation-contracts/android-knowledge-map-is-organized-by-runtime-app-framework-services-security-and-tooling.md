@@ -6,4 +6,4 @@ system services는 background work, notification, NFC, assistant/app functions�
 
 이 map은 입문자가 "다음에 무엇을 읽어야 하는가"를 결정하기 위한 문서이고, 각 세부 주제를 다시 설명하지 않는다.
 
-관련 정본: [platform modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md), [packaging/deployment](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md), [platforms/form factors](01_inbox/mobile/android/07_platforms/android-platforms-and-form-factors.md).
+관련 노트: [platform modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md), [packaging/deployment](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md), [platforms/form factors](01_inbox/mobile/android/07_platforms/android-platforms-and-form-factors.md).

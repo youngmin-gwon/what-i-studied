@@ -6,6 +6,6 @@ Service는 UI 없이 실행되는 앱 컴포넌트이며 started service, bound 
 
 Service의 의미는 "작업을 어디서 실행할까"보다 "OS와 어떤 실행 경계를 맺는가"에 있다. remote binding이 필요하면 Binder 계약이 생기고, 사용자 가시성이 필요하면 notification과 foreground-service 제약이 생긴다.
 
-관련 정본: [Foreground Service 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/foreground-service-is-user-visible-ongoing-work-contract.md), [Bound Service 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/bound-service-exposes-process-dependency-and-ipc-api.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
+관련 노트: [Foreground Service 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/foreground-service-is-user-visible-ongoing-work-contract.md), [Bound Service 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/bound-service-exposes-process-dependency-and-ipc-api.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
 
 공식 문서: [Services overview](https://developer.android.com/develop/background-work/services)

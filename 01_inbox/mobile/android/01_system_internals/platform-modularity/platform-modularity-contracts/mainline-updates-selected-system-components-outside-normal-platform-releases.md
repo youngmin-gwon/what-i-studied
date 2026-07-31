@@ -8,6 +8,6 @@ Mainline update는 Google Play system update 인프라나 partner OTA를 통해 
 
 Mainline module은 아무 system component나 마음대로 뜯어낸 것이 아니다. 공식 compatibility, stable API/interface, CTS 조건을 만족할 수 있는 component만 module boundary를 가진다.
 
-관련 정본: [Mainline module 목록](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/mainline-module-list-is-device-and-release-dependent-metadata.md), [APEX package 경계](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apex-packages-lower-level-system-modules-that-apk-cannot-model-well.md), [security practices](01_inbox/mobile/android/05_security_privacy/security-practices/android-security-practices.md).
+관련 노트: [Mainline module 목록](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/mainline-module-list-is-device-and-release-dependent-metadata.md), [APEX package 경계](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apex-packages-lower-level-system-modules-that-apk-cannot-model-well.md), [security practices](01_inbox/mobile/android/05_security_privacy/security-practices/android-security-practices.md).
 
 공식 문서: [Mainline](https://source.android.com/docs/core/ota/modular-system)

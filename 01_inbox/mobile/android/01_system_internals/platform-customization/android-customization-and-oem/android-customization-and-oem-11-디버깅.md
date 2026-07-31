@@ -1,40 +1,7 @@
-# 디버깅
+# 이전 노트
 
-상위 노트: [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### Build Fingerprint
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem/android-customization-and-oem-11-디버깅.md`
 
-```bash
-adb shell getprop ro.build.fingerprint
-
-# 출력:
-# samsung/galaxy/SM-G991B:13/TP1A.220624.014/G991BXXU5DVKB:user/release-keys
-```
-
-**형식**:
-
-```
-brand/product/device:version/ID/incremental:type/tags
-```
-
-### Overlay 확인
-
-```bash
-# 활성 RRO
-adb shell dumpsys overlay
-
-# 어떤 리소스가 오버라이드되었는지
-adb shell dumpsys package overlays
-```
-
-### Treble 검증
-
-```bash
-# VNDK 버전
-adb shell getprop ro.vndk.version
-
-# Treble 지원 여부
-adb shell getprop ro.treble.enabled
-```
-
----
+정본 노트: [Platform debugging은 build, boot, service, VINTF, sepolicy, CTS를 분리한다](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-debugging-separates-build-boot-service-vintf-sepolicy-and-cts.md)

@@ -6,6 +6,6 @@ Context leak의 핵심은 Activity context라는 타입 이름 자체가 아니�
 
 Context 선택은 memory leak, theme/window 정확성, permission/source identity를 동시에 결정한다. 따라서 "compile error를 없애기 위한 인자"가 아니라 architecture boundary로 다뤄야 한다.
 
-관련 정본: [Activity Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/activity-context-carries-window-theme-and-short-lifetime.md), [Application Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/application-context-fits-process-lifetime-work-not-themed-ui.md), [context-registered receiver 수명](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/context-registered-receiver-lifetime-follows-registering-context.md).
+관련 노트: [Activity Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/activity-context-carries-window-theme-and-short-lifetime.md), [Application Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/application-context-fits-process-lifetime-work-not-themed-ui.md), [context-registered receiver 수명](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/context-registered-receiver-lifetime-follows-registering-context.md).
 
 공식 문서: [Context reference](https://developer.android.com/reference/android/content/Context)

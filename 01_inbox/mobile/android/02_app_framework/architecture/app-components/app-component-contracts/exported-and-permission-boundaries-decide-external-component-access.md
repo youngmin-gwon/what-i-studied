@@ -6,6 +6,6 @@
 
 이 경계는 보안 문서의 permission model과 navigation 문서의 intent matching 사이에 놓인다. 어떤 component를 외부에 열지 결정한 뒤, 어떤 Intent/URI/permission으로 열지 구체화한다.
 
-관련 정본: [exported attribute 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md), [컴포넌트 통신 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md).
+관련 노트: [exported attribute 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md), [컴포넌트 통신 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md).
 
 공식 문서: [App Manifest overview](https://developer.android.com/guide/topics/manifest/manifest-intro)

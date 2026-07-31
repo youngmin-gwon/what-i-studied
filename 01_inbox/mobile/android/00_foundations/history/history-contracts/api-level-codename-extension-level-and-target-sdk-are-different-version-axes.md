@@ -6,6 +6,6 @@ targetSdkVersion은 앱이 어떤 behavior-change contract를 수락하는지 �
 
 2026년 기준 API 36은 Android 16/Baklava, API 37은 Android 17/Cinnamon Bun으로 문서화되어 있다. Android 16부터 minor SDK version 축도 `VERSION_CODES_FULL`에 드러난다.
 
-관련 정본: [SDK Extensions](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/sdk-extensions-express-api-availability-beyond-sdk-int.md), [packaging/deployment](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md).
+관련 노트: [SDK Extensions](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/sdk-extensions-express-api-availability-beyond-sdk-int.md), [packaging/deployment](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md).
 
 공식 문서: [Build.VERSION_CODES](https://developer.android.com/reference/android/os/Build.VERSION_CODES), [VERSION_CODES_FULL](https://developer.android.com/reference/kotlin/android/os/Build.VERSION_CODES_FULL)

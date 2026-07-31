@@ -1,4 +1,7 @@
-# 기기 Bring-up
-- `device/<vendor>/<product>` 트리에 BoardConfig, init 스크립트, fstab, [sepolicy](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md#selinux), 오버레이를 둔다.
-- VINTF manifest/matrix 가 HAL 버전을 맞추는지 확인한다.
-- [AVB](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md#verified-boot) 키와 [boot](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md#boot-image) 구성이 맞지 않으면 부팅이 막힌다.
+# 이전 노트
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/platform-customization/android-os-development-guide/04-기기-bring-up.md`
+
+정본 노트: [Device bring-up은 board, kernel, HAL, VINTF, sepolicy 통합이다](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/device-bring-up-is-board-kernel-hal-vintf-and-sepolicy-integration.md)

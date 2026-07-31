@@ -8,6 +8,6 @@ Android 앱 컴포넌트는 앱 내부 객체 모델이 아니라 OS가 앱을 �
 
 App Functions 같은 최신 agent/assistant surface는 별도 플랫폼 capability다. 고전적인 네 컴포넌트 목록에 억지로 섞기보다 [assistant/agent 정본](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/assistant-agent-contracts.md)으로 연결한다.
 
-관련 정본: [컴포넌트 통신 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md), [수명 기준 아키텍처 결정](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/architecture-contracts/architecture-decisions-start-from-owner-lifetime-and-survival-requirements.md).
+관련 노트: [컴포넌트 통신 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md), [수명 기준 아키텍처 결정](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/architecture-contracts/architecture-decisions-start-from-owner-lifetime-and-survival-requirements.md).
 
 공식 문서: [Application fundamentals](https://developer.android.com/guide/components/fundamentals)

@@ -6,6 +6,6 @@ Activity lifecycle 콜백은 화면 인스턴스가 생성, 표시, 포커스 �
 
 원칙은 콜백을 짧게 유지하고 lifecycle에 묶인 리소스만 다루는 것이다. 화면 상태는 ViewModel과 saved state로, 영속 데이터는 repository/storage로, 지연 가능한 작업은 background work로 보낸다.
 
-관련 정본: [설정 변경과 상태 분리](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/configuration-change-recreates-activity-but-not-all-screen-state.md), [프로세스 종료 복구](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
+관련 노트: [설정 변경과 상태 분리](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/configuration-change-recreates-activity-but-not-all-screen-state.md), [프로세스 종료 복구](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
 
 공식 문서: [Activity lifecycle](https://developer.android.com/guide/components/activities/activity-lifecycle)

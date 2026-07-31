@@ -10,7 +10,7 @@ date created: 2026-07-31 17:13:53 +09:00
 
 상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
 
-관련 정본: [PendingIntent는 미래 실행 권한을 위임하는 토큰이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md), [Android task와 앱 back stack은 다른 스택이다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md)
+관련 노트: [PendingIntent는 미래 실행 권한을 위임하는 토큰이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md), [Android task와 앱 back stack은 다른 스택이다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md)
 
 ### 알림 딥 링크의 구조
 

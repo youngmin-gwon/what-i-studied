@@ -6,6 +6,6 @@ Mainline module 목록은 고정된 암기표가 아니다. Android release가 �
 
 기기에서 module identity가 필요하면 ModuleMetadata와 PackageManager가 제공하는 module metadata를 확인하는 쪽이 맞다. 앱 기능 분기는 package name 나열보다 API/feature availability check를 우선한다.
 
-관련 정본: [ModuleMetadata](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/modulemetadata-describes-mainline-modules-on-a-device.md), [앱 availability check](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apps-should-check-api-feature-availability-not-mainline-package-names.md).
+관련 노트: [ModuleMetadata](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/modulemetadata-describes-mainline-modules-on-a-device.md), [앱 availability check](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apps-should-check-api-feature-availability-not-mainline-package-names.md).
 
 공식 문서: [Mainline available modules](https://source.android.com/docs/core/ota/modular-system), [ModuleMetadata](https://source.android.com/docs/core/ota/modular-system/metadata)

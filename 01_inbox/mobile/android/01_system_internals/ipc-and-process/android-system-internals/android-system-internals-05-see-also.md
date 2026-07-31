@@ -1,5 +1,7 @@
-# 📚 See Also
+# 이전 노트
 
-- [android-foundations](01_inbox/mobile/android/00_foundations/overview/android-foundations.md) - 안드로이드 기본 개념 요약
-- [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md) - 시스템 진단 및 프로파일링
-- [android-adb-and-images](01_inbox/mobile/android/06_testing_performance/debugging/android-adb-and-images.md) - 시스템 이미지 관리 및 ADB 활용
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/ipc-and-process/android-system-internals/android-system-internals-05-see-also.md`
+
+정본 노트: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)

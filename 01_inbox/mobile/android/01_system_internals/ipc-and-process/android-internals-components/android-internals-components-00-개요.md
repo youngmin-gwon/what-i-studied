@@ -1,13 +1,7 @@
-# android internals components 개요
+# 이전 노트
 
----
-title: android-internals-components
-tags: [android, android/internals, android/system-server]
-aliases: []
-date modified: 2026-04-06 18:54:05 +09:00
-date created: 2025-12-16 15:26:56 +09:00
----
+이 노트의 내용은 정본 노트로 흡수했다.
 
-## Android Internals Components android android/internals android/system-server
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/ipc-and-process/android-internals-components/android-internals-components-00-개요.md`
 
-system_server 안에서 돌고 있는 주요 서비스들을 쉬운 말로 요약했다. 용어는 [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md).
+정본 노트: [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)

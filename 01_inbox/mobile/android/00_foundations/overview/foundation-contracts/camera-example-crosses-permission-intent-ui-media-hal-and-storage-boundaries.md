@@ -6,4 +6,4 @@
 
 학습 문서가 이 예시 안에 모든 코드를 넣으면 중복이 커진다. 대신 어느 문제를 만나면 어느 정본을 봐야 하는지 알려주는 map으로 유지한다.
 
-관련 정본: [graphics/media runtime](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-media-runtime.md), [file access](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md), [permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md), [app components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md).
+관련 노트: [graphics/media runtime](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-media-runtime.md), [file access](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md), [permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md), [app components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md).

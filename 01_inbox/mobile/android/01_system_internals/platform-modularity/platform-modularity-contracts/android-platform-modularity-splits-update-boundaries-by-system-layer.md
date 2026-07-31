@@ -6,6 +6,6 @@ Treble과 GKI는 더 낮은 층위의 경계다. Treble은 system image와 vendo
 
 따라서 "Android가 모듈식이다"라는 말은 어느 층을 말하는지 먼저 정해야 한다. 앱 개발자는 SDK Extension과 feature availability를 확인하고, 플랫폼 개발자는 APEX/Mainline/Treble/GKI 각각의 compatibility contract를 확인한다.
 
-관련 정본: [Mainline 경계](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/mainline-updates-selected-system-components-outside-normal-platform-releases.md), [Treble 정본](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/treble-separates-system-and-vendor-through-stable-interfaces.md), [GKI 정본](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/gki-splits-generic-core-from-vendor-modules.md).
+관련 노트: [Mainline 경계](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/mainline-updates-selected-system-components-outside-normal-platform-releases.md), [Treble 정본](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/treble-separates-system-and-vendor-through-stable-interfaces.md), [GKI 정본](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/gki-splits-generic-core-from-vendor-modules.md).
 
 공식 문서: [Mainline](https://source.android.com/docs/core/ota/modular-system), [Partitions overview](https://source.android.com/docs/core/architecture/partitions)

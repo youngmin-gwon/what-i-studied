@@ -6,6 +6,6 @@ Activity는 단순한 화면 클래스가 아니다. 현재 visible/resumed Acti
 
 Compose single Activity 구조를 쓰더라도 Activity 경계는 사라지지 않는다. multi-window, external intent, task/back stack, configuration change, process death는 여전히 Activity 단위로 발생한다.
 
-관련 정본: [Activity lifecycle 콜백](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md), [Android task와 app back stack](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md), [상태 관리 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md).
+관련 노트: [Activity lifecycle 콜백](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md), [Android task와 app back stack](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md), [상태 관리 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md).
 
 공식 문서: [Activity lifecycle](https://developer.android.com/guide/components/activities/activity-lifecycle)

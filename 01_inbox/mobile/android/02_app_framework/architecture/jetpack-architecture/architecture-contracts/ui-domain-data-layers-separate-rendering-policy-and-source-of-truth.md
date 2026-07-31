@@ -6,6 +6,6 @@ UI layer는 상태를 그리고 사용자 action을 올린다. ViewModel/state h
 
 앱 컴포넌트는 이 layer를 시작하거나 연결하는 entry point다. Activity가 곧 ViewModel은 아니고, Service가 곧 repository는 아니며, Receiver가 곧 worker도 아니다.
 
-관련 정본: [앱 컴포넌트 허브](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [ViewModel 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
+관련 노트: [앱 컴포넌트 허브](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [ViewModel 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
 
 공식 문서: [Guide to app architecture](https://developer.android.com/topic/architecture)

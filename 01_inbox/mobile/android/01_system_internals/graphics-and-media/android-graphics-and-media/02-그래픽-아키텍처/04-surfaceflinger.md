@@ -1,11 +1,7 @@
----
-title: 04-surfaceflinger
-tags: [android, redirect]
-date modified: 2026-07-31 23:20:00 +09:00
-date created: 2026-07-31 23:20:00 +09:00
----
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-- 정본: [surfaceflinger-composes-visible-layers-with-hwc](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/surfaceflinger-composes-visible-layers-with-hwc.md)
-- 이전 제목: `04-surfaceflinger`
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-and-media/02-그래픽-아키텍처/04-surfaceflinger.md`
+
+정본 노트: [surfaceflinger-composes-visible-layers-with-hwc](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/surfaceflinger-composes-visible-layers-with-hwc.md)

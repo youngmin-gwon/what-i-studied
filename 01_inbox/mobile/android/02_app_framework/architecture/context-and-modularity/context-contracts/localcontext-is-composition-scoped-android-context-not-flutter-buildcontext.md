@@ -6,6 +6,6 @@
 
 `LocalContext`를 ViewModel이나 repository에 넘겨 장기 보관하면 Compose의 explicit state/data flow가 흐려진다. 필요한 값이나 action을 좁게 만들어 전달하고, long-lived dependency에는 application context나 abstraction을 사용한다.
 
-관련 정본: [Context 기본 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/context-is-android-environment-capability-not-dependency-container.md), [Compose runtime 정본](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [ViewModel/Repository Context 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/viewmodel-and-repository-should-not-retain-ui-context.md).
+관련 노트: [Context 기본 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/context-is-android-environment-capability-not-dependency-container.md), [Compose runtime 정본](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [ViewModel/Repository Context 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/viewmodel-and-repository-should-not-retain-ui-context.md).
 
 공식 문서: [CompositionLocal](https://developer.android.com/develop/ui/compose/compositionlocal)

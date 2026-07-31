@@ -6,6 +6,6 @@ ContentProvider는 `content://` URI를 통해 데이터를 노출하고 `Content
 
 Provider는 내부 abstraction으로도 쓸 수 있지만, 단지 repository를 만들기 귀찮아서 쓰는 계층은 아니다. 프로세스 경계와 permission model이 필요한지부터 판단한다.
 
-관련 정본: [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md), [FileProvider 정본](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/fileprovider-grants-narrow-uri-access-instead-of-file-path-sharing.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md).
+관련 노트: [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md), [FileProvider 정본](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/fileprovider-grants-narrow-uri-access-instead-of-file-path-sharing.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md).
 
 공식 문서: [Content providers](https://developer.android.com/guide/topics/providers/content-providers)

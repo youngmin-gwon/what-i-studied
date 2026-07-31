@@ -6,4 +6,4 @@ Android version history는 새 기능 암기표가 아니라 어떤 contract가 
 
 따라서 오래된 version별 세부 설명은 정본으로 유지하지 않고, 주요 contract 변화와 관련 정본 링크로 압축한다.
 
-관련 정본: [permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md), [file/storage](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md), [platform modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md), [Compose runtime](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md).
+관련 노트: [permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md), [file/storage](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md), [platform modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md), [Compose runtime](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md).

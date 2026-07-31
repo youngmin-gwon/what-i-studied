@@ -1,30 +1,7 @@
-# Verified Boot (AVB)
+# 이전 노트
 
-상위 노트: [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 서명 체인
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem/09-verified-boot-avb.md`
 
-```mermaid
-graph LR
-    OEM[OEM Key<br/>하드웨어 내장] --> Boot[Bootloader<br/>서명 검증]
-    Boot --> Vbmeta[vbmeta<br/>메타데이터]
-    Vbmeta --> System[system.img]
-    Vbmeta --> Vendor[vendor.img]
-```
-
-**OEM 이 해야 할 일**:
-
-1. OEM private key 로 vbmeta 서명
-2. Public key 를 기기 eFuse 에 기록 (영구)
-3. Bootloader 에 검증 로직 추가
-
-**사용자가 bootloader unlock 시**:
-
-```bash
-fastboot flashing unlock
-
-# 경고: 모든 데이터 삭제
-# Boot 화면에 "unlocked" 표시
-```
-
----
+정본 노트: [AVB는 부팅 이미지의 신뢰와 rollback 방지를 검증한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/avb-verifies-boot-images-and-rollback-protection.md)

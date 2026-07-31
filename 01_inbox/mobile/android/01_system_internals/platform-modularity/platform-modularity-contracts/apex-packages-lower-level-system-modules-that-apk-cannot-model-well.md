@@ -6,6 +6,6 @@ APEX 파일은 package identity와 version metadata, payload image, public key �
 
 APEX는 "앱 배포 포맷의 다른 이름"이 아니다. platform partition, verified payload, boot activation, rollback, signing key가 얽힌 system update 경계다.
 
-관련 정본: [APEX activation/rollback](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apex-activation-uses-boot-time-mounting-version-selection-and-rollback.md), [boot/runtime 정본](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-and-runtime.md), [platform-modularity hub](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md).
+관련 노트: [APEX activation/rollback](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apex-activation-uses-boot-time-mounting-version-selection-and-rollback.md), [boot/runtime 정본](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-and-runtime.md), [platform-modularity hub](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md).
 
 공식 문서: [APEX file format](https://source.android.com/docs/core/ota/apex)

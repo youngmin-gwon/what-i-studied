@@ -6,6 +6,6 @@ FileProvider는 일반 CRUD provider나 storage architecture가 아니다. 어�
 
 앱 데이터의 소유와 보존 정책은 storage 정본에서 결정하고, 외부 공유가 필요한 파일에 대해서만 FileProvider를 연결한다.
 
-관련 정본: [file access 정본](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md), [ContentProvider 정본](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md).
+관련 노트: [file access 정본](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md), [ContentProvider 정본](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md), [permissions 정본](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md).
 
 공식 문서: [FileProvider reference](https://developer.android.com/reference/androidx/core/content/FileProvider)

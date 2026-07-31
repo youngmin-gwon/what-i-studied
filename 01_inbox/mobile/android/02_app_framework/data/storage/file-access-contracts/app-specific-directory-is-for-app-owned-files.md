@@ -1,7 +1,7 @@
 # 앱 전용 디렉터리: 소유 앱만 쓰는 파일
 
 상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
-관련 정본: [캐시는 정본이 아니라 재생성 가능한 데이터다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/cache-is-recreatable-data-not-source-of-truth.md)
+관련 노트: [캐시는 정본이 아니라 재생성 가능한 데이터다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/cache-is-recreatable-data-not-source-of-truth.md)
 
 
 앱 전용 디렉터리는 파일의 소유자와 수명이 앱에 묶인 저장 영역이다.

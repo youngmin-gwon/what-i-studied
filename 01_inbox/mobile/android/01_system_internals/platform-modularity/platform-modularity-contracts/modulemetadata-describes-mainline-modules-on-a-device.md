@@ -6,6 +6,6 @@ ModuleMetadata는 특정 device에 설치된 Mainline module 목록에 관한 me
 
 하지만 앱 feature gating을 ModuleMetadata 목록에 직접 묶는 것은 보통 과하다. 사용하려는 API나 capability가 있다면 공식 API availability check, SDK Extension, PackageManager feature check를 우선한다.
 
-관련 정본: [Mainline module 목록](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/mainline-module-list-is-device-and-release-dependent-metadata.md), [앱 availability check](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apps-should-check-api-feature-availability-not-mainline-package-names.md).
+관련 노트: [Mainline module 목록](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/mainline-module-list-is-device-and-release-dependent-metadata.md), [앱 availability check](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apps-should-check-api-feature-availability-not-mainline-package-names.md).
 
 공식 문서: [ModuleMetadata](https://source.android.com/docs/core/ota/modular-system/metadata)

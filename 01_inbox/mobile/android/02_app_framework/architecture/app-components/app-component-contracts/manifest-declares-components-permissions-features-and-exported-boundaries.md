@@ -6,6 +6,6 @@ Manifest는 navigation 문서만의 주제가 아니다. 외부 앱이 호출할
 
 다만 deep link나 intent-filter matching의 세부 규칙은 navigation/intent 정본이 담당한다. 이 노트는 app component 관점에서 Manifest가 왜 아키텍처 경계인지 설명한다.
 
-관련 정본: [Manifest/entry point 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md), [intent/manifest 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md), [exported/permission 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/exported-and-permission-boundaries-decide-external-component-access.md).
+관련 노트: [Manifest/entry point 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md), [intent/manifest 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md), [exported/permission 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/exported-and-permission-boundaries-decide-external-component-access.md).
 
 공식 문서: [App Manifest overview](https://developer.android.com/guide/topics/manifest/manifest-intro)

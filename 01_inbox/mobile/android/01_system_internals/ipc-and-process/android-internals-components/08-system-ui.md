@@ -1,4 +1,7 @@
-# System UI
+# 이전 노트
 
-- 상태바/알림/빠른 설정/내비게이션 바를 표시한다. 색상/테마는 Monet 가 결정한다.
-- 잠금화면, 알림 순위, 대화·버블, 미디어 컨트롤을 다룬다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/ipc-and-process/android-internals-components/08-system-ui.md`
+
+정본 노트: [Android system services and device capabilities](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

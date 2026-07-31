@@ -1,3 +1,7 @@
-# HAL/드라이버
-- AIDL/HIDL HAL 인터페이스를 정의하고, binderized 서비스로 등록한다.
-- VTS/CTS 로 인터페이스와 보안이 맞는지 검증한다.
+# 이전 노트
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/platform-customization/android-os-development-guide/07-hal-드라이버.md`
+
+정본 노트: [HAL native contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-native-contracts.md)

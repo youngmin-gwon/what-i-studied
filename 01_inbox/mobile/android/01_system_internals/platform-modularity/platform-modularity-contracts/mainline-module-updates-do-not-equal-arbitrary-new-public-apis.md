@@ -6,6 +6,6 @@ Mainline module update가 곧 앱이 바로 호출할 수 있는 새 public SDK 
 
 SDK Extensions는 이 gap을 메우기 위한 별도 availability model이다. Mainline이 delivery mechanism이라면 SDK Extensions는 일부 API의 compile/runtime availability를 표현하는 app-facing 계약이다.
 
-관련 정본: [SDK Extensions](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/sdk-extensions-express-api-availability-beyond-sdk-int.md), [앱의 availability check](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apps-should-check-api-feature-availability-not-mainline-package-names.md).
+관련 노트: [SDK Extensions](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/sdk-extensions-express-api-availability-beyond-sdk-int.md), [앱의 availability check](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apps-should-check-api-feature-availability-not-mainline-package-names.md).
 
 공식 문서: [Mainline](https://source.android.com/docs/core/ota/modular-system), [SDK Extensions](https://developer.android.com/guide/sdk-extensions)

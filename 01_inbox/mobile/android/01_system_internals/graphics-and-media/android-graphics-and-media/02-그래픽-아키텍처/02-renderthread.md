@@ -1,11 +1,7 @@
----
-title: 02-renderthread
-tags: [android, redirect]
-date modified: 2026-07-31 23:20:00 +09:00
-date created: 2026-07-31 23:20:00 +09:00
----
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-- 정본: [renderthread-submits-render-work-without-making-ui-thread-free](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/renderthread-submits-render-work-without-making-ui-thread-free.md)
-- 이전 제목: `02-renderthread`
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-and-media/02-그래픽-아키텍처/02-renderthread.md`
+
+정본 노트: [renderthread-submits-render-work-without-making-ui-thread-free](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/renderthread-submits-render-work-without-making-ui-thread-free.md)

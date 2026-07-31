@@ -4,4 +4,4 @@
 
 Repository는 `PagingSource`를 직접 UI에 노출하기보다 `Pager.flow`를 제공하고, ViewModel은 이 flow를 화면 수명에 맞게 보관한다. 이렇게 하면 source construction, page size, prefetch policy가 UI rendering과 분리된다.
 
-관련 정본: [Flow state contracts](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md).
+관련 노트: [Flow state contracts](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md).

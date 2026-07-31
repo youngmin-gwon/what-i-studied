@@ -6,6 +6,6 @@ Jetpack은 라이브러리 묶음이고 architecture는 그 라이브러리를 �
 
 권장 구조는 앱 크기와 복잡도에 맞게 조정한다. domain layer는 중복이나 복잡한 business rule을 줄일 때 도입하고, repository도 framework 의무 클래스가 아니라 data boundary를 명확히 하는 패턴이다.
 
-관련 정본: [UI/domain/data layer 경계](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/architecture-contracts/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md), [state-management 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md), [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md).
+관련 노트: [UI/domain/data layer 경계](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/architecture-contracts/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md), [state-management 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md), [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md).
 
 공식 문서: [Guide to app architecture](https://developer.android.com/topic/architecture)

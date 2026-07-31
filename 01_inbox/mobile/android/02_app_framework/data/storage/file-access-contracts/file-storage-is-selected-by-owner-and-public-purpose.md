@@ -1,7 +1,7 @@
 # 저장소 선택: 소유권과 공개 목적을 먼저 묻기
 
 상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
-관련 정본: [Android 저장소는 데이터 수명과 소유권으로 선택한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md)
+관련 노트: [Android 저장소는 데이터 수명과 소유권으로 선택한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md)
 
 
 Android 파일 저장소를 고를 때 형식보다 데이터의 소유권을 먼저 본다.

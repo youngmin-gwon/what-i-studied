@@ -1,9 +1,7 @@
-# 🏗️ 프로세스 생성: Zygote Fork
+# 이전 노트
 
-Zygote 는 안드로이드 모든 앱 프로세스의 시조입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-1. **Preload**: 부팅 시 핵심 프레임워크 클래스와 리소스를 메모리에 적재합니다.
-2. **Socket Listen**: 새로운 프로세스 생성 요청을 대기합니다.
-3. **Fork**: 요청이 오면 자신을 복제하여 새로운 앱 프로세스를 만듭니다. 이때 자식 프로세스는 부모의 메모리 상태를 그대로 이어받습니다.
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory/02-프로세스-생성-zygote-fork.md`
 
----
+정본 노트: [Zygote fork의 메모리 이점은 copy-on-write가 유지될 때 생긴다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-fork-saves-memory-while-copy-on-write-pages-stay-clean.md)

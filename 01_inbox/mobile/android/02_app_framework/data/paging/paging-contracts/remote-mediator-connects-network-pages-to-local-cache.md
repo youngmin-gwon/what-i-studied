@@ -4,4 +4,4 @@
 
 이 구조에서는 source of truth가 network response가 아니라 local database가 된다. offline, retry, sync indicator, invalidation 정책은 paging 자체보다 persistence와 synchronization contract로 같이 판단해야 한다.
 
-관련 정본: [Persistence contracts](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md).
+관련 노트: [Persistence contracts](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md).

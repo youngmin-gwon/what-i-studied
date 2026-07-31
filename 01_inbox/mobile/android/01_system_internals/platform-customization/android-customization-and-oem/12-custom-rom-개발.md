@@ -1,40 +1,7 @@
-# Custom ROM 개발
+# 이전 노트
 
-상위 노트: [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### LineageOS
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem/12-custom-rom-개발.md`
 
-AOSP 기반, Google 없이:
-
-**특징**:
-
-- Privacy Guard
-- Trust (보안 상태 표시)
-- Lineage Recovery
-- microG 지원 (GMS 대체)
-
-**빌드**:
-
-```bash
-# 소스 다운로드
-repo init -u https://github.com/LineageOS/android.git -b lineage-20.0
-repo sync
-
-# 환경 설정
-source build/envsetup.sh
-breakfast <device>
-
-# 빌드
-brunch <device>
-```
-
-### GrapheneOS (Privacy-focused)
-
-**강화 사항**:
-
-- Hardened malloc
-- Exec spawning
-- MAC randomization
-- 센서 권한 강화
-
----
+정본 노트: [Custom ROM 작업은 앱 개발이 아니라 플랫폼 통합이다](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/custom-rom-work-is-platform-integration-not-app-development.md)

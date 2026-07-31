@@ -6,6 +6,6 @@ Receiver context는 보관하지 않는다. Provider 초기화를 앱 전체 sta
 
 component context는 "Android API를 호출할 수 있다"는 공통점은 있지만, 어떤 callback과 수명에 귀속되는지가 다르다. 오래 살아야 하는 작업은 application context, scheduler, repository abstraction 같은 더 적절한 owner로 넘긴다.
 
-관련 정본: [Service 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/service-is-background-or-remote-work-entry-point-not-general-task-runner.md), [BroadcastReceiver 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md), [ContentProvider 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md).
+관련 노트: [Service 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/service-is-background-or-remote-work-entry-point-not-general-task-runner.md), [BroadcastReceiver 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md), [ContentProvider 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md).
 
 공식 문서: [Application fundamentals](https://developer.android.com/guide/components/fundamentals)

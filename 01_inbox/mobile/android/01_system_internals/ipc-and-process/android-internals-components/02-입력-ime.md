@@ -1,4 +1,7 @@
-# 입력·IME
+# 이전 노트
 
-- InputManager 가 키/터치 이벤트를 읽고 포커스 창에 전달한다.
-- IME(InputMethod) 서비스가 키보드 창을 띄우고, Insets 로 화면을 맞춘다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/01_system_internals/ipc-and-process/android-internals-components/02-입력-ime.md`
+
+정본 노트: [Android system services and device capabilities](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
