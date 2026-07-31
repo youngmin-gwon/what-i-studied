@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Compose layout animation accessibility
+
 Compose UI 정본은 Runtime mental model과 분리해 layout, modifier, custom measurement, animation, semantics, app widget surface를 다룬다. 이 지도는 기존 `layout-and-ui` 문서를 UI 계약 단위로 다시 묶는다.
 
 정본 묶음: [Compose UI contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/compose-ui-contracts.md)

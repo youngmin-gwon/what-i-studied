@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# rememberCoroutineScope owns manually controlled UI coroutines
+
 `rememberCoroutineScope`는 Composable call site의 Composition 수명에 묶인 `CoroutineScope`를 돌려준다. Composable body에서 바로 작업을 시작하는 API가 아니라, click handler나 callback처럼 composition 밖의 사용자 이벤트에서 coroutine을 시작할 때 쓴다.
 
 Scope는 call site가 Composition에서 제거되면 cancel된다. 그래서 snackbar 표시, drawer 열기, scroll animation처럼 UI controller와 함께 사라져야 하는 수동 작업에 적합하다.

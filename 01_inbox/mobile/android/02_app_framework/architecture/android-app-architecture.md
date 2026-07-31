@@ -1,3 +1,11 @@
+---
+title: "Android App Architecture"
+tags: [android, android/architecture]
+aliases: ["Android App Architecture"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android App Architecture
 
 Android 앱 아키텍처는 UI 패턴 이름보다 owner, lifetime, OS entry point를 먼저 나누는 문제다.

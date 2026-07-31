@@ -1,3 +1,11 @@
+---
+title: "SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다"
+tags: [android, android/architecture, android/state-management, android/viewmodel]
+aliases: ["SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다
 
 상위 문서: [Android ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md)

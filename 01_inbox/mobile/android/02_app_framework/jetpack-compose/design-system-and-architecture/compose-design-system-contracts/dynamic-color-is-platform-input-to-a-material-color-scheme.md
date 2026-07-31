@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Dynamic color is platform input to a Material color scheme
+
 Dynamic color는 Android 12 이상에서 시스템이 제공하는 색상 입력을 Material color scheme으로 연결하는 테마 경계다. 앱은 dynamic color 사용 여부, brand scheme fallback, API level별 동작을 theme boundary에서 결정한다.
 
 Composable은 wallpaper 색을 직접 다루지 않고 `ColorScheme`의 semantic role을 읽는다. 그래야 dynamic color를 끄거나 브랜드 고정 scheme으로 바꿔도 component 의미가 유지된다.

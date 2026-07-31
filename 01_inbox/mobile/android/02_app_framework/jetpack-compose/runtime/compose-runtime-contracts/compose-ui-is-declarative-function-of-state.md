@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# Compose UI is a declarative function of state
+
 Compose에서 UI는 기존 View 객체를 찾아 setter로 수정하는 대상이 아니라, 현재 state를 입력으로 계산되는 선언적 결과다. Composable은 data를 받아 UI hierarchy를 emit하고, state가 바뀌면 Compose가 필요한 함수를 다시 호출해 새 설명을 만든다.
 
 이 모델은 “화면 전체를 매번 다시 그린다”는 뜻이 아니다. 개념적으로는 화면을 현재 state에서 다시 계산하지만, Runtime은 변경과 관련된 scope를 고르고 필요한 작업만 수행하려고 한다.

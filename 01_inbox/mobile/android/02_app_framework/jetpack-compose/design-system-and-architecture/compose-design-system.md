@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Compose design system
+
 Compose design system 정본은 Compose layering, module boundary, CompositionLocal, Material 3 color role, 프로젝트별 design-system provider를 분리한다. UI layout과 accessibility는 [Compose layout, animation, accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md)로 보낸다.
 
 정본 묶음: [Compose design system contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-design-system-contracts.md)

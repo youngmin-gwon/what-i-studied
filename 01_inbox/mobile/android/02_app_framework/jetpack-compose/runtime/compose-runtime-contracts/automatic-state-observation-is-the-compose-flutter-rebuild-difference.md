@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# Automatic State Observation is the Compose Flutter rebuild difference
+
 Flutter 개발자가 Compose를 볼 때 가장 먼저 바꿔야 할 관점은 “Widget 객체를 다시 build한다”가 아니라 “Composable 함수가 어떤 Snapshot State를 읽었는지 Runtime이 추적한다”는 점이다.
 
 Flutter의 `setState`는 개발자가 dirty 범위를 선언하는 명령에 가깝고, Provider/Riverpod은 어떤 Widget이 어떤 provider를 보는지 별도 라이브러리가 추적한다. Compose는 observable state read를 Runtime 모델의 중심에 둔다.

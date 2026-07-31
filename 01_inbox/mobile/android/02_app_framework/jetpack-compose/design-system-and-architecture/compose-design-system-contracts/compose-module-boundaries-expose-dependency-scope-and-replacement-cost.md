@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Compose module boundaries expose dependency scope and replacement cost
+
 Compose artifact와 package 경계는 어떤 계층에 의존하는지 보여주는 단서다. 앱 design system은 Material 3 위에서 token을 적용할 수도 있고, Foundation/UI 위에서 자체 component를 만들 수도 있다.
 
 모듈을 작게 가져가면 필요한 기능만 의존할 수 있지만, 상위 component가 제공하던 기본 동작을 직접 책임질 가능성이 커진다. dependency를 줄이는 결정과 구현 책임은 함께 움직인다.

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Glance renders app widgets through RemoteViews not Compose UI
+
 Glance는 Kotlin과 Compose Runtime 기반의 API로 app widget을 선언하지만, 일반 Compose UI를 launcher에서 직접 실행하는 기술이 아니다. Glance content는 host가 소비할 수 있는 `RemoteViews` 경계로 변환된다.
 
 그래서 일반 Compose `Modifier`, Material component, screen state holder를 그대로 섞어 쓰는 모델이 아니다. Glance에는 `GlanceModifier`, Glance 전용 component와 action/update 제약이 있다.

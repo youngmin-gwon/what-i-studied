@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# Snapshot State observation invalidates state read scopes
+
 Compose Runtime은 `MutableState` 같은 observable state의 read를 추적한다. 어떤 Composable scope가 state value를 읽었는지 기록하고, 값이 바뀌면 그 read scope를 invalidation 대상으로 삼는다.
 
 중요한 것은 state가 어디에서 만들어졌는가보다 어디에서 읽혔는가다. 부모에서 `state.value`를 먼저 읽어 plain value로 자식에게 넘기면 부모가 관찰 scope가 될 수 있고, 자식에서 직접 읽으면 더 아래 scope가 관찰 대상이 된다.

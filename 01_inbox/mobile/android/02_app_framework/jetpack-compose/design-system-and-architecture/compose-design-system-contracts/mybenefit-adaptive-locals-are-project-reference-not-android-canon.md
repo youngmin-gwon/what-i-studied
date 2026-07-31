@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# MyBenefit adaptive locals are project reference not Android canon
+
 `LocalMyBenefit*` 같은 adaptive Local은 Android SDK나 Jetpack Compose 표준 API가 아니라 이 프로젝트의 design-system decision이다. 일반 정본에는 API 규칙이 아니라 “프로젝트가 왜 이 값을 Local로 제공하는가”를 기록한다.
 
 프로젝트 reference 노트는 type, default, provider 위치, consumer, recomposition 비용을 실제 구현과 맞춰 확인해야 한다. 이름만 보고 Android 일반 규칙으로 승격하지 않는다.

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# Recomposition reruns needed Composable scopes not the whole UI
+
 Recomposition은 입력이나 관찰 중인 state 변화에 대응해 Composable 함수를 다시 실행하는 과정이다. 다시 실행은 UI 전체 redraw와 같지 않고, Compose는 변경 가능성이 있는 함수나 lambda만 실행하고 나머지는 skip할 수 있다.
 
 Recomposition은 자주 일어날 수 있고, animation 중에는 매 frame 가까이 실행될 수 있다. 횟수 자체를 버그로 보지 말고, 실행되는 work가 무겁거나 불필요하게 넓은지 측정해야 한다.

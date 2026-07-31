@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# produceState converts external state to Compose State
+
 `produceState`는 외부 비동기 source나 구독 기반 source를 Compose `State<T>`로 변환하는 adapter다. Composition에 들어오면 producer coroutine을 시작하고, key가 바뀌거나 call site가 사라지면 producer를 취소한다.
 
 `value`에 같은 값을 다시 넣으면 downstream recomposition을 불필요하게 만들지 않도록 conflation된다. non-suspending callback source를 구독한다면 `awaitDispose`로 해제 경로를 함께 둔다.

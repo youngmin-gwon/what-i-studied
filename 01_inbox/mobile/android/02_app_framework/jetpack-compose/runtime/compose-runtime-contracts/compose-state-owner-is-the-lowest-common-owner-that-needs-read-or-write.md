@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# Compose state owner is the lowest common owner that needs read or write
+
 Compose에서 state는 읽고 쓰는 Composable들의 가장 낮은 공통 owner에 둔다. 한 Composable 안에서만 쓰는 임시 UI state는 local `remember`, 여러 child가 함께 쓰는 state는 공통 부모, business rule이 들어간 screen UI state는 ViewModel 같은 screen-level state holder가 후보가 된다.
 
 값은 아래로 전달하고 event는 위로 올린다. 이 흐름은 Composable을 stateless에 가깝게 만들고, 테스트와 재사용성을 높인다.

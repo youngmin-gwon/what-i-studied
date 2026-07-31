@@ -1,10 +1,12 @@
 ---
-title: Composable body must be fast idempotent and side effect free
+title: Composable body must be fast, idempotent, and side-effect-free
 tags: [android, jetpack-compose, compose/runtime]
 aliases: [side-effect free composable]
 date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
+
+# Composable body must be fast, idempotent, and side-effect-free
 
 Composable body는 같은 입력으로 여러 번 실행되어도 같은 UI 설명을 만들어야 한다. DB write, analytics 전송, preference update, repository mutation처럼 외부에 관찰 가능한 변경을 본문에 넣으면 skip, retry, cancel, 재실행 타이밍에 따라 결과가 흔들린다.
 

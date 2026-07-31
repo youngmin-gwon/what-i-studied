@@ -390,3 +390,20 @@ Canonical note 후보:
 - 정본 지도: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 - 원칙: OEM customization 과 OS development guide 조각을 플랫폼 통합 계약으로 재작성하고, Treble/VINTF/HAL, Mainline/APEX, AVB, 앱 배포 서명처럼 이미 정본이 있는 주제는 중복 작성하지 않고 해당 정본으로 연결한다.
 
+### Phase 30 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: Jetpack Compose 정본 문서 품질 보강
+- 정본 지도: [Compose runtime and state model](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Compose layout, animation, accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md), [Compose design system](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system.md)
+- 원칙: 이미 정본화된 Compose 노트를 추가로 쪼개지 않고, 활성 정본에 H1을 보강해 단독 노트로 읽히게 만들고 stem 기반 링크 라벨을 제목 기반으로 정리한다.
+- 검증: Compose 활성 정본 중 H1 누락 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+
+### Phase 31 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: Architecture 정본 문서 품질 보강
+- 정본 지도: [Android App Architecture](01_inbox/mobile/android/02_app_framework/architecture/android-app-architecture.md), [Android App Components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [Android Context Boundaries](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context-boundaries.md), [Jetpack Architecture Map](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture-map.md), [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
+- 원칙: 이미 의미 단위로 정본화된 Architecture 노트를 추가로 쪼개지 않고, 활성 정본 54개에 frontmatter를 추가해 Obsidian metadata를 통일했다.
+- 추가 정리: Architecture 활성 문서의 redirect 경유 링크 14개를 권한, IPC, DI 정본 링크로 직접 보정했다.
+- 검증: Architecture 활성 frontmatter 누락 0개, Architecture 활성 redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+

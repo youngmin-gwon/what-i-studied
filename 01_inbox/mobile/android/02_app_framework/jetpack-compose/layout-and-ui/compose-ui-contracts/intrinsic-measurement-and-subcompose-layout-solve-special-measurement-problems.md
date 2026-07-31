@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Intrinsic measurement and SubcomposeLayout solve special measurement problems
+
 Intrinsic measurement는 실제 측정 전에 child가 특정 축에서 필요로 하는 자연 크기를 질의하는 API다. 이것은 일반적인 “child를 두 번 측정한다”와 같은 의미가 아니며, custom layout의 기본 intrinsic 추정이 맞지 않을 때 override한다.
 
 `SubcomposeLayout`은 먼저 일부 content를 compose/measure한 결과를 바탕으로 뒤 content를 compose해야 하는 특수 문제를 해결한다. 일반 layout의 기본 도구가 아니라 composition과 measurement 순서를 의도적으로 엮는 API다.

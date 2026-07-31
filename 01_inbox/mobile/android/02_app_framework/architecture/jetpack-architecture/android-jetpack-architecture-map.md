@@ -1,3 +1,11 @@
+---
+title: "Jetpack Architecture Map"
+tags: [android, android/architecture, android/jetpack]
+aliases: ["Jetpack Architecture Map"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Jetpack Architecture Map
 
 Jetpack architecture 문서는 세부 API 설명을 반복하는 catalog가 아니라 기존 정본으로 연결하는 decision map이다.
@@ -17,7 +25,7 @@ Jetpack architecture 문서는 세부 API 설명을 반복하는 catalog가 아�
 - [Background Work Contracts](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md) - WorkManager, JobScheduler, AlarmManager, foreground service selection.
 - [Navigation Contracts](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md) - Navigation state, routes, back stack.
 - [Intent and Manifest Contracts](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md) - Intent, intent-filter, exported, PendingIntent.
-- [Dependency Injection](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection.md) - Hilt, graph, scope, Android entry points.
+- [Android Dependency Injection Map](01_inbox/mobile/android/02_app_framework/dependency-injection/android-dependency-injection-map.md) - Hilt, graph, scope, Android entry points.
 - [Compose Runtime and State Model](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md) - recomposition, state observation, remember, effects.
 - [Compose Layout, Animation, Accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md) - layout, modifier, animation, semantics.
 

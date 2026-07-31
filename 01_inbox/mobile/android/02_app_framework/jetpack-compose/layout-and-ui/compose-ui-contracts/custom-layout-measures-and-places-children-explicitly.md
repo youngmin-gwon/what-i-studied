@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Custom Layout measures and places children explicitly
+
 `Layout`과 `MeasurePolicy`는 child `Measurable`을 주어진 constraints로 측정하고, 얻은 `Placeable`을 `layout(width, height)` 블록에서 배치하는 API다. `Modifier.layout`은 별도 layout composable을 만들지 않고 한 node의 측정과 배치만 바꿀 때 쓴다.
 
 Compose UI는 일반적으로 child를 실제로 한 번만 측정하게 한다. 같은 child를 여러 constraints로 반복 측정하는 방식은 허용되지 않으며, 필요한 사전 크기 정보는 intrinsic API 같은 별도 경로로 다룬다.

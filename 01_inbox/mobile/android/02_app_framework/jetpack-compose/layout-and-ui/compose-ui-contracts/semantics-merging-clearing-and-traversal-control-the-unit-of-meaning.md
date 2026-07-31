@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Semantics merging clearing and traversal control the unit of meaning
+
 `mergeDescendants`는 여러 child semantics를 하나의 의미 단위로 합쳐 카드나 row를 한 항목처럼 읽게 만든다. 반대로 너무 많이 병합하면 사용자가 필요한 세부 action에 접근하지 못할 수 있다.
 
 `clearAndSetSemantics`는 기존 semantics를 지우고 새 의미로 대체할 때 쓰며, 장식 요소를 접근성 서비스에서만 숨기는 `hideFromAccessibility`와 다르다. 두 API는 목적이 다르므로 “숨기기”로 뭉개면 안 된다.

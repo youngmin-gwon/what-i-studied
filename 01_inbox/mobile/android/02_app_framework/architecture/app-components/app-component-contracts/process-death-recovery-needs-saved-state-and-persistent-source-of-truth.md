@@ -1,3 +1,11 @@
+---
+title: "프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다"
+tags: [android, android/architecture, android/app-components]
+aliases: ["프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다
 
 Android는 메모리 확보를 위해 background 프로세스를 종료할 수 있다. 이 경로는 Activity가 명시적으로 끝난 것과 다르며, 앱이 임의의 cleanup 콜백을 받을 것을 전제로 하면 안 된다.

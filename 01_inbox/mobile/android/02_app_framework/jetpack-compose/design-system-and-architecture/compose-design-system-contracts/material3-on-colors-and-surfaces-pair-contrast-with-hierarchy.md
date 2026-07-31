@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Material3 on colors and surfaces pair contrast with hierarchy
+
 `onPrimary`, `onPrimaryContainer`, `onSurface` 같은 `on*` role은 대응하는 배경 role 위에 놓이는 text/icon color다. 임의 배경에 임의 `on*` color를 섞으면 contrast 의도가 깨진다.
 
 Surface와 surface container 계열은 배경, card, navigation area, pane 같은 표면 계층을 표현한다. Material 3에서는 depth를 그림자만이 아니라 surface tone과 tonal elevation으로도 표현한다.

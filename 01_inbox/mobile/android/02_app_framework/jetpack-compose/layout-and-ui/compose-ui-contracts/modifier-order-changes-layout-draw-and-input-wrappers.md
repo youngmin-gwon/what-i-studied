@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Modifier order changes layout draw and input wrappers
+
 Modifier chain은 같은 속성 목록의 순서 없는 집합이 아니다. 각 modifier element는 layout, drawing, input, semantics 같은 wrapper를 만들 수 있고, 체인 순서가 제약 전달과 시각 결과를 바꾼다.
 
 Layout에 관여하는 modifier는 바깥쪽에서 안쪽으로 constraints를 전달하고, 안쪽에서 바깥쪽으로 측정 결과를 보고한다. Drawing modifier나 clickable/clip/padding도 순서에 따라 터치 영역과 clipping 결과가 달라질 수 있다.

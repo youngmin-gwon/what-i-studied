@@ -1,3 +1,11 @@
+---
+title: "Android UI State"
+tags: [android, android/architecture, android/state-management, android/ui-state]
+aliases: ["Android UI State"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android UI State
 
 UI State는 현재 화면을 다시 그릴 수 있는 값이고, Action/Event는 상태 변화를 요청하거나 소비 시점이 중요한 신호다.

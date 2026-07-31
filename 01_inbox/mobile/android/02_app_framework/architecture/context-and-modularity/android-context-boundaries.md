@@ -1,3 +1,11 @@
+---
+title: "Android Context Boundaries"
+tags: [android, android/architecture, android/context]
+aliases: ["Android Context Boundaries"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android Context Boundaries
 
 Context는 Android API 접근 handle이지만, 어떤 Context를 쓰는지는 lifetime과 UI 환경을 결정하는 아키텍처 문제다.
@@ -16,7 +24,7 @@ Context는 Android API 접근 handle이지만, 어떤 Context를 쓰는지는 li
 
 - [Android App Components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md)
 - [ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md)
-- [Dependency Injection](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/android-dependency-injection.md)
+- [Android Dependency Injection Map](01_inbox/mobile/android/02_app_framework/dependency-injection/android-dependency-injection-map.md)
 - [Compose Runtime](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md)
 
 공식 문서: [Context reference](https://developer.android.com/reference/android/content/Context)

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Compose layout measures children under parent constraints
+
 Compose layout은 부모가 자식에게 `Constraints`를 전달하고, 자식이 그 제약 안에서 크기를 보고하며, 부모가 최종 크기와 자식 위치를 정하는 과정이다. 핵심 값은 최소/최대 width와 height다.
 
 Layout phase는 Composition phase와 다르다. Composition은 무엇을 만들지 결정하고, layout은 만들어진 node를 측정하고 배치한다.

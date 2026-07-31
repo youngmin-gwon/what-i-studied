@@ -1,3 +1,11 @@
+---
+title: "ViewModel은 화면 단위 상태와 외부 작업을 조율한다"
+tags: [android, android/architecture, android/state-management, android/viewmodel]
+aliases: ["ViewModel은 화면 단위 상태와 외부 작업을 조율한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # ViewModel은 화면 단위 상태와 외부 작업을 조율한다
 
 상위 문서: [Android ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md)

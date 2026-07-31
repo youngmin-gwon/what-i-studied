@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Compose animation API is selected by change unit and control level
+
 Compose animation API는 “상위 수준이 항상 좋다”가 아니라 무엇이 바뀌는지로 고른다. Visibility 변화는 `AnimatedVisibility`, content 교체는 `AnimatedContent`나 `Crossfade`, 크기 변화는 `animateContentSize`가 후보가 된다.
 
 개별 value만 부드럽게 바꾸면 value animation API를 쓰고, 여러 property가 하나의 state transition에 묶이면 transition API를 쓴다. 코루틴에서 중단, snap, decay, gesture 연동을 직접 제어해야 하면 `Animatable`이 후보가 된다.

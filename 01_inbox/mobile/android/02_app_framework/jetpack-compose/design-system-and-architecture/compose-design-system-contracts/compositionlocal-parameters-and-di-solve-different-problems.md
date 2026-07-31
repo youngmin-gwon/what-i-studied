@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# CompositionLocal parameters and DI solve different problems
+
 파라미터 전달은 Composable의 명시적 계약이다. 호출자가 값과 event를 제어해야 하거나 특정 component에만 필요한 값이면 파라미터가 우선이다.
 
 CompositionLocal은 하위 UI tree 전체에 적용되는 UI 환경 값을 숨은 context처럼 제공한다. theme, density, layout policy처럼 많은 node가 읽지만 중간 layer가 의미를 몰라도 되는 값에 맞다.

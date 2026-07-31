@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# Composition uses callsite identity to preserve remembered values
+
 Composition은 Composable 호출의 위치와 구조를 이용해 `remember` 값, group, node 관계를 보존한다. 같은 `remember` 코드라도 호출 위치가 다르면 서로 다른 저장공간이 된다.
 
 조건문, 반복문, list item에서는 호출 구조와 key가 identity에 영향을 준다. item identity를 안정적으로 주지 않으면 위치 변화가 값 보존과 재사용을 흐릴 수 있다.

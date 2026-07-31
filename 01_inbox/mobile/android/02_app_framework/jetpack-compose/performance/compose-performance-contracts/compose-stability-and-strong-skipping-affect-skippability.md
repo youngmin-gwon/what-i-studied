@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# Compose stability and strong skipping affect skippability
+
 Compose가 Composable 호출을 skip하려면 입력이 비교 가능한 계약을 가져야 한다. Stability는 “값이 바뀌면 Compose가 알 수 있는가”와 “같은 값 비교가 안전한가”를 compiler가 판단하는 근거다.
 
 Strong skipping은 Compose compiler mode다. 공식 문서 기준 Kotlin 2.0.20부터 기본 활성화되어 restartable Composable을 더 넓게 skippable로 만들고, Composable 내부 lambda를 자동으로 remember할 수 있다.

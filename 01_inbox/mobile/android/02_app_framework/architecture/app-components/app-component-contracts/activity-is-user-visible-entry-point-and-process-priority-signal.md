@@ -1,3 +1,11 @@
+---
+title: "Activity는 사용자에게 보이는 entry point이자 프로세스 우선순위 신호다"
+tags: [android, android/architecture, android/app-components]
+aliases: ["Activity는 사용자에게 보이는 entry point이자 프로세스 우선순위 신호다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Activity는 사용자에게 보이는 entry point이자 프로세스 우선순위 신호다
 
 Activity는 사용자가 직접 보고 상호작용하는 앱 컴포넌트다. 런처 아이콘, notification, deep link, 다른 앱의 explicit/implicit Intent는 Activity를 통해 앱의 특정 화면으로 들어올 수 있다.

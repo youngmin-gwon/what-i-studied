@@ -1,3 +1,11 @@
+---
+title: "Context Contracts"
+tags: [android, android/architecture, android/context]
+aliases: ["Context Contracts"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Context Contracts
 
 Context를 type 이름보다 owner/lifetime/capability로 고르는 정본 모음이다.

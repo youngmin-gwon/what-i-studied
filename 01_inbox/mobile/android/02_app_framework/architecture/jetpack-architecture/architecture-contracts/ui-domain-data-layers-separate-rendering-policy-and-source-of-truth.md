@@ -1,3 +1,11 @@
+---
+title: "UI, domain, data layer는 rendering, policy, source of truth를 분리한다"
+tags: [android, android/architecture, android/jetpack]
+aliases: ["UI, domain, data layer는 rendering, policy, source of truth를 분리한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # UI, domain, data layer는 rendering, policy, source of truth를 분리한다
 
 UI layer는 상태를 그리고 사용자 action을 올린다. ViewModel/state holder는 화면 state와 외부 작업을 조율한다. Domain layer는 여러 화면이나 repository에 걸친 business rule이 실제 복잡도를 줄일 때만 둔다. Data layer는 repository와 data source를 통해 source of truth와 동기화 정책을 가진다.

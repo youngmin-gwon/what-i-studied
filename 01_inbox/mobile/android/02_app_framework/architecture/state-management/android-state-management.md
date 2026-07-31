@@ -1,3 +1,11 @@
+---
+title: "Android 상태 관리 정본 지도"
+tags: [android, android/architecture, android/state-management]
+aliases: ["Android 상태 관리 정본 지도"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android 상태 관리 정본 지도
 
 이 폴더는 Android 화면 상태 관리의 정본 노트를 모은다. 기존의 긴 설명형 노트는 이곳의 의미 단위 노트로 흡수하고, 기존 경로는 가능한 한 짧은 경유 노트로 남긴다.

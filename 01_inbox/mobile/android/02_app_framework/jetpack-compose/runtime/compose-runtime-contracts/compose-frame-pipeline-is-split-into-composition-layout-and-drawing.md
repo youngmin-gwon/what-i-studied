@@ -1,10 +1,12 @@
 ---
-title: Compose frame work is split into composition layout and drawing
+title: Compose frame pipeline is split into composition, layout, and drawing
 tags: [android, jetpack-compose, compose/runtime]
 aliases: [Compose phases]
 date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
+
+# Compose frame pipeline is split into composition, layout, and drawing
 
 Compose가 frame을 만들 때의 큰 단계는 composition, layout, drawing이다. Composition은 무엇을 보여줄지 결정하고, layout은 측정과 배치를 수행하며, drawing은 화면에 그릴 내용을 만든다.
 

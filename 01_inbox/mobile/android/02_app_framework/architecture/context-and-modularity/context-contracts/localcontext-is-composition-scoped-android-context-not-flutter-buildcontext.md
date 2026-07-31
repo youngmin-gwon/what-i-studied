@@ -1,3 +1,11 @@
+---
+title: "LocalContext는 Composition에서 읽는 Android Context이지 Flutter BuildContext가 아니다"
+tags: [android, android/architecture, android/context]
+aliases: ["LocalContext는 Composition에서 읽는 Android Context이지 Flutter BuildContext가 아니다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # LocalContext는 Composition에서 읽는 Android Context이지 Flutter BuildContext가 아니다
 
 `LocalContext.current`는 Compose tree를 통해 전달되는 현재 Android `Context`다. resource formatting, toast, activity start 같은 UI event 근처의 Android API 호출에 사용할 수 있다.

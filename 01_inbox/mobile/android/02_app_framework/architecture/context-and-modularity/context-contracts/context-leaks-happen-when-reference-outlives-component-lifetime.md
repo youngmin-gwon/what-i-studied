@@ -1,3 +1,11 @@
+---
+title: "Context leak은 참조가 컴포넌트 수명보다 오래 살 때 발생한다"
+tags: [android, android/architecture, android/context]
+aliases: ["Context leak은 참조가 컴포넌트 수명보다 오래 살 때 발생한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Context leak은 참조가 컴포넌트 수명보다 오래 살 때 발생한다
 
 Context leak의 핵심은 Activity context라는 타입 이름 자체가 아니라 참조 수명이다. 오래 사는 singleton, callback, coroutine, cache가 짧은 Activity/Receiver/Provider context를 잡으면 component가 종료된 뒤에도 해제되지 않을 수 있다.

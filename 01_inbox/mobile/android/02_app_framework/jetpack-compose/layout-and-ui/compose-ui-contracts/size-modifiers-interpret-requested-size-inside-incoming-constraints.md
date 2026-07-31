@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Size modifiers interpret requested size inside incoming constraints
+
 `size`, `width`, `height` 계열 modifier는 요청 크기를 incoming constraints 안에서 해석한다. 앞쪽 modifier가 exact constraint를 만들면 뒤쪽 modifier의 요청은 그 제약 안으로 맞춰질 수 있다.
 
 `requiredSize` 계열은 incoming constraint를 재정의하려는 강한 요청이다. 이때 parent가 보고받는 크기와 실제 child 배치가 다르게 보일 수 있어 overflow, clipping, alignment를 함께 봐야 한다.

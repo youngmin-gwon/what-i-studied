@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Design system provider composes Material theme and project locals
+
 Design system provider는 앱 root나 feature boundary에서 `MaterialTheme`과 프로젝트 전용 CompositionLocal을 함께 제공하는 경계다. 하위 UI는 같은 color, typography, shape, adaptive policy를 일관되게 읽는다.
 
 Provider는 UI 환경 값의 계산과 범위를 모으는 곳이지 화면 상태나 business dependency를 숨기는 장소가 아니다. 화면마다 바뀌는 state는 parameter/state holder로 전달하고, repository나 service는 DI가 소유한다.

@@ -1,3 +1,11 @@
+---
+title: "App Component Contracts"
+tags: [android, android/architecture, android/app-components]
+aliases: ["App Component Contracts"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # App Component Contracts
 
 Activity, Service, BroadcastReceiver, ContentProvider를 각각의 OS-visible contract로 읽기 위한 정본 모음이다.

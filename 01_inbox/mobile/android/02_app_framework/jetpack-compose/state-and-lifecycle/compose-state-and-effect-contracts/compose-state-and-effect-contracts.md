@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# Compose state and effect contracts
+
 Compose 상태 API는 값의 수명과 작업의 owner를 기준으로 고른다. `remember`, `rememberSaveable`, ViewModel, effect API를 편의성 기준으로 섞지 않는다.
 
 ## 정본 노트

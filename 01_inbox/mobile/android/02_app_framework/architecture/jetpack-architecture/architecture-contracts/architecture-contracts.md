@@ -1,3 +1,11 @@
+---
+title: "Architecture Contracts"
+tags: [android, android/architecture, android/jetpack]
+aliases: ["Architecture Contracts"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Architecture Contracts
 
 Android architecture를 layer 이름보다 responsibility, owner, lifetime으로 판단하기 위한 정본 모음이다.

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Visual information and gestures need readable meaning and alternate actions
+
 시각 정보는 접근성 서비스가 읽을 수 있는 의미로 바뀌어야 한다. 아이콘 버튼에는 동작을 설명하는 content description이나 click label이 필요하고, 색상만으로 상태를 전달하지 않는다.
 
 제스처 전용 동작은 대체 action이 필요할 수 있다. swipe, drag, long press처럼 발견하기 어려운 동작은 `CustomAccessibilityAction`이나 명확한 보조 control로 제공한다.

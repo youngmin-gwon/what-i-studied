@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Accessibility quality requires service scanner and Semantics verification
+
 접근성 품질은 코드 스타일만으로 보장되지 않는다. TalkBack으로 포커스 순서, 읽히는 문장, action 가능 여부를 직접 확인하고, Accessibility Scanner로 touch target, contrast, description 누락을 보조 점검한다.
 
 Layout Inspector나 Compose testing은 Semantics tree를 확인하는 데 유용하다. 테스트는 사용자가 이해하는 의미를 검증하되, 테스트 편의를 위해 accessibility label을 오염시키지 않도록 `testTag`와 semantics 목적을 분리한다.

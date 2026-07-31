@@ -1,3 +1,11 @@
+---
+title: "Android App Components"
+tags: [android, android/architecture, android/app-components]
+aliases: ["Android App Components"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android App Components
 
 앱 컴포넌트는 앱 내부 layer가 아니라 Android OS가 앱을 발견하고 호출하는 실행 경계다.
@@ -25,8 +33,8 @@
 
 - [Intent and Manifest Contracts](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
 - [Background Work Contracts](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
-- [Security Permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md)
-- [Binder and IPC](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md)
+- [Android 권한 계약](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md)
+- [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 - [Persistence Contracts](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
 
 공식 문서: [Application fundamentals](https://developer.android.com/guide/components/fundamentals)

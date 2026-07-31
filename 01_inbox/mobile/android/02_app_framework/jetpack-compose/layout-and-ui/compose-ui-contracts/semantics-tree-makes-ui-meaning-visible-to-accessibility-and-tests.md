@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Semantics Tree makes UI meaning visible to accessibility and tests
+
 Semantics Tree는 화면의 픽셀 구조가 아니라 UI의 의미를 접근성 서비스와 Compose 테스트가 읽을 수 있는 형태로 제공한다. Text, Button 같은 기본 컴포넌트는 많은 semantics를 자동으로 제공하지만, custom component는 역할, 상태, 설명, action을 명시해야 할 수 있다.
 
 Semantics는 accessibility만을 위한 것이 아니다. Compose test도 semantics 정보를 사용한다. 다만 접근성 서비스가 해석하는 tree와 테스트가 보는 merged/unmerged tree를 완전히 동일시하면 안 된다.

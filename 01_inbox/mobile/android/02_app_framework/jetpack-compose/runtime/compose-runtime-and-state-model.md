@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
+# Compose runtime and state model
+
 Compose Runtime은 Composable을 UI 객체로 보지 않고, state를 읽고 UI 설명을 만드는 함수 호출로 다룬다. 이 지도는 기존 Compose internals, Flutter 비교, compiler/slot table, phases 문서를 runtime 계약 단위로 다시 묶는다.
 
 정본 묶음: [Compose runtime contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-runtime-contracts.md)

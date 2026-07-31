@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
+# Compose UI contracts
+
 - [Compose layout은 부모 제약 안에서 자식을 측정하고 배치한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/compose-layout-measures-children-under-parent-constraints.md)
 - [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/modifier-order-changes-layout-draw-and-input-wrappers.md)
 - [Size modifier는 incoming constraint 안에서 요청 크기를 해석한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/size-modifiers-interpret-requested-size-inside-incoming-constraints.md)

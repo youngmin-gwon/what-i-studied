@@ -1,3 +1,11 @@
+---
+title: "설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다"
+tags: [android, android/architecture, android/app-components]
+aliases: ["설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다
 
 회전, 언어, 다크 모드, window size 변경 같은 configuration change는 Activity를 파괴하고 새 인스턴스를 만들 수 있다. 이때 Activity 필드나 View/Composable local 변수에만 있던 값은 사라질 수 있다.
