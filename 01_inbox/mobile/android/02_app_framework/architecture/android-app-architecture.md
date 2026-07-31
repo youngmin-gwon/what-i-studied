@@ -18,6 +18,6 @@ Android 앱 아키텍처는 UI 패턴 이름보다 owner, lifetime, OS entry poi
 
 - [Compose Runtime and State Model](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md)
 - [Compose Layout, Animation, Accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md)
-- [Persistence Contracts](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
+- [Android Data Layer Map](01_inbox/mobile/android/02_app_framework/data/android-data-layer-map.md)
 - [Background Work Contracts](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
 - [Navigation Contracts](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)

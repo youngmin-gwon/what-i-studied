@@ -1,21 +1,7 @@
-# 무거운 작업을 Main Dispatcher에서 실행
+# 이전 노트
 
-```kotlin
-// 대량 JSON 파싱이나 파일 작업을 Main에서 직접 실행하지 않기
-viewModelScope.launch {
-    val text = file.readText()
-    _uiState.value = UiState(text)
-}
-```
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// I/O 작업은 IO Dispatcher로 이동
-viewModelScope.launch {
-    val text = withContext(Dispatchers.IO) {
-        file.readText()
-    }
-    _uiState.value = UiState(text)
-}
-```
+흡수된 이전 노트: `02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/kotlin-coroutine-flow-common-mistakes/05-무거운-작업을-main-dispatcher에서-실행.md`
 
----
+정본 노트: [Dispatcher and scope](01_inbox/mobile/android/02_app_framework/data/async-flow/coroutines/dispatcher-selects-execution-context-not-work-lifetime.md)

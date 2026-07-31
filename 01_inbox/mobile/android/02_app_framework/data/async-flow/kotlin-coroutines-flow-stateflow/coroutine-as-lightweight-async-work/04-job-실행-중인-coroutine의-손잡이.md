@@ -1,20 +1,7 @@
-# Job: 실행 중인 Coroutine의 손잡이
+# 이전 노트
 
-`launch`를 호출하면 `Job`이 반환됩니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-`Job`은 실행 중인 Coroutine을 추적하고 취소할 수 있는 손잡이입니다.
+흡수된 이전 노트: `02_app_framework/data/async-flow/kotlin-coroutines-flow-stateflow/coroutine-as-lightweight-async-work/04-job-실행-중인-coroutine의-손잡이.md`
 
-```kotlin
-private var searchJob: Job? = null
-
-fun search(keyword: String) {
-    searchJob?.cancel()
-    searchJob = viewModelScope.launch {
-        val result = repository.search(keyword)
-        _uiState.value = SearchUiState.Success(result)
-    }
-}
-```
-
-검색어가 바뀔 때 이전 검색을 취소하고 최신 검색만 유지하는 패턴입니다. 다만 Flow를 쓰면 이 패턴은 보통 `debounce` + `flatMapLatest`로 더 깔끔하게
-표현할 수 있습니다.
+정본 노트: [Coroutine job lifetime](01_inbox/mobile/android/02_app_framework/data/async-flow/coroutines/structured-concurrency-parent-owns-child-lifetime.md)

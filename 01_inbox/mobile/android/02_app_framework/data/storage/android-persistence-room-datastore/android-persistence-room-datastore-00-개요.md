@@ -1,5 +1,7 @@
-# android persistence room datastore 개요
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
+흡수된 이전 노트: `02_app_framework/data/storage/android-persistence-room-datastore/android-persistence-room-datastore-00-개요.md`
+
+정본 노트: [Storage selection](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md)

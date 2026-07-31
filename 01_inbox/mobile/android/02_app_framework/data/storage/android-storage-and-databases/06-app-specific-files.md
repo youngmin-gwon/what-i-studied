@@ -1,5 +1,7 @@
-# App-specific Files
+# 이전 노트
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-정본: [앱 전용 디렉터리는 소유 앱만 쓰는 파일에 사용한다](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/app-specific-directory-is-for-app-owned-files.md)
+흡수된 이전 노트: `02_app_framework/data/storage/android-storage-and-databases/06-app-specific-files.md`
+
+정본 노트: [App-specific files](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/app-specific-directory-is-for-app-owned-files.md)
