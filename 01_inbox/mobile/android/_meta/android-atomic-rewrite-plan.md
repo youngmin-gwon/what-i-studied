@@ -356,3 +356,13 @@ Canonical note 후보:
 - 원칙: transport 이름이 아니라 capability, validation, policy, 수명, 보안 경계를 기준으로 네트워크 동작을 설명한다.
 - 참고한 공식 문서: [ConnectivityManager](https://developer.android.com/reference/android/net/ConnectivityManager), [ConnectivityManager.NetworkCallback](https://developer.android.com/reference/android/net/ConnectivityManager.NetworkCallback), [Wi-Fi infrastructure](https://developer.android.com/develop/connectivity/wifi), [VPN](https://developer.android.com/develop/connectivity/vpn), [Network security configuration](https://developer.android.com/privacy-and-security/security-config), [Connectivity module](https://source.android.com/docs/core/architecture/modular-system/connectivity)
 
+### Phase 13A 적용 기록
+
+- 적용일: 2026-07-31
+- 범위: Compose mental model, recomposition, snapshot state observation, remember, Slot Table/positional identity, Compose compiler/restart/skip, frame phases, state owner, Flutter rebuild comparison, effect API overlap, strong skipping wording
+- 정본 지도: [Compose runtime and state model](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md)
+- 상태/Effect 정본 지도: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
+- 성능 정본 지도: [Compose 성능 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)
+- 원칙: Runtime mental model은 새 정본으로 묶고, 이미 좋은 state/effect/performance 정본은 재사용하며, 예전 튜토리얼 조각은 redirect stub으로 축소한다.
+- 참고한 공식 문서: [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model), [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state), [State hoisting](https://developer.android.com/develop/ui/compose/state-hoisting), [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects), [Compose phases](https://developer.android.com/develop/ui/compose/phases), [Strong skipping mode](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping)
+

@@ -13,6 +13,6 @@ SystemSuspend는 wakelock count를 관리하고, suspend thread가 `/sys/power/w
 
 전원 문제 분석에서는 “앱이 wake lock을 잡았다”와 “시스템이 suspend하지 못했다”를 구분한다. wakeup source, SystemSuspend 상태, app standby, JobScheduler, foreground service 정책을 함께 봐야 한다.
 
-관련 노트: {link(CONTRACTS / "wakelocks-are-suspend-blockers-not-background-work-permission.md", "Wakelock은 background work 권한이 아니라 suspend blocker다")}
+관련 노트: [Wakelock은 background work 권한이 아니라 suspend blocker다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/wakelocks-are-suspend-blockers-not-background-work-permission.md)
 
 근거: [SystemSuspend service](https://source.android.com/docs/core/power/systemsuspend)

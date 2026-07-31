@@ -15,6 +15,6 @@ Camera HAL → 삼성/LG/Google 카메라 모두 동일 API
 Audio HAL → Qualcomm/MediaTek 오디오 칩 통합
 ```
 
-**상세**: [android-hal-and-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-hal-and-kernel.md)
+**상세**: [android-hal-and-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
 
 ---

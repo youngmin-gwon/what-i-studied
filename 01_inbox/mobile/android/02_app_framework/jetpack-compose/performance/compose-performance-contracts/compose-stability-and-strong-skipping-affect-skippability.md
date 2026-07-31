@@ -1,23 +1,21 @@
-# Compose 안정성과 strong skipping은 skippability에 영향을 준다
+---
+title: Compose stability and strong skipping affect skippability
+tags: [android, jetpack-compose, compose/performance]
+aliases: [Compose stability, Strong skipping]
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
-관련 지도: [Compose 성능 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)
-관련 정본: [렌더링 성능은 프레임 지연의 원인을 분리한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
+Compose가 Composable 호출을 skip하려면 입력이 비교 가능한 계약을 가져야 한다. Stability는 “값이 바뀌면 Compose가 알 수 있는가”와 “같은 값 비교가 안전한가”를 compiler가 판단하는 근거다.
 
-Compose가 composable 호출을 건너뛰려면 입력이 안정적으로 비교될 수 있어야 한다.
+Strong skipping은 Compose compiler mode다. 공식 문서 기준 Kotlin 2.0.20부터 기본 활성화되어 restartable Composable을 더 넓게 skippable로 만들고, Composable 내부 lambda를 자동으로 remember할 수 있다.
 
-불안정 타입은 값이 바뀌지 않았어도 recomposition에서 더 넓게 다시 실행될 수 있다.
+Strong skipping에서도 비교 규칙은 단순하지 않다. Unstable parameter는 instance equality(`===`)로, stable parameter는 object equality(`equals`)로 비교된다. 따라서 unstable object를 매번 새로 만들면 skip이 여전히 깨질 수 있다.
 
-컬렉션 타입은 일반적으로 mutable 가능성을 보수적으로 해석하므로 불안정하게 판단될 수 있다.
+`@Stable`이나 `@Immutable`은 성능 장식이 아니라 지켜야 할 계약이다. 근거 없이 붙이면 compiler를 속여 잘못된 UI 업데이트를 만들 수 있다.
 
-불변 컬렉션, 안정적인 wrapper, 명시적인 stability 설정은 이 문제를 줄이는 선택지다.
+안정성 개선은 추측이 아니라 compiler report, Layout Inspector, benchmark나 trace로 병목을 확인한 뒤 적용한다.
 
-Kotlin 2.0.20부터 Compose의 strong skipping mode는 기본 활성화되어, 불안정 인자를 받는 composable도 더 적극적으로 건너뛸 수 있다.
+관련 노트: [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md), [Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-starts-with-measure-debug-improve-loop.md)
 
-그래도 안정성 문제를 먼저 추측해 고치는 것은 위험하다.
-
-Compose compiler report와 실제 성능 측정을 확인한 뒤 타입 안정성 개선을 적용한다.
-
-공식 참고: [Compose 안정성 진단](https://developer.android.com/develop/ui/compose/performance/stability)
-
-공식 참고: [Strong skipping](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping)
+출처: [Strong skipping mode](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping), [Stability in Compose](https://developer.android.com/develop/ui/compose/performance/stability)

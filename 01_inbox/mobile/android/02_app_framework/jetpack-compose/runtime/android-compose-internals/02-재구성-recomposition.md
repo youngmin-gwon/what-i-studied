@@ -1,52 +1,13 @@
-# 재구성 (Recomposition)
+---
+title: 02-재구성-recomposition
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-상태가 변경되면 Composable 함수가 다시 실행된다.
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/02-재구성-recomposition.md`
 
-```kotlin
-@Composable
-fun Counter() {
-    var count by remember { mutableStateOf(0) }
-    
-    Column {
-        Text("Count: $count") // count 변경 시 이 부분만 재구성
-        Button(onClick = { count++ }) {
-            Text("Increment")
-        }
-    }
-}
-```
-
-#### 재구성 범위 최소화
-
-```kotlin
-// ❌ 나쁜 예: 전체 재구성
-@Composable
-fun BadExample() {
-    var count by remember { mutableStateOf(0) }
-    
-    Column {
-        ExpensiveComposable() // count 변경 시 불필요하게 재구성
-        Text("Count: $count")
-        Button(onClick = { count++ }) { Text("+") }
-    }
-}
-
-// ✅ 좋은 예: 필요한 부분만 재구성
-@Composable
-fun GoodExample() {
-    var count by remember { mutableStateOf(0) }
-    
-    Column {
-        ExpensiveComposable() // 재구성 안 됨
-        CountDisplay(count) // 이 부분만 재구성
-        Button(onClick = { count++ }) { Text("+") }
-    }
-}
-
-@Composable
-fun CountDisplay(count: Int) {
-    Text("Count: $count")
-}
-```
+정본 노트: [recomposition-reruns-needed-composable-scopes-not-the-whole-ui](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md)

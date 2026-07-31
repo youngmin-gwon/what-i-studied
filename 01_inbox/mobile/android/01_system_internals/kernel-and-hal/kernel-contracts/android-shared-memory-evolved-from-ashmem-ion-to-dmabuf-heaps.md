@@ -16,6 +16,6 @@ Android 12의 GKI 2.0에서는 kernel 5.10 계열에서 ION allocator가 DMA-BUF
 
 CMA(Contiguous Memory Allocator)는 device DMA를 위해 물리적으로 연속된 영역이 필요한 경우를 지원할 수 있지만, 모든 camera/GPU/codec 경로가 항상 물리 연속 메모리를 요구한다는 뜻은 아니다. IOMMU, heap 종류, driver 요구사항에 따라 필요한 allocation 제약이 달라진다.
 
-관련 노트: {link(CONTRACTS / "dmabuf-zero-copy-means-shared-buffer-ownership-not-no-work.md", "DMA-BUF zero-copy는 무작업 보장이 아니라 shared buffer ownership이다")}, {link(ANDROID / "01_system_internals/graphics-and-media/graphics-media-contracts/surface-based-media-pipeline-avoids-app-level-pixel-copy.md", "Surface based media pipeline avoids app-level pixel copy")}
+관련 노트: [DMA-BUF zero-copy는 무작업 보장이 아니라 shared buffer ownership이다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/dmabuf-zero-copy-means-shared-buffer-ownership-not-no-work.md), [Surface based media pipeline avoids app-level pixel copy](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/surface-based-media-pipeline-avoids-app-level-pixel-copy.md)
 
 근거: [Transition from ION to DMA-BUF heaps](https://source.android.com/docs/core/architecture/kernel/dma-buf-heaps)

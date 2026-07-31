@@ -1,27 +1,13 @@
-# Kotlin 2.0+ Compose 컴파일러 분리
+---
+title: 14-kotlin-2-0-compose-컴파일러-분리
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
->[!WARNING] **Kotlin 2.0 마이그레이션 필수 변경**
->Kotlin 2.0 부터 Compose 컴파일러 플러그인이 Kotlin 에 **내장**되었다. 별도의 `compose-compiler` 의존성과 `kotlinCompilerExtensionVersion` 설정이 **삭제**되어야 한다.
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/14-kotlin-2-0-compose-컴파일러-분리.md`
 
-```kotlin
-// ❌ Kotlin 1.x (이전 방식)
-android {
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.4"  // 삭제 대상
-    }
-}
-
-// ✅ Kotlin 2.0+ (현대 방식)
-plugins {
-    alias(libs.plugins.kotlin.compose)  // Compose 컴파일러 플러그인
-}
-// composeOptions 블록 자체가 불필요
-```
-
-**마이그레이션 체크리스트:**
-
-1. `build.gradle.kts` 에서 `composeOptions { kotlinCompilerExtensionVersion }` 제거
-2. `plugins` 블록에 `kotlin-compose` 플러그인 추가
-3. `libs.versions.toml` 에서 Compose Compiler 버전 참조 제거
+정본 노트: [compose-runtime-links-state-effects-performance-and-tooling](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-runtime-links-state-effects-performance-and-tooling.md)

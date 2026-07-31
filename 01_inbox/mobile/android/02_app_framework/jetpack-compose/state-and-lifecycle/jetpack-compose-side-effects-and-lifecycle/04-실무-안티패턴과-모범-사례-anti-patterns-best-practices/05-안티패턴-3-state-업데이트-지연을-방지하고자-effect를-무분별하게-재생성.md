@@ -1,13 +1,13 @@
-# ❌ 안티패턴 3: State 업데이트 지연을 방지하고자 Effect를 무분별하게 재생성
-```kotlin
-@Composable
-fun BadTimer(onTick: () -> Unit) {
-    // onTick이 바뀔 때마다 LaunchedEffect가 취소되고 처음부터 다시 시작하여 타이머가 정상 동작하지 못합니다!
-    LaunchedEffect(onTick) {
-        while(true) {
-            delay(1000L)
-            onTick()
-        }
-    }
-}
-```
+---
+title: 05-안티패턴-3-state-업데이트-지연을-방지하고자-effect를-무분별하게-재생성
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-side-effects-and-lifecycle/04-실무-안티패턴과-모범-사례-anti-patterns-best-practices/05-안티패턴-3-state-업데이트-지연을-방지하고자-effect를-무분별하게-재생성.md`
+
+정본 노트: [compose-state-and-effect-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

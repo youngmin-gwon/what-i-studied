@@ -13,6 +13,6 @@ Surface 모드는 앱이 매 프레임을 ByteBuffer로 꺼내 복사하는 단�
 
 정확한 판단은 API 모드만 보고 하지 않는다. `MediaCodecInfo`, output format, frame rendered callback, Perfetto trace, device-specific 동작을 함께 확인한다.
 
-관련 노트: {link(CONTRACTS / "surface-based-media-pipeline-avoids-app-level-pixel-copy.md", "Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다")}, {link(CONTRACTS / "mediacodec-bytebuffer-mode-makes-the-app-own-sample-flow.md", "MediaCodec ByteBuffer 모드는 앱이 sample 흐름을 소유한다")}
+관련 노트: [Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/surface-based-media-pipeline-avoids-app-level-pixel-copy.md), [MediaCodec ByteBuffer 모드는 앱이 sample 흐름을 소유한다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/mediacodec-bytebuffer-mode-makes-the-app-own-sample-flow.md)
 
 근거: [MediaCodec API reference](https://developer.android.com/reference/android/media/MediaCodec)

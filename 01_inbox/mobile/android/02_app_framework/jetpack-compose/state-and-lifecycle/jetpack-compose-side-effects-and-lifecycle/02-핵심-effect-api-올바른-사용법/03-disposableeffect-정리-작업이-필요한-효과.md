@@ -1,21 +1,13 @@
-# `DisposableEffect` (정리 작업이 필요한 효과)
-* **목적**: 컴포저블이 화면에 나타나고 사라질 때(Composition 진입 및 소멸) 자원 등록 및 해제 쌍을 안전하게 관리합니다.
-* **동작**: 블록이 실행된 후, 마지막 줄에 반드시 `onDispose` 블록을 정의하여 정리 작업을 작성해야 합니다. `key`가 변경되면 기존 작업을 해제(`onDispose`)하고 새로 다시 등록합니다.
-* **주요 사용처**: 리스너(Listener) 등록 및 해제, SDK 초기화 및 정리, 센서 모니터링 시작 및 중단.
-
-```kotlin
-@Composable
-fun SensorMonitor(sensorManager: SensorManager) {
-    DisposableEffect(sensorManager) {
-        val listener = SensorEventListener { /* 센서 데이터 처리 */ }
-        sensorManager.registerListener(listener, ...)
-
-        // 컴포저블이 화면에서 제거되거나 sensorManager가 바뀔 때 실행
-        onDispose {
-            sensorManager.unregisterListener(listener)
-        }
-    }
-}
-```
-
 ---
+title: 03-disposableeffect-정리-작업이-필요한-효과
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-side-effects-and-lifecycle/02-핵심-effect-api-올바른-사용법/03-disposableeffect-정리-작업이-필요한-효과.md`
+
+정본 노트: [disposable-effect-pairs-registration-and-cleanup](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/disposable-effect-pairs-registration-and-cleanup.md)

@@ -1,26 +1,13 @@
-# ViewModel 통합
+---
+title: 09-viewmodel-통합
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-@Composable
-fun UserScreen(
-    viewModel: UserViewModel = viewModel()
-) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    
-    when (uiState) {
-        is UiState.Loading -> LoadingIndicator()
-        is UiState.Success -> UserContent(uiState.data)
-        is UiState.Error -> ErrorMessage(uiState.message)
-    }
-}
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/09-viewmodel-통합.md`
 
-// Hilt 사용
-@Composable
-fun UserScreen(
-    viewModel: UserViewModel = hiltViewModel()
-) {
-    // ...
-}
-```
+정본 노트: [viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)

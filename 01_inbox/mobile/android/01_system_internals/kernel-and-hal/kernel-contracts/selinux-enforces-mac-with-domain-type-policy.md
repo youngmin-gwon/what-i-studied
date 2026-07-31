@@ -14,6 +14,6 @@ SELinux는 default deny 모델이다. permissive mode는 denial을 log만 남기
 
 정책 작성의 목표는 denial log를 무작정 allow로 바꾸는 것이 아니다. 어떤 domain이 어떤 type/class/permission을 가져야 하는지 최소 권한으로 모델링하고, generic denial이 나오면 서비스 domain이나 label 설계가 잘못됐는지 먼저 본다.
 
-관련 노트: {link(CONTRACTS / "selinux-policy-controls-binder-service-and-file-boundaries.md", "SELinux policy는 Binder service와 file boundary를 함께 제어한다")}, {link(ANDROID / "05_security_privacy/permissions-and-sandbox/android-security-sandbox.md", "Android security sandbox")}
+관련 노트: [SELinux policy는 Binder service와 file boundary를 함께 제어한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/selinux-policy-controls-binder-service-and-file-boundaries.md), [Android security sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
 
 근거: [Security-Enhanced Linux in Android](https://source.android.com/docs/security/features/selinux), [SELinux concepts](https://source.android.com/docs/security/features/selinux/concepts)

@@ -1,24 +1,13 @@
-# 디버깅
+---
+title: android-compose-internals-13-디버깅
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// Layout Inspector 사용
-// Android Studio → Tools → Layout Inspector
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/android-compose-internals-13-디버깅.md`
 
-// Recomposition 횟수 확인
-@Composable
-fun DebugComposable() {
-    val count = remember { mutableStateOf(0) }
-    
-    SideEffect {
-        count.value++
-        Log.d("Compose", "Recomposed ${count.value} times")
-    }
-    
-    Text("Hello")
-}
-
-// Composition Tracing
-// adb shell setprop debug.compose.trace on
-```
+정본 노트: [debugging-contracts](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)

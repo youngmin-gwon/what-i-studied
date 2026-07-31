@@ -1,6 +1,13 @@
-# Jetpack Compose Rendering & 3 Trees Pipeline
+---
+title: jetpack-compose-rendering-three-trees
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-> [!NOTE]
-> 이 문서의 내용은 더 포괄적이고 상세한 통합 문서인 [jetpack-compose-phases-and-layout-system](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/jetpack-compose-phases-and-layout-system.md)로 이관되었습니다.
->
-> Jetpack Compose가 선언형 코드를 기반으로 화면에 픽셀을 어떻게 렌더링하는지, 그 밑단에서 긴밀하게 협력하여 동작하는 3가지 트리(Composition, Layout, Drawing) 아키텍처에 대한 내용은 해당 문서에서 확인하실 수 있습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/jetpack-compose-rendering-three-trees.md`
+
+정본 노트: [compose-frame-work-is-split-into-composition-layout-and-drawing](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-frame-work-is-split-into-composition-layout-and-drawing.md)

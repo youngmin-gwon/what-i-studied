@@ -13,4 +13,4 @@ Camera, GPU, codec, display 파이프라인에서는 DMA-BUF와 Surface/BufferQu
 
 따라서 기존 노트의 “제로카피 달성: 데이터는 한 번만 메모리에 쓰인다”는 설명은 너무 강하다. 정본에서는 “앱 수준 CPU copy를 줄이는 shared buffer contract”로 표현한다.
 
-관련 노트: {link(CONTRACTS / "android-shared-memory-evolved-from-ashmem-ion-to-dmabuf-heaps.md", "Android shared memory는 ashmem, ION, DMA-BUF heaps로 역할이 분화됐다")}, {link(ANDROID / "01_system_internals/graphics-and-media/graphics-media-contracts/bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md", "BufferQueue separates producer and consumer with buffer ownership")}
+관련 노트: [Android shared memory는 ashmem, ION, DMA-BUF heaps로 역할이 분화됐다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/android-shared-memory-evolved-from-ashmem-ion-to-dmabuf-heaps.md), [BufferQueue separates producer and consumer with buffer ownership](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md)

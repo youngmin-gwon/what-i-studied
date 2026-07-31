@@ -1,56 +1,13 @@
-# JNI 기본
+---
+title: 05-jni-기본
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:58:00 +09:00
+date created: 2026-07-31 23:58:00 +09:00
+---
 
-상위 노트: [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### Kotlin/Java 에서 네이티브 함수 선언
+흡수된 이전 노트: `01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni/05-jni-기본.md`
 
-```kotlin
-class NativeLib {
-    
-    companion object {
-        init {
-            System.loadLibrary("native-lib")
-        }
-    }
-    
-    external fun stringFromJNI(): String
-    external fun addNumbers(a: Int, b: Int): Int
-    external fun processImage(bitmap: Bitmap): Bitmap
-}
-
-// 사용
-val result = NativeLib().stringFromJNI()
-```
-
-##### C++ 구현
-
-```cpp
-// native-lib.cpp
-#include <jni.h>
-#include <string>
-#include <android/log.h>
-
-#define TAG "NativeLib"
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__)
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
-
-extern "C" JNIEXPORT jstring JNICALL
-Java_com_example_app_NativeLib_stringFromJNI(
-    JNIEnv* env,
-    jobject /* this */) {
-    
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
-}
-
-extern "C" JNIEXPORT jint JNICALL
-Java_com_example_app_NativeLib_addNumbers(
-    JNIEnv* env,
-    jobject /* this */,
-    jint a,
-    jint b) {
-    
-    LOGI("Adding %d + %d", a, b);
-    return a + b;
-}
-```
+정본 노트: [JNI는 managed runtime과 native code 사이의 명시적 호출 경계다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/jni-is-explicit-boundary-between-managed-runtime-and-native-code.md)

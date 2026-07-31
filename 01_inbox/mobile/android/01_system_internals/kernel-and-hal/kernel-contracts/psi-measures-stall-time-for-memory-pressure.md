@@ -14,6 +14,6 @@ free memory 숫자는 단독으로 사용자 경험을 잘 설명하지 못한�
 
 문서에서 PSI를 쓸 때는 kernel support와 config 조건도 함께 적어야 한다. Android lmkd의 PSI 모드는 kernel support와 `CONFIG_PSI` 같은 설정에 의존한다.
 
-관련 노트: {link(CONTRACTS / "lmkd-kills-processes-by-memory-pressure-and-process-importance.md", "LMKD는 free memory가 아니라 memory pressure와 process importance로 종료를 결정한다")}
+관련 노트: [LMKD는 free memory가 아니라 memory pressure와 process importance로 종료를 결정한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/lmkd-kills-processes-by-memory-pressure-and-process-importance.md)
 
 근거: [Low memory killer daemon](https://source.android.com/docs/core/perf/lmkd)

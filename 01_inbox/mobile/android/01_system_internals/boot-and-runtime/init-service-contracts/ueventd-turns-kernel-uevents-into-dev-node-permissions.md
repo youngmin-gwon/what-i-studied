@@ -11,6 +11,6 @@ camera, audio, binder, hwbinder, input device 같은 node 권한이 잘못되면
 ## 관련 문서
 
 - [init 보안은 SELinux domain과 capability 경계로 정의된다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-security-is-selinux-domain-and-capability-boundary.md)
-- [Android HAL과 커널](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-hal-and-kernel.md)
+- [Android HAL과 커널](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
 
 공식 문서: [Android Init Language](https://android.googlesource.com/platform/system/core/+/master/init/README.md)

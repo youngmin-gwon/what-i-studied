@@ -1,7 +1,13 @@
-# Jetpack Compose Phases & Layout System (렌더링 파이프라인과 레이아웃) 개요
-
-이 문서는 Jetpack Compose가 선언형 코드를 기반으로 화면에 픽셀을 그리기까지의 3단계 렌더링 파이프라인(Composition, Layout, Drawing), 이를
-실질적으로 지원하는 3가지 트리 구조(Slot Table, LayoutNode, RenderNode), 그리고 상호작용하는 레이아웃 모델(Constraints & Size,
-Modifier 순서)에 대해 상세히 다룹니다.
-
 ---
+title: jetpack-compose-phases-and-layout-system-00-개요
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/jetpack-compose-phases-and-layout-system/jetpack-compose-phases-and-layout-system-00-개요.md`
+
+정본 노트: [compose-frame-work-is-split-into-composition-layout-and-drawing](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-frame-work-is-split-into-composition-layout-and-drawing.md)

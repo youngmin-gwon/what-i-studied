@@ -1,20 +1,13 @@
-# 모범 사례 1: ViewModel 상태 수집 및 Action 처리
-화면 단위 비즈니스 로직은 `ViewModel` 내부에서 코루틴을 통해 처리하고 UI는 이를 구독만 합니다. UI 수준의 비동기 작업이 꼭 필요하다면 `LaunchedEffect`를 적용하세요.
-```kotlin
-@Composable
-fun ProductRoute(
-    viewModel: ProductViewModel,
-    productId: String
-) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    
-    // productId가 바뀔 때 로드하도록 ViewModel에 명령하거나, LaunchedEffect로 감쌉니다.
-    LaunchedEffect(productId) {
-        viewModel.loadProduct(productId)
-    }
-    
-    ProductScreen(uiState)
-}
-```
-
 ---
+title: 02-모범-사례-1-viewmodel-상태-수집-및-action-처리
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-side-effects-and-lifecycle/04-실무-안티패턴과-모범-사례-anti-patterns-best-practices/02-모범-사례-1-viewmodel-상태-수집-및-action-처리.md`
+
+정본 노트: [viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)

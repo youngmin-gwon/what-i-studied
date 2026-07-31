@@ -13,6 +13,6 @@ branch 선택은 제품 Android version, kernel LTS version, device target, vend
 
 custom kernel flashing은 verified boot, rollback protection, SPL downgrade, device wipe 위험과 연결된다. 학습용 Cuttlefish와 실제 Pixel/device flashing은 위험 수준이 다르다.
 
-관련 노트: {link(CONTRACTS / "kernel-debugging-starts-before-logcat-with-bootloader-dmesg-and-trace.md", "Kernel debugging은 logcat 이전의 신호에서 시작한다")}, {link(ANDROID / "01_system_internals/boot-and-runtime/boot-flow-contracts/boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs.md", "Boot debugging starts before logcat")}
+관련 노트: [Kernel debugging은 logcat 이전의 신호에서 시작한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kernel-debugging-starts-before-logcat-with-bootloader-dmesg-and-trace.md), [Boot debugging starts before logcat](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs.md)
 
 근거: [Build kernels](https://source.android.com/docs/setup/build/building-kernels), [Kernel branches and their build systems](https://source.android.com/docs/setup/reference/bazel-support)

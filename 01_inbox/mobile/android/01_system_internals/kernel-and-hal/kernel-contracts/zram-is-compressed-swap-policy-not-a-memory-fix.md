@@ -14,6 +14,6 @@ Android 17 이상에서는 memory management daemon(mmd)이 ZRAM 설정과 유�
 
 따라서 “zRAM은 디스크 swap보다 항상 빠르다”나 “zRAM을 키우면 LMKD가 필요 없다”는 설명은 부정확하다. 실제 평가는 memory pressure, PSI, lmkd kill, swap in/out, CPU cost를 함께 본다.
 
-관련 노트: {link(CONTRACTS / "lmkd-kills-processes-by-memory-pressure-and-process-importance.md", "LMKD는 free memory가 아니라 memory pressure와 process importance로 종료를 결정한다")}, {link(CONTRACTS / "psi-measures-stall-time-for-memory-pressure.md", "PSI는 free memory가 아니라 stall time을 측정한다")}
+관련 노트: [LMKD는 free memory가 아니라 memory pressure와 process importance로 종료를 결정한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/lmkd-kills-processes-by-memory-pressure-and-process-importance.md), [PSI는 free memory가 아니라 stall time을 측정한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/psi-measures-stall-time-for-memory-pressure.md)
 
 근거: [Memory management daemon](https://source.android.com/docs/core/perf/mmd), [Low memory killer daemon](https://source.android.com/docs/core/perf/lmkd)

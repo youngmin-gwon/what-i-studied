@@ -1,3 +1,13 @@
-# 고급 Effect & 상태 최적화 API 개요
+---
+title: 03-고급-effect-상태-최적화-api-00-개요
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [jetpack-compose-side-effects-and-lifecycle](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-side-effects-and-lifecycle.md)
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-side-effects-and-lifecycle/03-고급-effect-상태-최적화-api/03-고급-effect-상태-최적화-api-00-개요.md`
+
+정본 노트: [compose-state-and-effect-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

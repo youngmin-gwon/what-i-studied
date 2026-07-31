@@ -29,7 +29,7 @@ adb shell lshal
 # android.hardware.audio@7.0::IDevicesFactory/default
 ```
 
-**관련**: [android-hal-and-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-hal-and-kernel.md)
+**관련**: [android-hal-and-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
 
 ---
 

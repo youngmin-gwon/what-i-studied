@@ -1,11 +1,13 @@
-# Modifier 체이닝 순서의 중요성 (Order of Modifiers)
-
-Modifier는 작성된 순서대로 왼쪽에서 오른쪽(Top-to-Bottom)으로 체이닝되어 적용되며, 매 체인마다 이전 레이아웃 노드를 감싸는 새로운 **데코레이터/래퍼 레이아웃
-노드**를 빌드합니다.
-
-| 1번 케이스: 패딩 후 배경색 지정                                                                                            | 2번 케이스: 배경색 지정 후 패딩                                                                                         |
-|:---------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| `Modifier.padding(16.dp).background(Color.Red)`                                                                | `Modifier.background(Color.Red).padding(16.dp)`                                                             |
-| 1. 안쪽으로 `16.dp`만큼 제약 조건 범위를 좁힘(여백 생성).<br/>2. 좁혀진 영역 내부에 빨간색 배경을 칠함.<br/>**$\rightarrow$ 빨간색 박스 바깥에 흰 여백이 생김** | 1. 현재 영역 전체에 빨간색 배경을 칠함.<br/>2. 배경이 칠해진 영역 안쪽으로 `16.dp` 여백을 만듦.<br/>**$\rightarrow$ 빨간색 박스 안쪽에 콘텐츠 여백이 생김** |
-
 ---
+title: 05-modifier-체이닝-순서의-중요성-order-of-modifiers
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/jetpack-compose-phases-and-layout-system/05-modifier-체이닝-순서의-중요성-order-of-modifiers.md`
+
+정본 노트: [compose-frame-work-is-split-into-composition-layout-and-drawing](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-frame-work-is-split-into-composition-layout-and-drawing.md)

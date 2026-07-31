@@ -1,31 +1,13 @@
-# DisposableEffect
+---
+title: 02-disposableeffect
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-리소스 정리가 필요한 경우.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-@Composable
-fun LocationUpdates() {
-    val context = LocalContext.current
-    
-    DisposableEffect(Unit) {
-        val locationManager = context.getSystemService<LocationManager>()
-        val listener = object : LocationListener {
-            override fun onLocationChanged(location: Location) {
-                // 처리
-            }
-        }
-        
-        locationManager?.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER,
-            1000L,
-            0f,
-            listener
-        )
-        
-        onDispose {
-            // Composition 이 떠날 때 정리
-            locationManager?.removeUpdates(listener)
-        }
-    }
-}
-```
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects/02-disposableeffect.md`
+
+정본 노트: [compose-state-and-effect-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

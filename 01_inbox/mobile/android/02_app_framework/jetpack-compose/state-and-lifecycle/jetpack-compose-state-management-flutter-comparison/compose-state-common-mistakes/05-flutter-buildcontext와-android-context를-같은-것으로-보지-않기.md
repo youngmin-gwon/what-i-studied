@@ -1,11 +1,13 @@
-# Flutter BuildContext와 Android Context를 같은 것으로 보지 않기
-
-Flutter의 `BuildContext`는 widget tree 안의 위치에 가깝고, Android의 `Context`는 앱/컴포넌트가 OS 리소스와 시스템 서비스에 접근하는
-환경 핸들입니다.
-
-Compose에서 Android `Context`가 필요하면 `LocalContext.current`를 사용하지만, Repository나 ViewModel에 오래 보관할 객체로
-넘기는 것은 피하는 편이 좋습니다. 자세한
-내용은 [android-context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context.md)를
-참조하세요.
-
 ---
+title: 05-flutter-buildcontext와-android-context를-같은-것으로-보지-않기
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-common-mistakes/05-flutter-buildcontext와-android-context를-같은-것으로-보지-않기.md`
+
+정본 노트: [compose-state-and-effect-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

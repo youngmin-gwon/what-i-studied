@@ -14,6 +14,6 @@ Linux mainline은 일반적으로 in-kernel ABI 안정성을 보장하지 않는
 
 따라서 vendor module 개발이나 kernel update 문서에서는 “모듈 재컴파일 불필요”를 절대 규칙으로 쓰지 않는다. 같은 KMI version 안에서, KMI symbol만 사용하고, branch/toolchain 조건을 지켰을 때의 계약으로 적는다.
 
-관련 노트: {link(CONTRACTS / "gki-splits-generic-core-from-vendor-modules.md", "GKI는 공통 core kernel과 vendor module을 분리한다")}
+관련 노트: [GKI는 공통 core kernel과 vendor module을 분리한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/gki-splits-generic-core-from-vendor-modules.md)
 
 근거: [Maintain a stable KMI](https://source.android.com/docs/core/architecture/kernel/stable-kmi), [GKI versioning scheme](https://source.android.com/docs/core/architecture/kernel/gki-versioning)

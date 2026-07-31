@@ -14,6 +14,6 @@ Android 12부터 kernel 5.10 이상으로 출시되는 기기는 GKI kernel을 �
 
 GKI는 성능이나 전력 비용이 사라진다는 보장도 아니다. vendor module, firmware, HAL, device tree, boot partition 구성까지 함께 맞아야 실제 device가 부팅하고 안정적으로 동작한다.
 
-관련 노트: {link(CONTRACTS / "kmi-is-stable-only-within-a-gki-lts-and-android-branch.md", "KMI 안정성은 같은 GKI LTS/Android branch 안에서만 성립한다")}, {link(CONTRACTS / "vendor-kernel-modules-load-through-first-stage-init-boundaries.md", "Vendor kernel module은 first-stage init 경계에서 로드된다")}
+관련 노트: [KMI 안정성은 같은 GKI LTS/Android branch 안에서만 성립한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kmi-is-stable-only-within-a-gki-lts-and-android-branch.md), [Vendor kernel module은 first-stage init 경계에서 로드된다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/vendor-kernel-modules-load-through-first-stage-init-boundaries.md)
 
 근거: [Generic Kernel Image project](https://source.android.com/docs/core/architecture/kernel/generic-kernel-image)

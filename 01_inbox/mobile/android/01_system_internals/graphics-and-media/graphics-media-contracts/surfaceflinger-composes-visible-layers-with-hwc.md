@@ -14,6 +14,6 @@ SurfaceFlinger는 모든 합성을 직접 GPU로만 처리하지 않는다. Hard
 
 앱 개발자는 SurfaceFlinger를 직접 제어하기보다 레이어 수, TextureView/SurfaceView 선택, overdraw, animation, video surface 구성을 통해 간접적으로 합성 비용에 영향을 준다.
 
-관련 노트: {link(CONTRACTS / "hardware-composer-offloads-composition-under-device-constraints.md", "Hardware Composer는 기기 제약 안에서 합성을 offload한다")}, {link(CONTRACTS / "drm-protected-media-needs-secure-codec-and-output-path.md", "DRM 보호 미디어는 secure codec과 보호된 출력 경로를 요구할 수 있다")}
+관련 노트: [Hardware Composer는 기기 제약 안에서 합성을 offload한다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/hardware-composer-offloads-composition-under-device-constraints.md), [DRM 보호 미디어는 secure codec과 보호된 출력 경로를 요구할 수 있다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/drm-protected-media-needs-secure-codec-and-output-path.md)
 
 근거: [AOSP SurfaceFlinger, Hardware Composer, and virtual displays](https://source.android.com/docs/core/graphics)

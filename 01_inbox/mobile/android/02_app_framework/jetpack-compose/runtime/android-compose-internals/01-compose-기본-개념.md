@@ -1,17 +1,13 @@
-# Compose 기본 개념
+---
+title: 01-compose-기본-개념
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-Compose 는 선언적 UI 프레임워크다. 상태가 바뀌면 UI 가 자동으로 업데이트된다.
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/01-compose-기본-개념.md`
 
-```kotlin
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello, $name!")
-}
-
-// 사용
-setContent {
-    Greeting("Android")
-}
-```
+정본 노트: [compose-ui-is-declarative-function-of-state](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-ui-is-declarative-function-of-state.md)

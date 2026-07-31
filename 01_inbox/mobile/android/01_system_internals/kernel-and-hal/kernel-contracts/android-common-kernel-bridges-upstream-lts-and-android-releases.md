@@ -14,6 +14,6 @@ ACK를 이해할 때는 branch 이름을 제품 지식처럼 외우기보다 bra
 
 ACK는 upstream Linux와 완전히 같은 것도, OEM별 product kernel과 같은 것도 아니다. upstream에서 바로 받아들여지지 않았거나 Android release 일정에 필요한 패치가 ACK에 머물 수 있고, device-specific 코드는 vendor module로 분리되는 방향을 갖는다.
 
-관련 노트: {link(CONTRACTS / "gki-splits-generic-core-from-vendor-modules.md", "GKI는 공통 core kernel과 vendor module을 분리한다")}, {link(CONTRACTS / "kernel-builds-depend-on-branch-toolchain-and-build-system.md", "Android kernel build는 branch, toolchain, build system 계약이다")}
+관련 노트: [GKI는 공통 core kernel과 vendor module을 분리한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/gki-splits-generic-core-from-vendor-modules.md), [Android kernel build는 branch, toolchain, build system 계약이다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kernel-builds-depend-on-branch-toolchain-and-build-system.md)
 
 근거: [AOSP Kernel overview](https://source.android.com/docs/core/architecture/kernel), [Android common kernels](https://source.android.com/docs/core/architecture/kernel/android-common)

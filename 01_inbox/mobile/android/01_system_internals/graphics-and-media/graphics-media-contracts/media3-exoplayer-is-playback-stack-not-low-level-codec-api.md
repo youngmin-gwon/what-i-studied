@@ -14,6 +14,6 @@ DASH/HLS 같은 adaptive streaming은 “네트워크가 빠르면 곧바로 고
 
 새 코드와 문서에서는 standalone `com.google.android.exoplayer2`보다 `androidx.media3` API를 기준으로 적는다. 오래된 ExoPlayer 문서나 예제는 Media3 migration 여부를 확인해야 한다.
 
-관련 노트: {link(CONTRACTS / "audiofocus-is-shared-output-policy-not-playback-permission.md", "AudioFocus는 재생 권한이 아니라 공유 출력 정책이다")}, {link(CONTRACTS / "drm-protected-media-needs-secure-codec-and-output-path.md", "DRM 보호 미디어는 secure codec과 보호된 출력 경로를 요구할 수 있다")}
+관련 노트: [AudioFocus는 재생 권한이 아니라 공유 출력 정책이다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/audiofocus-is-shared-output-policy-not-playback-permission.md), [DRM 보호 미디어는 secure codec과 보호된 출력 경로를 요구할 수 있다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/drm-protected-media-needs-secure-codec-and-output-path.md)
 
 근거: [Create a basic media player app using Media3 ExoPlayer](https://developer.android.com/media/implement/playback-app), [Media3 migration guide](https://developer.android.com/media/media3/exoplayer/migration-guide)

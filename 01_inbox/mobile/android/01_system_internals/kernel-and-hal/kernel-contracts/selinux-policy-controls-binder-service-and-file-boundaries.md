@@ -13,6 +13,6 @@ Binder 경계에서는 service를 찾는 권한과 실제 Binder call 권한이 
 
 SELinux denial을 분석할 때는 `avc: denied`의 source context, target context, class, permission을 읽고, 해당 access가 정말 필요한 platform boundary인지 확인해야 한다. 단순히 permissive로 돌리거나 broad allow를 추가하면 보안 모델을 약화시킨다.
 
-관련 노트: {link(ANDROID / "01_system_internals/ipc-and-process/android-binder-and-ipc.md", "Android Binder and IPC")}, {link(CONTRACTS / "selinux-enforces-mac-with-domain-type-policy.md", "SELinux는 domain/type 정책으로 mandatory access control을 강제한다")}
+관련 노트: [Android Binder and IPC](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-binder-and-ipc.md), [SELinux는 domain/type 정책으로 mandatory access control을 강제한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/selinux-enforces-mac-with-domain-type-policy.md)
 
 근거: [SELinux concepts](https://source.android.com/docs/security/features/selinux/concepts), [Implement SELinux](https://source.android.com/docs/security/features/selinux/implement)

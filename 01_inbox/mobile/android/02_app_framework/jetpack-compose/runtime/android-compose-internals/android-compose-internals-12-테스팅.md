@@ -1,39 +1,13 @@
-# 테스팅
+---
+title: android-compose-internals-12-테스팅
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-class CounterTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
-    
-    @Test
-    fun counterIncrementsOnButtonClick() {
-        composeTestRule.setContent {
-            Counter()
-        }
-        
-        // 초기 상태 확인
-        composeTestRule.onNodeWithText("Count: 0").assertExists()
-        
-        // 버튼 클릭
-        composeTestRule.onNodeWithText("Increment").performClick()
-        
-        // 업데이트된 상태 확인
-        composeTestRule.onNodeWithText("Count: 1").assertExists()
-    }
-    
-    @Test
-    fun textFieldUpdatesOnInput() {
-        composeTestRule.setContent {
-            var text by remember { mutableStateOf("") }
-            TextField(value = text, onValueChange = { text = it })
-        }
-        
-        composeTestRule.onNode(hasSetTextAction())
-            .performTextInput("Hello")
-        
-        composeTestRule.onNodeWithText("Hello").assertExists()
-    }
-}
-```
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/android-compose-internals-12-테스팅.md`
+
+정본 노트: [testing-quality-contracts](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)

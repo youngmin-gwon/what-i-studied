@@ -1,21 +1,13 @@
-# Side Effects
+---
+title: 04-side-effects
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-## 원자 노트
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 개요
-- [04-side-effects-00-개요](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects/04-side-effects-00-%EA%B0%9C%EC%9A%94.md)
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects.md`
 
-### LaunchedEffect
-- [01-launchedeffect](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects/01-launchedeffect.md)
-
-### DisposableEffect
-- [02-disposableeffect](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects/02-disposableeffect.md)
-
-### SideEffect
-- [03-sideeffect](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects/03-sideeffect.md)
-
-### derivedStateOf
-- [04-derivedstateof](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects/04-derivedstateof.md)
-
-### snapshotFlow
-- [04-side-effects-05-snapshotflow](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects/04-side-effects-05-snapshotflow.md)
+정본 노트: [compose-state-and-effect-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

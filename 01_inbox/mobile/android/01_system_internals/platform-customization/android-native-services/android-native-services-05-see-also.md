@@ -1,5 +1,13 @@
-# 📚 See Also
+---
+title: android-native-services-05-see-also
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:58:00 +09:00
+date created: 2026-07-31 23:58:00 +09:00
+---
 
-- [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md) - 앱 수준의 네이티브 개발 (NDK)
-- [android-os-development-guide](01_inbox/mobile/android/01_system_internals/platform-customization/android-os-development-guide.md) - 안드로이드 OS 빌드 및 소스 구조
-- [android-process-and-memory](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory.md) - 서비스 프로세스 관리 방식
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_system_internals/platform-customization/android-native-services/android-native-services-05-see-also.md`
+
+정본 노트: [HAL and native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md)

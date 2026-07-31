@@ -1,43 +1,13 @@
-# CMakeLists.txt
+---
+title: 04-cmakelists-txt
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:58:00 +09:00
+date created: 2026-07-31 23:58:00 +09:00
+---
 
-상위 노트: [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```cmake
-cmake_minimum_required(VERSION 3.22.1)
-project("myapp")
+흡수된 이전 노트: `01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni/04-cmakelists-txt.md`
 
-# C++ 표준 설정
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# 소스 파일
-add_library(
-    native-lib
-    SHARED
-    native-lib.cpp
-    image_processor.cpp
-    utils.cpp
-)
-
-# 헤더 파일 경로
-target_include_directories(native-lib PRIVATE ${CMAKE_SOURCE_DIR}/include)
-
-# Android 라이브러리 찾기
-find_library(log-lib log)
-find_library(android-lib android)
-find_library(jnigraphics-lib jnigraphics)
-
-# 링크
-target_link_libraries(
-    native-lib
-    ${log-lib}
-    ${android-lib}
-    ${jnigraphics-lib}
-)
-
-# 외부 라이브러리 (예: OpenCV)
-add_library(opencv SHARED IMPORTED)
-set_target_properties(opencv PROPERTIES IMPORTED_LOCATION
-    ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libopencv_java4.so)
-target_link_libraries(native-lib opencv)
-```
+정본 노트: [CMake, Gradle, ABI는 native build와 packaging 계약을 나눈다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/cmake-gradle-and-abi-define-native-build-and-packaging.md)

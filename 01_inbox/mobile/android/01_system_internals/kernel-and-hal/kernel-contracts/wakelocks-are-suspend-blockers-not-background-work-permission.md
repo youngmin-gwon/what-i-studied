@@ -14,6 +14,6 @@ partial wake lock은 화면이 꺼진 뒤에도 CPU가 계속 필요한 작업�
 
 문서에서는 오래된 `/sys/power/wake_lock` 예제를 앱 개발 패턴처럼 쓰지 않는다. 앱은 framework API와 더 적절한 작업 API를 우선 검토하고, kernel/system 분석에서는 suspend blocker 상태와 wakeup source를 확인한다.
 
-관련 노트: {link(CONTRACTS / "systemsuspend-arbitrates-userspace-wakelocks-and-kernel-suspend.md", "SystemSuspend는 userspace wakelock과 kernel suspend를 중재한다")}, {link(ANDROID / "04_system_services/background-and-notifications/background-work-contracts/background-restrictions-require-persistent-work-state.md", "Background restrictions require persistent work state")}
+관련 노트: [SystemSuspend는 userspace wakelock과 kernel suspend를 중재한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/systemsuspend-arbitrates-userspace-wakelocks-and-kernel-suspend.md), [Background restrictions require persistent work state](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-restrictions-require-persistent-work-state.md)
 
 근거: [PowerManager.WakeLock](https://developer.android.com/reference/android/os/PowerManager.WakeLock), [Excessive partial wake locks](https://developer.android.com/topic/performance/vitals/excessive-wakelock)

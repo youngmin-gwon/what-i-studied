@@ -14,6 +14,6 @@ Android kernel은 upstream Linux LTS를 기반으로 하지만, 앱 샌드박스
 
 이 노트의 범위는 kernel 자체의 실행 계약이다. HAL 구현, NDK/JNI 사용법, 앱 아키텍처는 별도 노트로 분리한다.
 
-관련 노트: [ACK는 upstream LTS와 Android release를 잇는다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/android-common-kernel-bridges-upstream-lts-and-android-releases.md), [Android HAL and kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-hal-and-kernel.md)
+관련 노트: [ACK는 upstream LTS와 Android release를 잇는다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/android-common-kernel-bridges-upstream-lts-and-android-releases.md), [Android HAL and kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
 
 근거: [AOSP Kernel overview](https://source.android.com/docs/core/architecture/kernel)

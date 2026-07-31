@@ -17,6 +17,6 @@ Android Wi-Fi API는 앱이 임의로 Wi-Fi를 켜고 네트워크를 바꾸는 
 ## 관련 문서
 
 - [기본 네트워크와 요청 네트워크는 서로 다른 수명 계약을 가진다](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/default-network-and-requested-network-have-different-lifetimes.md)
-- [Android HAL과 커널](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-hal-and-kernel.md)
+- [Android HAL과 커널](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
 
 공식 문서: [Wi-Fi infrastructure](https://developer.android.com/develop/connectivity/wifi), [Wi-Fi scanning overview](https://developer.android.com/develop/connectivity/wifi/wifi-scan), [Wi-Fi permissions](https://developer.android.com/develop/connectivity/wifi/wifi-permissions), [Wi-Fi Aware](https://developer.android.com/develop/connectivity/wifi/wifi-aware)

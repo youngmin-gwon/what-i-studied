@@ -1,5 +1,13 @@
-# Side Effects 개요
+---
+title: 04-side-effects-00-개요
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-Composable 함수는 부수 효과가 없어야 하지만, 필요한 경우 특수 API 사용.
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects/04-side-effects-00-개요.md`
+
+정본 노트: [compose-state-and-effect-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

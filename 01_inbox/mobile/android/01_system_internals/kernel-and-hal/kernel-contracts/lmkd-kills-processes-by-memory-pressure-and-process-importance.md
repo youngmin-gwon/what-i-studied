@@ -14,6 +14,6 @@ ActivityManager는 process state를 바탕으로 `oom_score_adj`를 설정한다
 
 앱 개발 관점에서는 “내 앱이 왜 죽었는가”를 보려면 crash만 볼 것이 아니라 `am_proc_died`, `lmkd`, `oom_score_adj`, memory pressure, background state를 같이 봐야 한다.
 
-관련 노트: {link(CONTRACTS / "psi-measures-stall-time-for-memory-pressure.md", "PSI는 free memory가 아니라 stall time을 측정한다")}, {link(ANDROID / "01_system_internals/boot-and-runtime/system-server-contracts/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md", "Process priority is memory reclaim policy input")}
+관련 노트: [PSI는 free memory가 아니라 stall time을 측정한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/psi-measures-stall-time-for-memory-pressure.md), [Process priority is memory reclaim policy input](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)
 
 근거: [Low memory killer daemon](https://source.android.com/docs/core/perf/lmkd)

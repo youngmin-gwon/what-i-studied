@@ -1,18 +1,13 @@
-# derivedStateOf
+---
+title: 04-derivedstateof
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-계산된 상태 최적화.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-@Composable
-fun TodoList(todos: List<Todo>) {
-    val highPriorityTodos = remember(todos) {
-        derivedStateOf {
-            // todos 가 변경될 때만 재계산
-            todos.filter { it.priority == Priority.HIGH }
-        }
-    }
-    
-    // highPriorityTodos.value 가 실제로 변경될 때만 재구성
-    Text("High priority: ${highPriorityTodos.value.size}")
-}
-```
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/04-side-effects/04-derivedstateof.md`
+
+정본 노트: [compose-state-and-effect-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

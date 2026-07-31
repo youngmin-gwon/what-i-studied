@@ -1,6 +1,13 @@
-# 05-system-tracing-perfetto-기반-원인-디버깅
+---
+title: 05-system-tracing-perfetto-기반-원인-디버깅
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
 이 노트의 내용은 정본 노트로 흡수했다.
 
-- 정본: [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
-- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.
+흡수된 이전 노트: `02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines/05-system-tracing-perfetto-기반-원인-디버깅.md`
+
+정본 노트: [compose-performance-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)

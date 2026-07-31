@@ -13,4 +13,4 @@ date created: 2026-07-31 23:20:00 +09:00
 
 문서에서는 `zero-copy`라는 표현을 쓸 때 “앱 코드가 명시적인 CPU 픽셀 복사를 하지 않는 경로”로 좁혀 적는 것이 안전하다. 실제 복사 여부는 trace와 기기별 구현으로 확인한다.
 
-관련 노트: {link(CONTRACTS / "bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md", "BufferQueue는 producer와 consumer를 버퍼 소유권으로 분리한다")}, {link(CONTRACTS / "drm-protected-media-needs-secure-codec-and-output-path.md", "DRM 보호 미디어는 secure codec과 보호된 출력 경로를 요구할 수 있다")}
+관련 노트: [BufferQueue는 producer와 consumer를 버퍼 소유권으로 분리한다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md), [DRM 보호 미디어는 secure codec과 보호된 출력 경로를 요구할 수 있다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/drm-protected-media-needs-secure-codec-and-output-path.md)

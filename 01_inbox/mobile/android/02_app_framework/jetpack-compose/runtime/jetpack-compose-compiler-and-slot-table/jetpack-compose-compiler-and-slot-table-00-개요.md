@@ -1,6 +1,13 @@
-# Jetpack Compose Compiler & Slot Table Deep Dive 개요
-
-이 문서는 Jetpack Compose 내부에서 UI 트리가 어떻게 구성되고 변경 사항을 감지하는지, 그 중심에 있는 `@Composable` 어노테이션의 컴파일러 변환 원리와
-런타임 저장 구조인 **Slot Table**, 그리고 **위치 기반 메모이제이션(Positional Memoization)**의 메커니즘을 상세히 다룹니다.
-
 ---
+title: jetpack-compose-compiler-and-slot-table-00-개요
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/jetpack-compose-compiler-and-slot-table/jetpack-compose-compiler-and-slot-table-00-개요.md`
+
+정본 노트: [composition-uses-callsite-identity-to-preserve-remembered-values](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composition-uses-callsite-identity-to-preserve-remembered-values.md)

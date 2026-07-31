@@ -1,46 +1,13 @@
-# 전역 참조 (Global Reference)
+---
+title: 11-전역-참조-global-reference
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:58:00 +09:00
+date created: 2026-07-31 23:58:00 +09:00
+---
 
-상위 노트: [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```cpp
-// 전역 변수
-static jobject g_callback = nullptr;
+흡수된 이전 노트: `01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni/11-전역-참조-global-reference.md`
 
-extern "C" JNIEXPORT void JNICALL
-Java_com_example_app_NativeLib_setCallback(
-    JNIEnv* env,
-    jobject /* this */,
-    jobject callback) {
-    
-    // 이전 참조 삭제
-    if (g_callback != nullptr) {
-        env->DeleteGlobalRef(g_callback);
-    }
-    
-    // 전역 참조 생성 (GC 방지)
-    g_callback = env->NewGlobalRef(callback);
-}
-
-extern "C" JNIEXPORT void JNICALL
-Java_com_example_app_NativeLib_triggerCallback(
-    JNIEnv* env,
-    jobject /* this */) {
-    
-    if (g_callback != nullptr) {
-        jclass clazz = env->GetObjectClass(g_callback);
-        jmethodID methodId = env->GetMethodID(clazz, "onEvent", "()V");
-        env->CallVoidMethod(g_callback, methodId);
-    }
-}
-
-extern "C" JNIEXPORT void JNICALL
-Java_com_example_app_NativeLib_cleanup(
-    JNIEnv* env,
-    jobject /* this */) {
-    
-    if (g_callback != nullptr) {
-        env->DeleteGlobalRef(g_callback);
-        g_callback = nullptr;
-    }
-}
-```
+정본 노트: [JNI reference는 local, global, weak lifetime이 다르다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/jni-references-have-local-global-and-weak-lifetimes.md)

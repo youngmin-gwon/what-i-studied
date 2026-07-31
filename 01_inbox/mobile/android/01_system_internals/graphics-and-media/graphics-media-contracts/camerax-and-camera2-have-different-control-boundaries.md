@@ -13,6 +13,6 @@ CameraX는 Camera2 위에서 Preview, ImageCapture, ImageAnalysis, VideoCapture 
 
 선택 기준은 필요한 제어권이다. 표준 프리뷰/캡처/분석이면 CameraX, vendor-specific 기능이나 세밀한 stream 조합, capture request 제어가 필요하면 Camera2를 검토한다.
 
-관련 노트: {link(CONTRACTS / "camera-output-surfaces-define-preview-analysis-and-recording-pipelines.md", "카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다")}
+관련 노트: [카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/camera-output-surfaces-define-preview-analysis-and-recording-pipelines.md)
 
 근거: [CameraX overview](https://developer.android.com/media/camera/camerax), [Camera2 capture sessions and requests](https://developer.android.com/media/camera/camera2/capture-sessions-requests)

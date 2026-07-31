@@ -1,6 +1,13 @@
-# jetpack compose performance guidelines
+---
+title: jetpack-compose-performance-guidelines
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-이 문서는 원자화 이전의 진입점이다. 현재 내용은 아래 정본 지도로 재구성했다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- 정본 지도: [Compose 성능 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)
-- 전체 지도: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+흡수된 이전 노트: `02_app_framework/jetpack-compose/performance/jetpack-compose-performance-guidelines.md`
+
+정본 노트: [compose-performance-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)

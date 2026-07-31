@@ -25,4 +25,4 @@ Android kernel 영역은 Linux kernel 지식과 Android platform 정책이 만�
 
 ## 다음 경계
 
-HAL, native service, NDK/JNI는 kernel 자체가 아니라 kernel과 userspace/native code의 경계다. 다음 페이즈에서 별도 정본으로 분리한다.
+HAL, native service, NDK/JNI는 kernel 자체가 아니라 kernel과 userspace/native code의 경계다. 이 영역은 [HAL and native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md)에서 별도 정본으로 분리했다.

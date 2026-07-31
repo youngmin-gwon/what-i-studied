@@ -13,6 +13,6 @@ ImageReader의 `maxImages`는 동시에 앱이 잡고 있을 수 있는 이미�
 
 ImageReader를 쓰는 이유는 CPU 또는 앱 로직이 픽셀에 접근해야 하기 때문이다. 화면 표시나 인코딩처럼 앱이 픽셀을 직접 읽을 필요가 없다면 SurfaceView나 codec Surface 경로가 더 적절할 수 있다.
 
-관련 노트: {link(CONTRACTS / "camera-output-surfaces-define-preview-analysis-and-recording-pipelines.md", "카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다")}
+관련 노트: [카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/camera-output-surfaces-define-preview-analysis-and-recording-pipelines.md)
 
 근거: [ImageReader API reference](https://developer.android.com/reference/android/media/ImageReader)

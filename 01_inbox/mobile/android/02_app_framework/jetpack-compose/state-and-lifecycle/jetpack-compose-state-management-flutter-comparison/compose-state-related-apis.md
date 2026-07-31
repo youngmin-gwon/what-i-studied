@@ -1,21 +1,13 @@
-# `remember`는 아니지만 같이 알아야 하는 API
+---
+title: compose-state-related-apis
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-## 원자 노트
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 개요
-- [compose-state-related-apis-00-개요](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-related-apis/compose-state-related-apis-00-%EA%B0%9C%EC%9A%94.md)
+흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-related-apis.md`
 
-### `derivedStateOf`
-- [01-derivedstateof](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-related-apis/01-derivedstateof.md)
-
-### `LaunchedEffect`
-- [02-launchedeffect](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-related-apis/02-launchedeffect.md)
-
-### `DisposableEffect`
-- [03-disposableeffect](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-related-apis/03-disposableeffect.md)
-
-### `produceState`
-- [04-producestate](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-related-apis/04-producestate.md)
-
-### `snapshotFlow`
-- [compose-state-related-apis-05-snapshotflow](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-related-apis/compose-state-related-apis-05-snapshotflow.md)
+정본 노트: [compose-state-and-effect-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

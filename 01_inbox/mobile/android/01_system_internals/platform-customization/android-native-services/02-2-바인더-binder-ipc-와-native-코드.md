@@ -1,11 +1,13 @@
-# 🧪 2. 바인더(Binder) IPC 와 Native 코드
-
-프레임워크(Java/Kotlin)에서 Native 서비스를 호출하는 과정:
-
-1. **ServiceManager**: 모든 시스템 서비스의 이름과 위치를 관리하는 허브.
-2. **BpInterface / BnInterface**:
-   - **Bp (Binder Proxy)**: 클라이언트 측 프록시 (Framework 에서 호출).
-   - **Bn (Binder Native)**: 실제 서비스 구현체 (Native 서비스 프로세스 내부).
-3. **AIDL for Native**: C++ 에서도 서비스 인터페이스를 정의하기 위해 AIDL 을 사용합니다. (최신 버전은 NDK Backend 지원)
-
 ---
+title: 02-2-바인더-binder-ipc-와-native-코드
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:58:00 +09:00
+date created: 2026-07-31 23:58:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_system_internals/platform-customization/android-native-services/02-2-바인더-binder-ipc-와-native-코드.md`
+
+정본 노트: [Native system service는 init이 띄우고 Binder로 발견되는 endpoint다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/native-system-services-are-init-managed-binder-endpoints.md)

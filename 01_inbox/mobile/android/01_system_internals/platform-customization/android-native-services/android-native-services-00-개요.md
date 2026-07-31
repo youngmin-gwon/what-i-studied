@@ -1,17 +1,13 @@
-# android native services 개요
-
 ---
-title: android-native-services
-tags: [android, binder, hal, native, system]
-aliases: [안드로이드 네이티브 서비스]
-date modified: 2026-07-31 15:22:10 +09:00
-date created: 2026-04-07 10:35:00 +09:00
+title: android-native-services-00-개요
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:58:00 +09:00
+date created: 2026-07-31 23:58:00 +09:00
 ---
 
-## [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md) > [android-native-services](01_inbox/mobile/android/01_system_internals/platform-customization/android-native-services.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### System-Level native Services: SurfaceFlinger, AudioFlinger & HAL
+흡수된 이전 노트: `01_system_internals/platform-customization/android-native-services/android-native-services-00-개요.md`
 
-안드로이드 운영체제(OS)의 핵심 기능은 Java 가 아닌 C/C++ 로 구현된 **Native Service**들이 담당합니다. 이들은 시스템 부팅 시점에 시작되어 저수준 하드웨어 제어와 고성능 리소스 관리를 수행합니다.
-
----
+정본 노트: [Native system service는 init이 띄우고 Binder로 발견되는 endpoint다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/native-system-services-are-init-managed-binder-endpoints.md)

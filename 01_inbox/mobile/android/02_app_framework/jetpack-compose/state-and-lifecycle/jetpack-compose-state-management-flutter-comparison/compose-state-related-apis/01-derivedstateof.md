@@ -1,16 +1,13 @@
-# `derivedStateOf`
+---
+title: 01-derivedstateof
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-`derivedStateOf`는 다른 상태에서 계산되는 파생 상태를 만들 때 사용합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-val listState = rememberLazyListState()
-val showScrollToTop by remember {
-    derivedStateOf {
-        listState.firstVisibleItemIndex > 0
-    }
-}
-```
+흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-state-management-flutter-comparison/compose-state-related-apis/01-derivedstateof.md`
 
-스크롤처럼 자주 바뀌는 값에서 실제 UI 갱신은 특정 조건이 바뀔 때만 필요할 수 있습니다. 이때 `derivedStateOf`가 도움이 됩니다.
-
-다만 단순 문자열 조합이나 가벼운 계산에 무조건 쓰는 것은 과합니다.
+정본 노트: [derivedstateof-is-for-high-frequency-derived-values](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/derivedstateof-is-for-high-frequency-derived-values.md)

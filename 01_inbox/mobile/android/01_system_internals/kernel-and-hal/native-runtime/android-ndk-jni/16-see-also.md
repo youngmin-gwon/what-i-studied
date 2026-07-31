@@ -1,7 +1,13 @@
-# See Also
+---
+title: 16-see-also
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:58:00 +09:00
+date created: 2026-07-31 23:58:00 +09:00
+---
 
-상위 노트: [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md)
-- [android-gradle-build-system](01_inbox/mobile/android/03_packaging_deployment/build/gradle/android-gradle-build-system.md)
-- [android-native-services](01_inbox/mobile/android/01_system_internals/platform-customization/android-native-services.md)
+흡수된 이전 노트: `01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni/16-see-also.md`
+
+정본 노트: [HAL and native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md)

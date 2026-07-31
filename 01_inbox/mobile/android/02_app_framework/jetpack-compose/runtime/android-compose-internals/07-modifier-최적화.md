@@ -1,39 +1,13 @@
-# Modifier 최적화
+---
+title: 07-modifier-최적화
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// ❌ 나쁜 예: 재구성마다 새 Modifier 생성
-@Composable
-fun BadModifier(isSelected: Boolean) {
-    Box(
-        modifier = Modifier
-            .size(100.dp)
-            .background(if (isSelected) Color.Blue else Color.Gray)
-    )
-}
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/07-modifier-최적화.md`
 
-// ✅ 좋은 예: Modifier 재사용
-@Composable
-fun GoodModifier(isSelected: Boolean) {
-    val backgroundColor = if (isSelected) Color.Blue else Color.Gray
-    
-    Box(
-        modifier = Modifier
-            .size(100.dp)
-            .background(backgroundColor)
-    )
-}
-
-// ✅ 더 좋은 예: remember 사용
-@Composable
-fun BetterModifier(isSelected: Boolean) {
-    val modifier = remember(isSelected) {
-        Modifier
-            .size(100.dp)
-            .background(if (isSelected) Color.Blue else Color.Gray)
-    }
-    
-    Box(modifier = modifier)
-}
-```
+정본 노트: [compose-performance-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)

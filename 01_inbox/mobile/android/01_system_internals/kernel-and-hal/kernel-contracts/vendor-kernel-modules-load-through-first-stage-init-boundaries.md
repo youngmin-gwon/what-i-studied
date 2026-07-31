@@ -11,6 +11,6 @@ GKI kernel은 모든 device driver를 core image에 포함하지 않는다. devi
 
 module load order는 단순히 `insmod` 나열이 아니라 `modules.load`, `modules.dep`, soft dependency, recovery module 구성에 영향을 받는다. 따라서 boot failure를 분석할 때는 kernel image만 보지 말고 vendor_boot, ramdisk module 목록, first-stage init log를 같이 봐야 한다.
 
-관련 노트: {link(ANDROID / "01_system_internals/boot-and-runtime/init-service-contracts/first-stage-init-builds-minimal-filesystem-for-second-stage.md", "First-stage init builds minimal filesystem")}, {link(CONTRACTS / "kernel-debugging-starts-before-logcat-with-bootloader-dmesg-and-trace.md", "Kernel debugging은 logcat 이전의 신호에서 시작한다")}
+관련 노트: [First-stage init builds minimal filesystem](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/first-stage-init-builds-minimal-filesystem-for-second-stage.md), [Kernel debugging은 logcat 이전의 신호에서 시작한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kernel-debugging-starts-before-logcat-with-bootloader-dmesg-and-trace.md)
 
 근거: [Kernel module support](https://source.android.com/docs/core/architecture/kernel/kernel-module-support)

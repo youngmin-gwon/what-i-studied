@@ -13,6 +13,6 @@ SELinux는 부팅 후 process와 object의 access decision을 강제한다. 공�
 
 CFI/KCFI는 kernel binary 내부의 indirect function call control flow를 제한해 code-reuse 공격 난이도를 높인다. GKI에서는 CFI가 기본 활성화되어 있지만, driver type mismatch 같은 문제는 device bring-up에서 별도 검증이 필요하다.
 
-관련 노트: {link(ANDROID / "01_system_internals/boot-and-runtime/boot-flow-contracts/avb-verifies-boot-images-and-rollback-protection.md", "AVB verifies boot images and rollback protection")}, {link(CONTRACTS / "selinux-enforces-mac-with-domain-type-policy.md", "SELinux는 domain/type 정책으로 mandatory access control을 강제한다")}
+관련 노트: [AVB verifies boot images and rollback protection](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/avb-verifies-boot-images-and-rollback-protection.md), [SELinux는 domain/type 정책으로 mandatory access control을 강제한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/selinux-enforces-mac-with-domain-type-policy.md)
 
 근거: [Use Verified Boot](https://source.android.com/docs/security/features/verifiedboot/verified-boot), [Implement dm-verity](https://source.android.com/docs/security/features/verifiedboot/dm-verity), [Control flow integrity in the kernel](https://source.android.com/docs/security/test/kcfi)

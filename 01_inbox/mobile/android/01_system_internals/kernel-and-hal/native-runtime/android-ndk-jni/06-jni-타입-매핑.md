@@ -1,17 +1,13 @@
-# JNI 타입 매핑
+---
+title: 06-jni-타입-매핑
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:58:00 +09:00
+date created: 2026-07-31 23:58:00 +09:00
+---
 
-상위 노트: [android-ndk-jni](01_inbox/mobile/android/01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-| Java/Kotlin | JNI | C/C++ |
-|-------------|-----|-------|
-| boolean | jboolean | unsigned char |
-| byte | jbyte | signed char |
-| char | jchar | unsigned short |
-| short | jshort | short |
-| int | jint | int |
-| long | jlong | long long |
-| float | jfloat | float |
-| double | jdouble | double |
-| String | jstring | - |
-| Object | jobject | - |
-| Array | jarray | - |
+흡수된 이전 노트: `01_system_internals/kernel-and-hal/native-runtime/android-ndk-jni/06-jni-타입-매핑.md`
+
+정본 노트: [JNI는 managed runtime과 native code 사이의 명시적 호출 경계다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/jni-is-explicit-boundary-between-managed-runtime-and-native-code.md)

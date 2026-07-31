@@ -1,46 +1,13 @@
-# LazyColumn/LazyRow 최적화
+---
+title: 06-lazycolumn-lazyrow-최적화
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-@Composable
-fun OptimizedList(items: List<Item>) {
-    LazyColumn(
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(
-            items = items,
-            key = { it.id },
-            contentType = { it.type } // 같은 타입끼리 재사용
-        ) { item ->
-            when (item.type) {
-                ItemType.TEXT -> TextItem(item)
-                ItemType.IMAGE -> ImageItem(item)
-            }
-        }
-    }
-}
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/06-lazycolumn-lazyrow-최적화.md`
 
-// Sticky Header
-@Composable
-fun GroupedList(groups: Map<String, List<Item>>) {
-    LazyColumn {
-        groups.forEach { (header, items) ->
-            stickyHeader {
-                Text(
-                    text = header,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.Gray)
-                        .padding(16.dp)
-                )
-            }
-            
-            items(items) { item ->
-                ItemCard(item)
-            }
-        }
-    }
-}
-```
+정본 노트: [compose-performance-contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)

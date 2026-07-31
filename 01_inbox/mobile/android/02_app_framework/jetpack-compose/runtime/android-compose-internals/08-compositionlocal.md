@@ -1,31 +1,13 @@
-# CompositionLocal
+---
+title: 08-compositionlocal
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
 
-상위 노트: [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-트리 전체에 값을 전파.
+흡수된 이전 노트: `02_app_framework/jetpack-compose/runtime/android-compose-internals/08-compositionlocal.md`
 
-```kotlin
-// 정의
-val LocalUserId = compositionLocalOf<String> { error("No user ID provided") }
-
-// 제공
-@Composable
-fun App() {
-    CompositionLocalProvider(LocalUserId provides "user123") {
-        UserScreen()
-    }
-}
-
-// 사용
-@Composable
-fun UserScreen() {
-    val userId = LocalUserId.current
-    Text("User: $userId")
-}
-
-// 기본 제공되는 것들
-LocalContext.current // Context
-LocalConfiguration.current // Configuration
-LocalDensity.current // Density
-LocalLifecycleOwner.current // LifecycleOwner
-```
+정본 노트: [compose-runtime-links-state-effects-performance-and-tooling](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-runtime-links-state-effects-performance-and-tooling.md)

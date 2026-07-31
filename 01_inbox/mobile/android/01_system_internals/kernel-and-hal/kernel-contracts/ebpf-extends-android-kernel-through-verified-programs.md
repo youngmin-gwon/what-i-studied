@@ -14,6 +14,6 @@ eBPF는 아무 native code나 kernel에 넣는 방법이 아니다. verifier, �
 
 성능 설명도 단순화하면 안 된다. 특정 firewall/statistics 경로에서 eBPF가 효율적일 수 있지만, 모든 iptables/nftables 대체나 모든 query가 O(1)이라는 일반 명제로 쓰면 부정확하다.
 
-관련 노트: {link(ANDROID / "01_system_internals/connectivity/connectivity-contracts/netd-enforces-routing-dns-firewall-and-tethering-operations.md", "netd enforces routing DNS firewall and tethering operations")}
+관련 노트: [netd enforces routing DNS firewall and tethering operations](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/netd-enforces-routing-dns-firewall-and-tethering-operations.md)
 
 근거: [Extend the kernel with eBPF](https://source.android.com/docs/core/architecture/kernel/bpf)

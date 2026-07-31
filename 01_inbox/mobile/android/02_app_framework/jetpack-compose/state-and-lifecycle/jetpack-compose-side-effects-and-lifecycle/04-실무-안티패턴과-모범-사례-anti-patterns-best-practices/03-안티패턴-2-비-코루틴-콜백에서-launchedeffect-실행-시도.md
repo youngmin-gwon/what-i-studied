@@ -1,14 +1,13 @@
-# ❌ 안티패턴 2: 비-코루틴 콜백에서 LaunchedEffect 실행 시도
-```kotlin
-@Composable
-fun BadButton() {
-    Button(
-        onClick = {
-            // Composable 함수 내부가 아닌 onClick 람다 내부이므로 LaunchedEffect를 직접 호출할 수 없어 컴파일 오류 발생!
-            LaunchedEffect(Unit) { 
-                doSomething()
-            }
-        }
-    ) { Text("Click") }
-}
-```
+---
+title: 03-안티패턴-2-비-코루틴-콜백에서-launchedeffect-실행-시도
+tags: [android, redirect]
+aliases: []
+date modified: 2026-07-31 23:59:00 +09:00
+date created: 2026-07-31 23:59:00 +09:00
+---
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `02_app_framework/jetpack-compose/state-and-lifecycle/jetpack-compose-side-effects-and-lifecycle/04-실무-안티패턴과-모범-사례-anti-patterns-best-practices/03-안티패턴-2-비-코루틴-콜백에서-launchedeffect-실행-시도.md`
+
+정본 노트: [launched-effect-owns-composable-cancellable-work](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md)

@@ -13,6 +13,6 @@ Oboe는 C++ wrapper로 AAudio가 가능한 기기에서는 AAudio를 사용하�
 
 고정된 숫자로 “AAudio는 10ms, AudioTrack은 45ms”처럼 문서화하면 위험하다. 지연 시간은 output latency, round-trip latency, callback buffer, device route, thermal/scheduler 상태를 분리해 측정해야 한다.
 
-관련 노트: {link(CONTRACTS / "audiofocus-is-shared-output-policy-not-playback-permission.md", "AudioFocus는 재생 권한이 아니라 공유 출력 정책이다")}, {link(CONTRACTS / "graphics-media-debugging-starts-from-timeline-and-component-state.md", "그래픽과 미디어 디버깅은 timeline과 component state에서 시작한다")}
+관련 노트: [AudioFocus는 재생 권한이 아니라 공유 출력 정책이다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/audiofocus-is-shared-output-policy-not-playback-permission.md), [그래픽과 미디어 디버깅은 timeline과 component state에서 시작한다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-debugging-starts-from-timeline-and-component-state.md)
 
 근거: [AAudio](https://developer.android.com/ndk/guides/audio/aaudio/aaudio), [Low latency audio with Oboe](https://developer.android.com/games/sdk/oboe/low-latency-audio)
