@@ -1,41 +1,6 @@
-# Breakpoint Debugging
+# 06-breakpoint-debugging
 
-상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### Android Studio Debugger
-
-```kotlin
-fun processData(items: List<Item>) {
-    items.forEach { item ->
-        // 여기에 브레이크포인트 설정
-        val result = transform(item)
-        save(result)
-    }
-}
-```
-
-**조건부 브레이크포인트:**
-
-```kotlin
-// 브레이크포인트 우클릭 → Condition
-item.id == "특정ID"
-```
-
-**로그 브레이크포인트:**
-
-```kotlin
-// Evaluate and log: "Processing item: " + item.id
-// Suspend: 체크 해제
-```
-
-##### JDWP (Java Debug Wire Protocol)
-
-```bash
-# 디버그 가능한 프로세스 확인
-adb jdwp
-
-# 포트 포워딩
-adb forward tcp:8700 jdwp:12345
-
-# Android Studio 에서 Attach to Process
-```
+- 정본: [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/logcat-crash-anr-and-debugger-answer-different-questions.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

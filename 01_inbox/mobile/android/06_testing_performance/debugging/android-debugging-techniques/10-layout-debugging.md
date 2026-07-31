@@ -1,23 +1,6 @@
-# Layout Debugging
+# 10-layout-debugging
 
-상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### Layout Inspector
-
-```
-Tools → Layout Inspector
-```
-
-**기능:**
-
-- 3D 뷰로 레이어 확인
-- 각 View 의 속성 확인
-- 렌더링 시간 측정
-
-##### Show Layout Bounds
-
-```bash
-# 개발자 옵션에서 "레이아웃 경계 표시" 활성화
-adb shell setprop debug.layout true
-adb shell service call activity 1599295570
-```
+- 정본: [렌더링 성능은 프레임 지연의 원인을 분리한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

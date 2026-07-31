@@ -1,20 +1,6 @@
-# Battery Historian
+# 09-battery-historian
 
-상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-배터리 사용 분석.
-
-```bash
-# 1. 배터리 통계 초기화
-adb shell dumpsys batterystats --reset
-
-# 2. 앱 사용
-
-# 3. 통계 수집
-adb bugreport bugreport.zip
-
-# 4. Battery Historian 실행
-docker run -p 9999:9999 gcr.io/android-battery-historian/stable:3.1 --port 9999
-
-# 5. http://localhost:9999 에서 bugreport.zip 업로드
-```
+- 정본: [배터리, 네트워크, 저장소 성능은 자원 정책이다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/battery-network-storage-efficiency-is-resource-policy.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

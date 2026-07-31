@@ -1,8 +1,16 @@
-# App Actions (Built-in Intents, BII)
+---
+title: 02-app-actions-built-in-intents-bii
+tags: []
+aliases: []
+date modified: 2026-07-31 17:35:48 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## App Actions (Built-in Intents, BII)
 
 사용자가 "Hey Google, [App Name]에서 [Action]해줘"라고 말할 때 앱이 바로 반응하도록 설계되었다.
 
-##### `shortcuts.xml` 정의
+### `shortcuts.xml` 정의
 
 ```xml
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
@@ -19,7 +27,7 @@
 </shortcuts>
 ```
 
-##### AndroidManifest 등록
+### AndroidManifest 등록
 
 ```xml
 <meta-data

@@ -1,8 +1,6 @@
-# See Also
+# 12-see-also
 
-상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md)
-- [android-testing-and-quality](01_inbox/mobile/android/06_testing_performance/testing/android-testing-and-quality.md)
-- [android-compose-internals](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/android-compose-internals.md)
-- [android-process-and-memory](01_inbox/mobile/android/01_system_internals/ipc-and-process/android-process-and-memory.md)
+- 정본: [performance-contracts](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/performance-contracts.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

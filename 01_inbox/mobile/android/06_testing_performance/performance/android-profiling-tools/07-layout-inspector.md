@@ -1,18 +1,6 @@
-# Layout Inspector
+# 07-layout-inspector
 
-상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-UI 계층 구조 분석.
-
-**사용법:**
-
-1. Tools → Layout Inspector
-2. 실행 중인 앱 선택
-3. 3D 뷰로 레이어 확인
-4. 속성 패널에서 각 View 의 속성 확인
-
-**성능 팁:**
-
-- 중첩 깊이 줄이기 (ConstraintLayout 사용)
-- 불필요한 배경 제거
-- ViewStub 으로 지연 로딩
+- 정본: [렌더링 성능은 프레임 지연의 원인을 분리한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

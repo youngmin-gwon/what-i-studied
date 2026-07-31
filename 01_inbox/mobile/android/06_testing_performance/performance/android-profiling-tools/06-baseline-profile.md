@@ -1,51 +1,6 @@
-# Baseline Profile
+# 06-baseline-profile
 
-상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-자주 사용되는 코드를 미리 컴파일.
-
-```kotlin
-// build.gradle.kts (benchmark 모듈)
-dependencies {
-    implementation("androidx.benchmark:benchmark-macro-junit4:1.2.2")
-    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
-}
-```
-
-```kotlin
-@ExperimentalBaselineProfilesApi
-@RunWith(AndroidJUnit4::class)
-class BaselineProfileGenerator {
-    
-    @get:Rule
-    val baselineProfileRule = BaselineProfileRule()
-    
-    @Test
-    fun startup() = baselineProfileRule.collect(
-        packageName = "com.example.app",
-        profileBlock = {
-            pressHome()
-            startActivityAndWait()
-            
-            // 주요 사용자 플로우 수행
-            device.findObject(By.text("Login")).click()
-            device.waitForIdle()
-            
-            device.findObject(By.res("username")).text = "user"
-            device.findObject(By.res("password")).text = "pass"
-            device.findObject(By.text("Submit")).click()
-            device.waitForIdle()
-        }
-    )
-}
-```
-
-```bash
-# Baseline Profile 생성
-./gradlew :benchmark:pixel6Api31BenchmarkAndroidTest \
-  -P android.testInstrumentationRunnerArguments.class=BaselineProfileGenerator
-
-# 생성된 파일을 앱 모듈로 복사
-# benchmark/build/outputs/managed_device_android_test_additional_output/
-# → app/src/main/baseline-prof.txt
-```
+- 정본: [Baseline Profile 생성은 핵심 사용자 여정을 기록한다](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/baseline-profile-generation-records-critical-user-journeys.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

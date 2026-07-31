@@ -1,32 +1,6 @@
-# Flipper (Meta)
+# 13-flipper-meta
 
-상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-강력한 디버깅 플랫폼.
-
-```kotlin
-// build.gradle.kts
-dependencies {
-    debugImplementation("com.facebook.flipper:flipper:0.212.0")
-    debugImplementation("com.facebook.soloader:soloader:0.10.5")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.212.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.212.0")
-}
-
-// Application
-class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        SoLoader.init(this, false)
-        
-        if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(this)) {
-            val client = AndroidFlipperClient.getInstance(this)
-            client.addPlugin(InspectorFlipperPlugin(this, DescriptorMapping.withDefaults()))
-            client.addPlugin(NetworkFlipperPlugin())
-            client.addPlugin(DatabasesFlipperPlugin(this))
-            client.addPlugin(LeakCanary2FlipperPlugin())
-            client.start()
-        }
-    }
-}
-```
+- 정본: [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/logcat-crash-anr-and-debugger-answer-different-questions.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

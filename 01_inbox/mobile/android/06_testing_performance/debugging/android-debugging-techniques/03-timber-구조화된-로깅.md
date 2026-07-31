@@ -1,37 +1,6 @@
-# Timber (구조화된 로깅)
+# 03-timber-구조화된-로깅
 
-상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// build.gradle.kts
-dependencies {
-    implementation("com.jakewharton.timber:timber:5.0.1")
-}
-
-// Application
-class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        } else {
-            Timber.plant(CrashReportingTree())
-        }
-    }
-}
-
-class CrashReportingTree : Timber.Tree() {
-    override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        if (priority == Log.ERROR || priority == Log.WARN) {
-            // Firebase Crashlytics 등에 전송
-            FirebaseCrashlytics.getInstance().log(message)
-            t?.let { FirebaseCrashlytics.getInstance().recordException(it) }
-        }
-    }
-}
-
-// 사용
-Timber.d("User logged in: %s", userId)
-Timber.e(exception, "Failed to load data")
-```
+- 정본: [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/logcat-crash-anr-and-debugger-answer-different-questions.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

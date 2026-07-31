@@ -1,5 +1,6 @@
-# ADB
+# 02-adb
 
-- PC↔기기 통신용 다리. 명령 실행, 파일 복사, 로그 보기, 포트 포워딩을 한다.
-- RSA 키나 QR 페어링으로 허용해야 한다. [ADB](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md#adb) 키는 기기에 저장된다.
-- userdebug/eng 빌드는 `adb root`/`adb remount` 가 가능하지만, 일반 사용자 빌드는 안 된다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [ADB, emulator, device tool은 테스트 환경을 제어한다](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/adb-emulator-and-device-tools-control-test-environment.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

@@ -1,4 +1,6 @@
-# Kotlin 2.x (Strong Skipping Mode) 도입 이후 변화
-* **Kotlin 2.0+ & Compose Compiler 2.0+**: **Strong Skipping Mode**가 기본 활성화되었습니다.
-* 파라미터가 Unstable 타입(일반 `List` 포함)이라도, 전달된 인스턴스의 **동등성(`equals()`) 비교**를 거쳐 이전과 값이 같다고 판단되면 컴포저블 실행을 안전하게 생략(Skip)합니다.
-* 따라서 단순한 Recomposition Skip만을 목적으로 모든 `List`를 `ImmutableList`로 교체할 필요는 없습니다.
+# 03-kotlin-2-x-strong-skipping-mode-도입-이후-변화
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [Compose 안정성과 strong skipping은 skippability에 영향을 준다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-stability-and-strong-skipping-affect-skippability.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

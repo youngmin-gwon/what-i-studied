@@ -1,10 +1,6 @@
-# 🔍 2. 빌드 프로파일링 & 분석 (Build Scanning)
+# 02-2-빌드-프로파일링-분석-build-scanning
 
-어떤 태스크가 시간을 가장 많이 잡아먹는지 확인하는 것이 최적화의 첫걸음입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- **Build Scan**: `./gradlew assembleDebug --scan`
-  - Gradle Enterprise 또는 클라우드 리포트를 통해 태스크 종속성, 네트워크 지연, 캐시 미스 이유를 시각적으로 확인.
-- **Profile Report**: `./gradlew assembleDebug --profile`
-  - `build/reports/profile` 에 로컬 HTML 리포트 생성.
-
----
+- 정본: [Gradle 빌드 성능은 앱 런타임 성능과 다르다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/gradle-build-performance-is-not-app-runtime-performance.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

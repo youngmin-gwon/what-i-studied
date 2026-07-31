@@ -1,28 +1,6 @@
-# dumpsys
+# 08-dumpsys
 
-상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-시스템 서비스 정보 확인.
-
-```bash
-# 메모리
-adb shell dumpsys meminfo com.example.app
-
-# CPU
-adb shell dumpsys cpuinfo
-
-# 배터리
-adb shell dumpsys batterystats com.example.app
-
-# 그래픽
-adb shell dumpsys gfxinfo com.example.app
-
-# Activity
-adb shell dumpsys activity com.example.app
-
-# 네트워크
-adb shell dumpsys netstats
-
-# 알람
-adb shell dumpsys alarm
-```
+- 정본: [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

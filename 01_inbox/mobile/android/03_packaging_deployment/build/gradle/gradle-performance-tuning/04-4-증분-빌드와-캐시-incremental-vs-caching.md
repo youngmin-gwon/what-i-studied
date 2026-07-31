@@ -1,7 +1,6 @@
-# 🛡️ 4. 증분 빌드와 캐시 (Incremental vs Caching)
+# 04-4-증분-빌드와-캐시-incremental-vs-caching
 
-- **Incremental Build**: 이미 처리된 입력값은 건너뛰고 변경된 파일만 컴파일.
-- **Configuration Cache**: `settings.gradle`, `build.gradle` 의 실행 결과를 캐싱하여 'Configuring' 단계를 생략. (Kotlin K2 컴파일러와 함께 최상의 궁합)
-- **Remote Build Cache**: CI 환경과 로컬 팀원 간에 빌드 아티팩트를 공유하여 'Clean Build' 시간을 획기적으로 절약.
+이 노트의 내용은 정본 노트로 흡수했다.
 
----
+- 정본: [증분 빌드, 캐시, 구성 캐시는 빌드 작업량을 줄인다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/incremental-build-cache-and-configuration-cache-reduce-build-work.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

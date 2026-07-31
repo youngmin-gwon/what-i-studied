@@ -1,12 +1,6 @@
-# Kotlin & Compose 환경에서의 R8 극대화 지침
+# 03-kotlin-compose-환경에서의-r8-극대화-지침
 
-R8은 Kotlin 언어 특성(람다, 인라인 함수, Data Class)과 결합될 때 최적화 시너지가 매우 큽니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 3-1. Reflection 기반 라이브러리 배제
-* Gson, Java Reflection API 등 런타임에 클래스 필드 이름을 탐색하는 라이브러리는 R8이 해당 클래스의 이름을 난독화하거나 필드를 깎아내지 못하게 막습니다.
-* **대안**: 컴파일 타임에 Serializer 코드를 자동 생성하는 **`kotlinx.serialization`**이나 **Metro / Hilt** (Compile-time DI)를 사용하면 R8이 불필요한 클래스를 제약 없이 수축(Shrink)시킬 수 있습니다.
-
-### 3-2. Compose UI와 R8
-* `@Composable` 함수는 컴파일 타임에 Compose Compiler 플러그인에 의해 바이트코드가 변환되며, R8은 미사용 컴포저블 함수 및 파라미터 람다 객체를 효과적으로 인라이닝하여 DEX 바이너리 크기를 단축시킵니다.
-
----
+- 정본: [R8 keep 규칙은 최적화 경계다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/keep-rules-are-optimization-boundaries.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

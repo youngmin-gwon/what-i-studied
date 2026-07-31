@@ -1,50 +1,6 @@
-# 프로필 생성기 (`BaselineProfileGenerator.kt`)
-테스트 캡처 도구는 `BaselineProfileRule`의 도움을 받아 디바이스 액션을 모방해 핫 경로를 생성합니다.
+# 02-프로필-생성기-baselineprofilegenerator-kt
 
-```kotlin
-package com.benefit.virtualmate.baselineprofile
+이 노트의 내용은 정본 노트로 흡수했다.
 
-import androidx.benchmark.macro.junit4.BaselineProfileRule
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.Direction
-import androidx.test.uiautomator.Until
-import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
-
-@RunWith(AndroidJUnit4::class)
-@LargeTest
-class BaselineProfileGenerator {
-
-    @get:Rule
-    val rule = BaselineProfileRule()
-
-    @Test
-    fun generate() {
-        rule.collect(
-            packageName = InstrumentationRegistry.getArguments().getString("targetAppId")
-                ?: throw Exception("targetAppId argument is missing"),
-            includeInStartupProfile = true
-        ) {
-            // 1. 앱 시작 시나리오 기록
-            pressHome()
-            startActivityAndWait()
-
-            // 2. Compose 버튼 대기 및 클릭 시나리오 기록
-            device.wait(Until.hasObject(By.res("start_button")), 5000)
-            device.findObject(By.res("start_button"))?.click()
-
-            // 3. 리스트 로드 대기 및 스크롤 제스처 코드 경로 확보
-            device.wait(Until.hasObject(By.res("exercise_list_view")), 5000)
-            val listView = device.findObject(By.res("exercise_list_view"))
-            if (listView != null) {
-                listView.setGestureMargin(device.displayWidth / 5)
-                listView.fling(Direction.DOWN) // 하단 스크롤 기록
-            }
-        }
-    }
-}
-```
+- 정본: [Baseline Profile 생성은 핵심 사용자 여정을 기록한다](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/baseline-profile-generation-records-critical-user-journeys.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

@@ -1,25 +1,6 @@
-# LeakCanary
+# 10-leakcanary
 
-상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-메모리 누수 자동 감지.
-
-```kotlin
-// build.gradle.kts
-dependencies {
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
-}
-
-// 자동으로 누수 감지 및 알림
-// 커스터마이징
-class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        
-        LeakCanary.config = LeakCanary.config.copy(
-            dumpHeap = true,
-            retainedVisibleThreshold = 3
-        )
-    }
-}
-```
+- 정본: [Android 메모리는 사용량보다 회수되지 않는 객체를 본다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/memory-performance-requires-leak-and-allocation-evidence.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

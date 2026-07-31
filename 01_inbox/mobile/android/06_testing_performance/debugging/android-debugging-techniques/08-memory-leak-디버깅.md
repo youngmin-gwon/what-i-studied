@@ -1,35 +1,6 @@
-# Memory Leak 디버깅
+# 08-memory-leak-디버깅
 
-상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### LeakCanary
-
-```kotlin
-// build.gradle.kts
-dependencies {
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
-}
-
-// 자동으로 누수 감지
-// 알림으로 결과 표시
-```
-
-##### 수동 분석
-
-```kotlin
-// 의심되는 객체 추적
-class MyActivity : AppCompatActivity() {
-    companion object {
-        private val instances = mutableListOf<WeakReference<MyActivity>>()
-    }
-    
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        instances.add(WeakReference(this))
-        
-        // 주기적으로 확인
-        instances.removeAll { it.get() == null }
-        Log.d("Leak", "Active instances: ${instances.size}")
-    }
-}
-```
+- 정본: [Android 메모리는 사용량보다 회수되지 않는 객체를 본다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/memory-performance-requires-leak-and-allocation-evidence.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

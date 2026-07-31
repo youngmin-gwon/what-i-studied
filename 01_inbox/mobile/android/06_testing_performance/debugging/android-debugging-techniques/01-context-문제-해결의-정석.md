@@ -1,7 +1,6 @@
-# 💡 Context: 문제 해결의 정석
+# 01-context-문제-해결의-정석
 
-상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-디버깅은 단순히 에러를 고치는 과정이 아니라 시스템의 동작을 이해하는 과정입니다. [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md) 에서 발견된 성능 저하 원인을 규명하고, [android-adb-and-images](01_inbox/mobile/android/06_testing_performance/debugging/android-adb-and-images.md) 를 통해 기기와 소통하며 문제를 해결합니다.
-
----
+- 정본: [debugging-contracts](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

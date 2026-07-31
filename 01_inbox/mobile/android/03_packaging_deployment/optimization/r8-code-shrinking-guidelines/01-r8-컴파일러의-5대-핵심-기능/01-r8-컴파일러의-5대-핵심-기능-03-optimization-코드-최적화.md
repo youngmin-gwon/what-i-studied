@@ -1,5 +1,6 @@
-# Optimization (코드 최적화)
-* **Inlining (함수 인라이닝)**: 호출 오버헤드가 있는 짧은 함수들을 호출부에 직접 삽입하여 스택 프레임 생성 오버헤드를 줄입니다.
-* **Class Merging (클래스 병합)**: 사용성이 적은 인터페이스 구현체나 상속 구조 클래스를 하나로 합쳐 DEX 클래스 개수를 줄입니다.
-* **Dead Code Elimination (사행 코드 제거)**: 실행될 수 없는 `if(false)` 조건절이나 사용되지 않는 변수 할당을 제거합니다.
-* **Constant Folding (상수 사전 계산)**: 컴파일 타임에 결정되는 상수 연산식을 미리 계산 결과로 치환합니다.
+# 01-r8-컴파일러의-5대-핵심-기능-03-optimization-코드-최적화
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

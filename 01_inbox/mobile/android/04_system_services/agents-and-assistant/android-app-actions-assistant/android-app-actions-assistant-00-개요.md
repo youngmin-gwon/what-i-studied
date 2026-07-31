@@ -1,4 +1,12 @@
-# android app actions assistant 개요
+---
+title: android-app-actions-assistant-00-개요
+tags: []
+aliases: []
+date modified: 2026-07-31 17:35:49 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## android app actions assistant 개요
 
 ---
 title: android-app-actions-assistant
@@ -8,9 +16,9 @@ date modified: 2026-07-31 15:17:32 +09:00
 date created: 2026-04-04 00:22:50 +09:00
 ---
 
-## [mobile-security](01_inbox/mobile/mobile-security.md) > [android-app-actions-assistant](01_inbox/mobile/android/04_system_services/agents-and-assistant/android-app-actions-assistant.md)
+### [mobile-security](01_inbox/mobile/mobile-security.md) > [android-app-actions-assistant](01_inbox/mobile/android/04_system_services/agents-and-assistant/android-app-actions-assistant.md)
 
-### Assistant: Voice & Shortcut Actions
+#### Assistant: Voice & Shortcut Actions
 
 구글 어시스턴트(Google Assistant)를 통해 음성 명령과 지능형 제안을 처리하는 **App Actions**와 **BII(Built-in Intents)** 통합 기법을 분석합니다.
 

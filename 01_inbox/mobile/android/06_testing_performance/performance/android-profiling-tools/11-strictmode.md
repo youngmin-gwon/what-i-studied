@@ -1,34 +1,6 @@
-# StrictMode
+# 11-strictmode
 
-상위 노트: [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-메인 스레드 위반 감지.
-
-```kotlin
-class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        
-        if (BuildConfig.DEBUG) {
-            StrictMode.setThreadPolicy(
-                StrictMode.ThreadPolicy.Builder()
-                    .detectDiskReads()
-                    .detectDiskWrites()
-                    .detectNetwork()
-                    .penaltyLog()
-                    .penaltyDeath() // 크래시
-                    .build()
-            )
-            
-            StrictMode.setVmPolicy(
-                StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .detectActivityLeaks()
-                    .penaltyLog()
-                    .build()
-            )
-        }
-    }
-}
-```
+- 정본: [메인 스레드 작업은 앱 응답성을 결정한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/main-thread-work-controls-responsiveness.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

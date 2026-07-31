@@ -1,3 +1,6 @@
-# 💡 Context: 사용자 경험의 완성도
+# 01-context-사용자-경험의-완성도
 
-기능적으로 완벽하더라도 성능이 뒷받침되지 않으면 좋은 앱이라 할 수 없습니다. [android-profiling-tools](01_inbox/mobile/android/06_testing_performance/performance/android-profiling-tools.md) 를 활용한 데이터 기반 분석은 [android-testing-and-quality](01_inbox/mobile/android/06_testing_performance/testing/android-testing-and-quality.md) 와 함께 앱의 완성도를 결정짓는 양대 축입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [Android 성능은 측정 후 최적화한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/measure-before-optimizing-android-performance.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

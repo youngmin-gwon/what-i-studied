@@ -1,3 +1,6 @@
-# 불안정(Unstable) 타입과 기존 문제점
-* **Collection 타입 사용**: `List`, `Map`, `Set` 등 Standard Collection 인터페이스는 내부 원소가 언제든지 변할 수 있는 가변 객체(예: `ArrayList`)일 가능성이 있어, 기존 Compose 컴파일러(Kotlin 1.x)는 이를 `Unstable`로 분류했습니다.
-* 이로 인해 `List`를 받는 컴포저블은 매번 Skip되지 않고 불필요하게 리컴포지션이 발생하는 문제가 있었습니다.
+# 02-불안정-unstable-타입과-기존-문제점
+
+이 노트의 내용은 정본 노트로 흡수했다.
+
+- 정본: [Compose 안정성과 strong skipping은 skippability에 영향을 준다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-stability-and-strong-skipping-affect-skippability.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

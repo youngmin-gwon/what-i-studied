@@ -1,27 +1,6 @@
-# Native Debugging (lldb)
+# 07-native-debugging-lldb
 
-상위 노트: [android-debugging-techniques](01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```bash
-# lldb 서버 시작
-adb shell
-lldb-server platform --listen "*:1234"
-
-# Android Studio 에서
-# Run → Attach Debugger to Android Process
-# Debugger: Native
-```
-
-```cpp
-// C++ 코드에 브레이크포인트 설정 가능
-extern "C" JNIEXPORT void JNICALL
-Java_com_example_app_NativeLib_processImage(
-    JNIEnv* env,
-    jobject /* this */,
-    jobject bitmap) {
-    
-    // 여기에 브레이크포인트
-    AndroidBitmapInfo info;
-    AndroidBitmap_getInfo(env, bitmap, &info);
-}
-```
+- 정본: [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/logcat-crash-anr-and-debugger-answer-different-questions.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.
