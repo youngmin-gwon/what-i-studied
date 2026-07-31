@@ -1,13 +1,7 @@
-# Navigation 3의 Entry Provider DSL
+# 이전 노트
 
-```kotlin
-val entryProvider = { key ->
-    when (key) {
-        is HomeKey -> Entry(key) { HomeScreen() }
-        is DetailKey -> Entry(key) { DetailScreen(id = key.id) }
-        else -> null
-    }
-}
-```
+이 노트의 내용은 정본 노트로 흡수했다.
 
----
+흡수된 이전 노트: `02_app_framework/dependency-injection/patterns/dependency-injection-dsl-dynamic-feature/02-dsl-domain-specific-language/02-dsl-domain-specific-language-05-안드로이드-jetpack-compose-kmp-진영의-대표-dsl들/02-dsl-domain-specific-language-05-안드로이드-jetpack-compose-kmp-진영의-대표-dsl들-05-navigation-3의-entry-provider-dsl.md`
+
+정본 노트: [Dynamic feature DI](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries.md)

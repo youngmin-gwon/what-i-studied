@@ -1,16 +1,7 @@
-# get_it에서 Metro로 옮길 때의 매핑표
+# 이전 노트
 
-상위 노트: [metro-di-get-it-guide](01_inbox/mobile/android/02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-| get_it 코드/개념                                     | Metro에서의 대응                                                      |
-|:-------------------------------------------------|:-----------------------------------------------------------------|
-| `getIt.registerFactory<Foo>(() => Foo(getIt()))` | `@Inject class Foo(dep: Dep)`                                    |
-| `getIt.registerSingleton<Api>(ApiImpl())`        | `@SingleIn(AppScope::class)` + `@Provides fun provideApi(): Api` |
-| `getIt<Api>()`                                   | 생성자 파라미터 `class Foo(private val api: Api)`                       |
-| `registerLazySingleton`                          | scoped binding. 처음 요청될 때 생성되어 graph 안에서 재사용                      |
-| `reset()`                                        | graph 인스턴스를 버리고 새로 만들기                                           |
-| `getIt.pushNewScope()`                           | 별도 graph/graph extension 생성                                      |
-| `registerFactoryParam`                           | assisted injection 또는 graph factory parameter                    |
-| test에서 `registerSingleton<FakeApi>`              | test graph 또는 factory parameter로 fake 주입                         |
+흡수된 이전 노트: `02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide/13-get-it에서-metro로-옮길-때의-매핑표.md`
 
----
+정본 노트: [Metro DI](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/metro-is-compile-time-kotlin-di-not-get-it-style-global-locator.md)

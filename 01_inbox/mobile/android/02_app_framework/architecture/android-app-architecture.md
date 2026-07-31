@@ -8,6 +8,7 @@ Android 앱 아키텍처는 UI 패턴 이름보다 owner, lifetime, OS entry poi
 - [Android Context Boundaries](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context-boundaries.md) - Context 종류와 lifetime, leak risk, Compose `LocalContext`를 정리한다.
 - [Jetpack Architecture Map](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture-map.md) - Jetpack architecture guidance를 기존 정본 map으로 연결한다.
 - [Android State Management](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md) - ViewModel, UI state, reducer, saved state의 정본.
+- [Android Dependency Injection](01_inbox/mobile/android/02_app_framework/dependency-injection/android-dependency-injection-map.md) - object graph, binding, scope, Hilt/Metro, test override의 정본.
 
 ## 읽는 기준
 

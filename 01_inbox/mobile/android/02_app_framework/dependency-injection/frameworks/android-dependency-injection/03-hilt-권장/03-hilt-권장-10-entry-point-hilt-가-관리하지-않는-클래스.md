@@ -1,26 +1,7 @@
-# Entry Point (Hilt 가 관리하지 않는 클래스)
+# 이전 노트
 
-```kotlin
-@EntryPoint
-@InstallIn(SingletonComponent::class)
-interface AnalyticsEntryPoint {
-    fun analytics(): Analytics
-}
+이 노트의 내용은 정본 노트로 흡수했다.
 
-class CustomContentProvider : ContentProvider() {
-    
-    private val analytics: Analytics by lazy {
-        val appContext = context?.applicationContext ?: throw IllegalStateException()
-        val hiltEntryPoint = EntryPointAccessors.fromApplication(
-            appContext,
-            AnalyticsEntryPoint::class.java
-        )
-        hiltEntryPoint.analytics()
-    }
-    
-    override fun onCreate(): Boolean {
-        analytics.logEvent("ContentProvider_Created")
-        return true
-    }
-}
-```
+흡수된 이전 노트: `02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-권장/03-hilt-권장-10-entry-point-hilt-가-관리하지-않는-클래스.md`
+
+정본 노트: [Entry points](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/entry-points-bridge-framework-owned-objects-to-the-graph.md)

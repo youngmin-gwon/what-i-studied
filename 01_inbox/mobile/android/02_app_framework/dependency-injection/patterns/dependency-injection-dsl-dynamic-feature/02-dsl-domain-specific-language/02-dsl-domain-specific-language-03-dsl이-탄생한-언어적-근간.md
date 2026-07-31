@@ -1,5 +1,7 @@
-# DSL이 탄생한 언어적 근간
+# 이전 노트
 
-> 함수가 1급 객체(First-class citizen)이고, 마지막 인자인 람다를 소괄호 밖으로 꺼내서 중괄호 형태로 쓸 수 있는 **코틀린 언어의 특성**에서 나온 것.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-여기에 **수신 객체 지정 람다**라는 치트키가 결합되어 중괄호 내부를 특정 클래스의 "안방"처럼 만들어 줍니다.
+흡수된 이전 노트: `02_app_framework/dependency-injection/patterns/dependency-injection-dsl-dynamic-feature/02-dsl-domain-specific-language/02-dsl-domain-specific-language-03-dsl이-탄생한-언어적-근간.md`
+
+정본 노트: [Dynamic feature DI](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries.md)

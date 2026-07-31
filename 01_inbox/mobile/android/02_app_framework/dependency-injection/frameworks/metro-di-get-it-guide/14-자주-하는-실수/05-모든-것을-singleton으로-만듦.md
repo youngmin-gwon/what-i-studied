@@ -1,18 +1,7 @@
-# 모든 것을 singleton으로 만듦
+# 이전 노트
 
-`get_it`을 오래 쓰면 모든 것을 `registerSingleton`으로 등록하고 싶어질 수 있습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-하지만 Metro에서는 먼저 이렇게 생각하는 편이 좋습니다.
+흡수된 이전 노트: `02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide/14-자주-하는-실수/05-모든-것을-singleton으로-만듦.md`
 
-```text
-상태가 없고 가벼운 객체인가?
--> unscoped로 시작
-
-생성 비용이 크거나 공유 상태를 가져야 하나?
--> scope 적용
-
-Activity/ViewModel 수명에 묶여야 하나?
--> AppScope에 넣지 말고 더 좁은 graph 고려
-```
-
----
+정본 노트: [Scope and lifetime](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/scope-matches-object-reuse-to-owner-lifetime.md)

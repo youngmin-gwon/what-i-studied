@@ -1,6 +1,7 @@
-# DSL이란?
+# 이전 노트
 
-**"특정 영역(도메인)의 문제만 아주 쉽고 직관적으로 해결하기 위해 만든 미니 언어"**
+이 노트의 내용은 정본 노트로 흡수했다.
 
-* **External DSL**: HTML(웹 구조), SQL(데이터베이스 명령)
-* **Internal DSL**: 코틀린 코드 안에서 마치 새로운 언어를 쓰는 것 같은 내장 DSL
+흡수된 이전 노트: `02_app_framework/dependency-injection/patterns/dependency-injection-dsl-dynamic-feature/02-dsl-domain-specific-language/02-dsl-domain-specific-language-01-dsl이란.md`
+
+정본 노트: [Dynamic feature DI](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries.md)

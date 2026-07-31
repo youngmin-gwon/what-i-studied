@@ -1,19 +1,7 @@
-# interface만 있고 구현체 연결이 없음
+# 이전 노트
 
-```kotlin
-interface Api
+이 노트의 내용은 정본 노트로 흡수했다.
 
-@Inject
-class Repository(private val api: Api)
-```
+흡수된 이전 노트: `02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide/14-자주-하는-실수/02-interface만-있고-구현체-연결이-없음.md`
 
-Metro는 `Api`를 어떤 구현체로 만들지 모릅니다.
-
-해결:
-
-```kotlin
-@Provides
-fun provideApi(): Api = ApiImpl()
-```
-
-또는 `@Binds`로 구현체를 interface에 연결합니다.
+정본 노트: [Interface binding](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/binds-connects-interface-to-implementation-without-construction-code.md)

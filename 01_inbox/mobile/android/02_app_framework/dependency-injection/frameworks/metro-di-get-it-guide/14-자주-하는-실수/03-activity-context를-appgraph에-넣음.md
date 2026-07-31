@@ -1,13 +1,7 @@
-# Activity Context를 AppGraph에 넣음
+# 이전 노트
 
-AppGraph가 앱 전체 수명이라면 Activity Context를 넣으면 안 됩니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// 나쁜 예
-factory.create(this) // Activity this
-```
+흡수된 이전 노트: `02_app_framework/dependency-injection/frameworks/metro-di-get-it-guide/14-자주-하는-실수/03-activity-context를-appgraph에-넣음.md`
 
-```kotlin
-// 좋은 예
-factory.create(applicationContext)
-```
+정본 노트: [Context lifetime in DI](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/android-context-in-di-must-match-graph-lifetime.md)

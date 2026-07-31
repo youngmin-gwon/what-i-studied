@@ -1,33 +1,7 @@
-# WorkManager 주입
+# 이전 노트
 
-```kotlin
-@HiltWorker
-class UploadWorker @AssistedInject constructor(
-    @Assisted context: Context,
-    @Assisted params: WorkerParameters,
-    private val repository: UploadRepository
-) : CoroutineWorker(context, params) {
-    
-    override suspend fun doWork(): Result {
-        return try {
-            repository.upload()
-            Result.success()
-        } catch (e: Exception) {
-            Result.failure()
-        }
-    }
-}
+이 노트의 내용은 정본 노트로 흡수했다.
 
-// Application 에 HiltWorkerFactory 설정
-@HiltAndroidApp
-class MyApplication : Application(), Configuration.Provider {
-    
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
-    
-    override fun getWorkManagerConfiguration() =
-        Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
-}
-```
+흡수된 이전 노트: `02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-권장/03-hilt-권장-09-workmanager-주입.md`
+
+정본 노트: [Worker injection](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/worker-injection-crosses-workmanager-factory-boundary.md)

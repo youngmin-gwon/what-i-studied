@@ -1,24 +1,7 @@
-# Component Scopes
+# 이전 노트
 
-| Component | Scope | 생명주기 |
-|-----------|-------|---------|
-| SingletonComponent | @Singleton | Application |
-| ActivityRetainedComponent | @ActivityRetainedScoped | Activity (설정 변경 유지) |
-| ViewModelComponent | @ViewModelScoped | ViewModel |
-| ActivityComponent | @ActivityScoped | Activity |
-| FragmentComponent | @FragmentScoped | Fragment |
-| ViewComponent | @ViewScoped | View |
-| ServiceComponent | @ServiceScoped | Service |
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-@Module
-@InstallIn(ViewModelComponent::class)
-object ViewModelModule {
-    
-    @Provides
-    @ViewModelScoped
-    fun provideAnalytics(): Analytics {
-        return Analytics() // ViewModel 생명주기
-    }
-}
-```
+흡수된 이전 노트: `02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-권장/03-hilt-권장-06-component-scopes.md`
+
+정본 노트: [Scope and lifetime](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/scope-matches-object-reuse-to-owner-lifetime.md)

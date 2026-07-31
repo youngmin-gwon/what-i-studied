@@ -1,33 +1,7 @@
-# Qualifiers (같은 타입 구분)
+# 이전 노트
 
-```kotlin
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class IoDispatcher
+이 노트의 내용은 정본 노트로 흡수했다.
 
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class MainDispatcher
+흡수된 이전 노트: `02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-권장/03-hilt-권장-05-qualifiers-같은-타입-구분.md`
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DispatcherModule {
-    
-    @Provides
-    @IoDispatcher
-    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-    
-    @Provides
-    @MainDispatcher
-    fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
-}
-
-// 사용
-class UserRepository @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) {
-    suspend fun loadUsers() = withContext(ioDispatcher) {
-        // IO 작업
-    }
-}
-```
+정본 노트: [Qualifiers](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/qualifiers-distinguish-values-that-share-the-same-type.md)

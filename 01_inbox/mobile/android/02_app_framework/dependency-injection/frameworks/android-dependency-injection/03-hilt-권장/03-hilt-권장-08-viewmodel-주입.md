@@ -1,19 +1,7 @@
-# ViewModel 주입
+# 이전 노트
 
-```kotlin
-@HiltViewModel
-class UserViewModel @Inject constructor(
-    private val repository: UserRepository,
-    private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
-    
-    val users = repository.getUsers()
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
-}
+이 노트의 내용은 정본 노트로 흡수했다.
 
-// Activity/Fragment 에서 사용
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private val viewModel: UserViewModel by viewModels()
-}
-```
+흡수된 이전 노트: `02_app_framework/dependency-injection/frameworks/android-dependency-injection/03-hilt-권장/03-hilt-권장-08-viewmodel-주입.md`
+
+정본 노트: [ViewModel DI](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/viewmodel-di-injects-dependencies-not-viewmodel-ownership.md)
