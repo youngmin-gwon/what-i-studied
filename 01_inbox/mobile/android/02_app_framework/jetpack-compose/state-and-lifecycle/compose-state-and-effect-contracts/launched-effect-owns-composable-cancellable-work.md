@@ -1,3 +1,8 @@
+---
+title: "Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다"
+tags: ["android", "android/app-framework"]
+---
+
 # Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

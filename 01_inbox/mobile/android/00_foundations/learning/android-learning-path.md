@@ -1,3 +1,8 @@
+---
+title: "Android Learning Path"
+tags: ["android", "android/foundations"]
+---
+
 # Android Learning Path
 
 Android learning path는 resource 목록이 아니라 질문별 routing guide다.

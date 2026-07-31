@@ -1,3 +1,8 @@
+---
+title: "AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

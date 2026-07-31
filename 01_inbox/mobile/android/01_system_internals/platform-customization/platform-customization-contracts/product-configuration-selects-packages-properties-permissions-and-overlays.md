@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# product configuration은 package, property, permission, overlay를 선택한다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 Android product configuration은 “어떤 앱을 넣을지”만 고르는 파일이 아니다. product makefile과 Soong/Make 설정은 package inclusion, system property, permission XML, feature declaration, overlay, partition image 구성을 함께 결정한다.

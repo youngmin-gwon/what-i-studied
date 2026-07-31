@@ -1,3 +1,8 @@
+---
+title: "연결성 계약"
+tags: ["android", "android/system-internals"]
+---
+
 # 연결성 계약
 
 Android 연결성은 물리 네트워크 종류보다 capability, validation, cost, policy, user choice, VPN overlay, DNS/security 설정이 함께 결정하는 실행 계약이다.

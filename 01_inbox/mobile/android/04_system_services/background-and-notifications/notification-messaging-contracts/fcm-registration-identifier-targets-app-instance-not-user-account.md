@@ -1,3 +1,8 @@
+---
+title: "FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다"
+tags: ["android", "android/system-services"]
+---
+
 # FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

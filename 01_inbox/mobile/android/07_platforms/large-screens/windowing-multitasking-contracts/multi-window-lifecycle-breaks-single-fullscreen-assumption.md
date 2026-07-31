@@ -1,3 +1,8 @@
+---
+title: "Multi-window 생명주기는 단일 전체 화면 가정을 깨뜨린다"
+tags: ["android", "android/platforms"]
+---
+
 # Multi-window 생명주기는 단일 전체 화면 가정을 깨뜨린다
 
 상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)

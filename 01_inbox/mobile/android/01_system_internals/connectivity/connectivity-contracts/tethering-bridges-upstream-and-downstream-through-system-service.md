@@ -1,3 +1,8 @@
+---
+title: "테더링은 개인 hotspot 기능이 아니라 upstream과 downstream을 잇는 system service다"
+tags: ["android", "android/system-internals"]
+---
+
 # 테더링은 개인 hotspot 기능이 아니라 upstream과 downstream을 잇는 system service다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

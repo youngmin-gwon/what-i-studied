@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# 카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다
+
 Camera2 세션을 만들 때 앱은 하나 이상의 output `Surface`를 미리 구성한다. 각 Surface는 프리뷰, 이미지 분석, 사진 캡처, 영상 녹화 같은 병렬 파이프라인의 destination이 된다.
 
 `SurfaceView`나 `PreviewView`는 사용자가 보는 viewfinder에 적합하고, `ImageReader`는 앱이 `Image`를 acquire해서 YUV/JPEG/RAW 데이터를 읽어야 할 때 사용한다. `MediaCodec`이나 `MediaRecorder`의 Surface는 영상 인코딩으로 직접 이어지는 출력 대상이 될 수 있다.

@@ -1,3 +1,8 @@
+---
+title: "적응형 레이아웃은 같은 화면을 늘리는 것이 아니라 구조를 바꾼다"
+tags: ["android", "android/platforms"]
+---
+
 # 적응형 레이아웃은 같은 화면을 늘리는 것이 아니라 구조를 바꾼다
 
 상위 문서: [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

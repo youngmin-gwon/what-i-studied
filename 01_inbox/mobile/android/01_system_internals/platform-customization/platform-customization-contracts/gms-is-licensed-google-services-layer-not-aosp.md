@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# GMS는 AOSP가 아니라 라이선스된 Google services layer다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 Google Mobile Services(GMS)는 AOSP에 포함된 기본 구성물이 아니라 라이선스와 인증을 전제로 제공되는 Google apps/services layer다. Play Store, Google Play services, Google Sign-In, FCM, Google Maps API 같은 기능은 AOSP-only device에서 자동으로 제공되지 않는다.

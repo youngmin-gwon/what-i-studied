@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# CameraX와 Camera2는 제어 경계가 다르다
+
 Camera2는 `CameraDevice`, `CaptureRequest`, `CameraCaptureSession`, `Surface`를 직접 조합해 카메라 장치와 캡처 세션을 제어하는 framework API다. 출력 대상, 요청 파라미터, 동시 스트림, capture timing을 세밀하게 다뤄야 할 때 적합하다.
 
 CameraX는 Camera2 위에서 Preview, ImageCapture, ImageAnalysis, VideoCapture 같은 use case와 lifecycle 바인딩을 제공하는 Jetpack 계층이다. 일반적인 미리보기, 사진, 분석, 녹화 앱은 CameraX를 우선 검토하는 편이 유지보수에 유리하다.

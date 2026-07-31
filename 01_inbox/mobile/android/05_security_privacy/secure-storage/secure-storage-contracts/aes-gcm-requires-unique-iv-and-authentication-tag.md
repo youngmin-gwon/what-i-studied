@@ -6,6 +6,8 @@ date modified: 2026-07-31 18:18:28 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
+# aes-gcm-requires-unique-iv-and-authentication-tag
+
 ## Android AES-GCM 은 IV 와 인증 태그를 함께 관리한다
 
 상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)

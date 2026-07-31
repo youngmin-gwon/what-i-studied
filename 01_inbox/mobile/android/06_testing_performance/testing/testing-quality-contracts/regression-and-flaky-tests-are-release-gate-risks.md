@@ -1,3 +1,8 @@
+---
+title: "회귀와 flaky 테스트는 릴리즈 게이트의 신뢰도를 낮춘다"
+tags: ["android", "android/testing-performance"]
+---
+
 # 회귀와 flaky 테스트는 릴리즈 게이트의 신뢰도를 낮춘다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

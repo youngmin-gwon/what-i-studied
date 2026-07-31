@@ -1,3 +1,8 @@
+---
+title: "Build type, product flavor, build variant는 서로 다른 축이다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Build type, product flavor, build variant는 서로 다른 축이다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

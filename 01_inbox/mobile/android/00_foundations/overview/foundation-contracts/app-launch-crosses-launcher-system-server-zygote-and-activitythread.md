@@ -1,3 +1,8 @@
+---
+title: "앱 실행은 Launcher, system_server, Zygote, ActivityThread를 지나는 경로다"
+tags: ["android", "android/foundations"]
+---
+
 # 앱 실행은 Launcher, system_server, Zygote, ActivityThread를 지나는 경로다
 
 앱 아이콘을 탭하는 일은 단순히 `MainActivity.onCreate()`를 호출하는 것이 아니다. Launcher가 activity start를 요청하고, system_server의 activity/task 관리자가 대상 process 상태를 판단하며, 필요하면 Zygote가 app process를 fork한다.

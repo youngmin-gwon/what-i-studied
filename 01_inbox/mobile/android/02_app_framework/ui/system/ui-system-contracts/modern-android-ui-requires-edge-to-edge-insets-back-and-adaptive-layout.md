@@ -1,3 +1,8 @@
+---
+title: "Modern Android UI는 edge-to-edge, insets, back, adaptive layout을 함께 다룬다"
+tags: ["android", "android/app-framework"]
+---
+
 # Modern Android UI는 edge-to-edge, insets, back, adaptive layout을 함께 다룬다
 
 현대 Android UI는 화면 컴포넌트만 잘 배치하는 것으로 끝나지 않는다. system bars 뒤로 그리는 edge-to-edge, 겹침을 피하는 insets, predictive back, window size와 posture에 따른 adaptive navigation을 함께 설계해야 한다.

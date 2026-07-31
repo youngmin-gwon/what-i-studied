@@ -1,3 +1,8 @@
+---
+title: "Play 릴리스와 배포 계약"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Play 릴리스와 배포 계약
 
 이 지도는 Android App Bundle 제출, Play App Signing, 업데이트 조건, 테스트 트랙, staged rollout, 내부 공유를 릴리스 운영 단위로 나눈다.

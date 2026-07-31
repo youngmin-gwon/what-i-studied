@@ -1,3 +1,8 @@
+---
+title: "Mainline module update는 임의의 새 public API 배포와 같지 않다"
+tags: ["android", "android/system-internals"]
+---
+
 # Mainline module update는 임의의 새 public API 배포와 같지 않다
 
 Mainline module update가 곧 앱이 바로 호출할 수 있는 새 public SDK API를 뜻하지는 않는다. Mainline module은 SDK API, System API, stable C API, stable AIDL 같은 compatibility가 보장되는 경계 안에서 나머지 platform과 통신해야 한다.

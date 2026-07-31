@@ -1,3 +1,8 @@
+---
+title: "Android System Map"
+tags: ["android", "android/foundations"]
+---
+
 # Android System Map
 
 이 문서는 Android를 처음 볼 때의 system map이다. 세부 구현은 각 정본으로 이동한다.
@@ -17,4 +22,4 @@
 - Kernel/HAL: [kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel-runtime.md), [HAL/native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md)
 - App framework: [app architecture](01_inbox/mobile/android/02_app_framework/architecture/android-app-architecture.md), [app components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context-boundaries.md)
 - UI/data: [Compose runtime](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Compose UI](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md), [storage](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
-- Security/debugging: [security](01_inbox/mobile/android/05_security_privacy/security-practices/android-security-practices.md), [debugging](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md), [performance](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/performance-contracts.md)
+- Security/debugging: [security](01_inbox/mobile/android/05_security_privacy/security-practices/security-practice-contracts/android-security-practice-is-defense-in-depth-not-client-trust.md), [debugging](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md), [performance](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/performance-contracts.md)

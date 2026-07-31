@@ -1,3 +1,8 @@
+---
+title: "SDK Extensions는 SDK_INT만으로 표현되지 않는 API availability를 나타낸다"
+tags: ["android", "android/system-internals"]
+---
+
 # SDK Extensions는 SDK_INT만으로 표현되지 않는 API availability를 나타낸다
 
 SDK Extensions는 modular system component update를 통해 일부 API가 이전 Android API level 기기에도 제공될 수 있음을 표현한다. Android 11(API 30) 이상 기기는 extension version set을 가질 수 있고, API reference에는 어떤 extension version부터 API를 쓸 수 있는지가 표시된다.

@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# Binder transaction lifetime은 call, copy, dispatch, reply로 나뉜다
+
 상위 문서: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 
 동기 Binder 호출은 caller가 transaction을 보내고, Binder driver가 data와 object reference를 target process의 Binder buffer로 전달하고, target Binder thread가 `onTransact()`를 처리한 뒤 reply를 돌려주는 흐름이다.

@@ -1,3 +1,8 @@
+---
+title: "비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다"
+tags: ["android", "android/system-services"]
+---
+
 # 비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

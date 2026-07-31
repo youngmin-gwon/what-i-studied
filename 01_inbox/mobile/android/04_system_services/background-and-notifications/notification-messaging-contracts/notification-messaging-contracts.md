@@ -1,3 +1,8 @@
+---
+title: "알림과 FCM 메시징 계약"
+tags: ["android", "android/system-services"]
+---
+
 # 알림과 FCM 메시징 계약
 
 이 지도는 FCM 전송, 앱 인스턴스 식별, payload 처리, Android 알림 권한과 채널, 운영 관측을 분리한다.

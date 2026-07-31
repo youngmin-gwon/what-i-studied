@@ -1,3 +1,8 @@
+---
+title: "Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다"
+tags: ["android", "android/testing-performance"]
+---
+
 # Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

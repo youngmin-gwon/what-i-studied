@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# Custom ROM 작업은 앱 개발이 아니라 플랫폼 통합이다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 Custom ROM 작업은 UI 테마나 앱 패키지 교체만이 아니라 device tree, kernel, vendor blobs, HAL, sepolicy, signing, OTA, compatibility test를 함께 다루는 플랫폼 통합 작업이다.

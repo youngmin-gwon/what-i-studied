@@ -1,7 +1,0 @@
-# 이전 노트
-
-이 노트의 내용은 정본 노트로 흡수했다.
-
-흡수된 이전 노트: `01_inbox/mobile/android/06_testing_performance/debugging/android-debugging-techniques/01-context-문제-해결의-정석.md`
-
-정본 노트: [debugging-contracts](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)

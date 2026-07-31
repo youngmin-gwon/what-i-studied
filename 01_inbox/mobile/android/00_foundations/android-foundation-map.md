@@ -1,3 +1,8 @@
+---
+title: "Android Foundations"
+tags: ["android", "android/foundations"]
+---
+
 # Android Foundations
 
 Android foundations는 세부 API 설명이 아니라 전체 Android 지식 지도를 제공하는 입구다.
@@ -16,6 +21,6 @@ Android foundations는 세부 API 설명이 아니라 전체 Android 지식 지�
 - [Compose Runtime and State](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md)
 - [Packaging and Deployment](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
 - [System Services](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
-- [Security and Privacy](01_inbox/mobile/android/05_security_privacy/security-practices/android-security-practices.md)
+- [Security and Privacy](01_inbox/mobile/android/05_security_privacy/security-practices/security-practice-contracts/android-security-practice-is-defense-in-depth-not-client-trust.md)
 - [Testing and Debugging](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)
 - [Platforms and Form Factors](01_inbox/mobile/android/07_platforms/android-platforms-and-form-factors.md)

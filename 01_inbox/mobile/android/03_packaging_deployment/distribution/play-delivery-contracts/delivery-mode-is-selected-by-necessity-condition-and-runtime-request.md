@@ -1,3 +1,8 @@
+---
+title: "Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

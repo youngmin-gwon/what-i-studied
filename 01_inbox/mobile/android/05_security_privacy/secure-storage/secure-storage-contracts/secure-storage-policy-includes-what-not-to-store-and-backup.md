@@ -6,6 +6,8 @@ date modified: 2026-07-31 18:18:52 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
+# secure-storage-policy-includes-what-not-to-store-and-backup
+
 ## Android 보안 저장소는 저장 금지와 백업 정책까지 포함한다
 
 상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)

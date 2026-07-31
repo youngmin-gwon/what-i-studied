@@ -1,3 +1,8 @@
+---
+title: "Version Catalog는 의존성 좌표와 플러그인 좌표의 이름표다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Version Catalog는 의존성 좌표와 플러그인 좌표의 이름표다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

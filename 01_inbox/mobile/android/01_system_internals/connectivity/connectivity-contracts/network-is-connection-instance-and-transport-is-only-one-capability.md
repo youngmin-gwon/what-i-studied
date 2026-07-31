@@ -1,3 +1,8 @@
+---
+title: "Network는 특정 연결 인스턴스이고 transport는 그 속성 중 하나다"
+tags: ["android", "android/system-internals"]
+---
+
 # Network는 특정 연결 인스턴스이고 transport는 그 속성 중 하나다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

@@ -1,3 +1,8 @@
+---
+title: "APEX activation은 boot-time mount, version selection, rollback 경계다"
+tags: ["android", "android/system-internals"]
+---
+
 # APEX activation은 boot-time mount, version selection, rollback 경계다
 
 APEX update는 설치 즉시 running system을 임의로 바꾸는 모델이 아니다. updated APEX는 기존 built-in package를 shadow할 수 있고, activation은 boot 과정에서 apexd가 version을 선택하고 mount하면서 이루어진다.

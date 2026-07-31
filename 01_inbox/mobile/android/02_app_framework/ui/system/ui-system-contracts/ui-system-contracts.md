@@ -1,3 +1,8 @@
+---
+title: "Android UI System Contracts"
+tags: ["android", "android/app-framework"]
+---
+
 # Android UI System Contracts
 
 Android UI 문서는 View System, Compose, list rendering, modern system UI 요구사항을 서로 다른 계약으로 나눠 읽는다.

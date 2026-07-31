@@ -1,3 +1,8 @@
+---
+title: "큰 화면 내비게이션은 목적지 중요도와 창 폭에 따라 chrome을 바꾼다"
+tags: ["android", "android/platforms"]
+---
+
 # 큰 화면 내비게이션은 목적지 중요도와 창 폭에 따라 chrome을 바꾼다
 
 상위 문서: [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

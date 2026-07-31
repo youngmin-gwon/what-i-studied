@@ -1,3 +1,8 @@
+---
+title: "Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

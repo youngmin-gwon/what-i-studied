@@ -1,3 +1,8 @@
+---
+title: "Baseline Profile 검증은 profiled와 unprofiled 성능을 비교한다"
+tags: ["android", "android/testing-performance"]
+---
+
 # Baseline Profile 검증은 profiled와 unprofiled 성능을 비교한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

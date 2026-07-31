@@ -1,3 +1,8 @@
+---
+title: "증분 빌드, 캐시, 구성 캐시는 빌드 작업량을 줄인다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # 증분 빌드, 캐시, 구성 캐시는 빌드 작업량을 줄인다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

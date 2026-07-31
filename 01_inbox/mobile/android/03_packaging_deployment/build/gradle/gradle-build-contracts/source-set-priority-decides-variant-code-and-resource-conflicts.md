@@ -1,3 +1,8 @@
+---
+title: "Source set 우선순위는 variant별 코드와 리소스 충돌을 결정한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Source set 우선순위는 variant별 코드와 리소스 충돌을 결정한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

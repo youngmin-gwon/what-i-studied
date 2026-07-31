@@ -1,3 +1,8 @@
+---
+title: "Android XR 계약"
+tags: ["android", "android/platforms"]
+---
+
 # Android XR 계약
 
 Android XR은 기존 Android 앱을 공간 안에 띄우는 호환 표면과, Jetpack XR SDK로 공간 UI와 3D 콘텐츠를 구성하는 개발 표면을 함께 가진다.

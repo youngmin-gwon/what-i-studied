@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# MediaCodec ByteBuffer 모드는 앱이 sample 흐름을 소유한다
+
 MediaCodec의 ByteBuffer 모드는 앱이 codec 입력 buffer를 얻어 샘플을 채우고, 출력 buffer에서 결과를 읽는 방식이다. 동기식 API에서는 dequeue/queue 호출을 사용하고, 비동기식 API에서는 callback으로 사용 가능한 buffer를 받는다.
 
 이 모드에서는 presentation timestamp, codec-specific data, format change, end-of-stream, encrypted sample 여부를 앱이 명확히 관리해야 한다. 사용한 출력 buffer는 반드시 codec에 release해야 다음 작업이 진행된다.

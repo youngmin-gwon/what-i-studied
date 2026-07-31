@@ -1,3 +1,8 @@
+---
+title: "디버깅 도구 계약"
+tags: ["android", "android/testing-performance"]
+---
+
 # 디버깅 도구 계약
 
 이 지도는 테스트가 드러낸 문제를 Logcat, crash, ANR, debugger, ADB 중 어떤 도구로 좁힐지 정리한다.

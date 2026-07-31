@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# oneway Binder는 caller 대기를 없애지만 server backpressure를 없애지 않는다
+
 상위 문서: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 
 `oneway` AIDL 호출은 caller가 reply를 기다리지 않는 비동기 transaction으로 바뀐다. 하지만 이것은 server의 queue, Binder thread pool, 처리 비용, 순서 제약을 사라지게 하지 않는다.

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# DRM 보호 미디어는 secure codec과 보호된 출력 경로를 요구할 수 있다
+
 DRM 보호 미디어 재생은 단순히 파일을 복호화하는 일이 아니다. 앱 또는 Media3는 DRM scheme, license server, session, key request, key status, codec, output protection을 함께 만족해야 한다.
 
 `MediaDrm`은 DRM scheme의 provisioning, session, key request, offline license 같은 저수준 기능을 제공한다. ExoPlayer/Media3는 이 과정을 playback stack 안에서 추상화할 수 있지만, 라이선스 URL과 인증 방식은 콘텐츠 서비스의 계약이다.

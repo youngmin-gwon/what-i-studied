@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# Binder thread pool은 service concurrency와 deadlock 경계다
+
 상위 문서: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 
 Binder service는 들어오는 transaction을 Binder thread pool에서 처리한다. thread pool은 동시성을 제공하지만, blocking call이 쌓이면 service 전체 응답성이 떨어지고 caller와 callee가 서로 기다리는 deadlock 구조도 만들 수 있다.

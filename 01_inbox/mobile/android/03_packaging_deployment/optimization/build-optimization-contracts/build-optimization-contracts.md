@@ -1,3 +1,8 @@
+---
+title: "R8와 Gradle 빌드 최적화 계약"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # R8와 Gradle 빌드 최적화 계약
 
 이 지도는 배포 산출물 최적화와 개발 빌드 속도를 분리한다. R8은 릴리즈 산출물의 크기, 난독화, 최적화 계약이고, Gradle 성능은 개발 피드백 루프의 계약이다.

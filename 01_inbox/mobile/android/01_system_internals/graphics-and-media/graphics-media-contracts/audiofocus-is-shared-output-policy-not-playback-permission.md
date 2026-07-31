@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# AudioFocus는 재생 권한이 아니라 공유 출력 정책이다
+
 AudioFocus는 여러 앱이 같은 오디오 출력 환경을 공유할 때 사용자 경험을 조정하기 위한 협력 규칙이다. 앱은 `AudioAttributes`와 focus gain 종류로 재생 의도를 설명하고, focus 변화 callback에 따라 일시정지, ducking, resume, stop을 결정한다.
 
 AudioFocus를 얻었다고 물리 출력 장치를 독점하는 것은 아니다. 시스템은 여러 오디오 stream을 mix할 수 있고, focus는 어떤 앱이 우선적으로 들려야 하는지와 다른 앱이 어떻게 양보해야 하는지를 표현한다.

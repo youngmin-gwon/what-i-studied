@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# Platform signing과 release key는 update와 privilege boundary를 정의한다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 Platform signing key와 release key는 단순 배포 서명이 아니라 system image update, privileged permission, shared UID, platform app 신뢰 경계를 정의한다. 같은 APK라도 어떤 key로 서명되고 어느 partition에 놓이는지에 따라 권한과 업데이트 가능성이 달라진다.

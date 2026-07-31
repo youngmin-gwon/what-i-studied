@@ -1,3 +1,8 @@
+---
+title: "Android UI System"
+tags: ["android", "android/app-framework"]
+---
+
 # Android UI System
 
 Android UI 문서는 View System, Compose, system UI, adaptive layout을 한 흐름으로 묶되 각 개념은 정본 노트로 분리한다.

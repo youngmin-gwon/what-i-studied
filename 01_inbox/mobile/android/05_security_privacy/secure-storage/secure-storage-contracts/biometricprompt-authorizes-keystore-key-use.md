@@ -6,6 +6,8 @@ date modified: 2026-07-31 18:18:32 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
+# biometricprompt-authorizes-keystore-key-use
+
 ## BiometricPrompt 는 Keystore 키 사용 권한을 여는 장치다
 
 상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)

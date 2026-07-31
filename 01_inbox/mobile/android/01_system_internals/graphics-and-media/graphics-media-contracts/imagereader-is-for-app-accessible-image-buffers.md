@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# ImageReader는 앱이 접근할 수 있는 이미지 버퍼를 제공한다
+
 ImageReader는 다른 media API가 렌더링한 데이터를 앱이 `Image` 객체로 직접 읽을 수 있게 하는 Surface consumer다. Camera2, MediaCodec 같은 producer는 ImageReader가 제공하는 Surface를 출력 대상으로 사용할 수 있다.
 
 `acquireLatestImage()`는 실시간 분석에서 오래된 이미지를 버리고 최신 이미지에 따라잡기 좋고, `acquireNextImage()`는 순서대로 처리해야 하는 batch/background 작업에 더 맞다. 어떤 방식을 쓰든 acquire한 이미지는 `close()`해서 큐를 비워야 한다.

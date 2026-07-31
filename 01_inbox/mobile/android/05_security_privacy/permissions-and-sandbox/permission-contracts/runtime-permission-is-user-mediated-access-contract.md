@@ -1,3 +1,8 @@
+---
+title: "Runtime permission은 사용자에게 기능 사용 시점에 요청하는 접근 계약이다"
+tags: ["android", "android/security-privacy"]
+---
+
 # Runtime permission은 사용자에게 기능 사용 시점에 요청하는 접근 계약이다
 
 Runtime permission은 앱이 민감 데이터나 기능을 사용하려는 순간 사용자에게 승인받는 계약이다. Android 6.0(API 23) 이상에서 dangerous permission은 manifest 선언만으로 충분하지 않고, 실행 중에 상태를 확인한 뒤 요청해야 한다.

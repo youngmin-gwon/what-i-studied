@@ -1,3 +1,8 @@
+---
+title: "Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

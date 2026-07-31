@@ -1,7 +1,0 @@
-# 이전 노트
-
-이 노트의 내용은 정본 노트로 흡수했다.
-
-흡수된 이전 노트: `02_app_framework/dependency-injection/patterns/dependency-injection-dsl-dynamic-feature/02-dsl-domain-specific-language/02-dsl-domain-specific-language-04-swift와의-비교.md`
-
-정본 노트: [Compile-time and runtime DI](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/compile-time-and-runtime-di-fail-at-different-points.md)

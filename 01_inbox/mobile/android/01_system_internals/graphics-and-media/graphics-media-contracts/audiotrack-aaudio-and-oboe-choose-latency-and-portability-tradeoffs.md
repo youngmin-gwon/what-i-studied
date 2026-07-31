@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# AudioTrack, AAudio, Oboe는 지연 시간과 이식성의 trade-off를 고른다
+
 AudioTrack은 앱이 PCM 데이터를 Android 오디오 출력 경로에 쓰는 Java/Kotlin API다. 일반 미디어 재생, 효과음, 커스텀 PCM 출력에서 사용할 수 있지만, `getMinBufferSize()`가 전체 지연 시간이나 최적 버퍼를 보장하지는 않는다.
 
 AAudio는 API 26에서 도입된 NDK 오디오 API로, 낮은 지연이 중요한 native audio 앱을 위한 stream 기반 API다. 성능 모드와 sharing mode를 요청할 수 있지만 실제 경로는 기기, route, sample rate, mixer, exclusive mode 허용 여부가 결정한다.

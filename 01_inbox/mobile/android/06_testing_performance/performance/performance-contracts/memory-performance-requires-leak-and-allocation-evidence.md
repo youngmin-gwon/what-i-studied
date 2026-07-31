@@ -1,3 +1,8 @@
+---
+title: "Android 메모리는 사용량보다 회수되지 않는 객체를 본다"
+tags: ["android", "android/testing-performance"]
+---
+
 # Android 메모리는 사용량보다 회수되지 않는 객체를 본다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

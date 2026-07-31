@@ -1,3 +1,8 @@
+---
+title: "Verified Boot는 기기 소프트웨어의 chain of trust를 만든다"
+tags: ["android", "android/security-privacy"]
+---
+
 # Verified Boot는 기기 소프트웨어의 chain of trust를 만든다
 
 Verified Boot는 bootloader, kernel, system partition 같은 기기 소프트웨어가 신뢰된 서명과 해시 체인을 따라 로드되었는지 확인한다. Android Verified Boot는 부팅 과정과 dm-verity 기반 검증으로 시스템 변조를 탐지한다.
@@ -7,3 +12,11 @@ Verified Boot는 bootloader, kernel, system partition 같은 기기 소프트웨
 Verified Boot가 앱의 authorization을 대신하지는 않는다. 기기가 green state에 가깝더라도 사용자의 서버 권한, 세션, 거래 위험은 별도로 검증해야 한다.
 
 공식 문서: [Verified Boot](https://source.android.com/docs/security/features/verifiedboot)
+
+## 판단 기준
+
+Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity와 mandatory policy가 어떻게 강제되는지 판단하는 기준으로 읽는다.
+
+## 경계
+
+client-side check를 authorization으로 오해하지 않고 server verification, boot trust, sandbox boundary를 분리한다.

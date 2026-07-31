@@ -1,3 +1,8 @@
+---
+title: "내부 앱 공유는 릴리스 트랙이 아니라 빠른 아티팩트 공유다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # 내부 앱 공유는 릴리스 트랙이 아니라 빠른 아티팩트 공유다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

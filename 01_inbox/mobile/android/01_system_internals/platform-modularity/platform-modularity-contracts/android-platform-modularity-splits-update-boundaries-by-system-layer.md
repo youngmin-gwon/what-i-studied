@@ -1,3 +1,8 @@
+---
+title: "Android 플랫폼 모듈화는 system, vendor, kernel 업데이트 경계를 층위별로 나눈다"
+tags: ["android", "android/system-internals"]
+---
+
 # Android 플랫폼 모듈화는 system, vendor, kernel 업데이트 경계를 층위별로 나눈다
 
 Android 플랫폼 모듈화는 하나의 기능이 아니라 fragmentation을 줄이기 위한 여러 update boundary의 조합이다. Mainline은 일부 system component를 독립 module로 만들고, APEX는 lower-level module을 boot-aware package로 담으며, SDK Extensions는 일부 API availability를 platform release 밖에서 표현한다.

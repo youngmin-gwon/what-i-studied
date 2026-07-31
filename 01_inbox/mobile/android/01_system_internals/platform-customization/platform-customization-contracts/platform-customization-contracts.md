@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# Platform customization contracts
+
 Android platform customization은 앱 설정 문제가 아니라 AOSP source, product configuration, partition ownership, vendor boundary, signing, compatibility test가 맞물리는 플랫폼 통합 문제다.
 
 ## 정본 노트

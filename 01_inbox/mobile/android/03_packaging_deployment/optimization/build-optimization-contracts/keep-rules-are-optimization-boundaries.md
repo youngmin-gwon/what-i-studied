@@ -1,3 +1,8 @@
+---
+title: "R8 keep 규칙은 최적화 경계다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # R8 keep 규칙은 최적화 경계다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

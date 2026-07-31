@@ -1,3 +1,8 @@
+---
+title: "앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # 앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

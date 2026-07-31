@@ -1,3 +1,8 @@
+---
+title: "Android 시작 성능은 TTID와 TTFD로 나눈다"
+tags: ["android", "android/testing-performance"]
+---
+
 # Android 시작 성능은 TTID와 TTFD로 나눈다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

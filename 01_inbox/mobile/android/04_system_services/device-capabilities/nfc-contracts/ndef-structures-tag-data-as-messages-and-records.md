@@ -1,3 +1,8 @@
+---
+title: "NDEF는 태그 데이터를 메시지와 레코드로 구조화한다"
+tags: ["android", "android/system-services"]
+---
+
 # NDEF는 태그 데이터를 메시지와 레코드로 구조화한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

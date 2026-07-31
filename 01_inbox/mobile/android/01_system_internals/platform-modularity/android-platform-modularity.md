@@ -1,3 +1,8 @@
+---
+title: "Android Platform Modularity"
+tags: ["android", "android/system-internals"]
+---
+
 # Android Platform Modularity
 
 Android platform modularity는 앱 구조가 아니라 OS update, compatibility, fragmentation 경계를 설명하는 system internals 주제다.

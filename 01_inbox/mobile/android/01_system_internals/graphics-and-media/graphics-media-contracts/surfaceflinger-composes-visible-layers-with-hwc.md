@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# SurfaceFlinger는 보이는 레이어를 HWC와 함께 합성한다
+
 SurfaceFlinger는 현재 보이는 Surface 레이어들을 받아 최종 display frame으로 합성하는 시스템 서비스다. 앱의 윈도우, 시스템 UI, 동영상 Surface, wallpaper 같은 레이어는 z-order, visible region, transform, alpha 같은 상태를 가진다.
 
 SurfaceFlinger는 모든 합성을 직접 GPU로만 처리하지 않는다. Hardware Composer(HWC)와 협력해 어떤 레이어는 display hardware overlay로 넘기고, 어떤 레이어는 GPU client composition으로 합친다.

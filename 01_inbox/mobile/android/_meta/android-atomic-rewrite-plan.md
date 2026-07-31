@@ -442,3 +442,19 @@ Canonical note 후보:
 - 추가 정리: Kernel/HAL 활성 문서의 redirect 경유 링크 3개를 보안과 IPC 정본 링크로 직접 보정하고, stem 기반 링크 라벨 17개를 제목 기반 라벨로 바꿨다.
 - 검증: Kernel/HAL 활성 H1 누락 0개, 14줄 이하 얇은 정본 0개, redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
+### Phase 36 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: Android glossary 품질 보강, 용어 노트 frontmatter/H1 정규화, redirect 경유 링크 보정
+- 정본 지도: [Android Glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
+- 원칙: Glossary는 정본을 대체하지 않고 용어별 진입점 역할만 한다. 각 용어 노트는 짧은 정의, 혼동 방지, 정본 링크로 제한해 중복 설명을 만들지 않는다.
+- 추가 정리: Glossary 활성 문서 32개에 frontmatter를 추가하고, Binder/AppOps/SELinux/UID/Verified Boot 등 redirect로 향하던 링크를 실제 정본 노트로 직접 보정했다.
+- 검증: Glossary 활성 frontmatter 누락 0개, 14줄 이하 얇은 정본 0개, redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+
+### Phase 37 권장 종료 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: 남은 활성 Android 문서 품질 종료, 전체 redirect 링크 재배선, 이전 문서 redirect stub 삭제
+- 원칙: 활성 문서는 frontmatter와 H1을 갖추고, 14줄 이하의 얇은 정본에는 폴더별 판단 기준과 경계를 추가한다. 이전 문서 역할만 남은 redirect stub은 정본 링크로 inbound link를 돌린 뒤 제거한다.
+- 적용: 활성 문서/메타 문서 293개를 보정했고, redirect stub 1191개와 빈 legacy directory 141개를 제거했다.
+- 검증 기준: Android 전체 markdown link, wikilink, file URI, repo docs link, duplicate stem/body, 120줄 초과 비허브 문서, legacy redirect syntax를 최종 검증한다.

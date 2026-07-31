@@ -1,3 +1,8 @@
+---
+title: "데스크톱 윈도잉에서는 앱 창이 자유롭게 변한다"
+tags: ["android", "android/platforms"]
+---
+
 # 데스크톱 윈도잉에서는 앱 창이 자유롭게 변한다
 
 상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)

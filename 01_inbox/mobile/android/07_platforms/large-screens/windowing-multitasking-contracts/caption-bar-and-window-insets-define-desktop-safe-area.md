@@ -1,3 +1,8 @@
+---
+title: "Caption bar와 window inset은 데스크톱 UI의 안전 영역이다"
+tags: ["android", "android/platforms"]
+---
+
 # Caption bar와 window inset은 데스크톱 UI의 안전 영역이다
 
 상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)

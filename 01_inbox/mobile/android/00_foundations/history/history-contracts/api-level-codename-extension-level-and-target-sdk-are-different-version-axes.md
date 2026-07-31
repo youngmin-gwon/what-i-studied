@@ -1,3 +1,8 @@
+---
+title: "API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다"
+tags: ["android", "android/foundations"]
+---
+
 # API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다
 
 Android version을 말할 때 API level, dessert codename, SDK Extension level, targetSdkVersion을 섞으면 판단이 흐려진다. API level은 platform SDK surface의 큰 번호이고, codename은 release 식별자이며, extension level은 module update를 통해 제공되는 일부 API availability를 표현한다.

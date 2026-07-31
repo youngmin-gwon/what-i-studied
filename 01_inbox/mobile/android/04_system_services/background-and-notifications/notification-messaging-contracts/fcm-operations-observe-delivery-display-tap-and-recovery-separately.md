@@ -1,3 +1,8 @@
+---
+title: "FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다"
+tags: ["android", "android/system-services"]
+---
+
 # FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

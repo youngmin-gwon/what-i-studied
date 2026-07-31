@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# Camera HAL은 capture request를 result와 output buffer로 변환한다
+
 Android 카메라 파이프라인은 앱의 capture request를 카메라 subsystem이 처리하고, 결과 metadata와 하나 이상의 output buffer를 돌려주는 구조로 이해할 수 있다. 앱은 보통 CameraX나 Camera2를 통해 이 계약에 접근한다.
 
 Camera HAL은 camera framework와 vendor camera driver/hardware 사이의 경계다. 센서, ISP, 3A, 후처리, stream configuration 같은 세부 동작은 기기 구현에 크게 의존한다.

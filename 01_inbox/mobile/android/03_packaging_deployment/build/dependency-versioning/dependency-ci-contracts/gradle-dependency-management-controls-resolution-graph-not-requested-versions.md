@@ -1,3 +1,8 @@
+---
+title: "Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# Binder는 객체 참조를 커널이 중재하는 capability IPC다
+
 상위 문서: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 
 Binder의 핵심은 byte stream이 아니라 remote object reference다. client는 handle을 통해 service의 method를 호출하고, kernel Binder driver는 process 간 buffer 전달, object reference, death notification, caller identity를 중재한다.

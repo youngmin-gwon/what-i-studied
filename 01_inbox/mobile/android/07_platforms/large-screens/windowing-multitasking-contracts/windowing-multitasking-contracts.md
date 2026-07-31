@@ -1,3 +1,8 @@
+---
+title: "데스크톱 윈도잉과 멀티태스킹 계약"
+tags: ["android", "android/platforms"]
+---
+
 # 데스크톱 윈도잉과 멀티태스킹 계약
 
 데스크톱 윈도잉은 Android 앱을 큰 화면에 띄우는 옵션이 아니라, 앱이 resizable window, precise pointer, keyboard, 여러 작업 인스턴스를 견디는지 묻는 실행 환경이다.

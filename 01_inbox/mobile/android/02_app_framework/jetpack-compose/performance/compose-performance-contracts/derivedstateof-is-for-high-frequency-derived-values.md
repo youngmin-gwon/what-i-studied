@@ -1,3 +1,8 @@
+---
+title: "derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다"
+tags: ["android", "android/app-framework"]
+---
+
 # derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

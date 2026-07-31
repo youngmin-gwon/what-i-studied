@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# Canvas, Skia, Compose는 합성기가 아니라 그리기 명령의 생산자다
+
 Canvas와 Skia는 앱이 한 레이어의 내용을 그리는 쪽에 가깝다. Custom View의 `onDraw(canvas)`나 Compose의 drawing 단계는 현재 윈도우나 레이어가 제출할 그래픽 내용을 만든다.
 
 이 단계는 최종 화면 전체를 합성하는 단계와 다르다. 상태바, 내비게이션 바, 앱 윈도우, 동영상 Surface 같은 여러 레이어를 어떤 순서와 방식으로 합칠지는 SurfaceFlinger와 HWC 쪽의 책임이다.

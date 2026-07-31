@@ -1,3 +1,8 @@
+---
+title: "의존성 변경 체크리스트는 그래프, ABI, 테스트, 배포 위험을 함께 본다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # 의존성 변경 체크리스트는 그래프, ABI, 테스트, 배포 위험을 함께 본다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

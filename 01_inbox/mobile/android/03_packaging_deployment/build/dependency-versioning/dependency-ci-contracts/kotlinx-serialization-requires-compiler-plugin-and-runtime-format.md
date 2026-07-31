@@ -1,3 +1,8 @@
+---
+title: "kotlinx serialization은 컴파일러 플러그인과 런타임 포맷을 함께 요구한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # kotlinx serialization은 컴파일러 플러그인과 런타임 포맷을 함께 요구한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

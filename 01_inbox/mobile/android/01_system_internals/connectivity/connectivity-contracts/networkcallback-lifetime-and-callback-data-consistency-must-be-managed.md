@@ -1,3 +1,8 @@
+---
+title: "NetworkCallback은 등록 수명과 콜백 데이터의 일관성을 함께 관리해야 한다"
+tags: ["android", "android/system-internals"]
+---
+
 # NetworkCallback은 등록 수명과 콜백 데이터의 일관성을 함께 관리해야 한다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

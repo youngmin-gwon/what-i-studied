@@ -1,3 +1,8 @@
+---
+title: "Always-on과 lockdown VPN은 연결 실패를 보안 정책으로 바꾼다"
+tags: ["android", "android/system-internals"]
+---
+
 # Always-on과 lockdown VPN은 연결 실패를 보안 정책으로 바꾼다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)
@@ -14,6 +19,6 @@ Always-on VPN은 부팅 후 VPN service를 계속 유지하려는 시스템 정�
 ## 관련 문서
 
 - [VpnService는 앱이 만든 TUN interface를 시스템 라우팅에 등록한다](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/vpnservice-registers-app-tun-interface-with-system-routing.md)
-- [Android 보안 샌드박스](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
+- [Android 보안 샌드박스](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md)
 
 공식 문서: [VPN always-on](https://developer.android.com/develop/connectivity/vpn#always-on), [DevicePolicyManager.setAlwaysOnVpnPackage](https://developer.android.com/reference/android/app/admin/DevicePolicyManager#setAlwaysOnVpnPackage(android.content.ComponentName,%20java.lang.String,%20boolean))

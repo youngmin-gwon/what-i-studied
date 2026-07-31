@@ -1,3 +1,8 @@
+---
+title: "XR 앱은 공간 capability를 실행 중에 확인해야 한다"
+tags: ["android", "android/platforms"]
+---
+
 # XR 앱은 공간 capability를 실행 중에 확인해야 한다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)

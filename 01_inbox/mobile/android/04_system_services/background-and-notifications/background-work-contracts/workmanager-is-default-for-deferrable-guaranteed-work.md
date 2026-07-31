@@ -1,3 +1,8 @@
+---
+title: "WorkManager는 지연 가능한 보장 작업의 기본 선택이다"
+tags: ["android", "android/system-services"]
+---
+
 # WorkManager는 지연 가능한 보장 작업의 기본 선택이다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

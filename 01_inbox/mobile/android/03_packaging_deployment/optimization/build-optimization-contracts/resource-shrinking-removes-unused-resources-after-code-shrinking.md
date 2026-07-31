@@ -1,3 +1,8 @@
+---
+title: "리소스 수축은 코드 수축 후 미사용 리소스를 제거한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # 리소스 수축은 코드 수축 후 미사용 리소스를 제거한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

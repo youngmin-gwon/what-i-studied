@@ -1,3 +1,8 @@
+---
+title: "런타임 성능 계약"
+tags: ["android", "android/testing-performance"]
+---
+
 # 런타임 성능 계약
 
 이 지도는 Android 앱의 시작, 렌더링, 메모리, 응답성, 자원 사용 문제를 측정 가능한 질문으로 나눈다.

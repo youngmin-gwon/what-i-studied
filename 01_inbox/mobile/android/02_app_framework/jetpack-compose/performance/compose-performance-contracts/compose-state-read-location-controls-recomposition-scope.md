@@ -1,3 +1,8 @@
+---
+title: "Compose 상태 읽기 위치는 recomposition 범위를 결정한다"
+tags: ["android", "android/app-framework"]
+---
+
 # Compose 상태 읽기 위치는 recomposition 범위를 결정한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

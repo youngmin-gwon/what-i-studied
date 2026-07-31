@@ -1,3 +1,8 @@
+---
+title: "Android Dependency Injection Map"
+tags: ["android", "android/app-framework"]
+---
+
 # Android Dependency Injection Map
 
 Android DI 문서는 프레임워크별 사용법 목록이 아니라 객체 graph, binding, lifetime, framework boundary를 정리하는 지도다.

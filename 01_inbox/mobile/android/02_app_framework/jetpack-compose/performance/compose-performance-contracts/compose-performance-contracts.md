@@ -1,3 +1,8 @@
+---
+title: "Compose 성능 계약"
+tags: ["android", "android/app-framework"]
+---
+
 # Compose 성능 계약
 
 이 지도는 Compose 성능을 API 팁 목록이 아니라 recomposition, stability, composition work, layout/image 비용의 판단 단위로 나눈다.

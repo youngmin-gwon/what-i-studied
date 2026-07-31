@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다
+
 Jank는 사용자가 보는 프레임 흐름이 끊기는 현상이다. 원인은 UI thread의 긴 작업, layout/draw 비용, RenderThread 지연, GPU 작업, BufferQueue backpressure, SurfaceFlinger/HWC composition, thermal throttling처럼 여러 구간에 있을 수 있다.
 
 따라서 “jank = recomposition 문제”나 “jank = GPU 문제”로 바로 좁히면 위험하다. 먼저 Perfetto, Android Studio profiler, `dumpsys gfxinfo`로 어떤 frame이 deadline을 놓쳤는지 보고, 그 frame의 시간축에서 가장 긴 구간을 찾는다.

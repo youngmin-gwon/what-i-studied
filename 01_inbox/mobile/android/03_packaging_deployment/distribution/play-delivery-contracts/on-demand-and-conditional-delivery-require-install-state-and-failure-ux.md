@@ -1,3 +1,8 @@
+---
+title: "On-demand와 conditional delivery는 설치 상태와 실패 UX를 설계해야 한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # On-demand와 conditional delivery는 설치 상태와 실패 UX를 설계해야 한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

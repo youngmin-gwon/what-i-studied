@@ -1,3 +1,8 @@
+---
+title: "Android는 앱 SDK만이 아니라 계층형 모바일 플랫폼이다"
+tags: ["android", "android/foundations"]
+---
+
 # Android는 앱 SDK만이 아니라 계층형 모바일 플랫폼이다
 
 Android를 앱 API 목록으로만 보면 system behavior를 설명하기 어렵다. Android는 Linux kernel, native userspace, HAL, Android Runtime, framework services, app framework, distribution/security policy가 겹친 플랫폼이다.
@@ -6,6 +11,6 @@ Android를 앱 API 목록으로만 보면 system behavior를 설명하기 어렵
 
 입문 문서는 세부 구현을 다시 설명하지 않고 어느 정본으로 가야 하는지를 알려주는 map이어야 한다.
 
-관련 노트: [kernel/runtime](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel-runtime.md), [HAL/native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md), [app architecture](01_inbox/mobile/android/02_app_framework/architecture/android-app-architecture.md), [security/privacy](01_inbox/mobile/android/05_security_privacy/security-practices/android-security-practices.md).
+관련 노트: [kernel/runtime](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel-runtime.md), [HAL/native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md), [app architecture](01_inbox/mobile/android/02_app_framework/architecture/android-app-architecture.md), [security/privacy](01_inbox/mobile/android/05_security_privacy/security-practices/security-practice-contracts/android-security-practice-is-defense-in-depth-not-client-trust.md).
 
 공식 문서: [Android Developers](https://developer.android.com/), [Android Open Source Project](https://source.android.com/)

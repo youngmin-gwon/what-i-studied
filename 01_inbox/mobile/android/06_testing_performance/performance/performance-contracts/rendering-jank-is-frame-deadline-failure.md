@@ -1,3 +1,8 @@
+---
+title: "렌더링 성능은 프레임 지연의 원인을 분리한다"
+tags: ["android", "android/testing-performance"]
+---
+
 # 렌더링 성능은 프레임 지연의 원인을 분리한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

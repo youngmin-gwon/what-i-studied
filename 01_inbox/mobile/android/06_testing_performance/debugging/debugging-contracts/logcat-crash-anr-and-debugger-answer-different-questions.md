@@ -1,3 +1,8 @@
+---
+title: "Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다"
+tags: ["android", "android/testing-performance"]
+---
+
 # Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

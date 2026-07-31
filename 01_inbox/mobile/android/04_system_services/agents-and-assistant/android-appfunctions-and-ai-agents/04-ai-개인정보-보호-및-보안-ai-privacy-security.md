@@ -1,7 +1,0 @@
-# 이전 노트
-
-이 노트의 내용은 정본 노트로 흡수했다.
-
-흡수된 이전 노트: `01_inbox/mobile/android/04_system_services/agents-and-assistant/android-appfunctions-and-ai-agents/04-ai-개인정보-보호-및-보안-ai-privacy-security.md`
-
-정본 노트: [Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/assistant-and-agent-calls-do-not-replace-app-authorization.md)

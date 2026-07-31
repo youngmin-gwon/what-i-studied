@@ -1,3 +1,8 @@
+---
+title: "NFC와 비접촉 기능 계약"
+tags: ["android", "android/system-services"]
+---
+
 # NFC와 비접촉 기능 계약
 
 이 지도는 Android NFC를 태그 읽기/쓰기, NDEF, HCE/APDU, Observe Mode, 결제 엔지니어링으로 분리한다.

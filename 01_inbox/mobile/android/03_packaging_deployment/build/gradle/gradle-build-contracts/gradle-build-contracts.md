@@ -1,3 +1,8 @@
+---
+title: "Gradle 빌드 계약"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Gradle 빌드 계약
 
 이 지도는 Android Gradle Plugin의 프로젝트 구조, DSL, identifier, variant, source set, signing 설정을 빌드 의미 단위로 나눈다.

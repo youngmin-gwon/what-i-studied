@@ -1,3 +1,8 @@
+---
+title: "Validated와 captive portal은 인터넷 가능성의 관측 상태다"
+tags: ["android", "android/system-internals"]
+---
+
 # Validated와 captive portal은 인터넷 가능성의 관측 상태다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

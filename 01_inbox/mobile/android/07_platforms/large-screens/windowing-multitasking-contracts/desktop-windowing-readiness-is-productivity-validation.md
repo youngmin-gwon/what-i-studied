@@ -1,3 +1,8 @@
+---
+title: "데스크톱 윈도잉 준비도는 작은 화면 호환성이 아니라 생산성 검증이다"
+tags: ["android", "android/platforms"]
+---
+
 # 데스크톱 윈도잉 준비도는 작은 화면 호환성이 아니라 생산성 검증이다
 
 상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)

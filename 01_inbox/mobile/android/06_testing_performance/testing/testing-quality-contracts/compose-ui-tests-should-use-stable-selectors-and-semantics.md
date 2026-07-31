@@ -1,3 +1,8 @@
+---
+title: "Compose UI 테스트는 testTag와 semantics를 분리한다"
+tags: ["android", "android/testing-performance"]
+---
+
 # Compose UI 테스트는 testTag와 semantics를 분리한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

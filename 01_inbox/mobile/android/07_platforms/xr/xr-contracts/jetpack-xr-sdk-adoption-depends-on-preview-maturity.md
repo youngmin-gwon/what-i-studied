@@ -1,3 +1,8 @@
+---
+title: "Jetpack XR SDK는 preview 성숙도를 전제로 채택해야 한다"
+tags: ["android", "android/platforms"]
+---
+
 # Jetpack XR SDK는 preview 성숙도를 전제로 채택해야 한다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)

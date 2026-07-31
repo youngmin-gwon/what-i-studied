@@ -1,3 +1,8 @@
+---
+title: "Benchmark 결과는 물리 기기와 CI 조건을 통제해야 한다"
+tags: ["android", "android/testing-performance"]
+---
+
 # Benchmark 결과는 물리 기기와 CI 조건을 통제해야 한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

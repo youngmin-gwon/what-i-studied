@@ -1,3 +1,8 @@
+---
+title: "Android 패키징과 배포 지도"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Android 패키징과 배포 지도
 
 이 지도는 Android 앱을 빌드 산출물로 만들고, 서명하고, Play를 통해 배포하고, 의존성·CI 변경을 운영하는 흐름을 네 축으로 나눈다.

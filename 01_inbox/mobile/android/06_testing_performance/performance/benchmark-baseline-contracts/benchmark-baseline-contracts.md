@@ -1,3 +1,8 @@
+---
+title: "Benchmark와 Baseline Profile 계약"
+tags: ["android", "android/testing-performance"]
+---
+
 # Benchmark와 Baseline Profile 계약
 
 이 지도는 Macrobenchmark와 Baseline Profile을 실제 사용자 여정, 컴파일 조건, 검증 조건으로 분리한다.

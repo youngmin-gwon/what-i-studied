@@ -1,3 +1,8 @@
+---
+title: "Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다"
+tags: ["android", "android/testing-performance"]
+---
+
 # Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

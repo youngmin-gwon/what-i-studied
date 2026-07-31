@@ -1,3 +1,8 @@
+---
+title: "Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다"
+tags: ["android", "android/system-services"]
+---
+
 # Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

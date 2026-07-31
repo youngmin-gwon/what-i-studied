@@ -1,3 +1,8 @@
+---
+title: "Android Release History"
+tags: ["android", "android/foundations"]
+---
+
 # Android Release History
 
 Android version history는 platform contract 변화와 현재 API/version 축을 이해하기 위한 timeline map이다.

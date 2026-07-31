@@ -1,3 +1,8 @@
+---
+title: "SDK Extension API 사용은 compileSdkExtension과 runtime check가 모두 필요하다"
+tags: ["android", "android/system-internals"]
+---
+
 # SDK Extension API 사용은 compileSdkExtension과 runtime check가 모두 필요하다
 
 SDK Extension API를 쓰려면 compile 시점과 runtime 시점을 분리해야 한다. compile 시점에는 필요한 API를 포함하는 SDK platform과 `compileSdkExtension`을 지정해야 하고, runtime에는 대상 device의 extension version이 충분한지 확인해야 한다.

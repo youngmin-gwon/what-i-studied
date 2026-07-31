@@ -1,3 +1,8 @@
+---
+title: "Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다"
+tags: ["android", "android/system-services"]
+---
+
 # Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

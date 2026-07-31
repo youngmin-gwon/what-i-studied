@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# RRO는 target APK를 다시 빌드하지 않고 resource를 바꾼다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 Runtime Resource Overlay(RRO)는 target package의 code를 수정하지 않고 resource 값을 바꾸는 customization 경계다. OEM theme, device-specific default value, form factor별 resource 차이를 platform image나 product image에서 제어할 때 사용된다.

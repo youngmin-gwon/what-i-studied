@@ -1,3 +1,8 @@
+---
+title: "Play Delivery 계약"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Play Delivery 계약
 
 이 지도는 AAB 위에서 동작하는 Play Feature Delivery, Play Asset Delivery, Instant 종료 이후 대안을 전달 방식별로 나눈다.

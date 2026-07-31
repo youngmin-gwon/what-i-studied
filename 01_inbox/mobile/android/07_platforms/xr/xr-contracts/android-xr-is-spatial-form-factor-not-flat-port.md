@@ -1,3 +1,8 @@
+---
+title: "Android XR은 평면 앱 포트가 아니라 공간 폼 팩터다"
+tags: ["android", "android/platforms"]
+---
+
 # Android XR은 평면 앱 포트가 아니라 공간 폼 팩터다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)

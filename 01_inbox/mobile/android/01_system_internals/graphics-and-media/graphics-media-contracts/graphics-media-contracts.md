@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# Graphics and media contracts
+
 이 묶음은 Android graphics/media를 API 사용법이 아니라 실행 계약으로 정리한다. 핵심 질문은 “누가 버퍼를 생산하고, 누가 소비하며, 어느 thread/service/HAL 경계에서 deadline을 놓치는가”다.
 
 ## 그래픽 파이프라인

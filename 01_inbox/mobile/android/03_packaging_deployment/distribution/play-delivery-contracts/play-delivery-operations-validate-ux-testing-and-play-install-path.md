@@ -1,3 +1,8 @@
+---
+title: "Play Delivery 운영은 UX, 테스트, Play 설치 경로를 함께 검증한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Play Delivery 운영은 UX, 테스트, Play 설치 경로를 함께 검증한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

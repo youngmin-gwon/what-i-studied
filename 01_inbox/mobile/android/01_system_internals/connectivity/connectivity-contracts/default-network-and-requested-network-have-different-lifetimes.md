@@ -1,3 +1,8 @@
+---
+title: "기본 네트워크와 요청 네트워크는 서로 다른 수명 계약을 가진다"
+tags: ["android", "android/system-internals"]
+---
+
 # 기본 네트워크와 요청 네트워크는 서로 다른 수명 계약을 가진다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

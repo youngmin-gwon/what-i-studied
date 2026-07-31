@@ -1,3 +1,8 @@
+---
+title: "Macrobenchmark의 컴파일 모드는 테스트 계약의 일부다"
+tags: ["android", "android/testing-performance"]
+---
+
 # Macrobenchmark의 컴파일 모드는 테스트 계약의 일부다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

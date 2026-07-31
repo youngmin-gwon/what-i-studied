@@ -1,3 +1,8 @@
+---
+title: "캐시와 재생성 가능한 데이터의 수명"
+tags: ["android", "android/security-privacy"]
+---
+
 # 캐시와 재생성 가능한 데이터의 수명
 
 상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)

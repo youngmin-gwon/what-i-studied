@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# product, vendor, odm, system_ext는 customization ownership을 나눈다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 Android의 customization은 한 디렉터리에 덧붙이는 작업이 아니라 partition별 ownership을 나누는 작업이다. `system`은 공통 framework와 platform code를 담고, `vendor`는 SoC/vendor implementation을, `odm`은 device maker variation을, `product`와 `system_ext`는 제품별 앱, 설정, framework extension을 담는다.

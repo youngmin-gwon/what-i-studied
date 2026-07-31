@@ -1,3 +1,8 @@
+---
+title: "Android 플랫폼 보안 경계 계약"
+tags: ["android", "android/security-privacy"]
+---
+
 # Android 플랫폼 보안 경계 계약
 
 Android 플랫폼 보안은 앱 UID sandbox, Binder IPC 경계, SELinux mandatory access control, Verified Boot chain of trust가 서로 다른 지점을 보호하는 계층형 모델이다.

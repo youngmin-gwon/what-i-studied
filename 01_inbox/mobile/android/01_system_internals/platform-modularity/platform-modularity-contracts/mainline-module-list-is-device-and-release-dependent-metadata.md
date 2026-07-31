@@ -1,3 +1,8 @@
+---
+title: "Mainline module 목록은 release와 device에 따라 달라지는 metadata다"
+tags: ["android", "android/system-internals"]
+---
+
 # Mainline module 목록은 release와 device에 따라 달라지는 metadata다
 
 Mainline module 목록은 고정된 암기표가 아니다. Android release가 올라가며 module이 추가되고, module package format도 APK 또는 APEX로 다를 수 있으며, device와 build flavor에 따라 Google package name과 AOSP package name이 다를 수 있다.

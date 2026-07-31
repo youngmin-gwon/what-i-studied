@@ -1,3 +1,8 @@
+---
+title: "키보드, 포인터, 스타일러스는 큰 화면의 기본 입력이다"
+tags: ["android", "android/platforms"]
+---
+
 # 키보드, 포인터, 스타일러스는 큰 화면의 기본 입력이다
 
 상위 문서: [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

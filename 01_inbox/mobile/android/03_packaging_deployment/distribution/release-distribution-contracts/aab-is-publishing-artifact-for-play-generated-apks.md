@@ -6,6 +6,8 @@ date modified: 2026-07-31 17:57:55 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
+# aab-is-publishing-artifact-for-play-generated-apks
+
 ## AAB 는 Play 가 기기별 APK 를 생성하는 게시 아티팩트다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

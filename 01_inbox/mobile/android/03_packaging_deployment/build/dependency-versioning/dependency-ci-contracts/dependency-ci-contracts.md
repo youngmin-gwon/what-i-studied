@@ -1,3 +1,8 @@
+---
+title: "의존성, 버전, CI 계약"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # 의존성, 버전, CI 계약
 
 이 지도는 dependency resolution, version catalog, Compose BOM/compiler, KSP/kapt, serialization, CI 게이트를 변경 관리 단위로 나눈다.

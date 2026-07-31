@@ -1,3 +1,8 @@
+---
+title: "FCM high priority는 사용자 가시 알림에만 정당화된다"
+tags: ["android", "android/system-services"]
+---
+
 # FCM high priority는 사용자 가시 알림에만 정당화된다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

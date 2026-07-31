@@ -1,3 +1,8 @@
+---
+title: "AlarmManager는 시간 자체가 기능인 이벤트에 쓴다"
+tags: ["android", "android/system-services"]
+---
+
 # AlarmManager는 시간 자체가 기능인 이벤트에 쓴다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

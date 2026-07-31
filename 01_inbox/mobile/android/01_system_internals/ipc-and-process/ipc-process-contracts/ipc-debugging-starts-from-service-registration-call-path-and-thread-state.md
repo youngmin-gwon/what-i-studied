@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# IPC 디버깅은 service 등록, call path, thread state에서 시작한다
+
 상위 문서: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 
 IPC 문제는 “호출이 실패했다”만 보면 원인이 넓다. service가 등록됐는지, caller가 handle을 얻었는지, permission이 통과했는지, Binder thread가 막혔는지, callee process가 살아 있는지를 순서대로 좁혀야 한다.

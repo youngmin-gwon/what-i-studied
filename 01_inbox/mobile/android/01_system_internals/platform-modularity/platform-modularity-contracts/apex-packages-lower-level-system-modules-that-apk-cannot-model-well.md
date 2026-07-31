@@ -1,3 +1,8 @@
+---
+title: "APEX는 APK 모델로 다루기 어려운 lower-level system module을 담는다"
+tags: ["android", "android/system-internals"]
+---
+
 # APEX는 APK 모델로 다루기 어려운 lower-level system module을 담는다
 
 APEX(Android Pony EXpress)는 Android 10에서 도입된 package/container format이다. ART, native service, class library, HAL처럼 APK 설치 모델만으로는 boot timing과 system integration을 다루기 어려운 lower-level component를 업데이트하기 위해 만들어졌다.

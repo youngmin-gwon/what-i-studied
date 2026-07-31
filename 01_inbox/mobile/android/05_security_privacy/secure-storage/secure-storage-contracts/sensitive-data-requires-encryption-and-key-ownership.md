@@ -6,6 +6,8 @@ date modified: 2026-07-31 18:18:05 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
+# sensitive-data-requires-encryption-and-key-ownership
+
 ## Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다
 
 상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)

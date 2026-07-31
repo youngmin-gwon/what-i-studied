@@ -1,3 +1,8 @@
+---
+title: "XR 입력은 gaze, hand, controller, keyboard를 함께 설계한다"
+tags: ["android", "android/platforms"]
+---
+
 # XR 입력은 gaze, hand, controller, keyboard를 함께 설계한다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)

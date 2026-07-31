@@ -1,3 +1,8 @@
+---
+title: "테스트 품질 계약"
+tags: ["android", "android/testing-performance"]
+---
+
 # 테스트 품질 계약
 
 이 지도는 테스트를 종류가 아니라 피드백 비용, 실패 신호, 회귀 방지 역할로 나눈다.

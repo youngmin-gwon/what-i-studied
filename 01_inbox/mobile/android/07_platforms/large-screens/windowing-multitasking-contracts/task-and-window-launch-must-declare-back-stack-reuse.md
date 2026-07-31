@@ -1,3 +1,8 @@
+---
+title: "Task와 새 창 실행은 back stack 재사용을 명시해야 한다"
+tags: ["android", "android/platforms"]
+---
+
 # Task와 새 창 실행은 back stack 재사용을 명시해야 한다
 
 상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)

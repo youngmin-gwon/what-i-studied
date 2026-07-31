@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# Platform compatibility test는 앱 기능이 아니라 device contract를 검증한다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 CTS, VTS, GTS 같은 platform compatibility test는 앱 기능의 QA라기보다 device가 Android compatibility contract를 지키는지 확인하는 release gate다. API behavior, permission, security, HAL/VINTF, media, graphics, networking, Google service integration 같은 범위를 나눠 검증한다.

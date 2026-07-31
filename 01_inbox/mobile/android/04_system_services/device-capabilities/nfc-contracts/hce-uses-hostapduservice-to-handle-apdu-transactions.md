@@ -1,3 +1,8 @@
+---
+title: "HCE는 HostApduService가 APDU 거래를 처리하는 모델이다"
+tags: ["android", "android/system-services"]
+---
+
 # HCE는 HostApduService가 APDU 거래를 처리하는 모델이다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

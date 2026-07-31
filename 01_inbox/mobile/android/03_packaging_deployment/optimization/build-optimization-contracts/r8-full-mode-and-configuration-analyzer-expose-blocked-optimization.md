@@ -1,3 +1,8 @@
+---
+title: "R8 Full Mode와 Configuration Analyzer는 막힌 최적화를 드러낸다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # R8 Full Mode와 Configuration Analyzer는 막힌 최적화를 드러낸다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

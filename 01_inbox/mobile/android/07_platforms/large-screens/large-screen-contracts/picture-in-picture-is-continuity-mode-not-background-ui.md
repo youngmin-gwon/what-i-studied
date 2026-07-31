@@ -1,3 +1,8 @@
+---
+title: "PiP는 백그라운드 UI가 아니라 연속 시청을 위한 멀티윈도우 모드다"
+tags: ["android", "android/platforms"]
+---
+
 # PiP는 백그라운드 UI가 아니라 연속 시청을 위한 멀티윈도우 모드다
 
 상위 문서: [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

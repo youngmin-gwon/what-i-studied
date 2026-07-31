@@ -1,3 +1,8 @@
+---
+title: "무결성과 attestation 계약"
+tags: ["android", "android/security-privacy"]
+---
+
 # 무결성과 attestation 계약
 
 무결성 검증은 앱, 기기, 계정, 요청의 위험 신호를 서버 판단에 제공하는 계층이다. 클라이언트가 받은 attestation token은 신뢰 결론이 아니라 서버 검증 입력으로 취급한다.

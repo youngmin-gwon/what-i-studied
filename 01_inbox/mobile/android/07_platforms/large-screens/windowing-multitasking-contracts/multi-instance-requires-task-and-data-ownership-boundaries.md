@@ -1,3 +1,8 @@
+---
+title: "데스크톱 멀티 인스턴스는 작업 단위와 데이터 소유권을 먼저 정해야 한다"
+tags: ["android", "android/platforms"]
+---
+
 # 데스크톱 멀티 인스턴스는 작업 단위와 데이터 소유권을 먼저 정해야 한다
 
 상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)

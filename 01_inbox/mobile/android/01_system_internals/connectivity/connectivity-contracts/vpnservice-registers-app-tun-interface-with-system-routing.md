@@ -1,3 +1,8 @@
+---
+title: "VpnService는 앱이 만든 TUN interface를 시스템 라우팅에 등록한다"
+tags: ["android", "android/system-internals"]
+---
+
 # VpnService는 앱이 만든 TUN interface를 시스템 라우팅에 등록한다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

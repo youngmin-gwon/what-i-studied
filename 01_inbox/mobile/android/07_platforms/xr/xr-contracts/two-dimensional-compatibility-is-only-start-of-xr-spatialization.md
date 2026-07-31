@@ -1,3 +1,8 @@
+---
+title: "2D 호환 실행은 XR 공간화의 시작점일 뿐이다"
+tags: ["android", "android/platforms"]
+---
+
 # 2D 호환 실행은 XR 공간화의 시작점일 뿐이다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)

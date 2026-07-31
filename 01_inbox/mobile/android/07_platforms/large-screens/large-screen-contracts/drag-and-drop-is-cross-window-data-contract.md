@@ -1,3 +1,8 @@
+---
+title: "드래그 앤 드롭은 창 사이 데이터 이동 계약이다"
+tags: ["android", "android/platforms"]
+---
+
 # 드래그 앤 드롭은 창 사이 데이터 이동 계약이다
 
 상위 문서: [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

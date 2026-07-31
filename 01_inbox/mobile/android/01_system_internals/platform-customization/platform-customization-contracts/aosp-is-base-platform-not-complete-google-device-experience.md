@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# AOSP는 완성된 Google 기기 경험이 아니라 기본 플랫폼이다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 AOSP는 Android framework, system apps, native services, build system, compatibility 기준을 제공하는 open source platform이다. 하지만 Play Store, Google Play services, Google apps, Pixel 전용 기능은 AOSP 자체에 포함된다고 가정하면 안 된다.

@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# IPC and process contracts
+
 이 묶음은 Android IPC와 process를 “컴포넌트끼리 호출한다”가 아니라 process boundary, kernel mediated capability, service registration, thread pool, memory reclaim policy의 계약으로 정리한다.
 
 ## Binder와 AIDL

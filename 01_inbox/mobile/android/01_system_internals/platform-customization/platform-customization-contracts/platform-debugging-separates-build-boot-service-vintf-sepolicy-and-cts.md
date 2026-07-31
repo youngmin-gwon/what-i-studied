@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# Platform debugging은 build, boot, service, VINTF, sepolicy, CTS를 분리한다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 Platform customization 문제는 앱 crash처럼 한 로그에서 끝나지 않는다. build graph, image contents, boot stage, init service state, Binder service registration, HAL/VINTF, sepolicy denial, compatibility test failure를 층별로 분리해야 한다.

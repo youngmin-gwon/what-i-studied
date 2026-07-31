@@ -1,3 +1,8 @@
+---
+title: "Scoped Storage와 암호화가 나누는 서로 다른 개인정보 경계"
+tags: ["android", "android/security-privacy"]
+---
+
 # Scoped Storage와 암호화가 나누는 서로 다른 개인정보 경계
 
 상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)

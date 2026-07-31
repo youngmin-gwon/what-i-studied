@@ -1,3 +1,8 @@
+---
+title: "Dependency Injection Contracts"
+tags: ["android", "android/app-framework"]
+---
+
 # Dependency Injection Contracts
 
 - [DI는 전역 객체 접근이 아니라 조립 경계다](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/dependency-injection-is-composition-boundary-not-global-object-access.md)

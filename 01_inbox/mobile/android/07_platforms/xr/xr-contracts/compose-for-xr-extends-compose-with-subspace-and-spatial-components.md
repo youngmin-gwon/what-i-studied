@@ -1,3 +1,8 @@
+---
+title: "Compose for XR은 기존 Compose를 subspace와 spatial component로 확장한다"
+tags: ["android", "android/platforms"]
+---
+
 # Compose for XR은 기존 Compose를 subspace와 spatial component로 확장한다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)

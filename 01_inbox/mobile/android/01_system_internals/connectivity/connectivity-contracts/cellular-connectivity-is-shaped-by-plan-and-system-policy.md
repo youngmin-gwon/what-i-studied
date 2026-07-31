@@ -1,3 +1,8 @@
+---
+title: "Cellular 연결은 사용자 요금제와 시스템 정책의 영향을 받는다"
+tags: ["android", "android/system-internals"]
+---
+
 # Cellular 연결은 사용자 요금제와 시스템 정책의 영향을 받는다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

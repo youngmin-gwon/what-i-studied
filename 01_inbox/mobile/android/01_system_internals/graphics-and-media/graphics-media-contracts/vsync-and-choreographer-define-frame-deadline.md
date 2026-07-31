@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# VSync와 Choreographer는 frame deadline을 정의한다
+
 VSync는 display refresh와 맞물린 타이밍 신호이고, Choreographer는 앱의 입력, 애니메이션, drawing 작업을 다음 display frame에 맞춰 스케줄링하는 Android framework API다.
 
 앱은 보통 Choreographer를 직접 다루지 않고 View, animation, Compose 같은 상위 API를 통해 간접적으로 사용한다. 직접 프레임 callback을 쓰는 경우는 custom rendering, game loop, GL/Vulkan 렌더링처럼 상위 UI toolkit을 우회하는 경우가 많다.

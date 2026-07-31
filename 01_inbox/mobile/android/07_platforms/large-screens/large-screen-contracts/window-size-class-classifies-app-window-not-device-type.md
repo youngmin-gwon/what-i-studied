@@ -1,3 +1,8 @@
+---
+title: "창 크기 클래스는 기기 종류가 아니라 앱 창을 분류한다"
+tags: ["android", "android/platforms"]
+---
+
 # 창 크기 클래스는 기기 종류가 아니라 앱 창을 분류한다
 
 상위 문서: [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

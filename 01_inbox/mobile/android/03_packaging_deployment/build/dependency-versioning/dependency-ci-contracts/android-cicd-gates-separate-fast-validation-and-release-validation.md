@@ -1,3 +1,8 @@
+---
+title: "Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

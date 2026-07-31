@@ -1,3 +1,8 @@
+---
+title: "Network Security Config는 앱의 trust, cleartext, pinning 정책을 선언한다"
+tags: ["android", "android/system-internals"]
+---
+
 # Network Security Config는 앱의 trust, cleartext, pinning 정책을 선언한다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)
@@ -14,7 +19,7 @@ Network Security Config는 앱의 도메인별 trust anchors, cleartext 허용, 
 
 ## 관련 문서
 
-- [Android 보안 샌드박스](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md)
+- [Android 보안 샌드박스](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md)
 - [Private DNS는 DNS 질의를 암호화하지만 앱 TLS 검증을 대체하지 않는다](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/private-dns-encrypts-dns-but-does-not-replace-app-tls-validation.md)
 
 공식 문서: [Network security configuration](https://developer.android.com/privacy-and-security/security-config)

@@ -1,3 +1,8 @@
+---
+title: "TrafficStats는 UID 단위 사용량 관찰이지 비용 정책 결정자가 아니다"
+tags: ["android", "android/system-internals"]
+---
+
 # TrafficStats는 UID 단위 사용량 관찰이지 비용 정책 결정자가 아니다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# Device bring-up은 board, kernel, HAL, VINTF, sepolicy 통합이다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 Device bring-up은 Android image가 특정 하드웨어에서 부팅하고 핵심 기능을 안정적으로 노출하도록 board config, bootloader, kernel, device tree, HAL, VINTF, init rc, sepolicy를 맞추는 과정이다.

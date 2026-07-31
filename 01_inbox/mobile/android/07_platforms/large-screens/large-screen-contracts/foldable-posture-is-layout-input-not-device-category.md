@@ -1,3 +1,8 @@
+---
+title: "폴더블 posture는 레이아웃 입력이지 별도 기기 분기가 아니다"
+tags: ["android", "android/platforms"]
+---
+
 # 폴더블 posture는 레이아웃 입력이지 별도 기기 분기가 아니다
 
 상위 문서: [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

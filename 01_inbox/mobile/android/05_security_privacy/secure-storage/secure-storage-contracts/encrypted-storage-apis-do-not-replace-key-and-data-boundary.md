@@ -6,6 +6,8 @@ date modified: 2026-07-31 18:18:45 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
+# encrypted-storage-apis-do-not-replace-key-and-data-boundary
+
 ## EncryptedSharedPreferences, DataStore, Room 의 보안 경계를 구분한다
 
 상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)

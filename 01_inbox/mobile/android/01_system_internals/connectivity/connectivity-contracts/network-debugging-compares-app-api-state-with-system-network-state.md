@@ -1,3 +1,8 @@
+---
+title: "네트워크 디버깅은 앱 API 상태와 system network state를 대조한다"
+tags: ["android", "android/system-internals"]
+---
+
 # 네트워크 디버깅은 앱 API 상태와 system network state를 대조한다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

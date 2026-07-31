@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# Android graphics/media runtime
+
 Android의 graphics/media runtime은 UI toolkit 사용법보다 버퍼와 시간축을 먼저 봐야 이해된다. 앱은 Surface에 프레임을 생산하고, BufferQueue는 producer/consumer를 분리하며, SurfaceFlinger와 HWC는 보이는 레이어를 display frame으로 합성한다.
 
 미디어도 같은 구조 위에 있다. 카메라 프레임, codec 입출력, video playback, DRM protected output은 모두 어떤 Surface와 buffer ownership을 쓰는지에 따라 성능과 제약이 달라진다.

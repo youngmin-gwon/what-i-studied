@@ -1,3 +1,8 @@
+---
+title: "Compose BOM은 Compose 라이브러리 버전 집합을 관리한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Compose BOM은 Compose 라이브러리 버전 집합을 관리한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

@@ -1,3 +1,8 @@
+---
+title: "Signing config는 로컬 서명과 Play 배포 정체성을 연결한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Signing config는 로컬 서명과 Play 배포 정체성을 연결한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

@@ -1,3 +1,8 @@
+---
+title: "Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

@@ -1,3 +1,8 @@
+---
+title: "Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다"
+tags: ["android", "android/app-framework"]
+---
+
 # Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

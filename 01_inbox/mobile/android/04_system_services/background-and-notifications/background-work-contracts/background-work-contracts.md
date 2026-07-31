@@ -1,3 +1,8 @@
+---
+title: "백그라운드 작업 계약"
+tags: ["android", "android/system-services"]
+---
+
 # 백그라운드 작업 계약
 
 이 지도는 Android 백그라운드 실행을 API 목록이 아니라 실행 보장, 지연 허용도, 사용자 가시성, 시간 정확성의 판단 단위로 나눈다.

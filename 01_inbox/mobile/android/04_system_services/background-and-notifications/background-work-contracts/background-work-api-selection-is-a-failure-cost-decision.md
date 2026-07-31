@@ -1,3 +1,8 @@
+---
+title: "백그라운드 실행 수단은 실패 비용으로 결정한다"
+tags: ["android", "android/system-services"]
+---
+
 # 백그라운드 실행 수단은 실패 비용으로 결정한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

@@ -1,3 +1,8 @@
+---
+title: "Private DNS는 DNS 질의를 암호화하지만 앱 TLS 검증을 대체하지 않는다"
+tags: ["android", "android/system-internals"]
+---
+
 # Private DNS는 DNS 질의를 암호화하지만 앱 TLS 검증을 대체하지 않는다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

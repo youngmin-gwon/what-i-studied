@@ -1,3 +1,8 @@
+---
+title: "Platform Modularity Contracts"
+tags: ["android", "android/system-internals"]
+---
+
 # Platform Modularity Contracts
 
 Android platform modularity를 update boundary별로 나눈 정본 모음이다.

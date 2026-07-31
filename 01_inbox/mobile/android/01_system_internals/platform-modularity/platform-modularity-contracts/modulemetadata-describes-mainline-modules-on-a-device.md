@@ -1,3 +1,8 @@
+---
+title: "ModuleMetadata는 기기에 있는 Mainline module 목록을 설명한다"
+tags: ["android", "android/system-internals"]
+---
+
 # ModuleMetadata는 기기에 있는 Mainline module 목록을 설명한다
 
 ModuleMetadata는 특정 device에 설치된 Mainline module 목록에 관한 metadata를 제공하는 module이다. system server 시작 시 metadata가 parsing/cache되고, PackageManager의 module info API가 이 정보를 사용할 수 있다.

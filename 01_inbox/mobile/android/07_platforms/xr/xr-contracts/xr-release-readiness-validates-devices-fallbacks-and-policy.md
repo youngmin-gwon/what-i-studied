@@ -1,3 +1,8 @@
+---
+title: "XR 출시 준비는 기능 시연이 아니라 기기, fallback, 정책 검증이다"
+tags: ["android", "android/platforms"]
+---
+
 # XR 출시 준비는 기능 시연이 아니라 기기, fallback, 정책 검증이다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)

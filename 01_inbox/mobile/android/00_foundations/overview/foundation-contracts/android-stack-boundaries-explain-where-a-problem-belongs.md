@@ -1,3 +1,8 @@
+---
+title: "Android stack boundary는 문제가 어느 층에 속하는지 판단하게 해 준다"
+tags: ["android", "android/foundations"]
+---
+
 # Android stack boundary는 문제가 어느 층에 속하는지 판단하게 해 준다
 
 Android 문제를 진단할 때 첫 질문은 "어떤 API를 썼나"가 아니라 "어느 boundary가 실패했나"다. UI frame deadline이면 rendering/runtime 문제이고, app launch면 Activity/system_server/zygote 문제이며, 외부 호출이면 Intent/Manifest/security boundary 문제다.
@@ -7,3 +12,11 @@ Kernel과 HAL은 device capability를 제공하고, native/service layer는 syst
 이 구분을 지키면 같은 내용을 overview, architecture, security, debugging 문서가 반복하지 않는다.
 
 관련 노트: [boot/runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-and-runtime.md), [graphics/media](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-media-runtime.md), [app components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [debugging](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md).
+
+## 판단 기준
+
+Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+
+## 경계
+
+학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary를 구분하는 방향으로 유지한다.

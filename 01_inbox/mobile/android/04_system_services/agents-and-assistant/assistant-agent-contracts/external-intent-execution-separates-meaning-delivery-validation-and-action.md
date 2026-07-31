@@ -1,3 +1,8 @@
+---
+title: "외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다"
+tags: ["android", "android/system-services"]
+---
+
 # 외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

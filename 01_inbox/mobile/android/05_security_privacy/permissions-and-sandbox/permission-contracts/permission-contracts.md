@@ -1,3 +1,8 @@
+---
+title: "Android 권한 계약"
+tags: ["android", "android/security-privacy"]
+---
+
 # Android 권한 계약
 
 Android 권한은 sandbox 밖의 데이터나 기능에 접근하기 위한 사용자·시스템 승인 계약이다. 권한 선언, 런타임 요청, 특수 접근, AppOps, UX 설명, 디버깅을 별도 책임으로 나눈다.

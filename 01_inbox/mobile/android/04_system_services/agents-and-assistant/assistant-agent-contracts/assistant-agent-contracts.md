@@ -1,3 +1,8 @@
+---
+title: "Assistant와 에이전트 통합 계약"
+tags: ["android", "android/system-services"]
+---
+
 # Assistant와 에이전트 통합 계약
 
 이 지도는 App Actions와 AppFunctions를 하나의 AI 연동으로 뭉치지 않고, 외부 실행 표면별 계약으로 나눈다.

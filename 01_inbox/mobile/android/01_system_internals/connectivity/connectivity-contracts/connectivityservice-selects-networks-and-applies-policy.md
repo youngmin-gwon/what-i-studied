@@ -1,3 +1,8 @@
+---
+title: "ConnectivityService는 네트워크 선택과 정책 적용의 system service다"
+tags: ["android", "android/system-internals"]
+---
+
 # ConnectivityService는 네트워크 선택과 정책 적용의 system service다
 
 상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)

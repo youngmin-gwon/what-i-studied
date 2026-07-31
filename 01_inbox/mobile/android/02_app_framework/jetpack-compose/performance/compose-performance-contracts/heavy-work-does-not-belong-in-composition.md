@@ -1,3 +1,8 @@
+---
+title: "무거운 작업은 composition 안에 두지 않는다"
+tags: ["android", "android/app-framework"]
+---
+
 # 무거운 작업은 composition 안에 두지 않는다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

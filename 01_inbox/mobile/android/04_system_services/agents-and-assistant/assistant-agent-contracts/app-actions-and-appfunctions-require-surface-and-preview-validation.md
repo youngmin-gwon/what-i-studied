@@ -1,3 +1,8 @@
+---
+title: "App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다"
+tags: ["android", "android/system-services"]
+---
+
 # App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)

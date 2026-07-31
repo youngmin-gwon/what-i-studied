@@ -1,3 +1,8 @@
+---
+title: "적응형 앱 준비도는 창, posture, 입력 테스트로 판단한다"
+tags: ["android", "android/platforms"]
+---
+
 # 적응형 앱 준비도는 창, posture, 입력 테스트로 판단한다
 
 상위 문서: [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

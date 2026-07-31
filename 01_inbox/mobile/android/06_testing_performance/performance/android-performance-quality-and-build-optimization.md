@@ -1,3 +1,8 @@
+---
+title: "Android 성능, 품질, 빌드 최적화 지도"
+tags: ["android", "android/testing-performance"]
+---
+
 # Android 성능, 품질, 빌드 최적화 지도
 
 이 지도는 Android 앱 품질을 한 덩어리로 보지 않고 사용자 성능, 반복 가능한 측정, 테스트 피드백, 진단 도구, 배포 산출물 최적화로 분리한다.

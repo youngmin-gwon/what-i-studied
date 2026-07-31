@@ -1,3 +1,8 @@
+---
+title: "SceneCore는 3D entity와 공간 환경을 다루는 계층이다"
+tags: ["android", "android/platforms"]
+---
+
 # SceneCore는 3D entity와 공간 환경을 다루는 계층이다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)

@@ -6,6 +6,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# Media3 ExoPlayer는 playback stack이지 저수준 codec API가 아니다
+
 Media3는 Android 미디어 앱을 위한 Jetpack 라이브러리 모음이고, ExoPlayer는 Media3의 기본 `Player` 구현이다. 앱은 `MediaItem`, player, session, UI, audio attributes, output surface 같은 상위 개념으로 재생을 구성한다.
 
 ExoPlayer는 데이터를 읽고, buffering하고, track을 선택하고, decoder와 renderer를 연결하는 playback stack이다. 반면 MediaCodec은 codec buffer와 Surface 입출력을 직접 다루는 저수준 API다.

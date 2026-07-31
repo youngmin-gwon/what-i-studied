@@ -1,3 +1,8 @@
+---
+title: "Android Gradle Plugin은 Android 빌드 규칙을 Gradle에 추가한다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # Android Gradle Plugin은 Android 빌드 규칙을 Gradle에 추가한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

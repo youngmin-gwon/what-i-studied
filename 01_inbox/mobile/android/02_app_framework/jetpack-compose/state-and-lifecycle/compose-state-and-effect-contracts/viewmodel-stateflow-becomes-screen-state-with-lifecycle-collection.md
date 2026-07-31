@@ -1,3 +1,8 @@
+---
+title: "ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다"
+tags: ["android", "android/app-framework"]
+---
+
 # ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

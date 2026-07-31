@@ -1,3 +1,8 @@
+---
+title: "Android 보안과 개인정보 지도"
+tags: ["android", "android/security-privacy"]
+---
+
 # Android 보안과 개인정보 지도
 
 Android 보안 문서는 권한, sandbox, platform hardening, app integrity, secure storage를 서로 다른 경계로 나눠 읽는다. 한 계층이 다른 계층을 대체하지 않으므로 사용자 승인, 프로세스 격리, 부팅 무결성, 서버 검증, 키 관리의 책임을 분리한다.

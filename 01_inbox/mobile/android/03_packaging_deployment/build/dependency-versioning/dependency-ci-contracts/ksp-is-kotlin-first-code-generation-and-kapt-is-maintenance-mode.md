@@ -1,3 +1,8 @@
+---
+title: "KSP는 Kotlin-first 코드 생성이고 kapt는 유지보수 모드다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # KSP는 Kotlin-first 코드 생성이고 kapt는 유지보수 모드다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

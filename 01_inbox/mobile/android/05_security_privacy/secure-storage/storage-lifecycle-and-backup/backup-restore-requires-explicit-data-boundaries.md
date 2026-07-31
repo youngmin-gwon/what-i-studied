@@ -1,3 +1,8 @@
+---
+title: "백업과 복원에서 데이터 경계를 설계하기"
+tags: ["android", "android/security-privacy"]
+---
+
 # 백업과 복원에서 데이터 경계를 설계하기
 
 상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)

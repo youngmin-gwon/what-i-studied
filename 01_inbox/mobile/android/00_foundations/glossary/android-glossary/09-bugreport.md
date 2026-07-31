@@ -1,5 +1,15 @@
+---
+title: "Bugreport"
+tags: ["android", "android/glossary"]
+aliases: ["Android bugreport"]
+---
+
 # Bugreport
 
-Bugreport는 device state, logs, dumpsys, traces를 묶어 문제를 재구성하기 위한 diagnostic artifact다.
+정의: Bugreport는 logcat, dumpsys, tombstone, traces, system properties 같은 device 상태 증거를 한 번에 수집하는 진단 bundle이다.
 
-상세 정본: [debugging-contracts](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)
+혼동 방지: Bugreport는 원인 분석의 출발점이지 benchmark 결과가 아니다. 시점, 재현 조건, device build, app version을 같이 고정해야 의미 있는 증거가 된다.
+
+정본 링크:
+- [Debugging contracts](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)
+- [Dumpsys inspection contract](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/dumpsys-is-system-service-state-inspection-interface.md)

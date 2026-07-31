@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# MediaCodec Surface 모드는 영상 producer와 consumer를 연결한다
+
 MediaCodec은 encoder input 또는 decoder output에 `Surface`를 사용할 수 있다. Encoder는 `createInputSurface()`로 입력 Surface를 만들 수 있고, decoder는 configure 단계에서 출력 Surface를 받아 decoded frame을 화면이나 다른 consumer로 보낼 수 있다.
 
 Surface 모드는 앱이 매 프레임을 ByteBuffer로 꺼내 복사하는 단계를 줄일 수 있다. 카메라에서 encoder로, decoder에서 display로 이어지는 video pipeline에서 특히 중요하다.

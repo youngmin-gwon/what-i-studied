@@ -6,6 +6,8 @@ date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
+# OEM API는 stable contract가 없으면 compatibility risk다
+
 상위 문서: [Platform customization contracts](01_inbox/mobile/android/01_system_internals/platform-customization/platform-customization-contracts/platform-customization-contracts.md)
 
 OEM-specific API는 특정 제조사나 기기군에서만 동작하는 private 또는 semi-public surface다. 안정적인 SDK, permission, feature declaration, fallback 계약이 없으면 앱은 OS update, device variant, region/carrier build에 취약해진다.

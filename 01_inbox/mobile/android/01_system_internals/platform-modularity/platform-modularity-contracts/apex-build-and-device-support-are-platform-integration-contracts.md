@@ -1,3 +1,8 @@
+---
+title: "APEX build와 device support는 앱 개발 API가 아니라 플랫폼 통합 계약이다"
+tags: ["android", "android/system-internals"]
+---
+
 # APEX build와 device support는 앱 개발 API가 아니라 플랫폼 통합 계약이다
 
 APEX를 만들고 업데이트 가능하게 하려면 Soong module definition, signing key, init service override, kernel support, device makefile, partition policy가 맞아야 한다. 이는 일반 앱 개발자가 Gradle dependency를 추가하는 문제와 다르다.

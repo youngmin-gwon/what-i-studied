@@ -1,3 +1,8 @@
+---
+title: "단계적 출시는 관측 가능한 릴리스 운영 절차다"
+tags: ["android", "android/packaging-deployment"]
+---
+
 # 단계적 출시는 관측 가능한 릴리스 운영 절차다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)

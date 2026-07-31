@@ -1,3 +1,8 @@
+---
+title: "Compose 상태 API는 필요한 수명에 맞춰 선택한다"
+tags: ["android", "android/app-framework"]
+---
+
 # Compose 상태 API는 필요한 수명에 맞춰 선택한다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

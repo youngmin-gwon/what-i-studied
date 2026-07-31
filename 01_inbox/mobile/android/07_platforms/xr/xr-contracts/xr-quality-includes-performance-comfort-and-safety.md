@@ -1,3 +1,8 @@
+---
+title: "XR 품질은 성능, 편안함, 안전을 기능 요구사항으로 포함한다"
+tags: ["android", "android/platforms"]
+---
+
 # XR 품질은 성능, 편안함, 안전을 기능 요구사항으로 포함한다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)

@@ -5,6 +5,8 @@ date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
+# RenderThread는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다
+
 RenderThread는 Android 하드웨어 가속 렌더링에서 UI 스레드와 분리되어 렌더링 작업 일부를 수행하는 스레드다. UI 스레드는 입력 처리, 애니메이션 상태 갱신, measure/layout, display list 기록 같은 작업을 계속 담당한다.
 
 RenderThread가 있다는 말은 “그리기는 모두 백그라운드에서 처리된다”는 뜻이 아니다. UI 스레드가 늦게 display list를 만들거나 레이아웃을 오래 잡으면 RenderThread가 충분히 빨라도 프레임 deadline을 놓친다.

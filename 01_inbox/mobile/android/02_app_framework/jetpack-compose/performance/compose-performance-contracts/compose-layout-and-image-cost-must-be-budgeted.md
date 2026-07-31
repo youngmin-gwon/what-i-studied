@@ -1,3 +1,8 @@
+---
+title: "Compose layout과 image 비용은 프레임 예산 안에서 관리한다"
+tags: ["android", "android/app-framework"]
+---
+
 # Compose layout과 image 비용은 프레임 예산 안에서 관리한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
