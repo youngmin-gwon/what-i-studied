@@ -1,15 +1,18 @@
 ---
-title: "Looper와 Handler"
+title: 15-looper-handler
 tags: ["android", "android/glossary"]
-aliases: ["Looper", "Handler", "MessageQueue"]
+aliases: ["Handler", "Looper", "MessageQueue"]
+date modified: 2026-08-01 01:07:25 +09:00
+date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# Looper와 Handler
+## Looper 와 Handler
 
-정의: Looper는 thread의 MessageQueue를 돌리고, Handler는 그 queue에 work를 post하거나 message를 dispatch하는 Android thread scheduling primitive다.
+정의: Looper 는 thread 의 MessageQueue 를 돌리고, Handler 는 그 queue 에 work 를 post 하거나 message 를 dispatch 하는 Android thread scheduling primitive 다.
 
-혼동 방지: Looper/Handler는 coroutine 자체가 아니다. UI thread responsiveness, delayed work, callback dispatch를 이해하는 하위 primitive이며, 긴 작업을 main thread에 남겨도 되는 허가가 아니다.
+혼동 방지: Looper/Handler 는 coroutine 자체가 아니다. UI thread responsiveness, delayed work, callback dispatch 를 이해하는 하위 primitive 이며, 긴 작업을 main thread 에 남겨도 되는 허가가 아니다.
 
 정본 링크:
+
 - [Main thread responsiveness](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/main-thread-work-controls-responsiveness.md)
 - [Coroutine is not thread](01_inbox/mobile/android/02_app_framework/data/async-flow/coroutines/coroutine-is-lightweight-cancellable-work-not-thread.md)

@@ -2,7 +2,7 @@
 title: android-atomic-rewrite-plan
 tags: []
 aliases: []
-date modified: 2026-07-31 18:17:45 +09:00
+date modified: 2026-08-01 01:06:54 +09:00
 date created: 2026-07-31 16:43:35 +09:00
 ---
 
@@ -363,7 +363,7 @@ Canonical note 후보:
 - 정본 지도: [Compose runtime and state model](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md)
 - 상태/Effect 정본 지도: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 - 성능 정본 지도: [Compose 성능 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)
-- 원칙: Runtime mental model은 새 정본으로 묶고, 이미 좋은 state/effect/performance 정본은 재사용하며, 예전 튜토리얼 조각은 redirect stub으로 축소한다.
+- 원칙: Runtime mental model 은 새 정본으로 묶고, 이미 좋은 state/effect/performance 정본은 재사용하며, 예전 튜토리얼 조각은 redirect stub 으로 축소한다.
 - 참고한 공식 문서: [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model), [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state), [State hoisting](https://developer.android.com/develop/ui/compose/state-hoisting), [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects), [Compose phases](https://developer.android.com/develop/ui/compose/phases), [Strong skipping mode](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping)
 
 ### Phase 13B 적용 기록
@@ -372,7 +372,7 @@ Canonical note 후보:
 - 범위: Compose layout constraints, modifier order, custom layout, intrinsic measurement, SubcomposeLayout, animation API/spec, accessibility semantics, Material 3 color roles, CompositionLocal/design-system provider, Glance app widget boundary
 - UI 정본 지도: [Compose layout, animation, accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md)
 - Design System 정본 지도: [Compose design system](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system.md)
-- 원칙: Layout/animation/accessibility는 UI surface 계약으로, CompositionLocal/Material color/design-system provider는 architecture/design-system 계약으로 분리한다. Glance는 일반 Compose UI가 아니라 RemoteViews widget surface로 분리한다.
+- 원칙: Layout/animation/accessibility 는 UI surface 계약으로, CompositionLocal/Material color/design-system provider 는 architecture/design-system 계약으로 분리한다. Glance 는 일반 Compose UI 가 아니라 RemoteViews widget surface 로 분리한다.
 - 참고한 공식 문서: [Compose layouts](https://developer.android.com/develop/ui/compose/layouts/basics), [Constraints and modifier order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers), [Custom layouts](https://developer.android.com/develop/ui/compose/layouts/custom), [Choose an animation API](https://developer.android.com/develop/ui/compose/animation/choose-api), [Semantics in Compose](https://developer.android.com/develop/ui/compose/accessibility/semantics), [CompositionLocal](https://developer.android.com/develop/ui/compose/compositionlocal), [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3), [Jetpack Glance](https://developer.android.com/develop/ui/compose/glance)
 
 ### Phase 28 적용 기록
@@ -381,7 +381,7 @@ Canonical note 후보:
 - 범위: Binder IPC, Binder transaction, AIDL, oneway call, Binder thread pool, IPC debugging, process/system service 경계 연결
 - 정본 지도: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 - 원칙: IPC 고유 계약은 Binder/AIDL/process boundary 로 새로 정리하고, Zygote, system_server, LMKD, sandbox, graphics/media, storage/security 같은 이미 정본이 있는 주제는 중복 작성하지 않고 해당 정본으로 연결한다.
-- 추가 정리: Android 전체 문서에서 `관련 정본:`을 `관련 노트:`로 통일하고, `- 정본:` 형식의 legacy redirect stub을 표준 redirect 문서로 변환했다.
+- 추가 정리: Android 전체 문서에서 `관련 정본:` 을 `관련 노트:` 로 통일하고, `- 정본:` 형식의 legacy redirect stub 을 표준 redirect 문서로 변환했다.
 
 ### Phase 29 적용 기록
 
@@ -395,66 +395,66 @@ Canonical note 후보:
 - 적용일: 2026-08-01
 - 범위: Jetpack Compose 정본 문서 품질 보강
 - 정본 지도: [Compose runtime and state model](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Compose layout, animation, accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md), [Compose design system](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system.md)
-- 원칙: 이미 정본화된 Compose 노트를 추가로 쪼개지 않고, 활성 정본에 H1을 보강해 단독 노트로 읽히게 만들고 stem 기반 링크 라벨을 제목 기반으로 정리한다.
-- 검증: Compose 활성 정본 중 H1 누락 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+- 원칙: 이미 정본화된 Compose 노트를 추가로 쪼개지 않고, 활성 정본에 H1 을 보강해 단독 노트로 읽히게 만들고 stem 기반 링크 라벨을 제목 기반으로 정리한다.
+- 검증: Compose 활성 정본 중 H1 누락 0 개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
 ### Phase 31 적용 기록
 
 - 적용일: 2026-08-01
 - 범위: Architecture 정본 문서 품질 보강
 - 정본 지도: [Android App Architecture](01_inbox/mobile/android/02_app_framework/architecture/android-app-architecture.md), [Android App Components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [Android Context Boundaries](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context-boundaries.md), [Jetpack Architecture Map](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture-map.md), [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
-- 원칙: 이미 의미 단위로 정본화된 Architecture 노트를 추가로 쪼개지 않고, 활성 정본 54개에 frontmatter를 추가해 Obsidian metadata를 통일했다.
-- 추가 정리: Architecture 활성 문서의 redirect 경유 링크 14개를 권한, IPC, DI 정본 링크로 직접 보정했다.
-- 검증: Architecture 활성 frontmatter 누락 0개, Architecture 활성 redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+- 원칙: 이미 의미 단위로 정본화된 Architecture 노트를 추가로 쪼개지 않고, 활성 정본 54 개에 frontmatter 를 추가해 Obsidian metadata 를 통일했다.
+- 추가 정리: Architecture 활성 문서의 redirect 경유 링크 14 개를 권한, IPC, DI 정본 링크로 직접 보정했다.
+- 검증: Architecture 활성 frontmatter 누락 0 개, Architecture 활성 redirect 경유 링크 0 개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
 ### Phase 32 적용 기록
 
 - 적용일: 2026-08-01
 - 범위: Data 정본 문서 품질 보강, Paging 정본 보강, Coroutine/Flow 지도 보강
 - 정본 지도: [Android Data Layer Map](01_inbox/mobile/android/02_app_framework/data/android-data-layer-map.md), [Android Paging Map](01_inbox/mobile/android/02_app_framework/data/paging/android-paging-map.md), [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md), [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md), [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
-- 원칙: 이미 정본화된 storage/Flow/Paging 묶음을 새로 쪼개지 않고, 활성 정본 45개에 frontmatter를 추가하고 너무 얇은 Paging 정본에 판단 기준과 layer boundary를 보강했다.
+- 원칙: 이미 정본화된 storage/Flow/Paging 묶음을 새로 쪼개지 않고, 활성 정본 45 개에 frontmatter 를 추가하고 너무 얇은 Paging 정본에 판단 기준과 layer boundary 를 보강했다.
 - 추가 정리: Coroutine/Flow 지도 노트에 중복 방지 규칙을 추가해 coroutine lifetime, stream model, UI state collection, persistence 책임을 분리했다.
-- 검증: Data 활성 frontmatter 누락 0개, Data 활성 13줄 이하 얇은 정본 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+- 검증: Data 활성 frontmatter 누락 0 개, Data 활성 13 줄 이하 얇은 정본 0 개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
 ### Phase 33 적용 기록
 
 - 적용일: 2026-08-01
 - 범위: Navigation 정본 문서 품질 보강, Adaptive Navigation 얇은 정본 보강, Navigation 3 얇은 정본 보강, Intent/Deep Link entrypoint 보강
 - 정본 지도: [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md), [Intent 와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md), [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md), [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md), [Adaptive Navigation 계약](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)
-- 원칙: 이미 정본화된 navigation 묶음을 새로 쪼개지 않고, 활성 정본 43개에 frontmatter/H1을 통일하고 13줄 이하 얇은 정본에 판단 기준과 책임 경계를 보강했다.
-- 검증: Navigation 활성 frontmatter 누락 0개, H1 누락 0개, 13줄 이하 얇은 정본 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+- 원칙: 이미 정본화된 navigation 묶음을 새로 쪼개지 않고, 활성 정본 43 개에 frontmatter/H1 을 통일하고 13 줄 이하 얇은 정본에 판단 기준과 책임 경계를 보강했다.
+- 검증: Navigation 활성 frontmatter 누락 0 개, H1 누락 0 개, 13 줄 이하 얇은 정본 0 개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
 ### Phase 34 적용 기록
 
 - 적용일: 2026-08-01
 - 범위: Boot/runtime 정본 문서 품질 보강, 부팅 흐름/system_server/Zygote 지도 보강, redirect 경유 링크 보정
 - 정본 지도: [Android 부팅과 런타임 지도](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-and-runtime.md), [부팅 흐름 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-flow-contracts.md), [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md), [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md), [Zygote와 ART 런타임 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-runtime-contracts.md)
-- 원칙: 이미 정본화된 boot/runtime 묶음을 새로 쪼개지 않고, 활성 정본 40개에 frontmatter를 추가하고 얇은 지도 노트 3개에 경계 규칙을 보강했다.
-- 추가 정리: Boot/runtime 활성 문서의 redirect 경유 링크 7개를 보안, IPC, process 정본 링크로 직접 보정했다.
-- 검증: Boot/runtime 활성 frontmatter 누락 0개, 14줄 이하 얇은 정본 0개, redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+- 원칙: 이미 정본화된 boot/runtime 묶음을 새로 쪼개지 않고, 활성 정본 40 개에 frontmatter 를 추가하고 얇은 지도 노트 3 개에 경계 규칙을 보강했다.
+- 추가 정리: Boot/runtime 활성 문서의 redirect 경유 링크 7 개를 보안, IPC, process 정본 링크로 직접 보정했다.
+- 검증: Boot/runtime 활성 frontmatter 누락 0 개, 14 줄 이하 얇은 정본 0 개, redirect 경유 링크 0 개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
 ### Phase 35 적용 기록
 
 - 적용일: 2026-08-01
 - 범위: Kernel/HAL 정본 문서 품질 보강, H1 보강, HAL native contracts 링크 라벨 보정, redirect 경유 링크 보정
 - 정본 지도: [Android kernel runtime](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel-runtime.md), [HAL and native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md), [Kernel contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kernel-contracts.md), [HAL native contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-native-contracts.md)
-- 원칙: 이미 정본화된 kernel/HAL 묶음을 새로 쪼개지 않고, 활성 정본 39개에 H1을 추가해 단독 노트로 읽히게 만들었다.
-- 추가 정리: Kernel/HAL 활성 문서의 redirect 경유 링크 3개를 보안과 IPC 정본 링크로 직접 보정하고, stem 기반 링크 라벨 17개를 제목 기반 라벨로 바꿨다.
-- 검증: Kernel/HAL 활성 H1 누락 0개, 14줄 이하 얇은 정본 0개, redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+- 원칙: 이미 정본화된 kernel/HAL 묶음을 새로 쪼개지 않고, 활성 정본 39 개에 H1 을 추가해 단독 노트로 읽히게 만들었다.
+- 추가 정리: Kernel/HAL 활성 문서의 redirect 경유 링크 3 개를 보안과 IPC 정본 링크로 직접 보정하고, stem 기반 링크 라벨 17 개를 제목 기반 라벨로 바꿨다.
+- 검증: Kernel/HAL 활성 H1 누락 0 개, 14 줄 이하 얇은 정본 0 개, redirect 경유 링크 0 개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
 ### Phase 36 적용 기록
 
 - 적용일: 2026-08-01
 - 범위: Android glossary 품질 보강, 용어 노트 frontmatter/H1 정규화, redirect 경유 링크 보정
 - 정본 지도: [Android Glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
-- 원칙: Glossary는 정본을 대체하지 않고 용어별 진입점 역할만 한다. 각 용어 노트는 짧은 정의, 혼동 방지, 정본 링크로 제한해 중복 설명을 만들지 않는다.
-- 추가 정리: Glossary 활성 문서 32개에 frontmatter를 추가하고, Binder/AppOps/SELinux/UID/Verified Boot 등 redirect로 향하던 링크를 실제 정본 노트로 직접 보정했다.
-- 검증: Glossary 활성 frontmatter 누락 0개, 14줄 이하 얇은 정본 0개, redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+- 원칙: Glossary 는 정본을 대체하지 않고 용어별 진입점 역할만 한다. 각 용어 노트는 짧은 정의, 혼동 방지, 정본 링크로 제한해 중복 설명을 만들지 않는다.
+- 추가 정리: Glossary 활성 문서 32 개에 frontmatter 를 추가하고, Binder/AppOps/SELinux/UID/Verified Boot 등 redirect 로 향하던 링크를 실제 정본 노트로 직접 보정했다.
+- 검증: Glossary 활성 frontmatter 누락 0 개, 14 줄 이하 얇은 정본 0 개, redirect 경유 링크 0 개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
 ### Phase 37 권장 종료 적용 기록
 
 - 적용일: 2026-08-01
 - 범위: 남은 활성 Android 문서 품질 종료, 전체 redirect 링크 재배선, 이전 문서 redirect stub 삭제
-- 원칙: 활성 문서는 frontmatter와 H1을 갖추고, 14줄 이하의 얇은 정본에는 폴더별 판단 기준과 경계를 추가한다. 이전 문서 역할만 남은 redirect stub은 정본 링크로 inbound link를 돌린 뒤 제거한다.
-- 적용: 활성 문서/메타 문서 293개를 보정했고, redirect stub 1191개와 빈 legacy directory 141개를 제거했다.
-- 검증 기준: Android 전체 markdown link, wikilink, file URI, repo docs link, duplicate stem/body, 120줄 초과 비허브 문서, legacy redirect syntax를 최종 검증한다.
+- 원칙: 활성 문서는 frontmatter 와 H1 을 갖추고, 14 줄 이하의 얇은 정본에는 폴더별 판단 기준과 경계를 추가한다. 이전 문서 역할만 남은 redirect stub 은 정본 링크로 inbound link 를 돌린 뒤 제거한다.
+- 적용: 활성 문서/메타 문서 293 개를 보정했고, redirect stub 1191 개와 빈 legacy directory 141 개를 제거했다.
+- 검증 기준: Android 전체 markdown link, wikilink, file URI, repo docs link, duplicate stem/body, 120 줄 초과 비허브 문서, legacy redirect syntax 를 최종 검증한다.
