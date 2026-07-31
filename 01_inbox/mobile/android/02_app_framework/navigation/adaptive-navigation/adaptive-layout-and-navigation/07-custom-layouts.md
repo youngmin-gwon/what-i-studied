@@ -1,18 +1,7 @@
-# Custom Layouts
+# 이전 노트
 
-상위 노트: [adaptive-layout-and-navigation](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-공식 문서의 custom layout 영역은 특정 component나 canonical layout으로 충분하지 않을 때 Compose로 직접 adaptive layout을 만드는 방법을 다룹니다.
+흡수된 이전 노트: `02_app_framework/navigation/adaptive-navigation/adaptive-layout-and-navigation/07-custom-layouts.md`
 
-주요 내용:
-
-- custom Compose layout 작성
-- window information을 state처럼 하위 composable로 전달
-- bubble support 같은 특수 UI 모드
-
-관련 문서:
-
-- [Support bubbles](https://developer.android.com/develop/adaptive-apps/guides/support-bubbles)
-- [Custom layouts - Use Compose](https://developer.android.com/develop/adaptive-apps/guides/custom)
-
----
+정본 노트: [Standard adaptive scaffolds](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/standard-adaptive-scaffolds-should-precede-custom-layouts.md)

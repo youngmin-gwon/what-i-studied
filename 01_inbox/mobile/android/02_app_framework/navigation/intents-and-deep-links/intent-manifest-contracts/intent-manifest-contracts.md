@@ -1,16 +1,8 @@
----
-title: intent-manifest-contracts
-tags: []
-aliases: []
-date modified: 2026-07-31 18:19:22 +09:00
-date created: 2026-07-31 17:13:53 +09:00
----
-
-## Intent 와 Manifest 계약
+# Intent 와 Manifest 계약
 
 Intent 와 Manifest 는 OS 가 앱 컴포넌트를 발견하고 실행하는 공개 계약이다. 앱 내부 화면 이동과 구분해서 읽어야 한다.
 
-### 정본 노트
+## 정본 노트
 
 - [Intent는 컴포넌트 실행을 설명하는 메시지다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-describes-component-action-request.md)
 - [명시적 Intent와 암시적 Intent는 공개 범위로 선택한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/explicit-intent-targets-known-component-implicit-intent-declares-capability.md)
@@ -20,5 +12,7 @@ Intent 와 Manifest 는 OS 가 앱 컴포넌트를 발견하고 실행하는 공
 - [exported 속성은 외부 컴포넌트 접근 경계를 정한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md)
 - [package visibility는 앱이 조회할 수 있는 외부 앱 범위를 제한한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/package-visibility-limits-which-apps-can-be-queried.md)
 - [PendingIntent는 미래 실행 권한을 위임하는 토큰이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md)
+- [Activity Result API는 lifecycle-aware 결과 반환 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/activity-result-api-defines-lifecycle-aware-result-contract.md)
+- [Intent extras와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-inputs-need-explicit-type-and-trust-boundaries.md)
 
 상위 지도: [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)

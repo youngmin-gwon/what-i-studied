@@ -1,18 +1,11 @@
----
-title: deep-link-contracts
-tags: []
-aliases: []
-date modified: 2026-07-31 18:21:35 +09:00
-date created: 2026-07-31 17:13:53 +09:00
----
+# Deep Link 계약
 
-## Deep Link 계약
+Deep Link 는 외부 URI 를 앱 내부 목적지로 연결하는 장기 계약이다. Manifest 선언, 도메인 검증, 입력 검증, 앱 내부 라우팅, 인증 후 back stack 복원을 분리해서 설계한다.
 
-Deep Link 는 외부 URI 를 앱 내부 목적지로 연결하는 장기 계약이다. Manifest 선언, 도메인 검증, 앱 내부 라우팅, 인증 후 back stack 복원을 분리해서 설계한다.
-
-### 정본 노트
+## 정본 노트
 
 - [Android 딥 링크는 외부 URI 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md)
+- [외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/external-uri-must-be-validated-before-navigation.md)
 - [Android App Link는 검증된 HTTPS 딥 링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md)
 - [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/manifest-and-assetlinks-have-distinct-roles.md)
 - [Dynamic App Links는 매니페스트 선언 범위를 확장하지 않는다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/dynamic-app-links-refine-but-do-not-expand-manifest-scope.md)

@@ -1,13 +1,10 @@
 # Android Deep Links
 
-이 문서는 기존 Deep Link 설명의 진입점이다. Deep Link와 App Link 본문은 정본 노트로 흡수했다.
+Deep Link 문서는 외부 URI 를 앱 내부 목적지로 안전하게 바꾸는 계약의 허브다. App Link 검증, Dynamic App Links, 인증 후 이동, notification 진입, 테스트를 분리해서 읽는다.
 
-## 정본
+## 정본 지도
 
 - [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
-- [Android 딥 링크는 외부 URI 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md)
-- [Android App Link는 검증된 HTTPS 딥 링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md)
-- [Dynamic App Links는 매니페스트 선언 범위를 확장하지 않는다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/dynamic-app-links-refine-but-do-not-expand-manifest-scope.md)
-- [인증이 필요한 Deep Link는 pending destination과 back stack을 설계해야 한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/authenticated-deep-links-require-pending-destination-and-back-stack.md)
-
-관련 지도: [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)
+- [외부 URI 검증](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/external-uri-must-be-validated-before-navigation.md)
+- [Navigation 3 URI to NavKey](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)
+- [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)
