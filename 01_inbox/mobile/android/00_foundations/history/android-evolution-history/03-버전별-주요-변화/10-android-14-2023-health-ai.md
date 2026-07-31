@@ -1,5 +1,7 @@
-# Android 14 (2023) - Health & AI
+# 이전 노트
 
-- ⚕️ Health Connect
-- 📐 예측적 뒤로가기
-- 🔒 Credential Manager
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `00_foundations/history/android-evolution-history/03-버전별-주요-변화/10-android-14-2023-health-ai.md`
+
+정본 노트: [Android history map](01_inbox/mobile/android/00_foundations/history/history-contracts/android-history-is-a-map-of-platform-contract-changes-not-a-feature-list.md)

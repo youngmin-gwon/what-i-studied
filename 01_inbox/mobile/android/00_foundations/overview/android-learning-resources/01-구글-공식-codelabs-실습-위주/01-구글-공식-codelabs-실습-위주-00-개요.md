@@ -1,4 +1,7 @@
-# 구글 공식 Codelabs (실습 위주) 개요
+# 이전 노트
 
->[!NOTE]
->구글 코드랩 시스템에서는 `AndroidManifest.xml` 만을 단독으로 가르치는 기초 코드랩은 제공하지 않습니다. 매니페스트는 앱의 구성 요소를 등록하는 '설정 장부'이기 때문입니다. 아래 코드랩들을 통해 매니페스트를 자연스럽게 마스터할 수 있습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `00_foundations/overview/android-learning-resources/01-구글-공식-codelabs-실습-위주/01-구글-공식-codelabs-실습-위주-00-개요.md`
+
+정본 노트: [Android Learning Path](01_inbox/mobile/android/00_foundations/learning/android-learning-path.md)

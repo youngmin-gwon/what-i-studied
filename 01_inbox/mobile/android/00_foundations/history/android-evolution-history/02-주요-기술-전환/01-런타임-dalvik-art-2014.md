@@ -1,43 +1,7 @@
----
-title: 01-런타임-dalvik-art-2014
-tags: []
-aliases: []
-date modified: 2026-07-31 15:40:25 +09:00
-date created: 2026-07-31 15:38:23 +09:00
----
+# 이전 노트
 
-## 런타임: Dalvik → ART (2014)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-상위 노트: [02-주요-기술-전환](01_inbox/mobile/android/00_foundations/history/android-evolution-history/02-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EC%88%A0-%EC%A0%84%ED%99%98.md)
+흡수된 이전 노트: `00_foundations/history/android-evolution-history/02-주요-기술-전환/01-런타임-dalvik-art-2014.md`
 
-**배경**:
-
-- Dalvik (2008-2013): JIT (Just-In-Time) 컴파일
-- 앱 시작 시마다 컴파일 → 느린 시작
-- 배터리 소모
-
-**ART (Android Runtime)**:
-
-- Android 4.4 (2013): 옵션으로 제공
-- Android 5.0 (2014): 기본값
-
-**장점**:
-
-```
-Dalvik (JIT):
-  앱 시작 → DEX 해석 → 느림
-  
-ART (AOT):
-  설치 시 → Native 코드 컴파일 → 빠른 시작
-  
-ART (현대, Profile-Guided):
-  설치 → 부분 컴파일
-  사용 → 프로파일 수집
-  유휴 시 → 최적화 컴파일
-```
-
-**성능 개선**:
-
-- 앱 시작: 2 배 빨라짐
-- 배터리: 15-20% 절약
-- GC 개선: Stop-the-World → Concurrent
+정본 노트: [ART runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/art-runs-dex-with-interpretation-jit-and-aot.md)

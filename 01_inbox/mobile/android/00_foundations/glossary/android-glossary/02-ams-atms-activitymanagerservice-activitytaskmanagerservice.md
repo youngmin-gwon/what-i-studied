@@ -1,23 +1,5 @@
-# AMS/ATMS (ActivityManagerService / ActivityTaskManagerService)
+# AMS/ATMS
 
-상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
+Activity와 process, task/back stack 전이를 조율하는 system_server의 핵심 framework service 축이다.
 
-**정의**: 앱 생명주기와 Activity 스택을 관리하는 시스템 서비스
-
-**상세**:
-
-Android 10 부터 분리되었다. AMS 는 프로세스/Service/Broadcast 를 관리하고, ATMS 는 Activity/Task/Window 를 담당한다. 앱 시작, 종료, 프로세스 우선순위 결정 등 핵심 역할을 한다.
-
-**예시**:
-
-```bash
-# Activity 스택 확인
-adb shell dumpsys activity activities
-
-# 프로세스 목록
-adb shell dumpsys activity processes
-```
-
-**관련**: [android-activity-manager-and-system-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-activity-manager-and-system-services.md)
-
----
+상세 정본: [ams-coordinates-app-process-and-component-lifecycle](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md)

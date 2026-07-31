@@ -1,6 +1,7 @@
-# 인텐트(Intent)와 시스템 컴포넌트 확장
+# 이전 노트
 
-| 코드랩 | 매니페스트 관점에서 배우는 내용 |
-|:---|:---|
-| **메시징 및 People API 활용** (Jetchat 샘플 앱) | 대화형 알림, 버블(Bubbles), 공유 인텐트(`android.intent.action.SEND`) 처리 |
-| **구글 어시스턴트 App Actions 연동** | 음성 명령 → 앱 딥 링크 비행 메커니즘, `shortcuts.xml` 인텐트 매핑 |
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `00_foundations/overview/android-learning-resources/01-구글-공식-codelabs-실습-위주/01-구글-공식-codelabs-실습-위주-02-인텐트-intent-와-시스템-컴포넌트-확장.md`
+
+정본 노트: [Android Learning Path](01_inbox/mobile/android/00_foundations/learning/android-learning-path.md)

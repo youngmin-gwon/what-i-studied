@@ -1,7 +1,7 @@
-# ⚙️ 실행 및 런타임 (Execution & Runtime)
+# 이전 노트
 
-- **Process Isolation**: 각 앱은 독립된 프로세스에서 실행되며, 고유한 보안 식별자(UID)를 부여받습니다.
-- **Zygote**: 공통 라이브러리를 미리 로드하고 있는 부모 프로세스로, 새 앱이 필요할 때 빠르게 복사(fork)되어 실행 속도를 높입니다.
-- **ART (Android Runtime)**: 기기에서 바이트 코드(DEX)를 네이티브 코드로 컴파일하여 실행하는 엔진입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
----
+흡수된 이전 노트: `00_foundations/overview/android-foundations/03-실행-및-런타임-execution-runtime.md`
+
+정본 노트: [ART runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/art-runs-dex-with-interpretation-jit-and-aot.md)

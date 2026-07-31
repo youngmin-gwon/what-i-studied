@@ -1,42 +1,5 @@
-# Doze / App Standby
+# Doze/App Standby
 
-상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
+Doze와 App Standby는 battery를 위해 background execution과 network timing을 제한하는 system policy다.
 
-**정의**: 배터리 절약을 위한 앱 활동 제한 모드
-
-**상세**:
-
-- **Doze**: 기기가 움직이지 않고 화면 꺼진 상태가 지속되면 네트워크/Wakelock/AlarmManager 제한
-- **App Standby**: 미사용 앱의 백그라운드 작업 제한
-
-**Doze 단계**:
-
-```
-화면 꺼짐 → 30분 대기 → Light Doze (제한 시작)
-           → 1시간 대기 → Deep Doze (완전 제한)
-```
-
-**예외 목록**:
-
-```kotlin
-// 배터리 최적화 제외 요청
-val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-intent.data = Uri.parse("package:$packageName")
-startActivity(intent)
-```
-
-**테스트**:
-
-```bash
-# Doze 강제 진입
-adb shell dumpsys deviceidle force-idle
-
-# 해제
-adb shell dumpsys deviceidle unforce
-```
-
-**관련**: [android-performance-and-debug](01_inbox/mobile/android/06_testing_performance/performance/android-performance-and-debug.md)
-
----
-
-### F
+상세 정본: [background-work-contracts](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)

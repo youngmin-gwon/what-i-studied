@@ -1,19 +1,7 @@
-# GKI (Generic Kernel Image)
+# 이전 노트
 
-상위 노트: [android-modular-system](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-modular-system.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-Android 11+ 에서 커널도 모듈화.
+흡수된 이전 노트: `02_app_framework/architecture/context-and-modularity/android-modular-system/16-gki-generic-kernel-image.md`
 
-**구조:**
-
-```
-GKI (Generic Kernel)
-    ↓
-Vendor Modules (OEM 드라이버)
-```
-
-**장점:**
-
-- 커널 보안 패치 빠르게 배포
-- OEM 은 드라이버만 관리
-- 파편화 감소
+정본 노트: [GKI](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/gki-splits-generic-core-from-vendor-modules.md)

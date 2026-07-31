@@ -1,8 +1,7 @@
-# See Also
+# 이전 노트
 
-상위 노트: [android-modular-system](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-modular-system.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- [android-evolution-history](01_inbox/mobile/android/00_foundations/history/android-evolution-history.md)
-- [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
-- [android-boot-flow](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-flow.md)
-- [android-hal-and-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
+흡수된 이전 노트: `02_app_framework/architecture/context-and-modularity/android-modular-system/17-see-also.md`
+
+정본 노트: [Android Platform Modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md)

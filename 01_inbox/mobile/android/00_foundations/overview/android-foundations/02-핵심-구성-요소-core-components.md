@@ -1,10 +1,7 @@
-# 🏗️ 핵심 구성 요소 (Core Components)
+# 이전 노트
 
-안드로이드 앱을 이루는 네 가지 핵심 구성 요소는 다음과 같습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-- **Activity**: 사용자 인터페이스(UI)를 담당하며, 앱의 생명주기(Lifecycle)에 따라 관리됩니다.
-- **Service**: 화면 없이 백그라운드에서 오래 실행되는 작업을 처리합니다. (음악 재생, 위치 추적 등)
-- **BroadcastReceiver**: 시스템이나 다른 앱에서 보내는 알림(부팅 완료, 배터리 부족 등)에 반응합니다.
-- **ContentProvider**: 앱 간에 데이터를 안전하게 공유할 수 있는 표준화된 창구 역할을 합니다.
+흡수된 이전 노트: `00_foundations/overview/android-foundations/02-핵심-구성-요소-core-components.md`
 
----
+정본 노트: [Android Foundations](01_inbox/mobile/android/00_foundations/android-foundation-map.md)

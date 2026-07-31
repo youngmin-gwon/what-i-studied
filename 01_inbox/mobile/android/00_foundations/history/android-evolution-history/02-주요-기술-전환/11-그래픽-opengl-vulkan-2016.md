@@ -1,45 +1,7 @@
----
-title: 11-그래픽-opengl-vulkan-2016
-tags: []
-aliases: []
-date modified: 2026-07-31 15:43:33 +09:00
-date created: 2026-07-31 15:38:23 +09:00
----
+# 이전 노트
 
-## 그래픽: OpenGL → Vulkan (2016)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-상위 노트: [02-주요-기술-전환](01_inbox/mobile/android/00_foundations/history/android-evolution-history/02-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EC%88%A0-%EC%A0%84%ED%99%98.md)
+흡수된 이전 노트: `00_foundations/history/android-evolution-history/02-주요-기술-전환/11-그래픽-opengl-vulkan-2016.md`
 
-**OpenGL ES** (2008- 현재):
-
-```cpp
-// High-level API
-glClear(GL_COLOR_BUFFER_BIT);
-glDrawArrays(GL_TRIANGLES, 0, 3);
-```
-
-**문제**:
-
-- 드라이버 오버헤드
-- 멀티스레드 어려움
-
-**Vulkan** (Android 7.0, 2016):
-
-```cpp
-// Low-level API
-vkCmdBeginRenderPass(...);
-vkCmdBindPipeline(...);
-vkCmdDraw(...);
-vkCmdEndRenderPass(...);
-```
-
-**장점**:
-
-- CPU 오버헤드 50% 감소
-- 멀티스레드 네이티브 지원
-- 더 나은 제어
-
-**현재**:
-
-- OpenGL 은 ANGLE 로 Vulkan 위에서 실행
-- 게임/고성능: Vulkan 직접 사용
+정본 노트: [Graphics and Media](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-media-runtime.md)

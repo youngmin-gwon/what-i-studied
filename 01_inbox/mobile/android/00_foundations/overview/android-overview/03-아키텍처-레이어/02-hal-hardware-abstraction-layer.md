@@ -1,20 +1,7 @@
-# HAL (Hardware Abstraction Layer)
+# 이전 노트
 
-**역할**: 하드웨어와 안드로이드 연결
+이 노트의 내용은 정본 노트로 흡수했다.
 
-**왜 필요한가**:
+흡수된 이전 노트: `00_foundations/overview/android-overview/03-아키텍처-레이어/02-hal-hardware-abstraction-layer.md`
 
-- 칩셋마다 다른 드라이버
-- OEM 별 다른 하드웨어
-- → 표준 인터페이스로 추상화
-
-**예시**:
-
-```
-Camera HAL → 삼성/LG/Google 카메라 모두 동일 API
-Audio HAL → Qualcomm/MediaTek 오디오 칩 통합
-```
-
-**상세**: [android-hal-and-kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
-
----
+정본 노트: [HAL/native contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-native-contracts.md)

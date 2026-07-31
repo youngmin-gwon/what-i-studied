@@ -1,14 +1,7 @@
-# APEX 구조
+# 이전 노트
 
-상위 노트: [android-modular-system](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-modular-system.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```
-apex_file.apex
-├── apex_manifest.pb (메타데이터)
-├── apex_payload.img (파일 시스템 이미지)
-│   ├── bin/
-│   ├── lib/
-│   ├── lib64/
-│   └── etc/
-└── apex_pubkey (공개 키)
-```
+흡수된 이전 노트: `02_app_framework/architecture/context-and-modularity/android-modular-system/05-apex-구조.md`
+
+정본 노트: [APEX package boundary](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apex-packages-lower-level-system-modules-that-apk-cannot-model-well.md)

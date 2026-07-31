@@ -1,41 +1,7 @@
----
-title: 09-mainline-모듈식-업데이트-2019
-tags: []
-aliases: []
-date modified: 2026-07-31 15:42:36 +09:00
-date created: 2026-07-31 15:38:23 +09:00
----
+# 이전 노트
 
-## Mainline: 모듈식 업데이트 (2019)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-상위 노트: [02-주요-기술-전환](01_inbox/mobile/android/00_foundations/history/android-evolution-history/02-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EC%88%A0-%EC%A0%84%ED%99%98.md)
+흡수된 이전 노트: `00_foundations/history/android-evolution-history/02-주요-기술-전환/09-mainline-모듈식-업데이트-2019.md`
 
-**문제**:
-
-- 보안 패치도 OEM 업데이트 대기
-- 중요 버그 수정 느림
-
-**Mainline Modules** (Android 10):
-
-```
-com.android.media            # MediaCodec
-com.android.wifi             # Wi-Fi 스택
-com.android.tethering        # 테더링
-com.android.conscrypt        # TLS/SSL
-
-→ Google Play 통해 독립 업데이트
-```
-
-**APEX (Android Pony EXpress)**:
-
-```
-/apex/com.android.media/
-  ├─ lib/
-  ├─ bin/
-  └─ apex_manifest.json
-```
-
-**효과**:
-
-- 월별 보안 패치 → 주간 업데이트 가능
-- OEM 무관하게 수정
+정본 노트: [Platform Modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md)

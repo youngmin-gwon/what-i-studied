@@ -1,39 +1,7 @@
-# Treble 의 영향
+# 이전 노트
 
-상위 노트: [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### Before Treble (Android 7.x)
+흡수된 이전 노트: `01_system_internals/platform-customization/android-customization-and-oem/07-treble-의-영향.md`
 
-```
-/system
-├─ framework
-├─ vendor 코드 섞임
-└─ HAL 구현 섞임
-```
-
-업데이트 시 vendor 코드 재빌드 필요 → 지연
-
-### After Treble (Android 8.0+)
-
-```
-/system  (Google, 독립 업데이트)
-/vendor  (OEM/Chipset, 고정)
-```
-
-**VINTF**로 호환성 보장:
-
-```xml
-<!-- /vendor/etc/vintf/manifest.xml -->
-<hal>
-    <name>android.hardware.camera.provider</name>
-    <version>2.4</version>
-</hal>
-```
-
-**이점**:
-
-- Google 이 /system 만 업데이트 가능
-- OEM 작업 최소화
-- 업데이트 빨라짐
-
----
+정본 노트: [Treble](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/treble-separates-system-and-vendor-through-stable-interfaces.md)

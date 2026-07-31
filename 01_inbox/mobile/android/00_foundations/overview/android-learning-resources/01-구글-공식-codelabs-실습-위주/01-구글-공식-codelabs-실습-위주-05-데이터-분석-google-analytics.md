@@ -1,7 +1,7 @@
-# 데이터 분석 (Google Analytics)
+# 이전 노트
 
-| 코드랩 | 매니페스트 관점에서 배우는 내용 |
-|:---|:---|
-| **Firebase Android Codelab** (Analytics 포함) | SDK 가 백그라운드 데이터 수집을 위해 매니페스트에 자동 주입하는 권한(`INTERNET`, `ACCESS_NETWORK_STATE`) |
+이 노트의 내용은 정본 노트로 흡수했다.
 
----
+흡수된 이전 노트: `00_foundations/overview/android-learning-resources/01-구글-공식-codelabs-실습-위주/01-구글-공식-codelabs-실습-위주-05-데이터-분석-google-analytics.md`
+
+정본 노트: [Android Learning Path](01_inbox/mobile/android/00_foundations/learning/android-learning-path.md)

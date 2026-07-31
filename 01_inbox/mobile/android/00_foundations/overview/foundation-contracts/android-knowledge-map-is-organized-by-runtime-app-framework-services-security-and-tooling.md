@@ -1,0 +1,9 @@
+# Android 지식 지도는 runtime, app framework, services, security, tooling으로 나누어 읽는다
+
+Android 학습 순서는 API 이름보다 책임 영역으로 잡는 편이 오래 간다. system internals는 boot/runtime, process, kernel/HAL, graphics/media를 다루고, app framework는 components, Context, state, Compose, data, navigation을 다룬다.
+
+system services는 background work, notification, NFC, assistant/app functions처럼 OS capability와 연결된 주제를 맡는다. security/privacy는 permission, sandbox, attestation, secure storage를 맡고, testing/performance는 검증과 진단 도구를 맡는다.
+
+이 map은 입문자가 "다음에 무엇을 읽어야 하는가"를 결정하기 위한 문서이고, 각 세부 주제를 다시 설명하지 않는다.
+
+관련 정본: [platform modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md), [packaging/deployment](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md), [platforms/form factors](01_inbox/mobile/android/07_platforms/android-platforms-and-form-factors.md).

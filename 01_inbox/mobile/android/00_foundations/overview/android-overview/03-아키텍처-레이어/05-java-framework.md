@@ -1,25 +1,7 @@
-# Java Framework
+# 이전 노트
 
-앱 개발자가 사용하는 API:
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// Activity (화면)
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
-```
+흡수된 이전 노트: `00_foundations/overview/android-overview/03-아키텍처-레이어/05-java-framework.md`
 
-**주요 시스템 서비스**:
-
-- **ActivityManager**: 앱 생명주기
-- **WindowManager**: 화면 관리
-- **PackageManager**: 앱 설치/제거
-- **LocationManager**: 위치
-- **ConnectivityManager**: 네트워크
-
-**상세**: [android-activity-manager-and-system-services](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-activity-manager-and-system-services.md)
-
----
+정본 노트: [App Architecture](01_inbox/mobile/android/02_app_framework/architecture/android-app-architecture.md)

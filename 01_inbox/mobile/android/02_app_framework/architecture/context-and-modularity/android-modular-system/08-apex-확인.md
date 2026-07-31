@@ -1,17 +1,7 @@
-# APEX 확인
+# 이전 노트
 
-상위 노트: [android-modular-system](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-modular-system.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```bash
-# 설치된 APEX 목록
-adb shell pm list packages --apex-only
+흡수된 이전 노트: `02_app_framework/architecture/context-and-modularity/android-modular-system/08-apex-확인.md`
 
-# APEX 정보
-adb shell pm dump com.android.runtime
-
-# 마운트된 APEX
-adb shell ls /apex/
-
-# APEX 버전
-adb shell dumpsys apex
-```
+정본 노트: [APEX activation and rollback](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apex-activation-uses-boot-time-mounting-version-selection-and-rollback.md)

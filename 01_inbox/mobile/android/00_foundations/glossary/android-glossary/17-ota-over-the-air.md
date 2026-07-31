@@ -1,34 +1,5 @@
-# OTA (Over-The-Air)
+# OTA
 
-상위 노트: [android-glossary](01_inbox/mobile/android/00_foundations/glossary/android-glossary.md)
+Over-the-Air update. inactive slot, rollback, partition/update boundary와 연결되는 device software update mechanism이다.
 
-**정의**: 무선으로 시스템 업데이트를 전송하는 방식
-
-**상세**:
-
-사용자가 Wi-Fi 를 통해 업데이트를 다운로드하고 설치한다. A/B 업데이트는 백그라운드에서 설치하고 재부팅 시 교체하여 중단 없는 업데이트를 제공한다.
-
-**방식**:
-
-```
-Full OTA: 전체 시스템 이미지
-Incremental OTA: 변경된 부분만
-
-A/B Seamless:
-  Slot A (현재) + Slot B (업데이트) → 재부팅 시 교체
-```
-
-**확인**:
-
-```bash
-# 현재 슬롯
-adb shell getprop ro.boot.slot_suffix
-
-# 출력: _a 또는 _b
-```
-
-**관련**: [android-boot-flow](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-flow.md), [android-customization-and-oem](01_inbox/mobile/android/01_system_internals/platform-customization/android-customization-and-oem.md)
-
----
-
-### P
+상세 정본: [ab-updates-write-inactive-slot-and-roll-back-on-failure](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/ab-updates-write-inactive-slot-and-roll-back-on-failure.md)

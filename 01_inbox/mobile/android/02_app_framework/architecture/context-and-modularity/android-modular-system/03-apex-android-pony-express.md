@@ -1,12 +1,7 @@
-# APEX (Android Pony EXpress)
+# 이전 노트
 
-상위 노트: [android-modular-system](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-modular-system.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-APK 와 유사하지만 시스템 컴포넌트용 패키지 형식.
+흡수된 이전 노트: `02_app_framework/architecture/context-and-modularity/android-modular-system/03-apex-android-pony-express.md`
 
-**특징:**
-
-- 서명 검증
-- 원자적 업데이트 (실패 시 롤백)
-- 부팅 시 마운트
-- 읽기 전용
+정본 노트: [APEX package boundary](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/apex-packages-lower-level-system-modules-that-apk-cannot-model-well.md)

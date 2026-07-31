@@ -1,6 +1,7 @@
-# 멀티 디바이스 확장 (Wear OS)
+# 이전 노트
 
-| 코드랩 | 매니페스트 관점에서 배우는 내용 |
-|:---|:---|
-| **Wear OS Jetpack Compose** | `<uses-feature android:name="android.hardware.type.watch" />` 선언 |
-| **Data Layer API Service** | 폰 - 워치 간 `WearableListenerService` 등록, 기기 간 딥 링크 메커니즘 |
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `00_foundations/overview/android-learning-resources/01-구글-공식-codelabs-실습-위주/01-구글-공식-codelabs-실습-위주-04-멀티-디바이스-확장-wear-os.md`
+
+정본 노트: [Android Learning Path](01_inbox/mobile/android/00_foundations/learning/android-learning-path.md)

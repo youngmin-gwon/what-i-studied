@@ -1,11 +1,7 @@
-# Mainline 이란
+# 이전 노트
 
-상위 노트: [android-modular-system](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-modular-system.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-Android 10 부터 도입된 모듈식 업데이트 시스템. OS 의 핵심 부분을 Google Play 를 통해 독립적으로 업데이트.
+흡수된 이전 노트: `02_app_framework/architecture/context-and-modularity/android-modular-system/02-mainline-이란.md`
 
-**장점:**
-
-- OEM 업데이트 없이 보안 패치 가능
-- 새 기능을 빠르게 배포
-- 파편화 감소
+정본 노트: [Mainline](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/mainline-updates-selected-system-components-outside-normal-platform-releases.md)
