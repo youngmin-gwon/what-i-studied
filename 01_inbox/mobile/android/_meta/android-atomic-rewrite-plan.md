@@ -315,3 +315,11 @@ Canonical note 후보:
 - 정본 지도: [Android 저장소와 영속성](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-persistence.md)
 - 보안 정본 지도: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
 - 원칙: 파일 접근 계약과 보안 저장소 계약을 분리하고, 기존 장문 노트는 정본 링크를 가진 경유 노트로 축소한다.
+
+## Phase 4 적용 기록
+
+- 적용일: 2026-07-31
+- 범위: Intent, intent-filter, AndroidManifest, exported, package visibility, PendingIntent, Deep Link, App Link, Dynamic App Links, Navigation 3, adaptive navigation
+- 정본 지도: [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)
+- 원칙: OS 진입 계약(Intent/Manifest), 외부 URI 계약(Deep Link), 앱 내부 back stack 계약(Navigation 3), adaptive chrome 계약을 분리한다.
+- 참고한 공식 문서: [Intents and intent filters](https://developer.android.com/guide/components/intents-filters), [About App Links](https://developer.android.com/training/app-links/about), [Configure website associations and dynamic rules](https://developer.android.com/training/app-links/configure-assetlinks), [Navigation 3 Deep Link Basic Recipe](https://developer.android.com/guide/navigation/navigation-3/recipes/deeplinks-basic)

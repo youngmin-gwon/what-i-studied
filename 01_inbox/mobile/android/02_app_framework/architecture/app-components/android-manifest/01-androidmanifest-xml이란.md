@@ -1,9 +1,5 @@
 # AndroidManifest.xml이란?
 
-앱이 스마트폰에 설치되는 순간, 안드로이드 운영체제(OS)는 **가장 먼저 이 매니페스트 파일을 읽고** "이 앱이 어떤 이름을 가졌고, 어떤 기능을 하며, 스마트폰의 어떤 권한을 쓰는지" 샅샅이 파악합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-* 매니페스트 파일은 XML 형식을 사용
-* 러시아 인형(마트료시카)처럼 태그 안에 태그가 겹겹이 들어있는 구조
-* **개발자가 작성하지만, 실제 읽고 실행하는 주체는 안드로이드 OS**
-
----
+정본: [AndroidManifest는 OS가 발견할 컴포넌트와 진입점을 선언한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md)

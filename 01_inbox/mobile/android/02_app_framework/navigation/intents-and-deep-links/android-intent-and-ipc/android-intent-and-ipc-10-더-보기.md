@@ -1,5 +1,5 @@
 # 더 보기
 
-상위 노트: [android-intent-and-ipc](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/android-intent-and-ipc.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-[android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md), [android-deep-links](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/android-deep-links.md), [android-security-permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions.md), [android-activity-lifecycle](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-activity-lifecycle.md)
+정본: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)

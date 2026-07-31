@@ -1,8 +1,8 @@
 ---
 title: android-security-sandbox
 tags: [android, android/sandbox, android/security]
-aliases: [android-security-and-sandboxing, Android Sandbox, UID Isolation, 안드로이드 샌드박스]
-date modified: 2026-04-05 17:43:38 +09:00
+aliases: [Android Sandbox, android-security-and-sandboxing, UID Isolation, 안드로이드 샌드박스]
+date modified: 2026-07-31 17:12:08 +09:00
 date created: 2026-04-05 16:29:19 +09:00
 ---
 

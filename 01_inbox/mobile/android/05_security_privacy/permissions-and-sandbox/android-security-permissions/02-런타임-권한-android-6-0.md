@@ -1,4 +1,12 @@
-# 런타임 권한 (Android 6.0+)
+---
+title: 02-런타임-권한-android-6-0
+tags: []
+aliases: []
+date modified: 2026-07-31 17:11:53 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 런타임 권한 (Android 6.0+)
 
 **위험 권한(Dangerous Permissions)** 은 앱 실행 중에 요청해야 하며, 사용자는 이를 거부할 권리가 있습니다.
 

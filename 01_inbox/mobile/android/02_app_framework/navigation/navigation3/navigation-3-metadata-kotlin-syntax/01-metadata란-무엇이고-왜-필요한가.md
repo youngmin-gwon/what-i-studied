@@ -1,24 +1,5 @@
 # Metadata란 무엇이고 왜 필요한가?
 
-### 1-1. 한 줄 요약
-> **각 화면(NavEntry)에 "이 화면은 이렇게 다뤄줘"라는 부가 정보를 딕셔너리(Map) 형태로 붙여놓고, NavDisplay나 SceneStrategy 같은 다른 컴포넌트들이 이 정보를 꺼내 읽어서 동작을 바꾸는 시스템입니다.**
+이 노트의 내용은 정본 노트로 흡수했다.
 
-### 1-2. 구체적인 사용 사례
-예를 들어, 화면 A에서 화면 B로 이동할 때:
-* 화면 A → B는 **슬라이드 애니메이션**으로 전환하고 싶고
-* 화면 A → C는 **페이드 애니메이션**으로 전환하고 싶다면
-
-각 화면의 `metadata`에 "나는 이런 전환 효과를 써줘"라는 정보를 미리 달아놓으면, `NavDisplay`가 화면을 전환할 때 이 메타데이터를 읽어서 적절한 애니메이션을 적용합니다.
-
-```kotlin
-// 화면 B: 페이드 전환을 원한다고 메타데이터에 기록
-entry<ScreenB>(
-    metadata = metadata {
-        put(NavDisplay.TransitionKey) { fadeIn() togetherWith fadeOut() }
-    }
-) { /* 화면 B의 UI */ }
-```
-
-메타데이터가 없다면 이런 화면별 설정을 전달할 방법이 없어서, 모든 화면이 동일한 전환 효과만 쓰거나, 별도의 복잡한 분기 로직을 직접 짜야 합니다.
-
----
+정본: [Metadata와 SceneStrategy는 표시 정책을 전달한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)

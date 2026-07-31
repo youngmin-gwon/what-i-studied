@@ -1,17 +1,5 @@
 # 디버깅
 
-상위 노트: [android-intent-and-ipc](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/android-intent-and-ipc.md)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```bash
-# Intent 로 Activity 시작 테스트
-adb shell am start -a android.intent.action.VIEW -d "https://example.com"
-
-# 특정 앱의 Activity 시작
-adb shell am start -n com.example.app/.MainActivity --es "key" "value"
-
-# Broadcast 전송
-adb shell am broadcast -a com.example.MY_ACTION
-
-# PendingIntent 관련 정보
-adb shell dumpsys activity intents
-```
+정본: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)

@@ -1,32 +1,5 @@
 # Custom Scheme Deep Link (레거시)
 
-```xml
-<!-- AndroidManifest.xml -->
-<activity android:name=".DetailActivity"
-    android:exported="true">
-    <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data
-            android:scheme="myapp"
-            android:host="detail"
-            android:pathPrefix="/" />
-    </intent-filter>
-</activity>
-```
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// 수신 처리
-class DetailActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        
-        intent?.data?.let { uri ->
-            // myapp://detail/123 → pathSegments[0] = "123"
-            val itemId = uri.lastPathSegment
-            loadItem(itemId)
-        }
-    }
-}
-```
+정본: [Android App Link는 검증된 HTTPS 딥 링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md)

@@ -1,9 +1,5 @@
 # 인텐트 (Intent) = "주문서"
 
-스마트폰 안에는 수많은 앱과 화면(컴포넌트)들이 살고 있습니다. 이들이 서로 소통할 때 사용하는 **편지이자 주문서**가 바로 인텐트(Intent)입니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-* **원래 뜻**: 의도, 목적
-* **쉽게 말하면**: "나 지금 이거 하고 싶어!"라고 안드로이드 시스템에 던지는 요청서입니다.
-* **배달 비유**: 유저가 링크를 누르는 행위는 시스템에 "이 주소(URL)로 가서 식당 정보를 보여줘!"라는 주문서를 작성해서 보내는 것과 같습니다.
-
----
+정본: [Intent는 컴포넌트 실행을 설명하는 메시지다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-describes-component-action-request.md)

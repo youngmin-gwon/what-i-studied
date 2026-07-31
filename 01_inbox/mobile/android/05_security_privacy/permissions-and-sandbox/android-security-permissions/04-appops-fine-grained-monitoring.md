@@ -1,4 +1,12 @@
-# ⚙️ AppOps (Fine-grained Monitoring)
+---
+title: 04-appops-fine-grained-monitoring
+tags: []
+aliases: []
+date modified: 2026-07-31 17:11:53 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## ⚙️ AppOps (Fine-grained Monitoring)
 
 `AppOps` 는 권한보다 더 세분화된 실행 단위의 기록과 제어를 담당합니다.
 

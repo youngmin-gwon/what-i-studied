@@ -1,5 +1,5 @@
 # Navigation 3 Metadata 시스템 & Kotlin 문법 해설 개요
 
-이 문서는 Navigation 3의 **Metadata** 시스템이 무엇이고 왜 필요한지를 설명하며, 동시에 공식 문서 코드에 등장하는 **Kotlin 특수 문법**들을 하나하나 짚어 해설합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
----
+정본: [Metadata와 SceneStrategy는 표시 정책을 전달한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)

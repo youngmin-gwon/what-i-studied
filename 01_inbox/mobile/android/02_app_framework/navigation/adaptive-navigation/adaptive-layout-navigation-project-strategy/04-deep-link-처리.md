@@ -1,23 +1,5 @@
 # Deep Link 처리
 
-Deep link는 app layer에서 route로 변환합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```text
-https://example.com/training/123
- -> TrainingDetailRoute("123")
-```
-
-session 상태에 따라 다르게 처리합니다.
-
-```text
-SignedIn:
- -> selectedDestination = Training
- -> trainingBackStack = [TrainingRoute, TrainingDetailRoute("123")]
-
-SignedOut:
- -> pendingRoute = TrainingDetailRoute("123")
- -> AuthFlow(SignInRoute)
- -> 로그인 성공 후 MainScaffold로 이동
-```
-
----
+정본: [Navigation 3 deep link는 URI를 NavKey로 변환한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)

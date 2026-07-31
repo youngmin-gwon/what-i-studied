@@ -1,4 +1,12 @@
-# 🛡️ 보호 수준 (Protection Levels)
+---
+title: 01-보호-수준-protection-levels
+tags: []
+aliases: []
+date modified: 2026-07-31 17:11:52 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 🛡️ 보호 수준 (Protection Levels)
 
 | 수준            | 설명                   | 승인 방식            |
 | ------------- | -------------------- | ---------------- |
