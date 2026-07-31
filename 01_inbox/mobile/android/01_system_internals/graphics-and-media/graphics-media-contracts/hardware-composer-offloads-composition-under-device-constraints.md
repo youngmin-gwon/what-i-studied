@@ -13,6 +13,6 @@ Hardware Composer(HWC)는 display hardware가 처리할 수 있는 레이어 합
 
 성능 결론은 구현 세부를 추측하기보다 trace와 `dumpsys SurfaceFlinger`로 실제 composition type을 확인해야 한다.
 
-관련 노트: {link(contracts_hub / "surfaceflinger-composes-visible-layers-with-hwc.md", "SurfaceFlinger는 보이는 레이어를 HWC와 함께 합성한다")}, {link(ANDROID / "01_system_internals/kernel-and-hal/android-hal-and-kernel.md", "Android HAL and kernel")} 
+관련 노트: {link(CONTRACTS / "surfaceflinger-composes-visible-layers-with-hwc.md", "SurfaceFlinger는 보이는 레이어를 HWC와 함께 합성한다")}, {link(ANDROID / "01_system_internals/kernel-and-hal/android-hal-and-kernel.md", "Android HAL and kernel")} 
 
 근거: [AOSP Hardware Composer HAL](https://source.android.com/docs/core/graphics/hwc)

@@ -13,4 +13,4 @@ Compose도 이 경계를 넘지 않는다. Compose Runtime은 composition, layou
 
 그래서 Compose 성능 문제와 SurfaceFlinger 합성 문제는 같은 “렌더링”이라는 이름 아래 있어도 관찰 지점이 다르다. Compose에서는 recomposition/layout/draw 비용을 보고, 시스템 그래픽에서는 buffer queue, frame deadline, composition path를 본다.
 
-관련 노트: [Compose performance contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md), [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-contracts.md/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)
+관련 노트: [Compose performance contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md), [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)

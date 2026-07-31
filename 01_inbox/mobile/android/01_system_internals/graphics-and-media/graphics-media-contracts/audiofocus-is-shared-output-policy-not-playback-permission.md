@@ -13,6 +13,6 @@ Android 12 이상에서는 일부 focus 전환에서 시스템이 fade out이나
 
 ExoPlayer를 사용할 때는 player의 audio attributes 설정으로 focus 처리를 위임할 수 있는 경우가 있다. 직접 구현할 때도 loss, transient loss, ducking, noisy route change를 같은 정책으로 뭉개지 않는다.
 
-관련 노트: {link(contracts_hub / "media3-exoplayer-is-playback-stack-not-low-level-codec-api.md", "Media3 ExoPlayer는 playback stack이지 저수준 codec API가 아니다")}
+관련 노트: {link(CONTRACTS / "media3-exoplayer-is-playback-stack-not-low-level-codec-api.md", "Media3 ExoPlayer는 playback stack이지 저수준 codec API가 아니다")}
 
 근거: [Manage audio focus](https://developer.android.com/media/optimize/audio-focus)

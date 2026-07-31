@@ -13,4 +13,4 @@ date created: 2026-07-31 23:20:00 +09:00
 
 주의할 점은 `Surface`가 자동으로 CPU 접근 가능한 이미지나 zero-copy를 보장하지 않는다는 것이다. 접근 가능성, 포맷, 복사 비용, 동기화 방식은 producer/consumer 조합과 기기 구현에 좌우된다.
 
-관련 노트: {link(contracts_hub / "surface-based-media-pipeline-avoids-app-level-pixel-copy.md", "Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다")}, {link(contracts_hub / "camera-output-surfaces-define-preview-analysis-and-recording-pipelines.md", "카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다")}
+관련 노트: {link(CONTRACTS / "surface-based-media-pipeline-avoids-app-level-pixel-copy.md", "Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다")}, {link(CONTRACTS / "camera-output-surfaces-define-preview-analysis-and-recording-pipelines.md", "카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다")}

@@ -13,6 +13,6 @@ ByteBuffer 모드는 muxing, packet parsing, custom transform, CPU 접근이 필
 
 따라서 영상 프레임을 화면이나 encoder로 바로 넘길 수 있다면 Surface 입출력을 먼저 검토하고, 앱이 실제 bytes를 소유해야 하는 경우에 ByteBuffer 모드를 선택한다.
 
-관련 노트: {link(contracts_hub / "mediacodec-surface-mode-connects-video-producers-and-consumers.md", "MediaCodec Surface 모드는 영상 producer와 consumer를 연결한다")}
+관련 노트: {link(CONTRACTS / "mediacodec-surface-mode-connects-video-producers-and-consumers.md", "MediaCodec Surface 모드는 영상 producer와 consumer를 연결한다")}
 
 근거: [MediaCodec API reference](https://developer.android.com/reference/android/media/MediaCodec)

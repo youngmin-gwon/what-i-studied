@@ -13,6 +13,6 @@ Camera2 세션을 만들 때 앱은 하나 이상의 output `Surface`를 미리 
 
 `ImageReader`에서는 acquire한 `Image`를 반드시 닫아야 한다. 이미지를 오래 들고 있으면 reader의 max image 큐가 고갈되어 producer가 막히거나 오래된 프레임을 처리하게 된다.
 
-관련 노트: {link(contracts_hub / "surface-is-producer-side-contract-for-graphic-buffers.md", "Surface는 그래픽 버퍼 producer 측 계약이다")}, {link(contracts_hub / "imagereader-is-for-app-accessible-image-buffers.md", "ImageReader는 앱이 접근할 수 있는 이미지 버퍼를 제공한다")}
+관련 노트: {link(CONTRACTS / "surface-is-producer-side-contract-for-graphic-buffers.md", "Surface는 그래픽 버퍼 producer 측 계약이다")}, {link(CONTRACTS / "imagereader-is-for-app-accessible-image-buffers.md", "ImageReader는 앱이 접근할 수 있는 이미지 버퍼를 제공한다")}
 
 근거: [Camera2 capture sessions and requests](https://developer.android.com/media/camera/camera2/capture-sessions-requests), [Camera2 package summary](https://developer.android.com/reference/android/hardware/camera2/package-summary)

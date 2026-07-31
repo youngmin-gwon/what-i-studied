@@ -13,6 +13,6 @@ Camera HAL은 camera framework와 vendor camera driver/hardware 사이의 경계
 
 따라서 카메라 성능이나 품질 문제를 설명할 때는 공개 API 계약과 vendor 구현 추정을 분리해야 한다. 문서에는 “HAL이 무엇을 보장한다”보다 “framework가 어떤 형태로 request/result/output surface를 모델링한다”를 먼저 적는다.
 
-관련 노트: {link(ANDROID / "01_system_internals/kernel-and-hal/android-hal-and-kernel.md", "Android HAL and kernel")}, {link(contracts_hub / "surface-based-media-pipeline-avoids-app-level-pixel-copy.md", "Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다")}
+관련 노트: {link(ANDROID / "01_system_internals/kernel-and-hal/android-hal-and-kernel.md", "Android HAL and kernel")}, {link(CONTRACTS / "surface-based-media-pipeline-avoids-app-level-pixel-copy.md", "Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다")}
 
 근거: [AOSP Camera HAL](https://source.android.com/docs/core/camera/camera3)

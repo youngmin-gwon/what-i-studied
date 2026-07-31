@@ -14,6 +14,6 @@ Widevine security level이나 `MediaDrm` security level은 기기와 세션에 �
 
 보호 콘텐츠는 secure decoder나 보호된 output path를 요구할 수 있다. AOSP 그래픽 문서의 protected buffer 설명처럼, 보호 버퍼는 일반 GPU 접근이나 capture 경로에서 제한될 수 있다.
 
-관련 노트: {link(contracts_hub / "surfaceflinger-composes-visible-layers-with-hwc.md", "SurfaceFlinger는 보이는 레이어를 HWC와 함께 합성한다")}, {link(contracts_hub / "media3-exoplayer-is-playback-stack-not-low-level-codec-api.md", "Media3 ExoPlayer는 playback stack이지 저수준 codec API가 아니다")}
+관련 노트: {link(CONTRACTS / "surfaceflinger-composes-visible-layers-with-hwc.md", "SurfaceFlinger는 보이는 레이어를 HWC와 함께 합성한다")}, {link(CONTRACTS / "media3-exoplayer-is-playback-stack-not-low-level-codec-api.md", "Media3 ExoPlayer는 playback stack이지 저수준 codec API가 아니다")}
 
 근거: [MediaDrm API reference](https://developer.android.com/reference/android/media/MediaDrm), [AOSP BufferQueue and Gralloc protected buffers](https://source.android.com/docs/core/graphics/arch-bq-gralloc)

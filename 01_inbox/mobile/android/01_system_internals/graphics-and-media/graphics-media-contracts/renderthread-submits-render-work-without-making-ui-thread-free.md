@@ -13,4 +13,4 @@ RenderThread가 있다는 말은 “그리기는 모두 백그라운드에서 �
 
 실무에서는 Perfetto나 Android Studio Profiler에서 `Choreographer#doFrame`, View/Compose 작업, RenderThread, GPU completion, SurfaceFlinger 구간을 함께 본다.
 
-관련 노트: {link(contracts_hub / "vsync-and-choreographer-define-frame-deadline.md", "VSync와 Choreographer는 frame deadline을 정의한다")}, {link(contracts_hub / "graphics-media-debugging-starts-from-timeline-and-component-state.md", "그래픽과 미디어 디버깅은 timeline과 component state에서 시작한다")}
+관련 노트: {link(CONTRACTS / "vsync-and-choreographer-define-frame-deadline.md", "VSync와 Choreographer는 frame deadline을 정의한다")}, {link(CONTRACTS / "graphics-media-debugging-starts-from-timeline-and-component-state.md", "그래픽과 미디어 디버깅은 timeline과 component state에서 시작한다")}

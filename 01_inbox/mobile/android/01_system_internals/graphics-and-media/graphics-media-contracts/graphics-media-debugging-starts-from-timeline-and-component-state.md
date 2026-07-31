@@ -13,4 +13,4 @@ date created: 2026-07-31 23:20:00 +09:00
 
 문제 원인을 “GPU 문제”, “코덱 문제”, “zero-copy 문제”로 바로 단정하지 않는다. 먼저 재현 조건, device, refresh rate, codec, resolution, route, thermal state, foreground/background 상태를 고정하고 trace를 수집한다.
 
-관련 노트: {link(contracts_hub / "jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md", "Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다")}, {link(contracts_hub / "audiotrack-aaudio-and-oboe-choose-latency-and-portability-tradeoffs.md", "AudioTrack, AAudio, Oboe는 지연 시간과 이식성의 trade-off를 고른다")}
+관련 노트: {link(CONTRACTS / "jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md", "Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다")}, {link(CONTRACTS / "audiotrack-aaudio-and-oboe-choose-latency-and-portability-tradeoffs.md", "AudioTrack, AAudio, Oboe는 지연 시간과 이식성의 trade-off를 고른다")}

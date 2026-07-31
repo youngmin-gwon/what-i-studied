@@ -13,6 +13,6 @@ BufferQueue는 항상 “트리플 버퍼링” 하나로 설명하면 안 된�
 
 성능 문제에서는 큐가 비어 있는지, 가득 차 있는지, producer가 기다리는지, consumer가 늦는지를 구분해야 한다. 같은 dropped frame이라도 앱이 늦은 경우와 consumer가 늦은 경우의 처방은 다르다.
 
-관련 노트: {link(ANDROID / "01_system_internals/ipc-and-process/android-binder-and-ipc.md", "Android Binder and IPC")}, {link(contracts_hub / "surface-based-media-pipeline-avoids-app-level-pixel-copy.md", "Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다")}
+관련 노트: {link(ANDROID / "01_system_internals/ipc-and-process/android-binder-and-ipc.md", "Android Binder and IPC")}, {link(CONTRACTS / "surface-based-media-pipeline-avoids-app-level-pixel-copy.md", "Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다")}
 
 근거: [AOSP BufferQueue and Gralloc](https://source.android.com/docs/core/graphics/arch-bq-gralloc)

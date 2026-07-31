@@ -14,6 +14,6 @@ VSync는 display refresh와 맞물린 타이밍 신호이고, Choreographer는 �
 
 deadline을 조금 넘긴 프레임은 “조금 늦게 표시”되는 것이 아니라 다음 display opportunity로 밀릴 수 있다. 사용자는 이것을 stutter나 jank로 느낀다.
 
-관련 노트: {link(contracts_hub / "jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md", "Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다")}
+관련 노트: {link(CONTRACTS / "jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md", "Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다")}
 
 근거: [Choreographer API reference](https://developer.android.com/reference/android/view/Choreographer), [Slow rendering](https://developer.android.com/topic/performance/vitals/render)
