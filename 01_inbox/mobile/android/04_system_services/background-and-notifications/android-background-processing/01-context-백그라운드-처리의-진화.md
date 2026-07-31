@@ -1,8 +1,6 @@
-# 💡 Context: 백그라운드 처리의 진화
+# 01-context-백그라운드-처리의-진화
 
-안드로이드 OS 는 버전이 올라갈수록 백그라운드 작업에 대해 엄격한 제한을 가하고 있습니다. 현대적인 개발에서는 **WorkManager**가 사실상의 표준이며, 즉각적인 반응이 필요한 특수한 경우에만 **Foreground Service**를 사용해야 합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
->[!NOTE] **상호 참조**
->iOS 의 백그라운드 처리 방식은 [apple-background-tasks](01_inbox/mobile/apple/04_system_services/apple-background-tasks.md) 를 참고하세요.
-
----
+- 정본: [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-execution-is-selected-by-guarantee-delay-and-visibility.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

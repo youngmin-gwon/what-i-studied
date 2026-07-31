@@ -1,36 +1,6 @@
----
-title: 02-app-actions-built-in-intents-bii
-tags: []
-aliases: []
-date modified: 2026-07-31 17:35:48 +09:00
-date created: 2026-07-31 16:26:40 +09:00
----
+# 02-app-actions-built-in-intents-bii
 
-## App Actions (Built-in Intents, BII)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-사용자가 "Hey Google, [App Name]에서 [Action]해줘"라고 말할 때 앱이 바로 반응하도록 설계되었다.
-
-### `shortcuts.xml` 정의
-
-```xml
-<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
-    <capability android:name="actions.intent.START_EXERCISE">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetPackage="com.example.app"
-            android:targetClass="com.example.app.ExerciseActivity">
-            <parameter
-                android:name="exercise.name"
-                android:key="exerciseType" />
-        </intent>
-    </capability>
-</shortcuts>
-```
-
-### AndroidManifest 등록
-
-```xml
-<meta-data
-    android:name="android.app.shortcuts"
-    android:resource="@xml/shortcuts" />
-```
+- 정본: [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/app-actions-map-assistant-queries-to-app-fulfillment.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

@@ -1,4 +1,12 @@
-# 04-4-증분-빌드와-캐시-incremental-vs-caching
+---
+title: 04-4-증분-빌드와-캐시-incremental-vs-caching
+tags: []
+aliases: []
+date modified: 2026-07-31 17:38:41 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 04-4- 증분 - 빌드와 - 캐시 -incremental-vs-caching
 
 이 노트의 내용은 정본 노트로 흡수했다.
 

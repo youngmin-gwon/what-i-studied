@@ -1,4 +1,12 @@
-# gradle performance tuning
+---
+title: gradle-performance-tuning
+tags: []
+aliases: []
+date modified: 2026-07-31 17:39:57 +09:00
+date created: 2026-04-06 18:57:55 +09:00
+---
+
+## gradle performance tuning
 
 이 문서는 원자화 이전의 진입점이다. 현재 내용은 아래 정본 지도로 재구성했다.
 

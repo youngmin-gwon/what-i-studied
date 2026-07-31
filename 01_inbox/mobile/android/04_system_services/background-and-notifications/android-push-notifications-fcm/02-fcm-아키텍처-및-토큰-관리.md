@@ -1,19 +1,6 @@
-# FCM 아키텍처 및 토큰 관리
+# 02-fcm-아키텍처-및-토큰-관리
 
-앱이 처음 실행되면 FCM 서버로부터 고유한 **Registration Token**을 발급받는다. 서버는 이 토큰을 기반으로 특정 기기를 식별한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-// FirebaseMessagingService 구현
-class MyFcmService : FirebaseMessagingService() {
-
-    override fun onNewToken(token: String) {
-        // 새 토큰이 발급됨. 서버(App Server)에 전송하여 저장해야 함
-        sendTokenToServer(token)
-    }
-
-    override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        // 메시지 수신 시 호출 (Data 페이로드가 포함된 경우 필수 호출)
-        handleMessage(remoteMessage)
-    }
-}
-```
+- 정본: [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-registration-identifier-targets-app-instance-not-user-account.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

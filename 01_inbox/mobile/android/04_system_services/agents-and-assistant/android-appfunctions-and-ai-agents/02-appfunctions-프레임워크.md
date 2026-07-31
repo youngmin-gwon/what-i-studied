@@ -1,17 +1,6 @@
-# AppFunctions 프레임워크
+# 02-appfunctions-프레임워크
 
-앱 개발자가 자신의 앱에 포함된 특정 기능을 시스템 AI 에이전트에게 **도구(Tool)**로 노출하는 신규 API 이다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### AppFunction 정의 (Jetpack Library)
-
-```kotlin
-@AppFunction(name = "create_note")
-suspend fun createNote(
-    @AppFunctionParam(name = "title") title: String,
-    @AppFunctionParam(name = "content") content: String
-): CreateNoteResult {
-    // 에이전트의 자연어 요청을 받아 실제 앱 로직 수행
-    val noteId = repository.addNote(title, content)
-    return CreateNoteResult(id = noteId, status = "Success")
-}
-```
+- 정본: [AppFunctions는 에이전트용 앱 기능 계약이다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/appfunctions-are-app-capability-contracts-for-agents.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

@@ -2,7 +2,7 @@
 title: gradle-build-basics
 tags: [android, build, gradle]
 aliases: [Gradle Plugins, plugins block, 안드로이드 빌드 기초]
-date modified: 2026-04-05 17:43:22 +09:00
+date modified: 2026-07-31 17:39:53 +09:00
 date created: 2026-04-05 16:29:59 +09:00
 ---
 

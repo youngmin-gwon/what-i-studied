@@ -1,11 +1,6 @@
-# 에이전틱 오케스트레이션 (Agentic Orchestration)
+# 03-에이전틱-오케스트레이션-agentic-orchestration
 
-안드로이드의 에이전트(주로 Gemini Nano)는 사용자의 자연어 명령을 분석하여 필요한 AppFunctions 의 조합을 결정한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-**예시 시나리오:**
-
-1. **사용자 요청:** "우리 팀원들에게 오늘 오후 5 시에 강남역 근처 카페에서 미팅한다고 메시지 보내줘."
-2. **에이전트 판단:**
-    - `CalendarApp / find_free_slot` 호출하여 일정 확인.
-    - `MapApp / search_poi` (강남역 카페) 호출하여 위치 정보 획득.
-    - `MessengerApp / send_group_message` 호출하여 최종 발송.
+- 정본: [외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/external-intent-execution-separates-meaning-delivery-validation-and-action.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

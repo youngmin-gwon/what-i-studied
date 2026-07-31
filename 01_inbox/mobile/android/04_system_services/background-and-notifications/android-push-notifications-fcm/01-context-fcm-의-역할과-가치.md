@@ -1,8 +1,6 @@
-# 💡 Context: FCM 의 역할과 가치
+# 01-context-fcm-의-역할과-가치
 
-안드로이드 모바일 생태계에서 원격 알림은 사용자 재방문을 유도하고 실시간 정보를 전달하는 가장 강력한 도구입니다. GMS(Google Play Services)를 기반으로 하는 FCM 은 배터리 효율과 전달 보장이라는 두 마리 토끼를 잡기 위해 정교하게 설계되었습니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
->[!NOTE] **상호 참조**
->iOS 의 원격 알림 방식은 [apple-push-notifications-apns](01_inbox/mobile/apple/04_system_services/apple-push-notifications-apns.md) 를 참고하세요.
-
----
+- 정본: [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-is-message-delivery-not-business-execution-guarantee.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

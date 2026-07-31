@@ -1,4 +1,12 @@
-# 📦 2. Module-level DSL (App/Library)
+---
+title: 02-2-module-level-dsl-app-library
+tags: []
+aliases: []
+date modified: 2026-07-31 17:38:22 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 📦 2. Module-level DSL (App/Library)
 
 ```kotlin
 // app/build.gradle.kts
@@ -41,5 +49,3 @@ android {
     }
 }
 ```
-
----

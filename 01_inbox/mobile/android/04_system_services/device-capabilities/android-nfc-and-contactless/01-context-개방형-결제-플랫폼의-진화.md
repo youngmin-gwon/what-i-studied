@@ -1,8 +1,6 @@
-# 💡 Context: 개방형 결제 플랫폼의 진화
+# 01-context-개방형-결제-플랫폼의-진화
 
-안드로이드는 초기부터 NFC 를 개방적으로 운영하며 HCE 를 통해 독자적인 지갑 앱 구축을 지원해 왔습니다. 최근 플랫폼의 변화는 더 빠른 전송 속도와 시스템 수준의 통합 비접촉 결제 앱 설정을 통한 사용자 선택권 강화에 집중하고 있습니다. [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md) 의 Service 구조 위에서 동작합니다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
->[!NOTE] **상호 참조**
->iOS 의 NFC 및 비접촉 결제 지원 방식은 [apple-nfc-and-contactless](01_inbox/mobile/apple/04_system_services/apple-nfc-and-contactless.md) 를 참고하세요.
-
----
+- 정본: [비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다](01_inbox/mobile/android/04_system_services/device-capabilities/nfc-contracts/contactless-payment-is-separate-from-nfc-tagging.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

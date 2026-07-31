@@ -2,7 +2,7 @@
 title: gradle-dependency-management
 tags: [android, dependency, gradle]
 aliases: [Compose BOM, kapt vs ksp, toml, Version Catalog]
-date modified: 2026-04-05 17:43:23 +09:00
+date modified: 2026-07-31 17:39:53 +09:00
 date created: 2026-04-05 16:30:04 +09:00
 ---
 

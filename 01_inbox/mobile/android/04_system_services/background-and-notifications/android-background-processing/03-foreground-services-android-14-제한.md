@@ -1,20 +1,6 @@
-# Foreground Services (Android 14+ 제한)
+# 03-foreground-services-android-14-제한
 
-사용자가 인지해야 하는 즉각적이고 지속적인 작업(음악 재생, 운동 추적)에 사용한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
->[!CAUTION] **Devil's Advocate : Foreground Service 남용 금지**
->Android 14 부터 `foregroundServiceType` 선언이 강제되었고, 구글 플레이 정책은 "사용자가 인지할 수 없는 백그라운드 작업은 무조건 WorkManager 를 쓰라"고 강요한다. 타입을 속여서 승인받으려다가는 앱이 삭제될 수 있다.
-
-##### Android 14+ 구현 규칙
-1. `AndroidManifest.xml` 에 특정 타입 권한과 서비스 타입 선언
-2. `startForeground()` 호출 시 `ForegroundInfo` 전달
-
-```xml
-<!-- AndroidManifest.xml -->
-<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-<uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-
-<service
-    android:name=".DataSyncService"
-    android:foregroundServiceType="dataSync" />
-```
+- 정본: [Foreground service는 사용자에게 보이는 지속 작업에 쓴다](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/foreground-service-is-for-visible-continuous-work.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

@@ -1,4 +1,12 @@
-# 01-1-핵심-성능-기능-활성화-core-speed-ups
+---
+title: 01-1-핵심-성능-기능-활성화-core-speed-ups
+tags: []
+aliases: []
+date modified: 2026-07-31 17:38:31 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 01-1- 핵심 - 성능 - 기능 - 활성화 -core-speed-ups
 
 이 노트의 내용은 정본 노트로 흡수했다.
 

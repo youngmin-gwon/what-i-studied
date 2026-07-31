@@ -1,20 +1,6 @@
-# AlarmManager (정교한 타이밍)
+# 04-alarmmanager-정교한-타이밍
 
-정확한 시간에 특정 작업을 수행해야 할 때(알람 시계, 약 복용 알림) 사용한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-```kotlin
-val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-val intent = Intent(context, AlarmReceiver::class.java)
-val pendingIntent = PendingIntent.getBroadcast(
-    context, 0, intent, PendingIntent.FLAG_IMMUTABLE
-)
-
-// 정확한 시간 예약 (Android 12+ 에서는 SCHEDULE_EXACT_ALARM 권한 확인 필수)
-if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager.canScheduleExactAlarms()) {
-    alarmManager.setExactAndAllowWhileIdle(
-        AlarmManager.RTC_WAKEUP,
-        triggerTimeMillis,
-        pendingIntent
-    )
-}
-```
+- 정본: [AlarmManager는 시간 자체가 기능인 이벤트에 쓴다](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/alarmmanager-is-for-time-based-user-events.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

@@ -1,4 +1,12 @@
-# 02-2-빌드-프로파일링-분석-build-scanning
+---
+title: 02-2-빌드-프로파일링-분석-build-scanning
+tags: []
+aliases: []
+date modified: 2026-07-31 17:38:35 +09:00
+date created: 2026-07-31 16:26:40 +09:00
+---
+
+## 02-2- 빌드 - 프로파일링 - 분석 -build-scanning
 
 이 노트의 내용은 정본 노트로 흡수했다.
 

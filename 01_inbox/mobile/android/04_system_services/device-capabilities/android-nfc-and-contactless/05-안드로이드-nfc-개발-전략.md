@@ -1,6 +1,6 @@
-# 🏛️ 안드로이드 NFC 개발 전략
+# 05-안드로이드-nfc-개발-전략
 
-안드로이드는 개방성이 높지만, 그만큼 기기마다 NFC 안테나 위치와 성능이 다르다는 점(**Fragmentation**)을 고려해야 한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
->[!TIP] **Devil's Advocate : 시스템 지갑과의 조화**
->독자적인 결제 기능을 구축하더라도, Android 16 의 "기본 비접촉 결제 앱" 설정을 통해 사용자가 시스템 수준에서 앱을 선택할 수 있도록 유도해야 한다. 단순히 HCE 를 구현하는 것보다 사용자 경험의 통합(`Live Updates` 연동 등)이 더 중요하다.
+- 정본: [비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다](01_inbox/mobile/android/04_system_services/device-capabilities/nfc-contracts/contactless-payment-is-separate-from-nfc-tagging.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

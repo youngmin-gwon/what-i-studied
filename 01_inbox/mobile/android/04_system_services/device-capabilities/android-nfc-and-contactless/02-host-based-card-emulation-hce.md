@@ -1,21 +1,6 @@
-# Host-based Card Emulation (HCE)
+# 02-host-based-card-emulation-hce
 
-HCE 는 물리적 보안 칩셋 대신 호스트 CPU 와 소프트웨어를 통해 NFC 통신을 처리한다.
+이 노트의 내용은 정본 노트로 흡수했다.
 
-##### HCE 서비스 구현 (`HostApduService`)
-
-```kotlin
-class MyPaymentService : HostApduService() {
-    override fun processCommandApdu(commandApdu: ByteArray, extras: Bundle?): ByteArray {
-        // POS 단말기로부터 받은 APDU 명령을 처리하고 응답 반환
-        val response = handlePaymentLogic(commandApdu)
-        return response
-    }
-
-    override fun onDeactivated(reason: Int) {
-        // NFC 연결 해제 시 처리
-    }
-}
-```
-
-- **AID (Application ID)**: 지갑 앱은 고유한 AID 를 등록해야 시스템이 적절한 앱으로 이벤트를 라우팅한다.
+- 정본: [HCE는 HostApduService가 APDU 거래를 처리하는 모델이다](01_inbox/mobile/android/04_system_services/device-capabilities/nfc-contracts/hce-uses-hostapduservice-to-handle-apdu-transactions.md)
+- 이유: 기존 문서는 주제 일부를 설명했지만, 현재 Android 문서 구조에서는 더 작은 의미 단위의 정본 노트가 같은 내용을 소유한다.

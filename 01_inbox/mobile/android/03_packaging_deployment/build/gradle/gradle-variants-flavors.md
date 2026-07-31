@@ -2,7 +2,7 @@
 title: gradle-variants-flavors
 tags: [android, build-variants, gradle]
 aliases: [Build Types, Product Flavors, 빌드 변형]
-date modified: 2026-04-05 17:43:27 +09:00
+date modified: 2026-07-31 17:40:00 +09:00
 date created: 2026-04-05 16:30:01 +09:00
 ---
 
