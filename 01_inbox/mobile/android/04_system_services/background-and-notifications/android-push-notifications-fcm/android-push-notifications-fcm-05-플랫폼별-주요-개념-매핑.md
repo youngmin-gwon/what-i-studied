@@ -1,8 +1,7 @@
-# 📊 플랫폼별 주요 개념 매핑
+# 이전 노트
 
-| 특징 | Android (FCM) | iOS (APNs) |
-| :--- | :--- | :--- |
-| **기기 식별** | FCM Token | Device Token |
-| **백그라운드 갱신** | Data-only (High Priority) | Silent Push (`content-available`) |
-| **커스텀 UI** | RemoteViews | Content Extension |
-| **알림 그룹화** | Group Key | Thread ID |
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/04_system_services/background-and-notifications/android-push-notifications-fcm/android-push-notifications-fcm-05-플랫폼별-주요-개념-매핑.md`
+
+정본 노트: [알림과 FCM 메시징 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/notification-messaging-contracts.md)

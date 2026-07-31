@@ -1,16 +1,7 @@
----
-title: 01-보호-수준-protection-levels
-tags: []
-aliases: []
-date modified: 2026-07-31 17:11:52 +09:00
-date created: 2026-07-31 16:26:40 +09:00
----
+# 이전 노트
 
-## 🛡️ 보호 수준 (Protection Levels)
+이 노트의 내용은 정본 노트로 흡수했다.
 
-| 수준            | 설명                   | 승인 방식            |
-| ------------- | -------------------- | ---------------- |
-| **Normal**    | 낮은 위험 (인터넷, 진동 등)    | 설치 시 자동 승인       |
-| **Dangerous** | 높은 위험 (위치, 카메라, 연락처) | **런타임 시 사용자 승인** |
-| **Signature** | 동일한 서명의 앱끼리만 공유 가능   | 시스템 자동 승인        |
-| **Internal**  | 시스템 내부 전용            | 일반 앱 접근 불가       |
+흡수된 이전 노트: `01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-permissions/01-보호-수준-protection-levels.md`
+
+정본 노트: [Permission protection level은 접근 승인 주체를 정의한다](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-protection-level-defines-who-can-grant-access.md)

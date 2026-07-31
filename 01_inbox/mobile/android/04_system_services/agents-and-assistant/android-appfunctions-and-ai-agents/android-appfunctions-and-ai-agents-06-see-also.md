@@ -1,5 +1,7 @@
-# See Also
+# 이전 노트
 
-- [android-app-actions-assistant](01_inbox/mobile/android/04_system_services/agents-and-assistant/android-app-actions-assistant.md) - Assistant 연동 기초
-- [android-accessibility-compose](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/android-accessibility-compose.md) - UI 자동화를 위한 시맨틱 구조
-- [android-desktop-windowing-and-multitasking](01_inbox/mobile/android/07_platforms/large-screens/android-desktop-windowing-and-multitasking.md) - 멀티태스킹과 생산성
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/04_system_services/agents-and-assistant/android-appfunctions-and-ai-agents/android-appfunctions-and-ai-agents-06-see-also.md`
+
+정본 노트: [Assistant와 에이전트 통합 계약](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/assistant-agent-contracts.md)

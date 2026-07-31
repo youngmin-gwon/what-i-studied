@@ -1,5 +1,7 @@
-# See Also
+# 이전 노트
 
-- [android-app-components-deep-dive](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components-deep-dive.md) - 서비스 구조
-- [android-security-sandbox](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/android-security-sandbox.md) - NFC 통신 보안
-- [android-appfunctions-and-ai-agents](01_inbox/mobile/android/04_system_services/agents-and-assistant/android-appfunctions-and-ai-agents.md) - 에이전트 기반 결제 요청
+이 노트의 내용은 정본 노트로 흡수했다.
+
+흡수된 이전 노트: `01_inbox/mobile/android/04_system_services/device-capabilities/android-nfc-and-contactless/android-nfc-and-contactless-06-see-also.md`
+
+정본 노트: [NFC와 비접촉 기능 계약](01_inbox/mobile/android/04_system_services/device-capabilities/nfc-contracts/nfc-contracts.md)

@@ -1,8 +1,9 @@
 # Assistant와 에이전트 통합 계약
 
-이 지도는 App Actions와 AppFunctions를 하나의 'AI 연동'으로 뭉치지 않고, 외부 실행 표면별 계약으로 나눈다.
+이 지도는 App Actions와 AppFunctions를 하나의 AI 연동으로 뭉치지 않고, 외부 실행 표면별 계약으로 나눈다.
 
 ## 정본 노트
+
 - [Android 외부 실행 표면은 App Actions와 AppFunctions로 나뉜다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/android-external-execution-surfaces-split-app-actions-and-appfunctions.md)
 - [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/app-actions-map-assistant-queries-to-app-fulfillment.md)
 - [AppFunctions는 에이전트용 앱 기능 계약이다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/appfunctions-are-app-capability-contracts-for-agents.md)
