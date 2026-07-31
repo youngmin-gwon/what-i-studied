@@ -1,12 +1,12 @@
 ---
-title: notification-deep-link-needs-explicit-task-and-back-stack-policy
-tags: []
-aliases: []
-date modified: 2026-07-31 18:21:47 +09:00
-date created: 2026-07-31 17:13:53 +09:00
+title: "알림은 PendingIntent 로 딥 링크 여정을 시작한다"
+tags: [android, android/navigation, android/deep-links]
+aliases: ["알림은 PendingIntent 로 딥 링크 여정을 시작한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## 알림은 PendingIntent 로 딥 링크 여정을 시작한다
+# 알림은 PendingIntent 로 딥 링크 여정을 시작한다
 
 상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
 

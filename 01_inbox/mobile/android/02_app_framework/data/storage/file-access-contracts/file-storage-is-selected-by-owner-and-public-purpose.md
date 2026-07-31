@@ -1,3 +1,11 @@
+---
+title: "저장소 선택: 소유권과 공개 목적을 먼저 묻기"
+tags: [android, android/data, android/storage, android/file-access-contracts]
+aliases: ["저장소 선택: 소유권과 공개 목적을 먼저 묻기"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 저장소 선택: 소유권과 공개 목적을 먼저 묻기
 
 상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)

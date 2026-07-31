@@ -1,3 +1,11 @@
+---
+title: "Android 저장소는 데이터 수명과 소유권으로 선택한다"
+tags: [android, android/data, android/storage, android/persistence-contracts]
+aliases: ["Android 저장소는 데이터 수명과 소유권으로 선택한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android 저장소는 데이터 수명과 소유권으로 선택한다
 
 상위 문서: [Android 저장소와 영속성](01_inbox/mobile/android/02_app_framework/data/storage/android-storage-and-persistence.md)

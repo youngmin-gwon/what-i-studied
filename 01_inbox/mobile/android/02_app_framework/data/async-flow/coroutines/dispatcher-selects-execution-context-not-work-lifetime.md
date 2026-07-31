@@ -1,3 +1,11 @@
+---
+title: "Dispatcher는 실행 위치를 고르고 Scope는 작업 수명을 소유한다"
+tags: [android, android/data, android/async, android/coroutines]
+aliases: ["Dispatcher는 실행 위치를 고르고 Scope는 작업 수명을 소유한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Dispatcher는 실행 위치를 고르고 Scope는 작업 수명을 소유한다
 
 `CoroutineDispatcher`는 coroutine이 어떤 thread 또는 thread pool에서 실행될지 고르는 execution context다. `Main`은 UI thread, `IO`는 blocking I/O, `Default`는 CPU work에 주로 맞춘다.

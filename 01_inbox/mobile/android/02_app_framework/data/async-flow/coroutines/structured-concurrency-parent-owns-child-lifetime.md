@@ -1,3 +1,11 @@
+---
+title: "Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다"
+tags: [android, android/data, android/async, android/coroutines]
+aliases: ["Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다
 
 Structured concurrency는 coroutine을 독립 작업 목록이 아니라 부모-자식 수명 트리로 다루는 규칙이다. 부모 scope가 취소되면 자식 작업도 취소되고, 부모는 자식이 끝나기 전 완료되지 않는다.

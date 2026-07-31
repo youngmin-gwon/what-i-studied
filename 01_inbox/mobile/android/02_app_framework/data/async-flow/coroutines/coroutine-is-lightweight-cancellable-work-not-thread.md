@@ -1,3 +1,11 @@
+---
+title: "Coroutine은 thread가 아니라 취소 가능한 경량 작업이다"
+tags: [android, android/data, android/async, android/coroutines]
+aliases: ["Coroutine은 thread가 아니라 취소 가능한 경량 작업이다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Coroutine은 thread가 아니라 취소 가능한 경량 작업이다
 
 Coroutine은 OS thread 자체가 아니라 중단, 재개, 취소를 표현하는 작업 단위다. 그래서 Android 코드에서 coroutine을 설계할 때 핵심 질문은 "어느 thread를 만들 것인가"가 아니라 "이 작업의 수명은 누가 소유하고 언제 취소되는가"다.

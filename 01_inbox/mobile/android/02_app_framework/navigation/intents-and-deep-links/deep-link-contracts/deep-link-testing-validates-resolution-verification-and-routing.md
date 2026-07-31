@@ -1,12 +1,12 @@
 ---
-title: deep-link-testing-validates-resolution-verification-and-routing
-tags: []
-aliases: []
-date modified: 2026-07-31 18:21:45 +09:00
-date created: 2026-07-31 17:13:53 +09:00
+title: "Android Deep Links 와 App Links 테스트 및 디버깅"
+tags: [android, android/navigation, android/deep-links]
+aliases: ["Android Deep Links 와 App Links 테스트 및 디버깅"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Android Deep Links 와 App Links 테스트 및 디버깅
+# Android Deep Links 와 App Links 테스트 및 디버깅
 
 상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
 

@@ -1,12 +1,18 @@
+---
+title: "Jetpack Navigation 3 Guide"
+tags: [android, android/navigation, android/navigation3]
+aliases: ["Jetpack Navigation 3 Guide"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Jetpack Navigation 3 Guide
 
-Navigation 3 문서는 앱이 소유하는 `NavKey` back stack 과 `NavDisplay` 렌더링 계약을 설명하는 허브로 유지한다. API 사용 예시는 각 계약 노트로 이동한다.
+Jetpack Navigation 3 문서는 앱이 `NavKey` back stack을 직접 소유하고 `NavDisplay`가 이를 Compose 화면으로 렌더링하는 모델을 정리한다. 기존 XML graph 중심 Navigation과 섞지 않고 typed key, entry provider, scene strategy, saveable restoration을 기준으로 읽는다.
 
 ## 정본 지도
 
 - [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
-- [Route key 설계](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/route-key-should-be-stable-and-serializable.md)
-- [Back stack 저장과 복원](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-back-stack-needs-saveable-restoration.md)
-- [SceneStrategy와 SceneDecorator](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/scene-strategy-composes-entries-while-decorator-wraps-rendering.md)
-- [Transition과 predictive back](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-transition-and-back-policy-must-share-stack-state.md)
-- [Adaptive Navigation 계약](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)
+- [NavKey와 back stack은 앱이 소유하는 navigation 상태다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md)
+- [NavDisplay와 entry provider는 렌더링과 route registry를 분리한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navdisplay-and-entry-provider-separate-rendering-from-route-registry.md)
+- [Navigation 3 deep link는 URI를 NavKey로 변환한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)

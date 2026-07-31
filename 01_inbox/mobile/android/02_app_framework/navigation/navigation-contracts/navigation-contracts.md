@@ -1,3 +1,11 @@
+---
+title: "Android Navigation 진입 계약"
+tags: [android, android/navigation]
+aliases: ["Android Navigation 진입 계약"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android Navigation 진입 계약
 
 Android navigation 은 세 층으로 나눠서 읽어야 한다. OS 는 Intent 와 Manifest 로 앱 컴포넌트를 찾고, Deep Link 는 외부 URI 를 앱 내부 목적지로 바꾸며, Navigation 3 는 앱 내부 back stack 상태를 관리한다. Adaptive Navigation 은 같은 목적지를 window 조건에 맞는 chrome 과 pane 으로 표현한다.

@@ -1,3 +1,11 @@
+---
+title: "suspend 함수는 thread가 아니라 coroutine을 멈춘다"
+tags: [android, android/data, android/async, android/coroutines]
+aliases: ["suspend 함수는 thread가 아니라 coroutine을 멈춘다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # suspend 함수는 thread가 아니라 coroutine을 멈춘다
 
 `suspend` 함수는 호출한 thread를 점유한 채 기다리는 함수가 아니다. 실행을 중단할 수 있는 지점을 표시하고, 기다리는 동안 현재 coroutine을 suspend 상태로 돌린 뒤 나중에 이어서 실행할 수 있게 한다.

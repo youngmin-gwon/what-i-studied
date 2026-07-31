@@ -1,3 +1,11 @@
+---
+title: "SQLite와 Room의 경계는 엔진과 애플리케이션 API의 차이다"
+tags: [android, android/data, android/storage, android/persistence-contracts]
+aliases: ["SQLite와 Room의 경계는 엔진과 애플리케이션 API의 차이다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # SQLite와 Room의 경계는 엔진과 애플리케이션 API의 차이다
 
 상위 문서: [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)

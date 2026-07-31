@@ -1,3 +1,11 @@
+---
+title: "여러 원천의 최신값으로 화면 상태를 만들 때 combine을 사용한다"
+tags: [android, android/data, android/async, android/flow-state-contracts]
+aliases: ["여러 원천의 최신값으로 화면 상태를 만들 때 combine을 사용한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 여러 원천의 최신값으로 화면 상태를 만들 때 combine을 사용한다
 
 상위 문서: [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md)

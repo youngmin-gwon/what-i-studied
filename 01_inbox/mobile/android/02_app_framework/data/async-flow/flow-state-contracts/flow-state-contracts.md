@@ -1,3 +1,11 @@
+---
+title: "Flow와 StateFlow 상태 계약"
+tags: [android, android/data, android/async, android/flow-state-contracts]
+aliases: ["Flow와 StateFlow 상태 계약"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Flow와 StateFlow 상태 계약
 
 Flow 계열 노트는 데이터 흐름의 소유자와 화면 상태 계약을 구분한다. `Flow`는 원천 데이터 흐름, `StateFlow`는 현재값이 필요한 화면 상태에 주로 사용한다.

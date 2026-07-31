@@ -1,12 +1,12 @@
 ---
-title: intent-filter-matches-action-category-data
-tags: []
-aliases: []
-date modified: 2026-07-31 18:19:56 +09:00
-date created: 2026-07-31 17:13:53 +09:00
+title: "action, category, data 매칭은 서로 다른 조건이다"
+tags: [android, android/navigation, android/intents]
+aliases: ["action, category, data 매칭은 서로 다른 조건이다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## action, category, data 매칭은 서로 다른 조건이다
+# action, category, data 매칭은 서로 다른 조건이다
 
 상위 문서: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
 

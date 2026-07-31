@@ -1,3 +1,11 @@
+---
+title: "파일 접근 계약"
+tags: [android, android/data, android/storage, android/file-access-contracts]
+aliases: ["파일 접근 계약"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 파일 접근 계약
 
 파일 접근은 파일의 형식보다 소유권과 공개 목적을 먼저 본다. 앱이 소유하는 파일, 사용자가 고르는 문서, 갤러리에 공개되는 미디어는 서로 다른 계약이다.

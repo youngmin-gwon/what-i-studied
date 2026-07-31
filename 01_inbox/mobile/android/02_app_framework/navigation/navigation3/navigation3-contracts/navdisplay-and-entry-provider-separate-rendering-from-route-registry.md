@@ -1,12 +1,12 @@
 ---
-title: navdisplay-and-entry-provider-separate-rendering-from-route-registry
-tags: []
-aliases: []
-date modified: 2026-07-31 18:22:05 +09:00
-date created: 2026-07-31 17:13:53 +09:00
+title: "NavDisplay 와 entry provider 의 경계"
+tags: [android, android/navigation, android/navigation3]
+aliases: ["NavDisplay 와 entry provider 의 경계"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## NavDisplay 와 entry provider 의 경계
+# NavDisplay 와 entry provider 의 경계
 
 상위 문서: [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
 

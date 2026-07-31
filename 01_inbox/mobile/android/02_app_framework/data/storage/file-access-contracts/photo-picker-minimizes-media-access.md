@@ -1,3 +1,11 @@
+---
+title: "Photo Picker: 사진 선택에 필요한 최소 접근"
+tags: [android, android/data, android/storage, android/file-access-contracts]
+aliases: ["Photo Picker: 사진 선택에 필요한 최소 접근"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Photo Picker: 사진 선택에 필요한 최소 접근
 
 상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)

@@ -1,3 +1,11 @@
+---
+title: "Deep Link 계약"
+tags: [android, android/navigation, android/deep-links]
+aliases: ["Deep Link 계약"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Deep Link 계약
 
 Deep Link 는 외부 URI 를 앱 내부 목적지로 연결하는 장기 계약이다. Manifest 선언, 도메인 검증, 입력 검증, 앱 내부 라우팅, 인증 후 back stack 복원을 분리해서 설계한다.

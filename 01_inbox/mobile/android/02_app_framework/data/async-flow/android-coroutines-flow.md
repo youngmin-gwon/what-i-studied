@@ -1,3 +1,11 @@
+---
+title: "Android Coroutines and Flow"
+tags: [android, android/data, android/async]
+aliases: ["Android Coroutines and Flow"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android Coroutines and Flow
 
 Android Coroutine/Flow 문서는 비동기 작업의 수명, 실행 위치, 실패 전파, stream sharing, UI state 수집을 분리해서 읽는다.

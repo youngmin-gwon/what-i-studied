@@ -1,3 +1,11 @@
+---
+title: "DataStore와 Room 마이그레이션은 저장소 계약의 시간 경계다"
+tags: [android, android/data, android/storage, android/persistence-contracts]
+aliases: ["DataStore와 Room 마이그레이션은 저장소 계약의 시간 경계다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # DataStore와 Room 마이그레이션은 저장소 계약의 시간 경계다
 
 상위 문서: [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)

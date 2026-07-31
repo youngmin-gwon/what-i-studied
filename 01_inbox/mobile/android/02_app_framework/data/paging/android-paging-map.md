@@ -1,6 +1,14 @@
+---
+title: "Android Paging Map"
+tags: [android, android/data, android/paging]
+aliases: ["Android Paging Map"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android Paging Map
 
-Paging 문서는 대량 목록을 한 번에 모두 읽지 않고, page 단위로 가져와 UI에 반영하는 data loading 계약을 정리한다.
+Paging 문서는 대량 목록을 한 번에 모두 읽지 않고 page 단위로 가져와 UI에 반영하는 data loading 계약을 정리한다. 핵심은 “목록을 어떻게 그릴까”보다 source, cache, load state, item identity의 책임을 어느 layer에 둘지다.
 
 ## 정본 노트
 
@@ -13,8 +21,8 @@ Paging 문서는 대량 목록을 한 번에 모두 읽지 않고, page 단위�
 
 ## Layer Boundary
 
-- Repository: [PagingSource](01_inbox/mobile/android/02_app_framework/data/paging/paging-contracts/paging-source-loads-one-page-and-returns-keys.md)와 source construction.
-- ViewModel: [Pager/PagingData Flow](01_inbox/mobile/android/02_app_framework/data/paging/paging-contracts/pager-exposes-pagingdata-flow-from-pagingsource-factory.md)와 [cachedIn](01_inbox/mobile/android/02_app_framework/data/paging/paging-contracts/cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md).
-- UI: [LoadState](01_inbox/mobile/android/02_app_framework/data/paging/paging-contracts/loadstate-models-refresh-append-and-prepend-ui-states.md)와 item identity/diffing.
+- Repository는 `PagingSource`와 `RemoteMediator`를 통해 data source와 cache 정책을 소유한다.
+- ViewModel은 `Pager.flow`를 화면 상태에 연결하고 `cachedIn`으로 화면 수명 안의 공유 범위를 정한다.
+- UI는 `PagingData`를 표시하고 `LoadState`, retry, empty state, item identity를 표현한다.
 
 공식 문서: [Paging library overview](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)

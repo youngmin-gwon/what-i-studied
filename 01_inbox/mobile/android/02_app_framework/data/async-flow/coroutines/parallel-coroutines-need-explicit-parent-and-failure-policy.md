@@ -1,3 +1,11 @@
+---
+title: "병렬 Coroutine은 부모 scope와 실패 정책을 먼저 정해야 한다"
+tags: [android, android/data, android/async, android/coroutines]
+aliases: ["병렬 Coroutine은 부모 scope와 실패 정책을 먼저 정해야 한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 병렬 Coroutine은 부모 scope와 실패 정책을 먼저 정해야 한다
 
 여러 coroutine을 동시에 실행할 때 핵심은 `async`를 몇 개 쓰는지가 아니라 결과, 취소, 실패가 어떤 규칙으로 합쳐지는지다. 같은 사용자 액션에서 시작된 병렬 작업은 보통 하나의 부모 scope 안에 있어야 한다.

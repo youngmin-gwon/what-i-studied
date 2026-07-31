@@ -1,3 +1,11 @@
+---
+title: "Flow operator는 stream 변환과 취소 규칙을 드러낸다"
+tags: [android, android/data, android/async, android/flow]
+aliases: ["Flow operator는 stream 변환과 취소 규칙을 드러낸다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Flow operator는 stream 변환과 취소 규칙을 드러낸다
 
 Flow operator는 값 목록을 편의상 가공하는 문법이 아니라 stream의 변환, 결합, 취소 규칙을 선언하는 위치다. `map`과 `filter`는 각 값을 변환하거나 걸러내고, `combine`은 여러 source의 최신값을 묶고, `flatMapLatest`는 새 입력이 오면 이전 작업을 취소한다.

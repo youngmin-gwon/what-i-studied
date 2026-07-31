@@ -1,10 +1,20 @@
+---
+title: "Android Intent and IPC"
+tags: [android, android/navigation, android/intents]
+aliases: ["Android Intent and IPC"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android Intent and IPC
 
-Intent 문서는 OS 가 앱 컴포넌트를 찾고 호출하는 공개 계약으로만 유지한다. Binder/IPC 내부 동작은 system internals 정본에서 다룬다.
+Intent 문서는 앱 컴포넌트 실행 요청과 외부 진입 경계를 정리한다. Binder IPC 자체는 system internals 정본으로 두고, 여기서는 Intent, Manifest, exported, package visibility, PendingIntent, Activity Result API를 다룬다.
 
 ## 정본 지도
 
-- [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
-- [Activity Result API](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/activity-result-api-defines-lifecycle-aware-result-contract.md)
-- [Intent 입력 신뢰 경계](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-inputs-need-explicit-type-and-trust-boundaries.md)
-- [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)
+- [Intent 와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
+- [Intent는 컴포넌트 실행을 설명하는 메시지다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-describes-component-action-request.md)
+- [AndroidManifest는 OS가 발견할 컴포넌트와 진입점을 선언한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md)
+- [PendingIntent는 미래 Intent 실행 권한을 위임하는 token이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md)
+
+관련 지도: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)

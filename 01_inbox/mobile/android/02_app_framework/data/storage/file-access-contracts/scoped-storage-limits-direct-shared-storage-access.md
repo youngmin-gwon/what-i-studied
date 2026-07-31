@@ -1,3 +1,11 @@
+---
+title: "Scoped Storage: 저장소 접근 경계를 선택하는 규칙"
+tags: [android, android/data, android/storage, android/file-access-contracts]
+aliases: ["Scoped Storage: 저장소 접근 경계를 선택하는 규칙"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Scoped Storage: 저장소 접근 경계를 선택하는 규칙
 
 상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)

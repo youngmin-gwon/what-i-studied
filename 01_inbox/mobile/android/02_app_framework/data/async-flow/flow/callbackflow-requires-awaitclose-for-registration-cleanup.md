@@ -1,3 +1,11 @@
+---
+title: "callbackFlow는 awaitClose로 등록과 해제를 대칭으로 보장해야 한다"
+tags: [android, android/data, android/async, android/flow]
+aliases: ["callbackFlow는 awaitClose로 등록과 해제를 대칭으로 보장해야 한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # callbackFlow는 awaitClose로 등록과 해제를 대칭으로 보장해야 한다
 
 `callbackFlow`는 callback 기반 API를 Flow로 감싸는 bridge다. callback 등록은 flow builder 안에서 수행하고, collector가 취소되거나 flow가 닫힐 때 `awaitClose`에서 listener 해제를 보장해야 한다.

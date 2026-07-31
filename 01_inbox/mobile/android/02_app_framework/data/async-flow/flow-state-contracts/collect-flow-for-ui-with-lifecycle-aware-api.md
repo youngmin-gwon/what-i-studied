@@ -1,3 +1,11 @@
+---
+title: "화면에 그릴 Flow는 lifecycle-aware API로 수집한다"
+tags: [android, android/data, android/async, android/flow-state-contracts]
+aliases: ["화면에 그릴 Flow는 lifecycle-aware API로 수집한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 화면에 그릴 Flow는 lifecycle-aware API로 수집한다
 
 상위 문서: [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md)

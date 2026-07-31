@@ -1,3 +1,11 @@
+---
+title: "Navigation 3 계약"
+tags: [android, android/navigation, android/navigation3]
+aliases: ["Navigation 3 계약"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Navigation 3 계약
 
 Navigation 3의 핵심은 앱이 `NavKey` back stack 상태를 소유하고, `NavDisplay`가 그 상태를 화면으로 렌더링한다는 점이다. OS Intent 해석과 앱 내부 back stack 관리를 섞지 않는다.

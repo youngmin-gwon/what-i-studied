@@ -1,3 +1,11 @@
+---
+title: "Intent 와 Manifest 계약"
+tags: [android, android/navigation, android/intents]
+aliases: ["Intent 와 Manifest 계약"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Intent 와 Manifest 계약
 
 Intent 와 Manifest 는 OS 가 앱 컴포넌트를 발견하고 실행하는 공개 계약이다. 앱 내부 화면 이동과 구분해서 읽어야 한다.

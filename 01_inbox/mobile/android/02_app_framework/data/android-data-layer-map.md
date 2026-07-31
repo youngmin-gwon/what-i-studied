@@ -1,3 +1,11 @@
+---
+title: "Android Data Layer Map"
+tags: [android, android/data]
+aliases: ["Android Data Layer Map"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Android Data Layer Map
 
 Android data layer는 원천 데이터 흐름, 영속 저장소, 파일 접근, paged loading을 분리해서 읽는다.

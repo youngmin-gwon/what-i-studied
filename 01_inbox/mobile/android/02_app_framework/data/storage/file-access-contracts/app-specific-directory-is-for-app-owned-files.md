@@ -1,3 +1,11 @@
+---
+title: "앱 전용 디렉터리: 소유 앱만 쓰는 파일"
+tags: [android, android/data, android/storage, android/file-access-contracts]
+aliases: ["앱 전용 디렉터리: 소유 앱만 쓰는 파일"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 앱 전용 디렉터리: 소유 앱만 쓰는 파일
 
 상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)

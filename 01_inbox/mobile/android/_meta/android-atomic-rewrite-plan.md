@@ -407,3 +407,20 @@ Canonical note 후보:
 - 추가 정리: Architecture 활성 문서의 redirect 경유 링크 14개를 권한, IPC, DI 정본 링크로 직접 보정했다.
 - 검증: Architecture 활성 frontmatter 누락 0개, Architecture 활성 redirect 경유 링크 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
 
+### Phase 32 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: Data 정본 문서 품질 보강, Paging 정본 보강, Coroutine/Flow 지도 보강
+- 정본 지도: [Android Data Layer Map](01_inbox/mobile/android/02_app_framework/data/android-data-layer-map.md), [Android Paging Map](01_inbox/mobile/android/02_app_framework/data/paging/android-paging-map.md), [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md), [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md), [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
+- 원칙: 이미 정본화된 storage/Flow/Paging 묶음을 새로 쪼개지 않고, 활성 정본 45개에 frontmatter를 추가하고 너무 얇은 Paging 정본에 판단 기준과 layer boundary를 보강했다.
+- 추가 정리: Coroutine/Flow 지도 노트에 중복 방지 규칙을 추가해 coroutine lifetime, stream model, UI state collection, persistence 책임을 분리했다.
+- 검증: Data 활성 frontmatter 누락 0개, Data 활성 13줄 이하 얇은 정본 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+
+### Phase 33 적용 기록
+
+- 적용일: 2026-08-01
+- 범위: Navigation 정본 문서 품질 보강, Adaptive Navigation 얇은 정본 보강, Navigation 3 얇은 정본 보강, Intent/Deep Link entrypoint 보강
+- 정본 지도: [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md), [Intent 와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md), [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md), [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md), [Adaptive Navigation 계약](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)
+- 원칙: 이미 정본화된 navigation 묶음을 새로 쪼개지 않고, 활성 정본 43개에 frontmatter/H1을 통일하고 13줄 이하 얇은 정본에 판단 기준과 책임 경계를 보강했다.
+- 검증: Navigation 활성 frontmatter 누락 0개, H1 누락 0개, 13줄 이하 얇은 정본 0개, Android 전체 링크/중복/legacy syntax 검증 통과.
+

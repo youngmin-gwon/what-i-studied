@@ -1,3 +1,11 @@
+---
+title: "SAF: 사용자가 고른 문서와 폴더에 접근하기"
+tags: [android, android/data, android/storage, android/file-access-contracts]
+aliases: ["SAF: 사용자가 고른 문서와 폴더에 접근하기"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # SAF: 사용자가 고른 문서와 폴더에 접근하기
 
 상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)

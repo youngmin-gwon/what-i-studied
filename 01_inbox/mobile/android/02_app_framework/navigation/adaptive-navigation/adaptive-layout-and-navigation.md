@@ -1,11 +1,20 @@
+---
+title: "Adaptive Layout and Navigation"
+tags: [android, android/navigation, android/adaptive]
+aliases: ["Adaptive Layout and Navigation"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Adaptive Layout and Navigation
 
-Adaptive layout/navigation 문서는 device 종류가 아니라 현재 window, posture, pane, navigation chrome 을 기준으로 UI 를 조정하는 허브다.
+Adaptive layout and navigation은 화면 크기, posture, 입력 장치에 따라 app chrome과 content pane을 조정하는 설계 축이다. 목적지는 그대로 두고, 표시 방식만 window 조건에 맞게 바꾸는 것이 핵심이다.
 
 ## 정본 지도
 
 - [Adaptive Navigation 계약](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)
-- [Window와 posture 기반 판단](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-is-driven-by-window-and-posture.md)
-- [Top-level destination과 chrome](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/top-level-destination-owns-adaptive-navigation-chrome.md)
-- [Pane selection과 back policy](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/pane-layout-preserves-selection-and-back-policy.md)
-- [표준 adaptive scaffold 우선](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/standard-adaptive-scaffolds-should-precede-custom-layouts.md)
+- [Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-is-driven-by-window-and-posture.md)
+- [Top-level destination은 adaptive navigation chrome의 단위다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/top-level-destination-owns-adaptive-navigation-chrome.md)
+- [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/pane-layout-preserves-selection-and-back-policy.md)
+
+관련 지도: [Large screen contracts](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

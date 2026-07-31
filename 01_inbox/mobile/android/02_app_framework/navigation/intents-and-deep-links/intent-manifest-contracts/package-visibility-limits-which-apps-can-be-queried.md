@@ -1,12 +1,12 @@
 ---
-title: package-visibility-limits-which-apps-can-be-queried
-tags: []
-aliases: []
-date modified: 2026-07-31 18:20:18 +09:00
-date created: 2026-07-31 17:13:53 +09:00
+title: "Package visibility 는 다른 앱 조회 범위를 제한한다"
+tags: [android, android/navigation, android/intents]
+aliases: ["Package visibility 는 다른 앱 조회 범위를 제한한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Package visibility 는 다른 앱 조회 범위를 제한한다
+# Package visibility 는 다른 앱 조회 범위를 제한한다
 
 상위 문서: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
 

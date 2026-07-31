@@ -1,3 +1,11 @@
+---
+title: "Coroutine 예외 전파는 builder와 supervision boundary가 결정한다"
+tags: [android, android/data, android/async, android/coroutines]
+aliases: ["Coroutine 예외 전파는 builder와 supervision boundary가 결정한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # Coroutine 예외 전파는 builder와 supervision boundary가 결정한다
 
 Coroutine 실패 동작은 `launch`와 `async` 중 무엇으로 시작했는지, 그리고 어떤 부모 boundary 아래에 있는지에 따라 달라진다. `launch`의 처리되지 않은 예외는 부모로 전파되고, `async`의 예외는 `await()`에서 관찰된다.

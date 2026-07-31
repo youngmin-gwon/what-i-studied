@@ -1,7 +1,22 @@
+---
+title: "외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다"
+tags: [android, android/navigation, android/deep-links]
+aliases: ["외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다"]
+date modified: 2026-08-01 00:00:00 +09:00
+date created: 2026-08-01 00:00:00 +09:00
+---
+
 # 외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다
 
 Deep Link나 App Link로 들어온 URI는 곧바로 내부 route로 쓰지 않는다. scheme, host, path, query parameter를 allowlist로 검증하고, percent encoding, trailing slash, case, path traversal처럼 route matching을 흔드는 표현을 canonicalize한다.
 
 App Link verification은 도메인 소유 관계를 확인하지만 앱 내부 권한이나 business rule을 대신 검증하지 않는다. URI를 `NavKey`로 바꿀 때는 raw string을 그대로 넘기지 말고 typed route argument로 변환한다.
 
-관련 노트: [Deep Link](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md), [App Link](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md), [Navigation 3 deep link](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md), [authenticated deep link](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/authenticated-deep-links-require-pending-destination-and-back-stack.md).
+## 판단 기준
+
+- 지원하는 scheme, host, path prefix를 명시적으로 allowlist로 둔다.
+- query parameter는 type, range, required/optional 여부를 검증한다.
+- 인증이 필요한 destination은 바로 push하지 않고 pending destination과 auth stack을 분리한다.
+- 잘못된 URI는 crash가 아니라 fallback destination 또는 명시적 오류로 수렴시킨다.
+
+관련 노트: [Android 딥 링크는 외부 URI 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md), [Android App Link는 검증된 HTTPS 딥 링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md), [Navigation 3 deep link는 URI를 NavKey로 변환한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)
