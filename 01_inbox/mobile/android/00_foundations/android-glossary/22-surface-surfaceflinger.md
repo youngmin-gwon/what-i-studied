@@ -16,6 +16,6 @@
 App (Canvas/OpenGL) -> Surface -> BufferQueue -> SurfaceFlinger -> Hardware Composer -> Display
 ```
 
-**관련**: [android-graphics-and-media](../01_system_internals/android-graphics-and-media.md)
+**관련**: [[android-graphics-and-media]]
 
 ---

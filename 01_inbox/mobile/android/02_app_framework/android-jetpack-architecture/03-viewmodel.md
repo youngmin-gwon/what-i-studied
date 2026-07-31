@@ -2,7 +2,7 @@
 
 상위 노트: [[android-jetpack-architecture]]
 
-설정 변경에서 살아남는 UI 상태 홀더. 자세한 내용은 [android-viewmodel](android-viewmodel.md) 참고.
+설정 변경에서 살아남는 UI 상태 홀더. 자세한 내용은 [[android-viewmodel]] 참고.
 
 ```kotlin
 class UserViewModel : ViewModel() {

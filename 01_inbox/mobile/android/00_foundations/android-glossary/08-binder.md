@@ -27,6 +27,6 @@ adb shell service list
 adb shell dumpsys activity services
 ```
 
-**관련**: [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md)
+**관련**: [[android-binder-and-ipc]]
 
 ---

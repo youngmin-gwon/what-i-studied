@@ -272,4 +272,4 @@ adb shell dumpsys package com.example.app | grep -A5 "intent-filter"
 
 #### 더 보기
 
-[android-intent-and-ipc](android-intent-and-ipc.md), [android-compose-internals](android-compose-internals.md), [android-app-components-deep-dive](android-app-components-deep-dive.md), [android-activity-lifecycle](android-activity-lifecycle.md)
+[[android-intent-and-ipc]], [[android-compose-internals]], [[android-app-components-deep-dive]], [[android-activity-lifecycle]]

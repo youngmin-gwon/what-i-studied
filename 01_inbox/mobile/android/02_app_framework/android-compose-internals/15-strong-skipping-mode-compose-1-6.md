@@ -28,4 +28,4 @@ fun UserList(users: List<User>) {
 >[!NOTE] **iOS 비교: SwiftUI 의 렌더링 최적화**
 >SwiftUI 는 `@Observable` 매크로(iOS 17+)를 통해 **프로퍼티 수준 추적**을 자동화한다. Compose 의 Strong Skipping Mode 와 유사하게, 실제로 변경된 프로퍼티를 사용하는 뷰만 다시 그린다.
 >차이점: SwiftUI 는 프레임워크가 자동으로 감지하는 반면, Compose 는 `equals()` 기반 비교에 의존한다.
->자세한 내용은 [apple-observation-framework](../../apple/01_language_concurrency/apple-observation-framework.md) 참고.
+>자세한 내용은 [[apple-observation-framework]] 참고.

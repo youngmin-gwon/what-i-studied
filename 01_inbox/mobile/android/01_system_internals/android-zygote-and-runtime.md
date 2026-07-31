@@ -79,6 +79,6 @@ Zygote 는 **"모든 앱의 부모 프로세스"**입니다.
 
 #### 📚 연결 문서
 
-- [android-boot-flow](android-boot-flow.md) - Zygote 가 시작되는 시점
-- [android-binder-and-ipc](android-binder-and-ipc.md) - AMS 가 Zygote 에게 fork 요청을 보내는 통로
-- [android-process-and-memory](android-process-and-memory.md) - 프로세스별 메모리 구조
+- [[android-boot-flow]] - Zygote 가 시작되는 시점
+- [[android-binder-and-ipc]] - AMS 가 Zygote 에게 fork 요청을 보내는 통로
+- [[android-process-and-memory]] - 프로세스별 메모리 구조

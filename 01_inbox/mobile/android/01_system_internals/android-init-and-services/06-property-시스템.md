@@ -27,7 +27,7 @@ wait_for_prop sys.boot_completed 1
 | `ctl.*` | 서비스 제어 (특수) | `ctl.start`, `ctl.stop` |
 | `vendor.*` | Vendor partition | `vendor.audio.hal` |
 
-### Property Contexts ([SELinux](../../../../selinux.md))
+### Property Contexts ([[selinux|SELinux]])
 
 ```bash
 # /system/etc/selinux/plat_property_contexts

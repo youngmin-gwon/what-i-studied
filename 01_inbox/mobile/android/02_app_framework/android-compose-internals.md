@@ -8,7 +8,7 @@ date created: 2025-12-16 16:19:14 +09:00
 
 ## Jetpack Compose Internals android android/compose android/ui
 
-Jetpack Compose 의 내부 동작과 성능 최적화. 기본은 [android-jetpack-architecture](android-jetpack-architecture.md) 참고.
+Jetpack Compose 의 내부 동작과 성능 최적화. 기본은 [[android-jetpack-architecture]] 참고.
 
 ---
 

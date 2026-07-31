@@ -34,6 +34,6 @@ unzip -l app.apk | grep dex
 # → .vdex (Verified DEX, ART)
 ```
 
-**관련**: [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md)
+**관련**: [[android-zygote-and-runtime]]
 
 ---

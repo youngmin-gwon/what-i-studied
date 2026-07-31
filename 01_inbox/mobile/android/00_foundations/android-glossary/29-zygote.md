@@ -39,7 +39,7 @@ adb shell ls -la /dev/socket/zygote*
 # /dev/socket/zygote_secondary (32-bit)
 ```
 
-**관련**: [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md)
+**관련**: [[android-zygote-and-runtime]]
 
 ---
 

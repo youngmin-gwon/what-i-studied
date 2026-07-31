@@ -134,12 +134,12 @@ adb shell pm clear com.example
 
 ### 연결 문서
 
-[android-binder-and-ipc](android-binder-and-ipc.md) - System Service 통신
+[[android-binder-and-ipc]] - System Service 통신
 
-[android-zygote-and-runtime](android-zygote-and-runtime.md) - 프로세스 생성
+[[android-zygote-and-runtime]] - 프로세스 생성
 
-[android-kernel](android-kernel.md) - LMKD 와 메모리 관리
+[[android-kernel]] - LMKD 와 메모리 관리
 
-[android-security-sandbox](../05_security_privacy/android-security-sandbox.md) - 권한 검사
+[[android-security-sandbox]] - 권한 검사
 
-[android-process-and-memory](android-process-and-memory.md) - 메모리 관리 상세
+[[android-process-and-memory]] - 메모리 관리 상세

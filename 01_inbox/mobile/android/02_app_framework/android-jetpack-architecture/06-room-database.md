@@ -2,7 +2,7 @@
 
 상위 노트: [[android-jetpack-architecture]]
 
-이미 [android-storage-systems](android-storage-systems.md) 에서 다뤘으나 추가 기능 소개.
+이미 [[android-storage-systems]] 에서 다뤘으나 추가 기능 소개.
 
 ##### 관계 (Relation)
 

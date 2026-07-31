@@ -24,7 +24,7 @@ adb shell service list
 system_server 죽음 → Zygote가 재시작 감지 → 기기 재부팅
 ```
 
-**관련**: [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)
+**관련**: [[android-activity-manager-and-system-services]]
 
 ---
 

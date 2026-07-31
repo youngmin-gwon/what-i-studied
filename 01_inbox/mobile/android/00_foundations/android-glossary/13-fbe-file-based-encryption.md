@@ -26,7 +26,7 @@ val deFile = File(deContext.filesDir, "alarm.txt")
 val ceFile = File(context.filesDir, "user_data.txt")
 ```
 
-**관련**: [android-security-sandbox](../05_security_privacy/android-security-sandbox.md)
+**관련**: [[android-security-sandbox]]
 
 ---
 

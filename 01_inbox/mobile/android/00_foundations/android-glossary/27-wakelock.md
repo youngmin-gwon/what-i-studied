@@ -34,6 +34,6 @@ adb shell dumpsys power | grep Wake
 adb shell dumpsys batterystats
 ```
 
-**관련**: [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md)
+**관련**: [[android-performance-and-debug]]
 
 ---

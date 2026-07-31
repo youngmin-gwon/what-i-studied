@@ -35,7 +35,7 @@ val job = JobInfo.Builder(JOB_ID, componentName)
 jobScheduler.schedule(job)
 ```
 
-**관련**: [android-activity-manager-and-system-services](../01_system_internals/android-activity-manager-and-system-services.md)
+**관련**: [[android-activity-manager-and-system-services]]
 
 ---
 

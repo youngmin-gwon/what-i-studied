@@ -20,6 +20,6 @@ dependencies {
 ./gradlew :app:generateBaselineProfile
 ```
 
-**관련**: [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md)
+**관련**: [[android-zygote-and-runtime]]
 
 ---

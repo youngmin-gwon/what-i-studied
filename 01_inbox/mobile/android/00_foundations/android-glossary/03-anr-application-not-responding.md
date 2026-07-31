@@ -29,6 +29,6 @@ lifecycleScope.launch {
 adb pull /data/anr/traces.txt
 ```
 
-**관련**: [android-debugging-techniques](../06_testing_performance/android-debugging-techniques.md)
+**관련**: [[android-debugging-techniques]]
 
 ---

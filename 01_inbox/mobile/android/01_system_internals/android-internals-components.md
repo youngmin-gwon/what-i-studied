@@ -8,7 +8,7 @@ date created: 2025-12-16 15:26:56 +09:00
 
 ## Android Internals Components android android/internals android/system-server
 
-system_server 안에서 돌고 있는 주요 서비스들을 쉬운 말로 요약했다. 용어는 [android-glossary](../00_foundations/android-glossary.md).
+system_server 안에서 돌고 있는 주요 서비스들을 쉬운 말로 요약했다. 용어는 [[android-glossary]].
 
 ### system_server 가 하는 일
 
@@ -61,4 +61,4 @@ system_server 안에서 돌고 있는 주요 서비스들을 쉬운 말로 요�
 
 ### 더 보기
 
-[android-activity-manager-and-system-services](android-activity-manager-and-system-services.md), [android-boot-flow](android-boot-flow.md), [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md).
+[[android-activity-manager-and-system-services]], [[android-boot-flow]], [[android-performance-and-debug]].

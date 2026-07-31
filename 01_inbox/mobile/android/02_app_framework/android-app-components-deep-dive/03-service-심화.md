@@ -89,7 +89,7 @@ class MusicService : Service() {
 
 ##### Bound Service 와 AIDL
 
-[android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md) 를 통해 프로세스 간 통신이 가능하다.
+[[android-binder-and-ipc]] 를 통해 프로세스 간 통신이 가능하다.
 
 ```kotlin
 // 같은 프로세스 내 Binder

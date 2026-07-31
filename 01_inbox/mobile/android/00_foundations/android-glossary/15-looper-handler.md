@@ -30,6 +30,6 @@ Handler(Looper.getMainLooper()).post {
 }
 ```
 
-**관련**: [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md)
+**관련**: [[android-performance-and-debug]]
 
 ---

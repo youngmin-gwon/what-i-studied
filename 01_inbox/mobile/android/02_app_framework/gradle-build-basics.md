@@ -64,5 +64,5 @@ plugins {
 #### 연관 문서
 
 - [[gradle-dependency-management]] - Version Catalog 및 의존성 관리
-- [[gradle-variants-flavors.md]] - 빌드 변형 설정
+- [[gradle-variants-flavors]] - 빌드 변형 설정
 - [[android-gradle-build-system]] - Gradle MOC

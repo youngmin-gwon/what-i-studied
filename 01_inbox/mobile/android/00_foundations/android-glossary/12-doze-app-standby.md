@@ -35,7 +35,7 @@ adb shell dumpsys deviceidle force-idle
 adb shell dumpsys deviceidle unforce
 ```
 
-**관련**: [android-performance-and-debug](../06_testing_performance/android-performance-and-debug.md)
+**관련**: [[android-performance-and-debug]]
 
 ---
 

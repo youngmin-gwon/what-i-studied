@@ -1,4 +1,12 @@
-# Android 기술 진화
+---
+title: 01-android-기술-진화
+tags: []
+aliases: []
+date modified: 2026-07-31 15:39:45 +09:00
+date created: 2026-07-31 15:29:55 +09:00
+---
+
+## Android 기술 진화
 
 상위 노트: [[android-evolution-history]]
 

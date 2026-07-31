@@ -26,6 +26,6 @@ startActivity(intent)
 val user = intent.getParcelableExtra<User>("user")
 ```
 
-**관련**: [android-binder-and-ipc](../01_system_internals/android-binder-and-ipc.md)
+**관련**: [[android-binder-and-ipc]]
 
 ---

@@ -34,7 +34,7 @@ adb shell ls -la /data/data/com.example
 #             (UID만 접근 가능)
 ```
 
-**관련**: [android-security-sandbox](../05_security_privacy/android-security-sandbox.md)
+**관련**: [[android-security-sandbox]]
 
 ---
 

@@ -27,7 +27,7 @@ adb shell getprop persist.sys.dalvik.vm.lib.2
 # 출력: libart.so
 ```
 
-**관련**: [android-zygote-and-runtime](../01_system_internals/android-zygote-and-runtime.md)
+**관련**: [[android-zygote-and-runtime]]
 
 ---
 

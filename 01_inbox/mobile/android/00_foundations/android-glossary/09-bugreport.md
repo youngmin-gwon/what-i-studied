@@ -27,7 +27,7 @@ adb bugreport bugreport.zip
 - /proc, /sys 정보
 - ANR traces
 
-**관련**: [android-debugging-techniques](../06_testing_performance/android-debugging-techniques.md)
+**관련**: [[android-debugging-techniques]]
 
 ---
 
