@@ -1,5 +1,5 @@
 ---
-title: "영속 저장소 계약"
+title: 영속 저장소 계약
 tags: [android, android/data, android/storage, android/persistence-contracts]
 aliases: ["영속 저장소 계약"]
 date modified: 2026-08-01 00:00:00 +09:00

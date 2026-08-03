@@ -1,12 +1,12 @@
 ---
-title: android-glossary
+title: "Android Glossary는 안드로이드 플랫폼의 핵심 개념을 정리한 용어집이다"
 tags: ["android", "android/foundations", "android/glossary"]
 aliases: ["Android Glossary", "Android 용어집"]
 date modified: 2026-08-01 01:06:59 +09:00
 date created: 2026-04-07 11:06:51 +09:00
 ---
 
-## Android Glossary
+# Android Glossary는 안드로이드 플랫폼의 핵심 개념을 정리한 용어집이다
 
 용어장은 개념의 정본이 아니라 진입점이다. 각 항목은 짧은 정의, 혼동 방지 기준, 더 깊게 읽을 정본 링크만 유지한다. 약어의 뜻을 확인한 뒤 실제 판단은 연결된 subsystem 정본에서 한다.
 

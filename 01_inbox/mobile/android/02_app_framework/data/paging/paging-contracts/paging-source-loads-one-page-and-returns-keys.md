@@ -1,5 +1,5 @@
 ---
-title: "PagingSource는 한 번에 한 페이지를 읽고 다음 key를 돌려준다"
+title: PagingSource는 한 번에 한 페이지를 읽고 다음 key를 돌려준다
 tags: [android, android/data, android/paging]
 aliases: ["PagingSource는 한 번에 한 페이지를 읽고 다음 key를 돌려준다"]
 date modified: 2026-08-01 00:00:00 +09:00

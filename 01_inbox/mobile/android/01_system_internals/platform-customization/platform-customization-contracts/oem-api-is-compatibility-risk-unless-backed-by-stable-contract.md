@@ -1,5 +1,5 @@
 ---
-title: OEM API는 stable contract가 없으면 compatibility risk다
+title: "OEM API는 stable contract가 없으면 compatibility risk다"
 tags: [android, android/oem, android/api]
 aliases: [OEM API]
 date modified: 2026-08-01 00:00:00 +09:00

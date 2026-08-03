@@ -1,5 +1,5 @@
 ---
-title: Custom ROM 작업은 앱 개발이 아니라 플랫폼 통합이다
+title: "Custom ROM 작업은 앱 개발이 아니라 플랫폼 통합이다"
 tags: [android, android/aosp, android/custom-rom]
 aliases: [Custom ROM]
 date modified: 2026-08-01 00:00:00 +09:00

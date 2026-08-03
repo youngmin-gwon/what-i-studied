@@ -1,5 +1,5 @@
 ---
-title: HAL is a stable userspace contract between framework and vendor
+title: "HAL is a stable userspace contract between framework and vendor"
 tags: [android, android/native, android/system-internals]
 aliases: [HAL, Hardware Abstraction Layer]
 date modified: 2026-07-31 23:58:00 +09:00

@@ -1,12 +1,12 @@
 ---
-title: Compose stability and strong skipping affect skippability
+title: Compose Stability와 Strong Skipping은 Skippability에 영향을 미친다
 tags: [android, jetpack-compose, compose/performance]
 aliases: [Compose stability, Strong skipping]
 date modified: 2026-07-31 23:59:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Compose stability and strong skipping affect skippability
+# Compose Stability와 Strong Skipping은 Skippability에 영향을 미친다
 
 Compose가 Composable 호출을 skip하려면 입력이 비교 가능한 계약을 가져야 한다. Stability는 “값이 바뀌면 Compose가 알 수 있는가”와 “같은 값 비교가 안전한가”를 compiler가 판단하는 근거다.
 

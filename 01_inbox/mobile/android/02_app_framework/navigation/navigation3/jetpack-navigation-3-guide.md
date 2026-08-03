@@ -1,16 +1,16 @@
 ---
-title: "Jetpack Navigation 3 Guide"
+title: Jetpack Navigation 3 Guide는 NavKey 기반 렌더링 모델을 설명한다
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Jetpack Navigation 3 Guide"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:59 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Jetpack Navigation 3 Guide
+# Jetpack Navigation 3 Guide는 NavKey 기반 렌더링 모델을 설명한다
 
-Jetpack Navigation 3 문서는 앱이 `NavKey` back stack을 직접 소유하고 `NavDisplay`가 이를 Compose 화면으로 렌더링하는 모델을 정리한다. 기존 XML graph 중심 Navigation과 섞지 않고 typed key, entry provider, scene strategy, saveable restoration을 기준으로 읽는다.
+Jetpack Navigation 3 문서는 앱이 `NavKey` back stack 을 직접 소유하고 `NavDisplay` 가 이를 Compose 화면으로 렌더링하는 모델을 정리한다. 기존 XML graph 중심 Navigation 과 섞지 않고 typed key, entry provider, scene strategy, saveable restoration 을 기준으로 읽는다.
 
-## 정본 지도
+### 정본 지도
 
 - [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
 - [NavKey와 back stack은 앱이 소유하는 navigation 상태다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md)

@@ -1,5 +1,5 @@
 ---
-title: Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다
+title: "Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다"
 tags: [android, android/graphics, android/performance]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

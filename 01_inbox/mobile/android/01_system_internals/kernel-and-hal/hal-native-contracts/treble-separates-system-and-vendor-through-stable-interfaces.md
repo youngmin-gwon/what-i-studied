@@ -1,5 +1,5 @@
 ---
-title: Treble separates system and vendor through stable interfaces
+title: "Treble separates system and vendor through stable interfaces"
 tags: [android, android/native, android/system-internals]
 aliases: [Project Treble]
 date modified: 2026-07-31 23:58:00 +09:00

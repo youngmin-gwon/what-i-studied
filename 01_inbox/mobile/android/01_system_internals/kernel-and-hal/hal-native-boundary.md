@@ -1,5 +1,5 @@
 ---
-title: HAL and native boundary
+title: "HAL and native boundary"
 tags: [android, android/native, android/system-internals]
 aliases: [Android HAL native boundary, HAL native boundary]
 date modified: 2026-07-31 23:58:00 +09:00
@@ -10,9 +10,13 @@ date created: 2026-07-31 23:58:00 +09:00
 
 Android의 native 경계는 kernel 자체가 아니라 framework, vendor implementation, native process, 앱 native library가 만나는 계약이다. 이 허브는 기존 HAL, native services, NDK/JNI 문서를 userspace contract 단위로 다시 묶는다.
 
-정본 묶음: [HAL native contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-native-contracts.md)
+이 목록은 톤이 균일하지 않다. 앞의 HAL/Treble/VINTF/HIDL/AIDL/binderized-passthrough/native service 항목은 platform/OEM 엔지니어가 다루는 영역이라 "관찰 가능 신호"와 "디버깅 진입점" 중심으로 읽는다 — 앱 코드로 이 계층을 직접 바꿀 수 없다. 뒤의 NDK/JNI/AndroidBitmap 항목은 앱 개발자가 실제로 호출하는 API라 "언제/어떻게 쓰는가"와 "무엇을 지키지 않으면 깨지는가" 중심으로 읽는다. 아래 순서는 이 경계를 기준으로 나열한다.
+
+정본 묶음: [HAL native contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-native-contracts.md) (읽는 순서와 문제 분류 기준은 여기에 더 자세히 정리되어 있다.)
 
 ## 읽는 순서
+
+### platform/OEM 관점 (앱이 직접 건드리지 않는 영역)
 
 - [HAL은 framework와 vendor 구현 사이의 안정된 userspace contract다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
 - [Treble은 system과 vendor 업데이트 경계를 stable interface로 분리한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/treble-separates-system-and-vendor-through-stable-interfaces.md)
@@ -22,6 +26,9 @@ Android의 native 경계는 kernel 자체가 아니라 framework, vendor impleme
 - [Binderized HAL과 passthrough HAL은 process boundary를 다르게 둔다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/binderized-and-passthrough-hal-define-process-boundary.md)
 - [Native system service는 init이 띄우고 Binder로 발견되는 endpoint다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/native-system-services-are-init-managed-binder-endpoints.md)
 - [Native service 디버깅은 init, Binder, VINTF, SELinux, tombstone을 분리한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/native-service-debugging-separates-init-binder-vintf-selinux-and-tombstones.md)
+
+### 앱 개발자 관점 (NDK/JNI로 직접 호출하는 영역)
+
 - [NDK는 앱 아키텍처가 아니라 native library toolchain 경계다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/ndk-is-native-library-toolchain-not-app-architecture.md)
 - [CMake, Gradle, ABI는 native build와 packaging 계약을 나눈다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/cmake-gradle-and-abi-define-native-build-and-packaging.md)
 - [JNI는 managed runtime과 native code 사이의 명시적 호출 경계다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-contracts/jni-is-explicit-boundary-between-managed-runtime-and-native-code.md)

@@ -1,12 +1,12 @@
 ---
-title: 13-fbe-file-based-encryption
+title: "FBE는 기기의 개별 파일을 서로 다른 키로 암호화하는 파일 기반 보안 방식이다"
 tags: ["android", "android/glossary"]
 aliases: ["Credential Encrypted storage", "Device Encrypted storage", "File Based Encryption"]
 date modified: 2026-08-03 16:25:49 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## FBE
+# FBE는 기기의 개별 파일을 서로 다른 키로 암호화하는 파일 기반 보안 방식이다
 
 정의: FBE 는 파일 단위 encryption domain 을 사용해 device encrypted storage 와 credential encrypted storage 의 사용 가능 시점을 분리하는 Android storage protection model 이다.
 

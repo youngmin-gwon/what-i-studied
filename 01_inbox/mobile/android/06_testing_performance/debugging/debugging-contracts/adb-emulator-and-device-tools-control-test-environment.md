@@ -1,12 +1,12 @@
 ---
-title: adb-emulator-and-device-tools-control-test-environment
+title: ADB, Emulator, 디바이스 도구는 테스트 환경을 제어한다
 tags: ["android", "android/testing-performance"]
 aliases: []
 date modified: 2026-08-01 01:07:11 +09:00
 date created: 2026-07-31 17:32:53 +09:00
 ---
 
-## ADB, emulator, device tool 은 테스트 환경을 제어한다
+# ADB, Emulator, 디바이스 도구는 테스트 환경을 제어한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
 

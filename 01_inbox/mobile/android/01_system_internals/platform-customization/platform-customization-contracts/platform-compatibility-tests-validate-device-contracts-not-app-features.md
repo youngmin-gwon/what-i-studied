@@ -1,5 +1,5 @@
 ---
-title: Platform compatibility test는 앱 기능이 아니라 device contract를 검증한다
+title: "Platform compatibility test는 앱 기능이 아니라 device contract를 검증한다"
 tags: [android, android/aosp, android/testing]
 aliases: [CTS, VTS, GTS]
 date modified: 2026-08-01 00:00:00 +09:00

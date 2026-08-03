@@ -1,5 +1,5 @@
 ---
-title: BufferQueue는 producer와 consumer를 버퍼 소유권으로 분리한다
+title: "BufferQueue는 producer와 consumer를 버퍼 소유권으로 분리한다"
 tags: [android, android/graphics, android/ipc]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

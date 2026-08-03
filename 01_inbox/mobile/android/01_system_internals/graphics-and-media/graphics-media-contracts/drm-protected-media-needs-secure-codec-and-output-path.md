@@ -1,5 +1,5 @@
 ---
-title: DRM 보호 미디어는 secure codec과 보호된 출력 경로를 요구할 수 있다
+title: "DRM 보호 미디어는 secure codec과 보호된 출력 경로를 요구할 수 있다"
 tags: [android, android/media, android/drm]
 aliases: [DRM, Widevine, MediaDrm]
 date modified: 2026-07-31 23:20:00 +09:00

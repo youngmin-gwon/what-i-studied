@@ -1,8 +1,8 @@
 ---
-title: "Android 딥 링크는 외부 URI 계약이다"
-tags: [android, android/navigation, android/deep-links]
+title: Android 딥 링크는 외부 URI 계약이다
+tags: [android, android/deep-links, android/navigation]
 aliases: ["Android 딥 링크는 외부 URI 계약이다"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:21 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

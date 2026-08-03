@@ -1,5 +1,5 @@
 ---
-title: "Compile-time DI와 runtime DI는 실패 시점이 다르다"
+title: Compile-time DI와 runtime DI는 실패 시점이 다르다
 tags: ["android", "android/app-framework"]
 ---
 

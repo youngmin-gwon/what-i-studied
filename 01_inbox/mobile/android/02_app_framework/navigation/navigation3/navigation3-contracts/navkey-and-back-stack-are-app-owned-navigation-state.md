@@ -1,12 +1,12 @@
 ---
-title: "NavKey 와 back stack 은 앱 내부 상태다"
+title: NavKey와 back stack은 앱 내부 상태다
 tags: [android, android/navigation, android/navigation3]
 aliases: ["NavKey 와 back stack 은 앱 내부 상태다"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:37:09 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# NavKey 와 back stack 은 앱 내부 상태다
+# NavKey와 back stack은 앱 내부 상태다
 
 상위 문서: [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
 

@@ -1,12 +1,12 @@
 ---
-title: Compose module boundaries expose dependency scope and replacement cost
+title: Compose 모듈 경계는 의존성 범위와 교체 비용을 노출한다
 tags: [android, jetpack-compose, compose/design-system]
 aliases: [Compose modules]
 date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# Compose module boundaries expose dependency scope and replacement cost
+# Compose 모듈 경계는 의존성 범위와 교체 비용을 노출한다
 
 Compose artifact와 package 경계는 어떤 계층에 의존하는지 보여주는 단서다. 앱 design system은 Material 3 위에서 token을 적용할 수도 있고, Foundation/UI 위에서 자체 component를 만들 수도 있다.
 

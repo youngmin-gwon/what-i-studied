@@ -1,16 +1,16 @@
 ---
-title: Compose state and effect contracts
-tags: [android, jetpack-compose, compose/state]
+title: Compose 상태와 Effect 계약
+tags: [android, compose/state, jetpack-compose]
 aliases: [Compose 상태와 Effect 계약]
-date modified: 2026-07-31 23:59:00 +09:00
+date modified: 2026-08-03 16:37:30 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Compose state and effect contracts
+# Compose 상태와 Effect 계약
 
-Compose 상태 API는 값의 수명과 작업의 owner를 기준으로 고른다. `remember`, `rememberSaveable`, ViewModel, effect API를 편의성 기준으로 섞지 않는다.
+Compose 상태 API 는 값의 수명과 작업의 owner 를 기준으로 고른다. `remember`, `rememberSaveable`, ViewModel, effect API 를 편의성 기준으로 섞지 않는다.
 
-## 정본 노트
+### 정본 노트
 
 - [Compose 상태 API는 필요한 수명에 맞춰 선택한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-api-selection-by-lifetime.md)
 - [Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-saveable-is-for-small-restorable-ui-state.md)
@@ -24,5 +24,7 @@ Compose 상태 API는 값의 수명과 작업의 owner를 기준으로 고른다
 - [UI 컨트롤러와 Effect 실행기는 UI 수명에 둔다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/ui-controllers-and-effect-runners-live-with-ui-lifetime.md)
 
 관련 Runtime 지도: [Compose runtime and state model](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md)
+
 관련 상태 관리 지도: [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
+
 관련 성능 지도: [Compose 성능 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)

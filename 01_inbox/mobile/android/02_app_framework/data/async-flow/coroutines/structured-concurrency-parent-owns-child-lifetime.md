@@ -1,5 +1,5 @@
 ---
-title: "Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다"
+title: Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다
 tags: [android, android/data, android/async, android/coroutines]
 aliases: ["Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다"]
 date modified: 2026-08-01 00:00:00 +09:00

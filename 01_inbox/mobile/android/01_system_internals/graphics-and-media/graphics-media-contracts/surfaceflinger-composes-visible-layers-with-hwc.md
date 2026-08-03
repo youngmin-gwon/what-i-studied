@@ -1,5 +1,5 @@
 ---
-title: SurfaceFlinger는 보이는 레이어를 HWC와 함께 합성한다
+title: "SurfaceFlinger는 보이는 레이어를 HWC와 함께 합성한다"
 tags: [android, android/graphics, android/system-service]
 aliases: [SurfaceFlinger]
 date modified: 2026-07-31 23:20:00 +09:00

@@ -1,5 +1,5 @@
 ---
-title: "병렬 Coroutine은 부모 scope와 실패 정책을 먼저 정해야 한다"
+title: 병렬 Coroutine은 부모 scope와 실패 정책을 먼저 정해야 한다
 tags: [android, android/data, android/async, android/coroutines]
 aliases: ["병렬 Coroutine은 부모 scope와 실패 정책을 먼저 정해야 한다"]
 date modified: 2026-08-01 00:00:00 +09:00

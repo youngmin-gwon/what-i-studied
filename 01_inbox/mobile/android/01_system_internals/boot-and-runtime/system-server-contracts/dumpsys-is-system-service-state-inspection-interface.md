@@ -23,3 +23,5 @@ date created: 2026-08-01 00:00:00 +09:00
 
 - [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md)
 - [디버깅 계약](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)
+
+공식 문서: [dumpsys](https://developer.android.com/tools/dumpsys)

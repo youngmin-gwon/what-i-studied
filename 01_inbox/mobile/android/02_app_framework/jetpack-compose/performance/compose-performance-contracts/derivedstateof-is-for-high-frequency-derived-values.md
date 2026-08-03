@@ -1,5 +1,5 @@
 ---
-title: "derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다"
+title: derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다
 tags: ["android", "android/app-framework"]
 ---
 

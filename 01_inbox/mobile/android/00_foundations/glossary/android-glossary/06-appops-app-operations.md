@@ -1,12 +1,12 @@
 ---
-title: 06-appops-app-operations
+title: "AppOps는 권한 외에 앱의 민감한 작업 수행을 세밀하게 제어하고 추적한다"
 tags: ["android", "android/glossary"]
 aliases: ["App Operations", "AppOpsManager"]
 date modified: 2026-08-01 01:07:16 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## AppOps
+# AppOps는 권한 외에 앱의 민감한 작업 수행을 세밀하게 제어하고 추적한다
 
 정의: AppOps 는 permission grant 이후에도 위치, 알림, background access 같은 sensitive operation 을 관찰하거나 차단하는 runtime policy layer 다.
 

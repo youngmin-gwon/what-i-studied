@@ -1,5 +1,5 @@
 ---
-title: Media3 ExoPlayer는 playback stack이지 저수준 codec API가 아니다
+title: "Media3 ExoPlayer는 playback stack이지 저수준 codec API가 아니다"
 tags: [android, android/media, android/media3]
 aliases: [ExoPlayer, Media3]
 date modified: 2026-07-31 23:20:00 +09:00

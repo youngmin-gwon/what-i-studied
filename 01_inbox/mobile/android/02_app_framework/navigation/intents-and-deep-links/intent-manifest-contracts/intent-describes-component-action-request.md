@@ -1,12 +1,12 @@
 ---
-title: "Android Intent 는 컴포넌트 실행을 설명하는 메시지다"
-tags: [android, android/navigation, android/intents]
+title: Android Intent는 컴포넌트 실행을 설명하는 메시지다
+tags: [android, android/intents, android/navigation]
 aliases: ["Android Intent 는 컴포넌트 실행을 설명하는 메시지다"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:31 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android Intent 는 컴포넌트 실행을 설명하는 메시지다
+# Android Intent는 컴포넌트 실행을 설명하는 메시지다
 
 상위 문서: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
 

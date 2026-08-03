@@ -1,8 +1,8 @@
 ---
-title: "action, category, data 매칭은 서로 다른 조건이다"
-tags: [android, android/navigation, android/intents]
+title: action, category, data 매칭은 서로 다른 조건이다
+tags: [android, android/intents, android/navigation]
 aliases: ["action, category, data 매칭은 서로 다른 조건이다"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:35 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

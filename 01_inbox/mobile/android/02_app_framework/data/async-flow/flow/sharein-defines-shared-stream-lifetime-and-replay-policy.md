@@ -1,5 +1,5 @@
 ---
-title: "shareIn은 shared stream의 수명과 replay 정책을 정의한다"
+title: shareIn은 shared stream의 수명과 replay 정책을 정의한다
 tags: [android, android/data, android/async, android/flow]
 aliases: ["shareIn은 shared stream의 수명과 replay 정책을 정의한다"]
 date modified: 2026-08-01 00:00:00 +09:00

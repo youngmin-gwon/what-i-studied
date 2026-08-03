@@ -1,5 +1,5 @@
 ---
-title: CMake Gradle and ABI define native build and packaging
+title: "CMake Gradle and ABI define native build and packaging"
 tags: [android, android/native, android/system-internals]
 aliases: [CMake, ABI, externalNativeBuild]
 date modified: 2026-07-31 23:58:00 +09:00

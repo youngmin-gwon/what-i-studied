@@ -1,6 +1,9 @@
 ---
 title: "Mainline module 목록은 release와 device에 따라 달라지는 metadata다"
 tags: ["android", "android/system-internals"]
+aliases: ["Mainline module 목록은 release와 device에 따라 달라지는 metadata다"]
+date modified: 2026-08-03 16:30:00 +09:00
+date created: 2026-07-31 23:05:30 +09:00
 ---
 
 # Mainline module 목록은 release와 device에 따라 달라지는 metadata다

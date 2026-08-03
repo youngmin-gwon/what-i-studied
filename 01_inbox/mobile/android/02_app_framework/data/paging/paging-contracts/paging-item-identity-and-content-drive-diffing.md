@@ -1,5 +1,5 @@
 ---
-title: "Paging item diffing은 identity와 content 비교를 분리한다"
+title: Paging item diffing은 identity와 content 비교를 분리한다
 tags: [android, android/data, android/paging]
 aliases: ["Paging item diffing은 identity와 content 비교를 분리한다"]
 date modified: 2026-08-01 00:00:00 +09:00

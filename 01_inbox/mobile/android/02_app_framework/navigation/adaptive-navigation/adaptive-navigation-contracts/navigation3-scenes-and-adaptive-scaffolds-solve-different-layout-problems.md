@@ -1,12 +1,12 @@
 ---
-title: "Scenes 와 adaptive scaffolds 는 같은 문제를 푸는가"
-tags: [android, android/navigation, android/adaptive]
+title: Scenes와 adaptive scaffolds는 같은 문제를 푸는가
+tags: [android, android/adaptive, android/navigation]
 aliases: ["Scenes 와 adaptive scaffolds 는 같은 문제를 푸는가"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:15 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Scenes 와 adaptive scaffolds 는 같은 문제를 푸는가
+# Scenes와 adaptive scaffolds는 같은 문제를 푸는가
 
 상위 문서: [Adaptive Navigation 계약](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)
 

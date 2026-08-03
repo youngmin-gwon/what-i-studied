@@ -1,5 +1,5 @@
 ---
-title: "Qualifier는 같은 타입의 서로 다른 의미를 구분한다"
+title: Qualifier는 같은 타입의 서로 다른 의미를 구분한다
 tags: ["android", "android/app-framework"]
 ---
 

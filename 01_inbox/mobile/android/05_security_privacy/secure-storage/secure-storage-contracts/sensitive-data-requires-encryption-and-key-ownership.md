@@ -1,12 +1,12 @@
 ---
-title: sensitive-data-requires-encryption-and-key-ownership
+title: 민감 데이터는 암호화와 키 소유권을 요구한다
 tags: []
 aliases: []
 date modified: 2026-07-31 18:18:05 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
-# sensitive-data-requires-encryption-and-key-ownership
+# 민감 데이터는 암호화와 키 소유권을 요구한다
 
 ## Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다
 

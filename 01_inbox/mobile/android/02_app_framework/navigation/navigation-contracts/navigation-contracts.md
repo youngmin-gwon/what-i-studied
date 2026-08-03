@@ -1,8 +1,8 @@
 ---
-title: "Android Navigation 진입 계약"
+title: Android Navigation 진입 계약
 tags: [android, android/navigation]
 aliases: ["Android Navigation 진입 계약"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:53 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 Android navigation 은 세 층으로 나눠서 읽어야 한다. OS 는 Intent 와 Manifest 로 앱 컴포넌트를 찾고, Deep Link 는 외부 URI 를 앱 내부 목적지로 바꾸며, Navigation 3 는 앱 내부 back stack 상태를 관리한다. Adaptive Navigation 은 같은 목적지를 window 조건에 맞는 chrome 과 pane 으로 표현한다.
 
-## 판단 순서
+### 판단 순서
 
 - [AndroidManifest는 OS가 발견할 컴포넌트와 진입점을 선언한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md)
 - [Intent는 컴포넌트 실행을 설명하는 메시지다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-describes-component-action-request.md)
@@ -23,7 +23,7 @@ Android navigation 은 세 층으로 나눠서 읽어야 한다. OS 는 Intent �
 - [Navigation 3 back stack은 저장 가능한 state로 복원한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-back-stack-needs-saveable-restoration.md)
 - [Adaptive navigation은 현재 window와 posture로 결정한다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-is-driven-by-window-and-posture.md)
 
-## 하위 지도
+### 하위 지도
 
 - [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
 - [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)

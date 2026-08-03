@@ -1,5 +1,5 @@
 ---
-title: Android kernel은 Linux에 모바일 플랫폼 정책을 더한 커널이다
+title: "Android kernel은 Linux에 모바일 플랫폼 정책을 더한 커널이다"
 tags: [android, android/kernel, linux]
 aliases: [Android Kernel, 안드로이드 커널]
 date modified: 2026-07-31 23:45:00 +09:00

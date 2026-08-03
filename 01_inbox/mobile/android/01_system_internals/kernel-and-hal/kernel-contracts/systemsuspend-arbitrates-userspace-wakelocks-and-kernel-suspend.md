@@ -1,5 +1,5 @@
 ---
-title: SystemSuspend는 userspace wakelock과 kernel suspend를 중재한다
+title: "SystemSuspend는 userspace wakelock과 kernel suspend를 중재한다"
 tags: [android, android/kernel, android/power]
 date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00

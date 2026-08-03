@@ -1,5 +1,5 @@
 ---
-title: Binder transaction lifetime은 call, copy, dispatch, reply로 나뉜다
+title: "Binder transaction lifetime은 call, copy, dispatch, reply로 나뉜다"
 tags: [android, android/ipc, android/binder]
 aliases: [Binder transaction]
 date modified: 2026-08-01 00:00:00 +09:00

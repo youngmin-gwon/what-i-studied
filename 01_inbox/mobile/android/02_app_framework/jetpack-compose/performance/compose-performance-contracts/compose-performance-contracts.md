@@ -1,5 +1,5 @@
 ---
-title: "Compose 성능 계약"
+title: Compose 성능 계약
 tags: ["android", "android/app-framework"]
 ---
 

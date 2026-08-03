@@ -1,5 +1,5 @@
 ---
-title: 05-apk-aab-android-package-android-app-bundle
+title: "APK와 AAB는 안드로이드 앱을 배포하고 설치하는 패키지 포맷이다"
 tags: ["android", "android/glossary"]
 aliases: ["AAB", "Android App Bundle", "Android Package", "APK"]
 date modified: 2026-08-01 01:07:15 +09:00

@@ -1,5 +1,5 @@
 ---
-title: ImageReader는 앱이 접근할 수 있는 이미지 버퍼를 제공한다
+title: "ImageReader는 앱이 접근할 수 있는 이미지 버퍼를 제공한다"
 tags: [android, android/media, android/camera]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

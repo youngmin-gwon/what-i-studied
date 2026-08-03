@@ -1,5 +1,5 @@
 ---
-title: "Dispatcher는 실행 위치를 고르고 Scope는 작업 수명을 소유한다"
+title: Dispatcher는 실행 위치를 고르고 Scope는 작업 수명을 소유한다
 tags: [android, android/data, android/async, android/coroutines]
 aliases: ["Dispatcher는 실행 위치를 고르고 Scope는 작업 수명을 소유한다"]
 date modified: 2026-08-01 00:00:00 +09:00

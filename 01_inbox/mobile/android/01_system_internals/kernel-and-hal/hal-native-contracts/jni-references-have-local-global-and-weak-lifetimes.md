@@ -1,5 +1,5 @@
 ---
-title: JNI references have local global and weak lifetimes
+title: "JNI references have local global and weak lifetimes"
 tags: [android, android/native, android/system-internals]
 aliases: [JNI reference, GlobalRef]
 date modified: 2026-07-31 23:58:00 +09:00

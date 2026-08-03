@@ -1,5 +1,5 @@
 ---
-title: "멀티 모듈 DI는 module dependency 방향과 feature entry 계약을 따른다"
+title: 멀티 모듈 DI는 module dependency 방향과 feature entry 계약을 따른다
 tags: ["android", "android/app-framework"]
 ---
 

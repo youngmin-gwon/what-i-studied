@@ -1,5 +1,5 @@
 ---
-title: IPC 디버깅은 service 등록, call path, thread state에서 시작한다
+title: "IPC 디버깅은 service 등록, call path, thread state에서 시작한다"
 tags: [android, android/debugging, android/ipc]
 aliases: [Binder debugging, IPC debugging]
 date modified: 2026-08-01 00:00:00 +09:00

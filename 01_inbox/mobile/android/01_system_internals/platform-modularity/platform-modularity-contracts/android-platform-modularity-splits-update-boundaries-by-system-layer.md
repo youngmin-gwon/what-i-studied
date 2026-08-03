@@ -1,6 +1,9 @@
 ---
 title: "Android 플랫폼 모듈화는 system, vendor, kernel 업데이트 경계를 층위별로 나눈다"
 tags: ["android", "android/system-internals"]
+aliases: ["Android 플랫폼 모듈화는 system, vendor, kernel 업데이트 경계를 층위별로 나눈다"]
+date modified: 2026-08-03 16:30:00 +09:00
+date created: 2026-07-31 23:05:30 +09:00
 ---
 
 # Android 플랫폼 모듈화는 system, vendor, kernel 업데이트 경계를 층위별로 나눈다

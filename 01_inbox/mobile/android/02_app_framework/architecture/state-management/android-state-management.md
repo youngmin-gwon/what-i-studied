@@ -1,5 +1,5 @@
 ---
-title: "Android 상태 관리 정본 지도"
+title: Android 상태 관리 정본 지도
 tags: [android, android/architecture, android/state-management]
 aliases: ["Android 상태 관리 정본 지도"]
 date modified: 2026-08-01 00:00:00 +09:00

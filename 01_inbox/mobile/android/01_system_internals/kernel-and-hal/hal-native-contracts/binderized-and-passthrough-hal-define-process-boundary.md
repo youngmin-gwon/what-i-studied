@@ -1,5 +1,5 @@
 ---
-title: Binderized and passthrough HAL define process boundary
+title: "Binderized and passthrough HAL define process boundary"
 tags: [android, android/native, android/system-internals]
 aliases: [Binderized HAL, Passthrough HAL]
 date modified: 2026-07-31 23:58:00 +09:00

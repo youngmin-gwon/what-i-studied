@@ -1,5 +1,5 @@
 ---
-title: RenderThread는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다
+title: "RenderThread는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다"
 tags: [android, android/graphics, android/performance]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

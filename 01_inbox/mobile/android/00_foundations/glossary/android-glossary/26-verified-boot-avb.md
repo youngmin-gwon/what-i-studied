@@ -1,12 +1,12 @@
 ---
-title: 26-verified-boot-avb
+title: "Verified Boot(AVB)는 부팅 과정에서 시스템 이미지의 무결성을 암호학적으로 검증한다"
 tags: ["android", "android/glossary"]
 aliases: ["Android Verified Boot", "AVB"]
 date modified: 2026-08-01 01:07:48 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## Verified Boot 와 AVB
+# Verified Boot(AVB)는 부팅 과정에서 시스템 이미지의 무결성을 암호학적으로 검증한다
 
 정의: Verified Boot 와 AVB 는 boot image 와 partition integrity 를 검증해 device software chain of trust 를 세우는 boot-time security mechanism 이다.
 

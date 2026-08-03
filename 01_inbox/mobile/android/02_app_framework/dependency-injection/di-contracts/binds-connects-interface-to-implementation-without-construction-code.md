@@ -1,5 +1,5 @@
 ---
-title: "Binds는 interface와 implementation을 연결하고 생성 코드는 추가하지 않는다"
+title: Binds는 interface와 implementation을 연결하고 생성 코드는 추가하지 않는다
 tags: ["android", "android/app-framework"]
 ---
 

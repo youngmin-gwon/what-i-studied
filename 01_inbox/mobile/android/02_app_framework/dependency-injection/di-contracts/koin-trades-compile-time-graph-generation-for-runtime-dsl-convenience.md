@@ -1,5 +1,5 @@
 ---
-title: "Koin은 런타임 DSL 편의와 정적 graph 검증의 트레이드오프를 가진다"
+title: Koin은 런타임 DSL 편의와 정적 graph 검증의 트레이드오프를 가진다
 tags: ["android", "android/app-framework"]
 ---
 

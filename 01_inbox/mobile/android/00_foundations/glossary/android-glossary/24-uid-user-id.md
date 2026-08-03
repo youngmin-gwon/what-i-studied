@@ -1,12 +1,12 @@
 ---
-title: 24-uid-user-id
+title: "UID는 안드로이드에서 앱별로 독립된 샌드박스와 권한 경계를 식별하는 단위다"
 tags: ["android", "android/glossary"]
 aliases: ["Android UID", "Linux UID"]
 date modified: 2026-08-01 01:07:50 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## UID
+# UID는 안드로이드에서 앱별로 독립된 샌드박스와 권한 경계를 식별하는 단위다
 
 정의: UID 는 Android app sandbox 의 기본 identity 이며, process, file ownership, permission, resource accounting 의 경계를 나누는 Linux user id 다.
 

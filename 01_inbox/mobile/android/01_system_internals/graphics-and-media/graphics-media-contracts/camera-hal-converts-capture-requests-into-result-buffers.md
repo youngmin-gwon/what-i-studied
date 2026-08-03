@@ -1,5 +1,5 @@
 ---
-title: Camera HAL은 capture request를 result와 output buffer로 변환한다
+title: "Camera HAL은 capture request를 result와 output buffer로 변환한다"
 tags: [android, android/media, android/camera, android/hal]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

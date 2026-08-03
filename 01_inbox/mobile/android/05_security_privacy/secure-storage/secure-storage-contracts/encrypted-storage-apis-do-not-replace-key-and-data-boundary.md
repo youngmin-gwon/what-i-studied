@@ -1,12 +1,12 @@
 ---
-title: encrypted-storage-apis-do-not-replace-key-and-data-boundary
+title: 암호화 저장소 API는 키와 데이터 경계 설계를 대체하지 않는다
 tags: []
 aliases: []
 date modified: 2026-07-31 18:18:45 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
-# encrypted-storage-apis-do-not-replace-key-and-data-boundary
+# 암호화 저장소 API는 키와 데이터 경계 설계를 대체하지 않는다
 
 ## EncryptedSharedPreferences, DataStore, Room 의 보안 경계를 구분한다
 

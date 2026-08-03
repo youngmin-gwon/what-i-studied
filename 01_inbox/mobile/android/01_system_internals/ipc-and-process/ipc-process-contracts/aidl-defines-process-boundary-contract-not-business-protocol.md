@@ -1,5 +1,5 @@
 ---
-title: AIDL은 process boundary 계약이지 비즈니스 프로토콜이 아니다
+title: "AIDL은 process boundary 계약이지 비즈니스 프로토콜이 아니다"
 tags: [android, android/ipc, android/aidl]
 aliases: [AIDL]
 date modified: 2026-08-01 00:00:00 +09:00

@@ -1,5 +1,5 @@
 ---
-title: Device bring-up은 board, kernel, HAL, VINTF, sepolicy 통합이다
+title: "Device bring-up은 board, kernel, HAL, VINTF, sepolicy 통합이다"
 tags: [android, android/aosp, android/device]
 aliases: [Android device bring-up]
 date modified: 2026-08-01 00:00:00 +09:00

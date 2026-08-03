@@ -1,5 +1,5 @@
 ---
-title: "Cold Flow는 collect될 때 실행된다"
+title: Cold Flow는 collect될 때 실행된다
 tags: [android, android/data, android/async, android/flow]
 aliases: ["Cold Flow는 collect될 때 실행된다"]
 date modified: 2026-08-01 00:00:00 +09:00

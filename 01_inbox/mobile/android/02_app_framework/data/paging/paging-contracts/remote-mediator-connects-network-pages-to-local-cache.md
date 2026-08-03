@@ -1,5 +1,5 @@
 ---
-title: "RemoteMediator는 network page와 local cache를 연결한다"
+title: RemoteMediator는 network page와 local cache를 연결한다
 tags: [android, android/data, android/paging]
 aliases: ["RemoteMediator는 network page와 local cache를 연결한다"]
 date modified: 2026-08-01 00:00:00 +09:00

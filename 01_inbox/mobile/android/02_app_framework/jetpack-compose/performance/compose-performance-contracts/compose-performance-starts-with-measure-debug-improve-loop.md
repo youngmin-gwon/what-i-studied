@@ -1,5 +1,5 @@
 ---
-title: "Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다"
+title: Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다
 tags: ["android", "android/app-framework"]
 ---
 

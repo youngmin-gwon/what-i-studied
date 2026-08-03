@@ -1,16 +1,16 @@
 ---
-title: "Android ViewModel"
+title: ViewModel은 화면 상태와 외부 작업의 조율자다
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["Android ViewModel"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:35:33 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android ViewModel
+# ViewModel은 화면 상태와 외부 작업의 조율자다
 
-ViewModel은 화면 단위 상태와 외부 작업의 조율자다. 화면 객체를 보관하는 곳도, 프로세스 사망 복원 장치도, 영속 저장소도 아니다.
+ViewModel 은 화면 단위 상태와 외부 작업의 조율자다. 화면 객체를 보관하는 곳도, 프로세스 사망 복원 장치도, 영속 저장소도 아니다.
 
-## 정본 노트
+### 정본 노트
 
 - [ViewModel은 화면 단위 상태와 외부 작업을 조율한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-orchestrates-screen-state-and-external-work.md)
 - [ViewModel은 UI 컨트롤러와 Android Context를 장기 보관하지 않는다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-does-not-retain-ui-controller-or-context.md)

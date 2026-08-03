@@ -1,5 +1,5 @@
 ---
-title: Platform signing과 release key는 update와 privilege boundary를 정의한다
+title: "Platform signing과 release key는 update와 privilege boundary를 정의한다"
 tags: [android, android/aosp, android/security]
 aliases: [Platform signing, Release keys]
 date modified: 2026-08-01 00:00:00 +09:00

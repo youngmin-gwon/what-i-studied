@@ -1,12 +1,12 @@
 ---
-title: "Flow Contracts"
+title: Flow 계약은 값을 방출하는 시점보다 수집과 실행 수명을 정의한다
 tags: [android, android/data, android/async, android/flow]
 aliases: ["Flow Contracts"]
 date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Flow Contracts
+# Flow 계약은 값을 방출하는 시점보다 수집과 실행 수명을 정의한다
 
 Flow 정본은 비동기 stream을 cold execution, operator cancellation, callback bridge, sharing policy로 나눈다. 핵심은 “값을 몇 번 emit하는가”보다 누가 collect하고 어느 수명에서 upstream이 실행되는가다.
 

@@ -1,6 +1,9 @@
 ---
 title: "SDK Extension API 사용은 compileSdkExtension과 runtime check가 모두 필요하다"
 tags: ["android", "android/system-internals"]
+aliases: ["SDK Extension API 사용은 compileSdkExtension과 runtime check가 모두 필요하다"]
+date modified: 2026-08-03 16:30:00 +09:00
+date created: 2026-07-31 23:05:30 +09:00
 ---
 
 # SDK Extension API 사용은 compileSdkExtension과 runtime check가 모두 필요하다

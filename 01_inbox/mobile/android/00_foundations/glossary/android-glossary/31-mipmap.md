@@ -1,12 +1,12 @@
 ---
-title: 31-mipmap
+title: "Mipmap은 기기의 디스플레이 밀도에 맞춰 최적화된 런처 아이콘을 제공하는 리소스 폴더다"
 tags: ["android", "android/glossary"]
 aliases: ["launcher icon resource", "mipmap resource"]
 date modified: 2026-08-01 01:07:57 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## Mipmap
+# Mipmap은 기기의 디스플레이 밀도에 맞춰 최적화된 런처 아이콘을 제공하는 리소스 폴더다
 
 정의: Mipmap 은 Android resource qualifier 체계에서 density 별 launcher icon 과 일부 scaled bitmap resource 를 제공할 때 쓰는 resource bucket 이다.
 

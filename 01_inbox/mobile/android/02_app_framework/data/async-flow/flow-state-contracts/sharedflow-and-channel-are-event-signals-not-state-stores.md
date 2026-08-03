@@ -1,5 +1,5 @@
 ---
-title: "SharedFlow와 Channel은 상태 저장소가 아니라 일회성 신호 전달 수단이다"
+title: SharedFlow와 Channel은 상태 저장소가 아니라 일회성 신호 전달 수단이다
 tags: [android, android/data, android/async, android/flow-state-contracts]
 aliases: ["SharedFlow와 Channel은 상태 저장소가 아니라 일회성 신호 전달 수단이다"]
 date modified: 2026-08-01 00:00:00 +09:00

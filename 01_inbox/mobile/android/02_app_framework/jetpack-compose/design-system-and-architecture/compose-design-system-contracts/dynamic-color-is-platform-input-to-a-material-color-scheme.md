@@ -1,12 +1,12 @@
 ---
-title: Dynamic color is platform input to a Material color scheme
+title: Dynamic Color는 Material Color Scheme에 대한 플랫폼 입력이다
 tags: [android, jetpack-compose, compose/design-system]
 aliases: [Dynamic color, Material You]
 date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# Dynamic color is platform input to a Material color scheme
+# Dynamic Color는 Material Color Scheme에 대한 플랫폼 입력이다
 
 Dynamic color는 Android 12 이상에서 시스템이 제공하는 색상 입력을 Material color scheme으로 연결하는 테마 경계다. 앱은 dynamic color 사용 여부, brand scheme fallback, API level별 동작을 theme boundary에서 결정한다.
 

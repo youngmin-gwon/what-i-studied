@@ -1,5 +1,5 @@
 ---
-title: JNI is explicit boundary between managed runtime and native code
+title: "JNI is explicit boundary between managed runtime and native code"
 tags: [android, android/native, android/system-internals]
 aliases: [JNI]
 date modified: 2026-07-31 23:58:00 +09:00

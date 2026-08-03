@@ -1,5 +1,5 @@
 ---
-title: KMI 안정성은 같은 GKI LTS/Android branch 안에서만 성립한다
+title: "KMI 안정성은 같은 GKI LTS/Android branch 안에서만 성립한다"
 tags: [android, android/kernel, android/gki]
 aliases: [KMI, Kernel Module Interface]
 date modified: 2026-07-31 23:45:00 +09:00

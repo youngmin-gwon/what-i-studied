@@ -1,5 +1,5 @@
 ---
-title: "cachedIn은 PagingData Flow를 ViewModel 수명에 묶는다"
+title: cachedIn은 PagingData Flow를 ViewModel 수명에 묶는다
 tags: [android, android/data, android/paging]
 aliases: ["cachedIn은 PagingData Flow를 ViewModel 수명에 묶는다"]
 date modified: 2026-08-01 00:00:00 +09:00

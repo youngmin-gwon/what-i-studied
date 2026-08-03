@@ -1,5 +1,5 @@
 ---
-title: "SAF: 사용자가 고른 문서와 폴더에 접근하기"
+title: SAF: 사용자가 고른 문서와 폴더에 접근하기
 tags: [android, android/data, android/storage, android/file-access-contracts]
 aliases: ["SAF: 사용자가 고른 문서와 폴더에 접근하기"]
 date modified: 2026-08-01 00:00:00 +09:00

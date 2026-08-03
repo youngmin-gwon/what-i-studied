@@ -1,12 +1,12 @@
 ---
-title: 27-wakelock
+title: "Wakelock은 앱이 기기를 슬립 모드로 들어가지 못하게 전원을 유지하는 메커니즘이다"
 tags: ["android", "android/glossary"]
 aliases: ["Suspend blocker", "Wake lock"]
 date modified: 2026-08-01 01:07:49 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## Wakelock
+# Wakelock은 앱이 기기를 슬립 모드로 들어가지 못하게 전원을 유지하는 메커니즘이다
 
 정의: Wakelock 은 device suspend 를 지연시켜 특정 작업 중 CPU 나 device 가 잠들지 않게 하는 suspend blocker 계열 mechanism 이다.
 

@@ -1,5 +1,5 @@
 ---
-title: SELinux policy는 Binder service와 file boundary를 함께 제어한다
+title: "SELinux policy는 Binder service와 file boundary를 함께 제어한다"
 tags: [android, android/kernel, android/security, android/ipc]
 date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00

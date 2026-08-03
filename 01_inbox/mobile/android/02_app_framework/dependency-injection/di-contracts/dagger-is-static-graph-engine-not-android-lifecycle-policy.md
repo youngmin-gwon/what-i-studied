@@ -1,12 +1,12 @@
 ---
-title: dagger-is-static-graph-engine-not-android-lifecycle-policy
+title: Dagger는 정적 graph 엔진이지 Android lifecycle 정책 자체가 아니다
 tags: ["android", "android/app-framework"]
 aliases: []
 date modified: 2026-08-03 16:30:14 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
-## Dagger 는 정적 graph 엔진이지 Android lifecycle 정책 자체가 아니다
+# Dagger는 정적 graph 엔진이지 Android lifecycle 정책 자체가 아니다
 
 Dagger 는 compile time 에 dependency graph 를 생성하고 검증하는 정적 DI engine 이다. Android 에서 어떤 component 가 Activity, Fragment, ViewModel, Worker 와 어떻게 만나야 하는지는 별도의 integration policy 가 필요하다.
 

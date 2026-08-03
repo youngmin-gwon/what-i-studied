@@ -1,5 +1,5 @@
 ---
-title: ACK는 upstream LTS와 Android release를 잇는다
+title: "ACK는 upstream LTS와 Android release를 잇는다"
 tags: [android, android/kernel, linux]
 aliases: [ACK, Android Common Kernel]
 date modified: 2026-07-31 23:45:00 +09:00

@@ -5,55 +5,69 @@ tags: ["android", "android/system-services"]
 
 # 백그라운드 실행 수단은 실패 비용으로 결정한다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [백그라운드 작업 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
+상위 지도: [백그라운드 작업 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
 
-## 한 문장 결정표
+API 선택은 "백그라운드인가"가 아니라 **누가 시작했고, 언제 시작해야 하며, 중단·재실행돼도 되는가**를 구체화하는 일이다. 먼저 전용 API를 찾고, 없을 때 작업 생명주기와 실패 비용을 비교한다.
 
-| 질문 | 우선 검토할 수단 |
-| --- | --- |
-| 화면이 살아 있는 동안 끝나는 짧은 작업인가? | 코루틴과 화면 생명주기 |
-| 지연되어도 되지만 결국 수행되어야 하는가? | WorkManager |
-| 사용자가 진행 중임을 계속 알아야 하는가? | foreground service |
-| 특정 시각에 깨우는 것이 기능의 본질인가? | AlarmManager |
+## 실제 요구사항별 결정표
 
-## 상세 판별
+| 요구사항 | 선택 | 보장과 포기 | 관찰 신호 |
+| --- | --- | --- | --- |
+| 검색 화면을 닫으면 버려도 되는 자동완성 요청 | 화면/ViewModel 소유 coroutine | 프로세스 종료 뒤 복구 없음; 소유자 종료 시 취소가 올바른 결과 | coroutine 취소, UI state |
+| 앱을 닫아도 서버에 분석 로그를 결국 전송, 수분 지연 허용 | WorkManager | 예약·constraint·재시도 영속화; 즉시/정확 시각/연속 실행은 보장하지 않음 | `WorkInfo.state`, `runAttemptCount`, `stopReason`, WM 로그 |
+| WorkManager에 없는 `JobInfo` 기능(`setPrefetch`, UIDT, pending reason 등)이 필요 | 직접 JobScheduler | 플랫폼 기능과 stop reason 사용; API 버전 분기·job ID·재스케줄 설계 책임 증가 | `JobService` callback, `JobParameters.stopReason`, `dumpsys jobscheduler` |
+| Android 14+에서 사용자가 탭한 대용량 앨범 다운로드를 즉시 진행하고 진행률 제공 | UIDT job | 제약 충족 뒤 즉시 시작을 의도하고 일반 job quota 면제; notification 필요, visible 상태에서 예약, 시스템 건강·constraint·메모리로 중단 가능 | notification/Task Manager, `onStopJob`, stop reason, 저장된 offset |
+| 짧고 중요한 메시지 전송을 앱 이탈 뒤 수분 내 완료 | expedited WorkManager | quota가 있을 때 빠른 시작; out-of-quota 정책에 따라 일반 작업으로 강등 또는 취소, 시스템 부하로 지연 가능 | `WorkInfo`, quota/constraint, `WM-` 로그 |
+| 통화·내비게이션·재생처럼 즉시 시작하고 사용자가 계속 인지하는 허용된 작업 | 직접 foreground service 또는 해당 전용 API | ongoing notification과 type/permission 계약; background start 제한·type별 timeout/정책 적용 | notification, service lifecycle, 시작 예외, Task Manager |
+| 오전 8시 복약 알림처럼 시각 자체가 기능 | AlarmManager | 시각 트리거; 긴 작업 컨테이너가 아니며 exact alarm은 별도 요건과 배터리 비용 존재 | `PendingIntent` 수신 시각, alarm dumpsys |
+| 공개 URL의 장시간 파일 다운로드를 시스템 UI·재시도와 함께 위임 | DownloadManager | HTTP 다운로드를 연결 변화와 재부팅에 걸쳐 관리; 임의 프로토콜·복잡한 앱 도메인 workflow에는 부적합 | `query()`의 status/reason, 완료 broadcast, Downloads UI |
 
-- 즉시성이 중요하지만 작업이 짧다면 현재 화면의 scope에서 실행하고 취소를 연결한다.
-- 즉시성이 중요하고 작업이 길며 사용자가 상태를 봐야 한다면 foreground service를 검토한다.
-- 완료 시점이 유연하고 네트워크나 충전 조건이 있다면 WorkManager에 제약을 부여한다.
-- 시각 오차가 허용되지 않는 사용자 약속이면 AlarmManager와 exact alarm 요건을 확인한다.
-- 알람이 트리거한 후의 동기화는 별도의 Worker로 위임할 수 있다.
-- WorkManager가 시작한 사용자 가시 장시간 작업은 foreground worker를 검토할 수 있다.
+`JobScheduler` 직접 사용은 WorkManager보다 일반적으로 우월한 선택이 아니다. UIDT처럼 WorkManager가 노출하지 않는 플랫폼 계약이 실제 요구일 때 선택한다. 기기 연결, 미디어, 위치처럼 task-specific API가 있으면 generic scheduler나 FGS보다 먼저 검토한다.
 
-## 설계 질문
+## 중단을 정상 상태로 설계한다
 
-- 앱 프로세스가 종료되어도 작업이 남아야 하는가?
-- 기기 재부팅 후에도 예약이 유지되어야 하는가?
-- 네트워크가 없을 때 재시도할 수 있는가?
-- 중복 실행이나 순서 변경이 발생해도 결과가 올바른가?
-- 사용자가 취소하거나 중단할 수 있는가?
-- 시스템 및 Play 정책상 이 실행 수단의 사용 목적이 정당한가?
+1. enqueue 전에 논리 작업 ID, 입력, 재개 지점을 DB에 저장한다.
+2. 실행기는 DB에서 현재 상태를 읽고 서버 idempotency key 또는 원자적 상태 전이로 중복 결과를 막는다.
+3. WorkManager의 `onStopped()`/`isStopped`, JobScheduler의 `onStopJob()`/`stopReason`, coroutine 취소를 받아 리소스를 닫는다. 프로세스 kill에는 callback이 없을 수 있으므로 callback만 믿지 않는다.
+4. 재실행은 마지막 checkpoint에서 이어가며, 영구 오류와 일시 오류를 분리한다.
 
-## 최소 테스트 세트
+예: 2 GB 파일을 620 MB까지 받은 뒤 열 상태 때문에 UIDT가 중단됐다면 성공으로 표시하지 않는다. byte offset과 서버 validator를 저장하고 `onStartJob()` 재호출 때 검증 후 재개한다. Task Manager의 Stop은 프로세스를 즉시 종료할 수 있어 `onStopJob()`도 호출되지 않을 수 있다.
 
-- 화면 종료, 프로세스 회수, 기기 재부팅 뒤 상태 복구를 확인한다.
-- 네트워크 단절, 배터리 부족, Doze 상태에서 지연과 재시도를 확인한다.
-- 권한 거부와 target SDK 변경 시 시작 실패를 확인한다.
-- 동일 작업을 여러 번 예약했을 때 중복 결과가 생기지 않는지 확인한다.
-- 알림에서 사용자가 작업을 중지할 수 있는지 확인한다.
+## 실행 가능한 관찰 절차
 
-## 결정 기록
+API 23+ 기기에서 package가 실제로 어떤 job을 기다리는지 확인한다.
 
-- 선택한 API와 함께 제외한 대안, 허용 지연, 재시도 정책을 기록한다.
-- 기능 요구가 바뀌면 실행 수단도 다시 평가하고 기존 예약을 마이그레이션한다.
-- 정확한 시각과 높은 배터리 효율이 동시에 필요한 경우 우선순위를 제품 요구로 확정한다.
-- 백그라운드 실행이 실패해도 사용자가 데이터를 잃지 않도록 로컬 상태를 먼저 저장한다.
-- 네트워크 서버가 중복 요청을 안전하게 처리하는지 클라이언트 재시도 전에 확인한다.
-- 알림이 필요한 작업은 알림 채널, 권한 거부, 중지 액션까지 기능 범위에 포함한다.
-- 최종 검증은 최신 Android 버전뿐 아니라 지원 최소 버전과 대표 제조사 환경에서 수행한다.
+```sh
+adb shell dumpsys jobscheduler
+```
 
-## 공식 문서
+출력에서 package와 `androidx.work.impl.background.systemjob.SystemJobService`를 찾고 `Required constraints`, `Satisfied constraints`, `Unsatisfied constraints`, `WITHIN_QUOTA`, `Standby bucket`, `Job history`를 읽는다. `Unsatisfied constraints: CONNECTIVITY`이면 Worker 코드 실패가 아니라 실행 조건 대기다.
 
-- [백그라운드 작업 선택 가이드](https://developer.android.com/develop/background-work/background-tasks)
-- [서비스 개요](https://developer.android.com/develop/background-work/services)
+WorkManager 2.4+ debug build에서는 예약 상태를 logcat으로 요청한다.
+
+```sh
+adb shell am broadcast -a "androidx.work.diagnostics.REQUEST_DIAGNOSTICS" -p "com.example.app"
+adb logcat -s WM-DiagnosticsWrkr WM-WorkerWrapper WM-JobScheduler
+```
+
+`Scheduled work`의 ID·class·state·unique name을 도메인 작업 ID와 대조한다. `RUNNING` 뒤 반복 중단이면 WorkManager 2.9.0+ 및 API 31+에서 `WorkInfo.getStopReason()`을 확인하고, 그보다 낮은 조합에서는 앱이 남긴 실행·중단 로그를 확인한다.
+
+직접 JobScheduler/UIDT job은 테스트 job ID로 강제 실행·중단 경로를 재현한다.
+
+```sh
+adb shell cmd jobscheduler run -f com.example.app 42
+adb shell cmd jobscheduler timeout com.example.app 42
+```
+
+두 번째 명령 뒤 `onStopJob()` 기록, checkpoint 저장, 재시도 여부를 확인한다. API 31+에서는 `JobParameters.getStopReason()`도 기록한다. 이 명령은 프로세스 kill이나 실제 Doze 전체를 대신하지 않는다.
+
+## 공식 근거
+
+- [Background tasks overview](https://developer.android.com/develop/background-work/background-tasks)
+- [Data transfer background task options](https://developer.android.com/develop/background-work/background-tasks/data-transfer-options)
+- [User-initiated data transfer](https://developer.android.com/develop/background-work/background-tasks/uidt)
+- [Optimize battery use for task scheduling APIs](https://developer.android.com/develop/background-work/background-tasks/optimize-battery)
+- [Debug WorkManager](https://developer.android.com/develop/background-work/background-tasks/testing/persistent/debug)
+- [DownloadManager API](https://developer.android.com/reference/android/app/DownloadManager)
+
+검증일: 2026-08-03. UIDT는 API 34+, WorkManager/JobScheduler의 stop reason과 quota 동작은 OS 및 라이브러리 버전별 조건을 함께 확인해야 한다.

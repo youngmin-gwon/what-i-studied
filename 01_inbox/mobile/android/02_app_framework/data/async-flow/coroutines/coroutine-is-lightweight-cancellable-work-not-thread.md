@@ -1,5 +1,5 @@
 ---
-title: "Coroutine은 thread가 아니라 취소 가능한 경량 작업이다"
+title: Coroutine은 thread가 아니라 취소 가능한 경량 작업이다
 tags: [android, android/data, android/async, android/coroutines]
 aliases: ["Coroutine은 thread가 아니라 취소 가능한 경량 작업이다"]
 date modified: 2026-08-01 00:00:00 +09:00

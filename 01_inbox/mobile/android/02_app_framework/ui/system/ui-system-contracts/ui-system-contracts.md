@@ -1,13 +1,16 @@
 ---
-title: "Android UI System Contracts"
+title: ui-system-contracts
 tags: ["android", "android/app-framework"]
+aliases: []
+date modified: 2026-08-03 16:36:02 +09:00
+date created: 2026-07-31 23:38:40 +09:00
 ---
 
-# Android UI System Contracts
+## Android UI System Contracts
 
 Android UI 문서는 View System, Compose, list rendering, modern system UI 요구사항을 서로 다른 계약으로 나눠 읽는다.
 
-## 정본 노트
+### 정본 노트
 
 - [Android UI는 imperative View에서 declarative Compose로 중심이 이동했다](01_inbox/mobile/android/02_app_framework/ui/system/ui-system-contracts/android-ui-is-moving-from-imperative-views-to-declarative-compose.md)
 - [View System은 object tree를 변경하고 Compose는 state에서 UI를 재계산한다](01_inbox/mobile/android/02_app_framework/ui/system/ui-system-contracts/view-system-mutates-object-tree-while-compose-recomputes-ui-from-state.md)

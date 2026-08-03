@@ -1,12 +1,12 @@
 ---
-title: 12-doze-app-standby
+title: "Doze와 App Standby는 백그라운드 앱의 리소스 접근을 제한하여 배터리를 절약한다"
 tags: ["android", "android/glossary"]
 aliases: ["App Standby", "Doze"]
 date modified: 2026-08-01 01:07:22 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## Doze 와 App Standby
+# Doze와 App Standby는 백그라운드 앱의 리소스 접근을 제한하여 배터리를 절약한다
 
 정의: Doze 와 App Standby 는 device idle 상태와 앱 사용 패턴에 따라 background execution, network, alarm 실행을 제한하는 power policy 다.
 

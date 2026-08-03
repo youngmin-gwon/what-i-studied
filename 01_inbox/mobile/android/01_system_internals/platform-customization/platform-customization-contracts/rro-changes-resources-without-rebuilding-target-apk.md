@@ -1,5 +1,5 @@
 ---
-title: RRO는 target APK를 다시 빌드하지 않고 resource를 바꾼다
+title: "RRO는 target APK를 다시 빌드하지 않고 resource를 바꾼다"
 tags: [android, android/aosp, android/resources]
 aliases: [RRO, Runtime Resource Overlay]
 date modified: 2026-08-01 00:00:00 +09:00

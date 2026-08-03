@@ -1,5 +1,5 @@
 ---
-title: GMS는 AOSP가 아니라 라이선스된 Google services layer다
+title: "GMS는 AOSP가 아니라 라이선스된 Google services layer다"
 tags: [android, android/gms, android/aosp]
 aliases: [GMS, Google Mobile Services]
 date modified: 2026-08-01 00:00:00 +09:00

@@ -1,5 +1,5 @@
 ---
-title: "Worker 주입은 WorkManager factory boundary를 지난다"
+title: Worker 주입은 WorkManager factory boundary를 지난다
 tags: ["android", "android/app-framework"]
 ---
 

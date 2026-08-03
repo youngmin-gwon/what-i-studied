@@ -1,12 +1,12 @@
 ---
-title: "Coroutine Contracts"
+title: Coroutine 계약은 스레드 생성보다 수명과 취소 실패 전파를 다룬다
 tags: [android, android/data, android/async, android/coroutines]
 aliases: ["Coroutine Contracts"]
 date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Coroutine Contracts
+# Coroutine 계약은 스레드 생성보다 수명과 취소 실패 전파를 다룬다
 
 Coroutine 정본은 Android 비동기 작업을 thread 생성 문제가 아니라 lifetime, cancellation, dispatcher, failure propagation의 계약으로 나눈다.
 

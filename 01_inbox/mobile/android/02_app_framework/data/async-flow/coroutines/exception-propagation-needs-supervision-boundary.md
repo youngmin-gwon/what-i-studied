@@ -1,5 +1,5 @@
 ---
-title: "Coroutine 예외 전파는 builder와 supervision boundary가 결정한다"
+title: Coroutine 예외 전파는 builder와 supervision boundary가 결정한다
 tags: [android, android/data, android/async, android/coroutines]
 aliases: ["Coroutine 예외 전파는 builder와 supervision boundary가 결정한다"]
 date modified: 2026-08-01 00:00:00 +09:00

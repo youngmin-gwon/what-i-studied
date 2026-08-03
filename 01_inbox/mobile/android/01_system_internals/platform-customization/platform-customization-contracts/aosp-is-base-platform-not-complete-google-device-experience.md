@@ -1,5 +1,5 @@
 ---
-title: AOSP는 완성된 Google 기기 경험이 아니라 기본 플랫폼이다
+title: "AOSP는 완성된 Google 기기 경험이 아니라 기본 플랫폼이다"
 tags: [android, android/aosp]
 aliases: [AOSP, Android Open Source Project]
 date modified: 2026-08-01 00:00:00 +09:00

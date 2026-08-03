@@ -1,5 +1,5 @@
 ---
-title: Graphics and media contracts
+title: "Graphics and media contracts"
 tags: [android, android/graphics, android/media]
 aliases: [Android graphics media contracts]
 date modified: 2026-07-31 23:20:00 +09:00
@@ -9,6 +9,24 @@ date created: 2026-07-31 23:20:00 +09:00
 # Graphics and media contracts
 
 이 묶음은 Android graphics/media를 API 사용법이 아니라 실행 계약으로 정리한다. 핵심 질문은 “누가 버퍼를 생산하고, 누가 소비하며, 어느 thread/service/HAL 경계에서 deadline을 놓치는가”다.
+
+## 읽는 순서
+
+1. 렌더링 파이프라인(Surface, BufferQueue, SurfaceFlinger/HWC)으로 전체 그림을 먼저 본다.
+2. Canvas/Compose가 그리기 명령만 만들고 합성은 별도 책임임을 확인한다.
+3. VSync/Choreographer로 frame deadline 개념을 잡고, Jank 노트로 원인 구간을 분류하는 법을 본다.
+4. 카메라/코덱/오디오는 각자의 producer-consumer Surface 계약으로 본다.
+5. 문제가 생기면 디버깅 노트로 timeline과 component state를 좁힌다.
+
+## 문제 분류 기준
+
+- "화면이 끊기거나 버벅인다(jank)" → [Jank는 frame deadline 실패다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md), [VSync와 Choreographer](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/vsync-and-choreographer-define-frame-deadline.md)
+- "Compose는 빠른데 화면 합성이 느리다고 의심된다" → [Canvas/Skia/Compose는 합성기가 아니다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/canvas-skia-and-compose-produce-drawing-commands-not-display-composition.md), [SurfaceFlinger는 HWC와 합성한다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/surfaceflinger-composes-visible-layers-with-hwc.md)
+- "카메라 프리뷰/캡처가 실패하거나 조합이 안 된다" → [카메라 출력 Surface](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/camera-output-surfaces-define-preview-analysis-and-recording-pipelines.md), [CameraX와 Camera2 제어 경계](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/camerax-and-camera2-have-different-control-boundaries.md)
+- "영상 인코딩/디코딩 성능이나 buffer 소유권이 궁금하다" → [MediaCodec Surface 모드](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/mediacodec-surface-mode-connects-video-producers-and-consumers.md), [MediaCodec ByteBuffer 모드](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/mediacodec-bytebuffer-mode-makes-the-app-own-sample-flow.md)
+- "오디오가 끊기거나 다른 앱과 충돌한다" → [AudioFocus](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/audiofocus-is-shared-output-policy-not-playback-permission.md), [AudioTrack/AAudio/Oboe](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/audiotrack-aaudio-and-oboe-choose-latency-and-portability-tradeoffs.md)
+- "재생이 안 되거나 라이선스 오류가 난다" → [DRM 보호 미디어](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/drm-protected-media-needs-secure-codec-and-output-path.md)
+- "원인이 불명확하다" → [그래픽/미디어 디버깅](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-debugging-starts-from-timeline-and-component-state.md)에서 timeline 수집부터 시작한다.
 
 ## 그래픽 파이프라인
 

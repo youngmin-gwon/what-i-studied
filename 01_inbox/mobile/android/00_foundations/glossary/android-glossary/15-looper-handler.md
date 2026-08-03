@@ -1,12 +1,12 @@
 ---
-title: 15-looper-handler
+title: "Looper와 Handler는 스레드의 메시지 큐를 관리하고 이벤트를 순차적으로 처리한다"
 tags: ["android", "android/glossary"]
 aliases: ["Handler", "Looper", "MessageQueue"]
 date modified: 2026-08-01 01:07:25 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## Looper 와 Handler
+# Looper와 Handler는 스레드의 메시지 큐를 관리하고 이벤트를 순차적으로 처리한다
 
 정의: Looper 는 thread 의 MessageQueue 를 돌리고, Handler 는 그 queue 에 work 를 post 하거나 message 를 dispatch 하는 Android thread scheduling primitive 다.
 

@@ -1,5 +1,5 @@
 ---
-title: "Pager는 PagingSource factory로 PagingData Flow를 만든다"
+title: Pager는 PagingSource factory로 PagingData Flow를 만든다
 tags: [android, android/data, android/paging]
 aliases: ["Pager는 PagingSource factory로 PagingData Flow를 만든다"]
 date modified: 2026-08-01 00:00:00 +09:00

@@ -1,5 +1,5 @@
 ---
-title: product, vendor, odm, system_ext는 customization ownership을 나눈다
+title: "product, vendor, odm, system_ext는 customization ownership을 나눈다"
 tags: [android, android/aosp, android/partitions]
 aliases: [Android partitions, Vendor partition]
 date modified: 2026-08-01 00:00:00 +09:00

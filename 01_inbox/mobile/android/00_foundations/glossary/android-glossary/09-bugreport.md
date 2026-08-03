@@ -1,12 +1,12 @@
 ---
-title: 09-bugreport
+title: "Bugreport는 기기의 상태, 로그, 시스템 정보를 종합하여 버그를 분석하는 파일이다"
 tags: ["android", "android/glossary"]
 aliases: ["Android bugreport"]
 date modified: 2026-08-01 01:07:19 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## Bugreport
+# Bugreport는 기기의 상태, 로그, 시스템 정보를 종합하여 버그를 분석하는 파일이다
 
 정의: Bugreport 는 logcat, dumpsys, tombstone, traces, system properties 같은 device 상태 증거를 한 번에 수집하는 진단 bundle 이다.
 

@@ -1,5 +1,5 @@
 ---
-title: VSync와 Choreographer는 frame deadline을 정의한다
+title: "VSync와 Choreographer는 frame deadline을 정의한다"
 tags: [android, android/graphics, android/performance]
 aliases: [VSync, Choreographer]
 date modified: 2026-07-31 23:20:00 +09:00

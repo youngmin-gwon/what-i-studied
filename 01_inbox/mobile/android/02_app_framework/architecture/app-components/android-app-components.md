@@ -1,16 +1,16 @@
 ---
-title: "Android App Components"
-tags: [android, android/architecture, android/app-components]
+title: Android 앱 컴포넌트는 OS가 호출하는 실행 경계다
+tags: [android, android/app-components, android/architecture]
 aliases: ["Android App Components"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:34:42 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android App Components
+# Android 앱 컴포넌트는 OS가 호출하는 실행 경계다
 
-앱 컴포넌트는 앱 내부 layer가 아니라 Android OS가 앱을 발견하고 호출하는 실행 경계다.
+앱 컴포넌트는 앱 내부 layer 가 아니라 Android OS 가 앱을 발견하고 호출하는 실행 경계다.
 
-## 정본 노트
+### 정본 노트
 
 - [안드로이드 앱 컴포넌트는 OS가 호출하는 실행 경계다](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/android-app-components-are-system-entry-points-not-in-process-objects.md)
 - [Activity는 사용자에게 보이는 entry point이자 프로세스 우선순위 신호다](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/activity-is-user-visible-entry-point-and-process-priority-signal.md)
@@ -29,7 +29,7 @@ date created: 2026-08-01 00:00:00 +09:00
 - [android:exported와 권한은 외부 컴포넌트 접근 경계를 결정한다](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/exported-and-permission-boundaries-decide-external-component-access.md)
 - [컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md)
 
-## 주변 정본
+### 주변 정본
 
 - [Intent and Manifest Contracts](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
 - [Background Work Contracts](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)

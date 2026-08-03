@@ -1,5 +1,5 @@
 ---
-title: Native performance and crash debugging start at the boundary
+title: "Native performance and crash debugging start at the boundary"
 tags: [android, android/native, android/system-internals]
 aliases: [native performance, native crash, LLDB]
 date modified: 2026-07-31 23:58:00 +09:00

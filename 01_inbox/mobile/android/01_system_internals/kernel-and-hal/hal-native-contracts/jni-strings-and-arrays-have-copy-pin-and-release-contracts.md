@@ -1,5 +1,5 @@
 ---
-title: JNI strings and arrays have copy pin and release contracts
+title: "JNI strings and arrays have copy pin and release contracts"
 tags: [android, android/native, android/system-internals]
 aliases: [JNI string, JNI array]
 date modified: 2026-07-31 23:58:00 +09:00

@@ -1,5 +1,5 @@
 ---
-title: "무거운 작업은 composition 안에 두지 않는다"
+title: 무거운 작업은 composition 안에 두지 않는다
 tags: ["android", "android/app-framework"]
 ---
 

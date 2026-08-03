@@ -1,5 +1,5 @@
 ---
-title: "새 입력이 이전 작업을 무효화하면 flatMapLatest로 이전 흐름을 취소한다"
+title: 새 입력이 이전 작업을 무효화하면 flatMapLatest로 이전 흐름을 취소한다
 tags: [android, android/data, android/async, android/flow-state-contracts]
 aliases: ["새 입력이 이전 작업을 무효화하면 flatMapLatest로 이전 흐름을 취소한다"]
 date modified: 2026-08-01 00:00:00 +09:00

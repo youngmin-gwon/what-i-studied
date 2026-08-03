@@ -1,5 +1,5 @@
 ---
-title: AOSP build는 source, device, vendor configuration으로 product image를 조립한다
+title: "AOSP build는 source, device, vendor configuration으로 product image를 조립한다"
 tags: [android, android/aosp, android/build]
 aliases: [AOSP build]
 date modified: 2026-08-01 00:00:00 +09:00

@@ -1,5 +1,5 @@
 ---
-title: Native system services are init managed Binder endpoints
+title: "Native system services are init managed Binder endpoints"
 tags: [android, android/native, android/system-internals]
 aliases: [native service, servicemanager, init.rc]
 date modified: 2026-07-31 23:58:00 +09:00

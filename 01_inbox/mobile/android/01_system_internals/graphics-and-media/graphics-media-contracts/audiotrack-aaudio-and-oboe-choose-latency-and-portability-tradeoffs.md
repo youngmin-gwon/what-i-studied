@@ -1,5 +1,5 @@
 ---
-title: AudioTrack, AAudio, Oboe는 지연 시간과 이식성의 trade-off를 고른다
+title: "AudioTrack, AAudio, Oboe는 지연 시간과 이식성의 trade-off를 고른다"
 tags: [android, android/media, android/audio]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

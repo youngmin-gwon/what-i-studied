@@ -1,8 +1,8 @@
 ---
-title: android-history-is-a-map-of-platform-contract-changes-not-a-feature-list
+title: "Android history 는 기능 목록이 아니라 platform contract 변화 지도다"
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-01 01:07:58 +09:00
+date modified: 2026-08-03 16:33:38 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
@@ -18,8 +18,8 @@ Android version history 는 새 기능 암기표가 아니라 어떤 contract �
 
 ### 판단 기준
 
-release를 기록할 때는 새 기능 수보다 기존 앱의 설계·테스트 기준을 바꾼 contract가 무엇인지 먼저 적는다. 영향 받는 앱 조건을 설명할 수 없는 변화는 timeline의 핵심 항목으로 올리지 않는다.
+release 를 기록할 때는 새 기능 수보다 기존 앱의 설계·테스트 기준을 바꾼 contract 가 무엇인지 먼저 적는다. 영향 받는 앱 조건을 설명할 수 없는 변화는 timeline 의 핵심 항목으로 올리지 않는다.
 
 ### 경계
 
-이 노트는 변화의 선별 기준만 다룬다. 각 permission, storage, update, UI contract의 현재 동작과 migration 절차는 연결된 정본 및 공식 behavior changes 문서가 소유한다.
+이 노트는 변화의 선별 기준만 다룬다. 각 permission, storage, update, UI contract 의 현재 동작과 migration 절차는 연결된 정본 및 공식 behavior changes 문서가 소유한다.

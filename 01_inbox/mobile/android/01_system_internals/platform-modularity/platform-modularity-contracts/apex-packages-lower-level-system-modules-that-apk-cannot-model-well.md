@@ -1,6 +1,9 @@
 ---
 title: "APEX는 APK 모델로 다루기 어려운 lower-level system module을 담는다"
 tags: ["android", "android/system-internals"]
+aliases: ["APEX는 APK 모델로 다루기 어려운 lower-level system module을 담는다"]
+date modified: 2026-08-03 16:30:00 +09:00
+date created: 2026-07-31 23:05:30 +09:00
 ---
 
 # APEX는 APK 모델로 다루기 어려운 lower-level system module을 담는다

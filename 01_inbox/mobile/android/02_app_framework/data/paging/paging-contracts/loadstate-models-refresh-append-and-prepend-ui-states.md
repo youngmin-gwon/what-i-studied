@@ -1,5 +1,5 @@
 ---
-title: "LoadState는 refresh, append, prepend 상태를 UI에 명시적으로 드러낸다"
+title: LoadState는 refresh, append, prepend 상태를 UI에 명시적으로 드러낸다
 tags: [android, android/data, android/paging]
 aliases: ["LoadState는 refresh, append, prepend 상태를 UI에 명시적으로 드러낸다"]
 date modified: 2026-08-01 00:00:00 +09:00

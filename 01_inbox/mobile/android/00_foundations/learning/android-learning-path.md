@@ -1,9 +1,9 @@
 ---
-title: "Android Learning Path"
+title: "Android Learning Path는 안드로이드 개발의 기반을 다지는 학습 경로다"
 tags: ["android", "android/foundations"]
 ---
 
-# Android Learning Path
+# Android Learning Path는 안드로이드 개발의 기반을 다지는 학습 경로다
 
 Android learning path는 resource 목록이 아니라 프로젝트에서 내려야 할 결정까지 이어지는 질문별 routing guide다.
 

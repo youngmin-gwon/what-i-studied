@@ -1,12 +1,12 @@
 ---
-title: "Android Paging Map"
+title: Android Paging은 대량 목록을 페이지 단위로 로드하고 UI에 반영하는 데이터 계약이다
 tags: [android, android/data, android/paging]
 aliases: ["Android Paging Map"]
 date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android Paging Map
+# Android Paging은 대량 목록을 페이지 단위로 로드하고 UI에 반영하는 데이터 계약이다
 
 Paging 문서는 대량 목록을 한 번에 모두 읽지 않고 page 단위로 가져와 UI에 반영하는 data loading 계약을 정리한다. 핵심은 “목록을 어떻게 그릴까”보다 source, cache, load state, item identity의 책임을 어느 layer에 둘지다.
 

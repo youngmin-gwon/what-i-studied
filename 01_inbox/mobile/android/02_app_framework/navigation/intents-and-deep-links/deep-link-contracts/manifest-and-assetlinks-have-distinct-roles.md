@@ -1,8 +1,8 @@
 ---
-title: "매니페스트 선언과 assetlinks.json 의 역할"
-tags: [android, android/navigation, android/deep-links]
+title: 매니페스트 선언과 assetlinks.json 의 역할
+tags: [android, android/deep-links, android/navigation]
 aliases: ["매니페스트 선언과 assetlinks.json 의 역할"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:25 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

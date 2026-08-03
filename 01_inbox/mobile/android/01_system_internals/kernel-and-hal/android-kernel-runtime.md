@@ -1,5 +1,5 @@
 ---
-title: Android kernel runtime
+title: "Android kernel runtime"
 tags: [android, android/kernel, android/system-internals]
 aliases: [android-kernel, Android Kernel, 안드로이드 커널]
 date modified: 2026-07-31 23:45:00 +09:00

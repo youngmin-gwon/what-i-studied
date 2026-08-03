@@ -1,5 +1,5 @@
 ---
-title: "Provider method는 외부 타입, 런타임 값, 설정된 객체를 만들 때 쓴다"
+title: Provider method는 외부 타입, 런타임 값, 설정된 객체를 만들 때 쓴다
 tags: ["android", "android/app-framework"]
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "Photo Picker: 사진 선택에 필요한 최소 접근"
+title: Photo Picker: 사진 선택에 필요한 최소 접근
 tags: [android, android/data, android/storage, android/file-access-contracts]
 aliases: ["Photo Picker: 사진 선택에 필요한 최소 접근"]
 date modified: 2026-08-01 00:00:00 +09:00

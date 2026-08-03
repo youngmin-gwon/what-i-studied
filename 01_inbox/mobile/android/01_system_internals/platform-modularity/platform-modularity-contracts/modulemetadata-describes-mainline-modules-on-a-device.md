@@ -1,6 +1,9 @@
 ---
 title: "ModuleMetadata는 기기에 있는 Mainline module 목록을 설명한다"
 tags: ["android", "android/system-internals"]
+aliases: ["ModuleMetadata는 기기에 있는 Mainline module 목록을 설명한다"]
+date modified: 2026-08-03 16:30:00 +09:00
+date created: 2026-07-31 23:05:30 +09:00
 ---
 
 # ModuleMetadata는 기기에 있는 Mainline module 목록을 설명한다

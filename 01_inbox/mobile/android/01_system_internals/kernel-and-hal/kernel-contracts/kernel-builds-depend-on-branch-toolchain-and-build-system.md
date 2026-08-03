@@ -1,5 +1,5 @@
 ---
-title: Android kernel build는 branch, toolchain, build system 계약이다
+title: "Android kernel build는 branch, toolchain, build system 계약이다"
 tags: [android, android/kernel, android/build]
 date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00

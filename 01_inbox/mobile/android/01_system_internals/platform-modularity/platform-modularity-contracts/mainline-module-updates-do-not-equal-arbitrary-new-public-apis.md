@@ -1,6 +1,9 @@
 ---
 title: "Mainline module update는 임의의 새 public API 배포와 같지 않다"
 tags: ["android", "android/system-internals"]
+aliases: ["Mainline module update는 임의의 새 public API 배포와 같지 않다"]
+date modified: 2026-08-03 16:30:00 +09:00
+date created: 2026-07-31 23:05:30 +09:00
 ---
 
 # Mainline module update는 임의의 새 public API 배포와 같지 않다

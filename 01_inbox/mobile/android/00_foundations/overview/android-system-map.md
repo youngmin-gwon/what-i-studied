@@ -1,9 +1,9 @@
 ---
-title: "Android System Map"
+title: "Android System Map은 안드로이드의 런타임, 프레임워크, 서비스 계층을 구조화한 지도다"
 tags: ["android", "android/foundations"]
 ---
 
-# Android System Map
+# Android System Map은 안드로이드의 런타임, 프레임워크, 서비스 계층을 구조화한 지도다
 
 이 문서는 Android를 처음 볼 때의 system map이다. 위쪽 앱 API에서 아래쪽 하드웨어로 내려가는 목록이 아니라, 요청이 어느 책임 경계를 통과하는지 분류하는 지도다. 세부 구현은 각 정본으로 이동한다.
 

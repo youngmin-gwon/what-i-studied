@@ -1,5 +1,5 @@
 ---
-title: "Flow를 StateFlow로 바꿀 때는 stateIn의 수명과 공유 정책을 명시한다"
+title: Flow를 StateFlow로 바꿀 때는 stateIn의 수명과 공유 정책을 명시한다
 tags: [android, android/data, android/async, android/flow-state-contracts]
 aliases: ["Flow를 StateFlow로 바꿀 때는 stateIn의 수명과 공유 정책을 명시한다"]
 date modified: 2026-08-01 00:00:00 +09:00

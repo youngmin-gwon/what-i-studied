@@ -1,5 +1,5 @@
 ---
-title: 카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다
+title: "카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다"
 tags: [android, android/media, android/camera]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

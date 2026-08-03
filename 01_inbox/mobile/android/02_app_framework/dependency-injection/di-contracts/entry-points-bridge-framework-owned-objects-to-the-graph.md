@@ -1,5 +1,5 @@
 ---
-title: "Entry point는 framework-owned 객체와 DI graph를 잇는 예외 경계다"
+title: Entry point는 framework-owned 객체와 DI graph를 잇는 예외 경계다
 tags: ["android", "android/app-framework"]
 ---
 

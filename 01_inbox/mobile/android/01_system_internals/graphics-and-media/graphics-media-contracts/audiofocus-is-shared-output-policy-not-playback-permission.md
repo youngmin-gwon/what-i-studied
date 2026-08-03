@@ -1,5 +1,5 @@
 ---
-title: AudioFocus는 재생 권한이 아니라 공유 출력 정책이다
+title: "AudioFocus는 재생 권한이 아니라 공유 출력 정책이다"
 tags: [android, android/media, android/audio]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

@@ -1,12 +1,12 @@
 ---
-title: Compose layers let you drop down when higher level components do not fit
+title: Compose 계층은 상위 컴포넌트가 맞지 않을 때 낮은 계층을 허용한다
 tags: [android, jetpack-compose, compose/design-system]
 aliases: [Compose layering]
 date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# Compose layers let you drop down when higher level components do not fit
+# Compose 계층은 상위 컴포넌트가 맞지 않을 때 낮은 계층을 허용한다
 
 Compose는 Runtime, UI, Foundation, Material 같은 계층을 조합하는 구조다. 상위 계층은 더 낮은 계층의 API를 조합해 기본 동작, 접근성, styling, interaction을 제공한다.
 

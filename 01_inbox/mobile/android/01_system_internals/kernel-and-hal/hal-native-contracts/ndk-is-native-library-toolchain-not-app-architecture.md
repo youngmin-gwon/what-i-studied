@@ -1,5 +1,5 @@
 ---
-title: NDK is native library toolchain not app architecture
+title: "NDK is native library toolchain not app architecture"
 tags: [android, android/native, android/system-internals]
 aliases: [NDK]
 date modified: 2026-07-31 23:58:00 +09:00

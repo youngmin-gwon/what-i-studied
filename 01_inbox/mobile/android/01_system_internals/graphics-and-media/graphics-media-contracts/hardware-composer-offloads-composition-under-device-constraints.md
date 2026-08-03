@@ -1,5 +1,5 @@
 ---
-title: Hardware Composer는 기기 제약 안에서 합성을 offload한다
+title: "Hardware Composer는 기기 제약 안에서 합성을 offload한다"
 tags: [android, android/graphics, android/hal]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

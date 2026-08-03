@@ -1,5 +1,5 @@
 ---
-title: "ViewModel DI는 dependency 주입이지 ViewModel 소유권을 DI graph로 옮기는 일이 아니다"
+title: ViewModel DI는 dependency 주입이지 ViewModel 소유권을 DI graph로 옮기는 일이 아니다
 tags: ["android", "android/app-framework"]
 ---
 

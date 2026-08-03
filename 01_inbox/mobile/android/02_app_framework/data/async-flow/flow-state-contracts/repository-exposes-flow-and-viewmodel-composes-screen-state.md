@@ -1,5 +1,5 @@
 ---
-title: "Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다"
+title: Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다
 tags: [android, android/data, android/async, android/flow-state-contracts]
 aliases: ["Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다"]
 date modified: 2026-08-01 00:00:00 +09:00

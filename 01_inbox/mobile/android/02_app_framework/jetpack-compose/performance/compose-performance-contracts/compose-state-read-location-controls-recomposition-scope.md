@@ -1,5 +1,5 @@
 ---
-title: "Compose 상태 읽기 위치는 recomposition 범위를 결정한다"
+title: Compose 상태 읽기 위치는 recomposition 범위를 결정한다
 tags: ["android", "android/app-framework"]
 ---
 

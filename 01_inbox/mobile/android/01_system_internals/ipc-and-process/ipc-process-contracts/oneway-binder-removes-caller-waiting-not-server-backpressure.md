@@ -1,5 +1,5 @@
 ---
-title: oneway Binder는 caller 대기를 없애지만 server backpressure를 없애지 않는다
+title: "oneway Binder는 caller 대기를 없애지만 server backpressure를 없애지 않는다"
 tags: [android, android/ipc, android/binder]
 aliases: [oneway Binder]
 date modified: 2026-08-01 00:00:00 +09:00

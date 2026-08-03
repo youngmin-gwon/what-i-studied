@@ -1,5 +1,5 @@
 ---
-title: "Constructor injection은 기본 binding 경로다"
+title: Constructor injection은 기본 binding 경로다
 tags: ["android", "android/app-framework"]
 ---
 

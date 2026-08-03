@@ -1,5 +1,5 @@
 ---
-title: "Android 저장소는 데이터 수명과 소유권으로 선택한다"
+title: Android 저장소는 데이터 수명과 소유권으로 선택한다
 tags: [android, android/data, android/storage, android/persistence-contracts]
 aliases: ["Android 저장소는 데이터 수명과 소유권으로 선택한다"]
 date modified: 2026-08-01 00:00:00 +09:00

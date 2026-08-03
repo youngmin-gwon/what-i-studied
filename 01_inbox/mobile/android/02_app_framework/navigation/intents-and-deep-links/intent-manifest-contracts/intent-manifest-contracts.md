@@ -1,16 +1,16 @@
 ---
-title: "Intent 와 Manifest 계약"
-tags: [android, android/navigation, android/intents]
+title: Intent와 Manifest 계약
+tags: [android, android/intents, android/navigation]
 aliases: ["Intent 와 Manifest 계약"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:39 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Intent 와 Manifest 계약
+# Intent와 Manifest 계약
 
 Intent 와 Manifest 는 OS 가 앱 컴포넌트를 발견하고 실행하는 공개 계약이다. 앱 내부 화면 이동과 구분해서 읽어야 한다.
 
-## 정본 노트
+### 정본 노트
 
 - [Intent는 컴포넌트 실행을 설명하는 메시지다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-describes-component-action-request.md)
 - [명시적 Intent와 암시적 Intent는 공개 범위로 선택한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/explicit-intent-targets-known-component-implicit-intent-declares-capability.md)

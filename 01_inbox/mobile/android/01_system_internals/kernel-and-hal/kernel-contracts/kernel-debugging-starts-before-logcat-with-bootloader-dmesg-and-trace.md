@@ -1,5 +1,5 @@
 ---
-title: Kernel debugging은 logcat 이전의 신호에서 시작한다
+title: "Kernel debugging은 logcat 이전의 신호에서 시작한다"
 tags: [android, android/kernel, android/debugging]
 date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00

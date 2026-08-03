@@ -1,12 +1,12 @@
 ---
-title: "Android Storage and Persistence"
+title: Android 저장소는 수명과 소유권 보안 경계에 따라 다른 계약을 가진다
 tags: [android, android/data, android/storage]
 aliases: ["Android Storage and Persistence"]
 date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android Storage and Persistence
+# Android 저장소는 수명과 소유권 보안 경계에 따라 다른 계약을 가진다
 
 Android storage는 저장 대상의 수명, 소유권, 공개 목적, 보안 경계를 먼저 나눈다. Room, DataStore, app-specific file, MediaStore, SAF, Photo Picker, secure storage는 서로 대체재가 아니라 다른 계약이다.
 

@@ -1,5 +1,5 @@
 ---
-title: Android graphics/media runtime
+title: "Android graphics/media runtime"
 tags: [android, android/graphics, android/media, android/system-internals]
 aliases: [android-graphics-and-media, Graphics, Media Pipeline, SurfaceFlinger]
 date modified: 2026-07-31 23:20:00 +09:00
@@ -13,6 +13,17 @@ Android의 graphics/media runtime은 UI toolkit 사용법보다 버퍼와 시간
 미디어도 같은 구조 위에 있다. 카메라 프레임, codec 입출력, video playback, DRM protected output은 모두 어떤 Surface와 buffer ownership을 쓰는지에 따라 성능과 제약이 달라진다.
 
 정본 묶음: [Graphics and media contracts](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-contracts.md)
+
+## 계층 구분
+
+이 폴더의 노트는 네 계층 중 어느 것을 설명하는지 항상 구분한다.
+
+- app API: Canvas/Compose drawing, Camera2/CameraX request, MediaCodec/Media3 호출처럼 앱 코드가 직접 부르는 표면.
+- framework service: RenderThread 스케줄, Choreographer, CameraService, MediaCodec framework 계층처럼 앱 프로세스 또는 system_server 안에서 조율하는 부분.
+- native service: SurfaceFlinger, HWC 서비스, mediaserver, audioserver처럼 별도 native 프로세스로 떠서 Binder로 통신하는 부분.
+- HAL/kernel: Camera HAL, Codec2/HAL, DRM plugin, GPU/display driver처럼 vendor 구현과 커널 자원(overlay plane, DMA-BUF)에 닿는 부분.
+
+앱 개발자가 코드로 바꿀 수 있는 것은 대부분 app API/framework service 계층이고, native service/HAL 계층은 `dumpsys SurfaceFlinger`, `dumpsys media.codec`, Perfetto trace 같은 관찰 신호로만 접근할 수 있다. 이 구분은 [Graphics and media contracts](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-contracts.md)의 읽는 순서/문제 분류 기준에서 노트별로 이어진다.
 
 ## 핵심 지도
 

@@ -1,9 +1,12 @@
 ---
-title: "Android Release History"
+title: "Android Release History는 안드로이드 플랫폼의 버전별 주요 변화를 요약한 기록이다"
 tags: ["android", "android/foundations"]
+aliases: []
+date modified: 2026-08-03 16:34:05 +09:00
+date created: 2026-07-31 23:04:26 +09:00
 ---
 
-# Android Release History
+# Android Release History는 안드로이드 플랫폼의 버전별 주요 변화를 요약한 기록이다
 
 Android version history 는 platform contract 변화와 현재 API/version 축을 이해하기 위한 timeline map 이다. 기능을 연대순으로 외우기보다 현재 문제에 어떤 호환성 조건이 적용되는지 찾는 데 쓴다.
 

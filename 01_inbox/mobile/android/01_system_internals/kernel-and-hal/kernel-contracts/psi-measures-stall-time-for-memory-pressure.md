@@ -1,5 +1,5 @@
 ---
-title: PSI는 free memory가 아니라 stall time을 측정한다
+title: "PSI는 free memory가 아니라 stall time을 측정한다"
 tags: [android, android/kernel, android/memory]
 aliases: [PSI, Pressure Stall Information]
 date modified: 2026-07-31 23:45:00 +09:00

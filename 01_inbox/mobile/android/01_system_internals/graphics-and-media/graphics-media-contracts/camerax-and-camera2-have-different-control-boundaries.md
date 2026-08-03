@@ -1,5 +1,5 @@
 ---
-title: CameraX와 Camera2는 제어 경계가 다르다
+title: "CameraX와 Camera2는 제어 경계가 다르다"
 tags: [android, android/media, android/camera]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

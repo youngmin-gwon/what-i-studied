@@ -1,5 +1,5 @@
 ---
-title: JNIEnv is thread local and native threads must attach
+title: "JNIEnv is thread local and native threads must attach"
 tags: [android, android/native, android/system-internals]
 aliases: [JNIEnv, JavaVM]
 date modified: 2026-07-31 23:58:00 +09:00

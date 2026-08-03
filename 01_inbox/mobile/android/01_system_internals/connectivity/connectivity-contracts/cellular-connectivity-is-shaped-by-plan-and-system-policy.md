@@ -20,3 +20,5 @@ Cellular network는 단순 fallback transport가 아니다. 사용자의 요금�
 
 - [Metered와 Data Saver는 백그라운드 네트워크 비용 정책이다](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/metered-and-data-saver-are-background-network-cost-policy.md)
 - [배터리, 네트워크, 저장소 효율은 리소스 정책이다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/battery-network-storage-efficiency-is-resource-policy.md)
+
+공식 문서: [TelephonyManager](https://developer.android.com/reference/android/telephony/TelephonyManager), [SubscriptionManager](https://developer.android.com/reference/android/telephony/SubscriptionManager)

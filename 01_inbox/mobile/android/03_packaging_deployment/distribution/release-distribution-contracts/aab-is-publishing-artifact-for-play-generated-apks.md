@@ -1,12 +1,12 @@
 ---
-title: aab-is-publishing-artifact-for-play-generated-apks
+title: AAB는 Play가 생성하는 APK를 위한 퍼블리싱 아티팩트다
 tags: []
 aliases: []
 date modified: 2026-07-31 17:57:55 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
-# aab-is-publishing-artifact-for-play-generated-apks
+# AAB는 Play가 생성하는 APK를 위한 퍼블리싱 아티팩트다
 
 ## AAB 는 Play 가 기기별 APK 를 생성하는 게시 아티팩트다
 

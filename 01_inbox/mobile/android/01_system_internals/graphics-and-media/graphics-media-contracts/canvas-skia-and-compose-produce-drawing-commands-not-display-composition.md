@@ -1,5 +1,5 @@
 ---
-title: Canvas, Skia, Compose는 합성기가 아니라 그리기 명령의 생산자다
+title: "Canvas, Skia, Compose는 합성기가 아니라 그리기 명령의 생산자다"
 tags: [android, android/graphics, android/compose]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

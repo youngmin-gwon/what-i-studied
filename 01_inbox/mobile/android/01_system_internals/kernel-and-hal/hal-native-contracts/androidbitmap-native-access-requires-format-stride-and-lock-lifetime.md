@@ -1,5 +1,5 @@
 ---
-title: AndroidBitmap native access requires format stride and lock lifetime
+title: "AndroidBitmap native access requires format stride and lock lifetime"
 tags: [android, android/native, android/system-internals]
 aliases: [AndroidBitmap, Bitmap native access]
 date modified: 2026-07-31 23:58:00 +09:00

@@ -1,16 +1,16 @@
 ---
-title: "Android UI State"
+title: UI State는 현재 화면을 그리는 값이고 Action은 상태 변화를 요청하는 신호다
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["Android UI State"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:35:29 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android UI State
+# UI State는 현재 화면을 그리는 값이고 Action은 상태 변화를 요청하는 신호다
 
-UI State는 현재 화면을 다시 그릴 수 있는 값이고, Action/Event는 상태 변화를 요청하거나 소비 시점이 중요한 신호다.
+UI State 는 현재 화면을 다시 그릴 수 있는 값이고, Action/Event 는 상태 변화를 요청하거나 소비 시점이 중요한 신호다.
 
-## 정본 노트
+### 정본 노트
 
 - [UI는 상태를 아래로 받고 사용자 행동을 위로 전달한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/ui-receives-state-and-sends-actions-up.md)
 - [UiState는 새 collector가 받아도 안전한 현재 화면의 표현이다](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/uistate-represents-current-screen-for-new-collectors.md)

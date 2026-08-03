@@ -14,28 +14,86 @@ tags: ["android", "android/system-services"]
 - 알람 시계, 약 복용 알림, 캘린더 리마인더처럼 시간 자체가 기능의 핵심인 경우를 우선 검토한다.
 - 일반적인 서버 동기화는 시간이 조금 밀려도 되므로 WorkManager가 보통 더 적합하다.
 - 정확한 알람은 배터리 비용이 있으므로 꼭 필요한 경우에만 사용한다.
-- Android 12 이상에서는 exact alarm 사용 가능 여부와 권한 정책을 확인해야 한다.
-- target SDK 31+는 exact alarm에 `SCHEDULE_EXACT_ALARM` 또는 해당되는 경우 `USE_EXACT_ALARM` 선언이 필요하다.
-- `SCHEDULE_EXACT_ALARM`은 사용자가 부여·철회하는 특별 접근이고, Android 14 기기의 target 33+ 신규 설치에는 기본 허용되지 않는다.
-- target 33+에서 선택 가능한 `USE_EXACT_ALARM`은 자동 부여되지만 제한된 핵심 사용 사례와 Google Play 정책 대상이다.
-- exact alarm 권한이 없으면 부정확한 알람이나 다른 작업 수단으로 요구사항을 낮추고, 호출 직전 `canScheduleExactAlarms()`를 확인한다.
 - setExactAndAllowWhileIdle은 유휴 상태에서도 정확성을 높이는 대신 남용해서는 안 된다.
 - 알람은 실행을 시작하는 신호이지 장시간 작업을 수행할 공간 자체가 아니다.
 
-## PendingIntent와 재예약
+## exact alarm 권한의 경계
 
-- PendingIntent의 action, data, extras가 같은 알람을 식별하는 방식에 영향을 준다.
+exact alarm의 권한 조건은 기기 OS, `targetSdkVersion`, 전달 방식에 따라 달라진다.
+| 조건 | 요구사항 |
+| --- | --- |
+| target 30 이하 | Android 12의 exact alarm 특별 접근 제한 대상이 아니다. 새 설계의 기준으로 삼지 않는다. |
+| Android 12~13에서 target 31+ | `PendingIntent` 기반 exact alarm뿐 아니라 `OnAlarmListener` 기반 `setExact()`도 exact alarm capability 또는 배터리 제한 예외가 필요하다. Android 12에서는 `SCHEDULE_EXACT_ALARM`을, Android 13의 target 33+ 핵심 용도에서는 `USE_EXACT_ALARM`을 선택할 수 있다. |
+| Android 12+에서 `PendingIntent` 기반 exact alarm | `setExact*()` 또는 `setAlarmClock()` 호출 전에 exact alarm 사용 가능 상태여야 한다. `SCHEDULE_EXACT_ALARM`을 쓰는 앱은 호출 직전 `canScheduleExactAlarms()`를 확인한다. 사용할 수 없는데 호출하면 `SecurityException`이 발생한다. |
+| Android 13+에서 target 33+ | 앱의 용도에 따라 `SCHEDULE_EXACT_ALARM`과 `USE_EXACT_ALARM` 중 하나만 선언한다. |
+| Android 14+의 `OnAlarmListener` 기반 `setExact()` | `SCHEDULE_EXACT_ALARM` 없이 호출할 수 있지만, 앱이 lifecycle 밖으로 나가면 시스템이 알람을 명시적으로 버린다. 지속 전달용 권한 우회책이 아니다. |
+
+- `SCHEDULE_EXACT_ALARM`은 사용자가 특별 접근 화면에서 부여하거나 철회할 수 있다. Android 14+에서 target 33+ 앱을 신규 설치하면 미리 부여되지 않으며, 철회되면 앱 프로세스가 중지되고 이후 exact alarm이 취소된다.
+- `ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED`를 받으면 `canScheduleExactAlarms()`를 다시 확인하고 저장된 사용자 설정을 기준으로 필요한 알람을 재예약한다.
+- `USE_EXACT_ALARM`은 target 33+에서만 요청할 수 있고 자동 부여되며 사용자가 철회할 수 없다. 알람·타이머처럼 exact alarm이 핵심 기능인 제한된 용도와 앱 스토어 정책 심사 대상이다. 선택 기능에는 `SCHEDULE_EXACT_ALARM`을 사용한다.
+- `OnAlarmListener`는 `PendingIntent`와 달리 앱 프로세스를 다시 시작하지 않는다. 현재 `Activity`, `Service`, `ContentProvider`가 끝난 뒤에도 전달되어야 한다면 `PendingIntent` 기반 API를 사용한다. 화면 안에서만 유효한 타이머라면 `Handler` 같은 lifecycle 내부 수단이 더 단순할 수 있다.
+- 권한이 없을 때는 사용자에게 정확성이 필요한 이유와 설정 이동 경로를 제시하거나, `set()`, `setWindow()`, WorkManager처럼 요구사항에 맞는 부정확한 수단으로 낮춘다. 실패를 숨기고 exact API를 호출하지 않는다.
+
+## PendingIntent 식별과 재예약
+
+`AlarmManager`에 두 번째 알람을 같은 `PendingIntent`로 예약하면 새 예약이 기존 예약을 대체한다. 여기서 "같음"은 extras의 업무 ID가 아니라 `PendingIntent`의 operation과 identity로 판정된다.
+
+- Intent 쪽 식별 대상은 `Intent.filterEquals()`가 비교하는 action, data URI, MIME type, identifier, component class, categories이다. **extras는 비교하지 않는다.**
+- 같은 생성 함수(`getBroadcast()` 등)를 사용할 때 request code가 다르면 별도 `PendingIntent`가 된다.
+- `FLAG_ONE_SHOT`, `FLAG_IMMUTABLE`처럼 인스턴스를 설명하는 식별 플래그도 일치해야 기존 객체를 조회하거나 변경할 수 있다.
+- `FLAG_UPDATE_CURRENT`는 별도 identity를 만들지 않는다. 같은 `PendingIntent`가 이미 있으면 그 객체를 유지하면서 새 Intent의 extras로 바꾼다.
+
+따라서 다음 두 Intent는 `reminderId` extra만 다르고 action, component, request code가 같으므로 같은 `PendingIntent`를 가리킨다. `FLAG_UPDATE_CURRENT`를 쓰면 두 번째 호출이 첫 번째의 extra를 바꾸고, 두 번째 알람 예약은 첫 번째 알람을 대체한다.
+
+```kotlin
+fun collidingReminder(context: Context, reminderId: Long): PendingIntent {
+    val intent = Intent(context, ReminderReceiver::class.java)
+        .setAction("com.example.action.REMIND")
+        .putExtra("reminder_id", reminderId) // identity에 포함되지 않는다.
+
+    return PendingIntent.getBroadcast(
+        context,
+        0, // 두 호출에서 같음
+        intent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+    )
+}
+```
+
+동시에 살아 있어야 하는 리마인더에는 안정적이고 고유한 request code 또는 data URI를 identity로 사용한다. 다음 예시는 data URI로 구분하고 extra는 수신 편의를 위한 payload로만 취급한다.
+```kotlin
+fun distinctReminder(context: Context, reminderId: Long): PendingIntent {
+    val intent = Intent(context, ReminderReceiver::class.java)
+        .setAction("com.example.action.REMIND")
+        .setData(Uri.parse("reminder://scheduled/$reminderId"))
+        .putExtra("reminder_id", reminderId)
+
+    return PendingIntent.getBroadcast(
+        context,
+        0,
+        intent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+    )
+}
+```
+
 - 알람을 갱신할 때는 동일한 식별자를 사용하고 이전 예약과의 관계를 명확히 한다.
 - 사용자가 설정을 바꾸면 기존 알람을 취소한 뒤 새 설정으로 예약한다.
 - 재부팅 뒤에도 필요한 알람은 부팅 이벤트와 저장된 설정을 이용해 재예약한다.
 - 반복 알람의 간격이 기능적으로 충분하면 정확한 개별 알람보다 반복 예약을 고려한다.
 - 수신기에서는 알림 표시나 짧은 위임만 수행하고 긴 네트워크 작업은 별도로 넘긴다.
 
-## 검증 항목
+## 관찰과 테스트
 
-- 시간대, 서머타임, 기기 시계 변경을 테스트한다.
-- Doze와 앱 대기 상태에서 허용되는 지연을 확인한다.
-- 알람 권한 거부, 배터리 제한, 앱 데이터 삭제 후 동작을 확인한다.
+예약 코드에는 최소한 `logicalId`, 선택한 API, clock type, 요청 시각, 예약 시각, `SDK_INT`, target SDK, `canScheduleExactAlarms()` 결과를 구조화해 기록한다. 수신기에서는 같은 `logicalId`, 예정 시각, 실제 수신 시각과 `actual - scheduled` 지연을 기록한다. 민감한 사용자 데이터는 기록하지 않는다.
+
+1. **PendingIntent 충돌을 먼저 재현한다.** `collidingReminder()`로 ID 101과 202를 서로 다른 가까운 시각에 예약한다. 정상적인 재현 신호는 두 객체가 같은 operation으로 비교되고, `FLAG_UPDATE_CURRENT` 때문에 수신 payload가 202로 바뀌며 첫 예약이 독립적으로 남지 않는 것이다. 둘 다 살아 있어야 하는 제품 요구사항에는 실패다. `distinctReminder()`로 바꾼 뒤 두 ID가 각각 한 번 수신되면 수정 성공이다.
+2. **시스템 예약 상태를 확인한다.** 테스트 알람을 몇 분 뒤로 예약하고 `adb shell dumpsys alarm` 출력에서 앱 패키지, action 또는 data URI를 찾는다. 정상 신호는 의도한 identity와 시각의 예약이 보이는 것이다. 예약 성공 로그는 있는데 항목이 없으면 identity 충돌에 의한 대체, 즉시 취소, 권한 철회 여부를 조사한다. `dumpsys`의 세부 출력 형식은 Android 버전과 제조사에 따라 다르므로 문자열 전체를 자동화 테스트의 고정 계약으로 삼지 않는다.
+3. **권한 거부 경로를 검증한다.** Android 14+에서 target 33+ 앱을 신규 설치하거나 시스템의 "알람 및 리마인더" 특별 접근을 끈다. `SCHEDULE_EXACT_ALARM` 경로의 정상 거부 신호는 `canScheduleExactAlarms() == false`, exact API를 호출하지 않는 대체 UI 또는 부정확한 예약, exact 예약 항목 없음이다. 검사를 누락하고 `PendingIntent` 기반 exact API를 호출해 `SecurityException`이 발생하면 구현 실패다.
+4. **권한 재부여를 검증한다.** 설정에서 특별 접근을 켠 뒤 상태 변경 broadcast에서 다시 capability를 확인하고 저장된 리마인더를 재예약한다. 정상 신호는 capability가 `true`로 바뀌고 각 logical ID가 한 번씩 예약되는 것이다. 중복 항목이 쌓이거나 설정 화면에서 돌아온 것만으로 권한이 있다고 가정하면 실패다.
+5. **`OnAlarmListener` 생명주기를 분리해 검증한다.** Android 14+에서 listener 알람을 등록한 component를 알람 전에 종료한다. callback이 오지 않는 것은 문서화된 생명주기 경계다. component 종료 뒤에도 와야 하는 요구사항이었다면 API 선택 실패이며 `PendingIntent` 경로로 바꿔야 한다. Android 12~13의 target 31+ 테스트에서는 listener 방식도 특별 접근 없이 성공한다고 가정하지 않는다.
+6. **전달 정확성을 측정한다.** RTC 계열은 시간대·서머타임·수동 시계 변경을, elapsed realtime 계열은 경과 시간을 기준으로 시험한다. Doze 진입 전후에 예정 시각과 실제 수신 시각의 차이를 비교한다. 허용 지연 안에서 한 번 수신되면 정상이고, 수신 누락·중복·업무 요구를 넘는 지연이면 권한 상태, 선택한 API, idle 허용 여부와 제조사 배터리 제한을 함께 기록한다.
+
 - 알람을 사용해 백그라운드 정책을 우회하려는 설계는 요구사항부터 다시 분류한다.
 
 ## 사용자 설정과 정확성
@@ -55,5 +113,8 @@ tags: ["android", "android/system-services"]
 - [정확한 알람 권한](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission)
 - [Android 14 exact alarm 기본 거부](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms)
 - [AlarmManager API](https://developer.android.com/reference/android/app/AlarmManager)
+- [PendingIntent API](https://developer.android.com/reference/android/app/PendingIntent)
+- [Intent.filterEquals API](https://developer.android.com/reference/android/content/Intent#filterEquals(android.content.Intent))
+- [dumpsys](https://developer.android.com/tools/dumpsys)
 
-검증일: 2026-08-03. 권한 부여 방식과 Play 허용 범위는 target SDK 및 배포 정책에 따라 바뀔 수 있으므로 릴리스 시 다시 확인한다.
+검증일: 2026-08-03. 권한 부여 방식, `OnAlarmListener`의 OS 버전별 동작, Play 허용 범위는 target SDK 및 배포 정책에 따라 바뀔 수 있으므로 릴리스 시 다시 확인한다. `dumpsys alarm`의 세부 필드도 공개된 안정 API 계약이 아니다.

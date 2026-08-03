@@ -1,5 +1,5 @@
 ---
-title: zRAM은 메모리 부족 해결책이 아니라 압축 swap 정책이다
+title: "zRAM은 메모리 부족 해결책이 아니라 압축 swap 정책이다"
 tags: [android, android/kernel, android/memory]
 aliases: [zRAM, mmd]
 date modified: 2026-07-31 23:45:00 +09:00

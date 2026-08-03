@@ -1,9 +1,9 @@
 ---
-title: "Foundation Contracts"
+title: "Foundation Contracts는 안드로이드 플랫폼을 관통하는 근본적인 원칙과 계약이다"
 tags: ["android", "android/foundations"]
 ---
 
-# Foundation Contracts
+# Foundation Contracts는 안드로이드 플랫폼을 관통하는 근본적인 원칙과 계약이다
 
 이 하위 지도는 system map을 구성하는 판단 단위를 관리한다. 처음 읽을 때는 플랫폼 모형 → 진단 기준 → 구체 경로 순서로 진행한다.
 

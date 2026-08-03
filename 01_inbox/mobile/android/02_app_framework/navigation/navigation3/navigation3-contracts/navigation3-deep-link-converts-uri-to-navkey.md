@@ -1,8 +1,8 @@
 ---
-title: "Navigation 3 deep link: URI 에서 NavKey 로"
+title: Navigation 3 deep link: URI 에서 NavKey 로
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Navigation 3 deep link: URI 에서 NavKey 로"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:37:07 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

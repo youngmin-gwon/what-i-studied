@@ -1,5 +1,5 @@
 ---
-title: "suspend 함수는 thread가 아니라 coroutine을 멈춘다"
+title: suspend 함수는 thread가 아니라 coroutine을 멈춘다
 tags: [android, android/data, android/async, android/coroutines]
 aliases: ["suspend 함수는 thread가 아니라 coroutine을 멈춘다"]
 date modified: 2026-08-01 00:00:00 +09:00

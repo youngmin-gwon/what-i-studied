@@ -1,16 +1,16 @@
 ---
-title: "Architecture Contracts"
+title: Architecture 계약은 layer 이름보다 책임과 수명으로 판단한다
 tags: [android, android/architecture, android/jetpack]
 aliases: ["Architecture Contracts"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:34:59 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Architecture Contracts
+# Architecture 계약은 layer 이름보다 책임과 수명으로 판단한다
 
-Android architecture를 layer 이름보다 responsibility, owner, lifetime으로 판단하기 위한 정본 모음이다.
+Android architecture 를 layer 이름보다 responsibility, owner, lifetime 으로 판단하기 위한 정본 모음이다.
 
-## Notes
+### Notes
 
 - [Jetpack Architecture는 필수 stack이 아니라 책임 분리 지도다](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/architecture-contracts/jetpack-architecture-is-recommended-responsibility-map-not-mandatory-stack.md)
 - [UI, domain, data layer는 rendering, policy, source of truth를 분리한다](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/architecture-contracts/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md)

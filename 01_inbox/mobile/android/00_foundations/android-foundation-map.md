@@ -1,9 +1,9 @@
 ---
-title: "Android Foundations"
+title: "Android Foundation Map은 안드로이드 시스템의 전체적인 멘탈 모델을 제공하는 지도다"
 tags: ["android", "android/foundations"]
 ---
 
-# Android Foundations
+# Android Foundation Map은 안드로이드 시스템의 전체적인 멘탈 모델을 제공하는 지도다
 
 Android foundations는 세부 API 설명이 아니라 전체 Android 지식 지도를 제공하는 입구다. 먼저 플랫폼 계층을 잡고, 버전 축과 용어를 확인한 뒤, 실제 문제를 소유한 정본 영역으로 이동한다.
 

@@ -1,5 +1,5 @@
 ---
-title: Android shared memory는 ashmem, ION, DMA-BUF heaps로 역할이 분화됐다
+title: "Android shared memory는 ashmem, ION, DMA-BUF heaps로 역할이 분화됐다"
 tags: [android, android/kernel, android/memory]
 aliases: [ashmem, ION, DMA-BUF]
 date modified: 2026-07-31 23:45:00 +09:00

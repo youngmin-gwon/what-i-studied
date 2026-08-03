@@ -1,6 +1,9 @@
 ---
 title: "Mainline은 선택된 system component를 정규 플랫폼 release 밖에서 업데이트한다"
 tags: ["android", "android/system-internals"]
+aliases: ["Mainline은 선택된 system component를 정규 플랫폼 release 밖에서 업데이트한다"]
+date modified: 2026-08-03 16:30:00 +09:00
+date created: 2026-07-31 23:05:30 +09:00
 ---
 
 # Mainline은 선택된 system component를 정규 플랫폼 release 밖에서 업데이트한다

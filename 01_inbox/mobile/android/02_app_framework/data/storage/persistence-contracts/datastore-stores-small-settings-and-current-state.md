@@ -1,5 +1,5 @@
 ---
-title: "DataStore는 작은 설정과 현재 상태를 저장한다"
+title: DataStore는 작은 설정과 현재 상태를 저장한다
 tags: [android, android/data, android/storage, android/persistence-contracts]
 aliases: ["DataStore는 작은 설정과 현재 상태를 저장한다"]
 date modified: 2026-08-01 00:00:00 +09:00

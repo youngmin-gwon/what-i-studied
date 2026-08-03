@@ -1,5 +1,5 @@
 ---
-title: "MediaStore: 공유 미디어의 등록과 접근"
+title: MediaStore: 공유 미디어의 등록과 접근
 tags: [android, android/data, android/storage, android/file-access-contracts]
 aliases: ["MediaStore: 공유 미디어의 등록과 접근"]
 date modified: 2026-08-01 00:00:00 +09:00

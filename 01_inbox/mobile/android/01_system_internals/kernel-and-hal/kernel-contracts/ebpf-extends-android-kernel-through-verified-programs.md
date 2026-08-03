@@ -1,5 +1,5 @@
 ---
-title: eBPF는 검증된 프로그램으로 Android kernel 기능을 확장한다
+title: "eBPF는 검증된 프로그램으로 Android kernel 기능을 확장한다"
 tags: [android, android/kernel, android/ebpf]
 aliases: [eBPF, BPF]
 date modified: 2026-07-31 23:45:00 +09:00

@@ -1,12 +1,12 @@
 ---
-title: CompositionLocal parameters and DI solve different problems
+title: CompositionLocal 매개변수와 DI는 다른 문제를 해결한다
 tags: [android, jetpack-compose, compose/design-system]
 aliases: [CompositionLocal vs DI]
 date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# CompositionLocal parameters and DI solve different problems
+# CompositionLocal 매개변수와 DI는 다른 문제를 해결한다
 
 파라미터 전달은 Composable의 명시적 계약이다. 호출자가 값과 event를 제어해야 하거나 특정 component에만 필요한 값이면 파라미터가 우선이다.
 

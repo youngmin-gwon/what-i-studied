@@ -1,18 +1,18 @@
 ---
-title: Compose runtime and state model
-tags: [android, jetpack-compose, compose/runtime]
-aliases: [Compose Runtime, Compose mental model]
-date modified: 2026-07-31 23:59:00 +09:00
+title: compose-runtime-and-state-model
+tags: [android, compose/runtime, jetpack-compose]
+aliases: [Compose mental model, Compose Runtime]
+date modified: 2026-08-03 16:37:55 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Compose runtime and state model
+## Compose runtime and state model
 
-Compose Runtime은 Composable을 UI 객체로 보지 않고, state를 읽고 UI 설명을 만드는 함수 호출로 다룬다. 이 지도는 기존 Compose internals, Flutter 비교, compiler/slot table, phases 문서를 runtime 계약 단위로 다시 묶는다.
+Compose Runtime 은 Composable 을 UI 객체로 보지 않고, state 를 읽고 UI 설명을 만드는 함수 호출로 다룬다. 이 지도는 기존 Compose internals, Flutter 비교, compiler/slot table, phases 문서를 runtime 계약 단위로 다시 묶는다.
 
 정본 묶음: [Compose runtime contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-runtime-contracts.md)
 
-## 읽는 순서
+### 읽는 순서
 
 - [Compose UI는 상태를 입력으로 계산되는 선언적 결과다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-ui-is-declarative-function-of-state.md)
 - [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md)
@@ -26,6 +26,6 @@ Compose Runtime은 Composable을 UI 객체로 보지 않고, state를 읽고 UI 
 - [Automatic State Observation이 Flutter rebuild 사고와 Compose를 가른다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/automatic-state-observation-is-the-compose-flutter-rebuild-difference.md)
 - [Compose Runtime은 state, effect, performance, tooling 정본으로 이어지는 중심 모델이다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-runtime-links-state-effects-performance-and-tooling.md)
 
-## 범위
+### 범위
 
-이 묶음은 Runtime mental model의 정본이다. API 선택은 [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)으로, recomposition 비용과 stability 판단은 [Compose 성능 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)으로 보낸다. Layout, animation, accessibility, Material, Glance는 다음 Compose UI 패스에서 별도로 정리한다.
+이 묶음은 Runtime mental model 의 정본이다. API 선택은 [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md) 으로, recomposition 비용과 stability 판단은 [Compose 성능 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md) 으로 보낸다. Layout, animation, accessibility, Material, Glance 는 다음 Compose UI 패스에서 별도로 정리한다.

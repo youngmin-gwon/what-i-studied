@@ -1,5 +1,5 @@
 ---
-title: Binder는 객체 참조를 커널이 중재하는 capability IPC다
+title: "Binder는 객체 참조를 커널이 중재하는 capability IPC다"
 tags: [android, android/ipc, android/binder]
 aliases: [Binder IPC]
 date modified: 2026-08-01 00:00:00 +09:00

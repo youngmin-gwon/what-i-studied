@@ -1,12 +1,12 @@
 ---
-title: 01-adb-android-debug-bridge
+title: "ADB는 기기와 통신하며 디버깅과 제어를 수행하는 브리지다"
 tags: ["android", "android/glossary"]
 aliases: ["adb", "Android Debug Bridge"]
 date modified: 2026-08-01 01:07:08 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## ADB
+# ADB는 기기와 통신하며 디버깅과 제어를 수행하는 브리지다
 
 정의: ADB 는 개발 머신이 emulator 또는 device 와 통신해 app 설치, shell 실행, log 수집, port forwarding, test automation 을 수행하는 debugging bridge 다.
 

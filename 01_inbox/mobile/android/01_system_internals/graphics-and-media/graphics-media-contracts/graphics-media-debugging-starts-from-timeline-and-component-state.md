@@ -1,5 +1,5 @@
 ---
-title: 그래픽과 미디어 디버깅은 timeline과 component state에서 시작한다
+title: "그래픽과 미디어 디버깅은 timeline과 component state에서 시작한다"
 tags: [android, android/debugging, android/graphics, android/media]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

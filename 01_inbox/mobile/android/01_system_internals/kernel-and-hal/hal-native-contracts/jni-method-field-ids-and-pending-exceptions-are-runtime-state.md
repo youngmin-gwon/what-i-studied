@@ -1,5 +1,5 @@
 ---
-title: JNI method field IDs and pending exceptions are runtime state
+title: "JNI method field IDs and pending exceptions are runtime state"
 tags: [android, android/native, android/system-internals]
 aliases: [JNI exception, jmethodID, jfieldID]
 date modified: 2026-07-31 23:58:00 +09:00

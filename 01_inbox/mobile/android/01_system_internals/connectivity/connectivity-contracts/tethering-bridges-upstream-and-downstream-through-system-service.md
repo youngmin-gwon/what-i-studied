@@ -20,3 +20,5 @@ Tethering은 cellular, Ethernet, Wi-Fi 같은 upstream 연결을 Wi-Fi hotspot, 
 
 - [Wi-Fi API는 스캔, 제안, 요청, 로컬 연결을 분리한다](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/wifi-apis-separate-scan-suggestion-request-and-local-connectivity.md)
 - [netd는 framework 요청을 routing, DNS, firewall, tethering 동작으로 집행한다](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/netd-enforces-routing-dns-firewall-and-tethering-operations.md)
+
+공식 문서: [TetheringManager](https://developer.android.com/reference/android/net/TetheringManager)

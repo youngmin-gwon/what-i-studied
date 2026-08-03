@@ -1,5 +1,5 @@
 ---
-title: AIDL HAL is current stable interface for new HALs
+title: "AIDL HAL is current stable interface for new HALs"
 tags: [android, android/native, android/system-internals]
 aliases: [AIDL HAL, Stable AIDL]
 date modified: 2026-07-31 23:58:00 +09:00

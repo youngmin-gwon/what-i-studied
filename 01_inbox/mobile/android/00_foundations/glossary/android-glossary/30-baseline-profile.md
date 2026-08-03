@@ -1,12 +1,12 @@
 ---
-title: 30-baseline-profile
+title: "Baseline Profile은 앱 실행 및 주요 경로를 미리 JIT 컴파일하여 런타임 성능을 높인다"
 tags: ["android", "android/glossary"]
 aliases: ["Baseline Profiles"]
 date modified: 2026-08-01 01:07:54 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## Baseline Profile
+# Baseline Profile은 앱 실행 및 주요 경로를 미리 JIT 컴파일하여 런타임 성능을 높인다
 
 정의: Baseline Profile 은 앱의 critical user journey 에서 필요한 method/class 를 기록해 install-time 또는 ahead-of-time compilation hint 로 제공하는 성능 artifact 다.
 

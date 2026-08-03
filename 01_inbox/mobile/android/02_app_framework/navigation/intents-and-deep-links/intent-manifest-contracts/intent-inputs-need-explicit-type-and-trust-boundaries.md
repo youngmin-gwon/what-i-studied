@@ -1,22 +1,22 @@
 ---
-title: "Intent extras와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다"
-tags: [android, android/navigation, android/intents]
+title: Intent extras와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다
+tags: [android, android/intents, android/navigation]
 aliases: ["Intent extras와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:38 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 # Intent extras와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다
 
-외부 앱이나 system에서 들어온 Intent는 내부 함수 호출과 같은 신뢰 수준이 아니다. `extras`, `data` URI, MIME type, `ClipData`, URI permission grant flag는 서로 다른 입력 경계이며 각각 타입과 출처를 확인해야 한다.
+외부 앱이나 system 에서 들어온 Intent 는 내부 함수 호출과 같은 신뢰 수준이 아니다. `extras`, `data` URI, MIME type, `ClipData`, URI permission grant flag 는 서로 다른 입력 경계이며 각각 타입과 출처를 확인해야 한다.
 
-컴포넌트를 `exported=true`로 열거나 implicit intent를 받는다면 입력 검증은 선택 사항이 아니다. Parcelable/classloader 문제, oversized extras, 예상하지 않은 URI authority, 권한 없는 content URI 접근을 별도로 방어한다.
+컴포넌트를 `exported=true` 로 열거나 implicit intent 를 받는다면 입력 검증은 선택 사항이 아니다. Parcelable/classloader 문제, oversized extras, 예상하지 않은 URI authority, 권한 없는 content URI 접근을 별도로 방어한다.
 
-## 판단 기준
+### 판단 기준
 
-- extra key와 type은 명시적으로 파싱하고 실패 경로를 둔다.
-- URI authority와 MIME type은 allowlist로 확인한다.
-- `ClipData`와 URI grant flag는 접근 권한의 범위를 별도로 검증한다.
-- 외부 입력에서 만든 route key는 인증/권한 확인 뒤에만 적용한다.
+- extra key 와 type 은 명시적으로 파싱하고 실패 경로를 둔다.
+- URI authority 와 MIME type 은 allowlist 로 확인한다.
+- `ClipData` 와 URI grant flag 는 접근 권한의 범위를 별도로 검증한다.
+- 외부 입력에서 만든 route key 는 인증/권한 확인 뒤에만 적용한다.
 
 관련 노트: [exported boundary](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md), [PendingIntent](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md), [URI validation](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/external-uri-must-be-validated-before-navigation.md)

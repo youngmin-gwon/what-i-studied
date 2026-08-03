@@ -1,5 +1,5 @@
 ---
-title: Android 렌더링 파이프라인은 Surface 버퍼를 합성기로 넘기는 계약이다
+title: "Android 렌더링 파이프라인은 Surface 버퍼를 합성기로 넘기는 계약이다"
 tags: [android, android/graphics, android/system-internals]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

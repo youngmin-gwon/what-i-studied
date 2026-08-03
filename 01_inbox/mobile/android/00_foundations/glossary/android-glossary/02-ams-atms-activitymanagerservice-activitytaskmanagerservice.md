@@ -1,5 +1,5 @@
 ---
-title: 02-ams-atms-activitymanagerservice-activitytaskmanagerservice
+title: "AMS와 ATMS는 앱 프로세스와 컴포넌트 생명주기를 관리하는 시스템 서비스다"
 tags: ["android", "android/glossary"]
 aliases: ["ActivityManagerService", "ActivityTaskManagerService", "AMS", "ATMS"]
 date modified: 2026-08-01 01:07:13 +09:00

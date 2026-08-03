@@ -1,5 +1,5 @@
 ---
-title: SELinux는 domain/type 정책으로 mandatory access control을 강제한다
+title: "SELinux는 domain/type 정책으로 mandatory access control을 강제한다"
 tags: [android, android/kernel, android/security]
 aliases: [SELinux]
 date modified: 2026-07-31 23:45:00 +09:00

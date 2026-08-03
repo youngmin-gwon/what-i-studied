@@ -1,5 +1,5 @@
 ---
-title: MediaCodec Surface 모드는 영상 producer와 consumer를 연결한다
+title: "MediaCodec Surface 모드는 영상 producer와 consumer를 연결한다"
 tags: [android, android/media, android/codec]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

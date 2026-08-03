@@ -1,5 +1,5 @@
 ---
-title: DMA-BUF zero-copy는 무작업 보장이 아니라 shared buffer ownership이다
+title: "DMA-BUF zero-copy는 무작업 보장이 아니라 shared buffer ownership이다"
 tags: [android, android/kernel, android/memory]
 date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00

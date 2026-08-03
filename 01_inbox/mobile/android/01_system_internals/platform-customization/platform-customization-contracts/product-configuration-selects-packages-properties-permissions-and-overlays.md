@@ -1,5 +1,5 @@
 ---
-title: product configuration은 package, property, permission, overlay를 선택한다
+title: "product configuration은 package, property, permission, overlay를 선택한다"
 tags: [android, android/aosp, android/build]
 aliases: [Android product configuration]
 date modified: 2026-08-01 00:00:00 +09:00

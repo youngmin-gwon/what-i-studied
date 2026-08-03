@@ -1,12 +1,12 @@
 ---
-title: 28-workmanager-jobscheduler
+title: "WorkManager와 JobScheduler는 조건에 맞춰 백그라운드 작업을 안정적으로 예약하고 실행한다"
 tags: ["android", "android/glossary"]
 aliases: ["JobScheduler", "WorkManager"]
 date modified: 2026-08-01 01:07:52 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## WorkManager 와 JobScheduler
+# WorkManager와 JobScheduler는 조건에 맞춰 백그라운드 작업을 안정적으로 예약하고 실행한다
 
 정의: WorkManager는 앱이나 device가 재시작되어도 지속해야 하는 지연 가능한 app work를 표현하는 Jetpack API이고, JobScheduler는 OS가 제약 조건과 battery policy에 맞춰 job을 실행하는 platform scheduler다.
 

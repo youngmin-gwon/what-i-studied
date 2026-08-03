@@ -1,5 +1,5 @@
 ---
-title: Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다
+title: "Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다"
 tags: [android, android/media, android/graphics]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

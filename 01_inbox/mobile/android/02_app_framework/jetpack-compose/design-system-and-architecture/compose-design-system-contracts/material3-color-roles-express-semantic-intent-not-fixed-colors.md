@@ -1,12 +1,12 @@
 ---
-title: Material3 color roles express semantic intent not fixed colors
+title: Material 3 색상 역할은 고정된 색상이 아닌 의미적 의도를 표현한다
 tags: [android, jetpack-compose, compose/design-system]
 aliases: [Material 3 color roles, ColorScheme]
 date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# Material3 color roles express semantic intent not fixed colors
+# Material 3 색상 역할은 고정된 색상이 아닌 의미적 의도를 표현한다
 
 Material 3 color role은 `#6200EE` 같은 고정 색상값이 아니라 UI에서의 의미를 표현한다. `primary`, `secondary`, `tertiary`, `error`, `surface`는 색상 이름이 아니라 emphasis, state, surface 역할이다.
 

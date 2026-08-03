@@ -1,12 +1,12 @@
 ---
-title: storage-lifecycle-and-backup
+title: 저장소 생명주기와 백업 계약
 tags: []
 aliases: []
 date modified: 2026-07-31 18:19:21 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
-# storage-lifecycle-and-backup
+# 저장소 생명주기와 백업 계약
 
 ## 저장소 수명과 백업 경계
 

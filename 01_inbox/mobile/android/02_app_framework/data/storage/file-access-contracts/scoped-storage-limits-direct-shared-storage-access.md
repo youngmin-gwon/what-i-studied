@@ -1,5 +1,5 @@
 ---
-title: "Scoped Storage: 저장소 접근 경계를 선택하는 규칙"
+title: Scoped Storage: 저장소 접근 경계를 선택하는 규칙
 tags: [android, android/data, android/storage, android/file-access-contracts]
 aliases: ["Scoped Storage: 저장소 접근 경계를 선택하는 규칙"]
 date modified: 2026-08-01 00:00:00 +09:00

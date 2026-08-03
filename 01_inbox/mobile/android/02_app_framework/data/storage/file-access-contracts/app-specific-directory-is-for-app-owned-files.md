@@ -1,5 +1,5 @@
 ---
-title: "앱 전용 디렉터리: 소유 앱만 쓰는 파일"
+title: 앱 전용 디렉터리: 소유 앱만 쓰는 파일
 tags: [android, android/data, android/storage, android/file-access-contracts]
 aliases: ["앱 전용 디렉터리: 소유 앱만 쓰는 파일"]
 date modified: 2026-08-01 00:00:00 +09:00

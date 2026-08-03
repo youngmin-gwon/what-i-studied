@@ -23,3 +23,5 @@ date created: 2026-08-01 00:00:00 +09:00
 
 - [Zygote는 framework 공통 상태를 preload한 뒤 앱 프로세스를 fork한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-preloads-framework-state-before-app-fork.md)
 - [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
+
+공식 문서: [Architecture overview](https://source.android.com/docs/core/architecture)

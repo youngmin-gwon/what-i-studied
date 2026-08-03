@@ -1,5 +1,5 @@
 ---
-title: "Scope는 singleton 장식이 아니라 owner lifetime에 맞춘 재사용 계약이다"
+title: Scope는 singleton 장식이 아니라 owner lifetime에 맞춘 재사용 계약이다
 tags: ["android", "android/app-framework"]
 ---
 

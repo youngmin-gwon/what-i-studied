@@ -1,8 +1,8 @@
 ---
-title: android-modernization-shifted-toward-privacy-updatability-and-adaptive-form-factors
+title: "Android 현대화는 privacy, updatability, adaptive form factor 쪽으로 이동했다"
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-01 01:08:00 +09:00
+date modified: 2026-08-03 16:33:37 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
@@ -18,8 +18,8 @@ history 문서는 이 흐름을 설명하고 세부 구현은 각 canonical map 
 
 ### 판단 기준
 
-새 변화가 privacy 제약 강화, system module의 독립 업데이트, vendor/framework 호환성, adaptive UI 중 어느 흐름을 바꾸는지 설명할 수 있을 때 이 장기 지도에 연결한다.
+새 변화가 privacy 제약 강화, system module 의 독립 업데이트, vendor/framework 호환성, adaptive UI 중 어느 흐름을 바꾸는지 설명할 수 있을 때 이 장기 지도에 연결한다.
 
 ### 경계
 
-이 노트는 여러 release에 걸친 방향만 설명한다. 특정 API의 도입 시점이나 적용 조건은 version checkpoint와 해당 canonical area에서 검증한다.
+이 노트는 여러 release 에 걸친 방향만 설명한다. 특정 API 의 도입 시점이나 적용 조건은 version checkpoint 와 해당 canonical area 에서 검증한다.

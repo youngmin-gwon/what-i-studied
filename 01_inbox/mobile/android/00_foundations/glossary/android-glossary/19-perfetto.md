@@ -1,12 +1,12 @@
 ---
-title: 19-perfetto
+title: "Perfetto는 전체 시스템의 성능 및 추적 데이터를 수집하는 통합 프로파일링 도구다"
 tags: ["android", "android/glossary"]
 aliases: ["Perfetto trace", "System trace"]
 date modified: 2026-08-01 01:07:30 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## Perfetto
+# Perfetto는 전체 시스템의 성능 및 추적 데이터를 수집하는 통합 프로파일링 도구다
 
 정의: Perfetto 는 Android system trace 를 수집해 UI thread, RenderThread, SurfaceFlinger, scheduler, binder, I/O 같은 timeline 을 함께 분석하는 tracing platform 이다.
 

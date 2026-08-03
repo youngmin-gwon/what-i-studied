@@ -1,12 +1,12 @@
 ---
-title: android-context-in-di-must-match-graph-lifetime
+title: DI graph 에 넣는 Android Context는 graph lifetime과 맞아야 한다
 tags: ["android", "android/app-framework"]
 aliases: []
 date modified: 2026-08-03 16:29:51 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
-## DI graph 에 넣는 Android Context 는 graph lifetime 과 맞아야 한다
+# DI graph 에 넣는 Android Context는 graph lifetime과 맞아야 한다
 
 `Context` 는 단순 dependency 가 아니라 resource, service, permission, theme, lifecycle 과 연결된 platform capability 다. Application graph 에는 `applicationContext` 처럼 app lifetime 과 맞는 Context 만 넣어야 한다.
 

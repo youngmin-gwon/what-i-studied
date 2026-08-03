@@ -1,12 +1,12 @@
 ---
-title: CompositionLocal passes tree scoped UI environment implicitly
+title: CompositionLocal은 트리 범위 UI 환경을 암묵적으로 전달한다
 tags: [android, jetpack-compose, compose/design-system]
 aliases: [CompositionLocal]
 date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# CompositionLocal passes tree scoped UI environment implicitly
+# CompositionLocal은 트리 범위 UI 환경을 암묵적으로 전달한다
 
 CompositionLocal은 Composition tree의 특정 하위 범위에 값을 암묵적으로 제공하는 API다. 기본 데이터 흐름은 파라미터 전달이며, CompositionLocal은 theme, typography, layout direction, density처럼 넓게 쓰이는 UI 환경 값에 적합하다.
 

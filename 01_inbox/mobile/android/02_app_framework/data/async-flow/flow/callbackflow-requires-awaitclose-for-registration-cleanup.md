@@ -1,5 +1,5 @@
 ---
-title: "callbackFlow는 awaitClose로 등록과 해제를 대칭으로 보장해야 한다"
+title: callbackFlow는 awaitClose로 등록과 해제를 대칭으로 보장해야 한다
 tags: [android, android/data, android/async, android/flow]
 aliases: ["callbackFlow는 awaitClose로 등록과 해제를 대칭으로 보장해야 한다"]
 date modified: 2026-08-01 00:00:00 +09:00

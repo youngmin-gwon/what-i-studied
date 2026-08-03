@@ -1,12 +1,12 @@
 ---
-title: "인증이 필요한 딥 링크의 pending destination 과 백 스택"
-tags: [android, android/navigation, android/deep-links]
+title: 인증이 필요한 딥 링크의 pending destination과 백 스택
+tags: [android, android/deep-links, android/navigation]
 aliases: ["인증이 필요한 딥 링크의 pending destination 과 백 스택"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:36:20 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 인증이 필요한 딥 링크의 pending destination 과 백 스택
+# 인증이 필요한 딥 링크의 pending destination과 백 스택
 
 상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
 

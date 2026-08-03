@@ -1,5 +1,5 @@
 ---
-title: Vendor kernel module은 first-stage init 경계에서 로드된다
+title: "Vendor kernel module은 first-stage init 경계에서 로드된다"
 tags: [android, android/kernel, android/gki, android/boot]
 date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00

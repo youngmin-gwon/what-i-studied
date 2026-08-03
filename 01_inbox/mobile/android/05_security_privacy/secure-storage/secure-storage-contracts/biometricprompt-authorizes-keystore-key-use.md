@@ -1,12 +1,12 @@
 ---
-title: biometricprompt-authorizes-keystore-key-use
+title: BiometricPrompt는 Keystore 키 사용을 인가한다
 tags: []
 aliases: []
 date modified: 2026-07-31 18:18:32 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
-# biometricprompt-authorizes-keystore-key-use
+# BiometricPrompt는 Keystore 키 사용을 인가한다
 
 ## BiometricPrompt 는 Keystore 키 사용 권한을 여는 장치다
 

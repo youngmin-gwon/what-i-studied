@@ -1,6 +1,9 @@
 ---
 title: "APEX build와 device support는 앱 개발 API가 아니라 플랫폼 통합 계약이다"
 tags: ["android", "android/system-internals"]
+aliases: ["APEX build와 device support는 앱 개발 API가 아니라 플랫폼 통합 계약이다"]
+date modified: 2026-08-03 16:30:00 +09:00
+date created: 2026-07-31 23:05:30 +09:00
 ---
 
 # APEX build와 device support는 앱 개발 API가 아니라 플랫폼 통합 계약이다

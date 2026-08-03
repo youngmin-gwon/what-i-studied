@@ -1,5 +1,5 @@
 ---
-title: Surface는 그래픽 버퍼 producer 측 계약이다
+title: "Surface는 그래픽 버퍼 producer 측 계약이다"
 tags: [android, android/graphics, android/surface]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

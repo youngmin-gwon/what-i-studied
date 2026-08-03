@@ -1,5 +1,5 @@
 ---
-title: GKI는 공통 core kernel과 vendor module을 분리한다
+title: "GKI는 공통 core kernel과 vendor module을 분리한다"
 tags: [android, android/kernel, android/gki]
 aliases: [GKI, Generic Kernel Image]
 date modified: 2026-07-31 23:45:00 +09:00

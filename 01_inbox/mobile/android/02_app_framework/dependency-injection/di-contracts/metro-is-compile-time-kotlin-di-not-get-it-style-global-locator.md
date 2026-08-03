@@ -1,5 +1,5 @@
 ---
-title: "Metro는 get_it식 전역 locator가 아니라 compile-time Kotlin DI로 이해한다"
+title: Metro는 get_it식 전역 locator가 아니라 compile-time Kotlin DI로 이해한다
 tags: ["android", "android/app-framework"]
 ---
 

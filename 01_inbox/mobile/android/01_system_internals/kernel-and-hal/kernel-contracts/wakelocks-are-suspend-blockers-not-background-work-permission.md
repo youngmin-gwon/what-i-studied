@@ -1,5 +1,5 @@
 ---
-title: Wakelock은 background work 권한이 아니라 suspend blocker다
+title: "Wakelock은 background work 권한이 아니라 suspend blocker다"
 tags: [android, android/kernel, android/power]
 aliases: [Wakelock, WakeLock]
 date modified: 2026-07-31 23:45:00 +09:00

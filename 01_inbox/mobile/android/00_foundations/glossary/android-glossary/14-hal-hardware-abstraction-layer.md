@@ -1,12 +1,12 @@
 ---
-title: 14-hal-hardware-abstraction-layer
+title: "HAL은 상위 프레임워크와 하드웨어 드라이버 간의 표준화된 추상화 계층이다"
 tags: ["android", "android/glossary"]
 aliases: ["Hardware Abstraction Layer"]
 date modified: 2026-08-01 01:07:23 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-## HAL
+# HAL은 상위 프레임워크와 하드웨어 드라이버 간의 표준화된 추상화 계층이다
 
 정의: HAL 은 Android framework 가 camera, audio, sensors 같은 vendor hardware capability 를 안정된 userspace contract 로 호출하게 해주는 boundary 다.
 

@@ -1,12 +1,12 @@
 ---
-title: Material3 on colors and surfaces pair contrast with hierarchy
+title: Material 3 On 색상과 Surface는 대비와 계층을 연결한다
 tags: [android, jetpack-compose, compose/design-system]
 aliases: [on color, surface container]
 date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# Material3 on colors and surfaces pair contrast with hierarchy
+# Material 3 On 색상과 Surface는 대비와 계층을 연결한다
 
 `onPrimary`, `onPrimaryContainer`, `onSurface` 같은 `on*` role은 대응하는 배경 role 위에 놓이는 text/icon color다. 임의 배경에 임의 `on*` color를 섞으면 contrast 의도가 깨진다.
 

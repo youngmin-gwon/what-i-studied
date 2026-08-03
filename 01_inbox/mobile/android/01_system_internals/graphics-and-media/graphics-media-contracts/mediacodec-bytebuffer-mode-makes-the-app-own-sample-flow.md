@@ -1,5 +1,5 @@
 ---
-title: MediaCodec ByteBuffer 모드는 앱이 sample 흐름을 소유한다
+title: "MediaCodec ByteBuffer 모드는 앱이 sample 흐름을 소유한다"
 tags: [android, android/media, android/codec]
 date modified: 2026-07-31 23:20:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00

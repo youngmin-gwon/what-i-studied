@@ -1,5 +1,5 @@
 ---
-title: "Compose layout과 image 비용은 프레임 예산 안에서 관리한다"
+title: Compose layout과 image 비용은 프레임 예산 안에서 관리한다
 tags: ["android", "android/app-framework"]
 ---
 

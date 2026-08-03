@@ -1,12 +1,12 @@
 ---
-title: MyBenefit adaptive locals are project reference not Android canon
+title: MyBenefit Adaptive Local은 Android 표준이 아닌 프로젝트 참조값이다
 tags: [android, jetpack-compose, compose/design-system]
 aliases: [MyBenefit adaptive locals]
 date modified: 2026-07-31 23:59:30 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# MyBenefit adaptive locals are project reference not Android canon
+# MyBenefit Adaptive Local은 Android 표준이 아닌 프로젝트 참조값이다
 
 `LocalMyBenefit*` 같은 adaptive Local은 Android SDK나 Jetpack Compose 표준 API가 아니라 이 프로젝트의 design-system decision이다. 일반 정본에는 API 규칙이 아니라 “프로젝트가 왜 이 값을 Local로 제공하는가”를 기록한다.
 

@@ -1,5 +1,5 @@
 ---
-title: Native service debugging separates init Binder VINTF SELinux and tombstones
+title: "Native service debugging separates init Binder VINTF SELinux and tombstones"
 tags: [android, android/native, android/system-internals]
 aliases: [native debugging, tombstone, SELinux]
 date modified: 2026-07-31 23:58:00 +09:00

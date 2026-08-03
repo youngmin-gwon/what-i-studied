@@ -1,5 +1,5 @@
 ---
-title: Kernel contracts
+title: "Kernel contracts"
 tags: [android, android/kernel, android/system-internals]
 aliases: [Android kernel contracts]
 date modified: 2026-07-31 23:45:00 +09:00

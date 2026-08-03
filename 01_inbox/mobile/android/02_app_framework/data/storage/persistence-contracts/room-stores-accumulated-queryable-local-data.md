@@ -1,5 +1,5 @@
 ---
-title: "Room은 누적되고 조회되는 로컬 데이터를 저장한다"
+title: Room은 누적되고 조회되는 로컬 데이터를 저장한다
 tags: [android, android/data, android/storage, android/persistence-contracts]
 aliases: ["Room은 누적되고 조회되는 로컬 데이터를 저장한다"]
 date modified: 2026-08-01 00:00:00 +09:00

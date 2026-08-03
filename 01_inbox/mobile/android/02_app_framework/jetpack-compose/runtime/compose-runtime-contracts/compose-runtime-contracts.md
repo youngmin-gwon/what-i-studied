@@ -1,12 +1,12 @@
 ---
-title: Compose runtime contracts
-tags: [android, jetpack-compose, compose/runtime]
+title: Compose Runtime 계약은 상태 소유권과 리컴포지션을 다룬다
+tags: [android, compose/runtime, jetpack-compose]
 aliases: [Compose runtime contracts]
-date modified: 2026-07-31 23:59:00 +09:00
+date modified: 2026-08-03 16:38:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Compose runtime contracts
+# Compose Runtime 계약은 상태 소유권과 리컴포지션을 다룬다
 
 - [Compose UI is a declarative function of state](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-ui-is-declarative-function-of-state.md)
 - [Recomposition reruns needed Composable scopes not the whole UI](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md)

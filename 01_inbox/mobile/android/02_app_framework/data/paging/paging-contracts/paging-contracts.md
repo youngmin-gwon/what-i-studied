@@ -1,12 +1,12 @@
 ---
-title: "Paging Contracts"
+title: Paging 계약은 스트림 수명과 로컬 캐시 동기화의 경계로 나눈다
 tags: [android, android/data, android/paging]
 aliases: ["Paging Contracts"]
 date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Paging Contracts
+# Paging 계약은 스트림 수명과 로컬 캐시 동기화의 경계로 나눈다
 
 Paging 정본은 대량 목록을 “페이지 로딩 알고리즘”이 아니라 source construction, stream lifetime, UI state, local cache synchronization의 경계로 나눈다.
 

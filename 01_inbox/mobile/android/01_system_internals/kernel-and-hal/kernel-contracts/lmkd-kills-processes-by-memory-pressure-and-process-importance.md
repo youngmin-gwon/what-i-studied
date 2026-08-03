@@ -1,5 +1,5 @@
 ---
-title: LMKD는 free memory가 아니라 memory pressure와 process importance로 종료를 결정한다
+title: "LMKD는 free memory가 아니라 memory pressure와 process importance로 종료를 결정한다"
 tags: [android, android/kernel, android/memory]
 aliases: [LMKD, Low memory killer daemon]
 date modified: 2026-07-31 23:45:00 +09:00

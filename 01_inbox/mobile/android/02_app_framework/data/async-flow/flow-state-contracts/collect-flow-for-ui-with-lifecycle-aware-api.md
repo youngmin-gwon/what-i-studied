@@ -1,5 +1,5 @@
 ---
-title: "화면에 그릴 Flow는 lifecycle-aware API로 수집한다"
+title: 화면에 그릴 Flow는 lifecycle-aware API로 수집한다
 tags: [android, android/data, android/async, android/flow-state-contracts]
 aliases: ["화면에 그릴 Flow는 lifecycle-aware API로 수집한다"]
 date modified: 2026-08-01 00:00:00 +09:00

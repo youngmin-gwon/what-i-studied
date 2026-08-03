@@ -1,12 +1,12 @@
 ---
-title: "Intent and Deep Link"
+title: Intent는 OS 메시지이고 Deep Link는 외부 URI를 앱 내부 상태로 바꾸는 계약이다
 tags: [android, android/navigation, android/intents]
 aliases: ["Intent and Deep Link"]
 date modified: 2026-08-01 00:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Intent and Deep Link
+# Intent는 OS 메시지이고 Deep Link는 외부 URI를 앱 내부 상태로 바꾸는 계약이다
 
 Intent와 Deep Link는 모두 앱 진입을 만들지만 책임이 다르다. Intent는 OS가 컴포넌트를 찾고 실행하는 메시지이고, Deep Link는 외부 URI를 앱 내부 navigation state로 바꾸는 계약이다.
 

@@ -1,5 +1,5 @@
 ---
-title: "소비자는 의존성을 생성하지 말고 생성자로 요구한다"
+title: 소비자는 의존성을 생성하지 말고 생성자로 요구한다
 tags: ["android", "android/app-framework"]
 ---
 

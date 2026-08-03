@@ -1,5 +1,5 @@
 ---
-title: Kernel security는 AVB, dm-verity, SELinux, CFI가 나눠 맡는다
+title: "Kernel security는 AVB, dm-verity, SELinux, CFI가 나눠 맡는다"
 tags: [android, android/kernel, android/security]
 date modified: 2026-07-31 23:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00

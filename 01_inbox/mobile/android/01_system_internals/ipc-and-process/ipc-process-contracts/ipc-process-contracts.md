@@ -1,5 +1,5 @@
 ---
-title: IPC and process contracts
+title: "IPC and process contracts"
 tags: [android, android/ipc, android/system-internals]
 aliases: [Android IPC contracts, Binder contracts]
 date modified: 2026-08-01 00:00:00 +09:00
@@ -9,6 +9,22 @@ date created: 2026-08-01 00:00:00 +09:00
 # IPC and process contracts
 
 이 묶음은 Android IPC와 process를 “컴포넌트끼리 호출한다”가 아니라 process boundary, kernel mediated capability, service registration, thread pool, memory reclaim policy의 계약으로 정리한다.
+
+## 읽는 순서
+
+1. Binder가 무엇을 중재하는지(객체 참조, kernel 경계)를 먼저 본다.
+2. transaction lifetime(call, copy, dispatch, reply)으로 비용이 어디서 생기는지 본다.
+3. AIDL이 만드는 것은 process boundary 계약이지 비즈니스 로직이 아님을 확인한다.
+4. oneway와 thread pool로 동시성/backpressure 한계를 본다.
+5. 문제가 생기면 IPC 디버깅 노트로 service 등록, call path, thread state를 좁힌다.
+
+## 문제 분류 기준
+
+- "이 API 호출이 왜 이렇게 느린가" → [Binder transaction lifetime](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md), [Binder thread pool](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)
+- "service가 멈췄다/응답이 없다" → [Binder thread pool](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md), boot-and-runtime의 [ANR은 responsiveness 계약 위반이다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
+- "이벤트를 보냈는데 유실/지연된다" → [oneway Binder](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/oneway-binder-removes-caller-waiting-not-server-backpressure.md)
+- "서비스 호출이 permission/등록 단계에서 실패한다" → [IPC 디버깅](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-debugging-starts-from-service-registration-call-path-and-thread-state.md)
+- "이 프로세스가 왜 죽었는가" → 이 묶음이 아니라 아래 Process/system service 링크로 이동한다.
 
 ## Binder와 AIDL
 
@@ -27,6 +43,14 @@ date created: 2026-08-01 00:00:00 +09:00
 - [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)
 - [LMKD는 free memory가 아니라 memory pressure와 process importance로 종료를 결정한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/lmkd-kills-processes-by-memory-pressure-and-process-importance.md)
 - [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md)
+
+## 인접 영역 진입점
+
+Binder는 IPC 메커니즘 하나이고, 그 위에 올라간 개별 system service의 정책은 각자의 정본이 있다. 이 묶음에서는 "이것도 Binder service다"만 확인하고, 서비스별 판단 기준은 아래로 이동한다.
+
+- SurfaceFlinger, camera service, mediaserver 같은 native graphics/media service의 buffer/session 계약은 [Graphics and media contracts](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-contracts.md)가 정본이다. BufferQueue는 버퍼 핸들을 프로세스 간에 넘기는 자료구조이고, 그 등록/제어 채널은 Binder를 쓴다.
+- ConnectivityService, netd 같은 network system service의 정책 계약은 [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)이 정본이다. 앱이 보는 `ConnectivityManager` 호출도 결국 Binder를 통해 system_server의 ConnectivityService로 전달된다.
+- system_server가 여러 framework service를 한 프로세스에서 어떻게 조율하는지는 [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)이 정본이다.
 
 ## 중복 방지 규칙
 
