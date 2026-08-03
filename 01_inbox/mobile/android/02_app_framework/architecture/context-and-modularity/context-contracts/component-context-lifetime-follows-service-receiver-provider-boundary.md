@@ -1,12 +1,12 @@
 ---
-title: 컴포넌트 Context의 수명은 Service
+title: component-context-lifetime-follows-service-receiver-provider-boundary
 tags: [android, android/architecture, android/context]
 aliases: ["컴포넌트 Context의 수명은 Service, Receiver, Provider 경계를 따른다"]
-date modified: 2026-08-03 16:34:49 +09:00
+date modified: 2026-08-03 17:27:19 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 컴포넌트 Context의 수명은 Service
+## 컴포넌트 Context 의 수명은 Service
 
 Service, BroadcastReceiver, ContentProvider 도 각자 Context 를 얻지만 의미와 수명이 다르다. Service context 는 service lifecycle 의 작업 경계에 묶이고, receiver callback context 는 짧은 `onReceive` 실행 경계에 묶이며, provider context 는 provider lifecycle 과 process 초기화 순서에 묶인다.
 

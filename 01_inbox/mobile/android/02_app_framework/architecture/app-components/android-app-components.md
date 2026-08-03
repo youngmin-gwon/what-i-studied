@@ -1,12 +1,12 @@
 ---
-title: Android 앱 컴포넌트는 OS가 호출하는 실행 경계다
+title: android-app-components
 tags: [android, android/app-components, android/architecture]
 aliases: ["Android App Components"]
-date modified: 2026-08-03 16:34:42 +09:00
+date modified: 2026-08-03 17:27:12 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android 앱 컴포넌트는 OS가 호출하는 실행 경계다
+## Android 앱 컴포넌트는 OS 가 호출하는 실행 경계다
 
 앱 컴포넌트는 앱 내부 layer 가 아니라 Android OS 가 앱을 발견하고 호출하는 실행 경계다.
 

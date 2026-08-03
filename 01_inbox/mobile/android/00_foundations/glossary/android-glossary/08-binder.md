@@ -1,12 +1,12 @@
 ---
-title: "Binder는 안드로이드의 프로세스 간 통신(IPC)을 담당하는 핵심 메커니즘이다"
+title: 08-binder
 tags: ["android", "android/glossary"]
 aliases: ["Binder IPC"]
-date modified: 2026-08-01 01:07:17 +09:00
+date modified: 2026-08-03 17:21:39 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# Binder는 안드로이드의 프로세스 간 통신(IPC)을 담당하는 핵심 메커니즘이다
+## Binder 는 안드로이드의 프로세스 간 통신(IPC)을 담당하는 핵심 메커니즘이다
 
 정의: Binder 는 Android 에서 process boundary 를 넘는 object-capability style IPC 와 identity propagation 을 제공하는 kernel-mediated mechanism 이다.
 

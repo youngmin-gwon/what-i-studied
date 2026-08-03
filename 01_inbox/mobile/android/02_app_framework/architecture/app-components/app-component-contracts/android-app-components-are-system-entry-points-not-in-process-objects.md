@@ -1,12 +1,12 @@
 ---
-title: 안드로이드 앱 컴포넌트는 OS가 호출하는 실행 경계다
+title: android-app-components-are-system-entry-points-not-in-process-objects
 tags: [android, android/app-components, android/architecture]
 aliases: ["안드로이드 앱 컴포넌트는 OS가 호출하는 실행 경계다"]
-date modified: 2026-08-03 16:34:26 +09:00
+date modified: 2026-08-03 17:26:55 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 안드로이드 앱 컴포넌트는 OS가 호출하는 실행 경계다
+## 안드로이드 앱 컴포넌트는 OS 가 호출하는 실행 경계다
 
 Android 앱 컴포넌트는 앱 내부 객체 모델이 아니라 OS 가 앱을 시작하거나 앱과 상호작용할 때 찾는 entry point 다.
 

@@ -1,12 +1,12 @@
 ---
-title: AndroidManifest는 OS가 발견할 컴포넌트와 권한 경계를 선언한다
+title: manifest-declares-components-permissions-features-and-exported-boundaries
 tags: [android, android/app-components, android/architecture]
 aliases: ["AndroidManifest는 OS가 발견할 컴포넌트와 권한 경계를 선언한다"]
-date modified: 2026-08-03 16:34:35 +09:00
+date modified: 2026-08-03 17:27:05 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# AndroidManifest는 OS가 발견할 컴포넌트와 권한 경계를 선언한다
+## AndroidManifest 는 OS 가 발견할 컴포넌트와 권한 경계를 선언한다
 
 AndroidManifest 는 OS 와 build tool 이 앱의 component, permission, feature, intent-filter, metadata 를 발견하는 선언 파일이다. Activity, Service, Receiver, Provider 는 런타임에 아무 클래스나 스캔되어 노출되는 것이 아니라 Manifest 와 관련 metadata 를 통해 OS-visible surface 가 된다.
 

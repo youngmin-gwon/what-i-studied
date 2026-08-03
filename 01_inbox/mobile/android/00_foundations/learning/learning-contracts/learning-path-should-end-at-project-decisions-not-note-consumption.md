@@ -1,8 +1,8 @@
 ---
-title: "학습 경로의 끝은 문서 소비가 아니라 프로젝트 결정이어야 한다"
+title: learning-path-should-end-at-project-decisions-not-note-consumption
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:53 +09:00
+date modified: 2026-08-03 17:20:55 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 

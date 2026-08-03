@@ -1,12 +1,12 @@
 ---
-title: "LMKD는 시스템 메모리가 부족할 때 우선순위가 낮은 프로세스를 종료하여 리소스를 확보한다"
+title: 16-lmkd-low-memory-killer-daemon
 tags: ["android", "android/glossary"]
 aliases: ["lmkd", "Low Memory Killer Daemon"]
-date modified: 2026-08-01 01:07:26 +09:00
+date modified: 2026-08-03 17:21:34 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# LMKD는 시스템 메모리가 부족할 때 우선순위가 낮은 프로세스를 종료하여 리소스를 확보한다
+## LMKD 는 시스템 메모리가 부족할 때 우선순위가 낮은 프로세스를 종료하여 리소스를 확보한다
 
 정의: LMKD 는 memory pressure 와 process importance signal 을 바탕으로 Android process 를 종료해 system responsiveness 를 지키는 daemon 이다.
 

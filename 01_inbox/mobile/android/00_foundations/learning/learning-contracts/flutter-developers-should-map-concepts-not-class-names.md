@@ -1,8 +1,8 @@
 ---
-title: "Flutter 개발자는 class 이름보다 개념 경계를 대응시켜야 한다"
+title: flutter-developers-should-map-concepts-not-class-names
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:51 +09:00
+date modified: 2026-08-03 17:20:53 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 

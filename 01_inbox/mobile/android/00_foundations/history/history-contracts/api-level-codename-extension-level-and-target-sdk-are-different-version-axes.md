@@ -1,12 +1,12 @@
 ---
-title: "API level, codename, extension level, targetSdkVersion 은 서로 다른 version 축이다"
+title: api-level-codename-extension-level-and-target-sdk-are-different-version-axes
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:39 +09:00
+date modified: 2026-08-03 17:22:14 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
-# API level, codename, extension level, targetSdkVersion 은 서로 다른 version 축이다
+## API level, codename, extension level, targetSdkVersion 은 서로 다른 version 축이다
 
 Android version 을 말할 때 API level, dessert codename, SDK Extension level, minor SDK version, `compileSdk`, `targetSdkVersion` 을 섞으면 판단이 흐려진다. API level 은 platform SDK surface 의 major 번호이고, codename 은 release 식별자다. extension level 은 Mainline module 을 통해 추가된 일부 API availability 를, `SDK_INT_FULL` 은 major/minor platform release 를 구분한다.
 

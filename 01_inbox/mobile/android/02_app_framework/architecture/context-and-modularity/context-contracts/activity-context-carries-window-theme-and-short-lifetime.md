@@ -1,12 +1,12 @@
 ---
-title: Activity Context는 window와 theme를 가지지만 수명이 짧다
+title: activity-context-carries-window-theme-and-short-lifetime
 tags: [android, android/architecture, android/context]
 aliases: ["Activity Context는 window와 theme를 가지지만 수명이 짧다"]
-date modified: 2026-08-03 16:34:47 +09:00
+date modified: 2026-08-03 17:27:18 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Activity Context는 window와 theme를 가지지만 수명이 짧다
+## Activity Context 는 window 와 theme 를 가지지만 수명이 짧다
 
 Activity context 는 현재 화면 인스턴스의 theme, window, configuration, lifecycle 경계를 포함한다. dialog, layout inflation, themed resource, activity launch 처럼 UI 환경이 필요한 작업에는 Activity context 가 맞다.
 

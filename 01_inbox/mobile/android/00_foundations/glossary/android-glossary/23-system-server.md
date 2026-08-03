@@ -1,12 +1,12 @@
 ---
-title: "system_server는 안드로이드 프레임워크의 핵심 서비스들을 호스팅하는 최상위 프로세스다"
+title: 23-system-server
 tags: ["android", "android/glossary"]
 aliases: ["system server", "SystemServer"]
-date modified: 2026-08-01 01:07:34 +09:00
+date modified: 2026-08-03 17:20:58 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# system_server는 안드로이드 프레임워크의 핵심 서비스들을 호스팅하는 최상위 프로세스다
+## system_server 는 안드로이드 프레임워크의 핵심 서비스들을 호스팅하는 최상위 프로세스다
 
 정의: system_server 는 ActivityManager, PackageManager, WindowManager 같은 framework services 를 한 process 안에서 시작하고 운영하는 Android core process 다.
 

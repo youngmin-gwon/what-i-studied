@@ -1,12 +1,12 @@
 ---
-title: "SELinux는 프로세스와 파일의 접근 권한을 강제하는 필수 접근 제어(MAC) 시스템이다"
+title: 21-selinux-security-enhanced-linux
 tags: ["android", "android/glossary"]
 aliases: ["Android SELinux", "Security Enhanced Linux"]
-date modified: 2026-08-01 01:07:31 +09:00
+date modified: 2026-08-03 17:21:30 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# SELinux는 프로세스와 파일의 접근 권한을 강제하는 필수 접근 제어(MAC) 시스템이다
+## SELinux 는 프로세스와 파일의 접근 권한을 강제하는 필수 접근 제어(MAC) 시스템이다
 
 정의: SELinux 는 Android 에서 domain/type 기반 mandatory access control 을 적용해 process, file, binder service boundary 를 강제하는 security layer 다.
 

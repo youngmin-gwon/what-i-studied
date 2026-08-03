@@ -1,12 +1,12 @@
 ---
-title: Jetpack Architecture는 필수 stack이 아니라 책임 분리 지도다
+title: jetpack-architecture-is-recommended-responsibility-map-not-mandatory-stack
 tags: [android, android/architecture, android/jetpack]
 aliases: ["Jetpack Architecture는 필수 stack이 아니라 책임 분리 지도다"]
-date modified: 2026-08-03 16:35:04 +09:00
+date modified: 2026-08-03 17:27:35 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Jetpack Architecture는 필수 stack이 아니라 책임 분리 지도다
+## Jetpack Architecture 는 필수 stack 이 아니라 책임 분리 지도다
 
 Android architecture guidance 는 모든 앱이 같은 class 이름과 layer 를 가져야 한다는 규칙이 아니다. 핵심은 관심사 분리, UI 를 data 에서 drive 하기, single source of truth, 명확한 data flow 같은 책임 배치 원칙이다.
 

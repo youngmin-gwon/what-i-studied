@@ -1,12 +1,12 @@
 ---
-title: Service는 UI 없는 컴포넌트이지 일반 background task runner가 아니다
+title: service-is-background-or-remote-work-entry-point-not-general-task-runner
 tags: [android, android/app-components, android/architecture]
 aliases: ["Service는 UI 없는 컴포넌트이지 일반 background task runner가 아니다"]
-date modified: 2026-08-03 16:34:40 +09:00
+date modified: 2026-08-03 17:27:08 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Service는 UI 없는 컴포넌트이지 일반 background task runner가 아니다
+## Service 는 UI 없는 컴포넌트이지 일반 background task runner 가 아니다
 
 Service 는 UI 없이 실행되는 앱 컴포넌트이며 started service, bound service, foreground service 같은 사용 형태를 가진다. 그러나 Service 자체가 worker thread 를 만들어 주지는 않는다. 콜백은 기본적으로 앱의 main thread 에서 실행된다.
 

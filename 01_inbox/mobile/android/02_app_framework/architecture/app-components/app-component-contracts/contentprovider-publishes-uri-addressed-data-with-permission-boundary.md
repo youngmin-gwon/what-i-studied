@@ -1,12 +1,12 @@
 ---
-title: ContentProvider는 URI와 권한을 가진 데이터 공유 API다
+title: contentprovider-publishes-uri-addressed-data-with-permission-boundary
 tags: [android, android/app-components, android/architecture]
 aliases: ["ContentProvider는 URI와 권한을 가진 데이터 공유 API다"]
-date modified: 2026-08-03 16:34:30 +09:00
+date modified: 2026-08-03 17:27:01 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# ContentProvider는 URI와 권한을 가진 데이터 공유 API다
+## ContentProvider 는 URI 와 권한을 가진 데이터 공유 API 다
 
 ContentProvider 는 `content://` URI 를 통해 데이터를 노출하고 `ContentResolver` 로 접근되는 앱 컴포넌트다. 핵심은 SQLite 가 아니라 provider authority, URI shape, MIME type, CRUD method, permission 경계로 구성된 외부 또는 cross-process 데이터 계약이다.
 

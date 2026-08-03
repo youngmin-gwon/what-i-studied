@@ -1,12 +1,12 @@
 ---
-title: ViewModel과 Repository는 UI Context를 보관하지 않는다
+title: viewmodel-and-repository-should-not-retain-ui-context
 tags: [android, android/architecture, android/context]
 aliases: ["ViewModel과 Repository는 UI Context를 보관하지 않는다"]
-date modified: 2026-08-03 16:34:54 +09:00
+date modified: 2026-08-03 17:27:27 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# ViewModel과 Repository는 UI Context를 보관하지 않는다
+## ViewModel 과 Repository 는 UI Context 를 보관하지 않는다
 
 ViewModel 은 screen state 와 외부 작업을 조율하는 owner 이지 Activity, View, Fragment, UI Context 의 저장소가 아니다. Repository 는 data policy 와 source of truth 를 담당하지 UI 화면 인스턴스를 보관하지 않는다.
 

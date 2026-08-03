@@ -1,12 +1,12 @@
 ---
-title: "Parcelable은 안드로이드에서 객체를 직렬화하여 IPC를 통해 전달하는 고성능 인터페이스다"
+title: 18-parcelable
 tags: ["android", "android/glossary"]
 aliases: ["Parcelable IPC payload"]
-date modified: 2026-08-01 01:07:26 +09:00
+date modified: 2026-08-03 17:21:31 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# Parcelable은 안드로이드에서 객체를 직렬화하여 IPC를 통해 전달하는 고성능 인터페이스다
+## Parcelable 은 안드로이드에서 객체를 직렬화하여 IPC 를 통해 전달하는 고성능 인터페이스다
 
 정의: Parcelable 은 Android 가 Binder transaction 이나 Intent extra 에서 object graph 를 process boundary 에 맞게 flatten/unflatten 하기 위한 serialization contract 다.
 

@@ -1,12 +1,12 @@
 ---
-title: UI State는 현재 화면을 그리는 값이고 Action은 상태 변화를 요청하는 신호다
+title: ui-state
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["Android UI State"]
-date modified: 2026-08-03 16:35:29 +09:00
+date modified: 2026-08-03 17:27:50 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# UI State는 현재 화면을 그리는 값이고 Action은 상태 변화를 요청하는 신호다
+## UI State 는 현재 화면을 그리는 값이고 Action 은 상태 변화를 요청하는 신호다
 
 UI State 는 현재 화면을 다시 그릴 수 있는 값이고, Action/Event 는 상태 변화를 요청하거나 소비 시점이 중요한 신호다.
 

@@ -1,12 +1,12 @@
 ---
-title: Foreground Service는 사용자에게 보이는 진행 중 작업 계약이다
+title: foreground-service-is-user-visible-ongoing-work-contract
 tags: [android, android/app-components, android/architecture]
 aliases: ["Foreground Service는 사용자에게 보이는 진행 중 작업 계약이다"]
-date modified: 2026-08-03 16:34:33 +09:00
+date modified: 2026-08-03 17:27:05 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Foreground Service는 사용자에게 보이는 진행 중 작업 계약이다
+## Foreground Service 는 사용자에게 보이는 진행 중 작업 계약이다
 
 Foreground Service 는 사용자가 인지해야 하는 즉시성, 진행 중 작업을 OS 에 알리는 계약이다. notification 을 통해 사용자에게 노출되며, Android 버전과 target SDK 에 따라 foreground-service type, permission, start restriction, timeout 조건이 달라진다.
 

@@ -1,12 +1,12 @@
 ---
-title: "History Contracts는 안드로이드 플랫폼의 발전과 계약 변화를 추적하는 기준이다"
+title: history-contracts
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:44 +09:00
+date modified: 2026-08-03 17:22:13 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
-# History Contracts는 안드로이드 플랫폼의 발전과 계약 변화를 추적하는 기준이다
+## History Contracts 는 안드로이드 플랫폼의 발전과 계약 변화를 추적하는 기준이다
 
 이 하위 지도는 release 기능 목록이 아니라 history 노트가 답해야 하는 질문을 구분한다.
 

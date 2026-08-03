@@ -1,12 +1,12 @@
 ---
-title: Context-registered Receiver의 수명은 등록한 Context를 따른다
+title: context-registered-receiver-lifetime-follows-registering-context
 tags: [android, android/app-components, android/architecture]
 aliases: ["Context-registered Receiver의 수명은 등록한 Context를 따른다"]
-date modified: 2026-08-03 16:34:31 +09:00
+date modified: 2026-08-03 17:27:02 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Context-registered Receiver의 수명은 등록한 Context를 따른다
+## Context-registered Receiver 의 수명은 등록한 Context 를 따른다
 
 동적으로 등록한 BroadcastReceiver 는 등록한 Context 의 수명과 export flag 정책을 따른다. Activity context 로 등록하면 화면 수명과 맞춰 해제해야 하고, application context 로 등록하면 더 오래 살아남을 수 있으므로 필요 범위를 좁혀야 한다.
 

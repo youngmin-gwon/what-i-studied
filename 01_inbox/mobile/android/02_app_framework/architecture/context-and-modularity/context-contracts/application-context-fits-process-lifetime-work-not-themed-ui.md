@@ -1,12 +1,12 @@
 ---
-title: Application Context는 프로세스 수명 작업에 맞고 themed UI에는 맞지 않는다
+title: application-context-fits-process-lifetime-work-not-themed-ui
 tags: [android, android/architecture, android/context]
 aliases: ["Application Context는 프로세스 수명 작업에 맞고 themed UI에는 맞지 않는다"]
-date modified: 2026-08-03 16:34:48 +09:00
+date modified: 2026-08-03 17:27:22 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Application Context는 프로세스 수명 작업에 맞고 themed UI에는 맞지 않는다
+## Application Context 는 프로세스 수명 작업에 맞고 themed UI 에는 맞지 않는다
 
 Application context 는 앱 프로세스 전체에 연결된 Context 다. repository, database, DataStore, file directory, system service 접근처럼 화면 인스턴스와 무관하게 오래 살아야 하는 작업에 적합하다.
 

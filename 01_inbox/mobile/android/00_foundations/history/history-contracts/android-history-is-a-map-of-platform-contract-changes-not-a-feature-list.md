@@ -1,8 +1,8 @@
 ---
-title: "Android history 는 기능 목록이 아니라 platform contract 변화 지도다"
+title: android-history-is-a-map-of-platform-contract-changes-not-a-feature-list
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:38 +09:00
+date modified: 2026-08-03 17:22:11 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 

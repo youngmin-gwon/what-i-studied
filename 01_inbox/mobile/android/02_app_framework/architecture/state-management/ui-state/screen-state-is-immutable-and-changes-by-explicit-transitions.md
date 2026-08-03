@@ -1,12 +1,12 @@
 ---
-title: 화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다
+title: screen-state-is-immutable-and-changes-by-explicit-transitions
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다"]
-date modified: 2026-08-03 16:35:26 +09:00
+date modified: 2026-08-03 17:27:46 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다
+## 화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다
 
 상위 문서: [Android UI State](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/ui-state.md)
 

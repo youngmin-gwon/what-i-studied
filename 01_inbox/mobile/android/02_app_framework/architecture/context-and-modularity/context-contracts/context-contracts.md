@@ -1,12 +1,12 @@
 ---
-title: Context 계약은 타입 이름보다 소유자와 수명으로 선택한다
+title: context-contracts
 tags: [android, android/architecture, android/context]
 aliases: ["Context Contracts"]
-date modified: 2026-08-03 16:34:50 +09:00
+date modified: 2026-08-03 17:27:24 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Context 계약은 타입 이름보다 소유자와 수명으로 선택한다
+## Context 계약은 타입 이름보다 소유자와 수명으로 선택한다
 
 Context 를 type 이름보다 owner/lifetime/capability 로 고르는 정본 모음이다.
 

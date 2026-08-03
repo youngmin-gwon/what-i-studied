@@ -1,22 +1,25 @@
 ---
-title: "Android System Map은 안드로이드의 런타임, 프레임워크, 서비스 계층을 구조화한 지도다"
+title: android-system-map
 tags: ["android", "android/foundations"]
+aliases: []
+date modified: 2026-08-03 17:22:27 +09:00
+date created: 2026-08-03 16:59:22 +09:00
 ---
 
-# Android System Map은 안드로이드의 런타임, 프레임워크, 서비스 계층을 구조화한 지도다
+## Android System Map 은 안드로이드의 런타임, 프레임워크, 서비스 계층을 구조화한 지도다
 
-이 문서는 Android를 처음 볼 때의 system map이다. 위쪽 앱 API에서 아래쪽 하드웨어로 내려가는 목록이 아니라, 요청이 어느 책임 경계를 통과하는지 분류하는 지도다. 세부 구현은 각 정본으로 이동한다.
+이 문서는 Android 를 처음 볼 때의 system map 이다. 위쪽 앱 API 에서 아래쪽 하드웨어로 내려가는 목록이 아니라, 요청이 어느 책임 경계를 통과하는지 분류하는 지도다. 세부 구현은 각 정본으로 이동한다.
 
-## 계층과 읽는 순서
+### 계층과 읽는 순서
 
-1. [계층형 플랫폼](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-is-layered-mobile-platform-not-just-an-app-sdk.md)에서 kernel, native/HAL, runtime, framework service, app framework를 한 그림으로 잡는다.
-2. [Stack boundary](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-stack-boundaries-explain-where-a-problem-belongs.md)에서 증상과 실패 계층을 분리한다.
-3. [앱 실행 경로](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md)로 process 생성과 component lifecycle이 다른 책임임을 확인한다.
-4. [보안 계층](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md)과 [camera 경로 예시](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md)로 하나의 기능이 여러 경계를 지나는 방식을 연습한다.
+1. [계층형 플랫폼](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-is-layered-mobile-platform-not-just-an-app-sdk.md) 에서 kernel, native/HAL, runtime, framework service, app framework 를 한 그림으로 잡는다.
+2. [Stack boundary](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-stack-boundaries-explain-where-a-problem-belongs.md) 에서 증상과 실패 계층을 분리한다.
+3. [앱 실행 경로](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md) 로 process 생성과 component lifecycle 이 다른 책임임을 확인한다.
+4. [보안 계층](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md) 과 [camera 경로 예시](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md) 로 하나의 기능이 여러 경계를 지나는 방식을 연습한다.
 
-[Foundation Contracts](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/foundation-contracts.md)는 이 순서를 구성하는 원자 노트의 역할 차이와 추가 기준을 관리하는 하위 지도다.
+[Foundation Contracts](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/foundation-contracts.md) 는 이 순서를 구성하는 원자 노트의 역할 차이와 추가 기준을 관리하는 하위 지도다.
 
-## Foundation Notes
+### Foundation Notes
 
 - [Android는 앱 SDK만이 아니라 계층형 모바일 플랫폼이다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-is-layered-mobile-platform-not-just-an-app-sdk.md)
 - [Android stack boundary는 문제가 어느 층에 속하는지 판단하게 해 준다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-stack-boundaries-explain-where-a-problem-belongs.md)
@@ -25,20 +28,19 @@ tags: ["android", "android/foundations"]
 - [Android 지식 지도는 runtime, app framework, services, security, tooling으로 나누어 읽는다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-knowledge-map-is-organized-by-runtime-app-framework-services-security-and-tooling.md)
 - [사진 찍기 예시는 permission, intent, UI, media, HAL, storage 경계를 함께 지난다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md)
 
-## 문제별 진입 경로
+### 문제별 진입 경로
 
 - Runtime/process: [boot/runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-and-runtime.md), [system_server](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md), [Zygote/runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-runtime-contracts.md)
 - Kernel/HAL: [kernel](01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel-runtime.md), [HAL/native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md)
 - App framework: [app architecture](01_inbox/mobile/android/02_app_framework/architecture/android-app-architecture.md), [app components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context-boundaries.md)
 - UI/data: [Compose runtime](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Compose UI](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md), [storage](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
 - Security/debugging: [security](01_inbox/mobile/android/05_security_privacy/security-practices/security-practice-contracts/android-security-practice-is-defense-in-depth-not-client-trust.md), [debugging](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md), [performance](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/performance-contracts.md)
+- `onCreate` 이전 launch 지연이나 process 재생성은 Runtime/process 에서 시작한다.
+- device 별 camera/audio/sensor 차이는 앱 API 사용법을 확인한 뒤 Kernel/HAL 경계로 내려간다.
+- lifecycle, state ownership, navigation 문제는 App framework 에서 시작한다.
+- frame 지연은 UI state 계산, main thread, rendering/composition 을 차례로 나누고 UI/data 와 performance 경로를 함께 본다.
+- 호출이 `SecurityException` 또는 정책상 거절로 끝나면 permission grant, AppOps, component export, platform policy 를 Security/debugging 에서 분리한다.
 
-- `onCreate` 이전 launch 지연이나 process 재생성은 Runtime/process에서 시작한다.
-- device별 camera/audio/sensor 차이는 앱 API 사용법을 확인한 뒤 Kernel/HAL 경계로 내려간다.
-- lifecycle, state ownership, navigation 문제는 App framework에서 시작한다.
-- frame 지연은 UI state 계산, main thread, rendering/composition을 차례로 나누고 UI/data와 performance 경로를 함께 본다.
-- 호출이 `SecurityException` 또는 정책상 거절로 끝나면 permission grant, AppOps, component export, platform policy를 Security/debugging에서 분리한다.
+### 새 노트 경계
 
-## 새 노트 경계
-
-여러 계층을 연결해 문제 위치를 찾게 하는 내용만 이 map에 둔다. 한 계층의 상세 계약은 해당 영역에 원자 노트로 만들고 여기서는 한 문장과 링크만 유지한다.
+여러 계층을 연결해 문제 위치를 찾게 하는 내용만 이 map 에 둔다. 한 계층의 상세 계약은 해당 영역에 원자 노트로 만들고 여기서는 한 문장과 링크만 유지한다.

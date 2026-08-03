@@ -1,12 +1,12 @@
 ---
-title: Architecture 계약은 layer 이름보다 책임과 수명으로 판단한다
+title: architecture-contracts
 tags: [android, android/architecture, android/jetpack]
 aliases: ["Architecture Contracts"]
-date modified: 2026-08-03 16:34:59 +09:00
+date modified: 2026-08-03 17:27:32 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Architecture 계약은 layer 이름보다 책임과 수명으로 판단한다
+## Architecture 계약은 layer 이름보다 책임과 수명으로 판단한다
 
 Android architecture 를 layer 이름보다 responsibility, owner, lifetime 으로 판단하기 위한 정본 모음이다.
 

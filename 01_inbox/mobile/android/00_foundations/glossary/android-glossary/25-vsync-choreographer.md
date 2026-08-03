@@ -1,12 +1,12 @@
 ---
-title: "Vsync와 Choreographer는 디스플레이 주사율에 맞춰 UI 렌더링 프레임을 동기화한다"
+title: 25-vsync-choreographer
 tags: ["android", "android/glossary"]
 aliases: ["Choreographer", "Vsync"]
-date modified: 2026-08-01 01:07:46 +09:00
+date modified: 2026-08-03 17:21:02 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# Vsync와 Choreographer는 디스플레이 주사율에 맞춰 UI 렌더링 프레임을 동기화한다
+## Vsync 와 Choreographer 는 디스플레이 주사율에 맞춰 UI 렌더링 프레임을 동기화한다
 
 정의: Vsync 는 display refresh timing signal 이고, Choreographer 는 Android UI work 를 frame deadline 에 맞춰 scheduling 하는 framework component 다.
 

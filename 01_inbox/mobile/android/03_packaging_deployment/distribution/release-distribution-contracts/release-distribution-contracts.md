@@ -1,13 +1,16 @@
 ---
-title: "Play 릴리스와 배포 계약"
+title: release-distribution-contracts
 tags: ["android", "android/packaging-deployment"]
+aliases: []
+date modified: 2026-08-03 17:20:50 +09:00
+date created: 2026-07-31 17:52:17 +09:00
 ---
 
-# Play 릴리스와 배포 계약
+## Play 릴리스와 배포 계약
 
 이 지도는 Android App Bundle 제출, Play App Signing, 업데이트 조건, 테스트 트랙, staged rollout, 내부 공유를 릴리스 운영 단위로 나눈다.
 
-## 정본 노트
+### 정본 노트
 
 - [AAB는 Play가 기기별 APK를 생성하는 게시 아티팩트다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
 - [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md)

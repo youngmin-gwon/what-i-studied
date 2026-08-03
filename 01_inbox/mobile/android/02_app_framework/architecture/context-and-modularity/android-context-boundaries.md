@@ -1,12 +1,12 @@
 ---
-title: Android Context는 수명과 UI 환경을 결정하는 아키텍처 경계다
+title: android-context-boundaries
 tags: [android, android/architecture, android/context]
 aliases: ["Android Context Boundaries"]
-date modified: 2026-08-03 16:29:56 +09:00
+date modified: 2026-08-03 17:27:29 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android Context는 수명과 UI 환경을 결정하는 아키텍처 경계다
+## Android Context 는 수명과 UI 환경을 결정하는 아키텍처 경계다
 
 Context 는 Android API 접근 handle 이지만, 어떤 Context 를 쓰는지는 lifetime 과 UI 환경을 결정하는 아키텍처 문제다.
 

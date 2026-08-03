@@ -1,12 +1,12 @@
 ---
-title: UI는 상태를 아래로 받고 사용자 행동을 위로 전달한다
+title: ui-receives-state-and-sends-actions-up
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["UI는 상태를 아래로 받고 사용자 행동을 위로 전달한다"]
-date modified: 2026-08-03 16:35:27 +09:00
+date modified: 2026-08-03 17:27:49 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# UI는 상태를 아래로 받고 사용자 행동을 위로 전달한다
+## UI 는 상태를 아래로 받고 사용자 행동을 위로 전달한다
 
 상위 문서: [Android UI State](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/ui-state.md)
 

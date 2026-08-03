@@ -1,16 +1,16 @@
 ---
-title: "부팅 흐름 계약"
-tags: [android, android/system-internals, android/boot-runtime, android/boot]
+title: boot-flow-contracts
+tags: [android, android/boot, android/boot-runtime, android/system-internals]
 aliases: ["부팅 흐름 계약"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 17:23:14 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 부팅 흐름 계약
+## 부팅 흐름 계약
 
 부팅 흐름은 하드웨어 초기화 순서가 아니라 신뢰 가능한 이미지 선택, 파티션 경계, OTA 복구 가능성, userspace 진입점이 맞물린 계약이다.
 
-## 정본 노트
+### 정본 노트
 
 - [부팅 체인은 신뢰 상태를 확정한 뒤 kernel과 userspace로 넘어간다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-chain-confirms-trust-before-kernel-and-userspace.md)
 - [Bootloader는 검증된 slot을 고르고 Android에 bootconfig를 넘긴다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/bootloader-selects-verified-slot-and-passes-bootconfig.md)
@@ -22,10 +22,10 @@ date created: 2026-08-01 00:00:00 +09:00
 - [부팅 완료는 단일 property가 아니라 관측 가능한 milestone 묶음이다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-completion-is-observable-milestones-not-one-property.md)
 - [부팅 디버깅은 logcat 이전의 kernel, pstore, init 로그에서 시작한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs.md)
 
-## 경계 규칙
+### 경계 규칙
 
-- AVB와 verified boot는 보안 신뢰 체인으로 설명하고 앱 권한 모델과 섞지 않는다.
-- A/B, Virtual A/B, dynamic partition은 update/partition 경계로 두고 Mainline/APEX와 구분한다.
-- userspace service 시작 이후의 정책은 init와 system_server 정본으로 넘긴다.
+- AVB 와 verified boot 는 보안 신뢰 체인으로 설명하고 앱 권한 모델과 섞지 않는다.
+- A/B, Virtual A/B, dynamic partition 은 update/partition 경계로 두고 Mainline/APEX 와 구분한다.
+- userspace service 시작 이후의 정책은 init 와 system_server 정본으로 넘긴다.
 
 관련 지도: [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md), [Platform Modularity Contracts](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/platform-modularity-contracts.md)

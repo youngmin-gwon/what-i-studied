@@ -1,12 +1,12 @@
 ---
-title: "Android 는 API catalog 보다 boundary 단위로 먼저 배운다"
+title: learn-android-by-boundary-before-api-catalogs
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:52 +09:00
+date modified: 2026-08-03 17:20:54 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
-# Android 는 API catalog 보다 boundary 단위로 먼저 배운다
+## Android 는 API catalog 보다 boundary 단위로 먼저 배운다
 
 Android 를 처음 배울 때 모든 API 를 나열하면 오래 가지 않는다. 먼저 app lifecycle, process, state owner, permission, storage, background work, rendering, packaging 같은 boundary 를 잡아야 한다.
 

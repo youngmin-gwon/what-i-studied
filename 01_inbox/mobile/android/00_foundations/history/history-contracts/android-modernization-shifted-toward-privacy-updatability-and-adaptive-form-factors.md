@@ -1,8 +1,8 @@
 ---
-title: "Android 현대화는 privacy, updatability, adaptive form factor 쪽으로 이동했다"
+title: android-modernization-shifted-toward-privacy-updatability-and-adaptive-form-factors
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:37 +09:00
+date modified: 2026-08-03 17:22:12 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 

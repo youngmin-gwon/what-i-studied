@@ -1,12 +1,12 @@
 ---
-title: Task와 back stack은 OS가 관리하는 Activity 작업 기록이지 앱 내부 navigation state가 아니다
+title: task-and-back-stack-are-os-activity-navigation-not-app-navigation-state
 tags: [android, android/app-components, android/architecture]
 aliases: ["Task와 back stack은 OS가 관리하는 Activity 작업 기록이지 앱 내부 navigation state가 아니다"]
-date modified: 2026-08-03 16:34:41 +09:00
+date modified: 2026-08-03 17:27:09 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Task와 back stack은 OS가 관리하는 Activity 작업 기록이지 앱 내부 navigation state가 아니다
+## Task 와 back stack 은 OS 가 관리하는 Activity 작업 기록이지 앱 내부 navigation state 가 아니다
 
 Android task 와 back stack 은 사용자가 Activity 들을 어떤 작업 흐름으로 지나왔는지를 OS 가 관리하는 기록이다. Compose Navigation 이나 Navigation 3 의 route/back stack 은 앱 내부 화면 상태이고, Android task stack 과 같은 층위가 아니다.
 

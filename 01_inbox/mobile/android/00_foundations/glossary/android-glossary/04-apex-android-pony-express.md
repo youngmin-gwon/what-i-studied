@@ -1,12 +1,12 @@
 ---
-title: "APEX는 안드로이드 OS 컴포넌트를 모듈화하여 업데이트하는 포맷이다"
+title: 04-apex-android-pony-express
 tags: ["android", "android/glossary"]
 aliases: ["Android Pony EXpress", "Mainline module"]
-date modified: 2026-08-01 01:07:14 +09:00
+date modified: 2026-08-03 17:21:43 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# APEX는 안드로이드 OS 컴포넌트를 모듈화하여 업데이트하는 포맷이다
+## APEX 는 안드로이드 OS 컴포넌트를 모듈화하여 업데이트하는 포맷이다
 
 정의: APEX 는 APK 보다 낮은 계층의 system module 을 독립적으로 업데이트하기 위한 Android Mainline packaging format 이다.
 

@@ -1,12 +1,12 @@
 ---
-title: "Context는 애플리케이션 환경 정보와 시스템 서비스에 접근하는 전역 인터페이스다"
+title: 10-context
 tags: ["android", "android/glossary"]
 aliases: ["Android Context"]
-date modified: 2026-08-01 01:07:21 +09:00
+date modified: 2026-08-03 17:21:37 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# Context는 애플리케이션 환경 정보와 시스템 서비스에 접근하는 전역 인터페이스다
+## Context 는 애플리케이션 환경 정보와 시스템 서비스에 접근하는 전역 인터페이스다
 
 정의: Context 는 resource, system service, package identity, storage, theme 같은 Android environment capability 에 접근하는 framework handle 이다.
 

@@ -1,12 +1,12 @@
 ---
-title: "ANR은 앱이 메인 스레드에서 응답하지 못할 때 발생하는 상태다"
+title: 03-anr-application-not-responding
 tags: ["android", "android/glossary"]
 aliases: ["Application Not Responding"]
-date modified: 2026-08-01 01:07:14 +09:00
+date modified: 2026-08-03 17:21:47 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# ANR은 앱이 메인 스레드에서 응답하지 못할 때 발생하는 상태다
+## ANR 은 앱이 메인 스레드에서 응답하지 못할 때 발생하는 상태다
 
 정의: ANR 은 앱이나 system component 가 정해진 responsiveness contract 를 지키지 못했을 때 system_server 가 기록하고 사용자에게 드러낼 수 있는 failure signal 이다.
 

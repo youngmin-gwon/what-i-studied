@@ -1,12 +1,12 @@
 ---
-title: android:exported와 권한은 외부 컴포넌트 접근 경계를 결정한다
+title: exported-and-permission-boundaries-decide-external-component-access
 tags: [android, android/app-components, android/architecture]
 aliases: ["android:exported와 권한은 외부 컴포넌트 접근 경계를 결정한다"]
-date modified: 2026-08-03 16:34:32 +09:00
+date modified: 2026-08-03 17:27:03 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# android:exported와 권한은 외부 컴포넌트 접근 경계를 결정한다
+## android:exported 와 권한은 외부 컴포넌트 접근 경계를 결정한다
 
 `android:exported` 는 다른 앱이나 시스템이 해당 component 를 직접 호출할 수 있는지 결정하는 핵심 경계다. intent-filter 는 어떤 요청을 받을 수 있는지 광고하지만, 그 자체가 authorization 은 아니다.
 

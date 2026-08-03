@@ -1,0 +1,39 @@
+---
+title: "MediaSession은 재생 상태를 시스템 UI와 외부 컨트롤러에 노출하는 계약이다"
+tags: ["android", "android/system-services"]
+---
+
+# MediaSession은 재생 상태를 시스템 UI와 외부 컨트롤러에 노출하는 계약이다
+
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
+관련 지도: [미디어/오디오/카메라 시스템 서비스 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/media-audio-camera-contracts/media-audio-camera-contracts.md)
+
+## 핵심 정의
+
+`MediaSession`(Media3의 `MediaSession` 포함)은 앱의 재생 엔진 내부 상태(재생 중/일시정지, 현재 트랙, 위치)를 잠금화면, 시스템 알림, 블루투스 리모컨, Wear OS, Assistant 같은 외부 컨트롤러가 공통 규약으로 읽고 제어할 수 있게 노출하는 시스템 연동 계층이다.
+
+## 메커니즘
+
+앱은 재생 상태가 바뀔 때마다 `PlaybackState`를 갱신해 세션에 반영한다. 외부 컨트롤러(잠금화면 미디어 위젯, 블루투스 헤드셋의 재생/일시정지 버튼 등)는 세션에 등록된 `MediaController`를 통해 명령(재생, 일시정지, 다음 곡)을 세션으로 보내고, 세션은 이를 콜백으로 앱에 전달한다. 앱이 `PlaybackState`를 정확히 갱신하지 않으면 외부 UI가 실제 재생 상태와 다르게 표시된다(예: 실제로는 멈췄는데 재생 중으로 보임).
+
+미디어 알림(Notification)의 재생 컨트롤 스타일도 이 세션의 토큰을 참조해 시스템이 자동으로 잠금화면과 동기화한다.
+
+## 판단 기준
+
+- 백그라운드 오디오 재생 앱은 반드시 `MediaSession`을 등록하고 `PlaybackState`를 실시간으로 갱신해야, 사용자가 화면을 보지 않아도 잠금화면/블루투스로 제어할 수 있다.
+- 오디오 포커스 상실 콜백과 `PlaybackState` 갱신을 함께 처리한다. 포커스를 잃고 재생을 멈췄다면 세션의 상태도 즉시 "일시정지"로 갱신해야 외부 UI가 어긋나지 않는다.
+- 여러 미디어 항목을 다루는 앱은 `MediaSession`과 함께 `MediaBrowserService`(또는 Media3의 대응 API)로 탐색 가능한 미디어 트리를 노출하면 차량, Wear OS 같은 외부 표면에서 콘텐츠를 탐색할 수 있다.
+
+## 경계
+
+- 이 노트는 재생 상태를 외부에 노출하는 계약까지 다룬다. 여러 앱 간 오디오 재생 자체의 조정은 [AudioManager는 포커스 요청으로 여러 앱의 동시 재생을 조정한다](01_inbox/mobile/android/04_system_services/device-capabilities/media-audio-camera-contracts/audiomanager-arbitrates-concurrent-playback-through-focus-requests.md)가 다룬다.
+- 알림 자체의 표시 규칙과 채널 정책은 `04_system_services/background-and-notifications/notification-messaging-contracts`가 다룬다.
+
+## 관찰 가능한 신호
+
+`adb shell dumpsys media_session`으로 현재 활성 미디어 세션 목록과 각 세션의 `PlaybackState`를 확인할 수 있다. 잠금화면 미디어 위젯이 실제 재생 상태와 다르게 보이면 이 덤프에서 세션 상태 갱신 누락을 먼저 확인한다.
+
+## 공식 문서
+
+- https://developer.android.com/media/media3/session/control-playback
+- https://developer.android.com/guide/topics/media-apps/working-with-a-media-session

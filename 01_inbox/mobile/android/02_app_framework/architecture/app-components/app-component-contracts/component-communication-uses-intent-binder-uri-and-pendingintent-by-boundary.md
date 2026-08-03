@@ -1,12 +1,12 @@
 ---
-title: 컴포넌트 통신은 Intent
+title: component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary
 tags: [android, android/app-components, android/architecture]
 aliases: ["컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다"]
-date modified: 2026-08-03 16:34:29 +09:00
+date modified: 2026-08-03 17:26:59 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 컴포넌트 통신은 Intent
+## 컴포넌트 통신은 Intent
 
 Android component communication 은 하나의 event bus 가 아니다. Activity, Service, Receiver 시작은 Intent 가 맡고, bound service 호출은 Binder 가 맡으며, provider 데이터 접근은 URI 와 `ContentResolver` 가 맡고, 미래의 system-mediated 실행 위임은 PendingIntent 가 맡는다.
 

@@ -1,12 +1,12 @@
 ---
-title: Jetpack Architecture Map은 세부 API 설명보다 기존 정본으로 연결하는 decision map이다
+title: android-jetpack-architecture-map
 tags: [android, android/architecture, android/jetpack]
 aliases: ["Jetpack Architecture Map"]
-date modified: 2026-08-03 16:35:11 +09:00
+date modified: 2026-08-03 17:27:41 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Jetpack Architecture Map은 세부 API 설명보다 기존 정본으로 연결하는 decision map이다
+## Jetpack Architecture Map 은 세부 API 설명보다 기존 정본으로 연결하는 decision map 이다
 
 Jetpack architecture 문서는 세부 API 설명을 반복하는 catalog 가 아니라 기존 정본으로 연결하는 decision map 이다.
 

@@ -1,12 +1,12 @@
 ---
-title: "Scoped Storage는 앱이 자신의 공간과 공유 미디어에만 접근하도록 제한하는 저장소 모델이다"
+title: 20-scoped-storage
 tags: ["android", "android/glossary"]
 aliases: ["Android scoped storage"]
-date modified: 2026-08-01 01:07:32 +09:00
+date modified: 2026-08-03 17:21:30 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 
-# Scoped Storage는 앱이 자신의 공간과 공유 미디어에만 접근하도록 제한하는 저장소 모델이다
+## Scoped Storage 는 앱이 자신의 공간과 공유 미디어에만 접근하도록 제한하는 저장소 모델이다
 
 정의: Scoped Storage 는 shared external storage 에 대한 직접 파일 경로 접근을 제한하고, app-specific directory, MediaStore, SAF, photo picker 같은 목적별 access surface 를 사용하게 하는 storage policy 다.
 

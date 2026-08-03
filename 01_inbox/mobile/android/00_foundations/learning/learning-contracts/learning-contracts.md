@@ -1,12 +1,12 @@
 ---
-title: "Learning Contracts는 안드로이드 시스템을 배우고 이해하는 기준이다"
+title: learning-contracts
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:53 +09:00
+date modified: 2026-08-03 17:20:52 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
-# Learning Contracts는 안드로이드 시스템을 배우고 이해하는 기준이다
+## Learning Contracts 는 안드로이드 시스템을 배우고 이해하는 기준이다
 
 이 하위 지도는 자료 목록이 아니라 학습 과정의 네 결정을 관리한다.
 

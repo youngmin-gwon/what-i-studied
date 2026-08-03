@@ -1,12 +1,12 @@
 ---
-title: "Android 16 과 17 은 빠른 API release 와 form factor 변화를 계속 밀고 있다"
+title: android-16-and-17-continue-faster-api-and-form-factor-change
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:36 +09:00
+date modified: 2026-08-03 17:22:06 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
-# Android 16 과 17 은 빠른 API release 와 form factor 변화를 계속 밀고 있다
+## Android 16 과 17 은 빠른 API release 와 form factor 변화를 계속 밀고 있다
 
 2026 년 8 월 3 일 검증 기준 Android Developers 문서는 Android 16(API 36)과 Android 17(API 37)을 노출한다. Android 16 은 2025 년부터 major/minor API release cadence 를 도입했고, `SDK_INT_FULL` 은 같은 major API level 안의 minor release 까지 구분한다.
 

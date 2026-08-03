@@ -1,12 +1,12 @@
 ---
-title: Bound Service는 IBinder 계약으로 클라이언트와 연결된다
+title: bound-service-exposes-process-dependency-and-ipc-api
 tags: [android, android/app-components, android/architecture]
 aliases: ["Bound Service는 IBinder 계약으로 클라이언트와 연결된다"]
-date modified: 2026-08-03 16:34:27 +09:00
+date modified: 2026-08-03 17:26:58 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Bound Service는 IBinder 계약으로 클라이언트와 연결된다
+## Bound Service 는 IBinder 계약으로 클라이언트와 연결된다
 
 Bound Service 는 클라이언트가 `bindService` 로 연결해 `IBinder` 를 통해 기능을 호출하는 컴포넌트다. 같은 프로세스 안에서는 local Binder 로 충분할 수 있고, 다른 프로세스와 안정적인 인터페이스를 맺어야 할 때 AIDL 을 검토한다.
 

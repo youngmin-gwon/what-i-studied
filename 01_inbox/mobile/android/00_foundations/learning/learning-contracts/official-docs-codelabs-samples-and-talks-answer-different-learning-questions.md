@@ -1,8 +1,8 @@
 ---
-title: "공식 문서, Codelab, sample, talk 는 서로 다른 학습 질문에 답한다"
+title: official-docs-codelabs-samples-and-talks-answer-different-learning-questions
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 16:33:55 +09:00
+date modified: 2026-08-03 17:20:55 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 

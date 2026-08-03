@@ -1,12 +1,12 @@
 ---
-title: 앱 컴포넌트 계약은 OS가 보는 진입점 경계를 설명한다
+title: app-component-contracts
 tags: [android, android/app-components, android/architecture]
 aliases: ["App Component Contracts"]
-date modified: 2026-08-03 16:34:27 +09:00
+date modified: 2026-08-03 17:26:56 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 앱 컴포넌트 계약은 OS가 보는 진입점 경계를 설명한다
+## 앱 컴포넌트 계약은 OS 가 보는 진입점 경계를 설명한다
 
 Activity, Service, BroadcastReceiver, ContentProvider 를 각각의 OS-visible contract 로 읽기 위한 정본 모음이다.
 
