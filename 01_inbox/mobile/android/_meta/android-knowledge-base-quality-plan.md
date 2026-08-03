@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-03 18:10:00 +09:00
+date modified: 2026-08-03 17:30:35 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -44,27 +44,27 @@ date created: 2026-08-03 16:20:03 +09:00
 - 재감사 당시 Background work 선택 모델에는 JobScheduler, user-initiated data transfer job, DownloadManager 와 task-specific API 가 빠져 있었다. Phase 0 에서 보강했다.
 - Batch D 의 Foundations 와 Platforms 에는 구현 예시와 실행 가능한 진단 절차가 거의 없다.
 
-### 독자 트랙과 전제 지식
+### 독자 경로와 전제 지식
 
-이전 버전은 "처음 읽는 사람"을 전제 지식 정의 없이 사용했다. 그러나 최종 목표 질문(Binder thread, SELinux, AppOps 등)과 Learning Spine 2 장(build/package/signing)은 이미 Kotlin/Java 문법, Android Studio 사용, 프로그래밍 기본 개념을 아는 독자를 전제한다. 이 간극을 명시하지 않으면 Coverage/Learning Gate 를 통과해도 실제로는 "완전 초심자"를 배제한 문서가 된다.
+이 지식 베이스에서 "초심자"는 프로그래밍이나 IDE 사용을 처음 배우는 사람이 아니라 **Android 생태계의 구성과 동작 관계를 처음 체계적으로 이해하려는 독자**를 뜻한다. Kotlin/Java 문법, Android Studio 설치, 버튼 위치, 첫 앱 따라 만들기 같은 일반 개발 입문 과정은 이 계획의 범위가 아니다.
 
-따라서 이 지식 베이스는 두 트랙으로 분리한다.
+독자 경로는 깊이로 나눈다.
 
-- **Track A. 앱 개발 입문 트랙** — 대상: 프로그래밍 또는 Android 개발 경험이 없는 독자. 전제 지식: 없음. 다루는 범위: Kotlin/Java 기초 문법, Android Studio 사용법, Gradle 기초, 첫 앱 실행까지의 최소 경로. **현재 이 계획의 범위 밖이며 별도 계획으로 존재하지 않는다.** vault 에 이 트랙 전용 문서가 없다는 사실을 명시적으로 기록해 두며, 이후 착수 여부는 별도로 결정한다.
-- **Track B. 내부 동작/AOSP 트랙** — 대상: Android Studio 로 앱을 최소 한 번 빌드·실행해 본 독자. 전제 지식: Kotlin/Java 기초 문법, 기본 OOP 개념, 앱을 실행해 본 경험. 다루는 범위: 이 문서의 Learning Spine 12 장, Worked Example, Diagnostic Runbook, Atomic Reference 전체와 기존 `01_system_internals`(AOSP/kernel/HAL) 를 포함한 585 개 노트.
+- **개념 Learning Spine**: Android 경험이 적은 독자가 AOSP, Google, OEM, SoC vendor, SDK, Jetpack, Google Play services, 앱 artifact, runtime 계층, system service, security, form factor와 배포의 관계를 순서대로 이해한다. 개별 API 사용법보다 주체, 소유권, 호출, identity, state와 update 경계를 설명한다.
+- **심화 reference와 진단 경로**: Learning Spine의 전체 모델을 바탕으로 AOSP/kernel/HAL, Binder, rendering, background policy, security gate, 성능과 배포 문제를 원자 노트와 runbook에서 깊게 확인한다.
 
-이 계획의 모든 Phase, 게이트, `최종 목표`, `지식 구조` 는 **Track B 기준**이다. "초심자"라는 표현이 이후 등장하면 Track A 가 아니라 "Android 개발 경험은 있으나 내부 동작은 모르는 독자"를 뜻한다.
+개념 경로는 세부 내부 동작을 생략하는 요약본이 아니다. 처음 접하는 독자가 원자 노트를 읽을 수 있도록 필요한 인과관계를 본문에서 직접 설명하는 정본이다. 심화 경로는 개념 경로를 대체하지 않으며, 개념 경로도 링크 목록으로 심화 설명을 떠넘기지 않는다.
 
 ### 최종 목표
 
-Android 지식 베이스(Track B)는 서로 다른 네 역할을 수행해야 한다.
+Android 지식 베이스는 개념 Learning Spine과 심화 reference를 통해 서로 다른 네 역할을 수행해야 한다.
 
-1. Android 앱 개발 경험이 있는 독자가 Android 의 전체 실행 모델을 순서대로 이해한다.
+1. Android 생태계 경험이 적은 독자가 Android의 전체 구성과 실행 모델을 순서대로 이해한다.
 2. 실제 기능과 장애를 end-to-end 로 추적하며 계층 사이 인과관계를 이해한다.
 3. 문제를 만났을 때 관찰 신호를 근거로 실패 경계를 좁힌다.
 4. 특정 판단이 필요할 때 짧은 원자 reference 로 빠르게 돌아온다.
 
-Track B 최종 사용자는 다음 질문에 자신의 말로 답할 수 있어야 한다.
+최종 사용자는 다음 질문에 자신의 말로 답할 수 있어야 한다.
 
 - APK/AAB 가 빌드, 서명, 설치된 뒤 앱 프로세스와 첫 Activity 가 어떻게 시작되는가?
 - Manifest, component, Intent, task, process, lifecycle 은 어떻게 연결되는가?
@@ -98,6 +98,8 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 12. Release, update, compatibility 와 form factor
 
 각 장은 선행 지식, 실제 메커니즘, end-to-end 흐름, 최소 예시, 확인 질문, 다음 장을 포함한다.
+
+현재 curriculum 준비 작업본은 [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에서 관리한다. 이 문서에는 생태계 개념 coverage matrix, 12장 후보 구조와 1장 `Android 생태계와 계약 surface`의 상세 outline이 있다.
 
 #### 2. Worked Examples
 
@@ -206,6 +208,16 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 - 포함하지 않는 영역을 밝힌다.
 - learning spine 과 주요 cluster 로 가는 경로가 있다.
 - 모든 링크를 복제하지 않고 차이와 선택 기준을 보여준다.
+
+#### 문서 작성 형식과 언어
+
+- frontmatter가 있는 모든 Markdown 문서는 닫는 `---` 다음의 첫 번째 비어 있지 않은 텍스트를 반드시 `##` 제목으로 작성한다.
+- 문서의 최상위 제목에 `#`을 사용하지 않는다. `##` 아래의 하위 구조는 `###`, `####` 순서로 작성한다.
+- 제목과 설명 문장은 한글을 기본으로 작성한다.
+- API, class, method, package, command, 도구, library, product, protocol처럼 번역하면 식별이나 정확성이 떨어지는 공식 용어는 영문을 유지한다.
+- 일반 개념은 가능한 한 한글로 설명하고, 필요한 경우 첫 등장에 `한글 설명(English term)` 형태로 병기한다.
+- `surface`, `lifetime`, `identity`, `state`, `artifact`, `boundary` 같은 영문 일반어를 장식적으로 반복하지 않는다. 문맥에 맞는 `접점`, `수명`, `식별 정보`, `상태`, `산출물`, `경계`를 우선 사용한다.
+- 코드 식별자와 명령은 원문 그대로 backtick으로 감싼다.
 
 ### 품질 등급
 
@@ -358,6 +370,7 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 - 12 개 필수 장의 순서와 prerequisite 를 먼저 설계한다.
 - 기존 원자 노트를 재료로 사용하되 링크 모음으로 끝내지 않는다.
 - 각 장에 하나 이상의 실제 흐름과 확인 질문을 넣는다.
+- 먼저 `Android 생태계와 계약 surface`에서 생태계 주체, API 접점, 산출물, update authority와 compatibility contract를 정의한다.
 - 우선 pilot 은 `Build/Install에서 앱 첫 frame까지` 로 한다.
 
 완료 조건:
@@ -552,11 +565,11 @@ semantic_grade_A_B_C_D
 
 ### 다음 액션
 
-1. System Services 와 Platforms 의 expand/rename 결정을 내린다.
-2. 12 장 Learning Spine 의 상세 목차와 확인 질문을 작성한다.
-3. `Build/Install에서 앱 첫 frame까지` pilot 을 작성한다.
-4. 독립 Reader/Research reviewer 와 사용자 검수를 통과시킨다.
-5. pilot 기준이 확정된 뒤에만 나머지 장과 폴더 pass 를 병렬화한다.
+1. 1장 `Android 생태계와 계약 surface` 상세 outline을 사용자와 독립 Reader/Research reviewer가 검수한다.
+2. 검수 결과를 반영해 1장 본문을 작성한다.
+3. `Build/Install에서 앱 첫 frame까지` pilot을 작성한다.
+4. pilot을 독립 Reader/Research reviewer와 사용자 검수에 통과시킨다.
+5. 1장과 pilot 기준이 확정된 뒤에만 나머지 장과 폴더 pass를 병렬화한다.
 
 ### 진행 기록
 
@@ -633,3 +646,11 @@ semantic_grade_A_B_C_D
 - 이름과 실제 내용이 충돌하지 않는다 → rename 대신 "확장 결정 + 공백 명시"로 임시 충족. 실제 신규 클러스터 작성 전까지 잠정적.
 
 상태: **Phase 1 taxonomy 결정 및 coverage matrix 작성 완료 / 신규 클러스터 저작은 Phase 2-3 이후 후속 작업으로 이월 / `01_system_internals`·`02_app_framework` 통합 map 신설 여부는 미결정으로 기록**
+
+#### Phase 2 준비. Android 생태계 개념 Learning Spine (2026-08-03)
+
+- [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에 생태계 개념 coverage matrix와 12장 후보 구조를 작성했다.
+- AOSP, Google, OEM/ODM, SoC vendor, Android platform API, NDK/JNI, Jetpack/AndroidX, Google Play services, Google Play와 installer의 소유·배포 경계를 분리했다.
+- 앱 산출물, 설치 identity, runtime 계층, 독립 수명, UI input/output, data recovery, security gate, system capability, form factor와 compatibility 축의 연결 공백을 기록했다.
+- 1장 `Android 생태계와 계약 surface`의 상세 outline, 핵심 도표, 대표 사례, 오해 교정과 독자 확인 질문을 작업본에 추가했다.
+- 상태: **Phase 2 준비 진행 중 / 1장 상세 목차 작성 및 Reader·Research 독립 검수 완료 / High·Medium 지적 수정 완료 / 1장 본문 미작성**
