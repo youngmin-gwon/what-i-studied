@@ -33,4 +33,4 @@ Android Auto는 휴대폰의 Android Auto 데스크톱 헤드유닛 에뮬레이
 ## 공식 문서
 
 - https://developer.android.com/training/cars
-- https://source.android.com/docs/automotive/start/what_is_android_automotive
+- https://source.android.com/docs/automotive/start/what_automotive

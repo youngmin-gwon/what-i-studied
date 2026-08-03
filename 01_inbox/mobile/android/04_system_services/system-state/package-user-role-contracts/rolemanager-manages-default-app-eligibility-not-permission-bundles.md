@@ -34,4 +34,4 @@ tags: ["android", "android/system-services"]
 ## 공식 문서
 
 - https://developer.android.com/reference/android/app/role/RoleManager
-- https://developer.android.com/guide/topics/permissions/default-apps
+- https://developer.android.com/reference/android/app/role/RoleManager

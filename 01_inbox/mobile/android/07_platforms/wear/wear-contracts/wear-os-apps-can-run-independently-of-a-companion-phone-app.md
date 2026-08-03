@@ -33,5 +33,5 @@ Wear OS 앱은 페어링된 휴대폰의 동반 앱 없이도 워치 단독(stan
 
 ## 공식 문서
 
-- https://developer.android.com/training/wearables/overview
+- https://developer.android.com/training/wearables
 - https://developer.android.com/training/wearables/data/data-layer

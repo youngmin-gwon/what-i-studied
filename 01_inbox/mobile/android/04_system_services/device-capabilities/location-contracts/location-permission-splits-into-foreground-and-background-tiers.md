@@ -21,7 +21,7 @@ foreground 권한만 있는 상태에서 앱이 백그라운드로 전환되면 
 ## 판단 기준
 
 - background 위치가 실제로 필요한 기능(지오펜싱, 백그라운드 트래킹)인지 먼저 검증한다. Play 정책은 background 위치 사용에 정당한 사유 설명을 요구하며, 불필요하게 요청하면 심사에서 거부될 수 있다.
-- foreground 권한과 background 권한을 한 번에 요청하지 않는다. 최신 OS에서는 함께 요청해도 시스템이 foreground만 부여하거나 요청 자체를 무시할 수 있다.
+- foreground 권한과 background 권한을 한 번에 요청하지 않는다. targetSdkVersion이 Android 11(API 30) 이상이면 두 권한을 동시에 요청할 경우 시스템이 요청 자체를 무시하고 foreground/background 어느 쪽도 부여하지 않는다.
 - 대상 SDK가 낮은 앱은 이 2단계 모델이 적용되지 않을 수 있으므로 `targetSdkVersion`을 함께 확인한다.
 
 ## 경계

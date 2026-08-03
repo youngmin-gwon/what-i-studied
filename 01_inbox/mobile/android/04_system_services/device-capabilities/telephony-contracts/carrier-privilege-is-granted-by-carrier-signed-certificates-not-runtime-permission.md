@@ -33,5 +33,5 @@ SIM 카드는 `ARA-M`/`ARF` 규격에 따라 신뢰할 특정 서명 인증서 �
 
 ## 공식 문서
 
-- https://source.android.com/docs/core/connect/uicc-carrier-privileges
+- https://source.android.com/docs/core/connect/uicc
 - https://developer.android.com/reference/android/telephony/TelephonyManager#hasCarrierPrivileges()

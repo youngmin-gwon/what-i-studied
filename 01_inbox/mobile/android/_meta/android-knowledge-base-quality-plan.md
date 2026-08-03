@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-03 17:30:35 +09:00
+date modified: 2026-08-03 18:45:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -84,22 +84,22 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 
 필수 장:
 
-1. Android 앱과 플랫폼의 전체 구조
-2. Build, package, signing, install
-3. Manifest 와 app component
-4. Intent, task, back stack, process
-5. Lifecycle, configuration change, process death, saved state
-6. Main thread, Looper, coroutine, Binder 와 concurrency
-7. UI state, View/Compose, rendering 과 frame
-8. Data ownership, persistence, network, offline recovery
-9. Permission, sandbox, AppOps 와 security boundary
-10. Background execution, notification 과 user-visible work
-11. Testing, debugging, performance measurement
-12. Release, update, compatibility 와 form factor
+1. Android 생태계와 계약 접점
+2. Android 플랫폼 실행 계층과 호출 경로
+3. 소스에서 설치된 패키지까지
+4. 매니페스트와 앱 컴포넌트
+5. 태스크, 프로세스, 수명주기와 상태
+6. 메인 스레드, Binder, 코루틴과 작업 수명
+7. 입력, 리소스와 화면 프레임
+8. 데이터, 저장소, 네트워크와 오프라인 복구
+9. 식별 정보, 권한과 보안 경계
+10. 시스템 기능과 백그라운드 실행
+11. 관찰, 테스트와 품질 피드백
+12. 호환성, 업데이트와 폼 팩터
 
 각 장은 선행 지식, 실제 메커니즘, end-to-end 흐름, 최소 예시, 확인 질문, 다음 장을 포함한다.
 
-현재 curriculum 준비 작업본은 [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에서 관리한다. 이 문서에는 생태계 개념 coverage matrix, 12장 후보 구조와 1장 `Android 생태계와 계약 surface`의 상세 outline이 있다.
+현재 교육과정 준비 작업본은 [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에서 관리한다. 이 문서에는 생태계 개념 범위표, 12장 구조와 1·2장의 상세 개요가 있다. 검수를 반영한 실제 본문은 [1장 Android 생태계와 계약 접점](../00_foundations/learning-spine/01-android-ecosystem-and-contract-surfaces.md)과 [2장 Android 플랫폼 실행 계층과 호출 경로](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md)에서 관리한다.
 
 #### 2. Worked Examples
 
@@ -370,7 +370,7 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 - 12 개 필수 장의 순서와 prerequisite 를 먼저 설계한다.
 - 기존 원자 노트를 재료로 사용하되 링크 모음으로 끝내지 않는다.
 - 각 장에 하나 이상의 실제 흐름과 확인 질문을 넣는다.
-- 먼저 `Android 생태계와 계약 surface`에서 생태계 주체, API 접점, 산출물, update authority와 compatibility contract를 정의한다.
+- 먼저 `Android 생태계와 계약 접점`에서 생태계 주체, API 접점, 산출물, 업데이트 권한과 호환성 계약을 정의한다.
 - 우선 pilot 은 `Build/Install에서 앱 첫 frame까지` 로 한다.
 
 완료 조건:
@@ -623,7 +623,7 @@ semantic_grade_A_B_C_D
 | `03_packaging_deployment` | 42 | 있음 (`android-packaging-deployment`) | build/sign/배포/CI 4 축 | 제목과 일치 |
 | `04_system_services` | 28 | 있음 (`android-system-services-and-device-capabilities`) | background-work, notification/FCM, assistant/agent, NFC 4 개뿐 | **제목(system services 전체)이 실제 범위(4 개 표면)보다 훨씬 넓음** |
 | `05_security_privacy` | 28 | 있음 (`android-security-and-privacy`) | integrity, permission/sandbox, platform-hardening, secure-storage, security-practices | 제목과 일치 |
-| `06_testing_performance` | 27 | 있음 (`android-performance-quality-and-build-optimization`, performance 하위) | performance/build 최적화 중심 | testing 비중 확인 필요 (이번 조사 범위 밖, 후속 확인 필요) |
+| `06_testing_performance` | 27 | 있음 (`android-performance-quality-and-build-optimization`, performance 하위) | performance-contracts(8)+benchmark-baseline-contracts(6), testing-quality-contracts(6), debugging-contracts(3) | **반대 방향 불일치**: 제목("성능, 품질, 빌드 최적화")이 실제보다 좁다. testing/debugging 클러스터가 이미 충실한데 제목에 드러나지 않는다 |
 | `07_platforms` | 27 | 있음 (`android-platforms-and-form-factors`) | large-screen, windowing, XR 3 개뿐 | **제목(폼팩터 전체)이 실제 범위보다 넓음. TV/Wear OS/Auto/ChromeOS 전무** |
 
 **System Services 와 Platforms 결정 (사용자 확정)**
@@ -638,7 +638,7 @@ semantic_grade_A_B_C_D
 **새로 발견된 taxonomy 문제**
 
 - `01_system_internals`(153 개)와 `02_app_framework`(227 개, vault 최대)에는 하위 클러스터 map 만 있고 폴더 전체를 조망하는 통합 진입 지도가 없다. `00/03/04/05/06/07`은 모두 통합 map 이 있어 구조가 비대칭적이다. Foundation map 에서 이 두 폴더로 진입할 때 어느 하위 클러스터부터 읽어야 하는지 판단할 단일 지점이 없다는 뜻이며, Graph Gate(2 단계 이내 도달)와 직결된다. Phase 6(Graph 재구성) 전에 두 폴더의 통합 map 신설 여부를 별도로 결정해야 한다.
-- `06_testing_performance`는 이번 조사에서 성능/빌드 최적화 편중 여부만 확인했고 testing 자체(단위/UI 테스트, 계측, CI 통합) 비중은 확인하지 못했다. 후속 확인 필요.
+- `06_testing_performance` testing 비중을 후속 조사했다(2026-08-03). 가설("성능/빌드 최적화 편중")은 사실이 아니었다. 실제로는 `testing`(6개: 테스트 레이어 선택 기준, unit/integration/UI/E2E 실패 신호 구분, Compose UI 테스트 selector, screenshot testing, flaky/regression, coroutine/flow 테스트)과 `debugging`(3개: ADB/에뮬레이터/실기기 매트릭스와 PR/nightly 배치, Gradle Managed Devices, logcat/crash/ANR/debugger 구분) 클러스터가 이미 개념적으로 충실하다. 대신 반대 방향 문제를 발견했다: 최상위 map 제목("Android 성능, 품질, 빌드 최적화 지도")이 이미 존재하는 testing/debugging 클러스터를 반영하지 못해 제목이 실제 범위보다 좁다(04/07 폴더와 반대 패턴). 추가로 확인된 실제 공백: CI/디바이스 팜 통합(Firebase Test Lab, 파이프라인 sharding)은 몇 문장씩만 산발적으로 언급되고 전용 클러스터가 없으며, 접근성 테스트(TalkBack 등)는 다루지 않는다. Phase 6(Graph 재구성) 또는 Phase 1 coverage 재검토 시 map 제목을 실제 범위(성능·테스트·디버깅·빌드 최적화)에 맞게 조정할지 결정이 필요하다.
 
 완료 조건 대비 상태:
 
@@ -647,10 +647,24 @@ semantic_grade_A_B_C_D
 
 상태: **Phase 1 taxonomy 결정 및 coverage matrix 작성 완료 / 신규 클러스터 저작은 Phase 2-3 이후 후속 작업으로 이월 / `01_system_internals`·`02_app_framework` 통합 map 신설 여부는 미결정으로 기록**
 
-#### Phase 2 준비. Android 생태계 개념 Learning Spine (2026-08-03)
+#### Phase 1 후속. system_services/platforms 신규 노트 표본 fact-check (2026-08-03)
 
-- [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에 생태계 개념 coverage matrix와 12장 후보 구조를 작성했다.
-- AOSP, Google, OEM/ODM, SoC vendor, Android platform API, NDK/JNI, Jetpack/AndroidX, Google Play services, Google Play와 installer의 소유·배포 경계를 분리했다.
-- 앱 산출물, 설치 identity, runtime 계층, 독립 수명, UI input/output, data recovery, security gate, system capability, form factor와 compatibility 축의 연결 공백을 기록했다.
-- 1장 `Android 생태계와 계약 surface`의 상세 outline, 핵심 도표, 대표 사례, 오해 교정과 독자 확인 질문을 작업본에 추가했다.
-- 상태: **Phase 2 준비 진행 중 / 1장 상세 목차 작성 및 Reader·Research 독립 검수 완료 / High·Medium 지적 수정 완료 / 1장 본문 미작성**
+1장 Learning Spine 본문 작성과 병행 가능한 작업으로, Phase 1에서 확장 작성한 `04_system_services`/`07_platforms` 13개 클러스터·52개 신규 노트에 계획의 리스크 대응란("최소 하나의 concrete API/state/command claim을 표본 대조한다")을 적용했다.
+
+- 버전·동작 종속적 주장 6건을 공식 1차 출처(WebFetch)로 표본 대조: 대략적 위치 permission 분리(Android 12) 확인, background 위치 permission 시스템 다이얼로그 제거(Android 11) 확인, 패키지 가시성 제한(Android 11) 확인, CredentialManager의 패스키/비밀번호/연동 로그인 통합 확인, carrier privilege의 UICC 인증서 해시 대조 메커니즘과 `hasCarrierPrivileges()` 확인. RoleManager의 Android 10 도입 시점은 공식 reference 페이지가 JS 렌더링이라 자동 도구로 재확인하지 못해 수동 확인이 필요한 항목으로 남겼다.
+- 사실 오류 1건 수정: `location-permission-splits-into-foreground-and-background-tiers.md`에서 "foreground/background 권한을 동시에 요청하면 시스템이 foreground만 부여할 수 있다"는 서술이 공식 문서("the system ignores the request and doesn't grant your app either permission")와 달랐다. 실제로는 두 권한 모두 거부됨으로 정정했다.
+- broken 외부 링크 5건 수정: RoleManager(잘못된 default-apps URL), FusedLocationProviderClient(developer.android.com이 아니라 developers.google.com 도메인), SubscriptionManager 노트의 존재하지 않는 multisim 가이드 링크(삭제), Android Automotive 개요(`what_is_android_automotive` → `what_automotive`), Wear OS 개요(`training/wearables/overview` → `training/wearables`).
+- 52개 신규 노트 전체의 외부 링크 68개를 재수집해 전수 재검증했다. 남은 broken link 0건.
+- 상태: **13개 클러스터 표본 fact-check 및 broken link 전수 수정 완료 / RoleManager 도입 시점 등 일부 항목은 수동 재확인 필요로 표시 / 나머지 39개 노트의 세부 주장 전수 검증은 미실시(표본 조사 범위)**
+
+#### Phase 2. Android 생태계 개념 Learning Spine (2026-08-03)
+
+- [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에 생태계 개념 범위표와 12장 후보 구조를 작성했다.
+- AOSP, Google, OEM/ODM, SoC 공급자, Android 플랫폼 API, NDK/JNI, Jetpack/AndroidX, Google Play services, Google Play와 설치 프로그램의 소유·배포 경계를 분리했다.
+- 앱 산출물, 설치 식별 정보, 실행 계층, 독립 수명, UI 입출력, 데이터 복구, 보안 관문, 시스템 기능, 폼 팩터와 호환성 축의 연결 공백을 기록했다.
+- 1장 `Android 생태계와 계약 접점`의 상세 개요, 핵심 도표, 대표 사례, 오해 교정과 독자 확인 질문을 작업본에 추가했다.
+- [1장 Android 생태계와 계약 접점](../00_foundations/learning-spine/01-android-ecosystem-and-contract-surfaces.md) 본문을 작성했다. AOSP·호환성·GMS, 생태계 주체, 플랫폼 API·Jetpack·Google Play services, 위치 기능 실패 사례와 새 기능 분류 질문을 하나의 개념 흐름으로 연결했다.
+- 실제 본문에 대해 독자 관점, 플랫폼 사실관계, 후속 실행 계층과의 장 경계를 독립 검수하고 High·Medium 지적을 수정했다.
+- 2장 `Android 플랫폼 실행 계층과 호출 경로`의 상세 개요와 [실제 본문](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md)을 작성했다. 로컬 호출, 시스템 서비스 호출, 하드웨어 기능 호출을 구분하고 센서 제어 요청과 이벤트 반환을 대표 흐름으로 연결했다.
+- 2장 실제 본문을 독자, 플랫폼 사실관계와 후속 장 경계 관점에서 독립 검수하고 지적 사항을 반영했다.
+- 상태: **Phase 2 진행 중 / 1장 완료 / 2장 본문 작성 및 독립 검수 완료 / High·Medium 지적 수정 완료 / 사용자 검수 대기**

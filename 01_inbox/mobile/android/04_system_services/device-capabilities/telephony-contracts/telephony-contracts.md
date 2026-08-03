@@ -32,4 +32,4 @@ tags: ["android", "android/system-services"]
 - [SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/subscriptionmanager-separates-logical-subscriptions-from-physical-slots.md)
 - [Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/carrier-privilege-is-granted-by-carrier-signed-certificates-not-runtime-permission.md)
 
-검증일: 2026-08-03. [TelephonyManager 문서](https://developer.android.com/reference/android/telephony/TelephonyManager)와 [Carrier privileges](https://source.android.com/docs/core/connect/uicc-carrier-privileges)를 기준으로 확인했다.
+검증일: 2026-08-03. [TelephonyManager 문서](https://developer.android.com/reference/android/telephony/TelephonyManager)와 [UICC carrier privileges](https://source.android.com/docs/core/connect/uicc)를 기준으로 확인했다.

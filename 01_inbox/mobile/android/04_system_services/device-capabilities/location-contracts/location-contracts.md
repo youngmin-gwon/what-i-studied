@@ -34,4 +34,4 @@ tags: ["android", "android/system-services"]
 - [위치 권한은 foreground와 background 두 단계로 나뉜다](01_inbox/mobile/android/04_system_services/device-capabilities/location-contracts/location-permission-splits-into-foreground-and-background-tiers.md)
 - [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](01_inbox/mobile/android/04_system_services/device-capabilities/location-contracts/precise-and-approximate-location-are-separate-permissions.md)
 
-검증일: 2026-08-03. [위치 데이터 접근 요청](https://developer.android.com/develop/sensors-and-location/location/permissions)과 [FusedLocationProviderClient 문서](https://developer.android.com/reference/com/google/android/gms/location/FusedLocationProviderClient)를 기준으로 확인했다.
+검증일: 2026-08-03. [위치 데이터 접근 요청](https://developer.android.com/develop/sensors-and-location/location/permissions)과 [FusedLocationProviderClient 문서](https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderClient)를 기준으로 확인했다.

@@ -34,4 +34,3 @@ tags: ["android", "android/system-services"]
 ## 공식 문서
 
 - https://developer.android.com/reference/android/telephony/SubscriptionManager
-- https://developer.android.com/guide/topics/connectivity/telecom/multisim
