@@ -1,12 +1,12 @@
 ---
-title: Composable compiler 출력은 재시작과 skip 제어를 가능하게 한다
+title: composable-compiler-output-enables-restart-and-skip-control
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Compose compiler, restartable, skippable]
-date modified: 2026-08-03 16:37:58 +09:00
+date modified: 2026-08-03 18:10:53 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Composable compiler 출력은 재시작과 skip 제어를 가능하게 한다
+## Composable compiler 출력은 재시작과 skip 제어를 가능하게 한다
 
 `@Composable` 은 단순한 marker 가 아니라 Compose compiler 가 Runtime 과 협력할 호출 문맥을 만들도록 한다. Compiler 는 Composable call graph, restart 가능성, skip 가능성, remember 위치 같은 정보를 Runtime 이 다룰 수 있는 형태로 바꾼다.
 

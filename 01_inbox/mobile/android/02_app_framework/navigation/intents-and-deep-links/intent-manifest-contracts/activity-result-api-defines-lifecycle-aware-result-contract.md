@@ -1,12 +1,12 @@
 ---
-title: Activity Result API는 lifecycle-aware 결과 반환 계약이다
+title: activity-result-api-defines-lifecycle-aware-result-contract
 tags: [android, android/intents, android/navigation]
 aliases: ["Activity Result API는 lifecycle-aware 결과 반환 계약이다"]
-date modified: 2026-08-03 16:36:27 +09:00
+date modified: 2026-08-03 18:11:34 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Activity Result API는 lifecycle-aware 결과 반환 계약이다
+## Activity Result API 는 lifecycle-aware 결과 반환 계약이다
 
 Activity Result API 는 다른 Activity 나 system UI 를 실행하고 typed result 를 받는 계약이다. `registerForActivityResult()` 는 callback 과 `ActivityResultContract` 를 등록하고, 반환된 launcher 가 실제 실행을 담당한다.
 

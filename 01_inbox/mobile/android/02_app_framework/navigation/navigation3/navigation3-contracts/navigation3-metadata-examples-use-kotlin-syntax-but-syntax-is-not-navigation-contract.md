@@ -1,12 +1,12 @@
 ---
-title: Navigation 3 metadata 예제의 Kotlin 문법은 navigation 계약이 아니다
+title: navigation3-metadata-examples-use-kotlin-syntax-but-syntax-is-not-navigation-contract
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Navigation 3 metadata 예제의 Kotlin 문법은 navigation 계약이 아니다"]
-date modified: 2026-08-03 16:37:08 +09:00
+date modified: 2026-08-03 18:12:02 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Navigation 3 metadata 예제의 Kotlin 문법은 navigation 계약이 아니다
+## Navigation 3 metadata 예제의 Kotlin 문법은 navigation 계약이 아니다
 
 Navigation 3 metadata 예제에는 `Map`, `Any`, `object`, `data object`, trailing lambda, infix function, `when`, operator overloading 같은 Kotlin 문법이 함께 등장한다. 이 문법은 예제를 읽기 위한 배경지식이지 navigation state 의 핵심 계약은 아니다.
 

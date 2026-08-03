@@ -1,13 +1,16 @@
 ---
-title: "Android 패키징과 배포 지도"
+title: android-packaging-deployment
 tags: ["android", "android/packaging-deployment"]
+aliases: []
+date modified: 2026-08-03 18:13:04 +09:00
+date created: 2026-07-31 17:52:17 +09:00
 ---
 
-# Android 패키징과 배포 지도
+## Android 패키징과 배포 지도
 
-이 지도는 Android 앱을 빌드 산출물로 만들고, 서명하고, Play를 통해 배포하고, 의존성·CI 변경을 운영하는 흐름을 네 축으로 나눈다.
+이 지도는 Android 앱을 빌드 산출물로 만들고, 서명하고, Play 를 통해 배포하고, 의존성·CI 변경을 운영하는 흐름을 네 축으로 나눈다.
 
-## 정본 노트
+### 정본 노트
 - [Gradle 빌드 계약](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-build-contracts.md)
 - [의존성, 버전, CI 계약](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)
 - [Play 릴리스와 배포 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/release-distribution-contracts.md)

@@ -1,12 +1,12 @@
 ---
-title: Android 딥 링크는 외부 URI 계약이다
+title: deep-link-is-external-uri-contract
 tags: [android, android/deep-links, android/navigation]
 aliases: ["Android 딥 링크는 외부 URI 계약이다"]
-date modified: 2026-08-03 16:36:21 +09:00
+date modified: 2026-08-03 18:11:26 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android 딥 링크는 외부 URI 계약이다
+## Android 딥 링크는 외부 URI 계약이다
 
 상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
 

@@ -1,13 +1,16 @@
 ---
-title: Android DI Map은 객체 수명과 프레임워크 경계를 정리하는 지도다
+title: android-dependency-injection-map
 tags: ["android", "android/app-framework"]
+aliases: []
+date modified: 2026-08-03 18:09:53 +09:00
+date created: 2026-08-03 16:59:23 +09:00
 ---
 
-# Android DI Map은 객체 수명과 프레임워크 경계를 정리하는 지도다
+## Android DI Map 은 객체 수명과 프레임워크 경계를 정리하는 지도다
 
-Android DI 문서는 프레임워크별 사용법 목록이 아니라 객체 graph, binding, lifetime, framework boundary를 정리하는 지도다.
+Android DI 문서는 프레임워크별 사용법 목록이 아니라 객체 graph, binding, lifetime, framework boundary 를 정리하는 지도다.
 
-## 읽는 순서
+### 읽는 순서
 
 1. [DI는 조립 경계다](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/dependency-injection-is-composition-boundary-not-global-object-access.md)
 2. [소비자는 생성자로 의존성을 요구한다](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/consumers-should-declare-dependencies-in-constructors.md)
@@ -15,14 +18,14 @@ Android DI 문서는 프레임워크별 사용법 목록이 아니라 객체 gra
 4. [Context는 graph lifetime과 맞춘다](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/android-context-in-di-must-match-graph-lifetime.md)
 5. [Hilt는 공식 Android Dagger 통합 경로다](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/hilt-is-official-android-dagger-integration.md)
 
-## Contract Groups
+### Contract Groups
 
 - Graph basics: constructor injection, provider method, binds, qualifier.
 - Android boundaries: Context, ViewModel, WorkManager, framework-created class.
 - Framework choices: Hilt/Dagger, Koin, Metro.
 - Project boundaries: tests, multi-module, DSL, dynamic feature.
 
-## Contracts
+### Contracts
 
 - [DI는 전역 객체 접근이 아니라 조립 경계다](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/dependency-injection-is-composition-boundary-not-global-object-access.md)
 - [소비자는 의존성을 생성하지 말고 생성자로 요구한다](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/consumers-should-declare-dependencies-in-constructors.md)

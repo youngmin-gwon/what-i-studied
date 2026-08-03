@@ -1,12 +1,12 @@
 ---
-title: 외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다
+title: external-uri-must-be-validated-before-navigation
 tags: [android, android/deep-links, android/navigation]
 aliases: ["외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다"]
-date modified: 2026-08-03 16:36:23 +09:00
+date modified: 2026-08-03 18:11:29 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다
+## 외부 URI 는 navigation 전에 allowlist 와 canonicalization 을 거쳐야 한다
 
 Deep Link 나 App Link 로 들어온 URI 는 곧바로 내부 route 로 쓰지 않는다. scheme, host, path, query parameter 를 allowlist 로 검증하고, percent encoding, trailing slash, case, path traversal 처럼 route matching 을 흔드는 표현을 canonicalize 한다.
 

@@ -1,13 +1,16 @@
 ---
-title: "무결성과 attestation 계약"
+title: integrity-contracts
 tags: ["android", "android/security-privacy"]
+aliases: []
+date modified: 2026-08-03 18:13:22 +09:00
+date created: 2026-08-01 00:03:59 +09:00
 ---
 
-# 무결성과 attestation 계약
+## 무결성과 attestation 계약
 
-무결성 검증은 앱, 기기, 계정, 요청의 위험 신호를 서버 판단에 제공하는 계층이다. 클라이언트가 받은 attestation token은 신뢰 결론이 아니라 서버 검증 입력으로 취급한다.
+무결성 검증은 앱, 기기, 계정, 요청의 위험 신호를 서버 판단에 제공하는 계층이다. 클라이언트가 받은 attestation token 은 신뢰 결론이 아니라 서버 검증 입력으로 취급한다.
 
-## 정본 노트
+### 정본 노트
 
 - [Play Integrity token은 서버가 검증하는 위험 신호이지 권한 자체가 아니다](01_inbox/mobile/android/05_security_privacy/integrity-and-attestation/integrity-contracts/play-integrity-token-is-server-verified-risk-signal-not-authorization.md)
 - [Verified Boot는 기기 소프트웨어의 chain of trust를 만든다](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/verified-boot-establishes-device-software-chain-of-trust.md)

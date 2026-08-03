@@ -1,13 +1,16 @@
 ---
-title: Compose 성능 계약
+title: compose-performance-contracts
 tags: ["android", "android/app-framework"]
+aliases: []
+date modified: 2026-08-03 18:10:41 +09:00
+date created: 2026-08-03 16:59:23 +09:00
 ---
 
-# Compose 성능 계약
+## Compose 성능 계약
 
 이 지도는 Compose 성능을 API 팁 목록이 아니라 recomposition, stability, composition work, layout/image 비용의 판단 단위로 나눈다.
 
-## 정본 노트
+### 정본 노트
 - [Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-starts-with-measure-debug-improve-loop.md)
 - [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md)
 - [derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/derivedstateof-is-for-high-frequency-derived-values.md)

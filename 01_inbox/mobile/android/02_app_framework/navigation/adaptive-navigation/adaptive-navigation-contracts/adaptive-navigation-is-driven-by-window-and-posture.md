@@ -1,12 +1,12 @@
 ---
-title: Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다
+title: adaptive-navigation-is-driven-by-window-and-posture
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다"]
-date modified: 2026-08-03 16:36:14 +09:00
+date modified: 2026-08-03 18:11:16 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다
+## Adaptive navigation 은 device type 이 아니라 현재 window 와 posture 로 결정한다
 
 Adaptive navigation 은 phone/tablet 같은 device label 보다 현재 app window 의 크기, posture, resizability, multi-window 상태를 기준으로 판단한다. 같은 device 라도 window 가 줄어들면 compact navigation 이 필요할 수 있다.
 

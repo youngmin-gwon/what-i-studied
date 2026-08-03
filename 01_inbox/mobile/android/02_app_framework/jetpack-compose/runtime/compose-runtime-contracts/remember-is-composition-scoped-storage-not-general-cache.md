@@ -1,12 +1,12 @@
 ---
-title: remember는 범용 캐시가 아니라 Composition 스코프 저장공간이다
+title: remember-is-composition-scoped-storage-not-general-cache
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [remember]
-date modified: 2026-08-03 16:46:00 +09:00
+date modified: 2026-08-03 18:11:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# remember는 범용 캐시가 아니라 Composition 스코프 저장공간이다
+## remember 는 범용 캐시가 아니라 Composition 스코프 저장공간이다
 
 `remember` 는 일반 memoization cache 가 아니라 Composition 의 특정 호출 위치에 귀속된 저장공간이다. Recomposition 사이에는 값을 유지하지만, 해당 call site 가 Composition 에서 제거되면 값도 잊힌다.
 

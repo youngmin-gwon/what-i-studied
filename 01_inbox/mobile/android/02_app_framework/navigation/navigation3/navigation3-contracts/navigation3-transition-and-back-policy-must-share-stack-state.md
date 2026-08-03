@@ -1,12 +1,12 @@
 ---
-title: Navigation 3 transition과 predictive back은 같은 stack state를 기준으로 해야 한다
+title: navigation3-transition-and-back-policy-must-share-stack-state
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Navigation 3 transition과 predictive back은 같은 stack state를 기준으로 해야 한다"]
-date modified: 2026-08-03 16:37:09 +09:00
+date modified: 2026-08-03 18:12:02 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Navigation 3 transition과 predictive back은 같은 stack state를 기준으로 해야 한다
+## Navigation 3 transition 과 predictive back 은 같은 stack state 를 기준으로 해야 한다
 
 Navigation animation 은 실제 navigation state 와 분리된 장식이 아니다. `NavDisplay` transition, pop transition, predictive back 중간 상태는 모두 같은 back stack 변경을 기준으로 움직여야 한다.
 

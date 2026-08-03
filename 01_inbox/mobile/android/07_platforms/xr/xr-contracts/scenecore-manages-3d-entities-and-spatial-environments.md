@@ -1,27 +1,30 @@
 ---
-title: "SceneCore는 3D entity와 공간 환경을 다루는 계층이다"
+title: scenecore-manages-3d-entities-and-spatial-environments
 tags: ["android", "android/platforms"]
+aliases: []
+date modified: 2026-08-03 18:15:23 +09:00
+date created: 2026-07-31 18:06:11 +09:00
 ---
 
-# SceneCore는 3D entity와 공간 환경을 다루는 계층이다
+## SceneCore 는 3D entity 와 공간 환경을 다루는 계층이다
 
 상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)
 
-SceneCore는 일반 화면 컴포저블을 배치하는 계층이 아니라 XR scene graph, entity, 3D model, spatial environment, spatial audio 같은 공간 객체를 다루는 계층이다.
+SceneCore 는 일반 화면 컴포저블을 배치하는 계층이 아니라 XR scene graph, entity, 3D model, spatial environment, spatial audio 같은 공간 객체를 다루는 계층이다.
 
-## 언제 쓰는가
+### 언제 쓰는가
 
 - 3D 모델을 UI 주변 또는 실제 공간 기준으로 배치해야 한다.
-- panel보다 낮은 수준에서 entity 이동, 크기 조절, anchor, component를 제어해야 한다.
+- panel 보다 낮은 수준에서 entity 이동, 크기 조절, anchor, component 를 제어해야 한다.
 - spatial audio, environment, perception 기반 위치 지정이 제품 경험의 일부다.
 
-## 경계
+### 경계
 
-Compose for XR은 UI 선언과 공간 layout에 적합하다. SceneCore는 UI가 아닌 공간 객체와 scene graph 조작이 필요할 때 선택한다.
+Compose for XR 은 UI 선언과 공간 layout 에 적합하다. SceneCore 는 UI 가 아닌 공간 객체와 scene graph 조작이 필요할 때 선택한다.
 
-SceneCore 객체는 `Session`에 귀속된다. session의 activity가 파괴되면 연결된 spatial UI와 3D content도 파괴되고 session은 더 이상 유효하지 않으므로, entity 참조를 application singleton처럼 보존하지 않는다. activity recreation과 현재 알려진 session invalidation 제약도 실제 구성 변경으로 검증한다.
+SceneCore 객체는 `Session` 에 귀속된다. session 의 activity 가 파괴되면 연결된 spatial UI 와 3D content 도 파괴되고 session 은 더 이상 유효하지 않으므로, entity 참조를 application singleton 처럼 보존하지 않는다. activity recreation 과 현재 알려진 session invalidation 제약도 실제 구성 변경으로 검증한다.
 
-## 관련 문서
+### 관련 문서
 
 - [Compose for XR은 기존 Compose를 subspace와 spatial component로 확장한다](01_inbox/mobile/android/07_platforms/xr/xr-contracts/compose-for-xr-extends-compose-with-subspace-and-spatial-components.md)
 - [XR 품질은 성능, 편안함, 안전을 기능 요구사항으로 포함한다](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-quality-includes-performance-comfort-and-safety.md)

@@ -1,12 +1,12 @@
 ---
-title: Android Intent와 IPC는 컴포넌트 실행과 외부 진입을 연결한다
+title: android-intent-and-ipc
 tags: [android, android/intents, android/navigation]
 aliases: ["Android Intent and IPC"]
-date modified: 2026-08-03 16:36:15 +09:00
+date modified: 2026-08-03 18:11:50 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android Intent와 IPC는 컴포넌트 실행과 외부 진입을 연결한다
+## Android Intent 와 IPC 는 컴포넌트 실행과 외부 진입을 연결한다
 
 Intent 문서는 앱 컴포넌트 실행 요청과 외부 진입 경계를 정리한다. Binder IPC 자체는 system internals 정본으로 두고, 여기서는 Intent, Manifest, exported, package visibility, PendingIntent, Activity Result API 를 다룬다.
 

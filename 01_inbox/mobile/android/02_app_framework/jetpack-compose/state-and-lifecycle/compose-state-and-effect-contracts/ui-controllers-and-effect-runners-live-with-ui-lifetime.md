@@ -1,12 +1,12 @@
 ---
-title: UI controller와 effect runner는 ViewModel이 아니라 UI 수명에 둔다
+title: ui-controllers-and-effect-runners-live-with-ui-lifetime
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:37:49 +09:00
+date modified: 2026-08-03 18:11:13 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
-# UI controller와 effect runner는 ViewModel이 아니라 UI 수명에 둔다
+## UI controller 와 effect runner 는 ViewModel 이 아니라 UI 수명에 둔다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 

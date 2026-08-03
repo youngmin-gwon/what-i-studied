@@ -1,12 +1,12 @@
 ---
-title: Compose UI는 상태의 선언적 함수다
+title: compose-ui-is-declarative-function-of-state
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Thinking in Compose, UI = f(state)]
-date modified: 2026-08-03 16:46:00 +09:00
+date modified: 2026-08-03 18:10:57 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Compose UI는 상태의 선언적 함수다
+## Compose UI 는 상태의 선언적 함수다
 
 Compose 에서 UI 는 기존 View 객체를 찾아 setter 로 수정하는 대상이 아니라, 현재 state 를 입력으로 계산되는 선언적 결과다. Composable 은 data 를 받아 UI hierarchy 를 emit 하고, state 가 바뀌면 Compose 가 필요한 함수를 다시 호출해 새 설명을 만든다.
 

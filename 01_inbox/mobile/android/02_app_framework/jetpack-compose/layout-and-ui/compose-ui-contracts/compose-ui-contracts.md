@@ -1,12 +1,12 @@
 ---
-title: Compose UI contracts
-tags: [android, jetpack-compose, compose/ui]
+title: compose-ui-contracts
+tags: [android, compose/ui, jetpack-compose]
 aliases: [Compose UI contracts]
-date modified: 2026-07-31 23:59:30 +09:00
+date modified: 2026-08-03 18:10:26 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# Compose UI contracts
+## Compose UI contracts
 
 - [Compose layout은 부모 제약 안에서 자식을 측정하고 배치한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/compose-layout-measures-children-under-parent-constraints.md)
 - [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/modifier-order-changes-layout-draw-and-input-wrappers.md)

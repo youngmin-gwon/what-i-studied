@@ -1,12 +1,12 @@
 ---
-title: Dynamic App Links는 선언 범위를 확장하지 않는다
+title: dynamic-app-links-refine-but-do-not-expand-manifest-scope
 tags: [android, android/deep-links, android/navigation]
 aliases: ["Dynamic App Links 는 선언 범위를 확장하지 않는다"]
-date modified: 2026-08-03 16:36:23 +09:00
+date modified: 2026-08-03 18:11:28 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Dynamic App Links는 선언 범위를 확장하지 않는다
+## Dynamic App Links 는 선언 범위를 확장하지 않는다
 
 상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
 

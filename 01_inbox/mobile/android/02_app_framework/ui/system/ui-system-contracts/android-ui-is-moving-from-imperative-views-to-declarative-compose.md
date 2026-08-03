@@ -1,12 +1,12 @@
 ---
-title: Android UI는 imperative View 에서 declarative Compose 로 중심이 이동했다
+title: android-ui-is-moving-from-imperative-views-to-declarative-compose
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:35:55 +09:00
+date modified: 2026-08-03 18:12:08 +09:00
 date created: 2026-07-31 23:38:40 +09:00
 ---
 
-# Android UI는 imperative View 에서 declarative Compose 로 중심이 이동했다
+## Android UI 는 imperative View 에서 declarative Compose 로 중심이 이동했다
 
 Android 의 기존 View System 은 화면 객체를 만들고 나중에 속성을 변경하는 imperative 모델이다. Jetpack Compose 는 현재 state 를 입력받아 UI 를 계산하는 declarative 모델이다.
 

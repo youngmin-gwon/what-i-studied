@@ -1,12 +1,12 @@
 ---
-title: DI는 전역 객체 접근이 아니라 조립 경계다
+title: dependency-injection-is-composition-boundary-not-global-object-access
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:30:37 +09:00
+date modified: 2026-08-03 18:09:24 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
-# DI는 전역 객체 접근이 아니라 조립 경계다
+## DI 는 전역 객체 접근이 아니라 조립 경계다
 
 Dependency Injection 의 핵심은 필요한 객체를 소비자가 직접 만들거나 전역 registry 에서 꺼내지 않고, 바깥 조립 경계에서 연결해 넣는 것이다. 이렇게 해야 객체 생성 정책, 테스트 대체, lifetime 이 사용 코드와 분리된다.
 

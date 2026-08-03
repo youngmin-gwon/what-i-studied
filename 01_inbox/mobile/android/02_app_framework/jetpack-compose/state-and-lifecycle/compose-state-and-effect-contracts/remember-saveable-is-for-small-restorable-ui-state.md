@@ -1,12 +1,12 @@
 ---
-title: Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다
+title: remember-saveable-is-for-small-restorable-ui-state
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:37:41 +09:00
+date modified: 2026-08-03 18:11:10 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
-# Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다
+## Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable 을 사용한다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 

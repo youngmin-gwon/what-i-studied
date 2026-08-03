@@ -1,12 +1,12 @@
 ---
-title: Composition은 호출 위치 식별자(Callsite Identity)를 사용해 remember 값을 보존한다
+title: composition-uses-callsite-identity-to-preserve-remembered-values
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [positional memoization, Slot Table]
-date modified: 2026-08-03 16:46:00 +09:00
+date modified: 2026-08-03 18:10:58 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Composition은 호출 위치 식별자(Callsite Identity)를 사용해 remember 값을 보존한다
+## Composition 은 호출 위치 식별자(Callsite Identity)를 사용해 remember 값을 보존한다
 
 Composition 은 Composable 호출의 위치와 구조를 이용해 `remember` 값, group, node 관계를 보존한다. 같은 `remember` 코드라도 호출 위치가 다르면 서로 다른 저장공간이 된다.
 

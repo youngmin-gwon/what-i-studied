@@ -1,12 +1,12 @@
 ---
-title: Intent extras와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다
+title: intent-inputs-need-explicit-type-and-trust-boundaries
 tags: [android, android/intents, android/navigation]
 aliases: ["Intent extras와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다"]
-date modified: 2026-08-03 16:36:38 +09:00
+date modified: 2026-08-03 18:11:45 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Intent extras와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다
+## Intent extras 와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다
 
 외부 앱이나 system 에서 들어온 Intent 는 내부 함수 호출과 같은 신뢰 수준이 아니다. `extras`, `data` URI, MIME type, `ClipData`, URI permission grant flag 는 서로 다른 입력 경계이며 각각 타입과 출처를 확인해야 한다.
 

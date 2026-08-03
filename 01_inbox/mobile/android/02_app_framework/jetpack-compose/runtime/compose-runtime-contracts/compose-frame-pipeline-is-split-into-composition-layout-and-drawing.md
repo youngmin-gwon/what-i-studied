@@ -1,12 +1,12 @@
 ---
-title: Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다
+title: compose-frame-pipeline-is-split-into-composition-layout-and-drawing
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Compose phases]
-date modified: 2026-08-03 16:46:00 +09:00
+date modified: 2026-08-03 18:10:53 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다
+## Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다
 
 Compose 가 frame 을 만들 때의 큰 단계는 composition, layout, drawing 이다. Composition 은 무엇을 보여줄지 결정하고, layout 은 측정과 배치를 수행하며, drawing 은 화면에 그릴 내용을 만든다.
 

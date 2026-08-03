@@ -1,12 +1,12 @@
 ---
-title: Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다
+title: navigation3-back-stack-needs-saveable-restoration
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다"]
-date modified: 2026-08-03 16:37:05 +09:00
+date modified: 2026-08-03 18:12:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다
+## Navigation 3 back stack 은 저장 가능한 navigation state 로 복원해야 한다
 
 Navigation 3 에서는 앱이 back stack 을 소유한다. 따라서 configuration change 와 process death 뒤에도 사용자가 있던 navigation 위치를 복원하려면 saveable back stack 전략이 필요하다.
 

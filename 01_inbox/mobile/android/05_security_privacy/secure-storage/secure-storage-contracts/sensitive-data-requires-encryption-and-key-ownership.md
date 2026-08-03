@@ -1,20 +1,20 @@
 ---
-title: 민감 데이터는 암호화와 키 소유권을 요구한다
+title: sensitive-data-requires-encryption-and-key-ownership
 tags: []
 aliases: []
-date modified: 2026-07-31 18:18:05 +09:00
+date modified: 2026-08-03 18:14:30 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
-# 민감 데이터는 암호화와 키 소유권을 요구한다
+## 민감 데이터는 암호화와 키 소유권을 요구한다
 
-## Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다
+### Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다
 
 상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+
 관련 노트: [Android Keystore 키는 비추출성으로 보호한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/android-keystore-protects-keys-by-non-exportability.md), [Android 저장소는 데이터 수명과 소유권으로 선택한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md)
 
-
-### 핵심 주장
+#### 핵심 주장
 
 민감 데이터를 안전하게 저장한다는 말은 파일을 암호화한다는 뜻만이 아니다.
 
@@ -22,7 +22,7 @@ date created: 2026-07-31 17:04:40 +09:00
 
 암호문과 키가 같은 보호 경계에 있으면 파일 암호화만으로는 충분하지 않다.
 
-### 왜 두 조건이 필요한가
+#### 왜 두 조건이 필요한가
 
 - 평문 저장은 저장소를 읽을 수 있는 공격자에게 즉시 노출된다.
 - 앱 전용 디렉터리는 접근 범위를 줄이지만, 기기 탈취나 백업·디버깅 위험을 없애지는 않는다.
@@ -30,7 +30,7 @@ date created: 2026-07-31 17:04:40 +09:00
 - SharedPreferences 나 DataStore 는 그 자체로 암호화 키 관리 시스템이 아니다.
 - 따라서 민감한 값은 암호화하고, 키는 데이터와 다른 신뢰 경계에 둬야 한다.
 
-### 권장 경계
+#### 권장 경계
 
 1. 앱은 민감한 평문을 가능한 짧게 메모리에 유지한다.
 2. 암호키는 [Android Keystore](https://developer.android.com/privacy-and-security/keystore) 에 생성한다.
@@ -38,14 +38,14 @@ date created: 2026-07-31 17:04:40 +09:00
 4. 키 사용 목적과 인증 조건은 키 생성 시점에 고정한다.
 5. 서버가 발급한 비밀은 앱에 영구 저장할 필요가 없는지 먼저 검토한다.
 
-### 데이터 분류
+#### 데이터 분류
 
 - 액세스 토큰, 리프레시 토큰, 개인 식별 정보는 민감 데이터로 분류한다.
 - 서명 키나 복호화 키는 일반 데이터보다 높은 보호 수준으로 분류한다.
 - 화면 표시용 설정이나 캐시처럼 재생성 가능한 값은 같은 수준으로 다루지 않는다.
 - 비밀이 아닌 값까지 암호화하면 운영과 마이그레이션 복잡도가 불필요하게 커질 수 있다.
 
-### 키 소유권의 의미
+#### 키 소유권의 의미
 
 키 소유권은 사용자나 서버의 소유권과 다르다.
 
@@ -55,7 +55,7 @@ Keystore 키는 앱이 원본 바이트를 직접 소유하지 않고, Keystore 
 
 이 구조는 키가 유출되는 경로를 줄이지만, 인증된 앱 프로세스가 평문을 다루는 순간까지 보호하지는 않는다.
 
-### 설계 질문
+#### 설계 질문
 
 - 이 값은 서버에서 다시 발급받을 수 있는가?
 - 앱 삭제나 기기 변경 후에도 복원되어야 하는가?
@@ -63,7 +63,7 @@ Keystore 키는 앱이 원본 바이트를 직접 소유하지 않고, Keystore 
 - 백업 대상에서 제외해야 하는가?
 - 키를 잃었을 때 데이터 복구가 가능한가?
 
-### 결론
+#### 결론
 
 암호화 알고리즘 선택보다 먼저 데이터의 수명과 키의 소유 경계를 정한다.
 

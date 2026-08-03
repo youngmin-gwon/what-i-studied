@@ -1,12 +1,12 @@
 ---
-title: 명시적 Intent와 암시적 Intent를 선택하는 기준
+title: explicit-intent-targets-known-component-implicit-intent-declares-capability
 tags: [android, android/intents, android/navigation]
 aliases: ["명시적 Intent와 암시적 Intent를 선택하는 기준"]
-date modified: 2026-08-03 16:36:29 +09:00
+date modified: 2026-08-03 18:11:36 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 명시적 Intent와 암시적 Intent를 선택하는 기준
+## 명시적 Intent 와 암시적 Intent 를 선택하는 기준
 
 상위 문서: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
 

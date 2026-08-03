@@ -1,12 +1,12 @@
 ---
-title: snapshotFlow는 Compose 상태를 Cold Flow로 변환한다
+title: snapshot-flow-converts-compose-state-to-cold-flow
 tags: [android, compose/state, jetpack-compose]
 aliases: [snapshotFlow]
-date modified: 2026-08-03 16:37:46 +09:00
+date modified: 2026-08-03 18:11:12 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# snapshotFlow는 Compose 상태를 Cold Flow로 변환한다
+## snapshotFlow 는 Compose 상태를 Cold Flow 로 변환한다
 
 `snapshotFlow` 는 block 안에서 읽은 Compose `State` 를 관찰해 cold `Flow` 로 바꾸는 adapter 다. Flow 가 collect 될 때 block 이 실행되고, 읽은 state 가 바뀌어 새 결과가 이전 결과와 다르면 값을 emit 한다.
 

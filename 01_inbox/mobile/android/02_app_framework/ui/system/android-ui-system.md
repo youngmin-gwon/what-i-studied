@@ -2,7 +2,7 @@
 title: android-ui-system
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:36:06 +09:00
+date modified: 2026-08-03 18:12:13 +09:00
 date created: 2026-04-06 18:49:26 +09:00
 ---
 

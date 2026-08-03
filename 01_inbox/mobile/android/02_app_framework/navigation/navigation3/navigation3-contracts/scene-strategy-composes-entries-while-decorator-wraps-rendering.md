@@ -1,12 +1,12 @@
 ---
-title: SceneStrategy는 entry를 조합하고 SceneDecorator는 렌더링을 감싼다
+title: scene-strategy-composes-entries-while-decorator-wraps-rendering
 tags: [android, android/navigation, android/navigation3]
 aliases: ["SceneStrategy는 entry를 조합하고 SceneDecorator는 렌더링을 감싼다"]
-date modified: 2026-08-03 16:37:11 +09:00
+date modified: 2026-08-03 18:12:05 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# SceneStrategy는 entry를 조합하고 SceneDecorator는 렌더링을 감싼다
+## SceneStrategy 는 entry 를 조합하고 SceneDecorator 는 렌더링을 감싼다
 
 Navigation 3 에서 SceneStrategy 는 back stack 의 어떤 entry 들을 어떤 scene 으로 보여줄지 결정하는 확장 지점이다. Adaptive layout 이나 multi-pane 표시처럼 여러 entry 를 함께 읽는 정책은 strategy 쪽 책임이다.
 

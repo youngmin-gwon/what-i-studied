@@ -2,7 +2,7 @@
 title: ui-system-contracts
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:36:02 +09:00
+date modified: 2026-08-03 18:12:11 +09:00
 date created: 2026-07-31 23:38:40 +09:00
 ---
 

@@ -1,13 +1,16 @@
 ---
-title: "Android 보안과 개인정보 지도"
+title: android-security-and-privacy
 tags: ["android", "android/security-privacy"]
+aliases: []
+date modified: 2026-08-03 18:14:47 +09:00
+date created: 2026-08-01 00:03:59 +09:00
 ---
 
-# Android 보안과 개인정보 지도
+## Android 보안과 개인정보 지도
 
-Android 보안 문서는 권한, sandbox, platform hardening, app integrity, secure storage를 서로 다른 경계로 나눠 읽는다. 한 계층이 다른 계층을 대체하지 않으므로 사용자 승인, 프로세스 격리, 부팅 무결성, 서버 검증, 키 관리의 책임을 분리한다.
+Android 보안 문서는 권한, sandbox, platform hardening, app integrity, secure storage 를 서로 다른 경계로 나눠 읽는다. 한 계층이 다른 계층을 대체하지 않으므로 사용자 승인, 프로세스 격리, 부팅 무결성, 서버 검증, 키 관리의 책임을 분리한다.
 
-## 정본 지도
+### 정본 지도
 
 - [Android 권한 계약](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md)
 - [Android 플랫폼 보안 경계 계약](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/platform-security-contracts.md)

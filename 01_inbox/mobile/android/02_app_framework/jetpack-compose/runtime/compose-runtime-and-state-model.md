@@ -2,7 +2,7 @@
 title: compose-runtime-and-state-model
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Compose mental model, Compose Runtime]
-date modified: 2026-08-03 16:37:55 +09:00
+date modified: 2026-08-03 18:11:02 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 

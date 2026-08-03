@@ -1,12 +1,12 @@
 ---
-title: Navigation 3 계약
+title: navigation3-contracts
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Navigation 3 계약"]
-date modified: 2026-08-03 16:37:05 +09:00
+date modified: 2026-08-03 18:12:01 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Navigation 3 계약
+## Navigation 3 계약
 
 ### Navigation 3 계약
 

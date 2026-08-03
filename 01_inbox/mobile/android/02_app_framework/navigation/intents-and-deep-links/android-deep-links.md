@@ -1,12 +1,12 @@
 ---
-title: Android Deep Link는 외부 URI를 앱 내부 destination으로 들어오게 하는 계약이다
+title: android-deep-links
 tags: [android, android/intents, android/navigation]
 aliases: ["Android Deep Links"]
-date modified: 2026-08-03 16:36:44 +09:00
+date modified: 2026-08-03 18:11:04 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android Deep Link는 외부 URI를 앱 내부 destination으로 들어오게 하는 계약이다
+## Android Deep Link 는 외부 URI 를 앱 내부 destination 으로 들어오게 하는 계약이다
 
 Android Deep Link 문서는 외부 URI 가 앱 내부 destination 으로 들어오는 계약을 정리한다. 핵심은 URI 수신, 검증, 인증 상태, back stack 구성, App Link verification 을 분리하는 것이다.
 

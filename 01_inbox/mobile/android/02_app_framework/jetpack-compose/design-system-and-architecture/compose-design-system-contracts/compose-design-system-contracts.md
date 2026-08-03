@@ -1,12 +1,12 @@
 ---
-title: Compose Design System 계약은 계층과 모듈 경계를 다룬다
-tags: [android, jetpack-compose, compose/design-system]
+title: compose-design-system-contracts
+tags: [android, compose/design-system, jetpack-compose]
 aliases: [Compose design system contracts]
-date modified: 2026-07-31 23:59:30 +09:00
+date modified: 2026-08-03 18:09:56 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# Compose Design System 계약은 계층과 모듈 경계를 다룬다
+## Compose Design System 계약은 계층과 모듈 경계를 다룬다
 
 - [Compose는 상위 컴포넌트가 맞지 않을 때 낮은 계층으로 내려갈 수 있게 설계됐다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-layers-let-you-drop-down-when-higher-level-components-do-not-fit.md)
 - [Compose 모듈 경계는 의존성 범위와 교체 비용을 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-module-boundaries-expose-dependency-scope-and-replacement-cost.md)

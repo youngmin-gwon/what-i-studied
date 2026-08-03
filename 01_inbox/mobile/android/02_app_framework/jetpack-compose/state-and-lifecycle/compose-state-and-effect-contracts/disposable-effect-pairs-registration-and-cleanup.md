@@ -1,12 +1,12 @@
 ---
-title: 등록과 해제가 쌍인 작업은 DisposableEffect 로 관리한다
+title: disposable-effect-pairs-registration-and-cleanup
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:37:34 +09:00
+date modified: 2026-08-03 18:11:07 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
-# 등록과 해제가 쌍인 작업은 DisposableEffect 로 관리한다
+## 등록과 해제가 쌍인 작업은 DisposableEffect 로 관리한다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 

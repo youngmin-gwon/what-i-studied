@@ -1,12 +1,12 @@
 ---
-title: Navigation 3 route key는 UI 클래스가 아니라 안정적인 직렬화 식별자다
+title: route-key-should-be-stable-and-serializable
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Navigation 3 route key는 UI 클래스가 아니라 안정적인 직렬화 식별자다"]
-date modified: 2026-08-03 16:37:10 +09:00
+date modified: 2026-08-03 18:12:05 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Navigation 3 route key는 UI 클래스가 아니라 안정적인 직렬화 식별자다
+## Navigation 3 route key 는 UI 클래스가 아니라 안정적인 직렬화 식별자다
 
 Navigation 3 의 key 는 특정 Composable class 가 아니라 destination 을 식별하는 navigation state 다. key 는 equality 가 안정적이어야 하고, 필요한 argument 만 포함해야 하며, 저장/복원과 deep link 변환을 견딜 수 있어야 한다.
 

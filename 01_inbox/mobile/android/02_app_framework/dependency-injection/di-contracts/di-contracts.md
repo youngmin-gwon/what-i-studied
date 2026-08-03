@@ -1,9 +1,12 @@
 ---
-title: DI 계약은 전역 객체 접근이 아니라 조립 경계다
+title: di-contracts
 tags: ["android", "android/app-framework"]
+aliases: []
+date modified: 2026-08-03 18:09:24 +09:00
+date created: 2026-08-03 16:59:23 +09:00
 ---
 
-# DI 계약은 전역 객체 접근이 아니라 조립 경계다
+## DI 계약은 전역 객체 접근이 아니라 조립 경계다
 
 - [DI는 전역 객체 접근이 아니라 조립 경계다](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/dependency-injection-is-composition-boundary-not-global-object-access.md)
 - [소비자는 의존성을 생성하지 말고 생성자로 요구한다](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/consumers-should-declare-dependencies-in-constructors.md)

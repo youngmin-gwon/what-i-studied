@@ -1,12 +1,12 @@
 ---
-title: rememberUpdatedState는 effect를 최신 값으로 유지한다
+title: remember-updated-state-keeps-effect-on-latest-value
 tags: [android, compose/state, jetpack-compose]
 aliases: [rememberUpdatedState]
-date modified: 2026-08-03 16:37:43 +09:00
+date modified: 2026-08-03 18:11:10 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# rememberUpdatedState는 effect를 최신 값으로 유지한다
+## rememberUpdatedState 는 effect 를 최신 값으로 유지한다
 
 `rememberUpdatedState` 는 long-lived effect 를 재시작하지 않으면서 effect 내부에서 최신 값을 읽어야 할 때 쓴다. 대표적인 경우는 timeout, lifecycle observer, 외부 callback 등록처럼 수명은 유지하되 callback lambda 만 최신이어야 하는 작업이다.
 

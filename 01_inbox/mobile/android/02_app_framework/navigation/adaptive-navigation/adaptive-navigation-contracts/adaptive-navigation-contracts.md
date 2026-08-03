@@ -1,12 +1,12 @@
 ---
-title: Adaptive Navigation 계약
+title: adaptive-navigation-contracts
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Adaptive Navigation 계약"]
-date modified: 2026-08-03 16:36:13 +09:00
+date modified: 2026-08-03 18:11:15 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Adaptive Navigation 계약
+## Adaptive Navigation 계약
 
 Adaptive Navigation 은 화면 크기와 입력 환경에 따라 app chrome 과 content 배치를 바꾸는 문제다. Navigation 3 의 back stack 상태와 adaptive scaffold 의 표시 정책을 분리해서 읽는다.
 

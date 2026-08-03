@@ -1,13 +1,16 @@
 ---
-title: "Android 권한 계약"
+title: permission-contracts
 tags: ["android", "android/security-privacy"]
+aliases: []
+date modified: 2026-08-03 18:13:28 +09:00
+date created: 2026-08-01 00:03:59 +09:00
 ---
 
-# Android 권한 계약
+## Android 권한 계약
 
 Android 권한은 sandbox 밖의 데이터나 기능에 접근하기 위한 사용자·시스템 승인 계약이다. 권한 선언, 런타임 요청, 특수 접근, AppOps, UX 설명, 디버깅을 별도 책임으로 나눈다.
 
-## 정본 노트
+### 정본 노트
 
 - [Permission protection level은 접근 승인 주체를 정의한다](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-protection-level-defines-who-can-grant-access.md)
 - [Runtime permission은 사용자에게 기능 사용 시점에 요청하는 접근 계약이다](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/runtime-permission-is-user-mediated-access-contract.md)

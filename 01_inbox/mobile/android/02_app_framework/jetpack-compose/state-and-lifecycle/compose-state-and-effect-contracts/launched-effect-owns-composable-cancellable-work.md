@@ -1,12 +1,12 @@
 ---
-title: Composable과 함께 취소되어야 하는 작업은 LaunchedEffect 로 시작한다
+title: launched-effect-owns-composable-cancellable-work
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:37:37 +09:00
+date modified: 2026-08-03 18:11:07 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
-# Composable과 함께 취소되어야 하는 작업은 LaunchedEffect 로 시작한다
+## Composable 과 함께 취소되어야 하는 작업은 LaunchedEffect 로 시작한다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 

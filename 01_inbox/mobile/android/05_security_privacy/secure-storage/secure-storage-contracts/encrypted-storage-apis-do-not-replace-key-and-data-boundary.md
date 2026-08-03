@@ -1,26 +1,26 @@
 ---
-title: 암호화 저장소 API는 키와 데이터 경계 설계를 대체하지 않는다
+title: encrypted-storage-apis-do-not-replace-key-and-data-boundary
 tags: []
 aliases: []
-date modified: 2026-07-31 18:18:45 +09:00
+date modified: 2026-08-03 18:14:28 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
-# 암호화 저장소 API는 키와 데이터 경계 설계를 대체하지 않는다
+## 암호화 저장소 API 는 키와 데이터 경계 설계를 대체하지 않는다
 
-## EncryptedSharedPreferences, DataStore, Room 의 보안 경계를 구분한다
+### EncryptedSharedPreferences, DataStore, Room 의 보안 경계를 구분한다
 
 상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+
 관련 노트: [DataStore는 작은 설정과 현재 상태를 저장한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/datastore-stores-small-settings-and-current-state.md), [Room은 누적되고 조회되는 로컬 데이터를 저장한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/room-stores-accumulated-queryable-local-data.md)
 
-
-### 핵심 주장
+#### 핵심 주장
 
 저장소 API 는 데이터 모델과 접근 방식을 결정하지만, 모든 저장소가 같은 보안 수준을 제공하지는 않는다.
 
 민감도, 검색 필요성, 트랜잭션 요구, 백업 정책을 기준으로 저장소를 선택해야 한다.
 
-### EncryptedSharedPreferences
+#### EncryptedSharedPreferences
 
 `EncryptedSharedPreferences` 는 키와 값의 저장을 암호화하는 고수준 선택지다.
 
@@ -32,7 +32,7 @@ date created: 2026-07-31 17:04:40 +09:00
 
 암호화된 파일도 백업, 로그, 메모리 노출 문제까지 자동으로 해결하지는 않는다.
 
-### DataStore
+#### DataStore
 
 DataStore 는 SharedPreferences 의 비동기 대안으로 설정과 작은 상태를 저장한다.
 
@@ -44,7 +44,7 @@ DataStore 라는 이름만으로 민감 데이터 암호화가 보장되는 것�
 
 작은 설정값과 단일 상태에는 적합하지만, 임의 조건 검색이 핵심이면 다른 선택을 검토한다.
 
-### Room
+#### Room
 
 Room 은 SQLite 데이터베이스에 구조화된 데이터를 저장하고 쿼리·트랜잭션을 제공한다.
 
@@ -56,14 +56,14 @@ Room 도 기본적으로 데이터베이스 전체를 민감 정보 저장소로
 
 검색해야 하는 컬럼을 암호화하면 평문 검색이 어려워질 수 있으므로 요구사항을 먼저 정한다.
 
-### 선택 기준
+#### 선택 기준
 
 - 소량의 비밀 key-value: Keystore 와 암호화 저장소 조합
 - 앱 설정과 작은 상태: DataStore, 단 민감 값은 추가 보호
 - 관계형 데이터와 쿼리: Room, 필요한 필드와 DB 보호 수준을 명시
 - 재생성 가능한 캐시: 암호화보다 만료·삭제·백업 제외 정책을 우선 검토
 
-### 공통 검증 목록
+#### 공통 검증 목록
 
 저장소를 고르기 전에 평문이 디스크에 남는지 확인한다.
 
@@ -75,7 +75,7 @@ Room 도 기본적으로 데이터베이스 전체를 민감 정보 저장소로
 
 테스트 로그와 스냅샷에 실제 민감 데이터가 들어가지 않게 한다.
 
-### 결론
+#### 결론
 
 저장소 선택은 편의 API 선택이 아니라 보안 경계 선택이다.
 

@@ -1,12 +1,12 @@
 ---
-title: RecyclerView와 LazyColumn은 같은 목록 문제를 푸는 다른 렌더링 계약이다
+title: recyclerview-and-lazycolumn-are-list-rendering-patterns-not-identical-apis
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:36:00 +09:00
+date modified: 2026-08-03 18:12:11 +09:00
 date created: 2026-07-31 23:38:40 +09:00
 ---
 
-# RecyclerView와 LazyColumn은 같은 목록 문제를 푸는 다른 렌더링 계약이다
+## RecyclerView 와 LazyColumn 은 같은 목록 문제를 푸는 다른 렌더링 계약이다
 
 `RecyclerView` 와 `LazyColumn` 은 둘 다 큰 목록을 효율적으로 보여주기 위한 도구지만 같은 API 의 포팅 버전은 아니다. RecyclerView 는 ViewHolder 재사용과 adapter mutation 을 중심으로 동작하고, LazyColumn 은 item key, state, composition 을 중심으로 동작한다.
 

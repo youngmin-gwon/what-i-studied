@@ -1,12 +1,12 @@
 ---
-title: Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다
+title: pane-layout-preserves-selection-and-back-policy
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다"]
-date modified: 2026-08-03 16:36:15 +09:00
+date modified: 2026-08-03 18:11:17 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다
+## Pane layout 은 선택 상태와 back policy 를 분리해 보존해야 한다
 
 List-detail 이나 supporting pane layout 에서는 보이는 pane 수와 선택된 content state 가 같은 것이 아니다. Expanded window 에서는 list 와 detail 을 동시에 보여줄 수 있지만 compact window 에서는 같은 선택 상태를 단일 pane navigation 으로 표현해야 한다.
 

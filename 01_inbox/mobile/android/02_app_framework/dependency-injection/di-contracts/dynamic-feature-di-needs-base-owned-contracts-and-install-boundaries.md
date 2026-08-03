@@ -1,12 +1,12 @@
 ---
-title: Dynamic feature DI는 base-owned contract와 install boundary를 분리해야 한다
+title: dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:31:04 +09:00
+date modified: 2026-08-03 18:09:27 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
-# Dynamic feature DI는 base-owned contract와 install boundary를 분리해야 한다
+## Dynamic feature DI 는 base-owned contract 와 install boundary 를 분리해야 한다
 
 Dynamic feature module 은 필요할 때 설치되는 선택 feature unit 이다. DI graph 가 dynamic feature implementation 을 base 가 compile time 에 직접 알아야만 동작한다면 dynamic delivery 의 장점과 충돌한다.
 

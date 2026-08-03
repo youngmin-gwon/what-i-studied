@@ -1,13 +1,16 @@
 ---
-title: "Play Delivery 계약"
+title: play-delivery-contracts
 tags: ["android", "android/packaging-deployment"]
+aliases: []
+date modified: 2026-08-03 18:12:43 +09:00
+date created: 2026-07-31 17:52:17 +09:00
 ---
 
-# Play Delivery 계약
+## Play Delivery 계약
 
 이 지도는 AAB 위에서 동작하는 Play Feature Delivery, Play Asset Delivery, Instant 종료 이후 대안을 전달 방식별로 나눈다.
 
-## 정본 노트
+### 정본 노트
 
 - [Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-feature-delivery-controls-dynamic-feature-install-timing.md)
 - [Dynamic Feature Module은 base module에 의존하는 선택 기능 단위다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md)

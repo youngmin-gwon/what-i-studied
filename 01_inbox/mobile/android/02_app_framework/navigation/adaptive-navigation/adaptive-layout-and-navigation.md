@@ -1,12 +1,12 @@
 ---
-title: Adaptive Layout과 Navigation은 화면 조건에 맞게 content pane을 조정하는 설계다
+title: adaptive-layout-and-navigation
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Adaptive Layout and Navigation"]
-date modified: 2026-08-03 16:36:17 +09:00
+date modified: 2026-08-03 18:11:21 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Adaptive Layout과 Navigation은 화면 조건에 맞게 content pane을 조정하는 설계다
+## Adaptive Layout 과 Navigation 은 화면 조건에 맞게 content pane 을 조정하는 설계다
 
 Adaptive layout and navigation 은 화면 크기, posture, 입력 장치에 따라 app chrome 과 content pane 을 조정하는 설계 축이다. 목적지는 그대로 두고, 표시 방식만 window 조건에 맞게 바꾸는 것이 핵심이다.
 

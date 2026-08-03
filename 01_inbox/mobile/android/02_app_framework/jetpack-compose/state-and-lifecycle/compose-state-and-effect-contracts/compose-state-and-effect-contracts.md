@@ -1,12 +1,12 @@
 ---
-title: Compose 상태와 Effect 계약
+title: compose-state-and-effect-contracts
 tags: [android, compose/state, jetpack-compose]
 aliases: [Compose 상태와 Effect 계약]
-date modified: 2026-08-03 16:37:30 +09:00
+date modified: 2026-08-03 18:11:05 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Compose 상태와 Effect 계약
+## Compose 상태와 Effect 계약
 
 Compose 상태 API 는 값의 수명과 작업의 owner 를 기준으로 고른다. `remember`, `rememberSaveable`, ViewModel, effect API 를 편의성 기준으로 섞지 않는다.
 

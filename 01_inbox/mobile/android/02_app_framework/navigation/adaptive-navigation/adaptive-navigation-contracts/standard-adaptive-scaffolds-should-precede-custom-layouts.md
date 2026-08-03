@@ -1,12 +1,12 @@
 ---
-title: 표준 adaptive scaffold를 먼저 검토하고 custom layout은 명시적 이유가 있을 때 둔다
+title: standard-adaptive-scaffolds-should-precede-custom-layouts
 tags: [android, android/adaptive, android/navigation]
 aliases: ["표준 adaptive scaffold를 먼저 검토하고 custom layout은 명시적 이유가 있을 때 둔다"]
-date modified: 2026-08-03 16:36:16 +09:00
+date modified: 2026-08-03 18:11:18 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 표준 adaptive scaffold를 먼저 검토하고 custom layout은 명시적 이유가 있을 때 둔다
+## 표준 adaptive scaffold 를 먼저 검토하고 custom layout 은 명시적 이유가 있을 때 둔다
 
 Material 3 Adaptive library 는 navigation suite, list-detail, supporting pane 같은 표준 scaffold 를 제공한다. 이들은 window size class 와 posture 에 맞춰 흔한 adaptive UI 문제를 이미 모델링한다.
 

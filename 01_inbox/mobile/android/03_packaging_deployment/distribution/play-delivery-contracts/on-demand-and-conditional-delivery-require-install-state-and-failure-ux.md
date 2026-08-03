@@ -1,19 +1,26 @@
 ---
-title: "On-demand와 conditional delivery는 설치 상태와 실패 UX를 설계해야 한다"
+title: on-demand-and-conditional-delivery-require-install-state-and-failure-ux
 tags: ["android", "android/packaging-deployment"]
+aliases: []
+date modified: 2026-08-03 18:12:41 +09:00
+date created: 2026-07-31 17:52:17 +09:00
 ---
 
-# On-demand와 conditional delivery는 설치 상태와 실패 UX를 설계해야 한다
+## On-demand 와 conditional delivery 는 설치 상태와 실패 UX 를 설계해야 한다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+
 관련 지도: [Play Delivery 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-contracts.md)
+
 관련 노트: [Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/delivery-mode-is-selected-by-necessity-condition-and-runtime-request.md), [Play Delivery 운영은 UX, 테스트, Play 설치 경로를 함께 검증한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-operations-validate-ux-testing-and-play-install-path.md)
 
-## on-demand 요청
+### on-demand 요청
 
-Play Feature Delivery Library의 `SplitInstallManager`가 모듈 요청을 담당한다.
-요청 성공은 다운로드가 끝났다는 뜻이 아니라 session ID를 받았다는 뜻이다.
-상태 listener로 다운로드와 설치 완료를 확인한 뒤 기능 화면을 연다.
+Play Feature Delivery Library 의 `SplitInstallManager` 가 모듈 요청을 담당한다.
+
+요청 성공은 다운로드가 끝났다는 뜻이 아니라 session ID 를 받았다는 뜻이다.
+
+상태 listener 로 다운로드와 설치 완료를 확인한 뒤 기능 화면을 연다.
 
 ```kotlin
 val manager = SplitInstallManagerFactory.create(context)
@@ -30,18 +37,23 @@ manager.startInstall(request)
     }
 ```
 
-`SplitInstallStateUpdatedListener`에서 session ID를 필터링한다.
-`DOWNLOADING`, `INSTALLING`, `INSTALLED`, `FAILED`를 사용자 흐름에 연결한다.
+`SplitInstallStateUpdatedListener` 에서 session ID 를 필터링한다.
+
+`DOWNLOADING`, `INSTALLING`, `INSTALLED`, `FAILED` 를 사용자 흐름에 연결한다.
+
 큰 다운로드는 Wi-Fi 대기나 사용자 확인 상태가 될 수 있다.
-`REQUIRES_USER_CONFIRMATION`이면 Play가 제공하는 확인 UI를 호출한다.
 
-## 지연 설치
+`REQUIRES_USER_CONFIRMATION` 이면 Play 가 제공하는 확인 UI 를 호출한다.
 
-당장 필요하지 않은 on-demand 모듈은 `deferredInstall()`로 백그라운드 설치를
+### 지연 설치
+
+당장 필요하지 않은 on-demand 모듈은 `deferredInstall()` 로 백그라운드 설치를
+
 요청할 수 있다. 진행률을 추적할 수 없는 best-effort 요청이므로,
-다음 사용 시 `installedModules`를 다시 확인하고 필요하면 즉시 요청한다.
 
-## conditional manifest
+다음 사용 시 `installedModules` 를 다시 확인하고 필요하면 즉시 요청한다.
+
+### conditional manifest
 
 ```xml
 <dist:delivery>
@@ -58,13 +70,16 @@ manager.startInstall(request)
 ```
 
 지원 조건에는 기기 기능, OpenGL ES, 사용자 국가, API level, 기기 모델,
-RAM, system feature, API 31 이상 기기의 SoC가 포함된다.
+
+RAM, system feature, API 31 이상 기기의 SoC 가 포함된다.
+
 모든 조건을 만족해야 설치 시 자동 다운로드된다.
 
 조건에 맞지 않은 기기도 앱 안에서 on-demand 요청을 받을 수 있다.
+
 다만 해당 기능이 조건 외 기기에서 실제로 동작하는지 별도로 검증한다.
 
-## 공식 문서
+### 공식 문서
 
 - [Configure on-demand delivery](https://developer.android.com/guide/playcore/feature-delivery/on-demand)
 - [Configure conditional delivery](https://developer.android.com/guide/playcore/feature-delivery/conditional)

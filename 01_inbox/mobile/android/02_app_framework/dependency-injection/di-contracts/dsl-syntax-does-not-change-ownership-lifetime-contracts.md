@@ -1,12 +1,12 @@
 ---
-title: DSL 문법은 ownership과 lifetime 계약을 바꾸지 않는다
+title: dsl-syntax-does-not-change-ownership-lifetime-contracts
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:30:53 +09:00
+date modified: 2026-08-03 18:09:27 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
-# DSL 문법은 ownership과 lifetime 계약을 바꾸지 않는다
+## DSL 문법은 ownership 과 lifetime 계약을 바꾸지 않는다
 
 Compose, Gradle Kotlin DSL, Koin DSL, Navigation DSL 은 선언을 읽기 쉽게 만들지만 owner 와 lifetime 을 자동으로 올바르게 만들어 주지는 않는다. DSL 안에 쓰였다는 이유만으로 state, graph, route, build configuration 의 책임이 사라지지 않는다.
 

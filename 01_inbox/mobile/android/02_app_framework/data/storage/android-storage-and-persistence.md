@@ -1,16 +1,16 @@
 ---
-title: Android 저장소는 수명과 소유권 보안 경계에 따라 다른 계약을 가진다
+title: android-storage-and-persistence
 tags: [android, android/data, android/storage]
 aliases: ["Android Storage and Persistence"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 18:09:14 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android 저장소는 수명과 소유권 보안 경계에 따라 다른 계약을 가진다
+## Android 저장소는 수명과 소유권 보안 경계에 따라 다른 계약을 가진다
 
-Android storage는 저장 대상의 수명, 소유권, 공개 목적, 보안 경계를 먼저 나눈다. Room, DataStore, app-specific file, MediaStore, SAF, Photo Picker, secure storage는 서로 대체재가 아니라 다른 계약이다.
+Android storage 는 저장 대상의 수명, 소유권, 공개 목적, 보안 경계를 먼저 나눈다. Room, DataStore, app-specific file, MediaStore, SAF, Photo Picker, secure storage 는 서로 대체재가 아니라 다른 계약이다.
 
-## 판단 순서
+### 판단 순서
 
 1. [데이터 수명과 소유권으로 저장소를 선택한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md)
 2. [파일은 소유권과 공개 목적을 먼저 판단한다](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-storage-is-selected-by-owner-and-public-purpose.md)
@@ -23,7 +23,7 @@ Android storage는 저장 대상의 수명, 소유권, 공개 목적, 보안 경
 9. [민감 데이터는 암호화와 키 소유권을 함께 설계한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/sensitive-data-requires-encryption-and-key-ownership.md)
 10. [백업과 복원은 데이터 경계를 명시한다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/backup-restore-requires-explicit-data-boundaries.md)
 
-## 정본 지도
+### 정본 지도
 
 - [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
 - [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)

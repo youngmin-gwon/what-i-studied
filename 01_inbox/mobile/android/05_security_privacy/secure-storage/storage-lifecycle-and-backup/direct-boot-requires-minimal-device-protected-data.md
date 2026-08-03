@@ -1,21 +1,24 @@
 ---
-title: "Direct Boot에서 허용되는 데이터와 실행 수명"
+title: direct-boot-requires-minimal-device-protected-data
 tags: ["android", "android/security-privacy"]
+aliases: []
+date modified: 2026-08-03 18:14:40 +09:00
+date created: 2026-07-31 17:04:40 +09:00
 ---
 
-# Direct Boot에서 허용되는 데이터와 실행 수명
+## Direct Boot 에서 허용되는 데이터와 실행 수명
 
 상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
+
 관련 노트: [FBE는 CE와 DE로 저장소 가용 시점을 나눈다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/fbe-ce-and-de-separate-storage-availability.md)
 
+### 한 문장 정의
 
-## 한 문장 정의
-
-Direct Boot는 기기가 부팅되었지만 사용자가 아직 잠금을 해제하지 않은 구간에도 제한된 기능을 실행하게 한다.
+Direct Boot 는 기기가 부팅되었지만 사용자가 아직 잠금을 해제하지 않은 구간에도 제한된 기능을 실행하게 한다.
 
 이 구간의 핵심은 기능을 일찍 실행하는 것이 아니라 필요한 데이터만 일찍 노출하는 것이다.
 
-## 부팅 단계
+### 부팅 단계
 
 - 부팅 직후에는 DE 저장소만 준비된다고 가정한다.
 - 사용자 인증이 끝나면 CE 저장소가 해제된다.
@@ -23,7 +26,7 @@ Direct Boot는 기기가 부팅되었지만 사용자가 아직 잠금을 해제
 - CE 해제 이벤트 이후 일반 앱 초기화와 동기화를 진행할 수 있다.
 - 기기 재부팅마다 이 순서가 반복된다.
 
-## Direct Boot에 맞는 기능
+### Direct Boot 에 맞는 기능
 
 알람, 예약된 시스템 작업, 전화 수신 보조, 최소한의 기기 정책처럼 부팅 직후 가치가 있는 기능만 대상이다.
 
@@ -31,11 +34,11 @@ Direct Boot는 기기가 부팅되었지만 사용자가 아직 잠금을 해제
 
 알람에는 실행 시각과 알람 식별자만 필요할 수 있다.
 
-알람 이름이나 메모가 민감하다면 DE에 복사하지 않고 CE 해제 뒤에 보완한다.
+알람 이름이나 메모가 민감하다면 DE 에 복사하지 않고 CE 해제 뒤에 보완한다.
 
-## 컴포넌트 설계
+### 컴포넌트 설계
 
-Direct Boot를 지원하는 컴포넌트는 부팅 전 실행 가능성을 명시적으로 선언한다.
+Direct Boot 를 지원하는 컴포넌트는 부팅 전 실행 가능성을 명시적으로 선언한다.
 
 그 컴포넌트가 참조하는 `ContentProvider`, 서비스, 라이브러리 초기화 코드도 같은 조건을 만족해야 한다.
 
@@ -49,17 +52,17 @@ val deviceContext = context.createDeviceProtectedStorageContext()
 
 이 컨텍스트로 접근하는 파일은 부팅 전 기능에 필요한 작은 설정으로 제한한다.
 
-## 상태 전이 규칙
+### 상태 전이 규칙
 
-부팅 전에는 DE 상태를 읽고, 실행 결과를 DE에 짧게 기록할 수 있다.
+부팅 전에는 DE 상태를 읽고, 실행 결과를 DE 에 짧게 기록할 수 있다.
 
-사용자 인증 후에는 CE의 정식 데이터와 DE의 임시 상태를 조정한다.
+사용자 인증 후에는 CE 의 정식 데이터와 DE 의 임시 상태를 조정한다.
 
 동일한 이벤트가 두 번 처리되어도 안전하도록 작업 식별자와 멱등성을 둔다.
 
 CE 해제 전 실패는 재시도 가능한 상태로 남기고 민감 데이터를 임시 로그에 기록하지 않는다.
 
-## 테스트 시나리오
+### 테스트 시나리오
 
 - 기기 재부팅 후 잠금 해제 전 알람이 실행되는가?
 - 잠금 해제 전 CE 파일 접근 실패가 앱 전체 충돌로 이어지지 않는가?

@@ -1,18 +1,18 @@
 ---
-title: Compose Design System은 Material Theme과 프로젝트 토큰을 통합한다
-tags: [android, jetpack-compose, compose/design-system]
+title: compose-design-system
+tags: [android, compose/design-system, jetpack-compose]
 aliases: [Compose design system, CompositionLocal, Material 3 Compose]
-date modified: 2026-07-31 23:59:30 +09:00
+date modified: 2026-08-03 18:09:38 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-# Compose Design System은 Material Theme과 프로젝트 토큰을 통합한다
+## Compose Design System 은 Material Theme 과 프로젝트 토큰을 통합한다
 
-Compose design system 정본은 Compose layering, module boundary, CompositionLocal, Material 3 color role, 프로젝트별 design-system provider를 분리한다. UI layout과 accessibility는 [Compose layout, animation, accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md)로 보낸다.
+Compose design system 정본은 Compose layering, module boundary, CompositionLocal, Material 3 color role, 프로젝트별 design-system provider 를 분리한다. UI layout 과 accessibility 는 [Compose layout, animation, accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md) 로 보낸다.
 
 정본 묶음: [Compose design system contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-design-system-contracts.md)
 
-## 읽는 순서
+### 읽는 순서
 
 - [Compose는 상위 컴포넌트가 맞지 않을 때 낮은 계층으로 내려갈 수 있게 설계됐다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-layers-let-you-drop-down-when-higher-level-components-do-not-fit.md)
 - [Compose 모듈 경계는 의존성 범위와 교체 비용을 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-module-boundaries-expose-dependency-scope-and-replacement-cost.md)

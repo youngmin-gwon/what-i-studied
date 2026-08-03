@@ -1,12 +1,12 @@
 ---
-title: rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다
+title: remember-coroutine-scope-owns-manually-controlled-ui-coroutines
 tags: [android, compose/state, jetpack-compose]
 aliases: [rememberCoroutineScope]
-date modified: 2026-08-03 16:37:41 +09:00
+date modified: 2026-08-03 18:11:09 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다
+## rememberCoroutineScope 는 수동 제어 UI Coroutine 을 소유한다
 
 `rememberCoroutineScope` 는 Composable call site 의 Composition 수명에 묶인 `CoroutineScope` 를 돌려준다. Composable body 에서 바로 작업을 시작하는 API 가 아니라, click handler 나 callback 처럼 composition 밖의 사용자 이벤트에서 coroutine 을 시작할 때 쓴다.
 

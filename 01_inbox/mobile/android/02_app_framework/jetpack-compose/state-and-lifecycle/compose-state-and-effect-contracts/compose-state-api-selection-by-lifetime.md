@@ -1,12 +1,12 @@
 ---
-title: Compose 상태 API는 필요한 수명에 맞춰 선택한다
+title: compose-state-api-selection-by-lifetime
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:37:30 +09:00
+date modified: 2026-08-03 18:11:06 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
-# Compose 상태 API는 필요한 수명에 맞춰 선택한다
+## Compose 상태 API 는 필요한 수명에 맞춰 선택한다
 
 상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 

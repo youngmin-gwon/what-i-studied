@@ -1,12 +1,12 @@
 ---
-title: View System은 object tree를 변경하고 Compose는 state 에서 UI를 재계산한다
+title: view-system-mutates-object-tree-while-compose-recomputes-ui-from-state
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:36:04 +09:00
+date modified: 2026-08-03 18:12:12 +09:00
 date created: 2026-07-31 23:38:40 +09:00
 ---
 
-# View System은 object tree를 변경하고 Compose는 state 에서 UI를 재계산한다
+## View System 은 object tree 를 변경하고 Compose 는 state 에서 UI 를 재계산한다
 
 View System 에서는 이미 존재하는 `View` 객체의 속성을 바꾸는 방식으로 화면을 갱신한다. `TextView.text`, `RecyclerView.Adapter`, click listener 처럼 객체 reference 를 붙잡고 변경하는 코드가 중심이 된다.
 

@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-03 18:45:00 +09:00
+date modified: 2026-08-03 19:05:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -667,4 +667,5 @@ semantic_grade_A_B_C_D
 - 실제 본문에 대해 독자 관점, 플랫폼 사실관계, 후속 실행 계층과의 장 경계를 독립 검수하고 High·Medium 지적을 수정했다.
 - 2장 `Android 플랫폼 실행 계층과 호출 경로`의 상세 개요와 [실제 본문](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md)을 작성했다. 로컬 호출, 시스템 서비스 호출, 하드웨어 기능 호출을 구분하고 센서 제어 요청과 이벤트 반환을 대표 흐름으로 연결했다.
 - 2장 실제 본문을 독자, 플랫폼 사실관계와 후속 장 경계 관점에서 독립 검수하고 지적 사항을 반영했다.
-- 상태: **Phase 2 진행 중 / 1장 완료 / 2장 본문 작성 및 독립 검수 완료 / High·Medium 지적 수정 완료 / 사용자 검수 대기**
+- **별도 세션의 2차 독립 검수(2026-08-03).** 1장·2장 저작 세션과 무관한 검수자가 재검수했다. 내부 링크 17개·외부 공식 출처 링크 14개 전수 확인(broken 0건), 버전·플랫폼 사실 3건 표본 대조(WebFetch): 비공개 SDK 인터페이스 제한 서술 확인, HAL binderized/same-process 배치가 Android 버전·기기 구조에 따라 달라진다는 서술 확인, Binder의 caller UID 보존 서술은 인용한 특정 문서에 명시되어 있지 않으나 잘 알려진 사실이라 오류로 보지 않음. Reader 관점에서 1장 확인 질문 8개·2장 확인 질문 10개 중 표본을 문서만 읽고 직접 답변 가능함을 확인. 발견된 오류나 broken link 없음.
+- 상태: **Phase 2 진행 중 / 1장·2장 본문 작성 완료 / 저작 세션 자체 검수 + 별도 세션 2차 독립 검수 모두 완료(추가 지적 없음) / 사용자 검수 대기**

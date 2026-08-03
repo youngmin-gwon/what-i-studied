@@ -1,16 +1,16 @@
 ---
-title: Flow와 StateFlow 상태 계약
-tags: [android, android/data, android/async, android/flow-state-contracts]
+title: flow-state-contracts
+tags: [android, android/async, android/data, android/flow-state-contracts]
 aliases: ["Flow와 StateFlow 상태 계약"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 18:07:38 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Flow와 StateFlow 상태 계약
+## Flow 와 StateFlow 상태 계약
 
-Flow 계열 노트는 데이터 흐름의 소유자와 화면 상태 계약을 구분한다. `Flow`는 원천 데이터 흐름, `StateFlow`는 현재값이 필요한 화면 상태에 주로 사용한다.
+Flow 계열 노트는 데이터 흐름의 소유자와 화면 상태 계약을 구분한다. `Flow` 는 원천 데이터 흐름, `StateFlow` 는 현재값이 필요한 화면 상태에 주로 사용한다.
 
-## 정본 노트
+### 정본 노트
 
 - [Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/repository-exposes-flow-and-viewmodel-composes-screen-state.md)
 - [StateFlow는 현재값이 필요한 화면 상태에 사용하고 Flow는 원천 데이터 흐름에 사용한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md)

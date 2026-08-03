@@ -1,16 +1,16 @@
 ---
-title: 영속 저장소 계약
-tags: [android, android/data, android/storage, android/persistence-contracts]
+title: persistence-contracts
+tags: [android, android/data, android/persistence-contracts, android/storage]
 aliases: ["영속 저장소 계약"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 18:09:08 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 영속 저장소 계약
+## 영속 저장소 계약
 
-영속 저장소는 앱 재시작 뒤에도 남아야 하는 데이터의 형태와 접근 방식을 정한다. DataStore와 Room은 대체재가 아니라 서로 다른 데이터 계약이다.
+영속 저장소는 앱 재시작 뒤에도 남아야 하는 데이터의 형태와 접근 방식을 정한다. DataStore 와 Room 은 대체재가 아니라 서로 다른 데이터 계약이다.
 
-## 정본 노트
+### 정본 노트
 
 - [Android 저장소는 데이터 수명과 소유권으로 선택한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md)
 - [DataStore는 작은 설정과 현재 상태를 저장한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/datastore-stores-small-settings-and-current-state.md)

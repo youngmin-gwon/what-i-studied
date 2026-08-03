@@ -1,12 +1,12 @@
 ---
-title: Compose Runtime은 State, Effect, 성능, 툴링 경계를 연결한다
+title: compose-runtime-links-state-effects-performance-and-tooling
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Compose boundary map]
-date modified: 2026-08-03 16:46:00 +09:00
+date modified: 2026-08-03 18:10:54 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Compose Runtime은 State, Effect, 성능, 툴링 경계를 연결한다
+## Compose Runtime 은 State, Effect, 성능, 툴링 경계를 연결한다
 
 Compose Runtime 정본은 모든 API 사용법을 담는 곳이 아니다. Runtime 은 state read, recomposition, Composition identity, phase 모델을 설명하고, 실제 API 선택은 더 좁은 정본으로 보낸다.
 

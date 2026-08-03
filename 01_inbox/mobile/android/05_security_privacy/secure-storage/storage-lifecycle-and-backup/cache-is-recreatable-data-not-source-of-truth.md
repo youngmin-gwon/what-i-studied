@@ -1,43 +1,46 @@
 ---
-title: "캐시와 재생성 가능한 데이터의 수명"
+title: cache-is-recreatable-data-not-source-of-truth
 tags: ["android", "android/security-privacy"]
+aliases: []
+date modified: 2026-08-03 18:14:39 +09:00
+date created: 2026-07-31 17:04:40 +09:00
 ---
 
-# 캐시와 재생성 가능한 데이터의 수명
+## 캐시와 재생성 가능한 데이터의 수명
 
 상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
+
 관련 노트: [앱 전용 디렉터리는 소유 앱만 쓰는 파일에 사용한다](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/app-specific-directory-is-for-app-owned-files.md)
 
-
-## 한 문장 정의
+### 한 문장 정의
 
 캐시는 원본이 아니라 성능을 위해 잠시 보관하는 사본이며, 언제든 삭제되어도 앱이 정상적으로 회복되어야 한다.
 
 캐시를 정본처럼 사용하면 저장 공간 부족, 앱 재설치, 백업 제외, 시스템 정리에서 기능이 깨진다.
 
-## 저장 위치 선택
+### 저장 위치 선택
 
-- `filesDir`는 앱이 유지해야 하는 내부 파일에 사용한다.
-- `cacheDir`는 삭제되어도 다시 만들 수 있는 내부 캐시에 사용한다.
-- `getExternalFilesDir()`는 앱 전용 외부 파일에 사용한다.
-- `getExternalCacheDir()`는 앱 전용 외부 캐시에 사용한다.
-- 사용자에게 소유권을 넘길 문서는 MediaStore 또는 Storage Access Framework를 검토한다.
+- `filesDir` 는 앱이 유지해야 하는 내부 파일에 사용한다.
+- `cacheDir` 는 삭제되어도 다시 만들 수 있는 내부 캐시에 사용한다.
+- `getExternalFilesDir()` 는 앱 전용 외부 파일에 사용한다.
+- `getExternalCacheDir()` 는 앱 전용 외부 캐시에 사용한다.
+- 사용자에게 소유권을 넘길 문서는 MediaStore 또는 Storage Access Framework 를 검토한다.
 
 앱 삭제 시 app-specific 파일과 캐시는 함께 제거된다고 가정한다.
 
 사용자에게 다시 보여줘야 하는 파일을 캐시 디렉터리에만 두지 않는다.
 
-## 재생성 계약
+### 재생성 계약
 
 캐시 파일마다 원본과 재생성 방법을 정의한다.
 
-예를 들어 이미지 썸네일은 원본 URI와 변환 버전으로 다시 만들 수 있어야 한다.
+예를 들어 이미지 썸네일은 원본 URI 와 변환 버전으로 다시 만들 수 있어야 한다.
 
 네트워크 캐시는 서버 주소, 요청 매개변수, 만료 시각을 함께 관리한다.
 
 중간 산출물은 작업 식별자와 유효성 검사값을 두고, 깨진 파일은 삭제 후 재실행한다.
 
-## 공간 압박 대응
+### 공간 압박 대응
 
 시스템은 공간 부족 시 캐시를 지울 수 있으므로 캐시 삭제를 예외 상황으로 취급하지 않는다.
 
@@ -54,7 +57,7 @@ fun clearCache() {
 
 캐시 크기와 마지막 사용 시각을 관찰해 무한 증가를 막는다.
 
-## 보안과 백업
+### 보안과 백업
 
 캐시는 내부 저장소에 있어도 앱 프로세스가 접근할 수 있는 평문 사본이다.
 
@@ -64,7 +67,7 @@ fun clearCache() {
 
 백업 규칙에서는 캐시 디렉터리와 임시 데이터베이스를 명시적으로 제외한다.
 
-## 점검 질문
+### 점검 질문
 
 - 캐시가 모두 삭제되어도 원본에서 복구되는가?
 - 캐시 파일에 토큰이나 개인 정보가 들어가지 않는가?

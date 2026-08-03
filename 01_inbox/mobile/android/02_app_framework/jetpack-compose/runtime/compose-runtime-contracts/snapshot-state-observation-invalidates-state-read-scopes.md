@@ -1,12 +1,12 @@
 ---
-title: Snapshot State 관찰은 State를 읽은 scope를 무효화 대상으로 만든다
+title: snapshot-state-observation-invalidates-state-read-scopes
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Automatic State Observation, Snapshot State]
-date modified: 2026-08-03 16:46:00 +09:00
+date modified: 2026-08-03 18:11:01 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# Snapshot State 관찰은 State를 읽은 scope를 무효화 대상으로 만든다
+## Snapshot State 관찰은 State 를 읽은 scope 를 무효화 대상으로 만든다
 
 Compose Runtime 은 `MutableState` 같은 observable state 의 read 를 추적한다. 어떤 Composable scope 가 state value 를 읽었는지 기록하고, 값이 바뀌면 그 read scope 를 invalidation 대상으로 삼는다.
 

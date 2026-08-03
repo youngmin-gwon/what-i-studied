@@ -1,13 +1,16 @@
 ---
-title: "의존성, 버전, CI 계약"
+title: dependency-ci-contracts
 tags: ["android", "android/packaging-deployment"]
+aliases: []
+date modified: 2026-08-03 18:12:24 +09:00
+date created: 2026-07-31 17:52:17 +09:00
 ---
 
-# 의존성, 버전, CI 계약
+## 의존성, 버전, CI 계약
 
 이 지도는 dependency resolution, version catalog, Compose BOM/compiler, KSP/kapt, serialization, CI 게이트를 변경 관리 단위로 나눈다.
 
-## 정본 노트
+### 정본 노트
 
 - [Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/gradle-dependency-management-controls-resolution-graph-not-requested-versions.md)
 - [Version Catalog는 의존성 좌표와 플러그인 좌표의 이름표다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/version-catalog-names-dependency-and-plugin-coordinates.md)

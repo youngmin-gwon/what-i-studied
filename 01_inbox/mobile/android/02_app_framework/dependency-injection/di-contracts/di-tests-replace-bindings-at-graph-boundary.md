@@ -1,12 +1,12 @@
 ---
-title: DI 테스트는 내부 구현을 건드리지 않고 graph boundary 에서 binding을 교체한다
+title: di-tests-replace-bindings-at-graph-boundary
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 16:30:46 +09:00
+date modified: 2026-08-03 18:09:26 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
-# DI 테스트는 내부 구현을 건드리지 않고 graph boundary 에서 binding을 교체한다
+## DI 테스트는 내부 구현을 건드리지 않고 graph boundary 에서 binding 을 교체한다
 
 DI 가 테스트에 주는 이점은 production code 내부의 생성 코드를 바꾸지 않고 fake, test dispatcher, in-memory database, fake API 를 graph boundary 에서 바꿀 수 있다는 점이다.
 

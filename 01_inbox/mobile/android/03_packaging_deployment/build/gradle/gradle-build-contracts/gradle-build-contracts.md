@@ -1,13 +1,16 @@
 ---
-title: "Gradle 빌드 계약"
+title: gradle-build-contracts
 tags: ["android", "android/packaging-deployment"]
+aliases: []
+date modified: 2026-08-03 18:12:34 +09:00
+date created: 2026-07-31 17:52:17 +09:00
 ---
 
-# Gradle 빌드 계약
+## Gradle 빌드 계약
 
-이 지도는 Android Gradle Plugin의 프로젝트 구조, DSL, identifier, variant, source set, signing 설정을 빌드 의미 단위로 나눈다.
+이 지도는 Android Gradle Plugin 의 프로젝트 구조, DSL, identifier, variant, source set, signing 설정을 빌드 의미 단위로 나눈다.
 
-## 정본 노트
+### 정본 노트
 
 - [Android Gradle Plugin은 Android 빌드 규칙을 Gradle에 추가한다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/android-gradle-plugin-adds-android-build-rules-to-gradle.md)
 - [Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-project-and-module-dsl-have-different-responsibilities.md)

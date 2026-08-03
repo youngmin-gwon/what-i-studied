@@ -1,12 +1,12 @@
 ---
-title: 매니페스트 선언과 assetlinks.json 의 역할
+title: manifest-and-assetlinks-have-distinct-roles
 tags: [android, android/deep-links, android/navigation]
 aliases: ["매니페스트 선언과 assetlinks.json 의 역할"]
-date modified: 2026-08-03 16:36:25 +09:00
+date modified: 2026-08-03 18:11:30 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# 매니페스트 선언과 assetlinks.json 의 역할
+## 매니페스트 선언과 assetlinks.json 의 역할
 
 상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
 

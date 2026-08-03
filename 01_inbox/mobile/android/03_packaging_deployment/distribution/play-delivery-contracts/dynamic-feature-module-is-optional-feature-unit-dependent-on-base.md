@@ -1,12 +1,12 @@
 ---
-title: Dynamic Feature Module은 Base 모듈에 의존하는 선택 기능 단위다
+title: dynamic-feature-module-is-optional-feature-unit-dependent-on-base
 tags: ["android", "android/packaging-deployment"]
 aliases: []
-date modified: 2026-08-03 16:30:42 +09:00
+date modified: 2026-08-03 18:12:39 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
-# Dynamic Feature Module은 Base 모듈에 의존하는 선택 기능 단위다
+## Dynamic Feature Module 은 Base 모듈에 의존하는 선택 기능 단위다
 
 상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
 
