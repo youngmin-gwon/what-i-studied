@@ -13,8 +13,8 @@ Entry point는 이런 framework-owned 객체가 graph의 dependency를 꺼내야
 
 ## 판단 기준
 
-DI 노트는 객체를 어디서 만들고, 누가 소유하며, 어떤 lifetime 동안 재사용할지를 판단하는 기준으로 읽는다.
+- ContentProvider, BroadcastReceiver 등 DI 프레임워크가 직접 지원하지 않는 프레임워크 소유 객체에서는 Entry Point를 통해 직접 DI 그래프에 접근해 의존성을 가져와야 한다.
 
 ## 경계
 
-framework 이름보다 graph boundary, scope, replacement seam, Android component lifetime을 먼저 확인한다.
+- Entry Point는 DI 그래프 외부에서 내부로 진입하는 최소한의 통로로만 사용되어야 하며, 일반적인 비즈니스 로직(ViewModel, Repository) 내부에서 남용해서는 안 된다.

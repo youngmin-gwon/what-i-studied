@@ -16,8 +16,8 @@ Android 를 처음 배울 때 모든 API 를 나열하면 오래 가지 않는�
 
 ### 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+새 API를 만났을 때 누가 상태를 소유하고, 어떤 lifecycle에서 유효하며, process 종료 후 무엇이 남고, 실패를 누가 복구하는지 답한 뒤 기존 boundary에 배치한다.
 
 ### 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary 를 구분하는 방향으로 유지한다.
+이 노트는 학습 순서를 정하며 개별 API의 우열이나 사용법은 판단하지 않는다. 도구 선택은 해당 app framework, service, packaging 정본으로 넘긴다.

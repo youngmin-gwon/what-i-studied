@@ -18,8 +18,8 @@ Compose 의 Composable 은 state 를 UI 로 계산하는 함수에 가깝고, An
 
 ### 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+두 framework의 개념을 비교할 때는 이름보다 state owner, UI tree 위치, platform capability, lifecycle, disposal 책임이 같은지 확인한다. 하나라도 다르면 일대일 대응으로 외우지 않는다.
 
 ### 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary 를 구분하는 방향으로 유지한다.
+이 노트는 오해하기 쉬운 개념 경계만 교정한다. Flutter와 Compose API의 전체 대응표나 migration recipe는 소유하지 않는다.

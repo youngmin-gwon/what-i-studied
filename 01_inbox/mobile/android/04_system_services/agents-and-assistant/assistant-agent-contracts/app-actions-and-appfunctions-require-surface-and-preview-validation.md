@@ -50,3 +50,5 @@ App Actions와 AppFunctions의 API·권한·지원 범위는 플랫폼 및 previ
 작성일과 공식 Android Developers 링크를 함께 기록하고, 릴리스 전에 현재 문서를 다시 확인한다.
 
 공식 문서: [App Actions 시작하기](https://developer.android.com/develop/devices/assistant/get-started), [AppFunctions 추가](https://developer.android.com/ai/appfunctions/add-appfunctions), [보안 모범 사례](https://developer.android.com/privacy-and-security/security-best-practices)
+
+검증일: 2026-08-03. 체크리스트의 preview·OS·compile SDK 조건은 고정된 호환성 계약이 아니므로 릴리스 직전에 공식 문서로 재검증한다.

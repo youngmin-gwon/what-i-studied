@@ -15,9 +15,14 @@ tags: ["android", "android/platforms"]
 - list-detail, supporting pane, 도구 패널처럼 넓은 창에서 정보 구조가 좋아진다.
 - keyboard shortcut, right click, hover, drag-drop 같은 생산성 입력이 중요한 명령에 연결된다.
 - 여러 instance에서 같은 데이터가 열릴 때 저장, 충돌, focus, notification routing이 예측 가능하다.
-- Play large screen quality와 ChromeOS/desktop 테스트를 release checklist에 포함한다.
+- Adaptive app quality tier와 Android resizable emulator, 실제 desktop/ChromeOS 환경 테스트를 release checklist에 포함한다.
+- caption bar가 있는 창과 immersive 전환에서 상단 interactive UI가 시스템 제어와 겹치지 않는다.
 
 ## 관련 문서
 
 - [적응형 앱 준비도는 창, posture, 입력 테스트로 판단한다](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/adaptive-app-readiness-requires-window-posture-input-testing.md)
 - [테스트와 품질 계약](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
+
+공식 문서: [Adaptive app quality](https://developer.android.com/docs/quality-guidelines/adaptive-app-quality), [Support desktop windowing](https://developer.android.com/develop/adaptive-apps/guides/support-desktop-windowing)
+
+검증일: 2026-08-03. 호환성보다 생산성 높은 Tier 1/2 과업을 목표로 하되 앱 용도에 해당하는 요구사항만 적용한다.

@@ -51,3 +51,5 @@ AppFunctionService는 시스템만 bind하도록 `BIND_APP_FUNCTION_SERVICE`로 
 
 보안 검토에서는 정상 호출뿐 아니라 악의적으로 조작된 parameter와 재전송을 가정한다.
 테스트에는 비로그인 상태, 잠금 상태, 권한 철회 직후, 잘못된 식별자, 중복 요청을 포함한다.
+
+검증일: 2026-08-03. API 36의 `EXECUTE_APP_FUNCTIONS`는 `internal|privileged|knownSigner`, `BIND_APP_FUNCTION_SERVICE`는 `signature` 보호 수준임을 Manifest permission reference에서 확인했다.

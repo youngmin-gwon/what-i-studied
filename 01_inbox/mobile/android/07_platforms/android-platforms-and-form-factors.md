@@ -7,6 +7,13 @@ tags: ["android", "android/platforms"]
 
 Android 앱은 더 이상 단일 휴대폰 화면만 대상으로 하지 않는다. 이 지도는 큰 화면, 폴더블, 데스크톱 윈도잉, XR처럼 앱 창과 입력 환경이 바뀌는 플랫폼 표면을 세 묶음으로 나눈다.
 
+## 문제 분류
+
+- 콘텐츠가 남거나 잘리는 문제는 먼저 기기명이 아니라 현재 창의 width/height class와 레이아웃 구조에서 찾는다.
+- 접힘 영역에 UI가 걸리는 문제는 window size class가 아니라 `FoldingFeature`의 posture와 bounds 문제다.
+- resize, focus, 여러 창, caption bar 문제는 적응형 레이아웃보다 windowing과 task/lifecycle 계약에서 찾는다.
+- XR에서 패널은 보이지만 공간 기능이 실패하면 2D 레이아웃이 아니라 session, space mode, runtime capability를 확인한다.
+
 ## 정본 노트
 - [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)
 - [데스크톱 윈도잉과 멀티태스킹 계약](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)
@@ -19,3 +26,11 @@ Android 앱은 더 이상 단일 휴대폰 화면만 대상으로 하지 않는�
 3. 데스크톱 윈도잉에서는 창 크기 변경, caption bar, 여러 작업 인스턴스를 검증한다.
 4. XR에서는 2D 앱을 띄우는 것과 공간 UI를 설계하는 것을 분리한다.
 5. 모든 폼 팩터에서 터치 외 입력과 접근성 경로를 테스트한다.
+
+## 읽는 순서
+
+1. 큰 화면 계약에서 앱 창과 물리 기기를 분리하고 adaptive structure를 정한다.
+2. 데스크톱 윈도잉 계약에서 resize, lifecycle, task, system UI를 검증한다.
+3. XR 계약에서 2D 호환 실행과 공간화, runtime capability와 출시 조건을 분리한다.
+
+검증일: 2026-08-03. 현재 공식 품질 기준은 큰 화면을 포함한 [Adaptive app quality](https://developer.android.com/docs/quality-guidelines/adaptive-app-quality)와 별도의 [Android XR app quality](https://developer.android.com/docs/quality-guidelines/android-xr)로 나뉜다.

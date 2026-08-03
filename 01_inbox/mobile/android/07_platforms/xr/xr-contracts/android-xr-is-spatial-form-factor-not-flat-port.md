@@ -15,9 +15,15 @@ Android XR 대응은 기존 2D Android 앱을 큰 패널로 띄우는 것에서 
 - 공간화: panel, orbiter, spatial layout, 3D model, spatial audio처럼 공간 속 위치와 깊이를 설계한다.
 - 몰입 경험: 앱 환경, scene graph, perception, anchors 등 XR 전용 기능을 제품 경험에 통합한다.
 
+## 시스템 UI 경계
+
+Home Space는 여러 앱이 함께 있는 시스템 멀티태스킹 공간이고 Full Space는 앱이 몰입 기능을 사용할 수 있는 전면 공간이다. 앱은 현재 mode와 capability를 관찰하고 시스템이 제공하는 전환 경로를 존중한다. boundary, passthrough 고지, 권한 UI를 자체 장식처럼 숨기거나 대체하지 않는다.
+
 ## 관련 문서
 
 - [Compose for XR은 기존 Compose를 subspace와 spatial component로 확장한다](01_inbox/mobile/android/07_platforms/xr/xr-contracts/compose-for-xr-extends-compose-with-subspace-and-spatial-components.md)
 - [Android 폼 팩터와 플랫폼 확장 지도](01_inbox/mobile/android/07_platforms/android-platforms-and-form-factors.md)
 
 공식 문서: [Develop with the Jetpack XR SDK](https://developer.android.com/develop/xr/jetpack-xr-sdk)
+
+검증일: 2026-08-03. [Transition from Home Space to Full Space](https://developer.android.com/develop/xr/jetpack-xr-sdk/transition-home-space-to-full-space), [Android XR app quality](https://developer.android.com/docs/quality-guidelines/android-xr)

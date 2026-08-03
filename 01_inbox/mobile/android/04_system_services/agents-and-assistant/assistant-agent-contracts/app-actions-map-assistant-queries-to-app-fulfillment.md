@@ -53,3 +53,5 @@ App Actions의 노출 여부는 질의의 관련성, 품질, 지역·언어 지�
 선언했다고 모든 질의에서 항상 노출된다고 가정하지 않는다.
 
 공식 문서: [BII 구현](https://developer.android.com/develop/devices/assistant/intents), [shortcuts.xml 작성](https://developer.android.com/develop/devices/assistant/action-schema), [custom intents](https://developer.android.com/develop/devices/assistant/custom-intents)
+
+검증일: 2026-08-03. BII 목록, locale 지원, App Actions test tool preview 조건은 배포 전에 다시 확인한다.

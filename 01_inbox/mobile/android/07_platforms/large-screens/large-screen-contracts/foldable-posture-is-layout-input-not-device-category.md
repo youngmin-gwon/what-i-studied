@@ -21,6 +21,10 @@ tags: ["android", "android/platforms"]
 - horizontal hinge는 tabletop, vertical hinge는 book posture 설계 가능성을 검토한다.
 - `occlusionType`과 `bounds`로 힌지 영역에 콘텐츠를 둘지 피할지 결정한다.
 
+## 버전 경계
+
+현재 posture는 `windowLayoutInfo()`로 관찰한다. 기기가 tabletop posture를 지원할 수 있는지 동기적으로 질의하는 `supportedPostures`는 Android 15(API 35) 이상이면서 WindowManager Extensions 6 이상인 별도 조건이다. 지원 가능 여부와 현재 `HALF_OPENED` 상태를 같은 값으로 취급하지 않는다.
+
 ## 관련 문서
 
 - [창 크기 클래스는 기기 종류가 아니라 앱 창을 분류한다](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/window-size-class-classifies-app-window-not-device-type.md)
@@ -28,4 +32,4 @@ tags: ["android", "android/platforms"]
 
 공식 문서: [Make your app fold aware](https://developer.android.com/develop/adaptive-apps/guides/foldables/make-your-app-fold-aware)
 
-기준일: 2026-07-31. posture 지원 API와 WindowManager extension 요구사항은 Android 버전과 Jetpack WindowManager 버전에 따라 확인한다.
+검증일: 2026-08-03. posture 지원 API와 WindowManager extension 요구사항은 [Make your app fold aware](https://developer.android.com/develop/adaptive-apps/guides/foldables/make-your-app-fold-aware)에서 다시 확인한다.

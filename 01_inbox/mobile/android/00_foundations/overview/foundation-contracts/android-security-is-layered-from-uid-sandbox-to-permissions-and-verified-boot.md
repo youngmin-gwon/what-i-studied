@@ -15,8 +15,8 @@ Android security를 "permission 팝업" 하나로 줄이면 부족하다. 앱 pr
 
 ## 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+보안 실패는 먼저 caller UID/process, component 노출과 permission, AppOps/runtime 정책, SELinux platform policy, boot/data integrity 중 어느 계층이 거절했는지 분류한다.
 
 ## 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary를 구분하는 방향으로 유지한다.
+permission grant만으로 SELinux나 AppOps 거절을 설명하지 않는다. 이 노트는 계층 분류만 제공하고 정책별 적용 조건은 security/privacy 정본이 소유한다.

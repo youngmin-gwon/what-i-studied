@@ -15,8 +15,8 @@ system services는 background work, notification, NFC, assistant/app functions�
 
 ## 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+문제를 배치할 때 실행·process·hardware 원인은 system internals, 앱 상태와 API 조합은 app framework, OS capability 사용 정책은 system services, 접근 통제는 security/privacy, 재현과 측정은 testing/performance로 보낸다.
 
 ## 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary를 구분하는 방향으로 유지한다.
+한 문제가 여러 영역을 지나면 최초 실패를 소유한 영역을 중심으로 두고 나머지는 관련 노트로 연결한다. 이 노트에는 각 영역의 상세 목차를 복제하지 않는다.

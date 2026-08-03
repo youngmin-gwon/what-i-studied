@@ -5,15 +5,17 @@ tags: ["android", "android/foundations"]
 
 # Learning Contracts
 
-- [Android는 API catalog보다 boundary 단위로 먼저 배운다](01_inbox/mobile/android/00_foundations/learning/learning-contracts/learn-android-by-boundary-before-api-catalogs.md)
-- [공식 문서, Codelab, sample, talk는 서로 다른 학습 질문에 답한다](01_inbox/mobile/android/00_foundations/learning/learning-contracts/official-docs-codelabs-samples-and-talks-answer-different-learning-questions.md)
-- [Flutter 개발자는 class 이름보다 개념 경계를 대응시켜야 한다](01_inbox/mobile/android/00_foundations/learning/learning-contracts/flutter-developers-should-map-concepts-not-class-names.md)
-- [학습 경로의 끝은 문서 소비가 아니라 프로젝트 결정이어야 한다](01_inbox/mobile/android/00_foundations/learning/learning-contracts/learning-path-should-end-at-project-decisions-not-note-consumption.md)
+이 하위 지도는 자료 목록이 아니라 학습 과정의 네 결정을 관리한다.
+
+1. [Android는 API catalog보다 boundary 단위로 먼저 배운다](01_inbox/mobile/android/00_foundations/learning/learning-contracts/learn-android-by-boundary-before-api-catalogs.md) - 무엇을 먼저 구조화할지 정한다.
+2. [공식 문서, Codelab, sample, talk는 서로 다른 학습 질문에 답한다](01_inbox/mobile/android/00_foundations/learning/learning-contracts/official-docs-codelabs-samples-and-talks-answer-different-learning-questions.md) - 현재 질문에 맞는 자료 유형을 고른다.
+3. [Flutter 개발자는 class 이름보다 개념 경계를 대응시켜야 한다](01_inbox/mobile/android/00_foundations/learning/learning-contracts/flutter-developers-should-map-concepts-not-class-names.md) - 기존 지식의 잘못된 일대일 대응을 교정한다.
+4. [학습 경로의 끝은 문서 소비가 아니라 프로젝트 결정이어야 한다](01_inbox/mobile/android/00_foundations/learning/learning-contracts/learning-path-should-end-at-project-decisions-not-note-consumption.md) - 학습 종료 조건을 정한다.
 
 ## 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+새 노트는 학습 순서, 자료 선택, 사전 지식 변환, 종료 조건 중 하나의 판단만 소유해야 한다. 특정 API 사용법은 추가하지 않는다.
 
 ## 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary를 구분하는 방향으로 유지한다.
+상위 [Android Learning Path](01_inbox/mobile/android/00_foundations/learning/android-learning-path.md)는 독자 배경과 문제별 navigation을 소유하고, 이 지도는 학습 원칙의 역할 차이만 소유한다.

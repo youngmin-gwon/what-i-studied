@@ -13,8 +13,8 @@ Worker에 Activity, Fragment, screen-scoped object를 넣으면 background execu
 
 ## 판단 기준
 
-DI 노트는 객체를 어디서 만들고, 누가 소유하며, 어떤 lifetime 동안 재사용할지를 판단하는 기준으로 읽는다.
+- WorkManager의 Worker는 백그라운드 환경에서 시스템에 의해 인스턴스화되므로, 커스텀 WorkerFactory나 Hilt의 `@HiltWorker`를 통해 Worker 생성 시점에 의존성을 주입하도록 연결해야 한다.
 
 ## 경계
 
-framework 이름보다 graph boundary, scope, replacement seam, Android component lifetime을 먼저 확인한다.
+- Worker 생성자에는 일반적인 비즈니스 의존성뿐만 아니라 `Context`와 `WorkerParameters`를 반드시 함께 전달해야 하며, 시스템이 팩토리를 인식할 수 있도록 초기화 과정(Configuration)을 커스텀해야 한다.

@@ -1,16 +1,16 @@
 ---
-title: "Android Context Boundaries"
+title: android-context-boundaries
 tags: [android, android/architecture, android/context]
 aliases: ["Android Context Boundaries"]
-date modified: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-03 16:29:56 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Android Context Boundaries
+## Android Context Boundaries
 
-Context는 Android API 접근 handle이지만, 어떤 Context를 쓰는지는 lifetime과 UI 환경을 결정하는 아키텍처 문제다.
+Context 는 Android API 접근 handle 이지만, 어떤 Context 를 쓰는지는 lifetime 과 UI 환경을 결정하는 아키텍처 문제다.
 
-## 정본 노트
+### 정본 노트
 
 - [Context는 Android 환경 capability이지 일반 DI container가 아니다](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/context-is-android-environment-capability-not-dependency-container.md)
 - [Application Context는 프로세스 수명 작업에 맞고 themed UI에는 맞지 않는다](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/application-context-fits-process-lifetime-work-not-themed-ui.md)
@@ -20,7 +20,7 @@ Context는 Android API 접근 handle이지만, 어떤 Context를 쓰는지는 li
 - [ViewModel과 Repository는 UI Context를 보관하지 않는다](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/viewmodel-and-repository-should-not-retain-ui-context.md)
 - [Context leak은 참조가 컴포넌트 수명보다 오래 살 때 발생한다](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/context-leaks-happen-when-reference-outlives-component-lifetime.md)
 
-## 주변 정본
+### 주변 정본
 
 - [Android App Components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md)
 - [ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md)

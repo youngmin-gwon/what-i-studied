@@ -15,6 +15,7 @@ Android 13(API 33)부터 대부분의 알림에는 `POST_NOTIFICATIONS` 런타�
 매니페스트에 권한을 선언하고, 앱 기능의 맥락을 설명한 뒤 적절한 시점에 사용자에게 요청한다.
 사용자가 거부하면 일반 알림은 표시되지 않으며 FCM 전달 성공과 알림 표시를 혼동하면 안 된다.
 포그라운드 서비스 시작 자체에는 권한이 필요하지 않지만 서비스 알림은 별도 규칙을 따른다.
+권한이 거부된 Android 13+ 기기에서도 FGS notice는 Task Manager에 보일 수 있지만 notification drawer에는 보이지 않는다.
 
 ```xml
 <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -55,3 +56,5 @@ Android 13 미만은 `POST_NOTIFICATIONS` 런타임 요청 대상이 아니지�
 
 - [알림 런타임 권한](https://developer.android.com/develop/ui/compose/notifications/notification-permission)
 - [알림 채널 생성과 관리](https://developer.android.com/develop/ui/compose/notifications/channels)
+
+검증일: 2026-08-03. Android 13+ 권한, Android 8+ 채널, FGS notice 예외를 Android Developers 공식 문서에서 확인했다.

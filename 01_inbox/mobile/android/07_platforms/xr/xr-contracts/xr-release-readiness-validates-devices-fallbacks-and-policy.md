@@ -11,7 +11,7 @@ XR 앱이 한 번 실행되는 것과 출시 가능한 것은 다르다. 지원 
 
 ## 체크 기준
 
-- 지원 폼 팩터를 XR headset, wired XR glasses, audio glasses, display glasses 중 어디까지로 둘지 명시한다.
+- 지원 폼 팩터를 XR headset, wired XR glasses, audio glasses, display glasses 중 어디까지로 둘지 명시하고 각 기기 유형에 적용되는 공식 지침의 preview 범위를 구분한다.
 - 필수 capability가 없거나 권한이 거부되었을 때 2D 또는 축소 기능 fallback이 남아야 한다.
 - 실제 기기와 emulator에서 frame pacing, 발열, 배터리, 텍스트 가독성, 장시간 사용 편안함을 확인한다.
 - alpha/beta 라이브러리는 API 변경 비용을 release risk로 기록한다.
@@ -24,6 +24,6 @@ XR 앱이 한 번 실행되는 것과 출시 가능한 것은 다르다. 지원 
 - [XR 품질은 성능, 편안함, 안전을 기능 요구사항으로 포함한다](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-quality-includes-performance-comfort-and-safety.md)
 - [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
 
-공식 문서: [Develop with the Jetpack XR SDK](https://developer.android.com/develop/xr/jetpack-xr-sdk), [AndroidX releases](https://developer.android.com/jetpack/androidx/versions)
+공식 문서: [Android XR app quality](https://developer.android.com/docs/quality-guidelines/android-xr), [Develop with the Jetpack XR SDK](https://developer.android.com/develop/xr/jetpack-xr-sdk), [AndroidX releases](https://developer.android.com/jetpack/androidx/versions)
 
-기준일: 2026-07-31. Android XR SDK는 Developer Preview 문서가 남아 있고, 일부 XR AndroidX 라이브러리는 alpha 또는 beta 단계이므로 출시 전 다시 확인한다.
+검증일: 2026-08-03. 현재 XR quality checklist는 headset과 wired XR glasses를 대상으로 하며 audio/display glasses용 augmented experience 지침은 preview로 표시된다. SDK 전체에 단일 preview 상태를 붙이지 말고 사용 라이브러리와 기기 유형별 상태를 다시 확인한다.

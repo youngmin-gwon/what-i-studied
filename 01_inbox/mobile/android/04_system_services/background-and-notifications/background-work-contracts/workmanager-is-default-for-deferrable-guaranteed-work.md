@@ -14,6 +14,7 @@ tags: ["android", "android/system-services"]
 - 실행 시각을 조금 늦출 수 있지만 결국 수행되어야 하는 동기화, 업로드, 정리 작업에 적합하다.
 - WorkManager의 “보장”은 시스템 조건이 맞을 때 실행을 관리하고 실패 시 복구하는 의미다.
 - 특정 시각에 정확히 시작하거나 계속 실행되는 것을 보장한다는 뜻은 아니다.
+- 사용자가 앱을 강제 중지하거나 앱을 제거한 상태까지 작업 실행을 보장하는 것도 아니다.
 - 제약 조건을 추가하면 작업은 조건이 충족될 때까지 대기한다.
 - 네트워크 타입, 충전 상태, 저장 공간 등의 조건은 작업의 비용과 필요성에 맞게 설정한다.
 - 일회성 작업과 주기적 작업은 서로 다른 요청 타입으로 표현한다.
@@ -51,3 +52,5 @@ tags: ["android", "android/system-services"]
 - [WorkManager 개요](https://developer.android.com/develop/background-work/background-tasks/persistent)
 - [작업 제약 조건](https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started/define-work)
 - [WorkManager 작업 상태](https://developer.android.com/develop/background-work/background-tasks/persistent/how-to/observe)
+
+검증일: 2026-08-03. WorkManager의 실행 조건과 장기 실행 방식은 현재 Jetpack 문서를 기준으로 확인했다.

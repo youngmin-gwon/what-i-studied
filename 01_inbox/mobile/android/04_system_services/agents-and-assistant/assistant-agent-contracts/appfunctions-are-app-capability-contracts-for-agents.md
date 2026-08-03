@@ -11,7 +11,7 @@ tags: ["android", "android/system-services"]
 ## 현재 상태
 
 AppFunctions는 앱의 기능과 데이터를 Android 시스템의 registry에 제공해 에이전트와 assistant가 작업을 발견하고 실행하도록 하는 Android 16+ API다.
-2026년 7월 기준 Android Developers 문서는 API를 **experimental preview**로 설명한다.
+2026-08-03 기준 Android Developers 문서는 API를 **experimental preview**로 설명한다.
 Jetpack 최신 안정 버전은 없고 `androidx.appfunctions:appfunctions:1.0.0-alpha10`이 공개되어 있다.
 Gemini와의 end-to-end 통합도 문서상 trusted tester 대상 private preview로 안내된다.
 따라서 이 API의 annotation, 결과 타입, 호출자 정책은 변경될 수 있다.
@@ -48,6 +48,8 @@ abstract class BaseMyAppFunctionService : AppFunctionService() {
 - AppFunctions를 App Actions의 대체품으로 단정하지 말고 서로 다른 호출 계약으로 유지한다.
 
 공식 문서: [AppFunctions 개요](https://developer.android.com/ai/appfunctions), [추가 방법](https://developer.android.com/ai/appfunctions/add-appfunctions), [Jetpack release notes](https://developer.android.com/jetpack/androidx/releases/appfunctions)
+
+검증일: 2026-08-03. Android 16+ 가용성, experimental preview, Gemini private preview, Jetpack `1.0.0-alpha10`을 공식 문서에서 확인했다.
 
 ## API 안정성에 대한 주의
 

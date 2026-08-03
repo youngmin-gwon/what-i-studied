@@ -15,8 +15,8 @@ Kernel과 HAL은 device capability를 제공하고, native/service layer는 syst
 
 ## 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+증상의 API 이름이 아니라 마지막으로 성공한 경계와 최초로 실패한 경계를 찾는다. app callback, Binder service, native/HAL, kernel/device 중 증거가 바뀌는 지점을 기준으로 정본을 선택한다.
 
 ## 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary를 구분하는 방향으로 유지한다.
+Boundary 분류는 원인 확정이 아니다. 실제 원인은 log, trace, service state, 재현 조건으로 검증하며 상세 진단 절차는 debugging/performance 정본으로 넘긴다.

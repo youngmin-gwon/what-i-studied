@@ -53,3 +53,5 @@ tags: ["android", "android/system-services"]
 - [FCM Android 시작 안내](https://firebase.google.com/docs/cloud-messaging/android/get-started)
 - [FCM 메시지 전달 이해](https://firebase.google.com/docs/cloud-messaging/understand-delivery)
 - [Android 백그라운드 작업 개요](https://developer.android.com/develop/background-work/background-tasks)
+
+검증일: 2026-08-03. FID 기반 등록 전환 중이므로 초기 설정과 서버 지표는 사용하는 Firebase SDK 세대에 맞춰 이름을 고정한다.

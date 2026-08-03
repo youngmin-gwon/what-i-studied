@@ -13,8 +13,8 @@ tags: ["android", "android/foundations"]
 
 ## 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+현재 지원 조건이나 API contract는 guide/reference, 처음 실행해 보는 절차는 Codelab, 여러 API의 조합은 sample, 설계 배경은 talk를 우선한다. sample과 talk만으로 현재 contract를 단정하지 않는다.
 
 ## 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary를 구분하는 방향으로 유지한다.
+이 노트는 자료 유형 선택만 다루며 개별 URL 모음은 유지하지 않는다. 빠르게 변하는 사실은 해당 노트에서 검증일과 공식 문서를 기록한다.

@@ -13,8 +13,8 @@ Base module에는 feature entry contract, navigation route, dependency interface
 
 ## 판단 기준
 
-DI 노트는 객체를 어디서 만들고, 누가 소유하며, 어떤 lifetime 동안 재사용할지를 판단하는 기준으로 읽는다.
+- 동적 기능 모듈(Dynamic Feature)의 DI는 베이스 앱이 정의한 Component Contract(인터페이스)에 의존해야 하며, 베이스 모듈은 런타임에 동적으로 컴포넌트를 병합할 수 있어야 한다.
 
 ## 경계
 
-framework 이름보다 graph boundary, scope, replacement seam, Android component lifetime을 먼저 확인한다.
+- 동적 모듈은 베이스 모듈에 접근할 수 있지만 반대는 불가능하므로, Dagger Component 의존성을 구성할 때 Provision Interface를 활용하거나 Hilt의 `@EntryPoint`를 통해 런타임에 분리된 그래프를 연결해야 한다.

@@ -18,8 +18,8 @@ history 문서는 이 흐름을 설명하고 세부 구현은 각 canonical map 
 
 ### 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+새 변화가 privacy 제약 강화, system module의 독립 업데이트, vendor/framework 호환성, adaptive UI 중 어느 흐름을 바꾸는지 설명할 수 있을 때 이 장기 지도에 연결한다.
 
 ### 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary 를 구분하는 방향으로 유지한다.
+이 노트는 여러 release에 걸친 방향만 설명한다. 특정 API의 도입 시점이나 적용 조건은 version checkpoint와 해당 canonical area에서 검증한다.

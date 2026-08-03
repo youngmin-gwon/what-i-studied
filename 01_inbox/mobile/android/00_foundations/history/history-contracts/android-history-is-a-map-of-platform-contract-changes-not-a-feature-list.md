@@ -18,8 +18,8 @@ Android version history 는 새 기능 암기표가 아니라 어떤 contract �
 
 ### 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+release를 기록할 때는 새 기능 수보다 기존 앱의 설계·테스트 기준을 바꾼 contract가 무엇인지 먼저 적는다. 영향 받는 앱 조건을 설명할 수 없는 변화는 timeline의 핵심 항목으로 올리지 않는다.
 
 ### 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary 를 구분하는 방향으로 유지한다.
+이 노트는 변화의 선별 기준만 다룬다. 각 permission, storage, update, UI contract의 현재 동작과 migration 절차는 연결된 정본 및 공식 behavior changes 문서가 소유한다.

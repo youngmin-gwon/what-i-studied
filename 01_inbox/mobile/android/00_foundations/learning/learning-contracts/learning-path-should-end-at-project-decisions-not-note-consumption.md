@@ -13,8 +13,8 @@ Android 학습 경로는 많은 글을 읽는 순서가 아니라 프로젝트�
 
 ## 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+학습을 끝낼 기준은 선택한 API 이름이 아니라 state owner, persistence와 retry, permission 실패, 측정 가능한 test gate, signing/release 조건을 프로젝트 문장으로 설명할 수 있는지다.
 
 ## 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary를 구분하는 방향으로 유지한다.
+이 노트는 완료 조건만 정의한다. 각 결정의 정답과 구현은 프로젝트 요구와 연결된 canonical note가 소유한다.

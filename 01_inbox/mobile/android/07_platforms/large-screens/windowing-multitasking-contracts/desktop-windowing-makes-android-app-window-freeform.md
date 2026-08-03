@@ -17,9 +17,15 @@ Desktop windowing은 Android 태블릿이나 ChromeOS류 환경에서 앱이 고
 - 카메라, 지도, 영상처럼 비율에 민감한 surface는 resize 중 preview와 capture 비율을 별도로 검증한다.
 - precise pointer가 활성화된 환경에서는 touch-first UI보다 조밀한 정보 배치와 hover affordance를 검토한다.
 
+## 경계
+
+Android 16 target의 sw600dp 이상 제한 무시는 adaptive layout을 강제하는 플랫폼 조건이고, desktop windowing 진입 여부와 같은 판정은 아니다. desktop 최적화 UI가 필요하면 단순 width나 기기 종류 대신 Jetpack WindowManager의 현재 engagement 정보와 `PRECISE_POINTER` 같은 실행 환경 신호를 검토한다.
+
 ## 관련 문서
 
 - [창 크기 클래스는 기기 종류가 아니라 앱 창을 분류한다](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/window-size-class-classifies-app-window-not-device-type.md)
 - [키보드, 포인터, 스타일러스는 큰 화면의 기본 입력이다](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/keyboard-pointer-and-stylus-are-primary-large-screen-inputs.md)
 
 공식 문서: [Support desktop windowing](https://developer.android.com/develop/adaptive-apps/guides/support-desktop-windowing), [Adaptive do's and don'ts](https://developer.android.com/develop/adaptive-apps/guides/adaptive-dos-and-donts)
+
+검증일: 2026-08-03. Android 16(API 36) target 조건과 desktop windowing API는 각각 공식 문서에서 분리해 확인한다.

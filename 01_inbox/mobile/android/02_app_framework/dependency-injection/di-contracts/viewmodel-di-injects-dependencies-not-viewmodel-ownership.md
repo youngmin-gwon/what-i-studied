@@ -13,8 +13,8 @@ Hilt의 `@HiltViewModel`이나 수동 `ViewModelProvider.Factory`는 DI graph와
 
 ## 판단 기준
 
-DI 노트는 객체를 어디서 만들고, 누가 소유하며, 어떤 lifetime 동안 재사용할지를 판단하는 기준으로 읽는다.
+- ViewModel에 대한 DI는 의존성을 주입하는 역할일 뿐이며, ViewModel의 실제 소유권과 생명주기 관리는 DI 컨테이너가 아니라 안드로이드 ViewModelProvider(ViewModelStore)가 담당한다.
 
 ## 경계
 
-framework 이름보다 graph boundary, scope, replacement seam, Android component lifetime을 먼저 확인한다.
+- ViewModel 내부에 `@Inject`로 의존성을 선언하되, Activity나 Fragment에 주입할 때는 직접 주입받지 않고 `by viewModels()` 델리게이트나 프레임워크 지원 팩토리를 통해 생성해야 생명주기가 유지된다.

@@ -15,8 +15,9 @@ Compose에서는 composable 함수가 state를 읽고 UI tree를 다시 계산�
 
 ## 판단 기준
 
-UI system 노트는 View System과 Compose가 state, tree mutation, layout, side effect를 어디서 처리하는지 비교하는 기준으로 읽는다.
+- View System의 가변 객체 트리(Mutable View Tree) 변형 방식 대신 Compose의 불변(Immutable) 상태 기반 UI 렌더링 재계산 모델을 적용한다.
+- 뷰 객체 참조(View Reference)를 저장하는 대신 State 읽기 스코프(Snapshot State Read Scope)를 명확히 분리하여 Recomposition 성능을 높인다.
 
 ## 경계
 
-API 이름 매핑보다 rendering model, state ownership, insets/back/adaptive boundary를 먼저 본다.
+- Composable 실행 중 외부 상태나 객체 속성을 수동으로 변경(Side Effect)하려는 시도는 렌더링 예측 가능성을 훼손하므로, `SideEffect` 또는 `LaunchedEffect` 블록으로 경계를 획정해야 한다.

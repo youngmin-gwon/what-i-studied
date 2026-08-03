@@ -14,7 +14,7 @@ tags: ["android", "android/platforms"]
 - Tab, arrow, Enter, Space 같은 기본 keyboard navigation과 activation을 검증한다.
 - undo, copy, paste, save 같은 플랫폼 관용 shortcut을 지원하거나 의도적으로 비워 둔 이유를 정한다.
 - hover, right click, scroll wheel, trackpad scroll 같은 pointer 동작을 custom component에서도 처리한다.
-- Compose 1.7 이상은 일부 keyboard/pointer 동작을 기본 지원하지만, 복잡한 화면은 focus order를 직접 검증한다.
+- framework와 Material component가 제공하는 기본 keyboard/pointer 동작을 우선 사용하되, custom component와 복잡한 화면의 focus order는 직접 검증한다.
 - 스타일러스 입력은 필기, 그림, 선택, text field 입력 같은 사용 맥락을 분리해 테스트한다.
 
 ## 관련 문서
@@ -23,3 +23,5 @@ tags: ["android", "android/platforms"]
 - [적응형 앱 준비도는 창, posture, 입력 테스트로 판단한다](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/adaptive-app-readiness-requires-window-posture-input-testing.md)
 
 공식 문서: [Input compatibility on large screens](https://developer.android.com/develop/ui/views/touch-and-input/input-compatibility-on-large-screens), [Get started with adaptive apps](https://developer.android.com/develop/adaptive-apps/guides/get-started-with-adaptive-apps)
+
+검증일: 2026-08-03. 특정 Compose 버전만으로 입력 지원 완료를 추론하지 않고 실제 focus, shortcut, hover, scroll, stylus 과업을 테스트한다.

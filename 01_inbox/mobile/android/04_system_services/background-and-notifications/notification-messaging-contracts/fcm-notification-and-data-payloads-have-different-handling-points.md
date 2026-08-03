@@ -53,3 +53,5 @@ data 값이 없거나 만료된 경우에는 안전한 기본 화면으로 이�
 
 - [FCM 메시지 유형](https://firebase.google.com/docs/cloud-messaging/customize-messages/set-message-type)
 - [Android에서 메시지 수신](https://firebase.google.com/docs/cloud-messaging/android/receive-messages)
+
+검증일: 2026-08-03. notification/data 혼합 메시지의 foreground·background 처리 지점을 Firebase 공식 문서에서 확인했다.

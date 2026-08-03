@@ -15,7 +15,10 @@ tags: ["android", "android/system-services"]
 - 일반적인 서버 동기화는 시간이 조금 밀려도 되므로 WorkManager가 보통 더 적합하다.
 - 정확한 알람은 배터리 비용이 있으므로 꼭 필요한 경우에만 사용한다.
 - Android 12 이상에서는 exact alarm 사용 가능 여부와 권한 정책을 확인해야 한다.
-- exact alarm 권한이 없으면 부정확한 알람이나 다른 작업 수단으로 요구사항을 낮춘다.
+- target SDK 31+는 exact alarm에 `SCHEDULE_EXACT_ALARM` 또는 해당되는 경우 `USE_EXACT_ALARM` 선언이 필요하다.
+- `SCHEDULE_EXACT_ALARM`은 사용자가 부여·철회하는 특별 접근이고, Android 14 기기의 target 33+ 신규 설치에는 기본 허용되지 않는다.
+- target 33+에서 선택 가능한 `USE_EXACT_ALARM`은 자동 부여되지만 제한된 핵심 사용 사례와 Google Play 정책 대상이다.
+- exact alarm 권한이 없으면 부정확한 알람이나 다른 작업 수단으로 요구사항을 낮추고, 호출 직전 `canScheduleExactAlarms()`를 확인한다.
 - setExactAndAllowWhileIdle은 유휴 상태에서도 정확성을 높이는 대신 남용해서는 안 된다.
 - 알람은 실행을 시작하는 신호이지 장시간 작업을 수행할 공간 자체가 아니다.
 
@@ -50,4 +53,7 @@ tags: ["android", "android/system-services"]
 
 - [알람 예약](https://developer.android.com/develop/background-work/services/alarms)
 - [정확한 알람 권한](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission)
+- [Android 14 exact alarm 기본 거부](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms)
 - [AlarmManager API](https://developer.android.com/reference/android/app/AlarmManager)
+
+검증일: 2026-08-03. 권한 부여 방식과 Play 허용 범위는 target SDK 및 배포 정책에 따라 바뀔 수 있으므로 릴리스 시 다시 확인한다.

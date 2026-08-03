@@ -13,8 +13,8 @@ Provider method가 많아지면 graph가 service locator처럼 변한다. 먼저
 
 ## 판단 기준
 
-DI 노트는 객체를 어디서 만들고, 누가 소유하며, 어떤 lifetime 동안 재사용할지를 판단하는 기준으로 읽는다.
+- `@Provides`는 생성자 주입이 불가능한 외부 라이브러리 클래스, Builder 패턴으로 초기화해야 하는 객체, 또는 런타임 설정 값이 필요한 객체를 생성할 때 사용한다.
 
 ## 경계
 
-framework 이름보다 graph boundary, scope, replacement seam, Android component lifetime을 먼저 확인한다.
+- 내가 소유한 구체 클래스에 단순히 인스턴스를 반환하는 `@Provides`를 작성하는 것은 중복(Boilerplate)이므로 피하고, 이러한 경우에는 `@Inject` 생성자나 인터페이스 바인딩(`@Binds`)을 우선한다.

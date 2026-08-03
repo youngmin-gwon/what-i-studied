@@ -52,3 +52,5 @@ FCM은 실시간 연결이나 정확한 순서 전달을 제공하는 스트리�
 - [Firebase Cloud Messaging 개요](https://firebase.google.com/docs/cloud-messaging)
 - [Android에서 메시지 수신](https://firebase.google.com/docs/cloud-messaging/android/receive-messages)
 - [FCM HTTP v1 전송](https://firebase.google.com/docs/cloud-messaging/send/v1-api)
+
+검증일: 2026-08-03. FCM은 메시지 전송 계층이며 표시, 사용자 탭, 비즈니스 작업 완료는 별도 관측 대상이다.

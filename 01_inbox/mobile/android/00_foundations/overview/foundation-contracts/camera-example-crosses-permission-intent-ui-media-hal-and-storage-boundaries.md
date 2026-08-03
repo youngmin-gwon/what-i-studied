@@ -15,8 +15,8 @@ tags: ["android", "android/foundations"]
 
 ## 판단 기준
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+preview가 없으면 Surface/lifecycle과 camera pipeline, 호출이 거절되면 permission/AppOps, 특정 기기만 실패하면 HAL/vendor, 저장만 실패하면 MediaStore와 소유권 경계를 먼저 확인한다.
 
 ## 경계
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary를 구분하는 방향으로 유지한다.
+이 예시는 routing 연습만 소유한다. CameraX 선택, 촬영 코드, codec, 파일 저장 구현은 각각 media, app component, storage 정본으로 분리한다.

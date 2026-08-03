@@ -15,8 +15,9 @@ Compose의 runtime 관점은 [Automatic State Observation은 Compose와 Flutter 
 
 ## 판단 기준
 
-UI system 노트는 View System과 Compose가 state, tree mutation, layout, side effect를 어디서 처리하는지 비교하는 기준으로 읽는다.
+- 신규 안드로이드 UI 개발 시 명령형 View System(`findViewById`, XML Layout, `setText`) 대신 선언형 Compose 기반의 데이터 바인딩 및 Recomposition 패러다임을 표준으로 채택한다.
+- UI 상태 변화가 화면 렌더링으로 연결되는 데이터 흐름을 단방향(Unidirectional Data Flow)으로 유지한다.
 
 ## 경계
 
-API 이름 매핑보다 rendering model, state ownership, insets/back/adaptive boundary를 먼저 본다.
+- 기존의 대규모 View System 기반 프로젝트나 `AndroidView` 호환성(Interop) 래퍼를 다룰 때는 View 수명주기와 Compose Composition 수명주기가 충돌하지 않도록 `DisposeOnViewTreeLifecycleDestroyed` 전략 등을 명시적으로 수반해야 한다.

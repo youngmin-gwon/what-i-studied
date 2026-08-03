@@ -11,23 +11,18 @@ tags: ["android", "android/system-services"]
 
 ## 식별자의 의미
 
-FCM 등록 토큰은 특정 앱 설치 또는 앱 인스턴스로 메시지를 보내기 위한 값이다.
-현재 Firebase 문서는 Firebase Installation ID(FID) 중심의 등록 관리로 전환 중이라고 설명한다.
-기존 등록 토큰 API를 사용하는 앱도 토큰이 바뀐다는 전제를 유지해야 한다.
-토큰은 사용자 계정 자체의 영구 식별자나 비밀 인증 토큰으로 사용하지 않는다.
+FCM 등록 식별자는 특정 앱 설치 또는 앱 인스턴스로 메시지를 보내기 위한 대상 값이다.
+2026-08-03 기준 Firebase 문서는 Firebase Installation ID(FID) 기반 등록으로 전환 중이며 FID 방식과 legacy registration token 방식을 함께 지원한다.
+새 구현은 FID 기반 API를 우선하고, 기존 구현은 legacy token의 갱신·폐기 규칙을 별도 경로로 유지한다.
+FID와 token 어느 쪽도 사용자 계정 자체의 영구 식별자나 비밀 인증 자격으로 사용하지 않는다.
 
 ## 클라이언트 처리
 
-`FirebaseMessagingService`를 구현하고 `onNewToken`에서 현재 토큰을 서버에 업로드한다.
-앱 시작 시 현재 등록 값을 조회하는 흐름도 두어 서버와 클라이언트의 불일치를 줄인다.
-업로드는 재시도 가능하게 만들고, 마지막 성공 시각과 앱 인스턴스 정보를 서버에 기록한다.
-토큰 변경 시 기존 값은 교체하며 한 사용자에게 여러 기기가 연결될 수 있음을 고려한다.
-
-```kotlin
-override fun onNewToken(token: String) {
-    registrationRepository.upsert(token)
-}
-```
+- FID 기반 자동 초기화에서는 `onRegistered(installationId)` 콜백으로 등록 값을 서버에 업로드하고 갱신 시각을 함께 저장한다.
+- 자동 초기화를 끈 경우 앱 시작 시 `register()`를 호출해 등록 흐름과 콜백을 명시적으로 시작한다.
+- legacy token API를 유지하는 앱은 `onNewToken`과 현재 token 조회·주기 갱신을 기존 SDK 버전에 맞춰 처리한다.
+- 두 API 세대의 callback과 서버 필드 이름을 한 경로에 섞지 말고, 마이그레이션 기간에는 등록 종류를 함께 저장한다.
+- 한 사용자에게 여러 앱 인스턴스가 연결될 수 있으며 로그아웃은 사용자 매핑을 끊는 동작이지 FCM 등록 자체의 인증 폐기를 의미하지 않는다.
 
 ## 토큰이 바뀔 수 있는 경우
 
@@ -41,7 +36,7 @@ override fun onNewToken(token: String) {
 
 ## 서버 정리 정책
 
-등록 레코드에는 사용자 ID, 현재 식별자, 플랫폼, 앱 버전, 마지막 동기화 시각을 저장한다.
+등록 레코드에는 사용자 ID, 현재 식별자, 등록 방식, 플랫폼, 앱 버전, 마지막 동기화 시각을 저장한다.
 오래 사용되지 않은 등록과 반복 실패 등록은 별도 정책으로 비활성화한다.
 Android 등록은 270일 비활성 후 FCM에서 만료될 수 있으므로 오류 응답을 정리 신호로 사용한다.
 topic을 쓴다면 식별자 변경 시 재구독하고, 오래된 등록의 topic 매핑도 정리한다.
@@ -53,3 +48,5 @@ topic을 쓴다면 식별자 변경 시 재구독하고, 오래된 등록의 top
 
 - [FCM 등록 관리 모범 사례](https://firebase.google.com/docs/cloud-messaging/manage-tokens)
 - [Android FCM 시작하기](https://firebase.google.com/docs/cloud-messaging/android/get-started)
+
+검증일: 2026-08-03. FID 전환 문서는 계속 변경 중이므로 사용하는 Firebase Messaging SDK의 실제 callback/API와 공식 마이그레이션 안내를 함께 확인한다.

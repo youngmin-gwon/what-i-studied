@@ -29,6 +29,13 @@ tags: ["android", "android/system-services"]
 - 서비스 시작 제한에 걸릴 수 있으므로 사용자 동작과 허용된 시작 시점을 설계에 반영한다.
 - 알림 권한이 거부된 경우에도 기능의 허용 범위와 실패 상태를 명확히 처리한다.
 
+## 버전 경계
+
+- target 31+는 일부 예외를 제외하고 앱이 백그라운드인 동안 FGS를 시작할 수 없으며, 위반하면 `ForegroundServiceStartNotAllowedException`이 발생한다.
+- target 34+는 FGS 생성 시 선언 type과 type별 권한을 검사한다. camera, microphone, location처럼 while-in-use 권한이 필요한 type은 보이는 Activity에서 시작하는 흐름이 원칙이다.
+- Android 15 이상에서 target 35+인 앱의 `dataSync`와 `mediaProcessing`은 앱이 백그라운드인 동안 type별로 24시간 중 총 6시간 제한을 받는다. `Service.onTimeout()`에서 즉시 상태를 저장하고 중지해야 한다.
+- `shortService` 등 type별 제한은 서로 다르므로 “FGS는 계속 실행된다”는 공통 가정을 두지 않는다.
+
 ## WorkManager와의 경계
 
 - 작업이 사용자에게 계속 보여야 하는지는 실행 시간이 아니라 사용자 가치로 판단한다.
@@ -50,4 +57,8 @@ tags: ["android", "android/system-services"]
 
 - [foreground service 개요](https://developer.android.com/develop/background-work/services/fgs)
 - [foreground service 타입](https://developer.android.com/develop/background-work/services/fgs/service-types)
+- [백그라운드 시작 제한](https://developer.android.com/develop/background-work/services/fgs/restrictions-bg-start)
+- [foreground service timeout](https://developer.android.com/develop/background-work/services/fgs/timeout)
 - [Android 14 동작 변경](https://developer.android.com/about/versions/14/behavior-changes-14)
+
+검증일: 2026-08-03. 실행 제한은 OS 버전, target SDK, service type, 현재 권한 상태를 각각 분리해 확인했다.

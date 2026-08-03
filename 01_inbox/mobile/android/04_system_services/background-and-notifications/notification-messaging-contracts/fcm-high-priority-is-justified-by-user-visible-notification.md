@@ -55,3 +55,5 @@ Doze 해제 직후에도 네트워크가 안정적이라고 가정하지 말고 
 
 - [FCM 메시지 우선순위](https://firebase.google.com/docs/cloud-messaging/android-message-priority)
 - [메시지 우선순위 설정](https://firebase.google.com/docs/cloud-messaging/customize-messages/setting-message-priority)
+
+검증일: 2026-08-03. high priority의 Doze 전달 시도, 짧은 처리 시간, 사용자 표시가 없을 때의 하향 가능성을 Firebase 공식 문서에서 확인했다.

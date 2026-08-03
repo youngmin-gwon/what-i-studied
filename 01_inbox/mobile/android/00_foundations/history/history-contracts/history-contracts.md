@@ -6,17 +6,19 @@ date modified: 2026-08-01 01:08:03 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
-## History Contracts
+# History Contracts
 
-- [Android history는 기능 목록이 아니라 platform contract 변화 지도다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-history-is-a-map-of-platform-contract-changes-not-a-feature-list.md)
-- [API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다](01_inbox/mobile/android/00_foundations/history/history-contracts/api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md)
-- [Android 현대화는 privacy, updatability, adaptive form factor 쪽으로 이동했다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-modernization-shifted-toward-privacy-updatability-and-adaptive-form-factors.md)
-- [Android 16과 17은 빠른 API release와 form factor 변화를 계속 밀고 있다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-16-and-17-continue-faster-api-and-form-factor-change.md)
+이 하위 지도는 release 기능 목록이 아니라 history 노트가 답해야 하는 질문을 구분한다.
 
-### 판단 기준
+1. [API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다](01_inbox/mobile/android/00_foundations/history/history-contracts/api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md) - 현재 동작을 결정하는 version 조건을 분리한다.
+2. [Android history는 기능 목록이 아니라 platform contract 변화 지도다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-history-is-a-map-of-platform-contract-changes-not-a-feature-list.md) - 개별 release를 어떤 변화 단위로 기록할지 정한다.
+3. [Android 현대화는 privacy, updatability, adaptive form factor 쪽으로 이동했다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-modernization-shifted-toward-privacy-updatability-and-adaptive-form-factors.md) - 여러 release에 걸친 장기 흐름을 연결한다.
+4. [Android 16과 17은 빠른 API release와 form factor 변화를 계속 밀고 있다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-16-and-17-continue-faster-api-and-form-factor-change.md) - 빠르게 변하는 현재 checkpoint와 공식 확인 경로를 맡는다.
 
-Foundation 노트는 세부 구현을 반복하지 않고 Android 지식이 어느 계층의 문제인지 찾아가는 입구로 사용한다.
+## 판단 기준
 
-### 경계
+새 history 노트는 version 축 설명, 장기 contract 변화, 최신 checkpoint 중 하나만 맡는다. 특정 release의 기능을 나열하는 노트는 만들지 않는다.
 
-학습 순서나 역사 설명은 API 목록을 외우는 방향이 아니라 runtime, framework, service, security, tooling boundary 를 구분하는 방향으로 유지한다.
+## 경계
+
+상위 [Android Release History](01_inbox/mobile/android/00_foundations/history/android-release-history.md)는 문제별 version routing을 소유하고, 이 지도는 history 원자 노트의 역할과 생성 경계를 소유한다.

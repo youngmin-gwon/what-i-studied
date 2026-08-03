@@ -19,9 +19,13 @@ SceneCore는 일반 화면 컴포저블을 배치하는 계층이 아니라 XR s
 
 Compose for XR은 UI 선언과 공간 layout에 적합하다. SceneCore는 UI가 아닌 공간 객체와 scene graph 조작이 필요할 때 선택한다.
 
+SceneCore 객체는 `Session`에 귀속된다. session의 activity가 파괴되면 연결된 spatial UI와 3D content도 파괴되고 session은 더 이상 유효하지 않으므로, entity 참조를 application singleton처럼 보존하지 않는다. activity recreation과 현재 알려진 session invalidation 제약도 실제 구성 변경으로 검증한다.
+
 ## 관련 문서
 
 - [Compose for XR은 기존 Compose를 subspace와 spatial component로 확장한다](01_inbox/mobile/android/07_platforms/xr/xr-contracts/compose-for-xr-extends-compose-with-subspace-and-spatial-components.md)
 - [XR 품질은 성능, 편안함, 안전을 기능 요구사항으로 포함한다](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-quality-includes-performance-comfort-and-safety.md)
 
 공식 문서: [Develop with the Jetpack XR SDK](https://developer.android.com/develop/xr/jetpack-xr-sdk)
+
+검증일: 2026-08-03. [Access a session](https://developer.android.com/develop/xr/jetpack-xr-sdk/add-session), [XR SceneCore releases](https://developer.android.com/jetpack/androidx/releases/xr-scenecore)

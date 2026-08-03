@@ -13,8 +13,9 @@ Desktop windowing의 창 상단에는 시스템이 그리는 caption bar와 창 
 
 - caption bar가 보일 때 콘텐츠가 닫기, 최대화, 드래그 영역과 겹치지 않게 한다.
 - custom header를 그릴 때도 시스템의 interactive caption element는 시스템이 소유한다는 점을 전제로 둔다.
-- Android 15의 caption bar 관련 inset API를 쓰는 경우 실제 기기와 데스크톱 모드에서 함께 검증한다.
-- 탭, 검색창처럼 상단 interactive UI를 둘 때 gesture exclusion 요구를 별도로 판단한다.
+- `WindowInsets.captionBar`와 caption bar visibility로 영역을 계산하고 높이를 하드코딩하지 않는다.
+- Android 15(API 35)의 `WindowInsets.getBoundingRects()`로 닫기와 최대화 같은 시스템 요소의 점유 영역을 제외한다.
+- 탭, 검색창처럼 상단 interactive UI를 둘 때 `setSystemGestureExclusionRects()`가 필요한지 별도로 판단한다.
 
 ## 관련 문서
 
@@ -22,3 +23,5 @@ Desktop windowing의 창 상단에는 시스템이 그리는 caption bar와 창 
 - [적응형 레이아웃은 같은 화면을 늘리는 것이 아니라 구조를 바꾼다](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/adaptive-layout-changes-structure-not-scale.md)
 
 공식 문서: [Support desktop windowing](https://developer.android.com/develop/adaptive-apps/guides/support-desktop-windowing)
+
+검증일: 2026-08-03. immersive mode에서도 desktop header bar가 존재할 수 있고 시스템 interactive caption element는 계속 시스템이 그린다.

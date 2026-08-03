@@ -17,15 +17,15 @@ Observe Mode가 켜지면 NFC 스택은 거래를 허용하지 않고 폴링을 
 
 ## 서비스 API 흐름
 
-HostApduService는 setObserveModeEnabled(true)로 관찰을 활성화할 수 있다.
-정확히 일치하는 프레임에는 registerPollingLoopFilterForService를 사용한다.
-패턴 기반 조건에는 registerPollingLoopPatternFilterForService를 사용한다.
+앱은 `NfcAdapter.setObserveModeEnabled(true)`로 기기의 관찰 흐름을 활성화한다.
+정확히 일치하는 프레임에는 `CardEmulation.registerPollingLoopFilterForService()`를 사용한다.
+패턴 기반 조건에는 `CardEmulation.registerPollingLoopPatternFilterForService()`를 사용한다.
 필터에 맞는 비표준 폴링 프레임은 processPollingFrames로 전달된다.
 필터는 필요한 프레임만 매칭하도록 좁게 설계해 오탐을 줄인다.
 
 ## 전환 설계
 
-관찰 단계와 실제 APDU 거래 단계를 별도 상태로 모델링한다.
+관찰 단계와 실제 APDU 거래 단계를 별도 상태로 모델링하고, 준비가 끝나면 `NfcAdapter.setObserveModeEnabled(false)`로 거래를 허용한다.
 관찰만으로 결제가 완료되었다고 판단하지 않는다.
 리더의 실제 선택과 APDU 교환이 시작된 뒤에만 거래 상태를 전진시킨다.
 연속 프레임, 중복 알림, 타임아웃, 폴링 중단을 모두 처리한다.
@@ -54,6 +54,8 @@ Multi-purpose Tap도 일반 HCE API가 자동 제공하는 기능으로 간주�
 
 ## 공식 문서
 
-- https://developer.android.com/develop/connectivity/nfc/hce
-- https://developer.android.com/reference/android/app/role/RoleManager
-- https://developer.android.com/reference/android/service/quickaccesswallet/QuickAccessWalletService
+- [Host-based card emulation과 Observe Mode](https://developer.android.com/develop/connectivity/nfc/hce)
+- [RoleManager API](https://developer.android.com/reference/android/app/role/RoleManager)
+- [QuickAccessWalletService API](https://developer.android.com/reference/android/service/quickaccesswallet/QuickAccessWalletService)
+
+검증일: 2026-08-03. Observe Mode와 기본 지갑 역할은 Android 15+ 경계이며, NFC 컨트롤러·리더별 동작은 실기기에서 별도로 검증해야 한다.

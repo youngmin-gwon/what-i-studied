@@ -13,8 +13,8 @@ Navigation, dynamic feature, feature API module, implementation module이 섞일
 
 ## 판단 기준
 
-DI 노트는 객체를 어디서 만들고, 누가 소유하며, 어떤 lifetime 동안 재사용할지를 판단하는 기준으로 읽는다.
+- 모듈화된 프로젝트에서 DI 그래프는 Gradle 모듈 의존성 방향과 일치해야 하며, 피쳐 모듈은 자체적인 내부 DI를 구성하고 외부에 필요한 의존성만 인터페이스 계약으로 요구해야 한다.
 
 ## 경계
 
-framework 이름보다 graph boundary, scope, replacement seam, Android component lifetime을 먼저 확인한다.
+- 피쳐 모듈이 애플리케이션 전체의 DI 그래프 확장을 강제하지 않도록, Component Dependencies나 인터페이스 기반 Entry Point를 활용해 모듈 간 DI 결합도를 최소화해야 한다.

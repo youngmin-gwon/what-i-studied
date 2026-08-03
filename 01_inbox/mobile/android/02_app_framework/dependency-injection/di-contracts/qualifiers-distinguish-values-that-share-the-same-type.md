@@ -13,8 +13,8 @@ Qualifier는 같은 타입의 값을 의미별로 분리하는 이름표다. `@A
 
 ## 판단 기준
 
-DI 노트는 객체를 어디서 만들고, 누가 소유하며, 어떤 lifetime 동안 재사용할지를 판단하는 기준으로 읽는다.
+- 동일한 타입(예: String, Retrofit, Dispatcher)이지만 사용 목적이 다른 경우, `@Qualifier` (예: `@Named`) 어노테이션을 생성하여 DI 그래프가 어떤 인스턴스를 주입할지 명확히 식별하게 해야 한다.
 
 ## 경계
 
-framework 이름보다 graph boundary, scope, replacement seam, Android component lifetime을 먼저 확인한다.
+- 여러 구현체가 존재하지 않고 단일 용도로만 사용되는 커스텀 클래스에는 Qualifier를 남용하지 않으며, 안드로이드 Context나 코루틴 Dispatcher 같은 범용 타입의 충돌 방지용으로 제한적으로 사용한다.

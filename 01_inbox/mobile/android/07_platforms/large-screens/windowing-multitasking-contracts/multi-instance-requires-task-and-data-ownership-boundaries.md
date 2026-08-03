@@ -15,7 +15,7 @@ Multi-instance 지원은 같은 앱 창을 여러 개 띄우는 스위치를 켜
 - 같은 항목을 두 인스턴스에서 편집할 때 충돌, 저장 순서, stale state 처리를 정의한다.
 - singleton ViewModel, 전역 selection, shared mutable cache가 여러 window에서 섞이지 않는지 확인한다.
 - drag-out으로 새 인스턴스를 만드는 UX는 원본 창과 새 창의 소유권 이전 규칙을 함께 설계한다.
-- Android 15 이상의 system UI multi-instance affordance를 쓰려면 manifest property와 task launch 동작을 함께 검증한다.
+- Android 15(API 35) 이상의 system UI multi-instance affordance를 쓰려면 `PROPERTY_SUPPORTS_MULTI_INSTANCE_SYSTEM_UI`와 task launch 동작을 함께 검증한다. 이 property는 시스템 UI에 New Window 같은 진입점을 요청할 뿐 데이터 격리나 올바른 task 생성을 구현하지 않는다.
 
 ## 관련 문서
 
@@ -23,3 +23,5 @@ Multi-instance 지원은 같은 앱 창을 여러 개 띄우는 스위치를 켜
 - [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
 
 공식 문서: [Support desktop windowing](https://developer.android.com/develop/adaptive-apps/guides/support-desktop-windowing)
+
+검증일: 2026-08-03. desktop 또는 multi-window에서 새 task는 새 window로 열릴 수 있으므로 property, intent flags, back stack을 함께 테스트한다.

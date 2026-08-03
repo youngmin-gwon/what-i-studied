@@ -13,8 +13,8 @@ DI가 잘 동작하려면 Repository, UseCase, state holder 같은 일반 Kotlin
 
 ## 판단 기준
 
-DI 노트는 객체를 어디서 만들고, 누가 소유하며, 어떤 lifetime 동안 재사용할지를 판단하는 기준으로 읽는다.
+- 소비하는 객체는 `new`나 팩토리 메서드를 직접 호출하지 않고 생성자 파라미터로만 의존성을 선언해야 한다. 이를 통해 결합도를 낮추고 테스트 시 Fake 객체 주입을 용이하게 한다.
 
 ## 경계
 
-framework 이름보다 graph boundary, scope, replacement seam, Android component lifetime을 먼저 확인한다.
+- Activity, Fragment 등 시스템이 생성자를 호출하는 안드로이드 프레임워크 컴포넌트는 예외적으로 `@AndroidEntryPoint` 등을 통해 필드 주입을 사용해야 한다.

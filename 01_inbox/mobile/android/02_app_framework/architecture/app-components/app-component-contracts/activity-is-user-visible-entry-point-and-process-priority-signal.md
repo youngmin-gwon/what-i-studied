@@ -2,7 +2,7 @@
 title: activity-is-user-visible-entry-point-and-process-priority-signal
 tags: [android, android/app-components, android/architecture]
 aliases: ["Activity는 사용자에게 보이는 entry point이자 프로세스 우선순위 신호다"]
-date modified: 2026-08-03 16:20:42 +09:00
+date modified: 2026-08-03 16:21:12 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

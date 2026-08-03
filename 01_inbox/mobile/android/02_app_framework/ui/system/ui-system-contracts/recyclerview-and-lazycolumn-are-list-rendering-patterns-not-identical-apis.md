@@ -15,8 +15,9 @@ Compose 목록에서 중요한 것은 stable key와 state 위치다. item 내부
 
 ## 판단 기준
 
-UI system 노트는 View System과 Compose가 state, tree mutation, layout, side effect를 어디서 처리하는지 비교하는 기준으로 읽는다.
+- RecyclerView는 View 객체 재사용(Recycling & Binding)을 통해 뷰 객체 생성을 최소화하고, LazyColumn은 화면에 보이는 아이템의 Composable 함수만 Composition 및 Recomposition하는 방식으로 목록 렌더링을 최적화한다.
+- LazyColumn에서 아이템의 스크롤 위치 보존 및 무효화(Invalidation) 방지를 위해 `key = { item.id }` 파라미터를 통한 고유 식별자(Stable Key) 지정을 기본 규칙으로 적용한다.
 
 ## 경계
 
-API 이름 매핑보다 rendering model, state ownership, insets/back/adaptive boundary를 먼저 본다.
+- View System의 Adapter/ViewHolder 패턴 의존 습관을 Composable 내부로 들여와 불필요한 상태 가변 객체를 관리하지 않으며, State Hoisting을 통해 아이템 렌der 상태를 단방향 데이터 흐름으로 제어한다.

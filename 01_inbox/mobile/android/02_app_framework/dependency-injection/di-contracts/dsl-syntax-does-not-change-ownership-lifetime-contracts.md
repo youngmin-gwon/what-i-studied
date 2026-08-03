@@ -13,8 +13,8 @@ DI/Navigation 관련 DSL을 볼 때는 문법보다 "무엇을 선언하는가",
 
 ## 판단 기준
 
-DI 노트는 객체를 어디서 만들고, 누가 소유하며, 어떤 lifetime 동안 재사용할지를 판단하는 기준으로 읽는다.
+- Koin 같은 DSL 기반 DI를 사용하더라도 객체의 소유권과 생명주기 관리라는 DI 본질적 계약은 달라지지 않는다. 모듈 선언 구문이 다를 뿐 메모리 관리 책임은 여전히 구조적 스코프에 있다.
 
 ## 경계
 
-framework 이름보다 graph boundary, scope, replacement seam, Android component lifetime을 먼저 확인한다.
+- 런타임 DSL 방식은 컴파일 타임에 누락을 잡지 못하므로, 앱 구동 시점이나 테스트 환경에서 모듈 간 의존성 연결(CheckModules 등)이 완전한지 조기에 검증해야 한다.
