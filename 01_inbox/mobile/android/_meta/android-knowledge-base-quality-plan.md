@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-03 19:05:00 +09:00
+date modified: 2026-08-03 19:35:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -99,7 +99,7 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 
 각 장은 선행 지식, 실제 메커니즘, end-to-end 흐름, 최소 예시, 확인 질문, 다음 장을 포함한다.
 
-현재 교육과정 준비 작업본은 [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에서 관리한다. 이 문서에는 생태계 개념 범위표, 12장 구조와 1·2장의 상세 개요가 있다. 검수를 반영한 실제 본문은 [1장 Android 생태계와 계약 접점](../00_foundations/learning-spine/01-android-ecosystem-and-contract-surfaces.md)과 [2장 Android 플랫폼 실행 계층과 호출 경로](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md)에서 관리한다.
+현재 교육과정 준비 작업본은 [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에서 관리한다. 이 문서에는 생태계 개념 범위표, 12장 구조와 1·2장의 상세 개요가 있다. 검수를 반영한 실제 본문은 [1장 Android 생태계와 계약 접점](../00_foundations/learning-spine/01-android-ecosystem-and-contract-surfaces.md), [2장 Android 플랫폼 실행 계층과 호출 경로](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md), [3장 소스에서 설치된 패키지까지](../00_foundations/learning-spine/03-source-to-installed-package.md)에서 관리한다. 3장은 저작 세션 자체 검증만 마쳤고 별도 세션의 독립 검수는 아직이다.
 
 #### 2. Worked Examples
 
@@ -669,3 +669,7 @@ semantic_grade_A_B_C_D
 - 2장 실제 본문을 독자, 플랫폼 사실관계와 후속 장 경계 관점에서 독립 검수하고 지적 사항을 반영했다.
 - **별도 세션의 2차 독립 검수(2026-08-03).** 1장·2장 저작 세션과 무관한 검수자가 재검수했다. 내부 링크 17개·외부 공식 출처 링크 14개 전수 확인(broken 0건), 버전·플랫폼 사실 3건 표본 대조(WebFetch): 비공개 SDK 인터페이스 제한 서술 확인, HAL binderized/same-process 배치가 Android 버전·기기 구조에 따라 달라진다는 서술 확인, Binder의 caller UID 보존 서술은 인용한 특정 문서에 명시되어 있지 않으나 잘 알려진 사실이라 오류로 보지 않음. Reader 관점에서 1장 확인 질문 8개·2장 확인 질문 10개 중 표본을 문서만 읽고 직접 답변 가능함을 확인. 발견된 오류나 broken link 없음.
 - 상태: **Phase 2 진행 중 / 1장·2장 본문 작성 완료 / 저작 세션 자체 검수 + 별도 세션 2차 독립 검수 모두 완료(추가 지적 없음) / 사용자 검수 대기**
+- **3장 `소스에서 설치된 패키지까지` 본문을 별도 세션이 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/03-source-to-installed-package.md)에서 build variant→AAPT2/D8/R8→APK·AAB 산출물, AAB(게시)/APK(설치) 역할 분리, `applicationId`·서명 인증서·숫자 appId라는 세 가지 다른 축의 식별자, PackageInstaller/PackageManager의 검증·UID 할당·컴포넌트 registry 등록, 업데이트·서명불일치·삭제후재설치·force-stop의 UID·데이터 연속성 차이를 하나의 흐름으로 연결했다. 서명 불일치로 업데이트가 거부되는 사례를 실패 흐름으로 포함했다. 2장의 "다음 장으로 이어지는 질문" 5개를 모두 본문에서 직접 답했다.
+- 저작과 동시에 공식 출처 대조: Android 앱 서명 문서에서 "인증서가 다르면 업데이트가 거부되고 새 패키지로 설치된다"는 서술을, Android 보안 문서(app sandbox)에서 "앱마다 고유 UID를 할당해 프로세스를 격리한다"는 서술을 확인 후 인용했다. 내부 링크 8개, 외부 링크 6개 전수 확인(broken 0건).
+- 기존 `03_packaging_deployment`의 AAB/서명/버전 관련 원자 노트(Play 서명 키 분리, applicationId/versionCode 계약, R8 등)를 재사용하고 링크로 연결했다. Phase 2 준비 문서가 지적한 "PackageManager가 설치된 앱을 OS-visible entity로 만드는 중간 연결"(문자열 식별자 → 검증 → 숫자 appId/UID → 컴포넌트 registry)은 기존 원자 노트에 없던 내용이라 이 장에서 새로 연결했다.
+- 상태: **3장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**

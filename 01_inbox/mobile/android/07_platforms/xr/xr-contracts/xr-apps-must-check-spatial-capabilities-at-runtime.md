@@ -2,7 +2,7 @@
 title: xr-apps-must-check-spatial-capabilities-at-runtime
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:24 +09:00
+date modified: 2026-08-03 18:15:54 +09:00
 date created: 2026-07-31 18:06:11 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: tiles-and-complications-are-separate-surfaces-from-the-main-app
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:34 +09:00
+date modified: 2026-08-03 18:16:04 +09:00
 date created: 2026-08-03 17:28:21 +09:00
 ---
 

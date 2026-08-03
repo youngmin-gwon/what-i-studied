@@ -2,7 +2,7 @@
 title: wear-contracts
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:35 +09:00
+date modified: 2026-08-03 18:16:05 +09:00
 date created: 2026-08-03 17:27:36 +09:00
 ---
 

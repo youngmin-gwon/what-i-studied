@@ -2,7 +2,7 @@
 title: xr-quality-includes-performance-comfort-and-safety
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:27 +09:00
+date modified: 2026-08-03 18:15:57 +09:00
 date created: 2026-07-31 18:06:11 +09:00
 ---
 

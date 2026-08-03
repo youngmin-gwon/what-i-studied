@@ -2,7 +2,7 @@
 title: android-xr-is-spatial-form-factor-not-flat-port
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:20 +09:00
+date modified: 2026-08-03 18:15:50 +09:00
 date created: 2026-07-31 18:06:11 +09:00
 ---
 

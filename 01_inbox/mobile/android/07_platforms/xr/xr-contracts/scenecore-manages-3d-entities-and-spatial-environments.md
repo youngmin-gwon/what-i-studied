@@ -2,7 +2,7 @@
 title: scenecore-manages-3d-entities-and-spatial-environments
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:23 +09:00
+date modified: 2026-08-03 18:15:53 +09:00
 date created: 2026-07-31 18:06:11 +09:00
 ---
 

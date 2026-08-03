@@ -2,7 +2,7 @@
 title: wear-os-apps-can-run-independently-of-a-companion-phone-app
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:35 +09:00
+date modified: 2026-08-03 18:16:05 +09:00
 date created: 2026-08-03 18:05:35 +09:00
 ---
 

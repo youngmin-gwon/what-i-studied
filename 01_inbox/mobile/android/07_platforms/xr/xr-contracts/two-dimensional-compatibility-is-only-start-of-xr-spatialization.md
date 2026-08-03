@@ -2,7 +2,7 @@
 title: two-dimensional-compatibility-is-only-start-of-xr-spatialization
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:24 +09:00
+date modified: 2026-08-03 18:15:54 +09:00
 date created: 2026-07-31 18:08:32 +09:00
 ---
 

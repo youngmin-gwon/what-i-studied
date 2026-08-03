@@ -2,7 +2,7 @@
 title: android-platforms-and-form-factors
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:29 +09:00
+date modified: 2026-08-03 18:15:59 +09:00
 date created: 2026-08-03 17:31:28 +09:00
 ---
 

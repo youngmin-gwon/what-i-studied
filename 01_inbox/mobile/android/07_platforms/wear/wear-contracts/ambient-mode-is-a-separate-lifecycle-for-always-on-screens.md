@@ -2,7 +2,7 @@
 title: ambient-mode-is-a-separate-lifecycle-for-always-on-screens
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:33 +09:00
+date modified: 2026-08-03 18:16:03 +09:00
 date created: 2026-08-03 17:28:06 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: task-and-window-launch-must-declare-back-stack-reuse
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:13 +09:00
+date modified: 2026-08-03 18:15:43 +09:00
 date created: 2026-07-31 18:08:32 +09:00
 ---
 
