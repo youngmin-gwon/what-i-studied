@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-03 17:01:16 +09:00
+date modified: 2026-08-03 18:10:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -44,16 +44,27 @@ date created: 2026-08-03 16:20:03 +09:00
 - 재감사 당시 Background work 선택 모델에는 JobScheduler, user-initiated data transfer job, DownloadManager 와 task-specific API 가 빠져 있었다. Phase 0 에서 보강했다.
 - Batch D 의 Foundations 와 Platforms 에는 구현 예시와 실행 가능한 진단 절차가 거의 없다.
 
+### 독자 트랙과 전제 지식
+
+이전 버전은 "처음 읽는 사람"을 전제 지식 정의 없이 사용했다. 그러나 최종 목표 질문(Binder thread, SELinux, AppOps 등)과 Learning Spine 2 장(build/package/signing)은 이미 Kotlin/Java 문법, Android Studio 사용, 프로그래밍 기본 개념을 아는 독자를 전제한다. 이 간극을 명시하지 않으면 Coverage/Learning Gate 를 통과해도 실제로는 "완전 초심자"를 배제한 문서가 된다.
+
+따라서 이 지식 베이스는 두 트랙으로 분리한다.
+
+- **Track A. 앱 개발 입문 트랙** — 대상: 프로그래밍 또는 Android 개발 경험이 없는 독자. 전제 지식: 없음. 다루는 범위: Kotlin/Java 기초 문법, Android Studio 사용법, Gradle 기초, 첫 앱 실행까지의 최소 경로. **현재 이 계획의 범위 밖이며 별도 계획으로 존재하지 않는다.** vault 에 이 트랙 전용 문서가 없다는 사실을 명시적으로 기록해 두며, 이후 착수 여부는 별도로 결정한다.
+- **Track B. 내부 동작/AOSP 트랙** — 대상: Android Studio 로 앱을 최소 한 번 빌드·실행해 본 독자. 전제 지식: Kotlin/Java 기초 문법, 기본 OOP 개념, 앱을 실행해 본 경험. 다루는 범위: 이 문서의 Learning Spine 12 장, Worked Example, Diagnostic Runbook, Atomic Reference 전체와 기존 `01_system_internals`(AOSP/kernel/HAL) 를 포함한 585 개 노트.
+
+이 계획의 모든 Phase, 게이트, `최종 목표`, `지식 구조` 는 **Track B 기준**이다. "초심자"라는 표현이 이후 등장하면 Track A 가 아니라 "Android 개발 경험은 있으나 내부 동작은 모르는 독자"를 뜻한다.
+
 ### 최종 목표
 
-Android 지식 베이스는 서로 다른 네 역할을 수행해야 한다.
+Android 지식 베이스(Track B)는 서로 다른 네 역할을 수행해야 한다.
 
-1. 처음 읽는 사람이 Android 의 전체 실행 모델을 순서대로 이해한다.
+1. Android 앱 개발 경험이 있는 독자가 Android 의 전체 실행 모델을 순서대로 이해한다.
 2. 실제 기능과 장애를 end-to-end 로 추적하며 계층 사이 인과관계를 이해한다.
 3. 문제를 만났을 때 관찰 신호를 근거로 실패 경계를 좁힌다.
 4. 특정 판단이 필요할 때 짧은 원자 reference 로 빠르게 돌아온다.
 
-최종 사용자는 다음 질문에 자신의 말로 답할 수 있어야 한다.
+Track B 최종 사용자는 다음 질문에 자신의 말로 답할 수 있어야 한다.
 
 - APK/AAB 가 빌드, 서명, 설치된 뒤 앱 프로세스와 첫 Activity 가 어떻게 시작되는가?
 - Manifest, component, Intent, task, process, lifecycle 은 어떻게 연결되는가?
@@ -584,3 +595,41 @@ semantic_grade_A_B_C_D
 - 감독 검수: git diff 20 개 파일 확인, wikilink/file URI/절대경로 링크/repo docs 링크/broken markdown link/duplicate stem 전체 0 건 재검증. `platform-modularity` 13 개 파일에 누락되어 있던 `aliases`/`date modified`/`date created` frontmatter 필드를 vault 관례에 맞춰 보강(기계 위생 정리, 이번 batch 에서 발견).
 - 새 기준(mechanism, worked example, observable evidence, accuracy) 대비 미실시: 각 노트에 구체적 code/state 예시를 추가하는 작업, Author 와 분리된 Researcher/Reviewer 의 별도 fact-check pass, Learning Spine/Worked Example/Diagnostic Runbook 과의 연결.
 - 상태: **구조 + 정확성 pass 완료 / 신규 기준 semantic completion 미확정 / 추가 batch 병렬 작업은 새 계획의 Phase 0(사실 오류 수정)·Phase 1(taxonomy 확정) 완료 전까지 보류**
+
+#### Phase 1. Taxonomy 와 범위 확정 (2026-08-03)
+
+착수 전 사용자와 함께 "독자 트랙과 전제 지식" 분리를 먼저 확정했다(위 섹션). 그 뒤 8 개 top-level 폴더의 실제 노트 수와 하위 구조를 전수 조사해 coverage matrix 를 작성했다.
+
+**Coverage matrix**
+
+| 폴더 | 노트 수 | 최상위 map | 실제 하위 범위 | 제목 대비 평가 |
+| --- | --- | --- | --- | --- |
+| `00_foundations` | 53 | 있음 (`android-foundation-map`) | glossary, history, learning, overview | Batch D 재감사 기준 curriculum 역할 미흡 (기존 기록 유지) |
+| `01_system_internals` | 153 | **없음** (하위 클러스터별 map 만 존재: `android-boot-and-runtime`, `android-connectivity` 등) | boot-and-runtime, connectivity, graphics-and-media, ipc-and-process, kernel-and-hal, platform-customization, platform-modularity | 통합 진입 지도 부재 — 독자가 폴더 전체를 2 단계 이내로 조망할 단일 지점이 없음 |
+| `02_app_framework` | 227 | **없음** (하위 클러스터별 map 만 존재) | architecture, data, dependency-injection, jetpack-compose, navigation, ui | vault 최대 규모 폴더인데 통합 지도 부재는 Graph Gate 리스크 |
+| `03_packaging_deployment` | 42 | 있음 (`android-packaging-deployment`) | build/sign/배포/CI 4 축 | 제목과 일치 |
+| `04_system_services` | 28 | 있음 (`android-system-services-and-device-capabilities`) | background-work, notification/FCM, assistant/agent, NFC 4 개뿐 | **제목(system services 전체)이 실제 범위(4 개 표면)보다 훨씬 넓음** |
+| `05_security_privacy` | 28 | 있음 (`android-security-and-privacy`) | integrity, permission/sandbox, platform-hardening, secure-storage, security-practices | 제목과 일치 |
+| `06_testing_performance` | 27 | 있음 (`android-performance-quality-and-build-optimization`, performance 하위) | performance/build 최적화 중심 | testing 비중 확인 필요 (이번 조사 범위 밖, 후속 확인 필요) |
+| `07_platforms` | 27 | 있음 (`android-platforms-and-form-factors`) | large-screen, windowing, XR 3 개뿐 | **제목(폼팩터 전체)이 실제 범위보다 넓음. TV/Wear OS/Auto/ChromeOS 전무** |
+
+**System Services 와 Platforms 결정 (사용자 확정)**
+
+두 폴더 모두 **이름 유지 + 범위 확장**으로 결정했다 (rename 으로 축소하지 않음).
+
+- `04_system_services` 목표 범위: 현재 4 개(background-work, notification/FCM, assistant/agent, NFC)에 location, sensors, power, package/user/role, media/audio/camera, biometrics/credentials, telephony, input/accessibility 를 추가한다. `Context.getSystemService()` 공통 lookup 모델과 Binder/system_server, caller UID, permission/AppOps 공통 계약도 별도 클러스터로 필요하다(계획 원문 line 300-307 유지).
+- `07_platforms` 목표 범위: 현재 3 개(large-screen, windowing, XR)에 TV, Wear OS, Auto/Automotive, ChromeOS 고유 계약을 추가한다. 각 폼팩터는 input/lifecycle/layout/system UI/capability/distribution/testing 관점을 갖춰야 한다.
+- **이 확장은 Phase 1 안에서 즉시 작성하지 않는다.** 신규 클러스터 작성은 우선순위 목록의 "6. System Services 와 Platforms 의 expand/rename"에 해당하며, Learning Spine pilot(Phase 2-3) 이후 착수한다. 지금은 두 map 노트에 목표 범위와 현재 공백을 명시적으로 기록해 제목과 내용의 불일치를 정직하게 드러내는 것까지만 한다(아래).
+- `04_system_services`/`07_platforms` map 노트에 "포함 예정이나 아직 없음" 목록을 추가해 Coverage Gate("빠진 영역은 추가하거나 제목과 map 에서 명시적으로 제외한다")를 임시 조건부로 충족시켰다. 실제 신규 노트 작성 전까지 이 상태는 "확장 결정 + 공백 공개"이지 "완료"가 아니다.
+
+**새로 발견된 taxonomy 문제**
+
+- `01_system_internals`(153 개)와 `02_app_framework`(227 개, vault 최대)에는 하위 클러스터 map 만 있고 폴더 전체를 조망하는 통합 진입 지도가 없다. `00/03/04/05/06/07`은 모두 통합 map 이 있어 구조가 비대칭적이다. Foundation map 에서 이 두 폴더로 진입할 때 어느 하위 클러스터부터 읽어야 하는지 판단할 단일 지점이 없다는 뜻이며, Graph Gate(2 단계 이내 도달)와 직결된다. Phase 6(Graph 재구성) 전에 두 폴더의 통합 map 신설 여부를 별도로 결정해야 한다.
+- `06_testing_performance`는 이번 조사에서 성능/빌드 최적화 편중 여부만 확인했고 testing 자체(단위/UI 테스트, 계측, CI 통합) 비중은 확인하지 못했다. 후속 확인 필요.
+
+완료 조건 대비 상태:
+
+- 모든 top-level map 에 포함/제외 범위가 있다 → `04_system_services`/`07_platforms` 는 이번에 보강, 나머지는 기존 상태 유지.
+- 이름과 실제 내용이 충돌하지 않는다 → rename 대신 "확장 결정 + 공백 명시"로 임시 충족. 실제 신규 클러스터 작성 전까지 잠정적.
+
+상태: **Phase 1 taxonomy 결정 및 coverage matrix 작성 완료 / 신규 클러스터 저작은 Phase 2-3 이후 후속 작업으로 이월 / `01_system_internals`·`02_app_framework` 통합 map 신설 여부는 미결정으로 기록**

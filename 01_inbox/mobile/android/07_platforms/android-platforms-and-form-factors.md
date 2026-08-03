@@ -34,3 +34,12 @@ Android 앱은 더 이상 단일 휴대폰 화면만 대상으로 하지 않는�
 3. XR 계약에서 2D 호환 실행과 공간화, runtime capability와 출시 조건을 분리한다.
 
 검증일: 2026-08-03. 현재 공식 품질 기준은 큰 화면을 포함한 [Adaptive app quality](https://developer.android.com/docs/quality-guidelines/adaptive-app-quality)와 별도의 [Android XR app quality](https://developer.android.com/docs/quality-guidelines/android-xr)로 나뉜다.
+
+## 목표 범위와 현재 공백 (2026-08-03 확정)
+
+이 폴더 이름은 "폼 팩터 전체"를 가리키지만, 현재 실제로 작성된 것은 large-screen, desktop windowing, XR 뿐이다. 이름을 유지하기로 확정했으므로(`_meta/android-knowledge-base-quality-plan.md` Phase 1), 아래는 제목이 약속하는 범위 중 아직 없는 폼 팩터다. 각 폼팩터는 input, lifecycle, layout, system UI, capability, distribution, testing 관점을 모두 갖춰야 완료로 본다.
+
+- TV (Android TV/Google TV): d-pad/리모컨 입력, 10-foot UI, leanback 계약
+- Wear OS: 워치 입력, 짧은 상호작용 lifecycle, complication/tile 계약
+- Auto/Automotive (Android Auto, Android Automotive OS): 운전 중 안전 제약, 차량 HAL 연동, distribution 정책
+- ChromeOS 고유 계약: 이미 large-screen/windowing 이 일부 다루지만 ChromeOS 전용 정책(예: Play Store 배포 조건)은 별도 확인 필요

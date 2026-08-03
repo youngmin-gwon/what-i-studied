@@ -40,3 +40,19 @@ tags: ["android", "android/system-services"]
 - [NFC와 비접촉 기능 계약](01_inbox/mobile/android/04_system_services/device-capabilities/nfc-contracts/nfc-contracts.md)
 
 새 노트는 특정 API를 나열하기보다 `시스템이 보장하는 것`, `앱이 영속화·검증할 것`, `버전·권한 조건`, `관찰 가능한 실패` 중 하나의 판단 단위를 맡아야 한다.
+
+## 목표 범위와 현재 공백 (2026-08-03 확정)
+
+이 폴더 이름은 "system services and device capabilities" 전체를 가리키지만, 현재 실제로 작성된 것은 위 4 개 표면뿐이다. 이름을 유지하기로 확정했으므로(`_meta/android-knowledge-base-quality-plan.md` Phase 1), 아래 목록은 제목이 약속하는 전체 범위 중 아직 작성되지 않은 부분이다. 각 항목이 채워지기 전까지는 이 지도를 "Android system service 전체 지도"로 읽지 말 것.
+
+- `Context.getSystemService()` lookup 과 Binder/system_server, caller UID, permission/AppOps 공통 계약 (모든 하위 서비스가 공유하는 기반 모델, 아직 없음)
+- location
+- sensors
+- power (배터리, 절전 모드 등 앱이 관찰하는 전력 상태)
+- package/user/role (PackageManager, UserManager, RoleManager 등 앱·사용자·역할 조회)
+- media/audio/camera (system service 관점의 접근 표면, 코덱·렌더링 자체는 `01_system_internals/graphics-and-media` 담당)
+- biometrics/credentials
+- telephony
+- input/accessibility
+
+Bluetooth 를 포함한 connectivity 는 이 폴더가 아니라 `01_system_internals/connectivity` 가 담당한다(중복 작성 금지).
