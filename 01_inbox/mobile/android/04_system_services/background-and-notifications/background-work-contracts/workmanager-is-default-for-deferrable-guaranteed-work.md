@@ -16,7 +16,7 @@ WorkManager는 화면을 떠나거나 앱·기기가 재시작된 뒤에도 **�
 
 ## 상태와 재시도 메커니즘
 
-`ENQUEUED` 작업은 constraint와 스케줄러 허가를 기다리고, 시작하면 `RUNNING`이 된다. `Result.success()`와 `Result.failure()`는 terminal state로, `Result.retry()`는 backoff 뒤 `ENQUEUED`로 돌린다. chain에서는 선행 실패·취소가 후행 작업으로 전파될 수 있다.
+`ENQUEUED` 작업은 constraint와 스케줄러 허가를 기다리고, 시작하면 `RUNNING`이 된다. one-time work에서 `Result.success()`와 `Result.failure()`는 terminal state로 가고, `Result.retry()`는 backoff 뒤 `ENQUEUED`로 돌린다. chain에서는 선행 실패·취소가 후행 작업으로 전파될 수 있다. periodic work는 성공하거나 실패해도 다음 주기를 위해 다시 `ENQUEUED`되며, 명시적으로 취소될 때만 terminal `CANCELLED`가 된다.
 
 - 일시적 연결 오류만 `retry()`하고 인증 거부나 잘못된 입력은 terminal failure로 분류한다.
 - Worker는 적어도 한 번 다시 실행될 수 있다는 가정으로 멱등적으로 만든다. unique work는 중복 **예약 정책**이지 서버 side effect의 exactly-once 보장이 아니다.

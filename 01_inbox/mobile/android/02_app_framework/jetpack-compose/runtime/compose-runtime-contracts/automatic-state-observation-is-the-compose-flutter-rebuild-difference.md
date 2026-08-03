@@ -1,12 +1,12 @@
 ---
-title: 자동 상태 관찰은 Compose와 Flutter Rebuild의 차이점이다
+title: automatic-state-observation-is-the-compose-flutter-rebuild-difference
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [A Compose State of Mind, Compose for Flutter developers]
-date modified: 2026-08-03 16:37:57 +09:00
+date modified: 2026-08-03 17:00:34 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-# 자동 상태 관찰은 Compose와 Flutter Rebuild의 차이점이다
+## 자동 상태 관찰은 Compose 와 Flutter Rebuild 의 차이점이다
 
 Flutter 개발자가 Compose 를 볼 때 가장 먼저 바꿔야 할 관점은 "Widget 객체를 다시 build 한다"가 아니라 "Composable 함수가 어떤 Snapshot State 를 읽었는지 Runtime 이 추적한다"는 점이다.
 

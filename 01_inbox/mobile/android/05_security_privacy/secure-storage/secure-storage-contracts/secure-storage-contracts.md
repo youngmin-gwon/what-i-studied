@@ -1,12 +1,12 @@
 ---
-title: 보안 저장소 계약
+title: secure-storage-contracts
 tags: ["android", "android/security-privacy"]
 aliases: []
-date modified: 2026-08-01 01:06:50 +09:00
+date modified: 2026-08-03 17:01:26 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
-# 보안 저장소 계약
+## 보안 저장소 계약
 
 보안 저장소는 파일 위치만의 문제가 아니다. 민감 데이터 분류, 암호화 키 소유권, 인증 조건, 백업 제외, 키 무효화 처리를 함께 설계해야 한다.
 

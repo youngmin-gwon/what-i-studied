@@ -14,9 +14,9 @@ API 선택은 "백그라운드인가"가 아니라 **누가 시작했고, 언제
 | 요구사항 | 선택 | 보장과 포기 | 관찰 신호 |
 | --- | --- | --- | --- |
 | 검색 화면을 닫으면 버려도 되는 자동완성 요청 | 화면/ViewModel 소유 coroutine | 프로세스 종료 뒤 복구 없음; 소유자 종료 시 취소가 올바른 결과 | coroutine 취소, UI state |
-| 앱을 닫아도 서버에 분석 로그를 결국 전송, 수분 지연 허용 | WorkManager | 예약·constraint·재시도 영속화; 즉시/정확 시각/연속 실행은 보장하지 않음 | `WorkInfo.state`, `runAttemptCount`, `stopReason`, WM 로그 |
+| 앱을 닫아도 서버에 분석 로그를 결국 전송, 수분 지연 허용 | WorkManager | 예약·constraint·재시도 영속화; 즉시/정확 시각/연속 실행은 보장하지 않음 | `WorkInfo.state`, `runAttemptCount`, WM 로그; 2.9.0+/API 31+의 `stopReason` |
 | WorkManager에 없는 `JobInfo` 기능(`setPrefetch`, UIDT, pending reason 등)이 필요 | 직접 JobScheduler | 플랫폼 기능과 stop reason 사용; API 버전 분기·job ID·재스케줄 설계 책임 증가 | `JobService` callback, `JobParameters.stopReason`, `dumpsys jobscheduler` |
-| Android 14+에서 사용자가 탭한 대용량 앨범 다운로드를 즉시 진행하고 진행률 제공 | UIDT job | 제약 충족 뒤 즉시 시작을 의도하고 일반 job quota 면제; notification 필요, visible 상태에서 예약, 시스템 건강·constraint·메모리로 중단 가능 | notification/Task Manager, `onStopJob`, stop reason, 저장된 offset |
+| Android 14+에서 사용자가 탭한 대용량 앨범 다운로드를 즉시 진행하고 진행률 제공 | UIDT job | `RUN_USER_INITIATED_JOBS` 선언, 허용된 visible 상태에서 예약, 실행 중 `setNotification()` 필요; 일반 job quota 면제지만 constraint·전송 시간·시스템 건강·열·메모리로 중단 가능 | notification/Task Manager, `onStopJob`, stop reason, 저장된 offset |
 | 짧고 중요한 메시지 전송을 앱 이탈 뒤 수분 내 완료 | expedited WorkManager | quota가 있을 때 빠른 시작; out-of-quota 정책에 따라 일반 작업으로 강등 또는 취소, 시스템 부하로 지연 가능 | `WorkInfo`, quota/constraint, `WM-` 로그 |
 | 통화·내비게이션·재생처럼 즉시 시작하고 사용자가 계속 인지하는 허용된 작업 | 직접 foreground service 또는 해당 전용 API | ongoing notification과 type/permission 계약; background start 제한·type별 timeout/정책 적용 | notification, service lifecycle, 시작 예외, Task Manager |
 | 오전 8시 복약 알림처럼 시각 자체가 기능 | AlarmManager | 시각 트리거; 긴 작업 컨테이너가 아니며 exact alarm은 별도 요건과 배터리 비용 존재 | `PendingIntent` 수신 시각, alarm dumpsys |

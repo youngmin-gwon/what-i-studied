@@ -1,18 +1,18 @@
 ---
-title: "Android kernel runtime"
+title: android-kernel-runtime
 tags: [android, android/kernel, android/system-internals]
-aliases: [android-kernel, Android Kernel, 안드로이드 커널]
-date modified: 2026-07-31 23:45:00 +09:00
+aliases: [Android Kernel, android-kernel, 안드로이드 커널]
+date modified: 2026-08-03 17:01:35 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
-# Android kernel runtime
+## Android kernel runtime
 
 Android kernel 영역은 Linux kernel 지식과 Android platform 정책이 만나는 지점이다. 이 허브는 기존 `android-kernel` 가이드의 내용을 ACK/GKI/KMI, power, memory, shared buffer, SELinux, build/debugging 계약으로 다시 묶는다.
 
 정본 묶음: [Kernel contracts](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kernel-contracts.md)
 
-## 읽는 순서
+### 읽는 순서
 
 - [Android kernel이 일반 Linux와 달라지는 이유](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/android-kernel-is-linux-plus-mobile-platform-policy.md)
 - [ACK와 upstream Linux 관계](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/android-common-kernel-bridges-upstream-lts-and-android-releases.md)
@@ -25,6 +25,6 @@ Android kernel 영역은 Linux kernel 지식과 Android platform 정책이 만�
 - [SELinux domain/type policy](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/selinux-enforces-mac-with-domain-type-policy.md)
 - [Kernel debugging](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kernel-debugging-starts-before-logcat-with-bootloader-dmesg-and-trace.md)
 
-## 다음 경계
+### 다음 경계
 
-HAL, native service, NDK/JNI는 kernel 자체가 아니라 kernel과 userspace/native code의 경계다. 이 영역은 [HAL and native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md)에서 별도 정본으로 분리했다.
+HAL, native service, NDK/JNI 는 kernel 자체가 아니라 kernel 과 userspace/native code 의 경계다. 이 영역은 [HAL and native boundary](01_inbox/mobile/android/01_system_internals/kernel-and-hal/hal-native-boundary.md) 에서 별도 정본으로 분리했다.

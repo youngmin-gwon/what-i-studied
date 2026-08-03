@@ -23,7 +23,7 @@ tags: ["android", "android/system-services"]
 | 요구의 핵심 | 먼저 읽을 계약 |
 | --- | --- |
 | 지연·재시도를 허용하며 앱/기기 재시작 뒤에도 예약을 복구 | [WorkManager](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md) |
-| Android 14+에서 사용자가 시작한 장시간 업로드·다운로드를 즉시 진행하고 진행 알림 제공 | `JobScheduler`의 user-initiated data transfer job(UIDT) |
+| Android 14+에서 사용자가 시작한 장시간 업로드·다운로드를 즉시 진행하고 진행 알림 제공 | `RUN_USER_INITIATED_JOBS` 권한과 실행 중 notification을 갖춘 `JobScheduler` user-initiated data transfer job(UIDT) |
 | WorkManager에 없는 `JobInfo` 기능이나 플랫폼 수준 job 제어가 필요 | 직접 `JobScheduler`; 편의·호환·영속 상태 관리는 앱 책임이 커진다 |
 | 진행 중임을 사용자가 계속 알아야 하고 허용된 foreground service type에 해당 | [foreground service](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/foreground-service-is-for-visible-continuous-work.md) |
 | 특정 시각에 깨우는 행위 자체가 사용자 기능 | [AlarmManager](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/alarmmanager-is-for-time-based-user-events.md) |

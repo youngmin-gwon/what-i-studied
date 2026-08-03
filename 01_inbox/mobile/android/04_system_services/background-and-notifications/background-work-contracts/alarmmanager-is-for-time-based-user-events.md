@@ -91,7 +91,7 @@ fun distinctReminder(context: Context, reminderId: Long): PendingIntent {
 2. **시스템 예약 상태를 확인한다.** 테스트 알람을 몇 분 뒤로 예약하고 `adb shell dumpsys alarm` 출력에서 앱 패키지, action 또는 data URI를 찾는다. 정상 신호는 의도한 identity와 시각의 예약이 보이는 것이다. 예약 성공 로그는 있는데 항목이 없으면 identity 충돌에 의한 대체, 즉시 취소, 권한 철회 여부를 조사한다. `dumpsys`의 세부 출력 형식은 Android 버전과 제조사에 따라 다르므로 문자열 전체를 자동화 테스트의 고정 계약으로 삼지 않는다.
 3. **권한 거부 경로를 검증한다.** Android 14+에서 target 33+ 앱을 신규 설치하거나 시스템의 "알람 및 리마인더" 특별 접근을 끈다. `SCHEDULE_EXACT_ALARM` 경로의 정상 거부 신호는 `canScheduleExactAlarms() == false`, exact API를 호출하지 않는 대체 UI 또는 부정확한 예약, exact 예약 항목 없음이다. 검사를 누락하고 `PendingIntent` 기반 exact API를 호출해 `SecurityException`이 발생하면 구현 실패다.
 4. **권한 재부여를 검증한다.** 설정에서 특별 접근을 켠 뒤 상태 변경 broadcast에서 다시 capability를 확인하고 저장된 리마인더를 재예약한다. 정상 신호는 capability가 `true`로 바뀌고 각 logical ID가 한 번씩 예약되는 것이다. 중복 항목이 쌓이거나 설정 화면에서 돌아온 것만으로 권한이 있다고 가정하면 실패다.
-5. **`OnAlarmListener` 생명주기를 분리해 검증한다.** Android 14+에서 listener 알람을 등록한 component를 알람 전에 종료한다. callback이 오지 않는 것은 문서화된 생명주기 경계다. component 종료 뒤에도 와야 하는 요구사항이었다면 API 선택 실패이며 `PendingIntent` 경로로 바꿔야 한다. Android 12~13의 target 31+ 테스트에서는 listener 방식도 특별 접근 없이 성공한다고 가정하지 않는다.
+5. **`OnAlarmListener` 생명주기를 분리해 검증한다.** Android 14+에서 listener 알람을 등록한 component를 종료하고 앱이 cached 상태로 이동했는지 확인한다. 이 경계에서는 시스템이 알람을 취소할 수 있으므로 callback 지속 전달을 성공 조건으로 삼지 않는다. component 종료 뒤에도 반드시 와야 하는 요구사항이라면 API 선택 실패이며 `PendingIntent` 경로로 바꿔야 한다. Android 12~13의 target 31+ 테스트에서는 listener 방식도 특별 접근 없이 성공한다고 가정하지 않는다.
 6. **전달 정확성을 측정한다.** RTC 계열은 시간대·서머타임·수동 시계 변경을, elapsed realtime 계열은 경과 시간을 기준으로 시험한다. Doze 진입 전후에 예정 시각과 실제 수신 시각의 차이를 비교한다. 허용 지연 안에서 한 번 수신되면 정상이고, 수신 누락·중복·업무 요구를 넘는 지연이면 권한 상태, 선택한 API, idle 허용 여부와 제조사 배터리 제한을 함께 기록한다.
 
 - 알람을 사용해 백그라운드 정책을 우회하려는 설계는 요구사항부터 다시 분류한다.
