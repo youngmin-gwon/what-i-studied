@@ -2,7 +2,7 @@
 title: aosp-is-base-platform-not-complete-google-device-experience
 tags: [android, android/aosp]
 aliases: [Android Open Source Project, AOSP]
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-04 17:06:41 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -60,11 +60,11 @@ fun sendNotification(context: Context, message: String) {
 - \"Android 에서 된다\"와 \"GMS 인증 기기에서 된다\"를 명확히 구분한다.
 - platform API(`android.*`), Google Play services API(`com.google.android.gms.*`), OEM private API 는 같은 안정성으로 취급하지 않는다.
 - 기기 기능은 AOSP source 존재 여부가 아니라 feature declaration, HAL, permission, certification 상태로 확인한다.
-- 중국 출시 기기, 엔터프라이즈 custom ROM, IoT/embedded Android는 GMS가 없을 수 있다.
+- 중국 출시 기기, 엔터프라이즈 custom ROM, IoT/embedded Android 는 GMS 가 없을 수 있다.
 
 ### 경계
 
-- GMS 라이선스와 인증 요건은 [GMS는 AOSP가 아니라 라이선스된 Google services layer다](gms-is-licensed-google-services-layer-not-aosp.md)가 다룬다.
+- GMS 라이선스와 인증 요건은 [GMS는 AOSP가 아니라 라이선스된 Google services layer다](gms-is-licensed-google-services-layer-not-aosp.md) 가 다룬다.
 
 ### 관측 가능한 증거 (Observable Evidence)
 

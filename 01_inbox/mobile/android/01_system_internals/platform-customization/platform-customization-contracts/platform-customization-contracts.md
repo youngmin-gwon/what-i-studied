@@ -1,9 +1,9 @@
 ---
 title: platform-customization-contracts
 tags: [android, android/aosp, android/system-internals]
-aliases: ["Platform Customization Contracts", "Android 플랫폼 커스터마이징 계약 MOC"]
+aliases: ["Android 플랫폼 커스터마이징 계약 MOC", "Platform Customization Contracts"]
+date modified: 2026-08-04 17:04:09 +09:00
 date created: 2026-08-01 00:00:00 +09:00
-date modified: 2026-08-04 15:50:00 +09:00
 ---
 
 ## Platform customization contracts
