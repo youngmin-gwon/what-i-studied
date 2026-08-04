@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-04 16:17:23 +09:00
+date modified: 2026-08-04 17:10:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -265,6 +265,8 @@ Atomic Reference 는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 - 폴더 제목과 실제 범위가 일치한다.
 - 빠진 영역은 추가하거나 제목과 map 에서 명시적으로 제외한다.
 - System Services 와 Platforms 는 확장 또는 rename 결정을 먼저 완료한다.
+
+**상태(2026-08-04): 미충족.** Phase 5(Substance Pass)가 category 1~8 을 "완료"로 기록했지만, 이는 기존 노트를 A 등급 깊이로 보강했다는 뜻이지 Coverage Gate 를 충족했다는 뜻이 아니다. Phase 1 coverage matrix(2026-08-03)가 이미 지적한 두 공백(01_system_internals·02_app_framework 통합 map 부재, 06_testing_performance 의 CI/디바이스 팜·접근성 테스트 부재)이 이후 여러 category 가 "완료"로 기록된 뒤에도 그대로 남아 있음을 재확인했다. 여기에 더해 vault 전체 키워드 검색으로 이전에 기록되지 않았던 새 공백을 발견했다(Google Play Billing 0 건, App Shortcuts 0 건, Bluetooth 전용 클러스터 없음, WebView 전용 노트 없음, 온디바이스 AI/ML 사실상 없음, App Widgets 1 건뿐). 상세 내역과 해소 계획은 `#### Phase 9. Coverage Gap Remediation` 참조. **다른 세션이 category 완료 로그만 보고 Coverage Gate 를 충족했다고 판단하지 않도록, 이 게이트가 아래 Phase 9 를 완료 조건으로 명시할 때까지 미충족 상태로 유지한다.**
 
 #### 2. Learning Gate
 
@@ -919,9 +921,58 @@ Author 와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 
 **최종 상태**: 8 개 Worked Example 모두 100% 상대경로 링크 정상(Broken 0 건), 다계층 실행 파이프라인 및 성공/실패 비교표 구비 완료.
 
-**다음 단계 결정(2026-08-04):** Phase 9 Topic Synthesis Layer 착수.
+**다음 단계 결정(2026-08-04, 갱신).** 원래 다음 단계로 Phase 9 Topic Synthesis Layer 착수가 기록됐으나, 그 직후 진행한 Coverage Gate 재검증(아래)에서 Topic Synthesis 가 합성할 원자 노트 자체가 없는 주제(Billing, Bluetooth, WebView, 온디바이스 AI, App Shortcuts 등)가 다수 발견됐다. 없는 노트를 합성할 수는 없으므로 순서를 바꾼다: **Coverage Gap Remediation(신규 Phase 9)을 먼저 완료하고, 기존 Topic Synthesis Layer 계획은 Phase 10 으로 재배치한다.**
 
-#### Phase 9. Topic Synthesis Layer 작성
+#### Phase 9. Coverage Gap Remediation (범위 공백 해소)
+
+**배경.** Phase 1 coverage matrix(2026-08-03, 위 진행 기록 참조)는 이미 두 공백을 지적했다: (1) `01_system_internals`·`02_app_framework` 에 폴더 전체를 조망하는 통합 map 이 없다, (2) `06_testing_performance` 에 CI/디바이스 팜 통합과 접근성(TalkBack) 테스트 전용 클러스터가 없다. 두 항목 모두 "Phase 6 Graph 재구성 100% 도달률", "category 5(Testing) 완료" 로그가 작성된 뒤에도 실제로는 해소되지 않은 채 남아 있음을 2026-08-04 재검증(폴더 파일 목록 직접 확인, vault 전체 grep)으로 재확인했다. 이는 category/phase "완료" 로그가 **기존 노트의 substance 보강**을 의미할 뿐 **coverage 확장**을 보장하지 않는다는 뜻이다 — 앞으로 이 plan 을 읽는 모든 세션은 두 개념을 구분해야 한다.
+
+추가로 같은 재검증에서 plan 문서 어디에도 기록된 적 없는 새 공백을 vault 전체(665 개 파일) 키워드 검색으로 발견했다: `billing`/`play billing`/`구독 결제` 0 건, `shortcutmanager` 0 건, `bluetooth` 는 지나가는 언급 6 건뿐이고 전용 클러스터 없음(Phase 1 이 `04_system_services` 확장 대상으로 이미 명시했으나 미실행), `webview` 는 다른 주제 노트에서의 부수적 언급 3 건뿐이고 전용 노트 없음, `ml kit`/`tensorflow`/`gemini nano`/`aicore` 사실상 0 건, App Widget/Glance 는 노트 1 개뿐(위젯 lifecycle·RemoteViews 제약·pinning·설정 액티비티 등 큰 주제 치고 얕음).
+
+**작업 지침.** 각 신규 클러스터는 기존 Atomic Reference 저작 규칙(4 대 필수 구성요소: 메커니즘·코드/설정 예시·다이어그램·관찰 가능한 증거, 최소 3 가지 이상)을 그대로 따른다. hub 노트(`*-contracts.md`)를 먼저 만들고 상위 map 에 링크를 연결해 Graph Gate 를 유지한다. 아래는 다른 세션이 그대로 착수할 수 있도록 폴더 경로와 원자 노트 주제를 구체적으로 명시한다.
+
+1. **`01_system_internals/android-system-internals-map.md`, `02_app_framework/android-app-framework-map.md` 신설.** 두 폴더 최상위에 통합 진입 지도가 없다는 Phase 1 지적을 실제로 해소한다. 각 map 은 하위 클러스터 목록, 읽는 순서, 포함/제외 범위를 담아 Foundation map 에서 2 단계 이내 도달을 보장한다.
+
+2. **`06_testing_performance/testing/testing-quality-contracts/` 에 3 개 노트 추가.**
+   - CI 파이프라인이 Firebase Test Lab 같은 클라우드 디바이스 매트릭스에서 테스트를 실행하는 계약(로컬 에뮬레이터 매트릭스와의 차이)
+   - 파이프라인 sharding 이 테스트 개수가 아니라 과거 실행 시간 기준으로 분배해야 하는 이유
+   - TalkBack 수동 검증과 Accessibility Scanner 자동 검사가 서로 다른 결함을 잡는다는 계약(기존 `accessibility-quality-requires-service-scanner-and-semantics-verification.md` 와 경계 구분)
+
+3. **`03_packaging_deployment/distribution/billing-contracts/` 신설 (Google Play Billing).**
+   - Play Billing Library 가 Android 인앱 결제의 유일한 승인 경로라는 계약(정책상 우회 불가)
+   - 상품(1 회성) vs 구독의 서로 다른 purchase lifecycle
+   - 구매를 3 일 이내 `acknowledge` 하지 않으면 자동 환불된다는 함정과 관찰 신호
+   - 클라이언트 판정을 신뢰하지 않고 서버 side 에서 purchase token 을 검증해야 하는 경계
+
+4. **`04_system_services/device-capabilities/bluetooth-contracts/` 신설.**
+   - Bluetooth Classic 프로파일과 BLE(GATT)가 서로 다른 연결 모델이라는 계약
+   - Android 12+ `BLUETOOTH_SCAN`/`BLUETOOTH_CONNECT` 런타임 권한이 레거시 `ACCESS_FINE_LOCATION` 요구를 대체하는 조건
+   - `BluetoothGatt` 콜백 기반 연결 상태 머신(명시적 상태 추적이 필요한 이유)
+   - BLE 스캔의 배터리/백그라운드 제약과 스캔 필터
+
+5. **`02_app_framework/app-widgets/app-widget-contracts/` 신설 (기존 `glance-renders-app-widgets-through-remoteviews-not-compose-ui.md` 를 이 클러스터로 이전 또는 링크).**
+   - `AppWidgetProvider` lifecycle 이 Activity/Service 와 다른 이유(별도 프로세스 없이 broadcast 로만 갱신)
+   - `RemoteViews` 가 허용하는 View/Layout 부분집합과 그 제약
+   - 위젯 설정 Activity 가 pin 시점에 한 번 실행되는 계약
+   - `updatePeriodMillis` 가 최소 간격만 보장하는 best-effort 스케줄이라는 점(WorkManager 로 보완하는 패턴)
+
+6. **`04_system_services/device-capabilities/on-device-ai-contracts/` 신설 (ML Kit / TFLite / Gemini Nano / AICore).**
+   - ML Kit/TFLite 온디바이스 추론과 네트워크 왕복이 필요한 클라우드 추론의 차이
+   - AICore 가 앱마다 모델을 번들하지 않고 시스템 공유 모델을 제공한다는 계약
+   - 모델 가용성이 기기·OS 버전에 따라 달라 사용 전 capability 확인이 필요하다는 점(Learning Spine 10 장의 capability discovery 원칙과 연결)
+
+7. **WebView 전용 노트 신설.** 배치 위치는 `02_app_framework/ui/system/webview-contracts/` (UI 소비 관점)와 `05_security_privacy/security-practices/` (보안 관점) 중 착수 세션이 실제 노트 개수를 보고 결정한다. 최소 다음 계약을 포함한다.
+   - WebView 가 신뢰된 앱 프로세스 안에서 신뢰되지 않은 웹 콘텐츠를 실행한다는 경계
+   - `addJavascriptInterface()` 가 웹 콘텐츠에 앱 메서드를 노출하는 위험과 안전한 사용 조건
+   - HTTPS/mixed content 정책과 Safe Browsing 연동
+
+8. **`04_system_services/device-capabilities/app-shortcuts-contracts/` 신설 (App Shortcuts).**
+   - static/dynamic/pinned shortcut 이 서로 다른 소유권과 lifecycle 을 가진다는 계약(선언 위치, 갱신 주체, 사용자 pin 이후 소유권 이전 차이)
+   - `ShortcutManager` 의 동적 shortcut 개수 상한과 rate limit 제약(`isRateLimitingActive()`)
+
+완료 조건: 위 8 개 항목 각각에 대해 hub 노트 생성, 상위 map 링크 연결, 최소 필수 노트 작성, broken link 0 건 재확인. 신규 노트가 인용하는 버전 종속적 사실(Android 12+/13+/14+/15+ 조건 등)은 WebFetch 로 공식 문서 원문 대조를 거친다.
+
+#### Phase 10. Topic Synthesis Layer 작성
 
 **배경**: 원자 노트 600 개, Learning Spine 12 장, Worked Examples 8 개, Diagnostic Runbooks 8 개가 완비됐으나, "Jetpack Compose 를 처음부터 완전히 이해하고 싶다"처럼 **주제 중심으로 진입했을 때 관련 개념 전체를 체계적으로 커버해주는 합성 문서(Topic Synthesis Document)**가 없다. 원자 노트는 모듈화가 잘 돼 있지만 이를 주제별로 조합해주는 글루(Glue) 레이어가 부재한 상태.
 
@@ -932,7 +983,7 @@ Author 와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 - 이 문서 하나로 해당 주제의 80% 를 이해할 수 있도록 작성
 - Worked Example·Diagnostic Runbook·Learning Spine 으로의 연결 명시
 
-**주제 목록 (21 개)**:
+**주제 목록 (26 개: 기존 21 개 + Phase 9 신규 클러스터 대응 5 개 G1~G5)**:
 
 | ID | 주제 | 원자 노트 출처 |
 |---|---|---|
@@ -957,6 +1008,14 @@ Author 와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 | E3 | 테스트 전략 (Unit → Integration → UI → E2E) | `06_testing_performance/testing` |
 | F1 | 대화면·폴더블 적응형 레이아웃 | `07_platforms/large-screens` |
 | F2 | 폼 팩터별 계약 (Wear OS / TV / Auto / ChromeOS / XR) | `07_platforms/*` |
+| G1 | 인앱 결제 (Google Play Billing) | `03_packaging_deployment/distribution/billing-contracts`(Phase 9 신설, 선행 필요) |
+| G2 | Bluetooth Classic·BLE | `04_system_services/device-capabilities/bluetooth-contracts`(Phase 9 신설, 선행 필요) |
+| G3 | App Widget과 Glance | `02_app_framework/app-widgets/app-widget-contracts`(Phase 9 신설, 선행 필요) |
+| G4 | 온디바이스 AI/ML (ML Kit, TFLite, AICore) | `04_system_services/device-capabilities/on-device-ai-contracts`(Phase 9 신설, 선행 필요) |
+| G5 | WebView | `02_app_framework/ui/system/webview-contracts` 또는 `05_security_privacy/security-practices`(Phase 9 신설, 선행 필요) |
+| G6 | App Shortcuts | `04_system_services/device-capabilities/app-shortcuts-contracts`(Phase 9 신설, 선행 필요) |
+
+**G1~G6 는 Phase 9(Coverage Gap Remediation)가 원자 노트를 신설한 뒤에만 합성 가능하다.** 원자 노트가 없는 주제를 먼저 합성하면 링크 없는 빈 절만 생기므로, 착수 순서는 반드시 Phase 9 완료 → Phase 10(A1~G5 전체) 순으로 지킨다. C2(디바이스 기능 접근)는 Phase 9 완료 후 Bluetooth·온디바이스 AI 를 하위 섹션으로 포함하도록 범위를 갱신한다. E3(테스트 전략)는 Phase 9 가 추가하는 CI/디바이스 팜·접근성 테스트 절을 포함하도록 범위를 갱신한다.
 
 **표준 섹션 구조 (각 문서 공통)**:
 
