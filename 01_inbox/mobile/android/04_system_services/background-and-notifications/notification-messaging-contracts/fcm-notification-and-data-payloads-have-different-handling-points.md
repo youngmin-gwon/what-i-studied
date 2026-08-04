@@ -2,7 +2,7 @@
 title: fcm-notification-and-data-payloads-have-different-handling-points
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:36:47 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -23,6 +23,15 @@ date created: 2026-07-31 17:42:24 +09:00
 두 payload 를 함께 보낼 수도 있지만, 앱 상태에 따라 전달 지점이 달라진다.
 
 HTTP v1 메시지의 payload 전체 크기는 일반적으로 4096 바이트 한도를 고려한다.
+
+두 payload 를 함께 보내는 메시지는 이렇게 구성된다.
+
+```json
+{
+  "notification": { "title": "새 메시지", "body": "확인해보세요" },
+  "data": { "conversationId": "123", "type": "chat" }
+}
+```
 
 ### 앱 상태별 동작
 

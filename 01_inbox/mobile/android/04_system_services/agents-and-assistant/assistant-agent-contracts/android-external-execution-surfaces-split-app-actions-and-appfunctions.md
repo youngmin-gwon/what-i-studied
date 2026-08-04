@@ -2,7 +2,7 @@
 title: android-external-execution-surfaces-split-app-actions-and-appfunctions
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 18:13:08 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -47,6 +47,25 @@ Google 은 BII 를 사용자의 질의 의미로 해석하고, 앱은 이를 And
 - 에이전트가 앱의 함수들을 조합하거나 결과를 받아 다음 작업을 결정해야 하면 AppFunctions 를 검토한다.
 - 두 방식을 함께 쓸 때도 각각의 입력 계약과 보안 경계를 별도로 유지한다.
 - UI 진입이 필요한 작업과 백그라운드 함수 실행을 같은 계약으로 가정하지 않는다.
+
+### 선언 형태로 구분하는 신호
+
+두 표면은 코드 레벨에서 이렇게 구분된다.
+
+```xml
+<!-- App Actions: shortcuts.xml 의 capability -->
+<capability android:name="actions.intent.START_EXERCISE">
+  <intent android:action="android.intent.action.VIEW" ... />
+</capability>
+```
+
+```kotlin
+// AppFunctions: 함수에 붙는 어노테이션
+@AppFunction
+suspend fun createNote(title: String, content: String): CreateNoteResult
+```
+
+`shortcuts.xml` 에 `capability` 가 있으면 App Actions, 코드에 `@AppFunction` 이 있으면 AppFunctions 다. 한 저장소에 두 선언이 같은 기능을 가리켜도 서로 다른 registry 와 호출 경로로 등록된다.
 
 공식 문서: [App Actions 개요](https://developer.android.com/develop/devices/assistant/get-started), [AppFunctions 개요](https://developer.android.com/ai/appfunctions)
 

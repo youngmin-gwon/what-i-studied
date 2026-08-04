@@ -2,18 +2,23 @@
 title: android-16-and-17-continue-faster-api-and-form-factor-change
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 17:22:06 +09:00
+date modified: 2026-08-04 14:28:43 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
-## Android 16 과 17 은 빠른 API release 와 form factor 변화를 계속 밀고 있다
+## History Contracts 는 안드로이드 플랫폼의 발전과 계약 변화를 추적하는 기준이다
 
-2026 년 8 월 3 일 검증 기준 Android Developers 문서는 Android 16(API 36)과 Android 17(API 37)을 노출한다. Android 16 은 2025 년부터 major/minor API release cadence 를 도입했고, `SDK_INT_FULL` 은 같은 major API level 안의 minor release 까지 구분한다.
+이 하위 지도는 release 기능 목록이 아니라 history 노트가 답해야 하는 질문을 구분한다.
 
-Android 17 의 target SDK 변화에는 large screen 에서 orientation, resizability, aspect ratio 제한을 무시하는 정책의 opt-out 제거가 포함된다. 다만 Android 17 문서는 SDK setup 화면에 preview 표기가 남는 등 페이지별 배포 상태 표현이 다를 수 있으므로, 기능 존재와 안정성·배포 상태를 한 문장으로 단정하지 않는다.
+1. [API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다](01_inbox/mobile/android/00_foundations/history/history-contracts/api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md) - 현재 동작을 결정하는 version 조건을 분리한다.
+2. [Android history는 기능 목록이 아니라 platform contract 변화 지도다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-history-is-a-map-of-platform-contract-changes-not-a-feature-list.md) - 개별 release 를 어떤 변화 단위로 기록할지 정한다.
+3. [Android 현대화는 privacy, updatability, adaptive form factor 쪽으로 이동했다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-modernization-shifted-toward-privacy-updatability-and-adaptive-form-factors.md) - 여러 release 에 걸친 장기 흐름을 연결한다.
+4. [Android 16과 17은 빠른 API release와 form factor 변화를 계속 밀고 있다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-16-and-17-continue-faster-api-and-form-factor-change.md) - 빠르게 변하는 현재 checkpoint 와 공식 확인 경로를 맡는다.
 
-판단할 때는 `compileSdk`/API availability, device runtime version, 모든 앱 대상 behavior change, `targetSdkVersion` gated change, form factor 조건을 각각 확인한다. 이 노트는 최신 feature 를 복사하지 않고 확인 축과 정본만 남긴다.
+### 판단 기준
 
-관련 노트: [large screen contracts](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md), [Compose UI](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md), [security practices](01_inbox/mobile/android/05_security_privacy/security-practices/security-practice-contracts/android-security-practice-is-defense-in-depth-not-client-trust.md).
+새 history 노트는 version 축 설명, 장기 contract 변화, 최신 checkpoint 중 하나만 맡는다. 특정 release 의 기능을 나열하는 노트는 만들지 않는다.
 
-공식 문서(2026-08-03 검증): [Android 16 summary](https://developer.android.com/about/versions/16/summary), [Build.VERSION](https://developer.android.com/reference/android/os/Build.VERSION), [Android 17 SDK setup](https://developer.android.com/about/versions/17/setup-sdk), [Android 17 target behavior changes](https://developer.android.com/about/versions/17/behavior-changes-17)
+### 경계
+
+상위 [Android Release History](01_inbox/mobile/android/00_foundations/history/android-release-history.md) 는 문제별 version routing 을 소유하고, 이 지도는 history 원자 노트의 역할과 생성 경계를 소유한다.

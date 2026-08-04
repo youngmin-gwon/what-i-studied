@@ -2,7 +2,7 @@
 title: 07-jank-dropped-frames
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: jank and dropped frames"]
-date modified: 2026-08-04 10:28:36 +09:00
+date modified: 2026-08-04 14:29:33 +09:00
 date created: 2026-08-04 11:00:00 +09:00
 ---
 
@@ -42,10 +42,11 @@ date created: 2026-08-04 11:00:00 +09:00
 3. **RenderThread/GPU 구간이 길다면 이미지·overdraw 를 의심한다.**
    Layout Inspector 의 overdraw 시각화나 Profiler 의 GPU 렌더링 프로파일로 확인한다.
 
-4. **`dumpsys gfxinfo`로 프레임 통계 스냅샷을 확인한다.**
+4. **`dumpsys gfxinfo` 로 프레임 통계 스냅샷을 확인한다.**
    ```bash
    adb shell dumpsys gfxinfo <pkg>
    ```
+
    최근 프레임들의 처리 시간 분포를 볼 수 있다. 대부분의 프레임이 예산 안에 있으면 정상 신호이고, janky(예산 초과) 프레임 비율이 두드러지게 높으면 실패 신호다. 스냅샷 하나만으로 원인을 설명할 수 없으므로 Perfetto trace 와 함께 해석한다.
 
 5. **수정 후 반드시 동일 조건으로 재측정한다.**

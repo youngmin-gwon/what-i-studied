@@ -2,7 +2,7 @@
 title: background-restrictions-require-persistent-work-state
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:36:06 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -49,6 +49,15 @@ date created: 2026-07-31 17:42:24 +09:00
 - 제한을 없애기 위해 배터리 최적화 예외를 기본 요청하면 안 된다.
 - 실행 실패를 재현할 수 있도록 네트워크와 전원 상태를 테스트에서 제어한다.
 - 상태 전이는 관찰 가능해야 하며 임의의 백그라운드 스레드에 숨겨서는 안 된다.
+
+Doze 는 개발 중에 강제로 재현할 수 있다. 기기를 USB 에서 분리한 것처럼 만든 뒤 idle 상태로 강제 전환한다.
+
+```sh
+adb shell dumpsys battery unplug
+adb shell dumpsys deviceidle force-idle
+```
+
+이 상태에서 네트워크 요청과 예약된 작업이 지연되는지 확인하고, 테스트가 끝나면 `adb shell dumpsys battery reset` 으로 원래 배터리 상태 보고로 되돌린다. 메모리에만 상태를 둔 구현은 이 구간에서 프로세스가 회수되면 작업 진행 상황을 잃는다.
 
 ### 공식 문서
 

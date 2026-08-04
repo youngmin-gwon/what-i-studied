@@ -45,6 +45,10 @@ NFC 안테나 위치와 감도, 화면 및 잠금 상태, 제조사 구현이 �
 리더 종류, 카드 시뮬레이터, 실제 POS를 나눠 테스트한다.
 Observe Mode를 사용하는 경우 폴링 프레임과 실제 APDU를 각각 수집한다.
 
+## 관찰 가능한 신호
+
+`adb shell dumpsys nfc`의 카드 에뮬레이션 섹션에서 등록된 AID 라우팅 테이블과 현재 기본으로 선택된 payment 서비스를 확인할 수 있다. 거래가 중단되는 시점은 `HostApduService.onDeactivated(int reason)`에 전달되는 `DEACTIVATION_LINK_LOSS`(리더에서 태그가 물리적으로 이탈)와 `DEACTIVATION_DESELECTED`(다른 AID/서비스로 전환)를 구분해 로그로 남기면, 태깅 실패와 서비스 선택 충돌을 서로 다른 원인으로 재현할 수 있다.
+
 ## 운영 기준
 
 성공만이 아니라 실패 원인, 타임아웃, 취소, 서비스 선택 충돌을 관찰한다.

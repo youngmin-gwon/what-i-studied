@@ -31,6 +31,10 @@ onDeactivated는 링크가 끊기거나 다른 서비스가 선택될 때 정리
 상태 머신으로 SELECT, 인증, 데이터 조회, 완료 응답을 명시한다.
 알 수 없는 명령에는 프로토콜에 맞는 오류 상태를 반환한다.
 
+## 관찰 가능한 신호
+
+`adb shell dumpsys nfc`로 등록된 HCE 서비스 목록, AID 라우팅 테이블, 현재 선택된 서비스를 확인할 수 있다. `onDeactivated(int reason)`은 `DEACTIVATION_LINK_LOSS`(태그가 리더에서 물리적으로 이탈)와 `DEACTIVATION_DESELECTED`(다른 AID/서비스가 선택됨)를 구분해 전달하므로, 두 값을 로그에서 분리해 기록하면 거래 중단 원인을 재현할 수 있다.
+
 ## AID 라우팅
 
 AID는 리더가 카드 애플리케이션을 선택하기 위한 Application ID다.

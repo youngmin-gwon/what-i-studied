@@ -2,7 +2,7 @@
 title: fcm-operations-observe-delivery-display-tap-and-recovery-separately
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:37:02 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -29,6 +29,8 @@ date created: 2026-07-31 17:42:24 +09:00
 - combined 메시지의 data 가 탭 Intent extras 에 도착하는지 확인한다.
 - data-only 수신 후 짧은 처리와 장기 작업 예약을 분리한다.
 - 앱 강제 종료, 프로세스 종료, Doze, 네트워크 불가 상태를 테스트한다.
+
+콜백이 왔는데 알림이 안 보이면 "전달 실패"와 "표시 차단"을 구분해야 한다. `adb shell dumpsys notification` 출력에서 대상 패키지의 게시된 알림과 채널 importance 를 확인한다. 항목이 아예 없으면 게시 코드 자체가 실행되지 않은 것이고, 항목은 있는데 화면에 뜨지 않으면 채널 차단이나 `POST_NOTIFICATIONS` 거부를 의심한다.
 
 ### 서버와 식별자
 

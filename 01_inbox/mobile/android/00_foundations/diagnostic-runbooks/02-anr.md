@@ -2,7 +2,7 @@
 title: 02-anr
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: ANR"]
-date modified: 2026-08-04 10:27:57 +09:00
+date modified: 2026-08-04 14:28:58 +09:00
 date created: 2026-08-04 10:35:00 +09:00
 ---
 
@@ -50,7 +50,7 @@ date created: 2026-08-04 10:35:00 +09:00
    구버전 OS 는 `/data/anr/traces.txt` 단일 파일에, 최신 OS 는 `/data/anr/anr_*` 여러 파일에 남는다.
 
    - 왜 이 파일을 보는가: logcat 만으로는 ANR 발생 사실만 알 수 있고, 실제로 main thread 가 무엇을 하고 있었는지(스택 트레이스)는 이 trace 파일에만 있다.
-   - **`adb root`는 userdebug/eng 빌드나 에뮬레이터, 루팅된 기기에서만 동작한다.** 일반 소매 기기의 production(user) 빌드에서는 이 명령이 실패한다. 이 경우 대신 `adb bugreport`로 번들을 추출하거나, API 30 이상에서는 앱이 직접 `ApplicationExitInfo.getTraceInputStream()`으로 trace를 회수하거나, Play Console의 Android vitals ANR 리포트로 현장 trace 정보를 확인한다.
+   - **`adb root` 는 userdebug/eng 빌드나 에뮬레이터, 루팅된 기기에서만 동작한다.** 일반 소매 기기의 production(user) 빌드에서는 이 명령이 실패한다. 이 경우 대신 `adb bugreport` 로 번들을 추출하거나, API 30 이상에서는 앱이 직접 `ApplicationExitInfo.getTraceInputStream()` 으로 trace 를 회수하거나, Play Console 의 Android vitals ANR 리포트로 현장 trace 정보를 확인한다.
 
 2. **logcat 에서 ANR 키워드로 발생 시점과 대상 컴포넌트를 먼저 특정한다.**
    ```bash

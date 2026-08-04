@@ -2,7 +2,7 @@
 title: external-intent-execution-separates-meaning-delivery-validation-and-action
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 18:13:14 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -36,6 +36,15 @@ date created: 2026-07-31 17:42:24 +09:00
 - **deep link**: 기존 내비게이션 계약을 재사용할 때 적합하다.
 - **intent data**: fulfillment URI 를 직접 지정하는 방식이다.
 - 이 세 방식은 한 fulfillment 에서 무분별하게 섞지 않는다.
+
+명시적 intent 는 코드에서 이렇게 나타난다. `action`, `data`, `component` 를 한 fulfillment 에 섞지 않고 target 을 명시한다.
+
+```kotlin
+Intent(Intent.ACTION_VIEW).apply {
+    setClassName("com.example.app", "com.example.app.ExerciseActivity")
+    putExtra("exerciseType", "running")
+}
+```
 
 App Actions 는 사용자의 의도를 앱의 화면 또는 위젯으로 연결하는 데 강하다.
 

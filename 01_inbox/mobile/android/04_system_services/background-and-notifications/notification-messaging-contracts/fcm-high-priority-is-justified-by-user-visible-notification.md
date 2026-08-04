@@ -2,7 +2,7 @@
 title: fcm-high-priority-is-justified-by-user-visible-notification
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:37:07 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -23,6 +23,14 @@ normal 은 기본값이며 기기가 Doze 상태면 배터리 절약을 위해 �
 UI 동기화, 새 이메일, 주기적 데이터 갱신처럼 즉시성이 낮은 작업은 normal 을 사용한다.
 
 high 는 FCM 이 Doze 중에도 즉시 전달을 시도하는 시간 민감한 사용자 가시 콘텐츠용이다.
+
+HTTP v1 API 에서는 `android` 객체의 `priority` 필드로 지정한다.
+
+```json
+"android": {
+  "priority": "high"
+}
+```
 
 ### high 의 조건
 

@@ -2,7 +2,7 @@
 title: app-actions-and-appfunctions-require-surface-and-preview-validation
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 18:13:11 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -47,6 +47,8 @@ date created: 2026-07-31 17:42:24 +09:00
 - [ ] 중복 실행, 취소, timeout, 네트워크 실패를 테스트한다.
 - [ ] exported component 와 intent redirection 을 보안 점검한다.
 - [ ] 호출 성공뿐 아니라 잘못된 의도와 부분 실패도 관찰한다.
+
+예를 들어 함수를 노출한 뒤 `adb shell dumpsys package <package>` 출력에서 앱이 선언한 권한 목록을 확인하면, 함수가 의도한 대로 시스템 전용 권한(`EXECUTE_APP_FUNCTIONS` 등) 뒤에서만 호출되는지, 아니면 과도하게 넓은 권한으로 노출됐는지 검토할 수 있다.
 
 ### 문서 갱신 규칙
 

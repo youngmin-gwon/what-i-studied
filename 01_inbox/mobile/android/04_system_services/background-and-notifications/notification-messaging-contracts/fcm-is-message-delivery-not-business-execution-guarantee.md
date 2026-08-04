@@ -2,7 +2,7 @@
 title: fcm-is-message-delivery-not-business-execution-guarantee
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:36:37 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -28,6 +28,13 @@ FCM 은 앱의 비즈니스 서버나 데이터베이스를 대신하지 않는�
 2. FCM 백엔드는 토큰, Firebase Installation ID, topic 등의 대상 정보를 사용해 라우팅한다.
 3. Android 기기의 Google Play services 와 FCM SDK 가 메시지를 앱 프로세스 또는 시스템 알림 영역으로 전달한다.
 4. 앱은 FirebaseMessagingService 에서 수신하고, 필요하면 NotificationManager 로 알림을 만든다.
+
+```kotlin
+override fun onMessageReceived(message: RemoteMessage) {
+    val data: Map<String, String> = message.data
+    // 여기서는 짧은 처리만 하고 긴 작업은 WorkManager 등으로 넘긴다.
+}
+```
 5. 사용자가 알림을 누르면 앱의 Activity 가 Intent 를 받아 목적지와 데이터를 해석한다.
 
 ### 전송과 표시의 분리

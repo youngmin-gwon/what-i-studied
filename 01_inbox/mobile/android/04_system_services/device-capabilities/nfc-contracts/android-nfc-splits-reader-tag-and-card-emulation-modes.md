@@ -39,6 +39,10 @@ NDEF 태그를 발견하면 Android는 첫 레코드의 형식과 타입을 해�
 앱은 매니페스트 인텐트 필터로 관심 있는 태그 유형을 선언한다.
 화면이 잠금 해제된 상태에서 NFC가 켜져 있어야 일반적인 태그 검색이 가능하다.
 
+## 관찰 가능한 신호
+
+태그 디스패치는 `ACTION_NDEF_DISCOVERED`, `ACTION_TECH_DISCOVERED`, `ACTION_TAG_DISCOVERED` 세 인텐트 액션 중 하나로 앱에 전달되며, 매니페스트 인텐트 필터나 `enableForegroundDispatch()` 등록 범위로 어떤 액션을 받을지 결정된다. `adb shell dumpsys nfc`로 NFC 어댑터의 on/off 상태, 등록된 foreground dispatch, 최근 발견된 태그의 기술 목록을 확인할 수 있다.
+
 ## 설계 원칙
 
 NDEF로 표현 가능한 데이터는 NDEF를 우선 사용한다.

@@ -2,7 +2,7 @@
 title: background-execution-is-selected-by-guarantee-delay-and-visibility
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:36:14 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -38,6 +38,8 @@ date created: 2026-07-31 17:42:24 +09:00
 - foreground service 는 백그라운드 제한을 우회하기 위한 만능 권한이 아니다.
 - 알람이 울렸다고 해서 수 초 이상 무거운 작업을 리시버에서 직접 수행해도 되는 것은 아니다.
 - 장시간 작업은 알람이나 서비스 시작을 계기로 별도의 적절한 실행 컴포넌트에 위임한다.
+
+선택이 틀렸다는 신호는 보통 예외로 드러난다. 예를 들어 앱이 백그라운드 상태인 동안 `startForegroundService()` 를 호출하면 target 31+ 기기에서 `ForegroundServiceStartNotAllowedException` 이 발생한다. 이는 foreground service 구현이 잘못된 것이 아니라 애초에 "화면이 사라져도 실행돼야 하는 지연 가능 작업"을 foreground service 로 잘못 분류했다는 신호로 읽는다.
 
 ### 설계 결과물
 

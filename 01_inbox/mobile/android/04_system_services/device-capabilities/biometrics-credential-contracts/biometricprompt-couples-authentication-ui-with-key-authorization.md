@@ -29,7 +29,7 @@ tags: ["android", "android/system-services"]
 
 ## 관찰 가능한 신호
 
-인증 실패/취소/오류는 `AuthenticationCallback`의 `onAuthenticationError`, `onAuthenticationFailed`로 구분되어 전달된다. CryptoObject 없이 성공한 인증으로 보호된 키를 사용하려 하면 `IllegalStateException` 계열 예외가 발생하는지로 결합 여부를 검증할 수 있다.
+인증 실패/취소/오류는 `AuthenticationCallback`의 `onAuthenticationError`, `onAuthenticationFailed`로 구분되어 전달된다. 생체 인증으로 아직 언락되지 않은 상태에서 `setUserAuthenticationRequired(true)`로 만든 키의 `Cipher`를 사용하려 하면 `android.security.keystore.UserNotAuthenticatedException`이 발생하는지로 결합 여부를 검증할 수 있다.
 
 ## 공식 문서
 
