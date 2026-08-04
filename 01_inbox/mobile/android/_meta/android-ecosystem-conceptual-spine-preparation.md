@@ -2,7 +2,7 @@
 title: android-ecosystem-conceptual-spine-preparation
 tags: ["android", "coverage-audit", "knowledge-base", "learning-spine"]
 aliases: []
-date modified: 2026-08-03 18:06:04 +09:00
+date modified: 2026-08-04 16:55:12 +09:00
 date created: 2026-08-03 17:22:12 +09:00
 ---
 
@@ -21,13 +21,6 @@ date created: 2026-08-03 17:22:12 +09:00
 - 같은 앱이 OS 버전, OEM, Google service surface 와 form factor 에 따라 왜 다르게 동작하는가?
 
 대상 독자는 일반적인 프로그래밍 개념과 앱 코드 읽기에 익숙하지만 Android 생태계의 구성과 내부 인과관계는 모르는 사람이다. Kotlin 문법, IDE 설치, 버튼 위치, 예제 앱 따라 만들기는 범위에 포함하지 않는다.
-
-## 동시 작업 경계
-
-- [Android Knowledge Base Quality Plan](./android-knowledge-base-quality-plan.md) 의 Phase 1 taxonomy 작업과 병렬로 수행한다.
-- Phase 1 이 수정 중인 top-level map, 폴더 이름과 신규 cluster 에는 손대지 않는다.
-- 계획 기준선은 `_meta` 제외 585 개 노트지만, Phase 1 에서 신규 노트가 생기고 있으므로 이 문서는 실시간 파일 수를 완료 기준으로 고정하지 않는다.
-- 여기서 제안하는 장 구조는 taxonomy 결정 이후 조정할 수 있는 curriculum 입력이지 최종 폴더 구조가 아니다.
 
 ## 중심 모델
 
@@ -129,27 +122,19 @@ AAR 은 보통 앱 build 의 입력이지 설치 산출물이 아니다. AAB 는
 
 `source + manifest + resource + dependency`
 
+```plaintext
 → Gradle/AGP build 와 variant 결정
-
 → compile/resource processing/DEX/package
-
 → APK 또는 AAB
-
 → signing 과 distribution
-
 → device 용 APK 전달
-
 → installer 와 PackageManager 의 version/signature/manifest 검증
-
 → 문자열 package name/applicationId 와 signing lineage 관리
-
 → PackageManager 가 숫자 appId 할당
-
 → 사용자·profile 별 UID, 설치 상태, data directory 와 permission state
-
 → component registry
-
 → 이후 launch 와 update 의 identity 기준
+```
 
 현재 배포 노트는 Play 와 signing 에 강하지만 PackageManager 가 설치된 앱을 OS-visible entity 로 만드는 중간 연결이 약하다.
 
@@ -157,23 +142,17 @@ AAR 은 보통 앱 build 의 입력이지 설치 산출물이 아니다. AAB 는
 
 `launcher 또는 외부 요청`
 
+```plaintext
 → Intent resolution 과 policy 판정
-
 → ATMS/AMS 가 task, component 와 process 상태 확인
-
 → 필요하면 Zygote 가 app process fork
-
 → ActivityThread 가 framework 에 attach
-
 → component instance 와 lifecycle callback
-
 → Window/ViewRoot 와 View 또는 Compose tree
-
 → measure/layout/draw 와 RenderThread
-
 → Surface/BufferQueue
-
 → SurfaceFlinger/HWC/display
+```
 
 이 흐름은 기존 원자 노트를 연결하는 대표 인과 서사이며 build, install, runtime, lifecycle 과 rendering 을 동시에 묶는다.
 
@@ -187,17 +166,14 @@ AAR 은 보통 앱 build 의 입력이지 설치 산출물이 아니다. AAB 는
 
 `capability/feature 확인`
 
+```plaintext
 → app 의 manager 또는 Google client API
-
 → local proxy 와 Binder/별도 runtime boundary
-
 → 해당 API 가 요구하는 caller UID, permission, AppOps, foreground/global state 판정
-
 → system/native service
-
 → HAL/driver/hardware
-
 → callback, error 또는 fallback
+```
 
 모든 device capability 가 같은 경로나 gate 를 사용하지 않는다는 점과 AOSP platform surface, Google service surface, OEM 구현을 구분해야 한다. Permission, AppOps, SELinux 와 server authorization 도 모든 호출이 정해진 순서로 통과하는 하나의 pipeline 이 아니라 API 와 resource 별로 서로 다르게 조합되는 독립 gate 다.
 
@@ -205,17 +181,14 @@ AAR 은 보통 앱 build 의 입력이지 설치 산출물이 아니다. AAB 는
 
 `UI event와 in-memory state`
 
+```plaintext
 → repository 와 local transaction
-
 → durable source of truth/outbox
-
 → scheduler constraint 와 quota
-
 → network/server reconciliation
-
 → local state 갱신
-
 → UI observation 와 notification
+```
 
 process death, callback 누락과 중복 실행을 정상 조건으로 두고 idempotency 와 checkpoint 가 어디에 필요한지 설명한다.
 
@@ -223,20 +196,20 @@ process death, callback 누락과 중복 실행을 정상 조건으로 두고 id
 
 이 순서는 기존 계획의 12 개 주제를 생태계 개념 흐름에 맞게 구체화한 후보안이다.
 
-| 장 | 핵심 질문 | 장을 관통할 흐름 |
-| --- | --- | --- |
-| 1. Android 생태계와 계약 surface | AOSP, Google, OEM, vendor, Jetpack, Play 는 각각 무엇을 소유하는가? | AOSP release→vendor/OEM device→Google surface→app/runtime/distribution |
-| 2. Android platform stack | 앱 요청은 어느 실행 계층을 통과하는가? | app→framework→Binder/service→native/HAL→kernel/hardware |
-| 3. Source 에서 설치된 package 까지 | 소스, resource 와 dependency 는 어떻게 OS 가 신뢰하는 package identity 가 되는가? | build/resource table→artifact→sign→distribute→install→package name·numeric appId·사용자별 UID 등록 |
-| 4. Manifest 와 app component | OS 는 앱의 진입점과 capability 를 어떻게 발견하는가? | manifest 등록→intent resolution→component activation |
-| 5. Task, process, lifecycle 와 state | 화면, component, process 와 사용자 상태는 왜 함께 죽지 않는가? | request→task/component→process→callback→destroy/recreate/recover |
-| 6. Main thread, Binder, coroutine 과 작업 lifetime | 코드는 어느 thread/process 와 lifetime 에서 실행되는가? | Looper, Binder, coroutine, FGS 와 durable scheduler 의 병렬 책임 비교 |
-| 7. Input, resource 와 display frame | 입력과 configuration 은 어떻게 UI state 와 실제 픽셀로 이어지는가? | input→Window/main queue→state→resource 선택/View·Compose→SurfaceFlinger→display |
-| 8. Data, storage, network 와 offline recovery | 데이터는 어느 owner 가 보존하고 실패 뒤 어떻게 복구하는가? | remote/local source→outbox/sync→UI observation |
-| 9. Identity, permission 과 security boundary | 권한이 있는데도 호출이 실패하는 이유는 무엇인가? | package/signing/app ID 와 사용자별 UID→API·resource 별 독립 policy gate |
-| 10. System capability 와 background execution | 앱은 device 기능과 지속 작업을 어떤 시스템 계약으로 사용하는가? | discovery→service/hardware, durable state→scheduler→notification |
-| 11. 관찰, 테스트와 품질 feedback | 보이지 않는 Android 상태를 어떤 증거로 확인하는가? | reproduce→log/state/trace→test/benchmark→release/field feedback |
-| 12. 호환성, update 와 form factor | 같은 앱이 기기와 버전에 따라 달라지는 축은 무엇인가? | SDK axes→Mainline/OEM feature→form factor→distribution/testing matrix |
+| 장                                               | 핵심 질문                                                             | 장을 관통할 흐름                                                                                    |
+| ----------------------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 1. Android 생태계와 계약 surface                      | AOSP, Google, OEM, vendor, Jetpack, Play 는 각각 무엇을 소유하는가?          | AOSP release→vendor/OEM device→Google surface→app/runtime/distribution                       |
+| 2. Android platform stack                       | 앱 요청은 어느 실행 계층을 통과하는가?                                            | app→framework→Binder/service→native/HAL→kernel/hardware                                      |
+| 3. Source 에서 설치된 package 까지                     | 소스, resource 와 dependency 는 어떻게 OS 가 신뢰하는 package identity 가 되는가? | build/resource table→artifact→sign→distribute→install→package name·numeric appId·사용자별 UID 등록 |
+| 4. Manifest 와 app component                     | OS 는 앱의 진입점과 capability 를 어떻게 발견하는가?                              | manifest 등록→intent resolution→component activation                                           |
+| 5. Task, process, lifecycle 와 state             | 화면, component, process 와 사용자 상태는 왜 함께 죽지 않는가?                     | request→task/component→process→callback→destroy/recreate/recover                             |
+| 6. Main thread, Binder, coroutine 과 작업 lifetime | 코드는 어느 thread/process 와 lifetime 에서 실행되는가?                        | Looper, Binder, coroutine, FGS 와 durable scheduler 의 병렬 책임 비교                                |
+| 7. Input, resource 와 display frame              | 입력과 configuration 은 어떻게 UI state 와 실제 픽셀로 이어지는가?                  | input→Window/main queue→state→resource 선택/View·Compose→SurfaceFlinger→display                |
+| 8. Data, storage, network 와 offline recovery    | 데이터는 어느 owner 가 보존하고 실패 뒤 어떻게 복구하는가?                              | remote/local source→outbox/sync→UI observation                                               |
+| 9. Identity, permission 과 security boundary     | 권한이 있는데도 호출이 실패하는 이유는 무엇인가?                                       | package/signing/app ID 와 사용자별 UID→API·resource 별 독립 policy gate                              |
+| 10. System capability 와 background execution    | 앱은 device 기능과 지속 작업을 어떤 시스템 계약으로 사용하는가?                           | discovery→service/hardware, durable state→scheduler→notification                             |
+| 11. 관찰, 테스트와 품질 feedback                        | 보이지 않는 Android 상태를 어떤 증거로 확인하는가?                                  | reproduce→log/state/trace→test/benchmark→release/field feedback                              |
+| 12. 호환성, update 와 form factor                   | 같은 앱이 기기와 버전에 따라 달라지는 축은 무엇인가?                                    | SDK axes→Mainline/OEM feature→form factor→distribution/testing matrix                        |
 
 ## 1 장 상세 목차: Android 생태계와 계약 접점(contract surface)
 
@@ -570,13 +543,12 @@ Android 플랫폼 계층을 모든 요청이 끝까지 통과하는 고정 파�
 
 `앱 메서드 호출`
 
-→ `앱 프로세스의 관리 객체`
-
-→ `Binder IPC 경계`
-
-→ `서비스 구현`
-
-→ `즉시 응답 또는 나중의 콜백`
+```plaintext
+→ 앱 프로세스의 관리 객체
+→ Binder IPC 경계
+→ 서비스 구현
+→ 즉시 응답 또는 나중의 콜백
+```
 
 - 관리 객체는 앱이 사용하는 진입 객체이며 인수 검사, 요청 구성이나 캐시 조회 일부를 수행할 수 있다.
 - Binder 는 프로세스 사이의 요청과 호출자 식별 정보 전달을 중재한다.
@@ -603,13 +575,12 @@ Android 플랫폼 계층을 모든 요청이 끝까지 통과하는 고정 파�
 
 `앱의 SensorManager 등록 요청`
 
-→ `앱 프로세스의 프레임워크와 센서 서비스 접근`
-
-→ `센서 프레임워크가 여러 앱의 샘플링·지연 요구를 조율`
-
-→ `필요하면 Sensors HAL이 센서를 활성화하고 커널 드라이버·센서 장치와 상호작용`
-
-→ `센서 데이터가 HAL·센서 서비스의 별도 이벤트 경로를 거쳐 앱 리스너로 돌아옴`
+```plaintext
+→ 앱 프로세스의 프레임워크와 센서 서비스 접근
+→ 센서 프레임워크가 여러 앱의 샘플링·지연 요구를 조율
+→ 필요하면 Sensors HAL이 센서를 활성화하고 커널 드라이버·센서 장치와 상호작용
+→ 센서 데이터가 HAL·센서 서비스의 별도 이벤트 경로를 거쳐 앱 리스너로 돌아옴
+```
 
 이 사례에서 아래로 내려가는 것은 등록·활성화 같은 제어 요청이고 위로 올라오는 것은 센서 데이터다. 구체적인 전송 구조는 버전과 기기 구현에 따라 달라질 수 있으므로 모든 데이터가 단순한 동기 Binder 응답으로 돌아온다고 설명하지 않는다.
 
