@@ -10,7 +10,7 @@ tags: ["android", "android/system-services"]
 
 ## 핵심 정의
 
-Android 12(API 31)부터 사용자는 앱이 위치를 요청할 때 `ACCESS_FINE_LOCATION`(정밀)과 `ACCESS_COARSE_LOCATION`(대략, 약 3km 반경 정도로 뭉개짐)을 별도로 선택할 수 있다. 앱이 두 permission을 모두 선언해도 사용자는 대략적 위치만 승인할 수 있으며, 이 경우 fine 요청도 coarse 정확도로 강등된 값을 받는다.
+Android 12(API 31)부터 사용자는 앱이 위치를 요청할 때 `ACCESS_FINE_LOCATION`(정밀)과 `ACCESS_COARSE_LOCATION`(대략, 공식 문서 기준 약 3제곱킬로미터 면적 정도로 뭉개짐)을 별도로 선택할 수 있다. 앱이 두 permission을 모두 선언해도 사용자는 대략적 위치만 승인할 수 있으며, 이 경우 fine 요청도 coarse 정확도로 강등된 값을 받는다.
 
 ## 메커니즘
 
