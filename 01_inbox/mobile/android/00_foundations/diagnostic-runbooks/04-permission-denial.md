@@ -2,7 +2,7 @@
 title: 04-permission-denial
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: permission denial despite granted permission"]
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-04 16:26:34 +09:00
 date created: 2026-08-04 10:45:00 +09:00
 ---
 
@@ -44,7 +44,7 @@ date created: 2026-08-04 10:45:00 +09:00
 4. **AppOps 실행 시점 게이트 거부 (`MODE_IGNORED` / `MODE_ERRORED`) (우선순위 4)**
    - Permission 은 `granted=true` 이지만, 사용자가 개인정보 보호 설정(토글 버튼)에서 카메라/마이크/위치를 껐거나, 백그라운드 센서 접근을 시스템이 차단한 경우. 예외 없이 조용히 빈 값을 반환하거나 실패함.
 5. **Foreground Service (FGS) Type 및 권한 부합 실패 (Android 14+) (우선순위 5)**
-   - `AndroidManifest.xml` 에 `android:foregroundServiceType="camera|location|..."` 선언 및 해당 타입에 필요한 특정 권한이 결합되지 않은 상태에서 `startForeground()` 를 호출함.
+   - `AndroidManifest.xml` 에 `android:foregroundServiceType="camera|location|…"` 선언 및 해당 타입에 필요한 특정 권한이 결합되지 않은 상태에서 `startForeground()` 를 호출함.
 6. **독점 하드웨어 자원 점유 (우선순위 6)**
    - 카메라 등 독점 자원을 다른 앱(또는 다른 프로세스)이 이미 오픈하여 점유 중인 경우. 권한 문제처럼 보이지만 `CameraAccessException.CAMERA_IN_USE` 하드웨어 점유 문제임 ([Worked Example 02](../worked-examples/02-photo-capture-preview-save-upload.md) 참고).
 7. **Background Activity Launch (BAL) 제약 또는 Component Exported 미선언 (우선순위 7)**
@@ -81,11 +81,13 @@ flowchart TD
 
 ### 5. 단계별 조사 절차 및 CLI 검증 (Step-by-Step CLI Investigation)
 
-#### 1단계: Manifest 및 Runtime Permission 획득 상태 조회
+#### 1 단계: Manifest 및 Runtime Permission 획득 상태 조회
 ```bash
 adb shell dumpsys package com.example.app | grep -A12 "runtime permissions:"
 ```
+
 *출력 예시:*
+
 ```text
 runtime permissions:
   android.permission.CAMERA: granted=true, flags=[ USER_SET|GRANTED_BY_DEFAULT ]
@@ -94,13 +96,17 @@ runtime permissions:
 ```
 - `granted=true/false` 여부와 미디어/위치 관련 분할 권한들이 각각 어떻게 설정되어 있는지 수집한다.
 
-#### 2단계: AppOps 모드 정밀 조회 (modern `cmd appops` 및 `dumpsys appops`)
+#### 2 단계: AppOps 모드 정밀 조회 (modern `cmd appops` 및 `dumpsys appops`)
+
 Permission 이 `granted=true` 임에도 작동하지 않을 때는 AppOps 게이트를 반드시 조회한다.
+
 ```bash
 # 특정 AppOp 상태 조회 (예: CAMERA, COARSE_LOCATION, FINE_LOCATION, READ_CLIPBOARD)
 adb shell cmd appops get com.example.app CAMERA
 ```
+
 *출력 예시:*
+
 ```text
 Uid 10182: op CAMERA: mode=ignore; time=+2m10s ago
 ```
@@ -108,23 +114,24 @@ Uid 10182: op CAMERA: mode=ignore; time=+2m10s ago
 - `mode=ignore`: 예외 없이 실행을 조용히 무시함 (빈 데이터 반환).
 - `mode=deny` / `errored`: `SecurityException` 발생.
 
-#### 3단계: CLI 로 AppOps 모드를 강제 변경하여 원인 격리 테스트
+#### 3 단계: CLI 로 AppOps 모드를 강제 변경하여 원인 격리 테스트
 ```bash
 # AppOps 모드를 allow / ignore / deny 로 변경하며 테스트
 adb shell cmd appops set com.example.app CAMERA ignore
 adb shell cmd appops set com.example.app CAMERA allow
 ```
 
-#### 4단계: CLI 로 Runtime Permission 강제 부여 / 철회 테스트
+#### 4 단계: CLI 로 Runtime Permission 강제 부여 / 철회 테스트
 ```bash
 adb shell pm grant com.example.app android.permission.CAMERA
 adb shell pm revoke com.example.app android.permission.CAMERA
 ```
 
-#### 5단계: 카메라/음향 등 독점 하드웨어 자원 점유 상태 점검
+#### 5 단계: 카메라/음향 등 독점 하드웨어 자원 점유 상태 점검
 ```bash
 adb shell dumpsys media.camera
 ```
+
 `Active Camera Clients` 섹션에서 타 패키지(예: `com.android.camera`)가 카메라 디바이스 세션을 점유하고 있는지 확인한다.
 
 ---
@@ -144,7 +151,7 @@ adb shell dumpsys media.camera
 ### 7. OS / API (Android 14 / 15 / 16) 특화 제약 및 진단 신호
 
 - **Android 14 (API 34)**:
-  - **부분 미디어 접근 권한 (`READ_MEDIA_VISUAL_USER_SELECTED`)**: 사용자가 사진/동영상 중 일부만 선택하여 승인할 수 있는 3단계 미디어 접근 모델 도입. 앱은 `READ_MEDIA_IMAGES` / `READ_MEDIA_VIDEO` 와 함께 `READ_MEDIA_VISUAL_USER_SELECTED` 권한을 함께 요청해야 함.
+  - **부분 미디어 접근 권한 (`READ_MEDIA_VISUAL_USER_SELECTED`)**: 사용자가 사진/동영상 중 일부만 선택하여 승인할 수 있는 3 단계 미디어 접근 모델 도입. 앱은 `READ_MEDIA_IMAGES` / `READ_MEDIA_VIDEO` 와 함께 `READ_MEDIA_VISUAL_USER_SELECTED` 권한을 함께 요청해야 함.
   - **Foreground Service (FGS) 타입 및 전용 권한 의무화**: FGS 사용 시 `android:foregroundServiceType` 속성이 필수이며, 각 타입에 맞는 전용 런타임 권한(예: `FOREGROUND_SERVICE_LOCATION`, `FOREGROUND_SERVICE_CAMERA`)이 사전에 부여되어야 함. 미부여 시 `SecurityException` 발생.
 - **Android 15 (API 35)**:
   - **Background Activity Launch (BAL) 제약 강화**: 백그라운드 태스크나 `PendingIntent` 에서 Activity 를 호출할 때 `ActivityOptions.setPendingIntentBackgroundActivityStartMode(MODE_BACKGROUND_ACTIVITY_START_ALLOWED)` 옵션을 명시하지 않으면 `SecurityException` 발생.

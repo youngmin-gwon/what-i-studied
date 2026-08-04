@@ -2,7 +2,7 @@
 title: 01-adb-android-debug-bridge
 tags: ["android", "android/glossary"]
 aliases: ["adb", "Android Debug Bridge"]
-date modified: 2026-08-03 17:21:50 +09:00
+date modified: 2026-08-04 16:17:00 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---
 

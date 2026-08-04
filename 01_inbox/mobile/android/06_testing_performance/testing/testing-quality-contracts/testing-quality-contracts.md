@@ -1,9 +1,9 @@
 ---
-title: "테스트 품질 계약"
+title: testing-quality-contracts
 tags: ["android", "android/testing-performance"]
 aliases: ["testing-quality-contracts"]
+date modified: 2026-08-04 16:24:59 +09:00
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
 ---
 
 ## 테스트 품질 계약
@@ -34,4 +34,3 @@ flowchart TD
 - [Coroutine 과 Flow 테스트는 dispatcher 와 virtual time 을 통제해야 한다](../coroutine-flow-tests-control-dispatchers-and-virtual-time.md)
 
 관련 지도: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md), [디버깅 도구 계약](../../debugging/debugging-contracts/debugging-contracts.md), [Benchmark와 Baseline Profile 계약](../../performance/benchmark-baseline-contracts/benchmark-baseline-contracts.md)
-

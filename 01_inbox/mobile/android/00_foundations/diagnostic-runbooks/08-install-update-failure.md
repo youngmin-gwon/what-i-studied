@@ -2,7 +2,7 @@
 title: 08-install-update-failure
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: install or update failure"]
-date modified: 2026-08-04 15:58:00 +09:00
+date modified: 2026-08-04 16:26:49 +09:00
 date created: 2026-08-04 11:05:00 +09:00
 ---
 
@@ -110,4 +110,3 @@ graph TD
 - [Play App Signing 사용](https://support.google.com/googleplay/android-developer/answer/9842756)
 
 검증일: 2026-08-04. `adb install`, `apksigner`, Android 14 `targetSdkVersion < 23` 차단 및 Android 15 16KB page alignment 요구사항 스펙을 반영해 검증 완료.
-

@@ -2,7 +2,7 @@
 title: 03-process-death-state-loss
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: state loss after process death"]
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-04 16:26:29 +09:00
 date created: 2026-08-04 10:40:00 +09:00
 ---
 
@@ -36,7 +36,7 @@ date created: 2026-08-04 10:40:00 +09:00
 1. **상태가 `ViewModel` 메모리 프로퍼티에만 존재함 (우선순위 1)**
    - 가장 흔한 원인. `ViewModel` 은 Configuration Change 동안은 인스턴스가 유지되지만, Process Death 시 프로세스와 함께 파괴되므로 `SavedStateHandle` 이나 영속 DB 저장이 없으면 초기화됨.
 2. **상태가 `rememberSaveable` 또는 `SavedStateHandle` 로 감싸지지 않은 일반 변수임 (우선순위 2)**
-   - 화면 구성 요소에 단순 `remember { mutableStateOf(...) }` 로 선언된 경우. Configuration Change 에서조차 상태가 소실됨.
+   - 화면 구성 요소에 단순 `remember { mutableStateOf(…) }` 로 선언된 경우. Configuration Change 에서조차 상태가 소실됨.
 3. **`SavedStateHandle` 에 ID/식별자는 저장되었으나, 복원 시점에 데이터를 재조회하는 로직이 없음 (우선순위 3)**
    - `SavedStateHandle` 에 `itemId` 는 정상적으로 복원되었으나, Activity/Fragment/ViewModel 이 재생성될 때 해당 `itemId` 로 Repository/Room DB 를 조회하여 화면 UI State 로 맵핑하는 Flow 래더가 빠져 있음.
 4. **Saved State Bundle 크기 초과 (`TransactionTooLargeException`) (우선순위 4)**
@@ -72,7 +72,7 @@ flowchart TD
 
 ### 5. 단계별 조사 절차 및 CLI 검증 (Step-by-Step CLI Investigation)
 
-#### 1단계: PID 추적으로 Process Death 발생 여부 확정
+#### 1 단계: PID 추적으로 Process Death 발생 여부 확정
 ```bash
 # 1. 앱을 연 상태에서 PID 확인
 adb shell pidof com.example.app
@@ -86,11 +86,13 @@ adb shell pidof com.example.app
 # 출력 예: 16104 (PID 가 변경되었으므로 Process Death 복구 경로 작동 확인)
 ```
 
-#### 2단계: ApplicationExitInfo 를 이용한 LMK / Process Death 원인 시스템 조회 (Android 11+)
+#### 2 단계: ApplicationExitInfo 를 이용한 LMK / Process Death 원인 시스템 조회 (Android 11+)
 ```bash
 adb shell dumpsys activity exit-info com.example.app
 ```
+
 *출력 예시:*
+
 ```text
 ApplicationExitInfo #0:
   timestamp=2026-08-04 15:50:12
@@ -103,13 +105,15 @@ ApplicationExitInfo #0:
 - `reason=3 (LOW_MEMORY)`: LMK 에 의한 정지.
 - `reason=13 (FREEZER)`: Android 14+ Cached Apps Freezer 에 의한 동결 후 파괴.
 
-#### 3단계: Activity 및 Process oom_adj 상태 확인
+#### 3 단계: Activity 및 Process oom_adj 상태 확인
+
 앱이 백그라운드로 이동할 때 `oom_adj` 스코어가 `CACHED_APP` (900 이상)으로 올라가는지 확인한다.
+
 ```bash
 adb shell dumpsys activity processes com.example.app | grep -E "procState|adj"
 ```
 
-#### 4단계: 개발자 옵션 "Don't Keep Activities" CLI 로 토글하여 빠른 검증
+#### 4 단계: 개발자 옵션 "Don't Keep Activities" CLI 로 토글하여 빠른 검증
 ```bash
 # Don't keep activities 활성화 (1 = true, 0 = false)
 adb shell settings put global always_finish_activities 1

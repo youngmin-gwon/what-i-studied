@@ -1,18 +1,20 @@
 ---
-title: "테스트 레이어는 피드백 비용으로 선택한다"
+title: test-layer-is-chosen-by-feedback-cost-and-risk
 tags: ["android", "android/testing-performance"]
 aliases: ["test-layer-is-chosen-by-feedback-cost-and-risk"]
+date modified: 2026-08-04 16:25:04 +09:00
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
 ---
 
 ## 테스트 레이어는 피드백 비용으로 선택한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md)
+
 관련 지도: [테스트 품질 계약](./testing-quality-contracts.md)
+
 관련 노트: [Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다](./unit-integration-ui-e2e-tests-have-different-failure-signals.md)
 
-테스트 레이어(JVM Unit, Robolectric Integration, On-device UI, E2E)의 선택은 개발자 피드백 루프 속도(Execution Speed), 환경 구축 비용(Setup Cost), 결함 검출의 신뢰성(Fidelity) 사이의 기회비용을 정밀하게 타협하는 품질 계약이다.
+테스트 레이어(JVM Unit, Robolectric Integration, On-device UI, E2E)의 선택은 `개발자 피드백 루프 속도(Execution Speed)`, `환경 구축 비용(Setup Cost)`, `결함 검출의 신뢰성(Fidelity)` 사이의 기회비용을 정밀하게 타협하는 품질 계약이다.
 
 ### 1. 테스트 레이어별 실행 메커니즘 및 피드백 비용
 
@@ -26,7 +28,7 @@ date modified: 2026-08-04 14:58:55 +09:00
   - **주요 검증**: Fragment / Activity 생명주기, Navigation Component 통합.
 - **Instrumentation UI Test (On-Device)**:
   - **환경**: 에뮬레이터 또는 실기기 상의 Android OS ART 런타임.
-  - **피드백 속도**: 건당 5초 ~ 30초 (기기 구동 및 APK 설치 오버헤드).
+  - **피드백 속도**: 건당 5 초 ~ 30 초 (기기 구동 및 APK 설치 오버헤드).
   - **주요 검증**: Custom View Drawing, Canvas rendering, 하드웨어 센서 연동.
 
 ### 2. 테스트 레이어 선택 의사결정 매트릭스
@@ -85,6 +87,5 @@ BUILD SUCCESSFUL in 1m 24s (24 UI tests passed)
 
 ### 5. 레이어 선택 가이던스
 
-- **피라미드 비율 유지**: 전체 테스트 릴리스 게이트 스위트의 70% 이상을 JVM Unit Test로 채우고, UI 및 E2E 테스트는 핵심 CUJ로 한정한다.
+- **피라미드 비율 유지**: 전체 테스트 릴리스 게이트 스위트의 70% 이상을 JVM Unit Test 로 채우고, UI 및 E2E 테스트는 핵심 CUJ 로 한정한다.
 - **실패 격리**: UI 테스트가 실패했을 때 domain logic 결함인지 UI Selector 결함인지를 명확히 포착할 수 있도록 단위 테스트 계층을 항상 먼저 실행한다.
-

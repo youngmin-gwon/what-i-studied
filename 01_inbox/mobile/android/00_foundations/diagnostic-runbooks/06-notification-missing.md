@@ -2,7 +2,7 @@
 title: 06-notification-missing
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: notification missing despite successful FCM delivery"]
-date modified: 2026-08-04 15:58:00 +09:00
+date modified: 2026-08-04 16:26:36 +09:00
 date created: 2026-08-04 10:55:00 +09:00
 ---
 
@@ -48,7 +48,7 @@ graph TD
 | --- | --- | --- |
 | **POST_NOTIFICATIONS** | `android.permission.POST_NOTIFICATIONS: granted=true` | `granted=false` 또는 USER_SET_DENIED |
 | **Channel Importance** | `Importance: 3` (DEFAULT) 또는 `4` (HIGH) | `Importance: 0` (NONE / Blocked) 또는 `Channel Not Found` |
-| **Notification Record** | `Notification Record: pkg=<pkg> id=...` (dumpsys) | `Notification Record` 생성 기록 없음 / Suppressed |
+| **Notification Record** | `Notification Record: pkg=<pkg> id=…` (dumpsys) | `Notification Record` 생성 기록 없음 / Suppressed |
 | **FCM Logcat** | `FCM: MessagingService received message` | `FCM: Delivery failed` / `UNREGISTERED` |
 | **FCM Priority** | `Priority: HIGH` (Immediate delivery in Doze) | `Priority: NORMAL` (Deferred in Doze) |
 
@@ -117,4 +117,3 @@ graph TD
 - [알림 채널 생성과 관리](https://developer.android.com/develop/ui/compose/notifications/channels)
 
 검증일: 2026-08-04. `dumpsys notification`, `POST_NOTIFICATIONS` 권한, FCM notification vs data payload 처리 차이 및 Android 14 BAL 제약을 반영해 검증 완료.
-

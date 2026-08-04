@@ -2,7 +2,7 @@
 title: 07-jank-dropped-frames
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: jank and dropped frames"]
-date modified: 2026-08-04 15:58:00 +09:00
+date modified: 2026-08-04 16:26:37 +09:00
 date created: 2026-08-04 11:00:00 +09:00
 ---
 
@@ -112,4 +112,3 @@ graph TD
 - [Inspect trace events with the System Trace app](https://developer.android.com/topic/performance/tracing)
 
 검증일: 2026-08-04. `dumpsys gfxinfo`, `framestats`, Perfetto tracing, Android 14 `frameOverrunMs` 및 주사율별(60/90/120Hz) 프레임 예산 기준 검증 완료.
-

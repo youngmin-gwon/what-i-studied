@@ -1,15 +1,17 @@
 ---
-title: "Logcat, crash, ANR, debugger 는 서로 다른 질문에 답한다"
+title: logcat-crash-anr-and-debugger-answer-different-questions
 tags: ["android", "android/testing-performance"]
 aliases: ["logcat-crash-anr-and-debugger-answer-different-questions"]
+date modified: 2026-08-04 16:22:56 +09:00
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
 ---
 
 ## Logcat, crash, ANR, debugger 는 서로 다른 질문에 답한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md)
+
 관련 지도: [디버깅 도구 계약](./debugging-contracts.md)
+
 관련 노트: [테스트 레이어는 피드백 비용으로 선택한다](../../testing/testing-quality-contracts/test-layer-is-chosen-by-feedback-cost-and-risk.md)
 
 각 진단 도구는 서로 전혀 다른 각도의 시스템 질문에 답하므로, 결함의 성격(실시간 시퀀스 관측 vs 치명적 런타임 예외 스택 vs 메인 스레드 응답 정지 vs 변수 상태 인스펙션)에 따라 적절한 증거 수집 도구를 일치시키는 진단 계약을 준수해야 한다.
@@ -17,13 +19,13 @@ date modified: 2026-08-04 14:58:55 +09:00
 ### 1. 진단 도구별 역할 및 메커니즘
 
 - **Logcat (시간축 이벤트 관측)**:
-  - Android 시스템 링 버퍼(`main`, `system`, `crash`, `events`)에서 실행 순서대로 수집되는 1차 시퀀스 로그.
-  - `--pid=$(adb shell pidof -s <package>)`로 해당 프로세스 로그만 격리 수집.
+  - Android 시스템 링 버퍼(`main`, `system`, `crash`, `events`)에서 실행 순서대로 수집되는 1 차 시퀀스 로그.
+  - `--pid=$(adb shell pidof -s <package>)` 로 해당 프로세스 로그만 격리 수집.
 - **Crash Report (치명적 크래시 디코딩)**:
-  - `UncaughtExceptionHandler`에 의해 힙 포인터 및 예외 스택 수집.
-  - **R8 Mapping De-obfuscation (`retrace`)**: ProGuard/R8 난독화된 릴리스 덤프를 `mapping.txt`와 결합하여 라인 번호 및 원본 클래스/메서드 심볼 복원.
+  - `UncaughtExceptionHandler` 에 의해 힙 포인터 및 예외 스택 수집.
+  - **R8 Mapping De-obfuscation (`retrace`)**: ProGuard/R8 난독화된 릴리스 덤프를 `mapping.txt` 와 결합하여 라인 번호 및 원본 클래스/메서드 심볼 복원.
 - **ANR (Application Not Responding Trace)**:
-  - 메인 스레드가 5초 이상 블로킹될 때 OS가 전달하는 `SIGQUIT` (Signal 3) 트레이스. `/data/anr/traces.txt` 및 Android 11+ `ApplicationExitInfo` 수집.
+  - 메인 스레드가 5 초 이상 블로킹될 때 OS 가 전달하는 `SIGQUIT` (Signal 3) 트레이스. `/data/anr/traces.txt` 및 Android 11+ `ApplicationExitInfo` 수집.
 - **Debugger (JDWP Breakpoint)**:
   - JDWP (Java Debug Wire Protocol) 기반 인터랙티브 인스펙션. 브레이크포인트 연결 시 인터프리터 런타임 스위칭으로 타이밍이 왜곡(Heisenbugs)되므로 동기화/레이스 조건 진단에는 불리함.
 
@@ -34,8 +36,8 @@ flowchart TD
     Symptom{"결함 증상 (Failure Symptom)"}
     
     Symptom -->|시간 순서 이벤트 / 상태 전이 추적| Logcat["Logcat 로그 필터링<br/>(adb logcat --pid)"]
-    Symptom -->|앱 프로세스 비정상 종료 (NullPointer / Fatal)| Crash["Crash Stack Trace<br/>(retrace mapping.txt)"]
-    Symptom -->|화면 멈춤 및 Input Timeout (UI Block)| ANR["ANR Signal 3 Trace<br/>(ApplicationExitInfo / traces.txt)"]
+    Symptom -->|앱 프로세스 비정상 종료 NullPointer / Fatal| Crash["Crash Stack Trace<br/>(retrace mapping.txt)"]
+    Symptom -->|화면 멈춤 및 Input Timeout  UI Block| ANR["ANR Signal 3 Trace<br/>(ApplicationExitInfo / traces.txt)"]
     Symptom -->|특정 변수 힙 상태 & 로직 조건 검증| Debugger["JDWP Debugger<br/>(Conditional Breakpoint)"]
 ```
 
@@ -87,6 +89,5 @@ java.lang.NullPointerException: Attempt to invoke virtual method 'com.example.ap
 
 ### 5. 진단 운영 수칙
 
-- **Logcat 비우기**: 재현 시나리오를 시작하기 전 반드시 `adb logcat -c`로 이전 버퍼 노이즈를 비운다.
-- **R8 Mapping 보존**: 모든 배포 빌드 생성 시 `mapping.txt`를 CI 아티팩트로 영구 보존하여 프로덕션 Crashlytics 리포트 복원력을 유지한다.
-
+- **Logcat 비우기**: 재현 시나리오를 시작하기 전 반드시 `adb logcat -c` 로 이전 버퍼 노이즈를 비운다.
+- **R8 Mapping 보존**: 모든 배포 빌드 생성 시 `mapping.txt` 를 CI 아티팩트로 영구 보존하여 프로덕션 Crashlytics 리포트 복원력을 유지한다.

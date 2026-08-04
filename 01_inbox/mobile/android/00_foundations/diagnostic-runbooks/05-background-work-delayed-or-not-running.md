@@ -2,7 +2,7 @@
 title: 05-background-work-delayed-or-not-running
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: background work delayed or not running"]
-date modified: 2026-08-04 15:58:00 +09:00
+date modified: 2026-08-04 16:26:35 +09:00
 date created: 2026-08-04 10:50:00 +09:00
 ---
 
@@ -94,7 +94,7 @@ graph TD
   - User-Initiated Data Transfer (UIDT) job 추가 (`JobInfo.Builder.setUserInitiated(true)` + `RUN_USER_INITIATED_DATA_TRANSFER` 권한 및 알림 필수).
   - Target SDK 34+ 에서 `SCHEDULE_EXACT_ALARM` 권한이 신규 설치 앱에 대해 기본 거부(Denied)됨 (`USE_EXACT_ALARM` 또는 사용자 권한 동의 필요).
 - **Android 15 (API 35)**:
-  - Foreground Service (FGS) 6시간 실행 제한: `dataSync` 및 `mediaProcessing` FGS 타입은 24시간 중 누적 6시간 초과 시 타임아웃 예외 발생 (`JSException` / FGS timeout). WorkManager/UIDT 전환 필수.
+  - Foreground Service (FGS) 6 시간 실행 제한: `dataSync` 및 `mediaProcessing` FGS 타입은 24 시간 중 누적 6 시간 초과 시 타임아웃 예외 발생 (`JSException` / FGS timeout). WorkManager/UIDT 전환 필수.
 - **Android 16**:
   - Background Job execution quota 통합 관리 강화 및 battery saver 상태 diagnostic signal 세분화.
 
@@ -118,5 +118,4 @@ graph TD
 - [Debug WorkManager](https://developer.android.com/develop/background-work/background-tasks/testing/persistent/debug)
 - [Optimize battery use for task scheduling APIs](https://developer.android.com/develop/background-work/background-tasks/optimize-battery)
 
-검증일: 2026-08-04. `dumpsys jobscheduler`, WorkManager 2.9.0+ `stopReason`, Android 14 UIDT 및 Android 15 FGS 6시간 제한 스펙을 반영해 검증 완료.
-
+검증일: 2026-08-04. `dumpsys jobscheduler`, WorkManager 2.9.0+ `stopReason`, Android 14 UIDT 및 Android 15 FGS 6 시간 제한 스펙을 반영해 검증 완료.

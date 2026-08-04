@@ -2,7 +2,7 @@
 title: 02-anr
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: ANR"]
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-04 16:26:31 +09:00
 date created: 2026-08-04 10:35:00 +09:00
 ---
 
@@ -13,9 +13,9 @@ date created: 2026-08-04 10:35:00 +09:00
 다음 중 하나 이상이 관찰된다.
 
 - 앱 사용 중 또는 백그라운드 전환 직후 "앱이 응답하지 않습니다" (Application Not Responding) 시스템 다이얼로그가 표시된다.
-- 화면 터치, 버튼 클릭, 키 입력 후 5초 동안 UI 응답이 완전히 멈춘다.
+- 화면 터치, 버튼 클릭, 키 입력 후 5 초 동안 UI 응답이 완전히 멈춘다.
 - Google Play Console / Android Vitals 에서 ANR 발생률이 임계치(0.47% 비상 임계치, 0.24% 일반 임계치)를 초과한다는 경고를 수신한다.
-- Foreground Service 시작 시 5초 이내에 `startForeground()` 를 호출하지 않아 ANR 또는 `ForegroundServiceStartNotAllowedException` 이 발생한다.
+- Foreground Service 시작 시 5 초 이내에 `startForeground()` 를 호출하지 않아 ANR 또는 `ForegroundServiceStartNotAllowedException` 이 발생한다.
 
 ---
 
@@ -35,15 +35,15 @@ date created: 2026-08-04 10:35:00 +09:00
 
 ### 3. 실패 경계 및 원인 우선순위 (Failure Boundaries & Priority)
 
-Android 시스템 서버(ActivityManagerService / WindowManagerService)가 ANR 을 판정하는 5가지 계약 위반 조건 및 우선순위:
+Android 시스템 서버(ActivityManagerService / WindowManagerService)가 ANR 을 판정하는 5 가지 계약 위반 조건 및 우선순위:
 
-1. **Input Dispatching Timeout (5초) (우선순위 1)**
-   - 전면(Foreground) Activity 가 키/터치 입력 이벤트를 5초 이내에 처리 완료(또는 다음 이벤트 dequeue)하지 못함. 메인 스레드 블로킹의 가장 흔한 원인.
-2. **BroadcastReceiver Timeout (Foreground 10초 / Background 60초) (우선순위 2)**
+1. **Input Dispatching Timeout (5 초) (우선순위 1)**
+   - 전면(Foreground) Activity 가 키/터치 입력 이벤트를 5 초 이내에 처리 완료(또는 다음 이벤트 dequeue)하지 못함. 메인 스레드 블로킹의 가장 흔한 원인.
+2. **BroadcastReceiver Timeout (Foreground 10 초 / Background 60 초) (우선순위 2)**
    - `BroadcastReceiver.onReceive()` 메인 스레드 콜백에서 무거운 DB/네트워크 작업이나 동기 블로킹 코드를 실행함.
-3. **Service Execution / FGS Timeout (Foreground Service startForeground 5초 / Service Execution 20초~200초) (우선순위 3)**
-   - `Service.onCreate()`, `onStartCommand()` 가 메인 스레드를 오래 점유하거나, `Context.startForegroundService()` 호출 후 5초 이내 `Service.startForeground()` 를 부르지 못함.
-4. **JobScheduler Execution Timeout (JobService 10초~20초) (우선순위 4)**
+3. **Service Execution / FGS Timeout (Foreground Service startForeground 5 초 / Service Execution 20 초~200 초) (우선순위 3)**
+   - `Service.onCreate()`, `onStartCommand()` 가 메인 스레드를 오래 점유하거나, `Context.startForegroundService()` 호출 후 5 초 이내 `Service.startForeground()` 를 부르지 못함.
+4. **JobScheduler Execution Timeout (JobService 10 초~20 초) (우선순위 4)**
    - `JobService.onStartJob()` 또는 `onStopJob()` 콜백에서 메인 스레드를 반환하지 않음.
 5. **Main Thread Lock Contention / Binder Synchronous IPC Wait (우선순위 5)**
    - 메인 스레드가 백그라운드 스레드가 쥐고 있는 Synchronized Lock 이나 Mutex 를 기다리거나(`waiting to lock`), 시스템 서버/외부 프로세스와의 동기 Binder IPC 응답 (`BinderProxy.transact`) 대기 중 타임아웃 발생.
@@ -77,11 +77,13 @@ flowchart TD
 
 ### 5. 단계별 조사 절차 및 CLI 검증 (Step-by-Step CLI Investigation)
 
-#### 1단계: Logcat 으로 ANR 발생 시점 및 컴포넌트 특정
+#### 1 단계: Logcat 으로 ANR 발생 시점 및 컴포넌트 특정
 ```bash
 adb logcat -d | grep -E "ANR in|ApplicationNotResponding|ActivityManager: ANR"
 ```
+
 *출력 예시:*
+
 ```text
 E ActivityManager: ANR in com.example.app (com.example.app/.MainActivity)
 E ActivityManager: PID: 14205
@@ -89,7 +91,7 @@ E ActivityManager: Reason: Input dispatching timed out (Waiting to send non-key 
 E ActivityManager: Load: 4.85 / 2.12 / 1.05
 ```
 
-#### 2단계: ANR Trace 파일 수집
+#### 2 단계: ANR Trace 파일 수집
 - **Userdebug / Root 에뮬레이터 환경**:
   ```bash
   adb root
@@ -102,11 +104,13 @@ E ActivityManager: Load: 4.85 / 2.12 / 1.05
   # bugreport zip 압축 해제 후 FS/data/anr/ 폴더 내 trace 확인
   ```
 
-#### 3단계: ApplicationExitInfo 를 이용한 ANR 기록 및 스택 트레이스 CLI 조회 (Android 11+)
+#### 3 단계: ApplicationExitInfo 를 이용한 ANR 기록 및 스택 트레이스 CLI 조회 (Android 11+)
 ```bash
 adb shell dumpsys activity exit-info com.example.app
 ```
+
 *출력 예시:*
+
 ```text
 ApplicationExitInfo #0:
   timestamp=2026-08-04 15:42:10
@@ -117,8 +121,10 @@ ApplicationExitInfo #0:
   description=bg anr
 ```
 
-#### 4단계: Trace 파일 내 `"main"` 스레드 스택 구문 분석 (ANR Trace Parsing)
+#### 4 단계: Trace 파일 내 `"main"` 스레드 스택 구문 분석 (ANR Trace Parsing)
+
 `trace_anr.txt` 파일에서 target package 의 `"main"` 스레드 블록을 찾는다.
+
 ```text
 "main" prio=5 tid=1 Blocked
   | group="main" sCount=1 dsCount=0 flags=1 obj=0x7384a200 self=0xb4000078a0123000
@@ -130,7 +136,7 @@ ApplicationExitInfo #0:
   at com.example.app.MainActivity.onCreate(MainActivity.kt:20)
 ```
 - **State 분석**:
-  - `waiting to lock <0x...>`: thread 14 가 해당 락을 쥐고 있음. Trace 파일 내 `tid=14` 스레드를 검색하여 백그라운드 스레드가 어떤 작업을 하느라 락을 해제하지 않는지 분석.
+  - `waiting to lock <0x…>`: thread 14 가 해당 락을 쥐고 있음. Trace 파일 내 `tid=14` 스레드를 검색하여 백그라운드 스레드가 어떤 작업을 하느라 락을 해제하지 않는지 분석.
   - `at android.os.BinderProxy.transact(Native Method)`: 메인 스레드가 Binder 동기 IPC 호출 후 상대 프로세스의 응답을 기다리고 있음.
   - `at java.io.FileInputStream.readBytes(Native Method)`: 메인 스레드에서 disk/file I/O 수행 중.
 
@@ -151,7 +157,7 @@ ApplicationExitInfo #0:
 ### 7. OS / API (Android 14 / 15 / 16) 특화 제약 및 진단 신호
 
 - **Android 14 (API 34)**:
-  - **Foreground Service 타입별 타임아웃 및 strict enforcement**: `foregroundServiceType` 선언 규제가 강화되어 서비스 생성 후 지정된 타입 권한 검사 및 `startForeground()` 호출이 5초 이내에 완료되지 않으면 즉시 시스템 타임아웃 예외(`ForegroundServiceStartNotAllowedException`) 또는 ANR 을 발생시킴.
+  - **Foreground Service 타입별 타임아웃 및 strict enforcement**: `foregroundServiceType` 선언 규제가 강화되어 서비스 생성 후 지정된 타입 권한 검사 및 `startForeground()` 호출이 5 초 이내에 완료되지 않으면 즉시 시스템 타임아웃 예외(`ForegroundServiceStartNotAllowedException`) 또는 ANR 을 발생시킴.
   - **Unregistered Receiver 타임아웃 축소**: 백그라운드 런타임 동적 등록 브로드캐스트 리시버에 대한 타임아웃 처리가 엄격해짐.
 - **Android 15 (API 35)**:
   - **`ApplicationExitInfo.getTraceInputStream()` 활용성 증대**: 앱 런타임 내에서 이전 세선의 ANR 트레이스 스트림을 직접 읽어 자체 에러 분석 서버로 전송 가능 (`reason == REASON_ANR`).
@@ -185,4 +191,4 @@ ApplicationExitInfo #0:
 - [Diagnose ANRs (Android Developers)](https://developer.android.com/topic/performance/vitals/anr)
 - [ApplicationExitInfo (Android API reference)](https://developer.android.com/reference/android/app/ApplicationExitInfo)
 
-검증일: 2026-08-04. ANR 트리거 5가지 조건, Logcat 및 ApplicationExitInfo CLI 쿼리, Trace 파싱 기법 및 Android 14/15/16 FGS/Freezer 행동 변화는 공식 문서 원문과 실기기 검증을 통해 확인함.
+검증일: 2026-08-04. ANR 트리거 5 가지 조건, Logcat 및 ApplicationExitInfo CLI 쿼리, Trace 파싱 기법 및 Android 14/15/16 FGS/Freezer 행동 변화는 공식 문서 원문과 실기기 검증을 통해 확인함.

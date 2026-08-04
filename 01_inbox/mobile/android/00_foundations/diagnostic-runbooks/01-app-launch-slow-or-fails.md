@@ -2,7 +2,7 @@
 title: 01-app-launch-slow-or-fails
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: app launch is slow or fails"]
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-04 16:26:32 +09:00
 date created: 2026-08-04 10:30:00 +09:00
 ---
 
@@ -27,7 +27,7 @@ date created: 2026-08-04 10:30:00 +09:00
   - **Hot Launch (열시작)**: 홈(Home) 버튼으로 백그라운드로 보낸 후 다시 전면 복귀.
 - **측정 환경 고정**:
   - 반드시 **R8/Dex 최적화가 적용된 Release 빌드**(또는 Benchmark 빌드)에서 측정한다. Debug 빌드의 StrictMode, 디버거 에이전트, 로깅 코드는 시작 성능을 심각하게 왜곡한다.
-  - 기기의 배터리 상태, 쓰로틀링(Thermal State), Baseline Profile 적용 여부를 동일하게 맞추고 최소 5회 이상 반복 측정하여 중앙값을 확인한다.
+  - 기기의 배터리 상태, 쓰로틀링(Thermal State), Baseline Profile 적용 여부를 동일하게 맞추고 최소 5 회 이상 반복 측정하여 중앙값을 확인한다.
 
 ---
 
@@ -75,12 +75,16 @@ flowchart TD
 
 ### 5. 단계별 조사 절차 및 CLI 검증 (Step-by-Step CLI Investigation)
 
-#### 1단계: `am start-activity` (또는 `am start`) 로 TTID 정밀 측정
+#### 1 단계: `am start-activity` (또는 `am start`) 로 TTID 정밀 측정
+
 CLI 실행 시 `-W` (Wait) 옵션을 부여해 시간 측정 결과를 확인한다.
+
 ```bash
 adb shell am start-activity -W -n com.example.app/.MainActivity
 ```
+
 *출력 예시:*
+
 ```text
 Starting: Intent { cmp=com.example.app/.MainActivity }
 Status: ok
@@ -90,15 +94,19 @@ TotalTime: 842
 WaitTime: 845
 Complete
 ```
-- `TotalTime`: 시스템이 시작 요청을 수신한 시점부터 첫 프레임 렌der 완료까지의 시간(TTID, ms 단위).
+- `TotalTime`: 시스템이 시작 요청을 수신한 시점부터 첫 프레임 렌 der 완료까지의 시간(TTID, ms 단위).
 - `LaunchState`: `COLD`, `WARM`, `HOT` 상태를 확인하여 재현 환경이 타당한지 검증.
 
-#### 2단계: Logcat 의 `Displayed` 및 `Fully drawn` 태그 관찰
+#### 2 단계: Logcat 의 `Displayed` 및 `Fully drawn` 태그 관찰
+
 수동 트리거 외에 실제 앱 실행 로그에서 타임스탬프를 수집한다.
+
 ```bash
 adb logcat -d | grep -E "ActivityManager: Displayed|Fully drawn"
 ```
+
 *출력 예시:*
+
 ```text
 ActivityManager: Displayed com.example.app/.MainActivity: +842ms
 system_process I/ActivityManager: Fully drawn com.example.app/.MainActivity: +1s450ms
@@ -106,21 +114,28 @@ system_process I/ActivityManager: Fully drawn com.example.app/.MainActivity: +1s
 - `Displayed`: TTID 신호. 괄호 안 `(total +2m10s)` 가 표기되면 이전 선행 Activity 나 SplashActivity 가 오래 지연되었음을 의미함.
 - `Fully drawn`: 앱 내부에서 `reportFullyDrawn()` 을 호출했을 때 측정되는 TTFD 신호.
 
-#### 3단계: ApplicationExitInfo 를 이용한 실행 직후 종료 원인 조회 (Android 11+ / API 30+)
+#### 3 단계: ApplicationExitInfo 를 이용한 실행 직후 종료 원인 조회 (Android 11+ / API 30+)
+
 시작 직후 앱이 소리 없이 튕기거나 죽는 경우 프로세스 종료 원인을 시스템에 쿼리한다.
+
 ```bash
 adb shell dumpsys activity exit-info com.example.app
 ```
+
 *핵심 결과 필드:*
+
 - `reason`: `REASON_CRASH_NATIVE`, `REASON_ANR`, `REASON_INITIALIZATION_FAILURE`, `REASON_FREEZER`
 - `subreason`: `SUBREASON_UNDEF`, `SUBREASON_IMP_DEF`
 
-#### 4단계: Perfetto Trace 를 통한 메인 스레드 구간별 시간축 타임라인 수집
+#### 4 단계: Perfetto Trace 를 통한 메인 스레드 구간별 시간축 타임라인 수집
+
 `Choreographer#doFrame` 이전 구간 중 어느 메인 스레드 콜백이 긴지 측정한다.
+
 ```bash
 adb shell perfetto -o /data/misc/perfetto-traces/launch.trace -t 5s sched freq idle am wm gfx view
 adb pull /data/misc/perfetto-traces/launch.trace .
 ```
+
 ui.perfetto.dev 에서 트레이스를 열고 `ActivityThread.main` -> `Application.onCreate` -> `Activity.onCreate` 의 duration 을 확인한다.
 
 ---
@@ -131,8 +146,8 @@ ui.perfetto.dev 에서 트레이스를 열고 `ActivityThread.main` -> `Applicat
 | :--- | :--- | :--- | :--- |
 | **am start -W TotalTime (TTID)** | Cold Launch < 1000ms<br>Warm Launch < 500ms | Cold Launch > 2500ms<br>Warm Launch > 1000ms | `Application.onCreate()` 및 DI 그래프 동기 초기화 로직 분산/비동기화 |
 | **Fully drawn (TTFD)** | TTID 직후 (< 500ms 이내 차이) | TTID 대비 > 3000ms 이상 지연 또는 미호출 | 첫 프레임 렌더링 후 비동기 데이터 쿼리 파이프라인 전환 ([Worked Example 01](../worked-examples/01-app-icon-tap-to-first-frame.md)) |
-| **Logcat Displayed 라인** | 단일 `Displayed` 출력 기록 | 복수의 `Displayed` 유발 또는 `(total ...)` 괄호 지연 존재 | SplashActivity 등 릴레이 액티비티 체인 단축 |
-| **Android 15 16KB Page Alignment** | `readelf -l *.so` 커스텀 정렬 통과 | `UnsatisfiedLinkError` 또는 `dlopen failed: alignment...` | NDK/C++ `.so` 빌드 시 `-z max-page-size=16384` 링커 플래그 적용 |
+| **Logcat Displayed 라인** | 단일 `Displayed` 출력 기록 | 복수의 `Displayed` 유발 또는 `(total …)` 괄호 지연 존재 | SplashActivity 등 릴레이 액티비티 체인 단축 |
+| **Android 15 16KB Page Alignment** | `readelf -l *.so` 커스텀 정렬 통과 | `UnsatisfiedLinkError` 또는 `dlopen failed: alignment…` | NDK/C++ `.so` 빌드 시 `-z max-page-size=16384` 링커 플래그 적용 |
 | **ApplicationExitInfo Reason** | N/A (정상 종료 없음) | `REASON_INITIALIZATION_FAILURE`<br>`REASON_CRASH_NATIVE` | 시작 시 Native Crash 로그 및 C++ crash dump 분석 |
 
 ---

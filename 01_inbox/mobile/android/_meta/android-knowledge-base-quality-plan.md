@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-04 16:17:23 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -50,16 +50,16 @@ date created: 2026-08-03 16:20:03 +09:00
 
 독자 경로는 깊이로 나눈다.
 
-- **개념 Learning Spine**: Android 경험이 적은 독자가 AOSP, Google, OEM, SoC vendor, SDK, Jetpack, Google Play services, 앱 artifact, runtime 계층, system service, security, form factor와 배포의 관계를 순서대로 이해한다. 개별 API 사용법보다 주체, 소유권, 호출, identity, state와 update 경계를 설명한다.
-- **심화 reference와 진단 경로**: Learning Spine의 전체 모델을 바탕으로 AOSP/kernel/HAL, Binder, rendering, background policy, security gate, 성능과 배포 문제를 원자 노트와 runbook에서 깊게 확인한다.
+- **개념 Learning Spine**: Android 경험이 적은 독자가 AOSP, Google, OEM, SoC vendor, SDK, Jetpack, Google Play services, 앱 artifact, runtime 계층, system service, security, form factor 와 배포의 관계를 순서대로 이해한다. 개별 API 사용법보다 주체, 소유권, 호출, identity, state 와 update 경계를 설명한다.
+- **심화 reference 와 진단 경로**: Learning Spine 의 전체 모델을 바탕으로 AOSP/kernel/HAL, Binder, rendering, background policy, security gate, 성능과 배포 문제를 원자 노트와 runbook 에서 깊게 확인한다.
 
 개념 경로는 세부 내부 동작을 생략하는 요약본이 아니다. 처음 접하는 독자가 원자 노트를 읽을 수 있도록 필요한 인과관계를 본문에서 직접 설명하는 정본이다. 심화 경로는 개념 경로를 대체하지 않으며, 개념 경로도 링크 목록으로 심화 설명을 떠넘기지 않는다.
 
 ### 최종 목표
 
-Android 지식 베이스는 개념 Learning Spine과 심화 reference를 통해 서로 다른 네 역할을 수행해야 한다.
+Android 지식 베이스는 개념 Learning Spine 과 심화 reference 를 통해 서로 다른 네 역할을 수행해야 한다.
 
-1. Android 생태계 경험이 적은 독자가 Android의 전체 구성과 실행 모델을 순서대로 이해한다.
+1. Android 생태계 경험이 적은 독자가 Android 의 전체 구성과 실행 모델을 순서대로 이해한다.
 2. 실제 기능과 장애를 end-to-end 로 추적하며 계층 사이 인과관계를 이해한다.
 3. 문제를 만났을 때 관찰 신호를 근거로 실패 경계를 좁힌다.
 4. 특정 판단이 필요할 때 짧은 원자 reference 로 빠르게 돌아온다.
@@ -99,7 +99,7 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 
 각 장은 선행 지식, 실제 메커니즘, end-to-end 흐름, 최소 예시, 확인 질문, 다음 장을 포함한다.
 
-현재 교육과정 준비 작업본은 [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에서 관리한다. 이 문서에는 생태계 개념 범위표, 12장 구조와 1·2장의 상세 개요가 있다. 검수를 반영한 실제 본문은 [1장 Android 생태계와 계약 접점](../00_foundations/learning-spine/01-android-ecosystem-and-contract-surfaces.md), [2장 Android 플랫폼 실행 계층과 호출 경로](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md), [3장 소스에서 설치된 패키지까지](../00_foundations/learning-spine/03-source-to-installed-package.md), [4장 매니페스트에서 컴포넌트 실행까지](../00_foundations/learning-spine/04-manifest-to-component-execution.md), [5장 화면, 프로세스, task와 사용자 상태는 독립적인 lifetime을 가진다](../00_foundations/learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md), [6장 메인 스레드, Binder, coroutine과 durable scheduler는 서로 다른 실행 책임을 진다](../00_foundations/learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md), [7장 입력, 리소스 선택과 화면 프레임](../00_foundations/learning-spine/07-input-resource-selection-and-display-frame.md), [8장 데이터, 저장소, 네트워크와 offline recovery](../00_foundations/learning-spine/08-data-storage-network-and-offline-recovery.md), [9장 Identity, 권한과 독립적인 security gate](../00_foundations/learning-spine/09-identity-permission-and-independent-security-gates.md), [10장 기기 기능 발견과 background execution](../00_foundations/learning-spine/10-device-capability-discovery-and-background-execution.md), [11장 관찰, 테스트와 품질 feedback](../00_foundations/learning-spine/11-observation-testing-and-quality-feedback.md), [12장 호환성, update와 form factor](../00_foundations/learning-spine/12-compatibility-update-and-form-factor.md)에서 관리한다. Learning Spine 12개 장 전체가 완성됐다. 3~12장은 저작 세션 자체 검증만 마쳤고 별도 세션의 독립 검수는 아직이다.
+현재 교육과정 준비 작업본은 [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md) 에서 관리한다. 이 문서에는 생태계 개념 범위표, 12 장 구조와 1·2 장의 상세 개요가 있다. 검수를 반영한 실제 본문은 [1장 Android 생태계와 계약 접점](../00_foundations/learning-spine/01-android-ecosystem-and-contract-surfaces.md), [2장 Android 플랫폼 실행 계층과 호출 경로](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md), [3장 소스에서 설치된 패키지까지](../00_foundations/learning-spine/03-source-to-installed-package.md), [4장 매니페스트에서 컴포넌트 실행까지](../00_foundations/learning-spine/04-manifest-to-component-execution.md), [5장 화면, 프로세스, task와 사용자 상태는 독립적인 lifetime을 가진다](../00_foundations/learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md), [6장 메인 스레드, Binder, coroutine과 durable scheduler는 서로 다른 실행 책임을 진다](../00_foundations/learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md), [7장 입력, 리소스 선택과 화면 프레임](../00_foundations/learning-spine/07-input-resource-selection-and-display-frame.md), [8장 데이터, 저장소, 네트워크와 offline recovery](../00_foundations/learning-spine/08-data-storage-network-and-offline-recovery.md), [9장 Identity, 권한과 독립적인 security gate](../00_foundations/learning-spine/09-identity-permission-and-independent-security-gates.md), [10장 기기 기능 발견과 background execution](../00_foundations/learning-spine/10-device-capability-discovery-and-background-execution.md), [11장 관찰, 테스트와 품질 feedback](../00_foundations/learning-spine/11-observation-testing-and-quality-feedback.md), [12장 호환성, update와 form factor](../00_foundations/learning-spine/12-compatibility-update-and-form-factor.md) 에서 관리한다. Learning Spine 12 개 장 전체가 완성됐다. 3~12 장은 저작 세션 자체 검증만 마쳤고 별도 세션의 독립 검수는 아직이다.
 
 #### 2. Worked Examples
 
@@ -136,24 +136,26 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 
 #### 4. Atomic References (Rich Atomic Notes)
 
-Atomic Reference는 안드로이드의 특정 원리, 메커니즘, 또는 규칙 하나만을 독립적으로 깊게 다루는 원자적(Atomic) 노트다.
+Atomic Reference 는 안드로이드의 특정 원리, 메커니즘, 또는 규칙 하나만을 독립적으로 깊게 다루는 원자적(Atomic) 노트다.
 
 **원자적 구조(Atomic Structure)와 중복 배제의 원칙**:
+
 - **단일 정본(Single Source of Truth, SSOT)**: 문서 간 지식 중복을 근본적으로 제거하기 위해 문서를 원자화한다. 동일한 개념, 코드, 또는 메커니즘 설명이 여러 파일에 파편화되어 중복 작성되는 것을 방지하고, 하나의 개념은 반드시 하나의 정본(Atomic Note)에서만 다룬다.
 - **단일 책임(Single Responsibility)**: 하나의 원자 노트는 오직 하나의 명확한 명제/주제에만 집중한다.
 - **명확한 참조 경계**: 다른 개념이 필요할 때는 중복해서 복사·작성하지 않고 해당 정본 원자 노트를 식별 가능하게 참조한다.
 
 **완결성과 알맹이(Substance Richness)의 필수 게이트**:
-단순화/원자화라는 명목으로 본문 설명을 지우거나 3~5줄짜리 요약문과 링크만 남기는 것은 **품질 미달(C/D 등급)**로 본다. 지식의 중복을 배제하되, 해당 노드가 담고 있는 단일 명제에 대해서는 독자가 다른 링크를 열지 않고도 기술 메커니즘을 완전하게 이해할 수 있는 깊이를 제공해야 한다.
 
-모든 Atomic Reference는 아래 4가지 요소 중 최소 3가지 이상을 본문에 직접 포함해야 한다.
+단순화/원자화라는 명목으로 본문 설명을 지우거나 3~5 줄짜리 요약문과 링크만 남기는 것은 **품질 미달(C/D 등급)**로 본다. 지식의 중복을 배제하되, 해당 노드가 담고 있는 단일 명제에 대해서는 독자가 다른 링크를 열지 않고도 기술 메커니즘을 완전하게 이해할 수 있는 깊이를 제공해야 한다.
+
+모든 Atomic Reference 는 아래 4 가지 요소 중 최소 3 가지 이상을 본문에 직접 포함해야 한다.
 
 1. **상세 메커니즘 (Internal Mechanism)**: 단순 선언이 아닌, 실제 안드로이드 시스템/프레임워크의 동작 원리와 상태 전이 흐름.
 2. **구체적 실행 예시 (Concrete Code / Setup)**: 메커니즘을 설명하는 Kotlin, Java, C++, XML 또는 Gradle 코드 스니펫.
 3. **구조 다이어그램 (Diagram / Flow)**: 복잡한 호출 관계나 메모리/스레드 흐름을 보여주는 Mermaid 또는 ASCII 다이어그램.
 4. **관찰 가능한 신호 (Observable Evidence)**: 실제 개발 및 디버깅 시 확인할 수 있는 Logcat, 예외(Exception) 클래스명, `adb`, `dumpsys`, `perfetto` 명령과 출력 해석.
 
-`자세한 내용은 다른 노트 참조`라는 문장만으로 본문 설명을 대치하거나 텍스트를 과도하게 축약한 노트는 2차 패스(Substance Pass) 보강 대상이 된다.
+`자세한 내용은 다른 노트 참조` 라는 문장만으로 본문 설명을 대치하거나 텍스트를 과도하게 축약한 노트는 2 차 패스(Substance Pass) 보강 대상이 된다.
 
 #### 5. Maps and Glossary
 
@@ -218,13 +220,13 @@ Atomic Reference는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 
 #### 문서 작성 형식과 언어
 
-- frontmatter가 있는 모든 Markdown 문서는 닫는 `---` 다음의 첫 번째 비어 있지 않은 텍스트를 반드시 `##` 제목으로 작성한다.
-- 문서의 최상위 제목에 `#`을 사용하지 않는다. `##` 아래의 하위 구조는 `###`, `####` 순서로 작성한다.
+- frontmatter 가 있는 모든 Markdown 문서는 닫는 `---` 다음의 첫 번째 비어 있지 않은 텍스트를 반드시 `##` 제목으로 작성한다.
+- 문서의 최상위 제목에 `#` 을 사용하지 않는다. `##` 아래의 하위 구조는 `###`, `####` 순서로 작성한다.
 - 제목과 설명 문장은 한글을 기본으로 작성한다.
-- API, class, method, package, command, 도구, library, product, protocol처럼 번역하면 식별이나 정확성이 떨어지는 공식 용어는 영문을 유지한다.
+- API, class, method, package, command, 도구, library, product, protocol 처럼 번역하면 식별이나 정확성이 떨어지는 공식 용어는 영문을 유지한다.
 - 일반 개념은 가능한 한 한글로 설명하고, 필요한 경우 첫 등장에 `한글 설명(English term)` 형태로 병기한다.
-- `surface`, `lifetime`, `identity`, `state`, `artifact`, `boundary` 같은 영문 일반어를 장식적으로 반복하지 않는다. 문맥에 맞는 `접점`, `수명`, `식별 정보`, `상태`, `산출물`, `경계`를 우선 사용한다.
-- 코드 식별자와 명령은 원문 그대로 backtick으로 감싼다.
+- `surface`, `lifetime`, `identity`, `state`, `artifact`, `boundary` 같은 영문 일반어를 장식적으로 반복하지 않는다. 문맥에 맞는 `접점`, `수명`, `식별 정보`, `상태`, `산출물`, `경계` 를 우선 사용한다.
+- 코드 식별자와 명령은 원문 그대로 backtick 으로 감싼다.
 
 ### 품질 등급
 
@@ -376,7 +378,7 @@ Atomic Reference는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 - 12 개 필수 장의 순서와 prerequisite 를 먼저 설계한다.
 - 기존 원자 노트를 재료로 사용하되 링크 모음으로 끝내지 않는다.
 - 각 장에 하나 이상의 실제 흐름과 확인 질문을 넣는다.
-- 먼저 `Android 생태계와 계약 접점`에서 생태계 주체, API 접점, 산출물, 업데이트 권한과 호환성 계약을 정의한다.
+- 먼저 `Android 생태계와 계약 접점` 에서 생태계 주체, API 접점, 산출물, 업데이트 권한과 호환성 계약을 정의한다.
 - 우선 pilot 은 `Build/Install에서 앱 첫 frame까지` 로 한다.
 
 완료 조건:
@@ -395,30 +397,30 @@ Atomic Reference는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 - 각 예시가 최소 세 계층을 끊기지 않는 서사로 연결한다.
 - 링크를 열지 않아도 예시의 핵심 흐름을 이해할 수 있다.
 
-**진행 기록(2026-08-04): 필수 8개 Worked Example 작성 완료.** `00_foundations/worked-examples/`에 다음 8개 파일을 작성했다(Learning Spine에 지정된 폴더 경로가 없어 `learning-spine/`과 나란한 새 폴더로 배치).
+**진행 기록(2026-08-04): 필수 8 개 Worked Example 작성 완료.** `00_foundations/worked-examples/` 에 다음 8 개 파일을 작성했다(Learning Spine 에 지정된 폴더 경로가 없어 `learning-spine/` 과 나란한 새 폴더로 배치).
 
-1. [앱 아이콘 탭에서 첫 프레임까지](../00_foundations/worked-examples/01-app-icon-tap-to-first-frame.md) — 4·5·6·7·11장 연결. 실패 분기: 냉시작 중 ANR.
-2. [사진 촬영, preview, 저장, 업로드까지](../00_foundations/worked-examples/02-photo-capture-preview-save-upload.md) — 7·8·9·10장 연결. 실패 분기: 카메라 접근 실패(권한/AppOps/점유 중 3원인 구분).
-3. [deep link가 올바른 task와 화면 상태로 열리기까지](../00_foundations/worked-examples/03-deep-link-to-correct-task-and-screen-state.md) — 3·4·5장 연결. 실패 분기 대신 성공/인증필요 두 경로를 대비.
-4. [FCM 전송에서 notification 표시와 탭 복구까지](../00_foundations/worked-examples/04-fcm-to-notification-display-and-tap-recovery.md) — 5·6·9·10·11장 연결. 실패 분기: 전달은 성공했지만 권한/채널로 표시가 막히는 사례.
-5. [process death 뒤 편집 상태와 background work 복구](../00_foundations/worked-examples/05-process-death-recovery-of-edit-state-and-background-work.md) — 4·5·6·8장 연결. 실패 분기: draft 텍스트가 ViewModel에만 있어 소실되는 사례.
-6. [permission이 있는데 API가 실패하는 사례](../00_foundations/worked-examples/06-permission-granted-but-api-fails.md) — 9·10장 연결. foreground/background 위치 권한 분리를 실제 버그 리포트로 추적.
-7. [Compose jank를 UI state에서 SurfaceFlinger까지 좁히는 사례](../00_foundations/worked-examples/07-compose-jank-from-ui-state-to-surfaceflinger.md) — 7·11장 연결. 실패 분기: recomposition 횟수만 보고 잘못 진단하는 사례.
-8. [signed artifact가 Play delivery를 거쳐 update되는 과정](../00_foundations/worked-examples/08-signed-artifact-through-play-delivery-to-update.md) — 3·11장 연결. 실패 분기: 로컬 서명 빌드와 Play 서명 빌드 간 서명 불일치로 업데이트가 거부되는 사례.
+1. [앱 아이콘 탭에서 첫 프레임까지](../00_foundations/worked-examples/01-app-icon-tap-to-first-frame.md) — 4·5·6·7·11 장 연결. 실패 분기: 냉시작 중 ANR.
+2. [사진 촬영, preview, 저장, 업로드까지](../00_foundations/worked-examples/02-photo-capture-preview-save-upload.md) — 7·8·9·10 장 연결. 실패 분기: 카메라 접근 실패(권한/AppOps/점유 중 3 원인 구분).
+3. [deep link가 올바른 task와 화면 상태로 열리기까지](../00_foundations/worked-examples/03-deep-link-to-correct-task-and-screen-state.md) — 3·4·5 장 연결. 실패 분기 대신 성공/인증필요 두 경로를 대비.
+4. [FCM 전송에서 notification 표시와 탭 복구까지](../00_foundations/worked-examples/04-fcm-to-notification-display-and-tap-recovery.md) — 5·6·9·10·11 장 연결. 실패 분기: 전달은 성공했지만 권한/채널로 표시가 막히는 사례.
+5. [process death 뒤 편집 상태와 background work 복구](../00_foundations/worked-examples/05-process-death-recovery-of-edit-state-and-background-work.md) — 4·5·6·8 장 연결. 실패 분기: draft 텍스트가 ViewModel 에만 있어 소실되는 사례.
+6. [permission이 있는데 API가 실패하는 사례](../00_foundations/worked-examples/06-permission-granted-but-api-fails.md) — 9·10 장 연결. foreground/background 위치 권한 분리를 실제 버그 리포트로 추적.
+7. [Compose jank를 UI state에서 SurfaceFlinger까지 좁히는 사례](../00_foundations/worked-examples/07-compose-jank-from-ui-state-to-surfaceflinger.md) — 7·11 장 연결. 실패 분기: recomposition 횟수만 보고 잘못 진단하는 사례.
+8. [signed artifact가 Play delivery를 거쳐 update되는 과정](../00_foundations/worked-examples/08-signed-artifact-through-play-delivery-to-update.md) — 3·11 장 연결. 실패 분기: 로컬 서명 빌드와 Play 서명 빌드 간 서명 불일치로 업데이트가 거부되는 사례.
 
-각 예시는 최소 3개 이상의 Android 책임 계층(요청/데이터/identity/thread-process/lifecycle/실패 신호)을 끊기지 않는 서사로 연결했고, 코드 예시와 관찰 가능한 신호(adb/dumpsys 명령, 로그, trace)를 포함했다. 새로 도입한 사실 주장은 WebFetch로 공식 문서 원문을 대조했고(예: TTID/TTFD와 `reportFullyDrawn()`, cold/warm/hot start 정의, `am start -W` 출력), 나머지는 Learning Spine 각 장에서 이미 검증한 인용을 재사용했다. 8개 파일 전체의 내부 링크(원자 노트·Learning Spine 장)와 외부 공식 문서 링크를 전수 확인해 broken 0건이다.
+각 예시는 최소 3 개 이상의 Android 책임 계층(요청/데이터/identity/thread-process/lifecycle/실패 신호)을 끊기지 않는 서사로 연결했고, 코드 예시와 관찰 가능한 신호(adb/dumpsys 명령, 로그, trace)를 포함했다. 새로 도입한 사실 주장은 WebFetch 로 공식 문서 원문을 대조했고(예: TTID/TTFD 와 `reportFullyDrawn()`, cold/warm/hot start 정의, `am start -W` 출력), 나머지는 Learning Spine 각 장에서 이미 검증한 인용을 재사용했다. 8 개 파일 전체의 내부 링크(원자 노트·Learning Spine 장)와 외부 공식 문서 링크를 전수 확인해 broken 0 건이다.
 
 **상태: 저작 세션 자체 검증 완료 / 별도 세션의 독립 검수는 아직 미실시.**
 
-**독립 검수(2026-08-04).** Author/Reviewer 분리 원칙에 따라 4개 subagent에 2개씩 병렬 위임(WE1~2, WE3~4, WE5~6, WE7~8). 각 subagent는 완료 기준(시작상태/입력/단계/성공결과/실패분기, 3계층 이상 연결, 코드+관찰신호, 링크 없이도 이해 가능한 서사) 충족 여부, 내부·외부 링크 전수 재확인, 핵심 인용 WebFetch 재대조, Learning Spine과의 일관성(특히 4장의 exported/ActivityNotFoundException 정정과 모순 없는지)을 검증했다.
+**독립 검수(2026-08-04).** Author/Reviewer 분리 원칙에 따라 4 개 subagent 에 2 개씩 병렬 위임(WE1~2, WE3~4, WE5~6, WE7~8). 각 subagent 는 완료 기준(시작상태/입력/단계/성공결과/실패분기, 3 계층 이상 연결, 코드 + 관찰신호, 링크 없이도 이해 가능한 서사) 충족 여부, 내부·외부 링크 전수 재확인, 핵심 인용 WebFetch 재대조, Learning Spine 과의 일관성(특히 4 장의 exported/ActivityNotFoundException 정정과 모순 없는지)을 검증했다.
 
 - WE1, WE2, WE5, WE7, WE8: 발견 사항 없음 또는 선택적 개선 제안만 있어 PASS.
-- **WE6 사실 오류(수정 완료).** "대략적 위치는 약 3km **반경**"이라고 썼으나, 공식 문서(`training/location/permissions`)는 "accurate to within about 3 square kilometers"로 **면적**을 말한다. 반경으로 잘못 읽으면 실제보다 약 9배 넓은 오차 범위를 암시한다. WE6과, 이 오류의 근원이었던 원자 노트 `04_system_services/device-capabilities/location-contracts/precise-and-approximate-location-are-separate-permissions.md`를 함께 "약 3제곱킬로미터 면적"으로 정정했다.
-- **WE3 표기 혼동(수정 완료).** "1장 worked example의 냉시작 경로"라는 표현이 본문 전체가 "N장"을 Learning Spine 챕터를 가리키는 데만 쓰는 관습과 충돌해, 독자가 Learning Spine 1장에 냉시작 내용이 있다고 오해할 수 있었다. "WE1(앱 아이콘 탭에서 첫 프레임까지)"로 명확히 정정했다.
-- **WE4 인용 목록 누락(수정 완료).** 본문에서 4장(프로세스 재진입)과 8장(누락 복구)을 명시적으로 인용하면서도 상단 요약 문장과 "관련 Learning Spine 장" 목록에는 5·6·9·10·11장만 있었다. 두 곳 모두 4·8장을 추가했다.
-- 부가로 WE5의 리다이렉트된 WorkManager URL을 canonical URL로, WE7의 부정확한 코드 주석 1건을 다듬었다(둘 다 사소, 판정에 영향 없음).
+- **WE6 사실 오류(수정 완료).** "대략적 위치는 약 3km **반경**"이라고 썼으나, 공식 문서(`training/location/permissions`)는 "accurate to within about 3 square kilometers"로 **면적**을 말한다. 반경으로 잘못 읽으면 실제보다 약 9 배 넓은 오차 범위를 암시한다. WE6 과, 이 오류의 근원이었던 원자 노트 `04_system_services/device-capabilities/location-contracts/precise-and-approximate-location-are-separate-permissions.md` 를 함께 "약 3 제곱킬로미터 면적"으로 정정했다.
+- **WE3 표기 혼동(수정 완료).** "1 장 worked example 의 냉시작 경로"라는 표현이 본문 전체가 "N 장"을 Learning Spine 챕터를 가리키는 데만 쓰는 관습과 충돌해, 독자가 Learning Spine 1 장에 냉시작 내용이 있다고 오해할 수 있었다. "WE1(앱 아이콘 탭에서 첫 프레임까지)"로 명확히 정정했다.
+- **WE4 인용 목록 누락(수정 완료).** 본문에서 4 장(프로세스 재진입)과 8 장(누락 복구)을 명시적으로 인용하면서도 상단 요약 문장과 "관련 Learning Spine 장" 목록에는 5·6·9·10·11 장만 있었다. 두 곳 모두 4·8 장을 추가했다.
+- 부가로 WE5 의 리다이렉트된 WorkManager URL 을 canonical URL 로, WE7 의 부정확한 코드 주석 1 건을 다듬었다(둘 다 사소, 판정에 영향 없음).
 
-8개 전 파일 재검증 결과 내부 링크는 여전히 전수 resolve, 신규 사실 주장은 모두 공식 문서 원문과 일치 확인. **최종 상태: 8개 Worked Example 독립 검수 완료, 발견된 오류 모두 수정 반영. 사용자 최종 검수만 남음.**
+8 개 전 파일 재검증 결과 내부 링크는 여전히 전수 resolve, 신규 사실 주장은 모두 공식 문서 원문과 일치 확인. **최종 상태: 8 개 Worked Example 독립 검수 완료, 발견된 오류 모두 수정 반영. 사용자 최종 검수만 남음.**
 
 #### Phase 4. Diagnostic Runbook 작성
 
@@ -430,7 +432,7 @@ Atomic Reference는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 
 - reviewer 가 문서만 보고 재현과 첫 조사 단계를 수행할 수 있다.
 
-**진행 기록(2026-08-04): 8개 필수 장애군 Diagnostic Runbook 작성 완료.** `00_foundations/diagnostic-runbooks/`에 Worked Example과 나란히 배치했다.
+**진행 기록(2026-08-04): 8 개 필수 장애군 Diagnostic Runbook 작성 완료.** `00_foundations/diagnostic-runbooks/` 에 Worked Example 과 나란히 배치했다.
 
 1. [앱 실행이 느리거나 첫 프레임이 뜨지 않는다](../00_foundations/diagnostic-runbooks/01-app-launch-slow-or-fails.md)
 2. [ANR(Application Not Responding)이 발생한다](../00_foundations/diagnostic-runbooks/02-anr.md)
@@ -441,23 +443,23 @@ Atomic Reference는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 7. [화면이 끊긴다(jank, dropped frames)](../00_foundations/diagnostic-runbooks/07-jank-dropped-frames.md)
 8. [설치 또는 업데이트가 실패한다](../00_foundations/diagnostic-runbooks/08-install-update-failure.md)
 
-각 runbook은 필수 구성(증상과 재현 조건, 실패 경계의 우선순위, 사용할 adb/dumpsys/cmd/logcat/trace 명령과 그 필드를 보는 이유, 정상/실패 신호, 다음 조사 경로, OS/API/target SDK 조건)을 모두 갖췄다. 이미 Learning Spine과 Worked Example에서 공식 문서로 검증한 사실을 우선 재사용했고, 새로 등장한 구체적 도구·필드(`Displayed` 로그 형식, ANR의 5가지 공식 트리거 조건과 `/data/anr/` trace 경로, `dumpsys jobscheduler`의 constraint/quota/standby bucket 필드)는 이번에 WebFetch로 공식 문서 원문을 대조했다. 8개 파일 전체 내부 링크(64개)와 외부 공식 문서 링크(16개)를 전수 확인해 broken 0건이다.
+각 runbook 은 필수 구성(증상과 재현 조건, 실패 경계의 우선순위, 사용할 adb/dumpsys/cmd/logcat/trace 명령과 그 필드를 보는 이유, 정상/실패 신호, 다음 조사 경로, OS/API/target SDK 조건)을 모두 갖췄다. 이미 Learning Spine 과 Worked Example 에서 공식 문서로 검증한 사실을 우선 재사용했고, 새로 등장한 구체적 도구·필드(`Displayed` 로그 형식, ANR 의 5 가지 공식 트리거 조건과 `/data/anr/` trace 경로, `dumpsys jobscheduler` 의 constraint/quota/standby bucket 필드)는 이번에 WebFetch 로 공식 문서 원문을 대조했다. 8 개 파일 전체 내부 링크(64 개)와 외부 공식 문서 링크(16 개)를 전수 확인해 broken 0 건이다.
 
-각 runbook은 대응하는 Worked Example로 상호 링크했다(예: RB1↔WE1, RB3↔WE5, RB4↔WE2·WE6, RB6↔WE4, RB7↔WE7, RB8↔WE8). Runbook은 "증상이 있을 때 무엇을 어느 순서로 확인할지"를 다루고, Worked Example은 "왜 그런 일이 일어나는지"를 다루도록 역할을 분리했다.
+각 runbook 은 대응하는 Worked Example 로 상호 링크했다(예: RB1↔WE1, RB3↔WE5, RB4↔WE2·WE6, RB6↔WE4, RB7↔WE7, RB8↔WE8). Runbook 은 "증상이 있을 때 무엇을 어느 순서로 확인할지"를 다루고, Worked Example 은 "왜 그런 일이 일어나는지"를 다루도록 역할을 분리했다.
 
-**독립 검수(2026-08-04).** 4개 subagent에 2개씩 병렬 위임(RB1~2, RB3~4, RB5~6, RB7~8). 완료 기준 충족 여부, 명령어 문법 정확성, 내부·외부 링크, 핵심 인용 WebFetch 재대조, Worked Example·Learning Spine과의 일관성을 검증했다.
+**독립 검수(2026-08-04).** 4 개 subagent 에 2 개씩 병렬 위임(RB1~2, RB3~4, RB5~6, RB7~8). 완료 기준 충족 여부, 명령어 문법 정확성, 내부·외부 링크, 핵심 인용 WebFetch 재대조, Worked Example·Learning Spine 과의 일관성을 검증했다.
 
 - RB3, RB4, RB5, RB6: 발견 사항 없음(PASS).
-- **RB1 수정.** 3단계(TTFD 확인)만 다른 단계와 달리 관찰 명령이 없어 보강했다(`reportFullyDrawn()` 호출 시 logcat에 남는 `Fully drawn ... +1s54ms` 형식을 공식 문서로 확인해 추가). 1단계의 "ANR 메시지와 함께 끝난다"는 근거를 확인하지 못한 서술을 "비정상적으로 오래 걸리거나 응답 없이 멈춘다"로 완화했다.
-- **RB2 수정.** 1단계 `adb root`가 production(user) 빌드 기기에서는 실패한다는 점과 그 대안(`adb bugreport`, API 30+ `ApplicationExitInfo.getTraceInputStream()`, Android vitals ANR 리포트)이 누락돼 있어 추가했다 — 이 runbook이 다루는 "Play Console에서 ANR율 상승" 시나리오의 상당수가 정확히 이 production 빌드 케이스였다.
+- **RB1 수정.** 3 단계(TTFD 확인)만 다른 단계와 달리 관찰 명령이 없어 보강했다(`reportFullyDrawn()` 호출 시 logcat 에 남는 `Fully drawn … +1s54ms` 형식을 공식 문서로 확인해 추가). 1 단계의 "ANR 메시지와 함께 끝난다"는 근거를 확인하지 못한 서술을 "비정상적으로 오래 걸리거나 응답 없이 멈춘다"로 완화했다.
+- **RB2 수정.** 1 단계 `adb root` 가 production(user) 빌드 기기에서는 실패한다는 점과 그 대안(`adb bugreport`, API 30+ `ApplicationExitInfo.getTraceInputStream()`, Android vitals ANR 리포트)이 누락돼 있어 추가했다 — 이 runbook 이 다루는 "Play Console 에서 ANR 율 상승" 시나리오의 상당수가 정확히 이 production 빌드 케이스였다.
 - **RB7 수정.** `dumpsys gfxinfo <pkg>` 명령에 `adb shell` 접두사가 빠져 있어 정정하고 코드블록으로 분리했다. 이 단계에 정상/실패 신호 설명이 없어 보강했다.
-- **RB8 수정.** "targetSdkVersion 미충족 시 설치 자체가 거부된다"는 서술이, 실제로는 대부분 **설치 이전 빌드 단계**(manifest merger 오류)에서 걸러진다는 사실과 다르게 "설치 거부"로 단정하고 있어 정정했다. 구버전 툴체인에서 우회된 경우에만 설치 시점 `INSTALL_FAILED_VERIFICATION_FAILURE`로 나타난다는 점을 명시했다.
+- **RB8 수정.** "targetSdkVersion 미충족 시 설치 자체가 거부된다"는 서술이, 실제로는 대부분 **설치 이전 빌드 단계**(manifest merger 오류)에서 걸러진다는 사실과 다르게 "설치 거부"로 단정하고 있어 정정했다. 구버전 툴체인에서 우회된 경우에만 설치 시점 `INSTALL_FAILED_VERIFICATION_FAILURE` 로 나타난다는 점을 명시했다.
 
-수정 후 8개 파일 전체 내부 링크 재확인 결과 broken 0건. **최종 상태: 8개 Diagnostic Runbook 독립 검수 완료, 발견된 문제 모두 수정 반영.**
+수정 후 8 개 파일 전체 내부 링크 재확인 결과 broken 0 건. **최종 상태: 8 개 Diagnostic Runbook 독립 검수 완료, 발견된 문제 모두 수정 반영.**
 
 #### Phase 5. Atomic Reference 의미 품질 pass (Substance Pass)
 
-원자적 문서 구조(Atomic Structure)는 그대로 보존하되, 단순 요약이나 3~5줄짜리 수박 겉핥기로 남아있는 원자 노트들의 알맹이(Substance)를 풍부하게 보강한다.
+원자적 문서 구조(Atomic Structure)는 그대로 보존하되, 단순 요약이나 3~5 줄짜리 수박 겉핥기로 남아있는 원자 노트들의 알맹이(Substance)를 풍부하게 보강한다.
 
 순서:
 
@@ -472,100 +474,102 @@ Atomic Reference는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 작업 지침:
 
 - **원자성 유지**: 파일 분리 및 주제 단위는 유지하되, 각 원자 노트가 단독으로 읽혀도 기술 원리를 깊이 있게 이해할 수 있도록 보강한다.
-- **내용 보강**: 단순 개념 정의에 그친 노트에 **실제 동작 메커니즘, 상세 설명, Kotlin/Java/C++ 코드 예시, Mermaid 다이어그램, `adb/dumpsys/logcat` 관찰 신호**를 최소 3가지 이상 추가한다.
-- **부실 노트 재평가**: `자세한 내용은 다른 노트 참조`라는 문장으로 본문을 때우거나 C/D 등급으로 남아있는 노트를 우선 보강 대상으로 삼는다.
+- **내용 보강**: 단순 개념 정의에 그친 노트에 **실제 동작 메커니즘, 상세 설명, Kotlin/Java/C++ 코드 예시, Mermaid 다이어그램, `adb/dumpsys/logcat` 관찰 신호**를 최소 3 가지 이상 추가한다.
+- **부실 노트 재평가**: `자세한 내용은 다른 노트 참조` 라는 문장으로 본문을 때우거나 C/D 등급으로 남아있는 노트를 우선 보강 대상으로 삼는다.
 - **중복 처리**: 완전히 동일한 주제의 원자 노트는 병합하되, 서로 다른 관점/명제의 노트는 각자의 본문을 풍부하게 채운다.
 
 완료 조건:
 
 - C/D 등급 부실 요약 원자 노트를 A/B 등급(Rich Atomic Note)으로 전환한다.
 
-**진행 기록(2026-08-04): category 1(App components, lifecycle, process, state) 완료.** `02_app_framework/architecture/`의 4개 하위 폴더(app-components 18개, context-and-modularity 9개, jetpack-architecture 6개, state-management 20개, 총 53개 파일)를 전수 재감사했다.
+**진행 기록(2026-08-04): category 1(App components, lifecycle, process, state) 완료.** `02_app_framework/architecture/` 의 4 개 하위 폴더(app-components 18 개, context-and-modularity 9 개, jetpack-architecture 6 개, state-management 20 개, 총 53 개 파일)를 전수 재감사했다.
 
-이 category는 원래 3개 subagent(app-components / state-management / context-and-modularity+jetpack-architecture)에 병렬 위임했으나, 세 agent 모두 공유 세션 API rate limit("You've hit your session limit")로 작업 도중 종료됐다. 재시도 대신 저작 세션이 동일한 기준으로 53개 파일 전체를 직접 Read하여 재감사했다(Author/Reviewer 분리 원칙은 유지하기 어려웠으나, 실패한 agent가 이미 C등급으로 지목했던 reducer 노트를 직접 재확인해 실제로는 이미 A등급임을 `git diff`/`git log`로 교차 검증하는 등 판단을 재검증하며 진행했다).
-
-**발견 및 수정한 실제 결함:**
-
-1. **H2 제목이 쉼표에서 잘리는 반복 버그.** 4개 파일에서 H2 제목이 `aliases`의 전체 문장이 아니라 첫 쉼표 앞까지만 남아 있었다(예: "컴포넌트 통신은 Intent" → 원래 의도는 "컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다"). 정규식으로 vault 전체(585개 파일)를 스캔해 동일 패턴이 이 4건 외에는 없음을 확인 후 전부 정정했다: `component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md`, `component-context-lifetime-follows-service-receiver-provider-boundary.md`, `architecture-decisions-start-from-owner-lifetime-and-survival-requirements.md`, `state-owner-is-chosen-by-lifetime-owner-change-frequency-and-sharing.md`, `reducer-does-not-depend-on-repository-coroutine-flow-or-android-api.md`(공백 정규화 비교로 추가 발견, 총 5개 파일 5건).
-2. **`app-components/` 8개 노트에 관찰 가능한 신호 부재.** Activity/BoundService/BroadcastReceiver/ContentProvider/exported-permission/FileProvider/ForegroundService/Service 노트가 정의·메커니즘·경계는 정확했지만 구체적 code/명령/observable evidence가 전혀 없어 계획의 필수 완료 기준(mechanism, example, observable evidence 중 최소 하나)을 충족하지 못했다. 각 노트에 `adb shell dumpsys`/`content query` 명령, 관련 예외(`ActivityNotFoundException`, `FileUriExposedException`, `WindowManager.BadTokenException`), 또는 ANR runbook과의 연결 등 검증 가능한 관찰 신호를 한 단락씩 추가해 A등급 기준을 충족시켰다.
-3. **`context-and-modularity/context-contracts/` 7개 노트, `jetpack-architecture/architecture-contracts/` 3개 노트도 같은 패턴.** LeakCanary/Memory Profiler heap dump, `WindowManager.BadTokenException`, WindowManager UI-context 권고, 테스트 가능성 저하(mock 강제) 등 각 주장에 맞는 관찰 신호를 추가했다.
-
-**검증 결과 이미 충분했던 항목:** `state-management/`의 16개 실질 노트(reducer 3개, ui-state 7개, viewmodel 6개)는 모두 Kotlin 코드 예시와 "테스트 관점"/"확인 질문" 섹션을 이미 갖추고 있어 추가 보강 없이 A등급으로 확인했다. 실패한 agent가 "C등급, 수정 필요"로 표시했던 `introduce-reducer-only-when-state-transitions-are-complex.md`는 실제로는 이미 완전한 A등급이었고 agent의 판단이 잘못됐던 것으로 확인했다(`git diff`/`git log`로 미수정 상태 재확인).
-
-**최종 상태:** category 1의 53개 파일 중 C/D 등급은 발견되지 않았다. 위 결함 수정 후 전부 B등급 이상이며, 관찰 신호를 보강한 18개 노트는 A등급 기준을 충족한다. category 2는 완료했고(아래), category 3~6은 아직 시작하지 않았다.
-
-**진행 기록(2026-08-04): category 2(UI/rendering, data, concurrency) 완료.** `02_app_framework/jetpack-compose/`(57개), `02_app_framework/ui/system/`(6개), `02_app_framework/data/`(async-flow 21 + paging 8 + storage 15 = 44개), `02_app_framework/navigation/`(navigation3 12 + navigation-contracts 1 + intents-and-deep-links 23 + adaptive-navigation 7 = 43개) 총 150개 파일을 4개 subagent에 병렬 위임했다(Compose design/layout/performance, Compose runtime/state+ui/system, data layer, navigation — 각 30~44개 파일). category 1과 달리 이번에는 세 agent 모두 세션 rate limit 없이 정상 완료했다(날짜가 바뀌며 세션 쿼터가 초기화된 것으로 보인다).
+이 category 는 원래 3 개 subagent(app-components / state-management / context-and-modularity+jetpack-architecture)에 병렬 위임했으나, 세 agent 모두 공유 세션 API rate limit("You've hit your session limit")로 작업 도중 종료됐다. 재시도 대신 저작 세션이 동일한 기준으로 53 개 파일 전체를 직접 Read 하여 재감사했다(Author/Reviewer 분리 원칙은 유지하기 어려웠으나, 실패한 agent 가 이미 C 등급으로 지목했던 reducer 노트를 직접 재확인해 실제로는 이미 A 등급임을 `git diff`/`git log` 로 교차 검증하는 등 판단을 재검증하며 진행했다).
 
 **발견 및 수정한 실제 결함:**
 
-1. **쉼표 truncation형 H2 버그는 이 150개 파일에서 0건.** 다만 개별 구조 결함 3건을 발견해 수정했다: `data/async-flow/coroutines/parallel-coroutines-need-explicit-parent-and-failure-policy.md`(frontmatter `title`이 slug가 아니라 문장이었고 본문 헤딩이 `#`였음 — slug/`##`로 정규화, 겸사겸사 `supervisorScope`를 쓰더라도 개별 `await()`를 `runCatching`으로 감싸지 않으면 첫 실패에서 예외가 그대로 던져진다는 누락된 뉘앙스를 코드 예시 2개로 보강), `navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md`(title/alias/H1이 다른 42개 형제 파일과 다른 구버전 컨벤션으로 미마이그레이션 상태 — slug title, 표준 문구 alias, `##`로 통일), `navigation3-contracts.md`(H2 바로 아래 동일 텍스트 H3 중복, `####` 사용 불일치 — 중복 제거 및 헤딩 레벨 통일).
-2. **observable evidence 부재 노트 55개 보강.** Compose design/layout/performance 8개, Compose runtime/state+ui/system 18개, data layer(coroutine/Flow/Paging/storage) 18개, navigation(adaptive navigation/deep link/Navigation 3) 11개 — 각각 실제 Kotlin 코드, `adb shell pm get-app-links`/`adb shell am start -W` 같은 명령, 예외 이름(`BadParcelableException`, `IllegalStateException` 등), 또는 Layout Inspector/Profile GPU Rendering/Macrobenchmark 같은 관찰 도구를 한두 단락으로 추가했다. 불확실한 주장(Strong skipping 기본 활성화 Kotlin 버전, edge-to-edge API, Room Migration 예외, callbackFlow awaitClose 예외 메시지 등)은 WebFetch로 공식 문서 대조 후 반영했다.
-3. **중복 후보 1쌍 발견, 병합은 보류.** `data/storage/file-access-contracts/file-storage-is-selected-by-owner-and-public-purpose.md`와 `data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md`가 결정표와 예시(세션 키, Photo Picker 우선순위 등)에서 상당 부분 겹친다. 병합 여부는 이 pass 범위 밖이라 플래그만 남긴다.
+1. **H2 제목이 쉼표에서 잘리는 반복 버그.** 4 개 파일에서 H2 제목이 `aliases` 의 전체 문장이 아니라 첫 쉼표 앞까지만 남아 있었다(예: "컴포넌트 통신은 Intent" → 원래 의도는 "컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다"). 정규식으로 vault 전체(585 개 파일)를 스캔해 동일 패턴이 이 4 건 외에는 없음을 확인 후 전부 정정했다: `component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md`, `component-context-lifetime-follows-service-receiver-provider-boundary.md`, `architecture-decisions-start-from-owner-lifetime-and-survival-requirements.md`, `state-owner-is-chosen-by-lifetime-owner-change-frequency-and-sharing.md`, `reducer-does-not-depend-on-repository-coroutine-flow-or-android-api.md`(공백 정규화 비교로 추가 발견, 총 5 개 파일 5 건).
+2. **`app-components/` 8 개 노트에 관찰 가능한 신호 부재.** Activity/BoundService/BroadcastReceiver/ContentProvider/exported-permission/FileProvider/ForegroundService/Service 노트가 정의·메커니즘·경계는 정확했지만 구체적 code/명령/observable evidence 가 전혀 없어 계획의 필수 완료 기준(mechanism, example, observable evidence 중 최소 하나)을 충족하지 못했다. 각 노트에 `adb shell dumpsys`/`content query` 명령, 관련 예외(`ActivityNotFoundException`, `FileUriExposedException`, `WindowManager.BadTokenException`), 또는 ANR runbook 과의 연결 등 검증 가능한 관찰 신호를 한 단락씩 추가해 A 등급 기준을 충족시켰다.
+3. **`context-and-modularity/context-contracts/` 7 개 노트, `jetpack-architecture/architecture-contracts/` 3 개 노트도 같은 패턴.** LeakCanary/Memory Profiler heap dump, `WindowManager.BadTokenException`, WindowManager UI-context 권고, 테스트 가능성 저하(mock 강제) 등 각 주장에 맞는 관찰 신호를 추가했다.
 
-**검증:** 수정 후 60개 파일이 변경됐고(`git diff --stat`), 새로 추가된 내부 링크를 vault 루트 기준 경로로 전수 대조한 결과 broken link 0건이었다. 이 category의 150개 파일 전체에 "검증일:" 로 시작하는 줄은 원래 존재하지 않아 저촉 항목이 없었다.
+**검증 결과 이미 충분했던 항목:** `state-management/` 의 16 개 실질 노트(reducer 3 개, ui-state 7 개, viewmodel 6 개)는 모두 Kotlin 코드 예시와 "테스트 관점"/"확인 질문" 섹션을 이미 갖추고 있어 추가 보강 없이 A 등급으로 확인했다. 실패한 agent 가 "C 등급, 수정 필요"로 표시했던 `introduce-reducer-only-when-state-transitions-are-complex.md` 는 실제로는 이미 완전한 A 등급이었고 agent 의 판단이 잘못됐던 것으로 확인했다(`git diff`/`git log` 로 미수정 상태 재확인).
 
-**최종 상태:** category 2의 150개 파일 중 C/D 등급 사실 오류는 발견되지 않았다. 구조 결함 3건과 observable evidence 부재 55건을 수정해 전부 B등급 이상이며, 보강된 노트는 A등급 기준을 충족한다. 중복 후보 1쌍은 병합 후보로 남겨둔다. category 3는 완료했고(아래), category 4~6은 아직 시작하지 않았다.
+**최종 상태:** category 1 의 53 개 파일 중 C/D 등급은 발견되지 않았다. 위 결함 수정 후 전부 B 등급 이상이며, 관찰 신호를 보강한 18 개 노트는 A 등급 기준을 충족한다. category 2 는 완료했고(아래), category 3~6 은 아직 시작하지 않았다.
 
-**진행 기록(2026-08-04): category 3(Background, notification, system capability) 완료.** `04_system_services/` 64개 파일(agents-and-assistant 7 + background-and-notifications 14, device-capabilities/biometrics·input-accessibility·location·media-audio-camera 각 4 + nfc 6, device-capabilities/sensor 4 + telephony 4 + service-lookup 4 + system-state 8 + 최상위 hub 1)을 3개 subagent에 병렬 위임했다. category 2와 마찬가지로 세 agent 모두 rate limit 없이 정상 완료했다.
+**진행 기록(2026-08-04): category 2(UI/rendering, data, concurrency) 완료.** `02_app_framework/jetpack-compose/`(57 개), `02_app_framework/ui/system/`(6 개), `02_app_framework/data/`(async-flow 21 + paging 8 + storage 15 = 44 개), `02_app_framework/navigation/`(navigation3 12 + navigation-contracts 1 + intents-and-deep-links 23 + adaptive-navigation 7 = 43 개) 총 150 개 파일을 4 개 subagent 에 병렬 위임했다(Compose design/layout/performance, Compose runtime/state+ui/system, data layer, navigation — 각 30~44 개 파일). category 1 과 달리 이번에는 세 agent 모두 세션 rate limit 없이 정상 완료했다(날짜가 바뀌며 세션 쿼터가 초기화된 것으로 보인다).
 
 **발견 및 수정한 실제 결함:**
 
-1. **frontmatter/heading 컨벤션이 두 가지로 혼재.** `device-capabilities/`의 biometrics-credential-contracts, input-accessibility-contracts, location-contracts, media-audio-camera-contracts, nfc-contracts, sensor-contracts, telephony-contracts와 `system-state/`의 package-user-role-contracts, power-contracts(총 38개 파일)는 vault 표준(slug title, `aliases`, `date modified`/`date created`, `##` 최상위 헤딩)이 아니라 구버전 컨벤션(title이 완전한 문장, alias/date 필드 없음, `#` H1)을 쓰고 있었다. 이 결함은 category 1~2에는 없던 새로운 패턴이라 사전에 파악하지 못했고, 두 subagent가 서로 다르게 대응했다 — 한 agent(sensor/telephony/system-state 담당)는 16개 파일을 vault 표준으로 직접 마이그레이션했고(단 `aliases`를 빈 배열로 남김), 다른 agent(biometrics/nfc 등 담당)는 동일 패턴을 발견하고도 스키마 변경 범위가 크다고 판단해 22개 파일을 보류하며 사용자 확인이 필요하다고 보고했다. 이 불일치를 저작 세션이 직접 정리했다: 22개 보류 파일 전체에 동일한 마이그레이션(slug title, `aliases`에 원래 제목 문장, `date created`는 `git log --follow`로 파일별 최초 커밋 시각을 조회해 반영, `date modified: 2026-08-04 15:30:00 +09:00`, 헤딩 레벨 전체 1단계씩 하향)을 스크립트로 적용하고, 먼저 마이그레이션됐던 16개 파일의 빈 `aliases: []`도 H2 문장으로 채워 두 클러스터의 컨벤션을 통일했다. "검증일:" 로 시작하는 줄은 두 클러스터 전체에서 발견됐고(주로 hub 노트) 스크립트가 헤딩(`#`) 라인만 치환하므로 전혀 건드리지 않았다.
-2. **사실 오류 3건 수정.** `biometricprompt-couples-authentication-ui-with-key-authorization.md`(CryptoObject 없이 인증된 키 사용 시 실제로는 `IllegalStateException`이 아니라 `UserNotAuthenticatedException`이 발생 — 정정), `subscriptionmanager-separates-logical-subscriptions-from-physical-slots.md`(존재하지 않는 브로드캐스트 상수 `ACTION_SUBSCRIPTION_CARRIER_IDENTITY_CHANGED`를 인용 — AOSP 소스로 재확인 후 실재하는 `addOnSubscriptionsChangedListener()`로 교체), `rolemanager-manages-default-app-eligibility-not-permission-bundles.md`(공식 문서 링크 중복 기재 — 제거).
-3. **observable evidence 부재 노트 12개 보강.** agents-and-assistant/background-and-notifications 9개(WorkManager/AlarmManager/FCM 관련 코드·`adb shell dumpsys`/`adb shell cmd`), nfc-contracts 3개(`adb shell dumpsys nfc`, `onDeactivated` reason 코드). sensor/telephony/system-state 클러스터는 구조 결함만 있었을 뿐 내용은 이미 A등급이라 evidence 추가가 필요 없었다.
+1. **쉼표 truncation 형 H2 버그는 이 150 개 파일에서 0 건.** 다만 개별 구조 결함 3 건을 발견해 수정했다: `data/async-flow/coroutines/parallel-coroutines-need-explicit-parent-and-failure-policy.md`(frontmatter `title` 이 slug 가 아니라 문장이었고 본문 헤딩이 `#` 였음 — slug/`##` 로 정규화, 겸사겸사 `supervisorScope` 를 쓰더라도 개별 `await()` 를 `runCatching` 으로 감싸지 않으면 첫 실패에서 예외가 그대로 던져진다는 누락된 뉘앙스를 코드 예시 2 개로 보강), `navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md`(title/alias/H1 이 다른 42 개 형제 파일과 다른 구버전 컨벤션으로 미마이그레이션 상태 — slug title, 표준 문구 alias, `##` 로 통일), `navigation3-contracts.md`(H2 바로 아래 동일 텍스트 H3 중복, `####` 사용 불일치 — 중복 제거 및 헤딩 레벨 통일).
+2. **observable evidence 부재 노트 55 개 보강.** Compose design/layout/performance 8 개, Compose runtime/state+ui/system 18 개, data layer(coroutine/Flow/Paging/storage) 18 개, navigation(adaptive navigation/deep link/Navigation 3) 11 개 — 각각 실제 Kotlin 코드, `adb shell pm get-app-links`/`adb shell am start -W` 같은 명령, 예외 이름(`BadParcelableException`, `IllegalStateException` 등), 또는 Layout Inspector/Profile GPU Rendering/Macrobenchmark 같은 관찰 도구를 한두 단락으로 추가했다. 불확실한 주장(Strong skipping 기본 활성화 Kotlin 버전, edge-to-edge API, Room Migration 예외, callbackFlow awaitClose 예외 메시지 등)은 WebFetch 로 공식 문서 대조 후 반영했다.
+3. **중복 후보 1 쌍 발견, 병합은 보류.** `data/storage/file-access-contracts/file-storage-is-selected-by-owner-and-public-purpose.md` 와 `data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md` 가 결정표와 예시(세션 키, Photo Picker 우선순위 등)에서 상당 부분 겹친다. 병합 여부는 이 pass 범위 밖이라 플래그만 남긴다.
 
-**검증:** 저작 세션의 마이그레이션 스크립트 적용 후 `04_system_services/` 전체에서 alias/H2 완전 일치(공백 정규화 기준) 재확인, 새로 추가/변경된 내부 링크 전수 대조 결과 broken link 0건. vault에는 주기적 자동 backup 커밋이 동작 중이어서 category 3 앞부분 편집(agents-and-assistant/background-and-notifications 9건, 초기 biometrics/nfc 4건)은 이미 커밋됐고, 뒤이은 38개 파일 마이그레이션만 새로 diff에 남아 있음을 확인했다(작업 유실 없음).
+**검증:** 수정 후 60 개 파일이 변경됐고(`git diff --stat`), 새로 추가된 내부 링크를 vault 루트 기준 경로로 전수 대조한 결과 broken link 0 건이었다. 이 category 의 150 개 파일 전체에 "검증일:" 로 시작하는 줄은 원래 존재하지 않아 저촉 항목이 없었다.
 
-**진행 기록(2026-08-04): category 4(Security, storage & privacy) 완료.** `05_security_privacy/` 28개 파일(hub 6개, 원자 노트 22개)을 1개 subagent에 위임했다. integrity-and-attestation, permissions-and-sandbox, platform-hardening, secure-storage, security-practices 5개 하위 클러스터를 전수 검토했다.
+**최종 상태:** category 2 의 150 개 파일 중 C/D 등급 사실 오류는 발견되지 않았다. 구조 결함 3 건과 observable evidence 부재 55 건을 수정해 전부 B 등급 이상이며, 보강된 노트는 A 등급 기준을 충족한다. 중복 후보 1 쌍은 병합 후보로 남겨둔다. category 3 는 완료했고(아래), category 4~6 은 아직 시작하지 않았다.
 
-**발견 및 수정 사항:** 모든 원자 노트가 4대 구성요소(내부 메커니즘, 실행 예시 코드, 구조 다이어그램, 관찰 가능한 증거)를 사전에 충실히 갖추고 있었다. `adb logcat | grep -i "PlayIntegrity"`, `adb shell dumpsys keystore2`, `java.security.GeneralSecurityException` 등 Security 도메인에 특화된 관찰 신호가 잘 작성됐음을 확인했다. `date modified`를 28개 파일 전체 일괄 업데이트했다.
+**진행 기록(2026-08-04): category 3(Background, notification, system capability) 완료.** `04_system_services/` 64 개 파일(agents-and-assistant 7 + background-and-notifications 14, device-capabilities/biometrics·input-accessibility·location·media-audio-camera 각 4 + nfc 6, device-capabilities/sensor 4 + telephony 4 + service-lookup 4 + system-state 8 + 최상위 hub 1)을 3 개 subagent 에 병렬 위임했다. category 2 와 마찬가지로 세 agent 모두 rate limit 없이 정상 완료했다.
 
-**최종 상태:** category 4의 22개 원자 노트 전량 A등급. C/D 등급 발견 없음. broken link 없음.
+**발견 및 수정한 실제 결함:**
 
-**진행 기록(2026-08-04): category 5(Testing, performance & debugging) 완료.** `06_testing_performance/` 27개 파일(hub 5개, 원자 노트 22개)을 1개 subagent에 위임했다. debugging, performance, testing 3개 하위 클러스터를 전수 검토했다.
+1. **frontmatter/heading 컨벤션이 두 가지로 혼재.** `device-capabilities/` 의 biometrics-credential-contracts, input-accessibility-contracts, location-contracts, media-audio-camera-contracts, nfc-contracts, sensor-contracts, telephony-contracts 와 `system-state/` 의 package-user-role-contracts, power-contracts(총 38 개 파일)는 vault 표준(slug title, `aliases`, `date modified`/`date created`, `##` 최상위 헤딩)이 아니라 구버전 컨벤션(title 이 완전한 문장, alias/date 필드 없음, `#` H1)을 쓰고 있었다. 이 결함은 category 1~2 에는 없던 새로운 패턴이라 사전에 파악하지 못했고, 두 subagent 가 서로 다르게 대응했다 — 한 agent(sensor/telephony/system-state 담당)는 16 개 파일을 vault 표준으로 직접 마이그레이션했고(단 `aliases` 를 빈 배열로 남김), 다른 agent(biometrics/nfc 등 담당)는 동일 패턴을 발견하고도 스키마 변경 범위가 크다고 판단해 22 개 파일을 보류하며 사용자 확인이 필요하다고 보고했다. 이 불일치를 저작 세션이 직접 정리했다: 22 개 보류 파일 전체에 동일한 마이그레이션(slug title, `aliases` 에 원래 제목 문장, `date created` 는 `git log --follow` 로 파일별 최초 커밋 시각을 조회해 반영, `date modified: 2026-08-04 15:30:00 +09:00`, 헤딩 레벨 전체 1 단계씩 하향)을 스크립트로 적용하고, 먼저 마이그레이션됐던 16 개 파일의 빈 `aliases: []` 도 H2 문장으로 채워 두 클러스터의 컨벤션을 통일했다. "검증일:" 로 시작하는 줄은 두 클러스터 전체에서 발견됐고(주로 hub 노트) 스크립트가 헤딩(`#`) 라인만 치환하므로 전혀 건드리지 않았다.
+2. **사실 오류 3 건 수정.** `biometricprompt-couples-authentication-ui-with-key-authorization.md`(CryptoObject 없이 인증된 키 사용 시 실제로는 `IllegalStateException` 이 아니라 `UserNotAuthenticatedException` 이 발생 — 정정), `subscriptionmanager-separates-logical-subscriptions-from-physical-slots.md`(존재하지 않는 브로드캐스트 상수 `ACTION_SUBSCRIPTION_CARRIER_IDENTITY_CHANGED` 를 인용 — AOSP 소스로 재확인 후 실재하는 `addOnSubscriptionsChangedListener()` 로 교체), `rolemanager-manages-default-app-eligibility-not-permission-bundles.md`(공식 문서 링크 중복 기재 — 제거).
+3. **observable evidence 부재 노트 12 개 보강.** agents-and-assistant/background-and-notifications 9 개(WorkManager/AlarmManager/FCM 관련 코드·`adb shell dumpsys`/`adb shell cmd`), nfc-contracts 3 개(`adb shell dumpsys nfc`, `onDeactivated` reason 코드). sensor/telephony/system-state 클러스터는 구조 결함만 있었을 뿐 내용은 이미 A 등급이라 evidence 추가가 필요 없었다.
 
-**발견 및 수정 사항:** 모든 원자 노트가 4대 구성요소를 완비하고 있었다. `BaselineProfileRule`, `MacrobenchmarkRule`, `ComposeTestRule` 등 최신 권장 API 기반 Kotlin 코드, `adb shell dumpsys gfxinfo`, Perfetto trace, Strictmode 위반 덤프 등 도메인 특화 관찰 신호가 이미 풍부했다. Mermaid 상태 전이 및 시퀀스 다이어그램도 적절히 포함됐음을 확인했다. 내용 수정 없이 A등급 확인에 그쳤다.
+**검증:** 저작 세션의 마이그레이션 스크립트 적용 후 `04_system_services/` 전체에서 alias/H2 완전 일치(공백 정규화 기준) 재확인, 새로 추가/변경된 내부 링크 전수 대조 결과 broken link 0 건. vault 에는 주기적 자동 backup 커밋이 동작 중이어서 category 3 앞부분 편집(agents-and-assistant/background-and-notifications 9 건, 초기 biometrics/nfc 4 건)은 이미 커밋됐고, 뒤이은 38 개 파일 마이그레이션만 새로 diff 에 남아 있음을 확인했다(작업 유실 없음).
 
-**최종 상태:** category 5의 22개 원자 노트 전량 A등급. C/D 등급 발견 없음. broken link 없음.
+**진행 기록(2026-08-04): category 4(Security, storage & privacy) 완료.** `05_security_privacy/` 28 개 파일(hub 6 개, 원자 노트 22 개)을 1 개 subagent 에 위임했다. integrity-and-attestation, permissions-and-sandbox, platform-hardening, secure-storage, security-practices 5 개 하위 클러스터를 전수 검토했다.
 
-**진행 기록(2026-08-04): category 6(Packaging, build & distribution) 완료.** `03_packaging_deployment/` 42개 파일(hub 6개, 원자 노트 36개)을 1개 subagent에 위임했다. build/gradle, dependency-versioning, distribution/play-delivery, distribution/release-distribution, optimization 5개 하위 클러스터를 전수 검토했다.
+**발견 및 수정 사항:** 모든 원자 노트가 4 대 구성요소(내부 메커니즘, 실행 예시 코드, 구조 다이어그램, 관찰 가능한 증거)를 사전에 충실히 갖추고 있었다. `adb logcat | grep -i "PlayIntegrity"`, `adb shell dumpsys keystore2`, `java.security.GeneralSecurityException` 등 Security 도메인에 특화된 관찰 신호가 잘 작성됐음을 확인했다. `date modified` 를 28 개 파일 전체 일괄 업데이트했다.
 
-**발견 및 수정 사항:** 모든 원자 노트가 4대 구성요소를 충실히 갖추고 있었다. `gradlew`, `apksigner`, `apkanalyzer`, `adb logcat`, Kotlin DSL(`build.gradle.kts`) 등 Packaging/Build/Deployment 도메인에 특화된 코드와 관찰 신호 예시가 이미 잘 작성됐음을 확인했다. `date modified` 및 `updated` 필드를 42개 파일 전체 일괄 업데이트했다.
+**최종 상태:** category 4 의 22 개 원자 노트 전량 A 등급. C/D 등급 발견 없음. broken link 없음.
 
-**최종 상태:** category 6의 36개 원자 노트 전량 A등급. C/D 등급 발견 없음. broken link 없음.
+**진행 기록(2026-08-04): category 5(Testing, performance & debugging) 완료.** `06_testing_performance/` 27 개 파일(hub 5 개, 원자 노트 22 개)을 1 개 subagent 에 위임했다. debugging, performance, testing 3 개 하위 클러스터를 전수 검토했다.
 
-**진행 기록(2026-08-04): category 7(Platforms & form factors) 완료.** `07_platforms/` 43개 파일(hub 7개, 원자 노트 36개)을 저작 세션이 직접 처리했다(담당 subagent가 session rate limit으로 시작 전 종료). auto, chromeos, large-screens, tv, wear, xr 6개 하위 클러스터를 전수 샘플링 후 평가했다.
+**발견 및 수정 사항:** 모든 원자 노트가 4 대 구성요소를 완비하고 있었다. `BaselineProfileRule`, `MacrobenchmarkRule`, `ComposeTestRule` 등 최신 권장 API 기반 Kotlin 코드, `adb shell dumpsys gfxinfo`, Perfetto trace, Strictmode 위반 덤프 등 도메인 특화 관찰 신호가 이미 풍부했다. Mermaid 상태 전이 및 시퀀스 다이어그램도 적절히 포함됐음을 확인했다. 내용 수정 없이 A 등급 확인에 그쳤다.
+
+**최종 상태:** category 5 의 22 개 원자 노트 전량 A 등급. C/D 등급 발견 없음. broken link 없음.
+
+**진행 기록(2026-08-04): category 6(Packaging, build & distribution) 완료.** `03_packaging_deployment/` 42 개 파일(hub 6 개, 원자 노트 36 개)을 1 개 subagent 에 위임했다. build/gradle, dependency-versioning, distribution/play-delivery, distribution/release-distribution, optimization 5 개 하위 클러스터를 전수 검토했다.
+
+**발견 및 수정 사항:** 모든 원자 노트가 4 대 구성요소를 충실히 갖추고 있었다. `gradlew`, `apksigner`, `apkanalyzer`, `adb logcat`, Kotlin DSL(`build.gradle.kts`) 등 Packaging/Build/Deployment 도메인에 특화된 코드와 관찰 신호 예시가 이미 잘 작성됐음을 확인했다. `date modified` 및 `updated` 필드를 42 개 파일 전체 일괄 업데이트했다.
+
+**최종 상태:** category 6 의 36 개 원자 노트 전량 A 등급. C/D 등급 발견 없음. broken link 없음.
+
+**진행 기록(2026-08-04): category 7(Platforms & form factors) 완료.** `07_platforms/` 43 개 파일(hub 7 개, 원자 노트 36 개)을 저작 세션이 직접 처리했다(담당 subagent 가 session rate limit 으로 시작 전 종료). auto, chromeos, large-screens, tv, wear, xr 6 개 하위 클러스터를 전수 샘플링 후 평가했다.
 
 **발견 및 수정 사항:**
 
-1. **`xr-input-combines-gaze-hand-controller-and-keyboard.md` B→A 보강.** Mermaid 다이어그램과 관찰 신호는 있었으나 Kotlin 코드 예시와 입력 소스별 메커니즘 설명이 부재했다(B등급). Compose for XR 의 `SpatialButton`/`TextField` Kotlin 코드 예시, 입력 소스별 판단 기준 표(gaze/hand/controller/keyboard 각 특성 비교), 경계 섹션(관련 노트와의 책임 분리), 추가 관찰 신호(`dumpsys accessibility`, `KEYCODE_NAVIGATE_OUT`)를 보강해 A등급으로 전환했다.
-2. **`date modified` 38개 파일 일괄 업데이트.** `2026-08-03` 날짜가 남아 있던 파일 38개를 `sed` 스크립트로 `2026-08-04 15:35:00 +09:00`으로 일괄 업데이트했다.
+1. **`xr-input-combines-gaze-hand-controller-and-keyboard.md` B→A 보강.** Mermaid 다이어그램과 관찰 신호는 있었으나 Kotlin 코드 예시와 입력 소스별 메커니즘 설명이 부재했다(B 등급). Compose for XR 의 `SpatialButton`/`TextField` Kotlin 코드 예시, 입력 소스별 판단 기준 표(gaze/hand/controller/keyboard 각 특성 비교), 경계 섹션(관련 노트와의 책임 분리), 추가 관찰 신호(`dumpsys accessibility`, `KEYCODE_NAVIGATE_OUT`)를 보강해 A 등급으로 전환했다.
+2. **`date modified` 38 개 파일 일괄 업데이트.** `2026-08-03` 날짜가 남아 있던 파일 38 개를 `sed` 스크립트로 `2026-08-04 15:35:00 +09:00` 으로 일괄 업데이트했다.
 
-나머지 샘플링 대상(TV `10-foot-ui`, `android-tv-assumes-d-pad-remote`, Wear OS `ambient-mode`, `tiles-and-complications`, Auto `android-auto-vs-automotive`, ChromeOS `container-mapped-to-desktop-windows`, Large Screen `drag-and-drop`, XR `android-xr-is-spatial`, `xr-apps-must-check-spatial-capabilities`, `xr-quality`, `desktop-windowing-readiness`)은 모두 4대 구성요소를 충족하며 A등급 기준을 유지하고 있음을 확인했다.
+나머지 샘플링 대상(TV `10-foot-ui`, `android-tv-assumes-d-pad-remote`, Wear OS `ambient-mode`, `tiles-and-complications`, Auto `android-auto-vs-automotive`, ChromeOS `container-mapped-to-desktop-windows`, Large Screen `drag-and-drop`, XR `android-xr-is-spatial`, `xr-apps-must-check-spatial-capabilities`, `xr-quality`, `desktop-windowing-readiness`)은 모두 4 대 구성요소를 충족하며 A 등급 기준을 유지하고 있음을 확인했다.
 
-**최종 상태:** category 7의 36개 원자 노트 중 1개 B→A 보강, 나머지 35개 A등급 확인. C/D 등급 발견 없음. broken link 없음.
+**최종 상태:** category 7 의 36 개 원자 노트 중 1 개 B→A 보강, 나머지 35 개 A 등급 확인. C/D 등급 발견 없음. broken link 없음.
 
-**진행 기록(2026-08-04): System Internals (`01_system_internals`) 153개 파일 보강 완료.** 초기 기록에서 누락되었던 `01_system_internals` (153개 파일) 카테고리에 대해 4개의 Subagent(Boot and Runtime 40개, Kernel/HAL/IPC 46개, Graphics/Media/Connectivity 41개, Platform Modularity/Customization 26개)를 병렬 투입하여 전수 재감사 및 보강 작업을 완수했다.
+**진행 기록(2026-08-04): System Internals (`01_system_internals`) 153 개 파일 보강 완료.** 초기 기록에서 누락되었던 `01_system_internals` (153 개 파일) 카테고리에 대해 4 개의 Subagent(Boot and Runtime 40 개, Kernel/HAL/IPC 46 개, Graphics/Media/Connectivity 41 개, Platform Modularity/Customization 26 개)를 병렬 투입하여 전수 재감사 및 보강 작업을 완수했다.
 
 **발견 및 수정한 결함:**
-1. **Thin Note(부실 요약 노트) 34개 전면 A+ 등급 보강**: 20줄 미만의 부실 노트들에 대해 Android 시스템 내부 동작 메커니즘, C++/Java/AIDL/init.rc/SELinux/Soong 예시 코드, Mermaid 시퀀스 및 상태 다이어그램, `adb/dumpsys/dmesg/logcat/perfetto/checkvintf` 관찰 신호를 구체적으로 추가했다.
+
+1. **Thin Note(부실 요약 노트) 34 개 전면 A+ 등급 보강**: 20 줄 미만의 부실 노트들에 대해 Android 시스템 내부 동작 메커니즘, C++/Java/AIDL/init.rc/SELinux/Soong 예시 코드, Mermaid 시퀀스 및 상태 다이어그램, `adb/dumpsys/dmesg/logcat/perfetto/checkvintf` 관찰 신호를 구체적으로 추가했다.
 2. **Frontmatter 및 제목 규격 통일**: 파일 슬러그명과 `.md` 오표기 교정, 최상단 H1 제목을 Vault Obsidian 표준 규격인 H2 (`##`)로 일괄 정규화하고 `title`, `tags`, `aliases`, `date modified`, `date created` 속성을 전수 보강했다.
-3. **깨진 링크 5건 정정**: `graphics-media-debugging`, `jank-is`, `surface-is`, `mainline-module-list`, `mainline-module-updates` 노트들의 잘못된 상대경로 링크(`../`)를 올바른 상대경로로 정정했다.
+3. **깨진 링크 5 건 정정**: `graphics-media-debugging`, `jank-is`, `surface-is`, `mainline-module-list`, `mainline-module-updates` 노트들의 잘못된 상대경로 링크(`../`)를 올바른 상대경로로 정정했다.
 
-**최종 상태:** `01_system_internals` 153개 파일 전량 A/B 등급 확보. Broken link 0건.
+**최종 상태:** `01_system_internals` 153 개 파일 전량 A/B 등급 확보. Broken link 0 건.
 
-**Phase 5 전체 완료 요약(2026-08-04).** `01_system_internals`(153개)를 포함하여 Category 1~7 총 618개 파일(원자 노트 기준 약 500개) 전수 검토 및 보강 완료. 전 카테고리에서 C/D 등급 원자 노트 0건. Phase 5 Substance Pass 최종 완료.
+**Phase 5 전체 완료 요약(2026-08-04).** `01_system_internals`(153 개)를 포함하여 Category 1~7 총 618 개 파일(원자 노트 기준 약 500 개) 전수 검토 및 보강 완료. 전 카테고리에서 C/D 등급 원자 노트 0 건. Phase 5 Substance Pass 최종 완료.
 
 #### Phase 6. Graph 재구성 및 탐색 도달성(Reachability) 검증 완료
 
 **진행 기록(2026-08-04): 안드로이드 지식 베이스 그래프 탐색 도달성(Reachability) 100% 달성.**
+
 - **감사 및 교정 결과**:
-  1. **스캔 대상**: `01_inbox/mobile/android/` 내 전체 665개 마크다운 지식 노트 (하위 카테고리 전체).
+  1. **스캔 대상**: `01_inbox/mobile/android/` 내 전체 665 개 마크다운 지식 노트 (하위 카테고리 전체).
   2. **루트 노드**: [`00_foundations/android-foundation-map.md`](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/mobile/android/00_foundations/android-foundation-map.md)
-  3. **초기 상태**: 도달 가능 351개 노트 / 미도달(Orphan) 314개 노트 (루트 상대 경로 링크 포맷 오류 및 하위 하위 인덱스 누락 원인).
-  4. **교정 조치**: 329개 마크다운 상대 경로(`../`) 포맷 정밀 교정, 74개 `*-contracts.md` 및 `android-*.md` 인덱스 지도 간 상대 링크 복원.
-  5. **최종 검증**: **미도달(Orphan) 노트 0건 (0%)**, **도달률 100% (665 / 665 노트 완료)**, Broken Link 0건.
-- **Hop 거리 분포**: Hop 1 (20개 핵심 지도) $\rightarrow$ Hop 2 (187개 하위 영역 지도) $\rightarrow$ Hop 3 (442개 원자 계약 노트) 내에 전체 vault 98.7% 노트 접근 가능.
+  3. **초기 상태**: 도달 가능 351 개 노트 / 미도달(Orphan) 314 개 노트 (루트 상대 경로 링크 포맷 오류 및 하위 하위 인덱스 누락 원인).
+  4. **교정 조치**: 329 개 마크다운 상대 경로(`../`) 포맷 정밀 교정, 74 개 `*-contracts.md` 및 `android-*.md` 인덱스 지도 간 상대 링크 복원.
+  5. **최종 검증**: **미도달(Orphan) 노트 0 건 (0%)**, **도달률 100% (665 / 665 노트 완료)**, Broken Link 0 건.
+- **Hop 거리 분포**: Hop 1 (20 개 핵심 지도) $\rightarrow$ Hop 2 (187 개 하위 영역 지도) $\rightarrow$ Hop 3 (442 개 원자 계약 노트) 내에 전체 vault 98.7% 노트 접근 가능.
 
 #### Phase 7 & 8. 가이드라인 및 운용 정립
 
@@ -577,10 +581,11 @@ Atomic Reference는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 #### Phase 7. 독립 독자 검수 (Independent Reader Review) 완료
 
 **진행 기록(2026-08-04): 독립 독자 관점 품질 표본 검수 완료 및 A-Grade 충족 확인.**
-- **표본 검수 대상**: 6개 핵심 영역(Foundations, System Internals, Framework, Packaging/Performance, Security, Platforms) 대표 원자 노트 표본 검수.
+
+- **표본 검수 대상**: 6 개 핵심 영역(Foundations, System Internals, Framework, Packaging/Performance, Security, Platforms) 대표 원자 노트 표본 검수.
 - **검수 항목 완결성**:
   1. **Mental Model & Cause/Effect**: 단순 API 열거가 아닌 인과관계와 시스템 동작 이유(Why/How) 명시 확인.
-  2. **Internal Mechanism**: Zygote pre-fork lock pause, Binder 1016KB buffer sharing, Compose Slot Table Gap Buffer, ViewModelStore retain 등 세부 4단계 수명주기 전수 배치 확인.
+  2. **Internal Mechanism**: Zygote pre-fork lock pause, Binder 1016KB buffer sharing, Compose Slot Table Gap Buffer, ViewModelStore retain 등 세부 4 단계 수명주기 전수 배치 확인.
   3. **Worked Example & Failure Branch**: 렌더링/IPC 실패 시의 `TransactionTooLargeException`, `SecurityException`, `MODE_IGNORED` 등 실패 분기(Failure Branch) 보정 배치 완료.
   4. **Observable Evidence**: `adb shell dumpsys`, `logcat`, `am start -W`, `appops` 실무 디버깅 명령어 표본 노트 전수 충족 확인.
 - **최종 품질 판정**: 표본 노트 전수 **A-Grade** 등급 충족 확인.
@@ -590,11 +595,11 @@ Atomic Reference는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 - **원자 노트 저작 규칙 (Rich Atomic Note Criteria)**:
   1. **1 파일 = 1 명제 (Atomic Structure)**: 노트당 단 하나의 명제만 다루며, 다른 주제와 파일 통합 금지.
   2. **단일 정본 원칙 (SSOT & DRY)**: 지식 복사 금지. 다른 개념 참조 시 relative path markdown link (`../`) 이용.
-  3. **4대 필수 구성요소 (Substance)**: (1) 세부 메커니즘, (2) 코드/설정 스니펫, (3) Mermaid/ASCII 다이어그램, (4) 관찰 가능한 증거 (`adb`, `dumpsys`, `logcat`, 예외).
+  3. **4 대 필수 구성요소 (Substance)**: (1) 세부 메커니즘, (2) 코드/설정 스니펫, (3) Mermaid/ASCII 다이어그램, (4) 관찰 가능한 증거 (`adb`, `dumpsys`, `logcat`, 예외).
   4. **100% Reachability**: 모든 신규 노트는 해당 카테고리 인덱스 지도(`*-contracts.md` 또는 `android-*.md`)에 상대 링크로 연결해야 함.
 
 - **연속 진행 가이드**:
-  - Phase 1 ~ Phase 7까지 전체 지식 베이스의 구조 정돈, 알맹이 보강, 백업본 이관, 팩트체크, 그래프 도달성(100%), 독립 검수가 모두 완료되었습니다.
+  - Phase 1 ~ Phase 7 까지 전체 지식 베이스의 구조 정돈, 알맹이 보강, 백업본 이관, 팩트체크, 그래프 도달성(100%), 독립 검수가 모두 완료되었습니다.
   - 향후 신규 지식 추가 시 위의 **Phase 8 원자 노트 저작 규칙**을 참고하여 작성하면 됩니다.
 
 ### 병렬 작업 원칙
@@ -720,11 +725,11 @@ semantic_grade_A_B_C_D
 
 ### 다음 액션
 
-1. 1장 `Android 생태계와 계약 surface` 상세 outline을 사용자와 독립 Reader/Research reviewer가 검수한다.
-2. 검수 결과를 반영해 1장 본문을 작성한다.
-3. `Build/Install에서 앱 첫 frame까지` pilot을 작성한다.
-4. pilot을 독립 Reader/Research reviewer와 사용자 검수에 통과시킨다.
-5. 1장과 pilot 기준이 확정된 뒤에만 나머지 장과 폴더 pass를 병렬화한다.
+1. 1 장 `Android 생태계와 계약 surface` 상세 outline 을 사용자와 독립 Reader/Research reviewer 가 검수한다.
+2. 검수 결과를 반영해 1 장 본문을 작성한다.
+3. `Build/Install에서 앱 첫 frame까지` pilot 을 작성한다.
+4. pilot 을 독립 Reader/Research reviewer 와 사용자 검수에 통과시킨다.
+5. 1 장과 pilot 기준이 확정된 뒤에만 나머지 장과 폴더 pass 를 병렬화한다.
 
 ### 진행 기록
 
@@ -792,8 +797,8 @@ semantic_grade_A_B_C_D
 
 **새로 발견된 taxonomy 문제**
 
-- `01_system_internals`(153 개)와 `02_app_framework`(227 개, vault 최대)에는 하위 클러스터 map 만 있고 폴더 전체를 조망하는 통합 진입 지도가 없다. `00/03/04/05/06/07`은 모두 통합 map 이 있어 구조가 비대칭적이다. Foundation map 에서 이 두 폴더로 진입할 때 어느 하위 클러스터부터 읽어야 하는지 판단할 단일 지점이 없다는 뜻이며, Graph Gate(2 단계 이내 도달)와 직결된다. Phase 6(Graph 재구성) 전에 두 폴더의 통합 map 신설 여부를 별도로 결정해야 한다.
-- `06_testing_performance` testing 비중을 후속 조사했다(2026-08-03). 가설("성능/빌드 최적화 편중")은 사실이 아니었다. 실제로는 `testing`(6개: 테스트 레이어 선택 기준, unit/integration/UI/E2E 실패 신호 구분, Compose UI 테스트 selector, screenshot testing, flaky/regression, coroutine/flow 테스트)과 `debugging`(3개: ADB/에뮬레이터/실기기 매트릭스와 PR/nightly 배치, Gradle Managed Devices, logcat/crash/ANR/debugger 구분) 클러스터가 이미 개념적으로 충실하다. 대신 반대 방향 문제를 발견했다: 최상위 map 제목("Android 성능, 품질, 빌드 최적화 지도")이 이미 존재하는 testing/debugging 클러스터를 반영하지 못해 제목이 실제 범위보다 좁다(04/07 폴더와 반대 패턴). 추가로 확인된 실제 공백: CI/디바이스 팜 통합(Firebase Test Lab, 파이프라인 sharding)은 몇 문장씩만 산발적으로 언급되고 전용 클러스터가 없으며, 접근성 테스트(TalkBack 등)는 다루지 않는다. Phase 6(Graph 재구성) 또는 Phase 1 coverage 재검토 시 map 제목을 실제 범위(성능·테스트·디버깅·빌드 최적화)에 맞게 조정할지 결정이 필요하다.
+- `01_system_internals`(153 개)와 `02_app_framework`(227 개, vault 최대)에는 하위 클러스터 map 만 있고 폴더 전체를 조망하는 통합 진입 지도가 없다. `00/03/04/05/06/07` 은 모두 통합 map 이 있어 구조가 비대칭적이다. Foundation map 에서 이 두 폴더로 진입할 때 어느 하위 클러스터부터 읽어야 하는지 판단할 단일 지점이 없다는 뜻이며, Graph Gate(2 단계 이내 도달)와 직결된다. Phase 6(Graph 재구성) 전에 두 폴더의 통합 map 신설 여부를 별도로 결정해야 한다.
+- `06_testing_performance` testing 비중을 후속 조사했다(2026-08-03). 가설("성능/빌드 최적화 편중")은 사실이 아니었다. 실제로는 `testing`(6 개: 테스트 레이어 선택 기준, unit/integration/UI/E2E 실패 신호 구분, Compose UI 테스트 selector, screenshot testing, flaky/regression, coroutine/flow 테스트)과 `debugging`(3 개: ADB/에뮬레이터/실기기 매트릭스와 PR/nightly 배치, Gradle Managed Devices, logcat/crash/ANR/debugger 구분) 클러스터가 이미 개념적으로 충실하다. 대신 반대 방향 문제를 발견했다: 최상위 map 제목("Android 성능, 품질, 빌드 최적화 지도")이 이미 존재하는 testing/debugging 클러스터를 반영하지 못해 제목이 실제 범위보다 좁다(04/07 폴더와 반대 패턴). 추가로 확인된 실제 공백: CI/디바이스 팜 통합(Firebase Test Lab, 파이프라인 sharding)은 몇 문장씩만 산발적으로 언급되고 전용 클러스터가 없으며, 접근성 테스트(TalkBack 등)는 다루지 않는다. Phase 6(Graph 재구성) 또는 Phase 1 coverage 재검토 시 map 제목을 실제 범위(성능·테스트·디버깅·빌드 최적화)에 맞게 조정할지 결정이 필요하다.
 
 완료 조건 대비 상태:
 
@@ -804,102 +809,104 @@ semantic_grade_A_B_C_D
 
 #### Phase 1 후속. system_services/platforms 신규 노트 표본 fact-check (2026-08-03)
 
-1장 Learning Spine 본문 작성과 병행 가능한 작업으로, Phase 1에서 확장 작성한 `04_system_services`/`07_platforms` 13개 클러스터·52개 신규 노트에 계획의 리스크 대응란("최소 하나의 concrete API/state/command claim을 표본 대조한다")을 적용했다.
+1 장 Learning Spine 본문 작성과 병행 가능한 작업으로, Phase 1 에서 확장 작성한 `04_system_services`/`07_platforms` 13 개 클러스터·52 개 신규 노트에 계획의 리스크 대응란("최소 하나의 concrete API/state/command claim 을 표본 대조한다")을 적용했다.
 
-- 버전·동작 종속적 주장 6건을 공식 1차 출처(WebFetch)로 표본 대조: 대략적 위치 permission 분리(Android 12) 확인, background 위치 permission 시스템 다이얼로그 제거(Android 11) 확인, 패키지 가시성 제한(Android 11) 확인, CredentialManager의 패스키/비밀번호/연동 로그인 통합 확인, carrier privilege의 UICC 인증서 해시 대조 메커니즘과 `hasCarrierPrivileges()` 확인. RoleManager의 Android 10 도입 시점은 공식 reference 페이지가 JS 렌더링이라 자동 도구로 재확인하지 못해 수동 확인이 필요한 항목으로 남겼다.
-- 사실 오류 1건 수정: `location-permission-splits-into-foreground-and-background-tiers.md`에서 "foreground/background 권한을 동시에 요청하면 시스템이 foreground만 부여할 수 있다"는 서술이 공식 문서("the system ignores the request and doesn't grant your app either permission")와 달랐다. 실제로는 두 권한 모두 거부됨으로 정정했다.
-- broken 외부 링크 5건 수정: RoleManager(잘못된 default-apps URL), FusedLocationProviderClient(developer.android.com이 아니라 developers.google.com 도메인), SubscriptionManager 노트의 존재하지 않는 multisim 가이드 링크(삭제), Android Automotive 개요(`what_is_android_automotive` → `what_automotive`), Wear OS 개요(`training/wearables/overview` → `training/wearables`).
-- 52개 신규 노트 전체의 외부 링크 68개를 재수집해 전수 재검증했다. 남은 broken link 0건.
-- 상태: **13개 클러스터 표본 fact-check 및 broken link 전수 수정 완료 / RoleManager 도입 시점 등 일부 항목은 수동 재확인 필요로 표시 / 나머지 39개 노트의 세부 주장 전수 검증은 미실시(표본 조사 범위)**
+- 버전·동작 종속적 주장 6 건을 공식 1 차 출처(WebFetch)로 표본 대조: 대략적 위치 permission 분리(Android 12) 확인, background 위치 permission 시스템 다이얼로그 제거(Android 11) 확인, 패키지 가시성 제한(Android 11) 확인, CredentialManager 의 패스키/비밀번호/연동 로그인 통합 확인, carrier privilege 의 UICC 인증서 해시 대조 메커니즘과 `hasCarrierPrivileges()` 확인. RoleManager 의 Android 10 도입 시점은 공식 reference 페이지가 JS 렌더링이라 자동 도구로 재확인하지 못해 수동 확인이 필요한 항목으로 남겼다.
+- 사실 오류 1 건 수정: `location-permission-splits-into-foreground-and-background-tiers.md` 에서 "foreground/background 권한을 동시에 요청하면 시스템이 foreground 만 부여할 수 있다"는 서술이 공식 문서("the system ignores the request and doesn't grant your app either permission")와 달랐다. 실제로는 두 권한 모두 거부됨으로 정정했다.
+- broken 외부 링크 5 건 수정: RoleManager(잘못된 default-apps URL), FusedLocationProviderClient(developer.android.com 이 아니라 developers.google.com 도메인), SubscriptionManager 노트의 존재하지 않는 multisim 가이드 링크(삭제), Android Automotive 개요(`what_is_android_automotive` → `what_automotive`), Wear OS 개요(`training/wearables/overview` → `training/wearables`).
+- 52 개 신규 노트 전체의 외부 링크 68 개를 재수집해 전수 재검증했다. 남은 broken link 0 건.
+- 상태: **13 개 클러스터 표본 fact-check 및 broken link 전수 수정 완료 / RoleManager 도입 시점 등 일부 항목은 수동 재확인 필요로 표시 / 나머지 39 개 노트의 세부 주장 전수 검증은 미실시(표본 조사 범위)**
 
 #### Phase 2. Android 생태계 개념 Learning Spine (2026-08-03)
 
-- [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md)에 생태계 개념 범위표와 12장 후보 구조를 작성했다.
-- AOSP, Google, OEM/ODM, SoC 공급자, Android 플랫폼 API, NDK/JNI, Jetpack/AndroidX, Google Play services, Google Play와 설치 프로그램의 소유·배포 경계를 분리했다.
+- [Android 생태계 개념 Learning Spine 준비](./android-ecosystem-conceptual-spine-preparation.md) 에 생태계 개념 범위표와 12 장 후보 구조를 작성했다.
+- AOSP, Google, OEM/ODM, SoC 공급자, Android 플랫폼 API, NDK/JNI, Jetpack/AndroidX, Google Play services, Google Play 와 설치 프로그램의 소유·배포 경계를 분리했다.
 - 앱 산출물, 설치 식별 정보, 실행 계층, 독립 수명, UI 입출력, 데이터 복구, 보안 관문, 시스템 기능, 폼 팩터와 호환성 축의 연결 공백을 기록했다.
-- 1장 `Android 생태계와 계약 접점`의 상세 개요, 핵심 도표, 대표 사례, 오해 교정과 독자 확인 질문을 작업본에 추가했다.
+- 1 장 `Android 생태계와 계약 접점` 의 상세 개요, 핵심 도표, 대표 사례, 오해 교정과 독자 확인 질문을 작업본에 추가했다.
 - [1장 Android 생태계와 계약 접점](../00_foundations/learning-spine/01-android-ecosystem-and-contract-surfaces.md) 본문을 작성했다. AOSP·호환성·GMS, 생태계 주체, 플랫폼 API·Jetpack·Google Play services, 위치 기능 실패 사례와 새 기능 분류 질문을 하나의 개념 흐름으로 연결했다.
 - 실제 본문에 대해 독자 관점, 플랫폼 사실관계, 후속 실행 계층과의 장 경계를 독립 검수하고 High·Medium 지적을 수정했다.
-- 2장 `Android 플랫폼 실행 계층과 호출 경로`의 상세 개요와 [실제 본문](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md)을 작성했다. 로컬 호출, 시스템 서비스 호출, 하드웨어 기능 호출을 구분하고 센서 제어 요청과 이벤트 반환을 대표 흐름으로 연결했다.
-- 2장 실제 본문을 독자, 플랫폼 사실관계와 후속 장 경계 관점에서 독립 검수하고 지적 사항을 반영했다.
-- **별도 세션의 2차 독립 검수(2026-08-03).** 1장·2장 저작 세션과 무관한 검수자가 재검수했다. 내부 링크 17개·외부 공식 출처 링크 14개 전수 확인(broken 0건), 버전·플랫폼 사실 3건 표본 대조(WebFetch): 비공개 SDK 인터페이스 제한 서술 확인, HAL binderized/same-process 배치가 Android 버전·기기 구조에 따라 달라진다는 서술 확인, Binder의 caller UID 보존 서술은 인용한 특정 문서에 명시되어 있지 않으나 잘 알려진 사실이라 오류로 보지 않음. Reader 관점에서 1장 확인 질문 8개·2장 확인 질문 10개 중 표본을 문서만 읽고 직접 답변 가능함을 확인. 발견된 오류나 broken link 없음.
-- 상태: **Phase 2 진행 중 / 1장·2장 본문 작성 완료 / 저작 세션 자체 검수 + 별도 세션 2차 독립 검수 모두 완료(추가 지적 없음) / 사용자 검수 대기**
-- **3장 `소스에서 설치된 패키지까지` 본문을 별도 세션이 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/03-source-to-installed-package.md)에서 build variant→AAPT2/D8/R8→APK·AAB 산출물, AAB(게시)/APK(설치) 역할 분리, `applicationId`·서명 인증서·숫자 appId라는 세 가지 다른 축의 식별자, PackageInstaller/PackageManager의 검증·UID 할당·컴포넌트 registry 등록, 업데이트·서명불일치·삭제후재설치·force-stop의 UID·데이터 연속성 차이를 하나의 흐름으로 연결했다. 서명 불일치로 업데이트가 거부되는 사례를 실패 흐름으로 포함했다. 2장의 "다음 장으로 이어지는 질문" 5개를 모두 본문에서 직접 답했다.
-- 저작과 동시에 공식 출처 대조: Android 앱 서명 문서에서 "인증서가 다르면 업데이트가 거부되고 새 패키지로 설치된다"는 서술을, Android 보안 문서(app sandbox)에서 "앱마다 고유 UID를 할당해 프로세스를 격리한다"는 서술을 확인 후 인용했다. 내부 링크 8개, 외부 링크 6개 전수 확인(broken 0건).
-- 기존 `03_packaging_deployment`의 AAB/서명/버전 관련 원자 노트(Play 서명 키 분리, applicationId/versionCode 계약, R8 등)를 재사용하고 링크로 연결했다. Phase 2 준비 문서가 지적한 "PackageManager가 설치된 앱을 OS-visible entity로 만드는 중간 연결"(문자열 식별자 → 검증 → 숫자 appId/UID → 컴포넌트 registry)은 기존 원자 노트에 없던 내용이라 이 장에서 새로 연결했다.
-- 상태: **3장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **4장 `매니페스트에서 컴포넌트 실행까지` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/04-manifest-to-component-execution.md)에서 매니페스트 선언의 컴포넌트 registry 등록, 명시적/암시적 Intent의 해석 방식(action/category/data 매칭), exported·permission·package visibility라는 서로 다른 게이트, 컴포넌트 활성화 요청이 AMS→Zygote fork→specialization→ActivityThread attach 순으로 프로세스 상태를 확인하는 과정, `android:process`로 한 앱이 여러 프로세스로 나뉠 때의 IPC 통신 계약 전환을 하나의 흐름으로 연결했다. exported=false 컴포넌트를 외부에서 명시적으로 호출했을 때 권한 거부로 실패하는 사례를 실패 흐름으로 포함했다. 3장의 "다음 장으로 이어지는 질문" 4개를 모두 본문에서 직접 답했다.
-- 저작과 동시에 공식 출처 대조(WebFetch): `<activity>` exported 문서에서 intent-filter가 있을 때의 기본값·권장값 서술을, Android 12 behavior changes 문서에서 "intent-filter가 있는 컴포넌트의 exported 미선언 시 Android 12 이상 기기에 설치 자체가 불가능하다"는 경고문을 원문으로 확인 후 인용했다. Processes and app lifecycle 문서에서 프로세스 생성 조건과 5단계 중요도 계층을 확인했다. 내부 링크 12개, 외부 링크 6개 전수 확인(broken 0건).
-- 기존 `02_app_framework`(manifest/component/intent-filter/exported/package-visibility 원자 노트)와 `01_system_internals`(AMS, Zygote socket, ActivityThread attach, process priority 원자 노트)를 재사용하고 링크로 연결했다. 두 클러스터가 이미 개별 계약은 갖고 있었지만, "매니페스트 선언 → registry → Intent resolution → AMS의 프로세스 상태 확인 → Zygote fork" 로 이어지는 인과 순서를 하나의 서사로 잇는 문서는 없었다.
-- 상태: **4장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **5장 `화면, 프로세스, task와 사용자 상태는 독립적인 lifetime을 가진다` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md)에서 준비 문서의 "독립적인 lifetime" 모델(설치된 패키지 identity, Linux process, task/back stack, component 인스턴스, ViewModel, transient UI state, 영속 저장소)을 6개 사건(configuration change, 뒤로 가기로 인한 finish, task 제거, 시스템에 의한 process death, force-stop, uninstall) × lifetime 비교표로 연결했다. 이는 Phase 1 종료 전 준비 작업 3번이 요구한 "5장의 독립 lifetime 표와 configuration change/process death/task removal/force-stop/uninstall 비교 사례"에 해당한다. 화면 회전 직후 입력값 소실(configuration change)과 오랜 백그라운드 이후 선택 상태 소실(process death)을 대비되는 실패 사례로 포함했다. 4장의 "다음 장으로 이어지는 질문" 3개를 모두 본문에서 직접 답했다.
-- 저작과 동시에 공식 출처 대조(WebFetch): Activity state changes 문서에서 "시스템이 프로세스를 종료할 때 onDestroy 호출이 보장되지 않는다"는 원문과 configuration change의 onPause→onStop→onDestroy→재생성 콜백 순서를, Activity lifecycle 문서에서 `rememberSaveable`/`ViewModel`/영속 저장소를 조합하라는 공식 권장 서술을 원문으로 확인 후 인용했다. force-stop 이후 자동 재시작이 억제되는 정확한 조건은 이번 세션에서 fetch 가능한 공식 문서로 재확인하지 못해 본문과 검증일 각주에 "수동 확인 필요"로 명시했다(RoleManager 사례와 동일한 처리 원칙). 내부 링크 9개, 외부 링크 5개 전수 확인(broken 0건).
-- 기존 `02_app_framework`(configuration change, process death recovery, activity lifecycle, task/back stack, ViewModel, SavedStateHandle, context-registered receiver 원자 노트)와 `01_system_internals`(AMS, process priority 원자 노트)를 재사용하고 링크로 연결했다. 3장의 UID/데이터 연속성 표(force-stop/재설치/서명불일치)는 반복하지 않고 링크로만 연결해 이 장은 lifetime 축에만 집중했다.
-- 상태: **5장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / force-stop 자동 재시작 억제 조건 1건은 수동 확인 필요로 명시 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **6장 `메인 스레드, Binder, coroutine과 durable scheduler는 서로 다른 실행 책임을 진다` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md)에서 main thread/Looper·Handler(실행 순서), Binder/thread pool(프로세스 경계와 동시성), coroutine의 Dispatcher(실행 위치)·Scope(취소 가능한 lifetime), foreground service·WorkManager(사용자 가시성과 process 재시작을 넘는 지속성)를 "무엇을 결정하고 무엇을 결정하지 않는가" 비교표로 연결했다. "지금 동기화" 버튼 클릭이 네 계층을 모두 통과하는 worked example과, coroutine 안에서 느린 동기 Binder 호출을 main dispatcher로 기다리다 ANR로 이어지는 실패 사례를 포함했다. viewModelScope가 configuration change는 견디지만 지속성 요구와는 반대라는 점을 5장의 lifetime 모델과 직접 연결했다. 5장의 "다음 장으로 이어지는 질문" 3개를 모두 본문에서 직접 답했다.
-- 저작과 동시에 공식 출처 대조(WebFetch): Processes and threads 문서에서 main thread가 같은 프로세스 호출을 직렬 처리한다는 서술과 다른 프로세스 호출이 Binder thread pool에서 실행된다는 서술을, Coroutines best practices 문서에서 viewModelScope가 configuration change를 자동으로 견딘다는 서술과 GlobalScope를 피해야 하는 이유를 원문으로 확인 후 인용했다. 내부 링크 14개, 외부 링크 5개 전수 확인(broken 0건).
+- 2 장 `Android 플랫폼 실행 계층과 호출 경로` 의 상세 개요와 [실제 본문](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md) 을 작성했다. 로컬 호출, 시스템 서비스 호출, 하드웨어 기능 호출을 구분하고 센서 제어 요청과 이벤트 반환을 대표 흐름으로 연결했다.
+- 2 장 실제 본문을 독자, 플랫폼 사실관계와 후속 장 경계 관점에서 독립 검수하고 지적 사항을 반영했다.
+- **별도 세션의 2 차 독립 검수(2026-08-03).** 1 장·2 장 저작 세션과 무관한 검수자가 재검수했다. 내부 링크 17 개·외부 공식 출처 링크 14 개 전수 확인(broken 0 건), 버전·플랫폼 사실 3 건 표본 대조(WebFetch): 비공개 SDK 인터페이스 제한 서술 확인, HAL binderized/same-process 배치가 Android 버전·기기 구조에 따라 달라진다는 서술 확인, Binder 의 caller UID 보존 서술은 인용한 특정 문서에 명시되어 있지 않으나 잘 알려진 사실이라 오류로 보지 않음. Reader 관점에서 1 장 확인 질문 8 개·2 장 확인 질문 10 개 중 표본을 문서만 읽고 직접 답변 가능함을 확인. 발견된 오류나 broken link 없음.
+- 상태: **Phase 2 진행 중 / 1 장·2 장 본문 작성 완료 / 저작 세션 자체 검수 + 별도 세션 2 차 독립 검수 모두 완료(추가 지적 없음) / 사용자 검수 대기**
+- **3 장 `소스에서 설치된 패키지까지` 본문을 별도 세션이 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/03-source-to-installed-package.md) 에서 build variant→AAPT2/D8/R8→APK·AAB 산출물, AAB(게시)/APK(설치) 역할 분리, `applicationId`·서명 인증서·숫자 appId 라는 세 가지 다른 축의 식별자, PackageInstaller/PackageManager 의 검증·UID 할당·컴포넌트 registry 등록, 업데이트·서명불일치·삭제후재설치·force-stop 의 UID·데이터 연속성 차이를 하나의 흐름으로 연결했다. 서명 불일치로 업데이트가 거부되는 사례를 실패 흐름으로 포함했다. 2 장의 "다음 장으로 이어지는 질문" 5 개를 모두 본문에서 직접 답했다.
+- 저작과 동시에 공식 출처 대조: Android 앱 서명 문서에서 "인증서가 다르면 업데이트가 거부되고 새 패키지로 설치된다"는 서술을, Android 보안 문서(app sandbox)에서 "앱마다 고유 UID 를 할당해 프로세스를 격리한다"는 서술을 확인 후 인용했다. 내부 링크 8 개, 외부 링크 6 개 전수 확인(broken 0 건).
+- 기존 `03_packaging_deployment` 의 AAB/서명/버전 관련 원자 노트(Play 서명 키 분리, applicationId/versionCode 계약, R8 등)를 재사용하고 링크로 연결했다. Phase 2 준비 문서가 지적한 "PackageManager 가 설치된 앱을 OS-visible entity 로 만드는 중간 연결"(문자열 식별자 → 검증 → 숫자 appId/UID → 컴포넌트 registry)은 기존 원자 노트에 없던 내용이라 이 장에서 새로 연결했다.
+- 상태: **3 장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **4 장 `매니페스트에서 컴포넌트 실행까지` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/04-manifest-to-component-execution.md) 에서 매니페스트 선언의 컴포넌트 registry 등록, 명시적/암시적 Intent 의 해석 방식(action/category/data 매칭), exported·permission·package visibility 라는 서로 다른 게이트, 컴포넌트 활성화 요청이 AMS→Zygote fork→specialization→ActivityThread attach 순으로 프로세스 상태를 확인하는 과정, `android:process` 로 한 앱이 여러 프로세스로 나뉠 때의 IPC 통신 계약 전환을 하나의 흐름으로 연결했다. exported=false 컴포넌트를 외부에서 명시적으로 호출했을 때 권한 거부로 실패하는 사례를 실패 흐름으로 포함했다. 3 장의 "다음 장으로 이어지는 질문" 4 개를 모두 본문에서 직접 답했다.
+- 저작과 동시에 공식 출처 대조(WebFetch): `<activity>` exported 문서에서 intent-filter 가 있을 때의 기본값·권장값 서술을, Android 12 behavior changes 문서에서 "intent-filter 가 있는 컴포넌트의 exported 미선언 시 Android 12 이상 기기에 설치 자체가 불가능하다"는 경고문을 원문으로 확인 후 인용했다. Processes and app lifecycle 문서에서 프로세스 생성 조건과 5 단계 중요도 계층을 확인했다. 내부 링크 12 개, 외부 링크 6 개 전수 확인(broken 0 건).
+- 기존 `02_app_framework`(manifest/component/intent-filter/exported/package-visibility 원자 노트)와 `01_system_internals`(AMS, Zygote socket, ActivityThread attach, process priority 원자 노트)를 재사용하고 링크로 연결했다. 두 클러스터가 이미 개별 계약은 갖고 있었지만, "매니페스트 선언 → registry → Intent resolution → AMS 의 프로세스 상태 확인 → Zygote fork" 로 이어지는 인과 순서를 하나의 서사로 잇는 문서는 없었다.
+- 상태: **4 장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **5 장 `화면, 프로세스, task와 사용자 상태는 독립적인 lifetime을 가진다` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md) 에서 준비 문서의 "독립적인 lifetime" 모델(설치된 패키지 identity, Linux process, task/back stack, component 인스턴스, ViewModel, transient UI state, 영속 저장소)을 6 개 사건(configuration change, 뒤로 가기로 인한 finish, task 제거, 시스템에 의한 process death, force-stop, uninstall) × lifetime 비교표로 연결했다. 이는 Phase 1 종료 전 준비 작업 3 번이 요구한 "5 장의 독립 lifetime 표와 configuration change/process death/task removal/force-stop/uninstall 비교 사례"에 해당한다. 화면 회전 직후 입력값 소실(configuration change)과 오랜 백그라운드 이후 선택 상태 소실(process death)을 대비되는 실패 사례로 포함했다. 4 장의 "다음 장으로 이어지는 질문" 3 개를 모두 본문에서 직접 답했다.
+- 저작과 동시에 공식 출처 대조(WebFetch): Activity state changes 문서에서 "시스템이 프로세스를 종료할 때 onDestroy 호출이 보장되지 않는다"는 원문과 configuration change 의 onPause→onStop→onDestroy→재생성 콜백 순서를, Activity lifecycle 문서에서 `rememberSaveable`/`ViewModel`/영속 저장소를 조합하라는 공식 권장 서술을 원문으로 확인 후 인용했다. force-stop 이후 자동 재시작이 억제되는 정확한 조건은 이번 세션에서 fetch 가능한 공식 문서로 재확인하지 못해 본문과 검증일 각주에 "수동 확인 필요"로 명시했다(RoleManager 사례와 동일한 처리 원칙). 내부 링크 9 개, 외부 링크 5 개 전수 확인(broken 0 건).
+- 기존 `02_app_framework`(configuration change, process death recovery, activity lifecycle, task/back stack, ViewModel, SavedStateHandle, context-registered receiver 원자 노트)와 `01_system_internals`(AMS, process priority 원자 노트)를 재사용하고 링크로 연결했다. 3 장의 UID/데이터 연속성 표(force-stop/재설치/서명불일치)는 반복하지 않고 링크로만 연결해 이 장은 lifetime 축에만 집중했다.
+- 상태: **5 장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / force-stop 자동 재시작 억제 조건 1 건은 수동 확인 필요로 명시 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **6 장 `메인 스레드, Binder, coroutine과 durable scheduler는 서로 다른 실행 책임을 진다` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) 에서 main thread/Looper·Handler(실행 순서), Binder/thread pool(프로세스 경계와 동시성), coroutine 의 Dispatcher(실행 위치)·Scope(취소 가능한 lifetime), foreground service·WorkManager(사용자 가시성과 process 재시작을 넘는 지속성)를 "무엇을 결정하고 무엇을 결정하지 않는가" 비교표로 연결했다. "지금 동기화" 버튼 클릭이 네 계층을 모두 통과하는 worked example 과, coroutine 안에서 느린 동기 Binder 호출을 main dispatcher 로 기다리다 ANR 로 이어지는 실패 사례를 포함했다. viewModelScope 가 configuration change 는 견디지만 지속성 요구와는 반대라는 점을 5 장의 lifetime 모델과 직접 연결했다. 5 장의 "다음 장으로 이어지는 질문" 3 개를 모두 본문에서 직접 답했다.
+- 저작과 동시에 공식 출처 대조(WebFetch): Processes and threads 문서에서 main thread 가 같은 프로세스 호출을 직렬 처리한다는 서술과 다른 프로세스 호출이 Binder thread pool 에서 실행된다는 서술을, Coroutines best practices 문서에서 viewModelScope 가 configuration change 를 자동으로 견딘다는 서술과 GlobalScope 를 피해야 하는 이유를 원문으로 확인 후 인용했다. 내부 링크 14 개, 외부 링크 5 개 전수 확인(broken 0 건).
 - 기존 `01_system_internals`(IPC/process contracts, Binder transaction lifetime, Binder thread pool, ANR)와 `02_app_framework`(coroutine, ViewModel scope, foreground service, Service), `04_system_services`(WorkManager, 백그라운드 제한) 원자 노트를 재사용하고 링크로 연결했다. 개별 계약은 이미 있었지만 "이 네 계층이 같은 요청 하나를 놓고 서로 다른 축(순서/경계/취소/지속성)을 책임진다"는 통합 비교는 없었다.
-- 상태: **6장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **7장 `입력, 리소스 선택과 화면 프레임` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/07-input-resource-selection-and-display-frame.md)에서 물리 입력이 EventHub→InputReader→InputDispatcher를 거쳐 대상 윈도우로 라우팅되는 경로, `ViewRootImpl`이 그 윈도우의 View 트리와 WindowManagerService를 잇는 다리라는 사실, 입력이 6장의 main thread 큐를 거쳐야 처리된다는 연결, configuration change가 단순 값 변경이 아니라 리소스 재선택을 요구해 5장의 Activity 재생성으로 이어지는 이유, View/Compose가 만든 그리기 명령이 Surface→BufferQueue→SurfaceFlinger/HWC 합성을 거쳐 화면이 되는 과정, 그리고 앱은 Surface만 받고 WindowManager가 SurfaceControl을 쥔 채 화면상 배치를 결정한다는 점을 하나의 루프로 연결했다. 이는 Phase 1 종료 전 준비 작업 4번이 지목한 "Window, ViewRootImpl, WindowManagerService와 SurfaceControl 공백"을 공식 문서 근거로 채운 것이다. 화면 회전 하나가 5·6·7장 모델을 모두 지나가는 worked example을 포함했다. 6장의 "다음 장으로 이어지는 질문" 3개를 모두 본문에서 직접 답했다.
-- 저작과 동시에 공식 출처 대조(WebFetch/WebSearch): AOSP Input pipeline 문서에서 "InputReader sends input events to the InputDispatcher which forwards them to the appropriate window"를, AOSP SurfaceFlinger/WindowManager 문서에서 "WindowManager keeps the SurfaceControl instance to manipulate the appearance of the app on the screen"과 layer가 surface+SurfaceControl의 조합이라는 정의를, Handle configuration changes 문서에서 Activity 재생성이 대체 리소스 자동 재로드를 위한 것이라는 서술을 원문으로 확인 후 인용했다. ViewRootImpl↔WindowManagerService 간 window session 통신 세부는 WebSearch로 교차 확인했으나 1차 공식 문서 원문 인용은 아니므로 검증일 각주에 명시했다. 내부 링크 12개, 외부 링크 6개 전수 확인(broken 0건).
-- 기존 `01_system_internals/graphics-and-media`(rendering pipeline, Surface, BufferQueue, SurfaceFlinger, RenderThread, VSync/Choreographer, jank)와 `02_app_framework`(configuration change, View/Compose 비교, Compose frame pipeline), `04_system_services`(InputManager) 원자 노트를 재사용하고 링크로 연결했다. 그래픽 파이프라인 뒷부분(Surface 이후)은 원자 자료가 이미 강했지만, "입력이 어느 윈도우로 갈지 결정되는 과정"과 "그 판단이 ViewRootImpl을 거쳐 View 트리·main thread로 연결되는 과정"은 이 장에서 새로 연결했다.
-- 상태: **7장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **8장 `데이터, 저장소, 네트워크와 offline recovery` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/08-data-storage-network-and-offline-recovery.md)에서 준비 문서의 "UI event/in-memory state → repository/local transaction → durable source of truth/outbox → scheduler constraint/quota → network/server reconciliation → local state 갱신 → UI observation" 흐름을 5장(ViewModel이 process death를 못 견딤)·6장(WorkManager 지속성)과 명시적으로 연결해 하나의 순환으로 완성했다. 데이터 수명·소유권 기준 저장소 선택표, 공식 문서의 "lazy writes"(로컬 우선 쓰기 + 지연된 서버 알림) 패턴, WorkManager 재시도의 idempotency·checkpoint 요구, 앱 API가 보는 네트워크 상태와 시스템 정책 상태의 구분을 연결했다. 오프라인 즐겨찾기 추가라는 worked example과, Room·DataStore 두 저장소 쓰기를 하나의 트랜잭션으로 착각하는 실패 사례를 포함했다. 7장의 "다음 장으로 이어지는 질문" 3개를 모두 본문에서 직접 답했다.
-- 저작과 동시에 공식 출처 대조(WebFetch): App architecture data layer/offline-first 문서에서 "local data source가 canonical source of truth"라는 원칙과 "lazy writes"(로컬 우선 쓰기 후 네트워크 알림 큐잉) 정의를, WorkManager 문서에서 동기화 실패 시 `Result.retry()`로 지수 백오프 재시도한다는 서술을 원문으로 확인 후 인용했다. 내부 링크 11개, 외부 링크 4개 전수 확인(broken 0건).
-- 기존 `02_app_framework/data`(Repository/Flow/StateFlow/저장소 선택), `04_system_services/background-and-notifications`(WorkManager, 실패 비용 기반 API 선택, 영속 작업 상태), `01_system_internals/connectivity`(ConnectivityManager vs ConnectivityService/netd 계층) 원자 노트를 재사용하고 링크로 연결했다. 개별 계약은 강했지만 "화면 관찰 → 로컬 우선 쓰기 → 지연된 동기화 → idempotent 재시도 → 다시 로컬 관찰로 복귀"라는 순환 서사, 그리고 이것이 5·6장의 lifetime/지속성 모델과 어떻게 맞물리는지는 이 장에서 새로 연결했다.
-- 상태: **8장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **9장 `Identity, 권한과 독립적인 security gate` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/09-identity-permission-and-independent-security-gates.md)에서 3장의 package/서명 identity·UID가 모든 보안 판정의 입력이 된다는 점을 출발점으로, sandbox(UID/프로세스 경계) → Binder 호출의 커널 검증 UID/PID(6장과 연결) → manifest 선언·protection level(normal/dangerous/signature, signature는 3장의 서명 identity와 직결) → runtime permission 사용자 승인 → AppOps(permission과 독립적인 실행 시점 거부) → special app access(설정 기반) → SELinux(root로도 우회 불가한 mandatory policy) → 서버 authorization(클라이언트 무결성 신호는 대체 불가)까지 8개 gate를 "판정 주체/시점/독립성" 비교표로 연결했다. 카메라 촬영 실패를 다섯 gate 순으로 좁혀가는 worked example과, 권한을 한 번만 확인하고 AppOps 자동 회수를 놓치는 실패 사례를 포함했다. 8장의 "다음 장으로 이어지는 질문"은 이번 장이 직접 다루는 주제는 아니었으나, 대신 준비 문서의 "Framework API에서 hardware capability까지" 흐름 중 권한 판정 구간을 이 장이 전담해 채웠다.
-- 저작과 동시에 공식 출처 대조(WebFetch): Permissions on Android 문서에서 normal/dangerous/signature protection level 정의(특히 signature 권한이 "같은 인증서로 서명된 경우에만" 부여된다는 서술)와 "권한이 이미 부여됐다고 가정하지 말라"는 경고를, Play Integrity 개요 문서에서 token이 서버 검증 대상이라는 서술을 원문으로 확인 후 인용했다. 내부 링크 12개, 외부 링크 3개 전수 확인(broken 0건).
-- 기존 `05_security_privacy`(sandbox, permission-contracts, SELinux, Play Integrity, defense-in-depth)와 `04_system_services/service-lookup`(호출자 UID/PID 검사, AppOps 이중 게이트, getSystemService의 Binder 위임) 원자 노트를 재사용하고 링크로 연결했다. 개별 게이트는 각자 잘 설명돼 있었지만 "이것들이 하나의 순차 파이프라인이 아니라 서로 다른 시점에 서로 다른 주체가 내리는 독립 판정"이라는 통합 모델, 그리고 3장의 identity가 그 모든 판정의 공통 입력이라는 연결은 이 장에서 새로 만들었다.
-- 상태: **9장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **10장 `기기 기능 발견과 background execution` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/10-device-capability-discovery-and-background-execution.md)에서 `<uses-feature>`(Google Play 배포 필터링용, 시스템 강제 아님)와 `hasSystemFeature()`/`canAuthenticate()` 같은 런타임 발견이 9장의 permission/AppOps gate보다 먼저 또는 별개로 필요하다는 점, 같은 기능이 AOSP platform/Google 서비스/OEM 구현 중 어디서 오는지에 따라 대체 경로가 달라진다는 점(1장 위치 사례의 일반화), 발견된 capability의 실제 호출 경로는 2·6·9장이 이미 설명한 것을 그대로 재사용한다는 명시, 하드웨어 부재/사용자 사전조건 미충족/권한거부라는 세 가지 실패가 서로 다른 UX를 요구한다는 점, 그리고 지속 작업이 durable state(8장)·scheduler(6장)에 더해 "결과의 사용자 가시성"(FCM은 전달, 알림은 표시라는 별개 계약)까지 갖춰야 완결된다는 점을 하나로 연결했다. 위치 기반 도착 알림 기능이 다섯 지점에서 실패할 수 있는 종합 worked example과, "durable 작업은 성공했지만 알림 채널 차단으로 사용자가 보지 못한" 실패 사례를 포함했다.
-- 저작과 동시에 공식 출처 대조(WebFetch): `<uses-feature>` element 문서에서 "Android 시스템 자체는 설치 전 기능 지원 여부를 확인하지 않으며 이 선언은 정보성이고 Google Play 필터링에 쓰인다"는 서술을 원문으로 확인 후 인용했다. 내부 링크 8개, 외부 링크 4개 전수 확인(broken 0건).
-- 기존 `04_system_services` 최상위 지도(내가 Phase 1에서 작성한 android-system-services-and-device-capabilities.md)와 `service-lookup-contracts`, `01_system_internals/platform-modularity`(feature availability 확인), `biometrics-credential-contracts`, `sensor-contracts`, `location-contracts`, `background-work-contracts`, `notification-messaging-contracts`를 재사용하고 링크로 연결했다. 개별 지도는 이미 "문제 분류" 표를 갖추고 있었지만, "기능 발견이 권한 확인보다 선행한다"는 순서, AOSP/Google/OEM 구분의 일반화, "durable 실행 성공과 사용자 가시성은 별개"라는 통합 논지는 이 장에서 새로 연결했다.
-- 상태: **10장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **11장 `관찰, 테스트와 품질 feedback` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/11-observation-testing-and-quality-feedback.md)에서 1~10장에 흩어져 있던 진단 신호 언급(2장 `dumpsys location`, 4장 Permission Denial 로그, 6장 Perfetto main thread/Binder 구간, 8장 `WorkInfo`/`dumpsys jobscheduler`, 9장 `dumpsys appops`/`package`, 10장 `canAuthenticate()` 반환값)을 표로 회고한 뒤, logcat/crash/ANR/debugger/Profiler/Perfetto/dumpsys/Macrobenchmark가 서로 다른 질문에 답한다는 원칙, 테스트 레이어를 피드백 비용으로 고르는 기준, 회귀·flaky test가 릴리스 게이트 신뢰도 자체를 훼손한다는 점, 그리고 릴리스 이후 Google Play 테스트 트랙 → 단계적 출시 → Android vitals(현장 분포)로 이어지는 피드백 루프를 "재현 조건 고정 → 원인 좁히기 → 테스트 전환 → 회귀 판정 → 배포 → 현장 관찰 → 재현" 하나의 순환으로 연결했다. 특정 기기에서만 앱 시작이 느리다는 현장 리포트를 이 순환 전체로 조사하는 worked example과, 디버거 연결이 타이밍을 바꿔 race/ANR을 감추는 실패 사례를 포함했다.
-- 저작과 동시에 공식 출처 대조(WebFetch): Android vitals 개요 문서에서 "사용자 동의 시 기기가 안정성·성능·배터리·권한 지표를 추적해 Play Console에서 확인 가능하다"는 서술과 "기기 하드웨어/소프트웨어 문제가 높은 오류율의 원인일 수 있고 RAM·OS 버전·프로세서 종류와의 연관성을 알려준다"는 서술을 원문으로 확인 후 인용했다. 내부 링크 8개, 외부 링크 6개 전수 확인(broken 0건).
+- 상태: **6 장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **7 장 `입력, 리소스 선택과 화면 프레임` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/07-input-resource-selection-and-display-frame.md) 에서 물리 입력이 EventHub→InputReader→InputDispatcher 를 거쳐 대상 윈도우로 라우팅되는 경로, `ViewRootImpl` 이 그 윈도우의 View 트리와 WindowManagerService 를 잇는 다리라는 사실, 입력이 6 장의 main thread 큐를 거쳐야 처리된다는 연결, configuration change 가 단순 값 변경이 아니라 리소스 재선택을 요구해 5 장의 Activity 재생성으로 이어지는 이유, View/Compose 가 만든 그리기 명령이 Surface→BufferQueue→SurfaceFlinger/HWC 합성을 거쳐 화면이 되는 과정, 그리고 앱은 Surface 만 받고 WindowManager 가 SurfaceControl 을 쥔 채 화면상 배치를 결정한다는 점을 하나의 루프로 연결했다. 이는 Phase 1 종료 전 준비 작업 4 번이 지목한 "Window, ViewRootImpl, WindowManagerService 와 SurfaceControl 공백"을 공식 문서 근거로 채운 것이다. 화면 회전 하나가 5·6·7 장 모델을 모두 지나가는 worked example 을 포함했다. 6 장의 "다음 장으로 이어지는 질문" 3 개를 모두 본문에서 직접 답했다.
+- 저작과 동시에 공식 출처 대조(WebFetch/WebSearch): AOSP Input pipeline 문서에서 "InputReader sends input events to the InputDispatcher which forwards them to the appropriate window"를, AOSP SurfaceFlinger/WindowManager 문서에서 "WindowManager keeps the SurfaceControl instance to manipulate the appearance of the app on the screen"과 layer 가 surface+SurfaceControl 의 조합이라는 정의를, Handle configuration changes 문서에서 Activity 재생성이 대체 리소스 자동 재로드를 위한 것이라는 서술을 원문으로 확인 후 인용했다. ViewRootImpl↔WindowManagerService 간 window session 통신 세부는 WebSearch 로 교차 확인했으나 1 차 공식 문서 원문 인용은 아니므로 검증일 각주에 명시했다. 내부 링크 12 개, 외부 링크 6 개 전수 확인(broken 0 건).
+- 기존 `01_system_internals/graphics-and-media`(rendering pipeline, Surface, BufferQueue, SurfaceFlinger, RenderThread, VSync/Choreographer, jank)와 `02_app_framework`(configuration change, View/Compose 비교, Compose frame pipeline), `04_system_services`(InputManager) 원자 노트를 재사용하고 링크로 연결했다. 그래픽 파이프라인 뒷부분(Surface 이후)은 원자 자료가 이미 강했지만, "입력이 어느 윈도우로 갈지 결정되는 과정"과 "그 판단이 ViewRootImpl 을 거쳐 View 트리·main thread 로 연결되는 과정"은 이 장에서 새로 연결했다.
+- 상태: **7 장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **8 장 `데이터, 저장소, 네트워크와 offline recovery` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/08-data-storage-network-and-offline-recovery.md) 에서 준비 문서의 "UI event/in-memory state → repository/local transaction → durable source of truth/outbox → scheduler constraint/quota → network/server reconciliation → local state 갱신 → UI observation" 흐름을 5 장(ViewModel 이 process death 를 못 견딤)·6 장(WorkManager 지속성)과 명시적으로 연결해 하나의 순환으로 완성했다. 데이터 수명·소유권 기준 저장소 선택표, 공식 문서의 "lazy writes"(로컬 우선 쓰기 + 지연된 서버 알림) 패턴, WorkManager 재시도의 idempotency·checkpoint 요구, 앱 API 가 보는 네트워크 상태와 시스템 정책 상태의 구분을 연결했다. 오프라인 즐겨찾기 추가라는 worked example 과, Room·DataStore 두 저장소 쓰기를 하나의 트랜잭션으로 착각하는 실패 사례를 포함했다. 7 장의 "다음 장으로 이어지는 질문" 3 개를 모두 본문에서 직접 답했다.
+- 저작과 동시에 공식 출처 대조(WebFetch): App architecture data layer/offline-first 문서에서 "local data source 가 canonical source of truth"라는 원칙과 "lazy writes"(로컬 우선 쓰기 후 네트워크 알림 큐잉) 정의를, WorkManager 문서에서 동기화 실패 시 `Result.retry()` 로 지수 백오프 재시도한다는 서술을 원문으로 확인 후 인용했다. 내부 링크 11 개, 외부 링크 4 개 전수 확인(broken 0 건).
+- 기존 `02_app_framework/data`(Repository/Flow/StateFlow/저장소 선택), `04_system_services/background-and-notifications`(WorkManager, 실패 비용 기반 API 선택, 영속 작업 상태), `01_system_internals/connectivity`(ConnectivityManager vs ConnectivityService/netd 계층) 원자 노트를 재사용하고 링크로 연결했다. 개별 계약은 강했지만 "화면 관찰 → 로컬 우선 쓰기 → 지연된 동기화 → idempotent 재시도 → 다시 로컬 관찰로 복귀"라는 순환 서사, 그리고 이것이 5·6 장의 lifetime/지속성 모델과 어떻게 맞물리는지는 이 장에서 새로 연결했다.
+- 상태: **8 장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **9 장 `Identity, 권한과 독립적인 security gate` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/09-identity-permission-and-independent-security-gates.md) 에서 3 장의 package/서명 identity·UID 가 모든 보안 판정의 입력이 된다는 점을 출발점으로, sandbox(UID/프로세스 경계) → Binder 호출의 커널 검증 UID/PID(6 장과 연결) → manifest 선언·protection level(normal/dangerous/signature, signature 는 3 장의 서명 identity 와 직결) → runtime permission 사용자 승인 → AppOps(permission 과 독립적인 실행 시점 거부) → special app access(설정 기반) → SELinux(root 로도 우회 불가한 mandatory policy) → 서버 authorization(클라이언트 무결성 신호는 대체 불가)까지 8 개 gate 를 "판정 주체/시점/독립성" 비교표로 연결했다. 카메라 촬영 실패를 다섯 gate 순으로 좁혀가는 worked example 과, 권한을 한 번만 확인하고 AppOps 자동 회수를 놓치는 실패 사례를 포함했다. 8 장의 "다음 장으로 이어지는 질문"은 이번 장이 직접 다루는 주제는 아니었으나, 대신 준비 문서의 "Framework API 에서 hardware capability 까지" 흐름 중 권한 판정 구간을 이 장이 전담해 채웠다.
+- 저작과 동시에 공식 출처 대조(WebFetch): Permissions on Android 문서에서 normal/dangerous/signature protection level 정의(특히 signature 권한이 "같은 인증서로 서명된 경우에만" 부여된다는 서술)와 "권한이 이미 부여됐다고 가정하지 말라"는 경고를, Play Integrity 개요 문서에서 token 이 서버 검증 대상이라는 서술을 원문으로 확인 후 인용했다. 내부 링크 12 개, 외부 링크 3 개 전수 확인(broken 0 건).
+- 기존 `05_security_privacy`(sandbox, permission-contracts, SELinux, Play Integrity, defense-in-depth)와 `04_system_services/service-lookup`(호출자 UID/PID 검사, AppOps 이중 게이트, getSystemService 의 Binder 위임) 원자 노트를 재사용하고 링크로 연결했다. 개별 게이트는 각자 잘 설명돼 있었지만 "이것들이 하나의 순차 파이프라인이 아니라 서로 다른 시점에 서로 다른 주체가 내리는 독립 판정"이라는 통합 모델, 그리고 3 장의 identity 가 그 모든 판정의 공통 입력이라는 연결은 이 장에서 새로 만들었다.
+- 상태: **9 장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **10 장 `기기 기능 발견과 background execution` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/10-device-capability-discovery-and-background-execution.md) 에서 `<uses-feature>`(Google Play 배포 필터링용, 시스템 강제 아님)와 `hasSystemFeature()`/`canAuthenticate()` 같은 런타임 발견이 9 장의 permission/AppOps gate 보다 먼저 또는 별개로 필요하다는 점, 같은 기능이 AOSP platform/Google 서비스/OEM 구현 중 어디서 오는지에 따라 대체 경로가 달라진다는 점(1 장 위치 사례의 일반화), 발견된 capability 의 실제 호출 경로는 2·6·9 장이 이미 설명한 것을 그대로 재사용한다는 명시, 하드웨어 부재/사용자 사전조건 미충족/권한거부라는 세 가지 실패가 서로 다른 UX 를 요구한다는 점, 그리고 지속 작업이 durable state(8 장)·scheduler(6 장)에 더해 "결과의 사용자 가시성"(FCM 은 전달, 알림은 표시라는 별개 계약)까지 갖춰야 완결된다는 점을 하나로 연결했다. 위치 기반 도착 알림 기능이 다섯 지점에서 실패할 수 있는 종합 worked example 과, "durable 작업은 성공했지만 알림 채널 차단으로 사용자가 보지 못한" 실패 사례를 포함했다.
+- 저작과 동시에 공식 출처 대조(WebFetch): `<uses-feature>` element 문서에서 "Android 시스템 자체는 설치 전 기능 지원 여부를 확인하지 않으며 이 선언은 정보성이고 Google Play 필터링에 쓰인다"는 서술을 원문으로 확인 후 인용했다. 내부 링크 8 개, 외부 링크 4 개 전수 확인(broken 0 건).
+- 기존 `04_system_services` 최상위 지도(내가 Phase 1 에서 작성한 android-system-services-and-device-capabilities.md)와 `service-lookup-contracts`, `01_system_internals/platform-modularity`(feature availability 확인), `biometrics-credential-contracts`, `sensor-contracts`, `location-contracts`, `background-work-contracts`, `notification-messaging-contracts` 를 재사용하고 링크로 연결했다. 개별 지도는 이미 "문제 분류" 표를 갖추고 있었지만, "기능 발견이 권한 확인보다 선행한다"는 순서, AOSP/Google/OEM 구분의 일반화, "durable 실행 성공과 사용자 가시성은 별개"라는 통합 논지는 이 장에서 새로 연결했다.
+- 상태: **10 장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **11 장 `관찰, 테스트와 품질 feedback` 본문을 작성했다(2026-08-03).** [실제 본문](../00_foundations/learning-spine/11-observation-testing-and-quality-feedback.md) 에서 1~10 장에 흩어져 있던 진단 신호 언급(2 장 `dumpsys location`, 4 장 Permission Denial 로그, 6 장 Perfetto main thread/Binder 구간, 8 장 `WorkInfo`/`dumpsys jobscheduler`, 9 장 `dumpsys appops`/`package`, 10 장 `canAuthenticate()` 반환값)을 표로 회고한 뒤, logcat/crash/ANR/debugger/Profiler/Perfetto/dumpsys/Macrobenchmark 가 서로 다른 질문에 답한다는 원칙, 테스트 레이어를 피드백 비용으로 고르는 기준, 회귀·flaky test 가 릴리스 게이트 신뢰도 자체를 훼손한다는 점, 그리고 릴리스 이후 Google Play 테스트 트랙 → 단계적 출시 → Android vitals(현장 분포)로 이어지는 피드백 루프를 "재현 조건 고정 → 원인 좁히기 → 테스트 전환 → 회귀 판정 → 배포 → 현장 관찰 → 재현" 하나의 순환으로 연결했다. 특정 기기에서만 앱 시작이 느리다는 현장 리포트를 이 순환 전체로 조사하는 worked example 과, 디버거 연결이 타이밍을 바꿔 race/ANR 을 감추는 실패 사례를 포함했다.
+- 저작과 동시에 공식 출처 대조(WebFetch): Android vitals 개요 문서에서 "사용자 동의 시 기기가 안정성·성능·배터리·권한 지표를 추적해 Play Console 에서 확인 가능하다"는 서술과 "기기 하드웨어/소프트웨어 문제가 높은 오류율의 원인일 수 있고 RAM·OS 버전·프로세서 종류와의 연관성을 알려준다"는 서술을 원문으로 확인 후 인용했다. 내부 링크 8 개, 외부 링크 6 개 전수 확인(broken 0 건).
 - 기존 `06_testing_performance`(debugging-contracts, profiler/Perfetto/dumpsys, measure-before-optimizing, test-layer 선택, unit/integration/UI/E2E, flaky test)와 `03_packaging_deployment/distribution`(Google Play 테스트 트랙, 단계적 출시) 원자 노트를 재사용하고 링크로 연결했다. 개별 도구·정책은 이미 잘 설명돼 있었지만, "지금까지의 장이 각자 언급한 진단 신호가 사실 하나의 방법론이었다"는 회고적 연결과 "테스트 통과 → 배포 → 현장 피드백 → 재현"이라는 릴리스 이후 순환은 이 장에서 새로 만들었다.
-- 상태: **11장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **12장(최종 장) `호환성, update와 form factor` 본문을 작성했다(2026-08-04).** [실제 본문](../00_foundations/learning-spine/12-compatibility-update-and-form-factor.md)에서 compileSdk/minSdk/targetSdkVersion(각각 빌드 시 API 표면/설치 하한/compatibility 동작 기준이라는 다른 질문), 기기 실제 SDK_INT, SDK Extension(SDK_INT만으로는 false negative가 생기는 API 존재), Mainline 모듈 버전(같은 API level 안에서도 기기별 차이), 라이브러리 버전(1장의 플랫폼 API-vs-Jetpack 구분과 연결), Play policy(런타임과 별개인 배포 조건), OEM 구현, form factor까지 10개 축을 "언제/누가/무엇을 제한하는가" 통합표로 정리했다. targetSdkVersion을 올렸더니 기존 기능이 깨지는 실패 사례(compatibility 동작이 꺼진 것)와, "같은 API가 특정 기기에서만 다르게 동작한다"를 10개 축 순서로 좁히는 worked example을 포함했다. 마지막으로 "이 Learning Spine을 마치며" 절에서 1~12장 전체가 이룬 순환을 요약하고 Worked Example/Diagnostic Runbook/Atomic Reference로의 다음 단계를 명시했다.
-- 저작과 동시에 공식 출처 대조(WebFetch): `<uses-sdk>` 문서에서 targetSdkVersion이 "시스템에 이 버전까지 테스트했음을 알리고, 플랫폼 API level이 target보다 높으면 시스템이 compatibility 동작을 활성화할 수 있다"는 서술을 원문으로 확인 후 인용했다. 내부 링크 7개, 외부 링크 5개 전수 확인(broken 0건).
-- 기존 `00_foundations/history`(API level/codename/extension/target 축, history를 contract 변화 지도로 보는 원칙), `01_system_internals/platform-modularity`(SDK Extension, Mainline), `03_packaging_deployment`(defaultConfig의 identity/버전 계약), `07_platforms`(폼 팩터 지도) 원자 노트를 재사용하고 링크로 연결했다. 개별 축은 이미 각자 잘 설명돼 있었지만, 10개 축을 "언제 결정되고 누가 통제하는가"라는 하나의 표로 통합하고 1~11장의 구체적 사례(4장 exported, 9장 permission, 10장 AOSP/Google/OEM, 11장 vitals)와 각 축을 직접 연결하는 것은 이 장에서 새로 만들었다.
-- 상태: **12장(최종 장) 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
-- **Learning Spine 12개 장 전체(1~12장) 본문 작성이 완료됐다(2026-08-04).** 1~2장은 별도 세션이 작성하고 이 세션이 독립 검수했다(오류 없음, Phase 2 진행 중 로그 참고). 3~12장은 이 세션이 작성하고 저작 세션 자체 링크·사실 검증만 마쳤다.
+- 상태: **11 장 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **12 장(최종 장) `호환성, update와 form factor` 본문을 작성했다(2026-08-04).** [실제 본문](../00_foundations/learning-spine/12-compatibility-update-and-form-factor.md) 에서 compileSdk/minSdk/targetSdkVersion(각각 빌드 시 API 표면/설치 하한/compatibility 동작 기준이라는 다른 질문), 기기 실제 SDK_INT, SDK Extension(SDK_INT 만으로는 false negative 가 생기는 API 존재), Mainline 모듈 버전(같은 API level 안에서도 기기별 차이), 라이브러리 버전(1 장의 플랫폼 API-vs-Jetpack 구분과 연결), Play policy(런타임과 별개인 배포 조건), OEM 구현, form factor 까지 10 개 축을 "언제/누가/무엇을 제한하는가" 통합표로 정리했다. targetSdkVersion 을 올렸더니 기존 기능이 깨지는 실패 사례(compatibility 동작이 꺼진 것)와, "같은 API 가 특정 기기에서만 다르게 동작한다"를 10 개 축 순서로 좁히는 worked example 을 포함했다. 마지막으로 "이 Learning Spine 을 마치며" 절에서 1~12 장 전체가 이룬 순환을 요약하고 Worked Example/Diagnostic Runbook/Atomic Reference 로의 다음 단계를 명시했다.
+- 저작과 동시에 공식 출처 대조(WebFetch): `<uses-sdk>` 문서에서 targetSdkVersion 이 "시스템에 이 버전까지 테스트했음을 알리고, 플랫폼 API level 이 target 보다 높으면 시스템이 compatibility 동작을 활성화할 수 있다"는 서술을 원문으로 확인 후 인용했다. 내부 링크 7 개, 외부 링크 5 개 전수 확인(broken 0 건).
+- 기존 `00_foundations/history`(API level/codename/extension/target 축, history 를 contract 변화 지도로 보는 원칙), `01_system_internals/platform-modularity`(SDK Extension, Mainline), `03_packaging_deployment`(defaultConfig 의 identity/버전 계약), `07_platforms`(폼 팩터 지도) 원자 노트를 재사용하고 링크로 연결했다. 개별 축은 이미 각자 잘 설명돼 있었지만, 10 개 축을 "언제 결정되고 누가 통제하는가"라는 하나의 표로 통합하고 1~11 장의 구체적 사례(4 장 exported, 9 장 permission, 10 장 AOSP/Google/OEM, 11 장 vitals)와 각 축을 직접 연결하는 것은 이 장에서 새로 만들었다.
+- 상태: **12 장(최종 장) 본문 작성 완료 / 저작 세션 자체 링크·사실 검증 완료 / 별도 세션의 독립 Reader·Research 검수와 사용자 검수는 아직 미실시**
+- **Learning Spine 12 개 장 전체(1~12 장) 본문 작성이 완료됐다(2026-08-04).** 1~2 장은 별도 세션이 작성하고 이 세션이 독립 검수했다(오류 없음, Phase 2 진행 중 로그 참고). 3~12 장은 이 세션이 작성하고 저작 세션 자체 링크·사실 검증만 마쳤다.
 
-#### Phase 2. 3~12장 독립 검수(2026-08-04)
+#### Phase 2. 3~12 장 독립 검수(2026-08-04)
 
-Author와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 검수를 5개 subagent에 2개 장씩 병렬로 위임했다(3~4, 5~6, 7~8, 9~10, 11~12장). 각 subagent는 (1) Reader 검수(확인 질문에 본문만으로 답할 수 있는지), (2) 내부 링크 전수 재확인, (3) 외부 링크 HTTP 상태 재확인, (4) 핵심 인용문 3개 이상을 WebFetch로 원문 재대조, (5) 장 간 bridge 질문이 다음 장에서 실제로 다뤄지는지를 검증하도록 지시했다. 11~12장 담당 agent는 비정상적으로 지연되어(다른 4개는 5~7분, 이 agent는 완료까지 약 8시간) 저작 세션이 직접 동일한 체크리스트로 11~12장을 검수했고, 이후 지연됐던 agent도 뒤늦게 완료되어 결과를 대조했다.
+Author 와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 검수를 5 개 subagent 에 2 개 장씩 병렬로 위임했다(3~4, 5~6, 7~8, 9~10, 11~12 장). 각 subagent 는 (1) Reader 검수(확인 질문에 본문만으로 답할 수 있는지), (2) 내부 링크 전수 재확인, (3) 외부 링크 HTTP 상태 재확인, (4) 핵심 인용문 3 개 이상을 WebFetch 로 원문 재대조, (5) 장 간 bridge 질문이 다음 장에서 실제로 다뤄지는지를 검증하도록 지시했다. 11~12 장 담당 agent 는 비정상적으로 지연되어(다른 4 개는 5~7 분, 이 agent 는 완료까지 약 8 시간) 저작 세션이 직접 동일한 체크리스트로 11~12 장을 검수했고, 이후 지연됐던 agent 도 뒤늦게 완료되어 결과를 대조했다.
 
 **실제 오류로 확인되어 수정한 항목:**
 
-1. **4장 사실 오류(가장 중요).** "exported=false 컴포넌트를 외부에서 호출하면 남는 신호는 '컴포넌트 없음'이 아니라 '권한 거부'"라고 서술했으나, `<activity>` exported 속성 공식 문서를 재확인한 결과 Activity의 경우 정확히 `ActivityNotFoundException`이 발생한다는 것을 확인했다(원문: "If this element is set to false and an app tries to start the activity, the system throws an ActivityNotFoundException."). 즉 원래 서술이 사실과 정반대였다. 3절, 6절(실패 사례), 8절(조사 방법 6번), 오해 교정표를 모두 "예외 이름만으로는 registry 미등록과 exported 거부를 구분할 수 없다"는 정정된 논지로 재작성했다.
-2. **5장 편집 오류.** "이 구분은 3절 '설치된 패키지 identity' 층위와는 다른 층위"라는 자기지시적 오류(해당 개념은 1절에서 도입됨)를 "1절"로 정정했다. 확인 질문 2개(configuration change에서 프로세스가 유지되는 이유, onDestroy 미보장에서 나오는 실무 규칙)의 근거가 본문에 명시적으로 없어 각각 한두 문장을 보강했다.
-3. **8장 커버리지 공백.** 7장이 예고한 "로컬과 서버 상태가 다를 때 어떻게 조정하는가"를 8장이 다루지 않고 있어, 공식 문서의 conflict resolution/"last write wins" 정책을 원문 인용으로 6절에 보강했다.
-4. **9장 커버리지 공백.** 8장이 예고한 "실패가 앱 코드/framework policy/kernel-platform policy 중 어디에 속하는가"라는 질문에 9장의 gate 비교표가 명시적으로 답하지 않고 있어, 표에 "실패 시 의심할 층위" 열을 추가했다.
-5. **12장 요약 명확성.** "이 Learning Spine을 마치며" 절에서 8~10장을 요약하는 문장이 9장을 중복 언급하며 뒤엉켜 있었고, 10장의 "background execution·결과 가시성" 축이 누락돼 있었다. 8/9/10장을 각각 독립된 절로 분리해 재작성했다. 1장 요약도 "계약(contract)" 프레임을 명시하도록 보강했다.
+1. **4 장 사실 오류(가장 중요).** "exported=false 컴포넌트를 외부에서 호출하면 남는 신호는 '컴포넌트 없음'이 아니라 '권한 거부'"라고 서술했으나, `<activity>` exported 속성 공식 문서를 재확인한 결과 Activity 의 경우 정확히 `ActivityNotFoundException` 이 발생한다는 것을 확인했다(원문: "If this element is set to false and an app tries to start the activity, the system throws an ActivityNotFoundException."). 즉 원래 서술이 사실과 정반대였다. 3 절, 6 절(실패 사례), 8 절(조사 방법 6 번), 오해 교정표를 모두 "예외 이름만으로는 registry 미등록과 exported 거부를 구분할 수 없다"는 정정된 논지로 재작성했다.
+2. **5 장 편집 오류.** "이 구분은 3 절 '설치된 패키지 identity' 층위와는 다른 층위"라는 자기지시적 오류(해당 개념은 1 절에서 도입됨)를 "1 절"로 정정했다. 확인 질문 2 개(configuration change 에서 프로세스가 유지되는 이유, onDestroy 미보장에서 나오는 실무 규칙)의 근거가 본문에 명시적으로 없어 각각 한두 문장을 보강했다.
+3. **8 장 커버리지 공백.** 7 장이 예고한 "로컬과 서버 상태가 다를 때 어떻게 조정하는가"를 8 장이 다루지 않고 있어, 공식 문서의 conflict resolution/"last write wins" 정책을 원문 인용으로 6 절에 보강했다.
+4. **9 장 커버리지 공백.** 8 장이 예고한 "실패가 앱 코드/framework policy/kernel-platform policy 중 어디에 속하는가"라는 질문에 9 장의 gate 비교표가 명시적으로 답하지 않고 있어, 표에 "실패 시 의심할 층위" 열을 추가했다.
+5. **12 장 요약 명확성.** "이 Learning Spine 을 마치며" 절에서 8~10 장을 요약하는 문장이 9 장을 중복 언급하며 뒤엉켜 있었고, 10 장의 "background execution·결과 가시성" 축이 누락돼 있었다. 8/9/10 장을 각각 독립된 절로 분리해 재작성했다. 1 장 요약도 "계약(contract)" 프레임을 명시하도록 보강했다.
 
-**검증 결과 사실로 확인된(수정 불필요) 항목:** 8장의 WorkManager 인용문("If the synchronization fails, the doWork() method returns with Result.retry()...")은 한 subagent가 원문에서 찾지 못했다고 보고했으나, 저작 세션이 재확인한 결과 offline-first 공식 문서에 정확히 존재하는 문장이었다(subagent의 WebFetch false negative로 판단).
+**검증 결과 사실로 확인된(수정 불필요) 항목:** 8 장의 WorkManager 인용문("If the synchronization fails, the doWork() method returns with Result.retry()…")은 한 subagent 가 원문에서 찾지 못했다고 보고했으나, 저작 세션이 재확인한 결과 offline-first 공식 문서에 정확히 존재하는 문장이었다(subagent 의 WebFetch false negative 로 판단).
 
-**최종 판정:** 3, 6, 7, 10, 11장은 발견 사항 없음(PASS). 4, 5, 8, 9, 12장은 위 수정을 반영해 PASS로 전환했다. 모든 장의 내부 링크·외부 링크(전수)는 이 검수 라운드에서 재확인해 broken 0건이다. 3~12장 각 장의 "확인 질문"은 모두 본문 텍스트만으로 답변 가능함을 독립 검수로 확인했다.
+**최종 판정:** 3, 6, 7, 10, 11 장은 발견 사항 없음(PASS). 4, 5, 8, 9, 12 장은 위 수정을 반영해 PASS 로 전환했다. 모든 장의 내부 링크·외부 링크(전수)는 이 검수 라운드에서 재확인해 broken 0 건이다. 3~12 장 각 장의 "확인 질문"은 모두 본문 텍스트만으로 답변 가능함을 독립 검수로 확인했다.
 
-**남은 것:** 이 라운드는 코드 리뷰 방식의 오류 탐지·수정이며, 사용자가 Reader로서 직접 읽고 확인 질문에 답해보는 최종 사용자 검수는 아직 실시되지 않았다.
+**남은 것:** 이 라운드는 코드 리뷰 방식의 오류 탐지·수정이며, 사용자가 Reader 로서 직접 읽고 확인 질문에 답해보는 최종 사용자 검수는 아직 실시되지 않았다.
 
-**진행 기록(2026-08-04): Phase 4 Diagnostic Runbooks (8개) 고도화 및 정밀 감사 완료.**
-`00_foundations/diagnostic-runbooks/`의 8개 필수 장애 대응 가이드 전체에 대해 2개 Subagent를 병렬로 투입하여 10단계 표준 양식 정규화, adb CLI 명령어 문법 보강, Android 14/15/16 최신 진단 신호 반영 및 Mermaid 의사결정 흐름도/성공·실패 판정 신호 기준표 보강 작업을 완수했다.
+**진행 기록(2026-08-04): Phase 4 Diagnostic Runbooks (8 개) 고도화 및 정밀 감사 완료.**
+
+`00_foundations/diagnostic-runbooks/` 의 8 개 필수 장애 대응 가이드 전체에 대해 2 개 Subagent 를 병렬로 투입하여 10 단계 표준 양식 정규화, adb CLI 명령어 문법 보강, Android 14/15/16 최신 진단 신호 반영 및 Mermaid 의사결정 흐름도/성공·실패 판정 신호 기준표 보강 작업을 완수했다.
 
 - **RB 01 (앱 실행 지연/실패)**: `am start-activity -W`, `ApplicationExitInfo`, Android 15 16KB Page Alignment (`readelf -l *.so`), FGS strict type 예외 처리 반영.
 - **RB 02 (ANR 발생)**: `/data/anr/anr_*`, `adb bugreport`, main thread stack trace (`RUNNABLE`, `BLOCKED`, `NATIVE BinderProxy.transact`) 정밀 해석법 및 Android 15 `getTraceInputStream()` 반영.
 - **RB 03 (Process Death 상태 손실)**: `am kill` vs `am force-stop` 격리 차이, Android 14 Cached Apps Freezer (`REASON_FREEZER`), Android 15 Predictive Back 상태 보존 반영.
 - **RB 04 (권한 거부/실패)**: `cmd appops get/set`, Android 14 Partial Media Access (`READ_MEDIA_VISUAL_USER_SELECTED`), Android 16 Embedded PhotoPicker API 반영.
-- **RB 05 (백그라운드 작업 지연)**: `dumpsys jobscheduler/alarm`, Standby Bucket 테스트, Android 14 UIDT job requirement, Android 15 FGS 6시간 누적 타임아웃 반영.
+- **RB 05 (백그라운드 작업 지연)**: `dumpsys jobscheduler/alarm`, Standby Bucket 테스트, Android 14 UIDT job requirement, Android 15 FGS 6 시간 누적 타임아웃 반영.
 - **RB 06 (알림 미표시)**: `dumpsys notification` 파싱, FCM verbose logging, Android 14 BAL 제약, Android 15 Notification Cooldown 반영.
 - **RB 07 (화면 끊김/Jank)**: `dumpsys gfxinfo framestats`, Perfetto System Trace capture, Android 14 Macrobenchmark `frameOverrunMs`, 16KB memory page alignment 반영.
 - **RB 08 (설치/업데이트 실패)**: `apksigner verify`, Android 14 `INSTALL_FAILED_DEPRECATED_SDK_VERSION`, Update Ownership, Android 15 16KB page alignment 반영.
 
-**최종 상태**: 8개 Runbook 모두 100% 상대경로 링크 정상(Broken 0건), 표준 10단계 양식 준수, Mermaid 흐름도 및 CLI 진단 신호 구비 완료.
+**최종 상태**: 8 개 Runbook 모두 100% 상대경로 링크 정상(Broken 0 건), 표준 10 단계 양식 준수, Mermaid 흐름도 및 CLI 진단 신호 구비 완료.
 
-**진행 기록(2026-08-04): Phase 3 Worked Examples (8개) 고도화 및 정밀 감사 완료.**
-`00_foundations/worked-examples/`의 8개 실전 종합 사례 문서 전체에 대해 2개 Subagent를 병렬 투입하여 4계층(UI → App Framework → System Server → Kernel/Hardware) 파이프라인 정규화, Kotlin/Java/C++ 예시 코드 보강, Android 14/15/16 최신 시스템 메커니즘 반영 및 성공 경로 vs 실패 분기 정량적 비교표 작성을 완수했다.
+**진행 기록(2026-08-04): Phase 3 Worked Examples (8 개) 고도화 및 정밀 감사 완료.**
+
+`00_foundations/worked-examples/` 의 8 개 실전 종합 사례 문서 전체에 대해 2 개 Subagent 를 병렬 투입하여 4 계층(UI → App Framework → System Server → Kernel/Hardware) 파이프라인 정규화, Kotlin/Java/C++ 예시 코드 보강, Android 14/15/16 최신 시스템 메커니즘 반영 및 성공 경로 vs 실패 분기 정량적 비교표 작성을 완수했다.
 
 - **WE 01 (App Icon Tap to First Frame)**: SplashScreen API, Android 15/16 16KB page alignment (`readelf -l`), ART Cloud Profiles, `am start -W` / Perfetto 캡처 반영.
 - **WE 02 (Photo Capture/Preview/Upload)**: CameraX UseCase + AppOps Mute Toggle, Android 14/15 FGS Type (`camera`, `mediaProcessing`), Scoped Storage `IS_PENDING` 반영.
@@ -908,28 +915,29 @@ Author와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 - **WE 05 (Process Death Edit State & Work Recovery)**: Compose `SavedStateHandle` 50KB 제한, Predictive Back Gesture, Room/DataStore persistent SSOT 파이프라인 반영.
 - **WE 06 (Permission Granted but API Fails)**: FGS `location` type 필수 선언, Android 12+ Approximate Location (~3km² 다운샘플링), GNSS Hardware HAL 파워 강등 파이프라인 반영.
 - **WE 07 (Compose Jank to SurfaceFlinger)**: Compose 3-Phase (Composition/Layout/Draw), Macrobenchmark `frameOverrunMs`, Strong Skipping Mode, BufferQueue IPC 반영.
-- **WE 08 (Signed Artifact Play Delivery)**: PMS 3단계 검증 파이프라인, Android 15 NDK 16KB Page Alignment (`max-page-size=65536`), Play App Signing v3 Key Rotation Lineage 반영.
+- **WE 08 (Signed Artifact Play Delivery)**: PMS 3 단계 검증 파이프라인, Android 15 NDK 16KB Page Alignment (`max-page-size=65536`), Play App Signing v3 Key Rotation Lineage 반영.
 
-**최종 상태**: 8개 Worked Example 모두 100% 상대경로 링크 정상(Broken 0건), 다계층 실행 파이프라인 및 성공/실패 비교표 구비 완료.
+**최종 상태**: 8 개 Worked Example 모두 100% 상대경로 링크 정상(Broken 0 건), 다계층 실행 파이프라인 및 성공/실패 비교표 구비 완료.
 
 **다음 단계 결정(2026-08-04):** Phase 9 Topic Synthesis Layer 착수.
 
 #### Phase 9. Topic Synthesis Layer 작성
 
-**배경**: 원자 노트 600개, Learning Spine 12장, Worked Examples 8개, Diagnostic Runbooks 8개가 완비됐으나, "Jetpack Compose를 처음부터 완전히 이해하고 싶다"처럼 **주제 중심으로 진입했을 때 관련 개념 전체를 체계적으로 커버해주는 합성 문서(Topic Synthesis Document)**가 없다. 원자 노트는 모듈화가 잘 돼 있지만 이를 주제별로 조합해주는 글루(Glue) 레이어가 부재한 상태.
+**배경**: 원자 노트 600 개, Learning Spine 12 장, Worked Examples 8 개, Diagnostic Runbooks 8 개가 완비됐으나, "Jetpack Compose 를 처음부터 완전히 이해하고 싶다"처럼 **주제 중심으로 진입했을 때 관련 개념 전체를 체계적으로 커버해주는 합성 문서(Topic Synthesis Document)**가 없다. 원자 노트는 모듈화가 잘 돼 있지만 이를 주제별로 조합해주는 글루(Glue) 레이어가 부재한 상태.
 
 **목적**: `00_foundations/topics/` 폴더에 주제별 합성 문서를 배치한다. 각 문서는:
-- 주제 내 하위 개념을 섹션으로 구조화 (사용자가 slug를 보고 직접 그룹화 결정)
-- 각 섹션마다 3~5줄 개념 설명 + 관련 원자 노트 인라인 요약 + 링크
-- 이 문서 하나로 해당 주제의 80%를 이해할 수 있도록 작성
-- Worked Example·Diagnostic Runbook·Learning Spine으로의 연결 명시
 
-**주제 목록 (21개)**:
+- 주제 내 하위 개념을 섹션으로 구조화 (사용자가 slug 를 보고 직접 그룹화 결정)
+- 각 섹션마다 3~5 줄 개념 설명 + 관련 원자 노트 인라인 요약 + 링크
+- 이 문서 하나로 해당 주제의 80% 를 이해할 수 있도록 작성
+- Worked Example·Diagnostic Runbook·Learning Spine 으로의 연결 명시
+
+**주제 목록 (21 개)**:
 
 | ID | 주제 | 원자 노트 출처 |
 |---|---|---|
 | A1 | Android 부팅과 프로세스 생성 | `01_system_internals/boot-and-runtime` |
-| A2 | Binder와 IPC 완전 이해 | `01_system_internals/ipc-and-process` |
+| A2 | Binder 와 IPC 완전 이해 | `01_system_internals/ipc-and-process` |
 | A3 | 커널·HAL·드라이버 계층 | `01_system_internals/kernel-and-hal` |
 | A4 | 렌더링 파이프라인 (Surface → SurfaceFlinger → 화면) | `01_system_internals/graphics-and-media` |
 | A5 | 네트워크 스택 (ConnectivityService → netd → 커널) | `01_system_internals/connectivity` |
@@ -951,6 +959,7 @@ Author와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 | F2 | 폼 팩터별 계약 (Wear OS / TV / Auto / ChromeOS / XR) | `07_platforms/*` |
 
 **표준 섹션 구조 (각 문서 공통)**:
+
 1. 이 주제를 읽기 전에 알아야 할 것 (prerequisite)
 2. 주제 전체 조망도 (Mermaid 또는 텍스트 구조도)
 3. 하위 개념 섹션들 (사용자 그룹화 결정 기반) — 각 섹션: 개념 설명 + 원자 노트 인라인 요약 + 링크
@@ -958,6 +967,6 @@ Author와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 5. 이 주제와 연결된 Diagnostic Runbook
 6. 더 깊이 들어갈 때 (Learning Spine 해당 장)
 
-**진행 방식**: B2(Jetpack Compose)를 파일럿으로 먼저 작성해 표준 형식 확정 → 사용자 확인 후 나머지 20개 진행.
+**진행 방식**: B2(Jetpack Compose)를 파일럿으로 먼저 작성해 표준 형식 확정 → 사용자 확인 후 나머지 20 개 진행.
 
 **배치 위치**: `00_foundations/topics/` (신규 폴더)
