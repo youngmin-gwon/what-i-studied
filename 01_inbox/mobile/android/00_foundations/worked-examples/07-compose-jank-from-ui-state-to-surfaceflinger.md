@@ -1,31 +1,31 @@
 ---
-title: Compose jank를 UI state에서 SurfaceFlinger까지 좁히는 사례
+title: 07-compose-jank-from-ui-state-to-surfaceflinger
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["Narrowing Compose jank from UI state to SurfaceFlinger"]
-date modified: 2026-08-04 03:10:00 +09:00
+date modified: 2026-08-04 10:28:38 +09:00
 date created: 2026-08-04 03:10:00 +09:00
 ---
 
-## Compose jank를 UI state에서 SurfaceFlinger까지 좁히는 사례
+## Compose jank 를 UI state 에서 SurfaceFlinger 까지 좁히는 사례
 
-이 예시는 Learning Spine 7·11장을 하나의 진단 과정으로 잇는다. 7장에서 다룬 "입력 → UI 상태 → 그리기 명령 → Surface → SurfaceFlinger"라는 파이프라인 전체를 시간축에서 훑어, 11장에서 다룬 "질문에 맞는 도구를 고른다"는 방법론으로 병목을 하나씩 좁힌다.
+이 예시는 Learning Spine 7·11 장을 하나의 진단 과정으로 잇는다. 7 장에서 다룬 "입력 → UI 상태 → 그리기 명령 → Surface → SurfaceFlinger"라는 파이프라인 전체를 시간축에서 훑어, 11 장에서 다룬 "질문에 맞는 도구를 고른다"는 방법론으로 병목을 하나씩 좁힌다.
 
 ### 시작 상태
 
-목록 화면(`LazyColumn`)이 있고, QA가 "빠르게 스크롤하면 화면이 끊긴다"고 리포트했다.
+목록 화면(`LazyColumn`)이 있고, QA 가 "빠르게 스크롤하면 화면이 끊긴다"고 리포트했다.
 
 ### 입력
 
-같은 기기, 같은 빌드, 같은 목록 데이터로 빠른 스크롤 제스처를 반복한다(11장의 "재현 조건 고정" 원칙).
+같은 기기, 같은 빌드, 같은 목록 데이터로 빠른 스크롤 제스처를 반복한다(11 장의 "재현 조건 고정" 원칙).
 
 ### 단계별 흐름
 
-1. **회귀 여부와 재현 조건 고정(11장)**: 먼저 이 문제가 최근 변경으로 새로 생겼는지, 특정 기기·데이터 크기에서만 나타나는지 확인한다. 빌드 타입, 기기 모델, 목록 아이템 수, 냉시작/온시작 조건을 고정해 여러 번 반복 재현한다.
-2. **어느 프레임이 예산을 놓쳤는지 확인(7장 파이프라인)**: Perfetto trace를 열어 `Choreographer#doFrame` 구간 중 예산(예: 60fps 기준 약 16ms)을 넘긴 프레임을 찾는다. 그 프레임의 시간축에서 가장 긴 구간이 파이프라인의 어느 단계에 있는지 본다 — UI thread의 composition/layout/draw인지, RenderThread인지, GPU 작업인지, BufferQueue의 대기인지, SurfaceFlinger/HWC의 합성인지.
-3. **원인이 UI thread라면 recomposition 범위를 의심한다**: trace가 `Composition`/`Layout` 구간에서 시간을 많이 쓴다면, 다음 질문은 "recomposition이 몇 번 일어났는가"가 아니라 "그 recomposition이 실제로 필요한 범위보다 넓은가"다. Recomposition 자체는 자주 일어날 수 있는 정상 동작이며, 횟수만으로 버그라고 단정하지 않는다.
-4. **상태 읽기 위치를 확인한다**: 리스트 아이템의 선택 상태 같은 값을 `LazyColumn`을 감싼 상위 Composable에서 읽고 있다면, 아이템 하나의 선택이 바뀔 때마다 목록 전체가 다시 실행될 수 있다. 상태를 실제로 필요한 하위 Composable(아이템 자신) 가까이로 옮기면 변경 범위가 좁아진다.
-5. **원인이 UI thread가 아니라면 다른 구간을 본다**: RenderThread/GPU 구간이 길면 이미지 디코딩 비용이나 overdraw를 의심한다. `BufferQueue`가 자주 막혀 있으면 producer(앱)와 consumer(SurfaceFlinger) 중 어느 쪽이 느린지 구분한다. SurfaceFlinger/HWC 구간이 길면 레이어 수나 기기가 처리할 수 없는 합성 조합을 의심한다.
-6. **수정 후 같은 조건에서 재측정(11장)**: 코드를 바꾼 뒤에는 Macrobenchmark나 동일한 Perfetto 캡처 절차로 같은 스크롤 시나리오를 다시 측정한다. "코드를 바꿨다"는 사실이 아니라 프레임 드롭 비율의 실제 변화가 개선을 판정하는 기준이다.
+1. **회귀 여부와 재현 조건 고정(11 장)**: 먼저 이 문제가 최근 변경으로 새로 생겼는지, 특정 기기·데이터 크기에서만 나타나는지 확인한다. 빌드 타입, 기기 모델, 목록 아이템 수, 냉시작/온시작 조건을 고정해 여러 번 반복 재현한다.
+2. **어느 프레임이 예산을 놓쳤는지 확인(7 장 파이프라인)**: Perfetto trace 를 열어 `Choreographer#doFrame` 구간 중 예산(예: 60fps 기준 약 16ms)을 넘긴 프레임을 찾는다. 그 프레임의 시간축에서 가장 긴 구간이 파이프라인의 어느 단계에 있는지 본다 — UI thread 의 composition/layout/draw 인지, RenderThread 인지, GPU 작업인지, BufferQueue 의 대기인지, SurfaceFlinger/HWC 의 합성인지.
+3. **원인이 UI thread 라면 recomposition 범위를 의심한다**: trace 가 `Composition`/`Layout` 구간에서 시간을 많이 쓴다면, 다음 질문은 "recomposition 이 몇 번 일어났는가"가 아니라 "그 recomposition 이 실제로 필요한 범위보다 넓은가"다. Recomposition 자체는 자주 일어날 수 있는 정상 동작이며, 횟수만으로 버그라고 단정하지 않는다.
+4. **상태 읽기 위치를 확인한다**: 리스트 아이템의 선택 상태 같은 값을 `LazyColumn` 을 감싼 상위 Composable 에서 읽고 있다면, 아이템 하나의 선택이 바뀔 때마다 목록 전체가 다시 실행될 수 있다. 상태를 실제로 필요한 하위 Composable(아이템 자신) 가까이로 옮기면 변경 범위가 좁아진다.
+5. **원인이 UI thread 가 아니라면 다른 구간을 본다**: RenderThread/GPU 구간이 길면 이미지 디코딩 비용이나 overdraw 를 의심한다. `BufferQueue` 가 자주 막혀 있으면 producer(앱)와 consumer(SurfaceFlinger) 중 어느 쪽이 느린지 구분한다. SurfaceFlinger/HWC 구간이 길면 레이어 수나 기기가 처리할 수 없는 합성 조합을 의심한다.
+6. **수정 후 같은 조건에서 재측정(11 장)**: 코드를 바꾼 뒤에는 Macrobenchmark 나 동일한 Perfetto 캡처 절차로 같은 스크롤 시나리오를 다시 측정한다. "코드를 바꿨다"는 사실이 아니라 프레임 드롭 비율의 실제 변화가 개선을 판정하는 기준이다.
 
 ### 성공 결과
 
@@ -33,19 +33,19 @@ date created: 2026-08-04 03:10:00 +09:00
 
 ### 관찰 가능한 신호
 
-- Perfetto trace의 `Choreographer#doFrame` 구간과 그 하위의 UI thread/RenderThread/GPU 구간 길이.
-- Android Studio Layout Inspector 또는 Compose 컴파일러의 recomposition count 오버레이로 어떤 Composable이 얼마나 자주 재실행되는지 확인한다(횟수 자체가 아니라 그 실행이 무거운지가 핵심).
-- `adb shell dumpsys gfxinfo <pkg>`로 프레임 통계 스냅샷을 확인한다.
-- Macrobenchmark의 프레임 타이밍 지표로 수정 전후를 같은 조건에서 비교한다.
+- Perfetto trace 의 `Choreographer#doFrame` 구간과 그 하위의 UI thread/RenderThread/GPU 구간 길이.
+- Android Studio Layout Inspector 또는 Compose 컴파일러의 recomposition count 오버레이로 어떤 Composable 이 얼마나 자주 재실행되는지 확인한다(횟수 자체가 아니라 그 실행이 무거운지가 핵심).
+- `adb shell dumpsys gfxinfo <pkg>` 로 프레임 통계 스냅샷을 확인한다.
+- Macrobenchmark 의 프레임 타이밍 지표로 수정 전후를 같은 조건에서 비교한다.
 
 ### 실패 분기: recomposition 횟수만 보고 잘못 진단한다
 
 1. 개발자가 recomposition count 오버레이에서 목록 아이템들이 자주 다시 실행되는 것을 본다.
-2. "recomposition이 너무 많다"고 결론짓고, 무작정 여러 곳에 `remember`를 추가하거나 상태를 상위로 끌어올려 업데이트 빈도를 줄이려 시도한다.
-3. 그러나 실제로는 각 recomposition이 가벼운 작업(텍스트 색상 변경 하나)이었고, 진짜 프레임 드롭의 원인은 별도 구간(예: 매 프레임 다시 디코딩되는 이미지)에 있었다.
-4. recomposition 횟수를 줄이는 처방은 증상과 무관했으므로 스크롤 jank는 그대로 남는다.
+2. "recomposition 이 너무 많다"고 결론짓고, 무작정 여러 곳에 `remember` 를 추가하거나 상태를 상위로 끌어올려 업데이트 빈도를 줄이려 시도한다.
+3. 그러나 실제로는 각 recomposition 이 가벼운 작업(텍스트 색상 변경 하나)이었고, 진짜 프레임 드롭의 원인은 별도 구간(예: 매 프레임 다시 디코딩되는 이미지)에 있었다.
+4. recomposition 횟수를 줄이는 처방은 증상과 무관했으므로 스크롤 jank 는 그대로 남는다.
 
-이 실패가 보여주는 것은, trace로 실제 병목 구간을 먼저 확인하지 않고 눈에 보이는 지표(recomposition count) 하나만 보고 처방을 정하면 원인과 무관한 곳을 고치게 된다는 것이다. 7장의 파이프라인 모델은 "UI thread가 느린가, 그 아래가 느린가"를 먼저 나누라고 요구하고, 11장의 방법론은 그 판단을 trace라는 시간축 증거로 하라고 요구한다.
+이 실패가 보여주는 것은, trace 로 실제 병목 구간을 먼저 확인하지 않고 눈에 보이는 지표(recomposition count) 하나만 보고 처방을 정하면 원인과 무관한 곳을 고치게 된다는 것이다. 7 장의 파이프라인 모델은 "UI thread 가 느린가, 그 아래가 느린가"를 먼저 나누라고 요구하고, 11 장의 방법론은 그 판단을 trace 라는 시간축 증거로 하라고 요구한다.
 
 ### 코드 예시
 
@@ -98,4 +98,4 @@ fun ItemRow(item: Item, isSelectedProvider: () -> Boolean) {
 - [Compose performance best practices: defer reads](https://developer.android.com/develop/ui/compose/performance/bestpractices#defer-reads)
 - [Inspect trace events with the System Trace app](https://developer.android.com/topic/performance/tracing)
 
-검증일: 2026-08-04. 이 예시는 7·11장에서 이미 원문 대조를 마친 렌더링 파이프라인·진단 도구 원자 노트를 재사용했다.
+검증일: 2026-08-04. 이 예시는 7·11 장에서 이미 원문 대조를 마친 렌더링 파이프라인·진단 도구 원자 노트를 재사용했다.

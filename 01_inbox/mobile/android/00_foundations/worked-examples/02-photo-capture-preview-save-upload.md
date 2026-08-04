@@ -1,18 +1,18 @@
 ---
-title: 사진 촬영, preview, 저장, 업로드까지
+title: 02-photo-capture-preview-save-upload
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["Photo capture, preview, save, and upload"]
-date modified: 2026-08-04 02:20:00 +09:00
+date modified: 2026-08-04 10:29:00 +09:00
 date created: 2026-08-04 02:20:00 +09:00
 ---
 
 ## 사진 촬영, preview, 저장, 업로드까지
 
-이 예시는 Learning Spine 7·8·9·10장을 하나의 기능으로 잇는다. 카메라라는 기기 기능의 발견과 권한 gate(9·10장), 프리뷰가 화면에 나타나는 렌더링 경로(7장), 촬영된 사진을 로컬에 먼저 저장하고 서버로는 지연된 지속 작업으로 올리는 데이터 계약(8장)을 연결한다.
+이 예시는 Learning Spine 7·8·9·10 장을 하나의 기능으로 잇는다. 카메라라는 기기 기능의 발견과 권한 gate(9·10 장), 프리뷰가 화면에 나타나는 렌더링 경로(7 장), 촬영된 사진을 로컬에 먼저 저장하고 서버로는 지연된 지속 작업으로 올리는 데이터 계약(8 장)을 연결한다.
 
 ### 시작 상태
 
-앱에 "사진 촬영" 화면이 있다. `CAMERA` 런타임 권한은 아직 승인되지 않았을 수 있다(dangerous permission, 9장).
+앱에 "사진 촬영" 화면이 있다. `CAMERA` 런타임 권한은 아직 승인되지 않았을 수 있다(dangerous permission, 9 장).
 
 ### 입력
 
@@ -20,34 +20,34 @@ date created: 2026-08-04 02:20:00 +09:00
 
 ### 단계별 흐름
 
-1. **권한 gate(9장)**: 화면 진입 시 앱은 `CAMERA` 권한이 이미 grant 상태인지 확인한다. 없으면 시스템 다이얼로그로 요청한다. 승인되더라도 이것이 곧 카메라를 열 수 있다는 뜻은 아니다 — AppOps가 실행 시점에 별도로 거부할 수 있다(9장 5절).
-2. **기능 발견(10장)**: 앱은 `CameraManager.getCameraIdList()`로 사용 가능한 카메라를, `getCameraCharacteristics()`로 각 카메라의 해상도·렌즈 방향을 조회한다. `registerAvailabilityCallback()`으로 다른 앱이 카메라를 점유했는지 사전에 확인할 수 있다. 카메라는 한 번에 한 클라이언트만 열 수 있는 독점 자원이다.
-3. **Preview 렌더링(7장)**: `openCamera()`가 성공하면 카메라 세션은 `PreviewView`(또는 `SurfaceView`)에 연결된 Surface로 프레임을 직접 전달한다. 이 경로는 앱이 매 프레임을 CPU 배열로 복사하지 않는, 7장에서 다룬 Surface/BufferQueue 계약을 그대로 따른다. 프리뷰 화면에 보이는 실시간 영상은 이 Surface가 SurfaceFlinger의 합성 대상 레이어가 된 결과다.
-4. **촬영**: 셔터 탭은 별도의 `ImageReader` output Surface로 정지 이미지를 캡처하도록 요청한다. 캡처된 `Image`는 반드시 acquire 후 명시적으로 닫아야 한다. 열어둔 채로 방치하면 reader의 이미지 큐가 고갈돼 다음 프레임 처리가 막힐 수 있다.
-5. **로컬 저장(8장)**: 캡처된 이미지는 갤러리에 공개돼야 하는 공유 미디어이므로 앱 전용 저장소가 아니라 `MediaStore`에 저장한다. `IS_PENDING=1`로 먼저 항목을 만들어 쓰기 중인 파일이 사용자에게 노출되지 않게 하고, 인코딩이 끝나면 `IS_PENDING=0`으로 갱신해 공개 상태로 전환한다. 이 저장은 로컬에서 즉시 끝나는 동작이며, 8장에서 다룬 "로컬 우선 쓰기" 원칙을 따른다.
-6. **업로드는 화면 lifetime과 분리한다(6·8장)**: 사진을 서버에도 올려야 한다면, 이 업로드 요청은 화면이 사라져도 이어져야 하는 작업이다. 화면의 `viewModelScope`에 묶지 않고 WorkManager 같은 durable scheduler에 위임한다. 저장된 사진의 URI와 "아직 서버에 반영되지 않음"이라는 대기 상태를 로컬 저장소에 함께 기록한다(8장의 lazy write/outbox 패턴).
-7. **네트워크가 돌아오면 업로드 실행**: WorkManager가 네트워크 constraint를 만족하는 시점에 업로드 Worker를 실행한다. 성공하면 대기 상태를 지우고, 실패하면 일시 오류인지 영구 오류인지 구분해 재시도하거나 사용자에게 알린다.
+1. **권한 gate(9 장)**: 화면 진입 시 앱은 `CAMERA` 권한이 이미 grant 상태인지 확인한다. 없으면 시스템 다이얼로그로 요청한다. 승인되더라도 이것이 곧 카메라를 열 수 있다는 뜻은 아니다 — AppOps 가 실행 시점에 별도로 거부할 수 있다(9 장 5 절).
+2. **기능 발견(10 장)**: 앱은 `CameraManager.getCameraIdList()` 로 사용 가능한 카메라를, `getCameraCharacteristics()` 로 각 카메라의 해상도·렌즈 방향을 조회한다. `registerAvailabilityCallback()` 으로 다른 앱이 카메라를 점유했는지 사전에 확인할 수 있다. 카메라는 한 번에 한 클라이언트만 열 수 있는 독점 자원이다.
+3. **Preview 렌더링(7 장)**: `openCamera()` 가 성공하면 카메라 세션은 `PreviewView`(또는 `SurfaceView`)에 연결된 Surface 로 프레임을 직접 전달한다. 이 경로는 앱이 매 프레임을 CPU 배열로 복사하지 않는, 7 장에서 다룬 Surface/BufferQueue 계약을 그대로 따른다. 프리뷰 화면에 보이는 실시간 영상은 이 Surface 가 SurfaceFlinger 의 합성 대상 레이어가 된 결과다.
+4. **촬영**: 셔터 탭은 별도의 `ImageReader` output Surface 로 정지 이미지를 캡처하도록 요청한다. 캡처된 `Image` 는 반드시 acquire 후 명시적으로 닫아야 한다. 열어둔 채로 방치하면 reader 의 이미지 큐가 고갈돼 다음 프레임 처리가 막힐 수 있다.
+5. **로컬 저장(8 장)**: 캡처된 이미지는 갤러리에 공개돼야 하는 공유 미디어이므로 앱 전용 저장소가 아니라 `MediaStore` 에 저장한다. `IS_PENDING=1` 로 먼저 항목을 만들어 쓰기 중인 파일이 사용자에게 노출되지 않게 하고, 인코딩이 끝나면 `IS_PENDING=0` 으로 갱신해 공개 상태로 전환한다. 이 저장은 로컬에서 즉시 끝나는 동작이며, 8 장에서 다룬 "로컬 우선 쓰기" 원칙을 따른다.
+6. **업로드는 화면 lifetime 과 분리한다(6·8 장)**: 사진을 서버에도 올려야 한다면, 이 업로드 요청은 화면이 사라져도 이어져야 하는 작업이다. 화면의 `viewModelScope` 에 묶지 않고 WorkManager 같은 durable scheduler 에 위임한다. 저장된 사진의 URI 와 "아직 서버에 반영되지 않음"이라는 대기 상태를 로컬 저장소에 함께 기록한다(8 장의 lazy write/outbox 패턴).
+7. **네트워크가 돌아오면 업로드 실행**: WorkManager 가 네트워크 constraint 를 만족하는 시점에 업로드 Worker 를 실행한다. 성공하면 대기 상태를 지우고, 실패하면 일시 오류인지 영구 오류인지 구분해 재시도하거나 사용자에게 알린다.
 
 ### 성공 결과
 
-화면은 로컬 `MediaStore` 항목을 관찰하는 Flow를 통해 촬영된 사진을 즉시 보여준다. 업로드는 별도로 진행되며, 완료되면 로컬에 기록해둔 "대기 중" 상태가 사라지는 것으로 사용자에게 반영된다.
+화면은 로컬 `MediaStore` 항목을 관찰하는 Flow 를 통해 촬영된 사진을 즉시 보여준다. 업로드는 별도로 진행되며, 완료되면 로컬에 기록해둔 "대기 중" 상태가 사라지는 것으로 사용자에게 반영된다.
 
 ### 관찰 가능한 신호
 
-- `adb shell dumpsys media.camera`로 카메라 서비스의 현재 활성 클라이언트와 점유 상태를 확인한다.
-- 카메라 열기 실패는 logcat의 `CameraAccessException` 에러 코드로 원인(권한 없음, 다른 앱이 점유 중, 비활성화)을 구분한다.
-- `WorkInfo.state`와 `adb shell dumpsys jobscheduler`로 업로드 작업이 실제로 예약·실행됐는지 확인한다.
-- `dumpsys appops`로 `CAMERA` op의 모드가 permission grant 상태와 별개로 거부돼 있는지 확인한다.
+- `adb shell dumpsys media.camera` 로 카메라 서비스의 현재 활성 클라이언트와 점유 상태를 확인한다.
+- 카메라 열기 실패는 logcat 의 `CameraAccessException` 에러 코드로 원인(권한 없음, 다른 앱이 점유 중, 비활성화)을 구분한다.
+- `WorkInfo.state` 와 `adb shell dumpsys jobscheduler` 로 업로드 작업이 실제로 예약·실행됐는지 확인한다.
+- `dumpsys appops` 로 `CAMERA` op 의 모드가 permission grant 상태와 별개로 거부돼 있는지 확인한다.
 
 ### 실패 분기: 카메라를 열 수 없다
 
 셔터를 누르기 전, `openCamera()` 자체가 실패하는 경우를 생각해 보자. 원인은 최소 세 가지로 갈린다.
 
-1. **권한이 없다.** `CAMERA` 런타임 권한이 거부됐다면 `openCamera()`는 `SecurityException`으로 실패한다.
-2. **권한은 있지만 AppOps가 막는다.** 권한은 granted 상태인데도 사용자가 설정에서 이 앱의 카메라 접근을 별도로 차단했다면, 권한 검사만 보고는 원인을 알 수 없다.
-3. **다른 앱이 이미 카메라를 점유 중이다.** 이 경우 권한·AppOps와는 무관하게 `ERROR_CAMERA_IN_USE`나 `onDisconnected()`로 실패한다.
+1. **권한이 없다.** `CAMERA` 런타임 권한이 거부됐다면 `openCamera()` 는 `SecurityException` 으로 실패한다.
+2. **권한은 있지만 AppOps 가 막는다.** 권한은 granted 상태인데도 사용자가 설정에서 이 앱의 카메라 접근을 별도로 차단했다면, 권한 검사만 보고는 원인을 알 수 없다.
+3. **다른 앱이 이미 카메라를 점유 중이다.** 이 경우 권한·AppOps 와는 무관하게 `ERROR_CAMERA_IN_USE` 나 `onDisconnected()` 로 실패한다.
 
-세 경우 모두 사용자 화면에는 "카메라를 열 수 없습니다"로 보일 수 있지만, 조사 순서는 다르다. 먼저 권한 grant 상태(9장), 그다음 AppOps 모드(9장), 마지막으로 카메라 서비스의 점유 상태(`dumpsys media.camera`)를 차례로 좁혀야 한다.
+세 경우 모두 사용자 화면에는 "카메라를 열 수 없습니다"로 보일 수 있지만, 조사 순서는 다르다. 먼저 권한 grant 상태(9 장), 그다음 AppOps 모드(9 장), 마지막으로 카메라 서비스의 점유 상태(`dumpsys media.camera`)를 차례로 좁혀야 한다.
 
 ### 코드 예시
 
@@ -99,4 +99,4 @@ workManager.enqueueUniqueWork("upload_${uri}", ExistingWorkPolicy.KEEP, uploadRe
 - [CameraX overview](https://developer.android.com/media/camera/camerax)
 - [Camera2 capture sessions and requests](https://developer.android.com/media/camera/camera2/capture-sessions-requests)
 
-검증일: 2026-08-04. 카메라 API의 세부 오류 코드와 MediaStore 열 이름은 API 레벨에 따라 달라질 수 있으므로 실제 구현 시점에 다시 확인한다.
+검증일: 2026-08-04. 카메라 API 의 세부 오류 코드와 MediaStore 열 이름은 API 레벨에 따라 달라질 수 있으므로 실제 구현 시점에 다시 확인한다.

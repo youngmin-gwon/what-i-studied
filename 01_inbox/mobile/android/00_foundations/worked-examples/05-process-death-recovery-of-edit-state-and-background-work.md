@@ -1,14 +1,14 @@
 ---
-title: process death 뒤 편집 상태와 background work 복구
+title: 05-process-death-recovery-of-edit-state-and-background-work
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["Recovering edit state and background work after process death"]
-date modified: 2026-08-04 02:50:00 +09:00
+date modified: 2026-08-04 10:29:06 +09:00
 date created: 2026-08-04 02:50:00 +09:00
 ---
 
 ## process death 뒤 편집 상태와 background work 복구
 
-이 예시는 Learning Spine 4·5·6·8장을 하나의 사건으로 잇는다. 화면 상태와 백그라운드 작업이라는 서로 다른 두 종류의 상태가, process death라는 같은 사건 앞에서 왜 서로 다르게(하나는 사라지고 하나는 남아) 반응하는지를 보여준다.
+이 예시는 Learning Spine 4·5·6·8 장을 하나의 사건으로 잇는다. 화면 상태와 백그라운드 작업이라는 서로 다른 두 종류의 상태가, process death 라는 같은 사건 앞에서 왜 서로 다르게(하나는 사라지고 하나는 남아) 반응하는지를 보여준다.
 
 ### 시작 상태
 
@@ -17,15 +17,15 @@ date created: 2026-08-04 02:50:00 +09:00
 ### 입력
 
 1. 사용자가 "사진 첨부"를 눌러 사진 선택 화면(다른 앱 또는 시스템 picker)으로 이동한다. 이 앱은 이제 background 상태다.
-2. 사진을 고르는 동안 시스템이 메모리 확보를 위해 이 앱의 프로세스를 회수한다(5장의 process death).
+2. 사진을 고르는 동안 시스템이 메모리 확보를 위해 이 앱의 프로세스를 회수한다(5 장의 process death).
 
 ### 단계별 흐름
 
-1. **화면을 떠나기 전, 작성 중이던 텍스트는 어디에 있었는가(5장)**: 이 텍스트가 `ViewModel`의 필드에만 있었다면, process death와 함께 사라진다. `ViewModel`은 configuration change는 견디지만 process death는 견디지 못하기 때문이다. 그래서 이 앱은 사용자가 입력할 때마다 draft 텍스트를 `SavedStateHandle`에도 반영해뒀어야 한다 — 5장의 실무 규칙("화면이 끝날 때 한 번에 저장한다"는 설계는 process death 경로에서 실행되지 않을 수 있다)이 여기서 그대로 적용된다.
-2. **사진 첨부와 함께 업로드가 이미 시작됐다면(6장)**: 만약 업로드 요청이 화면의 `viewModelScope`에 묶인 coroutine으로 시작됐다면, 이것도 process death와 함께 취소된다. 그래서 이런 지속 작업은 애초에 화면 lifetime이 아니라 WorkManager 같은 durable scheduler에 위임돼 있어야 한다. WorkManager는 요청을 메모리가 아니라 내부 DB에 저장하므로, 프로세스가 사라져도 이 요청 자체는 시스템에 남아 있다.
-3. **재진입(4장)**: 사용자가 사진을 고르고 앱으로 돌아오면, 그 결과 Intent는 새로 만들어진 프로세스의 Activity로 전달된다. 이 경로는 4장에서 다룬 프로세스 상태 확인 → Zygote fork → `ActivityThread` attach 흐름을 다시 거친다. 즉 겉보기엔 "돌아온 것"처럼 보여도 실제로는 새 프로세스와 새 컴포넌트 인스턴스다.
-4. **화면 상태 복원**: 재생성된 화면은 `SavedStateHandle`에 저장해둔 draft 텍스트를 읽어 입력창에 다시 채운다. `ViewModel`에만 있던 값(예: 아직 저장하지 않은 계산 결과, 임시 캐시)은 복원되지 않는다.
-5. **업로드 상태 관찰(8장)**: 화면은 업로드 작업의 `WorkInfo`를 관찰하는 Flow를 다시 구독한다. 이 작업이 process death와 무관하게 시스템에 남아 있었으므로, 화면은 "작업이 여전히 진행 중이다" 또는 "이미 완료됐다"는 실제 최신 상태를 즉시 알 수 있다.
+1. **화면을 떠나기 전, 작성 중이던 텍스트는 어디에 있었는가(5 장)**: 이 텍스트가 `ViewModel` 의 필드에만 있었다면, process death 와 함께 사라진다. `ViewModel` 은 configuration change 는 견디지만 process death 는 견디지 못하기 때문이다. 그래서 이 앱은 사용자가 입력할 때마다 draft 텍스트를 `SavedStateHandle` 에도 반영해뒀어야 한다 — 5 장의 실무 규칙("화면이 끝날 때 한 번에 저장한다"는 설계는 process death 경로에서 실행되지 않을 수 있다)이 여기서 그대로 적용된다.
+2. **사진 첨부와 함께 업로드가 이미 시작됐다면(6 장)**: 만약 업로드 요청이 화면의 `viewModelScope` 에 묶인 coroutine 으로 시작됐다면, 이것도 process death 와 함께 취소된다. 그래서 이런 지속 작업은 애초에 화면 lifetime 이 아니라 WorkManager 같은 durable scheduler 에 위임돼 있어야 한다. WorkManager 는 요청을 메모리가 아니라 내부 DB 에 저장하므로, 프로세스가 사라져도 이 요청 자체는 시스템에 남아 있다.
+3. **재진입(4 장)**: 사용자가 사진을 고르고 앱으로 돌아오면, 그 결과 Intent 는 새로 만들어진 프로세스의 Activity 로 전달된다. 이 경로는 4 장에서 다룬 프로세스 상태 확인 → Zygote fork → `ActivityThread` attach 흐름을 다시 거친다. 즉 겉보기엔 "돌아온 것"처럼 보여도 실제로는 새 프로세스와 새 컴포넌트 인스턴스다.
+4. **화면 상태 복원**: 재생성된 화면은 `SavedStateHandle` 에 저장해둔 draft 텍스트를 읽어 입력창에 다시 채운다. `ViewModel` 에만 있던 값(예: 아직 저장하지 않은 계산 결과, 임시 캐시)은 복원되지 않는다.
+5. **업로드 상태 관찰(8 장)**: 화면은 업로드 작업의 `WorkInfo` 를 관찰하는 Flow 를 다시 구독한다. 이 작업이 process death 와 무관하게 시스템에 남아 있었으므로, 화면은 "작업이 여전히 진행 중이다" 또는 "이미 완료됐다"는 실제 최신 상태를 즉시 알 수 있다.
 
 ### 성공 결과
 
@@ -33,19 +33,19 @@ date created: 2026-08-04 02:50:00 +09:00
 
 ### 관찰 가능한 신호
 
-- Logcat에서 새 프로세스 ID가 이전과 다른지 확인하면, 정말 process death가 있었는지(단순 화면 재구성이 아닌지) 구분할 수 있다.
-- `SavedStateHandle`에 저장된 키와 그 값을 로그로 남기면 복원된 값과 유실된 값을 구분할 수 있다.
-- `WorkInfo.state`와 `runAttemptCount`로 업로드 작업이 실제로 계속됐는지, 중간에 재시도가 있었는지 확인한다.
-- 개발 중에는 "활동 유지 안함" 개발자 옵션이나 `adb shell am kill <package>`로 이 시나리오를 의도적으로 재현할 수 있다.
+- Logcat 에서 새 프로세스 ID 가 이전과 다른지 확인하면, 정말 process death 가 있었는지(단순 화면 재구성이 아닌지) 구분할 수 있다.
+- `SavedStateHandle` 에 저장된 키와 그 값을 로그로 남기면 복원된 값과 유실된 값을 구분할 수 있다.
+- `WorkInfo.state` 와 `runAttemptCount` 로 업로드 작업이 실제로 계속됐는지, 중간에 재시도가 있었는지 확인한다.
+- 개발 중에는 "활동 유지 안함" 개발자 옵션이나 `adb shell am kill <package>` 로 이 시나리오를 의도적으로 재현할 수 있다.
 
 ### 실패 분기: draft 텍스트가 사라진다
 
-1. 개발자가 draft 텍스트를 `ViewModel`의 `MutableStateFlow`에만 저장하고 `SavedStateHandle`에는 반영하지 않았다고 하자.
-2. 사용자가 사진을 고르는 동안 process death가 일어난다.
-3. 앱으로 돌아오면 재생성된 `ViewModel`은 초깃값(빈 문자열)으로 시작한다.
-4. 업로드는 WorkManager에 위임돼 있었으므로 정상적으로 이어지지만, 정작 사용자가 공들여 쓴 글은 사라져 있다.
+1. 개발자가 draft 텍스트를 `ViewModel` 의 `MutableStateFlow` 에만 저장하고 `SavedStateHandle` 에는 반영하지 않았다고 하자.
+2. 사용자가 사진을 고르는 동안 process death 가 일어난다.
+3. 앱으로 돌아오면 재생성된 `ViewModel` 은 초깃값(빈 문자열)으로 시작한다.
+4. 업로드는 WorkManager 에 위임돼 있었으므로 정상적으로 이어지지만, 정작 사용자가 공들여 쓴 글은 사라져 있다.
 
-이 실패는 "화면 상태"와 "백그라운드 작업"이 같은 사건(process death) 앞에서 반드시 같은 운명을 겪지 않는다는 것을 보여준다. 업로드가 안전했다는 사실이 텍스트도 안전했다는 것을 보장하지 않는다. 두 상태는 각각 다른 저장 계층(`SavedStateHandle` vs WorkManager의 영속 DB)에 독립적으로 책임져야 한다.
+이 실패는 "화면 상태"와 "백그라운드 작업"이 같은 사건(process death) 앞에서 반드시 같은 운명을 겪지 않는다는 것을 보여준다. 업로드가 안전했다는 사실이 텍스트도 안전했다는 것을 보장하지 않는다. 두 상태는 각각 다른 저장 계층(`SavedStateHandle` vs WorkManager 의 영속 DB)에 독립적으로 책임져야 한다.
 
 ### 코드 예시
 
@@ -101,4 +101,4 @@ class ComposePostViewModel(
 - [Activity state changes](https://developer.android.com/guide/components/activities/state-changes)
 - [Persistent work with WorkManager](https://developer.android.com/develop/background-work/background-tasks/persistent)
 
-검증일: 2026-08-04. 이 예시는 Learning Spine 5·6·8장에서 이미 원문 대조를 마친 인용을 재사용했다.
+검증일: 2026-08-04. 이 예시는 Learning Spine 5·6·8 장에서 이미 원문 대조를 마친 인용을 재사용했다.
