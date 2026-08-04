@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [SELinux MAC policy](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/selinux-enforces-mac-with-domain-type-policy.md)
-- [SELinux boundary policy](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/selinux-policy-controls-binder-service-and-file-boundaries.md)
+- [SELinux MAC policy](../../../01_system_internals/kernel-and-hal/kernel-contracts/selinux-enforces-mac-with-domain-type-policy.md)
+- [SELinux boundary policy](../../../01_system_internals/kernel-and-hal/kernel-contracts/selinux-policy-controls-binder-service-and-file-boundaries.md)

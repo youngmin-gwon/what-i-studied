@@ -1,85 +1,65 @@
 ---
 title: gradle-project-and-module-dsl-have-different-responsibilities
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:35 +09:00
+tags: ["android", "gradle", "dsl"]
+aliases: ["Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## Gradle 프로젝트와 모듈 DSL 은 서로 다른 책임을 가진다
+## Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+Gradle 멀티모듈 아키텍처는 영역별로 엄격하게 분리된 설정 파일 스코프를 유지한다:
+1. **`settings.gradle.kts` (Initialization Phase)**: 전체 프로젝트의 구조(`include(":app", ":feature:login")`), 저장소 레포지토리 관리(`dependencyResolutionManagement`), 및 빌드 스코프 플러그인(`pluginManagement`)을 정의한다.
+2. **Root `build.gradle.kts` (Root Project Scope)**: 전체 모듈에 공통 적용되는 플러그인 버전 선언(`apply false`) 및 루트 단독 태스크(clean, detektAll)만 담당한다. 모듈 간 강결합을 유발하는 `allprojects {}` / `subprojects {}` 사용은 금지된다.
+3. **Module `build.gradle.kts` (Module Scope)**: 특정 모듈 고유의 플러그인 적용, 의존성 선언(`dependencies {}`), 및 Android 도메인 컴파일 설정(`android {}`)을 전담한다.
 
-관련 지도: [Gradle 빌드 계약](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-build-contracts.md)
+```mermaid
+flowchart TD
+    Settings["settings.gradle.kts (Includes & Repos)"] --> RootBuild["Root build.gradle.kts (Plugin Declarations)"]
+    RootBuild --> AppBuild["app/build.gradle.kts (App Logic & AGP)"]
+    RootBuild --> FeatureBuild["feature/login/build.gradle.kts (Library Logic)"]
+```
 
-관련 노트: [Android Gradle Plugin은 Android 빌드 규칙을 Gradle에 추가한다](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/android-gradle-plugin-adds-android-build-rules-to-gradle.md), [Version Catalog는 의존성 좌표와 플러그인 좌표의 이름표다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/version-catalog-names-dependency-and-plugin-coordinates.md)
-
-### 파일별 책임
-
-프로젝트 수준은 빌드 전체를 조정하고, 모듈 수준은 실제 Android 산출물을 구성한다.
-
-두 수준의 설정을 섞으면 플러그인 적용 순서와 변형별 값의 소유자가 불명확해진다.
-
-### `settings.gradle.kts`
-
-`pluginManagement` 와 `dependencyResolutionManagement` 에서 저장소 정책을 정할 수 있다.
-
-`include(":app")` 처럼 빌드에 참여할 모듈을 선언하며, 모듈의 `build.gradle.kts` 를 직접 구성하지는 않는다.
-
-### 루트 `build.gradle.kts`
-
-루트에서는 플러그인을 버전과 함께 선언하고 `apply false` 로 모듈이 선택해 적용하도록 만들 수 있다.
-
+### 코드 예시 (settings.gradle.kts & build.gradle.kts)
 ```kotlin
+// settings.gradle.kts
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "MyAwesomeApp"
+include(":app")
+include(":core:designsystem")
+
+// Root build.gradle.kts
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
 }
 ```
 
-`apply false` 는 해당 플러그인의 DSL 을 루트에 적용한다는 뜻이 아니라, 플러그인 해석을 준비한다는 뜻이다.
+### 관측 가능 증거 (Observable Evidence)
+Gradle 초기화 및 프로젝트 수집 결과를 다음 CLI 명령으로 관측할 수 있다:
 
-실제 Android 앱 모듈은 자신의 `plugins` 블록에서 플러그인을 적용해야 한다.
+```bash
+./gradlew projects
 
-### 모듈 `build.gradle.kts`
-
-```kotlin
-plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-}
-
-android {
-    namespace = "com.example.app"
-    compileSdk = <현재 프로젝트 기준>
-    defaultConfig {
-        applicationId = "com.example.app"
-        minSdk = 26
-        targetSdk = <현재 프로젝트 기준>
-    }
-}
+# Output Example:
+# Root project 'MyAwesomeApp'
+# +--- Project ':app'
+# \--- Project ':core:designsystem'
 ```
 
-앱 플러그인은 APK/AAB 와 앱 전용 DSL 을, 라이브러리 플러그인은 AAR 과 라이브러리 전용 DSL 을 제공한다.
-
-`namespace` 는 생성되는 `R` 과 `BuildConfig` 등의 코드 네임스페이스이고, `applicationId` 는 앱 식별자다.
-
-### 타입 안전 Kotlin DSL
-
-`build.gradle.kts` 에서는 문자열 중심 Groovy 문법보다 IDE 자동 완성과 타입 검사를 활용할 수 있다.
-
-중첩 블록은 각각 다른 AGP 모델을 구성하므로 이름이 비슷한 속성의 의미를 구분해서 읽는다.
-
-플러그인 버전과 API 호환성은 사용하는 Android Studio 와 AGP 조합을 기준으로 확인한다.
-
-### 버전 카탈로그
-
-`libs.versions.toml` 은 별칭을 통해 의존성과 플러그인 버전을 중앙 관리한다.
-
-별칭은 일관성을 높이지만 AGP, Kotlin, Gradle 의 호환성을 자동으로 보장하지는 않는다.
-
-### 참고
-
-Gradle 빌드 구조: https://developer.android.com/build/gradle-build-overview
-
-빌드 의존성 설정: https://developer.android.com/build/dependencies
+관련 노트: [Version Catalog는 의존성 좌표와 플러그인 좌표의 이름표다](../../dependency-versioning/dependency-ci-contracts/version-catalog-names-dependency-and-plugin-coordinates.md), [Gradle 빌드 계약](gradle-build-contracts.md)

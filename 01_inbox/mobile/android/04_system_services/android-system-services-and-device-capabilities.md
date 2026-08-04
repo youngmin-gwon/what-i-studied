@@ -12,14 +12,14 @@ date created: 2026-08-03 17:31:11 +09:00
 
 ### 읽는 순서
 
-1. [시스템 서비스 접근 공통 계약](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/service-lookup-contracts.md) 에서 `getSystemService()`, Binder, permission, AppOps 가 모든 하위 서비스에 어떻게 공통으로 적용되는지 먼저 확인한다.
-2. [백그라운드 작업 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md) 에서 프로세스 수명보다 긴 작업의 실행 수단을 고른다.
-3. [알림과 FCM 메시징 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/notification-messaging-contracts.md) 에서 서버 전송, 앱 수신, 시스템 표시를 분리한다.
-4. [Assistant와 에이전트 통합 계약](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/assistant-agent-contracts.md) 에서 외부 호출의 의미 해석, 전달, 권한, 실행 책임을 나눈다.
-5. [위치 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/location-contracts/location-contracts.md), [센서 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-contracts.md) 에서 위치 소스 합성과 raw/synthetic 센서 구분을 본다.
-6. [전력 상태 접근 계약](01_inbox/mobile/android/04_system_services/system-state/power-contracts/power-contracts.md), [패키지/사용자/역할 조회 계약](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/package-user-role-contracts.md) 에서 관찰 전용 상태 조회와 사용자/프로필 분리를 본다.
-7. [미디어/오디오/카메라 시스템 서비스 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/media-audio-camera-contracts/media-audio-camera-contracts.md), [생체 인증/자격 증명 계약](01_inbox/mobile/android/04_system_services/device-capabilities/biometrics-credential-contracts/biometrics-credential-contracts.md), [텔레포니 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/telephony-contracts.md), [입력 장치와 접근성 서비스 계약](01_inbox/mobile/android/04_system_services/device-capabilities/input-accessibility-contracts/input-accessibility-contracts.md) 에서 각 표면별 조정/승인/신뢰 모델을 확인한다.
-8. [NFC와 비접촉 기능 계약](01_inbox/mobile/android/04_system_services/device-capabilities/nfc-contracts/nfc-contracts.md) 에서 태그, NDEF, HCE/APDU, 결제를 서로 다른 프로토콜 문제로 본다.
+1. [시스템 서비스 접근 공통 계약](./service-lookup/service-lookup-contracts/service-lookup-contracts.md) 에서 `getSystemService()`, Binder, permission, AppOps 가 모든 하위 서비스에 어떻게 공통으로 적용되는지 먼저 확인한다.
+2. [백그라운드 작업 계약](./background-and-notifications/background-work-contracts/background-work-contracts.md) 에서 프로세스 수명보다 긴 작업의 실행 수단을 고른다.
+3. [알림과 FCM 메시징 계약](./background-and-notifications/notification-messaging-contracts/notification-messaging-contracts.md) 에서 서버 전송, 앱 수신, 시스템 표시를 분리한다.
+4. [Assistant와 에이전트 통합 계약](./agents-and-assistant/assistant-agent-contracts/assistant-agent-contracts.md) 에서 외부 호출의 의미 해석, 전달, 권한, 실행 책임을 나눈다.
+5. [위치 접근 계약](./device-capabilities/location-contracts/location-contracts.md), [센서 접근 계약](./device-capabilities/sensor-contracts/sensor-contracts.md) 에서 위치 소스 합성과 raw/synthetic 센서 구분을 본다.
+6. [전력 상태 접근 계약](./system-state/power-contracts/power-contracts.md), [패키지/사용자/역할 조회 계약](./system-state/package-user-role-contracts/package-user-role-contracts.md) 에서 관찰 전용 상태 조회와 사용자/프로필 분리를 본다.
+7. [미디어/오디오/카메라 시스템 서비스 접근 계약](./device-capabilities/media-audio-camera-contracts/media-audio-camera-contracts.md), [생체 인증/자격 증명 계약](./device-capabilities/biometrics-credential-contracts/biometrics-credential-contracts.md), [텔레포니 접근 계약](./device-capabilities/telephony-contracts/telephony-contracts.md), [입력 장치와 접근성 서비스 계약](./device-capabilities/input-accessibility-contracts/input-accessibility-contracts.md) 에서 각 표면별 조정/승인/신뢰 모델을 확인한다.
+8. [NFC와 비접촉 기능 계약](./device-capabilities/nfc-contracts/nfc-contracts.md) 에서 태그, NDEF, HCE/APDU, 결제를 서로 다른 프로토콜 문제로 본다.
 
 ### 문제 분류
 
@@ -43,7 +43,7 @@ date created: 2026-08-03 17:31:11 +09:00
 
 ### 책임 경계
 
-- 모든 하위 서비스는 [시스템 서비스 접근 공통 계약](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/service-lookup-contracts.md) 의 lookup/권한/AppOps 모델을 공유한다. 개별 서비스 노트는 이 계약을 반복 설명하지 않고 링크로 참조한다.
+- 모든 하위 서비스는 [시스템 서비스 접근 공통 계약](./service-lookup/service-lookup-contracts/service-lookup-contracts.md) 의 lookup/권한/AppOps 모델을 공유한다. 개별 서비스 노트는 이 계약을 반복 설명하지 않고 링크로 참조한다.
 - `AlarmManager`, WorkManager, foreground service 는 같은 작업의 강도 단계가 아니라 시간 정확성, 지연 허용도, 사용자 가시성이라는 서로 다른 계약이다.
 - FCM 은 전송 수단이고 Android 알림은 표시 수단이다. 둘 중 하나의 성공이 다른 하나를 보장하지 않는다.
 - App Actions 는 Assistant 질의를 앱 fulfillment 로 연결하고, AppFunctions 는 승인된 호출자가 앱 함수를 발견·실행하는 Android 16+ preview 표면이다.
@@ -53,19 +53,19 @@ date created: 2026-08-03 17:31:11 +09:00
 
 ### 영역 지도
 
-- [시스템 서비스 접근 공통 계약](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/service-lookup-contracts.md)
-- [백그라운드 작업 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
-- [알림과 FCM 메시징 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/notification-messaging-contracts.md)
-- [Assistant와 에이전트 통합 계약](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/assistant-agent-contracts.md)
-- [위치 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/location-contracts/location-contracts.md)
-- [센서 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-contracts.md)
-- [전력 상태 접근 계약](01_inbox/mobile/android/04_system_services/system-state/power-contracts/power-contracts.md)
-- [패키지/사용자/역할 조회 계약](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/package-user-role-contracts.md)
-- [미디어/오디오/카메라 시스템 서비스 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/media-audio-camera-contracts/media-audio-camera-contracts.md)
-- [생체 인증/자격 증명 계약](01_inbox/mobile/android/04_system_services/device-capabilities/biometrics-credential-contracts/biometrics-credential-contracts.md)
-- [텔레포니 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/telephony-contracts.md)
-- [입력 장치와 접근성 서비스 계약](01_inbox/mobile/android/04_system_services/device-capabilities/input-accessibility-contracts/input-accessibility-contracts.md)
-- [NFC와 비접촉 기능 계약](01_inbox/mobile/android/04_system_services/device-capabilities/nfc-contracts/nfc-contracts.md)
+- [시스템 서비스 접근 공통 계약](./service-lookup/service-lookup-contracts/service-lookup-contracts.md)
+- [백그라운드 작업 계약](./background-and-notifications/background-work-contracts/background-work-contracts.md)
+- [알림과 FCM 메시징 계약](./background-and-notifications/notification-messaging-contracts/notification-messaging-contracts.md)
+- [Assistant와 에이전트 통합 계약](./agents-and-assistant/assistant-agent-contracts/assistant-agent-contracts.md)
+- [위치 접근 계약](./device-capabilities/location-contracts/location-contracts.md)
+- [센서 접근 계약](./device-capabilities/sensor-contracts/sensor-contracts.md)
+- [전력 상태 접근 계약](./system-state/power-contracts/power-contracts.md)
+- [패키지/사용자/역할 조회 계약](./system-state/package-user-role-contracts/package-user-role-contracts.md)
+- [미디어/오디오/카메라 시스템 서비스 접근 계약](./device-capabilities/media-audio-camera-contracts/media-audio-camera-contracts.md)
+- [생체 인증/자격 증명 계약](./device-capabilities/biometrics-credential-contracts/biometrics-credential-contracts.md)
+- [텔레포니 접근 계약](./device-capabilities/telephony-contracts/telephony-contracts.md)
+- [입력 장치와 접근성 서비스 계약](./device-capabilities/input-accessibility-contracts/input-accessibility-contracts.md)
+- [NFC와 비접촉 기능 계약](./device-capabilities/nfc-contracts/nfc-contracts.md)
 
 새 노트는 특정 API 를 나열하기보다 `시스템이 보장하는 것`, `앱이 영속화·검증할 것`, `버전·권한 조건`, `관찰 가능한 실패` 중 하나의 판단 단위를 맡아야 한다.
 

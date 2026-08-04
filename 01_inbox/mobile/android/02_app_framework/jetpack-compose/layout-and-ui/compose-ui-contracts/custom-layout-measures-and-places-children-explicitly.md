@@ -14,6 +14,6 @@ Compose UI 는 일반적으로 child 를 실제로 한 번만 측정하게 한�
 
 커스텀 layout 은 parent size 결정, child placement, RTL 을 고려한 `placeRelative`, alignment line, constraints 준수까지 직접 책임진다.
 
-관련 노트: [Intrinsic measurement와 SubcomposeLayout은 특수한 측정 문제를 해결한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/intrinsic-measurement-and-subcompose-layout-solve-special-measurement-problems.md), [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-layout-and-image-cost-must-be-budgeted.md)
+관련 노트: [Intrinsic measurement와 SubcomposeLayout은 특수한 측정 문제를 해결한다](./intrinsic-measurement-and-subcompose-layout-solve-special-measurement-problems.md), [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](../../performance/compose-performance-contracts/compose-layout-and-image-cost-must-be-budgeted.md)
 
 출처: [Custom layouts](https://developer.android.com/develop/ui/compose/layouts/custom)

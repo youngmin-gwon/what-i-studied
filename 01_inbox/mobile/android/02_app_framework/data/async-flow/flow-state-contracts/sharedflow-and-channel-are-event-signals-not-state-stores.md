@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## SharedFlow 와 Channel 은 상태 저장소가 아니라 일회성 신호 전달 수단이다
 
-상위 문서: [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md)
+상위 문서: [Flow와 StateFlow 상태 계약](./flow-state-contracts.md)
 
 상태는 새 구독자가 다시 받아야 하지만, 이벤트는 발생한 순간 한 번 처리하면 끝난다.
 

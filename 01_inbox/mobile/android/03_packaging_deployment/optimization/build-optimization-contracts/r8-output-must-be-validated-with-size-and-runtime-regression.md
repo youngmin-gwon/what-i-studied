@@ -1,68 +1,47 @@
 ---
 title: r8-output-must-be-validated-with-size-and-runtime-regression
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:59 +09:00
-date created: 2026-07-31 17:32:53 +09:00
+tags: ["android", "r8", "retrace", "apk-analyzer"]
+aliases: ["R8 결과물은 크기와 런타임 회귀로 검증한다"]
+date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
 ## R8 결과물은 크기와 런타임 회귀로 검증한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+### 내부 메커니즘 (Internal Mechanism)
+R8 최적화 패스가 적용된 Release 빌드 산출물은 최종 출시 전 **바이너리 용량 검증(Size Diff Validation)**과 **런타임 회귀 검증(Runtime Crash Regression Test)**을 수반해야 한다.
+1. **Size Diff Validation**: `apkanalyzer` CLI 도구를 활용해 이전 릴리스 대비 DEX 파일, assets, res 폴더의 크기 변동 수치를 측정한다.
+2. **Obfuscation StackTrace Retrace**: R8 난독화로 인해 `a.b.c.a(Unknown Source)` 형태로 깨진 런타임 스택 트레이스를 `mapping.txt` 기호 파일과 `retrace` 도구를 이용해 원본 Kotlin 소스 코드 라인으로 역복원(De-obfuscation) 가능한지 검증한다.
 
-관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+```mermaid
+flowchart TD
+    ReleaseBuild["Release Build with R8"] --> APKCheck["1. APKAnalyzer Size Diff Check"]
+    ReleaseBuild --> RetraceCheck["2. Retrace Tool De-obfuscation Check"]
+    
+    RetraceCheck -->|Obfuscated Stacktrace| RetraceEngine["retrace.sh mapping.txt stacktrace.txt"]
+    RetraceEngine --> OriginalLine["Original Source Code Line (MainActivity.kt:42)"]
+```
 
-관련 노트: [R8 Full Mode와 Configuration Analyzer는 막힌 최적화를 드러낸다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-full-mode-and-configuration-analyzer-expose-blocked-optimization.md), [Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md)
+### 코드 예시 (Retrace CLI Execution Script)
+```bash
+#!/usr/bin/env bash
 
-### 핵심 주장
+# Retrace Execution Command for Crash Log De-obfuscation
+$ANDROID_HOME/cmdline-tools/latest/bin/retrace   app/build/outputs/mapping/release/mapping.txt   crash_stacktrace.txt   > retrace_result.txt
+```
 
-R8 성공은 빌드가 끝났다는 뜻이지 앱 동작이 보존되었다는 뜻이 아니다.
+### 관측 가능 증거 (Observable Evidence)
+R8 난독화 스택트레이스가 `retrace` 도구에 의해 완전한 원본 소스 코드 위치로 역복원되는 결과를 관측할 수 있다:
 
-결과 파일과 실제 설치 테스트를 함께 사용해야 수축, 최적화, 난독화의 효과와 부작용을 알 수 있다.
+```bash
+cat retrace_result.txt
 
-### 주요 결과 파일
+# Retrace Output Example:
+# Caused by: java.lang.NullPointerException
+#   at com.example.app.ui.main.MainActivity.onDataLoaded(MainActivity.kt:84)
+#   at com.example.app.ui.main.MainViewModel.fetchData(MainViewModel.kt:42)
+```
 
-- `mapping.txt`: 원래 이름과 난독화된 이름, 라인 번호의 대응표다.
-- `seeds.txt`: keep 규칙으로 보존된 클래스와 멤버를 보여 준다.
-- `usage.txt`: R8 이 제거한 코드 목록을 보여 준다.
-- `configuration.txt`: 병합된 최종 규칙을 확인하는 근거다.
-- APK Analyzer: DEX, 리소스, 네이티브 라이브러리의 실제 패키징을 확인한다.
-
-mapping 파일은 충돌 분석과 Crashlytics de-obfuscation 에 필요한 배포 산출물이다.
-
-버전별 mapping 을 덮어쓰지 말고 앱 버전과 함께 보관한다.
-
-### 실패 증상별 접근
-
-`ClassNotFoundException` 이면 동적 로딩 대상이 제거되었는지 먼저 본다.
-
-`NoSuchMethodError` 이면 메서드 시그니처 또는 생성자 계약이 바뀌었는지 확인한다.
-
-직렬화 실패이면 모델 필드 이름, 애노테이션, 기본 생성자 보존 여부를 확인한다.
-
-JNI 오류이면 네이티브 등록 이름과 난독화 예외를 대조한다.
-
-리소스 오류이면 `usage.txt` 가 아니라 리소스 수축 리포트와 동적 이름 경로를 조사한다.
-
-### 최소 보정 루프
-
-1. 릴리즈에서 오류를 재현한다.
-2. stack trace 를 mapping 으로 복원한다.
-3. 문제 심볼이 `usage.txt` 에 있는지 확인한다.
-4. 필요한 최소 단위에만 keep 또는 이름 보존을 추가한다.
-5. 같은 테스트와 크기 측정을 반복한다.
-
-보정 전후의 DEX 메서드 수와 다운로드 크기를 비교해 과도한 보존을 감시한다.
-
-### CI 검증 항목
-
-- 릴리즈 assemble 성공
-- 대표 딥링크와 알림 진입
-- 로그인, 결제, 직렬화, 이미지 로딩
-- 난독화 stack trace 복원
-- APK/AAB 크기 임계치
-- mapping 업로드와 보관
-
-참고: [Decode obfuscated stack traces](https://developer.android.com/studio/debug/stacktraces)
-
-참고: [Analyze your build with APK Analyzer](https://developer.android.com/studio/debug/apk-analyzer)
+관련 노트: [Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다](../../distribution/release-distribution-contracts/play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md), [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md)

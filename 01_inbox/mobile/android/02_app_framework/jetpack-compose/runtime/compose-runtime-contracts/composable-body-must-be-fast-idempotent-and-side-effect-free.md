@@ -32,6 +32,6 @@ fun ProfileScreen(userId: String) {
 
 첫 번째 코드는 recomposition 이 일어날 때마다(예: 다른 state 변경으로 이 scope 가 재실행될 때) `logScreenView` 가 중복 호출될 수 있다. `LaunchedEffect(userId)` 로 옮기면 `userId` 가 바뀔 때만 한 번 실행된다.
 
-관련 노트: [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md), [무거운 작업은 composition 안에 두지 않는다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/heavy-work-does-not-belong-in-composition.md)
+관련 노트: [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](../../state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md), [무거운 작업은 composition 안에 두지 않는다](../../performance/compose-performance-contracts/heavy-work-does-not-belong-in-composition.md)
 
 출처: [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model), [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects)

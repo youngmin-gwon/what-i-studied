@@ -14,6 +14,6 @@ Layout 에 관여하는 modifier 는 바깥쪽에서 안쪽으로 constraints �
 
 따라서 `padding().clickable()` 과 `clickable().padding()` 은 같은 의미가 아니다. modifier 순서는 "읽기 좋은 스타일"이 아니라 UI 계약의 일부다.
 
-관련 노트: [Size modifier는 incoming constraint 안에서 요청 크기를 해석한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/size-modifiers-interpret-requested-size-inside-incoming-constraints.md), [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md)
+관련 노트: [Size modifier는 incoming constraint 안에서 요청 크기를 해석한다](./size-modifiers-interpret-requested-size-inside-incoming-constraints.md), [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](./semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md)
 
 출처: [Constraints and modifier order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers), [Compose modifiers](https://developer.android.com/develop/ui/compose/modifiers)

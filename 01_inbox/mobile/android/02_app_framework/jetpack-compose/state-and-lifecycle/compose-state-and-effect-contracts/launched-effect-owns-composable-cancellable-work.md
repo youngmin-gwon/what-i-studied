@@ -8,7 +8,7 @@ date created: 2026-07-31 16:53:16 +09:00
 
 ## Composable 과 함께 취소되어야 하는 작업은 LaunchedEffect 로 시작한다
 
-상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
+상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
 `LaunchedEffect` 는 composition 에 들어올 때 coroutine 을 시작하고, key 가 바뀌거나 Composable 이 사라지면 작업을 취소한다.
 

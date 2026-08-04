@@ -12,7 +12,7 @@ Android Deep Link 문서는 외부 URI 가 앱 내부 destination 으로 들어�
 
 ### 정본 지도
 
-- [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
-- [Android 딥 링크는 외부 URI 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md)
-- [Android App Link는 검증된 HTTPS 딥 링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md)
-- [외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/external-uri-must-be-validated-before-navigation.md)
+- [Deep Link 계약](./deep-link-contracts/deep-link-contracts.md)
+- [Android 딥 링크는 외부 URI 계약이다](./deep-link-contracts/deep-link-is-external-uri-contract.md)
+- [Android App Link는 검증된 HTTPS 딥 링크다](./deep-link-contracts/app-link-is-verified-https-deep-link.md)
+- [외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다](./deep-link-contracts/external-uri-must-be-validated-before-navigation.md)

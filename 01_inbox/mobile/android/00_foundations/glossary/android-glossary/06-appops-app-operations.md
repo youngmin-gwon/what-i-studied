@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [AppOps permission contract](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/appops-observes-and-gates-sensitive-operations-after-permission.md)
-- [Permission debugging contract](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-debugging-separates-manifest-grant-and-appops-state.md)
+- [AppOps permission contract](../../../05_security_privacy/permissions-and-sandbox/permission-contracts/appops-observes-and-gates-sensitive-operations-after-permission.md)
+- [Permission debugging contract](../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-debugging-separates-manifest-grant-and-appops-state.md)

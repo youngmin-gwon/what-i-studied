@@ -14,6 +14,6 @@ Layout phase 는 Composition phase 와 다르다. Composition 은 무엇을 만�
 
 제약은 bounded, unbounded, exact, 조합 형태로 들어올 수 있다. 커스텀 layout 이나 modifier 를 만들 때는 이 제약을 지키면서 parent/child size contract 를 깨지 않게 해야 한다.
 
-관련 노트: [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md), [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/modifier-order-changes-layout-draw-and-input-wrappers.md)
+관련 노트: [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](../../runtime/compose-runtime-contracts/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md), [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](./modifier-order-changes-layout-draw-and-input-wrappers.md)
 
 출처: [Compose layouts basics](https://developer.android.com/develop/ui/compose/layouts/basics), [Compose phases](https://developer.android.com/develop/ui/compose/phases)

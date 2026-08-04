@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [Baseline profile generation](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/baseline-profile-generation-records-critical-user-journeys.md)
-- [Baseline profile verification](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/baseline-profile-verification-compares-profiled-and-unprofiled-performance.md)
+- [Baseline profile generation](../../../06_testing_performance/performance/benchmark-baseline-contracts/baseline-profile-generation-records-critical-user-journeys.md)
+- [Baseline profile verification](../../../06_testing_performance/performance/benchmark-baseline-contracts/baseline-profile-verification-compares-profiled-and-unprofiled-performance.md)

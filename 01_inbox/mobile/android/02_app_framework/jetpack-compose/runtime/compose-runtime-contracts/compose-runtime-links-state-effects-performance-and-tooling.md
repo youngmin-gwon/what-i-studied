@@ -14,4 +14,4 @@ Compose Runtime 정본은 모든 API 사용법을 담는 곳이 아니다. Runti
 
 Stability, strong skipping, state read deferral, `derivedStateOf`, heavy work 제거는 performance 계약에 둔다. Navigation, testing, debugging 은 Compose Runtime 예시로 반복하지 않고 해당 분야 정본에 연결한다.
 
-관련 노트: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md), [Compose 성능 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)
+관련 노트: [Compose 상태와 Effect 계약](../../state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md), [Compose 성능 계약](../../performance/compose-performance-contracts/compose-performance-contracts.md)

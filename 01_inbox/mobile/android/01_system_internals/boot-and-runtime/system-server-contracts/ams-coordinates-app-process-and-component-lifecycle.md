@@ -6,21 +6,76 @@ date modified: 2026-08-03 17:23:50 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## AMS 는 앱 프로세스와 컴포넌트 lifecycle 을 조율한다
+## AMS 는 앱 프로세스 와 컴포넌트 lifecycle 을 조율한다
 
-상위 문서: [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md)
+상위 문서: [system_server 계약](system-server-contracts.md)
 
-ActivityManagerService 는 앱 프로세스 생성, service, broadcast, provider, process importance, permission check 같은 앱 실행 환경을 조율한다. 앱이 직접 프로세스를 소유하는 것이 아니라 AMS 와 Zygote 경로를 통해 process lifecycle 이 만들어진다.
+`ActivityManagerService`(AMS)는 `system_server` 내부에서 앱 프로세스의 바인딩, 4대 컴포넌트(Service, BroadcastReceiver, ContentProvider, Activity 지원)의 수명주기 및 의존성, 프로세스 OOM Adj 우선순위 동적 재계산을 조율하는 중앙 프레임워크 컨트롤러다.
 
-### 실무 의미
+### 내부 동작 메커니즘 (Internal Mechanism)
 
-- 앱 process 는 필요할 때 시작되고, 중요도가 낮아지면 시스템에 의해 종료될 수 있다.
-- foreground service, bound service, broadcast, provider 사용은 process importance 에 영향을 줄 수 있다.
-- 앱은 process 생존을 보장받지 못하므로 저장해야 할 상태와 재구성 가능한 상태를 분리해야 한다.
+1. **Process Fork Request via Zygote Socket**:
+   - 컴포넌트 구동(예: `startService` 또는 Broadcast 바인딩) 요청 시, 해당 앱의 프로세스가 존재하지 않으면 AMS(`ProcessList.java`)는 Zygote Unix Socket으로 Process Fork 요청 메세지를 전송한다.
+2. **`ActivityThread` Attach & Application Initialized**:
+   - fork된 앱 프로세스는 `ActivityThread.main()`을 실행한 후 AMS에 Binder IPC인 `attachApplication(IApplicationThread thread)`을 호출한다.
+   - AMS는 `ApplicationThread` 인터페이스 핸들을 수신하여 해당 프로세스와 Binder 통신 채널을 확립한다.
+3. **Component LifeCycle Dispatch**:
+   - AMS는 Binder 콜백(`scheduleCreateService`, `scheduleReceiver` 등)을 통해 앱 프로세스 Main Looper로 컴포넌트 생성을 지시하고, 타임아웃 메커니즘(ANR Timer)을 관리한다.
+4. **OOM Adjustment (`applyOomAdjLSP`)**:
+   - 컴포넌트 구동 상태 및 포그라운드 여부에 따라 `oom_score_adj`를 재계산하여 커널 LMKD에 전달한다.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant AMS as ActivityManagerService (system_server)
+    participant ZYG as Zygote Daemon
+    participant APP as App Process (ActivityThread)
+
+    AMS->>ZYG: Socket Write: startProcess(abi, uid, gids, processName)
+    ZYG->>APP: fork() & specialize
+    APP->>AMS: Binder IPC: attachApplication(IApplicationThread)
+    AMS->>APP: Binder IPC: bindApplication()
+    AMS->>APP: Binder IPC: scheduleCreateService() / scheduleReceiver()
+    Note over AMS: Monitor Component Lifecycle & ANR Timeouts
+```
+
+### 코드 및 구체 예시 (Concrete Snippets)
+
+AMS의 프로세스 요청 및 attach 콜백 메서드 정의 (`frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java`):
+
+```java
+// ActivityManagerService.java (Attach Application Lifecycle)
+public final void attachApplication(IApplicationThread thread, long startSeq) {
+    synchronized (this) {
+        int callingPid = Binder.getCallingPid();
+        long callingId = Binder.clearCallingIdentity();
+        try {
+            attachApplicationLocked(thread, callingPid, callingId, startSeq);
+        } finally {
+            Binder.restoreCallingIdentity(callingId);
+        }
+    }
+}
+```
+
+### 관측 가능 증거 (Observable Evidence)
+
+`adb shell dumpsys activity`를 사용하여 등록된 프로세스 및 컴포넌트 수명주기 상태를 점검할 수 있다:
+
+```bash
+# 특정 패키지의 AMS 프로세스 및 수명주기 상태 조회
+adb shell dumpsys activity processes | grep -A 10 "ProcessRecord"
+
+# 실행 중인 서비스 및 수명주기 바인딩 확인
+adb shell dumpsys activity services com.example.app
+
+# AMS 로그캣 이벤트 필터링
+adb logcat -s ActivityManager
+```
 
 ### 관련 문서
 
-- [Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-socket-is-system-server-process-factory-interface.md)
-- [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
+- [ATMS는 activity, task, back stack 전이를 담당한다](atms-owns-activity-task-and-back-stack-transitions.md)
+- [ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](anr-is-responsiveness-contract-violation-not-single-timeout.md)
 
-공식 문서: [Processes and app lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle)
+공식 문서: [ActivityManagerService API](https://developer.android.com/reference/android/app/ActivityManager)

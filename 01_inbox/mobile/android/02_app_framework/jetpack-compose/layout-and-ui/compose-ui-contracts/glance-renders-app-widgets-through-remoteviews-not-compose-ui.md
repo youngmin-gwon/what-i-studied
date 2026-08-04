@@ -14,6 +14,6 @@ Glance 는 Kotlin 과 Compose Runtime 기반의 API 로 app widget 을 선언하
 
 App widget 은 host process 와 update lifecycle 의 제약을 받는다. 앱 화면의 in-memory state 가 widget 에 그대로 살아 있다고 가정하지 말고, 필요한 persistent state 와 update trigger 를 별도로 설계한다.
 
-관련 노트: [Compose layout, animation, accessibility](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md), [Background work contracts](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
+관련 노트: [Compose layout, animation, accessibility](../compose-layout-animation-accessibility.md), [Background work contracts](../../../../04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
 
 출처: [Jetpack Glance](https://developer.android.com/develop/ui/compose/glance), [Manage and update GlanceAppWidget](https://developer.android.com/develop/ui/compose/glance/glance-app-widget), [App widgets overview](https://developer.android.com/develop/ui/views/appwidgets/overview)

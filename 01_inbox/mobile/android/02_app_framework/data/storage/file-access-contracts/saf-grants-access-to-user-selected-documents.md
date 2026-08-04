@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## SAF: 사용자가 고른 문서와 폴더에 접근하기
 
-상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
+상위 문서: [파일 접근 계약](./file-access-contracts.md)
 
 Storage Access Framework 는 앱이 저장소 전체를 탐색하는 API 가 아니다.
 
@@ -75,4 +75,4 @@ URI 가 더 이상 유효하지 않거나 사용자가 권한을 철회할 수 �
 
 MediaStore 는 미디어 컬렉션 중심이고 SAF 는 사용자 선택 문서 중심이다.
 
-사진 한두 장 선택만 필요한 경우에는 [Photo Picker](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/photo-picker-minimizes-media-access.md) 를 먼저 검토한다.
+사진 한두 장 선택만 필요한 경우에는 [Photo Picker](./photo-picker-minimizes-media-access.md) 를 먼저 검토한다.

@@ -32,6 +32,6 @@ val backStack = rememberNavBackStack(DashboardRoute)
 
 `scrollIndex` 같은 화면 내부 UI state 를 `OrderDetailRoute` key 에 넣으면, key 가 바뀔 때마다 `equals()` 비교와 저장된 stack 이 함께 흔들린다. scroll/loading state 는 key 가 아니라 해당 destination composable 안의 `rememberSaveable` 로 분리해야 한다.
 
-관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md), [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
+관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](./navkey-and-back-stack-are-app-owned-navigation-state.md), [Android 상태 관리 정본 지도](../../../architecture/state-management/android-state-management.md)
 
 공식 문서: [Save and manage navigation state](https://developer.android.com/guide/navigation/navigation-3/save-state), [rememberNavBackStack](https://developer.android.com/reference/kotlin/androidx/navigation3/runtime/rememberNavBackStack.composable)

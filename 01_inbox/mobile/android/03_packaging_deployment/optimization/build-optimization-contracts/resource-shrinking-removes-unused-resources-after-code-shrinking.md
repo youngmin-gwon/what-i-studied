@@ -1,69 +1,45 @@
 ---
 title: resource-shrinking-removes-unused-resources-after-code-shrinking
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:13:02 +09:00
-date created: 2026-07-31 17:32:53 +09:00
+tags: ["android", "resource-shrinker", "r8", "build-optimization"]
+aliases: ["리소스 수축은 코드 수축 후 미사용 리소스를 제거한다"]
+date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
 ## 리소스 수축은 코드 수축 후 미사용 리소스를 제거한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+### 내부 메커니즘 (Internal Mechanism)
+AGP Resource Shrinker (`isShrinkResources = true`)는 독립적으로 동작하지 않으며 반드시 **R8 코드 수축(Code Shrinking)이 완료된 후** 실행된다.
+R8이 미사용 자바/코틀린 코드를 제거하면 해당 코드 내의 `R.layout.*`나 `R.drawable.*` 필드 참조도 함께 사라진다. Resource Shrinker는 남아있는 DEX 바이트코드 및 XML 매니페스트를 도달 가능성 그래프(Reachability Graph)로 분석하여 어떤 코드에서도 참조되지 않는 리소스 파일(PNG, XML, Drawables)을 적발한다.
+제거 대상 리소스는 완전 삭제되거나, 앱 런타임 `ResourcesNotFoundException` 방지를 위해 **더미 1픽셀 파일 또는 더미 빈 파일**로 대체된다. (Strict Mode 설정 시 실제 파일 바이너리 제거)
 
-관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
-
-관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md), [R8 결과물은 크기와 런타임 회귀로 검증한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-output-must-be-validated-with-size-and-runtime-regression.md)
-
-### 핵심 주장
-
-리소스 수축은 코드 수축과 별도로 리소스 사용 여부를 판단한다.
-
-정적 참조만 분석하면 동적으로 구성한 이름을 사용하지 않는 리소스로 오판할 수 있다.
-
-따라서 `isShrinkResources = true` 를 켜는 일은 동적 리소스 접근 목록을 정리하는 일과 함께 진행해야 한다.
-
-### 수축 대상
-
-- drawable, mipmap, layout, string, color 등 APK 에 포함되는 리소스
-- flavor 와 density 별 중복 리소스
-- 코드에서 참조되지 않는 리소스
-- 다른 리소스에서 더 이상 연결되지 않는 리소스
-
-AAB 의 전달 분할은 기기 구성에 맞는 다운로드 크기를 다시 바꿀 수 있다.
-
-APK 크기와 사용자가 실제 다운로드하는 크기를 같은 지표로 취급하지 않는다.
-
-### 동적 접근의 위험
-
-다음과 같은 코드는 정적 분석만으로 이름을 확정하기 어렵다.
-
-```kotlin
-val id = resources.getIdentifier("icon_$name", "drawable", packageName)
+```mermaid
+flowchart TD
+    R8Done["1. R8 Code Shrinking Completed (Dead Code Removed)"] --> ResAnalysis["2. Resource Shrinker Analyzes Remaining R.id References"]
+    ResAnalysis --> CheckUnused{"Is Resource Referenced in DEX?"}
+    CheckUnused -->|Yes| KeepRes["Keep Original Resource"]
+    CheckUnused -->|No| ReplaceDummy["Replace with Dummy 1-pixel File (resources.txt log)"]
 ```
 
-이 경우 실제 이름 패턴을 keep 파일로 보존하거나, 가능하면 정적 매핑으로 바꾼다.
-
+### 코드 예시 (keep.xml for Dynamic Resource Prevention)
 ```xml
+<!-- res/raw/keep.xml -->
+<!-- Resources.getIdentifier() 동적 접근 리소스의 강제 보호 설정 -->
 <resources xmlns:tools="http://schemas.android.com/tools"
-    tools:keep="@drawable/icon_*"
-    tools:discard="@drawable/unused_banner"
+    tools:keep="@layout/dynamic_banner_*,@drawable/icon_category_*"
     tools:shrinkMode="strict" />
 ```
 
-Precise 또는 strict 방식은 보존 대상을 명시적으로 관리할 때 유용하다.
+### 관측 가능 증거 (Observable Evidence)
+Resource Shrinker가 남긴 리포트 로그 파일(`resources.txt`)을 분석하여 미사용으로 간주되어 더미로 대체되거나 수축된 리소스 내역을 확인할 수 있다:
 
-그러나 넓은 패턴은 다시 수축 효과를 약화하므로 실제 이름 집합을 좁혀야 한다.
+```bash
+cat app/build/outputs/mapping/release/resources.txt | grep "Skipping unused resource"
 
-### 검증 절차
+# Output Example:
+# Skipping unused resource res/drawable/unused_logo.png: 245120 bytes -> replaced with 67 bytes dummy PNG.
+```
 
-1. 수축 전후의 APK Analyzer 리소스 목록을 비교한다.
-2. 앱 시작, 이미지 로딩, 딥링크, 알림, 위젯을 확인한다.
-3. flavor, locale, density 별 대표 기기에서 확인한다.
-4. 동적 리소스 이름을 사용하는 테스트를 릴리즈 variant 로 실행한다.
-5. 삭제된 리소스와 보존 이유를 변경 기록에 남긴다.
-
-리소스 수축 오류는 대개 설치보다 특정 사용자 흐름에서 늦게 드러난다.
-
-참고: [Shrink, obfuscate, and optimize your app](https://developer.android.com/studio/build/shrink-code)
-
-참고: [Manage app size](https://developer.android.com/topic/performance/reduce-apk-size)
+관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md), [Keep 규칙은 최적화 경계다](keep-rules-are-optimization-boundaries.md)

@@ -2,89 +2,178 @@
 title: 01-app-launch-slow-or-fails
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: app launch is slow or fails"]
-date modified: 2026-08-04 14:29:27 +09:00
+date modified: 2026-08-04 16:00:00 +09:00
 date created: 2026-08-04 10:30:00 +09:00
 ---
 
 ## 앱 실행이 느리거나 첫 프레임이 뜨지 않는다
 
-### 증상
+### 1. 증상 및 징후 (Symptoms & Diagnostic Signals)
 
 다음 중 하나 이상이 관찰된다.
 
-- 앱 아이콘을 탭한 뒤 첫 화면이 뜨기까지 체감상 오래 걸린다.
-- 첫 화면(첫 프레임)은 빨리 뜨지만 콘텐츠가 없는 빈 화면이 오래 유지된다.
-- 실행 중 ANR 다이얼로그가 뜨거나 실행 자체가 실패한다(이 경우 [ANR runbook](02-anr.md) 으로 넘어간다).
+- 앱 아이콘을 탭한 뒤 첫 화면(첫 프레임)이 뜨기까지 체감상 오래 걸린다(TTID 지연).
+- 첫 화면(첫 프레임)은 빨리 뜨지만 콘텐츠가 없는 빈 화면/스켈레톤 상태가 오래 유지된다(TTFD 지연).
+- 앱 실행 직후 하얀 화면(Blank Screen) 상태에서 응답이 없다가 ANR 다이얼로그가 뜨거나 앱이 즉시 종료된다(이 경우 [ANR runbook](02-anr.md) 또는 Crash 분석으로 전환한다).
+- Android 15 기기에서 실행 직후 native `.so` 라이브러리 로딩 시 크래시(`UnsatisfiedLinkError`)가 발생하며 종료된다.
 
-### 재현 조건
+---
 
-- **냉시작인지 온시작인지 먼저 구분한다.** 냉시작은 프로세스가 없는 상태에서 시작하는 경우다. `adb shell am force-stop <pkg>` 뒤 실행하면 냉시작을, 홈 버튼으로 백그라운드로 보낸 뒤 다시 열면 그보다 가벼운 경로를 재현한다.
-- 기기 모델, OS 버전, 빌드 타입(반드시 release 와 유사한 빌드 — debug 빌드의 로그·검증 코드는 시작 비용을 왜곡한다), 배터리 잔량과 열 상태를 고정하고 여러 번 반복해 중앙값을 본다.
+### 2. 재현 조건 및 환경 격리 (Reproduction & Isolation)
 
-### 가능한 실패 경계와 우선순위
+- **시작 유형(Cold / Warm / Hot) 분리**:
+  - **Cold Launch (냉시작)**: `adb shell am force-stop <pkg>` 실행 후 앱 시작. 프로세스 생성, Zygote specialization, `Application` 생성, Activity 생성을 모두 거치는 최악의 경로.
+  - **Warm Launch (온시작)**: 뒤로 가기(Back) 버튼으로 Activity 를 파괴하되 프로세스는 유지한 상태에서 시작.
+  - **Hot Launch (열시작)**: 홈(Home) 버튼으로 백그라운드로 보낸 후 다시 전면 복귀.
+- **측정 환경 고정**:
+  - 반드시 **R8/Dex 최적화가 적용된 Release 빌드**(또는 Benchmark 빌드)에서 측정한다. Debug 빌드의 StrictMode, 디버거 에이전트, 로깅 코드는 시작 성능을 심각하게 왜곡한다.
+  - 기기의 배터리 상태, 쓰로틀링(Thermal State), Baseline Profile 적용 여부를 동일하게 맞추고 최소 5회 이상 반복 측정하여 중앙값을 확인한다.
 
-1. **`Application.onCreate()` 또는 첫 Activity 의 `onCreate()` 가 무겁다.** 가장 흔한 원인. DI 그래프 생성, 로깅/원격설정/SDK 초기화가 대표적이다.
-2. **TTID 는 양호한데 TTFD 가 늦다.** 첫 프레임은 빠르지만 실제 콘텐츠(목록 데이터 등)가 나중에 채워진다 — 데이터 계층 지연 문제([데이터 계층 Worked Example](../worked-examples/01-app-icon-tap-to-first-frame.md) 참고).
-3. **프로세스 생성 자체가 느리다.** 기기 전반의 메모리 압박이나 시스템 부하로 Zygote fork·specialization 이 지연되는 경우로, 이 앱만의 문제가 아닐 수 있다.
-4. **main thread 가 완전히 막혀 첫 프레임조차 안 뜬다.** [ANR runbook](02-anr.md) 으로 넘어간다.
+---
 
-### 조사 절차
+### 3. 실패 경계 및 원인 우선순위 (Failure Boundaries & Priority)
 
-1. **`adb shell am start -W -n <pkg>/<activity>` 로 TTID 를 측정한다.**
-   출력의 `TotalTime`(ms)이 핵심 필드다. 이 값은 요청이 시스템에 전달된 시점부터 첫 프레임이 그려질 때까지의 시간이다.
-   - 정상 신호: 빌드/기기 기준으로 일관된 낮은 값(수백 ms 대).
-   - 실패 신호: 값이 크거나, 명령이 비정상적으로 오래 걸리거나 응답 없이 멈춘다. 실제 ANR 여부는 이 명령의 출력만으로 단정하지 말고 logcat 의 `ANR in <pkg>` 라인으로 별도 확인한다.
+1. **`Application.onCreate()` 또는 시작 Activity 의 `onCreate()` / `onStart()` 내 메인 스레드 차단 (우선순위 1)**
+   - 가장 흔한 원인. DI 그래프 생성(Dagger/Hilt/Koin), SDK 초기화, SharedPreferences 읽기, SQLite/DB 동기 쿼리, 원격 설정(RemoteConfig) 동기 차단 등.
+2. **TTID 는 정상이나 TTFD 가 지연됨 (우선순위 2)**
+   - 첫 프레임은 즉시 그려지지만, 메인 화면 UI 가 비동기 네트워크/DB 데이터 응답에 직렬로 의존하여 렌더링을 미루는 경우 ([Worked Example: 앱 아이콘 탭에서 첫 프레임까지](../worked-examples/01-app-icon-tap-to-first-frame.md) 참고).
+3. **Android 15+ 16KB Page Size 미보응에 따른 Native Library Loading 실패 (우선순위 3)**
+   - Android 15(API 35) 이상 기기에서 native `.so` 파일의 ELF segment 가 16KB boundary 로 정렬(alignment)되지 않아 프로세스 시작 중 `dlopen` 실패 및 `UnsatisfiedLinkError` 발생.
+4. **Zygote Fork 및 프로세스 생성 지연 (우선순위 4)**
+   - 시스템 전반의 메모리 부족(Low Memory Pressure)으로 인한 Zygote specialization 지연 또는 OEM OS 차원의 프로세스 생성을 방해하는 저전력 모드 정책.
+5. **메인 스레드 교착 상태(Deadlock) 또는 무한 루프 (우선순위 5)**
+   - 첫 프레임이 뜨기 전 메인 스레드가 Binder 차단, Lock 경합, I/O 대기에 빠진 상태. [ANR runbook](02-anr.md) 으로 전환한다.
 
-2. **logcat 에서 `Displayed` 라인을 확인한다.**
-   ```
-   ActivityManager: Displayed com.example.app/.MainActivity: +3s534ms
-   ```
+---
 
-   이 값이 위 `TotalTime` 과 같은 구간(TTID)을 가리킨다. `(total +1m22s643ms)` 처럼 괄호 안에 total 값이 추가로 나오면, 이는 앱 프로세스 시작부터 걸린 전체 시간이며 화면에 아무것도 표시하지 않는 선행 Activity 가 있었다는 뜻일 수 있다.
+### 4. 진단 의사결정 흐름도 (Diagnostic Decision Flowchart)
 
-   - 왜 이 필드를 보는가: `am start -W` 는 개발자가 수동으로 트리거한 한 번의 측정이지만, `Displayed` 로그는 실제 사용자 실행에서도 남으므로 현장 재현에 쓸 수 있다.
+```mermaid
+flowchart TD
+    A["앱 실행 요청 (Tap App Icon)"] --> B{"프로세스 존재 여부?"}
+    B -- "없음 (Cold Launch)" --> C["Zygote Fork & App Process 생성"]
+    B -- "있음 (Warm/Hot)" --> F["Activity.onCreate / onStart"]
+    
+    C --> D{"Native .so 16KB 정렬 통과?"}
+    D -- "실패 (Android 15+)" --> D_ERR["UnsatisfiedLinkError / Crash 발생\n(Check: readelf -l *.so)"]
+    D -- "성공" --> E["Application.onCreate()"]
+    
+    E --> F
+    F --> G{"Main Thread 블로킹 존재?"}
+    G -- "예 (DB/I/O/Lock)" --> G_ERR["ANR / Launch Freeze\n(Refer: 02-anr.md)"]
+    G -- "아니오" --> H["첫 프레임 렌더링 (TTID 출사)"]
+    
+    H --> I{"Displayed 로그 및 TTID 시간 판단"}
+    I -- "TotalTime > 2000ms" --> J["Application/Activity onCreate 병목 프로파일링"]
+    I -- "TTID 양호 (<500ms)" --> K{"reportFullyDrawn() 호출 여부 (TTFD)"}
+    
+    K -- "TTFD 지연 / 미호출" --> L["데이터 계층 비동기 파이프라인 점검\n(Refer: Spine Ch 8)"]
+    K -- "TTFD 정상" --> M["시작 성능 검증 완료"]
+```
 
-3. **`reportFullyDrawn()` 호출 시점을 확인해 TTFD 를 분리한다.**
-   TTID(첫 프레임)와 TTFD(콘텐츠가 실제로 준비된 시점)는 시스템이 자동으로 구분하지 못한다. 앱이 `reportFullyDrawn()` 을 호출하지 않으면 TTFD 자체가 측정되지 않는다. 호출 시 logcat 에 다음과 같은 라인이 남는다.
-   ```
-   system_process I/ActivityManager: Fully drawn com.example.app/.MainActivity: +1s54ms
-   ```
+---
 
-   `adb logcat | grep "Fully drawn"` 으로 이 값을 확인한다.
+### 5. 단계별 조사 절차 및 CLI 검증 (Step-by-Step CLI Investigation)
 
-   - 정상 신호: `reportFullyDrawn()` 호출 시점이 TTID 직후에 가깝다.
-   - 실패 신호: TTID 이후 한참 지나서야 호출되거나, 아예 호출되지 않는다 — 데이터 로딩이 콘텐츠 표시를 늦추고 있다는 뜻이다.
+#### 1단계: `am start-activity` (또는 `am start`) 로 TTID 정밀 측정
+CLI 실행 시 `-W` (Wait) 옵션을 부여해 시간 측정 결과를 확인한다.
+```bash
+adb shell am start-activity -W -n com.example.app/.MainActivity
+```
+*출력 예시:*
+```text
+Starting: Intent { cmp=com.example.app/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.app/.MainActivity
+TotalTime: 842
+WaitTime: 845
+Complete
+```
+- `TotalTime`: 시스템이 시작 요청을 수신한 시점부터 첫 프레임 렌der 완료까지의 시간(TTID, ms 단위).
+- `LaunchState`: `COLD`, `WARM`, `HOT` 상태를 확인하여 재현 환경이 타당한지 검증.
 
-4. **Perfetto trace 로 시작 구간의 시간축을 본다.**
-   `Choreographer#doFrame` 이전의 `ActivityThread.main` → `Application.onCreate` → `Activity.onCreate` 구간 중 어디가 가장 긴지 확인한다.
-   - 왜 이 필드를 보는가: `am start -W` 의 `TotalTime` 은 "얼마나 걸렸는지"만 말해주고 "어디서 걸렸는지"는 말해주지 않는다. trace 의 구간별 길이가 그다음 조사 방향(초기화 코드 축소 vs 데이터 로딩 지연 vs 레이아웃 비용)을 정한다.
+#### 2단계: Logcat 의 `Displayed` 및 `Fully drawn` 태그 관찰
+수동 트리거 외에 실제 앱 실행 로그에서 타임스탬프를 수집한다.
+```bash
+adb logcat -d | grep -E "ActivityManager: Displayed|Fully drawn"
+```
+*출력 예시:*
+```text
+ActivityManager: Displayed com.example.app/.MainActivity: +842ms
+system_process I/ActivityManager: Fully drawn com.example.app/.MainActivity: +1s450ms
+```
+- `Displayed`: TTID 신호. 괄호 안 `(total +2m10s)` 가 표기되면 이전 선행 Activity 나 SplashActivity 가 오래 지연되었음을 의미함.
+- `Fully drawn`: 앱 내부에서 `reportFullyDrawn()` 을 호출했을 때 측정되는 TTFD 신호.
 
-5. **`dumpsys activity activities` 로 현재 최상단 액티비티와 프로세스 상태를 확인한다.**
-   같은 컴포넌트를 실행하는 요청이라도 대상 프로세스가 foreground/visible 상태로 살아 있었는지, 메모리 압박으로 회수된 cached 상태였는지에 따라 체감 지연이 달라진다. 이 출력으로 재현이 정말 냉시작이었는지 확인할 수 있다.
+#### 3단계: ApplicationExitInfo 를 이용한 실행 직후 종료 원인 조회 (Android 11+ / API 30+)
+시작 직후 앱이 소리 없이 튕기거나 죽는 경우 프로세스 종료 원인을 시스템에 쿼리한다.
+```bash
+adb shell dumpsys activity exit-info com.example.app
+```
+*핵심 결과 필드:*
+- `reason`: `REASON_CRASH_NATIVE`, `REASON_ANR`, `REASON_INITIALIZATION_FAILURE`, `REASON_FREEZER`
+- `subreason`: `SUBREASON_UNDEF`, `SUBREASON_IMP_DEF`
 
-### OS/API/target SDK 조건
+#### 4단계: Perfetto Trace 를 통한 메인 스레드 구간별 시간축 타임라인 수집
+`Choreographer#doFrame` 이전 구간 중 어느 메인 스레드 콜백이 긴지 측정한다.
+```bash
+adb shell perfetto -o /data/misc/perfetto-traces/launch.trace -t 5s sched freq idle am wm gfx view
+adb pull /data/misc/perfetto-traces/launch.trace .
+```
+ui.perfetto.dev 에서 트레이스를 열고 `ActivityThread.main` -> `Application.onCreate` -> `Activity.onCreate` 의 duration 을 확인한다.
 
-- `TotalTime`/`Displayed` 로그는 API 레벨과 무관하게 안정적으로 존재하는 오래된 진단 신호다.
-- `reportFullyDrawn()` 은 모든 API 레벨에서 사용 가능하지만, TTFD 측정 자체는 앱이 명시적으로 호출해야만 의미를 갖는다는 점은 버전과 무관하게 동일하다.
-- Baseline Profile 적용 여부는 특히 냉시작 비용에 영향을 준다. 최근에 이 문제가 새로 생겼다면 Baseline Profile 관련 빌드 변경이 있었는지 확인한다.
+---
 
-### 다음 조사 경로
+### 6. 성공 / 실패 판정 신호 기준표 (Signal Criteria Matrix)
 
-- ANR 다이얼로그가 관찰되면 → [ANR runbook](02-anr.md)
-- TTFD 만 늦고 TTID 는 정상이면 → 데이터 계층 문제이므로 [Learning Spine 8장](../learning-spine/08-data-storage-network-and-offline-recovery.md) 의 로컬 우선 관찰 모델을 확인
-- 특정 기기·OS 버전군에서만 느리다면 → [관찰/테스트 runbook 방법론](../learning-spine/11-observation-testing-and-quality-feedback.md) 의 Android vitals 현장 분포 확인으로 넘어간다
+| 진단 지표 / 신호 (Signal) | 정상 기준 (Success Criteria) | 실패 기준 (Failure Criteria) | 주 원인 및 즉시 조치 (Action Boundary) |
+| :--- | :--- | :--- | :--- |
+| **am start -W TotalTime (TTID)** | Cold Launch < 1000ms<br>Warm Launch < 500ms | Cold Launch > 2500ms<br>Warm Launch > 1000ms | `Application.onCreate()` 및 DI 그래프 동기 초기화 로직 분산/비동기화 |
+| **Fully drawn (TTFD)** | TTID 직후 (< 500ms 이내 차이) | TTID 대비 > 3000ms 이상 지연 또는 미호출 | 첫 프레임 렌더링 후 비동기 데이터 쿼리 파이프라인 전환 ([Worked Example 01](../worked-examples/01-app-icon-tap-to-first-frame.md)) |
+| **Logcat Displayed 라인** | 단일 `Displayed` 출력 기록 | 복수의 `Displayed` 유발 또는 `(total ...)` 괄호 지연 존재 | SplashActivity 등 릴레이 액티비티 체인 단축 |
+| **Android 15 16KB Page Alignment** | `readelf -l *.so` 커스텀 정렬 통과 | `UnsatisfiedLinkError` 또는 `dlopen failed: alignment...` | NDK/C++ `.so` 빌드 시 `-z max-page-size=16384` 링커 플래그 적용 |
+| **ApplicationExitInfo Reason** | N/A (정상 종료 없음) | `REASON_INITIALIZATION_FAILURE`<br>`REASON_CRASH_NATIVE` | 시작 시 Native Crash 로그 및 C++ crash dump 분석 |
 
-### 관련 자료
+---
+
+### 7. OS / API (Android 14 / 15 / 16) 특화 제약 및 진단 신호
+
+- **Android 14 (API 34)**:
+  - **시작 시 Foreground Service (FGS) 시작 제약**: `Application.onCreate()` 또는 `Activity.onCreate()` 시점에 백그라운드 상태 판정으로 `Context.startForegroundService()` 호출 시 `ForegroundServiceStartNotAllowedException` 예외가 발생하여 시작 직후 프로세스가 종료될 수 있음.
+  - **SplashScreen API 필수화**: 커스텀 테마 기반 스플래시 구현 시 시스템 스플래시 창과의 이중 렌더링으로 TTID 가 왜곡될 수 있으므로 `androidx.core.splashscreen` API 로 통합 필수.
+- **Android 15 (API 35)**:
+  - **16KB Page Size 지원 의무화**: NDK/C++ 라이브러리를 포함하는 앱은 ELF segment 가 16KB boundary 로 정렬되지 않은 경우 Android 15+ 기기/에뮬레이터에서 앱 프로세스가 시작 도중 즉시 사망함.
+    - CLI 확인: `readelf -l libexample.so | grep LOAD` 명령으로 `Align` 값이 `0x4000` (16384) 이상인지 검증.
+  - **Edge-to-Edge 기본 적용**: Android 15 target SDK 앱은 Edge-to-edge 가 기본 활성화되어 첫 Activity 의 WindowInset 계산 및 UI layout pass 시간축이 변경될 수 있음.
+- **Android 16 (API 36)**:
+  - **Advanced Cached Apps Freezer**: 백그라운드 태스크 초기화 후 동결(Freezer) 정책이 강화되어, 시작 시점에 비동기로 띄운 초기화 Coroutine 이 시스템에 의해 동결되어 TTFD 가 기하급수적으로 느려질 수 있음.
+
+---
+
+### 8. 다음 조사 경로 (Next Investigation Paths)
+
+- ANR 다이얼로그 또는 메인 스레드 차단 관찰 시 → [ANR runbook](02-anr.md) 으로 이동.
+- TTFD 만 느리고 TTID 는 정상인 경우 → 데이터 로딩 및 도메인/로컬 캐시 계층 문제이므로 [Learning Spine 8장](../learning-spine/08-data-storage-network-and-offline-recovery.md) 확인.
+- 특정 기기/제조사에서만 시작 속도 이슈가 몰리는 경우 → Android Vitals 현장 분포 및 OEM 전력 정책 확인 ([Learning Spine 11장](../learning-spine/11-observation-testing-and-quality-feedback.md)).
+
+---
+
+### 9. 관련 자료 및 연결 노트 (Related Notes & Worked Examples)
 
 - [Worked Example: 앱 아이콘 탭에서 첫 프레임까지](../worked-examples/01-app-icon-tap-to-first-frame.md)
 - [Android 시작 성능은 TTID와 TTFD로 나눈다](../../06_testing_performance/performance/performance-contracts/startup-performance-is-measured-by-ttid-and-ttfd.md)
 - [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../../06_testing_performance/performance/performance-contracts/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
 - [Learning Spine 6장 메인 스레드, Binder, coroutine과 durable scheduler](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md)
+- [Learning Spine 8장 데이터 저장소, 네트워크와 offline recovery](../learning-spine/08-data-storage-network-and-offline-recovery.md)
 - [Learning Spine 11장 관찰, 테스트와 품질 feedback](../learning-spine/11-observation-testing-and-quality-feedback.md)
 
-### 공식 근거
+---
 
-- [App startup time](https://developer.android.com/topic/performance/vitals/launch-time)
-- [Diagnose ANRs](https://developer.android.com/topic/performance/vitals/anr)
+### 10. 공식 근거 (Official References)
 
-검증일: 2026-08-04. `Displayed` 로그 형식과 `am start -W` 사용법은 공식 문서 원문으로 확인했다.
+- [App startup time (Android Developers)](https://developer.android.com/topic/performance/vitals/launch-time)
+- [Support 16 KB page sizes (Android Developers)](https://developer.android.com/guide/practices/page-sizes)
+- [Diagnose ANRs (Android Developers)](https://developer.android.com/topic/performance/vitals/anr)
+
+검증일: 2026-08-04. `Displayed` 로그 형식, `am start-activity -W` 사용법, Android 15 16KB Page Alignment 요구사항 및 ApplicationExitInfo API 쿼리는 공식 문서와 실기기 진단 CLI 로 검증 완료함.

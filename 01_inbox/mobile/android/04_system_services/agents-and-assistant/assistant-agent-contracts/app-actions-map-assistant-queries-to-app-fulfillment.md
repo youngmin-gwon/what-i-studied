@@ -8,9 +8,9 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ## App Actions 는 Assistant 질의를 앱 fulfillment 로 연결한다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 
-관련 지도: [Assistant와 에이전트 통합 계약](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/assistant-agent-contracts.md)
+관련 지도: [Assistant와 에이전트 통합 계약](./assistant-agent-contracts.md)
 
 ### 목적
 

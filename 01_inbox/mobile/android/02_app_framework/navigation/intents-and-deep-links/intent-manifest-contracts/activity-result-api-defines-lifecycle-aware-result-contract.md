@@ -34,6 +34,6 @@ pickImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.
 - 외부 Activity 가 반환하는 data 를 내부 trusted state 처럼 바로 취급하지 않는다.
 - Photo Picker, SAF, permission request 는 각각 storage/permission 정본과 연결한다.
 
-관련 노트: [Android 권한 계약](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md), [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
+관련 노트: [Android 권한 계약](../../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md), [파일 접근 계약](../../../data/storage/file-access-contracts/file-access-contracts.md)
 
 공식 문서: [Get a result from an activity](https://developer.android.com/training/basics/intents/result)

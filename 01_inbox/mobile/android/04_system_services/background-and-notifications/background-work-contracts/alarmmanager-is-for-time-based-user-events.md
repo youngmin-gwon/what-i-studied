@@ -8,9 +8,9 @@ date created: 2026-08-03 16:59:23 +09:00
 
 ## AlarmManager 는 시간 자체가 기능인 이벤트에 쓴다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 
-관련 지도: [백그라운드 작업 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
+관련 지도: [백그라운드 작업 계약](./background-work-contracts.md)
 
 ### 핵심 주장
 

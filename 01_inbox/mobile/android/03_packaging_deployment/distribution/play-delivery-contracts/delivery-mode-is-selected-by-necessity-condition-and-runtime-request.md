@@ -1,72 +1,68 @@
 ---
 title: delivery-mode-is-selected-by-necessity-condition-and-runtime-request
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:39 +09:00
+tags: ["android", "play-delivery", "dynamic-feature"]
+aliases: ["Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## Delivery mode 는 기능 필수성, 조건, 런타임 요청으로 선택한다
+## Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+Play Feature Delivery의 Delivery Mode는 앱 다운로드 용량 최적화와 사용자 경험을 동시에 만족하기 위해 세 가지 모드로 분류하여 결정한다:
+1. **Install-Time Delivery (필수 기능)**: 모든 사용자가 최초 앱 설치 시 항상 함께 다운로드받는 모드. 초기 실행에 필수적인 핵심 모듈.
+2. **Conditional Delivery (조건부 기능)**: 사용자의 국가(`user-countries`), 기기 하드웨어 특성(예: AR/VR 카메라 요구 `hardware-feature`), 또는 최소 API 레벨에 따라 자동 포함시키는 모드.
+3. **On-Demand Delivery (런타임 요청 기능)**: 사용자가 특정 메뉴(예: 대용량 게임 3D 맵, 결제 모듈)를 클릭하는 시점에 Play Store 서버에서 비동기 다운로드받는 모드.
 
-관련 지도: [Play Delivery 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-contracts.md)
+```mermaid
+flowchart TD
+    Req["Evaluate Feature Module Requirement"] --> CoreCheck{"Is it core feature for all users?"}
+    CoreCheck -->|Yes| InstallTime["Install-Time Delivery (<dist:install-time/>)"]
+    CoreCheck -->|No| DevCond{"Is it hardware or country specific?"}
+    DevCond -->|Yes| Conditional["Conditional Delivery (<dist:conditions>)"]
+    DevCond -->|No| OnDemand["On-Demand Delivery (<dist:on-demand/>)"]
+```
 
-관련 노트: [On-demand와 conditional delivery는 설치 상태와 실패 UX를 설계해야 한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/on-demand-and-conditional-delivery-require-install-state-and-failure-ux.md), [Play Delivery 운영은 UX, 테스트, Play 설치 경로를 함께 검증한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-operations-validate-ux-testing-and-play-install-path.md)
+### 코드 예시 (AndroidManifest.xml)
+```xml
+<!-- feature/ar_camera/src/main/AndroidManifest.xml -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution">
 
-### 비교표
+    <dist:module
+        dist:instant="false"
+        dist:title="@string/title_ar_feature">
+        <dist:delivery>
+            <!-- 조건부 배포: AR 기능이 지원되는 기기 및 특정 국가에만 다운로드 -->
+            <dist:conditional>
+                <dist:user-countries dist:exclude="false">
+                    <dist:country dist:code="US"/>
+                    <dist:country dist:code="KR"/>
+                </dist:user-countries>
+                <dist:conditions>
+                    <dist:device-feature dist:name="android.hardware.camera.ar"/>
+                </dist:conditions>
+            </dist:conditional>
+        </dist:delivery>
+        <dist:fusing dist:include="true" />
+    </dist:module>
+</manifest>
+```
 
-| 모드 | 다운로드 시점 | 런타임 API | 적합한 대상 |
-| --- | --- | --- | --- |
-| install-time | 앱 설치 중 | 불필요 | 첫 화면에 필수인 기능 |
-| conditional | 조건을 만족한 기기의 설치 중 | 불필요 | 지역·기기별 기능 |
-| on-demand | 앱의 요청 시점 | 필요 | 소수 사용자 또는 늦게 쓰는 기능 |
-| fast-follow | 설치 직후 자동 시작 | asset API 필요 | 큰 게임 asset pack |
+### 관측 가능 증거 (Observable Evidence)
+AAB 산출물에 정의된 모듈별 배포 조건(Delivery Configuration)을 `bundletool` CLI로 검증할 수 있다:
 
-### 판단 순서
+```bash
+bundletool dump manifest --bundle=app-release.aab --module=ar_camera | grep -A 5 "dist:delivery"
 
-앱의 첫 실행이 기능 없이는 성립하지 않으면 install-time 을 선택한다.
+# Output Example:
+# <dist:delivery>
+#   <dist:conditional>
+#     <dist:device-feature dist:name="android.hardware.camera.ar" />
+#   </dist:conditional>
+# </dist:delivery>
+```
 
-모든 사용자가 필요로 하지 않고 설치 전에 조건을 알 수 있으면 conditional 을 검토한다.
-
-사용자의 행동 뒤에만 필요하면 on-demand 가 기본 선택이다.
-
-실행 코드는 아니고 설치 직후 준비할 대형 리소스라면 asset pack 의 fast-follow 를 쓴다.
-
-### install-time
-
-기능 모듈에 별도 custom delivery 를 쓰지 않으면 install-time 이다.
-
-앱 시작 전에 사용 가능하다는 장점이 있지만 초기 다운로드가 커진다.
-
-설치 직후 제거할 수 있는 기능은 removable 여부를 별도로 설계한다.
-
-### conditional
-
-조건은 설치 시 자동 다운로드 여부를 결정한다.
-
-조건을 만족하지 않아도 나중에 on-demand 로 요청할 수 있다.
-
-따라서 조건 불충족을 영구적인 기능 차단으로 해석하면 안 된다.
-
-### on-demand
-
-모듈 요청, 진행 상태, 실패, 사용자 확인, 재시도를 앱이 처리한다.
-
-기능 화면을 열기 전에 설치 상태를 확인하고 미설치면 명확한 다운로드 흐름을 제공한다.
-
-백그라운드 선행 설치는 best-effort 이므로 사용 전 재확인이 필요하다.
-
-### fast-follow 의 경계
-
-Play Feature Delivery 의 feature module 과 Play Asset Delivery 의 asset pack 은 다르다.
-
-fast-follow asset pack 은 코드 모듈이 아니며, 게임 리소스 전달에 사용한다.
-
-asset pack 은 Play Asset Delivery Library 로 상태와 위치를 확인한다.
-
-### 공식 문서
-
-- [Overview of Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery)
-- [UX best practices for on-demand delivery](https://developer.android.com/guide/playcore/feature-delivery/ux-guidelines)
-- [Play Asset Delivery](https://developer.android.com/guide/playcore/asset-delivery)
+관련 노트: [Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다](play-feature-delivery-controls-dynamic-feature-install-timing.md), [Play Delivery 계약](play-delivery-contracts.md)

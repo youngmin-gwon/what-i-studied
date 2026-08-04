@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [ART and DEX execution](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/art-runs-dex-with-interpretation-jit-and-aot.md)
-- [R8 and code optimization](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md)
+- [ART and DEX execution](../../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/art-runs-dex-with-interpretation-jit-and-aot.md)
+- [R8 and code optimization](../../../03_packaging_deployment/optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md)

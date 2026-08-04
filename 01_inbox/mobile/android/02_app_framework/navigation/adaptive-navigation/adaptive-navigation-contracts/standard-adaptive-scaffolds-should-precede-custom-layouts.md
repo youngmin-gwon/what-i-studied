@@ -39,6 +39,6 @@ NavigationSuiteScaffold(
 
 이 컴포넌트는 `windowSizeClass` 에 따라 compact 에서 bottom navigation bar, expanded 에서 navigation rail 로 자동 전환한다. 같은 동작을 custom `if (isExpanded)` 분기로 재구현하면 두 코드 경로가 각자 버그를 갖게 된다.
 
-관련 노트: [Top-level destination은 adaptive navigation chrome의 단위다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/top-level-destination-owns-adaptive-navigation-chrome.md)
+관련 노트: [Top-level destination은 adaptive navigation chrome의 단위다](./top-level-destination-owns-adaptive-navigation-chrome.md)
 
 공식 문서: [Build adaptive navigation](https://developer.android.com/develop/adaptive-apps/guides/build-adaptive-navigation), [Adaptive do's and don'ts](https://developer.android.com/develop/adaptive-apps/guides/adaptive-dos-and-donts)

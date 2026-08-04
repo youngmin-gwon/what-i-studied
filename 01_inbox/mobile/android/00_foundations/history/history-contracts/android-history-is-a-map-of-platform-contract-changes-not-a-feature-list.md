@@ -10,11 +10,11 @@ date created: 2026-07-31 23:04:26 +09:00
 
 Android version history 는 새 기능 암기표가 아니라 어떤 contract 가 바뀌었는지 보는 timeline 이다. runtime, permission, storage, distribution, update, UI, form factor, security boundary 가 언제 바뀌었는지가 중요하다.
 
-예를 들어 Android 6 의 runtime permission, Android 8 의 Treble/background limit, Android 10 의 scoped storage/Mainline, Android 12 의 Material You 와 ART module update, Android 13 이후 notification/media 권한 분리는 앱 설계 기준을 바꿨다.
+예를 들어 Android 5.0의 Dalvik$\rightarrow$ART AOT 전환 및 SELinux Enforcing 전면 적용, Android 7.0의 JIT/AOT Hybrid 런타임 및 A/B Seamless Update, Android 8.0의 Treble (System/Vendor 분리) 및 background execution limit, Android 10의 Scoped Storage 및 Mainline APEX 모듈식 업데이트, Android 11의 Virtual A/B 스냅샷 업데이트, Android 13의 AIDL HAL 전면 전환 및 notification/media 권한 세분화는 플랫폼 전체의 계약 구조와 앱 개발·디버깅 기준을 근본적으로 바꿨다.
 
-따라서 오래된 version 별 세부 설명은 정본으로 유지하지 않고, 주요 contract 변화와 관련 정본 링크로 압축한다.
+따라서 오래된 version 별 기능 나열은 정본으로 유지하지 않고, 주요 platform contract 전환점과 관련 정본 링크로 압축한다.
 
-관련 노트: [permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md), [file/storage](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md), [platform modularity](01_inbox/mobile/android/01_system_internals/platform-modularity/android-platform-modularity.md), [Compose runtime](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md).
+관련 노트: [permissions](../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md), [file/storage](../../../02_app_framework/data/storage/file-access-contracts/file-access-contracts.md), [platform modularity](../../../01_system_internals/platform-modularity/android-platform-modularity.md), [Compose runtime](../../../02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md).
 
 ### 판단 기준
 

@@ -16,6 +16,6 @@ AIDL 은 대부분 앱의 기본 선택지가 아니다. IPC 실패, thread, per
 
 `adb shell dumpsys activity services <pkg>` 로 해당 service 의 `bindings`/`Connections` 항목을 보면 현재 연결된 클라이언트 수를 직접 셀 수 있다. 마지막 클라이언트가 `unbindService` 를 호출하면 이 목록이 비고, 뒤이어 시스템이 service 를 종료한다.
 
-관련 노트: [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md), [exported/permission 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/exported-and-permission-boundaries-decide-external-component-access.md), [컴포넌트 통신 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md).
+관련 노트: [IPC and process contracts](../../../../01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md), [exported/permission 경계](./exported-and-permission-boundaries-decide-external-component-access.md), [컴포넌트 통신 경계](./component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md).
 
 공식 문서: [Bound services](https://developer.android.com/develop/background-work/services/bound-services)

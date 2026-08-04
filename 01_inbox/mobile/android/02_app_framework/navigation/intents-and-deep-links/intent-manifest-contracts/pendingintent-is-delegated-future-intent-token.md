@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## PendingIntent 는 나중에 실행할 권한을 위임하는 토큰이다
 
-상위 문서: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
 
 ### 개념
 

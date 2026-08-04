@@ -8,9 +8,9 @@ date created: 2026-08-03 16:59:23 +09:00
 
 ## WorkManager 는 지연 가능한 보장 작업의 기본 선택이다
 
-상위 지도: [백그라운드 작업 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
+상위 지도: [백그라운드 작업 계약](./background-work-contracts.md)
 
-선택 비교: [백그라운드 실행 수단은 실패 비용으로 결정한다](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-api-selection-is-a-failure-cost-decision.md)
+선택 비교: [백그라운드 실행 수단은 실패 비용으로 결정한다](./background-work-api-selection-is-a-failure-cost-decision.md)
 
 ### 핵심 명제
 

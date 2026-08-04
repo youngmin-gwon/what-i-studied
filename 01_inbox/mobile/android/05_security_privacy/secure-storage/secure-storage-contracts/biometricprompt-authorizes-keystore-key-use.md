@@ -1,75 +1,105 @@
 ---
 title: biometricprompt-authorizes-keystore-key-use
-tags: []
+tags: ["android", "android/security-privacy"]
 aliases: []
-date modified: 2026-08-03 18:14:27 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## BiometricPrompt 는 Keystore 키 사용을 인가한다
 
-### BiometricPrompt 는 Keystore 키 사용 권한을 여는 장치다
+`BiometricPrompt`는 단순한 인증 UI 팝업이 아니며, 하드웨어 **Keystore에 보관된 암호키의 사용 잠금을 해제(Unlock)**하는 cryptographic gatekeeper로 작동한다. `setUserAuthenticationRequired(true)` 옵션으로 생성된 Keystore 키는 사용자가 지문, 지문 센서, 얼굴 인식 성공 시 TEE/Gatekeeper가 발행하는 **HAT(Hardware Authentication Token)**에 의해서만 암복호화 연산 권한이 동적으로 인가된다.
 
-상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+```mermaid
+sequenceDiagram
+    autonumber
+    participant App as Android 앱
+    participant Keystore as Android Keystore (TEE)
+    participant BioPrompt as BiometricPrompt Framework
+    participant Gatekeeper as Gatekeeper / Biometric HAL
 
-관련 노트: [Android Keystore 키는 비추출성으로 보호한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/android-keystore-protects-keys-by-non-exportability.md)
+    App->>Keystore: Cipher.init(ENCRYPT/DECRYPT, authKey)
+    Keystore-->>App: Throw UserNotAuthenticatedException (Key Locked)
+    App->>BioPrompt: authenticate(CryptoObject(Cipher))
+    BioPrompt->>Gatekeeper: 생체 인식 모듈 작동 및 센서 측정
+    Gatekeeper->>Gatekeeper: 지문/얼굴 일치 확인 및 HAT (Auth Token) 생성
+    Gatekeeper->>Keystore: HMAC 서명된 HAT 토큰 전송
+    Keystore-->>Keystore: HAT 토큰 검증 후 Cipher operation 해제
+    BioPrompt-->>App: onAuthenticationSucceeded(result)
+    App->>Keystore: result.cryptoObject.cipher.doFinal(data) -> 연산 성공!
+```
 
-#### 핵심 주장
+### 내부 동작 메커니즘
 
-[BiometricPrompt](https://developer.android.com/reference/androidx/biometric/BiometricPrompt) 는 단순히 화면 진입을 허용하는 UI 가 아니다.
+1. **HAT (Hardware Authentication Token)**: 생체 인증 성공 시 Gatekeeper/Fingerprint HAL이 HMAC-SHA256 기반 타임스탬프 토큰을 생성하여 TEE Keystore에 바인딩한다.
+2. **Authentication Validity Duration**: `setUserAuthenticationParameters(timeoutSeconds, AUTH_BIOMETRIC_STRONG)` 설정을 통해 인증 후 N초간 키를 재사용 가능하게 하거나, `timeout = 0`으로 매 Cipher 연산마다 BiometricPrompt 승인을 강제할 수 있다.
+3. **CryptoObject Binding**: `BiometricPrompt.CryptoObject(cipher)` 형태로 Cipher 객체를 인가 래핑하여 전달함으로써, 프론트엔드 UI 승인 성공 시점에만 정확히 해당 Cipher 연산을 수행할 수 있도록 바인딩한다.
 
-Keystore 키에 사용자 인증 조건을 설정하면, 인증 성공 뒤에만 키 연산을 수행하도록 연결할 수 있다.
+### BiometricPrompt + CryptoObject 바인딩 연동 예시 (Kotlin)
 
-#### 인증과 키 사용의 차이
+```kotlin
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import javax.crypto.Cipher
 
-앱이 BiometricPrompt 의 성공 콜백을 받았다는 사실만으로 모든 비밀 데이터를 복호화할 수 있게 만들면 안 된다.
+fun authenticateAndDecrypt(
+    activity: FragmentActivity,
+    cipher: Cipher,
+    onSuccess: (ByteArray) -> Unit,
+    onError: (String) -> Unit
+) {
+    val executor = ContextCompat.getMainExecutor(activity)
+    
+    val biometricPrompt = BiometricPrompt(activity, executor,
+        object : BiometricPrompt.AuthenticationCallback() {
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                val authenticatedCipher = result.cryptoObject?.cipher
+                if (authenticatedCipher != null) {
+                    val decryptedBytes = authenticatedCipher.doFinal(encryptedData)
+                    onSuccess(decryptedBytes)
+                }
+            }
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                onError(errString.toString())
+            }
+        }
+    )
 
-중요한 것은 키 생성 시 사용자 인증을 키의 사용 조건으로 묶는 것이다.
+    val promptInfo = BiometricPrompt.PromptInfo.Builder()
+        .setTitle("보안 데이터 인증")
+        .setSubtitle("생체 정보를 통해 저장소 잠금을 해제합니다")
+        .setNegativeButtonText("취소")
+        .setAllowedAuthenticators(androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG)
+        .build()
 
-인증 성공 뒤 반환된 `Cipher` 를 사용하거나, 인증으로 해제된 Keystore 키를 사용한다.
+    // CryptoObject로 Cipher 객체를 래핑하여 생체 인증 시작
+    biometricPrompt.authenticate(promptInfo, BiometricPrompt.CryptoObject(cipher))
+}
+```
 
-이렇게 해야 인증 결과와 실제 암호 연산 사이의 연결이 생긴다.
+### 관찰 가능한 증거 (Observable Evidence)
 
-#### 인증 등급
+- **adb dumpsys를 통한 Keymint / Gatekeeper 바인딩 상태 점검**:
+  ```bash
+  adb shell dumpsys keystore2
+  ```
 
-- `BIOMETRIC_STRONG` 은 보안 강도가 높은 생체 인증 클래스다.
-- `BIOMETRIC_WEAK` 은 더 낮은 등급이며 고위험 키 사용 조건으로 적합하지 않을 수 있다.
-- `DEVICE_CREDENTIAL` 을 허용하면 기기 PIN, 패턴, 비밀번호가 대체 인증 수단이 될 수 있다.
-- 허용할 인증자의 조합은 데이터의 위험도와 사용자 경험을 함께 보고 정한다.
+- **인증 없이 Key 사용 시 발생하는 예외**:
+  ```text
+  android.security.keystore.UserNotAuthenticatedException: User not authenticated
+      at android.security.keystore2.AndroidKeyStoreCipherSpiBase.ensureKeystoreOperationInitialized
+  ```
 
-#### 키 생성 정책
+### 판단 기준
 
-키에 사용자 인증을 요구할 때는 인증 유효 시간과 생체 등록 변경 시 동작을 명시한다.
+Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity 와 mandatory policy 가 어떻게 강제되는지 판단하는 기준으로 읽는다.
 
-짧은 인증 유효 시간은 보안을 높이지만 반복 인증을 늘린다.
+### 경계
 
-새 지문이나 얼굴을 등록했을 때 키를 무효화하는 정책은 기존 사용자의 재인증 흐름과 함께 설계한다.
+client-side check 를 authorization으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
 
-키가 무효화되면 암호문을 조용히 삭제하지 말고 사용자에게 재로그인이나 복구 절차를 제공한다.
+상위 문서: [보안 저장소 계약](secure-storage-contracts.md)
 
-#### 일반 흐름
-
-1. 사용자가 보호된 기능을 요청한다.
-2. `BiometricManager` 로 지원 가능한 인증자를 확인한다.
-3. 키 사용에 필요한 `Cipher` 를 준비한다.
-4. `BiometricPrompt` 에 암호화 객체를 연결해 인증을 요청한다.
-5. 성공 콜백에서 해당 Cipher 로 복호화 또는 서명을 수행한다.
-6. 실패, 취소, 잠금 상태를 각각 구분해 처리한다.
-
-#### 설계 주의점
-
-생체 정보 자체를 앱이 저장하거나 처리하는 것이 아니라 시스템 인증 결과를 사용한다.
-
-인증 성공 콜백만 별도 플래그에 저장해 나중에 키를 쓰게 하는 방식은 권한의 범위를 넓힌다.
-
-화면이 백그라운드로 가거나 인증 요청이 취소되면 작업을 중단한다.
-
-인증을 우회하는 테스트용 플래그가 출시 빌드에 남지 않도록 한다.
-
-#### 적합한 보호 대상
-
-- 장기 액세스 토큰 복호화
-- 개인 키를 이용한 서명
-- 결제나 계정 변경처럼 재인증이 필요한 작업
-
-단순한 앱 진입 화면에는 서버 세션 정책이나 일반 인증 흐름이 더 적합할 수 있다.
+관련 노트: [Android Keystore는 추출 불가능성으로 키를 보호한다](android-keystore-protects-keys-by-non-exportability.md)

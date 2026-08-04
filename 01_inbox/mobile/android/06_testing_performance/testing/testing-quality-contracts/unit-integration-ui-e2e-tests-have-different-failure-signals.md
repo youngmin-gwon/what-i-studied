@@ -1,81 +1,96 @@
 ---
-title: unit-integration-ui-e2e-tests-have-different-failure-signals
+title: "Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다"
 tags: ["android", "android/testing-performance"]
-aliases: []
-date modified: 2026-08-03 18:15:10 +09:00
+aliases: ["unit-integration-ui-e2e-tests-have-different-failure-signals"]
 date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
 ## Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md)
+관련 지도: [테스트 품질 계약](./testing-quality-contracts.md)
+관련 노트: [테스트 레이어는 피드백 비용으로 선택한다](./test-layer-is-chosen-by-feedback-cost-and-risk.md)
 
-관련 지도: [테스트 품질 계약](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
+각 테스트 레이어는 서로 다른 격리 범위(Isolation Scope)를 형성하므로, 발생한 실패 신호(Failure Signal)의 스택 트레이스와 예외 유형에 따라 진단 대상(도메인 규칙 vs DI/DB 계약 vs UI 노드 및 레이스 vs 네트워크 환경)을 다르게 포착해야 한다.
 
-테스트 이름보다 중요한 것은 무엇을 실제로 연결했는지다.
+### 1. 테스트 레이어별 실패 신호 분류 메커니즘
 
-경계는 실행 환경, 의존성, 관찰 가능한 결과로 정의한다.
+- **Unit Test Failure Signal**:
+  - **신호**: `AssertionError`, `NullPointerException`.
+  - **진단**: 특정 클래스 메서드의 순수 로직, 상태 전이 규칙, 매핑 코드 결함.
+- **Integration Test Failure Signal**:
+  - **신호**: `SQLiteConstraintException`, `Moshi/Gson DataBindingException`, `Hilt CreationException`.
+  - **진단**: DB 스키마 쿼리, JSON 직렬화/역직렬화 계약 미스, 모듈 간 의존성 주입 연결 미스.
+- **UI Test Failure Signal**:
+  - **신호**: `PerformException`, `AssertionError: No node found with tag`, `ComposeTimeoutException`.
+  - **진단**: UI 노드 리소스 ID 변경, 비동기 상태 표출 타임아웃, Semantics 트리 불일치.
+- **E2E Test Failure Signal**:
+  - **신호**: `HttpException 500/503`, `SocketTimeoutException`, `UiObjectNotFoundException`.
+  - **진단**: 서드파티 backend API 계약 파기, 인증 토큰 만료, 물리 기기 연결 이탈.
 
-### Unit
+### 2. 실패 신호 분기 진단 트리아지 워크플로우
 
-Unit 테스트는 하나의 규칙 또는 변환을 격리해 검증한다.
+```mermaid
+flowchart TD
+    Failure["테스트 실패 (Test Failure) 수신"]
+    
+    Failure --> CheckType{"발생 예외 및 스택 트레이스 분석"}
+    
+    CheckType -->|AssertionError / Local logic| UnitBug["Unit Test Signal<br/>(해당 Domain Class / Reducer 직진 수정)"]
+    CheckType -->|Room DB Constraint / Moshi JSON| IntegrationBug["Integration Test Signal<br/>(Repository DB / Network Contract 수정)"]
+    CheckType -->|No Node Found / Compose Timeout| UIBug["UI Test Signal<br/>(Semantics TestTag / waitForIdle 보정)"]
+    CheckType -->|SocketTimeout / Server 500| E2EBug["E2E Test Signal<br/>(외부 Mock Server / CI 네트워크 점검)"]
+```
 
-UseCase, reducer, mapper, validator, formatter 가 대표적인 대상이다.
+### 3. 레이어별 실패 assertion Kotlin 코드 구체 예시
 
-시간, 난수, dispatcher, 네트워크, 저장소는 주입 가능한 인터페이스로 둔다.
+```kotlin
+// 1. Unit Test: 도메인 로직 실패 신호 포착
+@Test
+fun calculateDiscount_fails_whenInvalidCoupon() {
+    val result = discountPolicy.apply(coupon = "INVALID")
+    // 실패 신호: java.lang.AssertionError: Expected 0.0 but was 15.0
+    assertEquals(0.0, result, 0.001)
+}
 
-테스트는 입력, 실행, 결과의 세 단계가 분명해야 한다.
+// 2. Integration Test: Room DB Constraints 실패 신호 포착
+@Test(expected = SQLiteConstraintException::class)
+fun insertUser_fails_onDuplicatePrimaryKey() {
+    db.userDao().insert(User(id = 1, name = "Alice"))
+    db.userDao().insert(User(id = 1, name = "Bob")) // PrimaryKey 중복 신호!
+}
 
-mock 호출 횟수보다 반환 상태와 도메인 결과를 우선 검증한다.
+// 3. UI Test: Compose Node 탐색 실패 신호 포착
+@Test
+fun clickSubmit_showsSuccessScreen() {
+    composeTestRule.onNodeWithTag("submit_btn").performClick()
+    // 실패 신호: AssertionError: Assert failed: No node found with testTag 'success_title'
+    composeTestRule.onNodeWithTag("success_title").assertIsDisplayed()
+}
+```
 
-### Integration
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
 
-Integration 테스트는 둘 이상의 실제 구성요소가 계약대로 연결되는지 확인한다.
+#### 스택 트레이스 실패 신호 대조 덤프
 
-Repository 와 database, client 와 serializer, ViewModel 과 UseCase 가 예시다.
+```text
+# Case A: Unit Test Logic Error
+java.lang.AssertionError: expected:<FeedState.Success> but was:<FeedState.Loading>
+    at org.junit.Assert.fail(Assert.java:89)
+    at com.example.app.ui.FeedViewModelTest.fetchFeed_success(FeedViewModelTest.kt:45)
 
-외부 서버 대신 통제 가능한 fake 또는 MockWebServer 를 사용할 수 있다.
+# Case B: UI Test Semantics Node Missing
+java.lang.AssertionError: Failed to assert the following condition(s):
+Already found 0 nodes matching: (TestTag = 'submit_btn')
+Tree dump:
+Node #1 at (l=0, t=0, r=1080, b=2400)px
+ |-Node #2 at (l=48, t=120, r=1032, b=300)px, Tag: 'header_title'
+    at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:120)
+```
 
-실제 구현을 연결하되 외부 시스템의 불안정성은 테스트 경계 밖으로 둔다.
+### 5. 실패 대응 가이던스
 
-통합 테스트는 매핑 누락, transaction, dispatcher 연결 같은 오류를 잡는다.
+- **E2E 실패의 단위 테스트 이관**: E2E 테스트에서 발견된 결함은 항상 해당 조건을 검증하는 단위 테스트(Unit Test)를 먼저 작성하여 재현한 뒤 수정한다.
+- **Flaky Exception 분류**: UI 스레드 타임아웃 예외(`ComposeTimeoutException`) 발생 시 단순 타임아웃을 늘리기보다 로직 내 무한 루프나 코루틴 교착 상태(Deadlock)를 우선 의심한다.
 
-### UI
-
-UI 테스트는 사용자에게 보이는 상태와 상호작용을 검증한다.
-
-ComposeTestRule 로 content 를 설정하고 노드를 찾아 행동과 assertion 을 수행한다.
-
-화면 내부의 로직 전체를 UI 테스트에 복제하지 않는다.
-
-UI 테스트는 클릭 후 상태, 입력 오류, 로딩, 빈 상태, 접근성 노출을 다룬다.
-
-문구 자체가 계약이면 semantics 를 검증하고, 단순 타깃이면 안정적인 식별자를 쓴다.
-
-### E2E
-
-E2E 는 앱 설치부터 여러 화면을 거치는 사용자 여정을 검증한다.
-
-navigation, 권한, 앱 재시작, 시스템 키보드처럼 낮은 레이어가 재현하기 어려운 문제를 다룬다.
-
-모든 분기를 E2E 로 만들면 실패 원인과 실행 시간이 함께 커진다.
-
-대표 여정만 남기고 세부 규칙은 unit, integration, UI 로 내린다.
-
-외부 API 는 테스트 서버나 고정 fixture 로 통제해 네트워크 변동을 줄인다.
-
-### 경계 위반 신호
-
-- Unit 테스트가 Android device 를 필요로 한다.
-- UI 테스트가 내부 private 함수의 호출 횟수를 검증한다.
-- E2E 실패가 어느 화면에서 발생했는지 알 수 없다.
-- 테스트가 실제 시간, 실제 네트워크, 공유 계정에 의존한다.
-- 하나의 테스트가 너무 많은 준비와 정리를 수행한다.
-
-경계가 흐려졌다면 테스트를 삭제하기보다 책임을 낮은 레이어로 이동한다.
-
-테스트 이름에는 검증하는 계약을 적고 구현 세부사항은 적게 노출한다.
-
-공식 참고: [Android 테스트에서 로컬 및 계측 테스트](https://developer.android.com/training/testing/local-tests)
-
-공식 참고: [Android 테스트에서 계측 테스트](https://developer.android.com/training/testing/instrumented-tests)

@@ -12,14 +12,25 @@ Activity, Service, BroadcastReceiver, ContentProvider 를 각각의 OS-visible c
 
 ### Entry Point
 
-- [앱 컴포넌트는 OS entry point다](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/android-app-components-are-system-entry-points-not-in-process-objects.md)
-- [Manifest는 컴포넌트와 권한 경계를 선언한다](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/manifest-declares-components-permissions-features-and-exported-boundaries.md)
-- [exported와 권한은 외부 접근 경계를 결정한다](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/exported-and-permission-boundaries-decide-external-component-access.md)
-- [컴포넌트 통신은 경계별 API로 나뉜다](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md)
+- [앱 컴포넌트는 OS entry point다](./android-app-components-are-system-entry-points-not-in-process-objects.md)
+- [Manifest는 컴포넌트와 권한 경계를 선언한다](./manifest-declares-components-permissions-features-and-exported-boundaries.md)
+- [exported와 권한은 외부 접근 경계를 결정한다](./exported-and-permission-boundaries-decide-external-component-access.md)
+- [컴포넌트 통신은 경계별 API로 나뉜다](./component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md)
 
 ### Components
 
-- [Activity](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/activity-is-user-visible-entry-point-and-process-priority-signal.md)
-- [Service](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/service-is-background-or-remote-work-entry-point-not-general-task-runner.md)
-- [BroadcastReceiver](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md)
-- [ContentProvider](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md)
+- [Activity](./activity-is-user-visible-entry-point-and-process-priority-signal.md)
+- [Service](./service-is-background-or-remote-work-entry-point-not-general-task-runner.md)
+- [BroadcastReceiver](./broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md)
+- [ContentProvider](./contentprovider-publishes-uri-addressed-data-with-permission-boundary.md)
+
+
+### Detailed Contracts
+- [process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md](process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md)
+- [task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md](task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md)
+- [fileprovider-grants-narrow-uri-access-instead-of-file-path-sharing.md](fileprovider-grants-narrow-uri-access-instead-of-file-path-sharing.md)
+- [context-registered-receiver-lifetime-follows-registering-context.md](context-registered-receiver-lifetime-follows-registering-context.md)
+- [foreground-service-is-user-visible-ongoing-work-contract.md](foreground-service-is-user-visible-ongoing-work-contract.md)
+- [configuration-change-recreates-activity-but-not-all-screen-state.md](configuration-change-recreates-activity-but-not-all-screen-state.md)
+- [activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md](activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md)
+- [bound-service-exposes-process-dependency-and-ipc-api.md](bound-service-exposes-process-dependency-and-ipc-api.md)

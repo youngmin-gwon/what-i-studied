@@ -1,65 +1,78 @@
 ---
 title: gradle-build-performance-is-not-app-runtime-performance
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:55 +09:00
-date created: 2026-07-31 17:32:53 +09:00
+tags: ["android", "gradle", "build-performance", "macrobenchmark"]
+aliases: ["Gradle 빌드 성능은 앱 런타임 성능과 다르다"]
+date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
 ## Gradle 빌드 성능은 앱 런타임 성능과 다르다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+### 내부 메커니즘 (Internal Mechanism)
+엔지니어링 환경에서 **빌드 시간 성능(Build-Time Performance)**과 **앱 런타임 성능(App Runtime Performance)**은 서로 교환(Trade-off) 관계에 있는 완전히 별개의 축이다:
+- **Build Performance (개발 생산성 축)**: 개발자가 코드를 수정하고 컴파일하여 결과를 확인할 때까지의 속도. 증분 컴파일, Build Cache, Configuration Cache, 디버그용 R8 비활성화, DEX 미최적화(`minSdk 21+` 직렬 DEX)를 적용하여 빌드 시간을 단축한다.
+- **Runtime Performance (사용자 경험 축)**: 사용자가 앱을 실행하고 화면을 이탈하지 않도록 유지하는 속도. R8 Full Mode 최적화(Class Merging, Inlining), Baseline Profiles (dex2oat AOT 컴파일), 리소스 수축, TTID/TTFD 최적화를 적용한다. R8 최적화를 적용하면 앱 런타임 성능은 최고조에 달하지만 빌드 시간은 크게 증가한다.
 
-관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+```mermaid
+flowchart TD
+    subgraph BuildPerf ["Build Performance Focus (Debug Build)"]
+        DebugBuild["isMinifyEnabled = false"]
+        ParallelTask["Configuration Cache + Build Cache"]
+        FastDev["Fast Iteration Loop (~3s)"]
+    end
 
-관련 노트: [증분 빌드, 캐시, 구성 캐시는 빌드 작업량을 줄인다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/incremental-build-cache-and-configuration-cache-reduce-build-work.md), [Gradle 빌드 계약](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/gradle-build-contracts.md)
+    subgraph RuntimePerf ["Runtime Performance Focus (Release Build)"]
+        ReleaseBuild["isMinifyEnabled = true (R8 Full Mode)"]
+        BaselineProfile["Baseline Profile (AOT Pre-compilation)"]
+        FastUX["Fast App Startup TTID & Smooth 60fps UX"]
+    end
+```
 
-### 핵심 주장
+### 코드 예시 (gradle.properties & MacrobenchmarkRule)
+```properties
+# gradle.properties (Build Performance Tuning)
+org.gradle.caching=true
+org.gradle.configuration-cache=true
+org.gradle.parallel=true
+org.gradle.jvmargs=-Xmx6g -XX:+UseG1GC
+```
 
-Gradle 빌드가 빠른 것과 앱이 빠르게 실행되는 것은 서로 다른 성능 문제다.
+```kotlin
+// macrobenchmark/StartupBenchmark.kt (App Runtime Performance Measurement)
+@RunWith(AndroidJUnit4::class)
+class StartupBenchmark {
+    @get:Rule
+    val benchmarkRule = MacrobenchmarkRule()
 
-빌드 성능은 개발자 피드백 시간과 CI 처리량을 다룬다.
+    @Test
+    fun startupCompilationFull() = benchmarkRule.measureRepeated(
+        packageName = "com.example.app",
+        metrics = listOf(StartupTimingMetric()),
+        compilationMode = CompilationMode.Full(),
+        iterations = 5
+    ) {
+        pressHome()
+        startActivityAndWait()
+    }
+}
+```
 
-런타임 성능은 설치 후 시작, 프레임, 상호작용, 배터리와 메모리를 다룬다.
+### 관측 가능 증거 (Observable Evidence)
+빌드 프로파일러 결과(Gradle Build Scan)와 앱 런타임 시작 측정 결과(ADB `am start -W`)를 비교하여 두 속성의 차이를 관측할 수 있다:
 
-R8 은 두 영역을 모두 건드릴 수 있지만 측정 방법과 원인은 다르다.
+```bash
+# 1. 빌드 성능 관측
+./gradlew assembleDebug --profile
 
-### Gradle 빌드의 네 단계
+# 2. 런타임 성능 관측 (Cold Start TTID)
+adb shell am start-activity -W -n com.example.app/.MainActivity
 
-1. 초기화: settings 와 포함된 빌드를 읽는다.
-2. 구성: 플러그인과 빌드 스크립트를 평가한다.
-3. 실행: 입력이 바뀐 태스크를 수행한다.
-4. 산출물 처리: APK, AAB, 테스트 결과를 저장하거나 업로드한다.
+# Output Example:
+# Status: ok
+# Activity: com.example.app/.MainActivity
+# TotalTime: 342ms (TTID - Time To Initial Display)
+```
 
-Configuration Cache 는 구성 단계의 결과를 재사용한다.
-
-Incremental Build 는 입력과 출력이 같은 태스크를 건너뛴다.
-
-Build Cache 는 동일한 입력을 가진 태스크의 출력을 재사용한다.
-
-이 세 가지를 같은 캐시라고 부르면 병목 원인을 잘못 진단한다.
-
-### 측정 방법
-
-- `--profile` 로 로컬 프로파일 리포트를 만든다.
-- Build Scan 으로 태스크 시간, 캐시 적중, 네트워크 지연을 확인한다.
-- 동일한 작업을 warm build 와 clean build 로 나눠 측정한다.
-- 개발 빌드, 테스트 빌드, 릴리즈 빌드를 별도 기준선으로 둔다.
-
-릴리즈 R8 시간이 길다고 해서 앱 시작이 느리다는 결론을 내리지 않는다.
-
-반대로 빌드가 빨라졌다고 런타임 최적화가 증명되는 것도 아니다.
-
-### 설정 원칙
-
-`org.gradle.configuration-cache=true` 는 호환되지 않는 플러그인과 코드를 드러낼 수 있다.
-
-`org.gradle.caching=true` 는 반복 가능한 입력과 안정적인 출력이 있을 때 효과가 크다.
-
-JVM 힙은 무조건 크게 잡지 말고 GC 와 메모리 압박을 함께 측정한다.
-
-병렬 실행은 프로젝트 의존성과 머신 코어 수를 고려해 적용한다.
-
-참고: [Improve the performance of Gradle builds](https://docs.gradle.org/current/userguide/performance.html)
-
-참고: [Gradle build cache](https://docs.gradle.org/current/userguide/build_cache.html)
+관련 노트: [증분 빌드, 캐시, 구성 캐시는 빌드 작업량을 줄인다](incremental-build-cache-and-configuration-cache-reduce-build-work.md), [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md)

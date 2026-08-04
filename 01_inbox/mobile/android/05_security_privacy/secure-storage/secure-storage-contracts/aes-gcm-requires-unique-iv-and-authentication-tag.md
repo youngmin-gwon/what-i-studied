@@ -1,81 +1,103 @@
 ---
 title: aes-gcm-requires-unique-iv-and-authentication-tag
-tags: []
+tags: ["android", "android/security-privacy"]
 aliases: []
-date modified: 2026-08-03 18:14:24 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## AES-GCM 은 고유한 IV 와 Authentication Tag 를 요구한다
 
-### Android AES-GCM 은 IV 와 인증 태그를 함께 관리한다
+AES-GCM(Galois/Counter Mode)은 데이터의 암호화(Confidentiality)와 무결성/인증(Integrity & Authentication)을 동시에 제공하는 **AEAD(Authenticated Encryption with Associated Data)** 방식이다. AES-GCM을 안전하게 사용하기 위해서는 **매 암호화 연산마다 무조건 12-byte의 고유한 난수 IV(Initialization Vector)**를 사용해야 하며, 복호화 시 검증할 **128-bit Authentication Tag**를 암호문과 함께 보관해야 한다.
 
-상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+```mermaid
+flowchart TD
+    subgraph Encrypt Process
+        PT[Plaintext] + Key[Keystore AES Key] + IV12[Random 12-byte IV] --> CipherEngine[AES/GCM/NoPadding Cipher]
+        CipherEngine --> Output[Ciphertext + 16-byte Auth Tag]
+    end
 
-관련 노트: [Android Keystore 키는 비추출성으로 보호한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/android-keystore-protects-keys-by-non-exportability.md), [Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/sensitive-data-requires-encryption-and-key-ownership.md)
+    subgraph Decrypt Process
+        Input[Ciphertext + Auth Tag] + Key + IV12 --> DecEngine[AES/GCM Decrypt & GHASH Tag Check]
+        DecEngine -- Tag Match --> PlaintextOutput[Plaintext 복원]
+        DecEngine -- Tag Mismatch / Tampered --> Exception[Throw AEADBadTagException: Tamper Detected!]
+    end
+```
 
-#### 핵심 주장
+### 내부 동작 메커니즘
 
-AES-GCM 은 기밀성과 무결성을 함께 제공하는 인증 암호 방식이다.
+1. **Catastrophic IV Reuse Attack**: 동일한 키로 IV를 재사용하면 엑스오르(XOR) 키스트림이 일치하여 공격자가 두 암호문의 차이로부터 평문을 쉽게 복원할 수 있으며 GHASH 키가 노출되어 인증 태그 위조가 가능해진다.
+2. **IV Standard Length**: AES-GCM의 표준 IV 길이는 **12-byte (96-bit)**이다. 16-byte IV 사용 시 내부적으로 추가적인 GHASH 연산이 수행되어 성능 저하 및 보안 이슈를 유발할 수 있다.
+3. **Authentication Tag Verification**: GCM 모드는 복호화 연산 마지막에 GHASH 계산 결과와 저장된 Tag(16-byte)를 비교한다. 단 1비트라도 위조된 경우 복호화를 즉시 중단하고 예외를 던진다.
 
-그러나 키마다 IV 를 재사용하면 보안성이 무너질 수 있으므로, 암호화마다 새 IV 를 생성하고 복호화에 전달해야 한다.
+### 안드로이드 안전한 AES-GCM 암호화/복호화 구현 예시 (Kotlin)
 
-#### 저장 형식
+```kotlin
+import javax.crypto.Cipher
+import javax.crypto.SecretKey
+import javax.crypto.spec.GCMParameterSpec
+import java.security.SecureRandom
 
-하나의 레코드는 최소한 다음 요소를 갖는다.
+object AesGcmCipherHelper {
+    private const val TRANSFORMATION = "AES/GCM/NoPadding"
+    private const val GCM_TAG_LENGTH_BITS = 128
+    private const val IV_LENGTH_BYTES = 12
 
-- 키를 식별할 수 있는 버전 또는 별칭 정보
-- 암호화 시 생성한 무작위 IV
-- AES-GCM 이 만든 암호문과 인증 태그
-- 필요하다면 버전, 스키마, 알고리즘 식별자
+    fun encrypt(plainText: ByteArray, secretKey: SecretKey): ByteArray {
+        val iv = ByteArray(IV_LENGTH_BYTES).apply {
+            SecureRandom().nextBytes(this)
+        }
+        val cipher = Cipher.getInstance(TRANSFORMATION)
+        val spec = GCMParameterSpec(GCM_TAG_LENGTH_BITS, iv)
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey, spec)
 
-IV 는 비밀일 필요가 없으므로 암호문과 함께 저장할 수 있다.
+        val cipherTextWithTag = cipher.doFinal(plainText)
+        
+        // [12-byte IV] + [Ciphertext + AuthTag] 형태로 결합 보관
+        return iv + cipherTextWithTag
+    }
 
-반대로 인증 태그는 암호문 검증에 필요하므로 버리거나 잘라내면 안 된다.
+    fun decrypt(encryptedPayload: ByteArray, secretKey: SecretKey): ByteArray {
+        require(encryptedPayload.size > IV_LENGTH_BYTES + 16) { "Invalid payload length" }
+        
+        val iv = encryptedPayload.copyOfRange(0, IV_LENGTH_BYTES)
+        val cipherTextWithTag = encryptedPayload.copyOfRange(IV_LENGTH_BYTES, encryptedPayload.size)
 
-JCA 구현에서는 `doFinal` 결과에 태그가 붙어 반환되는 형태가 일반적이다.
+        val cipher = Cipher.getInstance(TRANSFORMATION)
+        val spec = GCMParameterSpec(GCM_TAG_LENGTH_BITS, iv)
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, spec)
 
-#### IV 규칙
+        return cipher.doFinal(cipherTextWithTag) // 위조 시 AEADBadTagException 발생
+    }
+}
+```
 
-- 같은 키로 암호화할 때 IV 는 매번 새로 생성해야 한다.
-- `Cipher.init(ENCRYPT_MODE, key)` 가 생성한 IV 를 `cipher.iv` 로 받아 저장한다.
-- 복호화 시 저장한 IV 를 `GCMParameterSpec` 으로 다시 전달한다.
-- IV 를 고정 상수, 사용자 ID, 타임스탬프만으로 만들지 않는다.
-- 난수 생성은 플랫폼의 보안 난수원을 사용한다.
+### 관찰 가능한 증거 (Observable Evidence)
 
-#### 인증 태그 규칙
+- **adb를 활용한 암호화 파일 바이너리 구조 확인**:
+  ```bash
+  adb shell xxd /data/data/com.example.app/files/encrypted_payload.bin
+  ```
 
-GCM 은 복호화할 때 암호문과 태그를 검증한다.
+- **암호문 위조 시 발생하는 예외 스택 트레이스**:
+  ```text
+  javax.crypto.AEADBadTagException: Tag mismatch!
+      at com.android.org.conscrypt.NativeCrypto.EVP_AEAD_CTX_open(Native Method)
+      at com.android.org.conscrypt.OpenSSLCipherOpenSSL$EVP_AEAD.doFinalInternal(OpenSSLCipherOpenSSL.java:1320)
+  ```
+- **IV 고정 또는 재사용 시 Android Keystore 보안 예외**:
+  ```text
+  java.security.InvalidAlgorithmParameterException: Caller-provided IV not permitted
+  ```
 
-데이터가 변조되거나 키·IV 가 맞지 않으면 `doFinal` 이 실패해야 한다.
+### 판단 기준
 
-이 실패를 무시하고 일부 평문을 사용해서는 안 된다.
+Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity 와 mandatory policy 가 어떻게 강제되는지 판단하는 기준으로 읽는다.
 
-태그 길이는 생성과 복호화에서 일관되게 설정한다.
+### 경계
 
-예시의 `GCMParameterSpec(128, iv)` 는 128 비트 인증 태그를 사용한다는 뜻이다.
+client-side check 를 authorization 으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
 
-#### 추가 인증 데이터
+상위 문서: [보안 저장소 계약](secure-storage-contracts.md)
 
-레코드 유형이나 사용자 식별자처럼 암호화하지 않지만 변조되어서는 안 되는 값은 AAD 로 인증할 수 있다.
-
-암호화와 복호화에서 동일한 AAD 를 전달해야 검증이 성공한다.
-
-AAD 에 넣은 값도 비밀이 아니므로 별도로 숨겨지지는 않는다.
-
-#### 구현 흐름
-
-1. Keystore 에서 AES 키를 얻는다.
-2. `AES/GCM/NoPadding` Cipher 를 생성한다.
-3. 암호화 모드로 초기화하고 플랫폼이 만든 IV 를 보관한다.
-4. 평문을 `doFinal` 로 처리해 암호문과 태그를 저장한다.
-5. 복호화 시 IV 와 같은 AAD 를 사용한다.
-6. 인증 실패를 데이터 손상 또는 공격 가능성으로 처리한다.
-
-#### 주의점
-
-문자열을 바이트로 바꿀 때 문자셋을 명시해 플랫폼 차이를 없앤다.
-
-암호화 결과를 Base64 로 직렬화할 수 있지만, Base64 는 암호화가 아니다.
-
-로그, 예외 메시지, 분석 이벤트에 평문과 암호키를 남기지 않는다.
+관련 노트: [Android Keystore는 추출 불가능성으로 키를 보호한다](android-keystore-protects-keys-by-non-exportability.md)

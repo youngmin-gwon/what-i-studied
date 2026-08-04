@@ -1,70 +1,57 @@
 ---
 title: r8-shrinks-optimizes-and-obfuscates-release-builds
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:13:01 +09:00
-date created: 2026-07-31 17:32:53 +09:00
+tags: ["android", "r8", "shrinking", "obfuscation"]
+aliases: ["R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다"]
+date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## R8 은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다
+## R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+### 내부 메커니즘 (Internal Mechanism)
+R8은 Android Gradle Plugin에 통합된 차세대 컴파일러 엔진으로, Java 바이트코드를 DEX 코드로 변환함과 동시에 3단계 최적화를 단일 통과(Single-Pass)로 수행한다:
+1. **Shrinking (수축 / Tree Shaking)**: 진입점(Entry Points: Manifest Activity, Application, Keep Rules)부터 도달할 수 없는 모든 클래스, 필드, 메서드, 어노테이션 코드를 그래프 탐색하여 제거한다.
+2. **Optimization (최적화)**: 미사용 함수 인자 제거, 단일 구현 인터페이스 인라이닝(Class Inlining), 람다 합성 축소, 데드 코드 제거(Dead Code Elimination)를 수행한다.
+3. **Obfuscation (난독화)**: 클래스, 메서드, 필드 이름을 `a`, `b`, `c` 등 의미 없는 짧은 문자열로 변경하여 리버스 엔지니어링을 방지하고 DEX 용량을 줄인다.
 
-관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+```mermaid
+flowchart LR
+    InputClass["Java Bytecode (.class)"] --> TreeShaking["1. Shrinking (Tree Shaking)"]
+    TreeShaking --> Optimization["2. Optimization (Inlining / Dead Code)"]
+    Optimization --> Obfuscation["3. Obfuscation (Renaming to a/b/c)"]
+    Obfuscation --> DEXOutput["DEX Bytecode (classes.dex)"]
+```
 
-관련 노트: [R8 keep 규칙은 최적화 경계다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/keep-rules-are-optimization-boundaries.md), [리소스 수축은 코드 수축 후 미사용 리소스를 제거한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/resource-shrinking-removes-unused-resources-after-code-shrinking.md)
-
-### 핵심 주장
-
-R8 은 릴리즈 빌드에서 코드 크기와 실행 효율을 함께 다루는 컴파일러다.
-
-코드 수축, 최적화, 난독화는 서로 다른 효과를 내므로 한 기능으로 뭉뚱그리면 안 된다.
-
-`isMinifyEnabled = true` 는 일반적으로 세 기능이 동작할 수 있는 진입점이다.
-
-리소스 수축은 코드 수축과 별개의 입력과 분석을 사용한다.
-
-따라서 APK/AAB 크기 감소를 검증할 때 DEX 와 리소스를 따로 측정해야 한다.
-
-### 기능별 역할
-
-- 코드 수축은 정적 분석으로 도달 불가능한 클래스, 메서드, 필드를 제거한다.
-- 최적화는 인라이닝, 클래스 계층 단순화, 상수 전파 등으로 바이트코드 형태를 바꾼다.
-- 난독화는 클래스, 메서드, 필드 이름을 짧게 바꾸어 크기를 줄이고 분석 비용을 높인다.
-- 리소스 수축은 코드와 리소스 참조를 분석하여 사용되지 않는 리소스를 제거한다.
-- Kotlin metadata 처리는 리플렉션과 직렬화 계약을 깨지 않도록 별도 검증이 필요하다.
-
-### 권장 릴리즈 설정
-
+### 코드 예시 (build.gradle.kts)
 ```kotlin
-buildTypes {
-    release {
-        isMinifyEnabled = true
-        isShrinkResources = true
-        proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-        )
+// app/build.gradle.kts
+android {
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = true // R8 활성화
+            isShrinkResources = true // Resource Shrinker 활성화
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
     }
 }
 ```
 
-`proguard-android-optimize.txt` 는 최적화가 포함된 기본 설정이다.
+### 관측 가능 증거 (Observable Evidence)
+R8 수행 결과 생성된 4가지 핵심 아티팩트 산출물(`mapping.txt`, `seeds.txt`, `usage.txt`, `configuration.txt`)의 존재와 용량을 확인할 수 있다:
 
-디버그 빌드에 같은 수축을 적용하면 반복 개발 속도와 오류 분석성이 나빠질 수 있다.
+```bash
+ls -lh app/build/outputs/mapping/release/
 
-대신 실제 배포와 가까운 별도 성능 검증 variant 를 둘 수 있다.
+# Output Example:
+# -rw-r--r-- 1 dev dev 1.2M Aug 04 15:00 mapping.txt       (Obfuscation mapping)
+# -rw-r--r-- 1 dev dev 340K Aug 04 15:00 seeds.txt         (Kept entry points)
+# -rw-r--r-- 1 dev dev 890K Aug 04 15:00 usage.txt         (Removed dead code list)
+# -rw-r--r-- 1 dev dev  45K Aug 04 15:00 configuration.txt (Merged ProGuard rules)
+```
 
-### 판단 순서
-
-1. 릴리즈 variant 에서 수축을 켠다.
-2. 리플렉션, JNI, 동적 클래스 로딩 경계를 식별한다.
-3. 필요한 경계만 keep 규칙으로 보존한다.
-4. mapping 과 결과 리포트를 보관한다.
-5. 설치, 시작, 핵심 사용자 여정을 실제 기기에서 검증한다.
-
-R8 설정 변경은 단순한 용량 최적화가 아니라 실행 계약 변경이다.
-
-참고: [Shrink, obfuscate, and optimize your app](https://developer.android.com/studio/build/shrink-code)
-
-참고: [R8 Configuration Analyzer](https://developer.android.com/topic/performance/app-optimization/r8-configuration-analyzer)
+관련 노트: [Keep 규칙은 최적화 경계다](keep-rules-are-optimization-boundaries.md), [리소스 수축은 코드 수축 후 미사용 리소스를 제거한다](resource-shrinking-removes-unused-resources-after-code-shrinking.md)

@@ -1,27 +1,118 @@
 ---
 title: "Macrobenchmark의 컴파일 모드는 테스트 계약의 일부다"
 tags: ["android", "android/testing-performance"]
+aliases: ["macrobenchmark-compilation-mode-is-part-of-test-contract"]
+date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
-# Macrobenchmark의 컴파일 모드는 테스트 계약의 일부다
+## Macrobenchmark의 컴파일 모드는 테스트 계약의 일부다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/benchmark-baseline-contracts.md)
-관련 노트: [Android 성능은 측정 후 최적화한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/measure-before-optimizing-android-performance.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-quality-and-build-optimization.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline-contracts.md)
+관련 노트: [Baseline Profile 생성은 핵심 사용자 여정을 기록한다](./baseline-profile-generation-records-critical-user-journeys.md)
 
-## 왜 컴파일 상태를 고정하는가
+Macrobenchmark 실행 시 적용하는 ART 컴파일 모드(`CompilationMode`)는 앱의 실행 패러다임(JIT vs Baseline Profile AOT vs Full AOT)을 결정하므로, 이를 명시하지 않는 측정 결과는 회귀 분석의 기준이 될 수 없다.
 
-- Android 앱 성능은 같은 코드라도 ART가 어떻게 컴파일했는지에 따라 달라진다.
-- Macrobenchmark는 `CompilationMode`로 측정 전 컴파일 조건을 명시할 수 있다.
-- 조건을 명시해야 Baseline Profile의 효과를 다른 변화와 분리할 수 있다.
-- 프로필 적용 전후를 비교할 때는 컴파일 모드의 의미를 결과와 함께 기록한다.
+### 1. ART 컴파일 모드 메커니즘과 차이점
 
-## 주요 비교군
+- **`CompilationMode.None()`**:
+  - **동작**: 프로필 및 미리 컴파일된 AOT DEX 코드를 삭제하고 인터프리터(Interpreter) 및 JIT (Just-In-Time) 컴파일러에 전적으로 의존.
+  - **용도**: 첫 설치 직후 Baseline Profile이 전혀 적용되지 않은 최악(Worst-case) 실행 성능 측정.
+- **`CompilationMode.Partial(BaselineProfileMode.Require)`**:
+  - **동작**: `baseline-prof.txt`에 기록된 핫 메서드/클래스는 설치 전 `dex2oat`에 의해 AOT(Ahead-Of-Time) 바이너리로 사전 컴파일하고, 나머지 코드는 JIT로 보완.
+  - **용도**: Google Play Store를 통해 배포된 실제 사용자의 앱 체감 성능 검증.
+- **`CompilationMode.Full()`**:
+  - **동작**: 앱의 모든 DEX 바이트코드를 AOT 바이너리(`speed` profile)로 사전 컴파일.
+  - **용도**: JIT 컴파일 병목이 완전히 제거된 이상적 상태에서의 한계 성능 측정.
 
-- `CompilationMode.None`은 프로필 기반 사전 컴파일이 없는 상태를 비교하는 기준이 된다.
-- `CompilationMode.Partial`은 일부 코드가 사전 컴파일된 상태를 나타낸다.
-- Partial에 Baseline Profile 요구 조건을 결합하면 프로필 적용을 검증할 수 있다.
-- `CompilationMode.Full`은 전체 컴파일에 가까운 상한선 비교에 사용될 수 있다.
+### 2. ART 컴파일 상태 및 실행 경로 차이
+
+```mermaid
+flowchart TD
+    AppLaunch["앱 Launch"]
+    
+    AppLaunch --> NoneMode["CompilationMode.None()<br/>(No Profile)"]
+    AppLaunch --> PartialMode["CompilationMode.Partial()<br/>(Baseline Profile)"]
+    AppLaunch --> FullMode["CompilationMode.Full()<br/>(Full AOT)"]
+
+    NoneMode --> Interpreter["Interpreter + JIT Compile<br/>(High CPU & Startup Delay)"]
+    PartialMode --> Mixed["Hot Paths: Native AOT<br/>Cold Paths: JIT<br/>(Balanced & Fast Startup)"]
+    FullMode --> AllNative["100% Native Machine Code<br/>(Highest Storage Cost)"]
+```
+
+### 3. 컴파일 모드별 파라미터화 Kotlin 테스트 코드 구체 예시
+
+```kotlin
+import androidx.benchmark.macro.BaselineProfileMode
+import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.StartupMode
+import androidx.benchmark.macro.StartupTimingMetric
+import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+
+@RunWith(Parameterized::class)
+class StartupCompilationBenchmark(
+    private val compilationMode: CompilationMode
+) {
+    @get:Rule
+    val benchmarkRule = MacrobenchmarkRule()
+
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters(name = "mode={0}")
+        fun data(): Collection<Array<Any>> {
+            return listOf(
+                arrayOf(CompilationMode.None()),
+                arrayOf(CompilationMode.Partial(BaselineProfileMode.Require)),
+                arrayOf(CompilationMode.Full())
+            )
+        }
+    }
+
+    @Test
+    fun benchmarkStartup() = benchmarkRule.measureRepeated(
+        packageName = "com.example.app",
+        metrics = listOf(StartupTimingMetric()),
+        compilationMode = compilationMode,
+        startupMode = StartupMode.COLD,
+        iterations = 5
+    ) {
+        pressHome()
+        startActivityAndWait()
+    }
+}
+```
+
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
+
+#### Shell 컴파일 강제 적용 및 로그 Output
+
+```bash
+# Baseline Profile 적용 상태로 패키지 컴파일
+adb shell cmd package compile -m speed-profile -f com.example.app
+```
+
+```text
+Success
+# Macrobenchmark console result summary:
+StartupCompilationBenchmark_benchmarkStartup[mode=CompilationMode.None]
+  timeToInitialDisplayMs: min=480.2, median=512.4, max=589.1
+
+StartupCompilationBenchmark_benchmarkStartup[mode=CompilationMode.Partial]
+  timeToInitialDisplayMs: min=320.1, median=341.0, max=368.5  <-- 33.4% Improvement!
+
+StartupCompilationBenchmark_benchmarkStartup[mode=CompilationMode.Full]
+  timeToInitialDisplayMs: min=305.0, median=325.2, max=342.0
+```
+
+### 5. 테스트 계약 명시 가이던스
+
+- CI 회귀 테스트 제출 시 `CompilationMode` 옵션을 테스트 이름 태그나 리포트 메타데이터에 필수로 명시한다.
 - 실제 프로젝트에서 지원되는 API와 라이브러리 버전에 맞춰 모드를 선택한다.
 
 ## 해석 규칙

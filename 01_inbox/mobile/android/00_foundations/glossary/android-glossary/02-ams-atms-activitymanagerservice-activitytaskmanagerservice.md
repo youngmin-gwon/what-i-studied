@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [AMS lifecycle contract](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md)
-- [ATMS task contract](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/atms-owns-activity-task-and-back-stack-transitions.md)
+- [AMS lifecycle contract](../../../01_system_internals/boot-and-runtime/system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md)
+- [ATMS task contract](../../../01_system_internals/boot-and-runtime/system-server-contracts/atms-owns-activity-task-and-back-stack-transitions.md)

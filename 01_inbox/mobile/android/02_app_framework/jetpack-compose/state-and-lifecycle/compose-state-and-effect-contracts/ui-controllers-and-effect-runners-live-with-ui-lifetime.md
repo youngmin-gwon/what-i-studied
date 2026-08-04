@@ -8,7 +8,7 @@ date created: 2026-07-31 16:53:16 +09:00
 
 ## UI controller 와 effect runner 는 ViewModel 이 아니라 UI 수명에 둔다
 
-상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
+상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
 UI controller 는 UI 트리와 직접 상호작용하는 객체다.
 

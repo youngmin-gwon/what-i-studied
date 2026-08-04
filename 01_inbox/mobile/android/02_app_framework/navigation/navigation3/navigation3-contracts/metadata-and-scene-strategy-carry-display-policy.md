@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Metadata 와 SceneStrategy 는 표시 정책을 전달한다
 
-상위 문서: [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
+상위 문서: [Navigation 3 계약](./navigation3-contracts.md)
 
 ### metadata 의 의미
 

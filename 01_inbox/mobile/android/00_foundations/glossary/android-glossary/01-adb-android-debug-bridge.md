@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [ADB, emulator, device tools](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/adb-emulator-and-device-tools-control-test-environment.md)
-- [Android debugging contracts](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)
+- [ADB, emulator, device tools](../../../06_testing_performance/debugging/debugging-contracts/adb-emulator-and-device-tools-control-test-environment.md)
+- [Android debugging contracts](../../../06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)

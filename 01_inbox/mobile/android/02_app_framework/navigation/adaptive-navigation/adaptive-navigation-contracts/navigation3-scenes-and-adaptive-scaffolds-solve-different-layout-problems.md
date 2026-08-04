@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Scenes 와 adaptive scaffolds 는 같은 문제를 푸는가
 
-상위 문서: [Adaptive Navigation 계약](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)
+상위 문서: [Adaptive Navigation 계약](./adaptive-navigation-contracts.md)
 
-관련 노트: [Metadata와 SceneStrategy는 표시 정책을 전달한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)
+관련 노트: [Metadata와 SceneStrategy는 표시 정책을 전달한다](../../navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)
 
 ### 서로 다른 계층
 

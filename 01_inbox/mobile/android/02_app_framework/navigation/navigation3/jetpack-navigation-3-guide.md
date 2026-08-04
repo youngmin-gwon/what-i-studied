@@ -12,7 +12,7 @@ Jetpack Navigation 3 문서는 앱이 `NavKey` back stack 을 직접 소유하�
 
 ### 정본 지도
 
-- [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
-- [NavKey와 back stack은 앱이 소유하는 navigation 상태다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md)
-- [NavDisplay와 entry provider는 렌더링과 route registry를 분리한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navdisplay-and-entry-provider-separate-rendering-from-route-registry.md)
-- [Navigation 3 deep link는 URI를 NavKey로 변환한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)
+- [Navigation 3 계약](./navigation3-contracts/navigation3-contracts.md)
+- [NavKey와 back stack은 앱이 소유하는 navigation 상태다](./navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md)
+- [NavDisplay와 entry provider는 렌더링과 route registry를 분리한다](./navigation3-contracts/navdisplay-and-entry-provider-separate-rendering-from-route-registry.md)
+- [Navigation 3 deep link는 URI를 NavKey로 변환한다](./navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)

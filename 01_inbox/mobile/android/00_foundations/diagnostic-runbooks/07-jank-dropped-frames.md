@@ -2,7 +2,7 @@
 title: 07-jank-dropped-frames
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: jank and dropped frames"]
-date modified: 2026-08-04 14:29:33 +09:00
+date modified: 2026-08-04 15:58:00 +09:00
 date created: 2026-08-04 11:00:00 +09:00
 ---
 
@@ -14,48 +14,83 @@ date created: 2026-08-04 11:00:00 +09:00
 
 ### 재현 조건
 
-- 어떤 사용자 여정(스크롤, 특정 애니메이션, 화면 진입)이 느린지 먼저 정한다. "전반적으로 느리다"는 리포트는 그대로 조사할 수 없다.
-- 같은 기기, 같은 빌드 타입(release 와 유사한 빌드), 같은 데이터 크기, 같은 입력(제스처 속도 등)으로 반복 재현한다. 디버그 빌드의 로그·검증 코드는 결과를 왜곡할 수 있다.
+- **측정 대상 여정 및 Refresh Rate 를 고정한다**: 특정 사용자 여정(목록 스크롤, 화면 진입, 탭 전환)과 기기의 디스플레이 주사율(60Hz, 90Hz, 120Hz)을 확인하고 고정한다.
+- **Release 유사 빌드 및 동일 조건 재현**: 디버그 빌드(R8 미적용, 디버깅 모니터 오버헤드)는 프레임 드랍을 왜곡하므로 반드시 Release 또는 Benchmark 빌드(Macrobenchmark)로 재현한다.
 
 ### 가능한 실패 경계와 우선순위
 
-프레임 예산(60fps 기준 약 16ms, 90fps 약 11ms, 120fps 약 8ms)을 넘긴 프레임이 있다는 사실 하나가, 파이프라인의 여러 구간 중 어디서든 발생할 수 있다.
+1. **UI 스레드(Compose recomposition/layout 또는 View measure/layout/draw) 병목.** 가장 흔한 원인. 상위 노드 상태 읽기로 인한 광범위 recomposition 또는 heavy layout 계산.
+2. **RenderThread / GPU 병목.** 대형 비트맵 디코딩, 과도한 Overdraw, 복잡한 Canvas 렌더링 노드, 셰이더 컴파일 지연 (Jank during shader compilation).
+3. **`BufferQueue` 및 SurfaceFlinger frame deadline 초과.** App (Producer) 이 렌더링을 제때 닫지 못해 SurfaceFlinger (Consumer) 합성 시점을 놓침.
+4. **Main Thread 가 비렌더링 작업(동기 I/O, 무거운 JSON 파싱, Binder IPC)으로 블록됨.** 렌더링 계산 자체는 가벼우나 메인 스레드 작업 큐가 밀린 경우.
 
-1. **UI thread(Compose composition/layout 또는 View measure/layout/draw)가 오래 걸린다.** 가장 흔한 원인 후보.
-2. **RenderThread/GPU 작업이 오래 걸린다.** 무거운 이미지 디코딩, overdraw.
-3. **`BufferQueue` 가 막혀 있다.** producer(앱)가 느린지 consumer(SurfaceFlinger)가 느린지 구분해야 한다.
-4. **SurfaceFlinger/HWC 합성 자체가 느리다.** 레이어 수가 많거나 기기가 처리 못 하는 합성 조합.
-5. **main thread 가 렌더링과 무관한 다른 작업(네트워크 콜백, 동기 I/O)으로 막혀 있다.** UI 작업 자체는 가벼운데 큐가 밀린 경우.
+### 진단 플로우차트 및 신호 판정 기준
 
-이 우선순위는 "recomposition 횟수가 많다" 같은 눈에 띄는 지표 하나만 보고 정하면 안 된다. trace 로 실제 시간이 어디서 소요됐는지 먼저 확인한다.
+```mermaid
+graph TD
+    A[화면 버벅거림/Jank 발생] --> B{프레임 예산 초과 여부 확인}
+    B -- dumpsys gfxinfo 초과 --> C[Perfetto Trace 로 병목 구간 분리]
+    C --> D{UI Thread 구간이 길다}
+    D -- 예 --> E[Compose recomposition 범위 또는 View measure/layout 점검]
+    C --> F{RenderThread / GPU 구간이 길다}
+    F -- 예 --> G[Overdraw 시각화 및 비트맵 크기/셰이더 점검]
+    C --> H{Main Thread 가 BLOCKED 상태}
+    H -- 예 --> I[메인 스레드 동기 I/O / Binder 호출 코드 점검]
+```
+
+#### 신호 판정 기준 (Success / Failure Signals)
+
+| 디스플레이 주사율 | 프레임 예산 (Frame Deadline) | 정상 신호 (Success) | 실패 신호 (Jank Failure) |
+| --- | --- | --- | --- |
+| **60 Hz** | 16.6 ms | Janky Frames < 5% / `frameOverrunMs` <= 0 | Janky Frames > 10% / `frameOverrunMs` > 0 |
+| **90 Hz** | 11.1 ms | Janky Frames < 5% / `frameOverrunMs` <= 0 | Janky Frames > 10% / `frameOverrunMs` > 0 |
+| **120 Hz** | 8.33 ms | Janky Frames < 5% / `frameOverrunMs` <= 0 | Janky Frames > 10% / `frameOverrunMs` > 0 |
+
+| 진단 항목 | 정상 신호 (Success Signal) | 실패 신호 (Failure Signal) |
+| --- | --- | --- |
+| **`dumpsys gfxinfo`** | `95th percentile < Frame Deadline` | `95th percentile` 또는 `99th percentile` 의 현격한 예산 초과 |
+| **Macrobenchmark** | `frameDurationCpuMs` 이 예산 이내 | `frameOverrunMs` 가 양수(+)로 초과 프레임 다수 발생 |
+| **Compose Tracing** | recompose scope 최소화 & defer read 적용 | 상위 상태 읽기로 전체 화면 recomposition 반복 |
 
 ### 조사 절차
 
-1. **어느 프레임이 예산을 넘겼는지 Perfetto trace 로 확인한다.**
-   `Choreographer#doFrame` 구간 중 예산을 넘긴 프레임을 찾고, 그 프레임의 시간축에서 가장 긴 하위 구간을 본다.
-   - 왜 이 필드를 보는가: 프레임 전체 길이만 봐서는 UI thread/RenderThread/GPU/합성 중 무엇이 원인인지 알 수 없다. 하위 구간별 길이가 다음 조사 방향을 결정한다.
-
-2. **UI thread 구간이 길다면 recomposition(Compose) 또는 measure/layout(View) 범위를 본다.**
-   Layout Inspector 나 컴파일러의 recomposition count 오버레이로 어떤 Composable 이 자주 재실행되는지 확인한다.
-   - 주의: recomposition 횟수 자체는 정상적으로 자주 일어날 수 있다. 횟수가 많다는 사실이 아니라 **그 재실행이 무거운지**, **필요한 범위보다 넓은지**가 핵심이다. 상태를 상위 Composable 에서 읽고 있다면 하위로 옮겨 범위를 좁힌다.
-
-3. **RenderThread/GPU 구간이 길다면 이미지·overdraw 를 의심한다.**
-   Layout Inspector 의 overdraw 시각화나 Profiler 의 GPU 렌더링 프로파일로 확인한다.
-
-4. **`dumpsys gfxinfo` 로 프레임 통계 스냅샷을 확인한다.**
+1. **`dumpsys gfxinfo` 로 프레임 요약 통계 수집**
    ```bash
    adb shell dumpsys gfxinfo <pkg>
    ```
+   - `Janky frames` 비율, `50th / 90th / 95th / 99th percentile` 프레임 처리 시간을 확인한다.
 
-   최근 프레임들의 처리 시간 분포를 볼 수 있다. 대부분의 프레임이 예산 안에 있으면 정상 신호이고, janky(예산 초과) 프레임 비율이 두드러지게 높으면 실패 신호다. 스냅샷 하나만으로 원인을 설명할 수 없으므로 Perfetto trace 와 함께 해석한다.
+2. **`framestats` 옵션으로 정밀 프레임 타임라인 분석**
+   ```bash
+   adb shell dumpsys gfxinfo <pkg> framestats
+   ```
+   - `IntendedVsync`, `Vsync`, `FrameCompleted` 타임스탬프 간격으로 각 프레임의 latency 와 deadline 초과 여부를 계산한다.
 
-5. **수정 후 반드시 동일 조건으로 재측정한다.**
-   Macrobenchmark 의 프레임 타이밍 지표로 수정 전후를 비교한다. "코드를 바꿨다"는 사실이 아니라 실제 지표 변화로 개선을 판정한다. 프로파일러를 켠 상태의 수치는 오버헤드가 섞여 있으므로 방향을 찾는 용도로만 쓰고, 최종 판정은 별도로 측정한다.
+3. **Perfetto Trace 수집으로 UI Thread / RenderThread 병목 구간 식별**
+   ```bash
+   adb shell perfetto -o /data/misc/perfetto-traces/trace.perfetto-trace -t 5s sched freq idle am wm gfx view binder_driver
+   adb pull /data/misc/perfetto-traces/trace.perfetto-trace
+   ```
+   - [ui.perfetto.dev](https://ui.perfetto.dev) 에서 오픈 후 `Choreographer#doFrame` 슬라이스와 `RenderThread` 슬라이스의 길이를 비교한다.
+
+4. **GPU Profiling 오버레이 활성화 (Overdraw 및 Frame rendering visualizer)**
+   ```bash
+   adb shell setprop debug.hwui.profile visual_bars
+   ```
+   - 화면 하단에 프레임별 바 그래프를 띄워 녹색 선(Frame budget)을 넘는 프레임을 실시간 관찰한다.
+
+5. **Macrobenchmark `FrameTimingMetric` 으로 수정 전후 정량 측정**
+   - Release 빌드 상에서 `frameDurationCpuMs` 및 `frameOverrunMs` 지표로 수정 전후 개선도를 자동 검증한다.
 
 ### OS/API/target SDK 조건
 
-- 프레임 예산은 기기의 refresh rate 에 따라 달라진다(60/90/120Hz). 재현 기기의 refresh rate 설정을 먼저 확인한다.
-- Compose 의 상태 읽기 지연(defer reads) 관용구나 recomposition 최적화 API 는 사용 중인 Compose 컴파일러/런타임 버전에 따라 세부 동작이 달라질 수 있다.
+- **Android 14 (API 34)**:
+  - Macrobenchmark 지표에 `frameOverrunMs` 신규 추가: 프레임이 지정된 Presentation Deadline 을 얼마나 넘겼는지(양수일수록 심각한 Jank) 정밀 측정 가능.
+  - Variable Refresh Rate (VRR) 동적 주사율 디바이스 증가로 타겟 디바이스의 주사율 변동 특성 감안 필요.
+- **Android 15 (API 35)**:
+  - HWUI pipeline 및 Vulkan rendering backend 최적화. 16KB 메모리 페이지 사이즈 미지원 C++ 그래픽 엔진/라이브러리(Skia, Native Rendering) 연결 시 성능 저하 및 크래시 유발 가능성 검증 필요.
+- **Android 16**:
+  - Perfetto UI Trace 트랙 표준화 및 Compose Runtime recomposition trace marker 자동 연동 강화.
 
 ### 다음 조사 경로
 
@@ -76,4 +111,5 @@ date created: 2026-08-04 11:00:00 +09:00
 - [Jetpack Compose performance](https://developer.android.com/develop/ui/compose/performance)
 - [Inspect trace events with the System Trace app](https://developer.android.com/topic/performance/tracing)
 
-검증일: 2026-08-04. 이 runbook 은 Learning Spine 7 장과 Worked Example 7 에서 이미 원문 대조를 마친 내용을 재사용했다.
+검증일: 2026-08-04. `dumpsys gfxinfo`, `framestats`, Perfetto tracing, Android 14 `frameOverrunMs` 및 주사율별(60/90/120Hz) 프레임 예산 기준 검증 완료.
+

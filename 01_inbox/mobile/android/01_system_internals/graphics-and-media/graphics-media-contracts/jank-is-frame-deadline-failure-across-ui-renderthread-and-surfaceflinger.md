@@ -1,21 +1,82 @@
 ---
 title: jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger
 tags: [android, android/graphics, android/performance]
-aliases: []
-date modified: 2026-08-03 17:25:10 +09:00
+aliases: [Jank, Frame Deadline, Frame Drop]
+date modified: 2026-08-04 15:50:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
 ## Jank 는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다
 
-Jank 는 사용자가 보는 프레임 흐름이 끊기는 현상이다. 원인은 UI thread 의 긴 작업, layout/draw 비용, RenderThread 지연, GPU 작업, BufferQueue backpressure, SurfaceFlinger/HWC composition, thermal throttling 처럼 여러 구간에 있을 수 있다.
+상위 문서: [Graphics and media contracts](graphics-media-contracts.md)
 
-따라서 "jank = recomposition 문제"나 "jank = GPU 문제"로 바로 좁히면 위험하다. 먼저 Perfetto, Android Studio profiler, `dumpsys gfxinfo` 로 어떤 frame 이 deadline 을 놓쳤는지 보고, 그 frame 의 시간축에서 가장 긴 구간을 찾는다.
+**Jank(프레임 버벅임)**는 사용자가 시각적으로 프레임 끊김을 느끼는 현상으로, 단일 코드 지점의 오버헤드가 아니라 **UI Thread, RenderThread, BufferQueue, SurfaceFlinger 파이프라인 전체에서 VSync 프레임 마감 시간(Frame Deadline)**을 놓쳤을 때 발생하는 시스템 합산 결과다.
 
-프레임 예산은 refresh rate 에 따라 달라진다. 60fps 목표에서는 약 16ms, 90fps 에서는 약 11ms, 120fps 에서는 약 8ms 가 기준이 된다. 다만 이 숫자는 진단 시작점이지 모든 파이프라인 단계의 독립 예산이 아니다.
+### 메커니즘: Android 렌더링 파이프라인 구간별 Deadline
 
-앱 수준 개선은 불필요한 measure/layout/draw 감소, main thread work 제거, Compose recomposition 범위 축소, bitmap/영상 처리의 Surface 경로 사용, Recycler/List 측정 최적화처럼 원인 구간에 맞춰야 한다.
+1. **UI Thread Deadline (Measure / Layout / Draw)**:
+   - Choreographer의 VSync-APP 신호를 받아 뷰 트리/Compose 레이아웃 및 `DisplayList`를 작성한다.
+   - 60Hz 기준 16.6ms, 120Hz 기준 8.3ms 내에 명령 생성을 완료하지 못하면 UI Jank 발생.
 
-관련 노트: [Rendering jank is frame deadline failure](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md), [그래픽과 미디어 디버깅은 timeline과 component state에서 시작한다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-debugging-starts-from-timeline-and-component-state.md)
+2. **RenderThread Deadline (GPU Execution)**:
+   - UI 스레드가 넘겨준 DisplayList를 Skia GPU 명령으로 변환하여 OpenGL/Vulkan 드라이버에 제출한다.
+   - GPU 렌더링 지연으로 `queueBuffer()`가 늦어지면 RenderJank 발생.
 
-근거: [Android Studio jank detection](https://developer.android.com/studio/profile/jank-detection), [Slow rendering](https://developer.android.com/topic/performance/vitals/render)
+3. **SurfaceFlinger Deadline (Composition)**:
+   - VSync-SF 타임스탬프에 맞춰 BufferQueue에서 버퍼를 꺼내 합성한다.
+   - HWC 오버레이 부족 또는 복잡한 레이어 합성으로 VSync 타임스탬프를 놓치면 Display Jank 발생.
+
+```mermaid
+graph LR
+    A["UI Thread
+(Measure/Layout/Draw)"] -- "DisplayList 생성" --> B["RenderThread
+(GPU 명령 제출)"]
+    B -- "Buffer 완성 → enqueue" --> C["BufferQueue"]
+    C -- "VSync 타이밍" --> D["SurfaceFlinger
+(HWC/GPU Composition)"]
+    D --> E["Display
+(사용자 화면)"]
+    
+    F["🔴 Jank 발생 지점"]
+    A -. "Main Thread 과부하
+(16.6ms/8.3ms 초과)" .-> F
+    B -. "RenderThread 지연
+(GPU 과부하)" .-> F
+    D -. "Composition 지연
+(레이어 수 초과)" .-> F
+```
+
+### 프레임 예산 기준
+
+| Refresh Rate | 프레임 예산 | 주요 적용 기기 |
+|:---|:---:|:---|
+| 60 Hz | ~16.6 ms | 구형 디바이스 및 저전력 모드 |
+| 90 Hz | ~11.1 ms | Pixel 4+, 중급 디바이스 |
+| 120 Hz | ~8.3 ms | 최신 플래그십 (Pixel 8 Pro, Galaxy S24) |
+
+### 진단 접근 코드 예시
+
+```bash
+# 1. gfxinfo로 프레임 통계 진단 (가장 빠른 진단)
+adb shell dumpsys gfxinfo com.example.app framestats
+
+# 출력 해석:
+# Total frames rendered: N
+# Janky frames: M (X%)  ← M이 5% 이상이면 jank 이슈 발생
+# 50th percentile: Xms, 90th: Yms, 95th: Zms, 99th: Wms
+
+# 2. Perfetto trace로 구간별 원인 분석
+adb shell perfetto -c - --txt <<EOF
+buffers { size_kb: 32768 }
+data_sources {
+  config { name: "android.surfaceflinger_frame" }
+}
+EOF
+```
+
+### 관련 문서
+
+- [VSync와 Choreographer는 frame deadline을 정의한다](vsync-and-choreographer-define-frame-deadline.md)
+- [RenderThread는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다](renderthread-submits-render-work-without-making-ui-thread-free.md)
+
+공식 문서: [Inspect rendering speed with JankStats](https://developer.android.com/topic/performance/jankstats)

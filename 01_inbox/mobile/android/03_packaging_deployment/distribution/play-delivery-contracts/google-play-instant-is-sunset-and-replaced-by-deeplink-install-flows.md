@@ -1,73 +1,70 @@
 ---
 title: google-play-instant-is-sunset-and-replaced-by-deeplink-install-flows
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:40 +09:00
+tags: ["android", "play-instant", "deeplink", "app-links"]
+aliases: ["Google Play Instant는 종료되었고 딥링크 중심 대안으로 전환한다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## Google Play Instant 는 종료되었고 딥링크 중심 대안으로 전환한다
+## Google Play Instant는 종료되었고 딥링크 중심 대안으로 전환한다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+과거 앱 설치 없이 15MB 이하 가상 모듈을 즉시 실행하던 **Google Play Instant** 방식은 공식 Sunset(종료)되었으며, 현재는 **Android App Links (Verified Deep Links)** 및 경량화된 AAB 퍼블리싱 전략으로 대체되었다.
+- **Android App Links (`autoVerify="true"`)**: 웹 URL (`https://example.com/product/123`)을 사용자가 클릭했을 때, 브라우저 대화상자 없이 검증된 도메인 소유권을 가진 앱이 즉시 실행된다.
+- **Asset Links Verification**: 웹 서버의 `/.well-known/assetlinks.json` 파일에 지정된 앱 서명 키 핑거프린트(SHA-256)를 OS가 검증하여 보안 딥링크를 수립한다.
 
-관련 지도: [Play Delivery 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-contracts.md)
+```mermaid
+flowchart TD
+    User["User Clicks Web Link (https://example.com/item/1)"] --> OS["Android OS Deep Link Handler"]
+    OS --> FetchJSON["Fetch https://example.com/.well-known/assetlinks.json"]
+    FetchJSON --> CheckCert{"Match SHA-256 Fingerprint?"}
+    CheckCert -->|Verified| LaunchApp["Directly Launch App Activity"]
+    CheckCert -->|Failed| LaunchBrowser["Fallback to Web Browser"]
+```
 
-관련 노트: [Navigation 3 deep link는 URI를 NavKey로 변환한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md), [앱 링크는 검증된 HTTPS 딥링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md)
+### 코드 예시 (AndroidManifest.xml & assetlinks.json)
+```xml
+<!-- AndroidManifest.xml -->
+<activity android:name=".ProductDetailActivity" android:exported="true">
+    <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
 
-### 현재 상태
+        <data
+            android:scheme="https"
+            android:host="example.com"
+            android:pathPrefix="/product" />
+    </intent-filter>
+</activity>
+```
 
-Google Play Instant 는 더 이상 신규 설계 대상으로 삼지 않는다.
+```json
+// https://example.com/.well-known/assetlinks.json
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.example.app",
+    "sha256_cert_fingerprints": ["A1:B2:C3:D4:E5:F6:..."]
+  }
+}]
+```
 
-Google 공식 안내에 따라 2025 년 12 월부터 Instant Apps 는 Google Play 를 통해
+### 관측 가능 증거 (Observable Evidence)
+Android ADB 명령으로 앱의 App Link 도메인 검증 상태를 직접 확인할 수 있다:
 
-게시할 수 없고, Google Play services Instant API 가 동작하지 않는다.
+```bash
+adb shell pm get-app-links com.example.app
 
-사용자에게 Play 가 Instant Apps 를 어떤 경로로도 제공하지 않는다.
+# Output Example:
+# com.example.app:
+#   ID: 1a2b3c
+#   Signatures: [A1:B2:C3...]
+#   Domain verification state:
+#     example.com: verified
+```
 
-따라서 `dist:instant="true"` 를 새 기능 모듈에 추가하는 접근은 폐기한다.
-
-기존 Instant 전용 모듈과 instant-enabled bundle 은 마이그레이션 대상으로 분류한다.
-
-과거의 용량 제한, instant 와 on-demand 조합 같은 규칙은 신규 구현 기준이 아니다.
-
-### 대체 사용자 여정
-
-1. 웹 또는 광고 링크가 일반 앱의 의미 있는 목적지로 연결되게 한다.
-2. Android App Links 로 검증된 도메인과 앱 화면을 매핑한다.
-3. 미설치 사용자는 Play 설치 화면으로 보내고, 설치 후 원래 목적지로 복귀시킨다.
-4. 설치된 사용자는 앱의 특정 기능 화면으로 바로 이동시킨다.
-5. 첫 실행에 필요한 기능만 install-time 으로 남기고 나머지는 on-demand 로 분리한다.
-
-딥링크는 Instant Apps 를 재현하는 것이 아니라, 설치 전후의 진입 경로를 단순화하는
-
-대안이다. 링크 처리 실패, 인증, 앱 미설치, 이미 설치된 경우를 각각 테스트한다.
-
-### 기존 앱 정리
-
-- Instant 전용 manifest 선언과 release track 을 식별한다.
-- Instant API 호출과 런타임 분기 코드를 제거하거나 일반 앱 경로로 바꾼다.
-- Instant 에서만 접근 가능했던 화면의 설치 앱 동작을 정의한다.
-- 링크는 일반 앱의 deep link 또는 App Links 로 재검증한다.
-- Play Console 과 분석 이벤트에서 Instant 전용 지표를 분리 종료한다.
-
-### 주의
-
-현재 Android Developers 의 Instant 문서는 역사적 동작과 종료 공지를 함께 담는다.
-
-새 문서나 아키텍처에서 Instant 를 활성 기능으로 소개하지 않는다.
-
-종료 시점은 "2025 년 12 월부터"로 기록하며 "종료 예정"이라고 표현하지 않는다.
-
-### 마이그레이션 완료 기준
-
-- 일반 설치 앱에서 동일한 핵심 시나리오가 시작되고 완료된다.
-- 앱이 설치되지 않은 링크 방문자는 설치 안내 후 원래 화면으로 돌아온다.
-- 설치된 링크 방문자는 인증 상태를 보존한 채 대상 화면을 연다.
-- Instant 전용 분석 이벤트는 일반 설치·딥링크 이벤트로 치환된다.
-- 릴리스 bundle 에 더 이상 Instant 전용 delivery 선언이 남지 않는다.
-
-### 공식 문서
-
-- [Overview of Google Play Instant](https://developer.android.com/topic/google-play-instant/overview)
-- [Google Play Instant platform notice](https://developer.android.com/topic/google-play-instant)
-- [Verify App Links](https://developer.android.com/training/app-links/verify-site-associations)
+관련 노트: [Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다](delivery-mode-is-selected-by-necessity-condition-and-runtime-request.md), [Play Delivery 계약](play-delivery-contracts.md)

@@ -16,6 +16,6 @@ date created: 2026-08-01 00:00:00 +09:00
 
 `LocalContext.current` 를 람다나 콜백에 캡처해 Composition 밖(예: 별도 object, ViewModel)에 저장하면, 그 Composable 이 화면에서 사라진 뒤에도 Activity context 가 참조 체인에 남아 LeakCanary 나 Memory Profiler 의 heap dump 에서 retained Activity 로 나타날 수 있다.
 
-관련 노트: [Context 기본 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/context-is-android-environment-capability-not-dependency-container.md), [Compose runtime 정본](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [ViewModel/Repository Context 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/viewmodel-and-repository-should-not-retain-ui-context.md).
+관련 노트: [Context 기본 경계](./context-is-android-environment-capability-not-dependency-container.md), [Compose runtime 정본](../../../jetpack-compose/runtime/compose-runtime-and-state-model.md), [ViewModel/Repository Context 경계](./viewmodel-and-repository-should-not-retain-ui-context.md).
 
 공식 문서: [CompositionLocal](https://developer.android.com/develop/ui/compose/compositionlocal)

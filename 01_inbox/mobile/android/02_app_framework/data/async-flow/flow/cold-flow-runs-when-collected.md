@@ -24,8 +24,8 @@ benefits.collect { } // "query started" 다시 1회 출력
 
 같은 `benefits` 인스턴스를 두 번 `collect` 하면 `flow { }` 블록이 처음부터 두 번 다시 실행되어 `println` 도 두 번 각각 출력된다. Room 의 `@Query` 가 반환하는 `Flow<List<T>>` 도 cold 이므로, ViewModel 두 곳에서 같은 DAO 함수를 각각 `collect` 하면 DB observer 가 중복으로 등록된다.
 
-같은 upstream 을 여러 화면 상태가 공유해야 하면 cold Flow 를 그대로 여러 번 collect 하지 말고 `shareIn` 이나 `stateIn` 으로 공유 수명과 replay 정책을 명시한다. 화면 상태로 현재값을 유지해야 한다면 [StateFlow는 현재값이 필요한 화면 상태에 사용하고 Flow는 원천 데이터 흐름에 사용한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md) 를 따른다.
+같은 upstream 을 여러 화면 상태가 공유해야 하면 cold Flow 를 그대로 여러 번 collect 하지 말고 `shareIn` 이나 `stateIn` 으로 공유 수명과 replay 정책을 명시한다. 화면 상태로 현재값을 유지해야 한다면 [StateFlow는 현재값이 필요한 화면 상태에 사용하고 Flow는 원천 데이터 흐름에 사용한다](../flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md) 를 따른다.
 
-Compose 나 Lifecycle UI 에서 수집할 때는 화면 수명에 맞춰 collect 가 시작되고 멈춰야 한다. 관련 계약은 [Flow는 UI에서 lifecycle-aware API로 수집한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/collect-flow-for-ui-with-lifecycle-aware-api.md) 에 둔다.
+Compose 나 Lifecycle UI 에서 수집할 때는 화면 수명에 맞춰 collect 가 시작되고 멈춰야 한다. 관련 계약은 [Flow는 UI에서 lifecycle-aware API로 수집한다](../flow-state-contracts/collect-flow-for-ui-with-lifecycle-aware-api.md) 에 둔다.
 
 공식 문서: [Flow on Android](https://developer.android.com/kotlin/flow)

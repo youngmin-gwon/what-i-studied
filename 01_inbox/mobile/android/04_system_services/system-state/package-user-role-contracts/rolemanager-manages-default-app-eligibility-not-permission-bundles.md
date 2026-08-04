@@ -1,15 +1,15 @@
 ---
 title: rolemanager-manages-default-app-eligibility-not-permission-bundles
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [패키지/사용자/역할 조회 계약](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/package-user-role-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [패키지/사용자/역할 조회 계약](./package-user-role-contracts.md)
 
 ### 핵심 정의
 
@@ -27,8 +27,8 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 경계
 
-- 이 노트는 역할 자격과 사용자 선택 흐름을 다룬다. 역할 승인 이후 실제 permission 검사 메커니즘은 [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/system-server-checks-caller-uid-and-pid-for-every-call.md)가 다룬다.
-- 다중 사용자/work profile에서 역할이 프로필별로 별도 관리된다는 점은 [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/usermanager-separates-users-and-work-profiles-by-userhandle.md)와 연결해서 읽는다.
+- 이 노트는 역할 자격과 사용자 선택 흐름을 다룬다. 역할 승인 이후 실제 permission 검사 메커니즘은 [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](../../service-lookup/service-lookup-contracts/system-server-checks-caller-uid-and-pid-for-every-call.md)가 다룬다.
+- 다중 사용자/work profile에서 역할이 프로필별로 별도 관리된다는 점은 [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./usermanager-separates-users-and-work-profiles-by-userhandle.md)와 연결해서 읽는다.
 
 ### 관찰 가능한 신호
 

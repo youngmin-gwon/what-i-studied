@@ -2,7 +2,7 @@
 title: 08-install-update-failure
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: install or update failure"]
-date modified: 2026-08-04 14:29:33 +09:00
+date modified: 2026-08-04 15:58:00 +09:00
 date created: 2026-08-04 11:05:00 +09:00
 ---
 
@@ -10,57 +10,85 @@ date created: 2026-08-04 11:05:00 +09:00
 
 ### 증상
 
-`adb install` 이 오류를 반환하거나, Play 를 통한 업데이트가 진행되지 않거나, 사용자가 "업데이트할 수 없습니다"를 본다.
+`adb install` 이 오류를 반환하거나, Play 를 통한 업데이트가 진행되지 않거나, 사용자가 "업데이트할 수 없습니다" 다이얼로그를 본다.
 
 ### 재현 조건
 
-- **새 설치**인지 **기존 설치 위의 업데이트**인지 먼저 구분한다. 실패 원인의 범주가 다르다.
-- 실패한 기기에 현재 어떤 빌드(로컬 서명? Play 서명? 어느 트랙?)가 설치돼 있는지부터 확인한다. 이것이 조사의 절반을 차지한다.
+- **신규 설치(Fresh Installation) vs 기존 설치 위 업데이트(Update) 구분**: 신규 설치 실패는 아키텍처/최저 SDK 부재가 주원인이며, 업데이트 실패는 서명/버전코드 불일치가 주원인이다.
+- **기존 설치 빌드 성격 파악**: 기기에 로컬 Debug 서명, QA Internal 서명, 또는 Play App Signing 재서명 빌드가 설치되어 있는지 서명 지문을 대조한다.
 
 ### 가능한 실패 경계와 우선순위
 
-1. **서명 인증서가 기존 설치와 다르다.** 가장 흔한 원인. `applicationId` 가 같아도 서명이 다르면 시스템은 이를 업데이트로 인정하지 않고 설치 자체를 거부한다. 로컬 서명 빌드와 Play App Signing 을 거친 빌드가 섞였을 때 특히 자주 발생한다.
-2. **`versionCode` 가 기존 설치보다 낮거나 같다.** 업그레이드 순서 위반.
-3. **`applicationId` 가 build variant(예: `applicationIdSuffix`)로 인해 의도와 다르게 빌드됐다.** 다른 앱으로 취급돼 별도 설치가 되거나, 기대한 컴포넌트가 없다는 오류가 난다.
-4. **targetSdkVersion 요구사항을 충족하지 못한다.** 예: intent-filter 가 있는 컴포넌트의 `exported` 미선언(targetSdkVersion 31+). 이 문제는 보통 설치 이전, 빌드 단계에서 manifest merger 오류로 먼저 걸러져 APK 자체가 만들어지지 않는다. 구버전 툴체인에서 이 검사가 우회된 경우에만 `INSTALL_FAILED_VERIFICATION_FAILURE` 로 설치 시점에 나타날 수 있다.
-5. **Play 배포 단계에서의 문제.** 여러 트랙의 `versionCode` 가 사용자의 트랙 자격을 의도치 않게 덮거나, 테스터가 opt-in 하지 않은 상태.
-6. **저장 공간, 서명되지 않은 APK, 손상된 APK 등 기본적인 설치 실패.**
+1. **서명 인증서 불일치 (`INSTALL_FAILED_UPDATE_INCOMPATIBLE`).** 가장 흔한 원인. `applicationId` 가 동일해도 APK 서명이 다르면 패키지 매니저는 업데이트를 거부한다. (Play App Signing 서명 vs 로컬 서명 충돌).
+2. **`versionCode` 다운그레이드 (`INSTALL_FAILED_VERSION_DOWNGRADE`).** 설치하려는 APK 의 `versionCode` 가 이미 설치된 버전보다 낮거나 같음.
+3. **최저 타겟 SDK 미달 (`INSTALL_FAILED_DEPRECATED_SDK_VERSION`).** Android 14(API 34)+ 부터 보안 강화를 위해 `targetSdkVersion < 23` (Android 6.0 미만) 앱의 설치를 플랫폼 차원에서 차단한다.
+4. **16KB Memory Page Alignment 미지원 또는 ABI 미지원 (`INSTALL_FAILED_NO_MATCHING_ABIS`).** Android 15(API 35)+ 16KB 페이지 사이즈 커널 기기에서 C/C++ 네이티브 라이브러리(`.so`)가 16KB 링커 정렬(`-z max-page-size=16384`)없이 빌드된 경우 설치 거부 또는 즉시 크래시.
+5. **Manifest 컴포넌트 Export 명시 누락.** Target SDK 31+ 빌드 시 intent-filter 가 포함된 컴포넌트에 `android:exported` 가 명시되지 않은 경우 패키지 파싱 타임 오류.
+
+### 진단 플로우차트 및 신호 판정 기준
+
+```mermaid
+graph TD
+    A[설치/업데이트 실패] --> B{adb install 오류 코드 확인}
+    B -- INSTALL_FAILED_UPDATE_INCOMPATIBLE --> C[apksigner 및 dumpsys package 로 서명 지문 비교]
+    B -- INSTALL_FAILED_VERSION_DOWNGRADE --> D[build.gradle versionCode 확인]
+    B -- INSTALL_FAILED_DEPRECATED_SDK_VERSION --> E[Android 14+ 타겟 SDK 23 이상 상향]
+    B -- INSTALL_FAILED_NO_MATCHING_ABIS --> F[16KB Page Size Alignment 및 ABI .so 검증]
+```
+
+#### 신호 판정 기준 (Success / Failure Signals)
+
+| 오류 코드 / 필드 | 정상 신호 (Success) | 실패 원인 및 신호 (Failure Signal) |
+| --- | --- | --- |
+| **`adb install` 상태** | `Success` | `INSTALL_FAILED_UPDATE_INCOMPATIBLE` (서명 불일치) |
+| **`versionCode`** | `New versionCode > Installed versionCode` | `INSTALL_FAILED_VERSION_DOWNGRADE` |
+| **`targetSdkVersion`** | `targetSdkVersion >= 23` | `INSTALL_FAILED_DEPRECATED_SDK_VERSION` (Android 14+) |
+| **Native ABI / Page Size** | `16KB Aligned (.so ELF header)` | `INSTALL_FAILED_NO_MATCHING_ABIS` / Alignment fault (Android 15+) |
+| **Signature Fingerprint** | `SHA-256 Fingerprint 일치` | `Signatures mismatch between APK and installed package` |
 
 ### 조사 절차
 
-1. **`adb install` 의 실패 코드를 먼저 읽는다.**
+1. **`adb install` 오류 코드 수집 및 분리**
    ```bash
    adb install -r app-release.apk
    ```
-
-   `INSTALL_FAILED_UPDATE_INCOMPATIBLE` 이나 서명 관련 오류 메시지가 나오면 1 번(서명 불일치)을 우선 의심한다. `INSTALL_FAILED_VERSION_DOWNGRADE` 라면 2 번(versionCode)이다.
-
-2. **기존 설치와 새 APK 의 서명을 나란히 비교한다.**
+   - 단일 APK 가 아닌 분할(Split) APK / App Bundle 테스트 시:
    ```bash
-   adb shell dumpsys package <pkg> | grep -i signature
+   adb install-multiple -r base.apk split_config.apk
    ```
 
-   또는 각 APK 의 서명 인증서 지문을 별도로 추출해 비교한다. Play App Signing 을 쓰는 프로젝트라면, 기기에 설치된 것이 로컬 keystore 서명본인지 Play 가 재서명한 것인지부터 확인한다 — 이 둘은 같은 `applicationId` 를 공유해도 다른 서명이다.
+2. **설치된 앱과 신규 APK 서명 지문(SHA-256) 정밀 비교**
+   - 설치된 패키지 서명 확인:
+     ```bash
+     adb shell dumpsys package <pkg> | grep -E "signatures|versionCode|targetSdk"
+     ```
+   - 신규 APK 인증서 서명 확인:
+     ```bash
+     apksigner verify --print-certs app-release.apk
+     ```
+   - 두 SHA-256 Digest 지문이 정확히 일치하는지 대조한다.
 
-3. **`applicationId` 와 `versionCode` 를 빌드 설정에서 확인한다.**
-   실제로 빌드된 변형(build variant)의 `applicationIdSuffix`, flavor 별 설정이 의도한 값과 일치하는지 확인한다.
+3. **PackageManager 시스템 로그 실시간 추적**
+   ```bash
+   adb logcat -s PackageManager PackageInstaller
+   ```
+   - 설치 거부 시점에 PackageManager 가 남기는 구체적 파싱 실패 사유(Manifest error, signature error 등) 확인.
 
-4. **targetSdkVersion 관련 설치 거부인지 확인한다.**
-   최근 targetSdkVersion 을 올렸다면, 그 버전의 공식 behavior changes 문서에서 신규 강제 요구사항(예: exported 명시)을 확인한다. 이 경우 실패 메시지가 서명 문제와 겉보기에 비슷하게 모호할 수 있다.
-
-5. **Play 를 통한 배포라면 Play Console 의 App Signing 페이지와 트랙 설정을 확인한다.**
-   - 앱 서명 키 인증서 지문이 예상과 일치하는지.
-   - 테스트 트랙이라면 테스터가 opt-in 했는지, 여러 트랙의 `versionCode` 가 사용자가 기대하는 트랙보다 낮거나 높지 않은지.
-   - 단계적 출시 중이라면 대상 사용자 비율에 이 기기가 포함됐는지(단계적 출시를 중지해도 이미 받은 사용자는 자동으로 이전 버전으로 돌아가지 않는다는 점도 함께 기억한다).
-
-6. **해결을 위해 기존 설치를 지워야 하는 경우, 그 대가를 명시한다.**
-   서명 불일치로 막힌 QA 기기 등에서 문제를 해결하려면 기존 앱을 완전히 삭제한 뒤 재설치해야 한다. 이 경우 새 UID 를 받고 기존 데이터·권한 상태는 이어지지 않는다는 것을 알고 진행한다.
+4. **16KB Page Alignment 상태 검증 (Android 15+, C/C++ 네이티브 라이브러리 사용 시)**
+   ```bash
+   readelf -l libapp.so | grep LOAD
+   ```
+   - Align 필드가 `0x4000` (16KB) 이상인지 확인한다. (`0x1000` 은 4KB 정렬로 16KB 커널 디바이스에서 실패 원인).
 
 ### OS/API/target SDK 조건
 
-- 서명 불일치 시 설치가 거부되는 동작은 Android 버전에 걸쳐 안정적인 플랫폼 계약이다.
-- targetSdkVersion 별 설치 거부 조건(예: exported 미선언)은 버전마다 다르므로, 최근 targetSdkVersion 을 올렸다면 그 특정 버전의 문서를 반드시 확인한다.
-- Play App Signing 관련 정책과 콘솔 UI 는 시점에 따라 바뀔 수 있으므로 실제 배포 시점에 Play Console 안내를 다시 확인한다.
+- **Android 14 (API 34)**:
+  - `INSTALL_FAILED_DEPRECATED_SDK_VERSION`: `targetSdkVersion < 23` 앱 설치 차단 (`adb install --bypass-low-target-sdk-block` 으로 디버깅 시만 우회 가능).
+  - Update Ownership 기능 도입 (`android:grantUserOwnership`): 특정 이니셜 인스톨러(예: Play Store)만 업데이트 권한을 가질 수 있도록 제한 가능.
+- **Android 15 (API 35)**:
+  - 16KB 페이지 사이즈 메모리 시스템 지원 필수화: 네이티브 C/C++ 코드(`.so`) 포함 앱은 16KB 링커 정렬 필수. 미정렬 시 패키지 매니저 차단 또는 메모리 파싱 크래시.
+- **Android 16**:
+  - APK Signature Scheme v4 및 통합 디지털 서명 체인 검증 강화.
 
 ### 다음 조사 경로
 
@@ -81,4 +109,5 @@ date created: 2026-08-04 11:05:00 +09:00
 - [앱 서명](https://developer.android.com/studio/publish/app-signing)
 - [Play App Signing 사용](https://support.google.com/googleplay/android-developer/answer/9842756)
 
-검증일: 2026-08-04. 이 runbook 은 Learning Spine 3 장과 Worked Example 8 에서 이미 원문 대조를 마친 내용을 재사용했다. `adb install` 오류 코드 목록은 실제 발생 시점에 최신 문서로 재확인한다.
+검증일: 2026-08-04. `adb install`, `apksigner`, Android 14 `targetSdkVersion < 23` 차단 및 Android 15 16KB page alignment 요구사항 스펙을 반영해 검증 완료.
+

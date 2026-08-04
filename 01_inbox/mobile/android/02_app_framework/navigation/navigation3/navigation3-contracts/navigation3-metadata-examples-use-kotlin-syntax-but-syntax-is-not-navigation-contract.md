@@ -18,4 +18,4 @@ Navigation 관점에서 중요한 것은 metadata 가 route entry 에 표시 정
 - syntax 설명은 route identity, scene policy, decorator 책임을 이해하는 데 필요한 만큼만 둔다.
 - Kotlin 문법 노트가 Navigation 3 정본을 대체하지 않게 한다.
 
-관련 노트: [Metadata와 SceneStrategy는 표시 정책을 전달한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)
+관련 노트: [Metadata와 SceneStrategy는 표시 정책을 전달한다](./metadata-and-scene-strategy-carry-display-policy.md)

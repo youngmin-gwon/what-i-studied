@@ -1,82 +1,88 @@
 ---
 title: encrypted-storage-apis-do-not-replace-key-and-data-boundary
-tags: []
+tags: ["android", "android/security-privacy"]
 aliases: []
-date modified: 2026-08-03 18:14:28 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## 암호화 저장소 API 는 키와 데이터 경계 설계를 대체하지 않는다
 
-### EncryptedSharedPreferences, DataStore, Room 의 보안 경계를 구분한다
+`EncryptedSharedPreferences`, Jetpack Security(Tink), 암호화 Room 데이터베이스 같은 고위험 추상화 라이브러리는 파일 디스크 암호화를 손쉽게 제공하지만, **키 수명주기(Key Lifecycle), 키 회전(Key Rotation), 데이터 분류 및 예외 복구 경계 설계**를 자동으로 해결해주지 않는다.
 
-상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+```mermaid
+flowchart TD
+    MasterKey[Android KeyStore MasterKey] --> TinkKeyset[Tink Keysets File: Encrypted Subkeys]
+    TinkKeyset --> SPXML[EncryptedSharedPreferences XML]
+    
+    SPXML -- Keystore Corrupted / Reset --> Error[GeneralSecurityException / KeyStoreException]
+    Error --> RescueStrategy{예외 복구 전략 수립 여부?}
+    RescueStrategy -- Missing --> Crash[앱 연속 무한 크래시]
+    RescueStrategy -- Implemented --> ClearAndReauth[손상 키셋 삭제 후 재인증 유도]
+```
 
-관련 노트: [DataStore는 작은 설정과 현재 상태를 저장한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/datastore-stores-small-settings-and-current-state.md), [Room은 누적되고 조회되는 로컬 데이터를 저장한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/room-stores-accumulated-queryable-local-data.md)
+### 내부 동작 메커니즘
 
-#### 핵심 주장
+1. **Envelope Encryption Architecture**: EncryptedSharedPreferences는 Keystore의 Master Key를 사용하여 Tink Keyset 파일내의 서브키(Subkeys)를 암호화하고, 실제 SharedPreference Key/Value는 서브키(`AES256_SIV` / `AES256_GCM`)로 암호화하는 이중 봉투 구조를 가진다.
+2. **Key Store Invalidation Vulnerability**: OS 업데이트, 화면 잠금 변경, 생체 정보 재등록으로 인해 하드웨어 Keystore 키가 깨지거나 삭제되면 Tink Keyset 복호화가 불가능해져 전체 암호화 저장소가 정지한다.
+3. **Boundary Mistake**: 정본 마스터키 수명과 단순 캐시 파일의 수명을 동일시하면 손상 시 앱이 복구할 수 없는 상태에 빠진다.
 
-저장소 API 는 데이터 모델과 접근 방식을 결정하지만, 모든 저장소가 같은 보안 수준을 제공하지는 않는다.
+### 안전한 EncryptedSharedPreferences 생성 및 예외 핸들링 예시 (Kotlin)
 
-민감도, 검색 필요성, 트랜잭션 요구, 백업 정책을 기준으로 저장소를 선택해야 한다.
+```kotlin
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 
-#### EncryptedSharedPreferences
+fun getSafeEncryptedSharedPreferences(context: Context): SharedPreferences {
+    val masterKey = MasterKey.Builder(context)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
 
-`EncryptedSharedPreferences` 는 키와 값의 저장을 암호화하는 고수준 선택지다.
+    return try {
+        EncryptedSharedPreferences.create(
+            context,
+            "secure_prefs",
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+    } catch (e: Exception) {
+        // Keystore 손상이나 키 무효화 예외 발생 시 손상된 암호화 파일 삭제 후 재생성
+        context.deleteSharedPreferences("secure_prefs")
+        EncryptedSharedPreferences.create(
+            context,
+            "secure_prefs",
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+    }
+}
+```
 
-암호화 키는 Android Keystore 에 보호되며 구현 복잡도를 줄여 준다.
+### 관찰 가능한 증거 (Observable Evidence)
 
-하지만 API 의 사용 가능 버전과 유지보수 상태를 확인하고 새 설계에 무조건 의존하지 않는다.
+- **생성된 SharedPreference XML 물리 구조 디버깅**:
+  ```bash
+  adb shell cat /data/data/com.example.app/shared_prefs/secure_prefs.xml
+  ```
+  출력: 모든 XML key/value 값이 `AfG...=` 형태의 Base64 암호문 스트링으로 치환되어 저장됨.
+- **키 손상 시 발생 예외**:
+  ```text
+  java.security.GeneralSecurityException: could not decrypt key
+      at com.google.crypto.tink.KeysetHandle.read
+  ```
 
-토큰 같은 소량의 key-value 데이터에 적합하지만 검색이나 복잡한 관계 모델에는 맞지 않는다.
+### 판단 기준
 
-암호화된 파일도 백업, 로그, 메모리 노출 문제까지 자동으로 해결하지는 않는다.
+Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity 와 mandatory policy 가 어떻게 강제되는지 판단하는 기준으로 읽는다.
 
-#### DataStore
+### 경계
 
-DataStore 는 SharedPreferences 의 비동기 대안으로 설정과 작은 상태를 저장한다.
+client-side check 를 authorization 으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
 
-Preferences DataStore 와 Proto DataStore 모두 저장소 동시성·일관성 문제를 줄이는 데 초점이 있다.
+상위 문서: [보안 저장소 계약](secure-storage-contracts.md)
 
-DataStore 라는 이름만으로 민감 데이터 암호화가 보장되는 것은 아니다.
-
-민감한 값을 넣을 때는 별도 암호화 계층과 키 관리, 백업 제외 정책을 함께 적용한다.
-
-작은 설정값과 단일 상태에는 적합하지만, 임의 조건 검색이 핵심이면 다른 선택을 검토한다.
-
-#### Room
-
-Room 은 SQLite 데이터베이스에 구조화된 데이터를 저장하고 쿼리·트랜잭션을 제공한다.
-
-개인정보가 여러 행과 관계로 구성되거나 검색과 마이그레이션이 필요할 때 적합하다.
-
-Room 도 기본적으로 데이터베이스 전체를 민감 정보 저장소로 만들어 주지는 않는다.
-
-필요하면 컬럼별 암호화, 데이터베이스 암호화 라이브러리, 키 보호 계층을 별도로 설계한다.
-
-검색해야 하는 컬럼을 암호화하면 평문 검색이 어려워질 수 있으므로 요구사항을 먼저 정한다.
-
-#### 선택 기준
-
-- 소량의 비밀 key-value: Keystore 와 암호화 저장소 조합
-- 앱 설정과 작은 상태: DataStore, 단 민감 값은 추가 보호
-- 관계형 데이터와 쿼리: Room, 필요한 필드와 DB 보호 수준을 명시
-- 재생성 가능한 캐시: 암호화보다 만료·삭제·백업 제외 정책을 우선 검토
-
-#### 공통 검증 목록
-
-저장소를 고르기 전에 평문이 디스크에 남는지 확인한다.
-
-암호키가 데이터베이스 파일이나 설정 파일에 함께 저장되지 않는지 확인한다.
-
-백업과 기기 이전에서 데이터가 어떻게 이동하는지 확인한다.
-
-마이그레이션 실패와 키 무효화 시 사용자에게 어떤 복구를 제공할지 정한다.
-
-테스트 로그와 스냅샷에 실제 민감 데이터가 들어가지 않게 한다.
-
-#### 결론
-
-저장소 선택은 편의 API 선택이 아니라 보안 경계 선택이다.
-
-저장소의 기능과 암호화 보장을 구분하고, 필요한 경우 Keystore 기반 암호화 계층을 명시적으로 추가한다.
+관련 노트: [Android Keystore는 추출 불가능성으로 키를 보호한다](android-keystore-protects-keys-by-non-exportability.md), [AES-GCM은 고유한 IV와 Authentication Tag를 요구한다](aes-gcm-requires-unique-iv-and-authentication-tag.md)

@@ -30,6 +30,6 @@ Back 동작은 단순히 `onBackPressed` 를 가로채는 방식에서 벗어나
 
 큰 화면과 foldable 에서는 device 이름보다 현재 window 와 posture 가 중요하다. top-level destination 의 chrome 은 compact 에서는 bottom bar, expanded 에서는 rail 이나 drawer 처럼 바뀔 수 있고, pane layout 은 selection 과 back policy 를 함께 보존해야 한다.
 
-관련 노트: [Navigation 3 transition과 predictive back은 같은 stack state를 기준으로 해야 한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-transition-and-back-policy-must-share-stack-state.md), [Window와 posture가 Adaptive Navigation의 입력이다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-is-driven-by-window-and-posture.md)
+관련 노트: [Navigation 3 transition과 predictive back은 같은 stack state를 기준으로 해야 한다](../../../navigation/navigation3/navigation3-contracts/navigation3-transition-and-back-policy-must-share-stack-state.md), [Window와 posture가 Adaptive Navigation의 입력이다](../../../navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-is-driven-by-window-and-posture.md)
 
 공식 문서: [Edge-to-edge in views](https://developer.android.com/develop/ui/views/layout/edge-to-edge), [Predictive back](https://developer.android.com/guide/navigation/custom-back/predictive-back-gesture), [Build adaptive navigation](https://developer.android.com/develop/adaptive-apps/guides/build-adaptive-navigation)

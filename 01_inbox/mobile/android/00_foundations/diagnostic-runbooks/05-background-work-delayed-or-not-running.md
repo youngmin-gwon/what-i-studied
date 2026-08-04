@@ -2,7 +2,7 @@
 title: 05-background-work-delayed-or-not-running
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: background work delayed or not running"]
-date modified: 2026-08-04 10:28:33 +09:00
+date modified: 2026-08-04 15:58:00 +09:00
 date created: 2026-08-04 10:50:00 +09:00
 ---
 
@@ -14,59 +14,93 @@ date created: 2026-08-04 10:50:00 +09:00
 
 ### 재현 조건
 
-- 이 작업이 정확한 시각이 중요한 작업인지, 지연 가능한 작업인지 먼저 구분한다 — 요구사항 자체가 잘못된 API 선택으로 이어졌을 수 있다.
-- Doze/앱 대기(App Standby) 상태를 재현하려면 화면을 끄고 충전기를 뽑은 채 일정 시간 방치하거나, `adb shell dumpsys deviceidle force-idle` 류의 명령으로 강제 진입시킨다(기기·OS 버전에 따라 명령이 다를 수 있다).
+- **작업의 영속성(durability) 및 타임라인 특성을 구분한다**: 이 작업이 정밀 시각이 중요한 작업(AlarmManager)인지, 지연 가능한 보장 작업(WorkManager/JobScheduler)인지 구분한다.
+- **Doze / 앱 대기(App Standby) 상태를 재현한다**:
+  - 화면 끄기 및 강제 Doze 진입: `adb shell dumpsys deviceidle force-idle deep` (해제: `adb shell dumpsys deviceidle unforce`)
+  - 강제 App Standby Bucket 변경: `adb shell am set-standby-bucket <pkg> rare` (또는 `restricted`)
 
 ### 가능한 실패 경계와 우선순위
 
-1. **작업이 애초에 화면의 `viewModelScope` 에 묶여 있었다.** 화면이 사라지면 작업 자체가 취소된 것이지 "지연"이 아니다.
-2. **작업은 예약됐지만 constraint 가 만족되지 않았다.** 네트워크 조건, 충전 상태 등 지정한 조건이 충족되지 않아 대기 중인 경우.
-3. **작업은 실행됐지만 프로세스가 도중에 죽어 완료 콜백이 오지 않았다.** WorkManager/JobScheduler 는 이를 최소 한 번(at-least-once) 재실행하지만, 재시도 사이 지연이 있을 수 있다.
-4. **Doze/앱 대기 상태로 인해 시스템이 실행을 지연시켰다.** 정상적인 배터리 보호 동작이며 "버그"가 아닐 수 있다.
-5. **Standby bucket 이 낮아 quota 가 부족하다.** 최근 사용 빈도가 낮은 앱은 시스템이 백그라운드 실행 quota 를 줄인다.
+1. **작업이 화면의 UI 스코프(`viewModelScope`/`lifecycleScope`)에 묶여 있었다.** 화면이 닫히면 코루틴이 취소된 것이지 시스템 지연이 아니다.
+2. **작업은 예약됐지만 제약 조건(Constraints)이 미충족됐다.** 네트워크(Unmetered), 충전 상태, 저장 공간 등 제약 조건 미충족.
+3. **Standby Bucket 등급이 낮거나 백그라운드 Quota 가 고갈됐다.** 최근 앱 사용 빈도가 낮아 `RARE` 또는 `RESTRICTED` 버킷으로 강등된 경우 execution quota 제약을 받는다.
+4. **Doze mode / Power Saver 가 실행을 차단했다.** Maintenance window 까지 실행이 지연되는 정상적인 배터리 보호 동작이다.
+5. **프로세스 중단(StopReason) 발생 및 상태 미저장.** 시스템에 의해 작업이 수시로 중단될 수 있으나 `checkpoint` 저장이 없어 매번 처음부터 재실행되다 지연/실패하는 경우.
+
+### 진단 플로우차트 및 신호 판정 기준
+
+```mermaid
+graph TD
+    A[백그라운드 작업 지연/미실행] --> B{시스템에 예약되었는가?}
+    B -- 아니오 --> C[ViewModelScope/Activity 스코프 직결 여부 확인]
+    B -- 예 --> D{Constraints 충족되었는가?}
+    D -- 아니오 --> E[dumpsys jobscheduler 로 Unsatisfied Constraints 확인]
+    D -- 예 --> F{Standby Bucket / Quota 정상인가?}
+    F -- Quota 초과/RESTRICTED --> G[App Standby Bucket 및 Doze 진입 여부 확인]
+    F -- Quota 정상 --> H{StopReason / Timeout 발생 여부}
+    H -- 예 --> I[WorkInfo.getStopReason() 확인 및 Checkpoint 저장 로직 점검]
+    H -- 아니오 --> J[시스템 딜레이 또는 OEM background restriction 확인]
+```
+
+#### 신호 판정 기준 (Success / Failure Signals)
+
+| 진단 항목 | 정상 신호 (Success Signal) | 실패 신호 (Failure Signal) |
+| --- | --- | --- |
+| **Job Constraints** | `Unsatisfied constraints: NONE` | `Unsatisfied constraints: CONNECTIVITY` / `CHARGING` |
+| **Quota Status** | `WITHIN_QUOTA: true` | `WITHIN_QUOTA: false` |
+| **Standby Bucket** | `Standby bucket: ACTIVE` 또는 `WORKING_SET` | `Standby bucket: RARE` 또는 `RESTRICTED` |
+| **Work State** | `WorkInfo.state = RUNNING` / `SUCCEEDED` | `WorkInfo.state = ENQUEUED` (무한 대기) 또는 `BLOCKED` |
+| **Stop Reason** | `STOP_REASON_NONE` (0) | `STOP_REASON_CONSTRAINT_CANCELLED` / `STOP_REASON_QUOTA` / `STOP_REASON_TIMEOUT` |
 
 ### 조사 절차
 
-1. **작업이 실제로 시스템에 예약됐는지 확인한다.**
+1. **작업이 실제로 시스템에 예약되었는지 및 Constraints 상태 확인**
    ```bash
-   adb shell dumpsys jobscheduler
+   adb shell dumpsys jobscheduler <pkg>
    ```
+   - `Required constraints` vs `Unsatisfied constraints` 확인.
+   - `WITHIN_QUOTA` 필드 및 `Standby bucket` 상태 확인.
 
-   대상 패키지와 `androidx.work.impl.background.systemjob.SystemJobService`(WorkManager 를 쓰는 경우)를 찾아 다음 필드를 확인한다.
+2. **Standby Bucket 확인 및 테스트용 강제 변경**
+   ```bash
+   adb shell am get-standby-bucket <pkg>
+   adb shell am set-standby-bucket <pkg> active
+   ```
+   - 10: `ACTIVE`, 20: `WORKING_SET`, 30: `FREQUENT`, 40: `RARE`, 45: `RESTRICTED`.
 
-   - `Required constraints` / `Satisfied constraints` / `Unsatisfied constraints`: 어떤 조건이 아직 충족되지 않았는지 보여준다. `Unsatisfied constraints: CONNECTIVITY` 라면 코드 실패가 아니라 실행 조건 대기다.
-   - `WITHIN_QUOTA`: quota 안에 있는지 여부.
-   - `Standby bucket`: 이 앱이 시스템에 의해 어느 사용 빈도 등급으로 분류됐는지.
-   - `Job history`: 최근 실행/중단 이력.
-
-2. **WorkManager 를 쓴다면 `WorkInfo.state` 와 진단 브로드캐스트를 함께 본다.**
+3. **WorkManager 진단 브로드캐스트 및 상세 로그 확인**
    ```bash
    adb shell am broadcast -a "androidx.work.diagnostics.REQUEST_DIAGNOSTICS" -p <pkg>
-   adb logcat -s WM-DiagnosticsWrkr WM-WorkerWrapper WM-JobScheduler
+   adb logcat -s WM-DiagnosticsWrkr WM-WorkerWrapper WM-JobScheduler JobScheduler
    ```
+   - `WorkInfo.getStopReason()` (WorkManager 2.9.0+ / API 31+)으로 작업 중단 원인 분석.
 
-   `ENQUEUED` 에 머물러 있다면 constraint 미충족, `RUNNING` 뒤 반복 중단이라면 API 31+ 및 WorkManager 2.9.0+ 환경에서 `WorkInfo.getStopReason()` 을 확인한다.
-
-3. **강제 실행/중단으로 재현 경로를 검증한다(직접 JobScheduler/UIDT job 의 경우).**
+4. **Job 강제 실행 및 Timeout 테스트**
    ```bash
    adb shell cmd jobscheduler run -f <pkg> <job_id>
    adb shell cmd jobscheduler timeout <pkg> <job_id>
    ```
+   - `timeout` 실행 후 `onStopJob()` 호출 여부와 checkpoint 저장 상태 확인.
 
-   두 번째 명령 뒤 `onStopJob()` 기록과 checkpoint 저장 여부, 재시도 여부를 확인한다. 이 명령은 프로세스 kill 이나 실제 Doze 전체를 대신하지 않는다는 점에 유의한다.
-
-4. **코드에서 재개 지점이 실제로 저장되고 있는지 확인한다.**
-   enqueue 전에 논리 작업 ID 와 재개 지점(byte offset, 마지막 처리 항목 등)을 저장소에 남기고 있는지, 재실행 시 그 상태를 읽어 이어가는지 확인한다. 콜백만 믿고 checkpoint 를 저장하지 않으면, 프로세스가 강제 종료될 때(`onStopJob()` 조차 호출되지 않을 수 있다) 진행 상황을 통째로 잃는다.
+5. **AlarmManager 정밀 시각 작업 진단 (Exact Alarms 사용 시)**
+   ```bash
+   adb shell dumpsys alarm <pkg>
+   ```
+   - `SCHEDULE_EXACT_ALARM` 권한 허용 여부 및 Inexact Alarm 전환 여부 확인.
 
 ### OS/API/target SDK 조건
 
-- `stopReason` 조회는 WorkManager 2.9.0+ 이면서 API 31+ 인 조합에서만 가능하다. 그보다 낮은 조합에서는 앱이 남긴 자체 실행/중단 로그로 대체해야 한다.
-- Android 14+ 에서 timeout 이 반복되면 restricted standby bucket 으로 강등될 수 있다 — 최근 실패가 잦았던 작업이라면 이 강등 자체가 추가 지연의 원인일 수 있다.
-- User-initiated data transfer(UIDT) job 은 API 34+ 에서만 사용 가능하다.
+- **Android 14 (API 34)**:
+  - User-Initiated Data Transfer (UIDT) job 추가 (`JobInfo.Builder.setUserInitiated(true)` + `RUN_USER_INITIATED_DATA_TRANSFER` 권한 및 알림 필수).
+  - Target SDK 34+ 에서 `SCHEDULE_EXACT_ALARM` 권한이 신규 설치 앱에 대해 기본 거부(Denied)됨 (`USE_EXACT_ALARM` 또는 사용자 권한 동의 필요).
+- **Android 15 (API 35)**:
+  - Foreground Service (FGS) 6시간 실행 제한: `dataSync` 및 `mediaProcessing` FGS 타입은 24시간 중 누적 6시간 초과 시 타임아웃 예외 발생 (`JSException` / FGS timeout). WorkManager/UIDT 전환 필수.
+- **Android 16**:
+  - Background Job execution quota 통합 관리 강화 및 battery saver 상태 diagnostic signal 세분화.
 
 ### 다음 조사 경로
 
-- constraint 미충족이 원인이면 → 요구 조건이 제품 요구사항과 맞는지 재검토(예: unmetered network 가 꼭 필요한지)
+- constraint 미충족이 원인이면 → 요구 조건이 제품 요구사항과 맞는지 재검토 (예: unmetered network 가 꼭 필요한지)
 - 화면 lifetime 에 잘못 묶여 있었다면 → [Learning Spine 6장](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) 의 durable scheduler 선택 기준으로
 - 알림으로 결과를 보여줘야 하는 작업이라면 → [notification missing runbook](06-notification-missing.md) 과 함께 조사
 
@@ -84,4 +118,5 @@ date created: 2026-08-04 10:50:00 +09:00
 - [Debug WorkManager](https://developer.android.com/develop/background-work/background-tasks/testing/persistent/debug)
 - [Optimize battery use for task scheduling APIs](https://developer.android.com/develop/background-work/background-tasks/optimize-battery)
 
-검증일: 2026-08-04. 이 runbook 은 기존 원자 노트(`background-work-api-selection-is-a-failure-cost-decision.md`)에서 이미 공식 문서로 검증된 명령과 필드를 재사용했다.
+검증일: 2026-08-04. `dumpsys jobscheduler`, WorkManager 2.9.0+ `stopReason`, Android 14 UIDT 및 Android 15 FGS 6시간 제한 스펙을 반영해 검증 완료.
+

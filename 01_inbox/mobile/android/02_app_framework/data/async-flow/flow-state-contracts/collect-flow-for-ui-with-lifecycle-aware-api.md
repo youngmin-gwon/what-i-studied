@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## 화면에 그릴 Flow 는 lifecycle-aware API 로 수집한다
 
-상위 문서: [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md)
+상위 문서: [Flow와 StateFlow 상태 계약](./flow-state-contracts.md)
 
 화면에 그릴 Flow 는 화면이 사용자에게 보이는 동안만 수집해야 한다.
 

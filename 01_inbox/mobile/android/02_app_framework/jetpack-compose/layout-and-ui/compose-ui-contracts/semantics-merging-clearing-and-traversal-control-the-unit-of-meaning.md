@@ -14,6 +14,6 @@ date created: 2026-07-31 23:59:30 +09:00
 
 비정상적인 시각 배치나 복잡한 pane 에서는 traversal group 과 index 로 읽기 순서를 조정할 수 있다. 실제 TalkBack 과 device 에서 읽기 순서를 확인해야 한다.
 
-관련 노트: [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md), [시각 정보와 제스처에는 읽을 수 있는 의미와 대체 동작이 필요하다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)
+관련 노트: [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](./semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md), [시각 정보와 제스처에는 읽을 수 있는 의미와 대체 동작이 필요하다](./visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)
 
 출처: [Merging and clearing semantics](https://developer.android.com/develop/ui/compose/accessibility/merging-clearing), [Traversal order](https://developer.android.com/develop/ui/compose/accessibility/traversal)

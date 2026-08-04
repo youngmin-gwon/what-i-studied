@@ -8,7 +8,7 @@ date created: 2026-07-31 16:53:16 +09:00
 
 ## Compose 상태 API 는 필요한 수명에 맞춰 선택한다
 
-상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
+상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
 Compose 상태 API 의 첫 선택 기준은 타입이나 편의성이 아니라 수명이다.
 

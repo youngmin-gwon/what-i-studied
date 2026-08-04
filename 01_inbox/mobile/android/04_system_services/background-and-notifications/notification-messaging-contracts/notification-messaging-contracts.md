@@ -12,10 +12,10 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ### 읽는 순서
 
-1. [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-is-message-delivery-not-business-execution-guarantee.md) 로 전송과 실행을 분리한다.
-2. [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-registration-identifier-targets-app-instance-not-user-account.md) 로 서버 대상 모델을 잡는다.
-3. [FCM notification payload와 data payload는 처리 지점이 다르다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-notification-and-data-payloads-have-different-handling-points.md) 와 [Android 알림은 권한과 채널이 표시 가능성을 결정한다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/android-notification-permission-and-channel-control-visibility.md) 로 수신과 표시를 나눈다.
-4. [FCM high priority는 사용자 가시 알림에만 정당화된다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-high-priority-is-justified-by-user-visible-notification.md) 와 [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-operations-observe-delivery-display-tap-and-recovery-separately.md) 로 운영 정책을 정한다.
+1. [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](./fcm-is-message-delivery-not-business-execution-guarantee.md) 로 전송과 실행을 분리한다.
+2. [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](./fcm-registration-identifier-targets-app-instance-not-user-account.md) 로 서버 대상 모델을 잡는다.
+3. [FCM notification payload와 data payload는 처리 지점이 다르다](./fcm-notification-and-data-payloads-have-different-handling-points.md) 와 [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./android-notification-permission-and-channel-control-visibility.md) 로 수신과 표시를 나눈다.
+4. [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority-is-justified-by-user-visible-notification.md) 와 [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](./fcm-operations-observe-delivery-display-tap-and-recovery-separately.md) 로 운영 정책을 정한다.
 
 ### 문제 분류
 
@@ -37,13 +37,13 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ### 노트 목록
 
-- [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-is-message-delivery-not-business-execution-guarantee.md)
-- [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-registration-identifier-targets-app-instance-not-user-account.md)
-- [FCM notification payload와 data payload는 처리 지점이 다르다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-notification-and-data-payloads-have-different-handling-points.md)
-- [Android 알림은 권한과 채널이 표시 가능성을 결정한다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/android-notification-permission-and-channel-control-visibility.md)
-- [FCM high priority는 사용자 가시 알림에만 정당화된다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-high-priority-is-justified-by-user-visible-notification.md)
-- [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-operations-observe-delivery-display-tap-and-recovery-separately.md)
+- [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](./fcm-is-message-delivery-not-business-execution-guarantee.md)
+- [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](./fcm-registration-identifier-targets-app-instance-not-user-account.md)
+- [FCM notification payload와 data payload는 처리 지점이 다르다](./fcm-notification-and-data-payloads-have-different-handling-points.md)
+- [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./android-notification-permission-and-channel-control-visibility.md)
+- [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority-is-justified-by-user-visible-notification.md)
+- [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](./fcm-operations-observe-delivery-display-tap-and-recovery-separately.md)
 
-관련 지도: [백그라운드 작업 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
+관련 지도: [백그라운드 작업 계약](../background-work-contracts/background-work-contracts.md)
 
 검증일: 2026-08-03. 메시지 유형, priority, 등록 수명주기는 [Firebase Cloud Messaging 공식 문서](https://firebase.google.com/docs/cloud-messaging) 를 기준으로 릴리스 전에 다시 확인한다.

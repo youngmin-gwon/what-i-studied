@@ -14,6 +14,6 @@ CompositionLocal 은 Composition tree 의 특정 하위 범위에 값을 암묵�
 
 암묵성은 비용이다. Local 을 많이 쓰면 Composable 의 입력 계약이 숨겨지고 테스트 setup 이 어려워진다. 기본값, 제공 누락, 변경 빈도와 recomposition 범위를 설계해야 한다.
 
-관련 노트: [CompositionLocal, 파라미터, DI는 서로 다른 문제를 푼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compositionlocal-parameters-and-di-solve-different-problems.md), [Design system provider는 Material theme과 프로젝트 Local을 함께 제공한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/design-system-provider-composes-material-theme-and-project-locals.md)
+관련 노트: [CompositionLocal, 파라미터, DI는 서로 다른 문제를 푼다](./compositionlocal-parameters-and-di-solve-different-problems.md), [Design system provider는 Material theme과 프로젝트 Local을 함께 제공한다](./design-system-provider-composes-material-theme-and-project-locals.md)
 
 출처: [Locally scoped data with CompositionLocal](https://developer.android.com/develop/ui/compose/compositionlocal)

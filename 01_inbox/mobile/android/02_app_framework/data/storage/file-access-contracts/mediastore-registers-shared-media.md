@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## MediaStore: 공유 미디어의 등록과 접근
 
-상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
+상위 문서: [파일 접근 계약](./file-access-contracts.md)
 
-관련 노트: [Photo Picker는 필요한 미디어 접근 범위를 줄인다](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/photo-picker-minimizes-media-access.md)
+관련 노트: [Photo Picker는 필요한 미디어 접근 범위를 줄인다](./photo-picker-minimizes-media-access.md)
 
 MediaStore 는 앱 전용 데이터베이스가 아니다.
 
@@ -79,4 +79,4 @@ Android 10 이상에서는 `RELATIVE_PATH` 로 논리적 미디어 폴더를 지
 
 기존 미디어를 직접 광범위하게 조회하는 경우에는 버전별 미디어 권한을 검토한다.
 
-사용자가 몇 개만 고르는 흐름은 [Photo Picker로 선택 범위 줄이기](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/photo-picker-minimizes-media-access.md) 가 더 적합하다.
+사용자가 몇 개만 고르는 흐름은 [Photo Picker로 선택 범위 줄이기](./photo-picker-minimizes-media-access.md) 가 더 적합하다.

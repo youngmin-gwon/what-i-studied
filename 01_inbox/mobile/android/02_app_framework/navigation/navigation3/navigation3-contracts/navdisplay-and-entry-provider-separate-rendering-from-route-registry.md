@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## NavDisplay 와 entry provider 의 경계
 
-상위 문서: [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
+상위 문서: [Navigation 3 계약](./navigation3-contracts.md)
 
-관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md)
+관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](./navkey-and-back-stack-are-app-owned-navigation-state.md)
 
 ### 역할 분리
 

@@ -8,7 +8,7 @@ date created: 2026-07-31 16:53:16 +09:00
 
 ## Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable 을 사용한다
 
-상위 문서: [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
+상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
 `rememberSaveable` 은 Composable 보다 오래 살아야 하는 작은 UI 값을 복원할 때 사용한다.
 

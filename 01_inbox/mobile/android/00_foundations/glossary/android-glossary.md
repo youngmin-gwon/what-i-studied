@@ -20,64 +20,64 @@ date created: 2026-04-07 11:06:51 +09:00
 
 ### 프로세스와 런타임
 
-- [AMS와 ATMS](01_inbox/mobile/android/00_foundations/glossary/android-glossary/02-ams-atms-activitymanagerservice-activitytaskmanagerservice.md)
-- [ANR](01_inbox/mobile/android/00_foundations/glossary/android-glossary/03-anr-application-not-responding.md)
-- [ART](01_inbox/mobile/android/00_foundations/glossary/android-glossary/07-art-android-runtime.md)
-- [DEX](01_inbox/mobile/android/00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md)
-- [Looper와 Handler](01_inbox/mobile/android/00_foundations/glossary/android-glossary/15-looper-handler.md)
-- [system_server](01_inbox/mobile/android/00_foundations/glossary/android-glossary/23-system-server.md)
-- [Zygote](01_inbox/mobile/android/00_foundations/glossary/android-glossary/29-zygote.md)
+- [AMS와 ATMS](./android-glossary/02-ams-atms-activitymanagerservice-activitytaskmanagerservice.md)
+- [ANR](./android-glossary/03-anr-application-not-responding.md)
+- [ART](./android-glossary/07-art-android-runtime.md)
+- [DEX](./android-glossary/11-dex-dalvik-executable.md)
+- [Looper와 Handler](./android-glossary/15-looper-handler.md)
+- [system_server](./android-glossary/23-system-server.md)
+- [Zygote](./android-glossary/29-zygote.md)
 
 ### IPC 와 서비스
 
-- [Binder](01_inbox/mobile/android/00_foundations/glossary/android-glossary/08-binder.md)
-- [Parcelable](01_inbox/mobile/android/00_foundations/glossary/android-glossary/18-parcelable.md)
+- [Binder](./android-glossary/08-binder.md)
+- [Parcelable](./android-glossary/18-parcelable.md)
 
 ### 커널과 HAL
 
-- [HAL](01_inbox/mobile/android/00_foundations/glossary/android-glossary/14-hal-hardware-abstraction-layer.md)
-- [LMKD](01_inbox/mobile/android/00_foundations/glossary/android-glossary/16-lmkd-low-memory-killer-daemon.md)
-- [Wakelock](01_inbox/mobile/android/00_foundations/glossary/android-glossary/27-wakelock.md)
+- [HAL](./android-glossary/14-hal-hardware-abstraction-layer.md)
+- [LMKD](./android-glossary/16-lmkd-low-memory-killer-daemon.md)
+- [Wakelock](./android-glossary/27-wakelock.md)
 
 ### 그래픽과 미디어
 
-- [Surface와 SurfaceFlinger](01_inbox/mobile/android/00_foundations/glossary/android-glossary/22-surface-surfaceflinger.md)
-- [Vsync와 Choreographer](01_inbox/mobile/android/00_foundations/glossary/android-glossary/25-vsync-choreographer.md)
+- [Surface와 SurfaceFlinger](./android-glossary/22-surface-surfaceflinger.md)
+- [Vsync와 Choreographer](./android-glossary/25-vsync-choreographer.md)
 
 ### 앱 프레임워크
 
-- [Context](01_inbox/mobile/android/00_foundations/glossary/android-glossary/10-context.md)
-- [Scoped Storage](01_inbox/mobile/android/00_foundations/glossary/android-glossary/20-scoped-storage.md)
+- [Context](./android-glossary/10-context.md)
+- [Scoped Storage](./android-glossary/20-scoped-storage.md)
 
 ### 백그라운드 작업
 
-- [Doze와 App Standby](01_inbox/mobile/android/00_foundations/glossary/android-glossary/12-doze-app-standby.md)
-- [WorkManager와 JobScheduler](01_inbox/mobile/android/00_foundations/glossary/android-glossary/28-workmanager-jobscheduler.md)
+- [Doze와 App Standby](./android-glossary/12-doze-app-standby.md)
+- [WorkManager와 JobScheduler](./android-glossary/28-workmanager-jobscheduler.md)
 
 ### 보안과 권한
 
-- [AppOps](01_inbox/mobile/android/00_foundations/glossary/android-glossary/06-appops-app-operations.md)
-- [FBE](01_inbox/mobile/android/00_foundations/glossary/android-glossary/13-fbe-file-based-encryption.md)
-- [SELinux](01_inbox/mobile/android/00_foundations/glossary/android-glossary/21-selinux-security-enhanced-linux.md)
-- [UID](01_inbox/mobile/android/00_foundations/glossary/android-glossary/24-uid-user-id.md)
-- [Verified Boot와 AVB](01_inbox/mobile/android/00_foundations/glossary/android-glossary/26-verified-boot-avb.md)
+- [AppOps](./android-glossary/06-appops-app-operations.md)
+- [FBE](./android-glossary/13-fbe-file-based-encryption.md)
+- [SELinux](./android-glossary/21-selinux-security-enhanced-linux.md)
+- [UID](./android-glossary/24-uid-user-id.md)
+- [Verified Boot와 AVB](./android-glossary/26-verified-boot-avb.md)
 
 ### 패키징과 업데이트
 
-- [APEX](01_inbox/mobile/android/00_foundations/glossary/android-glossary/04-apex-android-pony-express.md)
-- [APK와 AAB](01_inbox/mobile/android/00_foundations/glossary/android-glossary/05-apk-aab-android-package-android-app-bundle.md)
-- [OTA](01_inbox/mobile/android/00_foundations/glossary/android-glossary/17-ota-over-the-air.md)
+- [APEX](./android-glossary/04-apex-android-pony-express.md)
+- [APK와 AAB](./android-glossary/05-apk-aab-android-package-android-app-bundle.md)
+- [OTA](./android-glossary/17-ota-over-the-air.md)
 
 ### 패키징과 리소스
 
-- [Mipmap](01_inbox/mobile/android/00_foundations/glossary/android-glossary/31-mipmap.md)
+- [Mipmap](./android-glossary/31-mipmap.md)
 
 ### 성능
 
-- [Baseline Profile](01_inbox/mobile/android/00_foundations/glossary/android-glossary/30-baseline-profile.md)
+- [Baseline Profile](./android-glossary/30-baseline-profile.md)
 
 ### 도구와 진단
 
-- [ADB](01_inbox/mobile/android/00_foundations/glossary/android-glossary/01-adb-android-debug-bridge.md)
-- [Bugreport](01_inbox/mobile/android/00_foundations/glossary/android-glossary/09-bugreport.md)
-- [Perfetto](01_inbox/mobile/android/00_foundations/glossary/android-glossary/19-perfetto.md)
+- [ADB](./android-glossary/01-adb-android-debug-bridge.md)
+- [Bugreport](./android-glossary/09-bugreport.md)
+- [Perfetto](./android-glossary/19-perfetto.md)

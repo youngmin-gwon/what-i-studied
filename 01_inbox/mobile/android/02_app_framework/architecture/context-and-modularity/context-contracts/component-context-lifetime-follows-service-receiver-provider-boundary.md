@@ -16,6 +16,6 @@ component context 는 "Android API 를 호출할 수 있다"는 공통점은 있
 
 `goAsync()` 없이 `onReceive` 안에서 콜백을 비동기로 넘겨 나중에 실행하면, 시스템이 이미 receiver 를 비활성 처리한 뒤이므로 해당 시점에 Context 기반 API 를 호출하면 실패하거나 예외로 이어질 수 있다. 이는 receiver context 의 수명이 `onReceive` 실행 구간 자체로 끝난다는 것을 보여주는 관찰 가능한 신호다.
 
-관련 노트: [Service 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/service-is-background-or-remote-work-entry-point-not-general-task-runner.md), [BroadcastReceiver 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md), [ContentProvider 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md).
+관련 노트: [Service 경계](../../app-components/app-component-contracts/service-is-background-or-remote-work-entry-point-not-general-task-runner.md), [BroadcastReceiver 경계](../../app-components/app-component-contracts/broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md), [ContentProvider 경계](../../app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md).
 
 공식 문서: [Application fundamentals](https://developer.android.com/guide/components/fundamentals)

@@ -14,6 +14,6 @@ Intrinsic measurement 는 실제 측정 전에 child 가 특정 축에서 필요
 
 `LazyColumn` 이나 `BoxWithConstraints` 내부 구현을 앱 코드의 SubcomposeLayout 사용 계약처럼 단정하지 않는다. 정본에는 "측정 결과로 후속 content 구성을 결정해야 할 때 검토한다"는 수준을 유지한다.
 
-관련 노트: [Custom Layout은 자식 측정과 배치를 직접 책임진다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/custom-layout-measures-and-places-children-explicitly.md), [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)
+관련 노트: [Custom Layout은 자식 측정과 배치를 직접 책임진다](./custom-layout-measures-and-places-children-explicitly.md), [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](../../runtime/compose-runtime-contracts/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)
 
 출처: [Intrinsic measurements](https://developer.android.com/develop/ui/compose/layouts/intrinsic-measurements), [SubcomposeLayout API](https://developer.android.com/reference/kotlin/androidx/compose/ui/layout/SubcomposeLayout)

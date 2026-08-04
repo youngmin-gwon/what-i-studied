@@ -12,6 +12,6 @@ Intent 와 Deep Link 는 모두 앱 진입을 만들지만 책임이 다르다. 
 
 ### 읽는 순서
 
-- 컴포넌트가 OS 에 어떻게 노출되는지는 [Intent 와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md) 을 본다.
-- 외부 URL 을 내부 목적지로 바꾸는 문제는 [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md) 을 본다.
-- 내부 back stack 과 route key 는 [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md) 으로 넘긴다.
+- 컴포넌트가 OS 에 어떻게 노출되는지는 [Intent 와 Manifest 계약](./intent-manifest-contracts/intent-manifest-contracts.md) 을 본다.
+- 외부 URL 을 내부 목적지로 바꾸는 문제는 [Deep Link 계약](./deep-link-contracts/deep-link-contracts.md) 을 본다.
+- 내부 back stack 과 route key 는 [Navigation 3 계약](../navigation3/navigation3-contracts/navigation3-contracts.md) 으로 넘긴다.

@@ -14,8 +14,8 @@ Manifest-declared receiver 와 context-registered receiver 는 발견 방식, li
 
 Receiver 에서 받은 이벤트가 후속 작업을 필요로 하면 WorkManager, foreground service, app state update 같은 적절한 경계로 넘긴다. 내부 화면 이벤트 전달은 Flow/StateFlow/SharedFlow 같은 앱 내부 모델로 다루고, broadcast 를 내부 event bus 처럼 쓰지 않는다.
 
-`adb shell dumpsys activity broadcasts` 로 대기/이력 broadcast 큐를 확인할 수 있다. `onReceive` 가 짧게 끝나지 않고 오래 실행되면, foreground 상태 기준 5 초 안에 [ANR runbook](01_inbox/mobile/android/00_foundations/diagnostic-runbooks/02-anr.md) 의 "Broadcast of intent" 트리거로 나타난다.
+`adb shell dumpsys activity broadcasts` 로 대기/이력 broadcast 큐를 확인할 수 있다. `onReceive` 가 짧게 끝나지 않고 오래 실행되면, foreground 상태 기준 5 초 안에 [ANR runbook](../../../../00_foundations/diagnostic-runbooks/02-anr.md) 의 "Broadcast of intent" 트리거로 나타난다.
 
-관련 노트: [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md), [Flow/StateFlow 정본](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md), [context-registered receiver 수명](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/context-registered-receiver-lifetime-follows-registering-context.md).
+관련 노트: [background work 정본](../../../../04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md), [Flow/StateFlow 정본](../../../data/async-flow/flow-state-contracts/flow-state-contracts.md), [context-registered receiver 수명](./context-registered-receiver-lifetime-follows-registering-context.md).
 
 공식 문서: [Broadcasts overview](https://developer.android.com/develop/background-work/background-tasks/broadcasts)

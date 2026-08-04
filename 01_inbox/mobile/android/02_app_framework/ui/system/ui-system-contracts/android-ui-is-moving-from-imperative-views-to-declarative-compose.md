@@ -14,7 +14,7 @@ Android 의 기존 View System 은 화면 객체를 만들고 나중에 속성�
 
 그래서 Compose UI 는 가능한 한 `UI = f(state)` 형태로 유지한다. 네트워크 호출, 저장소 변경, analytics 같은 부수 효과는 composable 본문이 아니라 ViewModel, repository, 또는 effect API 의 명시적인 경계로 옮긴다.
 
-Compose 의 runtime 관점은 [Automatic State Observation은 Compose와 Flutter rebuild 모델의 핵심 차이다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/automatic-state-observation-is-the-compose-flutter-rebuild-difference.md) 와 연결된다.
+Compose 의 runtime 관점은 [Automatic State Observation은 Compose와 Flutter rebuild 모델의 핵심 차이다](../../../jetpack-compose/runtime/compose-runtime-contracts/automatic-state-observation-is-the-compose-flutter-rebuild-difference.md) 와 연결된다.
 
 ### 판단 기준
 

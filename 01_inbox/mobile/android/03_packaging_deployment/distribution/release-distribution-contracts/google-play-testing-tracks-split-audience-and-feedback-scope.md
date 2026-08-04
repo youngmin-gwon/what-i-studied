@@ -1,57 +1,49 @@
 ---
 title: google-play-testing-tracks-split-audience-and-feedback-scope
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:48 +09:00
+tags: ["android", "play-store", "testing-tracks"]
+aliases: ["Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
 ## Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+Google Play Console은 프로덕션 출시에 앞서 위험 범위를 단계적으로 격리하기 위해 4가지 레벨의 배포 트랙(Release Tracks)을 운영한다:
+1. **Internal Testing (내부 테스트)**: 최대 100명의 지정된 사내 검증자 대상. Play 검수(App Review) 절차를 우회하여 몇 분 내 즉시 업데이트 전파.
+2. **Closed Testing (비공개 테스트 - Alpha/Beta)**: 테스터 이메일 리스트 또는 Google Group 테스터 대상. 신규 기능의 안정성 및 피드백 수집.
+3. **Open Testing (공개 테스트)**: Play Store에 공개되어 누구나 참여 가능하나 스토어 리뷰 작성 시 일반 사용자에게 평점이 반영되지 않고 개발자 전용 피드백으로 수집됨.
+4. **Production (프로덕션)**: 전체 일반 사용자 대상 배포.
 
-관련 지도: [Play 릴리스와 배포 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/release-distribution-contracts.md)
+```mermaid
+flowchart LR
+    Internal["1. Internal Testing Track (Instant / 100 Users)"] --> Closed["2. Closed Testing (Alpha/Beta Teams)"]
+    Closed --> Open["3. Open Testing (Public Opt-in, Private Feedback)"]
+    Open --> Production["4. Production Track (Staged Rollout)"]
+```
 
-### 트랙의 역할
+### 코드 예시 (Gradle Play Publisher DSL)
+```kotlin
+// app/build.gradle.kts (com.github.triplet.play plugin)
+play {
+    track.set("internal") // "internal", "alpha", "beta", "production"
+    userFraction.set(1.0)
+    releaseStatus.set(com.github.triplet.gradle.play.enum.ReleaseStatus.COMPLETED)
+}
+```
 
-Play Console 에는 내부 테스트, 비공개 테스트, 공개 테스트가 있다. 각 트랙은 배포 대상과 피드백 범위가 다르며 production 출시의 대체물이 아니다.
+### 관측 가능 증거 (Observable Evidence)
+CI 파이프라인에서 Gradle Play Publisher를 통해 아티팩트가 지정된 트랙으로 배포되었음을 API 응답으로 확인할 수 있다:
 
-### 내부 테스트
+```bash
+./gradlew publishBundle --track internal
 
-- 최대 100 명의 테스터를 대상으로 빠르게 검증한다.
-- 새 AAB 는 일반적으로 수분 내 테스터에게 제공되지만 첫 게시나 콘솔 상태에 따라 지연될 수 있다.
-- 앱이 완전히 설정되지 않은 초기 QA 에도 활용할 수 있다.
-- 내부 테스트 앱은 일반 검색으로 발견되지 않을 수 있으므로 Play Store URL 을 공유한다.
+# Output Example:
+# > Task :app:publishBundle
+# Uploaded AAB to Play Console Track: internal (Release Version 1.2.0-10021)
+# Track promotion status: Success
+```
 
-### 비공개 테스트
-
-- 지정한 이메일 목록 또는 그룹을 대상으로 더 넓은 사전 출시 검증을 한다.
-- 여러 비공개 트랙을 만들어 제품 영역이나 국가별 집단을 분리할 수 있다.
-- 기존 앱 사용자는 해당 테스트 그룹에 포함되어야 테스트 버전을 받는다.
-
-### 공개 테스트
-
-- Play 에 테스트 버전이 노출되고 사용자가 참여할 수 있다.
-- 공개 전환 전에 스토어 등록정보와 앱 상태가 외부 사용자에게 공개되어도 되는지 확인한다.
-- 테스트 피드백은 공개 평점과 분리되어 처리된다.
-
-### 트랙 선택 순서
-
-권장 흐름은 내부 테스트 -> 소규모 비공개 테스트 -> 필요 시 공개 테스트 -> production 이다.
-
-- 내부 테스트를 중단해도 설치된 앱이 자동으로 제거되지는 않는다.
-- 내부 테스트에 opt-in 한 사용자는 open/closed 테스트 자격과 충돌할 수 있다.
-- 사용자가 여러 트랙의 자격을 가지면 호환되는 가장 높은 version code 가 선택된다.
-- 테스트 트랙의 version code 가 production 보다 높으면 테스트 참가자가 production 버전을 받지 않을 수 있다.
-
-### 테스터 안내
-
-- 테스터에게 Play Store URL 과 opt-in 방법을 함께 제공한다.
-- 테스트 참여 상태와 설치된 version code 를 버그 보고에 포함하게 한다.
-- 테스트 종료 후에도 이미 설치된 앱이 남을 수 있으므로 제거 또는 production 전환 절차를 안내한다.
-- 테스트 계정의 국가와 조직 관리 설정도 접근 문제의 원인으로 확인한다.
-- 새 릴리스가 보이지 않을 때는 opt-in, 트랙 자격, version code 를 순서대로 점검한다.
-
-공식 문서: [내부·비공개·공개 테스트 설정](https://support.google.com/googleplay/android-developer/answer/9845334), [앱 게시 상태](https://support.google.com/googleplay/android-developer/answer/9859751)
-
-기준일: 2026-07-31. 개발자 개인 계정 생성 시점에 따른 사전 테스트 요구사항 등 정책성 조건은 출시 전에 Play Console 안내를 재확인한다.
+관련 노트: [내부 앱 공유는 릴리스 트랙이 아니라 빠른 아티팩트 공유다](internal-app-sharing-is-fast-artifact-sharing-not-release-track.md), [단계적 출시는 관측 가능한 릴리스 운영 절차다](staged-rollout-is-observable-release-operation.md)

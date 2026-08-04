@@ -16,6 +16,6 @@ Compose 는 Runtime, UI, Foundation, Material 같은 계층을 조합하는 구�
 
 따라서 낮은 계층 사용은 "더 순수한 Compose"가 아니라 trade-off 다. 컴포넌트 포킹이나 재구현은 upstream 개선을 자동으로 받지 못하는 비용을 남긴다.
 
-관련 노트: [Compose 모듈 경계는 의존성 범위와 교체 비용을 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-module-boundaries-expose-dependency-scope-and-replacement-cost.md), [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md)
+관련 노트: [Compose 모듈 경계는 의존성 범위와 교체 비용을 드러낸다](./compose-module-boundaries-expose-dependency-scope-and-replacement-cost.md), [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](../../layout-and-ui/compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md)
 
 출처: [Compose architectural layering](https://developer.android.com/develop/ui/compose/layering)

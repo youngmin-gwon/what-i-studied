@@ -14,7 +14,7 @@ Android security 를 "permission 팝업" 하나로 줄이면 부족하다. 앱 p
 
 따라서 security overview 는 각 계층의 한 문장 역할과 정본 링크만 유지하고, 개별 정책은 security/privacy 문서로 보낸다.
 
-관련 노트: [sandbox](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md), [permissions](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md), [SELinux](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/selinux-enforces-mandatory-policy-beyond-linux-user-permissions.md), [Verified Boot](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/verified-boot-establishes-device-software-chain-of-trust.md), [secure storage](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md).
+관련 노트: [sandbox](../../../05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md), [permissions](../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md), [SELinux](../../../05_security_privacy/platform-hardening/platform-security-contracts/selinux-enforces-mandatory-policy-beyond-linux-user-permissions.md), [Verified Boot](../../../05_security_privacy/platform-hardening/platform-security-contracts/verified-boot-establishes-device-software-chain-of-trust.md), [secure storage](../../../05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md).
 
 ### 판단 기준
 

@@ -31,6 +31,6 @@ adapter.addLoadStateListener { loadState ->
 - retry 는 실패한 load type 에 맞게 연결하고 전체 새로고침과 page retry 를 섞지 않는다.
 - empty state 는 loading 이 끝났고 item 이 없는 상태인지 확인한 뒤 보여준다.
 
-관련 노트: [Android UI State](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/ui-state.md), [RemoteMediator는 network page와 local cache를 연결한다](01_inbox/mobile/android/02_app_framework/data/paging/paging-contracts/remote-mediator-connects-network-pages-to-local-cache.md)
+관련 노트: [Android UI State](../../../architecture/state-management/ui-state/ui-state.md), [RemoteMediator는 network page와 local cache를 연결한다](./remote-mediator-connects-network-pages-to-local-cache.md)
 
 공식 문서: [Manage and present loading states](https://developer.android.com/topic/libraries/architecture/paging/load-state)

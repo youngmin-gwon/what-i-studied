@@ -2,19 +2,72 @@
 title: android-app-sandbox-is-uid-and-process-boundary
 tags: ["android", "android/security-privacy"]
 aliases: []
-date modified: 2026-08-03 18:14:16 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 
 ## Android app sandbox 는 UID 와 프로세스 경계로 앱을 격리한다
 
-Android app sandbox 는 각 앱을 별도 Linux UID 와 프로세스 경계 안에 둔다. 기본 상태에서 앱은 다른 앱의 private data directory, process memory, file descriptor 에 직접 접근할 수 없다.
+Android App Sandbox는 전통적인 데스크톱 OS와 달리 **각 앱을 독립된 Linux 사용자(UID, 예: `u0_a150`) 및 별도 프로세스 경계**에 격리시킨다. 기본적으로 앱은 다른 앱의 샌드박스 디렉터리(`/data/data/<package>`), 프로세스 메모리 공간, 파일 서술자(File Descriptor)에 직접 접근하는 것이 Linux 커널 레벨에서 금지된다.
 
-앱 간 협력은 직접 파일 접근이 아니라 Binder IPC, Intent, ContentProvider, permission 같은 명시적 경계를 통해 일어난다. 그래서 exported component, URI permission, signature permission 같은 설정은 sandbox 를 안전하게 여는 문이 된다.
+```mermaid
+flowchart LR
+    subgraph AppA [App A Sandbox: UID u0_a150 / PID 2040]
+        PrivateA[/data/data/com.app.a - mode 0700]
+        MemA[Process Memory Space]
+    end
 
-sandbox 는 앱 데이터의 기본 격리 계층이지만 암호화나 서버 권한 검사를 대체하지 않는다. 같은 UID 안의 코드, backup, rooted/debug 환경, 사용자가 승인한 외부 공유 경계는 별도로 설계해야 한다.
+    subgraph AppB [App B Sandbox: UID u0_a151 / PID 2080]
+        PrivateB[/data/data/com.app.b - mode 0700]
+        MemB[Process Memory Space]
+    end
 
-관련 노트: [Permission protection level은 접근 승인 주체를 정의한다](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-protection-level-defines-who-can-grant-access.md)
+    KernelBoundary((Linux Kernel Boundary: DAC & Permission Check))
+    
+    AppA -- Direct File Access Blocked --> KernelBoundary
+    KernelBoundary -- Permission Denied --> PrivateB
+    AppA ==>|Binder IPC / ContentProvider / Intent| AppB
+```
+
+### 내부 동작 메커니즘
+
+1. **UID Allocation**: `PackageManagerService`는 앱 설치 시 `FIRST_APPLICATION_UID(10000)` 이상 범위에서 고유한 UID를 부여한다 (`u0_a` + `(UID - 10000)`).
+2. **Unix File DAC**: 앱 내부 저장소(`/data/data/<package>`)의 파일 owner는 `u0_a150:u0_a150`으로 설정되며, 권한 모드는 `0700` (`rwx------`)이 적용된다.
+3. **Zygote Forking & Isolated Processes**: 앱 실행 시 Zygote 프로세스가 `fork()`를 호출한 직후 `setuid()` 및 `setgid()`를 실행하여 커널 레벨 Privileges를 하강시킨다. WebView나 민감 컴포넌트는 `android:isolatedProcess="true"` 속성을 지정하여 무권한 UID(90000번대)로 추가 격리할 수 있다.
+
+### 샌드박스 밖 데이터 교환 및 Manifest 설정 예시
+
+```xml
+<!-- AndroidManifest.xml: 웹뷰 렌더러 프로세스를 격리 샌드박스로 구성 -->
+<service
+    android:name=".IsolatedRenderingService"
+    android:isolatedProcess="true"
+    android:useEmbeddedDex="true" />
+```
+
+```kotlin
+// Binder IPC 및 ContentProvider URI Permission을 통한 안전한 샌드박스 간 파일 전달
+fun shareFileWithUriPermission(context: Context, targetPackage: String, contentUri: Uri) {
+    val intent = Intent(Intent.ACTION_VIEW).apply {
+        setDataAndType(contentUri, context.contentResolver.getType(contentUri))
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        setPackage(targetPackage)
+    }
+    context.startActivity(intent)
+}
+```
+
+### 관찰 가능한 증거 (Observable Evidence)
+
+- **adb 샌드박스 파일 권한 조회**:
+  ```bash
+  adb shell ls -la /data/data/
+  # 출력: drwx------  5 u0_a150 u0_a150 4096 2026-08-04 15:00 com.example.app
+  ```
+- **샌드박스 침범 시 발생 예외**:
+  ```text
+  java.io.FileNotFoundException: /data/data/com.other.app/files/secret.db: open failed: EACCES (Permission denied)
+  ```
 
 ### 판단 기준
 
@@ -23,3 +76,5 @@ Platform security 노트는 앱 권한보다 낮은 계층에서 device integrit
 ### 경계
 
 client-side check 를 authorization 으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
+
+관련 노트: [Permission protection level은 접근 승인 주체를 정의한다](../../permissions-and-sandbox/permission-contracts/permission-protection-level-defines-who-can-grant-access.md)

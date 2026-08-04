@@ -14,6 +14,6 @@ Provider 는 UI 환경 값의 계산과 범위를 모으는 곳이지 화면 상
 
 `compositionLocalOf` 와 `staticCompositionLocalOf` 선택은 값 변경 시 관찰과 recomposition 범위에 영향을 준다. 값이 실제로 바뀌는지, 얼마나 자주 읽히는지, 누락 시 실패 전략이 무엇인지가 선택 기준이다.
 
-관련 노트: [CompositionLocal은 트리 범위의 UI 환경 값을 암묵적으로 전달한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compositionlocal-passes-tree-scoped-ui-environment-implicitly.md), [Material 3 color role은 고정 색상값이 아니라 의미를 표현한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/material3-color-roles-express-semantic-intent-not-fixed-colors.md)
+관련 노트: [CompositionLocal은 트리 범위의 UI 환경 값을 암묵적으로 전달한다](./compositionlocal-passes-tree-scoped-ui-environment-implicitly.md), [Material 3 color role은 고정 색상값이 아니라 의미를 표현한다](./material3-color-roles-express-semantic-intent-not-fixed-colors.md)
 
 출처: [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3), [Locally scoped data with CompositionLocal](https://developer.android.com/develop/ui/compose/compositionlocal)

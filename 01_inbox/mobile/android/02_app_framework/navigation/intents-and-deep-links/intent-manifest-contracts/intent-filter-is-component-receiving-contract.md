@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## intent-filter 는 컴포넌트의 수신 계약이다
 
-상위 문서: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
 
-관련 노트: [AndroidManifest는 OS가 발견할 컴포넌트와 진입점을 선언한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md)
+관련 노트: [AndroidManifest는 OS가 발견할 컴포넌트와 진입점을 선언한다](./android-manifest-declares-os-visible-components-and-entry-points.md)
 
 ### 역할
 

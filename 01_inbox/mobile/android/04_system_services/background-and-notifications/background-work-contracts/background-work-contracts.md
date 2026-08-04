@@ -19,17 +19,17 @@ date created: 2026-08-03 16:59:23 +09:00
 
 1. 플랫폼이나 도메인 전용 API 가 작업 전체를 맡을 수 있으면 먼저 사용한다. 예를 들어 단순 장시간 HTTP 다운로드는 `DownloadManager` 가 연결 변화, 실패 재시도, 재부팅을 처리한다.
 2. 화면을 떠날 때 버려도 되는 작업은 coroutine 을 `lifecycleScope` 나 `viewModelScope` 등 필요한 소유자의 생명주기에 묶는다.
-3. 화면을 떠나도 완료돼야 하면 [실패 비용에 따른 선택](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-api-selection-is-a-failure-cost-decision.md) 으로 이동한다.
+3. 화면을 떠나도 완료돼야 하면 [실패 비용에 따른 선택](./background-work-api-selection-is-a-failure-cost-decision.md) 으로 이동한다.
 
 ### 지속 작업 선택 경로
 
 | 요구의 핵심                                                 | 먼저 읽을 계약                                                                                                                                                                     |
 | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 지연·재시도를 허용하며 앱/기기 재시작 뒤에도 예약을 복구                       | [WorkManager](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md)    |
+| 지연·재시도를 허용하며 앱/기기 재시작 뒤에도 예약을 복구                       | [WorkManager](./workmanager-is-default-for-deferrable-guaranteed-work.md)    |
 | Android 14+ 에서 사용자가 시작한 장시간 업로드·다운로드를 즉시 진행하고 진행 알림 제공 | `RUN_USER_INITIATED_JOBS` 권한과 실행 중 notification 을 갖춘 `JobScheduler` user-initiated data transfer job(UIDT)                                                                   |
 | WorkManager 에 없는 `JobInfo` 기능이나 플랫폼 수준 job 제어가 필요      | 직접 `JobScheduler`; 편의·호환·영속 상태 관리는 앱 책임이 커진다                                                                                                                                 |
-| 진행 중임을 사용자가 계속 알아야 하고 허용된 foreground service type 에 해당 | [foreground service](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/foreground-service-is-for-visible-continuous-work.md) |
-| 특정 시각에 깨우는 행위 자체가 사용자 기능                               | [AlarmManager](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/alarmmanager-is-for-time-based-user-events.md)              |
+| 진행 중임을 사용자가 계속 알아야 하고 허용된 foreground service type 에 해당 | [foreground service](./foreground-service-is-for-visible-continuous-work.md) |
+| 특정 시각에 깨우는 행위 자체가 사용자 기능                               | [AlarmManager](./alarmmanager-is-for-time-based-user-events.md)              |
 | 시스템 소유 HTTP 다운로드나 연결 기기·미디어 같은 전용 기능                   | `DownloadManager` 또는 task-specific API                                                                                                                                       |
 
 ### 공통 실패 모델
@@ -43,17 +43,17 @@ date created: 2026-08-03 16:59:23 +09:00
 
 | 관찰한 문제 | 먼저 확인할 증거 | 진입 노트 |
 | --- | --- | --- |
-| 화면을 닫자 요청이 취소됨 | coroutine 소유 scope 와 취소 시점 | [실패 비용에 따른 선택](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-api-selection-is-a-failure-cost-decision.md) |
-| Worker 가 실행되지 않음 | `WorkInfo`, `dumpsys jobscheduler` 의 unsatisfied constraint·quota | [WorkManager](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md) |
+| 화면을 닫자 요청이 취소됨 | coroutine 소유 scope 와 취소 시점 | [실패 비용에 따른 선택](./background-work-api-selection-is-a-failure-cost-decision.md) |
+| Worker 가 실행되지 않음 | `WorkInfo`, `dumpsys jobscheduler` 의 unsatisfied constraint·quota | [WorkManager](./workmanager-is-default-for-deferrable-guaranteed-work.md) |
 | 긴 전송이 중단됨 | stop reason, 저장된 byte offset, notification 중지 경로 | 실패 비용에 따른 선택 |
 | 서비스 시작 예외 | background start 제한, FGS type·permission | foreground service |
 | 특정 시각을 놓침 | exact/inexact 선택과 exact alarm 권한 | AlarmManager |
 
 ### 관련 노트
 
-- [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-restrictions-require-persistent-work-state.md)
-- [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-execution-is-selected-by-guarantee-delay-and-visibility.md)
-- [알림과 FCM 메시징 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/notification-messaging-contracts.md)
+- [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](./background-restrictions-require-persistent-work-state.md)
+- [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](./background-execution-is-selected-by-guarantee-delay-and-visibility.md)
+- [알림과 FCM 메시징 계약](../notification-messaging-contracts/notification-messaging-contracts.md)
 
 ### 공식 근거
 

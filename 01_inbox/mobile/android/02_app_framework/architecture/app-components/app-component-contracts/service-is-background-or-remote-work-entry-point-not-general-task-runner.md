@@ -16,6 +16,6 @@ Service 의 의미는 "작업을 어디서 실행할까"보다 "OS 와 어떤 �
 
 `adb shell dumpsys activity services <pkg>` 로 실행 중인 service 목록과 이를 소유한 process, started/bound 여부를 함께 확인할 수 있다. main thread 콜백이 오래 걸리면 이 service 는 별도 스레드 없이 그 자체로 ANR 후보가 된다.
 
-관련 노트: [Foreground Service 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/foreground-service-is-user-visible-ongoing-work-contract.md), [Bound Service 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/bound-service-exposes-process-dependency-and-ipc-api.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
+관련 노트: [Foreground Service 경계](./foreground-service-is-user-visible-ongoing-work-contract.md), [Bound Service 경계](./bound-service-exposes-process-dependency-and-ipc-api.md), [background work 정본](../../../../04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
 
 공식 문서: [Services overview](https://developer.android.com/develop/background-work/services)

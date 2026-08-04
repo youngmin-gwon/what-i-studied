@@ -1,7 +1,7 @@
 ---
 title: package-user-role-contracts
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["패키지/사용자/역할 조회 계약"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
@@ -12,9 +12,9 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 읽는 순서
 
-1. [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/packagemanager-queries-are-limited-by-package-visibility.md)에서 다른 앱을 조회할 때의 제약을 본다.
-2. [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/usermanager-separates-users-and-work-profiles-by-userhandle.md)에서 멀티 유저 개념을 정리한다.
-3. [RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/rolemanager-manages-default-app-eligibility-not-permission-bundles.md)에서 역할과 permission의 차이를 본다.
+1. [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](./packagemanager-queries-are-limited-by-package-visibility.md)에서 다른 앱을 조회할 때의 제약을 본다.
+2. [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./usermanager-separates-users-and-work-profiles-by-userhandle.md)에서 멀티 유저 개념을 정리한다.
+3. [RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다](./rolemanager-manages-default-app-eligibility-not-permission-bundles.md)에서 역할과 permission의 차이를 본다.
 
 ### 문제 분류
 
@@ -31,8 +31,8 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 노트 목록
 
-- [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/packagemanager-queries-are-limited-by-package-visibility.md)
-- [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/usermanager-separates-users-and-work-profiles-by-userhandle.md)
-- [RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/rolemanager-manages-default-app-eligibility-not-permission-bundles.md)
+- [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](./packagemanager-queries-are-limited-by-package-visibility.md)
+- [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./usermanager-separates-users-and-work-profiles-by-userhandle.md)
+- [RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다](./rolemanager-manages-default-app-eligibility-not-permission-bundles.md)
 
 검증일: 2026-08-03. [패키지 가시성](https://developer.android.com/training/package-visibility)과 [RoleManager 문서](https://developer.android.com/reference/android/app/role/RoleManager)를 기준으로 확인했다.

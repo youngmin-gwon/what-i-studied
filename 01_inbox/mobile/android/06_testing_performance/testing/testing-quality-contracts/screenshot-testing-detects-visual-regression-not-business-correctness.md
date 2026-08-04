@@ -1,74 +1,114 @@
 ---
-title: screenshot-testing-detects-visual-regression-not-business-correctness
+title: "Screenshot testing은 시각 회귀를 검출한다"
 tags: ["android", "android/testing-performance"]
-aliases: []
-date modified: 2026-08-03 18:15:08 +09:00
+aliases: ["screenshot-testing-detects-visual-regression-not-business-correctness"]
 date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
-## Screenshot testing 은 시각 회귀를 검출한다
+## Screenshot testing은 시각 회귀를 검출한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md)
+관련 지도: [테스트 품질 계약](./testing-quality-contracts.md)
+관련 노트: [Compose UI 테스트는 testTag 와 semantics 를 분리한다](./compose-ui-tests-should-use-stable-selectors-and-semantics.md)
 
-관련 지도: [테스트 품질 계약](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
+스크린샷 테스트(Screenshot Testing)는 픽셀 차원의 화면 렌더링 결과물(Golden Image)과의 픽셀 변위(Visual Pixel Difference)를 추적하여 시각적 회귀(UI Regression)를 포착하는 도구이며, 도메인 비즈니스 정합성(Domain Correctness)을 입증하는 단위 테스트를 대체할 수 없다.
 
-동작 테스트가 통과해도 간격, 색, 폰트, 정렬은 깨질 수 있다.
+### 1. 스크린샷 렌더링 및 픽셀 Diffing 메커니즘
 
-Screenshot testing 은 정해진 상태를 이미지로 기록하고 기준 이미지와 비교한다.
+- **Canvas Snapshot Engine (Roborazzi / Paparazzi)**:
+  - **Paparazzi**: JVM 렌더링 엔진(LayoutLib)을 가상 포크하여 Android OS 디바이스 및 GPU 없이 호스트 JVM 상에서 직접 Composable 캔버스를 렌더링.
+  - **Roborazzi**: Robolectric + Graphics(Native Graphics Core)를 결합하여 Compose UI 노드를 캡처하고 PNG 픽셀 버퍼 수집.
+- **SSIM (Structural Similarity Index Metric)**:
+  - 단순 픽셀 RGB 차이 계산 외에 구조적 픽셀 유사도를 0.0 ~ 1.0 비율로 산출하여, 허용 픽셀 임계값(Comparison Threshold: 0.99) 미달 시 실패(Mismatch) 포착.
+- **Record vs Verify Mode**:
+  - `record`: 소스 변경 후 새로운 골든 이미지 PNG 파일 덮어쓰기 저장.
+  - `verify`: 기존 저장된 골든 이미지 PNG와 현재 테스트 실행 캡처본 픽셀 대조.
 
-따라서 시각적 계약이 중요한 UI 컴포넌트의 회귀를 빠르게 발견한다.
+### 2. 스크린샷 테스트 파이프라인 워크플로우
 
-### 적합한 대상
+```mermaid
+flowchart TD
+    ComposeContent["Composable UI Rendered in Roborazzi Rule"]
+    
+    ComposeContent --> ModeCheck{"Roborazzi Task Mode"}
+    
+    ModeCheck -->|Record Task| RecordImage["Golden Image PNG 생성<br/>(src/test/snapshots/golden.png)"]
+    ModeCheck -->|Verify Task| ComparePixel["현재 렌더링 캡처 vs Golden PNG"]
 
-- 디자인 시스템의 버튼, 카드, 입력 상태
-- 로딩, 오류, 빈 상태, 권한 안내처럼 상태가 많은 화면
-- 다크 모드와 주요 화면 크기
-- 디자인 변경의 영향 범위를 검토해야 하는 공통 컴포넌트
+    ComparePixel --> SSIMCalc["SSIM & Structural Pixel Diff 계산"]
+    SSIMCalc --> ResultCheck{"Pixel Variance < 0.01%?"}
 
-전체 앱을 한 장으로 캡처하면 차이의 원인을 찾기 어렵다.
+    ResultCheck -->|Pass| Success["Test PASS (No Visual Regression)"]
+    ResultCheck -->|Fail| FailDiff["Test FAIL & Generate Diff HTML Report"]
+```
 
-독립적인 컴포넌트와 대표 화면 상태를 작은 단위로 캡처한다.
+### 3. Roborazzi 스크린샷 테스트 Kotlin 코드 구체 예시
 
-동적 시간, 네트워크, 사용자 이름은 고정 fixture 로 바꾼다.
+```kotlin
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onRoot
+import com.github.takahirom.roborazzi.RoborazziOptions
+import com.github.takahirom.roborazzi.captureRoboImage
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.GraphicsMode
 
-### 신뢰할 수 있는 기준 이미지
+@RunWith(RobolectricTestRunner::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE) // Native Graphics On
+class ProfileCardScreenshotTest {
 
-폰트, locale, density, 글꼴 배율, 화면 크기를 명시한다.
+    @get:Rule
+    val composeTestRule = createComposeRule()
 
-애니메이션과 커서처럼 매번 달라지는 요소는 고정하거나 제거한다.
+    @Test
+    fun profileCard_lightMode_matchesGolden() {
+        composeTestRule.setContent {
+            AppTheme(darkTheme = false) {
+                ProfileCard(
+                    name = "Jane Doe",
+                    role = "Android Engineer",
+                    avatarUrl = null
+                )
+            }
+        }
 
-기준 이미지 변경은 테스트 실패를 숨기는 승인 절차가 아니다.
+        // 시맨틱 루트 트리를 캡처하여 골든 이미지 비교 검증
+        composeTestRule.onRoot().captureRoboImage(
+            filePath = "src/test/snapshots/profile_card_light.png",
+            roborazziOptions = RoborazziOptions(
+                compareOptions = RoborazziOptions.CompareOptions(changeThreshold = 0.01f) // 1% 이하 변경 허용
+            )
+        )
+    }
+}
+```
 
-제품 의도에 맞는 변경인지 사람이 확인한 뒤 golden 을 갱신한다.
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
 
-기준 이미지와 실제 이미지의 차이를 diff artifact 로 보존한다.
+#### Roborazzi Gradle Verify 실행 및 Diff 리포트 덤프
 
-### 실행 전략
+```bash
+$ ./gradlew verifyRoborazziDebug
+```
 
-JVM 기반 도구는 빠른 피드백에 적합하고 에뮬레이터 비용을 줄일 수 있다.
+```text
+Task :app:verifyRoborazziDebug FAILED
 
-실제 렌더러, 폰트, 하드웨어 차이가 계약인 경우 기기 캡처를 추가한다.
+Roborazzi Verification Failures:
+1 image mismatch detected!
+  File: profile_card_light.png
+  Golden: src/test/snapshots/profile_card_light.png
+  Actual: build/outputs/roborazzi/profile_card_light_actual.png
+  Diff:   build/outputs/roborazzi/profile_card_light_diff.png
+  Reason: Image mismatch ratio: 0.042 (4.2% pixel difference exceeds 1.0% threshold)
+```
 
-기본 상태는 pull request 에서 실행한다.
+### 5. 스크린샷 테스트 운영 원칙
 
-전체 locale 과 화면 매트릭스는 nightly 또는 release 검증으로 분리할 수 있다.
+- **폰트 및 OS 버전 고정**: 호스트 OS(macOS vs Linux CI) 폰트 렌더링 안티앨리어싱 차이로 인한 거짓 실패(False Positive)를 막기 위해 Roborazzi 폰트 모드를 고정한다.
+- **도메인 Assertion과 분리**: 스크린샷 테스트 안에서 비즈니스 로직(예: 계산 결과 문자열 정합성)을 검증하지 말고, 비주얼 패딩/컬러/폰트 회귀 검출용으로만 한정한다.
 
-### 실패를 해석하는 순서
 
-먼저 레이아웃 크기와 위치가 바뀌었는지 확인한다.
-
-다음으로 색상, 폰트, 시스템 설정, locale 차이를 확인한다.
-
-의도된 디자인 변경이면 기준 이미지를 갱신한다.
-
-의도하지 않은 차이면 원인이 된 토큰 또는 컴포넌트 테스트를 보강한다.
-
-픽셀 차이를 무조건 허용하면 시각적 회귀 방지 기능이 약해진다.
-
-Screenshot testing 은 클릭 흐름을 대체하지 않는다.
-
-동작은 UI 테스트로, 시각적 결과는 screenshot testing 으로 분리한다.
-
-공식 참고: [Android UI 테스트 개요](https://developer.android.com/training/testing/ui-testing)
-
-공식 참고: [Compose 테스트](https://developer.android.com/develop/ui/compose/testing)

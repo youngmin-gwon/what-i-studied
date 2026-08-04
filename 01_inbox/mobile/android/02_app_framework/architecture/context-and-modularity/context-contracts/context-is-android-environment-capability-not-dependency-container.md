@@ -16,6 +16,6 @@ date created: 2026-08-01 00:00:00 +09:00
 
 같은 `getSystemService(WindowManager::class.java)` 호출도 어떤 Context 에서 부르는지에 따라 다른 값을 돌려줄 수 있다. 공식 문서는 창 크기 같은 UI metric 은 Application context 가 아니라 Activity 같은 "UI/visual Context" 에서 얻으라고 명시한다. 이 차이 자체가 Context 가 단순 값 저장소가 아니라 환경 그 자체임을 보여주는 관찰 가능한 신호다.
 
-관련 노트: [Application Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/application-context-fits-process-lifetime-work-not-themed-ui.md), [Activity Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/activity-context-carries-window-theme-and-short-lifetime.md), [Android Dependency Injection Map](01_inbox/mobile/android/02_app_framework/dependency-injection/android-dependency-injection-map.md).
+관련 노트: [Application Context](./application-context-fits-process-lifetime-work-not-themed-ui.md), [Activity Context](./activity-context-carries-window-theme-and-short-lifetime.md), [Android Dependency Injection Map](../../../dependency-injection/android-dependency-injection-map.md).
 
 공식 문서: [Context reference](https://developer.android.com/reference/android/content/Context)

@@ -1,57 +1,107 @@
 ---
 title: "배터리, 네트워크, 저장소 성능은 자원 정책이다"
 tags: ["android", "android/testing-performance"]
+aliases: ["battery-network-storage-efficiency-is-resource-policy"]
+date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
-# 배터리, 네트워크, 저장소 성능은 자원 정책이다
+## 배터리, 네트워크, 저장소 성능은 자원 정책이다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
-관련 지도: [런타임 성능 계약](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/performance-contracts.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-quality-and-build-optimization.md)
+관련 지도: [런타임 성능 계약](./performance-contracts.md)
 
-배터리 비용은 CPU 시간만으로 설명되지 않는다.
+배터리 및 디바이스 자원 소비는 단순히 CPU 명령 처리 시간뿐만 아니라 무선 라디오 깨움(Radio Wakeup), 센서 활성화, 시스템 디스크 I/O 락 수명주기와 같은 시스템 정책에 의해 결정된다.
 
-네트워크 라디오 깨움, 위치 센서, 알람, wakelock이 함께 영향을 준다.
+### 1. 무선 라디오 및 저장소 자원 정책 메커니즘
 
-작은 작업을 자주 실행하면 개별 작업보다 깨움 비용이 커질 수 있다.
+- **Cellular Radio Power State (라디오 전력 상태)**:
+  - **Full Power (DCH)**: 데이터 송수신 시 최대 전력 소비.
+  - **Low Power (FACH)**: 소량 유지 관리 전력 소비.
+  - **Idle**: 라디오 휴면 상태.
+  - **Tail Time Penalty**: 소용량 요청을 잦은 주기(예: 매 10초마다 1KB)로 전송하면 라디오가 Idle로 복귀하지 못하고 DCH/FACH 테일 전력 상태에 고착되어 소모 전류가 극대화된다.
+- **배터리 저감 정책**:
+  - **WorkManager Batching**: 개별 네트워크 작업을 묶어 무선 라디오 깨움 횟수를 최소화.
+  - **Constraints 적용**: `NetworkType.UNMETERED`, `RequiresCharging`, `RequiresDeviceIdle` 등의 조건 부여.
+  - **Doze Mode Compliance**: `AlarmManager.setAndAllowWhileIdle()`의 과도한 사용을 지양하고 시스템 배치 작업 활용.
+- **저장소 I/O 최적화**:
+  - SQLite WAL (Write-Ahead Logging) 모드를 통한 읽기/쓰기 동시성 확보.
+  - `@Transaction` 블록 내 소형 쓰기 묶음 처리로 디스크 fsync overhead 저감.
 
-즉시 필요하지 않은 동기화는 작업을 묶고 조건이 맞을 때 실행한다.
+### 2. 셀룰러 라디오 전력 상태 전환 모델
 
-Doze와 App Standby를 우회하려는 설계는 장기적으로 사용자 비용을 높인다.
+```mermaid
+stateDiagram-v2
+    [*] --> Idle: Radio Sleeping
+    Idle --> FullPower_DCH: Data Packet Sent/Received (High Power Drain)
+    FullPower_DCH --> LowPower_FACH: Inactivity Timer 1 Expires (Tail State)
+    LowPower_FACH --> Idle: Inactivity Timer 2 Expires (Radio Standby)
+    
+    note right of FullPower_DCH
+      Frequent tiny requests
+      keep Radio pinned in DCH/FACH,
+      causing severe battery drain!
+    end note
+```
 
-정확한 알람은 실제 시간 정확성이 필요한 경우에만 사용한다.
+### 3. WorkManager 배치 및 제약조건 Kotlin 코드 구체 예시
 
-Foreground Service는 사용자에게 진행 중인 작업을 보여 줘야 할 때만 선택한다.
+```kotlin
+import android.content.Context
+import androidx.work.*
+import java.util.concurrent.TimeUnit
 
-네트워크 요청은 캐시, 압축, 페이지 단위 응답으로 전송량을 줄인다.
+fun scheduleBatchedSync(context: Context) {
+    val constraints = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.UNMETERED) // Wi-Fi 접속 시에만 실행
+        .setRequiresCharging(true)                    // 충전 중에만 실행
+        .setRequiresBatteryNotLow(true)
+        .build()
 
-실패 재시도에는 지수 백오프와 상한을 둔다.
+    val syncWorkRequest = OneTimeWorkRequestBuilder<DataSyncWorker>()
+        .setConstraints(constraints)
+        .setBackoffCriteria(
+            BackoffPolicy.EXPONENTIAL,
+            WorkRequest.MIN_BACKOFF_MILLIS,
+            TimeUnit.MILLISECONDS
+        )
+        .addTag("batched_sync_job")
+        .build()
 
-연결이 불안정할 때 무한 재시도는 배터리와 데이터 비용을 함께 키운다.
+    WorkManager.getInstance(context).enqueueUniqueWork(
+        "batched_sync_unique",
+        ExistingWorkPolicy.KEEP,
+        syncWorkRequest
+    )
+}
+```
 
-네트워크 상태와 비용을 보고 예약 작업의 조건을 정한다.
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
 
-저장소 접근은 작은 동기식 호출을 반복하지 않도록 묶는다.
+#### ADB dumpsys batterystats 자원 덤프
+`adb shell dumpsys batterystats --charged <package>` 명령으로 앱의 Wakelock 소이지간, 라디오 바이트 수 및 시스템 깨움 횟수를 관측한다.
 
-Room 질의에는 실제 필터와 정렬에 맞는 인덱스를 둔다.
+```bash
+adb shell dumpsys batterystats --charged com.example.app
+```
 
-큰 결과는 Paging으로 읽어 메모리와 디스크 작업을 제한한다.
+```text
+Estimated power use (mAh):
+  Capacity: 3400, Computed drain: 14.2, actual drain: 14.0-15.0
+  App com.example.app (uid 10185): 1.84 mAh
 
-WAL은 읽기와 쓰기 동시성에 도움을 줄 수 있지만 저장소 비용을 측정해야 한다.
+  JobScheduler:
+    Total time: 45s (3 calls)
+  Wakelock count: 4, Total time: 1m 12s
+  Mobile radio packet metrics:
+    Tx packets: 1250, Rx packets: 3410
+    Tx bytes: 245100, Rx bytes: 1450200
+    Mobile radio active time: 18s (4 wakeups)
+  AlarmManager wakeups: 2
+```
 
-파일 캐시는 만료와 용량 상한을 가져야 한다.
+### 5. 자원 효율화 운영 원칙
 
-`dumpsys batterystats`는 앱이 CPU, 네트워크, wakelock을 얼마나 사용했는지 확인하는 출발점이다.
+- **백오프 정책 필수**: 네트워크 장애 발생 시 상한선(Max Backoff Limit)이 있는 지수 백오프를 강제 적용한다.
+- **Paging 3 및 LruCache**: 메모리 힙 및 로컬 디스크 파일 캐시의 물리적 상한을 지정하여 무제한 디스크 팽창을 방지한다.
 
-Battery Historian은 bugreport를 시간축으로 비교할 때 유용하다.
-
-[전원 관리 리소스 제한](https://developer.android.com/topic/performance/power/power-details)은 백그라운드 작업과 시스템 제약을 설계할 때 기준이 된다.
-
-[Android 연결성](https://developer.android.com/develop/connectivity)은 네트워크 상태와 연결 비용을 고려할 때 참고할 공식 문서 묶음이다.
-
-배터리 테스트는 동일한 밝기, 네트워크, 사용 시나리오에서 반복한다.
-
-짧은 실험에서 배터리 잔량만 비교하면 오차가 크다.
-
-시간축에서 깨움과 작업이 어떤 이벤트에 대응하는지 본다.
-
-성공 기준은 기능을 유지하면서 작업 횟수와 전송량을 줄이는 것이다.

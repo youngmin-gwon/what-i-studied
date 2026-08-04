@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## 화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다
 
-상위 문서: [Android UI State](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/ui-state.md)
+상위 문서: [Android UI State](./ui-state.md)
 
 ### 핵심 주장
 

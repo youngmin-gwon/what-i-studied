@@ -14,4 +14,4 @@ date created: 2026-07-31 23:59:30 +09:00
 
 이 문서는 MyBenefit 의 adaptive 값 흐름을 보존하되, 일반 Compose 학습 문서와 분리한다. 다른 프로젝트에서는 같은 이름이나 분할 방식을 전제하지 않는다.
 
-관련 노트: [Design system provider는 Material theme과 프로젝트 Local을 함께 제공한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/design-system-provider-composes-material-theme-and-project-locals.md), [Large screen contracts](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)
+관련 노트: [Design system provider는 Material theme과 프로젝트 Local을 함께 제공한다](./design-system-provider-composes-material-theme-and-project-locals.md), [Large screen contracts](../../../../07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

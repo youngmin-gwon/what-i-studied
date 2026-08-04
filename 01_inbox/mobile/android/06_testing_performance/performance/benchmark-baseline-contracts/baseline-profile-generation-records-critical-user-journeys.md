@@ -1,55 +1,109 @@
 ---
 title: "Baseline Profile 생성은 핵심 사용자 여정을 기록한다"
 tags: ["android", "android/testing-performance"]
+aliases: ["baseline-profile-generation-records-critical-user-journeys"]
+date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
-# Baseline Profile 생성은 핵심 사용자 여정을 기록한다
+## Baseline Profile 생성은 핵심 사용자 여정을 기록한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/benchmark-baseline-contracts.md)
-관련 노트: [Android 성능은 측정 후 최적화한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/measure-before-optimizing-android-performance.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-quality-and-build-optimization.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline-contracts.md)
+관련 노트: [Android 성능은 측정 후 최적화한다](../performance-contracts/measure-before-optimizing-android-performance.md)
 
-## 목적
+Baseline Profile 생성은 릴리스 빌드 패키징 시 ART(Android Runtime)가 앱 설치 단계에서 `dex2oat`로 사전 AOT 컴파일할 핫 클래스 및 메서드 심볼 파일(`baseline-prof.txt`)을 핵심 사용자 여정(CUJ) 추적을 통해 산출하는 과정이다.
 
-- Baseline Profile은 앱이 자주 실행하는 코드 경로를 배포 전에 알려주는 프로필이다.
-- ART가 주요 경로를 더 이른 시점에 컴파일할 수 있도록 설치 패키지에 포함한다.
-- 프로필 생성은 실제 사용 흐름을 실행해 핫 경로를 수집하는 작업이다.
-- 따라서 임의의 메서드 목록을 작성하는 작업으로 이해하면 안 된다.
+### 1. 프로필 생성 및 DEX AOT 컴파일 메커니즘
 
-## 생성 흐름
+- **ART Profile 규격**:
+  - `H`: Hot Method (자주 호출되는 메서드, JIT threshold 초과).
+  - `S`: Startup Method (시작 단계에서 호출되는 메서드).
+  - `L`: Post-Startup Method (시작 직후 호출되는 메서드).
+- **프로필 생성 수명주기**:
+  1. `BaselineProfileRule` 실행 시 ART 트레이서가 켜진 상태로 대상 앱 실행.
+  2. CUJ 시나리오(시작 + 목록 스크롤 + 화면 전환) 수행 중 추적된 클래스/메서드 심볼 수집.
+  3. `src/main/generated/baselineProfiles/baseline-prof.txt` 파일로 자동 기록 및 모듈 저장.
+  4. AGP(Android Gradle Plugin)가 APK/AAB 패키징 시 `assets/dexopt/baseline.prof` 바이너리로 압축 탑재.
+  5. Google Play Store 설치 시 Play Cloud Profile과 결합되어 온디바이스 `dex2oat` AOT 컴파일 수행.
 
-1. 앱의 핵심 CUJ를 선정한다.
-2. Baseline Profile 전용 테스트 모듈을 대상 앱에 연결한다.
-3. `BaselineProfileRule`로 앱 실행과 사용자 행동을 캡처한다.
-4. 실제 기기 또는 적절한 관리형 기기에서 생성 태스크를 실행한다.
-5. 생성된 프로필을 앱 모듈의 baseline profile 위치에 반영한다.
-6. 변경된 프로필을 소스 저장소에서 코드와 함께 관리한다.
+### 2. Baseline Profile 생성 및 컴파일 산출 흐름
 
-## 캡처 시나리오
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Rule as BaselineProfileRule (Test)
+    participant App as Target App
+    participant ART as ART Profile Recorder
+    participant AGP as Android Gradle Plugin
+    participant Play as Google Play / Device dex2oat
 
-- 앱 시작 경로를 반드시 포함한다.
-- 첫 화면에서 사용자가 곧바로 수행하는 핵심 액션을 포함한다.
-- 로그인, 목록 로드, 스크롤처럼 반복 사용되는 흐름을 포함한다.
-- 화면이 준비되기 전에 다음 액션을 실행하지 않도록 UI 조건을 기다린다.
-- 프로필 생성 흐름은 짧더라도 대표성이 있어야 한다.
+    Rule->>App: Launch App & Execute CUJ Gestures
+    App->>ART: Trigger Classes & Methods Execution
+    ART->>Rule: Capture Profile Descriptors (baseline-prof.txt)
+    Rule->>AGP: Save to src/main/generated/baselineProfiles
+    AGP->>AGP: Compile to assets/dexopt/baseline.prof in AAB
+    AGP->>Play: Upload App Bundle (AAB)
+    Play-->>Device: Install App & dex2oat AOT Compilation
+```
 
-## 생성 품질
+### 3. Baseline Profile 생성 Kotlin 코드 구체 예시
 
-- 한 번의 성공보다 CUJ가 여러 번 안정적으로 실행되는지가 중요하다.
-- 테스트 태그와 접근성 정보가 변경되면 생성 흐름도 함께 점검한다.
-- 앱 코드나 주요 의존성의 큰 변경 뒤에는 프로필을 재생성한다.
-- 모든 화면을 넣기보다 배포 초기에 가치가 큰 경로를 우선한다.
-- 생성 결과가 실제 앱 빌드에 포함되는지 별도로 확인한다.
+```kotlin
+import androidx.baselineprofile.realm.BaselineProfileRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.Until
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
-## 운영 원칙
+@RunWith(AndroidJUnit4::class)
+class BaselineProfileGenerator {
 
-- 생성은 릴리스 후보의 성능 검증 흐름과 연결한다.
-- CI에서 실행한다면 에뮬레이터 가속과 리소스를 사전에 확인한다.
-- 생성 비용이 크면 모든 커밋이 아니라 정해진 릴리스 단계에서 갱신한다.
-- 프로필 파일의 변경 이유와 측정 결과를 릴리스 기록에 남긴다.
-- 프로필은 최적화 힌트이지 앱 로직의 정합성을 보장하는 산출물이 아니다.
+    @get:Rule
+    val baselineProfileRule = BaselineProfileRule()
 
-## 공식 참고
+    @Test
+    fun generateBaselineProfile() = baselineProfileRule.collect(
+        packageName = "com.example.app",
+        includeInStartupProfile = true // 앱 시작 전용 프로필 별도 분리 생성
+    ) {
+        // 1. 앱 시작 흐름 기록
+        pressHome()
+        startActivityAndWait()
 
-- [Baseline Profile 생성](https://developer.android.com/topic/performance/baselineprofiles/create-baselineprofile)
-- [Baseline Profile 측정](https://developer.android.com/topic/performance/baselineprofiles/measure-baselineprofile)
+        // 2. 피드 진입 및 스크롤 핫코드 기록
+        device.wait(Until.hasObject(By.res("feed_list")), 5_000)
+        val feedList = device.findObject(By.res("feed_list"))
+        feedList.fling(Direction.DOWN)
+        device.waitForIdle()
+
+        // 3. 상세 화면 진입 핫코드 기록
+        val item = device.findObject(By.res("feed_item_0"))
+        item?.click()
+        device.waitForIdle()
+    }
+}
+```
+
+### 4. 관측 가능한 산출 증거 (Observable Evidence)
+
+#### 생성된 baseline-prof.txt 심볼 파일 내용 덤프
+
+```text
+# Baseline Profile Rules for com.example.app
+HSLLcom/example/app/MainActivity;
+HSLLcom/example/app/MainActivity;->onCreate(Landroid/os/Bundle;)V
+HSLLcom/example/app/ui/feed/FeedViewModel;-><init>(Lcom/example/app/data/Repository;)V
+H Lcom/example/app/ui/feed/ComposableSingletons$FeedScreenKt;->lambda-1$app_release(Landroidx/compose/runtime/Composer;I)V
+Lcom/example/app/data/model/FeedItem;
+HSLLandroidx/compose/runtime/SlotTable;->open()V
+```
+
+### 5. 생성 품질 가이던스
+
+- **신규 릴리스 재생성**: 주요 의존성(Compose, Coroutines, Room) 업그레이드 또는 CUJ 로직 변경 시 반드시 프로필을 재생성하여 형상 관리에 저장한다.
+- **불필요 코드 제외**: 에러 처리 경로나 일회성 개발자 화면은 생성 시나리오에서 제외하여 AOT 바이너리 용량 및 디스크 오버헤드를 예방한다.
+

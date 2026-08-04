@@ -12,7 +12,7 @@ ViewModel 은 화면 상태 owner 이며 lifecycle 은 ViewModelStoreOwner 가 �
 
 Hilt 의 `@HiltViewModel` 이나 수동 `ViewModelProvider.Factory` 는 DI graph 와 ViewModel owner 사이의 연결 boundary 다. Compose 에서 ViewModel 을 얻을 때도 screen owner 와 navigation back stack owner 를 먼저 확인해야 한다.
 
-관련 노트: [ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md), [Compose runtime/state](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md).
+관련 노트: [ViewModel](../../architecture/state-management/viewmodel/viewmodel.md), [Compose runtime/state](../../jetpack-compose/runtime/compose-runtime-and-state-model.md).
 
 ### 판단 기준
 

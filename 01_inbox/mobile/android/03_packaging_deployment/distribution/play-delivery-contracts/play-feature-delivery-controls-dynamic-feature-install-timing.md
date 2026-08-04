@@ -1,72 +1,50 @@
 ---
 title: play-feature-delivery-controls-dynamic-feature-install-timing
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:44 +09:00
+tags: ["android", "play-feature-delivery", "dynamic-feature"]
+aliases: ["Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## Play Feature Delivery 는 동적 기능 모듈의 설치 시점을 정한다
+## Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+Play Feature Delivery는 앱 모듈의 라이프사이클에 맞춰 설치 및 제거 시점(Lifecycle Timing)을 동적으로 제어한다:
+1. **Pre-fetching / Background Install**: 사용자가 특정 기능을 사용할 확률이 높은 시점(예: 메인 화면 진입 후 유휴 시간)에 배경에서 다운로드를 미리 시작한다.
+2. **Deferred Installation (`deferredInstall`)**: 사용자의 현재 작업을 방해하지 않고 네트워크가 안정된 유휴 상태일 때 Play Store가 배경에서 설치하도록 요청을 예약한다.
+3. **Deferred Uninstallation (`deferredUninstall`)**: 일회성 기능(예: 이벤트/연말 정산 모듈) 사용 완료 후 디바이스 스토리지 공간을 확보하기 위해 모듈 삭제를 예약한다.
 
-관련 지도: [Play Delivery 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-contracts.md)
+```mermaid
+flowchart LR
+    AppStart["App Launch"] --> Prefetch["Background Prefetch (deferredInstall)"]
+    Prefetch --> UserClick["User Accesses Feature"]
+    UserClick --> ActiveUse["Active Feature Use"]
+    ActiveUse --> Finish["Feature Completed"]
+    Finish --> DeferredDelete["Free Storage (deferredUninstall)"]
+```
 
-관련 노트: [Dynamic Feature Module은 base module에 의존하는 선택 기능 단위다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md), [Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/delivery-mode-is-selected-by-necessity-condition-and-runtime-request.md)
+### 코드 예시 (Kotlin Implementation)
+```kotlin
+val splitInstallManager = SplitInstallManagerFactory.create(context)
 
-### 한 문장 정의
+// 1. 배경 지연 설치 예약 (Deferred Install)
+splitInstallManager.deferredInstall(listOf("feature_heavy_analytics"))
 
-Play Feature Delivery 는 Android App Bundle 을 Google Play 가 기기별 split APK 로
+// 2. 미사용 동적 모듈 제거 예약 (Deferred Uninstall)
+splitInstallManager.deferredUninstall(listOf("feature_onboarding_tutorial"))
+```
 
-배포하는 구조 위에서, 동적 기능 모듈을 언제 설치할지 결정하는 체계다.
+### 관측 가능 증거 (Observable Evidence)
+Play Store 서비스가 수신한 Deferred 작업 세션 요청 로그를 ADB 관측할 수 있다:
 
-### 문제와 목적
+```bash
+adb logcat | grep -E "SplitInstallManager|PlayStoreService"
 
-- 기본 실행에 필요하지 않은 기능을 초기 설치에서 제외할 수 있다.
-- 기능을 모듈 단위로 분리해 설치 크기와 첫 실행 시간을 관리한다.
-- 모듈별로 설치 시 포함, 조건부 포함, 런타임 요청을 선택한다.
-- 큰 바이너리나 드문 기능은 필요 시점에 다운로드하도록 사용자 여정을 설계한다.
+# Logcat Output Example:
+# D/SplitInstallManager: Deferred install requested for modules: [feature_heavy_analytics]
+# I/PlayStoreService: Scheduled deferred background installation task #104
+```
 
-### 구성 요소
-
-| 구성 요소 | 책임 |
-| --- | --- |
-| base module | 앱의 공통 코드, 진입점, 필수 리소스 |
-| dynamic feature module | 코드와 리소스를 담은 선택 기능 모듈 |
-| Android App Bundle | Play 에 업로드하는 단일 게시 아티팩트 |
-| Play Feature Delivery Library | 런타임 모듈 요청과 상태 확인 |
-| bundletool | 로컬 APK set 생성과 split 구조 검증 |
-
-동적 기능 모듈은 base module 에 의존한다.
-
-공통 코드나 여러 기능이 반드시 공유하는 리소스는 base 로 이동한다.
-
-기능 모듈은 다른 기능 모듈의 존재를 전제로 설계하지 않는다.
-
-### 배포 선택
-
-1. `install-time`: 설치가 끝날 때 기능을 바로 사용할 수 있다.
-2. conditional install-time: 국가, API, 하드웨어 등 조건을 만족할 때만 설치한다.
-3. `on-demand`: 앱이 런타임에 요청한 뒤 다운로드하고 설치한다.
-
-`fast-follow` 는 동적 기능 모듈의 일반 선택지가 아니다.
-
-설치 직후 자동으로 받는 모드는 Play Asset Delivery 의 asset pack 에서 사용한다.
-
-따라서 실행 코드 기능과 대용량 게임 리소스를 같은 표로 섞지 않는다.
-
-### 적용 순서
-
-먼저 모듈 경계를 정하고 base 에서 독립적으로 빌드되는지 확인한다.
-
-그 다음 기본값인 install-time 으로 기능을 출시해 모듈화 위험을 줄인다.
-
-다운로드 UI 와 실패 복구를 구현한 뒤 on-demand 로 전환한다.
-
-초기 설치에서 제외할 수 있는 지역·기기 전용 기능에는 conditional 을 검토한다.
-
-### 공식 문서
-
-- [Overview of Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery)
-- [Configure on-demand delivery](https://developer.android.com/guide/playcore/feature-delivery/on-demand)
-- [Configure conditional delivery](https://developer.android.com/guide/playcore/feature-delivery/conditional)
+관련 노트: [On-demand와 conditional delivery는 설치 상태와 실패 UX를 요구한다](on-demand-and-conditional-delivery-require-install-state-and-failure-ux.md), [Play Delivery 계약](play-delivery-contracts.md)

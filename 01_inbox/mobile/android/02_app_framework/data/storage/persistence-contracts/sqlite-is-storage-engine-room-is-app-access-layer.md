@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## SQLite 와 Room 의 경계는 엔진과 애플리케이션 API 의 차이다
 
-상위 문서: [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
+상위 문서: [영속 저장소 계약](./persistence-contracts.md)
 
 SQLite 는 Android 에 내장된 관계형 데이터베이스 엔진이다.
 

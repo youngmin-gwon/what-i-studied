@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Repository 는 데이터 흐름을 Flow 로 제공하고 ViewModel 은 화면 상태로 조합한다
 
-상위 문서: [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md)
+상위 문서: [Flow와 StateFlow 상태 계약](./flow-state-contracts.md)
 
-관련 노트: [ViewModel은 화면 단위 상태와 외부 작업을 조율한다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-orchestrates-screen-state-and-external-work.md)
+관련 노트: [ViewModel은 화면 단위 상태와 외부 작업을 조율한다](../../../architecture/state-management/viewmodel/viewmodel-orchestrates-screen-state-and-external-work.md)
 
 Repository 는 데이터의 출처와 갱신 방식을 감추고, 관찰 가능한 원천 데이터를 `Flow` 로 노출한다.
 

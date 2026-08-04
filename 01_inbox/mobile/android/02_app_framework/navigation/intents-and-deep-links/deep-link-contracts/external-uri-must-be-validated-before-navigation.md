@@ -35,4 +35,4 @@ fun Uri.toOrderRouteOrNull(): NavKey? {
 
 raw string 을 그대로 `backStack.add(RawUriRoute(uri.toString()))` 로 넣는 대신, 위처럼 실패 가능한 typed 변환을 거쳐야 잘못된 URI 가 앱 내부 임의 상태로 이어지지 않는다.
 
-관련 노트: [Android 딥 링크는 외부 URI 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md), [Android App Link는 검증된 HTTPS 딥 링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md), [Navigation 3 deep link는 URI를 NavKey로 변환한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)
+관련 노트: [Android 딥 링크는 외부 URI 계약이다](./deep-link-is-external-uri-contract.md), [Android App Link는 검증된 HTTPS 딥 링크다](./app-link-is-verified-https-deep-link.md), [Navigation 3 deep link는 URI를 NavKey로 변환한다](../../navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)

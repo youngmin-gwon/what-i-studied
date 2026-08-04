@@ -14,7 +14,7 @@ Kernel 과 HAL 은 device capability 를 제공하고, native/service layer 는 
 
 이 구분을 지키면 같은 내용을 overview, architecture, security, debugging 문서가 반복하지 않는다.
 
-관련 노트: [boot/runtime](01_inbox/mobile/android/01_system_internals/boot-and-runtime/android-boot-and-runtime.md), [graphics/media](01_inbox/mobile/android/01_system_internals/graphics-and-media/android-graphics-media-runtime.md), [app components](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [debugging](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md).
+관련 노트: [boot/runtime](../../../01_system_internals/boot-and-runtime/android-boot-and-runtime.md), [graphics/media](../../../01_system_internals/graphics-and-media/android-graphics-media-runtime.md), [app components](../../../02_app_framework/architecture/app-components/android-app-components.md), [debugging](../../../06_testing_performance/debugging/debugging-contracts/debugging-contracts.md).
 
 ### 판단 기준
 

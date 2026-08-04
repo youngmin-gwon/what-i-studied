@@ -8,20 +8,70 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## init service 는 재시작 정책을 가진 supervised process 다
 
-상위 문서: [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md)
+상위 문서: [init 서비스 계약](init-service-contracts.md)
 
-init service 는 `service <name> <pathname> …` 로 선언된 native process 이며, `init` 이 시작, 중지, 재시작, class 제어, socket 생성, crash handling 을 관리한다.
+`init service`는 `init` (PID 1) 프로세스에 의해 부모-자식 관계 형태로 실행/감독(Supervised)되는 프로세스로, 크래시 시 자식 회수(Reaping), 재시작 카운팅 및 쿨다운 정책, 의존 서비스 트리거 연쇄 반응 등 명시적 수명주기(Lifecycle) 규칙을 따른다.
 
-### 판단 기준
+### 내부 동작 메커니즘 (Internal Mechanism)
 
-- long-running daemon 은 service 로 선언하고 init 의 재시작 정책에 맡긴다.
-- `oneshot` 은 종료 후 자동 재시작하지 않을 작업에만 쓴다.
-- `disabled` 서비스는 class start 로 자동 시작되지 않고 명시적 start 가 필요하다.
-- `onrestart` 는 의존 서비스 정리와 재시작을 표현하지만, 순환 재시작을 만들 수 있으므로 조심한다.
+1. **서비스 상태 머신 (Service State Machine)**:
+   - **Stopped**: 실행되지 않았거나 명시적으로 중지된 상태.
+   - **Running**: fork/execv 되어 정상 구동 중인 상태.
+   - **Restarting**: 비정상 종료(Crash)되어 `init`이 쿨다운 타이머 대기 후 재시작을 준비하는 상태.
+2. **Reaping & Respawn Throttling**:
+   - 자식 프로세스가 비정상 종료 시 커널의 `SIGCHLD` 핸들러가 발생하면 `init`은 종료 코드를 수집한다.
+   - 서비스가 4분 내 4회 이상 연속 크래시되면 `respawning too quickly` 구문에 걸려 쿨다운 유예 시간이 부여되거나, `reboot_on_failure` 옵션 설정 시 시스템 복구를 위해 리부트가 트리거된다.
+3. **`onrestart` Action Exec**:
+   - 서비스 재시작 시 `onrestart`에 등록된 커맨드가 실행된다. 예를 들어 Zygote가 크래시되면 `onrestart restart audioserver`, `onrestart restart surfaceflinger`가 연쇄 발동하여 의존 종속 서비스를 동시에 동기화 재시작한다.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Stopped
+    Stopped --> Running: start / class_start / Trigger
+    Running --> Stopped: Normal Exit (oneshot)
+    Running --> Restarting: Crash / Non-zero Exit Code (SIGCHLD)
+    Restarting --> Running: Respawn Timer Expired
+    Running --> Rebooting: Crash Throttling Limit Reached (reboot_on_failure)
+    Rebooting --> [*]
+```
+
+### 코드 및 구체 예시 (Concrete Snippets)
+
+`init.rc` 내 수명주기 및 의존 연쇄 재시작 설정 예시:
+
+```text
+# Zygote service definition with supervised restart dependencies
+service zygote /system/bin/app_process64 -Xzygote /system/bin --zygote --start-system-server
+    class main
+    user root
+    group root readproc reserved_disk
+    onrestart restart audioserver
+    onrestart restart cameraserver
+    onrestart restart media
+    onrestart restart netd
+    onrestart restart surfaceflinger
+    reboot_on_failure reboot,bootloader
+```
+
+### 관측 가능 증거 (Observable Evidence)
+
+`adb shell` 및 로그를 통해 서비스 재시작 이력과 현재 가동 상태를 조회할 수 있다:
+
+```bash
+# 특정 init 서비스의 현재 상태 확인
+adb shell getprop init.svc.zygote
+# 출력: running
+
+# init 로그에서 서비스 크래시 및 재시작 쿨다운 로그 관측
+adb logcat -s init | grep -E "(Service|respawning)"
+# 출력 예시:
+# init: Service 'my_daemon' (pid 1234) exited with status 1
+# init: Service 'my_daemon' is respawning too quickly
+```
 
 ### 관련 문서
 
-- [service option은 identity, resource, class, socket 계약을 고정한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/service-options-fix-identity-resource-class-and-socket-contracts.md)
-- [property service는 전역 상태 저장소이자 제한된 제어 plane이다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/property-service-is-global-state-store-and-restricted-control-plane.md)
+- [init 디버깅은 로그, property, service 상태를 함께 본다](init-debugging-uses-logs-properties-and-service-state.md)
+- [service option은 identity, resource, class, socket 계약을 고정한다](service-options-fix-identity-resource-class-and-socket-contracts.md)
 
-공식 문서: [Android Init Language](https://android.googlesource.com/platform/system/core/+/master/init/README.md)
+공식 문서: [Android Init Service Options](https://android.googlesource.com/platform/system/core/+/main/init/README.md#services)

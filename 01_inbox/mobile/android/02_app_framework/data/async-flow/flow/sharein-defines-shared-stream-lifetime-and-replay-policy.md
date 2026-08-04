@@ -12,7 +12,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 핵심 파라미터는 `scope`, `SharingStarted`, `replay` 다. `scope` 는 sharing coroutine 의 lifetime 을 정하고, `SharingStarted` 는 subscriber 유무에 따른 시작 정책을 정하며, `replay` 는 새 subscriber 가 받을 이전 emission 수를 정한다.
 
-현재값 하나가 항상 필요한 화면 상태라면 [stateIn contract](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/statein-requires-explicit-lifetime-and-sharing-policy.md) 가 더 직접적이다. 여러 collector 에게 event stream 이나 shared upstream 을 나눠야 한다면 `shareIn` 의 replay/lifetime 정책을 명시한다.
+현재값 하나가 항상 필요한 화면 상태라면 [stateIn contract](../flow-state-contracts/statein-requires-explicit-lifetime-and-sharing-policy.md) 가 더 직접적이다. 여러 collector 에게 event stream 이나 shared upstream 을 나눠야 한다면 `shareIn` 의 replay/lifetime 정책을 명시한다.
 
 ```kotlin
 val sharedNotifications: SharedFlow<Notification> =

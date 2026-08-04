@@ -14,7 +14,7 @@ Compose 의 Composable 은 state 를 UI 로 계산하는 함수에 가깝고, An
 
 이 매핑은 Compose/state 문서와 Context 문서로 연결하고, learning resource 문서 안에서 반복 설명하지 않는다.
 
-관련 노트: [Compose runtime/state](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Context boundaries](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context-boundaries.md), [ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md).
+관련 노트: [Compose runtime/state](../../../02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Context boundaries](../../../02_app_framework/architecture/context-and-modularity/android-context-boundaries.md), [ViewModel](../../../02_app_framework/architecture/state-management/viewmodel/viewmodel.md).
 
 ### 판단 기준
 

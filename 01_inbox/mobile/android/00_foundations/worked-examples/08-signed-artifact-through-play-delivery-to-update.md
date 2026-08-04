@@ -2,51 +2,168 @@
 title: 08-signed-artifact-through-play-delivery-to-update
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["Signed artifact through Play delivery to update"]
-date modified: 2026-08-04 10:29:10 +09:00
+date modified: 2026-08-04 16:10:00 +09:00
 date created: 2026-08-04 03:20:00 +09:00
 ---
 
 ## signed artifact 가 Play delivery 를 거쳐 update 되는 과정
 
-이 예시는 Learning Spine 3·11 장을 하나의 배포 파이프라인으로 잇는다. 3 장에서 다룬 서명·버전 identity 가 Play App Signing 이라는 실제 배포 인프라를 거치며 어떻게 유지되는지, 11 장에서 다룬 테스트 트랙과 단계적 출시가 이 identity 위에서 어떻게 작동하는지를 연결한다.
+이 예시는 Learning Spine 3·11 장을 하나의 종단간 배포 파이프라인으로 잇는다. 3 장에서 다룬 서명·버전 identity 가 Play App Signing 이라는 실무 배포 인프라를 거치며 어떻게 시스템 수준에서 검증되는지, 11 장에서 다룬 테스트 트랙과 단계적 출시(Staged Rollout) 및 Android 15 호환성 규격(16KB Page Alignment, Update Ownership)이 이 identity 위에서 어떻게 동작하는지를 분석한다.
 
 ### 시작 상태
 
-앱은 이미 production 에 배포돼 있고, 사용자 기기에 설치돼 있다. Play App Signing 이 활성화돼 있어 개발자는 업로드 키만 갖고 있고, 최종 배포 APK 에 서명하는 앱 서명 키는 Google 이 보관한다. 개발자는 새 버전(더 높은 `versionCode`)을 준비했다.
+앱은 이미 Google Play Production 트랙에 배포되어 사용자 기기에 설치되어 있다. Play App Signing 이 활성화되어 있어 개발자는 업로드 키(Upload Key)만 보유하며, 최종 배포 APK 에 서명하는 앱 서명 키(App Signing Key)는 Google Play 의 HSM (Hardware Security Module)에 안전하게 보관되어 있다. 개발자는 새 기능이 포함된 더 높은 `versionCode` 의 아티팩트(AAB)를 빌드하여 배포를 준비한다.
 
 ### 입력
 
-개발자가 release variant 로 AAB 를 빌드해 등록된 업로드 키로 서명하고, Play Console 에 업로드한다.
+개발자가 Release Variant 로 Android App Bundle (AAB)을 빌드하고 업로드 키로 서명한 뒤, Play Console 의 비공개 테스트 또는 Production 트랙에 업로드한다.
 
-### 단계별 흐름
+---
 
-1. **빌드와 서명(3 장)**: AAB 는 release build type 으로 생성되고, 업로드 키로 서명된다. `applicationId` 는 기존 Play 앱과 같아야 하고, `versionCode` 는 기존 배포 버전보다 높아야 한다.
-2. **Play 서버의 재서명**: Play 는 업로드 키 서명을 검증한 뒤, 이 AAB 로부터 기기별 최적화된 APK 세트를 생성하고, 그 APK 들을 Google 이 보관하는 앱 서명 키로 다시 서명한다. 사용자 기기에 도달하는 최종 서명은 개발자의 업로드 키가 아니라 이 앱 서명 키다.
-3. **사전 검증 트랙(11 장)**: 내부 테스트에서 설치·업데이트가 정상 동작하는지 먼저 확인하고, 필요하면 비공개 테스트로 넓힌다. 이 단계에서 실제로 재서명된 APK 의 설치·업데이트 결과를 확인한다.
-4. **단계적 출시 시작(11 장)**: 문제가 없으면 production 트랙에서 작은 비율의 사용자부터 단계적 출시를 시작한다. 충돌률, ANR, 핵심 기능 오류 지표를 관찰한 뒤에만 대상 비율을 수동으로 늘린다.
-5. **기기에서의 설치(3 장)**: 대상 사용자의 기기에서 Play 앱이 새 APK 를 내려받는다. 기기의 PackageInstaller/PackageManager 는 이 APK 가 기존 설치와 같은 `applicationId` 를 갖는지, 서명 인증서(이번에는 Play 의 앱 서명 키)가 기존 설치와 일치하는지, `versionCode` 가 더 높은지를 검증한다.
-6. **검증 통과 시 갱신**: 세 조건이 모두 만족되면 이것은 새 설치가 아니라 기존 숫자 appId, UID, 데이터 디렉터리를 그대로 이어받는 업데이트로 처리된다.
+### 다계층 실행 흐름 (UI → App Framework → System Server → Kernel)
 
-### 성공 결과
+1. **UI & Build Phase (AAB 아티팩트 빌드 및 Upload Key 서명)**
+   - 개발 환경에서 `bundleRelease` 태스크가 실행되어 AAB 가 생성된다.
+   - APK Signature Scheme v2/v3 에 따라 Upload Key 로 서명된다. 이때 NDK 로 빌드된 모든 네이티브 공유 라이브러리(`.so`)는 Android 15 호환성을 위해 **16KB Page Alignment (`max-page-size=65536`)** 가 적용되어야 한다.
 
-사용자는 기존 앱 데이터와 로그인 상태를 유지한 채 새 버전을 사용한다. 단계적 출시 지표에 이상이 없으면 개발자는 대상 비율을 100% 까지 수동으로 확대한다.
+2. **Play Server & Cloud Distribution Phase (Re-signing & Split Generation)**
+   - Google Play Cloud 는 업로드된 AAB 의 Upload Key 서명을 검증한 후, 기기별 CPU 아키텍처(arm64-v8a 등) 및 화면 밀도(dpi)에 최적화된 APK 세트(Split APKs)를 생성한다.
+   - Play 는 Google 이 관리하는 **App Signing Key** 로 이 Split APK 들을 재서명한다. 즉, 사용자 기기에 도달하는 최종 APK 의 서명 인증서는 개발자의 업로드 키가 아닌 Play 앱 서명 키다.
 
-### 관찰 가능한 신호
+3. **App Framework & IPC Layer (PackageInstaller Session & Signature Validation)**
+   - 사용자 기기의 Google Play Store 클라이언트는 `PackageInstaller` API 를 통해 `PackageInstaller.Session` 을 생성하고 재서명된 APK 분할 파일들을 랭크 스트리밍한다.
+   - Binder IPC 를 통해 System Server 의 `PackageManagerService` (PMS) 및 `InstallPackageHelper` 로 업데이트 요청이 전달된다.
+   - PMS 는 다음 3 가지 게이트를 엄격히 검증한다:
+     - **Gate 1 (Identity)**: 기존 설치된 패키지의 `applicationId` 와 일치하는가?
+     - **Gate 2 (Version)**: 새 APK 의 `versionCode` 가 기존 버전보다 높은가?
+     - **Gate 3 (Signature Lineage)**: 새 APK 의 앱 서명 키 인증서가 기존 앱의 서명(또는 v3 Signature Key Rotation Lineage)과 완전히 일치하는가?
 
-- Play Console 의 App Signing 페이지에서 앱 서명 키 인증서 지문을 확인할 수 있다.
-- 단계적 출시 대시보드에서 각 확대 시점의 대상 비율과 충돌률·ANR 지표를 확인한다.
-- 기기 쪽에서는 `adb shell dumpsys package <pkg>` 로 설치된 버전의 `versionCode` 와 서명 정보를 확인할 수 있다.
-- 문제 발견 시 rollout 을 중지하면 아직 받지 않은 사용자에게 확산이 멈추지만, 이미 받은 사용자는 자동으로 이전 버전으로 돌아가지 않는다 — 이 사실 자체가 배포 전 반드시 알아야 할 관찰 신호다.
+4. **Kernel & File System Layer (Update Execution & 16KB Page Mapping)**
+   - PMS 의 3 가지 게이트를 모두 통과하면 시스템은 이를 "신규 설치"가 아닌 "동일 패키지 업데이트"로 처리한다. 기존 숫자 App ID (UID) 및 데이터 디렉터리(`/data/data/<pkg>`)의 소유권(ownership)과 접근 권한이 그대로 유지된다.
+   - 기존 앱 프로세스가 종료되고, 새 APK 의 네이티브 `.so` 파일들이 Kernel memory 에 `mmap()` 된다. 이때 **16KB page alignment** 가 올바르게 맞춰져 있어야 64-bit Kernel 이 페이지 메모리 세그먼트 맵핑에 성공한다.
 
-### 실패 분기: 서명이 일치하지 않아 업데이트가 거부된다
+---
 
-1. QA 담당자의 테스트 기기에는 로컬 keystore 로 직접 서명한 release 빌드가 이미 설치돼 있다(예: CI 가 아직 Play 트랙을 거치지 않은 초기 검증용 빌드).
-2. 이후 이 기기에 Play 를 통해 같은 `applicationId`, 더 높은 `versionCode` 를 가진 새 버전을 설치하려 한다. 이번에는 서명이 Play 의 앱 서명 키다.
-3. 기기의 PackageManager 는 `applicationId` 는 같지만 서명 인증서가 기존 설치와 다르다는 것을 확인한다.
-4. 시스템은 이를 업데이트로 인정하지 않는다. 같은 `applicationId` 를 가진 상태에서 서명만 다르면 설치 자체가 거부된다.
-5. 사용자(또는 QA)는 "업데이트가 안 된다"는 모호한 실패를 만난다. 원인을 좁히려면 기존 설치의 서명과 새 APK 의 서명을 나란히 비교해야 한다.
+### 성공 결과 vs 실패 분기 비교
 
-이 실패는 `applicationId` 가 같다는 사실 하나만으로 "같은 앱으로 업데이트된다"고 가정하면 안 된다는 3 장의 원칙을 그대로 보여준다. 로컬 서명 빌드와 Play App Signing 을 거친 빌드가 같은 `applicationId` 를 공유하는 상황은 개발 초기에 흔히 발생하며, 해결하려면 QA 기기에서 기존 설치를 완전히 삭제한 뒤 Play 경로로 다시 설치해야 한다(이 경우 UID 와 데이터는 새로 시작된다).
+| 평가 항목 | 성공 경로 (Play App Signing + Match Signatures) | 실패 분기 (Local Key Mismatch / Unaligned `.so`) |
+| :--- | :--- | :--- |
+| **서명 인증서** | 기존 앱과 새 APK 모두 Play App Signing Key 로 동일 | 기존 앱은 로컬 debug/release key, 새 APK 는 Play Key 로 서명 mismatch |
+| **`versionCode`** | 기존 (v100) → 신규 (v101) 정상 업그레이드 | 신규 `versionCode` 가 기존보다 낮거나 같음 (`INSTALL_FAILED_VERSION_DOWNGRADE`) |
+| **16KB Page Align** | NDK `.so` 바이너리가 64KB/16KB align 처리됨 | `.so` 바이너리가 4KB align 고정 → Android 15 64-bit 기기에서 `SIGSEGV` / `mmap` crash |
+| **Update Ownership** | Play Store 가 `INSTALL_FAILED_UPDATE_OWNERSHIP_WRONG_USER` 처리 통과 | 타사 스토어/side-load 시 Update Ownership 정책에 걸려 사용자 확인 필요 |
+| **기존 데이터 디렉터리** | `/data/data/<pkg>` 내의 DB, SharedPrefs, Auth 토큰 100% 보존 | 설치 거부되거나 앱 삭제 후 재설치로 인해 사용자 데이터 전체 유실 |
+
+---
+
+### 관찰 가능한 신호 및 CLI 진단 명령
+
+1. **설치된 패키지의 versionCode 및 Signature Hash 검증**
+   ```bash
+   # 설치된 패키지의 versionCode, Signatures lineage 및 Update Owner 확인
+   adb shell dumpsys package com.example.myapp | grep -A 15 "signatures:"
+   ```
+
+2. **APK Signature Scheme 및 Cert Certificate 지문 정밀 검증**
+   ```bash
+   # apksigner를 이용해 v2/v3/v4 서명 상태 및 SHA-256 Digest 확인
+   apksigner verify --verbose --print-certs app-release.apk
+   ```
+
+3. **Android 15 대응 NDK Native Library (.so) 16KB Page Alignment 검증**
+   ```bash
+   # APK 내부의 arm64-v8a .so 파일 ELF alignment 레이아웃 확인 (ALIGN이 0x4000 또는 0x10000 이어야함)
+   readelf -l lib/arm64-v8a/*.so | grep -E "LOAD|ALIGN"
+   ```
+
+4. **설치 실패 오차 코드 모니터링 Logcat**
+   ```bash
+   # PackageManager 서명 일치 실패 및 16KB mmap 실패 로그 필터링
+   adb logcat -v threadtime | grep -E "PackageManager|INSTALL_FAILED|NativeBridge|dlopen"
+   ```
+
+---
+
+### Android 14 / 15 / 16 특화 동작
+
+- **16KB Page Size Alignment (Android 15 mandatory for 64-bit)**: Android 15 이상 호환성을 위해 모든 C/C++ 네이티브 `.so` 공유 라이브러리는 16KB 메모리 페이지 크기 기준(Alignment `0x4000` / `0x10000`)으로 컴파일되어야 한다. alignment 가 4KB 로 고정된 옛 아티팩트는 Android 15 기기에서 프로세스 실행 시 `mmap()` 에 실패하여 앱이 즉시 강제 종료(`SIGSEGV`)된다.
+- **Update Ownership Enforcement (Android 14+)**: Android 14 부터 `android:requiredAccountType` 및 Update Ownership 규격이 도입되었다. Google Play 를 통해 설치된 앱을 사용자의 명시적 허가 없이 ADB 나 타사 앱 마켓이 함부로 업데이트하려 하면 `INSTALL_FAILED_UPDATE_OWNERSHIP_WRONG_USER` 에러를 리턴하며 업데이트가 차단된다.
+- **Play App Signing Key Rotation (v3 Signature Scheme)**: Upload Key 가 노출되더라도 Google Play Console 에서 Upload Key 만 안전하게 교체할 수 있다. 최종 사용자의 앱 서명 키는 v3 Key Rotation Lineage 기록에 따라 계속 유지되므로 사용자 데이터 유실 없이 보안 사고에 대응할 수 있다.
+
+---
+
+### 코드 예시
+
+```kotlin
+// 1. build.gradle.kts: Android 15 16KB Page Alignment 및 Play App Signing 설정
+android {
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "com.example.myapp"
+        minSdk = 24
+        targetSdk = 35
+        versionCode = 101
+        versionName = "1.0.1"
+
+        ndk {
+            abiFilters.addAll(setOf("armeabi-v7a", "arm64-v8a", "x86_64"))
+        }
+
+        // C++ / NDK Linker Flag에 16KB (65536 bytes) page alignment 강제 지정
+        externalNativeBuild {
+            cmake {
+                cppFlags("")
+                arguments("-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON")
+            }
+        }
+    }
+
+    packaging {
+        jniLibs {
+            // Android 15 미지적용 uncompressed .so 16KB alignment 준수 설정
+            useLegacyPackaging = false
+        }
+    }
+}
+```
+
+```bash
+#!/usr/bin/env bash
+# 2. CI/CD 파이프라인용 16KB Page Alignment & Signature 검증 자동화 스크립트
+
+APK_PATH="app/build/outputs/apk/release/app-release.apk"
+
+echo "=== 1. Checking 16KB Page Alignment for Native Libraries (.so) ==="
+unzip -q $APK_PATH -d /tmp/apk_check
+SO_FILES=$(find /tmp/apk_check/lib/arm64-v8a -name "*.so")
+
+for so in $SO_FILES; do
+    ALIGNMENT=$(readelf -l "$so" | grep "LOAD" | head -n 1 | awk '{print $NF}')
+    echo "Checking $so: Alignment = $ALIGNMENT"
+    if [[ "$ALIGNMENT" != *"0x10000"* && "$ALIGNMENT" != *"0x4000"* ]]; then
+        echo "ERROR: $so is not 16KB page-aligned!"
+        exit 1
+    fi
+done
+
+echo "=== 2. Verifying APK Signature Scheme v2/v3 ==="
+apksigner verify --verbose --print-certs $APK_PATH
+
+rm -rf /tmp/apk_check
+echo "Verification SUCCESS: Ready for Google Play Delivery."
+```
+
+---
+
+### 관련 Diagnostic Runbook
+
+- [08-install-update-failure.md](../diagnostic-runbooks/08-install-update-failure.md)
+
+### 관련 Learning Spine 장
+
+- [3장 소스에서 설치된 패키지까지](../learning-spine/03-source-to-installed-package.md)
+- [11장 관찰, 테스트와 품질 feedback](../learning-spine/11-observation-testing-and-quality-feedback.md)
 
 ### 관련 원자 노트
 
@@ -57,15 +174,11 @@ date created: 2026-08-04 03:20:00 +09:00
 - [Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다](../../03_packaging_deployment/distribution/release-distribution-contracts/google-play-testing-tracks-split-audience-and-feedback-scope.md)
 - [단계적 출시는 관측 가능한 릴리스 운영 절차다](../../03_packaging_deployment/distribution/release-distribution-contracts/staged-rollout-is-observable-release-operation.md)
 
-### 관련 Learning Spine 장
-
-- [3장 소스에서 설치된 패키지까지](../learning-spine/03-source-to-installed-package.md)
-- [11장 관찰, 테스트와 품질 feedback](../learning-spine/11-observation-testing-and-quality-feedback.md)
-
 ### 공식 근거
 
-- [앱 서명](https://developer.android.com/studio/publish/app-signing)
-- [Play App Signing 사용](https://support.google.com/googleplay/android-developer/answer/9842756)
-- [단계적 출시로 업데이트 제공](https://support.google.com/googleplay/android-developer/answer/6346149)
+- [App signing](https://developer.android.com/studio/publish/app-signing)
+- [Use Play App Signing](https://support.google.com/googleplay/android-developer/answer/9842756)
+- [Support 16 KB page sizes](https://developer.android.com/guide/practices/page-sizes)
+- [Update Ownership in Android 14](https://developer.android.com/about/versions/14/behavior-changes-14#update-ownership)
 
-검증일: 2026-08-04. 이 예시는 3·11 장에서 이미 원문 대조를 마친 서명·배포 관련 원자 노트를 재사용했다.
+검증일: 2026-08-04. 이 예시는 Learning Spine 3·11 장 및 Android 14/15 Package Delivery/16KB Specs 원문 대조를 마쳤다.

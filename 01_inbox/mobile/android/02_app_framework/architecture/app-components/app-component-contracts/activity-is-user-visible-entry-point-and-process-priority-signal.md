@@ -16,6 +16,6 @@ Compose single Activity 구조를 쓰더라도 Activity 경계는 사라지지 �
 
 `adb shell dumpsys activity activities` 의 `mResumedActivity` 필드로 현재 최상단 Activity 를, `adb shell dumpsys activity processes` 의 importance/oom_adj 값으로 그 Activity 를 가진 프로세스의 우선순위를 직접 확인할 수 있다. Activity 를 잃은 프로세스는 이 값이 눈에 띄게 낮아진다.
 
-관련 노트: [Activity lifecycle 콜백](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md), [Android task와 app back stack](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md), [상태 관리 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md).
+관련 노트: [Activity lifecycle 콜백](./activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md), [Android task와 app back stack](../../../navigation/navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md), [상태 관리 정본](../../state-management/android-state-management.md).
 
 공식 문서: [Activity lifecycle](https://developer.android.com/guide/components/activities/activity-lifecycle)

@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Scoped Storage: 저장소 접근 경계를 선택하는 규칙
 
-상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
+상위 문서: [파일 접근 계약](./file-access-contracts.md)
 
-관련 노트: [Scoped Storage와 암호화는 서로 다른 경계를 보호한다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/scoped-storage-and-encryption-protect-different-boundaries.md)
+관련 노트: [Scoped Storage와 암호화는 서로 다른 경계를 보호한다](../../../../05_security_privacy/secure-storage/storage-lifecycle-and-backup/scoped-storage-and-encryption-protect-different-boundaries.md)
 
 Scoped Storage 는 앱이 기기 전체 파일을 직접 훑는 모델에서 벗어나게 한 저장소 규칙이다.
 
@@ -34,7 +34,7 @@ SAF 문서는 앱이 위치를 소유하지 않고 사용자가 파일 또는 �
 
 예전의 전체 외부 저장소 접근을 기본값으로 두지 않는다.
 
-사진 한두 장을 고르는 기능은 [Photo Picker](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/photo-picker-minimizes-media-access.md) 를 먼저 검토한다.
+사진 한두 장을 고르는 기능은 [Photo Picker](./photo-picker-minimizes-media-access.md) 를 먼저 검토한다.
 
 앱이 생성한 사진이나 영상을 공개 컬렉션에 쓰는 경우에는 MediaStore 를 사용한다.
 

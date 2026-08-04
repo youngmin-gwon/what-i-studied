@@ -2,26 +2,73 @@
 title: avb-verifies-boot-images-and-rollback-protection
 tags: [android, android/boot, android/boot-runtime, android/system-internals]
 aliases: ["AVB는 부팅 이미지의 신뢰와 rollback 방지를 검증한다"]
-date modified: 2026-08-03 17:23:02 +09:00
+date modified: 2026-08-03 17:23:07 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## AVB 는 부팅 이미지의 신뢰와 rollback 방지를 검증한다
 
-상위 문서: [부팅 흐름 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-flow-contracts.md)
+상위 문서: [부팅 흐름 계약](boot-flow-contracts.md)
 
-Android Verified Boot 는 부팅 경로에서 실행되는 이미지가 신뢰 가능한 소스에서 왔는지 확인하고, 알려진 취약 버전으로 되돌리는 공격을 막기 위한 구조다. AVB 는 `vbmeta`, partition footer, libavb, dm-verity, rollback index 를 통해 이 계약을 구현한다.
+AVB(Android Verified Boot 2.0)는 하드웨어 Root of Trust(RoT)로부터 시작하여 Bootloader, Kernel, System 파티션에 이르기까지 부팅 단계별 암호화 서명과 Hash Tree를 검증하고, 보완적으로 버전 다운그레이드 공격을 막는 Rollback Protection을 수행하는 부팅 보안 메커니즘이다.
 
-### 판단 기준
+### 내부 동작 메커니즘 (Internal Mechanism)
 
-- green/yellow/orange/red 상태는 사용자가 보는 경고뿐 아니라 Android 에 전달되는 보안 상태다.
-- dm-verity 는 부팅 후 block 읽기 시점의 무결성 검증과 연결된다.
-- rollback protection 은 새 보안 패치 수준에서 만든 신뢰를 이전 취약 이미지가 재사용하지 못하게 한다.
-- bootloader unlock 은 검증 실패와 별개의 위험 상태이며 사용자 데이터 삭제와 연결된다.
+1. **VBMeta 구조 검증**: AVB의 핵심 검증 데이터는 `vbmeta` 파티션(또는 각 이미지 내 포함된 VBMeta header)에 존재한다. VBMeta에는 이미지의 암호화 해시, 서명, 공개 키, 그리고 **Rollback Index** 정보가 포함되어 있다.
+2. **하드웨어 RoT 검증**: Bootloader는 하드웨어 퓨즈(eFUSE) 또는 Keymaster/RPMB 보안 영역에 구운 Root Public Key와 `vbmeta`의 서명을 비교 검증한다.
+3. **Rollback Protection 검증**: Bootloader는 `vbmeta` 안의 Rollback Index와 HW 보안 영역에 저장된 `stored_rollback_index`를 비교한다.
+   - `vbmeta.rollback_index >= stored_rollback_index` 이면 부팅 진행.
+   - 더 낮은 버전(다운그레이드 시도)인 경우 부팅을 차단하고 Error 상태로 진입한다.
+4. **dm-verity 연동**: `system`, `vendor` 등 대용량 파일시스템 파티션은 블록 레벨의 Merkle Tree(Hash Tree) 루트 해시를 `vbmeta`에 저장한다. 커널은 Mount 시 `dm-verity` 드라이버를 통해 I/O 읽기 요청마다 실시간 블록 해시를 검증한다.
+
+```mermaid
+flowchart TD
+    eFUSE["HW Root of Trust (eFUSE / Secure Storage)"] -->|Public Key / Rollback Index| BL[Bootloader / libavb]
+    VBMeta["vbmeta Partition (RSA Signature & Hash Tree Root)"] -->|Signature & Rollback Index| BL
+    BL -->|Verification Pass| KERNEL["Kernel / boot.img Verified"]
+    KERNEL -->|dm-verity Mount| DM["dm-verity (Logical System/Vendor Filesystem)"]
+    DM -->|On-demand Block Hash Verify| US["Userspace init (PID 1)"]
+
+    style eFUSE fill:#f9f,stroke:#333,stroke-width:2px
+    style BL fill:#bbf,stroke:#333,stroke-width:2px
+```
+
+### 코드 및 구체 예시 (Concrete Snippets)
+
+`fstab` 파티션 마운트 시 AVB 및 dm-verity 플래그 지정 예시 (`Android.bp` / `fstab.hardware`):
+
+```text
+# system partition with AVB verification flags
+system /system ext4 ro,barrier=1 wait,slotselect,avb=vbmeta,logical,first_stage_mount
+vendor /vendor ext4 ro,barrier=1 wait,slotselect,avb,logical,first_stage_mount
+```
+
+`avbtool`로 `vbmeta.img` 헤더 정보 및 Rollback Index를 확인하는 명령어:
+
+```bash
+avbtool info_image --image vbmeta.img
+```
+
+### 관측 가능 증거 (Observable Evidence)
+
+부팅 후 디바이스의 Verified Boot 검증 상태는 커널 commandline 및 시스템 속성으로 노출된다:
+
+```bash
+# Verified Boot 상태 확인 (green: 정상, yellow: 커스텀 키, orange: 락 해제, red: 검증 실패)
+adb shell getprop ro.boot.verifiedbootstate
+# 출력: green
+
+# vbmeta 디바이스 Lock 상태 및 모드 확인
+adb shell getprop ro.boot.vbmeta.device_state
+# 출력: locked
+
+# 커널 dmesg에서 dm-verity 및 avb 로그인 확인
+adb shell dmesg | grep -i avb
+```
 
 ### 관련 문서
 
-- [Bootloader는 검증된 slot을 고르고 Android에 bootconfig를 넘긴다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/bootloader-selects-verified-slot-and-passes-bootconfig.md)
-- [Verified Boot는 기기 소프트웨어의 chain of trust를 만든다](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/verified-boot-establishes-device-software-chain-of-trust.md)
+- [부팅 체인은 신뢰 상태를 확정한 뒤 kernel 과 userspace 로 넘어간다](boot-chain-confirms-trust-before-kernel-and-userspace.md)
+- [fstab은 mount와 검증 플래그를 묶은 부팅 계약이다](../init-service-contracts/fstab-is-boot-time-mount-and-verification-contract.md)
 
-공식 문서: [Android Verified Boot](https://source.android.com/docs/security/features/verifiedboot/avb), [Boot flow](https://source.android.com/docs/security/features/verifiedboot/boot-flow)
+공식 문서: [Android Verified Boot (AVB)](https://source.android.com/docs/security/features/verifiedboot)

@@ -31,4 +31,4 @@ class BenefitRepository(private val api: BenefitApi) {
 - `Pager.flow` 는 cold flow 이므로 화면 수명 안에서 공유하려면 `cachedIn` 을 명시한다.
 - UI 는 `PagingSource` 를 직접 호출하지 않고 `PagingData` 를 rendering input 으로 받는다.
 
-관련 노트: [cachedIn은 PagingData Flow를 ViewModel 수명에 묶는다](01_inbox/mobile/android/02_app_framework/data/paging/paging-contracts/cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md), [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md)
+관련 노트: [cachedIn은 PagingData Flow를 ViewModel 수명에 묶는다](./cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md), [Flow와 StateFlow 상태 계약](../../async-flow/flow-state-contracts/flow-state-contracts.md)

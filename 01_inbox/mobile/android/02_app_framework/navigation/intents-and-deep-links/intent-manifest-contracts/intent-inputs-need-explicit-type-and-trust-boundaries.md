@@ -21,4 +21,4 @@ date created: 2026-08-01 00:00:00 +09:00
 
 예를 들어 다른 앱이 보낸 `extras` 에서 앱 전용 커스텀 `Parcelable` 클래스를 기대하면, 발신 프로세스가 그 클래스를 모를 때 `android.os.BadParcelableException` 이 발생할 수 있다. `getStringExtra`/`getIntExtra` 처럼 primitive 로 좁히거나 값을 읽는 시점에 try/catch 로 방어해야 한다.
 
-관련 노트: [exported boundary](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md), [PendingIntent](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md), [URI validation](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/external-uri-must-be-validated-before-navigation.md)
+관련 노트: [exported boundary](./exported-attribute-defines-external-component-boundary.md), [PendingIntent](./pendingintent-is-delegated-future-intent-token.md), [URI validation](../deep-link-contracts/external-uri-must-be-validated-before-navigation.md)

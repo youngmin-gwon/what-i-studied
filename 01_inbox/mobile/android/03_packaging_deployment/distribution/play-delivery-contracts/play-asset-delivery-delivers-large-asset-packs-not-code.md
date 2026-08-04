@@ -1,80 +1,65 @@
 ---
 title: play-asset-delivery-delivers-large-asset-packs-not-code
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:42 +09:00
+tags: ["android", "play-asset-delivery", "pad", "assets"]
+aliases: ["Play Asset Delivery는 코드가 아니라 대용량 asset pack을 전달한다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## Play Asset Delivery 는 코드가 아니라 대용량 asset pack 을 전달한다
+## Play Asset Delivery는 코드가 아니라 대용량 asset pack을 전달한다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+Play Asset Delivery (PAD)는 게임 앱이나 그래픽 집약적 앱의 150MB 초과 대용량 에셋(3D 모델, 텍스처 파일, 사운드 팩 등)을 효율적으로 분할 전달하기 위한 전용 아키텍처다.
+- **바이너리 코드 전무**: Asset Pack은 `.dex`나 코드 파일을 일체 포함하지 않으며 오직 에셋 데이터 리소스만 포함한다.
+- **배포 모드 세 가지**:
+  1. `install-time`: 앱 다운로드 시 함께 압축 설치 (최대 1GB).
+  2. `fast-follow`: 앱 최초 설치 직후 배경에서 자동 다운로드.
+  3. `on-demand`: 실행 중 필요할 때 `AssetPackManager`로 비동기 다운로드.
 
-관련 지도: [Play Delivery 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-contracts.md)
-
-관련 노트: [AAB는 Play가 기기별 APK를 생성하는 게시 아티팩트다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md), [Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/delivery-mode-is-selected-by-necessity-condition-and-runtime-request.md)
-
-### 역할
-
-Play Asset Delivery 는 게임의 texture, shader, sound 같은 대형 리소스를
-
-Android App Bundle 에 포함해 Google Play 가 전달하도록 하는 시스템이다.
-
-실행 가능한 코드는 asset pack 에 넣지 않는다.
-
-기존 OBB 를 대체하고, 하나의 게시 아티팩트와 Play 호스팅을 사용한다.
-
-### 세 가지 모드
-
-| 모드 | 동작 | 사용 가능 시점 |
-| --- | --- | --- |
-| install-time | 앱 설치와 함께 전달 | 앱 실행 즉시 |
-| fast-follow | 설치 직후 자동 다운로드 시작 | 완료 전에도 앱 실행 가능 |
-| on-demand | 앱이 실행 중 요청 | 다운로드 완료 후 |
-
-install-time pack 은 Play Store 표시 앱 크기에 포함되고 split APK 로 제공된다.
-
-fast-follow 와 on-demand pack 은 archive 로 제공된 뒤 앱 내부 저장소에 풀린다.
-
-두 모드는 Play Store 표시 앱 크기에 같은 방식으로 포함되지 않는다.
-
-### Gradle 설정
-
-```kotlin
-// asset-pack/build.gradle.kts
-plugins { id("com.android.asset-pack") }
-
-assetPack {
-    packName.set("level_assets")
-    dynamicDelivery { deliveryType.set("fast-follow") }
-}
-
-// app/build.gradle.kts
-android { assetPacks += listOf(":asset-pack") }
+```mermaid
+flowchart LR
+    AAB["App Bundle (.aab)"] --> CodeSplit["App Code Splits (.apk)"]
+    AAB --> AssetPack1["Asset Pack: install-time (.dat / .bin)"]
+    AAB --> AssetPack2["Asset Pack: on-demand (.dat / .bin)"]
+    
+    AssetPack1 --> PlayServer["Google Play Infrastructure"]
+    AssetPack2 --> PlayServer
+    PlayServer --> Device["Target Device Storage (/sdcard/Android/obb/...)"]
 ```
 
-### 런타임 주의
+### 코드 예시 (build.gradle.kts & AssetPackManager)
+```kotlin
+// asset_pack/build.gradle.kts
+plugins {
+    id("com.android.asset-pack")
+}
 
-fast-follow 는 다운로드 완료를 보장하지 않으므로 매 실행마다 상태를 확인한다.
+assetPack {
+    packName = "high_res_textures"
+    dynamicDelivery {
+        deliveryMode = "on-demand"
+    }
+}
 
-on-demand 는 다운로드 크기를 먼저 조회하고 네트워크·저장 공간 오류를 처리한다.
+// Kotlin Code
+val assetPackManager = AssetPackManagerFactory.getInstance(context)
+assetPackManager.fetch(listOf("high_res_textures"))
+    .addOnSuccessListener { state ->
+        val assetPath = assetPackManager.getAssetPackPath("high_res_textures")
+        loadTexturesFromPath(assetPath)
+    }
+```
 
-200MB 보다 큰 모바일 데이터 다운로드는 사용자 확인이나 Wi-Fi 대기가 발생할 수 있다.
+### 관측 가능 증거 (Observable Evidence)
+에셋 팩이 다운로드되어 디바이스에 파일 형태로 저장되었는지 ADB 커맨드로 파일 경로를 직접 확인할 수 있다:
 
-asset 위치를 캐시하지 말고 매 실행 시 Play Asset Delivery API 로 조회한다.
+```bash
+adb shell ls -la /sdcard/Android/data/com.example.app/files/assetpacks/high_res_textures/
 
-업데이트나 데이터 삭제로 위치가 바뀌거나 pack 이 무효화될 수 있다.
+# Output Example:
+# -rw-rw---- 1 u0_a145 u0_a145 154820120 Aug 04 15:00 textures_4k.dat
+```
 
-앱은 반환된 asset 을 읽기 전용으로 취급해 patch 무결성을 보존한다.
-
-### 테스트
-
-로컬 테스트에서 fast-follow 는 on-demand 처럼 동작할 수 있다.
-
-실제 전달·네트워크·업데이트 동작은 Play 내부 테스트 또는 내부 앱 공유로 검증한다.
-
-### 공식 문서
-
-- [Play Asset Delivery](https://developer.android.com/guide/playcore/asset-delivery)
-- [Integrate asset delivery for Kotlin and Java](https://developer.android.com/guide/playcore/asset-delivery/integrate-java)
-- [Test asset delivery](https://developer.android.com/guide/playcore/asset-delivery/test)
+관련 노트: [Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다](delivery-mode-is-selected-by-necessity-condition-and-runtime-request.md), [Play Delivery 계약](play-delivery-contracts.md)

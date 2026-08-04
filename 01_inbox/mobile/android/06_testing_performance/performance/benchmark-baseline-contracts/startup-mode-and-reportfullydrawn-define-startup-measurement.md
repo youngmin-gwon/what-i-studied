@@ -1,45 +1,125 @@
 ---
 title: "Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다"
 tags: ["android", "android/testing-performance"]
+aliases: ["startup-mode-and-reportfullydrawn-define-startup-measurement"]
+date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
-# Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다
+## Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/benchmark-baseline-contracts.md)
-관련 노트: [Android 성능은 측정 후 최적화한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/measure-before-optimizing-android-performance.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-quality-and-build-optimization.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline-contracts.md)
+관련 노트: [Android 시작 성능은 TTID와 TTFD로 나눈다](../performance-contracts/startup-performance-is-measured-by-ttid-and-ttfd.md)
 
-## 시작 성능의 범위
+Macrobenchmark에서 시작 성능 지표를 도출하기 위해서는 `StartupMode`(`COLD`, `WARM`, `HOT`)로 프로세스 힙/클래스 초기화 상대를 정의하고, `reportFullyDrawn()` 신호로 유효 렌더링 종료점을 명시해야 한다.
 
-- 앱 시작 시간은 사용자가 앱을 실행한 뒤 첫 화면을 보기까지의 흐름이다.
-- 시작 성능은 프로세스 상태와 첫 화면의 준비 기준에 따라 달라진다.
-- Macrobenchmark는 시작 측정에 `StartupTimingMetric`을 사용할 수 있다.
-- `StartupMode.COLD`는 프로세스가 새로 시작되는 상황을 대표하는 기준이다.
-- warm과 hot 시작은 이미 실행된 프로세스나 화면을 재사용하는 조건을 다룬다.
+### 1. StartupMode별 리셋 동작 및 측정 구체 메커니즘
 
-## 모드 선택
+- **`StartupMode.COLD`**:
+  - 매 반복(iteration) 전 `adb shell am force-stop <package>`를 실행하여 앱 프로세스를 강제 종료하고 힙/정적 클래스 변수를 백지화한다. Zygote Fork부터 완전히 새로 시작하는 최고 측정 비용 조건이다.
+- **`StartupMode.WARM`**:
+  - 프로세스는 힙 메모리에 생존시켜 두고, `Activity` 인스턴스만 `finish()` 후 다시 Launch한다. 정적 싱글톤/DI 그래프 재사용성을 검증한다.
+- **`StartupMode.HOT`**:
+  - `Activity`와 프로세스가 모두 대기 상태에 있는 백그라운드 상태에서 `startActivity`로 전면(Foreground) 전환 비용만 측정한다.
+- **`reportFullyDrawn()` 신호 경계**:
+  - Choreographer의 단순 첫 프레임 draw(TTID)를 넘어 비동기 데이터 렌더링(TTFD) 완료 시점을 `StartupTimingMetric`에 포착시킨다.
 
-- 콜드 시작은 신규 실행과 업데이트 직후의 체감 문제를 찾는 데 유용하다.
-- 웜 시작은 프로세스가 남아 있을 때 재진입하는 비용을 본다.
-- 핫 시작은 이미 화면이 준비된 상태에서 돌아오는 비용을 본다.
-- 제품의 주요 사용자 경험에 맞춰 하나의 모드만 고집하지 않는다.
-- 모드마다 setup 절차와 해석 기준을 별도로 기록한다.
+### 2. StartupMode 상태 전환 모델
 
-## 종료 기준
+```mermaid
+stateDiagram-v2
+    [*] --> Stopped: App Terminated (adb force-stop)
+    Stopped --> ColdStart: Launch (StartupMode.COLD)
+    ColdStart --> Running: Process Fork & Application + Activity Init
+    
+    Running --> Stopped: Force Stop Iteration Reset
+    
+    Running --> WarmStart: Activity Destroyed (StartupMode.WARM)
+    WarmStart --> Running: Activity Recreation (Process Preserved)
+    
+    Running --> HotStart: Press Home Button (StartupMode.HOT)
+    HotStart --> Running: Activity Brought to Front
+```
 
-- 첫 프레임이 그려진 시점은 화면의 모든 데이터가 준비된 시점과 다를 수 있다.
-- 앱이 `reportFullyDrawn()`을 호출하면 완전한 초기 화면 기준을 측정에 활용할 수 있다.
-- TTFD는 첫 화면이 사용자에게 충분히 표시되었다고 판단하는 시점까지의 시간이다.
-- 화면이 비어 있는 상태를 먼저 그린 뒤 데이터를 채우는 앱은 기준을 명확히 해야 한다.
-- 측정하려는 종료 지점이 사용자 체감과 일치하는지 제품 요구사항으로 합의한다.
+### 3. Startup Benchmark Kotlin 코드 구체 예시
 
-## 설계 체크리스트
+```kotlin
+import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.StartupMode
+import androidx.benchmark.macro.StartupTimingMetric
+import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
-1. 시작 전 앱 프로세스와 화면 상태를 정한다.
-2. `startActivityAndWait()` 이후 기다릴 UI 신호를 정한다.
-3. 필요하면 `reportFullyDrawn()` 호출 조건을 코드로 명확히 한다.
-4. 로딩 스피너가 사라지는 것과 데이터 콘텐츠가 보이는 것을 구분한다.
-5. cold, warm, hot 결과를 같은 표에서 섞지 않는다.
+@RunWith(AndroidJUnit4::class)
+class StartupBenchmark {
+
+    @get:Rule
+    val benchmarkRule = MacrobenchmarkRule()
+
+    @Test
+    fun measureColdStartup() = benchmarkRule.measureRepeated(
+        packageName = "com.example.app",
+        metrics = listOf(StartupTimingMetric()),
+        compilationMode = CompilationMode.Partial(),
+        startupMode = StartupMode.COLD,
+        iterations = 10
+    ) {
+        pressHome()
+        startActivityAndWait()
+    }
+
+    @Test
+    fun measureWarmStartup() = benchmarkRule.measureRepeated(
+        packageName = "com.example.app",
+        metrics = listOf(StartupTimingMetric()),
+        compilationMode = CompilationMode.Partial(),
+        startupMode = StartupMode.WARM,
+        iterations = 10
+    ) {
+        pressHome()
+        startActivityAndWait()
+    }
+}
+```
+
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
+
+#### Macrobenchmark COLD vs WARM 측정 결과 JSON 덤프
+
+```json
+{
+  "benchmarks": [
+    {
+      "name": "measureColdStartup",
+      "metrics": {
+        "timeToInitialDisplayMs": { "median": 340.5, "P90": 380.2 },
+        "timeToFullDisplayMs": { "median": 720.1, "P90": 810.0 }
+      }
+    },
+    {
+      "name": "measureWarmStartup",
+      "metrics": {
+        "timeToInitialDisplayMs": { "median": 112.4, "P90": 135.0 },
+        "timeToFullDisplayMs": { "median": 310.8, "P90": 345.2 }
+      }
+    }
+  ]
+}
+```
+
+### 5. 측정 원칙
+
+- Cold Start와 Warm Start를 단일 벤치마크 루프에 섞어 다루지 않는다.
+- `reportFullyDrawn()`을 호출하지 않으면 `StartupTimingMetric`의 `timeToFullDisplayMs` 수치는 출력되지 않거나 `timeToInitialDisplayMs`와 동일한 값으로 반환된다.
+- 1. 시작 전 앱 프로세스와 화면 상태를 정한다.
+- 2. `startActivityAndWait()` 이후 기다릴 UI 신호를 정한다.
+- 3. 필요하면 `reportFullyDrawn()` 호출 조건을 코드로 명확히 한다.
+- 4. 로딩 스피너가 사라지는 것과 데이터 콘텐츠가 보이는 것을 구분한다.
+- 5. cold, warm, hot 결과를 같은 표에서 섞지 않는다.
 
 ## 흔한 오류
 

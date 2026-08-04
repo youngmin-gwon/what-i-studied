@@ -12,9 +12,9 @@ Adaptive layout and navigation 은 화면 크기, posture, 입력 장치에 따�
 
 ### 정본 지도
 
-- [Adaptive Navigation 계약](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)
-- [Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-is-driven-by-window-and-posture.md)
-- [Top-level destination은 adaptive navigation chrome의 단위다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/top-level-destination-owns-adaptive-navigation-chrome.md)
-- [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/pane-layout-preserves-selection-and-back-policy.md)
+- [Adaptive Navigation 계약](./adaptive-navigation-contracts/adaptive-navigation-contracts.md)
+- [Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다](./adaptive-navigation-contracts/adaptive-navigation-is-driven-by-window-and-posture.md)
+- [Top-level destination은 adaptive navigation chrome의 단위다](./adaptive-navigation-contracts/top-level-destination-owns-adaptive-navigation-chrome.md)
+- [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](./adaptive-navigation-contracts/pane-layout-preserves-selection-and-back-policy.md)
 
-관련 지도: [Large screen contracts](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)
+관련 지도: [Large screen contracts](../../../07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

@@ -25,6 +25,6 @@ fun Counter() {
 
 `count` 를 증가시키면 `Text` 를 감싼 scope 만 invalidate 되고 `Button` 은 재실행되지 않는다. Android Studio Layout Inspector 의 recomposition count 열을 켜면 실제로 어떤 Composable 이 몇 번 재구성/skip 됐는지 숫자로 확인할 수 있다.
 
-관련 노트: [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/snapshot-state-observation-invalidates-state-read-scopes.md), [Compose state owner는 읽고 쓰는 범위의 가장 낮은 공통 owner다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write.md)
+관련 노트: [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](./snapshot-state-observation-invalidates-state-read-scopes.md), [Compose state owner는 읽고 쓰는 범위의 가장 낮은 공통 owner다](./compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write.md)
 
 출처: [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model), [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state)

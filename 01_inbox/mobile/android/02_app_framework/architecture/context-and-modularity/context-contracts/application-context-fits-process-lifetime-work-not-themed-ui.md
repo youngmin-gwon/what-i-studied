@@ -16,6 +16,6 @@ DI graph 에서 Context 가 필요할 때도 lifetime 을 명확히 해야 한�
 
 application context 로 dialog 를 직접 띄우면 `WindowManager.BadTokenException`("Unable to add window — token null is not for an application") 이 발생한다. 이 예외 자체가 "window token 이 필요한 작업에 window 가 없는 Context 를 썼다"는 관찰 가능한 신호다.
 
-관련 노트: [Context leak 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/context-leaks-happen-when-reference-outlives-component-lifetime.md), [Android Dependency Injection Map](01_inbox/mobile/android/02_app_framework/dependency-injection/android-dependency-injection-map.md), [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md).
+관련 노트: [Context leak 경계](./context-leaks-happen-when-reference-outlives-component-lifetime.md), [Android Dependency Injection Map](../../../dependency-injection/android-dependency-injection-map.md), [persistence 정본](../../../data/storage/persistence-contracts/persistence-contracts.md).
 
 공식 문서: [Context reference](https://developer.android.com/reference/android/content/Context)

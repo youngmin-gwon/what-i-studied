@@ -12,7 +12,7 @@ date created: 2026-07-31 23:04:26 +09:00
 
 학습 resource 문서는 링크 목록을 크게 유지하기보다, 어떤 질문에 어떤 resource type 을 선택할지 안내하는 index 가 되어야 한다. 최신 링크는 시간이 지나면 바뀌므로 정본 본문에는 URL 목록을 과하게 고정하지 않는다.
 
-관련 노트: [boundary 중심 학습](01_inbox/mobile/android/00_foundations/learning/learning-contracts/learn-android-by-boundary-before-api-catalogs.md), [Flutter 개발자용 매핑](01_inbox/mobile/android/00_foundations/learning/learning-contracts/flutter-developers-should-map-concepts-not-class-names.md).
+관련 노트: [boundary 중심 학습](./learn-android-by-boundary-before-api-catalogs.md), [Flutter 개발자용 매핑](./flutter-developers-should-map-concepts-not-class-names.md).
 
 ### 판단 기준
 

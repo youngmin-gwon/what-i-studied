@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Flow 를 StateFlow 로 바꿀 때는 stateIn 의 수명과 공유 정책을 명시한다
 
-상위 문서: [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md)
+상위 문서: [Flow와 StateFlow 상태 계약](./flow-state-contracts.md)
 
 `stateIn` 은 cold `Flow` 를 특정 CoroutineScope 에서 공유되는 `StateFlow` 로 바꾼다.
 

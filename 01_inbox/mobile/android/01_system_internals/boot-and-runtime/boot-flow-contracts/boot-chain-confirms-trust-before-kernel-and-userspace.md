@@ -1,28 +1,70 @@
 ---
 title: boot-chain-confirms-trust-before-kernel-and-userspace
 tags: [android, android/boot, android/boot-runtime, android/system-internals]
-aliases: ["부팅 체인은 신뢰 상태를 확정한 뒤 kernel과 userspace로 넘어간다"]
-date modified: 2026-08-03 17:23:04 +09:00
+aliases: ["부팅 체인은 신뢰 상태를 확정한 뒤 kernel 과 userspace 로 넘어간다"]
+date modified: 2026-08-03 17:23:10 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## 부팅 체인은 신뢰 상태를 확정한 뒤 kernel 과 userspace 로 넘어간다
 
-상위 문서: [부팅 흐름 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-flow-contracts.md)
+상위 문서: [부팅 흐름 계약](boot-flow-contracts.md)
 
-Android 부팅은 Boot ROM, bootloader, kernel, `init`, Zygote, `system_server`, System UI/Launcher 순서로 이어진다. 중요한 점은 단순 실행 순서가 아니라, 어느 단계가 다음 단계의 신뢰성과 실행 조건을 확정하는지다.
+Android 부팅 체인(Boot Chain)은 전원 공급 직후 SoC 내부의 읽기 전용 ROM(Primary Bootloader)에서 시작하여 단계별로 상위 실행 바이너리의 cryptographic 서명을 검증한 후 제어권을 넘기는 신뢰 사슬(Chain of Trust) 메커니즘이다.
 
-### 판단 기준
+### 내부 동작 메커니즘 (Internal Mechanism)
 
-- Boot ROM 과 bootloader 는 기기별 구현이며, OS 이미지 검증과 slot 선택을 끝낸 뒤 kernel 을 올린다.
-- kernel 은 Android userspace 의 첫 프로세스로 `init` 을 실행한다.
-- `init` 이후부터는 AOSP init language, property, SELinux, service class 가 부팅 순서를 지배한다.
-- Zygote 와 `system_server` 가 올라가기 전에는 앱 프레임워크 관점의 디버깅 도구가 제한된다.
+1. **ROM Bootloader (PBL)**: 칩셋 하드웨어 ROM에 고정된 코드로, SOC 제조사의 Public Key 서명을 확인하고 SBL/ABOOT을 메모리에 로드한다.
+2. **Secondary Bootloader (SBL / ABOOT / UEFI)**: 하드웨어 기본 초기화(DRAM 등)를 수행하고 Android Verified Boot(AVB) 라이브러리를 통해 Boot 이미지(`boot.img`, `init_boot.img`, `vendor_boot.img`)의 VBMeta 서명을 검증한다.
+3. **Kernel Hand-off**: Bootloader는 신뢰성이 검증된 Linux Kernel을 RAM으로 로드하고, DTB(Device Tree Blob)와 Bootconfig 파라미터를 넘긴 후 커널 진입점(`start_kernel`)으로 제어를 점프한다.
+4. **Userspace Hand-off**: 커널 초기화 완료 후, 커널은 Ramdisk 내의 PID 1 프로세스인 `/init` (First-stage init)을 실행하며 userspace 영역으로 진입한다.
+
+```mermaid
+flowchart LR
+    PBL["1. Boot ROM (PBL)
+[Hardware RoT]"] -->|Verify Signature| SBL["2. Secondary BL / UEFI
+[DRAM Init]"]
+    SBL -->|Verify AVB / vbmeta| BL["3. Android Bootloader
+[Slot & Bootconfig]"]
+    BL -->|Load & Jump| KERN["4. Linux Kernel
+[start_kernel]"]
+    KERN -->|Mount Ramdisk| INIT["5. init (PID 1)
+[Userspace Stage 1]"]
+
+    style PBL fill:#f9f,stroke:#333,stroke-width:2px
+    style INIT fill:#bbf,stroke:#333,stroke-width:2px
+```
+
+### 코드 및 구체 예시 (Concrete Snippets)
+
+Bootloader가 커널로 전달하는 커널 파라미터 및 bootconfig 설정 형태 (`/proc/cmdline` & `/proc/bootconfig`):
+
+```text
+# Kernel command line parameters passed by bootloader
+console=ttyMSM0,115200 androidboot.hardware=qcom androidboot.memcolor=0x0 androidboot.first_stage_console=1
+```
+
+### 관측 가능 증거 (Observable Evidence)
+
+부팅 단계별 제어권 전이 증거는 커널 dmesg의 최상단 출력 로그에서 확인할 수 있다:
+
+```bash
+# 커널 초기화 및 init 핸드오프 부팅 로그 확인
+adb shell dmesg | head -n 30
+# 출력 예시:
+# Linux version 5.15.x ...
+# Kernel command line: ...
+# Run /init as init process
+
+# Bootloader에서 전달받은 하드웨어 파라미터 조회
+adb shell getprop ro.boot.hardware
+adb shell getprop ro.boot.serialno
+```
 
 ### 관련 문서
 
-- [init는 PID 1이자 Android userspace의 부트스트랩 정책 엔진이다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-is-pid1-and-userspace-bootstrap-policy-engine.md)
-- [Zygote는 framework 공통 상태를 preload한 뒤 앱 프로세스를 fork한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-preloads-framework-state-before-app-fork.md)
-- [system_server는 framework service를 한 프로세스 안에서 시작한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-starts-framework-services-in-one-process.md)
+- [AVB는 부팅 이미지의 신뢰와 rollback 방지를 검증한다](avb-verifies-boot-images-and-rollback-protection.md)
+- [Bootloader는 검증된 slot을 고르고 Android에 bootconfig를 넘긴다](bootloader-selects-verified-slot-and-passes-bootconfig.md)
+- [init는 PID 1이자 Android userspace의 부트스트랩 정책 엔진이다](../init-service-contracts/init-is-pid1-and-userspace-bootstrap-policy-engine.md)
 
-공식 문서: [Bootloader overview](https://source.android.com/docs/core/architecture/bootloader), [Boot flow](https://source.android.com/docs/security/features/verifiedboot/boot-flow)
+공식 문서: [Bootloader Architecture](https://source.android.com/docs/core/architecture/bootloader)

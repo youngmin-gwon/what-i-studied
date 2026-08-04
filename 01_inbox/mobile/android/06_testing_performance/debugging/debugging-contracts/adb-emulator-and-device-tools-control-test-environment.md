@@ -1,79 +1,102 @@
 ---
-title: adb-emulator-and-device-tools-control-test-environment
+title: "ADB, Emulator, 디바이스 도구는 테스트 환경을 제어한다"
 tags: ["android", "android/testing-performance"]
-aliases: []
-date modified: 2026-08-03 18:14:50 +09:00
+aliases: ["adb-emulator-and-device-tools-control-test-environment"]
 date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
 ## ADB, Emulator, 디바이스 도구는 테스트 환경을 제어한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md)
+관련 지도: [디버깅 도구 계약](./debugging-contracts.md)
+관련 노트: [테스트 레이어는 피드백 비용으로 선택한다](../../testing/testing-quality-contracts/test-layer-is-chosen-by-feedback-cost-and-risk.md)
 
-관련 지도: [디버깅 도구 계약](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md)
+ADB (Android Debug Bridge)와 에뮬레이터 툴킷은 개발자 호스트 PC와 안드로이드 타겟 기기 런타임 간의 통신/제어 채널을 형성하여, 네트워크 프록시 포워딩, 시스템 상태 오버라이드, 패키지 바이너리 설치 및 액티비티 강제 전환을 결정론적으로 조작하는 환경 제어 계약이다.
 
-관련 노트: [테스트 레이어는 피드백 비용으로 선택한다](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/test-layer-is-chosen-by-feedback-cost-and-risk.md)
+### 1. ADB 통신 메커니즘 및 3계층 구조
 
-테스트 환경은 같은 앱을 실행해도 서로 다른 사실을 보여준다.
+- **ADB Client**: 개발자 개발 컴퓨터(Host PC)의 CLI Terminal 또는 Android Studio IDE에서 명령어를 수신하는 프로세스.
+- **ADB Server**: Host PC 백그라운드에서 5037 포트로 상주하며 Client 명령어와 타겟 기기의 `adbd` 데몬 소켓 통신을 중계.
+- **ADB Daemon (`adbd`)**: 타겟 안드로이드 기기 또는 에뮬레이터 OS 내부에서 root 또는 shell 권한으로 실행되는 백그라운드 서비스.
+- **Port Forwarding & Reverse**:
+  - `adb forward tcp:8080 tcp:9090`: Host의 8080 포트 접속을 기기의 9090 포트로 전달.
+  - `adb reverse tcp:8080 tcp:8080`: 기기의 8080 로컬 접속을 Host의 MockServer 8080 포트로 전달 (인스투르멘테이션 E2E 필수 요소).
 
-JVM 테스트는 빠르지만 실제 Android 시스템과 입력 장치를 재현하지 않는다.
+### 2. ADB 시스템 구성도 및 통신 흐름
 
-에뮬레이터는 반복 가능하고 자동화하기 쉽다.
+```mermaid
+flowchart LR
+    subgraph Host Computer
+        Client["ADB Client<br/>(adb CLI / IDE)"]
+        Server["ADB Server<br/>(Port 5037)"]
+        MockServer["MockWebServer<br/>(Port 8080)"]
+    end
 
-실제 기기는 하드웨어, 제조사 설정, 성능, 센서, 배터리 차이를 드러낸다.
+    subgraph Target Android Device
+        Daemon["ADB Daemon (adbd)<br/>(USB / Wi-Fi TCP 5555)"]
+        App["Target App<br/>(com.example.app)"]
+    end
 
-### 환경 선택
-
-순수 도메인 규칙은 기기 없이 실행한다.
-
-Android resource 와 lifecycle 계약은 계측 테스트에서 확인한다.
-
-화면, 회전, 키보드, 권한, window 동작은 에뮬레이터로 반복한다.
-
-카메라, Bluetooth, 생체 인증, 성능, 제조사 변형은 실제 기기로 보완한다.
-
-한 환경의 통과를 모든 환경의 품질 증거로 해석하지 않는다.
-
-### 매트릭스
-
-최소 매트릭스에는 API 수준, 화면 크기, locale, 글꼴 배율을 포함한다.
-
-다크 모드와 회전은 상태 보존과 layout 회귀를 찾는 데 유용하다.
-
-모든 조합을 매 commit 에 실행하면 피드백 비용이 커진다.
-
-대표 조합은 pull request 에, 넓은 조합은 nightly 또는 release 에 배치한다.
-
-Gradle Managed Devices 와 에뮬레이터 snapshot 은 반복 실행을 안정화한다.
-
-### ADB 의 역할
-
-ADB 는 앱 내부가 아닌 디바이스 경계에서 상태를 관찰하고 조작한다.
-
-```bash
-adb devices
-adb shell am force-stop com.example.app
-adb shell am start -n com.example.app/.MainActivity
-adb shell dumpsys activity activities
-adb logcat --pid=$(adb shell pidof -s com.example.app)
+    Client --> Server
+    Server -- TCP / USB --> Daemon
+    Daemon --> App
+    App -- adb reverse tcp:8080 --> MockServer
 ```
 
-패키지, 프로세스, 권한, 로그, 파일, 포트 forwarding 을 확인할 수 있다.
+### 3. 테스트 환경 고정 Shell Script 구체 예시
 
-명령은 대상 device 를 명시해 여러 기기 연결에서 오작동을 줄인다.
+테스트 실행 전 에뮬레이터/디바이스의 포트 포워딩, 애니메이션 비활성화, 위치 및 딥링크를 전개하는 쉘 스크립트:
 
-테스트 코드가 ADB 에 직접 의존하면 낮은 레이어 테스트가 느려진다.
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-ADB 작업은 기기 준비, 진단, E2E 보조 단계에 한정한다.
+TARGET_PKG="com.example.app"
 
-### 재현 기록
+echo "===[ 1. Reverse Proxy Port Forwarding Setup ]==="
+# 에뮬레이터의 localhost:8080 접속을 개발자 컴퓨터의 8080(MockServer)으로 매핑
+adb reverse tcp:8080 tcp:8080
 
-API level, device model, locale, orientation, build variant 를 기록한다.
+echo "===[ 2. Clear Package State & Install APK ]==="
+adb shell am force-stop "$TARGET_PKG"
+adb shell pm clear "$TARGET_PKG"
 
-실행한 ADB 명령과 앱 로그의 시각을 함께 보존한다.
+echo "===[ 3. Grant Runtime Permissions ]==="
+adb shell pm grant "$TARGET_PKG" android.permission.CAMERA
+adb shell pm grant "$TARGET_PKG" android.permission.ACCESS_FINE_LOCATION
 
-에뮬레이터 snapshot 을 상태 초기화 수단으로 사용하되 테스트 간 공유 상태를 제거한다.
+echo "===[ 4. Trigger DeepLink Activity Launch ]==="
+adb shell am start \
+  -a android.intent.action.VIEW \
+  -d "https://example.com/feed?item_id=99" \
+  "$TARGET_PKG"
+```
 
-공식 참고: [ADB 문서](https://developer.android.com/tools/adb)
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
 
-공식 참고: [Gradle Managed Devices](https://developer.android.com/studio/test/gradle-managed-devices)
+#### ADB 명령 실행 및 포트 반전/패키지 상태 출력
+
+```bash
+adb reverse --list
+adb shell pm list packages -e com.example
+```
+
+```text
+usb:33819022 tcp:8080 tcp:8080
+package:com.example.app
+package:com.example.app.benchmark
+```
+
+#### ADB Intent Launch 실행 응답
+
+```text
+Starting: Intent { act=android.intent.action.VIEW dat=https://example.com/... pkg=com.example.app }
+Status: ok
+Activity: com.example.app/.ui.feed.FeedDetailActivity
+```
+
+### 5. 디바이스 제어 가이던스
+
+- **멀티 디바이스 명시**: 여러 디바이스가 호스트에 연결된 경우 반드시 `adb -s <device_serial>` 옵션을 붙여 잘못된 기기로 조작 명령이 전송되는 사고를 막는다.
+- **Clean State 수집**: 성능/기능 테스트 전 `adb shell pm clear`를 적용하여 SharedPreferences 및 로컬 샌드박스 디렉토리를 완전히 태운 상태에서 시작한다.

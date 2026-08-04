@@ -1,76 +1,57 @@
 ---
 title: keep-rules-are-optimization-boundaries
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:58 +09:00
-date created: 2026-07-31 17:32:53 +09:00
+tags: ["android", "r8", "proguard", "keep-rules"]
+aliases: ["Keep 규칙은 최적화 경계다"]
+date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## R8 keep 규칙은 최적화 경계다
+## Keep 규칙은 최적화 경계다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+### 내부 메커니즘 (Internal Mechanism)
+ProGuard / R8 Keep Rule (`proguard-rules.pro`)은 정적 분석(Static Analysis)을 수행하는 R8 컴파일러 엔진에게 **최적화 금지 경계(Boundary of Non-Optimization)**를 명시하는 룰 선언이다.
+런타임 리플렉션(Reflection), JNI 네이티브 C/C++ 바인딩, GSON/Jackson JSON 데시리얼라이제이션 클래스는 코드상에서 직접적인 호출 참조(Direct Reference Root)가 나타나지 않아 R8의 Tree Shaking에 의해 도륙(삭제/난독화)되기 쉽다.
+Keep Rule은 이러한 대상들을 R8의 최적화 루트(Entry Point Seeds)로 등록하여 클래스/필드 삭제, 인라이닝, 이름 변경을 방지한다.
 
-관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+```mermaid
+flowchart TD
+    Classes["All App Bytecode Classes"] --> TreeShaking["R8 Tree Shaking Engine"]
+    KeepRules["Keep Rules (-keep, -keepclassmembers)"] --> Seeds["Entry Point Root Seeds List (seeds.txt)"]
+    Seeds -->|Protect from Shaking| Protected["Kept Unchanged Classes"]
+    TreeShaking -->|Remove Unreferenced| DeadCode["Removed Classes (usage.txt)"]
+```
 
-관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md), [R8 Full Mode와 Configuration Analyzer는 막힌 최적화를 드러낸다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-full-mode-and-configuration-analyzer-expose-blocked-optimization.md)
-
-### 핵심 주장
-
-keep 규칙은 R8 을 끄는 스위치가 아니라 정적 분석이 알 수 없는 계약을 설명하는 선언이다.
-
-패키지 전체를 보존하면 안전해 보이지만 수축, 최적화, 난독화의 이점을 넓게 잃는다.
-
-규칙은 동적 접근의 실제 단위에 맞춰 클래스, 생성자, 필드, 메서드로 좁혀야 한다.
-
-### 먼저 찾아야 할 경계
-
-- 클래스 이름을 문자열로 읽는 리플렉션
-- JSON/XML 직렬화가 필드 또는 생성자 이름에 의존하는 코드
-- `ServiceLoader` 나 동적 클래스 로딩
-- JNI 에서 이름으로 Java/Kotlin 멤버를 찾는 호출
-- 프레임워크가 애노테이션을 스캔하는 진입점
-- `getIdentifier()` 로 리소스 이름을 조합하는 코드
-
-정적 호출 그래프에 나타나지 않는 경계만 keep 의 후보로 삼는다.
-
-### 규칙을 좁히는 순서
-
-1. 문제가 발생하는 실제 클래스 또는 멤버를 재현한다.
-2. `usage.txt` 에서 제거되었는지 확인한다.
-3. 클래스 전체가 필요한지 멤버만 필요한지 구분한다.
-4. 이름 보존만 필요한지, 구현 보존까지 필요한지 구분한다.
-5. 보정 후 릴리즈 테스트를 다시 실행한다.
-
-예를 들어 직렬화 라이브러리가 생성자만 찾는다면 패키지 전체보다 생성자 규칙이 적합하다.
-
+### 코드 예시 (proguard-rules.pro)
 ```proguard
--keepclassmembers,allowoptimization class com.example.api.User {
-    <fields>;
+# 1. 런타임 리플렉션 및 JSON 모델 클래스 보호 (-keep)
+-keep class com.example.app.data.model.** { *; }
+
+# 2. 특정 어노테이션이 붙은 메서드 보호 (-keepclassmembers)
+-keepclassmembers class * {
+    @com.example.app.annotation.KeepForReflection <fields>;
+    @com.example.app.annotation.KeepForReflection <methods>;
 }
+
+# 3. JNI 네이티브 메서드 이름 난독화 방지
+-keepclasseswithmembernames,includedescriptorclasses class * {
+    native <methods>;
+}
+
+# 4. 서드파티 라이브러리 경고 무시
+-dontwarn okhttp3.**
 ```
 
-난독화된 이름을 외부 계약이 직접 참조하면 이름 보존이 필요하다.
+### 관측 가능 증거 (Observable Evidence)
+R8 최적화 완료 후 생성된 `seeds.txt` 파일을 통해 지정한 Keep Rule에 의해 수축 대상에서 제외되어 보호된 클래스 목록을 관측할 수 있다:
 
-반대로 내부 구현까지 보존하면 최적화 기회를 불필요하게 막을 수 있다.
+```bash
+cat app/build/outputs/mapping/release/seeds.txt | grep "com.example.app.data.model"
 
-### 라이브러리 규칙의 위치
-
-재사용 라이브러리는 소비 앱이 알아야 할 최소 계약을 `consumer-rules.pro` 에 둔다.
-
-앱 모듈의 규칙 파일에 모든 라이브러리 예외를 복사하면 소유권과 변경 이유가 흐려진다.
-
-라이브러리 규칙은 공개 API 가 아니라 런타임 검색 방식에 대한 계약이어야 한다.
-
-### 금지할 패턴
-
-```proguard
--keep class com.example.** { *; }
+# Output Example:
+# com.example.app.data.model.UserDto
+# com.example.app.data.model.UserDto: java.lang.String getName()
 ```
 
-이 규칙은 오류를 숨기는 대신 미사용 코드와 최적화 대상까지 보존한다.
-
-규칙을 추가할 때는 대상, 동적 접근 이유, 제거 시 실패 증상, 검증 테스트를 함께 기록한다.
-
-참고: [Android 앱 최적화 활성화](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization)
-
-참고: [Keep rules and why they matter](https://developer.android.com/topic/performance/app-optimization/keep-rules)
+관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md), [R8 Full Mode와 Configuration Analyzer는 막힌 최적화를 노출한다](r8-full-mode-and-configuration-analyzer-expose-blocked-optimization.md)

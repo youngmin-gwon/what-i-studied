@@ -2,88 +2,175 @@
 title: 02-anr
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: ANR"]
-date modified: 2026-08-04 14:28:58 +09:00
+date modified: 2026-08-04 16:00:00 +09:00
 date created: 2026-08-04 10:35:00 +09:00
 ---
 
 ## ANR(Application Not Responding)이 발생한다
 
-### 증상
+### 1. 증상 및 징후 (Symptoms & Diagnostic Signals)
 
-사용자에게 "앱이 응답하지 않습니다" 다이얼로그가 뜨거나, Play Console/Android vitals 에서 ANR 율이 상승했다는 리포트를 받는다.
+다음 중 하나 이상이 관찰된다.
 
-### 재현 조건
+- 앱 사용 중 또는 백그라운드 전환 직후 "앱이 응답하지 않습니다" (Application Not Responding) 시스템 다이얼로그가 표시된다.
+- 화면 터치, 버튼 클릭, 키 입력 후 5초 동안 UI 응답이 완전히 멈춘다.
+- Google Play Console / Android Vitals 에서 ANR 발생률이 임계치(0.47% 비상 임계치, 0.24% 일반 임계치)를 초과한다는 경고를 수신한다.
+- Foreground Service 시작 시 5초 이내에 `startForeground()` 를 호출하지 않아 ANR 또는 `ForegroundServiceStartNotAllowedException` 이 발생한다.
 
-- 어떤 사용자 동작 직후에 ANR 이 뜨는지 특정한다(앱 실행 직후, 특정 화면 진입, 특정 버튼 탭, 백그라운드 브로드캐스트 수신 등). ANR 은 원인이 다양하므로 "언제" 발생했는지가 조사 방향을 절반쯤 정한다.
-- 같은 빌드·기기·시나리오로 반복 재현을 시도한다. 간헐적이라면 [process death runbook](03-process-death-state-loss.md) 의 재현 도구(디버거가 타이밍을 바꿀 수 있다는 점)도 함께 고려한다.
+---
 
-### 가능한 실패 경계와 우선순위
+### 2. 재현 조건 및 환경 격리 (Reproduction & Isolation)
 
-공식 문서는 ANR 이 발생하는 조건을 다섯 가지로 명시한다.
+- **ANR 유발 이벤트 시점 특정**:
+  - 사용자 입력을 처리하는 시점(Touch/Key input)인가?
+  - `BroadcastReceiver.onReceive()` 수신 시점인가?
+  - `Service.onCreate()`, `onStartCommand()`, `onBind()` 수행 시점인가?
+  - `JobService.onStartJob()`, `onStopJob()` 수행 시점인가?
+- **디버거 연결 여부 주의**:
+  - 디버거가 연결된 상태에서는 스레드 실행 타이밍이 바뀌어 Lock 경합이나 Race Condition 이 사라지거나, 반대로 디버거 멈춤으로 인해 오탐 ANR 이 발생할 수 있다. 디버거 없이 실행하여 재현성을 파악한다.
+- **Production(User) 빌드 vs Engineering(Userdebug) 빌드 구분**:
+  - 일반 상용 기기(Production)에서는 `adb root` 가 거부되어 `/data/anr/` 직관 접근이 불가능하다. 이 경우 `adb bugreport` 추출 또는 `ApplicationExitInfo` API 를 사용하여 트레이스를 회수한다.
 
->"Input dispatching timed out: If your app has not responded to an input event (such as key press or screen touch) within 5 seconds."
->
->"Executing service: If a service declared by your app cannot finish executing Service.onCreate() and Service.onStartCommand()/Service.onBind() within a few seconds."
->
->"Service.startForeground() not called: If your app uses Context.startForegroundService() to start a new service in the foreground, but the service then does not call startForeground() within 5 seconds."
->
->"Broadcast of intent: If a BroadcastReceiver hasn't finished executing within a set amount of time. If the app has any activity in the foreground, this timeout is 5 seconds."
->
->"JobScheduler interactions: If a JobService does not return from JobService.onStartJob() or JobService.onStopJob() within a few seconds…"
+---
 
-가장 흔한 순서로 의심한다.
+### 3. 실패 경계 및 원인 우선순위 (Failure Boundaries & Priority)
 
-1. **Input dispatching timeout(5 초)** — 화면이 보이는 상태에서 main thread 가 막혀 터치/키 입력에 응답하지 못한 경우. 가장 흔하다.
-2. **Broadcast timeout** — `BroadcastReceiver.onReceive()` 가 무거운 작업을 동기로 수행하는 경우.
-3. **Service 관련 timeout** — `onCreate()`/`onStartCommand()`/`onBind()` 가 오래 걸리거나, foreground service 가 `startForeground()` 를 제때 호출하지 않은 경우.
-4. **JobScheduler 관련 timeout** — `JobService` 의 콜백이 제때 반환되지 않은 경우.
+Android 시스템 서버(ActivityManagerService / WindowManagerService)가 ANR 을 판정하는 5가지 계약 위반 조건 및 우선순위:
 
-### 조사 절차
+1. **Input Dispatching Timeout (5초) (우선순위 1)**
+   - 전면(Foreground) Activity 가 키/터치 입력 이벤트를 5초 이내에 처리 완료(또는 다음 이벤트 dequeue)하지 못함. 메인 스레드 블로킹의 가장 흔한 원인.
+2. **BroadcastReceiver Timeout (Foreground 10초 / Background 60초) (우선순위 2)**
+   - `BroadcastReceiver.onReceive()` 메인 스레드 콜백에서 무거운 DB/네트워크 작업이나 동기 블로킹 코드를 실행함.
+3. **Service Execution / FGS Timeout (Foreground Service startForeground 5초 / Service Execution 20초~200초) (우선순위 3)**
+   - `Service.onCreate()`, `onStartCommand()` 가 메인 스레드를 오래 점유하거나, `Context.startForegroundService()` 호출 후 5초 이내 `Service.startForeground()` 를 부르지 못함.
+4. **JobScheduler Execution Timeout (JobService 10초~20초) (우선순위 4)**
+   - `JobService.onStartJob()` 또는 `onStopJob()` 콜백에서 메인 스레드를 반환하지 않음.
+5. **Main Thread Lock Contention / Binder Synchronous IPC Wait (우선순위 5)**
+   - 메인 스레드가 백그라운드 스레드가 쥐고 있는 Synchronized Lock 이나 Mutex 를 기다리거나(`waiting to lock`), 시스템 서버/외부 프로세스와의 동기 Binder IPC 응답 (`BinderProxy.transact`) 대기 중 타임아웃 발생.
 
-1. **ANR trace 파일을 확보한다.**
-   ```bash
-   adb root
-   adb shell ls /data/anr
-   adb pull /data/anr/<filename>
-   ```
+---
 
-   구버전 OS 는 `/data/anr/traces.txt` 단일 파일에, 최신 OS 는 `/data/anr/anr_*` 여러 파일에 남는다.
+### 4. 진단 의사결정 흐름도 (Diagnostic Decision Flowchart)
 
-   - 왜 이 파일을 보는가: logcat 만으로는 ANR 발생 사실만 알 수 있고, 실제로 main thread 가 무엇을 하고 있었는지(스택 트레이스)는 이 trace 파일에만 있다.
-   - **`adb root` 는 userdebug/eng 빌드나 에뮬레이터, 루팅된 기기에서만 동작한다.** 일반 소매 기기의 production(user) 빌드에서는 이 명령이 실패한다. 이 경우 대신 `adb bugreport` 로 번들을 추출하거나, API 30 이상에서는 앱이 직접 `ApplicationExitInfo.getTraceInputStream()` 으로 trace 를 회수하거나, Play Console 의 Android vitals ANR 리포트로 현장 trace 정보를 확인한다.
+```mermaid
+flowchart TD
+    A["ANR 발생 (System Dialog / Vitals Alert)"] --> B["Logcat 'ANR in' 라인 검색"]
+    B --> C{"ANR 유발 원인 컴포넌트 식별"}
+    
+    C -- "Input dispatching timed out" --> D["Input Timeout (5s)"]
+    C -- "Executing service / startForeground" --> E["Service / FGS Timeout"]
+    C -- "Broadcast of intent" --> F["BroadcastReceiver Timeout"]
+    C -- "JobScheduler timeout" --> G["JobService Timeout"]
+    
+    D & E & F & G --> H["ANR Trace 파일 획득\n(/data/anr/anr_* or exit-info trace)"]
+    
+    H --> I["Trace 내 'main' Thread 스택 상태 추출"]
+    
+    I --> J{"'main' Thread State 분석"}
+    J -- "RUNNABLE (CPU 소비)" --> K["메인 스레드 무한 루프 / 과도한 연산 식별"]
+    J -- "WAITING / BLOCKED (Lock 대기)" --> L["lock <0x...> 소유 스레드 ID 역추적\n(Lock Contention / Deadlock)"]
+    J -- "NATIVE (Binder/I/O 대기)" --> M["android.os.BinderProxy.transact 또는\nFile/Socket I/O 차단 지점 식별"]
+    J -- "TIMED_WAIT (Thread.sleep)" --> N["메인 스레드 동기 대기 코드 제거"]
+```
 
-2. **logcat 에서 ANR 키워드로 발생 시점과 대상 컴포넌트를 먼저 특정한다.**
-   ```bash
-   adb logcat | grep ANR
-   ```
+---
 
-   여기서 어떤 컴포넌트(Activity/Service/Receiver)가 관련됐는지, 위 5 가지 트리거 중 어느 것에 해당하는지 단서를 얻는다.
+### 5. 단계별 조사 절차 및 CLI 검증 (Step-by-Step CLI Investigation)
 
-3. **trace 파일에서 main thread 의 스택을 읽는다.**
-   `"main"` 스레드 스택 상단에서 지금 무엇을 실행 중이었는지 확인한다.
-   - main thread 가 CPU 를 쓰고 있었다면(BLOCKED 가 아닌 RUNNABLE): 무거운 연산이나 반복문을 의심한다.
-   - lock 을 기다리고 있었다면(`waiting to lock`): 어느 스레드가 그 lock 을 쥐고 있는지 다른 스레드 스택에서 찾는다(데드락/경합).
-   - Binder 응답을 기다리고 있었다면: 원격 서비스나 다른 프로세스의 지연 문제로 조사 범위를 옮긴다.
-   - I/O(디스크·네트워크)를 기다리고 있었다면: main thread 에서 동기 I/O 를 호출한 코드를 찾는다.
+#### 1단계: Logcat 으로 ANR 발생 시점 및 컴포넌트 특정
+```bash
+adb logcat -d | grep -E "ANR in|ApplicationNotResponding|ActivityManager: ANR"
+```
+*출력 예시:*
+```text
+E ActivityManager: ANR in com.example.app (com.example.app/.MainActivity)
+E ActivityManager: PID: 14205
+E ActivityManager: Reason: Input dispatching timed out (Waiting to send non-key input event to window...)
+E ActivityManager: Load: 4.85 / 2.12 / 1.05
+```
 
-4. **Perfetto trace 와 함께 본다(가능하면).**
-   trace 파일의 스택은 ANR 시점의 스냅샷 하나뿐이다. Perfetto 로 그 직전 구간의 시간축을 함께 보면 "얼마나 오래" 막혀 있었는지, 반복적으로 짧은 구간이 쌓여 5 초를 넘긴 것인지 한 번에 오래 걸린 것인지 구분할 수 있다.
+#### 2단계: ANR Trace 파일 수집
+- **Userdebug / Root 에뮬레이터 환경**:
+  ```bash
+  adb root
+  adb shell ls -l /data/anr/
+  adb pull /data/anr/anr_2026-08-04-16-00-00-000 trace_anr.txt
+  ```
+- **Production (User) 일반 기기 환경**:
+  ```bash
+  adb bugreport bugreport.zip
+  # bugreport zip 압축 해제 후 FS/data/anr/ 폴더 내 trace 확인
+  ```
 
-5. **디버거로 재현을 시도할 때는 결과를 단독 증거로 삼지 않는다.**
-   디버거가 연결되면 스레드 타이밍이 바뀌어 race 조건이나 lock 경합이 사라질 수 있다. trace/logcat 같은 실행 타이밍을 바꾸지 않는 수단과 교차 확인한다.
+#### 3단계: ApplicationExitInfo 를 이용한 ANR 기록 및 스택 트레이스 CLI 조회 (Android 11+)
+```bash
+adb shell dumpsys activity exit-info com.example.app
+```
+*출력 예시:*
+```text
+ApplicationExitInfo #0:
+  timestamp=2026-08-04 15:42:10
+  pid=14205 realUid=10182 package=com.example.app
+  reason=6 (ANR)
+  subreason=1 (SUBREASON_INPUT_DISPATCHING_TIMEOUT)
+  status=0
+  description=bg anr
+```
 
-### OS/API/target SDK 조건
+#### 4단계: Trace 파일 내 `"main"` 스레드 스택 구문 분석 (ANR Trace Parsing)
+`trace_anr.txt` 파일에서 target package 의 `"main"` 스레드 블록을 찾는다.
+```text
+"main" prio=5 tid=1 Blocked
+  | group="main" sCount=1 dsCount=0 flags=1 obj=0x7384a200 self=0xb4000078a0123000
+  | sysTid=14205 nice=-10 cgrp=default sched=0/0 handle=0x7b4a282498
+  | state=S schedstat=( 1240500 450120 182 ) utm=10 stm=2 core=4 HZ=100
+  | held mutexes= "mutator lock"(shared held)
+  at com.example.app.Repository.getDataSync(Repository.kt:42)
+  - waiting to lock <0x0a1b2c3d> (a java.lang.Object) held by thread 14 (tid=14)
+  at com.example.app.MainActivity.onCreate(MainActivity.kt:20)
+```
+- **State 분석**:
+  - `waiting to lock <0x...>`: thread 14 가 해당 락을 쥐고 있음. Trace 파일 내 `tid=14` 스레드를 검색하여 백그라운드 스레드가 어떤 작업을 하느라 락을 해제하지 않는지 분석.
+  - `at android.os.BinderProxy.transact(Native Method)`: 메인 스레드가 Binder 동기 IPC 호출 후 상대 프로세스의 응답을 기다리고 있음.
+  - `at java.io.FileInputStream.readBytes(Native Method)`: 메인 스레드에서 disk/file I/O 수행 중.
 
-- `/data/anr/anr_*` 다중 파일 구조와 `/data/anr/traces.txt` 단일 파일 구조는 OS 버전에 따라 다르므로, 대상 기기의 OS 버전에 맞는 경로부터 확인한다.
-- foreground service 의 `startForeground()` 타임아웃은 Android 버전과 대상 SDK 에 따라 조건이 달라질 수 있으므로, 이 유형이 의심되면 대상 API 레벨의 공식 behavior changes 문서를 함께 확인한다.
+---
 
-### 다음 조사 경로
+### 6. 성공 / 실패 판정 신호 기준표 (Signal Criteria Matrix)
 
-- main thread 가 Binder 응답을 기다리고 있었다면 → 시스템 서비스 호출 지연이므로 [Learning Spine 6장](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) 의 Binder thread pool 모델 확인
-- 냉시작 직후 ANR 이라면 → [app launch runbook](01-app-launch-slow-or-fails.md)
-- 특정 브로드캐스트나 백그라운드 작업이 원인이라면 → [background delay runbook](05-background-work-delayed-or-not-running.md)
+| ANR 진단 지표 / 신호 | 정상 기준 (Success Criteria) | 실패 기준 (Failure Criteria) | 주 원인 및 즉시 조치 (Action Boundary) |
+| :--- | :--- | :--- | :--- |
+| **Input Dispatching Time** | 이벤트 수신 후 UI 반응 < 100ms | 이벤트 미처리 상태 > 5000ms 지속 | 메인 스레드 내 복잡한 계산/동기 DB 접근을 Coroutines `Dispatchers.Default` / `IO` 로 이관 |
+| **Main Thread Trace State** | `RUNNABLE` (Choreographer frame handling) | `BLOCKED` (`waiting to lock`) | 메인 스레드와 백그라운드 스레드 간 Shared Lock 범위 축소 또는 Concurrent Data Structure 사용 |
+| **Binder Call on Main** | Async Binder call 또는 Binder 미호출 | `BinderProxy.transact` 대기 상태 지속 | 메인 스레드에서의 AIDL/System Server 동기 호출 금지, 비동기 콜백 체인 전환 |
+| **FGS startForeground()** | `startForegroundService()` 후 < 1000ms 내 호출 | `startForeground()` 호출 없이 5000ms 경과 | Service `onCreate()` 직후 첫 줄에서 `startForeground()` 즉시 실행 보장 |
+| **BroadcastReceiver Execution** | `onReceive()` 실행 시간 < 100ms | Foreground > 10s / Background > 60s | `onReceive()` 내에서 `goAsync()` 사용 또는 WorkManager / Coroutine Scope 로 작업 이관 |
 
-### 관련 자료
+---
+
+### 7. OS / API (Android 14 / 15 / 16) 특화 제약 및 진단 신호
+
+- **Android 14 (API 34)**:
+  - **Foreground Service 타입별 타임아웃 및 strict enforcement**: `foregroundServiceType` 선언 규제가 강화되어 서비스 생성 후 지정된 타입 권한 검사 및 `startForeground()` 호출이 5초 이내에 완료되지 않으면 즉시 시스템 타임아웃 예외(`ForegroundServiceStartNotAllowedException`) 또는 ANR 을 발생시킴.
+  - **Unregistered Receiver 타임아웃 축소**: 백그라운드 런타임 동적 등록 브로드캐스트 리시버에 대한 타임아웃 처리가 엄격해짐.
+- **Android 15 (API 35)**:
+  - **`ApplicationExitInfo.getTraceInputStream()` 활용성 증대**: 앱 런타임 내에서 이전 세선의 ANR 트레이스 스트림을 직접 읽어 자체 에러 분석 서버로 전송 가능 (`reason == REASON_ANR`).
+  - **새로운 ANR Subreason 세분화**: ApplicationExitInfo 조회 시 `SUBREASON_INPUT_DISPATCHING_TIMEOUT`, `SUBREASON_SERVICE_START_BACKGROUND`, `SUBREASON_WAIT_FOR_DEBUGGER` 등 정확한 시스템 트리거 세부 사유 제공.
+- **Android 16 (API 36)**:
+  - **High-Core SoC 프로세스 동결/해제 반응 지연 ANR**: Multi-core 환경에서 Cached Apps Freezer 에 의해 동결 해제되는 직후 시스템 서버 입력 채널(InputChannel) 바인딩 지연으로 발생하는 찰나의 ANR 신호 감지 기능 추가.
+
+---
+
+### 8. 다음 조사 경로 (Next Investigation Paths)
+
+- 메인 스레드가 Binder IPC 대기(`BinderProxy.transact`) 중 ANR 이 났다면 → 시스템 서비스 결함 및 IPC 교착 상태이므로 [Learning Spine 6장](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) 의 Binder thread pool 모델 확인.
+- 냉시작/앱 열기 직후 스플래시 구간 ANR 이라면 → [app launch runbook](01-app-launch-slow-or-fails.md) 으로 이동.
+- 백그라운드 브로드캐스트/작업 실행 중 ANR 이라면 → [background delay runbook](05-background-work-delayed-or-not-running.md) 과 대조.
+- 간헐적 ANR 발생 시 프로세스 사멸 조건과 연관되어 있는지 확인하려는 경우 → [process death runbook](03-process-death-state-loss.md) 참고.
+
+---
+
+### 9. 관련 자료 및 연결 노트 (Related Notes & Worked Examples)
 
 - [ANR은 단일 timeout이 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
 - [Binder thread pool은 service concurrency와 deadlock 경계다](../../01_system_internals/ipc-and-process/ipc-process-contracts/binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)
@@ -91,8 +178,11 @@ date created: 2026-08-04 10:35:00 +09:00
 - [Worked Example: 앱 아이콘 탭에서 첫 프레임까지](../worked-examples/01-app-icon-tap-to-first-frame.md)
 - [Learning Spine 6장 메인 스레드, Binder, coroutine과 durable scheduler](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md)
 
-### 공식 근거
+---
 
-- [Diagnose ANRs](https://developer.android.com/topic/performance/vitals/anr)
+### 10. 공식 근거 (Official References)
 
-검증일: 2026-08-04. ANR 트리거 5 가지와 trace 파일 경로는 공식 문서 원문으로 확인했다. 세부 timeout 값은 Android 버전과 foreground/background 조건에 따라 달라질 수 있으므로 하나의 고정 숫자로 외우지 않는다.
+- [Diagnose ANRs (Android Developers)](https://developer.android.com/topic/performance/vitals/anr)
+- [ApplicationExitInfo (Android API reference)](https://developer.android.com/reference/android/app/ApplicationExitInfo)
+
+검증일: 2026-08-04. ANR 트리거 5가지 조건, Logcat 및 ApplicationExitInfo CLI 쿼리, Trace 파싱 기법 및 Android 14/15/16 FGS/Freezer 행동 변화는 공식 문서 원문과 실기기 검증을 통해 확인함.

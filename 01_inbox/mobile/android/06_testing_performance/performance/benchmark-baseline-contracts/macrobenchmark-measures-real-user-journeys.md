@@ -1,54 +1,121 @@
 ---
 title: "Macrobenchmark는 실제 사용자 여정을 측정한다"
 tags: ["android", "android/testing-performance"]
+aliases: ["macrobenchmark-measures-real-user-journeys"]
+date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
-# Macrobenchmark는 실제 사용자 여정을 측정한다
+## Macrobenchmark는 실제 사용자 여정을 측정한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/benchmark-baseline-contracts.md)
-관련 노트: [Android 성능은 측정 후 최적화한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/measure-before-optimizing-android-performance.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-quality-and-build-optimization.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline-contracts.md)
+관련 노트: [Android 성능은 측정 후 최적화한다](../performance-contracts/measure-before-optimizing-android-performance.md)
 
-## 핵심 주장
+Macrobenchmark는 앱 프로세스 외부(Out-of-process)에서 UI Automator를 조작하여 앱 시작, 화면 전환, 피드 스크롤과 같은 사용자 체감 전과정을 실제 컴파일 상태(AOT/JIT)에서 반복 측정한다.
 
-- Macrobenchmark는 앱 프로세스 안의 작은 함수가 아니라 앱 전체의 큰 동작을 측정한다.
-- 측정 단위는 시작, 화면 전환, 목록 스크롤처럼 사용자가 체감하는 여정이다.
-- 테스트 코드는 별도 테스트 모듈에서 대상 앱을 외부에서 실행하고 조작한다.
-- 따라서 단위 테스트보다 실제 배포 앱에 가까운 성능 신호를 얻을 수 있다.
+### 1. 외부 프로세스 측정 메커니즘
 
-## 측정 흐름
+- **Out-of-Process Execution**: 테스트 러너가 별도 테스트 모듈 패키지(`com.example.app.benchmark`)에서 실행되며 `adb shell am force-stop`으로 대상 패키지(`com.example.app`)를 완전히 격리 조작한다.
+- **Metric 수집기**:
+  - `StartupTimingMetric`: `timeToInitialDisplayMs` (TTID) 및 `timeToFullDisplayMs` (TTFD) 캡처.
+  - `FrameTimingMetric`: UI 스레드 및 RenderThread 프레임 지속 시간(`frameDurationCpuMs`), Jank 비율 및 꼬리 지표(P50, P90, P95, P99) 계산.
+  - `TraceSectionMetric`: `Trace.beginSection` 커스텀 태그 실행 시간 별도 집계.
 
-1. 테스트가 대상 패키지를 지정한다.
-2. `setupBlock`에서 매 반복의 초기 상태를 준비한다.
-3. 측정 블록 안에서 사용자 행동을 재현한다.
-4. 지정한 metric이 시간, 프레임, 트레이스 등의 결과를 수집한다.
-5. 여러 반복의 분포를 보고 최적화 전후를 비교한다.
+### 2. Macrobenchmark 외부 제어 시퀀스 흐름
 
-## 여정 설계
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Runner as Benchmark Runner Process
+    participant ADB as Shell / Android OS
+    participant Target as Target App Process
+    participant Trace as ATrace / Perfetto
 
-- 앱 시작만 측정하면 시작 단계의 초기화 비용을 본다.
-- 로그인 후 첫 화면 진입은 인증과 데이터 로딩 경로를 포함한다.
-- 목록 스크롤은 프레임 렌더링과 UI 바인딩 경로를 포함한다.
-- 검색, 상세 진입, 결제처럼 사업적으로 중요한 흐름도 후보가 된다.
-- 각 여정은 시작 조건과 종료 조건을 문장으로 먼저 정의한다.
+    Runner->>ADB: force-stop target app & reset compilation
+    Runner->>Trace: Start ATrace Session
+    Runner->>Target: Launch Target Activity (startActivityAndWait)
+    Target->>Target: Application.onCreate() -> Activity Draw
+    Runner->>Target: UI Automator Gestures (Scroll / Click)
+    Target-->>Runner: UI Semantics & Frame Render
+    Runner->>Trace: Stop ATrace Session & Parse Logcat
+    Runner->>Runner: Compute StartupTiming & FrameTiming Metrics
+```
 
-## 구현 시 주의점
+### 3. Macrobenchmark 스크롤 측정 Kotlin 코드 구체 예시
 
-- 앱 내부의 테스트 전용 우회 경로를 호출하면 실제 사용자 여정이 아니다.
-- UI Automator가 찾을 수 있도록 안정적인 리소스 ID나 접근성 정보를 제공한다.
-- 네트워크 응답이나 서버 상태가 매번 달라지면 결과 변동이 커진다.
-- 필요한 경우 고정된 테스트 계정과 결정적인 테스트 데이터를 사용한다.
-- 불필요한 대기 시간을 측정 블록에 넣지 않도록 준비와 측정을 분리한다.
+```kotlin
+import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.FrameTimingMetric
+import androidx.benchmark.macro.StartupMode
+import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.Until
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
-## 결과 해석
+@RunWith(AndroidJUnit4::class)
+class FeedScrollBenchmark {
 
-- 한 번의 최솟값보다 반복 결과의 중앙값과 꼬리 분포를 함께 본다.
-- 최적화 전후에는 같은 기기, 같은 빌드 변형, 같은 여정을 유지한다.
-- 성능 회귀는 코드 변경과 측정 환경 변경을 구분해 확인한다.
-- Macrobenchmark는 원인을 자동으로 고치는 도구가 아니라 재현 가능한 측정 경계다.
+    @get:Rule
+    val benchmarkRule = MacrobenchmarkRule()
 
-## 공식 참고
+    @Test
+    fun scrollFeedCompilationPartial() = benchmarkRule.measureRepeated(
+        packageName = "com.example.app",
+        metrics = listOf(FrameTimingMetric()),
+        compilationMode = CompilationMode.Partial(),
+        startupMode = StartupMode.WARM,
+        iterations = 10,
+        setupBlock = {
+            pressHome()
+            startActivityAndWait()
+        }
+    ) {
+        // UI가 준비될 때까지 리소스 ID 대기
+        device.wait(Until.hasObject(By.res("feed_list")), 5_000)
+        val feedList = device.findObject(By.res("feed_list"))
+        
+        // 반복적 다운 스크롤 조작
+        feedList.setGestureMargin(device.displayWidth / 5)
+        feedList.fling(Direction.DOWN)
+        device.waitForIdle()
+    }
+}
+```
 
-- [Macrobenchmark 개요](https://developer.android.com/topic/performance/benchmarking/macrobenchmark-overview)
-- [Baseline Profile 생성](https://developer.android.com/topic/performance/baselineprofiles/create-baselineprofile)
-- [Baseline Profile 측정](https://developer.android.com/topic/performance/baselineprofiles/measure-baselineprofile)
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
+
+#### Benchmark JSON 측정 결과 출력
+
+```json
+{
+  "benchmark": "scrollFeedCompilationPartial",
+  "iterations": 10,
+  "metrics": {
+    "frameDurationCpuMs": {
+      "P50": 8.4,
+      "P90": 14.2,
+      "P95": 16.9,
+      "P99": 24.1
+    },
+    "frameOverrunMs": {
+      "P50": -4.2,
+      "P90": 1.1,
+      "P95": 4.8
+    }
+  },
+  "sampledMetrics": {},
+  "traces": [
+    "/sdcard/Android/media/com.example.app.benchmark/FeedScrollBenchmark_scrollFeed_iter001.perfetto-trace"
+  ]
+}
+```
+
+### 5. 측정 계약 및 원칙
+
+- **네트워크 고정**: 외부 API 응답 변동성을 배제하기 위해 MockWebServer 또는 고정 로컬 시드 데이터를 채택한다.
+- **반복 횟수 통제**: 최소 10회 이상의 `iterations`를 지정하여 이상치(Outlier) 수치를 평탄화한다.

@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Snackbar 와 Navigation 처럼 소비 시점이 중요한 신호만 이벤트 스트림으로 분리한다
 
-상위 문서: [Android UI State](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/ui-state.md)
+상위 문서: [Android UI State](./ui-state.md)
 
 ### 핵심 주장
 

@@ -2,13 +2,41 @@
 title: android-platforms-and-form-factors
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:59 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-08-03 17:31:28 +09:00
 ---
 
 ## Android 폼 팩터와 플랫폼 확장 지도
 
 Android 앱은 더 이상 단일 휴대폰 화면만 대상으로 하지 않는다. 이 지도는 큰 화면, 폴더블, 데스크톱 윈도잉, XR, TV, Wear OS, Auto/Automotive, ChromeOS 처럼 앱 창과 입력 환경이 바뀌는 플랫폼 표면을 나눈다.
+
+### 플랫폼별 런타임 특성 매트릭스
+
+| Platform / Form Factor | Windowing Model | Primary Input | Core Framework / Library | Diagnostic Dump Signal |
+| :--- | :--- | :--- | :--- | :--- |
+| **Large Screens & Foldables** | Multi-Window / Freeform / Posture | Touch, Stylus, Mouse, Keyboard | Jetpack WindowManager, Compose Material3 Adaptive | `adb shell dumpsys window displays` |
+| **Desktop Windowing** | Freeform Resizable + Caption Bar | Mouse, Trackpad, Keyboard | WindowInsets (`captionBar`), Task Launch Flags | `adb shell dumpsys activity containers` |
+| **Android XR** | Spatial Panels + 3D Space (Subspace) | Gaze + Pinch, Controllers, Hands | Jetpack XR SDK, SceneCore, Compose for XR | `adb shell dumpsys window windows` (Spatial) |
+| **Android TV** | Fullscreen 10-foot UI | D-Pad Remote, Voice | Compose for TV, Leanback | `adb shell dumpsys input` |
+| **Wear OS** | Circular/Square Compact + Ambient | Touch, Rotary (RSB), Voice | Wear Compose, Horologist, ProtoLayout | `adb shell dumpsys wear` |
+| **Android Auto** | Projection Template UI | Touch, Rotary, Steering Controls | Android Auto App Library (`CarAppService`) | `adb shell dumpsys activity service` |
+| **Android Automotive OS** | Embedded Vehicle Systems | Touch, Rotary, VHAL Signals | CarPropertyManager, Car API | `adb shell dumpsys car_service` |
+| **ChromeOS** | ARC++ / ARCVM Container Windowing | Mouse, Keyboard, Touch | Android Framework / ChromeOS Extensions | `adb shell getprop ro.sys.muted` / `dumpsys window` |
+
+### 폼 팩터 판단 및 런타임 수신 흐름
+
+```mermaid
+graph TD
+    A["App Process Launch"] --> B{"Check System Features & Hardware"}
+    B -- "PackageManager.HAS_FEATURE_AUTOMOTIVE" --> C["Automotive Native Route (CarPropertyManager)"]
+    B -- "PackageManager.HAS_FEATURE_LEANBACK" --> D["TV Focus/D-Pad Route (Compose for TV)"]
+    B -- "PackageManager.HAS_FEATURE_WATCH" --> E["Wear OS Route (Ambient / Tile / Complication)"]
+    B -- "XR Session Available" --> F["Spatial XR Route (SceneCore / Subspace)"]
+    B -- "Standard Display" --> G{"Window Metrics & Bounds Check"}
+    G -- "Freeform / Desktop Mode" --> H["Desktop Windowing (CaptionBar / Insets / Multi-Instance)"]
+    G -- "FoldingFeature Present" --> I["Foldable Posture Route (Book / Tabletop State)"]
+    G -- "Window Size Class Width" --> J["Adaptive Layout (Compact / Medium / Expanded / Large / Extra-Large)"]
+```
 
 ### 문제 분류
 
@@ -23,13 +51,32 @@ Android 앱은 더 이상 단일 휴대폰 화면만 대상으로 하지 않는�
 
 ### 정본 노트
 
-- [큰 화면 적응 계약](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)
-- [데스크톱 윈도잉과 멀티태스킹 계약](01_inbox/mobile/android/07_platforms/large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)
-- [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)
-- [Android TV 계약](01_inbox/mobile/android/07_platforms/tv/tv-contracts/tv-contracts.md)
-- [Wear OS 계약](01_inbox/mobile/android/07_platforms/wear/wear-contracts/wear-contracts.md)
-- [Android Auto/Automotive 계약](01_inbox/mobile/android/07_platforms/auto/auto-contracts/auto-contracts.md)
-- [ChromeOS 고유 계약](01_inbox/mobile/android/07_platforms/chromeos/chromeos-contracts/chromeos-contracts.md)
+- [큰 화면 적응 계약](./large-screens/large-screen-contracts/large-screen-contracts.md)
+- [데스크톱 윈도잉과 멀티태스킹 계약](./large-screens/windowing-multitasking-contracts/windowing-multitasking-contracts.md)
+- [Android XR 계약](./xr/xr-contracts/xr-contracts.md)
+- [Android TV 계약](./tv/tv-contracts/tv-contracts.md)
+- [Wear OS 계약](./wear/wear-contracts/wear-contracts.md)
+- [Android Auto/Automotive 계약](./auto/auto-contracts/auto-contracts.md)
+- [ChromeOS 고유 계약](./chromeos/chromeos-contracts/chromeos-contracts.md)
+
+### 관측 가능한 증거 (Observable Evidence)
+
+```bash
+# 1. 디스플레이 및 윈도우 메트릭스 모니터링
+adb shell dumpsys window displays
+
+# 2. 현재 실행 중인 폼 팩터 태스크 및 컨테이너 상태 확인
+adb shell dumpsys activity containers
+
+# 3. 차량 서비스 상태 확인 (Android Automotive OS)
+adb shell dumpsys car_service
+
+# 4. Wear OS 센서 및 Ambient Mode 상태 진단
+adb shell dumpsys wear
+
+# 5. 시스템 기능 서명 확인
+adb shell pm list features | grep -E "automotive|leanback|watch|hardware.type"
+```
 
 ### 판단 순서
 

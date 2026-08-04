@@ -16,6 +16,6 @@ Jetpack 은 라이브러리 묶음이고 architecture 는 그 라이브러리를
 
 "ViewModel, Room, WorkManager 를 썼는데도 구조가 좋아지지 않았다"는 관찰 가능한 실패 패턴이 있다. 예를 들어 ViewModel 에 네트워크 호출과 SQL 쿼리가 직접 들어 있으면 클래스 이름은 Jetpack 이지만 책임 분리는 이뤄지지 않은 것이다 — 이 경우 ViewModel 단위 테스트가 repository/DB mocking 없이는 불가능해진다는 것이 그 증거다.
 
-관련 노트: [UI/domain/data layer 경계](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/architecture-contracts/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md), [state-management 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md), [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md).
+관련 노트: [UI/domain/data layer 경계](./ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md), [state-management 정본](../../state-management/android-state-management.md), [persistence 정본](../../../data/storage/persistence-contracts/persistence-contracts.md).
 
 공식 문서: [Guide to app architecture](https://developer.android.com/topic/architecture)

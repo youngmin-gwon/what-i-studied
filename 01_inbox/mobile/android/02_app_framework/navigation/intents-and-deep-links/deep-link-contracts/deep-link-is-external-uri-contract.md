@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Android 딥 링크는 외부 URI 계약이다
 
-상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
+상위 문서: [Deep Link 계약](./deep-link-contracts.md)
 
-관련 노트: [Intent는 컴포넌트 실행을 설명하는 메시지다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-describes-component-action-request.md)
+관련 노트: [Intent는 컴포넌트 실행을 설명하는 메시지다](../intent-manifest-contracts/intent-describes-component-action-request.md)
 
 ### 핵심
 
@@ -70,9 +70,9 @@ URI 는 안정적인 공개 계약이므로 내부 클래스명이나 화면 구
 
 ### 관련 주제
 
-검증된 HTTPS 계약은 [Android App Link는 검증된 HTTPS 딥 링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md) 에서 다룬다.
+검증된 HTTPS 계약은 [Android App Link는 검증된 HTTPS 딥 링크다](./app-link-is-verified-https-deep-link.md) 에서 다룬다.
 
-외부 URI 선언과 서버 검증 파일의 경계는 [매니페스트 선언과 assetlinks.json의 역할](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/manifest-and-assetlinks-have-distinct-roles.md) 에 정리한다.
+외부 URI 선언과 서버 검증 파일의 경계는 [매니페스트 선언과 assetlinks.json의 역할](./manifest-and-assetlinks-have-distinct-roles.md) 에 정리한다.
 
 공식 개요는 [Android App Links 개요](https://developer.android.com/training/app-links/about) 를 참고한다.
 

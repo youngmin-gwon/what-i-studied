@@ -27,6 +27,6 @@ fun ScrollAnalytics(listState: LazyListState) {
 
 `listState.firstVisibleItemIndex` 는 스크롤할 때마다 계속 바뀌지만, `distinctUntilChanged` 를 붙이면 값이 실제로 달라졌을 때만 `logScrollPosition` 이 호출된다. Compose state 를 직접 관찰 API 로 감시하는 대신 익숙한 Flow operator 체인으로 다룰 수 있다는 것이 이 예시의 핵심이다.
 
-관련 노트: [produceState는 외부 상태를 Compose State로 바꾼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/produce-state-converts-external-state-to-compose-state.md), [derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/derivedstateof-is-for-high-frequency-derived-values.md)
+관련 노트: [produceState는 외부 상태를 Compose State로 바꾼다](./produce-state-converts-external-state-to-compose-state.md), [derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다](../../performance/compose-performance-contracts/derivedstateof-is-for-high-frequency-derived-values.md)
 
 출처: [Side-effects in Compose - snapshotFlow](https://developer.android.com/develop/ui/compose/side-effects#snapshotflow)

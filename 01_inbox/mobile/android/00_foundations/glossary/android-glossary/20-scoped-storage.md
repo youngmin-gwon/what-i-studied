@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [Scoped storage contract](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/scoped-storage-limits-direct-shared-storage-access.md)
-- [File storage selection](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-storage-is-selected-by-owner-and-public-purpose.md)
+- [Scoped storage contract](../../../02_app_framework/data/storage/file-access-contracts/scoped-storage-limits-direct-shared-storage-access.md)
+- [File storage selection](../../../02_app_framework/data/storage/file-access-contracts/file-storage-is-selected-by-owner-and-public-purpose.md)

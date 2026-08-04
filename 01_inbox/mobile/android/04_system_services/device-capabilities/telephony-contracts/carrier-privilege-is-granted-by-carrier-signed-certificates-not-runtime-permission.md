@@ -1,15 +1,15 @@
 ---
 title: carrier-privilege-is-granted-by-carrier-signed-certificates-not-runtime-permission
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [텔레포니 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/telephony-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [텔레포니 접근 계약](./telephony-contracts.md)
 
 ### 핵심 정의
 
@@ -27,7 +27,7 @@ SIM 카드는 `ARA-M`/`ARF` 규격에 따라 신뢰할 특정 서명 인증서 �
 
 ### 경계
 
-- 이 노트는 carrier privilege라는 신뢰 경로 자체를 다룬다. 일반 permission 기반 telephony 조회는 [TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/telephonymanager-permissions-split-into-phone-state-and-phone-numbers.md)가 다룬다.
+- 이 노트는 carrier privilege라는 신뢰 경로 자체를 다룬다. 일반 permission 기반 telephony 조회는 [TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다](./telephonymanager-permissions-split-into-phone-state-and-phone-numbers.md)가 다룬다.
 - 앱 서명 자체의 키 관리, 서명 체계는 `03_packaging_deployment`가 다룬다.
 
 ### 관찰 가능한 신호

@@ -31,6 +31,6 @@ val posture = info.windowPosture
 
 같은 device model 이어도 split-screen 이나 창 크기 조절로 `sizeClass` 가 compact 에서 medium/expanded 로 바뀌는지 Android Studio resizable emulator 나 실기기 멀티 윈도우로 확인한다.
 
-관련 노트: [Large screen contracts](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md), [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/pane-layout-preserves-selection-and-back-policy.md)
+관련 노트: [Large screen contracts](../../../../07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md), [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](./pane-layout-preserves-selection-and-back-policy.md)
 
 공식 문서: [Get started with adaptive apps](https://developer.android.com/develop/adaptive-apps/guides/get-started-with-adaptive-apps), [Adaptive do's and don'ts](https://developer.android.com/develop/adaptive-apps/guides/adaptive-dos-and-donts)

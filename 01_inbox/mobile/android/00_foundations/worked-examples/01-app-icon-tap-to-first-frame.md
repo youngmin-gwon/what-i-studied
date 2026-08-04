@@ -1,88 +1,216 @@
 ---
 title: 01-app-icon-tap-to-first-frame
 tags: ["android", "android/foundations", "worked-example"]
-aliases: ["App icon tap to first frame"]
-date modified: 2026-08-04 10:28:58 +09:00
+aliases: ["App icon tap to first frame", "앱 아이콘 탭에서 첫 프레임까지"]
+date modified: 2026-08-04 16:00:00 +09:00
 date created: 2026-08-04 02:10:00 +09:00
 ---
 
-## 앱 아이콘 탭에서 첫 프레임까지
+## 앱 아이콘 탭에서 첫 프레임까지 (Cold Start to First Frame)
 
-이 예시는 Learning Spine 3·4·5·6·7·11 장을 하나의 요청으로 잇는다. 컴포넌트 registry 와 identity(3·4 장), 프로세스 상태 확인과 Zygote(4 장), Activity lifecycle 과 main thread(5·6 장), 입력에서 프레임까지의 렌더링 경로(7 장), 그리고 이 전체 구간을 관찰하는 방법(11 장)을 하나의 서사로 연결한다.
+이 예시는 Learning Spine 3·4·5·6·7·11 장을 하나의 통합 실행 요청으로 연결한다. 매니페스트 컴포넌트 registry 와 identity(3·4 장), system_server 의 프로세스 상태 확인과 Zygote fork(4 장), Activity lifecycle 과 main thread 로퍼(5·6 장), UI 입력에서 SurfaceFlinger 합성까지의 렌더링 경로(7 장), 그리고 이 전체 구간을 심층 진단하는 관찰 방법(11 장)을 엔드투엔드 서사로 구성한다.
+
+---
 
 ### 시작 상태
 
-기기는 켜져 있고, 이 앱은 설치돼 있지만 지금은 실행 중이지 않다. 최근에 이 앱을 연 적이 없어 프로세스가 없거나, 시스템이 메모리 확보를 위해 이미 회수했다(냉시작). 공식 문서는 냉시작을 이렇게 정의한다.
+기기는 작동 중이며 앱 패키지는 설치되어 있으나 프로세스는 메모리에 존재하지 않는다(냉시작, Cold Start). 최근에 연 적이 없거나 OS 가 메모리 회수(Low Memory Killer, LMK)를 위해 프로세스를 강제 종료한 상태다.
 
->"A cold start refers to an app's starting from scratch. This means that until this start, the system's process creates the app's process."
+> **공식 문서 정의 (Cold Start)**:
+> *"A cold start refers to an app's starting from scratch. This means that until this start, the system's process creates the app's process."*
+
+---
 
 ### 입력
 
-사용자가 홈 화면(런처)에서 이 앱의 아이콘을 탭한다.
+사용자가 런처(홈 화면)에서 앱 아이콘을 탭한다.
 
-### 단계별 흐름
+---
 
-1. **요청**: 런처는 이 아이콘이 어떤 컴포넌트로 이어지는지 이미 알고 있다. 설치 시 PackageManager 가 매니페스트의 `<intent-filter>`(`action=MAIN`, `category=LAUNCHER`)를 컴포넌트 registry 에 등록해뒀고, 런처는 이 registry 를 조회해 아이콘 - 컴포넌트 매핑을 만들었기 때문이다. 탭은 이 특정 컴포넌트를 향한 사실상 명시적인 실행 요청으로 시스템에 전달된다.
-2. **Identity**: 시스템이 실행할 코드는 이 패키지의 서명·숫자 appId·UID 로 식별된 실행 단위다. 이 identity 는 3 장에서 다룬 설치 시점의 검증·등록 결과다.
-3. **프로세스 상태 확인**: system_server 의 ActivityManagerService(AMS)는 이 UID 의 프로세스가 이미 살아 있는지 확인한다. 냉시작이므로 없다. AMS 는 Zygote socket 에 fork 를 요청하고, Zygote 는 새 프로세스의 UID/GID, 프로세스 이름 같은 specialization 을 마친다.
-4. **프로세스 attach**: specialization 이 끝난 프로세스는 `ActivityThread.main()` 경로로 framework 에 attach 한다. 이 시점부터 `Application.onCreate()` 가 실행된다. DI 그래프 생성, 로깅 초기화, 원격 설정 로드, SDK 초기화가 이 구간을 늘릴 수 있는 대표적인 지점이다.
-5. **컴포넌트 생성과 lifecycle**: 대상 Activity 인스턴스가 이 프로세스 안에서 생성되고 `onCreate → onStart → onResume` 콜백이 main thread 에서 순서대로 실행된다. main thread 는 이 프로세스의 유일한 이벤트 큐이므로, 이 콜백들이 오래 걸리면 이후 모든 이벤트(입력, 그리기)가 함께 지연된다.
-6. **Window 연결**: Activity 의 `ViewRootImpl` 이 WindowManagerService 에 윈도우 정보를 알리고, View 또는 Compose 트리가 이 윈도우 크기에 맞춰 measure/layout 을 수행한다.
-7. **첫 프레임 합성**: 그려진 내용은 RenderThread 를 거쳐 Surface 버퍼로 제출되고, SurfaceFlinger 가 이를 다른 레이어와 합성해 화면에 표시한다.
+### 다층 계층별 실행 흐름 (Multi-Layer Narrative)
 
-### 성공 결과
+```
+[UI Layer] Touch Event (InputDispatcher) -> Launcher Component Match
+       │
+       ▼
+[System Server / IPC Layer] Launcher calls ATMS via Binder IPC -> PMS Manifest Check
+       │                      -> AMS checks process state (Cold Start)
+       │                      -> AMS requests Zygote via Socket (/dev/socket/zygote)
+       ▼
+[Kernel / Hardware Layer] Zygote fork() Syscall -> Copy-On-Write Page Mapping
+       │                    -> Android 15/16 16KB Page Alignment & mmap Verification
+       │                    -> Specialization (UID/GID, Cgroups, SELinux Context)
+       ▼
+[App Framework Layer] ActivityThread.main() -> Looper.prepareMainLooper()
+       │                -> Application.onCreate() -> SplashScreen API Initialization
+       │                -> Activity.onCreate() -> onStart() -> onResume()
+       │                -> ViewRootImpl.setView() -> Choreographer#doFrame
+       ▼
+[Display / Graphics Hardware] RenderThread -> EGL/Vulkan Surface Swap
+                         -> SurfaceFlinger Composition -> Display Controller (HWC)
+```
 
-사용자는 화면에 첫 프레임을 본다. 이 시점이 TTID(Time To Initial Display)다. 그러나 화면에 실제로 의미 있는 콘텐츠(예: 목록 데이터)가 채워지는 시점(TTFD, Time To Full Display)은 이보다 늦을 수 있다. 공식 문서는 이 차이를 이렇게 설명한다.
+1. **UI / 입력 레이어**:
+   - 사용자의 손가락 탭은 터치 스크린 하드웨어 인터럽트를 발생시키고, Kernel 의 Touch Driver 를 거쳐 system_server 의 `InputDispatcher` 로 전달된다.
+   - 런처 앱은 입력 이벤트를 처리하여 매니페스트 `<intent-filter>`(`action=MAIN`, `category=LAUNCHER`)를 매핑한 컴포넌트(`ComponentName`)로 `startActivity()` Intent 를 생성한다.
 
->"Although the system can determine TTID when the host window renders its initial frame, it can't automatically determine TTFD. Because apps often load their primary content asynchronously, the system doesn't know when the app is actually fully usable to the user."
+2. **System Server 및 IPC 레이어**:
+   - 런처는 Binder IPC 라인을 통해 `ActivityTaskManagerService`(ATMS)에 Activity 시작 요청을 보낸다.
+   - `PackageManagerService`(PMS)는 앱의 identity(UID, 패키지 서명, 설치 상태)를 검증하고 해당 컴포넌트가 존재하며 실행 가능한지 확인한다.
+   - `ActivityManagerService`(AMS)는 해당 UID 의 프로세스가 생존해 있는지 `ProcessRecord` 수신함에서 검색한다. 냉시작 상태이므로 프로세스가 존재하지 않는다.
+   - AMS 는 Zygote Socket(`dev/socket/zygote`)에 연결하여 프로세스 생성을 요청한다.
 
-그래서 TTFD 는 시스템이 자동으로 감지하지 못하며, 앱이 직접 신호를 보내야 한다.
+3. **Kernel 및 커스텀 런타임 레이어**:
+   - Zygote 는 `fork()` 시스템 콜을 호출하여 사전 로딩된 ART VM 과 공통 자바 클래스/리소스 매핑을 가진 프로세스를 복제한다(Copy-On-Write 메모리 최적화).
+   - 생성된 자식 프로세스는 요청된 UID/GID, Cgroup 감금, SELinux 보안 컨텍스트로 specialization 을 거친다.
+   - **Android 15/16 16KB 메모리 페이지 정렬**: Android 15 부터 도입된 16KB 페이지 사이즈 기기에서는 native 라이브러리(`.so`)의 ELF 헤더 및 메모리 매핑이 16KB 경계로 정렬되어 있어야 런타임 `mmap` 이 성공하며, 비정렬 시 즉시 프로세스 크래시가 발생한다.
 
->"To find TTFD, signal the fully drawn state by calling the reportFullyDrawn method of the ComponentActivity…. The TTFD is the time elapsed from when the system receives the app launch intent to when reportFullyDrawn is called."
+4. **App Framework 레이어**:
+   - Specialization 이 완료되면 프로세스는 `ActivityThread.main()`으로 진입한다.
+   - Main Looper 가 준비되고, `ActivityThread.attach()`를 통해 system_server 로 Binder 연결(`IApplicationThread`)을 다시 형성한다.
+   - system_server 가 Bind 된 앱으로 `bindApplication()`을 호출하면 `Application.onCreate()`가 실행된다 (DI, 원격 설정, SDK 초기화 구간).
+   - 대상 Activity 인스턴스가 인스턴스화되고 `onCreate() -> onStart() -> onResume()` 콜백 순서로 Main Thread 에서 실행된다.
+   - Activity 의 `Window`에 `ViewRootImpl`이 바인딩되고 View/Compose 트리가 `measure -> layout -> draw` 단계를 거친다.
 
-### 관찰 가능한 신호
+5. **Graphics & Display Hardware 레이어**:
+   - UI 드로잉 명령은 RenderThread 로 전달되어 Skia/HWUI 렌더러를 거쳐 EGL/Vulkan Command Buffer 로 변환된다.
+   - `GraphicBuffer`가 `BufferQueue`를 통해 `SurfaceFlinger` 서비스로 전달되고, `SurfaceFlinger`는 Hardware Composer(HWC)를 이용해 샌드위치 합성 후 디스플레이 패널에 첫 프레임(First Frame)을 출력한다.
 
-- `adb shell am start -W` 의 출력은 `Starting: Intent`, `Activity`, `TotalTime`, `WaitTime`, `Complete` 를 보여주며 시작 요청부터 첫 프레임까지의 시간을 담는다.
-- 앱이 `reportFullyDrawn()` 을 호출하는 시점이 TTFD 를 시스템에 알린다. 이 호출이 없으면 TTFD 는 측정되지 않는다.
-- Perfetto trace 에서 `ActivityThread.main` → `Application.onCreate` → `Activity.onCreate` → `Choreographer#doFrame` 까지의 구간을 같은 시간축에서 볼 수 있다.
-- Macrobenchmark 의 `StartupTimingMetric` 으로 냉시작을 반복 측정해 회귀를 판정할 수 있다.
+---
 
-### 실패 분기: 냉시작 중 ANR 로 첫 프레임 자체가 나타나지 않는다
+### Android 14 / 15 / 16 platform specific behaviors
 
-`Application.onCreate()` 나 첫 Activity 의 `onCreate()` 에서 동기 네트워크 호출이나 큰 디스크 I/O 를 수행하면, 이 프로세스의 유일한 이벤트 큐인 main thread 가 막힌다. 사용자는 첫 프레임조차 보지 못하고 입력 디스패치 타임아웃을 넘겨 ANR 다이얼로그를 만난다.
+1. **Android 15 / 16 16KB Page Size Support**:
+   - Android 15 이상에서 작동하는 16KB 페이지 사이즈 커널 환경에서는 JNI `.so` 파일들이 16KB 경계로 정렬되어 빌드되어야 한다. align 처리되지 않은 고유 컴파일 코드가 수신되면 프로세스가 Zygote fork 직후 `mmap` 실패로 `SIGSEGV` 크래시를 일으켜 앱 아이콘 탭 직후 튕기게 된다.
 
-조사 순서는 ANR trace 에서 main thread 가 무엇을 하고 있었는지 먼저 보는 것이다. CPU 를 계속 쓰고 있었는지(무거운 초기화 연산), 아니면 lock, 디스크, 네트워크 응답을 기다리며 멈춰 있었는지에 따라 원인과 처방이 다르다. 이 진단 순서 자체는 "느린 코드 한 줄"보다 "main thread 가 그 순간 무엇을 기다리게 됐는가"를 먼저 묻는 방법론이다.
+2. **Core Splash Screen API (Android 12+ / 14 / 15 / 16)**:
+   - Android 12 이상부터는 OS 차원의 SplashScreen 이 필수 적용된다. entry Activity 의 `super.onCreate()` 호출 전에 `installSplashScreen()`을 실행해야 하며, 테마가 `Theme.SplashScreen`을 올바르게 상속받지 않으면 창 진입 시 깜빡임이나 테마 불일치 크래시가 발생한다.
 
-### 코드 예시
+3. **Baseline Profiles & ART Cloud Compilation**:
+   - Android 14+ 에서는 앱 시작 시 호출되는 주요 경로(`Application.onCreate`, `Activity.onCreate`, Compose 초기 렌더링 경로)를 Baseline Profile 로 묶어 AOT(Ahead-Of-Time) 사전 컴파일함으로써 냉시작 시간을 최대 30~40% 단축한다.
+
+---
+
+### 성공 경로 vs 실패 분기 비교
+
+| 항목 | 성공 경로 (Success Path) | 실패 분기 (Failure Branch 1: Main Thread ANR) | 실패 분기 (Failure Branch 2: 16KB Unaligned Crash) |
+| :--- | :--- | :--- | :--- |
+| **진행 현상** | 탭 후 윈도우 스플래시가 뜨고 빠르게 첫 프레임(TTID) 및 데이터(TTFD) 표시 | 탭 후 스플래시 화면에서 멈추며 5초 뒤 "앱이 응답하지 않음" ANR 팝업 출현 | 탭 직후 스플래시도 띄우지 못하고 즉시 강제 종료 (App Crash) |
+| **원인 메커니즘** | Non-blocking 비동기 초기화 및 메인 스레드 유휴 상태 유지 | `Application.onCreate()` 나 Activity 콜백에서 동기 DB/네트워크 I/O 수행으로 Main Looper 차단 | Android 15 16KB 커널 환경에서 NDK native `.so` 의 16KB alignment 결여로 `mmap` 실패 |
+| **관측 가능 신호** | `logcat: ActivityTaskManager: Displayed ... +280ms`, `reportFullyDrawn()` 기록 | `logcat: ANR in <package>`, `traces.txt` 내 Main Thread `BLOCKED` / `WAITING` 상태 | `logcat: libc: Fatal signal 11 (SIGSEGV)` / `dlopen failed: alignment error` |
+
+- **TTID vs TTFD 의 구별**:
+  - **TTID (Time To Initial Display)**: 시스템 창이 앱의 첫 윈도우 프레임을 렌더링한 시간 (`am start -W` 의 TotalTime).
+  - **TTFD (Time To Full Display)**: 앱 내부 비동기 데이터(네트워크, DB)가 모두 로드되어 사용자가 실질적으로 사용 가능한 상태. 앱에서 `reportFullyDrawn()`을 명시적으로 호출해야 시스템과 Perfetto 에 수집된다.
+
+---
+
+### CLI 진단 명령어 및 관찰 도구
+
+1. **시작 시간 측정 (am start)**:
+   ```bash
+   adb shell am start -W -S -n com.example.app/.MainActivity
+   # 출력 결과:
+   # Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.app/.MainActivity }
+   # Status: ok
+   # Activity: com.example.app/.MainActivity
+   # ThisTime: 240
+   # TotalTime: 240
+   # WaitTime: 245
+   # Complete
+   ```
+
+2. **Logcat 태그 관찰**:
+   ```bash
+   adb logcat -v time -s ActivityTaskManager:I SplashScreen:D
+   # 예시 로그:
+   # ActivityTaskManager: Displayed com.example.app/.MainActivity: +240ms (total +240ms)
+   ```
+
+3. **16KB 페이지 정렬 검증 (Android 15+)**:
+   ```bash
+   # APK 내부 .so 파일의 LOAD 파티션 alignment 확인
+   readelf -l lib/arm64-v8a/libnative.so | grep LOAD
+   # Alignment 가 0x4000 (16384 bytes) 이상인지 검증
+   ```
+
+4. **Perfetto Trace 수집**:
+   ```bash
+   # Perfetto 로 시작 트레이스 캡처
+   adb shell perfetto --config :test --out /data/misc/perfetto-traces/trace.perfetto-trace
+   # Trace 카테고리 분석: ActivityThread.main -> Application.onCreate -> Activity.onCreate -> Choreographer#doFrame
+   ```
+
+---
+
+### 실전 코드 예시 (Production Code Examples)
 
 ```kotlin
+// MyApplication.kt
+package com.example.app
+
+import android.app.Application
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+
 class MyApplication : Application() {
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
     override fun onCreate() {
         super.onCreate()
 
-        // 나쁜 예: 첫 프레임을 지연시키는 동기 초기화. main thread를 막아
-        // ANR 위험을 만든다.
-        // val config = fetchRemoteConfigSync()
+        // ❌ 금지: Main Thread 를 막는 동기 네트워크/DB/SDK 초기화
+        // val config = fetchRemoteConfigSync() // ANR 원인!
 
-        // 나은 예: 첫 프레임에 필요하지 않은 초기화는 별도 dispatcher로 옮긴다.
+        // ✅ 올바른 방식: 비동기 Dispatchers.IO 로 무거운 초기화 이관
         applicationScope.launch(Dispatchers.IO) {
             initAnalyticsSdk()
+            initRemoteConfig()
         }
     }
+
+    private fun initAnalyticsSdk() { /* ... */ }
+    private fun initRemoteConfig() { /* ... */ }
 }
+```
+
+```kotlin
+// MainActivity.kt
+package com.example.app
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent { AppRoot() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Android 12+ SplashScreen API 필수 적용 (super.onCreate 호출 전)
+        val splashScreen = installSplashScreen()
+        super.onCreate(savedInstanceState)
+
+        // 화면 렌더링 설정
+        setContent {
+            AppNavigationRoot()
+        }
+
+        // 비동기 데이터 로딩 완료 시 TTFD (Time To Full Display) 신호 전송
         lifecycleScope.launch {
-            viewModel.primaryContentReady.first { it }
-            reportFullyDrawn() // 실제 콘텐츠가 준비된 시점을 TTFD로 알린다.
+            viewModel.isDataFullyLoaded.first { it }
+            // OS 에 앱의 실질적 준비 완료 신호를 전달 (Macrobenchmark / Vitals 측정 기준)
+            reportFullyDrawn()
         }
     }
 }
 ```
+
+---
 
 ### 관련 원자 노트
 
@@ -96,6 +224,8 @@ class MainActivity : ComponentActivity() {
 - [ANR은 단일 timeout이 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
 - [Android 시작 성능은 TTID와 TTFD로 나눈다](../../06_testing_performance/performance/performance-contracts/startup-performance-is-measured-by-ttid-and-ttfd.md)
 
+---
+
 ### 관련 Learning Spine 장
 
 - [4장 매니페스트에서 컴포넌트 실행까지](../learning-spine/04-manifest-to-component-execution.md)
@@ -103,10 +233,22 @@ class MainActivity : ComponentActivity() {
 - [6장 메인 스레드, Binder, coroutine과 durable scheduler는 서로 다른 실행 책임을 진다](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md)
 - [7장 입력, 리소스 선택과 화면 프레임](../learning-spine/07-input-resource-selection-and-display-frame.md)
 
+---
+
+### 관련 Diagnostic Runbook
+
+- [01-app-launch-slow-or-fails.md](../diagnostic-runbooks/01-app-launch-slow-or-fails.md)
+- [02-anr.md](../diagnostic-runbooks/02-anr.md)
+- [07-jank-dropped-frames.md](../diagnostic-runbooks/07-jank-dropped-frames.md)
+
+---
+
 ### 공식 근거
 
 - [App startup time](https://developer.android.com/topic/performance/vitals/launch-time)
+- [Splash screens](https://developer.android.com/develop/ui/views/launch/splash-screen)
+- [Support 16 KB page sizes](https://developer.android.com/guide/practices/page-sizes)
 - [Diagnose ANRs](https://developer.android.com/topic/performance/vitals/anr)
 - [Macrobenchmark overview](https://developer.android.com/topic/performance/benchmarking/macrobenchmark-overview)
 
-검증일: 2026-08-04. 냉시작/온시작 정의, `reportFullyDrawn()`, `am start -W` 출력 필드는 공식 문서 원문으로 확인했다.
+검증일: 2026-08-04. 냉시작/온시작 정의, `reportFullyDrawn()`, `am start -W` 출력 필드, Android 15 16KB 페이지 사이즈 정렬 규격을 공식 문서 기준으로 검증함.

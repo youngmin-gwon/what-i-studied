@@ -12,11 +12,11 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ### 읽는 순서
 
-1. [Android 외부 실행 표면은 App Actions와 AppFunctions로 나뉜다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/android-external-execution-surfaces-split-app-actions-and-appfunctions.md) 로 두 표면의 호출자와 결과 계약을 구분한다.
-2. UI fulfillment 라면 [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/app-actions-map-assistant-queries-to-app-fulfillment.md) 를 읽는다.
-3. 함수 발견·실행이라면 [AppFunctions는 에이전트용 앱 기능 계약이다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/appfunctions-are-app-capability-contracts-for-agents.md) 를 읽고 Android 16+, preview, 호출자 권한 조건을 확인한다.
-4. [외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/external-intent-execution-separates-meaning-delivery-validation-and-action.md) 와 [Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/assistant-and-agent-calls-do-not-replace-app-authorization.md) 로 도메인 경계를 설계한다.
-5. [App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/app-actions-and-appfunctions-require-surface-and-preview-validation.md) 로 출시 전 검증한다.
+1. [Android 외부 실행 표면은 App Actions와 AppFunctions로 나뉜다](./android-external-execution-surfaces-split-app-actions-and-appfunctions.md) 로 두 표면의 호출자와 결과 계약을 구분한다.
+2. UI fulfillment 라면 [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](./app-actions-map-assistant-queries-to-app-fulfillment.md) 를 읽는다.
+3. 함수 발견·실행이라면 [AppFunctions는 에이전트용 앱 기능 계약이다](./appfunctions-are-app-capability-contracts-for-agents.md) 를 읽고 Android 16+, preview, 호출자 권한 조건을 확인한다.
+4. [외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다](./external-intent-execution-separates-meaning-delivery-validation-and-action.md) 와 [Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다](./assistant-and-agent-calls-do-not-replace-app-authorization.md) 로 도메인 경계를 설계한다.
+5. [App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다](./app-actions-and-appfunctions-require-surface-and-preview-validation.md) 로 출시 전 검증한다.
 
 ### 문제 분류
 
@@ -36,11 +36,11 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ### 노트 목록
 
-- [Android 외부 실행 표면은 App Actions와 AppFunctions로 나뉜다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/android-external-execution-surfaces-split-app-actions-and-appfunctions.md)
-- [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/app-actions-map-assistant-queries-to-app-fulfillment.md)
-- [AppFunctions는 에이전트용 앱 기능 계약이다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/appfunctions-are-app-capability-contracts-for-agents.md)
-- [외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/external-intent-execution-separates-meaning-delivery-validation-and-action.md)
-- [Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/assistant-and-agent-calls-do-not-replace-app-authorization.md)
-- [App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다](01_inbox/mobile/android/04_system_services/agents-and-assistant/assistant-agent-contracts/app-actions-and-appfunctions-require-surface-and-preview-validation.md)
+- [Android 외부 실행 표면은 App Actions와 AppFunctions로 나뉜다](./android-external-execution-surfaces-split-app-actions-and-appfunctions.md)
+- [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](./app-actions-map-assistant-queries-to-app-fulfillment.md)
+- [AppFunctions는 에이전트용 앱 기능 계약이다](./appfunctions-are-app-capability-contracts-for-agents.md)
+- [외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다](./external-intent-execution-separates-meaning-delivery-validation-and-action.md)
+- [Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다](./assistant-and-agent-calls-do-not-replace-app-authorization.md)
+- [App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다](./app-actions-and-appfunctions-require-surface-and-preview-validation.md)
 
 검증일: 2026-08-03. AppFunctions 는 Android 16+ experimental preview 이며 Gemini 통합은 제한된 preview 상태이므로 [AppFunctions 개요](https://developer.android.com/ai/appfunctions) 와 [Jetpack release notes](https://developer.android.com/jetpack/androidx/releases/appfunctions) 를 릴리스마다 다시 확인한다.

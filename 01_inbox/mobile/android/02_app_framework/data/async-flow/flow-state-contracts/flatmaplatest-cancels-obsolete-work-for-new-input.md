@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## 새 입력이 이전 작업을 무효화하면 flatMapLatest 로 이전 흐름을 취소한다
 
-상위 문서: [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md)
+상위 문서: [Flow와 StateFlow 상태 계약](./flow-state-contracts.md)
 
 검색어, 선택된 계정, 필터처럼 새 입력이 이전 요청의 의미를 없애면 `flatMapLatest` 를 사용한다.
 

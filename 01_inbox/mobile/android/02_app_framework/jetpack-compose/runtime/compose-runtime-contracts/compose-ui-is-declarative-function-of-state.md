@@ -29,6 +29,6 @@ fun Counter(count: Int) {
 
 `textView.text = ...` 는 실행 시점에 화면을 직접 바꾸는 명령이고, `Text("Count: $count")` 는 `count` 값에 대한 UI 설명이다. `count` 가 바뀌면 Compose 가 이 설명을 다시 계산해 필요한 부분만 반영한다.
 
-관련 노트: [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md), [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
+관련 노트: [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md), [Compose 상태와 Effect 계약](../../state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 
 출처: [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model)

@@ -1,21 +1,37 @@
 ---
-title: testing-quality-contracts
+title: "테스트 품질 계약"
 tags: ["android", "android/testing-performance"]
-aliases: []
-date modified: 2026-08-03 18:15:09 +09:00
+aliases: ["testing-quality-contracts"]
 date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
 ## 테스트 품질 계약
 
-이 지도는 테스트를 종류가 아니라 피드백 비용, 실패 신호, 회귀 방지 역할로 나눈다.
+이 지도는 테스트를 단순한 종류 구분이 아니라 피드백 속도, 실행 비용, 실패 신호의 격리 범위, 회귀 방지 피라미드 계약으로 나눈다.
 
-### 정본 노트
+### 테스트 피라미드 & 피드백 속도 계약
 
-- [테스트 레이어는 피드백 비용으로 선택한다](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/test-layer-is-chosen-by-feedback-cost-and-risk.md)
-- [Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/unit-integration-ui-e2e-tests-have-different-failure-signals.md)
-- [Compose UI 테스트는 testTag와 semantics를 분리한다](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/compose-ui-tests-should-use-stable-selectors-and-semantics.md)
-- [Screenshot testing은 시각 회귀를 검출한다](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/screenshot-testing-detects-visual-regression-not-business-correctness.md)
-- [회귀와 flaky 테스트는 릴리즈 게이트의 신뢰도를 낮춘다](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/regression-and-flaky-tests-are-release-gate-risks.md)
+```mermaid
+flowchart TD
+    E2E["E2E Test<br/>(Real Device / Full Flow / High Cost / Slow)"]
+    UITest["UI Test / Screenshot Test<br/>(Compose Rule / Roborazzi / Medium Cost)"]
+    Integration["Integration Test<br/>(Robolectric / Fake Repositories / Low Cost)"]
+    UnitTest["Unit Test<br/>(JVM Local / Pure Coroutines & Logic / Instant Feedback)"]
 
-관련 지도: [디버깅 도구 계약](01_inbox/mobile/android/06_testing_performance/debugging/debugging-contracts/debugging-contracts.md), [Benchmark와 Baseline Profile 계약](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/benchmark-baseline-contracts.md)
+    UnitTest --> Integration
+    Integration --> UITest
+    UITest --> E2E
+```
+
+## 정본 노트
+
+- [테스트 레이어는 피드백 비용으로 선택한다](./test-layer-is-chosen-by-feedback-cost-and-risk.md)
+- [Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다](./unit-integration-ui-e2e-tests-have-different-failure-signals.md)
+- [Compose UI 테스트는 testTag와 semantics를 분리한다](./compose-ui-tests-should-use-stable-selectors-and-semantics.md)
+- [Screenshot testing은 시각 회귀를 검출한다](./screenshot-testing-detects-visual-regression-not-business-correctness.md)
+- [회귀와 flaky 테스트는 릴리즈 게이트의 신뢰도를 낮춘다](./regression-and-flaky-tests-are-release-gate-risks.md)
+- [Coroutine 과 Flow 테스트는 dispatcher 와 virtual time 을 통제해야 한다](../coroutine-flow-tests-control-dispatchers-and-virtual-time.md)
+
+관련 지도: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md), [디버깅 도구 계약](../../debugging/debugging-contracts/debugging-contracts.md), [Benchmark와 Baseline Profile 계약](../../performance/benchmark-baseline-contracts/benchmark-baseline-contracts.md)
+

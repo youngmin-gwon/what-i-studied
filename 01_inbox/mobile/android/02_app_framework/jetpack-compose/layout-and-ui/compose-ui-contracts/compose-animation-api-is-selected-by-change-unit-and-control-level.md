@@ -14,6 +14,6 @@ Compose animation API 는 "상위 수준이 항상 좋다"가 아니라 무엇�
 
 Animation 선택은 UX 의도, 상태 owner, 취소 규칙, frame cost 를 함께 본다. API 목록을 외우는 것보다 변경 단위와 제어 수준을 먼저 정한다.
 
-관련 노트: [값 애니메이션 API는 단일 target, transition, infinite, coroutine 제어로 나뉜다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/value-animation-apis-separate-single-target-transition-infinite-and-coroutine-control.md), [Compose 성능 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)
+관련 노트: [값 애니메이션 API는 단일 target, transition, infinite, coroutine 제어로 나뉜다](./value-animation-apis-separate-single-target-transition-infinite-and-coroutine-control.md), [Compose 성능 계약](../../performance/compose-performance-contracts/compose-performance-contracts.md)
 
 출처: [Choose an animation API](https://developer.android.com/develop/ui/compose/animation/choose-api)

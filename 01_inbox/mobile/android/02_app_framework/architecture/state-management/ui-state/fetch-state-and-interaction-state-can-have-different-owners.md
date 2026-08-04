@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Fetch 상태와 Interaction 상태는 소유자와 변경 주기가 다르면 분리한다
 
-상위 문서: [Android UI State](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/ui-state.md)
+상위 문서: [Android UI State](./ui-state.md)
 
 ### 핵심 주장
 

@@ -1,15 +1,15 @@
 ---
 title: wakelock-controls-cpu-and-screen-separately
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [전력 상태 접근 계약](01_inbox/mobile/android/04_system_services/system-state/power-contracts/power-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [전력 상태 접근 계약](./power-contracts.md)
 
 ### 핵심 정의
 
@@ -29,7 +29,7 @@ release를 누락하면 CPU가 계속 깨어 있어 배터리를 소모하며, �
 
 ### 경계
 
-- 이 노트는 wake lock이 즉시적으로 화면/CPU를 제어하는 메커니즘까지 다룬다. 배터리 최적화(Doze/App Standby) 예외 목록에 앱을 넣는 것은 별개의 정책이며 [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](01_inbox/mobile/android/04_system_services/system-state/power-contracts/battery-optimization-exemption-is-for-exceptions-not-default-design.md)가 다룬다.
+- 이 노트는 wake lock이 즉시적으로 화면/CPU를 제어하는 메커니즘까지 다룬다. 배터리 최적화(Doze/App Standby) 예외 목록에 앱을 넣는 것은 별개의 정책이며 [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](./battery-optimization-exemption-is-for-exceptions-not-default-design.md)가 다룬다.
 - 지속적인 백그라운드 작업 실행 수단 자체(FGS vs WorkManager 선택)는 `04_system_services/background-and-notifications/background-work-contracts`가 다룬다.
 
 ### 관찰 가능한 신호

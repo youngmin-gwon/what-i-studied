@@ -16,6 +16,6 @@ Provider 는 내부 abstraction 으로도 쓸 수 있지만, 단지 repository �
 
 `adb shell content query --uri content://<authority>/<path>` 로 provider 가 실제로 등록되어 응답하는지, 어떤 컬럼을 반환하는지 앱 코드 없이 직접 질의해 확인할 수 있다.
 
-관련 노트: [persistence 정본](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md), [FileProvider 정본](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/fileprovider-grants-narrow-uri-access-instead-of-file-path-sharing.md), [Android 권한 계약](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md).
+관련 노트: [persistence 정본](../../../data/storage/persistence-contracts/persistence-contracts.md), [FileProvider 정본](./fileprovider-grants-narrow-uri-access-instead-of-file-path-sharing.md), [Android 권한 계약](../../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md).
 
 공식 문서: [Content providers](https://developer.android.com/guide/topics/providers/content-providers)

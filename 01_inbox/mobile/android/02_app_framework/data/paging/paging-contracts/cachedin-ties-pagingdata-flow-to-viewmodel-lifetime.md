@@ -31,4 +31,4 @@ class BenefitListViewModel(
 - `cachedIn` 을 repository singleton scope 에 무심코 두면 query 별 메모리와 lifetime 이 과하게 커질 수 있다.
 - UI event 나 selection state 는 `PagingData` cache 와 별도로 둔다.
 
-관련 노트: [Android ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md), [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
+관련 노트: [Android ViewModel](../../../architecture/state-management/viewmodel/viewmodel.md), [영속 저장소 계약](../../storage/persistence-contracts/persistence-contracts.md)

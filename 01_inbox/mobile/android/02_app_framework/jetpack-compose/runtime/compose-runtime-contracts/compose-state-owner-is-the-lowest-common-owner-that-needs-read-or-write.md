@@ -30,6 +30,6 @@ fun EmailField(value: String, onValueChange: (String) -> Unit) {
 
 `EmailField` 는 자체 `remember` state 가 없으므로 재사용과 테스트가 쉽고, `email` 을 읽고 쓰는 최소 공통 owner 는 `LoginForm` 하나로 명확하다.
 
-관련 노트: [Compose 상태 API는 필요한 수명에 맞춰 선택한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-api-selection-by-lifetime.md), [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
+관련 노트: [Compose 상태 API는 필요한 수명에 맞춰 선택한다](../../state-and-lifecycle/compose-state-and-effect-contracts/compose-state-api-selection-by-lifetime.md), [Android 상태 관리 정본 지도](../../../architecture/state-management/android-state-management.md)
 
 출처: [State hoisting](https://developer.android.com/develop/ui/compose/state-hoisting), [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state)

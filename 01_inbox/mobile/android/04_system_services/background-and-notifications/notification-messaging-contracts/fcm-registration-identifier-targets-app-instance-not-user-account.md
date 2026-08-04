@@ -8,11 +8,11 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ## FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 
-관련 지도: [알림과 FCM 메시징 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/notification-messaging-contracts.md)
+관련 지도: [알림과 FCM 메시징 계약](./notification-messaging-contracts.md)
 
-관련 노트: [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-is-message-delivery-not-business-execution-guarantee.md)
+관련 노트: [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](./fcm-is-message-delivery-not-business-execution-guarantee.md)
 
 ### 식별자의 의미
 

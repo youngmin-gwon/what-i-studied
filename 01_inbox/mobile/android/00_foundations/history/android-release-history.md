@@ -1,44 +1,93 @@
+## Android Release History 는 안드로이드 플랫폼의 주요 기술 진화와 버전별 계약 변화를 정리한 정본 기록이다
+
+안드로이드는 2008년 1.0 첫 출시 이후 모바일 환경, 프라이버시, 빌드/배포, 하드웨어 폼 팩터의 변화에 맞춰 지속적으로 진화해왔다. 이 문서는 안드로이드의 주요 기술적 전환점(Runtime, Language, Packaging, Security, Architecture, UI)과 버전별 계약 변화를 연대순으로 정리한다.
+
+### Timeline
+
+```mermaid
+timeline
+    title Android Major Releases & Platform Milestones
+    2008 : 1.0 (First Release)
+    2009 : 1.5 Cupcake (Virtual Keyboard)
+         : 2.0 Eclair (Multi-account)
+    2010 : 2.2 Froyo (JIT)
+         : 2.3 Gingerbread
+    2011 : 3.0 Honeycomb (Tablet)
+         : 4.0 ICS (Unified)
+    2012 : 4.1 Jelly Bean (Project Butter)
+    2013 : 4.4 KitKat (ART Preview)
+    2014 : 5.0 Lollipop (ART, Material, SELinux)
+    2015 : 6.0 Marshmallow (Runtime Permissions, Doze)
+    2016 : 7.0 Nougat (Multi-window, Vulkan, A/B Updates)
+    2017 : 8.0 Oreo (Treble, Notification Channels)
+    2018 : 9.0 Pie (Gestures, Adaptive Battery)
+    2019 : 10 (Dark Theme, Scoped Storage, Mainline APEX)
+    2020 : 11 (One-time Permissions, Virtual A/B)
+    2021 : 12 (Material You, Privacy Dashboard)
+    2022 : 13 (Photo Picker, POST_NOTIFICATIONS)
+    2023 : 14 (Health Connect, Predictive Back)
+    2024 : 15 (16KB Page Size, Private Space)
+    2025 : 16 (Baklava - Major/Minor API Releases)
+```
+
 ---
-title: android-release-history
-tags: ["android", "android/foundations"]
-aliases: []
-date modified: 2026-08-03 17:22:17 +09:00
-date created: 2026-07-31 23:04:26 +09:00
+
+## 주요 기술 전환점 (Major Architectural Transitions)
+
+### 1. 런타임: Dalvik (JIT) → ART (AOT & Profile-Guided)
+- **배경 (Dalvik)**: 앱 시작 시마다 DEX 패킷을 Interpretation/JIT 컴파일하여 앱 실행이 느리고 CPU/배터리 소모가 심함.
+- **전환 (ART, Android 5.0+)**: 앱 설치 시점에 DEX를 미리 Native ARM64 기계어로 컴파일하는 AOT(Ahead-Of-Time) 도입 (`dex2oat`).
+- **현대 ART (Profile-Guided, Android 7.0+)**: 설치 시 부분 컴파일 + JIT 프로파일 수집(`primary.prof`) + 기기 유휴 시 배경 컴파일로 설치 시간과 저장 공간 최적화.
+
+### 2. 언어: Java → Kotlin-First (2017+)
+- **배경**: Java 6 기반의 길고 장황한 보일러플레이트 코드 및 람다 부재.
+- **전환 (Google I/O 2017)**: Kotlin 공식 언어 채택 및 Kotlin-first 프레임워크 설계 권장. Coroutine을 통한 비동기 처리 단권화.
+
+### 3. 배포 포맷: APK → Android App Bundle (AAB, 2018)
+- **Before (Monolithic APK)**: 모든 CPU ABI(arm64, armv7, x86)와 모든 화면 밀도(xxhdpi, xxxhdpi) 리소스를 하나의 파일에 포함하여 용량이 비대함.
+- **After (AAB & Dynamic Delivery)**: 게시 산출물로 `.aab`를 제출하면 Google Play가 기기 사양에 맞는 Split APK만 맞춤 다운로드(평균 15% 이상 용량 절감).
+
+### 4. HAL 아키텍처: HIDL → AIDL HAL (2019+)
+- **HIDL (Android 8.0 Treble)**: C++ 전용 프레임워크 인터페이스 언어로 Vendor와 System 분리.
+- **AIDL HAL (Android 11+)**: Java, C++, Rust 멀티 언어를 공식 지원하며 Binder IPC 인프라로 HAL 통신 단일화.
+
+### 5. 보안 & 프라이버시: 권한 및 저장소 모델의 진화
+- **설치 시 권한 (Android 1.0~5.1)**: 앱 설치 시 모든 권한을 일괄 승인받아 오남용 우려.
+- **런타임 권한 (Android 6.0)**: 민감 권한을 기능 사용 시점에 유저가 직접 승인.
+- **세분화 및 Scoped Storage (Android 10+)**: 전체 SDCard 파일 무제한 접근을 금지하고 `MediaStore` 및 Photo Picker 기반 세분화 권한으로 전환.
+
+### 6. 시스템 업데이트: Non-A/B → A/B → Virtual A/B (2016-2020)
+- **A/B Seamless Update (Android 7.0)**: Slot A(현재 실행) / Slot B(백그라운드 업데이트 설치) 두 개의 파티션을 두고 재부팅 시 원스톱 전환.
+- **Virtual A/B (Android 11)**: 2배의 저장 공간 낭비를 막기 위해 변경된 차분(Snapshot)만 동적 파티션에 저장하여 저장 공간 50% 절감.
+
 ---
 
-## Android Release History 는 안드로이드 플랫폼의 버전별 주요 변화를 요약한 기록이다
+## 버전별 주요 핵심 패러다임 변화
 
-Android version history 는 platform contract 변화와 현재 API/version 축을 이해하기 위한 timeline map 이다. 기능을 연대순으로 외우기보다 현재 문제에 어떤 호환성 조건이 적용되는지 찾는 데 쓴다.
+- **Android 5.0 Lollipop (2014)**: ART 런타임 기본 적용, Material Design, SELinux Enforcing.
+- **Android 6.0 Marshmallow (2015)**: 런타임 권한(Runtime Permissions), Doze 배터리 절약 모드.
+- **Android 7.0 Nougat (2016)**: 멀티 윈도우 지원, Vulkan 그래픽 API, A/B Seamless Update.
+- **Android 8.0 Oreo (2017)**: **Project Treble** (System/Vendor 아키텍처 분리), 알림 채널, 백그라운드 서비스 제약.
+- **Android 9.0 Pie (2018)**: 제스처 네비게이션, Adaptive Battery, BiometricPrompt API 통합.
+- **Android 10 (2019)**: Scoped Storage, 시스템 Dark Theme, **Project Mainline** (APEX 모듈식 업데이트).
+- **Android 11 (2020)**: 일회성 권한, Virtual A/B 업데이트.
+- **Android 12 (2021)**: Material You (동적 컬러 시스템), Privacy Dashboard, 카메라/마이크 활성 표시등.
+- **Android 13 (2022)**: Photo Picker, `POST_NOTIFICATIONS` 알림 권한, 앱별 언어 설정.
+- **Android 14 (2023)**: Health Connect, 예측적 뒤로가기 제스처.
+- **Android 15 (2024)**: 16KB Page Size 지원, Private Space.
+- **Android 16 (2025/2026)**: 빠른 minor/major API release 축 분리.
 
-### 읽는 순서
+---
 
-1. [Version 축 구분](01_inbox/mobile/android/00_foundations/history/history-contracts/api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md) 에서 device OS, compile SDK, target SDK, extension/minor SDK 를 섞지 않는다.
-2. [Contract 변화 지도](01_inbox/mobile/android/00_foundations/history/history-contracts/android-history-is-a-map-of-platform-contract-changes-not-a-feature-list.md) 로 permission, storage, background, update 경계가 언제 달라졌는지 찾는다.
-3. [현대화 방향](01_inbox/mobile/android/00_foundations/history/history-contracts/android-modernization-shifted-toward-privacy-updatability-and-adaptive-form-factors.md) 으로 여러 release 에 걸친 흐름을 읽는다.
-4. 최신 개발·테스트가 필요할 때만 [Android 16과 17 checkpoint](01_inbox/mobile/android/00_foundations/history/history-contracts/android-16-and-17-continue-faster-api-and-form-factor-change.md) 를 공식 release/behavior 문서와 함께 확인한다.
+### Version 축 구분 가이드
 
-[History Contracts](01_inbox/mobile/android/00_foundations/history/history-contracts/history-contracts.md) 는 위 원자 노트의 역할 차이와 새 history 노트의 경계를 관리하는 하위 지도다.
+1. `compileSdk`: 앱 빌드 시 참조하는 API 마운트 스펙.
+2. `targetSdkVersion`: 앱이 최신 OS의 파괴적 동작 변경(Behavior Changes)을 적용받을 지 판별하는 계약 축.
+3. `minSdkVersion` / `SDK_INT`: 런타임 실행 기기의 실제 OS API 레벨.
 
-### History Notes
+관련 상세 원자 노트: [API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다](history-contracts/api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md)
 
-- [Android history는 기능 목록이 아니라 platform contract 변화 지도다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-history-is-a-map-of-platform-contract-changes-not-a-feature-list.md)
-- [API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다](01_inbox/mobile/android/00_foundations/history/history-contracts/api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md)
-- [Android 현대화는 privacy, updatability, adaptive form factor 쪽으로 이동했다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-modernization-shifted-toward-privacy-updatability-and-adaptive-form-factors.md)
-- [Android 16과 17은 빠른 API release와 form factor 변화를 계속 밀고 있다](01_inbox/mobile/android/00_foundations/history/history-contracts/android-16-and-17-continue-faster-api-and-form-factor-change.md)
 
-### Current Checkpoint
 
-2026-08-03 검증 기준 공식 Android Developers 문서는 Android 16/API 36/Baklava 와 Android 17/API 37/Cinnamon Bun 을 노출한다. Android 17 문서는 배포 대상과 페이지에 따라 preview 표기가 남아 있을 수 있으므로, version-specific 판단은 release status, SDK setup, 모든 앱 대상 변화, target SDK 대상 변화를 각각 확인한다.
-
-공식 문서: [Android 16 summary](https://developer.android.com/about/versions/16/summary), [Android 17 behavior changes](https://developer.android.com/about/versions/17/behavior-changes-all), [Build.VERSION](https://developer.android.com/reference/android/os/Build.VERSION)
-
-### 문제 분류
-
-- API 를 compile 할 수 있는가: `compileSdk` 와 API/extension availability 를 확인한다.
-- 이 device 에서 API 가 존재하는가: `SDK_INT`, `SDK_INT_FULL`, extension version 을 확인한다.
-- 기존 앱 동작이 왜 바뀌었는가: 모든 앱 대상 변화와 `targetSdkVersion` gated 변화를 나눠 본다.
-- 특정 화면 크기에서만 달라지는가: version 변화와 form factor 정책을 함께 보되 별도 조건으로 기록한다.
-
-### 경계
-
-이 map 에는 장기적인 contract 변화와 공식 checkpoint 만 둔다. release 별 기능 목록과 migration 절차는 공식 release note 를 정본으로 삼는다.
+### History Contracts
+- [History Contracts](history-contracts/history-contracts.md)

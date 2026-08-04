@@ -16,6 +16,6 @@ Composable 은 wallpaper 색을 직접 다루지 않고 `ColorScheme` 의 semant
 
 Dynamic color 가 모든 surface 에서 동일하게 동작한다고 가정하지 않는다. 일반 Compose screen, app widget/Glance, notification, remote surface 는 각각 렌더링 경계와 지원 정책이 다를 수 있다.
 
-관련 노트: [Material 3 color role은 고정 색상값이 아니라 의미를 표현한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/material3-color-roles-express-semantic-intent-not-fixed-colors.md), [Glance는 Compose UI가 아니라 RemoteViews 위젯 경계로 렌더링한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
+관련 노트: [Material 3 color role은 고정 색상값이 아니라 의미를 표현한다](./material3-color-roles-express-semantic-intent-not-fixed-colors.md), [Glance는 Compose UI가 아니라 RemoteViews 위젯 경계로 렌더링한다](../../layout-and-ui/compose-ui-contracts/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
 
 출처: [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3), [Dynamic color](https://m3.material.io/styles/color/dynamic-color/overview)

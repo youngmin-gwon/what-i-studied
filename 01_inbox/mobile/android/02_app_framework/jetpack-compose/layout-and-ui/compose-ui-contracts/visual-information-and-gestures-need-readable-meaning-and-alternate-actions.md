@@ -14,6 +14,6 @@ date created: 2026-07-31 23:59:30 +09:00
 
 터치 대상은 최소 48dp 기준을 검토하고, text 는 사용자 font scale 에 대응해야 한다. Material 컴포넌트의 기본 접근성 지원을 쓰는지, custom clickable/semantics 를 직접 구성하는지 구분한다.
 
-관련 노트: [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md), [접근성 품질은 서비스, 검사기, Semantics 테스트로 검증한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/accessibility-quality-requires-service-scanner-and-semantics-verification.md)
+관련 노트: [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](./semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md), [접근성 품질은 서비스, 검사기, Semantics 테스트로 검증한다](./accessibility-quality-requires-service-scanner-and-semantics-verification.md)
 
 출처: [Accessibility in Compose](https://developer.android.com/develop/ui/compose/accessibility), [Accessibility basics](https://developer.android.com/develop/ui/compose/accessibility/api-defaults)

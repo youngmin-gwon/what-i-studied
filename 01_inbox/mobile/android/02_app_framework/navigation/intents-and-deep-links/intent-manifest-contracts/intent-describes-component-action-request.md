@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Android Intent 는 컴포넌트 실행을 설명하는 메시지다
 
-상위 문서: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
 
 ### 핵심 주장
 

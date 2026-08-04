@@ -1,21 +1,99 @@
 ---
 title: kernel-builds-depend-on-branch-toolchain-and-build-system
 tags: [android, android/build, android/kernel]
-aliases: []
-date modified: 2026-08-03 17:26:08 +09:00
+aliases: [Kernel Build, Kleaf, Bazel Kernel Build]
+date modified: 2026-08-04 15:52:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
-## Android kernel build 는 branch, toolchain, build system 계약이다
+## Android kernel build는 branch, toolchain, build system 계약이다
 
-Android kernel build 는 단순히 `make` 를 실행하는 작업이 아니다. 올바른 kernel manifest branch, AOSP 제공 LLVM toolchain, Kleaf/Bazel 또는 legacy `build.sh`, device/vendor module 구성, boot image packaging 조건이 맞아야 한다.
+상위 문서: [Kernel contracts](kernel-contracts.md)
 
-최근 kernel 은 `repo init -u https://android.googlesource.com/kernel/manifest -b BRANCH` 로 source 와 build tools 를 가져오고, Android 13 이후에는 Bazel/Kleaf 흐름이 중심이다. Android 14 이상에서는 `build.sh` 가 지원되지 않는다는 점도 문서에 분리해야 한다.
+Android kernel 빌드는 단순한 커널 소스상의 `make ARCH=arm64` 실행이 아니다. 올바른 ACK 커널 매니페스트 브랜치, Hermetic(밀폐된) AOSP LLVM Clang 툴체인, Kleaf(Bazel 기반 커널 빌드 시스템), 그리고 boot/vendor_dlkm 이미지 패키징 규격이 완벽히 맞물려야 실행 가능한 비트가 생성된다.
 
-branch 선택은 제품 Android version, kernel LTS version, device target, vendor module 호환성과 연결된다. 예전 노트에 고정된 ACK branch 표를 복사해 두면 빨리 낡으므로, 정본에서는 공식 branch/build-system 문서를 확인하는 규칙만 남긴다.
+Android 13+부터 기존 레거시 `build/build.sh` 스크립트 기반 빌드가 지원 중단(Deprecated)되고, 재현성(Reproducibility)과 빌드 캐싱 성능을 보장하는 **Kleaf / Bazel** 빌드 시스템이 표준으로 강제되었다.
 
-custom kernel flashing 은 verified boot, rollback protection, SPL downgrade, device wipe 위험과 연결된다. 학습용 Cuttlefish 와 실제 Pixel/device flashing 은 위험 수준이 다르다.
+---
 
-관련 노트: [Kernel debugging은 logcat 이전의 신호에서 시작한다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/kernel-debugging-starts-before-logcat-with-bootloader-dmesg-and-trace.md), [Boot debugging starts before logcat](01_inbox/mobile/android/01_system_internals/boot-and-runtime/boot-flow-contracts/boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs.md)
+### 메커니즘: Kleaf(Bazel) 기반 Hermetic 커널 빌드 파이프라인
 
-근거: [Build kernels](https://source.android.com/docs/setup/build/building-kernels), [Kernel branches and their build systems](https://source.android.com/docs/setup/reference/bazel-support)
+```mermaid
+graph TD
+    A["kernel/manifest\n(android15-6.6 branch repo sync)"] --> B["Prebuilt Hermetic Toolchain\n(AOSP LLVM Clang + prebuilt GCC lib)"]
+    B --> C["Kleaf Bazel Rules\n(//common:kernel_aarch64)"]
+    C -->|Hermetic Sandbox Build| D["Kernel Binary Outputs\n(vmlinux, Image, System.map)"]
+    C -->|KMI Symbol Check| E["abi_symbol_list Validation"]
+    D --> F["Distribution Packaging\n(boot.img, vendor_dlkm.img, initramfs.img)"]
+    E --> F
+```
+
+1. **Hermetic Environment (밀폐성)**: 호스트 OS(Ubuntu/Debian)에 설치된 `gcc`나 `make` 버전에 의존하지 않고, repo 내부에 포함된 밀폐된 prebuilt LLVM Clang 바이너리와 헤더를 빌드 툴체인으로 사용.
+2. **Kleaf / Bazel Rules**: `BUILD.bazel`에 선언된 `kernel_build`, `kernel_module`, `kernel_images` 룰에 따라 커널 코어, 모듈, boot/vendor 파티션 이미지를 증분(Incremental) 빌드 및 캐싱 처리.
+
+---
+
+### Kleaf `BUILD.bazel` 선언 및 빌드 실행 스크립트 예시
+
+```python
+# common/BUILD.bazel 예시 스니펫
+load("//build/kernel/kleaf:kernel.bzl", "kernel_build", "kernel_images")
+
+kernel_build(
+    name = "kernel_aarch64",
+    srcs = glob(["**/*"]),
+    build_config = "build.config.common",
+    outs = [
+        "Image",
+        "System.map",
+        "vmlinux",
+    ],
+)
+
+kernel_images(
+    name = "kernel_aarch64_images",
+    kernel_build = ":kernel_aarch64",
+    build_initramfs = True,
+)
+```
+
+```bash
+# Bazel(Kleaf) 커널 빌드 명령어
+tools/bazel build //common:kernel_aarch64_dist --config=fast
+
+# 빌드 산출물 확인
+ls -la out/kernel_aarch64/dist/Image
+```
+
+---
+
+### 실무 규칙
+
+- Android 14 이상 타깃 ACK 개발 시 `build/build.sh`를 직접 실행해서는 안 되며, 반드시 `tools/bazel` 스크립트를 사용하여 툴체인 밀폐성과 파티션 이미지 빌드 호환성을 유지해야 한다.
+- 커널 플래싱 테스트 시 `fastboot boot boot.img` 명령을 우선 사용하여 휘발성 테스트를 수행해야 한다. 잘못된 커널 빌드를 `fastboot flash boot`로 정적 반영하면 Verified Boot(AVB) 체크 실패로 인한 Bootloop 상태에 빠질 수 있다.
+
+---
+
+### 관측 가능한 증거 (Observable Evidence)
+
+1. **커널 바이너리에 기록된 LLVM Clang 빌드 버전 정보 검증**:
+   ```bash
+   adb shell cat /proc/version
+   # Linux version 6.6.12-android15-11-g123456789abc (toolchain Android (10650380, +pgo, +bolton, +lto, +mlgo) clang version 17.0.6)
+   ```
+2. **Kleaf 빌드 로그 및 캐시 결과 확인**:
+   ```bash
+   tools/bazel info execution_root
+   # bazel 실행 루트 및 hermetic toolchain 격리 경로 확인
+   ```
+
+---
+
+### 관련 문서
+
+- [ACK는 upstream LTS와 Android release를 잇는다](android-common-kernel-bridges-upstream-lts-and-android-releases.md)
+- [GKI는 공통 core kernel과 vendor module을 분리한다](gki-splits-generic-core-from-vendor-modules.md)
+- [Kernel debugging은 logcat 이전의 신호에서 시작한다](kernel-debugging-starts-before-logcat-with-bootloader-dmesg-and-trace.md)
+
+공식 문서: [Building Kernels with Kleaf](https://source.android.com/docs/setup/build/building-kernels)
+

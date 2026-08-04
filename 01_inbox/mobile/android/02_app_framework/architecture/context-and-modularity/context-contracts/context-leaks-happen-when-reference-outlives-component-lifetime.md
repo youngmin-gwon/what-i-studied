@@ -16,6 +16,6 @@ Context 선택은 memory leak, theme/window 정확성, permission/source identit
 
 LeakCanary 같은 heap 분석 도구는 component 가 destroy 된 뒤에도 GC 대상이 되지 못한 참조 체인을 자동으로 찾아 보고한다. 이 보고서에 등장하는 retained object 체인이 바로 "무엇이 어떤 context 를 붙잡고 있는지"를 보여주는 관찰 가능한 신호다.
 
-관련 노트: [Activity Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/activity-context-carries-window-theme-and-short-lifetime.md), [Application Context](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/application-context-fits-process-lifetime-work-not-themed-ui.md), [context-registered receiver 수명](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/context-registered-receiver-lifetime-follows-registering-context.md).
+관련 노트: [Activity Context](./activity-context-carries-window-theme-and-short-lifetime.md), [Application Context](./application-context-fits-process-lifetime-work-not-themed-ui.md), [context-registered receiver 수명](../../app-components/app-component-contracts/context-registered-receiver-lifetime-follows-registering-context.md).
 
 공식 문서: [Context reference](https://developer.android.com/reference/android/content/Context)

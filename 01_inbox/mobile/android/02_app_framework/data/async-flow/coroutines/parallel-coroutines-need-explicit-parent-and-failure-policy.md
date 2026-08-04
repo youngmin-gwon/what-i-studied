@@ -38,4 +38,4 @@ suspend fun loadHomeBestEffort(): HomeData = supervisorScope {
 
 Android에서는 병렬 작업을 ViewModel 안에 둔다고 자동으로 안전해지지 않는다. ViewModel은 수명 소유자를 제공할 뿐이고, 내부 병렬 작업의 실패 정책은 별도로 설계해야 한다.
 
-관련 노트: [Coroutine 예외 전파는 builder와 supervision boundary가 결정한다](01_inbox/mobile/android/02_app_framework/data/async-flow/coroutines/exception-propagation-needs-supervision-boundary.md)
+관련 노트: [Coroutine 예외 전파는 builder와 supervision boundary가 결정한다](./exception-propagation-needs-supervision-boundary.md)

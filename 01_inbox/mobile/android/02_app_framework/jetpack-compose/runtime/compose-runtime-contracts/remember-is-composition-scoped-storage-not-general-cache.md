@@ -25,6 +25,6 @@ fun UserAvatar(userId: String) {
 
 `remember` 는 설정 변경, 시스템 주도 process recreation, 앱 재시작까지 보존하는 장치가 아니다. 작은 UI 복원 상태는 `rememberSaveable`, 화면 상태는 ViewModel/state holder, 영구 데이터는 persistence layer 가 후보가 된다.
 
-관련 노트: [Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-saveable-is-for-small-restorable-ui-state.md), [Composition은 호출 위치 identity로 remember 값을 보존한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composition-uses-callsite-identity-to-preserve-remembered-values.md)
+관련 노트: [Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](../../state-and-lifecycle/compose-state-and-effect-contracts/remember-saveable-is-for-small-restorable-ui-state.md), [Composition은 호출 위치 identity로 remember 값을 보존한다](./composition-uses-callsite-identity-to-preserve-remembered-values.md)
 
 출처: [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state)

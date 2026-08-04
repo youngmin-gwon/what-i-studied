@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## ViewModel 은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다
 
-상위 문서: [Android ViewModel](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md)
+상위 문서: [Android ViewModel](./viewmodel.md)
 
 ### 핵심 주장
 
@@ -35,10 +35,18 @@ Fragment 가 해당 소유자에서 제거되면 ViewModel 은 정리 대상이 
 
 그때 `onCleared()` 가 호출되고 `viewModelScope` 도 취소된다.
 
+#### ViewModelStoreOwner 및 ViewModelStore 내부 메커니즘
+
+`ViewModelStoreOwner`(Activity/Fragment/NavBackStackEntry)는 `ViewModelStore` 객체를 소유하며, `ViewModelStore`는 `Map<String, ViewModel>` 형태로 생성된 ViewModel 인스턴스를 유지한다.
+
+- **NonConfigurationInstances 를 통한 보존**: Activity 의 경우, 설정 변경(Configuration Change) 시 OS 가 Activity 인스턴스를 재해석/재생성하지만 `ComponentActivity` 는 `onRetainNonConfigurationInstance()` 를 통해 `ViewModelStore` 참조를 새 인스턴스로 전달한다.
+- **최종 파괴 시 Cleanup**: 설정 변경이 아닌 액티비티 종료(`isFinishing == true`) 또는 프래그먼트 완전 제거(`isRemoving == true`) 시, `ViewModelStoreOwner` 의 `LifecycleOwner` 가 `ON_DESTROY` 이벤트 상태에 도달할 때 `ViewModelStore.clear()`가 호출된다. `clear()`는 저장된 각 ViewModel의 `onCleared()`를 실행하고 맵을 비운다.
+
 ```kotlin
 class UserViewModel : ViewModel() {
     override fun onCleared() {
-        // 자체 리소스가 있을 때만 정리한다.
+        // ViewModelStore.clear() 호출 시 실행된다.
+        // 자체 C/Native 리소스, RxJava Disposable, 비-코루틴 리스너 등을 여기서 해제한다.
         super.onCleared()
     }
 }
@@ -66,7 +74,7 @@ ViewModel 에 저장된 목록이 회전 후 남는다고 해서,
 
 첫 번째 질문만 참이면 ViewModel 상태로 충분하다.
 
-두 번째 질문까지 참이면 [SavedStateHandle](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md) 을 검토한다.
+두 번째 질문까지 참이면 [SavedStateHandle](./savedstatehandle-restores-small-process-death-state.md) 을 검토한다.
 
 세 번째 질문이 참이면 영속 저장소에 원본을 두고 복원 키만 저장한다.
 

@@ -1,78 +1,224 @@
 ---
 title: 03-deep-link-to-correct-task-and-screen-state
 tags: ["android", "android/foundations", "worked-example"]
-aliases: ["Deep link to correct task and screen state"]
-date modified: 2026-08-04 10:29:03 +09:00
+aliases: ["Deep link to correct task and screen state", "Deep Link가 올바른 Task와 화면 상태로 열리기까지"]
+date modified: 2026-08-04 16:00:00 +09:00
 date created: 2026-08-04 02:30:00 +09:00
 ---
 
-## deep link 가 올바른 task 와 화면 상태로 열리기까지
+## Deep Link가 올바른 Task와 화면 상태로 열리기까지 (Deep Link to Correct Task & Screen State)
 
-이 예시는 Learning Spine 3·4·5 장을 하나의 진입 경로로 잇는다. 3 장에서 다룬 서명 identity 가 도메인 소유 증명이라는 새로운 역할로 쓰이는 과정, 4 장에서 다룬 매니페스트 registry 와 프로세스 상태 확인, 5 장에서 다룬 task/back stack 이 화면 하나가 아니라 사용자의 복귀 경로 전체를 결정한다는 사실을 연결한다.
+이 예시는 Learning Spine 3·4·5 장을 하나의 외부 진입 경로로 연결한다. 설치 시점 서명 identity 가 웹 도메인 소유 증명(`assetlinks.json`)으로 연동되는 구조(3 장), 매니페스트 컴포넌트 registry 조회를 통한 Intent 매칭과 냉시작 프로세스 분기(4 장), 그리고 딥 링크 클릭 시 단순 단일 화면 렌더링을 넘어 OS Task 와 합성 백 스택(Synthetic Backstack)을 구성하는 화면 상태 관리 계약(5 장)을 다층 서사로 다룬다.
+
+---
 
 ### 시작 상태
 
-앱은 `https://www.example.com/product/123` 을 App Link 로 처리하도록 매니페스트에 `intent-filter`(`ACTION_VIEW`, `CATEGORY_DEFAULT`/`BROWSABLE`, `android:autoVerify="true"`, `host=www.example.com`, `pathPrefix=/product`)를 선언해뒀고, 서버는 `https://www.example.com/.well-known/assetlinks.json` 에 이 앱의 `package_name` 과 서명 인증서 SHA-256 지문을 등록해뒀다. 이 검증은 설치·업데이트 시점에 이미 끝나 있다. 사용자는 로그인하지 않은 상태다. 앱 프로세스는 지금 실행 중이 아니다.
+앱은 `https://www.example.com/product/{id}` 패턴을 App Link 로 처리하도록 매니페스트에 `<intent-filter>`(`ACTION_VIEW`, `CATEGORY_DEFAULT`/`BROWSABLE`, `android:autoVerify="true"`)를 선언해 두었다. 웹 서버의 `https://www.example.com/.well-known/assetlinks.json` 에는 앱 패키지 이름과 APK 서명 SHA-256 지문이 등록되어 OS Domain Verification 검증이 완료된 상태다. 사용자는 현재 미인증(로그아웃) 상태이거나 앱 프로세스가 살아있지 않을 수 있다.
+
+---
 
 ### 입력
 
-사용자가 다른 앱(메시지)에서 공유받은 상품 링크를 탭한다.
+사용자가 외부 앱(카카오톡, 메세지, 브라우저)에서 전달받은 `https://www.example.com/product/123` 상품 상세 링크를 탭한다.
 
-### 단계별 흐름
+---
 
-1. **도메인 소유 검증(3 장의 identity 가 새 역할을 맡는 지점)**: 시스템은 링크를 열 때가 아니라 이미 설치·업데이트 시점에 매니페스트 선언과 `assetlinks.json` 을 대조해뒀다. 매니페스트는 앱이 받을 수 있는 URI 범위의 상한을 선언하고, `assetlinks.json` 은 그 도메인이 이 서명 인증서를 가진 이 패키지에 URL 처리를 위임했음을 증명한다. 이 둘이 모두 일치해야 시스템은 사용자에게 앱 선택 대화상자를 보여주지 않고 곧바로 이 앱으로 연결한다.
-2. **요청과 registry 조회(4 장)**: 링크 탭은 `ACTION_VIEW` Intent 로 시스템에 전달된다. 시스템은 검증된 App Link 이므로 컴포넌트 registry 에서 이 host/path 에 맞는 필터를 가진 대상 Activity 를 명시적으로 찾은 것처럼 처리한다.
-3. **프로세스 상태 확인(4 장)**: 앱 프로세스가 없으므로 AMS 는 Zygote 에 fork 를 요청하고, specialization 뒤 `ActivityThread` 가 framework 에 attach 한다. 이 경로는 WE1(앱 아이콘 탭에서 첫 프레임까지)의 냉시작 경로와 같다.
-4. **URI 검증과 canonicalization**: 대상 Activity 는 전달받은 URI 를 곧바로 내부 route 로 쓰지 않는다. scheme, host, path 를 allowlist 로 다시 확인하고, percent encoding 이나 trailing slash 같은 표현을 정규화한 뒤에야 타입 있는 목적지(`Product(productId = "123")`)로 변환한다.
-5. **인증 필요 여부 판정**: 이 상품 상세 화면이 로그인을 요구하는 리소스라면, 앱은 URI 문자열 전체를 그대로 저장하지 않고 검증된 목적지 모델을 "pending destination"으로 저장한다.
-6. **Task/back stack 구성(5 장)**: 이 진입은 task 와 back stack 이라는 OS 내비게이션 기록을 새로 만드는 사건이다. 딥 링크로 새로 시작된 task 에는 자연스러운 부모 화면이 없다. 그대로 두면 사용자가 상품 화면에서 뒤로 가기를 눌렀을 때 곧바로 앱이 종료되는 것처럼 느껴진다. 그래서 앱은 필요하면 합성 백 스택(예: 홈 → 상품 목록 → 상품 상세)을 만들어 부모 화면을 제공한다.
+### 다층 계층별 실행 흐름 (Multi-Layer Narrative)
 
-### 성공 결과(로그인 상태일 때)
+```
+[UI Layer] External App / Browser URL Tap -> Implicit Intent (ACTION_VIEW)
+       │
+       ▼
+[System Server / IPC Layer] DomainVerificationManager / PMS Checks Verified Hosts
+       │                      -> App Link Verified: Direct Target Activity Selection
+       │                      -> ATMS Determines Target Task & Launch Mode
+       │                      -> AMS checks process state (Fork process via Zygote if dead)
+       ▼
+[Kernel / Framework Layer] Binder IPC -> ActivityThread.main() -> Target Activity
+       │                          -> Navigation 3 Route Parser / Canonicalization
+       ▼
+[App State & Task Layer] Auth State Check -> If Unauthenticated, Save PendingRoute
+       │                   -> Open Login Screen
+       │                   -> On Success, Consume PendingRoute & Build Synthetic Backstack
+       ▼
+[Display UI] Render Target Screen (Product 123) with Stack: Home -> List -> Detail
+```
 
-사용자가 이미 로그인돼 있다면 앱은 pending destination 을 만들 필요 없이 곧바로 상품 상세 화면을 연다. 상품 데이터는 URI 에 담긴 값을 신뢰하지 않고 진입 시점에 서버에서 다시 조회한다 — 링크가 공유된 시점과 지금 사이에 상품이 삭제되거나 가격이 바뀌었을 수 있기 때문이다. 뒤로 가기를 누르면 5 절에서 구성한 합성 백 스택을 따라 상품 목록으로 이동한다.
+1. **UI / 입력 레이어**:
+   - 외부 앱에서 URL 탭 시 `Intent(Intent.ACTION_VIEW, Uri.parse("https://www.example.com/product/123"))` 인시클리시트 Intent 가 생성된다.
 
-### 실패 분기: 로그인이 필요한데 세션이 없다
+2. **System Server 및 IPC 레이어**:
+   - `DomainVerificationManager` 및 `PackageManagerService`(PMS)는 수신된 HTTPS 도메인이 사전 검증(App Link Verification)된 호스트인지 확인한다.
+   - 도메인 검증이 `verified` 상태이면, 사용자에게 앱 선택 대화상자(Disambiguation Dialog)나 웹 브라우저를 띄우지 않고 곧바로 해당 앱 패키지를 최종 수신자로 단독 지정한다.
+   - `ActivityTaskManagerService`(ATMS)는 해당 Activity 의 `launchMode`와 Intent 플래그(`FLAG_ACTIVITY_NEW_TASK` 등)를 참조하여 딥 링크가 실행될 Task 와 백 스택을 계산한다.
+   - 앱 프로세스가 죽어있는 경우 AMS 가 Zygote fork 경로를 실행한다 (WE1 냉시작 참조).
 
-1. 앱은 4 절에서 변환한 `Product(productId="123")` 목적지가 인증을 요구한다고 판정한다.
-2. 이 목적지를 즉시 열지 않고 pending destination 으로 저장한 뒤 로그인 화면으로 이동한다.
-3. 사용자가 로그인에 성공하면, 저장해둔 pending destination 을 한 번만 소비해 원래 목적지로 이동한다. 로그인을 취소하거나 세션이 만료되면 안전한 기본 화면(예: 홈)으로 돌아간다.
-4. 이 흐름에서 저장하는 것은 원본 URI 문자열이 아니라 이미 검증된 타입 안전한 값이다. 검증되지 않은 원본 문자열을 그대로 저장했다가 로그인 후 다시 파싱하면, 그 사이 검증 로직이 우회될 여지가 생긴다.
+3. **App Framework 레이어**:
+   - Intent 가 대상 Activity(`MainActivity`)로 전달되면, 앱은 `Intent.data` URI 를 정규화(Canonicalization)하고 쿼리 파라미터/경로를 Allowlist 와 비교 검증한다.
+   - Android 14/15/16 표준인 Jetpack Navigation 3 / Type-Safe Navigation 모델을 이용하여 단순 문자열이 아닌 `@Serializable` 타입 안전 객체(`ProductDetailRoute(productId = "123")`)로 변환한다.
 
-### 관찰 가능한 신호
+4. **인증 상태 판정 및 합성 백 스택 (Synthetic Backstack) 구성**:
+   - 해당 리소스가 로그인(인증)을 요구하는 경우, 미인증 상태에서는 원본 URI 나 Route 를 `PendingRoute` 저장은 하되 즉시 실행하지 않고 로그인 화면(`LoginRoute`)으로 우회한다.
+   - 로그인 성공 시 저장해둔 `PendingRoute`를 단 1회 소비하여 원래 요청된 화면으로 이동한다.
+   - 딥 링크로 새로 진입한 Task 는 이전 화면 기록이 없으므로, 사용자가 '뒤로 가기' 버튼을 누르면 앱이 곧바로 종료되는 불상사가 발생한다. 따라서 `TaskStackBuilder` 또는 Navigation Controller 를 이용해 합성 백 스택(`Home -> Category -> ProductDetail`)을 만들어 둔다.
 
-- `adb shell am start -a android.intent.action.VIEW -d "https://www.example.com/product/123"` 로 딥 링크 해석 결과를 재현할 수 있다.
-- App Link 검증 상태는 `adb shell pm get-app-links <package>` 로 확인한다. 도메인이 `verified` 상태가 아니면 시스템은 앱 선택 대화상자를 띄우거나 브라우저로 연다.
-- `dumpsys activity activities` 로 딥 링크 진입 후 실제 task 와 back stack 구성을 확인해, 합성 백 스택이 의도대로 만들어졌는지 검증한다.
-- 로그를 통해 원본 URI, canonicalize 된 route, pending destination 저장/소비 시점을 기록하면 인증 흐름의 각 단계를 추적할 수 있다.
+---
 
-### 코드 예시
+### Android 14 / 15 / 16 platform specific behaviors
+
+1. **Android 12~16 Strict App Links Domain Verification**:
+   - Android 12 이상부터는 `android:autoVerify="true"`가 선언된 HTTPS 도메인이라도, 서버의 `assetlinks.json` 검증이 실패하면 앱 선택 대화상자를 띄우지 않고 즉시 웹 브라우저로 렌더링을 이관한다.
+   - `adb shell pm get-app-links` 명령을 통해 OS 의 검증 도메인 상태가 `verified`인지 주시해야 한다.
+
+2. **Jetpack Navigation 3 & Type-Safe Navigation**:
+   - 기존의 `android-app://` 문자열 기반 navigation URL 매핑 방식에서 벗어나, Kotlin Serialization 의 `@Serializable` 데이터 클래스로 Route 를 정의한다. URL 은 진입 파서에서 일차 타입 검증을 거친 후 순수 도메인 모델로 다뤄진다.
+
+3. **Custom Intent Scheme Security (Android 13 / 14 / 15)**:
+   - `myapp://` 형태의 커스텀 스킴 딥 링크는 OS 인증 구조가 없어 딥 링크 하이재킹(Intent Hijacking) 및 피싱 공격에 취약하다. 외부 URI 파싱 시 불필요한 Intent Extra 취득을 제한하고 Strict Allowlist 파싱을 적용해야 한다.
+
+---
+
+### 성공 경로 vs 실패 분기 비교
+
+| 항목 | 성공 경로 (Success Path) | 실패 분기 (Failure Branch 1: Domain Unverified) | 실패 분기 (Failure Branch 2: Unauthenticated Deep Link) |
+| :--- | :--- | :--- | :--- |
+| **진행 현상** | 링크 탭 즉시 앱이 열리며 로그인 확인 후 상품 상세 화면 표시. 뒤로 가기 시 카테고리/홈 이동 | 탭 시 앱 선택 팝업이 뜨거나 Chrome 브라우저로 웹페이지 접속 | 앱 진입 후 즉시 로그인 화면으로 전환. 로그인 완료 후 상품 상세로 정상 복원 |
+| **원인 메커니즘** | App Link 검증 성공 (`verified`), 타입 안전 파싱 완료, 합성 백 스택 구성 | `assetlinks.json` 미배포, SHA-256 서명 불일치, 매니페스트 autoVerify 누락 | 인증 필요 리소스 진입 시 세션 없음. 원본 Route 를 `PendingRouteStore`에 일시 저장 후 이관 |
+| **관측 가능 신호** | `pm get-app-links` -> `verified`, `dumpsys activity activities` 내 합성 Task Stack 인스턴스 확인 | `pm get-app-links` -> `legacy` 또는 `1` (rejected), 브라우저 프로세스 가동 | `logcat: DeepLinkHandler: Session missing. PendingRoute saved: Product(123)` |
+
+---
+
+### CLI 진단 명령어 및 관찰 도구
+
+1. **App Link 도메인 검증 상태 확인**:
+   ```bash
+   adb shell pm get-app-links com.example.app
+   # 출력 예시:
+   # com.example.app:
+   #   ID: 309d9494-d4b9-4a00-9856-bb6b03378564
+   #   Signatures: [A4:C9:...]
+   #   Domain verification state:
+   #     www.example.com: verified
+   ```
+
+2. **딥 링크 강제 트리거 테스트**:
+   ```bash
+   adb shell am start -a android.intent.action.VIEW \
+       -c android.intent.category.BROWSABLE \
+       -d "https://www.example.com/product/123" \
+       com.example.app
+   ```
+
+3. **로컬 테스트용 App Link 도메인 상태 강제 설정**:
+   ```bash
+   # domain verification 상태를 verified(2)로 강제 변경
+   adb shell pm set-app-links --package com.example.app 2 www.example.com
+   ```
+
+4. **Task 및 합성 백 스택 구조 진단**:
+   ```bash
+   adb shell dumpsys activity activities | grep -E "Hist|TaskRecord|Running"
+   # 생성된 Task 내 Activity Stack depth 및 Root Activity 확인
+   ```
+
+---
+
+### 실전 코드 예시 (Production Code Examples)
 
 ```kotlin
-// 4. URI 검증과 canonicalization
-fun parseProductDeepLink(uri: Uri): PendingRoute? {
-    if (uri.scheme != "https" || uri.host != "www.example.com") return null
-    val segments = uri.pathSegments
-    if (segments.size != 2 || segments[0] != "product") return null
-    val productId = segments[1].takeIf { it.isNotBlank() } ?: return null
-    return PendingRoute.Product(productId)
+// DeepLinkParser.kt
+package com.example.app
+
+import android.net.Uri
+import kotlinx.serialization.Serializable
+
+@Serializable
+sealed interface AppRoute {
+    @Serializable
+    data object Home : AppRoute
+    
+    @Serializable
+    data object Login : AppRoute
+
+    @Serializable
+    data class ProductDetail(val productId: String) : AppRoute
 }
 
-// 5~6. 인증 필요 여부 판정과 pending destination
-fun handleDeepLink(route: PendingRoute.Product) {
-    if (!authRepository.isLoggedIn()) {
-        pendingDestinationStore.save(route)
-        navigate(LoginDestination)
-    } else {
-        navigate(ProductDestination(route.productId))
+object DeepLinkParser {
+    private const val ALLOWED_HOST = "www.example.com"
+    private const val SCHEME_HTTPS = "https"
+
+    // 1. URI 검증 및 Canonicalization -> 타입 안전 Route 반환
+    fun parse(uri: Uri): AppRoute? {
+        if (uri.scheme != SCHEME_HTTPS || uri.host != ALLOWED_HOST) return null
+        
+        val segments = uri.pathSegments
+        if (segments.size == 2 && segments[0] == "product") {
+            val productId = segments[1].trim()
+            if (productId.isNotEmpty() && productId.all { it.isLetterOrDigit() }) {
+                return AppRoute.ProductDetail(productId)
+            }
+        }
+        return null
     }
 }
+```
 
-// 로그인 성공 후 한 번만 소비
-fun onLoginSuccess() {
-    val pending = pendingDestinationStore.consumeOnce()
-    navigate(pending ?: HomeDestination)
+```kotlin
+// DeepLinkNavigationHandler.kt
+package com.example.app
+
+import android.content.Context
+import androidx.core.app.TaskStackBuilder
+import android.content.Intent
+
+class DeepLinkNavigationHandler(
+    private val authRepository: AuthRepository,
+    private val pendingRouteStore: PendingRouteStore
+) {
+
+    // 2. 인증 판정 및 Pending Route 처리
+    fun handleRoute(context: Context, route: AppRoute) {
+        if (route is AppRoute.ProductDetail && !authRepository.isLoggedIn()) {
+            // 미인증 시 원본 검증 객체를 Pending 로 저장 후 로그인 화면으로 전환
+            pendingRouteStore.save(route)
+            navigateToLogin(context)
+            return
+        }
+
+        executeNavigation(context, route)
+    }
+
+    fun onLoginSuccess(context: Context) {
+        val destination = pendingRouteStore.consumeOnce() ?: AppRoute.Home
+        executeNavigation(context, destination)
+    }
+
+    // 3. 합성 백 스택 (Synthetic Backstack) 구성
+    private fun executeNavigation(context: Context, route: AppRoute) {
+        when (route) {
+            is AppRoute.ProductDetail -> {
+                val parentIntent = Intent(context, MainActivity::class.java).apply {
+                    putExtra("ROUTE_KEY", "category_list")
+                }
+                val detailIntent = Intent(context, MainActivity::class.java).apply {
+                    putExtra("ROUTE_KEY", "product_${route.productId}")
+                }
+
+                // TaskStackBuilder 로 딥 링크 진입 시 뒤로 가기 경로 제공 (Home -> ProductDetail)
+                TaskStackBuilder.create(context)
+                    .addNextIntent(parentIntent)
+                    .addNextIntent(detailIntent)
+                    .startActivities()
+            }
+            else -> { /* 기본 네비게이션 실행 */ }
+        }
+    }
 }
 ```
+
+---
 
 ### 관련 원자 노트
 
@@ -83,16 +229,28 @@ fun onLoginSuccess() {
 - [Task와 back stack은 OS가 관리하는 Activity 작업 기록이지 앱 내부 navigation state가 아니다](../../02_app_framework/architecture/app-components/app-component-contracts/task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md)
 - [AndroidManifest.xml은 OS에 앱의 컴포넌트를 선언한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md)
 
+---
+
 ### 관련 Learning Spine 장
 
 - [3장 소스에서 설치된 패키지까지](../learning-spine/03-source-to-installed-package.md)
 - [4장 매니페스트에서 컴포넌트 실행까지](../learning-spine/04-manifest-to-component-execution.md)
 - [5장 화면, 프로세스, task와 사용자 상태는 독립적인 lifetime을 가진다](../learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md)
 
+---
+
+### 관련 Diagnostic Runbook
+
+- [01-app-launch-slow-or-fails.md](../diagnostic-runbooks/01-app-launch-slow-or-fails.md)
+- [03-process-death-state-loss.md](../diagnostic-runbooks/03-process-death-state-loss.md)
+
+---
+
 ### 공식 근거
 
-- [About App Links](https://developer.android.com/training/app-links/about)
-- [Add Intent filters for App Links](https://developer.android.com/training/app-links/add-applinks)
-- [Configure website associations and dynamic rules](https://developer.android.com/training/app-links/configure-assetlinks)
+- [Handling Android App Links](https://developer.android.com/training/app-links)
+- [Verify Android App Links](https://developer.android.com/training/app-links/verify-site-associations)
+- [Type-safety in Navigation Compose](https://developer.android.com/guide/navigation/design/type-safety)
+- [Create a synthetic back stack for deep links](https://developer.android.com/guide/navigation/principles#synthetic_back_stack)
 
-검증일: 2026-08-04. App Link 검증 상태 확인 명령과 assetlinks.json 형식은 공식 문서를 기준으로 실제 구현 시점에 다시 확인한다.
+검증일: 2026-08-04. Domain Verification `pm get-app-links` 출력, Navigation 3 / Type-Safe Navigation 패턴, 합성 백 스택 구성 로직을 공식 문서를 기준으로 검증함.

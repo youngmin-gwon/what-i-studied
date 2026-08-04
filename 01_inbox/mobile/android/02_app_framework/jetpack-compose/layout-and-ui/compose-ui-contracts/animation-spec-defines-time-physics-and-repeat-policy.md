@@ -14,6 +14,6 @@ date created: 2026-07-31 23:59:30 +09:00
 
 Animation spec 은 시각 느낌만이 아니라 frame budget 과 접근성 선호에도 영향을 준다. 반복 animation 과 큰 layout animation 은 실제 device 에서 측정한다.
 
-관련 노트: [Compose animation API는 변경 단위와 제어 수준으로 선택한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/compose-animation-api-is-selected-by-change-unit-and-control-level.md), [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-layout-and-image-cost-must-be-budgeted.md)
+관련 노트: [Compose animation API는 변경 단위와 제어 수준으로 선택한다](./compose-animation-api-is-selected-by-change-unit-and-control-level.md), [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](../../performance/compose-performance-contracts/compose-layout-and-image-cost-must-be-budgeted.md)
 
 출처: [Customize animations](https://developer.android.com/develop/ui/compose/animation/customize)

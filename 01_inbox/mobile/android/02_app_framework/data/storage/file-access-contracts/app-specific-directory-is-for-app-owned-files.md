@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## 앱 전용 디렉터리: 소유 앱만 쓰는 파일
 
-상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
+상위 문서: [파일 접근 계약](./file-access-contracts.md)
 
-관련 노트: [캐시는 정본이 아니라 재생성 가능한 데이터다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/cache-is-recreatable-data-not-source-of-truth.md)
+관련 노트: [캐시는 정본이 아니라 재생성 가능한 데이터다](../../../../05_security_privacy/secure-storage/storage-lifecycle-and-backup/cache-is-recreatable-data-not-source-of-truth.md)
 
 앱 전용 디렉터리는 파일의 소유자와 수명이 앱에 묶인 저장 영역이다.
 
@@ -57,11 +57,11 @@ val externalCache = File(context.externalCacheDir, "download.part")
 
 반대로 사용자가 갤러리에서 계속 보거나 다른 앱으로 공유해야 하는 결과물은
 
-[MediaStore로 공유 미디어 저장](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/mediastore-registers-shared-media.md) 을 검토한다.
+[MediaStore로 공유 미디어 저장](./mediastore-registers-shared-media.md) 을 검토한다.
 
 사용자가 직접 파일 위치를 정해야 한다면
 
-[SAF로 사용자 선택 파일 다루기](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/saf-grants-access-to-user-selected-documents.md) 가 더 적합하다.
+[SAF로 사용자 선택 파일 다루기](./saf-grants-access-to-user-selected-documents.md) 가 더 적합하다.
 
 ### 구현 원칙
 

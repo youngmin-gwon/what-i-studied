@@ -14,6 +14,6 @@ date created: 2026-07-31 23:59:30 +09:00
 
 `Animatable` 은 coroutine 에서 `animateTo`, `snapTo`, `animateDecay` 같은 명령을 직접 호출해 gesture, cancellation, interruption, sequential animation 을 제어할 때 쓴다. 이 경우 작업 owner 와 cancellation 은 effect/coroutine scope 와 함께 설계한다.
 
-관련 노트: [AnimationSpec은 시간, 물리, 반복 정책을 정의한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/animation-spec-defines-time-physics-and-repeat-policy.md), [사용자 이벤트로 시작하고 수동 제어할 coroutine은 rememberCoroutineScope로 실행한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)
+관련 노트: [AnimationSpec은 시간, 물리, 반복 정책을 정의한다](./animation-spec-defines-time-physics-and-repeat-policy.md), [사용자 이벤트로 시작하고 수동 제어할 coroutine은 rememberCoroutineScope로 실행한다](../../state-and-lifecycle/compose-state-and-effect-contracts/remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)
 
 출처: [Value-based animations](https://developer.android.com/develop/ui/compose/animation/value-based), [Animation quick guide](https://developer.android.com/develop/ui/compose/animation/quick-guide)

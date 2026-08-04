@@ -2,75 +2,84 @@
 title: cache-is-recreatable-data-not-source-of-truth
 tags: ["android", "android/security-privacy"]
 aliases: []
-date modified: 2026-08-03 18:14:39 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## 캐시와 재생성 가능한 데이터의 수명
 
-상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
+캐시 디렉터리(`context.cacheDir`, `context.externalCacheDir`, `codeCacheDir`)에 보관되는 데이터는 **임시적이며(Transient) 언제든지 재구성이 가능한 부차적 데이터**여야 한다. OS는 저장 공간 부족(Low Disk Space) 상황이 발생하면 사용자 동의 없이 캐시 디렉터리의 파일을 수시로 자동 트리밍(Trimming) 및 삭제하므로, 캐시를 앱 데이터의 유일한 정본(Single Source of Truth)으로 설계해서는 안 된다.
 
-관련 노트: [앱 전용 디렉터리는 소유 앱만 쓰는 파일에 사용한다](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/app-specific-directory-is-for-app-owned-files.md)
+```mermaid
+flowchart TD
+    DataReq[데이터 읽기 요청] --> CheckCache{cacheDir 내부 파일 존재 여부?}
+    CheckCache -- Cache Hit --> ReadCache[캐시 파일 빠르게 읽기 반환]
+    CheckCache -- Miss / Evicted by OS --> FetchSSOT[SSOT: 네트워크 API 또는 CE Room DB에서 원본 조회]
+    FetchSSOT --> RebuildCache[cacheDir에 캐시 파일 재생성 저장]
+    RebuildCache --> ReturnData[데이터 응답]
+```
 
-### 한 문장 정의
+### 내부 동작 메커니즘
 
-캐시는 원본이 아니라 성능을 위해 잠시 보관하는 사본이며, 언제든 삭제되어도 앱이 정상적으로 회복되어야 한다.
+1. **OS Automatic Trim**: Android OS의 `StorageManager` 서비스는 저장소가 꽉 차면 `ACTION_CLEAR_DATA_BUFFERS`를 트리거하여 각 앱의 `cacheDir` 파일들을 LRU(Least Recently Used) 순서로 자동 제거한다.
+2. **Quota Management**: Android 8.0(API 26)부터 `StorageManager.getCacheQuotaBytes()`를 통해 앱별 적정 캐시 쿼터가 할당되며, 쿼터 초과 시 캐시 삭제 1순위 대상이 된다.
+3. **Atomic File Operations**: 캐시 파일 생성 도중 OS 트리밍이나 프로세스 킬로 인한 파일 손상을 막기 위해 `AtomicFile` 조작을 권장한다.
 
-캐시를 정본처럼 사용하면 저장 공간 부족, 앱 재설치, 백업 제외, 시스템 정리에서 기능이 깨진다.
-
-### 저장 위치 선택
-
-- `filesDir` 는 앱이 유지해야 하는 내부 파일에 사용한다.
-- `cacheDir` 는 삭제되어도 다시 만들 수 있는 내부 캐시에 사용한다.
-- `getExternalFilesDir()` 는 앱 전용 외부 파일에 사용한다.
-- `getExternalCacheDir()` 는 앱 전용 외부 캐시에 사용한다.
-- 사용자에게 소유권을 넘길 문서는 MediaStore 또는 Storage Access Framework 를 검토한다.
-
-앱 삭제 시 app-specific 파일과 캐시는 함께 제거된다고 가정한다.
-
-사용자에게 다시 보여줘야 하는 파일을 캐시 디렉터리에만 두지 않는다.
-
-### 재생성 계약
-
-캐시 파일마다 원본과 재생성 방법을 정의한다.
-
-예를 들어 이미지 썸네일은 원본 URI 와 변환 버전으로 다시 만들 수 있어야 한다.
-
-네트워크 캐시는 서버 주소, 요청 매개변수, 만료 시각을 함께 관리한다.
-
-중간 산출물은 작업 식별자와 유효성 검사값을 두고, 깨진 파일은 삭제 후 재실행한다.
-
-### 공간 압박 대응
-
-시스템은 공간 부족 시 캐시를 지울 수 있으므로 캐시 삭제를 예외 상황으로 취급하지 않는다.
-
-앱의 수동 캐시 정리도 원자적으로 수행하고, 사용 중인 파일을 먼저 닫는다.
+### 안전한 캐시 관리 및 Atomic Write 구현 (Kotlin)
 
 ```kotlin
-fun clearCache() {
-    cacheDir.deleteRecursively()
-    externalCacheDir?.deleteRecursively()
+import android.content.Context
+import androidx.core.util.AtomicFile
+import java.io.File
+
+class SafeCacheManager(private val context: Context) {
+
+    fun writeToCache(fileName: String, data: ByteArray) {
+        val cacheFile = File(context.cacheDir, fileName)
+        val atomicFile = AtomicFile(cacheFile)
+        
+        var fos = atomicFile.startWrite()
+        try {
+            fos.write(data)
+            atomicFile.finishWrite(fos)
+        } catch (e: Exception) {
+            atomicFile.failWrite(fos)
+        }
+    }
+
+    fun readFromCacheOrNull(fileName: String): ByteArray? {
+        val cacheFile = File(context.cacheDir, fileName)
+        return if (cacheFile.exists() && cacheFile.isFile) {
+            try {
+                AtomicFile(cacheFile).readFully()
+            } catch (e: Exception) {
+                cacheFile.delete() // 손상 파일 삭제
+                null
+            }
+        } else {
+            null
+        }
+    }
 }
 ```
 
-정리 뒤 첫 화면이 빈 상태가 아니라 재다운로드 또는 재계산 상태를 보여줘야 한다.
+### 관찰 가능한 증거 (Observable Evidence)
 
-캐시 크기와 마지막 사용 시각을 관찰해 무한 증가를 막는다.
+- **adb를 활용한 OS 캐시 트리밍 강제 시뮬레이션**:
+  ```bash
+  # 저장 공간 부족 상황을 가상으로 발생시켜 캐시 강제 정리 (1GB 요구)
+  adb shell pm trim-caches 1000M
 
-### 보안과 백업
+  # 앱의 캐시 디렉터리 내부 파일 소멸 확인
+  adb shell ls -la /data/data/com.example.app/cache/
+  ```
 
-캐시는 내부 저장소에 있어도 앱 프로세스가 접근할 수 있는 평문 사본이다.
+### 판단 기준
 
-민감 데이터의 캐시가 필요하면 최소 범위와 만료 시간을 정하고 필요 시 추가 암호화를 적용한다.
+Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity 와 mandatory policy 가 어떻게 강제되는지 판단하는 기준으로 읽는다.
 
-암호화된 정본을 복호화한 결과를 장기간 평문 캐시로 남기지 않는다.
+### 경계
 
-백업 규칙에서는 캐시 디렉터리와 임시 데이터베이스를 명시적으로 제외한다.
+client-side check 를 authorization 으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
 
-### 점검 질문
-
-- 캐시가 모두 삭제되어도 원본에서 복구되는가?
-- 캐시 파일에 토큰이나 개인 정보가 들어가지 않는가?
-- 만료와 버전 불일치를 감지하는가?
-- 복원과 재설치 시 캐시를 새로 생성하는가?
-- 사용 중 파일을 정리할 때 손상이나 경쟁 조건이 없는가?
+상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup.md)

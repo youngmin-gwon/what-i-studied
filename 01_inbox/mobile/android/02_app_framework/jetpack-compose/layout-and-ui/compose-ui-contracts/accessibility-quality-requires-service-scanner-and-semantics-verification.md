@@ -14,6 +14,6 @@ Layout Inspector 나 Compose testing 은 Semantics tree 를 확인하는 데 유
 
 `enableAccessibilityChecks()` 같은 테스트 API 의 artifact, import, 지원 버전은 프로젝트의 Compose/AndroidX 버전과 맞춰 확인한다. 공식 예시를 그대로 일반 규칙으로 고정하지 않는다.
 
-관련 노트: [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md), [Testing quality contracts](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
+관련 노트: [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](./semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md), [Testing quality contracts](../../../../06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
 
 출처: [Test your Compose layout](https://developer.android.com/develop/ui/compose/testing), [Accessibility Scanner](https://support.google.com/accessibility/android/answer/6376570)

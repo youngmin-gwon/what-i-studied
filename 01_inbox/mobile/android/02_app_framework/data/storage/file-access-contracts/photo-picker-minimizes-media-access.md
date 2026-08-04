@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Photo Picker: 사진 선택에 필요한 최소 접근
 
-상위 문서: [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md)
+상위 문서: [파일 접근 계약](./file-access-contracts.md)
 
 Photo Picker 는 사용자가 사진이나 동영상을 고르고 앱에 선택 결과만 전달하는 시스템 UI 다.
 

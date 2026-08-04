@@ -1,83 +1,115 @@
 ---
-title: compose-ui-tests-should-use-stable-selectors-and-semantics
+title: "Compose UI 테스트는 testTag 와 semantics 를 분리한다"
 tags: ["android", "android/testing-performance"]
-aliases: []
-date modified: 2026-08-03 18:15:05 +09:00
+aliases: ["compose-ui-tests-should-use-stable-selectors-and-semantics"]
 date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
 ## Compose UI 테스트는 testTag 와 semantics 를 분리한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md)
+관련 지도: [테스트 품질 계약](./testing-quality-contracts.md)
 
-관련 지도: [테스트 품질 계약](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
+Compose UI 테스트는 비주얼 레이아웃 트리가 아닌 접근성 및 의미 기반의 Semantics Tree를 기반으로 탐색(Matcher) 및 조작(Action)을 수행하며, 다국어/디자인 변경에 둔감하도록 엔지니어링 전용 `Modifier.testTag()`와 사용자 보조 기술용 `Semantics`를 분리 지정해야 한다.
 
-Compose 테스트의 탐색 방식은 테스트 안정성과 접근성 품질을 함께 결정한다.
+### 1. Compose Semantics Tree 및 Selector 메커니즘
 
-`testTag` 는 테스트가 사용할 안정적인 식별자다.
+- **Layout Node Tree vs Semantics Tree**:
+  - Compose 렌더링 엔진은 화면 레이아웃 트리를 그린 후, 조작 및 접근성을 위해 병합된 `SemanticsNode` 트리를 별도로 파생시킨다.
+- **Merged vs Unmerged Tree**:
+  - `Button` 내부의 `Text` composable은 기본적으로 상위 Button 노드로 병합(Merged)된다.
+  - 클릭 가능 영역 내부의 개별 Text 노드를 탐색하려면 `useUnmergedTree = true` 플래그를 명시한다.
+- **`Modifier.testTag()`**:
+  - 다국어 변경, 레이아웃 리팩터링에도 변함없는 테스트 안정적 고유 식별자. `testTagsAsResourceId = true` 설정 시 UI Automator resource-id로 자동 노출.
+- **`SemanticsProperties`**:
+  - `Role.Button`, `ContentDescription`, `StateDescription`, `Text` 등 보조 기술(TalkBack) 및 엑세서빌리티 검증용 계약.
 
-`semantics` 는 사용자와 보조 기술이 이해할 UI 의 의미다.
+### 2. Layout Node Tree vs Semantics Tree 병합 구조
 
-둘은 대체 관계가 아니라 서로 다른 계약을 표현한다.
+```mermaid
+graph TD
+    subgraph Layout Node Tree
+        RootLayout[Box] --> ButtonLayout[Surface]
+        ButtonLayout --> TextLayout[Text: 'Submit']
+        ButtonLayout --> IconLayout[Icon]
+    end
 
-### testTag 를 쓸 때
+    subgraph Semantics Tree (Merged)
+        RootSemantics[SemanticsNode: Box] --> ButtonSemantics["SemanticsNode: Button<br/>Role: Button<br/>Text: 'Submit'<br/>TestTag: 'login:submit'"]
+    end
 
-텍스트가 없는 아이콘 버튼은 testTag 가 유용하다.
-
-동적 목록의 특정 아이템, 입력 필드, 중요한 액션도 testTag 대상이다.
-
-태그는 화면 또는 feature 이름으로 namespace 를 만든다.
-
-예시는 `signIn:passwordInput`, `dashboard:item:42` 처럼 작성한다.
-
-태그는 사용자에게 노출되는 문구와 분리해 다국어 변경에 강하게 만든다.
-
-모든 노드에 태그를 붙이면 구현 세부사항이 테스트 계약이 된다.
-
-따라서 상호작용과 동적 식별에 필요한 노드만 태그를 부여한다.
-
-### semantics 를 쓸 때
-
-버튼 역할, 선택 상태, 비활성 상태, content description 은 semantics 계약이다.
-
-TalkBack 이 이해해야 하는 의미는 테스트에서도 검증해야 한다.
-
-화면에 표시되는 오류 문구와 제목은 semantics 또는 텍스트 assertion 으로 확인한다.
-
-번역 문자열을 직접 하드코딩하지 말고 현재 로케일의 리소스에서 기대값을 만든다.
-
-문구 변경이 의도된 경우 테스트가 함께 변경되어야 한다.
-
-반대로 단순히 클릭할 버튼의 한국어 문구를 selector 로 쓰면 i18n 에 취약하다.
-
-### 예시
-
-```kotlin
-composeTestRule
-    .onNodeWithTag("signIn:submitButton")
-    .performClick()
-
-composeTestRule
-    .onNode(hasRole(Role.Button) and isEnabled())
-    .assertExists()
+    ButtonLayout -. Merged into .-> ButtonSemantics
+    TextLayout -. Merged into .-> ButtonSemantics
 ```
 
-`onNodeWithText` 는 표시 문구가 결과의 핵심일 때 사용한다.
+### 3. ComposeTestRule 및 Semantics Matcher Kotlin 코드 구체 예시
 
-`contentDescription` 은 장식 이미지보다 의미 있는 아이콘에 제공한다.
+```kotlin
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createComposeRule
+import org.junit.Rule
+import org.junit.Test
 
-테스트만을 위해 접근성 정보를 왜곡하지 않는다.
+class LoginScreenTest {
 
-### E2E 연동
+    @get:Rule
+    val composeTestRule = createComposeRule()
 
-UI Automator 가 Compose 태그를 resource-id 로 찾아야 한다면 상위 semantics 에
+    @Test
+    fun loginButton_disabled_whenPasswordEmpty() {
+        composeTestRule.setContent {
+            LoginScreen(
+                uiState = LoginUiState(username = "user@test.com", password = "")
+            )
+        }
 
-`testTagsAsResourceId = true` 를 설정하는 방식을 검토한다.
+        // 1. testTag를 이용한 입력창 지정 및 텍스트 작성
+        composeTestRule
+            .onNodeWithTag("login:usernameInput")
+            .assertIsDisplayed()
 
-이 설정은 Compose 내부 테스트와 시스템 수준 테스트의 경계를 연결한다.
+        // 2. Semantics Role & Enabled 상태 assertion (접근성 및 버튼 상태 검증)
+        composeTestRule
+            .onNode(
+                hasTestTag("login:submitButton") and 
+                hasRole(Role.Button)
+            )
+            .assertIsNotEnabled()
+    }
 
-연동을 켰다고 해서 모든 내부 노드를 외부 자동화에 공개할 필요는 없다.
+    @Test
+    fun printSemanticsTreeDump() {
+        composeTestRule.setContent { LoginScreen(uiState = LoginUiState()) }
+        
+        // 전체 시맨틱 트리를 로그캣으로 프린트 덤프
+        composeTestRule.onRoot().printToLog("COMPOSE_TREE")
+    }
+}
+```
 
-공식 참고: [Compose 테스트에서 semantics](https://developer.android.com/develop/ui/compose/testing/semantics)
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
 
-공식 참고: [Compose 테스트 API](https://developer.android.com/develop/ui/compose/testing/apis)
+#### `printToLog()` 시맨틱 트리 Logcat 덤프 출력
+
+```text
+D/COMPOSE_TREE: printToLog:
+    Printing with condition:Everything
+    Node #1 at (l=0, t=0, r=1080, b=2400)px
+     |-Node #2 at (l=48, t=120, r=1032, b=280)px
+     |  Tag: 'login:usernameInput'
+     |  Text: [user@test.com]
+     |  Actions: [SetText, RequestFocus]
+     |-Node #3 at (l=48, t=320, r=1032, b=480)px
+     |  Tag: 'login:submitButton'
+     |  Role: 'Button'
+     |  Disabled: []
+     |  Actions: [OnClick]
+```
+
+### 5. Compose 테스트 선택자 작성 원칙
+
+- **문구 기반 Selector 지양**: UI 텍스트(예: `"로그인하기"`)로 버튼을 클릭하는 셀렉터는 i18n 번역 파일 수정만으로 테스트가 깨지므로 `testTag`를 사용한다.
+- **의미 검증엔 Semantics 사용**: 버튼의 비활성화 상태(`assertIsNotEnabled`), 체크박스의 체크 상태(`assertIsSelected`)는 반드시 Semantics Property를 검증한다.
+

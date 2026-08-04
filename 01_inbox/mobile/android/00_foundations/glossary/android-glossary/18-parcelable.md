@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [AIDL boundary contract](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/aidl-defines-process-boundary-contract-not-business-protocol.md)
-- [Binder transaction lifetime](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)
+- [AIDL boundary contract](../../../01_system_internals/ipc-and-process/ipc-process-contracts/aidl-defines-process-boundary-contract-not-business-protocol.md)
+- [Binder transaction lifetime](../../../01_system_internals/ipc-and-process/ipc-process-contracts/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)

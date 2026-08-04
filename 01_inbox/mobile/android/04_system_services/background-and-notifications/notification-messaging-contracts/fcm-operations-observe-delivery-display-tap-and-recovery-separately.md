@@ -8,11 +8,11 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ## FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 
-관련 지도: [알림과 FCM 메시징 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/notification-messaging-contracts.md)
+관련 지도: [알림과 FCM 메시징 계약](./notification-messaging-contracts.md)
 
-관련 노트: [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-registration-identifier-targets-app-instance-not-user-account.md), [Android 알림은 권한과 채널이 표시 가능성을 결정한다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/android-notification-permission-and-channel-control-visibility.md)
+관련 노트: [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](./fcm-registration-identifier-targets-app-instance-not-user-account.md), [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./android-notification-permission-and-channel-control-visibility.md)
 
 ### 초기 설정
 

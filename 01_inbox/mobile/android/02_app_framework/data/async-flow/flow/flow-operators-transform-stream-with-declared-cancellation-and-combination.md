@@ -25,4 +25,4 @@ query
 
 여기서 검색어가 빠르게 두 번 바뀌면, `flatMapLatest` 는 첫 번째 `repository.search(keyword)` 코루틴을 취소하고 두 번째 keyword 로 다시 매핑한다. 취소된 검색 내부의 suspend 지점은 `CancellationException` 을 받고 종료되므로, 먼저 시작된 느린 네트워크 응답이 나중에 도착해 최신 검색 결과를 덮어쓰는 일이 없다. 반대로 `flatMapConcat` 을 썼다면 두 번째 검색은 첫 번째가 끝날 때까지 시작조차 되지 않는다.
 
-관련 노트: [flatMapLatest는 새 입력이 오면 이전 작업을 취소한다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flatmaplatest-cancels-obsolete-work-for-new-input.md), [combine은 여러 source의 최신값으로 화면 상태를 만든다](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/combine-builds-screen-state-from-latest-source-values.md)
+관련 노트: [flatMapLatest는 새 입력이 오면 이전 작업을 취소한다](../flow-state-contracts/flatmaplatest-cancels-obsolete-work-for-new-input.md), [combine은 여러 source의 최신값으로 화면 상태를 만든다](../flow-state-contracts/combine-builds-screen-state-from-latest-source-values.md)

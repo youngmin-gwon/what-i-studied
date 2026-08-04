@@ -1,69 +1,107 @@
 ---
 title: "Android 시작 성능은 TTID와 TTFD로 나눈다"
 tags: ["android", "android/testing-performance"]
+aliases: ["startup-performance-is-measured-by-ttid-and-ttfd"]
+date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
-# Android 시작 성능은 TTID와 TTFD로 나눈다
+## Android 시작 성능은 TTID와 TTFD로 나눈다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
-관련 지도: [런타임 성능 계약](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/performance-contracts.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-quality-and-build-optimization.md)
+관련 지도: [런타임 성능 계약](./performance-contracts.md)
 
-앱 시작 시간은 첫 화면과 실제 사용 가능 상태를 구분해야 한다.
+앱 시작 시간은 첫 화면 표시와 실제 상호작용 가능한 유효 상태를 명확히 구분해야 한다.
 
-TTID는 첫 프레임이 표시되기까지의 시간이다.
+### 1. TTID와 TTFD의 내부 동작 메커니즘
 
-TTFD는 사용자가 의미 있는 콘텐츠를 볼 수 있을 때까지의 시간이다.
+- **TTID (Time To Initial Display)**: OS 프로세스 생성(Zygote Fork) $\rightarrow$ `ActivityThread.main()` $\rightarrow$ `Application.onCreate()` $\rightarrow$ `Activity.onCreate()` $\rightarrow$ Choreographer 첫 바인딩 프레임 렌더링 시점까지의 시간이다.
+- **TTFD (Time To Fully Displayed)**: 첫 프레임 표출 후 비동기 데이터 로딩(네트워크/DB), 비동기 이미지 디코딩 및 UI 바인딩이 완료되어 사용자가 실제 기능을 조작할 수 있는 시점까지의 시간이다.
+- **Cold vs Warm vs Hot Start**:
+  - **Cold Start**: 앱 프로세스가 존재하지 않는 상태에서 Zygote에서 새 VM 프로세스를 Fork하고 전체 클래스 및 단일 인스턴스를 초기화한다.
+  - **Warm Start**: 프로세스는 힙 메모리에 유지되어 있지만 `Activity`가 재생성되는 시나리오다.
+  - **Hot Start**: `Activity`와 프로세스 모두 메모리에 존재하며 백그라운드에서 foreground로 단순히 다시 전면 복귀한다.
 
-첫 프레임만 빠르고 빈 화면이 오래 유지되면 TTFD는 나쁘다.
+### 2. 시작 단계 시퀀스 및 측정 시점
 
-냉시작은 프로세스가 없는 상태에서 시작하는 경우다.
+```mermaid
+sequenceDiagram
+    autonumber
+    participant OS as OS / Zygote
+    participant App as Application
+    participant Act as MainActivity
+    participant UI as Choreographer / Display
+    participant Async as Async Data Loader
 
-온시작은 프로세스가 살아 있는 상태에서 Activity를 다시 여는 경우다.
+    OS->>App: Fork Process & Application.onCreate()
+    App->>Act: Activity.onCreate() -> onStart() -> onResume()
+    Act->>UI: Render First Frame
+    UI-->>OS: Logcat: Displayed (+TTID ms)
+    Act->>Async: Fetch Remote/Local Feed Data
+    Async-->>Act: Data Loaded & UI Composed
+    Act->>OS: reportFullyDrawn() / ReportDrawnWhen
+    OS-->>OS: Logcat: Fully drawn (+TTFD ms)
+```
 
-두 조건은 병목과 목표가 다르므로 별도로 측정한다.
+### 3. TTFD 선언 Kotlin 코드 구체 예시
 
-시작 경로에는 `Application.onCreate`와 첫 Activity 초기화가 포함된다.
+Compose 환경에서는 `ReportDrawnWhen` 또는 `ReportDrawnAfter`를 사용하여 데이터 로딩이 완료된 시점에 `reportFullyDrawn()`을 안전하게 트리거한다.
 
-DI 그래프 생성, 로깅, 원격 설정, SDK 초기화가 이 구간을 늘릴 수 있다.
+```kotlin
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.ReportDrawnWhen
+import androidx.compose.runtime.Composable
 
-첫 화면에 필요하지 않은 초기화는 지연한다.
+@Composable
+fun MainFeedScreen(
+    viewModel: MainFeedViewModel,
+    modifier: Modifier = Modifier
+) {
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
 
-화면 뒤에서 가능한 작업은 비동기로 이동한다.
+    // UI 상태가 Success 또는 Error로 수신 완료되었을 때 TTFD 신호를 OS에 전달
+    ReportDrawnWhen {
+        uiState is FeedUiState.Success || uiState is FeedUiState.Error
+    }
 
-WebView와 지도 같은 무거운 SDK는 실제 사용 시점에 예열한다.
+    when (uiState) {
+        is FeedUiState.Loading -> LoadingSpinner()
+        is FeedUiState.Success -> FeedContent(items = uiState.items)
+        is FeedUiState.Error -> ErrorMessage(message = uiState.message)
+    }
+}
+```
 
-지연 초기화가 첫 사용 순간의 지연으로 이동하지 않는지도 측정한다.
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
 
-Baseline Profile은 자주 실행되는 코드를 미리 컴파일하는 방법이다.
+#### Logcat 시스템 출력 신호
+`ActivityTaskManager` 태그를 통해 TTID 및 TTFD 시간이 밀리초 단위로 자동 기록된다.
 
-Cloud Profiles와 함께 사용하면 실제 사용 패턴에 맞는 최적화를 기대할 수 있다.
+```text
+I/ActivityTaskManager: Displayed com.example.app/.MainActivity: +420ms (total +420ms)
+I/ActivityTaskManager: Fully drawn com.example.app/.MainActivity: +850ms
+```
 
-[앱 시작 시간 최적화](https://developer.android.com/topic/performance/vitals/launch-time)는 시작 구간을 측정하고 줄이는 기본 원칙을 설명한다.
+#### ADB 실행 명령 및 측정 덤프
+`adb shell am start -W` 명령으로 실행 상태(Cold/Warm)와 타임아웃 지표를 관측한다.
 
-[Baseline Profiles](https://developer.android.com/topic/performance/baselineprofiles/overview)는 첫 실행과 주요 사용자 여정의 실행 비용을 낮추는 기준이다.
+```bash
+adb shell am start -W -n com.example.app/.MainActivity
+```
 
-시작 측정은 화면이 실제로 준비된 시점까지 포함해야 한다.
+```text
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.app/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.app/.MainActivity
+TotalTime: 420
+WaitTime: 435
+Complete
+```
 
-테스트에서 `startActivityAndWait`만 호출하면 콘텐츠 준비가 끝났는지 확인한다.
+### 5. 측정 및 가이던스 원칙
 
-Macrobenchmark의 `StartupTimingMetric`으로 냉시작과 온시작을 반복한다.
+- 첫 화면에 필요하지 않은 SDK 초기화 및 DI 그래프 생성은 지연(Lazy) 처리한다.
+- TTID가 감소했으나 TTFD가 증가했다면 초기화를 불필요하게 렌더링 이후 비동기 블록으로 옮겨 사용자 대기 시간을 연장한 것이다.
+- Macrobenchmark의 `StartupTimingMetric`을 이용해 릴리스 컴파일 모드에서 냉시작/온시작 지표를 반복 산출한다.
 
-릴리스와 유사한 빌드 타입에서 측정한다.
-
-디버그 빌드의 로그와 검증 코드는 시작 비용을 왜곡할 수 있다.
-
-수정 전후에 중앙값과 상위 백분위 변화를 비교한다.
-
-TTID가 줄었지만 TTFD가 늘었다면 초기화를 너무 늦춘 것이다.
-
-TTFD가 줄었지만 냉시작만 악화되면 공통 초기화 비용을 다시 본다.
-
-스플래시 화면은 측정값을 숨기는 장치가 아니다.
-
-사용자가 첫 상호작용을 할 수 있는 시점과 스플래시 종료 시점을 구분한다.
-
-프로파일링에서는 메인 스레드의 긴 구간을 먼저 찾는다.
-
-그 다음 시작 중 생성된 객체와 디스크, 네트워크 접근을 확인한다.
-
-시작 성능의 목표는 작은 숫자 하나보다 반복 가능한 사용자 경험이다.

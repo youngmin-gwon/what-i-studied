@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Android App Link 는 검증된 HTTPS 딥 링크다
 
-상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
+상위 문서: [Deep Link 계약](./deep-link-contracts.md)
 
-관련 노트: [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/manifest-and-assetlinks-have-distinct-roles.md)
+관련 노트: [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](./manifest-and-assetlinks-have-distinct-roles.md)
 
 ### 정의
 
@@ -84,9 +84,9 @@ com.example.app:
 
 ### 구현 흐름
 
-URI 목적지는 [Android 딥 링크는 외부 URI 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md) 에서 정의한다.
+URI 목적지는 [Android 딥 링크는 외부 URI 계약이다](./deep-link-is-external-uri-contract.md) 에서 정의한다.
 
-매니페스트와 서버 파일의 대응 관계는 [매니페스트 선언과 assetlinks.json의 역할](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/manifest-and-assetlinks-have-distinct-roles.md) 에서 확인한다.
+매니페스트와 서버 파일의 대응 관계는 [매니페스트 선언과 assetlinks.json의 역할](./manifest-and-assetlinks-have-distinct-roles.md) 에서 확인한다.
 
 정식 설정 절차는 [App Links 추가](https://developer.android.com/training/app-links/add-applinks) 를 따른다.
 

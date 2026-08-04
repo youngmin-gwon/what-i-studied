@@ -31,4 +31,4 @@ object BenefitDiffCallback : DiffUtil.ItemCallback<Benefit>() {
 - Compose Lazy list 에서는 stable key 를 주어 item state 와 scroll anchoring 이 흔들리지 않게 한다.
 - placeholder 를 쓰는 경우 null item 과 실제 item 의 rendering path 를 분리한다.
 
-관련 노트: [LoadState는 refresh, append, prepend 상태를 UI에 명시적으로 드러낸다](01_inbox/mobile/android/02_app_framework/data/paging/paging-contracts/loadstate-models-refresh-append-and-prepend-ui-states.md)
+관련 노트: [LoadState는 refresh, append, prepend 상태를 UI에 명시적으로 드러낸다](./loadstate-models-refresh-append-and-prepend-ui-states.md)

@@ -12,7 +12,7 @@ Dynamic feature module 은 필요할 때 설치되는 선택 feature unit 이다
 
 Base module 에는 feature entry contract, navigation route, dependency interface 처럼 안정적으로 알아야 할 것만 둔다. Dynamic feature 내부 implementation 과 binding 은 설치 이후 entry boundary 에서 연결한다.
 
-관련 노트: [Dynamic feature module](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md).
+관련 노트: [Dynamic feature module](../../../03_packaging_deployment/distribution/play-delivery-contracts/dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md).
 
 ### 판단 기준
 

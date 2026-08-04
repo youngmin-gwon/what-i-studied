@@ -2,19 +2,32 @@
 title: tv-contracts
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:16:11 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-08-03 17:26:35 +09:00
 ---
 
 ## Android TV 계약
 
+상위 문서: [Android 폼 팩터와 플랫폼 확장 지도](../../android-platforms-and-form-factors.md)
+
 이 지도는 Android TV/Google TV 를 d-pad 중심 입력, 10-foot UI 탐색, 배포 정책이라는 세 계약으로 분리한다.
+
+### Android TV 런타임 탐색 흐름
+
+```mermaid
+graph TD
+    A["D-Pad Remote Input (KEYCODE_DPAD_*)"] --> B{"Input Dispatcher"}
+    B --> C["FocusManager / FocusRequester Resolution"]
+    C --> D["Target TV Component Focus State"]
+    D --> E["Focus Animation (Scale 1.0 -> 1.1x & Border Highlight)"]
+    D --> F["10-foot UI Row/Column Scroll Offset Sync"]
+```
 
 ### 읽는 순서
 
-1. [Android TV는 d-pad/리모컨을 1차 입력으로 가정한다](01_inbox/mobile/android/07_platforms/tv/tv-contracts/android-tv-assumes-d-pad-remote-as-primary-input.md) 에서 터치가 없는 입력 모델을 본다.
-2. [10-foot UI는 포커스 기반 탐색을 요구한다](01_inbox/mobile/android/07_platforms/tv/tv-contracts/10-foot-ui-requires-focus-based-navigation.md) 에서 레이아웃과 포커스 이동 설계를 본다.
-3. [Android TV 배포는 터치스크린 미보유를 명시적으로 선언해야 한다](01_inbox/mobile/android/07_platforms/tv/tv-contracts/android-tv-distribution-requires-declaring-no-touchscreen.md) 에서 Play 콘솔 배포 조건을 본다.
+1. [Android TV는 d-pad/리모컨을 1차 입력으로 가정한다](./android-tv-assumes-d-pad-remote-as-primary-input.md) 에서 터치가 없는 입력 모델을 본다.
+2. [10-foot UI는 포커스 기반 탐색을 요구한다](./10-foot-ui-requires-focus-based-navigation.md) 에서 레이아웃과 포커스 이동 설계를 본다.
+3. [Android TV 배포는 터치스크린 미보유를 명시적으로 선언해야 한다](./android-tv-distribution-requires-declaring-no-touchscreen.md) 에서 Play 콘솔 배포 조건을 본다.
 
 ### 문제 분류
 
@@ -24,15 +37,29 @@ date created: 2026-08-03 17:26:35 +09:00
 | TV 에서 앱이 Play 스토어에 안 보임 | 매니페스트의 leanback 기능 선언과 터치스크린 not-required 선언 |
 | 화면 요소가 리모컨 시청 거리에서 너무 작음 | 10-foot UI 기준(큰 텍스트/여백)을 적용했는지 |
 
+### 관측 가능한 증거 (Observable Evidence)
+
+```bash
+# 1. Android TV 린백(Leanback) 및 터치스크린 선언 검증
+adb shell pm list features | grep -E "leanback|touchscreen"
+
+# 2. 리모컨 포커스 Window 및 포커스된 View ID 덤프
+adb shell dumpsys input | grep -E "FocusedApplication|FocusedWindow"
+
+# 3. TV 린백 런처 액티비티 직접 강제 실행
+adb shell am start -a android.intent.action.MAIN -c android.intent.category.LEANBACK_LAUNCHER <package_name>/<activity_name>
+```
+
 ### 책임 경계
 
 - Android TV 는 휴대폰 UI 를 그대로 축소 이식하는 플랫폼이 아니라 원격 입력과 시청 거리 전제가 다른 별도 디자인 표면이다.
 - 이 지도는 TV 고유의 입력/UI/배포 계약만 다루며, 미디어 코덱이나 스트리밍 프로토콜 자체는 다루지 않는다.
 
-### 노트 목록
+### 정본 노트
 
-- [Android TV는 d-pad/리모컨을 1차 입력으로 가정한다](01_inbox/mobile/android/07_platforms/tv/tv-contracts/android-tv-assumes-d-pad-remote-as-primary-input.md)
-- [10-foot UI는 포커스 기반 탐색을 요구한다](01_inbox/mobile/android/07_platforms/tv/tv-contracts/10-foot-ui-requires-focus-based-navigation.md)
-- [Android TV 배포는 터치스크린 미보유를 명시적으로 선언해야 한다](01_inbox/mobile/android/07_platforms/tv/tv-contracts/android-tv-distribution-requires-declaring-no-touchscreen.md)
+- [Android TV는 d-pad/리모컨을 1차 입력으로 가정한다](./android-tv-assumes-d-pad-remote-as-primary-input.md)
+- [10-foot UI는 포커스 기반 탐색을 요구한다](./10-foot-ui-requires-focus-based-navigation.md)
+- [Android TV 배포는 터치스크린 미보유를 명시적으로 선언해야 한다](./android-tv-distribution-requires-declaring-no-touchscreen.md)
 
 검증일: 2026-08-03. [Android TV 앱 개발 가이드](https://developer.android.com/training/tv) 를 기준으로 확인했다.
+

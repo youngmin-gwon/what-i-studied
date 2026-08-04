@@ -16,6 +16,6 @@ UI 작업은 UI layer 에서 처리하고, 오래 사는 객체에는 Context �
 
 화면 회전이나 뒤로가기로 Activity 가 destroy 된 뒤에도 heap dump 에서 그 Activity 인스턴스가 여전히 도달 가능하면(예: LeakCanary 가 `ActivityLeak` 을 보고하거나, Memory Profiler 의 heap dump 에서 destroyed Activity 참조가 남아 있으면) Activity context 를 오래 사는 객체가 붙잡고 있다는 관찰 가능한 신호다.
 
-관련 노트: [Activity lifecycle 콜백](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md), [ViewModel/Repository Context 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/viewmodel-and-repository-should-not-retain-ui-context.md), [Context leak 경계](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/context-contracts/context-leaks-happen-when-reference-outlives-component-lifetime.md).
+관련 노트: [Activity lifecycle 콜백](../../app-components/app-component-contracts/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md), [ViewModel/Repository Context 경계](./viewmodel-and-repository-should-not-retain-ui-context.md), [Context leak 경계](./context-leaks-happen-when-reference-outlives-component-lifetime.md).
 
 공식 문서: [Context reference](https://developer.android.com/reference/android/content/Context)

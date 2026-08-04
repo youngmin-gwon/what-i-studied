@@ -1,15 +1,15 @@
 ---
 title: sensor-coordinate-system-is-device-fixed-not-screen-relative
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["센서 좌표계는 화면 방향이 아니라 기기 고정 좌표계다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## 센서 좌표계는 화면 방향이 아니라 기기 고정 좌표계다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [센서 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [센서 접근 계약](./sensor-contracts.md)
 
 ### 핵심 정의
 
@@ -27,7 +27,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 경계
 
-- 이 노트는 좌표계 정의와 리매핑 필요성까지 다룬다. 센서 자체의 배칭/전력 설정은 [센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-batching-trades-latency-for-battery.md)가 다룬다.
+- 이 노트는 좌표계 정의와 리매핑 필요성까지 다룬다. 센서 자체의 배칭/전력 설정은 [센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다](./sensor-batching-trades-latency-for-battery.md)가 다룬다.
 - 화면 회전과 Activity/Window 레벨의 configuration change 처리는 `02_app_framework`의 lifecycle 관련 클러스터가 다룬다.
 
 ### 관찰 가능한 신호

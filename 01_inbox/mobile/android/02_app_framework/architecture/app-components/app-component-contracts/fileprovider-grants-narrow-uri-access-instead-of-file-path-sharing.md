@@ -16,6 +16,6 @@ FileProvider 는 일반 CRUD provider 나 storage architecture 가 아니다. �
 
 `file://` URI 를 FileProvider 없이 그대로 다른 앱에 노출하면(targetSdkVersion 24 이상) `FileUriExposedException` 이 발생한다. 이 예외 자체가 "raw file 경로를 외부에 넘겼다"는 관찰 가능한 신호다.
 
-관련 노트: [file access 정본](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md), [ContentProvider 정본](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/contentprovider-publishes-uri-addressed-data-with-permission-boundary.md), [Android 권한 계약](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md).
+관련 노트: [file access 정본](../../../data/storage/file-access-contracts/file-access-contracts.md), [ContentProvider 정본](./contentprovider-publishes-uri-addressed-data-with-permission-boundary.md), [Android 권한 계약](../../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md).
 
 공식 문서: [FileProvider reference](https://developer.android.com/reference/androidx/core/content/FileProvider)

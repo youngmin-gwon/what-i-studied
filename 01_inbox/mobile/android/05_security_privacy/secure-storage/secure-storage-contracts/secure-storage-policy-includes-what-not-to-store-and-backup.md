@@ -1,78 +1,77 @@
 ---
 title: secure-storage-policy-includes-what-not-to-store-and-backup
-tags: []
+tags: ["android", "android/security-privacy"]
 aliases: []
-date modified: 2026-08-03 18:14:29 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## 보안 저장소 정책은 저장하지 말아야 할 데이터와 백업 금지 항목을 포함한다
 
-### Android 보안 저장소는 저장 금지와 백업 정책까지 포함한다
+가장 안전한 보안 저장소 정책은 **데이터를 아예 저장하지 않는 것**이다. 저장 필요성이 입증되더라도, 1) 하드코딩 금지 항목, 2) 저장 금지 민감 항목(비밀번호, 생체 원문), 3) **Android Auto Backup 및 Device-to-Device 이전 시 자동 백업 제외(Exclude) 정책**을 명확히 명세해야 한다.
 
-상위 문서: [보안 저장소 계약](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+```mermaid
+flowchart TD
+    DataItem[저장 대상 데이터 평가] --> NonStorable{비밀번호 원문 / 생체 템플릿 / 마스터 비밀키?}
+    NonStorable -- Yes --> NEVER[저장 절대 금지! 서버 처리 또는 TEE 처리]
+    NonStorable -- No --> Transient{세션 토큰 / 임시 인증키?}
+    Transient -- Yes --> CEStore[CE 저장소 + Keystore 암호화]
+    CEStore --> BackupRule[dataExtractionRules.xml에 백업 제외 명시]
+```
 
-관련 노트: [백업과 복원은 데이터 경계를 명시적으로 설계해야 한다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/backup-restore-requires-explicit-data-boundaries.md)
+### 내부 동작 메커니즘
 
-#### 핵심 주장
+1. **Keystore Key Non-Transferability**: 하드웨어 Keystore의 Master Key는 기기 고유 칩셋에 종속되므로 Cloud Backup이나 D2D 이전을 통해 다른 기기로 복사되지 않는다.
+2. **Orphan Ciphertext Problem**: 만약 암호화된 `secure_prefs.xml` 파일만 새 기기로 복원되고 Keystore Master Key가 복원되지 않는다면, 새 기기에서 앱 실행 시 복호화 불가능 예외가 발생한다.
+3. **Android 12+ Extraction Rules**: Android 12(API 31)부터 적용되는 `android:dataExtractionRules` 명세를 통해 클라우드 백업과 기기 간 직접 전송(D2D) 규칙을 개별 차단해야 한다.
 
-가장 안전한 민감 데이터는 기기에 저장하지 않는 데이터다.
+### 데이터 백업 제외 규칙 정의 예시 (XML & Manifest)
 
-저장이 필요하더라도 수명, 복구 가능성, 자동 백업 범위를 먼저 정하고 암호화를 적용해야 한다.
+```xml
+<!-- res/xml/data_extraction_rules.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- 암호화 저장소 및 토큰 파일 백업에서 제외 -->
+        <exclude path="shared_prefs/secure_prefs.xml" />
+        <exclude path="databases/sensitive_db.db" />
+    </cloud-backup>
+    <device-to-device>
+        <exclude path="shared_prefs/secure_prefs.xml" />
+        <exclude path="databases/sensitive_db.db" />
+    </device-to-device>
+</data-extraction-rules>
+```
 
-#### 저장하지 말아야 할 값
+```xml
+<!-- AndroidManifest.xml 적용 -->
+<application
+    android:allowBackup="true"
+    android:dataExtractionRules="@xml/data_extraction_rules"
+    android:fullBackupContent="false">
+</application>
+```
 
-- 서버의 장기 비밀키와 마스터 키
-- 소스 코드에 하드코딩한 AES 키, API 비밀, 개인 키
-- 사용자의 비밀번호 원문
-- 생체 정보와 생체 템플릿
-- 다시 발급받을 수 있는 민감 정보의 불필요한 장기 사본
-- 로그, 크래시 리포트, 분석 이벤트에 포함된 토큰과 개인정보
+### 관찰 가능한 증거 (Observable Evidence)
 
-서버 비밀은 앱에 배포하지 않는 것이 원칙이다.
+- **adb를 활용한 백업 동작 수동 테스트**:
+  ```bash
+  # 백업 매니저를 통해 대상 앱의 백업 즉시 실행 테스트
+  adb shell bmgr backupnow com.example.app
 
-사용자 비밀번호는 앱에서 복호화 가능한 형태로 저장하지 말고 서버의 안전한 인증 방식으로 처리한다.
+  # 백업 아카이브 생성 덤프 확인
+  adb backup -f sample_backup.ab com.example.app
+  ```
+- **백업 정책 누락 시 노출 위험**: 새 기기 복원 후 Keystore 접근 불가로 인한 `KeyStoreException` 또는 `GeneralSecurityException` 무한 발생.
 
-토큰은 필요 기간 동안만 저장하고 로그아웃, 만료, 계정 변경 시 폐기한다.
+### 판단 기준
 
-#### 백업과 복원
+Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity 와 mandatory policy 가 어떻게 강제되는지 판단하는 기준으로 읽는다.
 
-Android 의 자동 백업이나 기기 이전은 앱 데이터가 새 위치로 복사되는 경로가 될 수 있다.
+### 경계
 
-암호문만 복원되고 Keystore 키가 복원되지 않으면 데이터가 영구적으로 읽히지 않을 수 있다.
+client-side check 를 authorization 으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
 
-반대로 키와 암호문이 함께 복원되면 기기 이전 정책이 의도보다 넓어질 수 있다.
+상위 문서: [보안 저장소 계약](secure-storage-contracts.md)
 
-따라서 민감 데이터는 백업 제외 대상인지 명시하고, 복원 후 재인증이나 재로그인을 요구한다.
-
-#### 저장 정책 예시
-
-1. 서버 재발급이 가능한 토큰은 짧은 수명으로 저장한다.
-2. 기기 종속 키로 암호화한 데이터는 백업에서 제외하거나 복구 불가 상태를 명확히 알린다.
-3. 앱 삭제, 로그아웃, 계정 전환 시 관련 암호문과 키를 함께 정리한다.
-4. 기기 잠금 해제 전 필요하지 않은 데이터는 Credential Encrypted 영역에 둔다.
-5. 알람처럼 부팅 직후 필요한 최소 상태만 Device Encrypted 영역을 검토한다.
-
-#### CE 와 DE
-
-File-Based Encryption 은 사용자 자격 증명으로 보호되는 CE 영역과 부팅 직후 접근 가능한 DE 영역을 구분한다.
-
-대부분의 앱 데이터는 CE 에 두고, Direct Boot 에 필요한 최소 데이터만 DE 를 사용한다.
-
-DE 영역에 비밀이나 전체 사용자 데이터를 넣으면 잠금 해제 전 노출 범위가 커질 수 있다.
-
-`createDeviceProtectedStorageContext()` 를 사용하기 전에 그 데이터가 정말 부팅 직후 필요한지 확인한다.
-
-#### 폐기와 감사
-
-키 삭제는 암호문 삭제와 함께 수행할 때 의미가 분명해진다.
-
-민감 데이터의 생성, 읽기, 내보내기, 삭제 경로를 코드 리뷰와 테스트에서 확인한다.
-
-백업 설정, 디버그 빌드, 테스트 픽스처, 로그 수집 설정을 배포 전 점검한다.
-
-#### 결론
-
-보안 저장소의 범위는 암호화 API 호출에서 끝나지 않는다.
-
-무엇을 저장하지 않을지, 무엇을 백업하지 않을지, 키를 잃었을 때 어떻게 재인증할지를 함께 결정해야 한다.
+관련 노트: [백업과 복원에서 데이터 경계를 설계하기](../storage-lifecycle-and-backup/backup-restore-requires-explicit-data-boundaries.md)

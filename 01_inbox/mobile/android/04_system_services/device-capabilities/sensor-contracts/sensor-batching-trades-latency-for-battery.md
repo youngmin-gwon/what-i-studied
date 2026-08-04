@@ -1,15 +1,15 @@
 ---
 title: sensor-batching-trades-latency-for-battery
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## 센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [센서 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [센서 접근 계약](./sensor-contracts.md)
 
 ### 핵심 정의
 
@@ -29,7 +29,7 @@ wakeup 센서(예: significant motion)는 AP가 절전 상태(suspend)여도 시
 
 ### 경계
 
-- 이 노트는 배칭/wakeup 설정까지만 다룬다. raw/synthetic 센서 선택 자체는 [SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensormanager-exposes-raw-and-synthetic-sensors-through-one-api.md)가 다룬다.
+- 이 노트는 배칭/wakeup 설정까지만 다룬다. raw/synthetic 센서 선택 자체는 [SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다](./sensormanager-exposes-raw-and-synthetic-sensors-through-one-api.md)가 다룬다.
 - Doze/App Standby가 백그라운드 센서 등록 자체를 제한하는 조건은 `04_system_services/background-and-notifications/background-work-contracts`가 다룬다.
 
 ### 관찰 가능한 신호

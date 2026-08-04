@@ -1,15 +1,15 @@
 ---
 title: subscriptionmanager-separates-logical-subscriptions-from-physical-slots
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [텔레포니 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/telephony-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [텔레포니 접근 계약](./telephony-contracts.md)
 
 ### 핵심 정의
 
@@ -27,7 +27,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 경계
 
-- 이 노트는 구독과 슬롯의 데이터 모델을 다룬다. 조회 자체의 permission 계층은 [TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/telephonymanager-permissions-split-into-phone-state-and-phone-numbers.md)가 다룬다.
+- 이 노트는 구독과 슬롯의 데이터 모델을 다룬다. 조회 자체의 permission 계층은 [TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다](./telephonymanager-permissions-split-into-phone-state-and-phone-numbers.md)가 다룬다.
 - eSIM 프로필 다운로드/관리(GSMA RSP) 프로토콜 세부는 이 지도의 범위 밖이다.
 
 ### 관찰 가능한 신호

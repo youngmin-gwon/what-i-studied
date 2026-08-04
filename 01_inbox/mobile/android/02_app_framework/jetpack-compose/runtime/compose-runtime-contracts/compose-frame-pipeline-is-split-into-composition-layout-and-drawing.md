@@ -14,6 +14,13 @@ State read 는 phase 별로 추적될 수 있다. Composition 에서 읽은 stat
 
 `BoxWithConstraints`, lazy layout 처럼 layout 정보가 child composition 에 영향을 주는 예외가 있다. 따라서 phases 는 성능 판단을 위한 모델이지 모든 Composable 이 항상 같은 순서와 비용으로 동작한다는 보장은 아니다.
 
+#### Composition 저장 구조: Slot Table & Gap Buffer
+
+Compose 는 View 기반 UI 와 달리 힙 영역에 뷰 객체(View Instance) 트리를 유지하지 않는다. 대신 **Slot Table**이라는 단일 flat 배열 구조에 Composition 트리의 노드, 상태(`remember`), 람다, 그룹 정보(Key)를 저장한다.
+
+- **Gap Buffer Data Structure**: Slot Table 내부 조작은 텍스트 에디터의 Gap Buffer 패턴을 사용한다. 현재 수정 위치(Gap) 주변으로 이동 및 데이터 삽입/삭제를 \(O(1)\) 에 수행할 수 있도록 여분의 공간(Gap)을 보장한다.
+- **In-place Mutation on Recomposition**: 재구성(Recomposition)이 발생하면 뷰 개체를 새로 메모리 할당(new)하지 않고, Slot Table 배열 상의 해당 위치 데이터만 덮어쓴다(In-place update). 이 구조 덕분에 Emitting/Recomposing 비용이 획기적으로 낮아지며, LazyColumn 등에서 View Recycling 계층 구조가 불필요하게 된다.
+
 phase 를 늦추면 상위 recomposition 을 건너뛸 수 있다는 것은 코드로 바로 대비된다.
 
 ```kotlin
@@ -26,6 +33,6 @@ Box(Modifier.graphicsLayer { translationX = offset })
 
 두 코드는 최종 화면은 비슷해 보이지만, 위쪽은 매 프레임 composition 을 다시 타고 아래쪽은 draw 단계만 다시 실행한다. Layout Inspector 의 recomposition count 나 systrace 의 `Compose:composition`/`Compose:drawing` 구간을 비교하면 이 차이를 직접 관찰할 수 있다.
 
-관련 노트: [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md), [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-layout-and-image-cost-must-be-budgeted.md)
+관련 노트: [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md), [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](../../performance/compose-performance-contracts/compose-layout-and-image-cost-must-be-budgeted.md)
 
 출처: [Compose phases](https://developer.android.com/develop/ui/compose/phases)

@@ -2,41 +2,40 @@
 title: android-graphics-media-runtime
 tags: [android, android/graphics, android/media, android/system-internals]
 aliases: [android-graphics-and-media, Graphics, Media Pipeline, SurfaceFlinger]
-date modified: 2026-08-03 17:25:18 +09:00
+date modified: 2026-08-04 15:50:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
 ## Android graphics/media runtime
 
-Android 의 graphics/media runtime 은 UI toolkit 사용법보다 버퍼와 시간축을 먼저 봐야 이해된다. 앱은 Surface 에 프레임을 생산하고, BufferQueue 는 producer/consumer 를 분리하며, SurfaceFlinger 와 HWC 는 보이는 레이어를 display frame 으로 합성한다.
+Android의 그래픽과 미디어 런타임 체계는 단순 UI 툴킷 뷰 작성법을 넘어 **버퍼 소유권(Buffer Ownership)과 시간축 VSync 프레임 마감 시간(Frame Deadline)**을 통제하는 하드웨어 가속 실행 계약 위에 구축되어 있다. 앱은 Surface에 프레임을 생산하고, BufferQueue는 producer/consumer를 격리하며, SurfaceFlinger와 Hardware Composer(HWC)는 최적의 오버레이 방식으로 최종 디스플레이를 합성한다.
 
-미디어도 같은 구조 위에 있다. 카메라 프레임, codec 입출력, video playback, DRM protected output 은 모두 어떤 Surface 와 buffer ownership 을 쓰는지에 따라 성능과 제약이 달라진다.
-
-정본 묶음: [Graphics and media contracts](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-contracts.md)
+정본 묶음: [Graphics and media contracts](graphics-media-contracts/graphics-media-contracts.md)
 
 ### 계층 구분
 
-이 폴더의 노트는 네 계층 중 어느 것을 설명하는지 항상 구분한다.
+Android 그래픽/미디어 노트는 다음 4개 하위 시스템 계층 중 어느 지점의 동작 계약을 설명하는지 명확히 구분한다.
 
-- app API: Canvas/Compose drawing, Camera2/CameraX request, MediaCodec/Media3 호출처럼 앱 코드가 직접 부르는 표면.
-- framework service: RenderThread 스케줄, Choreographer, CameraService, MediaCodec framework 계층처럼 앱 프로세스 또는 system_server 안에서 조율하는 부분.
-- native service: SurfaceFlinger, HWC 서비스, mediaserver, audioserver 처럼 별도 native 프로세스로 떠서 Binder 로 통신하는 부분.
-- HAL/kernel: Camera HAL, Codec2/HAL, DRM plugin, GPU/display driver 처럼 vendor 구현과 커널 자원(overlay plane, DMA-BUF)에 닿는 부분.
+```mermaid
+graph TD
+    AppLayer[1. App API Layer: Canvas, Compose, Camera2/CameraX, Media3, MediaCodec] --> FrameworkLayer
+    FrameworkLayer[2. Framework Service Layer: Choreographer, RenderThread, AudioService, CameraService] --> NativeLayer
+    NativeLayer[3. Native Service Layer: SurfaceFlinger, BufferQueue, AudioFlinger, mediaserver] --> HALLayer
+    HALLayer[4. HAL / Kernel Layer: HWC HAL, Camera HAL3, Codec2 HAL, DRM TEE, ALSA/dmabuf]
+```
 
-앱 개발자가 코드로 바꿀 수 있는 것은 대부분 app API/framework service 계층이고, native service/HAL 계층은 `dumpsys SurfaceFlinger`, `dumpsys media.codec`, Perfetto trace 같은 관찰 신호로만 접근할 수 있다. 이 구분은 [Graphics and media contracts](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-contracts.md) 의 읽는 순서/문제 분류 기준에서 노트별로 이어진다.
+- **App API**: `Canvas`/`Compose` 그리기, `Camera2`/`CameraX` 요청, `MediaCodec`/`Media3` 호출처럼 앱 프로세스가 직접 부르는 인터페이스.
+- **Framework Service**: RenderThread 스케줄, `Choreographer`, `CameraService`, `AudioService`처럼 system_server 또는 앱 프로세스 내에서 파이프라인을 조율하는 계층.
+- **Native Service**: `SurfaceFlinger`, `HWC` 서비스, `AudioFlinger`, `mediaserver`처럼 별도 Native C++ daemon 프로세스로 동작하며 Binder IPC로 통신하는 영역.
+- **HAL/Kernel**: `HWC2 HAL`, `Camera HAL3`, `Codec2`, `Widevine DRM TEE`, `ALSA/dmabuf` 커널 드라이버 등 칩셋 벤더 하드웨어 자원에 직접 닿는 영역.
 
-### 핵심 지도
+이 구분은 [Graphics and media contracts](graphics-media-contracts/graphics-media-contracts.md) index 문서에서 계약 단위로 세분화되어 기술된다.
 
-- [렌더링 파이프라인](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/android-rendering-pipeline-is-surface-to-bufferqueue-to-compositor.md)
-- [VSync와 Choreographer](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/vsync-and-choreographer-define-frame-deadline.md)
-- [Jank와 frame deadline](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)
-- [CameraX와 Camera2](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/camerax-and-camera2-have-different-control-boundaries.md)
-- [MediaCodec Surface 모드](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/mediacodec-surface-mode-connects-video-producers-and-consumers.md)
-- [Media3 ExoPlayer](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/media3-exoplayer-is-playback-stack-not-low-level-codec-api.md)
-- [AudioTrack, AAudio, Oboe](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/audiotrack-aaudio-and-oboe-choose-latency-and-portability-tradeoffs.md)
-- [DRM protected media](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/drm-protected-media-needs-secure-codec-and-output-path.md)
-- [그래픽/미디어 디버깅](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/graphics-media-debugging-starts-from-timeline-and-component-state.md)
+### 관찰 신호 및 디버깅 접근법
 
-### 정리 기준
-
-기존 `android-graphics-and-media` 하위 노트는 API 예제와 시스템 내부 설명이 섞여 있었다. 이 노트는 그 내용을 Surface, BufferQueue, SurfaceFlinger, Camera, MediaCodec, Audio, DRM 의 의미 단위로 다시 묶은 허브다.
+시스템 정합성 이슈 및 성능 버벅임 발생 시 다음 덤프 명령어로 관찰 신호를 확보한다:
+- `adb shell dumpsys SurfaceFlinger`: 레이어 Z-order 및 HWC hardware overlay 오프로드 상태
+- `adb shell dumpsys gfxinfo <package>`: 프레임 렌더링 latency 및 Jank 비율
+- `adb shell dumpsys media.camera`: 카메라 capture request 및 Output Surface 스트림 바인딩
+- `adb shell dumpsys media.codec`: 인코더/디코더 하드웨어 세션 및 BufferQueue 대기 상태
+- `adb shell dumpsys audio`: AudioFocus 스택 및 AudioTrack / MMAP 노드 현황

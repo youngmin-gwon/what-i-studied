@@ -12,10 +12,10 @@ Android data layer 는 원천 데이터 흐름, 영속 저장소, 파일 접근,
 
 ### 정본 지도
 
-- [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md) - repository stream 과 screen state 조합.
-- [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md) - Room, DataStore, SQLite, migration.
-- [파일 접근 계약](01_inbox/mobile/android/02_app_framework/data/storage/file-access-contracts/file-access-contracts.md) - app-specific files, MediaStore, SAF, Photo Picker, Scoped Storage.
-- [Paging Map](01_inbox/mobile/android/02_app_framework/data/paging/android-paging-map.md) - PagingSource, Pager, PagingData, cachedIn, LoadState.
+- [Flow와 StateFlow 상태 계약](./async-flow/flow-state-contracts/flow-state-contracts.md) - repository stream 과 screen state 조합.
+- [영속 저장소 계약](./storage/persistence-contracts/persistence-contracts.md) - Room, DataStore, SQLite, migration.
+- [파일 접근 계약](./storage/file-access-contracts/file-access-contracts.md) - app-specific files, MediaStore, SAF, Photo Picker, Scoped Storage.
+- [Paging Map](./paging/android-paging-map.md) - PagingSource, Pager, PagingData, cachedIn, LoadState.
 
 ### 읽는 기준
 

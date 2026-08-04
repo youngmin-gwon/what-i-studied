@@ -14,6 +14,6 @@ Jetpack Architecture 개요 문서는 ViewModel, UI state, Flow, Room, WorkManag
 
 이렇게 유지하면 architecture 문서가 카탈로그가 아니라 decision index 가 된다. 같은 내용을 여러 큰 문서가 반복하면서 오래된 API 설명을 남기는 문제도 줄어든다.
 
-관련 노트: [Jetpack Architecture map](01_inbox/mobile/android/02_app_framework/architecture/jetpack-architecture/android-jetpack-architecture-map.md), [Flow/StateFlow 정본](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md), [Compose runtime 정본](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md).
+관련 노트: [Jetpack Architecture map](../android-jetpack-architecture-map.md), [Flow/StateFlow 정본](../../../data/async-flow/flow-state-contracts/flow-state-contracts.md), [Compose runtime 정본](../../../jetpack-compose/runtime/compose-runtime-and-state-model.md).
 
 공식 문서: [Guide to app architecture](https://developer.android.com/topic/architecture)

@@ -12,13 +12,13 @@ Android Coroutine/Flow 문서는 비동기 작업의 수명, 실행 위치, 실�
 
 ### 정본 지도
 
-- [Coroutine Contracts](01_inbox/mobile/android/02_app_framework/data/async-flow/coroutines/coroutine-contracts.md) - scope, suspend, dispatcher, failure, parallel work.
-- [Flow Contracts](01_inbox/mobile/android/02_app_framework/data/async-flow/flow/flow-contracts.md) - cold Flow, operator, callbackFlow, shareIn.
-- [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md) - repository stream 과 screen state.
-- [Coroutine/Flow 테스트 계약](01_inbox/mobile/android/06_testing_performance/testing/coroutine-flow-tests-control-dispatchers-and-virtual-time.md) - dispatcher 와 virtual time 제어.
+- [Coroutine Contracts](./coroutines/coroutine-contracts.md) - scope, suspend, dispatcher, failure, parallel work.
+- [Flow Contracts](./flow/flow-contracts.md) - cold Flow, operator, callbackFlow, shareIn.
+- [Flow와 StateFlow 상태 계약](./flow-state-contracts/flow-state-contracts.md) - repository stream 과 screen state.
+- [Coroutine/Flow 테스트 계약](../../../06_testing_performance/testing/coroutine-flow-tests-control-dispatchers-and-virtual-time.md) - dispatcher 와 virtual time 제어.
 
 ### 읽는 기준
 
 작업이 언제 취소되어야 하는지 묻는다면 scope 와 structured concurrency 를 본다. 어느 thread 에서 실행할지 묻는다면 dispatcher 를 본다. 실패가 어디까지 전파되는지 묻는다면 supervision boundary 를 본다. stream 이 언제 실행되는지 묻는다면 cold Flow 와 sharing policy 를 본다. 화면 현재값을 다룬다면 StateFlow 와 lifecycle-aware collection 을 본다.
 
-관련 지도: [Android Data Layer Map](01_inbox/mobile/android/02_app_framework/data/android-data-layer-map.md), [Android State Management](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
+관련 지도: [Android Data Layer Map](../android-data-layer-map.md), [Android State Management](../../architecture/state-management/android-state-management.md)

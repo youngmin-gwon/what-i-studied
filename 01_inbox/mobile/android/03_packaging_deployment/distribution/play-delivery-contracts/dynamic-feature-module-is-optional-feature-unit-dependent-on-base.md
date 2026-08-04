@@ -1,80 +1,65 @@
 ---
 title: dynamic-feature-module-is-optional-feature-unit-dependent-on-base
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:39 +09:00
+tags: ["android", "dynamic-feature", "agp"]
+aliases: ["Dynamic Feature Module은 Base 모듈에 의존하는 선택 기능 단위다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## Dynamic Feature Module 은 Base 모듈에 의존하는 선택 기능 단위다
+## Dynamic Feature Module은 Base 모듈에 의존하는 선택 기능 단위다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+일반적인 Gradle 모듈 의존 관계와 달리, Dynamic Feature Module (DFM)은 **역의존성 관계(Reverse Dependency)**를 갖는다:
+- **`app` (Base Module)**: `build.gradle.kts`에 `dynamicFeatures += setOf(":feature:onboarding")`를 선언한다.
+- **`feature:onboarding` (DFM)**: Base 모듈인 `:app`에 의존성(`implementation(project(":app"))`)을 갖는다.
+- **SplitCompat ClassLoader**: DFM 코드가 런타임에 다운로드되어 동적 탑재될 때, OS 기본 ClassLoader는 새로 로드된 APK의 DEX 클래스를 인지하지 못한다. 이를 위해 `SplitCompat.install(context)`를 애플리케이션 Context에 적용하여 ClassLoader 경로를 동적으로 병합한다.
 
-관련 지도: [Play Delivery 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-contracts.md)
+```mermaid
+flowchart BT
+    DFM[":feature:onboarding (com.android.dynamic-feature)"] -->|Reverse Dependency| Base[":app (com.android.application)"]
+    Base -->|Declares dynamicFeatures| DFM
+```
 
-관련 노트: [Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-feature-delivery-controls-dynamic-feature-install-timing.md), [AAB는 Play가 기기별 APK를 생성하는 게시 아티팩트다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
-
-### 모듈 관계
-
-기본 앱 모듈은 `com.android.application` 플러그인을 사용한다.
-
-동적 기능 모듈은 `com.android.dynamic-feature` 플러그인을 사용한다.
-
-앱 모듈의 `android.dynamicFeatures` 에 기능 모듈을 등록한다.
-
+### 코드 예시 (build.gradle.kts & SplitCompat)
 ```kotlin
 // app/build.gradle.kts
+plugins {
+    id("com.android.application")
+}
 android {
-    dynamicFeatures += setOf(":feature:photo-editor")
+    dynamicFeatures += setOf(":feature:onboarding")
 }
 
-// feature/photo-editor/build.gradle.kts
+// feature/onboarding/build.gradle.kts
 plugins {
     id("com.android.dynamic-feature")
 }
+dependencies {
+    implementation(project(":app"))
+}
+
+// Base Application Class
+class MyBaseApplication : Application() {
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        SplitCompat.install(this) // Split ClassLoader 탑재
+    }
+}
 ```
 
-기능 모듈의 manifest 에는 배포 정책을 선언한다.
+### 관측 가능 증거 (Observable Evidence)
+`bundletool` 명령을 통해 Base 모듈과 Dynamic Feature 모듈이 정상적인 Split APK 구조로 분리되어 패키징되었는지 확인할 수 있다:
 
-별도 정책이 없으면 install-time 이 기본값이다.
+```bash
+bundletool build-apks --bundle=app-release.aab --output=app.apks
+unzip -l app.apks | grep "splits/"
 
-```xml
-<manifest xmlns:dist="http://schemas.android.com/apk/distribution">
-    <dist:module dist:title="@string/title_photo_editor">
-        <dist:delivery>
-            <dist:on-demand />
-        </dist:delivery>
-    </dist:module>
-</manifest>
+# Output Example:
+# splits/base-master.apk
+# splits/base-xxhdpi.apk
+# splits/feature-onboarding-master.apk
 ```
 
-### 설계 규칙
-
-- base 는 기능 모듈의 공개 진입점과 공통 계약을 제공한다.
-- 기능 모듈에서 사용하는 공통 타입은 base 또는 별도 일반 라이브러리에 둔다.
-- 다운로드 전 모듈의 클래스, 리소스, activity 를 참조하지 않는다.
-- 다른 앱이 직접 호출할 수 있도록 기능 activity 를 exported 로 만들지 않는다.
-- 코드가 없는 feature module 은 manifest 의 `android:hasCode` 를 검토한다.
-- 모듈 이름은 런타임 요청 이름과 정확히 일치해야 한다.
-
-### 제거 가능 install-time 모듈
-
-설치 때 필요하지만 이후 사용하지 않는 기능은 removable install-time 모듈로
-
-구성하고, 실제 제거 가능성 및 재설치 흐름을 함께 검증한다.
-
-removable 을 많이 사용하면 split 수가 늘어 설치 시간이 증가할 수 있다.
-
-### 검증
-
-Android Studio 에서 bundle 을 빌드하고 bundletool 로 APK set 을 생성한다.
-
-지원 기기에서 설치한 뒤 모듈 존재 여부와 앱 업데이트 동작을 확인한다.
-
-Play Console 내부 테스트에서도 실제 Play 전달 경로를 검증한다.
-
-### 공식 문서
-
-- [Overview of Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery)
-- [Configure install-time delivery](https://developer.android.com/guide/playcore/feature-delivery/install-time)
-- [Manage installed modules](https://developer.android.com/guide/playcore/feature-delivery/on-demand#manage-installed-modules)
+관련 노트: [Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다](play-feature-delivery-controls-dynamic-feature-install-timing.md), [AAB는 Play가 생성하는 APK를 위한 퍼블리싱 아티팩트다](../release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)

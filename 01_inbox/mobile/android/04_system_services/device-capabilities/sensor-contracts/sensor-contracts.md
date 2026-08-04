@@ -1,7 +1,7 @@
 ---
 title: sensor-contracts
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["센서 접근 계약"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
@@ -12,9 +12,9 @@ date created: 2026-08-03 17:19:24 +09:00
 
 ### 읽는 순서
 
-1. [SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensormanager-exposes-raw-and-synthetic-sensors-through-one-api.md)에서 두 종류의 센서가 신뢰도와 지연에서 어떻게 다른지 본다.
-2. [센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-batching-trades-latency-for-battery.md)에서 FIFO 큐와 wakeup 여부를 확인한다.
-3. [센서 좌표계는 화면 방향이 아니라 기기 고정 좌표계다](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-coordinate-system-is-device-fixed-not-screen-relative.md)에서 회전 시 값이 왜 그대로인지 본다.
+1. [SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다](./sensormanager-exposes-raw-and-synthetic-sensors-through-one-api.md)에서 두 종류의 센서가 신뢰도와 지연에서 어떻게 다른지 본다.
+2. [센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다](./sensor-batching-trades-latency-for-battery.md)에서 FIFO 큐와 wakeup 여부를 확인한다.
+3. [센서 좌표계는 화면 방향이 아니라 기기 고정 좌표계다](./sensor-coordinate-system-is-device-fixed-not-screen-relative.md)에서 회전 시 값이 왜 그대로인지 본다.
 
 ### 문제 분류
 
@@ -33,8 +33,8 @@ date created: 2026-08-03 17:19:24 +09:00
 
 ### 노트 목록
 
-- [SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensormanager-exposes-raw-and-synthetic-sensors-through-one-api.md)
-- [센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-batching-trades-latency-for-battery.md)
-- [센서 좌표계는 화면 방향이 아니라 기기 고정 좌표계다](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-coordinate-system-is-device-fixed-not-screen-relative.md)
+- [SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다](./sensormanager-exposes-raw-and-synthetic-sensors-through-one-api.md)
+- [센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다](./sensor-batching-trades-latency-for-battery.md)
+- [센서 좌표계는 화면 방향이 아니라 기기 고정 좌표계다](./sensor-coordinate-system-is-device-fixed-not-screen-relative.md)
 
 검증일: 2026-08-03. [Sensors overview](https://developer.android.com/develop/sensors-and-location/sensors/sensors_overview)를 기준으로 확인했다.

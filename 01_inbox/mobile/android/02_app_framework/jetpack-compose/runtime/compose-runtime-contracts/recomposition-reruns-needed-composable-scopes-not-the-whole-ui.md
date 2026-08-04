@@ -28,6 +28,6 @@ fun Screen() {
 
 `count` 가 바뀌어도 `ExpensiveHeader()` 는 다시 호출되지 않는다. Android Studio Layout Inspector 의 recomposition/skip count 컬럼을 켜면 `Text` 는 count 만큼 카운트가 올라가고 `ExpensiveHeader` 는 skip count 만 올라가는 것을 직접 확인할 수 있다.
 
-관련 노트: [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md), [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md)
+관련 노트: [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](./composable-body-must-be-fast-idempotent-and-side-effect-free.md), [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md)
 
 출처: [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model), [Lifecycle of composables](https://developer.android.com/develop/ui/compose/lifecycle)

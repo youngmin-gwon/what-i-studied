@@ -28,6 +28,6 @@ fun MessageList(listState: LazyListState) {
 
 `animateScrollToItem` 은 suspend 함수라 Composable 본문에서 직접 호출할 수 없다. `scope.launch` 로 감싸야 click callback(코루틴이 아닌 일반 람다) 안에서 시작할 수 있고, 이 Composable 이 composition 을 떠나면 진행 중이던 스크롤 애니메이션도 함께 취소된다.
 
-관련 노트: [UI 컨트롤러와 Effect 실행기는 UI 수명에 둔다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/ui-controllers-and-effect-runners-live-with-ui-lifetime.md), [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md)
+관련 노트: [UI 컨트롤러와 Effect 실행기는 UI 수명에 둔다](./ui-controllers-and-effect-runners-live-with-ui-lifetime.md), [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](./launched-effect-owns-composable-cancellable-work.md)
 
 출처: [Side-effects in Compose - rememberCoroutineScope](https://developer.android.com/develop/ui/compose/side-effects#remembercoroutinescope)

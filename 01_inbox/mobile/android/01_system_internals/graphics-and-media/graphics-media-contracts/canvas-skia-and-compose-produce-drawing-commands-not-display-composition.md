@@ -1,19 +1,81 @@
 ---
 title: canvas-skia-and-compose-produce-drawing-commands-not-display-composition
-tags: [android, android/compose, android/graphics]
-aliases: []
-date modified: 2026-08-03 17:24:58 +09:00
+tags: [android, android/compose, android/graphics, android/rendering]
+aliases: [Canvas, Skia, Compose Drawing, DisplayList, HWUI]
+date modified: 2026-08-04 15:50:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
 ## Canvas, Skia, Compose 는 합성기가 아니라 그리기 명령의 생산자다
 
-Canvas 와 Skia 는 앱이 한 레이어의 내용을 그리는 쪽에 가깝다. Custom View 의 `onDraw(canvas)` 나 Compose 의 drawing 단계는 현재 윈도우나 레이어가 제출할 그래픽 내용을 만든다.
+상위 문서: [Graphics and media contracts](graphics-media-contracts.md)
 
-이 단계는 최종 화면 전체를 합성하는 단계와 다르다. 상태바, 내비게이션 바, 앱 윈도우, 동영상 Surface 같은 여러 레이어를 어떤 순서와 방식으로 합칠지는 SurfaceFlinger 와 HWC 쪽의 책임이다.
+Android 뷰 시스템과 Jetpack Compose의 `Canvas` 또는 `DrawScope`는 화면 픽셀을 물리 디스플레이 프레임버퍼에 직접 렌더링하거나 레이어를 합성하는 주체가 아니다. 이들은 2D 렌더링 셰이프/텍스트 **그리기 명령(DisplayList / Skia Drawing Commands)**을 기록하는 생산자(Producer)일 뿐이며, 실제 픽셀 변환과 화면 합성은 RenderThread의 **Skia engine**과 시스템 **SurfaceFlinger** 프로세스가 나누어 담당한다.
 
-Compose 도 이 경계를 넘지 않는다. Compose Runtime 은 composition, layout, draw 를 통해 UI 내용을 계산하고 그리기 명령을 만들지만, 디스플레이 레이어 합성 정책 자체를 대체하지 않는다.
+### 메커니즘: UI Thread 기록에서 SurfaceFlinger 합성까지의 경로
 
-그래서 Compose 성능 문제와 SurfaceFlinger 합성 문제는 같은 "렌더링"이라는 이름 아래 있어도 관찰 지점이 다르다. Compose 에서는 recomposition/layout/draw 비용을 보고, 시스템 그래픽에서는 buffer queue, frame deadline, composition path 를 본다.
+1. **UI Thread (Measure / Layout / Draw Record)**:
+   - `View.onDraw(Canvas)` 또는 Compose `Modifier.drawWithContent` 실행 시 UI 스레드는 GPU 명령을 직접 실행하지 않는다.
+   - `DisplayListCanvas`를 통해 `RenderNode` 내부의 **DisplayList** 바이너리 스트림에 그리기 렌더 명령어(drawRect, drawText 등)를 기록한다.
 
-관련 노트: [Compose performance contracts](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md), [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](01_inbox/mobile/android/01_system_internals/graphics-and-media/graphics-media-contracts/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)
+2. **RenderThread (HWUI / Skia GPU Execution)**:
+   - UI 스레드로부터 Sync된 `RenderNode` 트리를 넘겨받아 `Skia` 2D 엔진(OpenGL ES 또는 Vulkan backend)을 이용해 GPU 명령어로 변환한다.
+   - GPU는 이 명령을 실행하여 애플리케이션 Surface의 `GraphicBuffer`에 최종 픽셀을 전송한다.
+
+3. **SurfaceFlinger (System Display Compositor)**:
+   - 애플리케이션이 완성한 `GraphicBuffer`를 넘겨받아 하드웨어 오버레이 및 타 앱 레이어(Status Bar, Navigation Bar)와 합성한다.
+
+```mermaid
+graph TD
+    AppUI[UI Thread: Compose DrawScope / Canvas] -->|Record Commands| DL[DisplayList / RenderNode]
+    DL -->|Sync at VSync-UI| RT[RenderThread: HWUI Skia Engine]
+    RT -->|GLES / Vulkan Execution| GPU[GPU Graphics Buffer]
+    GPU -->|queueBuffer| BQ[BufferQueue / Surface]
+    BQ -->|acquireBuffer| SF[SurfaceFlinger Compositor]
+    SF -->|Display Frame| Screen[Physical Display Screen]
+```
+
+### RenderNode 및 Canvas 그리기 기록 Kotlin 코드
+
+```kotlin
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RenderNode
+
+fun recordCustomDisplayList(): RenderNode {
+    // 1. 하드웨어 가속 RenderNode 생성 (UI 스레드 부하 없음)
+    val renderNode = RenderNode("CustomCardNode")
+    renderNode.setPosition(0, 0, 800, 600)
+
+    // 2. DisplayList 기록 시작
+    val canvas: Canvas = renderNode.beginRecording()
+    val paint = Paint().apply {
+        color = Color.BLUE
+        isAntiAlias = true
+    }
+    
+    // Canvas에는 그려야 할 명령어가 데이터 구조로 기록됨
+    canvas.drawRoundRect(0f, 0f, 800f, 600f, 30f, 30f, paint)
+    renderNode.endRecording()
+
+    return renderNode
+}
+```
+
+### 관찰 신호: HWUI 파이프라인 및 RenderNode 통계 덤프
+
+```bash
+# 1. 앱 프로세스의 HWUI DisplayList 및 RenderThread 프로파일링
+adb shell dumpsys gfxinfo com.example.app framestats
+
+# 2. HWUI Skia backend 렌더링 방식 및 메모리 사용량 관찰
+adb shell dumpsys meminfo com.example.app | grep -E "Graphics|GL|Skia"
+```
+
+### 관련 문서
+
+- [RenderThread는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다](renderthread-submits-render-work-without-making-ui-thread-free.md)
+- [Android 렌더링 파이프라인은 Surface → BufferQueue → Compositor 흐름이다](android-rendering-pipeline-is-surface-to-bufferqueue-to-compositor.md)
+
+공식 문서: [Hardware Acceleration in Android](https://developer.android.com/guide/topics/graphics/hardware-accel)

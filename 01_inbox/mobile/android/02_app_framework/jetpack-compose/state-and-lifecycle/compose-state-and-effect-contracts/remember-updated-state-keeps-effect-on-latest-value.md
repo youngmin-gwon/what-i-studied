@@ -27,6 +27,6 @@ fun TimeoutMessage(onTimeout: () -> Unit) {
 
 `onTimeout` 을 `rememberUpdatedState` 없이 `LaunchedEffect` 안에서 직접 참조하면, 이 Composable 이 처음 만들어졌을 때의 람다를 그대로 capture 해서 5초 뒤에도 오래된 값을 호출한다. `rememberUpdatedState` 는 effect 를 재시작하지 않고도 실행 시점의 최신 `onTimeout` 을 읽게 해준다.
 
-관련 노트: [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md), [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/disposable-effect-pairs-registration-and-cleanup.md)
+관련 노트: [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](./launched-effect-owns-composable-cancellable-work.md), [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](./disposable-effect-pairs-registration-and-cleanup.md)
 
 출처: [Side-effects in Compose - rememberUpdatedState](https://developer.android.com/develop/ui/compose/side-effects#rememberupdatedstate)

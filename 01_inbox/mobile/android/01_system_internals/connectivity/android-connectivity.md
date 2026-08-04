@@ -1,29 +1,41 @@
 ---
 title: android-connectivity
-tags: ["android", "android/system-internals"]
-aliases: ["Android connectivity map", "android-connectivity"]
-date modified: 2026-08-03 17:24:20 +09:00
-date created: 2026-07-31 23:20:00 +09:00
+tags: [android, android/connectivity, android/system-internals]
+aliases: [Android Connectivity, Connectivity Runtime]
+date modified: 2026-08-04 15:50:00 +09:00
+date created: 2026-07-31 21:50:22 +09:00
 ---
 
-## Android 연결성과 네트워크 지도
+## Android connectivity runtime
 
-Android 네트워크는 Wi-Fi, cellular, Ethernet, VPN 같은 transport 를 그대로 앱에 노출하는 구조가 아니다. 앱은 `ConnectivityManager` 가 제공하는 `Network`, `NetworkCapabilities`, `LinkProperties`, 정책 상태를 보고 현재 작업에 맞는 연결성을 판단해야 한다.
+Android의 연결성(Connectivity) 런타임 체계는 단순 소켓 오픈이나 `HttpURLConnection` 호출법을 넘어 **네트워크 평가 점수(Network Score), 백그라운드 정책(Metered / Data Saver / eBPF Firewall), 및 라우팅 멀티캐스팅(VpnService / netd)**을 통제하는 시스템 가용성 계약 위에 구축되어 있다.
 
-이 폴더는 네 계층을 분리해서 다룬다: 앱이 직접 부르는 app API(`ConnectivityManager`, `Network`, `VpnService`, `WifiManager`), 그 상태를 계산하는 framework service(`ConnectivityService`), 실제 routing/DNS/firewall 을 집행하는 native service(`netd`), 그 아래 kernel/HAL(netfilter/eBPF, radio driver). 앱 코드가 바꿀 수 있는 것은 첫 번째 계층뿐이고, 나머지는 `dumpsys connectivity`, `dumpsys netpolicy`, `dumpsys wifi` 같은 관찰 신호로만 접근한다.
+정본 묶음: [Connectivity contracts](connectivity-contracts/connectivity-contracts.md)
 
-### 정본 노트
-- [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md) — 읽는 순서, 문제 분류 기준, 비슷한 노트 차이는 여기가 정본이다.
+### 계층 구분
 
-### 판단 기준
+Android Connectivity 시스템은 다음 4개 서브시스템 계층 중 어느 지점의 제어 계약을 설명하는지 구분한다.
 
-Connectivity 노트는 app API 에서 보이는 network 상태와 system service 가 실제로 적용하는 routing, DNS, policy 상태를 분리해 읽는다. 어떤 문제든 먼저 "이건 app API 가 보는 상태 문제인가, system 이 결정한 정책 문제인가"부터 나눈다.
+```mermaid
+graph TD
+    AppLayer[1. App API Layer: NetworkCallback, NetworkRequest, VpnService, WifiNetworkSpecifier] --> FrameworkLayer
+    FrameworkLayer[2. Framework Service Layer: ConnectivityService, NetworkMonitor, NetworkPolicyManager] --> NativeLayer
+    NativeLayer[3. Native Service Layer: netd Daemon, DnsResolver, NetworkStack Module] --> KernelLayer
+    KernelLayer[4. Kernel / Hardware Layer: eBPF Firewall, Linux IP Route, Wi-Fi Driver, RIL Modems]
+```
 
-### 경계
+- **App API Layer**: `ConnectivityManager`, `NetworkCallback`, `NetworkRequest`, `VpnService`, `NetworkSecurityConfig`처럼 앱 코드가 직접 부르는 인터페이스.
+- **Framework Service Layer**: `ConnectivityService`, `NetworkMonitor`, `NetworkPolicyManagerService`, `TelephonyRegistry`처럼 `system_server` 내부에서 디폴트 네트워크를 선택하고 유효성(Validation)을 검사하는 계층.
+- **Native Service Layer**: `netd` 데몬, `DnsResolver`, Mainline `NetworkStack` 모듈처럼 C++ 또는 전용 프로세스로 IP 라우팅, eBPF 방화벽 룰, DNS 캐싱을 처리하는 영억.
+- **Kernel / Hardware Layer**: eBPF penalty_box, Linux 커널 multiple routing tables, iptables, Wi-Fi 칩셋 드라이버(`wlan0`), RIL 셀룰러 모뎀.
 
-연결 성공 여부만 보지 말고 default network, requested network, metered policy, VPN, private DNS, captive portal 상태를 함께 확인한다. system_server 가 ConnectivityService 를 어떻게 띄우고 조율하는지는 이 폴더의 정본이 아니며 [system_server와 ActivityManager 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/system-server-contracts/system-server-contracts.md) 으로 연결한다.
+이 구분은 [Connectivity contracts](connectivity-contracts/connectivity-contracts.md) index 문서에서 문제 분류별로 세분화되어 관리된다.
 
-### 관련 노트
+### 관찰 신호 및 디버깅 접근법
 
-- [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
-- [Android 보안 샌드박스](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md)
+시스템 네트워크 정합성 및 통신 장애 진단 시 다음 덤프 명령어로 신호를 확인한다:
+- `adb shell dumpsys connectivity`: 활성 네트워크 score, Capabilities (`NET_CAPABILITY_VALIDATED`), Default network
+- `adb shell dumpsys netpolicy`: Data Saver 및 eBPF UID background restrict 방화벽 룰
+- `adb shell dumpsys netd`: ip rule, netId routing table 및 eBPF penalty box
+- `adb shell dumpsys dnsresolver`: Private DNS (DNS-over-TLS) 유효성 검사 상태
+- `adb shell dumpsys vpn`: Always-on 및 Lockdown VPN active status

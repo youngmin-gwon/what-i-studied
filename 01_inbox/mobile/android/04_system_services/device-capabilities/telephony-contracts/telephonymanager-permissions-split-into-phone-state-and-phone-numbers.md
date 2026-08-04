@@ -1,15 +1,15 @@
 ---
 title: telephonymanager-permissions-split-into-phone-state-and-phone-numbers
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [텔레포니 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/telephony-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [텔레포니 접근 계약](./telephony-contracts.md)
 
 ### 핵심 정의
 
@@ -27,8 +27,8 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 경계
 
-- 이 노트는 permission 세분화까지 다룬다. 멀티 SIM 환경에서 어떤 SIM의 정보를 조회할지는 [SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/subscriptionmanager-separates-logical-subscriptions-from-physical-slots.md)가 다룬다.
-- 통신사 서명 기반의 특권적 접근(일반 permission 체계 밖)은 [Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다](01_inbox/mobile/android/04_system_services/device-capabilities/telephony-contracts/carrier-privilege-is-granted-by-carrier-signed-certificates-not-runtime-permission.md)가 다룬다.
+- 이 노트는 permission 세분화까지 다룬다. 멀티 SIM 환경에서 어떤 SIM의 정보를 조회할지는 [SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다](./subscriptionmanager-separates-logical-subscriptions-from-physical-slots.md)가 다룬다.
+- 통신사 서명 기반의 특권적 접근(일반 permission 체계 밖)은 [Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다](./carrier-privilege-is-granted-by-carrier-signed-certificates-not-runtime-permission.md)가 다룬다.
 
 ### 관찰 가능한 신호
 

@@ -14,6 +14,6 @@ Semantics 는 accessibility 만을 위한 것이 아니다. Compose test 도 sem
 
 장식 이미지는 보통 `contentDescription = null` 로 두고, 사용자에게 의미가 있는 이미지는 설명한다. 시각적 배치만으로 의미를 전달하면 screen reader 와 테스트 모두 취약해진다.
 
-관련 노트: [Semantics 병합, 정리, 탐색 순서는 의미 단위를 조정한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-merging-clearing-and-traversal-control-the-unit-of-meaning.md), [Testing quality contracts](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
+관련 노트: [Semantics 병합, 정리, 탐색 순서는 의미 단위를 조정한다](./semantics-merging-clearing-and-traversal-control-the-unit-of-meaning.md), [Testing quality contracts](../../../../06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
 
 출처: [Semantics in Compose](https://developer.android.com/develop/ui/compose/accessibility/semantics)

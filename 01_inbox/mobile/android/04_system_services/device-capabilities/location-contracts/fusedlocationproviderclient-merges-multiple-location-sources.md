@@ -1,39 +1,42 @@
 ---
-title: "FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다"
+title: fusedlocationproviderclient-merges-multiple-location-sources
 tags: ["android", "android/system-services"]
+aliases: ["FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다"]
+date modified: 2026-08-04 15:30:00 +09:00
+date created: 2026-08-03 17:19:24 +09:00
 ---
 
-# FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다
+## FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [위치 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/location-contracts/location-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [위치 접근 계약](./location-contracts.md)
 
-## 핵심 정의
+### 핵심 정의
 
 `FusedLocationProviderClient`(Google Play services 위치 API)는 GPS, Wi-Fi/셀 기반 네트워크 위치, 기기 센서를 앱이 개별적으로 다루지 않도록 하나의 합성된 위치 스트림으로 제공한다. 플랫폼 기본 `LocationManager`도 존재하지만 대부분의 앱은 배터리 효율과 정확도 균형 때문에 fused 클라이언트를 우선 사용한다.
 
-## 메커니즘
+### 메커니즘
 
 앱은 `Priority`(예: `PRIORITY_HIGH_ACCURACY`, `PRIORITY_BALANCED_POWER_ACCURACY`)와 업데이트 interval을 지정해 `LocationRequest`를 만든다. 내부적으로 시스템은 이 요청을 다른 앱의 동시 요청과 병합해 실제 하드웨어(GPS 칩, 네트워크 위치 조회)에 필요한 최소한의 작업만 수행한다. 즉 여러 앱이 비슷한 정확도를 요청하면 시스템이 하드웨어 사용을 공유해 배터리를 아낀다.
 
 `getLastLocation()`은 캐시된 최근 위치를 즉시 반환하고, `requestLocationUpdates()`는 콜백으로 새 위치를 스트리밍한다. 두 API는 지연과 정확도 트레이드오프가 다르다.
 
-## 판단 기준
+### 판단 기준
 
 - 즉시 응답이 필요하고 약간의 오차를 허용하면 `getLastLocation()`을 우선 시도한다.
 - 연속 추적(내비게이션, 실시간 트래킹)에는 `requestLocationUpdates()`와 적절한 interval을 사용한다. interval을 필요 이상으로 짧게 잡으면 배터리 소모가 커진다.
 - 실내처럼 GPS 신호가 약한 환경에서는 fused 결과가 네트워크 기반 위치로 대체되어 정확도가 떨어질 수 있다는 점을 제품 요구사항에 반영한다.
 
-## 경계
+### 경계
 
-- 이 노트는 위치 소스 합성 메커니즘까지만 다룬다. 권한 단계는 [위치 권한은 foreground와 background 두 단계로 나뉜다](01_inbox/mobile/android/04_system_services/device-capabilities/location-contracts/location-permission-splits-into-foreground-and-background-tiers.md)가, 정확도 등급 선택은 [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](01_inbox/mobile/android/04_system_services/device-capabilities/location-contracts/precise-and-approximate-location-are-separate-permissions.md)가 다룬다.
+- 이 노트는 위치 소스 합성 메커니즘까지만 다룬다. 권한 단계는 [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-splits-into-foreground-and-background-tiers.md)가, 정확도 등급 선택은 [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](./precise-and-approximate-location-are-separate-permissions.md)가 다룬다.
 - GNSS 원시 측정치나 센서 퓨전 알고리즘 자체의 구현 세부는 다루지 않는다.
 
-## 관찰 가능한 신호
+### 관찰 가능한 신호
 
 `adb shell dumpsys location`으로 현재 등록된 위치 요청 목록과 마지막 위치 갱신 시각을 확인할 수 있다. 여러 앱이 등록한 요청과 그 priority/interval이 이 출력에 함께 나타난다.
 
-## 공식 문서
+### 공식 문서
 
 - https://developer.android.com/develop/sensors-and-location/location/retrieve-current
 - https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderClient

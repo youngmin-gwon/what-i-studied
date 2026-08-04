@@ -8,9 +8,9 @@ date created: 2026-08-03 17:17:12 +09:00
 
 ## getSystemService 는 캐시된 매니저를 반환하고 실제 작업은 Binder IPC 로 위임한다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 
-관련 지도: [시스템 서비스 접근 공통 계약](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/service-lookup-contracts.md)
+관련 지도: [시스템 서비스 접근 공통 계약](./service-lookup-contracts.md)
 
 ### 핵심 정의
 
@@ -30,7 +30,7 @@ date created: 2026-08-03 17:17:12 +09:00
 ### 경계
 
 - 이 노트는 "IPC 가 있다"는 사실까지만 다룬다. Binder 스레드 풀 크기, oneway 호출, death recipient 같은 메커니즘 세부는 `01_system_internals/ipc-and-process` 가 담당한다.
-- 서비스가 실제로 요청을 승인할지는 [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/system-server-checks-caller-uid-and-pid-for-every-call.md) 가 다룬다.
+- 서비스가 실제로 요청을 승인할지는 [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](./system-server-checks-caller-uid-and-pid-for-every-call.md) 가 다룬다.
 
 ### 관찰 가능한 신호
 

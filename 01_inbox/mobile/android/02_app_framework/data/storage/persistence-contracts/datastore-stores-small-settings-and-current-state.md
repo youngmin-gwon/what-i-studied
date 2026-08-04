@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## DataStore 는 작은 설정과 현재 상태를 저장한다
 
-상위 문서: [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
+상위 문서: [영속 저장소 계약](./persistence-contracts.md)
 
-관련 노트: [Android Keystore 키는 비추출성으로 보호한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/android-keystore-protects-keys-by-non-exportability.md)
+관련 노트: [Android Keystore 키는 비추출성으로 보호한다](../../../../05_security_privacy/secure-storage/secure-storage-contracts/android-keystore-protects-keys-by-non-exportability.md)
 
 DataStore 는 앱의 작은 데이터를 비동기적으로 저장하고 `Flow` 로 관찰하는 Jetpack 저장소다.
 

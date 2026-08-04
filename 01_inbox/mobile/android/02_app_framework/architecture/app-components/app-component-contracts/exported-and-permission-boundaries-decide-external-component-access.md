@@ -16,6 +16,6 @@ date created: 2026-08-01 00:00:00 +09:00
 
 두 실패는 서로 다른 신호를 남긴다. exported=false 로 등록 자체가 막히면 (Activity 기준) 호출 측에서 `ActivityNotFoundException` 이 발생하고, 등록은 됐지만 permission 이 없으면 logcat 에 `Permission Denial:` 메시지가 남는다. 예외 이름만으로는 두 경우를 구분할 수 없으므로 logcat 을 함께 확인해야 한다.
 
-관련 노트: [exported attribute 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md), [Android 권한 계약](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md), [컴포넌트 통신 경계](01_inbox/mobile/android/02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md).
+관련 노트: [exported attribute 정본](../../../navigation/intents-and-deep-links/intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md), [Android 권한 계약](../../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md), [컴포넌트 통신 경계](./component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md).
 
 공식 문서: [App Manifest overview](https://developer.android.com/guide/topics/manifest/manifest-intro)

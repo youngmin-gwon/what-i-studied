@@ -8,11 +8,11 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ## FCM notification payload 와 data payload 는 처리 지점이 다르다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 
-관련 지도: [알림과 FCM 메시징 계약](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/notification-messaging-contracts.md)
+관련 지도: [알림과 FCM 메시징 계약](./notification-messaging-contracts.md)
 
-관련 노트: [Android 알림은 권한과 채널이 표시 가능성을 결정한다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/android-notification-permission-and-channel-control-visibility.md), [FCM high priority는 사용자 가시 알림에만 정당화된다](01_inbox/mobile/android/04_system_services/background-and-notifications/notification-messaging-contracts/fcm-high-priority-is-justified-by-user-visible-notification.md)
+관련 노트: [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./android-notification-permission-and-channel-control-visibility.md), [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority-is-justified-by-user-visible-notification.md)
 
 ### 두 payload 의 책임
 

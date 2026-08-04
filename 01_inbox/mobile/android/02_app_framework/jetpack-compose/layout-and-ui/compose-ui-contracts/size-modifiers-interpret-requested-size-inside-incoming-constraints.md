@@ -14,6 +14,6 @@ date created: 2026-07-31 23:59:30 +09:00
 
 `fillMax*` 는 허용된 최대 크기를 채우도록 최소 제약까지 끌어올릴 수 있고, `wrapContentSize` 는 child 가 더 작게 측정될 수 있도록 제약을 완화한 뒤 남는 공간에서 배치를 조정한다.
 
-관련 노트: [Compose layout은 부모 제약 안에서 자식을 측정하고 배치한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/compose-layout-measures-children-under-parent-constraints.md), [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/modifier-order-changes-layout-draw-and-input-wrappers.md)
+관련 노트: [Compose layout은 부모 제약 안에서 자식을 측정하고 배치한다](./compose-layout-measures-children-under-parent-constraints.md), [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](./modifier-order-changes-layout-draw-and-input-wrappers.md)
 
 출처: [Constraints and modifier order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers)

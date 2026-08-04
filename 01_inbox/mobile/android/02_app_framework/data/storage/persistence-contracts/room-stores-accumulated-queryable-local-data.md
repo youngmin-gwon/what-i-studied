@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Room 은 누적되고 조회되는 로컬 데이터를 저장한다
 
-상위 문서: [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md)
+상위 문서: [영속 저장소 계약](./persistence-contracts.md)
 
 Room 은 SQLite 위에서 Entity, DAO, Database 를 제공하는 Jetpack persistence library 다.
 

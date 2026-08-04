@@ -1,61 +1,46 @@
 ---
 title: r8-full-mode-and-configuration-analyzer-expose-blocked-optimization
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:59 +09:00
-date created: 2026-07-31 17:32:53 +09:00
+tags: ["android", "r8", "r8-fullmode", "build-optimization"]
+aliases: ["R8 Full Mode와 Configuration Analyzer는 막힌 최적화를 노출한다"]
+date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## R8 Full Mode 와 Configuration Analyzer 는 막힌 최적화를 드러낸다
+## R8 Full Mode와 Configuration Analyzer는 막힌 최적화를 노출한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+### 내부 메커니즘 (Internal Mechanism)
+- **R8 Compatibility Mode (기본 호환 모드)**: 기존 ProGuard의 모호한 동작 방식을 유지하기 위해, 기본 생성자 보유 클래스를 지나치게 광범위하게 keep하는 보수적 최적화를 수행한다.
+- **R8 Full Mode (`android.enableR8.fullMode=true`)**: ProGuard 호환성 제약을 제거하고 최적화를 극대화한다. 사용되지 않는 인자 제거, 인터페이스 인라이닝, 더 공격적인 클래스 병합(Class Merging)을 수행한다.
+- **Configuration Analyzer**: 라이브러리 AAR 내부에 포함된 Consumer ProGuard Rules 중 광범위한 `-keep class **` 선언으로 전체 R8 최적화를 방해하는 규칙을 찾아내어 노출(Expose Blocked Optimization)시킨다.
 
-관련 지도: [R8와 Gradle 빌드 최적화 계약](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
+```mermaid
+flowchart LR
+    CompMode["Compatibility Mode (Conservative Keep Rules)"] -->|Enable FullMode| FullMode["R8 Full Mode Engine"]
+    FullMode --> AggressiveOpt["Aggressive Class Merging & Dead Code Removal"]
+    Analyzer["Configuration Analyzer (-printconfiguration)"] --> Expose["Expose Overbroad Keep Rules"]
+```
 
-관련 노트: [R8 keep 규칙은 최적화 경계다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/keep-rules-are-optimization-boundaries.md), [R8 결과물은 크기와 런타임 회귀로 검증한다](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/r8-output-must-be-validated-with-size-and-runtime-regression.md)
+### 코드 예시 (gradle.properties & proguard-rules.pro)
+```properties
+# gradle.properties
+android.enableR8.fullMode=true
+```
 
-### 핵심 주장
+```proguard
+# proguard-rules.pro (Configuration Analyzer 출력 설정)
+-printconfiguration build/outputs/mapping/release/full_configuration.txt
+```
 
-R8 Full Mode 는 호환성 중심 모드보다 더 적극적인 최적화를 허용한다.
+### 관측 가능 증거 (Observable Evidence)
+R8 Full Mode 적용 시 병합된 최종 ProGuard 설정 파일(`full_configuration.txt`)을 분석하여 최적화를 방해하는 과도한 keep 규칙을 적발할 수 있다:
 
-AGP 버전에 따라 기본값과 플래그가 달라질 수 있으므로 프로젝트의 실제 버전을 기준으로 확인한다.
+```bash
+cat app/build/outputs/mapping/release/full_configuration.txt | grep -E "\-keep class \*"
 
-오래된 `android.enableR8.fullMode=false` 설정을 무심코 유지하면 최신 최적화 경로를 막을 수 있다.
+# Output Example (과도한 keep 규칙 적발):
+# -keep class com.legacy.library.** { *; }  <-- Consumer ProGuard Rule Optimization Blocked!
+```
 
-### Full Mode 를 사용할 때의 전제
-
-- 리플렉션 진입점이 명시적인 keep 계약을 가진다.
-- 직렬화 모델의 필드와 생성자 계약을 테스트한다.
-- JNI 이름 연결과 네이티브 등록 코드를 검증한다.
-- 릴리즈 mapping 파일을 배포 버전과 함께 보관한다.
-- 실패 시 규칙을 넓히기보다 원인을 먼저 좁힌다.
-
-Full Mode 자체가 런타임 오류를 만드는 것이 아니라, 숨은 동적 계약을 드러내는 경우가 많다.
-
-### Configuration Analyzer 의 목적
-
-Configuration Analyzer 는 최종 R8 설정이 어디서 왔는지 추적하는 데 사용한다.
-
-앱 규칙, 라이브러리 consumer rule, 기본 규칙이 합쳐진 결과를 사람이 추측하지 않게 해 준다.
-
-특정 keep 규칙이 너무 넓은지, 어떤 라이브러리가 예외를 추가했는지 확인할 수 있다.
-
-분석 순서는 다음과 같다.
-
-1. 재현 가능한 릴리즈 variant 를 만든다.
-2. 최종 configuration 과 관련 분석 리포트를 수집한다.
-3. 넓은 keep, 중복 규칙, 오래된 예외를 찾는다.
-4. 규칙의 소유 모듈과 런타임 계약을 확인한다.
-5. 규칙을 줄인 뒤 결과와 테스트를 비교한다.
-
-### Full Mode 전환 체크리스트
-
-- AGP 와 Gradle 버전을 고정하고 변경 이력을 남긴다.
-- 기존 릴리즈 APK 의 시작과 핵심 흐름을 기준선으로 저장한다.
-- `mapping.txt`, `seeds.txt`, `usage.txt`, `configuration.txt` 를 비교한다.
-- 난독화 후에도 외부 API 와 딥링크가 동작하는지 확인한다.
-- 오류가 나면 전체 패키지 keep 으로 되돌아가지 않는다.
-
-Configuration Analyzer 결과는 최종 설정을 설명하는 증거이지, 테스트를 대체하지 않는다.
-
-참고: [R8 Configuration Analyzer](https://developer.android.com/topic/performance/app-optimization/r8-configuration-analyzer)
+관련 노트: [Keep 규칙은 최적화 경계다](keep-rules-are-optimization-boundaries.md), [R8 결과물은 크기와 런타임 회귀로 검증한다](r8-output-must-be-validated-with-size-and-runtime-regression.md)

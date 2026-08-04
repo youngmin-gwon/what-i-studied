@@ -18,6 +18,6 @@ Strong skipping 에서도 비교 규칙은 단순하지 않다. Unstable paramet
 
 안정성 개선은 추측이 아니라 compiler report, Layout Inspector, benchmark 나 trace 로 병목을 확인한 뒤 적용한다.
 
-관련 노트: [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md), [Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-starts-with-measure-debug-improve-loop.md)
+관련 노트: [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](../../runtime/compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md), [Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다](./compose-performance-starts-with-measure-debug-improve-loop.md)
 
 출처: [Strong skipping mode](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping), [Stability in Compose](https://developer.android.com/develop/ui/compose/performance/stability)

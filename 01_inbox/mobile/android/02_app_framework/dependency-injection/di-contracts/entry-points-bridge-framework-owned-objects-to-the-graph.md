@@ -12,7 +12,7 @@ Android 에는 앱 코드가 생성자를 호출하지 않는 객체가 많다. 
 
 Entry point 는 이런 framework-owned 객체가 graph 의 dependency 를 꺼내야 할 때 쓰는 명시적 bridge 다. 하지만 entry point 를 아무 곳에서나 service locator 처럼 쓰면 DI 의 장점이 사라지므로, framework 가 소유한 경계에서만 제한적으로 사용한다.
 
-관련 노트: [Hilt integration](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/hilt-is-official-android-dagger-integration.md), [Worker injection](01_inbox/mobile/android/02_app_framework/dependency-injection/di-contracts/worker-injection-crosses-workmanager-factory-boundary.md).
+관련 노트: [Hilt integration](./hilt-is-official-android-dagger-integration.md), [Worker injection](./worker-injection-crosses-workmanager-factory-boundary.md).
 
 ### 판단 기준
 

@@ -26,6 +26,6 @@ items.forEach { item -> key(item.id) { ItemRow(item) } }
 
 Slot Table, group, Composer 같은 용어는 Runtime 이해를 위한 내부 모델이다. 디컴파일된 함수 signature 나 내부 자료구조를 앱 코드가 의존하는 API 처럼 쓰지 않는다.
 
-관련 노트: [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/remember-is-composition-scoped-storage-not-general-cache.md), [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md)
+관련 노트: [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](./remember-is-composition-scoped-storage-not-general-cache.md), [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./composable-compiler-output-enables-restart-and-skip-control.md)
 
 출처: [Lifecycle of composables](https://developer.android.com/develop/ui/compose/lifecycle)

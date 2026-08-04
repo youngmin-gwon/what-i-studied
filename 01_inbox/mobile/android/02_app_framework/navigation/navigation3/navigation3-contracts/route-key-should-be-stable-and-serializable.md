@@ -32,6 +32,6 @@ data class OrderDetailRoute(val orderId: String) : NavKey
 
 `BadDetailRoute` 는 `Order` 나 lambda 를 저장/직렬화할 수 없으므로 `rememberNavBackStack` 의 saveable 복원이 런타임에 깨진다. `OrderDetailRoute` 처럼 primitive id 만 두면 딥 링크 파서와 process death 복원이 같은 값으로 key 를 재구성할 수 있다.
 
-관련 노트: [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-back-stack-needs-saveable-restoration.md)
+관련 노트: [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](./navigation3-back-stack-needs-saveable-restoration.md)
 
 공식 문서: [Navigation 3 basics](https://developer.android.com/guide/navigation/navigation-3/basics)

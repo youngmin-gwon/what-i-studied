@@ -1,27 +1,81 @@
 ---
 title: tethering-bridges-upstream-and-downstream-through-system-service
-tags: ["android", "android/system-internals"]
-aliases: []
-date modified: 2026-08-03 17:24:40 +09:00
-date created: 2026-08-03 16:59:22 +09:00
+tags: [android, android/connectivity, android/tethering]
+aliases: [Tethering, SoftAP, IP Forwarding, BPF Offload]
+date modified: 2026-08-04 15:50:00 +09:00
+date created: 2026-07-31 21:50:22 +09:00
 ---
 
-## 테더링은 개인 hotspot 기능이 아니라 upstream 과 downstream 을 잇는 system service 다
+## Tethering은 브리지 업스트림과 다운스트림을 시스템 서비스를 통해 연결한다
 
-상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)
+상위 문서: [Connectivity contracts](connectivity-contracts.md)
 
-Tethering 은 cellular, Ethernet, Wi-Fi 같은 upstream 연결을 Wi-Fi hotspot, USB, Bluetooth 같은 downstream 으로 공유하는 system service 기능이다. 앱 기능이라기보다 carrier policy, device policy, permission, system UI 가 함께 제어하는 플랫폼 기능이다.
+Android **테더링(Tethering / SoftAP / USB Tethering / Bluetooth Tethering)**은 단일 앱 기능이 아니다. 외부 연결 업스트림(Upstream: 셀룰러 `rmnet0`)과 내부 클라이언트 다운스트림(Downstream: SoftAP `wlan1` 또는 USB `rndis0`) 사이에서 **Tethering System Service와 netd가 커널 IP 포워딩, dhcpd/dnsmasq 서버, BPF 하드웨어 오프로드를 브리징 관리하는 시스템 계약**이다.
 
-### 판단 기준
+### 메커니즘: Downstream에서 Upstream으로의 NAT 포워딩 파이프라인
 
-- 일반 앱은 임의로 tethering 을 켜고 NAT/firewall 을 구성할 수 있다고 가정하면 안 된다.
-- hotspot availability 는 carrier, device owner, user setting, hardware capability 의 영향을 받는다.
-- tethering 디버깅은 upstream 선택, downstream interface, DHCP, DNS forwarding, firewall/NAT rule 을 나눠 본다.
-- local-only hotspot 은 인터넷 공유 tethering 과 구분한다.
+1. **Downstream Interface Control (SoftAP / USB)**:
+   - `TetheringManager`는 다운스트림 인터페이스에 내부 IP 서브넷(예: `192.168.43.1/24`)을 부여하고, `NetworkStack` 내장 DnsServer/DHCPServer를 실행하여 접속 클라이언트 기기에 IP를 할당한다.
+
+2. **Upstream Selection & BPF Hardware Offload**:
+   - `ConnectivityService`가 인터넷 가용 업스트림(LTE/5G `rmnet0`)을 선택하면, `Tethering` 모듈은 `netd`에 명령하여 IPv4 MASQUERADE (NAT) 및 IPv6 Routing 룰을 커널에 적용한다.
+   - 최신 Android 11+에서는 CPU 소모를 줄이기 위해 **eBPF Tethering Offload** 드라이버를 통해 커널/하드웨어 수준에서 IP 패킷을 직접 전달한다.
+
+```mermaid
+graph LR
+    ClientDevice[External Laptop / Tablet] -->|WiFi / USB| Downstream[Downstream Interface: wlan1 / rndis0]
+    
+    subgraph Android Tethering Core System
+        Downstream --> DHCP[NetworkStack DHCP / DNS Server]
+        Downstream --> eBPF_Tether[netd eBPF Tethering Offload]
+        eBPF_Tether -->|IPv4 NAT / IPv6 Forward| Upstream[Upstream Interface: rmnet0]
+    end
+
+    Upstream -->|Cellular Tower| Internet[Public Internet]
+```
+
+### Kotlin TetheringManager 상태 감지 코드
+
+```kotlin
+import android.net.TetheringManager
+import android.content.Context
+import java.util.concurrent.Executor
+
+fun monitorTetheringStatus(context: Context, executor: Executor) {
+    val tm = context.getSystemService(Context.TETHERING_SERVICE) as TetheringManager
+
+    val callback = object : TetheringManager.TetheringEventCallback {
+        override fun onTetheredInterfacesChanged(interfaces: List<String>) {
+            // 현재 테더링 브리지 동작 중인 다운스트림 인터페이스 목록 (e.g. wlan1)
+        }
+
+        override fun onUpstreamNetworkChanged(network: android.net.Network?) {
+            // 테더링 브리지가 외부 인터넷을 송출하는 업스트림 네트워크 전환 감지
+        }
+    }
+
+    tm.registerTetheringEventCallback(executor, callback)
+}
+```
+
+### 관찰 신호: dumpsys tethering 및 IP 포워딩 덤프
+
+```bash
+# 1. 시스템 테더링 활성 인터페이스 및 업스트림 상태 관찰
+adb shell dumpsys tethering
+
+# 주요 덤프 확인 필드:
+# - Tethered downstream interfaces: wlan1
+# - Upstream network: netId 105 (Cellular)
+# - BPF offload status: STARTED / HARDWARE ACCELERATED
+
+# 2. 커널 IP 포워딩 및 NAT iptables 관찰
+adb shell iptables -t nat -L -n -v
+```
 
 ### 관련 문서
 
-- [Wi-Fi API는 스캔, 제안, 요청, 로컬 연결을 분리한다](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/wifi-apis-separate-scan-suggestion-request-and-local-connectivity.md)
-- [netd는 framework 요청을 routing, DNS, firewall, tethering 동작으로 집행한다](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/netd-enforces-routing-dns-firewall-and-tethering-operations.md)
+- [netd는 라우팅, DNS, 방화벽, tethering 명령을 실행한다](netd-enforces-routing-dns-firewall-and-tethering-operations.md)
+- [ConnectivityService는 네트워크를 선택하고 정책을 적용한다](connectivityservice-selects-networks-and-applies-policy.md)
 
-공식 문서: [TetheringManager](https://developer.android.com/reference/android/net/TetheringManager)
+공식 문서: [Android Tethering Architecture](https://source.android.com/docs/core/connect/tethering)

@@ -1,71 +1,59 @@
 ---
-title: compose-compiler-belongs-to-kotlin-compiler-flow-not-bom
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:21 +09:00
+title: compose-compiler-belongs-to-kotlin-compiler-flow-not-bom.md
+tags: ["android", "compose", "kotlin", "compiler"]
+aliases: ["Compose compiler는 BOM이 아니라 Kotlin compiler 흐름에 속한다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## Compose compiler 는 BOM 이 아니라 Kotlin compiler 흐름에 속한다
+## Compose compiler는 BOM이 아니라 Kotlin compiler 흐름에 속한다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+Compose Runtime 및 UI 라이브러리는 Compose BOM에 의해 버전이 관리되는 반면, **Compose Compiler Plugin**은 Kotlin 컴파일러의 IR (Intermediate Representation) 변환 플러그인이다.
+Kotlin 2.0.0 이전에는 Kotlin 컴파일러 버전과 Compose Compiler 버전 간에 1:1 강한 결합(Strict Matrix)이 존재했으나, Kotlin 2.0.0부터 Compose Compiler가 JetBrains Kotlin 리포지토리로 이관되어 `org.jetbrains.kotlin.plugin.compose` Gradle 플러그인으로 통합되었다. Compose Compiler는 `@Composable` 함수에 런타임 추적 코드를 주입하고, 파라미터의 변경 가능성(Stability / Immutability)을 분석하여 불필요한 Recomposition을 건너뛰는(Restartable & Skippable) 코드를 바이트코드로 변환한다.
 
-관련 지도: [의존성, 버전, CI 계약](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)
+```mermaid
+flowchart LR
+    Source["Kotlin Source Code (@Composable)"] --> Frontend["Kotlin Compiler Frontend"]
+    Frontend --> ComposePlugin["Compose Compiler Plugin (IR Transform)"]
+    ComposePlugin -->|Inject Composer & Stability Checks| Backend["Kotlin JVM / DEX Backend"]
+    Backend --> Bytecode["Transformed DEX / Bytecode"]
+```
 
-관련 노트: [Compose BOM은 Compose 라이브러리 버전 집합을 관리한다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/compose-bom-manages-compose-library-version-set.md), [KSP는 Kotlin-first 코드 생성이고 kapt는 유지보수 모드다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/ksp-is-kotlin-first-code-generation-and-kapt-is-maintenance-mode.md)
-
-### 구분
-
-Compose UI 라이브러리의 버전 관리와 Compose compiler 의 버전 관리는 서로 다른 축이다.
-
-Compose BOM 은 `ui`, `foundation`, `material` 같은 라이브러리의 버전 집합을 다룬다.
-
-Compiler 는 Kotlin 코드를 Compose 에 맞게 컴파일하는 빌드 도구이므로 BOM 으로 정렬되지 않는다.
-
-### Kotlin 2.0 이상
-
-Kotlin 2.0 부터는 Compose compiler 가 Kotlin compiler 와 함께 릴리스·관리되는 흐름이다.
-
-Gradle 에서는 공식 `org.jetbrains.kotlin.plugin.compose` plugin 을 적용하는 구성을 우선 검토한다.
-
-정확한 plugin 버전과 적용 위치는 프로젝트의 Kotlin 버전 및 Android Gradle Plugin 조합을 공식 문서에서 확인한다.
-
+### 코드 예시 (build.gradle.kts)
 ```kotlin
+// settings.gradle.kts / build.gradle.kts (Kotlin 2.0+)
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose) // Compose Compiler Gradle Plugin
+}
+
+android {
+    buildFeatures {
+        compose = true
+    }
+    // Kotlin 2.0+ 옵션 설정
+    composeCompiler {
+        enableStrongSkippingMode = true
+        reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    }
 }
 ```
 
-위 예시는 방향을 보여 주는 형태이며, 실제 버전은 프로젝트의 version catalog 와 plugin 관리 규칙에 맞춘다.
+### 관측 가능 증거 (Observable Evidence)
+Compose Compiler 리포트 옵션을 활성화하면 컴파일 시점에 클래스/함수의 Stability 및 Skippable 여부가 리포트 파일로 출력된다:
 
-Kotlin, AGP, Gradle, Compose compiler plugin 의 조합은 한 번에 올리지 말고 호환성을 검증한다.
+```bash
+./gradlew assembleRelease -Pplugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=build/compose_reports
 
-### Kotlin 2.0 미만 또는 전환 중인 프로젝트
+# Generated Report File: build/compose_reports/app_release-classes.txt
+# Output Example:
+# unskippable struct RowItem {
+#   unstable val items: List<String>   <-- Unstable property triggers recomposition!
+# }
+# restartable skippable fun HeaderComponent(...)
+```
 
-이전 구성에서는 Kotlin 버전에 맞는 Compose compiler extension 을 공식 호환성 표에서 찾아야 한다.
-
-현재 프로젝트가 어떤 방식인지 먼저 확인한 뒤 plugin 방식과 기존 설정을 혼합하지 않는다.
-
-`composeOptions.kotlinCompilerExtensionVersion` 같은 이전 설정을 정리할 때는 컴파일 로그와 테스트를 확인한다.
-
-### 검증 항목
-
-- Compose compiler plugin 이 필요한 모듈에만 적용되었는가.
-- Kotlin plugin 버전과 compiler plugin 버전의 공식 조합인가.
-- BOM 버전과 compiler 버전을 같은 숫자로 맞추려는 잘못된 규칙이 없는가.
-- Compose UI 컴파일, 단위 테스트, instrumented test 가 모두 통과하는가.
-- 업그레이드 후 generated source 와 경고가 예상 범위인가.
-
-업그레이드 PR 에는 이전 설정을 제거했는지와 새 plugin 이 실제로 적용된 모듈을 함께 기록한다.
-
-컴파일 실패가 나면 BOM 을 바꾸기보다 Kotlin·plugin·AGP 조합부터 분리해 확인한다.
-
-버전 번호를 문서의 예시로 고정하지 않고 프로젝트의 lockfile 과 공식 릴리스 안내를 기준으로 갱신한다.
-
-최신 버전 번호는 문서에 상수로 복사해 두기보다 릴리스 시점의 공식 문서를 기준으로 갱신한다.
-
-현재 기준은 [Compose compiler Gradle plugin](https://developer.android.com/develop/ui/compose/setup-compose-dependencies-and-compiler) 과
-
-[Compose BOM 안내](https://developer.android.com/develop/ui/compose/bom) 를 함께 읽는다.
+관련 노트: [Compose BOM은 Compose 라이브러리 버전 집합을 관리한다](compose-bom-manages-compose-library-version-set.md), [의존성, 버전, CI 계약](dependency-ci-contracts.md)

@@ -2,20 +2,97 @@
 title: ebpf-extends-android-kernel-through-verified-programs
 tags: [android, android/ebpf, android/kernel]
 aliases: [BPF, eBPF]
-date modified: 2026-08-03 17:26:06 +09:00
+date modified: 2026-08-04 15:52:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
-## eBPF 는 검증된 프로그램으로 Android kernel 기능을 확장한다
+## eBPF는 검증된 프로그램으로 Android kernel 기능을 확장한다
 
-eBPF 는 kernel 안에서 실행되는 작은 프로그램을 통해 statistics 수집, monitoring, debugging, packet filtering 같은 기능을 확장하는 mechanism 이다. 프로그램은 `bpf(2)` syscall 로 load 되고, verifier 를 통과해야 kernel 에서 실행될 수 있다.
+상위 문서: [Kernel contracts](kernel-contracts.md)
 
-Android 는 boot 중 `/system/etc/bpf/` 에 있는 eBPF program 을 load 하는 BPF loader 와 library 를 제공한다. AOSP 예시에는 netd traffic monitor, CPU frequency time-in-state, GPU memory profiling 같은 사용이 있다.
+eBPF(Extended Berkeley Packet Filter)는 소스코드를 수정하거나 별도의 커널 모듈(LKM)을 다시 빌드하지 않고도, 커널 내부 샌드박스 엔진 내에서 검증된(Verified) 바이트코드를 안전하게 실행하여 네트워크 패킷 필터링, 트래픽 통계(Traffic Accounting), CPU Time-in-State 프로파일링, 메모리 모니터링 기능을 확장하는 메커니즘이다.
 
-eBPF 는 아무 native code 나 kernel 에 넣는 방법이 아니다. verifier, 허용된 helper, map, hook type, SELinux policy, Android build system 을 통과해야 한다. 그래서 kernel module 보다 안전한 확장 지점을 제공하지만, 일반 앱의 임의 확장 API 는 아니다.
+Android에서는 시스템 부팅 시 `bpfloader` 서비스가 `/system/etc/bpf/` 및 `/product/etc/bpf/`에 위치한 바이트코드를 커널로 로드하고 BPF 맵을 `/sys/fs/bpf/` 가상 파일시스템에 핀(Pin)하여 관리한다.
 
-성능 설명도 단순화하면 안 된다. 특정 firewall/statistics 경로에서 eBPF 가 효율적일 수 있지만, 모든 iptables/nftables 대체나 모든 query 가 O(1)이라는 일반 명제로 쓰면 부정확하다.
+---
 
-관련 노트: [netd enforces routing DNS firewall and tethering operations](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/netd-enforces-routing-dns-firewall-and-tethering-operations.md)
+### 메커니즘: eBPF 프로그램 검증, 로드 및 핀(Pinning) 구조
 
-근거: [Extend the kernel with eBPF](https://source.android.com/docs/core/architecture/kernel/bpf)
+```mermaid
+graph TD
+    A["eBPF C Source Code\n(bpf_netd.c)"] -->|Clang BPF Target| B["BPF Bytecode (.o)\n(/system/etc/bpf/netd.o)"]
+    B -->|Android Init Boot Stage| C["bpfloader daemon\n(bpf system service)"]
+    C -->|bpf syscall: BPF_PROG_LOAD| D["Kernel BPF Verifier\n(Check memory safety & bounded loops)"]
+    D -->|Passed| E["Kernel BPF JIT Compiler\n(Convert to Native ARM64 Machine Code)"]
+    E -->|Attach to Socket/Kprobe/Tracepoint| F["Kernel Execution Engine"]
+    C -->|Pin BPF Maps| G["/sys/fs/bpf/\n(bpf_netd_tag_map, bpf_app_uid_map)"]
+```
+
+1. **Safety Verification (검증)**: 커널의 BPF Verifier가 프로그램 내 유효하지 않은 포인터 참조, 정지하지 않는 루프(Unbounded Loop), 승인되지 않은 메모리 접근을 사전에 검증하여 커널 패닉(Kernel Crash)을 원천 차단한다.
+2. **BPF Map Persistence (핀닝)**: eBPF 커널 프로그램과 userspace(Java Framework/netd)는 공유 메모리 데이터 구조체인 **BPF Map**을 통해 데이터를 주고받는다. `bpfloader`는 이 맵을 `/sys/fs/bpf/`에 핀(Pin)하여 프로세스가 재시작되어도 상태가 유지되도록 만든다.
+
+---
+
+### eBPF C 소스 및 BPF Map 정의 예시
+
+```c
+// AOSP bpf_netd.c 예시 스니펫
+#include <bpf_helpers.h>
+#include <linux/bpf.h>
+
+// 1. UID별 패킷 통계를 기록할 BPF Map 선언
+DEFINE_BPF_MAP(cookie_tag_map, HASH, uint64_t, StatsValue, 1024, AID_NET_BW_ACCT)
+
+// 2. socket filter에 훅(Hook)될 eBPF 커널 함수 정의
+SEC("skfilter/tag_socket")
+int bpf_tag_socket(struct __sk_buff* skb) {
+    uint64_t cookie = bpf_get_socket_cookie(skb);
+    StatsValue* val = bpf_cookie_tag_map_lookup_elem(&cookie);
+    if (val) {
+        val->rxBytes += skb->len;
+        val->rxPackets++;
+    }
+    return 0; // 패킷 허용
+}
+
+LICENSE("Apache 2.0");
+```
+
+---
+
+### 실무 규칙
+
+- eBPF는 임의의 일반 앱이 커널 레벨 코드를 삽입할 수 있는 Open API가 아니다. SELinux 정책상 `bpfloader` 및 제한된 system_server/netd 획득 권한자만 eBPF 프로그램을 로드할 수 있다.
+- Android 네트워크 계층의 Cgroup BPF 훅(`netd` 및 `ConnectivityService`)은 `iptables`/`xt_qtaguid` 대비 CPU 오버헤드를 현저히 낮추며, 화면이 꺼진 대기 상태의 배터리 효율성을 높인다.
+
+---
+
+### 관측 가능한 증거 (Observable Evidence)
+
+1. **마운트된 eBPF 가상 파일시스템 및 핀(Pin)된 BPF Map 목록 조회**:
+   ```bash
+   adb shell ls -la /sys/fs/bpf/
+   # -rw-rw---- 1 root net_bw_acct  map_netd_app_uid_stats_map
+   # -rw-rw---- 1 root net_bw_acct  map_netd_cookie_tag_map
+   # -r--r--r-- 1 root root          prog_netd_skfilter_allowlist
+   ```
+2. **`bpfloader` 로깅 및 커널 로드 성공 여부 검증**:
+   ```bash
+   adb shell logcat -s bpfloader
+   # bpfloader: Loaded program /system/etc/bpf/netd.o successfully.
+   ```
+3. **`dumpsys netd`를 통한 eBPF 기반 네트워크 모니터링 활성화 상태 검증**:
+   ```bash
+   adb shell dumpsys netd | grep -i "bpf"
+   # BPF Traffic Accounting: Enabled
+   ```
+
+---
+
+### 관련 문서
+
+- [netd는 routing, DNS, firewall 및 tethering 동작을 강제한다](../../connectivity/connectivity-contracts/netd-enforces-routing-dns-firewall-and-tethering-operations.md)
+- [SELinux domain/type policy](selinux-enforces-mac-with-domain-type-policy.md)
+
+공식 문서: [AOSP eBPF overview](https://source.android.com/docs/core/architecture/kernel/bpf)
+

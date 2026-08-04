@@ -1,27 +1,85 @@
 ---
 title: cellular-connectivity-is-shaped-by-plan-and-system-policy
-tags: ["android", "android/system-internals"]
-aliases: []
-date modified: 2026-08-03 17:24:30 +09:00
-date created: 2026-08-03 16:59:22 +09:00
+tags: [android, android/connectivity, android/telephony]
+aliases: [Cellular Policy, SubscriptionManager, Carrier Config, Metered Cellular]
+date modified: 2026-08-04 15:50:00 +09:00
+date created: 2026-07-31 21:50:22 +09:00
 ---
 
-## Cellular 연결은 사용자 요금제와 시스템 정책의 영향을 받는다
+## 셀룰러 연결성은 요금제와 시스템 정책에 의해 통제된다
 
-상위 문서: [연결성 계약](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/connectivity-contracts.md)
+상위 문서: [Connectivity contracts](connectivity-contracts.md)
 
-Cellular network 는 단순 fallback transport 가 아니다. 사용자의 요금제, roaming, carrier policy, subscription, Data Saver, metered 상태가 앱의 전송 전략에 영향을 준다.
+Android의 셀룰러(LTE/5G) 네트워크 연결성은 단순한 물리적 무선 신호 수신 여부로 결정되지 않는다. 통신사 정책(Carrier Configuration), 사용자의 데이터 요금제 플랜(`SubscriptionPlan`), **NetworkPolicyManagerService의 백그라운드 데이터 제한 정책**이 종합적으로 개입하여 셀룰러 네트워크의 기능적 가용성을 제어한다.
 
-### 실무 규칙
+### 메커니즘: Telephony와 NetworkPolicy의 통합 제어 흐름
 
-- large upload/download 는 cellular 에서 사용자 동의나 pause/resume UX 를 둔다.
-- roaming 과 metered 상태는 backend retry 와 media quality 선택에 반영한다.
-- 통신사 정보나 subscription 정보는 권한과 개인정보 경계가 있으므로 일반 connectivity 판단과 분리한다.
-- cellular 을 강제로 요청하는 기능은 배터리와 비용을 사용자에게 설명해야 한다.
+1. **CarrierConfigManager & SubscriptionManager**:
+   - SIM 카드가 삽입되면 RIL(Radio Interface Layer)을 통해 통신사 식별자(MCC/MNC)를 읽고 `CarrierConfigManager`가 통신사 특화 APN, Roaming 정책, VoLTE/5G 슬라이싱 규격을 로드한다.
+
+2. **SubscriptionPlan & Metered Status**:
+   - `SubscriptionManager.setSubscriptionPlans()`를 통해 요금제의 데이터 한도(Limit) 및 소진 여부를 감지한다.
+   - 데이터 소진 시 셀룰러 네트워크는 `NET_CAPABILITY_NOT_METERED`를 잃고 종량제(Metered) 네트워크로 전환된다.
+
+3. **NetworkPolicyManagerService & Data Saver**:
+   - 데이터 한도 초과 또는 데이터 절약 모드(Data Saver) 활성화 시 백그라운드 앱의 셀룰러 소켓 생성을 eBPF 차단하고, `ConnectivityService`의 네트워크 점수(Score)를 감점하여 가용한 Wi-Fi가 있을 때 즉시 우회 전환하도록 유도한다.
+
+```mermaid
+graph TD
+    SIM[SIM Card / RIL Driver] --> Telephony[TelephonyRegistry / TelephonyManager]
+    Telephony --> SubManager[SubscriptionManager / CarrierConfigManager]
+    
+    SubManager -->|Carrier Plans & Limits| Policy[NetworkPolicyManagerService]
+    Policy -->|Metered Capability & eBPF Rules| CS[ConnectivityService]
+
+    CS -->|Network Score Evaluation| Route[Default Cellular Network Selection]
+    Policy -->|Background Traffic Limit| netd[netd eBPF Penalty Box]
+```
+
+### Kotlin 셀룰러 종량제 및 네트워크 특성 관찰 코드
+
+```kotlin
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+
+fun checkCellularPolicy(connectivityManager: ConnectivityManager) {
+    val activeNetwork = connectivityManager.activeNetwork
+    val caps = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return
+
+    val isCellular = caps.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+    val isMetered = !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+    val isUnmetered5G = caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED)
+
+    if (isCellular && isMetered) {
+        // 셀룰러 종량제 네트워크: 대용량 동영상 다운로드 보류 및 압축 적용
+        enableDataSavingStrategy()
+    } else if (isUnmetered5G) {
+        // 5G 무제한 요금제 상태: 최고 화질 스트리밍 허용
+        enableHighQualityStrategy()
+    }
+}
+
+private fun enableDataSavingStrategy() {}
+private fun enableHighQualityStrategy() {}
+```
+
+### 관찰 신호: Telephony 및 NetworkPolicy 관찰
+
+```bash
+# 1. Telephony 서비스 및 Carrier Config 상태 확인
+adb shell dumpsys telephony.registry
+
+# 2. 셀룰러 네트워크 정책 및 Subscription Plan 덤프
+adb shell dumpsys netpolicy
+
+# 주요 출력 관찰 사항:
+# - Subscription plans: LimitBytes, CycleRule, Metered status
+# - UID Policy: RESTRICT_BACKGROUND (Data saver active)
+```
 
 ### 관련 문서
 
-- [Metered와 Data Saver는 백그라운드 네트워크 비용 정책이다](01_inbox/mobile/android/01_system_internals/connectivity/connectivity-contracts/metered-and-data-saver-are-background-network-cost-policy.md)
-- [배터리, 네트워크, 저장소 효율은 리소스 정책이다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/battery-network-storage-efficiency-is-resource-policy.md)
+- [Metered와 Data Saver는 백그라운드 네트워크 비용 정책이다](metered-and-data-saver-are-background-network-cost-policy.md)
+- [ConnectivityService는 네트워크를 선택하고 정책을 적용한다](connectivityservice-selects-networks-and-applies-policy.md)
 
-공식 문서: [TelephonyManager](https://developer.android.com/reference/android/telephony/TelephonyManager), [SubscriptionManager](https://developer.android.com/reference/android/telephony/SubscriptionManager)
+공식 문서: [Android Carrier Configuration](https://source.android.com/docs/core/connect/carrier-config)

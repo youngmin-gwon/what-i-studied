@@ -1,15 +1,15 @@
 ---
 title: sensormanager-exposes-raw-and-synthetic-sensors-through-one-api
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
 ## SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [센서 접근 계약](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [센서 접근 계약](./sensor-contracts.md)
 
 ### 핵심 정의
 
@@ -27,7 +27,7 @@ raw 센서(`TYPE_ACCELEROMETER`, `TYPE_GYROSCOPE`, `TYPE_MAGNETIC_FIELD`)는 하
 
 ### 경계
 
-- 이 노트는 raw/synthetic 구분까지만 다룬다. 배터리 절약을 위한 배칭 설정은 [센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다](01_inbox/mobile/android/04_system_services/device-capabilities/sensor-contracts/sensor-batching-trades-latency-for-battery.md)가 다룬다.
+- 이 노트는 raw/synthetic 구분까지만 다룬다. 배터리 절약을 위한 배칭 설정은 [센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다](./sensor-batching-trades-latency-for-battery.md)가 다룬다.
 - 센서 퓨전 알고리즘의 내부 구현이나 벤더별 HAL 세부는 `01_system_internals/kernel-and-hal`이 다룬다.
 
 ### 관찰 가능한 신호

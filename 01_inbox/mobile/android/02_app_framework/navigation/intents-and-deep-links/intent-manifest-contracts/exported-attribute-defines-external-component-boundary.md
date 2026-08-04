@@ -8,9 +8,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## exported 는 컴포넌트의 외부 호출 경계를 결정한다
 
-상위 문서: [Intent와 Manifest 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
 
-관련 노트: [intent-filter는 컴포넌트의 수신 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-filter-is-component-receiving-contract.md)
+관련 노트: [intent-filter는 컴포넌트의 수신 계약이다](./intent-filter-is-component-receiving-contract.md)
 
 ### 의미
 

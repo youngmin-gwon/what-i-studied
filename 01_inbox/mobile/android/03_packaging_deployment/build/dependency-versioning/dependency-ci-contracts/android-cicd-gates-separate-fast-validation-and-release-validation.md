@@ -1,68 +1,71 @@
 ---
 title: android-cicd-gates-separate-fast-validation-and-release-validation
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:18 +09:00
+tags: ["android", "cicd", "gradle"]
+aliases: ["Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
 ## Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+Android CI/CD 파이프라인은 리소스와 시간 비용의 균형을 위해 계층화된 품질 게이트(Tiered Quality Gates)를 유지한다.
+- **Fast PR Gate (5분 이내)**: 커밋 단위 검증. Lint, ktlint, 린트 스태틱 분석, 단위 테스트(Unit Tests), 그리고 Gradle Build Cache / Configuration Cache 기반의 증분 컴파일만 실행한다.
+- **Release Validation Gate (30분 이상)**: 릴리스 또는 Nightly 파이프라인. R8 Full Mode 축소/난독화 빌드, UI/Macrobenchmark 테스트, APK/AAB 생성 및 서명, 바이너리 용량 비교(Binary Size Diff)를 수행한다.
 
-관련 지도: [의존성, 버전, CI 계약](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)
+```mermaid
+sequenceDiagram
+    participant Dev as Developer / PR
+    participant FastGate as Fast PR Gate (CI)
+    participant ReleaseGate as Release Gate (CI)
+    participant Cache as Remote Build Cache
 
-관련 노트: [의존성 변경 체크리스트는 그래프, ABI, 테스트, 배포 위험을 함께 본다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-change-checklist-reviews-graph-abi-tests-and-release-risk.md), [Play release checklist는 artifact, signing, track, rollback 조건을 고정한다](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md)
+    Dev->>FastGate: Git Push / Open PR
+    FastGate->>Cache: Fetch Tasks Key
+    FastGate->>FastGate: Run ktlint + unitTestDebug
+    FastGate-->>Dev: Pass (Fast Feedback ~3m)
 
-### 목적
-
-CI 는 모든 변경을 동일한 환경에서 검증하고, CD 는 검증된 산출물을 정해진 채널로 배포하는 자동화다.
-
-핵심은 도구 이름보다 어떤 조건이 다음 단계로 넘어가는지 명확히 하는 것이다.
-
-실패를 숨기지 않고, 재현 가능한 Gradle 명령과 보안된 자격 증명을 사용한다.
-
-### 권장 게이트
-
-1. **검사**: 포맷, Android Lint, 정적 분석을 실행한다.
-2. **단위 테스트**: 순수 Kotlin·도메인·ViewModel 테스트를 실행한다.
-3. **컴파일 검증**: 필요한 debug variant 를 컴파일한다.
-4. **통합·UI 테스트**: 대표 기기와 핵심 흐름을 검증한다.
-5. **릴리스 산출물**: 서명 전후의 APK 또는 AAB 를 만든다.
-6. **배포 승인**: 브랜치, 태그, 승인, 변경 범위를 확인한 뒤 배포한다.
-
-각 단계는 앞 단계 성공을 조건으로 연결한다.
-
-빠른 피드백이 필요한 PR 에는 검사·단위 테스트를 먼저 두고, 비용이 큰 기기 테스트와 배포는 별도 job 으로 분리할 수 있다.
-
-### Gradle 실행
-
-```bash
-./gradlew --no-daemon --stacktrace check
-./gradlew --no-daemon :app:assembleDebug
-./gradlew --no-daemon :app:bundleRelease
+    Dev->>ReleaseGate: Merge to Main / Tag Release
+    ReleaseGate->>ReleaseGate: bundleRelease (R8 Full Mode)
+    ReleaseGate->>ReleaseGate: Run Macrobenchmark & Instrumentation Test
+    ReleaseGate-->>Dev: Publish AAB Artifact
 ```
 
-실제 task 이름은 프로젝트의 모듈·variant 에 맞춰 고정한다.
+### 코드 예시 (GitHub Actions Workflow)
+```yaml
+# .github/workflows/pr-validation.yml
+name: Fast PR Validation
+on: [pull_request]
 
-의존성 캐시는 빌드 재현성을 훼손하지 않는 범위에서 사용하고, 캐시 키에는 Gradle·JDK·lockfile 등 입력을 반영한다.
+jobs:
+  fast-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: false
 
-### 보안과 산출물
+      - name: Run Fast Checks
+        run: ./gradlew lintDebug testDebugUnitTest --continue --configuration-cache
+```
 
-- keystore, 비밀번호, 배포 토큰은 CI secret 저장소에서 주입한다.
-- 로그에 secret 과 서명 파일 내용을 출력하지 않는다.
-- PR 빌드에서는 운영 배포 권한을 부여하지 않는다.
-- 릴리스 산출물의 versionName, versionCode, 서명, mapping 파일을 확인한다.
-- 배포 job 은 빌드가 다시 코드를 가져오지 않고 검증된 artifact 를 사용한다.
+### 관측 가능 증거 (Observable Evidence)
+CI 로그에서 Fast Gate와 Release Gate의 태스크 수행 시간 및 캐시 적중률(Cache Hit Ratio)을 Gradle Build Scan metrics로 파악할 수 있다:
 
-### 실패 처리
+```bash
+# Build Scan 확인 명령
+./gradlew testDebugUnitTest --scan
 
-실패한 게이트는 재시도만으로 통과시키지 말고 원인과 flaky 여부를 기록한다.
+# 실행 결과 출력 예시 (Build Scan Summary):
+# Task execution: 142 tasks executed, 89 UP-TO-DATE, 45 FROM-CACHE
+# Total Build Time: 1m 42s (Configuration phase: 1.2s)
+```
 
-UI 테스트가 불안정하면 격리된 재시도 정책을 두되, 최종 상태는 실패로 남길 수 있어야 한다.
-
-배포 뒤에는 설치, 시작, 핵심 경로, 크래시 모니터링을 확인한다.
-
-CI 최적화는 먼저 병목을 측정한 뒤 Gradle 캐시·병렬화·작업 분할을 적용한다.
-
-의존성 그래프와 빌드 task 를 이해하려면 [Gradle 의존성 관리](https://docs.gradle.org/current/userguide/core_dependency_management.html) 를 참조한다.
+관련 노트: [Gradle 빌드 성능은 앱 런타임 성능과 다르다](../../../optimization/build-optimization-contracts/gradle-build-performance-is-not-app-runtime-performance.md), [의존성, 버전, CI 계약](dependency-ci-contracts.md)

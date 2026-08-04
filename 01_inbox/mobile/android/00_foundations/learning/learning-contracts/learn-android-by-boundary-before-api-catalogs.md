@@ -12,7 +12,7 @@ Android 를 처음 배울 때 모든 API 를 나열하면 오래 가지 않는�
 
 그 뒤에 Compose, ViewModel, Flow, Room, WorkManager, Navigation, Hilt 같은 도구를 각 boundary 에 배치한다. 이 순서가 잡히면 새 API 가 나와도 어디에 넣어야 하는지 판단하기 쉽다.
 
-관련 노트: [Android Foundations](01_inbox/mobile/android/00_foundations/android-foundation-map.md), [app architecture](01_inbox/mobile/android/02_app_framework/architecture/android-app-architecture.md), [Compose runtime](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md).
+관련 노트: [Android Foundations](../../android-foundation-map.md), [app architecture](../../../02_app_framework/architecture/android-app-architecture.md), [Compose runtime](../../../02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md).
 
 ### 판단 기준
 

@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [Main thread responsiveness](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/main-thread-work-controls-responsiveness.md)
-- [Coroutine is not thread](01_inbox/mobile/android/02_app_framework/data/async-flow/coroutines/coroutine-is-lightweight-cancellable-work-not-thread.md)
+- [Main thread responsiveness](../../../06_testing_performance/performance/performance-contracts/main-thread-work-controls-responsiveness.md)
+- [Coroutine is not thread](../../../02_app_framework/data/async-flow/coroutines/coroutine-is-lightweight-cancellable-work-not-thread.md)

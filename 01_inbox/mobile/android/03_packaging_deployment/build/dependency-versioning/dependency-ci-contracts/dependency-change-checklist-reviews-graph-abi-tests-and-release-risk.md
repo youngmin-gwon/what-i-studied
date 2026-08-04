@@ -1,59 +1,60 @@
 ---
 title: dependency-change-checklist-reviews-graph-abi-tests-and-release-risk
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:24 +09:00
+tags: ["android", "dependency", "ci", "abi"]
+aliases: ["의존성 변경 체크리스트는 그래프, ABI, 테스트, 배포 위험을 함께 본다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
 ## 의존성 변경 체크리스트는 그래프, ABI, 테스트, 배포 위험을 함께 본다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+라이브러리 버전 업그레이드나 의존성 추가 시 단순 컴파일 성공 여부만 확인해서는 안 된다.
+1. **Transitive Graph Drift**: 하위 전이 의존성의 버전 변경으로 인한 런타임 클래스 충돌(`NoSuchMethodError`) 검증.
+2. **Binary Compatibility (ABI) Drift**: 모듈의 public API 시그니처 변경으로 다른 모듈 컴파일 재수행 여부 검증. (Kotlin Binary Compatibility Validator 사용)
+3. **R8 Keep Rule & Shrinking Risk**: 새 라이브러리가 포함하는 ProGuard 룰이 불필요한 클래스를 keep하거나 반대로 reflection 코드를 누락시켜 런타임 크래시를 유발하는지 확인.
+4. **License & Security Audit**: 새로 유입된 전이 라이브러리의 보안 취약점(CVE) 및 라이선스 위반 검사.
 
-관련 지도: [의존성, 버전, CI 계약](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)
+```mermaid
+flowchart TD
+    Change["Dependency Version Update Request"] --> GraphCheck["1. Gradle Dependency Tree Compare"]
+    GraphCheck --> ABICheck["2. ABI Binary Compatibility Verification"]
+    ABICheck --> TestCheck["3. Release Variant R8 Build & Smoke Test"]
+    TestCheck --> GatePass["Pass: Merge to Main"]
+```
 
-관련 노트: [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/android-cicd-gates-separate-fast-validation-and-release-validation.md), [Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다](01_inbox/mobile/android/03_packaging_deployment/build/dependency-versioning/dependency-ci-contracts/gradle-dependency-management-controls-resolution-graph-not-requested-versions.md)
+### 코드 예시 (build.gradle.kts & Dependency Guard)
+```kotlin
+// build.gradle.kts (Dependency Guard or API Check)
+plugins {
+    id("com.dropbox.dependency-guard") version "0.4.3"
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.14.0"
+}
 
-### 변경 전
+dependencyGuard {
+    configuration("releaseRuntimeClasspath") {
+        allowedTypes = setOf(com.dropbox.dependencyguard.DependencyType.JAR, com.dropbox.dependencyguard.DependencyType.AAR)
+    }
+}
+```
 
-- 변경 대상이 라이브러리, 플랫폼, plugin, compiler tool 중 무엇인지 분류한다.
-- 현재 Kotlin, AGP, Gradle, Compose BOM 의 조합과 해석 그래프를 기록한다.
-- 해당 변경을 지원하는 공식 문서의 호환성 조건을 확인한다.
-- PR 에서 실행할 빠른 게이트와 릴리스에서 실행할 전체 게이트를 구분한다.
+### 관측 가능 증거 (Observable Evidence)
+의존성 변경으로 발생한 전이 의존성 차이를 CI 커맨드로 검증하고 디프를 관측할 수 있다:
 
-### Version Catalog
+```bash
+# Dependency Guard 검증 (변경된 런타임 의존성이 미리 승인된 리스트와 다르면 실패)
+./gradlew dependencyGuard
 
-- `gradle/libs.versions.toml` 에 좌표와 버전이 중복되지 않는가.
-- `[libraries]` 와 `[plugins]` 를 올바른 configuration 에서 사용하는가.
-- Catalog 의 요청 버전과 실제 Gradle 해석 버전을 혼동하지 않는가.
-- 번들이 실제 공동 변경 단위를 표현하는가.
+# ABI 검증 (Kotlin binary compatibility validator)
+./gradlew apiCheck
 
-### Compose
+# Output Example:
+# > Task :app:dependencyGuard FAILED
+# Dependency guard baseline mismatch for configuration 'releaseRuntimeClasspath':
+# + com.squareup.okhttp3:okhttp:4.12.0
+# - com.squareup.okhttp3:okhttp:4.11.0
+```
 
-- Compose BOM 을 `platform(…)` 으로 필요한 configuration 에 전달했는가.
-- Compose 라이브러리 dependency 에는 불필요한 개별 버전을 넣지 않았는가.
-- BOM 이 라이브러리를 자동 추가하지 않는다는 점을 반영했는가.
-- 예외 버전 override 가 있다면 이유와 테스트를 남겼는가.
-- compiler 는 BOM 이 아니라 Kotlin 과 공식 plugin 흐름으로 검증했는가.
-
-### 코드 생성과 직렬화
-
-- processor 가 KAPT 와 KSP 중 어느 방식을 공식 지원하는가.
-- KSP 전환을 성능 수치가 아니라 실제 CI 측정으로 판단했는가.
-- Serialization plugin 과 format 런타임 dependency 를 모두 선언했는가.
-- 직렬화 모델의 스키마 변경과 외부 입력 검증을 테스트했는가.
-
-### CI/CD
-
-- 검사, 테스트, 컴파일, 산출물, 배포 게이트가 분리되어 있는가.
-- 서명과 배포 secret 이 로그와 PR job 에서 보호되는가.
-- release artifact 가 검증된 입력에서 만들어지고 추적 가능한가.
-- 실패한 테스트와 flaky 재시도가 구분되어 보고되는가.
-- 변경 이유와 되돌림 조건을 PR 설명에 남겼는가.
-
-### 공식 기준
-
-- [Compose BOM](https://developer.android.com/develop/ui/compose/bom)
-- [Compose compiler plugin](https://developer.android.com/develop/ui/compose/setup-compose-dependencies-and-compiler)
-- [Gradle Version Catalog](https://docs.gradle.org/current/userguide/version_catalogs.html)
-- [KSP](https://kotlinlang.org/docs/ksp-overview.html)
+관련 노트: [Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다](gradle-dependency-management-controls-resolution-graph-not-requested-versions.md), [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](android-cicd-gates-separate-fast-validation-and-release-validation.md)

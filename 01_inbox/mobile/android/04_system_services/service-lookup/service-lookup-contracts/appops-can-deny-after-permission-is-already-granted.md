@@ -8,9 +8,9 @@ date created: 2026-08-03 17:17:39 +09:00
 
 ## AppOps 는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 
-관련 지도: [시스템 서비스 접근 공통 계약](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/service-lookup-contracts.md)
+관련 지도: [시스템 서비스 접근 공통 계약](./service-lookup-contracts.md)
 
 ### 핵심 정의
 

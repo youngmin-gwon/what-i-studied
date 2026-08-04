@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## StateFlow 는 현재값이 필요한 화면 상태에 사용하고 Flow 는 원천 데이터 흐름에 사용한다
 
-상위 문서: [Flow와 StateFlow 상태 계약](01_inbox/mobile/android/02_app_framework/data/async-flow/flow-state-contracts/flow-state-contracts.md)
+상위 문서: [Flow와 StateFlow 상태 계약](./flow-state-contracts.md)
 
 화면이 지금 즉시 읽을 수 있는 값과 새 구독자에게 현재 상태를 재생해야 한다면 `StateFlow` 를 사용한다.
 

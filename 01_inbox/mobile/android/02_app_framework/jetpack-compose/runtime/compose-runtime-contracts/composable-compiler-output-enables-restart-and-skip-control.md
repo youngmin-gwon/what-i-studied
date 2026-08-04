@@ -16,6 +16,6 @@ Skippability 는 compiler 가 판단하는 안정성 정보와 Runtime 의 param
 
 이 컴파일러 출력은 눈에 보이는 산출물로 확인할 수 있다. Gradle 에 `composeCompiler { reportsDestination.set(...) }` 를 설정하면 빌드마다 `<module>-composables.txt` 리포트가 생성되고, 각 Composable 옆에 `restartable`, `skippable` 태그와 파라미터별 `stable`/`unstable` 태그가 함께 찍힌다. 예를 들어 `unstable snacks: List<Snack>` 처럼 파라미터가 unstable 로 표시된 함수는 `restartable` 만 붙고 `skippable` 태그가 빠져, 값이 같아도 Compose 가 skip 하지 않는다는 것을 리포트로 확인할 수 있다.
 
-관련 노트: [Compose 안정성과 strong skipping은 skippability에 영향을 준다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-stability-and-strong-skipping-affect-skippability.md), [Composition은 호출 위치 identity로 remember 값을 보존한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composition-uses-callsite-identity-to-preserve-remembered-values.md)
+관련 노트: [Compose 안정성과 strong skipping은 skippability에 영향을 준다](../../performance/compose-performance-contracts/compose-stability-and-strong-skipping-affect-skippability.md), [Composition은 호출 위치 identity로 remember 값을 보존한다](./composition-uses-callsite-identity-to-preserve-remembered-values.md)
 
 출처: [Strong skipping mode](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping)

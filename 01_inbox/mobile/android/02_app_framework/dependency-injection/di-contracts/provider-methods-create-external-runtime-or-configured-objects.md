@@ -12,7 +12,7 @@ date created: 2026-08-03 16:59:23 +09:00
 
 Provider method 가 많아지면 graph 가 service locator 처럼 변한다. 먼저 constructor injection 이 가능한 타입인지 확인하고, provider 는 외부 library type 이나 construction policy 가 의미 있는 타입에 제한한다.
 
-관련 노트: [Context boundaries](01_inbox/mobile/android/02_app_framework/architecture/context-and-modularity/android-context-boundaries.md).
+관련 노트: [Context boundaries](../../architecture/context-and-modularity/android-context-boundaries.md).
 
 ### 판단 기준
 

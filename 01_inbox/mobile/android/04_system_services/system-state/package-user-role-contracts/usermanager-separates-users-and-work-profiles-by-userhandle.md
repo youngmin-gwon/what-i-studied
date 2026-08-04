@@ -1,15 +1,15 @@
 ---
 title: usermanager-separates-users-and-work-profiles-by-userhandle
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [패키지/사용자/역할 조회 계약](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/package-user-role-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [패키지/사용자/역할 조회 계약](./package-user-role-contracts.md)
 
 ### 핵심 정의
 
@@ -27,7 +27,7 @@ work profile(관리형 프로필)은 개인 공간과 별도의 UserHandle을 �
 
 ### 경계
 
-- 이 노트는 사용자/프로필 분리 모델을 다룬다. 다른 앱의 설치 여부를 조회하는 제한은 [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/packagemanager-queries-are-limited-by-package-visibility.md)가 다룬다.
+- 이 노트는 사용자/프로필 분리 모델을 다룬다. 다른 앱의 설치 여부를 조회하는 제한은 [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](./packagemanager-queries-are-limited-by-package-visibility.md)가 다룬다.
 - 기기 관리 정책(MDM) 자체의 API 세부는 이 클러스터의 범위 밖이며 필요 시 별도 클러스터로 확장한다.
 
 ### 관찰 가능한 신호

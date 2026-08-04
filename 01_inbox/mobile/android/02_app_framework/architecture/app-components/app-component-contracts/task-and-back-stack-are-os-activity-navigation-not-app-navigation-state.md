@@ -14,6 +14,6 @@ Android task 와 back stack 은 사용자가 Activity 들을 어떤 작업 흐�
 
 일반 앱 화면 전환은 app-owned navigation state 로 다루고, 외부 진입점, task affinity, notification/deep link 복귀 정책처럼 OS 와 맞닿는 부분만 Activity task 정책으로 결정한다.
 
-관련 노트: [Android task와 app back stack](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md), [navigation 정본](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md), [intent/manifest 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md).
+관련 노트: [Android task와 app back stack](../../../navigation/navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md), [navigation 정본](../../../navigation/navigation-contracts/navigation-contracts.md), [intent/manifest 정본](../../../navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md).
 
 공식 문서: [Tasks and back stack](https://developer.android.com/guide/components/activities/tasks-and-back-stack)

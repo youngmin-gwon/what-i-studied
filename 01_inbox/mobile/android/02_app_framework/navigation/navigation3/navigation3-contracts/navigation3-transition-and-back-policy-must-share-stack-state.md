@@ -33,4 +33,4 @@ TopAppBar(navigationIcon = { IconButton(onClick = onBack) { BackIcon() } })
 
 toolbar 버튼이 `onBack` 대신 `navController.popTo(previousRoute)` 같은 별도 경로를 호출하면, gesture back 취소 애니메이션과 toolbar back 의 결과 stack 이 서로 달라질 수 있다.
 
-관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md), [SceneStrategy는 entry를 조합하고 SceneDecorator는 렌더링을 감싼다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/scene-strategy-composes-entries-while-decorator-wraps-rendering.md)
+관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](./navkey-and-back-stack-are-app-owned-navigation-state.md), [SceneStrategy는 entry를 조합하고 SceneDecorator는 렌더링을 감싼다](./scene-strategy-composes-entries-while-decorator-wraps-rendering.md)

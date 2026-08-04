@@ -16,6 +16,6 @@ UI layer 는 상태를 그리고 사용자 action 을 올린다. ViewModel/state
 
 layer 분리가 깨졌는지는 테스트 가능성으로 관찰할 수 있다. UI layer 가 data layer 를 직접 참조하면(예: Composable 이 Room DAO 를 직접 호출) UI 테스트에 실제 DB 나 네트워크 mocking 이 필요해진다. 반대로 각 layer 가 제대로 분리돼 있으면 ViewModel 단위 테스트는 fake repository 만으로 충분하다.
 
-관련 노트: [앱 컴포넌트 허브](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [ViewModel 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
+관련 노트: [앱 컴포넌트 허브](../../app-components/android-app-components.md), [ViewModel 정본](../../state-management/viewmodel/viewmodel.md), [background work 정본](../../../../04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
 
 공식 문서: [Guide to app architecture](https://developer.android.com/topic/architecture)

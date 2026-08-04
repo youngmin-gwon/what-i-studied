@@ -12,13 +12,13 @@ Deep Link 는 외부 URI 를 앱 내부 목적지로 연결하는 장기 계약�
 
 ### 정본 노트
 
-- [Android 딥 링크는 외부 URI 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md)
-- [외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/external-uri-must-be-validated-before-navigation.md)
-- [Android App Link는 검증된 HTTPS 딥 링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md)
-- [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/manifest-and-assetlinks-have-distinct-roles.md)
-- [Dynamic App Links는 매니페스트 선언 범위를 확장하지 않는다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/dynamic-app-links-refine-but-do-not-expand-manifest-scope.md)
-- [인증이 필요한 Deep Link는 pending destination과 back stack을 설계해야 한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/authenticated-deep-links-require-pending-destination-and-back-stack.md)
-- [Notification deep link는 task와 back stack 정책을 명시해야 한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/notification-deep-link-needs-explicit-task-and-back-stack-policy.md)
-- [Deep Link 테스트는 resolution, verification, routing을 분리해 검증한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-testing-validates-resolution-verification-and-routing.md)
+- [Android 딥 링크는 외부 URI 계약이다](./deep-link-is-external-uri-contract.md)
+- [외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다](./external-uri-must-be-validated-before-navigation.md)
+- [Android App Link는 검증된 HTTPS 딥 링크다](./app-link-is-verified-https-deep-link.md)
+- [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](./manifest-and-assetlinks-have-distinct-roles.md)
+- [Dynamic App Links는 매니페스트 선언 범위를 확장하지 않는다](./dynamic-app-links-refine-but-do-not-expand-manifest-scope.md)
+- [인증이 필요한 Deep Link는 pending destination과 back stack을 설계해야 한다](./authenticated-deep-links-require-pending-destination-and-back-stack.md)
+- [Notification deep link는 task와 back stack 정책을 명시해야 한다](./notification-deep-link-needs-explicit-task-and-back-stack-policy.md)
+- [Deep Link 테스트는 resolution, verification, routing을 분리해 검증한다](./deep-link-testing-validates-resolution-verification-and-routing.md)
 
-상위 지도: [Android Navigation 진입 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation-contracts/navigation-contracts.md)
+상위 지도: [Android Navigation 진입 계약](../../navigation-contracts/navigation-contracts.md)

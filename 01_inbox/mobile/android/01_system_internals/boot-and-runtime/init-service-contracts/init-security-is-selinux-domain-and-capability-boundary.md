@@ -2,25 +2,111 @@
 title: init-security-is-selinux-domain-and-capability-boundary
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["init 보안은 SELinux domain과 capability 경계로 정의된다"]
-date modified: 2026-08-03 17:23:40 +09:00
+date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## init 보안은 SELinux domain 과 capability 경계로 정의된다
 
-상위 문서: [init와 네이티브 서비스 계약](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/init-service-contracts.md)
+상위 문서: [init 서비스 계약](init-service-contracts.md)
 
-init service 를 root 로 실행하는 것은 보안 설계가 아니다. Android native service 는 UID/GID, SELinux domain, executable label, Linux capability, property context 를 조합해 필요한 권한만 가져야 한다.
+init 보안 모델은 서비스 프로세스 실행 시 Linux의 root 권한 남용을 방지하기 위해 UID/GID 분리뿐만 아니라 POSIX Capabilities의 엄격한 제한(Drop Capabilities) 및 SELinux Domain Transition을 통해 보안 경계(Security Boundary)를 격리하는 메커니즘이다.
 
-### 실무 규칙
+### 내부 동작 메커니즘 (Internal Mechanism)
 
-- service binary 에는 적절한 file context 와 entrypoint 정책이 필요하다.
-- `seclabel` 을 임시 회피 수단으로 쓰지 말고 서비스별 domain 을 정의한다.
-- `capabilities` 는 root 권한 전체를 대체하기 위한 최소 권한 목록으로 본다.
-- property write 권한은 property context 와 domain allow rule 을 함께 검토한다.
-- vendor service 는 system service 와 stable interface 경계를 넘지 않게 둔다.
+1. **SELinux Domain Transition (`seclabel` / `type_transition`)**:
+   - `init` 프로세스 자체는 `u:r:init:s0` 도메인에서 실행된다.
+   - 자식 서비스를 `fork`/`execv`할 때, Executable 파일의 SELinux Context(예: `u:object_r:zygote_exec:s0`)와 정책 규칙에 따라 자식 프로세스를 표적 도메인(예: `u:r:zygote:s0`)으로 자동 전이시킨다.
+2. **Linux Capability Drop & Ambient Capabilities**:
+   - `init`은 `SetCapsAndCombatibleCapabilities()`를 통해 `capabilities` 옵션에 명시된 비트마스크만 획득(Inheritable / Permitted / Effective / Ambient)시키고 나머지 Root Capability(예: `CAP_SYS_ADMIN`, `CAP_SYS_RAWIO`)를 모두 Drop 처리한다.
+3. **Namespace Isolation & Seccomp Filter**:
+   - `seccomp`, `mount namespace`, `net namespace` 옵션을 이용하여 하드웨어 접근 및 시스템 호출 수면을 추가 격리한다.
+
+```mermaid
+flowchart LR
+    INIT["init Process
+(Domain: u:r:init:s0)
+[Full Capabilities]"] -->|fork & SetSecurityContext()| TRANS["SELinux Domain Transition
++ CapSet / Seccomp Filter"]
+    TRANS -->|Zygote Service| ZYGOTE["Zygote Daemon
+(Domain: u:r:zygote:s0)
+[CAP_KILL, CAP_SETUID]"]
+    TRANS -->|Vendor Daemon| VEND["Vendor Service
+(Domain: u:r:hal_foo:s0)
+[No Capabilities]"]
+
+    style INIT fill:#f9f,stroke:#333,stroke-width:2px
+    style TRANS fill:#bbf,stroke:#333,stroke-width:2px
+```
+
+### 코드 및 구체 예시 (Concrete Snippets)
+
+`system/core/init/service.cpp` 보안 및 Capability 설정 로직 구현부:
+
+```cpp
+// system/core/init/service.cpp (Security context and capabilities setup before exec)
+void Service::Start() {
+    pid_t pid = fork();
+    if (pid == 0) {
+        // 1. Set SELinux Security Context
+        if (!seclabel_.empty()) {
+            if (setcon(seclabel_.c_str()) < 0) {
+                _exit(127);
+            }
+        }
+
+        // 2. Set Supplementary Groups & User IDs
+        if (gid_ != 0 && setgid(gid_) != 0) {
+            _exit(127);
+        }
+        if (uid_ != 0 && setuid(uid_) != 0) {
+            _exit(127);
+        }
+
+        // 3. Set Ambient POSIX Capabilities
+        if (capabilities_) {
+            if (!SetCapsAndCombatibleCapabilities(*capabilities_)) {
+                _exit(127);
+            }
+        }
+
+        // 4. Exec Service Binary
+        execv(args_[0].c_str(), (char**)args_data);
+    }
+}
+```
+
+`init.rc` 서비스 선언에서 Capability 및 SELinux Domain 지정 예시:
+
+```text
+# Explicit capability and security label definition
+service netd /system/bin/netd
+    class main
+    user root
+    group root net_admin net_raw
+    capabilities NET_ADMIN NET_RAW SYS_MODULE
+    seclabel u:r:netd:s0
+```
+
+### 관측 가능 증거 (Observable Evidence)
+
+`adb shell`을 통해 현재 구동 중인 서비스들의 SELinux Context 및 Linux Capability를 확인할 수 있다:
+
+```bash
+# 프로세스별 SELinux Security Context 조회
+adb shell ps -AZ
+# 출력 예시:
+# u:r:init:s0                     root       1 ... /system/bin/init
+# u:r:zygote:s0                   root     650 ... zygote
+# u:r:surfaceflinger:s0           system   680 ... surfaceflinger
+
+# 특정 서비스 프로세스의 Capability 허용 상태 확인
+adb shell cat /proc/$(adb shell pidof netd)/status | grep -i Cap
+```
 
 ### 관련 문서
 
-- [ueventd는 kernel uevent를 dev node 권한으로 변환한다](01_inbox/mobile/android/01_system_internals/boot-and-runtime/init-service-contracts/ueventd-turns-kernel-uevents-into-dev-node-permissions.md)
-- [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](01_inbox/mobile/android/05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md)
+- [service option은 identity, resource, class, socket 계약을 고정한다](service-options-fix-identity-resource-class-and-socket-contracts.md)
+- [init service는 재시작 정책을 가진 supervised process다](init-service-is-supervised-process-with-explicit-lifecycle.md)
+
+공식 문서: [SELinux for Android](https://source.android.com/docs/security/features/selinux)

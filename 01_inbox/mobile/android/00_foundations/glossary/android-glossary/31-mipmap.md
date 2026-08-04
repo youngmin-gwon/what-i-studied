@@ -14,5 +14,5 @@ date created: 2026-07-31 15:29:55 +09:00
 
 정본 링크:
 
-- [Resource shrinking contract](01_inbox/mobile/android/03_packaging_deployment/optimization/build-optimization-contracts/resource-shrinking-removes-unused-resources-after-code-shrinking.md)
-- [Resource source-set priority](01_inbox/mobile/android/03_packaging_deployment/build/gradle/gradle-build-contracts/source-set-priority-decides-variant-code-and-resource-conflicts.md)
+- [Resource shrinking contract](../../../03_packaging_deployment/optimization/build-optimization-contracts/resource-shrinking-removes-unused-resources-after-code-shrinking.md)
+- [Resource source-set priority](../../../03_packaging_deployment/build/gradle/gradle-build-contracts/source-set-priority-decides-variant-code-and-resource-conflicts.md)

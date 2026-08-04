@@ -2,72 +2,72 @@
 title: fbe-ce-and-de-separate-storage-availability
 tags: ["android", "android/security-privacy"]
 aliases: []
-date modified: 2026-08-03 18:14:40 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## FBE 에서 CE 와 DE 를 나누는 저장소 경계
 
-상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
+Android **FBE(File-Based Encryption)**는 기기의 파일 저장소를 **Credential Encrypted(CE) storage**와 **Device Encrypted(DE) storage**의 두 가지 물리적/암호학적 경계로 분리한다. CE는 사용자가 PIN/비밀번호로 잠금을 해제해야만 암호키가 로드되는 기본 경계이며, DE는 부팅 직후 사용자 잠금과 상관없이 하드웨어 키로 바로 접근 가능한 경계다.
 
-관련 노트: [Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다](01_inbox/mobile/android/05_security_privacy/secure-storage/secure-storage-contracts/sensitive-data-requires-encryption-and-key-ownership.md), [Direct Boot는 최소한의 device protected data만 사용한다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/direct-boot-requires-minimal-device-protected-data.md)
-
-### 한 문장 정의
-
-File-Based Encryption(FBE)은 파일을 암호화하는 동시에 사용자 인증 전후의 접근 시점을 나눈다.
-
-CE 와 DE 의 선택은 암호화 강도보다 앱 기능이 필요한 부팅 시점을 먼저 결정하는 문제다.
-
-### 핵심 구분
-
-- CE 는 Credential Encrypted 저장소다.
-- 사용자가 기기 잠금을 해제한 뒤에 접근할 수 있다.
-- 대부분의 앱 파일, 데이터베이스, 사용자별 민감 데이터가 기본적으로 CE 에 놓인다.
-- DE 는 Device Encrypted 저장소다.
-- 기기 부팅 직후, 사용자가 아직 잠금을 풀기 전에도 접근할 수 있다.
-- 알람 예약 정보처럼 부팅 직후 동작에 정말 필요한 최소 데이터만 DE 에 둔다.
-
-### 기본 선택 규칙
-
-앱 데이터는 먼저 CE 를 기본값으로 삼는다.
-
-잠금 해제 전에도 반드시 실행되어야 하는 기능이 있을 때만 DE 를 검토한다.
-
-DE 에 둔다는 사실이 데이터를 공개 저장소에 둔다는 뜻은 아니다.
-
-DE 도 앱의 보호된 저장소 영역이지만, 사용자 인증 전 접근 가능 시간이 더 길다.
-
-따라서 DE 에는 토큰, 개인 기록, 메시지 본문, 복호화 키를 넣지 않는다.
-
-### 구현 경계
-
-```kotlin
-val deContext = context.createDeviceProtectedStorageContext()
-val bootConfig = File(deContext.filesDir, "boot_config.json")
+```mermaid
+flowchart TD
+    KernelBoot[Kernel Boot Complete] --> KeyRing[Kernel Keyring Engine]
+    KeyRing --> HardwareDEKey[Hardware Device MasterKey Unlocked]
+    HardwareDEKey --> DEStorage["/data/user_de/0/ (DE Storage: Accessible before unlock)"]
+    
+    UserAuth[User Passcode Entry] --> SecretAuth[Synthetic Password Derived]
+    SecretAuth --> KeyRing2[CE MasterKey Unlocked in Kernel]
+    KeyRing2 --> CEStorage["/data/user/0/ (CE Storage: Default App Data Storage)"]
 ```
 
-일반 `context.filesDir` 는 CE 영역을 가리키는 것으로 취급한다.
+### 내부 동작 메커니즘
 
-DE 를 사용하는 컴포넌트는 해당 `Context` 를 명시적으로 전달받아야 한다.
+1. **Kernel `fscrypt` Integration**: Linux Kernel의 `fscrypt` (ext4/f2fs filesystem encryption) 엔진이 디렉터리 inode별로 서로 다른 키링(Keyring)을 바인딩한다.
+2. **CE Key Unlocking**: CE 마스터키는 사용자의 PIN/패스워드/패턴 기반의 Synthetic Password와 TEE 게이트키퍼에 의해 이중 암호화되어 보관된다. 따라서 사용자가 첫 잠금을 풀기 전에는 커널 메모리에 키 자체가 존재하지 않는다.
+3. **DE Key Unlocking**: DE 마스터키는 부트로더/TEE 검증 성공 직후 커널 키링에 자동 언락되므로, 부팅 직후 곧바로 파일 IO 연산이 가능하다.
 
-CE 와 DE 파일을 같은 Repository 에서 무심코 섞으면 수명과 접근 조건이 흐려진다.
+### CE vs DE Context 접근 및 상태 확인 구현 예시 (Kotlin)
 
-DE 데이터베이스를 열 때는 사용하는 라이브러리와 초기화 순서가 Direct Boot 조건을 만족하는지 확인한다.
+```kotlin
+import android.content.Context
+import android.os.Build
+import android.os.UserManager
 
-### 보안 판단
+fun inspectStorageAvailability(context: Context) {
+    val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
+    
+    // 사용자가 기기 잠금을 풀었는지 검사
+    val isUserUnlocked = userManager.isUserUnlocked
 
-FBE 는 저장 매체에서 파일 내용을 보호하지만, 앱의 접근 제어 정책을 대신하지 않는다.
+    if (isUserUnlocked) {
+        // CE Storage 접근 안전
+        val ceFile = context.filesDir // /data/user/0/com.example.app/files
+    } else {
+        // Direct Boot 상황 - DE Storage 사용 필수
+        val deContext = context.createDeviceProtectedStorageContext()
+        val deFile = deContext.filesDir // /data/user_de/0/com.example.app/files
+    }
+}
+```
 
-파일이 CE 에 있어도 앱 프로세스가 잠금 해제 뒤 평문을 로그에 남기면 보호가 무너진다.
+### 관찰 가능한 증거 (Observable Evidence)
 
-추가 암호화가 필요하면 키를 파일 옆에 두지 말고 [Android Keystore](https://developer.android.com/privacy-and-security/keystore) 에 맡긴다.
+- **adb를 통한 물리 디렉터리 경로 차이 확인**:
+  - CE 경로: `/data/user/0/com.example.app` (잠금 상태 시 `ENOKEY` 또는 접근 거부)
+  - DE 경로: `/data/user_de/0/com.example.app` (부팅 완료 시 언제나 접근 가능)
+- **`UserManager.isUserUnlocked()` 반환값 검증**:
+  - 부팅 직후(Direct Boot): `false`
+  - 패스워드 입력 후: `true`
 
-Keystore 키와 암호문 파일의 수명, 백업 여부, 복원 가능성을 별도로 설계한다.
+### 판단 기준
 
-### 점검 질문
+Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity 와 mandatory policy 가 어떻게 강제되는지 판단하는 기준으로 읽는다.
 
-- 이 데이터는 잠금 해제 전에 반드시 필요한가?
-- DE 에 남아도 되는 최소 정보인가?
-- DE 데이터가 CE 데이터의 식별자나 민감 내용을 추론하게 하지 않는가?
-- 재부팅 직후 해당 파일을 읽는 코드가 실제로 존재하는가?
-- 사용자가 잠금을 풀기 전 실패해도 기능이 안전하게 제한되는가?
+### 경계
+
+client-side check 를 authorization 으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
+
+상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup.md)
+
+관련 노트: [Direct Boot에서 허용되는 데이터와 실행 수명](direct-boot-requires-minimal-device-protected-data.md)

@@ -1,62 +1,124 @@
 ---
 title: "Baseline Profile 검증은 profiled와 unprofiled 성능을 비교한다"
 tags: ["android", "android/testing-performance"]
+aliases: ["baseline-profile-verification-compares-profiled-and-unprofiled-performance"]
+date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
-# Baseline Profile 검증은 profiled와 unprofiled 성능을 비교한다
+## Baseline Profile 검증은 profiled와 unprofiled 성능을 비교한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](01_inbox/mobile/android/06_testing_performance/performance/benchmark-baseline-contracts/benchmark-baseline-contracts.md)
-관련 노트: [Android 성능은 측정 후 최적화한다](01_inbox/mobile/android/06_testing_performance/performance/performance-contracts/measure-before-optimizing-android-performance.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-quality-and-build-optimization.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline-contracts.md)
+관련 노트: [Android 성능은 측정 후 최적화한다](../performance-contracts/measure-before-optimizing-android-performance.md)
 
-## 두 작업의 차이
+Baseline Profile의 유효성 검증은 단순 생성을 넘어서 동일한 기기 및 빌드 바이너리 환경에서 Profile 미적용(`BaselineProfileMode.Disable`) 대비 Profile 적용(`BaselineProfileMode.Require`) 시의 시작 및 프레임 렌더링 지표 개선율을 대조 증명하는 수량적 검증 계약이다.
 
-- 생성은 대표 사용자 여정을 실행해 프로필을 수집하는 단계다.
-- 검증은 그 프로필이 실제 성능을 개선했는지 측정하는 단계다.
-- 생성이 성공했다고 해서 앱 시작이나 스크롤이 빨라졌다는 뜻은 아니다.
-- 검증은 Macrobenchmark로 동일한 CUJ의 결과를 비교해야 한다.
+### 1. A/B 대조 검증 메커니즘
 
-## 검증 설계
+- **Profiled vs Unprofiled 조건**:
+  - **Unprofiled (`BaselineProfileMode.Disable`)**: Baseline Profile 규칙을 강제로 비활성화하고 `dex2oat` 사전 컴파일을 취소하여 순수 JIT / Interpreter 상태로 시작 시간 산출.
+  - **Profiled (`BaselineProfileMode.Require`)**: `baseline-prof.txt`에 기록된 핫 경로를 `dex2oat`로 사전 컴파일한 후 시작 시간 및 스크롤 프레임 산출.
+- **개선 지표 통계**:
+  $$\text{Improvement Ratio (\%)} = \left( \frac{\text{Unprofiled Median} - \text{Profiled Median}}{\text{Unprofiled Median}} \right) \times 100$$
+  - 일반적으로 Cold Startup TTID 기준 15% ~ 30% 수준의 개선이 확인되어야 정상 적용으로 판정한다.
 
-1. 프로필이 없는 기준 빌드를 준비한다.
-2. 동일한 코드와 데이터로 프로필 포함 빌드를 준비한다.
-3. 두 빌드를 같은 물리 기기에서 실행한다.
-4. 같은 compilation mode와 startup mode를 적용한다.
-5. 같은 metric, 반복 횟수, 초기화 절차를 사용한다.
-6. 결과 분포와 트레이스를 함께 비교한다.
+### 2. 검증 대조 워크플로우
 
-## 검증 대상
+```mermaid
+flowchart TD
+    Build["동일 Release APK 패키지 준비"]
+    
+    Build --> RunUnprofiled["1. Unprofiled Run<br/>CompilationMode.Partial(Disable)"]
+    Build --> RunProfiled["2. Profiled Run<br/>CompilationMode.Partial(Require)"]
 
-- cold startup 시간
-- warm 또는 hot startup 시간
-- 첫 화면의 완전한 표시 시간
-- 주요 화면 전환 시간
-- 스크롤 프레임 시간과 jank
-- 생성에 포함한 CUJ의 실제 체감 지표
+    RunUnprofiled --> CollectA["StartupTTID & FrameJank P50/P90 수집"]
+    RunProfiled --> CollectB["StartupTTID & FrameJank P50/P90 수집"]
 
-## 결과 해석
+    CollectA --> Compare["3. 통계 대조 & Delta % 계산"]
+    CollectB --> Compare
+    Compare --> Decision{"개선율 > 15% & Flakiness < 5%?"}
+    Decision -->|Yes| GatePass["Release Gate PASS"]
+    Decision -->|No| ProfileRegenerate["프로필 규칙 누락 진단 및 재생성"]
+```
 
-- 프로필 포함 빌드가 항상 모든 지표를 개선한다고 가정하지 않는다.
-- 프로필 효과가 시작에 집중되고 이후 화면에는 작을 수 있다.
-- 차이가 작으면 측정 분산, 프로필 적용 상태, CUJ 대표성을 먼저 확인한다.
-- 결과를 중앙값 하나로만 결론 내리지 말고 이상치와 백분위도 본다.
-- 코드 변경이 섞였다면 해당 실행은 프로필 효과의 순수 비교가 아니다.
+### 3. Profiled 대조 검증 Kotlin 테스트 코드 구체 예시
 
-## 적용 상태 확인
+```kotlin
+import androidx.benchmark.macro.BaselineProfileMode
+import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.StartupMode
+import androidx.benchmark.macro.StartupTimingMetric
+import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
-- 올바른 릴리스 변형에 프로필 파일이 포함되었는지 확인한다.
-- 테스트가 의도한 앱 패키지를 실행하는지 확인한다.
-- 설치·재설치 절차가 비교군마다 동일한지 확인한다.
-- 요구한 프로필을 찾지 못한 실행을 성공 결과로 취급하지 않는다.
-- 성능 리포트에 프로필 파일 버전과 생성 시나리오를 기록한다.
+@RunWith(AndroidJUnit4::class)
+class BaselineProfileVerificationTest {
 
-## 결론의 형태
+    @get:Rule
+    val benchmarkRule = MacrobenchmarkRule()
 
-- “프로필 생성 성공”은 산출물 생성에 대한 결론이다.
-- “프로필 적용 후 cold startup 개선”은 측정 결과에 대한 결론이다.
-- 두 문장을 하나의 테스트 통과 의미로 합치지 않는다.
+    @Test
+    fun verifyStartupNoProfile() = measureStartup(
+        CompilationMode.Partial(baselineProfileMode = BaselineProfileMode.Disable)
+    )
 
-## 공식 참고
+    @Test
+    fun verifyStartupWithProfile() = measureStartup(
+        CompilationMode.Partial(baselineProfileMode = BaselineProfileMode.Require)
+    )
 
-- [Baseline Profile 생성](https://developer.android.com/topic/performance/baselineprofiles/create-baselineprofile)
-- [Baseline Profile 측정](https://developer.android.com/topic/performance/baselineprofiles/measure-baselineprofile)
+    private fun measureStartup(mode: CompilationMode) {
+        benchmarkRule.measureRepeated(
+            packageName = "com.example.app",
+            metrics = listOf(StartupTimingMetric()),
+            compilationMode = mode,
+            startupMode = StartupMode.COLD,
+            iterations = 10
+        ) {
+            pressHome()
+            startActivityAndWait()
+        }
+    }
+}
+```
+
+### 4. 관측 가능한 검증 증거 (Observable Evidence)
+
+#### Macrobenchmark 대조 리포트 산출 결과
+
+```json
+{
+  "benchmarks": [
+    {
+      "name": "verifyStartupNoProfile",
+      "metrics": {
+        "timeToInitialDisplayMs": { "median": 482.0, "P90": 530.4 }
+      }
+    },
+    {
+      "name": "verifyStartupWithProfile",
+      "metrics": {
+        "timeToInitialDisplayMs": { "median": 334.5, "P90": 362.1 }
+      }
+    }
+  ],
+  "summary": {
+    "metric": "timeToInitialDisplayMs",
+    "unprofiledMedian": 482.0,
+    "profiledMedian": 334.5,
+    "deltaMs": -147.5,
+    "improvementPercentage": "30.60%"
+  }
+}
+```
+
+### 5. 검증 미달 시 진단 원칙
+
+- 개선율이 5% 미만이거나 미미하다면:
+  1. `baseline-prof.txt`에 핵심 `MainActivity` 및 Compose 라이브러리 핫 메서드가 누락되었는지 확인한다.
+  2. 릴리스 APK의 `assets/dexopt/baseline.prof` 파일이 정상 탑재되었는지 APK Analyzer로 검증한다.
+

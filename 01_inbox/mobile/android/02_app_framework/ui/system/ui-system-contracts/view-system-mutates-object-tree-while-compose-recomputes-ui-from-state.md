@@ -14,7 +14,7 @@ Compose 에서는 composable 함수가 state 를 읽고 UI tree 를 다시 계�
 
 이 차이 때문에 View System 의 "객체를 어디서 잡고 바꿀까"라는 질문은 Compose 에서 "state 를 어디에 두고 누가 읽을까"라는 질문으로 바뀐다. state 는 필요한 가장 낮은 공통 부모에 두고, event 는 위로 올리는 구조가 기본이다.
 
-관련 노트: [Compose state owner는 읽고 쓰는 범위의 가장 낮은 공통 owner다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write.md)
+관련 노트: [Compose state owner는 읽고 쓰는 범위의 가장 낮은 공통 owner다](../../../jetpack-compose/runtime/compose-runtime-contracts/compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write.md)
 
 ### 판단 기준
 

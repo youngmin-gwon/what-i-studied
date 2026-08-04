@@ -16,6 +16,6 @@ ViewModel 은 screen state 와 외부 작업을 조율하는 owner 이지 Activi
 
 ViewModel 은 configuration change 를 넘어 살아남으므로, Activity context 를 필드로 들고 있으면 회전 이후 이전 Activity 인스턴스가 새 Activity 와 함께 계속 heap 에 남는다. 회전을 반복한 뒤 Memory Profiler 나 LeakCanary 에서 Activity 인스턴스 수가 늘어나는 것으로 이 문제를 직접 확인할 수 있다.
 
-관련 노트: [ViewModel 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md), [ViewModel은 UI controller/context를 보관하지 않는다](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel-does-not-retain-ui-controller-or-context.md), [Android Dependency Injection Map](01_inbox/mobile/android/02_app_framework/dependency-injection/android-dependency-injection-map.md).
+관련 노트: [ViewModel 정본](../../state-management/viewmodel/viewmodel.md), [ViewModel은 UI controller/context를 보관하지 않는다](../../state-management/viewmodel/viewmodel-does-not-retain-ui-controller-or-context.md), [Android Dependency Injection Map](../../../dependency-injection/android-dependency-injection-map.md).
 
 공식 문서: [Guide to app architecture](https://developer.android.com/topic/architecture)

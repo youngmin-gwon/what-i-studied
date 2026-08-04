@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## UI 는 상태를 아래로 받고 사용자 행동을 위로 전달한다
 
-상위 문서: [Android UI State](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/ui-state.md)
+상위 문서: [Android UI State](./ui-state.md)
 
 ### 핵심 주장
 

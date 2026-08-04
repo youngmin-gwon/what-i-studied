@@ -1,85 +1,78 @@
 ---
 title: on-demand-and-conditional-delivery-require-install-state-and-failure-ux
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:41 +09:00
+tags: ["android", "play-delivery", "split-install"]
+aliases: ["On-demand와 conditional delivery는 설치 상태와 실패 UX를 요구한다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
-## On-demand 와 conditional delivery 는 설치 상태와 실패 UX 를 설계해야 한다
+## On-demand와 conditional delivery는 설치 상태와 실패 UX를 요구한다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+런타임에 동적으로 다운로드되는 On-demand 모듈은 네트워크 단절, 스토리지 부족, Play Store 인증 실패 등 다양한 런타임 예외가 발생할 수 있다.
+따라서 `SplitInstallManager` 비동기 다운로드 파이프라인과 상태 모니터링 이벤트 리스너(`SplitInstallStateUpdatedListener`)를 구현해야 한다.
+- **다운로드 상태 비동기 관리**: `PENDING` -> `DOWNLOADING` -> `INSTALLING` -> `INSTALLED`.
+- **사용자 승인 요청 (`REQUIRES_USER_CONFIRMATION`)**: 다운로드 용량이 10MB 이상이거나 셀룰러 데이터 사용 시 Play Store 승인 UI 다이얼로그를 호출해야 한다.
+- **실패 UX 핸들링**: `FAILED` 및 `CANCELED` 상태 발생 시 재시도 버튼 및 프로그레스 바 UX를 비동기 갱신한다.
 
-관련 지도: [Play Delivery 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-contracts.md)
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Pending: SplitInstallManager.startInstall()
+    Pending --> Downloading: Network Stream Connected
+    Downloading --> RequiresConfirmation: Large File Size (Cellular Data)
+    RequiresConfirmation --> Downloading: User Confirmed
+    Downloading --> Installing: Download Complete
+    Installing --> Installed: SplitCompat Loaded
+    Downloading --> Failed: Network Error / Out of Storage
+    Failed --> Idle: Retry User Action
+```
 
-관련 노트: [Delivery mode는 기능 필수성, 조건, 런타임 요청으로 선택한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/delivery-mode-is-selected-by-necessity-condition-and-runtime-request.md), [Play Delivery 운영은 UX, 테스트, Play 설치 경로를 함께 검증한다](01_inbox/mobile/android/03_packaging_deployment/distribution/play-delivery-contracts/play-delivery-operations-validate-ux-testing-and-play-install-path.md)
-
-### on-demand 요청
-
-Play Feature Delivery Library 의 `SplitInstallManager` 가 모듈 요청을 담당한다.
-
-요청 성공은 다운로드가 끝났다는 뜻이 아니라 session ID 를 받았다는 뜻이다.
-
-상태 listener 로 다운로드와 설치 완료를 확인한 뒤 기능 화면을 연다.
-
+### 코드 예시 (SplitInstallManager Kotlin Implementation)
 ```kotlin
-val manager = SplitInstallManagerFactory.create(context)
-val request = SplitInstallRequest.newBuilder()
-    .addModule("photo-editor")
-    .build()
+val splitInstallManager = SplitInstallManagerFactory.create(context)
+val moduleName = "feature_onboarding"
 
-manager.startInstall(request)
-    .addOnSuccessListener { sessionId ->
-        // listener에서 INSTALLED까지 기다린다.
+if (splitInstallManager.installedModules.contains(moduleName)) {
+    // 이미 모듈이 설치되어 있는 경우 바로 진입
+    launchModuleActivity(moduleName)
+} else {
+    val request = SplitInstallRequest.newBuilder()
+        .addModule(moduleName)
+        .build()
+
+    val listener = SplitInstallStateUpdatedListener { state ->
+        when (state.status()) {
+            SplitInstallSessionStatus.DOWNLOADING -> {
+                val progress = (state.bytesDownloaded() * 100) / state.totalBytesToDownload()
+                updateUIProgress(progress)
+            }
+            SplitInstallSessionStatus.INSTALLED -> {
+                SplitCompat.installActivity(this)
+                launchModuleActivity(moduleName)
+            }
+            SplitInstallSessionStatus.FAILED -> {
+                showErrorDialog(errorCode = state.errorCode())
+            }
+        }
     }
-    .addOnFailureListener { error ->
-        // 재시도 또는 취소 흐름을 표시한다.
-    }
+
+    splitInstallManager.registerListener(listener)
+    splitInstallManager.startInstall(request)
+}
 ```
 
-`SplitInstallStateUpdatedListener` 에서 session ID 를 필터링한다.
+### 관측 가능 증거 (Observable Evidence)
+Logcat을 통해 `SplitInstallManager`의 실시간 설치 세션 이벤트 및 진행 상태 로그를 모니터링할 수 있다:
 
-`DOWNLOADING`, `INSTALLING`, `INSTALLED`, `FAILED` 를 사용자 흐름에 연결한다.
+```bash
+adb logcat | grep -E "SplitInstallManager|SplitInstallListener"
 
-큰 다운로드는 Wi-Fi 대기나 사용자 확인 상태가 될 수 있다.
-
-`REQUIRES_USER_CONFIRMATION` 이면 Play 가 제공하는 확인 UI 를 호출한다.
-
-### 지연 설치
-
-당장 필요하지 않은 on-demand 모듈은 `deferredInstall()` 로 백그라운드 설치를
-
-요청할 수 있다. 진행률을 추적할 수 없는 best-effort 요청이므로,
-
-다음 사용 시 `installedModules` 를 다시 확인하고 필요하면 즉시 요청한다.
-
-### conditional manifest
-
-```xml
-<dist:delivery>
-    <dist:install-time>
-        <dist:conditions>
-            <dist:min-sdk dist:value="26" />
-            <dist:device-feature dist:name="android.hardware.camera.ar" />
-            <dist:user-countries dist:exclude="false">
-                <dist:country dist:code="KR" />
-            </dist:user-countries>
-        </dist:conditions>
-    </dist:install-time>
-</dist:delivery>
+# Logcat Output Example:
+# D/SplitInstallManager: Status changed for session 42: DOWNLOADING (2457600 / 5120000 bytes)
+# D/SplitInstallManager: Status changed for session 42: INSTALLED
 ```
 
-지원 조건에는 기기 기능, OpenGL ES, 사용자 국가, API level, 기기 모델,
-
-RAM, system feature, API 31 이상 기기의 SoC 가 포함된다.
-
-모든 조건을 만족해야 설치 시 자동 다운로드된다.
-
-조건에 맞지 않은 기기도 앱 안에서 on-demand 요청을 받을 수 있다.
-
-다만 해당 기능이 조건 외 기기에서 실제로 동작하는지 별도로 검증한다.
-
-### 공식 문서
-
-- [Configure on-demand delivery](https://developer.android.com/guide/playcore/feature-delivery/on-demand)
-- [Configure conditional delivery](https://developer.android.com/guide/playcore/feature-delivery/conditional)
+관련 노트: [Dynamic Feature Module은 Base 모듈에 의존하는 선택 기능 단위다](dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md), [Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다](play-feature-delivery-controls-dynamic-feature-install-timing.md)

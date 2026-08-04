@@ -16,6 +16,6 @@ Android component communication 은 하나의 event bus 가 아니다. Activity,
 
 explicit Intent 대신 implicit Intent 로 Service 를 시작하면 Android 5.0(API 21)부터 `IllegalArgumentException`("Service Intent must be explicit")이 발생한다. 이 예외 자체가 "이 통신 경로는 explicit Intent 를 요구한다"는 관찰 가능한 신호다.
 
-관련 노트: [intent/manifest 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md), [IPC and process contracts](01_inbox/mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md), [PendingIntent 정본](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md).
+관련 노트: [intent/manifest 정본](../../../navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md), [IPC and process contracts](../../../../01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md), [PendingIntent 정본](../../../navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md).
 
 공식 문서: [Application fundamentals](https://developer.android.com/guide/components/fundamentals)

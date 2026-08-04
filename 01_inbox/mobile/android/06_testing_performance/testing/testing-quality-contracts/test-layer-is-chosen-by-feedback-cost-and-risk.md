@@ -1,79 +1,90 @@
 ---
-title: test-layer-is-chosen-by-feedback-cost-and-risk
+title: "테스트 레이어는 피드백 비용으로 선택한다"
 tags: ["android", "android/testing-performance"]
-aliases: []
-date modified: 2026-08-03 18:15:08 +09:00
+aliases: ["test-layer-is-chosen-by-feedback-cost-and-risk"]
 date created: 2026-07-31 17:32:53 +09:00
+date modified: 2026-08-04 14:58:55 +09:00
 ---
 
 ## 테스트 레이어는 피드백 비용으로 선택한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](01_inbox/mobile/android/06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md)
+관련 지도: [테스트 품질 계약](./testing-quality-contracts.md)
+관련 노트: [Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다](./unit-integration-ui-e2e-tests-have-different-failure-signals.md)
 
-관련 지도: [테스트 품질 계약](01_inbox/mobile/android/06_testing_performance/testing/testing-quality-contracts/testing-quality-contracts.md)
+테스트 레이어(JVM Unit, Robolectric Integration, On-device UI, E2E)의 선택은 개발자 피드백 루프 속도(Execution Speed), 환경 구축 비용(Setup Cost), 결함 검출의 신뢰성(Fidelity) 사이의 기회비용을 정밀하게 타협하는 품질 계약이다.
 
-테스트 레이어의 선택 기준은 테스트 종류의 유행이 아니라 피드백 비용이다.
+### 1. 테스트 레이어별 실행 메커니즘 및 피드백 비용
 
-피드백 비용은 실행 시간, 실패 재현성, 원인 파악 난이도, 유지보수 비용을 합친 값이다.
+- **JVM Local Unit Test**:
+  - **환경**: Android SDK 묵시적 Mocking 또는 순수 Java/Kotlin Virtual Machine.
+  - **피드백 속도**: 초당 수백 개 테스트 실행 (< 5ms per test).
+  - **주요 검증**: Domain Business Logic, State Reducers, pure Utility mapping.
+- **Robolectric Integration Test**:
+  - **환경**: JVM 상에서 Android Framework C/C++ 네이티브(Shadows) 및 뷰/리소스 스냅샷 시뮬레이션.
+  - **피드백 속도**: 건당 100ms ~ 500ms.
+  - **주요 검증**: Fragment / Activity 생명주기, Navigation Component 통합.
+- **Instrumentation UI Test (On-Device)**:
+  - **환경**: 에뮬레이터 또는 실기기 상의 Android OS ART 런타임.
+  - **피드백 속도**: 건당 5초 ~ 30초 (기기 구동 및 APK 설치 오버헤드).
+  - **주요 검증**: Custom View Drawing, Canvas rendering, 하드웨어 센서 연동.
 
-빠른 테스트는 개발 중 자주 실행할 수 있다.
+### 2. 테스트 레이어 선택 의사결정 매트릭스
 
-느린 테스트는 실제 환경을 더 잘 재현하지만 실패 원인을 좁히는 데 시간이 든다.
+```mermaid
+flowchart TD
+    FeatureCheck{"검증하려는 코드 및 기능의 특성"}
+    
+    FeatureCheck -->|도메인 로직 & 순수 비즈니스 규칙| JVMUnit["JVM Local Unit Test<br/>(Execution: < 5ms / Feedback: Instant)"]
+    FeatureCheck -->|Android Framework & ViewModel / DB| Robolectric["Robolectric Integration Test<br/>(Execution: ~200ms / Feedback: Fast)"]
+    FeatureCheck -->|Compose UI 렌더링 & 사용자 제스처| ComposeRule["ComposeTestRule UI Test<br/>(Execution: ~2s / Feedback: Medium)"]
+    FeatureCheck -->|서버/네트워크 통합 & 결제/인증 E2E| OnDeviceE2E["On-Device Instrumentation E2E<br/>(Execution: > 15s / Feedback: Slow)"]
+```
 
-### 기본 원칙
+### 3. JVM Unit vs Instrumented UI 테스트 Kotlin 코드 구체 예시
 
-- 가능한 낮은 레이어에서 동작을 검증한다.
-- 낮은 레이어로 표현할 수 없는 계약만 높은 레이어로 올린다.
-- 하나의 E2E 테스트에 너무 많은 규칙을 넣지 않는다.
-- 테스트가 실패했을 때 수정 위치를 바로 추정할 수 있어야 한다.
-- 테스트 수의 비율보다 피드백 흐름의 질을 관리한다.
+```kotlin
+// 1. JVM Local Unit Test (빠른 피드백, 0ms 가상 시간)
+class CalculatorUnitTest {
+    @Test
+    fun calculateTax_returnsCorrectAmount() {
+        val calculator = TaxCalculator()
+        val result = calculator.compute(amount = 100.0, rate = 0.1)
+        assertEquals(10.0, result, 0.001)
+    }
+}
 
-### 레이어별 선택
+// 2. Instrumented UI Test (높은 실재감, 기기 조작 비용 발생)
+@RunWith(AndroidJUnit4::class)
+class LoginActivityUiTest {
+    @get:Rule
+    val activityRule = ActivityScenarioRule(LoginActivity::class.java)
 
-순수 계산, 상태 전이, 유효성 검사는 JVM 단위 테스트가 적합하다.
+    @Test
+    fun clickLogin_showsErrorDialog_whenPasswordEmpty() {
+        onView(withId(R.id.username_input)).perform(typeText("user@example.com"))
+        onView(withId(R.id.login_button)).perform(click())
+        onView(withText(R.string.error_empty_password)).check(matches(isDisplayed()))
+    }
+}
+```
 
-단위 테스트는 Android 프레임워크와 네트워크를 제거할수록 빨라진다.
+### 4. 관측 가능한 실행 증거 (Observable Evidence)
 
-ViewModel 은 가짜 저장소와 테스트용 dispatcher 를 주입해 상태 변화를 검증한다.
+#### Gradle 빌드 타임라인 비교 측정 로그
 
-Composable 의 노드, 클릭, 입력, 접근성 상태는 Compose UI 테스트로 확인한다.
+```text
+# 1. JVM Local Unit Test Task
+$ ./gradlew :app:testDebugUnitTest
+BUILD SUCCESSFUL in 1.4s (420 unit tests passed)
 
-여러 컴포넌트가 함께 동작하는 데이터 흐름은 통합 테스트로 확인한다.
+# 2. On-Device Instrumentation Test Task
+$ ./gradlew :app:connectedDebugAndroidTest
+BUILD SUCCESSFUL in 1m 24s (24 UI tests passed)
+```
 
-권한, 시스템 UI, 실제 navigation, 설치 상태는 기기 기반 테스트가 필요하다.
+### 5. 레이어 선택 가이던스
 
-핵심 사용자 여정은 적은 수의 E2E 테스트로 보호한다.
+- **피라미드 비율 유지**: 전체 테스트 릴리스 게이트 스위트의 70% 이상을 JVM Unit Test로 채우고, UI 및 E2E 테스트는 핵심 CUJ로 한정한다.
+- **실패 격리**: UI 테스트가 실패했을 때 domain logic 결함인지 UI Selector 결함인지를 명확히 포착할 수 있도록 단위 테스트 계층을 항상 먼저 실행한다.
 
-### 결정 질문
-
-이 실패가 순수 Kotlin 만으로 재현되는가?
-
-그렇다면 단위 테스트로 내려서 반복 비용을 줄인다.
-
-실패에 Android lifecycle 이나 실제 저장소가 필요한가?
-
-그렇다면 계측 또는 통합 테스트로 경계를 올린다.
-
-문제에 실제 창, 권한, 키보드, 백그라운드 프로세스가 포함되는가?
-
-그렇다면 에뮬레이터나 실제 기기에서 검증한다.
-
-여러 화면의 연결이 핵심인가?
-
-그렇다면 전체 흐름을 대표하는 E2E 하나를 추가한다.
-
-### 실행 순서
-
-로컬 저장 시 관련 단위 테스트를 먼저 실행한다.
-
-변경한 feature 의 UI 및 통합 테스트를 다음으로 실행한다.
-
-Pull request 에서는 빠른 테스트와 핵심 회귀 테스트를 함께 실행한다.
-
-nightly 또는 release 단계에서는 기기 매트릭스와 E2E 를 실행한다.
-
-실패가 잦은 높은 레이어 테스트는 원인을 낮은 레이어 테스트로 분해한다.
-
-공식 참고: [Android 테스트 개요](https://developer.android.com/training/testing)
-
-공식 참고: [Compose 테스트](https://developer.android.com/develop/ui/compose/testing)

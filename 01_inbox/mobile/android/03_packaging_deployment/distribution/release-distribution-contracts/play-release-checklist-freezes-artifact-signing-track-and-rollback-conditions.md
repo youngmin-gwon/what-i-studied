@@ -1,62 +1,54 @@
 ---
-title: play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions
-tags: ["android", "android/packaging-deployment"]
-aliases: []
-date modified: 2026-08-03 18:12:51 +09:00
+title: play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md
+tags: ["android", "release", "checklist", "play-console"]
+aliases: ["Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다"]
 date created: 2026-07-31 17:52:17 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-04 15:35:00 +09:00
 ---
 
 ## Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다
 
-상위 문서: [Android 패키징과 배포 지도](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md)
+### 내부 메커니즘 (Internal Mechanism)
+상용 릴리스 배포 직전, 불완전한 아티팩트나 설정 오류로 인한 프로덕션 장애를 방지하기 위해 다음 4가지 핵심 릴리스 게이트(Release Freeze Gates)를 최종 동결한다:
+1. **Artifact Freeze**: AAB 파일의 무결성 검증 (SHA-256 Hash 고정) 및 `mapping.txt` (ProGuard 디옥스 매핑 파일) 아카이브.
+2. **Signature & Version Freeze**: `versionCode` 및 `versionName` 확정, Upload Key 서명 검증.
+3. **Track & Rollout Plan**: 배포 트랙(Production), 초기 단계적 출시 비율(1%, 5%, 10%), 타겟 언어별 릴리스 노트 동결.
+4. **Halt / Rollback Criteria**: Android Vitals Crash Rate > 1.0% 또는 ANR Rate > 0.47% 초과 시 단계적 출시 즉시 중단(Halt Rollout) 조건 수립.
 
-관련 지도: [Play 릴리스와 배포 계약](01_inbox/mobile/android/03_packaging_deployment/distribution/release-distribution-contracts/release-distribution-contracts.md)
+```mermaid
+flowchart TD
+    PreRelease["Release Candidate Build"] --> Gate1{"1. SHA-256 & mapping.txt Archived?"}
+    Gate1 -->|Yes| Gate2{"2. Signed with Valid Upload Key?"}
+    Gate2 -->|Yes| Gate3{"3. Staged Rollout Plan & Vitals Threshold set?"}
+    Gate3 -->|Yes| Freeze["Freeze & Submit to Play Review"]
+```
 
-### 빌드
+### 코드 예시 (Release Artifact SHA-256 & Mapping Archive Script)
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-- [ ] release variant 에서 AAB 를 생성했다.
-- [ ] application ID 가 기존 Play 앱과 같다.
-- [ ] version code 가 기존 배포 버전보다 높다.
-- [ ] version name 과 변경 로그가 릴리스 목적에 맞다.
-- [ ] min SDK, target SDK, ABI, 언어, 리소스 구성을 검토했다.
+AAB_PATH="app/build/outputs/bundle/release/app-release.aab"
+MAPPING_PATH="app/build/outputs/mapping/release/mapping.txt"
 
-### 서명
+# 1. SHA-256 해시 생성 및 기록
+shasum -a 256 "$AAB_PATH" > RELEASE_AAB_HASH.txt
 
-- [ ] AAB 가 등록된 업로드 키로 서명됐다.
-- [ ] Play App Signing 의 앱 서명 인증서 지문을 확인했다.
-- [ ] Google API, OAuth, Maps, App Links 등 외부 서비스에 올바른 지문을 등록했다.
-- [ ] 업로드 keystore 와 비밀번호가 CI 로그나 저장소에 노출되지 않는다.
-- [ ] 키 분실·침해 시 업로드 키 재설정과 앱 서명 키 업그레이드를 구분했다.
+# 2. Crashlytics / Retrace용 mapping.txt 아카이빙
+cp "$MAPPING_PATH" "./release-archives/mapping-$(date +%Y%m%d_%H%M%S).txt"
+echo "Release Artifact Checksum & ProGuard Mapping successfully frozen."
+```
 
-### 검증
+### 관측 가능 증거 (Observable Evidence)
+릴리스 아티팩트 동결 로그 및 생성된 해시 텍스트 출력을 확인할 수 있다:
 
-- [ ] 내부 앱 공유로 Play 재서명과 설치를 확인했다.
-- [ ] 내부 테스트 트랙에서 설치, 신규 설치, 업데이트를 시험했다.
-- [ ] 비공개 또는 공개 테스트 대상과 opt-in 상태를 확인했다.
-- [ ] 여러 트랙의 version code 가 의도치 않게 사용자 선택을 덮지 않는다.
-- [ ] 대표 기기에서 분할 APK 와 동적 기능의 지연·실패 UI 를 확인했다.
+```bash
+cat RELEASE_AAB_HASH.txt
 
-### 출시
+# Output Example:
+# e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  app-release.aab
+```
 
-- [ ] 첫 공개 게시인지 업데이트인지 구분했다.
-- [ ] 업데이트라면 단계적 출시가 가능한 상태인지 확인했다.
-- [ ] 초기 대상, 국가 제한, 확대 기준, 관찰 시간을 기록했다.
-- [ ] 충돌·ANR·핵심 기능·문의 지표의 담당자를 정했다.
-- [ ] 중지 시 이미 업데이트된 사용자는 자동 복귀하지 않음을 알고 대응안을 마련했다.
-
-### 사후 조치
-
-- [ ] 단계적 비율을 수동으로 확대하고 각 시점을 기록했다.
-- [ ] 문제가 있으면 추가 배포를 중지하고 수정 version code 를 준비한다.
-- [ ] 100% 이후 Play Console 의 최종 상태와 릴리스 아티팩트를 보관한다.
-- [ ] 다음 릴리스에서 재사용할 키·트랙·테스터 정보를 정리한다.
-
-### 승인 기록
-
-- [ ] 빌드 승인자와 Play Console 게시 승인자를 기록했다.
-- [ ] 릴리스 version code 와 단계적 출시 시작 시각을 기록했다.
-- [ ] 장애 시 연락할 담당자와 중지 권한 보유자를 확인했다.
-
-공식 문서: [앱 서명](https://developer.android.com/studio/publish/app-signing), [앱 업데이트](https://developer.android.com/guide/playcore/in-app-updates), [테스트 설정](https://support.google.com/googleplay/android-developer/answer/9845334), [단계적 출시](https://support.google.com/googleplay/android-developer/answer/6346149)
-
-기준일: 2026-07-31. 정책, 검토 절차, 계정 요구사항은 릴리스 직전에 Play Console 의 현재 안내를 확인한다.
+관련 노트: [단계적 출시는 관측 가능한 릴리스 운영 절차다](staged-rollout-is-observable-release-operation.md), [R8 결과물은 크기와 런타임 회귀로 검증한다](../../optimization/build-optimization-contracts/r8-output-must-be-validated-with-size-and-runtime-regression.md)

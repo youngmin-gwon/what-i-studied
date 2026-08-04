@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Android Deep Links 와 App Links 테스트 및 디버깅
 
-상위 문서: [Deep Link 계약](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
+상위 문서: [Deep Link 계약](./deep-link-contracts.md)
 
 ### 테스트 층위
 
@@ -75,9 +75,9 @@ debug 와 release 인증서 지문이 서로 다른지 배포 변형별로 확�
 
 서버 파일은 [assetlinks.json 구성](https://developer.android.com/training/app-links/configure-assetlinks) 을 따른다.
 
-동적 규칙의 범위는 [Dynamic App Links는 선언 범위를 확장하지 않는다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/dynamic-app-links-refine-but-do-not-expand-manifest-scope.md) 에서 확인한다.
+동적 규칙의 범위는 [Dynamic App Links는 선언 범위를 확장하지 않는다](./dynamic-app-links-refine-but-do-not-expand-manifest-scope.md) 에서 확인한다.
 
-알림 클릭 흐름은 [알림은 PendingIntent로 딥 링크 여정을 시작한다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/notification-deep-link-needs-explicit-task-and-back-stack-policy.md) 와 함께 검증한다.
+알림 클릭 흐름은 [알림은 PendingIntent로 딥 링크 여정을 시작한다](./notification-deep-link-needs-explicit-task-and-back-stack-policy.md) 와 함께 검증한다.
 
 ### 결론
 

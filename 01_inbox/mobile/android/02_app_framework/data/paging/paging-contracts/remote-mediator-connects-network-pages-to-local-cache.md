@@ -50,4 +50,4 @@ class BenefitRemoteMediator(
 - cache invalidation 과 stale data 정책은 product 요구에 맞춰 명시한다.
 - network error 는 기존 cache 표시와 retry UI 를 동시에 고려한다.
 
-관련 노트: [영속 저장소 계약](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/persistence-contracts.md), [Room은 누적되고 조회되는 로컬 데이터를 저장한다](01_inbox/mobile/android/02_app_framework/data/storage/persistence-contracts/room-stores-accumulated-queryable-local-data.md)
+관련 노트: [영속 저장소 계약](../../storage/persistence-contracts/persistence-contracts.md), [Room은 누적되고 조회되는 로컬 데이터를 저장한다](../../storage/persistence-contracts/room-stores-accumulated-queryable-local-data.md)

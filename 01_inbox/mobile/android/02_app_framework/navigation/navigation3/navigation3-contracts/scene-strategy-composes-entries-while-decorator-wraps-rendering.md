@@ -35,4 +35,4 @@ NavDisplay(
 
 `sceneStrategy` 는 back stack 의 어떤 entry 들을 list pane 과 detail pane 으로 묶을지 결정하고, `entryDecorators` 는 그렇게 골라진 entry 각각의 saveable state 와 ViewModel store 를 감싼다. 두 책임을 같은 컴포저블 안에 합치면 pane 조합을 바꿀 때마다 상태 보존 코드도 함께 손대야 한다.
 
-관련 노트: [Metadata와 SceneStrategy는 표시 정책을 전달한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md), [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
+관련 노트: [Metadata와 SceneStrategy는 표시 정책을 전달한다](./metadata-and-scene-strategy-carry-display-policy.md), [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](../../adaptive-navigation/adaptive-navigation-contracts/navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)

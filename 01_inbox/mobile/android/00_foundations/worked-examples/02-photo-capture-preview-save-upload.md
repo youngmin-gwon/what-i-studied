@@ -1,80 +1,206 @@
 ---
 title: 02-photo-capture-preview-save-upload
 tags: ["android", "android/foundations", "worked-example"]
-aliases: ["Photo capture, preview, save, and upload"]
-date modified: 2026-08-04 10:29:00 +09:00
+aliases: ["Photo capture, preview, save, and upload", "사진 촬영, preview, 저장, 업로드까지"]
+date modified: 2026-08-04 16:00:00 +09:00
 date created: 2026-08-04 02:20:00 +09:00
 ---
 
-## 사진 촬영, preview, 저장, 업로드까지
+## 사진 촬영, preview, 저장, 업로드까지 (Photo Capture, Preview, Save, and Upload)
 
-이 예시는 Learning Spine 7·8·9·10 장을 하나의 기능으로 잇는다. 카메라라는 기기 기능의 발견과 권한 gate(9·10 장), 프리뷰가 화면에 나타나는 렌더링 경로(7 장), 촬영된 사진을 로컬에 먼저 저장하고 서버로는 지연된 지속 작업으로 올리는 데이터 계약(8 장)을 연결한다.
+이 예시는 Learning Spine 7·8·9·10 장을 하나의 카메라 비즈니스 유스케이스로 연결한다. 카메라라는 기기 하드웨어 독점 자원의 발견과 독립적 권한 게이트(9·10 장), 프레임을 앱 메인 메모리 복사 없이 화면에 바인딩하는 Surface 렌더링 경로(7 장), 캡처된 사진의 MediaStore 로컬 우선 저장(Outbox 패턴)과 WorkManager 기반 지연 업로드 보장 계약(8 장)을 다층 레이어 서사로 풀어낸다.
+
+---
 
 ### 시작 상태
 
-앱에 "사진 촬영" 화면이 있다. `CAMERA` 런타임 권한은 아직 승인되지 않았을 수 있다(dangerous permission, 9 장).
+앱에 "카메라 촬영" 화면이 열려 있다. `CAMERA` 런타임 권한(Dangerous Permission)과 시스템 프라이버시 토글(AppOps)의 승인 상태를 확인해야 하며, 캡처된 미디어를 갤러리에 추가하기 위한 준비가 필요하다.
+
+---
 
 ### 입력
 
-사용자가 "카메라" 버튼을 탭해 촬영 화면을 열고, 이어서 셔터 버튼을 탭한다.
+사용자가 카메라 프리뷰 화면 진입 후, 셔터 버튼을 탭하여 사진 촬영을 요청한다.
 
-### 단계별 흐름
+---
 
-1. **권한 gate(9 장)**: 화면 진입 시 앱은 `CAMERA` 권한이 이미 grant 상태인지 확인한다. 없으면 시스템 다이얼로그로 요청한다. 승인되더라도 이것이 곧 카메라를 열 수 있다는 뜻은 아니다 — AppOps 가 실행 시점에 별도로 거부할 수 있다(9 장 5 절).
-2. **기능 발견(10 장)**: 앱은 `CameraManager.getCameraIdList()` 로 사용 가능한 카메라를, `getCameraCharacteristics()` 로 각 카메라의 해상도·렌즈 방향을 조회한다. `registerAvailabilityCallback()` 으로 다른 앱이 카메라를 점유했는지 사전에 확인할 수 있다. 카메라는 한 번에 한 클라이언트만 열 수 있는 독점 자원이다.
-3. **Preview 렌더링(7 장)**: `openCamera()` 가 성공하면 카메라 세션은 `PreviewView`(또는 `SurfaceView`)에 연결된 Surface 로 프레임을 직접 전달한다. 이 경로는 앱이 매 프레임을 CPU 배열로 복사하지 않는, 7 장에서 다룬 Surface/BufferQueue 계약을 그대로 따른다. 프리뷰 화면에 보이는 실시간 영상은 이 Surface 가 SurfaceFlinger 의 합성 대상 레이어가 된 결과다.
-4. **촬영**: 셔터 탭은 별도의 `ImageReader` output Surface 로 정지 이미지를 캡처하도록 요청한다. 캡처된 `Image` 는 반드시 acquire 후 명시적으로 닫아야 한다. 열어둔 채로 방치하면 reader 의 이미지 큐가 고갈돼 다음 프레임 처리가 막힐 수 있다.
-5. **로컬 저장(8 장)**: 캡처된 이미지는 갤러리에 공개돼야 하는 공유 미디어이므로 앱 전용 저장소가 아니라 `MediaStore` 에 저장한다. `IS_PENDING=1` 로 먼저 항목을 만들어 쓰기 중인 파일이 사용자에게 노출되지 않게 하고, 인코딩이 끝나면 `IS_PENDING=0` 으로 갱신해 공개 상태로 전환한다. 이 저장은 로컬에서 즉시 끝나는 동작이며, 8 장에서 다룬 "로컬 우선 쓰기" 원칙을 따른다.
-6. **업로드는 화면 lifetime 과 분리한다(6·8 장)**: 사진을 서버에도 올려야 한다면, 이 업로드 요청은 화면이 사라져도 이어져야 하는 작업이다. 화면의 `viewModelScope` 에 묶지 않고 WorkManager 같은 durable scheduler 에 위임한다. 저장된 사진의 URI 와 "아직 서버에 반영되지 않음"이라는 대기 상태를 로컬 저장소에 함께 기록한다(8 장의 lazy write/outbox 패턴).
-7. **네트워크가 돌아오면 업로드 실행**: WorkManager 가 네트워크 constraint 를 만족하는 시점에 업로드 Worker 를 실행한다. 성공하면 대기 상태를 지우고, 실패하면 일시 오류인지 영구 오류인지 구분해 재시도하거나 사용자에게 알린다.
+### 다층 계층별 실행 흐름 (Multi-Layer Narrative)
 
-### 성공 결과
+```
+[UI Layer] PreviewView (SurfaceView) Display & Shutter Button Tap
+       │
+       ▼
+[App Framework Layer] CameraX / Camera2 (ProcessCameraProvider)
+       │               -> AppOpsManager & Permission Verification
+       │               -> CameraDevice.createCaptureSession()
+       │               -> ImageReader acquires hardware frame buffer
+       ▼
+[System Server / IPC Layer] Binder IPC to CameraService (cameraserver)
+       │                      -> AppOpsService Privacy Switch Check
+       │                      -> MediaProvider IPC for MediaStore insertion
+       │                      -> WorkManager JobScheduler persistence
+       ▼
+[Kernel / Hardware Layer] Camera Service communicates via AIDL to Camera HAL3
+       │                    -> Hardware ISP (Image Signal Processor) capturing
+       │                    -> Gralloc / HardwareBuffer DMA-BUF zero-copy allocation
+       │                    -> NVMe / UFS Storage write (f2fs/ext4)
+       ▼
+[Network / Background Work] WorkManager -> Baseband Modem Driver -> Cloud Server
+```
 
-화면은 로컬 `MediaStore` 항목을 관찰하는 Flow 를 통해 촬영된 사진을 즉시 보여준다. 업로드는 별도로 진행되며, 완료되면 로컬에 기록해둔 "대기 중" 상태가 사라지는 것으로 사용자에게 반영된다.
+1. **UI / 입력 레이어**:
+   - 사용자가 셔터 버튼을 탭하면 클릭 이벤트가 Main Thread Looper 를 거쳐 카메라 capture handler 로 전달된다.
+   - 라이브 비디오 프리뷰는 `PreviewView` 내부의 `SurfaceView` Surface 로 흐르고 있으며, GPU 합성기(`SurfaceFlinger`)가 디스플레이 렌더링을 담당한다.
 
-### 관찰 가능한 신호
+2. **App Framework 레이어**:
+   - 앱은 `CameraManager` 또는 `CameraX`(`ProcessCameraProvider`)를 통해 하드웨어 파이프라인을 구성한다.
+   - `checkSelfPermission`으로 `CAMERA` 권한을 확인하고, `AppOpsManager`로 시스템 수준의 카메라 차단 유무를 점검한다.
+   - `CameraDevice.createCaptureSession()`을 통해 `Preview` Surface 와 `ImageCapture`용 `ImageReader` Surface 를 한 번에 구성한다.
+   - 셔터 탭 시 `ImageReader`의 `onImageAvailable()` 콜백이 트리거되어 `Image` 객체(YUV/JPEG)를 획득한다.
 
-- `adb shell dumpsys media.camera` 로 카메라 서비스의 현재 활성 클라이언트와 점유 상태를 확인한다.
-- 카메라 열기 실패는 logcat 의 `CameraAccessException` 에러 코드로 원인(권한 없음, 다른 앱이 점유 중, 비활성화)을 구분한다.
-- `WorkInfo.state` 와 `adb shell dumpsys jobscheduler` 로 업로드 작업이 실제로 예약·실행됐는지 확인한다.
-- `dumpsys appops` 로 `CAMERA` op 의 모드가 permission grant 상태와 별개로 거부돼 있는지 확인한다.
+3. **System Server 및 IPC 레이어**:
+   - `CameraDevice` 호출은 Binder IPC 를 통해 OS 의 `cameraserver` 프로세스로 전달된다.
+   - `AppOpsService`는 앱이 카메라에 접근할 수 있는 최신 런타임 상태인지 검증한다.
+   - 사진 저장 시 `MediaProvider` 프로세스와 IPC 통신을 수행하여 `MediaStore` DB 에 튜플을 생성한다.
+   - 업로드 작업 요청 시 `WorkManager`는 `JobSchedulerService`와 통신하여 SQLite DB 에 지속 가능 작업(Durable Job)을 등록한다.
 
-### 실패 분기: 카메라를 열 수 없다
+4. **Kernel 및 Hardware Layer**:
+   - `cameraserver`는 AIDL/HIDL 로 `Camera HAL3` 모듈에 명령을 전달하고, 하드웨어 센서 및 ISP(Image Signal Processor)가 렌더링 프레임 데이터를 생성한다.
+   - 프레임 버퍼는 `Gralloc`을 통해 `HardwareBuffer`(DMA-BUF) 메모리로 할당되어 CPU 공간으로의 불필요한 픽셀 복사(Zero-Copy) 없이 GPU 및 인코더로 직행한다.
+   - 캡처 파일은 저장소 드라이버(UFS/f2fs)를 통해 저장되고, 네트워크 상태가 만족되면 샐룰러/Wi-Fi 모뎀 드라이버를 통해 서버로 전송된다.
 
-셔터를 누르기 전, `openCamera()` 자체가 실패하는 경우를 생각해 보자. 원인은 최소 세 가지로 갈린다.
+---
 
-1. **권한이 없다.** `CAMERA` 런타임 권한이 거부됐다면 `openCamera()` 는 `SecurityException` 으로 실패한다.
-2. **권한은 있지만 AppOps 가 막는다.** 권한은 granted 상태인데도 사용자가 설정에서 이 앱의 카메라 접근을 별도로 차단했다면, 권한 검사만 보고는 원인을 알 수 없다.
-3. **다른 앱이 이미 카메라를 점유 중이다.** 이 경우 권한·AppOps 와는 무관하게 `ERROR_CAMERA_IN_USE` 나 `onDisconnected()` 로 실패한다.
+### Android 14 / 15 / 16 platform specific behaviors
 
-세 경우 모두 사용자 화면에는 "카메라를 열 수 없습니다"로 보일 수 있지만, 조사 순서는 다르다. 먼저 권한 grant 상태(9 장), 그다음 AppOps 모드(9 장), 마지막으로 카메라 서비스의 점유 상태(`dumpsys media.camera`)를 차례로 좁혀야 한다.
+1. **Android 12+ Quick Settings Camera Privacy Toggle (AppOps)**:
+   - Android 12 이상에서는 퀵 설정 창에 글로벌 "카메라 차단" 토글이 존재한다. `Manifest.permission.CAMERA`가 `GRANTED` 상태라 하더라도, 사용자가 퀵 설정을 통해 카메라를 차단하면 `AppOpsManager`가 `MODE_IGNORED`를 반환하며, 카메라 세션은 검은색 프레임만 반환하거나 `SecurityException`을 던진다.
 
-### 코드 예시
+2. **Foreground Service Types Requirement (Android 14 / 15 / 16)**:
+   - Android 14 이상에서 앱이 백그라운드 상태이거나 화면이 꺼진 동안 카메라 센서를 계속 캡처해야 하는 경우, 매니페스트에 `<service android:foregroundServiceType="camera">`를 선언해야 한다.
+   - 촬영된 대용량 이미지/비디오 인코딩 및 처리 작업을 수행할 때는 Android 14+ 에 도입된 `foregroundServiceType="mediaProcessing"`을 사용하여 OS 스케줄러의 강제 종료를 방지한다.
+
+3. **Scoped Storage & MediaStore Atomic Publishing (`IS_PENDING`)**:
+   - Android 10 이상 Scoped Storage 환경에서는 앱이 외부 저장소 전체 쓰기 권한(`WRITE_EXTERNAL_STORAGE`) 없이도 `MediaStore`에 사진을 작성할 수 있다. `IS_PENDING=1` 상태로 파일을 생성해 쓰기를 진행한 후, 인코딩이 완료되는 시점에 `IS_PENDING=0`으로 업데이트하여 atomic 하게 갤러리에 노출시킨다.
+
+---
+
+### 성공 경로 vs 실패 분기 비교
+
+| 항목 | 성공 경로 (Success Path) | 실패 분기 (Failure Branch 1: Camera Monopolized) | 실패 분기 (Failure Branch 2: ImageReader Buffer Leak) |
+| :--- | :--- | :--- | :--- |
+| **진행 현상** | 프리뷰 정상 작동, 셔터 클릭 즉시 MediaStore 에 사진 저장 후 배경 업로드 등록 | 촬영 화면 진입 시 "카메라를 열 수 없습니다" 에러 표시 또는 화면 검게 멈춤 | 1~2 회 촬영 후 더 이상 셔터가 반응하지 않고 프리뷰가 멈춤 |
+| **원인 메커니즘** | 하드웨어 점유 성공, Zero-Copy Surface 바인딩, `IS_PENDING` 관리 및 WorkManager 성공 | 다른 앱(예: 영상 통화)이 카메라 단일 점유 자원을 소유하고 있어 오픈 실패 | `ImageReader.acquireNextImage()` 호출 후 `image.close()`를 누락하여 Reader 버퍼 큐 고갈 |
+| **관측 가능 신호** | `dumpsys media.camera` 내 클라이언트 바인딩 활성화, MediaStore `IS_PENDING=0` | `CameraAccessException: CAMERA_IN_USE (1)`, logcat 에 `onDisconnected()` 수신 | logcat: `ImageReader_JNI: Discarding image.. buffer queue is full`, `ImageReader` 멈춤 |
+
+---
+
+### CLI 진단 명령어 및 관찰 도구
+
+1. **카메라 서비스 점유 및 활성 스트림 확인**:
+   ```bash
+   adb shell dumpsys media.camera
+   # 출력 내용 중 Active Camera Clients 및 Package Name, Surface format/dimensions 점검
+   ```
+
+2. **AppOps 프라이버시 차단 상태 조회**:
+   ```bash
+   adb shell dumpsys appops com.example.app | grep -i CAMERA
+   # OP_CAMERA: mode=0 (Granted) 또는 mode=1 (Ignored - 퀵 설정 차단)
+   ```
+
+3. **Camera2 / CameraX 전용 Logcat 추적**:
+   ```bash
+   adb logcat -v time -s Camera2Client:V Camera3-Device:V CameraX:D
+   ```
+
+4. **WorkManager 업로드 작업 예약 상태 진단**:
+   ```bash
+   adb shell dumpsys jobscheduler | grep com.example.app
+   # 또는 WorkManager DB 확인
+   adb shell dumpsys activity service com.example.app/androidx.work.impl.background.systemjob.SystemJobService
+   ```
+
+---
+
+### 실전 코드 예시 (Production Code Examples)
 
 ```kotlin
-// 1. 권한 확인
-if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
-    != PackageManager.PERMISSION_GRANTED) {
-    requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-    return
-}
+// CameraCaptureManager.kt
+package com.example.app
 
-// 5. MediaStore에 pending 상태로 먼저 등록
-val values = ContentValues().apply {
-    put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_${System.currentTimeMillis()}.jpg")
-    put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-    put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-    put(MediaStore.Images.Media.IS_PENDING, 1)
-}
-val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+import android.content.ContentValues
+import android.content.Context
+import android.net.Uri
+import android.os.Environment
+import android.provider.MediaStore
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.core.content.ContextCompat
+import androidx.work.*
+import java.util.concurrent.Executor
 
-// 6. 업로드는 화면 lifetime이 아니라 WorkManager로 위임
-val uploadRequest = OneTimeWorkRequestBuilder<UploadPhotoWorker>()
-    .setInputData(workDataOf("photo_uri" to uri.toString()))
-    .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
-    .build()
-workManager.enqueueUniqueWork("upload_${uri}", ExistingWorkPolicy.KEEP, uploadRequest)
+class CameraCaptureManager(private val context: Context) {
+
+    // 1. MediaStore 에 Pending 상태로 파일 인서트 후 비동기 쓰기
+    fun captureAndEnqueueUpload(imageCapture: ImageCapture, executor: Executor) {
+        val resolver = context.contentResolver
+        val contentValues = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_${System.currentTimeMillis()}.jpg")
+            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+            put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            // Android 10+ Scoped Storage: 작성 중에는 사용자 갤러리에 비노출
+            put(MediaStore.Images.Media.IS_PENDING, 1)
+        }
+
+        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            ?: return
+
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(resolver, uri, contentValues).build()
+
+        imageCapture.takePicture(
+            outputOptions,
+            executor,
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    // 쓰기 완료 -> IS_PENDING = 0 변환 (Atomic Publishing)
+                    contentValues.clear()
+                    contentValues.put(MediaStore.Images.Media.IS_PENDING, 0)
+                    resolver.update(uri, contentValues, null, null)
+
+                    // 2. 업로드 작업은 화면 Scope 가 아닌 WorkManager 로 위임
+                    scheduleBackgroundUpload(uri)
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    // 저장 실패 시 pending row 정리
+                    resolver.delete(uri, null, null)
+                }
+            }
+        )
+    }
+
+    private fun scheduleBackgroundUpload(photoUri: Uri) {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val uploadWorkRequest = OneTimeWorkRequestBuilder<PhotoUploadWorker>()
+            .setInputData(workDataOf("KEY_PHOTO_URI" to photoUri.toString()))
+            .setConstraints(constraints)
+            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, WorkRequest.MIN_BACKOFF_MILLIS, java.util.concurrent.TimeUnit.MILLISECONDS)
+            .build()
+
+        WorkManager.getInstance(context).enqueueUniqueWork(
+            "upload_photo_${photoUri.lastPathSegment}",
+            ExistingWorkPolicy.KEEP,
+            uploadWorkRequest
+        )
+    }
+}
 ```
+
+---
 
 ### 관련 원자 노트
 
@@ -86,6 +212,8 @@ workManager.enqueueUniqueWork("upload_${uri}", ExistingWorkPolicy.KEEP, uploadRe
 - [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup-contracts/appops-can-deny-after-permission-is-already-granted.md)
 - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md)
 
+---
+
 ### 관련 Learning Spine 장
 
 - [7장 입력, 리소스 선택과 화면 프레임](../learning-spine/07-input-resource-selection-and-display-frame.md)
@@ -93,10 +221,20 @@ workManager.enqueueUniqueWork("upload_${uri}", ExistingWorkPolicy.KEEP, uploadRe
 - [9장 Identity, 권한과 독립적인 security gate](../learning-spine/09-identity-permission-and-independent-security-gates.md)
 - [10장 기기 기능 발견과 background execution](../learning-spine/10-device-capability-discovery-and-background-execution.md)
 
+---
+
+### 관련 Diagnostic Runbook
+
+- [04-permission-denial.md](../diagnostic-runbooks/04-permission-denial.md)
+- [05-background-work-delayed-or-not-running.md](../diagnostic-runbooks/05-background-work-delayed-or-not-running.md)
+
+---
+
 ### 공식 근거
 
 - [Camera2 overview](https://developer.android.com/media/camera/camera2)
-- [CameraX overview](https://developer.android.com/media/camera/camerax)
-- [Camera2 capture sessions and requests](https://developer.android.com/media/camera/camera2/capture-sessions-requests)
+- [CameraX architecture](https://developer.android.com/media/camera/camerax/architecture)
+- [Access media files from shared storage](https://developer.android.com/training/data-storage/shared/media)
+- [Foreground service types](https://developer.android.com/about/versions/14/changes/fgs-types-required)
 
-검증일: 2026-08-04. 카메라 API 의 세부 오류 코드와 MediaStore 열 이름은 API 레벨에 따라 달라질 수 있으므로 실제 구현 시점에 다시 확인한다.
+검증일: 2026-08-04. CameraX 1.3+ UseCase 규칙, Scoped Storage `IS_PENDING` 플래그, AppOps 카메라 차단 토글 동작을 공식 문서를 기준으로 검증함.

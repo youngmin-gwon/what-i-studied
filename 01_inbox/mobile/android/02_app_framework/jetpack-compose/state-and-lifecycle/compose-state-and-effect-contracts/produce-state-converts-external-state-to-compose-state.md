@@ -25,6 +25,6 @@ fun loadNetworkImage(url: String): State<ImageBitmap?> =
 
 `url` 이 바뀌면 진행 중이던 `imageLoader.load` coroutine 이 취소되고 새 producer 가 시작된다. 반환 타입이 `State<ImageBitmap?>` 이므로 호출부는 `val bitmap by loadNetworkImage(url)` 처럼 일반 Compose state 읽기와 동일하게 사용한다.
 
-관련 노트: [snapshotFlow는 Compose State를 cold Flow로 바꾼다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/snapshot-flow-converts-compose-state-to-cold-flow.md), [Compose 상태 API는 필요한 수명에 맞춰 선택한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-api-selection-by-lifetime.md)
+관련 노트: [snapshotFlow는 Compose State를 cold Flow로 바꾼다](./snapshot-flow-converts-compose-state-to-cold-flow.md), [Compose 상태 API는 필요한 수명에 맞춰 선택한다](./compose-state-api-selection-by-lifetime.md)
 
 출처: [Side-effects in Compose - produceState](https://developer.android.com/develop/ui/compose/side-effects#producestate)

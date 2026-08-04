@@ -12,9 +12,9 @@ date created: 2026-08-03 17:16:58 +09:00
 
 ### 읽는 순서
 
-1. [getSystemService는 캐시된 매니저를 반환하고 실제 작업은 Binder IPC로 위임한다](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/getsystemservice-returns-a-cached-manager-backed-by-binder-ipc.md) 에서 매니저 객체와 실제 서비스 프로세스를 분리한다.
-2. [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/system-server-checks-caller-uid-and-pid-for-every-call.md) 에서 permission 검사가 어디서 일어나는지 확인한다.
-3. [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/appops-can-deny-after-permission-is-already-granted.md) 에서 permission 통과와 실제 실행 허용이 다른 이유를 본다.
+1. [getSystemService는 캐시된 매니저를 반환하고 실제 작업은 Binder IPC로 위임한다](./getsystemservice-returns-a-cached-manager-backed-by-binder-ipc.md) 에서 매니저 객체와 실제 서비스 프로세스를 분리한다.
+2. [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](./system-server-checks-caller-uid-and-pid-for-every-call.md) 에서 permission 검사가 어디서 일어나는지 확인한다.
+3. [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-can-deny-after-permission-is-already-granted.md) 에서 permission 통과와 실제 실행 허용이 다른 이유를 본다.
 
 ### 문제 분류
 
@@ -33,8 +33,8 @@ date created: 2026-08-03 17:16:58 +09:00
 
 ### 노트 목록
 
-- [getSystemService는 캐시된 매니저를 반환하고 실제 작업은 Binder IPC로 위임한다](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/getsystemservice-returns-a-cached-manager-backed-by-binder-ipc.md)
-- [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/system-server-checks-caller-uid-and-pid-for-every-call.md)
-- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](01_inbox/mobile/android/04_system_services/service-lookup/service-lookup-contracts/appops-can-deny-after-permission-is-already-granted.md)
+- [getSystemService는 캐시된 매니저를 반환하고 실제 작업은 Binder IPC로 위임한다](./getsystemservice-returns-a-cached-manager-backed-by-binder-ipc.md)
+- [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](./system-server-checks-caller-uid-and-pid-for-every-call.md)
+- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-can-deny-after-permission-is-already-granted.md)
 
 검증일: 2026-08-03. `Context.getSystemService()` 와 AppOps 모델은 [Android Context 문서](https://developer.android.com/reference/android/content/Context) 와 [AppOpsManager 문서](https://developer.android.com/reference/android/app/AppOpsManager) 를 기준으로 확인했다.

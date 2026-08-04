@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Reducer 는 Repository, Coroutine, Flow, Android API 에 의존하지 않는다
 
-상위 문서: [Android Reducer](01_inbox/mobile/android/02_app_framework/architecture/state-management/reducer/reducer.md)
+상위 문서: [Android Reducer](./reducer.md)
 
 ### 핵심 주장
 

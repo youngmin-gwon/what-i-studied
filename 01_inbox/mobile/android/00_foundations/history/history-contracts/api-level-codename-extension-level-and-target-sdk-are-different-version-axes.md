@@ -10,10 +10,69 @@ date created: 2026-07-31 23:04:26 +09:00
 
 Android version 을 말할 때 API level, dessert codename, SDK Extension level, minor SDK version, `compileSdk`, `targetSdkVersion` 을 섞으면 판단이 흐려진다. API level 은 platform SDK surface 의 major 번호이고, codename 은 release 식별자다. extension level 은 Mainline module 을 통해 추가된 일부 API availability 를, `SDK_INT_FULL` 은 major/minor platform release 를 구분한다.
 
-`compileSdk` 는 소스가 어떤 SDK API 로 compile 될 수 있는지 정하고, `targetSdkVersion` 은 앱에 적용할 target-gated behavior contract 를 선택한다. device 가 Android 17 이어도 target 이 낮으면 일부 동작은 compatibility behavior 를 거칠 수 있지만, 모든 앱에 적용되는 runtime 변화까지 피하는 것은 아니다. Extension API 는 device API level 과 별도로 extension version 조건을 만족하는지 검사한다.
+### 내부 동작 메커니즘 (Version Axis Distinction)
 
-2026 년 8 월 3 일 검증 기준 API 36 은 Android 16/Baklava, API 37 은 Android 17/Cinnamon Bun 으로 문서화되어 있다. `SDK_INT_FULL` 과 `VERSION_CODES_FULL` 은 API level 36 에 추가되었으며 minor release 를 포함한 순서를 표현한다. 구체 상수와 배포 상태는 사용 시점의 공식 reference 에서 다시 확인한다.
+1. **Version Control Axes**:
+   - **`compileSdk`**: 컴파일 타임 린터 및 바이트코드 빌더가 참조할 SDK API 마운트 클래스 스펙.
+   - **`targetSdkVersion`**: OS 런타임 호환성 엔진(Compatibility Engine)이 앱 프로세스에 어떤 버전 게이팅 동작(Target-Gated Behavior Changes)을 강제할지 결정하는 계약 축.
+   - **`minSdkVersion` / `Build.VERSION.SDK_INT`**: 런타임 디바이스 OS의 하한선 API 레벨.
+   - **`SdkExtensions`**: OS 업데이트 없이 Google Play System Update(Mainline APEX)를 통해 백포팅된 모듈형 API 레벨 (`ext.getExtensionVersion()`).
+2. **Behavior Gating Logic**: OS 런타임은 `targetSdkVersion`을 확인하여 레거시 앱에 호환성 심(Shim) 레이어를 제공하지만, 플랫폼 전역 보안/프라이버시 규제(예: Scoped Storage 강제)는 `targetSdkVersion`과 무관하게 `SDK_INT` 수준에서 일괄 적용된다.
 
-관련 노트: [SDK Extensions](01_inbox/mobile/android/01_system_internals/platform-modularity/platform-modularity-contracts/sdk-extensions-express-api-availability-beyond-sdk-int.md), [packaging/deployment](01_inbox/mobile/android/03_packaging_deployment/android-packaging-deployment.md).
+```mermaid
+flowchart TD
+    BuildTime["Build Time: compileSdk (35)"] -->|Bytecode Compilation| APK["App APK"]
+    APK -->|Manifest Metadata| OS["Android OS Runtime"]
+    
+    subgraph OSEngine [OS Version Evaluation Engine]
+        SDK_INT["Build.VERSION.SDK_INT (Device API Level)"]
+        TargetSDK["manifest.targetSdkVersion"]
+        ExtVersion["SdkExtensions.getExtensionVersion()"]
+    end
+
+    OS --> OSEngine
+    TargetSDK -->|Target-Gated Rule| CompatLayer["Compatibility Shim Layer"]
+    SDK_INT -->|Unconditional Rule| SecurityPolicy["Mandatory Security & Sandbox Enforcement"]
+    ExtVersion -->|Feature Availability| AdServices["Mainline Backported APIs (e.g. PhotoPicker / AdServices)"]
+```
+
+### 코드 예시 (Runtime Version Guard & Extension Check)
+
+```kotlin
+import android.os.Build
+import android.os.ext.SdkExtensions
+import android.provider.MediaStore
+
+fun checkPhotoPickerAvailability(): Boolean {
+    return when {
+        // 1. Android 13 (API 33) 이상에서는 OS 기본 API 지원
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> true
+        
+        // 2. Android 11 (API 30) ~ 12 (API 32)에서는 R Extension 버전 확인
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
+            SdkExtensions.getExtensionVersion(Build.VERSION_CODES.R) >= 2
+        }
+        
+        else -> false
+    }
+}
+```
+
+### 관측 가능한 증거 (Observable Evidence)
+
+`adb shell getprop` 명령을 사용하여 디바이스의 실제 API 레벨, 확장 릴리즈 버전 및 빌드 태그를 직접 조회할 수 있다:
+
+```bash
+# 디바이스 Major SDK API Level 관측
+adb shell getprop ro.build.version.sdk
+
+# OS 버전 명칭 및 Release Codename 관측
+adb shell getprop ro.build.version.release
+
+# Mainline SDK Extension 버전 확인
+adb shell getprop ro.build.version.extensions.r
+```
+
+관련 노트: [SDK Extensions](../../../01_system_internals/platform-modularity/platform-modularity-contracts/sdk-extensions-express-api-availability-beyond-sdk-int.md), [packaging/deployment](../../../03_packaging_deployment/android-packaging-deployment.md).
 
 공식 문서(2026-08-03 검증): [Build.VERSION](https://developer.android.com/reference/android/os/Build.VERSION), [Build.VERSION_CODES](https://developer.android.com/reference/android/os/Build.VERSION_CODES), [VERSION_CODES_FULL](https://developer.android.com/reference/kotlin/android/os/Build.VERSION_CODES_FULL)

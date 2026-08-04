@@ -35,6 +35,6 @@ NavigableListDetailPaneScaffold(
 
 compact 에서 detail 로 진입한 뒤 back 을 누르면 `navigator.navigateBack()` 이 list pane 으로 돌아가야 하고, `selectedId` 자체는 지워지지 않아야 expanded 로 회전했을 때 같은 항목이 선택된 채로 보인다.
 
-관련 노트: [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
+관련 노트: [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](./navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
 
 공식 문서: [Build a list-detail layout](https://developer.android.com/develop/adaptive-apps/guides/list-detail)

@@ -12,18 +12,18 @@ date created: 2026-08-03 16:59:22 +09:00
 
 ### 플랫폼 모형
 
-- [Android는 앱 SDK만이 아니라 계층형 모바일 플랫폼이다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-is-layered-mobile-platform-not-just-an-app-sdk.md) - 전체 stack 의 구성 요소를 잡는다.
-- [Android 지식 지도는 runtime, app framework, services, security, tooling으로 나누어 읽는다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-knowledge-map-is-organized-by-runtime-app-framework-services-security-and-tooling.md) - 이 저장소의 canonical area 를 책임별로 찾는다.
+- [Android는 앱 SDK만이 아니라 계층형 모바일 플랫폼이다](./android-is-layered-mobile-platform-not-just-an-app-sdk.md) - 전체 stack 의 구성 요소를 잡는다.
+- [Android 지식 지도는 runtime, app framework, services, security, tooling으로 나누어 읽는다](./android-knowledge-map-is-organized-by-runtime-app-framework-services-security-and-tooling.md) - 이 저장소의 canonical area 를 책임별로 찾는다.
 
 ### 진단 기준
 
-- [Android stack boundary는 문제가 어느 층에 속하는지 판단하게 해 준다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-stack-boundaries-explain-where-a-problem-belongs.md) - 증상과 실패 계층을 연결한다.
-- [Android 보안은 UID sandbox, permission, SELinux, verified boot가 나뉜 계층이다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md) - 거절 원인을 서로 다른 보안 계층으로 분해한다.
+- [Android stack boundary는 문제가 어느 층에 속하는지 판단하게 해 준다](./android-stack-boundaries-explain-where-a-problem-belongs.md) - 증상과 실패 계층을 연결한다.
+- [Android 보안은 UID sandbox, permission, SELinux, verified boot가 나뉜 계층이다](./android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md) - 거절 원인을 서로 다른 보안 계층으로 분해한다.
 
 ### 구체 경로
 
-- [앱 실행은 Launcher, system_server, Zygote, ActivityThread를 지나는 경로다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md) - launch 를 process 와 component 책임으로 나눈다.
-- [사진 찍기 예시는 permission, intent, UI, media, HAL, storage 경계를 함께 지난다](01_inbox/mobile/android/00_foundations/overview/foundation-contracts/camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md) - 하나의 기능을 여러 canonical area 로 routing 한다.
+- [앱 실행은 Launcher, system_server, Zygote, ActivityThread를 지나는 경로다](./app-launch-crosses-launcher-system-server-zygote-and-activitythread.md) - launch 를 process 와 component 책임으로 나눈다.
+- [사진 찍기 예시는 permission, intent, UI, media, HAL, storage 경계를 함께 지난다](./camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md) - 하나의 기능을 여러 canonical area 로 routing 한다.
 
 ### 판단 기준
 
@@ -31,4 +31,4 @@ date created: 2026-08-03 16:59:22 +09:00
 
 ### 경계
 
-상위 [Android System Map](01_inbox/mobile/android/00_foundations/overview/android-system-map.md) 은 문제별 navigation 을 소유하고, 이 지도는 원자 foundation contract 의 역할과 생성 경계만 소유한다.
+상위 [Android System Map](../android-system-map.md) 은 문제별 navigation 을 소유하고, 이 지도는 원자 foundation contract 의 역할과 생성 경계만 소유한다.

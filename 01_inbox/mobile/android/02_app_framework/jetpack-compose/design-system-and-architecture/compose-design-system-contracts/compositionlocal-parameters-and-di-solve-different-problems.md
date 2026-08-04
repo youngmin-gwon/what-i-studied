@@ -16,6 +16,6 @@ DI 는 객체 graph 의 생성, lifetime, 구현 binding 을 다룬다. Reposito
 
 예를 들어 `spacing: Dp` 를 함수 인자로 받으면 파라미터, `val LocalSpacing = compositionLocalOf { 16.dp }` 를 선언해 하위 tree 가 `LocalSpacing.current` 로 읽으면 CompositionLocal, `class OrderRepository @Inject constructor(...)` 처럼 Hilt/Dagger 가 생성과 lifetime 을 관리하면 DI 다.
 
-관련 노트: [CompositionLocal은 트리 범위의 UI 환경 값을 암묵적으로 전달한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compositionlocal-passes-tree-scoped-ui-environment-implicitly.md), [Android dependency injection](01_inbox/mobile/android/02_app_framework/dependency-injection/android-dependency-injection-map.md)
+관련 노트: [CompositionLocal은 트리 범위의 UI 환경 값을 암묵적으로 전달한다](./compositionlocal-passes-tree-scoped-ui-environment-implicitly.md), [Android dependency injection](../../../dependency-injection/android-dependency-injection-map.md)
 
 출처: [Locally scoped data with CompositionLocal](https://developer.android.com/develop/ui/compose/compositionlocal), [Dependency injection on Android](https://developer.android.com/training/dependency-injection)

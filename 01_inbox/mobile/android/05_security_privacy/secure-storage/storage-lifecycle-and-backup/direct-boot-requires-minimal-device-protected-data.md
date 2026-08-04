@@ -2,70 +2,97 @@
 title: direct-boot-requires-minimal-device-protected-data
 tags: ["android", "android/security-privacy"]
 aliases: []
-date modified: 2026-08-03 18:14:40 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## Direct Boot 에서 허용되는 데이터와 실행 수명
 
-상위 문서: [저장소 수명과 백업 경계](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
+Android **Direct Boot 모드**는 기기가 전원 온 후 재부팅되었지만 **사용자가 PIN, 패턴, 비밀번호를 입력하여 잠금을 해제하기 전**의 단계를 의미한다. 이 시점에는 Credential Encrypted(CE) 저장소가 거부되며 오직 **Device Encrypted(DE) 저장소만 접근 가능**하다. 따라서 Direct Boot 환경에서는 알람, 알림, 통화 등 최소한의 디바이스 작동용 non-sensitive 설정 데이터만 DE에 허용해야 한다.
 
-관련 노트: [FBE는 CE와 DE로 저장소 가용 시점을 나눈다](01_inbox/mobile/android/05_security_privacy/secure-storage/storage-lifecycle-and-backup/fbe-ce-and-de-separate-storage-availability.md)
+```mermaid
+sequenceDiagram
+    autonumber
+    participant HW as Device Boot
+    participant OS as Android OS
+    participant Receiver as DirectBootAware BroadcastReceiver
+    participant AppContext as Context (DE vs CE)
 
-### 한 문장 정의
-
-Direct Boot 는 기기가 부팅되었지만 사용자가 아직 잠금을 해제하지 않은 구간에도 제한된 기능을 실행하게 한다.
-
-이 구간의 핵심은 기능을 일찍 실행하는 것이 아니라 필요한 데이터만 일찍 노출하는 것이다.
-
-### 부팅 단계
-
-- 부팅 직후에는 DE 저장소만 준비된다고 가정한다.
-- 사용자 인증이 끝나면 CE 저장소가 해제된다.
-- CE 해제 전에는 대부분의 앱 데이터에 접근할 수 없다.
-- CE 해제 이벤트 이후 일반 앱 초기화와 동기화를 진행할 수 있다.
-- 기기 재부팅마다 이 순서가 반복된다.
-
-### Direct Boot 에 맞는 기능
-
-알람, 예약된 시스템 작업, 전화 수신 보조, 최소한의 기기 정책처럼 부팅 직후 가치가 있는 기능만 대상이다.
-
-사용자 화면 전체를 부팅 직후 열어야 한다는 뜻은 아니다.
-
-알람에는 실행 시각과 알람 식별자만 필요할 수 있다.
-
-알람 이름이나 메모가 민감하다면 DE 에 복사하지 않고 CE 해제 뒤에 보완한다.
-
-### 컴포넌트 설계
-
-Direct Boot 를 지원하는 컴포넌트는 부팅 전 실행 가능성을 명시적으로 선언한다.
-
-그 컴포넌트가 참조하는 `ContentProvider`, 서비스, 라이브러리 초기화 코드도 같은 조건을 만족해야 한다.
-
-앱 시작 시 전역 싱글턴이 CE 데이터베이스를 열면 부팅 전 경로가 실패할 수 있다.
-
-부팅 전 경로와 잠금 해제 후 경로를 분리하고, CE 준비 전에는 지연 초기화한다.
-
-```kotlin
-val deviceContext = context.createDeviceProtectedStorageContext()
+    HW->>OS: Reboot Complete (User Locked)
+    OS->>Receiver: Broadcast ACTION_LOCKED_BOOT_COMPLETED
+    Receiver->>AppContext: createDeviceProtectedStorageContext()
+    AppContext-->>Receiver: Read DE Storage (/data/user_de/0/) -> Alarm / Config Operation
+    Note over AppContext: Attempt to read CE Storage -> Throw IllegalStateException!
+    
+    OS->>OS: User Unlocks Device (Passcode Entered)
+    OS->>Receiver: Broadcast ACTION_USER_UNLOCKED
+    Receiver->>AppContext: Access CE Storage (/data/user/0/) -> Full App Features
 ```
 
-이 컨텍스트로 접근하는 파일은 부팅 전 기능에 필요한 작은 설정으로 제한한다.
+### 내부 동작 메커니즘
 
-### 상태 전이 규칙
+1. **`android:directBootAware="true"`**: `AndroidManifest.xml`에 이 속성이 명시된 Component(BroadcastReceiver, Service, Provider)만 Direct Boot 모드 중에 OS에 의해 인스턴스화된다.
+2. **Device Protected Storage Context**: `context.createDeviceProtectedStorageContext()`를 통해 리턴된 `Context`를 통해서만 DE 파일 시스템 디렉터리(`/data/user_de/0/<pkg>/`)에 접근할 수 있다.
+3. **CE Exclusion**: 사용자가 잠금을 해제하기 전 일반 `context.filesDir` (CE 영역)에 접근하거나 Room DB/SharedPreference를 열려고 하면 암호화 키 부재로 인한 I/O Exception이 발생한다.
 
-부팅 전에는 DE 상태를 읽고, 실행 결과를 DE 에 짧게 기록할 수 있다.
+### Direct Boot 컴포넌트 선언 및 사용 구현 예시 (XML & Kotlin)
 
-사용자 인증 후에는 CE 의 정식 데이터와 DE 의 임시 상태를 조정한다.
+```xml
+<!-- AndroidManifest.xml -->
+<receiver
+    android:name=".AlarmBootReceiver"
+    android:directBootAware="true"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+    </intent-filter>
+</receiver>
+```
 
-동일한 이벤트가 두 번 처리되어도 안전하도록 작업 식별자와 멱등성을 둔다.
+```kotlin
+// AlarmBootReceiver.kt
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.os.UserManager
 
-CE 해제 전 실패는 재시도 가능한 상태로 남기고 민감 데이터를 임시 로그에 기록하지 않는다.
+class AlarmBootReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        if (intent.action == Intent.ACTION_LOCKED_BOOT_COMPLETED) {
+            // Direct Boot 시점이므로 DE Context 생성 후 최소 알람 설정만 읽기
+            val directBootContext = context.createDeviceProtectedStorageContext()
+            val dePrefs = directBootContext.getSharedPreferences("boot_alarm_prefs", Context.MODE_PRIVATE)
+            val alarmTime = dePrefs.getLong("next_alarm_timestamp", 0L)
+            
+            scheduleSystemAlarm(context, alarmTime)
+        }
+    }
 
-### 테스트 시나리오
+    private fun scheduleSystemAlarm(context: Context, time: Long) { /* 알람 등록 */ }
+}
+```
 
-- 기기 재부팅 후 잠금 해제 전 알람이 실행되는가?
-- 잠금 해제 전 CE 파일 접근 실패가 앱 전체 충돌로 이어지지 않는가?
-- 잠금 해제 후 DE 상태가 CE 정식 상태와 합쳐지는가?
-- 사용자가 재부팅 직후 앱을 강제 종료해도 중복 작업이 없는가?
-- 여러 사용자 또는 프로필에서 데이터가 섞이지 않는가?
+### 관찰 가능한 증거 (Observable Evidence)
+
+- **adb를 활용한 Direct Boot 브로드캐스트 테스트**:
+  ```bash
+  # 잠금 부팅 완료 브로드캐스트 강제 전송 시뮬레이션
+  adb shell am broadcast -a android.intent.action.LOCKED_BOOT_COMPLETED
+  ```
+- **Direct Boot 중 CE 접근 시 에러로그**:
+  ```text
+  java.lang.IllegalStateException: SharedPreferences in credential encrypted storage are not available until after user is unlocked
+      at android.app.ContextImpl.getSharedPreferences
+  ```
+
+### 판단 기준
+
+Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity 와 mandatory policy 가 어떻게 강제되는지 판단하는 기준으로 읽는다.
+
+### 경계
+
+client-side check 를 authorization 으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
+
+상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup.md)
+
+관련 노트: [FBE에서 CE와 DE를 나누는 저장소 경계](fbe-ce-and-de-separate-storage-availability.md)

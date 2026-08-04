@@ -34,6 +34,6 @@ val activeStack = backStacks.getOrPut(current) { mutableStateListOf(current.root
 
 탭을 바꿀 때 `current` 만 갱신하고 `backStacks[previous]` 를 지우지 않으면, 사용자가 이전 탭으로 돌아왔을 때 detail 화면이 그대로 보인다.
 
-관련 노트: [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-back-stack-needs-saveable-restoration.md)
+관련 노트: [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](../../navigation3/navigation3-contracts/navigation3-back-stack-needs-saveable-restoration.md)
 
 공식 문서: [Build adaptive navigation](https://developer.android.com/develop/adaptive-apps/guides/build-adaptive-navigation)

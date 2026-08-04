@@ -35,6 +35,6 @@ fun Child(count: MutableState<Int>) {
 
 두 버전 모두 최종 화면은 같지만, `count.value` 를 어디서 읽느냐에 따라 invalidation 대상 scope 가 `Parent` 인지 `Child` 인지가 갈린다.
 
-관련 노트: [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](01_inbox/mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md), [Automatic State Observation이 Flutter rebuild 사고와 Compose를 가른다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/automatic-state-observation-is-the-compose-flutter-rebuild-difference.md)
+관련 노트: [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md), [Automatic State Observation이 Flutter rebuild 사고와 Compose를 가른다](./automatic-state-observation-is-the-compose-flutter-rebuild-difference.md)
 
 출처: [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state), [Compose phases](https://developer.android.com/develop/ui/compose/phases)

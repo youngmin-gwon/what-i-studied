@@ -46,6 +46,6 @@ class BenefitPagingSource(
 - invalidate 는 source data 가 바뀌어 기존 page sequence 가 더 이상 유효하지 않을 때 사용한다.
 - UI state 나 selection state 를 `PagingSource` 안에 넣지 않는다.
 
-관련 노트: [Pager는 PagingSource factory로 PagingData Flow를 만든다](01_inbox/mobile/android/02_app_framework/data/paging/paging-contracts/pager-exposes-pagingdata-flow-from-pagingsource-factory.md)
+관련 노트: [Pager는 PagingSource factory로 PagingData Flow를 만든다](./pager-exposes-pagingdata-flow-from-pagingsource-factory.md)
 
 공식 문서: [Paging library overview](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)

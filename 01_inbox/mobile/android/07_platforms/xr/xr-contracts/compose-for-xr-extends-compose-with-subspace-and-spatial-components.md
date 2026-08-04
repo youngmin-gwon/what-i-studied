@@ -2,15 +2,50 @@
 title: compose-for-xr-extends-compose-with-subspace-and-spatial-components
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-03 18:15:52 +09:00
+date modified: 2026-08-04 15:35:00 +09:00
 date created: 2026-07-31 18:06:11 +09:00
 ---
 
 ## Compose for XR 은 기존 Compose 를 subspace 와 spatial component 로 확장한다
 
-상위 문서: [Android XR 계약](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-contracts.md)
+상위 문서: [Android XR 계약](./xr-contracts.md)
 
 Compose for XR 은 Compose mental model 을 버리는 새 UI 도구가 아니다. 기존 Compose 의 선언형 UI 를 유지하면서 `Subspace`, `SpatialPanel`, `SpatialRow`, `SpatialColumn`, `Orbiter` 같은 공간 배치 개념을 추가한다.
+
+### Subspace 및 SpatialPanel 구성 메커니즘
+
+```kotlin
+@Composable
+fun SpatialAppContent() {
+    Subspace {
+        SpatialRow(
+            modifier = SubspaceModifier.width(1024.dp).height(800.dp)
+        ) {
+            SpatialPanel(
+                modifier = SubspaceModifier.width(400.dp)
+            ) {
+                // Left Control Panel (Standard Compose UI)
+                NavigationControlPane()
+            }
+            
+            SpatialPanel(
+                modifier = SubspaceModifier.width(600.dp),
+                orbiter = {
+                    Orbiter(
+                        position = OrbiterEdge.Top,
+                        offset = 16.dp
+                    ) {
+                        FloatingToolBar()
+                    }
+                }
+            ) {
+                // Main Content Panel
+                MainViewerPane()
+            }
+        }
+    }
+}
+```
 
 ### 핵심 개념
 
@@ -30,11 +65,21 @@ Compose for XR 은 Compose mental model 을 버리는 새 UI 도구가 아니다
 
 공간화는 Full Space 에서만 지원된다. Home Space 에서는 앱이 다른 앱과 함께 2D 패널로 실행되므로, `LocalSession` 에서 요청한 space 전환 결과와 현재 capability 를 확인한 뒤 공간 UI 를 노출한다. Compose for XR API 가 존재한다는 사실만으로 현재 공간화가 가능하다고 판단하지 않는다.
 
+### 관측 가능한 증거 (Observable Evidence)
+
+```bash
+# Subspace 컴포저블 렌더링 노드 관측 Logcat
+adb logcat -v threadtime | grep -E "Subspace|SpatialPanel|Orbiter"
+
+# WindowManager 패널 프레임 디버깅
+adb shell dumpsys window windows | grep -A 5 "mSubspaceBounds"
+```
+
 ### 관련 문서
 
-- [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
-- [XR 앱은 공간 capability를 실행 중에 확인해야 한다](01_inbox/mobile/android/07_platforms/xr/xr-contracts/xr-apps-must-check-spatial-capabilities-at-runtime.md)
+- [XR 앱은 공간 capability를 실행 중에 확인해야 한다](./xr-apps-must-check-spatial-capabilities-at-runtime.md)
 
 공식 문서: [Develop spatial UI with Jetpack Compose for XR](https://developer.android.com/develop/xr/jetpack-xr-sdk/ui-compose)
 
 검증일: 2026-08-03. Compose API 안정성은 [XR Compose releases](https://developer.android.com/jetpack/androidx/releases/xr-compose), space mode 계약은 [Transition from Home Space to Full Space](https://developer.android.com/develop/xr/jetpack-xr-sdk/transition-home-space-to-full-space) 에서 확인한다.
+

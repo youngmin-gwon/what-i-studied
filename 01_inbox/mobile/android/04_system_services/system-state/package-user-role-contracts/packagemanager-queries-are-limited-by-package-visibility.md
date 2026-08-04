@@ -1,15 +1,15 @@
 ---
 title: packagemanager-queries-are-limited-by-package-visibility
 tags: ["android", "android/system-services"]
-aliases: []
+aliases: ["PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다"]
 date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](01_inbox/mobile/android/04_system_services/android-system-services-and-device-capabilities.md)
-관련 지도: [패키지/사용자/역할 조회 계약](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/package-user-role-contracts.md)
+상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+관련 지도: [패키지/사용자/역할 조회 계약](./package-user-role-contracts.md)
 
 ### 핵심 정의
 
@@ -29,7 +29,7 @@ Android 11(API 30)부터 `PackageManager`의 `getInstalledPackages()`, `getInsta
 
 ### 경계
 
-- 이 노트는 다른 앱을 조회하는 시점의 가시성 제한을 다룬다. 사용자/work profile 분리는 [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](01_inbox/mobile/android/04_system_services/system-state/package-user-role-contracts/usermanager-separates-users-and-work-profiles-by-userhandle.md)가 다룬다.
+- 이 노트는 다른 앱을 조회하는 시점의 가시성 제한을 다룬다. 사용자/work profile 분리는 [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./usermanager-separates-users-and-work-profiles-by-userhandle.md)가 다룬다.
 - 앱 설치/업데이트 자체의 흐름(서명, 배포)은 `03_packaging_deployment`가 다룬다.
 
 ### 관찰 가능한 신호
