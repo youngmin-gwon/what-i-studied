@@ -2,7 +2,7 @@
 title: api-level-codename-extension-level-and-target-sdk-are-different-version-axes
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 17:22:14 +09:00
+date modified: 2026-08-04 16:35:50 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
@@ -15,9 +15,9 @@ Android version 을 말할 때 API level, dessert codename, SDK Extension level,
 1. **Version Control Axes**:
    - **`compileSdk`**: 컴파일 타임 린터 및 바이트코드 빌더가 참조할 SDK API 마운트 클래스 스펙.
    - **`targetSdkVersion`**: OS 런타임 호환성 엔진(Compatibility Engine)이 앱 프로세스에 어떤 버전 게이팅 동작(Target-Gated Behavior Changes)을 강제할지 결정하는 계약 축.
-   - **`minSdkVersion` / `Build.VERSION.SDK_INT`**: 런타임 디바이스 OS의 하한선 API 레벨.
+   - **`minSdkVersion` / `Build.VERSION.SDK_INT`**: 런타임 디바이스 OS 의 하한선 API 레벨.
    - **`SdkExtensions`**: OS 업데이트 없이 Google Play System Update(Mainline APEX)를 통해 백포팅된 모듈형 API 레벨 (`ext.getExtensionVersion()`).
-2. **Behavior Gating Logic**: OS 런타임은 `targetSdkVersion`을 확인하여 레거시 앱에 호환성 심(Shim) 레이어를 제공하지만, 플랫폼 전역 보안/프라이버시 규제(예: Scoped Storage 강제)는 `targetSdkVersion`과 무관하게 `SDK_INT` 수준에서 일괄 적용된다.
+2. **Behavior Gating Logic**: OS 런타임은 `targetSdkVersion` 을 확인하여 레거시 앱에 호환성 심(Shim) 레이어를 제공하지만, 플랫폼 전역 보안/프라이버시 규제(예: Scoped Storage 강제)는 `targetSdkVersion` 과 무관하게 `SDK_INT` 수준에서 일괄 적용된다.
 
 ```mermaid
 flowchart TD

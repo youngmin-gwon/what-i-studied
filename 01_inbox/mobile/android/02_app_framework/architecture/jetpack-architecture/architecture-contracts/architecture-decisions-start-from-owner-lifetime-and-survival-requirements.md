@@ -2,7 +2,7 @@
 title: architecture-decisions-start-from-owner-lifetime-and-survival-requirements
 tags: [android, android/architecture, android/jetpack]
 aliases: ["아키텍처 결정은 owner, lifetime, survival 요구에서 시작한다"]
-date modified: 2026-08-04 13:30:00 +09:00
+date modified: 2026-08-04 16:32:56 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

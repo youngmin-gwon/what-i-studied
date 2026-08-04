@@ -2,7 +2,7 @@
 title: android-jetpack-architecture-map
 tags: [android, android/architecture, android/jetpack]
 aliases: ["Jetpack Architecture Map"]
-date modified: 2026-08-03 17:27:41 +09:00
+date modified: 2026-08-04 16:33:03 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -30,7 +30,6 @@ Jetpack architecture 문서는 세부 API 설명을 반복하는 catalog 가 아
 - [Compose Layout, Animation, Accessibility](../../jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md) - layout, modifier, animation, semantics.
 
 공식 문서: [Guide to app architecture](https://developer.android.com/topic/architecture)
-
 
 ### Architecture Contracts
 - [Architecture Contracts](architecture-contracts/architecture-contracts.md)

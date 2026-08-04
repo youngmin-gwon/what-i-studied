@@ -2,7 +2,7 @@
 title: history-contracts
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 17:22:13 +09:00
+date modified: 2026-08-04 16:35:49 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 

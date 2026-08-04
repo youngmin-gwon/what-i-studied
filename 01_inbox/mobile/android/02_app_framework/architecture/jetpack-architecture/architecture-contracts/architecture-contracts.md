@@ -2,7 +2,7 @@
 title: architecture-contracts
 tags: [android, android/architecture, android/jetpack]
 aliases: ["Architecture Contracts"]
-date modified: 2026-08-03 17:27:32 +09:00
+date modified: 2026-08-04 16:32:53 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

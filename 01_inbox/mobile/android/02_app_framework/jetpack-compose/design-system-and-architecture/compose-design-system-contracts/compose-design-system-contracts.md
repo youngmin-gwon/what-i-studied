@@ -16,4 +16,4 @@ date created: 2026-07-31 23:59:30 +09:00
 - [Material 3 color role은 고정 색상값이 아니라 의미를 표현한다](./material3-color-roles-express-semantic-intent-not-fixed-colors.md)
 - [Material 3 on-color와 surface 계열은 대비와 계층을 함께 만든다](./material3-on-colors-and-surfaces-pair-contrast-with-hierarchy.md)
 - [Dynamic color는 Material color scheme에 들어오는 플랫폼 입력이다](./dynamic-color-is-platform-input-to-a-material-color-scheme.md)
-- [MyBenefit adaptive Local은 Android 일반 규칙이 아니라 프로젝트 참조다](./mybenefit-adaptive-locals-are-project-reference-not-android-canon.md)
+- [프로젝트 Adaptive Local은 Android 표준이 아닌 설계 결정이다](./project-adaptive-locals-are-design-system-decisions-not-android-canon.md)

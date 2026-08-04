@@ -2,7 +2,7 @@
 title: jetpack-architecture-map-links-to-canonical-android-guides
 tags: [android, android/architecture, android/jetpack]
 aliases: ["Jetpack Architecture 문서는 세부 구현을 반복하지 않는 map이어야 한다"]
-date modified: 2026-08-03 17:27:35 +09:00
+date modified: 2026-08-04 16:33:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

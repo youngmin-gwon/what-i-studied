@@ -2,7 +2,7 @@
 title: android-history-is-a-map-of-platform-contract-changes-not-a-feature-list
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 17:22:11 +09:00
+date modified: 2026-08-04 16:35:51 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 23:04:26 +09:00
 
 Android version history 는 새 기능 암기표가 아니라 어떤 contract 가 바뀌었는지 보는 timeline 이다. runtime, permission, storage, distribution, update, UI, form factor, security boundary 가 언제 바뀌었는지가 중요하다.
 
-예를 들어 Android 5.0의 Dalvik$\rightarrow$ART AOT 전환 및 SELinux Enforcing 전면 적용, Android 7.0의 JIT/AOT Hybrid 런타임 및 A/B Seamless Update, Android 8.0의 Treble (System/Vendor 분리) 및 background execution limit, Android 10의 Scoped Storage 및 Mainline APEX 모듈식 업데이트, Android 11의 Virtual A/B 스냅샷 업데이트, Android 13의 AIDL HAL 전면 전환 및 notification/media 권한 세분화는 플랫폼 전체의 계약 구조와 앱 개발·디버깅 기준을 근본적으로 바꿨다.
+예를 들어 Android 5.0 의 Dalvik$\rightarrow$ART AOT 전환 및 SELinux Enforcing 전면 적용, Android 7.0 의 JIT/AOT Hybrid 런타임 및 A/B Seamless Update, Android 8.0 의 Treble (System/Vendor 분리) 및 background execution limit, Android 10 의 Scoped Storage 및 Mainline APEX 모듈식 업데이트, Android 11 의 Virtual A/B 스냅샷 업데이트, Android 13 의 AIDL HAL 전면 전환 및 notification/media 권한 세분화는 플랫폼 전체의 계약 구조와 앱 개발·디버깅 기준을 근본적으로 바꿨다.
 
 따라서 오래된 version 별 기능 나열은 정본으로 유지하지 않고, 주요 platform contract 전환점과 관련 정본 링크로 압축한다.
 

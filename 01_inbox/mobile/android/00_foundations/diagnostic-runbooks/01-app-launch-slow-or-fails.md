@@ -2,7 +2,7 @@
 title: 01-app-launch-slow-or-fails
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: app launch is slow or fails"]
-date modified: 2026-08-04 16:26:32 +09:00
+date modified: 2026-08-04 16:27:25 +09:00
 date created: 2026-08-04 10:30:00 +09:00
 ---
 
@@ -22,9 +22,9 @@ date created: 2026-08-04 10:30:00 +09:00
 ### 2. 재현 조건 및 환경 격리 (Reproduction & Isolation)
 
 - **시작 유형(Cold / Warm / Hot) 분리**:
-  - **Cold Launch (냉시작)**: `adb shell am force-stop <pkg>` 실행 후 앱 시작. 프로세스 생성, Zygote specialization, `Application` 생성, Activity 생성을 모두 거치는 최악의 경로.
-  - **Warm Launch (온시작)**: 뒤로 가기(Back) 버튼으로 Activity 를 파괴하되 프로세스는 유지한 상태에서 시작.
-  - **Hot Launch (열시작)**: 홈(Home) 버튼으로 백그라운드로 보낸 후 다시 전면 복귀.
+  - **Cold Launch**: `adb shell am force-stop <pkg>` 실행 후 앱 시작. 프로세스 생성, Zygote specialization, `Application` 생성, Activity 생성을 모두 거치는 최악의 경로.
+  - **Warm Launch**: 뒤로 가기(Back) 버튼으로 Activity 를 파괴하되 프로세스는 유지한 상태에서 시작.
+  - **Hot Launch**: 홈(Home) 버튼으로 백그라운드로 보낸 후 다시 전면 복귀.
 - **측정 환경 고정**:
   - 반드시 **R8/Dex 최적화가 적용된 Release 빌드**(또는 Benchmark 빌드)에서 측정한다. Debug 빌드의 StrictMode, 디버거 에이전트, 로깅 코드는 시작 성능을 심각하게 왜곡한다.
   - 기기의 배터리 상태, 쓰로틀링(Thermal State), Baseline Profile 적용 여부를 동일하게 맞추고 최소 5 회 이상 반복 측정하여 중앙값을 확인한다.

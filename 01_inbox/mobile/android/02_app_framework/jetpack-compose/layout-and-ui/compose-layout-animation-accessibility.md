@@ -2,7 +2,7 @@
 title: compose-layout-animation-accessibility
 tags: [android, compose/ui, jetpack-compose]
 aliases: [Compose accessibility, Compose layout, Compose UI]
-date modified: 2026-08-03 18:10:21 +09:00
+date modified: 2026-08-04 16:28:58 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 

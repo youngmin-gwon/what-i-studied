@@ -2,7 +2,7 @@
 title: ui-domain-data-layers-separate-rendering-policy-and-source-of-truth
 tags: [android, android/architecture, android/jetpack]
 aliases: ["UI, domain, data layer는 rendering, policy, source of truth를 분리한다"]
-date modified: 2026-08-04 13:30:00 +09:00
+date modified: 2026-08-04 16:33:01 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

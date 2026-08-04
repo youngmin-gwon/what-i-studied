@@ -1,6 +1,14 @@
+---
+title: android-release-history
+tags: []
+aliases: []
+date modified: 2026-08-04 16:36:05 +09:00
+date created: 2026-08-04 16:16:52 +09:00
+---
+
 ## Android Release History 는 안드로이드 플랫폼의 주요 기술 진화와 버전별 계약 변화를 정리한 정본 기록이다
 
-안드로이드는 2008년 1.0 첫 출시 이후 모바일 환경, 프라이버시, 빌드/배포, 하드웨어 폼 팩터의 변화에 맞춰 지속적으로 진화해왔다. 이 문서는 안드로이드의 주요 기술적 전환점(Runtime, Language, Packaging, Security, Architecture, UI)과 버전별 계약 변화를 연대순으로 정리한다.
+안드로이드는 2008 년 1.0 첫 출시 이후 모바일 환경, 프라이버시, 빌드/배포, 하드웨어 폼 팩터의 변화에 맞춰 지속적으로 진화해왔다. 이 문서는 안드로이드의 주요 기술적 전환점(Runtime, Language, Packaging, Security, Architecture, UI)과 버전별 계약 변화를 연대순으로 정리한다.
 
 ### Timeline
 
@@ -36,19 +44,19 @@ timeline
 
 ### 1. 런타임: Dalvik (JIT) → ART (AOT & Profile-Guided)
 - **배경 (Dalvik)**: 앱 시작 시마다 DEX 패킷을 Interpretation/JIT 컴파일하여 앱 실행이 느리고 CPU/배터리 소모가 심함.
-- **전환 (ART, Android 5.0+)**: 앱 설치 시점에 DEX를 미리 Native ARM64 기계어로 컴파일하는 AOT(Ahead-Of-Time) 도입 (`dex2oat`).
+- **전환 (ART, Android 5.0+)**: 앱 설치 시점에 DEX 를 미리 Native ARM64 기계어로 컴파일하는 AOT(Ahead-Of-Time) 도입 (`dex2oat`).
 - **현대 ART (Profile-Guided, Android 7.0+)**: 설치 시 부분 컴파일 + JIT 프로파일 수집(`primary.prof`) + 기기 유휴 시 배경 컴파일로 설치 시간과 저장 공간 최적화.
 
 ### 2. 언어: Java → Kotlin-First (2017+)
 - **배경**: Java 6 기반의 길고 장황한 보일러플레이트 코드 및 람다 부재.
-- **전환 (Google I/O 2017)**: Kotlin 공식 언어 채택 및 Kotlin-first 프레임워크 설계 권장. Coroutine을 통한 비동기 처리 단권화.
+- **전환 (Google I/O 2017)**: Kotlin 공식 언어 채택 및 Kotlin-first 프레임워크 설계 권장. Coroutine 을 통한 비동기 처리 단권화.
 
 ### 3. 배포 포맷: APK → Android App Bundle (AAB, 2018)
 - **Before (Monolithic APK)**: 모든 CPU ABI(arm64, armv7, x86)와 모든 화면 밀도(xxhdpi, xxxhdpi) 리소스를 하나의 파일에 포함하여 용량이 비대함.
-- **After (AAB & Dynamic Delivery)**: 게시 산출물로 `.aab`를 제출하면 Google Play가 기기 사양에 맞는 Split APK만 맞춤 다운로드(평균 15% 이상 용량 절감).
+- **After (AAB & Dynamic Delivery)**: 게시 산출물로 `.aab` 를 제출하면 Google Play 가 기기 사양에 맞는 Split APK 만 맞춤 다운로드(평균 15% 이상 용량 절감).
 
 ### 4. HAL 아키텍처: HIDL → AIDL HAL (2019+)
-- **HIDL (Android 8.0 Treble)**: C++ 전용 프레임워크 인터페이스 언어로 Vendor와 System 분리.
+- **HIDL (Android 8.0 Treble)**: C++ 전용 프레임워크 인터페이스 언어로 Vendor 와 System 분리.
 - **AIDL HAL (Android 11+)**: Java, C++, Rust 멀티 언어를 공식 지원하며 Binder IPC 인프라로 HAL 통신 단일화.
 
 ### 5. 보안 & 프라이버시: 권한 및 저장소 모델의 진화
@@ -58,7 +66,7 @@ timeline
 
 ### 6. 시스템 업데이트: Non-A/B → A/B → Virtual A/B (2016-2020)
 - **A/B Seamless Update (Android 7.0)**: Slot A(현재 실행) / Slot B(백그라운드 업데이트 설치) 두 개의 파티션을 두고 재부팅 시 원스톱 전환.
-- **Virtual A/B (Android 11)**: 2배의 저장 공간 낭비를 막기 위해 변경된 차분(Snapshot)만 동적 파티션에 저장하여 저장 공간 50% 절감.
+- **Virtual A/B (Android 11)**: 2 배의 저장 공간 낭비를 막기 위해 변경된 차분(Snapshot)만 동적 파티션에 저장하여 저장 공간 50% 절감.
 
 ---
 
@@ -82,12 +90,10 @@ timeline
 ### Version 축 구분 가이드
 
 1. `compileSdk`: 앱 빌드 시 참조하는 API 마운트 스펙.
-2. `targetSdkVersion`: 앱이 최신 OS의 파괴적 동작 변경(Behavior Changes)을 적용받을 지 판별하는 계약 축.
+2. `targetSdkVersion`: 앱이 최신 OS 의 파괴적 동작 변경(Behavior Changes)을 적용받을 지 판별하는 계약 축.
 3. `minSdkVersion` / `SDK_INT`: 런타임 실행 기기의 실제 OS API 레벨.
 
 관련 상세 원자 노트: [API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다](history-contracts/api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md)
-
-
 
 ### History Contracts
 - [History Contracts](history-contracts/history-contracts.md)
