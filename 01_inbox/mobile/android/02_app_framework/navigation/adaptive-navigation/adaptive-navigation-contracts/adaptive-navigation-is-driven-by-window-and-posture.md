@@ -2,7 +2,7 @@
 title: adaptive-navigation-is-driven-by-window-and-posture
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다"]
-date modified: 2026-08-03 18:11:16 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -18,6 +18,18 @@ Android large screen 환경에서는 orientation, aspect ratio, resizability 제
 - 같은 destination 이라도 compact 에서는 single pane, expanded 에서는 list-detail pane 으로 표시될 수 있다.
 - window 변화가 route key 나 selected destination 의 의미를 바꾸면 안 된다.
 - phone/tablet 분기보다 app window 와 posture 기반 분기를 우선한다.
+
+### 확인 방법
+
+`currentWindowAdaptiveInfo()` 로 현재 `windowSizeClass` 와 `windowPosture` 를 읽는다.
+
+```kotlin
+val info = currentWindowAdaptiveInfo()
+val sizeClass = info.windowSizeClass
+val posture = info.windowPosture
+```
+
+같은 device model 이어도 split-screen 이나 창 크기 조절로 `sizeClass` 가 compact 에서 medium/expanded 로 바뀌는지 Android Studio resizable emulator 나 실기기 멀티 윈도우로 확인한다.
 
 관련 노트: [Large screen contracts](01_inbox/mobile/android/07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md), [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](01_inbox/mobile/android/02_app_framework/navigation/adaptive-navigation/adaptive-navigation-contracts/pane-layout-preserves-selection-and-back-policy.md)
 

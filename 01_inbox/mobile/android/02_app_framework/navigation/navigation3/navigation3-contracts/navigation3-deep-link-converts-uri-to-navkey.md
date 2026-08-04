@@ -1,12 +1,12 @@
 ---
-title: Navigation 3 deep link: URI 에서 NavKey 로
+title: navigation3-deep-link-converts-uri-to-navkey
 tags: [android, android/navigation, android/navigation3]
-aliases: ["Navigation 3 deep link: URI 에서 NavKey 로"]
-date modified: 2026-08-03 16:37:07 +09:00
+aliases: ["Navigation 3 deep link는 URI를 NavKey로 변환한다"]
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-# Navigation 3 deep link: URI 에서 NavKey 로
+## Navigation 3 deep link 는 URI 를 NavKey 로 변환한다
 
 상위 문서: [Navigation 3 계약](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
 

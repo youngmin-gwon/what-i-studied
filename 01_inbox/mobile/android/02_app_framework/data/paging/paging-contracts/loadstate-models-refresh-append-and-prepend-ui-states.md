@@ -2,7 +2,7 @@
 title: loadstate-models-refresh-append-and-prepend-ui-states
 tags: [android, android/data, android/paging]
 aliases: ["LoadState는 refresh, append, prepend 상태를 UI에 명시적으로 드러낸다"]
-date modified: 2026-08-03 18:07:51 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -11,6 +11,18 @@ date created: 2026-08-01 00:00:00 +09:00
 Paging 의 loading/error UI 는 별도 boolean 몇 개로 흩어뜨리기보다 `LoadState` 로 표현한다. `refresh` 는 초기 또는 전체 갱신, `append` 는 뒤쪽 추가 loading, `prepend` 는 앞쪽 추가 loading 상태를 나타낸다.
 
 각 상태는 loading, error, not loading 을 구분하고 retry UI 와 empty/loading/error surface 를 결정하게 한다. `RemoteMediator` 를 쓰면 source 와 mediator load state 가 나뉘므로, cache 가 비어 있는지와 network sync 중인지를 구분해 표현해야 한다.
+
+```kotlin
+adapter.addLoadStateListener { loadState ->
+    progressBar.isVisible = loadState.refresh is LoadState.Loading
+    retryButton.isVisible = loadState.refresh is LoadState.Error
+    emptyView.isVisible =
+        loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+    footerAdapter.loadState = loadState.append
+}
+```
+
+`loadState.refresh` 가 `LoadState.Error` 이면 `(loadState.refresh as LoadState.Error).error` 로 실제 예외(예: `IOException`, `HttpException`)를 꺼내 메시지를 보여줄 수 있다. `refresh` 상태만 보고 empty view 를 그리면, append 로딩 중 일시적으로 비어 보이는 화면에서도 empty view 가 잘못 뜰 수 있으므로 `adapter.itemCount == 0` 같은 조건을 함께 확인해야 한다.
 
 ### 판단 기준
 

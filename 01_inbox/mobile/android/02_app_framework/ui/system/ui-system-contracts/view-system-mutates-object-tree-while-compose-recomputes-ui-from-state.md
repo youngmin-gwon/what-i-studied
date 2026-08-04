@@ -2,7 +2,7 @@
 title: view-system-mutates-object-tree-while-compose-recomputes-ui-from-state
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:12:12 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-07-31 23:38:40 +09:00
 ---
 
@@ -24,3 +24,19 @@ Compose 에서는 composable 함수가 state 를 읽고 UI tree 를 다시 계�
 ### 경계
 
 - Composable 실행 중 외부 상태나 객체 속성을 수동으로 변경(Side Effect)하려는 시도는 렌더링 예측 가능성을 훼손하므로, `SideEffect` 또는 `LaunchedEffect` 블록으로 경계를 획정해야 한다.
+
+```kotlin
+// View: 객체 reference를 저장해두고 이벤트가 오면 그 reference를 mutate한다
+class ProfileActivity : AppCompatActivity() {
+    private lateinit var nameView: TextView
+    fun onNameLoaded(name: String) { nameView.text = name } // 명령형 변경
+}
+
+// Compose: reference 대신 state를 바꾸면 runtime이 읽은 scope를 다시 계산한다
+@Composable
+fun ProfileScreen(name: String) {
+    Text(name) // name이 바뀌면 이 scope가 다시 계산된다
+}
+```
+
+View 코드는 `nameView` 라는 object reference 를 계속 붙잡고 있어야 하지만, Compose 코드는 reference 없이 `name` 값만 갖고 있으면 된다 — 이 차이가 "어디서 객체를 잡을까"에서 "state 를 누가 소유할까"로 질문이 바뀌는 이유다.

@@ -2,11 +2,11 @@
 title: state-owner-is-chosen-by-lifetime-owner-change-frequency-and-sharing
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["상태 소유자는 화면 위치가 아니라 수명, 소유자, 변경 주기, 공유 범위로 결정한다"]
-date modified: 2026-08-03 17:27:49 +09:00
+date modified: 2026-08-04 13:35:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## 상태 소유자는 화면 위치가 아니라 수명
+## 상태 소유자는 화면 위치가 아니라 수명, 소유자, 변경 주기, 공유 범위로 결정한다
 
 상위 문서: [Android UI State](01_inbox/mobile/android/02_app_framework/architecture/state-management/ui-state/ui-state.md)
 

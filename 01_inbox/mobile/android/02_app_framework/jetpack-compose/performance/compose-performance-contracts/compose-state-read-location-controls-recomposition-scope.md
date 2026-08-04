@@ -2,7 +2,7 @@
 title: compose-state-read-location-controls-recomposition-scope
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:10:45 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -19,6 +19,8 @@ Compose Runtime 은 Snapshot State 를 읽은 composable 범위를 관찰한다.
 상태를 너무 높은 곳에서 읽으면 작은 변경도 넓은 UI 를 다시 실행하게 만든다.
 
 상태를 실제로 필요한 하위 composable 가까이에서 읽으면 변경 범위가 작아진다.
+
+예를 들어 상위 Composable에서 `val count = counter.value` 로 읽어 여러 자식에게 파라미터로 넘기면 상위 scope 전체가 다시 실행되지만, `Text(text = "${counter.value}")` 처럼 실제로 값을 쓰는 자식 Composable 안에서 직접 읽으면 그 `Text` 노드만 다시 그려진다.
 
 상태 객체를 전달해야 한다면 값 전체를 넘길지, 읽기 람다를 넘길지, 이벤트만 올릴지 구분한다.
 

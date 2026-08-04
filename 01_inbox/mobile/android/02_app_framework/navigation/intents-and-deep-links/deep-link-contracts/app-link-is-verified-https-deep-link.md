@@ -2,7 +2,7 @@
 title: app-link-is-verified-https-deep-link
 tags: [android, android/deep-links, android/navigation]
 aliases: ["Android App Link 는 검증된 HTTPS 딥 링크다"]
-date modified: 2026-08-03 18:11:24 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -63,6 +63,24 @@ debug 와 release 서명 인증서 지문이 다르면 개발 환경과 배포 �
 도메인의 모든 경로를 앱으로 열 것인지 제품 정책으로 먼저 결정한다.
 
 앱으로 처리하지 않을 경로는 웹에서 계속 정상 동작해야 한다.
+
+### 검증 상태 확인
+
+```bash
+adb shell pm get-app-links com.example.app
+```
+
+결과는 host 별 검증 상태를 보여준다.
+
+```text
+com.example.app:
+  ID: ...
+  Signatures: [...]
+  Domain verification state:
+    www.example.com: verified
+```
+
+`verified` 가 아니라 `legacy_failure` 나 `none` 이면 앱 선택기가 뜨거나 웹으로만 열린다. 이때는 assetlinks.json 경로, 인증서 지문, 리디렉션 여부를 다시 점검한다.
 
 ### 구현 흐름
 

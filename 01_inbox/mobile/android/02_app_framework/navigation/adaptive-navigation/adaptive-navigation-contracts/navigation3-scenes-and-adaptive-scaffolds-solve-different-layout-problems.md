@@ -2,7 +2,7 @@
 title: navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Scenes 와 adaptive scaffolds 는 같은 문제를 푸는가"]
-date modified: 2026-08-03 18:11:17 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -25,6 +25,16 @@ Navigation 3 `Scene` 은 `NavEntry` 하나 이상을 하나의 visual state 로 
 `NavigableListDetailPaneScaffold` 는 list 와 detail pane 의 배치, 전환, predictive back 을 다룬다.
 
 따라서 전자는 top-level chrome 이고, 후자는 feature content layout 이다.
+
+```kotlin
+NavigationSuiteScaffold(navigationSuiteItems = { /* 앱 전체 top-level destination */ }) {
+    NavDisplay(
+        backStack = backStack,
+        sceneStrategy = rememberListDetailSceneStrategy(), // feature 안의 list-detail
+        entryProvider = entryProvider,
+    )
+}
+```
 
 ```text
 MainScaffold

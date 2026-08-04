@@ -2,7 +2,7 @@
 title: compose-layers-let-you-drop-down-when-higher-level-components-do-not-fit
 tags: [android, compose/design-system, jetpack-compose]
 aliases: [Compose layering]
-date modified: 2026-08-03 18:09:58 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
@@ -11,6 +11,8 @@ date created: 2026-07-31 23:59:30 +09:00
 Compose 는 Runtime, UI, Foundation, Material 같은 계층을 조합하는 구조다. 상위 계층은 더 낮은 계층의 API 를 조합해 기본 동작, 접근성, styling, interaction 을 제공한다.
 
 상위 Material component 가 요구에 맞지 않으면 Foundation 이나 UI 계층으로 내려가 직접 조합할 수 있다. 이때 제어권은 커지지만 accessibility, interaction state, token 적용, bug fix 추적 책임도 같이 커진다.
+
+예를 들어 Material 의 `Button` 이 제공하는 ripple, 최소 터치 영역, 상태 색상이 디자인 요구에 맞지 않으면 Foundation 의 `clickable` modifier 와 `Surface` 를 직접 조합해 버튼을 재구현할 수 있다. 이때 `Button` 이 기본 제공하던 접근성 role(`Role.Button`), 눌림 상태 처리, padding 은 직접 챙겨야 한다.
 
 따라서 낮은 계층 사용은 "더 순수한 Compose"가 아니라 trade-off 다. 컴포넌트 포킹이나 재구현은 upstream 개선을 자동으로 받지 못하는 비용을 남긴다.
 

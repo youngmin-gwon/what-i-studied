@@ -2,7 +2,7 @@
 title: top-level-destination-owns-adaptive-navigation-chrome
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Top-level destination은 adaptive navigation chrome의 단위다"]
-date modified: 2026-08-03 18:11:20 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -18,6 +18,21 @@ Compact window 에서는 navigation bar 가 자연스럽고, expanded window 에
 - window 변화는 chrome component 를 바꾸지만 selected destination 은 유지한다.
 - 각 top-level destination 의 내부 stack 을 보존할지 초기화할지 명시한다.
 - detail screen 을 무리하게 top-level destination 으로 올리지 않는다.
+
+### 예시
+
+각 top-level destination 의 `NavBackStack` 을 map 으로 따로 보관하면, chrome 이 bottom bar 에서 rail 로 바뀌어도 선택된 destination 과 그 내부 stack 은 유지된다.
+
+```kotlin
+val backStacks = remember {
+    mutableStateMapOf<AppDestination, NavBackStack<NavKey>>()
+}
+var current by rememberSaveable { mutableStateOf(AppDestination.Home) }
+
+val activeStack = backStacks.getOrPut(current) { mutableStateListOf(current.root) }
+```
+
+탭을 바꿀 때 `current` 만 갱신하고 `backStacks[previous]` 를 지우지 않으면, 사용자가 이전 탭으로 돌아왔을 때 detail 화면이 그대로 보인다.
 
 관련 노트: [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-back-stack-needs-saveable-restoration.md)
 

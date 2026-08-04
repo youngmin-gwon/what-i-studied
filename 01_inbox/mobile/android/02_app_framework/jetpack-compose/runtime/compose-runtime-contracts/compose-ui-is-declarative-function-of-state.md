@@ -2,7 +2,7 @@
 title: compose-ui-is-declarative-function-of-state
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Thinking in Compose, UI = f(state)]
-date modified: 2026-08-03 18:10:57 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
@@ -13,6 +13,21 @@ Compose 에서 UI 는 기존 View 객체를 찾아 setter 로 수정하는 대�
 이 모델은 "화면 전체를 매번 다시 그린다"는 뜻이 아니다. 개념적으로는 화면을 현재 state 에서 다시 계산하지만, Runtime 은 변경과 관련된 scope 를 고르고 필요한 작업만 수행하려고 한다.
 
 그래서 Composable 의 핵심 계약은 명령형 UI 조작이 아니라 current state description 이다. ViewModel, repository, effect 는 state 를 만들거나 외부 작업을 실행하는 owner 이고, Composable body 는 그 결과를 표현한다.
+
+View System 과 나란히 놓으면 차이가 드러난다.
+
+```kotlin
+// View: 명령형. 객체를 찾아 속성을 바꾼다.
+textView.text = "Count: $count"
+
+// Compose: 선언형. state를 입력으로 결과를 기술한다.
+@Composable
+fun Counter(count: Int) {
+    Text("Count: $count")
+}
+```
+
+`textView.text = ...` 는 실행 시점에 화면을 직접 바꾸는 명령이고, `Text("Count: $count")` 는 `count` 값에 대한 UI 설명이다. `count` 가 바뀌면 Compose 가 이 설명을 다시 계산해 필요한 부분만 반영한다.
 
 관련 노트: [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md), [Compose 상태와 Effect 계약](01_inbox/mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 

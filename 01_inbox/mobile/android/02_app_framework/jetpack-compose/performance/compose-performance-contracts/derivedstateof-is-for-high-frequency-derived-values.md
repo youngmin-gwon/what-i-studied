@@ -2,7 +2,7 @@
 title: derivedstateof-is-for-high-frequency-derived-values
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:10:46 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -20,7 +20,7 @@ date created: 2026-08-03 16:59:23 +09:00
 
 예를 들어 스크롤 index 는 자주 변하지만 "맨 위로 이동 버튼을 보일지"는 특정 임계값을 넘을 때만 바뀐다.
 
-이때 `derivedStateOf` 는 불필요한 recomposition 을 줄이는 경계가 될 수 있다.
+이때 `derivedStateOf` 는 불필요한 recomposition 을 줄이는 경계가 될 수 있다. 예를 들어 `val showButton by remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }` 로 만들면 `firstVisibleItemIndex` 가 스크롤마다 바뀌어도 `showButton` 값이 실제로 true/false 로 뒤집힐 때만 그 값을 읽는 composable 이 recompose 된다.
 
 반대로 단순 문자열 결합이나 값 복사는 `derivedStateOf` 자체의 비용만 추가한다.
 

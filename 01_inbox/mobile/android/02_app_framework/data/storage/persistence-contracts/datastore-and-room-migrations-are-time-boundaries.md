@@ -2,7 +2,7 @@
 title: datastore-and-room-migrations-are-time-boundaries
 tags: [android, android/data, android/persistence-contracts, android/storage]
 aliases: ["DataStore와 Room 마이그레이션은 저장소 계약의 시간 경계다"]
-date modified: 2026-08-03 18:09:05 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -33,6 +33,21 @@ Room 은 schema version 을 기준으로 database 구조 변화를 관리한다.
 - 삭제나 rename 은 데이터 손실 가능성을 리뷰한다.
 - schema export 와 migration test 를 빌드에 포함한다.
 - 자동 migration 은 단순 변경에만 사용하고 결과를 검토한다.
+
+```kotlin
+@Database(entities = [Benefit::class], version = 2)
+abstract class AppDatabase : RoomDatabase() {
+    companion object {
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE benefits ADD COLUMN category TEXT NOT NULL DEFAULT ''")
+            }
+        }
+    }
+}
+```
+
+`version` 을 2로 올렸는데 `MIGRATION_1_2` 를 `Room.databaseBuilder(...).build()` 에 등록하지 않으면, 기존 사용자가 앱을 업데이트한 순간 Room 이 `IllegalStateException("A migration from 1 to 2 was required but not found...")` 를 던지며 앱이 crash 한다. `fallbackToDestructiveMigration()` 을 대신 쓰면 crash 는 막지만 기존 테이블 데이터가 통째로 삭제되므로, 보존해야 하는 데이터에는 명시적 `Migration` 이 필요하다.
 
 ### 백업과 분리해서 생각할 것
 

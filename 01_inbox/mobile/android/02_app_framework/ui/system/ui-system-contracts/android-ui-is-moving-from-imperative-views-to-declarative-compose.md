@@ -2,7 +2,7 @@
 title: android-ui-is-moving-from-imperative-views-to-declarative-compose
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:12:08 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-07-31 23:38:40 +09:00
 ---
 
@@ -24,3 +24,17 @@ Compose 의 runtime 관점은 [Automatic State Observation은 Compose와 Flutter
 ### 경계
 
 - 기존의 대규모 View System 기반 프로젝트나 `AndroidView` 호환성(Interop) 래퍼를 다룰 때는 View 수명주기와 Compose Composition 수명주기가 충돌하지 않도록 `DisposeOnViewTreeLifecycleDestroyed` 전략 등을 명시적으로 수반해야 한다.
+
+```kotlin
+// View System: findViewById로 참조를 얻고 setter로 직접 mutate한다
+val textView = findViewById<TextView>(R.id.title)
+textView.text = "Hello"
+
+// Compose: 같은 결과를 state 입력에 대한 선언으로 표현한다
+@Composable
+fun Title(text: String) {
+    Text(text)
+}
+```
+
+`AndroidView { }` 로 기존 View 를 Compose 트리에 끼워 넣으면, 그 View 는 Compose 의 declarative 모델이 아니라 원래의 imperative mutation 규칙을 그대로 따른다. 이 경계에서 lifecycle 을 명시적으로 맞추지 않으면(`ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed` 등) View 가 Composition 보다 오래 남거나 일찍 정리되는 문제가 생긴다.

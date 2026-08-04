@@ -2,7 +2,7 @@
 title: sqlite-is-storage-engine-room-is-app-access-layer
 tags: [android, android/data, android/persistence-contracts, android/storage]
 aliases: ["SQLite와 Room의 경계는 엔진과 애플리케이션 API의 차이다"]
-date modified: 2026-08-03 18:09:12 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -42,6 +42,25 @@ Room 을 사용해도 SQL 과 schema 설계가 사라지는 것은 아니다.
 migration 을 누락하면 기존 사용자 데이터에서 앱이 실패할 수 있다.
 
 Room 의 편의성은 데이터 모델링 책임을 없애는 것이 아니라 접근 코드를 표준화한다.
+
+```kotlin
+@Entity(
+    tableName = "benefits",
+    foreignKeys = [ForeignKey(
+        entity = User::class,
+        parentColumns = ["id"],
+        childColumns = ["userId"],
+        onDelete = ForeignKey.CASCADE,
+    )],
+)
+data class Benefit(
+    @PrimaryKey val id: String,
+    val userId: String,
+    val title: String,
+)
+```
+
+이 선언은 SQL 로 보면 `FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE` 와 같다. Room 이 코드 생성으로 SQL 을 대신 써주더라도, 존재하지 않는 `userId` 를 가진 row 를 insert 하면 SQLite 엔진이 직접 `android.database.sqlite.SQLiteConstraintException` 을 던진다. Room 은 이 예외를 감추지 않고 그대로 호출자에게 전파하므로, DAO 호출부는 여전히 SQLite 의 제약 조건을 알고 있어야 한다.
 
 ### 선택 규칙
 

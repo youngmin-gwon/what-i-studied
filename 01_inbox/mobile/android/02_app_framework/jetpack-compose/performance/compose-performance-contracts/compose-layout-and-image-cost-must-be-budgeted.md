@@ -2,7 +2,7 @@
 title: compose-layout-and-image-cost-must-be-budgeted
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:10:41 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -23,6 +23,8 @@ Compose UI 도 layout, measure, draw, image loading 비용을 가진다.
 큰 이미지, 반복되는 clipping, shadow, alpha 합성은 GPU 비용을 늘릴 수 있다.
 
 Lazy list 에서는 key 와 contentType 을 적절히 제공해 item 재사용과 상태 보존을 돕는다.
+
+Developer Options 의 "Profile GPU Rendering"(On screen as bars)을 켜면 frame 별 measure/layout/draw 단계 시간이 16.67ms 기준선과 함께 막대 그래프로 표시된다. 특정 화면 진입이나 스크롤 중 막대가 기준선을 넘는지로 layout/image 비용 문제를 좁힐 수 있다.
 
 layout 변경은 접근성과 화면 구조를 깨지 않는 범위에서 수행한다.
 

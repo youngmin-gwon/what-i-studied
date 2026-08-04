@@ -2,7 +2,7 @@
 title: navigation3-transition-and-back-policy-must-share-stack-state
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Navigation 3 transition과 predictive back은 같은 stack state를 기준으로 해야 한다"]
-date modified: 2026-08-03 18:12:02 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -18,5 +18,19 @@ Navigation animation 은 실제 navigation state 와 분리된 장식이 아니�
 - transition 은 state mutation 의 결과를 표현하고 별도 navigation state 를 만들지 않는다.
 - predictive back 취소 시 stack 과 visible entry 가 그대로 유지되는지 확인한다.
 - dialog, overlay, multi-pane scene 은 어떤 entry 가 pop 되는지 명시한다.
+
+### 예시
+
+toolbar 의 back button 과 system predictive back gesture 는 같은 pop 함수를 호출해야 한다.
+
+```kotlin
+val onBack = { backStack.removeLastOrNull() }
+
+NavDisplay(backStack = backStack, onBack = { onBack() }, entryProvider = entryProvider)
+
+TopAppBar(navigationIcon = { IconButton(onClick = onBack) { BackIcon() } })
+```
+
+toolbar 버튼이 `onBack` 대신 `navController.popTo(previousRoute)` 같은 별도 경로를 호출하면, gesture back 취소 애니메이션과 toolbar back 의 결과 stack 이 서로 달라질 수 있다.
 
 관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md), [SceneStrategy는 entry를 조합하고 SceneDecorator는 렌더링을 감싼다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/scene-strategy-composes-entries-while-decorator-wraps-rendering.md)

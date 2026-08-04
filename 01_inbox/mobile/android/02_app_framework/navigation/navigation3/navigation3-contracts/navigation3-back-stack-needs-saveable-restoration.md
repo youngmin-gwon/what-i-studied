@@ -2,7 +2,7 @@
 title: navigation3-back-stack-needs-saveable-restoration
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다"]
-date modified: 2026-08-03 18:12:00 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -20,6 +20,17 @@ Back stack state 와 screen UI state 는 다르다. 어떤 화면이 stack 에 �
 - detail 화면의 form state, scroll state, loading state 는 별도 UI state 로 분리한다.
 - deep link 는 최종 key 만 push 하지 말고 필요한 root stack 을 함께 구성한다.
 - process death 복원 뒤 사용할 수 없는 key 는 fallback destination 으로 수렴시킨다.
+
+### 예시
+
+```kotlin
+@Serializable
+data class OrderDetailRoute(val orderId: String, val scrollIndex: Int) : NavKey
+
+val backStack = rememberNavBackStack(DashboardRoute)
+```
+
+`scrollIndex` 같은 화면 내부 UI state 를 `OrderDetailRoute` key 에 넣으면, key 가 바뀔 때마다 `equals()` 비교와 저장된 stack 이 함께 흔들린다. scroll/loading state 는 key 가 아니라 해당 destination composable 안의 `rememberSaveable` 로 분리해야 한다.
 
 관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md), [Android 상태 관리 정본 지도](01_inbox/mobile/android/02_app_framework/architecture/state-management/android-state-management.md)
 

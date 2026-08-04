@@ -2,7 +2,7 @@
 title: ui-domain-data-layers-separate-rendering-policy-and-source-of-truth
 tags: [android, android/architecture, android/jetpack]
 aliases: ["UI, domain, data layer는 rendering, policy, source of truth를 분리한다"]
-date modified: 2026-08-03 17:27:37 +09:00
+date modified: 2026-08-04 13:30:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -13,6 +13,8 @@ UI layer 는 상태를 그리고 사용자 action 을 올린다. ViewModel/state
 이 구분은 package 이름보다 ownership 이 중요하다. 화면이 사라져도 살아야 하는 데이터는 UI layer 가 소유하지 않고, user-visible immediate work 와 deferrable durable work 는 background-work 정책으로 분리한다.
 
 앱 컴포넌트는 이 layer 를 시작하거나 연결하는 entry point 다. Activity 가 곧 ViewModel 은 아니고, Service 가 곧 repository 는 아니며, Receiver 가 곧 worker 도 아니다.
+
+layer 분리가 깨졌는지는 테스트 가능성으로 관찰할 수 있다. UI layer 가 data layer 를 직접 참조하면(예: Composable 이 Room DAO 를 직접 호출) UI 테스트에 실제 DB 나 네트워크 mocking 이 필요해진다. 반대로 각 layer 가 제대로 분리돼 있으면 ViewModel 단위 테스트는 fake repository 만으로 충분하다.
 
 관련 노트: [앱 컴포넌트 허브](01_inbox/mobile/android/02_app_framework/architecture/app-components/android-app-components.md), [ViewModel 정본](01_inbox/mobile/android/02_app_framework/architecture/state-management/viewmodel/viewmodel.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md).
 

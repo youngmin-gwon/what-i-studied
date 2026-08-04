@@ -2,7 +2,7 @@
 title: external-uri-must-be-validated-before-navigation
 tags: [android, android/deep-links, android/navigation]
 aliases: ["외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다"]
-date modified: 2026-08-03 18:11:29 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -18,5 +18,21 @@ App Link verification 은 도메인 소유 관계를 확인하지만 앱 내부 
 - query parameter 는 type, range, required/optional 여부를 검증한다.
 - 인증이 필요한 destination 은 바로 push 하지 않고 pending destination 과 auth stack 을 분리한다.
 - 잘못된 URI 는 crash 가 아니라 fallback destination 또는 명시적 오류로 수렴시킨다.
+
+### 예시
+
+`https://example.com/orders/../admin` 처럼 path traversal 이 섞인 URI 나 `%2e%2e%2f` 로 encoding 된 변형은 canonicalize 하지 않으면 allowlist 검사를 우회할 수 있다.
+
+```kotlin
+fun Uri.toOrderRouteOrNull(): NavKey? {
+    if (scheme != "https" || host != "example.com") return null
+    val segments = path.orEmpty().split("/").filter { it.isNotEmpty() }
+    if (segments.firstOrNull() != "orders" || segments.contains("..")) return null
+    val id = segments.getOrNull(1)?.toIntOrNull() ?: return null
+    return OrderDetailRoute(id)
+}
+```
+
+raw string 을 그대로 `backStack.add(RawUriRoute(uri.toString()))` 로 넣는 대신, 위처럼 실패 가능한 typed 변환을 거쳐야 잘못된 URI 가 앱 내부 임의 상태로 이어지지 않는다.
 
 관련 노트: [Android 딥 링크는 외부 URI 계약이다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md), [Android App Link는 검증된 HTTPS 딥 링크다](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md), [Navigation 3 deep link는 URI를 NavKey로 변환한다](01_inbox/mobile/android/02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)

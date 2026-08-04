@@ -2,7 +2,7 @@
 title: recyclerview-and-lazycolumn-are-list-rendering-patterns-not-identical-apis
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:12:11 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-07-31 23:38:40 +09:00
 ---
 
@@ -24,3 +24,14 @@ Compose 목록에서 중요한 것은 stable key 와 state 위치다. item 내�
 ### 경계
 
 - View System 의 Adapter/ViewHolder 패턴 의존 습관을 Composable 내부로 들여와 불필요한 상태 가변 객체를 관리하지 않으며, State Hoisting 을 통해 아이템 렌 der 상태를 단방향 데이터 흐름으로 제어한다.
+
+```kotlin
+LazyColumn {
+    items(items = messages, key = { it.id }) { message ->
+        val expanded = remember { mutableStateOf(false) } // key로 message.id를 따라간다
+        MessageRow(message, expanded.value) { expanded.value = !expanded.value }
+    }
+}
+```
+
+`key = { it.id }` 를 생략하면 목록 중간에 item 이 삽입되거나 삭제될 때 index 기반으로 재사용이 일어나 `expanded` 같은 item-local state 가 엉뚱한 message 에 남는 것을 관찰할 수 있다. RecyclerView 에는 이런 key 개념이 없고, `DiffUtil.ItemCallback` 이 비슷한 identity 문제를 다른 방식(payload diff)으로 푼다.

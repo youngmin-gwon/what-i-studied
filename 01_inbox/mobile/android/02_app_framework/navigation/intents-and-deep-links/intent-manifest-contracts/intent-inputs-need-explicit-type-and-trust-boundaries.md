@@ -2,7 +2,7 @@
 title: intent-inputs-need-explicit-type-and-trust-boundaries
 tags: [android, android/intents, android/navigation]
 aliases: ["Intent extras와 URI 인자는 명시적인 타입과 신뢰 경계가 필요하다"]
-date modified: 2026-08-03 18:11:45 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -18,5 +18,7 @@ date created: 2026-08-01 00:00:00 +09:00
 - URI authority 와 MIME type 은 allowlist 로 확인한다.
 - `ClipData` 와 URI grant flag 는 접근 권한의 범위를 별도로 검증한다.
 - 외부 입력에서 만든 route key 는 인증/권한 확인 뒤에만 적용한다.
+
+예를 들어 다른 앱이 보낸 `extras` 에서 앱 전용 커스텀 `Parcelable` 클래스를 기대하면, 발신 프로세스가 그 클래스를 모를 때 `android.os.BadParcelableException` 이 발생할 수 있다. `getStringExtra`/`getIntExtra` 처럼 primitive 로 좁히거나 값을 읽는 시점에 try/catch 로 방어해야 한다.
 
 관련 노트: [exported boundary](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md), [PendingIntent](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md), [URI validation](01_inbox/mobile/android/02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/external-uri-must-be-validated-before-navigation.md)

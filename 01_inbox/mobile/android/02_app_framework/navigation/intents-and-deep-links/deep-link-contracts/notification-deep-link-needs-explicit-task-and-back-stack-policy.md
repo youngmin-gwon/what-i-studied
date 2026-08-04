@@ -2,7 +2,7 @@
 title: notification-deep-link-needs-explicit-task-and-back-stack-policy
 tags: [android, android/deep-links, android/navigation]
 aliases: ["알림은 PendingIntent 로 딥 링크 여정을 시작한다"]
-date modified: 2026-08-03 18:11:30 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -47,6 +47,19 @@ Intent 에 불필요한 민감 정보나 장기 인증 토큰을 넣지 않는�
 로그인이 필요한 대상은 클릭 후 인증 화면을 거쳐 pending destination 으로 복귀한다.
 
 이미 실행 중인 task 를 재사용할 때도 중복 목적지와 stale state 를 점검한다.
+
+```kotlin
+val detailIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com/orders/42"))
+val pendingIntent = TaskStackBuilder.create(context)
+    .addNextIntentWithParentStack(detailIntent)
+    .getPendingIntent(orderId.hashCode(), PendingIntent.FLAG_IMMUTABLE)
+
+NotificationCompat.Builder(context, CHANNEL_ID)
+    .setContentIntent(pendingIntent)
+    .build()
+```
+
+`addNextIntentWithParentStack()` 은 매니페스트의 `parentActivityName` 이나 Navigation 시작 목적지를 이용해 상위 화면을 합성 백 스택으로 넣는다. request code 로 `orderId.hashCode()` 처럼 대상별 값을 쓰지 않으면 서로 다른 주문 알림이 같은 `PendingIntent` 를 덮어써 최신 알림을 눌러도 예전 대상이 열릴 수 있다.
 
 ### 알림 내용과 링크의 일치
 

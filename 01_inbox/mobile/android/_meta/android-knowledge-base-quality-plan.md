@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-04 12:05:00 +09:00
+date modified: 2026-08-04 14:15:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -466,6 +466,32 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 - 추상 체크리스트를 상태 흐름이나 실제 선택 사례로 바꾼다.
 - 중복 노트는 병합 후보로 올리고 감독 에이전트가 결정한다.
 - 문서 역할보다 큰 제목은 rename 또는 scope 축소한다.
+
+**진행 기록(2026-08-04): category 1(App components, lifecycle, process, state) 완료.** `02_app_framework/architecture/`의 4개 하위 폴더(app-components 18개, context-and-modularity 9개, jetpack-architecture 6개, state-management 20개, 총 53개 파일)를 전수 재감사했다.
+
+이 category는 원래 3개 subagent(app-components / state-management / context-and-modularity+jetpack-architecture)에 병렬 위임했으나, 세 agent 모두 공유 세션 API rate limit("You've hit your session limit")로 작업 도중 종료됐다. 재시도 대신 저작 세션이 동일한 기준으로 53개 파일 전체를 직접 Read하여 재감사했다(Author/Reviewer 분리 원칙은 유지하기 어려웠으나, 실패한 agent가 이미 C등급으로 지목했던 reducer 노트를 직접 재확인해 실제로는 이미 A등급임을 `git diff`/`git log`로 교차 검증하는 등 판단을 재검증하며 진행했다).
+
+**발견 및 수정한 실제 결함:**
+
+1. **H2 제목이 쉼표에서 잘리는 반복 버그.** 4개 파일에서 H2 제목이 `aliases`의 전체 문장이 아니라 첫 쉼표 앞까지만 남아 있었다(예: "컴포넌트 통신은 Intent" → 원래 의도는 "컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다"). 정규식으로 vault 전체(585개 파일)를 스캔해 동일 패턴이 이 4건 외에는 없음을 확인 후 전부 정정했다: `component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md`, `component-context-lifetime-follows-service-receiver-provider-boundary.md`, `architecture-decisions-start-from-owner-lifetime-and-survival-requirements.md`, `state-owner-is-chosen-by-lifetime-owner-change-frequency-and-sharing.md`, `reducer-does-not-depend-on-repository-coroutine-flow-or-android-api.md`(공백 정규화 비교로 추가 발견, 총 5개 파일 5건).
+2. **`app-components/` 8개 노트에 관찰 가능한 신호 부재.** Activity/BoundService/BroadcastReceiver/ContentProvider/exported-permission/FileProvider/ForegroundService/Service 노트가 정의·메커니즘·경계는 정확했지만 구체적 code/명령/observable evidence가 전혀 없어 계획의 필수 완료 기준(mechanism, example, observable evidence 중 최소 하나)을 충족하지 못했다. 각 노트에 `adb shell dumpsys`/`content query` 명령, 관련 예외(`ActivityNotFoundException`, `FileUriExposedException`, `WindowManager.BadTokenException`), 또는 ANR runbook과의 연결 등 검증 가능한 관찰 신호를 한 단락씩 추가해 A등급 기준을 충족시켰다.
+3. **`context-and-modularity/context-contracts/` 7개 노트, `jetpack-architecture/architecture-contracts/` 3개 노트도 같은 패턴.** LeakCanary/Memory Profiler heap dump, `WindowManager.BadTokenException`, WindowManager UI-context 권고, 테스트 가능성 저하(mock 강제) 등 각 주장에 맞는 관찰 신호를 추가했다.
+
+**검증 결과 이미 충분했던 항목:** `state-management/`의 16개 실질 노트(reducer 3개, ui-state 7개, viewmodel 6개)는 모두 Kotlin 코드 예시와 "테스트 관점"/"확인 질문" 섹션을 이미 갖추고 있어 추가 보강 없이 A등급으로 확인했다. 실패한 agent가 "C등급, 수정 필요"로 표시했던 `introduce-reducer-only-when-state-transitions-are-complex.md`는 실제로는 이미 완전한 A등급이었고 agent의 판단이 잘못됐던 것으로 확인했다(`git diff`/`git log`로 미수정 상태 재확인).
+
+**최종 상태:** category 1의 53개 파일 중 C/D 등급은 발견되지 않았다. 위 결함 수정 후 전부 B등급 이상이며, 관찰 신호를 보강한 18개 노트는 A등급 기준을 충족한다. category 2는 완료했고(아래), category 3~6은 아직 시작하지 않았다.
+
+**진행 기록(2026-08-04): category 2(UI/rendering, data, concurrency) 완료.** `02_app_framework/jetpack-compose/`(57개), `02_app_framework/ui/system/`(6개), `02_app_framework/data/`(async-flow 21 + paging 8 + storage 15 = 44개), `02_app_framework/navigation/`(navigation3 12 + navigation-contracts 1 + intents-and-deep-links 23 + adaptive-navigation 7 = 43개) 총 150개 파일을 4개 subagent에 병렬 위임했다(Compose design/layout/performance, Compose runtime/state+ui/system, data layer, navigation — 각 30~44개 파일). category 1과 달리 이번에는 세 agent 모두 세션 rate limit 없이 정상 완료했다(날짜가 바뀌며 세션 쿼터가 초기화된 것으로 보인다).
+
+**발견 및 수정한 실제 결함:**
+
+1. **쉼표 truncation형 H2 버그는 이 150개 파일에서 0건.** 다만 개별 구조 결함 3건을 발견해 수정했다: `data/async-flow/coroutines/parallel-coroutines-need-explicit-parent-and-failure-policy.md`(frontmatter `title`이 slug가 아니라 문장이었고 본문 헤딩이 `#`였음 — slug/`##`로 정규화, 겸사겸사 `supervisorScope`를 쓰더라도 개별 `await()`를 `runCatching`으로 감싸지 않으면 첫 실패에서 예외가 그대로 던져진다는 누락된 뉘앙스를 코드 예시 2개로 보강), `navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md`(title/alias/H1이 다른 42개 형제 파일과 다른 구버전 컨벤션으로 미마이그레이션 상태 — slug title, 표준 문구 alias, `##`로 통일), `navigation3-contracts.md`(H2 바로 아래 동일 텍스트 H3 중복, `####` 사용 불일치 — 중복 제거 및 헤딩 레벨 통일).
+2. **observable evidence 부재 노트 55개 보강.** Compose design/layout/performance 8개, Compose runtime/state+ui/system 18개, data layer(coroutine/Flow/Paging/storage) 18개, navigation(adaptive navigation/deep link/Navigation 3) 11개 — 각각 실제 Kotlin 코드, `adb shell pm get-app-links`/`adb shell am start -W` 같은 명령, 예외 이름(`BadParcelableException`, `IllegalStateException` 등), 또는 Layout Inspector/Profile GPU Rendering/Macrobenchmark 같은 관찰 도구를 한두 단락으로 추가했다. 불확실한 주장(Strong skipping 기본 활성화 Kotlin 버전, edge-to-edge API, Room Migration 예외, callbackFlow awaitClose 예외 메시지 등)은 WebFetch로 공식 문서 대조 후 반영했다.
+3. **중복 후보 1쌍 발견, 병합은 보류.** `data/storage/file-access-contracts/file-storage-is-selected-by-owner-and-public-purpose.md`와 `data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md`가 결정표와 예시(세션 키, Photo Picker 우선순위 등)에서 상당 부분 겹친다. 병합 여부는 이 pass 범위 밖이라 플래그만 남긴다.
+
+**검증:** 수정 후 60개 파일이 변경됐고(`git diff --stat`), 새로 추가된 내부 링크를 vault 루트 기준 경로로 전수 대조한 결과 broken link 0건이었다. 이 category의 150개 파일 전체에 "검증일:" 로 시작하는 줄은 원래 존재하지 않아 저촉 항목이 없었다.
+
+**최종 상태:** category 2의 150개 파일 중 C/D 등급 사실 오류는 발견되지 않았다. 구조 결함 3건과 observable evidence 부재 55건을 수정해 전부 B등급 이상이며, 보강된 노트는 A등급 기준을 충족한다. 중복 후보 1쌍은 병합 후보로 남겨둔다. category 3~6은 아직 시작하지 않았다.
 
 #### Phase 6. Graph 재구성
 

@@ -2,7 +2,7 @@
 title: foreground-service-is-user-visible-ongoing-work-contract
 tags: [android, android/app-components, android/architecture]
 aliases: ["Foreground Service는 사용자에게 보이는 진행 중 작업 계약이다"]
-date modified: 2026-08-03 17:27:05 +09:00
+date modified: 2026-08-04 13:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -13,6 +13,8 @@ Foreground Service 는 사용자가 인지해야 하는 즉시성, 진행 중 �
 따라서 "백그라운드에서 오래 실행하고 싶다"는 이유만으로 Foreground Service 를 선택하면 안 된다. 음악 재생, active navigation, ongoing call, 사용자 시작 데이터 전송처럼 사용자 가시성과 즉시성이 있는지 먼저 확인해야 한다.
 
 지연 가능하고 네트워크/충전/재시도 제약을 가진 작업은 WorkManager 가 더 적합한 경우가 많다. Foreground Service 는 background-work API 선택표의 한 칸이지 우회 수단이 아니다.
+
+`adb shell dumpsys activity services <pkg>` 의 service 레코드에서 foreground 상태와 연결된 notification 을 확인할 수 있다. `startForegroundService()` 로 시작한 뒤 `startForeground()` 를 제때 호출하지 않으면 [ANR runbook](01_inbox/mobile/android/00_foundations/diagnostic-runbooks/02-anr.md) 의 "Service.startForeground() not called" 트리거로 앱이 죽는다.
 
 관련 노트: [background-work의 foreground service 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/foreground-service-is-for-visible-continuous-work.md), [background work 정본](01_inbox/mobile/android/04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md), [Android 권한 계약](01_inbox/mobile/android/05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md).
 

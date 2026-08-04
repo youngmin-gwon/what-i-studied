@@ -2,7 +2,7 @@
 title: compose-performance-starts-with-measure-debug-improve-loop
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:10:42 +09:00
+date modified: 2026-08-04 14:00:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -19,6 +19,8 @@ Compose 성능 문제도 추측으로 고치지 않는다.
 먼저 어떤 사용자 여정이 느린지 정하고, 같은 입력과 같은 기기 조건에서 측정한다.
 
 그 다음 trace, recomposition 정보, frame timing 을 확인해 병목을 좁힌다.
+
+trace 는 Android Studio Profiler 의 System Trace(Perfetto 기반)나 Macrobenchmark 라이브러리로 실제 기기에서 수집하고, Layout Inspector 의 recomposition count 표시로 어떤 composable 이 자주 다시 그려지는지 확인한다.
 
 마지막으로 작은 변경을 적용하고 같은 조건에서 다시 측정한다.
 
