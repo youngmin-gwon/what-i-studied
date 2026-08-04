@@ -33,7 +33,7 @@ date created: 2026-08-04 10:30:00 +09:00
 1. **`adb shell am start -W -n <pkg>/<activity>` 로 TTID 를 측정한다.**
    출력의 `TotalTime`(ms)이 핵심 필드다. 이 값은 요청이 시스템에 전달된 시점부터 첫 프레임이 그려질 때까지의 시간이다.
    - 정상 신호: 빌드/기기 기준으로 일관된 낮은 값(수백 ms 대).
-   - 실패 신호: 값이 크거나, 명령이 오래 대기하다 `ANR` 메시지와 함께 끝난다.
+   - 실패 신호: 값이 크거나, 명령이 비정상적으로 오래 걸리거나 응답 없이 멈춘다. 실제 ANR 여부는 이 명령의 출력만으로 단정하지 말고 logcat의 `ANR in <pkg>` 라인으로 별도 확인한다.
 
 2. **logcat 에서 `Displayed` 라인을 확인한다.**
    ```
@@ -45,7 +45,11 @@ date created: 2026-08-04 10:30:00 +09:00
    - 왜 이 필드를 보는가: `am start -W` 는 개발자가 수동으로 트리거한 한 번의 측정이지만, `Displayed` 로그는 실제 사용자 실행에서도 남으므로 현장 재현에 쓸 수 있다.
 
 3. **`reportFullyDrawn()` 호출 시점을 확인해 TTFD 를 분리한다.**
-   TTID(첫 프레임)와 TTFD(콘텐츠가 실제로 준비된 시점)는 시스템이 자동으로 구분하지 못한다. 앱이 `reportFullyDrawn()` 을 호출하지 않으면 TTFD 자체가 측정되지 않는다.
+   TTID(첫 프레임)와 TTFD(콘텐츠가 실제로 준비된 시점)는 시스템이 자동으로 구분하지 못한다. 앱이 `reportFullyDrawn()` 을 호출하지 않으면 TTFD 자체가 측정되지 않는다. 호출 시 logcat에 다음과 같은 라인이 남는다.
+   ```
+   system_process I/ActivityManager: Fully drawn com.example.app/.MainActivity: +1s54ms
+   ```
+   `adb logcat | grep "Fully drawn"`으로 이 값을 확인한다.
    - 정상 신호: `reportFullyDrawn()` 호출 시점이 TTID 직후에 가깝다.
    - 실패 신호: TTID 이후 한참 지나서야 호출되거나, 아예 호출되지 않는다 — 데이터 로딩이 콘텐츠 표시를 늦추고 있다는 뜻이다.
 

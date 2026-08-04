@@ -22,7 +22,7 @@ date created: 2026-08-04 11:05:00 +09:00
 1. **서명 인증서가 기존 설치와 다르다.** 가장 흔한 원인. `applicationId` 가 같아도 서명이 다르면 시스템은 이를 업데이트로 인정하지 않고 설치 자체를 거부한다. 로컬 서명 빌드와 Play App Signing 을 거친 빌드가 섞였을 때 특히 자주 발생한다.
 2. **`versionCode` 가 기존 설치보다 낮거나 같다.** 업그레이드 순서 위반.
 3. **`applicationId` 가 build variant(예: `applicationIdSuffix`)로 인해 의도와 다르게 빌드됐다.** 다른 앱으로 취급돼 별도 설치가 되거나, 기대한 컴포넌트가 없다는 오류가 난다.
-4. **targetSdkVersion 요구사항을 충족하지 못해 설치 자체가 거부된다.** 예: intent-filter 가 있는 컴포넌트의 `exported` 미선언(targetSdkVersion 31+).
+4. **targetSdkVersion 요구사항을 충족하지 못한다.** 예: intent-filter가 있는 컴포넌트의 `exported` 미선언(targetSdkVersion 31+). 이 문제는 보통 설치 이전, 빌드 단계에서 manifest merger 오류로 먼저 걸러져 APK 자체가 만들어지지 않는다. 구버전 툴체인에서 이 검사가 우회된 경우에만 `INSTALL_FAILED_VERIFICATION_FAILURE`로 설치 시점에 나타날 수 있다.
 5. **Play 배포 단계에서의 문제.** 여러 트랙의 `versionCode` 가 사용자의 트랙 자격을 의도치 않게 덮거나, 테스터가 opt-in 하지 않은 상태.
 6. **저장 공간, 서명되지 않은 APK, 손상된 APK 등 기본적인 설치 실패.**
 

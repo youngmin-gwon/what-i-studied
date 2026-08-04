@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-04 11:10:00 +09:00
+date modified: 2026-08-04 12:05:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -439,7 +439,15 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 
 각 runbook은 대응하는 Worked Example로 상호 링크했다(예: RB1↔WE1, RB3↔WE5, RB4↔WE2·WE6, RB6↔WE4, RB7↔WE7, RB8↔WE8). Runbook은 "증상이 있을 때 무엇을 어느 순서로 확인할지"를 다루고, Worked Example은 "왜 그런 일이 일어나는지"를 다루도록 역할을 분리했다.
 
-**상태: 저작 세션 자체 검증 완료 / 별도 세션의 독립 검수는 아직 미실시.**
+**독립 검수(2026-08-04).** 4개 subagent에 2개씩 병렬 위임(RB1~2, RB3~4, RB5~6, RB7~8). 완료 기준 충족 여부, 명령어 문법 정확성, 내부·외부 링크, 핵심 인용 WebFetch 재대조, Worked Example·Learning Spine과의 일관성을 검증했다.
+
+- RB3, RB4, RB5, RB6: 발견 사항 없음(PASS).
+- **RB1 수정.** 3단계(TTFD 확인)만 다른 단계와 달리 관찰 명령이 없어 보강했다(`reportFullyDrawn()` 호출 시 logcat에 남는 `Fully drawn ... +1s54ms` 형식을 공식 문서로 확인해 추가). 1단계의 "ANR 메시지와 함께 끝난다"는 근거를 확인하지 못한 서술을 "비정상적으로 오래 걸리거나 응답 없이 멈춘다"로 완화했다.
+- **RB2 수정.** 1단계 `adb root`가 production(user) 빌드 기기에서는 실패한다는 점과 그 대안(`adb bugreport`, API 30+ `ApplicationExitInfo.getTraceInputStream()`, Android vitals ANR 리포트)이 누락돼 있어 추가했다 — 이 runbook이 다루는 "Play Console에서 ANR율 상승" 시나리오의 상당수가 정확히 이 production 빌드 케이스였다.
+- **RB7 수정.** `dumpsys gfxinfo <pkg>` 명령에 `adb shell` 접두사가 빠져 있어 정정하고 코드블록으로 분리했다. 이 단계에 정상/실패 신호 설명이 없어 보강했다.
+- **RB8 수정.** "targetSdkVersion 미충족 시 설치 자체가 거부된다"는 서술이, 실제로는 대부분 **설치 이전 빌드 단계**(manifest merger 오류)에서 걸러진다는 사실과 다르게 "설치 거부"로 단정하고 있어 정정했다. 구버전 툴체인에서 우회된 경우에만 설치 시점 `INSTALL_FAILED_VERIFICATION_FAILURE`로 나타난다는 점을 명시했다.
+
+수정 후 8개 파일 전체 내부 링크 재확인 결과 broken 0건. **최종 상태: 8개 Diagnostic Runbook 독립 검수 완료, 발견된 문제 모두 수정 반영.**
 
 #### Phase 5. Atomic Reference 의미 품질 pass
 
