@@ -2,7 +2,7 @@
 title: aosp-is-base-platform-not-complete-google-device-experience
 tags: [android, android/aosp]
 aliases: [Android Open Source Project, AOSP]
-date modified: 2026-08-04 17:06:41 +09:00
+date modified: 2026-08-04 17:07:11 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
