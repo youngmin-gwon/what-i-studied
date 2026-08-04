@@ -1,81 +1,159 @@
 ---
 title: B1-component-lifecycle-and-task
-tags: [android, architecture, lifecycle, task, topic-synthesis]
-aliases: [Component Lifecycle Topic, 컴포넌트 생명주기와 Task 합성]
-date modified: 2026-08-04 16:30:00 +09:00
+tags: [android, app-framework, lifecycle, architecture, topic-synthesis]
+aliases: [Activity 생명주기, Task, Back Stack, 컴포넌트 생명주기]
 date created: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-04 16:00:00 +09:00
 ---
 
 ## B1 · 컴포넌트 생명주기와 Task / Back Stack
 
-> **이 문서의 목적**: Android 애플리케이션의 뼈대가 되는 컴포넌트 생명주기와 상태 보존 메커니즘, 화면 스택 관리 원칙을 하나의 흐름으로 정리한다. 화면이 어떻게 생성되고 살아남으며 파괴되는지를 이해하는 단일 진입점이다.
+> **이 문서의 목적**: Android 앱 개발의 가장 기초적인 질문인 "Activity/Fragment 는 언제 살고 언제 죽는가", "화면 회전이나 앱 전환 시 어떤 일이 일어나는가", "Task 와 Back Stack 은 어떻게 관리되는가"를 체계적으로 이해한다.
 
 ---
 
-### 1. Activity/Fragment 생명주기 전체 조망
+### 이 주제를 읽기 전에
 
-Android 의 UI 컴포넌트는 시스템에 의해 생성되고 파괴된다. 각 생명주기 콜백은 화면이 사용자에게 보이는지, 포커스를 가지는지, 백그라운드로 이동했는지를 나타낸다. UI 리소스 할당과 해제는 이 생명주기 상태에 맞춰 정확하게 대칭을 이루어야 메모리 누수를 막을 수 있다.
-
-| 원자 노트 | 핵심 명제 |
+| 선행 개념 | 필요한 이유 |
 |---|---|
-| [Activity 생명주기 모델은 리소스 소유권과 화면 가시성을 조율한다](../../02_app_framework/architecture/lifecycle/activity-lifecycle-model.md) | onCreate-onDestroy, onStart-onStop, onResume-onPause 대칭 원칙 |
-| [Fragment는 Activity 생명주기에 종속되며 뷰 생명주기를 분리한다](../../02_app_framework/architecture/lifecycle/fragment-lifecycle-is-tied-to-activity.md) | Fragment 수명과 뷰(View) 수명의 불일치 관리 |
+| Android 앱 프로세스 생성 (A1) | Activity 재생성과 프로세스 종료의 차이 이해 |
+| Kotlin Coroutines | viewModelScope, lifecycleScope 이해 |
+| Compose 기초 (B2 § 1~2) | State 소유권 결정 시 생명주기 고려 |
+
+관련 토픽: [A1 · 부팅과 프로세스 생성](./A1-boot-and-process.md) · [B2 · Jetpack Compose](./B2-jetpack-compose.md) · [B3 · 데이터 레이어](./B3-data-layer.md)
 
 ---
 
-### 2. ViewModel: 설정 변경을 넘어 살아남는 상태 홀더
+### 전체 조망도
 
-ViewModel 은 화면 단위 상태와 외부 작업의 조율자다. 화면 회전이나 창 크기 변경처럼 화면이 재생성되는 설정 변경 시에도 `ViewModelStore` 에 남아 상태를 유지한다. 단, 프로세스 사망 시에는 함께 소멸되므로 영속적인 저장 장치로 사용해서는 안 된다.
+```
+사용자 앱 실행
+      │
+      ▼
+[ATMS] — Activity 생명주기 상태 머신
+  INITIALIZING → STARTED → RESUMED → PAUSED → STOPPED → DESTROYED
 
-| 원자 노트 | 핵심 명제 |
-|---|---|
-| [ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-survives-configuration-change-not-process-death.md) | 설정 변경과 프로세스 사망의 차이 |
-| [ViewModel은 화면 단위 상태와 외부 작업을 조율한다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-orchestrates-screen-state-and-external-work.md) | ViewModel 의 책임 경계와 상태 변환 역할 |
-| [ViewModel은 UI 컨트롤러와 Android Context를 장기 보관하지 않는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-does-not-retain-ui-controller-or-context.md) | 메모리 누수를 막기 위한 참조 제한 |
+      ┌── 설정 변경 (화면 회전, 언어)
+      │     Activity 재생성, ViewModel 유지
+      │
+      └── 프로세스 종료 (메모리 부족, 오래된 백그라운드)
+            Activity + ViewModel 모두 소멸
+            SavedStateHandle / Storage 만 복원 가능
+
+[Task & Back Stack]
+  Task = "사용자가 함께 수행하는 Activity 들의 묶음"
+  Back Stack = Task 안의 Activity 순서 (LIFO)
+```
 
 ---
 
-### 3. Task와 Back Stack 관리
+### 1. Activity 생명주기: 가시성과 상호작용 경계
 
-Task 는 사용자가 특정 목표를 수행하기 위해 상호작용하는 Activity 의 집합이다. Back Stack 은 이 Activity 들이 열린 순서대로 쌓이는 구조를 말한다. Launch Mode (`standard`, `singleTop`, `singleTask`, `singleInstance`)와 Intent Flag 를 통해 이 스택에 새로운 화면이 어떻게 추가되거나 재활용될지 결정한다.
+Activity 생명주기 콜백은 두 가지 축으로 이해한다:
+- **가시성**: `onStart()` → 화면에 보임, `onStop()` → 화면에서 사라짐
+- **상호작용**: `onResume()` → 사용자 입력 수신, `onPause()` → 입력 중단
+
+`onDestroy()` 는 Activity 가 완전히 종료될 때 호출되지만, **프로세스 자체가 종료될 때는 호출되지 않을 수 있다**. 따라서 중요한 데이터 저장은 `onDestroy()` 에 의존하지 않는다.
+
+Android 의 모든 앱 컴포넌트(Activity, Service, BroadcastReceiver, ContentProvider)는 시스템의 진입점이지 앱 내부 객체가 아니다. 시스템이 이 진입점을 통해 앱을 시작하고 수명주기를 제어한다.
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Launch Mode는 Task 스택 내 Activity 인스턴스 재사용을 결정한다](../../02_app_framework/architecture/task-and-stack/launch-mode-determines-activity-instance-reuse.md) | 4가지 기본 Launch Mode 동작 방식 |
-| [Intent Flag는 런타임에 Back Stack 조작을 동적으로 제어한다](../../02_app_framework/architecture/task-and-stack/intent-flags-dynamically-control-back-stack.md) | CLEAR_TOP 과 NEW_TASK 의 조합 |
+| [Activity 생명주기 콜백은 가시성과 상호작용 경계를 설명한다](../../02_app_framework/architecture/app-components/app-component-contracts/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md) | 각 콜백의 의미와 올바른 작업 배치 |
+| [Activity 는 사용자 가시 진입점이자 프로세스 우선순위 신호다](../../02_app_framework/architecture/app-components/app-component-contracts/activity-is-user-visible-entry-point-and-process-priority-signal.md) | Activity 상태가 OOM adj 에 미치는 영향 |
+| [Android 앱 컴포넌트는 프로세스 내 객체가 아니라 시스템 진입점이다](../../02_app_framework/architecture/app-components/app-component-contracts/android-app-components-are-system-entry-points-not-in-process-objects.md) | 컴포넌트 = 시스템 진입점 관점 |
 
 ---
 
-### 4. 프로세스 죽음(Process Death)과 상태 복원
+### 2. 설정 변경 vs 프로세스 종료
 
-Android 시스템은 메모리가 부족할 때 백그라운드에 있는 앱 프로세스를 강제로 종료할 수 있다. 사용자가 다시 앱으로 돌아왔을 때 이전 상태를 매끄럽게 복원하려면 `onSaveInstanceState` 나 `SavedStateHandle` 을 사용해야 한다. 이때 저장하는 데이터는 복원에 필요한 최소한의 식별자나 작은 데이터여야 한다.
+이 두 가지는 결과가 비슷해 보이지만 **완전히 다른 메커니즘**이다:
+
+| 구분 | 설정 변경 | 프로세스 종료 |
+|---|---|---|
+| 원인 | 화면 회전, 언어 변경, 다크 모드 등 | 메모리 부족, 오래된 백그라운드 앱 |
+| Activity | 재생성 (파괴 → 새 인스턴스) | 소멸 (복귀 시 새 인스턴스) |
+| ViewModel | **유지됨** | **소멸** (복원 불가) |
+| 복원 수단 | ViewModel 으로 충분 | SavedStateHandle + Storage |
+
+설정 변경 시 ViewModel 이 유지되는 것은 Android 프레임워크가 Activity 재생성 시 같은 ViewModelStore 를 재사용하기 때문이다. 프로세스가 완전히 종료되면 이 store 도 사라진다.
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](../../02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md) | 뷰모델 내에서의 상태 복원 전략 |
-| [대용량 데이터는 로컬 저장소에 두고 식별자만 Bundle에 저장한다](../../02_app_framework/architecture/state-management/large-data-goes-to-local-storage-and-ids-to-bundle.md) | Bundle 크기 제한과 TransactionTooLargeException 방지 |
+| [설정 변경은 Activity 를 재생성하지만 모든 화면 상태를 재생성하지는 않는다](../../02_app_framework/architecture/app-components/app-component-contracts/configuration-change-recreates-activity-but-not-all-screen-state.md) | 설정 변경 시 상태 생존 여부 분류 |
+| [프로세스 종료 복구에는 saved state 와 영속 source of truth 가 필요하다](../../02_app_framework/architecture/app-components/app-component-contracts/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md) | 복구 전략 결정 기준 |
+
+---
+
+### 3. ViewModel: 설정 변경을 살아남는 상태 홀더
+
+ViewModel 은 화면(Activity/Fragment/Composable) 의 생명주기보다 오래 살아남아 **설정 변경 동안 화면 상태를 유지**한다. 또한 repository 호출, UseCase 실행 같은 외부 작업을 조율한다.
+
+**ViewModel 의 두 가지 핵심 규칙**:
+1. **Mutable 상태는 내부에 숨긴다**: `_uiState: MutableStateFlow` 는 private, `uiState: StateFlow` 만 공개
+2. **UI Context 를 보유하지 않는다**: Activity, Fragment, View, Context 참조를 field 에 저장하면 메모리 누수가 발생한다
+
+`viewModelScope` 는 ViewModel 이 소멸될 때 자동으로 취소되는 CoroutineScope 다. `SavedStateHandle` 은 프로세스 종료 후에도 작은 직렬화 가능한 값을 복원하고, Navigation argument 접근에도 쓰인다.
+
+| 원자 노트 | 핵심 명제 |
+|---|---|
+| [ViewModel 은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-survives-configuration-change-not-process-death.md) | ViewModel 생존 범위의 정확한 경계 |
+| [Mutable 상태 홀더는 ViewModel 내부에 숨기고 외부에는 읽기 전용 상태만 노출한다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-exposes-read-only-state.md) | StateFlow private/public 패턴 |
+| [ViewModel 은 화면 상태와 외부 작업을 조율한다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-orchestrates-screen-state-and-external-work.md) | ViewModel 의 역할과 책임 범위 |
+| [viewModelScope 는 외부 작업을 ViewModel 수명에 바인딩한다](../../02_app_framework/architecture/state-management/viewmodel/viewmodelscope-binds-external-work-to-viewmodel-lifetime.md) | viewModelScope 취소 타이밍 |
+| [SavedStateHandle 은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](../../02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md) | 적합한 값과 Navigation arg 접근 |
+| [ViewModel 은 UI controller 나 Context 를 보유하지 않는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-does-not-retain-ui-controller-or-context.md) | 메모리 누수 방지 규칙 |
+
+---
+
+### 4. Task 와 Back Stack
+
+Android 의 Task 는 "사용자가 함께 수행하는 Activity 들의 묶음"이고, Back Stack 은 그 Task 안에 Activity 가 쌓인 순서(LIFO)다. 이것은 시스템(ATMS) 이 관리하는 OS 수준의 상태이고, Compose Navigation 이나 Navigation 3 의 route 스택과는 **다른 층위**다.
+
+**핵심 규칙**: 일반 앱 내부 화면 전환은 app-owned navigation state(Compose NavController 등) 로 관리하고, 외부 진입점(딥링크, 알림), Task affinity, 알림 복귀 정책처럼 OS 와 맞닿는 부분만 Activity/Task 정책으로 결정한다.
+
+`launchMode`, Intent flags, `taskAffinity` 는 강력하지만 잘못 쓰면 Back Stack 이 예측 불가능해지고 테스트가 어려워진다.
+
+| 원자 노트 | 핵심 명제 |
+|---|---|
+| [Task 와 Back Stack 은 앱 내비게이션 상태가 아닌 OS 의 Activity 내비게이션이다](../../02_app_framework/architecture/app-components/app-component-contracts/task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md) | OS Task vs app navigation 층위 구분 |
 
 ---
 
 ### 5. 단방향 데이터 흐름 (UDF) 패턴
 
-단방향 데이터 흐름 (Unidirectional Data Flow)은 상태 변경의 진입점과 관찰점을 엄격히 분리하는 패턴이다. UI 는 이벤트를 상위로 전달하고, ViewModel 은 상태를 변경하여 하위로 흘려보낸다. Mutable 상태 홀더는 내부에 숨기고 외부에는 읽기 전용 상태만 노출하여 예측 가능성을 높인다.
+Android 권장 아키텍처의 핵심은 **State Down, Action Up** 이다:
+- **UI(Composable/View)** 는 상태를 받아 그리고, 사용자 action 을 위로 올린다
+- **ViewModel** 은 action 을 처리하고 새 UiState 를 계산해 StateFlow 로 노출한다
+- **Repository/Data layer** 는 source of truth 를 유지한다
+
+화면 상태(`UiState`)는 **불변 data class** 로 만들고, 변경은 명시적인 action 이나 전이 함수를 통해서만 일어난다.
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Mutable 상태 홀더는 ViewModel 내부에 숨기고 외부에는 읽기 전용 상태만 노출한다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-exposes-read-only-state.md) | 상태 변경 단일 진입점 확보 |
-| [UI 이벤트는 상향 전달되고 상태는 하향 흐른다](../../02_app_framework/architecture/state-management/udf-events-up-state-down.md) | UDF 패턴의 핵심 흐름 모델 |
+| [UI 는 상태를 아래로 받고 사용자 행동을 위로 전달한다](../../02_app_framework/architecture/state-management/ui-state/ui-receives-state-and-sends-actions-up.md) | State down / Action up 패턴 |
+| [화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다](../../02_app_framework/architecture/state-management/ui-state/screen-state-is-immutable-and-changes-by-explicit-transitions.md) | immutable UiState 설계 원칙 |
+| [UI, domain, data layer 는 rendering, policy, source of truth 를 분리한다](../../02_app_framework/architecture/jetpack-architecture/architecture-contracts/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md) | 3개 레이어의 책임 분리 |
+| [소비 가능한 신호는 event stream 에 둔다](../../02_app_framework/architecture/state-management/ui-state/consumable-signals-belong-in-event-stream.md) | Toast/Navigation 같은 일회성 이벤트 처리 |
 
 ---
 
-### 6. 관찰 가능한 신호와 디버깅
+### 6. Context: Android 환경 접근 능력
 
-생명주기와 상태 관리는 비동기적으로 일어나므로 디버깅이 어렵다. LifecycleObserver 와 엄격한 로깅을 통해 상태 전이를 시각화할 수 있다. 특히 코루틴 스코프 취소와 생명주기 이벤트가 맞물리는 지점은 버그가 빈번하게 발생하는 곳이므로 명확한 관찰이 필요하다.
+`Context` 는 Android 플랫폼 기능(리소스, 시스템 서비스, 파일 등) 에 접근하는 능력이지, 의존성 컨테이너가 아니다. Context 의 수명을 잘못 다루면 메모리 누수가 발생한다.
+
+| Context 종류 | 수명 | 적합한 용도 |
+|---|---|---|
+| Activity Context | Activity 수명 | UI 테마, Window 접근, Dialog |
+| Application Context | 앱 프로세스 수명 | 파일, DB, System Service |
+| Service Context | Service 수명 | 알림, 백그라운드 작업 |
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [ViewModel은 외부 작업을 viewModelScope의 수명에 묶는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodelscope-binds-external-work-to-viewmodel-lifetime.md) | 비동기 작업 취소와 ViewModel 수명의 일치 |
-| [LifecycleObserver는 컴포넌트 생명주기 변화를 외부 컴포넌트에 알린다](../../02_app_framework/architecture/lifecycle/lifecycleobserver-notifies-component-lifecycle-changes.md) | 생명주기 이벤트 기반 리소스 관리 |
+| [Context 는 Android 환경 접근 능력이지 의존성 컨테이너가 아니다](../../02_app_framework/architecture/context-and-modularity/context-contracts/context-is-android-environment-capability-not-dependency-container.md) | Context 의 올바른 이해 |
+| [Activity Context 는 Window, Theme, 짧은 수명을 갖는다](../../02_app_framework/architecture/context-and-modularity/context-contracts/activity-context-carries-window-theme-and-short-lifetime.md) | Activity Context 적합 범위 |
+| [Context 누수는 참조가 컴포넌트 수명보다 오래 살 때 발생한다](../../02_app_framework/architecture/context-and-modularity/context-contracts/context-leaks-happen-when-reference-outlives-component-lifetime.md) | 누수 패턴과 방지 원칙 |
+| [ViewModel 과 Repository 는 UI Context 를 보유하지 않아야 한다](../../02_app_framework/architecture/context-and-modularity/context-contracts/viewmodel-and-repository-should-not-retain-ui-context.md) | 메모리 누수 방지 실천 |
 
 ---
 
@@ -83,9 +161,9 @@ Android 시스템은 메모리가 부족할 때 백그라운드에 있는 앱 �
 
 | Worked Example | 연결 포인트 |
 |---|---|
-| [WE 01 · App Icon Tap to First Frame](../worked-examples/01-app-icon-tap-to-first-frame.md) | 앱 프로세스 시작과 Activity 인스턴스 생성 과정 |
-| [WE 03 · Deep Link Navigation Resolving](../worked-examples/03-deep-link-navigation-resolving.md) | Task 생성과 Back Stack 재구성 원리 |
-| [WE 05 · Process Death Recovery Simulation](../worked-examples/05-process-death-recovery-simulation.md) | 앱이 강제 종료된 후 복원되는 과정의 State 관찰 |
+| [WE 01 · App Icon Tap to First Frame](../worked-examples/01-app-icon-tap-to-first-frame.md) | Activity 시작, ATMS, 첫 프레임 렌더링 |
+| [WE 03 · Deep Link to Correct Task](../worked-examples/03-deep-link-to-correct-task-and-screen-state.md) | Task affinity, launchMode, Back Stack 관리 |
+| [WE 05 · Process Death Recovery](../worked-examples/05-process-death-recovery-of-edit-state-and-background-work.md) | SavedStateHandle + Storage 복원 전략 |
 
 ---
 
@@ -93,13 +171,13 @@ Android 시스템은 메모리가 부족할 때 백그라운드에 있는 앱 �
 
 | Runbook | 연결 포인트 |
 |---|---|
-| [RB 01 · App Launch Performance](../diagnostic-runbooks/01-app-launch-performance.md) | 콜백 지연과 메인 스레드 블로킹 진단 |
-| [RB 03 · State Loss & Process Death](../diagnostic-runbooks/03-state-loss-and-process-death.md) | 복원 실패와 TransactionTooLargeException 트러블슈팅 |
+| [RB 01 · 앱 실행 느리거나 실패](../diagnostic-runbooks/01-app-launch-slow-or-fails.md) | Activity 시작 지연, ATMS 병목 |
+| [RB 03 · 프로세스 종료 후 상태 손실](../diagnostic-runbooks/03-process-death-state-loss.md) | SavedStateHandle 누락, storage 미저장 |
 
 ---
 
 ### 더 깊이 들어갈 때 (Learning Spine)
 
-- **Chapter 05 · Architecture** — 단방향 데이터 흐름과 앱 아키텍처 가이드라인 전체
-- **Chapter 03 · Data Layer** — ViewModel 에서 데이터를 제공받기 위한 Repository 설계
-- **Chapter 02 · Jetpack Compose** — ViewModel 상태와 Compose UI 수명주기의 연결
+- **Chapter 02 · App Components** — 4대 컴포넌트 전체 서사와 상호 관계
+- **Chapter 03 · State Management** — UiState 설계, ViewModel 패턴, process death 복원 전략
+- **Chapter 05 · Architecture** — 레이어 아키텍처, Clean Architecture 적용 지점
