@@ -1,8 +1,8 @@
 ---
 title: play-integrity-token-is-server-verified-risk-signal-not-authorization
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["Play Integrity token 은 서버가 검증하는 위험 신호이지 권한 자체가 아니다"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 

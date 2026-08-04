@@ -1,9 +1,9 @@
 ---
-title: "Baseline Profile 검증은 profiled와 unprofiled 성능을 비교한다"
+title: baseline-profile-verification-compares-profiled-and-unprofiled-performance
 tags: ["android", "android/testing-performance"]
-aliases: ["baseline-profile-verification-compares-profiled-and-unprofiled-performance"]
+aliases: ["Baseline Profile 검증은 profiled와 unprofiled 성능을 비교한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Baseline Profile 검증은 profiled와 unprofiled 성능을 비교한다
@@ -21,7 +21,7 @@ Baseline Profile의 유효성 검증은 단순 생성을 넘어서 동일한 기
   - **Profiled (`BaselineProfileMode.Require`)**: `baseline-prof.txt`에 기록된 핫 경로를 `dex2oat`로 사전 컴파일한 후 시작 시간 및 스크롤 프레임 산출.
 - **개선 지표 통계**:
   $$\text{Improvement Ratio (\%)} = \left( \frac{\text{Unprofiled Median} - \text{Profiled Median}}{\text{Unprofiled Median}} \right) \times 100$$
-  - 일반적으로 Cold Startup TTID 기준 15% ~ 30% 수준의 개선이 확인되어야 정상 적용으로 판정한다.
+  - 공식 문서는 보편적인 합격 임계값을 규정하지 않는다. Google 샘플 앱(Now in Android, Pixel 7) 벤치마크에서는 Baseline Profile 적용으로 Cold Startup TTID 가 약 29% 개선된 사례가 보고됐지만, 이는 해당 앱과 기기에 국한된 예시 수치다. 팀은 자신의 앱에서 반복 측정한 baseline 대비 개선폭을 직접 정의하고 회귀 기준으로 삼아야 한다.
 
 ### 2. 검증 대조 워크플로우
 
@@ -37,7 +37,7 @@ flowchart TD
 
     CollectA --> Compare["3. 통계 대조 & Delta % 계산"]
     CollectB --> Compare
-    Compare --> Decision{"개선율 > 15% & Flakiness < 5%?"}
+    Compare --> Decision{"개선율이 팀 정의 임계값 이상 & Flakiness < 5%?"}
     Decision -->|Yes| GatePass["Release Gate PASS"]
     Decision -->|No| ProfileRegenerate["프로필 규칙 누락 진단 및 재생성"]
 ```
@@ -121,4 +121,8 @@ class BaselineProfileVerificationTest {
 - 개선율이 5% 미만이거나 미미하다면:
   1. `baseline-prof.txt`에 핵심 `MainActivity` 및 Compose 라이브러리 핫 메서드가 누락되었는지 확인한다.
   2. 릴리스 APK의 `assets/dexopt/baseline.prof` 파일이 정상 탑재되었는지 APK Analyzer로 검증한다.
+
+## 공식 참고
+
+- [Baseline Profile 측정](https://developer.android.com/topic/performance/baselineprofiles/measure-baselineprofile) — 검증일: 2026-08-04
 

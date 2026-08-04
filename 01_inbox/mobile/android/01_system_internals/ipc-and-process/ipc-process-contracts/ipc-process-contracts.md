@@ -1,8 +1,8 @@
 ---
 title: ipc-process-contracts
 tags: [android, android/ipc, android/system-internals]
-aliases: [Android IPC contracts, Binder contracts]
-date modified: 2026-08-03 17:25:30 +09:00
+aliases: ["IPC and process contracts", Android IPC contracts, Binder contracts]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

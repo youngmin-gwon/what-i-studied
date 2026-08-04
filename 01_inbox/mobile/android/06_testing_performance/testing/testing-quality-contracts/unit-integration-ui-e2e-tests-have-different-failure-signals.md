@@ -1,9 +1,9 @@
 ---
-title: "Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다"
+title: unit-integration-ui-e2e-tests-have-different-failure-signals
 tags: ["android", "android/testing-performance"]
-aliases: ["unit-integration-ui-e2e-tests-have-different-failure-signals"]
+aliases: ["Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다

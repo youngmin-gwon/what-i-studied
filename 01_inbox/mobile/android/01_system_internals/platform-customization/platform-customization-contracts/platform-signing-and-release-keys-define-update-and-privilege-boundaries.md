@@ -1,8 +1,8 @@
 ---
 title: platform-signing-and-release-keys-define-update-and-privilege-boundaries
 tags: [android, android/aosp, android/security]
-aliases: [Platform signing, Release keys]
-date modified: 2026-08-03 17:26:33 +09:00
+aliases: ["Platform signing과 release key는 update와 privilege boundary를 정의한다", Platform signing, Release keys]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

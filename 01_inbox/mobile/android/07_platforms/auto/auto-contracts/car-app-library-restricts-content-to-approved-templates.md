@@ -2,7 +2,7 @@
 title: car-app-library-restricts-content-to-approved-templates
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-03 17:29:10 +09:00
 ---
 
@@ -23,6 +23,8 @@ Jetpack 의 Car App Library 는 앱이 임의의 View/Compose 레이아웃을 �
 ```kotlin
 class MyCarAppService : CarAppService() {
     override fun createHostValidator(): HostValidator =
+        // ALLOW_ALL_HOSTS_VALIDATOR는 개발 중에만 쓴다. 공식 문서는 release 빌드에서
+        // HostValidator.Builder로 허용 호스트를 명시적으로 등록하도록 요구한다.
         HostValidator.ALLOW_ALL_HOSTS_VALIDATOR
 
     override fun onCreateSession(): Session = object : Session() {

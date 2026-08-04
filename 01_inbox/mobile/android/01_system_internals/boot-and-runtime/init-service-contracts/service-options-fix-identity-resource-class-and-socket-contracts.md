@@ -2,7 +2,7 @@
 title: service-options-fix-identity-resource-class-and-socket-contracts
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["service option은 identity, resource, class, socket 계약을 고정한다"]
-date modified: 2026-08-03 17:23:46 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -75,14 +75,3 @@ adb shell cat /dev/cpuset/foreground/tasks | grep $(adb shell pidof surfacefling
 - [init-service-is-supervised-process-with-explicit-lifecycle](init-service-is-supervised-process-with-explicit-lifecycle.md)
 
 공식 문서: [Android Init Service Options](https://android.googlesource.com/platform/system/core/+/main/init/README.md#services)
-
-
-### Detailed Contracts
-- [init-debugging-uses-logs-properties-and-service-state.md](init-debugging-uses-logs-properties-and-service-state.md)
-- [init-rc-language-declares-actions-services-options-and-imports.md](init-rc-language-declares-actions-services-options-and-imports.md)
-- [fstab-is-boot-time-mount-and-verification-contract.md](fstab-is-boot-time-mount-and-verification-contract.md)
-- [ueventd-turns-kernel-uevents-into-dev-node-permissions.md](ueventd-turns-kernel-uevents-into-dev-node-permissions.md)
-- [init-triggers-are-event-and-property-gates.md](init-triggers-are-event-and-property-gates.md)
-- [first-stage-init-builds-minimal-filesystem-for-second-stage.md](first-stage-init-builds-minimal-filesystem-for-second-stage.md)
-- [property-service-is-global-state-store-and-restricted-control-plane.md](property-service-is-global-state-store-and-restricted-control-plane.md)
-- [init-is-pid1-and-userspace-bootstrap-policy-engine.md](init-is-pid1-and-userspace-bootstrap-policy-engine.md)

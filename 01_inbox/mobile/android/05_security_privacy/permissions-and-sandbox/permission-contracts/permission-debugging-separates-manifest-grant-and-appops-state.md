@@ -1,8 +1,8 @@
 ---
 title: permission-debugging-separates-manifest-grant-and-appops-state
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["권한 디버깅은 manifest, grant state, AppOps 를 분리해 확인한다"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 

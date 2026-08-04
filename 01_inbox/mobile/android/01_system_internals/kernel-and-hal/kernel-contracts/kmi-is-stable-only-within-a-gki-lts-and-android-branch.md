@@ -2,7 +2,7 @@
 title: kmi-is-stable-only-within-a-gki-lts-and-android-branch
 tags: [android, android/gki, android/kernel]
 aliases: [Kernel Module Interface, KMI]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
@@ -38,7 +38,7 @@ graph TD
 ```
 
 1. **Intra-Branch Stability (동일 브랜치 내부)**: `android15-6.6` KMI 브랜치 내에서는 보안 패치(SPL) 수용으로 GKI 커널 버전이 업데이트되어도 기존 `vendor_dlkm` 모듈 재컴파일 없이 동적 로드 보장.
-2. **Inter-Branch Non-compatibility (이종 브랜치 간)**: Android Major 버전이 업그레이드되거나 커널 LTS 버전이 변경되면(`6.1` -> `6.6`), 커널 내부 구조체 픽드 필드 및 심볼 데이터가 변경되므로 KMI 호환이 불가능하며 모듈을 새 KMI 타깃으로 재빌드해야 함.
+2. **Inter-Branch Non-compatibility (이종 브랜치 간)**: Android Major 버전이 업그레이드되거나 커널 LTS 버전이 변경되면(`6.1` -> `6.6`), 커널 내부 구조체 필드 및 심볼 데이터가 변경되므로 KMI 호환이 불가능하며 모듈을 새 KMI 타깃으로 재빌드해야 함.
 
 ---
 

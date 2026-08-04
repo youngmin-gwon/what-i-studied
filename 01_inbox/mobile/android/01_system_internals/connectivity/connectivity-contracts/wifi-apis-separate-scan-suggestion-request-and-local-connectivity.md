@@ -2,7 +2,7 @@
 title: wifi-apis-separate-scan-suggestion-request-and-local-connectivity
 tags: [android, android/connectivity, android/wifi]
 aliases: [WifiNetworkSuggestion, WifiNetworkSpecifier, WifiScanner, Local Only Hotspot]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -16,7 +16,7 @@ Android 10(API 29)부터 기존의 비보안적인 글로벌 Wi-Fi 관리 API(`W
 
 1. **Network Suggestion API (`WifiNetworkSuggestion`)**:
    - 통신사/기업 앱이 시스템에 Wi-Fi 자격 증명을 "추천"하는 제안 모델.
-   - 사용자 승인 하에 시스템 연결 엔진이 자동 자동 연결 여부를 결정한다.
+   - 사용자 승인 하에 시스템 연결 엔진이 자동 연결 여부를 결정한다.
 
 2. **Network Specifier API (`WifiNetworkSpecifier`)**:
    - IoT 기기 초기 설정(Provisioning)용 1:1 전용 연결.

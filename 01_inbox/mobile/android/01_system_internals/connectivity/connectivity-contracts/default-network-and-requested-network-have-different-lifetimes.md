@@ -2,7 +2,7 @@
 title: default-network-and-requested-network-have-different-lifetimes
 tags: [android, android/connectivity, android/lifecycle]
 aliases: [Default Network, Requested Network, NetworkRequest, NetworkCallback Lifecycle]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -71,7 +71,7 @@ class SafeNetworkRequester(
     }
 
     // Lifecycle ON_STOP 시 반드시 해제하여 배터리 누수 방지
-    override onStop(owner: LifecycleOwner) {
+    override fun onStop(owner: LifecycleOwner) {
         networkCallback?.let {
             connectivityManager.unregisterNetworkCallback(it)
             networkCallback = null

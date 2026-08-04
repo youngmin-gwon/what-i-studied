@@ -1,8 +1,8 @@
 ---
 title: verified-boot-establishes-device-software-chain-of-trust
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["Verified Boot 는 기기 소프트웨어의 chain of trust 를 만든다"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 

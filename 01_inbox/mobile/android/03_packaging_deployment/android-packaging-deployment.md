@@ -43,9 +43,13 @@ flowchart TD
 ### 정본 MOC 영역
 - [Gradle 빌드 계약](build/gradle/gradle-build-contracts/gradle-build-contracts.md)
 - [의존성, 버전, CI 계약](build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)
+- [Android CI/CD 구현 계약](build/ci-cd-contracts/ci-cd-contracts.md)
 - [Play 릴리스와 배포 계약](distribution/release-distribution-contracts/release-distribution-contracts.md)
 - [Play Delivery 계약](distribution/play-delivery-contracts/play-delivery-contracts.md)
+- [Google Play Billing 계약](distribution/billing-contracts/billing-contracts.md)
 - [R8와 Gradle 빌드 최적화 계약](optimization/build-optimization-contracts/build-optimization-contracts.md)
+
+읽는 순서: Gradle 빌드 계약 → 의존성, 버전, CI 계약 → Android CI/CD 구현 계약(그 CI 게이트를 실제로 무엇으로 구현하는지) → R8와 Gradle 빌드 최적화 계약 → Play 릴리스와 배포 계약/Play Delivery 계약(배포 대상과 산출물) → Google Play Billing 계약(디지털 상품 결제가 걸린 앱만 해당).
 
 ### 관측 가능 증거 (Observable Evidence)
 ```bash

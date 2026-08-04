@@ -2,7 +2,7 @@
 title: camerax-and-camera2-have-different-control-boundaries
 tags: [android, android/camera, android/media]
 aliases: [CameraX, Camera2, Camera2Interop]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
@@ -15,7 +15,7 @@ Android 카메라 API 시스템에서 **Camera2**는 명시적인 상태 머신�
 ### 메커니즘: API 레이어 제어 범위 비교
 
 1. **Camera2 (Framework Explicit Machine)**:
-   - 개발자가 `CameraDevice`, `CameraCaptureSession`, `CaptureRequest` 상태 머신 및 Surface 파이크라인 생명주기를 직접 제어한다.
+   - 개발자가 `CameraDevice`, `CameraCaptureSession`, `CaptureRequest` 상태 머신 및 Surface 파이프라인 생명주기를 직접 제어한다.
    - 센서 수동 제어(수동 ISO, 셔터 스피드, 포커스 거리, RAW DNG 취득) 및 초고속 캡처 세션 변경에 적합하다.
    - 단점: OEM 기기별 하드웨어 버그(특정 해상도 미지원, aspect ratio 왜곡)를 앱이 직접 파편화 대응 조치해야 함.
 

@@ -3,7 +3,7 @@ title: A2-binder-and-ipc
 tags: [android, system-internals, binder, ipc, topic-synthesis]
 aliases: [Binder IPC, Android IPC Topic]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-04 20:45:00 +09:00
 ---
 
 ## A2 · Binder 와 IPC 완전 이해
@@ -156,5 +156,6 @@ adb shell logcat -b all | grep "avc: denied"
 
 ### 더 깊이 들어갈 때 (Learning Spine)
 
-- **Chapter 01 · Android Platform Overview** — SystemServer 와 ServiceManager 구조 서사
-- **Chapter 08 · Security** — Binder 권한 검사, SELinux binder policy, caller UID 활용
+- [2장 Android 플랫폼 실행 계층과 호출 경로](../learning-spine/02-android-platform-execution-layers-and-call-paths.md) — 로컬 호출, 시스템 서비스 호출, 하드웨어 기능 호출을 구분하는 SystemServer/ServiceManager 서사
+- [6장 메인 스레드, Binder, coroutine과 durable scheduler는 서로 다른 실행 책임을 진다](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) — Binder thread pool 이 프로세스 경계와 동시성을 어떻게 책임지는지
+- [9장 Identity, 권한과 독립적인 security gate](../learning-spine/09-identity-permission-and-independent-security-gates.md) — Binder 호출의 커널 검증 UID/PID, SELinux mandatory policy

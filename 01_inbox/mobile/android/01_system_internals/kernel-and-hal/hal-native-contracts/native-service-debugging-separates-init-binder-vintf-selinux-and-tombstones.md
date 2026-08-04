@@ -2,7 +2,7 @@
 title: native-service-debugging-separates-init-binder-vintf-selinux-and-tombstones
 tags: [android, android/native, android/system-internals]
 aliases: [native debugging, SELinux, tombstone, init, VINTF]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -33,7 +33,7 @@ graph TD
     E -- Yes --> F["Check RPC Transaction Hang (dumpsys / binder state)"]
 ```
 
-1. **Layer 1: Init Execution**: `init.rc` 파일 경로 오타, 바이너리 뷰 실행 권한, `user`/`group` 누락으로 인한 프로세스 미출범.
+1. **Layer 1: Init Execution**: `init.rc` 파일 경로 오타, 바이너리 파일 실행 권한, `user`/`group` 누락으로 인한 프로세스 미출범.
 2. **Layer 2: SELinux MAC Policy**: `init`이 프로세스를 시작할 때 `type_transition` 규칙 부족 또는 디바이스 노드 접근 거부로 인한 즉시 사망.
 3. **Layer 3: VINTF Matrix Alignment**: Vendor `manifest.xml`과 System `compatibility_matrix.xml` 간의 AIDL/HIDL 버전 비호환으로 인한 서비스 바인딩 차단.
 4. **Layer 4: Binder Service Registration**: `AServiceManager_addService()` 실행 시 `service_contexts` 누락으로 인한 등록 거부.

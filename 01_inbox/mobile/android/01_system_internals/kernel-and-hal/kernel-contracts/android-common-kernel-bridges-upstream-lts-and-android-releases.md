@@ -2,7 +2,7 @@
 title: android-common-kernel-bridges-upstream-lts-and-android-releases
 tags: [android, android/kernel, linux]
 aliases: [ACK, Android Common Kernel]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 23:45:00 +09:00
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
 
-Android Common Kernel(ACK)은 Kernel.org의 upstream Linux LTS(Long Term Support) 커널에 Android 플랫폼 실행에 필요한 핵심 패치(Binder, ashmem/DMA-BUF, energy-aware scheduler, eBPF infrastructure, CFI/SELinux 서브시스템 등)를 통합한 커널 소스 트리스. Google의 `kernel/common` repository에서 관리되며, 모든 Android GKI(Generic Kernel Image) 커널은 ACK 소스 트리에서 빌드된다.
+Android Common Kernel(ACK)은 Kernel.org의 upstream Linux LTS(Long Term Support) 커널에 Android 플랫폼 실행에 필요한 핵심 패치(Binder, ashmem/DMA-BUF, energy-aware scheduler, eBPF infrastructure, CFI/SELinux 서브시스템 등)를 통합한 커널 소스 트리다. Google의 `kernel/common` repository에서 관리되며, 모든 Android GKI(Generic Kernel Image) 커널은 ACK 소스 트리에서 빌드된다.
 
 ACK를 이해할 때는 단순 브랜치 이름을 제품 지식처럼 외우기보다 브랜치의 역할과 생명주기를 파악해야 한다. 예를 들어 `android15-6.6`은 Android 15 패키징과 Linux 6.6 LTS 커널을 연결하는 ACK KMI(Kernel Module Interface) 안정화 브랜치다.
 

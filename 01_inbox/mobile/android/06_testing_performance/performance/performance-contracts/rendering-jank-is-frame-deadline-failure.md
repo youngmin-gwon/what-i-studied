@@ -1,9 +1,9 @@
 ---
-title: "렌더링 성능은 프레임 지연의 원인을 분리한다"
+title: rendering-jank-is-frame-deadline-failure
 tags: ["android", "android/testing-performance"]
-aliases: ["rendering-jank-is-frame-deadline-failure"]
+aliases: ["렌더링 성능은 프레임 지연의 원인을 분리한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## 렌더링 성능은 프레임 지연의 원인을 분리한다

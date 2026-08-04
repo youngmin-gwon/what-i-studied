@@ -1,9 +1,9 @@
 ---
-title: "CUJ 선택은 벤치마크 행동을 안정화한다"
+title: cuj-selection-keeps-benchmark-actions-stable
 tags: ["android", "android/testing-performance"]
-aliases: ["cuj-selection-keeps-benchmark-actions-stable"]
+aliases: ["CUJ 선택은 벤치마크 행동을 안정화한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## CUJ 선택은 벤치마크 행동을 안정화한다

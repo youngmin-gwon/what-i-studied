@@ -1,9 +1,9 @@
 ---
-title: "Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다"
+title: startup-mode-and-reportfullydrawn-define-startup-measurement
 tags: ["android", "android/testing-performance"]
-aliases: ["startup-mode-and-reportfullydrawn-define-startup-measurement"]
+aliases: ["Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다

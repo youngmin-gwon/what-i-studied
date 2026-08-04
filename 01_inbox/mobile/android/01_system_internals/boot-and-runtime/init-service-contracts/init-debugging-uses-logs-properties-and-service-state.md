@@ -2,7 +2,7 @@
 title: init-debugging-uses-logs-properties-and-service-state
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["init 디버깅은 로그, property, service 상태를 함께 본다"]
-date modified: 2026-08-03 17:23:37 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -62,7 +62,6 @@ adb shell getprop | grep "\[init.svc\."
 # [init.svc.zygote]: [running]
 
 # init 서비스의 PID 및 추적 정보 조회
-adb shell subcmd /system/bin/init status # 또는 logcat
 adb logcat -s init
 
 # init의 Action 수행 시간 및 소요 시간 확인

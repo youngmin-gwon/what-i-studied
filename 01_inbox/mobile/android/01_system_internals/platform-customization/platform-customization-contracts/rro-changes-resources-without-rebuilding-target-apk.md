@@ -1,8 +1,8 @@
 ---
 title: rro-changes-resources-without-rebuilding-target-apk
 tags: [android, android/aosp, android/resources]
-aliases: [RRO, Runtime Resource Overlay]
-date modified: 2026-08-03 17:26:35 +09:00
+aliases: ["RRO는 target APK를 다시 빌드하지 않고 resource를 바꾼다", RRO, Runtime Resource Overlay]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

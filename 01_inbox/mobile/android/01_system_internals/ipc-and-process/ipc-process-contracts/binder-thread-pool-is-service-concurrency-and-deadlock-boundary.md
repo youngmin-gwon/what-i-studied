@@ -1,8 +1,8 @@
 ---
 title: binder-thread-pool-is-service-concurrency-and-deadlock-boundary
 tags: [android, android/binder, android/ipc]
-aliases: [Binder thread pool]
-date modified: 2026-08-03 17:25:25 +09:00
+aliases: ["Binder thread pool은 service concurrency와 deadlock 경계다", Binder thread pool]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

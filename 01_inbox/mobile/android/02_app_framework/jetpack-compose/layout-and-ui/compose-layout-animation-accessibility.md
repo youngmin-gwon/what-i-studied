@@ -35,7 +35,9 @@ Compose UI 정본은 Runtime mental model 과 분리해 layout, modifier, custom
 
 ### Widget Surface
 
-- [Glance는 Compose UI가 아니라 RemoteViews 위젯 경계로 렌더링한다](./compose-ui-contracts/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
+App widget 전용 계약(lifecycle, RemoteViews 제약, 설정 Activity, 갱신 주기)은 별도 클러스터로 이전했다.
+
+- [App Widget 계약](../../app-widgets/app-widget-contracts/app-widget-contracts.md) - [Glance는 Compose UI가 아니라 RemoteViews 위젯 경계로 렌더링한다](../../app-widgets/app-widget-contracts/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md) 포함.
 
 관련 Runtime 지도: [Compose runtime and state model](../runtime/compose-runtime-and-state-model.md)
 

@@ -1,11 +1,11 @@
 ---
-title: compose-compiler-belongs-to-kotlin-compiler-flow-not-bom.md
+title: compose-compiler-belongs-to-kotlin-compiler-flow-not-bom
 tags: ["android", "compose", "kotlin", "compiler"]
 aliases: ["Compose compiler는 BOM이 아니라 Kotlin compiler 흐름에 속한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Compose compiler는 BOM이 아니라 Kotlin compiler 흐름에 속한다

@@ -1,9 +1,9 @@
 ---
-title: "Macrobenchmark의 컴파일 모드는 테스트 계약의 일부다"
+title: macrobenchmark-compilation-mode-is-part-of-test-contract
 tags: ["android", "android/testing-performance"]
-aliases: ["macrobenchmark-compilation-mode-is-part-of-test-contract"]
+aliases: ["Macrobenchmark의 컴파일 모드는 테스트 계약의 일부다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Macrobenchmark의 컴파일 모드는 테스트 계약의 일부다

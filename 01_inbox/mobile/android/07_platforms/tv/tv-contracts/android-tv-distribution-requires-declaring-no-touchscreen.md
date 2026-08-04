@@ -2,7 +2,7 @@
 title: android-tv-distribution-requires-declaring-no-touchscreen
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-03 17:27:18 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2026-08-03 17:27:18 +09:00
 
 ### 핵심 정의
 
-매니페스트에 `<uses-feature android:name="android.software.leanback" android:required="true">` 를 선언하고 `<uses-feature android:name="android.hardware.touchscreen" android:required="false">` 를 함께 선언해야, Play 스토어가 이 앱을 Android TV 기기에 배포 가능한 것으로 인식한다. 이 선언이 없으면 앱이 터치스크린을 요구하는 것으로 간주돼 TV 기기의 Play 스토어 검색/설치 대상에서 제외된다.
+매니페스트에 `<uses-feature android:name="android.hardware.touchscreen" android:required="false">` 를 선언해야, Play 스토어가 이 앱을 Android TV 기기에 배포 가능한 것으로 인식한다. 이 선언이 없으면 앱이 터치스크린을 요구하는 것으로 간주돼 TV 기기의 Play 스토어 검색/설치 대상에서 제외된다. `android.software.leanback` 선언은 별개로 배포 범위를 정한다. `required="false"` 로 선언하면 휴대폰/태블릿과 TV 모두에 배포되고, `required="true"` 로 선언하면 TV 전용으로 배포 대상이 좁아진다. leanback 을 `required="true"` 로 잘못 선언해도 touchscreen 선언이 없으면 TV 배포 자격은 여전히 얻지 못한다.
 
 ### 매니페스트 선언 구성 메커니즘
 

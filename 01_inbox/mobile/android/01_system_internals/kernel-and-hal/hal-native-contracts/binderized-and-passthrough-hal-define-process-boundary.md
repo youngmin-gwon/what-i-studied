@@ -2,7 +2,7 @@
 title: binderized-and-passthrough-hal-define-process-boundary
 tags: [android, android/native, android/system-internals]
 aliases: [Binderized HAL, Passthrough HAL]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -73,7 +73,7 @@ service vendor.foo-1-0 /vendor/bin/hw/android.hardware.foo@1.0-service
 ### 실무 규칙
 
 - Android 11+ 이후 릴리스 기기의 모든 신규 HAL 개발은 `@VintfStability` 규격을 준수하는 **Stable AIDL Binderized HAL**로 작성되어야 한다.
-- Passthrough HAL은 Treble 마이그레이션 과도기의 레거시 파피체 또는 초저지연 오디오/스페셜 하드웨어에 한정된 예외이며, `system` 파티션과 `vendor` 파티션을 물리 분리하여 업데이트하는 Treble 계약을 충족하려면 Binderized 배치가 필수적이다.
+- Passthrough HAL은 Treble 마이그레이션 과도기의 레거시 잔재 또는 초저지연 오디오/스페셜 하드웨어에 한정된 예외이며, `system` 파티션과 `vendor` 파티션을 물리 분리하여 업데이트하는 Treble 계약을 충족하려면 Binderized 배치가 필수적이다.
 
 ---
 

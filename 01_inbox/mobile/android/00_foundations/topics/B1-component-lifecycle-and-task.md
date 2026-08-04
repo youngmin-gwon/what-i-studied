@@ -3,7 +3,7 @@ title: B1-component-lifecycle-and-task
 tags: [android, app-framework, lifecycle, architecture, topic-synthesis]
 aliases: [Activity 생명주기, Task, Back Stack, 컴포넌트 생명주기]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-04 20:45:00 +09:00
 ---
 
 ## B1 · 컴포넌트 생명주기와 Task / Back Stack
@@ -178,6 +178,5 @@ Android 권장 아키텍처의 핵심은 **State Down, Action Up** 이다:
 
 ### 더 깊이 들어갈 때 (Learning Spine)
 
-- **Chapter 02 · App Components** — 4대 컴포넌트 전체 서사와 상호 관계
-- **Chapter 03 · State Management** — UiState 설계, ViewModel 패턴, process death 복원 전략
-- **Chapter 05 · Architecture** — 레이어 아키텍처, Clean Architecture 적용 지점
+- [4장 매니페스트에서 컴포넌트 실행까지](../learning-spine/04-manifest-to-component-execution.md) — 4대 컴포넌트가 매니페스트 선언에서 실행 요청으로 이어지는 전체 서사
+- [5장 화면, 프로세스, task와 사용자 상태는 독립적인 lifetime을 가진다](../learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md) — configuration change/process death에서 ViewModel·SavedStateHandle·task back stack이 각각 어떻게 다르게 반응하는지

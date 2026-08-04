@@ -3,7 +3,7 @@ title: A1-boot-and-process
 tags: [android, system-internals, boot, topic-synthesis]
 aliases: [Android 부팅, 프로세스 생성, Boot Topic]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-04 19:30:00 +09:00
 ---
 
 ## A1 · Android 부팅과 프로세스 생성
@@ -20,7 +20,7 @@ date modified: 2026-08-04 16:00:00 +09:00
 | Binder IPC | AMS-Zygote, ActivityThread-AMS 통신 이해 |
 | SELinux 기초 | init 보안 도메인과 앱 격리 이해 |
 
-관련 토픽: [A2 · Binder 와 IPC](./A2-binder-and-ipc.md) · [A3 · 커널·HAL·드라이버](./A3-kernel-hal-driver.md)
+관련 토픽: [A2 · Binder 와 IPC](./A2-binder-and-ipc.md) · A3 · 커널·HAL·드라이버 계층(Phase 10 미착수, 아직 없음)
 
 ---
 
@@ -208,5 +208,5 @@ adb shell ps -A | grep -E "system_server|zygote|com\."
 
 ### 더 깊이 들어갈 때 (Learning Spine)
 
-- **Chapter 01 · Android Platform Overview** — 부팅 흐름의 서사적 설명과 각 계층의 역할
-- **Chapter 08 · Security** — AVB, SELinux 도메인, 앱 샌드박스 격리 전체 맥락
+- [4장 매니페스트에서 컴포넌트 실행까지](../learning-spine/04-manifest-to-component-execution.md) — 컴포넌트 활성화 요청이 AMS→Zygote fork→specialization→ActivityThread attach 순으로 프로세스 상태를 확인하는 전체 흐름
+- [9장 Identity, 권한과 독립적인 security gate](../learning-spine/09-identity-permission-and-independent-security-gates.md) — SELinux mandatory policy, UID 샌드박스가 다른 보안 게이트와 독립적으로 판정되는 이유

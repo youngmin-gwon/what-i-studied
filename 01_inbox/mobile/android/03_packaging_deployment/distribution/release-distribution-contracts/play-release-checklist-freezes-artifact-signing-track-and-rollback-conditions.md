@@ -1,11 +1,11 @@
 ---
-title: play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md
+title: play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions
 tags: ["android", "release", "checklist", "play-console"]
 aliases: ["Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다
@@ -15,7 +15,7 @@ updated: 2026-08-04 15:35:00 +09:00
 1. **Artifact Freeze**: AAB 파일의 무결성 검증 (SHA-256 Hash 고정) 및 `mapping.txt` (ProGuard 디옥스 매핑 파일) 아카이브.
 2. **Signature & Version Freeze**: `versionCode` 및 `versionName` 확정, Upload Key 서명 검증.
 3. **Track & Rollout Plan**: 배포 트랙(Production), 초기 단계적 출시 비율(1%, 5%, 10%), 타겟 언어별 릴리스 노트 동결.
-4. **Halt / Rollback Criteria**: Android Vitals Crash Rate > 1.0% 또는 ANR Rate > 0.47% 초과 시 단계적 출시 즉시 중단(Halt Rollout) 조건 수립.
+4. **Halt / Rollback Criteria**: Android Vitals의 공식 불량 행동 기준선인 사용자 인지 크래시율 1.09% 또는 사용자 인지 ANR율 0.47%(전체 기기 기준) 초과 시 단계적 출시 즉시 중단(Halt Rollout) 조건 수립.
 
 ```mermaid
 flowchart TD

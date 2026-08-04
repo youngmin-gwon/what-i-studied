@@ -2,7 +2,7 @@
 title: vsync-and-choreographer-define-frame-deadline
 tags: [android, android/graphics, android/performance]
 aliases: [VSync, Choreographer, Frame Deadline, Display Event]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
@@ -18,7 +18,7 @@ Android 렌더링 파이프라인의 시간축 기준점인 **VSync (Vertical Sy
    - 디스플레이 패널 컨트롤러가 물리 주사 주기마다 VSync 이벤트를 발생시킨다.
 
 2. **DispSync / EventThread**:
-   - SurfaceFlinger 내부의 `EventThread`가 하드웨어 VSync를 바탕으로 소프트웨어 펄스인 **VSync-APP**과 **VSync-SF**로 분이 계산한다.
+   - SurfaceFlinger 내부의 `EventThread`가 하드웨어 VSync를 바탕으로 소프트웨어 펄스인 **VSync-APP**과 **VSync-SF**로 분리 계산한다.
 
 3. **Choreographer Frame Callback Phase**:
    - `Choreographer`는 VSync-APP 타이머를 수신하여 UI 스레드에서 4가지 단계를 순차적으로 실행한다:

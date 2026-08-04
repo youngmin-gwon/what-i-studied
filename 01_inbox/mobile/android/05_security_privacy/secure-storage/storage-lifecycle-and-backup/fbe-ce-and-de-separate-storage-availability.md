@@ -1,8 +1,8 @@
 ---
 title: fbe-ce-and-de-separate-storage-availability
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["FBE 에서 CE 와 DE 를 나누는 저장소 경계"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
@@ -62,11 +62,11 @@ fun inspectStorageAvailability(context: Context) {
 
 ### 판단 기준
 
-Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity 와 mandatory policy 가 어떻게 강제되는지 판단하는 기준으로 읽는다.
+Storage lifecycle 노트는 FBE CE/DE 가용 시점, Direct Boot 단계, 캐시 휘발성, 백업 복원 경계가 서로 다른 판단 축임을 구분하는 기준으로 읽는다.
 
 ### 경계
 
-client-side check 를 authorization 으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
+저장 위치 선택을 보안 등급 선택과 동일시하지 않고, 가용성(availability)과 기밀성(confidentiality)을 분리해서 판단한다.
 
 상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup.md)
 

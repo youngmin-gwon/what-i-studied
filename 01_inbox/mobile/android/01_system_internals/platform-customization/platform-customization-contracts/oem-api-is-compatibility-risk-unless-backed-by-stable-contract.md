@@ -1,8 +1,8 @@
 ---
 title: oem-api-is-compatibility-risk-unless-backed-by-stable-contract
 tags: [android, android/api, android/oem]
-aliases: [OEM API]
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["OEM API는 stable contract가 없으면 compatibility risk다", OEM API]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

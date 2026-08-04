@@ -31,8 +31,10 @@ flowchart TD
 - [내부 앱 공유는 릴리스 트랙이 아니라 빠른 아티팩트 공유다](internal-app-sharing-is-fast-artifact-sharing-not-release-track.md)
 - [단계적 출시는 관측 가능한 릴리스 운영 절차다](staged-rollout-is-observable-release-operation.md)
 - [Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다](play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md)
+- [In-App Update의 flexible과 immediate 흐름은 사용자 흐름 차단 여부가 다르다](in-app-update-flexible-and-immediate-flows-differ-in-blocking.md)
+- [In-App Review API는 리뷰 제출을 보장하지 않고 요청만 할 수 있다](in-app-review-api-can-only-request-not-guarantee-a-review.md)
 
-관련 지도: [Gradle 빌드 계약](../../build/gradle/gradle-build-contracts/gradle-build-contracts.md), [Play Delivery 계약](../play-delivery-contracts/play-delivery-contracts.md)
+관련 지도: [Gradle 빌드 계약](../../build/gradle/gradle-build-contracts/gradle-build-contracts.md), [Play Delivery 계약](../play-delivery-contracts/play-delivery-contracts.md), [Google Play Billing 계약](../billing-contracts/billing-contracts.md)
 
 ### 관측 가능 증거 (Observable Evidence)
 ```bash

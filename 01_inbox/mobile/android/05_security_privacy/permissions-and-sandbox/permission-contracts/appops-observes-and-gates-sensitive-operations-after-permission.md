@@ -1,8 +1,8 @@
 ---
 title: appops-observes-and-gates-sensitive-operations-after-permission
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["AppOps 는 권한 이후의 민감 작업 실행 상태를 관찰하고 제어한다"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 

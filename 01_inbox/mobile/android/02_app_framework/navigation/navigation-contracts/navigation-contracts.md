@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Android Navigation 진입 계약
 
-Android navigation 은 세 층으로 나눠서 읽어야 한다. OS 는 Intent 와 Manifest 로 앱 컴포넌트를 찾고, Deep Link 는 외부 URI 를 앱 내부 목적지로 바꾸며, Navigation 3 는 앱 내부 back stack 상태를 관리한다. Adaptive Navigation 은 같은 목적지를 window 조건에 맞는 chrome 과 pane 으로 표현한다.
+Android navigation 은 세 층으로 나눠서 읽어야 한다. OS 는 Intent 와 Manifest 로 앱 컴포넌트를 찾고, Deep Link 는 외부 URI 를 앱 내부 목적지로 바꾸며, Navigation 3 는 앱 내부 back stack 상태를 관리한다. Adaptive Navigation 은 같은 목적지를 window 조건에 맞는 chrome 과 pane 으로 표현한다. Custom Tabs 는 앱을 벗어나지 않으면서 신뢰 경계가 다른 웹 콘텐츠로 이동하는 네 번째 층이다.
 
 ### 판단 순서
 
@@ -22,6 +22,7 @@ Android navigation 은 세 층으로 나눠서 읽어야 한다. OS 는 Intent �
 - [Navigation 3 route key는 안정적인 직렬화 식별자다](../navigation3/navigation3-contracts/route-key-should-be-stable-and-serializable.md)
 - [Navigation 3 back stack은 저장 가능한 state로 복원한다](../navigation3/navigation3-contracts/navigation3-back-stack-needs-saveable-restoration.md)
 - [Adaptive navigation은 현재 window와 posture로 결정한다](../adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-is-driven-by-window-and-posture.md)
+- [Custom Tabs는 WebView와 다른 신뢰 경계와 프로세스 모델을 가진다](../custom-tabs/custom-tabs-contracts/custom-tabs-share-browser-trust-boundary-instead-of-app-webview-process.md)
 
 ### 하위 지도
 
@@ -29,3 +30,4 @@ Android navigation 은 세 층으로 나눠서 읽어야 한다. OS 는 Intent �
 - [Deep Link 계약](../intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
 - [Navigation 3 계약](../navigation3/navigation3-contracts/navigation3-contracts.md)
 - [Adaptive Navigation 계약](../adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)
+- [Custom Tabs 계약](../custom-tabs/custom-tabs-contracts/custom-tabs-contracts.md)

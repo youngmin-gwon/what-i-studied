@@ -2,7 +2,7 @@
 title: rescue-party-recovers-repeated-system-failures-in-stages
 tags: [android, android/boot-runtime, android/system-internals, android/system-server]
 aliases: ["Rescue Party는 반복되는 system failure를 단계적으로 복구한다"]
-date modified: 2026-08-03 17:23:56 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -17,7 +17,7 @@ date created: 2026-08-01 00:00:00 +09:00
 1. **Failure Counting Trigger**:
    - **Bootloop Trigger**: 디바이스 부팅 시작 후 5분 이내에 `sys.boot_completed = 1` 마일스톤에 도달하지 못하고 5회 이상 재부팅되는 경우.
    - **System Crash Trigger**: 5분 이내에 `system_server`가 5회 이상 크래시되는 경우.
-   - **Persistent App Crash Trigger**: 5분 이내에 시스템 필수 패키지가 5회 이상 크래시되는 경우.
+   - **Persistent App Crash Trigger**: 30초 이내에 시스템 필수 패키지가 5회 이상 크래시되는 경우.
 2. **Mitigation Levels (단계별 복구 수준)**:
    - **Level 1 (`LEVEL_RESET_SETTINGS_UNRESET`)**: 문제가 발생한 패키지의 플래그 및 DeviceConfig 오버라이드 리셋.
    - **Level 2 (`LEVEL_RESET_SETTINGS_UNTAGGED`)**: 기본 Settings Provider 구성 리셋.
@@ -84,4 +84,4 @@ adb shell setprop debug.rescue 1
 - [boot-completion-is-observable-milestones-not-one-property](../boot-flow-contracts/boot-completion-is-observable-milestones-not-one-property.md)
 - [system_server는 framework service를 한 프로세스 안에서 시작한다](system-server-starts-framework-services-in-one-process.md)
 
-공식 문서: [Rescue Party](https://source.android.com/docs/core/architecture/safetyhacks/rescue-party)
+공식 문서: [Rescue Party](https://source.android.com/docs/core/tests/debug/rescue-party)

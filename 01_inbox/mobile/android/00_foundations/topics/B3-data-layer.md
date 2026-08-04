@@ -3,7 +3,7 @@ title: B3-data-layer
 tags: [android, app-framework, data-layer, coroutines, flow, room, datastore, topic-synthesis]
 aliases: [데이터 레이어, Flow, Room, DataStore, Paging]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-04 20:45:00 +09:00
 ---
 
 ## B3 · 데이터 레이어: Flow · Room · DataStore · Paging
@@ -191,5 +191,5 @@ Paging 3 은 무한 스크롤처럼 데이터를 페이지 단위로 로드하�
 
 ### 더 깊이 들어갈 때 (Learning Spine)
 
-- **Chapter 06 · Data Layer** — Repository 패턴, data source 추상화, error handling 전략
-- **Chapter 07 · Performance** — Room 쿼리 최적화, Flow 연산자 비용, Paging prefetch 조정
+- [8장 데이터, 저장소, 네트워크와 offline recovery](../learning-spine/08-data-storage-network-and-offline-recovery.md) — 로컬 우선 쓰기, 지연된 동기화, idempotent 재시도가 이어지는 순환 서사
+- [6장 메인 스레드, Binder, coroutine과 durable scheduler는 서로 다른 실행 책임을 진다](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) — WorkManager가 프로세스 재시작을 넘는 지속성을 어떻게 책임지는지

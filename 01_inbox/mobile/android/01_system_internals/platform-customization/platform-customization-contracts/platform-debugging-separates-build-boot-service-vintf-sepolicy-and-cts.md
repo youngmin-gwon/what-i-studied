@@ -1,8 +1,8 @@
 ---
 title: platform-debugging-separates-build-boot-service-vintf-sepolicy-and-cts
 tags: [android, android/aosp, android/debugging]
-aliases: [Platform debugging]
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["Platform debugging은 build, boot, service, VINTF, sepolicy, CTS를 분리한다", Platform debugging]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

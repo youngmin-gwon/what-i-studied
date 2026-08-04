@@ -1,8 +1,8 @@
 ---
 title: runtime-permission-is-user-mediated-access-contract
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["Runtime permission 은 사용자에게 기능 사용 시점에 요청하는 접근 계약이다"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 

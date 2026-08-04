@@ -1,9 +1,9 @@
 ---
-title: "Benchmark 결과는 물리 기기와 CI 조건을 통제해야 한다"
+title: benchmark-results-require-physical-device-and-ci-controls
 tags: ["android", "android/testing-performance"]
-aliases: ["benchmark-results-require-physical-device-and-ci-controls"]
+aliases: ["Benchmark 결과는 물리 기기와 CI 조건을 통제해야 한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Benchmark 결과는 물리 기기와 CI 조건을 통제해야 한다

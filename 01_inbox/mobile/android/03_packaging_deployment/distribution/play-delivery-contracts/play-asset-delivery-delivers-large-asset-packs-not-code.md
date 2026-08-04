@@ -3,9 +3,9 @@ title: play-asset-delivery-delivers-large-asset-packs-not-code
 tags: ["android", "play-asset-delivery", "pad", "assets"]
 aliases: ["Play Asset Delivery는 코드가 아니라 대용량 asset pack을 전달한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Play Asset Delivery는 코드가 아니라 대용량 asset pack을 전달한다
@@ -14,7 +14,7 @@ updated: 2026-08-04 15:35:00 +09:00
 Play Asset Delivery (PAD)는 게임 앱이나 그래픽 집약적 앱의 150MB 초과 대용량 에셋(3D 모델, 텍스처 파일, 사운드 팩 등)을 효율적으로 분할 전달하기 위한 전용 아키텍처다.
 - **바이너리 코드 전무**: Asset Pack은 `.dex`나 코드 파일을 일체 포함하지 않으며 오직 에셋 데이터 리소스만 포함한다.
 - **배포 모드 세 가지**:
-  1. `install-time`: 앱 다운로드 시 함께 압축 설치 (최대 1GB).
+  1. `install-time`: 앱 다운로드 시 함께 압축 설치 (asset pack 개별 최대 1.5GB, install-time asset pack 전체 합산 최대 4GB).
   2. `fast-follow`: 앱 최초 설치 직후 배경에서 자동 다운로드.
   3. `on-demand`: 실행 중 필요할 때 `AssetPackManager`로 비동기 다운로드.
 

@@ -1,8 +1,8 @@
 ---
 title: android-security-practice-is-defense-in-depth-not-client-trust
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["Android 보안 실무는 클라이언트 신뢰가 아니라 방어 계층 설계다"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 

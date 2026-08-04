@@ -1,8 +1,8 @@
 ---
-title: init-triggers-are-event-and-property-gates.md
+title: init-triggers-are-event-and-property-gates
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["init trigger는 event와 property 조건을 결합하는 실행 gate다"]
-date modified: 2026-08-03 17:23:43 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

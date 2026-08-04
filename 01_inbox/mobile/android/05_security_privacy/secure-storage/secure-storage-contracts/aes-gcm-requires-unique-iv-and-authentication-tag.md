@@ -1,8 +1,8 @@
 ---
 title: aes-gcm-requires-unique-iv-and-authentication-tag
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["AES-GCM 은 고유한 IV 와 Authentication Tag 를 요구한다"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
@@ -92,11 +92,11 @@ object AesGcmCipherHelper {
 
 ### 판단 기준
 
-Platform security 노트는 앱 권한보다 낮은 계층에서 device integrity 와 mandatory policy 가 어떻게 강제되는지 판단하는 기준으로 읽는다.
+Secure storage 노트는 키 소유권(Key Ownership), 인증 암호화(AEAD), 생체 인증 바인딩, 백업 제외 설계가 서로 다른 방어선임을 구분하는 기준으로 읽는다.
 
 ### 경계
 
-client-side check 를 authorization 으로 오해하지 않고 server verification, boot trust, sandbox boundary 를 분리한다.
+암호화 라이브러리 적용 자체를 안전 보장으로 오해하지 않고, 키 수명주기와 데이터 백업 경계를 별도로 설계한다.
 
 상위 문서: [보안 저장소 계약](secure-storage-contracts.md)
 

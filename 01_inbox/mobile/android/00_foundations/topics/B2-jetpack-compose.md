@@ -2,7 +2,7 @@
 title: B2-jetpack-compose
 tags: [android, jetpack-compose, topic-synthesis]
 aliases: [Compose Topic, Jetpack Compose 합성]
-date modified: 2026-08-04 16:30:25 +09:00
+date modified: 2026-08-04 20:45:00 +09:00
 date created: 2026-08-04 16:00:00 +09:00
 ---
 
@@ -262,6 +262,5 @@ Compose Runtime 은 Composable 실행 결과를 **Slot Table(Gap Buffer 구조)*
 
 ### 더 깊이 들어갈 때 (Learning Spine)
 
-- **Chapter 04 · UI Layer** — Compose 상태 모델과 ViewModel 연결 서사적 설명
-- **Chapter 05 · Architecture** — 단방향 데이터 흐름(UDF)과 Compose 의 관계
-- **Chapter 07 · Performance** — Macrobenchmark 와 Compose 성능 측정 전체 흐름
+- [7장 입력, 리소스 선택과 화면 프레임](../learning-spine/07-input-resource-selection-and-display-frame.md) — Compose 가 그린 결과가 Surface→BufferQueue→SurfaceFlinger 합성을 거쳐 화면이 되는 과정
+- [11장 관찰, 테스트와 품질 feedback](../learning-spine/11-observation-testing-and-quality-feedback.md) — Macrobenchmark/Perfetto 로 Compose 성능을 측정하고 회귀를 잡는 순환

@@ -20,4 +20,7 @@ date created: 2026-07-31 23:59:30 +09:00
 - [시각 정보와 제스처에는 읽을 수 있는 의미와 대체 동작이 필요하다](./visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)
 - [Semantics 병합, 정리, 탐색 순서는 의미 단위를 조정한다](./semantics-merging-clearing-and-traversal-control-the-unit-of-meaning.md)
 - [접근성 품질은 서비스, 검사기, Semantics 테스트로 검증한다](./accessibility-quality-requires-service-scanner-and-semantics-verification.md)
-- [Glance는 Compose UI가 아니라 RemoteViews 위젯 경계로 렌더링한다](./glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
+
+### 다른 클러스터로 이동한 주제
+
+- [Glance는 Compose UI가 아니라 RemoteViews 위젯 경계로 렌더링한다](../../../app-widgets/app-widget-contracts/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md) - App Widget 전용 클러스터([App Widget 계약](../../../app-widgets/app-widget-contracts/app-widget-contracts.md))로 이전했다.

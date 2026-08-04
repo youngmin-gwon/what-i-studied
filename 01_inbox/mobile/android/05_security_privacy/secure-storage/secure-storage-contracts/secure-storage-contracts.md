@@ -1,8 +1,8 @@
 ---
 title: secure-storage-contracts
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["보안 저장소 계약"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 

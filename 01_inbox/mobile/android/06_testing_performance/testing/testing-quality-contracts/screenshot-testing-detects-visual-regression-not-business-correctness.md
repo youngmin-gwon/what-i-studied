@@ -1,9 +1,9 @@
 ---
-title: "Screenshot testing은 시각 회귀를 검출한다"
+title: screenshot-testing-detects-visual-regression-not-business-correctness
 tags: ["android", "android/testing-performance"]
-aliases: ["screenshot-testing-detects-visual-regression-not-business-correctness"]
+aliases: ["Screenshot testing은 시각 회귀를 검출한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Screenshot testing은 시각 회귀를 검출한다

@@ -1,8 +1,8 @@
 ---
 title: binder-is-kernel-mediated-object-capability-ipc
 tags: [android, android/binder, android/ipc]
-aliases: [Binder IPC]
-date modified: 2026-08-03 17:25:24 +09:00
+aliases: ["Binder는 객체 참조를 커널이 중재하는 capability IPC다", Binder IPC]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

@@ -1,9 +1,9 @@
 ---
-title: "Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다"
+title: profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks
 tags: ["android", "android/testing-performance"]
-aliases: ["profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks"]
+aliases: ["Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다

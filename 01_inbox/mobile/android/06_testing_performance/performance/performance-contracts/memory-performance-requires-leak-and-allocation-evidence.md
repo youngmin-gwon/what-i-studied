@@ -1,9 +1,9 @@
 ---
-title: "Android 메모리는 사용량보다 회수되지 않는 객체를 본다"
+title: memory-performance-requires-leak-and-allocation-evidence
 tags: ["android", "android/testing-performance"]
-aliases: ["memory-performance-requires-leak-and-allocation-evidence"]
+aliases: ["Android 메모리는 사용량보다 회수되지 않는 객체를 본다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Android 메모리는 사용량보다 회수되지 않는 객체를 본다

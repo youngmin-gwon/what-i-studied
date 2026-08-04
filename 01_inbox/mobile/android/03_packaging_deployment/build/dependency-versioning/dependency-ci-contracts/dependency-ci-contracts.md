@@ -31,7 +31,9 @@ flowchart LR
 - [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](android-cicd-gates-separate-fast-validation-and-release-validation.md)
 - [의존성 변경 체크리스트는 그래프, ABI, 테스트, 배포 위험을 함께 본다](dependency-change-checklist-reviews-graph-abi-tests-and-release-risk.md)
 
-관련 지도: [Gradle 빌드 계약](../../gradle/gradle-build-contracts/gradle-build-contracts.md), [Play 릴리스와 배포 계약](../../../distribution/release-distribution-contracts/release-distribution-contracts.md)
+이 지도의 CI/CD 노트는 "어떤 게이트를 언제 도는가"(Fast Gate vs Release Gate 구분)만 다루며, 그 게이트를 실제 파이프라인 단계·Fastlane·서명 자격증명·빌드 매트릭스로 구현하는 방법은 별도 클러스터 [Android CI/CD 구현 계약](../../ci-cd-contracts/ci-cd-contracts.md) 이 다룬다.
+
+관련 지도: [Gradle 빌드 계약](../../gradle/gradle-build-contracts/gradle-build-contracts.md), [Play 릴리스와 배포 계약](../../../distribution/release-distribution-contracts/release-distribution-contracts.md), [Android CI/CD 구현 계약](../../ci-cd-contracts/ci-cd-contracts.md)
 
 ### 관측 가능 증거 (Observable Evidence)
 ```bash

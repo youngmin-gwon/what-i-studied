@@ -30,8 +30,9 @@ flowchart TD
 - [Source set 우선순위는 variant별 코드와 리소스 충돌을 결정한다](source-set-priority-decides-variant-code-and-resource-conflicts.md)
 - [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](signing-config-connects-local-signing-and-play-release-identity.md)
 - [AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다](agp-dsl-checklist-verifies-effective-release-variant-values.md)
+- [Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md)
 
-관련 지도: [의존성, 버전, CI 계약](../../dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md), [Play 릴리스와 배포 계약](../../../distribution/release-distribution-contracts/release-distribution-contracts.md)
+관련 지도: [의존성, 버전, CI 계약](../../dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md), [Play 릴리스와 배포 계약](../../../distribution/release-distribution-contracts/release-distribution-contracts.md), [Android CI/CD 구현 계약](../../ci-cd-contracts/ci-cd-contracts.md)
 
 ### 관측 가능 증거 (Observable Evidence)
 ```bash

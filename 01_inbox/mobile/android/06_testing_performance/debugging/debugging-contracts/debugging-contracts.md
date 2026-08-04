@@ -26,5 +26,6 @@ flowchart TD
 
 - [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](./logcat-crash-anr-and-debugger-answer-different-questions.md)
 - [ADB, emulator, device tool은 테스트 환경을 제어한다](./adb-emulator-and-device-tools-control-test-environment.md)
+- [Crashlytics/Analytics SDK는 Android vitals에 없는 옵트인 컨텍스트를 더한다](./crashlytics-and-analytics-sdks-add-opt-in-context-vitals-does-not-have.md)
 
 관련 지도: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md), [테스트 품질 계약](../../testing/testing-quality-contracts/testing-quality-contracts.md), [런타임 성능 계약](../../performance/performance-contracts/performance-contracts.md)

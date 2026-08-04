@@ -3,9 +3,9 @@ title: android-default-config-defines-identity-and-version-contracts
 tags: ["android", "gradle", "defaultconfig"]
 aliases: ["Android 기본 설정은 식별자와 버전 계약을 만든다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Android 기본 설정은 식별자와 버전 계약을 만든다
@@ -57,13 +57,4 @@ cat app/build/intermediates/merged_manifests/release/AndroidManifest.xml | grep 
 # package="com.example.app" android:versionCode="10020" android:versionName="1.2.0"
 ```
 
-관련 노트: [앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다](../../../distribution/release-distribution-contracts/app-updates-require-application-id-version-code-and-signature-compatibility.md), [Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다](gradle-project-and-module-dsl-have-different-responsibilities.md)
-
-
-### Detailed Contracts
-- [android-gradle-plugin-adds-android-build-rules-to-gradle.md](android-gradle-plugin-adds-android-build-rules-to-gradle.md)
-- [source-set-priority-decides-variant-code-and-resource-conflicts.md](source-set-priority-decides-variant-code-and-resource-conflicts.md)
-- [signing-config-connects-local-signing-and-play-release-identity.md](signing-config-connects-local-signing-and-play-release-identity.md)
-- [agp-dsl-checklist-verifies-effective-release-variant-values.md](agp-dsl-checklist-verifies-effective-release-variant-values.md)
-- [gradle-build-contracts.md](gradle-build-contracts.md)
-- [build-type-product-flavor-and-build-variant-are-different-axes.md](build-type-product-flavor-and-build-variant-are-different-axes.md)
+관련 노트: [앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다](../../../distribution/release-distribution-contracts/app-updates-require-application-id-version-code-and-signature-compatibility.md), [Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다](gradle-project-and-module-dsl-have-different-responsibilities.md), [Gradle 빌드 계약](gradle-build-contracts.md)

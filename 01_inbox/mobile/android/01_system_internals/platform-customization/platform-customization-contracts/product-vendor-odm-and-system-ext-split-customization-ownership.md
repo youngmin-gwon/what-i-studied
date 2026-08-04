@@ -1,8 +1,8 @@
 ---
 title: product-vendor-odm-and-system-ext-split-customization-ownership
 tags: [android, android/aosp, android/partitions]
-aliases: [Android partitions, Vendor partition]
-date modified: 2026-08-03 17:26:34 +09:00
+aliases: ["product, vendor, odm, system_ext는 customization ownership을 나눈다", Android partitions, Vendor partition]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: metered-and-data-saver-are-background-network-cost-policy
 tags: [android, android/connectivity, android/policy]
 aliases: [Metered Network, Data Saver, Background Data Restriction]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -42,7 +42,7 @@ import android.net.ConnectivityManager
 import android.content.Context
 
 fun registerDataSaverListener(context: Context) {
-    val cm = context.getSystemService(Context.CONNECTIVITY_ACTION) as ConnectivityManager
+    val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     when (cm.restrictBackgroundStatus) {
         ConnectivityManager.RESTRICT_BACKGROUND_STATUS_ENABLED -> {

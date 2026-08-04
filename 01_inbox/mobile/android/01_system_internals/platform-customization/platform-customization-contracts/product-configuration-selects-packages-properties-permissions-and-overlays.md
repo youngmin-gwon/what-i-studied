@@ -1,8 +1,8 @@
 ---
 title: product-configuration-selects-packages-properties-permissions-and-overlays
 tags: [android, android/aosp, android/build]
-aliases: [Android product configuration]
-date modified: 2026-08-03 17:26:34 +09:00
+aliases: ["product configuration은 package, property, permission, overlay를 선택한다", Android product configuration]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

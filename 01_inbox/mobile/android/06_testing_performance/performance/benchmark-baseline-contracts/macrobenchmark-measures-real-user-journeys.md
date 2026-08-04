@@ -1,9 +1,9 @@
 ---
-title: "Macrobenchmark는 실제 사용자 여정을 측정한다"
+title: macrobenchmark-measures-real-user-journeys
 tags: ["android", "android/testing-performance"]
-aliases: ["macrobenchmark-measures-real-user-journeys"]
+aliases: ["Macrobenchmark는 실제 사용자 여정을 측정한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Macrobenchmark는 실제 사용자 여정을 측정한다

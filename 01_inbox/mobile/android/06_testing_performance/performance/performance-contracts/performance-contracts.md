@@ -1,9 +1,9 @@
 ---
-title: "런타임 성능 계약"
+title: performance-contracts
 tags: ["android", "android/testing-performance"]
-aliases: ["performance-contracts"]
+aliases: ["런타임 성능 계약"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## 런타임 성능 계약

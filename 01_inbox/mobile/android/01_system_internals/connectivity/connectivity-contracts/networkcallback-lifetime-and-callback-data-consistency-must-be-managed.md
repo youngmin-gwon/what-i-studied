@@ -2,7 +2,7 @@
 title: networkcallback-lifetime-and-callback-data-consistency-must-be-managed
 tags: [android, android/connectivity, android/lifecycle]
 aliases: [NetworkCallback, Callback Consistency, Network Capabilities Race Condition]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -44,7 +44,7 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.os.Handler
-import android.os.Looper
+import android.os.HandlerThread
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
@@ -54,7 +54,8 @@ class NetworkStateMonitor(
 
     private var callback: ConnectivityManager.NetworkCallback? = null
     // 전용 Worker Handler 생성하여 UI 스레드 블로킹 방지
-    private val workerHandler = Handler(Looper.getMainLooper())
+    private val workerThread = HandlerThread("NetworkCallbackWorker").apply { start() }
+    private val workerHandler = Handler(workerThread.looper)
 
     override fun onStart(owner: LifecycleOwner) {
         callback = object : ConnectivityManager.NetworkCallback() {
@@ -88,6 +89,7 @@ class NetworkStateMonitor(
             }
             callback = null
         }
+        workerThread.quitSafely()
     }
 }
 ```

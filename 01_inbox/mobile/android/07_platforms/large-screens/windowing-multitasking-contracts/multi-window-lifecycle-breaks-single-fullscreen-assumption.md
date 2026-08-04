@@ -2,7 +2,7 @@
 title: multi-window-lifecycle-breaks-single-fullscreen-assumption
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 18:06:11 +09:00
 ---
 
@@ -69,6 +69,8 @@ adb shell dumpsys input | grep -i "FocusedApplication"
 
 ### 관련 문서
 
+- [데스크톱 윈도잉에서는 앱 창이 자유롭게 변한다](./desktop-windowing-makes-android-app-window-freeform.md)
+- [Task와 새 창 실행은 back stack 재사용을 명시해야 한다](./task-and-window-launch-must-declare-back-stack-reuse.md)
 
 공식 문서: [Support desktop windowing](https://developer.android.com/develop/adaptive-apps/guides/support-desktop-windowing)
 

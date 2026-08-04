@@ -1,8 +1,8 @@
 ---
 title: ipc-debugging-starts-from-service-registration-call-path-and-thread-state
 tags: [android, android/debugging, android/ipc]
-aliases: [Binder debugging, IPC debugging]
-date modified: 2026-08-03 17:25:29 +09:00
+aliases: ["IPC 디버깅은 service 등록, call path, thread state에서 시작한다", Binder debugging, IPC debugging]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

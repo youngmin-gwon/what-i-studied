@@ -1,8 +1,8 @@
 ---
 title: apps-should-check-api-feature-availability-not-mainline-package-names
 tags: ["android", "android/system-internals"]
-aliases: ["앱은 Mainline package 이름보다 API와 feature availability를 확인해야 한다"]
-date modified: 2026-08-03 17:26:43 +09:00
+aliases: ["앱은 Mainline 패키지 이름이 아니라 API/feature availability를 검사해야 한다", "앱은 Mainline package 이름보다 API와 feature availability를 확인해야 한다"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 23:05:30 +09:00
 ---
 

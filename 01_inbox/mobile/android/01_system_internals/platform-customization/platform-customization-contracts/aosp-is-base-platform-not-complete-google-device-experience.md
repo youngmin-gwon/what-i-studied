@@ -1,8 +1,8 @@
 ---
 title: aosp-is-base-platform-not-complete-google-device-experience
 tags: [android, android/aosp]
-aliases: [Android Open Source Project, AOSP]
-date modified: 2026-08-04 17:07:11 +09:00
+aliases: ["AOSP는 완성된 Google 기기 경험이 아니라 기본 플랫폼이다", Android Open Source Project, AOSP]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

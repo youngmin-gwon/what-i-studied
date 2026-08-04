@@ -1,8 +1,8 @@
 ---
 title: android-app-sandbox-is-uid-and-process-boundary
 tags: ["android", "android/security-privacy"]
-aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+aliases: ["Android app sandbox 는 UID 와 프로세스 경계로 앱을 격리한다"]
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 

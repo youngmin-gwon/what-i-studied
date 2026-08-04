@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-04 17:10:00 +09:00
+date modified: 2026-08-04 21:35:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -266,7 +266,9 @@ Atomic Reference 는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 - 빠진 영역은 추가하거나 제목과 map 에서 명시적으로 제외한다.
 - System Services 와 Platforms 는 확장 또는 rename 결정을 먼저 완료한다.
 
-**상태(2026-08-04): 미충족.** Phase 5(Substance Pass)가 category 1~8 을 "완료"로 기록했지만, 이는 기존 노트를 A 등급 깊이로 보강했다는 뜻이지 Coverage Gate 를 충족했다는 뜻이 아니다. Phase 1 coverage matrix(2026-08-03)가 이미 지적한 두 공백(01_system_internals·02_app_framework 통합 map 부재, 06_testing_performance 의 CI/디바이스 팜·접근성 테스트 부재)이 이후 여러 category 가 "완료"로 기록된 뒤에도 그대로 남아 있음을 재확인했다. 여기에 더해 vault 전체 키워드 검색으로 이전에 기록되지 않았던 새 공백을 발견했다(Google Play Billing 0 건, App Shortcuts 0 건, Bluetooth 전용 클러스터 없음, WebView 전용 노트 없음, 온디바이스 AI/ML 사실상 없음, App Widgets 1 건뿐). 상세 내역과 해소 계획은 `#### Phase 9. Coverage Gap Remediation` 참조. **다른 세션이 category 완료 로그만 보고 Coverage Gate 를 충족했다고 판단하지 않도록, 이 게이트가 아래 Phase 9 를 완료 조건으로 명시할 때까지 미충족 상태로 유지한다.**
+**상태(2026-08-04): 미충족.** Phase 5(Substance Pass)가 category 1~8 을 "완료"로 기록했지만, 이는 기존 노트를 A 등급 깊이로 보강했다는 뜻이지 Coverage Gate 를 충족했다는 뜻이 아니다. Phase 1 coverage matrix(2026-08-03)가 이미 지적한 두 공백(01_system_internals·02_app_framework 통합 map 부재, 06_testing_performance 의 CI/디바이스 팜·접근성 테스트 부재)이 이후 여러 category 가 "완료"로 기록된 뒤에도 그대로 남아 있음을 재확인했다. 여기에 더해 vault 전체 키워드 검색으로 이전에 기록되지 않았던 새 공백을 발견했다(Google Play Billing 0 건, App Shortcuts 0 건, Bluetooth 전용 클러스터 없음, WebView 전용 노트 없음, 온디바이스 AI/ML 사실상 없음, App Widgets 1 건뿐, Fastlane 0 건, Play Developer API/Gradle Play Publisher 자동 배포 0 건, CI 서명 자격증명 관리 패턴 없음, Gradle convention plugin/build-logic 전용 노트 없음, 네트워크 클라이언트 계층(Retrofit/OkHttp) 0 건, Espresso 0 건, 지역화/RTL 사실상 없음, Play Core In-App Update/Review API 0 건, Custom Tabs 0 건). 상세 내역과 해소 계획은 `#### Phase 9. Coverage Gap Remediation` 참조.
+
+**갱신(2026-08-04, Phase 9 Tier 1 완료 후): 부분 충족으로 전환.** 위 목록의 Tier 1 공백(통합 map, CI/디바이스 팜·접근성 테스트, Billing, Bluetooth, App Widgets, WebView, App Shortcuts, CI/CD·Fastlane·Gradle convention plugin, 네트워크 클라이언트 계층, Espresso, 지역화/RTL, Play Core)은 53 개 신규 노트로 실제 해소됐다(Phase 9 진행 기록 참조). 다만 여전히 미충족인 항목이 남아 있다: Tier 2 8 개 주제(착수 여부 미결정), Phase 9 검증 중 새로 발견된 `00_foundations/topics/` 의 broken link 15 건, 이 plan 문서 자체의 file URI 링크 1 건. **다른 세션은 이 세 가지가 모두 해소되기 전까지 Coverage Gate 를 완전 충족으로 표기하지 말 것.**
 
 #### 2. Learning Gate
 
@@ -567,7 +569,7 @@ Atomic Reference 는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 
 - **감사 및 교정 결과**:
   1. **스캔 대상**: `01_inbox/mobile/android/` 내 전체 665 개 마크다운 지식 노트 (하위 카테고리 전체).
-  2. **루트 노드**: [`00_foundations/android-foundation-map.md`](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/mobile/android/00_foundations/android-foundation-map.md)
+  2. **루트 노드**: [`00_foundations/android-foundation-map.md`](../00_foundations/android-foundation-map.md)
   3. **초기 상태**: 도달 가능 351 개 노트 / 미도달(Orphan) 314 개 노트 (루트 상대 경로 링크 포맷 오류 및 하위 하위 인덱스 누락 원인).
   4. **교정 조치**: 329 개 마크다운 상대 경로(`../`) 포맷 정밀 교정, 74 개 `*-contracts.md` 및 `android-*.md` 인덱스 지도 간 상대 링크 복원.
   5. **최종 검증**: **미도달(Orphan) 노트 0 건 (0%)**, **도달률 100% (665 / 665 노트 완료)**, Broken Link 0 건.
@@ -929,6 +931,8 @@ Author 와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 
 추가로 같은 재검증에서 plan 문서 어디에도 기록된 적 없는 새 공백을 vault 전체(665 개 파일) 키워드 검색으로 발견했다: `billing`/`play billing`/`구독 결제` 0 건, `shortcutmanager` 0 건, `bluetooth` 는 지나가는 언급 6 건뿐이고 전용 클러스터 없음(Phase 1 이 `04_system_services` 확장 대상으로 이미 명시했으나 미실행), `webview` 는 다른 주제 노트에서의 부수적 언급 3 건뿐이고 전용 노트 없음, `ml kit`/`tensorflow`/`gemini nano`/`aicore` 사실상 0 건, App Widget/Glance 는 노트 1 개뿐(위젯 lifecycle·RemoteViews 제약·pinning·설정 액티비티 등 큰 주제 치고 얕음).
 
+**추가 재검증(2026-08-04, 사용자 요청): CI/CD.** `fastlane` 0 건(Android/iOS 빌드·서명·배포 자동화에서 가장 널리 쓰이는 도구가 전무), `github actions`/`gitlab ci`/`jenkins`/`bitrise`/`circleci` 는 `dependency-ci-contracts`(CI 게이트 구분, 의존성 변경 체크리스트) 안에서만 추상적으로 언급되고 실제 파이프라인 구현 계약이 없다. `play developer api`/`gradle play publisher`(자동 배포)는 0 건 — `release-distribution-contracts` 는 Play Console 수동 조작(단계적 출시, 서명 키 분리, 테스트 트랙)만 다루고 API 기반 자동 배포는 다루지 않는다. `keystore` 관련 노트도 로컬 서명 설정 관점뿐이고 CI 환경에서 서명 자격증명을 안전하게 주입하는 패턴은 없다. `build cache`/`configuration cache`(Gradle 빌드 최적화)는 이미 `build-optimization-contracts` 에 있어 중복 필요 없지만, convention plugin/`build-logic` 모듈로 멀티 모듈 프로젝트의 Gradle 설정을 공유하는 패턴은 `buildSrc`/convention plugin 키워드가 다른 주제 노트에서의 부수적 언급뿐이고 전용 노트가 없다.
+
 **작업 지침.** 각 신규 클러스터는 기존 Atomic Reference 저작 규칙(4 대 필수 구성요소: 메커니즘·코드/설정 예시·다이어그램·관찰 가능한 증거, 최소 3 가지 이상)을 그대로 따른다. hub 노트(`*-contracts.md`)를 먼저 만들고 상위 map 에 링크를 연결해 Graph Gate 를 유지한다. 아래는 다른 세션이 그대로 착수할 수 있도록 폴더 경로와 원자 노트 주제를 구체적으로 명시한다.
 
 1. **`01_system_internals/android-system-internals-map.md`, `02_app_framework/android-app-framework-map.md` 신설.** 두 폴더 최상위에 통합 진입 지도가 없다는 Phase 1 지적을 실제로 해소한다. 각 map 은 하위 클러스터 목록, 읽는 순서, 포함/제외 범위를 담아 Foundation map 에서 2 단계 이내 도달을 보장한다.
@@ -970,7 +974,94 @@ Author 와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
    - static/dynamic/pinned shortcut 이 서로 다른 소유권과 lifecycle 을 가진다는 계약(선언 위치, 갱신 주체, 사용자 pin 이후 소유권 이전 차이)
    - `ShortcutManager` 의 동적 shortcut 개수 상한과 rate limit 제약(`isRateLimitingActive()`)
 
-완료 조건: 위 8 개 항목 각각에 대해 hub 노트 생성, 상위 map 링크 연결, 최소 필수 노트 작성, broken link 0 건 재확인. 신규 노트가 인용하는 버전 종속적 사실(Android 12+/13+/14+/15+ 조건 등)은 WebFetch 로 공식 문서 원문 대조를 거친다.
+9. **`03_packaging_deployment/build/ci-cd-contracts/` 신설 (Android CI/CD, 사용자 요청 2026-08-04로 범위 확정).** 기존 `dependency-ci-contracts` 의 "CI 게이트 구분"(빠른 검증 vs 릴리스 검증)과 경계를 분리해, 이 클러스터는 "그 게이트를 실제로 무엇으로 구현하는가"에 집중한다. 특정 벤더(GitHub Actions 등)에 종속되지 않는 계약 중심으로 서술하되, Fastlane 처럼 Android 생태계에서 사실상 표준인 도구는 이름을 명시한다.
+   - CI/CD 파이프라인의 표준 단계(checkout → 의존성 캐시 복원 → lint/정적분석 → unit/instrumented test → 서명 → 아티팩트 배포)와 각 단계가 실패할 때 신호가 다르다는 계약
+   - Fastlane 이 Android 빌드/테스트/서명/Play 업로드(`gradle`/`supply` action)를 오케스트레이션하는 스크립트 계층이며 Gradle 빌드 자체를 대체하지 않고 그 위에서 호출한다는 경계
+   - CI 환경에서 서명 keystore 와 Play 서비스 계정 자격증명을 다루는 안전한 패턴(암호화된 keystore를 CI secret store 에 저장, 저장소에 평문 커밋 금지, 최소 권한 서비스 계정)과 이를 어겼을 때의 관찰 가능한 사고 신호
+   - Play Developer API/Gradle Play Publisher 플러그인을 통한 자동 배포와 Play Console 수동 배포(기존 `release-distribution-contracts`)의 차이 — 자동 배포 실패 시 어떤 응답 코드/로그를 확인하는지
+   - CI 빌드 매트릭스(여러 API level·기기·flavor 조합)와 Gradle 원격 빌드 캐시를 조합해 매트릭스 빌드 시간을 줄이는 전략(테스트 실행 자체의 sharding/디바이스 팜 연계는 위 2번 `testing-quality-contracts` 항목이 전담해 중복하지 않는다)
+
+10. **`03_packaging_deployment/build/gradle/gradle-build-contracts/` 에 convention plugin/`build-logic` 모듈 노트 1 개 추가 (사용자 요청 2026-08-04).**
+   - 멀티 모듈 프로젝트에서 각 모듈의 `build.gradle.kts` 에 설정을 반복하는 대신 `build-logic`/`buildSrc` convention plugin 으로 공통 Gradle 설정(compileSdk, Kotlin 옵션, lint 규칙 등)을 한 곳에서 관리하는 계약과, 이것이 이미 존재하는 version catalog(`version-catalog-names-dependency-and-plugin-coordinates.md`)와 어떻게 함께 동작하는지의 경계
+
+**2 차 재검증(2026-08-04, 사용자 요청: "android app development 를 위해서 빠진 주제가 없는지 다시 확인").** 위 1~10 번을 확정한 뒤 더 넓게 실무 Android 앱 개발 주제를 vault 전체 키워드로 재점검했다. 결과를 확실성 순으로 나눈다.
+
+**Tier 1 — 확인된 실질 공백, 아래 11~15 번으로 작업 항목화:**
+
+- `retrofit`/`okhttp` 는 12 건 매치되지만 전부 dependency-versioning/network-security-config/DI 노트에서 예시 라이브러리명으로만 등장하고, "앱이 실제로 네트워크 클라이언트를 어떻게 구성하는가"를 다루는 노트가 없다. Learning Spine 8 장(`데이터, 저장소, 네트워크와 offline recovery`)조차 offline-first 동기화·WorkManager·ConnectivityManager 는 다루지만 Retrofit/OkHttp 계층 자체(interface 정의, interceptor, 에러/재시도/timeout 정책, suspend 통합)는 전혀 언급하지 않는다. 제목에 "네트워크"가 들어간 장에도 없다는 점에서 가장 우선순위가 높은 공백이다.
+- `espresso` 0 건. Compose UI 테스트(`compose-ui-tests-should-use-stable-selectors-and-semantics.md`)는 있지만 View 기반 화면·hybrid 화면의 표준 계측 테스트 도구인 Espresso 자체는 이름조차 등장하지 않는다.
+- 지역화/다국어(`localization`/`다국어`/`지역화`/`i18n`/`resource qualifier`) 3 건 모두 무관한 문맥(glossary mipmap 항목, CUJ 선택 기준)이고 실제 지역화 콘텐츠는 0. RTL(`rtl`)도 커스텀 레이아웃 노트의 파라미터 언급 1 건뿐, 전용 계약 없음.
+- `in-app update`/`in-app review`(Play Core 라이브러리의 대표 API) 0 건.
+- `custom tabs` 0 건. 앱 내 외부 링크 처리의 표준 패턴인데 전혀 없음.
+
+**Tier 2 — 확인됐지만 우선순위가 낮거나 범위 판단이 필요한 항목(신규 클러스터 강제보다 착수 세션 판단에 맡김):**
+
+- Crashlytics/Firebase Analytics 같은 프로덕션 크래시·이벤트 추적 SDK 0 건(다만 Learning Spine 11 장이 Android vitals 로 유사 영역을 다루므로, "vitals와 서드파티 SDK의 경계"를 명시하는 것만으로 충분할 수 있다).
+- Health Connect 1 건(release history 의 연혁 언급뿐, 실 계약 없음) — `07_platforms/wear` 또는 `04_system_services/device-capabilities` 확장 후보.
+- Mockk/Mockito 같은 구체적 테스트 더블 라이브러리명 0 건(testing-quality-contracts 는 "test double" 개념은 다루므로 라이브러리명 보강 정도로 충분할 수 있다).
+- gRPC, Kotlin Multiplatform, AppSearch, Downloadable Fonts, TTS/SpeechRecognizer 는 모두 0 건이나 이 vault 의 curriculum 범위(순수 Android, 비 KMP)에 필수인지는 불명확 — 사용자 확인 후 착수.
+- UI Automator 는 Macrobenchmark CUJ 노트 안에서 도구로 이미 쓰이고 있어(4 건) 완전한 공백은 아니고, Espresso 와의 비교 관점 정도만 보강하면 된다.
+
+11. **`02_app_framework/data/networking/networking-contracts/` 신설 (네트워크 클라이언트 계층, Tier 1 최우선).**
+    - Retrofit 인터페이스가 API 계약을 선언적으로 표현하고 OkHttp 가 실제 전송을 담당한다는 계층 분리
+    - Interceptor 체인이 인증 헤더/로깅/재시도를 요청·응답 파이프라인에 끼워 넣는 지점이라는 계약
+    - suspend 함수 기반 API 호출이 코루틴 취소와 어떻게 연결되는지(진행 중 요청이 ViewModel scope 취소 시 실제로 중단되는 조건)
+    - timeout/retry 정책이 UI 에 노출해야 하는 실패 상태와, 8 장의 offline-first 로컬 우선 쓰기 모델에 이 계층이 어디서 연결되는지
+
+12. **`06_testing_performance/testing/testing-quality-contracts/` 에 Espresso 노트 추가.**
+    - Espresso 가 View 기반/hybrid 화면의 동기적 UI 테스트를 담당하고, Compose 화면은 Compose Testing API 가 담당한다는 도구 선택 경계
+    - `IdlingResource` 로 비동기 작업 완료를 기다리는 계약과, 이를 놓쳤을 때의 flaky test 증상(이미 있는 `regression-and-flaky-tests-are-release-gate-risks.md` 와 연결)
+
+13. **`00_foundations/` 에 지역화/RTL 클러스터 신설(배치 위치는 착수 세션이 `02_app_framework/ui` 하위와 비교해 결정).**
+    - 리소스 qualifier(`values-ko`, `values-fr` 등)로 문자열이 런타임 로케일에 따라 선택되는 메커니즘
+    - Android 13+ 앱별 언어 설정(`AppCompatDelegate.setApplicationLocales`)이 시스템 로케일과 별개로 앱 언어를 바꾸는 계약
+    - RTL 미러링이 자동 적용되는 속성(`start`/`end`, `layoutDirection`)과 아이콘처럼 수동 대응이 필요한 예외
+
+14. **`03_packaging_deployment/distribution/release-distribution-contracts/` 에 2 개 노트 추가 (Play Core 라이브러리).**
+    - In-App Update API 의 flexible vs immediate 업데이트 흐름 차이와 각각의 사용자 흐름 차단 여부
+    - In-App Review API 가 실제 리뷰 제출을 보장하지 않는 "요청만 가능한" 계약이라는 점과 호출 빈도 제한
+
+15. **`02_app_framework/navigation/` 하위에 Custom Tabs 노트 추가.**
+    - Custom Tabs 가 외부 브라우저 이탈 없이 신뢰 경계가 다른 웹 콘텐츠를 보여준다는 점에서 WebView(Phase 9 항목 7)와 다른 신뢰·프로세스 모델을 가진다는 경계
+
+완료 조건: 위 15 개 항목 각각에 대해 hub 노트 생성, 상위 map 링크 연결, 최소 필수 노트 작성, broken link 0 건 재확인. Tier 2 는 착수 세션이 범위 포함 여부를 판단하고 이 문서에 결정을 기록한다. 신규 노트가 인용하는 버전 종속적 사실(Android 12+/13+/14+/15+ 조건 등)은 WebFetch 로 공식 문서 원문 대조를 거친다.
+
+**진행 기록(2026-08-04): Phase 9(Coverage Gap Remediation) Tier 1 15 개 항목 전체 완료.** 5 개 subagent 에 병렬 위임했다(맡은 파일이 서로 겹치지 않도록 hub 파일 단위로 배정): (A) 통합 map 2 개 + testing 4 개 노트, (B) Bluetooth·App Shortcuts·온디바이스 AI(`04_system_services/device-capabilities/`), (C) App Widgets·네트워크 클라이언트 계층·Custom Tabs(`02_app_framework/`), (D) WebView·지역화/RTL(`02_app_framework/ui/system/`), (E) Billing·CI/CD·Gradle convention plugin·Play Core(`03_packaging_deployment/`). 5 개 모두 rate limit 없이 정상 완료했다.
+
+**산출물.** 신규 원자/hub 노트 53 개, 기존 hub 12 개 수정(신규 클러스터 링크 추가), 노트 1 개 이전(`glance-renders-app-widgets-through-remoteviews-not-compose-ui.md` 를 `jetpack-compose/layout-and-ui` 에서 `app-widgets/app-widget-contracts/` 로 옮기고 참조하던 3 개 파일의 링크를 갱신). 병렬 클러스터 간 forward link(예: C 의 Custom Tabs 노트가 D 가 만들 `webview-contracts.md` 를 미리 참조, A 의 통합 map 이 C 가 만들 `app-widget-contracts.md`/`networking-contracts.md` 를 미리 참조)는 사전에 정확한 경로를 지정해뒀고, 5 개 모두 완료된 뒤 재검증에서 전부 정상 resolve 됐다.
+
+**검증(저작 세션이 직접 수행, 5 개 agent 각자의 자체 검증과 별개로 재확인).** 이번에 변경/생성된 67 개 파일 전체를 vault-root-relative 와 file-relative 두 방식으로 내부 링크를 재해석하는 스크립트로 재검사한 결과: broken link 0 건(Phase 9 범위 내), H1(`# `) 사용 0 건, frontmatter 누락 0 건. alias/H2 불일치 2 건이 나왔으나 둘 다 Phase 9 가 생성한 파일이 아니라 이번에 링크 한 줄만 추가된 기존 hub 파일(`android-data-layer-map.md`, `testing-quality-contracts.md`)이었고, 두 곳 모두 category 2 감사에서 이미 확인된 "hub 노트는 짧은 alias 를 써도 되는" 기존 컨벤션이라 결함이 아니다.
+
+**부수적으로 발견/수정된 사항:**
+- Agent (B) 가 `04_system_services/android-system-services-and-device-capabilities.md` 에서 "Bluetooth 는 `01_system_internals/connectivity` 소관"이라는 stale 서술을 발견해 정정했다(이제 `bluetooth-contracts` 가 담당).
+- Agent (A) 가 Firebase Test Lab 의 sharding 이 실제로는 시간 기반이 아니라 개수 기반(`--num-uniform-shards`)이라는 공식 문서 사실을 확인해, "시간 기반 분배는 CI 파이프라인이 직접 관리해야 한다"는 계약으로 정확하게 반영했다.
+- Agent (C) 가 vault 전체 broken link 스캔에서 Phase 9 범위 밖의 기존 문제를 발견했다: **`00_foundations/topics/` 에 이미 6 개 파일(A1, A2, B1~B4)이 존재하며 broken link 15 건을 포함하고 있다.** 이는 Phase 10(Topic Synthesis Layer)이 아직 착수 조건(Phase 9 완료)을 충족하기 전인데도 다른 병렬 세션이 이미 시작한 것으로 보인다. 이번 작업 범위가 아니라 수정하지 않았다 — Phase 10 착수 세션이 먼저 이 6 개 파일의 broken link 15 건을 해소하고 시작해야 한다.
+- `_meta/android-knowledge-base-quality-plan.md` 자체에 `file:///Users/...` 형태의 절대경로 file URI 링크가 1 건 있음을 발견했다(Phase 6 로그 안). 계획의 Machine Hygiene Gate 가 "wikilink 와 file URI 0"을 요구하므로 결함이지만 이번 Phase 9 작업 범위 밖이라 기록만 남긴다.
+
+**Tier 2 처리 결정:** 이번 라운드에서는 착수하지 않는다(Crashlytics/Analytics, Health Connect, Mockk/Mockito, gRPC, Kotlin Multiplatform, AppSearch, Downloadable Fonts, TTS/SpeechRecognizer). 필요 시 사용자 확인 후 별도 라운드로 진행한다.
+
+**Coverage Gate 상태 갱신:** Tier 1 15 개 항목이 모두 실제 노트로 존재하게 되어, 위 `#### 1. Coverage Gate` 의 "미충족" 판정 중 Billing/Bluetooth/WebView/온디바이스 AI/App Widgets/App Shortcuts/CI-CD/Fastlane/네트워킹 클라이언트/Espresso/지역화/Play Core/통합 map/CI 디바이스팜/접근성 테스트 관련 공백은 모두 해소됐다. Tier 2 항목과 위에서 새로 발견된 `00_foundations/topics/` broken link 15 건, plan 문서 자체의 file URI 1 건은 미해소 상태로 남아 있어 Coverage Gate 는 여전히 완전한 "충족"으로 승격하지 않는다.
+
+**진행 기록(2026-08-04): `00_foundations/topics/` broken link 15 건 수정 + Tier 2 8 개 중 3 개 착수 완료(사용자 지시: "우선 링크 고치고 그다음에 tier 2 항목 진행하자").**
+
+**1) broken link 수정.** `A1-boot-and-process.md` 의 `A3-kernel-hal-driver.md` 링크(Phase 10 미착수라 실제 파일이 없음) 1 건은 마크다운 링크를 제거하고 "(Phase 10 미착수, 아직 없음)" 안내 텍스트로 바꿨다. `B4-navigation-and-deeplink.md` 의 broken link 14 건은 단순 경로 오타가 아니라 **vault 의 실제 구조를 확인하지 않고 작성된 결과**였다 — `02_app_framework/navigation/core/`, `.../compose/`, `.../deeplink/` 같은 존재하지 않는 하위 폴더를 참조했고(실제로는 `navigation3/`, `intents-and-deep-links/`), Worked Example("WE 04 · Multi-module Navigation Setup")과 Diagnostic Runbook("RB 08 · Deep Link Routing Failure")은 아예 존재하지 않는 문서를 인용했으며, "더 깊이 들어갈 때" 절은 Learning Spine 의 실제 12 개 장 제목과 무관한 "Chapter 05 · Architecture" 같은 가짜 장을 링크 없는 텍스트로 나열하고 있었다. 이는 Topic Synthesis(Phase 10)의 본래 목적("기존 원자 노트를 합성", 새로 지어내지 않음)에 정면으로 위배되는 결함이다. 전체 6 개 절을 vault 의 실제 Navigation 3 원자 노트(`navkey-and-back-stack-are-app-owned-navigation-state.md`, `navigation3-back-stack-needs-saveable-restoration.md`, `navdisplay-and-entry-provider-separate-rendering-from-route-registry.md` 등)로 다시 매핑해 재작성했고, WE/RB/Learning Spine 참조도 실제 존재하는 문서(WE03, RB01, 4 장·5 장)로 교체했다. 또한 Phase 9 에서 막 신설된 Custom Tabs 노트를 참조하는 절을 추가해 Phase 9 산출물과의 연결을 실제로 검증했다. A1/B4 를 포함해 6 개 파일 전체를 재스캔한 결과 broken link 0 건.
+**2) plan 문서 자체의 file URI 1 건도 함께 수정.** `file:///Users/...` 절대경로를 상대경로 마크다운 링크로 교체했다(Machine Hygiene Gate 의 "wikilink 와 file URI 0" 요건).
+
+**3) Tier 2 범위 결정 및 3 개 항목 착수.** 8 개 후보 중 실무 가치 대비 저작 비용을 기준으로 3 개만 이번 라운드에 포함했다:
+- **Mockk/Mockito → `test-doubles-choose-between-fake-and-mock-by-behavior-ownership.md`**(`06_testing_performance/testing/testing-quality-contracts/`) 신설. Fake 와 Mock 을 "행동의 소유권" 기준으로 구분하고, MockK 의 strict/relaxed mock 차이를 코드로 보였다.
+- **Health Connect → `04_system_services/device-capabilities/health-connect-contracts/`** 신설(hub + 2 개 원자 노트). "클라우드 동기화가 아니라 앱 간 공유 온디바이스 저장소"라는 위치 모델과, 레코드 타입별 개별 권한 부여 모델을 다뤘다. 상위 hub(`android-system-services-and-device-capabilities.md`)의 읽는 순서를 6→7 이후 전부 재번호 매겨 자연스럽게 삽입했다.
+- **Crashlytics/Analytics → `crashlytics-and-analytics-sdks-add-opt-in-context-vitals-does-not-have.md`**(`06_testing_performance/debugging/debugging-contracts/`) 신설. Android vitals(자동 수집)와 opt-in SDK 계측(명시적 호출)을 대체 관계가 아니라 보완 관계로 규정하고, non-fatal 이벤트가 즉시가 아니라 다음 crash/재시작 시점에 배치 업로드된다는 사실을 WebFetch 로 확인해 관찰 신호로 추가했다.
+- **나머지 5 개(gRPC, Kotlin Multiplatform, AppSearch, Downloadable Fonts, TTS/SpeechRecognizer)는 이번 라운드에서 제외한다.** gRPC 는 이 vault 가 이미 Retrofit/OkHttp REST 클라이언트를 표준 경로로 다루기로 확정했고(Phase 9 항목 11), Kotlin Multiplatform 은 이 vault 의 독자 트랙 정의(순수 Android 생태계, 크로스플랫폼 코드 공유 제외) 밖이라 편집 판단으로 제외한다. AppSearch/Downloadable Fonts/TTS·SpeechRecognizer 는 실사용 빈도 대비 저작 비용이 낮은 우선순위라 보류한다. 이 결정은 다음 세션이 재검토할 수 있다.
+
+**검증.** 변경/생성된 파일 전체(75 개)를 재스캔: broken link 1 건(사전에 알려진 file URI, 위에서 함께 수정해 0 건으로 전환), H1 사용 0 건, alias/H2 불일치 3 건은 전부 이번에 링크 한 줄만 추가한 기존 hub 파일의 기존 짧은-alias 컨벤션(결함 아님)으로 확인했다.
+
+**최종 상태:** `00_foundations/topics/` 와 plan 문서의 broken link/file URI 는 모두 해소됐다. Tier 2 는 8 개 중 3 개 완료, 5 개는 명시적 판단 근거와 함께 보류로 기록했다. Coverage Gate 는 이제 Tier 1 전체 + Tier 2 3 개 + 두 hygiene 결함 수정까지 반영해, "보류로 명시된 Tier 2 5 개"만 미해소 상태로 남는다.
+
+**추가 발견(2026-08-04, 사용자의 "다음 작업 뭐해야하는데" 질문에 대응하며 자체 점검).** B4 를 고치며 발견한 "가짜 Learning Spine 장 인용" 결함이 B4 만의 문제가 아니라 **`00_foundations/topics/` 의 기존 6 개 파일 중 5 개(A1 은 별개 사유, A2·B1·B2·B3·B4) 전부에 동일하게 존재**했음을 재확인했다. 각 파일의 "더 깊이 들어갈 때 (Learning Spine)" 절이 실제 12 개 장 제목·번호와 무관한 상상의 장("Chapter 01 · Android Platform Overview", "Chapter 08 · Security", "Chapter 03 · State Management" 등)을 링크 없는 텍스트로 나열하고 있었다. 반면 각 파일의 원자 노트 표(WE/RB 링크 포함)는 샘플 검사 결과 실제 파일 경로·제목과 정확히 일치해 문제가 없었다 — 결함은 "Learning Spine 장 매핑" 절에만 국한됐다.
+
+A2/B1/B2/B3 네 파일 모두 실제 장 제목·번호로 정정했다(예: A2 는 Binder/IPC 이므로 6 장(메인 스레드·Binder·coroutine)과 9 장(Identity·권한·security gate)으로, B3 는 데이터 레이어이므로 8 장(데이터·저장소·네트워크·offline recovery)으로 재매핑). 6 개 파일 전체를 다시 broken link 스캔한 결과 0 건.
+
+**시사점.** `00_foundations/topics/`(Phase 10 산출물)를 작성한 세션은 vault 의 실제 Learning Spine 구조를 확인하지 않고 일반적인 Android 커리큘럼 지식으로 장 제목을 지어낸 것으로 보인다. Phase 10 착수 세션은 남은 27 개 주제를 작성할 때 반드시 `00_foundations/learning-spine/` 의 실제 파일명·제목을 먼저 Read 로 확인한 뒤 링크를 걸어야 하며, "관련 있어 보이는 장"을 이름만으로 추측해 인용하지 말아야 한다.
 
 #### Phase 10. Topic Synthesis Layer 작성
 
@@ -983,7 +1074,7 @@ Author 와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 - 이 문서 하나로 해당 주제의 80% 를 이해할 수 있도록 작성
 - Worked Example·Diagnostic Runbook·Learning Spine 으로의 연결 명시
 
-**주제 목록 (26 개: 기존 21 개 + Phase 9 신규 클러스터 대응 5 개 G1~G5)**:
+**주제 목록 (33 개: 기존 21 개 + Phase 9 신규 클러스터 대응 12 개 G1~G12)**:
 
 | ID | 주제 | 원자 노트 출처 |
 |---|---|---|
@@ -1014,8 +1105,14 @@ Author 와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 | G4 | 온디바이스 AI/ML (ML Kit, TFLite, AICore) | `04_system_services/device-capabilities/on-device-ai-contracts`(Phase 9 신설, 선행 필요) |
 | G5 | WebView | `02_app_framework/ui/system/webview-contracts` 또는 `05_security_privacy/security-practices`(Phase 9 신설, 선행 필요) |
 | G6 | App Shortcuts | `04_system_services/device-capabilities/app-shortcuts-contracts`(Phase 9 신설, 선행 필요) |
+| G7 | Android CI/CD (파이프라인·Fastlane·자동 배포·Gradle build-logic) | `03_packaging_deployment/build/ci-cd-contracts`(Phase 9 신설, 선행 필요) + `gradle-build-contracts`(convention plugin 추가분) |
+| G8 | 네트워크 클라이언트 계층 (Retrofit/OkHttp/Interceptor) | `02_app_framework/data/networking/networking-contracts`(Phase 9 신설, 선행 필요) |
+| G9 | Espresso와 계측 UI 테스트 | `06_testing_performance/testing/testing-quality-contracts`(Phase 9 신설분 추가) |
+| G10 | 지역화·RTL | 위치 미정(Phase 9 신설, 선행 필요) |
+| G11 | Play Core (In-App Update/Review) | `03_packaging_deployment/distribution/release-distribution-contracts`(Phase 9 신설분 추가) |
+| G12 | Custom Tabs | `02_app_framework/navigation`(Phase 9 신설분 추가) |
 
-**G1~G6 는 Phase 9(Coverage Gap Remediation)가 원자 노트를 신설한 뒤에만 합성 가능하다.** 원자 노트가 없는 주제를 먼저 합성하면 링크 없는 빈 절만 생기므로, 착수 순서는 반드시 Phase 9 완료 → Phase 10(A1~G5 전체) 순으로 지킨다. C2(디바이스 기능 접근)는 Phase 9 완료 후 Bluetooth·온디바이스 AI 를 하위 섹션으로 포함하도록 범위를 갱신한다. E3(테스트 전략)는 Phase 9 가 추가하는 CI/디바이스 팜·접근성 테스트 절을 포함하도록 범위를 갱신한다.
+**G1~G12 는 Phase 9(Coverage Gap Remediation)가 원자 노트를 신설한 뒤에만 합성 가능하다.** 원자 노트가 없는 주제를 먼저 합성하면 링크 없는 빈 절만 생기므로, 착수 순서는 반드시 Phase 9 완료 → Phase 10(A1~G12 전체) 순으로 지킨다. C2(디바이스 기능 접근)는 Phase 9 완료 후 Bluetooth·온디바이스 AI 를 하위 섹션으로 포함하도록 범위를 갱신한다. E1(빌드에서 설치까지)은 Phase 9 가 추가하는 CI/CD·convention plugin 절을 포함하거나 G7 로 분리 유지할지 착수 세션이 결정한다. E3(테스트 전략)는 Phase 9 가 추가하는 CI/디바이스 팜·접근성 테스트·Espresso 절을 포함하도록 범위를 갱신한다. B3(데이터 레이어)는 Phase 9 완료 후 네트워크 클라이언트 계층(G8)을 포함하도록 범위를 갱신한다. Phase 9 의 Tier 2 항목(Crashlytics/Analytics, Health Connect, Mockk/Mockito, gRPC, KMP, AppSearch, Downloadable Fonts, TTS/SpeechRecognizer)은 착수 여부가 아직 결정되지 않아 이 표에 포함하지 않는다 — 착수 세션이 범위 포함을 결정하면 G13 이후 번호로 추가한다.
 
 **표준 섹션 구조 (각 문서 공통)**:
 
@@ -1029,3 +1126,20 @@ Author 와 Reviewer 분리 원칙에 따라, 저작 세션과 무관한 독립 �
 **진행 방식**: B2(Jetpack Compose)를 파일럿으로 먼저 작성해 표준 형식 확정 → 사용자 확인 후 나머지 20 개 진행.
 
 **배치 위치**: `00_foundations/topics/` (신규 폴더)
+
+**진행 기록(2026-08-04): Phase 10 33 개 주제 전체 저작 완료(다른 세션) + 저작 세션의 독립 검증.** 사용자가 category 4~7/System Internals 의 Phase 5 "완료" 로그를 검증하라고 지시해 6 개 subagent 를 병렬 위임했으나, **6 개 전부 세션 rate limit("You've hit your session limit · resets 11:30pm")로 시작 직후 종료됐다.** 재시도 대신 사용자가 "다른 AI가 검증이랑 Phase 10 까지 완성했다고 하니 직접 검증만 하라"고 지시해, rate limit 영향이 적은 기계적 검증(Read/Bash/Python, Agent 미사용)으로 전환했다. 그 사이 다른 세션이 남은 27 개 주제(A3~A6, C1~C3, D1~D3, E1~E3, F1~F2, G1~G12)를 전부 작성해 `00_foundations/topics/` 가 33 개 파일로 완성돼 있었다.
+
+**검증 결과: 심각한 결함 다수 발견, 전부 수정.**
+
+1. **A1 의 fabricated Learning Spine 인용이 완전히 고쳐지지 않았었다.** 이전 라운드에서 A1 의 "관련 토픽:" 줄만 고쳤을 뿐, 파일 뒤쪽의 실제 "더 깊이 들어갈 때 (Learning Spine)" 절에 남아있던 "Chapter 01 · Android Platform Overview", "Chapter 08 · Security" 같은 동일한 가짜 장 인용을 놓쳤다. 실제 4 장·9 장으로 재매핑했다.
+2. **신규 27 개 파일 전체에서 Obsidian wikilink(`[[...]]`) 289 건 발견.** Machine Hygiene Gate("wikilink 와 file URI 0")를 정면으로 위반한다. 다만 이번엔 장 번호/파일명 자체는 실제 vault 파일과 정확히 일치했다(이전 라운드의 "존재하지 않는 파일을 지어내는" 결함과는 다른 종류) — 즉 내용은 맞는데 링크 문법이 vault 표준(마크다운 링크)이 아니라 Obsidian 전용 wikilink 였다. 스크립트로 289 건 전부를 `[표시 텍스트](경로.md)` 형식으로 변환했다(표시 텍스트가 파일 slug 그대로인 경우 대상 파일의 실제 `##` 제목으로 교체).
+3. **변환 후 25 건이 broken link 로 남았다.** `E1/E2/E3/F1/F2` 다섯 파일이 `03_packaging_deployment`/`06_testing_performance`/`07_platforms` 를 참조할 때 상대경로를 `../../../`(3 단계)로 썼는데 `topics/` 에서는 `../../`(2 단계)가 맞다 — 한 단계 초과 오류였다. 전부 정정해 broken link 0 건으로 재확인했다.
+4. **frontmatter 컨벤션이 최소 3 가지로 혼재했다.** (a) A1/A2/B1~B4: vault 표준(title=slug, `date created`/`date modified` 필드, 정확한 시간+timezone). (b) A3~A6, G7~G12, G10: `title`이 slug 대신 `"A3: 커널·HAL·드라이버 계층"` 같은 표시 문장이고, 날짜 필드명이 `date created`/`date modified` 가 아니라 `created`/`modified`(시간 없이 날짜만). (c) C1~C3, D1~D3, E1~E3, F1~F2, G1~G6: 역시 title 이 표시 문장이고 `tags`/`aliases` 가 인라인 배열이 아니라 YAML 멀티라인 리스트(`- item`) 형식. 27 개 파일 전체를 스크립트로 vault 표준(title=slug, tags/aliases 인라인 배열, 원래 표시 제목은 alias 로 보존, `date created`는 `git log --follow` 로 파일별 최초 커밋 시각 조회, `date modified: 2026-08-04 21:30:00 +09:00`)으로 정규화했다.
+
+**검증 결과 실제로 정확했던 부분.** 신규 27 개 파일의 원자 노트 인용 경로·제목, Learning Spine 장 번호·제목 매핑 자체(wikilink 변환 전 원문 기준)는 표본 대조 결과 실제 vault 파일과 정확히 일치했다 — 이전 라운드(A1~B4)처럼 존재하지 않는 파일이나 상상의 장을 지어내는 결함은 신규 27 개 파일에서는 발견되지 않았다. 즉 "10 장(Phase 10)까지 완성"이라는 다른 세션의 주장은 **내용 매핑 자체는 정확했지만 링크 문법·경로 깊이·frontmatter 스키마라는 세 가지 기계적 위생 기준을 지키지 않았다**는 뜻으로 판정한다.
+
+**최종 재검증.** `00_foundations/topics/` 33 개 파일 전체 재스캔: missing frontmatter 0, broken link 0, wikilink 0, H1 사용 0.
+
+**category 4~7/System Internals(총 293 개 파일)의 Phase 5 "완료" 로그 자체는 rate limit 로 인해 이번 라운드에서 검증하지 못했다.** 6 개 subagent 재시도는 세션 rate limit 이 리셋(23:30 KST)된 뒤에 시도해야 하며, 그 전까지는 이 로그들의 신뢰도가 category 5(Testing, 이미 반증됨)와 동일한 수준으로 취급돼야 한다.
+
+**Coverage Gate 상태 갱신:** Phase 10(Topic Synthesis) 산출물은 이제 기계적 위생 기준을 통과했지만, 여전히 다음이 미해소다 — Tier 2 5 개 보류 항목, category 4~7/System Internals 의 내용 품질(semantic A/B/C/D) 미검증.

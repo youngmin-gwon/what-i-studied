@@ -2,7 +2,7 @@
 title: androidbitmap-native-access-requires-format-stride-and-lock-lifetime
 tags: [android, android/native, android/system-internals]
 aliases: [AndroidBitmap, Bitmap native access]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 23:58:00 +09:00
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
 
-NDK의 `AndroidBitmap_*` API는 Java/Kotlin Managed 영역의 `android.graphics.Bitmap` 객체를 JNI 경계를 통해 Native C/C++ 레벨에서 Direct Pixel Buffer로 획급할 수 있게 지원하는 표준 인터페이스다.
+NDK의 `AndroidBitmap_*` API는 Java/Kotlin Managed 영역의 `android.graphics.Bitmap` 객체를 JNI 경계를 통해 Native C/C++ 레벨에서 Direct Pixel Buffer로 획득할 수 있게 지원하는 표준 인터페이스다.
 
 `AndroidBitmap_getInfo()`를 통한 비트맵 메타데이터(Width, Height, Stride, Pixel Format) 검증, `AndroidBitmap_lockPixels()`를 통한 픽셀 버퍼 주소 고정(Pinning), 및 연산 완료 후 반드시 `AndroidBitmap_unlockPixels()`를 호출해야 하는 엄격한 라이프사이클 계약을 준수해야 한다.
 

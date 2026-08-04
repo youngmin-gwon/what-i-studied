@@ -1,9 +1,9 @@
 ---
-title: "배터리, 네트워크, 저장소 성능은 자원 정책이다"
+title: battery-network-storage-efficiency-is-resource-policy
 tags: ["android", "android/testing-performance"]
-aliases: ["battery-network-storage-efficiency-is-resource-policy"]
+aliases: ["배터리, 네트워크, 저장소 성능은 자원 정책이다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## 배터리, 네트워크, 저장소 성능은 자원 정책이다

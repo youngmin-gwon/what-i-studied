@@ -2,7 +2,7 @@
 title: network-is-connection-instance-and-transport-is-only-one-capability
 tags: [android, android/connectivity]
 aliases: [Network Handle, NetworkCapabilities, TransportType]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 상위 문서: [Connectivity contracts](connectivity-contracts.md)
 
-Android 네트워크 API 디자인에서 `android.net.Network` 객체는 단순히 "Wi-Fi"나 "Cellular"라는 무선 전송 기술 종률 의미하지 않는다. **특정 물리/가상 인터페이스 인스턴스(netId)**를 식별하는 고유 핸들이며, 전송 방식(TransportType)은 그 네트워크가 갖는 수많은 **능력 속성(NetworkCapabilities)** 중 하나에 불과하다.
+Android 네트워크 API 디자인에서 `android.net.Network` 객체는 단순히 "Wi-Fi"나 "Cellular"라는 무선 전송 기술 종류를 의미하지 않는다. **특정 물리/가상 인터페이스 인스턴스(netId)**를 식별하는 고유 핸들이며, 전송 방식(TransportType)은 그 네트워크가 갖는 수많은 **능력 속성(NetworkCapabilities)** 중 하나에 불과하다.
 
 ### 메커니즘: Network 핸들과 NetworkCapabilities 비트마스크
 

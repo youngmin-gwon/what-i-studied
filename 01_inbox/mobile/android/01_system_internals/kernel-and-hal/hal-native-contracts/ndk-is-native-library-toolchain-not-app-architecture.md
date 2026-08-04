@@ -2,7 +2,7 @@
 title: ndk-is-native-library-toolchain-not-app-architecture
 tags: [android, android/native, android/system-internals]
 aliases: [NDK, Native Development Kit]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -82,7 +82,7 @@ Java_com_example_app_NativeEngine_initSurface(
 
 ### 실무 규칙
 
-- NDK C++ 라이브러리를 빌드할 때 AOSP 내부 비공개 심볼이나 `/system/lib64/`의 프레임워크 전용 `.so` 파일에 직접 링킹을 시도해서는 안 된다. NDK NDK sysroot(`sysroot/usr/include`)에 정의된 헤더만 사용해야 한다.
+- NDK C++ 라이브러리를 빌드할 때 AOSP 내부 비공개 심볼이나 `/system/lib64/`의 프레임워크 전용 `.so` 파일에 직접 링킹을 시도해서는 안 된다. NDK sysroot(`sysroot/usr/include`)에 정의된 헤더만 사용해야 한다.
 - ABI별 패키징 용량을 축소하기 위해 Play App Bundle(`.aab`)을 사용하여 사용자의 디바이스 ABI 아키텍처(예: `arm64-v8a`)에 해당하는 `.so` 바이너리만 맞춤형으로 다운로드되도록 배포 구조를 설계해야 한다.
 
 ---

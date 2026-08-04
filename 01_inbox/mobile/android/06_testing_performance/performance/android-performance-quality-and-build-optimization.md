@@ -1,9 +1,9 @@
 ---
-title: "Android 성능, 품질, 빌드 최적화 지도"
+title: android-performance-quality-and-build-optimization
 tags: ["android", "android/testing-performance"]
-aliases: ["android-performance-quality-and-build-optimization"]
+aliases: ["Android 성능, 품질, 빌드 최적화 지도"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 14:58:55 +09:00
+date modified: 2026-08-04 22:00:00 +09:00
 ---
 
 ## Android 성능, 품질, 빌드 최적화 지도
