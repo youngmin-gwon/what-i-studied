@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-04 03:50:00 +09:00
+date modified: 2026-08-04 11:10:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -423,6 +423,23 @@ Android 를 처음부터 끝까지 읽는 순차 문서다. 링크 목록이 아
 완료 조건:
 
 - reviewer 가 문서만 보고 재현과 첫 조사 단계를 수행할 수 있다.
+
+**진행 기록(2026-08-04): 8개 필수 장애군 Diagnostic Runbook 작성 완료.** `00_foundations/diagnostic-runbooks/`에 Worked Example과 나란히 배치했다.
+
+1. [앱 실행이 느리거나 첫 프레임이 뜨지 않는다](../00_foundations/diagnostic-runbooks/01-app-launch-slow-or-fails.md)
+2. [ANR(Application Not Responding)이 발생한다](../00_foundations/diagnostic-runbooks/02-anr.md)
+3. [process death 뒤 화면 상태가 사라진다](../00_foundations/diagnostic-runbooks/03-process-death-state-loss.md)
+4. [권한이 있는데도 API가 실패하거나 거부된다](../00_foundations/diagnostic-runbooks/04-permission-denial.md)
+5. [백그라운드 작업이 지연되거나 실행되지 않는다](../00_foundations/diagnostic-runbooks/05-background-work-delayed-or-not-running.md)
+6. [알림이 오지 않는다(FCM 전달은 성공했는데 표시되지 않는다)](../00_foundations/diagnostic-runbooks/06-notification-missing.md)
+7. [화면이 끊긴다(jank, dropped frames)](../00_foundations/diagnostic-runbooks/07-jank-dropped-frames.md)
+8. [설치 또는 업데이트가 실패한다](../00_foundations/diagnostic-runbooks/08-install-update-failure.md)
+
+각 runbook은 필수 구성(증상과 재현 조건, 실패 경계의 우선순위, 사용할 adb/dumpsys/cmd/logcat/trace 명령과 그 필드를 보는 이유, 정상/실패 신호, 다음 조사 경로, OS/API/target SDK 조건)을 모두 갖췄다. 이미 Learning Spine과 Worked Example에서 공식 문서로 검증한 사실을 우선 재사용했고, 새로 등장한 구체적 도구·필드(`Displayed` 로그 형식, ANR의 5가지 공식 트리거 조건과 `/data/anr/` trace 경로, `dumpsys jobscheduler`의 constraint/quota/standby bucket 필드)는 이번에 WebFetch로 공식 문서 원문을 대조했다. 8개 파일 전체 내부 링크(64개)와 외부 공식 문서 링크(16개)를 전수 확인해 broken 0건이다.
+
+각 runbook은 대응하는 Worked Example로 상호 링크했다(예: RB1↔WE1, RB3↔WE5, RB4↔WE2·WE6, RB6↔WE4, RB7↔WE7, RB8↔WE8). Runbook은 "증상이 있을 때 무엇을 어느 순서로 확인할지"를 다루고, Worked Example은 "왜 그런 일이 일어나는지"를 다루도록 역할을 분리했다.
+
+**상태: 저작 세션 자체 검증 완료 / 별도 세션의 독립 검수는 아직 미실시.**
 
 #### Phase 5. Atomic Reference 의미 품질 pass
 
