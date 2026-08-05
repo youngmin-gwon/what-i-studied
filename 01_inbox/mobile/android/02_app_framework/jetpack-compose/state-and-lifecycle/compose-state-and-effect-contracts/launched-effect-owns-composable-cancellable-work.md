@@ -27,17 +27,30 @@ Composable 바디 내부에서 `CoroutineScope().launch { … }` 를 직접 실�
 
 ### 3. 내부 동작 메커니즘 (How)
 
-```
-[Composition 파이프라인 진입]
-  |--> key1, key2 저장
-  |--> CoroutineScope 생성 및 block launch
-  
-[Recomposition 시 (Key 변경 발생)]
-  |--> 기존 실행 중이던 Job.cancel() 실행 (CancellationException 전파)
-  |--> 새로운 키 기반 CoroutineScope 생성 및 block 재실행
-  
-[Composition 화면 이탈 시 (Leave/Uncompose)]
-  |--> Job.cancel() 즉시 발동하여 비동기 코루틴 완전 정지!
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Tree as Composition Tree (Slot Table)
+    participant Effect as LaunchedEffect Block
+    participant Job as Coroutine Job
+
+    rect rgb(235, 245, 255)
+        note over Tree, Job: 1. Composition 초기 진입 (Initial Enter)
+        Tree->>Effect: key1, key2 저장 및 Scope 할당
+        Effect->>Job: CoroutineScope.launch { block } 구동
+    end
+
+    rect rgb(255, 245, 235)
+        note over Tree, Job: 2. Recomposition (Key 변경 발생 시)
+        Tree->>Job: Job.cancel() (CancellationException 전파)
+        Tree->>Effect: 새로운 키 대조 및 Scope 재할당
+        Effect->>Job: 새 CoroutineScope.launch { block } 구동
+    end
+
+    rect rgb(255, 235, 235)
+        note over Tree, Job: 3. Composition 화면 이탈 시 (Uncompose)
+        Tree->>Job: Job.cancel() 즉시 발동하여 비동기 코루틴 완전 정지!
+    end
 ```
 
 1. **CompositionContinuationScope**: 런타임은 `LaunchedEffect` 가 호출되면 `ControlledComposition` 의 코루틴 컨텍스트를 상속하는 Scope 를 할당한다.

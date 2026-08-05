@@ -24,19 +24,22 @@ date created: 2026-07-31 23:59:00 +09:00
 
 ### 3. 내부 동작 메커니즘 (How)
 
-```
-[LaunchedEffect(Unit) 장기 비동기 작업 실행중...]
-              |
-              |-- 람다 직접 호출 금지!
-              |-- updatedOnTimeoutState.value 로 캡쳐 참조 읽기
-              v
-[부모 Recomposition 발생으로 onTimeout 람다 객체 변경]
-              |
-              v
-[rememberUpdatedState 가 내부 StateRecord 의 value 만 최신 람다로 업데이트!]
-              |
-              v
-[LaunchedEffect 는 재시작 없이 계속 진행되다가, 완료 시점에 업데이트된 최신 람다 호출!]
+```mermaid
+graph TD
+    subgraph Effect["1. LaunchedEffect(Unit) 장기 비동기 작업 구동 중"]
+        A["람다 직접 호출 대신 updatedOnTimeoutState.value 참조"]
+    end
+
+    subgraph Recompose["2. 부모 Recomposition 발생 (onTimeout 람다 객체 변경)"]
+        B["rememberUpdatedState 내부 StateRecord 의 value 만 최신 람다로 업데이트"]
+    end
+
+    subgraph Execute["3. 작업 완료 시점"]
+        C["LaunchedEffect 재시작 없이 진행되다가 최신 람다 안전 호출!"]
+    end
+
+    A --> B
+    B --> C
 ```
 
 1. **내부 State 래핑**: `rememberUpdatedState`는 내부적으로 `remember { mutableStateOf(newValue) }`를 생성하고, 매 Recomposition마다 `.value = newValue`를 업데이트한다.

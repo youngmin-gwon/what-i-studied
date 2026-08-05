@@ -24,18 +24,25 @@ date created: 2026-07-31 16:53:16 +09:00
 
 ### 3. 내부 동작 및 수명주기 인지 메커니즘 (How)
 
-```
-[앱 포그라운드 진입: STARTED State]
-  |--> repeatOnLifecycle(STARTED) 활성화
-  |--> ViewModel 의 StateFlow 수집 시작
-  |--> Compose State<T> 갱신 및 UI 표시
-  
-[사용자가 홈 버튼 누름: STOPPED State 진입]
-  |--> repeatOnLifecycle(STARTED) 코루틴 자동 취소/일시정지!
-  |--> 백그라운드 데이터 수집 100% 차단 (자원 및 배터리 절감)
-  
-[앱 다시 복귀: STARTED State 재진입]
-  |--> Flow 수집 자동 재개 및 최신 StateFlow 값 보정!
+```mermaid
+stateDiagram-v2
+    [*] --> Foreground: 앱 실행 / 화면 진입
+    
+    state Foreground {
+        STARTED: Lifecycle State = STARTED (Active)
+        Collection: repeatOnLifecycle(STARTED) 활성화
+        StateUpdate: StateFlow 수집 및 Compose State<T> 갱신
+    }
+
+    Foreground --> Background: 사용자가 홈 버튼 누름 (ON_STOP)
+    
+    state Background {
+        STOPPED: Lifecycle State = STOPPED (Inactive)
+        Paused: repeatOnLifecycle 수집 코루틴 자동 일시정지/취소
+        Saved: 백그라운드 데이터 수집 100% 차단 (배터리 절감)
+    }
+
+    Background --> Foreground: 앱 다시 포그라운드 복귀 (ON_START)
 ```
 
 1. **`repeatOnLifecycle` 감싸기**: `collectAsStateWithLifecycle` 내부에서는 `LocalLifecycleOwner.current`를 관찰하며 `repeatOnLifecycle(minActiveState)`가 구동된다.

@@ -26,13 +26,20 @@ date created: 2026-07-31 16:53:16 +09:00
 
 ### 3. Saver 구현 메커니즘 (How)
 
-```
-[Default Bundle Type: Primitive, String, Parcelable]
-  ---> 자동 Bundle 마샬링 처리
-  
-[Custom Class / Non-Parcelable Object]
-  |--> Saver(save = { ... }, restore = { ... }) 인터페이스 제공 필요
-  |--> listSaver / mapSaver 유틸리티 사용
+```mermaid
+graph TD
+    subgraph Primary["1. Standard Bundle Types (Primitive, String, Parcelable)"]
+        A["기본 Bundle 마샬링 자동 처리"]
+    end
+
+    subgraph Custom["2. Custom Class / Non-Parcelable Object"]
+        B["Saver(save = { ... }, restore = { ... }) 직접 제공"]
+        C["listSaver 또는 mapSaver 유틸리티 활용"]
+    end
+
+    A -->|"IPC / SavedStateRegistry"| D["OS Bundle 저장 (1MB 미만 한계)"]
+    B --> C
+    C -->|"IPC / SavedStateRegistry"| D
 ```
 
 1. **Saver 인스턴스**: 기본 프리미티브 타입(Int, String 등)과 `Parcelable`, `Serializable`은 자동 보존된다.
