@@ -24,8 +24,8 @@ flowchart LR
     CryptoOp --> App
     
     subgraph FBE [File-Based Encryption]
-        CE[Credential Encrypted (CE) - 잠금 해제 후 사용]
-        DE[Device Encrypted (DE) - Direct Boot시 사용]
+        CE["Credential Encrypted (CE) - 잠금 해제 후 사용"]
+        DE["Device Encrypted (DE) - Direct Boot시 사용"]
     end
     Store -.-> FBE
 ```

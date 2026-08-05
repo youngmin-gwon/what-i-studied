@@ -29,7 +29,7 @@ SDK Extensions 는 modular system component update 를 통해 일부 API 가 이
 flowchart TD
     A[App calls Backported Extension API] --> B{SDK_INT >= Base Target API?}
     B -- Yes (e.g. API 33+) --> C[Execute API directly]
-    B -- No (e.g. API 30) --> D{SdkExtensions.getExtensionVersion(R) >= Required Level?}
+    B -- No (e.g. API 30) --> D{"SdkExtensions.getExtensionVersion(R) >= Required Level?"}
     D -- Yes (Level 2+) --> E[Execute Backported Extension API safely]
     D -- No --> F[Fallback or disable feature]
 ```

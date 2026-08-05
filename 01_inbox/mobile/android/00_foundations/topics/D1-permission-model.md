@@ -21,7 +21,7 @@ flowchart TD
     B -- No --> Reject1[접근 거부 / SecurityException]
     B -- Yes --> C{런타임 권한 부여?}
     C -- No --> Reject2[접근 거부]
-    C -- Yes --> D{AppOps 허용? (Background/Privacy)}
+    C -- Yes --> D{"AppOps 허용? (Background/Privacy)"}
     D -- No --> Reject3[무음 실패 / 빈 데이터 반환]
     D -- Yes --> E{SELinux MAC 검사 통과?}
     E -- No --> Reject4[커널 레벨 거부]

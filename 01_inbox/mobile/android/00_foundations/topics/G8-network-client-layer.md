@@ -18,10 +18,10 @@ date modified: 2026-08-04 21:30:00 +09:00
 ```mermaid
 flowchart TD
     UI[ViewModel / UI] --> Repository[Repository]
-    Repository --> Retrofit[Retrofit (Interface Contract)]
-    Retrofit --> OkHttp[OkHttp (Transport Layer)]
+    Repository --> Retrofit["Retrofit (Interface Contract)"]
+    Retrofit --> OkHttp["OkHttp (Transport Layer)"]
     OkHttp --> Interceptor[Interceptors: Auth, Logging, Cache]
-    Interceptor --> Network[Network (Server)]
+    Interceptor --> Network["Network (Server)"]
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

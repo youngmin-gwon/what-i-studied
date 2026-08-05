@@ -38,7 +38,7 @@ graph TD
     D -- 예 --> F{Standby Bucket / Quota 정상인가?}
     F -- Quota 초과/RESTRICTED --> G[App Standby Bucket 및 Doze 진입 여부 확인]
     F -- Quota 정상 --> H{StopReason / Timeout 발생 여부}
-    H -- 예 --> I[WorkInfo.getStopReason() 확인 및 Checkpoint 저장 로직 점검]
+    H -- 예 --> I["WorkInfo.getStopReason() 확인 및 Checkpoint 저장 로직 점검"]
     H -- 아니오 --> J[시스템 딜레이 또는 OEM background restriction 확인]
 ```
 

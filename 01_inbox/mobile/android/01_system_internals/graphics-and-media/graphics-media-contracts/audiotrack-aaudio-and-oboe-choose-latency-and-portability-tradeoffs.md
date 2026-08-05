@@ -30,7 +30,7 @@ Android 오디오 출력 파이프라인은 높은 이식성과 편의성을 제
 graph TD
     AppJava[Java / Kotlin App] -->|JNI| AudioTrack[AudioTrack Java API]
     AudioTrack -->|Binder IPC| AudioFlinger[AudioFlinger MixerThread]
-    AudioFlinger -->|Software Mix| ALSA_Standard[ALSA Driver (Standard)]
+    AudioFlinger -->|Software Mix| ALSA_Standard["ALSA Driver (Standard)"]
 
     AppNative[C++ Game / Audio App] --> Oboe[Oboe C++ Library]
     Oboe -->|API 27+| AAudio[AAudio NDK API]

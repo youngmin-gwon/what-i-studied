@@ -21,10 +21,10 @@ date modified: 2026-08-04 21:30:00 +09:00
 flowchart TD
     A[Identify CUJ] --> B[Measure Before Optimizing]
     B --> C[Macrobenchmark]
-    C --> D[Identify Bottlenecks (Jank/Startup)]
+    C --> D["Identify Bottlenecks (Jank/Startup)"]
     D --> E[Generate Baseline Profile]
     E --> F[AOT Compilation on Installation]
-    F --> G[Measure Again (Verify)]
+    F --> G["Measure Again (Verify)"]
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

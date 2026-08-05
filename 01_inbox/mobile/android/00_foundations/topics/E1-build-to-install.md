@@ -19,9 +19,9 @@ date modified: 2026-08-04 21:30:00 +09:00
 
 ```mermaid
 flowchart TD
-    A[Source Code & Resources] --> B[Gradle Build (AGP)]
+    A[Source Code & Resources] --> B["Gradle Build (AGP)"]
     B -->|Compile & Package| C[AAB / APK]
-    C --> D[Play Console (Upload)]
+    C --> D["Play Console (Upload)"]
     D -->|Play App Signing| E[Signed APKs for Device]
     E -->|Play Delivery| F[Device PackageManager]
     F -->|Install/Update| G[Installed App]
