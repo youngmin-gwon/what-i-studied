@@ -106,9 +106,11 @@ fun triggerCustomVibration(context: Context) {
 
 - 상위 문서: [Android System Services & Device Capabilities](../android-system-services-and-device-capabilities.md)
 - 관련 계약 문서:
+  - [HapticFeedbackType은 UX 인터랙션과 안드로이드 플랫폼 햅틱 패턴을 1:1 매핑한다](./haptic-feedback-types-map-ux-interactions-to-platform-patterns.md)
   - [VibratorManager와 VibrationEffect는 기기의 정밀 햅틱과 진동 파형을 제어한다](./vibrator-manager-and-vibration-effect-control-device-haptics.md)
   - [InputManager는 물리 입력 장치를 이벤트 소스로 추상화한다](../input-accessibility-contracts/inputmanager-abstracts-physical-input-devices-as-event-sources.md)
   - [권한 보호 수준은 누가 접근을 승인받는지를 정의한다](../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-protection-level-defines-who-can-grant-access.md)
 - 공식 가이드: [Android Haptics Overview](https://developer.android.com/develop/ui/views/haptics/haptics-overview), [Vibrator API](https://developer.android.com/reference/android/os/Vibrator)
 
 검증일: 2026-08-05. 안드로이드 12+ VibratorManager 및 HapticFeedback API 기준 공식 검증 반영 완료.
+
