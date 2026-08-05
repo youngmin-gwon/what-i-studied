@@ -2,13 +2,13 @@
 title: vibrator-manager-and-vibration-effect-control-device-haptics
 tags: [android, android/device-capabilities, android/haptics, android/vibrator]
 aliases: ["VibratorManager와 VibrationEffect는 기기의 정밀 햅틱과 진동 파형을 제어한다"]
-date modified: 2026-08-05 14:04:46 +09:00
+date modified: 2026-08-05 15:13:52 +09:00
 date created: 2026-08-05 14:00:00 +09:00
 ---
 
 ## VibratorManager 와 VibrationEffect 는 기기의 정밀 햅틱과 진동 파형을 제어한다
 
-안드로이드의 햅틱 피드백 조작 체계는 단순한 무시간/무패턴 물리 모터 구동 방식에서 벗어나, `VibratorManager` 와 `VibrationEffect` API 를 통해 **진폭(Amplitude), 파형(Waveform), 프리미티브 컴포지션(Primitive Composition)**을 세밀히 조합하는 정밀 햅틱 엔진 아키텍처로 진화했다.
+안드로이드의 햅틱 피드백 조작 체계는 단순한 무시간/무패턴 물리 모터 구동 방식에서 벗어나, `VibratorManager` 와 `VibrationEffect` API 를 통해 **진폭(Amplitude), 파형(Waveform), 프리미티브 컴포지션(Primitive Composition)**ㅑ 을 세밀히 조합하는 정밀 햅틱 엔진 아키텍처로 진화했다.
 
 ---
 
@@ -42,7 +42,7 @@ graph TD
     F --> G["물리 햅틱 발생"]
 ```
 
-1. **하드웨어 캡파빌리티 조회 검증 절차**:
+1. **하드웨어 기능 조회 검증 절차**:
    - `vibrator.hasVibrator()`: 물리 진동 모터 존재 여부 확인
    - `vibrator.hasAmplitudeControl()`: 세밀한 진폭 조절(0~255) 지원 여부 확인
    - `vibrator.areAllPrimitivesSupported(PRIMITIVE_CLICK, PRIMITIVE_TICK)`: 특정 프리미티브 햅틱 합성 지원 여부 검증
