@@ -1,66 +1,73 @@
 ---
-title: dynamic-feature-module-is-optional-feature-unit-dependent-on-base
-tags: ["android", "dynamic-feature", "agp"]
-aliases: ["Dynamic Feature Module은 Base 모듈에 의존하는 선택 기능 단위다"]
+title: dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md
+tags: ["android", "agp", "dfm", "dynamic-feature"]
+aliases: ["Dynamic feature module은 base에 의존하는 선택적 기능 단위다"]
 date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## Dynamic Feature Module은 Base 모듈에 의존하는 선택 기능 단위다
+## Dynamic feature module은 base에 의존하는 선택적 기능 단위다
+
+상위 문서: [Play Delivery 계약](play-delivery-contracts.md)
+
+### 개념 및 필요성 (What & Why)
+**Dynamic Feature Module(동적 기능 모듈 - DFM)** 은 Android Gradle 빌드 시스템에서 `com.android.dynamic-feature` 플러그인을 사용하여 독립적으로 분리된 소스 코드 및 리소스 단위이다.
+일반적인 멀티 모듈 구조에서는 앱 모듈(`:app`)이 라이브러리 모듈(`:feature:home`)을 의존성으로 참조하지만, **DFM 구조에서는 반대로 DFM이 기본 모듈(`:app` Base Module)을 의존성으로 참조하는 역의존성(Reverse Dependency)** 구조를 가진다.
+이를 통해 Base 모듈의 크기를 최소화하고, 선택적인 대형 기능(예: AR 카메라, 카메라 스캐너, 특정 유료 결제 모듈)을 필요 시점에만 동적으로 다운로드받을 수 있게 만든다.
 
 ### 내부 메커니즘 (Internal Mechanism)
-안드로이드의 **Dynamic Feature Module (DFM, 동적 기능 모듈)**은 앱의 초기 다운로드 용량을 줄이기 위해 특정 기능 단위를 독립된 스플릿 APK로 분리하는 구조다. 일반적인 Gradle 멀티모듈 프로젝트의 단방향 의존성 흐름과 달리 DFM은 구조적인 인과관계상 다음과 같은 특이적 메커니즘을 갖는다:
-
-- **역의존성 관계 (Reverse Dependency)**: 일반적 모듈에서는 메인 앱 모듈이 서브 라이브러리 모듈을 참조하지만, DFM 환경에서는 서브 기능 모듈(`:feature:onboarding`)이 메인 Base 모듈(`:app`)에 대해 `implementation(project(":app"))` 의존성을 선언한다. 동시에 Base 모듈은 Gradle DSL(`dynamicFeatures += setOf(...)`)로 어떤 DFM들이 존재하는지 등록한다. 이 역구조 덕분에 DFM 내부 코드에서 Base 모듈의 공통 데이터 모델 및 디자인 시스템 리소스에 접근할 수 있게 된다.
-- **ClassLoader (클래스 로더) 경로 동적 병합**: 안드로이드 OS의 기본 **ClassLoader(자바/안드로이드 바이트코드 로더)**는 앱 프로세스 시작 시 초기 설치된 DEX 파일만 메모리에 로딩한다. 런타임에 On-Demand 형태로 새 DFM APK가 새로 다운로드되면, 기존 로드된 ClassLoader는 새로 추가된 클래스를 찾지 못하고 `ClassNotFoundException`을 발생시킨다.
-- **SplitCompat 라이브러리 탑재**: 이 문제를 해결하기 위해 `SplitCompat.install(context)`를 Base Application 및 Activity Context의 `attachBaseContext()` 시점에 호출한다. SplitCompat은 OS의 ClassLoader 및 AssetManager 내부 검색 경로를 런타임에 낚아채어 동적으로 다운로드된 스플릿 APK의 `.dex` 파일과 리소스 패키지 엔트리를 실시간으로 기존 ClassLoader에 합성(Inject)한다.
+1. **Reverse Dependency (역의존성)**:
+   - `:app` 모듈 `build.gradle.kts`: `dynamicFeatures = setOf(":features:ar_camera")`
+   - `:features:ar_camera` 모듈 `build.gradle.kts`: `implementation(project(":app"))`
+2. **Split Manifest Merging**: DFM의 `AndroidManifest.xml`은 Base 모듈 매니페스트와 합성되며 `<dist:module>` 태스크를 통해 동적 설치 조건(`dist:on-demand="true"`)을 선언한다.
+3. **SplitCompat 연동**: 런타임에 DFM이 다운로드되어 설치되면, `SplitCompat.install(context)`를 호출하여 DFM 내의 클래스 및 리소스를 현재 애플리케이션의 ClassLoader 및 Resources 체인에 즉시 동적 로딩한다.
 
 ```mermaid
-flowchart BT
-    DFM[":feature:onboarding (com.android.dynamic-feature)"] -->|Reverse Dependency| Base[":app (com.android.application)"]
-    Base -->|Declares dynamicFeatures| DFM
+flowchart TD
+    subgraph GradleDependency ["Reverse Dependency Structure"]
+        AppBase[":app (Base Module)"] -->|dynamicFeatures += :feature_ar| DFMModule[":feature_ar (Dynamic Feature Module)"]
+        DFMModule -->|implementation project(:app)| AppBase
+    end
+
+    subgraph RuntimeInstall ["Runtime Dynamic Loading"]
+        DFMModule --> PlayStore["Google Play Download Engine"]
+        PlayStore --> SplitCompat["SplitCompat.install(Context)"]
+        SplitCompat --> DynamicClass["Dynamic Class Loading & Screen Launch"]
+    end
 ```
 
-### 코드 예시 (build.gradle.kts & SplitCompat)
+### 코드 예시 (build.gradle.kts & Manifest)
 ```kotlin
-// app/build.gradle.kts
+// app/build.gradle.kts (Base 모듈 설정)
 plugins {
     id("com.android.application")
 }
+
 android {
-    dynamicFeatures += setOf(":feature:onboarding")
+    dynamicFeatures += setOf(":features:ar_camera")
 }
+```
 
-// feature/onboarding/build.gradle.kts
-plugins {
-    id("com.android.dynamic-feature")
-}
-dependencies {
-    implementation(project(":app"))
-}
-
-// Base Application Class
-class MyBaseApplication : Application() {
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        SplitCompat.install(this) // Split ClassLoader 탑재
-    }
-}
+```xml
+<!-- features/ar_camera/src/main/AndroidManifest.xml -->
+<manifest xmlns:dist="http://schemas.android.com/play/delivery">
+    <dist:module
+        dist:instant="false"
+        dist:title="@string/title_ar_camera">
+        <dist:delivery>
+            <dist:on-demand />
+        </dist:delivery>
+        <dist:fusing dist:include="true" />
+    </dist:module>
+</manifest>
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-`bundletool` 명령을 통해 Base 모듈과 Dynamic Feature 모듈이 정상적인 Split APK 구조로 분리되어 패키징되었는지 확인할 수 있다:
-
+DFM 모듈이 올바르게 통합되었는지 `bundletool` 분석 명령으로 관측할 수 있다:
 ```bash
-bundletool build-apks --bundle=app-release.aab --output=app.apks
-unzip -l app.apks | grep "splits/"
-
-# Output Example:
-# splits/base-master.apk
-# splits/base-xxhdpi.apk
-# splits/feature-onboarding-master.apk
+bundletool validate --bundle=app-release.aab
 ```
 
-관련 노트: [Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다](play-feature-delivery-controls-dynamic-feature-install-timing.md), [AAB는 Play가 생성하는 APK를 위한 퍼블리싱 아티팩트다](../release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
+관련 노트: [Play feature delivery는 동적 기능 설치 시점을 제어한다](play-feature-delivery-controls-dynamic-feature-install-timing.md), [Play Delivery 계약](play-delivery-contracts.md)

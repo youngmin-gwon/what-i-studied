@@ -1,68 +1,68 @@
 ---
 title: statein-requires-explicit-lifetime-and-sharing-policy
-tags: [android, android/async, android/data, android/flow-state-contracts]
-aliases: ["Flow를 StateFlow로 바꿀 때는 stateIn의 수명과 공유 정책을 명시한다"]
-date modified: 2026-08-03 18:07:45 +09:00
+tags: [android, android/async, android/flow, android/state]
+aliases: ["stateIn은 명시적 수명 scope와 sharing policy를 요구한다"]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Flow 를 StateFlow 로 바꿀 때는 stateIn 의 수명과 공유 정책을 명시한다
+## stateIn은 명시적 수명 scope와 sharing policy를 요구한다
 
-상위 문서: [Flow와 StateFlow 상태 계약](./flow-state-contracts.md)
+### 개념 (What)
+`stateIn`은 **Cold Flow 스트림을 Hot `StateFlow`로 변환**하는 핵심 연산자다. 이를 안전하게 동작시키기 위해 **(1) 공유 코루틴이 실행될 `CoroutineScope`**, **(2) 업스트림 활성화/정지 시점을 정하는 `SharingStarted` 전략**, **(3) 초기 상태인 `initialValue`**를 필수 요구한다.
 
-`stateIn` 은 cold `Flow` 를 특정 CoroutineScope 에서 공유되는 `StateFlow` 로 바꾼다.
+### 왜 필요한가 (Why)
+1. **백그라운드 리소스 및 쿼리 누수 차단**: 앱이 백그라운드로 내려가거나 사용자가 화면을 이탈했을 때도 업스트림 데이터베이스 수집이나 네트워크 스트리밍이 계속 실행되는 것은 심각한 자원 낭비다.
+2. **화면 회전 시 재요청 방지 (`WhileSubscribed(5000)`)**: 스마트폰 회전 시 Activity가 재창조되면서 기존 UI의 수집이 순간 끊겼다가 100ms 이내에 다시 수집된다. 이때 업스트림 스트림을 즉시 취소했다가 다시 열면 무거운 DB/네트워크 재요청이 일어난다. 5초(5000ms) 유예 기간을 두어 회전 동안 업스트림을 계속 유지시키는 최적화가 필수적이다.
 
-이 변환은 단순한 타입 변환이 아니라 수명, 시작 시점, 초기값을 결정하는 설계다.
+### 내부 메커니즘 (How)
+1. **`SharingStarted.WhileSubscribed(stopTimeoutMillis, replayExpirationMillis)` 메커니즘**:
+   - `StateFlow` 내부에서는 구독자 수(`subscriptionCount`)를 원자적으로 추적한다.
+   - `subscriptionCount`가 1 이상이 되면 업스트림 `collect` Coroutine이 즉시 시작된다.
+   - `subscriptionCount`가 0으로 떨어지면 `stopTimeoutMillis` 타이머가 동작한다. 타이머가 만료되기 전에 구독자가 다시 들어오면 업스트림 취소 없이 연속 실행된다. 5초가 지나도록 구독자가 없으면 비로소 업스트림 Coroutine을 취소(`cancel`)한다.
 
-```kotlin
-val uiState: StateFlow<BenefitUiState> =
-    repository.observeBenefits()
-        .map { BenefitUiState.Ready(it) }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = BenefitUiState.Loading,
-        )
+```mermaid
+graph TD
+    A["UI Starts Collecting StateFlow"] --> B["subscriptionCount = 1"]
+    B --> C["Start Upstream Cold Flow Collection"]
+    
+    D["User Rotates Screen / Navigates Away"] --> E["subscriptionCount = 0"]
+    E --> F["Start 5000ms Delay Timer"]
+    
+    F -- "Collector Re-attaches within 5s" --> B
+    F -- "Timeout 5s expires" --> G["Cancel Upstream Collection Coroutine"]
+
+    style C fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
+    style F fill:#fff3e0,stroke:#f57c00,color:#e65100
+    style G fill:#ffebee,stroke:#c62828,color:#b71c1c
 ```
 
-`scope` 는 공유된 흐름이 언제 취소되는지를 결정한다.
+### 현대 표준 vs 레거시 비교
 
-화면 단위 상태라면 보통 `viewModelScope` 를 사용해 구성 변경에도 상태를 유지한다.
+| 비교 항목 | 레거시 (RxJava refCount / LiveData) | 현대 표준 (stateIn + WhileSubscribed) |
+| :--- | :--- | :--- |
+| **업스트림 유지** | `refCount()` 사용 시 구독자 0 즉시 취소되어 회전 시 문제 발생 | `WhileSubscribed(5000)`으로 화면 회전 유예 시간 확보 |
+| **초기값 설정** | LiveData 생성 시 초기값 설정 불가능 | `stateIn` 파라미터로 필수 초기값 지정 강제 |
+| **Scope 바인딩** | CompositeDisposable을 수동 관리하여 에러 가능성 존재 | `viewModelScope` 결합으로 ViewModel 파괴 시 100% 자동 소멸 |
 
-`initialValue` 는 첫 원천 값이 오기 전 화면이 그릴 값이어야 한다.
+### Idiomatic Kotlin 코드 예시
 
-### 공유 정책
+```kotlin
+class ProductDetailViewModel(
+    private val productId: String,
+    private val productRepository: ProductRepository
+) : ViewModel() {
 
-- `Eagerly` 는 `stateIn` 을 만든 즉시 시작하고 scope 가 끝날 때까지 유지한다.
-- `Lazily` 는 첫 구독자 이후 시작하며 구독자가 없어도 시작된 흐름을 유지한다.
-- `WhileSubscribed(5_000)` 은 구독자가 없어진 뒤 5 초 후 upstream 을 중지한다.
+    // stateIn 표준 아키텍처 패턴
+    val uiState: StateFlow<ProductDetailUiState> = productRepository.getProductStream(productId)
+        .map { product -> ProductDetailUiState.Success(product) }
+        .catch { e -> emit(ProductDetailUiState.Error(e.message ?: "Load Failed")) }
+        .stateIn(
+            scope = viewModelScope, // ViewModel의 수명에 종속
+            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000), // 회전 최적화 5초 유예
+            initialValue = ProductDetailUiState.Loading // 초기 로딩 상태
+        )
+}
+```
 
-`WhileSubscribed` 의 지연 시간은 회전 같은 짧은 구독 공백에서 재실행을 줄이는 정책이다.
-
-백그라운드에서도 반드시 최신화해야 한다면 화면 수명보다 긴 scope 와 다른 정책이 필요하다.
-
-반대로 비용이 큰 원천 작업은 구독자가 없을 때 중지하는 편이 적절하다.
-
-`stateIn` 전에 `catch` 를 두어 upstream 오류를 화면 상태로 변환한다.
-
-공유 정책을 생략한 축약 호출은 기본값을 숨기므로, 화면 상태에서는 인자를 이름으로 명시한다.
-
-선택한 정책은 데이터 비용과 화면 요구사항으로 설명할 수 있어야 한다.
-
-특히 구독자가 사라졌을 때 upstream 을 계속 돌려야 하는지 여부를 코드 리뷰에서 확인한다.
-
-초기값은 임시 빈 목록인지 실제 로딩 상태인지 구분한다.
-
-공유 정책을 바꾸면 네트워크 호출 횟수와 회전 시 동작을 함께 테스트한다.
-
-구독자가 없는 동안 최신값을 유지해야 하는지 제품 요구사항을 기준으로 결정한다.
-
-수명 정책은 상태의 소유자인 scope 와 함께 읽어야 한다.
-
-이 정책은 테스트에서 시작과 중지 시점을 검증할 수 있는 명시적 계약이다.
-
-초기 상태가 사용자에게 보이는 첫 프레임을 결정한다.
-
-따라서 빈 값과 로딩을 혼동하지 않는다.
-
-화면 계약에 필요한 초기값을 선택한다.
+공식 문서: [stateIn](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/state-in.html)

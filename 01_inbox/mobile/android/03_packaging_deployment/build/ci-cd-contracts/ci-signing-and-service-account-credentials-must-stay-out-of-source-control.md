@@ -1,95 +1,76 @@
 ---
 title: ci-signing-and-service-account-credentials-must-stay-out-of-source-control
-tags: ["android", "cicd", "signing", "security"]
-aliases: ["CI 서명 keystore와 Play 서비스 계정 자격증명은 암호화 저장과 최소 권한을 요구한다"]
+tags: ["android", "security", "ci-cd", "signing"]
+aliases: ["CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다"]
+date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-05 16:15:00 +09:00
-date created: 2026-08-04 18:00:00 +09:00
-created: 2026-08-04 18:00:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## CI 서명 keystore와 Play 서비스 계정 자격증명은 암호화 저장과 최소 권한을 요구한다
+## CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다
 
-상위 문서: [Android CI/CD 구현 계약](ci-cd-contracts.md)
-배경 지식: [Git 버전 관리](../../../../../../02_references/git/git.md)
+상위 문서: [CI/CD 계약](ci-cd-contracts.md)
+
+### 개념 및 필요성 (What & Why)
+Android 앱 서명 키스토어 파일(`.jks`/`.keystore`), 키 비밀번호, 그리고 Google Play Console API 서비스 계정 자격증명 JSON 키(`service-account.json`)는 앱의 배포 권한 및 정체성을 결정짓는 **최상위 기밀 자산(Secret Asset)** 이다.
+이러한 파일이나 비밀번호가 실수로 Git 소스 제어 레포지토리에 커밋되어 노출되면, 악의적인 공격자가 기존 앱을 위조하고 탈취하여 해킹된 APK를 유포할 수 있다.
+따라서 모든 비밀값은 레포지토리 저장에서 철저히 제외되어야 하며, CI 런타임에 동적으로 주입되어야 한다.
 
 ### 내부 메커니즘 (Internal Mechanism)
-
-CI 환경에서 release 서명을 자동화하려면 두 종류의 비밀을 러너에 전달해야 한다: **release keystore(.jks/.keystore 파일과 비밀번호)** 와 **Play 업로드용 서비스 계정 JSON 키**. 둘 다 유출되면 공격자가 앱을 사칭해 서명하거나 개발자 대신 Play Console에 릴리스를 올릴 수 있다는 점에서 소스 저장소에 평문으로 두면 안 되는 비밀이다.
-
-안전한 패턴은 다음 세 가지를 조합한다.
-
-1. **CI provider의 암호화된 secret store 사용**: keystore 파일을 base64로 인코딩해 CI secret(예: GitHub Actions `secrets.RELEASE_KEYSTORE_BASE64`)으로 등록하고, 빌드 단계에서만 디코딩해 임시 파일로 복원한다. 이 파일은 워크스페이스가 종료되면 함께 폐기된다.
-2. **저장소에 평문 커밋 금지**: `.gitignore`로 `*.keystore`, `*.jks`, `google-services.json` 중 서비스 계정 키, `fastlane/*.json` 등을 원천 차단한다. 이미 커밋된 이력이 있다면 파일 삭제만으로는 부족하다 — git history에서 완전히 제거하고 키를 재발급해야 한다.
-3. **최소 권한 서비스 계정**: Play Console 서비스 계정에는 "릴리스 관리" 등 업로드에 필요한 최소 역할만 부여한다. 계정 전체 관리자 권한을 CI에 주면 CI 자격증명 유출 시 피해 범위가 앱 배포를 넘어 스토어 등록 정보 전체로 커진다.
-
-이 패턴을 어기면 관찰 가능한 사고 신호가 뚜렷하게 남는다. 저장소 secret scanning(GitHub Secret Scanning, `gitleaks`)이 커밋 diff에서 keystore 바이너리나 JSON private key 패턴을 감지해 알림을 보낸다. 이미 유출된 서비스 계정 키는 Google Cloud IAM 감사 로그에 CI IP 대역이 아닌 곳에서의 호출 기록으로 나타난다.
+1. **`.gitignore` 격리**: `*.jks`, `*.keystore`, `*.json` (서비스 계정 키), `local.properties`를 `.gitignore`에 선언하여 Git 추적을 차단한다.
+2. **Base64 인코딩 주입**: Keystore 파일과 JSON 서비스 계정 키를 Base64 문자열로 인코딩하여 CI 시크릿(GitHub Secrets / GitLab CI Variables)에 안전하게 저장한다.
+3. **CI 런타임 동적 디코딩**: CI 러너가 작업을 시작할 때 시크릿 문자열을 파일 형태로 주시 디렉터리에 일시 복호화하고, 빌드가 끝나면 즉시 삭제한다.
 
 ```mermaid
-flowchart TD
-    Repo["Git Repository"] -->|절대 커밋 금지| Keystore["release.keystore / 서비스 계정 JSON"]
-    CISecret["CI Secret Store\n(암호화 저장)"] -->|런타임에만 디코딩| Runner["CI Runner Workspace"]
-    Runner -->|빌드 종료 시 폐기| Ephemeral["임시 파일 (커밋되지 않음)"]
-
-    ServiceAccount["Play 서비스 계정"] -->|최소 권한: 릴리스 관리만| Supply["fastlane supply / Play Developer API"]
-    ServiceAccount -.->|과잉 권한 부여 시| Risk["유출 시 스토어 등록 정보 전체 노출"]
+flowchart LR
+    GitHubSecret["GitHub Secrets (Base64 Encoded Key)"] --> CIRunner["CI Runner Ephemeral Environment"]
+    CIRunner -->|Decode Base64| TempKeystore["Ephemeral Keystore File (/tmp/release.keystore)"]
+    TempKeystore --> AGPSigning["AGP apksigner / Fastlane Supply"]
+    AGPSigning --> Cleanup["Post Job Cleanup (Delete Temp Files)"]
 ```
 
-### 코드 예시 (GitHub Actions에서 keystore/서비스 계정 안전 주입)
-
+### 코드 예시 (.github/workflows/deploy.yml)
 ```yaml
-# .github/workflows/release.yml
+# .github/workflows/deploy.yml
+name: Deploy Release AAB
+
+on:
+  push:
+    tags:
+      - "v*"
+
 jobs:
-  release:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Decode release keystore
-        env:
-          KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
-        run: echo "$KEYSTORE_BASE64" | base64 -d > release.keystore
+      # 1. Base64로 저장된 Keystore 시크릿을 임시 파일로 복호화
+      - name: Decode Signing Keystore
+        run: |
+          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 --decode > app/release.keystore
 
-      - name: Write Play service account key
+      # 2. Fastlane 및 Gradle 실행 (환경 변수로 자격증명 전달)
+      - name: Run Fastlane Deploy
         env:
-          PLAY_JSON_KEY: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-        run: echo "$PLAY_JSON_KEY" > play-service-account.json
-
-      - name: Build and deploy
-        env:
+          KEYSTORE_PATH: "release.keystore"
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: bundle exec fastlane android release
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: bundle exec fastlane android internal_deploy
 
-      - name: Cleanup secrets
+      # 3. 보안 조치: 임시 복호화된 Keystore 파일 즉시 삭제
+      - name: Clean Up Secrets
         if: always()
-        run: rm -f release.keystore play-service-account.json
-```
-
-```gitignore
-# .gitignore
-*.keystore
-*.jks
-play-service-account.json
-fastlane/*.json
+        run: rm -f app/release.keystore
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-
+Git 커밋 이력 내 자격증명 파일 누출 유무는 `git log` 수색 도구나 `gitleaks`로 검증할 수 있다:
 ```bash
-# 저장소에 비밀이 남아있는지 이력 전체를 스캔
-gitleaks detect --source . --verbose
-
-# Google Cloud IAM 감사 로그에서 서비스 계정 사용 위치 확인
-# (CI 러너의 알려진 IP 대역이 아닌 곳에서 호출되면 유출 의심)
-gcloud logging read \
-  'protoPayload.authenticationInfo.principalEmail="ci-release@my-project.iam.gserviceaccount.com"' \
-  --limit 20 --format json
+git log -p -- "*.keystore" "*.jks" "*service-account*.json"
 ```
 
-### 경계
-
-- 로컬 개발 환경에서 signing config를 구성하는 방식(Play App Signing과 업로드 키 분리 포함)은 이 노트가 아니라 [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](../gradle/gradle-build-contracts/signing-config-connects-local-signing-and-play-release-identity.md) 와 [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](../../distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md) 가 다룬다. 이 노트는 그 자격증명을 **CI 환경에서 안전하게 다루는 방법**만 다룬다.
-
-관련 노트: [Fastlane은 Gradle 빌드를 대체하지 않고 그 위에서 오케스트레이션한다](fastlane-orchestrates-android-builds-without-replacing-gradle.md), [Android CI/CD 구현 계약](ci-cd-contracts.md)
+관련 노트: [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](../../gradle/gradle-build-contracts/signing-config-connects-local-signing-and-play-release-identity.md), [CI/CD 계약](ci-cd-contracts.md)

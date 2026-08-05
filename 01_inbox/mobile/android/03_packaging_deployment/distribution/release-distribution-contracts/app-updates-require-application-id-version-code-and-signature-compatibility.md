@@ -1,58 +1,58 @@
 ---
 title: app-updates-require-application-id-version-code-and-signature-compatibility
-tags: ["android", "app-update", "package-manager", "signing"]
-aliases: ["앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다"]
+tags: ["android", "release", "versioning", "update"]
+aliases: ["App 업데이트는 application id, version code, 그리고 서명 호환성을 요구한다"]
 date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## 앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다
+## App 업데이트는 application id, version code, 그리고 서명 호환성을 요구한다
+
+상위 문서: [릴리스 배포 계약](release-distribution-contracts.md)
+
+### 개념 및 필요성 (What & Why)
+Android OS 및 Google Play 스토어에서 사용자의 스마트폰에 이미 설치된 기존 앱의 데이터를 유지하며 새로운 버전으로 업데이트(Over-The-Air Update)하려면 반드시 **3대 배포 계약 조건**이 만족되어야 한다.
+만약 이 중 단 하나라도 호환되지 않으면 Android OS 패키지 매니저는 `INSTALL_FAILED_UPDATE_INCOMPATIBLE` 에러를 반환하며 신규 APK 설치를 단호히 거부한다.
 
 ### 내부 메커니즘 (Internal Mechanism)
-Android OS의 핵심 패키지 관리자인 **`PackageManager`** 서비스 및 Google Play Store 인프라가 사용자의 디바이스에 기존 로컬 데이터(DB, SharedPreferences 등)를 보존하면서 신규 덮어쓰기 업데이트(Over-the-Air Update)를 정식 허용하기 위해 검증하는 3대 절대 불변 계약:
-
-1. **동일한 패키지 식별자 (`applicationId`)**: 신규 아티팩트의 `applicationId`가 기존 디바이스에 설치된 앱의 네임스페이스 문자열과 정확히 일치해야 한다. 다를 경우 덮어쓰기가 아닌 별개의 다른 앱으로 분리 설치된다.
-2. **엄격한 버전 승급 (`versionCode`)**: 신규 앱의 `versionCode` 정수 값이 기존 설치된 앱의 `versionCode`보다 항상 엄격하게 커야 한다(`versionCode_new > versionCode_installed`). 동일하거나 낮을 경우 OS는 다운그레이드 공격 방지를 위해 `INSTALL_FAILED_VERSION_DOWNGRADE` 오류를 반환하며 설치를 거부한다.
-3. **암호화 서명 호환성 (Signature Compatibility & Key Lineage)**: 신규 APK가 기존 앱과 동일한 공개키/개인키 쌍으로 디지털 서명되었거나, **APK Signature Scheme v3**에 명시된 암호학적 정식 키 계보(**Key Lineage**) 검증을 통과해야 한다. 서명이 다르면 OS 커널 및 PackageManager는 타인의 악의적 앱 덮어쓰기로 간주하여 `INSTALL_FAILED_UPDATE_INCOMPATIBLE` 오류로 차단한다.
+**안드로이드 앱 업데이트 3대 필수 계약조건**:
+1. **Application ID 동일성 (`applicationId`)**: 기존 설치된 앱의 `applicationId`와 새로 설치하려는 앱의 `applicationId`가 정확히 100% 일치해야 함 (문자 하나라도 다르면 별개의 완전히 독립된 앱으로 취급됨).
+2. **Version Code 단조 증가 (`versionCode`)**: 신규 앱의 `versionCode` 정수값이 기존에 설치된 앱의 `versionCode`보다 엄격하게 커야 함 ($	ext{versionCode}_{	ext{new}} > 	ext{versionCode}_{	ext{old}}$). 동일하거나 낮으면 다운그레이드 공격으로 판단하여 rejection 발생.
+3. **디지털 서명 호환성 (Certificate Compatibility)**: 새로 설치하려는 APK를 서명한 디지털 인증서(App Signing Key Fingerprint)가 이미 설치된 앱을 서명한 인증서와 일치해야 함 (앱 신뢰성 및 데이터 샌드박스 보안 핵심).
 
 ```mermaid
 flowchart TD
-    UpdateReq["New APK Update Requested"] --> IDCheck{"1. Same applicationId?"}
-    IDCheck -->|No| Fail1["Reject: Installed as Separate App"]
-    IDCheck -->|Yes| CodeCheck{"2. versionCode_new > versionCode_installed?"}
-    CodeCheck -->|No| Fail2["Reject: INSTALL_FAILED_VERSION_DOWNGRADE"]
-    CodeCheck -->|Yes| SignCheck{"3. Match Digital Signature / Lineage?"}
-    SignCheck -->|No| Fail3["Reject: INSTALL_FAILED_UPDATE_INCOMPATIBLE"]
-    SignCheck -->|Yes| Pass["Success: Data Retained In-Place Update"]
+    UpdateReq["New APK Installation Request"] --> CheckAppID{"1. Application ID Matches?"}
+    CheckAppID -->|No| TreatNew["Installed as Separate New App"]
+    CheckAppID -->|Yes| CheckVer{"2. versionCode New > Old?"}
+    CheckVer -->|No| InstallFail1["Reject: INSTALL_FAILED_VERSION_DOWNGRADE"]
+    CheckVer -->|Yes| CheckSig{"3. Signing Certificate Matches?"}
+    CheckSig -->|No| InstallFail2["Reject: INSTALL_FAILED_UPDATE_INCOMPATIBLE"]
+    CheckSig -->|Yes| Success["Update App Preserving App Data"]
 ```
 
-### 코드 예시 (build.gradle.kts Version Strategy)
+### 코드 예시 (build.gradle.kts & Manifest Check)
 ```kotlin
 // app/build.gradle.kts
 android {
     defaultConfig {
-        applicationId = "com.example.app"
-        
-        // Dynamic Version Code Generation Strategy
-        val buildNumber = System.getenv("BUILD_NUMBER")?.toInt() ?: 1
-        versionCode = 10000 + buildNumber
-        versionName = "1.0.$buildNumber"
+        applicationId = "com.example.myapp"
+        versionCode = 10002 // 이전 버전(10001)보다 반드시 높은 단조 증가 정수
+        versionName = "1.0.2"
     }
 }
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-서명 키가 다른 이전 APK 위로 새 APK 업데이트 설치 시도 시 ADB의 에러 로그를 관측할 수 있다:
-
+설치된 앱과 신규 APK 간의 `versionCode` 및 인증서 핑거프린트는 `adb` 및 `apkanalyzer`로 관측할 수 있다:
 ```bash
-adb install -r build/outputs/apk/release/app-release-mismatched.apk
+# 디바이스에 설치된 기존 앱 versionCode 확인
+adb shell dumpsys package com.example.myapp | grep versionCode
 
-# Failure Output Example:
-# Failure [INSTALL_FAILED_UPDATE_INCOMPATIBLE: Package com.example.app signatures do not match previously installed version; ignoring!]
+# 신규 APK의 versionCode 및 서명 인증서 확인
+apkanalyzer manifest print new-app.apk | grep "android:versionCode"
 ```
 
-배경 지식: [신뢰의 기원과 신뢰 사슬](../../../../../security/fundamentals/root-of-trust-and-chain-of-trust.md), [암호화 기술 기초](../../../../../security/fundamentals/cryptography-basics.md)
-
-관련 노트: [Android 기본 설정은 식별자와 버전 계약을 만든다](../../build/gradle/gradle-build-contracts/android-default-config-defines-identity-and-version-contracts.md), [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](play-app-signing-separates-upload-key-and-app-signing-key.md)
+관련 노트: [Android 기본 설정은 식별자와 버전 계약을 만든다](../../gradle/gradle-build-contracts/android-default-config-defines-identity-and-version-contracts.md), [릴리스 배포 계약](release-distribution-contracts.md)

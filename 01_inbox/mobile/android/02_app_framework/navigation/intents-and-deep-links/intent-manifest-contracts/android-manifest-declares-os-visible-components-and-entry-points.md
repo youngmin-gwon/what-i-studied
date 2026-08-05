@@ -1,67 +1,37 @@
 ---
 title: android-manifest-declares-os-visible-components-and-entry-points
-tags: [android, android/intents, android/navigation]
-aliases: ["AndroidManifest.xml 은 OS 에 앱의 컴포넌트를 선언한다"]
+tags: [android, android/navigation, android/manifest]
+aliases: ["AndroidManifest는 OS에 노출되는 컴포넌트와 진입점을 선언한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## **AndroidManifest**(앱의 구성 요소, 권한, 진입점 명세를 OS에 알리는 핵심 메타데이터 선언 파일).xml 은 OS 에 앱의 컴포넌트를 선언한다
+## AndroidManifest 는 OS 에 노출되는 컴포넌트와 진입점을 선언한다
 
-상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
+상위 문서: [Intent & Manifest 계약](intent-manifest-contracts.md)
 
-### 매니페스트의 본질
+---
 
-AndroidManifest.xml 은 개발자와 Android OS 사이의 설치·실행 계약이다.
+### 개념과 필요성 (What & Why)
 
-앱 코드가 존재하는 것만으로 OS 가 모든 컴포넌트를 실행할 수 있는 것은 아니다.
+1. **개념 (What)**:
+   - **`AndroidManifest.xml`**은 안드로이드 OS의 **ActivityManagerService(AMS)** 및 **PackageManagerService(PMS)**에게 애플리케이션의 4대 주요 컴포넌트(Activity, Service, BroadcastReceiver, ContentProvider)와 진입점, 권한 선언, 런타임 제약 조건을 전달하는 **최상위 청사진 선언 파일**이다.
+2. **필요성 (Why)**:
+   - **안드로이드 OS 진입점 등록**: 안드로이드 애플리케이션에는 C/C++나 Java의 전통적인 단일 `main()` 함수 진입점이 없다. 대신 OS가 Manifest에 등록된 컴포넌트 태그를 파싱하여 론처 아이콘 진입점, 푸시 수신점, 딥링크 진입점을 동적으로 구동한다.
 
-OS 는 매니페스트를 읽고 앱의 컴포넌트, 권한, 진입점, 메타데이터를 파악한다.
+---
 
-### 대표적인 선언
+### 주요 선언 구성 요소 (How)
 
-| 요소 | OS 가 알아야 하는 내용 |
-| --- | --- |
-| `<uses-permission>` | 앱이 요청하는 보호 자원 |
-| `<application>` | 앱 공통 이름, 테마, 설정 |
-| `<activity>` | 화면과 외부 진입점 |
-| `<service>` | 백그라운드 작업 컴포넌트 |
-| `<receiver>` | 브로드캐스트 수신 컴포넌트 |
-| `<provider>` | ContentProvider 와 데이터 경계 |
-| `<intent-filter>` | 암시적 Intent 수신 조건 |
-| `<queries>` | 앱이 조회할 패키지 범위 |
+- `<activity>`: UI 화면 컴포넌트.
+- `<service>`: 백그라운드 작업 처리 컴포넌트.
+- `<receiver>`: 시스템 이벤트(부팅 완료, 배터리 상태) 및 브로드캐스트 메시지 수신기.
+- `<provider>`: 구조화된 파일/데이터베이스 공유 인터페이스.
+- `<queries>`: Android 11+ 패키지 가시성 통제 구문.
 
-```xml
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <application android:theme="@style/Theme.App">
-        <activity android:name=".MainActivity" android:exported="true" />
-    </application>
-</manifest>
-```
+---
 
-### 설치와 실행에서의 역할
+### 관련 상위 및 연관 노트
 
-설치 시 패키지 관리자는 매니페스트 정보를 사용해 앱을 등록한다.
-
-런처는 `MAIN` 과 `LAUNCHER` 필터를 보고 시작 화면을 찾을 수 있다.
-
-다른 앱의 링크나 공유 요청은 등록된 필터를 기준으로 후보를 찾는다.
-
-권한과 exported 설정은 다른 UID 의 호출이 가능한지 판단하는 입력이 된다.
-
-### 코드와 매니페스트의 경계
-
-매니페스트는 공개된 구조와 OS 수준 정책을 선언한다.
-
-세부 비즈니스 권한, 사용자 로그인, 리소스 소유권은 코드에서 다시 확인해야 한다.
-
-매니페스트에 링크를 등록했다고 해당 링크의 모든 사용자가 인증된 것은 아니다.
-
-반대로 코드에 액티비티를 만들었어도 매니페스트에 등록하지 않으면 OS 진입점이 아니다.
-
-### 정리
-
-매니페스트는 설정 파일을 넘어 앱이 OS 에 노출하는 컴포넌트 경계다.
-
-Intent 라우팅, 권한, 패키지 가시성은 모두 이 선언과 실행 코드의 조합으로 결정된다.
+- 상위 계약: [Intent & Manifest 계약](intent-manifest-contracts.md)
+- 연관 계약: [Exported 속성은 외부 컴포넌트 경계를 정의한다](exported-attribute-defines-external-component-boundary.md)

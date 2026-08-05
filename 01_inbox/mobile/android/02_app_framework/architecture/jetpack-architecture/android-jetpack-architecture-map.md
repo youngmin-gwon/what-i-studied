@@ -24,7 +24,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ### 2. 세부 도메인별 정본 맵
 
 1. **UI & State Holder**:
-   - [Jetpack Compose UI & State](../../jetpack-compose/state-and-architecture/compose-state-management.md)
+   - [Jetpack Compose UI & State](../../jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
    - [ViewModel & State Flow](../state-management/viewmodel/viewmodel.md)
 2. **Data & Async Stream**:
    - [Kotlin Coroutines & Flow](../../data/async-flow/coroutines/coroutine-contracts.md)

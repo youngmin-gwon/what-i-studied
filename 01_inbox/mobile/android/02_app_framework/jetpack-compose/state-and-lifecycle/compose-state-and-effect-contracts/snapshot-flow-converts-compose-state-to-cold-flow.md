@@ -1,32 +1,70 @@
 ---
 title: snapshot-flow-converts-compose-state-to-cold-flow
 tags: [android, compose/state, jetpack-compose]
-aliases: [snapshotFlow]
+aliases: [snapshotFlow, State to Flow]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## snapshotFlow 는 Compose 상태를 Cold Flow 로 변환한다
 
-`**snapshotFlow**(Compose State의 읽기 변화를 관찰하여 Cold Flow 스트림으로 변환하는 API)` 는 block 안에서 읽은 Compose `State` 를 관찰해 cold `Flow` 로 바꾸는 adapter 다. Flow 가 collect 될 때 block 이 실행되고, 읽은 state 가 바뀌어 새 결과가 이전 결과와 다르면 값을 emit 한다.
+### 1. 개념 정의 (What)
+`snapshotFlow { block }`는 `block` 내에서 읽은 하나 이상의 Compose `State` 객체를 감시하여, 상태 값이 변경될 때마다 새로운 데이터를 발행(Emit)하는 **Cold Kotlin `Flow`로 변환해 주는 역방향 브릿징 API**다.
 
-이 API 는 `**derivedStateOf**(고빈도 입력 상태 변경 중 최종 결과값이 뒤집힐 때만 Recomposition 스코프를 무효화하는 파생 상태 생성 API)` 와 방향이 다르다. `derivedStateOf` 는 Compose 안에서 `State` 결과를 만들고, `snapshotFlow` 는 Compose State read 를 Flow pipeline 으로 내보내 analytics, debounce, filter 같은 Flow operator 와 연결한다.
+---
 
-`snapshotFlow` block 안에서는 Compose state read 만 안정적으로 수행하고 side effect 는 Flow collector 쪽에서 처리한다. mapped 결과의 의미가 달라졌을 때만 downstream 으로 보내고 싶다면 Flow operator 를 추가한다.
+### 2. snapshotFlow API의 필요성 (Why)
+Compose의 `State<T>`는 동기식 UI 표현에는 최적이치만, 비동기 파이프라인 처리에는 제약이 따른다:
+- **연산자 부재**: `State` 객체 자체에는 코틀린 Flow가 제공하는 `debounce()`, `distinctUntilChanged()`, `filter()`, `map()`, `flatmapLatest()` 같은 강력한 리액티브 연산자가 없다.
+
+예를 들어 스크롤 위치(`LazyListState.firstVisibleItemIndex`)가 바뀔 때마다 매번 이벤트를 처리하지 않고, 스크롤이 멈췄을 때만 네트워크 요청을 보내려면 `snapshotFlow`를 통해 Flow 연산자와 결합해야 한다.
+
+---
+
+### 3. 내부 동작 메커니즘 (How)
+
+```
+[snapshotFlow { lazyListState.firstVisibleItemIndex } 수집 시작]
+                           |
+                           v
+[Snapshot.registerApplyObserver 활성화]
+                           |
+                           v
+[block() 내부 State 값 대조 -> 값이 달라졌으면 Flow.emit(newValue)]
+                           |
+                           v
+[filter, debounce 연산자 수행 후 비동기 작업 처리]
+```
+
+1. **Snapshot Apply Observer**: `snapshotFlow`는 런타임의 `Snapshot.registerApplyObserver`를 활성화하여 스냅샷이 적용될 때마다 `block`을 재평가한다.
+2. **동등성 검사 및 Emission**: `block` 실행 결과가 이전 발행된 값과 `equals()` 기준으로 다를 때만 Flow Downstream으로 새 값을 발행한다.
+
+---
+
+### 4. 올바른 snapshotFlow 활용 코드 가이드
 
 ```kotlin
 @Composable
-fun ScrollAnalytics(listState: LazyListState) {
-    LaunchedEffect(listState) {
-        snapshotFlow { listState.firstVisibleItemIndex }
+fun AnalyticsScrollTracker(lazyListState: LazyListState, analytics: Analytics) {
+    // ✅ Compose State (firstVisibleItemIndex)를 Cold Flow로 변환 후 debounce 연산자 적용
+    LaunchedEffect(lazyListState) {
+        snapshotFlow { lazyListState.firstVisibleItemIndex }
+            .filter { index -> index > 0 }
             .distinctUntilChanged()
-            .collect { index -> analytics.logScrollPosition(index) }
+            .debounce(500L) // 스크롤이 500ms 동안 멈췄을 때만 1회 발행
+            .collect { index ->
+                analytics.logEvent("scroll_reached_index", mapOf("index" to index))
+            }
     }
 }
 ```
 
-`listState.firstVisibleItemIndex` 는 스크롤할 때마다 계속 바뀌지만, `distinctUntilChanged` 를 붙이면 값이 실제로 달라졌을 때만 `logScrollPosition` 이 호출된다. Compose state 를 직접 관찰 API 로 감시하는 대신 익숙한 Flow operator 체인으로 다룰 수 있다는 것이 이 예시의 핵심이다.
+---
 
-관련 노트: [produceState는 외부 상태를 Compose State로 바꾼다](./produce-state-converts-external-state-to-compose-state.md), [derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다](../../performance/compose-performance-contracts/derivedstateof-is-for-high-frequency-derived-values.md)
+상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
-출처: [Side-effects in Compose - snapshotFlow](https://developer.android.com/develop/ui/compose/side-effects#snapshotflow)
+관련 노트: [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](../../runtime/compose-runtime-contracts/snapshot-state-observation-invalidates-state-read-scopes.md), [LaunchedEffect는 Composable과 함께 취소되어야 하는 작업을 소유한다](./launched-effect-owns-composable-cancellable-work.md)
+
+출처: [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects#snapshotflow)
+
+검증일: 2026-08-05. Compose 공식 가이드의 snapshotFlow 사양을 대조하여 State-to-Flow 변환, Snapshot Apply Observer 동작 및 Flow 연산자 결합 패턴 서술을 정밀 보강했다.

@@ -1,20 +1,60 @@
 ---
 title: context-registered-receiver-lifetime-follows-registering-context
 tags: [android, android/app-components, android/architecture]
-aliases: ["Context-registered Receiver의 수명은 등록한 Context를 따른다"]
+aliases: ["context-registered receiver 수명은 등록한 Context 경계를 따른다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Context-registered Receiver 의 수명은 등록한 Context 를 따른다
+## context-registered receiver 수명은 등록한 Context 경계를 따른다
 
-상위 문서: [App Component Contracts](./app-component-contracts.md)
-동적으로 등록한 BroadcastReceiver 는 등록한 Context 의 수명과 export flag 정책을 따른다. Activity context 로 등록하면 화면 수명과 맞춰 해제해야 하고, application context 로 등록하면 더 오래 살아남을 수 있으므로 필요 범위를 좁혀야 한다.
+AndroidManifest 에 선언되는 정적 리시버(Static Receiver)와 달리, 코드 내에서 **`context.registerReceiver()` 로 동적 등록되는 리시버(Dynamic / Context-registered Receiver)의 수명은 해당 리시버를 등록한 Context 인스턴스의 생명주기 경계를 엄격히 따른다.**
 
-이 차이는 memory leak 과 보안 경계로 이어진다. 짧은 화면 이벤트를 듣는 receiver 를 application context 에 묶으면 불필요하게 오래 남고, 외부 broadcast 를 받는 receiver 의 export/permission 결정을 흐리면 공격 surface 가 커진다.
+---
 
-Receiver 는 callback context 를 보관하지 않고 즉시 필요한 값만 추출한 뒤, 오래 걸리는 일은 lifecycle 에 맞는 owner 나 scheduler 로 넘긴다.
+### 1. 개념 및 핵심 구조 (What)
 
-관련 노트: [component Context 수명](../../context-and-modularity/context-contracts/component-context-lifetime-follows-service-receiver-provider-boundary.md), [BroadcastReceiver 경계](./broadcastreceiver-is-short-lived-event-entry-point-not-background-worker.md), [Android 권한 계약](../../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md).
+- **Context 동기화 생명주기**:
+  Activity Context 에 등록된 리시버는 해당 Activity 의 `onStop()` 또는 `onDestroy()` 시점에 `unregisterReceiver()` 를 명시적으로 호출해 해제해야 한다. 해제하지 않을 경우 Activity Context Leak 이 일어난다.
+- **Android 14+ Receiver Exported Flag 강제**:
+  안드로이드 14(API 34)부터 동적 리시버 등록 시 `RECEIVER_EXPORTED` 또는 `RECEIVER_NOT_EXPORTED` 플래그 명시가 필수화되었다.
 
-공식 문서: [Broadcasts overview](https://developer.android.com/develop/background-work/background-tasks/broadcasts)
+---
+
+### 2. 코드 예시 (Activity Lifecycle 매핑 등록 및 해제)
+
+```kotlin
+class NetworkAwareActivity : ComponentActivity() {
+
+    private val networkReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            // 네트워크 상태 변경 반영
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        ContextCompat.registerReceiver(
+            this,
+            networkReceiver,
+            filter,
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
+    }
+
+    override fun onStop() {
+        unregisterReceiver(networkReceiver) // 수명에 맞춰 반드시 해제
+        super.onStop()
+    }
+}
+```
+
+---
+
+### 3. 관련 문서 및 참조
+
+- 상위 문서: [App Component Contracts](./app-component-contracts.md)
+- 공식 가이드: [Dynamic Broadcast Receivers](https://developer.android.com/guide/components/broadcasts#context-registered-receivers)
+
+검증일: 2026-08-05. Dynamic Receiver unregister 필수 계약 대조 완료.

@@ -1,39 +1,36 @@
 ---
 title: route-key-should-be-stable-and-serializable
 tags: [android, android/navigation, android/navigation3]
-aliases: ["Navigation 3 route key는 UI 클래스가 아니라 안정적인 직렬화 식별자다"]
+aliases: ["Route key는 안정적인 직렬화 식별자다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Navigation 3 route key 는 UI 클래스가 아니라 안정적인 직렬화 식별자다
+## Route key 는 안정적인 직렬화 식별자다
 
-배경 지식: [메모리 레이아웃과 캐시](../../../../../../../02_references/computer-science/memory-layout-and-cache.md)
+상위 문서: [Navigation 3 계약](navigation3-contracts.md)
 
-Navigation 3 의 key 는 특정 Composable class 가 아니라 destination 을 식별하는 navigation state 다. key 는 equality 가 안정적이어야 하고, 필요한 argument 만 포함해야 하며, 저장/복원과 deep link 변환을 견딜 수 있어야 한다.
+---
 
-화면 구현 객체, Repository, ViewModel, callback 같은 runtime object 를 key 에 넣으면 저장과 비교가 깨진다. route key 는 domain identifier 와 primitive/**serializable(직렬화 가능)**(객체 상태를 바이트 스트림이나 문자열로 변환하여 저장 또는 전송할 수 있는 특성) argument 중심으로 설계한다.
+### 개념과 설계 원칙 (What & Why)
 
-### 판단 기준
-
-- key 는 process death 뒤에도 다시 만들 수 있는 값만 포함한다.
-- 화면 표시용 객체나 callback 은 entry content 에서 주입한다.
-- deep link parser 가 URI 를 typed key 로 변환할 수 있어야 한다.
-- versioning 이 필요한 argument 는 기본값과 migration/fallback 을 함께 고려한다.
-
-### 예시
+1. **개념 (What)**:
+   - Navigation 3의 라우트 키(`NavKey`)는 프로세스 재시작 시 Bundle로 보존될 수 있도록 반드시 **`@Serializable` (Kotlinx Serialization)** 어노테이션이 지정된 불변 객체/데이터 클래스이어야 한다.
+2. **설계 원칙 (Why & Rule)**:
+   - **최소 식별자만 포함**: 키 내부에는 화면 복원에 필요한 최소 식별자(예: `id: String`)만 포함하며, 거대한 도메인 데이터 객체, Repository 인스턴스, 람다 콜백을 키에 포함해서는 안 된다.
 
 ```kotlin
-// 피해야 하는 형태: repository와 콜백이 key 안에 들어 있다
-data class BadDetailRoute(val order: Order, val onSave: () -> Unit) : NavKey
-
-// 권장하는 형태: 복원 가능한 식별자만 남긴다
+// 올바른 설계 예시
 @Serializable
-data class OrderDetailRoute(val orderId: String) : NavKey
+data class UserProfileKey(val userId: String) : NavKey
+
+// 잘못된 설계 예시 (도메인 객체나 람다 포함 금지)
+// data class BadKey(val user: UserDomainModel, val onClick: () -> Unit) : NavKey
 ```
 
-`BadDetailRoute` 는 `Order` 나 lambda 를 저장/직렬화할 수 없으므로 `rememberNavBackStack` 의 saveable 복원이 런타임에 깨진다. `OrderDetailRoute` 처럼 primitive id 만 두면 딥 링크 파서와 process death 복원이 같은 값으로 key 를 재구성할 수 있다.
+---
 
-관련 노트: [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](navigation3-back-stack-needs-saveable-restoration.md)
+### 관련 상위 및 연관 노트
 
-공식 문서: [Navigation 3 basics](https://developer.android.com/guide/navigation/navigation-3/basics)
+- 상위 계약: [Navigation 3 계약](navigation3-contracts.md)
+- 연관 계약: [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](navigation3-back-stack-needs-saveable-restoration.md)

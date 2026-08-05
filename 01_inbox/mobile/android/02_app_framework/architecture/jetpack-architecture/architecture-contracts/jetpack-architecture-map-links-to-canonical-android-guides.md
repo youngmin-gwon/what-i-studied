@@ -6,15 +6,25 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Jetpack Architecture 문서는 세부 구현을 반복하지 않는 map 이어야 한다
+## Jetpack Architecture 문서는 세부 구현을 반복하지 않는 map이어야 한다
 
-상위 문서: [Architecture Contracts](./architecture-contracts.md)
-Jetpack Architecture 개요 문서는 ViewModel, UI state, Flow, Room, WorkManager, Navigation, Hilt, Compose 의 구현 세부를 다시 설명하는 곳이 아니다. 각 주제는 이미 별도 정본 map 을 가진다.
+**`Jetpack Architecture` 개요 문서는 개별 기술 라이브러리의 코드 파라미터나 API 상세 설명을 중복 작성하는 장소가 되어서는 안 된다.** 각 도메인별 정본 노트(Canonical Guides)로 신속하고 정확하게 연결하는 **상위 내비게이션 맵(Navigation Decision Map)** 역할을 수행해야 한다.
 
-이 문서의 역할은 어떤 질문이 어느 map 으로 가야 하는지 안내하는 것이다. 화면 상태와 reducer 는 state-management, async stream 은 Flow, 영속 데이터는 storage, 지연 작업은 background-work, 외부 진입과 route 는 navigation/intent, 의존성 lifetime 은 DI, UI runtime 은 Compose 로 보낸다.
+---
 
-이렇게 유지하면 architecture 문서가 카탈로그가 아니라 decision index 가 된다. 같은 내용을 여러 큰 문서가 반복하면서 오래된 API 설명을 남기는 문제도 줄어든다.
+### 1. 개념 및 핵심 명제 (What)
 
-관련 노트: [Jetpack Architecture map](../android-jetpack-architecture-map.md), [Flow/StateFlow 정본](../../../data/async-flow/flow-state-contracts/flow-state-contracts.md), [Compose runtime 정본](../../../jetpack-compose/runtime/compose-runtime-and-state-model.md).
+- **단일 정보 출처 (Single Source of Truth in Knowledge Base)**:
+  ViewModel, Compose Runtime, Room, Coroutines 등의 상세 기술 서술은 각 하위 도메인 정본 파일에 단 한 번 작성하며, Architecture Map 은 링크와 의사결정 인과관계만 정리한다.
 
-공식 문서: [Guide to app architecture](https://developer.android.com/topic/architecture)
+---
+
+### 2. 관련 문서 및 참조
+
+- 상위 문서: [Architecture Contracts](./architecture-contracts.md)
+- 세부 연결 정본 노트:
+  - [Jetpack Architecture Map](../android-jetpack-architecture-map.md)
+  - [Android State Management](../../state-management/android-state-management.md)
+  - [Android Context Boundaries](../../context-and-modularity/android-context-boundaries.md)
+
+검증일: 2026-08-05. 지식 베이스 단일 정보 출처 원칙 검증 완료.

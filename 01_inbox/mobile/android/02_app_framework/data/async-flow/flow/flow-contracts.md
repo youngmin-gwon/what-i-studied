@@ -1,25 +1,22 @@
 ---
 title: flow-contracts
-tags: [android, android/async, android/data, android/flow]
+tags: [android, android/async, android/flow, android/data]
 aliases: ["Flow Contracts"]
-date modified: 2026-08-03 18:07:28 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Flow 계약은 값을 방출하는 시점보다 수집과 실행 수명을 정의한다
+## Flow 계약은 반응형 비동기 스트림과 컨텍스트 보존을 다룬다
 
-Flow 정본은 비동기 stream 을 cold execution, operator cancellation, callback bridge, sharing policy 로 나눈다. 핵심은 "값을 몇 번 emit 하는가"보다 누가 collect 하고 어느 수명에서 upstream 이 실행되는가다.
+Kotlin `Flow` 정본은 연속적인 데이터 스트림(Data Stream)을 비동기적으로 처리하기 위한 표준 계약 체계다. RxJava나 LiveData가 지니던 스레드 컨텍스트 누수와 백프레셔(Backpressure) 복잡도를 해결하고, **Cold Stream 메커니즘**, **선언적 연산자 파이프라인**, **콜백-스트림 변환 자원 정리**, **Hot Stream 공유(shareIn)** 계약을 규정한다.
 
 ### 정본 노트
 
-- [Cold Flow는 collect될 때 실행된다](./cold-flow-runs-when-collected.md)
-- [Flow operator는 stream 변환과 취소 규칙을 드러낸다](./flow-operators-transform-stream-with-declared-cancellation-and-combination.md)
-- [callbackFlow는 awaitClose로 등록과 해제를 대칭으로 보장해야 한다](./callbackflow-requires-awaitclose-for-registration-cleanup.md)
-- [shareIn은 shared stream의 수명과 replay 정책을 정의한다](./sharein-defines-shared-stream-lifetime-and-replay-policy.md)
-- [Flow와 StateFlow 상태 계약](../flow-state-contracts/flow-state-contracts.md)
+- [Cold Flow는 collect될 때 비로소 실행된다](./cold-flow-runs-when-collected.md) - 수집 시점마다 실행되는 온디맨드(On-demand) 데이터 공급 계약과 SafeCollector 컨텍스트 보존.
+- [Flow 연산자는 선언적 취소와 조합을 유지하며 스트림을 변환한다](./flow-operators-transform-stream-with-declared-cancellation-and-combination.md) - intermediate operator 체이닝과 flowOn을 통한 안전한 스레드 분리.
+- [callbackFlow는 리스너 등록과 해제 자원 정리를 위해 awaitClose를 필수 요구한다](./callbackflow-requires-awaitclose-for-registration-cleanup.md) - Android 콜백 기반 API를 Coroutine Flow로 변환할 때의 메모리 누수 방지.
+- [shareIn은 공유 스트림 수명과 replay 정책을 정의한다](./sharein-defines-shared-stream-lifetime-and-replay-policy.md) - 단일 업스트림 실행을 복수 Downstream 수집자에게 브로드캐스트하는 Hot Stream 전환.
 
-### 중복 방지 규칙
+### 연결된 상태 계약
 
-- one-off event 와 current state 구분은 Flow/StateFlow 상태 계약으로 둔다.
-- UI collection 은 lifecycle-aware collection 정본으로 둔다.
-- Room/DataStore 가 Flow 를 노출하는 이유는 persistence 정본으로 둔다.
+- 화면 상태 유도 및 ViewModel 연동: [Flow와 StateFlow 상태 계약](../flow-state-contracts/flow-state-contracts.md) 정본 노트 참조.

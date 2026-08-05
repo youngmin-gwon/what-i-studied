@@ -6,17 +6,53 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Foreground Service 는 사용자에게 보이는 진행 중 작업 계약이다
+## Foreground Service는 사용자에게 보이는 진행 중 작업 계약이다
 
-상위 문서: [App Component Contracts](./app-component-contracts.md)
-Foreground Service 는 사용자가 인지해야 하는 즉시성, 진행 중 작업을 OS 에 알리는 계약이다. notification 을 통해 사용자에게 노출되며, Android 버전과 target SDK 에 따라 foreground-service type, permission, start restriction, timeout 조건이 달라진다.
+**Foreground Service 는 사용자가 알림창(Ongoing Notification)을 통해 직접 인식할 수 있는 장기 실행 작업(음악 재생, 네비게이션 내비게이션, 운동 추적, 위치 추적 등)을 구동하기 위한 서비스 계약**이다.
 
-따라서 "백그라운드에서 오래 실행하고 싶다"는 이유만으로 Foreground Service 를 선택하면 안 된다. 음악 재생, active navigation, ongoing call, 사용자 시작 데이터 전송처럼 사용자 가시성과 즉시성이 있는지 먼저 확인해야 한다.
+---
 
-지연 가능하고 네트워크/충전/재시도 제약을 가진 작업은 WorkManager 가 더 적합한 경우가 많다. Foreground Service 는 background-work API 선택표의 한 칸이지 우회 수단이 아니다.
+### 1. 개념 및 핵심 명제 (What)
 
-`adb shell dumpsys activity services <pkg>` 의 service 레코드에서 foreground 상태와 연결된 notification 을 확인할 수 있다. `startForegroundService()` 로 시작한 뒤 `startForeground()` 를 제때 호출하지 않으면 [ANR runbook](../../../../00_foundations/diagnostic-runbooks/02-anr.md) 의 "Service.startForeground() not called" 트리거로 앱이 죽는다.
+- **사용자 가시성 필수 계약**:
+  Foreground Service 는 실행 직후(Android 12+ 의 경우 10초 이내) `startForeground(id, notification)` 를 호출하여 지울 수 없는 진행 중 상태 알림(Ongoing Notification)을 게시해야 한다.
+- **Android 14+ Foreground Service Type 필수화**:
+  Android 14(API 34)부터 manifest 및 코드 상에 서비스 작업 타입(`mediaPlayback`, `location`, `connectedDevice`, `dataSync` 등)을 명시해야 하며, 유효한 권한이 선언되지 않은 경우 `SecurityException` 이 발생한다.
 
-관련 노트: [background-work의 foreground service 정본](../../../../04_system_services/background-and-notifications/background-work-contracts/foreground-service-is-for-visible-continuous-work.md), [background work 정본](../../../../04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md), [Android 권한 계약](../../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md).
+---
 
-공식 문서: [Foreground services](https://developer.android.com/develop/background-work/services/fgs)
+### 2. 코드 예시 (Foreground Service 및 Notification)
+
+```kotlin
+class MusicPlaybackService : Service() {
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val notification = NotificationCompat.Builder(this, "MUSIC_CHANNEL")
+            .setContentTitle("음악 재생 중")
+            .setContentText("Artist - Song Title")
+            .setSmallIcon(R.drawable.ic_music)
+            .setOngoing(true)
+            .build()
+
+        // Android 14+ foregroundServiceType 지정 호출
+        ServiceCompat.startForeground(
+            this,
+            1001,
+            notification,
+            ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
+        )
+        return START_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? = null
+}
+```
+
+---
+
+### 3. 관련 문서 및 참조
+
+- 상위 문서: [App Component Contracts](./app-component-contracts.md)
+- 공식 가이드: [Foreground Services Guide](https://developer.android.com/guide/components/foreground-services)
+
+검증일: 2026-08-05. Android 14 Foreground Service Type 정책 확인 완료.

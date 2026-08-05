@@ -1,33 +1,91 @@
 ---
 title: remember-coroutine-scope-owns-manually-controlled-ui-coroutines
 tags: [android, compose/state, jetpack-compose]
-aliases: [rememberCoroutineScope]
+aliases: [rememberCoroutineScope, User-event Coroutines]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## rememberCoroutineScope 는 수동 제어 UI Coroutine 을 소유한다
 
-`rememberCoroutine**Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션)` 는 Composable call site 의 Composition 수명에 묶인 `CoroutineScope` 를 돌려준다. Composable body 에서 바로 작업을 시작하는 API 가 아니라, click handler 나 callback 처럼 composition 밖의 사용자 이벤트에서 coroutine 을 시작할 때 쓴다.
+### 1. 개념 정의 (What)
+`rememberCoroutineScope()`는 현재 Composable의 Composition 수명주기에 구속(Bound)된 `CoroutineScope` 인스턴스를 반환하는 함수로, **사용자의 뷰 이벤트 콜백(예: 버튼 클릭, 드래그 스와이프)에 반응하여 수동으로 코루틴을 생성(`scope.launch { ... }`)하고 관리하는 유틸리티 API**다.
 
-Scope 는 call site 가 Composition 에서 제거되면 cancel 된다. 그래서 snackbar 표시, drawer 열기, scroll animation 처럼 UI controller 와 함께 사라져야 하는 수동 작업에 적합하다.
+---
 
-화면이 사라져도 완료되어야 하는 저장, 동기화, 결제, repository mutation 을 이 scope 에 숨기면 owner 가 잘못된다. 그런 작업은 ViewModel 이나 domain layer 가 소유하고 UI 는 event 만 전달한다.
+### 2. rememberCoroutineScope의 필요성 (Why)
+`LaunchedEffect`는 상태 변경이나 최초 진입 등 **Composition 단계**에서 비동기 작업을 구동하는 반면, 사용자 클릭 이벤트 콜백(`onClick: () -> Unit`)은 **Composition 파이프라인 외부**에서 호출된다.
+
+이벤트 람다 내부에서 코루틴을 구동하려 할 때:
+- 일반 `CoroutineScope()`나 `GlobalScope`를 사용하면 화면이 이탈되어도 작업이 취소되지 않고 비동기 애니메이션/네트워크 작업이 누수된다.
+
+`rememberCoroutineScope()`는 이벤트 람다 내부에서 코루틴을 구동하되, 화면 이탈 시 해당 코루틴이 자동으로 취소되도록 수명주기를 Composition 트리와 바인딩해준다.
+
+---
+
+### 3. 내부 동작 및 구별 메커니즘 (How)
+
+```
+[사용자 클릭 이벤트 발생 (onClick 람다)]
+         |
+         v
+[rememberCoroutineScope() 로 획득한 scope.launch 구동]
+         |
+         v
+[UI 상태 조작 (Drawer 열기, Snackbar 표시, Scroll 애니메이션)]
+         |
+[Composable 화면 이탈 시 (Uncompose)]
+         |
+         v
+[Scope 내부의 모든 작업 Job.cancel() 자동 취소!]
+```
+
+1. **Job 파괴 연결**: `rememberCoroutineScope()`가 할당한 `CoroutineScope`는 내부적으로 `DisposableEffect`처럼 작동하여, Composable이 트리를 벗어나는 순간 `coroutineContext.cancel()`을 즉시 트리거한다.
+2. **LaunchedEffect와의 명확한 책임 분리**:
+   - **`LaunchedEffect`**: "상태(State)가 변경되었을 때 비동기 작업을 시작하라" (Composition 뷰 영역)
+   - **`rememberCoroutineScope()`**: "사용자가 버튼을 눌렀을 때 비동기 작업을 구동하라" (이벤트 콜백 영역)
+
+---
+
+### 4. 올바른 UI Coroutine 수동 제어 코드
 
 ```kotlin
 @Composable
-fun MessageList(listState: LazyListState) {
+fun DrawerAndSnackbarExample() {
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val snackbarHostState = remember { SnackbarHostState() }
+    
+    // ✅ Composable 바인딩 CoroutineScope 획득
     val scope = rememberCoroutineScope()
-    Button(onClick = {
-        scope.launch { listState.animateScrollToItem(0) } // 클릭이라는 UI 이벤트에서 시작
-    }) {
-        Text("맨 위로")
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = { DrawerContent() }
+    ) {
+        Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) }) { padding ->
+            Button(
+                onClick = {
+                    // ✅ 사용자 클릭 이벤트 콜백에서 안전하게 UI 애니메이션 코루틴 구동
+                    scope.launch {
+                        drawerState.open()
+                        snackbarHostState.showSnackbar("Drawer opened successfully!")
+                    }
+                },
+                modifier = Modifier.padding(padding)
+            ) {
+                Text("Open Drawer")
+            }
+        }
     }
 }
 ```
 
-`animateScrollToItem` 은 suspend 함수라 Composable 본문에서 직접 호출할 수 없다. `scope.launch` 로 감싸야 click callback(코루틴이 아닌 일반 람다) 안에서 시작할 수 있고, 이 Composable 이 composition 을 떠나면 진행 중이던 스크롤 애니메이션도 함께 취소된다.
+---
 
-관련 노트: [UI 컨트롤러와 Effect 실행기는 UI 수명에 둔다](./ui-controllers-and-effect-runners-live-with-ui-lifetime.md), [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](./launched-effect-owns-composable-cancellable-work.md)
+상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
-출처: [Side-effects in Compose - rememberCoroutineScope](https://developer.android.com/develop/ui/compose/side-effects#remembercoroutinescope)
+관련 노트: [LaunchedEffect는 Composable과 함께 취소되어야 하는 작업을 소유한다](./launched-effect-owns-composable-cancellable-work.md), [UI controller와 effect runner는 ViewModel이 아니라 UI 수명에 둔다](./ui-controllers-and-effect-runners-live-with-ui-lifetime.md)
+
+출처: [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects#remembercoroutinescope)
+
+검증일: 2026-08-05. Compose 공식 가이드의 rememberCoroutineScope 사양을 대조하여 이벤트 콜백 구동 모델, Composition 수명주기 cancellation 및 LaunchedEffect와의 역할 분리 서술을 정밀 보강했다.

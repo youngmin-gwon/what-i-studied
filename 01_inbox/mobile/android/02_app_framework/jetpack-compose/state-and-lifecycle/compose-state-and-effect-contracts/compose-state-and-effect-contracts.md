@@ -2,25 +2,25 @@
 title: compose-state-and-effect-contracts
 tags: [android, compose/state, jetpack-compose]
 aliases: [Compose 상태와 Effect 계약]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-05 13:49:44 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## Compose 상태와 Effect 계약
 
-Compose 상태 API와 부작용(Side Effect) 관리 API는 **데이터의 보유 수명주기(Lifetime)**와 **작업의 소유자(Owner)**를 기준으로 엄격히 선택되어야 한다. 이 묶음은 `remember`, `rememberSaveable`, `LaunchedEffect`, `DisposableEffect`, `produceState`, `snapshotFlow` 등 핵심 상태/이펙트 API의 정본 계약을 바인딩한다.
+Compose 상태 API 와 부작용(Side Effect) 관리 API 는 **데이터의 보유 수명주기(Lifetime)** 와 **작업의 소유자(Owner)** 를 기준으로 엄격히 선택되어야 한다. 이 묶음은 `remember`, `rememberSaveable`, `LaunchedEffect`, `DisposableEffect`, `produceState`, `snapshotFlow` 등 핵심 상태/이펙트 API 의 정본 계약을 바인딩한다.
 
 ---
 
 ### 수명주기별 상태 및 이펙트 선택 매트릭스 (What / Why / How)
 
 1. **Composition 수명 (Transient UI State)**
-   - **API**: `remember { mutableStateOf(...) }`, `rememberCoroutineScope()`, `DisposableEffect`
-   - **특징**: Composable이 화면 트리에 존재하는 동안만 유지됨. 화면 이탈 시 즉시 메모리 파괴.
+   - **API**: `remember { mutableStateOf(…) }`, `rememberCoroutineScope()`, `DisposableEffect`
+   - **특징**: Composable 이 화면 트리에 존재하는 동안만 유지됨. 화면 이탈 시 즉시 메모리 파괴.
 
 2. **프로세스 재창조 수명 (Restorable Local UI State)**
-   - **API**: `rememberSaveable { mutableStateOf(...) }`
-   - **특징**: 화면 회전(Activity Recreation) 및 시스템 프로세스 종료(Process Death) 시에도 Bundle을 통해 상태 보존.
+   - **API**: `rememberSaveable { mutableStateOf(…) }`
+   - **특징**: 화면 회전(Activity Recreation) 및 시스템 프로세스 종료(Process Death) 시에도 Bundle 을 통해 상태 보존.
 
 3. **화면 수명 (Screen/Business State)**
    - **API**: `ViewModel`, `SavedStateHandle`, `collectAsStateWithLifecycle()`

@@ -24,4 +24,4 @@ Kotlin Coroutine 정본은 Android 앱 내부의 비동기 작업을 단순한 O
 - **단일 비동기 작업 및 실행 트랜잭션**: 본 정본 클러스터에서 다룬다.
 - **연속적 데이터 스트림 처리**: [Flow Contracts](../flow/flow-contracts.md) 정본으로 연결한다.
 - **UI 화면 상태 유도 및 ViewModel 연동**: [Flow와 StateFlow 상태 계약](../flow-state-contracts/flow-state-contracts.md) 정본으로 연결한다.
-- **안드로이드 구성요소 수명주기 결합**: [Android ViewModel](../../architecture/state-management/viewmodel/viewmodel.md) 및 `lifecycleScope` 계약을 준수한다.
+- **안드로이드 구성요소 수명주기 결합**: [Android ViewModel](../../../architecture/state-management/viewmodel/viewmodel.md) 및 `lifecycleScope` 계약을 준수한다.

@@ -1,36 +1,27 @@
 ---
 title: navigation3-transition-and-back-policy-must-share-stack-state
 tags: [android, android/navigation, android/navigation3]
-aliases: ["Navigation 3 transition과 predictive back은 같은 stack state를 기준으로 해야 한다"]
+aliases: ["Navigation 3 transition과 back policy는 같은 stack 상태를 공유해야 한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Navigation 3 **transition**(화면이 전환되거나 백스택이 변경되는 도중의 애니메이션 시각 효과 상태) 과 predictive back 은 같은 stack state 를 기준으로 해야 한다
+## Navigation 3 transition 과 back policy 는 같은 stack 상태를 공유해야 한다
 
-Navigation animation 은 실제 navigation state 와 분리된 장식이 아니다. `NavDisplay` transition, pop transition, predictive back 중간 상태는 모두 같은 back stack 변경을 기준으로 움직여야 한다.
+상위 문서: [Navigation 3 계약](navigation3-contracts.md)
 
-사용자가 back gesture 를 취소하거나 완료할 때 app back stack, visible entry, transition state 가 서로 다르면 화면은 되돌아왔지만 state 는 pop 된 상태 같은 불일치가 생긴다. 시스템 back 과 앱 내부 back action 은 하나의 stack mutation policy 로 모은다.
+---
 
-### 판단 기준
+### 개념과 필요성 (What & Why)
 
-- system back, toolbar back, gesture back 은 같은 pop 정책을 호출한다.
-- transition 은 state mutation 의 결과를 표현하고 별도 navigation state 를 만들지 않는다.
-- predictive back 취소 시 stack 과 visible entry 가 그대로 유지되는지 확인한다.
-- dialog, overlay, multi-pane scene 은 어떤 entry 가 pop 되는지 명시한다.
+1. **개념 (What)**:
+   - Navigation 3 화면 전환 모션 애니메이션(Transition)과 뒤로 가기 및 Predictive Back 제스처 정책(Back Policy)은 반드시 **동일한 `NavBackStack` 진실의 단일 원천(Single Source of Truth) 상태**를 공유하여 작동해야 한다는 원칙이다.
+2. **필요성 (Why)**:
+   - 백스택 상태와 애니메이션 진행 상태가 별개의 boolean 변수나 흩어진 커스텀 상태로 이원화되면, Predictive Back 제스처 도중 사용자가 취소했을 때 이전 화면 UI와 백스택 불일치가 발생하는 버그가 유발된다.
 
-### 예시
+---
 
-toolbar 의 back button 과 system predictive back gesture 는 같은 pop 함수를 호출해야 한다.
+### 관련 상위 및 연관 노트
 
-```kotlin
-val onBack = { backStack.removeLastOrNull() }
-
-NavDisplay(backStack = backStack, onBack = { onBack() }, entryProvider = entryProvider)
-
-TopAppBar(navigationIcon = { IconButton(onClick = onBack) { BackIcon() } })
-```
-
-toolbar 버튼이 `onBack` 대신 `navController.popTo(previousRoute)` 같은 별도 경로를 호출하면, gesture back 취소 애니메이션과 toolbar back 의 결과 stack 이 서로 달라질 수 있다.
-
-관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](navkey-and-back-stack-are-app-owned-navigation-state.md), [SceneStrategy는 entry를 조합하고 SceneDecorator는 렌더링을 감싼다](scene-strategy-composes-entries-while-decorator-wraps-rendering.md)
+- 상위 계약: [Navigation 3 계약](navigation3-contracts.md)
+- 연관 계약: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](navkey-and-back-stack-are-app-owned-navigation-state.md)

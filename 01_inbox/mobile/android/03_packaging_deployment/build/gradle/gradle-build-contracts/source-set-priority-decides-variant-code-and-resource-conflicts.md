@@ -11,39 +11,38 @@ updated: 2026-08-05 16:15:00 +09:00
 
 상위 문서: [Gradle 빌드 계약](gradle-build-contracts.md)
 
+### 개념 및 필요성 (What & Why)
+**SourceSet(소스 세트)** 은 특정한 빌드 변형(Build Variant)이나 환경을 위해 결합되는 소스 코드, 리소스, 매니페스트 파일의 디렉터리 모음이다 (예: `src/main`, `src/debug`, `src/free`, `src/freeRelease`).
+다양한 빌드 변형을 동시에 지원할 때 동일한 리소스 이름(예: `strings.xml` 내의 `app_name`)이나 코드가 여러 소스 세트에 중복 존재할 수 있다.
+AGP는 명확하게 정의된 **SourceSet 우선순위 계층구조(Priority Cascade)** 를 따라 리소스를 덮어쓰고(Override) 병합함으로써 소스 충돌을 해결한다.
+
 ### 내부 메커니즘 (Internal Mechanism)
-
-AGP 빌드 프로세스는 동일한 이름의 파일이나 리소스가 여러 **SourceSet**(독립 소스 코드 및 리소스 디렉터리 묶음)에 존재하는 경우, 엄격한 소스셋 우선순위 병합 규칙(**SourceSet Precedence Merging**)을 통해 단일 최종 리소스를 결정한다.
-
-우선순위 계층구조 (높은 우선순위 -> 낮은 우선순위):
-
-1. **Build Type SourceSet** (`src/release`, `src/debug`)
-2. **Product Flavor SourceSet** (`src/prod`, `src/dev`)
-3. **Main SourceSet** (`src/main`)
-4. **Library Dependencies** (AAR 라이브러리 리소스)
-
-- **코드 파일 (.kt / .java)**: 동일한 클래스 네임스페이스가 2 개 이상 소스셋에 중복 정의되면 컴파일 타임 `Duplicate Class Error` 가 발생하므로 분리 관리해야 한다.
-- **리소스 파일 (.xml / .png)**: 우선순위가 높은 소스셋의 리소스가 우선순위가 낮은 리소스를 완전히 덮어쓴다(Override).
+1. **우선순위 계층구조 (Cascade Rule)**:
+   $$	ext{Variant} (	ext{freeRelease}) > 	ext{Flavor} (	ext{free}) > 	ext{BuildType} (	ext{release}) > 	ext{Main} (	ext{main}) > 	ext{Dependencies (AAR)}$$
+2. **리소스(Resource) 병합 규칙**: 높은 우선순위 소스 세트의 XML 리소스나 이미지 아셋이 낮은 우선순위의 리소스를 완전 대체(Override)한다.
+3. **소스 코드(Java/Kotlin) 중복 금지 규칙**: 리소스와 달리 동일한 완전 수식 클래스명(Fully Qualified Class Name)을 갖는 `.kt` / `.java` 파일이 `main`과 `flavor`/`buildType` 소스 세트에 동시에 존재하면 **Duplicate Class 컴파일 에러**가 발생한다. 변형별 코드는 `main`에서 제거하고 해당 변형 소스 세트들에만 각각 배치해야 한다.
 
 ```mermaid
 flowchart TD
-    BuildTypeSet["1. src/release (Highest Priority)"] --> MergeEngine["AGP Resource & Manifest Merger"]
-    FlavorSet["2. src/prod"] --> MergeEngine
-    MainSet["3. src/main"] --> MergeEngine
-    LibSet["4. Library AAR (Lowest Priority)"] --> MergeEngine
-    MergeEngine --> FinalRes["Final Merged Res & APK Manifest"]
+    VarSource["src/freeRelease (Highest Priority)"] --> MergeEngine["AGP Resource & Code Merger"]
+    FlavorSource["src/free"] --> MergeEngine
+    BTSource["src/release"] --> MergeEngine
+    MainSource["src/main (Default Base)"] --> MergeEngine
+    LibSource["Dependencies / AAR (Lowest Priority)"] --> MergeEngine
+    MergeEngine --> FinalMerged["Final Variant Output Resources & Code"]
 ```
 
-### 코드 예시 (Directory Layout & build.gradle.kts)
+### 코드 예시 (Directory Hierarchy & build.gradle.kts)
 ```
+// 소스 세트 디렉터리 구조 예시
 app/src/
-├── main/res/values/strings.xml        <-- app_name = "My App"
-├── dev/res/values/strings.xml         <-- app_name = "My App (Dev)"
-└── release/res/values/strings.xml     <-- app_name = "My App"
+├── main/res/values/strings.xml       // app_name = "My App"
+├── free/res/values/strings.xml       // app_name = "My App Free" (Overriding main)
+└── paid/res/values/strings.xml       // app_name = "My App Paid" (Overriding main)
 ```
 
 ```kotlin
-// app/build.gradle.kts (Custom SourceSet Location mapping)
+// app/build.gradle.kts (Custom SourceSet 경로 매핑 예시)
 android {
     sourceSets {
         getByName("main") {
@@ -55,16 +54,9 @@ android {
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-
-AGP 의 리소스 병합 과정을 리소스 리포트 파일로 분석할 수 있다:
-
+특정 빌드 변형에 최종 반영된 병합 리소스 결과를 AAPT2 태스크 출력 또는 APK 수색으로 관측할 수 있다:
 ```bash
-./gradlew app:mergeReleaseResources --debug
-
-# Generated Report File: app/build/intermediates/incremental/mergeReleaseResources/merger.xml
-# Log Output Example:
-# Merged item: string/app_name
-#   Override: src/release/res/values/strings.xml -> replaced src/main/res/values/strings.xml
+./gradlew app:processFreeReleaseResources
 ```
 
 관련 노트: [Build type, product flavor, build variant는 서로 다른 축이다](build-type-product-flavor-and-build-variant-are-different-axes.md), [Gradle 빌드 계약](gradle-build-contracts.md)

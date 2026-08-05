@@ -1,64 +1,78 @@
 ---
 title: flatmaplatest-cancels-obsolete-work-for-new-input
-tags: [android, android/async, android/data, android/flow-state-contracts]
-aliases: ["새 입력이 이전 작업을 무효화하면 flatMapLatest로 이전 흐름을 취소한다"]
-date modified: 2026-08-03 18:07:32 +09:00
+tags: [android, android/async, android/flow, android/state]
+aliases: ["flatMapLatest는 새 입력이 오면 이전 입력을 취소한다"]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## 새 입력이 이전 작업을 무효화하면 flatMapLatest 로 이전 흐름을 취소한다
+## flatMapLatest는 새 입력이 오면 이전 입력을 취소한다
 
-상위 문서: [Flow와 StateFlow 상태 계약](./flow-state-contracts.md)
+### 개념 (What)
+`flatMapLatest`는 업스트림(Upstream)에서 새로운 데이터 값이 발행되었을 때, **이전 데이터 값으로 인해 진행 중이던 하류(Downstream) 비동기 Flow 수집 코루틴을 즉시 취소(Cancel)하고, 최신 입력값에 기반한 새 Flow 수집을 시작하는 변환 연산자**다.
 
-검색어, 선택된 계정, 필터처럼 새 입력이 이전 요청의 의미를 없애면 `flatMapLatest` 를 사용한다.
+### 왜 필요한가 (Why)
+1. **검색어 자동완성 (Search-as-you-type) 레이스 조건 방지**: 사용자가 "A" $\rightarrow$ "AB" $\rightarrow$ "ABC"를 빠르게 입력할 때, "A"로 요청한 네트워크 응답이 가장 늦게 도착하여 화면 결과가 "ABC" 대신 "A"의 결과로 오염되는 Race Condition 버그를 근본적으로 차단한다.
+2. **불필요한 네트워크/DB 리소스 즉시 정지**: 더 이상 유효하지 않은 구 검색어에 대한 비동기 작업을 계속 실행하는 자원 낭비를 줄인다.
 
-새 입력이 들어오면 이전에 매핑된 Flow 의 수집이 취소되고 최신 Flow 만 유지된다.
+### 내부 메커니즘 (How)
+1. **`ChannelFlow`와 이전 Job 취소 메커니즘**:
+   - `flatMapLatest` 내부에서는 업스트림 스트림을 수집하는 루프가 동작한다.
+   - 업스트림에서 새 값이 도착하면, 기존에 하류 Flow를 실행하던 내장 `Job` 객체의 `cancel()`을 즉시 호출한다.
+   - 취소 신호를 보낸 후 즉시 새로운 입력값을 람다 블록에 넣어 생성된 새 `Flow`의 수집을 시작한다.
+
+```mermaid
+graph TD
+    A["Upstream Emits: 'A'"] --> B["Launch Search Flow for 'A'"]
+    C["Upstream Emits: 'AB' (Fast Input)"] --> D["1. Cancel Search Flow for 'A'!"]
+    D --> E["2. Launch Search Flow for 'AB'"]
+
+    style C fill:#fff3e0,stroke:#f57c00,color:#e65100
+    style D fill:#ffebee,stroke:#c62828,color:#b71c1c
+    style E fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
+```
+
+### 현대 표준 vs 레거시 비교
+
+| 비교 항목 | 레거시 (RxJava switchMap) | 현대 표준 (Kotlin flatMapLatest) |
+| :--- | :--- | :--- |
+| **취소 방식** | `switchMap` 내부 구독 해제 (Unsubscribe) | Coroutine Structured Concurrency 취소 (`Job.cancel()`) |
+| **Backpressure** | switchMap 스레드 스케줄러 간 동기화 이슈 존재 | Coroutine suspension으로 백프레셔 자동 조율 |
+| **가독성** | `debounce(300)` + `switchMap` 체이닝 복잡 | `searchQuery.debounce(300).flatMapLatest { api.search(it) }` |
+
+### Idiomatic Kotlin 코드 예시
 
 ```kotlin
-private val query = MutableStateFlow("")
+class SearchViewModel(
+    private val searchRepository: SearchRepository
+) : ViewModel() {
 
-val results: StateFlow<List<Product>> =
-    query
-        .debounce(300)
-        .distinctUntilChanged()
-        .flatMapLatest { keyword ->
-            if (keyword.isBlank()) {
-                flowOf(emptyList())
+    private val searchQuery = MutableStateFlow("")
+
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+    val searchResultUiState: StateFlow<SearchResultUiState> = searchQuery
+        .debounce(300L) // 300ms 핑거 타핑 대기
+        .distinctUntilChanged() // 동일 검색어 연속 입력 방지
+        .flatMapLatest { query ->
+            if (query.isBlank()) {
+                flowOf(SearchResultUiState.Empty)
             } else {
-                repository.searchProducts(keyword)
+                // 새 query가 유입되면 이전 searchRepository API 요청 코루틴은 취소됨
+                searchRepository.searchFlow(query)
+                    .map { SearchResultUiState.Success(it) }
+                    .catch { emit(SearchResultUiState.Error(it.message)) }
             }
         }
         .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5_000),
-            emptyList(),
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = SearchResultUiState.Empty
         )
+
+    fun onQueryChanged(newQuery: String) {
+        searchQuery.value = newQuery
+    }
+}
 ```
 
-`debounce` 는 짧은 입력 연속으로 요청이 과도하게 발생하는 것을 줄인다.
-
-`distinctUntilChanged` 는 같은 입력에 대한 중복 작업을 막는다.
-
-그 다음 `flatMapLatest` 를 적용해야 이전 검색 결과가 늦게 도착해 최신 결과를 덮어쓰지 않는다.
-
-모든 입력의 작업을 끝까지 처리해야 한다면 `flatMapConcat` 이나 `flatMapMerge` 가 더 적합할 수 있다.
-
-즉, 연산자 선택은 동시성 자체보다 이전 작업의 결과가 여전히 유효한지에 달려 있다.
-
-Repository 의 검색 Flow 는 취소에 협조하는 suspend/Flow 기반 API 로 구현한다.
-
-빈 입력의 결과도 명시해 화면이 이전 결과를 계속 보여주지 않게 한다.
-
-취소된 요청의 오류를 최신 요청의 오류로 잘못 표시하지 않도록 취소 예외를 일반 오류와 구분한다.
-
-입력 흐름과 결과 흐름의 수명은 화면 상태의 `stateIn` 정책으로 함께 관리한다.
-
-이 연산자는 최신 입력만 유효한 경우에만 사용한다.
-
-이전 결과도 모두 저장해야 하는 작업에는 취소가 손실을 만들 수 있다.
-
-취소가 요구사항에 맞는지 작업의 도메인 의미를 먼저 확인한다.
-
-검색과 자동완성처럼 최신 입력만 의미 있는 작업이 대표적인 적용 대상이다.
-
-취소 가능한 호출과 오류 처리를 함께 설계해야 최신 결과 계약이 유지된다.
+공식 문서: [flatMapLatest](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flat-map-latest.html)

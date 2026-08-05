@@ -1,29 +1,65 @@
 ---
 title: sharein-defines-shared-stream-lifetime-and-replay-policy
-tags: [android, android/async, android/data, android/flow]
-aliases: ["shareIn은 shared stream의 수명과 replay 정책을 정의한다"]
-date modified: 2026-08-04 14:00:00 +09:00
+tags: [android, android/async, android/flow, android/data]
+aliases: ["sharein은 공유 스트림 수명과 replay 정책을 정의한다"]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## shareIn 은 shared stream 의 수명과 replay 정책을 정의한다
+## shareIn은 공유 스트림 수명과 replay 정책을 정의한다
 
-`shareIn` 은 cold Flow 를 hot `SharedFlow` 로 바꾸고, upstream 을 어떤 scope 에서 언제 시작/중지할지와 늦게 구독한 collector 에게 몇 개의 값을 replay 할지 정한다.
+### 개념 (What)
+`shareIn`은 **Cold Flow를 Hot Stream인 `SharedFlow`로 변환**하는 연산자다. 단일 업스트림(Upstream) 실행을 여러 수집자가 공유(Multicast)하게 만들며, 수집자 수와 상관없이 지정된 `CoroutineScope` 내에서 업스트림을 오직 1번만 실행하도록 관리한다.
 
-핵심 파라미터는 `scope`, `SharingStarted`, `replay` 다. `scope` 는 sharing coroutine 의 lifetime 을 정하고, `SharingStarted` 는 subscriber 유무에 따른 시작 정책을 정하며, `replay` 는 새 subscriber 가 받을 이전 emission 수를 정한다.
+### 왜 필요한가 (Why)
+1. **중복 연산 및 네트워크 요청 제거**: Cold Flow를 화면 3개에서 동시 수집하면 동일한 네트워크 API 요청이나 파일 읽기가 3번 독립 실행된다. `shareIn`을 적용하면 1번의 네트워크 요청 결과를 여러 수집자에게 브로드캐스트한다.
+2. **Replay Cache 제공**: 신규 수집자가 뒤늦게 구독을 시작하더라도, 과거에 발행되었던 데이터 중 설정된 `replay` 개수만큼의 최신 데이터를 즉시 전달받을 수 있다.
 
-현재값 하나가 항상 필요한 화면 상태라면 [stateIn contract](../flow-state-contracts/statein-requires-explicit-lifetime-and-sharing-policy.md) 가 더 직접적이다. 여러 collector 에게 event stream 이나 shared upstream 을 나눠야 한다면 `shareIn` 의 replay/lifetime 정책을 명시한다.
+### 내부 메커니즘 (How)
+1. **`SharingStarted` 전략**:
+   - `SharingStarted.Eagerly`: `shareIn` 호출 즉시 수집자 존재 여부와 무관하게 업스트림 수집을 즉시 시작한다.
+   - `SharingStarted.Lazily`: 첫 번째 수집자가 나타나는 순간 업스트림 수집을 시작하고, 이후 수집자가 0개가 되어도 업스트림을 취소하지 않는다.
+   - `SharingStarted.WhileSubscribed(stopTimeoutMillis)`: 활성 수집자가 1개 이상일 때 실행되고, 수집자가 0개가 되면 `stopTimeoutMillis` 동안 대기 후 업스트림 수집 코루틴을 자동 취소한다. (화면 회전 시 유용)
+2. **Replay Buffer 관리**:
+   - 업스트림이 발행한 아이템은 링 버퍼 형태의 Replay Buffer에 저장되며, 새로운 다운스트림 수집자가 `collect`를 부르면 Replay Buffer 항목을 먼저 방출한 뒤 실시간 스트림으로 연결된다.
 
-```kotlin
-val sharedNotifications: SharedFlow<Notification> =
-    notificationSource
-        .shareIn(
-            scope = applicationScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            replay = 1,
-        )
+```mermaid
+graph TD
+    A["Upstream Cold Flow (e.g. Stock Socket)"] -->|"1 Single Collector"| B["shareIn(scope, WhileSubscribed)"]
+    B -->|"Replay Buffer & Shared Broadcaster"| C["SharedFlow<T>"]
+    
+    C -->|"Multicast Emit"| D["Screen A Collector"]
+    C -->|"Multicast Emit"| E["Screen B Collector"]
+
+    style A fill:#e1f5fe,stroke:#0288d1,color:#01579b
+    style B fill:#fff3e0,stroke:#f57c00,color:#e65100
+    style D fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
+    style E fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
 ```
 
-`replay = 1` 이면 새로 구독한 collector 는 upstream 이 가장 최근에 emit 한 값 1개를 즉시 받은 뒤 이후 값을 이어서 받는다. `replay = 0` 으로 두면 구독 시점 이전에 나온 값은 받지 못하고, 구독 이후 새 emission 만 받는다. 이 replay buffer 크기를 upstream 이 emit 하는 빈도보다 작게 잡으면 느린 collector 는 일부 중간 값을 건너뛴 채 최신 값만 받게 된다.
+### 현대 표준 vs 레거시 비교
 
-공식 문서: [shareIn](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/share-in.html)
+| 비교 항목 | 레거시 (RxJava ConnectableObservable / publish) | 현대 표준 (Kotlin shareIn) |
+| :--- | :--- | :--- |
+| **공유 제어** | `publish().refCount()` / `replay(1).autoConnect()` | `shareIn(scope, started, replay)` 선언적 제어 |
+| **수명주기 중단** | 화면 회전 시 구독자 0 될 때 수동 중단 로직 구현 복잡 | `SharingStarted.WhileSubscribed(5000)`으로 자동 유예 후 정지 |
+| **메모리 버퍼** | ReplaySubject의 메모리 누수 위험 높음 | Replay 개수 strict 제한 및 Scope 해제 시 자동 소멸 |
+
+### Idiomatic Kotlin 코드 예시
+
+```kotlin
+class TickerRepository(
+    private val tickerApi: TickerApi,
+    private val externalScope: CoroutineScope
+) {
+    // Cold Flow 소스를 Hot SharedFlow로 변환하여 멀티캐스트 전송
+    val globalTickerStream: SharedFlow<TickerPrice> = tickerApi.getRawTickerFlow()
+        .shareIn(
+            scope = externalScope, // 앱 수명 또는 싱글톤 저장소 수명 Scope
+            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000), // 수집자 없을 시 5초 후 업스트림 취소
+            replay = 1 // 신규 구독자에게 최신 가격 1개 즉시 전달
+        )
+}
+```
+
+공식 문서: [SharedFlow and StateFlow](https://kotlinlang.org/docs/sharedflow-and-stateflow.html)

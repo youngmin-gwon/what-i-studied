@@ -1,51 +1,60 @@
 ---
 title: play-feature-delivery-controls-dynamic-feature-install-timing
-tags: ["android", "play-feature-delivery", "dynamic-feature"]
-aliases: ["Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다"]
+tags: ["android", "play-delivery", "pfd", "dfm"]
+aliases: ["Play feature delivery는 동적 기능 설치 시점을 제어한다"]
 date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## Play Feature Delivery는 동적 기능 모듈의 설치 시점을 정한다
+## Play feature delivery는 동적 기능 설치 시점을 제어한다
+
+상위 문서: [Play Delivery 계약](play-delivery-contracts.md)
+
+### 개념 및 필요성 (What & Why)
+**Play Feature Delivery(PFD)** 는 Dynamic Feature Module(DFM)이 사용자 디바이스에 다운로드되고 설치되는 **타이밍(Install Timing)** 을 제어하는 배포 메커니즘이다.
+모든 사용자가 사용하지 않는 특수 기능(예: 특정 신분증 스캔 기능, 고급 영상 편집기)을 첫 앱 다운로드 시점에 포함하면 초기 설치 용량이 늘어나 이탈률이 증가한다.
+PFD를 통해 설치 시점(Install-time), 사용자 요청 시점(On-demand), 하드웨어/국가 조건 시점(Conditional)을 자유롭게 조합할 수 있다.
 
 ### 내부 메커니즘 (Internal Mechanism)
-**Play Feature Delivery(플래이 피처 딜리버리)**는 동적 모듈의 다운로드뿐만 아니라, 모듈이 앱 내부에서 소비되는 사용 라이프사이클(Lifecycle Timing)에 맞춰 설치 및 삭제 시점을 동적으로 제어함으로써 사용자의 네트워크와 디바이스 스토리지를 능동 관리한다:
-
-1. **Pre-fetching / Background Install (사전 다운로드)**: 사용자가 특정 메뉴에 진입할 확률이 높은 타이밍(예: 메인 대시보드 로딩 직후 유휴 시간)에 미리 백그라운드 다운로드를 트리거하여, 실제 클릭 시점의 대기 시간을 제어로 감소시키는 사전 탑재 패턴이다.
-2. **Deferred Installation (`deferredInstall`, 지연 설치 예약)**: 지금 당장 사용자 화면에 팝업을 띄워 흐름을 방해하지 않고, 디바이스가 Wi-Fi 네트워크에 연결되고 화면이 꺼진 유휴(Idle) 상태일 때 Google Play 서비스가 백그라운드에서 동적 모듈을 다운로드하고 설치하도록 시스템에 작업을 예약하는 메커니즘이다.
-3. **Deferred Uninstallation (`deferredUninstall`, 지연 삭제 요청)**: 이벤트 등록, 튜토리얼, 연말정산 모듈 등 일회성으로 사용이 완료된 동적 기능 모듈을 지정하여 삭제 요청을 예약하는 기능이다. 구글 플레이 서비스는 유휴 시간에 해당 모듈의 APK 파일과 로컬 자원을 제거함으로써 디바이스의 무의미한 저장 공간 점유를 지속적으로 확보한다.
+1. **Install-Time Delivery (설치 시점)**: 앱 초기 다운로드 시 Base APK와 함께 항상 패키징되어 설치됨 (퓨징 Fusing 옵션 포함).
+2. **On-Demand Delivery (온디맨드 요청 시점)**: 앱 사용 중 사용자가 해당 화면 버튼을 누르는 순간 `SplitInstallManager`를 통해 실시간 다운로드.
+3. **Conditional Delivery (조건부 설치 시점)**: 사용자의 국가, 디바이스 기능(예: 고성능 카메라, ARCore 지원), API 레벨 조건에 부합할 때만 초기 설치 시 동적 포함.
 
 ```mermaid
-flowchart LR
-    AppStart["App Launch"] --> Prefetch["Background Prefetch (deferredInstall)"]
-    Prefetch --> UserClick["User Accesses Feature"]
-    UserClick --> ActiveUse["Active Feature Use"]
-    ActiveUse --> Finish["Feature Completed"]
-    Finish --> DeferredDelete["Free Storage (deferredUninstall)"]
+flowchart TD
+    PFDChoice["Play Feature Delivery Mode"] --> Mode1["Install-Time Delivery (Default with Base)"]
+    PFDChoice --> Mode2["On-Demand Delivery (Triggered by User Action)"]
+    PFDChoice --> Mode3["Conditional Delivery (Filtered by Device HW / Country)"]
+    
+    Mode2 --> SplitInstall["SplitInstallManager API Request"]
+    SplitInstall --> DownloadProgress["Download Progress & Installation"]
 ```
 
-### 코드 예시 (Kotlin Implementation)
-```kotlin
-val splitInstallManager = SplitInstallManagerFactory.create(context)
-
-// 1. 배경 지연 설치 예약 (Deferred Install)
-splitInstallManager.deferredInstall(listOf("feature_heavy_analytics"))
-
-// 2. 미사용 동적 모듈 제거 예약 (Deferred Uninstall)
-splitInstallManager.deferredUninstall(listOf("feature_onboarding_tutorial"))
+### 코드 예시 (AndroidManifest.xml Conditional Delivery)
+```xml
+<!-- features/ar_scanner/src/main/AndroidManifest.xml -->
+<manifest xmlns:dist="http://schemas.android.com/play/delivery">
+    <dist:module dist:title="@string/title_ar_scanner">
+        <dist:delivery>
+            <!-- ARCore 지원 기기 및 특정 국가 조건에만 설치 포함 -->
+            <dist:conditional-delivery>
+                <dist:device-feature dist:name="android.hardware.camera.ar" />
+                <dist:user-countries dist:exclude="false">
+                    <dist:country dist:code="US" />
+                    <dist:country dist:code="KR" />
+                </dist:user-countries>
+            </dist:conditional-delivery>
+        </dist:delivery>
+    </dist:module>
+</manifest>
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-Play Store 서비스가 수신한 Deferred 작업 세션 요청 로그를 ADB 관측할 수 있다:
-
+PFD 모듈의 조건부 배포 속성 정의는 AAB 분석으로 관측할 수 있다:
 ```bash
-adb logcat | grep -E "SplitInstallManager|PlayStoreService"
-
-# Logcat Output Example:
-# D/SplitInstallManager: Deferred install requested for modules: [feature_heavy_analytics]
-# I/PlayStoreService: Scheduled deferred background installation task #104
+bundletool validate --bundle=app-release.aab
 ```
 
-관련 노트: [On-demand와 conditional delivery는 설치 상태와 실패 UX를 요구한다](on-demand-and-conditional-delivery-require-install-state-and-failure-ux.md), [Play Delivery 계약](play-delivery-contracts.md)
+관련 노트: [Dynamic feature module은 base에 의존하는 선택적 기능 단위다](dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md), [Play Delivery 계약](play-delivery-contracts.md)

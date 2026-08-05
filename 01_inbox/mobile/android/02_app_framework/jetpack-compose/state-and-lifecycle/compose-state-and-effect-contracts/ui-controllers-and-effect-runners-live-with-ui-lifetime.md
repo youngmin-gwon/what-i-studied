@@ -1,73 +1,96 @@
 ---
 title: ui-controllers-and-effect-runners-live-with-ui-lifetime
 tags: ["android", "android/app-framework"]
-aliases: []
+aliases: [UI Controller Lifetime, State Holder Boundary]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
 ## UI controller 와 effect runner 는 ViewModel 이 아니라 UI 수명에 둔다
 
-상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
+### 1. 개념 정의 (What)
+**UI 컨트롤러 수명주기 격리 원칙(UI State Holder & Controller Boundary)**이란 화면의 레이아웃 조작 객체(`LazyListState`, `ScrollState`, `DrawerState`, `AnimationController`, `FocusRequester` 등)와 UI 기반 이펙트 구동자를 AAC `ViewModel`에 보관하지 않고, **Composition 트리의 수명주기(UI Lifetime)에 철저히 바인딩하여 배치해야 한다는 아키텍처 경계 규약**이다.
 
-UI controller 는 UI 트리와 직접 상호작용하는 객체다.
+---
 
-effect runner 는 화면 표시, lifecycle, composition 변화에 반응해 UI 작업을 실행하는 역할이다.
+### 2. UI 컨트롤러와 ViewModel 분리의 필요성 (Why)
+많은 안드로이드 개발자들이 ViewModel에 모든 상태를 몰아넣는 과정에서 UI 컨트롤러 객체(`LazyListState` 등)를 ViewModel에 필드로 정의하는 실수를 범한다.
 
-둘의 owner 는 ViewModel 보다 UI 수명에 두는 편이 정확하다.
+이 경우 다음과 같은 중대한 위험이 일어난다:
+- **메모리 누수(Memory Leak)**: UI 컨트롤러 객체는 내부적으로 Android UI Context, Canvas, 또는 View 트리 노드 지표를 직접/간접 참조한다. Activity 회전 시 ViewModel이 이들을 계속 붙들고 있으면 메모리 누수가 발생한다.
+- **다중 UI 렌더링 파괴**: 동일한 ViewModel을 수평형 대화면(Folderable / Tablet)에서 2개의 Composable UI 노드가 동시에 구독할 때, 단일 컨트롤러 객체를 공유하므로 레이아웃 상태가 꼬이거나 무한 루프가 발생한다.
 
-### UI 수명에 둘 대상
+UI 세부 레이아웃 컨트롤러는 UI 계층(Composition Tree)에 두고, ViewModel은 도메인 비즈니스 데이터 및 순수 화면 상태(Screen State)만 다루어야 한다.
 
-- `SnackbarHostState`
-- `DrawerState`, `SheetState`
-- `LazyListState`
-- `FocusRequester`
-- `NavController`
-- `LifecycleOwner` 에 등록되는 observer
-- 화면 진입·이탈에 따라 취소되어야 하는 `LaunchedEffect`
-- listener 등록과 해제를 묶는 `**DisposableEffect**(Composition 진입 시 리소스를 등록하고 Composition 이탈이나 Key 변경 시 cleanup을 수행하는 Effect API)`
+---
 
-이 객체들은 특정 composition, 화면, window 와 결합되어 있다.
+### 3. 영역 분리 레이어 메커니즘 (How)
 
-ViewModel 이 이들을 보관하면 화면보다 오래 살아남거나, 재생성된 UI 와 이전 객체가 섞일 수 있다.
+```
++-------------------------------------------------------------------------+
+| Composition / UI Layer                                                  |
+| - State Holders: LazyListState, DrawerState, AnimationState            |
+| - 수명주기: UI Lifetime (rememberLazyListState())                       |
+| - 역할: 픽셀 스크롤 좌표, 애니메이션 틱, 포커스 제어                       |
++-------------------------------------------------------------------------+
+                                    |
+                                    | Pure UI Events / Screen State
+                                    v
++-------------------------------------------------------------------------+
+| ViewModel / Domain Layer                                                |
+| - State Holders: StateFlow<ScreenUiState>                               |
+| - 수명주기: Screen / Activity Navigation Lifetime                       |
+| - 역할: 서버 데이터 연동, 비즈니스 검증, 도메인 엔티티 변환              |
++-------------------------------------------------------------------------+
+```
+
+---
+
+### 4. 올바른 UI 컨트롤러 및 ViewModel 상태 분리 예제
 
 ```kotlin
-@Composable
-fun Screen(viewModel: ScreenViewModel, onNavigate: (Destination) -> Unit) {
-    val snackbar = remember { SnackbarHostState() }
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+// ❌ 안티패턴: ViewModel 내부에서 UI 레이아웃 컨트롤러 보유
+class BadSearchViewModel : ViewModel() {
+    val listState = LazyListState() // 메모리 누수 및 UI 수명주기 위반!
+}
 
-    LaunchedEffect(Unit) {
-        viewModel.events.collect { event ->
-            when (event) {
-                is UiEvent.ShowMessage -> snackbar.showSnackbar(event.text)
-                is UiEvent.Navigate -> onNavigate(event.destination)
-            }
+// ✅ 올바른 패턴: 역할의 명확한 분리
+data class SearchUiState(
+    val items: List<String> = emptyList(),
+    val isLoading: Boolean = false
+)
+
+@HiltViewModel
+class GoodSearchViewModel @Inject constructor(
+    private val repository: SearchRepository
+) : ViewModel() {
+    // ViewModel 은 순수 비즈니스 Screen State 만 소유
+    val uiState: StateFlow<SearchUiState> = repository.getSearchResults()
+        .map { SearchUiState(items = it) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), SearchUiState())
+}
+
+@Composable
+fun SearchScreen(viewModel: GoodSearchViewModel = hiltViewModel()) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    // ✅ UI 레이아웃 컨트롤러는 Composition 수명(UI Lifetime)에 둔다
+    val listState = rememberLazyListState()
+
+    LazyColumn(state = listState) {
+        items(uiState.items) { item ->
+            Text(item)
         }
     }
-
-    ScreenContent(state = state, snackbarHostState = snackbar)
 }
 ```
 
-ViewModel 은 화면 정책과 도메인 작업을 관리하고, UI 는 그 결과를 controller 와 effect 로 표현한다.
+---
 
-ViewModel 은 "snackbar 를 보여라"라는 의미 있는 이벤트를 보낼 수 있지만 `SnackbarHostState` 를 직접 호출하지 않는다.
+상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
-ViewModel 은 navigation 목적지를 결정할 수 있지만 `NavController` 를 소유하지 않는다.
+관련 노트: [Compose 상태 API는 필요한 수명에 맞춰 선택한다](./compose-state-api-selection-by-lifetime.md), [ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다](./viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)
 
-### 수명 선택
+출처: [State holders and UI State](https://developer.android.com/topic/architecture/ui-layer/stateholders)
 
-작업이 UI 가 사라지면 취소되어야 하면 `LaunchedEffect` 또는 UI scope 를 사용한다.
-
-작업이 사용자의 클릭에서 시작되면 [`rememberCoroutine**Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션)`](https://developer.android.com/develop/ui/compose/side-effects#remembercoroutinescope) 를 사용한다.
-
-등록과 해제가 필요하면 [`DisposableEffect`](https://developer.android.com/develop/ui/compose/side-effects#disposableeffect) 를 사용한다.
-
-화면 데이터의 장기 보존과 비즈니스 작업은 ViewModel 의 수명에 둔다.
-
-이 경계는 ViewModel 을 배제하기 위한 규칙이 아니다.
-
-각 작업이 실제로 누구와 함께 시작되고 끝나야 하는지를 코드에 반영하기 위한 규칙이다.
-
-참고: [UI layer state holders](https://developer.android.com/topic/architecture/ui-layer/stateholders), [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects)
+검증일: 2026-08-05. 안드로이드 권장 아키텍처 가이드의 State Holders 단락을 대조하여 UI Controller와 ViewModel 간의 레이어 경계, 메모리 누수 방지 및 UI Lifetime 바인딩 규약 서술을 정밀 보강했다.

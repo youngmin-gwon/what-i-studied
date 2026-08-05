@@ -1,21 +1,30 @@
 ---
 title: process-death-recovery-needs-saved-state-and-persistent-source-of-truth
 tags: [android, android/app-components, android/architecture]
-aliases: ["프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다"]
+aliases: ["Process death 복구는 saved state와 persistent source of truth를 필요로 한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## 프로세스 종료 복구에는 saved state 와 영속 source of truth 가 필요하다
+## Process death 복구는 saved state와 persistent source of truth를 필요로 한다
 
-상위 문서: [App Component Contracts](./app-component-contracts.md)
-배경 지식: [프로세스 생명주기 및 메모리 회수](../../../../../../operating-systems/process-states-lifecycle.md)
-Android 는 메모리 확보를 위해 background 프로세스를 종료할 수 있다. 이 경로는 Activity 가 명시적으로 끝난 것과 다르며, 앱이 임의의 cleanup 콜백을 받을 것을 전제로 하면 안 된다.
+**시스템 주도 프로세스 강제 종료(System-initiated Process Death)가 발생하면 메모리 내의 모든 ViewModel 및 전역 상태가 완전 파기된다. 프로세스 복구 시 이전 화면 UX 를 재구성하려면 소량의 UI 트랜지션 키(SavedStateHandle)와 대용량 도메인 데이터(Persistent Single Source of Truth / Room DB)의 이중 복구 체계가 필요하다.**
 
-복구 전략은 데이터 성격으로 나눈다. navigation argument, text field draft, selected tab 처럼 작고 직렬화 가능한 상태는 saved state 계층에 둘 수 있다. 사용자 계정, cached domain data, 동기화 결과처럼 의미 있는 데이터는 repository 와 storage 가 source of truth 여야 한다.
+---
 
-ViewModel 은 configuration change 에는 유용하지만 process death persistence 가 아니다. ViewModel 안의 값은 재생성 이후 새로 만들어질 수 있으므로, 복구해야 하는 최소 정보는 `SavedStateHandle` 이나 durable storage 에 남겨야 한다.
+### 1. 복구 전략 대조 (What)
 
-관련 노트: [ViewModel 정본](../../state-management/viewmodel/viewmodel.md), [SavedStateHandle 정본](../../state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md), [persistence 정본](../../../data/storage/persistence-contracts/persistence-contracts.md).
+1. **`SavedStateHandle` (OS Binder Parcelable)**:
+   현재 화면의 탭 인덱스, 텍스트 필드 미완성 입력값, 선택된 Item ID 등 소량(최대 몇십 KB)의 UI 키값을 복구하는 데 사용된다.
+2. **Persistent Storage (Room DB / DataStore)**:
+   전체 아이템 목록, 사용자 프로필, 결제 장바구니 등 대용량 상태를 Disk 기반으로 영속 저장하여 프로세스 재시작 시 조회 복구한다.
 
-공식 문서: [Activity state changes](https://developer.android.com/guide/components/activities/state-changes)
+---
+
+### 2. 관련 문서 및 참조
+
+- 상위 문서: [App Component Contracts](./app-component-contracts.md)
+- 관련 계약 문서:
+  - [SavedStateHandle은 프로세스 데스의 소량 상태를 복구한다](../../state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md)
+
+검증일: 2026-08-05. Process Death 복구 이중화 체계 대조 완료.

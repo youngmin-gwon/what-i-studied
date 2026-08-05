@@ -1,47 +1,47 @@
 ---
 title: r8-output-must-be-validated-with-size-and-runtime-regression
-tags: ["android", "r8", "retrace", "apk-analyzer"]
-aliases: ["R8 결과물은 크기와 런타임 회귀로 검증한다"]
+tags: ["android", "r8", "testing", "regression"]
+aliases: ["R8 결과물은 용량 및 런타임 회귀로 검증해야 한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## R8 결과물은 크기와 런타임 회귀로 검증한다
+## R8 결과물은 용량 및 런타임 회귀로 검증해야 한다
+
+상위 문서: [빌드 최적화 계약](build-optimization-contracts.md)
+
+### 개념 및 필요성 (What & Why)
+R8 최적화 컴파일러를 적용한 빌드가 에러 없이 완료되었다고 해서 릴리스 준비가 끝난 것은 아니다.
+디버그 빌드에서는 정상 작동하던 앱이 R8 난독화 및 수축 후 런타임에 특정 화면 진입 시 `ClassNotFoundException`이나 `NullPointerException`을 일으키거나, 예기치 못한 라이브러리 추가로 APK 용량이 갑자기 커지는 회귀 현상이 자주 발생한다.
+따라서 **R8 산출물은 반드시 용량 검증(Size Diff Audit)과 런타임 회귀 계측 테스트(Runtime Regression Test)로 2중 검증**되어야 한다.
 
 ### 내부 메커니즘 (Internal Mechanism)
-R8 최적화 패스가 적용된 Release 빌드 산출물은 최종 출시 전 **바이너리 용량 검증(Size Diff Validation)**과 **런타임 회귀 검증(Runtime Crash Regression Test)**을 수반해야 한다.
-1. **Size Diff Validation**: `apkanalyzer` CLI 도구를 활용해 이전 릴리스 대비 DEX 파일, assets, res 폴더의 크기 변동 수치를 측정한다.
-2. **Obfuscation StackTrace Retrace**: R8 난독화로 인해 `a.b.c.a(Unknown Source)` 형태로 깨진 런타임 스택 트레이스를 `mapping.txt` 기호 파일과 `retrace` 도구를 이용해 원본 Kotlin 소스 코드 라인으로 역복원(De-obfuscation) 가능한지 검증한다.
+1. **`apkanalyzer` 이용 용량 계측**: 이전 버전 AAB 대비 DEX 바이트코드 디렉터리, `res` 아셋, `lib` 네이티브 바이너리별 용량 증가율을 추적한다.
+2. **Release Variant E2E / Macrobenchmark 회귀 테스트**: R8 수축이 완료된 릴리스 아티팩트에 대해 계측 테스트 수트 및 앱 렌더링 성능(Macrobenchmark) 테스트를 돌려 런타임 크래시 여부를 판별한다.
+3. **`mapping.txt` 기밀 보존 및 de-obfuscation**: 크래시 발생 시 Play Console 또는 Crashlytics에 `mapping.txt`를 자동 업로드하여 난독화 스택 트레이스를 원본 소스로 복원한다.
 
 ```mermaid
 flowchart TD
-    ReleaseBuild["Release Build with R8"] --> APKCheck["1. APKAnalyzer Size Diff Check"]
-    ReleaseBuild --> RetraceCheck["2. Retrace Tool De-obfuscation Check"]
-    
-    RetraceCheck -->|Obfuscated Stacktrace| RetraceEngine["retrace.sh mapping.txt stacktrace.txt"]
-    RetraceEngine --> OriginalLine["Original Source Code Line (MainActivity.kt:42)"]
+    BuildR8["Build R8 Release Artifact"] --> Gate1{"1. Size Regression Check (apkanalyzer)"}
+    Gate1 -->|Size Exploded| Fail1["Reject: Unexpected Library Leak"]
+    Gate1 -->|Size Valid| Gate2{"2. Runtime Regression Test (Release Build E2E)"}
+    Gate2 -->|ClassNotFound Crash| Fail2["Reject: Missing ProGuard Keep Rule"]
+    Gate2 -->|Pass All Tests| Pass["Ready for Store Release"]
 ```
 
-### 코드 예시 (Retrace CLI Execution Script)
+### 코드 예시 (CI Size & Crash Verification Script)
 ```bash
-#!/usr/bin/env bash
-
-# Retrace Execution Command for Crash Log De-obfuscation
-$ANDROID_HOME/cmdline-tools/latest/bin/retrace   app/build/outputs/mapping/release/mapping.txt   crash_stacktrace.txt   > retrace_result.txt
+# APK 용량 및 DEX 메트릭 추출 예시
+apkanalyzer apk summary build/outputs/apk/release/app-release.apk
+apkanalyzer dex packages build/outputs/apk/release/app-release.apk
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-R8 난독화 스택트레이스가 `retrace` 도구에 의해 완전한 원본 소스 코드 위치로 역복원되는 결과를 관측할 수 있다:
-
+R8 난독화 덤프 복원 검증은 `retrace` 도구로 관측 및 수행할 수 있다:
 ```bash
-cat retrace_result.txt
-
-# Retrace Output Example:
-# Caused by: java.lang.NullPointerException
-#   at com.example.app.ui.main.MainActivity.onDataLoaded(MainActivity.kt:84)
-#   at com.example.app.ui.main.MainViewModel.fetchData(MainViewModel.kt:42)
+retrace.sh build/outputs/mapping/release/mapping.txt obfuscated_trace.txt
 ```
 
-관련 노트: [Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다](../../distribution/release-distribution-contracts/play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md), [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md)
+관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md), [빌드 최적화 계약](build-optimization-contracts.md)

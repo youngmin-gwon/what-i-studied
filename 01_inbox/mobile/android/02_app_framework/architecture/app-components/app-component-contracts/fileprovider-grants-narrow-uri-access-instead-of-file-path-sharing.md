@@ -1,22 +1,50 @@
 ---
 title: fileprovider-grants-narrow-uri-access-instead-of-file-path-sharing
-tags: [android, android/app-components, android/architecture]
-aliases: ["FileProvider는 파일 경로 대신 제한된 content URI 접근권을 준다"]
+tags: [android, android/app-components, android/architecture, android/security]
+aliases: ["FileProvider는 파일 경로 공유 대신 좁은 URI 접근을 허용한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## FileProvider 는 파일 경로 대신 제한된 content URI 접근권을 준다
+## FileProvider는 파일 경로 공유 대신 좁은 URI 접근을 허용한다
 
-상위 문서: [App Component Contracts](./app-component-contracts.md)
-FileProvider 는 파일을 직접 path 로 넘기는 대신 `content://` URI 와 임시 URI permission 을 통해 공유하게 해 주는 특수 ContentProvider 다. 받는 쪽은 앱 내부 파일 경로를 알 필요가 없고, 허용된 path 와 grant flag 범위 안에서만 접근한다.
+`FileProvider` 는 안드로이드 7.0 (API 24) 이후 파일 공유의 보안 표준(Strict Mode 적용)으로, **원시 파일 경로(`file://`)를 외부에 직접 노출하는 대신 보안이 강화된 `content://` URI 를 생성하고, 임시 일회성 접근 권한(`FLAG_GRANT_READ_URI_PERMISSION`)을 좁게 부여하는 특수 `ContentProvider` 의 하위 클래스**다.
 
-FileProvider 는 일반 CRUD provider 나 storage architecture 가 아니다. 어떤 파일을 공유할지 path allow-list 를 정하고, `FLAG_GRANT_READ_URI_PERMISSION` 같은 권한을 Intent 에 실어 일시적으로 접근을 위임하는 보안 경계다.
+---
 
-앱 데이터의 소유와 보존 정책은 storage 정본에서 결정하고, 외부 공유가 필요한 파일에 대해서만 FileProvider 를 연결한다.
+### 1. 개념 및 핵심 명제 (What)
 
-`file://` URI 를 FileProvider 없이 그대로 다른 앱에 노출하면(targetSdkVersion 24 이상) `FileUriExposedException` 이 발생한다. 이 예외 자체가 "raw file 경로를 외부에 넘겼다"는 관찰 가능한 신호다.
+- **`file://` URI 공유 금지**:
+  외부 앱에 `file:///sdcard/photo.jpg` 와 같은 원시 경로를 Intent 로 넘기면 `FileUriExposedException` 이 발생한다.
+- **임시 권한 부여 (`FLAG_GRANT_READ_URI_PERMISSION`)**:
+  `FileProvider.getUriForFile()` 로 생성된 `content://` URI 는 해당 Intent 를 수신하는 대상 패키지에 대해서만 대상 파일 읽기/쓰기 임시 권한을 부여하고, 컴포넌트가 종료되면 권한이 자동으로 회수된다.
 
-관련 노트: [file access 정본](../../../data/storage/file-access-contracts/file-access-contracts.md), [ContentProvider 정본](./contentprovider-publishes-uri-addressed-data-with-permission-boundary.md), [Android 권한 계약](../../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md).
+---
 
-공식 문서: [FileProvider reference](https://developer.android.com/reference/androidx/core/content/FileProvider)
+### 2. 코드 예시 (FileProvider 설정 및 Intent 전달)
+
+```kotlin
+val photoFile = File(context.filesDir, "images/sample.jpg")
+
+val photoUri: Uri = FileProvider.getUriForFile(
+    context,
+    "${context.packageName}.fileprovider",
+    photoFile
+)
+
+val shareIntent = Intent(Intent.ACTION_SEND).apply {
+    type = "image/jpeg"
+    putExtra(Intent.EXTRA_STREAM, photoUri)
+    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // 좁은 임시 읽기 권한 부여
+}
+context.startActivity(Intent.createChooser(shareIntent, "이미지 공유"))
+```
+
+---
+
+### 3. 관련 문서 및 참조
+
+- 상위 문서: [App Component Contracts](./app-component-contracts.md)
+- 공식 가이드: [Share Files with FileProvider](https://developer.android.com/training/secure-file-sharing/setup-sharing)
+
+검증일: 2026-08-05. FileProvider 보안 스펙 확인 완료.

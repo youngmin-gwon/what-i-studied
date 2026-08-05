@@ -1,83 +1,84 @@
 ---
 title: remember-saveable-is-for-small-restorable-ui-state
 tags: ["android", "android/app-framework"]
-aliases: []
+aliases: [rememberSaveable, Restorable UI State]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
 ## Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable 을 사용한다
 
-상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
+### 1. 개념 정의 (What)
+`rememberSaveable`은 일반 `remember`와 달리 **화면 회전(Activity Recreation) 및 안드로이드 OS에 의한 프로세스 강제 종료(System-initiated Process Death) 시에도 상태 값을 Android `Bundle` 인스턴스에 저장하여 복원하는 API**다.
 
-`**rememberSaveable**(화면 회전이나 프로세스 재시작 후에도 Bundle을 통해 UI 상태를 복원해 주는 저장 API)` 은 Composable 보다 오래 살아야 하는 작은 UI 값을 복원할 때 사용한다.
+---
 
-### 적합한 값
+### 2. rememberSaveable과 경량 상태 규약의 필요성 (Why)
+일반 `remember`는 RAM 메모리의 Slot Table에만 보존되므로 Activity가 재생성되면 파괴된다. 
 
-- 검색어 입력 초안
-- 선택한 탭의 key
-- 필터의 enum 또는 문자열 key
-- 현재 페이지 번호
-- 펼침 여부나 선택 여부처럼 작은 primitive 값
+반면 `rememberSaveable`은 Binder IPC 통신을 통해 OS의 `SavedStateRegistry`로 상태를 전달한다. 따라서:
+- **Bundle 바인딩 한계**: Android 시스템 Binder 버퍼는 앱 전체 합산 약 **1MB 미만의 크기 제약**을 가진다.
+- **TransactionTooLargeException 위험**: 이미지 라이브러리 객체, 대용량 리스트 전체, 비트맵 데이터를 `rememberSaveable`에 넣으면 앱이 크래시된다.
 
-이 값들은 화면을 다시 만들었을 때 사용자의 직전 UI 맥락을 복원하는 데 의미가 있다.
+따라서 `rememberSaveable`은 텍스트 필드 입력값, 선택된 탭 인덱스, 폼 스크롤 위치 등 **복원 가능한 작은 용량의 UI 상태(Small Restorable State)**로 사용 범위가 엄격히 제한되어야 한다.
 
-복원 대상은 작고 직렬화 가능하며, 화면을 다시 구성해도 의미가 유지되어야 한다.
+---
+
+### 3. Saver 구현 메커니즘 (How)
+
+```
+[Default Bundle Type: Primitive, String, Parcelable]
+  ---> 자동 Bundle 마샬링 처리
+  
+[Custom Class / Non-Parcelable Object]
+  |--> Saver(save = { ... }, restore = { ... }) 인터페이스 제공 필요
+  |--> listSaver / mapSaver 유틸리티 사용
+```
+
+1. **Saver 인스턴스**: 기본 프리미티브 타입(Int, String 등)과 `Parcelable`, `Serializable`은 자동 보존된다.
+2. **커스텀 데이터 타입 Saver 등록**: 복잡한 커스텀 객체는 `Saver` 인터페이스를 직접 구현하거나 `listSaver`, `mapSaver`를 사용하여 마샬링 및 언마샬링 로직을 전달해야 한다.
+
+---
+
+### 4. Custom Saver 구현 및 올바른 활용 예제
 
 ```kotlin
+data class UserDraftInput(val title: String, val content: String)
+
+// ✅ Custom Saver 정의: 데이터 클래스를 Saver 레벨로 변환
+val UserDraftSaver: Saver<UserDraftInput, Any> = listSaver(
+    save = { listOf(it.title, it.content) },
+    restore = { UserDraftInput(title = it[0] as String, content = it[1] as String) }
+)
+
 @Composable
-fun SearchHeader() {
-    var query by rememberSaveable { mutableStateOf("") }
-    SearchField(value = query, onValueChange = { query = it })
+fun ArticleDraftScreen() {
+    // ✅ Custom Saver 를 적용하여 rememberSaveable 로 복원
+    var draftInput by rememberSaveable(saver = UserDraftSaver) {
+        mutableStateOf(UserDraftInput(title = "", content = ""))
+    }
+
+    Column {
+        TextField(
+            value = draftInput.title,
+            onValueChange = { draftInput = draftInput.copy(title = it) },
+            label = { Text("Title") }
+        )
+        TextField(
+            value = draftInput.content,
+            onValueChange = { draftInput = draftInput.copy(content = it) },
+            label = { Text("Content") }
+        )
+    }
 }
 ```
 
-### 저장소로 오해하지 않는다
+---
 
-`rememberSaveable` 은 앱의 영속 저장소가 아니다.
+상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
-앱 설정, 인증 정보, 서버 데이터, 사용자 문서, 큰 목록을 보관하는 API 가 아니다.
+관련 노트: [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](../../runtime/compose-runtime-contracts/remember-is-composition-scoped-storage-not-general-cache.md), [Compose 상태 API는 필요한 수명에 맞춰 선택한다](./compose-state-api-selection-by-lifetime.md)
 
-앱을 다시 시작해도 반드시 남아야 하는 값은 [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) 나 [Room](https://developer.android.com/training/data-storage/room) 에 둔다.
+출처: [Save UI state in Compose](https://developer.android.com/develop/ui/compose/state-saving)
 
-서버에서 다시 조회할 수 있는 화면 데이터는 ViewModel 과 repository 가 소유한다.
-
-다음 값은 `rememberSaveable` 에 넣지 않는다.
-
-- access token, session key, 개인정보
-- bitmap, 큰 리스트, entity 전체
-- repository, client, database 연결
-- 화면의 최종 source of truth 인 도메인 상태
-- 복원보다 재조회가 맞는 서버 응답
-
-### 수명 질문
-
-먼저 "이 값은 화면을 다시 만들었을 때 복원되어야 하는가?"를 묻는다.
-
-아니오라면 `remember` 가 더 정확하다.
-
-예라면 "작고 UI 전용인가?"를 다시 묻는다.
-
-아니오라면 더 높은 owner 나 영속 계층으로 올린다.
-
-화면이 navigation entry 와 함께 유지되어야 하는 복잡한 form 은 `rememberSaveable` 만으로 해결하지 않는다.
-
-필요한 상태 범위를 확인하고 entry-scoped ViewModel 이나 별도 state holder 를 선택한다.
-
-`rememberSaveable` 은 복원 가능한 값을 직접 소유한다.
-
-복원된 값이 도메인 상태와 충돌한다면 어느 쪽이 source of truth 인지 먼저 정한다.
-
-복원은 데이터 동기화 정책을 대신하지 않는다.
-
-### 선택 요약
-
-| 질문 | 선택 |
-| --- | --- |
-| recomposition 사이에만 필요하다 | `remember` |
-| 구성 변경 뒤 작은 UI 값을 복원한다 | `rememberSaveable` |
-| 여러 화면이 공유한다 | 상위 state holder 또는 ViewModel |
-| 앱 재시작 뒤에도 보존한다 | DataStore, Room, repository |
-| 큰 데이터를 다시 얻을 수 있다 | 화면 상태 owner 에서 재조회 |
-
-참고: [Save UI state in Compose](https://developer.android.com/develop/ui/compose/state-saving), [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state)
+검증일: 2026-08-05. Compose 공식 SavedState 가이드를 대조하여 Bundle IPC 1MB 용량 한계, TransactionTooLargeException 방지 및 Custom Saver 구현 서술을 정밀 보강했다.

@@ -1,45 +1,61 @@
 ---
 title: resource-shrinking-removes-unused-resources-after-code-shrinking
-tags: ["android", "resource-shrinker", "r8", "build-optimization"]
-aliases: ["리소스 수축은 코드 수축 후 미사용 리소스를 제거한다"]
+tags: ["android", "agp", "resource-shrinker", "aapt2"]
+aliases: ["Resource shrinking은 코드 수축 이후 미사용 리소스를 제거한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## 리소스 수축은 코드 수축 후 미사용 리소스를 제거한다
+## Resource shrinking은 코드 수축 이후 미사용 리소스를 제거한다
+
+상위 문서: [빌드 최적화 계약](build-optimization-contracts.md)
+
+### 개념 및 필요성 (What & Why)
+**Resource Shrinking(리소스 수축 - `isShrinkResources = true`)** 은 AGP 빌드 파이프라인에서 참조되지 않는 XML 레이아웃, 이미지, 드로어블 아셋 등의 미사용 리소스를 제거하는 최적화 프로세스이다.
+중요한 점은 **Resource Shrinking이 반드시 R8 Code Shrinking 이후에 실행되어야만 안전하게 작동한다**는 사실이다.
+코드 수축 단계에서 특정 라이브러리나 기능이 완전히 제거되어야만 그 코드가 참조하던 전용 이미지나 XML 리소스 역시 비참조 상태로 전환되기 때문이다.
 
 ### 내부 메커니즘 (Internal Mechanism)
-AGP Resource Shrinker (`isShrinkResources = true`)는 독립적으로 동작하지 않으며 반드시 **R8 코드 수축(Code Shrinking)이 완료된 후** 실행된다.
-R8이 미사용 자바/코틀린 코드를 제거하면 해당 코드 내의 `R.layout.*`나 `R.drawable.*` 필드 참조도 함께 사라진다. Resource Shrinker는 남아있는 DEX 바이트코드 및 XML 매니페스트를 도달 가능성 그래프(Reachability Graph)로 분석하여 어떤 코드에서도 참조되지 않는 리소스 파일(PNG, XML, Drawables)을 적발한다.
-제거 대상 리소스는 완전 삭제되거나, 앱 런타임 `ResourcesNotFoundException` 방지를 위해 **더미 1픽셀 파일 또는 더미 빈 파일**로 대체된다. (Strict Mode 설정 시 실제 파일 바이너리 제거)
+1. **R8 도달 가능성 그래프 연동**: R8 코드 수축이 완료된 직후, AGP Resource Shrinker는 살아남은 DEX 바이트코드의 `R.drawable.*`, `R.layout.*` 참조 도메인을 전수 스캔한다.
+2. **미사용 리소스 더미화(Dummy Replacement)**: 완전 삭제 시 AAPT2 테이블 인덱스가 파괴될 수 있는 고위험 리소스의 경우, 리소스 파일 바이너리를 아주 작은 더미(Dummy XML/1x1 픽셀 이미지)로 대체하여 용량을 극소화한다.
+3. **`res/raw/keep.xml` 통한 명시적 유지**: `Resources.getIdentifier()` 등 동적 자바 리플렉션으로 리소스를 검색하는 경우, Resource Shrinker가 이를 미사용 리소스로 오진 삭제하는 것을 방지하기 위해 `keep.xml` 파일로 엄격히 관리한다.
 
 ```mermaid
 flowchart TD
-    R8Done["1. R8 Code Shrinking Completed (Dead Code Removed)"] --> ResAnalysis["2. Resource Shrinker Analyzes Remaining R.id References"]
-    ResAnalysis --> CheckUnused{"Is Resource Referenced in DEX?"}
-    CheckUnused -->|Yes| KeepRes["Keep Original Resource"]
-    CheckUnused -->|No| ReplaceDummy["Replace with Dummy 1-pixel File (resources.txt log)"]
+    JavaCode["App & Library Code"] --> R8Shrink["1. R8 Code Shrinking (Removes Unused Code)"]
+    R8Shrink --> AliveCode["Surviving DEX Code Base"]
+    AliveCode --> ResScanner["2. AGP Resource Shrinker (Scans R.java References)"]
+    ResScanner --> FilterRes{"Resource Referenced?"}
+    FilterRes -->|Yes| KeepRes["Keep Original Resource Asset"]
+    FilterRes -->|No| StripRes["Replace Unused Resource with Tiny Dummy Asset"]
 ```
 
-### 코드 예시 (keep.xml for Dynamic Resource Prevention)
+### 코드 예시 (build.gradle.kts & res/raw/keep.xml)
+```kotlin
+// app/build.gradle.kts
+android {
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = true    // 1. R8 코드 수축 필수
+            isShrinkResources = true  // 2. 리소스 수축 활성화
+        }
+    }
+}
+```
+
 ```xml
-<!-- res/raw/keep.xml -->
-<!-- Resources.getIdentifier() 동적 접근 리소스의 강제 보호 설정 -->
+<!-- app/src/main/res/raw/keep.xml -->
 <resources xmlns:tools="http://schemas.android.com/tools"
-    tools:keep="@layout/dynamic_banner_*,@drawable/icon_category_*"
-    tools:shrinkMode="strict" />
+    tools:keep="@drawable/dynamic_icon_*"
+    tools:discard="@layout/deprecated_layout" />
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-Resource Shrinker가 남긴 리포트 로그 파일(`resources.txt`)을 분석하여 미사용으로 간주되어 더미로 대체되거나 수축된 리소스 내역을 확인할 수 있다:
-
+제거되거나 더미화된 리소스 리포트는 빌드 후 출력 로그에서 확인할 수 있다:
 ```bash
-cat app/build/outputs/mapping/release/resources.txt | grep "Skipping unused resource"
-
-# Output Example:
-# Skipping unused resource res/drawable/unused_logo.png: 245120 bytes -> replaced with 67 bytes dummy PNG.
+cat build/outputs/mapping/release/resources.txt | grep "Unused resource"
 ```
 
-관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md), [Keep 규칙은 최적화 경계다](keep-rules-are-optimization-boundaries.md)
+관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md), [빌드 최적화 계약](build-optimization-contracts.md)

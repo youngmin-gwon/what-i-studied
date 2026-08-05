@@ -1,76 +1,86 @@
 ---
 title: viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection
 tags: ["android", "android/app-framework"]
-aliases: []
+aliases: [collectAsStateWithLifecycle, StateFlow to Compose State]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
 ## ViewModel 의 StateFlow 는 collectAsStateWithLifecycle 로 화면 상태로 변환한다
 
+### 1. 개념 정의 (What)
+`collectAsStateWithLifecycle()`은 Android Lifecycle-aware 코루틴 라이브러리가 제공하는 최신 표준 API로서, **ViewModel의 `StateFlow` 또는 `SharedFlow`를 Android 수명주기(Lifecycle State)에 동기화하여 수집(Collect)하고 Compose `State<T>`로 변환하는 현대 표준 메커니즘**이다.
+
+---
+
+### 2. collectAsStateWithLifecycle의 필연적 필요성 (Why)
+기존의 `collectAsState()` API를 일반 Android Compose 앱에서 사용하면 심각한 백그라운드 자원 누수가 발생한다:
+- **`collectAsState()`의 한계**: 단순히 Composition 파이프라인의 수명주기만 바라보므로, 앱이 홈 화면으로 내려가 백그라운드 상태(`STOPPED`)가 되어도 Flow 수집(Collection)을 멈추지 않는다.
+- **백그라운드 자원/배터리 소모**: 화면이 보이지 않는 순간에도 백그라운드에서 위치 센서 수집, 소켓 통신, DB 쿼리가 지속 구동되어 시스템 자원 누수 및 앱 강제 종료가 야기된다.
+
+`collectAsStateWithLifecycle()`은 기본값인 `Lifecycle.State.STARTED`를 기준으로, 앱이 백그라운드로 진입하면 수집 코루틴을 자동으로 **일시 정지(Pause/Cancel)**하고, 앱이 다시 포그라운드로 복귀하면 안전하게 **재개(Resume)**한다.
+
+---
+
+### 3. 내부 동작 및 수명주기 인지 메커니즘 (How)
+
+```
+[앱 포그라운드 진입: STARTED State]
+  |--> repeatOnLifecycle(STARTED) 활성화
+  |--> ViewModel 의 StateFlow 수집 시작
+  |--> Compose State<T> 갱신 및 UI 표시
+  
+[사용자가 홈 버튼 누름: STOPPED State 진입]
+  |--> repeatOnLifecycle(STARTED) 코루틴 자동 취소/일시정지!
+  |--> 백그라운드 데이터 수집 100% 차단 (자원 및 배터리 절감)
+  
+[앱 다시 복귀: STARTED State 재진입]
+  |--> Flow 수집 자동 재개 및 최신 StateFlow 값 보정!
+```
+
+1. **`repeatOnLifecycle` 감싸기**: `collectAsStateWithLifecycle` 내부에서는 `LocalLifecycleOwner.current`를 관찰하며 `repeatOnLifecycle(minActiveState)`가 구동된다.
+2. **`SharingStarted.WhileSubscribed(5000)`과의 환상적인 조합**: ViewModel에서 `stateIn()`을 선언할 때 5초 딜레이를 주면, 화면 회전 시 불필요한 upstream 재요청을 방지하면서도 백그라운드 진입 5초 후 업스트림 스트림을 완전 정지시킬 수 있다.
+
+---
+
+### 4. 현대 표준 흐름 수집 구현 코드 사례
+
+```kotlin
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val newsRepository: NewsRepository
+) : ViewModel() {
+    
+    // ✅ 5초 타임아웃 지연을 적용한 표준 StateFlow 선언
+    val uiState: StateFlow<HomeUiState> = newsRepository.getLatestNews()
+        .map { HomeUiState.Success(it) }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = HomeUiState.Loading
+        )
+}
+
+@Composable
+fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    // ✅ 현대 표준: Lifecycle-aware Flow Collection (기본값 minActiveState = STARTED)
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    when (val state = uiState) {
+        is HomeUiState.Loading -> CircularProgressIndicator()
+        is HomeUiState.Success -> NewsList(state.news)
+    }
+}
+```
+
+---
+
 상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
-관련 노트: [StateFlow는 현재값이 필요한 화면 상태에 사용하고 Flow는 원천 데이터 흐름에 사용한다](../../../data/async-flow/flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md), [ViewModel은 mutable 상태를 숨기고 읽기 전용 상태만 노출한다](../../../architecture/state-management/viewmodel/viewmodel-exposes-read-only-state.md)
+관련 노트: [UI controller와 effect runner는 ViewModel이 아니라 UI 수명에 둔다](./ui-controllers-and-effect-runners-live-with-ui-lifetime.md), [Compose 상태 API는 필요한 수명에 맞춰 선택한다](./compose-state-api-selection-by-lifetime.md)
 
-ViewModel 이 노출한 `StateFlow<UiState>` 는 Compose 가 직접 그리는 값이 아니다.
+출처: [Consuming flows safely from the UI layer in Jetpack Compose](https://medium.com/androiddevelopers/consuming-flows-safely-from-the-ui-layer-in-jetpack-compose-c2e442c0219f)
 
-Composable 은 `collectAsStateWithLifecycle()` 로 이를 lifecycle-aware Compose `State` 로 변환한다.
-
-```kotlin
-@Composable
-fun BenefitRoute(viewModel: BenefitViewModel) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    BenefitScreen(uiState = uiState, onAction = viewModel::onAction)
-}
-```
-
-이 선택은 화면이 활성 lifecycle 상태에 있을 때만 수집하도록 만든다.
-
-화면이 보이지 않는 동안 불필요한 수집과 UI 갱신을 줄이고, 다시 활성화되면 최신 상태를 읽는다.
-
-### Compose API 선택 기준
-
-- Android lifecycle 을 사용하는 화면의 Flow 는 `collectAsStateWithLifecycle` 을 우선한다.
-- lifecycle 이 없는 순수 Compose 환경에서는 `collectAsState` 가 맞을 수 있다.
-- Flow 를 수집하면서 snackbar 나 navigation 같은 부수효과를 실행해야 하면 `**LaunchedEffect**(Composition 생명주기에 맞춰 코루틴 작업을 실행하고 Key 변경 또는 Composition 이탈 시 취소하는 Side-Effect API)` 와 lifecycle-aware 수집을 조합한다.
-- 단순히 화면을 그릴 값은 `State` 로 변환해 Composable 의 입력으로 전달한다.
-
-`collectAsStateWithLifecycle` 은 ViewModel 을 대체하지 않는다.
-
-ViewModel 은 화면 상태의 owner 이고, 이 API 는 그 상태를 현재 UI 수명에 맞춰 읽는 adapter 다.
-
-Composable 이 StateFlow 를 직접 변환하더라도 source of truth 는 ViewModel 에 남는다.
-
-### 화면 경계
-
-Route Composable 은 상태 수집과 event 연결을 맡는다.
-
-하위 screen Composable 은 이미 변환된 `UiState` 와 명시적인 callback 을 받는다.
-
-하위 Composable 이 ViewModel 을 직접 찾아가면 수명과 테스트 경계가 흐려질 수 있다.
-
-```kotlin
-@Composable
-fun BenefitRoute(viewModel: BenefitViewModel) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
-    BenefitContent(
-        state = state,
-        onRefresh = viewModel::refresh,
-    )
-}
-```
-
-수집 결과를 다시 ViewModel 에 저장하지 않는다.
-
-Flow 를 Compose State 로 바꾼 뒤 필요한 만큼만 읽고, UI 는 그 값을 선언적으로 렌더링한다.
-
-화면이 사라진 뒤에도 계속 실행되어야 하는 데이터 작업은 Compose 수집의 수명에 맡기지 않는다.
-
-### 흔한 오류
-
-- `collectAsState` 만 사용해 Android lifecycle 을 무시한다.
-- Composable 본문에서 수동 `launch` 로 Flow 를 수집한다.
-- 수집된 값을 또 다른 mutable 상태에 복사해 source of truth 를 만든다.
-- UI controller 를 ViewModel 에 넣고 effect 경계를 없앤다.
-
-권장 기준은 [Lifecycle-aware collection](https://developer.android.com/develop/ui/compose/state#other-supported-types-of-state) 과 [UI layer state holders](https://developer.android.com/topic/architecture/ui-layer/stateholders) 를 함께 적용하는 것이다.
+검증일: 2026-08-05. 안드로이드 공식 가이드를 대조하여 collectAsState vs collectAsStateWithLifecycle 비교, repeatOnLifecycle(STARTED) 동작 방식 및 WhileSubscribed(5000) 연동 서술을 정밀 보강했다.

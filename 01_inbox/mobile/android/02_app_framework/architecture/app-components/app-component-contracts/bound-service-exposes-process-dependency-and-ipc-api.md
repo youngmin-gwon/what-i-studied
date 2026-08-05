@@ -1,23 +1,56 @@
 ---
 title: bound-service-exposes-process-dependency-and-ipc-api
 tags: [android, android/app-components, android/architecture]
-aliases: ["Bound Service는 IBinder 계약으로 클라이언트와 연결된다"]
+aliases: ["Bound Service는 프로세스 의존성과 IPC API를 노출한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Bound Service 는 IBinder 계약으로 클라이언트와 연결된다
+## Bound Service는 프로세스 의존성과 IPC API를 노출한다
 
-상위 문서: [App Component Contracts](./app-component-contracts.md)
-배경 지식: [IPC (Inter-Process Communication)](../../../../../../operating-systems/ipc-mechanisms.md)
-Bound Service 는 클라이언트가 `bindService` 로 연결해 `IBinder` 를 통해 기능을 호출하는 컴포넌트다. 같은 프로세스 안에서는 local Binder 로 충분할 수 있고, 다른 프로세스와 안정적인 인터페이스를 맺어야 할 때 AIDL 을 검토한다.
+**Bound Service 는 다른 컴포넌트(Activity 등)나 다른 앱 프로세스가 `bindService()` 를 통해 클라이언트-서버 인터페이스(IBinder / AIDL / Messenger)를 맺고 복잡한 메서드 호출 및 IPC 통신을 수행할 수 있게 해주는 컴포넌트 계약**이다.
 
-순수 bound service 의 수명은 연결된 클라이언트에 강하게 묶인다. 다만 service 는 started 이면서 bound 일 수도 있으므로, bind 여부만으로 전체 수명을 단순화하면 안 된다.
+---
 
-AIDL 은 대부분 앱의 기본 선택지가 아니다. IPC 실패, thread, permission, versioning, exported surface 를 감당할 필요가 있을 때만 명시적으로 도입한다.
+### 1. 개념 및 핵심 명제 (What)
 
-`adb shell dumpsys activity services <pkg>` 로 해당 service 의 `bindings`/`Connections` 항목을 보면 현재 연결된 클라이언트 수를 직접 셀 수 있다. 마지막 클라이언트가 `unbindService` 를 호출하면 이 목록이 비고, 뒤이어 시스템이 service 를 종료한다.
+- **의존성 종속 수명 (Client-bound Lifetime)**:
+  Bound Service 는 자신을 바인딩한 클라이언트 컴포넌트가 하나라도 존재하는 동안에만 활성화된다. 모든 바인딩이 해제(`unbindService`)되면 시스템에 의해 자동 종료된다.
+- **프로세스 결합도 및 우선순위 승격**:
+  포그라운드 Activity 가 특정 백그라운드 Service 를 바인딩하면, OS 는 해당 Service 프로세스의 우선순위를 클라이언트 수준으로 상승시킨다.
 
-관련 노트: [IPC and process contracts](../../../../01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md), [exported/permission 경계](./exported-and-permission-boundaries-decide-external-component-access.md), [컴포넌트 통신 경계](./component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md).
+---
 
-공식 문서: [Bound services](https://developer.android.com/develop/background-work/services/bound-services)
+### 2. 코드 예시 (Local Binder 서비스)
+
+```kotlin
+class LocalAudioService : Service() {
+    private val binder = LocalBinder()
+
+    inner class LocalBinder : Binder() {
+        fun getService(): LocalAudioService = this@LocalAudioService
+    }
+
+    override fun onBind(intent: Intent?): IBinder = binder
+
+    fun playMusic() { /* 음원 재생 */ }
+}
+```
+
+---
+
+### 3. 관측 가능 증거 및 진단 (Observability)
+
+- **바인딩된 서비스 및 연결 클라이언트 확인**:
+  ```bash
+  adb shell dumpsys activity services
+  ```
+
+---
+
+### 4. 관련 문서 및 참조
+
+- 상위 문서: [App Component Contracts](./app-component-contracts.md)
+- 공식 문서: [Bound Services Guide](https://developer.android.com/guide/components/bound-services)
+
+검증일: 2026-08-05. Bound Service 바인더 인터페이스 및 dumpsys 검증 완료.

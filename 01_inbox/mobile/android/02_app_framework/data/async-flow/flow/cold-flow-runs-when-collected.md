@@ -1,31 +1,65 @@
 ---
 title: cold-flow-runs-when-collected
-tags: [android, android/async, android/data, android/flow]
-aliases: ["Cold Flow는 collect될 때 실행된다"]
-date modified: 2026-08-04 14:00:00 +09:00
+tags: [android, android/async, android/flow, android/data]
+aliases: ["Cold Flow는 collect될 때 비로소 실행된다"]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Cold Flow 는 collect 될 때 실행된다
+## Cold Flow는 collect될 때 비로소 실행된다
 
-Kotlin `Flow` 의 기본 형태는 cold stream 이다. `flow { … }` 블록은 선언한 순간 실행되지 않고, collector 가 `collect` 를 시작할 때마다 실행된다.
+### 개념 (What)
+`Cold Flow`는 종단 연산자(Terminal Operator, 예: `collect()`)가 호출되기 전까지는 내부 블록 코드를 전혀 실행하지 않으며, **새로운 수집자(Collector)가 붙을 때마다 독립적인 스트림 실행 세션을 매번 처음부터 새로 시작하는 지연(Lazy) 데이터 스트림 API**다.
 
-이 계약은 repository API 를 단순하게 만든다. repository 는 "데이터가 바뀌면 흘러나오는 stream"을 `Flow` 로 노출하고, ViewModel 이나 UI 계층이 필요할 때 수집한다. 아무도 수집하지 않는 Flow 는 실행되지 않는 선언일 뿐이다.
+### 왜 필요한가 (Why)
+1. **자원 효율성**: UI 화면이 켜지기 전이나 데이터 수집자가 없을 때는 소켓을 열거나 DB 쿼리를 수행하지 않아 불필요한 백그라운드 리소스 및 배터리 소모를 방지한다.
+2. **독립적 수집 세션**: 복수의 화면에서 동일한 Cold Flow를 각각 `collect()` 하면, 서로 상태를 오염시키지 않고 각 수집자 전용의 스트림이 동작한다.
 
-```kotlin
-val benefits: Flow<List<Benefit>> = flow {
-    println("query started") // collect할 때마다 매번 다시 찍힌다
-    emit(dao.getBenefits())
-}
+### 내부 메커니즘 (How)
+1. **`SafeCollector`와 실행 시점**:
+   - `flow { emit(...) }` 빌더는 `AbstractFlow` 인스턴스를 반환할 뿐 내부 람다를 즉시 실행하지 않는다.
+   - `collect(Collector)`를 호출하는 순간 `SafeCollector` 인스턴스가 생성되고, 수집자의 `CoroutineContext`와 `flow { ... }` 실행 컨텍스트의 불변성(Context Preservation)을 검사한 뒤 람다 블록이 호출된다.
+2. **Context Preservation (컨텍스트 보존 규칙)**:
+   - Flow 내부에서는 `withContext(Dispatchers.IO)`를 사용하여 직접 `emit()` 할 수 없다 (체이닝된 수집자의 스레드 맥락을 임의로 파괴하는 것을 차단).
+   - 대신 컨텍스트 변경이 필요할 경우 반드시 `flowOn(Dispatchers.IO)` 연산자를 통해 업스트림과 다운스트림 사이에 `ChannelFlow` 버퍼를 생성해야 한다.
 
-benefits.collect { } // "query started" 1회 출력
-benefits.collect { } // "query started" 다시 1회 출력
+```mermaid
+graph TD
+    A["flow { emit(...) } Definition"] -->|"Lazy / No execution"| B["Flow Object created"]
+    B --> C["Collector calls flow.collect()"]
+    C --> D["Instantiate SafeCollector"]
+    D --> E["Validate Context Preservation"]
+    E --> F["Execute flow builder block"]
+    F -->|"emit(value)"| G["Collector.emit() suspended call"]
+
+    style A fill:#e1f5fe,stroke:#0288d1,color:#01579b
+    style C fill:#fff3e0,stroke:#f57c00,color:#e65100
+    style G fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
 ```
 
-같은 `benefits` 인스턴스를 두 번 `collect` 하면 `flow { }` 블록이 처음부터 두 번 다시 실행되어 `println` 도 두 번 각각 출력된다. Room 의 `@Query` 가 반환하는 `Flow<List<T>>` 도 cold 이므로, ViewModel 두 곳에서 같은 DAO 함수를 각각 `collect` 하면 DB observer 가 중복으로 등록된다.
+### 현대 표준 vs 레거시 비교
 
-같은 upstream 을 여러 화면 상태가 공유해야 하면 cold Flow 를 그대로 여러 번 collect 하지 말고 `shareIn` 이나 `stateIn` 으로 공유 수명과 replay 정책을 명시한다. 화면 상태로 현재값을 유지해야 한다면 [StateFlow는 현재값이 필요한 화면 상태에 사용하고 Flow는 원천 데이터 흐름에 사용한다](../flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md) 를 따른다.
+| 비교 항목 | 레거시 (RxJava Observable / LiveData) | 현대 표준 (Kotlin Cold Flow) |
+| :--- | :--- | :--- |
+| **수집 전 실행 여부** | `Observable.create()` 수집 필요 (Cold) / LiveData는 즉시 활성 | `collect()` 전까지 백그라운드 코드 완전 중단 (Cold) |
+| **컨텍스트 이탈** | `subscribeOn`과 `observeOn` 무분별 오버라이딩 가능 | `SafeCollector`에 의해 `flow` 내 직접 스레드 변경 엄격 금지 |
+| **백프레셔** | `Flowable` 백프레셔 전용 객체 별도 분리 | Coroutine 자체 중단(Suspension)으로 백프레셔 자동 처리 |
 
-Compose 나 Lifecycle UI 에서 수집할 때는 화면 수명에 맞춰 collect 가 시작되고 멈춰야 한다. 관련 계약은 [Flow는 UI에서 lifecycle-aware API로 수집한다](../flow-state-contracts/collect-flow-for-ui-with-lifecycle-aware-api.md) 에 둔다.
+### Idiomatic Kotlin 코드 예시
 
-공식 문서: [Flow on Android](https://developer.android.com/kotlin/flow)
+```kotlin
+class StockRepository(
+    private val stockApi: StockApi
+) {
+    // Cold Flow: collect() 되기 전에는 네트워크 폴링 루프가 동작하지 않음
+    fun getStockPriceStream(symbol: String): Flow<BigDecimal> = flow {
+        while (currentCoroutineContext().isActive) {
+            val price = stockApi.fetchCurrentPrice(symbol)
+            emit(price) // 수집자가 준비될 때만 데이터 발행
+            delay(5_000) // 5초 간격 폴링
+        }
+    }.flowOn(Dispatchers.IO) // SafeCollector 규칙 준수를 위한 flowOn 적용
+}
+```
+
+공식 문서: [Asynchronous Flow](https://kotlinlang.org/docs/flow.html)

@@ -1,68 +1,75 @@
 ---
 title: sharedflow-and-channel-are-event-signals-not-state-stores
-tags: [android, android/async, android/data, android/flow-state-contracts]
-aliases: ["SharedFlow와 Channel은 상태 저장소가 아니라 일회성 신호 전달 수단이다"]
-date modified: 2026-08-03 18:07:40 +09:00
+tags: [android, android/async, android/flow, android/state]
+aliases: ["SharedFlow와 Channel은 상태 저장소가 아니라 이벤트 신호다"]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## SharedFlow 와 Channel 은 상태 저장소가 아니라 일회성 신호 전달 수단이다
+## SharedFlow와 Channel은 상태 저장소가 아니라 이벤트 신호다
 
-상위 문서: [Flow와 StateFlow 상태 계약](./flow-state-contracts.md)
+### 개념 (What)
+`StateFlow`가 화면에 지속적으로 노출되는 **상태(State)**를 다루는 반면, `SharedFlow` 및 `Channel`은 토스트 메시지 출력, SnackBar 표시, 화면 이동(Navigation)과 같이 **단 1번만 소비되어야 하는 일회성 이벤트 신호(One-off Event Signal)**를 다룬다.
 
-상태는 새 구독자가 다시 받아야 하지만, 이벤트는 발생한 순간 한 번 처리하면 끝난다.
+### 왜 필요한가 (Why)
+1. **화면 회전 시 이벤트 재발동 방지**: `StateFlow`나 `LiveData`로 1회성 네비게이션 이벤트를 처리하면, 화면 회전 시 `value`가 힙에 남아있어 화면이 다시 복구될 때 수집자가 이벤트를 재수신하여 사용자가 원치 않는 네비게이션이 중복 실행된다.
+2. **Channel의 Single-subscriber 보장**: `Channel`은 FIFO 큐 구조로, 단 한 곳의 소비자가 이벤트를 꺼해가면 채널에서 제거되어 1회성 처리가 완벽히 보장된다.
 
-Snackbar, Toast, Navigation, 외부 화면 열기는 현재 화면 상태가 아니라 일회성 신호다.
+### 내부 메커니즘 (How)
+1. **Channel (`Channel.BUFFERED` / `Channel.UNLIMITED`)**:
+   - `Channel`은 생산자(Producer)와 소비자(Consumer) 사이의 큐(Queue)다.
+   - `Channel.send()`로 넣은 이벤트는 수집자가 `receive()`로 꺼해가면 큐에서 소멸된다. 수집자가 활성화되지 않았을 때는 버퍼에 대기했다가 수집자가 켜지면 1번만 전달된다.
+2. **`SharedFlow` (replay = 0)**:
+   - `MutableSharedFlow<UiEvent>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)` 형태는 최신 이벤트를 보관하지 않고 현재 활성화된 구독자들에게만 이벤트를 즉시 브로드캐스트한다.
+3. **최신 아키텍처 권장안 (Consumable Event in UiState)**:
+   - 최근 Android Official Guide는 Channel/SharedFlow 대신 `UiState` 내부에 **Unique Event ID**를 포함시키고, UI가 이벤트를 처리한 뒤 `onEventHandled(id)` 액션을 ViewModel에 보내 상태를 리셋하는 방식을 가장 권장한다.
 
-이 신호를 `StateFlow` 에 넣으면 화면 재생성 때 같은 이벤트가 다시 실행될 위험이 있다.
+```mermaid
+graph TD
+    subgraph "StateStore vs EventSignal"
+        A["StateFlow"] -->|"Holds State (.value)"| B["Re-emits on Screen Rotation (Persisted)"]
+        C["Channel / SharedFlow"] -->|"FIFO Queue / Signal"| D["Consumed 1 Time Only (One-off)"]
+    end
 
-### SharedFlow 와 Channel
+    style A fill:#fff3e0,stroke:#f57c00,color:#e65100
+    style C fill:#e1f5fe,stroke:#0288d1,color:#01579b
+    style D fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
+```
 
-`SharedFlow` 는 여러 구독자에게 이벤트를 방송하는 hot stream 이다.
+### 현대 표준 vs 레거시 비교
 
-기본 `replay = 0` 이면 늦게 들어온 구독자는 과거 이벤트를 받지 않는다.
+| 비교 항목 | 레거시 (SingleLiveEvent / EventWrapper) | 현대 표준 (Channel / Consumable State) |
+| :--- | :--- | :--- |
+| **구현 방식** | LiveData를 상속한 억지 커스텀 클래스 | `Channel<UiEvent>` 또는 `UiState` 내 id 기반 관리 |
+| **다중 구독자** | 첫 Observer만 이벤트 수신 가능 | Channel (단일 소비) / SharedFlow (다중 브로드캐스트) 선택 가능 |
+| **테스트 검증** | LiveData Observer 캡처 복잡 | Channel `receive()` 호출로 명확한 단위 테스트 |
 
-`Channel` 은 보내는 쪽과 받는 쪽 사이의 전달 순서를 보장하는 큐다.
-
-이벤트를 반드시 한 소비자가 처리해야 하는 의미라면 `Channel.receiveAsFlow()` 를 고려한다.
+### Idiomatic Kotlin 코드 예시
 
 ```kotlin
-private val _events = MutableSharedFlow<ProfileEvent>()
-val events: SharedFlow<ProfileEvent> = _events.asSharedFlow()
+sealed interface UserEditEvent {
+    data class ShowToast(val message: String) : UserEditEvent
+    object NavigateToHome : UserEditEvent
+}
 
-private val _navigation = Channel<NavEvent>()
-val navigation: Flow<NavEvent> = _navigation.receiveAsFlow()
+class UserEditViewModel : ViewModel() {
 
-fun save() {
-    viewModelScope.launch {
-        repository.save()
-        _events.emit(ProfileEvent.Saved)
+    // 1. Channel 기반 1회성 이벤트 백킹 프로퍼티
+    private val _eventChannel = Channel<UserEditEvent>(capacity = Channel.BUFFERED)
+    val eventFlow: Flow<UserEditEvent> = _eventChannel.receiveAsFlow()
+
+    fun saveUserChanges(name: String) {
+        viewModelScope.launch {
+            if (name.isBlank()) {
+                // 일회성 토스트 이벤트 전송
+                _eventChannel.send(UserEditEvent.ShowToast("이름을 입력해주세요."))
+            } else {
+                // 성공 이벤트 전송
+                _eventChannel.send(UserEditEvent.NavigateToHome)
+            }
+        }
     }
 }
 ```
 
-화면에 계속 보여야 하는 로딩과 오류는 `StateFlow` 의 `UiState` 로 유지한다.
-
-이벤트 수집은 화면이 이벤트를 처리하는 스코프에서 별도로 실행한다.
-
-Compose 에서는 `LaunchedEffect` 에서 이벤트를 수집하고, 상태는 `collectAsStateWithLifecycle` 로 수집한다.
-
-`SharedFlow` 의 `replay` 와 버퍼 설정은 이벤트 유실 허용 여부에 맞춰 명시한다.
-
-여러 구독자가 모두 받아야 하는 이벤트인지, 한 곳만 처리해야 하는 이벤트인지 먼저 결정한다.
-
-이벤트에 식별 가능한 sealed 타입을 사용하면 소비자가 처리할 종류를 빠뜨리기 어렵다.
-
-이벤트 처리 실패를 재시도해야 한다면 신호를 상태나 영속 큐로 바꾸는 별도 정책을 세운다.
-
-화면 재생성 뒤 같은 Snackbar 가 다시 떠야 하는지 먼저 결정한다.
-
-다시 떠야 한다면 이벤트가 아니라 화면 상태로 모델링한다.
-
-소비자가 화면 lifecycle 에 맞춰 이벤트를 처리하는지도 함께 확인한다.
-
-이벤트의 유실 허용 여부를 문서화하면 replay 설정을 임의로 바꾸기 어렵다.
-
-상태와 이벤트를 같은 모델에 섞지 않는 것이 재수집 버그를 줄이는 핵심이다.
-
-공개 API 는 읽기 전용 `SharedFlow` 또는 `Flow` 로 제한한다.
+공식 문서: [Android events guide](https://developer.android.com/topic/architecture/ui-layer/events)

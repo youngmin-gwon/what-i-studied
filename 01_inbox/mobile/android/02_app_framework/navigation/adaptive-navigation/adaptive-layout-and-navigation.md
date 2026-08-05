@@ -79,4 +79,4 @@ graph TD
 
 - [Android Navigation 진입 계약](../navigation-contracts/navigation-contracts.md)
 - [Navigation 3 계약](../navigation3/navigation3-contracts/navigation3-contracts.md)
-- [Large screen contracts](../../../../07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)
+- [Large Screen Contracts](../../../07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)

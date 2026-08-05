@@ -1,20 +1,31 @@
 ---
 title: configuration-change-recreates-activity-but-not-all-screen-state
 tags: [android, android/app-components, android/architecture]
-aliases: ["설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다"]
+aliases: ["Configuration change는 Activity를 재생성하지만 모든 화면 상태를 잃지 않는다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## 설정 변경은 Activity 를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다
+## Configuration change는 Activity를 재생성하지만 모든 화면 상태를 잃지 않는다
 
-상위 문서: [App Component Contracts](./app-component-contracts.md)
-회전, 언어, 다크 모드, window size 변경 같은 configuration change 는 Activity 를 파괴하고 새 인스턴스를 만들 수 있다. 이때 Activity 필드나 View/Composable local 변수에만 있던 값은 사라질 수 있다.
+화면 회전, 언어 변경, 다크 모드 전환 등 **구성 변경(Configuration Change)이 발생하면 안드로이드 OS 는 현재 Activity 인스턴스를 파기(`onDestroy`)하고 새 디스플레이 리소스가 적용된 새 Activity 인스턴스를 즉시 재설계(`onCreate`)한다.** 이 과정에서 화면 상태가 유실되지 않도록 **`ViewModel` 및 `rememberSaveable` 메커니즘**이 구동된다.
 
-모든 상태를 같은 곳에 두면 안 된다. screen/business state 는 ViewModel 이 적합하고, 작은 transient UI state 는 `rememberSaveable` 이나 saved instance state 가 적합하며, 사용자 데이터나 서버 동기화 결과는 storage/data layer 가 source of truth 여야 한다.
+---
 
-configuration change 는 process death 와 다르다. 같은 프로세스에서 Activity 만 재생성되는 경우 ViewModel 은 살아남을 수 있지만, 프로세스가 사라지면 ViewModel 자체는 복구되지 않는다.
+### 1. 개념 및 핵심 구조 (What)
 
-관련 노트: [ViewModel 정본](../../state-management/viewmodel/viewmodel.md), [프로세스 종료 복구](./process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md), [persistence 정본](../../../data/storage/persistence-contracts/persistence-contracts.md).
+- **Activity 파기 및 재생성**:
+  기존 Activity 인스턴스는 즉시 Destroy 되므로 인메모리 Activity 멤버 변수는 모두 초기화된다.
+- **ViewModel 수명 보존 메커니즘**:
+  `ViewModelStoreOwner` 인 `ComponentActivity` 가 파기되더라도 OS 는 internal `ViewModelStore` 참조를 새 Activity 인스턴스로 그대로 이관하여 ViewModel 내부의 `StateFlow` 상태가 완벽히 보존되도록 보장한다.
 
-공식 문서: [Activity state changes](https://developer.android.com/guide/components/activities/state-changes)
+---
+
+### 2. 관련 문서 및 참조
+
+- 상위 문서: [App Component Contracts](./app-component-contracts.md)
+- 관련 계약 문서:
+  - [ViewModel 수명과 프로세스 데스 계약](../../state-management/viewmodel/viewmodel-survives-configuration-change-not-process-death.md)
+- 공식 문서: [Handle configuration changes](https://developer.android.com/guide/topics/resources/runtime-changes)
+
+검증일: 2026-08-05. Configuration Change 재생성 동작 대조 완료.

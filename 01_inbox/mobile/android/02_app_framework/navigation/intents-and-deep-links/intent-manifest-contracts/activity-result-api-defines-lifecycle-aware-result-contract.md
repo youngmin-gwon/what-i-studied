@@ -1,41 +1,76 @@
 ---
 title: activity-result-api-defines-lifecycle-aware-result-contract
-tags: [android, android/intents, android/navigation]
-aliases: ["Activity Result API는 lifecycle-aware 결과 반환 계약이다"]
+tags: [android, android/navigation, android/intent]
+aliases: ["Activity Result API는 수명주기를 인식하는 결과 계약을 정의한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## **Activity Result API**(다른 액티비티나 외부 앱으로부터 수신할 결과 데이터를 생명주기 안전하게 콜백으로 받는 안드로이드 메커니즘) 는 lifecycle-aware 결과 반환 계약이다
+## Activity Result API 는 수명주기를 인식하는 결과 계약을 정의한다
 
-배경 지식: [프로세스 생명주기](../../../../../../operating-systems/process-states-lifecycle.md)
+상위 문서: [Intent & Manifest 계약](intent-manifest-contracts.md)
 
-Activity Result API 는 다른 Activity 나 system UI 를 실행하고 typed result 를 받는 계약이다. `registerForActivityResult()` 는 callback 과 `ActivityResultContract` 를 등록하고, 반환된 launcher 가 실제 실행을 담당한다.
+---
 
-Callback 은 process/activity recreation 뒤에도 결과를 받을 수 있어야 하므로 매번 같은 순서로 조건 없이 등록한다. `launch()` 는 lifecycle 이 `CREATED` 이상일 때 호출하고, 결과 처리에 필요한 추가 상태는 이 API 와 별도로 저장/복원해야 한다.
+### 개념과 필요성 (What & Why)
 
-권한 요청, Photo Picker, SAF, 카메라 촬영은 모두 같은 Activity Result boundary 를 통과하지만 각각의 permission/storage 의미는 별도 정본에서 판단한다.
+1. **개념 (What)**:
+   - **Activity Result API**는 다른 Activity나 외부 앱(카메라, 갤러리, 권한 요청 등)으로부터 결과 데이터를 수신할 때, 호출하는 컴포넌트의 **LifecycleObserver** 상태와 완벽히 동기화되어 타입 안전한 계약(`ActivityResultContract`)으로 결과를 전달받는 안드로이드 표준 API다.
+2. **필요성 (Why)**:
+   - **프로세스 재시작 시 상태 파기 방지**: 구시대 `startActivityForResult()` 방식은 카메라 앱 실행 중 메모리 부족으로 메인 Activity 프로세스가 재생성(Recreation)되면, `requestCode` 매칭이 꼬이거나 결과를 처리하는 콜백 객체가 널(Null)이 되어 앱이 구동 불능 상태에 빠졌다. Activity Result API는 `CREATED` 단계에서 콜백을 등록하여 프로세스 재시작 시에도 결과를 안전하게 복원 수신한다.
 
-```kotlin
-private val pickImage = registerForActivityResult(
-    ActivityResultContracts.PickVisualMedia()
-) { uri: Uri? ->
-    uri?.let { onImagePicked(it) }
-}
+---
 
-// 이후 어느 시점에서든 조건 없이 호출
-pickImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+### 내부 동작 메커니즘 (How)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Act as Activity (CREATED State)
+    participant Reg as ActivityResultRegistry
+    participant Ext as Target App / OS Permission
+    
+    Act->>Reg: registerForActivityResult(Contract, Callback)
+    Reg-->>Act: ActivityResultLauncher 반환
+    Act->>Ext: launcher.launch(input)
+    Note over Act, Ext: 카메라/갤러리 앱 실행 중 메인 Activity 프로세스 재시작 가능
+    Ext-->>Reg: 결과 반환 (Intent / Result Code)
+    Reg->>Act: Lifecycle STARTED 이후 등록된 Callback 안전 실행
 ```
 
-`registerForActivityResult()` 를 `if (condition)` 안에서 호출하면 recreation 마다 등록 순서가 달라질 수 있다. 공식 문서는 이 콜백을 "실제 실행 여부와 무관하게 매번 activity 생성 시 조건 없이" 등록하라고 명시하며, 위반 시 재생성 이후 콜백이 원래 launcher 와 연결되지 못해 결과가 유실될 수 있다.
+---
 
-### 판단 기준
+### 핵심 구현 코드 예시
 
-- launcher 등록은 조건문 안에서 순서가 바뀌지 않게 둔다.
-- result callback 은 UI controller 수명과 복원 상태를 함께 고려한다.
-- 외부 Activity 가 반환하는 data 를 내부 trusted state 처럼 바로 취급하지 않는다.
-- Photo Picker, SAF, permission request 는 각각 storage/permission 정본과 연결한다.
+```kotlin
+class ProfileActivity : ComponentActivity() {
+    // Lifecycle CREATED 단계에서 강타입 Launcher 등록
+    private val getContentLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        // 타입 안전하게 Uri 수신
+        uri?.let { updateProfileImage(it) }
+    }
 
-관련 노트: [Android 권한 계약](../../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md), [파일 접근 계약](../../../data/storage/file-access-contracts/file-access-contracts.md)
+    fun onPickImageClick() {
+        getContentLauncher.launch("image/*")
+    }
+}
+```
 
-공식 문서: [Get a result from an activity](https://developer.android.com/training/basics/intents/result)
+---
+
+### 구시대 레거시 vs 현대 표준 비교 (Legacy vs Modern)
+
+| 구분 | 레거시 `onActivityResult` (Legacy) | 현대 Activity Result API (Modern) |
+| :--- | :--- | :--- |
+| **타입 안전성** | `Int requestCode`, `Int resultCode`, `Intent? data` 수동 캐스팅 | `ActivityResultContract<I, O>` 타입 안전 인자/결과 규정 |
+| **프로세스 재생성** | Activity 재시작 시 콜백 컨텍스트 손실 및 널 예외 발생 | Lifecycle `STARTED` 전 등록을 강제하여 재시작 시에도 안전 복원 |
+| **결과 분기 위치** | 단일 `onActivityResult()` 메서드 안에서 거대한 `switch(requestCode)` 작성 | 기능별로 분리된 독립 `ActivityResultLauncher` 콜백 관리 |
+
+---
+
+### 관련 상위 및 연관 노트
+
+- 상위 계약: [Intent & Manifest 계약](intent-manifest-contracts.md)
+- 연관 계약: [Explicit intent는 알려진 컴포넌트를 지정하고 implicit intent는 요구 능력을 선언한다](explicit-intent-targets-known-component-implicit-intent-declares-capability.md)

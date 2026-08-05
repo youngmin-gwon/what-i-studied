@@ -1,52 +1,46 @@
 ---
 title: ci-cd-contracts
-tags: ["android", "android/packaging-deployment", "cicd"]
-aliases: ["Android CI/CD 구현 계약"]
+tags: ["android", "android/packaging-deployment", "ci-cd"]
+aliases: ["CI/CD 계약"]
+date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-05 16:15:00 +09:00
-date created: 2026-08-04 18:00:00 +09:00
-created: 2026-08-04 18:00:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## Android CI/CD 구현 계약
+## CI/CD 계약
 
 상위 문서: [Android 패키징과 배포 지도](../../android-packaging-deployment.md)
 
-이 지도는 Android CI/CD 파이프라인을 **실제로 무엇으로 구현하는가**를 다룬다. [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](../dependency-versioning/dependency-ci-contracts/android-cicd-gates-separate-fast-validation-and-release-validation.md) 가 "어떤 게이트를 언제 도는가"(Fast PR Gate vs Release Validation Gate)를 다룬다면, 이 지도는 그 게이트를 구성하는 파이프라인 단계, 오케스트레이션 도구(**Fastlane**: 빌드/테스트/배포 스크립트 통합 실행기), 서명/자격증명(**CI Secret Store**) 취급 방식, 빌드 매트릭스 최적화를 다룬다.
+### 개념 및 필요성 (What & Why)
+**CI/CD 계약(CI/CD Contracts)** 은 Android 애플리케이션의 소스 코드 변경부터 배포 자동화에 이르는 빌드, 검증, 패키징, 스토어 출시 파이프라인 전 과정의 규약을 정의한다.
+안드로이드 CI/CD 파이프라인은 신속한 코드 검증(Fast Validation), 서명 자격증명 보안, Gradle Remote Cache 연동을 통한 빌드 속도 최적화, 그리고 Fastlane을 통한 Play Store 배포 자동화를 완벽히 조율해야 한다.
+잘 구축된 CI/CD 계약은 인간의 실수를 방지하고 배포 주기를 혁신적으로 단축시킨다.
+
+### 내부 메커니즘 (How / Internal Mechanism)
+1. **Fastlane 조율 엔진**: Fastlane은 Gradle을 대체하는 것이 아니라, Gradle 태스크(`bundleRelease`)와 Google Play Developer API(`supply`)를 상위 오케스트레이션 레이어에서 결합한다.
+2. **보안 계층 격리**: KeyStore 및 Google Play Service Account JSON 비밀키를 소스 제어(Git)에서 완전 배제하고, CI 환경변수(GitHub Secrets)를 통해 런타임에 동적 복호화 및 오버레이 주입한다.
+3. **Build Matrix & Remote Cache**: Gradle Build Cache와 Remote HTTP/S3 캐시를 빌드 매트릭스와 결합하여 컴파일 작업을 최소화한다.
+4. **단계별 실패 시그널 분리**: 정적 분석/린트, 단위 테스트, R8 수축 패키징, 서명, API 업로드 등 각 단계별 실패 시그널을 세분화하여 빠른 디버깅을 유도한다.
 
 ```mermaid
 flowchart TD
-    Checkout["checkout"] --> CacheRestore["의존성/Gradle 캐시 복원"]
-    CacheRestore --> Lint["lint / 정적분석"]
-    Lint --> UnitTest["unit test"]
-    UnitTest --> InstrTest["instrumented test\n(에뮬레이터/디바이스 매트릭스)"]
-    InstrTest --> Sign["서명 (release keystore)"]
-    Sign --> Deploy["아티팩트 배포\n(Fastlane supply / Play Console)"]
-
-    subgraph Secrets["CI Secret Store"]
-        Keystore["암호화된 keystore"]
-        ServiceAccount["Play 서비스 계정 JSON"]
-    end
-    Secrets -.->|런타임 주입, 저장소 커밋 금지| Sign
-    Secrets -.-> Deploy
+    GitPush["Git Push / Tag Event"] --> CIServer["CI Runner (GitHub Actions)"]
+    CIServer --> SecretInject["Secrets Decryption (Keystore / Service Account)"]
+    SecretInject --> CacheCheck["Gradle Remote Cache Check"]
+    CacheCheck --> FastlaneRunner["Fastlane Pipeline Orchestrator"]
+    FastlaneRunner --> GradleBuild["Gradle Build (bundleRelease + R8)"]
+    GradleBuild --> PlaySupply["Fastlane Supply (Upload AAB to Play Console)"]
 ```
 
-### 정본 노트
-
-- [Android CI/CD 파이프라인 단계마다 실패 신호가 다르다](android-cicd-pipeline-stages-have-different-failure-signals.md)
-- [Fastlane은 Gradle 빌드를 대체하지 않고 그 위에서 오케스트레이션한다](fastlane-orchestrates-android-builds-without-replacing-gradle.md)
-- [CI 서명 keystore와 Play 서비스 계정 자격증명은 암호화 저장과 최소 권한을 요구한다](ci-signing-and-service-account-credentials-must-stay-out-of-source-control.md)
-- [빌드 매트릭스와 Gradle 원격 캐시를 함께 쓰면 매트릭스 빌드 시간이 줄어든다](build-matrix-and-remote-cache-together-reduce-ci-matrix-time.md)
-
-관련 지도: [의존성, 버전, CI 계약](../dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md), [Gradle 빌드 계약](../gradle/gradle-build-contracts/gradle-build-contracts.md), [Play 릴리스와 배포 계약](../../distribution/release-distribution-contracts/release-distribution-contracts.md), [R8와 Gradle 빌드 최적화 계약](../../optimization/build-optimization-contracts/build-optimization-contracts.md)
+### 관련 세부 계약 문서
+1. [Fastlane은 Gradle을 대체하지 않고 Android 빌드를 조율한다](fastlane-orchestrates-android-builds-without-replacing-gradle.md)
+2. [CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다](ci-signing-and-service-account-credentials-must-stay-out-of-source-control.md)
+3. [빌드 매트릭스와 원격 캐시는 함께 CI 매트릭스 시간을 줄인다](build-matrix-and-remote-cache-together-reduce-ci-matrix-time.md)
+4. [Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다](android-cicd-pipeline-stages-have-different-failure-signals.md)
 
 ### 관측 가능 증거 (Observable Evidence)
-
+CI 파이프라인의 캐시 히트율 및 Fastlane 레인 실행 이력은 다음 명령어로 관측할 수 있다:
 ```bash
-# 파이프라인 단계별 소요 시간과 실패 지점을 CI 로그에서 구분
-# (GitHub Actions 예시: 각 step이 별도로 pass/fail을 기록한다)
-gh run view <run-id> --log-failed
-
-# Fastlane 실행 로그에서 어떤 Gradle task를 호출했는지 확인
-bundle exec fastlane android release --verbose
+fastlane android release --dry_run
 ```

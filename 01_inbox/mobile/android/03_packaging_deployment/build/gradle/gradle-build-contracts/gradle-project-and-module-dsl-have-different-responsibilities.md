@@ -12,56 +12,46 @@ updated: 2026-08-05 16:15:00 +09:00
 
 상위 문서: [Gradle 빌드 계약](gradle-build-contracts.md)
 
+### 개념 및 필요성 (What & Why)
+Gradle 기반 안드로이드 프로젝트는 **루트 프로젝트 DSL(Root Project DSL)** 과 **개별 서브모듈 DSL(Submodule DSL)** 의 책임을 엄격히 구분하여 설계된다.
+- **루트 `build.gradle.kts`**: 멀티 모듈 전체에 적용되는 플러그인의 클래스패스 관리(`apply false`), 전역 린트/청소 태스크, 외부 레포지토리 정의 등 **전역 빌드 컨텍스트**를 설정한다.
+- **모듈 `build.gradle.kts`**: 특정 모듈(예: `:app`, `:core:database`)의 실제 빌드 플러그인 적용(`apply true`), 안드로이드 SDK 레벨 설정(`android {}`), 하위 의존성 선언(`dependencies {}`) 등 **독립 모듈 구현**을 담당한다.
+
 ### 내부 메커니즘 (Internal Mechanism)
-**Gradle DSL**(Domain Specific Language - Gradle 빌드 파이프라인 설정을 표현하는 특화 언어)을 사용하는 멀티모듈 아키텍처는 영역별로 엄격하게 분리된 설정 파일 스코프를 유지한다:
-1. **`settings.gradle.kts` (Initialization Phase)**: 전체 프로젝트의 구조(`include(":app", ":feature:login")`), 저장소 레포지토리 관리(`dependencyResolutionManagement`), 및 빌드 스코프 플러그인(`pluginManagement`)을 정의한다.
-2. **Root `build.gradle.kts` (Root Project Scope)**: 전체 모듈에 공통 적용되는 플러그인 버전 선언(`apply false`) 및 루트 단독 태스크(clean, detektAll)만 담당한다. 모듈 간 강결합을 유발하는 `allprojects {}` / `subprojects {}` 사용은 금지된다.
-3. **Module `build.gradle.kts` (Module Scope)**: 특정 모듈 고유의 플러그인 적용, 의존성 선언(`dependencies {}`), 및 Android 도메인 컴파일 설정(`android {}`)을 전담한다.
+1. **`plugins { id(...) apply false }` 패턴**: 루트 프로젝트에 플러그인을 미리 클래스패스 로딩만 시켜두고, 필요한 모듈에서만 `apply true`로 개별 활성화하여 컴파일 및 의존성 격리를 도모한다.
+2. **Buildscript Classpath Scope**: 루트에서 로딩된 플러그인 버전은 모든 서브모듈에서 동일한 버전을 공유하게 만들어 버전 파편화(Version Mismatch) 문제를 방지한다.
 
 ```mermaid
 flowchart TD
-    Settings["settings.gradle.kts (Includes & Repos)"] --> RootBuild["Root build.gradle.kts (Plugin Declarations)"]
-    RootBuild --> AppBuild["app/build.gradle.kts (App Logic & AGP)"]
-    RootBuild --> FeatureBuild["feature/login/build.gradle.kts (Library Logic)"]
+    RootDSL["Root build.gradle.kts (plugins { id(...) apply false })"] --> ModuleApp["app/build.gradle.kts (plugins { id(...) }, android { ... })"]
+    RootDSL --> ModuleCore["core/domain/build.gradle.kts (plugins { id(...) }, dependencies { ... })"]
 ```
 
-### 코드 예시 (settings.gradle.kts & build.gradle.kts)
+### 코드 예시 (build.gradle.kts)
 ```kotlin
-// settings.gradle.kts
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "MyAwesomeApp"
-include(":app")
-include(":core:designsystem")
-
-// Root build.gradle.kts
+// 루트 build.gradle.kts (Project Level)
 plugins {
     alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.android) apply false
+}
+
+// app/build.gradle.kts (Module Level)
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+}
+
+android {
+    namespace = "com.example.myapp"
+    compileSdk = 34
 }
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-Gradle 초기화 및 프로젝트 수집 결과를 다음 CLI 명령으로 관측할 수 있다:
-
+프로젝트 내 모듈 간 의존성 구조 및 플러그인 로딩 상태를 확인할 수 있다:
 ```bash
 ./gradlew projects
-
-# Output Example:
-# Root project 'MyAwesomeApp'
-# +--- Project ':app'
-# \--- Project ':core:designsystem'
 ```
 
-관련 노트: [Version Catalog는 의존성 좌표와 플러그인 좌표의 이름표다](../../dependency-versioning/dependency-ci-contracts/version-catalog-names-dependency-and-plugin-coordinates.md), [Gradle 빌드 계약](gradle-build-contracts.md)
+관련 노트: [Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md), [Gradle 빌드 계약](gradle-build-contracts.md)

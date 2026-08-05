@@ -1,22 +1,31 @@
 ---
 title: contentprovider-publishes-uri-addressed-data-with-permission-boundary
 tags: [android, android/app-components, android/architecture]
-aliases: ["ContentProvider는 URI와 권한을 가진 데이터 공유 API다"]
+aliases: ["ContentProvider는 URI 데이터와 권한 경계를 게시한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## ContentProvider 는 URI 와 권한을 가진 데이터 공유 API 다
+## ContentProvider는 URI 데이터와 권한 경계를 게시한다
 
-상위 문서: [App Component Contracts](./app-component-contracts.md)
-ContentProvider 는 `content://` URI 를 통해 데이터를 노출하고 `ContentResolver` 로 접근되는 앱 컴포넌트다. 핵심은 SQLite 가 아니라 provider authority, URI shape, MIME type, CRUD method, permission 경계로 구성된 외부 또는 cross-process 데이터 계약이다.
+**`ContentProvider` 는 앱이 가진 구조화된 데이터(SQLite DB, Room DB, 또는 파일)를 고유한 `Content URI` (예: `content://com.example.provider/items`) 표준 인터페이스 형태로 다른 프로세스에 정밀한 권한 통제(Read/Write Permission Boundary) 위에서 안전하게 게시(Publish)하는 컴포넌트**다.
 
-현대 앱에서 내부 데이터 저장은 Room, DataStore, repository 로 충분한 경우가 많다. 그러나 다른 앱이나 시스템 surface 가 일정한 URI 계약으로 데이터를 읽고 써야 한다면 ContentProvider 가 여전히 맞는 선택이다.
+---
 
-Provider 는 내부 abstraction 으로도 쓸 수 있지만, 단지 repository 를 만들기 귀찮아서 쓰는 계층은 아니다. 프로세스 경계와 permission model 이 필요한지부터 판단한다.
+### 1. 개념 및 핵심 구조 (What)
 
-`adb shell content query --uri content://<authority>/<path>` 로 provider 가 실제로 등록되어 응답하는지, 어떤 컬럼을 반환하는지 앱 코드 없이 직접 질의해 확인할 수 있다.
+- **Content URI 인터페이스 표준**:
+  외부 앱은 데이터베이스의 물리적 파일 경로나 구현 방식을 알 필요 없이, `ContentResolver` 를 통해 CRUD(`query`, `insert`, `update`, `delete`)를 표준 SQL 유사 인터페이스로 수행한다.
+- **IPC 데이터 래핑 및 파셀 스트림**:
+  쿼리 결과는 `Cursor` 파셀 객체로 래핑되어 프로세스 경계를 넘어 전송된다.
 
-관련 노트: [persistence 정본](../../../data/storage/persistence-contracts/persistence-contracts.md), [FileProvider 정본](./fileprovider-grants-narrow-uri-access-instead-of-file-path-sharing.md), [Android 권한 계약](../../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-contracts.md).
+---
 
-공식 문서: [Content providers](https://developer.android.com/guide/topics/providers/content-providers)
+### 2. 관련 문서 및 참조
+
+- 상위 문서: [App Component Contracts](./app-component-contracts.md)
+- 관련 계약 문서:
+  - [FileProvider는 파일 경로 공유 대신 좁은 URI 접근을 허용한다](./fileprovider-grants-narrow-uri-access-instead-of-file-path-sharing.md)
+- 공식 가이드: [Content Providers](https://developer.android.com/guide/topics/providers/content-providers)
+
+검증일: 2026-08-05. ContentProvider URI 데이터 공유 구조 확인 완료.

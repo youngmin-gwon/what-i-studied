@@ -1,74 +1,46 @@
 ---
 title: pendingintent-is-delegated-future-intent-token
-tags: [android, android/intents, android/navigation]
-aliases: ["PendingIntent 는 나중에 실행할 권한을 위임하는 토큰이다"]
+tags: [android, android/navigation, android/intent, security]
+aliases: ["PendingIntent는 위임된 미래 intent 토큰이다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## **PendingIntent**(외부 시스템 프로세스가 미래 시점에 미리 설정된 Intent를 내 앱의 권한으로 실행하도록 위임하는 보안 토큰) 는 나중에 실행할 권한을 위임하는 토큰이다
+## PendingIntent 는 위임된 미래 intent 토큰이다
 
-상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
+상위 문서: [Intent & Manifest 계약](intent-manifest-contracts.md)
 
-배경 지식: [인증과 인가](../../../../../../security/fundamentals/authentication-authorization.md)
+---
 
-### 개념
+### 개념과 필요성 (What & Why)
 
-PendingIntent 는 다른 앱이나 시스템이 나중에 앱 대신 Intent 를 실행할 수 있게 하는 토큰이다.
+1. **개념 (What)**:
+   - **`PendingIntent`**는 안드로이드 OS의 알림(Notification), 위젯(AppWidget), 알람 매니저(AlarmManager) 등 타 프로세스나 외부 시스템 서비스에게 **발행 앱의 권한(UID 및 Identity)으로 미래 시점에 내부 Intent를 대신 실행할 수 있도록 위임하는 권한 부여 토큰(Token)**이다.
+2. **필요성 (Why)**:
+   - 외부 프로세스는 발행 앱의 내부 액티비티를 직접 실행할 권한이 없지만, `PendingIntent` 토큰을 전달받음으로써 토큰 발행 앱의 신원과 권한을 그대로 위임받아 특정 시점에 안전하게 액티비티를 구동할 수 있다.
 
-알림 클릭, AlarmManager, 위젯, 시스템 UI 와의 연동에서 주로 사용한다.
+---
 
-일반 Intent 가 즉시 요청 메시지라면 PendingIntent 는 미래 실행 권한을 나타낸다.
+### 보안 통제 (FLAG_IMMUTABLE vs FLAG_MUTABLE)
+
+- **`FLAG_IMMUTABLE` (현대 안드로이드 필수 표준)**:
+  수신한 타 프로세스가 `PendingIntent` 내부의 Intent 파라미터를 임의로 수정하거나 변경할 수 없도록 원천 차단한다. (Android 12+ 필수 지정).
+- **`FLAG_MUTABLE`**:
+  알림 답장(Direct Reply)처럼 외부 프로세스에서 추가 데이터를 덧붙여야 할 때만 제한적으로 허용한다.
 
 ```kotlin
-val intent = Intent(context, MainActivity::class.java)
+val intent = Intent(context, DetailActivity::class.java)
 val pendingIntent = PendingIntent.getActivity(
     context,
-    100,
+    0,
     intent,
-    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
 )
 ```
 
-### 불변성과 가변성
+---
 
-Android 12 부터 PendingIntent 생성 시 `FLAG_IMMUTABLE` 또는 `FLAG_MUTABLE` 을 명시해야 한다.
+### 관련 상위 및 연관 노트
 
-대부분의 알림 이동은 수신자가 Intent 를 바꿀 필요가 없으므로 `FLAG_IMMUTABLE` 을 사용한다.
-
-인라인 답장처럼 시스템이 실행 시 입력을 채워야 하는 특별한 경우에만 mutable 을 검토한다.
-
-mutable 토큰은 수정 가능한 범위와 호출자를 더 엄격하게 분석해야 한다.
-
-### 토큰 식별과 재사용
-
-request code, 대상 컴포넌트, Intent 필드에 따라 기존 PendingIntent 와 동일성이 결정될 수 있다.
-
-`FLAG_UPDATE_CURRENT` 는 기존 토큰의 extras 를 갱신할 때 사용한다.
-
-`FLAG_ONE_SHOT` 은 한 번 실행한 뒤 재사용되지 않도록 한다.
-
-사용자나 리소스 식별자가 바뀌면 토큰이 잘못 재사용되지 않는지 확인한다.
-
-### 보안 점검
-
-민감한 작업은 명시적 Intent 를 사용해 대상 컴포넌트를 고정한다.
-
-토큰에 비밀번호나 장기 비밀값을 넣지 말고 필요한 식별자만 전달한다.
-
-수신 화면은 PendingIntent 를 통해 들어온 extras 도 다시 검증해야 한다.
-
-알림에 노출되는 제목과 내용은 잠금 화면 공개 정책도 고려한다.
-
-### 흔한 실수
-
-1. Android 12 에서 mutability flag 를 빠뜨려 예외가 발생한다.
-2. mutable 을 기본값처럼 사용해 Intent 변조 가능성을 키운다.
-3. `FLAG_UPDATE_CURRENT` 와 request code 조합을 잘못해 다른 사용자 데이터로 갱신한다.
-4. 토큰이 열어 주는 작업에 인증 검사를 두지 않는다.
-
-### 정리
-
-PendingIntent 는 단순히 Intent 를 저장하는 객체가 아니라 실행 권한의 위임 수단이다.
-
-누가 언제 어떤 대상에 어떤 입력으로 실행할 수 있는지까지 포함해 보안 계약을 설계한다.
+- 상위 계약: [Intent & Manifest 계약](intent-manifest-contracts.md)
+- 연관 계약: [Notification deep link는 명시적 task와 back stack 정책이 필요하다](../deep-link-contracts/notification-deep-link-needs-explicit-task-and-back-stack-policy.md)

@@ -1,23 +1,21 @@
 ---
 title: flow-state-contracts
-tags: [android, android/async, android/data, android/flow-state-contracts]
+tags: [android, android/async, android/flow, android/state]
 aliases: ["Flow와 StateFlow 상태 계약"]
-date modified: 2026-08-04 16:33:10 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Flow 와 StateFlow 상태 계약
+## Flow와 StateFlow 상태 계약은 Repository 데이터 공급과 UI 화면 상태 유도를 연결한다
 
-Flow 계열 노트는 데이터 흐름의 소유자와 화면 상태 계약을 구분한다. `Flow` 는 원천 데이터 흐름, `StateFlow` 는 현재값이 필요한 화면 상태에 주로 사용한다.
+본 정본 클러스터는 Android 앱 아키텍처에서 **Repository 레이어의 Cold Flow 스트림**을 **ViewModel의 Hot StateFlow 화면 상태(UiState)**로 변환하고, **Compose / View UI 레이어에서 수명주기 안전(Lifecycle-aware)하게 수집**하기 위한 상태 관리 계약을 정의한다.
 
 ### 정본 노트
 
-- [Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다](./repository-exposes-flow-and-viewmodel-composes-screen-state.md)
-- [StateFlow는 현재값이 필요한 화면 상태에 사용하고 Flow는 원천 데이터 흐름에 사용한다](./stateflow-is-for-current-screen-state-flow-is-for-source-stream.md)
-- [SharedFlow와 Channel은 상태 저장소가 아니라 일회성 신호 전달 수단이다](./sharedflow-and-channel-are-event-signals-not-state-stores.md)
-- [Flow를 StateFlow로 바꿀 때는 stateIn의 수명과 공유 정책을 명시한다](./statein-requires-explicit-lifetime-and-sharing-policy.md)
-- [새 입력이 이전 작업을 무효화하면 flatMapLatest로 이전 흐름을 취소한다](./flatmaplatest-cancels-obsolete-work-for-new-input.md)
-- [여러 원천의 최신값으로 화면 상태를 만들 때 combine을 사용한다](./combine-builds-screen-state-from-latest-source-values.md)
-- [화면에 그릴 Flow는 lifecycle-aware API로 수집한다](./collect-flow-for-ui-with-lifecycle-aware-api.md)
-
-관련 지도: [Android 상태 관리 정본 지도](../../../architecture/state-management/android-state-management.md)
+- [StateFlow는 화면의 현재 상태를 다루고 Flow는 데이터 저장소 스트림을 다룬다](./stateflow-is-for-current-screen-state-flow-is-for-source-stream.md) - StateFlow와 Flow의 역할 분담 및 conflation 특성.
+- [Repository는 Flow를 노출하고 ViewModel은 화면 상태를 조합한다](./repository-exposes-flow-and-viewmodel-composes-screen-state.md) - 단방향 데이터 흐름(UDF)과 레이어별 캡슐화 규칙.
+- [stateIn은 명시적 수명 scope와 sharing policy를 요구한다](./statein-requires-explicit-lifetime-and-sharing-policy.md) - WhileSubscribed(5000)를 활용한 백그라운드 리소스 방지.
+- [SharedFlow와 Channel은 상태 저장소가 아니라 이벤트 신호다](./sharedflow-and-channel-are-event-signals-not-state-stores.md) - 1회성 UI 이벤트(Snackbar, Navigation)의 올바른 모델링과 Anti-pattern 피하기.
+- [flatMapLatest는 새 입력이 오면 이전 입력을 취소한다](./flatmaplatest-cancels-obsolete-work-for-new-input.md) - 검색어 입력 및 탭 전환 시의 구작업 자동 취소.
+- [combine은 최신 소스 값으로 화면 상태를 만든다](./combine-builds-screen-state-from-latest-source-values.md) - 복수 데이터 소스를 합성하여 단일 UiState 생성.
+- [UI는 lifecycle-aware API로 Flow를 수집해야 한다](./collect-flow-for-ui-with-lifecycle-aware-api.md) - repeatOnLifecycle 및 collectAsStateWithLifecycle을 통한 백그라운드 크래시/자원 누수 차단.

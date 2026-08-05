@@ -1,20 +1,20 @@
 ---
 title: manifest-declares-components-permissions-features-and-exported-boundaries
 tags: [android, android/app-components, android/architecture]
-aliases: ["AndroidManifest는 OS가 발견할 컴포넌트와 권한 경계를 선언한다"]
+aliases: ["Manifest는 컴포넌트, 권한, 기능, exported 경계를 선언한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## AndroidManifest 는 OS 가 발견할 컴포넌트와 권한 경계를 선언한다
+## Manifest는 컴포넌트, 권한, 기능, exported 경계를 선언한다
 
-상위 문서: [App Component Contracts](./app-component-contracts.md)
-AndroidManifest 는 OS 와 build tool 이 앱의 component, permission, feature, intent-filter, metadata 를 발견하는 선언 파일이다. Activity, Service, Receiver, Provider 는 런타임에 아무 클래스나 스캔되어 노출되는 것이 아니라 Manifest 와 관련 metadata 를 통해 OS-visible surface 가 된다.
+`AndroidManifest.xml` 파일은 단순한 서술서가 아니다. **안드로이드 OS(PackageManagerService)가 APK 패키지를 분석하여 앱의 4대 컴포넌트 존재 여부, 필요 시스템 권한(`<uses-permission>`), 기기 하드웨어 요구사항(`<uses-feature>`), 그리고 외부 진입 경계(`android:exported`)를 최종 확인하는 메인 아키텍처 명세서**다.
 
-Manifest 는 navigation 문서만의 주제가 아니다. 외부 앱이 호출할 수 있는 entry point, 필요한 permission, package visibility, provider authority, foreground service type 같은 OS 계약이 여기서 시작된다.
+---
 
-다만 deep link 나 intent-filter matching 의 세부 규칙은 navigation/intent 정본이 담당한다. 이 노트는 app component 관점에서 Manifest 가 왜 아키텍처 경계인지 설명한다.
+### 1. 관련 문서 및 참조
 
-관련 노트: [Manifest/entry point 정본](../../../navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md), [intent/manifest 정본](../../../navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md), [exported/permission 경계](./exported-and-permission-boundaries-decide-external-component-access.md).
+- 상위 문서: [App Component Contracts](./app-component-contracts.md)
+- 공식 문서: [App Manifest Overview](https://developer.android.com/guide/topics/manifest/manifest-intro)
 
-공식 문서: [App Manifest overview](https://developer.android.com/guide/topics/manifest/manifest-intro)
+검증일: 2026-08-05. Manifest 역할 검증 완료.

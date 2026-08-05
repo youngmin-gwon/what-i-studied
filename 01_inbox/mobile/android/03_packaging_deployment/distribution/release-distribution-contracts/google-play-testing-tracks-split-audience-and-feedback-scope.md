@@ -1,50 +1,63 @@
 ---
 title: google-play-testing-tracks-split-audience-and-feedback-scope
-tags: ["android", "play-store", "testing-tracks"]
-aliases: ["Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다"]
+tags: ["android", "google-play", "testing-tracks", "release"]
+aliases: ["Google Play 테스트 트랙은 타깃 청중과 피드백 범위를 분리한다"]
 date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다
+## Google Play 테스트 트랙은 타깃 청중과 피드백 범위를 분리한다
+
+상위 문서: [릴리스 배포 계약](release-distribution-contracts.md)
+
+### 개념 및 필요성 (What & Why)
+Google Play Console은 개발자가 상용 프로덕션(Production) 트랙에 앱을 배포하기 전에 다양한 검증 단계별로 대상 사용자를 제한하여 검증할 수 있는 **4단계 멀티 테스트 트랙(Testing Tracks)** 을 제공한다.
+모든 사용자에게 무작치 출시하기 전, 내부 팀, 신뢰할 수 있는 테스터, 일반 참여 테스터 순으로 대상 청중(Audience Scope)을 계층적으로 확대하여 회귀 버그와 사용자 피드백을 수집함으로써 불특정 다수 사용자 대상 검증 위험을 극적으로 낮출 수 있다.
 
 ### 내부 메커니즘 (Internal Mechanism)
-Google Play Console은 상용 프로덕션 배포에 앞서 전 세계 사용자에게 치명적인 런타임 장애가 전파되는 리스크를 단계별로 격리 관리하기 위해 4가지 계층의 **배포 트랙(Release Tracks)** 구조를 제공한다:
-
-1. **Internal Testing Track (내부 테스트 트랙)**: 최대 100명의 지정된 사내 검증자 및 핵심 팀원 대상 배포 경로다. Google Play의 표준 앱 검수(App Review) 절차를 전면 우회하여 빌드 업로드 후 수 분 이내에 사내 기기로 즉시 전파된다.
-2. **Closed Testing (비공개 테스트 트랙 - Alpha/Beta)**: 지정된 테스터 집단(Google Group, 이메일 등록자)을 대상으로 신규 기능의 기술적 안정성 및 버그 제보를 수집하는 제한적 트랙이다. 스토어 검수를 통과해야 배포된다.
-3. **Open Testing (공개 테스트 트랙)**: Google Play Store에 노출되어 일반 사용자 누구나 자유롭게 테스트에 참여할 수 있다. 단, 작성된 사용자 평가 및 피드백은 공개 스토어 평점에 반영되지 않고 개발자 전용 대시보드로 격리 수집되어 스토어 평점 방어 효과를 갖는다.
-4. **Production Track (프로덕션 트랙)**: 전체 일반 사용자를 대상으로 상용 아티팩트를 공식 퍼블리싱하는 최상위 배포 경로다.
+**Google Play 4대 배포 트랙의 특성 비교**:
+1. **Internal Track (내부 테스트)**:
+   - 최대 100명의 지정된 내부 테스터 대상.
+   - Google Play의 정식 앱 검사(App Review) 과정을 완전히 스킵하거나 극도로 단순화하여 업로드 즉시 몇 분 만에 배포됨.
+2. **Closed Track (비공개 테스트)**:
+   - 테스터 이메일 리스트 또는 Google 그룹스로 지정된 특정 사용자 그룹 대상. Play 검사 절차 필요.
+3. **Open Track (공개 테스트)**:
+   - Play 스토어에서 누구나 참여 가능한 테스트 트랙. 검색에는 노출되지만 일반 프로덕션과 분리된 피드백 채널 작동.
+4. **Production Track (프로덕션 트랙)**:
+   - 전 세계 일반 사용자 대상의 최종 상용 배포 트랙.
 
 ```mermaid
 flowchart LR
-    Internal["1. Internal Testing Track (Instant / 100 Users)"] --> Closed["2. Closed Testing (Alpha/Beta Teams)"]
-    Closed --> Open["3. Open Testing (Public Opt-in, Private Feedback)"]
-    Open --> Production["4. Production Track (Staged Rollout)"]
+    Internal["1. Internal Track (Fast Upload, < 100 Testers, No Review)"] --> Closed["2. Closed Track (Targeted Email Group, Review Required)"]
+    Closed --> Open["3. Open Track (Public Beta, Review Required)"]
+    Open --> Production["4. Production Track (All General Users)"]
 ```
 
-### 코드 예시 (Gradle Play Publisher DSL)
-```kotlin
-// app/build.gradle.kts (com.github.triplet.play plugin)
-play {
-    track.set("internal") // "internal", "alpha", "beta", "production"
-    userFraction.set(1.0)
-    releaseStatus.set(com.github.triplet.gradle.play.enum.ReleaseStatus.COMPLETED)
-}
+### 코드 예시 (Fastlane Supply Track Deployment)
+```ruby
+# fastlane/Fastfile
+lane :deploy_internal do
+  upload_to_play_store(
+    track: internal, # 내부 테스트 트랙 지정
+    aab: app/build/outputs/bundle/release/app-release.aab
+  )
+end
+
+lane :promote_to_production do
+  upload_to_play_store(
+    track: internal,
+    track_promote_to: production, # 내부 트랙 승인본을 프로덕션으로 즉시 승격
+    rollout: 0.1 # 10% 점진적 배포
+  )
+end
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-CI 파이프라인에서 Gradle Play Publisher를 통해 아티팩트가 지정된 트랙으로 배포되었음을 API 응답으로 확인할 수 있다:
-
+Play Console API 연동을 통해 각 트랙에 현재 게재된 아티팩트의 `versionCode` 상태는 Fastlane 연동으로 관측할 수 있다:
 ```bash
-./gradlew publishBundle --track internal
-
-# Output Example:
-# > Task :app:publishBundle
-# Uploaded AAB to Play Console Track: internal (Release Version 1.2.0-10021)
-# Track promotion status: Success
+bundle exec fastlane run google_play_track_version_codes package_name:"com.example.myapp" track:"internal"
 ```
 
-관련 노트: [내부 앱 공유는 릴리스 트랙이 아니라 빠른 아티팩트 공유다](internal-app-sharing-is-fast-artifact-sharing-not-release-track.md), [단계적 출시는 관측 가능한 릴리스 운영 절차다](staged-rollout-is-observable-release-operation.md)
+관련 노트: [Internal app sharing은 배포 트랙이 아닌 빠른 아티팩트 공유다](internal-app-sharing-is-fast-artifact-sharing-not-release-track.md), [릴리스 배포 계약](release-distribution-contracts.md)

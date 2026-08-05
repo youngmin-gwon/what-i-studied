@@ -1,30 +1,85 @@
 ---
 title: produce-state-converts-external-state-to-compose-state
 tags: [android, compose/state, jetpack-compose]
-aliases: [produceState]
+aliases: [produceState, External State Bridge]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## produceState 는 외부 상태를 Compose 상태로 변환한다
 
-`**produceState**(Flow 같은 외부 비동기 데이터 스트림을 Compose State로 변환하여 공급하는 Effect API)` 는 외부 비동기 source 나 구독 기반 source 를 Compose `State<T>` 로 변환하는 adapter 다. Composition 에 들어오면 producer coroutine 을 시작하고, key 가 바뀌거나 call site 가 사라지면 producer 를 취소한다.
+### 1. 개념 정의 (What)
+`produceState(initialValue, key1) { ... producerScope ... }`는 외부 비동기 데이터 소스(예: 콜백 기반 SDK, RxJava, LiveData, 또는 외부 네트워크/디바이스 센서 스트림)를 **Compose Runtime이 추적할 수 있는 `State<T>` 형태의 관찰 가능 상태로 브릿징(Bridging) 및 변환**하는 유틸리티 API다.
 
-`value` 에 같은 값을 다시 넣으면 downstream recomposition 을 불필요하게 만들지 않도록 conflation 된다. non-suspending callback source 를 구독한다면 `awaitDispose` 로 해제 경로를 함께 둔다.
+---
 
-Repository 나 ViewModel 을 대체하는 state holder 가 아니다. 외부 source 의 소유권과 business rule 은 바깥 계층에 두고, `produceState` 는 UI 수명에 맞춰 Compose State 로 다리를 놓을 때만 사용한다.
+### 2. produceState 사용의 필요성 (Why)
+Compose가 도입되지 않은 기존 서드파티 라이브러리나 래거시 데이터 소스는 `State<T>`가 아닌 별도의 콜백이나 커스텀 스트림(예: 센서 이벤트 리스너, 룸 데이터베이스 콜백)을 사용한다.
 
-```kotlin
-@Composable
-fun loadNetworkImage(url: String): State<ImageBitmap?> =
-    produceState<ImageBitmap?>(initialValue = null, key1 = url) {
-        value = null
-        value = imageLoader.load(url) // suspend 호출, url이 바뀌면 이전 작업은 취소된다
-    }
+이를 `@Composable` 내부로 직접 가져오면:
+- 상태 변경 시 Recomposition을 유발할 수 없음.
+- 코루틴 수명주기 취소 관리가 수동으로 이루어져 코드가 지저분해짐.
+
+`produceState`는 `LaunchedEffect`와 `mutableStateOf`의 기능을 조합하여, 외부 스트림을 깔끔하게 `State<T>`로 변환해 선언적 UI에 제공한다.
+
+---
+
+### 3. 내부 동작 메커니즘 (How)
+
+```
+[produceState 실행]
+  |--> remember { mutableStateOf(initialValue) } 생성
+  |--> LaunchedEffect(keys) 와 동일한 코루틴 생산자 구동 (ProducerScope)
+  |--> ProducerScope 내에서 value = newValue 쓰기 수행
+  |--> State.value 변경으로 인해 해당 State 를 읽은 RecomposeScope Invalidate!
+  |--> Composable 화면 이탈 시 코루틴 자동 취소
 ```
 
-`url` 이 바뀌면 진행 중이던 `imageLoader.load` coroutine 이 취소되고 새 producer 가 시작된다. 반환 타입이 `State<ImageBitmap?>` 이므로 호출부는 `val bitmap by loadNetworkImage(url)` 처럼 일반 Compose state 읽기와 동일하게 사용한다.
+1. **ProducerScope 스코프**: `produceState` 블록 내부에서는 `ProducerScope<T>`가 제공되며, `value` 속성에 새 값을 할당하는 순간 내부 `MutableState`의 지점 갱신이 일어난다.
+2. **awaitDispose 연동**: 콜백 기반 외부 시스템 등록 해제는 `awaitDispose { listener.unregister() }` 구문을 통해 안전하게 정리를 수행한다.
 
-관련 노트: [snapshotFlow는 Compose State를 cold Flow로 바꾼다](./snapshot-flow-converts-compose-state-to-cold-flow.md), [Compose 상태 API는 필요한 수명에 맞춰 선택한다](./compose-state-api-selection-by-lifetime.md)
+---
 
-출처: [Side-effects in Compose - produceState](https://developer.android.com/develop/ui/compose/side-effects#producestate)
+### 4. 외부 센서 스트림 변환 코드 사례
+
+```kotlin
+sealed interface NetworkStatus {
+    object Available : NetworkStatus
+    object Unavailable : NetworkStatus
+}
+
+@Composable
+fun rememberNetworkStatus(context: Context): State<NetworkStatus> {
+    // 외부 ConnectivityManager 콜백 상태를 Compose State<NetworkStatus> 로 변환
+    return produceState<NetworkStatus>(initialValue = NetworkStatus.Unavailable, context) {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val callback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                value = NetworkStatus.Available // State.value 갱신!
+            }
+
+            override fun onLost(network: Network) {
+                value = NetworkStatus.Unavailable
+            }
+        }
+
+        connectivityManager.registerDefaultNetworkCallback(callback)
+
+        // Composition 이탈 시 콜백 해제
+        awaitDispose {
+            connectivityManager.unregisterNetworkCallback(callback)
+        }
+    }
+}
+```
+
+---
+
+상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
+
+관련 노트: [LaunchedEffect는 Composable과 함께 취소되어야 하는 작업을 소유한다](./launched-effect-owns-composable-cancellable-work.md), [DisposableEffect는 등록과 해제가 쌍인 작업을 관리한다](./disposable-effect-pairs-registration-and-cleanup.md)
+
+출처: [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects#producestate)
+
+검증일: 2026-08-05. Compose 공식 가이드의 produceState 사양을 대조하여 ProducerScope 상태 변환, awaitDispose 정리 구문 및 외부 콜백 브릿징 서술을 정밀 보강했다.

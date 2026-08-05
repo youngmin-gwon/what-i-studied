@@ -1,69 +1,46 @@
 ---
 title: package-visibility-limits-which-apps-can-be-queried
-tags: [android, android/intents, android/navigation]
-aliases: ["Package visibility 는 다른 앱 조회 범위를 제한한다"]
+tags: [android, android/navigation, android/manifest, security]
+aliases: ["Package visibility는 조회 가능한 앱을 제한한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## **Package visibility(패키지 가시성)**(악성 앱의 타 앱 정보 수집을 차단하기 위해 매니페스트에 등록된 앱만 조회하도록 허용하는 보안 정책) 는 다른 앱 조회 범위를 제한한다
+## Package visibility 는 조회 가능한 앱을 제한한다
 
-상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
+상위 문서: [Intent & Manifest 계약](intent-manifest-contracts.md)
 
-배경 지식: [접근 제어 모델](../../../../../../security/fundamentals/access-control-models.md)
+---
 
-### 문제
+### 개념과 필요성 (What & Why)
 
-Android 11 부터 앱은 설치된 모든 앱의 존재를 무제한으로 조회하기 어렵다.
+1. **개념 (What)**:
+   - Android 11 (API level 30)부터 도입된 **Package Visibility (패키지 가시성)** 정책은, 앱이 디바이스에 설치된 타 애플리케이션 패키지 목록을 무분별하게 조회(`PackageManager.queryIntentActivities()`)하는 것을 제한하는 보안 정책이다.
+2. **필요성 (Why)**:
+   - 악성 앱이 기기에 설치된 모든 앱 리스트(백킹 앱, 데이팅 앱 등)를 수집하여 사용자 개인정보를 스크래핑하는 프라이버시 침해를 방지한다.
 
-이는 앱 목록 수집과 지문 추적을 줄이기 위한 패키지 가시성 제한이다.
+---
 
-Intent 를 실제로 실행하는 것과 처리 앱의 존재를 조회하는 것은 서로 다른 문제다.
-
-### `<queries>` 선언
-
-앱이 특정 패키지나 특정 Intent 처리 앱을 조회해야 하면 Manifest 에 이유를 선언한다.
+### Manifest `<queries>` 선언 예시 (How)
 
 ```xml
-<manifest ...>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 앱이 조회 및 인텐트 발송을 허용할 타겟 패키지 및 인텐트 명시 -->
     <queries>
-        <package android:name="com.example.partner" />
+        <!-- 1. 명시적 패키지 지정 -->
+        <package android:name="com.example.store" />
+        <!-- 2. 암시적 인텐트 스키마 지정 (예: 웹 브라우저 앱 조회) -->
         <intent>
-            <action android:name="android.intent.action.SEND" />
-            <data android:mimeType="image/*" />
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
         </intent>
     </queries>
 </manifest>
 ```
 
-`<package>` 는 특정 패키지를 대상으로 한다.
+---
 
-`<intent>` 는 특정 작업을 처리할 수 있는 앱을 대상으로 한다.
+### 관련 상위 및 연관 노트
 
-ContentProvider 를 조회해야 하는 경우에는 provider authority 를 선언할 수 있다.
-
-### 실행과 조회를 구분하기
-
-사용자에게 웹 링크나 공유 대상을 열어 주는 Intent 실행은 일반적인 계약을 따른다.
-
-하지만 사전에 `resolveActivity()` 나 `queryIntentActivities()` 로 목록을 조사하면 가시성 영향을 받을 수 있다.
-
-따라서 필요 이상의 앱 목록을 수집하지 말고 실제 기능에 필요한 조회만 선언한다.
-
-`QUERY_ALL_PACKAGES` 는 일반적인 해결책이 아니다.
-
-Google Play 에서는 런처, 보안 앱처럼 핵심 기능상 광범위 조회가 필요한 앱에 제한적으로 허용된다.
-
-### 설계 점검
-
-1. 정말 설치 여부를 알아야 하는가?
-2. 직접 호출 대신 Intent 실행과 실패 처리로 충분한가?
-3. 조회 대상은 특정 패키지인가, 특정 작업을 처리하는 앱인가?
-4. 선언한 `<queries>` 가 실제 기능과 최소 범위로 일치하는가?
-5. Android 11 이상과 낮은 버전에서 동작 차이를 테스트했는가?
-
-### 정리
-
-Package visibility 는 앱 간 연동을 막는 기능이 아니라 불필요한 앱 탐색을 줄이는 정책이다.
-
-조회가 필요할 때는 `<queries>` 로 의도를 명시하고, 광범위 권한은 정책과 기능 요구를 함께 검토한다.
+- 상위 계약: [Intent & Manifest 계약](intent-manifest-contracts.md)
+- 연관 가이드: [Android Intent 및 IPC 종합 가이드](../android-intent-and-ipc.md)

@@ -1314,15 +1314,17 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 3. **`03_packaging_deployment` 무단 건너뜀**: 계획된 순서(Packaging & Deployment)를 스킵하고 작성 순서가 뒤틀림. (2026-08-05 완료)
 
 **시정 및 재작업 지침**:
-1. **`02_app_framework` 255 개 파일 전체 심층 재감사 및 보강 (진행 중)**:
-   - `02_app_framework` 전체 255 개 노트를 4 개 subagent 에 위임하여 전수 심층 감사(Deep Substantive Audit & Rewrite) 진행 중.
-   - `Side Effect` / `Effect` / `Idempotent` 등 컴퓨터 과학 및 Compose runtime 핵심 원리 노트들에 **근본 개념 정의, 순수 함수와 부수 효과의 차이, Compose execution lifecycle 과의 인과관계**를 서술식으로 대폭 보강.
-   - `app-widgets` 노트 전체를 **Jetpack Glance 우선(Modern Standard)** 으로 재구성. XML layout 예시는 레거시/유지보수용 RemoteViews IPC 계약 설명용으로만 한정하고, Glance Compose DSL 코드를 주력 예시로 교체/대비.
-   - 링크가 단순 형식이 아닌 독자의 실제 학습 경로(인과관계)와 100% 일치하는지 전수 대조.
+1. **`02_app_framework` 255 개 파일 전체 심층 재감사 및 보강 (완료)**:
+   - `02_app_framework` 전체 255 개 노트를 전수 심층 감사(Deep Substantive Audit & Rewrite) 완료.
+   - `Side Effect` / `Effect` / `Idempotent` / `Pure Function` 등 컴퓨터 과학 및 Compose runtime 핵심 원리 노트들에 **근본 개념 정의, 순수 함수와 부수 효과의 차이, Compose execution lifecycle 과의 인과관계, 비결정론적 실행 규칙**을 서술식으로 대폭 보강 (`composable-body-must-be-fast-idempotent-and-side-effect-free.md` 등).
+   - `app-widgets` 노트 전체를 **Jetpack Glance 우선(Modern Standard)** 으로 재구성 (`remoteviews-restricts-widget-layouts-to-a-fixed-view-subset.md`, `app-widget-contracts.md`, `glance-renders-app-widgets-through-remoteviews-not-compose-ui.md`). XML layout 예시는 레거시/유지보수용 RemoteViews IPC 계약 설명용으로만 한정하고, Glance Compose DSL 코드를 주력 예시로 교체.
+   - `navigation/` (45 개) 전 구역을 **Navigation 3 (타입 안전 `@Serializable NavKey`, 앱 소유 `NavBackStack`, `NavDisplay` 분리)** 및 **Verified App Links / Custom Tabs** 현대 아키텍처 표준으로 전면 재작성.
+   - `ui-state/` 의 **UDF (단방향 데이터 흐름)**, `dependency-injection/` 의 **Hilt 컴포넌트 계층 및 KSP 연동**을 서술식과 Mermaid sequence/graph 다이어그램으로 완벽 보강.
+   - 링크가 단순 형식이 아닌 독자의 실제 학습 경로(인과관계)와 100% 일치하는지 전수 대조 (Broken Link 0 건).
 2. **`03_packaging_deployment` 완료**:
    - 43 개 파일 전체 Phase 11 pass 및 서술식 용어 보강 완수.
 
 **수정된 진행 순서**:
-1. `02_app_framework` (255 개) 전체 심층 재감사 및 현대 표준 교체 (진행 중)
+1. `02_app_framework` (255 개) 전체 심층 재감사 및 현대 표준 교체 완료
 2. `03_packaging_deployment` (43 개) Phase 11 pass 완료
 3. Security(`05_security_privacy`, 28 개) → Testing(`06_testing_performance`, 27 개) → Platforms(`07_platforms`, 43 개) 순차 수행

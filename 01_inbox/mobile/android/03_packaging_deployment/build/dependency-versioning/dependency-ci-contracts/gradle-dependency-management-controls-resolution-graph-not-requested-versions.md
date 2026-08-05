@@ -1,64 +1,63 @@
 ---
 title: gradle-dependency-management-controls-resolution-graph-not-requested-versions
 tags: ["android", "gradle", "dependency"]
-aliases: ["Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다"]
+aliases: ["Gradle 의존성 관리는 요청된 버전이 아니라 해소 그래프를 제어한다"]
 date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다
+## Gradle 의존성 관리는 요청된 버전이 아니라 해소 그래프를 제어한다
 
-상위 문서: [의존성, 버전, CI 계약](dependency-ci-contracts.md)
+상위 문서: [의존성 및 CI 계약](dependency-ci-contracts.md)
+
+### 개념 및 필요성 (What & Why)
+Gradle 의존성 관리의 본질은 개발자가 `build.gradle.kts`에 작성한 **요청 버전(Requested Version)** 을 단순히 가져오는 데 있지 않고, 전이적 의존성(Transitive Dependencies) 간의 버전을 조정하여 단일한 **해소 그래프(Resolution Graph)** 를 결정하는 데 있다.
+여러 라이브러리가 동일한 서드파티 모듈의 각기 다른 버전을 요구하는 전이적 버그가 발생하면 런타임에 `NoSuchMethodError`나 `ClassNotFoundException`이 유발된다.
+Gradle 의 해소 전략(Resolution Strategy)을 통해 버전 충돌을 결정론적으로 통제해야 한다.
 
 ### 내부 메커니즘 (Internal Mechanism)
-Gradle의 **Dependency Resolution Engine**(의존성 그래프 해석 엔진)은 `build.gradle.kts`에 선언된 요청 버전(**Requested Version**)을 그대로 받아들이지 않는다.
-대신 모든 직/간접 전이 의존성을 모아 최신 버전 우선 규칙(Highest Version Wins), 버전 제약조건(`strictly`, `require`, `reject`), 그리고 Capability Matching 및 Resolution Strategy를 거쳐 최종 해석된 그래프(**Resolved Graph**)를 구성한다.
-따라서 특정 모듈에서 `okhttp:4.9.0`을 요청하더라도, 다른 의존성이 `okhttp:4.12.0`을 전이적으로 요구하면 Gradle은 전체 그래프의 okhttp 버전을 `4.12.0`으로 승격(Conflict Resolution)시킨다.
+1. **기본 충돌 해결 알고리즘**: Gradle은 충돌 발생 시 기본적으로 **최상위 버전(Highest Version)** 을 자동으로 승격 선택한다 (예: 1.0.0과 1.2.0이 부딪히면 1.2.0 해소).
+2. **`strictly` 및 `force` 제어**:
+   - `version { strictly("1.1.0") }`: 강제 버전을 지정하여 이 버전을 벗어나는 요청 시 빌드 실패를 유발한다.
+   - `resolutionStrategy.force(...)`: 지정된 버전으로 강제 치환한다.
+3. **Dependency Constraint (`constraints {}`)**: 해당 라이브러리를 직접 의존성에 추가하지 않고도, 전이적으로 들어올 때의 버전 상한/하한 조건을 선언한다.
 
 ```mermaid
 flowchart TD
-    ReqA["Module A requests OkHttp 4.9.0"] --> Engine["Gradle Resolution Engine"]
-    ReqB["Module B requests OkHttp 4.12.0"] --> Engine
-    Constraint["Strict Constraint strictly('4.10.0')"] --> Engine
-    Engine -->|Conflict Resolution: Highest or Strictly| Resolved["Resolved Graph: OkHttp 4.12.0 (or Error if strict violated)"]
+    ReqA["Module A requests Lib X:1.0.0"] --> Engine["Gradle Dependency Engine"]
+    ReqB["Module B requests Lib X:1.2.0"] --> Engine
+    Engine --> Strategy{"Resolution Strategy"}
+    Strategy -->|Default| Highest["Resolved to Lib X:1.2.0"]
+    Strategy -->|Strictly Rule| StrictFail["Strict Verification Fail if mismatched"]
 ```
 
 ### 코드 예시 (build.gradle.kts)
 ```kotlin
-// build.gradle.kts
+// app/build.gradle.kts
 dependencies {
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.example:library-a:1.0.0")
     
-    // Strict Constraint 설정 (특정 버전으로 강제 제한)
-    implementation("com.squareup.okhttp3:okhttp") {
-        version {
-            strictly("4.10.0")
+    // 특정 전이적 의존성의 제약 조건 선언
+    constraints {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0") {
+            because("Avoid runtime crash caused by corrupt 1.7.x bytecode")
         }
     }
 }
 
-// Global Resolution Strategy (특정 버전을 전역으로 강제 교체)
 configurations.all {
     resolutionStrategy {
-        force("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
-        failOnVersionConflict() // 버전 충돌 시 빌드 에러 유발
+        failOnVersionConflict() // 버전 충돌 시 오토 승격하지 않고 즉시 빌드 에러 유발
     }
 }
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-특정 라이브러리가 어떠한 경로로 해석되고 승격(Selection Reason)되었는지 `dependencyInsight` 태스크로 관측할 수 있다:
-
+최종 해소된 의존성 그래프와 충돌 해결 로그는 다음 명령어로 관측 가능하다:
 ```bash
-./gradlew app:dependencyInsight --dependency okhttp --configuration releaseRuntimeClasspath
-
-# Output Example:
-# com.squareup.okhttp3:okhttp:4.12.0 (selected by rule)
-#   --- com.squareup.retrofit2:retrofit:2.9.0
-#       \--- releaseRuntimeClasspath
-# com.squareup.okhttp3:okhttp:4.9.0 -> 4.12.0 (conflict resolution)
+./gradlew app:dependencies --configuration runtimeClasspath
 ```
 
-관련 노트: [Version Catalog는 의존성 좌표와 플러그인 좌표의 이름표다](version-catalog-names-dependency-and-plugin-coordinates.md), [의존성, 버전, CI 계약](dependency-ci-contracts.md)
+관련 노트: [Version catalog는 의존성과 플러그인 좌표를 명명한다](version-catalog-names-dependency-and-plugin-coordinates.md), [의존성 및 CI 계약](dependency-ci-contracts.md)
