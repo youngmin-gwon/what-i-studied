@@ -2,7 +2,7 @@
 title: android-is-layered-mobile-platform-not-just-an-app-sdk
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 17:22:39 +09:00
+date modified: 2026-08-05 11:28:23 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 

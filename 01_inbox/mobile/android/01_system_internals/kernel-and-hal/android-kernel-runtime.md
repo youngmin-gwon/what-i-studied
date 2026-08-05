@@ -2,7 +2,7 @@
 title: android-kernel-runtime
 tags: [android, android/kernel, android/system-internals]
 aliases: [Android Kernel, android-kernel, 안드로이드 커널]
-date modified: 2026-08-03 17:01:35 +09:00
+date modified: 2026-08-05 11:29:10 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 

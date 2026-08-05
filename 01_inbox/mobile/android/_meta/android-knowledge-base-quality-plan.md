@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-05 12:05:00 +09:00
+date modified: 2026-08-05 13:15:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -1179,3 +1179,12 @@ A2/B1/B2/B3 네 파일 모두 실제 장 제목·번호로 정정했다(예: A2 
 **남은 항목 없음.** 이 시점 기준으로 사람이 직접 읽고 확인하는 최종 사용자 검수를 제외한 모든 계획된 작업이 완료됐다.
 
 **진행 기록(2026-08-05): Mermaid 다이어그램 렌더링 오류 13 건 발견 및 수정(사용자가 Obsidian 에서 실제로 관찰).** 사용자가 "괄호가 중간에 있는 Mermaid 다이어그램이 에러로 안 보인다"고 보고했다. `## 문서 작성 형식과 언어`/Atomic Reference 4 대 구성요소 규칙은 원래부터 "Mermaid 또는 ASCII"를 동등하게 허용해 왔으므로(라인 155, 602, 1120), 다이어그램 표현 방식이 파일마다 다른 것 자체는 결함이 아니라 여러 세션이 각자 선호하는 방식을 골랐기 때문이다. 그러나 괄호 오류는 실제 결함이었다: Mermaid flowchart 에서 `id[텍스트 (괄호)]`/`id{텍스트 (괄호)}` 처럼 노드 라벨을 따옴표로 감싸지 않은 채 괄호를 포함하면, 괄호가 도형 문법(`id(...)`)으로 오인되어 파싱이 깨진다. vault 전체 Mermaid 블록을 스크립트로 스캔해 따옴표 없이 괄호를 포함한 노드 라벨 13 건(8 개 파일)을 찾아 전부 `id["텍스트 (괄호)"]` 형태로 따옴표를 추가했다. 대상: `E2-performance-measurement-and-optimization.md`(2 건), `G8-network-client-layer.md`(3 건), `D2-secure-storage-and-crypto.md`(2 건), `D1-permission-model.md`, `E1-build-to-install.md`(2 건), `05-background-work-delayed-or-not-running.md`, `audiotrack-aaudio-and-oboe-choose-latency-and-portability-tradeoffs.md`, `sdk-extensions-express-api-availability-beyond-sdk-int.md`. 재스캔 결과 남은 미해결 건 0. category 6 감사에서 이미 한 번(Mermaid `matrix` 잘못된 타입) 비슷한 결함이 발견된 바 있어, Mermaid 문법 오류가 이 vault 의 반복되는 결함 패턴임을 확인했다 — 향후 신규 Mermaid 다이어그램 작성 시 노드 라벨에 특수문자(괄호, 파이프, 따옴표)가 있으면 항상 큰따옴표로 감싸야 한다.
+
+**진행 기록(2026-08-05): ASCII 다이어그램 36 건 중 29 건을 Mermaid 로 전환 완료(사용자 요청).** vault 전체 코드블록을 스캔해 box-drawing 문자나 화살표가 있는 ASCII 다이어그램 36 개를 찾았고, 실제 흐름(분기/화살표로 연결된 그래프)이 있는지로 세 그룹으로 나눴다.
+
+1. **전환 대상(29 개)**: 분기·화살표가 있는 진짜 흐름도. 2 개 subagent 에 병렬 위임했다 — (A) `04_system_services/device-capabilities/`(health-connect·appsearch·app-shortcuts·bluetooth·on-device-ai·speech 17 개)와 `02_app_framework/ui/system/downloadable-fonts-contracts/`(2 개), (B) `state-management`(3 개) + `worked-examples`(4 개, 계층별 `subgraph` 로 재구성) + `topics/A1·A2·B1·B2·B3`(5 개, "전체 조망도" 블록만 교체하고 나머지는 그대로 유지). 두 agent 모두 노드/엣지 라벨에 괄호·특수문자가 있으면 반드시 큰따옴표로 감싸도록 지시받았다.
+2. **전환 보류(5 개, 사용자에게 위치만 안내)**: `viewmodel-survives-configuration-change-not-process-death.md`, `state-owner-is-chosen-by-lifetime-owner-change-frequency-and-sharing.md`, `restorable-progress-belongs-in-uistate-not-one-off-event.md`, `ui-receives-state-and-sends-actions-up.md`, `scoped-storage-limits-direct-shared-storage-access.md` — 서로 연결되지 않은 2~4 줄짜리 단순 A→B 매핑이라 flowchart 로 바꿔도 이득이 없다고 판단해 그대로 뒀다.
+3. **전환 불가(1 개)**: `03_packaging_deployment/build/gradle/gradle-build-contracts/source-set-priority-decides-variant-code-and-resource-conflicts.md` — 디렉터리 트리 구조라 Mermaid 에 대응하는 다이어그램 타입이 없어 ASCII 가 더 적합하다고 판단해 제외했다.
+4. **후보에서 제외(1 개)**: `06_testing_performance/performance/benchmark-baseline-contracts/baseline-profile-generation-records-critical-user-journeys.md` 는 애초에 다이어그램이 아니라 실제 Baseline Profile 규칙 파일 예시 코드였다(화살표 문자가 smali 메서드 시그니처 `->` 라서 오탐).
+
+**검증.** 29 개 파일 전체를 python 스크립트로 재스캔: 모든 파일에 Mermaid 블록 존재, 남은 ASCII box-drawing 블록 0 건, 따옴표 없는 괄호 포함 노드/엣지 라벨 0 건, `subgraph`/`end` 불균형 0 건. vault 전체(769 개 파일) broken link 0, wikilink 0, 도달률 100% 재확인. 작업 중 `00_foundations/topics/B3-data-layer.md` 의 `date modified` 가 이 세션의 편집과 무관하게 두 차례 다시 쓰였다(다른 병렬 세션이 같은 시각에 vault 를 만지고 있는 것으로 보인다) — 다이어그램 내용 자체는 정상 변환됐음을 재확인하고 타임스탬프만 다시 맞췄다.

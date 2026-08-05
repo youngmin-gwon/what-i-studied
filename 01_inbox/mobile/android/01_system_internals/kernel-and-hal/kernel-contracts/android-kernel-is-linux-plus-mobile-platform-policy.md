@@ -2,17 +2,17 @@
 title: android-kernel-is-linux-plus-mobile-platform-policy
 tags: [android, android/kernel, linux]
 aliases: [Android Kernel, 안드로이드 커널]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 11:29:21 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
-## Android kernel은 Linux에 모바일 플랫폼 정책을 더한 커널이다
+## Android kernel 은 Linux 에 모바일 플랫폼 정책을 더한 커널이다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
 
-Android kernel은 upstream Linux LTS(Long Term Support)를 기반으로 하지만, 배터리 구동 환경의 제약, 다수의 앱 샌드박싱, 저지연 그래픽 zero-copy, 엄격한 하드웨어 액세스 보안을 만족하도록 모바일 플랫폼 정책을 추가/개조한 커널이다.
+Android kernel 은 upstream Linux LTS(Long Term Support)를 기반으로 하지만, 배터리 구동 환경의 제약, 다수의 앱 샌드박싱, 저지연 그래픽 zero-copy, 엄격한 하드웨어 액세스 보안을 만족하도록 모바일 플랫폼 정책을 추가/개조한 커널이다.
 
-핵심 차이는 "Linux와 완전히 분리된 OS 커널"이 아니라, "대규모 모바일 제품 출하를 위해 Linux kernel 핵심 기능을 수용하고 그 위에 Android 고유 서브시스템(Binder, Energy Aware Scheduler, SystemSuspend, PSI/LMKD, DMA-BUF heaps)을 통합했다"는 점이다.
+핵심 차이는 "Linux 와 완전히 분리된 OS 커널"이 아니라, "대규모 모바일 제품 출하를 위해 Linux kernel 핵심 기능을 수용하고 그 위에 Android 고유 서브시스템(Binder, Energy Aware Scheduler, SystemSuspend, PSI/LMKD, DMA-BUF heaps)을 통합했다"는 점이다.
 
 ---
 
@@ -38,10 +38,10 @@ graph TD
     A4 <--> B4
 ```
 
-1. **IPC & RPC**: 일반 Linux가 Socket/Pipe/Message Queue 위주인 반면, Android는 커널 드라이버 수준에서 오브젝트 참조 변환과 권한 주입을 처리하는 `binderfs`를 핵심 IPC로 채택.
+1. **IPC & RPC**: 일반 Linux 가 Socket/Pipe/Message Queue 위주인 반면, Android 는 커널 드라이버 수준에서 오브젝트 참조 변환과 권한 주입을 처리하는 `binderfs` 를 핵심 IPC 로 채택.
 2. **전력 관리 (Power Management)**: 사용자가 입력을 멈추면 디바이스를 즉시 딥 슬립(Suspend-to-RAM) 상태로 전원 전환하는 `SystemSuspend` 및 `autosleep` 서브시스템 동작.
-3. **메모리 회수 (Memory Reclaim)**: 전통적인 커널 internal OOM Killer 대신 kernel PSI(Pressure Stall Information) 서브시스템이 메모리 실시간 경합을 감지하고, userspace daemon인 `lmkd`가 프로세스 중요도(oom_adj)에 따라 사전에 킬 수행.
-4. **공유 메모리 (Shared Buffer)**: 과거 `ashmem` 및 `ION`에서 modern Linux의 `DMA-BUF heaps` 규격으로 통합되어 GPU, Display, Camera 간 버퍼 복사 없는(Zero-copy) 그래픽 메모리 전달.
+3. **메모리 회수 (Memory Reclaim)**: 전통적인 커널 internal OOM Killer 대신 kernel PSI(Pressure Stall Information) 서브시스템이 메모리 실시간 경합을 감지하고, userspace daemon 인 `lmkd` 가 프로세스 중요도(oom_adj)에 따라 사전에 킬 수행.
+4. **공유 메모리 (Shared Buffer)**: 과거 `ashmem` 및 `ION` 에서 modern Linux 의 `DMA-BUF heaps` 규격으로 통합되어 GPU, Display, Camera 간 버퍼 복사 없는(Zero-copy) 그래픽 메모리 전달.
 
 ---
 
@@ -106,4 +106,3 @@ void init_binderfs() {
 - [HAL은 framework와 vendor 구현 사이의 안정된 userspace contract다](../hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
 
 공식 문서: [AOSP Kernel Architecture](https://source.android.com/docs/core/architecture/kernel)
-

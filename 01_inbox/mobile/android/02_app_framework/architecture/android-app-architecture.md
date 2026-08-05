@@ -2,7 +2,7 @@
 title: android-app-architecture
 tags: [android, android/architecture]
 aliases: ["Android App Architecture"]
-date modified: 2026-08-03 17:28:08 +09:00
+date modified: 2026-08-05 11:21:16 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -31,44 +31,28 @@ Android 앱 아키텍처는 UI 패턴 이름보다 owner, lifetime, OS entry poi
 - [Background Work Contracts](../../04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
 - [Navigation Contracts](../navigation/navigation-contracts/navigation-contracts.md)
 
-
 ### UI System Map
 - [UI System Map](../ui/system/android-ui-system.md)
 
-
 ### Context and Modularity
 
-
-### Link
 - [Coroutines & Flow Map](../data/async-flow/android-coroutines-flow.md)
-
-
-### Link
 - [Paging Contracts](../data/paging/paging-contracts/paging-contracts.md)
-
-
-### Link
-
 
 ### Navigation Links
 - [Adaptive Navigation](../navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
 
-
 ### Navigation Links
 - [Intent & IPC](../navigation/intents-and-deep-links/android-intent-and-ipc.md)
-
 
 ### Navigation Links
 - [Android Deep Links](../navigation/intents-and-deep-links/android-deep-links.md)
 
-
 ### Navigation Links
 - [Intent & Deep Link](../navigation/intents-and-deep-links/intent-and-deep-link.md)
 
-
 ### Navigation Links
 - [Navigation 3 Guide](../navigation/navigation3/jetpack-navigation-3-guide.md)
-
 
 ### Subsystem Contract Maps
 - [ui-system-contracts](../ui/system/ui-system-contracts/ui-system-contracts.md)

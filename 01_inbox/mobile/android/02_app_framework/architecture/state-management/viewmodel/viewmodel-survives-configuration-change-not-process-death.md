@@ -2,7 +2,7 @@
 title: viewmodel-survives-configuration-change-not-process-death
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다"]
-date modified: 2026-08-03 17:28:05 +09:00
+date modified: 2026-08-05 11:24:01 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -37,10 +37,10 @@ Fragment 가 해당 소유자에서 제거되면 ViewModel 은 정리 대상이 
 
 #### ViewModelStoreOwner 및 ViewModelStore 내부 메커니즘
 
-`ViewModelStoreOwner`(Activity/Fragment/NavBackStackEntry)는 `ViewModelStore` 객체를 소유하며, `ViewModelStore`는 `Map<String, ViewModel>` 형태로 생성된 ViewModel 인스턴스를 유지한다.
+`ViewModelStoreOwner`(Activity/Fragment/NavBackStackEntry)는 `ViewModelStore` 객체를 소유하며, `ViewModelStore` 는 `Map<String, ViewModel>` 형태로 생성된 ViewModel 인스턴스를 유지한다.
 
 - **NonConfigurationInstances 를 통한 보존**: Activity 의 경우, 설정 변경(Configuration Change) 시 OS 가 Activity 인스턴스를 재해석/재생성하지만 `ComponentActivity` 는 `onRetainNonConfigurationInstance()` 를 통해 `ViewModelStore` 참조를 새 인스턴스로 전달한다.
-- **최종 파괴 시 Cleanup**: 설정 변경이 아닌 액티비티 종료(`isFinishing == true`) 또는 프래그먼트 완전 제거(`isRemoving == true`) 시, `ViewModelStoreOwner` 의 `LifecycleOwner` 가 `ON_DESTROY` 이벤트 상태에 도달할 때 `ViewModelStore.clear()`가 호출된다. `clear()`는 저장된 각 ViewModel의 `onCleared()`를 실행하고 맵을 비운다.
+- **최종 파괴 시 Cleanup**: 설정 변경이 아닌 액티비티 종료(`isFinishing == true`) 또는 프래그먼트 완전 제거(`isRemoving == true`) 시, `ViewModelStoreOwner` 의 `LifecycleOwner` 가 `ON_DESTROY` 이벤트 상태에 도달할 때 `ViewModelStore.clear()` 가 호출된다. `clear()` 는 저장된 각 ViewModel 의 `onCleared()` 를 실행하고 맵을 비운다.
 
 ```kotlin
 class UserViewModel : ViewModel() {

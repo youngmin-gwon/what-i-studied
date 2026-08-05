@@ -2,7 +2,7 @@
 title: android-learning-path
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 17:20:56 +09:00
+date modified: 2026-08-05 11:23:51 +09:00
 date created: 2026-08-03 16:59:22 +09:00
 ---
 
@@ -43,7 +43,6 @@ Android learning path 는 resource 목록이 아니라 프로젝트에서 내려
 ### 경계
 
 이 폴더에는 학습 순서와 자료 선택 기준만 둔다. 특정 library 의 tutorial 이나 sample 해설은 해당 기술 영역에 둔다.
-
 
 ### Learning Spine Chapters
 - [01-android-ecosystem-and-contract-surfaces.md](../learning-spine/01-android-ecosystem-and-contract-surfaces.md)

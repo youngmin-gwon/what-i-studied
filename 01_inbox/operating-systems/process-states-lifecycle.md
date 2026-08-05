@@ -2,7 +2,7 @@
 title: process-states-lifecycle
 tags: [linux, operating-systems, os, process, process-management]
 aliases: [PCB, Process Lifecycle, 프로세스 상태]
-date modified: 2026-01-08 15:55:22 +09:00
+date modified: 2026-08-05 11:26:16 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 
@@ -12,15 +12,16 @@ date created: 2025-12-20 00:02:18 +09:00
 
 ## 🆚 프로그램 vs 프로세스 (Program vs Process)
 
-| 특성 | 프로그램 | 프로세스 |
-|------|----------|----------|
-| **상태** | 정적 (Static) | 동적 (Dynamic) |
-| **위치** | 디스크 (Disk) | 메모리 (RAM) |
-| **생명주기** | 영구적 | 일시적 |
-| **리소스** | 코드만 포함 | 코드 + 데이터 + 스택 + 힙 |
-| **실행** | 실행 불가 | 실행 중 |
+| 특성       | 프로그램        | 프로세스              |
+| -------- | ----------- | ----------------- |
+| **상태**   | 정적 (Static) | 동적 (Dynamic)      |
+| **위치**   | 디스크 (Disk)  | 메모리 (RAM)         |
+| **생명주기** | 영구적         | 일시적               |
+| **리소스**  | 코드만 포함      | 코드 + 데이터 + 스택 + 힙 |
+| **실행**   | 실행 불가       | 실행 중              |
 
 **예시**:
+
 ```bash
 # /bin/ls는 프로그램 (디스크의 파일)
 ls -l /bin/ls

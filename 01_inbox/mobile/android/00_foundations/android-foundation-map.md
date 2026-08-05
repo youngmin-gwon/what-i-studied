@@ -2,7 +2,7 @@
 title: android-foundation-map
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-05 09:00:00 +09:00
+date modified: 2026-08-05 11:27:44 +09:00
 date created: 2026-08-03 16:59:22 +09:00
 ---
 
@@ -33,7 +33,7 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 - [System Services](../04_system_services/android-system-services-and-device-capabilities.md)
 - [Security and Privacy](../05_security_privacy/android-security-and-privacy.md)
 - [Platforms and Form Factors](../07_platforms/android-platforms-and-form-factors.md)
-- [Topic Synthesis Map](topics/0-android-topics-map.md) - 주제별로 원자 노트를 조합한 33개 합성 문서 색인.
+- [Topic Synthesis Map](topics/0-android-topics-map.md) - 주제별로 원자 노트를 조합한 33 개 합성 문서 색인.
 
 ### 문제 분류
 
@@ -46,7 +46,6 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 
 이 폴더에는 여러 영역을 잇는 학습·분류 기준만 둔다. 특정 API 사용법, 구현 recipe, subsystem 내부 동작은 해당 canonical area 에 둔다.
 
-
 ### Runbooks and Worked Examples
 - [04-permission-denial.md](diagnostic-runbooks/04-permission-denial.md)
 - [07-jank-dropped-frames.md](diagnostic-runbooks/07-jank-dropped-frames.md)
@@ -56,5 +55,4 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 - [06-permission-granted-but-api-fails.md](worked-examples/06-permission-granted-but-api-fails.md)
 - [07-compose-jank-from-ui-state-to-surfaceflinger.md](worked-examples/07-compose-jank-from-ui-state-to-surfaceflinger.md)
 - [08-signed-artifact-through-play-delivery-to-update.md](worked-examples/08-signed-artifact-through-play-delivery-to-update.md)
-
 - [android-performance-quality-and-build-optimization.md](../06_testing_performance/performance/android-performance-quality-and-build-optimization.md)

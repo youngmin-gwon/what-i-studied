@@ -2,7 +2,7 @@
 title: learn-android-by-boundary-before-api-catalogs
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-03 17:20:54 +09:00
+date modified: 2026-08-05 11:24:57 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 

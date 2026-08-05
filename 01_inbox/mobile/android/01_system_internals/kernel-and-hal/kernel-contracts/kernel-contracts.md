@@ -2,7 +2,7 @@
 title: kernel-contracts
 tags: [android, android/kernel, android/system-internals]
 aliases: [Android kernel contracts]
-date modified: 2026-08-03 17:26:09 +09:00
+date modified: 2026-08-05 11:28:45 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 

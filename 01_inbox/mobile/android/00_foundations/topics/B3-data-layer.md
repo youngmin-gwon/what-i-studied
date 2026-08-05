@@ -1,14 +1,14 @@
 ---
 title: B3-data-layer
-tags: [android, app-framework, data-layer, coroutines, flow, room, datastore, topic-synthesis]
-aliases: [데이터 레이어, Flow, Room, DataStore, Paging]
+tags: [android, app-framework, coroutines, data-layer, datastore, flow, room, topic-synthesis]
+aliases: [DataStore, Flow, Paging, Room, 데이터 레이어]
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-05 10:45:12 +09:00
 ---
 
 ## B3 · 데이터 레이어: Flow · Room · DataStore · Paging
 
-> **이 문서의 목적**: Android 앱의 데이터 레이어 전체 구조를 이해한다. Kotlin Coroutines 와 Flow 가 어떻게 비동기 데이터 흐름을 만드는지, Repository 가 어떻게 data source 를 추상화하는지, 그리고 각 저장소(Room, DataStore)가 언제 선택되는지를 체계적으로 정리한다.
+>**이 문서의 목적**: Android 앱의 데이터 레이어 전체 구조를 이해한다. Kotlin Coroutines 와 Flow 가 어떻게 비동기 데이터 흐름을 만드는지, Repository 가 어떻게 data source 를 추상화하는지, 그리고 각 저장소(Room, DataStore)가 언제 선택되는지를 체계적으로 정리한다.
 
 ---
 
@@ -64,6 +64,7 @@ Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 corou
 `Flow` 는 Cold Stream 이다. 수집(collect)이 시작될 때만 실행된다. 데이터를 시간에 따라 방출하는 파이프라인으로, `map`, `filter`, `combine`, `flatMapLatest` 등의 연산자로 변환한다.
 
 **Cold vs Hot**:
+
 - `Flow` (Cold): 수집할 때마다 새로 실행
 - `StateFlow` (Hot): 항상 최신값을 보유, 새 구독자가 즉시 현재값을 받음
 - `SharedFlow` (Hot): 재생 정책 설정 가능
@@ -88,7 +89,7 @@ Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 corou
 | 용도 | 화면 상태(UiState) | 원천 데이터 스트림 |
 | 위치 | ViewModel 이 노출 | Repository 가 노출 |
 
-**`stateIn`**: Repository 의 `Flow` 를 ViewModel 에서 `StateFlow` 로 변환. `WhileSubscribed(5000)` 는 구독자가 없어진 뒤 5초 후 upstream 취소 → 화면 회전 시 불필요한 network re-fetch 를 막는다.
+**`stateIn`**: Repository 의 `Flow` 를 ViewModel 에서 `StateFlow` 로 변환. `WhileSubscribed(5000)` 는 구독자가 없어진 뒤 5 초 후 upstream 취소 → 화면 회전 시 불필요한 network re-fetch 를 막는다.
 
 **`flatMapLatest`**: 사용자 검색어처럼 입력이 바뀔 때마다 이전 요청을 취소하고 새 요청을 시작.
 
@@ -128,6 +129,7 @@ Room 은 SQLite 위에서 동작하는 Jetpack ORM 이다. `@Entity`, `@Dao`, `@
 DataStore 는 `SharedPreferences` 를 대체하는 Jetpack 저장소다. 비동기(`Flow` 기반)이고 메인 스레드 안전하다.
 
 **Preferences DataStore vs Proto DataStore**:
+
 - `Preferences DataStore`: 타입 없는 key-value
 - `Proto DataStore`: Protocol Buffers 기반 타입 안전
 
@@ -146,7 +148,8 @@ DataStore 는 `SharedPreferences` 를 대체하는 Jetpack 저장소다. 비동�
 
 Paging 3 은 무한 스크롤처럼 데이터를 페이지 단위로 로드하는 라이브러리다.
 
-**핵심 3단 구조**:
+**핵심 3 단 구조**:
+
 1. `PagingSource`: 한 번에 한 페이지를 로드하고 다음/이전 키를 반환
 2. `Pager`: `PagingSource` factory 와 `PagingConfig` 를 받아 `Flow<PagingData<T>>` 생성
 3. `LazyPagingItems` (Compose) 또는 `PagingDataAdapter` (View): UI 에서 수집
@@ -184,4 +187,4 @@ Paging 3 은 무한 스크롤처럼 데이터를 페이지 단위로 로드하�
 ### 더 깊이 들어갈 때 (Learning Spine)
 
 - [8장 데이터, 저장소, 네트워크와 offline recovery](../learning-spine/08-data-storage-network-and-offline-recovery.md) — 로컬 우선 쓰기, 지연된 동기화, idempotent 재시도가 이어지는 순환 서사
-- [6장 메인 스레드, Binder, coroutine과 durable scheduler는 서로 다른 실행 책임을 진다](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) — WorkManager가 프로세스 재시작을 넘는 지속성을 어떻게 책임지는지
+- [6장 메인 스레드, Binder, coroutine과 durable scheduler는 서로 다른 실행 책임을 진다](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) — WorkManager 가 프로세스 재시작을 넘는 지속성을 어떻게 책임지는지
