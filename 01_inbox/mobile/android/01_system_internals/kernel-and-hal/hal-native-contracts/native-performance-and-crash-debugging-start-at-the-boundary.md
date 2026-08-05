@@ -2,7 +2,7 @@
 title: native-performance-and-crash-debugging-start-at-the-boundary
 tags: [android, android/native, android/system-internals]
 aliases: [LLDB, native crash, native performance, tombstone, simpleperf]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -34,7 +34,7 @@ graph TD
 ```
 
 1. **JNI Boundary Cost Reduction**: Java에서 C++을 루프 내에서 반복 호출하는 단발성 JNI 대신 `DirectByteBuffer` 메모리 공유 또는 바이트 배열 Bulk 전송 기법을 채택하여 경계 전송 오버헤드를 소멸시킴.
-2. **`debuggerd` & Tombstone Processing**: C/C++ 레벨에서 Segfault(`SIGSEGV`)나 Abort(`SIGABRT`)가 발생하면 Android `debuggerd` 데몬이 시그널을 가로채 레지스터 상태(PC, LR, SP)와 콜스택 주소를 `/data/tombstones/` 파일에 영구 보존.
+2. **`debuggerd` & Tombstone Processing**: C/C++ 레벨에서 Segfault(`SIGSEGV`)나 Abort(`SIGABRT`)가 발생하면 Android `debuggerd` 데몬이 **시그널**(signal — 커널이 프로세스에게 비동기적으로 전달하는 이벤트 통지 메커니즘. 예를 들어 잘못된 메모리 접근이 일어나면 커널이 해당 프로세스에 `SIGSEGV` 를 보낸다)을 가로채 레지스터 상태(PC, LR, SP)와 콜스택 주소를 `/data/tombstones/` 파일에 영구 보존.
 
 ---
 

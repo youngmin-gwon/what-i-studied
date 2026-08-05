@@ -2,7 +2,7 @@
 title: binder-thread-pool-is-service-concurrency-and-deadlock-boundary
 tags: [android, android/binder, android/ipc]
 aliases: ["Binder thread pool은 service concurrency와 deadlock 경계다", Binder thread pool]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,7 +10,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-Binder service 는 들어오는 transaction 을 Binder thread pool 에서 처리한다. thread pool 은 동시성을 제공하지만, blocking call 이 쌓이면 service 전체 응답성이 떨어지고 caller 와 callee 가 서로 기다리는 deadlock 구조도 만들 수 있다.
+배경 지식: [Deadlock](01_inbox/operating-systems/deadlock.md)
+
+Binder service 는 들어오는 transaction 을 Binder thread pool 에서 처리한다. thread pool 은 동시성을 제공하지만, blocking call 이 쌓이면 service 전체 응답성이 떨어지고 caller 와 callee 가 서로 기다리는 **deadlock**(교착 상태 — 서로가 서로의 자원이나 응답을 기다리며 아무도 더 진행하지 못하는 상태) 구조도 만들 수 있다.
 
 Binder 를 사용하는 API 는 method 단위만 보지 말고 call graph 전체를 봐야 한다. 특히 service A 가 service B 를 동기 호출하고, 다시 B 가 A 를 호출하는 구조는 thread pool 과 lock 순서에 따라 멈출 수 있다.
 

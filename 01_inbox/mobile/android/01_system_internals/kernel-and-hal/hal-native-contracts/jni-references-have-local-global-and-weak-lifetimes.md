@@ -2,7 +2,7 @@
 title: jni-references-have-local-global-and-weak-lifetimes
 tags: [android, android/native, android/system-internals]
 aliases: [GlobalRef, JNI reference]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 23:58:00 +09:00
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
 
-JNI object reference 는 native pointer 가 아니라 runtime handle 이며 수명 규칙이 있다.
+JNI object reference 는 native pointer 가 아니라 **runtime handle**(실제 메모리 주소를 직접 가리키는 포인터가 아니라, ART 런타임 내부 참조 테이블을 거쳐 간접적으로 객체를 가리키는 값 — 런타임이 그 뒤에서 실제 객체를 옮기거나 회수해도 handle 자체는 안전하게 유지된다)이며, local/global/weak 세 가지 형태에 따라 유효 기간과 GC 와의 상호작용이 달라지는 수명 규칙이 있다.
 
 ### 메커니즘: JNI Reference 수명 및 GC 인터랙션
 

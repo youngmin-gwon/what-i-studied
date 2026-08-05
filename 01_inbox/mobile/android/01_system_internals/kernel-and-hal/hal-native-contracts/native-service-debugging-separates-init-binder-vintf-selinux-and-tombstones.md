@@ -2,7 +2,7 @@
 title: native-service-debugging-separates-init-binder-vintf-selinux-and-tombstones
 tags: [android, android/native, android/system-internals]
 aliases: [native debugging, SELinux, tombstone, init, VINTF]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-07-31 23:58:00 +09:00
 
 Native Daemon 및 HAL 서비스의 부팅 거부, 무응답(Hang), 사망 반복(Crash Loop) 장애를 분석할 때는 모든 현상을 단순한 "서비스 미작동"으로 뭉뚱그려 진단해서는 안 된다.
 
-원인은 (1) init 실행 스크립트(`init.rc`) 등록 에러, (2) SELinux MAC 거부(`avc: denied`), (3) VINTF 매니페스트 버전 호환성 실패, (4) ServiceManager 바인더 서비스 등록 거부, (5) C++ 메모리 오염 패닉(Tombstone) 중 하나에 해당하므로, 실패 레이어를 정확히 분리하여 좁혀 나가야 한다.
+원인은 (1) init 실행 스크립트(`init.rc`) 등록 에러, (2) **SELinux**(커널에 강제 접근 제어(MAC)를 추가하는 Linux 보안 모듈로, 프로세스와 파일마다 보안 도메인/타입을 부여하고 정책에 없는 접근은 커널 단계에서 거부한다) MAC 거부(`avc: denied`), (3) VINTF 매니페스트 버전 호환성 실패, (4) ServiceManager 바인더 서비스 등록 거부, (5) C++ 메모리 오염 패닉(Tombstone) 중 하나에 해당하므로, 실패 레이어를 정확히 분리하여 좁혀 나가야 한다.
 
 ---
 

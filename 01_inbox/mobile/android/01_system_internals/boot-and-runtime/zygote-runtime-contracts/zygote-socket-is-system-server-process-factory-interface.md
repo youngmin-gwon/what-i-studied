@@ -2,7 +2,7 @@
 title: zygote-socket-is-system-server-process-factory-interface
 tags: [android, android/boot-runtime, android/runtime, android/system-internals]
 aliases: ["Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다"]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -11,7 +11,7 @@ date created: 2026-08-01 00:00:00 +09:00
 상위 문서: [Zygote 런타임 계약](zygote-runtime-contracts.md)
 배경 지식: [유닉스 도메인 소켓 IPC](01_inbox/operating-systems/ipc-mechanisms.md)
 
-`Zygote socket`은 `system_server`와 `Zygote` 데몬 간에 구축된 전용 Local Unix Domain Socket 통신 관문으로, Security Context 검증을 거쳐 `system_server` 프로세스만이 신규 앱 프로세스 팩토리(Process Factory)로서 Zygote에게 `fork` 및 프로세스 구체화(Specialize)를 요청할 수 있도록 한 제어 통로다.
+`Zygote socket`은 `system_server`와 `Zygote` 데몬 간에 구축된 전용 Local **[Unix Domain Socket](01_inbox/operating-systems/ipc-mechanisms.md)**(같은 머신 안의 프로세스끼리 파일시스템 경로를 주소로 통신하는 IPC 메커니즘) 통신 관문으로, Security Context 검증을 거쳐 `system_server` 프로세스만이 신규 앱 프로세스 팩토리(Process Factory)로서 Zygote에게 `fork` 및 프로세스 구체화(Specialize)를 요청할 수 있도록 한 제어 통로다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 

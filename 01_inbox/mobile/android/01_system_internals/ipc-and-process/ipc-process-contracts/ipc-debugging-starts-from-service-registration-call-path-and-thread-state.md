@@ -2,7 +2,7 @@
 title: ipc-debugging-starts-from-service-registration-call-path-and-thread-state
 tags: [android, android/debugging, android/ipc]
 aliases: ["IPC 디버깅은 service 등록, call path, thread state에서 시작한다", Binder debugging, IPC debugging]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,7 +10,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-IPC 문제는 "호출이 실패했다"만 보면 원인이 넓다. service 가 등록됐는지, caller 가 handle 을 얻었는지, permission 이 통과했는지, Binder thread 가 막혔는지, callee process 가 살아 있는지를 순서대로 좁혀야 한다.
+배경 지식: [SELinux](01_inbox/linux/security/selinux.md)
+
+IPC 문제는 "호출이 실패했다"만 보면 원인이 넓다. service 가 등록됐는지, caller 가 **handle**(원격 객체를 가리키는 정수 토큰 — 자세한 내용은 [Binder는 객체 참조를 커널이 중재하는 capability IPC다](binder-is-kernel-mediated-object-capability-ipc.md) 참고)을 얻었는지, permission 이 통과했는지, Binder thread 가 막혔는지, callee process 가 살아 있는지를 순서대로 좁혀야 한다.
 
 앱 레벨에서는 logcat stack trace 보다 boundary 상태가 더 중요할 때가 많다. platform/service 레벨에서는 `dumpsys`, service list, binder stats, tombstone, SELinux denial 을 함께 봐야 한다.
 
@@ -21,9 +23,9 @@ IPC 문제는 "호출이 실패했다"만 보면 원인이 넓다. service 가 �
 IPC 오류는 단계별 인터페이스 검증을 거쳐야 원인을 신속하게 격리할 수 있다.
 
 1. **Service Registration & Discovery**: ServiceManager에 등록되었는지 확인 (`cmd service check <name>`). 등록되지 않았다면 Init 레벨 서비스 시작 실패 또는 crash 발생.
-2. **Security & Permission Check**: Caller UID/PID 및 SELinux Context 검증. SecurityException 또는 `avc: denied` audit log 관찰.
+2. **Security & Permission Check**: Caller UID/PID 및 **SELinux Context**(프로세스/파일에 붙는 보안 레이블 — 이 레이블 조합이 정책상 허용되는지를 커널이 DAC 와 별도로 강제 검사한다) 검증. SecurityException 또는 `avc: denied` audit log 관찰.
 3. **Process & Thread State**: Callee 프로세스가 살아있는지(`ps -A`), Binder thread pool 이 exhaust 되었거나 lock contention 으로 block 되었는지(`dumpsys binder`) 관찰.
-4. **Data & Execution Limit**: Payload 크기 초과(`TransactionTooLargeException`) 또는 Native crash(`tombstone`) 수집.
+4. **Data & Execution Limit**: Payload 크기 초과(`TransactionTooLargeException`) 또는 Native crash(**`tombstone`**: 네이티브 크래시 발생 시 시스템이 남기는 크래시 덤프 파일) 수집.
 
 ```mermaid
 flowchart TD

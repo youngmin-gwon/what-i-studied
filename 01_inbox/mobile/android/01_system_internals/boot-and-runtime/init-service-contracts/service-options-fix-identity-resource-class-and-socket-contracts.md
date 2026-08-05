@@ -2,7 +2,7 @@
 title: service-options-fix-identity-resource-class-and-socket-contracts
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["service option은 identity, resource, class, socket 계약을 고정한다"]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -19,12 +19,12 @@ date created: 2026-08-01 00:00:00 +09:00
    - `user <name>` & `group <name>`: 프로세스 실행 시 Linux `setuid`/`setgid`를 통해 샌드박스 유저 권한으로 강등한다.
    - `seclabel <context>`: 표적 SELinux 보안 도메인을 강제 지정한다.
 2. **Resource Constraints (`rlimit`, `writepid`, `onrestart`)**:
-   - `rlimit memlock <soft> <hard>`: Cgroup 리소스 및 메모리 락 제한을 설정한다.
+   - `rlimit memlock <soft> <hard>`: **[Cgroup](01_inbox/linux/container-basics.md)**(프로세스 그룹 단위로 CPU/메모리 등 자원 사용량 상한을 커널이 강제하는 계층적 제한 메커니즘) 리소스 및 메모리 락 제한을 설정한다.
    - `writepid /dev/cpuset/.../tasks`: 생성된 프로세스 PID를 CPU/Cgroup 노드에 자동 등록한다.
 3. **Class Grouping (`class <name>`)**:
    - 서비스를 `core`, `main`, `late_start`, `hal` 등의 클래스로 묶어 `class_start main` 과 같은 액션 명령으로 일괄 부팅시킬 수 있다.
 4. **Socket Pre-creation (`socket <name> <type> <perm> <user> <group>`)**:
-   - `init` 프로세스가 root 권한으로 미리 Unix Domain Socket 파일디스크립터(FD)를 `/dev/socket/<name>` 위치에 생성한 후, 소켓 FD를 자식 프로세스에 환경 변수(`ANDROID_SOCKET_<name>`)로 바인딩 넘겨준다.
+   - `init` 프로세스가 root 권한으로 미리 **[Unix Domain Socket](01_inbox/operating-systems/ipc-mechanisms.md)**(같은 머신 안의 프로세스끼리 파일시스템 경로를 주소로 통신하는 IPC 메커니즘) 파일디스크립터(FD)를 `/dev/socket/<name>` 위치에 생성한 후, 소켓 FD를 자식 프로세스에 환경 변수(`ANDROID_SOCKET_<name>`)로 바인딩 넘겨준다.
 
 ```mermaid
 flowchart TD

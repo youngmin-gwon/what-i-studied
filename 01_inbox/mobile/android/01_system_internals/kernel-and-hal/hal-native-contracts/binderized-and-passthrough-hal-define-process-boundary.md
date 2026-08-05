@@ -2,7 +2,7 @@
 title: binderized-and-passthrough-hal-define-process-boundary
 tags: [android, android/native, android/system-internals]
 aliases: [Binderized HAL, Passthrough HAL]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-07-31 23:58:00 +09:00
 
 Android Treble 아키텍처에서 HAL(Hardware Abstraction Layer)은 실행 시점의 프로세스 경계(Process Boundary) 배치 방식에 따라 **Binderized HAL**과 **Passthrough HAL**의 두 가지 형태 모델로 구분된다.
 
-Modern Android(Android 8.0 Treble 이후) 표준인 Binderized HAL은 HAL 서비스가 독립된 별도의 데몬 프로세스(`/vendor/bin/hw/*`)로 실행되어 Binder IPC를 통해 클라이언트(Framework)와 통신하는 반면, Passthrough HAL은 클라이언트 프로세스 메모리 공간에 `dlopen()`으로 동적 공유 라이브러리(`.so`)를 직접 로드하여 동일 프로세스 내에서 직접 함수 호출로 동작한다.
+Modern Android(Android 8.0 Treble 이후) 표준인 Binderized HAL은 HAL 서비스가 독립된 별도의 데몬 프로세스(`/vendor/bin/hw/*`)로 실행되어 Binder **IPC**(Inter-Process Communication, 서로 메모리를 공유하지 않는 별개 프로세스끼리 데이터를 주고받는 메커니즘 전반을 가리키며 Binder 는 그중 커널이 중재하는 한 방식이다)를 통해 클라이언트(Framework)와 통신하는 반면, Passthrough HAL은 클라이언트 프로세스 메모리 공간에 `dlopen()`으로 동적 공유 라이브러리(`.so`)를 직접 로드하여 동일 프로세스 내에서 직접 함수 호출로 동작한다.
 
 ---
 
@@ -39,7 +39,7 @@ graph TD
 ```
 
 1. **Crash Isolation (크래시 격리)**: Binderized HAL 환경에서는 HAL 데몬 프로세스가 SIGSEGV 패닉으로 사망하더라도 Framework 프로세스(system_server)가 함께 죽지 않고 `service died` 사망 통지만 받지만, Passthrough HAL 환경에서는 HAL 라이브러리 내부의 메모리 오염 패닉이 Framework 프로세스 전체를 즉시 격추시킨다.
-2. **SELinux Domain Separation (보안 격리)**: Binderized HAL은 `system_server` 도메인과 `hal_foo_default` 도메인을 엄격히 분리하여 벤더 드라이버 코드가 커스텀 하드웨어 디바이스 노드(`/dev/my_driver`)에만 제한 접근하도록 MAC 정책을 적용할 수 있다.
+2. **SELinux Domain Separation (보안 격리)**: **SELinux**(커널에 강제 접근 제어를 추가하는 Linux 보안 모듈로, 프로세스마다 보안 도메인을 부여하고 정책에 없는 접근은 커널 단계에서 거부한다)를 이용해 Binderized HAL은 `system_server` 도메인과 `hal_foo_default` 도메인을 엄격히 분리하여 벤더 드라이버 코드가 커스텀 하드웨어 디바이스 노드(`/dev/my_driver`)에만 제한 접근하도록 **MAC**(Mandatory Access Control, 사용자가 임의로 권한을 바꿀 수 없고 시스템 정책이 강제로 접근을 통제하는 모델) 정책을 적용할 수 있다.
 
 ---
 

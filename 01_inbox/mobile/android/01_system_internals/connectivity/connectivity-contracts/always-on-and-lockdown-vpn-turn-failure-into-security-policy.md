@@ -2,7 +2,7 @@
 title: always-on-and-lockdown-vpn-turn-failure-into-security-policy
 tags: [android, android/connectivity, android/security, android/vpn]
 aliases: [Always-on VPN, Lockdown VPN, VPN Policy]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -19,7 +19,7 @@ Android의 **Always-on VPN** 및 **Lockdown VPN** 모드는 단순한 네트워�
 
 2. **Lockdown VPN (Block Connections Without VPN)**:
    - 사용자가 "VPN 연결 없이 네트워크 차단"을 활성화하거나 DPC(Device Policy Controller)가 설정한 경우 동작한다.
-   - `ConnectivityService`는 VPN TUN 인터페이스 이외의 물리 인터페이스(wlan0, rmnet0)에 대해 허용된 앱 UID를 제외한 모든 UID 트래픽을 차단하는 eBPF / iptables `lockdown_drop` 룰을 `netd`에 전송한다.
+   - `ConnectivityService`는 **TUN 인터페이스**(커널이 제공하는 가상 네트워크 인터페이스로, VPN 앱이 이 인터페이스를 통해 암호화 전 IP 패킷을 가로채고 다시 주입한다) 이외의 물리 인터페이스(wlan0, rmnet0)에 대해 허용된 앱 UID를 제외한 모든 UID 트래픽을 차단하는 **eBPF / iptables**(커널 안에서 패킷을 필터링하는 Linux 방화벽 메커니즘 — 자세한 정의는 [netd 문서](netd-enforces-routing-dns-firewall-and-tethering-operations.md) 참고) `lockdown_drop` 룰을 `netd`에 전송한다.
    - VPN이 연결 끊김(Reconnecting) 상태일 때 패킷은 에러를 리턴하며 차단되어 cleartext 유출이 물리적으로 불가능해진다.
 
 ```mermaid

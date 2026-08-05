@@ -3,12 +3,14 @@ title: posix-ipc-vs-android-binder-contracts
 tags: [android, android/binder, ipc, posix-ipc, security, architecture-decision]
 aliases: [POSIX IPC vs Android Binder Contracts, POSIX IPC와 Android Binder 구조적 비교]
 date created: 2026-08-05 11:42:00 +09:00
-date modified: 2026-08-05 11:43:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 ---
 
 ## Android는 보안·자원 수명·Zero-Copy 우수를 위해 전통적 POSIX IPC 대신 Binder와 Ashmem을 도입했다
 
-> **핵심 명제**: Linux 커널 기반인 Android가 전통적인 POSIX IPC(System V / POSIX Message Queue, Shared Memory)를 배제하고 Binder와 Ashmem(DMA-BUF)을 자체 IPC 패러다임으로 선택한 이유는 커널 레벨 신원 검증(UID/PID), 참조 카운팅 기반 수명 관리, 복사 오버헤드 최소화(Single-Copy), 그리고 동시성 스레드 풀 제어 때문이다.
+배경 지식: [IPC 메커니즘](01_inbox/operating-systems/ipc-mechanisms.md)
+
+> **핵심 명제**: Linux 커널 기반인 Android가 전통적인 POSIX IPC(System V / POSIX Message Queue, Shared Memory)를 배제하고 Binder와 **Ashmem**(Anonymous Shared Memory — 이름 없이 file descriptor 로 참조하는, 프로세스 간에 공유되는 메모리 영역)/**DMA-BUF**(디바이스 드라이버들이 물리 메모리 버퍼를 복사 없이 공유하도록 하는 Linux 커널 프레임워크)를 자체 IPC 패러다임으로 선택한 이유는 커널 레벨 신원 검증(UID/PID), 참조 카운팅 기반 수명 관리, 복사 오버헤드 최소화(Single-Copy), 그리고 동시성 스레드 풀 제어 때문이다.
 
 ---
 
@@ -16,7 +18,7 @@ date modified: 2026-08-05 11:43:00 +09:00
 
 | 축 (Axis) | 전통적 POSIX IPC (SHM / MQ / Pipe) | Android Binder / Ashmem (DMA-BUF) |
 | :--- | :--- | :--- |
-| **보안 및 신원 (Security & Identity)** | 유저 공간에 명시적 토큰/키(ftok, Key ID) 공유. Caller의 UID/PID를 커널이 자동 검증해주지 않음. | 커널 드라이버(`/dev/binder`)가 트랜잭션 수신 시 **Caller의 UID/PID를 위변조 불가능하게 주입**. |
+| **보안 및 신원 (Security & Identity)** | 유저 공간에 명시적 토큰/키(`ftok`: 파일 경로와 프로젝트 ID로 System V IPC 키를 생성하는 POSIX 함수, Key ID) 공유. Caller의 UID/PID를 커널이 자동 검증해주지 않음. | 커널 드라이버(`/dev/binder`)가 트랜잭션 수신 시 **Caller의 UID/PID를 위변조 불가능하게 주입**. |
 | **데이터 복사 (Data Copy)** | Pipe/MQ: 2-Copy (User→Kernel→User)<br/>POSIX SHM: 0-Copy (동기화 락 필요) | Binder: **1-Copy** (mmap 기반 callee 버퍼 전송)<br/>Ashmem/DMA-BUF: **0-Copy** (Large payload) |
 | **자원 수명 (Resource Lifetime)** | 프로세스가 파괴되어도 IPC 메모리/큐가 커널 상에 **영구 잔류** (`ipcrm` 필히 수행). | **Reference Counting & Death Recipient**: Process death 시 커널이 자원을 자동 수거하고 사망 알림. |
 | **호출 모델 및 동시성** | Byte Stream 또는 Raw Struct 전송.<br/>스레드 풀 처리 모델 부재. | **RPC (Remote Procedure Call)** 및 AIDL 기반 Interface. 커널 중재 **Binder Thread Pool (최대 15개)** 제어. |
@@ -47,7 +49,7 @@ graph TB
 
 1. **커널 중재 신원 확인 (Kernel-Injected Identity & App Sandbox)**
    - POSIX IPC는 수신 측 프로세스가 메시지를 보낸 송신 측의 실제 UID/PID를 신뢰성 있게 검증할 수 없다.
-   - Android의 App Sandbox 모델에서는 권한(Permission) 및 AppOps 검사를 위해 **"이 호출을 한 앱의 UID가 누구인가?"**를 반드시 알아야 한다. Binder 커널 드라이버는 caller의 패킷에 UID/PID를 자동으로 강제 주입하여 보안 위변조를 차단한다.
+   - Android의 App Sandbox 모델에서는 권한(Permission) 및 **AppOps**(AppOpsManager 가 추적하는, 카메라·위치 등 민감한 동작의 실행 여부와 빈도를 세밀하게 통제하는 런타임 정책 계층) 검사를 위해 **"이 호출을 한 앱의 UID가 누구인가?"**를 반드시 알아야 한다. Binder 커널 드라이버는 caller의 패킷에 UID/PID를 자동으로 강제 주입하여 보안 위변조를 차단한다.
 2. **참조 카운팅과 사망 통지 (Reference Counting & Death Recipient)**
    - POSIX 공유 메모리/메시지 큐는 프로세스가 무단 종료(Crash)되었을 때 자원이 커널에 누수된다.
    - Binder는 커널 드라이버 레벨에서 `linkToDeath()`를 통해 서비스 프로세스가 사망하면 클라이언트의 참조 카운트를 즉시 정리하고 알림을 발생시킨다.

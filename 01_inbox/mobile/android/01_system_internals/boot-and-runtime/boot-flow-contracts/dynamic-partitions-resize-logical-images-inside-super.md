@@ -2,15 +2,16 @@
 title: dynamic-partitions-resize-logical-images-inside-super
 tags: [android, android/boot, android/boot-runtime, android/system-internals]
 aliases: ["Dynamic partition은 super 안에서 논리 파티션 크기를 조정한다"]
-date modified: 2026-08-03 17:23:21 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Dynamic partition 은 super 안에서 논리 파티션 크기를 조정한다
 
 상위 문서: [부팅 흐름 계약](boot-flow-contracts.md)
+배경 지식: [Device Mapper](02_references/operating-systems/device-mapper-and-dm-verity.md)
 
-Dynamic Partitions는 물리 저장소 파티션인 `super` 내부에 논리 파티션(`/system`, `/vendor`, `/product`, `/system_ext`, `/odm`)을 생성하고 Linux Kernel의 `dm-linear` (Device Mapper Linear) 드라이버를 활용하여 OTA 업데이트 시 논리 파티션의 크기를 동적으로 유연하게 재조정(Resize)할 수 있도록 설계된 분할 메커니즘이다.
+Dynamic Partitions는 물리 저장소 파티션인 `super` 내부에 논리 파티션(`/system`, `/vendor`, `/product`, `/system_ext`, `/odm`)을 생성하고 Linux Kernel의 `dm-linear` (**[Device Mapper](02_references/operating-systems/device-mapper-and-dm-verity.md)** Linear — 커널이 실제 블록 디바이스 위에 가상 블록 디바이스를 쌓아 I/O 를 가로채 재배치/검증/암호화하는 프레임워크. `dm-linear` 는 그중 논리 주소 범위를 물리 주소 범위로 1:1 재배치만 하는 가장 단순한 target) 드라이버를 활용하여 OTA 업데이트 시 논리 파티션의 크기를 동적으로 유연하게 재조정(Resize)할 수 있도록 설계된 분할 메커니즘이다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 

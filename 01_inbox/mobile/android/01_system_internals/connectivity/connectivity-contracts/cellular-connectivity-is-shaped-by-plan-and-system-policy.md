@@ -2,7 +2,7 @@
 title: cellular-connectivity-is-shaped-by-plan-and-system-policy
 tags: [android, android/connectivity, android/telephony]
 aliases: [Cellular Policy, SubscriptionManager, Carrier Config, Metered Cellular]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -22,7 +22,7 @@ Android의 셀룰러(LTE/5G) 네트워크 연결성은 단순한 물리적 무�
    - 데이터 소진 시 셀룰러 네트워크는 `NET_CAPABILITY_NOT_METERED`를 잃고 종량제(Metered) 네트워크로 전환된다.
 
 3. **NetworkPolicyManagerService & Data Saver**:
-   - 데이터 한도 초과 또는 데이터 절약 모드(Data Saver) 활성화 시 백그라운드 앱의 셀룰러 소켓 생성을 eBPF 차단하고, `ConnectivityService`의 네트워크 점수(Score)를 감점하여 가용한 Wi-Fi가 있을 때 즉시 우회 전환하도록 유도한다.
+   - 데이터 한도 초과 또는 데이터 절약 모드(Data Saver) 활성화 시 백그라운드 앱의 셀룰러 소켓 생성을 **eBPF**(커널을 재컴파일하지 않고 커널 안에서 UID별 패킷 필터링을 실행하는 메커니즘 — 자세한 정의는 [netd 문서](netd-enforces-routing-dns-firewall-and-tethering-operations.md) 참고)로 차단하고, `ConnectivityService`의 네트워크 점수(Score)를 감점하여 가용한 Wi-Fi가 있을 때 즉시 우회 전환하도록 유도한다.
 
 ```mermaid
 graph TD

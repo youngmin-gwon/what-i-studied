@@ -11,7 +11,7 @@ date created: 2026-07-31 23:45:00 +09:00
 상위 문서: [Kernel contracts](kernel-contracts.md)
 배경 지식: [eBPF](02_references/operating-systems/kernel.md)
 
-eBPF(Extended Berkeley Packet Filter)는 소스코드를 수정하거나 별도의 커널 모듈(LKM)을 다시 빌드하지 않고도, 커널 내부 샌드박스 엔진 내에서 검증된(Verified) 바이트코드를 안전하게 실행하여 네트워크 패킷 필터링, 트래픽 통계(Traffic Accounting), CPU Time-in-State 프로파일링, 메모리 모니터링 기능을 확장하는 메커니즘이다.
+**eBPF**(Extended Berkeley Packet Filter)는 소스코드를 수정하거나 별도의 커널 모듈(LKM)을 다시 빌드하지 않고도, 커널 내부 샌드박스 엔진 내에서 검증된(Verified) 바이트코드를 안전하게 실행하여 네트워크 패킷 필터링, 트래픽 통계(Traffic Accounting), CPU Time-in-State 프로파일링, 메모리 모니터링 기능을 확장하는 메커니즘이다. 일반 커널 모듈(LKM)은 임의의 코드를 커널 권한으로 통째로 심는 방식이라 버그가 곧 커널 크래시나 보안 구멍으로 이어지지만, eBPF 프로그램은 로드 전에 커널이 안전성을 정적으로 검증하고 정해진 hook 지점에서만 제한된 동작을 하도록 샌드박싱된다는 점이 다르다.
 
 Android에서는 시스템 부팅 시 `bpfloader` 서비스가 `/system/etc/bpf/` 및 `/product/etc/bpf/`에 위치한 바이트코드를 커널로 로드하고 BPF 맵을 `/sys/fs/bpf/` 가상 파일시스템에 핀(Pin)하여 관리한다.
 

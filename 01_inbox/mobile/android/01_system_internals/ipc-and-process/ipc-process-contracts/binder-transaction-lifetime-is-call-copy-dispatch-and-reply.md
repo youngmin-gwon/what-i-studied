@@ -2,7 +2,7 @@
 title: binder-transaction-lifetime-is-call-copy-dispatch-and-reply
 tags: [android, android/binder, android/ipc]
 aliases: ["Binder transaction lifetime은 call, copy, dispatch, reply로 나뉜다", Binder transaction]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,7 +10,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-동기 Binder 호출은 caller 가 transaction 을 보내고, Binder driver 가 data 와 object reference 를 target process 의 Binder buffer 로 전달하고, target Binder thread 가 `onTransact()` 를 처리한 뒤 reply 를 돌려주는 흐름이다.
+배경 지식: [Buffer](02_references/operating-systems/buffer.md)
+
+동기 Binder 호출은 caller 가 transaction 을 보내고, Binder driver 가 data 와 **object reference**(다른 프로세스 안의 객체를 가리키는 참조 — client 는 이를 정수 handle 형태로 들고 있다. 자세한 내용은 [Binder는 객체 참조를 커널이 중재하는 capability IPC다](binder-is-kernel-mediated-object-capability-ipc.md) 참고)를 target process 의 Binder buffer 로 전달하고, target Binder thread 가 `onTransact()` 를 처리한 뒤 reply 를 돌려주는 흐름이다.
 
 이 흐름 때문에 Binder 비용은 "함수 호출 비용"이 아니다. thread scheduling, buffer copy, parcel marshaling, callee work, reply 대기 시간이 모두 caller 지연으로 관찰된다.
 
@@ -23,7 +25,7 @@ Binder transaction 은 **Single-Copy (단 1회의 메모리 복사)** 구조로 
 1. **Call Phase (Client Userspace)**:
    - Client가 Parcel 데이터 작성 후 `IPCThreadState::transact()` 호출 $\rightarrow$ `BC_TRANSACTION` 헤더와 함께 `ioctl(fd, BINDER_WRITE_READ, ...)` 실행 $\rightarrow$ Client 스레드 대기(Blocked).
 2. **Copy Phase & Buffer Allocation (Kernel Space)**:
-   - Binder 드라이버 커널 모듈(`binder_alloc.c`)이 수신자(Server) 프로세스의 공유 `mmap` ring buffer 영역(`binder_proc->alloc`)에서 `binder_buffer` 블록을 할당한다.
+   - Binder 드라이버 커널 모듈(`binder_alloc.c`)이 수신자(Server) 프로세스의 공유 `mmap` **ring buffer**(양 끝이 이어진 것처럼 앞에서부터 다시 채워 넣는 고정 크기 순환 버퍼) 영역(`binder_proc->alloc`)에서 `binder_buffer` 블록을 할당한다.
    - Client 사용자 공간 메모리 데이터를 Server의 mmap 버퍼 영역으로 **직접 copy_from_user** 수행 (중간 커널 임시 버퍼를 거치지 않는 1회 복사).
    - **Buffer Exhaustion Boundary**: 1016 KB 제한은 단일 트랜잭션 수치일 뿐만 아니라 프로세스 내 실행 중인 **모든 동시성 Binder 수신 스레드가 공유하는 총량**이다. 단일 호출이 1MB 미만이라도 다수의 스레드가 동시 처리 중이면 버퍼 고갈로 `TransactionTooLargeException` 또는 커널 `NO_MEMORY (-ENOMEM)` 에러가 발생한다.
 3. **Dispatch Phase (Server Userspace)**:

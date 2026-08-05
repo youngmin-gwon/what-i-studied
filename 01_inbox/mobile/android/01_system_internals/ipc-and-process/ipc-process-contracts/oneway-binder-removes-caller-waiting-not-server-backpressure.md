@@ -2,7 +2,7 @@
 title: oneway-binder-removes-caller-waiting-not-server-backpressure
 tags: [android, android/binder, android/ipc]
 aliases: ["oneway Binder는 caller 대기를 없애지만 server backpressure를 없애지 않는다", oneway Binder]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,9 +10,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-`oneway` AIDL 호출은 caller 가 reply 를 기다리지 않는 비동기 transaction 으로 바뀐다. 하지만 이것은 server 의 queue, Binder thread pool, 처리 비용, 순서 제약을 사라지게 하지 않는다.
+`oneway` AIDL 호출은 caller 가 reply 를 기다리지 않는 비동기 transaction 으로 바뀐다. 하지만 이것은 server 의 queue, Binder thread pool, 처리 비용, 순서 제약을 사라지게 하지 않는다 — 즉 **backpressure**(수신 측이 처리 속도를 따라가지 못해 큐가 쌓이고, 그 압박이 결국 송신 측 호출에도 영향을 주는 현상)는 여전히 존재한다.
 
-따라서 `oneway` 는 latency hiding 도구이지 무제한 이벤트 버스가 아니다. 호출 빈도가 높거나 payload 가 큰 경계에서는 queue 적체, memory pressure, server thread 고갈을 별도로 설계해야 한다.
+따라서 `oneway` 는 **latency hiding**(caller 가 응답을 기다리는 지연 시간을 체감하지 못하게 감추는 기법)일 뿐 무제한 이벤트 버스가 아니다. 호출 빈도가 높거나 payload 가 큰 경계에서는 queue 적체, memory pressure, server thread 고갈을 별도로 설계해야 한다.
 
 ---
 
@@ -104,7 +104,7 @@ public class Proxy implements IEventListener {
 ### 실무 규칙
 
 - `oneway` 는 결과가 필요 없고 caller 가 실패를 즉시 복구할 수 있는 이벤트에만 쓴다.
-- 상태 변경 명령은 idempotency 와 재동기화 경로를 둔다.
+- 상태 변경 명령은 idempotency(멱등성 — 같은 요청을 여러 번 보내도 결과가 한 번 보낸 것과 같아야 한다는 성질)와 재동기화 경로를 둔다.
 - progress, ack, error reporting 이 필요하면 별도 callback 이나 관찰 API 를 설계한다.
 - "caller 가 안 기다림"과 "system 에 비용이 없음"을 혼동하지 않는다.
 

@@ -2,7 +2,7 @@
 title: metered-and-data-saver-are-background-network-cost-policy
 tags: [android, android/connectivity, android/policy]
 aliases: [Metered Network, Data Saver, Background Data Restriction]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -19,7 +19,7 @@ Android에서 **종량제 네트워크(Metered Network)**와 **데이터 절약 
 
 2. **Data Saver Status (`RESTRICT_BACKGROUND`)**:
    - 사용자가 시스템 설정에서 데이터 절약 모드를 활성화하면 `NetworkPolicyManagerService`가 작동한다.
-   - 앱이 백그라운드(`PROCESS_STATE_BACKGROUND`)로 전환되는 즉시, `netd`는 eBPF/iptables `bw_penalty_box` 룰에 해당 앱의 UID를 추가하여 소켓 연결 수신/발신 시 `EPERM` 또는 `EACCES` 에러를 반환한다.
+   - 앱이 백그라운드(`PROCESS_STATE_BACKGROUND`)로 전환되는 즉시, `netd`는 **eBPF/iptables**(커널 안에서 UID별로 패킷을 필터링하는 Linux 방화벽 메커니즘 — 자세한 정의는 [netd 문서](netd-enforces-routing-dns-firewall-and-tethering-operations.md) 참고) `bw_penalty_box` 룰에 해당 앱의 UID를 추가하여 소켓 연결 수신/발신 시 `EPERM` 또는 `EACCES` 에러를 반환한다.
    - 포그라운드 앱(`PROCESS_STATE_TOP`)이거나 백그라운드 화이트리스트(Allowlist) 앱은 통신이 허용된다.
 
 ```mermaid

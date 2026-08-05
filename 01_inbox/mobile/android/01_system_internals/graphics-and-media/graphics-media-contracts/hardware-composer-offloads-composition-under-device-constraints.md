@@ -2,7 +2,7 @@
 title: hardware-composer-offloads-composition-under-device-constraints
 tags: [android, android/graphics, android/hal]
 aliases: [Hardware Composer, HWC, HWC2, HAL]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
@@ -23,7 +23,7 @@ SurfaceFlinger와 HWC HAL 간의 매 프레임 인터랙션은 **Prepare(Validat
      - **Client Composition (GPU)**: HWC 오버레이 제약 초과 시 GPU(Skia/GLES)가 중간 프레임버퍼에 렌더링 후 HWC 전달.
 
 2. **Present Display (`presentDisplay`)**:
-   - SurfaceFlinger와 HWC가 완성된 버퍼 펜스(Fence FD)를 주고받으며 디스플레이 스캔아웃 엔진에 넘겨 화면으로 출력한다.
+   - SurfaceFlinger와 HWC가 완성된 버퍼의 **Fence**(GPU/디스플레이 작업이 끝났음을 알리는 동기화 신호 FD — signal 되기 전까지는 해당 버퍼가 아직 준비되지 않았다는 뜻)를 주고받으며 디스플레이 스캔아웃 엔진에 넘겨 화면으로 출력한다.
 
 ```mermaid
 sequenceDiagram

@@ -2,7 +2,7 @@
 title: aidl-defines-process-boundary-contract-not-business-protocol
 tags: [android, android/aidl, android/ipc]
 aliases: ["AIDL은 process boundary 계약이지 비즈니스 프로토콜이 아니다", AIDL]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-AIDL 은 client proxy 와 server stub 을 생성해 Binder transaction 형식을 맞춰주는 interface definition 이다. 이것은 process boundary 의 호출 모양을 고정하지만, 비즈니스 의미, retry, idempotency, authorization, version compatibility 를 자동으로 설계해주지는 않는다.
+AIDL 은 **client proxy**(호출자 프로세스에서 원격 객체를 마치 로컬 객체처럼 부를 수 있게 감싸는 대리 클래스)와 **server stub**(수신 프로세스에서 그 호출을 실제 구현 메서드로 연결해주는 뼈대 클래스)을 생성해 Binder transaction 형식을 맞춰주는 interface definition(인터페이스 정의)이다. 이것은 process boundary 의 호출 모양을 고정하지만, 비즈니스 의미, retry, **idempotency**(멱등성 — 같은 요청을 여러 번 보내도 결과가 한 번 보낸 것과 같아야 한다는 성질), authorization, version compatibility 를 자동으로 설계해주지는 않는다.
 
 앱 내부 module 사이의 단순 추상화에 AIDL 을 도입하면 오히려 비용과 실패 모드가 커진다. AIDL 은 실제 process boundary 가 있고 그 경계를 안정적으로 유지해야 할 때 의미가 있다.
 
@@ -21,7 +21,7 @@ AIDL 은 client proxy 와 server stub 을 생성해 Binder transaction 형식을
 AIDL 컴파일러(`aidl`)는 `.aidl` 인터페이스 선언을 분석하여 **Client Proxy**와 **Server Stub** 클래스를 생성한다.
 
 1. **Transaction Code 매핑**: AIDL 에 정의된 각 메서드는 `FIRST_CALL_TRANSACTION + index` 형태의 정수 `code`에 1:1 매핑된다.
-2. **Interface Token 검증**: Marshaling 시 `Parcel.writeInterfaceToken(DESCRIPTOR)`를 삽입하고, Unmarshaling 시 Server의 `Stub.onTransact()`에서 `Parcel.enforceInterface(DESCRIPTOR)`로 인터페이스 식별자를 검증하여 잘못된 IPC 접근을 차단한다.
+2. **Interface Token 검증**: **Marshaling**(객체를 전송 가능한 바이트 형태로 직렬화하는 과정) 시 `Parcel.writeInterfaceToken(DESCRIPTOR)`를 삽입하고, **Unmarshaling**(수신한 바이트를 다시 객체로 복원하는 과정) 시 Server의 `Stub.onTransact()`에서 `Parcel.enforceInterface(DESCRIPTOR)`로 인터페이스 식별자를 검증하여 잘못된 IPC 접근을 차단한다.
 3. **IPC Dispatch Flow**:
    - Client가 Proxy 메서드 호출 $\rightarrow$ `Parcel.obtain()`으로 data/reply 객체 생성 $\rightarrow$ `IBinder.transact(code, data, reply, flags)` 호출.
    - Binder 커널 드라이버가 Server 프로세스로 전달 $\rightarrow$ Server process의 Binder 스레드가 `Stub.onTransact(code, data, reply, flags)` 실행 $\rightarrow$ 실제 서비스 구현체 함수 호출 후 reply 작성.

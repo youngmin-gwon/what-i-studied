@@ -2,16 +2,16 @@
 title: init-security-is-selinux-domain-and-capability-boundary
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["init 보안은 SELinux domain과 capability 경계로 정의된다"]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## init 보안은 SELinux domain 과 capability 경계로 정의된다
 
 상위 문서: [init 서비스 계약](init-service-contracts.md)
-배경 지식: [SELinux](01_inbox/linux/security/selinux.md), [네임스페이스](01_inbox/linux/container-basics.md)
+배경 지식: [SELinux](01_inbox/linux/security/selinux.md), [네임스페이스](01_inbox/linux/container-basics.md), [seccomp](02_references/operating-systems/seccomp.md)
 
-init 보안 모델은 서비스 프로세스 실행 시 Linux의 root 권한 남용을 방지하기 위해 UID/GID 분리뿐만 아니라 POSIX Capabilities의 엄격한 제한(Drop Capabilities) 및 SELinux Domain Transition을 통해 보안 경계(Security Boundary)를 격리하는 메커니즘이다.
+init 보안 모델은 서비스 프로세스 실행 시 Linux의 root 권한 남용을 방지하기 위해 UID/GID 분리뿐만 아니라 **POSIX Capabilities**(root 권한을 "전부 아니면 전무"가 아니라 `CAP_NET_ADMIN`, `CAP_SYS_ADMIN` 같은 개별 조각으로 쪼개, 프로세스에 딱 필요한 조각만 남기고 나머지는 회수하는 세분화된 권한 모델)의 엄격한 제한(Drop Capabilities) 및 **[SELinux](01_inbox/linux/security/selinux.md)** Domain Transition을 통해 보안 경계(Security Boundary)를 격리하는 메커니즘이다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 
@@ -21,7 +21,7 @@ init 보안 모델은 서비스 프로세스 실행 시 Linux의 root 권한 남
 2. **Linux Capability Drop & Ambient Capabilities**:
    - `init`은 `SetCapsAndCombatibleCapabilities()`를 통해 `capabilities` 옵션에 명시된 비트마스크만 획득(Inheritable / Permitted / Effective / Ambient)시키고 나머지 Root Capability(예: `CAP_SYS_ADMIN`, `CAP_SYS_RAWIO`)를 모두 Drop 처리한다.
 3. **Namespace Isolation & Seccomp Filter**:
-   - `seccomp`, `mount namespace`, `net namespace` 옵션을 이용하여 하드웨어 접근 및 시스템 호출 수면을 추가 격리한다.
+   - **[`seccomp`](02_references/operating-systems/seccomp.md)**(프로세스가 호출 가능한 시스템 콜 자체를 화이트리스트로 제한해, 커널 공격 표면을 줄이는 커널 보안 기능), `mount namespace`, `net namespace`([네임스페이스](01_inbox/linux/container-basics.md) — 프로세스가 보는 마운트 테이블/네트워크 스택 등 커널 자원의 뷰를 격리해, 서로 다른 프로세스가 같은 자원의 다른 인스턴스를 보게 만드는 커널 격리 기법) 옵션을 이용하여 하드웨어 접근 및 시스템 호출 수면을 추가 격리한다.
 
 ```mermaid
 flowchart LR

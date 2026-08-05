@@ -2,24 +2,24 @@
 title: init-is-pid1-and-userspace-bootstrap-policy-engine
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["init는 PID 1이자 Android userspace의 부트스트랩 정책 엔진이다"]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## init 는 PID 1 이자 Android userspace 의 부트스트랩 정책 엔진이다
 
 상위 문서: [init 서비스 계약](init-service-contracts.md)
-배경 지식: [일반 init 시스템(PID 1)](01_inbox/operating-systems/init-systems.md), [시그널(SIGCHLD)](01_inbox/operating-systems/signals.md), [좀비 프로세스/waitpid](01_inbox/operating-systems/process-states-lifecycle.md)
+배경 지식: [일반 init 시스템(PID 1)](01_inbox/operating-systems/init-systems.md), [시그널(SIGCHLD)](01_inbox/operating-systems/signals.md), [좀비 프로세스/waitpid](01_inbox/operating-systems/process-states-lifecycle.md), [epoll/I·O 멀티플렉싱](02_references/operating-systems/epoll-and-io-multiplexing.md)
 
-`init`은 Linux Kernel이 실행하는 최초의 userspace 프로세스(PID 1)로, 모든 userspace 프로세스의 부모가 되며, `init.rc` 스크립트를 파싱하여 시스템 서비스 부트스트랩, 이벤트 기반 Trigger 처리, Property Service 관리, 자식 프로세스 고사(Zombie) 방지 및 Process Supervision을 총괄하는 정책 엔진이다.
+`init`은 Linux Kernel이 실행하는 **[최초의 userspace 프로세스(PID 1)](01_inbox/operating-systems/init-systems.md)**로, 모든 userspace 프로세스의 부모가 되며, `init.rc` 스크립트를 파싱하여 시스템 서비스 부트스트랩, 이벤트 기반 Trigger 처리, Property Service 관리, 자식 프로세스 고사(**[Zombie](01_inbox/operating-systems/process-states-lifecycle.md)** — 자식이 종료했지만 부모가 아직 종료 상태를 회수(`wait`)하지 않아 프로세스 테이블에 남아있는 상태) 방지 및 Process Supervision을 총괄하는 정책 엔진이다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 
 1. **Main Event Loop (`epoll`)**:
-   - `init`의 메인 루프는 `epoll_wait` 기반의 이벤트 루프로 동작한다.
+   - `init`의 메인 루프는 **[`epoll_wait`](02_references/operating-systems/epoll-and-io-multiplexing.md)**(스레드 하나가 여러 file descriptor 중 지금 이벤트가 준비된 것만 커널에게서 통보받아 처리하는 I/O 멀티플렉싱 기법) 기반의 이벤트 루프로 동작한다.
    - `epoll` 루프는 (1) Signal Handler 소켓(SIGCHLD 자식 종료 감지), (2) Property Service IPC 소켓, (3) Keychord/Ueventd 소켓 이벤트를 대기한다.
 2. **Subprocess Reaper (SIGCHLD Handling)**:
-   - 데몬 또는 자식 서비스 프로세스가 크래시되어 종료되면 커널은 PID 1인 `init`에 `SIGCHLD` 신호를 전달한다.
+   - 데몬 또는 자식 서비스 프로세스가 크래시되어 종료되면 커널은 PID 1인 `init`에 **[`SIGCHLD`](01_inbox/operating-systems/signals.md)**(자식 프로세스의 상태가 바뀌었음—대개 종료됨—을 부모에게 비동기로 알리는 시그널) 신호를 전달한다.
    - `init`은 `waitpid`를 호출해 덤프를 수집하고 고사(Zombie) 프로세스를 회수한 뒤 `init.rc`에 지정된 재시작 정책(`restart`, `oneshot`, `reboot_on_failure`)에 따라 해당 서비스를 재구동한다.
 3. **Action Queue 및 Trigger Processing**:
    - `init.rc` 이벤트 Trigger(예: `early-init`, `init`, `late-init`, `boot`)가 발생하면 조건에 맞는 Action 들을 Action Queue에 추가하고 순차적으로 실행한다.

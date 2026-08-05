@@ -2,7 +2,7 @@
 title: property-service-is-global-state-store-and-restricted-control-plane
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["property service는 전역 상태 저장소이자 제한된 제어 plane이다"]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -11,7 +11,7 @@ date created: 2026-08-01 00:00:00 +09:00
 상위 문서: [init 서비스 계약](init-service-contracts.md)
 배경 지식: [IPC(공유 메모리/유닉스 소켓)](01_inbox/operating-systems/ipc-mechanisms.md)
 
-`Property Service`는 `init` 프로세스 내부에서 구동되는 Android 전역 키-값(Key-Value) 상태 저장소이자 시스템 제어 플레인으로, Shared Memory를 통한 고속 읽기와 Unix Domain Socket 통신 및 SELinux 보안 검증을 통한 쓰기 제어 메커니즘을 제공한다.
+`Property Service`는 `init` 프로세스 내부에서 구동되는 Android 전역 키-값(Key-Value) 상태 저장소이자 시스템 제어 플레인으로, Shared Memory를 통한 고속 읽기와 **[Unix Domain Socket](01_inbox/operating-systems/ipc-mechanisms.md)**(같은 머신 안의 프로세스끼리 파일시스템 경로를 주소로 삼아 통신하는 프로세스 간 통신(IPC) 메커니즘) 통신 및 SELinux 보안 검증을 통한 쓰기 제어 메커니즘을 제공한다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 

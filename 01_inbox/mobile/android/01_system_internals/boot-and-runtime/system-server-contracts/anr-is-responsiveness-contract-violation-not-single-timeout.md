@@ -2,7 +2,7 @@
 title: anr-is-responsiveness-contract-violation-not-single-timeout
 tags: [android, android/boot-runtime, android/system-internals, android/system-server]
 aliases: ["ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다"]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -24,7 +24,7 @@ ANR(Application Not Responding)은 메인 스레드(UI Thread)가 특정 시간 
    - 컴포넌트 시작 시 AMS는 핸들러 메세지로 `SERVICE_TIMEOUT_MSG` 등을 스케줄링한다.
    - 정상 처리 시 앱은 `serviceDoneExecuting`을 호출해 타임아웃 메세지를 제거한다. 실패 시 타임아웃 메세지가 발동한다.
 3. **Trace Collection (`/data/anr/traces.txt` / Perfetto)**:
-   - ANR 발생 시 `system_server`는 해당 프로세스 및 관련 시스템 서비스, 주요 앱에 `SIGQUIT` (Signal 3)를 보낸다.
+   - ANR 발생 시 `system_server`는 해당 프로세스 및 관련 시스템 서비스, 주요 앱에 **[`SIGQUIT`](01_inbox/operating-systems/signals.md)**(Signal 3 — 프로세스를 즉시 죽이는 대신, 종료 전에 현재 상태(스택트레이스 등)를 덤프할 기회를 주는 시그널)를 보낸다.
    - ART 런타임은 Signal 3 수신 시 메인 스레드 스택트레이스 및 Mutex Lock 획득 상태를 `/data/anr/` 트레이스 파일로 덤프한다.
 
 ```mermaid

@@ -2,7 +2,7 @@
 title: native-system-services-are-init-managed-binder-endpoints
 tags: [android, android/native, android/system-internals]
 aliases: [init.rc, native service, servicemanager]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -28,7 +28,7 @@ graph TD
     E --> F["Join Binder Threadpool & Wait for Client RPC"]
 ```
 
-1. **Init Lifecycle Control**: `init`은 `init.rc` 파일에 정의된 `user`, `group`, `seclabel`, `capabilities`, `onrestart` 지침에 따라 프로세스를 분기(Fork) 및 실행하고, 프로세스가 예기치 않게 종료되면 자동으로 다시 띄운다(Respawn).
+1. **Init Lifecycle Control**: `init`은 `init.rc` 파일에 정의된 `user`, `group`, `seclabel`, `capabilities`, `onrestart` 지침에 따라 프로세스를 **분기(fork)하고 새 실행 파일로 치환(exec)**하여 띄우며(부모 프로세스인 `init` 을 그대로 복제한 뒤 그 복제본 위에 새 프로그램 이미지를 덮어쓰는 전통적인 Unix 프로세스 생성 모델), 프로세스가 예기치 않게 종료되면 자동으로 다시 띄운다(Respawn).
 2. **ServiceManager Registration**: 실행된 네이티브 프로세스는 `defaultServiceManager()->addService()`를 호출하여 자사 Binder IPC 핸들을 `servicemanager`에 등록한다. 클라이언트(Java Framework 또는 타 Native Process)는 서비스 이름을 통해 이 Binder 엔드포인트를 획득하여 통신한다.
 
 ---

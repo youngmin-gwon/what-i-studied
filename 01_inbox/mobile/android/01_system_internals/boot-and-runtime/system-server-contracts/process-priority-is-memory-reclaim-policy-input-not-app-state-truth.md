@@ -2,15 +2,16 @@
 title: process-priority-is-memory-reclaim-policy-input-not-app-state-truth
 tags: [android, android/boot-runtime, android/system-internals, android/system-server]
 aliases: ["프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다"]
-date modified: 2026-08-03 17:23:55 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## 프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다
 
 상위 문서: [system_server 계약](system-server-contracts.md)
+배경 지식: [OOM Killer / 메모리 압박 / PSI](02_references/operating-systems/oom-killer-and-memory-pressure.md)
 
-프로세스 우선순위(`oom_score_adj`)는 앱 개발자가 직접 제어하거나 프로세스 내부에서 주관적으로 지정하는 상태가 아니며, `AMS`가 컴포넌트 실행 상태(Foreground Activity, Visible, Service, Broadcast 등) 및 시스템 메모리 압박 상태를 종합 판단하여 커널 Low Memory Killer Daemon(LMKD)의 수거 우선순위 입력값으로 지속 계산·전송하는 수치 정책이다.
+프로세스 우선순위(`oom_score_adj`)는 앱 개발자가 직접 제어하거나 프로세스 내부에서 주관적으로 지정하는 상태가 아니며, `AMS`가 컴포넌트 실행 상태(Foreground Activity, Visible, Service, Broadcast 등) 및 시스템 메모리 압박 상태를 종합 판단하여 커널 **[Low Memory Killer Daemon(LMKD)](02_references/operating-systems/oom-killer-and-memory-pressure.md)**(리눅스 표준 OOM Killer가 "메모리 할당이 완전히 실패한 뒤"에야 개입하는 것과 달리, 메모리 압박 초기 신호(PSI)를 보고 선제적으로 프로세스를 죽이는 Android userspace 데몬)의 수거 우선순위 입력값으로 지속 계산·전송하는 수치 정책이다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 
@@ -24,7 +25,7 @@ date created: 2026-08-01 00:00:00 +09:00
 2. **`applyOomAdjLSP()` Execution**:
    - 액티비티 전환, 서비스 생성/파괴, 바인딩 연결 시 AMS는 `OomAdjuster.java`를 실행하여 프로세스 트리의 `oom_score_adj` 값을 동적 재계산한다.
 3. **Kernel LMKD (Low Memory Killer Daemon) Interface**:
-   - AMS는 계산된 `oom_score_adj` 값을 Unix Domain Socket을 통해 `lmkd` 데몬으로 전달하고, `lmkd`는 커널 PSI(Pressure Stall Information) 이벤트 발생 시 해당 조정치 순서대로 프로세스에 `SIGKILL`을 발송한다.
+   - AMS는 계산된 `oom_score_adj` 값을 Unix Domain Socket을 통해 `lmkd` 데몬으로 전달하고, `lmkd`는 커널 **[PSI](02_references/operating-systems/oom-killer-and-memory-pressure.md)**(Pressure Stall Information — 프로세스들이 CPU/메모리/IO 자원을 기다리며 멈춰있는 시간 비율을 측정해, 메모리가 실제로 고갈되기 전에 압박 상태를 조기 감지하는 커널 지표) 이벤트 발생 시 해당 조정치 순서대로 프로세스에 `SIGKILL`을 발송한다.
 
 ```mermaid
 flowchart LR

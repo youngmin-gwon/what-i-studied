@@ -2,7 +2,7 @@
 title: jni-method-field-ids-and-pending-exceptions-are-runtime-state
 tags: [android, android/native, android/system-internals]
 aliases: [jfieldID, jmethodID, JNI exception]
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -75,7 +75,7 @@ void safeCallMethod(JNIEnv* env, jobject obj, jstring arg) {
 ### 판단 기준
 
 - `jmethodID` 와 `jfieldID` 는 object reference 가 아니므로 `NewGlobalRef` 로 감싸지 않는다. 반복 경로에서 캐시는 안전하고 권장된다.
-- JNI 호출이 Java exception 을 발생시키면 pending exception 상태가 남는다. 이 상태에서 대부분의 JNI 호출을 계속하면 VM abort가 발생할 수 있다.
+- JNI 호출이 Java exception 을 발생시키면 pending exception 상태가 남는다. 이 상태에서 대부분의 JNI 호출을 계속하면 **VM abort**(ART 런타임이 스스로 오류를 감지하고 프로세스 전체를 즉시 강제 종료시키는 것 — 일반 Java exception 처럼 catch 로 잡을 수 없다)가 발생할 수 있다.
 - `ExceptionCheck()`를 먼저 호출해 pending state를 확인한 뒤 `ExceptionClear()`로 해제하거나 `Throw()`로 상위로 전달한다.
 - `ExceptionDescribe()`는 logcat에 스택트레이스를 출력하지만 pending state를 클리어하지 않는다.
 

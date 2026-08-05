@@ -2,7 +2,7 @@
 title: ndk-is-native-library-toolchain-not-app-architecture
 tags: [android, android/native, android/system-internals]
 aliases: [NDK, Native Development Kit]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -40,7 +40,7 @@ graph TD
     B1 --> C1
 ```
 
-1. **Stable NDK APIs**: Android OS 버전 간 ABI 호환성을 보장하는 공식 NDK API(`liblog.so`, `libandroid.so`, `libvulkan.so`, `libaaudio.so` 등)만 앱 라이브러리가 정적으로 링크할 수 있다. 비공개 내부 C++ 라이브러리(`libcutils.so`, `libutils.so`)를 동적 링크하면 OS 업데이트 시 앱이 크래시된다.
+1. **Stable NDK APIs**: Android OS 버전 간 **ABI**(Application Binary Interface — 함수 호출 규약, 데이터 타입 크기·정렬 등 소스 코드가 아니라 컴파일된 바이너리 수준에서 지켜야 하는 규약. `arm64-v8a`, `x86_64` 같은 CPU 아키텍처별 값으로 나타난다) 호환성을 보장하는 공식 NDK API(`liblog.so`, `libandroid.so`, `libvulkan.so`, `libaaudio.so` 등)만 앱 라이브러리가 정적으로 링크할 수 있다. 비공개 내부 C++ 라이브러리(`libcutils.so`, `libutils.so`)를 동적 링크하면 OS 업데이트 시 앱이 크래시된다.
 2. **Proper Use-cases**: NDK 도입이 정당화되는 영역은 (1) C/C++ 크로스 플랫폼 물리/게임 엔진 포팅, (2) 오디오 저지연(AAudio) 및 Vulkan 그래픽 렌더링, (3) 신호 처리 및 암호화 연산 같은 CPU 집약적 연산 영역이다.
 
 ---

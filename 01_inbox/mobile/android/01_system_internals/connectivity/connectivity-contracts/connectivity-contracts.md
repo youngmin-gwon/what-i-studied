@@ -2,13 +2,13 @@
 title: connectivity-contracts
 tags: [android, android/connectivity]
 aliases: [Android connectivity contracts]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
 ## Connectivity contracts
 
-이 문서는 Android 연결성 파이프라인을 API 사용법이 아닌 **실행 및 보안 계약(Execution & Security Contracts)** 관점에서 정리한 정본 인덱스다. 핵심 질문은 "어떤 네트워크 인스턴스가 활성화되어 있으며, 어떤 eBPF/라우팅 정책과 백그라운드 제한이 적용되고 있는가"이다.
+이 문서는 Android 연결성 파이프라인을 API 사용법이 아닌 **실행 및 보안 계약(Execution & Security Contracts)** 관점에서 정리한 정본 인덱스다. 핵심 질문은 "어떤 네트워크 인스턴스가 활성화되어 있으며, 어떤 **eBPF**(커널 재컴파일 없이 커널 안에서 UID별 패킷을 필터링하는 메커니즘 — 자세한 정의는 [netd 문서](netd-enforces-routing-dns-firewall-and-tethering-operations.md) 참고)/라우팅 정책과 백그라운드 제한이 적용되고 있는가"이다.
 
 상위 문서: [Android connectivity runtime](../android-connectivity.md)
 

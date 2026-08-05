@@ -37,7 +37,7 @@ graph TD
    - `ashmem`(Anonymous Shared Memory)은 메모리 영역에 이름을 부여하고 `unpin` 기능을 통해 LMK 시 메모리를 버릴 수 있도록 지원했으나, Linux upstream에 통합되지 못함.
    - Android 10+부터 `memfd_create()` 및 `ASHMEM_SET_NAME` 호환 래퍼로 전환되었으며, NDK의 `ASharedMemory_create()` 역시 내부적으로 `memfd`를 사용.
 2. **`ION` -> `DMA-BUF Heaps`**:
-   - `ION`은 하나의 `/dev/ion` 문자 디바이스 노드와 비표준 ioctl 번호를 공유하여 SELinux 정책 분리 및 샌드박싱이 어려웠음.
+   - `ION`은 하나의 `/dev/ion` 문자 디바이스 노드와 비표준 ioctl 번호를 공유했다. 이 때문에 어떤 프로세스가 어떤 파일/디바이스에 접근할 수 있는지를 소유자가 아니라 커널이 정책 파일 기준으로 강제하는 **SELinux**(mandatory access control 을 구현하는 리눅스 보안 모듈)를 노드 단위로 분리 적용하기 어려웠고, 그만큼 샌드박싱도 느슨해졌다.
    - `DMA-BUF heaps`는 힙 유형별로 별도의 디바이스 노드(`/dev/dma_heap/system`, `/dev/dma_heap/linux,cma` 등)를 노출하여 각 힙별 SELinux 접근 권한을 독립적으로 제어 가능.
 
 ---

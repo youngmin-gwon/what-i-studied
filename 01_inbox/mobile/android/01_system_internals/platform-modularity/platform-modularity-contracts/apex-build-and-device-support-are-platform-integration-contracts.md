@@ -3,16 +3,16 @@ title: apex-build-and-device-support-are-platform-integration-contracts
 tags: ["android", "android/system-internals"]
 aliases: ["APEX build와 device support는 앱 개발 API가 아니라 플랫폼 통합 계약이다"]
 date created: 2026-07-31 23:05:30 +09:00
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 ---
 
 ## APEX build와 device support는 앱 개발 API가 아니라 플랫폼 통합 계약이다
 
 상위 문서: [Platform modularity contracts](platform-modularity-contracts.md)
 
-APEX(Android Package Kit) 패키지를 빌드하고 런타임에 업데이트 가능하게 탑재하는 과정은 앱 개발자가 Gradle 의존성을 추가하는 유저스페이스 작업이 아니다. 이는 Soong 빌드 시스템 모듈 정의(`apex {}`), AVB 서명 키 교체, init service script override, 커널 레벨 루프백 디바이스 지원(`CONFIG_BLK_DEV_LOOP`, `dm-verity`), 파티션 마운트 정책이 완벽히 정합성을 이루어야 하는 **플랫폼 통합 계약(Platform Integration Contract)**이다.
+**APEX**(패키지/컨테이너 포맷 — 정식 정의는 [APEX 는 APK 모델로 다루기 어려운 lower-level system module 을 담는다](apex-packages-lower-level-system-modules-that-apk-cannot-model-well.md) 참고) 패키지를 빌드하고 런타임에 업데이트 가능하게 탑재하는 과정은 앱 개발자가 Gradle 의존성을 추가하는 유저스페이스 작업이 아니다. 이는 **Soong**(Android.bp 파일로 빌드 규칙을 선언하는 AOSP 전용 빌드 시스템 — Make를 대체한다) 빌드 시스템 모듈 정의(`apex {}`), **AVB**(Android Verified Boot — 부팅 이미지와 파티션이 변조되지 않았음을 서명으로 검증하는 체계. 배경 지식: [root-of-trust-and-chain-of-trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md)) 서명 키 교체, init service script override, 커널 레벨 루프백 디바이스 지원(`CONFIG_BLK_DEV_LOOP`, **dm-verity**: 블록 디바이스를 읽을 때마다 해시를 검증해 파티션 변조를 탐지하는 커널 메커니즘. 배경 지식: [device-mapper-and-dm-verity](02_references/operating-systems/device-mapper-and-dm-verity.md)), 파티션 마운트 정책이 완벽히 정합성을 이루어야 하는 **플랫폼 통합 계약(Platform Integration Contract)**이다.
 
-네이티브 공유 라이브러리(`*.so`), ART/Dalvik 컴파일러, Bionic libc, Conscrypt보안 모듈 등 네이티브 및 프레임워크 최하단 컴포넌트를 분리 배포하려면 기기 보드 레벨에서 Updatable APEX 지원이 선언되어 있어야 한다.
+네이티브 공유 라이브러리(`*.so`), ART/Dalvik 컴파일러, **Bionic libc**(Android가 자체적으로 만든 경량 C 표준 라이브러리 구현체 — glibc 대신 쓰인다), Conscrypt보안 모듈 등 네이티브 및 프레임워크 최하단 컴포넌트를 분리 배포하려면 기기 보드 레벨에서 Updatable APEX 지원이 선언되어 있어야 한다.
 
 ---
 

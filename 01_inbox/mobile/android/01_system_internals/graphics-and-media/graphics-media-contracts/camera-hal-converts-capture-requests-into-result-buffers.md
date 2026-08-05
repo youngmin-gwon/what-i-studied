@@ -2,7 +2,7 @@
 title: camera-hal-converts-capture-requests-into-result-buffers
 tags: [android, android/camera, android/hal, android/media]
 aliases: [Camera HAL3, CaptureRequest, CaptureResult, ICameraDeviceSession]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 상위 문서: [Graphics and media contracts](graphics-media-contracts.md)
 
-Android Camera2 및 CameraX 아키텍처의 핵심 백엔드인 **Camera HAL3**는 프레임워크(`CameraService`)가 전달한 캡처 요청(`CaptureRequest`)을 수신하여 렌즈/센서/ISP 파이프라인을 제어한 뒤, 비동기적으로 이미지 데이터 버퍼(`GraphicBuffer`)와 캡처 메타데이터(`CaptureResult`)로 변환하여 반환하는 상태 머신 파이프라인이다.
+Android Camera2 및 CameraX 아키텍처의 핵심 백엔드인 **Camera HAL3**는 프레임워크(`CameraService`)가 전달한 캡처 요청(`CaptureRequest`)을 수신하여 렌즈/센서/**ISP**(Image Signal Processor — 센서가 받은 원시 광 신호를 노출/초점/화이트밸런스가 보정된 이미지로 변환하는 전용 하드웨어) 파이프라인을 제어한 뒤, 비동기적으로 이미지 데이터 버퍼(`GraphicBuffer`)와 캡처 메타데이터(`CaptureResult`)로 변환하여 반환하는 상태 머신 파이프라인이다.
 
 ### 메커니즘: HAL3 파이프라인 흐름 및 Binder/HIDL 계약
 
@@ -22,7 +22,7 @@ Android Camera2 및 CameraX 아키텍처의 핵심 백엔드인 **Camera HAL3**�
    - 요청마다 결과 버퍼가 채워질 Target Surface의 GraphicBuffer 핸들이 포함된다.
 
 3. **Process Capture Result (`processCaptureResult`)**:
-   - 센서 프레임 취득 완료 시 HAL은 `processCaptureResult()` 콜백을 호출하여 3A(Auto Focus, Exposure, White Balance) 메타데이터와 그래픽 버퍼 완료 Sync Fence를 비동기로 전달한다.
+   - 센서 프레임 취득 완료 시 HAL은 `processCaptureResult()` 콜백을 호출하여 3A(Auto Focus, Exposure, White Balance) 메타데이터와 그래픽 버퍼 완료 **Sync Fence**(GPU/하드웨어 작업이 끝났음을 알리는 동기화 신호 — signal 되기 전까지는 그 버퍼를 아직 읽을 수 없다는 뜻)를 비동기로 전달한다.
 
 ```mermaid
 sequenceDiagram

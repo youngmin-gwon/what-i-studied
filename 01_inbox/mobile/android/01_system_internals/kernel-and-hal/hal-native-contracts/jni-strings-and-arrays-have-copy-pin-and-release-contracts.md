@@ -2,7 +2,7 @@
 title: jni-strings-and-arrays-have-copy-pin-and-release-contracts
 tags: [android, android/native, android/system-internals]
 aliases: [JNI array, JNI string, GetStringUTFChars, GetByteArrayElements]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -33,7 +33,7 @@ graph TD
     F -->|JNI_ABORT| I["Discard Native Changes & Free Native Buffer / Unpin"]
 ```
 
-1. **`GetPrimitiveArrayCritical` / `GetStringCritical`**: 복사 없이 GC 힙을 직접 잠그고(Pinning) 픽셀/배열 버퍼에 초저지연으로 접근하지만, `Critical Section` 내부에서는 이종 JNI 함수 호출, 블로킹 I/O, 메모리 할당이 엄격히 금지되며 GC를 일시 정지(Suspend)시킨다.
+1. **`GetPrimitiveArrayCritical` / `GetStringCritical`**: 복사 없이 GC 힙을 직접 잠그고(Pinning) 픽셀/배열 버퍼에 초저지연으로 접근하지만, 이 `Critical Section`(일반적인 mutex 기반 상호배제 구간이 아니라, JNI 가 GC 힙을 잠그고 native 코드의 직접 접근을 허용하는 JNI 고유의 특별 구간을 가리키는 용어다) 내부에서는 이종 JNI 함수 호출, 블로킹 I/O, 메모리 할당이 엄격히 금지되며 GC를 일시 정지(Suspend)시킨다.
 2. **Release Mode Flags**:
    - `0`: Native 버퍼의 변경 사항을 Java 배열로 복사(Copy back)한 후 Native 버퍼 메모리를 해제/Unpin.
    - `JNI_COMMIT`: Native 버퍼의 변경 사항을 Java 배열로 복사하되, Native 버퍼를 해제하지 않고 유지.

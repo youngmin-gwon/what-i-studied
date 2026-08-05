@@ -2,7 +2,7 @@
 title: android-rendering-pipeline-is-surface-to-bufferqueue-to-compositor
 tags: [android, android/graphics, android/rendering]
 aliases: [Android Rendering Pipeline, Surface BufferQueue Compositor]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
@@ -20,7 +20,7 @@ Android 화면 렌더링의 핵심 구조는 애플리케이션이 픽셀을 직
 
 2. **BufferQueue (Shared Memory Buffer Pool)**:
    - `GraphicBuffer` 메모리 슬롯을 관리하며 `IGraphicBufferProducer`와 `IGraphicBufferConsumer` Binder IPC 인터페이스로 생산자와 소비자를 격리한다.
-   - 렌더링 동기화를 위해 EGLFence/Sync FD를 버퍼와 함께 전달하여 CPU-GPU 비동기 대기 시간을 최소화한다.
+   - 렌더링 동기화를 위해 **Fence**(GPU 작업이 끝났음을 알리는 동기화 신호 — 이 신호가 signal 되기 전까지는 그 버퍼를 아직 안전하게 읽거나 쓸 수 없다는 뜻)인 EGLFence/Sync FD를 버퍼와 함께 전달하여 CPU-GPU 비동기 대기 시간을 최소화한다.
 
 3. **Consumer (SurfaceFlinger / HWC)**:
    - VSync-SF 신호가 발생하면 SurfaceFlinger는 BufferQueue에서 읽기 준비가 된 버퍼를 획득(`acquireBuffer`)한다.

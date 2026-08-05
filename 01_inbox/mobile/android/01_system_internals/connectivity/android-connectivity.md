@@ -2,13 +2,13 @@
 title: android-connectivity
 tags: [android, android/connectivity, android/system-internals]
 aliases: [Android Connectivity, Connectivity Runtime]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
 ## Android connectivity runtime
 
-Android의 연결성(Connectivity) 런타임 체계는 단순 소켓 오픈이나 `HttpURLConnection` 호출법을 넘어 **네트워크 평가 점수(Network Score), 백그라운드 정책(Metered / Data Saver / eBPF Firewall), 및 라우팅 멀티캐스팅(VpnService / netd)**을 통제하는 시스템 가용성 계약 위에 구축되어 있다.
+Android의 연결성(Connectivity) 런타임 체계는 단순 소켓 오픈이나 `HttpURLConnection` 호출법을 넘어 **네트워크 평가 점수(Network Score), 백그라운드 정책(Metered / Data Saver / eBPF Firewall — eBPF는 커널을 재컴파일하지 않고 커널 안에서 UID별 패킷을 필터링하는 메커니즘이다), 및 라우팅 멀티캐스팅(VpnService / netd)**을 통제하는 시스템 가용성 계약 위에 구축되어 있다.
 
 정본 묶음: [Connectivity contracts](connectivity-contracts/connectivity-contracts.md)
 
@@ -27,7 +27,7 @@ graph TD
 - **App API Layer**: `ConnectivityManager`, `NetworkCallback`, `NetworkRequest`, `VpnService`, `NetworkSecurityConfig`처럼 앱 코드가 직접 부르는 인터페이스.
 - **Framework Service Layer**: `ConnectivityService`, `NetworkMonitor`, `NetworkPolicyManagerService`, `TelephonyRegistry`처럼 `system_server` 내부에서 디폴트 네트워크를 선택하고 유효성(Validation)을 검사하는 계층.
 - **Native Service Layer**: `netd` 데몬, `DnsResolver`, Mainline `NetworkStack` 모듈처럼 C++ 또는 전용 프로세스로 IP 라우팅, eBPF 방화벽 룰, DNS 캐싱을 처리하는 영역.
-- **Kernel / Hardware Layer**: eBPF penalty_box, Linux 커널 multiple routing tables, iptables, Wi-Fi 칩셋 드라이버(`wlan0`), RIL 셀룰러 모뎀.
+- **Kernel / Hardware Layer**: eBPF penalty_box, Linux 커널 multiple routing tables, iptables, Wi-Fi 칩셋 드라이버(`wlan0`), **RIL**(Radio Interface Layer — 셀룰러 모뎀 하드웨어와 framework 사이를 잇는 표준 인터페이스 계층) 셀룰러 모뎀.
 
 이 구분은 [Connectivity contracts](connectivity-contracts/connectivity-contracts.md) index 문서에서 문제 분류별로 세분화되어 관리된다.
 

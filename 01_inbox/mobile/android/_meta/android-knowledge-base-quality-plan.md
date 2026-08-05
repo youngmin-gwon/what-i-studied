@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-05 15:45:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -1269,4 +1269,12 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 1. `binder-is-kernel-mediated-object-capability-ipc.md` — `remote object reference`, `handle`, `death notification`, `capability(권한 토큰) 기반 접근 제어` 인라인 gloss 추가. `배경 지식:` 링크(IPC/DAC/SELinux)는 이전 라운드에 이미 있었음.
 2. `android-kernel-is-linux-plus-mobile-platform-policy.md` — "배경 지식:" 요약 줄만 있고 본문엔 인라인 링크가 없던 문제를 수정. `**[IPC](...)** & RPC` 처럼 본문 안 실제 등장 지점에 링크를 걸었고, 다이어그램의 4 개 비교 쌍 중 설명이 빠졌던 DAC vs SELinux MAC 항목(5 번)을 새로 추가해 gloss + 링크를 함께 넣었다.
 
-**아직 시작하지 않음**: System Internals 나머지 151 개 파일, 그리고 App Framework/System Services/Security/Packaging/Testing/Platforms 전체. 다음 세션(들)이 이어서 병렬 처리해야 한다.
+**진행 중(2026-08-05, 이 세션이 지금 처리 중 — 다른 세션은 중복 작업하지 말 것):** System Internals 나머지 151 개 파일을 4 개 subagent 에 병렬 위임했다(boot-and-runtime 40 개, kernel-and-hal 39 개, ipc-and-process 6 개+graphics-and-media 23 개, connectivity 18 개+platform-modularity 13 개+platform-customization 13 개). 완료되면 이 문서에 결과가 추가된다.
+
+**다른 세션(다른 AI)이 지금 바로 착수할 수 있는 다음 구간: `02_app_framework/`(227 개 파일, vault 최대 규모 폴더).** System Internals 가 이 세션에서 진행 중이므로 겹치지 않는다. 착수 세션은:
+1. 반드시 위 "## Phase 11" 섹션 전체(원칙·좋은 예/나쁜 예·작업 방식)를 먼저 읽고 그대로 따를 것 — 특히 "원자성/SSOT 유지"(일반 개념 전체 설명을 복제하지 않고 링크) + "인라인 gloss 필수"(링크만으로 대체 불가) 두 원칙을 반드시 지킬 것.
+2. `02_app_framework/`(architecture/data/dependency-injection/jetpack-compose/navigation/ui, 227 개)를 하위 클러스터 단위로 나눠 병렬 subagent 에 위임할 것(Phase 5 에서 이미 이 폴더를 category 1~3 로 나눈 이력이 있으니 그 경계를 재사용하면 편하다 — 위쪽 "category 1/2/3 완료" 진행 기록 참고).
+3. `01_inbox/mobile/android/` 바깥의 일반 지식 폴더(`01_inbox/operating-systems/`, `01_inbox/linux/`, `02_references/operating-systems/`, `02_references/computer-science/`, `01_inbox/security/`, `01_inbox/computer-science/networking/`)를 먼저 훑어 대응하는 일반 노트가 있는지 확인하고, 없는 새로운 개념(App Framework 는 Jetpack Compose/DI/Coroutine 관련 CS 개념이 나올 수 있다 — 예: dependency injection 이론, declarative UI 패러다임 등)이 발견되면 Phase 9/이번 라운드처럼 새 일반 노트를 만들지 이 문서에 기록하고 판단할 것.
+4. 완료 후 이 문서의 "완료 조건 및 진행 기록 형식"에 맞춰 진행 기록을 추가할 것.
+
+**그 다음 순서(아직 아무도 착수하지 않음):** System Services(`04_system_services`, 64 개) → Security(`05_security_privacy`, 28 개) → Packaging(`03_packaging_deployment`, 42 개) → Testing(`06_testing_performance`, 27 개) → Platforms(`07_platforms`, 43 개). 이 순서는 Phase 5 category 순서를 그대로 재사용한 것이다.

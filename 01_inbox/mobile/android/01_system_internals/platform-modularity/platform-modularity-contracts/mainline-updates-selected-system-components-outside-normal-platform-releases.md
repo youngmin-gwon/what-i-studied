@@ -3,7 +3,7 @@ title: mainline-updates-selected-system-components-outside-normal-platform-relea
 tags: ["android", "android/system-internals"]
 aliases: ["Mainline은 선택된 system component를 정규 플랫폼 release 밖에서 업데이트한다"]
 date created: 2026-07-31 23:05:30 +09:00
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 ---
 
 ## Mainline은 선택된 system component를 정규 플랫폼 release 밖에서 업데이트한다
@@ -12,7 +12,7 @@ date modified: 2026-08-04 15:50:00 +09:00
 
 Project Mainline(Modular System Components)은 Android 10(API 29)부터 도입되어 연간 정규 OS 메이저 업데이트 및 OEM 통신사 OTA 배포 주기와 독립적으로, 핵심 시스템 컴포넌트를 모듈 단위로 분리하여 Google Play System Updates(또는 오프라인 팩)를 통해 신속하게 배포할 수 있도록 설계된 모듈화 아키텍처다.
 
-보안 취약점(CVE) 패치, 표준 미디어 코덱 업데이트, 네트워크 스택 파퓰레이션, AdServices/SDK Extensions 등의 필수 시스템 구성 요소를 제조사의 칩셋/보드 재인증 없이 원자적으로 업데이트할 수 있도록 안정된 Stable Interface(NDK, `@SystemApi`, Stable AIDL)와 CTS/VTS 테스트 모듈성을 계약 조건으로 보장한다.
+보안 취약점(CVE) 패치, 표준 미디어 코덱 업데이트, 네트워크 스택 파퓰레이션, AdServices/SDK Extensions 등의 필수 시스템 구성 요소를 제조사의 칩셋/보드 재인증 없이 원자적으로 업데이트할 수 있도록 안정된 Stable Interface(NDK, `@SystemApi`, Stable AIDL)와 **CTS/VTS**(각각 Compatibility Test Suite / Vendor Test Suite — 기기가 Android 플랫폼/HAL 계약을 지키는지 검증하는 공식 테스트 스위트) 테스트 모듈성을 계약 조건으로 보장한다.
 
 ---
 

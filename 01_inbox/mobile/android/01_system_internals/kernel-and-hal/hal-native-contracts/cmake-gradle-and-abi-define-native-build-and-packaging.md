@@ -2,13 +2,14 @@
 title: cmake-gradle-and-abi-define-native-build-and-packaging
 tags: [android, android/native, android/system-internals]
 aliases: [ABI, CMake, externalNativeBuild]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
 ## CMake, Gradle, ABI는 native build와 packaging 계약을 나눈다
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
+배경 지식: [가상 메모리](02_references/operating-systems/virtual-memory.md)
 
 Android 앱 개발 환경에서 Native C/C++ 코드를 컴파일하고 패키징할 때 CMake, AGP(Android Gradle Plugin), 그리고 ABI(Application Binary Interface)는 명확히 책임이 분리된 빌드 계약을 이룬다.
 
@@ -27,7 +28,7 @@ graph TD
 ```
 
 1. **Cross-Compilation Binding**: CMake 실행 시 AGP는 NDK 내부의 toolchain file(`android.toolchain.cmake`)을 주입하고 `-DANDROID_ABI=arm64-v8a` 및 `-DANDROID_PLATFORM=android-24` 옵션을 전달하여 기기 타깃 아키텍처에 맞게 C/C++ 바이너리를 빌드한다.
-2. **APK Packaging Contract**: APK 내부의 Native 라이브러리는 반드시 `lib/<abi_name>/lib<name>.so` 디렉터리 구조를 유지해야 한다. `extractNativeLibs="false"` 설정 시 APK 내부의 불연속 미압축 `.so` 파일을 ART 런타임이 `mmap()`으로 직접 읽어 실행한다.
+2. **APK Packaging Contract**: APK 내부의 Native 라이브러리는 반드시 `lib/<abi_name>/lib<name>.so` 디렉터리 구조를 유지해야 한다. `extractNativeLibs="false"` 설정 시 APK 내부의 압축되지 않은 `.so` 파일을 ART 런타임이 `mmap()`(파일 내용을 별도로 복사하지 않고 프로세스의 가상 주소 공간에 그대로 매핑해, 파일을 마치 메모리처럼 직접 읽고 실행할 수 있게 하는 시스템 콜)으로 직접 읽어 실행한다.
 
 ---
 

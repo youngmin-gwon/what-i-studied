@@ -2,7 +2,7 @@
 title: jni-is-explicit-boundary-between-managed-runtime-and-native-code
 tags: [android, android/native, android/system-internals]
 aliases: [JNI]
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -61,8 +61,8 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {
 
 ### 판단 기준
 
-- `jint`, `jlong`, `jobject`, `jstring`, `jarray` 는 native pointer 가 아니라 JNI 호출 규약의 타입이다. 특히 object 계열은 runtime이 관리하는 reference handle 로 취급해야 한다.
-- 긴 함수명 방식보다 `RegisterNatives`가 권장된다: load 시점에 오류를 드러내고, export symbol 노출을 줄이며, obfuscation에도 유리하다.
+- `jint`, `jlong`, `jobject`, `jstring`, `jarray` 는 native pointer 가 아니라 JNI 호출 규약의 타입이다. 특히 object 계열(`jobject`, `jstring`, `jarray` 등)은 값 자체가 메모리 주소가 아니라 runtime 이 관리하는 **reference handle**(런타임 내부 테이블을 가리키는 간접 토큰 — 자세한 수명 규칙은 [JNI reference는 local, global, weak lifetime이 다르다](jni-references-have-local-global-and-weak-lifetimes.md) 참고)로 취급해야 한다.
+- 긴 함수명 방식보다 `RegisterNatives`가 권장된다: load 시점에 오류를 드러내고(심볼 이름 오타가 런타임 크래시 대신 초기화 실패로 즉시 드러남), **export symbol**(다른 바이너리가 링크 시점에 참조할 수 있도록 `.so` 밖으로 노출된 함수 심볼) 노출을 줄이며, **obfuscation**(코드 난독화 — 역공학을 어렵게 만드는 작업)에도 유리하다.
 - class name, method signature, class loader 문맥이 런타임 연결의 일부다. 잘못된 signature는 `NoSuchMethodError`로 이어진다.
 
 ### 경계

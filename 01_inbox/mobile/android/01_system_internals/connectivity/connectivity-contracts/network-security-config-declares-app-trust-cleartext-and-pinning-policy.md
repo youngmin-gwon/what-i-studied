@@ -2,7 +2,7 @@
 title: network-security-config-declares-app-trust-cleartext-and-pinning-policy
 tags: [android, android/connectivity, android/security]
 aliases: [Network Security Config, Cleartext Traffic, Certificate Pinning]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -16,7 +16,7 @@ Android 7.0(API 24)부터 도입된 **Network Security Configuration**은 소스
 
 1. **Cleartext Traffic Enforcement (`cleartextTrafficPermitted`)**:
    - Android 9(API 28)부터 기본값은 `false`로 설정된다.
-   - 앱이 `http://` 통신을 시도하면 OkHttp / Conscrypt 레벨에서 `java.net.UnknownServiceException: CLEARTEXT communication to domain.com not permitted by network security policy` 에러를 발화하여 통신을 원천 차단한다.
+   - 앱이 `http://` 통신을 시도하면 OkHttp / **Conscrypt**(Google이 만든 Android 기본 TLS/SSL 엔진 구현체 — 앱의 모든 HTTPS 소켓이 이 위에서 인증서 검증을 수행한다) 레벨에서 `java.net.UnknownServiceException: CLEARTEXT communication to domain.com not permitted by network security policy` 에러를 발화하여 통신을 원천 차단한다.
 
 2. **Certificate Pinning (`pin-set`)**:
    - 서버의 서명 공통 키(SHA-256 Hash)를 명시하여, 중간자 공격(MITM)이나 유효한 다른 인증서의 위조 서명을 차단한다.
