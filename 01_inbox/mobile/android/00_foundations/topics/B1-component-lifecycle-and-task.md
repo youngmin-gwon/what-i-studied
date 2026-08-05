@@ -2,7 +2,7 @@
 title: B1-component-lifecycle-and-task
 tags: [android, app-framework, architecture, lifecycle, topic-synthesis]
 aliases: [Activity 생명주기, Back Stack, Task, 컴포넌트 생명주기]
-date modified: 2026-08-05 10:08:02 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 16:00:00 +09:00
 ---
 
@@ -26,23 +26,24 @@ date created: 2026-08-04 16:00:00 +09:00
 
 ### 전체 조망도
 
-```
-사용자 앱 실행
-      │
-      ▼
-[ATMS] — Activity 생명주기 상태 머신
-  INITIALIZING → STARTED → RESUMED → PAUSED → STOPPED → DESTROYED
+```mermaid
+flowchart TD
+    subgraph LIFECYCLE["ATMS — Activity 생명주기 상태 머신"]
+        start["사용자 앱 실행"] --> initializing["INITIALIZING"]
+        initializing --> started["STARTED"]
+        started --> resumed["RESUMED"]
+        resumed --> paused["PAUSED"]
+        paused --> stopped["STOPPED"]
+        stopped --> destroyed["DESTROYED"]
 
-      ┌── 설정 변경 (화면 회전, 언어)
-      │     Activity 재생성, ViewModel 유지
-      │
-      └── 프로세스 종료 (메모리 부족, 오래된 백그라운드)
-            Activity + ViewModel 모두 소멸
-            SavedStateHandle / Storage 만 복원 가능
+        stopped -- "설정 변경 (화면 회전, 언어)" --> configChange["Activity 재생성, ViewModel 유지"]
+        stopped -- "프로세스 종료 (메모리 부족, 오래된 백그라운드)" --> processDeath["Activity + ViewModel 모두 소멸"]
+        processDeath --> restore["SavedStateHandle / Storage 만 복원 가능"]
+    end
 
-[Task & Back Stack]
-  Task = "사용자가 함께 수행하는 Activity 들의 묶음"
-  Back Stack = Task 안의 Activity 순서 (LIFO)
+    subgraph TASKSTACK["Task & Back Stack"]
+        task["Task = \"사용자가 함께 수행하는 Activity 들의 묶음\""] --> backstack["Back Stack = Task 안의 Activity 순서 (LIFO)"]
+    end
 ```
 
 ---

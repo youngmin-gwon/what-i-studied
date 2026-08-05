@@ -2,7 +2,7 @@
 title: 03-deep-link-to-correct-task-and-screen-state
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["Deep link to correct task and screen state", "Deep Link가 올바른 Task와 화면 상태로 열리기까지"]
-date modified: 2026-08-05 10:07:57 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 02:30:00 +09:00
 ---
 
@@ -26,23 +26,40 @@ date created: 2026-08-04 02:30:00 +09:00
 
 ### 다층 계층별 실행 흐름 (Multi-Layer Narrative)
 
-```
-[UI Layer] External App / Browser URL Tap -> Implicit Intent (ACTION_VIEW)
-       │
-       ▼
-[System Server / IPC Layer] DomainVerificationManager / PMS Checks Verified Hosts
-       │                      -> App Link Verified: Direct Target Activity Selection
-       │                      -> ATMS Determines Target Task & Launch Mode
-       │                      -> AMS checks process state (Fork process via Zygote if dead)
-       ▼
-[Kernel / Framework Layer] Binder IPC -> ActivityThread.main() -> Target Activity
-       │                          -> Navigation 3 Route Parser / Canonicalization
-       ▼
-[App State & Task Layer] Auth State Check -> If Unauthenticated, Save PendingRoute
-       │                   -> Open Login Screen
-       │                   -> On Success, Consume PendingRoute & Build Synthetic Backstack
-       ▼
-[Display UI] Render Target Screen (Product 123) with Stack: Home -> List -> Detail
+```mermaid
+flowchart TD
+    subgraph UI["UI Layer"]
+        ui1["External App / Browser URL Tap"] --> ui2["Implicit Intent (ACTION_VIEW)"]
+    end
+
+    subgraph SYS["System Server / IPC Layer"]
+        sys1["DomainVerificationManager / PMS Checks Verified Hosts"] --> sys2["App Link Verified: Direct Target Activity Selection"]
+        sys2 --> sys3["ATMS Determines Target Task & Launch Mode"]
+        sys3 --> sys4["AMS checks process state (Fork process via Zygote if dead)"]
+    end
+
+    subgraph KERNEL["Kernel / Framework Layer"]
+        k1["Binder IPC"] --> k2["ActivityThread.main()"]
+        k2 --> k3["Target Activity"]
+        k3 --> k4["Navigation 3 Route Parser / Canonicalization"]
+    end
+
+    subgraph TASK["App State & Task Layer"]
+        auth{"Auth State Check"}
+        auth -- "Unauthenticated" --> save["Save PendingRoute"]
+        save --> login["Open Login Screen"]
+        login --> resume["On Success, Consume PendingRoute & Build Synthetic Backstack"]
+        auth -- "Authenticated" --> resume
+    end
+
+    subgraph DISPLAY["Display UI"]
+        disp["Render Target Screen (Product 123) with Stack: Home → List → Detail"]
+    end
+
+    ui2 --> sys1
+    sys4 --> k1
+    k4 --> auth
+    resume --> disp
 ```
 
 1. **UI / 입력 레이어**:

@@ -2,7 +2,7 @@
 title: reducer-does-not-depend-on-repository-coroutine-flow-or-android-api
 tags: [android, android/architecture, android/reducer, android/state-management]
 aliases: ["Reducer는 Repository, Coroutine, Flow, Android API에 의존하지 않는다"]
-date modified: 2026-08-04 13:40:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -32,12 +32,12 @@ Reducer에 금지
 
 외부 작업은 ViewModel 이나 UseCase 가 수행하고 그 결과를 action 으로 변환한다.
 
-```text
-SubmitClick
- -> ViewModel이 SubmitStarted dispatch
- -> Repository.signUp() 실행
- -> 성공/실패 action dispatch
- -> Reducer가 새 UiState 계산
+```mermaid
+flowchart TD
+    A["SubmitClick"] --> B["ViewModel이 SubmitStarted dispatch"]
+    B --> C["Repository.signUp() 실행"]
+    C --> D["성공/실패 action dispatch"]
+    D --> E["Reducer가 새 UiState 계산"]
 ```
 
 이 구조에서 ViewModel 은 작업의 수명과 취소를 조율하고, Reducer 는 작업 결과를 화면 상태로 반영하는 규칙만 안다.

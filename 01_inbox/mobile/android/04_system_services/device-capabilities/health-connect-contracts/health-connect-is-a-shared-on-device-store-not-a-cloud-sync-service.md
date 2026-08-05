@@ -2,7 +2,7 @@
 title: health-connect-is-a-shared-on-device-store-not-a-cloud-sync-service
 tags: ["android", "android/system-services"]
 aliases: ["Health Connect는 클라우드 동기화가 아니라 앱 간 공유 온디바이스 저장소다"]
-date modified: 2026-08-04 20:15:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 20:15:00 +09:00
 ---
 
@@ -41,14 +41,13 @@ when (availability) {
 
 ### 다이어그램
 
-```
-App A ──┐
-        │  HealthConnectClient (IPC)
-App B ──┼─────────────────────────────► Health Connect (별도 앱, 온디바이스 저장소)
-        │                                    │
-App C ──┘                                    ▼
-                                       사용자가 앱별 · 레코드 타입별로
-                                       read/write 권한을 개별 승인
+```mermaid
+flowchart LR
+    A["App A"] --> HC["HealthConnectClient (IPC)"]
+    B["App B"] --> HC
+    C["App C"] --> HC
+    HC --> HConnect["Health Connect (별도 앱, 온디바이스 저장소)"]
+    HConnect --> Perm["사용자가 앱별 · 레코드 타입별로 read/write 권한을 개별 승인"]
 ```
 
 ### 판단 기준

@@ -2,7 +2,7 @@
 title: ble-background-scanning-is-battery-constrained-and-needs-scan-filters
 tags: ["android", "android/system-services"]
 aliases: ["BLE 백그라운드 스캔은 배터리 제약을 받으며 ScanFilter가 필요하다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -60,18 +60,13 @@ bluetoothLeScanner.startScan(
 
 ### 다이어그램
 
-```
-스캔이 화면 종료 후에도 이어져야 하는가?
- ├─ No (화면 안에서만 필요) ──▶ ScanCallback 기반 startScan()
- │                              (Activity/ViewModel scope에서 관리, 화면 종료 시 stopScan())
- │
- └─ Yes (프로세스 종료 후에도 결과 수신 필요)
-        │
-        ├─ 간헐적 이벤트 수신만 필요 ──▶ PendingIntent 기반 startScan()
-        │                                (BroadcastReceiver가 결과 수신)
-        │
-        └─ 지속 연결·통신까지 필요 ──▶ connectedDevice foreground service
-                                        또는 CompanionDeviceService + WorkManager
+```mermaid
+flowchart TD
+    A{"스캔이 화면 종료 후에도 이어져야 하는가?"}
+    A -->|"No (화면 안에서만 필요)"| B["ScanCallback 기반 startScan() (Activity/ViewModel scope에서 관리, 화면 종료 시 stopScan())"]
+    A -->|"Yes (프로세스 종료 후에도 결과 수신 필요)"| C{"필요한 지속성 수준"}
+    C -->|"간헐적 이벤트 수신만 필요"| D["PendingIntent 기반 startScan() (BroadcastReceiver가 결과 수신)"]
+    C -->|"지속 연결·통신까지 필요"| E["connectedDevice foreground service 또는 CompanionDeviceService + WorkManager"]
 ```
 
 ### 판단 기준

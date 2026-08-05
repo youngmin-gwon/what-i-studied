@@ -2,7 +2,7 @@
 title: health-connect-permissions-are-granted-per-record-type-not-as-a-single-grant
 tags: ["android", "android/system-services"]
 aliases: ["Health Connect 권한은 레코드 타입별로 개별 부여된다"]
-date modified: 2026-08-04 20:15:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 20:15:00 +09:00
 ---
 
@@ -43,12 +43,14 @@ if (!granted.containsAll(permissions)) {
 
 ### 다이어그램
 
-```
-권한 요청 세트
-├─ READ_STEPS         ─┐
-├─ WRITE_STEPS         ├─ 레코드 타입 축 (타입마다 개별 승인/거부)
-├─ READ_HEART_RATE    ─┘
-└─ READ_HEALTH_DATA_HISTORY ─── 시간 범위 축 (30일 이전 데이터 접근 여부)
+```mermaid
+flowchart TD
+    A["권한 요청 세트"] --> B["레코드 타입 축 (타입마다 개별 승인/거부)"]
+    A --> C["시간 범위 축 (30일 이전 데이터 접근 여부)"]
+    B --> B1["READ_STEPS"]
+    B --> B2["WRITE_STEPS"]
+    B --> B3["READ_HEART_RATE"]
+    C --> C1["READ_HEALTH_DATA_HISTORY"]
 ```
 
 ### 판단 기준

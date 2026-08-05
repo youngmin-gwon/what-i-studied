@@ -2,7 +2,7 @@
 title: static-dynamic-and-pinned-shortcuts-have-different-ownership-and-lifecycle
 tags: ["android", "android/system-services"]
 aliases: ["static/dynamic/pinned shortcut은 소유권과 lifecycle이 다르다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -82,18 +82,19 @@ ShortcutManagerCompat.disableShortcuts(context, listOf("recent_chat_42"), "더 �
 
 ### 다이어그램
 
-```
-Static                 Dynamic                Pinned
-------                 -------                ------
-res/xml/shortcuts.xml  앱 런타임 코드           사용자가 길게 눌러 pin
-   │ 빌드 시 고정          │ push/update/remove     │
-   ▼                       ▼                       ▼
-앱 업데이트로만 변경    앱이 자유롭게 갱신       launcher가 소유
-                                                    │
-                                                    ├─ 앱: updateShortcuts() 콘텐츠 갱신 가능
-                                                    ├─ 앱: disableShortcuts() 비활성화 가능
-                                                    └─ 앱: 아이콘 자체 제거는 불가
-                                                          (사용자가 launcher에서 직접 제거)
+```mermaid
+flowchart TD
+    Static["Static"] --> S1["res/xml/shortcuts.xml"]
+    S1 -->|"빌드 시 고정"| S2["앱 업데이트로만 변경"]
+
+    Dynamic["Dynamic"] --> D1["앱 런타임 코드"]
+    D1 -->|"push/update/remove"| D2["앱이 자유롭게 갱신"]
+
+    Pinned["Pinned"] --> P1["사용자가 길게 눌러 pin"]
+    P1 --> P2["launcher가 소유"]
+    P2 --> P3["앱: updateShortcuts() 콘텐츠 갱신 가능"]
+    P2 --> P4["앱: disableShortcuts() 비활성화 가능"]
+    P2 --> P5["앱: 아이콘 자체 제거는 불가 (사용자가 launcher에서 직접 제거)"]
 ```
 
 ### 판단 기준

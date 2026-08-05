@@ -2,7 +2,7 @@
 title: viewmodel-orchestrates-screen-state-and-external-work
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["ViewModel은 화면 단위 상태와 외부 작업을 조율한다"]
-date modified: 2026-08-03 17:28:04 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -38,12 +38,12 @@ ViewModel 은 Activity 나 Fragment 의 메서드를 호출하지 않는다.
 
 ### 흐름
 
-```text
-사용자 입력
-  -> UI 컨트롤러가 ViewModel 메서드 호출
-  -> ViewModel이 외부 작업 조율
-  -> 결과를 UiState로 반영
-  -> UI가 UiState를 관찰하고 렌더링
+```mermaid
+flowchart TD
+    A["사용자 입력"] --> B["UI 컨트롤러가 ViewModel 메서드 호출"]
+    B --> C["ViewModel이 외부 작업 조율"]
+    C --> D["결과를 UiState로 반영"]
+    D --> E["UI가 UiState를 관찰하고 렌더링"]
 ```
 
 ```kotlin

@@ -2,7 +2,7 @@
 title: aicore-manages-gemini-nano-as-a-shared-system-model-not-a-bundled-asset
 tags: ["android", "android/system-services"]
 aliases: ["AICore는 Gemini Nano를 앱마다 번들되지 않는 공유 시스템 모델로 관리한다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -56,16 +56,20 @@ val summarizer = Summarization.getClient(
 
 ### 다이어그램
 
-```
-LiteRT 커스텀 모델 배포 모델            AICore/Gemini Nano 배포 모델
---------------------------            -----------------------------
-App A ── .tflite 번들 (앱 A 전용)      App A ─┐
-App B ── .tflite 번들 (앱 B 전용)      App B ─┼─▶ ML Kit GenAI 클라이언트 API
-App C ── 자체 다운로드 로직            App C ─┘        │
-   │                                                    ▼
-   ▼                                          AICore 시스템 서비스
-각 앱 디스크/메모리 예산 소비                (Gemini Nano 단일 인스턴스,
-버전 관리 책임 = 각 앱                        OS가 배포·업데이트 관리)
+```mermaid
+flowchart TD
+    subgraph LiteRT["LiteRT 커스텀 모델 배포 모델"]
+        LA["App A"] -->|".tflite 번들 (앱 A 전용)"| LR["각 앱 디스크/메모리 예산 소비, 버전 관리 책임 = 각 앱"]
+        LB["App B"] -->|".tflite 번들 (앱 B 전용)"| LR
+        LC["App C"] -->|"자체 다운로드 로직"| LR
+    end
+    subgraph AICoreModel["AICore/Gemini Nano 배포 모델"]
+        AA["App A"] --> API["ML Kit GenAI 클라이언트 API"]
+        AB["App B"] --> API
+        AC["App C"] --> API
+        API --> SVC["AICore 시스템 서비스"]
+        SVC --> RES["Gemini Nano 단일 인스턴스, OS가 배포·업데이트 관리"]
+    end
 ```
 
 ### 판단 기준

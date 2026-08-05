@@ -2,7 +2,7 @@
 title: reducer-calculates-next-state-from-previous-state-and-action
 tags: [android, android/architecture, android/reducer, android/state-management]
 aliases: ["Reducer는 이전 상태와 Action만 받아 새 상태를 계산한다"]
-date modified: 2026-08-03 17:27:43 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -38,12 +38,14 @@ class SignUpReducer {
 
 ViewModel 은 action 을 dispatch 하고, Repository 결과를 다시 action 으로 바꾸는 조정자다.
 
-```text
-UI action -> ViewModel
-ViewModel -> Reducer(state, action)
-Reducer   -> new state
-ViewModel -> Repository 작업
-Repository 결과 -> success/failure action -> Reducer
+```mermaid
+flowchart TD
+    A["UI action"] --> B["ViewModel"]
+    B --> C["Reducer(state, action)"]
+    C --> D["new state"]
+    B --> E["Repository 작업"]
+    E --> F["Repository 결과 → success/failure action"]
+    F --> C
 ```
 
 Reducer 를 별도 클래스로 만들지 않고 ViewModel 의 작은 `update` 블록으로 유지해도 계약은 같다.

@@ -2,7 +2,7 @@
 title: A1-boot-and-process
 tags: [android, boot, system-internals, topic-synthesis]
 aliases: [Android 부팅, Boot Topic, 프로세스 생성]
-date modified: 2026-08-05 10:03:54 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 16:00:00 +09:00
 ---
 
@@ -26,29 +26,22 @@ date created: 2026-08-04 16:00:00 +09:00
 
 ### 전체 조망도
 
-```plaintext
-전원 ON
-  │
-  ▼
-[Bootloader] — Verified Boot(AVB) 슬롯 검증
-  │
-  ▼
-[Linux Kernel] — 드라이버 초기화, /dev 구성
-  │
-  ▼
-[init (PID 1)] — .rc 스크립트 파싱, 데몬 시작
-  │
-  ├─ [ueventd]  — /dev 노드 권한 설정
-  ├─ [logd]     — 로그 버퍼 데몬
-  ├─ [vold]     — 볼륨 마운트
-  └─ [Zygote]   ──────────────────────────┐
-                                           │ fork()
-  [SystemServer] ◄── Zygote fork           │
-  (AMS, PMS, WMS, ...)                    ▼
-                                   [App Process]
-                                   specialization
-                                   ActivityThread.main()
-                                   AMS.attachApplication()
+```mermaid
+flowchart TD
+    power["전원 ON"] --> bootloader["Bootloader — Verified Boot(AVB) 슬롯 검증"]
+    bootloader --> kernel["Linux Kernel — 드라이버 초기화, /dev 구성"]
+    kernel --> init["init (PID 1) — .rc 스크립트 파싱, 데몬 시작"]
+
+    init --> ueventd["ueventd — /dev 노드 권한 설정"]
+    init --> logd["logd — 로그 버퍼 데몬"]
+    init --> vold["vold — 볼륨 마운트"]
+    init --> zygote["Zygote"]
+
+    zygote -- "fork()" --> systemserver["SystemServer (AMS, PMS, WMS, ...)"]
+    zygote -- "fork()" --> appprocess["App Process"]
+    appprocess --> specialization["specialization"]
+    specialization --> activitythread["ActivityThread.main()"]
+    activitythread --> attach["AMS.attachApplication()"]
 ```
 
 **핵심 규칙**: 각 단계는 이전 단계가 준비한 환경 위에서만 시작한다. Zygote 는 init 이 시작하고, SystemServer 와 모든 앱 프로세스는 Zygote 가 fork 한다.

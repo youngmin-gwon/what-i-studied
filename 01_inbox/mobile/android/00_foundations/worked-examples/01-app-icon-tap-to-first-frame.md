@@ -2,7 +2,7 @@
 title: 01-app-icon-tap-to-first-frame
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["App icon tap to first frame", "앱 아이콘 탭에서 첫 프레임까지"]
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 02:10:00 +09:00
 ---
 
@@ -29,25 +29,45 @@ date created: 2026-08-04 02:10:00 +09:00
 
 ### 다층 계층별 실행 흐름 (Multi-Layer Narrative)
 
-```
-[UI Layer] Touch Event (InputDispatcher) -> Launcher Component Match
-       │
-       ▼
-[System Server / IPC Layer] Launcher calls ATMS via Binder IPC -> PMS Manifest Check
-       │                      -> AMS checks process state (Cold Start)
-       │                      -> AMS requests Zygote via Socket (/dev/socket/zygote)
-       ▼
-[Kernel / Hardware Layer] Zygote fork() Syscall -> Copy-On-Write Page Mapping
-       │                    -> Android 15/16 16KB Page Alignment & mmap Verification
-       │                    -> Specialization (UID/GID, Cgroups, SELinux Context)
-       ▼
-[App Framework Layer] ActivityThread.main() -> Looper.prepareMainLooper()
-       │                -> Application.onCreate() -> SplashScreen API Initialization
-       │                -> Activity.onCreate() -> onStart() -> onResume()
-       │                -> ViewRootImpl.setView() -> Choreographer#doFrame
-       ▼
-[Display / Graphics Hardware] RenderThread -> EGL/Vulkan Surface Swap
-                         -> SurfaceFlinger Composition -> Display Controller (HWC)
+```mermaid
+flowchart TD
+    subgraph UI["UI Layer"]
+        ui1["Touch Event (InputDispatcher)"] --> ui2["Launcher Component Match"]
+    end
+
+    subgraph SYS["System Server / IPC Layer"]
+        sys1["Launcher calls ATMS via Binder IPC"] --> sys2["PMS Manifest Check"]
+        sys2 --> sys3["AMS checks process state (Cold Start)"]
+        sys3 --> sys4["AMS requests Zygote via Socket (/dev/socket/zygote)"]
+    end
+
+    subgraph KERNEL["Kernel / Hardware Layer"]
+        k1["Zygote fork() Syscall"] --> k2["Copy-On-Write Page Mapping"]
+        k2 --> k3["Android 15/16 16KB Page Alignment & mmap Verification"]
+        k3 --> k4["Specialization (UID/GID, Cgroups, SELinux Context)"]
+    end
+
+    subgraph APP["App Framework Layer"]
+        a1["ActivityThread.main()"] --> a2["Looper.prepareMainLooper()"]
+        a2 --> a3["Application.onCreate()"]
+        a3 --> a4["SplashScreen API Initialization"]
+        a4 --> a5["Activity.onCreate()"]
+        a5 --> a6["onStart()"]
+        a6 --> a7["onResume()"]
+        a7 --> a8["ViewRootImpl.setView()"]
+        a8 --> a9["Choreographer#doFrame"]
+    end
+
+    subgraph DISPLAY["Display / Graphics Hardware"]
+        d1["RenderThread"] --> d2["EGL/Vulkan Surface Swap"]
+        d2 --> d3["SurfaceFlinger Composition"]
+        d3 --> d4["Display Controller (HWC)"]
+    end
+
+    ui2 --> sys1
+    sys4 --> k1
+    k4 --> a1
+    a9 --> d1
 ```
 
 1. **UI / 입력 레이어**:

@@ -2,7 +2,7 @@
 title: 02-photo-capture-preview-save-upload
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["Photo capture, preview, save, and upload", "사진 촬영, preview, 저장, 업로드까지"]
-date modified: 2026-08-05 10:08:19 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 02:20:00 +09:00
 ---
 
@@ -26,26 +26,39 @@ date created: 2026-08-04 02:20:00 +09:00
 
 ### 다층 계층별 실행 흐름 (Multi-Layer Narrative)
 
-```
-[UI Layer] PreviewView (SurfaceView) Display & Shutter Button Tap
-       │
-       ▼
-[App Framework Layer] CameraX / Camera2 (ProcessCameraProvider)
-       │               -> AppOpsManager & Permission Verification
-       │               -> CameraDevice.createCaptureSession()
-       │               -> ImageReader acquires hardware frame buffer
-       ▼
-[System Server / IPC Layer] Binder IPC to CameraService (cameraserver)
-       │                      -> AppOpsService Privacy Switch Check
-       │                      -> MediaProvider IPC for MediaStore insertion
-       │                      -> WorkManager JobScheduler persistence
-       ▼
-[Kernel / Hardware Layer] Camera Service communicates via AIDL to Camera HAL3
-       │                    -> Hardware ISP (Image Signal Processor) capturing
-       │                    -> Gralloc / HardwareBuffer DMA-BUF zero-copy allocation
-       │                    -> NVMe / UFS Storage write (f2fs/ext4)
-       ▼
-[Network / Background Work] WorkManager -> Baseband Modem Driver -> Cloud Server
+```mermaid
+flowchart TD
+    subgraph UI["UI Layer"]
+        ui1["PreviewView (SurfaceView) Display & Shutter Button Tap"]
+    end
+
+    subgraph APP["App Framework Layer"]
+        a1["CameraX / Camera2 (ProcessCameraProvider)"] --> a2["AppOpsManager & Permission Verification"]
+        a2 --> a3["CameraDevice.createCaptureSession()"]
+        a3 --> a4["ImageReader acquires hardware frame buffer"]
+    end
+
+    subgraph SYS["System Server / IPC Layer"]
+        sys1["Binder IPC to CameraService (cameraserver)"] --> sys2["AppOpsService Privacy Switch Check"]
+        sys2 --> sys3["MediaProvider IPC for MediaStore insertion"]
+        sys3 --> sys4["WorkManager JobScheduler persistence"]
+    end
+
+    subgraph KERNEL["Kernel / Hardware Layer"]
+        k1["Camera Service communicates via AIDL to Camera HAL3"] --> k2["Hardware ISP (Image Signal Processor) capturing"]
+        k2 --> k3["Gralloc / HardwareBuffer DMA-BUF zero-copy allocation"]
+        k3 --> k4["NVMe / UFS Storage write (f2fs/ext4)"]
+    end
+
+    subgraph NET["Network / Background Work"]
+        n1["WorkManager"] --> n2["Baseband Modem Driver"]
+        n2 --> n3["Cloud Server"]
+    end
+
+    ui1 --> a1
+    a4 --> sys1
+    sys4 --> k1
+    k4 --> n1
 ```
 
 1. **UI / 입력 레이어**:

@@ -2,7 +2,7 @@
 title: bluetoothgatt-callback-connection-needs-an-explicit-state-machine
 tags: ["android", "android/system-services"]
 aliases: ["BluetoothGatt 콜백 기반 연결은 명시적 상태 머신이 필요하다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -75,21 +75,14 @@ class GattStateHolder {
 
 ### 다이어그램
 
-```
-STATE_DISCONNECTED (0)
-     │ connectGatt()
-     ▼
-STATE_CONNECTING (1)
-     │ onConnectionStateChange(newState = STATE_CONNECTED)
-     ▼
-STATE_CONNECTED (2) ──discoverServices()──▶ onServicesDiscovered()
-     │
-     │ disconnect() 또는 원격 기기 연결 끊김
-     ▼
-STATE_DISCONNECTING (3)
-     │ onConnectionStateChange(newState = STATE_DISCONNECTED)
-     ▼
-STATE_DISCONNECTED (0) ──gatt.close() 필수──▶ 리소스 해제
+```mermaid
+flowchart TD
+    A["STATE_DISCONNECTED (0)"] -->|"connectGatt()"| B["STATE_CONNECTING (1)"]
+    B -->|"onConnectionStateChange(newState = STATE_CONNECTED)"| C["STATE_CONNECTED (2)"]
+    C -->|"discoverServices()"| D["onServicesDiscovered()"]
+    C -->|"disconnect() 또는 원격 기기 연결 끊김"| E["STATE_DISCONNECTING (3)"]
+    E -->|"onConnectionStateChange(newState = STATE_DISCONNECTED)"| F["STATE_DISCONNECTED (0)"]
+    F -->|"gatt.close() 필수"| G["리소스 해제"]
 ```
 
 ### 판단 기준

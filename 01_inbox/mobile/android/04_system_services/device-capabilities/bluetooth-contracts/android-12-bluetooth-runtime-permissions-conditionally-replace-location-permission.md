@@ -2,7 +2,7 @@
 title: android-12-bluetooth-runtime-permissions-conditionally-replace-location-permission
 tags: ["android", "android/system-services"]
 aliases: ["Android 12+ Bluetooth 런타임 권한은 조건부로만 위치 권한을 대체한다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -59,17 +59,16 @@ Android 12+는 이 결합을 끊는다. 앱이 스캔 결과로 물리적 위치
 
 ### 다이어그램
 
-```
-targetSdk >= 31?
- ├─ No  → BLUETOOTH, BLUETOOTH_ADMIN, ACCESS_FINE_LOCATION (레거시 모델)
- └─ Yes → BLUETOOTH_SCAN, BLUETOOTH_CONNECT[, BLUETOOTH_ADVERTISE] 선언
-             │
-             ▼
-        스캔 결과로 물리적 위치를 유추하는가?
-         ├─ Yes → ACCESS_FINE_LOCATION 유지 (neverForLocation 미부여)
-         └─ No  → BLUETOOTH_SCAN에 neverForLocation 부여
-                    → ACCESS_FINE_LOCATION은 maxSdkVersion=30만 유지
-                    → 대가: 일부 BLE 비콘이 스캔 결과에서 필터링됨
+```mermaid
+flowchart TD
+    A{"targetSdk >= 31?"}
+    A -->|"No"| B["BLUETOOTH, BLUETOOTH_ADMIN, ACCESS_FINE_LOCATION (레거시 모델)"]
+    A -->|"Yes"| C["BLUETOOTH_SCAN, BLUETOOTH_CONNECT, BLUETOOTH_ADVERTISE(선택) 선언"]
+    C --> D{"스캔 결과로 물리적 위치를 유추하는가?"}
+    D -->|"Yes"| E["ACCESS_FINE_LOCATION 유지 (neverForLocation 미부여)"]
+    D -->|"No"| F["BLUETOOTH_SCAN에 neverForLocation 부여"]
+    F --> G["ACCESS_FINE_LOCATION은 maxSdkVersion=30만 유지"]
+    G --> H["대가: 일부 BLE 비콘이 스캔 결과에서 필터링됨"]
 ```
 
 ### 판단 기준

@@ -2,7 +2,7 @@
 title: font-requests-go-through-xml-font-family-or-fontrequest-code-and-need-a-fallback-on-failure
 tags: ["android", "android/app-framework"]
 aliases: ["폰트 요청은 XML font-family 선언이나 FontRequest 코드 경로를 따르며 실패 시 폴백이 필요하다"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -67,20 +67,15 @@ FontsContractCompat.requestFonts(context, request, mainThreadHandler, /* cancell
 
 ### 다이어그램
 
-```
-요청 경로 선택
-   ┌────────────┴────────────┐
-   │ XML font-family          │ 코드 FontRequest
-   │ (레이아웃에서 정적 참조)  │ (동적 조건 분기, 재시도 로직 필요 시)
-   └────────────┬────────────┘
-                ▼
-   fontProviderCerts / certs 파라미터로 제공자 서명 검증
-                ▼
-        요청 처리 (제공자 앱)
-   ┌────────────┴────────────┐
-   │ 성공 ──▶ onTypefaceRetrieved(typeface) │
-   │ 실패 ──▶ onTypefaceRequestFailed(reason) ──▶ 폴백 폰트로 전환 │
-   └──────────────────────────┘
+```mermaid
+flowchart TD
+    A{"요청 경로 선택"}
+    A -->|"XML font-family (레이아웃에서 정적 참조)"| B["fontProviderCerts / certs 파라미터로 제공자 서명 검증"]
+    A -->|"코드 FontRequest (동적 조건 분기, 재시도 로직 필요 시)"| B
+    B --> C["요청 처리 (제공자 앱)"]
+    C -->|"성공"| D["onTypefaceRetrieved(typeface)"]
+    C -->|"실패"| E["onTypefaceRequestFailed(reason)"]
+    E --> F["폴백 폰트로 전환"]
 ```
 
 ### 판단 기준

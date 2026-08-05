@@ -2,7 +2,7 @@
 title: appsearch-is-an-on-device-search-index-not-a-cloud-search-engine
 tags: ["android", "android/system-services"]
 aliases: ["AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -56,18 +56,14 @@ val setSchemaRequest = SetSchemaRequest.Builder()
 
 ### 다이어그램
 
-```
-앱 데이터
-   │ @Document 스키마로 매핑
-   ▼
-AppSearchSession.setSchema() / put()
-   │
-   ├─ LocalStorage ───────────▶ 앱 전용 색인 (이 앱만 조회)
-   │
-   └─ PlatformStorage(12+) ───▶ 시스템 전역 색인
-      또는 PlayServicesStorage      │ setSchemaTypeDisplayedBySystem(true) 인 스키마만
-                                     ▼
-                              설정 앱 검색 등 System UI 표면 노출
+```mermaid
+flowchart TD
+    A["앱 데이터"] -->|"@Document 스키마로 매핑"| B["AppSearchSession.setSchema() / put()"]
+    B --> C["LocalStorage"]
+    C --> D["앱 전용 색인 (이 앱만 조회)"]
+    B --> E["PlatformStorage(12+) 또는 PlayServicesStorage"]
+    E --> F["시스템 전역 색인"]
+    F -->|"setSchemaTypeDisplayedBySystem(true) 인 스키마만"| G["설정 앱 검색 등 System UI 표면 노출"]
 ```
 
 ### 판단 기준

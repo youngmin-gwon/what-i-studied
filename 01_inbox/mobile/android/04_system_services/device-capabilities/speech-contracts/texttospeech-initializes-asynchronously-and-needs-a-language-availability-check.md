@@ -2,7 +2,7 @@
 title: texttospeech-initializes-asynchronously-and-needs-a-language-availability-check
 tags: ["android", "android/system-services"]
 aliases: ["TextToSpeech는 비동기로 초기화되며 사용 전 언어 가용성을 확인해야 한다"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -66,22 +66,15 @@ class TtsActivity : AppCompatActivity() {
 
 ### 다이어그램
 
-```
-TextToSpeech(context, listener) 생성 (즉시 반환)
-        │
-        ▼
-  엔진 바인딩/초기화 진행 (비동기)
-        │
-        ▼
-  onInit(status)
-   ┌────┴────┐
-   │ SUCCESS │──▶ setLanguage(locale) 호출
-   │         │       ┌───────────────────────────┐
-   │         │       │ LANG_AVAILABLE 계열 ──▶ speak() 가능 │
-   │         │       │ LANG_MISSING_DATA / LANG_NOT_SUPPORTED ──▶ 폴백 필요 │
-   │         │       └───────────────────────────┘
-   │ ERROR   │──▶ 이 인스턴스로는 발화 불가
-   └─────────┘
+```mermaid
+flowchart TD
+    A["TextToSpeech(context, listener) 생성 (즉시 반환)"] --> B["엔진 바인딩/초기화 진행 (비동기)"]
+    B --> C{"onInit(status)"}
+    C -->|"SUCCESS"| D["setLanguage(locale) 호출"]
+    D --> E{"setLanguage 반환값"}
+    E -->|"LANG_AVAILABLE 계열"| F["speak() 가능"]
+    E -->|"LANG_MISSING_DATA / LANG_NOT_SUPPORTED"| G["폴백 필요"]
+    C -->|"ERROR"| H["이 인스턴스로는 발화 불가"]
 ```
 
 ### 판단 기준

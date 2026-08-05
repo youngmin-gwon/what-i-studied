@@ -2,7 +2,7 @@
 title: on-device-inference-skips-the-network-round-trip-cloud-inference-needs
 tags: ["android", "android/system-services"]
 aliases: ["온디바이스 추론은 클라우드 추론이 필요로 하는 네트워크 왕복을 건너뛴다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -64,17 +64,19 @@ updateUi(response.text)
 
 ### 다이어그램
 
-```
-[온디바이스 경로: ML Kit / LiteRT]
-App 프로세스 ──(로컬 함수 호출)──▶ 번들/다운로드된 모델 ──▶ 결과
-   │
-   └─ 네트워크 연결 불필요, 요청 데이터가 기기 밖으로 나가지 않음
-
-[클라우드 경로: Firebase AI Logic 등]
-App 프로세스 ──HTTPS 요청──▶ 네트워크 ──▶ 서버 모델 추론
-   ▲                                            │
-   └────────────── HTTPS 응답 ──────────────────┘
-   지연 = 네트워크 왕복 시간 + 서버 큐잉 + 추론 시간
+```mermaid
+flowchart TD
+    subgraph OnDevice["온디바이스 경로: ML Kit / LiteRT"]
+        A1["App 프로세스"] -->|"로컬 함수 호출"| A2["번들/다운로드된 모델"]
+        A2 --> A3["결과"]
+        A1 --> A4["네트워크 연결 불필요, 요청 데이터가 기기 밖으로 나가지 않음"]
+    end
+    subgraph Cloud["클라우드 경로: Firebase AI Logic 등"]
+        B1["App 프로세스"] -->|"HTTPS 요청"| B2["네트워크"]
+        B2 --> B3["서버 모델 추론"]
+        B3 -->|"HTTPS 응답"| B1
+        B3 --> B4["지연 = 네트워크 왕복 시간 + 서버 큐잉 + 추론 시간"]
+    end
 ```
 
 ### 판단 기준

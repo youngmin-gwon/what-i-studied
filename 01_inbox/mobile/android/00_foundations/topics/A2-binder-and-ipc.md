@@ -2,7 +2,7 @@
 title: A2-binder-and-ipc
 tags: [android, binder, ipc, system-internals, topic-synthesis]
 aliases: [Android IPC Topic, Binder IPC]
-date modified: 2026-08-05 10:00:55 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 16:00:00 +09:00
 ---
 
@@ -26,24 +26,14 @@ date created: 2026-08-04 16:00:00 +09:00
 
 ### 전체 조망도
 
-```
-[Client Process]
-    │
-    │  handle → IBinder proxy
-    │
-    ▼
-[Binder Driver (/dev/binder)]  ← 커널 공간
-    │  single-copy mmap
-    │  caller UID/PID 주입
-    │  object reference 중재
-    ▼
-[Server Process]
-    │  Binder thread pool 에서 onTransact()
-    │
-    ▼
-  reply → caller 로 반환
+```mermaid
+flowchart TD
+    client["Client Process"] -- "handle → IBinder proxy" --> driver["Binder Driver (/dev/binder) — 커널 공간"]
+    driver -- "single-copy mmap · caller UID/PID 주입 · object reference 중재" --> server["Server Process"]
+    server -- "Binder thread pool 에서 onTransact()" --> reply["reply → caller 로 반환"]
+    reply --> client
 
-[ServiceManager] : "이름 → IBinder handle" 레지스트리
+    servicemanager["ServiceManager — \"이름 → IBinder handle\" 레지스트리"] -. "이름 조회로 handle 제공" .-> client
 ```
 
 **핵심**: Binder 의 차별점은 byte stream 이 아니라 **커널이 중재하는 객체 참조(capability)** 다. 권한 검사, 신원 확인, 프로세스 간 메모리 전달이 모두 커널 드라이버 수준에서 이루어진다.

@@ -2,7 +2,7 @@
 title: speechrecognizer-is-a-callback-based-contract-gated-by-record-audio-permission
 tags: ["android", "android/system-services"]
 aliases: ["SpeechRecognizer는 RECORD_AUDIO 권한을 전제로 하는 콜백 기반 비동기 계약이다"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -75,24 +75,20 @@ class VoiceCommandActivity : AppCompatActivity() {
 
 ### 다이어그램
 
-```
-RECORD_AUDIO 런타임 권한 승인?
-        │ 아니오 ──▶ onError(ERROR_INSUFFICIENT_PERMISSIONS)
-        │ 예
-        ▼
-isOnDeviceRecognitionAvailable(context)?
-   ┌────┴────┐
-   │ true    │──▶ createOnDeviceSpeechRecognizer(context)  (오프라인 동작)
-   │ false   │──▶ createSpeechRecognizer(context)           (네트워크 필요할 수 있음)
-   └────┬────┘
-        ▼
-setRecognitionListener(listener)  ← startListening()보다 먼저
-        ▼
-startListening(intent)
-        ▼
-onReadyForSpeech → onBeginningOfSpeech → onResults(성공) / onError(실패, 원인별 코드)
-        ▼
-destroy()
+```mermaid
+flowchart TD
+    A{"RECORD_AUDIO 런타임 권한 승인?"}
+    A -->|"아니오"| A1["onError(ERROR_INSUFFICIENT_PERMISSIONS)"]
+    A -->|"예"| B{"isOnDeviceRecognitionAvailable(context)?"}
+    B -->|"true"| C["createOnDeviceSpeechRecognizer(context) (오프라인 동작)"]
+    B -->|"false"| D["createSpeechRecognizer(context) (네트워크 필요할 수 있음)"]
+    C --> E["setRecognitionListener(listener), startListening()보다 먼저 등록"]
+    D --> E
+    E --> F["startListening(intent)"]
+    F --> G["onReadyForSpeech"]
+    G --> H["onBeginningOfSpeech"]
+    H --> I["onResults(성공) / onError(실패, 원인별 코드)"]
+    I --> J["destroy()"]
 ```
 
 ### 판단 기준

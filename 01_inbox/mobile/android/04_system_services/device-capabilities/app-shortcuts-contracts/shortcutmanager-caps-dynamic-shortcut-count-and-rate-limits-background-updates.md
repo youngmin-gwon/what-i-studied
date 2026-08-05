@@ -2,7 +2,7 @@
 title: shortcutmanager-caps-dynamic-shortcut-count-and-rate-limits-background-updates
 tags: ["android", "android/system-services"]
 aliases: ["ShortcutManager는 동적 shortcut 개수를 제한하고 백그라운드 갱신에 rate limit을 건다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -68,21 +68,17 @@ fun pushRecentChatShortcut(context: Context, chat: RecentChat): Boolean {
 
 ### 다이어그램
 
-```
-개수 상한 (static + dynamic 합산)
- └─ getMaxShortcutCountPerActivity() 초과 시 추가 실패
- └─ pinned shortcut은 이 상한과 무관 (제한 없음)
+```mermaid
+flowchart TD
+    A["개수 상한 (static + dynamic 합산)"] --> A1["getMaxShortcutCountPerActivity() 초과 시 추가 실패"]
+    A --> A2["pinned shortcut은 이 상한과 무관 (제한 없음)"]
 
-Rate limit (setDynamicShortcuts/addDynamicShortcuts/updateShortcuts 호출 빈도)
- 앱이 background 인가?
-  ├─ No (foreground activity/service 있음) → rate limit 미적용, 자유롭게 호출
-  └─ Yes → 호출 횟수 제한 적용
-             │
-             ├─ isRateLimitingActive() == true → 추가 호출 무시/실패 가능
-             └─ 리셋 이벤트 발생 시 다시 호출 가능:
-                  - 앱이 foreground로 전환
-                  - 시스템 로케일 변경
-                  - 알림 inline reply 수행
+    B["Rate limit (setDynamicShortcuts/addDynamicShortcuts/updateShortcuts 호출 빈도)"] --> C{"앱이 background 인가?"}
+    C -->|"No (foreground activity/service 있음)"| D["rate limit 미적용, 자유롭게 호출"]
+    C -->|"Yes"| E["호출 횟수 제한 적용"]
+    E --> F{"isRateLimitingActive() == true?"}
+    F -->|"true"| G["추가 호출 무시/실패 가능"]
+    F -->|"리셋 이벤트 발생"| H["다시 호출 가능: 앱이 foreground로 전환 / 시스템 로케일 변경 / 알림 inline reply 수행"]
 ```
 
 ### 판단 기준

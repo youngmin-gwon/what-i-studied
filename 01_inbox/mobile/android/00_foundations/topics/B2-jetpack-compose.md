@@ -2,7 +2,7 @@
 title: B2-jetpack-compose
 tags: [android, jetpack-compose, topic-synthesis]
 aliases: [Compose Topic, Jetpack Compose 합성]
-date modified: 2026-08-05 10:08:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 16:00:00 +09:00
 ---
 
@@ -26,23 +26,16 @@ date created: 2026-08-04 16:00:00 +09:00
 
 ### 전체 조망도
 
-```
-사용자 이벤트
-      │
-      ▼
-[ViewModel] ── StateFlow<UiState>
-      │                │
-      │          collectAsStateWithLifecycle()
-      │                │
-      ▼                ▼
-[Composable] ←── State<UiState>
-      │
-      ├─ Composition (무엇을 보여줄지)
-      ├─ Layout     (어디에 배치할지)
-      └─ Drawing    (어떻게 그릴지)
-             │
-             ▼
-      [SurfaceFlinger → 화면]
+```mermaid
+flowchart TD
+    event["사용자 이벤트"] --> vm["ViewModel"]
+    vm -- "StateFlow&lt;UiState&gt;" --> collect["collectAsStateWithLifecycle()"]
+    collect -- "State&lt;UiState&gt;" --> composable["Composable"]
+
+    composable --> composition["Composition (무엇을 보여줄지)"]
+    composable --> layout["Layout (어디에 배치할지)"]
+    composable --> drawing["Drawing (어떻게 그릴지)"]
+    drawing --> surfaceflinger["SurfaceFlinger → 화면"]
 ```
 
 Compose 의 실행 모델은 크게 세 단계다.

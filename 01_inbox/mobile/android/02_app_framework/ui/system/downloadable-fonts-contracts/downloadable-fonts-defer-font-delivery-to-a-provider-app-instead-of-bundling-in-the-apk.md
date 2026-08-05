@@ -2,7 +2,7 @@
 title: downloadable-fonts-defer-font-delivery-to-a-provider-app-instead-of-bundling-in-the-apk
 tags: ["android", "android/app-framework"]
 aliases: ["Downloadable Fonts는 폰트를 APK에 번들하지 않고 폰트 제공자 앱에 요청 시점에 위임한다"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -64,19 +64,14 @@ dependencies {
 
 ### 다이어그램
 
-```
-앱 (font-family 리소스 또는 FontRequest)
-        │ 폰트 요청
-        ▼
-폰트 제공자 앱 (예: Google Play services의 Google Fonts provider)
-        │
-   ┌────┴────┐
-   │ 로컬 캐시에 있음 ──▶ 즉시 typeface 반환
-   │ 캐시에 없음 ──▶ 네트워크에서 다운로드 → 로컬 캐싱 → typeface 반환
-   └─────────┘
-        │
-        ▼
-onTypefaceRetrieved(typeface)  또는  onTypefaceRequestFailed(reason)
+```mermaid
+flowchart TD
+    A["앱 (font-family 리소스 또는 FontRequest)"] -->|"폰트 요청"| B["폰트 제공자 앱 (예: Google Play services의 Google Fonts provider)"]
+    B --> C{"로컬 캐시 상태"}
+    C -->|"로컬 캐시에 있음"| D["즉시 typeface 반환"]
+    C -->|"캐시에 없음"| E["네트워크에서 다운로드 → 로컬 캐싱 → typeface 반환"]
+    D --> F["onTypefaceRetrieved(typeface) 또는 onTypefaceRequestFailed(reason)"]
+    E --> F
 ```
 
 ### 판단 기준

@@ -2,7 +2,7 @@
 title: 04-fcm-to-notification-display-and-tap-recovery
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["FCM delivery to notification display and tap recovery", "FCM 전송에서 Notification 표시와 탭 복구까지"]
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 02:40:00 +09:00
 ---
 
@@ -26,24 +26,42 @@ date created: 2026-08-04 02:40:00 +09:00
 
 ### 다층 계층별 실행 흐름 (Multi-Layer Narrative)
 
-```
-[Cloud Server & FCM Network] Server HTTP v1 API Request -> FCM Gateway
-       │                                                      -> MCS Persistent Socket Connection
-       ▼
-[System Server / IPC Layer] Google Play Services / MCS Client receives socket payload
-       │                      -> NotificationManagerService (NMS) Permission Check
-       │                      -> AppOpsService (POST_NOTIFICATIONS) & Channel Check
-       ▼
-[App Framework & System UI] NMS posts Notification to System UI Shade Tray
-       │                      -> If Foreground, MyFirebaseMessagingService.onMessageReceived()
-       ▼
-[User Tap & BAL Security Gate] User taps Notification -> PendingIntent Triggered
-       │                         -> ATMS Enforces Android 14/15 BAL (Background Activity Launch) Rules
-       │                         -> Requires ActivityOptions (MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
-       │                         -> AMS Launches Target Activity (Fork Process if Dead)
-       ▼
-[App Data & Recovery Layer] Read Payload Extra ID -> Re-query Server SSOT (API/DB)
-                         -> Render Fresh Screen -> Execute Full Sync for Missed Messages
+```mermaid
+flowchart TD
+    subgraph CLOUD["Cloud Server & FCM Network"]
+        c1["Server HTTP v1 API Request"] --> c2["FCM Gateway"]
+        c2 --> c3["MCS Persistent Socket Connection"]
+    end
+
+    subgraph SYS["System Server / IPC Layer"]
+        s1["Google Play Services / MCS Client receives socket payload"] --> s2["NotificationManagerService (NMS) Permission Check"]
+        s2 --> s3["AppOpsService (POST_NOTIFICATIONS) & Channel Check"]
+    end
+
+    subgraph APPUI["App Framework & System UI"]
+        state{"앱 상태"}
+        state -- "포그라운드" --> foreground["MyFirebaseMessagingService.onMessageReceived()"]
+        state -- "백그라운드/종료" --> tray["NMS posts Notification to System UI Shade Tray"]
+    end
+
+    subgraph TAP["User Tap & BAL Security Gate"]
+        u1["User taps Notification"] --> u2["PendingIntent Triggered"]
+        u2 --> u3["ATMS Enforces Android 14/15 BAL (Background Activity Launch) Rules"]
+        u3 --> u4["Requires ActivityOptions (MODE_BACKGROUND_ACTIVITY_START_ALLOWED)"]
+        u4 --> u5["AMS Launches Target Activity (Fork Process if Dead)"]
+    end
+
+    subgraph RECOVERY["App Data & Recovery Layer"]
+        r1["Read Payload Extra ID"] --> r2["Re-query Server SSOT (API/DB)"]
+        r2 --> r3["Render Fresh Screen"]
+        r3 --> r4["Execute Full Sync for Missed Messages"]
+    end
+
+    c3 --> s1
+    s3 --> state
+    foreground --> customUi["앱 내부 커스텀 UI 표시"]
+    tray --> u1
+    u5 --> r1
 ```
 
 1. **클라우드 및 네트워크 레이어**:

@@ -3,7 +3,7 @@ title: B3-data-layer
 tags: [android, app-framework, data-layer, coroutines, flow, room, datastore, topic-synthesis]
 aliases: [데이터 레이어, Flow, Room, DataStore, Paging]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 20:45:00 +09:00
+date modified: 2026-08-05 10:45:12 +09:00
 ---
 
 ## B3 · 데이터 레이어: Flow · Room · DataStore · Paging
@@ -26,22 +26,14 @@ date modified: 2026-08-04 20:45:00 +09:00
 
 ### 전체 조망도
 
-```
-[Network / Remote DB]
-        │
-        ▼
-[Repository]  ←─── 단일 source of truth 관리
-  │ Flow<T> 노출
-  ▼
-[ViewModel]
-  │ combine / map / stateIn
-  ▼
-StateFlow<UiState>
-  │ collectAsStateWithLifecycle()
-  ▼
-[Composable / View]
+```mermaid
+flowchart TD
+    network["Network / Remote DB"] --> repo["Repository — 단일 source of truth 관리"]
+    repo -- "Flow&lt;T&gt; 노출" --> vm["ViewModel"]
+    vm -- "combine / map / stateIn" --> stateflow["StateFlow&lt;UiState&gt;"]
+    stateflow -- "collectAsStateWithLifecycle()" --> composable["Composable / View"]
 
-[Room / DataStore]  ←── 영속 저장소 (source of truth)
+    storage["Room / DataStore — 영속 저장소 (source of truth)"] --> repo
 ```
 
 **핵심 원칙**: Repository 는 데이터 출처를 감추고 `Flow` 로 노출한다. ViewModel 은 이 Flow 를 조합해 화면 상태(`StateFlow<UiState>`)를 만든다.

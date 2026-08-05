@@ -2,7 +2,7 @@
 title: bluetooth-classic-and-ble-gatt-are-different-connection-models
 tags: ["android", "android/system-services"]
 aliases: ["Bluetooth Classic과 BLE(GATT)는 서로 다른 연결 모델이다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -53,23 +53,18 @@ gatt.discoverServices()
 
 ### 다이어그램
 
-```
-Bluetooth Classic                         BLE
-------------------                        ---
-BluetoothDevice                           BluetoothDevice
-   │ createRfcommSocketToServiceRecord()      │ connectGatt()
-   ▼                                          ▼
-BluetoothSocket                           BluetoothGatt
-   │ connect()                                │ (비동기, onConnectionStateChange)
-   ▼                                          ▼
-InputStream/OutputStream                  discoverServices()
-   │ 연속 스트림 read/write                    │
-   ▼                                          ▼
-데이터 계속 흐름 (오디오/시리얼)              GattService → GattCharacteristic
-                                              │ readCharacteristic()/writeCharacteristic()/
-                                              │ setCharacteristicNotification()
-                                              ▼
-                                           개별 attribute 단위 요청-응답
+```mermaid
+flowchart TD
+    Classic["Bluetooth Classic"] --> CD["BluetoothDevice"]
+    CD -->|"createRfcommSocketToServiceRecord()"| CS["BluetoothSocket"]
+    CS -->|"connect()"| CIO["InputStream/OutputStream"]
+    CIO -->|"연속 스트림 read/write"| CF["데이터 계속 흐름 (오디오/시리얼)"]
+
+    BLE["BLE"] --> BD["BluetoothDevice"]
+    BD -->|"connectGatt()"| BG["BluetoothGatt"]
+    BG -->|"비동기, onConnectionStateChange"| BDS["discoverServices()"]
+    BDS --> BGC["GattService → GattCharacteristic"]
+    BGC -->|"readCharacteristic()/writeCharacteristic()/setCharacteristicNotification()"| BAT["개별 attribute 단위 요청-응답"]
 ```
 
 ### 판단 기준

@@ -2,7 +2,7 @@
 title: on-device-ai-feature-availability-must-be-checked-before-use
 tags: ["android", "android/system-services"]
 aliases: ["온디바이스 AI 기능 가용성은 사용 전에 반드시 확인해야 한다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -78,15 +78,16 @@ suspend fun runSummarizationSafely(
 
 ### 다이어그램
 
-```
-API 레벨 >= 26 ?
- ├─ No  → 기능 자체를 노출하지 않음 (Learning Spine 10장: API 표면 부재)
- └─ Yes → checkFeatureStatus()
-            │
-            ├─ UNAVAILABLE   → 이 기기/OS는 미지원. 대체 기능/비활성화.
-            ├─ DOWNLOADABLE  → downloadFeature() 호출 → DOWNLOADING
-            ├─ DOWNLOADING   → 대기 UI, 폴링 또는 콜백 대기
-            └─ AVAILABLE     → runInference() 호출 가능
+```mermaid
+flowchart TD
+    A{"API 레벨 >= 26?"}
+    A -->|"No"| B["기능 자체를 노출하지 않음 (Learning Spine 10장: API 표면 부재)"]
+    A -->|"Yes"| C["checkFeatureStatus()"]
+    C --> D{"FeatureStatus"}
+    D -->|"UNAVAILABLE"| E["이 기기/OS는 미지원. 대체 기능/비활성화."]
+    D -->|"DOWNLOADABLE"| F["downloadFeature() 호출 → DOWNLOADING"]
+    D -->|"DOWNLOADING"| G["대기 UI, 폴링 또는 콜백 대기"]
+    D -->|"AVAILABLE"| H["runInference() 호출 가능"]
 ```
 
 ### 판단 기준

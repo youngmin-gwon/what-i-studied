@@ -2,7 +2,7 @@
 title: document-schema-changes-require-explicit-migration-or-forceoverride-deletes-data
 tags: ["android", "android/system-services"]
 aliases: ["Document 스키마 변경은 명시적 마이그레이션이 없으면 호환되지 않는 데이터를 삭제한다"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 13:00:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -60,21 +60,16 @@ val setSchemaRequest = SetSchemaRequest.Builder()
 
 ### 다이어그램
 
-```
-새 SetSchemaRequest 제출
-        │
-        ▼
- 기존 저장 스키마와 비교
-        │
-   ┌────┴─────┐
-   │ 호환됨    │──▶ 기존 문서 그대로 유지
-   └──────────┘
-   ┌──────────┐         ┌───────────────────┐
-   │ 비호환    │──Migrator 있음──▶│ onUpgrade/onDowngrade │──▶ 문서 변환 후 보존
-   │          │                  └───────────────────┘
-   │          │──Migrator 없음, forceOverride=false──▶ AppSearchException, 요청 거부
-   │          │──Migrator 없음, forceOverride=true───▶ 비호환 문서 전부 삭제
-   └──────────┘
+```mermaid
+flowchart TD
+    A["새 SetSchemaRequest 제출"] --> B["기존 저장 스키마와 비교"]
+    B --> C{"호환되는 변경인가?"}
+    C -->|"호환됨"| D["기존 문서 그대로 유지"]
+    C -->|"비호환"| E{"Migrator 지정 여부"}
+    E -->|"Migrator 있음"| F["onUpgrade/onDowngrade"]
+    F --> G["문서 변환 후 보존"]
+    E -->|"Migrator 없음, forceOverride=false"| H["AppSearchException, 요청 거부"]
+    E -->|"Migrator 없음, forceOverride=true"| I["비호환 문서 전부 삭제"]
 ```
 
 ### 판단 기준
