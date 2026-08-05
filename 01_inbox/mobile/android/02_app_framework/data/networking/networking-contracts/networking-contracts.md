@@ -16,10 +16,11 @@ date created: 2026-08-04 18:00:00 +09:00
 - [Interceptor 체인은 인증, 로깅, 재시도를 요청·응답 파이프라인에 끼워 넣는다](./interceptor-chain-inserts-cross-cutting-concerns-into-request-response-pipeline.md)
 - [suspend API 호출의 취소는 호출자의 coroutine scope를 따라간다](./suspend-api-call-cancellation-follows-the-callers-coroutine-scope.md)
 - [Timeout·재시도 정책은 UI에 노출할 실패 상태를 결정하고 offline-first 로컬 쓰기와 연결된다](./network-failure-policy-must-expose-retry-timeout-and-offline-state-to-ui.md)
+- [gRPC는 Protobuf 기반 강타입 스트리밍 계약을 선언하고 REST는 단발성 request-response 계약에 머문다](./grpc-declares-typed-streaming-contract-while-rest-stays-single-shot-request-response.md)
 
 ### 읽는 기준
 
-API 선언과 전송 계층이 왜 분리돼 있는지 궁금하면 Retrofit/OkHttp 노트로 간다. 인증 헤더나 로깅을 어디에 끼워 넣어야 할지 궁금하면 interceptor 노트로 간다. 화면을 벗어났는데 네트워크 요청이 실제로 멈추는지 궁금하면 suspend 취소 노트로 간다. timeout 과 재시도가 offline-first 동기화와 어떻게 연결되는지 궁금하면 마지막 노트로 간다.
+API 선언과 전송 계층이 왜 분리돼 있는지 궁금하면 Retrofit/OkHttp 노트로 간다. 인증 헤더나 로깅을 어디에 끼워 넣어야 할지 궁금하면 interceptor 노트로 간다. 화면을 벗어났는데 네트워크 요청이 실제로 멈추는지 궁금하면 suspend 취소 노트로 간다. timeout 과 재시도가 offline-first 동기화와 어떻게 연결되는지 궁금하면 마지막 노트로 간다. REST 대신 gRPC 를 쓸지 판단하려면 마지막 gRPC 노트로 간다.
 
 ### 중복 방지 규칙
 

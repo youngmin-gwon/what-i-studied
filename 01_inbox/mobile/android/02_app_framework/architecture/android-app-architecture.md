@@ -17,6 +17,7 @@ Android 앱 아키텍처는 UI 패턴 이름보다 owner, lifetime, OS entry poi
 - [Jetpack Architecture Map](./jetpack-architecture/android-jetpack-architecture-map.md) - Jetpack architecture guidance 를 기존 정본 map 으로 연결한다.
 - [Android State Management](./state-management/android-state-management.md) - ViewModel, UI state, reducer, saved state 의 정본.
 - [Android Dependency Injection](../dependency-injection/android-dependency-injection-map.md) - object graph, binding, scope, Hilt/Metro, test override 의 정본.
+- [Multiplatform Contracts](./multiplatform-contracts/multiplatform-contracts.md) - Kotlin Multiplatform 이 무엇을 공유하고 무엇을 플랫폼별로 남기는지, `expect`/`actual` 계약을 정리한다.
 
 ### 읽는 기준
 

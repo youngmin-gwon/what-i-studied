@@ -24,6 +24,8 @@ date created: 2026-08-03 17:31:11 +09:00
 10. [온디바이스 AI 접근 계약](./device-capabilities/on-device-ai-contracts/on-device-ai-contracts.md) 에서 ML Kit/LiteRT 온디바이스 추론과 AICore 공유 모델, 가용성 확인 계약을 본다.
 11. [NFC와 비접촉 기능 계약](./device-capabilities/nfc-contracts/nfc-contracts.md) 에서 태그, NDEF, HCE/APDU, 결제를 서로 다른 프로토콜 문제로 본다.
 12. [App Shortcuts 접근 계약](./device-capabilities/app-shortcuts-contracts/app-shortcuts-contracts.md) 에서 static/dynamic/pinned shortcut의 소유권 차이와 개수/rate limit 제약을 본다.
+13. [AppSearch 접근 계약](./device-capabilities/appsearch-contracts/appsearch-contracts.md) 에서 온디바이스 검색 색인 저장소 선택과 스키마 마이그레이션 계약을 본다.
+14. [음성 합성/인식 접근 계약](./device-capabilities/speech-contracts/speech-contracts.md) 에서 `TextToSpeech`의 비동기 초기화와 `SpeechRecognizer`의 권한/콜백 순서 계약을 본다.
 
 ### 문제 분류
 
@@ -48,6 +50,10 @@ date created: 2026-08-03 17:31:11 +09:00
 | 특정 기기에서만 온디바이스 AI 기능이 동작하지 않는다 | 온디바이스 AI 접근 계약 | `checkFeatureStatus()` 로 가용성을 먼저 확인했는지 |
 | NFC 태그는 읽히지만 결제 단말과 통신하지 않는다 | NFC 와 비접촉 | NDEF 태깅과 HCE/APDU 를 혼동했는지 |
 | pin 된 shortcut 을 코드로 지워도 홈 화면에 남아있다 | App Shortcuts 접근 계약 | pin 이후 소유권이 launcher 로 넘어갔는지 |
+| 설정 앱 검색에 내 데이터가 안 뜬다 | AppSearch 접근 계약 | `PlatformStorage`/`PlayServicesStorage` 를 쓰는지, 스키마 타입에 `setSchemaTypeDisplayedBySystem(true)` 를 켰는지 |
+| 스키마를 바꿔 배포했더니 기존 데이터가 사라졌다 | AppSearch 접근 계약 | `Migrator` 없이 비호환 변경을 `forceOverride` 로 배포했는지 |
+| TTS `speak()` 를 호출해도 무음이다 | 음성 합성/인식 접근 계약 | `OnInitListener` 의 `SUCCESS` 콜백을 받기 전에 호출했는지 |
+| 음성 인식이 권한 승인 후에도 실패한다 | 음성 합성/인식 접근 계약 | `RECORD_AUDIO` 승인 여부와 on-device/network 인식 선택을 구분했는지 |
 
 ### 책임 경계
 
@@ -61,6 +67,8 @@ date created: 2026-08-03 17:31:11 +09:00
 - NFC 태그 디스패치와 HCE 는 안테나를 공유하지만 데이터 모델과 상대 장치, 보안 상태 머신이 다르다.
 - App Shortcuts 는 홈 화면 진입점의 소유권/개수 계약만 다루며, App Widget 의 `RemoteViews` 렌더링 계약과는 별개다.
 - Health Connect 는 기기 안에서 여러 앱이 공유하는 온디바이스 저장소이지 클라우드 동기화 서비스가 아니며, 권한은 일반 런타임 권한 모델과 별개로 레코드 타입별로 개별 승인된다.
+- AppSearch 는 기기 안에서 구조화된 데이터를 검색 가능하게 색인하는 온디바이스 검색 계약이며, 클라우드 검색 서비스나 Room/SQLite 같은 일반 로컬 저장 계약과는 다르다.
+- TTS/SpeechRecognizer 는 텍스트↔음성 변환 API 자체의 초기화·권한·콜백 순서 계약만 다루며, Assistant 질의의 의미 해석과 실행 책임은 [Assistant와 에이전트 통합 계약](./agents-and-assistant/assistant-agent-contracts/assistant-agent-contracts.md) 이 담당한다.
 
 ### 영역 지도
 
@@ -81,6 +89,8 @@ date created: 2026-08-03 17:31:11 +09:00
 - [온디바이스 AI 접근 계약](./device-capabilities/on-device-ai-contracts/on-device-ai-contracts.md)
 - [NFC와 비접촉 기능 계약](./device-capabilities/nfc-contracts/nfc-contracts.md)
 - [App Shortcuts 접근 계약](./device-capabilities/app-shortcuts-contracts/app-shortcuts-contracts.md)
+- [AppSearch 접근 계약](./device-capabilities/appsearch-contracts/appsearch-contracts.md)
+- [음성 합성/인식 접근 계약](./device-capabilities/speech-contracts/speech-contracts.md)
 
 새 노트는 특정 API 를 나열하기보다 `시스템이 보장하는 것`, `앱이 영속화·검증할 것`, `버전·권한 조건`, `관찰 가능한 실패` 중 하나의 판단 단위를 맡아야 한다.
 

@@ -2,7 +2,7 @@
 title: choose-storage-by-data-lifetime-and-ownership
 tags: [android, android/data, android/persistence-contracts, android/storage]
 aliases: ["Android 저장소는 데이터 수명과 소유권으로 선택한다"]
-date modified: 2026-08-03 18:09:04 +09:00
+date modified: 2026-08-05 09:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -30,9 +30,7 @@ Android 저장소 선택은 API 이름보다 데이터의 수명과 소유권을
 | 민감한 작은 값 | Android Keystore + DataStore |
 | 누적되는 구조화 데이터 | Room |
 | 기존 DB 나 특수 저수준 제어 | SQLite 직접 접근 |
-| 앱 전용 바이너리나 임시 파일 | app-specific files |
-| 사용자가 고르고 다른 앱과 공유할 파일 | Storage Access Framework |
-| 사용자 갤러리와 연결되는 미디어 | MediaStore |
+| 데이터베이스 row 보다 큰 콘텐츠나 바이트(파일) | 파일 저장소 — 어떤 파일 API 를 쓸지는 [저장소 선택: 소유권과 공개 목적을 먼저 묻기](../file-access-contracts/file-storage-is-selected-by-owner-and-public-purpose.md)가 app-specific files/SAF/MediaStore/Photo Picker 로 다시 나눈다 |
 
 ### 수명으로 나누기
 

@@ -2,7 +2,7 @@
 title: android-foundation-map
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 09:00:00 +09:00
 date created: 2026-08-03 16:59:22 +09:00
 ---
 
@@ -33,6 +33,7 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 - [System Services](../04_system_services/android-system-services-and-device-capabilities.md)
 - [Security and Privacy](../05_security_privacy/android-security-and-privacy.md)
 - [Platforms and Form Factors](../07_platforms/android-platforms-and-form-factors.md)
+- [Topic Synthesis Map](topics/android-topics-map.md) - 주제별로 원자 노트를 조합한 33개 합성 문서 색인.
 
 ### 문제 분류
 

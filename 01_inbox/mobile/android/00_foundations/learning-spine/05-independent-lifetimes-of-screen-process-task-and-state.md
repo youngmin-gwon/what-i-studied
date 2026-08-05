@@ -2,7 +2,7 @@
 title: 05-independent-lifetimes-of-screen-process-task-and-state
 tags: ["android", "android/foundations", "learning-spine"]
 aliases: ["Independent lifetimes of screen, process, task, and state"]
-date modified: 2026-08-04 10:27:18 +09:00
+date modified: 2026-08-05 11:00:00 +09:00
 date created: 2026-08-03 20:45:00 +09:00
 ---
 
@@ -61,7 +61,9 @@ Task 와 back stack 은 화면 상태가 아니라 사용자가 Activity 들을 
 
 ### 5. force-stop 과 uninstall 은 프로세스 종료보다 더 강한 경계다
 
-force-stop 은 시스템이 메모리 확보를 위해 조용히 회수하는 process death 보다 더 명시적이고 강한 개입이다. 프로세스가 종료되고 task 가 제거되는 것은 물론, 그 앱의 모든 컴포넌트 상태가 초기화된다. force-stop 과 일반 process death 를 같은 사건으로 취급하면 안 된다. 다만 force-stop 된 앱이 이후 어떤 조건에서까지 자동으로 다시 시작되지 않는지의 정확한 범위는 이 장 저작 시점에 공식 문서 원문으로 재확인하지 못했으므로, 실제로 이 경계에 의존하는 설계를 할 때는 다시 확인해야 한다.
+force-stop 은 시스템이 메모리 확보를 위해 조용히 회수하는 process death 보다 더 명시적이고 강한 개입이다. 프로세스가 종료되고 task 가 제거되는 것은 물론, 그 앱의 모든 컴포넌트 상태가 초기화된다. force-stop 과 일반 process death 를 같은 사건으로 취급하면 안 된다.
+
+force-stop 은 앱을 패키지 수준의 "stopped" 상태(`FLAG_STOPPED`)로 만든다. 공식 문서는 이 상태의 의도를 "사용자가 앱을 직접 실행하거나(직접 실행) 공유 시트·위젯·라이브 배경화면 선택 등으로 간접적으로 상호작용하기 전까지는 이 상태를 유지하는 것"이라고 명시한다. 즉 브로드캐스트, 예약된 job/alarm 을 포함해 시스템이 자동으로 앱을 다시 깨우는 어떤 경로도 이 상태를 해제하지 못하며, 오직 사용자의 직접/간접 실행만이 해제한다. Android 15 부터는 이 의도된 동작에 맞춰 stopped 상태 진입 시 대기 중인 pending intent 까지 전부 취소하도록 강화됐다. 사용자 행동으로 stopped 상태에서 벗어나면 시스템은 `ACTION_BOOT_COMPLETED` 를 다시 전달해 앱이 필요한 등록을 복구할 기회를 준다.
 
 uninstall 은 여기서 한 단계 더 나아가 3 장이 다룬 설치된 패키지 identity 와 영속 저장소까지 제거한다. 3 장의 업데이트/서명 불일치/재설치/force-stop 비교표가 이미 UID·데이터 연속성 축에서 이 차이를 다뤘으므로, 이 장에서는 그 표를 반복하지 않고 lifetime 축에서만 연결한다.
 
@@ -142,5 +144,8 @@ uninstall 은 여기서 한 단계 더 나아가 3 장이 다룬 설치된 패�
 - [Processes and app lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle)
 - [Tasks and back stack](https://developer.android.com/guide/components/activities/tasks-and-back-stack)
 - [Services overview](https://developer.android.com/guide/components/services)
+- [Behavior changes: all apps (Android 15) — package stopped state](https://developer.android.com/about/versions/15/behavior-changes-all)
 
 검증일: 2026-08-03. force-stop 이후 백그라운드 자동 재시작이 억제되는 정확한 조건은 이 장 저작 시점에 공식 문서 원문 인용으로 재확인하지 못했다(수동 확인 필요). 나머지 인용은 WebFetch 로 원문을 대조했다.
+
+추가 검증일: 2026-08-05. 위에서 수동 확인이 필요하다고 남겨뒀던 force-stop 이후 자동 재시작 억제 조건을 WebSearch/WebFetch 로 재시도해 공식 문서(Android 15 all-apps behavior changes)에서 확인했다 — stopped 상태는 오직 사용자의 직접/간접 실행으로만 해제되고, 브로드캐스트/pending intent 로는 해제되지 않는다는 원문을 인용해 본문을 갱신했다. 더 이상 수동 확인 필요 항목이 아니다.

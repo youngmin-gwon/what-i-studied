@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-04 21:35:00 +09:00
+date modified: 2026-08-05 11:15:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -1140,6 +1140,39 @@ A2/B1/B2/B3 네 파일 모두 실제 장 제목·번호로 정정했다(예: A2 
 
 **최종 재검증.** `00_foundations/topics/` 33 개 파일 전체 재스캔: missing frontmatter 0, broken link 0, wikilink 0, H1 사용 0.
 
-**category 4~7/System Internals(총 293 개 파일)의 Phase 5 "완료" 로그 자체는 rate limit 로 인해 이번 라운드에서 검증하지 못했다.** 6 개 subagent 재시도는 세션 rate limit 이 리셋(23:30 KST)된 뒤에 시도해야 하며, 그 전까지는 이 로그들의 신뢰도가 category 5(Testing, 이미 반증됨)와 동일한 수준으로 취급돼야 한다.
+**진행 기록(2026-08-04): category 4~7 및 System Internals(총 293 개 파일) Phase 5 "완료" 로그 독립 재검증 완료.** 첫 시도(6 개 subagent 병렬)는 전부 세션 rate limit 로 시작 직후 종료됐다. rate limit 리셋(23:30 KST) 전에 사용자가 재시도를 지시해 동일한 6 개 subagent 를 다시 병렬 위임했고, 이번엔 전부 정상 완료했다. 각 agent 는 plan.md 에 인용된 "완료" 로그 원문을 그대로 전달받아 그 주장을 독립적으로 반증/확증하도록 지시받았다.
 
-**Coverage Gate 상태 갱신:** Phase 10(Topic Synthesis) 산출물은 이제 기계적 위생 기준을 통과했지만, 여전히 다음이 미해소다 — Tier 2 5 개 보류 항목, category 4~7/System Internals 의 내용 품질(semantic A/B/C/D) 미검증.
+**결론: 6 개 중 5 개 범위에서 "완료/전량 A등급/수정 없음" 주장이 과장이었다.** 유일하게 구조적 주장이 정확했던 곳(System Internals group 2)도 코드 정확성까지 검증됐다는 근거는 없었다.
+
+1. **category 4(Security, 28 개 전부) — 주장 거짓.** `aliases: []` 28/28 전부 비어있었다(category 3 에서 이미 지적된 패턴과 동일). `secure-storage-contracts`(6 개)와 `storage-lifecycle-and-backup`(5 개) 클러스터 11 개 원자 노트 전부가 무관한 `platform-hardening` 클러스터 문구를 그대로 복붙하고 있었다(AES-GCM/Keystore 노트에 SELinux/Verified Boot 얘기). `sensitive-data-requires-encryption-and-key-ownership.md`에 Kotlin 컴파일 오류(`Charsets.UTF8`, 존재하지 않는 상수)와 원본부터 있던 null byte 파일 손상까지 있었다. 전부 수정.
+2. **category 5(Testing, 27 개 전부) — "수정 없음"은 거짓, 내용 실질은 사실 강했다.** 22/27 파일에서 `title` 필드가 slug 가 아니라 문장이었다(vault 표준 위반, 다른 category 에서 이미 여러 번 지적된 패턴). Baseline Profile 검증 노트의 "TTID 15~30% 개선"이라는 수치가 공식 문서에 근거 없는 서술이라 완화했다. C/D 등급은 없었다.
+3. **category 6(Packaging, 42 개 전부) — 주장 거짓.** **R8 Full Mode 서술이 AGP 8.0 기본 동작과 정반대**로 적혀 있었다(opt-in 이라고 썼으나 실제론 8.0 부터 기본값이고 플래그는 opt-out 용도). Play Asset Delivery 용량 상한 오류(1GB→실제 1.5GB/4GB), Android Vitals crash rate 기준선 오류, 렌더링 안 되는 Mermaid `matrix` 다이어그램 타입, title=slug 위반 2 건, 허브 내용 중복 1 건. 6 개 파일 수정.
+4. **category 7(Platforms, 43 개 전부) — 부분적으로만 과장.** 전체 품질은 실제로 높았고(WebFetch 검증 사실 전부 정확) 로그가 "완료"라 나열한 11 개 파일은 문제없었지만, 로그가 언급하지 않은 나머지 32 개 중에서 진짜 결함 2 건을 발견했다: `android-tv-distribution-requires-declaring-no-touchscreen.md`가 "정의" 문단과 "코드 예시"가 서로 모순된 값(`leanback required="true"` vs 코드의 `false`)을 쓰고 있었고, `multi-window-lifecycle-...md`의 "관련 문서" 섹션이 제목만 있고 비어 있었다. 수정.
+5. **System Internals group 1(boot-and-runtime/ipc-and-process/platform-modularity/platform-customization, 73 개) — "frontmatter 전수 보강" 거짓.** 16 개 파일에서 alias 가 `##` 제목과 불일치했다(4 개 병렬 subagent 가 서로 다른 컨벤션을 썼다는 사용자의 가설이 맞았다 — `ipc-and-process` 전체 7 개와 `platform-customization` 12 개 중 7 개가 짧은 alias 를 썼다). **Rescue Party 의 "persistent app crash trigger" 조건이 "5 분 이내 5 회"로 적혀 있었으나 공식 문서(source.android.com) 기준 실제로는 "30 초 이내 5 회"로 10 배 차이나는 사실 오류**였다. 존재하지 않는 `adb shell subcmd` 명령, 죽은 링크, 허브 내용 중복 섹션도 발견해 전부 수정.
+6. **System Internals group 2(kernel-and-hal/graphics-and-media/connectivity, 80 개) — 구조적 주장은 사실이었다.** H1/frontmatter/wikilink/broken link 는 실제로 0 건이었다. 하지만 로그의 "0 건" 주장은 **구조 지표에만 해당**했고 코드 정확성은 검증되지 않았던 것으로 드러났다: `fun` 키워드 누락으로 컴파일 안 되는 코드, 브로드캐스트 액션 상수(`CONNECTIVITY_ACTION`)를 시스템 서비스 키로 잘못 쓴 코드, 주석("전용 Worker Handler")과 실제 구현(`Looper.getMainLooper()`, 메인 스레드)이 모순되는 코드, 한글 오탈자 9 건(예: "영억"→"영역", "트랙픽"→"트래픽"). 17 개 파일 수정.
+
+**종합 판정.** 293 개 파일 중 진짜 A/B 등급 콘텐츠 자체의 비율은 높았다(C/D 등급은 어느 범위에서도 발견되지 않았다). 하지만 "완료, 전량 A등급, 수정 없음, broken link 0건"이라는 각 category 의 원래 로그는 **6 개 범위 중 5 개에서 최소 하나 이상의 실제 결함(구조·사실·코드 정확성 중 하나)을 놓쳤다.** 반복되는 근본 원인은 두 가지다: (a) 여러 subagent 가 같은 폴더군을 병렬로 나눠 맡을 때 frontmatter/alias 컨벤션이 서로 갈렸는데 아무도 통일 여부를 재검증하지 않았고, (b) "4 대 구성요소(mechanism/example/diagram/evidence) 존재 여부"만 확인하고 그 안의 사실적·코드적 정확성까지는 검증하지 않은 채 "완료"로 기록했다.
+
+**Coverage Gate 상태 갱신:** category 1~7 + System Internals + Phase 9 + Phase 10 전체가 이제 최소 한 번씩 독립 검증을 거쳤다. 남은 미해소 항목은 Tier 2 5 개 보류 항목뿐이다.
+
+**진행 기록(2026-08-05): 남은 항목 1) topics 그래프 고아 상태 해소, 2) Tier 2 5 개 전부 착수, 3) 중복 노트 병합 결정, 순서대로 완료.**
+
+1. **`00_foundations/topics/` 그래프 고아 상태 해소.** 검증 과정에서 Phase 10 이 만든 33 개 파일을 vault 어디서도 링크하지 않는다는 사실을 발견했다(plan.md 인용만 있었음) — Phase 6 이 주장한 "100% reachability" 가 Phase 10 완료 이후 다시 깨져 있었다는 뜻이다. `00_foundations/topics/android-topics-map.md` hub 를 신설해 33 개 주제를 A~G 그룹으로 정리하고, `00_foundations/android-foundation-map.md` 의 "Canonical Areas" 에 링크를 추가했다. BFS 로 전체 vault 를 재순회해 도달률을 재확인했다: 769/769(100%), broken link 0, wikilink 0(false positive 1 건은 코드블록 내 bash `[[ ]]` 문법).
+2. **Tier 2 8 개 전부 착수 완료(기존 5 개 보류 결정을 사용자가 번복).** 2 개 subagent 에 병렬 위임했다.
+   - gRPC: 신규 클러스터 없이 기존 `02_app_framework/data/networking/networking-contracts/` 에 원자 노트 1 개 추가(Protobuf IDL, HTTP/2 멀티플렉싱, 4 종 RPC 형태, REST 대비 선택 기준).
+   - Kotlin Multiplatform: `02_app_framework/architecture/multiplatform-contracts/` 신설(hub + 2 개 노트 — 공유 범위 경계, `expect`/`actual` 계약).
+   - AppSearch: `04_system_services/device-capabilities/appsearch-contracts/` 신설(hub + 2 개 노트 — 온디바이스 검색 색인, 스키마 마이그레이션).
+   - TTS/SpeechRecognizer: `04_system_services/device-capabilities/speech-contracts/` 신설(hub + 2 개 노트 — 비동기 초기화, 권한/콜백 순서).
+   - Downloadable Fonts: `02_app_framework/ui/system/downloadable-fonts-contracts/` 신설(hub + 2 개 노트 — 제공자 앱 경유 런타임 다운로드, 실패 폴백).
+   - 신규 15 개 파일 전부 WebFetch 로 grpc.io/protobuf.dev/kotlinlang.org/developer.android.com 원문 대조를 거쳤고, 4 개 hub(networking-contracts, android-app-architecture, android-system-services-and-device-capabilities, android-ui-system)를 갱신해 링크를 연결했다. `android-topics-map.md` 에 "G13~G17. Tier 2 보강 주제" 절을 추가해 5 개를 편입시켰다.
+3. **중복 노트 병합 결정.** `file-storage-is-selected-by-owner-and-public-purpose.md`(파일 API 하위 분기)와 `choose-storage-by-data-lifetime-and-ownership.md`(저장소 타입 상위 분기)는 **병합하지 않고 역할을 분리**했다 — 서로 다른 결정 단계를 다루는 게 맞다고 판단했다. 대신 `choose-storage-by-data-lifetime-and-ownership.md` 의 결정표에서 앱 전용 파일/SAF/MediaStore 3 개 행의 중복 서술을 "파일 저장소 → 세부는 file-storage 노트로" 한 행으로 축약해 실제 중복만 제거했다.
+
+**최종 재검증(2026-08-05).** vault 전체 769 개 파일: broken link 0, wikilink 0(실질), file URI 0, 도달률 100%(769/769). **Tier 2 는 이제 8/8 완료.**
+
+**진행 기록(2026-08-05): Learning Spine 5 장의 "수동 확인 필요" 항목 1 건 해소.** force-stop 이후 자동 재시작이 언제까지 억제되는지가 저작 시점(2026-08-03)에 WebFetch 로 확인되지 않아 미해결로 남아 있었다. 이번엔 WebSearch 로 먼저 관련 공식 문서를 찾은 뒤 WebFetch 로 원문을 대조하는 방식으로 재시도해 확인에 성공했다 — Android 15 all-apps behavior changes 문서가 패키지 `FLAG_STOPPED` 상태의 의도를 "사용자의 직접/간접 실행으로만 해제되고, 브로드캐스트나 pending intent 로는 해제되지 않는다"고 명시하고 있었다. 본문을 이 사실로 갱신했고, 기존 "검증일: 2026-08-03(수동 확인 필요)" 줄은 사용자가 이미 확정한 "그대로 유지" 원칙에 따라 삭제하지 않고 그 아래에 "추가 검증일: 2026-08-05" 줄을 새로 붙여 후속 확인 결과를 기록했다.
+
+**진행 기록(2026-08-05): Phase 7(독립 독자 검수) claim 표본 검증 완료.** Phase 7 로그가 검증 근거로 든 구체적 개념(Zygote pre-fork lock pause, Binder 1016KB buffer sharing, Compose Slot Table Gap Buffer, ViewModelStore retain, `TransactionTooLargeException`/`SecurityException`/`MODE_IGNORED` 실패 분기)이 실제로 vault 에 존재하는지 grep 으로 확인했다. "Zygote pre-fork lock pause" 라는 정확한 문구만 vault 어디에도 없었지만, `zygote-fork-saves-memory-while-copy-on-write-pages-stay-clean.md` 를 직접 읽어보니 동일한 메커니즘(POSIX `fork()` 전 뮤텍스 데드락 회피를 위해 백그라운드 스레드 풀을 일시 정지)이 다른 용어로 정확히 서술돼 있었다 — 표현만 다를 뿐 날조는 아니었다. 나머지 4 개 개념은 모두 실제 파일에서 문자 그대로 발견됐다(1016KB Binder buffer 는 `binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md` 등, Slot Table Gap Buffer 는 `composition-uses-callsite-identity-to-preserve-remembered-values.md` 등, ViewModelStore 는 `viewmodel-survives-configuration-change-not-process-death.md` 등, `TransactionTooLargeException`/`MODE_IGNORED` 는 여러 worked example·runbook·원자 노트에서).
+
+**결론: Phase 7 claim 은 category 4~7/System Internals 처럼 광범위하게 과장된 사례는 아니었다.** 다만 이 결론은 순수 grep 표본 검사이지 전체 재독은 아니다 — 그러나 Phase 7 이 다룬 "6 개 핵심 영역"은 이미 이 세션이 category 1~7 + System Internals 검증(2026-08-04)에서 훨씬 더 깊게(전체 293 개 파일 전수 Read, WebFetch 사실 대조, 코드 컴파일 가능성까지) 재검증을 마친 대상과 사실상 동일하다. 따라서 Phase 7 을 별도로 전수 재검증하는 것은 중복 작업이라고 판단해 여기서 마무리한다.
+
+**남은 항목 없음.** 이 시점 기준으로 사람이 직접 읽고 확인하는 최종 사용자 검수를 제외한 모든 계획된 작업이 완료됐다.
