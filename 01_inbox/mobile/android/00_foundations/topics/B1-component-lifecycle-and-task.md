@@ -1,14 +1,14 @@
 ---
 title: B1-component-lifecycle-and-task
-tags: [android, app-framework, lifecycle, architecture, topic-synthesis]
-aliases: [Activity 생명주기, Task, Back Stack, 컴포넌트 생명주기]
+tags: [android, app-framework, architecture, lifecycle, topic-synthesis]
+aliases: [Activity 생명주기, Back Stack, Task, 컴포넌트 생명주기]
+date modified: 2026-08-05 10:08:02 +09:00
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 20:45:00 +09:00
 ---
 
 ## B1 · 컴포넌트 생명주기와 Task / Back Stack
 
-> **이 문서의 목적**: Android 앱 개발의 가장 기초적인 질문인 "Activity/Fragment 는 언제 살고 언제 죽는가", "화면 회전이나 앱 전환 시 어떤 일이 일어나는가", "Task 와 Back Stack 은 어떻게 관리되는가"를 체계적으로 이해한다.
+>**이 문서의 목적**: Android 앱 개발의 가장 기초적인 질문인 "Activity/Fragment 는 언제 살고 언제 죽는가", "화면 회전이나 앱 전환 시 어떤 일이 일어나는가", "Task 와 Back Stack 은 어떻게 관리되는가"를 체계적으로 이해한다.
 
 ---
 
@@ -50,6 +50,7 @@ date modified: 2026-08-04 20:45:00 +09:00
 ### 1. Activity 생명주기: 가시성과 상호작용 경계
 
 Activity 생명주기 콜백은 두 가지 축으로 이해한다:
+
 - **가시성**: `onStart()` → 화면에 보임, `onStop()` → 화면에서 사라짐
 - **상호작용**: `onResume()` → 사용자 입력 수신, `onPause()` → 입력 중단
 
@@ -90,6 +91,7 @@ Android 의 모든 앱 컴포넌트(Activity, Service, BroadcastReceiver, Conten
 ViewModel 은 화면(Activity/Fragment/Composable) 의 생명주기보다 오래 살아남아 **설정 변경 동안 화면 상태를 유지**한다. 또한 repository 호출, UseCase 실행 같은 외부 작업을 조율한다.
 
 **ViewModel 의 두 가지 핵심 규칙**:
+
 1. **Mutable 상태는 내부에 숨긴다**: `_uiState: MutableStateFlow` 는 private, `uiState: StateFlow` 만 공개
 2. **UI Context 를 보유하지 않는다**: Activity, Fragment, View, Context 참조를 field 에 저장하면 메모리 누수가 발생한다
 
@@ -123,6 +125,7 @@ Android 의 Task 는 "사용자가 함께 수행하는 Activity 들의 묶음"�
 ### 5. 단방향 데이터 흐름 (UDF) 패턴
 
 Android 권장 아키텍처의 핵심은 **State Down, Action Up** 이다:
+
 - **UI(Composable/View)** 는 상태를 받아 그리고, 사용자 action 을 위로 올린다
 - **ViewModel** 은 action 을 처리하고 새 UiState 를 계산해 StateFlow 로 노출한다
 - **Repository/Data layer** 는 source of truth 를 유지한다
@@ -133,7 +136,7 @@ Android 권장 아키텍처의 핵심은 **State Down, Action Up** 이다:
 |---|---|
 | [UI 는 상태를 아래로 받고 사용자 행동을 위로 전달한다](../../02_app_framework/architecture/state-management/ui-state/ui-receives-state-and-sends-actions-up.md) | State down / Action up 패턴 |
 | [화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다](../../02_app_framework/architecture/state-management/ui-state/screen-state-is-immutable-and-changes-by-explicit-transitions.md) | immutable UiState 설계 원칙 |
-| [UI, domain, data layer 는 rendering, policy, source of truth 를 분리한다](../../02_app_framework/architecture/jetpack-architecture/architecture-contracts/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md) | 3개 레이어의 책임 분리 |
+| [UI, domain, data layer 는 rendering, policy, source of truth 를 분리한다](../../02_app_framework/architecture/jetpack-architecture/architecture-contracts/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md) | 3 개 레이어의 책임 분리 |
 | [소비 가능한 신호는 event stream 에 둔다](../../02_app_framework/architecture/state-management/ui-state/consumable-signals-belong-in-event-stream.md) | Toast/Navigation 같은 일회성 이벤트 처리 |
 
 ---
@@ -178,5 +181,5 @@ Android 권장 아키텍처의 핵심은 **State Down, Action Up** 이다:
 
 ### 더 깊이 들어갈 때 (Learning Spine)
 
-- [4장 매니페스트에서 컴포넌트 실행까지](../learning-spine/04-manifest-to-component-execution.md) — 4대 컴포넌트가 매니페스트 선언에서 실행 요청으로 이어지는 전체 서사
-- [5장 화면, 프로세스, task와 사용자 상태는 독립적인 lifetime을 가진다](../learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md) — configuration change/process death에서 ViewModel·SavedStateHandle·task back stack이 각각 어떻게 다르게 반응하는지
+- [4장 매니페스트에서 컴포넌트 실행까지](../learning-spine/04-manifest-to-component-execution.md) — 4 대 컴포넌트가 매니페스트 선언에서 실행 요청으로 이어지는 전체 서사
+- [5장 화면, 프로세스, task와 사용자 상태는 독립적인 lifetime을 가진다](../learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md) — configuration change/process death 에서 ViewModel·SavedStateHandle·task back stack 이 각각 어떻게 다르게 반응하는지

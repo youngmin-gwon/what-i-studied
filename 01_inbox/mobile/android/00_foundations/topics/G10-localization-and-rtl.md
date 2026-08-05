@@ -1,9 +1,9 @@
 ---
 title: G10-localization-and-rtl
-tags: [android, localization, rtl, resources, i18n]
-aliases: [지역화·RTL, Localization, 다국어 지원]
+tags: [android, i18n, localization, resources, rtl]
+aliases: [Localization, 다국어 지원, 지역화·RTL]
+date modified: 2026-08-05 10:07:58 +09:00
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
 ---
 
 ## 지역화(Localization)와 RTL 레이아웃 대응

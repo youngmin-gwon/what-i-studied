@@ -2,7 +2,7 @@
 title: 02-photo-capture-preview-save-upload
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["Photo capture, preview, save, and upload", "사진 촬영, preview, 저장, 업로드까지"]
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-05 10:08:19 +09:00
 date created: 2026-08-04 02:20:00 +09:00
 ---
 
@@ -54,19 +54,19 @@ date created: 2026-08-04 02:20:00 +09:00
 
 2. **App Framework 레이어**:
    - 앱은 `CameraManager` 또는 `CameraX`(`ProcessCameraProvider`)를 통해 하드웨어 파이프라인을 구성한다.
-   - `checkSelfPermission`으로 `CAMERA` 권한을 확인하고, `AppOpsManager`로 시스템 수준의 카메라 차단 유무를 점검한다.
-   - `CameraDevice.createCaptureSession()`을 통해 `Preview` Surface 와 `ImageCapture`용 `ImageReader` Surface 를 한 번에 구성한다.
-   - 셔터 탭 시 `ImageReader`의 `onImageAvailable()` 콜백이 트리거되어 `Image` 객체(YUV/JPEG)를 획득한다.
+   - `checkSelfPermission` 으로 `CAMERA` 권한을 확인하고, `AppOpsManager` 로 시스템 수준의 카메라 차단 유무를 점검한다.
+   - `CameraDevice.createCaptureSession()` 을 통해 `Preview` Surface 와 `ImageCapture` 용 `ImageReader` Surface 를 한 번에 구성한다.
+   - 셔터 탭 시 `ImageReader` 의 `onImageAvailable()` 콜백이 트리거되어 `Image` 객체(YUV/JPEG)를 획득한다.
 
 3. **System Server 및 IPC 레이어**:
    - `CameraDevice` 호출은 Binder IPC 를 통해 OS 의 `cameraserver` 프로세스로 전달된다.
-   - `AppOpsService`는 앱이 카메라에 접근할 수 있는 최신 런타임 상태인지 검증한다.
+   - `AppOpsService` 는 앱이 카메라에 접근할 수 있는 최신 런타임 상태인지 검증한다.
    - 사진 저장 시 `MediaProvider` 프로세스와 IPC 통신을 수행하여 `MediaStore` DB 에 튜플을 생성한다.
-   - 업로드 작업 요청 시 `WorkManager`는 `JobSchedulerService`와 통신하여 SQLite DB 에 지속 가능 작업(Durable Job)을 등록한다.
+   - 업로드 작업 요청 시 `WorkManager` 는 `JobSchedulerService` 와 통신하여 SQLite DB 에 지속 가능 작업(Durable Job)을 등록한다.
 
 4. **Kernel 및 Hardware Layer**:
-   - `cameraserver`는 AIDL/HIDL 로 `Camera HAL3` 모듈에 명령을 전달하고, 하드웨어 센서 및 ISP(Image Signal Processor)가 렌더링 프레임 데이터를 생성한다.
-   - 프레임 버퍼는 `Gralloc`을 통해 `HardwareBuffer`(DMA-BUF) 메모리로 할당되어 CPU 공간으로의 불필요한 픽셀 복사(Zero-Copy) 없이 GPU 및 인코더로 직행한다.
+   - `cameraserver` 는 AIDL/HIDL 로 `Camera HAL3` 모듈에 명령을 전달하고, 하드웨어 센서 및 ISP(Image Signal Processor)가 렌더링 프레임 데이터를 생성한다.
+   - 프레임 버퍼는 `Gralloc` 을 통해 `HardwareBuffer`(DMA-BUF) 메모리로 할당되어 CPU 공간으로의 불필요한 픽셀 복사(Zero-Copy) 없이 GPU 및 인코더로 직행한다.
    - 캡처 파일은 저장소 드라이버(UFS/f2fs)를 통해 저장되고, 네트워크 상태가 만족되면 샐룰러/Wi-Fi 모뎀 드라이버를 통해 서버로 전송된다.
 
 ---
@@ -74,14 +74,14 @@ date created: 2026-08-04 02:20:00 +09:00
 ### Android 14 / 15 / 16 platform specific behaviors
 
 1. **Android 12+ Quick Settings Camera Privacy Toggle (AppOps)**:
-   - Android 12 이상에서는 퀵 설정 창에 글로벌 "카메라 차단" 토글이 존재한다. `Manifest.permission.CAMERA`가 `GRANTED` 상태라 하더라도, 사용자가 퀵 설정을 통해 카메라를 차단하면 `AppOpsManager`가 `MODE_IGNORED`를 반환하며, 카메라 세션은 검은색 프레임만 반환하거나 `SecurityException`을 던진다.
+   - Android 12 이상에서는 퀵 설정 창에 글로벌 "카메라 차단" 토글이 존재한다. `Manifest.permission.CAMERA` 가 `GRANTED` 상태라 하더라도, 사용자가 퀵 설정을 통해 카메라를 차단하면 `AppOpsManager` 가 `MODE_IGNORED` 를 반환하며, 카메라 세션은 검은색 프레임만 반환하거나 `SecurityException` 을 던진다.
 
 2. **Foreground Service Types Requirement (Android 14 / 15 / 16)**:
-   - Android 14 이상에서 앱이 백그라운드 상태이거나 화면이 꺼진 동안 카메라 센서를 계속 캡처해야 하는 경우, 매니페스트에 `<service android:foregroundServiceType="camera">`를 선언해야 한다.
-   - 촬영된 대용량 이미지/비디오 인코딩 및 처리 작업을 수행할 때는 Android 14+ 에 도입된 `foregroundServiceType="mediaProcessing"`을 사용하여 OS 스케줄러의 강제 종료를 방지한다.
+   - Android 14 이상에서 앱이 백그라운드 상태이거나 화면이 꺼진 동안 카메라 센서를 계속 캡처해야 하는 경우, 매니페스트에 `<service android:foregroundServiceType="camera">` 를 선언해야 한다.
+   - 촬영된 대용량 이미지/비디오 인코딩 및 처리 작업을 수행할 때는 Android 14+ 에 도입된 `foregroundServiceType="mediaProcessing"` 을 사용하여 OS 스케줄러의 강제 종료를 방지한다.
 
 3. **Scoped Storage & MediaStore Atomic Publishing (`IS_PENDING`)**:
-   - Android 10 이상 Scoped Storage 환경에서는 앱이 외부 저장소 전체 쓰기 권한(`WRITE_EXTERNAL_STORAGE`) 없이도 `MediaStore`에 사진을 작성할 수 있다. `IS_PENDING=1` 상태로 파일을 생성해 쓰기를 진행한 후, 인코딩이 완료되는 시점에 `IS_PENDING=0`으로 업데이트하여 atomic 하게 갤러리에 노출시킨다.
+   - Android 10 이상 Scoped Storage 환경에서는 앱이 외부 저장소 전체 쓰기 권한(`WRITE_EXTERNAL_STORAGE`) 없이도 `MediaStore` 에 사진을 작성할 수 있다. `IS_PENDING=1` 상태로 파일을 생성해 쓰기를 진행한 후, 인코딩이 완료되는 시점에 `IS_PENDING=0` 으로 업데이트하여 atomic 하게 갤러리에 노출시킨다.
 
 ---
 
@@ -90,7 +90,7 @@ date created: 2026-08-04 02:20:00 +09:00
 | 항목 | 성공 경로 (Success Path) | 실패 분기 (Failure Branch 1: Camera Monopolized) | 실패 분기 (Failure Branch 2: ImageReader Buffer Leak) |
 | :--- | :--- | :--- | :--- |
 | **진행 현상** | 프리뷰 정상 작동, 셔터 클릭 즉시 MediaStore 에 사진 저장 후 배경 업로드 등록 | 촬영 화면 진입 시 "카메라를 열 수 없습니다" 에러 표시 또는 화면 검게 멈춤 | 1~2 회 촬영 후 더 이상 셔터가 반응하지 않고 프리뷰가 멈춤 |
-| **원인 메커니즘** | 하드웨어 점유 성공, Zero-Copy Surface 바인딩, `IS_PENDING` 관리 및 WorkManager 성공 | 다른 앱(예: 영상 통화)이 카메라 단일 점유 자원을 소유하고 있어 오픈 실패 | `ImageReader.acquireNextImage()` 호출 후 `image.close()`를 누락하여 Reader 버퍼 큐 고갈 |
+| **원인 메커니즘** | 하드웨어 점유 성공, Zero-Copy Surface 바인딩, `IS_PENDING` 관리 및 WorkManager 성공 | 다른 앱(예: 영상 통화)이 카메라 단일 점유 자원을 소유하고 있어 오픈 실패 | `ImageReader.acquireNextImage()` 호출 후 `image.close()` 를 누락하여 Reader 버퍼 큐 고갈 |
 | **관측 가능 신호** | `dumpsys media.camera` 내 클라이언트 바인딩 활성화, MediaStore `IS_PENDING=0` | `CameraAccessException: CAMERA_IN_USE (1)`, logcat 에 `onDisconnected()` 수신 | logcat: `ImageReader_JNI: Discarding image.. buffer queue is full`, `ImageReader` 멈춤 |
 
 ---

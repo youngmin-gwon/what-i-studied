@@ -1,14 +1,14 @@
 ---
-title: android-topics-map
+title: 0-android-topics-map
 tags: [android, android/foundations, topic-synthesis]
 aliases: ["Android 주제별 합성 문서(Topic Synthesis) 지도"]
-date modified: 2026-08-05 10:20:00 +09:00
+date modified: 2026-08-05 10:03:51 +09:00
 date created: 2026-08-05 09:00:00 +09:00
 ---
 
 ## Android 주제별 합성 문서(Topic Synthesis) 지도
 
-이 지도는 `00_foundations/topics/` 의 33개 주제 합성 문서를 모은다. 각 문서는 하나의 실무 주제(예: "Jetpack Compose 완전 이해")를 다루는 원자 노트들을 모아 그 주제의 80%를 한 문서로 이해할 수 있게 조합한 글루(glue) 레이어다. 개별 원자 노트가 정본이고, 이 문서들은 정본으로 가는 진입점이다.
+이 지도는 `00_foundations/topics/` 의 33 개 주제 합성 문서를 모은다. 각 문서는 하나의 실무 주제(예: "Jetpack Compose 완전 이해")를 다루는 원자 노트들을 모아 그 주제의 80% 를 한 문서로 이해할 수 있게 조합한 글루(glue) 레이어다. 개별 원자 노트가 정본이고, 이 문서들은 정본으로 가는 진입점이다.
 
 이 지도는 Learning Spine 처럼 순서대로 읽는 문서가 아니라, 특정 주제가 궁금할 때 바로 찾아 들어가는 색인이다.
 
@@ -70,7 +70,7 @@ Phase 1 coverage matrix 와 사용자 요청으로 새로 신설된 클러스터
 
 ### G13~G17. Tier 2 보강 주제
 
-Phase 9 에서 우선순위가 낮다고 판단해 보류했다가, 사용자 요청으로 뒤이어 착수한 5개 주제다. 원자 노트는 대응하는 기존 클러스터(networking-contracts, 신설 multiplatform-contracts/appsearch-contracts/speech-contracts/downloadable-fonts-contracts)에 있다.
+Phase 9 에서 우선순위가 낮다고 판단해 보류했다가, 사용자 요청으로 뒤이어 착수한 5 개 주제다. 원자 노트는 대응하는 기존 클러스터(networking-contracts, 신설 multiplatform-contracts/appsearch-contracts/speech-contracts/downloadable-fonts-contracts)에 있다.
 
 - [gRPC는 REST와 다른 타입 세이프 스트리밍 계약을 선언한다](../../02_app_framework/data/networking/networking-contracts/grpc-declares-typed-streaming-contract-while-rest-stays-single-shot-request-response.md)
 - [Kotlin Multiplatform 계약](../../02_app_framework/architecture/multiplatform-contracts/multiplatform-contracts.md)
@@ -80,6 +80,6 @@ Phase 9 에서 우선순위가 낮다고 판단해 보류했다가, 사용자 �
 
 ### 이 지도가 다루지 않는 것
 
-- 순서를 갖고 처음부터 끝까지 읽는 커리큘럼은 [Learning Spine](../learning-spine/01-android-ecosystem-and-contract-surfaces.md)이 다룬다.
-- 여러 계층을 하나의 실패/성공 흐름으로 추적하는 서사는 [Worked Examples](../worked-examples/01-app-icon-tap-to-first-frame.md)가 다룬다.
-- 증상에서 조사 절차로 바로 이어지는 진단은 [Diagnostic Runbooks](../diagnostic-runbooks/01-app-launch-slow-or-fails.md)가 다룬다.
+- 순서를 갖고 처음부터 끝까지 읽는 커리큘럼은 [Learning Spine](../learning-spine/01-android-ecosystem-and-contract-surfaces.md) 이 다룬다.
+- 여러 계층을 하나의 실패/성공 흐름으로 추적하는 서사는 [Worked Examples](../worked-examples/01-app-icon-tap-to-first-frame.md) 가 다룬다.
+- 증상에서 조사 절차로 바로 이어지는 진단은 [Diagnostic Runbooks](../diagnostic-runbooks/01-app-launch-slow-or-fails.md) 가 다룬다.

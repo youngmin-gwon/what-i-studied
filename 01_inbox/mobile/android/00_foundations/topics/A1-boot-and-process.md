@@ -1,14 +1,14 @@
 ---
 title: A1-boot-and-process
-tags: [android, system-internals, boot, topic-synthesis]
-aliases: [Android 부팅, 프로세스 생성, Boot Topic]
+tags: [android, boot, system-internals, topic-synthesis]
+aliases: [Android 부팅, Boot Topic, 프로세스 생성]
+date modified: 2026-08-05 10:03:54 +09:00
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 19:30:00 +09:00
 ---
 
 ## A1 · Android 부팅과 프로세스 생성
 
-> **이 문서의 목적**: Android 기기가 전원이 켜진 순간부터 앱 프로세스가 준비되는 순간까지 전체 부팅 흐름을 단일 진입점으로 이해한다. 각 단계가 왜 존재하는지, 각 단계에서 관찰 가능한 신호가 무엇인지를 중심으로 서술한다.
+>**이 문서의 목적**: Android 기기가 전원이 켜진 순간부터 앱 프로세스가 준비되는 순간까지 전체 부팅 흐름을 단일 진입점으로 이해한다. 각 단계가 왜 존재하는지, 각 단계에서 관찰 가능한 신호가 무엇인지를 중심으로 서술한다.
 
 ---
 
@@ -26,7 +26,7 @@ date modified: 2026-08-04 19:30:00 +09:00
 
 ### 전체 조망도
 
-```
+```plaintext
 전원 ON
   │
   ▼
@@ -73,7 +73,7 @@ date modified: 2026-08-04 19:30:00 +09:00
 
 init 은 Linux 의 첫 번째 userspace 프로세스(PID 1) 다. Android 의 init 은 표준 Linux init 과 달리 `.rc` 스크립트 언어로 선언된 서비스 정책을 실행하는 **정책 엔진** 역할을 한다.
 
-init 은 두 단계로 나뉜다. **1단계(first-stage init)** 는 최소 파일시스템을 구성하고 `/dev`, `/proc`, `/sys` 를 마운트한다. **2단계(second-stage init)** 는 SELinux 를 로드하고 `.rc` 파일을 파싱해 서비스를 순차적으로 시작한다.
+init 은 두 단계로 나뉜다. **1 단계(first-stage init)** 는 최소 파일시스템을 구성하고 `/dev`, `/proc`, `/sys` 를 마운트한다. **2 단계(second-stage init)** 는 SELinux 를 로드하고 `.rc` 파일을 파싱해 서비스를 순차적으로 시작한다.
 
 `init.rc` 의 **trigger** 는 부팅 마일스톤 이벤트(`early-init`, `init`, `post-fs-data`, `boot`) 와 system property 변경 조건을 결합해 서비스 시작 시점을 제어하는 게이트다.
 
@@ -81,7 +81,7 @@ init 은 두 단계로 나뉜다. **1단계(first-stage init)** 는 최소 파�
 |---|---|
 | [init 은 PID 1 이자 userspace 부트스트랩 정책 엔진이다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-is-pid1-and-userspace-bootstrap-policy-engine.md) | init 의 역할과 두 단계 구조 |
 | [1단계 init 은 2단계를 위한 최소 파일시스템을 구성한다](../../01_system_internals/boot-and-runtime/init-service-contracts/first-stage-init-builds-minimal-filesystem-for-second-stage.md) | /dev, /proc, /sys 마운트 순서 |
-| [init rc 언어는 actions, services, options, imports 를 선언한다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-rc-language-declares-actions-services-options-and-imports.md) | .rc DSL 4가지 구문 요소 |
+| [init rc 언어는 actions, services, options, imports 를 선언한다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-rc-language-declares-actions-services-options-and-imports.md) | .rc DSL 4 가지 구문 요소 |
 | [init trigger 는 event 와 property 조건을 결합하는 실행 gate 다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-triggers-are-event-and-property-gates.md) | 부팅 마일스톤별 서비스 시작 제어 |
 | [init 서비스는 명시적 수명주기를 가진 감독 프로세스다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-service-is-supervised-process-with-explicit-lifecycle.md) | init 의 서비스 재시작 정책 |
 | [property service 는 전역 상태 저장소이자 제한된 제어 평면이다](../../01_system_internals/boot-and-runtime/init-service-contracts/property-service-is-global-state-store-and-restricted-control-plane.md) | sys.boot_completed 등 property 역할 |
@@ -108,9 +108,9 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 ### 4. SystemServer: 프레임워크 서비스의 기원
 
-`system_server` 는 Zygote 에서 fork 된 특수 프로세스로, AMS(ActivityManagerService), PMS(PackageManagerService), WMS(WindowManagerService) 등 100개 이상의 핵심 프레임워크 서비스를 **단일 프로세스 내 스레드** 로 실행한다.
+`system_server` 는 Zygote 에서 fork 된 특수 프로세스로, AMS(ActivityManagerService), PMS(PackageManagerService), WMS(WindowManagerService) 등 100 개 이상의 핵심 프레임워크 서비스를 **단일 프로세스 내 스레드** 로 실행한다.
 
-서비스 초기화는 3단계로 나뉜다: Bootstrap Services(AMS, PMS 등) → Core Services(DropBoxManager 등) → Other Services(Camera, WiFi, Bluetooth 등). 초기화 순서가 의존성을 결정한다.
+서비스 초기화는 3 단계로 나뉜다: Bootstrap Services(AMS, PMS 등) → Core Services(DropBoxManager 등) → Other Services(Camera, WiFi, Bluetooth 등). 초기화 순서가 의존성을 결정한다.
 
 `system_server` 가 크래시되면 그 안에 있는 모든 서비스가 함께 종료되고, 커널이 Zygote 를 포함한 자식 프로세스들을 종료시킨다. 이후 init 이 Zygote 를 재시작한다.
 
@@ -118,7 +118,7 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [system_server 는 framework service 를 한 프로세스 안에서 시작한다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-server-starts-framework-services-in-one-process.md) | 단일 프로세스 구조와 3단계 초기화 |
+| [system_server 는 framework service 를 한 프로세스 안에서 시작한다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-server-starts-framework-services-in-one-process.md) | 단일 프로세스 구조와 3 단계 초기화 |
 | [AMS 는 앱 프로세스와 컴포넌트 lifecycle 을 조율한다](../../01_system_internals/boot-and-runtime/system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md) | fork 요청, attachApplication, OOM adj |
 | [ATMS 는 activity, task, back stack 전이를 담당한다](../../01_system_internals/boot-and-runtime/system-server-contracts/atms-owns-activity-task-and-back-stack-transitions.md) | Android 10+ Activity 관리 분리 |
 | [시스템 서비스는 Binder endpoint 이자 플랫폼 정책 집행자다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-service-is-binder-endpoint-and-platform-policy-enforcer.md) | 서비스 = Binder 서버 + 정책 |
@@ -129,6 +129,7 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 ### 5. 앱 프로세스 생성 (fork → Specialization → attach)
 
 사용자가 앱 아이콘을 탭하면:
+
 1. **ATMS** 가 Intent 를 처리해 대상 Activity 를 결정한다
 2. 해당 앱 프로세스가 없으면 **AMS** 가 Zygote 소켓으로 fork 요청을 보낸다
 3. **Zygote** 가 fork 해 자식 프로세스를 만든다
@@ -140,7 +141,7 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [앱 프로세스는 specialization 뒤 ActivityThread 로 framework 에 attach 한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/app-process-specializes-before-activitythread-attaches-to-framework.md) | fork 이후 6단계 specialization 과정 |
+| [앱 프로세스는 specialization 뒤 ActivityThread 로 framework 에 attach 한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/app-process-specializes-before-activitythread-attaches-to-framework.md) | fork 이후 6 단계 specialization 과정 |
 | [ART 는 DEX 를 interpretation, JIT, AOT 조합으로 실행한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/art-runs-dex-with-interpretation-jit-and-aot.md) | Interpreter/JIT/AOT 하이브리드 전략 |
 | [Profile guided compilation 은 설치, 실행, idle compile 비용을 나눈다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/profile-guided-compilation-splits-install-runtime-and-idle-costs.md) | Baseline Profile / dex2oat 타이밍 |
 

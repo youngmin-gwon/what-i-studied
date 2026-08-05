@@ -2,11 +2,11 @@
 title: 03-deep-link-to-correct-task-and-screen-state
 tags: ["android", "android/foundations", "worked-example"]
 aliases: ["Deep link to correct task and screen state", "Deep Link가 올바른 Task와 화면 상태로 열리기까지"]
-date modified: 2026-08-04 16:00:00 +09:00
+date modified: 2026-08-05 10:07:57 +09:00
 date created: 2026-08-04 02:30:00 +09:00
 ---
 
-## Deep Link가 올바른 Task와 화면 상태로 열리기까지 (Deep Link to Correct Task & Screen State)
+## Deep Link 가 올바른 Task 와 화면 상태로 열리기까지 (Deep Link to Correct Task & Screen State)
 
 이 예시는 Learning Spine 3·4·5 장을 하나의 외부 진입 경로로 연결한다. 설치 시점 서명 identity 가 웹 도메인 소유 증명(`assetlinks.json`)으로 연동되는 구조(3 장), 매니페스트 컴포넌트 registry 조회를 통한 Intent 매칭과 냉시작 프로세스 분기(4 장), 그리고 딥 링크 클릭 시 단순 단일 화면 렌더링을 넘어 OS Task 와 합성 백 스택(Synthetic Backstack)을 구성하는 화면 상태 관리 계약(5 장)을 다층 서사로 다룬다.
 
@@ -51,7 +51,7 @@ date created: 2026-08-04 02:30:00 +09:00
 2. **System Server 및 IPC 레이어**:
    - `DomainVerificationManager` 및 `PackageManagerService`(PMS)는 수신된 HTTPS 도메인이 사전 검증(App Link Verification)된 호스트인지 확인한다.
    - 도메인 검증이 `verified` 상태이면, 사용자에게 앱 선택 대화상자(Disambiguation Dialog)나 웹 브라우저를 띄우지 않고 곧바로 해당 앱 패키지를 최종 수신자로 단독 지정한다.
-   - `ActivityTaskManagerService`(ATMS)는 해당 Activity 의 `launchMode`와 Intent 플래그(`FLAG_ACTIVITY_NEW_TASK` 등)를 참조하여 딥 링크가 실행될 Task 와 백 스택을 계산한다.
+   - `ActivityTaskManagerService`(ATMS)는 해당 Activity 의 `launchMode` 와 Intent 플래그(`FLAG_ACTIVITY_NEW_TASK` 등)를 참조하여 딥 링크가 실행될 Task 와 백 스택을 계산한다.
    - 앱 프로세스가 죽어있는 경우 AMS 가 Zygote fork 경로를 실행한다 (WE1 냉시작 참조).
 
 3. **App Framework 레이어**:
@@ -60,7 +60,7 @@ date created: 2026-08-04 02:30:00 +09:00
 
 4. **인증 상태 판정 및 합성 백 스택 (Synthetic Backstack) 구성**:
    - 해당 리소스가 로그인(인증)을 요구하는 경우, 미인증 상태에서는 원본 URI 나 Route 를 `PendingRoute` 저장은 하되 즉시 실행하지 않고 로그인 화면(`LoginRoute`)으로 우회한다.
-   - 로그인 성공 시 저장해둔 `PendingRoute`를 단 1회 소비하여 원래 요청된 화면으로 이동한다.
+   - 로그인 성공 시 저장해둔 `PendingRoute` 를 단 1 회 소비하여 원래 요청된 화면으로 이동한다.
    - 딥 링크로 새로 진입한 Task 는 이전 화면 기록이 없으므로, 사용자가 '뒤로 가기' 버튼을 누르면 앱이 곧바로 종료되는 불상사가 발생한다. 따라서 `TaskStackBuilder` 또는 Navigation Controller 를 이용해 합성 백 스택(`Home -> Category -> ProductDetail`)을 만들어 둔다.
 
 ---
@@ -68,8 +68,8 @@ date created: 2026-08-04 02:30:00 +09:00
 ### Android 14 / 15 / 16 platform specific behaviors
 
 1. **Android 12~16 Strict App Links Domain Verification**:
-   - Android 12 이상부터는 `android:autoVerify="true"`가 선언된 HTTPS 도메인이라도, 서버의 `assetlinks.json` 검증이 실패하면 앱 선택 대화상자를 띄우지 않고 즉시 웹 브라우저로 렌더링을 이관한다.
-   - `adb shell pm get-app-links` 명령을 통해 OS 의 검증 도메인 상태가 `verified`인지 주시해야 한다.
+   - Android 12 이상부터는 `android:autoVerify="true"` 가 선언된 HTTPS 도메인이라도, 서버의 `assetlinks.json` 검증이 실패하면 앱 선택 대화상자를 띄우지 않고 즉시 웹 브라우저로 렌더링을 이관한다.
+   - `adb shell pm get-app-links` 명령을 통해 OS 의 검증 도메인 상태가 `verified` 인지 주시해야 한다.
 
 2. **Jetpack Navigation 3 & Type-Safe Navigation**:
    - 기존의 `android-app://` 문자열 기반 navigation URL 매핑 방식에서 벗어나, Kotlin Serialization 의 `@Serializable` 데이터 클래스로 Route 를 정의한다. URL 은 진입 파서에서 일차 타입 검증을 거친 후 순수 도메인 모델로 다뤄진다.
@@ -84,7 +84,7 @@ date created: 2026-08-04 02:30:00 +09:00
 | 항목 | 성공 경로 (Success Path) | 실패 분기 (Failure Branch 1: Domain Unverified) | 실패 분기 (Failure Branch 2: Unauthenticated Deep Link) |
 | :--- | :--- | :--- | :--- |
 | **진행 현상** | 링크 탭 즉시 앱이 열리며 로그인 확인 후 상품 상세 화면 표시. 뒤로 가기 시 카테고리/홈 이동 | 탭 시 앱 선택 팝업이 뜨거나 Chrome 브라우저로 웹페이지 접속 | 앱 진입 후 즉시 로그인 화면으로 전환. 로그인 완료 후 상품 상세로 정상 복원 |
-| **원인 메커니즘** | App Link 검증 성공 (`verified`), 타입 안전 파싱 완료, 합성 백 스택 구성 | `assetlinks.json` 미배포, SHA-256 서명 불일치, 매니페스트 autoVerify 누락 | 인증 필요 리소스 진입 시 세션 없음. 원본 Route 를 `PendingRouteStore`에 일시 저장 후 이관 |
+| **원인 메커니즘** | App Link 검증 성공 (`verified`), 타입 안전 파싱 완료, 합성 백 스택 구성 | `assetlinks.json` 미배포, SHA-256 서명 불일치, 매니페스트 autoVerify 누락 | 인증 필요 리소스 진입 시 세션 없음. 원본 Route 를 `PendingRouteStore` 에 일시 저장 후 이관 |
 | **관측 가능 신호** | `pm get-app-links` -> `verified`, `dumpsys activity activities` 내 합성 Task Stack 인스턴스 확인 | `pm get-app-links` -> `legacy` 또는 `1` (rejected), 브라우저 프로세스 가동 | `logcat: DeepLinkHandler: Session missing. PendingRoute saved: Product(123)` |
 
 ---

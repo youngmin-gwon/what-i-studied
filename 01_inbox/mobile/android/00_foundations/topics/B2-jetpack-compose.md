@@ -2,7 +2,7 @@
 title: B2-jetpack-compose
 tags: [android, jetpack-compose, topic-synthesis]
 aliases: [Compose Topic, Jetpack Compose 합성]
-date modified: 2026-08-04 20:45:00 +09:00
+date modified: 2026-08-05 10:08:00 +09:00
 date created: 2026-08-04 16:00:00 +09:00
 ---
 
