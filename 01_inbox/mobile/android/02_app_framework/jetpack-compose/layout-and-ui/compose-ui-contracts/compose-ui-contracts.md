@@ -11,6 +11,7 @@ date created: 2026-07-31 23:59:30 +09:00
 - [Compose layout은 부모 제약 안에서 자식을 측정하고 배치한다](./compose-layout-measures-children-under-parent-constraints.md)
 - [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](./modifier-order-changes-layout-draw-and-input-wrappers.md)
 - [Size modifier는 incoming constraint 안에서 요청 크기를 해석한다](./size-modifiers-interpret-requested-size-inside-incoming-constraints.md)
+- [Material 3 Expressive는 크기, Shape, 타이포그래피, 패딩 토큰과 Shape Morphing을 결합한다](./m3-expressive-bundles-size-shape-typography-padding-and-shape-morphing.md)
 - [Custom Layout은 자식 측정과 배치를 직접 책임진다](./custom-layout-measures-and-places-children-explicitly.md)
 - [Intrinsic measurement와 **SubcomposeLayout**(상위 레이아웃 계산 중 하위 요소 측정 결과를 바탕으로 하위 Composition을 동적으로 구성하는 레이아웃 API)은 특수한 측정 문제를 해결한다](./intrinsic-measurement-and-subcompose-layout-solve-special-measurement-problems.md)
 - [Compose animation API는 변경 단위와 제어 수준으로 선택한다](./compose-animation-api-is-selected-by-change-unit-and-control-level.md)

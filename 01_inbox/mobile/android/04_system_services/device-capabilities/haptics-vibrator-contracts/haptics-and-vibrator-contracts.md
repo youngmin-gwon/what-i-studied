@@ -2,7 +2,7 @@
 title: haptics-and-vibrator-contracts
 tags: [android, android/device-capabilities, android/haptics, android/vibrator]
 aliases: ["Haptics 및 Vibrator 계약"]
-date modified: 2026-08-05 14:44:18 +09:00
+date modified: 2026-08-05 15:06:16 +09:00
 date created: 2026-08-05 14:00:00 +09:00
 ---
 
