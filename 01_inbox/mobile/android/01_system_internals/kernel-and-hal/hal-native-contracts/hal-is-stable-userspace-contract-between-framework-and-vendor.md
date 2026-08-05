@@ -2,13 +2,14 @@
 title: hal-is-stable-userspace-contract-between-framework-and-vendor
 tags: [android, android/native, android/system-internals]
 aliases: [HAL, Hardware Abstraction Layer]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
 ## HAL은 framework와 vendor 구현 사이의 안정된 userspace contract다
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
+배경 지식: [커널/유저 모드](02_references/operating-systems/kernel.md)
 
 HAL 은 하드웨어 제조사 구현을 Android framework 코드와 분리하기 위한 표준 userspace interface 다.
 

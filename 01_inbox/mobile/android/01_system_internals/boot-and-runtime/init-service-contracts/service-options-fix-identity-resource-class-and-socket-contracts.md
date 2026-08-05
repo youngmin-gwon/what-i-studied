@@ -2,13 +2,14 @@
 title: service-options-fix-identity-resource-class-and-socket-contracts
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["service option은 identity, resource, class, socket 계약을 고정한다"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## service option 은 identity, resource, class, socket 계약을 고정한다
 
 상위 문서: [init 서비스 계약](init-service-contracts.md)
+배경 지식: [cgroups](01_inbox/linux/container-basics.md), [유닉스 소켓 IPC](01_inbox/operating-systems/ipc-mechanisms.md)
 
 `service option`은 `init.rc` 스크립트에서 데몬 프로세스의 신원(Identity), 리소스 제한(Resource Limits), 그룹 분류(Class), 그리고 소켓 생성(Socket Contract) 등의 실행 조건을 명시적으로 고정하여 프로세스의 안전한 sandbox 격리와 런타임 수명주기를 설정하는 선언 파라미터다.
 

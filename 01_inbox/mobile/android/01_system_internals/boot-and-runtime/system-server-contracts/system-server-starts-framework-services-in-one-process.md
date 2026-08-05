@@ -2,13 +2,14 @@
 title: system-server-starts-framework-services-in-one-process
 tags: [android, android/boot-runtime, android/system-internals, android/system-server]
 aliases: ["system_server는 framework service를 한 프로세스 안에서 시작한다"]
-date modified: 2026-08-03 17:23:57 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## system_server 는 framework service 를 한 프로세스 안에서 시작한다
 
 상위 문서: [system_server 계약](system-server-contracts.md)
+배경 지식: [프로세스 vs 스레드](02_references/operating-systems/kernel.md)
 
 `system_server`는 Android 프레임워크의 거의 모든 핵심 시스템 서비스(AMS, PMS, WMS, DisplayManager, BatteryService 등 100여 개 이상)를 단일 Java 프로세스 공간 내부에서 스레드 형태로 구동하여, 서비스 간 고속 메모리 참조와 체계적인 3단계 수명주기 초기화 메커니즘을 제공하는 통합 프로세스다.
 

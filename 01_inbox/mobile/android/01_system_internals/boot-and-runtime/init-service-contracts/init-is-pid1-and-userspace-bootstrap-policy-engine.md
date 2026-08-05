@@ -2,13 +2,14 @@
 title: init-is-pid1-and-userspace-bootstrap-policy-engine
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["init는 PID 1이자 Android userspace의 부트스트랩 정책 엔진이다"]
-date modified: 2026-08-03 17:23:38 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## init 는 PID 1 이자 Android userspace 의 부트스트랩 정책 엔진이다
 
 상위 문서: [init 서비스 계약](init-service-contracts.md)
+배경 지식: [일반 init 시스템(PID 1)](01_inbox/operating-systems/init-systems.md), [시그널(SIGCHLD)](01_inbox/operating-systems/signals.md), [좀비 프로세스/waitpid](01_inbox/operating-systems/process-states-lifecycle.md)
 
 `init`은 Linux Kernel이 실행하는 최초의 userspace 프로세스(PID 1)로, 모든 userspace 프로세스의 부모가 되며, `init.rc` 스크립트를 파싱하여 시스템 서비스 부트스트랩, 이벤트 기반 Trigger 처리, Property Service 관리, 자식 프로세스 고사(Zombie) 방지 및 Process Supervision을 총괄하는 정책 엔진이다.
 

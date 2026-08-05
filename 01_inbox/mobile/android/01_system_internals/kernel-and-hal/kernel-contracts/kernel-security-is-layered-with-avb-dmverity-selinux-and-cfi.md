@@ -2,13 +2,14 @@
 title: kernel-security-is-layered-with-avb-dmverity-selinux-and-cfi
 tags: [android, android/kernel, android/security]
 aliases: [Kernel Security, AVB, dm-verity, KCFI]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
 ## Kernel security는 AVB, dm-verity, SELinux, CFI가 나눠 맡는다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
+배경 지식: [SELinux/MAC](01_inbox/linux/security/selinux.md)
 
 Android 커널 보안은 단일 보안 메커니즘에 의존하지 않으며, 부팅 전 이미지 검증부터 실행 시간 액세스 제어 및 메모리 악용 방지에 이르기까지 계층화된 심층 방어(Defense-in-Depth) 구조로 설계되어 있다.
 

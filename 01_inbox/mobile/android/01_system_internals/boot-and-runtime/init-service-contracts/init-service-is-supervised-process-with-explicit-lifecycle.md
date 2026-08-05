@@ -2,13 +2,14 @@
 title: init-service-is-supervised-process-with-explicit-lifecycle
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["init service는 재시작 정책을 가진 supervised process다"]
-date modified: 2026-08-03 17:23:42 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## init service 는 재시작 정책을 가진 supervised process 다
 
 상위 문서: [init 서비스 계약](init-service-contracts.md)
+배경 지식: [프로세스 상태/좀비 프로세스](01_inbox/operating-systems/process-states-lifecycle.md), [시그널(SIGCHLD)](01_inbox/operating-systems/signals.md)
 
 `init service`는 `init` (PID 1) 프로세스에 의해 부모-자식 관계 형태로 실행/감독(Supervised)되는 프로세스로, 크래시 시 자식 회수(Reaping), 재시작 카운팅 및 쿨다운 정책, 의존 서비스 트리거 연쇄 반응 등 명시적 수명주기(Lifecycle) 규칙을 따른다.
 

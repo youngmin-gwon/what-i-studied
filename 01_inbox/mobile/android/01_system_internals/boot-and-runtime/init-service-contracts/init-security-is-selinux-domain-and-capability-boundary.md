@@ -2,13 +2,14 @@
 title: init-security-is-selinux-domain-and-capability-boundary
 tags: [android, android/boot-runtime, android/init, android/system-internals]
 aliases: ["init 보안은 SELinux domain과 capability 경계로 정의된다"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## init 보안은 SELinux domain 과 capability 경계로 정의된다
 
 상위 문서: [init 서비스 계약](init-service-contracts.md)
+배경 지식: [SELinux](01_inbox/linux/security/selinux.md), [네임스페이스](01_inbox/linux/container-basics.md)
 
 init 보안 모델은 서비스 프로세스 실행 시 Linux의 root 권한 남용을 방지하기 위해 UID/GID 분리뿐만 아니라 POSIX Capabilities의 엄격한 제한(Drop Capabilities) 및 SELinux Domain Transition을 통해 보안 경계(Security Boundary)를 격리하는 메커니즘이다.
 

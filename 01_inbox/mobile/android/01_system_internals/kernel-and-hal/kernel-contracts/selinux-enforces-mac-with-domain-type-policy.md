@@ -2,13 +2,14 @@
 title: selinux-enforces-mac-with-domain-type-policy
 tags: [android, android/kernel, android/security]
 aliases: [SELinux]
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
 ## SELinux는 domain/type 정책으로 mandatory access control을 강제한다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
+배경 지식: [SELinux/DAC/MAC](01_inbox/linux/security/selinux.md)
 
 
 SELinux 는 Linux discretionary access control(DAC)을 대체하는 것이 아니라, 그 위에 mandatory access control(MAC)을 추가한다. root 권한이나 Linux capability 가 있더라도 policy 가 허용하지 않은 동작은 차단될 수 있다.

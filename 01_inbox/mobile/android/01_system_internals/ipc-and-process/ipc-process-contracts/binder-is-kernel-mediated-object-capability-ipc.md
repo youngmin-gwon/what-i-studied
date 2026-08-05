@@ -2,7 +2,7 @@
 title: binder-is-kernel-mediated-object-capability-ipc
 tags: [android, android/binder, android/ipc]
 aliases: ["Binder는 객체 참조를 커널이 중재하는 capability IPC다", Binder IPC]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 11:43:22 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -22,12 +22,12 @@ Binder 는 Kernel Level Capability-based Security 모델이다.
 
 1. **Handle 0 (servicemanager)**: 모든 프로세스는 시작 시 Handle 0 번(ServiceManager)을 기본 할당받는다.
 2. **`flat_binder_object` & `binder_fd_object` Translation**:
-   - Server가 Binder 객체나 File Descriptor를 전달할 때 커널 Binder 드라이버는 직렬화된 Parcel 내부의 offset 배열을 스캔하여 Wire Protocol 데이터 구조체(`flat_binder_object`, `binder_fd_object`)를 변환한다.
-   - Binder 참조: Server의 `BINDER_TYPE_BINDER` (커널 포인터 `binder_node`)를 Client 전용의 정수 Handle (`BINDER_TYPE_HANDLE`)로 1:1 매핑 변환한다. Client는 정수 Handle 값만 가질 뿐 타 프로세스의 Binder 메모리를 임의 조작할 수 없다.
-   - File Descriptor: Client/Server 프로세스 간 FD 공유 시 `BINDER_TYPE_FD`(`binder_fd_object`)를 매개로 커널이 수신 프로세스의 fd table에 새로운 fd 번호를 생성 할당(File Descriptor Dup)하여 안전한 IPC 파일 공유를 보장한다.
+   - Server 가 Binder 객체나 File Descriptor 를 전달할 때 커널 Binder 드라이버는 직렬화된 Parcel 내부의 offset 배열을 스캔하여 Wire Protocol 데이터 구조체(`flat_binder_object`, `binder_fd_object`)를 변환한다.
+   - Binder 참조: Server 의 `BINDER_TYPE_BINDER` (커널 포인터 `binder_node`)를 Client 전용의 정수 Handle (`BINDER_TYPE_HANDLE`)로 1:1 매핑 변환한다. Client 는 정수 Handle 값만 가질 뿐 타 프로세스의 Binder 메모리를 임의 조작할 수 없다.
+   - File Descriptor: Client/Server 프로세스 간 FD 공유 시 `BINDER_TYPE_FD`(`binder_fd_object`)를 매개로 커널이 수신 프로세스의 fd table 에 새로운 fd 번호를 생성 할당(File Descriptor Dup)하여 안전한 IPC 파일 공유를 보장한다.
 3. **Spoofing 불가능한 Caller Identity**:
-   - `ioctl(fd, BINDER_WRITE_READ, ...)` 수행 시 커널이 호출자의 `uid`와 `pid`를 `binder_transaction_data` 구조체에 직접 주입한다.
-   - Server Java 레벨에서 `Binder.getCallingUid()`, `Binder.getCallingPid()`를 호출하면 커널이 보증한 신원 정보가 반환된다.
+   - `ioctl(fd, BINDER_WRITE_READ, …)` 수행 시 커널이 호출자의 `uid` 와 `pid` 를 `binder_transaction_data` 구조체에 직접 주입한다.
+   - Server Java 레벨에서 `Binder.getCallingUid()`, `Binder.getCallingPid()` 를 호출하면 커널이 보증한 신원 정보가 반환된다.
 
 ```mermaid
 graph LR
@@ -103,4 +103,3 @@ public void performRestrictedOperation() {
 - native/HAL Binder 는 앱 AIDL 과 같은 단어를 쓰더라도 안정성, 버전, SELinux 경계가 다르다.
 
 관련 노트: [SELinux policy는 Binder service와 file boundary를 함께 제어한다](../../kernel-and-hal/kernel-contracts/selinux-policy-controls-binder-service-and-file-boundaries.md)
-

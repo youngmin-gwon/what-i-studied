@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-05 13:15:00 +09:00
+date modified: 2026-08-05 14:30:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -1188,3 +1188,13 @@ A2/B1/B2/B3 네 파일 모두 실제 장 제목·번호로 정정했다(예: A2 
 4. **후보에서 제외(1 개)**: `06_testing_performance/performance/benchmark-baseline-contracts/baseline-profile-generation-records-critical-user-journeys.md` 는 애초에 다이어그램이 아니라 실제 Baseline Profile 규칙 파일 예시 코드였다(화살표 문자가 smali 메서드 시그니처 `->` 라서 오탐).
 
 **검증.** 29 개 파일 전체를 python 스크립트로 재스캔: 모든 파일에 Mermaid 블록 존재, 남은 ASCII box-drawing 블록 0 건, 따옴표 없는 괄호 포함 노드/엣지 라벨 0 건, `subgraph`/`end` 불균형 0 건. vault 전체(769 개 파일) broken link 0, wikilink 0, 도달률 100% 재확인. 작업 중 `00_foundations/topics/B3-data-layer.md` 의 `date modified` 가 이 세션의 편집과 무관하게 두 차례 다시 쓰였다(다른 병렬 세션이 같은 시각에 vault 를 만지고 있는 것으로 보인다) — 다이어그램 내용 자체는 정상 변환됐음을 재확인하고 타임스탬프만 다시 맞췄다.
+
+**진행 기록(2026-08-05): 일반 OS/Linux 배경지식과의 연결 부재 발견 및 kernel-and-hal·boot-and-runtime 79 개 파일 연결 완료(사용자가 직접 읽다가 지적).** 사용자가 `android-kernel-is-linux-plus-mobile-platform-policy.md` 를 읽고 "초심자가 이해하기엔 사전 지식(IPC, DAC, PSI 등)이 너무 당연하게 전제돼 있다"고 지적했다. 조사 결과 이 vault 는 `01_inbox/mobile/android/` 바깥에 이미 상당히 풍부한 일반 OS/Linux/CS 배경지식 노트를 갖고 있었다 — `01_inbox/operating-systems/`(13 개), `01_inbox/linux/`(70 개), `02_references/operating-systems/`(4 개, 특히 `kernel.md` 는 DAC/MAC/IPC/시스템콜/스핀락 등을 역사적 맥락과 함께 매우 잘 설명함), `02_references/computer-science/`(2 개). 그런데 **`01_system_internals`(153 개 파일) 중 단 하나도 이 일반 노트들로 링크하지 않고 있었다.** 심지어 `02_references/operating-systems/kernel.md` 끝에는 `[[android-kernel]]` 이라는 역방향 연결 시도가 이미 있었으나, 실제 파일명과 맞지 않는 깨진 wikilink 였다(수정 완료 — 실제 파일 `android-kernel-is-linux-plus-mobile-platform-policy.md` 를 가리키는 마크다운 링크로 교체).
+
+사용자에게 범위를 물어 kernel-and-hal(39 개)·boot-and-runtime(40 개), 총 79 개 파일을 택했다. 2 개 subagent 에 병렬 위임해 각 파일을 전수 읽고, 그 노트의 핵심 논리에 실제로 쓰이는 일반 개념에만(스치는 언급 제외) "상위 문서:" 줄 바로 아래 `배경 지식: [용어](일반노트경로)` 한 줄을 추가하도록 지시했다. 결과: **24 개 파일에 배경 지식 링크 추가**(kernel-and-hal 12 개, boot-and-runtime 12 개). 나머지 55 개는 Android 고유 메커니즘이 핵심이라 일반 개념 링크가 필요 없다고 두 agent 가 판단해 손대지 않았다.
+
+**더 중요한 부수 발견: 일반 노트 쪽에도 없는 진짜 공백이 여럿 확인됐다.** 두 agent 가 공통으로 보고: **OOM Killer/LMKD/PSI(Pressure Stall Information)** — Linux 표준 개념인데 일반 OS 노트 어디에도 없음(`kernel.md` 는 다이어그램 라벨로만 "Standard OOM Killer" 언급, 설명 없음). 이 개념은 Android 커널 노트 2 개(`lmkd-kills-processes-by-memory-pressure-and-process-importance.md`, `psi-measures-stall-time-for-memory-pressure.md`)의 핵심이라 영향이 크다. 그 외 개별 공백: POSIX Capabilities/Capability Drop, seccomp, epoll 기반 이벤트 루프, Device Mapper(dm-linear/dm-verity), IOMMU/DMA cache maintenance, ACPI, Merkle Tree/Hash Tree 무결성 검증, Root of Trust/Chain of Trust, 데드락과 구분되는 일반 race condition.
+
+**검증.** 24 개 파일 + `kernel.md` 전체 재스캔: 추가된 링크 전부 broken 0 건, `date modified` 전부 갱신, "검증일:" 줄 전부 보존 확인.
+
+**다음 결정 필요:** OOM Killer/PSI 는 두 클러스터 모두에서 핵심 개념으로 두 번 지목됐다 — 일반 노트(`01_inbox/operating-systems/` 또는 `02_references/operating-systems/`)에 새로 추가할지 사용자 확인이 필요하다. 나머지 공백(POSIX Capabilities, seccomp, epoll, Device Mapper, IOMMU, ACPI, Merkle Tree, Root of Trust)은 각 1 개 노트에서만 언급돼 우선순위가 상대적으로 낮다.

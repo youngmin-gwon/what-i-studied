@@ -2,13 +2,14 @@
 title: native-performance-and-crash-debugging-start-at-the-boundary
 tags: [android, android/native, android/system-internals]
 aliases: [LLDB, native crash, native performance, tombstone, simpleperf]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
 ## Native 성능과 crash debugging은 경계 비용에서 시작한다
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
+배경 지식: [시그널](01_inbox/operating-systems/signals.md)
 
 C/C++ Native 코드의 성능 병목(Performance Bottleneck) 및 불투명한 패닉 크래시(Native Crash)를 진단할 때는 C++ 내부 연산 알고리즘 단독보다 **Managed Java/Kotlin과 Native C++ 간의 JNI 경계 호출 비용**에서 분석을 시작해야 한다.
 

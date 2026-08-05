@@ -2,13 +2,14 @@
 title: virtual-ab-uses-snapshots-to-reduce-ota-space-and-downtime
 tags: [android, android/boot, android/boot-runtime, android/system-internals]
 aliases: ["Virtual A/B는 snapshot으로 OTA 공간과 offline 시간을 줄인다"]
-date modified: 2026-08-03 17:23:28 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Virtual A/B 는 snapshot 으로 OTA 공간과 offline 시간을 줄인다
 
 상위 문서: [부팅 흐름 계약](boot-flow-contracts.md)
+배경 지식: [Copy-On-Write(COW)](02_references/operating-systems/virtual-memory.md)
 
 Virtual A/B(VAB)는 두 파티션 세트를 물리적으로 중복 확보해야 하는 레거시 A/B 시스템의 저장 용량 낭비를 극복하기 위해, `super` 파티션 내 단일 이미지에 Copy-On-Write(COW) Snapshot 장치와 userspace 데몬(`snapuserd`)을 조합하여 저장 공간 소비와 재부팅 다운타임을 최소화하는 OTA 아키텍처다.
 

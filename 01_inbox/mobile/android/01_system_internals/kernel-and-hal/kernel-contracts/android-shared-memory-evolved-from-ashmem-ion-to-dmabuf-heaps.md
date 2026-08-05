@@ -2,13 +2,14 @@
 title: android-shared-memory-evolved-from-ashmem-ion-to-dmabuf-heaps
 tags: [android, android/kernel, android/memory]
 aliases: [ashmem, DMA-BUF, ION]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
 ## Android shared memory는 ashmem, ION, DMA-BUF heaps로 역할이 분화됐다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
+배경 지식: [SELinux](01_inbox/linux/security/selinux.md)
 
 Android의 공유 메모리(Shared Memory) 메커니즘은 CPU 프로세스 간 텍스트/데이터 버퍼 전달부터 카메라/GPU/Display/H/W Codec 간 저지연 Zero-copy 버퍼 공유까지 진화하며 역할이 분화되어 왔다.
 

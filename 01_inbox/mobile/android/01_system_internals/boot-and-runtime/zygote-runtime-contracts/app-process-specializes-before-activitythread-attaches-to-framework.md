@@ -2,13 +2,14 @@
 title: app-process-specializes-before-activitythread-attaches-to-framework
 tags: [android, android/boot-runtime, android/runtime, android/system-internals]
 aliases: ["앱 프로세스는 specialization 뒤 ActivityThread로 framework에 attach한다"]
-date modified: 2026-08-03 17:24:01 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## 앱 프로세스는 specialization 뒤 ActivityThread 로 framework 에 attach 한다
 
 상위 문서: [Zygote 런타임 계약](zygote-runtime-contracts.md)
+배경 지식: [네임스페이스(mount namespace)](01_inbox/linux/container-basics.md), [SELinux](01_inbox/linux/security/selinux.md)
 
 앱 프로세스 생성 과정은 단순히 Zygote의 `fork()`로 끝나지 않으며, 고유 UID/GID 적용, SELinux 도메인 강등, Cgroup 바인딩, App-specific ClassLoader 로딩으로 고유 샌드박스 환경을 구체화하는 **Specialization** 단계를 거친 직후, `ActivityThread.main()`에서 AMS로 Binder `attachApplication()`을 호출하여 비로소 Android 프레임워크 프로세스로 통합되는 메커니즘이다.
 

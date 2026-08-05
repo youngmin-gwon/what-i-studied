@@ -2,13 +2,14 @@
 title: anr-is-responsiveness-contract-violation-not-single-timeout
 tags: [android, android/boot-runtime, android/system-internals, android/system-server]
 aliases: ["ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다"]
-date modified: 2026-08-03 17:23:52 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## ANR 은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다
 
 상위 문서: [system_server 계약](system-server-contracts.md)
+배경 지식: [시그널(SIGQUIT)](01_inbox/operating-systems/signals.md)
 
 ANR(Application Not Responding)은 메인 스레드(UI Thread)가 특정 시간 내에 이벤트를 처리하지 못해 발생하는 반응성 계약 위반으로, 컴포넌트 유형별로 정해진 타임아웃 윈도우(Input: 5초, Foreground Broadcast: 10초, Service: 20초)를 초과할 경우 `AnrHelper` / `AnrConsumer`가 트리거하는 시스템 제어 신호다.
 

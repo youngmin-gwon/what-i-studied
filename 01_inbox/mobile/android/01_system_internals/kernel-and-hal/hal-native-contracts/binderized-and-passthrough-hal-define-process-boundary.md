@@ -2,13 +2,14 @@
 title: binderized-and-passthrough-hal-define-process-boundary
 tags: [android, android/native, android/system-internals]
 aliases: [Binderized HAL, Passthrough HAL]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
 ## Binderized HAL과 passthrough HAL은 프로세스 경계를 다르게 둔다
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
+배경 지식: [IPC](01_inbox/operating-systems/ipc-mechanisms.md), [SELinux/MAC](01_inbox/linux/security/selinux.md)
 
 Android Treble 아키텍처에서 HAL(Hardware Abstraction Layer)은 실행 시점의 프로세스 경계(Process Boundary) 배치 방식에 따라 **Binderized HAL**과 **Passthrough HAL**의 두 가지 형태 모델로 구분된다.
 

@@ -2,13 +2,14 @@
 title: zygote-fork-saves-memory-while-copy-on-write-pages-stay-clean
 tags: [android, android/boot-runtime, android/runtime, android/system-internals]
 aliases: ["Zygote fork의 메모리 이점은 copy-on-write가 유지될 때 생긴다"]
-date modified: 2026-08-03 17:24:04 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Zygote fork 의 메모리 이점은 copy-on-write 가 유지될 때 생긴다
 
 상위 문서: [Zygote 런타임 계약](zygote-runtime-contracts.md)
+배경 지식: [fork()](01_inbox/operating-systems/process-states-lifecycle.md), [Copy-On-Write/가상 메모리](02_references/operating-systems/virtual-memory.md), [데드락](01_inbox/operating-systems/deadlock.md)
 
 Zygote의 `fork()` 아키텍처가 제공하는 핵심 RAM 절감 이점은 부모 프로세스인 Zygote가 사전 로드(Preload)한 프레임워크 클래스, 자원(Resources), Native 공유 라이브러리가 Linux Kernel의 **Copy-On-Write (COW)** 메커니즘을 통해 모든 앱 프로세스 간에 **Shared Clean Pages**로 물리 메모리를 공동 공유할 때 실현된다.
 

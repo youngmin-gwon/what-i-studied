@@ -2,13 +2,14 @@
 title: ebpf-extends-android-kernel-through-verified-programs
 tags: [android, android/ebpf, android/kernel]
 aliases: [BPF, eBPF]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 14:15:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
 ## eBPF는 검증된 프로그램으로 Android kernel 기능을 확장한다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
+배경 지식: [eBPF](02_references/operating-systems/kernel.md)
 
 eBPF(Extended Berkeley Packet Filter)는 소스코드를 수정하거나 별도의 커널 모듈(LKM)을 다시 빌드하지 않고도, 커널 내부 샌드박스 엔진 내에서 검증된(Verified) 바이트코드를 안전하게 실행하여 네트워크 패킷 필터링, 트래픽 통계(Traffic Accounting), CPU Time-in-State 프로파일링, 메모리 모니터링 기능을 확장하는 메커니즘이다.
 

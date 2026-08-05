@@ -2,13 +2,15 @@
 title: android-kernel-is-linux-plus-mobile-platform-policy
 tags: [android, android/kernel, linux]
 aliases: [Android Kernel, 안드로이드 커널]
-date modified: 2026-08-05 11:29:21 +09:00
+date modified: 2026-08-05 11:48:40 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
 ## Android kernel 은 Linux 에 모바일 플랫폼 정책을 더한 커널이다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
+
+배경 지식: [IPC](01_inbox/operating-systems/ipc-mechanisms.md), [DAC](02_references/operating-systems/kernel.md), [SELinux/MAC](01_inbox/linux/security/selinux.md)
 
 Android kernel 은 upstream Linux LTS(Long Term Support)를 기반으로 하지만, 배터리 구동 환경의 제약, 다수의 앱 샌드박싱, 저지연 그래픽 zero-copy, 엄격한 하드웨어 액세스 보안을 만족하도록 모바일 플랫폼 정책을 추가/개조한 커널이다.
 
