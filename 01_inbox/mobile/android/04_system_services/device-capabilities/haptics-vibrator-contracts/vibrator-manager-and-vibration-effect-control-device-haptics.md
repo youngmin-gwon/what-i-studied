@@ -2,13 +2,13 @@
 title: vibrator-manager-and-vibration-effect-control-device-haptics
 tags: [android, android/device-capabilities, android/haptics, android/vibrator]
 aliases: ["VibratorManager와 VibrationEffect는 기기의 정밀 햅틱과 진동 파형을 제어한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-05 14:04:46 +09:00
 date created: 2026-08-05 14:00:00 +09:00
 ---
 
-## VibratorManager와 VibrationEffect는 기기의 정밀 햅틱과 진동 파형을 제어한다
+## VibratorManager 와 VibrationEffect 는 기기의 정밀 햅틱과 진동 파형을 제어한다
 
-안드로이드의 햅틱 피드백 조작 체계는 단순한 무시간/무패턴 물리 모터 구동 방식에서 벗어나, `VibratorManager`와 `VibrationEffect` API를 통해 **진폭(Amplitude), 파형(Waveform), 프리미티브 컴포지션(Primitive Composition)**을 세밀히 조합하는 정밀 햅틱 엔진 아키텍처로 진화했다.
+안드로이드의 햅틱 피드백 조작 체계는 단순한 무시간/무패턴 물리 모터 구동 방식에서 벗어나, `VibratorManager` 와 `VibrationEffect` API 를 통해 **진폭(Amplitude), 파형(Waveform), 프리미티브 컴포지션(Primitive Composition)**을 세밀히 조합하는 정밀 햅틱 엔진 아키텍처로 진화했다.
 
 ---
 
@@ -25,8 +25,8 @@ date created: 2026-08-05 14:00:00 +09:00
 
 ### 2. 왜 정밀 VibrationEffect 가 필요한가? (Why)
 
-1. **하드웨어 제약 및 파편화 문제 해결**: 구형 모터(ERM)는 반응 속도가 느려 복잡한 햅틱을 표현하기 어렵고, 최신 LRA 모터는 즉각적인 정밀 파동 조작이 가능하다. `VibrationEffect.startComposition()` API는 하드웨어가 지원하지 않을 경우 자동으로 가장 유사한 프리셋 패턴으로 안전하게 폴백(Fallback)한다.
-2. **시스템 설정과의 조화 (System Sound & Haptics Policy)**: `VibrationAttributes`를 명시함으로써, 사용자가 안드로이드 설정에서 '터치 진동 피드백'만 껐을 경우 알람/전화 벨소리 진동에는 영향을 주지 않고 터치 햅틱만 선별적으로 차단되도록 보장한다.
+1. **하드웨어 제약 및 파편화 문제 해결**: 구형 모터(ERM)는 반응 속도가 느려 복잡한 햅틱을 표현하기 어렵고, 최신 LRA 모터는 즉각적인 정밀 파동 조작이 가능하다. `VibrationEffect.startComposition()` API 는 하드웨어가 지원하지 않을 경우 자동으로 가장 유사한 프리셋 패턴으로 안전하게 폴백(Fallback)한다.
+2. **시스템 설정과의 조화 (System Sound & Haptics Policy)**: `VibrationAttributes` 를 명시함으로써, 사용자가 안드로이드 설정에서 '터치 진동 피드백'만 껐을 경우 알람/전화 벨소리 진동에는 영향을 주지 않고 터치 햅틱만 선별적으로 차단되도록 보장한다.
 
 ---
 
@@ -94,6 +94,7 @@ fun playAdvancedHaptic(context: Context) {
 상위 문서: [Haptics 및 Vibrator 계약](./haptics-and-vibrator-contracts.md)
 
 관련 계약 문서:
+
 - [InputManager는 물리 입력 장치를 이벤트 소스로 추상화한다](../input-accessibility-contracts/inputmanager-abstracts-physical-input-devices-as-event-sources.md)
 - [Android System Services & Device Capabilities](../android-system-services-and-device-capabilities.md)
 

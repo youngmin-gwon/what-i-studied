@@ -2,7 +2,7 @@
 title: android-system-services-and-device-capabilities
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-04 20:15:00 +09:00
+date modified: 2026-08-05 14:05:24 +09:00
 date created: 2026-08-03 17:31:11 +09:00
 ---
 
@@ -23,14 +23,16 @@ date created: 2026-08-03 17:31:11 +09:00
 9. [미디어/오디오/카메라 시스템 서비스 접근 계약](./device-capabilities/media-audio-camera-contracts/media-audio-camera-contracts.md), [생체 인증/자격 증명 계약](./device-capabilities/biometrics-credential-contracts/biometrics-credential-contracts.md), [텔레포니 접근 계약](./device-capabilities/telephony-contracts/telephony-contracts.md), [입력 장치와 접근성 서비스 계약](./device-capabilities/input-accessibility-contracts/input-accessibility-contracts.md) 에서 각 표면별 조정/승인/신뢰 모델을 확인한다.
 10. [온디바이스 AI 접근 계약](./device-capabilities/on-device-ai-contracts/on-device-ai-contracts.md) 에서 ML Kit/LiteRT 온디바이스 추론과 AICore 공유 모델, 가용성 확인 계약을 본다.
 11. [NFC와 비접촉 기능 계약](./device-capabilities/nfc-contracts/nfc-contracts.md) 에서 태그, NDEF, HCE/APDU, 결제를 서로 다른 프로토콜 문제로 본다.
-12. [App Shortcuts 접근 계약](./device-capabilities/app-shortcuts-contracts/app-shortcuts-contracts.md) 에서 static/dynamic/pinned shortcut의 소유권 차이와 개수/rate limit 제약을 본다.
+12. [App Shortcuts 접근 계약](./device-capabilities/app-shortcuts-contracts/app-shortcuts-contracts.md) 에서 static/dynamic/pinned shortcut 의 소유권 차이와 개수/rate limit 제약을 본다.
 13. [AppSearch 접근 계약](./device-capabilities/appsearch-contracts/appsearch-contracts.md) 에서 온디바이스 검색 색인 저장소 선택과 스키마 마이그레이션 계약을 본다.
-14. [음성 합성/인식 접근 계약](./device-capabilities/speech-contracts/speech-contracts.md) 에서 `TextToSpeech`의 비동기 초기화와 `SpeechRecognizer`의 권한/콜백 순서 계약을 본다.
+14. [음성 합성/인식 접근 계약](./device-capabilities/speech-contracts/speech-contracts.md) 에서 `TextToSpeech` 의 비동기 초기화와 `SpeechRecognizer` 의 권한/콜백 순서 계약을 본다.
+15. [Haptics 및 Vibrator 계약](./device-capabilities/haptics-vibrator-contracts/haptics-and-vibrator-contracts.md) 에서 `LocalHapticFeedback` 터치 피드백과 `VibratorManager` / `VibrationEffect` 진동 파형 제어를 본다.
 
 ### 문제 분류
 
 | 증상 또는 질문 | 먼저 볼 지도 | 첫 판단 |
 | --- | --- | --- |
+| 터치 시 햅틱 진동이 켜지지 않거나 무반응 | Haptics 및 Vibrator 계약 | `VibrationAttributes` 목적 지정 및 터치 진동 설정 상태 |
 | permission 은 granted 인데 API 가 조용히 실패 | 시스템 서비스 접근 공통 계약 | AppOps 가 실행 시점에 별도로 거부했는지 |
 | 화면을 닫으면 업로드가 멈춘다 | 백그라운드 작업 | 작업이 지연 가능한지, 사용자에게 보여야 하는지 |
 | 정시에 울려야 하는 기능이 늦는다 | 백그라운드 작업 | 정확한 시각이 제품 계약인지 |
@@ -86,6 +88,7 @@ date created: 2026-08-03 17:31:11 +09:00
 - [생체 인증/자격 증명 계약](./device-capabilities/biometrics-credential-contracts/biometrics-credential-contracts.md)
 - [텔레포니 접근 계약](./device-capabilities/telephony-contracts/telephony-contracts.md)
 - [입력 장치와 접근성 서비스 계약](./device-capabilities/input-accessibility-contracts/input-accessibility-contracts.md)
+- [Haptics 및 Vibrator 계약](./device-capabilities/haptics-vibrator-contracts/haptics-and-vibrator-contracts.md)
 - [온디바이스 AI 접근 계약](./device-capabilities/on-device-ai-contracts/on-device-ai-contracts.md)
 - [NFC와 비접촉 기능 계약](./device-capabilities/nfc-contracts/nfc-contracts.md)
 - [App Shortcuts 접근 계약](./device-capabilities/app-shortcuts-contracts/app-shortcuts-contracts.md)
@@ -94,4 +97,4 @@ date created: 2026-08-03 17:31:11 +09:00
 
 새 노트는 특정 API 를 나열하기보다 `시스템이 보장하는 것`, `앱이 영속화·검증할 것`, `버전·권한 조건`, `관찰 가능한 실패` 중 하나의 판단 단위를 맡아야 한다.
 
-검증일: 2026-08-03. 이 지도는 `_meta/android-knowledge-base-quality-plan.md` Phase 1(2026-08-03)에서 확정한 "이름 유지 + 범위 확장" 결정에 따라 위 클러스터를 모두 갖췄다.
+검증일: 2026-08-05. 이 지도는 `_meta/android-knowledge-base-quality-plan.md` 기준 Haptics 및 Vibrator 계약 추가 반영 완료.

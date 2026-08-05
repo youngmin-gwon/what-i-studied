@@ -2,7 +2,7 @@
 title: launched-effect-owns-composable-cancellable-work
 tags: ["android", "android/app-framework"]
 aliases: [Cancellable Coroutine Work, LaunchedEffect]
-date modified: 2026-08-05 13:59:32 +09:00
+date modified: 2026-08-05 14:00:27 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 16:53:16 +09:00
 
 ### 1. 개념 정의 (What)
 
-`LaunchedEffect(key1, key2) { block }` 는 Composable 함수가 Composition 파이프라인에 진입(Enter)할 때 코루틴(Coroutine)을 생성하여 비동기 작업(Async Task)을 실행하고, Composable 이 트리를 이탈(Leave)하거나 키(Key)가 변경되면 **실행 중이던 코루틴을 자동으로 취소(Cancel)**하는 수명주기 종속 비동기 이펙트 API 다.
+`LaunchedEffect(key1, key2) { block }` 는 Composable 함수가 Composition 파이프라인에 진입(Enter)할 때 코루틴(Coroutine)을 생성하여 비동기 작업(Async Task)을 실행하고, Composable 이 트리를 이탈(Leave)하거나 키(Key)가 변경되면 **실행 중이던 코루틴을 자동으로 취소(Cancel)** 하는 수명주기 종속 비동기 이펙트 API 다.
 
 ---
 

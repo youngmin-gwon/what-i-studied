@@ -85,14 +85,6 @@
       "key": "E"
     }
   ],
-  "switcher:open": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "P"
-    }
-  ],
   "quick-explorer:browse-vault": [
     {
       "modifiers": [
@@ -100,5 +92,6 @@
       ],
       "key": "H"
     }
-  ]
+  ],
+  "note-refactor-obsidian:app:extract-selection-first-line": []
 }
