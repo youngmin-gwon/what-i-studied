@@ -24,33 +24,27 @@ Compose 애플리케이션에서 상태(State)를 보존하는 API는 단일 통
 
 ### 3. 수명주기 계층 및 선택 기준 메커니즘 (How)
 
-```
-+-------------------------------------------------------------------------+
-| Level 1: Composition 수명 (Transient UI Local State)                    |
-| - API: remember { mutableStateOf(value) }                               |
-| - 멸실 시점: Composable 이 화면 트리에서 제거될 때                        |
-+-------------------------------------------------------------------------+
-                                    |
-                                    v
-+-------------------------------------------------------------------------+
-| Level 2: Process Death & Activity Recreation 수명 (Restorable State)    |
-| - API: rememberSaveable { mutableStateOf(value) }                       |
-| - 멸실 시점: 유저가 화면을 완전히 이탈하거나 Task 를 종료할 때            |
-+-------------------------------------------------------------------------+
-                                    |
-                                    v
-+-------------------------------------------------------------------------+
-| Level 3: ViewModel 수명 (Screen Business State)                         |
-| - API: ViewModel + SavedStateHandle + StateFlow                         |
-| - 멸실 시점: 화면(NavBackStackEntry / Host Activity) 이 완전히 Pop 될 때  |
-+-------------------------------------------------------------------------+
-                                    |
-                                    v
-+-------------------------------------------------------------------------+
-| Level 4: Application / Persistent 수명 (Global Domain State)            |
-| - API: DataStore / Room / Repository Singleton                          |
-| - 멸실 시점: 앱 삭제 또는 캐시 삭제 시                                   |
-+-------------------------------------------------------------------------+
+```mermaid
+graph TD
+    subgraph L1["Level 1: Composition 수명 (Transient UI Local State)"]
+        A["API: remember { mutableStateOf(value) }<br/>멸실 시점: Composable 이 화면 트리에서 제거될 때"]
+    end
+
+    subgraph L2["Level 2: Process Death & Activity Recreation 수명 (Restorable State)"]
+        B["API: rememberSaveable { mutableStateOf(value) }<br/>멸실 시점: 유저가 화면을 완전히 이탈하거나 Task 종료 시"]
+    end
+
+    subgraph L3["Level 3: ViewModel 수명 (Screen Business State)"]
+        C["API: ViewModel + SavedStateHandle + StateFlow<br/>멸실 시점: 화면 (NavBackStackEntry / Host Activity) 이 Pop 될 때"]
+    end
+
+    subgraph L4["Level 4: Application / Persistent 수명 (Global Domain State)"]
+        D["API: DataStore / Room / Repository Singleton<br/>멸실 시점: 앱 삭제 또는 데이터/캐시 삭제 시"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
 ```
 
 ---

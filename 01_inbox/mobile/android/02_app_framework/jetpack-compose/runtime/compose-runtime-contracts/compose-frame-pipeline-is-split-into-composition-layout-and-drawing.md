@@ -22,24 +22,22 @@ Compose의 프레임 처리 파이프라인(Frame Pipeline)은 단일 통합 렌
 
 ### 3. 내부 동작 및 Phase별 역할 (How)
 
-```
-+-------------------------------------------------------------------------+
-| Phase 1: Composition (What to show)                                     |
-| - Composable 함수 실행, UI 트리의 LayoutNode 와 Slot Table 구성         |
-+-------------------------------------------------------------------------+
-                                    |
-                                    v
-+-------------------------------------------------------------------------+
-| Phase 2: Layout (Where and how big to show)                              |
-| - (1) Measure: 부모 제약 조건(Constraints) 기반 자식 크기 측정            |
-| - (2) Place: 자식 노드의 (x, y) 픽셀 좌표 배치                          |
-+-------------------------------------------------------------------------+
-                                    |
-                                    v
-+-------------------------------------------------------------------------+
-| Phase 3: Drawing (How to render)                                        |
-| - Canvas 및 RenderNode 기반 픽셀 렌더링 및 화면 래스터화                |
-+-------------------------------------------------------------------------+
+```mermaid
+graph TD
+    subgraph P1["Phase 1: Composition (What to show)"]
+        A["Composable 함수 실행<br/>UI 트리의 LayoutNode 와 Slot Table 구성"]
+    end
+
+    subgraph P2["Phase 2: Layout (Where & how big to show)"]
+        B["(1) Measure: 부모 제약 조건(Constraints) 기반 자식 크기 측정<br/>(2) Place: 자식 노드의 (x, y) 픽셀 좌표 배치"]
+    end
+
+    subgraph P3["Phase 3: Drawing (How to render)"]
+        C["Canvas 및 RenderNode 기반 픽셀 렌더링 및 화면 래스터화"]
+    end
+
+    A --> B
+    B --> C
 ```
 
 1. **Composition Phase**: `@Composable` 함수를 구동하고 상태(State)를 읽어 `LayoutNode` 트리 구조를 생성/갱신한다.

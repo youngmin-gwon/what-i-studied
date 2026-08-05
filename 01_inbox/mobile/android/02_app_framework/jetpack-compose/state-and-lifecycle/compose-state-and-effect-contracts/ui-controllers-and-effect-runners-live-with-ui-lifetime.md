@@ -26,22 +26,17 @@ UI 세부 레이아웃 컨트롤러는 UI 계층(Composition Tree)에 두고, Vi
 
 ### 3. 영역 분리 레이어 메커니즘 (How)
 
-```
-+-------------------------------------------------------------------------+
-| Composition / UI Layer                                                  |
-| - State Holders: LazyListState, DrawerState, AnimationState            |
-| - 수명주기: UI Lifetime (rememberLazyListState())                       |
-| - 역할: 픽셀 스크롤 좌표, 애니메이션 틱, 포커스 제어                       |
-+-------------------------------------------------------------------------+
-                                    |
-                                    | Pure UI Events / Screen State
-                                    v
-+-------------------------------------------------------------------------+
-| ViewModel / Domain Layer                                                |
-| - State Holders: StateFlow<ScreenUiState>                               |
-| - 수명주기: Screen / Activity Navigation Lifetime                       |
-| - 역할: 서버 데이터 연동, 비즈니스 검증, 도메인 엔티티 변환              |
-+-------------------------------------------------------------------------+
+```mermaid
+graph TD
+    subgraph UI["Composition / UI Layer"]
+        A["State Holders: LazyListState, DrawerState, AnimationState<br/>수명주기: UI Lifetime (rememberLazyListState)<br/>역할: 픽셀 스크롤 좌표, 애니메이션 틱, 포커스 제어"]
+    end
+
+    subgraph VM["ViewModel / Domain Layer"]
+        B["State Holders: StateFlow&lt;ScreenUiState&gt;<br/>수명주기: Screen / Activity Navigation Lifetime<br/>역할: 서버 데이터 연동, 비즈니스 검증, 도메인 변환"]
+    end
+
+    A -->|"Pure UI Events / Screen State"| B
 ```
 
 ---
