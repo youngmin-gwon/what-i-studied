@@ -55,4 +55,4 @@ Play Console 관리 화면의 `설정 > 앱 서명` 메뉴에서 Upload Key 지�
 keytool -list -v -keystore upload-keystore.jks
 ```
 
-관련 노트: [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](../../gradle/gradle-build-contracts/signing-config-connects-local-signing-and-play-release-identity.md), [릴리스 배포 계약](release-distribution-contracts.md)
+관련 노트: [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](../../build/gradle/gradle-build-contracts/signing-config-connects-local-signing-and-play-release-identity.md), [릴리스 배포 계약](release-distribution-contracts.md)

@@ -65,4 +65,4 @@ CI 단계별 성공/실패 시그널 및 빌드 소요 시간 통계는 GitHub A
 ./gradlew testDebugUnitTest lintDebug
 ```
 
-관련 노트: [Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다](../../build/ci-cd-contracts/android-cicd-pipeline-stages-have-different-failure-signals.md), [의존성 및 CI 계약](dependency-ci-contracts.md)
+관련 노트: [Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다](../../ci-cd-contracts/android-cicd-pipeline-stages-have-different-failure-signals.md), [의존성 및 CI 계약](dependency-ci-contracts.md)

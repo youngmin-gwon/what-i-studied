@@ -2,13 +2,14 @@
 title: heavy-work-does-not-belong-in-composition
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-05 13:57:50 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
 ## 무거운 작업은 composition 안에 두지 않는다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../../../06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+
 배경 지식: [프로세스 생명주기 및 상태](../../../../../../operating-systems/process-states-lifecycle.md)
 
 관련 지도: [Compose 성능 계약](./compose-performance-contracts.md)

@@ -65,4 +65,4 @@ apkanalyzer manifest print build/outputs/apk/release/app-release.apk | grep -E "
 # android:versionName="1.0.1"
 ```
 
-관련 노트: [App 업데이트는 application id, version code, 그리고 서명 호환성을 요구한다](../../distribution/release-distribution-contracts/app-updates-require-application-id-version-code-and-signature-compatibility.md), [Gradle 빌드 계약](gradle-build-contracts.md)
+관련 노트: [App 업데이트는 application id, version code, 그리고 서명 호환성을 요구한다](../../../distribution/release-distribution-contracts/app-updates-require-application-id-version-code-and-signature-compatibility.md), [Gradle 빌드 계약](gradle-build-contracts.md)

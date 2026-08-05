@@ -55,4 +55,4 @@ adb shell dumpsys package com.example.myapp | grep versionCode
 apkanalyzer manifest print new-app.apk | grep "android:versionCode"
 ```
 
-관련 노트: [Android 기본 설정은 식별자와 버전 계약을 만든다](../../gradle/gradle-build-contracts/android-default-config-defines-identity-and-version-contracts.md), [릴리스 배포 계약](release-distribution-contracts.md)
+관련 노트: [Android 기본 설정은 식별자와 버전 계약을 만든다](../../build/gradle/gradle-build-contracts/android-default-config-defines-identity-and-version-contracts.md), [릴리스 배포 계약](release-distribution-contracts.md)

@@ -73,4 +73,4 @@ Git 커밋 이력 내 자격증명 파일 누출 유무는 `git log` 수색 도�
 git log -p -- "*.keystore" "*.jks" "*service-account*.json"
 ```
 
-관련 노트: [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](../../gradle/gradle-build-contracts/signing-config-connects-local-signing-and-play-release-identity.md), [CI/CD 계약](ci-cd-contracts.md)
+관련 노트: [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](../gradle/gradle-build-contracts/signing-config-connects-local-signing-and-play-release-identity.md), [CI/CD 계약](ci-cd-contracts.md)

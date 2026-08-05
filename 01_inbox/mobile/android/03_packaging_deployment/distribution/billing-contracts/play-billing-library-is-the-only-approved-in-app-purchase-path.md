@@ -1,75 +1,57 @@
 ---
 title: play-billing-library-is-the-only-approved-in-app-purchase-path
-tags: ["android", "billing", "play-policy"]
-aliases: ["Play Billing Library는 Android 인앱 결제의 유일하게 승인된 경로다"]
+tags: ["android", "billing", "play-billing", "policy"]
+aliases: ["Play billing library는 유일하게 승인된 인앱 구매 경로다"]
+date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-05 16:15:00 +09:00
-date created: 2026-08-04 18:00:00 +09:00
+created: 2026-07-31 17:52:17 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## Play Billing Library는 Android 인앱 결제의 유일하게 승인된 경로다
+## Play billing library는 유일하게 승인된 인앱 구매 경로다
+
+상위 문서: [인앱 결제 계약](billing-contracts.md)
+
+### 개념 및 필요성 (What & Why)
+Google Play Developer Program Policy에 따라 Google Play 스토어를 통해 배포되는 모든 안드로이드 앱 내에서 디지털 재화(게임 아사, 프리미엄 기능, 정기 구독권)를 판매할 때는 **Google Play Billing Library**가 유일하게 허용되는 정식 인앱 구매 결제 엔진이다.
+외부 신용카드 결제 모듈이나 승인되지 않은 PG 결제 시스템을 임의로 결합하면 Google Play 스토어에서 앱이 즉시 거절되거나 삭제 조치(Store Removal)된다. (특정 국가의 대체 결제 시스템 정책 예외 제외).
 
 ### 내부 메커니즘 (Internal Mechanism)
+1. **`BillingClient` 수명주기 관리**: `BillingClient.newBuilder(context).setListener(...).build()`로 인스턴스를 생성하고, `startConnection()`을 통해 Google Play 서비스 프로세스와 IPC 통신 채널을 바인딩함.
+2. **`queryProductDetailsAsync` 상품 조회**: Play Console에 등록된 `inapp` 또는 `subs` 상품 정보를 최신 가격 및 통화 포맷으로 조회함.
+3. **`launchBillingFlow` 결제 UI 디스패치**: Google Play 보안 신용카드 결제 및 신원 확인 바텀시트 UI를 호스팅함.
 
-구글의 공식 배포 정책인 **Google Play Developer Distribution Agreement(구글 플레이 개발자 분배 협약)**는 안드로이드 앱 내부에서 사용자가 디지털 상품, 가상 화폐, 프리미엄 기능 해금, 구독 서비스 등을 구매할 때 반드시 구글의 공식 결제 클라이언트 SDK인 **Play Billing Library (`BillingClient`)**를 통해서만 결제를 처리해야 한다고 강제 규정한다. (물리적 실물 상품 배송, 택시/운송, 실생활 서비스 예약 등은 예외 정책 적용).
+```mermaid
+flowchart LR
+    AppClient["App BillingClient"] -->|1. startConnection| PlayIPC["Google Play Service IPC"]
+    AppClient -->|2. queryProductDetailsAsync| PlayIPC
+    AppClient -->|3. launchBillingFlow| PlayUI["Google Play Secure Payment BottomSheet"]
+    PlayUI -->|4. Payment Completed| Listener["PurchasesUpdatedListener.onPurchasesUpdated()"]
+```
 
-이 계약이 기술적으로 강제되는 지점은 Gradle 컴파일 타임이 아니라, 개발자가 AAB를 제출하는 **Google Play Console 심사 및 라이브 정책 감사 파이프라인**이다. 앱이 자체 결제 모듈(외부 웹뷰 신용카드 결제, 외부 PG 연동 등)로 디지털 콘텐츠를 우회 판매하다 적발될 경우 스토어 게시 거부, 앱 강제 차단, 계정 정지 조치가 단행된다.
-
-`BillingClient` API는 런타임 환경에서 안드로이드 OS 커널의 **Binder IPC (Inter-Process Communication, 프로세스 간 통신)** 인프라를 통해 기기에 설치된 Google Play Store 시스템 앱 프로세스와 보안 RPC 통신을 주고받는다. 따라서 기기에 Google Play Store 앱이 존재하지 않거나 구글 계정으로 로그인되어 있지 않은 환경(예: 자체 커스텀 ROM, 특정 대륙 에코시스템)에서는 `startConnection()` 호출 시 `BILLING_UNAVAILABLE` 오류를 반환하며 인앱 결제 서비스 진입이 차단된다.
-
-### 코드 예시 (BillingClient 초기화와 연결)
-
+### 코드 예시 (build.gradle.kts & BillingClient)
 ```kotlin
-class BillingRepository(context: Context) : PurchasesUpdatedListener {
-
-    private val billingClient = BillingClient.newBuilder(context)
-        .setListener(this)
-        .enablePendingPurchases(
-            PendingPurchasesParams.newBuilder()
-                .enableOneTimeProducts()
-                .build()
-        )
-        .build()
-
-    fun startConnection(onReady: () -> Unit) {
-        billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(result: BillingResult) {
-                if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                    onReady()
-                }
-            }
-
-            override fun onBillingServiceDisconnected() {
-                // 재연결 로직 없이는 이후 launchBillingFlow 호출이 모두 실패한다
-            }
-        })
-    }
-
-    override fun onPurchasesUpdated(result: BillingResult, purchases: List<Purchase>?) {
-        if (result.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            purchases.forEach { handlePurchase(it) }
-        }
-    }
-
-    private fun handlePurchase(purchase: Purchase) { /* ... */ }
+// app/build.gradle.kts
+dependencies {
+    implementation("com.android.billingclient:billing-ktx:6.2.1")
 }
 ```
 
-`BillingClient` 는 내부적으로 Play Store 앱의 시스템 결제 서비스와 Binder IPC로 통신한다. Play Store 앱이 기기에 없거나 로그인되지 않으면 `startConnection` 자체가 `BillingResponseCode.BILLING_UNAVAILABLE` 로 실패한다 — 즉 이 경로는 Google Play 생태계 존재를 전제로 한다.
-
-### 관측 가능 증거 (Observable Evidence)
-
-```bash
-# Play Console: Policy Center > 정책 상태에서 결제 정책 위반 여부 확인
-# 위반 시 게시 콘솔에 다음과 유사한 경고가 노출된다:
-#   "Your app allows users to pay for digital goods or services outside of Google Play's billing system."
-
-# 클라이언트 측 연결 실패 로그
-adb logcat -s BillingClient:* | grep BILLING_UNAVAILABLE
+```kotlin
+// BillingManager.kt
+val billingClient = BillingClient.newBuilder(context)
+    .setListener { billingResult, purchases ->
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+            for (purchase in purchases) {
+                processPurchase(purchase)
+            }
+        }
+    }
+    .enablePendingPurchases()
+    .build()
 ```
 
-### 경계
+### 관측 가능 증거 (Observable Evidence)
+결제 라이브러리 연동 동작 및 샌드박스 테스터 검증은 Google Play Console 라이선스 테스트 계정 환경에서 관측할 수 있다.
 
-- 이 노트는 "왜 우회할 수 없는가"만 다룬다. 상품/구독별 실제 purchase lifecycle 은 [상품과 구독은 서로 다른 purchase lifecycle을 가진다](product-and-subscription-purchases-have-different-lifecycles.md) 를 참조한다.
-- Play App Signing, AAB 등 배포 아티팩트 계약은 [Play 릴리스와 배포 계약](../release-distribution-contracts/release-distribution-contracts.md) 이 다룬다. 이 노트는 결제 채널 정책만 다룬다.
-
-관련 노트: [상품과 구독은 서로 다른 purchase lifecycle을 가진다](product-and-subscription-purchases-have-different-lifecycles.md), [Google Play Billing 계약](billing-contracts.md)
+관련 노트: [서버 측 purchase token 검증이 필요하며 클라이언트 판단은 안 된다](server-side-purchase-token-verification-is-required-not-client-judgment.md), [인앱 결제 계약](billing-contracts.md)

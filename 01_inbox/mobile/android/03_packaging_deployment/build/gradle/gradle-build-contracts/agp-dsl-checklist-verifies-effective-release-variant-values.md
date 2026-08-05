@@ -62,4 +62,4 @@ apkanalyzer manifest print build/outputs/apk/release/app-release.apk | grep "and
 # android:debuggable="false"
 ```
 
-관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](../../optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md), [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](signing-config-connects-local-signing-and-play-release-identity.md)
+관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](../../../optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md), [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](signing-config-connects-local-signing-and-play-release-identity.md)

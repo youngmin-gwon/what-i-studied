@@ -64,4 +64,4 @@ fi
 ./gradlew bundleRelease --stacktrace
 ```
 
-관련 노트: [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](../../dependency-versioning/dependency-ci-contracts/android-cicd-gates-separate-fast-validation-and-release-validation.md), [CI/CD 계약](ci-cd-contracts.md)
+관련 노트: [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](../dependency-versioning/dependency-ci-contracts/android-cicd-gates-separate-fast-validation-and-release-validation.md), [CI/CD 계약](ci-cd-contracts.md)

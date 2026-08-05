@@ -60,4 +60,4 @@ android {
 ./gradlew app:signingReport
 ```
 
-관련 노트: [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md), [Gradle 빌드 계약](gradle-build-contracts.md)
+관련 노트: [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../../distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md), [Gradle 빌드 계약](gradle-build-contracts.md)
