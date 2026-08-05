@@ -2,7 +2,7 @@
 title: D1-permission-model
 tags: [permissions, security, topic]
 aliases: [Permission and Sandbox, 권한 모델 완전 이해]
-date modified: 2026-08-05 10:07:59 +09:00
+date modified: 2026-08-05 12:00:00 +09:00
 date created: 2026-08-04 16:00:00 +09:00
 ---
 

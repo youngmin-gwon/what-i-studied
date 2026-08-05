@@ -2,7 +2,7 @@
 title: sdk-extensions-express-api-availability-beyond-sdk-int
 tags: ["android", "android/system-internals"]
 aliases: ["SDK Extensions는 SDK_INT만으로 표현되지 않는 API availability를 나타낸다"]
-date modified: 2026-08-03 17:26:49 +09:00
+date modified: 2026-08-05 12:00:00 +09:00
 date created: 2026-07-31 23:05:30 +09:00
 ---
 

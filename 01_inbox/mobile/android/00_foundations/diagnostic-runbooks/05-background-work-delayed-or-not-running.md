@@ -2,7 +2,7 @@
 title: 05-background-work-delayed-or-not-running
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: background work delayed or not running"]
-date modified: 2026-08-04 16:26:35 +09:00
+date modified: 2026-08-05 12:00:00 +09:00
 date created: 2026-08-04 10:50:00 +09:00
 ---
 

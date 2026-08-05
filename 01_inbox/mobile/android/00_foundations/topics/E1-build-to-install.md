@@ -3,7 +3,7 @@ title: E1-build-to-install
 tags: [topic, packaging, deployment, build]
 aliases: [E1: 빌드에서 설치까지 (Build to Install), Build to Install]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-05 12:00:00 +09:00
 ---
 
 ## E1: 빌드에서 설치까지 (Gradle → APK/AAB → PackageManager)

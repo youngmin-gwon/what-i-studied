@@ -3,7 +3,7 @@ title: D2-secure-storage-and-crypto
 tags: [topic, security, storage, crypto]
 aliases: [안전한 저장소와 암호화, Secure Storage and Crypto]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-05 12:00:00 +09:00
 ---
 
 ## D2: 안전한 저장소와 암호화

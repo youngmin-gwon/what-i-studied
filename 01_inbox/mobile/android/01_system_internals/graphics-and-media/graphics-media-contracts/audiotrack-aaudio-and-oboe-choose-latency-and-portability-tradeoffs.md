@@ -2,7 +2,7 @@
 title: audiotrack-aaudio-and-oboe-choose-latency-and-portability-tradeoffs
 tags: [android, android/audio, android/media, android/native]
 aliases: [AudioTrack, AAudio, Oboe, Low Latency Audio]
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 12:00:00 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 

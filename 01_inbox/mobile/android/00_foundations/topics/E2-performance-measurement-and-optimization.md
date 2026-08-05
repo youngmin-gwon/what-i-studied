@@ -3,7 +3,7 @@ title: E2-performance-measurement-and-optimization
 tags: [topic, performance, baseline-profile, macrobenchmark]
 aliases: [E2: 성능 측정과 최적화 (Performance Measurement and Optimization), Performance Measurement and Optimization]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-05 12:00:00 +09:00
 ---
 
 ## E2: 성능 측정과 최적화 (Baseline Profile, Macrobenchmark)

@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-05 11:15:00 +09:00
+date modified: 2026-08-05 12:05:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -227,6 +227,7 @@ Atomic Reference 는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 - 일반 개념은 가능한 한 한글로 설명하고, 필요한 경우 첫 등장에 `한글 설명(English term)` 형태로 병기한다.
 - `surface`, `lifetime`, `identity`, `state`, `artifact`, `boundary` 같은 영문 일반어를 장식적으로 반복하지 않는다. 문맥에 맞는 `접점`, `수명`, `식별 정보`, `상태`, `산출물`, `경계` 를 우선 사용한다.
 - 코드 식별자와 명령은 원문 그대로 backtick 으로 감싼다.
+- Mermaid 다이어그램의 노드/엣지 라벨에 괄호·파이프·따옴표 같은 특수문자가 들어가면 반드시 큰따옴표로 감싼다(`id["텍스트 (괄호)"]`). 감싸지 않으면 괄호가 도형 문법으로 오인되어 렌더링이 깨진다(2026-08-05 에 13 건 발견·수정).
 
 ### 품질 등급
 
@@ -1176,3 +1177,5 @@ A2/B1/B2/B3 네 파일 모두 실제 장 제목·번호로 정정했다(예: A2 
 **결론: Phase 7 claim 은 category 4~7/System Internals 처럼 광범위하게 과장된 사례는 아니었다.** 다만 이 결론은 순수 grep 표본 검사이지 전체 재독은 아니다 — 그러나 Phase 7 이 다룬 "6 개 핵심 영역"은 이미 이 세션이 category 1~7 + System Internals 검증(2026-08-04)에서 훨씬 더 깊게(전체 293 개 파일 전수 Read, WebFetch 사실 대조, 코드 컴파일 가능성까지) 재검증을 마친 대상과 사실상 동일하다. 따라서 Phase 7 을 별도로 전수 재검증하는 것은 중복 작업이라고 판단해 여기서 마무리한다.
 
 **남은 항목 없음.** 이 시점 기준으로 사람이 직접 읽고 확인하는 최종 사용자 검수를 제외한 모든 계획된 작업이 완료됐다.
+
+**진행 기록(2026-08-05): Mermaid 다이어그램 렌더링 오류 13 건 발견 및 수정(사용자가 Obsidian 에서 실제로 관찰).** 사용자가 "괄호가 중간에 있는 Mermaid 다이어그램이 에러로 안 보인다"고 보고했다. `## 문서 작성 형식과 언어`/Atomic Reference 4 대 구성요소 규칙은 원래부터 "Mermaid 또는 ASCII"를 동등하게 허용해 왔으므로(라인 155, 602, 1120), 다이어그램 표현 방식이 파일마다 다른 것 자체는 결함이 아니라 여러 세션이 각자 선호하는 방식을 골랐기 때문이다. 그러나 괄호 오류는 실제 결함이었다: Mermaid flowchart 에서 `id[텍스트 (괄호)]`/`id{텍스트 (괄호)}` 처럼 노드 라벨을 따옴표로 감싸지 않은 채 괄호를 포함하면, 괄호가 도형 문법(`id(...)`)으로 오인되어 파싱이 깨진다. vault 전체 Mermaid 블록을 스크립트로 스캔해 따옴표 없이 괄호를 포함한 노드 라벨 13 건(8 개 파일)을 찾아 전부 `id["텍스트 (괄호)"]` 형태로 따옴표를 추가했다. 대상: `E2-performance-measurement-and-optimization.md`(2 건), `G8-network-client-layer.md`(3 건), `D2-secure-storage-and-crypto.md`(2 건), `D1-permission-model.md`, `E1-build-to-install.md`(2 건), `05-background-work-delayed-or-not-running.md`, `audiotrack-aaudio-and-oboe-choose-latency-and-portability-tradeoffs.md`, `sdk-extensions-express-api-availability-beyond-sdk-int.md`. 재스캔 결과 남은 미해결 건 0. category 6 감사에서 이미 한 번(Mermaid `matrix` 잘못된 타입) 비슷한 결함이 발견된 바 있어, Mermaid 문법 오류가 이 vault 의 반복되는 결함 패턴임을 확인했다 — 향후 신규 Mermaid 다이어그램 작성 시 노드 라벨에 특수문자(괄호, 파이프, 따옴표)가 있으면 항상 큰따옴표로 감싸야 한다.
