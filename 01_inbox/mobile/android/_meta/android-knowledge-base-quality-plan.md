@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-05 14:30:00 +09:00
+date modified: 2026-08-05 15:45:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -1199,7 +1199,16 @@ A2/B1/B2/B3 네 파일 모두 실제 장 제목·번호로 정정했다(예: A2 
 
 **다음 결정 필요:** OOM Killer/PSI 는 두 클러스터 모두에서 핵심 개념으로 두 번 지목됐다 — 일반 노트(`01_inbox/operating-systems/` 또는 `02_references/operating-systems/`)에 새로 추가할지 사용자 확인이 필요하다. 나머지 공백(POSIX Capabilities, seccomp, epoll, Device Mapper, IOMMU, ACPI, Merkle Tree, Root of Trust)은 각 1 개 노트에서만 언급돼 우선순위가 상대적으로 낮다.
 
-**사용자 결정(2026-08-05): 위 공백 전부(OOM Killer/PSI 포함) 일반 노트로 신규 저작하고 연결하기로 확정.** `02_references/operating-systems/oom-killer-and-memory-pressure.md`, `seccomp.md`, `epoll-and-io-multiplexing.md`, `device-mapper-and-dm-verity.md`, `02_references/computer-science/merkle-tree.md`, `01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md`, `01_inbox/operating-systems/acpi-and-power-states.md` 7 개를 kernel.md 급 깊이(역사적 배경, Mermaid, 코드/명령어, 실사용처)로 저작 착수(subagent 1 개, 진행 중 — 완료 시 이 문서에 결과 기록 예정).
+**사용자 결정(2026-08-05): 위 공백 전부(OOM Killer/PSI 포함) 일반 노트로 신규 저작하고 연결하기로 확정 — 완료.** 7 개 노트를 kernel.md 급 깊이(역사적 배경, Mermaid, 코드/명령어, 실사용처)로 저작했다:
+- `02_references/operating-systems/oom-killer-and-memory-pressure.md` — 전통적 OOM Killer(badness score/`oom_score_adj`, 사후 대응)와 PSI(Linux 4.20+, `/proc/pressure/*`, 사전 개입) 대비, Android LMKD 를 실사용 예로 연결.
+- `02_references/operating-systems/seccomp.md` — strict mode vs filter mode(seccomp-bpf), Chrome sandbox/Docker 기본 프로파일 예시.
+- `02_references/operating-systems/epoll-and-io-multiplexing.md` — C10K 문제, `select`→`poll`→`epoll` 진화, edge/level-triggered, nginx/libuv/Redis/Android init 실사용.
+- `02_references/operating-systems/device-mapper-and-dm-verity.md` — Device Mapper 프레임워크, `dm-linear`/`dm-crypt`/`dm-verity`, 블록 계층 무결성 검증 이유.
+- `02_references/computer-science/merkle-tree.md` — 해시 트리 구조, O(log n) 부분 검증, Git/BitTorrent/블록체인/dm-verity 실사용.
+- `01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md` — 하드웨어 신뢰 앵커, 순차 서명 검증 체인, UEFI Secure Boot/TPM Measured Boot/AVB 연결.
+- `01_inbox/operating-systems/acpi-and-power-states.md` — S0~S5 전원 상태, 데스크탑/서버 ACPI suspend 와 모바일 autosleep/wakelock 대비.
+
+전부 kernel.md 와 동일한 형식(frontmatter, H2 전용 헤딩, "왜 필요했나" 역사적 프레이밍, Mermaid 최소 1개, 코드/CLI 예시, "## 연결 문서" wikilink)을 따랐고, 서로 언급한 wikilink 대상이 실제 파일명과 일치함을 검증했다. android 폴더는 이번 라운드에서 건드리지 않았다(다음 라운드에서 연결 예정).
 
 ---
 
