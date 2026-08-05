@@ -2,7 +2,7 @@
 title: android-kernel-is-linux-plus-mobile-platform-policy
 tags: [android, android/kernel, linux]
 aliases: [Android Kernel, 안드로이드 커널]
-date modified: 2026-08-05 11:48:40 +09:00
+date modified: 2026-08-05 14:45:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
@@ -40,10 +40,11 @@ graph TD
     A4 <--> B4
 ```
 
-1. **IPC & RPC**: 일반 Linux 가 Socket/Pipe/Message Queue 위주인 반면, Android 는 커널 드라이버 수준에서 오브젝트 참조 변환과 권한 주입을 처리하는 `binderfs` 를 핵심 IPC 로 채택.
-2. **전력 관리 (Power Management)**: 사용자가 입력을 멈추면 디바이스를 즉시 딥 슬립(Suspend-to-RAM) 상태로 전원 전환하는 `SystemSuspend` 및 `autosleep` 서브시스템 동작.
+1. **[IPC](01_inbox/operating-systems/ipc-mechanisms.md) & RPC**: 일반 Linux 가 Socket/Pipe/Message Queue 위주인 반면, Android 는 커널 드라이버 수준에서 오브젝트 참조 변환과 권한 주입을 처리하는 `binderfs` 를 핵심 IPC 로 채택.
+2. **전력 관리 (Power Management)**: 사용자가 입력을 멈추면 디바이스를 즉시 딥 슬립(Suspend-to-RAM) 상태로 전원 전환하는 `SystemSuspend` 및 `autosleep` 서브시스템 동작. 일반 Linux 의 ACPI 기반 표준 suspend 와 달리, Android 는 앱이 wakelock 을 명시적으로 걸지 않는 한 적극적으로 재운다.
 3. **메모리 회수 (Memory Reclaim)**: 전통적인 커널 internal OOM Killer 대신 kernel PSI(Pressure Stall Information) 서브시스템이 메모리 실시간 경합을 감지하고, userspace daemon 인 `lmkd` 가 프로세스 중요도(oom_adj)에 따라 사전에 킬 수행.
 4. **공유 메모리 (Shared Buffer)**: 과거 `ashmem` 및 `ION` 에서 modern Linux 의 `DMA-BUF heaps` 규격으로 통합되어 GPU, Display, Camera 간 버퍼 복사 없는(Zero-copy) 그래픽 메모리 전달.
+5. **권한 모델**: 일반 Linux 는 파일 소유자가 권한을 결정하는 [DAC](02_references/operating-systems/kernel.md)만으로도 동작하지만, Android 는 그 위에 [SELinux MAC](01_inbox/linux/security/selinux.md) 정책을 강제로 얹는다 — 프로세스가 root 권한을 얻어도 SELinux 정책이 파일 접근을 차단할 수 있다는 점이 DAC 단독 모델과의 핵심 차이다.
 
 ---
 

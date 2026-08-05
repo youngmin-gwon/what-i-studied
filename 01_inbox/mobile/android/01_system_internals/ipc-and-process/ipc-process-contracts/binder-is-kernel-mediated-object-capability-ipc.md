@@ -2,7 +2,7 @@
 title: binder-is-kernel-mediated-object-capability-ipc
 tags: [android, android/binder, android/ipc]
 aliases: ["Binder는 객체 참조를 커널이 중재하는 capability IPC다", Binder IPC]
-date modified: 2026-08-05 11:43:22 +09:00
+date modified: 2026-08-05 11:55:31 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,7 +10,11 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-Binder 의 핵심은 byte stream 이 아니라 remote object reference 다. client 는 handle 을 통해 service 의 method 를 호출하고, kernel Binder driver 는 process 간 buffer 전달, object reference, death notification, caller identity 를 중재한다.
+일반적인 소켓 IPC 는 "byte stream" 을 주고받는다 — 양쪽이 그 바이트를 어떤 프로토콜로 해석할지 직접 정하고 파싱해야 한다. Binder 는 이 방식과 근본적으로 다르다: client 는 바이트를 직접 다루지 않고, 마치 로컬 객체를 참조하듯 다른 프로세스 안의 객체를 가리키는 **remote object reference**(원격 객체 참조)를 들고 그 객체의 method 를 직접 호출하는 것처럼 코드를 쓴다. 실제로는 이 호출을 커널이 가로채 대상 프로세스로 전달하지만, 개발자가 보는 API 표면은 "저 프로세스에 있는 이 객체의 이 메서드를 불러줘"라는 의미 있는 요청이지, 스스로 인코딩/디코딩해야 하는 날 바이트가 아니다.
+
+client 가 들고 있는 remote object reference 의 실체가 바로 **handle**이다 — 정수 하나로 표현되는, "커널이 대신 관리하는 원격 객체를 가리키는 토큰"이다. client 프로세스는 이 정수값만 가지고 있을 뿐 실제 객체의 메모리 주소를 알거나 조작할 수 없다(아래 "내부 동작 메커니즘"에서 이 handle 이 커널 안에서 어떻게 실제 객체로 매핑되는지 다룬다). 이런 식으로 "위조 불가능한 토큰을 가져야만 접근할 수 있다"는 보안 모델을 CS 이론에서는 **capability(권한 토큰) 기반 접근 제어**라고 부른다 — 파일 소유자가 권한을 결정하는 DAC 나 시스템 정책이 강제하는 MAC 과는 또 다른 축으로, "이 토큰을 갖고 있다는 사실 자체가 접근 권한을 증명한다"는 모델이다.
+
+kernel Binder driver 가 중재하는 것은 세 가지다: (1) process 간 buffer 전달(요청/응답 데이터 복사), (2) 위에서 설명한 object reference(handle) 의 발급과 해석, (3) **death notification** — client 가 참조를 들고 있는 server 프로세스가 죽으면, 커널이 그 사실을 client 에게 콜백으로 알려주는 메커니즘(`linkToDeath()`/`DeathRecipient`)이다. 이게 없으면 client 는 이미 죽은 프로세스를 향해 handle 을 계속 들고 있다가 응답 없는 호출로 멈추게 된다.
 
 그래서 Binder 를 단순 직렬화나 socket 대체물로 보면 중요한 경계를 놓친다. 권한 검사는 API 표면의 permission 만이 아니라 service 등록, caller UID/PID, SELinux binder policy, exported component 경계와 함께 해석해야 한다.
 

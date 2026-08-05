@@ -1198,3 +1198,66 @@ A2/B1/B2/B3 네 파일 모두 실제 장 제목·번호로 정정했다(예: A2 
 **검증.** 24 개 파일 + `kernel.md` 전체 재스캔: 추가된 링크 전부 broken 0 건, `date modified` 전부 갱신, "검증일:" 줄 전부 보존 확인.
 
 **다음 결정 필요:** OOM Killer/PSI 는 두 클러스터 모두에서 핵심 개념으로 두 번 지목됐다 — 일반 노트(`01_inbox/operating-systems/` 또는 `02_references/operating-systems/`)에 새로 추가할지 사용자 확인이 필요하다. 나머지 공백(POSIX Capabilities, seccomp, epoll, Device Mapper, IOMMU, ACPI, Merkle Tree, Root of Trust)은 각 1 개 노트에서만 언급돼 우선순위가 상대적으로 낮다.
+
+**사용자 결정(2026-08-05): 위 공백 전부(OOM Killer/PSI 포함) 일반 노트로 신규 저작하고 연결하기로 확정.** `02_references/operating-systems/oom-killer-and-memory-pressure.md`, `seccomp.md`, `epoll-and-io-multiplexing.md`, `device-mapper-and-dm-verity.md`, `02_references/computer-science/merkle-tree.md`, `01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md`, `01_inbox/operating-systems/acpi-and-power-states.md` 7 개를 kernel.md 급 깊이(역사적 배경, Mermaid, 코드/명령어, 실사용처)로 저작 착수(subagent 1 개, 진행 중 — 완료 시 이 문서에 결과 기록 예정).
+
+---
+
+## Phase 11. 설명 친절도(Explanatory Clarity)와 배경지식 연결 pass
+
+### 배경(2026-08-05, 사용자가 직접 읽다가 발견)
+
+Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이어그램/관찰 가능한 증거) 기준은 노트가 **충분히 깊은가**만 검증했다. **전문 용어를 설명 없이 핵심 주장에 그대로 쓰는가**는 지금까지 단 한 번도 검증 기준에 없었다.
+
+사용자가 `01_system_internals/ipc-and-process/ipc-process-contracts/binder-is-kernel-mediated-object-capability-ipc.md` 를 직접 읽다가 이렇게 지적했다:
+
+> "Binder 의 핵심은 byte stream 이 아니라 remote object reference 다" 라는 문장부터 나오면 뭐 하라는 거야? remote object reference 가 뭔데? 문서 전반이 다 이래. 원자성을 가지라고 했지 설명이 읽기 어렵고 불친절하라고 한 적은 없는 거 같은데?
+
+직접 확인한 결과 이 결함은 **vault 전체에 균일하지 않고 파일마다 편차가 크다**:
+- **나쁜 예**: `netd-enforces-routing-dns-firewall-and-tethering-operations.md` — "Fwmark(So_MARK)", "eBPF 맵과 iptables 체인", "IP 마스커레이딩(NAT)", "Multiple Routing Tables" 를 전부 설명 없이 나열. `binder-is-kernel-mediated-object-capability-ipc.md` 도 원래 이 부류였다("remote object reference", "handle", "death notification" 이 정의 없이 핵심 주장에 등장 — 특히 "death notification" 은 그 단어가 등장하는 유일한 곳인데도 본문 어디서도 설명되지 않았다).
+- **좋은 예**: `bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md` — FREE/DEQUEUED/QUEUED/ACQUIRED 4 개 상태를 전부 자체적으로 정의하고 다이어그램까지 갖춰서, 외부 지식 없이도 완결적으로 읽힌다.
+
+### 원칙 (모든 subagent 가 반드시 지킬 것 — 편차 방지가 이 phase 의 핵심 리스크)
+
+1. **원자성/SSOT 를 침해하지 않는다.** 일반 CS/OS/보안 개념(IPC, 커널 모드, 파일시스템, 암호학 등)의 전체 설명을 android 노트 안에 복제하지 않는다. 그 전체 설명은 이미 `01_inbox/operating-systems/`, `02_references/operating-systems/`, `01_inbox/linux/`, `02_references/computer-science/`, `01_inbox/security/` 에 있다(Phase 9 Coverage Gap Remediation 과 동일한 원칙 — 없으면 새로 만들고 나서 연결한다).
+2. **그러나 인라인 gloss(즉석 1 문장 정의)는 필수다.** "배경 지식:" 링크 줄이 있다고 본문 설명을 생략해도 되는 게 아니다. 링크는 "더 깊게 알고 싶으면 여기로" 용도이고, 인라인 gloss 는 "지금 이 문장을 끊지 않고 이해하는 데" 용도로 **역할이 다르다** — 반드시 둘 다 있어야 한다.
+3. **테스트 기준**: "Learning Spine 을 읽은 독자(프로그래밍은 알지만 Android/AOSP 내부는 처음인 사람)가 다른 탭을 열지 않고 이 문장을 이해할 수 있는가?"를 모든 핵심 문단에 적용한다.
+4. **모든 파일에 인위적으로 텍스트를 추가하지 않는다.** `bufferqueue` 처럼 이미 자체 완결적인 노트는 그대로 둔다. 결함이 있는 곳만 고친다.
+5. 기존 mechanism/code/diagram/evidence, frontmatter 형식, `date modified` 갱신, "검증일:" 보존, Mermaid quoting 규칙 등 지금까지 확립된 모든 규칙을 그대로 유지한다.
+
+### 좋은 예 / 나쁜 예 (모든 subagent 프롬프트에 그대로 포함시킬 것 — 이게 사용자가 요구한 "문체 통일 기준")
+
+**나쁜 예(수정 전, 실제 사례)**:
+> "Binder 의 핵심은 byte stream 이 아니라 remote object reference 다. client 는 handle 을 통해 service 의 method 를 호출하고, kernel Binder driver 는 process 간 buffer 전달, object reference, death notification, caller identity 를 중재한다."
+
+문제: `remote object reference`, `handle`, `death notification` 세 용어가 전부 정의 없이 핵심 주장 문장에 바로 쓰였다.
+
+**좋은 예(수정 후, 실제 반영됨, 2026-08-05)**:
+> "일반적인 소켓 IPC 는 'byte stream' 을 주고받는다 — 양쪽이 그 바이트를 어떤 프로토콜로 해석할지 직접 정하고 파싱해야 한다. Binder 는 이 방식과 근본적으로 다르다: client 는 바이트를 직접 다루지 않고, 마치 로컬 객체를 참조하듯 다른 프로세스 안의 객체를 가리키는 **remote object reference**(원격 객체 참조)를 들고 그 객체의 method 를 직접 호출하는 것처럼 코드를 쓴다. ... client 가 들고 있는 remote object reference 의 실체가 바로 **handle**이다 — 정수 하나로 표현되는, '커널이 대신 관리하는 원격 객체를 가리키는 토큰'이다. ... **death notification** — client 가 참조를 들고 있는 server 프로세스가 죽으면, 커널이 그 사실을 client 에게 콜백으로 알려주는 메커니즘(`linkToDeath()`/`DeathRecipient`)이다. 이게 없으면 client 는 이미 죽은 프로세스를 향해 handle 을 계속 들고 있다가 응답 없는 호출로 멈추게 된다."
+
+왜 좋은 예인가: (1) 일반 개념(byte stream IPC)과 대비해서 새 개념을 도입한다. (2) 각 전문용어를 **처음 쓰는 그 문장**에서 굵게 표시하고 괄호/동격구로 즉시 풀어준다. (3) 그러면서도 capability 이론 전체를 설명하지 않고 "위조 불가능한 토큰" 한 문장으로만 걸치고 넘어가 원자적 범위(이 노트는 Binder 얘기지 capability 이론 전체 강의가 아니다)를 지켰다.
+
+### 적용 범위
+
+`01_inbox/mobile/android/` 전체(~769 개 파일). Phase 5 의 category 구조(1~7 + System Internals)를 그대로 재사용해 같은 폴더 단위로 재점검한다. **System Internals(153 개)부터 시작한다** — 지금까지 발견된 결함이 전부 여기서 나왔고(AOSP 내부 구현을 다루는 클러스터라 전문용어 밀도가 가장 높다), 나머지 category(App Framework, System Services, Security, Packaging, Testing, Platforms)는 그 다음 순서로 재점검한다.
+
+### 작업 방식(모든 subagent 에게 동일하게 지시할 것)
+
+1. 파일을 읽고 각 핵심 주장 문단에서 "독자가 몰라도 이상하지 않은 용어인데 설명 없이 쓰인 것"을 찾는다. 공식 API/구조체/커맨드 이름 자체는 backtick 코드로 남기되, 그게 "무엇을 하는지"는 문장에서 설명해야 한다.
+2. 정의가 필요하면: (a) 일반 OS/CS/보안 개념이면 `배경 지식:` 링크(Phase 9 방식) + 본문 내 처음 등장 지점의 1 문장 gloss 를 **둘 다** 추가한다. (b) Android 고유 개념(예: Zygote, ART, dexopt)이면 gloss 만 추가한다(링크 대상이 없으므로).
+3. 위 "좋은 예"처럼 굵게(`**용어**`) 표시하고 괄호나 동격구로 그 자리에서 풀어준다 — 별도 용어집 섹션을 새로 만들지 않는다(원자 노트 구조를 흩뜨리지 않기 위함).
+4. 완료 후 각 subagent 는 아래 목록과 정확히 같은 형식으로 진행 기록을 이 문서에 남긴다(다른 세션이 이어받을 수 있도록).
+
+### 완료 조건 및 진행 기록 형식
+
+각 category(또는 하위 클러스터) 작업이 끝나면 다음을 포함해 이 문서에 진행 기록을 추가한다:
+- 손댄 파일 수와 목록(무슨 용어를 어떻게 풀었는지 한 줄씩)
+- 이미 충분해서 안 건드린 파일 수
+- 새로 필요해진 일반 노트(Phase 9 처럼 또 없는 개념이 나올 수 있다) 목록
+- broken link 재검증 결과
+
+**진행 기록(2026-08-05): 사용자가 지적한 실제 사례 2 건을 저작 세션이 직접 수정 완료(파일럿, 이후 subagent 프롬프트의 기준 예시로 사용).**
+1. `binder-is-kernel-mediated-object-capability-ipc.md` — `remote object reference`, `handle`, `death notification`, `capability(권한 토큰) 기반 접근 제어` 인라인 gloss 추가. `배경 지식:` 링크(IPC/DAC/SELinux)는 이전 라운드에 이미 있었음.
+2. `android-kernel-is-linux-plus-mobile-platform-policy.md` — "배경 지식:" 요약 줄만 있고 본문엔 인라인 링크가 없던 문제를 수정. `**[IPC](...)** & RPC` 처럼 본문 안 실제 등장 지점에 링크를 걸었고, 다이어그램의 4 개 비교 쌍 중 설명이 빠졌던 DAC vs SELinux MAC 항목(5 번)을 새로 추가해 gloss + 링크를 함께 넣었다.
+
+**아직 시작하지 않음**: System Internals 나머지 151 개 파일, 그리고 App Framework/System Services/Security/Packaging/Testing/Platforms 전체. 다음 세션(들)이 이어서 병렬 처리해야 한다.
