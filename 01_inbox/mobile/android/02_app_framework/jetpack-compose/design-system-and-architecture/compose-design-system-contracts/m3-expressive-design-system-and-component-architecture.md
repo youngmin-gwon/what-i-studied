@@ -49,10 +49,11 @@ graph TD
    - [Material 3 Expressive Shape 스케일과 인터랙티브 Shape Morphing 계약](./m3-expressive-shape-scale-and-interactive-shape-morphing.md)
    - *핵심*: 모든 버튼의 디폴트 사양인 `CornerFull` (Pill Shape)을 기본으로 유지하고, 누름(Pressed) 상태 시 물리 용수철 애니메이션 기반의 Shape Morphing 피드백을 제공한다.
 
-3. **Component Sizing & Token Bundles 서브시스템**:
+3. **Component Sizing & Component Contracts 서브시스템**:
    - [Material 3 Expressive 컴포넌트 크기 스케일과 토큰 번들 계약](./m3-expressive-component-sizing-and-token-bundles.md)
    - [Material 3 Expressive는 크기, Shape, 타이포그래피, 패딩 토큰과 Shape Morphing을 결합한다](../../layout-and-ui/compose-ui-contracts/m3-expressive-bundles-size-shape-typography-padding-and-shape-morphing.md)
-   - *핵심*: 크기(Small~ExtraLarge)에 따른 높이/폰트/패딩 토큰 번들링과 `.defaultMinSize(minWidth = 48.dp, minHeight = minHeight)` 터치 접근성 보장 규약.
+   - [Material 3 Expressive Switch는 Thumb Morphing, Check 아이콘 및 Toggle 햅틱 계약을 따른다](./m3-expressive-switch-specifies-thumb-morphing-check-icon-and-toggle-haptics.md)
+   - *핵심*: 크기(Small~ExtraLarge)에 따른 높이/폰트/패딩 토큰 번들링과 `.defaultMinSize(minWidth = 48.dp, minHeight = minHeight)` 터치 접근성 보장 규약 및 Switch 인터랙션 명세.
 
 4. **Motion & Haptics 모션 서브시스템**:
    - [HapticFeedbackType은 UX 인터랙션과 안드로이드 플랫폼 햅틱 패턴을 1:1 매핑한다](../../../../04_system_services/device-capabilities/haptics-vibrator-contracts/haptic-feedback-types-map-ux-interactions-to-platform-patterns.md)

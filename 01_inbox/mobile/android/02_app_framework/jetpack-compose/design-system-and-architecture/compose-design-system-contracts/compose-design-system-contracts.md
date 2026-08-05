@@ -19,5 +19,7 @@ date created: 2026-07-31 23:59:30 +09:00
 - [Dynamic color는 Material color scheme에 들어오는 플랫폼 입력이다](./dynamic-color-is-platform-input-to-a-material-color-scheme.md)
 - [Material 3 Expressive Shape 스케일과 인터랙티브 Shape Morphing 계약](./m3-expressive-shape-scale-and-interactive-shape-morphing.md)
 - [Material 3 Expressive 컴포넌트 크기 스케일과 토큰 번들 계약](./m3-expressive-component-sizing-and-token-bundles.md)
+- [Material 3 Expressive Switch는 Thumb Morphing, Check 아이콘 및 Toggle 햅틱 계약을 따른다](./m3-expressive-switch-specifies-thumb-morphing-check-icon-and-toggle-haptics.md)
 - [프로젝트 Adaptive Local은 Android 표준이 아닌 설계 결정이다](./project-adaptive-locals-are-design-system-decisions-not-android-canon.md)
+
 
