@@ -2,13 +2,13 @@
 title: location-contracts
 tags: ["android", "android/system-services"]
 aliases: ["위치 접근 계약"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
 ## 위치 접근 계약
 
-이 지도는 Android 위치 접근을 위치 소스 합성, 권한 단계, 정확도/전력 트레이드오프로 분리한다.
+이 지도는 Android 위치 접근을 위치 소스 합성, 권한 단계, 정확도/전력 트레이드오프로 분리한다. **FusedLocationProviderClient**(GPS, Wi-Fi, 셀룰러, 기기 센서 등 다양한 측위 소스를 통합 계산하여 최적의 위치 스트림을 산출하는 Google 위치 서비스 클라이언트)는 이 위치 접근의 핵심 구현 엔티티다.
 
 ### 읽는 순서
 

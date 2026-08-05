@@ -2,7 +2,7 @@
 title: media-audio-camera-contracts
 tags: ["android", "android/system-services"]
 aliases: ["미디어/오디오/카메라 시스템 서비스 접근 계약"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 

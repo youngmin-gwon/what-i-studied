@@ -2,7 +2,7 @@
 title: carrier-privilege-is-granted-by-carrier-signed-certificates-not-runtime-permission
 tags: ["android", "android/system-services"]
 aliases: ["Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-통신사(carrier) 앱은 일반적인 런타임 permission 요청 대화상자를 거치지 않고, SIM(UICC)에 저장된 인증서 해시가 앱의 서명 인증서 해시와 일치하는지로 특권(carrier privilege)을 부여받는다. 이 앱은 사용자 승인 없이도 APN 설정 변경, 특정 통신 관련 API 호출 같은 통신사 전용 작업을 수행할 수 있다.
+통신사(carrier) 앱은 일반적인 런타임 permission 요청 대화상자를 거치지 않고, SIM(`UICC`: Universal Integrated Circuit Card 스마트카드 모듈)에 저장된 인증서 해시가 앱의 서명 인증서 해시와 일치하는지로 `Carrier privilege`(SIM 서명에 기반해 부여되는 통신사 특권)를 부여받는다. 이 앱은 사용자 승인 없이도 `APN`(Access Point Name: 이동통신망과 외부 데이터 네트워크 연결 게이트웨이) 설정 변경, 특정 통신 관련 API 호출 같은 통신사 전용 작업을 수행할 수 있다.
 
 ### 메커니즘
 

@@ -2,13 +2,13 @@
 title: biometrics-credential-contracts
 tags: ["android", "android/system-services"]
 aliases: ["생체 인증/자격 증명 계약"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## 생체 인증/자격 증명 계약
 
-이 지도는 생체 인증 UI, 사전 조건 확인, 통합 로그인/패스키 관리라는 세 계약을 분리한다. 실제 키 저장은 다루지 않는다.
+이 지도는 생체 인증 표준 UI를 제공하고 키 해제를 담당하는 **BiometricPrompt**, 프롬프트 표시 전 기기의 하드웨어 상태를 확인하는 사전 검증 API인 **BiometricManager**, 그리고 비밀번호·패스키·SSO 로그인을 통합 시트로 다루는 **CredentialManager**라는 세 핵심 계약을 분리한다. 실제 물리 키 저장 및 암호화 알고리즘 자체는 다루지 않는다.
 
 ### 읽는 순서
 

@@ -2,7 +2,7 @@
 title: ndef-structures-tag-data-as-messages-and-records
 tags: ["android", "android/system-services"]
 aliases: ["NDEF는 태그 데이터를 메시지와 레코드로 구조화한다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:46:00 +09:00
 ---
 
@@ -13,9 +13,9 @@ date created: 2026-07-31 17:46:00 +09:00
 
 ### 개념
 
-NDEF는 NFC Data Exchange Format의 약자로 태그 데이터를 구조화한다.
+`NDEF`(NFC Data Exchange Format, NFC 태그나 기기 간 교환용 바이너리 포맷 규격)는 NFC 데이터를 하나 이상의 표준 레코드로 구조화한다.
 NDEF 메시지는 하나 이상의 NDEF 레코드로 구성된다.
-레코드는 TNF, type, id, payload 필드를 가진다.
+레코드는 `TNF`(Type Name Format, NDEF 레코드 헤더에서 타입 필드의 바이너리 구조 및 해석 규칙을 지정하는 3비트 데이터), type, id, payload 필드를 가진다.
 첫 레코드는 Android가 메시지의 MIME 타입이나 URI를 추론하는 기준이 된다.
 따라서 여러 레코드 메시지를 만들 때 첫 레코드의 의미를 명확히 해야 한다.
 

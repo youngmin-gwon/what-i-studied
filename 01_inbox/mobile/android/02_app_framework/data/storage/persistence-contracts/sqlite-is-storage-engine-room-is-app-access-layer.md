@@ -2,15 +2,16 @@
 title: sqlite-is-storage-engine-room-is-app-access-layer
 tags: [android, android/data, android/persistence-contracts, android/storage]
 aliases: ["SQLite와 Room의 경계는 엔진과 애플리케이션 API의 차이다"]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## SQLite 와 Room 의 경계는 엔진과 애플리케이션 API 의 차이다
 
 상위 문서: [영속 저장소 계약](./persistence-contracts.md)
+배경 지식: [리눅스 파일 시스템](../../../../../../linux/filesystems.md)
 
-SQLite 는 Android 에 내장된 관계형 데이터베이스 엔진이다.
+SQLite(단일 파일 기반으로 작동하는 안드로이드 내장 관계형 데이터베이스 엔진)는 Android 에 내장된 관계형 데이터베이스 엔진이다.
 
 Room 은 SQLite 를 대체하는 별도 저장 엔진이 아니라 SQLite 접근을 감싸는 추상화다.
 

@@ -2,7 +2,7 @@
 title: zram-is-compressed-swap-policy-not-a-memory-fix
 tags: [android, android/kernel, android/memory]
 aliases: [mmd, zRAM, compressed swap]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
@@ -11,7 +11,7 @@ date created: 2026-07-31 23:45:00 +09:00
 상위 문서: [Kernel contracts](kernel-contracts.md)
 배경 지식: [가상 메모리/swap](02_references/operating-systems/virtual-memory.md)
 
-zRAM은 모바일 물리 RAM의 일부를 압축 가상 블록 디바이스(RAM-backed Compressed Block Device)로 마운트하여 익명 메모리(Anonymous Memory: 앱 힙, 스택, 공유 메모리) 페이지를 압축 스왑-아웃(Swap-out)하는 커널 기술이다.
+zRAM은 모바일 물리 RAM의 일부를 압축 가상 블록 디바이스(RAM-backed Compressed Block Device)로 마운트하여 익명 메모리(Anonymous Memory: 앱 힙, 스택, 공유 메모리) 페이지를 압축 **스왑-아웃**(Swap-out — 물리 메모리가 부족할 때 당장 쓰지 않는 페이지를 다른 저장 공간으로 밀어내 RAM 을 비우는 커널 동작. 전통적으로는 디스크로 내보내지만 zRAM 은 그 대상을 압축된 RAM 영역으로 바꾼다. 배경은 위 링크 참고)하는 커널 기술이다.
 
 플래시 메모리(NAND Flash)에 수많은 덮어쓰기 I/O를 유발하여 EMMC/UFS 수명을 단축시키는 전통적인 디스크 스왑과 달리, RAM 내부 압축을 통해 Flash 쓰기를 방지하지만 물리 메모리가 늘어나는 것은 아니며 CPU 압축/압축해제 연산 비용과 메모리의 트레이드오프 정책이다.
 
@@ -60,7 +60,7 @@ adb shell "swapon /dev/block/zram0"
 ### 실무 규칙
 
 - zRAM 용량을 비이성적으로 너무 크게 설정(예: 물리 RAM의 150% 이상)하면, 압축 불가능한 데이터가 쌓일 때 zRAM 자체가 RAM을 점유하여 LMKD가 적절한 타이밍에 프로세스를 킬하지 못하고 디바이스가 전체 멈춤(System Freeze) 상태에 빠질 수 있다.
-- zRAM 효율성을 극대화하려면 물리 RAM 용량에 맞춰 zramsize(보통 50%~75%)를 조정하고, 스와핑 임계값(`vm.swappiness=100`~`180`)을 튜닝해야 한다.
+- zRAM 효율성을 극대화하려면 물리 RAM 용량에 맞춰 zramsize(보통 50%~75%)를 조정하고, **swappiness**(0~200 범위로, 커널이 파일 캐시 회수 대신 익명 페이지를 zRAM 으로 swap 하는 쪽을 얼마나 적극적으로 선호할지 정하는 튜닝 값)를 `vm.swappiness=100`~`180` 수준으로 튜닝해야 한다.
 
 ---
 

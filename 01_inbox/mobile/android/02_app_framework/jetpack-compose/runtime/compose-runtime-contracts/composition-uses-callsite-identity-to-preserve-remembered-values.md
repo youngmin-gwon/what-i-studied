@@ -2,11 +2,12 @@
 title: composition-uses-callsite-identity-to-preserve-remembered-values
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [positional memoization, Slot Table]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## Composition 은 호출 위치 식별자(Callsite Identity)를 사용해 remember 값을 보존한다
+배경 지식: [메모리 레이아웃 및 캐시](../../../../../../../02_references/computer-science/memory-layout-and-cache.md)
 
 Composition 은 Composable 호출의 위치와 구조를 이용해 `remember` 값, group, node 관계를 보존한다. 같은 `remember` 코드라도 호출 위치가 다르면 서로 다른 저장공간이 된다.
 
@@ -24,7 +25,7 @@ items.forEach { item -> key(item.id) { ItemRow(item) } }
 
 `LazyColumn` 의 `items(list, key = { it.id })` 도 같은 원리다. key 를 생략하면 목록이 재정렬될 때 `remember { mutableStateOf(false) }` 로 만든 펼침 상태가 다른 item 으로 옮겨붙는 것을 관찰할 수 있다.
 
-Slot Table, group, Composer 같은 용어는 Runtime 이해를 위한 내부 모델이다. 디컴파일된 함수 signature 나 내부 자료구조를 앱 코드가 의존하는 API 처럼 쓰지 않는다.
+**Slot Table**(Compose Runtime이 Composition 트리의 구조, remember 상태, 노드 위치 정보를 연속 메모리에 기록하는 갭 버퍼 기반 데이터 구조), group, Composer 같은 용어는 Runtime 이해를 위한 내부 모델이다. 디컴파일된 함수 signature 나 내부 자료구조를 앱 코드가 의존하는 API 처럼 쓰지 않는다.
 
 관련 노트: [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](./remember-is-composition-scoped-storage-not-general-cache.md), [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./composable-compiler-output-enables-restart-and-skip-control.md)
 

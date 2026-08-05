@@ -2,7 +2,7 @@
 title: foreground-service-is-for-visible-continuous-work
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:35:51 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 

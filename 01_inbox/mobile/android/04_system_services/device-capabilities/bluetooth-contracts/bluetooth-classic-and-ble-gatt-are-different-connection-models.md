@@ -2,13 +2,14 @@
 title: bluetooth-classic-and-ble-gatt-are-different-connection-models
 tags: ["android", "android/system-services"]
 aliases: ["Bluetooth Classic과 BLE(GATT)는 서로 다른 연결 모델이다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
 ## Bluetooth Classic과 BLE(GATT)는 서로 다른 연결 모델이다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+배경 지식: [소켓(Sockets) 개념](../../../../../linux/sockets.md)
 관련 지도: [Bluetooth 접근 계약](./bluetooth-contracts.md)
 
 ### 핵심 정의
@@ -19,13 +20,13 @@ Bluetooth Classic과 Bluetooth Low Energy(BLE)는 같은 "Bluetooth" 브랜드 �
 
 ### 메커니즘
 
-Classic Bluetooth는 `BluetoothSocket`을 통해 RFCOMM 채널을 여는 스트림 기반 연결이다. 공식 문서는 Bluetooth Classic API의 역할을 다음과 같이 설명한다.
+Classic Bluetooth는 **BluetoothSocket**(Classic Bluetooth 환경에서 RFCOMM 스트림 프로토콜을 통해 양방향 소켓 통신을 다루는 객체)을 통해 RFCOMM 채널을 여는 스트림 기반 연결이다. 공식 문서는 Bluetooth Classic API의 역할을 다음과 같이 설명한다.
 
 > "Using the Bluetooth APIs, an app can perform the following: Establish RFCOMM channels. ... Transfer data to and from other devices."
 
 `BluetoothSocket`은 TCP `Socket`과 유사하게 `InputStream`/`OutputStream`으로 바이트 스트림을 주고받는다. 연결이 유지되는 동안 지속적으로 데이터가 흐르는 오디오 스트리밍(A2DP), 시리얼 통신(SPP) 같은 프로파일에 맞는 모델이다.
 
-BLE는 반대로 attribute 기반 모델이다. `BluetoothGatt`를 통해 원격 기기의 GATT 서버가 노출하는 service와 characteristic을 UUID로 찾아 개별적으로 읽기/쓰기/구독(notify)한다. 연결 자체는 유지되지만 실제 데이터 교환은 스트림이 아니라 개별 attribute 단위의 요청-응답이며, 연결 파라미터(interval)를 조정해 저전력을 유지한다. 두 모델은 앱 코드 수준에서 공유하는 클래스가 거의 없다 — Classic은 `BluetoothSocket`, BLE는 `BluetoothGatt`/`BluetoothGattCallback`이 진입점이다.
+BLE는 반대로 attribute 기반 모델이다. **BluetoothGatt**(BLE 환경에서 GATT 프로필의 서비스 및 특성 데이터를 비동기로 읽고 쓰는 엔티티)를 통해 원격 기기의 GATT 서버가 노출하는 service와 characteristic을 UUID로 찾아 개별적으로 읽기/쓰기/구독(notify)한다. 연결 자체는 유지되지만 실제 데이터 교환은 스트림이 아니라 개별 attribute 단위의 요청-응답이며, 연결 파라미터(interval)를 조정해 저전력을 유지한다. 두 모델은 앱 코드 수준에서 공유하는 클래스가 거의 없다 — Classic은 `BluetoothSocket`, BLE는 `BluetoothGatt`/`BluetoothGattCallback`이 진입점이다.
 
 ### 코드 예시
 

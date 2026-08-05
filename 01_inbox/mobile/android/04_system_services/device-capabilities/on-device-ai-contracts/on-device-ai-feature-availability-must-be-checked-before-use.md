@@ -2,7 +2,7 @@
 title: on-device-ai-feature-availability-must-be-checked-before-use
 tags: ["android", "android/system-services"]
 aliases: ["온디바이스 AI 기능 가용성은 사용 전에 반드시 확인해야 한다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 핵심 정의
 
-`00_foundations/learning-spine`의 10장은 "기능 사용은 발견에서 시작하지, 권한 확인에서 시작하지 않는다"는 원칙을 다룬다. 온디바이스 AI는 이 원칙이 가장 직접적으로 적용되는 영역 중 하나다. 모델이 이미 다운로드돼 있는지, 이 기기가 애초에 이 기능을 지원하는지는 API 호출 전에 반드시 확인해야 하는 별도의 상태다. ML Kit GenAI API는 이 상태를 명시적인 enum으로 노출한다.
+`00_foundations/learning-spine`의 10장은 "기능 사용은 발견에서 시작하지, 권한 확인에서 시작하지 않는다"는 원칙을 다룬다. 온디바이스 AI는 이 원칙이 가장 직접적으로 적용되는 영역 중 하나다. 모델이 이미 다운로드돼 있는지, 이 기기가 애초에 이 기능을 지원하는지는 API 호출 전에 반드시 확인해야 하는 별도의 상태다. ML Kit GenAI API는 이 상태를 `FeatureStatus`(모델의 기기 내 존재 및 다운로드 상태를 노출하는 enum 객체)라는 명시적인 enum으로 노출한다.
 
 > 상태값: "UNAVAILABLE, DOWNLOADABLE, DOWNLOADING, AVAILABLE"
 
@@ -80,7 +80,7 @@ suspend fun runSummarizationSafely(
 
 ```mermaid
 flowchart TD
-    A{"API 레벨 >= 26?"}
+    A["API 레벨 >= 26 여부 확인"]
     A -->|"No"| B["기능 자체를 노출하지 않음 (Learning Spine 10장: API 표면 부재)"]
     A -->|"Yes"| C["checkFeatureStatus()"]
     C --> D{"FeatureStatus"}

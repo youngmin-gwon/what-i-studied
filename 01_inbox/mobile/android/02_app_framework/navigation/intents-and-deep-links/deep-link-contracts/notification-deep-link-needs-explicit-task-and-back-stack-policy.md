@@ -2,13 +2,15 @@
 title: notification-deep-link-needs-explicit-task-and-back-stack-policy
 tags: [android, android/deep-links, android/navigation]
 aliases: ["알림은 PendingIntent 로 딥 링크 여정을 시작한다"]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## 알림은 PendingIntent 로 딥 링크 여정을 시작한다
+## 알림은 **PendingIntent**(알림 클릭 시 시스템이 내 앱 대신 지정된 Intent를 내 앱의 권한으로 실행하도록 위임하는 토큰) 로 딥 링크 여정을 시작한다
 
-상위 문서: [Deep Link 계약](./deep-link-contracts.md)
+상위 문서: [Deep Link 계약](deep-link-contracts.md)
+
+배경 지식: [프로세스 생명주기](../../../../../../operating-systems/process-states-lifecycle.md)
 
 관련 노트: [PendingIntent는 미래 실행 권한을 위임하는 토큰이다](../intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md), [Android task와 앱 back stack은 다른 스택이다](../../navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md)
 
@@ -22,7 +24,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 알림 전용 라우터를 따로 만들면 일반 링크와 인증·오류 정책이 달라질 수 있다.
 
-따라서 알림 URI 도 [Android 딥 링크는 외부 URI 계약이다](./deep-link-is-external-uri-contract.md) 의 계약을 사용한다.
+따라서 알림 URI 도 [Android 딥 링크는 외부 URI 계약이다](deep-link-is-external-uri-contract.md) 의 계약을 사용한다.
 
 ### PendingIntent 선택
 
@@ -81,7 +83,7 @@ NotificationCompat.Builder(context, CHANNEL_ID)
 
 인증 만료, 잘못된 대상, 삭제된 대상, 뒤로 가기 동작을 확인한다.
 
-실제 App Link 검증은 [App Links 테스트와 디버깅](./deep-link-testing-validates-resolution-verification-and-routing.md) 으로 수행한다.
+실제 App Link 검증은 [App Links 테스트와 디버깅](deep-link-testing-validates-resolution-verification-and-routing.md) 으로 수행한다.
 
 ### 결론
 

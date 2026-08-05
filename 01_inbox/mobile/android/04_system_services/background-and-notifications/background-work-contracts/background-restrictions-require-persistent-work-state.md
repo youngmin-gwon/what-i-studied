@@ -2,7 +2,7 @@
 title: background-restrictions-require-persistent-work-state
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 

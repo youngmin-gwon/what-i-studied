@@ -2,7 +2,7 @@
 title: subscriptionmanager-separates-logical-subscriptions-from-physical-slots
 tags: ["android", "android/system-services"]
 aliases: ["SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-듀얼 SIM(또는 eSIM 포함 멀티 SIM) 기기에서 `SubscriptionManager`는 각 통신 회선을 "구독(subscription)"이라는 논리적 단위로 다룬다. 구독 ID는 물리적 SIM 슬롯 번호와 일대일로 고정되지 않는다. 사용자가 eSIM 프로필을 전환하거나 SIM을 교체하면 슬롯은 그대로여도 구독 ID가 바뀔 수 있다.
+듀얼 SIM(또는 `eSIM`: embedded SIM, 물리 카드 교체 없이 소프트웨어 프로필로 회선을 변경하는 내장형 SIM 포함 멀티 SIM) 기기에서 `SubscriptionManager`(각 통신 회선 구독 정보를 관리하는 시스템 서비스)는 각 통신 회선을 "구독(subscription)"이라는 논리적 단위로 다룬다. 구독 ID는 물리적 SIM 슬롯 번호와 일대일로 고정되지 않는다. 사용자가 eSIM 프로필을 전환하거나 SIM을 교체하면 슬롯은 그대로여도 구독 ID가 바뀔 수 있다.
 
 ### 메커니즘
 

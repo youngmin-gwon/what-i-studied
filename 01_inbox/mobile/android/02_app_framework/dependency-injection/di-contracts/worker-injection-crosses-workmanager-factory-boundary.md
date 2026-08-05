@@ -2,13 +2,13 @@
 title: worker-injection-crosses-workmanager-factory-boundary
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:09:48 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
 ## Worker 주입은 WorkManager factory boundary 를 지난다
 
-Worker 는 앱 코드가 직접 생성하는 일반 객체가 아니라 WorkManager 가 필요 시점에 생성하는 framework-managed 객체다. 그래서 Repository 같은 dependency 를 넣으려면 WorkerFactory 또는 Hilt WorkManager integration 같은 생성 boundary 를 통과해야 한다.
+Worker 는 앱 코드가 직접 생성하는 일반 객체가 아니라 WorkManager 가 필요 시점에 생성하는 framework-managed 객체다. 그래서 Repository 같은 dependency 를 넣으려면 WorkerFactory 또는 **Hilt**(**Dagger**(컴파일 타임에 의존성 그래프를 정적으로 검증하고 코드 생성을 수행하는 Java/Kotlin용 DI 엔진)를 안드로이드 컴포넌트 생명주기에 맞춰 의존성 그래프 생성을 자동화하는 구글의 공식 DI 라이브러리) WorkManager integration 같은 생성 boundary 를 통과해야 한다.
 
 Worker 에 Activity, Fragment, screen-scoped object 를 넣으면 background execution lifetime 과 맞지 않는다. Worker dependency 는 작업이 실행되는 동안 안전한 app-level 또는 task-level dependency 로 제한한다.
 

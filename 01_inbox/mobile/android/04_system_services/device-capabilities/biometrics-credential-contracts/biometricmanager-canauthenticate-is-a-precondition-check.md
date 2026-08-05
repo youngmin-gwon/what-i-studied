@@ -2,7 +2,7 @@
 title: biometricmanager-canauthenticate-is-a-precondition-check
 tags: ["android", "android/system-services"]
 aliases: ["BiometricManager.canAuthenticate는 실행 전에 확인해야 하는 사전 조건이다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,13 +13,13 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-`BiometricManager.canAuthenticate(authenticators)`는 `BiometricPrompt`를 실제로 띄우기 전에, 기기가 요청한 인증 강도(`BIOMETRIC_STRONG`, `BIOMETRIC_WEAK`, `DEVICE_CREDENTIAL`)를 지원하는지, 사용자가 생체 정보를 등록했는지를 미리 확인하는 API다. 이 확인 없이 바로 `authenticate()`를 호출하면 하드웨어가 없거나 등록된 생체 정보가 없는 기기에서 예상치 못한 실패로 이어진다.
+`BiometricManager.canAuthenticate(authenticators)`는 시스템 인증 UI인 **BiometricPrompt**(지문·얼굴 등 생체 인증 대화상자)를 실제로 띄우기 전에, 기기가 요청한 인증 강도(`BIOMETRIC_STRONG`, `BIOMETRIC_WEAK`, `DEVICE_CREDENTIAL`)를 지원하는지, 사용자가 생체 정보를 등록했는지를 미리 확인하는 API다. 이 확인 없이 바로 `authenticate()`를 호출하면 하드웨어가 없거나 등록된 생체 정보가 없는 기기에서 예상치 못한 실패로 이어진다.
 
 ### 메커니즘
 
 `canAuthenticate()`는 `BIOMETRIC_SUCCESS`, `BIOMETRIC_ERROR_NO_HARDWARE`, `BIOMETRIC_ERROR_HW_UNAVAILABLE`, `BIOMETRIC_ERROR_NONE_ENROLLED`, `BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED` 등을 반환한다. 각 결과는 앱이 취해야 할 다른 대응을 요구한다. 예를 들어 `NONE_ENROLLED`는 하드웨어는 있지만 사용자가 지문/얼굴을 등록하지 않은 상태이므로, 설정 화면으로 유도하는 UX가 적절하다.
 
-인증 강도(`Authenticators`) 조합에 따라 결과가 달라질 수 있다. `BIOMETRIC_STRONG`만 요청하면 얼굴 인식처럼 약한 등급으로 분류된 방식은 지원하지 않는다는 결과가 나올 수 있다.
+인증 강도 비트마스크(**Authenticators**: 요구되는 보안 수준으로 `BIOMETRIC_STRONG`은 암호화 키 해제용 강한 생체 인증, `BIOMETRIC_WEAK`는 미인증 시도가 쉬운 약한 생체 인증, `DEVICE_CREDENTIAL`은 기기 PIN/패턴/비밀번호) 조합에 따라 결과가 달라질 수 있다. `BIOMETRIC_STRONG`만 요청하면 얼굴 인식처럼 약한 등급으로 분류된 방식은 지원하지 않는다는 결과가 나올 수 있다.
 
 ### 판단 기준
 

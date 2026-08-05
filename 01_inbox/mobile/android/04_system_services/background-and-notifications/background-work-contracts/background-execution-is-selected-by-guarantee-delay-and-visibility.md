@@ -2,13 +2,14 @@
 title: background-execution-is-selected-by-guarantee-delay-and-visibility
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
 ## Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+배경 지식: [프로세스 스케줄링](../../../../../operating-systems/process-scheduling.md)
 
 관련 지도: [백그라운드 작업 계약](./background-work-contracts.md)
 

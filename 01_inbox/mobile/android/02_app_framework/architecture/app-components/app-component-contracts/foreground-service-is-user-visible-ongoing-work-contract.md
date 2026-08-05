@@ -2,12 +2,13 @@
 title: foreground-service-is-user-visible-ongoing-work-contract
 tags: [android, android/app-components, android/architecture]
 aliases: ["Foreground Service는 사용자에게 보이는 진행 중 작업 계약이다"]
-date modified: 2026-08-04 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Foreground Service 는 사용자에게 보이는 진행 중 작업 계약이다
 
+상위 문서: [App Component Contracts](./app-component-contracts.md)
 Foreground Service 는 사용자가 인지해야 하는 즉시성, 진행 중 작업을 OS 에 알리는 계약이다. notification 을 통해 사용자에게 노출되며, Android 버전과 target SDK 에 따라 foreground-service type, permission, start restriction, timeout 조건이 달라진다.
 
 따라서 "백그라운드에서 오래 실행하고 싶다"는 이유만으로 Foreground Service 를 선택하면 안 된다. 음악 재생, active navigation, ongoing call, 사용자 시작 데이터 전송처럼 사용자 가시성과 즉시성이 있는지 먼저 확인해야 한다.

@@ -2,7 +2,7 @@
 title: speech-contracts
 tags: ["android", "android/system-services"]
 aliases: ["음성 합성/인식 접근 계약"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 

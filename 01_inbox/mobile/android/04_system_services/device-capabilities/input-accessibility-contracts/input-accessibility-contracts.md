@@ -2,13 +2,13 @@
 title: input-accessibility-contracts
 tags: ["android", "android/system-services"]
 aliases: ["입력 장치와 접근성 서비스 계약"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## 입력 장치와 접근성 서비스 계약
 
-이 지도는 물리 입력 장치 추상화, 다른 앱을 관찰/조작하는 접근성 서비스, 텍스트 입력을 담당하는 IME라는 세 개의 서로 다른 특권 계층을 분리한다.
+이 지도는 물리 입력 장치 추상화를 담당하는 **InputManager**, 다른 앱 화면의 UI 이벤트를 관찰하고 조작하는 보조 기술용 특권 서비스인 **AccessibilityService**, 그리고 가상 키보드 텍스트 입력을 담당하는 **IME**(Input Method Editor, InputMethodService)라는 세 개의 서로 다른 특권 계층을 분리한다.
 
 ### 읽는 순서
 

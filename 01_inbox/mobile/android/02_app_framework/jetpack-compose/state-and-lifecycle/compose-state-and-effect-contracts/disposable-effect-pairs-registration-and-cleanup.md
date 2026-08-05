@@ -2,13 +2,14 @@
 title: disposable-effect-pairs-registration-and-cleanup
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:11:07 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
 ## 등록과 해제가 쌍인 작업은 DisposableEffect 로 관리한다
 
 상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
+배경 지식: [프로세스 생명주기 및 상태](../../../../../../operating-systems/process-states-lifecycle.md)
 
 외부 시스템에 등록한 listener, observer, callback 은 같은 수명 안에서 반드시 해제해야 한다.
 
@@ -51,7 +52,7 @@ key 에는 등록 대상의 identity 와 effect 동작을 바꾸는 값을 넣�
 
 단순한 외부 상태 동기화에는 [`SideEffect`](https://developer.android.com/develop/ui/compose/side-effects#sideeffect) 를 검토한다.
 
-coroutine 의 시작과 취소가 핵심이면 [`LaunchedEffect`](https://developer.android.com/develop/ui/compose/side-effects#launchedeffect) 가 맞다.
+coroutine 의 시작과 취소가 핵심이면 [`**LaunchedEffect**(Composition 생명주기에 맞춰 코루틴 작업을 실행하고 Key 변경 또는 Composition 이탈 시 취소하는 Side-Effect API)`](https://developer.android.com/develop/ui/compose/side-effects#launchedeffect) 가 맞다.
 
 ### UI 수명 경계
 
@@ -63,7 +64,7 @@ ViewModel 이 `NavController`, `SnackbarHostState`, `FocusRequester` 같은 UI �
 
 `DisposableEffect` 는 등록·해제의 누락을 줄이지만, 등록 대상의 thread-safety 나 callback 중복까지 자동으로 해결하지 않는다.
 
-callback 에서 최신 값을 읽어야 하면 key 를 불필요하게 바꾸기보다 `rememberUpdatedState` 를 사용한다.
+callback 에서 최신 값을 읽어야 하면 key 를 불필요하게 바꾸기보다 `**rememberUpdatedState**(Long-lived Effect 내부에서 Effect 재시작 없이 최신 상태/람다 값을 참조하도록 유지해 주는 API)` 를 사용한다.
 
 ### 체크리스트
 

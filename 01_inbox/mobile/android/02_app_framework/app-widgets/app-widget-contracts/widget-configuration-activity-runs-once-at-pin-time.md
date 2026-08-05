@@ -2,13 +2,13 @@
 title: widget-configuration-activity-runs-once-at-pin-time
 tags: [android, android/app-widgets]
 aliases: ["위젯 설정 Activity는 pin 시점에 실행되는 계약을 가진다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:15:13 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
 ## 위젯 설정 Activity 는 pin 시점에 실행되는 계약을 가진다
 
-위젯이 시간대를 고르는 시계나 폴더를 고르는 메일 위젯처럼 사용자 입력이 필요하면, `AppWidgetProviderInfo` 에 configuration `Activity` 를 선언한다. 공식 문서는 이 시점을 다음과 같이 설명한다. "Android widgets display their configuration choices right after the user drops the widget onto a home screen." 즉 이 Activity 는 화면에 상시 존재하는 설정 화면이 아니라, host 가 위젯을 pin 하는 순간 한 번 끼워 넣는 결과값 契約(result contract)이다.
+위젯이 시간대를 고르는 시계나 폴더를 고르는 메일 위젯처럼 사용자 입력이 필요하면, `AppWidgetProviderInfo` 에 configuration `Activity` 를 선언한다. 공식 문서는 이 시점을 다음과 같이 설명한다. "Android widgets display their configuration choices right after the user drops the widget onto a home screen." 즉 이 Activity 는 화면에 상시 존재하는 설정 화면이 아니라, host(런처 앱)가 위젯을 홈 화면에 pin(고정 배치)하는 순간 한 번 끼워 넣는 결과값 계약(result contract)이다.
 
 ### 내부 동작 메커니즘
 

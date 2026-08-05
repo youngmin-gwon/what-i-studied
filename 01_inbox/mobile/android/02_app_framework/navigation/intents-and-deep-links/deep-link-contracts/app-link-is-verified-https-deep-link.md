@@ -2,15 +2,17 @@
 title: app-link-is-verified-https-deep-link
 tags: [android, android/deep-links, android/navigation]
 aliases: ["Android App Link 는 검증된 HTTPS 딥 링크다"]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Android App Link 는 검증된 HTTPS 딥 링크다
+## Android **App Link**(웹 서버의 assetlinks.json 검증을 거쳐 선택창 없이 특정 도메인 URL을 앱으로 자동 매핑하는 검증된 HTTPS 딥링크) 는 검증된 HTTPS 딥 링크다
 
-상위 문서: [Deep Link 계약](./deep-link-contracts.md)
+상위 문서: [Deep Link 계약](deep-link-contracts.md)
 
-관련 노트: [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](./manifest-and-assetlinks-have-distinct-roles.md)
+배경 지식: [암호학 기초](../../../../../../security/fundamentals/cryptography-basics.md)
+
+관련 노트: [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](manifest-and-assetlinks-have-distinct-roles.md)
 
 ### 정의
 
@@ -18,7 +20,7 @@ App Link 는 HTTPS 웹 URL 을 특정 Android 앱이 처리하도록 연결하�
 
 일반 웹 딥 링크와 달리 Android 가 앱과 도메인의 관계를 검증한다.
 
-검증이 성공하면 사용자가 매번 앱 선택기를 거치지 않고 앱으로 이동할 수 있다.
+검증이 성공하면 사용자가 매번 앱 **선택기(Disambiguation Dialog)**(동일한 Intent나 URL을 처리할 앱이 여럿일 때 OS가 사용자에게 실행 앱을 묻는 안내 창)를 거치지 않고 앱으로 이동할 수 있다.
 
 앱이 설치되지 않은 사용자는 같은 URL 을 웹에서 열 수 있다.
 
@@ -84,9 +86,9 @@ com.example.app:
 
 ### 구현 흐름
 
-URI 목적지는 [Android 딥 링크는 외부 URI 계약이다](./deep-link-is-external-uri-contract.md) 에서 정의한다.
+URI 목적지는 [Android 딥 링크는 외부 URI 계약이다](deep-link-is-external-uri-contract.md) 에서 정의한다.
 
-매니페스트와 서버 파일의 대응 관계는 [매니페스트 선언과 assetlinks.json의 역할](./manifest-and-assetlinks-have-distinct-roles.md) 에서 확인한다.
+매니페스트와 서버 파일의 대응 관계는 [매니페스트 선언과 assetlinks.json의 역할](manifest-and-assetlinks-have-distinct-roles.md) 에서 확인한다.
 
 정식 설정 절차는 [App Links 추가](https://developer.android.com/training/app-links/add-applinks) 를 따른다.
 

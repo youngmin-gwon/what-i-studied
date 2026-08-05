@@ -2,7 +2,7 @@
 title: reducer-calculates-next-state-from-previous-state-and-action
 tags: [android, android/architecture, android/reducer, android/state-management]
 aliases: ["Reducer는 이전 상태와 Action만 받아 새 상태를 계산한다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

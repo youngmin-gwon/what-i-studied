@@ -2,7 +2,7 @@
 title: inputmanager-abstracts-physical-input-devices-as-event-sources
 tags: ["android", "android/system-services"]
 aliases: ["InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,11 +13,11 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-터치스크린, 물리 키보드, 마우스, 게임패드, 스타일러스는 모두 `InputDevice`로 추상화되며, 각 장치는 소스 타입 비트마스크(`SOURCE_TOUCHSCREEN`, `SOURCE_KEYBOARD`, `SOURCE_MOUSE`, `SOURCE_GAMEPAD`, `SOURCE_STYLUS` 등)로 자신이 생성하는 이벤트 종류를 나타낸다. `InputManager.getInputDeviceIds()`로 현재 연결된 장치 목록을 조회할 수 있다.
+터치스크린, 물리 키보드, 마우스, 게임패드, 스타일러스는 모두 **InputDevice**(시스템에 연결된 하드웨어 입력 기기를 단일 인터페이스로 추상화한 객체)로 다뤄지며, 각 장치는 소스 타입 비트마스크(`SOURCE_TOUCHSCREEN`, `SOURCE_KEYBOARD`, `SOURCE_MOUSE`, `SOURCE_GAMEPAD`, `SOURCE_STYLUS` 등)로 자신이 생성하는 이벤트 종류를 나타낸다. `InputManager.getInputDeviceIds()`로 현재 연결된 장치 목록을 조회할 수 있다.
 
 ### 메커니즘
 
-물리 입력은 커널 입력 서브시스템에서 시작해 시스템 서버의 InputReader/InputDispatcher를 거쳐 `MotionEvent`/`KeyEvent`로 앱에 전달된다. 앱은 이벤트의 소스 타입을 확인해 같은 좌표 기반 이벤트라도 터치인지 마우스/스타일러스인지 구분할 수 있다. 예를 들어 스타일러스는 필압(`getPressure()`)과 기울기 정보를 함께 전달할 수 있다.
+물리 입력은 커널 입력 서브시스템에서 시작해 시스템 서버 내부의 **InputReader**(커널 드라이버로부터 raw 입력 이벤트를 읽어 표준 형식으로 다듬는 컴포넌트)와 **InputDispatcher**(처리된 입력 이벤트를 윈도우 포커스에 맞게 대상 앱으로 디스패치하는 컴포넌트)를 거쳐 `MotionEvent`/`KeyEvent`로 앱에 전달된다. 앱은 이벤트의 소스 타입을 확인해 같은 좌표 기반 이벤트라도 터치인지 마우스/스타일러스인지 구분할 수 있다. 예를 들어 스타일러스는 필압(`getPressure()`)과 기울기 정보를 함께 전달할 수 있다.
 
 게임패드/키보드 같은 비-포인터 장치는 `KeyEvent`로 전달되며, 여러 장치가 동시에 연결된 경우 각 이벤트는 `getDeviceId()`로 어느 장치에서 왔는지 구분할 수 있다.
 

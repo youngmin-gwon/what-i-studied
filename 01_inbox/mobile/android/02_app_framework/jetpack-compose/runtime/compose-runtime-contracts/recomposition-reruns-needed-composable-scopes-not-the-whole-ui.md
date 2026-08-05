@@ -2,13 +2,13 @@
 title: recomposition-reruns-needed-composable-scopes-not-the-whole-ui
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Recomposition]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## Recomposition 은 전체 UI 재그리가 아니라 필요한 Composable scope 재실행이다
 
-Recomposition 은 입력이나 관찰 중인 state 변화에 대응해 Composable 함수를 다시 실행하는 과정이다. 다시 실행은 UI 전체 redraw 와 같지 않고, Compose 는 변경 가능성이 있는 함수나 lambda 만 실행하고 나머지는 skip 할 수 있다.
+**Recomposition**(상태 변경 시 영향을 받는 Composable 스코프만 선택적으로 재실행하여 UI 트리를 갱신하는 과정) 은 입력이나 관찰 중인 state 변화에 대응해 Composable 함수를 다시 실행하는 과정이다. 다시 실행은 UI 전체 redraw 와 같지 않고, Compose 는 변경 가능성이 있는 함수나 lambda 만 실행하고 나머지는 skip 할 수 있다.
 
 Recomposition 은 자주 일어날 수 있고, animation 중에는 매 frame 가까이 실행될 수 있다. 횟수 자체를 버그로 보지 말고, 실행되는 work 가 무겁거나 불필요하게 넓은지 측정해야 한다.
 

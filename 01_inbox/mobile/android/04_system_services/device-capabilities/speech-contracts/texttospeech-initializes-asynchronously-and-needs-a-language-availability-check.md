@@ -2,7 +2,7 @@
 title: texttospeech-initializes-asynchronously-and-needs-a-language-availability-check
 tags: ["android", "android/system-services"]
 aliases: ["TextToSpeech는 비동기로 초기화되며 사용 전 언어 가용성을 확인해야 한다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-05 10:00:00 +09:00
 
 ### 핵심 정의
 
-`TextToSpeech(context, OnInitListener)` 생성자는 객체를 즉시 반환하지만, TTS 엔진 바인딩과 초기화는 별도로 진행된다. 초기화가 끝나면 `OnInitListener.onInit(status)` 콜백이 `TextToSpeech.SUCCESS` 또는 `TextToSpeech.ERROR`를 전달한다. 이 콜백을 받기 전에 `speak()`를 호출하면 엔진이 아직 준비되지 않았으므로 발화가 보장되지 않는다.
+`TextToSpeech`(텍스트 문자열을 음성 데이터로 합성해 스피커로 출력하는 TTS 시스템 서비스 API) 생성자인 `TextToSpeech(context, OnInitListener)`는 객체를 즉시 반환하지만, TTS 엔진 바인딩과 초기화는 별도로 진행된다. 초기화가 끝나면 `OnInitListener`(TTS 엔진 바인딩 및 비동기 준비 작업 완료 상태를 전달받는 리스너)의 `onInit(status)` 콜백이 `TextToSpeech.SUCCESS` 또는 `TextToSpeech.ERROR`를 전달한다. 이 콜백을 받기 전에 `speak()`를 호출하면 엔진이 아직 준비되지 않았으므로 발화가 보장되지 않는다.
 
 ### 메커니즘
 
@@ -69,9 +69,9 @@ class TtsActivity : AppCompatActivity() {
 ```mermaid
 flowchart TD
     A["TextToSpeech(context, listener) 생성 (즉시 반환)"] --> B["엔진 바인딩/초기화 진행 (비동기)"]
-    B --> C{"onInit(status)"}
+    B --> C["onInit(status) 수신"]
     C -->|"SUCCESS"| D["setLanguage(locale) 호출"]
-    D --> E{"setLanguage 반환값"}
+    D --> E["setLanguage 반환값 검증"]
     E -->|"LANG_AVAILABLE 계열"| F["speak() 가능"]
     E -->|"LANG_MISSING_DATA / LANG_NOT_SUPPORTED"| G["폴백 필요"]
     C -->|"ERROR"| H["이 인스턴스로는 발화 불가"]

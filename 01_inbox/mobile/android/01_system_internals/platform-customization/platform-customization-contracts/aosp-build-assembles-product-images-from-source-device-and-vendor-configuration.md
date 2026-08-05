@@ -3,7 +3,7 @@ title: aosp-build-assembles-product-images-from-source-device-and-vendor-configu
 tags: [android, android/aosp, android/build]
 aliases: ["AOSP build는 source, device, vendor configuration으로 product image를 조립한다"]
 date created: 2026-08-01 00:00:00 +09:00
-date modified: 2026-08-04 15:50:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 ---
 
 ## AOSP build는 source, device, vendor configuration으로 product image를 조립한다
@@ -31,7 +31,7 @@ AOSP build는 단일 앱 패키지를 컴파일하는 작업이 아니라 platfo
 
 4. **파티션 이미지 생성 (Image Packing & AVB Signing)**:
    - 각 모듈이 `out/target/product/<device>/system` 등에 설치된 후, `mkuserimg_mke2fs` 또는 `build_image.py` 도구가 파티션 파일시스템 이미지(ext4, erofs)를 생성한다.
-   - Dynamic Partition 환경에서는 `lpmake` 도구가 `system`, `vendor`, `product` 등을 통합한 `super.img`를 생성하고, Android Verified Boot(AVB) 툴인 `avbtool`로 해시 풋터를 추가한다.
+   - Dynamic Partition 환경에서는 `lpmake` 도구가 `system`, `vendor`, `product` 등을 통합한 `super.img`를 생성하고, **AVB**(Android Verified Boot — 부트로더가 각 파티션 이미지의 서명과 해시를 검증해 변조된 이미지로는 부팅하지 못하게 막는 체계. 정식 정의는 [AVB는 부팅 이미지의 신뢰와 rollback 방지를 검증한다](../../boot-and-runtime/boot-flow-contracts/avb-verifies-boot-images-and-rollback-protection.md) 참고) 툴인 `avbtool`로 해시 풋터를 추가한다.
 
 ```mermaid
 graph TD

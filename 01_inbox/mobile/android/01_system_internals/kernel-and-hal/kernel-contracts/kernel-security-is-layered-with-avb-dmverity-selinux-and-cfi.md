@@ -2,7 +2,7 @@
 title: kernel-security-is-layered-with-avb-dmverity-selinux-and-cfi
 tags: [android, android/kernel, android/security]
 aliases: [Kernel Security, AVB, dm-verity, KCFI]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
@@ -26,10 +26,10 @@ graph TD
     C -->|Runtime Execution| D["Kernel Memory Exploit Protection\n(KCFI: Verify Indirect Call Targets & Shadow Call Stack)"]
 ```
 
-1. **AVB 2.0 (Android Verified Boot)**: 부트로더 단계에서 `boot.img`, `dtbo`, `vendor_boot` 파티션의 RSA 서명과 롤백 인덱스(Rollback Protection)를 검증하여 변조된 부팅 이미지 실행 차단.
-2. **`dm-verity`**: 읽기 전용 이미지 파티션(`system.img`, `vendor.img`)에 대한 블록 레벨 무결성을 실시간 검증. 변조된 4KB 블록 발견 시 즉시 I/O 에러를 유발하거나 디바이스를 재부팅.
-3. **SELinux (MAC)**: 커널 레벨에서 프로세스의 `scontext`와 파일/서비스의 `tcontext` 간 접근을 원천 제어하여, root 권한을 탈취당하더라도 타 서브시스템 침투를 격리.
-4. **KCFI (Clang Kernel Control Flow Integrity)**: 간접 함수 호출(Indirect Function Call) 시 컴파일 타임 래퍼 훅으로 함수 시그니처 맹글링 수치를 검증하여, ROP/COP 코드 재사용 익스플로잇 시도를 차단하고 커널 패닉 유발.
+1. **AVB 2.0 (Android Verified Boot)**: 부트로더 단계에서 `boot.img`, `dtbo`, `vendor_boot` 파티션의 RSA 서명과 롤백 인덱스(Rollback Protection)를 검증하여 변조된 부팅 이미지 실행을 차단한다. 이 서명 검증 자체를 누가 보증하느냐는 문제가 남는데, 그 답은 소프트웨어로는 절대 바꿀 수 없는 하드웨어상의 최초 신뢰 지점인 **root of trust**(신뢰의 뿌리)에서 시작해 각 부팅 단계가 다음 단계의 서명을 검증하며 이어지는 **chain of trust**(신뢰 사슬) 구조다.
+2. **`dm-verity`**: 리눅스 커널의 **Device Mapper**(블록 디바이스 위에 가상 계층을 끼워 넣어 I/O 를 가로채는 프레임워크) 위에 구현된 target 중 하나로, 읽기 전용 이미지 파티션(`system.img`, `vendor.img`)의 블록별 해시를 **Merkle Tree**(각 블록 해시를 계속 두 개씩 묶어 올려 최종적으로 하나의 root hash 로 요약하는 트리 구조)로 엮어, 전체 파티션을 매번 다시 해싱하지 않고도 블록 단위로 무결성을 실시간 검증한다. 변조된 4KB 블록 발견 시 즉시 I/O 에러를 유발하거나 디바이스를 재부팅한다.
+3. **SELinux (MAC)**: 파일 소유자가 권한을 정하는 일반적인 방식과 달리, 커널이 정의한 정책만으로 접근을 강제하는 **MAC**(Mandatory Access Control, 강제 접근 제어) 모델이다. 프로세스에 붙는 보안 라벨인 `scontext`(source context)와 파일/서비스에 붙는 `tcontext`(target context) 간 접근을 원천 제어하여, root 권한을 탈취당하더라도 타 서브시스템 침투를 격리.
+4. **KCFI (Clang Kernel Control Flow Integrity)**: 간접 함수 호출(Indirect Function Call) 시 컴파일 타임 래퍼 훅으로 함수 시그니처 맹글링 수치를 검증하여, **ROP/COP**(Return/Call-Oriented Programming, 이미 커널에 있는 코드 조각들을 이어붙여 임의의 실행 흐름을 조립하는 코드 재사용 공격 기법) 방식의 익스플로잇 시도를 차단하고 커널 패닉 유발.
 
 ---
 

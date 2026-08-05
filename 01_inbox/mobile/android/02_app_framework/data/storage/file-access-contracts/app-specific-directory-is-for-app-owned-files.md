@@ -1,14 +1,15 @@
 ---
 title: app-specific-directory-is-for-app-owned-files
 tags: [android, android/data, android/file-access-contracts, android/storage]
-aliases: ["앱 전용 디렉터리: 소유 앱만 쓰는 파일"]
-date modified: 2026-08-03 18:07:57 +09:00
+aliases: ["앱 전용 디렉터리(내부 저장소 context.filesDir 또는 외부 저장소 context.getExternalFilesDir() 아래에 위치하며 소유 앱만 접근 권한을 지니는 전용 영역): 소유 앱만 쓰는 파일"]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## 앱 전용 디렉터리: 소유 앱만 쓰는 파일
 
 상위 문서: [파일 접근 계약](./file-access-contracts.md)
+배경 지식: [리눅스 파일 시스템](../../../../../../linux/filesystems.md)
 
 관련 노트: [캐시는 정본이 아니라 재생성 가능한 데이터다](../../../../05_security_privacy/secure-storage/storage-lifecycle-and-backup/cache-is-recreatable-data-not-source-of-truth.md)
 

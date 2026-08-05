@@ -2,19 +2,21 @@
 title: exported-attribute-defines-external-component-boundary
 tags: [android, android/intents, android/navigation]
 aliases: ["exported 는 컴포넌트의 외부 호출 경계를 결정한다"]
-date modified: 2026-08-03 18:11:36 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## exported 는 컴포넌트의 외부 호출 경계를 결정한다
 
-상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
 
-관련 노트: [intent-filter는 컴포넌트의 수신 계약이다](./intent-filter-is-component-receiving-contract.md)
+배경 지식: [접근 제어 모델](../../../../../../security/fundamentals/access-control-models.md), [프로세스 생명주기](../../../../../../operating-systems/process-states-lifecycle.md)
+
+관련 노트: [intent-filter는 컴포넌트의 수신 계약이다](intent-filter-is-component-receiving-contract.md)
 
 ### 의미
 
-`android:exported` 는 다른 앱이 컴포넌트를 직접 실행할 수 있는지를 나타낸다.
+`**android:exported**(다른 외부 앱이나 OS 컴포넌트가 해당 액티비티/서비스에 직접 접근할 수 있는지를 통제하는 보안 속성)` 는 다른 앱이 컴포넌트를 직접 실행할 수 있는지를 나타낸다.
 
 `true` 인 컴포넌트는 외부 호출 가능성이 있으므로 입력과 권한을 공개 API 처럼 다룬다.
 

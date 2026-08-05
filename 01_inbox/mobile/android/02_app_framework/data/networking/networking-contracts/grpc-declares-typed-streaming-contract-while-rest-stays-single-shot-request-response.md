@@ -2,9 +2,12 @@
 title: grpc-declares-typed-streaming-contract-while-rest-stays-single-shot-request-response
 tags: [android, android/data, android/networking]
 aliases: ["gRPC는 Protobuf 기반 강타입 스트리밍 계약을 선언하고 REST는 단발성 request-response 계약에 머문다"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
+
+배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md)
+
 
 ## gRPC 는 Protobuf 기반 강타입 스트리밍 계약을 선언하고 REST 는 단발성 request-response 계약에 머문다
 

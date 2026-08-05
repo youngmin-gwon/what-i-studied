@@ -2,15 +2,15 @@
 title: intent-filter-is-component-receiving-contract
 tags: [android, android/intents, android/navigation]
 aliases: ["intent-filter 는 컴포넌트의 수신 계약이다"]
-date modified: 2026-08-03 18:11:38 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## intent-filter 는 컴포넌트의 수신 계약이다
 
-상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
 
-관련 노트: [AndroidManifest는 OS가 발견할 컴포넌트와 진입점을 선언한다](./android-manifest-declares-os-visible-components-and-entry-points.md)
+관련 노트: [AndroidManifest는 OS가 발견할 컴포넌트와 진입점을 선언한다](android-manifest-declares-os-visible-components-and-entry-points.md)
 
 ### 역할
 
@@ -80,5 +80,5 @@ intent-filter 는 라우팅 표이자 공개된 입력 계약이다.
 
 ### 공식 문서
 
-- [Intents and intent filters](https://developer.android.com/guide/components/intents-filters)
+- [Intents and **Intent filter**(컴포넌트가 수신할 수 있는 Implicit Intent의 조건인 Action, Category, Data를 선언한 필터 명세)s](https://developer.android.com/guide/components/intents-filters)
 - [IntentFilter API reference](https://developer.android.com/reference/android/content/IntentFilter.html)

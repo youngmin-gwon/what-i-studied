@@ -1271,10 +1271,27 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 
 **진행 중(2026-08-05, 이 세션이 지금 처리 중 — 다른 세션은 중복 작업하지 말 것):** System Internals 나머지 151 개 파일을 4 개 subagent 에 병렬 위임했다(boot-and-runtime 40 개, kernel-and-hal 39 개, ipc-and-process 6 개+graphics-and-media 23 개, connectivity 18 개+platform-modularity 13 개+platform-customization 13 개). 완료되면 이 문서에 결과가 추가된다.
 
-**다른 세션(다른 AI)이 지금 바로 착수할 수 있는 다음 구간: `02_app_framework/`(227 개 파일, vault 최대 규모 폴더).** System Internals 가 이 세션에서 진행 중이므로 겹치지 않는다. 착수 세션은:
-1. 반드시 위 "## Phase 11" 섹션 전체(원칙·좋은 예/나쁜 예·작업 방식)를 먼저 읽고 그대로 따를 것 — 특히 "원자성/SSOT 유지"(일반 개념 전체 설명을 복제하지 않고 링크) + "인라인 gloss 필수"(링크만으로 대체 불가) 두 원칙을 반드시 지킬 것.
-2. `02_app_framework/`(architecture/data/dependency-injection/jetpack-compose/navigation/ui, 227 개)를 하위 클러스터 단위로 나눠 병렬 subagent 에 위임할 것(Phase 5 에서 이미 이 폴더를 category 1~3 로 나눈 이력이 있으니 그 경계를 재사용하면 편하다 — 위쪽 "category 1/2/3 완료" 진행 기록 참고).
-3. `01_inbox/mobile/android/` 바깥의 일반 지식 폴더(`01_inbox/operating-systems/`, `01_inbox/linux/`, `02_references/operating-systems/`, `02_references/computer-science/`, `01_inbox/security/`, `01_inbox/computer-science/networking/`)를 먼저 훑어 대응하는 일반 노트가 있는지 확인하고, 없는 새로운 개념(App Framework 는 Jetpack Compose/DI/Coroutine 관련 CS 개념이 나올 수 있다 — 예: dependency injection 이론, declarative UI 패러다임 등)이 발견되면 Phase 9/이번 라운드처럼 새 일반 노트를 만들지 이 문서에 기록하고 판단할 것.
-4. 완료 후 이 문서의 "완료 조건 및 진행 기록 형식"에 맞춰 진행 기록을 추가할 것.
+**진행 기록(2026-08-05): `02_app_framework/` (255 개 파일) Phase 11 설명 친절도 및 배경지식 연결 pass 완료.**
+4 개 subagent 에 병렬 위임하여 architecture (57 개), data/app-widgets/ui (75 개), jetpack-compose/dependency-injection (78 개), navigation (45 개) 전 구역을 전수 점검 및 보강했다.
 
-**그 다음 순서(아직 아무도 착수하지 않음):** System Services(`04_system_services`, 64 개) → Security(`05_security_privacy`, 28 개) → Packaging(`03_packaging_deployment`, 42 개) → Testing(`06_testing_performance`, 27 개) → Platforms(`07_platforms`, 43 개). 이 순서는 Phase 5 category 순서를 그대로 재사용한 것이다.
+- **수정된 파일 수**: 총 165 개 (인라인 gloss `**용어**` 보강, 일반 CS/OS/보안/네트워크 배경지식 `배경 지식: [용어](상대경로)` 추가, `date modified: 2026-08-05 16:15:00 +09:00` 반영, Mermaid 특수문자 quoting 적용)
+  - `architecture`: 45 개 수정 (Activity lifecycle, Intent, Process Death, PendingIntent, Context Leak, Reducer, UDF 등 인라인 gloss 및 IPC/프로세스 생명주기 배경지식 연결)
+  - `data` / `app-widgets` / `ui`: 23 개 수정 (AppWidgetManager, Parcelable, gRPC/REST, Interceptor, Scoped Storage, SQLite, Downloadable Fonts, WebView 신뢰경로 인라인 gloss 및 HTTP/SSL/웹보안/파일시스템 배경지식 연결)
+  - `jetpack-compose` / `dependency-injection`: 52 개 수정 (Compile-time/Runtime DI, Test Seam, EntryPoint, CompositionLocal, SubcomposeLayout, Semantics, Recomposition, derivedStateOf, Slot Table, rememberSaveable 등 인라인 gloss 및 메모리 레이아웃/생명주기 배경지식 연결)
+  - `navigation`: 45 개 수정 (NavController, NavHost, NavKey, Custom Tabs, App Links, Deep Link, Activity Result API, SceneStrategy 등 인라인 gloss 및 IPC/인증인가/웹보안/프로세스생명주기 배경지식 연결)
+- **보존(완결적) 파일 수**: 총 90 개 (이미 친절하고 자체 완결적인 설명 유지)
+- **새로 필요해진 일반 CS/OS 노트**: 0 건 (기존 `01_inbox/operating-systems/`, `02_references/computer-science/`, `01_inbox/security/`, `01_inbox/computer-science/networking/` 노트로 완전 커버)
+- **Broken link 검증**: **0 건** (상대 경로 링크 전수 확인 완료)
+
+**진행 기록(2026-08-05): `04_system_services/` (85 개 파일) Phase 11 설명 친절도 및 배경지식 연결 pass 완료.**
+3 개 subagent 에 병렬 위임하여 System Services Core & Background (34 개), Device Capabilities Part 1 (26 개), Device Capabilities Part 2 (25 개) 전 구역을 전수 점검 및 보강했다.
+
+- **수정된 파일 수**: 총 69 개 (인라인 gloss `**용어**` 보강, 일반 CS/OS/보안/네트워크 배경지식 `배경 지식: [용어](상대경로)` 추가, `date modified: 2026-08-05 16:15:00 +09:00` 반영, Mermaid 특수문자 quoting 적용)
+  - `Core & Background`: 18 개 수정 (getSystemService, system_server, AppOps, WorkManager, AlarmManager, Foreground Service, Doze, FCM, NotificationChannel, RoleManager, WakeLock, AppFunctions 등 인라인 gloss 및 IPC/SELinux/프로세스 스케줄링/신원관리 배경지식 연결)
+  - `Device Capabilities Part 1`: 26 개 수정 (App Shortcuts, ShortcutManager, AppSearch, BiometricPrompt, CredentialManager, BluetoothGatt, HealthConnect, AccessibilityService, FusedLocationProviderClient 등 인라인 gloss 및 소켓/IPC 배경지식 연결)
+  - `Device Capabilities Part 2`: 25 개 수정 (AudioManager, CameraManager, MediaSession, HCE, APDU, NDEF, AICore, LiteRT, SensorManager, SpeechRecognizer, Carrier privilege, TelephonyManager 등 인라인 gloss 및 IPC/POSIX 파이프 배경지식 연결)
+- **보존(완결적) 파일 수**: 총 16 개 (이미 친절하고 자체 완결적인 설명 유지)
+- **새로 필요해진 일반 CS/OS 노트**: 0 건 (기존 `01_inbox/operating-systems/`, `01_inbox/linux/`, `01_inbox/security/`, `01_inbox/computer-science/networking/` 노트로 완전 커버)
+- **Broken link 검증**: **0 건** (상대 경로 링크 전수 확인 완료)
+
+**그 다음 순서:** Security(`05_security_privacy`, 28 개) → Packaging(`03_packaging_deployment`, 42 개) → Testing(`06_testing_performance`, 27 개) → Platforms(`07_platforms`, 43 개).

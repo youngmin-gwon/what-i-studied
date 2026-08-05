@@ -2,7 +2,7 @@
 title: precise-and-approximate-location-are-separate-permissions
 tags: ["android", "android/system-services"]
 aliases: ["정밀 위치와 대략적 위치는 별도 permission으로 요청한다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-03 17:19:24 +09:00
 
 ### 핵심 정의
 
-Android 12(API 31)부터 사용자는 앱이 위치를 요청할 때 `ACCESS_FINE_LOCATION`(정밀)과 `ACCESS_COARSE_LOCATION`(대략, 공식 문서 기준 약 3제곱킬로미터 면적 정도로 뭉개짐)을 별도로 선택할 수 있다. 앱이 두 permission을 모두 선언해도 사용자는 대략적 위치만 승인할 수 있으며, 이 경우 fine 요청도 coarse 정확도로 강등된 값을 받는다.
+Android 12(API 31)부터 사용자는 앱이 위치를 요청할 때 **ACCESS_FINE_LOCATION**(GPS 및 센서를 활용한 반경 수 미터 수준의 정밀 위치 권한)과 **ACCESS_COARSE_LOCATION**(셀 타워/Wi-Fi 기반 수 제곱킬로미터 면적으로 뭉개진 대략적 위치 권한)을 별도로 선택할 수 있다. 앱이 두 permission을 모두 선언해도 사용자는 대략적 위치만 승인할 수 있으며, 이 경우 fine 요청도 coarse 정확도로 강등된 값을 받는다.
 
 ### 메커니즘
 

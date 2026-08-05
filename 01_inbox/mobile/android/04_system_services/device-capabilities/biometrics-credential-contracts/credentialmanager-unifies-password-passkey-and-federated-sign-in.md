@@ -2,7 +2,7 @@
 title: credentialmanager-unifies-password-passkey-and-federated-sign-in
 tags: ["android", "android/system-services"]
 aliases: ["CredentialManager는 비밀번호/패스키/연동 로그인을 하나의 API로 통합한다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-`CredentialManager`(Jetpack Credentials)는 저장된 비밀번호, 패스키(FIDO2/WebAuthn 기반 생체 인증 로그인), Google 계정 같은 연동 로그인(federated sign-in)을 앱이 각각 다른 API로 따로 다루지 않고 하나의 요청/응답 흐름으로 통합한 API다. 사용자는 하나의 시스템 로그인 시트에서 어떤 방식으로 로그인할지 선택한다.
+`CredentialManager`(Jetpack Credentials)는 저장된 비밀번호, **패스키**(Passkey: 비밀번호 없이 기기의 생체 인증이나 PIN으로 FIDO2/WebAuthn 공개키 기반 서명을 수행하여 로그인하는 인증 방식), Google 계정 같은 **연동 로그인**(federated sign-in: 외부 신원 제공자를 통해 인증받는 SSO 방식)을 앱이 각각 다른 API로 따로 다루지 않고 하나의 요청/응답 흐름으로 통합한 API다. 사용자는 하나의 시스템 로그인 시트에서 어떤 방식으로 로그인할지 선택한다.
 
 ### 메커니즘
 

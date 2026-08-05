@@ -2,19 +2,20 @@
 title: system-server-checks-caller-uid-and-pid-for-every-call
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:35:24 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:17:26 +09:00
 ---
 
 ## system_server 의 서비스는 호출자 UID/PID 로 권한을 검사한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+배경 지식: [SELinux](../../../../../linux/security/selinux.md)
 
 관련 지도: [시스템 서비스 접근 공통 계약](./service-lookup-contracts.md)
 
 ### 핵심 정의
 
-Binder 호출이 system_server 에 도달하면, 서비스는 호출자가 선언한 권한 문자열을 신뢰하지 않는다. 대신 커널이 제공하는 호출자의 실제 UID/PID 를 `Binder.getCallingUid()` / `Binder.getCallingPid()` 로 조회하고, 그 UID 가 필요한 permission 을 실제로 부여받았는지 `PackageManager`/권한 시스템에 다시 질의한다.
+**system_server**는 위치, 알림, 패키지 관리 등 Android 핵심 OS 서비스들을 일괄 실행하고 권한을 통제하는 중앙 시스템 프로세스다. Binder 호출이 system_server에 도달하면 서비스는 호출자가 전달한 정보가 아닌, 커널이 직접 제공하는 호출자의 실제 **UID/PID**(프로세스 식별 신원)를 `Binder.getCallingUid()` / `Binder.getCallingPid()`로 조회하여 실제 권한을 검사한다.
 
 ### 메커니즘
 

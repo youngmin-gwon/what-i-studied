@@ -2,7 +2,7 @@
 title: remember-saveable-is-for-small-restorable-ui-state
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:11:10 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 16:53:16 +09:00
 
 상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
-`rememberSaveable` 은 Composable 보다 오래 살아야 하는 작은 UI 값을 복원할 때 사용한다.
+`**rememberSaveable**(화면 회전이나 프로세스 재시작 후에도 Bundle을 통해 UI 상태를 복원해 주는 저장 API)` 은 Composable 보다 오래 살아야 하는 작은 UI 값을 복원할 때 사용한다.
 
 ### 적합한 값
 

@@ -2,13 +2,14 @@
 title: fcm-is-message-delivery-not-business-execution-guarantee
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
 ## FCM 은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+배경 지식: [HTTP 프로토콜](../../../../../computer-science/networking/http-protocol.md)
 
 관련 지도: [알림과 FCM 메시징 계약](./notification-messaging-contracts.md)
 

@@ -2,7 +2,7 @@
 title: appops-can-deny-after-permission-is-already-granted
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:35:27 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:17:39 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2026-08-03 17:17:39 +09:00
 
 ### 핵심 정의
 
-AppOpsManager(AppOps)는 permission 과 별도로 동작하는 실행 시점 정책 계층이다. 앱이 dangerous permission 을 정상적으로 부여받았더라도, 해당 동작에 대응하는 app-op 이 `MODE_IGNORED` 또는 `MODE_ERRORED` 상태면 시스템은 요청을 조용히 무시하거나 거부한다.
+**AppOps**(App Operations, `AppOpsManager`)는 런타임 권한(Permission) 승인 상태와 별개로 동작하는 동적 실행 시점 정책 계층이다. 앱이 dangerous permission을 정상적으로 부여받았더라도, 해당 동작에 대응하는 app-op이 `MODE_IGNORED` 또는 `MODE_ERRORED` 상태면 시스템은 데이터 접근 요청을 조용히 무시하거나 거부한다.
 
 ### 메커니즘
 

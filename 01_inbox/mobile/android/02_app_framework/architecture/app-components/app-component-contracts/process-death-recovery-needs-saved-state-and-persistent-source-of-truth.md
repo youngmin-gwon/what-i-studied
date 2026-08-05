@@ -2,12 +2,14 @@
 title: process-death-recovery-needs-saved-state-and-persistent-source-of-truth
 tags: [android, android/app-components, android/architecture]
 aliases: ["프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다"]
-date modified: 2026-08-03 17:27:06 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## 프로세스 종료 복구에는 saved state 와 영속 source of truth 가 필요하다
 
+상위 문서: [App Component Contracts](./app-component-contracts.md)
+배경 지식: [프로세스 생명주기 및 메모리 회수](../../../../../../operating-systems/process-states-lifecycle.md)
 Android 는 메모리 확보를 위해 background 프로세스를 종료할 수 있다. 이 경로는 Activity 가 명시적으로 끝난 것과 다르며, 앱이 임의의 cleanup 콜백을 받을 것을 전제로 하면 안 된다.
 
 복구 전략은 데이터 성격으로 나눈다. navigation argument, text field draft, selected tab 처럼 작고 직렬화 가능한 상태는 saved state 계층에 둘 수 있다. 사용자 계정, cached domain data, 동기화 결과처럼 의미 있는 데이터는 repository 와 storage 가 source of truth 여야 한다.

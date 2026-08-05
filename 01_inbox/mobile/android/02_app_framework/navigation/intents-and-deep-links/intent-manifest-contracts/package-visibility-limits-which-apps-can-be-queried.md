@@ -2,13 +2,15 @@
 title: package-visibility-limits-which-apps-can-be-queried
 tags: [android, android/intents, android/navigation]
 aliases: ["Package visibility 는 다른 앱 조회 범위를 제한한다"]
-date modified: 2026-08-03 18:11:46 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Package visibility 는 다른 앱 조회 범위를 제한한다
+## **Package visibility(패키지 가시성)**(악성 앱의 타 앱 정보 수집을 차단하기 위해 매니페스트에 등록된 앱만 조회하도록 허용하는 보안 정책) 는 다른 앱 조회 범위를 제한한다
 
-상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
+
+배경 지식: [접근 제어 모델](../../../../../../security/fundamentals/access-control-models.md)
 
 ### 문제
 

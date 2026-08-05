@@ -2,7 +2,7 @@
 title: ebpf-extends-android-kernel-through-verified-programs
 tags: [android, android/ebpf, android/kernel]
 aliases: [BPF, eBPF]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 

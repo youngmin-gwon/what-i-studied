@@ -2,13 +2,14 @@
 title: mediastore-registers-shared-media
 tags: [android, android/data, android/file-access-contracts, android/storage]
 aliases: ["MediaStore: 공유 미디어의 등록과 접근"]
-date modified: 2026-08-03 18:08:11 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## MediaStore: 공유 미디어의 등록과 접근
 
 상위 문서: [파일 접근 계약](./file-access-contracts.md)
+배경 지식: [리눅스 파일 시스템](../../../../../../linux/filesystems.md)
 
 관련 노트: [Photo Picker는 필요한 미디어 접근 범위를 줄인다](./photo-picker-minimizes-media-access.md)
 

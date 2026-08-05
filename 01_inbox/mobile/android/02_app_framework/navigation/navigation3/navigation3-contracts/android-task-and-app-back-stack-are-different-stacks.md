@@ -2,13 +2,15 @@
 title: android-task-and-app-back-stack-are-different-stacks
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Android Task 와 앱 back stack 은 다른 상태다"]
-date modified: 2026-08-03 18:11:58 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Android Task 와 앱 back stack 은 다른 상태다
+## **Android task**(사용자가 작업 수행 시 거치는 Activity들의 OS 레벨 관리 스택 기록) 와 앱 back stack 은 다른 상태다
 
-상위 문서: [Navigation 3 계약](./navigation3-contracts.md)
+상위 문서: [Navigation 3 계약](navigation3-contracts.md)
+
+배경 지식: [프로세스 생명주기](../../../../../../operating-systems/process-states-lifecycle.md)
 
 ### 두 back 의 의미
 

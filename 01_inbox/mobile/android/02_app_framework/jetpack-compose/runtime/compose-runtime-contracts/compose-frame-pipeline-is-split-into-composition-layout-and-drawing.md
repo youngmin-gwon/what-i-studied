@@ -2,11 +2,12 @@
 title: compose-frame-pipeline-is-split-into-composition-layout-and-drawing
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Compose phases]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다
+배경 지식: [메모리 레이아웃 및 캐시](../../../../../../../02_references/computer-science/memory-layout-and-cache.md)
 
 Compose 가 frame 을 만들 때의 큰 단계는 composition, layout, drawing 이다. Composition 은 무엇을 보여줄지 결정하고, layout 은 측정과 배치를 수행하며, drawing 은 화면에 그릴 내용을 만든다.
 
@@ -16,10 +17,10 @@ State read 는 phase 별로 추적될 수 있다. Composition 에서 읽은 stat
 
 #### Composition 저장 구조: Slot Table & Gap Buffer
 
-Compose 는 View 기반 UI 와 달리 힙 영역에 뷰 객체(View Instance) 트리를 유지하지 않는다. 대신 **Slot Table**이라는 단일 flat 배열 구조에 Composition 트리의 노드, 상태(`remember`), 람다, 그룹 정보(Key)를 저장한다.
+Compose 는 View 기반 UI 와 달리 힙 영역에 뷰 객체(View Instance) 트리를 유지하지 않는다. 대신 ****Slot Table**(Compose Runtime이 Composition 트리의 구조, remember 상태, 노드 위치 정보를 연속 메모리에 기록하는 갭 버퍼 기반 데이터 구조)**이라는 단일 flat 배열 구조에 Composition 트리의 노드, 상태(`remember`), 람다, 그룹 정보(Key)를 저장한다.
 
 - **Gap Buffer Data Structure**: Slot Table 내부 조작은 텍스트 에디터의 Gap Buffer 패턴을 사용한다. 현재 수정 위치(Gap) 주변으로 이동 및 데이터 삽입/삭제를 \(O(1)\) 에 수행할 수 있도록 여분의 공간(Gap)을 보장한다.
-- **In-place Mutation on Recomposition**: 재구성(Recomposition)이 발생하면 뷰 개체를 새로 메모리 할당(new)하지 않고, Slot Table 배열 상의 해당 위치 데이터만 덮어쓴다(In-place update). 이 구조 덕분에 Emitting/Recomposing 비용이 획기적으로 낮아지며, LazyColumn 등에서 View Recycling 계층 구조가 불필요하게 된다.
+- **In-place Mutation on **Recomposition**(상태 변경 시 영향을 받는 Composable 스코프만 선택적으로 재실행하여 UI 트리를 갱신하는 과정)**: 재구성(Recomposition)이 발생하면 뷰 개체를 새로 메모리 할당(new)하지 않고, Slot Table 배열 상의 해당 위치 데이터만 덮어쓴다(In-place update). 이 구조 덕분에 Emitting/Recomposing 비용이 획기적으로 낮아지며, LazyColumn 등에서 View Recycling 계층 구조가 불필요하게 된다.
 
 phase 를 늦추면 상위 recomposition 을 건너뛸 수 있다는 것은 코드로 바로 대비된다.
 

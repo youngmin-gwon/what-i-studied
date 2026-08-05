@@ -2,21 +2,21 @@
 title: navdisplay-and-entry-provider-separate-rendering-from-route-registry
 tags: [android, android/navigation, android/navigation3]
 aliases: ["NavDisplay 와 entry provider 의 경계"]
-date modified: 2026-08-03 18:11:59 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## NavDisplay 와 entry provider 의 경계
+## **NavDisplay**(백스택의 현재 상태에 맞춰 최상단 씬 화면을 실제로 렌더링하고 UI 전환 효과를 처리하는 컴포저블 컨테이너) 와 entry provider 의 경계
 
-상위 문서: [Navigation 3 계약](./navigation3-contracts.md)
+상위 문서: [Navigation 3 계약](navigation3-contracts.md)
 
-관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](./navkey-and-back-stack-are-app-owned-navigation-state.md)
+관련 노트: [NavKey와 back stack은 앱이 소유하는 navigation 상태다](navkey-and-back-stack-are-app-owned-navigation-state.md)
 
 ### 역할 분리
 
 `NavDisplay` 는 back stack 을 관찰하고 현재 entry 들을 실제 Compose 화면으로 표시한다.
 
-`entryProvider` 는 `NavKey` 를 `NavEntry` 와 content 로 바꾸는 registry 다.
+`**entryProvider**(NavKey를 전달받아 이에 대응하는 화면 렌더링 컴포저블 블록을 매핑해 주는 라우트 레지스트리 함수)` 는 `NavKey` 를 `NavEntry` 와 content 로 바꾸는 registry 다.
 
 두 구성 요소를 분리하면 상태 모델과 화면 생성 규칙을 독립적으로 검증할 수 있다.
 

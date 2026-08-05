@@ -2,12 +2,13 @@
 title: configuration-change-recreates-activity-but-not-all-screen-state
 tags: [android, android/app-components, android/architecture]
 aliases: ["설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다"]
-date modified: 2026-08-03 17:26:31 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## 설정 변경은 Activity 를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다
 
+상위 문서: [App Component Contracts](./app-component-contracts.md)
 회전, 언어, 다크 모드, window size 변경 같은 configuration change 는 Activity 를 파괴하고 새 인스턴스를 만들 수 있다. 이때 Activity 필드나 View/Composable local 변수에만 있던 값은 사라질 수 있다.
 
 모든 상태를 같은 곳에 두면 안 된다. screen/business state 는 ViewModel 이 적합하고, 작은 transient UI state 는 `rememberSaveable` 이나 saved instance state 가 적합하며, 사용자 데이터나 서버 동기화 결과는 storage/data layer 가 source of truth 여야 한다.

@@ -2,7 +2,7 @@
 title: app-actions-map-assistant-queries-to-app-fulfillment
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 18:13:11 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ### 목적
 
-App Actions 는 사용자가 Assistant 에 말하거나 입력한 작업을 앱의 기능으로 연결한다.
+**App Actions**는 사용자가 Assistant에 말하거나 입력한 자연어 작업을 앱 내의 특정 화면이나 위젯 실행(fulfillment)으로 매핑해주는 연동 구조다.
 
 Built-in Intent(BII)는 운동 시작, 주차 찾기처럼 여러 앱에서 공통적인 사용자 작업을 의미 모델로 표현한다.
 

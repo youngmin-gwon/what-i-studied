@@ -2,13 +2,13 @@
 title: deep-link-is-external-uri-contract
 tags: [android, android/deep-links, android/navigation]
 aliases: ["Android 딥 링크는 외부 URI 계약이다"]
-date modified: 2026-08-03 18:11:26 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Android 딥 링크는 외부 URI 계약이다
 
-상위 문서: [Deep Link 계약](./deep-link-contracts.md)
+상위 문서: [Deep Link 계약](deep-link-contracts.md)
 
 관련 노트: [Intent는 컴포넌트 실행을 설명하는 메시지다](../intent-manifest-contracts/intent-describes-component-action-request.md)
 
@@ -16,7 +16,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 딥 링크는 외부에서 전달된 URI 를 앱 내부의 특정 목적지로 연결하는 계약이다.
 
-이 계약의 입력은 보통 `Intent.ACTION_VIEW` 와 URI 의 조합이다.
+이 계약의 입력은 보통 `**Intent.ACTION_VIEW**(외부 데이터 URI를 사용자에 표시하도록 요청하는 안드로이드 암시적 인텐트 액션)` 와 URI 의 조합이다.
 
 URI 는 화면 이름이 아니라 사용자가 도달하려는 리소스나 작업을 표현한다.
 
@@ -70,9 +70,9 @@ URI 는 안정적인 공개 계약이므로 내부 클래스명이나 화면 구
 
 ### 관련 주제
 
-검증된 HTTPS 계약은 [Android App Link는 검증된 HTTPS 딥 링크다](./app-link-is-verified-https-deep-link.md) 에서 다룬다.
+검증된 HTTPS 계약은 [Android App Link는 검증된 HTTPS 딥 링크다](app-link-is-verified-https-deep-link.md) 에서 다룬다.
 
-외부 URI 선언과 서버 검증 파일의 경계는 [매니페스트 선언과 assetlinks.json의 역할](./manifest-and-assetlinks-have-distinct-roles.md) 에 정리한다.
+외부 URI 선언과 서버 검증 파일의 경계는 [매니페스트 선언과 assetlinks.json의 역할](manifest-and-assetlinks-have-distinct-roles.md) 에 정리한다.
 
 공식 개요는 [Android App Links 개요](https://developer.android.com/training/app-links/about) 를 참고한다.
 

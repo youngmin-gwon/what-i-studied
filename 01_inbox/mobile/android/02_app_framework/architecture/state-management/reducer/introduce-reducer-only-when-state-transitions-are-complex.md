@@ -2,7 +2,7 @@
 title: introduce-reducer-only-when-state-transitions-are-complex
 tags: [android, android/architecture, android/reducer, android/state-management]
 aliases: ["Reducer는 상태 계산이 반복되고 전이 규칙이 복잡해질 때만 도입한다"]
-date modified: 2026-08-04 00:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

@@ -2,13 +2,14 @@
 title: scoped-storage-limits-direct-shared-storage-access
 tags: [android, android/data, android/file-access-contracts, android/storage]
 aliases: ["Scoped Storage: 저장소 접근 경계를 선택하는 규칙"]
-date modified: 2026-08-03 18:08:28 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Scoped Storage: 저장소 접근 경계를 선택하는 규칙
 
 상위 문서: [파일 접근 계약](./file-access-contracts.md)
+배경 지식: [리눅스 파일 시스템](../../../../../../linux/filesystems.md)
 
 관련 노트: [Scoped Storage와 암호화는 서로 다른 경계를 보호한다](../../../../05_security_privacy/secure-storage/storage-lifecycle-and-backup/scoped-storage-and-encryption-protect-different-boundaries.md)
 

@@ -2,17 +2,17 @@
 title: appsearch-contracts
 tags: ["android", "android/system-services"]
 aliases: ["AppSearch 접근 계약"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
 ## AppSearch 접근 계약
 
-이 지도는 AndroidX `AppSearch`가 앱의 로컬 구조화 데이터를 색인해 오프라인 전문 검색과 시스템 전역 검색(설정 앱 검색, 향후 Assistant 연동)에 노출하는 계약을 저장소 선택과 스키마 마이그레이션 두 가지로 나눈다. AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이며, 이 전제를 놓치면 저장소 선택과 스키마 변경 배포 모두 잘못된 모델을 기준으로 하게 된다.
+이 지도는 AndroidX **AppSearch**(앱의 구조화된 로컬 데이터를 색인하여 오프라인 전문 검색과 시스템 전역 통합 검색을 제공하는 온디바이스 검색 엔진 라이브러리)가 데이터를 색인해 오프라인 전문 검색과 시스템 전역 검색(설정 앱 검색, 향후 Assistant 연동)에 노출하는 계약을 저장소 선택과 스키마 마이그레이션 두 가지로 나눈다. AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이며, 이 전제를 놓치면 저장소 선택과 스키마 변경 배포 모두 잘못된 모델을 기준으로 하게 된다.
 
 ### 읽는 순서
 
-1. [AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다](./appsearch-is-an-on-device-search-index-not-a-cloud-search-engine.md)에서 `LocalStorage`/`PlatformStorage`/`PlayServicesStorage` 선택과 System UI 노출 옵트인 계약을 먼저 본다.
+1. [AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다](./appsearch-is-an-on-device-search-index-not-a-cloud-search-engine.md)에서 `LocalStorage`(앱 전용 저장소), `PlatformStorage`(Android 12+ 시스템 전역 저장소), `PlayServicesStorage`(구형 기기용 전역 저장소) 선택과 System UI 노출 옵트인 계약을 먼저 본다.
 2. [Document 스키마 변경은 명시적 마이그레이션이 없으면 호환되지 않는 데이터를 삭제한다](./document-schema-changes-require-explicit-migration-or-forceoverride-deletes-data.md)에서 `Migrator`와 `forceOverride`가 스키마 버전 변경을 어떻게 다르게 처리하는지 본다.
 
 ### 문제 분류

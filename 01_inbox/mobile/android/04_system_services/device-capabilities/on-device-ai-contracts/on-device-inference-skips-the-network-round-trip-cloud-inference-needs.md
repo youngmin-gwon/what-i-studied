@@ -2,7 +2,7 @@
 title: on-device-inference-skips-the-network-round-trip-cloud-inference-needs
 tags: ["android", "android/system-services"]
 aliases: ["온디바이스 추론은 클라우드 추론이 필요로 하는 네트워크 왕복을 건너뛴다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 핵심 정의
 
-Android의 ML Kit과 LiteRT(구 TensorFlow Lite)는 모델을 기기 안에서 실행해 추론 결과를 얻는다. 공식 문서는 이 둘을 다음과 같이 구분해 설명한다.
+Android의 `ML Kit`(비전·텍스트·생성형 AI 태스크를 지원하는 모바일 전용 온디바이스 SDK)과 LiteRT(구 TensorFlow Lite)는 모델을 기기 안에서 직접 실행해 추론 결과를 얻는다. 공식 문서는 이 둘을 다음과 같이 구분해 설명한다.
 
 > "ML Kit provides production-ready solutions to common tasks and requires no ML expertise. Models are built-in and optimized for mobile."
 >
@@ -29,7 +29,7 @@ Android의 ML Kit과 LiteRT(구 TensorFlow Lite)는 모델을 기기 안에서 �
 
 ML Kit/LiteRT 온디바이스 경로는 요청을 프로세스 밖으로 내보내지 않는다. 모델이 앱에 번들되어 있거나(built-in) 최초 1회 다운로드된 뒤에는, 이후 추론 호출이 로컬 CPU/GPU/NPU에서 완결된다. 네트워크 연결 여부와 무관하게 결과를 반환할 수 있고, 요청/응답 데이터가 기기 밖으로 나가지 않는다.
 
-클라우드 추론 경로는 매 요청마다 HTTPS 연결을 열어 서버로 프롬프트/이미지를 전송하고, 서버가 더 큰 모델로 추론한 뒤 응답을 돌려받는다. 이 왕복(round trip)은 네트워크 지연, 서버 큐잉 지연, 연결 실패 가능성을 추가한다. 대신 온디바이스 모델보다 훨씬 큰 모델을 쓸 수 있어 일반적으로 더 높은 품질/범용성을 제공한다.
+클라우드 추론 경로는 매 요청마다 HTTPS 연결을 열어 서버로 프롬프트/이미지를 전송하고, 서버가 더 큰 모델로 추론한 뒤 응답을 돌려받는다. 이 **왕복**(round trip: 네트워크 패킷 전송 및 응답 왕복 지연)은 네트워크 지연, 서버 큐잉 지연, 연결 실패 가능성을 추가한다. 대신 온디바이스 모델보다 훨씬 큰 모델을 쓸 수 있어 일반적으로 더 높은 품질/범용성을 제공한다.
 
 실제 사례로 공식 문서는 다음을 든다.
 

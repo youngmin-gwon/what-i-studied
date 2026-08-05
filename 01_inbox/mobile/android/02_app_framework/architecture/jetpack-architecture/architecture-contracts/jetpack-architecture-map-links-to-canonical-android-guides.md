@@ -2,12 +2,13 @@
 title: jetpack-architecture-map-links-to-canonical-android-guides
 tags: [android, android/architecture, android/jetpack]
 aliases: ["Jetpack Architecture 문서는 세부 구현을 반복하지 않는 map이어야 한다"]
-date modified: 2026-08-04 16:33:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Jetpack Architecture 문서는 세부 구현을 반복하지 않는 map 이어야 한다
 
+상위 문서: [Architecture Contracts](./architecture-contracts.md)
 Jetpack Architecture 개요 문서는 ViewModel, UI state, Flow, Room, WorkManager, Navigation, Hilt, Compose 의 구현 세부를 다시 설명하는 곳이 아니다. 각 주제는 이미 별도 정본 map 을 가진다.
 
 이 문서의 역할은 어떤 질문이 어느 map 으로 가야 하는지 안내하는 것이다. 화면 상태와 reducer 는 state-management, async stream 은 Flow, 영속 데이터는 storage, 지연 작업은 background-work, 외부 진입과 route 는 navigation/intent, 의존성 lifetime 은 DI, UI runtime 은 Compose 로 보낸다.

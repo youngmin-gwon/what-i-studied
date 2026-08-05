@@ -2,12 +2,13 @@
 title: context-is-android-environment-capability-not-dependency-container
 tags: [android, android/architecture, android/context]
 aliases: ["Context는 Android 환경 capability이지 일반 DI container가 아니다"]
-date modified: 2026-08-04 13:20:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Context 는 Android 환경 capability 이지 일반 DI container 가 아니다
 
+상위 문서: [Android Context Boundaries](../android-context-boundaries.md)
 `Context` 는 resource, system service, file, database, component start, permission check 처럼 Android 환경이 필요한 작업을 수행하는 framework handle 이다.
 
 그러나 Context 는 모든 의존성을 꺼내 쓰는 service locator 가 아니다. 어떤 Context 를 전달할지는 API 호출이 필요한 환경과 그 값을 보관하는 객체의 수명에 의해 결정된다.

@@ -2,7 +2,7 @@
 title: viewmodelscope-binds-external-work-to-viewmodel-lifetime
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["ViewModel은 외부 작업을 viewModelScope의 수명에 묶는다"]
-date modified: 2026-08-03 17:28:06 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

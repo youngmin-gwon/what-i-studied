@@ -2,13 +2,14 @@
 title: downloadable-fonts-defer-font-delivery-to-a-provider-app-instead-of-bundling-in-the-apk
 tags: ["android", "android/app-framework"]
 aliases: ["Downloadable Fonts는 폰트를 APK에 번들하지 않고 폰트 제공자 앱에 요청 시점에 위임한다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
 ## Downloadable Fonts는 폰트를 APK에 번들하지 않고 폰트 제공자 앱에 요청 시점에 위임한다
 
 상위 문서: [Android UI System](../android-ui-system.md)
+배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md)
 관련 지도: [Downloadable Fonts 접근 계약](./downloadable-fonts-contracts.md)
 
 ### 핵심 정의

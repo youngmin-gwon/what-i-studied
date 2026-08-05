@@ -2,11 +2,11 @@
 title: top-level-destination-owns-adaptive-navigation-chrome
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Top-level destination은 adaptive navigation chrome의 단위다"]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Top-level destination 은 adaptive navigation chrome 의 단위다
+## **Top-level destination**(앱의 메인 하단 바나 레일에서 직접 접근하는 최상위 핵심 화면) 은 adaptive navigation chrome 의 단위다
 
 Top-level destination 은 bottom bar, navigation rail, drawer 같은 app chrome 에 노출되는 가장 큰 이동 단위다. Adaptive UI 에서는 chrome 모양이 window 조건에 따라 바뀌어도 선택된 destination 의 의미는 그대로 유지되어야 한다.
 

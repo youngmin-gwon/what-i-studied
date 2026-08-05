@@ -2,7 +2,7 @@
 title: fetch-state-and-interaction-state-can-have-different-owners
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["Fetch 상태와 Interaction 상태는 소유자와 변경 주기가 다르면 분리한다"]
-date modified: 2026-08-03 17:27:52 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

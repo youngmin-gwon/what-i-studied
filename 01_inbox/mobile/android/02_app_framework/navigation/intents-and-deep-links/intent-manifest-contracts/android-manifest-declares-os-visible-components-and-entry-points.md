@@ -2,13 +2,13 @@
 title: android-manifest-declares-os-visible-components-and-entry-points
 tags: [android, android/intents, android/navigation]
 aliases: ["AndroidManifest.xml 은 OS 에 앱의 컴포넌트를 선언한다"]
-date modified: 2026-08-03 18:11:34 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## AndroidManifest.xml 은 OS 에 앱의 컴포넌트를 선언한다
+## **AndroidManifest**(앱의 구성 요소, 권한, 진입점 명세를 OS에 알리는 핵심 메타데이터 선언 파일).xml 은 OS 에 앱의 컴포넌트를 선언한다
 
-상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
 
 ### 매니페스트의 본질
 

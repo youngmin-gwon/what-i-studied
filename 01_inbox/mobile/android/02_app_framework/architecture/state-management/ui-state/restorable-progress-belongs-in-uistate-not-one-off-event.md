@@ -2,7 +2,7 @@
 title: restorable-progress-belongs-in-uistate-not-one-off-event
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["복원해야 하는 진행 상태는 일회성 이벤트가 아니라 UiState로 표현한다"]
-date modified: 2026-08-03 17:27:46 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

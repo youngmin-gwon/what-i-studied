@@ -2,7 +2,7 @@
 title: updateperiodmillis-is-a-best-effort-minimum-interval-not-a-guarantee
 tags: [android, android/app-widgets]
 aliases: ["updatePeriodMillis는 최소 간격만 보장하는 best-effort 스케줄이다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:15:11 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-04 18:00:00 +09:00
 ### 내부 동작 메커니즘
 
 - `updatePeriodMillis` 로 예약된 갱신은 `AppWidgetManager` 가 내부적으로 alarm 성격의 스케줄로 관리하며, 여러 위젯의 갱신 시각을 배터리 절약을 위해 한데 묶어(batch) 보낼 수 있다. 그래서 "정확히 N 분마다"가 아니라 "N 분 이상 지난 뒤 시스템이 편한 시점에" 정도로 이해해야 한다.
-- 15 분처럼 더 촘촘하거나 사용자가 자유롭게 바꿀 수 있는 주기가 필요하면, 공식 문서는 `updatePeriodMillis` 를 0(비활성)으로 두고 대신 `WorkManager` 의 `PeriodicWorkRequest` 를 쓰라고 안내한다. "In this case, set the updatePeriodMillis to 0 and use WorkManager instead."
+- 15 분처럼 더 촘촘하거나 사용자가 자유롭게 바꿀 수 있는 주기가 필요하면, 공식 문서는 `updatePeriodMillis` 를 0(비활성)으로 두고 대신 `WorkManager`(앱 프로세스가 종료되거나 재부팅되어도 OS 가 백그라운드 작업을 실행하도록 보장하는 지연 가능 작업 스케줄러)의 `PeriodicWorkRequest` 를 쓰라고 안내한다. "In this case, set the updatePeriodMillis to 0 and use WorkManager instead."
 - 다만 `WorkManager` 로 옮긴다고 배터리 정책에서 자유로워지는 것은 아니다. 같은 문서는 "Using repeating tasks with WorkManager is a good option, but similar power restrictions apply."라고 명시한다. App Standby Bucket, Doze 같은 시스템 전원 정책은 `updatePeriodMillis` 든 `WorkManager` 주기 작업이든 동일하게 지연시킬 수 있다.
 - 결론적으로 두 메커니즘의 차이는 "주기를 세밀하게 제어할 수 있는가"와 "작업 상태를 영속적으로 추적할 수 있는가"에 있다. `updatePeriodMillis` 는 선언만 하면 되는 대신 30 분 하한과 배칭에 묶이고, `WorkManager` 는 constraint(네트워크, 충전 상태)와 재시도 정책을 세밀하게 정할 수 있는 대신 별도로 enqueue 코드를 작성해야 한다.
 
@@ -74,4 +74,4 @@ WorkManager.getInstance(context)
 
 공식 문서: [Create an advanced widget](https://developer.android.com/develop/ui/views/appwidgets/advanced)
 
-검증일: 2026-08-04. "30분 미만 값은 30분으로 처리, 0은 비활성화" 문구와 "WorkManager도 유사한 전원 제약을 받는다"는 문구는 공식 문서 원문으로 확인했다.
+검증일: 2026-08-04. "30 분 미만 값은 30 분으로 처리, 0 은 비활성화" 문구와 "WorkManager 도 유사한 전원 제약을 받는다"는 문구는 공식 문서 원문으로 확인했다.

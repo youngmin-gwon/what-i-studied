@@ -2,7 +2,7 @@
 title: android-notification-permission-and-channel-control-visibility
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:36:50 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 

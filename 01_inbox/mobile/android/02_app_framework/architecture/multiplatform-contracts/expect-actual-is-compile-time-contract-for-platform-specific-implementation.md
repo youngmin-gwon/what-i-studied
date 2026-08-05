@@ -2,12 +2,13 @@
 title: expect-actual-is-compile-time-contract-for-platform-specific-implementation
 tags: [android, android/architecture, android/multiplatform]
 aliases: ["expect/actual은 공통 코드가 플랫폼별 구현을 요구하는 컴파일 타임 계약이다"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
 ## expect/actual 은 공통 코드가 플랫폼별 구현을 요구하는 컴파일 타임 계약이다
 
+상위 문서: [Multiplatform Contracts](./multiplatform-contracts.md)
 [Kotlin Multiplatform은 비즈니스 로직과 데이터 레이어를 공유하고 UI는 기본적으로 플랫폼별로 유지한다](./kmp-shares-business-logic-and-data-layer-while-ui-stays-native-by-default.md)에서 `commonMain` 은 플랫폼 전용 API 를 직접 쓸 수 없다고 했다. 그런데 데이터베이스 드라이버를 열거나 현재 플랫폼 이름을 얻는 것처럼, 공통 로직이 플랫폼마다 다른 구현이 실제로 필요한 지점은 분명히 있다. `expect`/`actual` 은 이 지점을 "공통 코드에 선언만 두고, 각 플랫폼이 구현을 채워 넣어야 한다"는 컴파일 타임 계약으로 만든다.
 
 ### 내부 동작 메커니즘

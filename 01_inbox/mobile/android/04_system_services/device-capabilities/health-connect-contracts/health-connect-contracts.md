@@ -2,13 +2,13 @@
 title: health-connect-contracts
 tags: ["android", "android/system-services"]
 aliases: ["Health Connect 접근 계약"]
-date modified: 2026-08-04 20:15:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 20:15:00 +09:00
 ---
 
 ## Health Connect 접근 계약
 
-이 지도는 Health Connect 를 "건강 데이터를 클라우드로 동기화하는 서비스"가 아니라 "기기 안에서 여러 앱이 공유하는 permission-scoped 데이터 저장소"로 다룬다. 앱이 직접 만드는 로컬 DB(Room 등)와 달리 Health Connect 의 레코드는 다른 앱도(사용자가 허용하면) 읽고 쓸 수 있으므로, 소유권과 권한 모델이 일반적인 앱 데이터 계층과 근본적으로 다르다.
+이 지도는 **Health Connect**(사용자의 권한 승인 하에 다양한 피트니스·건강 앱들이 건강 데이터 레코드를 읽고 쓸 수 있도록 공유 저장소를 제공하는 플랫폼 라이브러리)를 "건강 데이터를 클라우드로 동기화하는 서비스"가 아니라 "기기 안에서 여러 앱이 공유하는 permission-scoped 데이터 저장소"로 다룬다. 앱이 직접 만드는 로컬 DB(Room 등)와 달리 Health Connect 의 레코드는 다른 앱도(사용자가 허용하면) 읽고 쓸 수 있으므로, 소유권과 권한 모델이 일반적인 앱 데이터 계층과 근본적으로 다르다.
 
 ### 읽는 순서
 

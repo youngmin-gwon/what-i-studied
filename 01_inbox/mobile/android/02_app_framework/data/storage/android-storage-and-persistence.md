@@ -2,9 +2,12 @@
 title: android-storage-and-persistence
 tags: [android, android/data, android/storage]
 aliases: ["Android Storage and Persistence"]
-date modified: 2026-08-03 18:09:14 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
+
+배경 지식: [리눅스 파일 시스템](../../../../../linux/filesystems.md)
+
 
 ## Android 저장소는 수명과 소유권 보안 경계에 따라 다른 계약을 가진다
 

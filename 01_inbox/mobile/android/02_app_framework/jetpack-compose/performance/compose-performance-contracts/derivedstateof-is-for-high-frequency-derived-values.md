@@ -2,7 +2,7 @@
 title: derivedstateof-is-for-high-frequency-derived-values
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2026-08-03 16:59:23 +09:00
 
 관련 노트: [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../../06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
 
-`derivedStateOf` 는 계산 결과를 캐시하는 일반 메모이제이션 도구가 아니다.
+`**derivedStateOf**(고빈도 입력 상태 변경 중 최종 결과값이 뒤집힐 때만 Recomposition 스코프를 무효화하는 파생 상태 생성 API)` 는 계산 결과를 캐시하는 일반 메모이제이션 도구가 아니다.
 
 입력 상태는 자주 변하지만 UI 에 필요한 결과는 드물게 바뀔 때 효과가 있다.
 

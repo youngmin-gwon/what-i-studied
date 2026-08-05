@@ -2,7 +2,7 @@
 title: viewmodel-does-not-retain-ui-controller-or-context
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["ViewModel은 UI 컨트롤러와 Android Context를 장기 보관하지 않는다"]
-date modified: 2026-08-03 17:28:02 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

@@ -2,18 +2,19 @@
 title: rolemanager-manages-default-app-eligibility-not-permission-bundles
 tags: ["android", "android/system-services"]
 aliases: ["RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+배경 지식: [신원 관리](../../../../../security/fundamentals/identity-management.md)
 관련 지도: [패키지/사용자/역할 조회 계약](./package-user-role-contracts.md)
 
 ### 핵심 정의
 
-`RoleManager`(Android 10, API 29+)는 기본 SMS 앱, 기본 전화 앱, 갤러리, 브라우저 같은 "역할(role)"에 어떤 앱이 자격을 갖는지, 그리고 사용자가 실제로 어떤 앱을 그 역할로 선택했는지를 관리한다. 역할은 여러 permission을 묶어 자동으로 부여하는 그룹이 아니라, "이 역할을 맡을 자격이 있는 앱 후보 목록"과 "사용자의 선택"을 분리해서 다루는 별도 개념이다.
+**RoleManager**(Android 10, API 29+)는 기본 SMS 앱, 기본 전화 앱, 갤러리, 브라우저 같은 특정 "역할(role)"에 어떤 앱이 자격을 갖는지, 그리고 사용자가 실제로 어떤 앱을 그 역할로 선택했는지를 관리하는 OS 매니저다. 역할은 여러 permission을 묶어 자동으로 부여하는 그룹이 아니라, "이 역할을 맡을 자격이 있는 앱 후보 목록"과 "사용자의 선택"을 분리해서 다루는 별도 개념이다.
 
 ### 메커니즘
 

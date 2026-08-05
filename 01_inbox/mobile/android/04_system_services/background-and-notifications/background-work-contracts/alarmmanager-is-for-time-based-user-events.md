@@ -2,7 +2,7 @@
 title: alarmmanager-is-for-time-based-user-events
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:35:55 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 

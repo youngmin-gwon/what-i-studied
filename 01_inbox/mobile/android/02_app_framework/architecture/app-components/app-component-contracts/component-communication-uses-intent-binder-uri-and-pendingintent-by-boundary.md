@@ -2,12 +2,14 @@
 title: component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary
 tags: [android, android/app-components, android/architecture]
 aliases: ["컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다"]
-date modified: 2026-08-04 13:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## 컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다
 
+상위 문서: [App Component Contracts](./app-component-contracts.md)
+배경 지식: [IPC (Inter-Process Communication)](../../../../../../operating-systems/ipc-mechanisms.md)
 Android component communication 은 하나의 event bus 가 아니다. Activity, Service, Receiver 시작은 Intent 가 맡고, bound service 호출은 Binder 가 맡으며, provider 데이터 접근은 URI 와 `ContentResolver` 가 맡고, 미래의 system-mediated 실행 위임은 PendingIntent 가 맡는다.
 
 통신 수단은 수명과 신뢰 경계로 고른다. 같은 앱 화면 상태 변경은 ViewModel/Flow 로 충분하고, 앱 외부 entry point 는 Intent/Manifest 계약이 필요하며, cross-process method call 은 Binder/AIDL 부담을 받아들여야 한다.

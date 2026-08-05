@@ -2,19 +2,20 @@
 title: workmanager-is-default-for-deferrable-guaranteed-work
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:35:47 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
 ## WorkManager 는 지연 가능한 보장 작업의 기본 선택이다
 
 상위 지도: [백그라운드 작업 계약](./background-work-contracts.md)
+배경 지식: [프로세스 스케줄링](../../../../../operating-systems/process-scheduling.md)
 
 선택 비교: [백그라운드 실행 수단은 실패 비용으로 결정한다](./background-work-api-selection-is-a-failure-cost-decision.md)
 
 ### 핵심 명제
 
-WorkManager 는 화면을 떠나거나 앱·기기가 재시작된 뒤에도 **예약을 보존하고 조건이 맞을 때 재실행해야 하는 작업**의 기본 선택이다. 내부 DB 에 `WorkSpec` 을 저장하고 플랫폼 스케줄러에 위임하므로 UI 관찰자가 없어도 상태가 이어진다.
+**WorkManager**는 앱이 종료되거나 기기가 재부팅되어도 지정된 조건(네트워크 연결, 충전 상태 등)이 충족될 때 실행을 보장하는 지연 가능(deferrable) 백그라운드 작업 스케줄링 라이브러리다. 내부 DB에 `WorkSpec`을 저장하고 플랫폼 스케줄러에 위임하므로 UI 관찰자가 없어도 작업 상태가 안정적으로 보존된다.
 
 여기서 보장은 "언젠가 한 번 끊김 없이 성공"이 아니다. constraint 와 시스템 제한 아래 실행을 다시 시도하도록 관리한다는 뜻이다. 즉시 시작, 정확한 시각, 프로세스 생존, 강제 중지·앱 제거 뒤 실행은 보장하지 않는다.
 

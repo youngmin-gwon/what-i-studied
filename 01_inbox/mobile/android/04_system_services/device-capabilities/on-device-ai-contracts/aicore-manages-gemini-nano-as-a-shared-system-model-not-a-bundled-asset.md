@@ -2,7 +2,7 @@
 title: aicore-manages-gemini-nano-as-a-shared-system-model-not-a-bundled-asset
 tags: ["android", "android/system-services"]
 aliases: ["AICore는 Gemini Nano를 앱마다 번들되지 않는 공유 시스템 모델로 관리한다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,11 +13,11 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 핵심 정의
 
-LiteRT로 커스텀 모델을 쓰는 앱은 보통 `.tflite` 모델 파일을 앱 APK/AAB에 직접 번들하거나 앱이 자체적으로 다운로드해 관리한다. AICore는 이와 다른 배포 모델을 쓴다. 공식 문서는 AICore를 시스템 수준 모듈로 설명한다.
+`LiteRT`(구 TensorFlow Lite, 온디바이스 딥러닝 추론을 위한 구글의 공식 경량 런타임)로 커스텀 모델을 쓰는 앱은 보통 `.tflite` 모델 파일을 앱 APK/AAB에 직접 번들하거나 앱이 자체적으로 다운로드해 관리한다. `AICore`(Android OS 차원에서 온디바이스 파운데이션 모델을 관리하고 백그라운드 추론을 수행하는 시스템 서비스)는 이와 다른 배포 모델을 쓴다. 공식 문서는 AICore를 시스템 수준 모듈로 설명한다.
 
 > "As a system-level module, you access AICore through a series of APIs in order to run inference on-device."
 
-즉 모델(Gemini Nano)은 앱의 자산이 아니라 Android OS가 관리하는 시스템 자산이다.
+즉 모델(`Gemini Nano`: 모바일 기기 내부 NPU/GPU 환경에 최적화된 구글의 경량 온디바이스 언어 모델)은 앱의 자산이 아니라 Android OS가 관리하는 시스템 자산이다.
 
 ### 메커니즘
 

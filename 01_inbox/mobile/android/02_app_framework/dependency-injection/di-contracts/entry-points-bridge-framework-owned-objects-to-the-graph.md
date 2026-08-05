@@ -2,7 +2,7 @@
 title: entry-points-bridge-framework-owned-objects-to-the-graph
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:09:32 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-03 16:59:23 +09:00
 
 Android 에는 앱 코드가 생성자를 호출하지 않는 객체가 많다. ContentProvider, BroadcastReceiver, Worker, 일부 framework callback 주변 코드는 DI graph 안에서 자연스럽게 생성되지 않을 수 있다.
 
-Entry point 는 이런 framework-owned 객체가 graph 의 dependency 를 꺼내야 할 때 쓰는 명시적 bridge 다. 하지만 entry point 를 아무 곳에서나 service locator 처럼 쓰면 DI 의 장점이 사라지므로, framework 가 소유한 경계에서만 제한적으로 사용한다.
+**Entry Point**(`@EntryPoint` — 안드로이드 OS가 생성하는 프레임워크 객체에서 Hilt DI 그래프에 접근하기 위한 비상 인터페이스 경계) 는 이런 framework-owned 객체가 graph 의 dependency 를 꺼내야 할 때 쓰는 명시적 bridge 다. 하지만 entry point 를 아무 곳에서나 service locator 처럼 쓰면 DI 의 장점이 사라지므로, framework 가 소유한 경계에서만 제한적으로 사용한다.
 
 관련 노트: [Hilt integration](./hilt-is-official-android-dagger-integration.md), [Worker injection](./worker-injection-crosses-workmanager-factory-boundary.md).
 

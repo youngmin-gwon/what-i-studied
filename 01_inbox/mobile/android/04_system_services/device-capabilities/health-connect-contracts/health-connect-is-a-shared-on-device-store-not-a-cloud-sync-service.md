@@ -2,22 +2,23 @@
 title: health-connect-is-a-shared-on-device-store-not-a-cloud-sync-service
 tags: ["android", "android/system-services"]
 aliases: ["Health Connect는 클라우드 동기화가 아니라 앱 간 공유 온디바이스 저장소다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 20:15:00 +09:00
 ---
 
 ## Health Connect 는 클라우드 동기화가 아니라 앱 간 공유 온디바이스 저장소다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+배경 지식: [IPC 통신 메커니즘](../../../../../operating-systems/ipc-mechanisms.md)
 관련 지도: [Health Connect 접근 계약](./health-connect-contracts.md)
 
 ### 핵심 정의
 
-Health Connect 는 걸음 수, 심박수, 수면 세션 같은 건강·피트니스 레코드를 기기 안에 저장하고, 사용자가 허용한 범위 안에서 여러 앱이 그 레코드를 함께 읽고 쓸 수 있게 하는 플랫폼 API 다. 앱이 각자 Room DB 에 자기 데이터만 쌓는 일반적인 데이터 계층과 달리, Health Connect 의 레코드는 애초에 "이 기기의 건강 데이터"라는 하나의 공유 저장소에 속한다.
+**Health Connect**는 걸음 수, 심박수, 수면 세션 같은 건강·피트니스 레코드를 기기 안에 저장하고, 사용자가 허용한 범위 안에서 여러 앱이 그 레코드를 함께 읽고 쓸 수 있게 하는 플랫폼 API 다. 앱이 각자 Room DB 에 자기 데이터만 쌓는 일반적인 데이터 계층과 달리, Health Connect 의 레코드는 애초에 "이 기기의 건강 데이터"라는 하나의 공유 저장소에 속한다.
 
 ### 메커니즘
 
-Health Connect 는 별도 앱(APK)으로 존재하며, 클라이언트 앱은 `HealthConnectClient` 를 통해 이 앱이 관리하는 저장소에 IPC 로 접근한다. 저장은 기기 로컬이고, 클라우드 서버로 자동 업로드되지 않는다 — "동기화"라는 단어는 앱이 자기 백엔드와 동기화할 때 Health Connect 의 변경 이력(change token)을 소스로 쓰는 것을 뜻하지, Health Connect 자체가 클라우드 서비스라는 뜻이 아니다.
+Health Connect 는 별도 앱(APK)으로 존재하며, 클라이언트 앱은 **HealthConnectClient**(Health Connect 중앙 공유 DB와 IPC로 통신하며 레코드 CRUD를 담당하는 엔트리 포인트)를 통해 이 앱이 관리하는 저장소에 **IPC**(Inter-Process Communication: 프로세스 간 메모리 격리를 넘어 데이터를 주고받는 OS 통신 기법)로 접근한다. 저장은 기기 로컬이고, 클라우드 서버로 자동 업로드되지 않는다 — "동기화"라는 단어는 앱이 자기 백엔드와 동기화할 때 Health Connect 의 변경 이력(change token)을 소스로 쓰는 것을 뜻하지, Health Connect 자체가 클라우드 서비스라는 뜻이 아니다.
 
 Health Connect SDK 는 API 26+ 를 지원하지만, 실제로 동작하려면 API 28+ 기기에 Health Connect 앱이 설치돼 있어야 한다. 그래서 모든 호출 전에 가용성을 먼저 확인해야 한다.
 

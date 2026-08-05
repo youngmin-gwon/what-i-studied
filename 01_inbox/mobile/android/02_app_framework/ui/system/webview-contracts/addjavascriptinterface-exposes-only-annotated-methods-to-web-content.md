@@ -2,13 +2,16 @@
 title: addjavascriptinterface-exposes-only-annotated-methods-to-web-content
 tags: ["android", "android/app-framework"]
 aliases: ["addJavascriptInterface()는 @JavascriptInterface로 표시한 메서드만 웹 콘텐츠에 노출한다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
+배경 지식: [웹 브라우저 보안](../../../../../../security/attacks/web-browser-security.md)
+
+
 ## addJavascriptInterface()는 @JavascriptInterface로 표시한 메서드만 웹 콘텐츠에 노출한다
 
-`WebView.addJavascriptInterface(Object, String)` 는 자바/코틀린 객체를 JavaScript 전역 객체로 주입해, 페이지의 스크립트가 그 객체의 메서드를 직접 호출하게 만드는 API 다. [WebView는 신뢰된 앱 프로세스 안에서 신뢰되지 않은 웹 콘텐츠를 실행한다](./webview-runs-untrusted-web-content-inside-the-trusted-app-process.md) 에서 설명한 신뢰 경계를 실제로 뚫는 다리가 이 API 다 — 브리지 객체의 메서드는 앱 프로세스의 권한과 데이터 접근 범위로 실행된다.
+`addJavascriptInterface()`(네이티브 코틀린/자바 객체를 WebView 내부 JavaScript 전역 객체에 연결하는 브리지 API)는 자바/코틀린 객체를 JavaScript 전역 객체로 주입해, 페이지의 스크립트가 그 객체의 메서드를 직접 호출하게 만드는 API 다. [WebView는 신뢰된 앱 프로세스 안에서 신뢰되지 않은 웹 콘텐츠를 실행한다](./webview-runs-untrusted-web-content-inside-the-trusted-app-process.md) 에서 설명한 신뢰 경계를 실제로 뚫는 다리가 이 API 다 — 브리지 객체의 메서드는 앱 프로세스의 권한과 데이터 접근 범위로 실행된다.
 
 ### 메커니즘: 리플렉션 노출과 어노테이션 게이트
 

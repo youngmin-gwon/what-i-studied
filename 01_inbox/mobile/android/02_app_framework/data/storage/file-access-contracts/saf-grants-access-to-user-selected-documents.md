@@ -2,13 +2,14 @@
 title: saf-grants-access-to-user-selected-documents
 tags: [android, android/data, android/file-access-contracts, android/storage]
 aliases: ["SAF: 사용자가 고른 문서와 폴더에 접근하기"]
-date modified: 2026-08-03 18:08:22 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## SAF: 사용자가 고른 문서와 폴더에 접근하기
 
 상위 문서: [파일 접근 계약](./file-access-contracts.md)
+배경 지식: [리눅스 파일 시스템](../../../../../../linux/filesystems.md)
 
 Storage Access Framework 는 앱이 저장소 전체를 탐색하는 API 가 아니다.
 

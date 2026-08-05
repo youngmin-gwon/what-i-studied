@@ -2,7 +2,7 @@
 title: mediasession-exposes-playback-state-to-system-and-external-controllers
 tags: ["android", "android/system-services"]
 aliases: ["MediaSession은 재생 상태를 시스템 UI와 외부 컨트롤러에 노출하는 계약이다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -10,14 +10,15 @@ date created: 2026-08-03 17:29:24 +09:00
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 관련 지도: [미디어/오디오/카메라 시스템 서비스 접근 계약](./media-audio-camera-contracts.md)
+배경 지식: [IPC 메커니즘](../../../../../operating-systems/ipc-mechanisms.md)
 
 ### 핵심 정의
 
-`MediaSession`(Media3의 `MediaSession` 포함)은 앱의 재생 엔진 내부 상태(재생 중/일시정지, 현재 트랙, 위치)를 잠금화면, 시스템 알림, 블루투스 리모컨, Wear OS, Assistant 같은 외부 컨트롤러가 공통 규약으로 읽고 제어할 수 있게 노출하는 시스템 연동 계층이다.
+`MediaSession`(미디어 앱의 재생 상태와 조작 명령을 시스템 UI 및 외부 기기와 매개하는 IPC 통신 계약 객체)은 앱의 재생 엔진 내부 상태(재생 중/일시정지, 현재 트랙, 위치)를 잠금화면, 시스템 알림, 블루투스 리모컨, Wear OS, Assistant 같은 외부 컨트롤러가 공통 규약으로 읽고 제어할 수 있게 노출하는 시스템 연동 계층이다.
 
 ### 메커니즘
 
-앱은 재생 상태가 바뀔 때마다 `PlaybackState`를 갱신해 세션에 반영한다. 외부 컨트롤러(잠금화면 미디어 위젯, 블루투스 헤드셋의 재생/일시정지 버튼 등)는 세션에 등록된 `MediaController`를 통해 명령(재생, 일시정지, 다음 곡)을 세션으로 보내고, 세션은 이를 콜백으로 앱에 전달한다. 앱이 `PlaybackState`를 정확히 갱신하지 않으면 외부 UI가 실제 재생 상태와 다르게 표시된다(예: 실제로는 멈췄는데 재생 중으로 보임).
+앱은 재생 상태가 바뀔 때마다 `PlaybackState`(현재 재생 상태, 재생 위치, 속도, 가능 제어 액션 목록을 나타내는 메타데이터 객체)를 갱신해 세션에 반영한다. 외부 컨트롤러(잠금화면 미디어 위젯, 블루투스 헤드셋의 재생/일시정지 버튼 등)는 세션에 등록된 `MediaController`(외부 프로세스나 UI가 MediaSession에 제어 명령을 보내기 위한 클라이언트 측 인터페이스)를 통해 명령(재생, 일시정지, 다음 곡)을 세션으로 보내고, 세션은 이를 콜백으로 앱에 전달한다. 앱이 `PlaybackState`를 정확히 갱신하지 않으면 외부 UI가 실제 재생 상태와 다르게 표시된다(예: 실제로는 멈췄는데 재생 중으로 보임).
 
 미디어 알림(Notification)의 재생 컨트롤 스타일도 이 세션의 토큰을 참조해 시스템이 자동으로 잠금화면과 동기화한다.
 

@@ -2,13 +2,13 @@
 title: compose-design-system
 tags: [android, compose/design-system, jetpack-compose]
 aliases: [Compose design system, CompositionLocal, Material 3 Compose]
-date modified: 2026-08-03 18:09:38 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
 ## Compose Design System 은 Material Theme 과 프로젝트 토큰을 통합한다
 
-Compose design system 정본은 Compose layering, module boundary, CompositionLocal, Material 3 color role, 프로젝트별 design-system provider 를 분리한다. UI layout 과 accessibility 는 [Compose layout, animation, accessibility](../layout-and-ui/compose-layout-animation-accessibility.md) 로 보낸다.
+Compose design system 정본은 Compose layering, module boundary, **CompositionLocal**(UI 트리 상위에서 하위로 매개변수 전달 없이 암시적으로 데이터를 전파하는 스코프 메커니즘), Material 3 color role, 프로젝트별 design-system provider 를 분리한다. UI layout 과 accessibility 는 [Compose layout, animation, accessibility](../layout-and-ui/compose-layout-animation-accessibility.md) 로 보낸다.
 
 정본 묶음: [Compose design system contracts](./compose-design-system-contracts/compose-design-system-contracts.md)
 

@@ -2,15 +2,15 @@
 title: intent-filter-matches-action-category-data
 tags: [android, android/intents, android/navigation]
 aliases: ["action, category, data 매칭은 서로 다른 조건이다"]
-date modified: 2026-08-03 18:11:44 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## action, category, data 매칭은 서로 다른 조건이다
+## **action**(인텐트가 수행하려는 동작을 정의하는 표준/커스텀 문자열), category, data 매칭은 서로 다른 조건이다
 
-상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
 
-관련 노트: [intent-filter는 컴포넌트의 수신 계약이다](./intent-filter-is-component-receiving-contract.md)
+관련 노트: [intent-filter는 컴포넌트의 수신 계약이다](intent-filter-is-component-receiving-contract.md)
 
 ### 매칭의 기본
 

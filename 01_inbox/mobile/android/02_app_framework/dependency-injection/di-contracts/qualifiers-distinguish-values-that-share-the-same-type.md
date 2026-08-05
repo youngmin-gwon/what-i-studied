@@ -2,7 +2,7 @@
 title: qualifiers-distinguish-values-that-share-the-same-type
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:09:45 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-03 16:59:23 +09:00
 
 DI graph 는 타입만으로 binding 을 찾는 경우가 많다. 같은 `String`, `CoroutineDispatcher`, `OkHttpClient`, `Context` 가 여러 의미로 존재하면 타입만으로는 어떤 값을 넣어야 하는지 알 수 없다.
 
-Qualifier 는 같은 타입의 값을 의미별로 분리하는 이름표다. `@ApplicationContext` 와 `@ActivityContext`, `@IoDispatcher` 와 `@MainDispatcher` 처럼 lifetime 이나 역할이 다른 값을 구분할 때 사용한다.
+**Qualifier**(한정자 — 동일한 타입의 의존성이 여러 개 존재할 때 특정 바인딩 대상을 구별하기 위한 식별 어노테이션) 는 같은 타입의 값을 의미별로 분리하는 이름표다. `@ApplicationContext` 와 `@ActivityContext`, `@IoDispatcher` 와 `@MainDispatcher` 처럼 lifetime 이나 역할이 다른 값을 구분할 때 사용한다.
 
 관련 노트: [Context boundaries](../../architecture/context-and-modularity/android-context-boundaries.md).
 

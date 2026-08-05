@@ -2,7 +2,7 @@
 title: viewmodel-survives-configuration-change-not-process-death
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다"]
-date modified: 2026-08-05 11:24:01 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

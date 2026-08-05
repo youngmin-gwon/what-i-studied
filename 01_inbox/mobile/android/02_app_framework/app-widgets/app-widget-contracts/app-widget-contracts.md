@@ -2,7 +2,7 @@
 title: app-widget-contracts
 tags: [android, android/app-widgets]
 aliases: ["App Widget 계약"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:14:59 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -20,7 +20,7 @@ App Widget 은 Activity, Service 와는 다른 계약을 가진 컴포넌트다.
 
 ### 읽는 기준
 
-위젯이 왜 화면처럼 계속 살아있지 않은지 궁금하면 lifecycle 노트로 간다. layout 이 왜 일반 Compose/View 마음대로 안 되는지 궁금하면 RemoteViews 노트로 간다. 처음 배치할 때 뜨는 설정 화면의 계약은 설정 Activity 노트에서, "왜 15분마다 갱신이 안 되는가"는 updatePeriodMillis 노트에서 확인한다. Compose 로 위젯을 작성하고 싶다면 Glance 노트에서 시작하되, 그 밑에 이 네 계약이 그대로 깔려 있다는 점을 먼저 이해해야 한다.
+위젯이 왜 화면처럼 계속 살아있지 않은지 궁금하면 lifecycle 노트로 간다. layout 이 왜 일반 Compose/View 마음대로 안 되는지 궁금하면 RemoteViews 노트로 간다. 처음 배치할 때 뜨는 설정 화면의 계약은 설정 Activity 노트에서, "왜 15 분마다 갱신이 안 되는가"는 updatePeriodMillis 노트에서 확인한다. Compose 로 위젯을 작성하고 싶다면 Glance 노트에서 시작하되, 그 밑에 이 네 계약이 그대로 깔려 있다는 점을 먼저 이해해야 한다.
 
 ### 다루지 않는 범위
 

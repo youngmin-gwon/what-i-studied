@@ -2,7 +2,7 @@
 title: viewmodel-exposes-read-only-state
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["Mutable 상태 홀더는 ViewModel 내부에 숨기고 외부에는 읽기 전용 상태만 노출한다"]
-date modified: 2026-08-03 17:28:04 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

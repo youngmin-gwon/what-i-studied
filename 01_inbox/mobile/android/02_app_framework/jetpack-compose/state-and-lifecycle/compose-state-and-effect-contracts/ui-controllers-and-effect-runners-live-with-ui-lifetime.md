@@ -2,7 +2,7 @@
 title: ui-controllers-and-effect-runners-live-with-ui-lifetime
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:11:13 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
@@ -25,7 +25,7 @@ effect runner 는 화면 표시, lifecycle, composition 변화에 반응해 UI �
 - `NavController`
 - `LifecycleOwner` 에 등록되는 observer
 - 화면 진입·이탈에 따라 취소되어야 하는 `LaunchedEffect`
-- listener 등록과 해제를 묶는 `DisposableEffect`
+- listener 등록과 해제를 묶는 `**DisposableEffect**(Composition 진입 시 리소스를 등록하고 Composition 이탈이나 Key 변경 시 cleanup을 수행하는 Effect API)`
 
 이 객체들은 특정 composition, 화면, window 와 결합되어 있다.
 
@@ -60,7 +60,7 @@ ViewModel 은 navigation 목적지를 결정할 수 있지만 `NavController` �
 
 작업이 UI 가 사라지면 취소되어야 하면 `LaunchedEffect` 또는 UI scope 를 사용한다.
 
-작업이 사용자의 클릭에서 시작되면 [`rememberCoroutineScope`](https://developer.android.com/develop/ui/compose/side-effects#remembercoroutinescope) 를 사용한다.
+작업이 사용자의 클릭에서 시작되면 [`rememberCoroutine**Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션)`](https://developer.android.com/develop/ui/compose/side-effects#remembercoroutinescope) 를 사용한다.
 
 등록과 해제가 필요하면 [`DisposableEffect`](https://developer.android.com/develop/ui/compose/side-effects#disposableeffect) 를 사용한다.
 

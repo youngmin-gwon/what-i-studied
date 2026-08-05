@@ -2,13 +2,15 @@
 title: authenticated-deep-links-require-pending-destination-and-back-stack
 tags: [android, android/deep-links, android/navigation]
 aliases: ["인증이 필요한 딥 링크의 pending destination 과 백 스택"]
-date modified: 2026-08-03 18:11:25 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## 인증이 필요한 딥 링크의 pending destination 과 백 스택
+## 인증이 필요한 딥 링크의 **pending destination**(인증 완료 후 최종 이동하기 위해 임시 보관해 두는 타겟 경로) 과 **백 스택(BackStack)**(사용자가 거쳐온 화면들의 스택 기록으로 뒤로가기 조작 시 복원되는 내비게이션 상태 구조)
 
-상위 문서: [Deep Link 계약](./deep-link-contracts.md)
+상위 문서: [Deep Link 계약](deep-link-contracts.md)
+
+배경 지식: [인증과 인가](../../../../../../security/fundamentals/authentication-authorization.md)
 
 관련 노트: [Navigation 3 deep link는 URI를 NavKey로 변환한다](../../navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)
 
@@ -64,9 +66,9 @@ Navigation 라이브러리를 사용한다면 외부 진입 시의 start destina
 
 ### 구현 체크리스트
 
-대상 URI 는 [Android 딥 링크는 외부 URI 계약이다](./deep-link-is-external-uri-contract.md) 의 규칙을 따른다.
+대상 URI 는 [Android 딥 링크는 외부 URI 계약이다](deep-link-is-external-uri-contract.md) 의 규칙을 따른다.
 
-검증된 HTTPS 연결은 [Android App Link는 검증된 HTTPS 딥 링크다](./app-link-is-verified-https-deep-link.md) 를 따른다.
+검증된 HTTPS 연결은 [Android App Link는 검증된 HTTPS 딥 링크다](app-link-is-verified-https-deep-link.md) 를 따른다.
 
 공개 목적지와 인증 목적지를 구분한다.
 

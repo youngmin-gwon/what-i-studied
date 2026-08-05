@@ -2,7 +2,7 @@
 title: speechrecognizer-is-a-callback-based-contract-gated-by-record-audio-permission
 tags: ["android", "android/system-services"]
 aliases: ["SpeechRecognizer는 RECORD_AUDIO 권한을 전제로 하는 콜백 기반 비동기 계약이다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -13,13 +13,13 @@ date created: 2026-08-05 10:00:00 +09:00
 
 ### 핵심 정의
 
-`SpeechRecognizer`는 직접 `new`로 생성하지 않고 `SpeechRecognizer.createSpeechRecognizer(context)`(네트워크 인식 가능) 또는 `SpeechRecognizer.createOnDeviceSpeechRecognizer(context)`(온디바이스 전용, 오프라인 동작)로 생성한다. 공식 문서가 명시하듯, 이 API를 쓰려면 사용자가 앱에 `RECORD_AUDIO` 권한을 부여해야 한다.
+`SpeechRecognizer`(마이크로 입력된 사용자 음성을 텍스트 문장으로 변환하는 STT 시스템 서비스 API)는 직접 `new`로 생성하지 않고 `SpeechRecognizer.createSpeechRecognizer(context)`(네트워크 인식 가능) 또는 `SpeechRecognizer.createOnDeviceSpeechRecognizer(context)`(온디바이스 전용, 오프라인 동작)로 생성한다. 공식 문서가 명시하듯, 이 API를 쓰려면 사용자가 앱에 `RECORD_AUDIO`(마이크 데이터 수집을 허용하는 위험 권한: Dangerous Permission) 권한을 부여해야 한다.
 
 > "For `SpeechRecognizer` to convert your user's speech into text, the user needs to grant your app the `RECORD_AUDIO` permission."
 
 ### 메커니즘
 
-`SpeechRecognizer`는 `RecognitionListener` 콜백을 통해서만 결과를 전달하는 비동기 API다. `setRecognitionListener(RecognitionListener)`를 `startListening()`보다 먼저 등록해야 하며, 등록 전에 명령을 보내면 어떤 콜백도 오지 않는다. 주요 콜백은 `onReadyForSpeech`, `onBeginningOfSpeech`, `onResults`, `onError` 등이다. `onError(int error)`는 실패 원인을 구분해 전달하는데, 대표적으로 `ERROR_INSUFFICIENT_PERMISSIONS`(권한 부족)와 `ERROR_NO_MATCH`(권한·네트워크는 정상이지만 인식된 발화가 없음)는 원인이 서로 다르다. `isOnDeviceRecognitionAvailable(context)`가 `false`를 반환하면 그 기기에서는 `createOnDeviceSpeechRecognizer()` 자체가 실패하므로, 온디바이스 인식을 요구하는 기능이라면 생성 전에 이 값을 먼저 확인해야 한다. 더 이상 사용하지 않는 `SpeechRecognizer`는 `destroy()`로 해제해야 한다.
+`SpeechRecognizer`는 `RecognitionListener`(음성 인식 수명주기 이벤트 및 인식 결과를 비동기로 수신하는 콜백 인터페이스) 콜백을 통해서만 결과를 전달하는 비동기 API다. `setRecognitionListener(RecognitionListener)`를 `startListening()`보다 먼저 등록해야 하며, 등록 전에 명령을 보내면 어떤 콜백도 오지 않는다. 주요 콜백은 `onReadyForSpeech`, `onBeginningOfSpeech`, `onResults`, `onError` 등이다. `onError(int error)`는 실패 원인을 구분해 전달하는데, 대표적으로 `ERROR_INSUFFICIENT_PERMISSIONS`(권한 부족)와 `ERROR_NO_MATCH`(권한·네트워크는 정상이지만 인식된 발화가 없음)는 원인이 서로 다르다. `isOnDeviceRecognitionAvailable(context)`가 `false`를 반환하면 그 기기에서는 `createOnDeviceSpeechRecognizer()` 자체가 실패하므로, 온디바이스 인식을 요구하는 기능이라면 생성 전에 이 값을 먼저 확인해야 한다. 더 이상 사용하지 않는 `SpeechRecognizer`는 `destroy()`로 해제해야 한다.
 
 ### 코드 예시
 
@@ -77,9 +77,9 @@ class VoiceCommandActivity : AppCompatActivity() {
 
 ```mermaid
 flowchart TD
-    A{"RECORD_AUDIO 런타임 권한 승인?"}
+    A["RECORD_AUDIO 런타임 권한 승인 여부"]
     A -->|"아니오"| A1["onError(ERROR_INSUFFICIENT_PERMISSIONS)"]
-    A -->|"예"| B{"isOnDeviceRecognitionAvailable(context)?"}
+    A -->|"예"| B["isOnDeviceRecognitionAvailable(context) 지원 여부"]
     B -->|"true"| C["createOnDeviceSpeechRecognizer(context) (오프라인 동작)"]
     B -->|"false"| D["createSpeechRecognizer(context) (네트워크 필요할 수 있음)"]
     C --> E["setRecognitionListener(listener), startListening()보다 먼저 등록"]

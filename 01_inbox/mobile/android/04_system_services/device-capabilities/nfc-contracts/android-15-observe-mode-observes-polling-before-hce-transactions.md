@@ -2,7 +2,7 @@
 title: android-15-observe-mode-observes-polling-before-hce-transactions
 tags: ["android", "android/system-services"]
 aliases: ["Android 15 Observe Mode는 HCE 거래 전 폴링을 관찰한다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:46:00 +09:00
 ---
 
@@ -13,9 +13,9 @@ date created: 2026-07-31 17:46:00 +09:00
 
 ### Observe Mode
 
-Android 15에서 HCE 서비스는 NFC polling loop를 관찰하는 Observe Mode를 사용할 수 있다.
+Android 15에서 `HCE`(Host Card Emulation, 호스트 OS 소프트웨어가 스마트카드 역할을 대행하는 기술) 서비스는 NFC `polling loop`(NFC 리더가 주위 카드를 감지하기 위해 무선 주파수 신호를 주기적으로 보내는 탐색 과정)를 관찰하는 `Observe Mode`(Android 15+에서 실제 APDU 거래 전 리더 신호를 미리 수동 관찰하는 동작 모드)를 사용할 수 있다.
 Observe Mode가 켜지면 NFC 스택은 거래를 허용하지 않고 폴링을 수동 관찰한다.
-관찰 결과는 적절한 HostApduService에 전달되어 단말과 상호작용을 준비하게 한다.
+관찰 결과는 적절한 `HostApduService`(HCE 앱이 리더의 APDU 명령을 수신해 처리하는 Android 서비스)에 전달되어 단말과 상호작용을 준비하게 한다.
 이는 결제를 수행하는 모드가 아니라 거래 전 준비와 감지를 위한 모드다.
 
 ### 서비스 API 흐름
@@ -39,7 +39,7 @@ Observe Mode가 켜지면 NFC 스택은 거래를 허용하지 않고 폴링을 
 Android 15 이상은 사용자가 선택할 수 있는 기본 지갑 앱 역할을 제공한다.
 설정의 기본 앱에서 사용자가 기본 지갑을 선택할 수 있다.
 payment 카테고리 AID 그룹을 선언한 HCE 서비스가 지갑 앱 후보가 된다.
-RoleManager.ROLE_WALLET로 현재 역할 보유 여부를 확인할 수 있다.
+`RoleManager`(시스템에서 기본 지갑, 기본 전화 등 특정 역할: Role을 보유한 앱을 관리하는 서비스 API)의 `RoleManager.ROLE_WALLET`로 현재 역할 보유 여부를 확인할 수 있다.
 createRequestRoleIntent로 사용자에게 역할 요청 흐름을 시작할 수 있다.
 
 ### 사용자 경험

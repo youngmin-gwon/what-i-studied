@@ -2,13 +2,13 @@
 title: metadata-and-scene-strategy-carry-display-policy
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Metadata 와 SceneStrategy 는 표시 정책을 전달한다"]
-date modified: 2026-08-03 18:11:59 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Metadata 와 SceneStrategy 는 표시 정책을 전달한다
+## Metadata 와 **SceneStrategy**(백스택에 쌓인 화면들의 메타데이터를 분석하여 dialog, list-detail 등의 렌더링 배치를 결정하는 전략 클래스) 는 표시 정책을 전달한다
 
-상위 문서: [Navigation 3 계약](./navigation3-contracts.md)
+상위 문서: [Navigation 3 계약](navigation3-contracts.md)
 
 ### metadata 의 의미
 

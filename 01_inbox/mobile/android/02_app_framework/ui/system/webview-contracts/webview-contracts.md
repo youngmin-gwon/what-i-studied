@@ -2,13 +2,16 @@
 title: webview-contracts
 tags: ["android", "android/app-framework"]
 aliases: ["Android WebView 계약"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
+배경 지식: [웹 브라우저 보안](../../../../../../security/attacks/web-browser-security.md)
+
+
 ## Android WebView 계약
 
-`WebView` 는 네이티브 앱 화면 안에 웹 콘텐츠를 끼워 넣는 컴포넌트다. 편리하지만 앱의 신뢰 경계와 웹 콘텐츠의 신뢰 경계를 한 화면에 겹쳐 놓기 때문에, 다른 View 컴포넌트와 달리 브리지 설계, 콘텐츠 정책, 리소스 정리를 각각 별도의 계약으로 다뤄야 한다.
+`WebView`(Chromium 엔진 기반으로 앱 레이아웃 내부에서 HTML/JS 웹 콘텐츠를 직접 렌더링하는 안드로이드 View 컴포넌트)는 네이티브 앱 화면 안에 웹 콘텐츠를 끼워 넣는 컴포넌트다. 편리하지만 앱의 신뢰 경계와 웹 콘텐츠의 신뢰 경계를 한 화면에 겹쳐 놓기 때문에, 다른 View 컴포넌트와 달리 브리지 설계, 콘텐츠 정책, 리소스 정리를 각각 별도의 계약으로 다뤄야 한다.
 
 ### 이 클러스터가 다루는 범위
 

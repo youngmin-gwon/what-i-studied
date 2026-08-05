@@ -2,7 +2,7 @@
 title: telephonymanager-permissions-split-into-phone-state-and-phone-numbers
 tags: ["android", "android/system-services"]
 aliases: ["TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-`TelephonyManager`가 노출하는 정보는 민감도에 따라 서로 다른 permission으로 나뉜다. 통화 상태(수신/발신 중 여부 등)는 `READ_PHONE_STATE`, 전화번호 자체는 `READ_PHONE_NUMBERS`가 필요하며, IMEI 같은 기기 식별자는 Android 10 이후 일반 서드파티 앱에는 사실상 차단되어 시스템 앱이나 특별 승인된 경우로 제한된다.
+`TelephonyManager`(통화 상태, SIM 상태, 네트워크 신호 정보 조회를 관장하는 시스템 서비스)가 노출하는 정보는 민감도에 따라 서로 다른 permission으로 나뉜다. 통화 상태(수신/발신 중 여부 등)는 `READ_PHONE_STATE`, 전화번호 자체는 `READ_PHONE_NUMBERS`가 필요하며, `IMEI`(International Mobile Equipment Identity: 고유 단말기 식별 번호) 같은 기기 식별자는 Android 10 이후 일반 서드파티 앱에는 사실상 차단되어 시스템 앱이나 특별 승인된 경우로 제한된다.
 
 ### 메커니즘
 

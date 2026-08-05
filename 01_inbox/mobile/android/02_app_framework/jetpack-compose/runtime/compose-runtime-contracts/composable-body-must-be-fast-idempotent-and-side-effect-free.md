@@ -2,7 +2,7 @@
 title: composable-body-must-be-fast-idempotent-and-side-effect-free
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [side-effect free composable]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 13:16:55 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 

@@ -2,13 +2,13 @@
 title: bluetooth-contracts
 tags: ["android", "android/system-services"]
 aliases: ["Bluetooth 접근 계약"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
 ## Bluetooth 접근 계약
 
-이 지도는 Android 앱이 Bluetooth 기기와 통신할 때 마주치는 계약을 연결 모델 선택, Android 12+ 권한 재설계, GATT 연결 상태 관리, BLE 스캔의 배터리/백그라운드 제약으로 나눈다. Bluetooth Classic(RFCOMM 소켓, profile 기반)과 BLE(GATT, attribute 기반)는 이름만 같은 별개의 연결 모델이며, 이 차이를 모르면 권한 설계와 연결 코드 모두 잘못된 모델을 기준으로 작성하게 된다.
+이 지도는 Android 앱이 Bluetooth 기기와 통신할 때 마주치는 계약을 연결 모델 선택, Android 12+ 권한 재설계, GATT 연결 상태 관리, BLE 스캔의 배터리/백그라운드 제약으로 나눈다. **Bluetooth Classic**(RFCOMM 소켓 기반으로 오디오/대용량 직렬 데이터를 스트리밍 전송하는 모델)과 **BLE**(Bluetooth Low Energy GATT 기반으로 개별 속성을 읽고 쓰며 저전력 동작하는 모델)는 이름만 같은 별개의 연결 모델이며, 이 차이를 모르면 권한 설계와 연결 코드 모두 잘못된 모델을 기준으로 작성하게 된다.
 
 ### 읽는 순서
 

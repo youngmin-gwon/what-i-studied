@@ -2,7 +2,7 @@
 title: document-schema-changes-require-explicit-migration-or-forceoverride-deletes-data
 tags: ["android", "android/system-services"]
 aliases: ["Document 스키마 변경은 명시적 마이그레이션이 없으면 호환되지 않는 데이터를 삭제한다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-05 10:00:00 +09:00
 
 ### 핵심 정의
 
-`SetSchemaRequest`를 처음 호출하면 제공한 스키마가 `AppSearchSession` 데이터베이스에 그대로 저장된다. 이후 호출은 새로 제공한 스키마를 이전에 저장된 스키마와 비교해 기존 문서를 어떻게 처리할지 결정한다. 이 비교에서 호환되지 않는 변경(예: 필드 삭제, 타입 변경)이 발견되면, `Migrator`를 지정하지 않는 한 해당 스키마 타입의 기존 문서는 삭제 대상이 된다.
+`SetSchemaRequest`(AppSearch 색인 데이터베이스의 스키마 구조와 버전을 등록하는 요청 개체)를 처음 호출하면 제공한 스키마가 `AppSearchSession` 데이터베이스에 그대로 저장된다. 이후 호출은 새로 제공한 스키마를 이전에 저장된 스키마와 비교해 기존 문서를 어떻게 처리할지 결정한다. 이 비교에서 호환되지 않는 변경(예: 필드 삭제, 타입 변경)이 발견되면, **Migrator**(스키마 버전을 올리거나 내릴 때 구버전 문서를 신버전 포맷으로 변환하는 마이그레이션 핸들러)를 지정하지 않는 한 해당 스키마 타입의 기존 문서는 삭제 대상이 된다.
 
 ### 메커니즘
 
@@ -22,7 +22,7 @@ date created: 2026-08-05 10:00:00 +09:00
 - **호환되는 변경**(예: 새 필드 추가): 별도 조치 없이 기존 문서가 유지된다.
 - **비호환 변경 + `forceOverride` 미설정**: `SetSchemaRequest`가 거부되고 `AppSearchException`이 발생한다.
 - **비호환 변경 + `forceOverride(true)`**: 새 스키마와 호환되지 않는 기존 문서가 전부 삭제된 뒤 새 스키마가 저장된다.
-- **비호환 변경 + `Migrator` 지정**: `Migrator`가 기존 `GenericDocument`를 새 스키마 버전으로 변환해 데이터를 보존한다. `Migrator`는 스키마에 부여한 버전 번호(`setVersion()`)가 이전에 저장된 버전과 다를 때만 `onUpgrade()`/`onDowngrade()`로 트리거된다.
+- **비호환 변경 + `Migrator` 지정**: `Migrator`가 기존 **GenericDocument**(AppSearch 데이터베이스 내에서 엔티티 구조를 표준 형태로 나타내는 개체)를 새 스키마 버전으로 변환해 데이터를 보존한다. `Migrator`는 스키마에 부여한 버전 번호(`setVersion()`)가 이전에 저장된 버전과 다를 때만 `onUpgrade()`/`onDowngrade()`로 트리거된다.
 
 즉 스키마 버전을 올릴 때 필드를 삭제하거나 타입을 바꿨다면, `Migrator`를 등록하지 않고 `forceOverride(true)`만 켜는 배포는 사용자의 기존 색인 데이터를 조용히 지우는 결과로 이어진다.
 

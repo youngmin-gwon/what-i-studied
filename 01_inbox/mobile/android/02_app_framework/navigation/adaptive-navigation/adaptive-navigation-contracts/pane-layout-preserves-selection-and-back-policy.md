@@ -2,11 +2,11 @@
 title: pane-layout-preserves-selection-and-back-policy
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다"]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Pane layout 은 선택 상태와 back policy 를 분리해 보존해야 한다
+## **pane**(화면 내에서 독립된 정보 영역을 분할하여 배치하는 레이아웃 구획) layout 은 선택 상태와 **back policy**(뒤로가기 조작 시 어떤 이전 화면으로 복원될지 결정하는 제어 규칙) 를 분리해 보존해야 한다
 
 List-detail 이나 supporting pane layout 에서는 보이는 pane 수와 선택된 content state 가 같은 것이 아니다. Expanded window 에서는 list 와 detail 을 동시에 보여줄 수 있지만 compact window 에서는 같은 선택 상태를 단일 pane navigation 으로 표현해야 한다.
 
@@ -35,6 +35,6 @@ NavigableListDetailPaneScaffold(
 
 compact 에서 detail 로 진입한 뒤 back 을 누르면 `navigator.navigateBack()` 이 list pane 으로 돌아가야 하고, `selectedId` 자체는 지워지지 않아야 expanded 로 회전했을 때 같은 항목이 선택된 채로 보인다.
 
-관련 노트: [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](./navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
+관련 노트: [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
 
 공식 문서: [Build a list-detail layout](https://developer.android.com/develop/adaptive-apps/guides/list-detail)

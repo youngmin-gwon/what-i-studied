@@ -2,16 +2,16 @@
 title: intent-and-deep-link
 tags: [android, android/intents, android/navigation]
 aliases: ["Intent and Deep Link"]
-date modified: 2026-08-03 18:11:51 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Intent 는 OS 메시지이고 Deep Link 는 외부 URI 를 앱 내부 상태로 바꾸는 계약이다
+## **Intent**(컴포넌트 간 작업 호출과 데이터 전달에 사용되는 안드로이드 비동기 메시징 객체) 는 OS 메시지이고 **Deep Link**(외부 URI를 수신하여 앱 내부 목적지 화면으로 직접 진입하게 해주는 탐색 경로 구조) 는 외부 URI 를 앱 내부 상태로 바꾸는 계약이다
 
 Intent 와 Deep Link 는 모두 앱 진입을 만들지만 책임이 다르다. Intent 는 OS 가 컴포넌트를 찾고 실행하는 메시지이고, Deep Link 는 외부 URI 를 앱 내부 navigation state 로 바꾸는 계약이다.
 
 ### 읽는 순서
 
-- 컴포넌트가 OS 에 어떻게 노출되는지는 [Intent 와 Manifest 계약](./intent-manifest-contracts/intent-manifest-contracts.md) 을 본다.
-- 외부 URL 을 내부 목적지로 바꾸는 문제는 [Deep Link 계약](./deep-link-contracts/deep-link-contracts.md) 을 본다.
+- 컴포넌트가 OS 에 어떻게 노출되는지는 [Intent 와 Manifest 계약](intent-manifest-contracts/intent-manifest-contracts.md) 을 본다.
+- 외부 URL 을 내부 목적지로 바꾸는 문제는 [Deep Link 계약](deep-link-contracts/deep-link-contracts.md) 을 본다.
 - 내부 back stack 과 route key 는 [Navigation 3 계약](../navigation3/navigation3-contracts/navigation3-contracts.md) 으로 넘긴다.

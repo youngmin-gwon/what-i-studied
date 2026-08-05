@@ -2,15 +2,17 @@
 title: dynamic-app-links-refine-but-do-not-expand-manifest-scope
 tags: [android, android/deep-links, android/navigation]
 aliases: ["Dynamic App Links 는 선언 범위를 확장하지 않는다"]
-date modified: 2026-08-03 18:11:28 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Dynamic App Links 는 선언 범위를 확장하지 않는다
+## **Dynamic App Links**(앱 업데이트 없이 서버 assetlinks.json 설정으로 App Link URL 매칭 패턴을 동적으로 미세 조정하는 기능) 는 선언 범위를 확장하지 않는다
 
-상위 문서: [Deep Link 계약](./deep-link-contracts.md)
+상위 문서: [Deep Link 계약](deep-link-contracts.md)
 
-관련 노트: [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](./manifest-and-assetlinks-have-distinct-roles.md)
+배경 지식: [암호학 기초](../../../../../../security/fundamentals/cryptography-basics.md)
+
+관련 노트: [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](manifest-and-assetlinks-have-distinct-roles.md)
 
 ### 개념
 
@@ -70,9 +72,9 @@ assetlinks.json 은 해당 표면에서 현재 처리할 path, query, 제외 패
 
 ### 연결 문서
 
-정적 선언의 기준은 [매니페스트 선언과 assetlinks.json의 역할](./manifest-and-assetlinks-have-distinct-roles.md) 이다.
+정적 선언의 기준은 [매니페스트 선언과 assetlinks.json의 역할](manifest-and-assetlinks-have-distinct-roles.md) 이다.
 
-App Links 의 전체 개념은 [Android App Link는 검증된 HTTPS 딥 링크다](./app-link-is-verified-https-deep-link.md) 에서 확인한다.
+App Links 의 전체 개념은 [Android App Link는 검증된 HTTPS 딥 링크다](app-link-is-verified-https-deep-link.md) 에서 확인한다.
 
 공식 개요는 [Android App Links 개요](https://developer.android.com/training/app-links/about) 를 참고한다.
 

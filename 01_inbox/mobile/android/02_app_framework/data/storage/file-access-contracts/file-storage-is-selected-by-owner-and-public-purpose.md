@@ -2,13 +2,14 @@
 title: file-storage-is-selected-by-owner-and-public-purpose
 tags: [android, android/data, android/file-access-contracts, android/storage]
 aliases: ["저장소 선택: 소유권과 공개 목적을 먼저 묻기"]
-date modified: 2026-08-03 18:08:06 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## 저장소 선택: 소유권과 공개 목적을 먼저 묻기
 
 상위 문서: [파일 접근 계약](./file-access-contracts.md)
+배경 지식: [리눅스 파일 시스템](../../../../../../linux/filesystems.md)
 
 관련 노트: [Android 저장소는 데이터 수명과 소유권으로 선택한다](../persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md)
 

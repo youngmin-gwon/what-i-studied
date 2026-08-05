@@ -2,13 +2,14 @@
 title: getsystemservice-returns-a-cached-manager-backed-by-binder-ipc
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:35:20 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:17:12 +09:00
 ---
 
 ## getSystemService 는 캐시된 매니저를 반환하고 실제 작업은 Binder IPC 로 위임한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+배경 지식: [IPC 메커니즘](../../../../../operating-systems/ipc-mechanisms.md)
 
 관련 지도: [시스템 서비스 접근 공통 계약](./service-lookup-contracts.md)
 

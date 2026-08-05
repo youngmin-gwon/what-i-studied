@@ -2,13 +2,13 @@
 title: navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Scenes 와 adaptive scaffolds 는 같은 문제를 푸는가"]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Scenes 와 adaptive scaffolds 는 같은 문제를 푸는가
+## **Scene**(Navigation 3에서 백스택 화면들을 하나의 시각적 단위로 묶어 배치하는 내비게이션 레이아웃 단위)s 와 adaptive scaffolds 는 같은 문제를 푸는가
 
-상위 문서: [Adaptive Navigation 계약](./adaptive-navigation-contracts.md)
+상위 문서: [Adaptive Navigation 계약](adaptive-navigation-contracts.md)
 
 관련 노트: [Metadata와 SceneStrategy는 표시 정책을 전달한다](../../navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)
 
@@ -22,7 +22,7 @@ Navigation 3 `Scene` 은 `NavEntry` 하나 이상을 하나의 visual state 로 
 
 `NavigationSuiteScaffold` 는 앱 frame 의 bar, rail, drawer 를 다룬다.
 
-`NavigableListDetailPaneScaffold` 는 list 와 detail pane 의 배치, 전환, predictive back 을 다룬다.
+`NavigableListDetailPaneScaffold` 는 list 와 detail pane 의 배치, 전환, **predictive back**(뒤로가기 제스처 중 이전 화면의 렌더링 상태를 미리 보여주는 UX 애니메이션) 을 다룬다.
 
 따라서 전자는 top-level chrome 이고, 후자는 feature content layout 이다.
 

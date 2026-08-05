@@ -2,7 +2,7 @@
 title: packagemanager-queries-are-limited-by-package-visibility
 tags: ["android", "android/system-services"]
 aliases: ["PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 

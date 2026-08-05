@@ -2,7 +2,7 @@
 title: appsearch-is-an-on-device-search-index-not-a-cloud-search-engine
 tags: ["android", "android/system-services"]
 aliases: ["AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -13,17 +13,17 @@ date created: 2026-08-05 10:00:00 +09:00
 
 ### 핵심 정의
 
-공식 문서는 AppSearch를 다음과 같이 정의한다.
+공식 문서는 **AppSearch**(앱 내부 데이터의 빠른 조회를 지원하는 로컬 구조화 데이터 전문 검색 솔루션)를 다음과 같이 정의한다.
 
 > "AppSearch is a high-performance on-device search solution for managing locally stored, structured data. It contains APIs for indexing data and retrieving data using full-text search. Applications can use AppSearch to offer custom in-app search capabilities, allowing users to search for content even while offline."
 
-즉 AppSearch는 서버로 쿼리를 보내는 클라우드 검색 서비스가 아니라, 기기 안에 구조화된 데이터를 색인해 오프라인에서도 전문 검색(full-text search)이 가능하게 하는 라이브러리다. Firebase 같은 원격 검색 백엔드와 혼동하면 안 된다.
+즉 AppSearch는 서버로 쿼리를 보내는 클라우드 검색 서비스가 아니라, 기기 안에 구조화된 데이터를 색인해 오프라인에서도 **전문 검색**(full-text search: 문서 내의 모든 단어를 검색용 키워드로 추출·색인하여 정교하게 검색하는 기술)이 가능하게 하는 라이브러리다. Firebase 같은 원격 검색 백엔드와 혼동하면 안 된다.
 
 ### 메커니즘
 
 AppSearch 세션은 세 가지 저장소(storage) 구현 중 하나로 연다.
 
-- `LocalStorage`: 앱 전용 데이터 디렉토리에 색인을 저장한다. 이 앱만 조회할 수 있다.
+- `LocalStorage`: 앱 전용 샌드박스 디렉토리에 색인을 저장한다. 이 앱만 조회할 수 있다.
 - `PlatformStorage`(Android 12+): 시스템 서버가 호스팅하는 시스템 전역 중앙 색인이다.
 - `PlayServicesStorage`(모든 API 레벨): Google Play services가 호스팅하는 시스템 전역 중앙 색인이다.
 

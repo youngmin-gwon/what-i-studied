@@ -2,7 +2,7 @@
 title: contactless-payment-is-separate-from-nfc-tagging
 tags: ["android", "android/system-services"]
 aliases: ["비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:46:00 +09:00
 ---
 
@@ -16,7 +16,7 @@ date created: 2026-07-31 17:46:00 +09:00
 NDEF 태깅은 URI, MIME, 애플리케이션 데이터를 읽고 쓰는 흐름이다.
 비접촉 결제는 리더가 카드 애플리케이션을 선택하고 APDU를 교환하는 흐름이다.
 따라서 태그 읽기 코드를 확장한다고 결제 기능이 완성되지 않는다.
-결제는 HCE, Secure Element, 결제 네트워크 규격의 조합을 별도로 설계한다.
+결제는 HCE, `Secure Element`(기기 내부에 위치하여 암호화 키와 결제 자격 증명을 물리적으로 안전하게 보호하는 전용 하드웨어 보안 칩), 결제 네트워크 규격의 조합을 별도로 설계한다.
 
 ### 구현 전 확인
 

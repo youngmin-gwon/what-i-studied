@@ -2,7 +2,7 @@
 title: biometricprompt-couples-authentication-ui-with-key-authorization
 tags: ["android", "android/system-services"]
 aliases: ["BiometricPrompt는 인증 UI와 키 사용 승인을 함께 처리한다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,11 +13,11 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-`BiometricPrompt`는 지문/얼굴 인식 같은 생체 인증을 위한 시스템 표준 UI를 띄우는 API다. 단순 신원 확인(`authenticate(PromptInfo)`)뿐 아니라, `CryptoObject`(Keystore에 저장된 `Cipher`/`Signature`/`Mac`)를 함께 전달하면 생체 인증 성공이 곧 해당 키 사용 승인으로 이어지는 흐름을 만들 수 있다.
+`BiometricPrompt`는 지문/얼굴 인식 같은 생체 인증을 위한 시스템 표준 UI를 띄우는 API다. 단순 신원 확인(`authenticate(PromptInfo)`)뿐 아니라, **CryptoObject**(하드웨어 보안 영역 Keystore에 저장된 `Cipher`/`Signature`/`Mac` 암호화 객체를 감싸는 래퍼)를 함께 전달하면 생체 인증 성공이 곧 해당 키 사용 승인으로 이어지는 흐름을 만들 수 있다.
 
 ### 메커니즘
 
-앱이 CryptoObject 없이 `authenticate()`를 호출하면 "사용자가 맞다"는 확인만 결과로 받는다. 반면 Keystore에서 `setUserAuthenticationRequired(true)`로 생성한 키의 `Cipher`를 `CryptoObject`로 감싸 전달하면, 생체 인증이 성공해야만 해당 `Cipher`로 암복호화 작업을 실제로 수행할 수 있다. 인증 성공 전에 그 키를 사용하려 하면 시스템이 예외를 던진다. 이 결합 덕분에 "인증 UI만 통과하고 실제로는 키 없이 우회"하는 공격이 어려워진다.
+앱이 CryptoObject 없이 `authenticate()`를 호출하면 "사용자가 맞다"는 확인만 결과로 받는다. 반면 **Keystore**(앱별 비밀 암호화 키를 안전한 하드웨어 백엔드에 보관하는 보안 컨테이너)에서 `setUserAuthenticationRequired(true)`로 생성한 키의 `Cipher`를 `CryptoObject`로 감싸 전달하면, 생체 인증이 성공해야만 해당 `Cipher`로 암복호화 작업을 실제로 수행할 수 있다. 인증 성공 전에 그 키를 사용하려 하면 시스템이 예외를 던진다. 이 결합 덕분에 "인증 UI만 통과하고 실제로는 키 없이 우회"하는 공격이 어려워진다.
 
 ### 판단 기준
 

@@ -2,7 +2,7 @@
 title: android-shared-memory-evolved-from-ashmem-ion-to-dmabuf-heaps
 tags: [android, android/kernel, android/memory]
 aliases: [ashmem, DMA-BUF, ION]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 

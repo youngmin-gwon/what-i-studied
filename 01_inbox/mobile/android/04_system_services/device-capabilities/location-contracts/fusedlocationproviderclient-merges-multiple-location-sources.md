@@ -2,7 +2,7 @@
 title: fusedlocationproviderclient-merges-multiple-location-sources
 tags: ["android", "android/system-services"]
 aliases: ["FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
@@ -17,7 +17,7 @@ date created: 2026-08-03 17:19:24 +09:00
 
 ### 메커니즘
 
-앱은 `Priority`(예: `PRIORITY_HIGH_ACCURACY`, `PRIORITY_BALANCED_POWER_ACCURACY`)와 업데이트 interval을 지정해 `LocationRequest`를 만든다. 내부적으로 시스템은 이 요청을 다른 앱의 동시 요청과 병합해 실제 하드웨어(GPS 칩, 네트워크 위치 조회)에 필요한 최소한의 작업만 수행한다. 즉 여러 앱이 비슷한 정확도를 요청하면 시스템이 하드웨어 사용을 공유해 배터리를 아낀다.
+앱은 `Priority`(예: `PRIORITY_HIGH_ACCURACY`, `PRIORITY_BALANCED_POWER_ACCURACY`)와 업데이트 interval을 지정해 **LocationRequest**(위치 요청 빈도, 요구 정확도 수준, 배터리 소모 정책을 설정하는 데이터 객체)를 만든다. 내부적으로 시스템은 이 요청을 다른 앱의 동시 요청과 병합해 실제 하드웨어(GPS 칩, 네트워크 위치 조회)에 필요한 최소한의 작업만 수행한다. 즉 여러 앱이 비슷한 정확도를 요청하면 시스템이 하드웨어 사용을 공유해 배터리를 아낀다.
 
 `getLastLocation()`은 캐시된 최근 위치를 즉시 반환하고, `requestLocationUpdates()`는 콜백으로 새 위치를 스트리밍한다. 두 API는 지연과 정확도 트레이드오프가 다르다.
 

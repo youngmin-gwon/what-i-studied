@@ -2,13 +2,13 @@
 title: design-system-provider-composes-material-theme-and-project-locals
 tags: [android, compose/design-system, jetpack-compose]
 aliases: [DesignSystemProvider, MaterialTheme]
-date modified: 2026-08-03 18:10:02 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
 ## Design System Provider 는 Material Theme 과 프로젝트 Local 을 구성한다
 
-Design system provider 는 앱 root 나 feature boundary 에서 `MaterialTheme` 과 프로젝트 전용 CompositionLocal 을 함께 제공하는 경계다. 하위 UI 는 같은 color, typography, shape, adaptive policy 를 일관되게 읽는다.
+Design system provider 는 앱 root 나 feature boundary 에서 `MaterialTheme` 과 프로젝트 전용 **CompositionLocal**(UI 트리 상위에서 하위로 매개변수 전달 없이 암시적으로 데이터를 전파하는 스코프 메커니즘) 을 함께 제공하는 경계다. 하위 UI 는 같은 color, typography, shape, adaptive policy 를 일관되게 읽는다.
 
 Provider 는 UI 환경 값의 계산과 범위를 모으는 곳이지 화면 상태나 business dependency 를 숨기는 장소가 아니다. 화면마다 바뀌는 state 는 parameter/state holder 로 전달하고, repository 나 service 는 DI 가 소유한다.
 

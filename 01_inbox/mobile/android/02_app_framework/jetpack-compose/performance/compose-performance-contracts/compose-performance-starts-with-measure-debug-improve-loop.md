@@ -2,13 +2,14 @@
 title: compose-performance-starts-with-measure-debug-improve-loop
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
 ## Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../../../06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+배경 지식: [프로세스 생명주기 및 상태](../../../../../../operating-systems/process-states-lifecycle.md)
 
 관련 지도: [Compose 성능 계약](./compose-performance-contracts.md)
 
@@ -24,7 +25,7 @@ trace 는 Android Studio Profiler 의 System Trace(Perfetto 기반)나 Macrobenc
 
 마지막으로 작은 변경을 적용하고 같은 조건에서 다시 측정한다.
 
-이 순환이 없으면 `remember`, `derivedStateOf`, lazy layout 교체 같은 처방이 실제 사용자 성능을 개선했는지 알 수 없다.
+이 순환이 없으면 `remember`, `**derivedStateOf**(고빈도 입력 상태 변경 중 최종 결과값이 뒤집힐 때만 Recomposition 스코프를 무효화하는 파생 상태 생성 API)`, lazy layout 교체 같은 처방이 실제 사용자 성능을 개선했는지 알 수 없다.
 
 Compose 는 필요한 부분만 다시 실행할 수 있지만, 모든 코드가 자동으로 빠르다는 뜻은 아니다.
 

@@ -1,10 +1,13 @@
 ---
 title: interceptor-chain-inserts-cross-cutting-concerns-into-request-response-pipeline
 tags: [android, android/data, android/networking]
-aliases: ["Interceptor 체인은 인증, 로깅, 재시도를 요청·응답 파이프라인에 끼워 넣는다"]
-date modified: 2026-08-04 18:00:00 +09:00
+aliases: ["Interceptor(OkHttp HTTP 요청/응답 파이프라인 중간에 개입하여 헤더 주입, 로깅, 재시도 등 횡단 관심사를 처리하는 미들웨어 모듈) 체인은 인증, 로깅, 재시도를 요청·응답 파이프라인에 끼워 넣는다"]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
+
+배경 지식: [인증과 인가](../../../../../../security/fundamentals/authentication-authorization.md)
+
 
 ## Interceptor 체인은 인증, 로깅, 재시도를 요청·응답 파이프라인에 끼워 넣는다
 

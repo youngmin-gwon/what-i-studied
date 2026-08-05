@@ -2,21 +2,21 @@
 title: adaptive-navigation-contracts
 tags: [android, android/adaptive, android/navigation]
 aliases: ["Adaptive Navigation 계약"]
-date modified: 2026-08-03 18:11:15 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Adaptive Navigation 계약
+## **Adaptive Navigation**(화면 크기와 폼 팩터 변화에 반응하여 탐색 경로와 UI 배치를 동적으로 재구성하는 기법) 계약
 
-Adaptive Navigation 은 화면 크기와 입력 환경에 따라 app chrome 과 content 배치를 바꾸는 문제다. Navigation 3 의 back stack 상태와 adaptive scaffold 의 표시 정책을 분리해서 읽는다.
+Adaptive Navigation 은 화면 크기와 입력 환경에 따라 app chrome 과 content 배치를 바꾸는 문제다. Navigation 3 의 back stack 상태와 **adaptive scaffold**(창 크기에 맞춰 바/레일 및 Pane 구조를 자동 배치하는 컴포저블 틀) 의 표시 정책을 분리해서 읽는다.
 
 ### 정본 노트
 
-- [Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다](./adaptive-navigation-is-driven-by-window-and-posture.md)
-- [Top-level destination은 adaptive navigation chrome의 단위다](./top-level-destination-owns-adaptive-navigation-chrome.md)
-- [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](./pane-layout-preserves-selection-and-back-policy.md)
-- [표준 adaptive scaffold를 먼저 검토하고 custom layout은 명시적 이유가 있을 때 둔다](./standard-adaptive-scaffolds-should-precede-custom-layouts.md)
-- [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](./navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
+- [Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다](adaptive-navigation-is-driven-by-window-and-posture.md)
+- [Top-level destination은 adaptive navigation chrome의 단위다](top-level-destination-owns-adaptive-navigation-chrome.md)
+- [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](pane-layout-preserves-selection-and-back-policy.md)
+- [표준 adaptive scaffold를 먼저 검토하고 custom layout은 명시적 이유가 있을 때 둔다](standard-adaptive-scaffolds-should-precede-custom-layouts.md)
+- [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
 
 ### 판단 기준
 

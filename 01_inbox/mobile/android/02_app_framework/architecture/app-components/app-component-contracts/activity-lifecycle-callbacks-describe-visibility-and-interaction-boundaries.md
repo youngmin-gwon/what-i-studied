@@ -2,12 +2,14 @@
 title: activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries
 tags: [android, android/app-components, android/architecture]
 aliases: ["Activity 콜백은 화면 인스턴스의 visibility와 interaction 경계를 알린다"]
-date modified: 2026-08-03 17:26:55 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Activity 콜백은 화면 인스턴스의 visibility 와 interaction 경계를 알린다
 
+상위 문서: [App Component Contracts](./app-component-contracts.md)
+배경 지식: [프로세스 생명주기](../../../../../../operating-systems/process-states-lifecycle.md)
 Activity lifecycle 콜백은 화면 인스턴스가 생성, 표시, 포커스 획득, 포커스 상실, 정지, 파괴되는 경계를 알려준다. `onCreate`, `onStart`, `onResume`, `onPause`, `onStop`, `onDestroy` 는 UI 리소스 연결과 해제를 배치하는 기준이다.
 
 ### 내부 동작 메커니즘 (Internal State Transitions)

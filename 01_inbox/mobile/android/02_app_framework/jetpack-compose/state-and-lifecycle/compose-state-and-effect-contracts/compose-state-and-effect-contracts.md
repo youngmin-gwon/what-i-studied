@@ -2,25 +2,25 @@
 title: compose-state-and-effect-contracts
 tags: [android, compose/state, jetpack-compose]
 aliases: [Compose 상태와 Effect 계약]
-date modified: 2026-08-03 18:11:05 +09:00
+date modified: 2026-08-05 13:17:39 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## Compose 상태와 Effect 계약
 
-Compose 상태 API 는 값의 수명과 작업의 owner 를 기준으로 고른다. `remember`, `rememberSaveable`, ViewModel, effect API 를 편의성 기준으로 섞지 않는다.
+Compose 상태 API 는 값의 수명과 작업의 owner 를 기준으로 고른다. `remember`, `rememberSaveable`(화면 회전이나 프로세스 재시작 후에도 Bundle 을 통해 UI 상태를 복원해 주는 저장 API), ViewModel, effect API 를 편의성 기준으로 섞지 않는다.
 
 ### 정본 노트
 
 - [Compose 상태 API는 필요한 수명에 맞춰 선택한다](./compose-state-api-selection-by-lifetime.md)
 - [Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](./remember-saveable-is-for-small-restorable-ui-state.md)
 - [ViewModel의 StateFlow는 lifecycle-aware collection으로 화면 상태가 된다](./viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)
-- [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](./launched-effect-owns-composable-cancellable-work.md)
-- [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](./disposable-effect-pairs-registration-and-cleanup.md)
-- [사용자 이벤트로 시작하고 수동 제어할 coroutine은 rememberCoroutineScope로 실행한다](./remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)
-- [Effect를 재시작하지 않고 최신 값을 읽어야 할 때 rememberUpdatedState를 사용한다](./remember-updated-state-keeps-effect-on-latest-value.md)
-- [외부 비동기·구독 상태를 Compose State로 바꿀 때 produceState를 사용한다](./produce-state-converts-external-state-to-compose-state.md)
-- [Compose State를 cold Flow로 바꿔 관찰·연산할 때 snapshotFlow를 사용한다](./snapshot-flow-converts-compose-state-to-cold-flow.md)
+- [Composable과 함께 취소되어야 하는 작업은 **LaunchedEffect**(Composition 생명주기에 맞춰 코루틴 작업을 실행하고 Key 변경 또는 Composition 이탈 시 취소하는 Side-Effect API)로 시작한다](./launched-effect-owns-composable-cancellable-work.md)
+- [등록과 해제가 쌍인 작업은 **DisposableEffect**(Composition 진입 시 리소스를 등록하고 Composition 이탈이나 Key 변경 시 cleanup을 수행하는 Effect API)로 관리한다](./disposable-effect-pairs-registration-and-cleanup.md)
+- [사용자 이벤트로 시작하고 수동 제어할 coroutine은 rememberCoroutine**Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션)로 실행한다](./remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)
+- [Effect를 재시작하지 않고 최신 값을 읽어야 할 때 **rememberUpdatedState**(Long-lived Effect 내부에서 Effect 재시작 없이 최신 상태/람다 값을 참조하도록 유지해 주는 API)를 사용한다](./remember-updated-state-keeps-effect-on-latest-value.md)
+- [외부 비동기·구독 상태를 Compose State로 바꿀 때 **produceState**(Flow 같은 외부 비동기 데이터 스트림을 Compose State로 변환하여 공급하는 Effect API)를 사용한다](./produce-state-converts-external-state-to-compose-state.md)
+- [Compose State를 cold Flow로 바꿔 관찰·연산할 때 **snapshotFlow**(Compose State의 읽기 변화를 관찰하여 Cold Flow 스트림으로 변환하는 API)를 사용한다](./snapshot-flow-converts-compose-state-to-cold-flow.md)
 - [UI 컨트롤러와 Effect 실행기는 UI 수명에 둔다](./ui-controllers-and-effect-runners-live-with-ui-lifetime.md)
 
 관련 Runtime 지도: [Compose runtime and state model](../../runtime/compose-runtime-and-state-model.md)

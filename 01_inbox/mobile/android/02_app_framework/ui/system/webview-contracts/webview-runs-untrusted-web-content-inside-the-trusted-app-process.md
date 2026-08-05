@@ -2,13 +2,16 @@
 title: webview-runs-untrusted-web-content-inside-the-trusted-app-process
 tags: ["android", "android/app-framework"]
 aliases: ["WebView는 신뢰된 앱 프로세스 안에서 신뢰되지 않은 웹 콘텐츠를 실행한다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
+배경 지식: [웹 브라우저 보안](../../../../../../security/attacks/web-browser-security.md)
+
+
 ## WebView는 신뢰된 앱 프로세스 안에서 신뢰되지 않은 웹 콘텐츠를 실행한다
 
-`WebView` 는 Chromium 기반 렌더링 엔진으로 HTML/JavaScript 를 화면에 그린다. 문제는 그 콘텐츠의 출처다. 앱 자체는 서명, 권한, UID 로 신뢰되지만 `WebView` 가 로드하는 URL 은 공격자가 통제하는 서버일 수 있고, 리다이렉트나 mixed content 로 콘텐츠가 중간에 뒤바뀔 수도 있다. 즉 `WebView` 는 신뢰 경계가 다른 두 세계 — 신뢰된 네이티브 앱 프로세스와 신뢰할 수 없는 웹 콘텐츠 — 를 하나의 화면 안에 붙여 넣는 컴포넌트다.
+`WebView` 는 Chromium 기반 렌더링 엔진으로 HTML/JavaScript 를 화면에 그린다. 문제는 그 콘텐츠의 출처다. 앱 자체는 서명, 권한, UID 로 신뢰되지만 `WebView` 가 로드하는 URL 은 공격자가 통제하는 서버일 수 있고, 리다이렉트나 mixed content 로 콘텐츠가 중간에 뒤바뀔 수도 있다. 즉 `WebView` 는 신뢰 경계(OS 권한을 가진 앱 프로세스 영역과 신뢰할 수 없는 외부 웹 사이트 영역 사이의 경계선)가 다른 두 세계 — 신뢰된 네이티브 앱 프로세스와 신뢰할 수 없는 웹 콘텐츠 — 를 하나의 화면 안에 붙여 넣는 컴포넌트다.
 
 일반 브라우저 탭은 웹사이트가 OS 권한이나 다른 탭의 데이터에 접근하지 못하도록 격리된 sandbox 안에서 실행된다. `WebView` 안의 콘텐츠는 이 격리가 훨씬 약하다. 앱이 명시적으로 다리를 놓지 않는 한 페이지는 기본적으로 앱의 파일이나 권한에 접근할 수 없지만, 앱이 `addJavascriptInterface()`, `postMessage`, custom scheme handler 같은 통로를 열면 그 통로를 통해 앱의 UID 로 실행되는 코드를 웹 콘텐츠가 간접적으로 호출하게 된다. 이 통로의 안전성은 `WebView` 자체가 아니라 앱이 설계한 브리지 코드에 달려 있다.
 

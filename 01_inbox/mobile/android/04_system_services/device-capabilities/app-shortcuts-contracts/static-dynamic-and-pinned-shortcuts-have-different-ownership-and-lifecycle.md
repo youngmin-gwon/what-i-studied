@@ -2,7 +2,7 @@
 title: static-dynamic-and-pinned-shortcuts-have-different-ownership-and-lifecycle
 tags: ["android", "android/system-services"]
 aliases: ["static/dynamic/pinned shortcut은 소유권과 lifecycle이 다르다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 핵심 정의
 
-App Shortcuts는 세 종류로 나뉘고, 이 셋은 이름만 비슷할 뿐 "누가 만들고, 누가 갱신하고, 누가 지울 수 있는가"가 모두 다르다.
+**App Shortcuts**(앱 아이콘 길게 누르기 메뉴나 시스템 검색에서 특정 화면으로 즉시 연결하는 단축 경로)는 세 종류로 나뉘고, 이 셋은 이름만 비슷할 뿐 "누가 만들고, 누가 갱신하고, 누가 지울 수 있는가"라는 소유권과 생명주기(lifecycle)가 모두 다르다.
 
 > "Static shortcuts are defined in a resource file that is packaged into an APK or app bundle."
 >
@@ -25,7 +25,7 @@ App Shortcuts는 세 종류로 나뉘고, 이 셋은 이름만 비슷할 뿐 "�
 
 **Static shortcut**은 빌드 시점에 XML 리소스로 고정된다. 개발자가 앱을 업데이트해 리소스를 바꾸지 않는 한 내용이 바뀌지 않는다. 런타임 코드는 static shortcut을 추가/삭제할 수 없다 — 오직 리소스 선언만이 static shortcut의 정본이다.
 
-**Dynamic shortcut**은 정반대로 오직 런타임 코드로만 관리된다. 앱이 `ShortcutManagerCompat.setDynamicShortcuts()`, `pushDynamicShortcut()`, `removeDynamicShortcuts()`를 호출해 추가/갱신/삭제하며, 리소스 파일에는 선언되지 않는다. 최근에 연 문서, 최근 대화 상대처럼 사용 패턴에 따라 계속 바뀌는 항목에 맞는 모델이다.
+**Dynamic shortcut**은 정반대로 오직 런타임 코드로만 관리되는 동적 단축 경로다. 앱이 AndroidX의 **ShortcutManagerCompat**(AndroidX에서 제공하는 하위 버전 호환용 ShortcutManager 래퍼 라이브러리)의 `setDynamicShortcuts()`, `pushDynamicShortcut()`, `removeDynamicShortcuts()`를 호출해 추가/갱신/삭제하며, 리소스 파일에는 선언되지 않는다. 최근에 연 문서, 최근 대화 상대처럼 사용 패턴에 따라 계속 바뀌는 항목에 맞는 모델이다.
 
 **Pinned shortcut**은 소유권이 앱에서 사용자(런처)로 넘어가는 유일한 종류다. 사용자가 static/dynamic shortcut을 길게 눌러 홈 화면에 "고정"하면, 그 순간부터 launcher가 아이콘의 존재 자체를 소유한다. 앱은 이후 그 shortcut의 콘텐츠(라벨, 아이콘, 대상 Intent)를 `updateShortcuts()`로 갱신하거나 `disableShortcuts()`로 비활성화할 수는 있지만, 홈 화면에서 아이콘 자체를 제거할 권한은 없다. 제거는 사용자가 직접 launcher에서 수행해야 한다.
 

@@ -2,7 +2,7 @@
 title: nfc-contracts
 tags: ["android", "android/system-services"]
 aliases: ["NFC와 비접촉 기능 계약"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:46:00 +09:00
 ---
 

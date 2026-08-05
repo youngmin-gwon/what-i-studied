@@ -2,13 +2,13 @@
 title: navigation3-deep-link-converts-uri-to-navkey
 tags: [android, android/navigation, android/navigation3]
 aliases: ["Navigation 3 deep link는 URI를 NavKey로 변환한다"]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Navigation 3 deep link 는 URI 를 NavKey 로 변환한다
+## Navigation 3 deep link 는 URI 를 **NavKey**(특정 화면의 식별자와 파라미터를 보관하는 타입 안정 데이터 클래스 객체) 로 변환한다
 
-상위 문서: [Navigation 3 계약](./navigation3-contracts.md)
+상위 문서: [Navigation 3 계약](navigation3-contracts.md)
 
 관련 노트: [Android 딥 링크는 외부 URI 계약이다](../../intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md)
 

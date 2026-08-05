@@ -2,7 +2,7 @@
 title: provider-methods-create-external-runtime-or-configured-objects
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:09:43 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-03 16:59:23 +09:00
 
 `@Provides` 계열 함수는 DI framework 가 생성자를 알 수 없거나 호출해서는 안 되는 객체를 graph 에 넣기 위한 boundary 다. Retrofit, Room database, DataStore, `Context` 로 만드는 system-facing 객체, base URL 같은 configuration 을 묶은 객체가 여기에 들어간다.
 
-Provider method 가 많아지면 graph 가 service locator 처럼 변한다. 먼저 constructor injection 이 가능한 타입인지 확인하고, provider 는 외부 library type 이나 construction policy 가 의미 있는 타입에 제한한다.
+**Provider method**(`@Provides` — 외부 라이브러리 타입이나 런타임 설정 객체의 생성 로직을 명시하는 모듈 메서드) 가 많아지면 graph 가 service locator 처럼 변한다. 먼저 constructor injection 이 가능한 타입인지 확인하고, provider 는 외부 library type 이나 construction policy 가 의미 있는 타입에 제한한다.
 
 관련 노트: [Context boundaries](../../architecture/context-and-modularity/android-context-boundaries.md).
 

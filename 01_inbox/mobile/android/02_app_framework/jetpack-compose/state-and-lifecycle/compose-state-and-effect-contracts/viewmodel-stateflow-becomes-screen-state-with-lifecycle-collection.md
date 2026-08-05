@@ -2,7 +2,7 @@
 title: viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:11:13 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
@@ -32,7 +32,7 @@ fun BenefitRoute(viewModel: BenefitViewModel) {
 
 - Android lifecycle 을 사용하는 화면의 Flow 는 `collectAsStateWithLifecycle` 을 우선한다.
 - lifecycle 이 없는 순수 Compose 환경에서는 `collectAsState` 가 맞을 수 있다.
-- Flow 를 수집하면서 snackbar 나 navigation 같은 부수효과를 실행해야 하면 `LaunchedEffect` 와 lifecycle-aware 수집을 조합한다.
+- Flow 를 수집하면서 snackbar 나 navigation 같은 부수효과를 실행해야 하면 `**LaunchedEffect**(Composition 생명주기에 맞춰 코루틴 작업을 실행하고 Key 변경 또는 Composition 이탈 시 취소하는 Side-Effect API)` 와 lifecycle-aware 수집을 조합한다.
 - 단순히 화면을 그릴 값은 `State` 로 변환해 Composable 의 입력으로 전달한다.
 
 `collectAsStateWithLifecycle` 은 ViewModel 을 대체하지 않는다.

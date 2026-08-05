@@ -2,16 +2,16 @@
 title: wakelocks-are-suspend-blockers-not-background-work-permission
 tags: [android, android/kernel, android/power]
 aliases: [Wakelock, WakeLock]
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
 ## Wakelock은 background work 권한이 아니라 suspend blocker다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
+배경 지식: [ACPI/전원 상태](01_inbox/operating-systems/acpi-and-power-states.md)
 
-
-Wakelock 은 \"작업을 실행해도 된다\"는 권한이 아니라, 특정 조건에서 device 가 system suspend 로 들어가지 않도록 막는 suspend blocker 다.
+Wakelock 은 \"작업을 실행해도 된다\"는 권한이 아니라, 특정 조건에서 device 가 **system suspend**(CPU 를 비롯한 대부분의 하드웨어 전원을 낮춰 배터리를 아끼는 저전력 대기 상태로 전환하는 것 — 전원 상태 일반에 대한 배경은 위 링크 참고)로 들어가지 않도록 막는 **suspend blocker**(그 전환 자체를 유예시키는 잠금)다.
 
 ### 메커니즘: Wakelock 과 SystemSuspend 상호작용
 
@@ -56,7 +56,7 @@ class DataSyncService : Service() {
 
 ### 판단 기준
 
-- Wakelock 을 잡았다고 background execution 제한, 네트워크 제한, 작업 스케줄링 제한을 모두 우회하는 것은 아니다. Doze, App Standby, JobScheduler 제약은 별도로 작동한다.
+- Wakelock 을 잡았다고 background execution 제한, 네트워크 제한, 작업 스케줄링 제한을 모두 우회하는 것은 아니다. **Doze**(화면이 꺼진 채 오래 놓아두면 시스템이 백그라운드 네트워크·작업 실행을 일괄 지연시키는 절전 모드), **App Standby**(오래 쓰지 않은 앱의 백그라운드 활동 빈도를 낮추는 정책), **JobScheduler**(조건이 맞을 때 백그라운드 작업을 배치로 실행하도록 예약하는 시스템 API) 제약은 Wakelock 유무와 무관하게 별도로 작동한다.
 - partial wake lock 은 화면이 꺼진 뒤에도 CPU 가 계속 필요한 작업에서 사용할 수 있지만, 오래 잡고 있으면 배터리 소모와 Android vitals 위반으로 이어진다.
 - `acquire(timeout)` 형태로 항상 타임아웃을 명시한다. 이렇게 하면 코드 버그로 release를 빠뜨려도 wakelock이 자동 해제된다.
 - 오래된 `/sys/power/wake_lock` 직접 조작 예제를 앱 개발 패턴으로 사용하지 않는다.

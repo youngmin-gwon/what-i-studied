@@ -2,7 +2,7 @@
 title: on-device-ai-contracts
 tags: ["android", "android/system-services"]
 aliases: ["온디바이스 AI 접근 계약"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 

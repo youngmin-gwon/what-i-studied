@@ -2,7 +2,7 @@
 title: shortcutmanager-caps-dynamic-shortcut-count-and-rate-limits-background-updates
 tags: ["android", "android/system-services"]
 aliases: ["ShortcutManager는 동적 shortcut 개수를 제한하고 백그라운드 갱신에 rate limit을 건다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,13 +13,13 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 핵심 정의
 
-`ShortcutManager`는 두 가지 서로 다른 제약을 건다. 하나는 "몇 개까지 만들 수 있는가"라는 개수 상한이고, 다른 하나는 "얼마나 자주 갱신 API를 호출할 수 있는가"라는 rate limit이다.
+**ShortcutManager**(앱 숏컷의 생성·갱신 및 시스템 차원의 백그라운드 빈도 제약을 관리하는 Android 시스템 서비스)는 두 가지 서로 다른 제약을 건다. 하나는 "몇 개까지 만들 수 있는가"라는 개수 상한이고, 다른 하나는 "얼마나 자주 갱신 API를 호출할 수 있는가"라는 **rate limit**(호출 비율 제한: 시스템 자원 및 배터리 과소비를 막기 위해 단위 시간당 API 호출 횟수를 제한하는 방어 메커니즘)이다.
 
 > "Each app's launcher icon can contain, at most, a number of static and dynamic shortcuts combined that is equal to the value returned by `getMaxShortcutCountPerActivity`. There isn't a limit to the number of pinned shortcuts that an app can create."
 
 ### 메커니즘
 
-**개수 상한**은 static과 dynamic shortcut을 합친 값에만 적용된다. `ShortcutManagerCompat.getMaxShortcutCountPerActivity(context)`가 반환하는 값은 런처/기기에 따라 다를 수 있으므로 하드코딩하지 않는다. Pinned shortcut은 이 상한과 무관하게 개수 제한이 없다 — pin은 launcher가 소유하는 별도 카운트이기 때문이다.
+**개수 상한**은 빌드 리소스로 고정된 **static shortcut**과 코드로 생성하는 **dynamic shortcut**을 합친 값에만 적용된다. `ShortcutManagerCompat.getMaxShortcutCountPerActivity(context)`가 반환하는 값은 런처/기기에 따라 다를 수 있으므로 하드코딩하지 않는다. **Pinned shortcut**(사용자가 홈 화면에 아이콘을 직접 고정하여 런처가 소유권을 갖는 숏컷)은 이 상한과 무관하게 개수 제한이 없다 — pin은 launcher가 소유하는 별도 카운트이기 때문이다.
 
 **Rate limiting**은 `setDynamicShortcuts()`, `addDynamicShortcuts()`, `updateShortcuts()`처럼 shortcut을 바꾸는 메서드에 걸린다. 단, 이 제한은 앱이 백그라운드일 때만 적용된다.
 

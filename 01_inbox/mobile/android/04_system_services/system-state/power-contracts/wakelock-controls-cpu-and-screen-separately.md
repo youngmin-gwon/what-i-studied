@@ -2,18 +2,19 @@
 title: wakelock-controls-cpu-and-screen-separately
 tags: ["android", "android/system-services"]
 aliases: ["PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
+배경 지식: [프로세스 상태와 생명주기](../../../../../operating-systems/process-states-lifecycle.md)
 관련 지도: [전력 상태 접근 계약](./power-contracts.md)
 
 ### 핵심 정의
 
-`PowerManager.WakeLock`은 플래그 조합에 따라 CPU만 켜둘지, 화면까지 켜둘지, 화면 밝기까지 유지할지를 선택적으로 제어한다. `PARTIAL_WAKE_LOCK`은 CPU만 깨워두고 화면/키보드는 꺼질 수 있으며, `SCREEN_DIM_WAKE_LOCK`/`SCREEN_BRIGHT_WAKE_LOCK`(API 17에서 deprecated)은 화면까지 켜둔다.
+**PowerManager.WakeLock**(웨이크락)은 앱이 백그라운드 작업을 수행하는 동안 기기의 CPU나 화면이 절전 모드(Sleep)로 들어가지 않도록 전원 상태를 강제로 유지하는 OS 락 메커니즘이다. 플래그 조합에 따라 CPU만 켜둘지, 화면까지 켜둘지, 화면 밝기까지 유지할지를 선택적으로 제어한다. `PARTIAL_WAKE_LOCK`은 CPU만 깨워두고 화면/키보드는 꺼질 수 있으며, `SCREEN_DIM_WAKE_LOCK`/`SCREEN_BRIGHT_WAKE_LOCK`(API 17에서 deprecated)은 화면까지 켜둔다.
 
 ### 메커니즘
 

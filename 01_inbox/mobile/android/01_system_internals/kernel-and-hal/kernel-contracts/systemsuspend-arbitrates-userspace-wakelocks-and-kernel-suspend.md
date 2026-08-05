@@ -2,17 +2,18 @@
 title: systemsuspend-arbitrates-userspace-wakelocks-and-kernel-suspend
 tags: [android, android/kernel, android/power]
 aliases: [SystemSuspend, system_suspend, Wakelock Arbitration]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
 ## SystemSuspend는 userspace wakelock과 kernel suspend를 중재한다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
+배경 지식: [ACPI/전원 상태](01_inbox/operating-systems/acpi-and-power-states.md)
 
-Android 10부터 도입된 `system_suspend` 네이티브 데몬(SystemSuspend Service)은 userspace 프로세스의 WakeLock 요청과 커널 수준의 Deep Sleep(Suspend-to-RAM) 진입 사이를 중간에서 중재하는 AIDL/HIDL 기반 파워 관리 서비스다.
+Android 10부터 도입된 `system_suspend` 네이티브 데몬(SystemSuspend Service)은 userspace 프로세스의 **WakeLock**(디바이스가 suspend 로 들어가지 못하게 막는 잠금 — 정의는 [Wakelock은 background work 권한이 아니라 suspend blocker다](wakelocks-are-suspend-blockers-not-background-work-permission.md) 참고) 요청과 커널 수준의 **Deep Sleep**(Suspend-to-RAM — CPU 를 포함한 대부분의 하드웨어 전원을 끄고 RAM 내용만 유지하는 저전력 상태. 전원 상태 일반에 대한 배경은 위 링크 참고) 진입 사이를 중간에서 중재하는 **AIDL/HIDL**(Android/HAL 인터페이스를 코드 생성 형태로 정의하는 IDL — Binder 로 오가는 메서드 시그니처를 언어 중립적으로 선언한다. HIDL 은 HAL 전용 옛 버전이고 지금은 AIDL 로 통합되는 추세다) 기반 파워 관리 서비스다.
 
-이전의 `libsuspend` 라이브러리 및 `/sys/power/wake_lock` sysfs 직접 쓰기 방식에서 벗어나, Binder Death Notification 기반의 리소스 라이프사이클 추적과 `/sys/power/wakeup_count` 원자적(Atomic) 동기화를 통해 WakeLock 누수(Leak)를 원천 차단한다.
+이전의 `libsuspend` 라이브러리 및 `/sys/power/wake_lock` sysfs 직접 쓰기 방식에서 벗어나, **Binder Death Notification**(WakeLock 을 쥔 client 프로세스가 죽으면 커널이 자동으로 알려주는 콜백 메커니즘 — 아래 메커니즘 절 1번에서 자세히 다룬다) 기반의 리소스 라이프사이클 추적과 `/sys/power/wakeup_count` 원자적(Atomic) 동기화를 통해 WakeLock **누수**(Leak — 프로세스가 죽거나 버그로 release 를 호출하지 못해 잠금이 영원히 풀리지 않는 상태)를 원천 차단한다.
 
 ---
 

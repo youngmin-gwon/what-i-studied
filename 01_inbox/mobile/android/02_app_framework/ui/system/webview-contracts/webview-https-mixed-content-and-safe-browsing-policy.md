@@ -2,15 +2,18 @@
 title: webview-https-mixed-content-and-safe-browsing-policy
 tags: ["android", "android/app-framework"]
 aliases: ["WebView는 HTTPS와 Safe Browsing으로 신뢰할 수 없는 콘텐츠를 걸러낸다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
+
+배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md), [SSL/TLS](../../../../../../linux/security/ssl-tls.md)
+
 
 ## WebView는 HTTPS와 Safe Browsing으로 신뢰할 수 없는 콘텐츠를 걸러낸다
 
 [WebView는 신뢰된 앱 프로세스 안에서 신뢰되지 않은 웹 콘텐츠를 실행한다](./webview-runs-untrusted-web-content-inside-the-trusted-app-process.md) 에서 설명한 신뢰 경계 문제를 완화하는 두 번째 축은 브리지 설계가 아니라 어떤 콘텐츠를 애초에 로드하고 실행할지 걸러내는 정책이다. `WebView` 는 이를 mixed content 정책과 Safe Browsing 두 메커니즘으로 제공한다.
 
-### Mixed content 정책
+### Mixed content(HTTPS 암호화 페이지 내부에서 비암호화 HTTP 리소스를 로드할 때 발생하는 보안 상태) 정책
 
 HTTPS 페이지 안에 HTTP 리소스(이미지, 스크립트, iframe)가 섞여 로드되면 그 HTTP 리소스는 중간자 공격으로 변조될 수 있다. `WebSettings.setMixedContentMode()` 로 이 동작을 제어한다.
 

@@ -2,7 +2,7 @@
 title: location-permission-splits-into-foreground-and-background-tiers
 tags: ["android", "android/system-services"]
 aliases: ["위치 권한은 foreground와 background 두 단계로 나뉜다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-03 17:19:24 +09:00
 
 ### 핵심 정의
 
-Android 10(API 29) 이후 위치 접근은 "앱을 사용하는 동안"(foreground)과 "항상 허용"(background) 두 단계로 나뉜다. `ACCESS_FINE_LOCATION`/`ACCESS_COARSE_LOCATION`만 선언해서는 앱이 백그라운드(사용자가 화면을 보지 않는 상태)에 있을 때 위치를 받을 수 없다. background 접근에는 `ACCESS_BACKGROUND_LOCATION`을 추가로 선언하고 별도 승인을 받아야 한다.
+Android 10(API 29) 이후 위치 접근은 "앱을 사용하는 동안"(foreground)과 "항상 허용"(background) 두 단계로 나뉜다. `ACCESS_FINE_LOCATION`/`ACCESS_COARSE_LOCATION`만 선언해서는 앱이 백그라운드(사용자가 화면을 보지 않는 상태)에 있을 때 위치를 받을 수 없다. background 접근에는 **ACCESS_BACKGROUND_LOCATION**(앱이 화면에 노출되지 않거나 백그라운드 상태일 때 위치 정보를 수집하기 위해 요구하는 특수 권한)을 추가로 선언하고 별도 승인을 받아야 한다.
 
 ### 메커니즘
 

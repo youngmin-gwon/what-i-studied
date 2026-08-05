@@ -2,7 +2,7 @@
 title: hce-uses-hostapduservice-to-handle-apdu-transactions
 tags: ["android", "android/system-services"]
 aliases: ["HCE는 HostApduService가 APDU 거래를 처리하는 모델이다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:46:00 +09:00
 ---
 
@@ -13,16 +13,16 @@ date created: 2026-07-31 17:46:00 +09:00
 
 ### HCE의 의미
 
-HCE는 Secure Element 대신 호스트 CPU가 NFC 카드 에뮬레이션을 처리하는 방식이다.
+`HCE`(Host Card Emulation, 물리적 보안 칩 대신 호스트 OS 소프트웨어가 카드 에뮬레이션을 처리하는 기술)는 Secure Element 대신 호스트 CPU가 NFC 카드 에뮬레이션을 처리하는 방식이다.
 Android 앱은 HostApduService를 구현해 외부 리더와 APDU를 교환한다.
 서비스는 UI 없이 백그라운드에서 시작될 수 있어 교통, 멤버십, 결제에 적합하다.
 HCE가 보안 결제 자체를 의미하는 것은 아니며, 애플리케이션 보안은 별도로 필요하다.
 
 ### 지원 프로토콜
 
-Android HCE의 필수 대상은 NFC-Forum ISO-DEP 기반 카드다.
+Android HCE의 필수 대상은 NFC-Forum `ISO-DEP`(ISO/IEC 14443-4 표준 기반의 비접촉 스마트카드 전송 프로토콜) 기반 카드다.
 ISO-DEP는 ISO/IEC 14443-4 위에서 동작한다.
-APDU 형식은 ISO/IEC 7816-4 애플리케이션 프로토콜을 따른다.
+`APDU`(Application Protocol Data Unit, 스마트카드 프로토콜에서 헤더와 페이로드로 구성된 명령/응답 데이터 규격) 형식은 ISO/IEC 7816-4 애플리케이션 프로토콜을 따른다.
 Nfc-A 위 ISO-DEP 에뮬레이션은 필수이고 Nfc-B는 선택적 지원이다.
 리더는 카드 UID를 인증이나 영구 식별자로 사용하면 안 된다.
 
@@ -40,7 +40,7 @@ onDeactivated는 링크가 끊기거나 다른 서비스가 선택될 때 정리
 
 ### AID 라우팅
 
-AID는 리더가 카드 애플리케이션을 선택하기 위한 Application ID다.
+`AID`(Application Identifier, ISO/IEC 7816-4에 정의된 스마트카드 애플리케이션 고유 식별자 코드)는 리더가 카드 애플리케이션을 선택하기 위한 Application ID다.
 HCE 서비스 메타데이터에 AID 그룹과 AID 필터를 선언한다.
 결제용 서비스는 payment 카테고리를 사용해 지갑 앱으로 식별될 수 있다.
 기존 결제 인프라와 연동하면 해당 네트워크가 요구하는 AID를 사용해야 한다.

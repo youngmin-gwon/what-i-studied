@@ -2,7 +2,7 @@
 title: audiomanager-arbitrates-concurrent-playback-through-focus-requests
 tags: ["android", "android/system-services"]
 aliases: ["AudioManager는 포커스 요청으로 여러 앱의 동시 재생을 조정한다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,11 +13,11 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-여러 앱이 동시에 소리를 재생하려 할 때, Android는 오디오 하드웨어를 직접 잠그는 대신 "오디오 포커스"라는 협력적 신호 체계로 조정한다. 앱은 재생 전 `AudioManager`(또는 `AudioFocusRequest`)로 포커스를 요청하고, 시스템은 다른 포커스 보유자에게 콜백으로 통지한 뒤 요청자에게 포커스를 부여할지 결정한다.
+여러 앱이 동시에 소리를 재생하려 할 때, Android는 오디오 하드웨어를 직접 잠그는 대신 "오디오 포커스"라는 협력적 신호 체계로 조정한다. 앱은 재생 전 `AudioManager`(오디오 출력 및 시스템 음량을 제어하는 대표 시스템 서비스) 또는 `AudioFocusRequest`(오디오 포커스 요청 속성 및 캡처 옵션을 캡슐화한 빌더 객체)로 포커스를 요청하고, 시스템은 다른 포커스 보유자에게 콜백으로 통지한 뒤 요청자에게 포커스를 부여할지 결정한다.
 
 ### 메커니즘
 
-포커스 요청 타입은 상황에 따라 다르다. `AUDIOFOCUS_GAIN`은 배타적 재생(음악 앱), `AUDIOFOCUS_GAIN_TRANSIENT`는 짧은 알림음처럼 일시적 재생, `AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK`는 내비게이션 안내처럼 다른 앱 소리를 줄이기만 하면 되는 경우에 사용한다. 시스템은 포커스를 새 요청자에게 넘기면서 이전 보유자의 `OnAudioFocusChangeListener`에 `AUDIOFOCUS_LOSS`(영구 상실) 또는 `AUDIOFOCUS_LOSS_TRANSIENT`(일시 상실)를 통지한다.
+포커스 요청 타입은 상황에 따라 다르다. `AUDIOFOCUS_GAIN`은 배타적 재생(음악 앱), `AUDIOFOCUS_GAIN_TRANSIENT`는 짧은 알림음처럼 일시적 재생, `AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK`는 내비게이션 안내처럼 다른 앱 소리를 일시적으로 줄이는 **덕킹**(ducking)을 적용할 때 사용한다. 시스템은 포커스를 새 요청자에게 넘기면서 이전 보유자의 `OnAudioFocusChangeListener`에 `AUDIOFOCUS_LOSS`(영구 상실) 또는 `AUDIOFOCUS_LOSS_TRANSIENT`(일시 상실)를 통지한다.
 
 이 체계는 강제가 아니라 협력적 규약이다. 앱이 포커스를 잃고도 콜백을 무시하고 계속 재생하면 시스템이 강제로 소리를 끄지는 않지만, 다른 앱과 소리가 겹치는 나쁜 사용자 경험이 발생한다.
 

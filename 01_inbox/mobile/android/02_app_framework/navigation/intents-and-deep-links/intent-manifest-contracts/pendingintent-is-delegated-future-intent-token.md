@@ -2,13 +2,15 @@
 title: pendingintent-is-delegated-future-intent-token
 tags: [android, android/intents, android/navigation]
 aliases: ["PendingIntent 는 나중에 실행할 권한을 위임하는 토큰이다"]
-date modified: 2026-08-03 18:11:47 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## PendingIntent 는 나중에 실행할 권한을 위임하는 토큰이다
+## **PendingIntent**(외부 시스템 프로세스가 미래 시점에 미리 설정된 Intent를 내 앱의 권한으로 실행하도록 위임하는 보안 토큰) 는 나중에 실행할 권한을 위임하는 토큰이다
 
-상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
+
+배경 지식: [인증과 인가](../../../../../../security/fundamentals/authentication-authorization.md)
 
 ### 개념
 

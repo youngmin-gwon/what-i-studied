@@ -2,7 +2,7 @@
 title: ble-background-scanning-is-battery-constrained-and-needs-scan-filters
 tags: ["android", "android/system-services"]
 aliases: ["BLE 백그라운드 스캔은 배터리 제약을 받으며 ScanFilter가 필요하다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 핵심 정의
 
-BLE 스캔은 라디오를 계속 켜 두는 동작이라 배터리 비용이 크다. 공식 문서는 앱 프로세스가 살아있는 한 화면 상태와 무관하게 스캔 API 자체는 계속 쓸 수 있다고 설명하지만, 그 방식을 무조건 허용하지는 않는다.
+**BLE 스캔**(주변의 Bluetooth Low Energy 기기가 브로드캐스팅하는 광고 패킷을 탐지하는 동작)은 무선 라디오 모듈을 계속 켜 두는 동작이라 배터리 비용이 매우 크다. 공식 문서는 앱 프로세스가 살아있는 한 화면 상태와 무관하게 스캔 API 자체는 계속 쓸 수 있다고 설명하지만, 그 방식을 무조건 허용하지는 않는다.
 
 > "There is no limitation on using either of these APIs while the app is not visible, but they do both need your app process to be alive."
 
@@ -27,9 +27,9 @@ BLE 스캔은 라디오를 계속 켜 두는 동작이라 배터리 비용이 �
 >
 > "Call `startScan()` with a `PendingIntent` object instead of a `ScanCallback` object to get notified when a device matching your filter is scanned."
 
-`PendingIntent` 기반 `startScan()`은 스캔 결과 콜백을 프로세스가 죽어 있어도 시스템이 broadcast로 전달하게 만든다. 이는 6장(Binder/coroutine/durable scheduler)이 설명한 것과 같은 원리다 — 화면이나 현재 프로세스의 lifetime이 아니라 시스템이 보장하는 durable한 전달 수단에 위임하는 것이다. 지속적으로 연결이 필요한 시나리오에는 `WorkManager`, `connectedDevice` 타입 foreground service, `CompanionDeviceService` 같은 durable한 실행 수단을 조합해야 한다.
+`PendingIntent`(시스템이나 다른 프로세스가 앱을 대신해 지정된 Intent를 실행하도록 권한을 전달하는 래퍼 객체) 기반 `startScan()`은 스캔 결과 콜백을 프로세스가 죽어 있어도 시스템이 broadcast로 전달하게 만든다. 이는 6장(Binder/coroutine/durable scheduler)이 설명한 것과 같은 원리다 — 화면이나 현재 프로세스의 lifetime이 아니라 시스템이 보장하는 durable한 전달 수단에 위임하는 것이다. 지속적으로 연결이 필요한 시나리오에는 `WorkManager`, `connectedDevice` 타입 foreground service, `CompanionDeviceService` 같은 durable한 실행 수단을 조합해야 한다.
 
-`ScanFilter`는 스캔 자체의 무분별한 결과 수신을 줄이는 두 번째 축이다. 필터 없이 스캔하면 주변의 모든 BLE 기기 광고 패킷이 콜백으로 전달되어 처리 비용이 커진다. 서비스 UUID나 기기 이름으로 필터링하면 원하는 기기만 결과로 받는다.
+**ScanFilter**(원하는 서비스 UUID나 기기 명칭을 가진 패킷만 필터링하여 수신하는 객체)는 스캔 자체의 무분별한 결과 수신을 줄이는 두 번째 축이다. 필터 없이 스캔하면 주변의 모든 BLE 기기 광고 패킷이 콜백으로 전달되어 처리 비용이 커진다. 서비스 UUID나 기기 이름으로 필터링하면 원하는 기기만 결과로 받는다.
 
 ### 코드 예시
 

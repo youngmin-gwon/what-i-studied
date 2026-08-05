@@ -2,17 +2,19 @@
 title: deep-link-testing-validates-resolution-verification-and-routing
 tags: [android, android/deep-links, android/navigation]
 aliases: ["Android Deep Links 와 App Links 테스트 및 디버깅"]
-date modified: 2026-08-03 18:11:27 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Android Deep Links 와 App Links 테스트 및 디버깅
 
-상위 문서: [Deep Link 계약](./deep-link-contracts.md)
+상위 문서: [Deep Link 계약](deep-link-contracts.md)
+
+배경 지식: [암호학 기초](../../../../../../security/fundamentals/cryptography-basics.md)
 
 ### 테스트 층위
 
-딥 링크는 URI 파싱, Intent 매칭, 도메인 검증, 앱 라우팅을 나눠서 테스트한다.
+딥 링크는 **URI 파싱**(외부 URI 문자열의 스키마, 호스트, 파라미터를 분석하여 내부 목적지로 변환하는 검증 절차), Intent 매칭, 도메인 검증, 앱 라우팅을 나눠서 테스트한다.
 
 URI 파싱 테스트는 허용된 scheme, host, path, query 와 잘못된 입력을 검증한다.
 
@@ -75,9 +77,9 @@ debug 와 release 인증서 지문이 서로 다른지 배포 변형별로 확�
 
 서버 파일은 [assetlinks.json 구성](https://developer.android.com/training/app-links/configure-assetlinks) 을 따른다.
 
-동적 규칙의 범위는 [Dynamic App Links는 선언 범위를 확장하지 않는다](./dynamic-app-links-refine-but-do-not-expand-manifest-scope.md) 에서 확인한다.
+동적 규칙의 범위는 [Dynamic App Links는 선언 범위를 확장하지 않는다](dynamic-app-links-refine-but-do-not-expand-manifest-scope.md) 에서 확인한다.
 
-알림 클릭 흐름은 [알림은 PendingIntent로 딥 링크 여정을 시작한다](./notification-deep-link-needs-explicit-task-and-back-stack-policy.md) 와 함께 검증한다.
+알림 클릭 흐름은 [알림은 PendingIntent로 딥 링크 여정을 시작한다](notification-deep-link-needs-explicit-task-and-back-stack-policy.md) 와 함께 검증한다.
 
 ### 결론
 

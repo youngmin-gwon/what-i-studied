@@ -2,12 +2,13 @@
 title: broadcastreceiver-is-short-lived-event-entry-point-not-background-worker
 tags: [android, android/app-components, android/architecture]
 aliases: ["BroadcastReceiver는 짧은 이벤트 entry point이지 background worker가 아니다"]
-date modified: 2026-08-04 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## BroadcastReceiver 는 짧은 이벤트 entry point 이지 background worker 가 아니다
 
+상위 문서: [App Component Contracts](./app-component-contracts.md)
 BroadcastReceiver 는 system 이나 app 이 보낸 broadcast message 를 받는 짧은 실행 경계다. `onReceive` 안에서 오래 걸리는 작업을 직접 처리하는 구조가 아니다.
 
 Manifest-declared receiver 와 context-registered receiver 는 발견 방식, lifetime, export 정책이 다르다. Android 8 이후 manifest implicit broadcast 에는 제한이 있으므로 "모든 implicit broadcast 가 항상 온다"는 식의 모델은 맞지 않다.

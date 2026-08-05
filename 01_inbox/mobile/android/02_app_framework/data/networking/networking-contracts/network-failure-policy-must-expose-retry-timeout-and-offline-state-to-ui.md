@@ -1,10 +1,13 @@
 ---
 title: network-failure-policy-must-expose-retry-timeout-and-offline-state-to-ui
 tags: [android, android/data, android/networking]
-aliases: ["Timeout·재시도 정책은 UI에 노출할 실패 상태를 결정하고 offline-first 로컬 쓰기와 연결된다"]
-date modified: 2026-08-04 18:00:00 +09:00
+aliases: ["Timeout·재시도 정책은 UI에 노출할 실패 상태를 결정하고 offline-first(네트워크 연결 상태와 상관없이 로컬 DB에 데이터를 먼저 작성하고 백그라운드 동기화를 수행하는 구조) 로컬 쓰기와 연결된다"]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
+
+배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md)
+
 
 ## Timeout·재시도 정책은 UI 에 노출할 실패 상태를 결정하고 offline-first 로컬 쓰기와 연결된다
 

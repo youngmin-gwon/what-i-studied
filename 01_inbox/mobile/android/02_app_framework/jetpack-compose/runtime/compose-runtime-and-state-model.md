@@ -2,11 +2,12 @@
 title: compose-runtime-and-state-model
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Compose mental model, Compose Runtime]
-date modified: 2026-08-03 18:11:02 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## Compose runtime and state model
+배경 지식: [메모리 레이아웃 및 캐시](../../../../../../02_references/computer-science/memory-layout-and-cache.md)
 
 Compose Runtime 은 Composable 을 UI 객체로 보지 않고, state 를 읽고 UI 설명을 만드는 함수 호출로 다룬다. 이 지도는 기존 Compose internals, Flutter 비교, compiler/slot table, phases 문서를 runtime 계약 단위로 다시 묶는다.
 
@@ -15,9 +16,9 @@ Compose Runtime 은 Composable 을 UI 객체로 보지 않고, state 를 읽고 
 ### 읽는 순서
 
 - [Compose UI는 상태를 입력으로 계산되는 선언적 결과다](./compose-runtime-contracts/compose-ui-is-declarative-function-of-state.md)
-- [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./compose-runtime-contracts/recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md)
+- [**Recomposition**(상태 변경 시 영향을 받는 Composable 스코프만 선택적으로 재실행하여 UI 트리를 갱신하는 과정)은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./compose-runtime-contracts/recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md)
 - [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](./compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md)
-- [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](./compose-runtime-contracts/snapshot-state-observation-invalidates-state-read-scopes.md)
+- [**Snapshot**(상태 읽기/쓰기 변경을 트랜잭션 단위로 추적하여 영향받는 스코프에 무효화 알림을 보내는 상태 관찰 시스템) State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](./compose-runtime-contracts/snapshot-state-observation-invalidates-state-read-scopes.md)
 - [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](./compose-runtime-contracts/remember-is-composition-scoped-storage-not-general-cache.md)
 - [Composition은 호출 위치 identity로 remember 값을 보존한다](./compose-runtime-contracts/composition-uses-callsite-identity-to-preserve-remembered-values.md)
 - [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md)

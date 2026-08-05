@@ -2,13 +2,15 @@
 title: manifest-and-assetlinks-have-distinct-roles
 tags: [android, android/deep-links, android/navigation]
 aliases: ["매니페스트 선언과 assetlinks.json 의 역할"]
-date modified: 2026-08-03 18:11:30 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## 매니페스트 선언과 assetlinks.json 의 역할
+## 매니페스트 선언과 **assetlinks.json**(웹 도메인의 /.well-known/ 경로에 배치하여 도메인이 지정된 안드로이드 앱의 소유임을 증명하는 JSON 인증 파일) 의 역할
 
-상위 문서: [Deep Link 계약](./deep-link-contracts.md)
+상위 문서: [Deep Link 계약](deep-link-contracts.md)
+
+배경 지식: [암호학 기초](../../../../../../security/fundamentals/cryptography-basics.md)
 
 관련 노트: [AndroidManifest는 OS가 발견할 컴포넌트와 진입점을 선언한다](../intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md)
 
@@ -75,13 +77,13 @@ assetlinks.json 에 경로를 적었다고 매니페스트의 host 범위가 넓
 
 ### 검토 순서
 
-먼저 [Android 딥 링크는 외부 URI 계약이다](./deep-link-is-external-uri-contract.md) 의 URI 범위를 정한다.
+먼저 [Android 딥 링크는 외부 URI 계약이다](deep-link-is-external-uri-contract.md) 의 URI 범위를 정한다.
 
 그 다음 매니페스트 선언을 작성하고 필요 이상으로 넓지 않은지 확인한다.
 
 서버에는 [assetlinks.json 구성](https://developer.android.com/training/app-links/configure-assetlinks) 에 맞는 파일을 배포한다.
 
-검증 결과와 실제 화면 라우팅은 [App Links 테스트와 디버깅](./deep-link-testing-validates-resolution-verification-and-routing.md) 으로 확인한다.
+검증 결과와 실제 화면 라우팅은 [App Links 테스트와 디버깅](deep-link-testing-validates-resolution-verification-and-routing.md) 으로 확인한다.
 
 ### 핵심 판단
 

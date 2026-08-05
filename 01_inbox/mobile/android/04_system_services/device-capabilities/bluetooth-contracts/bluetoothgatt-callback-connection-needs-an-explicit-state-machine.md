@@ -2,7 +2,7 @@
 title: bluetoothgatt-callback-connection-needs-an-explicit-state-machine
 tags: ["android", "android/system-services"]
 aliases: ["BluetoothGatt 콜백 기반 연결은 명시적 상태 머신이 필요하다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,13 +13,13 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 핵심 정의
 
-`device.connectGatt()`는 연결이 완료되기 전에 즉시 `BluetoothGatt` 객체를 반환한다. 공식 문서가 설명하듯, 이 메서드는 연결 결과를 동기적으로 알려주지 않는다.
+`device.connectGatt()`는 연결이 완료되기 전에 즉시 **BluetoothGatt**(BLE 주변기기와 GATT 통신을 다루는 메인 인터페이스) 객체를 반환한다. 공식 문서가 설명하듯, 이 메서드는 연결 결과를 동기적으로 알려주지 않는다.
 
 > "To connect to a GATT server on a BLE device, use the `connectGatt()` method. This method takes three parameters: a `Context` object, `autoConnect` ... and a reference to a `BluetoothGattCallback`"
 >
 > "The `onConnectionStateChange()` function is triggered when the connection to the device's GATT server changes."
 
-즉 `BluetoothGatt` 객체가 non-null이라는 것은 "연결을 시도할 수단을 얻었다"는 뜻이지 "연결됐다"는 뜻이 아니다. 실제 연결 여부는 `onConnectionStateChange()` 콜백이 비동기로 알려주기 전까지 알 수 없다. 이 비동기성 때문에 앱은 자체 상태 변수로 현재 연결 단계를 명시적으로 추적해야 한다 — 그러지 않으면 `discoverServices()`나 `writeCharacteristic()`을 아직 연결되지 않은 `BluetoothGatt`에 호출해 조용히 실패하거나 예외를 유발한다.
+즉 `BluetoothGatt` 객체가 non-null이라는 것은 "연결을 시도할 수단을 얻었다"는 뜻이지 "연결됐다"는 뜻이 아니다. 실제 연결 여부는 **BluetoothGattCallback**(연결 상태 전이, 서비스 발견, 데이터 읽기/쓰기 결과를 비동기 콜백으로 수신받는 추상 클래스)의 `onConnectionStateChange()` 콜백이 비동기로 알려주기 전까지 알 수 없다. 이 비동기성 때문에 앱은 자체 상태 변수로 현재 연결 단계를 명시적으로 추적해야 한다 — 그러지 않으면 `discoverServices()`나 `writeCharacteristic()`을 아직 연결되지 않은 `BluetoothGatt`에 호출해 조용히 실패하거나 예외를 유발한다.
 
 ### 메커니즘
 

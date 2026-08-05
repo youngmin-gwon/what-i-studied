@@ -2,9 +2,12 @@
 title: file-access-contracts
 tags: [android, android/data, android/file-access-contracts, android/storage]
 aliases: ["파일 접근 계약"]
-date modified: 2026-08-03 18:08:30 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
+
+배경 지식: [리눅스 파일 시스템](../../../../../../linux/filesystems.md)
+
 
 ## 파일 접근 계약
 

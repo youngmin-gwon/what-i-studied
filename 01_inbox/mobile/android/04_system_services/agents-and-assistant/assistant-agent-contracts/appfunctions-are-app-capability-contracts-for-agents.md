@@ -2,7 +2,7 @@
 title: appfunctions-are-app-capability-contracts-for-agents
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 18:13:12 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2026-07-31 17:42:24 +09:00
 
 ### 현재 상태
 
-AppFunctions 는 앱의 기능과 데이터를 Android 시스템의 registry 에 제공해 에이전트와 assistant 가 작업을 발견하고 실행하도록 하는 Android 16+ API 다.
+**AppFunctions**는 앱의 핵심 기능과 데이터를 Android OS 시스템 registry에 제공해 에이전트와 assistant가 작업을 발견하고 백그라운드에서 직접 실행할 수 있도록 연결하는 Android 16+ 정형화 플랫폼 API다.
 
 2026-08-03 기준 Android Developers 문서는 API 를 **experimental preview**로 설명한다.
 

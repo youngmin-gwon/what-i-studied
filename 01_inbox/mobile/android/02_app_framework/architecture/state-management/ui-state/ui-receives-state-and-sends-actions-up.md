@@ -2,7 +2,7 @@
 title: ui-receives-state-and-sends-actions-up
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["UI는 상태를 아래로 받고 사용자 행동을 위로 전달한다"]
-date modified: 2026-08-03 17:27:49 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

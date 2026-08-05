@@ -2,7 +2,7 @@
 title: sensor-contracts
 tags: ["android", "android/system-services"]
 aliases: ["센서 접근 계약"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 

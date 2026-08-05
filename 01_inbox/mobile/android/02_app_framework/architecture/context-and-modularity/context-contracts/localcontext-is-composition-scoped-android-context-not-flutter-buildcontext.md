@@ -2,12 +2,13 @@
 title: localcontext-is-composition-scoped-android-context-not-flutter-buildcontext
 tags: [android, android/architecture, android/context]
 aliases: ["LocalContext는 Composition에서 읽는 Android Context이지 Flutter BuildContext가 아니다"]
-date modified: 2026-08-04 13:20:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## LocalContext 는 Composition 에서 읽는 Android Context 이지 Flutter BuildContext 가 아니다
 
+상위 문서: [Android Context Boundaries](../android-context-boundaries.md)
 `LocalContext.current` 는 Compose tree 를 통해 전달되는 현재 Android `Context` 다. resource formatting, toast, activity start 같은 UI event 근처의 Android API 호출에 사용할 수 있다.
 
 이 값은 Flutter 의 `BuildContext` 와 같지 않다. Flutter `BuildContext` 는 widget 이 element tree 에서 어디에 있는지를 나타내는 handle 이고, Android `Context` 는 platform environment capability 다. 둘 다 유효 수명 밖에서 쓰면 문제가 되지만, 소유 모델과 실패 방식은 다르다.

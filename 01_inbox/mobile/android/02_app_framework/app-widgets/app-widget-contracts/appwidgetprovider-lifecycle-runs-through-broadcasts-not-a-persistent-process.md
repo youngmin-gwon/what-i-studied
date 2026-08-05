@@ -2,13 +2,13 @@
 title: appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process
 tags: [android, android/app-widgets]
 aliases: ["AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 13:15:02 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
 ## AppWidgetProvider lifecycle 은 지속 프로세스가 아니라 broadcast 로 갱신된다
 
-`AppWidgetProvider` 는 `BroadcastReceiver` 의 하위 클래스다. Activity 처럼 화면을 소유한 채 계속 살아있는 컴포넌트가 아니고, Service 처럼 명시적으로 시작해 오래 실행하는 컴포넌트도 아니다. 시스템(launcher/home 이 host 인 `AppWidgetHost`)이 `AppWidgetManager` 를 거쳐 broadcast 를 보낼 때마다 `onReceive()` 가 호출되고, 그 안에서 action 에 따라 `onUpdate`, `onEnabled`, `onDisabled`, `onDeleted`, `onAppWidgetOptionsChanged` 로 분기한다. 각 호출 사이에 widget 전용 프로세스나 인스턴스가 계속 남아 있다고 가정하면 안 된다.
+`AppWidgetProvider` 는 `BroadcastReceiver` 의 하위 클래스다. Activity 처럼 화면을 소유한 채 계속 살아있는 컴포넌트가 아니고, Service 처럼 명시적으로 시작해 오래 실행하는 컴포넌트도 아니다. 시스템(launcher/home 이 host 인 `AppWidgetHost`)이 `AppWidgetManager`(안드로이드 시스템에 등록된 위젯 상태를 업데이트하고 관리하는 서비스)를 거쳐 broadcast 를 보낼 때마다 `onReceive()` 가 호출되고, 그 안에서 action 에 따라 `onUpdate`, `onEnabled`, `onDisabled`, `onDeleted`, `onAppWidgetOptionsChanged` 로 분기한다. 각 호출 사이에 widget 전용 프로세스나 인스턴스가 계속 남아 있다고 가정하면 안 된다.
 
 ### 내부 동작 메커니즘
 

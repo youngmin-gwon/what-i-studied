@@ -2,7 +2,7 @@
 title: compose-layout-animation-accessibility
 tags: [android, compose/ui, jetpack-compose]
 aliases: [Compose accessibility, Compose layout, Compose UI]
-date modified: 2026-08-04 16:28:58 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
@@ -18,7 +18,7 @@ Compose UI 정본은 Runtime mental model 과 분리해 layout, modifier, custom
 - [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](./compose-ui-contracts/modifier-order-changes-layout-draw-and-input-wrappers.md)
 - [Size modifier는 incoming constraint 안에서 요청 크기를 해석한다](./compose-ui-contracts/size-modifiers-interpret-requested-size-inside-incoming-constraints.md)
 - [Custom Layout은 자식 측정과 배치를 직접 책임진다](./compose-ui-contracts/custom-layout-measures-and-places-children-explicitly.md)
-- [Intrinsic measurement와 SubcomposeLayout은 특수한 측정 문제를 해결한다](./compose-ui-contracts/intrinsic-measurement-and-subcompose-layout-solve-special-measurement-problems.md)
+- [Intrinsic measurement와 **SubcomposeLayout**(상위 레이아웃 계산 중 하위 요소 측정 결과를 바탕으로 하위 Composition을 동적으로 구성하는 레이아웃 API)은 특수한 측정 문제를 해결한다](./compose-ui-contracts/intrinsic-measurement-and-subcompose-layout-solve-special-measurement-problems.md)
 
 ### Animation
 
@@ -28,7 +28,7 @@ Compose UI 정본은 Runtime mental model 과 분리해 layout, modifier, custom
 
 ### Accessibility
 
-- [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](./compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md)
+- [**Semantics**(접근성 서비스 및 UI 테스트 프레임워크가 읽을 수 있도록 UI 요소의 의미적 정보를 캡슐화한 정보 트리) Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](./compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md)
 - [시각 정보와 제스처에는 읽을 수 있는 의미와 대체 동작이 필요하다](./compose-ui-contracts/visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)
 - [Semantics 병합, 정리, 탐색 순서는 의미 단위를 조정한다](./compose-ui-contracts/semantics-merging-clearing-and-traversal-control-the-unit-of-meaning.md)
 - [접근성 품질은 서비스, 검사기, Semantics 테스트로 검증한다](./compose-ui-contracts/accessibility-quality-requires-service-scanner-and-semantics-verification.md)

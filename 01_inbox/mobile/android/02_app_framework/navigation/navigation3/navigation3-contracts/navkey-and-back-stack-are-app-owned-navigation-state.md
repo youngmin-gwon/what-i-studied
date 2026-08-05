@@ -2,13 +2,13 @@
 title: navkey-and-back-stack-are-app-owned-navigation-state
 tags: [android, android/navigation, android/navigation3]
 aliases: ["NavKey 와 back stack 은 앱 내부 상태다"]
-date modified: 2026-08-03 18:12:03 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## NavKey 와 back stack 은 앱 내부 상태다
+## **NavKey**(내비게이션 목적지와 필요한 최소 인자를 캡슐화한 타입 안정성 보장 상태 객체) 와 back stack 은 앱 내부 상태다
 
-상위 문서: [Navigation 3 계약](./navigation3-contracts.md)
+상위 문서: [Navigation 3 계약](navigation3-contracts.md)
 
 ### 핵심 주장
 
@@ -16,7 +16,7 @@ Navigation 3 에서 화면 이동은 문자열 주소를 해석하는 일이 아
 
 `NavKey` 는 현재 화면의 정체성과 복원에 필요한 최소 인자를 표현한다.
 
-`NavBackStack` 은 그 key 들이 쌓인 순서이며 앱이 소유하는 Compose 상태다.
+`**NavBackStack**(앱이 직접 관리하고 복원할 수 있는 NavKey 스택 컬렉션 상태)` 은 그 key 들이 쌓인 순서이며 앱이 소유하는 Compose 상태다.
 
 ```kotlin
 @Serializable

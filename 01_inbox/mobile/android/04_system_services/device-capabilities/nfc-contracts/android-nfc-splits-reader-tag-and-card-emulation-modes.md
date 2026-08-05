@@ -2,7 +2,7 @@
 title: android-nfc-splits-reader-tag-and-card-emulation-modes
 tags: ["android", "android/system-services"]
 aliases: ["Android NFC는 리더, 태그, 카드 에뮬레이션 모드로 나뉜다"]
-date modified: 2026-08-04 15:30:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:46:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-07-31 17:46:00 +09:00
 
 ### 핵심 정의
 
-NFC는 가까운 거리에서 장치와 태그가 통신하는 무선 기술이다.
+`NFC`(Near Field Communication, 13.56MHz 대역을 이용해 약 10cm 이내의 가까운 거리에서 비접촉 무선 데이터 통신을 수행하는 기술)는 가까운 거리에서 장치와 태그가 통신하는 무선 기술이다.
 Android NFC는 크게 리더/라이터 모드와 카드 에뮬레이션 모드로 나뉜다.
 리더/라이터 모드에서는 휴대전화가 수동 태그를 읽거나 쓴다.
 카드 에뮬레이션 모드에서는 휴대전화가 외부 리더에 카드처럼 보인다.
@@ -22,17 +22,17 @@ Android NFC는 크게 리더/라이터 모드와 카드 에뮬레이션 모드�
 
 첫째, 태그를 발견하고 데이터를 해석하는 문제는 태그 디스패치의 영역이다.
 둘째, 태그와 원시 바이트를 교환하는 문제는 TagTechnology API의 영역이다.
-셋째, 결제 단말과 APDU를 교환하는 문제는 카드 에뮬레이션의 영역이다.
-NDEF 태그와 HCE 결제는 모두 NFC를 사용하지만 같은 프로토콜 흐름이 아니다.
+셋째, 결제 단말과 `APDU`(Application Protocol Data Unit, 스마트카드와 리더 간 통신에 사용되는 표준 명령/응답 패킷 규격)를 교환하는 문제는 카드 에뮬레이션의 영역이다.
+`NDEF`(NFC Data Exchange Format, NFC 태그나 장치 간에 데이터를 교환하기 위한 경량 바이너리 포맷) 태그와 HCE 결제는 모두 NFC를 사용하지만 같은 프로토콜 흐름이 아니다.
 
 ### Android API의 위치
 
-NfcAdapter는 장치의 NFC 어댑터와 기본 기능 접근점이다.
+`NfcAdapter`는 장치의 NFC 어댑터(NFC 칩셋 하드웨어 및 수명주기를 관장하는 제어 진입점)와 기본 기능 접근점이다.
 Tag는 발견된 태그의 식별자와 지원 기술 목록을 담는다.
 Ndef는 NDEF로 포맷된 태그의 메시지 읽기와 쓰기를 제공한다.
 NdefFormatable은 포맷 가능한 태그를 NDEF로 초기화할 때 사용한다.
 NfcA, NfcB, NfcF, NfcV는 기술별 저수준 통신을 제공한다.
-IsoDep는 ISO-DEP 기반 통신에 사용되며 HCE 리더 구현과도 관련된다.
+`IsoDep`는 ISO-DEP(ISO/IEC 14443-4) 기반 통신에 사용되며 HCE 리더 구현과도 관련된다.
 
 ### 시스템이 앱을 선택하는 방식
 

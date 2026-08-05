@@ -2,7 +2,7 @@
 title: di-tests-replace-bindings-at-graph-boundary
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:09:26 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
@@ -18,4 +18,4 @@ DI 가 테스트에 주는 이점은 production code 내부의 생성 코드를 
 
 ### 경계
 
-- 개별 유닛 테스트에서는 가급적 DI 프레임워크를 띄우지 않고 생성자에 직접 Fake 를 주입하며, Hilt 등 DI 프레임워크를 활용한 바인딩 교체는 통합 테스트나 UI 테스트 범위에서만 사용한다.
+- 개별 유닛 테스트에서는 가급적 DI 프레임워크를 띄우지 않고 생성자에 직접 Fake 를 주입하며, **Hilt**(**Dagger**(컴파일 타임에 의존성 그래프를 정적으로 검증하고 코드 생성을 수행하는 Java/Kotlin용 DI 엔진)를 안드로이드 컴포넌트 생명주기에 맞춰 의존성 그래프 생성을 자동화하는 구글의 공식 DI 라이브러리) 등 DI 프레임워크를 활용한 바인딩 교체는 통합 테스트나 UI 테스트 범위에서만 사용한다.

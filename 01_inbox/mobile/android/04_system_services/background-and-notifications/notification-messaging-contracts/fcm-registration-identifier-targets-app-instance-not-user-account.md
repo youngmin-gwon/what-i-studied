@@ -2,7 +2,7 @@
 title: fcm-registration-identifier-targets-app-instance-not-user-account
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:36:43 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
@@ -18,7 +18,7 @@ date created: 2026-07-31 17:42:24 +09:00
 
 FCM 등록 식별자는 특정 앱 설치 또는 앱 인스턴스로 메시지를 보내기 위한 대상 값이다.
 
-2026-08-03 기준 Firebase 문서는 Firebase Installation ID(FID) 기반 등록으로 전환 중이며 FID 방식과 legacy registration token 방식을 함께 지원한다.
+2026-08-03 기준 Firebase 문서는 **FID**(Firebase Installation ID, 앱 인스턴스 고유 식별자) 기반 등록으로 전환 중이며 FID 방식과 legacy registration token 방식을 함께 지원한다.
 
 새 구현은 FID 기반 API 를 우선하고, 기존 구현은 legacy token 의 갱신·폐기 규칙을 별도 경로로 유지한다.
 

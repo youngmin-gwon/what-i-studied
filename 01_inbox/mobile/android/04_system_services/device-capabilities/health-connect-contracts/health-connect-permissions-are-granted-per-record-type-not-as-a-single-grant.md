@@ -2,7 +2,7 @@
 title: health-connect-permissions-are-granted-per-record-type-not-as-a-single-grant
 tags: ["android", "android/system-services"]
 aliases: ["Health Connect 권한은 레코드 타입별로 개별 부여된다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 20:15:00 +09:00
 ---
 
@@ -39,7 +39,7 @@ if (!granted.containsAll(permissions)) {
 }
 ```
 
-기본적으로 read 권한은 승인 시점 기준 최근 30일 데이터까지만 접근할 수 있다. 그보다 오래된 이력이 필요하면 별도의 배경 이력 읽기 권한(`PERMISSION_READ_HEALTH_DATA_HISTORY`)을 추가로 요청해야 한다 — 이 권한은 레코드 타입과 무관하게 "과거 데이터 접근 범위"를 확장하는 별개의 축이다.
+기본적으로 read 권한은 승인 시점 기준 최근 30일 데이터까지만 접근할 수 있다. 그보다 오래된 이력이 필요하면 별도의 배경 이력 읽기 권한(`PERMISSION_READ_HEALTH_DATA_HISTORY`: 권한 승인 시점 이전 30일보다 앞선 과거 전체 이력 데이터 접근을 확장 허가하는 특수 권한)을 추가로 요청해야 한다 — 이 권한은 레코드 타입과 무관하게 "과거 데이터 접근 범위"를 확장하는 별개의 축이다.
 
 ### 다이어그램
 

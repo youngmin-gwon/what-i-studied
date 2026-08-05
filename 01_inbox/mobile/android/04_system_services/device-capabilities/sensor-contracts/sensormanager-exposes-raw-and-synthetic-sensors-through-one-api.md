@@ -2,7 +2,7 @@
 title: sensormanager-exposes-raw-and-synthetic-sensors-through-one-api
 tags: ["android", "android/system-services"]
 aliases: ["SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-03 17:19:24 +09:00
 
 ### 핵심 정의
 
-`SensorManager`는 가속도계, 자이로스코프처럼 하드웨어가 직접 측정하는 raw 센서와, 회전 벡터·중력·선형 가속도처럼 여러 raw 센서를 결합해 계산하는 합성(synthetic/composite) 센서를 동일한 `Sensor`/`SensorEventListener` API로 노출한다. 앱 코드에서는 둘을 구분하는 별도 인터페이스가 없고 `Sensor.getType()`으로만 구분된다.
+`SensorManager`(기기의 온보드 센서 목록을 열거하고 리스너를 관리하는 시스템 서비스)는 가속도계, 자이로스코프처럼 하드웨어가 직접 측정하는 **raw 센서**(하드웨어가 신호 노이즈와 함께 직접 측정한 원시 물리 데이터)와, 회전 벡터·중력·선형 가속도처럼 여러 raw 센서를 결합해 계산하는 **합성 센서**(synthetic/composite sensor: 복수의 raw 센서 신호를 센서 퓨전 알고리즘으로 결합해 차원 가공된 센서)를 동일한 `Sensor`/`SensorEventListener` API로 노출한다. 앱 코드에서는 둘을 구분하는 별도 인터페이스가 없고 `Sensor.getType()`으로만 구분된다.
 
 ### 메커니즘
 

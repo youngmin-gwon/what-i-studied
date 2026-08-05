@@ -2,12 +2,13 @@
 title: architecture-decisions-start-from-owner-lifetime-and-survival-requirements
 tags: [android, android/architecture, android/jetpack]
 aliases: ["아키텍처 결정은 owner, lifetime, survival 요구에서 시작한다"]
-date modified: 2026-08-04 16:32:56 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## 아키텍처 결정은 owner, lifetime, survival 요구에서 시작한다
 
+상위 문서: [Architecture Contracts](./architecture-contracts.md)
 Android 에서 "어디에 둘까"는 대부분 lifetime 질문이다. 누가 값을 읽고 쓰는가, 화면을 잃어도 살아야 하는가, process death 이후 복구해야 하는가, 다른 앱이나 시스템이 호출할 수 있는가, 테스트에서 대체되어야 하는가를 먼저 답해야 한다.
 
 UI-only state 는 Composition 이나 UI controller 가 소유할 수 있고, screen state 는 ViewModel 이, durable app data 는 repository/storage 가, deferrable guaranteed work 는 WorkManager 가, external entry point 는 Manifest component 가 owner 가 된다.

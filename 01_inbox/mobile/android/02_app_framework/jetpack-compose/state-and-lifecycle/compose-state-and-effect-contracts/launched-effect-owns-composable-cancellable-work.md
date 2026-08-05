@@ -2,7 +2,7 @@
 title: launched-effect-owns-composable-cancellable-work
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:11:07 +09:00
+date modified: 2026-08-05 13:16:45 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
@@ -34,7 +34,7 @@ fun DetailRoute(itemId: String, onLoad: (String) -> Unit) {
 
 화면 진입 시 한 번만 실행하는 작업은 고정 key 를 사용할 수 있지만, 실제로 고정 수명이 맞는지 확인한다.
 
-effect 내부에서 읽는 값이 최신이어야 하면서 재시작은 피해야 한다면 [`rememberUpdatedState`](https://developer.android.com/develop/ui/compose/side-effects#rememberupdatedstate) 를 검토한다.
+effect 내부에서 읽는 값이 최신이어야 하면서 재시작은 피해야 한다면 [`**rememberUpdatedState**(Long-lived Effect 내부에서 Effect 재시작 없이 최신 상태/람다 값을 참조하도록 유지해 주는 API)`](https://developer.android.com/develop/ui/compose/side-effects#rememberupdatedstate) 를 검토한다.
 
 ### 적합한 작업
 
@@ -69,7 +69,7 @@ fun Screen(viewModel: ScreenViewModel) {
 
 `LaunchedEffect` 는 effect 의 owner 를 Composable 로 만든다.
 
-`viewModelScope` 는 작업의 owner 를 ViewModel 로 만든다.
+`viewModel**Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션)` 는 작업의 owner 를 ViewModel 로 만든다.
 
 둘 중 어떤 수명이 요구되는지 먼저 결정한다.
 

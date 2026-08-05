@@ -2,7 +2,7 @@
 title: selinux-policy-controls-binder-service-and-file-boundaries
 tags: [android, android/ipc, android/kernel, android/security]
 aliases: [SELinux Binder Policy, avc denied, binder call]
-date modified: 2026-08-05 14:15:00 +09:00
+date modified: 2026-08-05 16:00:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
@@ -11,9 +11,9 @@ date created: 2026-07-31 23:45:00 +09:00
 상위 문서: [Kernel contracts](kernel-contracts.md)
 배경 지식: [SELinux](01_inbox/linux/security/selinux.md), [IPC](01_inbox/operating-systems/ipc-mechanisms.md)
 
-Android SELinux(Security-Enhanced Linux) 정책은 파일 디렉터리 및 문자/블록 디바이스 액세스뿐만 아니라, `binderfs` 커널 드라이버를 통한 Binder IPC 통신, ServiceManager 서비스 등록/조회(`add`/`find`), 그리고 System Property 읽기/쓰기에 이르는 Android 전용 경계를 통합 강제한다.
+Android SELinux(Security-Enhanced Linux) 정책은 파일 디렉터리 및 문자/블록 디바이스 액세스뿐만 아니라, **binderfs**(전통적인 `/dev/binder` 캐릭터 디바이스 대신, 마운트 가능한 pseudo-filesystem 형태로 Binder 디바이스 노드를 동적으로 관리하는 커널 드라이버)를 통한 Binder IPC 통신(Binder 자체의 동작 방식은 아래 관련 문서 참고), **ServiceManager**(시스템 서비스들이 자신을 등록하고 client 가 서비스 이름으로 handle 을 찾을 수 있게 해주는 Android 의 Binder 서비스 registry) 서비스 등록/조회(`add`/`find`), 그리고 **System Property**(기기 전역에서 공유되는 key-value 설정값. `getprop`/`setprop` 으로 조회·설정한다) 읽기/쓰기에 이르는 Android 전용 경계를 통합 강제한다.
 
-단순히 Linux DAC(UID/GID) 권한이 수락되거나 Android App Permission이 부여되었다고 해서 IPC 통신이 성립하는 것이 아니며, SELinux 커널 서브시스템이 Client Domain과 Server Domain 간의 `binder { call transfer }` 클래스 규칙 및 ServiceManager `service_manager { find }` 규칙을 별도로 승인해야 한다.
+단순히 Linux DAC(UID/GID) 권한이 수락되거나 Android App Permission이 부여되었다고 해서 IPC 통신이 성립하는 것이 아니며, SELinux 커널 서브시스템이 Client Domain과 Server Domain(호출하는 프로세스와 호출받는 프로세스 각각에 매겨진 SELinux domain — domain/type 개념 자체는 [SELinux는 domain/type 정책으로 mandatory access control을 강제한다](selinux-enforces-mac-with-domain-type-policy.md) 참고) 간의 `binder { call transfer }` 클래스 규칙 및 ServiceManager `service_manager { find }` 규칙을 별도로 승인해야 한다.
 
 ---
 
@@ -44,6 +44,8 @@ graph TD
 1. **Service Lookup Stage (`service_manager`)**: Client가 ServiceManager에 정수 Handle을 요청할 때 `service_manager` 객체 클래스의 `find` 권한 검증.
 2. **IPC Transaction Stage (`binder`)**: 커널 Binder 드라이버 트랜잭션 전송 시 `binder` 객체 클래스의 `call` 및 `transfer` (Binder handle/fd 전달 권한) 검증.
 3. **FD Sharing Stage (`fd`)**: Binder를 통해 File Descriptor를 타 프로세스로 넘어줄 때 `fd { use }` 검증.
+
+위 다이어그램의 "Passed AVC Check" 는 **AVC**(Access Vector Cache — SELinux 커널이 domain-type-class 조합마다 allow/deny 결정을 검사하고 캐싱하는 컴포넌트)를 통과했다는 뜻이며, 거부되면 앞서 본 `avc: denied` 로그가 남는다.
 
 ---
 

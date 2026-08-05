@@ -2,7 +2,7 @@
 title: uistate-represents-current-screen-for-new-collectors
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["UiState는 새 collector가 받아도 안전한 현재 화면의 표현이다"]
-date modified: 2026-08-03 17:27:51 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:09:27 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
@@ -20,4 +20,4 @@ Base module 에는 feature entry contract, navigation route, dependency interfac
 
 ### 경계
 
-- 동적 모듈은 베이스 모듈에 접근할 수 있지만 반대는 불가능하므로, Dagger Component 의존성을 구성할 때 Provision Interface 를 활용하거나 Hilt 의 `@EntryPoint` 를 통해 런타임에 분리된 그래프를 연결해야 한다.
+- 동적 모듈은 베이스 모듈에 접근할 수 있지만 반대는 불가능하므로, **Dagger**(컴파일 타임에 의존성 그래프를 정적으로 검증하고 코드 생성을 수행하는 Java/Kotlin용 DI 엔진) Component 의존성을 구성할 때 Provision Interface 를 활용하거나 **Hilt**(Dagger를 안드로이드 컴포넌트 생명주기에 맞춰 의존성 그래프 생성을 자동화하는 구글의 공식 DI 라이브러리) 의 `@EntryPoint` 를 통해 런타임에 분리된 그래프를 연결해야 한다.

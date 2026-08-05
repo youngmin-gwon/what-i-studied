@@ -2,7 +2,7 @@
 title: reducer-does-not-depend-on-repository-coroutine-flow-or-android-api
 tags: [android, android/architecture, android/reducer, android/state-management]
 aliases: ["Reducer는 Repository, Coroutine, Flow, Android API에 의존하지 않는다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 

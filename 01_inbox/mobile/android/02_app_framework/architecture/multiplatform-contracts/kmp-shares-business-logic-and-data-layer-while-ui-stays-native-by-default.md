@@ -2,12 +2,13 @@
 title: kmp-shares-business-logic-and-data-layer-while-ui-stays-native-by-default
 tags: [android, android/architecture, android/multiplatform]
 aliases: ["Kotlin Multiplatform은 비즈니스 로직과 데이터 레이어를 공유하고 UI는 기본적으로 플랫폼별로 유지한다"]
-date modified: 2026-08-05 10:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
 ## Kotlin Multiplatform 은 비즈니스 로직과 데이터 레이어를 공유하고 UI 는 기본적으로 플랫폼별로 유지한다
 
+상위 문서: [Multiplatform Contracts](./multiplatform-contracts.md)
 [Android 앱 아키텍처](../android-app-architecture.md)는 UI, ViewModel, Repository 가 모두 하나의 플랫폼(Android) 안에서 동작한다고 전제한다. Kotlin Multiplatform(KMP)은 이 전제를 깨고 "어떤 코드를 여러 플랫폼이 공유하고 어떤 코드를 플랫폼별로 남길지"를 프로젝트 구조 자체로 결정하는 계약이다. 공식 문서는 이 경계를 명확히 나눈다 — "Kotlin Multiplatform is the core technology that lets you share code – such as business logic, data models, networking, and more – across multiple platforms... It focuses on code reuse without replacing the native UI unless you want it to." 즉 기본값은 "로직은 공유, UI 는 네이티브 유지"이고, UI 공유는 별도로 켜는 옵션이다.
 
 ### 내부 동작 메커니즘

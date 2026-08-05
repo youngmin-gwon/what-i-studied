@@ -2,7 +2,7 @@
 title: usermanager-separates-users-and-work-profiles-by-userhandle
 tags: ["android", "android/system-services"]
 aliases: ["UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-Android는 한 기기에서 여러 개의 격리된 사용자 공간(다중 사용자, 게스트, work profile)을 지원한다. 각 사용자 공간은 `UserHandle`로 식별되며, 같은 앱이라도 서로 다른 `UserHandle`에 각각 별도의 데이터·프로세스·UID 공간을 갖는 인스턴스로 설치될 수 있다.
+Android는 한 기기에서 여러 개의 격리된 사용자 공간(다중 사용자, 게스트, work profile)을 지원한다. 각 사용자 공간은 **UserHandle**(OS 수준의 프로필/사용자 식별 핸들)로 식별되며, 같은 앱이라도 서로 다른 `UserHandle`에 각각 별도의 데이터·프로세스·UID 공간을 갖는 인스턴스로 설치될 수 있다.
 
 ### 메커니즘
 

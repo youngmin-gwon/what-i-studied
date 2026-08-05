@@ -2,7 +2,7 @@
 title: compose-state-read-location-controls-recomposition-scope
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2026-08-03 16:59:23 +09:00
 
 관련 노트: [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../../06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
 
-Compose Runtime 은 Snapshot State 를 읽은 composable 범위를 관찰한다.
+Compose Runtime 은 **Snapshot**(상태 읽기/쓰기 변경을 트랜잭션 단위로 추적하여 영향받는 스코프에 무효화 알림을 보내는 상태 관찰 시스템) State 를 읽은 composable 범위를 관찰한다.
 
 상태를 너무 높은 곳에서 읽으면 작은 변경도 넓은 UI 를 다시 실행하게 만든다.
 

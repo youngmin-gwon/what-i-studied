@@ -2,7 +2,7 @@
 title: android-12-bluetooth-runtime-permissions-conditionally-replace-location-permission
 tags: ["android", "android/system-services"]
 aliases: ["Android 12+ Bluetooth 런타임 권한은 조건부로만 위치 권한을 대체한다"]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 핵심 정의
 
-Android 12(API 31)부터 기존 `BLUETOOTH`/`BLUETOOTH_ADMIN` manifest 권한이 세 개의 런타임 권한으로 나뉘었다. 공식 문서는 targetSdk 31+ 앱에 다음을 요구한다.
+Android 12(API 31)부터 기존 `BLUETOOTH`/`BLUETOOTH_ADMIN` manifest 권한이 세 개의 런타임 권한(`BLUETOOTH_SCAN`: 주변 기기 탐색, `BLUETOOTH_CONNECT`: 페어링된 기기 연결·통신, `BLUETOOTH_ADVERTISE`: 기기 탐색 가능 상태 노출)으로 나뉘었다. 공식 문서는 targetSdk 31+ 앱에 다음을 요구한다.
 
 > "1. If your app looks for Bluetooth devices, such as BLE peripherals, declare the `BLUETOOTH_SCAN` permission. 2. If your app makes the current device discoverable to other Bluetooth devices, declare the `BLUETOOTH_ADVERTISE` permission. 3. If your app communicates with already-paired Bluetooth devices, declare the `BLUETOOTH_CONNECT` permission."
 
@@ -29,7 +29,7 @@ Android 12+는 이 결합을 끊는다. 앱이 스캔 결과로 물리적 위치
 
 > "If your app uses Bluetooth scan results to derive physical location, declare the `ACCESS_FINE_LOCATION` permission. Otherwise, you can strongly assert that your app doesn't derive physical location and set `android:maxSdkVersion` to 30 for the `ACCESS_FINE_LOCATION` permission."
 
-이 선언은 `BLUETOOTH_SCAN`에 `android:usesPermissionFlags="neverForLocation"`을 붙이는 것으로 이뤄지며, 대가가 있다.
+이 선언은 `BLUETOOTH_SCAN`에 `android:usesPermissionFlags="neverForLocation"`(앱이 스캔 데이터를 위치 추정에 사용하지 않는다고 선언하는 매니페스트 플래그)을 붙이는 것으로 이뤄지며, 대가가 있다.
 
 > "If you include `neverForLocation` in your `android:usesPermissionFlags`, some BLE beacons are filtered from the scan results."
 

@@ -2,13 +2,15 @@
 title: intent-describes-component-action-request
 tags: [android, android/intents, android/navigation]
 aliases: ["Android Intent 는 컴포넌트 실행을 설명하는 메시지다"]
-date modified: 2026-08-03 18:11:37 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Android Intent 는 컴포넌트 실행을 설명하는 메시지다
+## Android **Intent**(앱 컴포넌트 실행 및 데이터 전달을 요청하는 안드로이드 메시지 전달 객체) 는 컴포넌트 실행을 설명하는 메시지다
 
-상위 문서: [Intent와 Manifest 계약](./intent-manifest-contracts.md)
+상위 문서: [Intent와 Manifest 계약](intent-manifest-contracts.md)
+
+배경 지식: [IPC 메커니즘](../../../../../../operating-systems/ipc-mechanisms.md)
 
 ### 핵심 주장
 
