@@ -2,7 +2,7 @@
 title: kernel
 tags: [kernel, linux, operating-systems, os]
 aliases: [OS 커널, 운영체제 커널, 커널]
-date modified: 2025-12-18 16:25:39 +09:00
+date modified: 2026-08-05 14:00:00 +09:00
 date created: 2025-12-16 21:01:14 +09:00
 ---
 
@@ -520,4 +520,4 @@ dmesg | tail
 
 ## 연결 문서
 
-[[android-kernel]] - 안드로이드 특화 커널 수정 사항
+[Android kernel은 Linux에 모바일 플랫폼 정책을 더한 커널이다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/android-kernel-is-linux-plus-mobile-platform-policy.md) - 안드로이드 특화 커널 수정 사항(Binder, LMKD, SystemSuspend 등)

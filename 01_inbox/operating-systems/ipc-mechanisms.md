@@ -1,8 +1,8 @@
 ---
-title: Inter-Process Communication (IPC) Mechanisms
-tags: [operating-systems, ipc, process-management, communication, linux]
-aliases: [IPC, 프로세스 간 통신, Process Communication]
-date modified: 2025-12-20 00:02:18 +09:00
+title: ipc-mechanisms
+tags: [communication, ipc, linux, operating-systems, process-management]
+aliases: [IPC, Process Communication, 프로세스 간 통신]
+date modified: 2026-08-05 11:35:06 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 
@@ -10,24 +10,24 @@ date created: 2025-12-20 00:02:18 +09:00
 
 **IPC (Inter-Process Communication)** 는 [[process-states-lifecycle|프로세스]] 간에 데이터를 교환하고 동기화하는 메커니즘입니다. 각 프로세스는 독립된 메모리 공간을 가지므로, 커널이 제공하는 IPC 메커니즘을 통해서만 통신할 수 있습니다.
 
-## 🎯 IPC가 필요한 이유 (Why IPC?)
+## 🎯 IPC 가 필요한 이유 (Why IPC?)
 
 1. **메모리 격리**: 프로세스는 다른 프로세스의 메모리에 직접 접근 불가
 2. **협업**: 여러 프로세스가 협력하여 작업 수행
-3. **클라이언트-서버 모델**: 서비스 제공 프로세스와 클라이언트 간 통신
+3. **클라이언트 - 서버 모델**: 서비스 제공 프로세스와 클라이언트 간 통신
 4. **이벤트 알림**: 한 프로세스의 상태 변화를 다른 프로세스에 알림
 
 ## 🔧 IPC 메커니즘 비교 (IPC Mechanisms Comparison)
 
-| 메커니즘 | 방향 | 데이터 크기 | 속도 | 네트워크 | 사용 예시 |
-|----------|------|-------------|------|----------|-----------|
-| **Pipe** | 단방향 | 제한적 | 빠름 | ❌ | 셸 파이프라인 |
-| **Named Pipe (FIFO)** | 단방향 | 제한적 | 빠름 | ❌ | 로그 수집 |
-| **Message Queue** | 양방향 | 중간 | 중간 | ❌ | 비동기 작업 |
-| **Shared Memory** | 양방향 | 큼 | 매우 빠름 | ❌ | 고성능 데이터 교환 |
-| **Semaphore** | - | - | 빠름 | ❌ | 동기화, 락 |
-| **Socket** | 양방향 | 큼 | 느림 | ✅ | 네트워크 통신 |
-| **[[signals\|Signal]]** | 단방향 | 없음 | 빠름 | ❌ | 이벤트 통지 |
+| 메커니즘                    | 방향  | 데이터 크기 | 속도    | 네트워크 | 사용 예시      |
+| ----------------------- | --- | ------ | ----- | ---- | ---------- |
+| **Pipe**                | 단방향 | 제한적    | 빠름    | ❌    | 셸 파이프라인    |
+| **Named Pipe (FIFO)**   | 단방향 | 제한적    | 빠름    | ❌    | 로그 수집      |
+| **Message Queue**       | 양방향 | 중간     | 중간    | ❌    | 비동기 작업     |
+| **Shared Memory**       | 양방향 | 큼      | 매우 빠름 | ❌    | 고성능 데이터 교환 |
+| **Semaphore**           | -   | -      | 빠름    | ❌    | 동기화, 락     |
+| **Socket**              | 양방향 | 큼      | 느림    | ✅    | 네트워크 통신    |
+| **[[signals\|Signal]]** | 단방향 | 없음     | 빠름    | ❌    | 이벤트 통지     |
 
 ```mermaid
 graph TB
@@ -54,7 +54,7 @@ graph TB
 
 ### 익명 파이프 (Anonymous Pipe)
 
-부모-자식 프로세스 간에만 사용 가능한 단방향 통신 채널입니다.
+부모 - 자식 프로세스 간에만 사용 가능한 단방향 통신 채널입니다.
 
 ```c
 #include <unistd.h>
@@ -161,6 +161,7 @@ int main() {
 ```
 
 **명령어로 확인**:
+
 ```bash
 # 메시지 큐 목록
 ipcs -q
@@ -210,6 +211,7 @@ int main() {
 ```
 
 **주의사항**:
+
 - 동기화 필수 (Semaphore 또는 Mutex 사용)
 - Race condition 방지 필요
 
@@ -317,7 +319,7 @@ send(client_fd, "Hello", 6, 0);
 
 ## 💡 실무 사용 사례 (Real-World Use Cases)
 
-### 1. Nginx 마스터-워커 통신
+### 1. Nginx 마스터 - 워커 통신
 
 ```plaintext
 마스터 프로세스 (설정 관리)
