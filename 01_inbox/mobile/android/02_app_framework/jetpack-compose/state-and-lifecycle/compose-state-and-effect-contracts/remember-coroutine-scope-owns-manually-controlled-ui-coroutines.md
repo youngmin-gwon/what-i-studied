@@ -2,7 +2,7 @@
 title: remember-coroutine-scope-owns-manually-controlled-ui-coroutines
 tags: [android, compose/state, jetpack-compose]
 aliases: [rememberCoroutineScope, User-event Coroutines]
-date modified: 2026-08-05 18:47:04 +09:00
+date modified: 2026-08-05 18:50:59 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 

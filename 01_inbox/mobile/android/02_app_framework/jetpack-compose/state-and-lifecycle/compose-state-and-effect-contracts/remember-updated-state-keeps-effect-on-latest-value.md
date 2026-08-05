@@ -1,24 +1,27 @@
 ---
 title: remember-updated-state-keeps-effect-on-latest-value
 tags: [android, compose/state, jetpack-compose]
-aliases: [rememberUpdatedState, Latest Value Capture]
-date modified: 2026-08-05 16:15:00 +09:00
+aliases: [Latest Value Capture, rememberUpdatedState]
+date modified: 2026-08-05 18:56:27 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## rememberUpdatedState 는 effect 를 최신 값으로 유지한다
 
 ### 1. 개념 정의 (What)
-`rememberUpdatedState(newValue)`는 `LaunchedEffect`나 `DisposableEffect`처럼 작업 실행 시간이 길거나 수명주기가 긴 부작용 블록 내부에서, **이펙트를 취소하고 재시작(Restart)하지 않으면서도 항상 매 Recomposition 시 전달된 최신 파라미터 상태를 참조할 수 있도록 감싸주는 캡쳐 API**다.
+
+`rememberUpdatedState(newValue)` 는 `LaunchedEffect` 나 `DisposableEffect` 처럼 작업 실행 시간이 길거나 수명주기가 긴 Side Effect 블록 내부에서, **이펙트를 취소하고 재시작(Restart)하지 않으면서도 항상 매 Recomposition 시 전달된 최신 파라미터 상태를 참조할 수 있도록 감싸주는 캡쳐 API**다.
 
 ---
 
-### 2. rememberUpdatedState가 필요한 이유 (Why)
-장기 실행 비동기 이펙트(예: 5초 후 타임아웃 이벤트, 스플래시 화면 타이머)에 콜백 람다(`onTimeout: () -> Unit`)를 전달할 때:
-- **`LaunchedEffect(onTimeout)`**: `onTimeout` 람다가 재구성 때마다 새로운 개체로 전달되면 `LaunchedEffect`가 계속 취소되고 처음부터 다시 시작되어 타이머가 영원히 완료되지 못한다.
+### 2. rememberUpdatedState 가 필요한 이유 (Why)
+
+장기 실행 비동기 이펙트(예: 5 초 후 타임아웃 이벤트, 스플래시 화면 타이머)에 콜백 람다(`onTimeout: () -> Unit`)를 전달할 때:
+
+- **`LaunchedEffect(onTimeout)`**: `onTimeout` 람다가 재구성 때마다 새로운 개체로 전달되면 `LaunchedEffect` 가 계속 취소되고 처음부터 다시 시작되어 타이머가 영원히 완료되지 못한다.
 - **`LaunchedEffect(Unit)`**: 이펙트를 재시작하지 않는 대신 최초 진입 시의 `onTimeout` 람다 개체만 캡쳐하므로, 중간에 부모가 새로운 `onTimeout` 람다를 넘겨주어도 오래된 람다(Stale Lambda)를 실행하는 버그가 생긴다.
 
-`rememberUpdatedState`는 이펙트를 재시작하지 않는 안정성과 최신 값 참조 가능성을 동시에 충족시킨다.
+`rememberUpdatedState` 는 이펙트를 재시작하지 않는 안정성과 최신 값 참조 가능성을 동시에 충족시킨다.
 
 ---
 
@@ -42,8 +45,8 @@ graph TD
     B --> C
 ```
 
-1. **내부 State 래핑**: `rememberUpdatedState`는 내부적으로 `remember { mutableStateOf(newValue) }`를 생성하고, 매 Recomposition마다 `.value = newValue`를 업데이트한다.
-2. **참조 불변성**: 반환된 `State<T>` 객체 자체의 참조는 바뀌지 않으므로, 이펙트의 `key`로 지정되거나 이펙트 내부에서 참조되어도 이펙트 재시작을 유발하지 않는다.
+1. **내부 State 래핑**: `rememberUpdatedState` 는 내부적으로 `remember { mutableStateOf(newValue) }` 를 생성하고, 매 Recomposition 마다 `.value = newValue` 를 업데이트한다.
+2. **참조 불변성**: 반환된 `State<T>` 객체 자체의 참조는 바뀌지 않으므로, 이펙트의 `key` 로 지정되거나 이펙트 내부에서 참조되어도 이펙트 재시작을 유발하지 않는다.
 
 ---
 

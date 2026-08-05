@@ -1,26 +1,29 @@
 ---
 title: ui-controllers-and-effect-runners-live-with-ui-lifetime
 tags: ["android", "android/app-framework"]
-aliases: [UI Controller Lifetime, State Holder Boundary]
-date modified: 2026-08-05 16:15:00 +09:00
+aliases: [State Holder Boundary, UI Controller Lifetime]
+date modified: 2026-08-05 18:58:24 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
 ## UI controller 와 effect runner 는 ViewModel 이 아니라 UI 수명에 둔다
 
 ### 1. 개념 정의 (What)
-**UI 컨트롤러 수명주기 격리 원칙(UI State Holder & Controller Boundary)**이란 화면의 레이아웃 조작 객체(`LazyListState`, `ScrollState`, `DrawerState`, `AnimationController`, `FocusRequester` 등)와 UI 기반 이펙트 구동자를 AAC `ViewModel`에 보관하지 않고, **Composition 트리의 수명주기(UI Lifetime)에 철저히 바인딩하여 배치해야 한다는 아키텍처 경계 규약**이다.
+
+**UI 컨트롤러 수명주기 격리 원칙(UI State Holder & Controller Boundary)**이란 화면의 레이아웃 조작 객체(`LazyListState`, `ScrollState`, `DrawerState`, `AnimationController`, `FocusRequester` 등)와 UI 기반 이펙트 구동자를 AAC `ViewModel` 에 보관하지 않고, **Composition 트리의 수명주기(UI Lifetime)에 철저히 바인딩하여 배치해야 한다는 아키텍처 경계 규약**이다.
 
 ---
 
 ### 2. UI 컨트롤러와 ViewModel 분리의 필요성 (Why)
-많은 안드로이드 개발자들이 ViewModel에 모든 상태를 몰아넣는 과정에서 UI 컨트롤러 객체(`LazyListState` 등)를 ViewModel에 필드로 정의하는 실수를 범한다.
+
+많은 안드로이드 개발자들이 ViewModel 에 모든 상태를 몰아넣는 과정에서 UI 컨트롤러 객체(`LazyListState` 등)를 ViewModel 에 필드로 정의하는 실수를 범한다.
 
 이 경우 다음과 같은 중대한 위험이 일어난다:
-- **메모리 누수(Memory Leak)**: UI 컨트롤러 객체는 내부적으로 Android UI Context, Canvas, 또는 View 트리 노드 지표를 직접/간접 참조한다. Activity 회전 시 ViewModel이 이들을 계속 붙들고 있으면 메모리 누수가 발생한다.
-- **다중 UI 렌더링 파괴**: 동일한 ViewModel을 수평형 대화면(Folderable / Tablet)에서 2개의 Composable UI 노드가 동시에 구독할 때, 단일 컨트롤러 객체를 공유하므로 레이아웃 상태가 꼬이거나 무한 루프가 발생한다.
 
-UI 세부 레이아웃 컨트롤러는 UI 계층(Composition Tree)에 두고, ViewModel은 도메인 비즈니스 데이터 및 순수 화면 상태(Screen State)만 다루어야 한다.
+- **메모리 누수(Memory Leak)**: UI 컨트롤러 객체는 내부적으로 Android UI Context, Canvas, 또는 View 트리 노드 지표를 직접/간접 참조한다. Activity 회전 시 ViewModel 이 이들을 계속 붙들고 있으면 메모리 누수가 발생한다.
+- **다중 UI 렌더링 파괴**: 동일한 ViewModel 을 수평형 대화면(Folderable / Tablet)에서 2 개의 Composable UI 노드가 동시에 구독할 때, 단일 컨트롤러 객체를 공유하므로 레이아웃 상태가 꼬이거나 무한 루프가 발생한다.
+
+UI 세부 레이아웃 컨트롤러는 UI 계층(Composition Tree)에 두고, ViewModel 은 도메인 비즈니스 데이터 및 순수 화면 상태(Screen State)만 다루어야 한다.
 
 ---
 
@@ -88,4 +91,4 @@ fun SearchScreen(viewModel: GoodSearchViewModel = hiltViewModel()) {
 
 출처: [State holders and UI State](https://developer.android.com/topic/architecture/ui-layer/stateholders)
 
-검증일: 2026-08-05. 안드로이드 권장 아키텍처 가이드의 State Holders 단락을 대조하여 UI Controller와 ViewModel 간의 레이어 경계, 메모리 누수 방지 및 UI Lifetime 바인딩 규약 서술을 정밀 보강했다.
+검증일: 2026-08-05. 안드로이드 권장 아키텍처 가이드의 State Holders 단락을 대조하여 UI Controller 와 ViewModel 간의 레이어 경계, 메모리 누수 방지 및 UI Lifetime 바인딩 규약 서술을 정밀 보강했다.

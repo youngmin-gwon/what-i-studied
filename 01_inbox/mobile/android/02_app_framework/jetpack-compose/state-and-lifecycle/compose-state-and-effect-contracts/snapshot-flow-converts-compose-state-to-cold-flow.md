@@ -2,22 +2,25 @@
 title: snapshot-flow-converts-compose-state-to-cold-flow
 tags: [android, compose/state, jetpack-compose]
 aliases: [snapshotFlow, State to Flow]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-05 18:58:44 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## snapshotFlow 는 Compose 상태를 Cold Flow 로 변환한다
 
 ### 1. 개념 정의 (What)
-`snapshotFlow { block }`는 `block` 내에서 읽은 하나 이상의 Compose `State` 객체를 감시하여, 상태 값이 변경될 때마다 새로운 데이터를 발행(Emit)하는 **Cold Kotlin `Flow`로 변환해 주는 역방향 브릿징 API**다.
+
+`snapshotFlow { block }` 는 `block` 내에서 읽은 하나 이상의 Compose `State` 객체를 감시하여, 상태 값이 변경될 때마다 새로운 데이터를 발행(Emit)하는 **Cold Kotlin `Flow` 로 변환해 주는 역방향 브릿징 API**다.
 
 ---
 
-### 2. snapshotFlow API의 필요성 (Why)
-Compose의 `State<T>`는 동기식 UI 표현에는 최적이치만, 비동기 파이프라인 처리에는 제약이 따른다:
-- **연산자 부재**: `State` 객체 자체에는 코틀린 Flow가 제공하는 `debounce()`, `distinctUntilChanged()`, `filter()`, `map()`, `flatmapLatest()` 같은 강력한 리액티브 연산자가 없다.
+### 2. snapshotFlow API 의 필요성 (Why)
 
-예를 들어 스크롤 위치(`LazyListState.firstVisibleItemIndex`)가 바뀔 때마다 매번 이벤트를 처리하지 않고, 스크롤이 멈췄을 때만 네트워크 요청을 보내려면 `snapshotFlow`를 통해 Flow 연산자와 결합해야 한다.
+Compose 의 `State<T>` 는 동기식 UI 표현에는 최적이치만, 비동기 파이프라인 처리에는 제약이 따른다:
+
+- **연산자 부재**: `State` 객체 자체에는 코틀린 Flow 가 제공하는 `debounce()`, `distinctUntilChanged()`, `filter()`, `map()`, `flatmapLatest()` 같은 강력한 리액티브 연산자가 없다.
+
+예를 들어 스크롤 위치(`LazyListState.firstVisibleItemIndex`)가 바뀔 때마다 매번 이벤트를 처리하지 않고, 스크롤이 멈췄을 때만 네트워크 요청을 보내려면 `snapshotFlow` 를 통해 Flow 연산자와 결합해야 한다.
 
 ---
 
@@ -43,8 +46,8 @@ graph TD
     C --> D
 ```
 
-1. **Snapshot Apply Observer**: `snapshotFlow`는 런타임의 `Snapshot.registerApplyObserver`를 활성화하여 스냅샷이 적용될 때마다 `block`을 재평가한다.
-2. **동등성 검사 및 Emission**: `block` 실행 결과가 이전 발행된 값과 `equals()` 기준으로 다를 때만 Flow Downstream으로 새 값을 발행한다.
+1. **Snapshot Apply Observer**: `snapshotFlow` 는 런타임의 `Snapshot.registerApplyObserver` 를 활성화하여 스냅샷이 적용될 때마다 `block` 을 재평가한다.
+2. **동등성 검사 및 Emission**: `block` 실행 결과가 이전 발행된 값과 `equals()` 기준으로 다를 때만 Flow Downstream 으로 새 값을 발행한다.
 
 ---
 
