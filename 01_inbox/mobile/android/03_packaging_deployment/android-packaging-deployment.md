@@ -3,14 +3,14 @@ title: android-packaging-deployment
 tags: ["android", "android/packaging-deployment"]
 aliases: ["Android 패키징과 배포 지도"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Android 패키징과 배포 지도
 
-이 지도는 Android 앱을 빌드 산출물(AAB/APK)로 만들고, R8 최적화를 수행하며, 서명 및 Play Store/Dynamic Delivery를 통해 배포하고, 의존성·CI 파이프라인을 체계적으로 관리하는 전체 흐름을 네 개 영역으로 다룬다.
+이 지도는 Android 앱을 빌드 산출물(**AAB**: Android App Bundle - 게시용 분할 아티팩트 / **APK**: Android Package - 기기 설치용 바이너리)로 만들고, **R8**(자바 바이트코드 최적화 및 난독화 컴파일러) 최적화를 수행하며, 서명 및 Play Store/Dynamic Delivery를 통해 배포하고, **AGP**(Android Gradle Plugin - 빌드 파이프라인 확장 도구) 기반의 의존성·CI 파이프라인을 체계적으로 관리하는 전체 흐름을 네 개 영역으로 다룬다.
 
 ```mermaid
 flowchart TD

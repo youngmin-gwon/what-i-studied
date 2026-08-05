@@ -1,83 +1,116 @@
 ---
 title: authenticated-deep-links-require-pending-destination-and-back-stack
-tags: [android, android/deep-links, android/navigation]
-aliases: ["인증이 필요한 딥 링크의 pending destination 과 백 스택"]
+tags: [android, android/navigation, android/deep-links, security]
+aliases: ["Authenticated deep link는 대기 목적지와 back stack이 필요하다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## 인증이 필요한 딥 링크의 **pending destination**(인증 완료 후 최종 이동하기 위해 임시 보관해 두는 타겟 경로) 과 **백 스택(BackStack)**(사용자가 거쳐온 화면들의 스택 기록으로 뒤로가기 조작 시 복원되는 내비게이션 상태 구조)
+## Authenticated deep link 는 대기 목적지와 back stack 이 필요하다
 
 상위 문서: [Deep Link 계약](deep-link-contracts.md)
 
-배경 지식: [인증과 인가](../../../../../../security/fundamentals/authentication-authorization.md)
+관련 계약: [External URI는 navigation 전에 검증되어야 한다](external-uri-must-be-validated-before-navigation.md)
 
-관련 노트: [Navigation 3 deep link는 URI를 NavKey로 변환한다](../../navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)
+---
 
-### 문제
+### 개념과 필요성 (What & Why)
 
-딥 링크는 사용자를 특정 목적지로 바로 데려오지만 그 목적지가 로그인을 요구할 수 있다.
+1. **개념 (What)**:
+   - **Authenticated Deep Link**는 마이페이지, 주문 내역, 설정 등 **사용자 로그인 인증 상태**가 필수적으로 요구되는 목적지로 진입하는 딥링크다.
+2. **필요성 (Why)**:
+   - **인증 분기 처리 중 목적지 손실 방지**: 사용자가 미로그인 상태에서 `https://example.com/orders/99` 딥링크를 클릭했을 때, 즉시 로그인 화면으로 리다이렉트되더라도 로그인 성공 후 사용자가 원래 가려고 했던 `orders/99` 화면으로 자동 진입할 수 있도록 **대기 목적지(`Pending NavKey`)**를 보존해야 한다.
+   - **뒤로가기 맥락(Synthetic Back Stack) 보존**: 딥링크로 로그인 완료 후 상세 화면에 진입했을 때, Back 버튼을 누르면 앱이 바로 종료되는 것이 아니라 홈/메인 화면(`HomeNavKey`)으로 자연스럽게 이동하는 백스택이 구성되어야 한다.
 
-이때 URI 를 버리면 로그인 후 사용자가 원래 작업을 다시 찾아야 한다.
+---
 
-URI 를 무검증으로 저장하면 외부 입력이 임의의 내부 화면으로 전환될 수 있다.
+### 인증 라우팅 상태 전이 메커니즘 (How)
 
-따라서 인증 전 목적지와 인증 후 복귀 정책을 명시적으로 설계해야 한다.
+```mermaid
+stateDiagram-v2
+    [*] --> DeepLinkReceived: External Intent (URI)
+    DeepLinkReceived --> ValidateURI: URI Sanitization
+    ValidateURI --> CheckAuth: Parse to NavKey
+    
+    state CheckAuth {
+        [*] --> IsLoggedIn
+        IsLoggedIn --> Authenticated: Token Valid
+        IsLoggedIn --> Unauthenticated: Token Missing / Expired
+    }
+    
+    Unauthenticated --> SavePendingKey: Save TargetKey in PendingNavKey State
+    SavePendingKey --> RenderLoginScreen: Navigate to LoginRoute
+    RenderLoginScreen --> LoginSuccess: User Auths Successfully
+    LoginSuccess --> RestorePendingKey: Read PendingNavKey
+    
+    Authenticated --> BuildStack: TargetKey Ready
+    RestorePendingKey --> BuildStack: TargetKey Restored
+    
+    BuildStack --> RenderScreen: NavBackStack = [HomeNavKey, TargetKey]
+```
 
-### 안전한 처리 흐름
+---
 
-앱은 외부 URI 를 먼저 파싱하고 허용된 host 와 path 인지 검증한다.
+### 핵심 구현 코드 예시 (Navigation 3)
 
-그 다음 해당 리소스가 공개인지 인증이 필요한지 판정한다.
+```kotlin
+@Composable
+fun AppNavHost(
+    initialIntent: Intent?,
+    authRepository: AuthRepository
+) {
+    // 1. Pending Key 보존 상태
+    var pendingDestinationKey by rememberSaveable { mutableStateOf<NavKey?>(null) }
+    val backStack = rememberNavBackStack(HomeNavKey)
 
-인증이 필요하면 전체 URI 를 무조건 저장하지 말고 검증된 목적지 모델로 변환한다.
+    // 2. 딥링크 수신 처리
+    LaunchedEffect(initialIntent) {
+        val targetKey = parseDeepLinkToNavKey(initialIntent?.data)
+        if (targetKey != null) {
+            if (authRepository.isLoggedIn()) {
+                // 인증 완료 상태: 메인 백스택 위에 Target Key 추가
+                backStack.add(targetKey)
+            } else {
+                // 미인증 상태: Pending Key로 저장 후 로그인 화면으로 전이
+                pendingDestinationKey = targetKey
+                backStack.add(LoginNavKey)
+            }
+        }
+    }
 
-예를 들어 `Product(productId)` 처럼 허용된 내부 타입으로 pending destination 을 표현한다.
+    // 3. 로그인 성공 콜백
+    fun onLoginSuccess() {
+        backStack.remove(LoginNavKey)
+        val pending = pendingDestinationKey
+        if (pending != null) {
+            backStack.add(pending)
+            pendingDestinationKey = null
+        }
+    }
+}
+```
 
-로그인 성공 시 저장한 목적지를 한 번만 소비하고 정상적인 라우터를 통해 이동한다.
+---
 
-로그인 취소나 세션 만료 시에는 안전한 기본 화면으로 돌아간다.
+### 구시대 레거시 vs 현대 표준 비교 (Legacy vs Modern)
 
-### 백 스택 의미
+| 구분 | 구시대 처리 방식 (Legacy) | 현대 Authenticated Navigation 3 (Modern) |
+| :--- | :--- | :--- |
+| **미로그인 처리** | 미로그인 시 딥링크 거부 후 앱 초기 화면으로 튕김 | `Pending NavKey`에 목적지 저장 후 로그인 화면으로 유연하게 가이드 |
+| **로그인 후 이동** | 로그인 후 기존 딥링크 정보 소멸되어 사용자가 수동으로 다시 검색 | 로그인 성공 후 `Pending NavKey`를 pop 및 restore하여 자동 직행 |
+| **뒤로가기 백스택** | 딥링크 진입 후 Back 누르면 백스택이 비어있어 앱 강제 종료 | `HomeNavKey`를 바닥에 깔아주는 합성 백스택(Synthetic Back Stack) 구축 |
 
-딥 링크로 앱이 새로 시작될 때 사용자는 도착 화면에서 뒤로 가기를 기대한다.
+---
 
-그러나 실제 task 에 부모 화면이 없으면 뒤로 가기가 앱 종료로 이어질 수 있다.
+### 판단 및 검증 질문 (Audit Checklist)
 
-필요한 경우 합성 백 스택을 만들어 홈이나 상위 목록을 부모로 제공한다.
+- [ ] 미로그인 상태에서 인증 필요 딥링크 클릭 시 로그인 화면으로 이동하는가?
+- [ ] 로그인 완료 직후 사용자가 원래 요청했던 딥링크 화면으로 자동 진입하는가?
+- [ ] 딥링크 진입 화면에서 뒤로가기를 누르면 메인/홈 화면으로 안정적으로 복귀하는가?
 
-Navigation 라이브러리를 사용한다면 외부 진입 시의 start destination 정책도 확인한다.
+---
 
-기존 task 가 살아 있을 때 새 Intent 를 어디에 전달할지도 launchMode 와 라우터가 결정한다.
+### 관련 상위 및 연관 노트
 
-백 스택은 편의를 위한 화면 나열이 아니라 사용자의 복귀 경로를 보장하는 계약이다.
-
-### 상태와 데이터
-
-딥 링크가 가리키는 리소스는 진입 순간 서버에서 다시 조회한다.
-
-상품 삭제, 권한 변경, 만료된 초대처럼 URI 생성 시점과 현재 상태가 다를 수 있다.
-
-조회 실패는 무한 리디렉션 대신 명확한 오류와 대안을 제공해야 한다.
-
-민감한 토큰을 URI query 에 넣지 않고, 필요하면 짧은 수명의 교환 코드로 제한한다.
-
-백그라운드에서 전달된 Intent 도 동일한 인증과 입력 검증을 적용한다.
-
-### 구현 체크리스트
-
-대상 URI 는 [Android 딥 링크는 외부 URI 계약이다](deep-link-is-external-uri-contract.md) 의 규칙을 따른다.
-
-검증된 HTTPS 연결은 [Android App Link는 검증된 HTTPS 딥 링크다](app-link-is-verified-https-deep-link.md) 를 따른다.
-
-공개 목적지와 인증 목적지를 구분한다.
-
-pending destination 을 타입 안전한 값으로 저장하고 한 번만 소비한다.
-
-로그인 취소, 만료, 잘못된 리소스, 뒤로 가기 동작을 각각 테스트한다.
-
-### 결론
-
-딥 링크의 목적지는 화면 하나가 아니라 사용자가 완수하려는 여정이다.
-
-인증 경계와 합성 백 스택을 함께 설계해야 외부 진입이 내부 흐름을 깨뜨리지 않는다.
+- 상위 계약: [Deep Link 계약](deep-link-contracts.md)
+- 연관 계약: [External URI는 navigation 전에 검증되어야 한다](external-uri-must-be-validated-before-navigation.md)

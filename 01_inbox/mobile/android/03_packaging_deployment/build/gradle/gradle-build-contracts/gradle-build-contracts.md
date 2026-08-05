@@ -3,14 +3,16 @@ title: gradle-build-contracts
 tags: ["android", "android/packaging-deployment", "gradle"]
 aliases: ["Gradle 빌드 계약"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Gradle 빌드 계약
 
-이 지도는 AGP(Android Gradle Plugin)의 역할, `defaultConfig`, Build Type 및 Product Flavor 조합에 의한 Build Variant 매트릭스, Project/Module DSL 분리, SourceSet 우선순위, Signing Configuration, 그리고 Release AGP DSL 검증을 다룬다.
+상위 문서: [Android 패키징과 배포 지도](../../../android-packaging-deployment.md)
+
+이 지도는 **AGP**(Android Gradle Plugin - Gradle 상의 Android 전용 빌드 규칙 엔진)의 역할, `defaultConfig`(기본 식별자 계약), Build Type(빌드 환경 축) 및 Product Flavor(제품 변종 축) 조합에 의한 **Build Variant**(최종 산출물 조합) 매트릭스, Project/Module DSL 분리, SourceSet 우선순위, Signing Configuration, 그리고 Release AGP DSL 검증을 다룬다.
 
 ```mermaid
 flowchart TD

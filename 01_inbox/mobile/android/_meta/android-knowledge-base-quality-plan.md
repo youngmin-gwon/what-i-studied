@@ -1294,4 +1294,35 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 - **새로 필요해진 일반 CS/OS 노트**: 0 건 (기존 `01_inbox/operating-systems/`, `01_inbox/linux/`, `01_inbox/security/`, `01_inbox/computer-science/networking/` 노트로 완전 커버)
 - **Broken link 검증**: **0 건** (상대 경로 링크 전수 확인 완료)
 
-**그 다음 순서:** Security(`05_security_privacy`, 28 개) → Packaging(`03_packaging_deployment`, 42 개) → Testing(`06_testing_performance`, 27 개) → Platforms(`07_platforms`, 43 개).
+**진행 기록(2026-08-05): `03_packaging_deployment/` (43 개 파일) Phase 11 설명 친절도 및 배경지식 연결 pass 완료.**
+2 개 subagent 에 병렬 위임하여 Packaging & Build (24 개) 및 Distribution & Billing (19 개) 전 구역을 전수 점검 및 서술식 보강했다.
+
+- **수정된 파일 수**: 총 40 개 (인라인 gloss `**용어**` 보강, 서술식 용어 설명 및 메커니즘 보강, `date modified: 2026-08-05 16:15:00 +09:00` 반영, Mermaid 특수문자 quoting 적용)
+  - `Packaging & Build`: 24 개 수정 (AGP, AAPT2, Build Variant, SourceSet, signingConfigs, Convention Plugin, Version Catalog, KSP vs KAPT, Compose BOM/Compiler, Fastlane, CI Remote Cache, CI Secrets 등 서술식 보강 및 Git 보안 배경지식 연결)
+  - `Distribution & Billing`: 16 개 수정 (Play Feature Delivery, DFM, Play Asset Delivery, AAB, APK Signature Scheme v3, Upload Key vs App Signing Key, Play Billing Library, Purchase Token, Acknowledge, Staged Rollout 등 서술식 보강 및 암호학/네트워크/신원인증 배경지식 연결)
+- **보존(완결적) 파일 수**: 총 3 개 (Play Delivery, Release Distribution, Billing 3 개 허브 지도 노트 완결 보존)
+- **새로 필요해진 일반 CS/OS 노트**: 0 건 (기존 `01_inbox/security/`, `01_inbox/computer-science/networking/`, `02_references/git/` 노트로 완전 커버)
+- **Broken link 검증**: **0 건** (상대 경로 링크 192 개 전수 확인 완료)
+
+---
+
+#### Phase 11 재감사 및 보강 계획 (2026-08-05 사용자 피드백 반영)
+
+**사용자 지적 결함 사항**:
+1. **`02_app_framework` 수박 겉핥기식 편집 경고**: 단순 1 문장 용어 정의나 날짜 변경 위주의 시늉(superficial edit)이 다수 발견됨. 예: `Side Effect`(부수 효과), `Effect`(효과/에시), `Purity`(순수성), `Idempotency`(멱등성) 같은 핵심 개념이 언급되면서도 정작 그 개념 자체에 대한 깊이 있는 인과와 정의 설명이 빠져 있음.
+2. **구시대 XML View 예시 오용**: `app-widgets` 노트 등에 낡은 XML Layout 기반예시만 작성되어 있어, 현대 안드로이드 표준인 **Jetpack Glance(Compose UI for App Widgets)** 가 명확한 정본으로 제시되지 않고 XML RemoteViews 가 주력인 것처럼 오해를 유발함. (RemoteViews IPC 계약과 현대 Glance 프레임워크 렌더링 구분을 재정립해야 함)
+3. **`03_packaging_deployment` 무단 건너뜀**: 계획된 순서(Packaging & Deployment)를 스킵하고 작성 순서가 뒤틀림. (2026-08-05 완료)
+
+**시정 및 재작업 지침**:
+1. **`02_app_framework` 255 개 파일 전체 심층 재감사 및 보강 (진행 중)**:
+   - `02_app_framework` 전체 255 개 노트를 4 개 subagent 에 위임하여 전수 심층 감사(Deep Substantive Audit & Rewrite) 진행 중.
+   - `Side Effect` / `Effect` / `Idempotent` 등 컴퓨터 과학 및 Compose runtime 핵심 원리 노트들에 **근본 개념 정의, 순수 함수와 부수 효과의 차이, Compose execution lifecycle 과의 인과관계**를 서술식으로 대폭 보강.
+   - `app-widgets` 노트 전체를 **Jetpack Glance 우선(Modern Standard)** 으로 재구성. XML layout 예시는 레거시/유지보수용 RemoteViews IPC 계약 설명용으로만 한정하고, Glance Compose DSL 코드를 주력 예시로 교체/대비.
+   - 링크가 단순 형식이 아닌 독자의 실제 학습 경로(인과관계)와 100% 일치하는지 전수 대조.
+2. **`03_packaging_deployment` 완료**:
+   - 43 개 파일 전체 Phase 11 pass 및 서술식 용어 보강 완수.
+
+**수정된 진행 순서**:
+1. `02_app_framework` (255 개) 전체 심층 재감사 및 현대 표준 교체 (진행 중)
+2. `03_packaging_deployment` (43 개) Phase 11 pass 완료
+3. Security(`05_security_privacy`, 28 개) → Testing(`06_testing_performance`, 27 개) → Platforms(`07_platforms`, 43 개) 순차 수행

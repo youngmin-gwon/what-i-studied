@@ -1,39 +1,94 @@
 ---
 title: compose-frame-pipeline-is-split-into-composition-layout-and-drawing
 tags: [android, compose/runtime, jetpack-compose]
-aliases: [Compose phases]
+aliases: [3 Phases of Compose, Composition, Layout, Drawing]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-## Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다
-배경 지식: [메모리 레이아웃 및 캐시](../../../../../../../02_references/computer-science/memory-layout-and-cache.md)
+## Compose frame pipeline은 composition, layout, drawing으로 나뉜다
 
-Compose 가 frame 을 만들 때의 큰 단계는 composition, layout, drawing 이다. Composition 은 무엇을 보여줄지 결정하고, layout 은 측정과 배치를 수행하며, drawing 은 화면에 그릴 내용을 만든다.
+### 1. 개념 정의 (What)
+Compose의 프레임 처리 파이프라인(Frame Pipeline)은 단일 통합 렌더링 단계가 아니라 **(1) Composition, (2) Layout (Measurement & Placement), (3) Drawing의 세 가지 명확히 독립된 3단계 Phase**로 분리되어 구동된다.
 
-State read 는 phase 별로 추적될 수 있다. Composition 에서 읽은 state 가 바뀌면 Composable 재실행이 필요할 수 있고, layout/draw 에서 늦게 읽으면 그 phase 의 작업만 다시 할 여지가 생긴다.
+---
 
-`BoxWithConstraints`, lazy layout 처럼 layout 정보가 child composition 에 영향을 주는 예외가 있다. 따라서 phases 는 성능 판단을 위한 모델이지 모든 Composable 이 항상 같은 순서와 비용으로 동작한다는 보장은 아니다.
+### 2. 3단계 분리 파이프라인의 필요성 (Why)
+화면 상의 상태 변화(예: 스크롤에 따른 애니메이션 Offset 변화, 캔버스 색상 변경 등)가 일어날 때마다 전체 파이프라인을 매번 디스패치하면 엄청난 CPU/GPU 낭비가 발생한다.
 
-#### Composition 저장 구조: Slot Table & Gap Buffer
+세 단계가 분리되어 있으면 **상태 읽기(State Read)를 최적의 Phase로 이관(Defer State Read)**할 수 있다. 위치만 변경되는 애니메이션은 1단계(Composition)를 스킵하고 2단계(Layout)만 실행하며, 색상만 바뀌는 렌더링은 1, 2단계를 모두 스킵하고 3단계(Drawing)만 실행하여 120fps 고성능 UI를 유지할 수 있다.
 
-Compose 는 View 기반 UI 와 달리 힙 영역에 뷰 객체(View Instance) 트리를 유지하지 않는다. 대신 ****Slot Table**(Compose Runtime이 Composition 트리의 구조, remember 상태, 노드 위치 정보를 연속 메모리에 기록하는 갭 버퍼 기반 데이터 구조)**이라는 단일 flat 배열 구조에 Composition 트리의 노드, 상태(`remember`), 람다, 그룹 정보(Key)를 저장한다.
+---
 
-- **Gap Buffer Data Structure**: Slot Table 내부 조작은 텍스트 에디터의 Gap Buffer 패턴을 사용한다. 현재 수정 위치(Gap) 주변으로 이동 및 데이터 삽입/삭제를 \(O(1)\) 에 수행할 수 있도록 여분의 공간(Gap)을 보장한다.
-- **In-place Mutation on **Recomposition**(상태 변경 시 영향을 받는 Composable 스코프만 선택적으로 재실행하여 UI 트리를 갱신하는 과정)**: 재구성(Recomposition)이 발생하면 뷰 개체를 새로 메모리 할당(new)하지 않고, Slot Table 배열 상의 해당 위치 데이터만 덮어쓴다(In-place update). 이 구조 덕분에 Emitting/Recomposing 비용이 획기적으로 낮아지며, LazyColumn 등에서 View Recycling 계층 구조가 불필요하게 된다.
+### 3. 내부 동작 및 Phase별 역할 (How)
 
-phase 를 늦추면 상위 recomposition 을 건너뛸 수 있다는 것은 코드로 바로 대비된다.
-
-```kotlin
-// composition phase 에서 읽음: offset 이 바뀔 때마다 이 Composable이 재구성된다
-Box(Modifier.offset(x = offset.dp))
-
-// drawing phase 에서 읽음: 재구성 없이 다시 그리기만 한다
-Box(Modifier.graphicsLayer { translationX = offset })
+```
++-------------------------------------------------------------------------+
+| Phase 1: Composition (What to show)                                     |
+| - Composable 함수 실행, UI 트리의 LayoutNode 와 Slot Table 구성         |
++-------------------------------------------------------------------------+
+                                    |
+                                    v
++-------------------------------------------------------------------------+
+| Phase 2: Layout (Where and how big to show)                              |
+| - (1) Measure: 부모 제약 조건(Constraints) 기반 자식 크기 측정            |
+| - (2) Place: 자식 노드의 (x, y) 픽셀 좌표 배치                          |
++-------------------------------------------------------------------------+
+                                    |
+                                    v
++-------------------------------------------------------------------------+
+| Phase 3: Drawing (How to render)                                        |
+| - Canvas 및 RenderNode 기반 픽셀 렌더링 및 화면 래스터화                |
++-------------------------------------------------------------------------+
 ```
 
-두 코드는 최종 화면은 비슷해 보이지만, 위쪽은 매 프레임 composition 을 다시 타고 아래쪽은 draw 단계만 다시 실행한다. Layout Inspector 의 recomposition count 나 systrace 의 `Compose:composition`/`Compose:drawing` 구간을 비교하면 이 차이를 직접 관찰할 수 있다.
+1. **Composition Phase**: `@Composable` 함수를 구동하고 상태(State)를 읽어 `LayoutNode` 트리 구조를 생성/갱신한다.
+2. **Layout Phase**: 
+   - **Measure 단계**: 제약 조건(`Constraints`)을 하향(Top-down) 전달하여 각 노드의 `Placeable` 크기를 결정한다.
+   - **Place 단계**: 상향(Bottom-up)으로 결정된 크기를 받아 각 자식 노드의 좌표를 픽셀 단위로 배치한다.
+3. **Drawing Phase**: 노드 트리를 조회를 바탕으로 Android Native `Canvas` 및 `RenderNode`에 그리기 명령(Draw Commands)을 기록하고 화면 디스플레이로 보낸다.
 
-관련 노트: [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md), [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](../../performance/compose-performance-contracts/compose-layout-and-image-cost-must-be-budgeted.md)
+---
 
-출처: [Compose phases](https://developer.android.com/develop/ui/compose/phases)
+### 4. Phase 이관(Defer State Read) 최적화 코드 사례
+
+```kotlin
+@Composable
+fun PhaseOptimizationExample(scrollState: ScrollState) {
+    // ❌ 1. Composition Phase Read (비효율적인 방식)
+    // scrollState.value를 Composition 단계에서 읽음 -> 스크롤할 때마다 전체 Box Recomposition 발생!
+    Box(
+        modifier = Modifier
+            .offset(y = scrollState.value.dp) // Recomposition 재실행 원인
+            .background(Color.Red)
+    )
+
+    // ✅ 2. Layout Phase Defer Read (고성능 최적화 방식)
+    // 람다 블록을 전달하여 상태 읽기를 Layout Phase(Placement)로 미룸
+    // Composition Phase를 100% 스킵하고 2단계 Layout만 재계산!
+    Box(
+        modifier = Modifier
+            .offset { IntOffset(x = 0, y = scrollState.value) } // Layout Phase Read!
+            .background(Color.Blue)
+    )
+
+    // ✅ 3. Drawing Phase Defer Read (최고 성능 방식)
+    // graphicsLayer 람다를 전달하여 상태 읽기를 Draw Phase로 미룸
+    // Composition 및 Layout 단계를 모두 스킵하고 3단계 Drawing만 재계산!
+    Box(
+        modifier = Modifier
+            .graphicsLayer {
+                translationY = scrollState.value.toFloat() // Draw Phase Read!
+            }
+            .background(Color.Green)
+    )
+}
+```
+
+---
+
+관련 노트: [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](./snapshot-state-observation-invalidates-state-read-scopes.md), [Compose 상태 읽기 위치는 recomposition 범위 제어로 직결된다](../../performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md)
+
+출처: [Phases of Jetpack Compose](https://developer.android.com/develop/ui/compose/phases)
+
+검증일: 2026-08-05. Compose 공식 가이드의 "Phases of Jetpack Compose" 문서 사양을 대조하여 Composition, Layout, Draw 3단계 파이프라인 구조 및 State Read 지점 미루기(Defer Read) 최적화 기법 서술을 정밀 보강했다.

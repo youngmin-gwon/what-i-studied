@@ -3,18 +3,19 @@ title: staged-rollout-is-observable-release-operation
 tags: ["android", "staged-rollout", "play-console", "vitals"]
 aliases: ["단계적 출시는 관측 가능한 릴리스 운영 절차다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## 단계적 출시는 관측 가능한 릴리스 운영 절차다
 
 ### 내부 메커니즘 (Internal Mechanism)
-**단계적 출시 (Staged Rollout)**는 신규 프로덕션 릴리스의 영향을 전체 사용자 데이터베이스로 일시에 전파하지 않고, 무작위 사용자 비율(예: 1% -> 5% -> 20% -> 50% -> 100%)을 점진적으로 상향시키는 릴리스 관측 운영 절차다.
-- **실시간 비탈스 모니터링**: 릴리스 각 단계에서 Google Play Console의 Android Vitals (Crash Rate, ANR Rate) 및 Firebase Crashlytics 지표를 모니터링한다.
-- **출시 중단 (Halt Rollout)**: 치명적인 런타임 크래시가 포착되면 진행 중인 단계적 출시를 중단할 수 있다. (이미 다운로드받은 사용자 외 추가 사용자에게 전파 금지)
-- **Emergency Hotfix Update**: 중단 상태에서 동일 트랙에 `versionCode`를 높인 핫픽스 AAB를 등록하면 기존 출시 비율을 유지하면서 핫픽스 패치가 덮어씌워진다.
+**Staged Rollout (단계적 출시)**는 신규 상용 릴리스 아티팩트를 전 세계 모든 사용자에게 일시에 배포하지 않고, 무작위 타겟 사용자 비율(예: 1% -> 5% -> 20% -> 50% -> 100%)을 점진적으로 높여가며 릴리스의 런타임 영향성을 실시간 관측 및 제어하는 배포 운영 메커니즘이다.
+
+- **실시간 Android Vitals & Crashlytics 지표 관측**: 각 배포 단계에서 구글 플레이 콘솔의 **Android Vitals**(사용자 인지 크래시율, ANR율) 및 Firebase Crashlytics 모니터링 대시보드를 관측하여 잠재적 런타임 회귀 버그를 탐지한다.
+- **단계적 출시 즉시 중단 (Halt Rollout)**: 모니터링 중 특정 디바이스 파퓰레이션에서 크래시율이 임계선(1.0%)을 초과하는 이상 징후가 감지되면 진행 중인 단계적 출시를 즉시 중단한다. 이때 이미 업데이트를 다운로드받은 1% 사용자 외에 나머지 99% 사용자에게 버그가 확산되는 것을 완벽히 차단한다.
+- **Emergency Hotfix Update (긴급 핫픽스 패치)**: 출시 중단 상태에서 문제 원인을 수정한 핫픽스 아티팩트의 `versionCode`를 1 증가시켜 동일 트랙에 올려 제출하면, 구글 플레이는 핫픽스 아티팩트를 기존 중단되었던 배포 비율(1%)의 사용자에게 우선 덮어씌워 패치하도록 허용한다.
 
 ```mermaid
 flowchart TD

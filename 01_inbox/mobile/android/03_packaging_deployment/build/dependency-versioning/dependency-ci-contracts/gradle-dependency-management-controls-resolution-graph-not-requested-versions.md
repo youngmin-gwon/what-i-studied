@@ -3,16 +3,18 @@ title: gradle-dependency-management-controls-resolution-graph-not-requested-vers
 tags: ["android", "gradle", "dependency"]
 aliases: ["Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Gradle 의존성 관리는 요청 버전이 아니라 해석 그래프를 관리한다
 
+상위 문서: [의존성, 버전, CI 계약](dependency-ci-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-Gradle의 Dependency Resolution Engine은 `build.gradle.kts`에 선언된 요청 버전(Requested Version)을 그대로 받아들이지 않는다.
-대신 모든 직/간접 전이 의존성을 모아 최신 버전 우선 규칙(Highest Version Wins), 버전 제약조건(`strictly`, `require`, `reject`), 그리고 Capability Matching 및 Resolution Strategy를 거쳐 최종 해석된 그래프(Resolved Graph)를 구성한다.
+Gradle의 **Dependency Resolution Engine**(의존성 그래프 해석 엔진)은 `build.gradle.kts`에 선언된 요청 버전(**Requested Version**)을 그대로 받아들이지 않는다.
+대신 모든 직/간접 전이 의존성을 모아 최신 버전 우선 규칙(Highest Version Wins), 버전 제약조건(`strictly`, `require`, `reject`), 그리고 Capability Matching 및 Resolution Strategy를 거쳐 최종 해석된 그래프(**Resolved Graph**)를 구성한다.
 따라서 특정 모듈에서 `okhttp:4.9.0`을 요청하더라도, 다른 의존성이 `okhttp:4.12.0`을 전이적으로 요구하면 Gradle은 전체 그래프의 okhttp 버전을 `4.12.0`으로 승격(Conflict Resolution)시킨다.
 
 ```mermaid

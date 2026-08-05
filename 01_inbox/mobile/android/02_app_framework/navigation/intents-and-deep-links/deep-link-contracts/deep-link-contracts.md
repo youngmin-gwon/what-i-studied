@@ -1,24 +1,43 @@
 ---
 title: deep-link-contracts
-tags: [android, android/deep-links, android/navigation]
-aliases: ["Deep Link 계약"]
+tags: [android, android/navigation, android/deep-links]
+aliases: ["Deep Link 계약", "Deep Link Contracts"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## **Deep Link**(외부 URI 입력을 앱 내부 목적지로 연결하여 특정 화면으로 직행하도록 돕는 라우팅 계약) 계약
+## Deep Link 계약 (Deep Link Contracts)
 
-Deep Link 는 외부 URI 를 앱 내부 목적지로 연결하는 장기 계약이다. Manifest 선언, 도메인 검증, 입력 검증, 앱 내부 라우팅, 인증 후 back stack 복원을 분리해서 설계한다.
+외부 입력 URI를 수신하여 앱 내부 목적지로 라우팅하고, 도메인 검증 및 백스택 생성을 안전하게 처리하기 위한 딥링크 아키텍처 계약 모음이다.
 
-### 정본 노트
+---
 
-- [Android 딥 링크는 외부 URI 계약이다](deep-link-is-external-uri-contract.md)
-- [외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다](external-uri-must-be-validated-before-navigation.md)
-- [Android App Link는 검증된 HTTPS 딥 링크다](app-link-is-verified-https-deep-link.md)
-- [매니페스트 선언과 assetlinks.json은 서로 다른 역할을 가진다](manifest-and-assetlinks-have-distinct-roles.md)
-- [Dynamic App Links는 매니페스트 선언 범위를 확장하지 않는다](dynamic-app-links-refine-but-do-not-expand-manifest-scope.md)
-- [인증이 필요한 Deep Link는 pending destination과 back stack을 설계해야 한다](authenticated-deep-links-require-pending-destination-and-back-stack.md)
-- [Notification deep link는 task와 back stack 정책을 명시해야 한다](notification-deep-link-needs-explicit-task-and-back-stack-policy.md)
-- [Deep Link 테스트는 resolution, verification, routing을 분리해 검증한다](deep-link-testing-validates-resolution-verification-and-routing.md)
+### 핵심 계약 가이드라인
 
-상위 지도: [Android Navigation 진입 계약](../../navigation-contracts/navigation-contracts.md)
+1. **App Link 보안 및 검증 계약**:
+   - 커스텀 스키마(`myapp://`)의 하이재킹 위험성을 배제하고, `https` 기반 도메인 소유권 검증(`assetlinks.json`)이 완료된 **Android App Links**를 우선 적용한다.
+2. **외부 URI 신뢰 경계 검증 계약**:
+   - 외부 URI 파라미터는 검증되지 않은 외부 입력이므로 파싱 후 타당성 검증(Sanitization)을 거쳐 `NavKey`로 전환해야 한다.
+3. **인증 및 합성 백스택(Synthetic Back Stack) 계약**:
+   - 딥링크 진입 시 사용자 인증이 필요하면 대기 목적지(`Pending NavKey`)로 격리 후 로그인 완료 시 백스택과 함께 복원한다.
+   - 푸시 알림이나 외무 진입 시 최상위 루트 화면까지 이어지는 합성 백스택 정책을 명시적으로 구축한다.
+
+---
+
+### 하위 세부 계약 목록
+
+- [App Link는 검증된 https deep link다](app-link-is-verified-https-deep-link.md)
+- [Manifest와 assetlinks는 서로 다른 역할을 가진다](manifest-and-assetlinks-have-distinct-roles.md)
+- [Deep link는 외부 URI 계약이다](deep-link-is-external-uri-contract.md)
+- [External URI는 navigation 전에 검증되어야 한다](external-uri-must-be-validated-before-navigation.md)
+- [Authenticated deep link는 대기 목적지와 back stack이 필요하다](authenticated-deep-links-require-pending-destination-and-back-stack.md)
+- [Notification deep link는 명시적 task와 back stack 정책이 필요하다](notification-deep-link-needs-explicit-task-and-back-stack-policy.md)
+- [Dynamic App Link는 manifest 범위를 세분화할 뿐 확장하지 않는다](dynamic-app-links-refine-but-do-not-expand-manifest-scope.md)
+- [Deep link 테스트는 resolution, verification, routing을 함께 검증한다](deep-link-testing-validates-resolution-verification-and-routing.md)
+
+---
+
+### 상위 및 연관 지도
+
+- 상위 가이드: [Android Deep Links 종합 가이드](../android-deep-links.md)
+- 연관 아키텍처: [Navigation 3 deep link는 URI를 NavKey로 변환한다](../../navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)

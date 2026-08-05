@@ -3,15 +3,17 @@ title: agp-dsl-checklist-verifies-effective-release-variant-values
 tags: ["android", "agp", "release", "gradle"]
 aliases: ["AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다
 
+상위 문서: [Gradle 빌드 계약](gradle-build-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-상용 릴리스 빌드를 생성할 때 `build.gradle.kts`에 설정된 AGP DSL 플래그의 실효값(Effective Values)을 반드시 검증해야 한다.
+상용 릴리스 빌드를 생성할 때 `build.gradle.kts`에 설정된 AGP DSL 플래그의 **실효값**(Effective Values: 각 블록 설정이 병합 후 최종 적용된 실효 파라미터 값)을 반드시 검증해야 한다.
 디버그용 설정이 릴리스 빌드에 오염되는 것(Leak)을 방지하기 위해 다음 필수 체크리스트 항목을 검증한다:
 1. `isMinifyEnabled = true`: R8 난독화 및 데드 코드 제거 활성화.
 2. `isShrinkResources = true`: 미사용 XML/이미지 리소스 제거.

@@ -2,7 +2,7 @@
 title: in-app-update-flexible-and-immediate-flows-differ-in-blocking
 tags: ["android", "play-core", "in-app-update"]
 aliases: ["In-App Update의 flexible과 immediate 흐름은 사용자 흐름 차단 여부가 다르다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -10,12 +10,12 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 내부 메커니즘 (Internal Mechanism)
 
-Play Core의 **In-App Update API**(`AppUpdateManager`)는 앱이 스토어로 사용자를 내보내지 않고 앱 안에서 업데이트를 트리거할 수 있게 한다. `AppUpdateType` 은 두 가지이며, 핵심 차이는 **업데이트 진행 중 사용자가 앱을 계속 쓸 수 있는지**다.
+Play Core SDK의 **In-App Update API (`AppUpdateManager`)**는 사용자가 직접 스토어 앱으로 이동하여 업데이트 버튼을 누르는 불편 없이, 앱 자체 화면 내에서 구글 플레이 릴리스 업데이트 흐름을 즉시 트리거할 수 있게 지원한다. 개발자는 업데이트 사안의 긴급도에 따라 두 가지 **AppUpdateType** 중 하나를 선택한다. 핵심 인과관계 차이는 **업데이트 수신 진행 중에 사용자가 앱의 본래 기능을 계속 이용할 수 있는지(사용자 흐름 차단 여부)**에 있다.
 
-- **`AppUpdateType.FLEXIBLE`**: 백그라운드에서 새 버전을 다운로드하는 동안 사용자는 현재 화면을 계속 사용할 수 있다(non-blocking). 다운로드 완료(`InstallStatus.DOWNLOADED`) 후에는 앱이 명시적으로 `completeUpdate()` 를 호출해 재시작을 유도해야 실제 설치가 끝난다 — 이 재시작 트리거는 자동이 아니라 앱 책임이다.
-- **`AppUpdateType.IMMEDIATE`**: 전체 화면 UI로 업데이트 진행 상황을 보여주며 사용자가 업데이트를 완료(또는 취소)할 때까지 앱 사용이 중단된다(blocking). 설치와 재시작을 Google Play가 자동으로 처리한다.
+- **`AppUpdateType.FLEXIBLE` (비차단형 자율 업데이트)**: Google Play 서비스가 백그라운드 네트워크 스트림으로 신규 바이너리를 다운로드하는 동안 사용자는 앱의 기존 UI 및 기능 메뉴를 차단 없이 계속 이용할 수 있다(non-blocking). 다운로드가 끝나면 `InstallStatus.DOWNLOADED` 이벤트가 발행되며, 이때 앱이 직접 `completeUpdate()` 메서드를 명시적으로 트리거해야만 앱이 재시작되면서 최종 인스톨이 완료된다. 즉, 다운로드 후 실제 적용 재시작 시점은 앱의 관리 책임이다.
+- **`AppUpdateType.IMMEDIATE` (차단형 강제 업데이트)**: 치명적인 보안 패치나 서버 API 호환성 단절 등 구버전 실행이 불가능한 경우 전체 화면 업데이트 프로그레스 UI를 띄워 사용자의 앱 이행을 완전히 차단한다(blocking). 다운로드 완료 후 앱 재시작 및 설치 적용까지 Google Play 런타임이 전권을 가지고 자동 수행한다.
 
-두 흐름 모두 시작 전에 `AppUpdateManager.appUpdateInfo` 로 업데이트 가용성과 `updatePriority`, `clientVersionStalenessDays`(현재 버전이 며칠째 뒤처졌는지)를 먼저 확인해야 한다. 이 정보로 "치명적 보안 패치라 즉시 강제해야 한다"와 "부가 기능이라 방해하지 않아야 한다"를 갈라 `IMMEDIATE`/`FLEXIBLE` 중 하나를 선택하는 것이 API 설계 의도다.
+두 흐름 모두 호출 전 `AppUpdateManager.appUpdateInfo`를 통해 스토어 상의 신규 업데이트 가용성(`UpdateAvailability.UPDATE_AVAILABLE`), 구글 콘솔에 지정된 업데이트 우선순위(`updatePriority`), 그리고 버전 지연 일수(`clientVersionStalenessDays`)를 사전에 조회하여 정책 판단을 내리는 것이 올바른 디자인 패턴이다.
 
 ```mermaid
 sequenceDiagram

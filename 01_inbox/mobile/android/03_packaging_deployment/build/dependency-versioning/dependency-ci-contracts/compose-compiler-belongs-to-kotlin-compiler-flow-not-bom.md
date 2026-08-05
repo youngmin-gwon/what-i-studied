@@ -3,15 +3,17 @@ title: compose-compiler-belongs-to-kotlin-compiler-flow-not-bom
 tags: ["android", "compose", "kotlin", "compiler"]
 aliases: ["Compose compiler는 BOM이 아니라 Kotlin compiler 흐름에 속한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 22:00:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Compose compiler는 BOM이 아니라 Kotlin compiler 흐름에 속한다
 
+상위 문서: [의존성, 버전, CI 계약](dependency-ci-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-Compose Runtime 및 UI 라이브러리는 Compose BOM에 의해 버전이 관리되는 반면, **Compose Compiler Plugin**은 Kotlin 컴파일러의 IR (Intermediate Representation) 변환 플러그인이다.
+Compose Runtime 및 UI 라이브러리는 Compose BOM에 의해 버전이 관리되는 반면, **Compose Compiler Plugin**은 Kotlin 컴파일러의 **IR**(Intermediate Representation - 컴파일 중간 표현 트리) 변환 플러그인이다.
 Kotlin 2.0.0 이전에는 Kotlin 컴파일러 버전과 Compose Compiler 버전 간에 1:1 강한 결합(Strict Matrix)이 존재했으나, Kotlin 2.0.0부터 Compose Compiler가 JetBrains Kotlin 리포지토리로 이관되어 `org.jetbrains.kotlin.plugin.compose` Gradle 플러그인으로 통합되었다. Compose Compiler는 `@Composable` 함수에 런타임 추적 코드를 주입하고, 파라미터의 변경 가능성(Stability / Immutability)을 분석하여 불필요한 Recomposition을 건너뛰는(Restartable & Skippable) 코드를 바이트코드로 변환한다.
 
 ```mermaid

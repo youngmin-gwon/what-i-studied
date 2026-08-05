@@ -2,97 +2,135 @@
 title: widget-configuration-activity-runs-once-at-pin-time
 tags: [android, android/app-widgets]
 aliases: ["위젯 설정 Activity는 pin 시점에 실행되는 계약을 가진다"]
-date modified: 2026-08-05 13:15:13 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-## 위젯 설정 Activity 는 pin 시점에 실행되는 계약을 가진다
+## 위젯 설정 Activity는 pin 시점에 실행되는 계약을 가진다
 
-위젯이 시간대를 고르는 시계나 폴더를 고르는 메일 위젯처럼 사용자 입력이 필요하면, `AppWidgetProviderInfo` 에 configuration `Activity` 를 선언한다. 공식 문서는 이 시점을 다음과 같이 설명한다. "Android widgets display their configuration choices right after the user drops the widget onto a home screen." 즉 이 Activity 는 화면에 상시 존재하는 설정 화면이 아니라, host(런처 앱)가 위젯을 홈 화면에 pin(고정 배치)하는 순간 한 번 끼워 넣는 결과값 계약(result contract)이다.
+홈 화면에 위젯을 추가할 때 계정 설정, 도시 선택, 테마 구성 등 사용자 입력이 필수적인 경우, `AppWidgetProviderInfo` 메타데이터에 **Configuration Activity**를 등록한다. 이 Activity 는 앱 화면 내의 일반 상시 설정 화면과 달리, 사용자가 홈 화면(Launcher)에 위젯을 드롭(Pin)하는 **배치 시점에 호스트에 의해 한 번만 호출되는 일회성 결과 반환 계약(Result Contract)**을 따른다.
 
-### 내부 동작 메커니즘
+---
 
-- `<appwidget-provider>` XML 의 `android:configure` 속성에 설정 Activity 의 정규화된 클래스명을 적는다. 사용자가 위젯을 드롭하면 host 는 `ACTION_APPWIDGET_CONFIGURE` intent 로 이 Activity 를 실행하며 `EXTRA_APPWIDGET_ID` 를 함께 전달한다.
-- 설정 Activity 는 사용자가 선택을 끝내면 반드시 `setResult(RESULT_OK, resultValue)` 를 호출하고 `resultValue` 에 동일한 `EXTRA_APPWIDGET_ID` 를 담아 `finish()` 해야 한다. `RESULT_OK` 없이 종료되거나 사용자가 뒤로 가기로 취소하면 host 는 위젯을 home 화면에 추가하지 않는다.
-- Android 11(API 30) 이하에서는 이 Activity 가 "사용자가 위젯을 홈 화면에 추가할 때마다" 매번 실행된다. Android 12(API 31)부터는 기본 설정(default configuration)을 제공해 이 단계를 건너뛸 수 있고, 이미 배치된 위젯도 나중에 다시 열어 재설정(reconfigure)할 수 있는 옵션이 추가됐다.
-- 설정이 끝나면 host 는 그제서야 `AppWidgetProvider.onUpdate()` 를 호출해 처음 `RemoteViews` 를 채운다. 즉 `onUpdate()` 는 설정이 필요한 위젯이라면 설정 완료 이후에 최초로 실행된다.
+### 1. 개념 및 핵심 명제 (What)
+
+- **호스트 주도 결과 계약 (Host-driven Result Contract)**:
+  위젯이 드롭되면 홈 화면 호스트(Launcher)는 `ACTION_APPWIDGET_CONFIGURE` Intent 와 함께 생성 예정인 `EXTRA_APPWIDGET_ID` 를 파라미터로 전달하여 설정 Activity 를 실행한다.
+- **성공 및 취소 계약**:
+  - 사용자 설정 완료 시 `setResult(RESULT_OK, resultIntent)` (Intent 에 `EXTRA_APPWIDGET_ID` 포함)를 호출하고 `finish()` 해야만 위젯이 홈 화면에 최종 배치된다.
+  - 사용자가 뒤로 가기 버튼으로 취소하거나 `RESULT_CANCELED` 로 종료되면 호스트는 위젯 배치를 취소하고 렌더링하지 않는다.
+- **최초 `onUpdate()` 실행 순서**:
+  설정 Activity 가 등록된 위젯은 설정이 완료되기 전까지 시스템이 `onUpdate()` 를 호출하지 않으며, `RESULT_OK` 가 리턴된 직후 최초 갱신 브로드캐스트가 발송된다.
+
+---
+
+### 2. 왜 필요한가? (Why)
+
+1. **초기화 미완성 상태의 위젯 노출 방지**: 계정이 선택되지 않거나 설정 정보가 없는 상태에서 위젯이 홈 화면에 빈 상태나 에러 레이아웃으로 임시 노출되는 현상을 원천 방지한다.
+2. **인스턴스별 격리된 옵션 관리**: 동일한 앱의 위젯이라도 홈 화면에 여러 개 배치할 수 있다(예: 서울 날씨 위젯과 도쿄 날씨 위젯). `appWidgetId` 단위로 상이한 설정 파라미터를 초기화할 기회를 제공한다.
+
+---
+
+### 3. 내부 메커니즘 (How)
 
 ```mermaid
 sequenceDiagram
-    participant User as 사용자
-    participant Host as AppWidgetHost (Launcher)
-    participant Config as 설정 Activity
-    participant Provider as AppWidgetProvider
+    participant User as "사용자"
+    participant Host as "AppWidgetHost (Launcher)"
+    participant Config as "Configuration Activity"
+    participant AWM as "AppWidgetManager (System Server)"
+    participant Provider as "GlanceAppWidget / AppWidgetProvider"
 
-    User->>Host: 위젯을 홈 화면에 드롭
-    Host->>Config: ACTION_APPWIDGET_CONFIGURE + EXTRA_APPWIDGET_ID
-    User->>Config: 설정 값 선택
-    Config->>Config: setResult(RESULT_OK, EXTRA_APPWIDGET_ID 포함)
-    Config-->>Host: finish()
-    alt RESULT_OK로 종료
-        Host->>Provider: onUpdate(appWidgetId)
-        Provider-->>Host: 채워진 RemoteViews
-    else 취소 / RESULT_CANCELED
-        Host->>Host: 위젯 추가 취소, 자리에서 제거
+    User->>Host: "위젯을 홈 화면에 드롭 (Pin)"
+    Host->>AWM: "새 appWidgetId 할당 받음"
+    Host->>Config: "ACTION_APPWIDGET_CONFIGURE (EXTRA_APPWIDGET_ID 포함)"
+    User->>Config: "도시/테마 선택 후 저장 클릭"
+    Config->>Config: "DataStore / SharedPreferences 에 (appWidgetId, config) 저장"
+    Config->>Config: "setResult(RESULT_OK, EXTRA_APPWIDGET_ID 인텐트)"
+    Config-->>Host: "finish() 실행"
+    alt RESULT_OK 반환
+        Host->>AWM: "위젯 바인딩 승인"
+        AWM->>Provider: "ACTION_APPWIDGET_UPDATE 최초 갱신 요청"
+        Provider-->>Host: "초기 설정 반영된 RemoteViews 전달"
+    else RESULT_CANCELED / 뒤로가기
+        Host->>Host: "위젯 추가 취소 및 드롭 취소"
     end
 ```
 
-### 코드 예시
+#### Android 버전별 변경 사항
+- **Android 11 이하**: 위젯 배치 시 마다 Configuration Activity 가 반드시 강제 실행되었다.
+- **Android 12 (API 31)+**: `widgetFeatures="reconfigurable|configuration_optional"` 옵션을 통해 기본값을 제공하고 설정 단계를 건너뛰거나, 배치 완료 후 나중에 사용자가 위젯을 길게 눌러 재설정(Reconfigure)할 수 있도록 확장되었다.
 
-```xml
-<!-- res/xml/benefit_widget_info.xml -->
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="180dp"
-    android:minHeight="110dp"
-    android:updatePeriodMillis="1800000"
-    android:configure="com.example.benefit.BenefitWidgetConfigureActivity"
-    android:initialLayout="@layout/widget_benefit" />
-```
+---
+
+### 4. 현대 표준 코드 구현 (Jetpack Compose Config Activity & DataStore)
 
 ```kotlin
-class BenefitWidgetConfigureActivity : ComponentActivity() {
+class WidgetConfigureActivity : ComponentActivity() {
 
     private var appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 취소로 끝나는 기본값을 먼저 세팅해, 중간에 프로세스가 죽어도
-        // host가 위젯을 추가하지 않는 안전한 상태를 유지한다.
+        
+        // 1. 기본 반환값을 CANCELED로 세팅 (이탈 시 위젯 취소 처리)
         setResult(RESULT_CANCELED)
 
-        appWidgetId = intent.getIntExtra(
+        // 2. 전달된 appWidgetId 검증
+        appWidgetId = intent?.extras?.getInt(
             AppWidgetManager.EXTRA_APPWIDGET_ID,
             AppWidgetManager.INVALID_APPWIDGET_ID
-        )
+        ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
+
         if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish()
             return
         }
 
         setContent {
-            ConfigScreen(onConfirm = { selectedFolder ->
-                saveWidgetPref(appWidgetId, selectedFolder)
+            WidgetConfigScreen(
+                onSave = { selectedCity ->
+                    lifecycleScope.launch {
+                        // DataStore에 id별 설정 저장
+                        WidgetPrefRepository.saveCity(applicationContext, appWidgetId, selectedCity)
+                        
+                        // Glance 위젯 수동 갱신
+                        WeatherGlanceWidget().update(applicationContext, GlanceId(appWidgetId))
 
-                val resultValue = Intent().putExtra(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId
-                )
-                setResult(RESULT_OK, resultValue)
-                finish()
-            })
+                        // 성공 결과 반환 계약 준수
+                        val resultValue = Intent().putExtra(
+                            AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId
+                        )
+                        setResult(RESULT_OK, resultValue)
+                        finish()
+                    }
+                }
+            )
         }
     }
 }
 ```
 
-### 관측 가능한 증거
+---
 
-- 설정 Activity 를 뒤로 가기로 취소하면 홈 화면에 위젯이 배치되지 않고 사라지는 것을 직접 관찰할 수 있다. `EXTRA_APPWIDGET_ID` 를 실수로 담지 않고 `RESULT_OK` 를 반환하면 위젯 배치 자체가 실패하며 `AppWidgetManager` 관련 예외가 logcat 에 남는다.
-- `adb shell dumpsys appwidget` 으로 특정 `appWidgetId` 가 "bound" 상태인지, 아직 설정 대기 중인지 확인할 수 있다.
+### 5. 관측 가능 증거 및 진단 (Observability)
 
-상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../../architecture/android-app-architecture.md)
+- **설정 결과 반환 누락으로 인한 위젯 추가 실패 진단**:
+  `setResult(RESULT_OK)` 에 `EXTRA_APPWIDGET_ID` 가 포함되지 않은 채 `finish()` 되면 런처에서 위젯이 즉시 삭제되며 logcat 에 다음 로그 남음:
+  `AppWidgetHost: Optional configuration activity canceled or failed to return RESULT_OK`
+- **현재 바인딩된 appWidgetId 와 설정 상태 확인**:
+  ```bash
+  adb shell dumpsys appwidget
+  ```
 
-관련 노트: [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](./appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md)
+---
 
-공식 문서: [App widgets overview](https://developer.android.com/develop/ui/views/appwidgets/overview), [Enable users to configure app widgets](https://developer.android.com/guide/topics/appwidgets/configuration)
+### 6. 관련 문서 및 참조
 
-검증일: 2026-08-04. "드롭 직후 설정 화면 노출"과 Android 11 이하에서 매번 실행되는 동작, Android 12+ 기본 설정/재설정 옵션 추가는 공식 가이드 원문으로 확인했다. `setResult`/`EXTRA_APPWIDGET_ID` 계약은 오래 유지된 표준 App Widget 패턴으로, 이번 세션에서 별도 원문 인용을 재확인하지 못해 API 문서 재검토 시 다시 대조한다.
+- 상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../../architecture/android-app-architecture.md)
+- 관련 계약 문서:
+  - [App Widget 계약](./app-widget-contracts.md)
+  - [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](./appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md)
+- 공식 문서: [Enable users to configure app widgets](https://developer.android.com/develop/ui/views/appwidgets/configuration)
+
+검증일: 2026-08-05. Configuration Activity 의 RESULT_OK 계약 및 Android 12+ 재설정 옵션 원문 대조 확인 완료.

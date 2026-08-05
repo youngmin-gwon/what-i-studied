@@ -2,7 +2,7 @@
 title: play-billing-library-is-the-only-approved-in-app-purchase-path
 tags: ["android", "billing", "play-policy"]
 aliases: ["Play Billing Library는 Android 인앱 결제의 유일하게 승인된 경로다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -10,9 +10,11 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 내부 메커니즘 (Internal Mechanism)
 
-Google Play Developer Distribution Agreement 는 앱 내 기능이나 콘텐츠에 대한 결제가 필요하거나 허용되는 경우 Google Play의 결제 시스템, 즉 Play Billing Library 를 사용해야 한다고 규정한다. 이 요구사항은 가상 화폐, 구독, 광고 제거, 클라우드 소프트웨어 등 **디지털 상품과 서비스**에 적용된다. 물리적 상품/서비스(식료품, 의류, 운송, 항공권), 개인 간 송금, 온라인 경매, 실제 돈이 걸린 도박은 예외이며 다른 결제 수단을 쓸 수 있다. 일부 국가에서는 프로그램 등록 후 대체 결제 시스템을 병행할 수 있지만, 이는 별도 프로그램 승인이 필요한 예외이지 기본 규칙을 대체하지 않는다.
+구글의 공식 배포 정책인 **Google Play Developer Distribution Agreement(구글 플레이 개발자 분배 협약)**는 안드로이드 앱 내부에서 사용자가 디지털 상품, 가상 화폐, 프리미엄 기능 해금, 구독 서비스 등을 구매할 때 반드시 구글의 공식 결제 클라이언트 SDK인 **Play Billing Library (`BillingClient`)**를 통해서만 결제를 처리해야 한다고 강제 규정한다. (물리적 실물 상품 배송, 택시/운송, 실생활 서비스 예약 등은 예외 정책 적용).
 
-이 계약이 코드 레벨에서 강제되는 지점은 앱이 아니라 **Google Play 심사와 앱 게시 파이프라인**이다. 앱이 디지털 상품을 다른 결제 수단(자체 신용카드 결제, 웹뷰로 우회한 외부 결제 페이지 등)으로 판매하면 정책 위반으로 앱이 거부되거나 게시가 중단된다. 즉 `BillingClient` API를 안 쓴다고 즉시 빌드가 실패하는 것이 아니라, Play Console 심사와 정책 감사 단계에서 앱 배포 자체가 막힌다. 이는 Gradle 컴파일 타임 계약이 아니라 배포 정책 계약이라는 점에서 다른 Android API 제약과 다르다.
+이 계약이 기술적으로 강제되는 지점은 Gradle 컴파일 타임이 아니라, 개발자가 AAB를 제출하는 **Google Play Console 심사 및 라이브 정책 감사 파이프라인**이다. 앱이 자체 결제 모듈(외부 웹뷰 신용카드 결제, 외부 PG 연동 등)로 디지털 콘텐츠를 우회 판매하다 적발될 경우 스토어 게시 거부, 앱 강제 차단, 계정 정지 조치가 단행된다.
+
+`BillingClient` API는 런타임 환경에서 안드로이드 OS 커널의 **Binder IPC (Inter-Process Communication, 프로세스 간 통신)** 인프라를 통해 기기에 설치된 Google Play Store 시스템 앱 프로세스와 보안 RPC 통신을 주고받는다. 따라서 기기에 Google Play Store 앱이 존재하지 않거나 구글 계정으로 로그인되어 있지 않은 환경(예: 자체 커스텀 ROM, 특정 대륙 에코시스템)에서는 `startConnection()` 호출 시 `BILLING_UNAVAILABLE` 오류를 반환하며 인앱 결제 서비스 진입이 차단된다.
 
 ### 코드 예시 (BillingClient 초기화와 연결)
 

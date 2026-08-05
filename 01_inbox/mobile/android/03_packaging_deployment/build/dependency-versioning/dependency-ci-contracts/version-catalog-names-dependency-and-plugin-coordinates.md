@@ -3,15 +3,17 @@ title: version-catalog-names-dependency-and-plugin-coordinates
 tags: ["android", "gradle", "version-catalog"]
 aliases: ["Version Catalog는 의존성 좌표와 플러그인 좌표의 이름표다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Version Catalog는 의존성 좌표와 플러그인 좌표의 이름표다
 
+상위 문서: [의존성, 버전, CI 계약](dependency-ci-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-Gradle Version Catalog (`gradle/libs.versions.toml`)는 멀티모듈 프로젝트 전체에서 사용되는 라이브러리 좌표(`group:artifact:version`), 플러그인 ID, 버전 번호, 그리고 묶음 패키지(`bundle`)를 중앙 단일 출처(SSOT)로 정의한다.
+Gradle **Version Catalog**(`gradle/libs.versions.toml`)는 멀티모듈 프로젝트 전체에서 사용되는 라이브러리 좌표(`group:artifact:version`), 플러그인 ID, 버전 번호, 그리고 묶음 패키지(`bundle`)를 중앙 단일 출처(SSOT)로 정의한다.
 Gradle은 TOML 파일에 정의된 Key 이름을 기반으로 타입 세이프한 Kotlin DSL Accessor (`libs.androidx.core.ktx`, `libs.plugins.android.application`)를 컴파일 시점에 빌드 스크립트 클래스로 자동 생성한다. 이를 통해 하드코딩된 버전 문자열 오타를 방지하고 자동완성 지원 및 빌드 캐시 안정성을 보장한다.
 
 ```mermaid

@@ -3,15 +3,17 @@ title: build-type-product-flavor-and-build-variant-are-different-axes
 tags: ["android", "gradle", "variant", "flavor"]
 aliases: ["Build type, product flavor, build variant는 서로 다른 축이다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 22:00:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Build type, product flavor, build variant는 서로 다른 축이다
 
+상위 문서: [Gradle 빌드 계약](gradle-build-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-AGP 빌드 아키텍처는 직교하는 두 개의 축(Orthogonal Axes)을 결합하여 최종 빌드 산출물(Build Variant)을 결정한다:
+AGP 빌드 아키텍처는 직교하는 두 개의 축(Orthogonal Axes)을 결합하여 최종 빌드 산출물인 **Build Variant**를 결정한다:
 1. **Build Type (어떻게 빌드할 것인가)**: `debug`, `release` 등 컴파일 및 최적화 설정 (`isMinifyEnabled`, `isDebuggable`, 서명 설정).
 2. **Product Flavor (무엇을 빌드할 것인가)**: `dev`, `staging`, `prod` 등 제품의 기능적 변종 (`applicationIdSuffix`, API 엔드포인트 BASE_URL, 고유 리소스).
 3. **Build Variant (최종 산출물 조합)**: `Build Variant = Product Flavor x Build Type`. (예: `devDebug`, `prodRelease`).

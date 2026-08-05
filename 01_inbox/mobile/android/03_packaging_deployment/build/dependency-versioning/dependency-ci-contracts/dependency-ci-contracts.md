@@ -3,14 +3,16 @@ title: dependency-ci-contracts
 tags: ["android", "android/packaging-deployment", "dependency"]
 aliases: ["의존성, 버전, CI 계약"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## 의존성, 버전, CI 계약
 
-이 지도는 Gradle dependency resolution, version catalog (`libs.versions.toml`), Compose BOM 및 Compiler, KSP/kapt 코드 생성, kotlinx.serialization, 그리고 CI/CD 품질 게이트 운영 계약을 다룬다.
+상위 문서: [Android 패키징과 배포 지도](../../../android-packaging-deployment.md)
+
+이 지도는 Gradle **Dependency Resolution**(전이적 의존성 그래프 해석 엔진), **Version Catalog**(`libs.versions.toml`: 중앙 의존성 좌표 관리), Compose **BOM**(Bill of Materials: 라이브러리 버전 집합) 및 Compiler, **KSP**(Kotlin Symbol Processing: 고성능 코드 생성기)/kapt 코드 생성, kotlinx.serialization, 그리고 CI/CD 품질 게이트 운영 계약을 다룬다.
 
 ```mermaid
 flowchart LR

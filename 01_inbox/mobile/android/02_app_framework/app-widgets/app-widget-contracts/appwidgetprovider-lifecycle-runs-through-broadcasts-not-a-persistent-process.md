@@ -2,94 +2,129 @@
 title: appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process
 tags: [android, android/app-widgets]
 aliases: ["AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다"]
-date modified: 2026-08-05 13:15:02 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-## AppWidgetProvider lifecycle 은 지속 프로세스가 아니라 broadcast 로 갱신된다
+## AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다
 
-`AppWidgetProvider` 는 `BroadcastReceiver` 의 하위 클래스다. Activity 처럼 화면을 소유한 채 계속 살아있는 컴포넌트가 아니고, Service 처럼 명시적으로 시작해 오래 실행하는 컴포넌트도 아니다. 시스템(launcher/home 이 host 인 `AppWidgetHost`)이 `AppWidgetManager`(안드로이드 시스템에 등록된 위젯 상태를 업데이트하고 관리하는 서비스)를 거쳐 broadcast 를 보낼 때마다 `onReceive()` 가 호출되고, 그 안에서 action 에 따라 `onUpdate`, `onEnabled`, `onDisabled`, `onDeleted`, `onAppWidgetOptionsChanged` 로 분기한다. 각 호출 사이에 widget 전용 프로세스나 인스턴스가 계속 남아 있다고 가정하면 안 된다.
+AppWidgetProvider(또는 Glance 의 `GlanceAppWidgetReceiver`)의 생명주기는 메인 UI Activity 처럼 메모리에 상주하면서 화면 갱신을 지속적으로 처리하는 프로세스 생명주기가 아니다. 위젯의 갱신 신호는 OS 및 시스템 서비스(`AppWidgetManager`)가 발행하는 **Broadcast Intent**를 통해 순간적으로 수신되며, 브로드캐스트 리시버 실행 타임아웃 예산(약 10초) 내에서 처리되고 즉시 프로세스가 회수 대기 상태로 전환되는 짧은 수명 계약을 갖는다.
 
-### 내부 동작 메커니즘
+---
 
-- 위젯이 홈 화면에 추가되면 host 는 `AppWidgetManager` 를 통해 `ACTION_APPWIDGET_UPDATE` broadcast 를 보낸다. `AppWidgetProvider.onReceive()` 가 이 action 을 가로채 `onUpdate(context, appWidgetManager, appWidgetIds)` 로 위임한다.
-- `onEnabled()` 는 이 앱의 위젯 인스턴스가 처음 하나라도 생겼을 때, `onDisabled()` 는 마지막 인스턴스가 제거됐을 때 한 번씩만 불린다. `onDeleted()` 는 개별 위젯 인스턴스가 삭제될 때마다 그 `appWidgetIds` 를 알려준다.
-- `onReceive()` 는 여느 `BroadcastReceiver` 와 같은 실행 예산 안에서 동작해야 한다. `onUpdate()` 안에서 네트워크 호출이나 무거운 계산을 동기적으로 수행하면 시간 예산을 넘겨 ANR(Application Not Responding) 로 표시될 수 있다. 그래서 실제 데이터 갱신은 `onUpdate()` 안에서 `WorkManager` 작업을 enqueue 하거나 이미 갱신된 로컬 데이터를 읽어 `RemoteViews` 에 반영하는 정도로 짧게 끝내야 한다.
-- 위젯은 host 프로세스(런처)에 표시되지만 실행 코드는 앱 자신의 프로세스(UID)에서 `onReceive()` 콜백으로 실행된다. 즉 "위젯 전용 프로세스"는 없고, 시스템이 필요할 때만 앱 프로세스를 깨워 broadcast 를 전달하는 모델이다.
+### 1. 개념 및 핵심 명제 (What)
+
+- **이벤트 전용 짧은 생명주기 (Short-lived Event Lifecycle)**: `AppWidgetProvider` 는 `BroadcastReceiver` 를 상속받은 특수 컴포넌트다. 위젯 갱신 이벤트(`ACTION_APPWIDGET_UPDATE`), 생명주기 변경(`onEnabled`, `onDisabled`, `onDeleted`, `onRestored`) 시점에만 인스턴스가 동적으로 생성되고 execution 콜백이 끝나면 바로 파기 대상이 된다.
+- **현대 표준 GlanceAppWidgetReceiver**: Jetpack Glance 도 이 브로드캐스트 기반 생명주기 원칙을 그대로 따른다. `GlanceAppWidgetReceiver` 는 `BroadcastReceiver` 를 상속받아 `ACTION_APPWIDGET_UPDATE` 신호를 받으면 내장 코루틴 렌더러를 통해 `GlanceAppWidget.provideGlance()` 를 실행하고 `RemoteViews` 를 발행한다.
+
+---
+
+### 2. 왜 지속 프로세스가 아닌가? (Why)
+
+1. **시스템 리소스 보존 (Battery & Memory Optimization)**: 홈 화면 위젯은 기기 부팅 시점부터 상시 노출될 수 있다. 모든 설치된 앱의 위젯이 별도 실행 프로세스나 바인딩된 서비스(Bound Service)를 유지한다면 Background Process Limit 을 초과하여 스마트폰 사용이 불가능해진다.
+2. **비동기 이탈 및 작업 위임 (Asynchronous Delegation)**: 위젯 update 콜백(`onUpdate` / Glance `provideGlance`) 내에서 동기적 네트워크 IO 나 중량 DB 쿼리를 수행하면 시스템은 리시버 타임아웃을 감지하여 ANR(Application Not Responding)을 유발하거나 프로세스를 강제 종료한다. 따라서 비동기 데이터 로딩은 **WorkManager**로 위임하고 결과가 준비되었을 때 위젯을 명시적으로 재갱신해야 한다.
+
+---
+
+### 3. 내부 메커니즘 (How)
 
 ```mermaid
 sequenceDiagram
-    participant Host as AppWidgetHost (Launcher)
-    participant AWM as AppWidgetManager (system_server)
-    participant App as 앱 프로세스
-    participant Provider as AppWidgetProvider.onReceive()
+    participant Host as "AppWidgetHost (Launcher)"
+    participant AWM as "AppWidgetManager (System Server)"
+    participant App as "앱 프로세스 (없을 경우 임시 생성)"
+    participant Provider as "GlanceAppWidgetReceiver / AppWidgetProvider"
+    participant WM as "WorkManager (비동기 작업)"
 
-    Host->>AWM: 위젯 pin / 주기 갱신 트리거
-    AWM->>App: ACTION_APPWIDGET_UPDATE broadcast
-    App->>Provider: onReceive() 호출 (인스턴스 새로 생성)
-    Provider->>Provider: onUpdate(context, manager, ids)
-    Provider->>AWM: RemoteViews.apply() 결과 전달
-    AWM->>Host: 갱신된 RemoteViews 렌더링
-    Note over App,Provider: onReceive() 종료 후 프로세스는<br/>다른 컴포넌트가 없으면 회수될 수 있다
+    Host->>AWM: "위젯 갱신 주기 도달 또는 버튼 클릭"
+    AWM->>App: "ACTION_APPWIDGET_UPDATE Broadcast 발송"
+    App->>Provider: "onReceive() 호출 (인스턴스 생성)"
+    alt 간단한 로컬 캐시 데이터 갱신
+        Provider->>AWM: "RemoteViews 생성 후 updateAppWidget() 전달"
+    else 장기 실행 / 네트워크 조회 필요
+        Provider->>WM: "WorkManager 작업 등록 (OneTimeWorkRequest)"
+        Provider-->>AWM: "임시 Loading RemoteViews 즉시 반환"
+        WM->>App: "백그라운드 비동기 데이터 수신"
+        WM->>AWM: "GlanceAppWidget.update() 호출하여 최종 RemoteViews 주입"
+    end
+    Note over App,Provider: "onReceive() 종료 후 프로세스는 즉시 Cached 상태로 전환"
 ```
 
-### 코드 예시
+#### 주요 생명주기 콜백 계약
+
+- `onEnabled()`: 해당 Provider 의 위젯 인스턴스가 홈 화면에 **최초 1개 생성**되었을 때 단 한 번 호출된다. (알람 등록, 배경 작업 초기화 지점)
+- `onUpdate()`: 위젯 ID 목록(`appWidgetIds`)에 대한 UI 갱신이 필요할 때 호출된다.
+- `onDeleted()`: 개별 위젯 인스턴스가 홈 화면에서 **삭제**될 때 해당 `appWidgetIds` 와 함께 호출된다. (특정 위젯의 설정값/DataStore 캐시 삭제 지점)
+- `onDisabled()`: 홈 화면에서 해당 Provider 의 **마지막 위젯 인스턴스까지 모두 삭제**되었을 때 호출된다. (주기적 알람/스케줄러 해제 지점)
+
+---
+
+### 4. 현대 표준 예시 (Jetpack Glance vs 레거시 XML)
+
+#### Modern Jetpack Glance Implementation
 
 ```kotlin
-class BenefitWidgetProvider : AppWidgetProvider() {
+// 1. GlanceAppWidget 선언
+class WeatherGlanceWidget : GlanceAppWidget() {
+    override async fun provideGlance(context: Context, id: GlanceId) {
+        // 로컬 DataStore 또는 빠른 Caching 레포지토리에서 데이터 수신
+        val temp = WeatherRepository.getCachedTemperature(context)
 
-    override fun onUpdate(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray
-    ) {
-        for (widgetId in appWidgetIds) {
-            val views = RemoteViews(context.packageName, R.layout.widget_benefit).apply {
-                // onUpdate 안에서는 이미 로컬에 있는 값만 짧게 읽어 반영한다.
-                setTextViewText(R.id.widget_title, readCachedTitle(context))
+        provideContent {
+            GlanceTheme {
+                Column(modifier = GlanceModifier.fillMaxSize()) {
+                    Text(text = "현재 기온: ${temp}°C")
+                    Button(
+                        text = "새로고침",
+                        onClick = actionRunCallback<RefreshWeatherAction>()
+                    )
+                }
             }
-            appWidgetManager.updateAppWidget(widgetId, views)
         }
     }
+}
 
-    override fun onEnabled(context: Context) {
-        // 이 앱의 위젯 인스턴스가 처음 생성됐을 때 한 번
-    }
-
-    override fun onDisabled(context: Context) {
-        // 마지막 위젯 인스턴스가 제거됐을 때 한 번, 주기 작업 정리 지점
-    }
-
-    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
-        // 개별 위젯 인스턴스 삭제, 해당 id 의 저장 상태를 정리
-    }
+// 2. GlanceAppWidgetReceiver 선언 (BroadcastReceiver 표준 계약 연동)
+class WeatherGlanceWidgetReceiver : GlanceAppWidgetReceiver() {
+    override val glanceAppWidget: GlanceAppWidget = WeatherGlanceWidget()
 }
 ```
 
 ```xml
 <!-- AndroidManifest.xml -->
 <receiver
-    android:name=".BenefitWidgetProvider"
-    android:exported="false">
+    android:name=".WeatherGlanceWidgetReceiver"
+    android:exported="true">
     <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
     </intent-filter>
     <meta-data
         android:name="android.appwidget.provider"
-        android:resource="@xml/benefit_widget_info" />
+        android:resource="@xml/weather_widget_info" />
 </receiver>
 ```
 
-### 관측 가능한 증거
+---
 
-- `adb shell dumpsys appwidget` 로 현재 등록된 provider, 위젯 id, host 정보를 확인한다.
-- `adb logcat -s ActivityManager` 로 `onReceive()` 실행 중 시간 초과가 발생하면 "ANR in <package> (Broadcast of Intent { act=android.appwidget.action.APPWIDGET_UPDATE })" 형태의 로그가 남는다.
-- `onUpdate()` 안에서 예외가 발생하면 `RemoteViews$ActionException` 이 아니라 일반 앱 크래시로 logcat 에 스택 트레이스가 남는다. host 는 해당 위젯을 빈 상태로 표시한다.
+### 5. 관측 가능 증거 및 진단 (Observability)
 
-상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../../architecture/android-app-architecture.md)
+- **위젯 브로드캐스트 수신 및 프로세스 생명주기 관측**:
+  ```bash
+  adb logcat -s ActivityManager AppWidgetManager GlanceAppWidgetReceiver
+  ```
+- **리시버 execution 타임아웃(ANR) 확인**:
+  `onUpdate` 내에서 `Thread.sleep(15000)` 과 같이 동기 지연을 유발하면 다음 로그 발생:
+  `ANR in <package> (Broadcast of Intent { act=android.appwidget.action.APPWIDGET_UPDATE })`
 
-관련 노트: [RemoteViews는 위젯 layout을 고정된 View 부분집합으로 제한한다](./remoteviews-restricts-widget-layouts-to-a-fixed-view-subset.md), [updatePeriodMillis는 최소 간격만 보장하는 best-effort 스케줄이다](./updateperiodmillis-is-a-best-effort-minimum-interval-not-a-guarantee.md), [Android App Components](../../architecture/app-components/android-app-components.md)
+---
 
-공식 문서: [App widgets overview](https://developer.android.com/develop/ui/views/appwidgets/overview), [AppWidgetProvider](https://developer.android.com/reference/android/appwidget/AppWidgetProvider)
+### 6. 관련 문서 및 참조
 
-검증일: 2026-08-04. onUpdate/onEnabled/onDisabled/onDeleted 콜백 존재와 broadcast 기반 갱신은 공식 문서 원문으로 확인했다. ANR 발생 조건의 정확한 시간 임계값은 버전마다 달라질 수 있어 본문에 구체적인 초 단위 수치를 넣지 않았다.
+- 상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../../architecture/android-app-architecture.md)
+- 관련 계약 문서:
+  - [App Widget 계약](./app-widget-contracts.md)
+  - [RemoteViews는 위젯 layout을 고정된 View 부분집합으로 제한한다](./remoteviews-restricts-widget-layouts-to-a-fixed-view-subset.md)
+  - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../../04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md)
+- 공식 문서: [AppWidgetProvider API Reference](https://developer.android.com/reference/android/appwidget/AppWidgetProvider)
+
+검증일: 2026-08-05. BroadcastReceiver 기반 수명 및 GlanceAppWidgetReceiver 동작 가이드 검증 완료.

@@ -1,69 +1,114 @@
 ---
 title: compose-state-api-selection-by-lifetime
 tags: ["android", "android/app-framework"]
-aliases: []
+aliases: [State lifetime selection, Compose State Hierarchy]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
-## Compose 상태 API 는 필요한 수명에 맞춰 선택한다
+## Compose 상태 API는 필요한 수명에 맞춰 선택한다
+
+### 1. 개념 정의 (What)
+Compose 애플리케이션에서 상태(State)를 보존하는 API는 단일 통일 API로 처리되지 않으며, **데이터가 살아있어야 하는 수명주기 범주(Composition Lifetime, Activity Recreation, ViewModel Lifetime, Application Lifetime)**에 따라 적절한 API(`remember`, `rememberSaveable`, `ViewModelState`, `Repository`)를 정밀하게 선택해야 한다.
+
+---
+
+### 2. 수명주기 기반 상태 API 구분의 필요성 (Why)
+상태의 수명주기를 잘못 선택하면 다음과 같은 심각한 아키텍처 결함이 야기된다:
+- **과도한 보존(Over-retention)**: 단순 스크롤 위치나 텍스트 필드 임시 값이 ViewModel이나 전역 싱글톤에 저장되어 메모리가 낭비되고 초기화 로직이 복잡해진다.
+- **조기 파괴(Premature Loss)**: 화면 회전 시 유저가 입력 중이던 Form 데이터가 초기화되거나 탭 상태가 유실된다.
+
+각 데이터의 도메인 성격에 따라 최적의 수명 범위를 가진 API를 선택함으로써 메모리 효율성과 사용자 경험(UX) 보존을 동시에 달성한다.
+
+---
+
+### 3. 수명주기 계층 및 선택 기준 메커니즘 (How)
+
+```
++-------------------------------------------------------------------------+
+| Level 1: Composition 수명 (Transient UI Local State)                    |
+| - API: remember { mutableStateOf(value) }                               |
+| - 멸실 시점: Composable 이 화면 트리에서 제거될 때                        |
++-------------------------------------------------------------------------+
+                                    |
+                                    v
++-------------------------------------------------------------------------+
+| Level 2: Process Death & Activity Recreation 수명 (Restorable State)    |
+| - API: rememberSaveable { mutableStateOf(value) }                       |
+| - 멸실 시점: 유저가 화면을 완전히 이탈하거나 Task 를 종료할 때            |
++-------------------------------------------------------------------------+
+                                    |
+                                    v
++-------------------------------------------------------------------------+
+| Level 3: ViewModel 수명 (Screen Business State)                         |
+| - API: ViewModel + SavedStateHandle + StateFlow                         |
+| - 멸실 시점: 화면(NavBackStackEntry / Host Activity) 이 완전히 Pop 될 때  |
++-------------------------------------------------------------------------+
+                                    |
+                                    v
++-------------------------------------------------------------------------+
+| Level 4: Application / Persistent 수명 (Global Domain State)            |
+| - API: DataStore / Room / Repository Singleton                          |
+| - 멸실 시점: 앱 삭제 또는 캐시 삭제 시                                   |
++-------------------------------------------------------------------------+
+```
+
+---
+
+### 4. 올바른 API 선택 코드 가이드
+
+```kotlin
+// ✅ 1. Transient UI Local State: 애니메이션 expansion 상태
+@Composable
+fun ExpandableCard(title: String, content: String) {
+    // 단순 UI 확장 상태는 remember 로 수명 제한
+    var isExpanded by remember { mutableStateOf(false) }
+
+    Card(onClick = { isExpanded = !isExpanded }) {
+        Column {
+            Text(title)
+            if (isExpanded) {
+                Text(content)
+            }
+        }
+    }
+}
+
+// ✅ 2. Restorable Local UI State: 검색어 입력 창
+@Composable
+fun SearchInputBar() {
+    // 화면 회전 시에도 입력 중이던 검색어가 유지되어야 하므로 rememberSaveable 사용
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+
+    TextField(
+        value = searchQuery,
+        onValueChange = { searchQuery = it },
+        label = { Text("Search") }
+    )
+}
+
+// ✅ 3. Screen Business State: 서버에서 조회한 사용자 프로필
+@HiltViewModel
+class UserProfileViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
+    private val userRepository: UserRepository
+) : ViewModel() {
+    // ViewModel 수명 동안 비즈니스 데이터 및 에러 상태 관리
+    val uiState: StateFlow<UserProfileUiState> = userRepository.getUserProfile()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = UserProfileUiState.Loading
+        )
+}
+```
+
+---
 
 상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
-배경 지식: [프로세스 생명주기 및 상태](../../../../../../operating-systems/process-states-lifecycle.md)
 
-Compose 상태 API 의 첫 선택 기준은 타입이나 편의성이 아니라 수명이다.
+관련 노트: [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](../../runtime/compose-runtime-contracts/remember-is-composition-scoped-storage-not-general-cache.md), [rememberSaveable은 small restorable UI state를 위한 것이다](./remember-saveable-is-for-small-restorable-ui-state.md), [ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다](./viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)
 
-### 판단 기준
+출처: [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state)
 
-1. 이 값이 recomposition 사이에만 필요하면 `remember` 를 선택한다.
-2. 이 값이 Composable 이 composition 에 있는 동안만 필요하면 UI 내부에 둔다.
-3. Activity 재생성이나 process death 뒤에도 작은 값이 복원되어야 하면 `**rememberSaveable**(화면 회전이나 프로세스 재시작 후에도 Bundle을 통해 UI 상태를 복원해 주는 저장 API)` 을 검토한다.
-4. 여러 Composable 이 함께 읽거나 바꿔야 하면 공통 부모로 상태를 hoist 한다.
-5. 화면 또는 navigation destination 보다 오래 살아야 하면 ViewModel 이나 상위 owner 로 올린다.
-6. 앱 재시작 뒤에도 보존해야 하면 DataStore, Room, repository 같은 영속 계층을 선택한다.
-
-### API 선택표
-
-| 필요 수명 | 기본 선택 | 적합한 예 |
-| --- | --- | --- |
-| recomposition 사이 | `remember` | 펼침 여부, 비밀번호 표시 |
-| Composable 수명 | `remember`, UI effect | 임시 애니메이션, UI callback |
-| 구성 변경·복원 | `rememberSaveable` | 입력 초안, 탭 key |
-| 화면 상태 | ViewModel 또는 state holder | 로딩·성공·오류 상태 |
-| 화면 표시 중 Flow 수집 | `collectAsStateWithLifecycle` | `StateFlow<UiState>` |
-| 등록과 해제 | `**DisposableEffect**(Composition 진입 시 리소스를 등록하고 Composition 이탈이나 Key 변경 시 cleanup을 수행하는 Effect API)` | observer, listener |
-| key 에 따른 coroutine | `**LaunchedEffect**(Composition 생명주기에 맞춰 코루틴 작업을 실행하고 Key 변경 또는 Composition 이탈 시 취소하는 Side-Effect API)` | 화면 진입 로드, snackbar |
-
-상태를 오래 살리고 싶다면 현재 Composable 에 억지로 보관하지 말고 owner 를 높인다.
-
-반대로 UI 가 사라질 때 함께 버려야 하는 값은 상위 계층으로 올리지 않는다.
-
-`remember` 는 값을 기억하지만 영속 저장소가 아니다.
-
-`rememberSaveable` 은 작은 UI 복원 장치이지 도메인 데이터베이스가 아니다.
-
-`ViewModel` 은 Composable 의 재구성에 흔들리지 않는 화면 상태 owner 다.
-
-### Effect 선택도 같은 기준을 따른다
-
-상태 변화나 composition 진입에 맞춰 비동기 작업을 시작해야 하면 [`LaunchedEffect`](https://developer.android.com/develop/ui/compose/side-effects#launchedeffect) 를 선택한다.
-
-등록한 자원을 반드시 해제해야 하면 [`DisposableEffect`](https://developer.android.com/develop/ui/compose/side-effects#disposableeffect) 를 선택한다.
-
-클릭 시 UI 작업을 시작해야 하면 [`rememberCoroutine**Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션)`](https://developer.android.com/develop/ui/compose/side-effects#remembercoroutinescope) 를 선택한다.
-
-화면이 보일 때만 Flow 를 읽어야 하면 [`collectAsStateWithLifecycle`](https://developer.android.com/develop/ui/compose/state#other-supported-types-of-state) 을 선택한다.
-
-Composable 본문에서 네트워크 요청, listener 등록, 저장 작업을 직접 실행하지 않는다.
-
-본문은 선언하고, effect 는 수명에 맞춰 외부 작업을 실행한다.
-
-### 최소 규칙
-
-- 상태의 의미보다 먼저 상태의 owner 를 정한다.
-- key 가 바뀌면 다시 시작되어야 하는 effect 에는 그 key 를 넣는다.
-- 화면을 떠난 뒤에도 필요한 작업은 Compose effect 에 숨기지 않는다.
-- 여러 화면이 공유하는 값은 한 Composable 의 `remember` 에 가두지 않는다.
-- 큰 데이터와 민감한 데이터는 `rememberSaveable` 에 넣지 않는다.
-
-참고: [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state), [State hoisting](https://developer.android.com/develop/ui/compose/state-hoisting)
+검증일: 2026-08-05. Compose 공식 상태 관리 가이드를 대조하여 4단계 수명주기 계층(Composition, SavedState, ViewModel, Persistent) 및 API 선택 알고리즘 서술을 정밀 보강했다.

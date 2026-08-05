@@ -2,11 +2,15 @@
 title: android-cicd-pipeline-stages-have-different-failure-signals
 tags: ["android", "cicd", "pipeline"]
 aliases: ["Android CI/CD 파이프라인 단계마다 실패 신호가 다르다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
+created: 2026-08-04 18:00:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Android CI/CD 파이프라인 단계마다 실패 신호가 다르다
+
+상위 문서: [Android CI/CD 구현 계약](ci-cd-contracts.md)
 
 ### 내부 메커니즘 (Internal Mechanism)
 

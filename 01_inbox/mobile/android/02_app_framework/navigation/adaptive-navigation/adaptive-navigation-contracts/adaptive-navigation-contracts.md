@@ -1,27 +1,41 @@
 ---
 title: adaptive-navigation-contracts
 tags: [android, android/adaptive, android/navigation]
-aliases: ["Adaptive Navigation 계약"]
+aliases: ["Adaptive Navigation 계약", "Adaptive Navigation Contracts"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## **Adaptive Navigation**(화면 크기와 폼 팩터 변화에 반응하여 탐색 경로와 UI 배치를 동적으로 재구성하는 기법) 계약
+## Adaptive Navigation 계약 (Adaptive Navigation Contracts)
 
-Adaptive Navigation 은 화면 크기와 입력 환경에 따라 app chrome 과 content 배치를 바꾸는 문제다. Navigation 3 의 back stack 상태와 **adaptive scaffold**(창 크기에 맞춰 바/레일 및 Pane 구조를 자동 배치하는 컴포저블 틀) 의 표시 정책을 분리해서 읽는다.
+Adaptive Navigation을 설계할 때 앱 내 탐색 상태(`NavBackStack`), UI 크롬(Navigation Chrome), 화면 구획(Pane Scaffolds) 간의 책임을 명확히 규정하는 핵심 계약 모음이다.
 
-### 정본 노트
+---
+
+### 계약 체계 개요 (What & Why)
+
+1. **상태와 배치의 분리 계약 (Separation of State and Layout)**:
+   - 탐색 백스택(`NavBackStack`) 및 목적지(`NavKey`)는 **앱 탐색 상태(Navigation State)**가 소유한다.
+   - 탐색 크롬(Navigation Rail/Bar)과 패널 배치(Single/Dual Pane)는 **윈도우 상태(`WindowAdaptiveInfo`)**가 결정한다.
+   - 창 크기가 좁아지거나 넓어져도 목적지 키(`NavKey`)의 의미와 백스택 구조는 훼손되지 않아야 한다.
+2. **크롬 소유권 계약 (Top-level Navigation Chrome)**:
+   - 하단 바, 내비게이션 레일, 드로어 등의 안드로이드 앱 프레임 크롬은 최상위 목적지(Top-level Destination) 단위로 통제되며, 크롬 전환 시 개별 탭의 내부 백스택 상태가 초기화되지 않는다.
+3. **표준 Scaffold 우선 계약 (Standard Scaffold Precedence)**:
+   - 커스텀 `Row`/`Column` 및 하드코딩된 Width 분기 대신 Material 3 표준 Adaptive Scaffold(`NavigationSuiteScaffold`, `ListDetailPaneScaffold`)를 최우선 적용한다.
+
+---
+
+### 하위 세부 계약 항목
 
 - [Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다](adaptive-navigation-is-driven-by-window-and-posture.md)
 - [Top-level destination은 adaptive navigation chrome의 단위다](top-level-destination-owns-adaptive-navigation-chrome.md)
-- [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](pane-layout-preserves-selection-and-back-policy.md)
 - [표준 adaptive scaffold를 먼저 검토하고 custom layout은 명시적 이유가 있을 때 둔다](standard-adaptive-scaffolds-should-precede-custom-layouts.md)
+- [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](pane-layout-preserves-selection-and-back-policy.md)
 - [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
 
-### 판단 기준
+---
 
-- route/back stack 은 앱 navigation state 가 소유하고, chrome 과 pane 배치는 window state 가 결정한다.
-- compact/expanded 전환은 같은 목적지를 다른 배치로 표현해야 하며 다른 route 체계로 갈라지면 안 된다.
-- 표준 Material adaptive scaffold 가 해결하는 문제인지 먼저 확인한 뒤 custom layout 을 선택한다.
+### 상위 및 연관 지도
 
-관련 지도: [Android Navigation 진입 계약](../../navigation-contracts/navigation-contracts.md), [Navigation 3 계약](../../navigation3/navigation3-contracts/navigation3-contracts.md)
+- 상위 가이드: [Adaptive Layout and Navigation](../adaptive-layout-and-navigation.md)
+- 관련 아키텍처: [Navigation 3 계약](../../navigation3/navigation3-contracts/navigation3-contracts.md)

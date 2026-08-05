@@ -6,76 +6,86 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## **Scene**(Navigation 3에서 백스택 화면들을 하나의 시각적 단위로 묶어 배치하는 내비게이션 레이아웃 단위)s 와 adaptive scaffolds 는 같은 문제를 푸는가
+## Scenes 와 adaptive scaffolds 는 같은 문제를 푸는가
 
 상위 문서: [Adaptive Navigation 계약](adaptive-navigation-contracts.md)
 
-관련 노트: [Metadata와 SceneStrategy는 표시 정책을 전달한다](../../navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)
+관련 계층: [Metadata와 SceneStrategy는 표시 정책을 전달한다](../../navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)
 
-### 서로 다른 계층
+### 개념 및 아키텍처 계층 분리 (What & Why)
 
-Navigation 3 `Scene` 은 `NavEntry` 하나 이상을 하나의 visual state 로 배치하는 navigation layer 의 개념이다.
+Navigation 3의 **Scene / SceneStrategy**와 Material 3의 **Adaptive Scaffold**는 흔히 레이아웃을 다룬다는 이유로 오해를 받지만, 안드로이드 아키텍처 상 완전히 다른 계층에서 서로 다른 문제를 해결한다.
 
-`SceneStrategy` 는 현재 back stack 과 entry metadata 를 보고 single-pane, dialog, list-detail 같은 scene 을 만든다.
+```mermaid
+graph TD
+    subgraph App Architecture Layers
+        A["1. App Navigation State Layer<br/>(NavBackStack: List of NavKey)"] --> B["2. Navigation 3 Rendering Layer<br/>(NavDisplay & SceneStrategy)"]
+        B -->|Encapsulates Entries into Visual Scenes| C["3. Material 3 Adaptive UI Layer<br/>(NavigationSuiteScaffold & ListDetailPaneScaffold)"]
+    end
+```
 
-반면 adaptive scaffold 는 Material Compose 가 제공하는 pane 배치와 navigation interaction 의 UI 구성 요소다.
+1. **Navigation 3 Scene / SceneStrategy (탐색 구조 계층)**:
+   - **역할**: 백스택(`NavBackStack`)에 쌓인 여러 목적지 항목(`NavEntry`)들을 시각적 표시 단위인 **`Scene`**으로 그룹화하는 내비게이션 엔진 규칙이다.
+   - **해결하는 문제**: 백스택의 최상위 엔트리 두 개를 단일 스크린에 겹쳐 표현할 것인가(Dialog), 팝업으로 띄울 것인가, 아니면 목록과 상세 화면을 하나의 듀얼 씬으로 묶어서 렌더링할 것인가?
+2. **Material 3 Adaptive Scaffold (UI 레이아웃 & 조작 계층)**:
+   - **역할**: 윈도우 크기(`WindowSizeClass`)와 디자인 시스템(Material 3) 가이드라인에 따라 앱 프레임(Bar, Rail, Drawer) 및 기능 구획(List Pane, Detail Pane)을 물리적으로 배치하고 애니메이션을 통제하는 컴포저블이다.
+   - **해결하는 문제**: 창이 넓어질 때 하단 바를 왼쪽 내비게이션 레일로 어떻게 애니메이션 전환할 것인가? 패널 분할 시 Predictive Back(뒤로가기 예측 애니메이션)과 파티션 슬라이드를 어떻게 처리할 것인가?
 
-`NavigationSuiteScaffold` 는 앱 frame 의 bar, rail, drawer 를 다룬다.
+---
 
-`NavigableListDetailPaneScaffold` 는 list 와 detail pane 의 배치, 전환, **predictive back**(뒤로가기 제스처 중 이전 화면의 렌더링 상태를 미리 보여주는 UX 애니메이션) 을 다룬다.
+### 두 기술의 세부 역할 비교
 
-따라서 전자는 top-level chrome 이고, 후자는 feature content layout 이다.
+| 분류 | Navigation 3 SceneStrategy | M3 Adaptive Scaffold |
+| :--- | :--- | :--- |
+| **주요 책임** | 백스택(`NavBackStack`)의 엔트리 조합 규칙 결정 | 윈도우 크기에 따른 탐색 크롬 및 컴포넌트 물리적 배치 |
+| **입력 상태** | `List<NavEntry<NavKey>>` 및 엔트리별 `Metadata` | `WindowAdaptiveInfo`, `ThreePaneScaffoldValue` |
+| **대표 클래스** | `SinglePaneSceneStrategy`, `DialogSceneStrategy`, `ListDetailSceneStrategy` | `NavigationSuiteScaffold`, `ListDetailPaneScaffold`, `SupportingPaneScaffold` |
+| **적용 범위** | 화면 전환 아키텍처 및 화면 조합 엔진 | 컴포저블 UI 레이아웃 및 UX 트랜지션 |
+
+---
+
+### 통합 아키텍처 가이드라인 (How to Combine)
+
+가장 표준적인 아키텍처 구축 패턴은 최상위 앱 프레임에는 `NavigationSuiteScaffold`를 배치하고, 개별 기능 영역 내부 렌더링에는 `NavDisplay` 및 적절한 `SceneStrategy` 또는 `NavigableListDetailPaneScaffold`를 배치하는 조합이다:
 
 ```kotlin
-NavigationSuiteScaffold(navigationSuiteItems = { /* 앱 전체 top-level destination */ }) {
+// 1. App Frame Level: Adaptive Navigation Chrome 관리
+NavigationSuiteScaffold(
+    navigationSuiteItems = {
+        topLevelDestinations.forEach { dest ->
+            item(
+                icon = { Icon(dest.icon, contentDescription = null) },
+                selected = currentTopLevel == dest,
+                onClick = { currentTopLevel = dest }
+            )
+        }
+    }
+) {
+    // 2. Feature Level: Navigation 3 NavDisplay로 화면 렌더링
     NavDisplay(
-        backStack = backStack,
-        sceneStrategy = rememberListDetailSceneStrategy(), // feature 안의 list-detail
+        backStack = currentBackStack,
         entryProvider = entryProvider,
+        // 필요에 따라 Custom SceneStrategy 또는 Dialog/ListDetail Strategy 적용
+        sceneStrategy = remember { SinglePaneSceneStrategy() }
     )
 }
 ```
 
-```text
-MainScaffold
-  NavigationSuiteScaffold
-    selected feature
-      NavDisplay
-        SceneStrategy 또는 adaptive pane scaffold
-```
+---
 
-### 선택 기준
+### 판단 및 선택 기준
 
-단순한 push/pop 화면이면 기본 single-pane `NavDisplay` 로 시작한다.
+1. **`NavigableListDetailPaneScaffold`를 사용할 때**:
+   - Material 3의 표준 List-Detail 패턴, 패널 간 슬라이딩 애니메이션, Predictive Back 제스처 처리가 그대로 필요한 경우.
+   - 이때 Scaffold 내부에서 패널 이동 백스택을 관리하므로, 중복으로 커스텀 `ListDetailSceneStrategy`를 중첩 적용하여 백스택 정책이 충돌하지 않도록 주의한다.
+2. **Navigation 3 `SceneStrategy`를 사용할 때**:
+   - 백스택의 특정 엔트리가 Dialog나 BottomSheet로 독립 표시되어야 할 때 (`DialogSceneStrategy`).
+   - 완전히 커스텀된 멀티 엔트리 뷰 포트 구성 아키텍처를 구현해야 할 때.
 
-dialog 나 overlay destination 이 필요하면 `DialogSceneStrategy` 를 검토한다.
+---
 
-back stack 의 여러 entry 를 하나의 list-detail scene 으로 조합하려면 Navigation 3 scene strategy 를 검토한다.
+### 관련 상위 및 연관 노트
 
-feature 가 Material adaptive scaffold 의 표준 list-detail 동작과 잘 맞으면 `NavigableListDetailPaneScaffold` 를 사용한다.
-
-이 경우 scaffold 가 pane navigation 과 back animation 을 소유하므로 같은 feature 에 custom scene strategy 를 중복 적용하지 않는다.
-
-어떤 방식을 선택하든 window 폭이 바뀌어도 의미 있는 route stack 은 유지되어야 한다.
-
-좁은 window 에서는 list 와 detail 이 순차적으로 보이고, 넓은 window 에서는 동시에 보일 수 있지만 목적지 key 의 의미는 바뀌지 않는다.
-
-검증할 때는 같은 stack 을 compact, medium, expanded window 에서 각각 렌더링한다.
-
-compact 에서는 detail 진입 뒤 back 이 list 로 돌아오는지 확인한다.
-
-expanded 에서는 list 와 detail 을 함께 보여준 뒤 선택된 detail 이 바뀌는지 확인한다.
-
-resize 중에도 selected destination 과 entry 별 saveable state 가 유지되는지 확인한다.
-
-Scene strategy 를 먼저 선택할 기준은 여러 entry 가 같은 화면에 함께 보여야 하는가다.
-
-Adaptive scaffold 를 먼저 선택할 기준은 표준 pane layout 과 Material navigation interaction 을 그대로 활용할 수 있는가다.
-
-둘 다 필요하다고 느껴지면 어느 계층이 back 과 pane 상태를 소유하는지부터 정한다.
-
-장치 종류보다 실제 window 크기와 posture 를 기준으로 판단해야 한다.
-
-resize 와 multi-window 는 정상 상태이므로 특정 phone/tablet 모델에 맞춘 고정 분기보다 adaptive 정보에 반응한다.
-
-관련 기준은 [Navigation 3 Scenes](https://developer.android.com/guide/navigation/navigation-3/scenes) 와 [Canonical layouts](https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts) 에서 확인할 수 있다.
+- 상위 계약: [Adaptive Navigation 계약](adaptive-navigation-contracts.md)
+- 연관 계약: [Metadata와 SceneStrategy는 표시 정책을 전달한다](../../navigation3/navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)
+- 연관 계약: [NavDisplay와 entry provider는 렌더링과 route registry를 분리한다](../../navigation3/navigation3-contracts/navdisplay-and-entry-provider-separate-rendering-from-route-registry.md)

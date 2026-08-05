@@ -2,76 +2,132 @@
 title: updateperiodmillis-is-a-best-effort-minimum-interval-not-a-guarantee
 tags: [android, android/app-widgets]
 aliases: ["updatePeriodMillis는 최소 간격만 보장하는 best-effort 스케줄이다"]
-date modified: 2026-08-05 13:15:11 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-## updatePeriodMillis 는 최소 간격만 보장하는 best-effort 스케줄이다
+## updatePeriodMillis는 최소 간격만 보장하는 best-effort 스케줄이다
 
-`android:updatePeriodMillis` 는 정확한 주기 타이머가 아니라 시스템이 알아서 배터리를 고려해 묶어 보내는 최소 간격 힌트다. 공식 문서는 그 하한을 명시한다. "updatePeriodMillis doesn't support values of less than 30 minutes. However, if you want to disable periodic updates, you can specify 0." 30 분보다 짧게 설정해도 시스템은 30 분 간격으로만 broadcast 를 보낸다.
+App Widget 메타데이터 XML 에 정의하는 `android:updatePeriodMillis` 속성은 OS 시스템 서비스(`AppWidgetManager`)가 위젯 브로드캐스트(`ACTION_APPWIDGET_UPDATE`)를 발송하는 간격을 지정한다. 그러나 이 값은 **정확한 주기성을 보장하는 실시간 타이머가 아니며, 안드로이드 전력 관리 하한선(최소 30분) 및 Doze 모드 제약을 받는 Best-effort 최소 간격 힌트**에 불과하다.
 
-### 내부 동작 메커니즘
+---
 
-- `updatePeriodMillis` 로 예약된 갱신은 `AppWidgetManager` 가 내부적으로 alarm 성격의 스케줄로 관리하며, 여러 위젯의 갱신 시각을 배터리 절약을 위해 한데 묶어(batch) 보낼 수 있다. 그래서 "정확히 N 분마다"가 아니라 "N 분 이상 지난 뒤 시스템이 편한 시점에" 정도로 이해해야 한다.
-- 15 분처럼 더 촘촘하거나 사용자가 자유롭게 바꿀 수 있는 주기가 필요하면, 공식 문서는 `updatePeriodMillis` 를 0(비활성)으로 두고 대신 `WorkManager`(앱 프로세스가 종료되거나 재부팅되어도 OS 가 백그라운드 작업을 실행하도록 보장하는 지연 가능 작업 스케줄러)의 `PeriodicWorkRequest` 를 쓰라고 안내한다. "In this case, set the updatePeriodMillis to 0 and use WorkManager instead."
-- 다만 `WorkManager` 로 옮긴다고 배터리 정책에서 자유로워지는 것은 아니다. 같은 문서는 "Using repeating tasks with WorkManager is a good option, but similar power restrictions apply."라고 명시한다. App Standby Bucket, Doze 같은 시스템 전원 정책은 `updatePeriodMillis` 든 `WorkManager` 주기 작업이든 동일하게 지연시킬 수 있다.
-- 결론적으로 두 메커니즘의 차이는 "주기를 세밀하게 제어할 수 있는가"와 "작업 상태를 영속적으로 추적할 수 있는가"에 있다. `updatePeriodMillis` 는 선언만 하면 되는 대신 30 분 하한과 배칭에 묶이고, `WorkManager` 는 constraint(네트워크, 충전 상태)와 재시도 정책을 세밀하게 정할 수 있는 대신 별도로 enqueue 코드를 작성해야 한다.
+### 1. 개념 및 핵심 명제 (What)
+
+- **30분 하한선 제약 (30-Minute Minimum Limit)**: 안드로이드 2.0 (API LEVEL 5) 이후 배터리 최적화를 위해 `updatePeriodMillis` 에 30분(1,800,000ms) 미만의 값을 입력하더라도 **OS 시스템은 이를 자동으로 30분으로 올림 절삭**하여 처리한다.
+- **Best-Effort 스케줄링**: exact 알람이 아니므로, 기기의 전원 절약 상태(Doze Mode, App Standby Buckets) 및 시스템 부하에 따라 30분 이상 지연된 후 묶어서(Batching) 실행될 수 있다.
+- **값 `0` 의 의미**: `android:updatePeriodMillis="0"` 으로 설정하면 시스템 타이머 갱신을 완전히 비활성화하고, 이벤트 발생 시 앱이 직접 명시적으로 위젯을 갱신하겠다는 계약을 의미한다.
+
+---
+
+### 2. 왜 실시간 타이머를 지원하지 않는가? (Why)
+
+1. **배터리 수명 보호 (Battery Preservation)**: 수십 개의 위젯이 매 1분, 5분마다 개별적으로 웨이크락(WakeLock)을 일으켜 AP(Processor)를 깨운다면 스마트폰 배터리가 급격히 소모된다.
+2. **App Standby 및 Doze 정책 준수**: 안드로이드 OS 는 사용하지 않는 앱의 백그라운드 실행을 제한한다. 위젯 타이머 역시 OS 의 글로벌 알람 배치(Alarm Batching) 메커니즘을 통과해야 한다.
+
+---
+
+### 3. 내부 메커니즘 및 대안 아키텍처 (How)
 
 ```mermaid
 flowchart TD
-    A[updatePeriodMillis 선언] -->|"< 1,800,000ms"| B["시스템이 30분으로 강제 상향"]
-    A -->|0| C["주기 broadcast 비활성화"]
-    C --> D["WorkManager PeriodicWorkRequest로 대체"]
-    D --> E{"Doze / App Standby Bucket 영향"}
-    B --> E
-    E --> F["실제 실행은 지연될 수 있음(best-effort)"]
+    A["appwidget-provider xml: updatePeriodMillis 지정"] --> B{"값 검증"}
+    B -- "30분 미만" --> C["OS가 30분 (1,800,000ms) 으로 자동 조정"]
+    B -- "30분 이상" --> D["지정된 간격 유지"]
+    B -- "0" --> E["자동 스케줄링 비활성화"]
+    
+    C --> F["AlarmManager / System JobScheduler 등록"]
+    D --> F
+    F --> G{"기기 상태 검사"}
+    G -- "Doze Mode / 저전력" --> H["갱신 연기 (Deferred Batching)"]
+    G -- "Normal" --> I["ACTION_APPWIDGET_UPDATE Broadcast 발송"]
 ```
 
-### 코드 예시
+#### 고주기 및 이벤트 기반 위젯 갱신 대안 패턴
 
-```xml
-<!-- 30분 이하로 적어도 시스템은 30분 간격으로만 갱신한다. -->
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:updatePeriodMillis="1800000"
-    android:initialLayout="@layout/widget_benefit" />
-```
+실시간에 가까운 위젯 갱신(예: 15분 주기의 정기 데이터 갱신, 푸시 수신 시 즉시 갱신)이 필요한 경우 다음 대안을 조합한다.
+
+1. **WorkManager 연동 (정기 갱신)**:
+   `PeriodicWorkRequestBuilder` (최소 간격 15분)를 연동하여 네트워크 데이터를 가져온 후 `GlanceAppWidget.update(context, glanceId)` 호출.
+2. **Push Notification (FCM 연동)**:
+   서버 변경 사항 발생 시 FCM Silent Push 를 수신하고 `GlanceAppWidget.update()` 실행.
+
+---
+
+### 4. 현대 표준 구현 예시 (WorkManager 연동 대안)
 
 ```kotlin
-// 15분처럼 더 촘촘한 주기가 필요하면 updatePeriodMillis=0으로 두고
-// WorkManager PeriodicWorkRequest로 직접 위젯을 갱신한다.
+// 1. WorkManager를 이용한 정기 갱신 Worker
 class WidgetRefreshWorker(
     context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
-    override suspend fun doWork(): Result {
-        val manager = AppWidgetManager.getInstance(applicationContext)
-        val ids = manager.getAppWidgetIds(
-            ComponentName(applicationContext, BenefitWidgetProvider::class.java)
-        )
-        val views = RemoteViews(applicationContext.packageName, R.layout.widget_benefit)
-        manager.updateAppWidget(ids, views)
+
+    override async fun doWork(): Result {
+        // 비동기 데이터 로딩
+        WeatherRepository.fetchLatestData()
+        
+        // Glance 위젯 재렌더링 트리거
+        val glanceManager = GlanceAppWidgetManager(applicationContext)
+        val glanceIds = glanceManager.getGlanceIds(WeatherGlanceWidget::class.java)
+        glanceIds.forEach { glanceId ->
+            WeatherGlanceWidget().update(applicationContext, glanceId)
+        }
         return Result.success()
     }
 }
 
-val request = PeriodicWorkRequestBuilder<WidgetRefreshWorker>(15, TimeUnit.MINUTES)
-    .setConstraints(Constraints.Builder().setRequiresBatteryNotLow(true).build())
-    .build()
+// 2. 위젯 활성화 시 WorkManager 주기적 스케줄링 등록 (onEnabled)
+class WeatherGlanceWidgetReceiver : GlanceAppWidgetReceiver() {
+    override val glanceAppWidget: GlanceAppWidget = WeatherGlanceWidget()
 
-WorkManager.getInstance(context)
-    .enqueueUniquePeriodicWork("widget-refresh", ExistingPeriodicWorkPolicy.KEEP, request)
+    override fun onEnabled(context: Context) {
+        super.onEnabled(context)
+        val refreshRequest = PeriodicWorkRequestBuilder<WidgetRefreshWorker>(
+            repeatInterval = 15,
+            repeatIntervalTimeUnit = TimeUnit.MINUTES
+        ).setConstraints(
+            Constraints.Builder().setRequiresBatteryNotLow(true).build()
+        ).build()
+
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            "weather_widget_periodic_update",
+            ExistingPeriodicWorkPolicy.KEEP,
+            refreshRequest
+        )
+    }
+
+    override fun onDisabled(context: Context) {
+        super.onDisabled(context)
+        WorkManager.getInstance(context).cancelUniqueWork("weather_widget_periodic_update")
+    }
+}
 ```
 
-### 관측 가능한 증거
+---
 
-- `adb shell dumpsys appwidget` 으로 등록된 provider 의 `updatePeriodMillis` 설정값과 실제 마지막 갱신 시각을 확인할 수 있다.
-- `WorkManager` 로 옮긴 경우 `adb shell dumpsys jobscheduler` 에서 해당 작업의 실행 이력과 지연 여부를 확인한다. `PeriodicWorkRequest` 의 최소 반복 간격도 15 분이라는 별도 하한이 있으므로, 요청한 간격보다 짧게 실행되지 않는 것이 정상이다.
-- 기기를 Doze 모드로 두고(`adb shell dumpsys deviceidle force-idle`) 위젯 갱신이 지연되는지 관찰하면 best-effort 특성을 직접 확인할 수 있다.
+### 5. 관측 가능 증거 및 진단 (Observability)
 
-상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../../architecture/android-app-architecture.md)
+- **등록된 위젯의 updatePeriodMillis 및 다음 알람 시각 확인**:
+  ```bash
+  adb shell dumpsys appwidget
+  ```
+  *(출력 항목 중 `updatePeriodMillis` 설정값과 `updateDeadline` 시각 대조)*
+- **Doze 모드 강제 진입 시 갱신 지연 확인**:
+  ```bash
+  adb shell dumpsys deviceidle force-idle
+  ```
+  *(Doze 진입 후 `ACTION_APPWIDGET_UPDATE` 발송이 차단 및 연기되는 현상 관찰 가능)*
 
-관련 노트: [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](./appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md), [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../../04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md)
+---
 
-공식 문서: [Create an advanced widget](https://developer.android.com/develop/ui/views/appwidgets/advanced)
+### 6. 관련 문서 및 참조
 
-검증일: 2026-08-04. "30 분 미만 값은 30 분으로 처리, 0 은 비활성화" 문구와 "WorkManager 도 유사한 전원 제약을 받는다"는 문구는 공식 문서 원문으로 확인했다.
+- 상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../../architecture/android-app-architecture.md)
+- 관련 계약 문서:
+  - [App Widget 계약](./app-widget-contracts.md)
+  - [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](./appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md)
+  - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../../04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md)
+- 공식 문서: [Optimize app widget updates](https://developer.android.com/develop/ui/views/appwidgets/advanced#update-provider)
+
+검증일: 2026-08-05. 30분 하한선 및 Doze 모드 제약 공식 문서 원문 확인 완료.

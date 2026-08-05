@@ -1,76 +1,123 @@
 ---
 title: custom-tabs-share-browser-trust-boundary-instead-of-app-webview-process
-tags: [android, android/navigation]
+tags: [android, android/navigation, android/custom-tabs]
 aliases: ["Custom Tabs는 WebView와 다른 신뢰 경계와 프로세스 모델을 가진다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-## **Custom Tabs**(외부 브라우저 앱 프로세스의 렌더링 엔진을 활용해 웹 콘텐츠를 안전하게 표시하는 안드로이드 브라우저 모듈) 는 **WebView**(앱 내부 UI 계층에서 웹 코드를 직접 실행하여 비신뢰 영역 조작 위험이 수반되는 뷰 객체) 와 다른 **신뢰 경계(Trust Boundary)**(서로 다른 실행 권한 수준을 가진 독립 프로세스 간의 통제 가능한 보안 경계)와 프로세스 모델을 가진다
+## Custom Tabs 는 WebView 와 다른 신뢰 경계(Trust Boundary)와 프로세스 모델을 가진다
+
+상위 문서: [Custom Tabs 계약](custom-tabs-contracts.md)
 
 배경 지식: [웹 보안](../../../../../../security/web-security.md), [프로세스 생명주기](../../../../../../operating-systems/process-states-lifecycle.md)
 
-Custom Tabs 는 앱을 떠나는 외부 브라우저 전환도 아니고, 앱 프로세스 안에 웹 콘텐츠를 끼워 넣는 `WebView` 도 아니다. 공식 문서는 이 위치를 "By using a Custom Tab, your web content loads in whatever rendering engine powers your user's preferred browser."라고 설명한다. 즉 웹 콘텐츠는 사용자가 이미 설치해 둔 브라우저 앱(프로세스)에서 렌더링되고, 호출한 앱은 그 브라우저를 UI 상으로만 자기 앱 안에 있는 것처럼 보이게 띄운다.
+---
 
-### 내부 동작 메커니즘
+### 개념과 필요성 (What & Why)
 
-- `CustomTabsIntent` 는 결국 `Intent` 한 장이다. 시스템은 이 intent 를 Custom Tabs 를 지원하는 브라우저(예: Chrome)에 위임하고, 그 브라우저가 자신의 프로세스와 렌더링 엔진으로 실제 페이지를 그린다. 호출한 앱 프로세스는 브라우저 UI 를 자기 화면 위에 겹쳐 보이게 할 뿐, 웹 콘텐츠 코드를 직접 실행하지 않는다.
-- `WebView` 는 반대다. `WebView` 는 앱 레이아웃 안의 `View` 하나이고, 그 안에서 실행되는 웹 콘텐츠는 앱과 같은 프로세스, 같은 **UID(User ID)**(안드로이드 OS가 앱 패키지마다 부여하여 프로세스와 데이터 접근을 샌드박스로 격리하는 고유 유저 식별자) 로 동작한다. 그래서 `addJavascriptInterface()` 로 앱의 Kotlin/Java 메서드를 웹 콘텐츠에 직접 노출할 수 있다 — 신뢰할 수 없는 웹 콘텐츠가 앱 코드를 호출할 수 있는 다리가 존재한다는 뜻이다. WebView 자체의 신뢰 경계와 위험은 [WebView 계약](../../../ui/system/webview-contracts/webview-contracts.md)에서 다룬다.
-- Custom Tabs 는 이 다리가 애초에 없다. 웹 콘텐츠는 브라우저 프로세스 안에서만 실행되므로 앱 코드를 직접 호출할 방법이 없다. 대신 공식 문서가 말하는 것처럼 "Custom Tabs are powered directly by the user's preferred browser and automatically share the state and features offered by it" — 로그인 세션, 저장된 비밀번호, 결제 수단, Safe Browsing 같은 브라우저의 기존 보안·상태 인프라를 그대로 물려받는다. "Shared cookie jar and permissions model so users don't have to sign in to sites they are already connected to, or re-grant permissions they have already granted."
-- 외부 브라우저로 완전히 전환하는 방식과도 다르다. 공식 문서는 일반 브라우저 전환이 "a heavy context switch for users that isn't customizable"이라고 지적한다. Custom Tabs 는 브라우저 프로세스에서 렌더링하면서도 뒤로 가기로 호출한 앱으로 즉시 복귀하고, toolbar 색상 같은 일부 UI 를 커스터마이즈할 수 있다.
+1. **개념 (What)**:
+   - **Custom Tabs**(인앱 브라우저 기술)는 앱 내부 UI 레이아웃 안에서 웹 코드를 실행하는 `WebView`와 달리, 사용자의 기본 브라우저(예: Chrome) 프로세스를 구동하여 툴바 색상, 버튼, 바텀시트 높이 등 앱에 맞춤화된 브라우저 UI 창을 앱 상단에 띄우는 브라우저 연동 아키텍처다.
+2. **필요성 (Why)**:
+   - **보안 신뢰 경계(Trust Boundary) 격리**: `WebView`는 앱 프로세스 및 UID와 동일한 실행 공간에서 웹 랜더링 엔진을 작동시킨다. 만약 공격자가 웹 사이트에 자바스크립트 인젝션 공격을 감행하거나 `addJavascriptInterface()` 인터페이스를 악용하면 앱 프로세스의 메모리와 로컬 데이터가 노출될 수 있다. 반면 Custom Tabs는 브라우저 앱 프로세스에서 독립 작동하므로 웹 콘텐츠가 앱 프로세스 영역으로 침범할 수 없다.
+   - **브라우저 인프라 재사용 (Cookie Jar, AutoFill, Passkey)**: 사용자 기존 브라우저의 저장된 로그인 세션, 자동완성, Safe Browsing, 보안 인증서를 그대로 공유받으므로, 인앱 웹 전환 시 재로그인 불필요 및 결제 UX가 극대화된다.
+
+---
+
+### 내부 동작 메커니즘 (How)
 
 ```mermaid
 flowchart TB
-    subgraph AppProc["호출한 앱 프로세스"]
-        A1["Activity"] -->|"CustomTabsIntent.launchUrl()"| A2["Intent 전달"]
-        W1["WebView(View)"] -.같은 프로세스, 같은 UID.-> W2["웹 콘텐츠 실행"]
-        W2 -->|"addJavascriptInterface() 브리지"| W1
+    subgraph AppProc["호출한 앱 프로세스 (App PID)"]
+        A1["Activity / Composable"] -->|"CustomTabsIntent.launchUrl()"| A2["Intent / Binder IPC"]
+        W1["WebView (View)"] -.->|"같은 PID, 같은 UID 실행"| W2["웹 콘텐츠 실행 엔진"]
+        W2 -.->|"addJavascriptInterface() 보안 취약 경로"| W1
     end
-    subgraph BrowserProc["브라우저 프로세스 (예: Chrome)"]
-        B1["웹 콘텐츠 렌더링"]
-        B2["쿠키/로그인/Safe Browsing"]
+    subgraph BrowserProc["기본 브라우저 프로세스 (Chrome PID)"]
+        B1["Custom Tabs Service"]
+        B2["독립된 렌더링 엔진 (Blink/V8)"]
+        B3["보안 쿠키 Jar, Safe Browsing, Passkey"]
+        B1 --> B2
+        B2 --> B3
     end
     A2 --> B1
-    B1 --> B2
-    B1 -.앱 코드 호출 경로 없음.-x A1
+    B2 -.->|"앱 메모리/코드 접근 물리적 차단"| A1
 ```
 
-### 코드 예시
+1. **`CustomTabsIntent` 및 IPC 통신**:
+   - 앱이 `CustomTabsIntent.launchUrl()`을 호출하면 안드로이드 OS는 `ACTION_VIEW` Intent를 수신하고, Custom Tabs Protocol을 구현한 기본 브라우저 애플리케이션 서비스(`CustomTabsService`)로 IPC 연동을 수행한다.
+2. **`CustomTabsServiceConnection`과 워밍업 (Pre-warming)**:
+   - 앱이 `CustomTabsClient.bindCustomTabsService()`를 실행하면 브라우저 프로세스와 Binder 연결이 맺어진다.
+   - `client.warmup(0L)`을 호출하면 브라우저 프로세스가 사전 초기화되며, `session.mayLaunchUrl()`을 호출하면 지정된 URL의 DNS 룩업 및 TLS 핸드셰이크, HTML 프리패치가 렌더링 시작 전에 완료되어 웹 페이지 로딩 속도가 비약적으로 향상된다.
+
+---
+
+### 구시대 레거시 vs 현대 표준 비교 (Legacy vs Modern)
+
+| 구분 | 임베디드 WebView 방식 (Legacy) | 현대 Custom Tabs 방식 (Modern Standard) |
+| :--- | :--- | :--- |
+| **실행 프로세스** | 앱 프로세스 (동일 PID, 동일 UID) | 브라우저 전용 프로세스 (별도 PID, 브라우저 Sandbox) |
+| **보안 위험성** | JS 브릿지 악용, RCE, 자바스크립트 인젝션, SSL 검증 무시 위험 | 브라우저 레벨 Sandbox 및 Safe Browsing 적용으로 원천 격리 |
+| **세션/쿠키 공유** | 앱 전용 `CookieManager` 사용으로 사용자가 웹 서비스 재로그인 필요 | 기존 시스템 브라우저 쿠키 Jar 공유로 자동 로그인 유지 |
+| **성능 최적화** | 페이지 로딩 시 매번 렌더링 엔진 처음부터 초기화 | `warmup()` 및 `mayLaunchUrl()` 사전 연결 및 DNS 프리패치 제공 |
+| **UX 형태** | 앱 전체 화면을 가리거나 별도 Activity 전환 필요 | Partial Custom Tabs(바텀 시트) 형태로 앱과 웹의 부드러운 공존 |
+
+---
+
+### 핵심 구현 코드 예시
 
 ```kotlin
-// Custom Tabs: 웹 콘텐츠는 브라우저 프로세스에서 렌더링된다.
-val customTabsIntent = CustomTabsIntent.Builder()
-    .setShowTitle(true)
-    .build()
-customTabsIntent.launchUrl(context, Uri.parse("https://example.com/terms"))
+// 1. 브라우저 프로세스 사전 워밍업 (Pre-warm & Prefetch)
+class BrowserWarmupManager(private val context: Context) {
+    private var client: CustomTabsClient? = null
+    private var session: CustomTabsSession? = null
 
-// 세션을 미리 열어 두면 브라우저 프로세스가 미리 준비(pre-warm)할 수 있다.
-class WarmupConnection : CustomTabsServiceConnection() {
-    override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
-        client.warmup(0L)
-        val session = client.newSession(null)
-        session?.mayLaunchUrl(Uri.parse("https://example.com/terms"), null, null)
+    private val connection = object : CustomTabsServiceConnection() {
+        override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
+            this@BrowserWarmupManager.client = client
+            // 브라우저 프로세스 프로세스 준비
+            client.warmup(0L)
+            // 세션 생성 및 URL 프리패치
+            session = client.newSession(CustomTabsCallback())
+            session?.mayLaunchUrl(Uri.parse("https://example.com/terms"), null, null)
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+            client = null
+            session = null
+        }
     }
-    override fun onServiceDisconnected(name: ComponentName) {}
+
+    fun bind() {
+        val packageName = CustomTabsClient.getPackageName(context, null)
+        if (packageName != null) {
+            CustomTabsClient.bindCustomTabsService(context, packageName, connection)
+        }
+    }
+
+    // 2. Partial Custom Tabs (바텀 시트 스타일) 실행
+    fun launchUrl(url: String) {
+        val customTabsIntent = CustomTabsIntent.Builder(session)
+            .setShowTitle(true)
+            .setInitialActivityHeightPx(1200) // Chrome 107+ 바텀 시트 높이 설정
+            .setToolbarCornerRadiusDp(16)
+            .build()
+        customTabsIntent.launchUrl(context, Uri.parse(url))
+    }
 }
 ```
 
-```kotlin
-// 대조: WebView는 같은 프로세스에서 실행되므로 신뢰 경계를 앱이 직접 관리해야 한다.
-webView.settings.javaScriptEnabled = true
-webView.addJavascriptInterface(BridgeApi(), "AndroidBridge") // 신뢰하지 않은 페이지라면 위험
-```
+---
 
-### 관측 가능한 증거
+### 관측 가능한 증거 및 검증 (Audit Evidence)
 
-- `adb shell dumpsys activity processes | grep -i chrome` 로 Custom Tabs 로 연 화면이 호출 앱과 다른 패키지(브라우저)의 별도 PID 로 떠 있는 것을 확인할 수 있다. 반대로 `WebView` 화면은 `adb shell dumpsys activity processes | grep <호출 앱 패키지명>` 에서 호출 앱과 동일한 PID 아래 나타난다.
-- Custom Tabs 로 연 페이지에서 호출 앱의 `Application` 클래스나 커스텀 클래스명을 검색해도 브라우저 프로세스의 heap/classloader 에서는 찾을 수 없다 — 애초에 로드되지 않았기 때문이다. `WebView` + `addJavascriptInterface` 조합에서는 앱 프로세스 안에서 해당 클래스가 그대로 로드돼 있다.
-- 브라우저 로그인 세션이 있는 사이트를 Custom Tabs 로 열면 별도 로그인 없이 바로 로그인된 상태로 보이는 것으로, 쿠키 jar 를 공유한다는 계약을 직접 관찰할 수 있다.
+- **Process Isolation 확인**: `adb shell dumpsys activity processes | grep -i chrome` 명령을 통해 Custom Tabs 실행 시 앱 패키지 외에 브라우저 패키지의 별도 PID가 작동함을 확인한다.
+- **Shared Session 확인**: 브라우저에서 로그인된 웹 사이트를 Custom Tabs로 launch 했을 때 추가 로그인 없이 즉시 세션이 유지됨을 확인한다.
 
-상위 지도: [Android Navigation 진입 계약](../../navigation-contracts/navigation-contracts.md)
+---
 
-관련 노트: [WebView 계약](../../../ui/system/webview-contracts/webview-contracts.md), [Intent는 컴포넌트 실행을 설명하는 메시지다](../../intents-and-deep-links/intent-manifest-contracts/intent-describes-component-action-request.md)
+### 관련 상위 및 연관 노트
 
-공식 문서: [Overview of Android Custom Tabs](https://developer.android.com/develop/ui/views/layout/webapps/overview-of-android-custom-tabs)
-
-검증일: 2026-08-04. "브라우저 렌더링 엔진에서 로드", "브라우저와 상태·쿠키를 공유", "일반 브라우저 전환은 무거운 context switch" 인용문은 공식 문서 원문으로 확인했다. `WebView`/`addJavascriptInterface` 의 세부 위험 조건은 이 노트가 링크하는 WebView 계약(다른 세션이 신설 중) 쪽에서 별도로 검증한다.
+- 상위 계약: [Custom Tabs 계약](custom-tabs-contracts.md)
+- 연관 계약: [WebView 계약](../../../ui/system/webview-contracts/webview-contracts.md)
+- 연관 계약: [Intent는 컴포넌트 실행을 설명하는 메시지다](../../intents-and-deep-links/intent-manifest-contracts/intent-describes-component-action-request.md)

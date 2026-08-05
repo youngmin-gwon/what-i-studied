@@ -2,7 +2,7 @@
 title: unacknowledged-purchases-are-refunded-within-three-days
 tags: ["android", "billing", "acknowledge"]
 aliases: ["3일 이내 acknowledge하지 않은 구매는 자동 환불된다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -10,17 +10,14 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 내부 메커니즘 (Internal Mechanism)
 
-Google Play 공식 문서(`developer.android.com/google/play/billing/integrate`)는 앱이 구매를 처리한 뒤 **3일 이내**에 `acknowledgePurchase()` 또는 `consumeAsync()` 로 승인하지 않으면 Play가 해당 구매를 자동으로 환불하고 entitlement 를 회수한다고 명시한다("purchases are refunded after 3 days if your app has not processed the purchase"). 이 규칙은 소비성 상품, 비소비성 상품, 구독의 초기 구매 모두에 동일하게 적용된다.
+Google Play 공식 결제 정책 규격(`developer.android.com/google/play/billing/integrate`)은 앱 또는 백엔드 서버가 사용자의 결제를 처리한 직후 **3일(72시간) 이내**에 **`acknowledgePurchase()`** 또는 **`consumeAsync()`** API를 통해 승인 통보를 구글 서버로 보전하지 않으면, Google Play가 결제를 자동으로 취소 환불 처리하고 사용자에게 부여되었던 **Entitlement (디지털 혜택/소유권)**을 강제 회수하도록 규정하고 있다.
 
-이 함정이 실제로 발생하는 전형적인 경로는 다음과 같다.
+이 미승인 자동 환불 대참사가 발생하는 주요 인과적 원인:
+1. `onPurchasesUpdated()` 이벤트 수신 후 개발자 서버 결제 검증 API 호출이 타임아웃되거나 실패하여 `acknowledgePurchase()` 호출이 중간에 누실되는 경우.
+2. 결제 완료 즉시 사용자가 앱을 강제 종료(Kill)하거나 OS에 의해 프로세스가 사망하여 승인 API 통신을 완료하지 못한 경우.
+3. 비소비성 상품이나 구독 상품 개발 시 `consumeAsync()`만 챙기고 `acknowledgePurchase()` 승인 구현을 누락한 채 앱을 퍼블리싱한 경우.
 
-1. `onPurchasesUpdated()` 콜백에서 구매를 받았지만 서버 검증 호출이 실패하거나 타임아웃되어 acknowledge 를 건너뛴다.
-2. 사용자가 구매 직후 앱을 강제 종료하거나 프로세스가 죽어 `acknowledgePurchase()` 호출 전에 앱이 사라진다.
-3. 앱이 `consumeAsync()` 만 소비성 상품에 쓰고 비소비성 상품/구독에는 acknowledge 호출 자체를 빠뜨린 채 배포된다.
-
-세 경우 모두 사용자는 결제했지만 앱은 3일 뒤 entitlement 를 잃고, Play Console 환불 지표에는 "미처리 구매로 인한 자동 환불"이 누적된다. 이는 사용자 과실이 아니라 앱의 acknowledge 누락이 원인이므로 일반 환불과 구분해서 모니터링해야 한다.
-
-이 함정을 막는 표준 패턴은 `onPurchasesUpdated()` 에서만 acknowledge 를 시도하지 않고, **앱 시작 시점마다 `queryPurchasesAsync()` 로 미완결 구매를 다시 조회해 acknowledge 재시도**하는 것이다. 프로세스 death 나 네트워크 실패로 처리를 놓친 구매도 이 경로로 복구된다.
+이 문제를 차단하는 표준 설계 패턴은 앱 프로세스가 시작될 때마다 **`queryPurchasesAsync()`** API를 실행하여 미완결 구매 상태(`!isAcknowledged`)로 남아있는 모든 `Purchase` 토큰을 복구 조회하고, 서버 검증을 거쳐 `acknowledgePurchase()`를 재시도 통보하는 **미완결 결제 자가 복구 패턴**을 필수 탑재하는 것이다.
 
 ```mermaid
 sequenceDiagram

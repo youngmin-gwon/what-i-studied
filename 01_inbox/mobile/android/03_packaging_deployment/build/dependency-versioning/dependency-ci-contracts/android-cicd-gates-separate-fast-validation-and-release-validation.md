@@ -3,15 +3,17 @@ title: android-cicd-gates-separate-fast-validation-and-release-validation
 tags: ["android", "cicd", "gradle"]
 aliases: ["Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다
 
+상위 문서: [의존성, 버전, CI 계약](dependency-ci-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-Android CI/CD 파이프라인은 리소스와 시간 비용의 균형을 위해 계층화된 품질 게이트(Tiered Quality Gates)를 유지한다.
+Android CI/CD 파이프라인은 리소스와 시간 비용의 균형을 위해 계층화된 품질 게이트(Tiered Quality Gates)를 유지한다:
 - **Fast PR Gate (5분 이내)**: 커밋 단위 검증. Lint, ktlint, 린트 스태틱 분석, 단위 테스트(Unit Tests), 그리고 Gradle Build Cache / Configuration Cache 기반의 증분 컴파일만 실행한다.
 - **Release Validation Gate (30분 이상)**: 릴리스 또는 Nightly 파이프라인. R8 Full Mode 축소/난독화 빌드, UI/Macrobenchmark 테스트, APK/AAB 생성 및 서명, 바이너리 용량 비교(Binary Size Diff)를 수행한다.
 

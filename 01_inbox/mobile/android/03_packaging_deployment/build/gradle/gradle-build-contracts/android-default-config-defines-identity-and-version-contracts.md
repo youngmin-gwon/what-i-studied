@@ -3,15 +3,17 @@ title: android-default-config-defines-identity-and-version-contracts
 tags: ["android", "gradle", "defaultconfig"]
 aliases: ["Android 기본 설정은 식별자와 버전 계약을 만든다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 22:00:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Android 기본 설정은 식별자와 버전 계약을 만든다
 
+상위 문서: [Gradle 빌드 계약](gradle-build-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-AGP DSL의 `defaultConfig` 블록은 모든 Build Variant에 공통으로 적용되는 기본 속성 식별자를 정의한다.
+AGP DSL의 **`defaultConfig`**(모든 Build Variant에 일괄 적용되는 기본 식별 속성 블록) 블록은 다음과 같은 핵심 속성 식별자를 정의한다:
 - `applicationId`: Android OS 및 Google Play Store에서 앱을 식별하는 고유 패키지 네임스페이스.
 - `minSdk`: 앱이 실행될 수 있는 최소 Android API 레벨 계약. (컴파일 타임에 `minSdk` 미만 API 호출 시 린트 에러 발생)
 - `targetSdk`: OS의 호환성 동작(Behavior Changes)을 적용받을 하위 호환 기준점.

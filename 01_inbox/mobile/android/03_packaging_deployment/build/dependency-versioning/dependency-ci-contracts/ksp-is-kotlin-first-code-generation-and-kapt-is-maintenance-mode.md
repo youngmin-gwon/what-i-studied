@@ -3,16 +3,18 @@ title: ksp-is-kotlin-first-code-generation-and-kapt-is-maintenance-mode
 tags: ["android", "ksp", "kapt", "kotlin"]
 aliases: ["KSP는 Kotlin-first 코드 생성이고 kapt는 유지보수 모드다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## KSP는 Kotlin-first 코드 생성이고 kapt는 유지보수 모드다
 
+상위 문서: [의존성, 버전, CI 계약](dependency-ci-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
 - **kapt (Kotlin Annotation Processing Tool)**: 기존 Java `javax.annotation.processing` (APT) 생태계와의 호환성을 위해 Kotlin 코드 전체를 Stub Java 파일(`.java`)로 생성하는 단계(`kaptGenerateStubs`)를 거친다. 이 Stub 생성 과정이 심각한 빌드 오버헤드(전체 빌드 시간의 20~30% 차지)를 야기한다.
-- **KSP (Kotlin Symbol Processing)**: Kotlin Compiler Plugin API 기반으로 동작하며 Java Stub을 일체 생성하지 않는다. Kotlin AST (Abstract Syntax Tree) 및 Symbol Model(`KSClassDeclaration`, `KSPropertyDeclaration`)에 직접 접근하여 코드를 생성하므로, kapt 대비 **2배~5배 빠른 코드 생성 성능**을 제공한다.
+- **KSP (Kotlin Symbol Processing)**: Kotlin Compiler Plugin API 기반으로 동작하며 Java Stub을 일체 생성하지 않는다. Kotlin AST (**AST**: Abstract Syntax Tree - 구문 분석 구조 트리) 및 Symbol Model(`KSClassDeclaration`, `KSPropertyDeclaration`)에 직접 접근하여 코드를 생성하므로, kapt 대비 **2배~5배 빠른 코드 생성 성능**을 제공한다.
 
 ```mermaid
 flowchart TD

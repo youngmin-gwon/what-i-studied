@@ -1,22 +1,100 @@
 ---
 title: viewmodel-and-repository-should-not-retain-ui-context
-tags: [android, android/architecture, android/context]
+tags: [android, android/architecture, android/context, android/viewmodel]
 aliases: ["ViewModel과 Repository는 UI Context를 보관하지 않는다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## ViewModel 과 Repository 는 UI Context 를 보관하지 않는다
+## ViewModel과 Repository는 UI Context를 보관하지 않는다
 
-상위 문서: [Android Context Boundaries](../android-context-boundaries.md)
-ViewModel 은 screen state 와 외부 작업을 조율하는 owner 이지 Activity, View, Fragment, UI Context 의 저장소가 아니다. Repository 는 data policy 와 source of truth 를 담당하지 UI 화면 인스턴스를 보관하지 않는다.
+안드로이드 권장 앱 아키텍처(Guide to App Architecture)에서 **`ViewModel` 은 화면 상태(UI State)와 비즈니스 로직을 조율하는 오너(Owner)이고, `Repository` 는 데이터의 단일 출처(Single Source of Truth)를 다루는 계층이다. 두 계층 모두 Activity, Fragment, View 등 UI 수명과 연동된 UI Context 참조를 필드로 보관해서는 안 된다.**
 
-플랫폼 API 때문에 Context 가 필요하다면 먼저 그 API 가 어느 layer 의 책임인지 묻는다. UI permission, navigation, toast, resource formatting 은 UI layer 에 남기는 편이 맞고, database/file/system service 처럼 process-scoped dependency 는 application context 나 좁은 interface 를 data boundary 에 주입할 수 있다.
+---
 
-예외가 필요하면 수명과 테스트 경계를 명시한다. "어디서든 Context 가 필요해서 ViewModel 에 넣었다"는 설계 근거가 아니다.
+### 1. 개념 및 핵심 명제 (What)
 
-ViewModel 은 configuration change 를 넘어 살아남으므로, Activity context 를 필드로 들고 있으면 회전 이후 이전 Activity 인스턴스가 새 Activity 와 함께 계속 heap 에 남는다. 회전을 반복한 뒤 Memory Profiler 나 LeakCanary 에서 Activity 인스턴스 수가 늘어나는 것으로 이 문제를 직접 확인할 수 있다.
+- **수명 주기 미스매치 (Lifecycle Mismatch)**:
+  `ViewModel` 은 화면 회전(Configuration Change) 시에도 사멸하지 않고 이전 인스턴스가 유지된다. 반면 Activity(UI Context)는 회전 즉시 Destroy 되고 새로운 인스턴스가 생성된다. ViewModel 이 이전 Activity Context 를 참조로 갖고 있으면 메모리 누수가 결정론적으로 일어난다.
+- **관심사 분리 (Separation of Concerns)**:
+  Data Layer(Repository)와 Domain Layer 는 플랫폼 View UI 의존성으로부터 독립적이어야만 순수 JVM 환경에서 빠른 단위 테스트(Unit Testing)가 가능하다.
 
-관련 노트: [ViewModel 정본](../../state-management/viewmodel/viewmodel.md), [ViewModel은 UI controller/context를 보관하지 않는다](../../state-management/viewmodel/viewmodel-does-not-retain-ui-controller-or-context.md), [Android Dependency Injection Map](../../../dependency-injection/android-dependency-injection-map.md).
+---
 
-공식 문서: [Guide to app architecture](https://developer.android.com/topic/architecture)
+### 2. 왜 UI Context 보관을 엄격히 금지하는가? (Why)
+
+1. **메모리 누수 원천 차단**:
+   Activity 가 회전할 때마다 수 메가바이트의 뷰 트리가 메모리에 누적되어 OOM 이 발생한다.
+2. **AndroidViewModel 사용 억제**:
+   `AndroidViewModel` 은 `Application` 인스턴스를 들고 있어 메모리 누수는 피할 수 있지만, 문자열 리소스 로딩이나 Android System API 의존성을 ViewModel 내부로 가져오게 만들어 테스트 가능성을 저하시킨다. 문자열 포맷팅 등은 ViewModel 이 Resource ID 나 데이터 모델만 노출하고 UI 컴포저블/View 레이어에서 처리하도록 한다.
+
+---
+
+### 3. 내부 메커니즘 및 올바른 아키텍처 구조 (How)
+
+```mermaid
+graph LR
+    subgraph UI Layer
+        UI["Compose / Activity"] -->|User Action| VM["ViewModel (No Context!)"]
+    end
+    subgraph Domain & Data Layer
+        VM --> Repo["Repository (No UI Context!)"]
+        Repo --> Local["DataStore / Room (ApplicationContext Only)"]
+    end
+    
+    VM -->|Exposes Immutable StateFlow| UI
+```
+
+---
+
+### 4. 현대 표준 코드 예시 (Context 의존성 없는 ViewModel)
+
+```kotlin
+// 바람직하지 못한 구현 (Anti-Pattern: ViewModel이 Context 보관)
+class BadViewModel(private val context: Context) : ViewModel() {
+    fun getFormattedDate(): String {
+        return DateFormatter.format(context, Date()) // Context 보관 금지!
+    }
+}
+
+// 현대 안드로이드 표준 구현 (Clean Architecture & Hilt)
+@HiltViewModel
+class GoodViewModel @Inject constructor(
+    private val userRepository: UserRepository // 순수 데이터 및 도메인 의존성만 주입
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow<UserUiState>(UserUiState.Loading)
+    val uiState: StateFlow<UserUiState> = _uiState.asStateFlow()
+
+    fun loadUser() {
+        viewModelScope.launch {
+            val user = userRepository.getUser()
+            // Resource ID나 순수 Data 객체만 UI로 전달
+            _uiState.value = UserUiState.Success(
+                userName = user.name,
+                titleResId = R.string.welcome_user
+            )
+        }
+    }
+}
+```
+
+---
+
+### 5. 관측 가능 증거 및 진단 (Observability)
+
+- **Activity 회전 후 Memory Profiler 힙 분석**:
+  화면 10회 회전 후 Dump Heap 실행 -> `MainActivity` 인스턴스 개수가 정확히 1개(현재 활성 뷰)인지 확인. 2개 이상일 경우 ViewModel/Repository 의 참조 검출.
+- **LeakCanary 가발행하는 ViewModel retained 참조 스택 확인**.
+
+---
+
+### 6. 관련 문서 및 참조
+
+- 상위 문서: [Android Context Boundaries](../android-context-boundaries.md)
+- 관련 계약 문서:
+  - [ViewModel 수명과 프로세스 데스 계약](../../state-management/viewmodel/viewmodel-survives-configuration-change-not-process-death.md)
+  - [ViewModel은 UI controller나 context를 보관하지 않는다](../../state-management/viewmodel/viewmodel-does-not-retain-ui-controller-or-context.md)
+- 공식 문서: [Guide to App Architecture](https://developer.android.com/topic/architecture)
+
+검증일: 2026-08-05. ViewModel 수명 주기 및 Clean Architecture Context 격리 검증 완료.

@@ -3,17 +3,19 @@ title: dependency-change-checklist-reviews-graph-abi-tests-and-release-risk
 tags: ["android", "dependency", "ci", "abi"]
 aliases: ["의존성 변경 체크리스트는 그래프, ABI, 테스트, 배포 위험을 함께 본다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## 의존성 변경 체크리스트는 그래프, ABI, 테스트, 배포 위험을 함께 본다
 
+상위 문서: [의존성, 버전, CI 계약](dependency-ci-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-라이브러리 버전 업그레이드나 의존성 추가 시 단순 컴파일 성공 여부만 확인해서는 안 된다.
+라이브러리 버전 업그레이드나 의존성 추가 시 단순 컴파일 성공 여부만 확인해서는 안 된다:
 1. **Transitive Graph Drift**: 하위 전이 의존성의 버전 변경으로 인한 런타임 클래스 충돌(`NoSuchMethodError`) 검증.
-2. **Binary Compatibility (ABI) Drift**: 모듈의 public API 시그니처 변경으로 다른 모듈 컴파일 재수행 여부 검증. (Kotlin Binary Compatibility Validator 사용)
+2. **Binary Compatibility (ABI) Drift**: **ABI**(Application Binary Interface: 모듈 간 바이너리 수준 인터페이스 계약) 시그니처 변경으로 다른 모듈 컴파일 재수행 여부 검증. (Kotlin Binary Compatibility Validator 사용)
 3. **R8 Keep Rule & Shrinking Risk**: 새 라이브러리가 포함하는 ProGuard 룰이 불필요한 클래스를 keep하거나 반대로 reflection 코드를 누락시켜 런타임 크래시를 유발하는지 확인.
 4. **License & Security Audit**: 새로 유입된 전이 라이브러리의 보안 취약점(CVE) 및 라이선스 위반 검사.
 

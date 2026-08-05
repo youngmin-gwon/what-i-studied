@@ -2,32 +2,79 @@
 title: coroutine-is-lightweight-cancellable-work-not-thread
 tags: [android, android/async, android/coroutines, android/data]
 aliases: ["Coroutine은 thread가 아니라 취소 가능한 경량 작업이다"]
-date modified: 2026-08-04 14:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Coroutine 은 thread 가 아니라 취소 가능한 경량 작업이다
+## Coroutine은 thread가 아니라 취소 가능한 경량 작업이다
 
-Coroutine 은 OS thread 자체가 아니라 중단, 재개, 취소를 표현하는 작업 단위다. 그래서 Android 코드에서 coroutine 을 설계할 때 핵심 질문은 "어느 thread 를 만들 것인가"가 아니라 "이 작업의 수명은 누가 소유하고 언제 취소되는가"다.
+### 개념 (What)
+`Coroutine`은 OS 스레드(Thread)와 1:1 매핑되는 실행 단위가 아니며, Kotlin 런타임에 의해 관리되는 **경량 협조적 실행 단위(Cooperative Lightweight Execution Task)**다. OS 스레드가 커널 스페이스에서 컨텍스트 스위칭과 메모리를 할당받는 반면, Coroutine은 유저 스페이스 힙(Heap) 영역에 생성되는 `Continuation` 객체에 불과하다.
 
-`launch` 나 `async` 로 시작한 작업은 반드시 어떤 `CoroutineScope` 에 속한다. 화면 수명에 묶이는 작업은 `viewModelScope` 나 lifecycle-aware scope 에 둔다. 앱 전체 작업처럼 화면보다 오래 살아야 하는 경우에도 별도 application scope 처럼 명시적인 소유자를 둔다.
+### 왜 필요한가 (Why)
+1. **메모리 효율성**: Android에서 OS 스레드 1개는 기본적으로 1MB 상당의 스택 메모리를 소비하며 생성 시 커널 콜이 발생한다. 수천 개의 스레드를 생성하면 `OutOfMemoryError`나 심각한 GC 압박이 발생한다. 반면 Coroutine은 힙에 생성되는 수백 바이트 크기의 객체이므로 수십만 개를 동시에 띄워도 메모리 부담이 적다.
+2. **컨텍스트 스위칭 비용 감소**: OS 스레드 전환은 CPU 레지스터 저장, 커널 모드 진입, MMU TLB 플러시 등을 동반하지만, Coroutine 전환은 유저 스페이스 내 함수 상태 머신의 pointer/label 이동에 불과하여 대단히 빠르다.
+3. **안전한 작업 취소 (Cooperative Cancellation)**: 과거 Java의 `Thread.stop()`은 동기화 락 상태를 파괴하여 사용이 금지(Deprecated)되었다. Coroutine은 작업 취소 시 강제 종료 대신 취소 상태(`Job.isCancelled`)를 플래그로 전달하고, 중단 지점(Suspension Point)에서 안전하게 `CancellationException`을 던지는 **협조적 취소 규칙**을 제공한다.
 
-Thread 선택은 `Dispatcher` 가 담당한다. 네트워크, 디스크, CPU 작업을 어디에서 실행할지는 [Dispatcher는 실행 위치를 고르고 Scope는 작업 수명을 소유한다](./dispatcher-selects-execution-context-not-work-lifetime.md) 에서 결정하고, 작업의 부모 - 자식 수명은 [Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다](./structured-concurrency-parent-owns-child-lifetime.md) 로 유지한다.
+### 내부 메커니즘 (How)
+1. **Continuation 객체 할당**: `launch`나 `async` 호출 시 코틀린 컴파일러는 루틴을 실행할 `StandaloneCoroutine` 또는 `DeferredCoroutine` 객체를 생성한다.
+2. **스레드 풀 큐 등록**: 해당 객체는 지정된 `CoroutineDispatcher` 내부의 task queue(`LockFreeTaskQueue`)로 전달되며, 스레드 풀의 워커 스레드가 큐에서 Coroutine을 가져와 실행한다.
+3. **취소 전파와 검사**:
+   - 부모 Job이 `cancel()`을 호출하면 상태가 `Cancelling`으로 변경되며 자식 코루틴에 취소가 전달된다.
+   - 루틴 내부에서는 `ensureActive()`, `yield()`, 또는 `delay()`와 같은 표준 중단 함수를 만날 때 `coroutineContext[Job]?.ensureActive()`가 호출되어 `CancellationException`이 발생하고 자원이 해제된다.
 
-실무 판단은 단순하다. coroutine 을 만들 때 반환값보다 먼저 수명 소유자와 취소 경로를 확인한다. 이 둘이 명확하지 않으면 작업은 가벼워 보여도 leak 이나 중복 실행의 원인이 된다.
+```mermaid
+graph TD
+    A["Coroutine Launch / Async"] --> B["Continuation (Heap Object)"]
+    B --> C["Dispatcher Task Queue (LockFreeTaskQueue)"]
+    C --> D["Worker Thread Pool (Dispatchers.Default / IO)"]
+    D -->|"Execution / Suspension Point"| E{"isCancelled Check"}
+    E -- "Active" --> F["Execute State Machine"]
+    E -- "Cancelled" --> G["Throw CancellationException & Cleanup"]
+
+    style A fill:#e1f5fe,stroke:#0288d1,color:#01579b
+    style G fill:#ffebee,stroke:#c62828,color:#b71c1c
+```
+
+### 현대 표준 vs 레거시 비교
+
+| 비교 항목 | 레거시 (Thread / AsyncTask / RxJava) | 현대 표준 (Kotlin Coroutines) |
+| :--- | :--- | :--- |
+| **실행 단위** | OS 커널 스레드 (1MB 스택 소비) | 유저스페이스 Continuation 힙 객체 (~수백 바이트) |
+| **취소 방식** | `Thread.interrupt()` 수동 검사 또는 `CompositeDisposable.clear()` | Scope 기반 자동 취소 및 `CancellationException` 협조적 전파 |
+| **스레드 전환** | `Handler.post()`, `Schedulers.io()` 수동 체이닝 | `withContext(Dispatchers.IO)` 직관적 동기 스타일 서술 |
+| **자원 정리** | `onDestroy()`에서 수동 널 처리 및 스레드 종료 조율 | `viewModelScope` / `lifecycleScope`로 수명 자동 바인딩 |
+
+### Idiomatic Kotlin 코드 예시
 
 ```kotlin
-class BenefitViewModel(
-    private val repository: BenefitRepository,
-) : ViewModel() {
-    fun refresh() {
-        viewModelScope.launch { // Job은 ViewModel.onCleared()에서 자동 취소된다
-            repository.sync()
+class UserProfileRepository(
+    private val remoteDataSource: RemoteDataSource,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
+    suspend fun fetchAndProcessUserProfile(userId: String): UserProfile = withContext(ioDispatcher) {
+        // CPU 대량 연산이나 긴 대기 루프가 포함된 경우 협조적 취소 점검 추가
+        coroutineContext.ensureActive()
+
+        val rawData = remoteDataSource.getRawUserData(userId)
+        
+        // 오랜 시간이 걸리는 인메모리 데이터 변환 연산
+        val processedProfile = processHeavyData(rawData)
+        
+        processedProfile
+    }
+
+    private fun processHeavyData(rawData: RawUserData): UserProfile {
+        // 수동 루프 내 취소 상태 체크 (중단 함수가 없는 정적 계산 시 필요)
+        val filteredList = rawData.items.map { item ->
+            if (!Thread.currentThread().isInterrupted) {
+                // coroutineContext.ensureActive() 호출 가능
+            }
+            item.toDomainModel()
         }
+        return UserProfile(rawData.id, filteredList)
     }
 }
 ```
 
-`viewModelScope` 는 수천 개의 OS thread 를 만들지 않고도 동시에 수만 개의 coroutine 을 유지할 수 있다. 화면이 종료되어 `onCleared()` 가 호출되면 이 scope 의 `Job` 이 취소되고, 그 안에서 실행 중이던 `sync()` 는 다음 suspension point 에서 `kotlinx.coroutines.JobCancellationException` 을 받으며 정리된다. `GlobalScope.launch` 로 같은 작업을 시작하면 이 취소 연결이 끊어져 화면이 사라진 뒤에도 작업이 계속 실행되고, StrictMode 나 LeakCanary 로 그 ViewModel 인스턴스가 해제되지 않는 leak 으로 관찰된다.
-
-공식 문서: [Kotlin Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html), [CoroutineScope API](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/)
+공식 문서: [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html), [Cancellation and timeouts](https://kotlinlang.org/docs/cancellation-and-timeouts.html)

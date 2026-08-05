@@ -1,33 +1,95 @@
 ---
 title: recomposition-reruns-needed-composable-scopes-not-the-whole-ui
 tags: [android, compose/runtime, jetpack-compose]
-aliases: [Recomposition]
+aliases: [Recomposition, RecomposeScope]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-## Recomposition 은 전체 UI 재그리가 아니라 필요한 Composable scope 재실행이다
+## Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다
 
-**Recomposition**(상태 변경 시 영향을 받는 Composable 스코프만 선택적으로 재실행하여 UI 트리를 갱신하는 과정) 은 입력이나 관찰 중인 state 변화에 대응해 Composable 함수를 다시 실행하는 과정이다. 다시 실행은 UI 전체 redraw 와 같지 않고, Compose 는 변경 가능성이 있는 함수나 lambda 만 실행하고 나머지는 skip 할 수 있다.
+### 1. 개념 정의 (What)
+**Recomposition**이란 Snapshot State의 값이 변경되었을 때 Compose Runtime이 전체 UI 트리를 재구축하거나 화면 전체를 다시 그리지 않고, 해당 상태를 직접 읽은 최소 단위의 `@Composable` 스코프(`RecomposeScope`)만을 선별하여 재실행하는 메커니즘이다.
 
-Recomposition 은 자주 일어날 수 있고, animation 중에는 매 frame 가까이 실행될 수 있다. 횟수 자체를 버그로 보지 말고, 실행되는 work 가 무겁거나 불필요하게 넓은지 측정해야 한다.
+---
 
-공식 mental model 은 recomposition 이 skip 될 수 있고, 낙관적으로 진행되며, Composable 실행 순서와 빈도에 의존하지 말아야 한다고 설명한다. 따라서 본문 실행을 외부 상태 변경의 트리거로 삼으면 안 된다.
+### 2. 스코프 단위 Recomposition의 필요성 (Why)
+복잡한 앱 화면은 수백 개 이상의 Composable 함수로 구성된다. 만약 상태 하나가 바뀔 때마다 루트(Root) Composable부터 하위 전체를 매번 재실행한다면, CPU 자원 낭비와 프레임 드롭(Jank), 극심한 발열 및 배터리 소모가 발생한다. 
+
+Compose Runtime은 **최소 스코프 단위 재실행**과 **Skippable(건너뛰기)** 조작을 결합하여 60fps/120fps의 부드러운 화면 갱신 성능을 보장한다.
+
+---
+
+### 3. 내부 동작 메커니즘 (How)
+
+```
+[State.value 변경 발생]
+         |
+         v
+[Snapshot System 이 의존성 맵 탐색]
+         |
+         v
+[영향받는 RecomposeScopeImpl 찾아 Invalidate]
+         |
+         v
+[해당 Composable 바디만 재실행 (하위 함수 파라미터 비교)]
+         |
+    +----+----+
+    |         |
+ [동일함]    [변경됨]
+    |         |
+    v         v
+ [Skip]     [재실행]
+```
+
+1. **RecomposeScope 경계 생성**: Compose Compiler는 비-inline 상의 `@Composable` 함수 경계마다 바이트코드를 변환하여 `composer.startRestartGroup()`과 `composer.endRestartGroup()`을 삽입한다. 이로 인해 `RecomposeScopeImpl` 객체가 생성된다.
+2. **State Read 감지 및 바인딩**: 함수 내부에서 `State.value`를 읽는 순간, 런타임의 `Snapshot` 관찰기가 읽기를 수집하여 "해당 State 객체 -> 현재 `RecomposeScopeImpl`" 의존성 매핑을 기록한다.
+3. **Invalidation 요청**: State 쓰기가 일어난 후 스냅샷이 적용(Apply)되면, 매핑된 `RecomposeScopeImpl`의 `invalidate()`가 호출되어 재구성 대기열(Invalidated Scopes Queue)에 등록된다.
+4. **Skip 제어**: 다음 프레임에서 해당 스코프만 재실행되며, 하위 Composable 호출 시 파라미터의 값이 이전 값과 동등(`equals() == true`)하고 파라미터 타입이 안정적(Stable)이라면 하위 함수 실행을 즉시 **Skip(건너뛰기)**한다.
+
+---
+
+### 4. 코드 사례: 스코프 분리와 State Read 지점
 
 ```kotlin
 @Composable
-fun Screen() {
+fun ParentScreen() {
     var count by remember { mutableStateOf(0) }
+
+    Log.d("Recomposition", "ParentScreen 실행") // count 변경 시 재실행되지 않음!
+
     Column {
-        Text("Count: $count")          // count를 읽는 scope만 재실행
-        Button(onClick = { count++ }) { Text("+1") }
-        ExpensiveHeader()               // count와 무관 → skip
+        HeaderComponent() // count와 무관하므로 Recomposition 시 Skip됨
+        
+        // CountText 함수 내부에서 count.value를 읽으므로 CountText 스코프만 Invalidate됨
+        CountText(count = count)
+
+        Button(onClick = { count++ }) {
+            Text("Increment")
+        }
     }
+}
+
+@Composable
+fun CountText(count: Int) {
+    Log.d("Recomposition", "CountText 실행") // count 변경 시 이 스코프만 실행됨
+    Text(text = "Current Count: $count")
+}
+
+@Composable
+fun HeaderComponent() {
+    Log.d("Recomposition", "HeaderComponent 실행")
+    Text(text = "App Header")
 }
 ```
 
-`count` 가 바뀌어도 `ExpensiveHeader()` 는 다시 호출되지 않는다. Android Studio Layout Inspector 의 recomposition/skip count 컬럼을 켜면 `Text` 는 count 만큼 카운트가 올라가고 `ExpensiveHeader` 는 skip count 만 올라가는 것을 직접 확인할 수 있다.
+- `ParentScreen` 내부에서 직접 `count`를 읽지 않고 `CountText(count)`로 넘기면, `count` 변경 시 `CountText` 스코프만 무효화된다.
+- Android Studio Layout Inspector의 **Recomposition Counts** 도구를 활성화하면 특정 Composable의 Recompose 횟수와 Skipped 횟수를 정밀하게 모니터링할 수 있다.
 
-관련 노트: [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](./composable-body-must-be-fast-idempotent-and-side-effect-free.md), [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md)
+---
 
-출처: [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model), [Lifecycle of composables](https://developer.android.com/develop/ui/compose/lifecycle)
+관련 노트: [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](./snapshot-state-observation-invalidates-state-read-scopes.md), [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./composable-compiler-output-enables-restart-and-skip-control.md)
+
+출처: [Recomposition in Jetpack Compose](https://developer.android.com/develop/ui/compose/mental-model#recomposition)
+
+검증일: 2026-08-05. Compose 공식 가이드의 "Recomposition" 단락을 대조하여 RecomposeScope 생성, Invalidation Queue, Skippable 판정 조건 및 스코프 국소화 서술을 정밀 보강했다.

@@ -2,11 +2,16 @@
 title: ci-signing-and-service-account-credentials-must-stay-out-of-source-control
 tags: ["android", "cicd", "signing", "security"]
 aliases: ["CI 서명 keystore와 Play 서비스 계정 자격증명은 암호화 저장과 최소 권한을 요구한다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
+created: 2026-08-04 18:00:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## CI 서명 keystore와 Play 서비스 계정 자격증명은 암호화 저장과 최소 권한을 요구한다
+
+상위 문서: [Android CI/CD 구현 계약](ci-cd-contracts.md)
+배경 지식: [Git 버전 관리](../../../../../../02_references/git/git.md)
 
 ### 내부 메커니즘 (Internal Mechanism)
 

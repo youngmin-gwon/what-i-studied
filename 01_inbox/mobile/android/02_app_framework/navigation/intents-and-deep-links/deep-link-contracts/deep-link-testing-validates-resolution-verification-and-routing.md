@@ -1,88 +1,55 @@
 ---
 title: deep-link-testing-validates-resolution-verification-and-routing
-tags: [android, android/deep-links, android/navigation]
-aliases: ["Android Deep Links 와 App Links 테스트 및 디버깅"]
+tags: [android, android/navigation, android/deep-links, testing]
+aliases: ["Deep link 테스트는 resolution, verification, routing을 함께 검증한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Android Deep Links 와 App Links 테스트 및 디버깅
+## Deep link 테스트는 resolution, verification, routing 을 함께 검증한다
 
 상위 문서: [Deep Link 계약](deep-link-contracts.md)
 
-배경 지식: [암호학 기초](../../../../../../security/fundamentals/cryptography-basics.md)
+관련 계약: [App Link는 검증된 https deep link다](app-link-is-verified-https-deep-link.md)
 
-### 테스트 층위
+---
 
-딥 링크는 **URI 파싱**(외부 URI 문자열의 스키마, 호스트, 파라미터를 분석하여 내부 목적지로 변환하는 검증 절차), Intent 매칭, 도메인 검증, 앱 라우팅을 나눠서 테스트한다.
+### 개념과 필요성 (What & Why)
 
-URI 파싱 테스트는 허용된 scheme, host, path, query 와 잘못된 입력을 검증한다.
+1. **개념 (What)**:
+   - 딥링크 테스트는 단순히 UI가 열리는지 확인하는 것에 그치지 않고, (1) OS의 Intent Resolution, (2) Domain Verification(`assetlinks.json`), (3) 앱 내부 `NavKey` 라우팅 파이프라인의 3 단계를 통합적으로 검증하는 과정이다.
+2. **필요성 (Why)**:
+   - **단계별 실패 원인 격리**: 딥링크가 작동하지 않을 때 원인이 웹 서버의 `assetlinks.json` 서명 오류인지, Manifest의 `<intent-filter>` 미등록인지, 아니면 내부 URI 파서의 정규식 오류인지를 정확히 식별하기 위해 체계적인 검증 툴킷이 필요하다.
 
-Intent 테스트는 매니페스트 필터가 기대한 URI 를 수신하는지 확인한다.
+---
 
-App Links 테스트는 assetlinks.json, 인증서 지문, 기기 검증 상태를 확인한다.
+### 3단계 검증 CLI 및 테스트 기법 (How)
 
-라우팅 테스트는 공개 목적지, 인증 목적지, 오류와 뒤로 가기를 확인한다.
+1. **OS Intent Resolution 검증 (ADB Command)**:
+   ```bash
+   adb shell am start -W -a android.intent.action.VIEW -d "https://example.com/product/123" com.example.myapp
+   ```
+2. **Domain Verification 상태 검증 (PM CLI)**:
+   ```bash
+   # 도메인 검증 상태 확인 (STATE_VERIFIED 여부 체크)
+   adb shell pm get-app-links com.example.myapp
+   
+   # 재검증 강제 실행
+   adb shell pm verify-app-links --re-verify com.example.myapp
+   ```
+3. **내부 URI-to-NavKey 단위 테스트 (JUnit)**:
+   ```kotlin
+   @Test
+   fun verifyProductDeepLinkParsing() {
+       val uri = Uri.parse("https://example.com/product/123")
+       val key = DeepLinkParser.parse(uri)
+       assertEquals(ProductDetailKey(id = "123"), key)
+   }
+   ```
 
-### ADB 로 URI 실행
+---
 
-다음 명령은 브라우저나 다른 앱이 보낸 것과 유사한 VIEW Intent 를 시작한다.
+### 관련 상위 및 연관 노트
 
-```bash
-adb shell am start -a android.intent.action.VIEW \
-  -d "https://www.example.com/product/abc123"
-```
-
-특정 패키지를 지정하면 해당 앱으로의 실행 결과를 좁혀 확인할 수 있다.
-
-```bash
-adb shell am start -a android.intent.action.VIEW \
-  -d "https://www.example.com/product/abc123" \
-  com.example.app
-```
-
-custom scheme 은 별도 명령으로 매칭 여부를 확인하되 App Link 검증과 혼동하지 않는다.
-
-### 도메인 검증 확인
-
-```bash
-adb shell pm get-app-links com.example.app
-adb shell pm verify-app-links --re-verify com.example.app
-adb shell dumpsys package com.example.app
-```
-
-`pm get-app-links` 결과에서 host 별 검증 상태를 확인한다.
-
-재검증 명령 직후 결과가 즉시 바뀐다고 가정하지 말고 로그와 상태를 함께 본다.
-
-서버 응답은 실제 기기 네트워크에서 HTTPS, 경로, 인증서, JSON 형식을 확인한다.
-
-debug 와 release 인증서 지문이 서로 다른지 배포 변형별로 확인한다.
-
-### 실패 원인 분류
-
-앱이 목록에 나타나지 않으면 매니페스트의 action, category, data 를 먼저 점검한다.
-
-앱 선택기가 나타나면 host 검증 실패나 여러 앱의 경쟁 가능성을 점검한다.
-
-웹으로만 열리면 assetlinks.json 위치, 패키지 이름, 인증서 지문을 점검한다.
-
-앱은 열리지만 잘못된 화면이면 URI 라우터와 path 변수 변환을 점검한다.
-
-로그인 후 목적지가 사라지면 pending destination 저장과 소비 시점을 점검한다.
-
-### 공식 기준
-
-구성 방식은 [App Links 추가](https://developer.android.com/training/app-links/add-applinks) 를 따른다.
-
-서버 파일은 [assetlinks.json 구성](https://developer.android.com/training/app-links/configure-assetlinks) 을 따른다.
-
-동적 규칙의 범위는 [Dynamic App Links는 선언 범위를 확장하지 않는다](dynamic-app-links-refine-but-do-not-expand-manifest-scope.md) 에서 확인한다.
-
-알림 클릭 흐름은 [알림은 PendingIntent로 딥 링크 여정을 시작한다](notification-deep-link-needs-explicit-task-and-back-stack-policy.md) 와 함께 검증한다.
-
-### 결론
-
-테스트는 "앱이 열리는가"에서 끝나지 않는다.
-
-올바른 앱, 올바른 목적지, 올바른 인증 상태, 예측 가능한 뒤로 가기까지 확인해야 한다.
+- 상위 계약: [Deep Link 계약](deep-link-contracts.md)
+- 연관 계약: [App Link는 검증된 https deep link다](app-link-is-verified-https-deep-link.md)

@@ -3,15 +3,17 @@ title: kotlinx-serialization-requires-compiler-plugin-and-runtime-format
 tags: ["android", "kotlin", "serialization"]
 aliases: ["kotlinx serialization은 컴파일러 플러그인과 런타임 포맷을 함께 요구한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## kotlinx serialization은 컴파일러 플러그인과 런타임 포맷을 함께 요구한다
 
+상위 문서: [의존성, 버전, CI 계약](dependency-ci-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-`kotlinx.serialization`은 리플렉션(Reflection)을 사용하는 Gson/Jackson과 달리, 두 가지 구성요소의 결합으로 동작한다:
+`kotlinx.serialization`은 **리플렉션**(Reflection: 런타임 동적 객체 구조 분석)을 사용하는 Gson/Jackson과 달리, 두 가지 구성요소의 결합으로 동작한다:
 1. **Kotlin Compiler Plugin (`org.jetbrains.kotlin.plugin.serialization`)**: 컴파일 타임에 `@Serializable` 이 붙은 데이터 클래스를 분석하여 `$serializer` 내부 객체와 직렬화/역직렬화 전용 메서드를 바이트코드로 직접 생성한다.
 2. **Runtime Format Library (`kotlinx-serialization-json`, `protobuf`, `cbor`)**: 컴파일러 플러그인이 생성한 `$serializer` 메서드를 호출하여 JSON 문자열이나 바이너리 스트림으로 실제 변환을 수행한다.
 

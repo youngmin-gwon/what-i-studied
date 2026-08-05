@@ -1,76 +1,84 @@
 ---
 title: launched-effect-owns-composable-cancellable-work
 tags: ["android", "android/app-framework"]
-aliases: []
-date modified: 2026-08-05 13:16:45 +09:00
+aliases: [LaunchedEffect, Cancellable Coroutine Work]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
 ## Composable 과 함께 취소되어야 하는 작업은 LaunchedEffect 로 시작한다
 
+### 1. 개념 정의 (What)
+`LaunchedEffect(key1, key2) { block }`는 Composable 함수가 Composition 파이프라인에 진입(Enter)할 때 코루틴(Coroutine)을 생성하여 비동기 작업(Async Task)을 실행하고, Composable이 트리를 이탈(Leave)하거나 키(Key)가 변경되면 **실행 중이던 코루틴을 자동으로 취소(Cancel)**하는 수명주기 종속 비동기 이펙트 API다.
+
+---
+
+### 2. LaunchedEffect API의 필요성 (Why)
+Composable 바디 내부에서 `CoroutineScope().launch { ... }`를 직접 실행하는 것은 매우 치명적이다:
+- **코루틴 누수(Leak)**: Recomposition이 일어날 때마다 새로운 코루틴이 무한 생성되고, 화면을 벗어나도 비동기 작업이 취소되지 않아 백그라운드 자원을 점유한다.
+- **Side-Effect 규칙 위반**: Composition 계산 파이프라인 중간에 비동기 작업을 직접 구동하므로 멱등성과 순수성이 깨진다.
+
+`LaunchedEffect`는 코루틴 수명주기를 Composition 수명주기와 정확히 일치시켜 자동 취소 및 안전한 비동기 작업 실행을 보장한다.
+
+---
+
+### 3. 내부 동작 메커니즘 (How)
+
+```
+[Composition 파이프라인 진입]
+  |--> key1, key2 저장
+  |--> CoroutineScope 생성 및 block launch
+  
+[Recomposition 시 (Key 변경 발생)]
+  |--> 기존 실행 중이던 Job.cancel() 실행 (CancellationException 전파)
+  |--> 새로운 키 기반 CoroutineScope 생성 및 block 재실행
+  
+[Composition 화면 이탈 시 (Leave/Uncompose)]
+  |--> Job.cancel() 즉시 발동하여 비동기 코루틴 완전 정지!
+```
+
+1. **CompositionContinuationScope**: 런타임은 `LaunchedEffect`가 호출되면 `ControlledComposition`의 코루틴 컨텍스트를 상속하는 Scope를 할당한다.
+2. **Key 대조 기반 Restart**: 재구성 시 전달된 `key` 값들을 `equals()`로 비교하여 하나라도 다르면 현재 진행 중인 Job을 즉시 `cancel()`하고 새 람다를 구동한다.
+3. **단 1회 실행 (`Unit` / `True` Key)**: `LaunchedEffect(Unit)` 형태로 전달하면 Composable이 최초로 렌더링될 때 딱 1회만 구동되며 이탈 전까지 취소되지 않는다.
+
+---
+
+### 4. 올바른 LaunchedEffect 코드 패턴
+
+```kotlin
+@Composable
+fun UserDetailScreen(
+    userId: String,
+    viewModel: UserDetailViewModel = hiltViewModel()
+) {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // ✅ userId 가 변경될 때마다 이전 로딩 작업을 취소하고 새 사용자 정보를 가져옴
+    LaunchedEffect(userId) {
+        viewModel.loadUserProfile(userId)
+    }
+
+    // ✅ ViewModel의 일회성 UI Event (Channel/SharedFlow) 수집
+    LaunchedEffect(Unit) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowSnackbar -> snackbarHostState.showSnackbar(event.message)
+            }
+        }
+    }
+
+    Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) }) { padding ->
+        UserContent(padding)
+    }
+}
+```
+
+---
+
 상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
-`LaunchedEffect` 는 composition 에 들어올 때 coroutine 을 시작하고, key 가 바뀌거나 Composable 이 사라지면 작업을 취소한다.
+관련 노트: [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](../../runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md), [rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다](./remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)
 
-### 사용 기준
+출처: [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects#launchedeffect)
 
-다음 조건을 모두 만족하는 작업에 적합하다.
-
-- 작업의 시작점이 UI composition 또는 UI state 변화다.
-- 작업이 특정 key 에 종속된다.
-- key 가 바뀌면 이전 작업을 취소하고 새 작업을 시작해야 한다.
-- Composable 이 제거되면 작업도 더 이상 의미가 없다.
-
-```kotlin
-@Composable
-fun DetailRoute(itemId: String, onLoad: (String) -> Unit) {
-    LaunchedEffect(itemId) {
-        onLoad(itemId)
-    }
-}
-```
-
-`itemId` 가 바뀌면 기존 effect 가 취소되고 새 effect 가 시작된다.
-
-화면 진입 시 한 번만 실행하는 작업은 고정 key 를 사용할 수 있지만, 실제로 고정 수명이 맞는지 확인한다.
-
-effect 내부에서 읽는 값이 최신이어야 하면서 재시작은 피해야 한다면 [`**rememberUpdatedState**(Long-lived Effect 내부에서 Effect 재시작 없이 최신 상태/람다 값을 참조하도록 유지해 주는 API)`](https://developer.android.com/develop/ui/compose/side-effects#rememberupdatedstate) 를 검토한다.
-
-### 적합한 작업
-
-- 화면 진입에 따른 UI-local 로드 트리거
-- key 변경에 따른 검색 또는 미리보기 갱신
-- snackbar, navigation 같은 일회성 UI 이벤트 처리
-- animation 시작
-- Compose 상태를 읽어 UI 수명 동안 관찰하는 작업
-
-Composable 본문에서 suspend 함수를 직접 호출하지 않는다.
-
-recomposition 마다 네트워크 요청이나 저장이 반복될 수 있기 때문이다.
-
-### ViewModel 과의 경계
-
-화면 데이터의 source of truth 와 장기 비즈니스 작업은 ViewModel 또는 repository 가 소유한다.
-
-`LaunchedEffect` 는 그 작업을 UI 수명에 맞춰 요청하거나 UI 결과를 소비하는 경계로 둔다.
-
-화면이 사라져도 끝까지 실행되어야 하는 저장·동기화 작업은 `LaunchedEffect` 에 두지 않는다.
-
-```kotlin
-@Composable
-fun Screen(viewModel: ScreenViewModel) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
-    LaunchedEffect(Unit) {
-        viewModel.onScreenEntered()
-    }
-    ScreenContent(state)
-}
-```
-
-`LaunchedEffect` 는 effect 의 owner 를 Composable 로 만든다.
-
-`viewModel**Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션)` 는 작업의 owner 를 ViewModel 로 만든다.
-
-둘 중 어떤 수명이 요구되는지 먼저 결정한다.
-
-참고: [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects#launchedeffect), [Lifecycle-aware coroutines](https://developer.android.com/topic/libraries/architecture/coroutines)
+검증일: 2026-08-05. Compose 공식 가이드의 LaunchedEffect 섹션을 대조하여 CoroutineScope 자동 취소, Key 기반 Restart 알고리즘 및 ViewModel UI Event 수집 패턴 서술을 정밀 보강했다.

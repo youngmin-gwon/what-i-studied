@@ -2,13 +2,17 @@
 title: ci-cd-contracts
 tags: ["android", "android/packaging-deployment", "cicd"]
 aliases: ["Android CI/CD 구현 계약"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
+created: 2026-08-04 18:00:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Android CI/CD 구현 계약
 
-이 지도는 Android CI/CD 파이프라인을 **실제로 무엇으로 구현하는가**를 다룬다. [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](../dependency-versioning/dependency-ci-contracts/android-cicd-gates-separate-fast-validation-and-release-validation.md) 가 "어떤 게이트를 언제 도는가"(Fast PR Gate vs Release Validation Gate)를 다룬다면, 이 지도는 그 게이트를 구성하는 파이프라인 단계, 오케스트레이션 도구(Fastlane), 서명/자격증명 취급 방식, 빌드 매트릭스 최적화를 다룬다.
+상위 문서: [Android 패키징과 배포 지도](../../android-packaging-deployment.md)
+
+이 지도는 Android CI/CD 파이프라인을 **실제로 무엇으로 구현하는가**를 다룬다. [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](../dependency-versioning/dependency-ci-contracts/android-cicd-gates-separate-fast-validation-and-release-validation.md) 가 "어떤 게이트를 언제 도는가"(Fast PR Gate vs Release Validation Gate)를 다룬다면, 이 지도는 그 게이트를 구성하는 파이프라인 단계, 오케스트레이션 도구(**Fastlane**: 빌드/테스트/배포 스크립트 통합 실행기), 서명/자격증명(**CI Secret Store**) 취급 방식, 빌드 매트릭스 최적화를 다룬다.
 
 ```mermaid
 flowchart TD

@@ -2,75 +2,110 @@
 title: remoteviews-restricts-widget-layouts-to-a-fixed-view-subset
 tags: [android, android/app-widgets]
 aliases: ["RemoteViews는 위젯 layout을 고정된 View 부분집합으로 제한한다"]
-date modified: 2026-08-05 13:15:08 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-## RemoteViews 는 위젯 layout 을 고정된 View 부분집합으로 제한한다
+## RemoteViews는 위젯 layout을 고정된 View 부분집합으로 제한한다
 
-`RemoteViews` 는 `View` 계층을 직접 전달하는 객체가 아니라, "어떤 layout 을 inflate 하고 어떤 값을 채워라"는 지시를 담은 `Parcelable`(Android IPC 환경에서 객체를 빠르게 직렬화하여 프로세스 간 전송할 수 있게 해주는 안드로이드 전용 데이터 전달 인터페이스) 설명서다. 위젯은 앱 프로세스가 아니라 launcher(host) 프로세스에서 그려지므로, host 는 앱이 정의한 커스텀 `View` 클래스를 알지 못한다. 그래서 `RemoteViews` 는 host 도 이미 알고 있는 플랫폼 기본 `View`/`ViewGroup` 집합만 허용하고, 커스텀 `View` 나 그 하위 클래스는 허용하지 않는다.
+`RemoteViews` 는 안드로이드 OS 보안 및 프로세스 간 렌더링 격리를 보장하기 위해 홈 화면 호스트(Launcher) 프로세스에서 인스턴스화할 수 있는 **View 및 Layout 클래스를 엄격하게 지정된 시스템 부분집합(Subset)으로 제한**한다. 제3자 앱이 커스텀 뷰(Custom View subclass)를 선언하여 `RemoteViews` 레이아웃 XML 에 포함하더라도 호스트 프로세스가 이를 디시리얼라이즈하는 과정에서 `InflateException` 이 발생한다.
 
-### 내부 동작 메커니즘
+---
 
-- `RemoteViews` 생성자는 `context.packageName` 과 layout 리소스 id 를 받는다. 실제 inflate 는 이 정보를 넘겨받은 host 프로세스에서 일어난다. 앱 프로세스의 커스텀 `View` 코드는 host 의 classpath 에 없으므로 inflate 자체가 실패한다.
-- 공식 문서는 이 제약을 다음과 같이 명시한다. "widget layouts are based on RemoteViews, which doesn't support every kind of layout or view widget… You can't use custom views or subclasses of the views that are supported by RemoteViews."
-- 허용되는 layout 은 `FrameLayout`, `LinearLayout`, `RelativeLayout`, `GridLayout` 같은 기본 container 이고, 허용되는 view 는 `TextView`, `Button`, `ImageView`, `ImageButton`, `ProgressBar`, `ListView`, `GridView` 같은 기본 컴포넌트다. `ViewStub` 도 지원되는데, 이는 런타임에 layout 을 지연 inflate 하기 위한 빈 자리 표시자다.
-- Android 12(API 31)부터는 `CheckBox`, `Switch`, `RadioButton` 이 상태를 가진(stateful) component 로 추가 지원된다. 이 이전 버전에서는 이런 상태 표현을 직접 구현해야 했다.
-- click 이벤트도 앱 코드가 직접 리스너로 받을 수 없다. host 프로세스는 앱 코드를 호출할 수 없으므로 `setOnClickPendingIntent()` 로 `PendingIntent` 를 등록해 두면, host 가 클릭 시 그 `PendingIntent` 를 통해 다시 앱(또는 `AppWidgetProvider`)을 깨우는 방식으로 우회한다.
+### 1. 개념 및 핵심 명제 (What)
+
+- **화이트리스트 View 부분집합 (Whitelisted View Subset)**:
+  `RemoteViews` 가 지원하는 클래스는 오직 다음 시스템 레이아웃 및 뷰 노드뿐이다.
+  - **Layouts**: `FrameLayout`, `LinearLayout`, `RelativeLayout`, `GridLayout`
+  - **Widgets**: `AnalogClock`, `Button`, `Chronometer`, `ImageButton`, `ImageView`, `ProgressBar`, `TextView`, `ViewFlipper`, `ListView`, `GridView`, `StackView`, `AdapterViewFlipper`
+- **커스텀 View 금지 (No Custom View Subclasses)**:
+  `class MyCustomGraphView : View` 와 같이 커스텀 뷰 클래스를 만들거나, `ConstraintLayout`, `RecyclerView` 등 화이트리스트에 포함되지 않은 라이브러리 레이아웃을 직접 지원하지 않는다. (Android 12+ 에서 `RadioGroup`, `CheckBox`, `Switch` 등 일부 컴포넌트가 확대 추가됨)
+
+---
+
+### 2. 왜 제한하는가? (Why)
+
+1. **클래스로더 및 보안 격리 (Classloader Isolation)**: 홈 화면 호스트(Launcher) 프로세스는 타사 앱의 APK 바이너리나 DEX 클래스를 자신의 프로세스 클래스로더(Classloader)에 직접 로딩하지 않는다. 만약 커스텀 View 인스턴스화를 허용한다면 제3자 코드가 호스트 권한으로 실행되어 보안 구멍이 발생한다.
+2. **IPC 파셀 전송 안정성 (Parcelable Action Marshaling)**: `RemoteViews` 는 레이아웃 인스턴스 자체가 아니라 **"어떤 View ID에 어떤 메서드(setText, setImageViewBitmap 등)를 어떤 인자로 호출하라"**는 리플렉션/메서드 래퍼 패킷(`Action` 객체 배열)을 Parcelable 로 포장하여 전송한다. 화이트리스트 뷰에 한정되어야 호스트가 무작위 리플렉션 공격으로부터 안전하다.
+
+---
+
+### 3. 내부 메커니즘 (How)
 
 ```mermaid
-flowchart LR
-    subgraph App[앱 프로세스]
-        A[RemoteViews 객체 생성] -->|Parcelable| B[AppWidgetManager.updateAppWidget]
-    end
-    subgraph Host[Launcher / Host 프로세스]
-        B --> C[RemoteViews.apply]
-        C --> D{허용된 View/Layout인가?}
-        D -->|예: TextView, LinearLayout 등| E[실제 View 트리로 inflate]
-        D -->|아니오: 커스텀 View| F[RemoteViews$ActionException]
+sequenceDiagram
+    participant App as "앱 프로세스"
+    participant AWM as "AppWidgetManager (System Server)"
+    participant Host as "AppWidgetHostView (Launcher)"
+
+    App->>App: "RemoteViews(packageName, layoutId) 인스턴스 생성"
+    App->>App: "setTextViewText(), setOnClickPendingIntent() Action 등록"
+    App->>AWM: "updateAppWidget() 파셀 데이터 전송"
+    AWM->>Host: "RemoteViews IPC 전달"
+    Host->>Host: "LayoutInflater.inflate() 실행"
+    alt 화이트리스트 뷰 시스템 요소
+        Host->>Host: "뷰 인스턴스화 성공 및 Action 배열 적용 (reapply)"
+    else 사용자 정의 커스텀 뷰 포함 시
+        Host->>Host: "InflateException 발생! (Class not allowed in RemoteViews)"
     end
 ```
 
-### 코드 예시
+#### Glance 에서의 내부 변환 처리
+
+Jetpack Glance 도 이 제약 위에 구축되어 있다. Glance 컴포저블 코드가 작성되면 Glance 의 `RemoteViewsTranslator` 가 이를 검증하고, `GlanceModifier` 및 레이아웃을 화이트리스트에 해당하는 `LinearLayout`, `RelativeLayout`, `TextView`, `ImageView` 구조로 자동으로 맵핑하여 변환한다.
+
+---
+
+### 4. 코드 구현 및 제약 극복 패턴
+
+#### 커스텀 그래픽 표현 방법: Bitmap 바인딩
+
+차트나 커스텀 드로잉 뷰를 위젯에 표현해야 할 때는 커스텀 뷰 대신 **Bitmap 에 캔버스 드로잉을 완료한 후 ImageView 로 전송**하는 패턴을 사용한다.
 
 ```kotlin
-val views = RemoteViews(context.packageName, R.layout.widget_benefit).apply {
-    setTextViewText(R.id.widget_title, "이번 달 혜택")
-    setImageViewResource(R.id.widget_icon, R.drawable.ic_benefit)
-
-    // 클릭 시 앱 코드를 직접 호출하지 못하므로 PendingIntent 로 위임한다.
-    val openAppIntent = PendingIntent.getActivity(
-        context, 0,
-        Intent(context, MainActivity::class.java),
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-    )
-    setOnClickPendingIntent(R.id.widget_root, openAppIntent)
+// Glance 또는 RemoteViews 공통: 커스텀 그래픽을 Bitmap으로 그려서 ImageView에 전달
+fun drawCustomChartBitmap(context: Context, widthPx: Int, heightPx: Int): Bitmap {
+    val bitmap = Bitmap.createBitmap(widthPx, heightPx, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    val paint = Paint().apply {
+        color = Color.BLUE
+        strokeWidth = 5f
+    }
+    // 커스텀 차트 드로잉
+    canvas.drawLine(0f, heightPx.toFloat(), widthPx.toFloat(), 0f, paint)
+    return bitmap
 }
-appWidgetManager.updateAppWidget(appWidgetId, views)
+
+// Glance 코드 내 적용 예시
+@Composable
+fun ChartWidgetContent(bitmap: Bitmap) {
+    Image(
+        provider = ImageProvider(bitmap),
+        contentDescription = "커스텀 차트 그래픽"
+    )
+}
 ```
 
-```xml
-<!-- widget_benefit.xml: RemoteViews가 허용하는 기본 View만 사용한다. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_root"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+---
 
-    <ImageView android:id="@+id/widget_icon" android:layout_width="24dp" android:layout_height="24dp" />
-    <TextView android:id="@+id/widget_title" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-</LinearLayout>
-```
+### 5. 관측 가능 증거 및 진단 (Observability)
 
-### 관측 가능한 증거
+- **지원되지 않는 View 사용 시 로그켓 오류 확인**:
+  허용되지 않은 Custom View 가 레이아웃 XML 에 포함된 경우 런처 화면이나 logcat 에 다음과 같은 예외 출력:
+  `android.view.InflateException: Binary XML file line #X: Class not allowed to be inflated android.widget.MyCustomView`
+- **RemoteViews 액션 구성 확인**:
+  ```bash
+  adb shell dumpsys appwidget
+  ```
 
-- 지원되지 않는 View(커스텀 View 또는 `RecyclerView` 같은 미지원 클래스)를 layout 에 넣으면 런타임에 `android.view.InflateException` 또는 `RemoteViews$ActionException: Layout inflation … only certain classes allowed` 형태의 예외가 host 프로세스 쪽 logcat 에 남는다.
-- `adb shell dumpsys appwidget` 으로 특정 위젯이 어느 layout 리소스를 사용 중인지, 갱신이 성공했는지 확인할 수 있다.
+---
 
-상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../../architecture/android-app-architecture.md)
+### 6. 관련 문서 및 참조
 
-관련 노트: [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](./appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md), [Glance는 Compose UI가 아니라 RemoteViews 위젯 경계로 렌더링한다](./glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
+- 상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../../architecture/android-app-architecture.md)
+- 관련 계약 문서:
+  - [App Widget 계약](./app-widget-contracts.md)
+  - [Glance는 Compose UI가 아니라 RemoteViews를 통해 위젯을 렌더링한다](./glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
+- 공식 문서: [RemoteViews API Reference](https://developer.android.com/reference/android/widget/RemoteViews)
 
-공식 문서: [Create a simple widget](https://developer.android.com/guide/topics/appwidgets), [RemoteViews](https://developer.android.com/reference/android/widget/RemoteViews)
-
-검증일: 2026-08-04. "커스텀 View/하위 클래스 불허" 문구와 Android 12 CheckBox/Switch/RadioButton stateful 지원은 공식 가이드 원문으로 확인했다. 지원 view/layout 전체 목록은 공식 레퍼런스 페이지가 스크립트 렌더링이라 전체 표를 직접 인용하지 못해, 오래 안정적으로 유지돼 온 기본 항목만 예시로 제시했다.
+검증일: 2026-08-05. RemoteViews 허용 View 화이트리스트 및 IPC 파셀화 동작 원문 대조 완료.

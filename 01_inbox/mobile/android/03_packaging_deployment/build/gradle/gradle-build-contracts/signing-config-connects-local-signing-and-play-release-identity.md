@@ -3,15 +3,17 @@ title: signing-config-connects-local-signing-and-play-release-identity
 tags: ["android", "signing", "agp", "security"]
 aliases: ["Signing config는 로컬 서명과 Play 배포 정체성을 연결한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Signing config는 로컬 서명과 Play 배포 정체성을 연결한다
 
+상위 문서: [Gradle 빌드 계약](gradle-build-contracts.md)
+
 ### 내부 메커니즘 (Internal Mechanism)
-Android 앱 서명 설정(`signingConfigs`)은 로컬 컴파일 산출물의 디지털 인증서 정체성을 부여한다.
+Android 앱 서명 설정(**`signingConfigs`**: 빌드 산출물에 인증서 정체성을 부여하는 AGP DSL 블록)은 로컬 컴파일 산출물의 디지털 인증서 정체성을 부여한다.
 - **Local Upload Key**: 로컬 CI/개발자 기기에서 생성된 서명 키. Play Store에 업로드하는 AAB를 인증하기 위해 서명된다.
 - **APK Signature Scheme v2/v3/v4**: 바이너리 패키지 탬퍼링(변조) 방지 메커니즘. v2는 전체 APK ZIP 구조의 블록 서명을 수행하며, v3는 서명 키 교체(Key Rotation & Lineage Proof)를 지원한다.
 - **보안 격리 메커니즘**: Keystore 비밀번호와 alias 정보는 코드베이스에 하드코딩되지 않고 CI 환경 변수(`System.getenv()`) 또는 암호화된 `local.properties`에서 동적 주입된다.

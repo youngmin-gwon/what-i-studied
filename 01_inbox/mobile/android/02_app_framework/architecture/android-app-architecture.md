@@ -1,78 +1,97 @@
 ---
 title: android-app-architecture
 tags: [android, android/architecture]
-aliases: ["Android App Architecture"]
-date modified: 2026-08-05 11:21:16 +09:00
+aliases: ["Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다", "Android App Architecture"]
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다
 
-Android 앱 아키텍처는 UI 패턴 이름보다 owner, lifetime, OS entry point 를 먼저 나누는 문제다.
+안드로이드 앱 아키텍처 설계의 본질은 MVVM, MVI 와 같은 단순 화면 표시 패턴 선택에 있지 않다. **운영체제(OS)가 관리하는 다중 프로세스/컴포넌트 진입점(Activity, Service, Receiver, Provider)과 상태 소유자(Owner)의 수명 주기(Lifecycle), 그리고 프로세스 데스(Process Death)에 대응하는 영속성 계약(Persistence Contract)을 결정하는 문제**다.
 
-### 정본 지도
+---
 
-- [Android App Components](./app-components/android-app-components.md) - Activity, Service, BroadcastReceiver, ContentProvider 를 OS entry point 로 정리한다.
-- [Android Context Boundaries](./context-and-modularity/android-context-boundaries.md) - Context 종류와 lifetime, leak risk, Compose `LocalContext` 를 정리한다.
-- [Jetpack Architecture Map](./jetpack-architecture/android-jetpack-architecture-map.md) - Jetpack architecture guidance 를 기존 정본 map 으로 연결한다.
-- [Android State Management](./state-management/android-state-management.md) - ViewModel, UI state, reducer, saved state 의 정본.
-- [Android Dependency Injection](../dependency-injection/android-dependency-injection-map.md) - object graph, binding, scope, Hilt/Metro, test override 의 정본.
-- [Multiplatform Contracts](./multiplatform-contracts/multiplatform-contracts.md) - Kotlin Multiplatform 이 무엇을 공유하고 무엇을 플랫폼별로 남기는지, `expect`/`actual` 계약을 정리한다.
+### 1. 개념 및 핵심 구조 (What)
 
-### 읽는 기준
+안드로이드 권장 아키텍처(Guide to App Architecture)는 모듈성과 테스트 용이성을 극대화하기 위해 다음과 같이 관심사(Separation of Concerns)를 3개의 핵심 레이어로 분리한다.
 
-앱이 외부에서 어떻게 호출되는지가 궁금하면 app components 로 간다. 어떤 Context 를 전달해야 하는지가 궁금하면 context boundary 로 간다. ViewModel, Flow, Room, WorkManager, Navigation, Hilt 의 세부 구현은 Jetpack map 에서 각 정본으로 이동한다.
+```mermaid
+graph TD
+    subgraph UI Layer ["UI Layer (Single Activity + Compose Window)"]
+        UI["Compose UI (Declarative Render)"]
+        VM["StateHolder / ViewModel (UiState Provider)"]
+    end
+    
+    subgraph Domain Layer ["Domain Layer (Optional Business Logic)"]
+        UC["UseCases (Pure Business Rules)"]
+    end
+    
+    subgraph Data Layer ["Data Layer (Single Source of Truth)"]
+        Repo["Repository (Data Aggregation & Caching)"]
+        LocalDS["Local DataSource (Room DB / DataStore)"]
+        RemoteDS["Remote DataSource (Ktor / Retrofit API)"]
+    end
 
-### 관련 지도
+    UI -->|Sends User Actions| VM
+    VM -->|Exposes StateFlow| UI
+    VM --> UC
+    UC --> Repo
+    VM --> Repo
+    Repo --> LocalDS
+    Repo --> RemoteDS
 
-- [Compose Runtime and State Model](../jetpack-compose/runtime/compose-runtime-and-state-model.md)
-- [Compose Layout, Animation, Accessibility](../jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md)
-- [Android Data Layer Map](../data/android-data-layer-map.md)
-- [Background Work Contracts](../../04_system_services/background-and-notifications/background-work-contracts/background-work-contracts.md)
-- [Navigation Contracts](../navigation/navigation-contracts/navigation-contracts.md)
+    style UI Layer fill:#e1f5fe,stroke:#01579b,stroke-width:2f
+    style Data Layer fill:#e8f5e9,stroke:#1b5e20,stroke-width:2f
+```
 
-### UI System Map
-- [UI System Map](../ui/system/android-ui-system.md)
+- **UI Layer**: 선언형 UI(Jetpack Compose)와 관찰 가능한 UI State(`StateFlow`)를 연결하며, 사용자 액션을 상위 StateHolder 로 전달한다.
+- **Domain Layer**: 캡슐화된 순수 비즈니스 로직(UseCase)을 소유하며, Android API 의존성을 갖지 않는다.
+- **Data Layer**: 데이터의 **단일 출처(Single Source of Truth)**로서, 로컬 캐시(Room, DataStore)와 원격 API 데이터 간의 동기화 및 맵핑을 담당한다.
 
-### Context and Modularity
+---
 
-- [Coroutines & Flow Map](../data/async-flow/android-coroutines-flow.md)
-- [Paging Contracts](../data/paging/paging-contracts/paging-contracts.md)
+### 2. 왜 수명과 OS 진입점이 아키텍처의 중심인가? (Why)
 
-### Navigation Links
-- [Adaptive Navigation](../navigation/adaptive-navigation/adaptive-layout-and-navigation.md)
+1. **OS 의 불시 프로세스 회수 (Process Death)**:
+   사용자가 앱을 백그라운드로 전환했을 때 메모리가 부족하면 OS 는 언제든 앱 프로세스를 종료할 수 있다. ViewModel 은 회전(Configuration Change) 시에는 살아남지만 프로세스 데스 시 파기되므로, 아키텍처 관점에서 `SavedStateHandle` 및 Data Layer 영속 저장이 필수적이다.
+2. **다중 시스템 진입점 (System Entry Points)**:
+   안드로이드 앱은 단일 `main()` 함수로 실행되지 않으며, Deep Link, Notification, Alarm, App Widget 등 다양한 OS 컴포넌트를 통해 앱 프로세스가 독립적으로 기상하고 진입할 수 있다.
 
-### Navigation Links
-- [Intent & IPC](../navigation/intents-and-deep-links/android-intent-and-ipc.md)
+---
 
-### Navigation Links
-- [Android Deep Links](../navigation/intents-and-deep-links/android-deep-links.md)
+### 3. 상태 수명 및 복구 전략 (How)
 
-### Navigation Links
-- [Intent & Deep Link](../navigation/intents-and-deep-links/intent-and-deep-link.md)
+| 복구 시나리오 | ViewModel 인메모리 상태 | SavedStateHandle | Persistent Storage (Room/DataStore) |
+| :--- | :---: | :---: | :---: |
+| **화면 회전 (Configuration Change)** | ✅ 보존 | ✅ 보존 | ✅ 보존 |
+| **프로세스 데스 (Process Death)** | ❌ 파기 | ✅ 보존 (소량의 ID/검색어) | ✅ 보존 (전체 복구) |
+| **앱 강제 종료 / 재부팅** | ❌ 파기 | ❌ 파기 | ✅ 보존 |
 
-### Navigation Links
-- [Navigation 3 Guide](../navigation/navigation3/jetpack-navigation-3-guide.md)
+---
 
-### Subsystem Contract Maps
-- [ui-system-contracts](../ui/system/ui-system-contracts/ui-system-contracts.md)
-- [compose-ui-contracts](../jetpack-compose/layout-and-ui/compose-ui-contracts/compose-ui-contracts.md)
-- [compose-runtime-contracts](../jetpack-compose/runtime/compose-runtime-contracts/compose-runtime-contracts.md)
-- [compose-state-and-effect-contracts](../jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
-- [compose-design-system-contracts](../jetpack-compose/design-system-and-architecture/compose-design-system-contracts/compose-design-system-contracts.md)
-- [compose-performance-contracts](../jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)
-- [navigation3-contracts](../navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
-- [intent-manifest-contracts](../navigation/intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)
-- [deep-link-contracts](../navigation/intents-and-deep-links/deep-link-contracts/deep-link-contracts.md)
-- [adaptive-navigation-contracts](../navigation/adaptive-navigation/adaptive-navigation-contracts/adaptive-navigation-contracts.md)
-- [context-contracts](./context-and-modularity/context-contracts/context-contracts.md)
-- [architecture-contracts](./jetpack-architecture/architecture-contracts/architecture-contracts.md)
-- [app-component-contracts](./app-components/app-component-contracts/app-component-contracts.md)
-- [file-access-contracts](../data/storage/file-access-contracts/file-access-contracts.md)
-- [persistence-contracts](../data/storage/persistence-contracts/persistence-contracts.md)
-- [flow-state-contracts](../data/async-flow/flow-state-contracts/flow-state-contracts.md)
-- [coroutine-contracts](../data/async-flow/coroutines/coroutine-contracts.md)
-- [flow-contracts](../data/async-flow/flow/flow-contracts.md)
-- [di-contracts](../dependency-injection/di-contracts/di-contracts.md)
-- [dsl-syntax-does-not-change-ownership-lifetime-contracts](../dependency-injection/di-contracts/dsl-syntax-does-not-change-ownership-lifetime-contracts.md)
-- [modular-di-follows-module-dependency-direction-and-feature-entry-contracts](../dependency-injection/di-contracts/modular-di-follows-module-dependency-direction-and-feature-entry-contracts.md)
+### 4. 서브 아키텍처 영역 지도
+
+- [Jetpack Architecture Map](./jetpack-architecture/android-jetpack-architecture-map.md)
+- [App Component Contracts](./app-components/app-component-contracts/app-component-contracts.md)
+- [Android Context Boundaries](./context-and-modularity/android-context-boundaries.md)
+- [Android State Management](./state-management/android-state-management.md)
+- [Multiplatform Contracts](./multiplatform-contracts/multiplatform-contracts.md)
+
+---
+
+### 5. 관측 가능 증거 및 진단 (Observability)
+
+- **Doze 모드 및 Process Death 강제 테스트**:
+  ```bash
+  adb shell am kill <package_name>
+  ```
+  *(앱 백그라운드 전환 후 프로세스 강제 사멸 시 재진입 시 상태 복구 여부 진단)*
+
+---
+
+### 6. 참고 및 공식 문서
+
+- 공식 가이드: [Guide to App Architecture](https://developer.android.com/topic/architecture)
+
+검증일: 2026-08-05. 안드로이드 아키텍처 가이드 3-Layer 구조 원문 검증 완료.

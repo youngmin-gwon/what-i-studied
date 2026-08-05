@@ -2,11 +2,15 @@
 title: convention-plugins-centralize-shared-gradle-configuration-in-build-logic
 tags: ["android", "gradle", "convention-plugin", "build-logic"]
 aliases: ["Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
+created: 2026-08-04 18:00:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다
+
+상위 문서: [Gradle 빌드 계약](gradle-build-contracts.md)
 
 ### 내부 메커니즘 (Internal Mechanism)
 

@@ -2,11 +2,15 @@
 title: build-matrix-and-remote-cache-together-reduce-ci-matrix-time
 tags: ["android", "cicd", "gradle", "build-cache"]
 aliases: ["빌드 매트릭스와 Gradle 원격 캐시를 함께 쓰면 매트릭스 빌드 시간이 줄어든다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
+created: 2026-08-04 18:00:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## 빌드 매트릭스와 Gradle 원격 캐시를 함께 쓰면 매트릭스 빌드 시간이 줄어든다
+
+상위 문서: [Android CI/CD 구현 계약](ci-cd-contracts.md)
 
 ### 내부 메커니즘 (Internal Mechanism)
 

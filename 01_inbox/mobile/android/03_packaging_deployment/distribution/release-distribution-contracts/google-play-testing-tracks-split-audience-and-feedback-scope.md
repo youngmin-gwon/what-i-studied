@@ -3,19 +3,20 @@ title: google-play-testing-tracks-split-audience-and-feedback-scope
 tags: ["android", "play-store", "testing-tracks"]
 aliases: ["Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-04 15:35:00 +09:00
+updated: 2026-08-05 16:15:00 +09:00
 ---
 
 ## Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다
 
 ### 내부 메커니즘 (Internal Mechanism)
-Google Play Console은 프로덕션 출시에 앞서 위험 범위를 단계적으로 격리하기 위해 4가지 레벨의 배포 트랙(Release Tracks)을 운영한다:
-1. **Internal Testing (내부 테스트)**: 최대 100명의 지정된 사내 검증자 대상. Play 검수(App Review) 절차를 우회하여 몇 분 내 즉시 업데이트 전파.
-2. **Closed Testing (비공개 테스트 - Alpha/Beta)**: 테스터 이메일 리스트 또는 Google Group 테스터 대상. 신규 기능의 안정성 및 피드백 수집.
-3. **Open Testing (공개 테스트)**: Play Store에 공개되어 누구나 참여 가능하나 스토어 리뷰 작성 시 일반 사용자에게 평점이 반영되지 않고 개발자 전용 피드백으로 수집됨.
-4. **Production (프로덕션)**: 전체 일반 사용자 대상 배포.
+Google Play Console은 상용 프로덕션 배포에 앞서 전 세계 사용자에게 치명적인 런타임 장애가 전파되는 리스크를 단계별로 격리 관리하기 위해 4가지 계층의 **배포 트랙(Release Tracks)** 구조를 제공한다:
+
+1. **Internal Testing Track (내부 테스트 트랙)**: 최대 100명의 지정된 사내 검증자 및 핵심 팀원 대상 배포 경로다. Google Play의 표준 앱 검수(App Review) 절차를 전면 우회하여 빌드 업로드 후 수 분 이내에 사내 기기로 즉시 전파된다.
+2. **Closed Testing (비공개 테스트 트랙 - Alpha/Beta)**: 지정된 테스터 집단(Google Group, 이메일 등록자)을 대상으로 신규 기능의 기술적 안정성 및 버그 제보를 수집하는 제한적 트랙이다. 스토어 검수를 통과해야 배포된다.
+3. **Open Testing (공개 테스트 트랙)**: Google Play Store에 노출되어 일반 사용자 누구나 자유롭게 테스트에 참여할 수 있다. 단, 작성된 사용자 평가 및 피드백은 공개 스토어 평점에 반영되지 않고 개발자 전용 대시보드로 격리 수집되어 스토어 평점 방어 효과를 갖는다.
+4. **Production Track (프로덕션 트랙)**: 전체 일반 사용자를 대상으로 상용 아티팩트를 공식 퍼블리싱하는 최상위 배포 경로다.
 
 ```mermaid
 flowchart LR

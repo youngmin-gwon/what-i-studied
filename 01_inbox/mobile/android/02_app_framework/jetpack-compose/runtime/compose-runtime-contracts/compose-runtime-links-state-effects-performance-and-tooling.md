@@ -1,17 +1,61 @@
 ---
 title: compose-runtime-links-state-effects-performance-and-tooling
 tags: [android, compose/runtime, jetpack-compose]
-aliases: [Compose boundary map]
+aliases: [Compose runtime contracts map, Runtime subsystem integration]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-## Compose Runtime 은 State, Effect, 성능, 툴링 경계를 연결한다
+## Compose runtime은 state, effect, performance, tooling 정본으로 이어지는 중심 모델이다
 
-Compose Runtime 정본은 모든 API 사용법을 담는 곳이 아니다. Runtime 은 state read, recomposition, Composition identity, phase 모델을 설명하고, 실제 API 선택은 더 좁은 정본으로 보낸다.
+### 1. 개념 정의 (What)
+**Compose Runtime 통합 링크 지도**는 Compose 프레임워크의 코어 엔진인 Runtime이 상태 관리(State), 부작용 격리(Effects), 성능 최적화(Performance), 개발 툴링(Tooling) 영역과 결합하는 상호작용 메커니즘을 총괄 링킹하는 최상위 노드다.
 
-`remember`, `**rememberSaveable**(화면 회전이나 프로세스 재시작 후에도 Bundle을 통해 UI 상태를 복원해 주는 저장 API)`, ViewModel, `collectAsStateWithLifecycle` 선택은 state/effect 계약에 둔다. `**LaunchedEffect**(Composition 생명주기에 맞춰 코루틴 작업을 실행하고 Key 변경 또는 Composition 이탈 시 취소하는 Side-Effect API)`, `**DisposableEffect**(Composition 진입 시 리소스를 등록하고 Composition 이탈이나 Key 변경 시 cleanup을 수행하는 Effect API)`, `rememberCoroutine**Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션)`, `**produceState**(Flow 같은 외부 비동기 데이터 스트림을 Compose State로 변환하여 공급하는 Effect API)`, `**snapshotFlow**(Compose State의 읽기 변화를 관찰하여 Cold Flow 스트림으로 변환하는 API)` 는 side-effect 와 외부 흐름 경계에서 설명한다.
+---
 
-Stability, strong skipping, state read deferral, `**derivedStateOf**(고빈도 입력 상태 변경 중 최종 결과값이 뒤집힐 때만 Recomposition 스코프를 무효화하는 파생 상태 생성 API)`, heavy work 제거는 performance 계약에 둔다. Navigation, testing, debugging 은 Compose Runtime 예시로 반복하지 않고 해당 분야 정본에 연결한다.
+### 2. 서브시스템 간 통합의 필요성 (Why)
+Compose의 개별 기술들(`remember`, `LaunchedEffect`, `derivedStateOf`, Compiler Skippable, Layout Inspector)은 단독으로 존재하는 파편화된 기술이 아니다. 모두 **Slot Table 기반의 Positional Memoization**과 **Snapshot 관찰 엔진**이라는 동일한 Runtime 멘탈 모델 위에서 설계되었다.
 
-관련 노트: [Compose 상태와 Effect 계약](../../state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md), [Compose 성능 계약](../../performance/compose-performance-contracts/compose-performance-contracts.md)
+서브시스템 간의 통합 체계를 파악하지 못하면, 효과적인 툴링 디버깅이나 근본적인 성능 최적화를 달성할 수 없다.
+
+---
+
+### 3. 서브시스템 간 상호작용 메커니즘 (How)
+
+```
+                       +-------------------------+
+                       |     Compose Runtime     |
+                       |  (Slot Table, Compiler) |
+                       +-------------------------+
+                                    |
+     +-----------------+------------+------------+-----------------+
+     |                 |                         |                 |
+     v                 v                         v                 v
++----------+   +---------------+        +-----------------+   +----------+
+|  State   |   |    Effects    |        |   Performance   |   | Tooling  |
+| (Snapshot|   | (Launched     |        | (Stability,     |   | (Layout  |
+|  State)  |   |  Effect)      |        |  Skipping)      |   | Inspector|
++----------+   +---------------+        +-----------------+   +----------+
+```
+
+1. **State & Runtime**: `mutableStateOf`는 Snapshot 트랜잭션과 직접 연결되어 RecomposeScope를 무효화한다.
+2. **Effects & Runtime**: `LaunchedEffect` 및 `DisposableEffect`는 Composition 수명주기에 바인딩되어 코루틴의 시작과 취소를 관리에 연동한다.
+3. **Performance & Runtime**: Compiler의 stability 분석 지표(`stable`/`unstable`)와 Strong Skipping 옵션이 Runtime의 Skip 여부를 결정한다.
+4. **Tooling & Runtime**: Android Studio의 Layout Inspector 및 Compose Compiler Metrics는 Runtime의 Recomposition 횟수 및 Skip 로그를 픽셀/텍스트 레벨로 시각화한다.
+
+---
+
+### 4. 주요 정본 문서로의 하이퍼링크 맵
+
+- **상태 및 수명주기 API**: [Compose 상태와 Effect 계약](../../state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
+- **성능 및 Skippability 최적화**: [Compose 성능 계약](../../performance/compose-performance-contracts/compose-performance-contracts.md)
+- **UI 레이아웃 및 세맨틱스**: [Compose UI 계약](../../layout-and-ui/compose-ui-contracts/compose-ui-contracts.md)
+- **디자인 시스템 및 테밍**: [Compose 디자인 시스템 계약](../../design-system-and-architecture/compose-design-system-contracts/compose-design-system-contracts.md)
+
+---
+
+관련 노트: [Jetpack Compose 런타임과 상태 모델의 기본 개념](../compose-runtime-and-state-model.md)
+
+출처: [Jetpack Compose Architecture Overview](https://developer.android.com/develop/ui/compose/architecture)
+
+검증일: 2026-08-05. Compose 공식 가이드의 Architecture Overview를 대조하여 Runtime 서브시스템 상호작용 및 계약 링크 구조 서술을 정밀 보강했다.
