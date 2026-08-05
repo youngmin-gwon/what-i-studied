@@ -2,7 +2,7 @@
 title: haptics-and-vibrator-contracts
 tags: [android, android/device-capabilities, android/haptics, android/vibrator]
 aliases: ["Haptics 및 Vibrator 계약"]
-date modified: 2026-08-05 14:03:27 +09:00
+date modified: 2026-08-05 14:44:18 +09:00
 date created: 2026-08-05 14:00:00 +09:00
 ---
 
@@ -113,4 +113,3 @@ fun triggerCustomVibration(context: Context) {
 - 공식 가이드: [Android Haptics Overview](https://developer.android.com/develop/ui/views/haptics/haptics-overview), [Vibrator API](https://developer.android.com/reference/android/os/Vibrator)
 
 검증일: 2026-08-05. 안드로이드 12+ VibratorManager 및 HapticFeedback API 기준 공식 검증 반영 완료.
-
