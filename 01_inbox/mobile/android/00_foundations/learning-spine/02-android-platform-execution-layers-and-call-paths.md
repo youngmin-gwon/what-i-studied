@@ -272,7 +272,7 @@ Binder 가 흔한 경로지만 모든 시스템 통신이 Binder 인 것은 아�
 - [Android는 계층형 모바일 플랫폼이다](../overview/foundation-contracts/android-is-layered-mobile-platform-not-just-an-app-sdk.md)
 - [Android 계층 경계는 문제 위치를 분류한다](../overview/foundation-contracts/android-stack-boundaries-explain-where-a-problem-belongs.md)
 - [IPC와 프로세스 계약](../../01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
-- [Binder는 커널이 중재하는 객체 기반 IPC다](../../01_system_internals/ipc-and-process/ipc-process-contracts/binder-is-kernel-mediated-object-capability-ipc.md)
+- [Binder IPC](../../01_system_internals/binder-ipc.md)
 - [시스템 서비스는 Binder 접점이자 플랫폼 정책 집행자다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-service-is-binder-endpoint-and-platform-policy-enforcer.md)
 - [HAL과 네이티브 경계](../../01_system_internals/kernel-and-hal/hal-native-boundary.md)
 - [HAL은 프레임워크와 공급자 구현 사이의 사용자 공간 계약이다](../../01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)

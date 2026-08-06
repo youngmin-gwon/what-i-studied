@@ -87,6 +87,6 @@ adb logcat -s Zygote
 ### 관련 문서
 
 - [app-process-specializes-before-activitythread-attaches-to-framework](app-process-specializes-before-activitythread-attaches-to-framework.md)
-- [zygote-preloads-framework-state-before-app-fork](zygote-preloads-framework-state-before-app-fork.md)
+- [Zygote Preload State](zygote-preload-state.md)
 
 공식 문서: [Zygote Process Architecture](https://source.android.com/docs/core/runtime)

@@ -21,7 +21,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ### 문제 분류 기준
 
 - "이 API 호출이 왜 이렇게 느린가" → [Binder transaction lifetime](binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md), [Binder thread pool](binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)
-- "service 가 멈췄다/응답이 없다" → [Binder thread pool](binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md), boot-and-runtime 의 [ANR은 responsiveness 계약 위반이다](../../boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
+- "service 가 멈췄다/응답이 없다" → [Binder thread pool](binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md), boot-and-runtime 의 [ANR은 responsiveness 계약 위반이다](../../boot-and-runtime/system-server-contracts/anr-responsiveness-contract.md)
 - "이벤트를 보냈는데 유실/지연된다" → [oneway Binder](oneway-binder-removes-caller-waiting-not-server-backpressure.md)
 - "서비스 호출이 permission/등록 단계에서 실패한다" → [IPC 디버깅](ipc-debugging-starts-from-service-registration-call-path-and-thread-state.md)
 - "Binder와 socket/shared memory 중 무엇이 다른가" → **Binder는 Android framework의 typed RPC이고 POSIX IPC를 배제하지 않는다**
@@ -29,7 +29,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ### Binder 와 AIDL
 
-- [Binder는 객체 참조를 커널이 중재하는 capability IPC다](binder-is-kernel-mediated-object-capability-ipc.md)
+- [Binder IPC](../../binder-ipc.md)
 - [Binder transaction lifetime은 call, copy, dispatch, reply로 나뉜다](binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)
 - [AIDL은 process boundary 계약이지 비즈니스 프로토콜이 아니다](aidl-defines-process-boundary-contract-not-business-protocol.md)
 - [oneway Binder는 caller 대기를 없애지만 server backpressure를 없애지 않는다](oneway-binder-removes-caller-waiting-not-server-backpressure.md)
@@ -39,8 +39,8 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ### Process 와 system service 경계
 
-- [Zygote fork의 메모리 이점은 copy-on-write가 유지될 때 생긴다](../../boot-and-runtime/zygote-runtime-contracts/zygote-fork-saves-memory-while-copy-on-write-pages-stay-clean.md)
-- [system_server는 framework service를 한 process 안에서 시작한다](../../boot-and-runtime/system-server-contracts/system-server-starts-framework-services-in-one-process.md)
+- [Zygote fork의 메모리 이점은 copy-on-write가 유지될 때 생긴다](../../boot-and-runtime/zygote-runtime-contracts/zygote-copy-on-write.md)
+- [system_server는 framework service를 한 process 안에서 시작한다](../../boot-and-runtime/system-server-contracts/system-server-startup.md)
 - [system service는 Binder endpoint이자 platform policy enforcer다](../../boot-and-runtime/system-server-contracts/system-service-is-binder-endpoint-and-platform-policy-enforcer.md)
 - [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../boot-and-runtime/system-server-contracts/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)
 - [LMKD는 free memory가 아니라 memory pressure와 process importance로 종료를 결정한다](../../kernel-and-hal/kernel-contracts/lmkd-kills-processes-by-memory-pressure-and-process-importance.md)

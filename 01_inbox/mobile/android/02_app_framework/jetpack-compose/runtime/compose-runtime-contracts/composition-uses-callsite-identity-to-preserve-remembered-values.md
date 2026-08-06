@@ -74,7 +74,7 @@ fun CorrectTodoList(todos: List<TodoItem>) {
 
 ---
 
-관련 노트: [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](./remember-is-composition-scoped-storage-not-general-cache.md), [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./composable-compiler-output-enables-restart-and-skip-control.md)
+관련 노트: [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](./remember-is-composition-scoped-storage-not-general-cache.md), [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./composable-compiler-restart-skip.md)
 
 출처: [Under the hood of Jetpack Compose data structures](https://medium.com/androiddevelopers/under-the-hood-of-jetpack-compose-data-structures-gaps-and-slots-a42e564d623d)
 

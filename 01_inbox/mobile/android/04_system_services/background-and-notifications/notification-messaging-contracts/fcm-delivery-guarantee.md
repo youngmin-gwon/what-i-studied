@@ -13,7 +13,7 @@ date created: 2026-07-31 17:42:24 +09:00
 
 관련 지도: [알림과 FCM 메시징 계약](./notification-messaging-contracts.md)
 
-관련 노트: [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority-is-justified-by-user-visible-notification.md), [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](../background-work-contracts/background-execution-is-selected-by-guarantee-delay-and-visibility.md)
+관련 노트: [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority.md), [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](../background-work-contracts/background-execution-selection.md)
 
 ### 핵심 정의
 

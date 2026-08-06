@@ -93,9 +93,9 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Zygote 는 앱 fork 이전에 framework 상태를 preload 한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-preloads-framework-state-before-app-fork.md) | 클래스/리소스 preload 의 이유 |
-| [Zygote fork 는 Copy-on-Write 페이지를 유지하며 메모리를 절약한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-fork-saves-memory-while-copy-on-write-pages-stay-clean.md) | CoW 메커니즘과 메모리 절감 효과 |
-| [Zygote 소켓은 system_server 의 프로세스 생성 factory 인터페이스다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-socket-is-system-server-process-factory-interface.md) | Unix socket 기반 fork 요청 프로토콜 |
+| [Zygote 는 앱 fork 이전에 framework 상태를 preload 한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-preload-state.md) | 클래스/리소스 preload 의 이유 |
+| [Zygote fork 는 Copy-on-Write 페이지를 유지하며 메모리를 절약한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-copy-on-write.md) | CoW 메커니즘과 메모리 절감 효과 |
+| [Zygote 소켓은 system_server 의 프로세스 생성 factory 인터페이스다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-socket-interface.md) | Unix socket 기반 fork 요청 프로토콜 |
 
 ---
 
@@ -111,7 +111,7 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [system_server 는 framework service 를 한 프로세스 안에서 시작한다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-server-starts-framework-services-in-one-process.md) | 단일 프로세스 구조와 3 단계 초기화 |
+| [system_server 는 framework service 를 한 프로세스 안에서 시작한다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-server-startup.md) | 단일 프로세스 구조와 3 단계 초기화 |
 | [AMS 는 앱 프로세스와 컴포넌트 lifecycle 을 조율한다](../../01_system_internals/boot-and-runtime/system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md) | fork 요청, attachApplication, OOM adj |
 | [ATMS 는 activity, task, back stack 전이를 담당한다](../../01_system_internals/boot-and-runtime/system-server-contracts/atms-owns-activity-task-and-back-stack-transitions.md) | Android 10+ Activity 관리 분리 |
 | [시스템 서비스는 Binder endpoint 이자 플랫폼 정책 집행자다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-service-is-binder-endpoint-and-platform-policy-enforcer.md) | 서비스 = Binder 서버 + 정책 |
@@ -135,7 +135,7 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 | 원자 노트 | 핵심 명제 |
 |---|---|
 | [앱 프로세스는 specialization 뒤 ActivityThread 로 framework 에 attach 한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/app-process-specializes-before-activitythread-attaches-to-framework.md) | fork 이후 6 단계 specialization 과정 |
-| [ART 는 DEX 를 interpretation, JIT, AOT 조합으로 실행한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/art-runs-dex-with-interpretation-jit-and-aot.md) | Interpreter/JIT/AOT 하이브리드 전략 |
+| [ART 는 DEX 를 interpretation, JIT, AOT 조합으로 실행한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/art-dex-execution-modes.md) | Interpreter/JIT/AOT 하이브리드 전략 |
 | [Profile guided compilation 은 설치, 실행, idle compile 비용을 나눈다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/profile-guided-compilation-splits-install-runtime-and-idle-costs.md) | Baseline Profile / dex2oat 타이밍 |
 
 ---
@@ -149,7 +149,7 @@ Android 는 필요 없는 프로세스를 즉시 종료하지 않고 캐시로 �
 | 원자 노트 | 핵심 명제 |
 |---|---|
 | [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../01_system_internals/boot-and-runtime/system-server-contracts/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md) | oom_score_adj 계산 주체와 의미 |
-| [ANR 은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md) | 컴포넌트별 timeout 기준과 신호 |
+| [ANR 은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-responsiveness-contract.md) | 컴포넌트별 timeout 기준과 신호 |
 
 ---
 

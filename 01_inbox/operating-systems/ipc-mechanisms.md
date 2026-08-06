@@ -2,7 +2,7 @@
 title: ipc-mechanisms
 tags: [communication, ipc, linux, map, operating-systems, process-management]
 aliases: [IPC, IPC 메커니즘 지도, Process Communication, 프로세스 간 통신 지도]
-date modified: 2026-08-05 11:46:35 +09:00
+date modified: 2026-08-06 18:54:17 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 

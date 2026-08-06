@@ -82,6 +82,6 @@ adb shell setprop debug.rescue 1
 ### 관련 문서
 
 - [boot-completion-is-observable-milestones-not-one-property](../boot-flow-contracts/boot-completion-is-observable-milestones-not-one-property.md)
-- [system_server는 framework service를 한 프로세스 안에서 시작한다](system-server-starts-framework-services-in-one-process.md)
+- [system_server는 framework service를 한 프로세스 안에서 시작한다](system-server-startup.md)
 
 공식 문서: [Rescue Party](https://source.android.com/docs/core/tests/debug/rescue-party)

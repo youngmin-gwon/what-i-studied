@@ -61,7 +61,7 @@ try {
 
 ### 경계
 
-- 이 노트는 다른 앱을 조회하는 시점의 가시성 제한을 다룬다. 사용자/work profile 분리는 [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./usermanager-separates-users-and-work-profiles-by-userhandle.md)가 다룬다.
+- 이 노트는 다른 앱을 조회하는 시점의 가시성 제한을 다룬다. 사용자/work profile 분리는 [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./user-manager-userhandle.md)가 다룬다.
 - 앱 설치/업데이트 자체의 흐름(서명, 배포)은 `03_packaging_deployment`가 다룬다.
 
 ### 관찰 가능한 신호

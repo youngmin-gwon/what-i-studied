@@ -37,12 +37,12 @@ sequenceDiagram
 `getSystemService`는 시스템 서비스의 로컬 프록시(매니저 객체)를 캐싱하여 반환하며, 중앙 디렉터리인 [ServiceManager](../../04_system_services/service-manager.md)를 통해 바인더 프록시를 획득합니다. 실제 핵심 로직은 Binder를 통해 System Server로 전달됩니다.
 - [ServiceManager 레퍼런스](../../04_system_services/service-manager.md) - 안드로이드 바인더 중앙 전화번호부 (Handle 0)
 - [시스템 서비스 접근 공통 계약](../../04_system_services/service-lookup/service-lookup-contracts/service-lookup-contracts.md)
-- [getSystemService returns a cached manager backed by Binder IPC](../../04_system_services/service-lookup/service-lookup-contracts/getsystemservice-returns-a-cached-manager-backed-by-binder-ipc.md)
+- [Context.getSystemService()](../../04_system_services/get-system-service.md)
 
 #### 3.2. 권한(UID/PID) 및 AppOps 검사
 모든 Binder 호출은 시스템 서버 측에서 호출자의 UID와 PID를 확인하여 권한을 검사합니다. 특히 AppOps는 사용자가 권한을 부여한 이후라도 세밀하게 접근을 거부할 수 있는 통제 수단입니다.
-- [System server checks caller UID and PID for every call](../../04_system_services/service-lookup/service-lookup-contracts/system-server-checks-caller-uid-and-pid-for-every-call.md)
-- [AppOps can deny after permission is already granted](../../04_system_services/service-lookup/service-lookup-contracts/appops-can-deny-after-permission-is-already-granted.md)
+- [System server checks caller UID and PID for every call](../../04_system_services/service-lookup/service-lookup-contracts/system-server-uid-pid-check.md)
+- [AppOps can deny after permission is already granted](../../04_system_services/service-lookup/service-lookup-contracts/appops-permission-denial.md)
 
 ### 4. 이 주제와 연결된 Worked Example
 - [06-permission-granted-but-api-fails.md](../worked-examples/06-permission-granted-but-api-fails.md)

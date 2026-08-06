@@ -80,7 +80,7 @@ adb logcat -b events | grep -E "(boot_progress|sys_boot_completed)"
 
 ### 관련 문서
 
-- [system_server는 framework service를 한 프로세스 안에서 시작한다](../system-server-contracts/system-server-starts-framework-services-in-one-process.md)
+- [system_server는 framework service를 한 프로세스 안에서 시작한다](../system-server-contracts/system-server-startup.md)
 - [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](../system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md)
 
 공식 문서: [Direct Boot](https://developer.android.com/training/articles/direct-boot)

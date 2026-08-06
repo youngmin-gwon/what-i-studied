@@ -75,6 +75,6 @@ adb shell dumpsys --timeout 2
 ### 관련 문서
 
 - [system-service-is-binder-endpoint-and-platform-policy-enforcer](system-service-is-binder-endpoint-and-platform-policy-enforcer.md)
-- [system_server는 framework service를 한 프로세스 안에서 시작한다](system-server-starts-framework-services-in-one-process.md)
+- [system_server는 framework service를 한 프로세스 안에서 시작한다](system-server-startup.md)
 
 공식 문서: [dumpsys Tutorial](https://developer.android.com/studio/command-line/dumpsys)

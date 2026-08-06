@@ -74,7 +74,7 @@ fun CounterScreen(count: Int, onIncrement: () -> Unit) {
 
 ---
 
-관련 노트: [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md), [Compose 상태와 Effect 계약](../../state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
+관련 노트: [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./recomposition-scope-control.md), [Compose 상태와 Effect 계약](../../state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 
 출처: [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model), [Jetpack Compose phases](https://developer.android.com/develop/ui/compose/phases), [How Composition Works](https://android.googlesource.com/platform/frameworks/support/+/HEAD/compose/runtime/design/how-compose-works.md)
 

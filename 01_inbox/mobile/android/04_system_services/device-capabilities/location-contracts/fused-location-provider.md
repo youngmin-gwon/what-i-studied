@@ -45,7 +45,7 @@ suspend fun currentLocation(client: FusedLocationProviderClient): Location? {
 
 ### 경계
 
-- 이 노트는 위치 소스 합성 메커니즘까지만 다룬다. 권한 단계는 [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-splits-into-foreground-and-background-tiers.md)가, 정확도 등급 선택은 [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](./precise-and-approximate-location-are-separate-permissions.md)가 다룬다.
+- 이 노트는 위치 소스 합성 메커니즘까지만 다룬다. 권한 단계는 [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-tiers.md)가, 정확도 등급 선택은 [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](./precise-and-approximate-location-are-separate-permissions.md)가 다룬다.
 - GNSS 원시 측정치나 센서 퓨전 알고리즘 자체의 구현 세부는 다루지 않는다.
 
 ### 관찰 가능한 신호

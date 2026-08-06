@@ -144,4 +144,4 @@ echo "Event Data via FIFO" > /tmp/my_event_fifo
 
 - [IPC 메커니즘 개요](../ipc-mechanisms.md) — OS IPC 전체 지도 및 비교
 - [Unix Domain Socket 계약](./unix-domain-socket-contracts.md) — 파일시스템 기반 양방향 전이중 IPC
-- [Android Binder IPC](../../mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/binder-is-kernel-mediated-object-capability-ipc.md) — 파이프 스트림 한계를 극복한 객체 기반 IPC
+- [Binder IPC](../../mobile/android/01_system_internals/binder-ipc.md) — 파이프 스트림 한계를 극복한 객체 기반 IPC

@@ -2,7 +2,7 @@
 title: binder-ipc
 tags: [android, binder, ipc, kernel, os, system-internals]
 aliases: [Binder, Binder IPC, 바인더 IPC, 안드로이드 바인더]
-date modified: 2026-08-06 18:34:17 +09:00
+date modified: 2026-08-06 18:53:55 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 role: single-source-of-truth
 ---
@@ -49,7 +49,7 @@ graph LR
 
 Binder IPC 시스템은 역할에 따라 4 개의 전용 하위 원자 노드로 명확히 분리되어 관리된다:
 
-1. **[Binder 드라이버 & mmap 원리](ipc-and-process/ipc-process-contracts/binder-is-kernel-mediated-object-capability-ipc.md)**:
+1. **[Binder IPC](binder-ipc.md)**:
    - 커널 `/dev/binder` 드라이버 및 `mmap()` 을 활용한 사용자 공간 ➔ 커널 공간 1 회 복사(Single Copy) 메모리 최적화 원리.
 2. **[Binder 트랜잭션 버퍼 & 1MB 제한](ipc-and-process/ipc-process-contracts/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)**:
    - 프로세스당 1MB (공유 시 ~512KB)로 제한된 Binder 트랜잭션 버퍼 및 `TransactionTooLargeException` 원인과 해결책.

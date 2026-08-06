@@ -130,7 +130,7 @@ registry 조회와 exported 검사를 통과했다고 곧바로 앱 코드가 �
 - [Package visibility는 다른 앱 조회 범위를 제한한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/package-visibility-limits-which-apps-can-be-queried.md)
 - [컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다](../../02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md)
 - [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](../../01_system_internals/boot-and-runtime/system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md)
-- [Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-socket-is-system-server-process-factory-interface.md)
+- [Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-socket-interface.md)
 - [앱 프로세스는 specialization 뒤 ActivityThread로 framework에 attach한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/app-process-specializes-before-activitythread-attaches-to-framework.md)
 - [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../01_system_internals/boot-and-runtime/system-server-contracts/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)
 

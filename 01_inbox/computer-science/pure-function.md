@@ -67,4 +67,4 @@ UI 런타임은 성능 최적화를 위해 컴포넌트를 언제든 임의의 �
 - [Side Effect](../../02_references/computer-science/side-effect.md) - 순수 함수의 자격 요건인 부작용 부재에 관한 레퍼런스
 - [Idempotency](../../02_references/computer-science/idempotency.md) - 순수성과 멱등성의 개념적 차이점 비교
 - [Immutability](immutability.md) - 순수 함수가 의존하는 불변 데이터 구조
-- [Composable Body Must Be Fast, Idempotent and Side-Effect Free](../mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md) - Compose 런타임에서 Composable 본문이 순수해야 하는 이유
+- [Composable Body Must Be Fast, Idempotent and Side-Effect Free](../mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-purity.md) - Compose 런타임에서 Composable 본문이 순수해야 하는 이유

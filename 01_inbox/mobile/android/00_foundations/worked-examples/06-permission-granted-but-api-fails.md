@@ -165,10 +165,10 @@ class LocationPermissionManager(private val context: Context) {
 
 ### 관련 원자 노트
 
-- [위치 권한은 foreground와 background 두 단계로 나뉜다](../../04_system_services/device-capabilities/location-contracts/location-permission-splits-into-foreground-and-background-tiers.md)
+- [위치 권한은 foreground와 background 두 단계로 나뉜다](../../04_system_services/device-capabilities/location-contracts/location-permission-tiers.md)
 - [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](../../04_system_services/device-capabilities/location-contracts/precise-and-approximate-location-are-separate-permissions.md)
-- [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](../../04_system_services/device-capabilities/location-contracts/fusedlocationproviderclient-merges-multiple-location-sources.md)
-- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup-contracts/appops-can-deny-after-permission-is-already-granted.md)
+- [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](../../04_system_services/device-capabilities/location-contracts/fused-location-provider.md)
+- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup-contracts/appops-permission-denial.md)
 - [Permission protection level은 접근 승인 주체를 정의한다](../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-protection-level-defines-who-can-grant-access.md)
 
 ### 공식 근거

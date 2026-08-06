@@ -12,9 +12,9 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 읽는 순서
 
-1. [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-controls-cpu-and-screen-separately.md)에서 어떤 wake lock 종류가 무엇을 켜두는지 본다.
-2. [BatteryManager는 순간 배터리 상태를 관찰 전용으로 노출한다](./batterymanager-exposes-read-only-instantaneous-state.md)에서 배터리 정보 조회와 제어의 경계를 본다.
-3. [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](./battery-optimization-exemption-is-for-exceptions-not-default-design.md)에서 Doze/App Standby와의 관계를 정리한다.
+1. [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-cpu-screen-control.md)에서 어떤 wake lock 종류가 무엇을 켜두는지 본다.
+2. [BatteryManager는 순간 배터리 상태를 관찰 전용으로 노출한다](./battery-manager-state.md)에서 배터리 정보 조회와 제어의 경계를 본다.
+3. [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](./battery-optimization-exemption.md)에서 Doze/App Standby와의 관계를 정리한다.
 
 ### 문제 분류
 
@@ -33,8 +33,8 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 노트 목록
 
-- [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-controls-cpu-and-screen-separately.md)
-- [BatteryManager는 순간 배터리 상태를 관찰 전용으로 노출한다](./batterymanager-exposes-read-only-instantaneous-state.md)
-- [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](./battery-optimization-exemption-is-for-exceptions-not-default-design.md)
+- [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-cpu-screen-control.md)
+- [BatteryManager는 순간 배터리 상태를 관찰 전용으로 노출한다](./battery-manager-state.md)
+- [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](./battery-optimization-exemption.md)
 
 검증일: 2026-08-03. [PowerManager 문서](https://developer.android.com/reference/android/os/PowerManager)와 [배터리 최적화 가이드](https://developer.android.com/training/monitoring-device-state/doze-standby)를 기준으로 확인했다.

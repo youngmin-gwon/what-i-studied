@@ -36,9 +36,9 @@ val mode = appOpsManager.unsafeCheckOpNoThrow(
 
 ### 읽는 순서
 
-1. [getSystemService는 서비스 핸들을 반환하며 범위와 통신 방식은 서비스마다 다르다](./getsystemservice-returns-a-cached-manager-backed-by-binder-ipc.md) 에서 공개 API 계약과 구현 세부를 분리한다.
-2. [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](./system-server-checks-caller-uid-and-pid-for-every-call.md) 에서 permission 검사가 어디서 일어나는지 확인한다.
-3. [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-can-deny-after-permission-is-already-granted.md) 에서 permission 통과와 실제 실행 허용이 다른 이유를 본다.
+1. [Context.getSystemService()](../../get-system-service.md) 에서 공개 API 계약과 구현 세부를 분리한다.
+2. [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](./system-server-uid-pid-check.md) 에서 permission 검사가 어디서 일어나는지 확인한다.
+3. [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-permission-denial.md) 에서 permission 통과와 실제 실행 허용이 다른 이유를 본다.
 
 ### 문제 분류
 
@@ -57,8 +57,8 @@ val mode = appOpsManager.unsafeCheckOpNoThrow(
 
 ### 노트 목록
 
-- [getSystemService는 서비스 핸들을 반환하며 범위와 통신 방식은 서비스마다 다르다](./getsystemservice-returns-a-cached-manager-backed-by-binder-ipc.md)
-- [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](./system-server-checks-caller-uid-and-pid-for-every-call.md)
-- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-can-deny-after-permission-is-already-granted.md)
+- [Context.getSystemService()](../../get-system-service.md)
+- [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](./system-server-uid-pid-check.md)
+- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-permission-denial.md)
 
 검증일: 2026-08-06. `Context.getSystemService()`, Binder caller identity, AppOps 모델을 공식 API 및 Binder 문서와 재대조했다.

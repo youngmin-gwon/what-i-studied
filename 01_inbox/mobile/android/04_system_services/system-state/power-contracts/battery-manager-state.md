@@ -51,7 +51,7 @@ return BatterySnapshot(percent, status, plugged)
 
 ### 경계
 
-- 이 노트는 배터리 상태 관찰까지 다룬다. CPU/화면을 실제로 켜두는 제어는 [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-controls-cpu-and-screen-separately.md)가 다룬다.
+- 이 노트는 배터리 상태 관찰까지 다룬다. CPU/화면을 실제로 켜두는 제어는 [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-cpu-screen-control.md)가 다룬다.
 - 배터리 소모 자체를 분석하는 프로파일링 도구(Battery Historian 등)는 `06_testing_performance`가 다룬다.
 
 ### 관찰 가능한 신호

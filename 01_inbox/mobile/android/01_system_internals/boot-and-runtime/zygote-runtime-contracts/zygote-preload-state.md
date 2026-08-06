@@ -67,7 +67,7 @@ adb logcat -s Zygote | grep -i "preload"
 
 ### 관련 문서
 
-- [zygote-fork-saves-memory-while-copy-on-write-pages-stay-clean](zygote-fork-saves-memory-while-copy-on-write-pages-stay-clean.md)
-- [zygote-socket-is-system-server-process-factory-interface](zygote-socket-is-system-server-process-factory-interface.md)
+- [Zygote Copy On Write](zygote-copy-on-write.md)
+- [Zygote Socket Interface](zygote-socket-interface.md)
 
 공식 문서: [About the Zygote processes](https://source.android.com/docs/core/runtime/zygote), [Configure ART preloaded classes](https://source.android.com/docs/core/runtime/configure)

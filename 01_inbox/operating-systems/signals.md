@@ -1,14 +1,14 @@
 ---
-title: Signals in Unix/Linux
-tags: [operating-systems, signals, ipc, process-management, linux]
-aliases: [시그널, Signal Handling, POSIX Signals]
-date modified: 2025-12-20 00:02:18 +09:00
+title: signals
+tags: [ipc, linux, operating-systems, process-management, signals]
+aliases: [POSIX Signals, Signal Handling, 시그널]
+date modified: 2026-08-06 19:00:07 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**Signal (시그널)** 은 Unix/Linux에서 [프로세스](process-states-lifecycle.md)에게 이벤트가 발생했음을 알리는 소프트웨어 인터럽트입니다. 키보드 입력(Ctrl+C), 프로그램 오류(Segmentation Fault), 타이머 만료 등 다양한 상황에서 발생합니다.
+**Signal (시그널)** 은 Unix/Linux 에서 [프로세스](process-states-lifecycle.md) 에게 이벤트가 발생했음을 알리는 소프트웨어 인터럽트입니다. 키보드 입력(Ctrl+C), 프로그램 오류(Segmentation Fault), 타이머 만료 등 다양한 상황에서 발생합니다.
 
 ## 🎯 시그널의 목적 (Purpose)
 
@@ -50,7 +50,7 @@ date created: 2025-12-20 00:02:18 +09:00
 | 시그널 | 번호 | 기본 동작 | 설명 |
 |--------|------|-----------|------|
 | **SIGSEGV** | 11 | 종료 + 코어덤프 | Segmentation Fault (잘못된 메모리 접근) |
-| **SIGFPE** | 8 | 종료 + 코어덤프 | Floating Point Exception (0으로 나누기 등) |
+| **SIGFPE** | 8 | 종료 + 코어덤프 | Floating Point Exception (0 으로 나누기 등) |
 | **SIGILL** | 4 | 종료 + 코어덤프 | Illegal Instruction |
 | **SIGBUS** | 7 | 종료 + 코어덤프 | Bus Error (정렬되지 않은 메모리 접근) |
 
@@ -92,6 +92,7 @@ sequenceDiagram
 ### 1. 기본 동작 (Default Action)
 
 시그널 핸들러를 등록하지 않으면 기본 동작 수행:
+
 - **Term**: 프로세스 종료
 - **Ign**: 시그널 무시
 - **Core**: 코어 덤프 생성 후 종료
@@ -255,10 +256,12 @@ if (sigismember(&pending, SIGINT)) {
 시그널 핸들러는 언제든지 실행될 수 있으므로 **재진입 안전(Reentrant)** 함수만 사용해야 합니다.
 
 **안전한 함수**:
+
 - `write()`, `_exit()`, `signal()`, `sigaction()`
 - 대부분의 시스템 콜
 
 **위험한 함수**:
+
 - `printf()`, `malloc()`, `free()` (내부적으로 락 사용)
 - 전역 변수 수정
 
@@ -374,6 +377,7 @@ int main() {
 **SIGKILL (9)** 과 **SIGSTOP (19)** 은 핸들러를 등록하거나 무시할 수 없습니다.
 
 **이유**: **커널**이 프로세스를 강제로 제어할 수단이 필요
+
 - **SIGKILL**: 무조건 종료 (무한 루프 프로세스 강제 종료)
 - **SIGSTOP**: 무조건 정지 (디버깅, 작업 제어)
 

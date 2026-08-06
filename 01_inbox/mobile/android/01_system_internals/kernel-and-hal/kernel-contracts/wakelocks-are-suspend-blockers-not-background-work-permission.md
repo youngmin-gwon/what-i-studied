@@ -64,7 +64,7 @@ class DataSyncService : Service() {
 ### 경계
 
 - SystemSuspend HAL과 kernel suspend 중재 메커니즘은 [SystemSuspend는 userspace wakelock과 kernel suspend를 중재한다](systemsuspend-arbitrates-userspace-wakelocks-and-kernel-suspend.md)가 다룬다.
-- background 실행 제한 및 지속 작업 관리는 [Background restrictions require persistent work state](../../../04_system_services/background-and-notifications/background-work-contracts/background-restrictions-require-persistent-work-state.md)가 다룬다.
+- background 실행 제한 및 지속 작업 관리는 [Background restrictions require persistent work state](../../../04_system_services/background-and-notifications/background-work-contracts/background-restrictions-state.md)가 다룬다.
 
 ### 관측 가능한 증거 (Observable Evidence)
 
@@ -85,6 +85,6 @@ adb shell cat /sys/kernel/debug/wakeup_sources | head -20
 ### 관련 문서
 
 - [SystemSuspend는 userspace wakelock과 kernel suspend를 중재한다](systemsuspend-arbitrates-userspace-wakelocks-and-kernel-suspend.md)
-- [Background restrictions require persistent work state](../../../04_system_services/background-and-notifications/background-work-contracts/background-restrictions-require-persistent-work-state.md)
+- [Background restrictions require persistent work state](../../../04_system_services/background-and-notifications/background-work-contracts/background-restrictions-state.md)
 
 공식 문서: [PowerManager.WakeLock](https://developer.android.com/reference/android/os/PowerManager.WakeLock), [Excessive partial wake locks](https://developer.android.com/topic/performance/vitals/excessive-wakelock)

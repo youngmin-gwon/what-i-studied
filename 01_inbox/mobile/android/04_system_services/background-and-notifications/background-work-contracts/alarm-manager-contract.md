@@ -6,6 +6,19 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
+### 초보자를 위한 쉽게 이해하는 비유
+* **AlarmManager (정확한 시각에 울리는 정밀 자상 모닝콜)**:
+  - 배터리 상태와 관계없이 정확히 지정된 시각(RTC_WAKEUP)에 CPU 를 깨워 알람이나 정시 사용자 이벤트를 처리하는 시스템 모닝콜 서비스.
+
+```mermaid
+graph TD
+    App["앱 프로세스"] -->|setExactAndAllowWhileIdle| AlarmManager["AlarmManager 시스템 서비스"]
+    AlarmManager -->|지정 시각 도착| RTC["RTC 하드웨어 타이머 깨움 (RTC_WAKEUP)"]
+    RTC -->|PendingIntent 전달| Receiver["BroadcastReceiver 또는 Activity 실행"]
+```
+
+---
+
 ## AlarmManager 는 시간 자체가 기능인 이벤트에 쓴다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
@@ -124,3 +137,7 @@ fun distinctReminder(context: Context, reminderId: Long): PendingIntent {
 - [dumpsys](https://developer.android.com/tools/dumpsys)
 
 검증일: 2026-08-03. 권한 부여 방식, `OnAlarmListener` 의 OS 버전별 동작, Play 허용 범위는 target SDK 및 배포 정책에 따라 바뀔 수 있으므로 릴리스 시 다시 확인한다. `dumpsys alarm` 의 세부 필드도 공개된 안정 API 계약이 아니다.
+
+## 4. 연결 문서 (Related Links)
+- [JobScheduler 표준 레퍼런스](../../job-scheduler.md)
+- [system_server 표준 레퍼런스](../../system-server.md)

@@ -51,8 +51,8 @@ when {
 
 ### 경계
 
-- 이 노트는 역할 자격과 사용자 선택 흐름을 다룬다. 역할 승인 이후 실제 permission 검사 메커니즘은 [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](../../service-lookup/service-lookup-contracts/system-server-checks-caller-uid-and-pid-for-every-call.md)가 다룬다.
-- 다중 사용자/work profile에서 역할이 프로필별로 별도 관리된다는 점은 [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./usermanager-separates-users-and-work-profiles-by-userhandle.md)와 연결해서 읽는다.
+- 이 노트는 역할 자격과 사용자 선택 흐름을 다룬다. 역할 승인 이후 실제 permission 검사 메커니즘은 [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](../../service-lookup/service-lookup-contracts/system-server-uid-pid-check.md)가 다룬다.
+- 다중 사용자/work profile에서 역할이 프로필별로 별도 관리된다는 점은 [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./user-manager-userhandle.md)와 연결해서 읽는다.
 
 ### 관찰 가능한 신호
 

@@ -97,5 +97,5 @@ int main() {
 - callback 재진입 가능성을 API 문서와 구현 양쪽에서 고려한다.
 - ANR 분석은 UI thread 뿐 아니라 Binder thread 의 block stack 도 같이 본다.
 
-관련 노트: [ANR은 단일 timeout이 아니라 responsiveness contract 위반이다](../../boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
+관련 노트: [ANR은 단일 timeout이 아니라 responsiveness contract 위반이다](../../boot-and-runtime/system-server-contracts/anr-responsiveness-contract.md)
 

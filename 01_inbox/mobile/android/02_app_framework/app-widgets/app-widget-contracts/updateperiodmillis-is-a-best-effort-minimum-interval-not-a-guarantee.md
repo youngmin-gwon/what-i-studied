@@ -127,7 +127,7 @@ class WeatherGlanceWidgetReceiver : GlanceAppWidgetReceiver() {
 - 관련 계약 문서:
   - [App Widget 계약](./app-widget-contracts.md)
   - [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](./appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md)
-  - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../../04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md)
+  - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../../04_system_services/background-and-notifications/background-work-contracts/work-manager-contract.md)
 - 공식 문서: [Optimize app widget updates](https://developer.android.com/develop/ui/views/appwidgets/advanced#update-provider)
 
 검증일: 2026-08-05. 30분 하한선 및 Doze 모드 제약 공식 문서 원문 확인 완료.

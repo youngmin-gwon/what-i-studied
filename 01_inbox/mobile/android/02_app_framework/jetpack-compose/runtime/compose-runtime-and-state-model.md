@@ -37,12 +37,12 @@ Compose Runtime은 Composable을 개별 UI 뷰 객체로 다루지 않고, 상�
 ### 정본 계약 읽는 순서
 
 - [Compose UI는 상태를 입력으로 계산되는 선언적 결과다](./compose-runtime-contracts/compose-ui-is-declarative-function-of-state.md)
-- [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./compose-runtime-contracts/recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md)
-- [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](./compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md)
+- [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./compose-runtime-contracts/recomposition-scope-control.md)
+- [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](./compose-runtime-contracts/composable-body-purity.md)
 - [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](./compose-runtime-contracts/snapshot-state-observation-invalidates-state-read-scopes.md)
 - [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](./compose-runtime-contracts/remember-is-composition-scoped-storage-not-general-cache.md)
 - [Composition은 호출 위치 identity로 remember 값을 보존한다](./compose-runtime-contracts/composition-uses-callsite-identity-to-preserve-remembered-values.md)
-- [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md)
+- [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./compose-runtime-contracts/composable-compiler-restart-skip.md)
 - [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](./compose-runtime-contracts/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)
 - [Compose state owner는 읽고 쓰는 범위의 가장 낮은 공통 owner다](./compose-runtime-contracts/compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write.md)
 - [Automatic State Observation이 Flutter rebuild 사고와 Compose를 가른다](./compose-runtime-contracts/automatic-state-observation-is-the-compose-flutter-rebuild-difference.md)

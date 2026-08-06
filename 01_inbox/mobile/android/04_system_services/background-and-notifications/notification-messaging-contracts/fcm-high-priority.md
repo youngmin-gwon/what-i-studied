@@ -6,13 +6,27 @@ date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
+### 초보자를 위한 쉽게 이해하는 비유
+* **FCM High Priority (긴급 신호 사이렌)**:
+  - Doze 모드로 잠든 앱을 즉시 깨우는 긴급 사이렌 메시지로, 반드시 사용자 화면에 눈에 보이는 알림(User-visible Notification)을 띄워야만 구글이 우선순위 강등을 방지해 주는 규약.
+
+```mermaid
+graph TD
+    FCMServer["FCM 서버 (high_priority 설정)"] -->|Push 메시지 전달| Device["Doze 모드 사용자 기기"]
+    Device -->|앱 즉시 깨움| Service["FirebaseMessagingService"]
+    Service -->|Notification 표시| Pass["우선순위 유지"]
+    Service -->|Notification 미표시 지속| Downgrade["Google 에 의해 일반 우선순위로 자동 강등"]
+```
+
+---
+
 ## FCM high priority 는 사용자 가시 알림에만 정당화된다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 
 관련 지도: [알림과 FCM 메시징 계약](./notification-messaging-contracts.md)
 
-관련 노트: [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](./fcm-is-message-delivery-not-business-execution-guarantee.md), [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./android-notification-permission-and-channel-control-visibility.md)
+관련 노트: [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](./fcm-delivery-guarantee.md), [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./notification-permission-channel.md)
 
 ### normal 과 high
 
@@ -83,3 +97,8 @@ Doze 해제 직후에도 네트워크가 안정적이라고 가정하지 말고 
 - [메시지 우선순위 설정](https://firebase.google.com/docs/cloud-messaging/customize-messages/setting-message-priority)
 
 검증일: 2026-08-03. high priority 의 Doze 전달 시도, 짧은 처리 시간, 사용자 표시가 없을 때의 하향 가능성을 Firebase 공식 문서에서 확인했다.
+
+
+## 4. 연결 문서 (Related Links)
+- [Push Notification & FCM 표준 레퍼런스](../../../02_app_framework/push-notification-and-fcm.md)
+- [JobScheduler 표준 레퍼런스](../../job-scheduler.md)

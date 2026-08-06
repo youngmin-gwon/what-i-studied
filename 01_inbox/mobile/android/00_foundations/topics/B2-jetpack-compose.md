@@ -59,9 +59,9 @@ Compose 는 UI 를 "현재 상태에 대한 함수"로 선언한다. `Text("Coun
 | 원자 노트 | 핵심 명제 |
 |---|---|
 | [Compose UI는 State의 선언적 함수다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-ui-is-declarative-function-of-state.md) | UI = f(State). 명령형 View 와의 근본적 차이 |
-| [Composable body는 빠르고 멱등하며 side effect가 없어야 한다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md) | Composition 의 세 가지 실행 계약 |
+| [Composable body는 빠르고 멱등하며 side effect가 없어야 한다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-purity.md) | Composition 의 세 가지 실행 계약 |
 | [자동 상태 관찰은 Compose와 Flutter Rebuild의 차이점이다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/automatic-state-observation-is-the-compose-flutter-rebuild-difference.md) | Runtime 이 State read 를 추적한다는 의미 |
-| [Composable compiler 출력은 재시작과 skip 제어를 가능하게 한다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md) | @Composable 이 실제로 하는 일 |
+| [Composable compiler 출력은 재시작과 skip 제어를 가능하게 한다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-compiler-restart-skip.md) | @Composable 이 실제로 하는 일 |
 
 ---
 
@@ -87,7 +87,7 @@ State 는 Compose 가 UI 를 다시 그려야 할지 결정하는 기준이다. 
 | 원자 노트 | 핵심 명제 |
 |---|---|
 | [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/snapshot-state-observation-invalidates-state-read-scopes.md) | Runtime 의 State 추적 메커니즘 |
-| [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md) | State read 위치가 recomposition 범위를 결정 |
+| [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/recomposition-scope-control.md) | State read 위치가 recomposition 범위를 결정 |
 | [Compose State Owner는 읽거나 쓰는 최하위 공통 소유자다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write.md) | State hoisting 판단 기준 |
 | [Compose 상태 API는 필요한 수명에 맞춰 선택한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-api-selection-by-lifetime.md) | API 선택표 (remember → rememberSaveable → ViewModel → 영속) |
 | [remember는 composition-scoped 저장소이지 일반 캐시가 아니다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/remember-is-composition-scoped-storage-not-general-cache.md) | remember 의 수명 경계 |

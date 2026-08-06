@@ -88,7 +88,7 @@ fun HeaderComponent() {
 
 ---
 
-관련 노트: [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](./snapshot-state-observation-invalidates-state-read-scopes.md), [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./composable-compiler-output-enables-restart-and-skip-control.md)
+관련 노트: [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](./snapshot-state-observation-invalidates-state-read-scopes.md), [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./composable-compiler-restart-skip.md)
 
 출처: [Recomposition in Jetpack Compose](https://developer.android.com/develop/ui/compose/mental-model#recomposition)
 

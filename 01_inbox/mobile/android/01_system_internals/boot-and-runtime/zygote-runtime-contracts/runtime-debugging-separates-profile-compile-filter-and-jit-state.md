@@ -70,7 +70,7 @@ adb shell cmd package compile -reset com.example.app
 
 ### 관련 문서
 
-- [art-runs-dex-with-interpretation-jit-and-aot](art-runs-dex-with-interpretation-jit-and-aot.md)
+- [Art Dex Execution Modes](art-dex-execution-modes.md)
 - [profile-guided-compilation-splits-install-runtime-and-idle-costs](profile-guided-compilation-splits-install-runtime-and-idle-costs.md)
 
 공식 문서: [Evaluating ART Performance](https://source.android.com/docs/core/runtime/art-artifacts)

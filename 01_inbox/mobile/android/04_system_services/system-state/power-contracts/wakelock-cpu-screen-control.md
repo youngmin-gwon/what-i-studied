@@ -51,7 +51,7 @@ timeout은 정상 종료 로직을 대신하지 않는 마지막 안전망이다
 
 ### 경계
 
-- 이 노트는 wake lock이 즉시적으로 화면/CPU를 제어하는 메커니즘까지 다룬다. 배터리 최적화(Doze/App Standby) 예외 목록에 앱을 넣는 것은 별개의 정책이며 [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](./battery-optimization-exemption-is-for-exceptions-not-default-design.md)가 다룬다.
+- 이 노트는 wake lock이 즉시적으로 화면/CPU를 제어하는 메커니즘까지 다룬다. 배터리 최적화(Doze/App Standby) 예외 목록에 앱을 넣는 것은 별개의 정책이며 [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](./battery-optimization-exemption.md)가 다룬다.
 - 지속적인 백그라운드 작업 실행 수단 자체(FGS vs WorkManager 선택)는 `04_system_services/background-and-notifications/background-work-contracts`가 다룬다.
 
 ### 관찰 가능한 신호

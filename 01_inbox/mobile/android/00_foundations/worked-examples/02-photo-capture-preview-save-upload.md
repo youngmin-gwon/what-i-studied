@@ -222,8 +222,8 @@ class CameraCaptureManager(private val context: Context) {
 - [Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다](../../01_system_internals/graphics-and-media/graphics-media-contracts/surface-based-media-pipeline-avoids-app-level-pixel-copy.md)
 - [MediaStore: 공유 미디어의 등록과 접근](../../02_app_framework/data/storage/file-access-contracts/mediastore-registers-shared-media.md)
 - [Runtime permission은 사용자에게 기능 사용 시점에 요청하는 접근 계약이다](../../05_security_privacy/permissions-and-sandbox/permission-contracts/runtime-permission-is-user-mediated-access-contract.md)
-- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup-contracts/appops-can-deny-after-permission-is-already-granted.md)
-- [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md)
+- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup-contracts/appops-permission-denial.md)
+- [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/background-work-contracts/work-manager-contract.md)
 
 ---
 

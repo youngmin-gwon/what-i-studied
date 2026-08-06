@@ -46,7 +46,7 @@ renderProfileState(state)
 
 ### 경계
 
-- 이 노트는 사용자/프로필 분리 모델을 다룬다. 다른 앱의 설치 여부를 조회하는 제한은 [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](./packagemanager-queries-are-limited-by-package-visibility.md)가 다룬다.
+- 이 노트는 사용자/프로필 분리 모델을 다룬다. 다른 앱의 설치 여부를 조회하는 제한은 [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](./package-visibility-queries.md)가 다룬다.
 - 기기 관리 정책(MDM) 자체의 API 세부는 이 클러스터의 범위 밖이며 필요 시 별도 클러스터로 확장한다.
 
 ### 관찰 가능한 신호

@@ -86,7 +86,7 @@ adb shell dumpsys appops com.example.app
 
 ### 관련 문서
 
-- [system_server는 framework service를 한 프로세스 안에서 시작한다](system-server-starts-framework-services-in-one-process.md)
+- [system_server는 framework service를 한 프로세스 안에서 시작한다](system-server-startup.md)
 - [dumpsys는 system service의 현재 상태를 보는 inspection interface다](dumpsys-is-system-service-state-inspection-interface.md)
 
 공식 문서: [Android Binder Architecture](https://source.android.com/docs/core/architecture/hidl/binder-ipc)

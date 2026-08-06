@@ -31,8 +31,8 @@ fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Lo
 
 ### 읽는 순서
 
-1. [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fusedlocationproviderclient-merges-multiple-location-sources.md)에서 GPS/네트워크/센서를 앱이 직접 고르지 않는 이유를 본다.
-2. [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-splits-into-foreground-and-background-tiers.md)에서 승인 UX와 OS 버전별 차이를 확인한다.
+1. [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fused-location-provider.md)에서 GPS/네트워크/센서를 앱이 직접 고르지 않는 이유를 본다.
+2. [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-tiers.md)에서 승인 UX와 OS 버전별 차이를 확인한다.
 3. [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](./precise-and-approximate-location-are-separate-permissions.md)에서 Android 12+ 정확도 선택 모델을 본다.
 
 ### 문제 분류
@@ -52,8 +52,8 @@ fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Lo
 
 ### 노트 목록
 
-- [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fusedlocationproviderclient-merges-multiple-location-sources.md)
-- [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-splits-into-foreground-and-background-tiers.md)
+- [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fused-location-provider.md)
+- [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-tiers.md)
 - [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](./precise-and-approximate-location-are-separate-permissions.md)
 
 검증일: 2026-08-03. [위치 데이터 접근 요청](https://developer.android.com/develop/sensors-and-location/location/permissions)과 [FusedLocationProviderClient 문서](https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderClient)를 기준으로 확인했다.

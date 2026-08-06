@@ -85,7 +85,7 @@ fun ReadLocationExample() {
 
 ---
 
-관련 노트: [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./recomposition-reruns-needed-composable-scopes-not-the-whole-ui.md), [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](./compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)
+관련 노트: [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./recomposition-scope-control.md), [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](./compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)
 
 출처: [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state), [Under the hood of Jetpack Compose Snapshots](https://medium.com/androiddevelopers/under-the-hood-of-jetpack-compose-snapshots-b8733a1e9447)
 

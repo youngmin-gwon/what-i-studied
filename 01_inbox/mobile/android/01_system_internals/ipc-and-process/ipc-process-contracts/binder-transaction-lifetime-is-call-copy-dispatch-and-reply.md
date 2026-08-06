@@ -12,7 +12,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 배경 지식: [Buffer](../../../../../../02_references/operating-systems/buffer.md)
 
-동기 Binder 호출은 caller 가 transaction 을 보내고, Binder driver 가 data 와 **object reference**(다른 프로세스 안의 객체를 가리키는 참조 — client 는 이를 정수 handle 형태로 들고 있다. 자세한 내용은 [Binder는 객체 참조를 커널이 중재하는 capability IPC다](binder-is-kernel-mediated-object-capability-ipc.md) 참고)를 target process 의 Binder buffer 로 전달하고, target Binder thread 가 `onTransact()` 를 처리한 뒤 reply 를 돌려주는 흐름이다.
+동기 Binder 호출은 caller 가 transaction 을 보내고, Binder driver 가 data 와 **object reference**(다른 프로세스 안의 객체를 가리키는 참조 — client 는 이를 정수 handle 형태로 들고 있다. 자세한 내용은 [Binder IPC](../../binder-ipc.md) 참고)를 target process 의 Binder buffer 로 전달하고, target Binder thread 가 `onTransact()` 를 처리한 뒤 reply 를 돌려주는 흐름이다.
 
 이 흐름 때문에 Binder 비용은 "함수 호출 비용"이 아니다. thread scheduling, buffer copy, parcel marshaling, callee work, reply 대기 시간이 모두 caller 지연으로 관찰된다.
 

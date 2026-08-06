@@ -76,6 +76,6 @@ adb logcat -s ActivityManager
 ### 관련 문서
 
 - [ATMS는 activity, task, back stack 전이를 담당한다](atms-owns-activity-task-and-back-stack-transitions.md)
-- [ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](anr-is-responsiveness-contract-violation-not-single-timeout.md)
+- [ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](anr-responsiveness-contract.md)
 
 공식 문서: [ActivityManagerService API](https://developer.android.com/reference/android/app/ActivityManager)

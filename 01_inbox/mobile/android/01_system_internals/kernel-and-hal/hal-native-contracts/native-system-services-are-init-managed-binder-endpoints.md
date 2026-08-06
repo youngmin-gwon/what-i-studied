@@ -98,7 +98,7 @@ int main(int argc, char** argv) {
 ### 관련 문서
 
 - [Native service 디버깅은 init, Binder, VINTF, SELinux, tombstone을 분리한다](native-service-debugging-separates-init-binder-vintf-selinux-and-tombstones.md)
-- [Binder는 객체 참조를 커널이 중재하는 capability IPC다](../../ipc-and-process/ipc-process-contracts/binder-is-kernel-mediated-object-capability-ipc.md)
+- [Binder IPC](../../binder-ipc.md)
 - [HAL은 framework와 vendor 구현 사이의 안정된 userspace contract다](hal-is-stable-userspace-contract-between-framework-and-vendor.md)
 
 공식 문서: [AOSP Native Services Overview](https://source.android.com/docs/core/architecture/aidl)

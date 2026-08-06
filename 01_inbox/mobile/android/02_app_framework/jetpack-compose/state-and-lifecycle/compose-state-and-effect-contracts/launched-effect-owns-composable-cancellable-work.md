@@ -93,7 +93,7 @@ fun UserDetailScreen(
 
 상위 문서: [Compose 상태와 Effect 계약](./compose-state-and-effect-contracts.md)
 
-관련 노트: [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](../../runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md), [rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다](./remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)
+관련 노트: [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](../../runtime/compose-runtime-contracts/composable-body-purity.md), [rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다](./remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)
 
 출처: [Side-effects in Compose](https://developer.android.com/develop/ui/compose/side-effects#launchedeffect)
 

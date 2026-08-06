@@ -6,12 +6,25 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
+### 초보자를 위한 쉽게 이해하는 비유
+* **WorkManager (스마트 예약 택배 시스템)**:
+  - 당장 배달하지 않아도 되지만 WiFi 연결 및 충전 중이라는 조건이 맞춰지면 앱이 종료되거나 스마트폰이 재부팅되어도 반드시 완료해 주는 지연 보장 예약 택배.
+
+```mermaid
+graph TD
+    WorkReq["WorkRequest 제출 (제약조건 설정)"] --> WorkDB["Room DB 내 Persistent 저장"]
+    WorkDB --> Scheduler["JobScheduler / AlarmManager 연동 스케줄링"]
+    Scheduler -->|조건 충족 (WiFi + 충전)| Exec["Worker execution 및 작업 보장 완료"]
+```
+
+---
+
 ## WorkManager 는 지연 가능한 보장 작업의 기본 선택이다
 
 상위 지도: [백그라운드 작업 계약](./background-work-contracts.md)
 배경 지식: [프로세스 스케줄링](../../../../../operating-systems/process-scheduling.md)
 
-선택 비교: [백그라운드 실행 수단은 실패 비용으로 결정한다](./background-work-api-selection-is-a-failure-cost-decision.md)
+선택 비교: [백그라운드 실행 수단은 실패 비용으로 결정한다](./background-api-selection.md)
 
 ### 핵심 명제
 
@@ -79,3 +92,7 @@ assertThat(workManager.getWorkInfoById(request.id).get().state)
 - [Optimize battery use for task scheduling APIs](https://developer.android.com/develop/background-work/background-tasks/optimize-battery)
 
 검증일: 2026-08-03. Android 16 의 long-running Worker quota 와 Android 14+ FGS type 요건은 OS/target SDK 조건이므로 지원 버전별 테스트가 필요하다.
+
+## 4. 연결 문서 (Related Links)
+- [JobScheduler 표준 레퍼런스](../../job-scheduler.md)
+- [Paging 3 데이터 로딩](../../../02_app_framework/paging-3.md)

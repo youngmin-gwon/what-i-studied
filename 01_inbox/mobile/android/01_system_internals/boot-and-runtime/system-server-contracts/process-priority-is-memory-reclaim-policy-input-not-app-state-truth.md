@@ -77,6 +77,6 @@ adb logcat -s lmkd
 ### 관련 문서
 
 - [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](ams-coordinates-app-process-and-component-lifecycle.md)
-- [ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](anr-is-responsiveness-contract-violation-not-single-timeout.md)
+- [ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](anr-responsiveness-contract.md)
 
 공식 문서: [Processes and App Lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle), [Low memory killer daemon](https://source.android.com/docs/core/perf/lmkd), [AOSP ProcessList constants](https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java)

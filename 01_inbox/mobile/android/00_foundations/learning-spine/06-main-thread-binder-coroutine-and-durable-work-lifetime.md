@@ -139,7 +139,7 @@ Coroutine 자체는 스레드가 아니다. 어떤 스레드에서 실행될지�
 ### 관련 정본
 
 - [Looper와 Handler는 스레드의 메시지 큐를 관리하고 이벤트를 순차적으로 처리한다](../../02_app_framework/handler-looper-message-queue.md)
-- [ANR은 단일 timeout이 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
+- [ANR은 단일 timeout이 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-responsiveness-contract.md)
 - [메인 스레드 작업은 앱 응답성을 결정한다](../../06_testing_performance/performance/performance-contracts/main-thread-work-controls-responsiveness.md)
 - [IPC and process contracts](../../01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 - [Binder transaction lifetime은 call, copy, dispatch, reply로 나뉜다](../../01_system_internals/ipc-and-process/ipc-process-contracts/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)
@@ -150,8 +150,8 @@ Coroutine 자체는 스레드가 아니다. 어떤 스레드에서 실행될지�
 - [ViewModel은 외부 작업을 viewModelScope의 수명에 묶는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodelscope-binds-external-work-to-viewmodel-lifetime.md)
 - [Foreground Service는 사용자에게 보이는 진행 중 작업 계약이다](../../02_app_framework/architecture/app-components/app-component-contracts/foreground-service-is-user-visible-ongoing-work-contract.md)
 - [Service는 UI 없는 컴포넌트이지 일반 background task runner가 아니다](../../02_app_framework/architecture/app-components/app-component-contracts/service-is-background-or-remote-work-entry-point-not-general-task-runner.md)
-- [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md)
-- [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](../../04_system_services/background-and-notifications/background-work-contracts/background-restrictions-require-persistent-work-state.md)
+- [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/background-work-contracts/work-manager-contract.md)
+- [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](../../04_system_services/background-and-notifications/background-work-contracts/background-restrictions-state.md)
 
 ### 공식 근거
 

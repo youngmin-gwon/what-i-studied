@@ -68,7 +68,7 @@ adb shell dumpsys package dexopt
 
 ### 관련 문서
 
-- [art-runs-dex-with-interpretation-jit-and-aot](art-runs-dex-with-interpretation-jit-and-aot.md)
+- [Art Dex Execution Modes](art-dex-execution-modes.md)
 - [runtime-debugging-separates-profile-compile-filter-and-jit-state](runtime-debugging-separates-profile-compile-filter-and-jit-state.md)
 
 공식 문서: [Profile-Guided Compilation](https://source.android.com/docs/core/runtime/jit)

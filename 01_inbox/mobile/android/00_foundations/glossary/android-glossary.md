@@ -21,7 +21,7 @@ date created: 2026-04-07 11:06:51 +09:00
 ### 프로세스와 런타임
 
 - [AMS와 ATMS](../../04_system_services/system-server.md)
-- [ANR](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
+- [ANR](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-responsiveness-contract.md)
 - [ART](../../01_system_internals/art.md)
 - [DEX](../../01_system_internals/android-compilation-pipeline.md)
 - [Looper와 Handler](../../02_app_framework/handler-looper-message-queue.md)

@@ -6,6 +6,21 @@ date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:17:39 +09:00
 ---
 
+### 초보자를 위한 쉽게 이해하는 비유
+* **AppOps 권한 거부 (출입증은 있으나 내부 세부 구역 출입 통제)**:
+  - 건물 출입증(런타임 권한)을 받았더라도, 특정 보안 구역(위치 추적, 카메라 등) 진입 시 개별 센서 관리자(AppOps)가 실시간으로 통제하여 동작을 거부시키는 2차 보안 거부 메커니즘.
+
+```mermaid
+graph TD
+    App["앱 요청"] --> PermCheck{"1. Runtime Permission 허용 여부"}
+    PermCheck -->|No| Reject1["SecurityException 발생"]
+    PermCheck -->|Yes| AppOpsCheck{"2. AppOps 2차 실시간 상태 검사"}
+    AppOpsCheck -->|MODE_IGNORED| SilentFail["무응답 또는 0/null 빈 데이터 반환"]
+    AppOpsCheck -->|MODE_ALLOWED| Execute["정상 하드웨어/서비스 수행"]
+```
+
+---
+
 ## AppOps 는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
@@ -64,3 +79,8 @@ permission grant, 보호 API 결과, app-op 모드의 세 값을 함께 기록�
 - https://developer.android.com/reference/android/app/AppOpsManager
 
 검증일: 2026-08-06. 런타임 permission과 app-op의 관계, `MODE_IGNORED`의 placeholder 동작, 실제 접근을 기록하는 `noteOp()`과 지속 접근용 `startOp()`/`finishOp()` 계약을 확인했다.
+
+
+## 4. 연결 문서 (Related Links)
+- [AppOps 및 권한 표준 레퍼런스](../../../05_security_privacy/appops-and-permissions.md)
+- [system_server 표준 레퍼런스](../../system-server.md)

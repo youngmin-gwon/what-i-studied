@@ -100,7 +100,7 @@ type=1400 audit(1620000000.123:45): avc: denied { call } for pid=1234 comm="app_
 ### 관련 문서
 
 - [SELinux는 domain/type 정책으로 mandatory access control을 강제한다](selinux-enforces-mac-with-domain-type-policy.md)
-- [Binder는 객체 참조를 커널이 중재하는 capability IPC다](../../ipc-and-process/ipc-process-contracts/binder-is-kernel-mediated-object-capability-ipc.md)
+- [Binder IPC](../../binder-ipc.md)
 - [IPC and process contracts](../../ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 
 공식 문서: [AOSP SELinux for Android](https://source.android.com/docs/security/features/selinux)

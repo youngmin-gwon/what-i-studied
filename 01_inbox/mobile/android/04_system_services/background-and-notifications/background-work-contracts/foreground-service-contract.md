@@ -1,9 +1,23 @@
 ---
-title: foreground-service-is-for-visible-continuous-work
+title: foreground-service-contract
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 19:01:29 +09:00
 date created: 2026-07-31 17:42:24 +09:00
+---
+
+## 초보자를 위한 쉽게 이해하는 비유
+
+- **포그라운드 서비스 (경광등을 켜고 달리는 공사 차량)**:
+  - 도로(OS)에서 차를 멈추지 않고 계속 작업(연속 백그라운드 작업)하려면 상단 알림창에 경광등(지속 알림 Notification)을 켜서 시민(사용자)에게 작업 중임을 항상 알려야 하는 규약.
+
+```mermaid
+graph TD
+    App["앱 프로세스"] -->|"startForegroundService"| FGS["Foreground Service 생성"]
+    FGS -->|"startForeground() 5초 내 미호출"| Crash["ForegroundServiceDidNotStartInTimeException 크래시"]
+    FGS -->|"Notification 등록"| Running["사용자 상단 알림 유지 & 지속 작업 수행"]
+```
+
 ---
 
 ## Foreground service 는 사용자에게 보이는 지속 작업에 쓴다
@@ -66,3 +80,7 @@ date created: 2026-07-31 17:42:24 +09:00
 - [Android 14 동작 변경](https://developer.android.com/about/versions/14/behavior-changes-14)
 
 검증일: 2026-08-03. 실행 제한은 OS 버전, target SDK, service type, 현재 권한 상태를 각각 분리해 확인했다.
+
+## 4. 연결 문서 (Related Links)
+- [JobScheduler 및 백그라운드 스케줄러](../../job-scheduler.md)
+- [Push Notification & FCM](../../../02_app_framework/push-notification-and-fcm.md)

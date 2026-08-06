@@ -45,8 +45,8 @@ Android 12+에서는 fine만 단독 요청하지 말고 coarse와 함께 요청�
 
 ### 경계
 
-- 이 노트는 정확도 등급 선택 자체를 다룬다. foreground/background 접근 시점 구분은 [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-splits-into-foreground-and-background-tiers.md)가 다룬다.
-- 정확도와 배터리 소모 트레이드오프 자체(주기, priority 선택)는 [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fusedlocationproviderclient-merges-multiple-location-sources.md)가 다룬다.
+- 이 노트는 정확도 등급 선택 자체를 다룬다. foreground/background 접근 시점 구분은 [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-tiers.md)가 다룬다.
+- 정확도와 배터리 소모 트레이드오프 자체(주기, priority 선택)는 [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fused-location-provider.md)가 다룬다.
 
 ### 관찰 가능한 신호
 

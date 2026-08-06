@@ -12,7 +12,7 @@ date created: 2026-07-31 17:42:24 +09:00
 
 관련 지도: [알림과 FCM 메시징 계약](./notification-messaging-contracts.md)
 
-관련 노트: [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./android-notification-permission-and-channel-control-visibility.md), [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority-is-justified-by-user-visible-notification.md)
+관련 노트: [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./notification-permission-channel.md), [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority.md)
 
 ### 두 payload 의 책임
 

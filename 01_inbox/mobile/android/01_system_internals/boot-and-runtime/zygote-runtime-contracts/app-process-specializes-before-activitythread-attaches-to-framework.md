@@ -93,7 +93,7 @@ adb logcat -s ActivityThread ActivityManager
 
 ### 관련 문서
 
-- [zygote-socket-is-system-server-process-factory-interface](zygote-socket-is-system-server-process-factory-interface.md)
+- [Zygote Socket Interface](zygote-socket-interface.md)
 - [ams-coordinates-app-process-and-component-lifecycle](../system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md)
 
 공식 문서: [Android Process Lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle)

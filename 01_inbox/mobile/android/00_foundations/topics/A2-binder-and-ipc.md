@@ -33,7 +33,7 @@ graph TD
 
 - **[Binder IPC 표준 레퍼런스](../../01_system_internals/binder-ipc.md)** - Binder IPC 메인 SSOT 종합 레퍼런스
 - **[ServiceManager](../../04_system_services/service-manager.md)** - 바인더 Handle 0 중앙 서비스 디렉토리
-- **[Binder 드라이버 & mmap 원리](../../01_system_internals/ipc-and-process/ipc-process-contracts/binder-is-kernel-mediated-object-capability-ipc.md)** - 1 회 메모리 복사 커널 원리
+- **[Binder IPC](../../01_system_internals/binder-ipc.md)** - 1 회 메모리 복사 커널 원리
 - **[Binder 트랜잭션 1MB 제한](../../01_system_internals/ipc-and-process/ipc-process-contracts/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)** - 1MB 버퍼 및 TransactionTooLargeException
 - **[Binder 스레드 풀 및 교착상태](../../01_system_internals/ipc-and-process/ipc-process-contracts/binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)** - 16 개 스레드 풀 및 Deadlock 방지
 - **[Oneway 비동기 바인더](../../01_system_internals/ipc-and-process/ipc-process-contracts/oneway-binder-removes-caller-waiting-not-server-backpressure.md)** - 비동기 바인더 및 백프레셔

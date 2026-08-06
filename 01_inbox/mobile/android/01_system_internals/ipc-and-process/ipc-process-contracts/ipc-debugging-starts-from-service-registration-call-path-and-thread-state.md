@@ -12,7 +12,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 배경 지식: [SELinux](../../../../../linux/security/selinux.md)
 
-IPC 문제는 "호출이 실패했다"만 보면 원인이 넓다. service 가 등록됐는지, caller 가 **handle**(원격 객체를 가리키는 정수 토큰 — 자세한 내용은 [Binder는 객체 참조를 커널이 중재하는 capability IPC다](binder-is-kernel-mediated-object-capability-ipc.md) 참고)을 얻었는지, permission 이 통과했는지, Binder thread 가 막혔는지, callee process 가 살아 있는지를 순서대로 좁혀야 한다.
+IPC 문제는 "호출이 실패했다"만 보면 원인이 넓다. service 가 등록됐는지, caller 가 **handle**(원격 객체를 가리키는 정수 토큰 — 자세한 내용은 [Binder IPC](../../binder-ipc.md) 참고)을 얻었는지, permission 이 통과했는지, Binder thread 가 막혔는지, callee process 가 살아 있는지를 순서대로 좁혀야 한다.
 
 앱 레벨에서는 logcat stack trace 보다 boundary 상태가 더 중요할 때가 많다. platform/service 레벨에서는 `dumpsys`, service list, binder stats, tombstone, SELinux denial 을 함께 봐야 한다.
 

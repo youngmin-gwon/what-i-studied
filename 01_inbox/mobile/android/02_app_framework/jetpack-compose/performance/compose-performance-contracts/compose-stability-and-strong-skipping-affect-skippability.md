@@ -46,6 +46,6 @@ composeCompiler {
 
 관찰 증거는 `<module>-composables.txt`의 `restartable skippable`과 각 parameter의 stable/unstable 표시다. Layout Inspector의 skip/recomposition count와 benchmark도 함께 비교한다. 모든 Composable을 skippable로 만드는 것이 목표는 아니다. 실제 병목이 있는 호출만 모델 변경의 유지보수 비용과 교환한다.
 
-관련 노트: [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](../../runtime/compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md), [Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다](./compose-performance-starts-with-measure-debug-improve-loop.md)
+관련 노트: [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](../../runtime/compose-runtime-contracts/composable-compiler-restart-skip.md), [Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다](./compose-performance-starts-with-measure-debug-improve-loop.md)
 
 출처: [Strong skipping mode](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping), [Compose stability 진단](https://developer.android.com/develop/ui/compose/performance/stability/diagnose)

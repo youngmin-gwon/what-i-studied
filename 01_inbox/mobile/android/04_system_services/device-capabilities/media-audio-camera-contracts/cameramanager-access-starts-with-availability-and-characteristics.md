@@ -55,7 +55,7 @@ fun openCamera(cameraId: String) {
 ### 경계
 
 - 이 노트는 카메라 세션을 열기 전 확인해야 할 시스템 서비스 접근 계약까지 다룬다. 캡처 파이프라인, 이미지 포맷 변환, 인코딩은 `01_system_internals/graphics-and-media`가 다룬다.
-- 카메라 permission 승인 이후에도 AppOps가 실행 시점에 거부할 수 있는 계층은 [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../service-lookup/service-lookup-contracts/appops-can-deny-after-permission-is-already-granted.md)와 함께 읽는다.
+- 카메라 permission 승인 이후에도 AppOps가 실행 시점에 거부할 수 있는 계층은 [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../service-lookup/service-lookup-contracts/appops-permission-denial.md)와 함께 읽는다.
 
 ### 관찰 가능한 신호
 
