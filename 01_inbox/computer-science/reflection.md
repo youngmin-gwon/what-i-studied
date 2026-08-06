@@ -2,7 +2,7 @@
 title: reflection
 tags: [computer-science, metaprogramming, programming-languages, reflection, runtime]
 aliases: [Reflection, Runtime Reflection, 런타임 리플렉션, 리플렉션]
-date modified: 2026-08-06 17:44:52 +09:00
+date modified: 2026-08-06 17:52:33 +09:00
 date created: 2026-08-06 17:28:00 +09:00
 ---
 
@@ -33,44 +33,57 @@ graph TD
 
 ---
 
-### 2. 리플렉션의 주요 활용 분야
+### 2. Java Reflection vs Kotlin Reflection (`kotlin-reflect`)
 
-리플렉션은 유연성이 높아 현대적인 프레임워크나 라이브러리 내부에서 널리 활용된다.
+"리플렉션은 Java 의 구시대 유물이라 Kotlin 에서는 쓰지 않는다"고 생각하기 쉽지만, **Kotlin 도 자체적인 공식 리플렉션 API (`kotlin-reflect`)를 제공**한다. 다만 언어 차원에서 사용을 강력히 지양하도록 설계되어 있다.
 
-1. **의존성 주입 (Dependency Injection / DI Framework)**:
-   - Spring Framework 나 구형 Guice 등에서 클래스 생성자에 `@Inject` 가 달린 필드를 런타임 탐색하여 의존성을 주입할 때 사용한다.
-2. **구형 직렬화 메커니즘 ([Serializable](../mobile/android/00_foundations/glossary/android-glossary/19-serializable.md))**:
-   - `java.io.Serializable` 이 객체를 바이트 스트림으로 바꿀 때, 런타임 리플렉션으로 객체의 모든 private 필드를 동적으로 탐색하여 추출한다.
-3. **ORM (Object-Relational Mapping)**:
-   - JPA/Hibernate 가 DB 테이블 컬럼과 자바 객체 필드를 매핑할 때 사용한다.
+### 1) Java Reflection (`java.lang.reflect`)
+- JDK 1.1 부터 제공된 자바의 전통적인 리플렉션 패키지 (`Class`, `Field`, `Method`).
+- Java 의 모든 객체와 런타임 타입을 스캔하지만, Kotlin 전용 기능(Nullability, Data Class Component, Property Delegate, Sealed Class)을 파악하지 못한다.
 
----
-
-### 3. 리플렉션의 심각한 단점 (왜 함부로 쓰면 안 되는가?)
-
-#### 1) 심각한 런타임 성능 오버헤드 (Performance Cost)
-
-- 런타임에 클래스 필드와 메서드를 탐색하고 보안 검사(Access Control)를 거치므로, 직접 메서드를 호출하는 것보다 **수십 배 ~ 수백 배 이상 느리다.**
-- Android 런타임([ART](../mobile/android/01_system_internals/art.md))에서 JIT/AOT 컴파일러 최적화(Inlining)를 방해한다.
-
-#### 2) 가비지 컬렉션(GC) 부담 폭증
-
-- 필드와 메서드를 탐색하는 과정에서 `Field`, `Method`, `Class` 등의 임시 메타데이터 객체가 무수히 생성되어 [가비지 컬렉션(GC)](garbage-collection.md) 팝업과 [프레임 드롭(Jank)](../../android/01_system_internals/graphics-and-media/graphics-media-contracts/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger) 을 일으킨다.
-
-#### 3) 컴파일 타임 타입 안전성 파괴 (Compile-time Type Safety Loss)
-
-- 클래스나 메서드 이름에 오타가 있어도 컴파일 시점에는 에러가 나지 않고, 앱이 실행되는 런타임 시점에 `ClassNotFoundException`이나 `NoSuchMethodException` 으로 폭발(Crash)한다.
+### 2) Kotlin Reflection (`kotlin.reflect`)
+- Kotlin 언어 특성을 지원하기 위한 전용 패키지 (`KClass`, `KProperty`, `KFunction`).
+- Kotlin 객체의 널 가능성(Nullable `?`), 가변성(`val` vs `var`), 프로퍼티 위임(Delegate) 정보를 런타임에 동적으로 조회할 수 있다.
 
 ---
 
-### 4. 리플렉션의 대안: 컴파일 타임 코드 생성 (KSP / APT & Metro DI)
+## 3. Kotlin 이 런타임 리플렉션을 지양하는 이유와 언어적 대안
+
+Kotlin 생태계에서는 **`kotlin-reflect` 사용을 가급적 피하고 컴파일 타임으로 해결**하는 패턴을 권장한다.
+
+1. **`kotlin-reflect.jar` 파일 용량 부담**:
+   - 코틀린 리플렉션 라이브러리를 프로젝트에 포함하면 APK/AAB 빌드 용량이 약 2.5MB 이상 증가한다.
+2. **`inline` + `reified` 키워드를 통한 런타임 타입 추상화**:
+   - Java 에서는 generic 타입 파라미터가 런타임에 소거(Type Erasure)되어 `Class<T>` 를 얻으려면 리플렉션을 써야 했다.
+   - Kotlin 은 **`inline fun <reified T> getGenericType()`** 문법을 통해 리플렉션 없이 컴파일 타임에 타입을 구체화(Reify)하여 리플렉션 오버헤드를 0 으로 만든다.
+3. **KSP 기반 컴파일 타임 코드 생성**:
+   - [Compile-time Code Generation](compile-time-code-generation.md)을 활용하여 `kotlinx.serialization` 이나 Metro/Hilt DI 처럼 리플렉션 없는 초고속 빌드를 지향한다.
+
+---
+
+## 4. 리플렉션의 주요 활용과 단점
+
+### 1) 주요 활용 분야
+
+- **구형 의존성 주입 (DI)**: Spring Framework, Guice 등 런타임 탐색.
+- **구형 직렬화**: [java.io.Serializable](../mobile/android/00_foundations/glossary/android-glossary/19-serializable.md) 객체 자동 변환.
+
+### 2) 단점
+
+- **런타임 성능 오버헤드**: 직접 호출 대비 수십 배 이상 느리며 [ART 런타임](../mobile/android/01_system_internals/art.md) 최적화를 방해함.
+- **가비지 컬렉션(GC) 폭증**: 메타데이터 객체 남발로 [Garbage Collection](garbage-collection.md) 팝업 유발.
+- **타입 안전성 파괴**: 오타 발생 시 런타임 크래시 유발.
+
+---
+
+## 5. 리플렉션의 대안: 컴파일 타임 코드 생성 (KSP / APT & Metro DI)
 
 현대적인 모바일 및 웹 개발(Android/Kotlin)에서는 런타임 리플렉션의 단점을 극복하기 위해 **[Compile-time Code Generation (컴파일 타임 코드 생성)](compile-time-code-generation.md)** 기술로 완전히 전환되었다.
 
 - **KSP (Kotlin Symbol Processing) / APT (Annotation Processing)**:
   - 런타임에 엑스레이 스캔하듯 리플렉션을 돌리는 대신, 컴파일 시점에 심볼과 어노테이션을 분석하여 팩토리 및 직렬화 소스 코드를 사전 생성한다. 자세한 메커니즘은 [Compile-time Code Generation](compile-time-code-generation.md) 문서를 참고한다.
 - **현대 DI 프레임워크 (Metro DI / Dagger / Hilt)**:
-  - 과거 Spring/Guice 처럼 런타임 리플렉션으로 객체를 주입하던 방식에서 탈피하여, **컴파일 타임에 KSP/APT 가 의존성 그래프 조립 소스 코드를 자동 생성**한다. 런타임 리플렉션 0% 로 초고속 객체 주입을 보장한다.
+  - 과거 Spring/Guice 처럼 런타임 리플렉션으로 객체를 주입하던 방식에서 탈피하여, **컴파일 타임에 KSP/APT 가 의존성 그래프 조립 소스 코드를 자동 생성** 한다. 런타임 리플렉션 0% 로 초고속 객체 주입을 보장한다.
 - **Kotlinx.serialization (`@Serializable`)**:
   - 런타임 리플렉션 대신 **컴파일 타임에 `KSerializer` 코드를 생성**하여 초고속 직렬화를 제공한다.
 - **Android `@Parcelize`**:
@@ -78,7 +91,7 @@ graph TD
 
 ---
 
-## 5. 연결 문서 (Related Links)
+## 6. 연결 문서 (Related Links)
 
 - [Compile-time Code Generation (KSP / APT)](compile-time-code-generation.md) - 리플렉션을 대체하는 KSP/APT 및 Metro/Dagger DI 메커니즘
 - [Serializable](../mobile/android/00_foundations/glossary/android-glossary/19-serializable.md) - 리플렉션 기반 구형 직렬화와 컴파일 타임 kotlinx.serialization 비교
