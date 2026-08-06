@@ -1,8 +1,8 @@
 ---
 title: jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger
 tags: [android, android/graphics, android/performance]
-aliases: [Jank, Frame Deadline, Frame Drop]
-date modified: 2026-08-04 15:50:00 +09:00
+aliases: [Frame Deadline, Frame Drop, Jank]
+date modified: 2026-08-06 17:31:44 +09:00
 date created: 2026-07-31 23:20:00 +09:00
 ---
 
@@ -10,20 +10,20 @@ date created: 2026-07-31 23:20:00 +09:00
 
 상위 문서: [Graphics and media contracts](graphics-media-contracts.md)
 
-**Jank(프레임 버벅임)**는 사용자가 시각적으로 프레임 끊김을 느끼는 현상으로, 단일 코드 지점의 오버헤드가 아니라 **UI Thread, RenderThread, BufferQueue, SurfaceFlinger 파이프라인 전체에서 VSync 프레임 마감 시간(Frame Deadline)**을 놓쳤을 때 발생하는 시스템 합산 결과다.
+**Jank(프레임 버벅임)** 는 사용자가 시각적으로 프레임 끊김을 느끼는 현상으로, 단일 코드 지점의 오버헤드가 아니라 **UI Thread, RenderThread, BufferQueue, SurfaceFlinger 파이프라인 전체에서 VSync 프레임 마감 시간(Frame Deadline)** 을 놓쳤을 때 발생하는 시스템 합산 결과다.
 
 ### 메커니즘: Android 렌더링 파이프라인 구간별 Deadline
 
 1. **UI Thread Deadline (Measure / Layout / Draw)**:
-   - Choreographer의 VSync-APP 신호를 받아 뷰 트리/Compose 레이아웃 및 `DisplayList`를 작성한다.
+   - Choreographer 의 VSync-APP 신호를 받아 뷰 트리/Compose 레이아웃 및 `DisplayList` 를 작성한다.
    - 60Hz 기준 16.6ms, 120Hz 기준 8.3ms 내에 명령 생성을 완료하지 못하면 UI Jank 발생.
 
 2. **RenderThread Deadline (GPU Execution)**:
-   - UI 스레드가 넘겨준 DisplayList를 Skia GPU 명령으로 변환하여 OpenGL/Vulkan 드라이버에 제출한다.
-   - GPU 렌더링 지연으로 `queueBuffer()`가 늦어지면 RenderJank 발생.
+   - UI 스레드가 넘겨준 DisplayList 를 Skia GPU 명령으로 변환하여 OpenGL/Vulkan 드라이버에 제출한다.
+   - GPU 렌더링 지연으로 `queueBuffer()` 가 늦어지면 RenderJank 발생.
 
 3. **SurfaceFlinger Deadline (Composition)**:
-   - VSync-SF 타임스탬프에 맞춰 BufferQueue에서 버퍼를 꺼내 합성한다.
+   - VSync-SF 타임스탬프에 맞춰 BufferQueue 에서 버퍼를 꺼내 합성한다.
    - HWC 오버레이 부족 또는 복잡한 레이어 합성으로 VSync 타임스탬프를 놓치면 Display Jank 발생.
 
 ```mermaid
