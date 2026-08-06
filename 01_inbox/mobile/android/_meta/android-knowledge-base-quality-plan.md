@@ -1364,3 +1364,85 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 **진행 기록(2026-08-06): Certificate Pinning 일반 노트 신설 및 연결 완료.** `01_inbox/security/fundamentals/certificate-pinning.md` 를 `root-of-trust-and-chain-of-trust.md` 와 같은 폴더·형식으로 신설했다 — 정의, "왜 필요했나"(CA 신뢰 모델의 구조적 약점, DigiNotar 사례), 인증서 고정 vs 공개키 고정 비교표, Android Network Security Config 구현 예시, 백업 pin 이 필수인 이유, 대가(강제 업데이트 위험/디버깅 방해/단계적 롤아웃)를 다뤘다. 이미 인라인 gloss 는 있었지만 링크가 없던 2 개 android 파일에 `배경 지식:` 링크를 추가했다: `android-security-practice-is-defense-in-depth-not-client-trust.md`, `network-security-config-declares-app-trust-cleartext-and-pinning-policy.md`(pinning 의 Android 구현을 가장 깊게 다루는 정본이라 이 파일 자체가 "심화 경로" 역할을 겸한다). 링크 재검증 0 건 broken. `apple`/`cross-platform` 쪽 4 개 파일은 이번 라운드 범위 밖이라 손대지 않았다.
 
 **최종 상태(2026-08-06): plan.md 가 추적하던 모든 실행 가능한(AI 가 처리 가능한) 항목이 완료됐다.** 남은 것은 Learning Spine/Worked Example 의 사용자 최종 검수뿐이며, 이는 사람이 직접 읽어야 하는 게이트라 AI 세션이 대신 처리할 수 없다.
+
+## Phase 12. 다차원 독립 재검증(Multi-Axis Independent Audit)
+
+### 배경(2026-08-06, 사용자 지적)
+
+바로 위 "최종 상태" 선언을 포함해 이 문서는 반복적으로 "완료"를 선언한 뒤 독립 검증에서 결함이 드러난 이력이 있다(Batch A/D 의미 등급 재평가, Phase 9 의 미기록 coverage gap, Phase 11 에서 사용자가 직접 지적한 `02_app_framework` 수박 겉핥기 편집, 2026-08-06 독립 검증에서 발견된 broken link 2 건). 사용자는 이 패턴 자체를 신뢰하지 않으며, 지금까지 어떤 phase 도 명시적으로 검증하지 않은 5 가지 축을 새로 지정해 vault 전체를 다시 훑어보라고 요청했다(2026-08-06):
+
+1. 문서 전반의 서술 품질(문체 포함)
+2. 실제 앱 개발에 필요한데 빠진 내용
+3. 문체가 vault 관례와 맞지 않는 노트
+4. Mermaid 로 표현하는 게 더 적합한데 ASCII 로 그려진 다이어그램
+5. 원자 노트가 원리를 설명하는 fundamental 문서에 링크하지 않거나, 그 fundamental 문서 자체가 vault 에 없는 경우
+
+### 이 phase 의 성격: 감사 전용(Audit-Only), 즉시 수정 아님
+
+과거 phase(5, 9, 11)는 감사와 수정을 같은 세션에서 함께 수행했다. 이번엔 다르게 한다 — **이 phase 는 결함을 찾아 구체적으로 보고하는 것까지만 하고, 본문을 고치지 않는다.** 이유:
+
+- 축 1·2·3(문체, 실무 공백, 문체 불일치)은 판단에 주관이 섞인다. 지금까지 여러 세션이 서로 다른 기준으로 "A 등급"을 선언했다가 뒤집힌 전례가 있으므로, 이번엔 먼저 결함 목록을 사용자에게 보여주고 우선순위와 수정 방향을 확인한 뒤 별도 수정 phase 로 넘긴다.
+- 축 2 는 새 클러스터 신설(Phase 9 급 작업)로 이어질 수 있어 무단으로 병렬 대량 저작을 시작하면 이 문서의 "병렬 작업 원칙"(학습 spine·taxonomy 확정 전 대량 재작성 금지에 준하는 리스크)을 어길 수 있다.
+- 축 4·5 중 기계적으로 확실한 결함(존재하지 않는 파일을 가리키는 링크, Mermaid 특수문자 미이스케이프 같은 machine hygiene 성격)은 발견 즉시 고쳐도 된다. 그 외에는 보고만 한다.
+
+### 감사 축과 판정 기준
+
+**축 1. 문서 퀄리티 일반** — Phase 5/11 이 이미 확인했다고 주장한 mechanism/code/diagram/evidence 4 요소가 실제로 그 파일에 있는지 다시 눈으로 확인한다(로그를 믿지 않는다). 특히 여러 세션이 거쳐간 파일(날짜가 다른 `date modified` 가 여러 번 바뀐 흔적, 로그에 여러 번 언급된 클러스터)을 우선순위로 재확인한다.
+
+**축 2. 실무 앱 개발 관점 공백** — Phase 9 가 다룬 것은 "이 주제 자체가 vault 에 아예 없다" 수준의 공백이다. 이번 축은 그보다 미세하다: **이미 존재하는 노트/클러스터 안에서, 실제로 앱을 만들고 유지보수하는 개발자가 마주치는 질문에 답이 되는가**를 본다. 예: 이론적 메커니즘은 있지만 "그래서 내 코드에서 뭘 어떻게 하라는 건지"가 없는 노트, 공식 문서 인용은 있지만 실무에서 자주 겪는 예외/버전 함정/마이그레이션 이슈가 빠진 노트, 최신 권장 API 대신 deprecated API 만 예시로 쓴 노트. 발견하면 "무엇이 왜 부족한지"와 "이 노트/클러스터에 무엇을 추가해야 하는지"를 구체적으로 적는다.
+
+**축 3. 문체 불일치** — 이 문서의 `#### 문서 작성 형식과 언어` 절(원문 line 221 부근, 한글 우선·전문용어 병기·`surface`/`lifetime` 등 장식적 반복 금지) 과 Phase 11 이 확립한 gloss 문체를 기준으로 삼는다. 서로 다른 세션/subagent 가 작성해 문체가 확연히 다른 파일(과도하게 딱딱한 번역체, 지나치게 캐주얼한 구어체, 존댓말·평서문 혼용, 같은 개념을 파일마다 다른 한글 번역어로 부르는 경우)을 찾는다. "다르다"는 느낌만으로는 부족하고, 비교 대상이 되는 다른 파일(같은 클러스터의 이웃 노트)을 함께 인용해 왜 튀는지 보여준다.
+
+**축 4. 다이어그램 형식 적합성** — 이 문서는 Atomic Reference 4 요소 중 하나로 "Mermaid 또는 ASCII"를 허용하지만(원문 line 155), 이는 ASCII 가 항상 허용된다는 뜻이 아니다. 상태 전이, 시퀀스(요청-응답, 여러 계층 간 순서), 분기가 있는 흐름, 여러 구성 요소 간 관계처럼 Mermaid 가 실제로 관계와 순서를 더 정확히 전달하는 경우에 ASCII 로 그려져 있으면 결함으로 본다. 반대로 단순 박스 2~3 개짜리 정적 나열은 ASCII 로도 충분하니 지적하지 않는다. 파일 경로와, 왜 그 특정 다이어그램이 Mermaid 로 바뀌어야 더 명확해지는지 한 문장으로 적는다.
+
+**축 5. Fundamental 연결성** — 두 가지를 함께 본다.
+- (a) Phase 9/11 이 확립한 `배경 지식:` 링크 관례: 일반 CS/OS/보안/네트워킹 개념을 전제로 쓰는 원자 노트에 그 개념을 설명하는 정본 링크가 있는지, 있다면 링크 대상 파일이 실제로 존재하고 그 개념을 충분히 설명하는지(속 빈 stub 이 아닌지). Phase 11 이 "gloss 만 있고 링크가 없다"고 지적했던 패턴이 이번에도 남아있는지 재확인한다.
+- (b) 원자 노트가 속한 클러스터의 인과 관계를 설명하는 상위 fundamental 문서(`00_foundations/learning-spine` 의 해당 장, 또는 그 개념을 처음 도입하는 클러스터 hub 문서)로 연결되는지. 개별 사실은 정확하지만 "왜 이게 필요한지/이게 전체 그림에서 어디에 속하는지"를 알려주는 상위 문서가 없거나 링크가 없어서, 독자가 원자 노트만 읽고는 맥락을 못 잡는 경우를 찾는다. 이런 fundamental 문서 자체가 vault 에 없다고 판단되면 "어떤 문서가 새로 필요한지"까지 적는다(이전에 `00_foundations/topics/` 가 존재하지 않는 Learning Spine 장을 지어내 인용했던 사고가 반복되지 않도록, 인용 전 실제 파일명을 Read 로 확인하라고 각 subagent 에게 명시한다).
+
+### 적용 범위와 작업 분담
+
+`01_inbox/mobile/android/` 전체(현재 약 800 개 파일, 착수 전 각 agent 가 `find`/`ls` 로 실제 개수를 재확인한다). 아래처럼 Phase 5/11 이 썼던 폴더 경계를 그대로 재사용해 13 개 subagent 에 병렬 위임한다(범위가 겹치지 않게 하되, 폴더 밖 파일을 참조해야 fundamental 판단이 가능하면 Read 는 허용한다):
+
+| # | 담당 | 대상 경로 |
+|---|---|---|
+| 1 | Foundations 전체 | `00_foundations/`(learning-spine, worked-examples, diagnostic-runbooks, topics, glossary, map) |
+| 2 | System Internals A | `01_system_internals/boot-and-runtime`, `platform-modularity`, `platform-customization` |
+| 3 | System Internals B | `01_system_internals/ipc-and-process`, `graphics-and-media`, `connectivity` |
+| 4 | App Framework A | `02_app_framework/architecture` |
+| 5 | App Framework B | `02_app_framework/data`, `app-widgets`, `ui` |
+| 6 | App Framework C | `02_app_framework/jetpack-compose`, `dependency-injection` |
+| 7 | App Framework D | `02_app_framework/navigation` |
+| 8 | Packaging & Deployment | `03_packaging_deployment/` |
+| 9 | System Services A | `04_system_services/agents-and-assistant`, `background-and-notifications`, `service-lookup`, `system-state` |
+| 10 | System Services B | `04_system_services/device-capabilities/` |
+| 11 | Security & Privacy | `05_security_privacy/` |
+| 12 | Testing & Performance | `06_testing_performance/` |
+| 13 | Platforms | `07_platforms/` |
+
+### 작업 방식(모든 subagent 에게 동일하게 지시할 것)
+
+1. 배정된 범위의 파일 목록을 먼저 `find`/`ls` 로 직접 확인한다(계획 문서가 말하는 파일 개수를 신뢰하지 않는다).
+2. 모든 파일을 표본 없이 전수로 Read 한다. 파일이 많아 전량이 어려우면 몇 개를 건너뛰었는지, 어떤 기준으로 우선순위를 매겼는지 보고서에 명시한다.
+3. 위 5 개 축 각각에 대해 결함을 찾는다. "문제 없음"이라고 결론 내리기 전에 반드시 실제로 읽었다는 근거(파일 수, 대표 인용)를 남긴다.
+4. 기계적으로 확실한 결함(broken link, 존재하지 않는 파일/장 인용, Mermaid 특수문자 미이스케이프)은 그 자리에서 즉시 고친다. 그 외(문체, 실무 공백, ASCII→Mermaid 전환, fundamental 신설 여부)는 고치지 않고 보고만 한다.
+5. 아래 형식으로 이 문서가 아니라 자신의 최종 응답에 보고한다(이 phase 는 감사 전용이므로 진행 기록은 저작 세션이 종합해서 한 번에 기록한다):
+
+```text
+담당 범위:
+실제 확인한 파일 수 / 전체 파일 수:
+축1 문서 퀄리티 결함: [파일 경로 — 무엇이 왜 부족한지]
+축2 실무 공백: [파일/클러스터 경로 — 무엇이 빠졌는지 — 무엇을 추가해야 하는지]
+축3 문체 불일치: [파일 경로 — 어떤 문체 문제 — 비교 대상 파일]
+축4 다이어그램: [파일 경로 — 왜 Mermaid 가 더 적합한지]
+축5 fundamental 연결: [파일 경로 — 빠진 링크 또는 없는 fundamental 문서 — 무엇이 새로 필요한지]
+즉시 수정한 기계적 결함:
+결함 없음으로 확인한 파일 수:
+```
+
+### 완료 조건 및 다음 단계
+
+- 13 개 보고서를 저작 세션이 취합해 심각도(사용자 판단이 필요한 것 vs 즉시 반영 가능한 것) 순으로 정리하고 이 문서에 종합 진행 기록으로 남긴다.
+- 축 2(실무 공백)에서 새 클러스터/신규 노트가 필요하다고 판단되면 Phase 9 방식대로 항목화만 하고, 실제 저작은 사용자 확인 후 별도 phase 로 진행한다.
+- 축 3(문체)에서 다수 파일에 공통되는 패턴이 발견되면, Phase 11 처럼 "좋은 예/나쁜 예"를 먼저 하나 확정해 사용자 승인을 받은 뒤에 나머지에 일괄 적용한다.
+
+**진행 기록(2026-08-06): Phase 12 착수, 13 개 subagent 병렬 감사 진행 중.**
