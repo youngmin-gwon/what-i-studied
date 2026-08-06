@@ -104,7 +104,7 @@ fun triggerCustomVibration(context: Context) {
 
 ### 5. 관련 문서 및 참조
 
-- 상위 문서: [Android System Services & Device Capabilities](../android-system-services-and-device-capabilities.md)
+- 상위 문서: [Android System Services & Device Capabilities](../../android-system-services-and-device-capabilities.md)
 - 관련 계약 문서:
   - [HapticFeedbackType은 UX 인터랙션과 안드로이드 플랫폼 햅틱 패턴을 1:1 매핑한다](./haptic-feedback-types-map-ux-interactions-to-platform-patterns.md)
   - [VibratorManager와 VibrationEffect는 기기의 정밀 햅틱과 진동 파형을 제어한다](./vibrator-manager-and-vibration-effect-control-device-haptics.md)

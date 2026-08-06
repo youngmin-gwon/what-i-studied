@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 11:40:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -1269,7 +1269,12 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 1. `binder-is-kernel-mediated-object-capability-ipc.md` — `remote object reference`, `handle`, `death notification`, `capability(권한 토큰) 기반 접근 제어` 인라인 gloss 추가. `배경 지식:` 링크(IPC/DAC/SELinux)는 이전 라운드에 이미 있었음.
 2. `android-kernel-is-linux-plus-mobile-platform-policy.md` — "배경 지식:" 요약 줄만 있고 본문엔 인라인 링크가 없던 문제를 수정. `**[IPC](...)** & RPC` 처럼 본문 안 실제 등장 지점에 링크를 걸었고, 다이어그램의 4 개 비교 쌍 중 설명이 빠졌던 DAC vs SELinux MAC 항목(5 번)을 새로 추가해 gloss + 링크를 함께 넣었다.
 
-**진행 중(2026-08-05, 이 세션이 지금 처리 중 — 다른 세션은 중복 작업하지 말 것):** System Internals 나머지 151 개 파일을 4 개 subagent 에 병렬 위임했다(boot-and-runtime 40 개, kernel-and-hal 39 개, ipc-and-process 6 개+graphics-and-media 23 개, connectivity 18 개+platform-modularity 13 개+platform-customization 13 개). 완료되면 이 문서에 결과가 추가된다.
+**진행 기록(2026-08-05): System Internals 나머지 151 개 파일 Phase 11 pass 완료(4 개 subagent 병렬 위임).**
+
+- **boot-and-runtime (40 개)**: 16 개 파일 수정(PID 1/SIGCHLD/Zombie/epoll/LMKD·PSI/Device Mapper/POSIX Capabilities/fork·COW 등 인라인 gloss), 24 개 보존. 새 일반 노트 필요 항목 없음(POSIX Capabilities 는 gloss-only 처리). 링크 16 건 전수 검증 통과.
+- **ipc-and-process + graphics-and-media (29 개)**: 9 개 파일 수정(handle/object reference/backpressure/idempotency/Fence/ISP 등), 21 개 보존. **새 gap 발견: idempotency(멱등성) 일반 CS 노트 부재**(이 클러스터 밖 `02_app_framework` composable 노트에서도 반복 사용됨 — 아직 미작성, 후속 과제로 남음). broken link 0 건.
+- **connectivity + platform-modularity + platform-customization (44 개)**: 13 개 파일 수정(Fwmark/eBPF/NAT/TUN/Mainline 등). `apex-build-and-device-support-are-platform-integration-contracts.md` 에서 APEX 를 "Android Package Kit" 로 잘못 풀어쓴 사실 오류를 "Android Pony EXpress" 로 수정(부수 발견). broken link 0 건(1 건은 URL 오탐).
+- **kernel-and-hal (39 개, agentId a202a069a1f73a9ed)**: subagent 가 최종 자체검증 단계에서 세션 rate limit 으로 강제 종료되어 보고서 없이 실패 처리됐으나, **저작 세션이 직접 재검증한 결과 편집 자체는 완료돼 있었다.** 22 개 파일이 동일한 배치 타임스탬프(`date modified: 2026-08-05 16:00:00`)로 수정되어 있었고, 이 22 개 파일의 링크 117 건 전수 검증 결과 broken link 0 건, Mermaid 특수문자 quoting 위반 0 건, 샘플 3 개 파일(`vendor-kernel-modules-load-through-first-stage-init-boundaries.md`, `jni-strings-and-arrays-have-copy-pin-and-release-contracts.md`, lmkd/psi 두 우선순위 파일) 직접 정독 결과 GKI/vendor_boot/Critical Section/OOM Killer 등 인라인 gloss 품질이 기준 예시와 동등했다. 미편집 17 개 중 4 개는 hub 문서, 1 개는 저작 세션이 이미 손으로 고친 파일(정상적으로 보존됨), 나머지 12 개는 샘플 확인 결과(`dmabuf-zero-copy-...md`) 이미 자기완결적이라 판단해 건너뛴 것으로 보인다(subagent 리포트가 소실되어 파일별 사유는 재구성 불가). **결론: 재작업 불필요, 완료로 처리한다.**
 
 **진행 기록(2026-08-05): `02_app_framework/` (255 개 파일) Phase 11 설명 친절도 및 배경지식 연결 pass 완료.**
 4 개 subagent 에 병렬 위임하여 architecture (57 개), data/app-widgets/ui (75 개), jetpack-compose/dependency-injection (78 개), navigation (45 개) 전 구역을 전수 점검 및 보강했다.

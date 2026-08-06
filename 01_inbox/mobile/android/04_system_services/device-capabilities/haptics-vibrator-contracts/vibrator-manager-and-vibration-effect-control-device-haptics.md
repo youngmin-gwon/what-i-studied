@@ -96,7 +96,7 @@ fun playAdvancedHaptic(context: Context) {
 관련 계약 문서:
 
 - [InputManager는 물리 입력 장치를 이벤트 소스로 추상화한다](../input-accessibility-contracts/inputmanager-abstracts-physical-input-devices-as-event-sources.md)
-- [Android System Services & Device Capabilities](../android-system-services-and-device-capabilities.md)
+- [Android System Services & Device Capabilities](../../android-system-services-and-device-capabilities.md)
 
 공식 가이드: [Android Haptics - Vibrator API](https://developer.android.com/develop/ui/views/haptics/haptics-overview)
 
