@@ -1,23 +1,23 @@
 ---
 title: android-paging-map
-tags: [android, android/data, android/paging]
-aliases: ["Android Paging Map"]
-date modified: 2026-08-06 15:25:00 +09:00
-date created: 2026-08-01 00:00:00 +09:00
+tags: [android, architecture, paging3, flow, room]
+aliases: [Android Paging 지식 지도]
+date modified: 2026-08-06 18:35:00 +09:00
+date created: 2026-08-04 16:00:00 +09:00
 ---
 
-## Android Paging 은 대량 목록을 페이지 단위로 로드하고 UI 에 반영하는 데이터 계약이다
+# Android Paging 지식 지도
 
-Paging 문서는 대량 목록을 한 번에 모두 읽지 않고 page 단위로 가져와 UI 에 반영하는 data loading 계약을 정리한다. 핵심은 "목록을 어떻게 그릴까"보다 source, cache, load state, item identity 의 책임을 어느 layer 에 둘지다.
+## 1. 개요
 
-### 정본 묶음
+Android Paging 3 라이브러리는 대용량 데이터를 메모리 효율적으로 지연 청크 로딩(Lazy Loading)하기 위한 아키텍처 라이브러리입니다.
 
-[Paging contracts](./paging-contracts/paging-contracts.md)가 `PagingSource`, `Pager`, `cachedIn`, `LoadState`, item identity, `RemoteMediator`의 읽는 순서와 원자 노트 목록을 소유한다. 이 상위 지도는 Data Layer에서 Paging이 맡는 경계만 설명하며 같은 목록을 반복하지 않는다.
+---
 
-### Layer Boundary
+## 2. Paging 3 단일 진실 출처 (SSOT) 및 세부 계약 노드
 
-- Repository 는 `PagingSource` 와 `RemoteMediator` 를 통해 data source 와 cache 정책을 소유한다.
-- [viewmodel](../../viewmodel.md) 은 `Pager.flow` 를 화면 상태에 연결하고 `cachedIn` 으로 화면 수명 안의 공유 범위를 정한다.
-- UI 는 `PagingData` 를 표시하고 `LoadState`, retry, empty state, item identity 를 표현한다.
-
-공식 문서: [Paging library overview](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
+- **[Paging 3 표준 레퍼런스](../../paging-3.md)** - Paging 3 아키텍처 및 뷔페 음식 접시 비유 (SSOT)
+- [Pager 및 PagingData Flow 생성 규칙](paging-contracts/pager-exposes-pagingdata-flow-from-pagingsource-factory.md)
+- [PagingSource 청크 로딩 규칙](paging-contracts/paging-source-loads-one-page-and-returns-keys.md)
+- [Paging Item Identity 및 Diffing 규칙](paging-contracts/paging-item-identity-and-content-drive-diffing.md)
+- [cachedIn 수명주기 결합 규칙](paging-contracts/cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md)

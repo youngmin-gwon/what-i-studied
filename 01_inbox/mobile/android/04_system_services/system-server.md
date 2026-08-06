@@ -1,77 +1,65 @@
 ---
 title: system-server
-tags: [android, framework, system-server, system-services]
-aliases: []
-date modified: 2026-08-06 16:44:28 +09:00
+tags: [ams, android, framework, pms, system-server, system-services, wms]
+aliases: [system_server, 시스템 서버]
+date modified: 2026-08-06 18:41:30 +09:00
 date created: 2026-08-06 16:31:19 +09:00
+role: atomic-reference
 ---
 
-## 안드로이드 system_server 프로세스 & 핵심 시스템 서비스
+## system_server (안드로이드 프레임워크 핵심 종합 프로세스)
 
-안드로이드 OS 가 부팅을 마치고 앱이 정상적으로 작동하기 위해 필요한 모든 핵심 시스템 서비스는 단 하나의 핵심 자바 프로세스인 **`system_server`** 내부에서 실행되고 관리됩니다.
+### 1. 개요 (Overview)
 
----
+**`system_server`** 는 Android OS 가 부팅될 때 [Zygote](../01_system_internals/zygote.md) 에 의해 가장 먼저 생성되는 **안드로이드 프레임워크의 핵심 총괄 자바 프로세스**이다.
 
-### 1. `system_server` 프로세스란?
-
-`system_server` 는 안드로이드 시스템의 **핵심 백본 프로세스**입니다.
-
-- **생성 과정**: 리눅스 커널 부팅 후 `init` 프로세스가 Zygote 프로세스를 실행하고, Zygote 가 포크(fork)되어 `system_server` 프로세스를 생성합니다.
-- **역할**: 안드로이드 프레임워크를 구성하는 수십 개의 자바 기반 시스템 서비스(System Services)들을 초기화하고, 이들을 **ServiceManager**에 등록한 뒤, Binder IPC 요청을 처리하는 이벤트 루프를 실행합니다.
+앱의 생명주기를 관제하는 `AMS/ATMS`, 화면과 입력 이벤트를 관제하는 `WMS`, 앱 설치 및 권한을 검증하는 `PMS` 등 수십 개의 핵심 시스템 서비스(System Services)가 이 단 하나의 프로세스 내부 스레드들로 상주한다.
 
 ---
 
-### 2. 핵심 시스템 서비스 (Core System Services)
+#### 초보자를 위한 쉽게 이해하는 비유
 
-`system_server` 프로세스 내에서는 수많은 서비스가 스레드 또는 개별 객체 형태로 동작합니다. 대표적인 핵심 3 대 서비스는 다음과 같습니다.
-
-#### 2.1 ActivityManagerService (AMS) / ActivityTaskManagerService (ATMS)
-
-- **역할**: 앱 컴포넌트(Activity, Service, BroadcastReceiver, ContentProvider)의 생명주기(Lifecycle) 및 프로세스 생성을 관리합니다.
-- **주요 기능**:
-  - 새로운 앱 프로세스 포크 요청 (Zygote 통신)
-  - 태스크(Task) 및 백스택(BackStack) 관리
-  - 메모리 부족 시 중요도가 낮은 앱 프로세스 수거 (OOM Killer 연동)
-
-#### 2.2 WindowManagerService (WMS)
-
-- **역할**: 화면에 그려지는 모든 창(Window)의 레이아웃, Z-order(겹침 순서), 애니메이션, 입력 이벤트 전달을 관리합니다.
-- **주요 기능**:
-  - 각 앱이 그리는 서피스(Surface)의 위치와 크기 결정
-  - 화면 회전, 다중 창(Multi-Window) 처리
-  - 터치/키보드 입력 이벤트를 올바른 윈도우로 디스패치
-
-#### 2.3 PackageManagerService (PMS)
-
-- **역할**: 기기에 설치된 모든 앱(.apk)의 정보를 파싱하고 관리합니다.
-- **주요 기능**:
-  - APK 설치, 업데이트, 삭제 및 파싱
-  - 앱 권한(Permissions) 정보 관리 및 검증
-  - Explicit / Implicit Intent 에 반응하는 컴포넌트 해소(Intent Resolution)
-
----
-
-### 3. Binder IPC 디스패치 (Binder IPC Dispatch)
-
-안드로이드에서 일반 애플리케이션 프로세스와 `system_server` 프로세스는 서로 다른 메모리 공간을 사용합니다. 따라서 앱이 시스템 서비스의 기능을 이용하려면 **Binder IPC(Inter-Process Communication)** 를 통과해야 합니다.
+- **`system_server` (안드로이드 시청 종합 민원 행정 타워)**:
+  - 스마트폰이라는 도시에서 여권 발급(PMS - 앱 설치/권한), 도로 건축/위치 지적(WMS - 화면 창 배치), 주민 관리(AMS - 앱 생명주기) 업무를 **한 건물(`system_server` 프로세스) 안의 각 과(스레드)에서 종합 처리하는 통합 행정 타워**.
 
 ```mermaid
 graph TD
-    AppProc["일반 앱 프로세스"] -->|AIDL Proxy 호출 context.getSystemService| BinderDriver["/dev/binder 커널 드라이버"]
-    BinderDriver -->|Binder Thread Pool 디스패치| SystemServer["system_server 프로세스 (AMS, WMS, PMS)"]
+    Zygote["Zygote 마스터 프로세스"] -->|fork| SS["system_server 프로세스"]
+    SS --> AMS["1. ActivityManagerService (AMS/ATMS) - 앱 수명주기"]
+    SS --> WMS["2. WindowManagerService (WMS) - 화면/터치 관제"]
+    SS --> PMS["3. PackageManagerService (PMS) - APK/권한 관리"]
+    SS --> SM["4. ServiceManager 등록 (Handle 0)"]
 ```
-
-1. **서비스 조회**: 앱은 `ServiceManager.getService("activity")` 등을 통해 시스템 서비스의 Binder 핸들(Proxy)을 획득합니다.
-2. **IPC 호출**: 앱이 시스템 메서드를 호출하면 마샬링(Data Serialization)되어 `/dev/binder` 드라이버를 통해 `system_server` 로 전달됩니다.
-3. **스레드 풀 디스패치**: `system_server` 내부의 **Binder Thread Pool**이 수신된 IPC 메시지를 언마샬링하고, 해당 시스템 서비스 객체의 `onTransact()` 메서드로 디스패치하여 요청을 수행합니다.
-4. **결과 반환**: 작업 수행 결과를 다시 Binder 커널 드라이버를 거쳐 앱 프로세스로 전달합니다.
 
 ---
 
-### 4. 연관 문서 및 참고
+### 2. system_server 가 호스팅하는 핵심 3 대 시스템 서비스
 
-- [Binder IPC 레퍼런스](../01_system_internals/binder-ipc.md) - 앱과 system_server 통신 IPC 통로
-- [Zygote 레퍼런스](../01_system_internals/zygote.md) - system_server 가 포크 요청을 보내는 마스터 프로세스
-- [ART Runtime 레퍼런스](../01_system_internals/art.md) - system_server 가 구동되는 자바 런타임 환경
-- [HAL 레퍼런스](../01_system_internals/hal.md) - system_server 가 하드웨어를 제어하는 추상화 계층
-- [안드로이드 권한 시스템 & AppOps](../05_security_privacy/appops-and-permissions.md)
+1. **`ActivityManagerService (AMS / ATMS)`**:
+   - 앱 컴포넌트(`Activity`, `Service`, `BroadcastReceiver`, `ContentProvider`)의 생명주기와 프로세스 복제(`Zygote fork`)를 관리.
+   - 상세 내용: [앱 생명주기 및 실행 파이프라인](../00_foundations/overview/foundation-contracts/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md)
+2. **`WindowManagerService (WMS)`**:
+   - 화면 창(Window)의 z-order 겹침 순서, SurfaceFlinger 연동 서피스 할당, 터치/키보드 입력 이벤트 전달.
+   - 상세 내용: [WindowManagerService 레퍼런스](window-manager-service.md)
+3. **`PackageManagerService (PMS)`**:
+   - 기기에 설치된 모든 APK 파싱, 권한 검증 및 Intent 해독.
+   - 상세 내용: [PackageManagerService 레퍼런스](package-manager-service.md)
+
+---
+
+### 3. Binder IPC 통신과의 역할 분담
+
+`system_server` 프로세스는 상주하는 시스템 서비스들의 인터페이스를 [ServiceManager](service-manager.md) 에 등록하고, 바인더 스레드 풀(Binder Thread Pool)을 통해 외부 앱의 요청을 처리한다.
+
+- **Binder IPC 통신 메커니즘**: `system_server` 내부 스레드와 외부 앱 프로세스 간의 1 회 메모리 복사(`mmap`), 바인더 트랜잭션 버퍼 제한 및 스레드 풀 동작 원리는 독립된 **[Binder IPC 표준 레퍼런스](../01_system_internals/binder-ipc.md)** 노드를 참고한다.
+
+---
+
+### 4. 연결 문서 (Related Links)
+
+- [Binder IPC 표준 레퍼런스](../01_system_internals/binder-ipc.md) - system_server 통신 IPC 전용 통로 (SSOT)
+- [ServiceManager](service-manager.md) - system_server 서비스들이 등록되는 Handle 0 디렉터리
+- [Zygote 레퍼런스](../01_system_internals/zygote.md) - system_server 프로세스를 fork 해주는 마스터 프로세스
+- [WindowManagerService](window-manager-service.md) - system_server 호스팅 핵심 창 관리 서비스
+- [PackageManagerService](package-manager-service.md) - system_server 호스팅 핵심 패키지/권한 서비스
+- [JobScheduler](job-scheduler.md) - system_server 호스팅 백그라운드 스케줄러

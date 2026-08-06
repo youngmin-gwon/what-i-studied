@@ -138,7 +138,7 @@ Coroutine 자체는 스레드가 아니다. 어떤 스레드에서 실행될지�
 
 ### 관련 정본
 
-- [Looper와 Handler는 스레드의 메시지 큐를 관리하고 이벤트를 순차적으로 처리한다](../glossary/android-glossary/15-looper-handler.md)
+- [Looper와 Handler는 스레드의 메시지 큐를 관리하고 이벤트를 순차적으로 처리한다](../../02_app_framework/handler-looper-message-queue.md)
 - [ANR은 단일 timeout이 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
 - [메인 스레드 작업은 앱 응답성을 결정한다](../../06_testing_performance/performance/performance-contracts/main-thread-work-controls-responsiveness.md)
 - [IPC and process contracts](../../01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)

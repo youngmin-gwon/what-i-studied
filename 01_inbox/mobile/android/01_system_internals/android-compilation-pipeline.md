@@ -2,7 +2,7 @@
 title: android-compilation-pipeline
 tags: [android, art, compiler, dex2oat, hybrid-compilation, system-internals]
 aliases: [Android Compilation Pipeline, 안드로이드 컴파일 파이프라인]
-date modified: 2026-08-06 18:05:23 +09:00
+date modified: 2026-08-06 18:38:55 +09:00
 date created: 2026-08-06 17:58:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-06 17:58:00 +09:00
 
 ### 1. 개요 (Overview)
 
-**Android Compilation Pipeline (안드로이드 컴파일 파이프라인)** 은 Android 애플리케이션의 [DEX 바이트코드](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md)가 [ART 런타임](art.md) 환경에서 기계어로 번역되어 실행되는 전 과정을 다루는 플랫폼 특화 컴파일 시스템이다.
+**Android Compilation Pipeline (안드로이드 컴파일 파이프라인)** 은 Android 애플리케이션의 [DEX 바이트코드](android-compilation-pipeline.md)가 [ART 런타임](art.md) 환경에서 기계어로 번역되어 실행되는 전 과정을 다루는 플랫폼 특화 컴파일 시스템이다.
 
 범용 CS 의 [JIT Compilation](../../../computer-science/jit-compilation.md) 과 [AOT Compilation](../../../computer-science/aot-compilation.md) 기술을 결합하여, 모바일 기기의 **빠른 앱 설치 속도, 저장공간 절약, 런타임 최고 실행 성능**을 동시에 달성하도록 설계되었다.
 
@@ -30,7 +30,7 @@ graph TD
 
 #### 1 단계: 앱 설치 직후 (Interpreting)
 
-- 앱 설치 시 AOT 컴파일을 수행하지 않고 [DEX 바이트코드](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md) 를 디바이스에 그대로 복사한다.
+- 앱 설치 시 AOT 컴파일을 수행하지 않고 [DEX 바이트코드](android-compilation-pipeline.md) 를 디바이스에 그대로 복사한다.
 - 설치 시간이 불과 수 초 이내로 획기적으로 단축되며, 앱 실행 시 **ART 내장 인터프리터**가 바이트코드를 즉시 해석하여 구동한다.
 
 #### 2 단계: 앱 사용 중 (JIT & Profiling)
@@ -55,7 +55,7 @@ graph TD
 
 - [dex2oat](dex2oat.md) - 파이프라인의 3 단계 AOT 컴파일을 전담하는 안드로이드 컴파일러 데몬
 - [ART (Android Runtime)](art.md) - 컴파일 파이프라인을 구동하는 안드로이드 백본 런타임
-- [DEX (Dalvik Executable)](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md) - 컴파일 대상이 되는 압축 바이트코드 포맷
+- [DEX (Dalvik Executable)](android-compilation-pipeline.md) - 컴파일 대상이 되는 압축 바이트코드 포맷
 - [JIT Compilation](../../../computer-science/jit-compilation.md) - CS 범용 JIT 동적 컴파일 이론
 - [AOT Compilation](../../../computer-science/aot-compilation.md) - CS 범용 AOT 정적 컴파일 이론
 - [JIT vs AOT 비교](../../../computer-science/jit-vs-aot-compilation.md) - JIT 과 AOT 컴파일 이론 종합 비교

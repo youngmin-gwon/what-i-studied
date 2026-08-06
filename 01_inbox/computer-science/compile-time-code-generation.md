@@ -60,5 +60,5 @@ Java 의 대표적 어노테이션 프로세서인 **APT (`kapt`)** 와 Kotlin �
 
 - [APT vs KSP 비교](apt-vs-ksp.md) - APT (`kapt`) 와 KSP 의 세부 원리 및 빌드 속도 비교
 - [Reflection (런타임 리플렉션)](reflection.md) - 컴파일 타임 코드 생성 기술이 대체하는 런타임 리플렉션의 한계
-- [Serializable](../mobile/android/00_foundations/glossary/android-glossary/19-serializable.md) - KSP 기반 kotlinx.serialization 이 런타임 직렬화를 대체하는 원리
-- [Parcelable](../mobile/android/00_foundations/glossary/android-glossary/18-parcelable.md) - `@Parcelize` 컴파일러 플러그인이 코드를 자동 생성하는 사례
+- [Serializable](../mobile/android/01_system_internals/binder-ipc.md) - KSP 기반 kotlinx.serialization 이 런타임 직렬화를 대체하는 원리
+- [Parcelable](../mobile/android/01_system_internals/binder-ipc.md) - `@Parcelize` 컴파일러 플러그인이 코드를 자동 생성하는 사례

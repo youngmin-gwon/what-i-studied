@@ -2,7 +2,7 @@
 title: android-glossary
 tags: ["android", "android/foundations", "android/glossary"]
 aliases: ["Android Glossary", "Android 용어집"]
-date modified: 2026-08-04 16:35:52 +09:00
+date modified: 2026-08-06 18:38:06 +09:00
 date created: 2026-04-07 11:06:51 +09:00
 ---
 
@@ -20,64 +20,64 @@ date created: 2026-04-07 11:06:51 +09:00
 
 ### 프로세스와 런타임
 
-- [AMS와 ATMS](./android-glossary/02-ams-atms-activitymanagerservice-activitytaskmanagerservice.md)
-- [ANR](./android-glossary/03-anr-application-not-responding.md)
-- [ART](./android-glossary/07-art-android-runtime.md)
-- [DEX](./android-glossary/11-dex-dalvik-executable.md)
-- [Looper와 Handler](./android-glossary/15-looper-handler.md)
-- [system_server](./android-glossary/23-system-server.md)
-- [Zygote](./android-glossary/29-zygote.md)
+- [AMS와 ATMS](../../04_system_services/system-server.md)
+- [ANR](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
+- [ART](../../01_system_internals/art.md)
+- [DEX](../../01_system_internals/android-compilation-pipeline.md)
+- [Looper와 Handler](../../02_app_framework/handler-looper-message-queue.md)
+- [system_server](../../04_system_services/system-server.md)
+- [Zygote](../../01_system_internals/zygote.md)
 
 ### IPC 와 서비스
 
-- [Binder](./android-glossary/08-binder.md)
-- [Parcelable](./android-glossary/18-parcelable.md)
+- [Binder](../../01_system_internals/binder-ipc.md)
+- [Parcelable](../../01_system_internals/binder-ipc.md)
 
 ### 커널과 HAL
 
-- [HAL](./android-glossary/14-hal-hardware-abstraction-layer.md)
-- [LMKD](./android-glossary/16-lmkd-low-memory-killer-daemon.md)
-- [Wakelock](./android-glossary/27-wakelock.md)
+- [HAL](../../01_system_internals/hal.md)
+- [LMKD](../../01_system_internals/lmk-low-memory-killer.md)
+- [Wakelock](../../04_system_services/job-scheduler.md)
 
 ### 그래픽과 미디어
 
-- [Surface와 SurfaceFlinger](./android-glossary/22-surface-surfaceflinger.md)
-- [Vsync와 Choreographer](./android-glossary/25-vsync-choreographer.md)
+- [Surface와 SurfaceFlinger](../../04_system_services/window-manager-service.md)
+- [Vsync와 Choreographer](../../02_app_framework/custom-view.md)
 
 ### 앱 프레임워크
 
-- [Context](./android-glossary/10-context.md)
-- [Scoped Storage](./android-glossary/20-scoped-storage.md)
+- [Context](../../../../computer-science/context.md)
+- [Scoped Storage](../../05_security_privacy/secure-storage/ce-vs-de-storage.md)
 
 ### 백그라운드 작업
 
-- [Doze와 App Standby](./android-glossary/12-doze-app-standby.md)
-- [WorkManager와 JobScheduler](./android-glossary/28-workmanager-jobscheduler.md)
+- [Doze와 App Standby](../../04_system_services/job-scheduler.md)
+- [WorkManager와 JobScheduler](../../04_system_services/job-scheduler.md)
 
 ### 보안과 권한
 
-- [AppOps](./android-glossary/06-appops-app-operations.md)
-- [FBE](./android-glossary/13-fbe-file-based-encryption.md)
-- [SELinux](./android-glossary/21-selinux-security-enhanced-linux.md)
-- [UID](./android-glossary/24-uid-user-id.md)
-- [Verified Boot와 AVB](./android-glossary/26-verified-boot-avb.md)
+- [AppOps](../../05_security_privacy/appops-and-permissions.md)
+- [FBE](../../05_security_privacy/secure-storage/ce-vs-de-storage.md)
+- [SELinux](../../01_system_internals/kernel-and-hal/kernel-contracts/selinux-policy-controls-binder-service-and-file-boundaries.md)
+- [UID](../../05_security_privacy/appops-and-permissions.md)
+- [Verified Boot와 AVB](../overview/foundation-contracts/android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md)
 
 ### 패키징과 업데이트
 
-- [APEX](./android-glossary/04-apex-android-pony-express.md)
-- [APK와 AAB](./android-glossary/05-apk-aab-android-package-android-app-bundle.md)
-- [OTA](./android-glossary/17-ota-over-the-air.md)
+- [APEX](../../01_system_internals/platform-modularity/android-platform-modularity.md)
+- [APK와 AAB](../../03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
+- [OTA](../../01_system_internals/platform-modularity/android-platform-modularity.md)
 
 ### 패키징과 리소스
 
-- [Mipmap](./android-glossary/31-mipmap.md)
+- [Mipmap](../../02_app_framework/custom-view.md)
 
 ### 성능
 
-- [Baseline Profile](./android-glossary/30-baseline-profile.md)
+- [Baseline Profile](../../01_system_internals/dex2oat.md)
 
 ### 도구와 진단
 
-- [ADB](./android-glossary/01-adb-android-debug-bridge.md)
-- [Bugreport](./android-glossary/09-bugreport.md)
-- [Perfetto](./android-glossary/19-perfetto.md)
+- [ADB](../../06_testing_performance/debugging/debugging-contracts/logcat-crash-anr-and-debugger-answer-different-questions.md)
+- [Bugreport](../../06_testing_performance/debugging/debugging-contracts/logcat-crash-anr-and-debugger-answer-different-questions.md)
+- [Perfetto](../../06_testing_performance/ttid-and-ttfd.md)

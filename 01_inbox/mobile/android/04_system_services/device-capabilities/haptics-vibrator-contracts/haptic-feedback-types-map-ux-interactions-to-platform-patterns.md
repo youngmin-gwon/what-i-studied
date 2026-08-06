@@ -39,16 +39,9 @@ Jetpack Compose 의 `HapticFeedbackType` 및 안드로이드 View 의 `HapticFee
 
 ---
 
-### 3. HapticFeedbackConstants (View Framework) vs HapticFeedbackType (Compose) 차이와 구조
+### 3. HapticFeedbackConstants 와 HapticFeedbackType 세부 메커니즘
 
-| 구분 | `android.view.HapticFeedbackConstants` (OS Framework) | `androidx.compose.ui.hapticfeedback.HapticFeedbackType` (Compose) |
-| :--- | :--- | :--- |
-| **소속 계층** | 안드로이드 OS View 프레임워크 저수준 API (Java) | Jetpack Compose UI 프레임워크 고수준 래퍼 (Kotlin) |
-| **데이터 타입** | Primitive `int` 정수형 상수 모음 | Kotlin Type-Safe inline value class |
-| **노출 범위** | 시스템 내부 전용(`@hide`) 및 플래그 포함 전체 | 일반 일반 앱 개발에 유용한 표준 13 종 전용 정제 |
-| **실행 방식** | `view.performHapticFeedback(int feedbackConstant, int flags)` | `LocalHapticFeedback.current.performHapticFeedback(type)` |
-
-Android용 Compose 구현은 `PlatformHapticFeedback`을 거쳐 대응하는 `HapticFeedbackConstants`를 `View.performHapticFeedback()`에 전달한다. 그 뒤 실제 파형과 강도는 SDK 버전, 시스템 정책, 기기 하드웨어 구현에 따라 달라질 수 있다. 이는 앱이 직접 `VibrationEffect.createPredefined()`를 호출하는 경로와 별개의 API 계약이다.
+View 기반 `HapticFeedbackConstants` 와 Compose 기반 `HapticFeedbackType` 의 세부 파형 제어 및 안드로이드 촉각 피드백 메커니즘은 독립된 [HapticFeedback 레퍼런스](../../../02_app_framework/haptic-feedback.md) 문서를 참고한다.
 
 ---
 

@@ -25,7 +25,7 @@ Android 런타임은 4.4(KitKat) 버전까지의 레거시 가상 머신인 **[D
 | **실행 속도** | 실행 시 마다 실시간 번역으로 느림 | **미리 번역된 네이티브 기계어 직접 실행으로 초고속** |
 | **CPU / 배터리 효율** | 런타임 컴파일로 CPU 소모 및 전력 소모 큼 | 런타임 컴파일 부하 0 으로 **전력 효율 우수** |
 | **가비지 컬렉션** | Stop-the-World (앱 정지 발생) | **Concurrent [Garbage Collection](../../../computer-science/garbage-collection.md) (정지 수ms 이하)** |
-| **기본 바이트코드** | [DEX (Dalvik Executable)](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md) | [DEX (Dalvik Executable)](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md) |
+| **기본 바이트코드** | [DEX (Dalvik Executable)](android-compilation-pipeline.md) | [DEX (Dalvik Executable)](android-compilation-pipeline.md) |
 
 ---
 
@@ -43,4 +43,4 @@ Android 런타임은 4.4(KitKat) 버전까지의 레거시 가상 머신인 **[D
 - [Dalvik VM](dalvik-vm.md) - Dalvik 가상 머신의 독립 정의 노드
 - [ART (Android Runtime)](art.md) - 현대 ART 런타임의 독립 정의 노드
 - [JIT & AOT 컴파일](../../../computer-science/jit-vs-aot-compilation.md) - JIT 와 AOT 컴파일 방식의 상세 비교
-- [DEX (Dalvik Executable)](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md) - 런타임이 실행하는 압축 바이트코드 포맷
+- [DEX (Dalvik Executable)](android-compilation-pipeline.md) - 런타임이 실행하는 압축 바이트코드 포맷

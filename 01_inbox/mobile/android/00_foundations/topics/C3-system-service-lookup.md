@@ -33,8 +33,9 @@ sequenceDiagram
 
 ### 3. 하위 개념 및 원자 노트 합성
 
-#### 3.1. getSystemService 메커니즘
-`getSystemService`는 시스템 서비스의 로컬 프록시(매니저 객체)를 캐싱하여 반환합니다. 실제 핵심 로직은 Binder를 통해 System Server로 전달됩니다.
+#### 3.1. getSystemService 메커니즘 및 ServiceManager
+`getSystemService`는 시스템 서비스의 로컬 프록시(매니저 객체)를 캐싱하여 반환하며, 중앙 디렉터리인 [ServiceManager](../../04_system_services/service-manager.md)를 통해 바인더 프록시를 획득합니다. 실제 핵심 로직은 Binder를 통해 System Server로 전달됩니다.
+- [ServiceManager 레퍼런스](../../04_system_services/service-manager.md) - 안드로이드 바인더 중앙 전화번호부 (Handle 0)
 - [시스템 서비스 접근 공통 계약](../../04_system_services/service-lookup/service-lookup-contracts/service-lookup-contracts.md)
 - [getSystemService returns a cached manager backed by Binder IPC](../../04_system_services/service-lookup/service-lookup-contracts/getsystemservice-returns-a-cached-manager-backed-by-binder-ipc.md)
 

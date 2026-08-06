@@ -10,7 +10,7 @@ date created: 2026-08-06 18:05:00 +09:00
 
 ## 1. 개요 (Overview)
 
-**`dex2oat`** 는 Android [ART 런타임](art.md) 환경에서 [DEX 바이트코드](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md)를 읽어 타겟 CPU 아키텍처의 네이티브 기계어 바이너리 파일(`.oat`)로 번역해 주는 **안드로이드 전용 AOT 컴파일러 실행 파일 및 데몬 서비스**이다.
+**`dex2oat`** 는 Android [ART 런타임](art.md) 환경에서 [DEX 바이트코드](android-compilation-pipeline.md)를 읽어 타겟 CPU 아키텍처의 네이티브 기계어 바이너리 파일(`.oat`)로 번역해 주는 **안드로이드 전용 AOT 컴파일러 실행 파일 및 데몬 서비스**이다.
 
 기기 부팅 시, 앱 설치 시, 또는 충전 중 유휴 백그라운드 환경에서 [Android Compilation Pipeline](android-compilation-pipeline.md) 의 명령을 받아 작동한다.
 
@@ -59,5 +59,5 @@ graph LR
 
 - [Android Compilation Pipeline](android-compilation-pipeline.md) - dex2oat 가 트리거되는 3단계 안드로이드 컴파일 파이프라인
 - [ART (Android Runtime)](art.md) - dex2oat 컴파일러를 내장하고 관리하는 백본 런타임
-- [DEX (Dalvik Executable)](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md) - dex2oat 의 입력 대상이 되는 압축 바이트코드
+- [DEX (Dalvik Executable)](android-compilation-pipeline.md) - dex2oat 의 입력 대상이 되는 압축 바이트코드
 - [AOT Compilation](../../../computer-science/aot-compilation.md) - dex2oat 가 기반하고 있는 CS 정적 컴파일 이론

@@ -2,7 +2,7 @@
 title: service-manager
 tags: [android, binder, servicemanager, system-services]
 aliases: [Handle 0, ServiceManager, 서비스매니저]
-date modified: 2026-08-06 18:31:15 +09:00
+date modified: 2026-08-06 18:34:45 +09:00
 date created: 2026-08-06 18:30:00 +09:00
 ---
 
@@ -67,7 +67,7 @@ sequenceDiagram
 ```mermaid
 graph TD
     AppCode["App: context.getSystemService(Context.WINDOW_SERVICE)"] --> ServiceManagerClient["ServiceManager.getService('window')"]
-    ServiceManagerClient -->|Binder IPC (Handle 0)| BinderDriver["/dev/binder 커널 드라이버"]
+    ServiceManagerClient -->|"Binder IPC (Handle 0)"| BinderDriver["/dev/binder 커널 드라이버"]
     BinderDriver --> ServiceManagerNative["servicemanager (Native Daemon / C++)"]
     ServiceManagerNative -->|서비스 맵 검색| FindHandle["WMS Binder Handle 반환"]
     FindHandle -->|IPC Proxy 전달| AppProxy["WindowManagerImpl / IWindowManager Proxy 생성"]

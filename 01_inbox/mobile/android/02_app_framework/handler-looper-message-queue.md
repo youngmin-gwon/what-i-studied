@@ -1,14 +1,14 @@
 ---
 title: handler-looper-message-queue
-tags: [android, app-framework, handler, looper, message-queue, concurrency, event-loop]
+tags: [android, app-framework, concurrency, event-loop, handler, looper, message-queue]
 aliases: [Handler, Looper, MessageQueue, 안드로이드 이벤트 루프]
-date modified: 2026-08-06 18:25:00 +09:00
+date modified: 2026-08-06 18:39:23 +09:00
 date created: 2026-08-06 18:25:00 +09:00
 ---
 
-# Handler & Looper & MessageQueue (안드로이드 메인 이벤트 루프)
+## Handler & Looper & MessageQueue (안드로이드 메인 이벤트 루프)
 
-## 1. 개요 (Overview)
+### 1. 개요 (Overview)
 
 **Handler, Looper, MessageQueue** 삼총사는 Android 단일 스레드 모델에서 **스레드 간 메시지(Message) 및 작업(Runnable)을 주고받고, 순차적으로 일관성 있게 처리하기 위해 구축된 이벤트 루프(Event Loop) 아키텍처**이다.
 
@@ -16,30 +16,30 @@ date created: 2026-08-06 18:25:00 +09:00
 
 ---
 
-### 초보자를 위한 쉽게 이해하는 비유
+#### 초보자를 위한 쉽게 이해하는 비유
 
-* **`MessageQueue` (신문 우체통 상자)**:
+- **`MessageQueue` (신문 우체통 상자)**:
   - 배달할 편지나 신호(Message/Runnable)가 타임스탬프 순서대로 차곡차곡 쌓이는 **우체통 보관함**.
-* **`Looper` (우체통을 계속 감시하는 열성 우체부)**:
-  - 우체통(`MessageQueue`) 앞에 서서 **무한 루프(`loop()`)를 돌며 편지가 들어오는지 24시간 감시하다가, 편지가 오면 하나씩 꺼내 전달하는 우체부**.
-* **`Handler` (편지를 발송하고 수신한 편지를 해석하는 통신 창구)**:
+- **`Looper` (우체통을 계속 감시하는 열성 우체부)**:
+  - 우체통(`MessageQueue`) 앞에 서서 **무한 루프(`loop()`)를 돌며 편지가 들어오는지 24 시간 감시하다가, 편지가 오면 하나씩 꺼내 전달하는 우체부**.
+- **`Handler` (편지를 발송하고 수신한 편지를 해석하는 통신 창구)**:
   - 다른 스레드에서 우체통에 편지를 넣고(`sendMessage/post`), 우체부(`Looper`)가 꺼내온 편지를 실제로 읽고 작업을 실행하는(`handleMessage`) **통신 단말기 창구**.
 
 ```mermaid
 graph LR
-    WorkerThread["백그라운드 스레드 (Worker Thread)"] -->|1. handler.sendMessage() / post()| MQ["MessageQueue (메시지 보관함)"]
-    Looper["Looper (loop() 무한 감시 루프)"] -->|2. next() 메시지 꺼내기| MQ
-    Looper -->|3. dispatchMessage() 전달| Handler["Handler (handleMessage / Runnable 실행)"]
-    Handler -->|4. UI 갱신| MainThread["UI 메인 스레드 (ActivityThread)"]
+    WorkerThread["백그라운드 스레드 (Worker Thread)"] -->|"1. handler.sendMessage() / post()"| MQ["MessageQueue (메시지 보관함)"]
+    Looper["Looper (loop() 무한 감시 루프)"] -->|"2. next() 메시지 꺼내기"| MQ
+    Looper -->|"3. dispatchMessage() 전달"| Handler["Handler (handleMessage / Runnable 실행)"]
+    Handler -->|"4. UI 갱신"| MainThread["UI 메인 스레드 (ActivityThread)"]
 ```
 
 ---
 
-## 2. 3대 구성 요소의 역할과 상호작용
+### 2. 3 대 구성 요소의 역할과 상호작용
 
 1. **`MessageQueue`**:
-   - 스레드당 1개만 존재하는 C++ 층의 `epoll` 기반 메시지 큐.
-   - 실행 예정 시각(Target Time)순으로 정렬되어 메시지를 보관한다. 메시지가 없으면 스레드를 대기(Sleep) 상태로 전환하여 CPU 소비를 0으로 만든다.
+   - 스레드당 1 개만 존재하는 C++ 층의 `epoll` 기반 메시지 큐.
+   - 실행 예정 시각(Target Time)순으로 정렬되어 메시지를 보관한다. 메시지가 없으면 스레드를 대기(Sleep) 상태로 전환하여 CPU 소비를 0 으로 만든다.
 2. **`Looper`**:
    - `ThreadLocal` 에 저장되는 스레드 전속 무한 루프 객체.
    - `Looper.prepare()` 로 생성하고 `Looper.loop()` 로 무한 순환하며 `MessageQueue` 에서 메시지를 꺼내 Handler 로 전달한다.
@@ -48,7 +48,7 @@ graph LR
 
 ---
 
-## 3. 실전 사용 코드 패턴 및 주의사항
+### 3. 실전 사용 코드 패턴 및 주의사항
 
 ```kotlin
 // 1. 백그라운드 스레드에서 메인 스레드 Handler 로 작업 전달
@@ -70,7 +70,7 @@ thread {
 
 ---
 
-## 4. 연결 문서 (Related Links)
+### 4. 연결 문서 (Related Links)
 
 - [ActivityThread](activity-thread.md) - Handler/Looper 메인 이벤트 루프를 구동하는 메인 스레드 진입점
 - [system_server](../04_system_services/system-server.md) - Handler 를 통해 앱 프로세스로 트랜잭션을 전송하는 시스템 서비스

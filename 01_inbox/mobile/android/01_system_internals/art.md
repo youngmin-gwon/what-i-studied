@@ -2,7 +2,7 @@
 title: art
 tags: [android, art, runtime, system-internals, vm]
 aliases: [Android Runtime, ART, 안드로이드 런타임]
-date modified: 2026-08-06 18:05:06 +09:00
+date modified: 2026-08-06 18:38:48 +09:00
 date created: 2026-08-06 16:31:22 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2026-08-06 16:31:22 +09:00
 
 기존 레거시 런타임이었던 **[Dalvik VM](dalvik-vm.md)** 을 완전히 대체하기 위해 Android 4.4(KitKat)에서 실험적으로 공개된 후, **Android 5.0(Lollipop)** 부터 안드로이드의 기본 런타임으로 전면 적용되었다.
 
-ART 는 [DEX 바이트코드](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md) 실행 속도, 메모리 관리 및 가비지 컬렉션(GC) 메커니즘을 획기적으로 개선하여 모바일 앱의 렌더링 성능과 전력 효율성을 극대화하였다.
+ART 는 [DEX 바이트코드](android-compilation-pipeline.md) 실행 속도, 메모리 관리 및 가비지 컬렉션(GC) 메커니즘을 획기적으로 개선하여 모바일 앱의 렌더링 성능과 전력 효율성을 극대화하였다.
 
 ---
 
@@ -42,7 +42,7 @@ ART 는 이를 극복하기 위해 다음과 같은 최적화 GC 기법을 탑�
 - [dex2oat](dex2oat.md) - ART 에 탑재된 백그라운드 AOT 컴파일러 데몬
 - [Dalvik vs ART 비교](dalvik-vs-art.md) - Dalvik 과 ART 런타임 간의 구조 및 성격 상세 비교
 - [Dalvik VM](dalvik-vm.md) - ART 이전에 사용되었던 안드로이드 레거시 가상 머신
-- [DEX (Dalvik Executable)](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md) - ART 런타임이 구동하는 안드로이드 압축 바이트코드
+- [DEX (Dalvik Executable)](android-compilation-pipeline.md) - ART 런타임이 구동하는 안드로이드 압축 바이트코드
 - [Garbage Collection (GC)](../../../computer-science/garbage-collection.md) - ART Concurrent GC 가 수거하는 메모리 관리 메커니즘
 - [Zygote](zygote.md) - ART 가상 머신 인스턴스를 미리 프리워밍(Pre-warm)하여 앱을 초고속 포크하는 마스터 프로세스
 - [system_server](../04_system_services/system-server.md) - ART 런타임 상에서 동작하는 안드로이드 백본 시스템 서비스

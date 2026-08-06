@@ -2,7 +2,7 @@
 title: viewmodel
 tags: [android, architecture, mvvm, presentation-layer]
 aliases: [View Model, ViewModel, 뷰모델]
-date modified: 2026-08-06 18:19:14 +09:00
+date modified: 2026-08-06 18:37:00 +09:00
 date created: 2026-08-06 16:25:00 +09:00
 ---
 
@@ -35,14 +35,17 @@ graph TD
 ViewModel 은 UI 와 데이터 레이어 사이에서 다음과 같은 3 가지 핵심 역할을 수행합니다.
 
 #### 1) UI 상태(UiState) 관리 및 단일 진실 출처 역할
+
 - 화면 전반에서 필요한 데이터를 `StateFlow`나 `LiveData` 형태로 캡슐화하여 UI 에 노출합니다.
 - UI 계층이 직접 상태 데이터를 mutating(수정)하지 못하게 방지하며, [Single Source of Truth (단일 진실 출처)](single-source-of-truth.md) 원칙을 준수합니다.
 
 #### 2) UI 라이프사이클과의 안전한 분리 (Configuration Change 생존 & 메모리 누수 방지)
+
 - `ViewModel` 은 Composable 이나 Activity 보다 더 긴 수명(Lifecycle)을 가집니다.
 - **주의**: ViewModel 내부에서 `Activity Context`, `View`, `NavController` 등 UI 컴포넌트 참조를 절대 포함해서는 안 됩니다. UI 가 파괴된 후에도 ViewModel 이 해당 객체를 가리키고 있으면 메모리 누수(Memory Leak)가 발생합니다.
 
 #### 3) 비즈니스 이벤트 처리 및 비동기 작업 관리
+
 - 버튼 클릭, 텍스트 입력 등 UI 이벤트를 전달받아 적절한 UseCase 나 Repository 를 호출합니다.
 - 코루틴 Scope 인 `viewModelScope` 를 사용하여 화면 비동기 작업을 안전하게 처리하고, ViewModel 이 클리어(Clear)될 때 자동으로 코루틴 작업을 취소하여 자원 낭비를 막습니다.
 

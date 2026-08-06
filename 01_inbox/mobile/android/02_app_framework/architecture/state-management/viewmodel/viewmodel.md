@@ -1,22 +1,24 @@
 ---
-title: [viewmodel](../../../viewmodel.md)
-tags: [android, android/architecture, android/state-management, android/viewmodel]
-aliases: ["Android ViewModel"]
-date modified: 2026-08-03 17:28:02 +09:00
-date created: 2026-08-01 00:00:00 +09:00
+title: viewmodel
+tags: [android, architecture, ssot, viewmodel]
+aliases: [ViewModel 아키텍처 노드]
+date modified: 2026-08-06 18:35:51 +09:00
+date created: 2026-07-31 23:04:26 +09:00
 ---
 
-## ViewModel 은 화면 상태와 외부 작업의 조율자다
+## ViewModel (아키텍처 레이어 지침)
 
-ViewModel 은 화면 단위 상태와 외부 작업의 조율자다. 화면 객체를 보관하는 곳도, 프로세스 사망 복원 장치도, 영속 저장소도 아니다.
+### 1. 개요
 
-### 정본 노트
+이 노드는 아키텍처 상태 관리 레이어 내 ViewModel 지침 문서입니다. Android ViewModel 의 5 단계 초보자 비유, 구성 변경(Configuration Change) 생존 원리, 내부 수명주기 및 코드 예시는 단일 진실 출처(SSOT)인 [ViewModel 표준 레퍼런스](../../../viewmodel.md) 를 참고하십시오.
 
-- [ViewModel은 화면 단위 상태와 외부 작업을 조율한다](./viewmodel-orchestrates-screen-state-and-external-work.md)
-- [ViewModel은 UI 컨트롤러와 Android Context를 장기 보관하지 않는다](./viewmodel-does-not-retain-ui-controller-or-context.md)
-- [ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](./viewmodel-survives-configuration-change-not-process-death.md)
-- [SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](./savedstatehandle-restores-small-process-death-state.md)
-- [ViewModel은 외부 작업을 viewModelScope의 수명에 묶는다](./viewmodelscope-binds-external-work-to-viewmodel-lifetime.md)
-- [ViewModel은 mutable 상태를 내부에 숨기고 읽기 전용 상태만 노출한다](./viewmodel-exposes-read-only-state.md)
+---
 
-상위 지도: [Android 상태 관리 정본 지도](../android-state-management.md)
+### 2. ViewModel 관련 5 대 원자 계약 (Atomic Contracts)
+
+- [ViewModel 표준 레퍼런스](../../../viewmodel.md) - ViewModel 단일 진실 출처 (SSOT)
+- [ViewModel Read-Only State 규칙](viewmodel-exposes-read-only-state.md)
+- [ViewModel 과 UI Controller/Context 분리 규칙](viewmodel-does-not-retain-ui-controller-or-context.md)
+- [ViewModel 구성 변경 생존 규칙](viewmodel-survives-configuration-change-not-process-death.md)
+- [viewModelScope 수명주기 규칙](viewmodelscope-binds-external-work-to-viewmodel-lifetime.md)
+- [ViewModel 화면 상태 조율 규칙](viewmodel-orchestrates-screen-state-and-external-work.md)
