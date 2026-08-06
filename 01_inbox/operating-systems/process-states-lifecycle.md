@@ -2,7 +2,7 @@
 title: process-states-lifecycle
 tags: [linux, operating-systems, os, process, process-management]
 aliases: [PCB, Process Lifecycle, 프로세스 상태]
-date modified: 2026-08-05 11:26:16 +09:00
+date modified: 2026-08-06 18:30:17 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 
