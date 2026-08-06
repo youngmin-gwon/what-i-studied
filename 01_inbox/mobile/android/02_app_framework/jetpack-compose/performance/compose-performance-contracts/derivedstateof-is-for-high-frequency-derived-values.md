@@ -1,31 +1,48 @@
 ---
 title: derivedstateof-is-for-high-frequency-derived-values
-tags: ["android", "android/app-framework"]
+tags: [android, compose/performance, jetpack-compose]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:48:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
-## derivedStateOf 는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다
+## derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../../../06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+`derivedStateOf`의 내부 동작은 snapshot state가 바뀔 때 파생 값을 다시 계산하고, 결과가 이전과 다를 때 그 파생 state의 소비자를 무효화하는 것이다. 일반 계산 캐시가 아니라 입력 변경 빈도와 UI가 필요한 결과 변경 빈도 사이에 경계를 만든다.
 
-관련 지도: [Compose 성능 계약](./compose-performance-contracts.md)
+```kotlin
+@Composable
+fun Messages(messages: List<Message>) {
+    val listState = rememberLazyListState()
+    val showScrollToTop by remember(listState) {
+        derivedStateOf { listState.firstVisibleItemIndex > 0 }
+    }
 
-관련 노트: [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../../06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
+    Box {
+        LazyColumn(state = listState) {
+            items(messages, key = { it.id }) { MessageRow(it) }
+        }
+        AnimatedVisibility(showScrollToTop) {
+            ScrollToTopButton()
+        }
+    }
+}
+```
 
-`derivedStateOf`(고빈도 입력 상태 변경 중 최종 결과값이 뒤집힐 때만 Recomposition 스코프를 무효화하는 파생 상태 생성 API)는 계산 결과를 캐시하는 일반 메모이제이션 도구가 아니다.
+`firstVisibleItemIndex`와 offset은 스크롤 중 자주 변하지만 `showScrollToTop`은 0번 항목 경계를 넘을 때만 바뀐다. 이때 파생 state를 읽는 `AnimatedVisibility`의 무효화 빈도를 줄일 수 있다.
 
-입력 상태는 자주 변하지만 UI 에 필요한 결과는 드물게 바뀔 때 효과가 있다.
+반대로 다음은 결과가 입력마다 바뀌므로 이점이 없다.
 
-예를 들어 스크롤 index 는 자주 변하지만 "맨 위로 이동 버튼을 보일지"는 특정 임계값을 넘을 때만 바뀐다.
+```kotlin
+val fullName by remember(firstName, lastName) {
+    derivedStateOf { "$firstName $lastName" }
+}
+```
 
-이때 `derivedStateOf` 는 불필요한 recomposition 을 줄이는 경계가 될 수 있다. 예를 들어 `val showButton by remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }` 로 만들면 `firstVisibleItemIndex` 가 스크롤마다 바뀌어도 `showButton` 값이 실제로 true/false 로 뒤집힐 때만 그 값을 읽는 composable 이 recompose 된다.
+단순 문자열은 composition에서 계산하면 된다. `derivedStateOf`에도 state 객체·dependency 추적 비용이 있다.
 
-반대로 단순 문자열 결합이나 값 복사는 `derivedStateOf` 자체의 비용만 추가한다.
+관찰 증거는 도입 전후 Layout Inspector의 recomposition count와 Macrobenchmark frame timing이다. 같은 스크롤 동작으로 비교하고, count가 줄어도 사용자 metric이 같고 코드만 복잡해졌다면 유지할 근거가 약하다.
 
-결과가 거의 매번 바뀌는 계산에도 이점이 적다.
+관련 노트: [Compose 상태 읽기 위치는 다시 실행할 phase와 범위를 결정한다](./compose-state-read-location-controls-recomposition-scope.md), [Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다](./compose-performance-starts-with-measure-debug-improve-loop.md)
 
-사용 전에는 입력 빈도, 결과 변경 빈도, downstream recomposition 비용을 함께 본다.
-
-공식 참고: [derivedStateOf](https://developer.android.com/develop/ui/compose/side-effects#derivedstateof)
+출처: [Compose side effects와 derivedStateOf](https://developer.android.com/develop/ui/compose/side-effects#derivedstateof)

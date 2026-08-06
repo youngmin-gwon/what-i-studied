@@ -2,7 +2,7 @@
 title: sensor-coordinate-system-is-device-fixed-not-screen-relative
 tags: ["android", "android/system-services"]
 aliases: ["센서 좌표계는 화면 방향이 아니라 기기 고정 좌표계다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -18,6 +18,24 @@ date created: 2026-08-03 17:29:24 +09:00
 ### 메커니즘
 
 기본 방향은 기기 종류에 따라 다르다. 대부분의 휴대전화는 세로가 기본 방향이고, 일부 태블릿은 가로가 기본 방향이다. 센서 값은 항상 이 기본 방향 기준의 축으로 전달되므로, 화면이 회전된 상태에서 "화면 기준 위/아래"를 알고 싶은 앱은 센서 raw 값을 그대로 UI 좌표에 대응시키면 안 된다.
+
+### 회전 벡터를 화면 좌표로 변환
+
+```kotlin
+fun screenRotationMatrix(event: SensorEvent, rotation: Int): FloatArray {
+    val device = FloatArray(9)
+    SensorManager.getRotationMatrixFromVector(device, event.values)
+    val (x, y) = when (rotation) {
+        Surface.ROTATION_90 -> SensorManager.AXIS_Y to SensorManager.AXIS_MINUS_X
+        Surface.ROTATION_180 -> SensorManager.AXIS_MINUS_X to SensorManager.AXIS_MINUS_Y
+        Surface.ROTATION_270 -> SensorManager.AXIS_MINUS_Y to SensorManager.AXIS_X
+        else -> SensorManager.AXIS_X to SensorManager.AXIS_Y
+    }
+    return FloatArray(9).also { SensorManager.remapCoordinateSystem(device, x, y, it) }
+}
+```
+
+회전 값은 이벤트와 가까운 시점의 대상 display에서 읽는다. foldable·외부 display에서는 앱 window가 있는 display의 rotation을 사용하고, 센서 값 배열을 callback 밖에 보관해야 하면 즉시 복사한다.
 
 ### 판단 기준
 
@@ -37,3 +55,5 @@ date created: 2026-08-03 17:29:24 +09:00
 ### 공식 문서
 
 - https://developer.android.com/develop/sensors-and-location/sensors/sensors_overview#sensors-coords
+
+검증일: 2026-08-06. rotation별 axis remap과 multi-display/window 경계를 포함한 변환 흐름을 보강했다.

@@ -2,7 +2,7 @@
 title: android-kernel-runtime
 tags: [android, android/kernel, android/system-internals]
 aliases: [Android Kernel, android-kernel, 안드로이드 커널]
-date modified: 2026-08-05 11:29:10 +09:00
+date modified: 2026-08-06 15:25:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
@@ -10,20 +10,11 @@ date created: 2026-07-31 23:45:00 +09:00
 
 Android kernel 영역은 Linux kernel 지식과 Android platform 정책이 만나는 지점이다. 이 허브는 기존 `android-kernel` 가이드의 내용을 ACK/GKI/KMI, power, memory, shared buffer, SELinux, build/debugging 계약으로 다시 묶는다.
 
-정본 묶음: [Kernel contracts](kernel-contracts/kernel-contracts.md)
+정본 묶음: [Kernel contracts](kernel-contracts/kernel-contracts.md). 원자 노트의 전체 목록과 세부 읽기 순서는 이 정본 묶음이 소유한다.
 
-### 읽는 순서
+### 읽는 기준
 
-- [Android kernel이 일반 Linux와 달라지는 이유](kernel-contracts/android-kernel-is-linux-plus-mobile-platform-policy.md)
-- [ACK와 upstream Linux 관계](kernel-contracts/android-common-kernel-bridges-upstream-lts-and-android-releases.md)
-- [GKI와 vendor module 분리](kernel-contracts/gki-splits-generic-core-from-vendor-modules.md)
-- [KMI 안정성 범위](kernel-contracts/kmi-is-stable-only-within-a-gki-lts-and-android-branch.md)
-- [Wakelock과 suspend](kernel-contracts/wakelocks-are-suspend-blockers-not-background-work-permission.md)
-- [LMKD와 memory pressure](kernel-contracts/lmkd-kills-processes-by-memory-pressure-and-process-importance.md)
-- [zRAM과 compressed swap](kernel-contracts/zram-is-compressed-swap-policy-not-a-memory-fix.md)
-- [ashmem, ION, DMA-BUF heaps](kernel-contracts/android-shared-memory-evolved-from-ashmem-ion-to-dmabuf-heaps.md)
-- [SELinux domain/type policy](kernel-contracts/selinux-enforces-mac-with-domain-type-policy.md)
-- [Kernel debugging](kernel-contracts/kernel-debugging-starts-before-logcat-with-bootloader-dmesg-and-trace.md)
+kernel release와 vendor module 호환성 문제는 ACK·GKI·KMI·build 계약부터 읽는다. suspend 또는 memory pressure 문제는 power·LMKD·PSI·zRAM 계약으로 이동한다. shared buffer 문제는 DMA-BUF 소유권을, boot 이전 crash나 policy denial은 kernel debugging·SELinux 계약을 고른다. 구체적인 링크 순서는 [Kernel contracts](kernel-contracts/kernel-contracts.md)에 한 번만 유지한다.
 
 ### 다음 경계
 

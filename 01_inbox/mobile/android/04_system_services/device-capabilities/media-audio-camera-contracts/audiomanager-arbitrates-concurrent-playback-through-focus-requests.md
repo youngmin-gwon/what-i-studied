@@ -2,7 +2,7 @@
 title: audiomanager-arbitrates-concurrent-playback-through-focus-requests
 tags: ["android", "android/system-services"]
 aliases: ["AudioManager는 포커스 요청으로 여러 앱의 동시 재생을 조정한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -19,7 +19,30 @@ date created: 2026-08-03 17:29:24 +09:00
 
 포커스 요청 타입은 상황에 따라 다르다. `AUDIOFOCUS_GAIN`은 배타적 재생(음악 앱), `AUDIOFOCUS_GAIN_TRANSIENT`는 짧은 알림음처럼 일시적 재생, `AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK`는 내비게이션 안내처럼 다른 앱 소리를 일시적으로 줄이는 **덕킹**(ducking)을 적용할 때 사용한다. 시스템은 포커스를 새 요청자에게 넘기면서 이전 보유자의 `OnAudioFocusChangeListener`에 `AUDIOFOCUS_LOSS`(영구 상실) 또는 `AUDIOFOCUS_LOSS_TRANSIENT`(일시 상실)를 통지한다.
 
-이 체계는 강제가 아니라 협력적 규약이다. 앱이 포커스를 잃고도 콜백을 무시하고 계속 재생하면 시스템이 강제로 소리를 끄지는 않지만, 다른 앱과 소리가 겹치는 나쁜 사용자 경험이 발생한다.
+초기 Android에서는 협력적 성격이 강했지만 현재는 일부 전환을 시스템이 집행한다. Android 12+는 조건에 따라 기존 재생을 fade out하거나 자동 duck할 수 있다. Android 15(API 35)을 target하는 앱은 top app이거나 foreground service를 실행 중일 때만 audio focus를 요청할 수 있으며, 아니면 요청이 실패한다. 콜백 처리는 여전히 앱 책임이다.
+
+### 요청·상실·해제 흐름
+
+```kotlin
+val request = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+    .setAudioAttributes(
+        AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .build()
+    )
+    .setOnAudioFocusChangeListener(::onAudioFocusChanged)
+    .build()
+
+if (audioManager.requestAudioFocus(request) == AUDIOFOCUS_REQUEST_GRANTED) {
+    player.play()
+} else {
+    showPlaybackUnavailable()
+}
+// 재생 종료 시 audioManager.abandonAudioFocusRequest(request)
+```
+
+`LOSS_TRANSIENT_CAN_DUCK`에서 직접 duck할지 시스템 자동 duck을 허용할지 listener 구성과 콘텐츠 유형에 맞춰 정하고, `LOSS`에서는 재개를 자동 예약하지 않는다.
 
 ### 판단 기준
 
@@ -40,3 +63,5 @@ date created: 2026-08-03 17:29:24 +09:00
 
 - https://developer.android.com/media/optimize/audio-focus
 - https://developer.android.com/reference/android/media/AudioFocusRequest
+
+검증일: 2026-08-06. Android 12+의 시스템 집행과 target 35의 focus-request 전제, 요청 실패·해제 흐름을 보강했다.

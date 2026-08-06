@@ -2,7 +2,7 @@
 title: android-paging-map
 tags: [android, android/data, android/paging]
 aliases: ["Android Paging Map"]
-date modified: 2026-08-03 18:08:04 +09:00
+date modified: 2026-08-06 15:25:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,14 +10,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 Paging 문서는 대량 목록을 한 번에 모두 읽지 않고 page 단위로 가져와 UI 에 반영하는 data loading 계약을 정리한다. 핵심은 "목록을 어떻게 그릴까"보다 source, cache, load state, item identity 의 책임을 어느 layer 에 둘지다.
 
-### 정본 노트
+### 정본 묶음
 
-- [PagingSource는 한 번에 한 페이지를 읽고 다음 key를 돌려준다](./paging-contracts/paging-source-loads-one-page-and-returns-keys.md)
-- [Pager는 PagingSource factory로 PagingData Flow를 만든다](./paging-contracts/pager-exposes-pagingdata-flow-from-pagingsource-factory.md)
-- [cachedIn은 PagingData Flow를 ViewModel 수명에 묶는다](./paging-contracts/cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md)
-- [LoadState는 refresh, append, prepend 상태를 UI에 명시적으로 드러낸다](./paging-contracts/loadstate-models-refresh-append-and-prepend-ui-states.md)
-- [Paging item diffing은 identity와 content 비교를 분리한다](./paging-contracts/paging-item-identity-and-content-drive-diffing.md)
-- [RemoteMediator는 network page와 local cache를 연결한다](./paging-contracts/remote-mediator-connects-network-pages-to-local-cache.md)
+[Paging contracts](./paging-contracts/paging-contracts.md)가 `PagingSource`, `Pager`, `cachedIn`, `LoadState`, item identity, `RemoteMediator`의 읽는 순서와 원자 노트 목록을 소유한다. 이 상위 지도는 Data Layer에서 Paging이 맡는 경계만 설명하며 같은 목록을 반복하지 않는다.
 
 ### Layer Boundary
 

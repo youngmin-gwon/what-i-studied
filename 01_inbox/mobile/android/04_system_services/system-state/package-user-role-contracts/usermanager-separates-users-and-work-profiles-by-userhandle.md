@@ -2,7 +2,7 @@
 title: usermanager-separates-users-and-work-profiles-by-userhandle
 tags: ["android", "android/system-services"]
 aliases: ["UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -25,6 +25,25 @@ work profile(관리형 프로필)은 개인 공간과 별도의 UserHandle을 �
 - 기기 관리 앱(EMM/MDM)을 개발하는 경우가 아니라면 대부분의 일반 앱은 자신이 어느 프로필에서 실행 중인지만 알면 되고, 다른 프로필의 데이터에 접근하려 시도하지 않는다.
 - 멀티 유저(게스트 모드 등)와 work profile은 다른 개념이다. 멀티 유저는 완전히 별도의 기기 사용자를, work profile은 한 사용자 안의 업무용 부분 공간을 뜻한다.
 
+### 최소 프로필 인식 흐름
+
+앱은 먼저 자신이 실행 중인 `UserHandle`과 관리형 프로필 여부를 상태에 포함한다. 다른 프로필을 임의로 열거하거나 파일 경로로 접근하지 않고, 정책이 허용한 대상만 `CrossProfileApps`가 돌려주는 목록으로 취급한다.
+
+```kotlin
+val users = context.getSystemService(UserManager::class.java)
+val crossProfile = context.getSystemService(CrossProfileApps::class.java)
+
+val current = Process.myUserHandle()
+val state = ProfileState(
+    user = current,
+    isManaged = users.isManagedProfile,
+    allowedTargets = crossProfile.targetUserProfiles
+)
+renderProfileState(state)
+```
+
+`targetUserProfiles`가 비었다면 반대 프로필이 없거나, 앱이 그 프로필에 설치되지 않았거나, 관리 정책이 상호작용을 허용하지 않은 경우일 수 있다. 대상 `UserHandle`을 안다는 사실은 그 프로필의 파일·DB·provider를 직접 읽을 권한을 주지 않는다. 실제 교차 프로필 동작은 `CrossProfileApps`의 허용된 시작 API나 관리자가 설정한 intent filter를 사용한다.
+
 ### 경계
 
 - 이 노트는 사용자/프로필 분리 모델을 다룬다. 다른 앱의 설치 여부를 조회하는 제한은 [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](./packagemanager-queries-are-limited-by-package-visibility.md)가 다룬다.
@@ -32,9 +51,12 @@ work profile(관리형 프로필)은 개인 공간과 별도의 UserHandle을 �
 
 ### 관찰 가능한 신호
 
-`adb shell pm list users`로 기기에 등록된 사용자/프로필 목록과 각각의 UserHandle ID를 확인할 수 있다. `adb shell dumpsys package <pkg>`에서 패키지가 어느 사용자에 설치되어 있는지 사용자별로 나열된다.
+앱 로그의 현재 `UserHandle`, `isManagedProfile`, 허용된 `targetUserProfiles`를 함께 남긴다. `adb shell pm list users`의 사용자/프로필 ID와 `adb shell dumpsys package <pkg>`의 사용자별 설치 상태를 대조하면 "대상 없음", "미설치", "정책 차단"을 분리할 수 있다.
 
 ### 공식 문서
 
 - https://developer.android.com/work/managed-profiles
 - https://developer.android.com/reference/android/os/UserManager
+- https://developer.android.com/reference/android/content/pm/CrossProfileApps
+
+검증일: 2026-08-06. 현재 프로필과 교차 프로필 대상은 별도 상태이며, `CrossProfileApps`가 반환하는 대상도 정책에 의해 제한된다는 계약을 확인했다.

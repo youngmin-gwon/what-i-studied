@@ -2,7 +2,7 @@
 title: cameramanager-access-starts-with-availability-and-characteristics
 tags: ["android", "android/system-services"]
 aliases: ["CameraManager 접근은 가용성 콜백과 캐릭터리스틱 조회로 시작한다"]
-date modified: 2026-08-06 14:48:27 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -20,6 +20,31 @@ date created: 2026-08-03 17:29:24 +09:00
 카메라를 열기 전 `getCameraIdList()`로 카메라 ID 목록을, `getCameraCharacteristics(id)`로 해당 카메라의 능력을 조회한다. `registerAvailabilityCallback()`은 다른 클라이언트의 점유와 해제 등을 `onCameraAvailable()`/`onCameraUnavailable()`로 알린다. 그러나 콜백은 예약(lock)이 아니다. 상태 확인과 `openCamera()` 사이에 연결 상태나 우선순위가 바뀔 수 있고, foreground 우선순위가 더 높은 클라이언트가 낮은 우선순위 클라이언트를 밀어낼 수도 있다. 따라서 최종 성공·실패는 `CameraDevice.StateCallback`과 `CameraAccessException`으로 처리한다.
 
 API 30 이상에서 여러 카메라를 동시에 써야 한다면 `getConcurrentCameraIds()`의 조합인지 확인하고, 필요하면 `isConcurrentSessionConfigurationSupported()`로 실제 세션 구성을 검사한다. 지원되지 않는 조합을 임의로 동시에 열 수 있다고 가정하지 않는다.
+
+### 열기와 종료 흐름
+
+```kotlin
+@RequiresPermission(Manifest.permission.CAMERA)
+fun openCamera(cameraId: String) {
+    cameraManager.openCamera(cameraId, cameraExecutor, object : CameraDevice.StateCallback() {
+        override fun onOpened(camera: CameraDevice) {
+            activeCamera = camera
+            createCheckedCaptureSession(camera)
+        }
+        override fun onDisconnected(camera: CameraDevice) {
+            camera.close()
+            if (activeCamera === camera) activeCamera = null
+        }
+        override fun onError(camera: CameraDevice, error: Int) {
+            camera.close()
+            if (activeCamera === camera) activeCamera = null
+            reportCameraOpenError(error)
+        }
+    })
+}
+```
+
+`onOpened()` 전까지 성공으로 표시하지 않고 모든 terminal callback에서 `close()`한다. `SecurityException`, 동기 `CameraAccessException`, callback의 `ERROR_CAMERA_IN_USE`/`ERROR_MAX_CAMERAS_IN_USE`를 각각 권한·경쟁·자원 한도로 분류한다.
 
 ### 판단 기준
 
@@ -42,4 +67,4 @@ API 30 이상에서 여러 카메라를 동시에 써야 한다면 `getConcurren
 - https://developer.android.com/media/camera/camerax
 - https://developer.android.com/reference/android/hardware/camera2/CameraManager
 
-검증일: 2026-08-06. 동시 카메라 조합, 접근 우선순위, 가용성 콜백과 실제 열기 사이의 경쟁 조건을 `CameraManager` API reference와 대조했다.
+검증일: 2026-08-06. 동시 카메라 조합, 접근 우선순위, 가용성 경쟁과 terminal callback 자원 해제를 보강했다.

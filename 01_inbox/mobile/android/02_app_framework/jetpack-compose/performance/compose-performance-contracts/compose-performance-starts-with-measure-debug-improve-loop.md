@@ -1,36 +1,50 @@
 ---
 title: compose-performance-starts-with-measure-debug-improve-loop
-tags: ["android", "android/app-framework"]
+tags: [android, compose/performance, jetpack-compose]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:48:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
-## Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다
+## Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../../../06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
-배경 지식: [프로세스 생명주기 및 상태](../../../../../../operating-systems/process-states-lifecycle.md)
+측정 메커니즘의 단위는 API가 아니라 사용자 여정과 metric이다. 같은 기기·release 빌드·입력에서 baseline을 만들고, trace로 원인을 좁힌 다음 한 가지 변경을 다시 측정한다.
 
-관련 지도: [Compose 성능 계약](./compose-performance-contracts.md)
+```kotlin
+@RunWith(AndroidJUnit4::class)
+class FeedScrollBenchmark {
+    @get:Rule
+    val benchmarkRule = MacrobenchmarkRule()
 
-관련 노트: [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../../06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
+    @Test
+    fun scroll() = benchmarkRule.measureRepeated(
+        packageName = "com.example.app",
+        metrics = listOf(FrameTimingMetric()),
+        compilationMode = CompilationMode.Partial(),
+        iterations = 10,
+        startupMode = StartupMode.WARM,
+        setupBlock = {
+            pressHome()
+            startActivityAndWait()
+        },
+    ) {
+        device.findObject(By.res("feed"))
+            .fling(Direction.DOWN)
+    }
+}
+```
 
-Compose 성능 문제도 추측으로 고치지 않는다.
+Macrobenchmark는 앱과 다른 test process에서 실제 사용자 동작을 반복한다. debug build의 profiler 체감과 섞지 말고 benchmark가 대상으로 삼는 release/profileable variant, compilation mode, device 상태를 결과에 기록한다.
 
-먼저 어떤 사용자 여정이 느린지 정하고, 같은 입력과 같은 기기 조건에서 측정한다.
+```text
+1. Measure: 느린 feed scroll + FrameTimingMetric baseline
+2. Debug: Perfetto에서 긴 frame의 composition/layout/draw 또는 main-thread 작업 식별
+3. Improve: 상태 읽기 이동, 계산 이동, layout 단순화 중 하나만 적용
+4. Re-measure: 같은 benchmark 분포와 trace를 baseline과 비교
+```
 
-그 다음 trace, recomposition 정보, frame timing 을 확인해 병목을 좁힌다.
+Layout Inspector의 recomposition/skip count는 원인 후보를 찾는 진단 자료이지 사용자 성능 metric 자체가 아니다. `remember`, `derivedStateOf`, lazy layout 교체도 frame timing이나 startup 결과가 개선되지 않으면 성공으로 기록하지 않는다. 평균 하나보다 반복 측정 분포와 느린 frame 지표를 함께 본다.
 
-trace 는 Android Studio Profiler 의 System Trace(Perfetto 기반)나 Macrobenchmark 라이브러리로 실제 기기에서 수집하고, Layout Inspector 의 recomposition count 표시로 어떤 composable 이 자주 다시 그려지는지 확인한다.
+관련 노트: [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](./compose-layout-and-image-cost-must-be-budgeted.md), [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../../06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
 
-마지막으로 작은 변경을 적용하고 같은 조건에서 다시 측정한다.
-
-이 순환이 없으면 `remember`, `derivedStateOf`(고빈도 입력 상태 변경 중 최종 결과값이 뒤집힐 때만 Recomposition 스코프를 무효화하는 파생 상태 생성 API), lazy layout 교체 같은 처방이 실제 사용자 성능을 개선했는지 알 수 없다.
-
-Compose 는 필요한 부분만 다시 실행할 수 있지만, 모든 코드가 자동으로 빠르다는 뜻은 아니다.
-
-상태 읽기 위치, 비싼 계산, 이미지 디코딩, layout 구조, 메인 스레드 작업은 여전히 프레임 예산을 소비한다.
-
-따라서 Compose 성능 노트의 첫 질문은 "어떤 API 를 쓸까"가 아니라 "어느 frame 또는 startup 구간이 느린가"여야 한다.
-
-공식 참고: [Jetpack Compose 성능](https://developer.android.com/develop/ui/compose/performance)
+출처: [Compose 성능](https://developer.android.com/develop/ui/compose/performance), [Macrobenchmark](https://developer.android.com/topic/performance/benchmarking/macrobenchmark-overview)

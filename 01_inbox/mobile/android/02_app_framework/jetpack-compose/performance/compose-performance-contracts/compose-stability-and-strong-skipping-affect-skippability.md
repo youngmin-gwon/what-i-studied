@@ -2,22 +2,50 @@
 title: compose-stability-and-strong-skipping-affect-skippability
 tags: [android, compose/performance, jetpack-compose]
 aliases: [Compose stability, Strong skipping]
-date modified: 2026-08-03 18:10:44 +09:00
+date modified: 2026-08-06 14:48:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
-## Compose Stability 와 Strong Skipping 은 Skippability 에 영향을 미친다
+## Compose stability와 strong skipping은 호출의 skip 가능성을 바꾼다
 
-Compose 가 Composable 호출을 skip 하려면 입력이 비교 가능한 계약을 가져야 한다. Stability 는 "값이 바뀌면 Compose 가 알 수 있는가"와 "같은 값 비교가 안전한가"를 compiler 가 판단하는 근거다.
+Compose compiler는 Composable을 `restartable`·`skippable`로 분류하고 parameter의 stability를 추론한다. Kotlin 2.0.20부터 strong skipping이 기본 활성화되어 restartable Composable은 unstable parameter가 있어도 skippable이 될 수 있다.
 
-Strong skipping 은 Compose compiler mode 다. 공식 문서 기준 Kotlin 2.0.20 부터 기본 활성화되어 restartable Composable 을 더 넓게 skippable 로 만들고, Composable 내부 lambda 를 자동으로 remember 할 수 있다.
+strong skipping의 비교 메커니즘은 parameter 분류에 따라 다르다.
 
-Strong skipping 에서도 비교 규칙은 단순하지 않다. Unstable parameter 는 instance equality(`===`)로, stable parameter 는 object equality(`equals`)로 비교된다. 따라서 unstable object 를 매번 새로 만들면 skip 이 여전히 깨질 수 있다.
+```text
+stable parameter   -> equals()
+unstable parameter -> instance equality (===)
+모든 비교가 같음   -> 호출 skip 가능
+```
 
-`@Stable` 이나 `@Immutable` 은 성능 장식이 아니라 지켜야 할 계약이다. 근거 없이 붙이면 compiler 를 속여 잘못된 UI 업데이트를 만들 수 있다.
+따라서 새 `List` instance를 매 recomposition마다 만들면 unstable parameter는 여전히 달라진다.
 
-안정성 개선은 추측이 아니라 compiler report, Layout Inspector, benchmark 나 trace 로 병목을 확인한 뒤 적용한다.
+```kotlin
+@Immutable
+data class ContactUi(val id: Long, val name: String)
 
-관련 노트: [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](../../runtime/compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md), [Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다](./compose-performance-starts-with-measure-debug-improve-loop.md)
+@Composable
+fun ContactRow(contact: ContactUi, onClick: (Long) -> Unit) {
+    ListItem(
+        headlineContent = { Text(contact.name) },
+        modifier = Modifier.clickable { onClick(contact.id) },
+    )
+}
+```
 
-출처: [Strong skipping mode](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping), [Stability in Compose](https://developer.android.com/develop/ui/compose/performance/stability)
+`@Immutable`은 모든 공개 속성이 불변이라는 개발자의 약속이다. 실제로 내부가 변하는 타입에 붙이면 compiler가 변화를 놓칠 수 있으므로 성능 표식처럼 사용하지 않는다. 표준 `List`, `Set`, `Map` 인터페이스는 compiler가 실제 불변성을 보장할 수 없어 unstable로 판단할 수 있다.
+
+release build의 compiler report를 켜서 추론 결과를 확인한다.
+
+```kotlin
+composeCompiler {
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("compose_compiler")
+}
+```
+
+관찰 증거는 `<module>-composables.txt`의 `restartable skippable`과 각 parameter의 stable/unstable 표시다. Layout Inspector의 skip/recomposition count와 benchmark도 함께 비교한다. 모든 Composable을 skippable로 만드는 것이 목표는 아니다. 실제 병목이 있는 호출만 모델 변경의 유지보수 비용과 교환한다.
+
+관련 노트: [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](../../runtime/compose-runtime-contracts/composable-compiler-output-enables-restart-and-skip-control.md), [Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다](./compose-performance-starts-with-measure-debug-improve-loop.md)
+
+출처: [Strong skipping mode](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping), [Compose stability 진단](https://developer.android.com/develop/ui/compose/performance/stability/diagnose)

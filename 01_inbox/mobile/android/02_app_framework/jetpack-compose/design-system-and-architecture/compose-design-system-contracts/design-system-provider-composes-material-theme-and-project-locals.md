@@ -2,18 +2,43 @@
 title: design-system-provider-composes-material-theme-and-project-locals
 tags: [android, compose/design-system, jetpack-compose]
 aliases: [DesignSystemProvider, MaterialTheme]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:40:00 +09:00
 date created: 2026-07-31 23:59:30 +09:00
 ---
 
-## Design System Provider 는 Material Theme 과 프로젝트 Local 을 구성한다
+## Design System Provider는 MaterialTheme과 프로젝트 Local을 구성한다
 
-Design system provider 는 앱 root 나 feature boundary 에서 `MaterialTheme` 과 프로젝트 전용 **CompositionLocal**(UI 트리 상위에서 하위로 매개변수 전달 없이 암시적으로 데이터를 전파하는 스코프 메커니즘) 을 함께 제공하는 경계다. 하위 UI 는 같은 color, typography, shape, adaptive policy 를 일관되게 읽는다.
+Design system provider는 앱 루트나 명시적인 서브트리 경계에서 `MaterialTheme`과 프로젝트 토큰을 함께 제공한다. 색상·타이포그래피·shape은 `MaterialTheme`으로, Material에 없는 간격이나 컴포넌트 정책만 프로젝트 `CompositionLocal`로 전달한다.
 
-Provider 는 UI 환경 값의 계산과 범위를 모으는 곳이지 화면 상태나 business dependency 를 숨기는 장소가 아니다. 화면마다 바뀌는 state 는 parameter/state holder 로 전달하고, repository 나 service 는 DI 가 소유한다.
+```kotlin
+@Immutable
+data class AppSpacing(val s: Dp = 8.dp, val m: Dp = 16.dp)
 
-`compositionLocalOf` 와 `staticCompositionLocalOf` 선택은 값 변경 시 관찰과 recomposition 범위에 영향을 준다. 값이 실제로 바뀌는지, 얼마나 자주 읽히는지, 누락 시 실패 전략이 무엇인지가 선택 기준이다.
+val LocalAppSpacing = staticCompositionLocalOf { AppSpacing() }
 
-관련 노트: [CompositionLocal은 트리 범위의 UI 환경 값을 암묵적으로 전달한다](./compositionlocal-passes-tree-scoped-ui-environment-implicitly.md), [Material 3 color role은 고정 색상값이 아니라 의미를 표현한다](./material3-color-roles-express-semantic-intent-not-fixed-colors.md)
+@Composable
+fun AppDesignSystem(
+    darkTheme: Boolean,
+    content: @Composable () -> Unit,
+) {
+    val scheme = if (darkTheme) DarkColors else LightColors
+    CompositionLocalProvider(LocalAppSpacing provides AppSpacing()) {
+        MaterialTheme(
+            colorScheme = scheme,
+            typography = AppTypography,
+            shapes = AppShapes,
+            content = content,
+        )
+    }
+}
+```
+
+Provider의 내부 동작과 의존 방향은 `화면 -> 의미 토큰 -> provider의 구체 값`이다. 화면이 `Color(0xFF...)`나 provider 구현을 직접 참조하면 theme 교체와 preview 격리가 어려워진다. 반대로 repository, navigator, 화면별 loading state를 Local에 넣으면 UI 환경과 비즈니스 의존성의 소유권이 섞인다.
+
+관찰 증거는 light/dark 각각에서 동일한 probe Composable을 렌더링해 얻는다. `MaterialTheme.colorScheme`과 프로젝트 Local 값을 읽고, screenshot test는 색·shape 회귀를, Compose UI test는 의미와 동작을 맡긴다. feature preview에서도 provider 하나만 감싸면 기본값 누락을 재현할 수 있어야 한다.
+
+`compositionLocalOf`와 `staticCompositionLocalOf`의 선택은 이름이 아니라 변경 빈도로 결정한다. 자주 바뀌는 값을 `staticCompositionLocalOf`에 넣으면 provider 하위 전체가 재구성될 수 있다.
+
+관련 노트: [CompositionLocal은 트리 범위의 UI 환경 값을 암묵적으로 전달한다](./compositionlocal-passes-tree-scoped-ui-environment-implicitly.md), [Material 3 색상 역할은 고정된 색상이 아닌 의미적 의도를 표현한다](./material3-color-roles-express-semantic-intent-not-fixed-colors.md)
 
 출처: [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3), [Locally scoped data with CompositionLocal](https://developer.android.com/develop/ui/compose/compositionlocal)

@@ -2,7 +2,7 @@
 title: precise-and-approximate-location-are-separate-permissions
 tags: ["android", "android/system-services"]
 aliases: ["정밀 위치와 대략적 위치는 별도 permission으로 요청한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
@@ -19,9 +19,27 @@ Android 12(API 31)부터 사용자는 앱이 위치를 요청할 때 **ACCESS_FI
 
 권한 요청 대화상자에 "정확한 위치"와 "대략적 위치" 두 개의 별도 스위치가 나타난다. 사용자가 대략적 위치만 켜면, 시스템은 `ACCESS_FINE_LOCATION`이 매니페스트에 있어도 좌표를 의도적으로 낮은 해상도로 반올림해 반환한다. 앱 코드 입장에서는 API 호출 자체가 실패하지 않고 조용히 낮은 정확도의 값을 받는 형태로 나타난다.
 
+### 권한 결과와 위치 품질 분리
+
+```kotlin
+locationPermissionLauncher.launch(
+    arrayOf(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION)
+)
+
+val hasApproximate = checkSelfPermission(ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED
+val hasPrecise = checkSelfPermission(ACCESS_FINE_LOCATION) == PERMISSION_GRANTED
+when {
+    hasPrecise -> enablePreciseFeatures()
+    hasApproximate -> enableRegionLevelFallback()
+    else -> disableLocationFeatures()
+}
+```
+
+Android 12+에서는 fine만 단독 요청하지 말고 coarse와 함께 요청한다. 사용자가 approximate를 선택하면 coarse만 grant될 수 있다. `Location.accuracy`는 개별 fix의 추정 오차이므로 권한 등급 판정 수단이 아니며, 권한 상태와 실제 fix 품질을 각각 확인한다.
+
 ### 판단 기준
 
-- 코드에서 반환된 `Location` 객체의 `accuracy` 값을 확인해 대략적 위치로 강등됐는지 런타임에 판단해야 한다. permission grant 상태만으로는 이를 알 수 없다.
+- precise/approximate 선택은 permission grant 상태로 판정하고, `Location.accuracy`는 현재 fix가 제품 기능에 충분한지 판단하는 별도 품질 신호로 사용한다.
 - 지도 상 정밀 마커 표시처럼 fine 정확도가 필수인 기능은 사용자가 coarse만 허용했을 때의 대체 UX(예: 대략적 지역 표시로 전환)를 설계해야 한다.
 - 지오펜싱처럼 좁은 반경 판정이 필요한 기능은 대략적 위치로는 신뢰할 수 없다는 점을 요구사항에 명시한다.
 
@@ -37,3 +55,5 @@ Android 12(API 31)부터 사용자는 앱이 위치를 요청할 때 **ACCESS_FI
 ### 공식 문서
 
 - https://developer.android.com/about/versions/12/behavior-changes-12#approximate-location
+
+검증일: 2026-08-06. coarse+fine 동시 요청과 permission 등급·실제 fix accuracy의 분리를 보강했다.

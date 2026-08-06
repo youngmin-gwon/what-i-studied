@@ -33,6 +33,32 @@ date created: 2026-08-03 17:17:26 +09:00
 - 프로세스 간 신뢰 경계는 UID 이지 패키지 이름이 아니다. 한 UID 를 여러 패키지가 공유하는 `sharedUserId` 구성(레거시)에서는 이 구분이 중요하다.
 - 호출자가 전달한 package name만 신뢰하지 않고 UID와의 귀속을 서비스가 검증해야 한다. 반대로 PID는 프로세스 수명에 종속되므로 장기 권한 주체로 저장하지 않는다.
 
+### 최소 안전 Binder 경계
+
+아래는 자체 Binder 서비스를 구현할 때의 축약 패턴이다. UID를 먼저 보존하고 permission을 강제한 뒤, 전달받은 패키지가 그 UID 소유인지 확인한다. 서비스 자신의 권한으로 하위 API를 호출해야 할 때만 identity를 지우고 반드시 복원한다.
+
+```kotlin
+override fun readForPackage(packageName: String): List<Item> {
+    val callingUid = Binder.getCallingUid()
+    context.enforceCallingPermission(READ_ITEMS, "READ_ITEMS required")
+
+    val ownsPackage = context.packageManager
+        .getPackagesForUid(callingUid)
+        .orEmpty()
+        .contains(packageName)
+    if (!ownsPackage) throw SecurityException("package/uid mismatch")
+
+    val token = Binder.clearCallingIdentity()
+    return try {
+        repository.readAsService(packageName)
+    } finally {
+        Binder.restoreCallingIdentity(token)
+    }
+}
+```
+
+`clearCallingIdentity()` 전에 필요한 호출자 신원과 정책 판단을 끝낸다. PID는 로그 상관관계 정도로만 사용하고, oneway 호출의 0이나 프로세스 재사용 가능성 때문에 승인 키로 저장하지 않는다.
+
 ### 경계
 
 - 이 노트는 permission 승인 여부까지만 다룬다. permission 이 승인된 뒤 AppOps 가 추가로 거부하는 계층은 [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-can-deny-after-permission-is-already-granted.md) 가 다룬다.
@@ -40,7 +66,7 @@ date created: 2026-08-03 17:17:26 +09:00
 
 ### 관찰 가능한 신호
 
-`adb shell dumpsys package <pkg>` 의 `runtime permissions` 섹션에서 실제 grant 상태를 확인할 수 있다. permission 이 거부됐는데 앱이 계속 호출을 시도하면 logcat 에 `SecurityException` 또는 서비스별 경고가 남는다.
+서비스 로그에는 검증한 UID·userId·메서드·거부 이유를 남기되 민감 인수는 제외한다. `adb shell dumpsys package <pkg>`의 UID와 runtime permission을 대조하고, package/UID 불일치·permission 거부·하위 호출 실패를 서로 다른 `SecurityException`/오류 코드로 관찰한다. identity 복원 누락은 같은 Binder thread의 후속 호출이 서비스 UID로 보이는 심각한 신호다.
 
 ### 공식 문서
 

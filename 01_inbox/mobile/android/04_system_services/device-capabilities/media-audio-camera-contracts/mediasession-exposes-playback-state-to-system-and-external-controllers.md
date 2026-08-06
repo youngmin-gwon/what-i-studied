@@ -2,7 +2,7 @@
 title: mediasession-exposes-playback-state-to-system-and-external-controllers
 tags: ["android", "android/system-services"]
 aliases: ["MediaSession은 재생 상태를 시스템 UI와 외부 컨트롤러에 노출하는 계약이다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -21,6 +21,31 @@ date created: 2026-08-03 17:29:24 +09:00
 앱은 재생 상태가 바뀔 때마다 `PlaybackState`(현재 재생 상태, 재생 위치, 속도, 가능 제어 액션 목록을 나타내는 메타데이터 객체)를 갱신해 세션에 반영한다. 외부 컨트롤러(잠금화면 미디어 위젯, 블루투스 헤드셋의 재생/일시정지 버튼 등)는 세션에 등록된 `MediaController`(외부 프로세스나 UI가 MediaSession에 제어 명령을 보내기 위한 클라이언트 측 인터페이스)를 통해 명령(재생, 일시정지, 다음 곡)을 세션으로 보내고, 세션은 이를 콜백으로 앱에 전달한다. 앱이 `PlaybackState`를 정확히 갱신하지 않으면 외부 UI가 실제 재생 상태와 다르게 표시된다(예: 실제로는 멈췄는데 재생 중으로 보임).
 
 미디어 알림(Notification)의 재생 컨트롤 스타일도 이 세션의 토큰을 참조해 시스템이 자동으로 잠금화면과 동기화한다.
+
+### Media3 세션 소유 흐름
+
+```kotlin
+class PlaybackService : MediaSessionService() {
+    private lateinit var player: ExoPlayer
+    private lateinit var session: MediaSession
+
+    override fun onCreate() {
+        super.onCreate()
+        player = ExoPlayer.Builder(this).build()
+        session = MediaSession.Builder(this, player).build()
+    }
+
+    override fun onGetSession(info: MediaSession.ControllerInfo) = session
+
+    override fun onDestroy() {
+        session.release()
+        player.release()
+        super.onDestroy()
+    }
+}
+```
+
+Media3에서는 player의 상태·timeline이 session에 연결된다. 외부 controller를 무조건 신뢰하지 말고 `MediaSession.Callback.onConnect()`에서 controller identity와 허용 command를 결정한다. background playback은 session을 Activity가 아니라 `MediaSessionService`가 소유해 화면 재생성과 분리한다.
 
 ### 판단 기준
 
@@ -41,3 +66,5 @@ date created: 2026-08-03 17:29:24 +09:00
 
 - https://developer.android.com/media/media3/session/control-playback
 - https://developer.android.com/guide/topics/media-apps/working-with-a-media-session
+
+검증일: 2026-08-06. Media3의 service-owned session, controller command 승인, player/session release 흐름을 보강했다.

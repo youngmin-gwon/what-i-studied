@@ -28,6 +28,23 @@ date created: 2026-08-03 17:17:12 +09:00
 - 매니저 인스턴스의 참조 동일성에 의존하지 않는다. 필요한 Context에서 서비스를 얻고, 특히 `WindowManager`와 `LayoutInflater`는 시각적 Context와 연결된 구성·화면 경계를 사용한다.
 - 매니저 메서드 호출이 동기적으로 보여도 내부는 IPC 이므로 지연이 있을 수 있다. 반복 호출이나 폴링 루프를 main thread 에서 돌리지 않는다.
 
+### 최소 안전 조회 흐름
+
+가능하면 문자열 캐스팅 대신 타입 기반 API를 사용하고, 기기 기능이 선택적인 서비스는 기능 확인과 실패 처리를 붙인다. UI 경계에 묶인 서비스는 `applicationContext`가 아니라 현재 화면의 시각적 Context에서 얻는다.
+
+```kotlin
+val location = context.getSystemService(LocationManager::class.java)
+val hasLocation = context.packageManager.hasSystemFeature(
+    PackageManager.FEATURE_LOCATION
+)
+if (!hasLocation) return LocationCapability.Unsupported
+
+val windowManager = activity.getSystemService(WindowManager::class.java)
+// Activity가 아닌 화면에는 createWindowContext(...)로 만든 Context를 사용한다.
+```
+
+매니저 획득 성공은 원격 서비스의 건강 상태나 접근 승인을 보장하지 않는다. 각 메서드에서 `SecurityException`, 서비스별 비가용 값, 콜백 중단을 별도로 다루고, 반복되는 동기 조회는 worker thread 또는 콜백 기반 API로 옮긴다.
+
 ### 경계
 
 - 이 노트는 "IPC 가 있다"는 사실까지만 다룬다. Binder 스레드 풀 크기, oneway 호출, death recipient 같은 메커니즘 세부는 `01_system_internals/ipc-and-process` 가 담당한다.
@@ -35,7 +52,7 @@ date created: 2026-08-03 17:17:12 +09:00
 
 ### 관찰 가능한 신호
 
-`adb shell dumpsys <service_name>`(예: `dumpsys location`, `dumpsys sensorservice`)로 system_server 쪽 서비스 상태를 직접 관찰할 수 있다. 매니저 객체 자체는 로컬 프록시이므로 앱 로그만으로는 system_server 의 실제 상태를 알 수 없다.
+서비스 조회 성공 여부, 첫 원격 호출 지연, 예외 유형을 따로 기록한다. `adb shell dumpsys <service_name>`(예: `dumpsys location`, `dumpsys sensorservice`)로 서버 측 상태를 대조한다. 화면 회전·멀티 디스플레이에서는 `WindowManager`가 보고하는 bounds/display가 해당 시각적 Context와 일치하는지도 실패 신호다.
 
 ### 공식 문서
 

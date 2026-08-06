@@ -2,7 +2,7 @@
 title: telephonymanager-permissions-split-into-phone-state-and-phone-numbers
 tags: ["android", "android/system-services"]
 aliases: ["TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -22,8 +22,39 @@ date created: 2026-08-03 17:29:24 +09:00
 ### 판단 기준
 
 - 전화번호 확인 자동화(예: SMS 인증 대체)가 목적이면 `READ_PHONE_NUMBERS` 단독으로 충분한지, 아니면 SMS Retriever API 같은 permission-less 대안이 더 적합한지 먼저 검토한다.
-- 기기 식별을 목적으로 IMEI를 시도하지 말고, 앱 고유 식별에는 `Instance ID`나 앱이 생성한 UUID를 사용한다. IMEI 접근은 대부분의 일반 앱 시나리오에서 정당화되지 않는다.
+- 기기 식별을 목적으로 IMEI를 시도하지 말고, 앱 고유 식별에는 앱 설치 범위 식별자나 앱이 생성한 UUID를 사용한다. IMEI 접근은 대부분의 일반 앱 시나리오에서 정당화되지 않는다.
 - 통화 상태만 필요하면(예: 통화 중 알림 음소거) `READ_PHONE_STATE`로 충분하며 더 넓은 권한을 요청하지 않는다.
+
+### 최소 권한별 호출 흐름
+
+전화번호와 통화 상태는 같은 승인 결과로 묶지 않는다. API 33+의 회선 번호는 `SubscriptionManager.getPhoneNumber(subscriptionId)`를 사용하고, 보안 인증에는 반환 번호를 신뢰하지 말고 별도 검증을 거친다. 번호는 사용할 수 없으면 빈 문자열일 수 있다.
+
+```kotlin
+val subscriptions = context.getSystemService(SubscriptionManager::class.java)
+val number = if (
+    ContextCompat.checkSelfPermission(
+        context, Manifest.permission.READ_PHONE_NUMBERS
+    ) == PackageManager.PERMISSION_GRANTED
+) {
+    subscriptions.getPhoneNumber(subscriptionId) // API 33+
+} else {
+    ""
+}
+
+class Calls : TelephonyCallback(), TelephonyCallback.CallStateListener {
+    override fun onCallStateChanged(state: Int) {
+        renderCallState(state)
+    }
+}
+
+val calls = Calls()
+val scoped = context.getSystemService(TelephonyManager::class.java)
+    .createForSubscriptionId(subscriptionId)
+scoped.registerTelephonyCallback(context.mainExecutor, calls) // API 31+
+// 종료 시 scoped.unregisterTelephonyCallback(calls)
+```
+
+콜백 등록 전에는 `READ_PHONE_STATE` 승인 여부를 별도로 확인한다. `getPhoneNumber()`의 빈 문자열, `SecurityException`, `UnsupportedOperationException`은 각각 번호 미제공·권한/특권 부족·기능 부재로 나눠 관찰한다.
 
 ### 경계
 
@@ -32,9 +63,13 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 관찰 가능한 신호
 
-`adb shell dumpsys package <pkg>`의 runtime permissions에서 `READ_PHONE_STATE`/`READ_PHONE_NUMBERS` grant 여부를 확인한다. 식별자 API가 `null`을 반환하면 permission 거부가 아니라 OS 버전 자체의 정책적 차단인지부터 targetSdkVersion과 함께 확인한다.
+`adb shell dumpsys package <pkg>`의 runtime permissions에서 `READ_PHONE_STATE`/`READ_PHONE_NUMBERS` grant 여부를 확인한다. 통화 콜백은 구독 ID와 상태 전환을 함께 기록하고, 번호의 빈 문자열이나 식별자 API의 `null`은 권한 거부와 OS 정책적 비가용성을 targetSdkVersion·기기 기능과 함께 구분한다.
 
 ### 공식 문서
 
 - https://developer.android.com/reference/android/telephony/TelephonyManager
 - https://developer.android.com/training/articles/user-data-ids
+- https://developer.android.com/reference/android/telephony/SubscriptionManager#getPhoneNumber(int)
+- https://developer.android.com/reference/android/telephony/TelephonyCallback.CallStateListener
+
+검증일: 2026-08-06. `getPhoneNumber(int)`는 API 33부터 일반 앱의 회선 번호 조회 경로이며 `READ_PHONE_NUMBERS` 또는 특권을 요구하고, `CallStateListener`는 API 31부터 `READ_PHONE_STATE`를 요구한다는 계약을 확인했다.

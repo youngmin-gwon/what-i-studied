@@ -2,7 +2,7 @@
 title: dagger-is-static-graph-engine-not-android-lifecycle-policy
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-06 15:05:00 +09:00
+date modified: 2026-08-06 14:55:00 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
@@ -13,12 +13,35 @@ date created: 2026-08-03 16:28:45 +09:00
 
 **Hilt**(Dagger를 안드로이드 컴포넌트 생명주기에 맞춰 의존성 그래프 생성을 자동화하는 구글의 공식 DI 라이브러리) 는 이 Android integration 을 표준화한다. 순수 Dagger 를 쓰는 경우에는 component owner, subcomponent/factory, injection timing, test replacement 를 프로젝트가 직접 설계해야 한다.
 
-공식 문서: [Dagger basics](https://developer.android.com/training/dependency-injection/dagger-basics)
+### 최소 예시
 
-### 판단 기준
+```kotlin
+@Singleton
+@Component(modules = [AppModule::class])
+interface AppComponent {
+    fun inject(application: App)
 
-- Dagger 는 컴파일 타임에 DI 그래프 정합성을 검증하는 도구일 뿐이므로, Dagger Component 의 생명주기는 안드로이드 생명주기에 맞게 개발자가 직접 설계하고 연결해야 한다.
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance application: Application): AppComponent
+    }
+}
 
-### 경계
+class App : Application() {
+    val appComponent by lazy {
+        DaggerAppComponent.factory().create(this)
+    }
+}
+```
 
-- Dagger 자체는 메모리 누수를 막아주지 않으므로, 정적 그래프 내부에 동적 UI 컨텍스트가 갇히지 않도록 Component 와 **Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션) 의 범위를 안드로이드 컴포넌트 생명주기와 정확히 일치시켜야 한다.
+Dagger는 `AppComponent`를 언제 만들고 어디에 저장할지 결정하지 않는다. 이 예시에서는 `Application`이 component instance를 소유한다. Activity별 subcomponent를 쓴다면 Activity 생성·종료와 맞춰 component reference도 직접 관리해야 한다.
+
+### 실패와 관찰 신호
+
+- 누락 binding, dependency cycle, duplicate binding은 generated component를 compile할 때 dependency trace로 드러난다.
+- component를 Activity마다 다시 만들면 `@Singleton`도 Activity마다 다른 instance가 된다.
+- app component가 Activity나 View를 잡는 설계는 compiler가 graph type을 검증해도 leak일 수 있다.
+
+공식 문서: [Dagger basic usage](https://dagger.dev/dev-guide/basic-usage), [Dagger on Android](https://developer.android.com/training/dependency-injection/dagger-android)
+
+상위 문서: [DI 계약](./di-contracts.md)

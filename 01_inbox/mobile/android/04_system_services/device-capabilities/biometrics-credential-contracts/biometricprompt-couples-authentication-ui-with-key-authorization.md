@@ -2,7 +2,7 @@
 title: biometricprompt-couples-authentication-ui-with-key-authorization
 tags: ["android", "android/system-services"]
 aliases: ["BiometricPrompt는 인증 UI와 키 사용 승인을 함께 처리한다"]
-date modified: 2026-08-06 14:48:27 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -18,6 +18,22 @@ date created: 2026-08-03 17:29:24 +09:00
 ### 메커니즘
 
 앱이 CryptoObject 없이 `authenticate()`를 호출하면 인증 결과를 앱 로직의 gate로 사용할 수 있다. 이것이 곧 취약하거나 우회 가능하다는 뜻은 아니다. 반면 timeout 0으로 구성한 auth-per-use Keystore 키는 `CryptoObject`를 전달한 프롬프트로 해당 연산을 승인한다. 일정 시간 동안 재사용하는 time-based 키는 최근 기기 자격 증명 또는 허용된 인증 수단으로 잠금이 해제되며, CryptoObject 없는 프롬프트를 사용할 수 있다. 어떤 흐름을 쓸지는 보호 대상이 암호키 연산인지, 단순 앱 기능 접근인지에 따라 결정한다.
+
+### auth-per-use 호출 흐름
+
+```kotlin
+val prompt = BiometricPrompt(activity, mainExecutor, callback)
+val promptInfo = BiometricPrompt.PromptInfo.Builder()
+    .setTitle("보호된 작업 승인")
+    .setAllowedAuthenticators(BIOMETRIC_STRONG)
+    .setNegativeButtonText("취소")
+    .build()
+
+// cipher는 timeout=0, user-auth-required Keystore 키로 init한 연산이다.
+prompt.authenticate(promptInfo, BiometricPrompt.CryptoObject(cipher))
+```
+
+성공 콜백에서는 `result.cryptoObject?.cipher`만 사용한다. 인증 전 Cipher를 전역에 저장해 나중에 재사용하거나 UI 성공 boolean만으로 별도 암호 연산을 승인하지 않는다. 사용자 취소와 센서 장애·lockout은 서로 다른 오류 코드로 처리한다.
 
 ### 판단 기준
 
@@ -40,4 +56,4 @@ date created: 2026-08-03 17:29:24 +09:00
 - https://developer.android.com/identity/sign-in/biometric-auth
 - https://developer.android.com/reference/androidx/biometric/BiometricPrompt.CryptoObject
 
-검증일: 2026-08-06. 공식 BiometricPrompt/Keystore 문서에 따라 CryptoObject를 auth-per-use 키 연산용으로 한정하고 time-based 키와 단순 인증 흐름을 구분했다.
+검증일: 2026-08-06. 공식 BiometricPrompt/Keystore 문서에 따라 CryptoObject를 auth-per-use 키 연산용으로 한정하고 실제 호출·실패 흐름을 보강했다.

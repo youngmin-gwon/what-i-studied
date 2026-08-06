@@ -1,31 +1,52 @@
 ---
 title: heavy-work-does-not-belong-in-composition
-tags: ["android", "android/app-framework"]
+tags: [android, compose/performance, jetpack-compose]
 aliases: []
-date modified: 2026-08-05 13:57:50 +09:00
+date modified: 2026-08-06 14:48:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
-## 무거운 작업은 composition 안에 두지 않는다
+## 무거운 작업은 composition 안에서 실행하지 않는다
 
-상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../../../06_testing_performance/performance/android-performance-quality-and-build-optimization.md)
+Composable은 최초 composition뿐 아니라 state 변화로 반복 실행될 수 있고 보통 main thread에서 실행된다. 파일 I/O, network, 큰 정렬·파싱·bitmap decode를 본문에서 호출하면 재실행 횟수와 frame 지연이 결합된다. `remember`는 결과 수명을 보존할 뿐 작업을 background thread로 옮기지 않는다.
 
-배경 지식: [프로세스 생명주기 및 상태](../../../../../../operating-systems/process-states-lifecycle.md)
+```kotlin
+// 피해야 할 형태: remember 블록도 composition 중 main thread에서 실행된다.
+@Composable
+fun Report(rows: List<RowData>) {
+    val summary = remember(rows) { expensiveSummarize(rows) }
+    Text(summary)
+}
+```
 
-관련 지도: [Compose 성능 계약](./compose-performance-contracts.md)
+실행 메커니즘을 분리해 CPU 작업은 UI 밖의 소유자와 적절한 dispatcher로 옮기고, UI에는 표시 상태만 전달한다.
 
-관련 노트: [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../../06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
+```kotlin
+class ReportViewModel(
+    repository: ReportRepository,
+) : ViewModel() {
+    val summary = repository.rows
+        .mapLatest { rows ->
+            withContext(Dispatchers.Default) { expensiveSummarize(rows) }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = "",
+        )
+}
 
-Composable 은 자주 다시 실행될 수 있는 함수다.
+@Composable
+fun ReportScreen(viewModel: ReportViewModel) {
+    val summary by viewModel.summary.collectAsStateWithLifecycle()
+    Text(summary)
+}
+```
 
-따라서 파일 읽기, 네트워크 요청, 큰 정렬, 이미지 디코딩, 복잡한 파싱을 composition 중에 수행하면 프레임 지연이 생긴다.
+I/O 작업은 repository가 `Dispatchers.IO` 등 적합한 경계에서 수행한다. `LaunchedEffect`도 main dispatcher에서 시작하므로 그 안에서 무거운 동기 작업을 직접 실행하면 해결되지 않는다. 입력 변경 취소가 중요하면 `mapLatest` 같은 정책을 명시한다.
 
-`remember` 는 값 보존 도구이지 무거운 일을 UI 스레드에서 실행해도 된다는 허가가 아니다.
+Perfetto trace에서 composition 구간과 main-thread runnable을 확인하고, 같은 입력의 FrameTimingMetric을 이동 전후 비교한다. startup에 필요한 작업이면 TTID뿐 아니라 콘텐츠가 실제 준비된 TTFD도 함께 측정한다. 화면을 떠난 뒤 작업 취소·공유 정책이 의도대로인지 coroutine test로 검증한다.
 
-입력이 바뀔 때만 필요한 계산은 ViewModel, repository, background dispatcher, 또는 명확한 캐시 경계로 옮긴다.
+관련 노트: [Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다](./compose-performance-starts-with-measure-debug-improve-loop.md), [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../../06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
 
-UI 가 필요한 것은 계산 과정이 아니라 현재 표시할 상태다.
-
-무거운 초기화는 시작 성능과 첫 상호작용 지연으로 이어질 수 있으므로 TTID 와 TTFD 를 함께 본다.
-
-공식 참고: [Compose 성능 모범 사례](https://developer.android.com/develop/ui/compose/performance/bestpractices)
+출처: [Compose 성능 모범 사례](https://developer.android.com/develop/ui/compose/performance/bestpractices), [Compose에서 lifecycle을 고려한 Flow 수집](https://developer.android.com/develop/ui/compose/state#other-supported-types-of-state)

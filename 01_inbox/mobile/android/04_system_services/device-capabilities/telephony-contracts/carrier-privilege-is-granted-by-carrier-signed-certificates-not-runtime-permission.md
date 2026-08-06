@@ -2,7 +2,7 @@
 title: carrier-privilege-is-granted-by-carrier-signed-certificates-not-runtime-permission
 tags: ["android", "android/system-services"]
 aliases: ["Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -25,6 +25,27 @@ SIM 카드는 `ARA-M`/`ARF` 규격에 따라 신뢰할 특정 서명 인증서 �
 - 통신사와 협업하는 앱(운영사 자체 앱)을 개발하는 경우, SIM에 서명 해시를 심는 절차는 개발자가 아니라 통신사와의 협의 및 SIM 프로파일링 과정에서 결정된다.
 - carrier privilege 여부가 SIM 교체나 eSIM 프로필 전환에 따라 바뀔 수 있다는 점을 상태 확인 로직에 반영한다.
 
+### 최소 안전 확인 흐름
+
+`hasCarrierPrivileges()`는 현재 `TelephonyManager`가 가리키는 구독에 대해 `Boolean`을 반환한다. 멀티 SIM에서는 활성 `subscriptionId`를 다시 얻은 뒤 구독별 인스턴스로 확인하고, 전화 기능 자체가 없는 기기도 먼저 제외한다.
+
+```kotlin
+val pm = context.packageManager
+if (!pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY_SUBSCRIPTION)) {
+    return CarrierAccess.UnsupportedDevice
+}
+
+val base = context.getSystemService(TelephonyManager::class.java)
+val scoped = base.createForSubscriptionId(subscriptionId)
+return if (scoped.hasCarrierPrivileges()) {
+    CarrierAccess.Granted(subscriptionId)
+} else {
+    CarrierAccess.NotGranted(subscriptionId)
+}
+```
+
+이 결과를 설치 시점에 영구 캐시하지 않는다. SIM 제거·eSIM 전환 뒤에는 같은 앱 서명이라도 대상 구독이 달라질 수 있으며, 특권 API 호출에는 여전히 `SecurityException`과 `UnsupportedOperationException`을 각각 정책 거부와 기능 부재 신호로 처리한다.
+
 ### 경계
 
 - 이 노트는 carrier privilege라는 신뢰 경로 자체를 다룬다. 일반 permission 기반 telephony 조회는 [TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다](./telephonymanager-permissions-split-into-phone-state-and-phone-numbers.md)가 다룬다.
@@ -32,9 +53,11 @@ SIM 카드는 `ARA-M`/`ARF` 규격에 따라 신뢰할 특정 서명 인증서 �
 
 ### 관찰 가능한 신호
 
-`TelephonyManager.hasCarrierPrivileges()`를 런타임에 호출해 boolean 결과로 직접 확인할 수 있다. `adb shell dumpsys telephony.registry`에서도 carrier privilege가 부여된 패키지 목록이 나타날 수 있다(OEM/플랫폼 버전에 따라 출력 형식이 다르다).
+`TelephonyManager.hasCarrierPrivileges()`의 `true/false`, 특권 API의 `SecurityException`, 구독 기능 부재 시 `UnsupportedOperationException`을 서로 다른 신호로 기록한다. `adb shell dumpsys telephony.registry`에서도 carrier privilege가 부여된 패키지 목록이 나타날 수 있다(OEM/플랫폼 버전에 따라 출력 형식이 다르다).
 
 ### 공식 문서
 
 - https://source.android.com/docs/core/connect/uicc
 - https://developer.android.com/reference/android/telephony/TelephonyManager#hasCarrierPrivileges()
+
+검증일: 2026-08-06. `hasCarrierPrivileges()`가 `Boolean`을 반환하며 물리 SIM과 eSIM 모두에 적용되고, `FEATURE_TELEPHONY_SUBSCRIPTION`이 없으면 지원되지 않는다는 현재 API 계약을 확인했다.

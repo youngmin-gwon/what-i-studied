@@ -2,7 +2,7 @@
 title: sensor-batching-trades-latency-for-battery
 tags: ["android", "android/system-services"]
 aliases: ["센서 배칭은 수신 지연과 배터리 사이의 트레이드오프다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -10,7 +10,6 @@ date created: 2026-08-03 17:29:24 +09:00
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 관련 지도: [센서 접근 계약](./sensor-contracts.md)
-배경 지식: [POSIX 파이프 및 FIFO](../../../../../operating-systems/ipc-contracts/posix-pipe-and-fifo-contracts.md)
 
 ### 핵심 정의
 
@@ -20,7 +19,24 @@ date created: 2026-08-03 17:29:24 +09:00
 
 센서 허브(별도 저전력 프로세서를 가진 기기의 경우) 또는 하드웨어 FIFO가 이벤트를 버퍼에 쌓는다. AP는 FIFO가 가득 차거나 `maxReportLatencyUs`가 지났을 때만 깨어나 배치로 이벤트를 flush 받는다. `flush()`를 명시적으로 호출하면 배칭된 이벤트를 즉시 강제로 받아올 수 있다.
 
-`wakeup 센서`(AP가 절전/대기 상태: suspend에 빠져 있어도 하드웨어가 직접 AP를 깨워 이벤트를 전달하는 센서)는 AP가 절전 상태여도 시스템을 깨울 수 있고, non-wakeup 센서는 AP가 이미 깨어있을 때만 이벤트를 전달한다. 두 카테고리는 `Sensor.isWakeUpSensor()`로 구분된다.
+`wakeup 센서`는 FIFO가 차는 등 전달이 필요할 때 AP를 깨울 수 있다. non-wakeup 센서는 AP를 스스로 깨우지 않지만 FIFO가 있다면 이벤트를 모아 두었다가 AP가 다른 이유로 깨어났을 때 전달할 수 있다. 두 카테고리는 `Sensor.isWakeUpSensor()`로 구분한다.
+
+### 배칭 등록과 flush 완료 확인
+
+```kotlin
+val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) ?: return
+val registered = sensorManager.registerListener(
+    listener,
+    sensor,
+    1_000_000,   // samplingPeriodUs: 1초
+    60_000_000,  // maxReportLatencyUs: 최대 60초 배칭
+)
+if (!registered) showSensorUnavailable()
+
+sensorManager.flush(listener) // 결과는 onFlushCompleted()까지 기다린다.
+```
+
+`maxReportLatencyUs`는 정확한 전달 시각 보장이 아니라 상한 힌트이며 FIFO 용량·기기 구현의 영향을 받는다. non-wakeup 이벤트도 FIFO에 보관될 수 있지만 AP가 다른 이유로 깨어나기 전 FIFO가 차면 오래된 이벤트가 유실될 수 있다. `flush()` 성공도 즉시 완료가 아니므로 callback을 관찰한다.
 
 ### 판단 기준
 
@@ -40,3 +56,5 @@ date created: 2026-08-03 17:29:24 +09:00
 ### 공식 문서
 
 - https://developer.android.com/develop/sensors-and-location/sensors/sensors_overview#sensors-battery
+
+검증일: 2026-08-06. sampling period와 report latency, FIFO 한계, 비동기 flush 완료 흐름을 보강했다.

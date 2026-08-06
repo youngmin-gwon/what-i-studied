@@ -2,7 +2,7 @@
 title: biometricmanager-canauthenticate-is-a-precondition-check
 tags: ["android", "android/system-services"]
 aliases: ["BiometricManager.canAuthenticate는 실행 전에 확인해야 하는 사전 조건이다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -20,6 +20,23 @@ date created: 2026-08-03 17:29:24 +09:00
 `canAuthenticate()`는 `BIOMETRIC_SUCCESS`, `BIOMETRIC_ERROR_NO_HARDWARE`, `BIOMETRIC_ERROR_HW_UNAVAILABLE`, `BIOMETRIC_ERROR_NONE_ENROLLED`, `BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED` 등을 반환한다. 각 결과는 앱이 취해야 할 다른 대응을 요구한다. 예를 들어 `NONE_ENROLLED`는 하드웨어는 있지만 사용자가 지문/얼굴을 등록하지 않은 상태이므로, 설정 화면으로 유도하는 UX가 적절하다.
 
 인증 강도 비트마스크(**Authenticators**: 요구되는 보안 수준으로 `BIOMETRIC_STRONG`은 암호화 키 해제용 강한 생체 인증, `BIOMETRIC_WEAK`는 미인증 시도가 쉬운 약한 생체 인증, `DEVICE_CREDENTIAL`은 기기 PIN/패턴/비밀번호) 조합에 따라 결과가 달라질 수 있다. `BIOMETRIC_STRONG`만 요청하면 얼굴 인식처럼 약한 등급으로 분류된 방식은 지원하지 않는다는 결과가 나올 수 있다.
+
+### 최소 안전 호출 흐름
+
+```kotlin
+val authenticators = BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+when (BiometricManager.from(context).canAuthenticate(authenticators)) {
+    BiometricManager.BIOMETRIC_SUCCESS -> showAuthenticateAction()
+    BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> showEnrollmentHelp()
+    BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> showRetryLater()
+    BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE,
+    BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED,
+    BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED -> showNonBiometricFallback()
+    else -> showNonBiometricFallback()
+}
+```
+
+앱은 `USE_BIOMETRIC`을 선언하고, 사전 검사와 실제 `authenticate()` 사이에 상태가 바뀔 수 있으므로 프롬프트의 `onAuthenticationError()`도 처리한다. 성공 코드는 다음 호출의 성공 보장이 아니라 현재 capability snapshot이다.
 
 ### 판단 기준
 
@@ -39,3 +56,5 @@ date created: 2026-08-03 17:29:24 +09:00
 ### 공식 문서
 
 - https://developer.android.com/reference/androidx/biometric/BiometricManager
+
+검증일: 2026-08-06. AndroidX BiometricManager의 결과 코드와 인증자 조합을 기준으로 호출 흐름을 보강했다.

@@ -2,7 +2,7 @@
 title: inputmethodservice-is-a-separate-contract-from-accessibilityservice
 tags: ["android", "android/system-services"]
 aliases: ["InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -18,6 +18,33 @@ date created: 2026-08-03 17:29:24 +09:00
 ### 메커니즘
 
 포커스가 있는 텍스트 필드는 **InputConnection**(텍스트 편집 뷰와 현재 활성화된 IME 사이에서 텍스트 전달, 커서 이동, 조합 문자 입력을 처리하는 통신 통로)을 통해 현재 활성 IME와 통신한다. IME는 이 연결을 통해서만 텍스트를 커밋하거나 커서를 이동할 수 있으며, 텍스트 필드가 아닌 임의의 화면 요소를 클릭하거나 다른 앱의 상태를 읽는 것은 이 API의 범위 밖이다. 사용자가 기본 키보드를 전환하면 새 IME가 이 `InputConnection`을 이어받는다.
+
+### 선언과 안전한 커밋 흐름
+
+```xml
+<service
+    android:name=".KeyboardService"
+    android:exported="true"
+    android:permission="android.permission.BIND_INPUT_METHOD">
+    <intent-filter>
+        <action android:name="android.view.InputMethod" />
+    </intent-filter>
+    <meta-data android:name="android.view.im" android:resource="@xml/method" />
+</service>
+```
+
+```kotlin
+fun commitKey(text: CharSequence) {
+    currentInputConnection?.commitText(text, 1)
+}
+
+override fun onFinishInput() {
+    clearComposingAndSuggestionState()
+    super.onFinishInput()
+}
+```
+
+`InputConnection`은 현재 editor와 함께 바뀌는 단기 핸들이다. 캐시하지 말고 매 작업 때 확인하며 null 또는 false 반환을 editor 종료 경쟁으로 처리한다. password variation과 `IME_FLAG_NO_PERSONALIZED_LEARNING`에서는 입력을 학습·로그·원격 전송하지 않는다.
 
 ### 판단 기준
 
@@ -38,3 +65,5 @@ date created: 2026-08-03 17:29:24 +09:00
 
 - https://developer.android.com/develop/ui/views/touch-and-input/creating-input-method
 - https://developer.android.com/reference/android/inputmethodservice/InputMethodService
+
+검증일: 2026-08-06. `BIND_INPUT_METHOD` 보호 선언, InputConnection 수명, 민감 editor 처리 흐름을 보강했다.

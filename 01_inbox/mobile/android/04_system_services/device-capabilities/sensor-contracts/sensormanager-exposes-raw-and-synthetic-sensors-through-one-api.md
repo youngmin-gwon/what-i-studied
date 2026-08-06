@@ -2,7 +2,7 @@
 title: sensormanager-exposes-raw-and-synthetic-sensors-through-one-api
 tags: ["android", "android/system-services"]
 aliases: ["SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
@@ -18,6 +18,29 @@ date created: 2026-08-03 17:19:24 +09:00
 ### 메커니즘
 
 raw 센서(`TYPE_ACCELEROMETER`, `TYPE_GYROSCOPE`, `TYPE_MAGNETIC_FIELD`)는 하드웨어 값을 그대로 전달하며 노이즈와 드리프트가 있다. 합성 센서(`TYPE_ROTATION_VECTOR`, `TYPE_GRAVITY`, `TYPE_LINEAR_ACCELERATION`, `TYPE_GAME_ROTATION_VECTOR`)는 센서 퓨전 알고리즘이 여러 raw 센서를 결합해 만든 값으로, 벤더 HAL 또는 플랫폼 센서 허브가 계산을 담당한다. 이 계산은 앱이 관여할 수 없는 블랙박스다.
+
+### capability 확인과 리스너 수명
+
+```kotlin
+private val rotationSensor by lazy {
+    sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
+}
+
+override fun onResume() {
+    super.onResume()
+    val sensor = rotationSensor ?: return showNoRotationSensor()
+    if (!sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME)) {
+        showSensorRegistrationFailed()
+    }
+}
+
+override fun onPause() {
+    sensorManager.unregisterListener(this)
+    super.onPause()
+}
+```
+
+`getDefaultSensor()`의 null과 `registerListener()`의 false를 별개 실패로 기록한다. `SensorEvent.values`는 프레임워크가 재사용할 수 있으므로 비동기 처리로 넘길 때 복사하고, 요청 주기 상수는 보장 주파수가 아니라 힌트임을 전제로 timestamp를 사용한다.
 
 ### 판단 기준
 
@@ -38,3 +61,5 @@ raw 센서(`TYPE_ACCELEROMETER`, `TYPE_GYROSCOPE`, `TYPE_MAGNETIC_FIELD`)는 하
 
 - https://developer.android.com/develop/sensors-and-location/sensors/sensors_overview
 - https://developer.android.com/develop/sensors-and-location/sensors/sensors_motion
+
+검증일: 2026-08-06. 센서 부재, 등록 실패, event buffer 재사용, lifecycle 해제 흐름을 보강했다.

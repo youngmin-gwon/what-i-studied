@@ -2,7 +2,7 @@
 title: fusedlocationproviderclient-merges-multiple-location-sources
 tags: ["android", "android/system-services"]
 aliases: ["FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
@@ -20,6 +20,22 @@ date created: 2026-08-03 17:19:24 +09:00
 앱은 `Priority`(예: `PRIORITY_HIGH_ACCURACY`, `PRIORITY_BALANCED_POWER_ACCURACY`)와 업데이트 interval을 지정해 **LocationRequest**(위치 요청 빈도, 요구 정확도 수준, 배터리 소모 정책을 설정하는 데이터 객체)를 만든다. 내부적으로 시스템은 이 요청을 다른 앱의 동시 요청과 병합해 실제 하드웨어(GPS 칩, 네트워크 위치 조회)에 필요한 최소한의 작업만 수행한다. 즉 여러 앱이 비슷한 정확도를 요청하면 시스템이 하드웨어 사용을 공유해 배터리를 아낀다.
 
 `getLastLocation()`은 캐시된 최근 위치를 즉시 반환하고, `requestLocationUpdates()`는 콜백으로 새 위치를 스트리밍한다. 두 API는 지연과 정확도 트레이드오프가 다르다.
+
+### 신선도와 수명주기를 포함한 호출 흐름
+
+```kotlin
+@RequiresPermission(anyOf = [ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION])
+suspend fun currentLocation(client: FusedLocationProviderClient): Location? {
+    val request = CurrentLocationRequest.Builder()
+        .setPriority(Priority.PRIORITY_BALANCED_POWER_ACCURACY)
+        .setMaxUpdateAgeMillis(30_000)
+        .setDurationMillis(10_000)
+        .build()
+    return client.getCurrentLocation(request, null).await()
+}
+```
+
+`lastLocation`은 null이거나 매우 오래된 캐시일 수 있으므로 `Location.time`/`elapsedRealtimeNanos`로 신선도를 검사한다. 일회성 최신 값은 bounded `getCurrentLocation()`을 사용한다. 연속 업데이트는 lifecycle 진입 때 등록하고 이탈 때 같은 callback으로 `removeLocationUpdates()`해 누수와 불필요한 배터리 사용을 막는다.
 
 ### 판단 기준
 
@@ -40,3 +56,5 @@ date created: 2026-08-03 17:19:24 +09:00
 
 - https://developer.android.com/develop/sensors-and-location/location/retrieve-current
 - https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderClient
+
+검증일: 2026-08-06. 캐시 신선도, bounded current-location 요청, callback 해제 흐름을 공식 API로 보강했다.

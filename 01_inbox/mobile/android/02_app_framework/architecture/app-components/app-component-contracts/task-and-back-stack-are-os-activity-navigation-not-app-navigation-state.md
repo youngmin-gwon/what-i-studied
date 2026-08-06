@@ -2,30 +2,53 @@
 title: task-and-back-stack-are-os-activity-navigation-not-app-navigation-state
 tags: [android, android/app-components, android/architecture, android/navigation]
 aliases: ["Android task와 app back stack은 OS activity 내비게이션이다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 15:03:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## Android task와 app back stack은 OS activity 내비게이션이다
+## Task back stack은 OS Activity 기록이고 앱 내부 navigation state와 독립적이다
 
-**안드로이드의 `Task` 와 `Back Stack` 은 OS 가 Activity 인스턴스들의 집합을 관리하는 레거시 및 멀티 윈도우 스택 매커니즘이다. 현대 Compose Single Activity 기반 애플리케이션 내부의 화면 내비게이션 상태(Navigation 3 BackStack)와 명확히 구분해야 한다.**
+Task는 사용자가 하나의 일을 수행하며 연 Activity instance의 집합이고, OS back stack은 이를 LIFO 순서로 관리한다. Single-Activity 앱의 `NavController`나 Navigation 3 back stack은 한 Activity 안의 앱 상태다. 두 stack은 함께 움직일 때가 많지만 process death, deep link, multi-window, 외부 Activity 전환에서는 독립적으로 변할 수 있다.
 
----
+### launch mode 메커니즘
 
-### 1. 개념 및 구별 (What)
+| 규칙 | instance 선택 | 새 Intent 전달 |
+| --- | --- | --- |
+| 기본 `standard` | 호출할 때마다 새 instance | `onCreate()` |
+| `singleTop` / `FLAG_ACTIVITY_SINGLE_TOP` | 대상이 현재 task top일 때만 재사용 | `onNewIntent()` |
+| `FLAG_ACTIVITY_CLEAR_TOP` | 같은 task의 대상 위 Activity를 제거 | 대상이 `standard`면 대상도 재생성될 수 있음 |
+| `singleTask` / `FLAG_ACTIVITY_NEW_TASK` 계열 | affinity와 기존 task를 찾아 전면 이동할 수 있음 | 기존 instance면 `onNewIntent()` |
 
-- **OS Task & Back Stack**:
-  Activity 의 `launchMode` (`singleTop`, `singleTask`, `singleInstance`) 및 Intent 플래그(`FLAG_ACTIVITY_NEW_TASK`)에 의해 OS 차원에서 Activity 히스토리를 스택으로 쌓는 구조.
-- **App Internal Navigation Stack**:
-  Compose 컴포저블 화면 전환을 관리하는 앱 내부 상태 스택 (`Navigation 3` / `NavHostController`).
+`singleTask`와 `singleInstance`를 “중복 화면 방지” 도구로 습관적으로 쓰면 다른 앱에서 들어온 문서·인증 flow와 Recents 동작을 바꾼다. 기본 `standard`를 유지하고 요구되는 system-level task 동작이 있을 때만 device/API 조합별로 검증한다.
 
----
+### `singleTop` 최소 처리
 
-### 2. 관련 문서 및 참조
+```xml
+<activity
+    android:name=".MainActivity"
+    android:exported="true"
+    android:launchMode="singleTop" />
+```
 
-- 상위 문서: [App Component Contracts](./app-component-contracts.md)
-- 관련 계약 문서:
-  - [Navigation 3 Contracts](../../../navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
-- 공식 가이드: [Tasks and the Back Stack](https://developer.android.com/guide/components/activities/tasks-and-back-stack)
+```kotlin
+override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    routeDeepLink(intent)
+}
+```
 
-검증일: 2026-08-05. OS Task 스택 및 앱 내비게이션 상태 구별 검증 완료.
+instance가 재사용되면 `onCreate()`가 다시 호출되지 않으므로 새 deep link를 `onNewIntent()`에서도 소비해야 한다. `intent` property를 이후 코드가 읽으면 `setIntent()`도 갱신한다.
+
+### 실패·관찰 신호
+
+- 같은 deep link 두 번 실행 뒤 새 화면이 생기는지 기존 화면의 `onNewIntent()`가 호출되는지 instance ID로 기록한다.
+- `adb shell dumpsys activity activities`에서 `Task{}`, `Hist`, `mResumedActivity`를 확인한다.
+- `adb shell am start -W -n <package>/.MainActivity --es route first`를 반복해 launch mode별 stack 변화를 재현한다.
+- Back이 예상치 못한 앱이나 빈 화면으로 이동하면 `taskAffinity`, `NEW_TASK`, `CLEAR_TOP`, manifest launch mode를 함께 조사한다.
+
+관련 노트: [Navigation 3 Contracts](../../../navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
+
+상위 문서: [App Component Contracts](./app-component-contracts.md)
+
+공식 문서: [Tasks and the back stack](https://developer.android.com/guide/components/activities/tasks-and-back-stack)

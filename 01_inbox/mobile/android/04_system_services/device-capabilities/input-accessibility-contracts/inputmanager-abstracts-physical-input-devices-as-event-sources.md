@@ -2,7 +2,7 @@
 title: inputmanager-abstracts-physical-input-devices-as-event-sources
 tags: ["android", "android/system-services"]
 aliases: ["InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -20,6 +20,29 @@ date created: 2026-08-03 17:29:24 +09:00
 물리 입력은 커널 입력 서브시스템에서 시작해 시스템 서버 내부의 **InputReader**(커널 드라이버로부터 raw 입력 이벤트를 읽어 표준 형식으로 다듬는 컴포넌트)와 **InputDispatcher**(처리된 입력 이벤트를 윈도우 포커스에 맞게 대상 앱으로 디스패치하는 컴포넌트)를 거쳐 `MotionEvent`/`KeyEvent`로 앱에 전달된다. 앱은 이벤트의 소스 타입을 확인해 같은 좌표 기반 이벤트라도 터치인지 마우스/스타일러스인지 구분할 수 있다. 예를 들어 스타일러스는 필압(`getPressure()`)과 기울기 정보를 함께 전달할 수 있다.
 
 게임패드/키보드 같은 비-포인터 장치는 `KeyEvent`로 전달되며, 여러 장치가 동시에 연결된 경우 각 이벤트는 `getDeviceId()`로 어느 장치에서 왔는지 구분할 수 있다.
+
+### 연결 변화와 이벤트 소스 확인
+
+```kotlin
+private val listener = object : InputManager.InputDeviceListener {
+    override fun onInputDeviceAdded(id: Int) = refreshDevice(id)
+    override fun onInputDeviceChanged(id: Int) = refreshDevice(id)
+    override fun onInputDeviceRemoved(id: Int) = removeDevice(id)
+}
+
+override fun onStart() {
+    super.onStart()
+    inputManager.registerInputDeviceListener(listener, mainHandler)
+    inputManager.inputDeviceIds.forEach(::refreshDevice)
+}
+
+override fun onStop() {
+    inputManager.unregisterInputDeviceListener(listener)
+    super.onStop()
+}
+```
+
+changed 콜백에서는 이전 객체를 재사용하지 말고 `getInputDevice(id)`를 다시 조회한다. 이벤트의 source는 비트마스크로 검사하고, 연결 해제 직후 조회가 null인 경쟁 조건을 허용한다.
 
 ### 판단 기준
 
@@ -40,3 +63,5 @@ date created: 2026-08-03 17:29:24 +09:00
 
 - https://developer.android.com/develop/ui/views/touch-and-input/game-controllers/controller-input
 - https://developer.android.com/reference/android/view/InputDevice
+
+검증일: 2026-08-06. 장치 add/change/remove 수명주기와 source bitmask 판별 흐름을 InputManager API로 보강했다.

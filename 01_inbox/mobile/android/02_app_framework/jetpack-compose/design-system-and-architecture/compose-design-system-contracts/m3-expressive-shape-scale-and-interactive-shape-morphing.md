@@ -1,86 +1,47 @@
 ---
 title: m3-expressive-shape-scale-and-interactive-shape-morphing
 tags: [android, compose/design-system, material3, m3-expressive, shape-morphing]
-aliases: ["Material 3 Expressive Shape 스케일과 인터랙티브 Shape Morphing 계약"]
-date modified: 2026-08-05 16:15:00 +09:00
+aliases: ["Material 3 Expressive shape 스케일과 상호작용 shape 변형"]
+date modified: 2026-08-06 14:42:00 +09:00
 date created: 2026-08-05 15:10:00 +09:00
 ---
 
-## Material 3 Expressive Shape 스케일과 인터랙티브 Shape Morphing 계약
+## Material 3 Expressive의 shape 변형은 지원하는 컴포넌트 API에서 설정한다
 
-Material 3 Expressive (M3 Expressive) 시스템에서 **Shape(모서리 모양)**는 단순한 정적 테두리 곡률이 아니라, **기본 형태(Fully Rounded Pill Shape)를 유지하다가 사용자 터치 인터랙션(Pressed, Selected 등)에 따라 동적으로 모서리 곡률이 반응 변형되는 Shape Morphing 피드백 시스템**으로 동작한다.
-
----
-
-### 1. 개념 및 핵심 명제 (What)
-
-- **Shape Scale 사양**:
-  - `CornerNone` (0.dp)
-  - `CornerExtraSmall` (4.dp) / `CornerSmall` (8.dp) / `CornerMedium` (12.dp) / `CornerLarge` (16.dp) / `CornerExtraLarge` (28.dp)
-  - **`CornerFull` (`CircleShape` / Fully Rounded Pill / 50.dp+)**: 모든 M3 Expressive 기본 버튼 및 주요 대화형 컴포넌트의 디폴트 사양이다.
-- **인터랙티브 Shape Morphing (Interactive Shape Morphing)**:
-  - 평소(Idle) 상태에서는 양 끝이 완전히 둥근 **Pill (캡슐 / `CircleShape`)** 모형을 유지한다.
-  - 사용자가 버튼을 손으로 누르는(Pressed) 순간, 모서리 곡률이 100ms 파동으로 오므라들며 **둥근 사각형(Squircle / Compressed Shape: 12dp ~ 16dp)**으로 실시간 변형된다.
-  - 손을 떼면 용수철(Spring Physics) 반동을 타고 다시 원복된다.
-
----
-
-### 2. 왜 Shape Morphing 피드백이 필요한가? (Why)
-
-1. **촉각 및 시각적 반응성 극대화**: 단순 평면 색상 변경(Ripple Effect)만으로는 작은 터치스크린에서 즉각적인 피드백을 전달하기 어렵다. Shape 자체가 물리적으로 오므라드는 변형 효과를 통해 확실한 터치 감각을 제공한다.
-2. **컴포넌트 그룹화 및 상태 구별**: 리스트 툴바나 토글 컴포넌트에서 선택(Selected)되었을 때 형태가 둥근 Pill 에서 사각형 형태로 굳어지는 시각적 구별을 형성한다.
-
----
-
-### 3. 내부 메커니즘 및 물리 스프링 보간 (How)
-
-```mermaid
-stateDiagram-v2
-    [*] --> Idle: 평소 상태 (Fully Rounded Pill)
-    Idle --> Pressed: 사용자 터치 다운 (Touch Down)
-    Pressed --> Idle: 손 뗌 (Touch Up / Cancel)
-
-    state Idle {
-        PillShape: Shape = CircleShape (CornerFull / 50dp)
-    }
-
-    state Pressed {
-        SquircleShape: Shape = RoundedCornerShape(14dp / 16dp)
-    }
-```
-
----
-
-### 4. 올바른 구현 코드 예시
+Material 3의 `Shapes`는 theme 수준의 corner scale을 제공한다. 상호작용에 따른 shape 변형은 모든 컴포넌트의 암묵적 규칙이 아니다. 예를 들어 최신 expressive `Button` overload는 `ButtonShapes`를 받아 기본/pressed shape 사이를 전환하며, 두 값이 `CornerBasedShape`이면 morphing한다.
 
 ```kotlin
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun ExpressiveMorphingShape(isPressed: Boolean): Shape {
-    // 평소: Fully Rounded (50.dp), 눌렀을 때: 둥근 사각형 (14.dp)
-    val targetRadius = if (isPressed) 14.dp else 50.dp
-
-    val animatedRadius by animateDpAsState(
-        targetValue = targetRadius,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessHigh
+fun MorphingSaveButton(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        shapes = ButtonDefaults.shapes(
+            shape = MaterialTheme.shapes.extraLarge,
+            pressedShape = MaterialTheme.shapes.medium,
         ),
-        label = "ShapeMorphingAnimation"
-    )
-
-    return RoundedCornerShape(CornerSize(animatedRadius))
+        modifier = Modifier.testTag("save"),
+    ) {
+        Text("저장")
+    }
 }
 ```
 
----
+상태 전이 메커니즘은 단순하다.
 
-### 5. 관련 문서 및 참조
+```text
+idle -- press --> pressedShape
+pressed -- release/cancel --> shape
+CornerBasedShape 쌍: 모서리를 보간
+그 밖의 Shape 포함: 상태에 맞는 Shape로 전환
+```
 
-- 상위 문서: [Material 3 Expressive 디자인 시스템 및 컴포넌트 아키텍처](./m3-expressive-design-system-and-component-architecture.md)
-- 관련 계약 문서:
-  - [Material 3 Expressive 컴포넌트 크기 스케일과 토큰 번들 계약](./m3-expressive-component-sizing-and-token-bundles.md)
-  - [Material 3 색상 역할은 고정된 색상이 아닌 의미적 의도를 표현한다](./material3-color-roles-express-semantic-intent-not-fixed-colors.md)
+corner 값을 12dp, 전환 시간을 100ms처럼 앱 문서에서 Material의 보편 규격으로 고정하지 않는다. 기본값은 사용하는 Material3 artifact의 `ButtonDefaults.shapes()`가 정본이다. 브랜드가 shape를 덮어쓰면 press·focus·disabled 상태와 clipping 비용까지 앱 계약으로 소유한다.
 
-공식 가이드: [Material Design 3 - Shape System Overview](https://m3.material.io/styles/shape/overview)
+관찰 증거는 idle/press 상태 screenshot과 touch sequence다. 실제 touch down 후 release/cancel에서 원래 shape로 돌아오는지 보고, UI test는 `performTouchInput { down(center) }` 상태에서 이미지를 캡처하고 `up()` 뒤 다시 비교할 수 있다. 접근성 의미와 클릭 동작은 shape 변화와 독립적으로 유지되어야 한다.
 
-검증일: 2026-08-05. M3 Expressive Shape Scale 및 Interactive Morphing 사양 반영 완료.
+이 overload와 opt-in 표시는 Material3 버전에 따라 달라질 수 있다. 도입 전 프로젝트의 API reference와 컴파일 결과를 확인하고, 미지원 버전에서는 단일 `shape` parameter를 사용한다.
+
+관련 노트: [Material 3 Expressive 디자인 시스템 및 컴포넌트 아키텍처](./m3-expressive-design-system-and-component-architecture.md), [Material 3 Expressive 컴포넌트 크기와 토큰 선택](./m3-expressive-component-sizing-and-token-bundles.md)
+
+출처: [Material 3 Button API](https://developer.android.com/reference/kotlin/androidx/compose/material3/Button.composable), [Material 3 Shapes](https://developer.android.com/reference/kotlin/androidx/compose/material3/Shapes)
