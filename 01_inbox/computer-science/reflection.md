@@ -2,13 +2,13 @@
 title: reflection
 tags: [computer-science, metaprogramming, programming-languages, reflection, runtime]
 aliases: [Reflection, Runtime Reflection, 런타임 리플렉션, 리플렉션]
-date modified: 2026-08-06 17:35:16 +09:00
+date modified: 2026-08-06 17:44:52 +09:00
 date created: 2026-08-06 17:28:00 +09:00
 ---
 
 ## Reflection (런타임 리플렉션)
 
-### 1. Reflection 이란 무엇인가 (Overview)
+### 1. Reflection 이란 무엇인가
 
 프로그래밍 언어 및 런타임 환경에서 **Reflection (리플렉션 / 런타임 리플렉션)** 은 **"프로그램이 런타임(실행 중)에 자기 자신의 구조(클래스 정의, 필드, 메서드, 어노테이션 등)를 동적으로 조사(Introspect)하고 수정(Mutate)할 수 있는 메커니즘"** 을 의미한다.
 
@@ -25,8 +25,8 @@ date created: 2026-08-06 17:28:00 +09:00
 
 ```mermaid
 graph TD
-    Code["컴파일 타임 (Compile Time)"] -->|클래스 구조를 모르는 상태| Runtime["런타임 실행 중 (Runtime)"]
-    Runtime -->|"1. Class.forName() 클래스 탐색"| XRay["Reflection Engine (엑스레이 스캔)"]
+    Code["컴파일 타임<br/>(Compile Time)"] -->|클래스 구조를 모르는 상태| Runtime["런타임 실행 중<br/>(Runtime)"]
+    Runtime -->|"1. Class.forName() 클래스 탐색"| XRay["Reflection Engine<br/>(엑스레이 스캔)"]
     XRay -->|"2. getDeclaredFields() 필드 구조 추출"| Extract["private 필드 및 메서드 동적 접근"]
     Extract -->|"3. field.set() 데이터 주입"| ObjectMutate["메모리 객체 상태 강제 변이"]
 ```
