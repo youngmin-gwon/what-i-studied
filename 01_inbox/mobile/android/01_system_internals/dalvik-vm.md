@@ -2,7 +2,7 @@
 title: dalvik-vm
 tags: [android, dalvik, runtime, system-internals, vm]
 aliases: [Dalvik VM, Dalvik 가상 머신, 달빅]
-date modified: 2026-08-06 17:55:35 +09:00
+date modified: 2026-08-06 18:00:24 +09:00
 date created: 2026-08-06 17:55:00 +09:00
 ---
 
@@ -24,7 +24,7 @@ Android 5.0(Lollipop)부터는 성능과 전력 효율성이 월등한 [ART (And
    - 일반 JVM 이 스택 피셔(Stack Pushing/Popping) 방식으로 작동하는 반면, Dalvik 은 레지스터에 직접 명령을 전달한다.
    - 명령어 수가 줄어들어 실행 바이트코드 파일([DEX](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md)) 크기가 줄어들고 메모리 효율성이 뛰어났다.
 2. **JIT (Just-In-Time) 컴파일 위주 동작**:
-   - 앱이 실행되는 동안 [DEX 바이트코드](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md)를 실시간 인터프리팅(Interpreting)하다가, 자주 실행되는 핫코드(Hot Code)만 [JIT 컴파일](../../../computer-science/jit-and-aot-compilation.md) 로 기계어로 바꿔 실행했다.
+   - 앱이 실행되는 동안 [DEX 바이트코드](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md)를 실시간 인터프리팅(Interpreting)하다가, 자주 실행되는 핫코드(Hot Code)만 [JIT 컴파일](../../../computer-science/jit-compilation.md) 로 기계어로 바꿔 실행했다.
 3. **Stop-the-world GC**:
    - 가비지 컬렉션이 구동되는 동안 앱 실행 스레드가 전면 정지되어 화면이 버벅이는 프레임 드롭(Jank)이 빈번했다.
 
@@ -41,5 +41,5 @@ Dalvik VM 과 현대 ART 런타임의 기술적 차이점 및 전환 배경은 �
 - [Dalvik vs ART 비교](dalvik-vs-art.md) - Dalvik 과 ART 의 런타임 기술 세부 비교
 - [ART (Android Runtime)](art.md) - Dalvik VM 을 대체한 차세대 안드로이드 런타임
 - [DEX (Dalvik Executable)](../00_foundations/glossary/android-glossary/11-dex-dalvik-executable.md) - Dalvik 이 실행하는 압축 바이트코드 포맷
-- [JIT & AOT 컴파일](../../../computer-science/jit-and-aot-compilation.md) - JIT 와 AOT 컴파일 방식 비교
+- [JIT & AOT 컴파일](../../../computer-science/jit-vs-aot-compilation.md) - JIT 와 AOT 컴파일 방식 비교
 - [Garbage Collection](../../../computer-science/garbage-collection.md) - 메모리를 수거하는 런타임 가비지 컬렉터
