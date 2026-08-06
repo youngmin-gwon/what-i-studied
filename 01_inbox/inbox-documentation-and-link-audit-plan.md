@@ -16,8 +16,8 @@ role: master-plan
 
 ### 🚨 2. 품질 및 작성 표준 규칙 (Quality & Writing Standards)
 
-1. **상대 경로 마크다운 링크 필수 (`[Text](../../relative/path.md)`)**
-   - ❌ Obsidian 위키링크(`[[...]]`) 절대 사용 금지.
+1. **상대 경로 마크다운 링크 필수 (예: `[Text](../../relative_path.md)`)**
+   - ❌ Obsidian 위키링크(`WikiLinks`) 절대 사용 금지.
    - ❌ `file:///Users/youngmin/...` 절대 경로 절대 사용 금지 (환경 이식성 파괴 원인).
    - ⭕ 작성하는 문서의 위치를 기준으로 **상대 경로 마크다운 링크**만 작성한다.
 
@@ -64,28 +64,28 @@ role: master-plan
 #### Phase 3: Android App Framework & Compose (앱 프레임워크 및 컴포즈)
 > **타겟 경로**: `01_inbox/mobile/android/02_app_framework/`
 
-- [ ] [viewmodel.md](mobile/android/02_app_framework/viewmodel.md)
-- [ ] [single-source-of-truth.md](mobile/android/02_app_framework/single-source-of-truth.md)
-- [ ] [stateflow-and-sharedflow.md](mobile/android/02_app_framework/stateflow-and-sharedflow.md)
-- [ ] [recomposition.md](mobile/android/02_app_framework/jetpack-compose/runtime/recomposition.md)
-- [ ] [composable-body-must-be-fast-idempotent-and-side-effect-free.md](mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md)
+- [x] [viewmodel.md](mobile/android/02_app_framework/viewmodel.md) (완료)
+- [x] [single-source-of-truth.md](mobile/android/02_app_framework/single-source-of-truth.md) (완료)
+- [x] [stateflow-and-sharedflow.md](mobile/android/02_app_framework/stateflow-and-sharedflow.md) (완료)
+- [x] [recomposition.md](mobile/android/02_app_framework/jetpack-compose/runtime/recomposition.md) (완료)
+- [x] [composable-body-must-be-fast-idempotent-and-side-effect-free.md](mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md) (완료)
 
 #### Phase 4: Security, Privacy & Performance (보안 및 성능)
 > **타겟 경로**: `01_inbox/mobile/android/05_security_privacy/`, `01_inbox/mobile/android/06_testing_performance/`
 
-- [ ] [appops-and-permissions.md](mobile/android/05_security_privacy/appops-and-permissions.md)
-- [ ] [android-security-practice-is-defense-in-depth-not-client-trust.md](mobile/android/05_security_privacy/security-practices/security-practice-contracts/android-security-practice-is-defense-in-depth-not-client-trust.md)
-- [ ] [heavy-work-does-not-belong-in-composition.md](mobile/android/06_testing_performance/performance/compose-performance-contracts/heavy-work-does-not-belong-in-composition.md)
+- [x] [appops-and-permissions.md](mobile/android/05_security_privacy/appops-and-permissions.md) (완료)
+- [x] [android-security-practice-is-defense-in-depth-not-client-trust.md](mobile/android/05_security_privacy/security-practices/security-practice-contracts/android-security-practice-is-defense-in-depth-not-client-trust.md) (완료)
+- [x] [heavy-work-does-not-belong-in-composition.md](mobile/android/02_app_framework/jetpack-compose/performance/compose-performance-contracts/heavy-work-does-not-belong-in-composition.md) (완료)
 
 #### Phase 5: Computer Science References (기초 컴퓨터 과학)
 > **타겟 경로**: `01_inbox/computer-science/`
 
-- [ ] [pure-function.md](computer-science/pure-function.md)
-- [ ] [immutability.md](computer-science/immutability.md)
-- [ ] [context.md](computer-science/context.md)
-- [ ] [structured-concurrency.md](computer-science/structured-concurrency.md)
-- [ ] [race-condition-and-deadlock.md](computer-science/race-condition-and-deadlock.md)
-- [ ] [linux-kernel.md](operating-systems/linux-kernel.md)
+- [x] [pure-function.md](computer-science/pure-function.md) (완료)
+- [x] [immutability.md](computer-science/immutability.md) (완료)
+- [x] [context.md](computer-science/context.md) (완료)
+- [x] [structured-concurrency.md](computer-science/structured-concurrency.md) (완료)
+- [x] [race-condition-and-deadlock.md](computer-science/race-condition-and-deadlock.md) (완료)
+- [x] [linux-kernel.md](operating-systems/linux-kernel.md) (완료)
 
 ---
 

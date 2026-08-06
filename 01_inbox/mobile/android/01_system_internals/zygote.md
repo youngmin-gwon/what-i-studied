@@ -12,19 +12,20 @@ Android OS에서 **Zygote (자이고트)** 는 **"모든 안드로이드 앱 프
 
 새로운 앱을 실행할 때마다 매번 처음부터 가상 머신(ART)을 로딩하고 기본 라이브러리를 메모리에 새로 올리면 앱 시작 속도가 극도로 느려진다. Zygote 는 이러한 문제를 해결하기 위해 도입된 **초고속 프로세스 생성 메커니즘**이다.
 
-```
-[System Boot Step]
-1. Linux Kernel Booting 
-2. init process 실행
-3. Zygote 프로세스 시작
-   ├── Android Runtime (ART) 가상 머신 미리 로딩
-   ├── 공통 시스템 클래스 및 프레임워크 리소스 메모리 로딩
-   └── Unix Domain Socket 오픈 후 가만히 대기 (Pre-warmed)
-
-[App Launch Step]
-4. 앱 실행 요청 (system_server)
-5. Zygote 에 Unix Domain Socket 으로 "fork" 요청
-6. Zygote.fork() ➔ copy-on-write (COW) 메모리 공유로 수ms 만에 앱 프로세스 즉시 분가!
+```mermaid
+graph TD
+    Kernel["1. Linux Kernel Booting"] --> Init["2. init 프로세스 실행"]
+    Init --> ZygoteInit["3. Zygote 프로세스 시작 (Pre-warmed)"]
+    
+    subgraph ZygoteState [Zygote Pre-warming]
+        ZygoteInit --> ART["ART 가상 머신 미리 로딩"]
+        ZygoteInit --> Resource["프레임워크 리소스 메모리 로딩"]
+        ZygoteInit --> Socket["Unix Domain Socket 대기"]
+    end
+    
+    Socket -->|4. 앱 실행 요청| SystemServer["system_server (AMS)"]
+    SystemServer -->|5. Socket으로 fork 요청| ZygoteFork["6. Zygote.fork() 수ms 만에 분가!"]
+    ZygoteFork --> AppProc["7. 독립 앱 프로세스 (ActivityThread)"]
 ```
 
 ---

@@ -55,16 +55,10 @@ date created: 2026-08-06 16:31:19 +09:00
 
 안드로이드에서 일반 애플리케이션 프로세스와 `system_server` 프로세스는 서로 다른 메모리 공간을 사용합니다. 따라서 앱이 시스템 서비스의 기능을 이용하려면 **Binder IPC(Inter-Process Communication)** 를 통과해야 합니다.
 
-```
-[ 일반 앱 프로세스 ]
-       │
-   AIDL Proxy 호출 (예: context.getSystemService())
-       │
-   [ /dev/binder 커널 드라이버 ]
-       │
-   Binder Thread Pool 디스패치
-       │
-[ system_server 프로세스 (AMS, WMS, PMS 등) ]
+```mermaid
+graph TD
+    AppProc["일반 앱 프로세스"] -->|AIDL Proxy 호출 context.getSystemService| BinderDriver["/dev/binder 커널 드라이버"]
+    BinderDriver -->|Binder Thread Pool 디스패치| SystemServer["system_server 프로세스 (AMS, WMS, PMS)"]
 ```
 
 1. **서비스 조회**: 앱은 `ServiceManager.getService("activity")` 등을 통해 시스템 서비스의 Binder 핸들(Proxy)을 획득합니다.

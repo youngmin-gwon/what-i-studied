@@ -2,7 +2,7 @@
 title: Thread
 tags: [iot, network, protocol, thread]
 aliases: []
-date modified: 2025-12-11 14:52:06 +09:00
+date modified: 2026-08-06 16:59:36 +09:00
 date created: 2025-12-09 11:59:10 +09:00
 ---
 
@@ -37,6 +37,7 @@ Thread 는 신뢰성 높고 전력 소모가 적은 패킷 전달에 집중합�
 ## 특징
 
 **단일 장애 지점 없음 (No Single Point of Failure)**:-** 자가 치유 (Self-Healing)**: 라우터 하나가 고장 나면 자동으로 다른 경로를 찾습니다.
+
 - **안정성 (Reliability)**: 단일 실패 지점 (Single Point of Failure) 이 없습니다 (Border Router 도 여러 대 설치 가능).
 - **IP 기반**:**[Bluetooth](../connectivity/Bluetooth.md)** 나**[Zigbee](../connectivity/Zigbee.md)** 와 달리, 인터넷과 직접 통신이 가능한**End-to-End Connectivity** 를 제공합니다.
 

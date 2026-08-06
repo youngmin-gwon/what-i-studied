@@ -2,7 +2,7 @@
 title: thread
 tags: [computer-science, concurrency, operating-systems, thread]
 aliases: [Process Thread, Thread, 스레드]
-date modified: 2026-08-06 16:55:12 +09:00
+date modified: 2026-08-06 17:00:07 +09:00
 date created: 2026-08-06 16:54:00 +09:00
 ---
 
@@ -12,17 +12,28 @@ date created: 2026-08-06 16:54:00 +09:00
 
 하나의 프로세스는 최소 하나 이상의 스레드(Main Thread)를 가지며, 필요에 따라 여러 스레드를 생성하여 작업을 동시에 수행하는 **다중 스레딩 (Multi-Threading)** 환경을 구축한다.
 
-```
-[Process Memory Space]
-┌───────────────────────────────────────────────────────────┐
-│ Code / Text Segment (공유)                                │
-│ Data Segment (전역/정적 변수 공유)                        │
-│ Heap Segment (동적 메모리 공유)                           │
-├──────────────────┬──────────────────┬─────────────────────┤
-│ Thread 1 (Main)  │ Thread 2 (Worker)│ Thread 3 (IO)       │
-│ - Registers      │ - Registers      │ - Registers         │
-│ - Stack (독립)   │ - Stack (독립)   │ - Stack (독립)      │
-└──────────────────┴──────────────────┴─────────────────────┘
+```mermaid
+graph TD
+    subgraph ProcessMemory [Process Memory Space]
+        CS["Code / Text Segment (공유)"]
+        DS["Data Segment (전역/정적 변수 공유)"]
+        HS["Heap Segment (동적 메모리 공유)"]
+        
+        subgraph T1 [Thread 1 Main]
+            T1_Reg["Registers & PC"]
+            T1_Stack["Stack (독립)"]
+        end
+        
+        subgraph T2 [Thread 2 Worker]
+            T2_Reg["Registers & PC"]
+            T2_Stack["Stack (독립)"]
+        end
+        
+        subgraph T3 [Thread 3 IO]
+            T3_Reg["Registers & PC"]
+            T3_Stack["Stack (독립)"]
+        end
+    end
 ```
 
 ---

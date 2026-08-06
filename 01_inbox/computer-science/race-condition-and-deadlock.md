@@ -2,116 +2,100 @@
 title: race-condition-and-deadlock
 tags: [computer-science, concurrency, thread-safety, synchronization]
 aliases: [Race Condition, Deadlock, Mutex, Lock, 경쟁 상태, 데드락, 뮤텍스, Coffman Conditions]
-date modified: 2026-08-06 16:25:00 +09:00
+date modified: 2026-08-06 16:55:00 +09:00
 date created: 2026-08-06 16:25:00 +09:00
 ---
 
-## 핵심 개념 정의
+## 동시성 문제: Race Condition & Deadlock
 
-동시성(Concurrency) 및 멀티스레드 프로그래밍 환경에서 **Race Condition (경쟁 상태)**, **Mutex/Lock (상호 배제)**, **Deadlock (데드락/교착 상태)** 은 스레드 안전성(Thread Safety)을 위협하거나 동기화를 위해 반드시 이해해야 하는 핵심 개념들이다.
+멀티스레드 및 동시성(Concurrency) 프로그래밍 환경에서 **Race Condition(경쟁 상태)**, **Mutex/Lock(상호 배제)**, **Deadlock(교착 상태)**은 소프트웨어 안정성을 위협하는 3대 핵심 개념입니다.
 
+---
+
+### 초보자를 위한 쉽게 이해하는 비유
+
+* **Race Condition (경쟁 상태)**: **"공용 노트에 두 사람이 동시에 글 쓰기"**와 같습니다. A와 B가 서로 상대방의 글을 확인하지 않고 동시에 숫자를 읽고 `+1`을 적다 보면, 한 사람의 작업 기록이 지워지는(Lost Update) 데이터 오염 버그가 생깁니다.
+* **Mutex / Lock (상호 배제)**: **"화장실 열쇠"**와 같습니다. 열쇠를 가진 사람 1명만 화장실(임계 영역)에 들어가고 문을 잠급니다. 볼일이 끝나면 열쇠를 반납해야 다른 사람이 들어갈 수 있습니다.
+* **Deadlock (교착 상태)**: **"좁은 외나무다리에서 만난 두 자동차"**와 같습니다. 양쪽 자동차가 서로 상대방이 양보하기만을 기다리며 멈춰 서서 아무도 앞으로 나아가지 못하는 영구 대기 상태입니다.
+
+```mermaid
+flowchart TD
+    subgraph RaceCondition [Race Condition: Interleaving Risk]
+        ThA1[Thread A: Read count = 0] --> ThA2[Thread A: Write count = 1]
+        ThB1[Thread B: Read count = 0] --> ThB2[Thread B: Write count = 1]
+        ThA2 --> LostUpdate[Lost Update Bug: Final count is 1 instead of 2]
+        ThB2 --> LostUpdate
+    end
+
+    subgraph DeadlockScenario [Deadlock: Circular Wait]
+        Th1[Thread 1: Holds Lock A] -->|Wants Lock B| WaitLockB[Blocked on Lock B held by Thread 2]
+        Th2[Thread 2: Holds Lock B] -->|Wants Lock A| WaitLockA[Blocked on Lock A held by Thread 1]
+    end
 ```
-[Race Condition]
-Thread A: Read count (0) ───────> Add 1 ───────> Write count (1)  (Lost Update 발생!)
-Thread B: Read count (0) ── Add 1 ── Write count (1)
-
-[Mutex Solution]
-Thread A: Acquire Lock ──> Read/Modify/Write ──> Release Lock
-Thread B:                  (Wait for Lock...)  ──> Acquire Lock ──> Read/Modify/Write
-
-[Deadlock]
-Thread A (Holds Lock 1) ────(Wants Lock 2)────> [Lock 2 held by Thread B]
-Thread B (Holds Lock 2) ────(Wants Lock 1)────> [Lock 1 held by Thread A]
-(서로 락 해제를 기다리며 무한 대기)
-```
 
 ---
 
-## 1. Race Condition (경쟁 상태)
+### 1. Race Condition (경쟁 상태)
 
-### 정의
-두 개 이상의 프로세스나 스레드가 공유 자원(Shared Resource)에 동시에 접근하여 읽고 쓰는 작업을 수행할 때, **실행 순서(Timing / Interleaving)에 따라 연산의 최종 결과가 달라지는 비결정론적(Non-deterministic) 오류 상태**이다.
+#### 정의
+두 개 이상의 프로세스나 스레드가 공유 데이터(Shared Resource)에 동시에 접근하여 조작할 때, **실행 순서(Timing / Interleaving)에 따라 연산의 최종 결과가 달라지는 비결정론적 오류 상태**입니다.
 
-### Data Race 와의 차이점
-- **Data Race (데이터 경쟁)**: 동기화(Synchronization) 없이 둘 이상의 스레드가 동일한 메모리 위치에 동시에 접근하고, 그 중 적어도 하나가 쓰기(Write) 연산인 경우를 의미하는 C++/Java 언어 스펙상의 명확한 하위 개념이다.
-- **Race Condition**: 비즈니스 로직 수준의 제약 조건이나 실행 순서상의 경쟁으로 인한 더 넓은 범위의 결함을 의미한다. (Data Race 가 없더라도 Race Condition 이 발생할 수 있다).
-
----
-
-## 2. Mutex / Lock (상호 배제)
-
-### 정의
-**Mutex (Mutual Exclusion, 상호 배제)** 및 **Lock** 은 임계 영역(Critical Section)에 동시에 단 하나의 스레드만 진입할 수 있도록 제어하는 동기화 메커니즘이다.
-
-### 특징
-- **소유권 (Ownership)**: Mutex 는 락을 획득(Acquire/Lock)한 스레드만이 그 락을 해제(Release/Unlock)할 수 있는 소유권 개념을 가진다. (바이너리 세마포어와의 핵심 차이).
-- **상태**: Lock 상태(진입 불가능)와 Unlock 상태(진입 가능) 2가지 상태만을 가진다.
+#### Data Race와의 차이점
+* **Data Race (데이터 경쟁)**: 동기화(Synchronization) 없이 둘 이상의 스레드가 메모리의 같은 위치에 접근하고 하나 이상이 쓰기(Write) 작업인 하위 레벨 언어 스펙 개념입니다.
+* **Race Condition**: 비즈니스 로직 수준의 타이밍 실패나 경쟁 상태를 포함하는 더 넓은 개념입니다.
 
 ---
 
-## 3. Deadlock (데드락 / 교착 상태)
+### 2. Mutex / Lock (상호 배제)
 
-### 정의
-두 개 이상의 프로세스나 스레드가 서로가 소유한 자원(락)을 얻기 위해 기다리며 **모든 관련 작업의 진행이 영구적으로 멈추어 버리는 상태**이다.
+#### 정의
+**Mutex (Mutual Exclusion)** 및 **Lock**은 임계 영역(Critical Section)에 한 번에 단 하나의 스레드만 접근할 수 있도록 제어하는 동기화 열쇠입니다.
 
----
-
-## Deadlock 발생의 4가지 필요충분 조건 (Coffman Conditions)
-
-데드락은 다음 **4가지 코프만(Coffman) 조건이 동시에 모두 성립**할 때만 발생한다:
-
-1. **상호 배제 (Mutual Exclusion)**:
-   - 한 번에 한 프로세스/스레드만 자원을 사용할 수 있음 (공유 불가능한 자원).
-2. **점유와 대기 (Hold and Wait)**:
-   - 자원을 이미 보유(Hold)한 프로세스가 다른 자원을 추가로 요구하며 대기(Wait)함.
-3. **비선점 (No Preemption)**:
-   - 다른 프로세스가 보유한 자원을 강제로 빼앗을(Preempt) 수 없으며, 해당 프로세스가 스스로 해제할 때까지 기다려야 함.
-4. **순환 대기 (Circular Wait)**:
-   - 대기 프로세스들이 순환 링 형태로 자원을 요구함 ($P_0$은 $P_1$의 자원을, $P_1$은 $P_2$의 자원을, $P_n$은 $P_0$의 자원을 대기).
+#### 핵심 특징
+* **소유권 (Ownership)**: Mutex는 락을 획득(Acquire/Lock)한 바로 그 스레드만 락을 해제(Release/Unlock)할 수 있는 소유권 개념이 존재합니다. (세마포어와의 결정적 차이점)
 
 ---
 
-## 개념 간 차이점 종합 비교
+### 3. Deadlock (데드락 / 교착 상태)
+
+#### 정의
+둘 이상의 작업이 서로 상대방이 가진 자원(락)을 얻기 위해 대기하면서 **모든 작업의 진행이 영구적으로 중단되는 멈춤 현상**입니다.
+
+#### Deadlock 발생의 4가지 필요충분 조건 (Coffman Conditions)
+데드락은 다음 4가지 코프만(Coffman) 조건이 **동시에 모두 성립**할 때만 발생합니다.
+
+1. **상호 배제 (Mutual Exclusion)**: 한 번에 한 스레드만 자원을 사용할 수 있음
+2. **점유와 대기 (Hold and Wait)**: 자원을 점유한 채로 다른 자원을 추가 대기함
+3. **비선점 (No Preemption)**: 다른 스레드가 가진 자원을 강제로 빼앗을 수 없음
+4. **순환 대기 (Circular Wait)**: A는 B의 락을, B는 A의 락을 서로 대기하는 고리 형성
+
+---
+
+### 개념 간 차이점 종합 비교
 
 | 구분 | Race Condition (경쟁 상태) | Deadlock (교착 상태) |
 | :--- | :--- | :--- |
-| **발생 원인** | 동기화 부족으로 실행 순서가 무작위 변경됨 | 과도하거나 잘못된 순서의 락 점유 대기 |
-| **프로그램 상태** | 스레드들이 계속 실행되며 **잘못된 데이터 생성** | 스레드들이 차단(Blocked)되어 **아무것도 진행 안 됨** |
-| **증상** | 비결정론적 데이터 오염, 묵묵히 버그 발생 | 시스템 멈춤 (Hang/Freeze), 무한 대기 |
+| **발생 원인** | 동기화 부족으로 무작위 덮어쓰기 발생 | 락 획득 순서 꼬임으로 인한 순환 대기 |
+| **프로그램 상태** | 스레드가 계속 실행되며 **잘못된 데이터 생성** | 스레드가 멈춰서(Blocked) **작업 진행 안 됨** |
 | **주요 해결책** | Mutex/Lock 적용, [Immutability](immutability.md), Atomic 연산 | Lock 획득 순서 정렬, 타임아웃, Lock 범위 최소화 |
 
 ---
 
-## 방지 및 해결 전략 (Prevention & Mitigation Strategies)
+### 주요 예방 및 해결 전략
 
-### 1. Immutability (불변성) 활용
-[Immutability](immutability.md) 객체는 상태가 변경되지 않고 읽기 전용이므로, Lock 이나 Mutex 없이도 Race Condition 및 Data Race 를 100% 근본적으로 예방한다.
-
-### 2. Lock Ordering (락 순서 정렬) - Circular Wait 파괴
-시스템 내의 모든 자원/락에 고유한 순서(Hierarchy ID)를 부여하고, 반드시 정해진 동일한 순서대로만 락을 획득하도록 규정하여 Circular Wait 조건을 완벽히 해제한다.
-```
-// Always Acquire Lock A before Lock B
-synchronized(lockA) {
-    synchronized(lockB) {
-        // Critical Section
-    }
-}
-```
-
-### 3. Lock-free / Atomic 연산 사용
-Hardware Atomic Instruction (e.g., CAS - Compare-And-Swap) 기반의 `AtomicInteger`, `AtomicReference` 등을 사용하여 Mutex Lock 없이도 안전하게 카운팅 및 상태 변경을 수행한다.
-
-### 4. Timeout 및 Lock 획득 시도 (Hold and Wait / No Preemption 파괴)
-`tryLock(timeout)` 기법을 사용하여 일정 시간 내에 락을 획득하지 못하면 이미 소유한 락을 스스로 해제하고 재시도하거나 에러를 반환한다.
-
-### 5. 은행원 알고리즘 (Banker's Algorithm) 및 교착 상태 감시
-- **데드락 회피 (Avoidance)**: 자원 할당 전 시스템이 안전 상태(Safe State)를 유지할 수 있는지 미리 계산하여 할당 여부를 결정 (은행원 알고리즘).
-- **데드락 감지 및 복구 (Detection & Recovery)**: 자원 할당 그래프(Resource Allocation Graph)를 주기적으로 분석하여 교착 상태 발생 시 스레드를 강제 종료하거나 락을 선점(Preempt) 복구.
+1. **[Immutability](immutability.md) (불변성) 활용**
+   * 불변 객체는 상태를 변경할 수 없어 Lock 없이도 Race Condition을 100% 근본적으로 예방합니다.
+2. **Lock Ordering (락 획득 순서 정렬)**
+   * 시스템 내부의 모든 락에 순서를 지정하여 반드시 Lock A ➔ Lock B 순서로만 획득하게 만들어 Circular Wait 조건 자체를 파괴합니다.
+3. **Lock-free / Atomic 연산**
+   * 하드웨어 지원 CAS(Compare-And-Swap) 명령어 기반의 `AtomicInteger` 등을 활용해 Lock 없이 안전하게 카운팅을 수행합니다.
 
 ---
 
-## 관련 노트
-- [Structured Concurrency](structured-concurrency.md)
-- [Immutability](immutability.md)
-- [Context](context.md)
-- [Pure Function](pure-function.md)
+### 연관 노트
+
+- [Structured Concurrency](structured-concurrency.md) - 안전한 비동기 작업 범위 제어
+- [Immutability](immutability.md) - 경쟁 상태를 없애는 불변 데이터 구조
+- [Context](context.md) - 스레드 실행 환경과 상태 관리
+- [Pure Function](pure-function.md) - 상태를 변이시키지 않는 순수 함수
+

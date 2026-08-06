@@ -2,7 +2,7 @@
 title: garbage-collection
 tags: [computer-science, garbage-collection, memory-management, runtime]
 aliases: [Garbage Collection, GC, 가비지 컬렉션, 동적 메모리 해제]
-date modified: 2026-08-06 16:55:01 +09:00
+date modified: 2026-08-06 17:03:01 +09:00
 date created: 2026-08-06 16:54:00 +09:00
 ---
 
@@ -12,13 +12,13 @@ date created: 2026-08-06 16:54:00 +09:00
 
 C/C++ 처럼 개발자가 `free()`나 `delete` 를 통해 수동으로 메모리를 해제해야 하는 언어와 달리, Java, Kotlin, Go, Python 등 런타임 언어는 GC 가 메모리 누수(Memory Leak)와 이중 해제(Double Free) 위험을 예방해 준다.
 
-```
-[Heap Memory]
-┌───────────────────────────────────────────────────────────┐
-│ Active Object A (Root 참조 ⭕)  ──> 유지                  │
-│ Active Object B (Root 참조 ⭕)  ──> 유지                  │
-│ Unreachable Object C (Root 참조 ❌) ──> [GC 수거 대상!]   │
-└───────────────────────────────────────────────────────────┘
+```mermaid
+graph LR
+    subgraph HeapMemory [Heap Memory Area]
+        ObjA["Active Object A<br/>(Root 참조 ⭕)"] --> KeepA["유지 (Reachable)"]
+        ObjB["Active Object B<br/>(Root 참조 ⭕)"] --> KeepB["유지 (Reachable)"]
+        ObjC["Unreachable Object C<br/>(Root 참조 ❌)"] --> GC["GC 수거 대상 (Sweep)"]
+    end
 ```
 
 ---
@@ -26,9 +26,9 @@ C/C++ 처럼 개발자가 `free()`나 `delete` 를 통해 수동으로 메모리
 ## GC 의 핵심 동작 원리 (Mark-and-Sweep)
 
 1. **GC Root 추적 (Mark Phase)**:
-   - 런타임은 스택 변수, 전역 변수, JNI 참조 등 기준점(GC Root)으로부터 연결된 모든 객체를 추적(Tracing)하여 **살아있는 객체(Reachable Object)**로 표기(Mark)한다.
+   - 런타임은 스택 변수, 전역 변수, JNI 참조 등 기준점(GC Root)으로부터 연결된 모든 객체를 추적(Tracing)하여 **살아있는 객체(Reachable Object)** 로 표기(Mark)한다.
 2. **미사용 메모리 해제 (Sweep Phase)**:
-   - GC Root 로부터 도달할 수 없는 **고아 객체(Unreachable Object)**를 도려내고 해당 메모리를 힙으로 반환한다.
+   - GC Root 로부터 도달할 수 없는 **고아 객체(Unreachable Object)** 를 도려내고 해당 메모리를 힙으로 반환한다.
 3. **메모리 단편화 정리 (Compaction Phase)**:
    - 해제된 힙 메모리 구멍(Fragmentation)을 메우기 위해 살아있는 객체들을 한쪽으로 모아 붙인다.
 
