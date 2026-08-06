@@ -55,7 +55,7 @@ M3 검색 컴포넌트는 사용자가 필요한 정보를 가장 빠르고 직�
 
 ## 🔗 관련 문서
 
-- [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]
-- [[components-actions|Actions: 버튼과 FAB]]
-- [[components-containment-navigation|Containment & Navigation]]
-- [[components-feedback|Feedback: 로딩과 진행률]]
+- **Material Design 3 개요 (Expressive Deep Dive)**
+- [Actions: 버튼과 FAB](components-actions.md)
+- [Containment & Navigation](components-containment-navigation.md)
+- [Feedback: 로딩과 진행률](components-feedback.md)

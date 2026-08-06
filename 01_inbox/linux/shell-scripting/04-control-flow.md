@@ -17,7 +17,7 @@ Bash 에서는 세 가지 방식의 테스트를 지원합니다.
 | 구분 | 문법 | 특징 |
 | :--- | :---: | :--- |
 | **Standard Test** | `[ expr ]` | POSIX 호환, 공백 필수, 단어 분리/글로브 발생 |
-| **Extended Test** | `[[ expr ]]` | Bash 전용, 패턴(`==`) 및 정규식(`=~`) 매칭 지원, 안전함 |
+| **Extended Test** | `**expr**` | Bash 전용, 패턴(`==`) 및 정규식(`=~`) 매칭 지원, 안전함 |
 | **Arithmetic Test** | `(( expr ))` | 산술 연산 결과 평가 (0 이 아니면 참) |
 
 #### 1.1 주요 비교 연산자
@@ -66,5 +66,5 @@ Bash 에서는 세 가지 방식의 테스트를 지원합니다.
 
 ### 🔗 연결 문서
 
-- [[03-variables-arrays]] - 변수 및 배열 활용
-- [[05-functions]] - 함수 및 모듈화
+- [03-variables-arrays](03-variables-arrays.md) - 변수 및 배열 활용
+- [05-functions](05-functions.md) - 함수 및 모듈화

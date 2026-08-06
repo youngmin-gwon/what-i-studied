@@ -232,6 +232,6 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[network-security-protocols]] - SSL/TLS
-- [[cryptography-basics]] - 암호화 기초
-- [[block-cipher-modes]] - AES-CBC 등
+- [network-security-protocols](network-security-protocols.md) - SSL/TLS
+- [cryptography-basics](../fundamentals/cryptography-basics.md) - 암호화 기초
+- [block-cipher-modes](../fundamentals/block-cipher-modes.md) - AES-CBC 등

@@ -76,6 +76,6 @@ Apple 은 독자적인 가변 폰트인 **San Francisco (SF)** 시리즈를 통�
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[foundations-layout|Layout: 공간과 환경]]
-- [[../components/components-controls|Controls: 버튼과 입력]]
+- **Apple HIG 개요**
+- [Layout: 공간과 환경](foundations-layout.md)
+- **Controls: 버튼과 입력**

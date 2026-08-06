@@ -383,7 +383,7 @@ pkill -u departed_user
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[filesystem-hierarchy-standard]] - /etc 디렉토리 구조
-- [[user-permission-commands]] - chmod, chown 명령어
-- [[linux-log-management]] - 인증 로그 (wtmp, btmp)
-- [[selinux]] - 강제적 접근 통제
+- [filesystem-hierarchy-standard](../filesystem-hierarchy-standard.md) - /etc 디렉토리 구조
+- [user-permission-commands](../commands/user-permission-commands.md) - chmod, chown 명령어
+- [linux-log-management](linux-log-management.md) - 인증 로그 (wtmp, btmp)
+- [selinux](selinux.md) - 강제적 접근 통제

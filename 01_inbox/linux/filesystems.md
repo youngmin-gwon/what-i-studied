@@ -101,7 +101,7 @@ tune2fs -o journal_data /dev/sdb1
 - ✅ 대용량 파일 처리 최적화
 - ✅ 병렬 I/O 성능 우수
 - ✅ 온라인 확장 가능
-- ✅ 동적 [[inode]] 할당 (inode 고갈 없음)
+- ✅ 동적 [inode](inode.md) 할당 (inode 고갈 없음)
 - ✅ 지연 할당 (Delayed Allocation)
 - ❌ **축소 불가능** (치명적 제약)
 - ❌ ext4보다 느린 메타데이터 작업
@@ -378,7 +378,7 @@ btrfs-convert -r /dev/sdb1
 
 # ❌ DON'T
 - 매우 큰 파일 (>1TB) 처리에는 XFS 고려
-- 스냅샷 필요 시 [[lvm]] 또는 Btrfs 사용
+- 스냅샷 필요 시 [lvm](lvm.md) 또는 Btrfs 사용
 ```
 
 ### XFS
@@ -412,7 +412,7 @@ mount -o compress=zstd
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[lvm]] - 논리 볼륨 관리와 파일시스템 조합
-- [[raid-technologies]] - 디스크 중복성 및 성능 향상 기술
-- [[inode]] - 파일시스템 내부 구조
-- [[filesystem-hierarchy-standard]] - Linux 디렉토리 구조
+- [lvm](lvm.md) - 논리 볼륨 관리와 파일시스템 조합
+- [raid-technologies](raid-technologies.md) - 디스크 중복성 및 성능 향상 기술
+- [inode](inode.md) - 파일시스템 내부 구조
+- [filesystem-hierarchy-standard](filesystem-hierarchy-standard.md) - Linux 디렉토리 구조

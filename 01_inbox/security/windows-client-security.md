@@ -350,6 +350,6 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[secure-operating-systems]] - Windows 보안 구조 (SAM, LSA, SRM)
-- [[network-security-protocols]] - 원격 접속 보안
-- [[linux-account-security]] - Linux 계정 보안과 비교
+- [secure-operating-systems](../operating-systems/secure-operating-systems.md) - Windows 보안 구조 (SAM, LSA, SRM)
+- [network-security-protocols](protocols/network-security-protocols.md) - 원격 접속 보안
+- [linux-account-security](../linux/security/linux-account-security.md) - Linux 계정 보안과 비교

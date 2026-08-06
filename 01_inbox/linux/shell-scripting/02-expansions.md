@@ -68,5 +68,5 @@ date created: 2025-12-28 20:44:16 +09:00
 
 ### 🔗 연결 문서
 
-- [[01-overview]] - 셸 기본 개념
-- [[03-variables-arrays]] - 변수 및 배열 활용
+- [01-overview](01-overview.md) - 셸 기본 개념
+- [03-variables-arrays](03-variables-arrays.md) - 변수 및 배열 활용

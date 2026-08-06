@@ -285,12 +285,12 @@ fio --name=random-read --ioengine=libaio --iodepth=32 \
 3. 인덱스 할당 (Indexed Allocation)
    - 인덱스 블록에 위치 저장
    - 랜덤 접근 효율적
-   - [[inode]] 방식이 이에 해당
+   - [inode](../linux/inode.md) 방식이 이에 해당
 ```
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[filesystems]] - 파일시스템 (ext4, XFS, Btrfs)
-- [[inode]] - 인덱스 할당과 inode
-- [[lvm]] - 논리 볼륨 관리
-- [[virtual-memory]] - 스왑과 디스크 I/O
+- [filesystems](../linux/filesystems.md) - 파일시스템 (ext4, XFS, Btrfs)
+- [inode](../linux/inode.md) - 인덱스 할당과 inode
+- [lvm](../linux/lvm.md) - 논리 볼륨 관리
+- [virtual-memory](virtual-memory.md) - 스왑과 디스크 I/O

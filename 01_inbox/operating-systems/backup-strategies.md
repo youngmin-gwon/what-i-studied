@@ -239,7 +239,7 @@ schtasks /create /tn "DailyBackup" /tr "wbadmin start backup..." /sc daily /st 0
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[filesystems]] - 파일시스템과 저장소
-- [[raid-technologies]] - RAID 를 통한 데이터 보호
-- [[lvm]] - 논리 볼륨과 스냅샷 백업
-- [[linux-log-management]] - 백업 로그 관리
+- [filesystems](../linux/filesystems.md) - 파일시스템과 저장소
+- [raid-technologies](../linux/raid-technologies.md) - RAID 를 통한 데이터 보호
+- [lvm](../linux/lvm.md) - 논리 볼륨과 스냅샷 백업
+- [linux-log-management](../linux/security/linux-log-management.md) - 백업 로그 관리

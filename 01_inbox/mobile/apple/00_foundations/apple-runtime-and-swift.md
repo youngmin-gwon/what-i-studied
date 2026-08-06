@@ -6,11 +6,11 @@ date modified: 2026-04-08 13:58:50 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
-## [[mobile-security]] > [[apple-runtime-and-swift]]
+## [mobile-security](../../mobile-security.md) > [apple-runtime-and-swift](apple-runtime-and-swift.md)
 
 ### Runtime & Swift/ObjC Internals: Dynamic Architecture
 
-Apple 플랫폼의 실행 환경을 구성하는 **Objective-C Runtime**과 **Swift Runtime**의 내부 동작 원리를 심층 분석합니다. 이 시스템의 근간이 되는 하이브리드 커널 구조는 [[apple-architecture-stack]] 을 참고하시기 바랍니다.
+Apple 플랫폼의 실행 환경을 구성하는 **Objective-C Runtime**과 **Swift Runtime**의 내부 동작 원리를 심층 분석합니다. 이 시스템의 근간이 되는 하이브리드 커널 구조는 [apple-architecture-stack](apple-architecture-stack.md) 을 참고하시기 바랍니다.
 
 #### 🏗️ Architecture Level: How Compiled Code is Processed
 
@@ -101,13 +101,13 @@ CPU 가 함수를 실행하려면 **"어떤 메모리 주소로 가라"** 는 �
 
 #### 📚 연관 문서 및 심화 학습
 
-- [[apple-memory-management]] - 객체 레이아웃과 ARC 메모리 관리
-- [[apple-uikit-lifecycle]] - UIKit 프레임워크의 생명주기와 내부 동작
-- [[apple-architecture-stack]] - Darwin 커널과 Mach/BSD 계층 구조
-- [[apple-foundations]] - Apple 플랫폼 공통 설계 철학
-- [[apple-performance-and-debug]] - 런타임 성능 프로파일링 가이드
-- [[objective-c-vs-swift-interoperability]] - Swift 와 Objective-C 의 상호 운용 및 컴파일 심층 비교
-- [[mobile-security]] - 통합 모바일 보안 가이드
+- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - 객체 레이아웃과 ARC 메모리 관리
+- [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - UIKit 프레임워크의 생명주기와 내부 동작
+- [apple-architecture-stack](apple-architecture-stack.md) - Darwin 커널과 Mach/BSD 계층 구조
+- [apple-foundations](apple-foundations.md) - Apple 플랫폼 공통 설계 철학
+- [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - 런타임 성능 프로파일링 가이드
+- [objective-c-vs-swift-interoperability](objective-c-vs-swift-interoperability.md) - Swift 와 Objective-C 의 상호 운용 및 컴파일 심층 비교
+- [mobile-security](../../mobile-security.md) - 통합 모바일 보안 가이드
 
 ##### 2. Protocol Witness Table (PWT)
 

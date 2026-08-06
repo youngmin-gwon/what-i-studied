@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:14:15 +09:00
 date created: 2026-04-05 17:08:16 +09:00
 ---
 
-## [[mobile-security]] > [[apple-security-pq3]]
+## [mobile-security](../../mobile-security.md) > [apple-security-pq3](apple-security-pq3.md)
 
 ### PQ3: Post-Quantum Cryptography (iMessage)
 
@@ -39,6 +39,6 @@ date created: 2026-04-05 17:08:16 +09:00
 
 #### 연관 문서
 
-- [[cryptography-basics]] - 암호학 기초
-- [[network-security-protocols]] - 네트워크 보안 프로토콜
-- [[mobile-security]] - 모바일 보안 허브
+- [cryptography-basics](../../../security/fundamentals/cryptography-basics.md) - 암호학 기초
+- [network-security-protocols](../../../security/protocols/network-security-protocols.md) - 네트워크 보안 프로토콜
+- [mobile-security](../../mobile-security.md) - 모바일 보안 허브

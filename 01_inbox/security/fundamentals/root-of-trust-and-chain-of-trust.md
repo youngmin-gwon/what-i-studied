@@ -64,9 +64,9 @@ Chain of Trust 는 이 문제를 "가장 먼저 실행되는 것부터 검증한
 
 - **UEFI Secure Boot**: 메인보드 펌웨어에 내장된 신뢰된 인증서(Root of Trust)가 OS 부트로더의 서명을 검증하고, 부트로더는 다시 OS 커널을 검증한다. 서명되지 않았거나 신뢰 목록에 없는 부트로더/커널은 로드를 거부한다.
 - **TPM 기반 부팅 무결성 측정(Measured Boot)**: TPM 은 부팅 각 단계의 해시를 PCR(Platform Configuration Register)에 순차적으로 누적 기록한다. 이후 원격의 검증자가 이 PCR 값을 조회해(remote attestation) "이 기기가 실제로 어떤 소프트웨어 스택으로 부팅했는지" 를 검증할 수 있다. Secure Boot 가 "허용되지 않으면 막는다" 는 능동적 차단이라면, Measured Boot 는 "무엇으로 부팅했는지 증거를 남긴다" 는 수동적 기록에 가깝다.
-- **Android Verified Boot(AVB)**: 하드웨어에 내장된 Root of Trust 에서 시작해 Bootloader, Kernel, System/Vendor 파티션까지 서명과 [[merkle-tree|Merkle Tree]] 해시([[device-mapper-and-dm-verity|dm-verity]])로 이어지는 체인을 구성한다. 이는 이 문서에서 설명한 일반 Chain of Trust 패턴을 모바일 플랫폼에 적용한 구체적인 구현 사례이며, Android 자체의 세부 사항(vbmeta 파티션, Verified Boot State 등)은 android 지식베이스의 관련 노트에서 별도로 다룬다.
+- **Android Verified Boot(AVB)**: 하드웨어에 내장된 Root of Trust 에서 시작해 Bootloader, Kernel, System/Vendor 파티션까지 서명과 **Merkle Tree** 해시(**dm-verity**)로 이어지는 체인을 구성한다. 이는 이 문서에서 설명한 일반 Chain of Trust 패턴을 모바일 플랫폼에 적용한 구체적인 구현 사례이며, Android 자체의 세부 사항(vbmeta 파티션, Verified Boot State 등)은 android 지식베이스의 관련 노트에서 별도로 다룬다.
 
 ## 연결 문서
 
-- [[merkle-tree]] - Chain of Trust 의 각 단계에서 대량 데이터 무결성을 효율적으로 검증하는 자료구조
-- [[device-mapper-and-dm-verity]] - Chain of Trust 가 커널 진입 이후 파일시스템 계층까지 확장되는 구체적 메커니즘
+- **merkle-tree** - Chain of Trust 의 각 단계에서 대량 데이터 무결성을 효율적으로 검증하는 자료구조
+- **device-mapper-and-dm-verity** - Chain of Trust 가 커널 진입 이후 파일시스템 계층까지 확장되는 구체적 메커니즘

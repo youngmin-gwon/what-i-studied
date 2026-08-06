@@ -249,6 +249,6 @@ visionOS 와 공유되는 코드를 통해 2D 화면에서도 그림자와 조�
 
 ### 더 보기
 
-- [[apple-uikit-lifecycle]] - UIKit 과의 공존 (`UIViewRepresentable`)
-- [[apple-observation-framework]] - `@Observable` 패러다임 시프트 상세
-- [[apple-combine-framework]] - 비동기 스트림 처리 (레거시 `ObservableObject` 파이프라인 → `@Observable` 전환)
+- [apple-uikit-lifecycle](apple-uikit-lifecycle.md) - UIKit 과의 공존 (`UIViewRepresentable`)
+- [apple-observation-framework](../01_language_concurrency/apple-observation-framework.md) - `@Observable` 패러다임 시프트 상세
+- [apple-combine-framework](../03_data_networking/apple-combine-framework.md) - 비동기 스트림 처리 (레거시 `ObservableObject` 파이프라인 → `@Observable` 전환)

@@ -296,18 +296,18 @@ def sensitive():
 - [ ] URL 인코딩
 - [ ] JavaScript 인코딩
 
-### [[authentication-authorization|인증/인가]]
+### [인증/인가](fundamentals/authentication-authorization.md)
 - [ ] 강력한 패스워드 정책
 - [ ] MFA 구현
 - [ ] 세션 타임아웃
 
-### [[cryptography-basics|암호화]]
+### [암호화](fundamentals/cryptography-basics.md)
 - [ ] HTTPS 사용
 - [ ] 민감 데이터 암호화
 - [ ] 안전한 난수 생성
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[authentication-authorization]] - 웹 인증 메커니즘
-- [[cryptography-basics]] - 암호화 기초
-- [[network-security-protocols]] - HTTPS/TLS
+- [authentication-authorization](fundamentals/authentication-authorization.md) - 웹 인증 메커니즘
+- [cryptography-basics](fundamentals/cryptography-basics.md) - 암호화 기초
+- [network-security-protocols](protocols/network-security-protocols.md) - HTTPS/TLS

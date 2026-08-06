@@ -328,7 +328,7 @@ clamscan -ri --remove /var/www
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[linux-account-security]] - 계정 및 패스워드 보안
-- [[linux-log-management]] - 로그 관리
-- [[malware-types]] - 루트킷 탐지
-- [[selinux]] - 강제적 접근 통제
+- [linux-account-security](linux-account-security.md) - 계정 및 패스워드 보안
+- [linux-log-management](linux-log-management.md) - 로그 관리
+- [malware-types](../../security/attacks/malware/malware-types.md) - 루트킷 탐지
+- [selinux](selinux.md) - 강제적 접근 통제

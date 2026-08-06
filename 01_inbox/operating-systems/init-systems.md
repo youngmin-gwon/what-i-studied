@@ -64,7 +64,7 @@ Ubuntu에서 SysV init의 한계를 극복하기 위해 개발한 방식입니�
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[systemd]] - 현대 리눅스 서비스 관리의 상세 가이드 (Unit, Target, Socket)
-- [[boot-sequence]] - BIOS에서 Init 실행까지의 부팅 과정
-- [[process-states-lifecycle]] - 프로세스의 생성과 소멸, PID 1의 역할
-- [[android-init-and-services]] - 안드로이드 특유의 `init.rc` 기반 초기화 방식
+- [systemd](../linux/systemd.md) - 현대 리눅스 서비스 관리의 상세 가이드 (Unit, Target, Socket)
+- [boot-sequence](boot-sequence.md) - BIOS에서 Init 실행까지의 부팅 과정
+- [process-states-lifecycle](process-states-lifecycle.md) - 프로세스의 생성과 소멸, PID 1의 역할
+- **android-init-and-services** - 안드로이드 특유의 `init.rc` 기반 초기화 방식

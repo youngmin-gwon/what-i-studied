@@ -68,5 +68,5 @@ date created: 2025-12-28 20:44:18 +09:00
 
 ### 🔗 연결 문서
 
-- [[02-expansions]] - 명령 확장 및 인용 규칙
-- [[04-control-flow]] - 제어문 및 반복문
+- [02-expansions](02-expansions.md) - 명령 확장 및 인용 규칙
+- [04-control-flow](04-control-flow.md) - 제어문 및 반복문

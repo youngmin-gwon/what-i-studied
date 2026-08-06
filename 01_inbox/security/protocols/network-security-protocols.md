@@ -8,7 +8,7 @@ date created: 2025-12-20 00:17:40 +09:00
 
 ## 🌐 개요 (Overview)
 
-네트워크 보안 프로토콜은 [[tcp-ip-model|TCP/IP 네트워크]] 에서 안전한 통신을 제공하는 프로토콜입니다. 기밀성, 무결성, 인증을 보장하여 중간자 공격, 도청, 데이터 변조를 방지합니다.
+네트워크 보안 프로토콜은 [TCP/IP 네트워크](../../computer-science/networking/tcp-ip-model.md) 에서 안전한 통신을 제공하는 프로토콜입니다. 기밀성, 무결성, 인증을 보장하여 중간자 공격, 도청, 데이터 변조를 방지합니다.
 
 ## 🔐 TLS/SSL (Transport Layer Security)
 
@@ -119,7 +119,7 @@ TCP (포트 22)
 ### 인증 방식
 
 1. **Password**: 패스워드 인증
-2. **Public Key**: [[cryptography-basics|공개키]] 인증 (권장)
+2. **Public Key**: [공개키](../fundamentals/cryptography-basics.md) 인증 (권장)
 3. **Host-based**: 호스트 기반
 4. **Keyboard-interactive**: 동적 챌린지
 
@@ -228,7 +228,7 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[cryptography-basics]] - 암호화 알고리즘
-- [[tcp-ip-model]] - 네트워크 프로토콜 스택
-- [[authentication-authorization]] - 인증 메커니즘
-- [[dns-fundamentals]] - DNS over HTTPS/TLS
+- [cryptography-basics](../fundamentals/cryptography-basics.md) - 암호화 알고리즘
+- [tcp-ip-model](../../computer-science/networking/tcp-ip-model.md) - 네트워크 프로토콜 스택
+- [authentication-authorization](../fundamentals/authentication-authorization.md) - 인증 메커니즘
+- [dns-fundamentals](../../computer-science/networking/dns-fundamentals.md) - DNS over HTTPS/TLS

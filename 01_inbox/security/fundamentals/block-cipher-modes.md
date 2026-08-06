@@ -233,6 +233,6 @@ MAC = Hash(Key || Message)
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[cryptography-basics]] - 암호학 기초
-- [[network-security-protocols]] - TLS/SSL
-- [[authentication-authorization]] - 인증과 인가
+- [cryptography-basics](cryptography-basics.md) - 암호학 기초
+- [network-security-protocols](../protocols/network-security-protocols.md) - TLS/SSL
+- [authentication-authorization](authentication-authorization.md) - 인증과 인가

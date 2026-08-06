@@ -8,7 +8,7 @@ date created: 2025-12-20 13:59:24 +09:00
 
 ## 🌐 개요 (Overview)
 
-[[process-states-lifecycle|프로세스]] 제어, [[signals|시그널]], 작업 관리 명령어들입니다.
+[프로세스](../../operating-systems/process-states-lifecycle.md) 제어, [시그널](../../operating-systems/signals.md), 작업 관리 명령어들입니다.
 
 ## 📋 Quick Reference
 
@@ -281,6 +281,6 @@ renice 19 -p PID
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[process-states-lifecycle]] - 프로세스 개념
-- [[signals]] - 시그널 상세
-- [[system-monitoring-commands]] - 프로세스 모니터링
+- [process-states-lifecycle](../../operating-systems/process-states-lifecycle.md) - 프로세스 개념
+- [signals](../../operating-systems/signals.md) - 시그널 상세
+- [system-monitoring-commands](system-monitoring-commands.md) - 프로세스 모니터링

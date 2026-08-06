@@ -39,5 +39,5 @@ date created: 2025-12-28 20:46:03 +09:00
 
 ### 🔗 연결 문서
 
-- [[14-command-reference]] - 명령 및 옵션 레퍼런스
-- [[16-troubleshooting-cookbook]] - 트러블슈팅 Cookbook
+- [14-command-reference](14-command-reference.md) - 명령 및 옵션 레퍼런스
+- [16-troubleshooting-cookbook](16-troubleshooting-cookbook.md) - 트러블슈팅 Cookbook

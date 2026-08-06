@@ -8,14 +8,14 @@ date created: 2025-12-20 00:02:18 +09:00
 
 ## 🌐 개요 (Overview)
 
-**Signal (시그널)** 은 Unix/Linux에서 [[process-states-lifecycle|프로세스]]에게 이벤트가 발생했음을 알리는 소프트웨어 인터럽트입니다. 키보드 입력(Ctrl+C), 프로그램 오류(Segmentation Fault), 타이머 만료 등 다양한 상황에서 발생합니다.
+**Signal (시그널)** 은 Unix/Linux에서 [프로세스](process-states-lifecycle.md)에게 이벤트가 발생했음을 알리는 소프트웨어 인터럽트입니다. 키보드 입력(Ctrl+C), 프로그램 오류(Segmentation Fault), 타이머 만료 등 다양한 상황에서 발생합니다.
 
 ## 🎯 시그널의 목적 (Purpose)
 
 1. **비동기 이벤트 통지**: 프로세스가 poll 하지 않아도 이벤트 알림
 2. **프로세스 제어**: 일시정지, 재개, 종료 등
 3. **에러 처리**: 프로그램 오류 상황 처리
-4. **[[ipc-mechanisms|프로세스 간 통신]]**: 단순한 메시지 전달
+4. **[프로세스 간 통신](ipc-mechanisms.md)**: 단순한 메시지 전달
 
 ## 📋 주요 시그널 목록 (Common Signals)
 
@@ -373,7 +373,7 @@ int main() {
 
 **SIGKILL (9)** 과 **SIGSTOP (19)** 은 핸들러를 등록하거나 무시할 수 없습니다.
 
-**이유**: [[kernel|커널]]이 프로세스를 강제로 제어할 수단이 필요
+**이유**: **커널**이 프로세스를 강제로 제어할 수단이 필요
 - **SIGKILL**: 무조건 종료 (무한 루프 프로세스 강제 종료)
 - **SIGSTOP**: 무조건 정지 (디버깅, 작업 제어)
 
@@ -384,6 +384,6 @@ kill -9 PID
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[process-states-lifecycle]] - 프로세스 상태와 시그널의 영향
-- [[ipc-mechanisms]] - 시그널 외의 프로세스 간 통신 방법
-- [[kernel]] - 커널의 시그널 처리 메커니즘
+- [process-states-lifecycle](process-states-lifecycle.md) - 프로세스 상태와 시그널의 영향
+- [ipc-mechanisms](ipc-mechanisms.md) - 시그널 외의 프로세스 간 통신 방법
+- **kernel** - 커널의 시그널 처리 메커니즘

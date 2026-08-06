@@ -93,5 +93,5 @@ flowchart TD
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[linux-history]] - 리눅스와 오픈소스 운동의 역사
-- [[linux-characteristics]] - 리눅스의 기술적 특징
+- [linux-history](linux-history.md) - 리눅스와 오픈소스 운동의 역사
+- [linux-characteristics](linux-characteristics.md) - 리눅스의 기술적 특징

@@ -58,9 +58,9 @@ graph TB
 **운영체제의 핵심 부분**으로, 주기억장치에 상주하며 하드웨어와 직접 상호작용합니다.
 
 **주요 기능**:
-- **프로세스 관리**: 프로세스 생성/종료, [[process-scheduling|스케줄링]], 동기화
-- **메모리 관리**: [[virtual-memory|가상 메모리]], 페이지 교체, 메모리 보호
-- **파일시스템 관리**: 파일 생성/삭제, 디렉토리 구조, [[inode]]
+- **프로세스 관리**: 프로세스 생성/종료, [스케줄링](process-scheduling.md), 동기화
+- **메모리 관리**: [가상 메모리](virtual-memory.md), 페이지 교체, 메모리 보호
+- **파일시스템 관리**: 파일 생성/삭제, 디렉토리 구조, [inode](../linux/inode.md)
 - **입출력 관리**: 디바이스 드라이버, 버퍼링, 인터럽트 처리
 - **보안**: 접근 제어, 인증, 암호화
 
@@ -261,7 +261,7 @@ graph TD
 3. **인증**: 사용자/프로세스의 신원 확인
 4. **암호화**: 데이터 보호
 
->💡 **Reference Monitor**에 대한 자세한 내용은 [[secure-operating-systems]] 참조
+>💡 **Reference Monitor**에 대한 자세한 내용은 [secure-operating-systems](secure-operating-systems.md) 참조
 
 ## 💡 실무 예시
 
@@ -308,8 +308,8 @@ cat /proc/sys/kernel/kptr_restrict       # 커널 포인터 제한
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[process-states-lifecycle]] - 프로세스 상태와 생명주기
-- [[process-scheduling]] - CPU 스케줄링 알고리즘
-- [[virtual-memory]] - 가상 메모리와 메모리 보호
-- [[secure-operating-systems]] - 보안 운영체제와 Reference Monitor
-- [[init-systems]] - 리눅스의 init 시스템 및 systemd 상세
+- [process-states-lifecycle](process-states-lifecycle.md) - 프로세스 상태와 생명주기
+- [process-scheduling](process-scheduling.md) - CPU 스케줄링 알고리즘
+- [virtual-memory](virtual-memory.md) - 가상 메모리와 메모리 보호
+- [secure-operating-systems](secure-operating-systems.md) - 보안 운영체제와 Reference Monitor
+- [init-systems](init-systems.md) - 리눅스의 init 시스템 및 systemd 상세

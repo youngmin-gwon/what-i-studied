@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:01:42 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
-## [[mobile-security]] > [[apple-swift-concurrency]]
+## [mobile-security](../../mobile-security.md) > [apple-swift-concurrency](apple-swift-concurrency.md)
 
 ### Swift Concurrency: Modern Asynchronous Programming
 
@@ -227,10 +227,10 @@ class ViewController {
 > - `viewModelScope.launch` ≃ `Task { … }` (MainActor 에서 실행 시)
 > - `withContext(Dispatchers.IO)` ≃ `Task.detached { … }` 또는 `nonisolated` 메서드 활용
 > - `Flow.collect` ≃ `for await in sequence`
->상세 비교는 [[android-coroutines-flow]] 를 참고하세요.
+>상세 비교는 [android-coroutines-flow](../../android/02_app_framework/data/async-flow/android-coroutines-flow.md) 를 참고하세요.
 
 #### 🔗 연관 문서 및 심화 학습
 
-- [[apple-gcd-deep-dive]] - 기존 GCD 와의 차이점 및 고해상도 타이머
-- [[apple-observation-framework]] - Actor 와 @Observable 의 결합 및 성능 최적화
-- [[apple-combine-framework]] - 비동기 스트림 처리를 위한 Combine 활용
+- [apple-gcd-deep-dive](apple-gcd-deep-dive.md) - 기존 GCD 와의 차이점 및 고해상도 타이머
+- [apple-observation-framework](apple-observation-framework.md) - Actor 와 @Observable 의 결합 및 성능 최적화
+- [apple-combine-framework](../03_data_networking/apple-combine-framework.md) - 비동기 스트림 처리를 위한 Combine 활용

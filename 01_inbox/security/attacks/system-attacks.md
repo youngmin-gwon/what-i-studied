@@ -303,7 +303,7 @@ diff /var/log/setuid.txt /var/log/setuid.txt.prev
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[kernel-structure]] - 운영체제 커널 구조
-- [[process-states-lifecycle]] - 프로세스와 메모리 구조
-- [[linux-account-security]] - SetUID 와 권한 관리
-- [[malware-types]] - 악성코드와 시스템 공격
+- [kernel-structure](../../operating-systems/kernel-structure.md) - 운영체제 커널 구조
+- [process-states-lifecycle](../../operating-systems/process-states-lifecycle.md) - 프로세스와 메모리 구조
+- [linux-account-security](../../linux/security/linux-account-security.md) - SetUID 와 권한 관리
+- [malware-types](malware/malware-types.md) - 악성코드와 시스템 공격

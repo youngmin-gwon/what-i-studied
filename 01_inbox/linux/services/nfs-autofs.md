@@ -162,6 +162,6 @@ journalctl -u autofs -f
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[filesystems]] - 파일시스템 개념
-- [[samba-server]] - Windows 공유 (SMB/CIFS)
-- [[network-commands]] - 네트워크 진단 명령어
+- [filesystems](../filesystems.md) - 파일시스템 개념
+- [samba-server](samba-server.md) - Windows 공유 (SMB/CIFS)
+- [network-commands](../commands/network-commands.md) - 네트워크 진단 명령어

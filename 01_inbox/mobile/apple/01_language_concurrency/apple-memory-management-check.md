@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:01:32 +09:00
 date created: 2026-04-06 17:58:00 +09:00
 ---
 
-## [[apple-memory-management]] > [[apple-memory-management-check]]
+## [apple-memory-management](apple-memory-management.md) > [apple-memory-management-check](apple-memory-management-check.md)
 
 ### Memory Management Self-Diagnosis & Interview Prep
 
@@ -68,6 +68,6 @@ class Worker {
 
 #### 📚 연관 학습
 
-- [[apple-memory-management]] - ARC 및 메모리 레이아웃 상세
-- [[apple-performance-and-debug]] - 실전 디버깅 및 분석 도구 활용
-- [[apple-runtime-and-swift]] - 런타임 메타데이터와 객체 구조
+- [apple-memory-management](apple-memory-management.md) - ARC 및 메모리 레이아웃 상세
+- [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - 실전 디버깅 및 분석 도구 활용
+- [apple-runtime-and-swift](../00_foundations/apple-runtime-and-swift.md) - 런타임 메타데이터와 객체 구조

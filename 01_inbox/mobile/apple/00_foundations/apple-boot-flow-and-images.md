@@ -6,7 +6,7 @@ date modified: 2026-04-07 18:53:24 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
-## [[mobile-security]] > [[apple-boot-flow-and-images]]
+## [mobile-security](../../mobile-security.md) > [apple-boot-flow-and-images](apple-boot-flow-and-images.md)
 
 ### Boot Flow & System Images: Chain of Trust
 
@@ -38,8 +38,8 @@ date created: 2026-04-03 22:15:19 +09:00
 
 #### 📚 연관 문서 및 심화 학습
 
-- [[apple-architecture-stack]] - Darwin 커널과 시스템 계층 구조
-- [[apple-foundations]] - Apple 플랫폼 공통 설계 철학
-- [[apple-sandbox-and-security]] - 앱 실행 이후의 보안 샌드박스 메커니즘
-- [[apple-runtime-and-swift]] - 앱 실행의 내부 런타임 구조
-- [[apple-performance-and-debug]] - 부팅 및 앱 실행 속도 분석 가이드
+- [apple-architecture-stack](apple-architecture-stack.md) - Darwin 커널과 시스템 계층 구조
+- [apple-foundations](apple-foundations.md) - Apple 플랫폼 공통 설계 철학
+- [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 앱 실행 이후의 보안 샌드박스 메커니즘
+- [apple-runtime-and-swift](apple-runtime-and-swift.md) - 앱 실행의 내부 런타임 구조
+- [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - 부팅 및 앱 실행 속도 분석 가이드

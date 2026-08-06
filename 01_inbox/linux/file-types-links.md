@@ -29,7 +29,7 @@ Unix/Linux는 **"Everything is a file"** 철학을 따릅니다. 일반 파일�
 
 **특징**:
 - 파일과 디렉토리를 포함하는 컨테이너
-- 내부적으로 "파일 이름 → [[inode]] 번호" 매핑을 저장하는 특수 파일
+- 내부적으로 "파일 이름 → [inode](inode.md) 번호" 매핑을 저장하는 특수 파일
 - 실행 권한(`x`)이 있어야 진입 가능
 
 **예시**:
@@ -154,7 +154,7 @@ graph LR
 ```
 
 **특징**:
-- ✅ 같은 [[inode]] 번호 공유
+- ✅ 같은 [inode](inode.md) 번호 공유
 - ✅ 원본 삭제해도 데이터 접근 가능
 - ✅ 디스크 공간 절약 (데이터는 1개만 저장)
 - ❌ 디렉토리에는 생성 불가
@@ -331,6 +331,6 @@ echo "Application started" > /tmp/logpipe
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[inode]] - inode 구조와 링크의 내부 구현
-- [[filesystem-hierarchy-standard]] - Linux 디렉토리 구조
-- [[ipc-mechanisms]] - Named Pipe와 Socket을 통한 프로세스 간 통신
+- [inode](inode.md) - inode 구조와 링크의 내부 구현
+- [filesystem-hierarchy-standard](filesystem-hierarchy-standard.md) - Linux 디렉토리 구조
+- [ipc-mechanisms](../operating-systems/ipc-mechanisms.md) - Named Pipe와 Socket을 통한 프로세스 간 통신

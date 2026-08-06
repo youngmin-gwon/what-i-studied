@@ -190,7 +190,7 @@ xauth remove display:0
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[linux-characteristics]] - 리눅스의 설계 철학
-- [[boot-sequence]] - 그래픽 모드(런레벨 5)로의 전환
-- [[network-security-protocols]] - X11 포워딩과 SSH
-- [[shell-types]] - 셸 종류 및 환경
+- [linux-characteristics](linux-characteristics.md) - 리눅스의 설계 철학
+- [boot-sequence](../operating-systems/boot-sequence.md) - 그래픽 모드(런레벨 5)로의 전환
+- [network-security-protocols](../security/protocols/network-security-protocols.md) - X11 포워딩과 SSH
+- [shell-types](shell-types.md) - 셸 종류 및 환경

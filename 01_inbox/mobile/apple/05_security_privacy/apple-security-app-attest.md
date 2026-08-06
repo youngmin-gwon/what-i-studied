@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:13:45 +09:00
 date created: 2026-04-05 17:07:59 +09:00
 ---
 
-## [[mobile-security]] > [[apple-security-app-attest]]
+## [mobile-security](../../mobile-security.md) > [apple-security-app-attest](apple-security-app-attest.md)
 
 ### App Attest & DeviceCheck
 
@@ -54,6 +54,6 @@ class SecurityAttestationClient {
 
 #### 연관 문서
 
-- [[apple-security-entitlements]] - 권한 증명
-- [[apple-security-tcc-compliance]] - 프라이버시 법규
-- [[mobile-vulnerability-check]] - 앱 무결성 진단
+- [apple-security-entitlements](apple-security-entitlements.md) - 권한 증명
+- [apple-security-tcc-compliance](apple-security-tcc-compliance.md) - 프라이버시 법규
+- [mobile-vulnerability-check](../../cross-platform/mobile-vulnerability-check.md) - 앱 무결성 진단

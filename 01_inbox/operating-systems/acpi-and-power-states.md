@@ -81,5 +81,5 @@ acpidump > acpi_dump.dat
 
 ## 연결 문서
 
-- [[kernel]] - Tickless kernel 등 커널의 전력 관리 관련 설계
-- [[boot-sequence]] - 펌웨어가 부팅 시 ACPI 테이블을 준비하는 과정과의 관계
+- **kernel** - Tickless kernel 등 커널의 전력 관리 관련 설계
+- [boot-sequence](boot-sequence.md) - 펌웨어가 부팅 시 ACPI 테이블을 준비하는 과정과의 관계

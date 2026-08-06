@@ -41,5 +41,5 @@ date created: 2025-12-28 20:46:05 +09:00
 
 ### 🔗 연결 문서
 
-- [[15-lab-walkthroughs]] - 실습 랩 워크스루
-- [[../shell-scripting]] - 전체 가이드 목록
+- [15-lab-walkthroughs](15-lab-walkthroughs.md) - 실습 랩 워크스루
+- **../shell-scripting** - 전체 가이드 목록

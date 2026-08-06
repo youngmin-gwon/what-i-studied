@@ -265,7 +265,7 @@ Windows **NetBIOS 포트 (139)** 로 **OOB (Out of Band)** 긴급 데이터를 �
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[ddos-attacks]] - 분산 서비스 거부 공격
-- [[tcp-udp-protocols]] - TCP/UDP 프로토콜
-- [[icmp-protocol]] - ICMP 프로토콜
-- [[firewall-ids-ips]] - 방화벽과 IDS/IPS
+- [ddos-attacks](ddos-attacks.md) - 분산 서비스 거부 공격
+- [tcp-udp-protocols](../../../computer-science/networking/tcp-udp-protocols.md) - TCP/UDP 프로토콜
+- [icmp-protocol](../../../computer-science/networking/icmp-protocol.md) - ICMP 프로토콜
+- [firewall-ids-ips](../firewall-ids-ips.md) - 방화벽과 IDS/IPS

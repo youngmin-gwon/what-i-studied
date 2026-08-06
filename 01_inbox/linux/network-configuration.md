@@ -190,6 +190,6 @@ netstat -ant
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[network-fundamentals]] - 네트워크 기초
-- [[commands/network-commands|네트워크 명령어]]
-- [[systemd]] - systemctl 서비스 관리
+- [network-fundamentals](network-fundamentals.md) - 네트워크 기초
+- **네트워크 명령어**
+- [systemd](systemd.md) - systemctl 서비스 관리

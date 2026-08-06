@@ -6,11 +6,11 @@ date modified: 2026-04-07 18:53:39 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
-## [[mobile-security]] > [[apple-architecture-stack]]
+## [mobile-security](../../mobile-security.md) > [apple-architecture-stack](apple-architecture-stack.md)
 
 ### Apple System Architecture & Kernel Internals
 
-Apple 운영체제의 하부 구조인 **Darwin**과 **XNU 커널**의 아키텍처를 심층 분석합니다. 주요 기술 용어 정의는 [[apple-glossary]] 를 참고하시기 바랍니다.
+Apple 운영체제의 하부 구조인 **Darwin**과 **XNU 커널**의 아키텍처를 심층 분석합니다. 주요 기술 용어 정의는 [apple-glossary](apple-glossary.md) 를 참고하시기 바랍니다.
 
 #### 💡 Context: XNU (Hybrid Kernel)
 
@@ -46,9 +46,9 @@ Apple 은 커널 레벨에서 다중 방어 체계를 구축하고 있습니다.
 
 #### 📚 연관 문서 및 심화 학습
 
-- [[apple-foundations]] - Apple 플랫폼 공통 철학 및 기초
-- [[apple-boot-flow-and-images]] - 전원 버튼부터 앱 실행까지의 상세 흐름
-- [[apple-runtime-and-swift]] - Objective-C 및 Swift 런타임의 내부 구조
-- [[apple-sandbox-and-security]] - 샌드박스 매커니즘과 보안 진단
-- [[apple-interprocess-and-xpc]] - 프로세스 간 통신(XPC) 아키텍처
-- [[apple-memory-management]] - Jetsam 과 메모리 최적화 전략
+- [apple-foundations](apple-foundations.md) - Apple 플랫폼 공통 철학 및 기초
+- [apple-boot-flow-and-images](apple-boot-flow-and-images.md) - 전원 버튼부터 앱 실행까지의 상세 흐름
+- [apple-runtime-and-swift](apple-runtime-and-swift.md) - Objective-C 및 Swift 런타임의 내부 구조
+- [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 샌드박스 매커니즘과 보안 진단
+- [apple-interprocess-and-xpc](../04_system_services/apple-interprocess-and-xpc.md) - 프로세스 간 통신(XPC) 아키텍처
+- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - Jetsam 과 메모리 최적화 전략

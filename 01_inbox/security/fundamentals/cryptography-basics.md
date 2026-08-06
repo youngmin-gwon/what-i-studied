@@ -103,7 +103,7 @@ AES-256: 14라운드
 | **ECB** | 각 블록 독립 암호화 | ✅ 가능 | ❌ 취약 (패턴 노출) | 사용 금지 |
 | **CBC** | 이전 블록과 XOR | ❌ 불가 | ✅ 안전 | 파일 암호화 |
 | **CTR** | 카운터 기반 스트림 | ✅ 가능 | ✅ 안전 | 디스크 암호화 |
-| **GCM** | 인증 암호화 (AEAD) | ✅ 가능 | ✅ 매우 안전 | [[network-security-protocols\|TLS]], VPN |
+| **GCM** | 인증 암호화 (AEAD) | ✅ 가능 | ✅ 매우 안전 | **TLS**, VPN |
 
 ### 장단점
 
@@ -418,6 +418,6 @@ sequenceDiagram
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[network-security-protocols]] - TLS/SSL 에서의 암호화 활용
-- [[authentication-authorization]] - 인증에서의 암호화 역할
-- [[tcp-ip-model]] - 네트워크 계층과 암호화
+- [network-security-protocols](../protocols/network-security-protocols.md) - TLS/SSL 에서의 암호화 활용
+- [authentication-authorization](authentication-authorization.md) - 인증에서의 암호화 역할
+- [tcp-ip-model](../../computer-science/networking/tcp-ip-model.md) - 네트워크 계층과 암호화

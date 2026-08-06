@@ -131,8 +131,8 @@ M3 컬러 시스템의 존재 이유 중 가장 큰 부분은 '누구에게나 �
 
 ## 🔗 관련 문서
 
-- [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]
-- [[components-typography|Typography: 의미론적 가독성과 스펙]]
-- [[components-actions|Actions: 버튼과 FAB]]
-- [[components-containment-navigation|Containment & Navigation]]
-- [[components-selection-inputs|Selection & Inputs]]
+- **Material Design 3 개요 (Expressive Deep Dive)**
+- [Typography: 의미론적 가독성과 스펙](components-typography.md)
+- [Actions: 버튼과 FAB](components-actions.md)
+- [Containment & Navigation](components-containment-navigation.md)
+- [Selection & Inputs](components-selection-inputs.md)

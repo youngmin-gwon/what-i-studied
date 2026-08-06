@@ -235,7 +235,7 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[routing-basics]] - 라우팅 기초 개념
-- [[ip-header-structure]] - IP 헤더와 TTL
-- [[network-devices]] - 라우터와 네트워크 장비
-- [[router-acl-security]] - 라우터 ACL 보안
+- [routing-basics](routing-basics.md) - 라우팅 기초 개념
+- [ip-header-structure](ip-header-structure.md) - IP 헤더와 TTL
+- [network-devices](network-devices.md) - 라우터와 네트워크 장비
+- [router-acl-security](../../security/attacks/router-acl-security.md) - 라우터 ACL 보안

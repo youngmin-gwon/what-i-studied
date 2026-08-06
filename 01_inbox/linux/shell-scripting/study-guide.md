@@ -34,5 +34,5 @@ date created: 2025-12-28 20:47:04 +09:00
 
 ### 🔗 연결 문서
 
-- [[00-intro]] - 가이드 개요
-- [[shell-scripting]] - 전체 가이드 목록
+- [00-intro](00-intro.md) - 가이드 개요
+- [shell-scripting](../shell-scripting.md) - 전체 가이드 목록

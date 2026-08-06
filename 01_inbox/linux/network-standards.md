@@ -143,6 +143,6 @@ T568B 표준 배열 순서:
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[network-fundamentals]] - 네트워크 기초 (IP, 서브넷)
-- [[commands/network-commands|네트워크 명령어]]
-- [[network-configuration]] - 네트워크 설정 및 진단
+- [network-fundamentals](network-fundamentals.md) - 네트워크 기초 (IP, 서브넷)
+- **네트워크 명령어**
+- [network-configuration](network-configuration.md) - 네트워크 설정 및 진단

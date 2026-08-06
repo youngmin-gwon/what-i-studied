@@ -8,7 +8,7 @@ date created: 2025-12-20 00:02:18 +09:00
 
 ## 🌐 개요 (Overview)
 
-**부팅 (Booting)** 은 컴퓨터 전원을 켰을 때 하드웨어를 초기화하고 [[kernel|운영체제 커널]] 을 메모리에 로드하여 실행 가능한 상태로 만드는 과정입니다.
+**부팅 (Booting)** 은 컴퓨터 전원을 켰을 때 하드웨어를 초기화하고 **운영체제 커널** 을 메모리에 로드하여 실행 가능한 상태로 만드는 과정입니다.
 
 ## 🔄 부팅 프로세스 전체 흐름 (Complete Boot Flow)
 
@@ -211,7 +211,7 @@ lsinitrd /boot/initramfs-$(uname -r).img
 
 ## 5️⃣ Init 시스템
 
-### [[init-systems|systemd]] (현대적 init)
+### [systemd](init-systems.md) (현대적 init)
 
 대부분의 최신 Linux 배포판이 사용하는 init 시스템입니다.
 
@@ -341,7 +341,7 @@ systemd-analyze plot > boot.svg
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[kernel]] - 리눅스 커널의 상세 설명
-- [[init-systems]] - systemd 와 init 시스템
-- [[filesystem-hierarchy-standard]] - `/boot` 디렉토리 구조
-- [[process-states-lifecycle]] - init 프로세스 (PID 1)
+- **kernel** - 리눅스 커널의 상세 설명
+- [init-systems](init-systems.md) - systemd 와 init 시스템
+- [filesystem-hierarchy-standard](../linux/filesystem-hierarchy-standard.md) - `/boot` 디렉토리 구조
+- [process-states-lifecycle](process-states-lifecycle.md) - init 프로세스 (PID 1)

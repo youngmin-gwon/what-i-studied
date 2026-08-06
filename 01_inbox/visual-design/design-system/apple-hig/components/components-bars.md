@@ -72,6 +72,6 @@ iPadOS 와 macOS 에서 대화면의 이점을 활용하여 복잡한 앱 구조
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[../foundations/foundations-layout|Layout: 공간의 질서]]
-- [[components-controls|Controls: 버튼과 입력]]
+- **Apple HIG 개요**
+- **Layout: 공간의 질서**
+- [Controls: 버튼과 입력](components-controls.md)

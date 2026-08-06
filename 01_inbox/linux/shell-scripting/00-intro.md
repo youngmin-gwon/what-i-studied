@@ -37,5 +37,5 @@ date created: 2025-12-28 20:46:58 +09:00
 
 ### 🔗 연결 문서
 
-- [[shell-scripting]] - 전체 문서 링크 (Hub)
-- [[study-guide]] - 1 주 완성 학습 로드맵
+- [shell-scripting](../shell-scripting.md) - 전체 문서 링크 (Hub)
+- [study-guide](study-guide.md) - 1 주 완성 학습 로드맵

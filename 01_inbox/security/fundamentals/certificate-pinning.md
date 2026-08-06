@@ -31,7 +31,7 @@ sequenceDiagram
 
 ## 왜 필요했나
 
-TLS 의 신뢰 모델은 "시스템이 신뢰하는 **모든** CA 중 하나라도 서명하면 그 인증서를 믿는다"는 구조다(체인 검증 자체는 [[root-of-trust-and-chain-of-trust]] 참고). 문제는 시스템 신뢰 저장소(trust store)에 보통 수백 개의 CA 가 들어 있고, 그중 단 하나만 실수로 오발급하거나 해킹당해도 공격자는 그 CA 로 임의의 도메인용 "유효한" 인증서를 만들어낼 수 있다는 점이다. 실제로 2011년 DigiNotar CA 침해 사건에서 공격자가 `*.google.com` 을 포함한 위조 인증서를 발급받아 실사용자를 감청한 사례가 있었다.
+TLS 의 신뢰 모델은 "시스템이 신뢰하는 **모든** CA 중 하나라도 서명하면 그 인증서를 믿는다"는 구조다(체인 검증 자체는 [root-of-trust-and-chain-of-trust](root-of-trust-and-chain-of-trust.md) 참고). 문제는 시스템 신뢰 저장소(trust store)에 보통 수백 개의 CA 가 들어 있고, 그중 단 하나만 실수로 오발급하거나 해킹당해도 공격자는 그 CA 로 임의의 도메인용 "유효한" 인증서를 만들어낼 수 있다는 점이다. 실제로 2011년 DigiNotar CA 침해 사건에서 공격자가 `*.google.com` 을 포함한 위조 인증서를 발급받아 실사용자를 감청한 사례가 있었다.
 
 Certificate Pinning 은 "이 CA 저장소 전체를 믿는다"는 넓은 신뢰 대신, "이 앱이 통신하는 이 서버는 반드시 이 특정 인증서(또는 공개키)여야 한다"는 좁은 신뢰로 범위를 줄인다. 특히 앱처럼 통신 상대(자사 서버)가 고정된 클라이언트에서 효과적이다 — 브라우저처럼 임의의 웹사이트에 접속하는 범용 클라이언트에는 적용하기 어렵다(접속할 모든 사이트의 인증서를 미리 알 수 없으므로).
 
@@ -73,4 +73,4 @@ Certificate Pinning 은 공짜가 아니다.
 
 ## 연결 문서
 
-- [[root-of-trust-and-chain-of-trust]] - Certificate Pinning 이 좁히는 대상인 CA 체인 검증 자체의 동작 방식
+- [root-of-trust-and-chain-of-trust](root-of-trust-and-chain-of-trust.md) - Certificate Pinning 이 좁히는 대상인 CA 체인 검증 자체의 동작 방식

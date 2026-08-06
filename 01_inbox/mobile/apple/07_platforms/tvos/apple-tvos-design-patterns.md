@@ -8,7 +8,7 @@ date created: 2025-12-18 16:21:20 +09:00
 
 ## tvOS Design Patterns apple tvos design
 
-거실 환경에 맞는 tvOS UI/UX 패턴을 쉽게 정리했다. 용어는 [[apple-glossary]].
+거실 환경에 맞는 tvOS UI/UX 패턴을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ### 포커스 중심 내비게이션
 
@@ -51,4 +51,4 @@ date created: 2025-12-18 16:21:20 +09:00
 
 ### 링크
 
-[[apple-tvos-media]], [[apple-animation-and-motion]], [[apple-networking-and-cloud]], [[apple-accessibility-and-internationalization]].
+[apple-tvos-media](apple-tvos-media.md), [apple-animation-and-motion](../../02_ui_frameworks/apple-animation-and-motion.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).

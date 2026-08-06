@@ -91,7 +91,7 @@ graph TD
 
 ## 🔒 SSL/TLS 상세
 
-[[network-security-protocols]] 기본 내용 참조
+[network-security-protocols](../protocols/network-security-protocols.md) 기본 내용 참조
 
 ### 프로토콜 구조
 
@@ -220,7 +220,7 @@ graph LR
 | **XML Signature** | XML 문서의 전자서명 (무결성, 인증) |
 | **XML Encryption** | 엘리먼트 단위 암호화 (기밀성) |
 | **XKMS** | PKI 기능을 서버에 위임 |
-| **SAML** | 인증/권한 정보 교환 ([[authentication-authorization|SSO]]) |
+| **SAML** | 인증/권한 정보 교환 ([SSO](../fundamentals/authentication-authorization.md)) |
 
 ---
 
@@ -234,7 +234,7 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[network-security-protocols]] - SSL/TLS 기본
-- [[cryptography-basics]] - 암호화 기초
-- [[biometrics-otp]] - OTP
-- [[authentication-authorization]] - SAML, SSO
+- [network-security-protocols](../protocols/network-security-protocols.md) - SSL/TLS 기본
+- [cryptography-basics](../fundamentals/cryptography-basics.md) - 암호화 기초
+- [biometrics-otp](../fundamentals/biometrics-otp.md) - OTP
+- [authentication-authorization](../fundamentals/authentication-authorization.md) - SAML, SSO

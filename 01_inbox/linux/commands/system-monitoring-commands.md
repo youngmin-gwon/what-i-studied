@@ -8,7 +8,7 @@ date created: 2025-12-20 13:59:24 +09:00
 
 ## 🌐 개요 (Overview)
 
-시스템과 리소스를 모니터링하는 명령어들입니다. CPU, 메모리, 디스크, [[process-states-lifecycle|프로세스]] 상태를 실시간으로 확인할 수 있습니다.
+시스템과 리소스를 모니터링하는 명령어들입니다. CPU, 메모리, 디스크, [프로세스](../../operating-systems/process-states-lifecycle.md) 상태를 실시간으로 확인할 수 있습니다.
 
 ## 📋 Quick Reference
 
@@ -225,6 +225,6 @@ ss -tulpn | grep :80
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[process-states-lifecycle]] - 프로세스 개념
-- [[signals]] - 프로세스 제어
-- [[file-operations-commands]] - 파일 작업
+- [process-states-lifecycle](../../operating-systems/process-states-lifecycle.md) - 프로세스 개념
+- [signals](../../operating-systems/signals.md) - 프로세스 제어
+- [file-operations-commands](file-operations-commands.md) - 파일 작업

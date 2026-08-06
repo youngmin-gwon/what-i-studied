@@ -83,6 +83,6 @@ Apple 의 표준 제어 컴포넌트들은 사용자의 의도를 시스템에 �
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[../foundations/foundations-layout|Layout: 44pt 히트 타겟]]
-- [[components-inputs|Inputs: 텍스트와 검색]]
+- **Apple HIG 개요**
+- **Layout: 44pt 히트 타겟**
+- [Inputs: 텍스트와 검색](components-inputs.md)

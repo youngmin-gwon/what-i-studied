@@ -258,7 +258,7 @@ sudo arpwatch -i eth0
 
 - 정적 ARP 엔트리
 - Dynamic ARP Inspection (스위치 기능)
-- [[network-security-protocols|TLS/SSL]] 사용
+- [TLS/SSL](../protocols/network-security-protocols.md) 사용
 
 ### SSL Stripping
 
@@ -270,7 +270,7 @@ sudo arpwatch -i eth0
 5. 사용자는 HTTP로 통신하는 줄 모름
 ```
 
-**방어**: [[network-security-protocols|HSTS]]
+**방어**: [HSTS](../protocols/network-security-protocols.md)
 
 ## 🎪 Spoofing 공격
 
@@ -305,7 +305,7 @@ sequenceDiagram
 
 **방어**:
 
-- [[dns-fundamentals|DNSSEC]]
+- [DNSSEC](../../computer-science/networking/dns-fundamentals.md)
 - DNS over HTTPS/TLS
 
 ## 📡 포트 스캔
@@ -440,7 +440,7 @@ GET /download?file=../../../../etc/passwd HTTP/1.1
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[firewall-ids-ips]] - 공격 탐지 및 차단
-- [[network-security-protocols]] - 네트워크 보안
-- [[web-security]] - 웹 공격 방어
-- [[dns-security]] - DNS 보안
+- [firewall-ids-ips](firewall-ids-ips.md) - 공격 탐지 및 차단
+- [network-security-protocols](../protocols/network-security-protocols.md) - 네트워크 보안
+- [web-security](../web-security.md) - 웹 공격 방어
+- [dns-security](../protocols/dns-security.md) - DNS 보안

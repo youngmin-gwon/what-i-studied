@@ -54,5 +54,5 @@ date created: 2025-12-28 20:44:39 +09:00
 
 ### 🔗 연결 문서
 
-- [[04-control-flow]] - 제어 구조 탐색
-- [[06-io-redirection]] - 입출력 및 리디렉션
+- [04-control-flow](04-control-flow.md) - 제어 구조 탐색
+- [06-io-redirection](06-io-redirection.md) - 입출력 및 리디렉션

@@ -6,7 +6,7 @@ date modified: 2026-04-07 18:53:03 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
-## [[mobile-security]] > [[apple-foundations]]
+## [mobile-security](../../mobile-security.md) > [apple-foundations](apple-foundations.md)
 
 ### Apple Platforms Foundations: Core Philosophies
 
@@ -39,13 +39,13 @@ Apple 의 시스템은 커널부터 앱 레이어까지 견고하게 쌓여 있�
 
 Apple 시스템의 심층적인 이해를 위해 다음 순서로 학습하는 것을 권장합니다.
 
-1. **플랫폼 기초**: [[apple-architecture-stack]] → [[apple-foundations]]
-2. **런타임 및 부팅**: [[apple-runtime-and-swift]] → [[apple-boot-flow-and-images]]
-3. **보안 및 통신**: [[apple-sandbox-and-security]] → [[apple-interprocess-and-xpc]]
-4. **실전 대응**: [[apple-platform-differences]] → [[apple-performance-and-debug]]
+1. **플랫폼 기초**: [apple-architecture-stack](apple-architecture-stack.md) → [apple-foundations](apple-foundations.md)
+2. **런타임 및 부팅**: [apple-runtime-and-swift](apple-runtime-and-swift.md) → [apple-boot-flow-and-images](apple-boot-flow-and-images.md)
+3. **보안 및 통신**: [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) → [apple-interprocess-and-xpc](../04_system_services/apple-interprocess-and-xpc.md)
+4. **실전 대응**: [apple-platform-differences](apple-platform-differences.md) → [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md)
 
 #### 🔗 관련 문서
 
-- [[apple-glossary]] - Apple 기술 용어 사전
-- [[apple-history-and-evolution]] - 플랫폼의 역사와 주요 변화
-- [[mobile-security]] - 모바일 보안 통합 허브
+- [apple-glossary](apple-glossary.md) - Apple 기술 용어 사전
+- [apple-history-and-evolution](apple-history-and-evolution.md) - 플랫폼의 역사와 주요 변화
+- [mobile-security](../../mobile-security.md) - 모바일 보안 통합 허브

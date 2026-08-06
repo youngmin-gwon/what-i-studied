@@ -247,5 +247,5 @@ func loadDownsampledImage(at url: URL, for size: CGSize, scale: CGFloat = UIScre
 
 ### 더 보기
 
-- [[apple-swiftui-deep-dive]] - 선언형 UI 의 생명주기
-- [[apple-memory-management]] - ARC 와 메모리 관리
+- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 선언형 UI 의 생명주기
+- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC 와 메모리 관리

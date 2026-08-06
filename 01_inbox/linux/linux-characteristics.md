@@ -19,7 +19,7 @@ Linux는 Unix의 철학을 계승한 운영체제로, 초기 설계부터 다중
 *   **최상위 디렉토리(Root)**: **`/` (슬래시)** 가 리눅스의 최상위 디렉토리를 의미합니다.
 *   **하위 디렉토리**: 모든 디렉토리는 루트(`/`) 아래에 계층적으로 존재합니다.
 
-상세 내용은 [[filesystem-hierarchy-standard]]를 참조하세요.
+상세 내용은 [filesystem-hierarchy-standard](filesystem-hierarchy-standard.md)를 참조하세요.
 
 > [!CAUTION]
 > **자주 헷갈리는 기호**:
@@ -35,7 +35,7 @@ Linux는 Unix의 철학을 계승한 운영체제로, 초기 설계부터 다중
 *   **장치 파일**: 하드디스크(`/dev/sda`), 터미널(`/dev/tty`), 키보드, 네트워크 인터페이스 등이 `/dev` 디렉토리 아래 파일 형태로 존재합니다.
 *   **장점**: 개발자는 복잡한 하드웨어 제어 레벨까지 몰라도 표준 파일 입출력(Open, Read, Write, Close) 함수를 통해 장치와 데이터를 주고받을 수 있습니다.
 
-상세 내용은 [[file-types-links]]와 [[filesystems]]를 참조하세요.
+상세 내용은 [file-types-links](file-types-links.md)와 [filesystems](filesystems.md)를 참조하세요.
 
 ### 3. 공유 라이브러리 사용 (Shared Libraries)
 
@@ -52,7 +52,7 @@ Linux는 Unix의 철학을 계승한 운영체제로, 초기 설계부터 다중
 *   **리다이렉션 (Redirection)**: 기호(`<`, `>`, `>>`)를 사용하여 표준 입출력의 방향을 바꿀 수 있습니다.
 *   **파이프 (Pipe)**: 기호(`|`)를 사용하여 한 명령어의 출력을 다른 명령어의 입력으로 즉시 전달합니다.
 
-상세 내용은 [[shell-environment-commands]] 및 [[06-io-redirection]]을 참조하세요.
+상세 내용은 [shell-environment-commands](commands/shell-environment-commands.md) 및 [06-io-redirection](shell-scripting/06-io-redirection.md)을 참조하세요.
 *   **네트워크 통합**: TCP/IP 프로토콜이 커널 수준에서 강력하게 구현되어 있어 서버 운영체제로서 매우 안정적입니다.
 
 ### 5. 다중 사용자 및 다중 작업 (Multi-User & Multi-Tasking)
@@ -78,6 +78,6 @@ Linux는 Unix의 철학을 계승한 운영체제로, 초기 설계부터 다중
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[filesystem-hierarchy-standard]] - 실제 디렉토리 구조 상세 설명
-- [[shell-environment-commands]] - 리다이렉션 및 명령어 실습
-- [[process-states-lifecycle]] - 멀티태스킹 및 프로세스 관리
+- [filesystem-hierarchy-standard](filesystem-hierarchy-standard.md) - 실제 디렉토리 구조 상세 설명
+- [shell-environment-commands](commands/shell-environment-commands.md) - 리다이렉션 및 명령어 실습
+- [process-states-lifecycle](../operating-systems/process-states-lifecycle.md) - 멀티태스킹 및 프로세스 관리

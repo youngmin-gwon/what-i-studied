@@ -252,6 +252,6 @@ Internet
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[network-security-protocols]] - 네트워크 암호화
-- [[attack-types]] - 탐지 대상 공격 유형
-- [[tcp-ip-model]] - 네트워크 계층별 보안
+- [network-security-protocols](../protocols/network-security-protocols.md) - 네트워크 암호화
+- [attack-types](attack-types.md) - 탐지 대상 공격 유형
+- [tcp-ip-model](../../computer-science/networking/tcp-ip-model.md) - 네트워크 계층별 보안

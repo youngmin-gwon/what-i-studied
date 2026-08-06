@@ -40,7 +40,7 @@ Bash 쉘 환경 설정과 유틸리티 명령어들입니다. 별칭, 히스토�
 3. `$HOME/.bashrc` (인터랙티브 셸인 경우)
 
 > [!TIP]
-> 상세한 로딩 시퀀스와 **로그인 셸 vs 비로그인 셸**의 차이점은 [[09-environment-startup]] 가이드를 참조하세요.
+> 상세한 로딩 시퀀스와 **로그인 셸 vs 비로그인 셸**의 차이점은 [09-environment-startup](../shell-scripting/09-environment-startup.md) 가이드를 참조하세요.
 
 > [!NOTE]
 > **명령어 우선순위**: 1 순위: **Alias** > 2 순위: **내부 명령어(Builtin)** > 3 순위: **함수(Function)** > 4 순위: **외부 명령어($PATH 경로)**
@@ -312,7 +312,7 @@ echo "text" > file.txt
 echo "append" >> file.txt
 
 > [!TIP]
-> **표준 스트림(FD 0, 1, 2)**과 **히어독(Here-doc)** 등 상세한 데이터 흐름 제어는 [[06-io-redirection]] 가이드를 참조하세요.
+> **표준 스트림(FD 0, 1, 2)**과 **히어독(Here-doc)** 등 상세한 데이터 흐름 제어는 [06-io-redirection](../shell-scripting/06-io-redirection.md) 가이드를 참조하세요.
 ```
 
 ### printf
@@ -494,7 +494,7 @@ Linux 시스템은 GUI 환경이 없더라도 여러 개의 **가상 콘솔(Virt
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[shell-scripting]] - 통합 셸 스크립팅 가이드 (상세)
-- [[file-operations-commands]] - 파일 작업
-- [[process-job-control-commands]] - 프로세스 제어
-- [[text-processing-commands]] - 텍스트 처리
+- [shell-scripting](../shell-scripting.md) - 통합 셸 스크립팅 가이드 (상세)
+- [file-operations-commands](file-operations-commands.md) - 파일 작업
+- [process-job-control-commands](process-job-control-commands.md) - 프로세스 제어
+- [text-processing-commands](text-processing-commands.md) - 텍스트 처리

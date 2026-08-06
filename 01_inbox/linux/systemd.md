@@ -748,6 +748,6 @@ systemctl enable myapp  # 재부팅 전까지 안 켜짐!
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[service-management-commands]] - systemctl, journalctl 명령어
-- [[sockets]] - Unix Domain Socket과 Socket Activation
-- [[process-job-control-commands]] - 프로세스 관리
+- [service-management-commands](commands/service-management-commands.md) - systemctl, journalctl 명령어
+- [sockets](sockets.md) - Unix Domain Socket과 Socket Activation
+- [process-job-control-commands](commands/process-job-control-commands.md) - 프로세스 관리

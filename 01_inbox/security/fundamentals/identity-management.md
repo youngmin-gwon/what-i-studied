@@ -60,7 +60,7 @@ sequenceDiagram
 
 ## 🔑 Kerberos (SSO 구현)
 
-[[authentication-authorization]] 참조
+[authentication-authorization](authentication-authorization.md) 참조
 
 | 구성 요소 | 역할 |
 |----------|------|
@@ -72,7 +72,7 @@ sequenceDiagram
 
 ## 📋 OAuth / SAML
 
-[[authentication-authorization]] 참조
+[authentication-authorization](authentication-authorization.md) 참조
 
 ### OAuth 역할
 
@@ -223,6 +223,6 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[authentication-authorization]] - OAuth, SAML, Kerberos
-- [[access-control-models]] - DAC, MAC, RBAC
-- [[cryptography-basics]] - 암호화 키 관리
+- [authentication-authorization](authentication-authorization.md) - OAuth, SAML, Kerberos
+- [access-control-models](access-control-models.md) - DAC, MAC, RBAC
+- [cryptography-basics](cryptography-basics.md) - 암호화 키 관리

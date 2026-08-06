@@ -141,7 +141,7 @@ SO_FILES=$(find /tmp/apk_check/lib/arm64-v8a -name "*.so")
 for so in $SO_FILES; do
     ALIGNMENT=$(readelf -l "$so" | grep "LOAD" | head -n 1 | awk '{print $NF}')
     echo "Checking $so: Alignment = $ALIGNMENT"
-    if [[ "$ALIGNMENT" != *"0x10000"* && "$ALIGNMENT" != *"0x4000"* ]]; then
+    if **"$ALIGNMENT" != *"0x10000"* && "$ALIGNMENT" != *"0x4000"***; then
         echo "ERROR: $so is not 16KB page-aligned!"
         exit 1
     fi

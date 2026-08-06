@@ -66,6 +66,6 @@ Apple 디자인에서 여백은 정보를 숨 쉬게 하고 가독성을 높이�
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[foundations-color-typography|Color & Typography]]
-- [[../components/components-bars|Bars & Navigation]]
+- **Apple HIG 개요**
+- [Color & Typography](foundations-color-typography.md)
+- **Bars & Navigation**

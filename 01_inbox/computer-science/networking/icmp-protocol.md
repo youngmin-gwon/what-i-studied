@@ -214,7 +214,7 @@ sudo sysctl -w net.ipv4.conf.all.accept_redirects=0
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[ip-header-structure]] - IP 헤더 구조 (TTL 필드)
-- [[osi-7-layer-model]] - OSI 7 계층 (3 계층)
-- [[arp-protocol]] - ARP 프로토콜
-- [[attack-types]] - 네트워크 공격 유형
+- [ip-header-structure](ip-header-structure.md) - IP 헤더 구조 (TTL 필드)
+- [osi-7-layer-model](osi-7-layer-model.md) - OSI 7 계층 (3 계층)
+- [arp-protocol](arp-protocol.md) - ARP 프로토콜
+- [attack-types](../../security/attacks/attack-types.md) - 네트워크 공격 유형

@@ -71,12 +71,12 @@ composeCompiler {
 생성된 `<module>-composables.txt` 결과 예시:
 ```text
 // ✅ skippable 및 restartable 모두 적용됨
-restartable skippable scheme("[[String]]") fun UserCard(
+restartable skippable scheme("**String**") fun UserCard(
   stable name: String
 )
 
 // ❌ unstable 파라미터(List)로 인해 skippable 이 탈락함 (Strong Skipping 미적용 시)
-restartable scheme("[[List<User>]]") fun UserList(
+restartable scheme("**List<User>**") fun UserList(
   unstable users: List<User>
 )
 ```

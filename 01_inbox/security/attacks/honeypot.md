@@ -279,8 +279,8 @@ High Interaction 허니팟 위험:
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[firewall-ids-ips]] - 방화벽과 IDS/IPS
-- [[attack-types]] - 네트워크 공격 유형
-- [[apt-attacks]] - APT 공격 탐지
-- [[malware-types]] - 악성코드 수집
-- [[digital-forensics]] - 증거 수집
+- [firewall-ids-ips](firewall-ids-ips.md) - 방화벽과 IDS/IPS
+- [attack-types](attack-types.md) - 네트워크 공격 유형
+- [apt-attacks](network-attacks/apt-attacks.md) - APT 공격 탐지
+- [malware-types](malware/malware-types.md) - 악성코드 수집
+- [digital-forensics](../incident-response/digital-forensics.md) - 증거 수집

@@ -174,7 +174,7 @@ rouser admin priv
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[osi-7-layer-model]] - OSI 7 계층 (응용 계층)
-- [[tcp-udp-protocols]] - UDP 프로토콜
-- [[firewall-ids-ips]] - 네트워크 보안
-- [[linux-log-management]] - 서버 모니터링
+- [osi-7-layer-model](osi-7-layer-model.md) - OSI 7 계층 (응용 계층)
+- [tcp-udp-protocols](tcp-udp-protocols.md) - UDP 프로토콜
+- [firewall-ids-ips](../../security/attacks/firewall-ids-ips.md) - 네트워크 보안
+- [linux-log-management](../../linux/security/linux-log-management.md) - 서버 모니터링

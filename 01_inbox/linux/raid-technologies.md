@@ -61,6 +61,6 @@ date created: 2026-01-06 00:05:22 +09:00
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[lvm]] - 유연한 파티션 확장 관리 (RAID와 비교 필수)
-- [[filesystems]] - RAID 위에 올라가는 ext4, XFS 파일시스템
-- [[file-operations-commands]] - `mdadm` 등 스토리지 명령어
+- [lvm](lvm.md) - 유연한 파티션 확장 관리 (RAID와 비교 필수)
+- [filesystems](filesystems.md) - RAID 위에 올라가는 ext4, XFS 파일시스템
+- [file-operations-commands](commands/file-operations-commands.md) - `mdadm` 등 스토리지 명령어

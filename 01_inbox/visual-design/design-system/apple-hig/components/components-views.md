@@ -64,6 +64,6 @@ Apple 의 뷰 컴포넌트는 정보를 시각화하고 사용자가 대규모 �
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[components-bars|Bars: 네비게이션과 사이드바]]
-- [[components-feedback|Feedback: 알림과 메뉴]]
+- **Apple HIG 개요**
+- [Bars: 네비게이션과 사이드바](components-bars.md)
+- [Feedback: 알림과 메뉴](../../material-design-3/components/components-feedback.md)

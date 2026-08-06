@@ -59,5 +59,5 @@ date created: 2025-12-28 20:45:02 +09:00
 
 ### 🔗 연결 문서
 
-- [[06-io-redirection]] - 입출력 및 리디렉션
-- [[08-process-control]] - 프로세스 및 잡 제어
+- [06-io-redirection](06-io-redirection.md) - 입출력 및 리디렉션
+- [08-process-control](08-process-control.md) - 프로세스 및 잡 제어

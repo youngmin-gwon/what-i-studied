@@ -563,6 +563,6 @@ iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[file-types-links]] - Unix Domain Socket 파일 타입
-- [[network-commands]] - `ss`, `netstat` 명령어
-- [[container-basics]] - Docker와 Unix Socket 활용
+- [file-types-links](file-types-links.md) - Unix Domain Socket 파일 타입
+- [network-commands](commands/network-commands.md) - `ss`, `netstat` 명령어
+- [container-basics](container-basics.md) - Docker와 Unix Socket 활용

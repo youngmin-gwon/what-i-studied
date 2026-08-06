@@ -270,7 +270,7 @@ interface fa0/0
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[routing-basics]] - 라우팅 기초
-- [[routing-protocols]] - 라우팅 프로토콜
-- [[firewall-ids-ips]] - 방화벽과 IDS/IPS
-- [[network-security-protocols]] - 네트워크 보안 프로토콜
+- [routing-basics](../../computer-science/networking/routing-basics.md) - 라우팅 기초
+- [routing-protocols](../../computer-science/networking/routing-protocols.md) - 라우팅 프로토콜
+- [firewall-ids-ips](firewall-ids-ips.md) - 방화벽과 IDS/IPS
+- [network-security-protocols](../protocols/network-security-protocols.md) - 네트워크 보안 프로토콜

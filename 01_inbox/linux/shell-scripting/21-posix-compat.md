@@ -14,7 +14,7 @@ Bash 전용 기능을 배제하고 `/bin/sh` 또는 BusyBox 등 제한된 환경
 
 | 기능         | Bash 확장 문법            | POSIX 호환 대안                     |
 | :--------- | :-------------------- | :------------------------------ |
-| **조건문**    | `[[ condition ]]`     | `[ condition ]` (인용 엄격 필수)      |
+| **조건문**    | `**condition**`     | `[ condition ]` (인용 엄격 필수)      |
 | **산술 연산**  | `(( i++ ))`           | `i=$((i + 1))`                  |
 | **배열**     | `arr=(v1 v2)`         | `set -- v1 v2` (위치 매개변수 활용)     |
 | **함수 선언**  | `function name { … }` | `name() { … }`                  |
@@ -50,5 +50,5 @@ done < input.txt
 
 ### 🔗 연결 문서
 
-- [[20-command-drills]] - 커맨드 드릴 세트
-- [[../shell-scripting]] - 전체 가이드 목록
+- [20-command-drills](20-command-drills.md) - 커맨드 드릴 세트
+- **../shell-scripting** - 전체 가이드 목록

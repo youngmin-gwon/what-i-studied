@@ -69,6 +69,6 @@ date created: 2025-12-28 00:40:00 +09:00
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[components-controls|Controls: 버튼과 피커]]
-- [[components-views|Views: 리스트와 테이블]]
+- **Apple HIG 개요**
+- [Controls: 버튼과 피커](components-controls.md)
+- [Views: 리스트와 테이블](components-views.md)

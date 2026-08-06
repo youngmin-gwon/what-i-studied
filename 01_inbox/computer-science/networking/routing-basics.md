@@ -8,7 +8,7 @@ date created: 2025-12-20 00:02:18 +09:00
 
 ## 🌐 개요 (Overview)
 
-**라우팅 (Routing)** 은 [[ip-addressing|IP 패킷]]이 출발지에서 목적지까지 도달하는 최적의 경로를 결정하는 과정입니다. 인터넷의 "교통 경찰" 역할을 하여 패킷을 올바른 방향으로 안내합니다.
+**라우팅 (Routing)** 은 [IP 패킷](ip-addressing.md)이 출발지에서 목적지까지 도달하는 최적의 경로를 결정하는 과정입니다. 인터넷의 "교통 경찰" 역할을 하여 패킷을 올바른 방향으로 안내합니다.
 
 ## 🎯 라우팅의 목적 (Purpose)
 
@@ -304,6 +304,6 @@ sudo ip route add blackhole 192.0.2.0/24
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[ip-addressing]] - IP 주소와 서브넷
-- [[tcp-ip-model]] - 라우팅이 동작하는 인터넷 계층
-- [[dns-fundamentals]] - DNS 쿼리의 라우팅
+- [ip-addressing](ip-addressing.md) - IP 주소와 서브넷
+- [tcp-ip-model](tcp-ip-model.md) - 라우팅이 동작하는 인터넷 계층
+- [dns-fundamentals](dns-fundamentals.md) - DNS 쿼리의 라우팅

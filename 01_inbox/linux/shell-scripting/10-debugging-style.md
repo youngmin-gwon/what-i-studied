@@ -54,5 +54,5 @@ date created: 2025-12-28 20:45:28 +09:00
 
 ### 🔗 연결 문서
 
-- [[09-environment-startup]] - 환경 설정 및 시작 스크립트
-- [[11-security-performance]] - 보안 및 성능 최적화
+- [09-environment-startup](09-environment-startup.md) - 환경 설정 및 시작 스크립트
+- [11-security-performance](11-security-performance.md) - 보안 및 성능 최적화

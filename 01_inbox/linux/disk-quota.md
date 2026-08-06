@@ -203,6 +203,6 @@ setquota -u username 100000 120000 1000 1200 /home
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[lvm]] - LVM 볼륨 관리
-- [[filesystems]] - 파일시스템 개념
-- [[user-permission-commands]] - 사용자 관리
+- [lvm](lvm.md) - LVM 볼륨 관리
+- [filesystems](filesystems.md) - 파일시스템 개념
+- [user-permission-commands](commands/user-permission-commands.md) - 사용자 관리

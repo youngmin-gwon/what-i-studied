@@ -50,6 +50,6 @@ macOS 의 설정은 전통적으로 탭 바가 상단에 위치한 가로형 대
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[components-bars|Bars: 사이드바와 내비게이션]]
-- [[components-views|Views: 테이블과 컬렉션]]
+- **Apple HIG 개요**
+- [Bars: 사이드바와 내비게이션](components-bars.md)
+- [Views: 테이블과 컬렉션](components-views.md)

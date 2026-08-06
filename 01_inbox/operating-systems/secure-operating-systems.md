@@ -421,7 +421,7 @@ Get-MpComputerStatus
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[kernel-structure]] - 커널 구조와 Dual Mode
-- [[selinux]] - SELinux 상세 설명
-- [[linux-account-security]] - Linux 계정 보안
-- [[linux-log-management]] - Linux 로그 관리
+- [kernel-structure](kernel-structure.md) - 커널 구조와 Dual Mode
+- [selinux](../linux/security/selinux.md) - SELinux 상세 설명
+- [linux-account-security](../linux/security/linux-account-security.md) - Linux 계정 보안
+- [linux-log-management](../linux/security/linux-log-management.md) - Linux 로그 관리

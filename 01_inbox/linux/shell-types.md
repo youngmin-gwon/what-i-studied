@@ -228,6 +228,6 @@ echo 'export TMOUT=600' >> ~/.bashrc
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[shell-environment-commands]] - 셸 환경 명령어
-- [[shell-scripting]] - 셸 스크립팅 가이드
-- [[process-job-control-commands]] - 프로세스 제어
+- [shell-environment-commands](commands/shell-environment-commands.md) - 셸 환경 명령어
+- [shell-scripting](shell-scripting.md) - 셸 스크립팅 가이드
+- [process-job-control-commands](commands/process-job-control-commands.md) - 프로세스 제어

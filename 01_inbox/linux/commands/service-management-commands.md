@@ -425,6 +425,6 @@ systemd-analyze plot > boot.svg
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[boot-sequence]] - 부팅 프로세스
-- [[process-states-lifecycle]] - 프로세스와 서비스
-- [[system-monitoring-commands]] - 시스템 모니터링
+- [boot-sequence](../../operating-systems/boot-sequence.md) - 부팅 프로세스
+- [process-states-lifecycle](../../operating-systems/process-states-lifecycle.md) - 프로세스와 서비스
+- [system-monitoring-commands](system-monitoring-commands.md) - 시스템 모니터링

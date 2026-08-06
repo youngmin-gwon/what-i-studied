@@ -156,6 +156,6 @@ graph TD
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[cryptography-basics]] - 암호화 기술
-- [[identity-management]] - DRM 클리어링하우스
-- [[security-fundamentals]] - 무결성, 기밀성
+- [cryptography-basics](fundamentals/cryptography-basics.md) - 암호화 기술
+- [identity-management](fundamentals/identity-management.md) - DRM 클리어링하우스
+- [security-fundamentals](fundamentals/security-fundamentals.md) - 무결성, 기밀성

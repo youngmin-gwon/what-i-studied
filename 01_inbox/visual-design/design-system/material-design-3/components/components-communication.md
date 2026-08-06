@@ -67,7 +67,7 @@ date created: 2025-12-28 00:29:20 +09:00
 
 ## 🔗 관련 문서
 
-- [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]
-- [[components-actions|Actions: 버튼과 FAB]]
-- [[components-feedback|Feedback: 로딩과 진행률]]
-- [[components-color-theme|Color & Theme: 지능적인 컬러 시스템과 HCT]]
+- **Material Design 3 개요 (Expressive Deep Dive)**
+- [Actions: 버튼과 FAB](components-actions.md)
+- [Feedback: 로딩과 진행률](components-feedback.md)
+- [Color & Theme: 지능적인 컬러 시스템과 HCT](components-color-theme.md)

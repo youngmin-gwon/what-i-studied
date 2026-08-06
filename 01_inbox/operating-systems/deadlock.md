@@ -342,6 +342,6 @@ SHOW ENGINE INNODB STATUS\G
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[process-states-lifecycle]] - 프로세스 상태와 생명주기
-- [[process-scheduling]] - 프로세스 스케줄링
-- [[ipc-mechanisms]] - 프로세스 간 통신과 동기화
+- [process-states-lifecycle](process-states-lifecycle.md) - 프로세스 상태와 생명주기
+- [process-scheduling](process-scheduling.md) - 프로세스 스케줄링
+- [ipc-mechanisms](ipc-mechanisms.md) - 프로세스 간 통신과 동기화

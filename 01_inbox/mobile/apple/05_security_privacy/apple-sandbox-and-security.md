@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:13:28 +09:00
 date created: 2026-04-06 17:50:00 +09:00
 ---
 
-## [[mobile-security]] > [[apple-sandbox-and-security]]
+## [mobile-security](../../mobile-security.md) > [apple-sandbox-and-security](apple-sandbox-and-security.md)
 
 ### Apple Sandbox & Security Diagnosis
 
@@ -61,8 +61,8 @@ Apple 은 샌드박스 외에도 여러 계층에서 보안을 강화합니다.
 
 #### 📚 연관 문서
 
-- [[apple-security-sandbox]] - 샌드박스 기본 개념 및 MAC 프레임워크
-- [[apple-security-entitlements]] - 권한 증명 및 프로비저닝 프로파일
-- [[apple-security-tcc-compliance]] - 프라이버시 승인 및 TCC 데몬 관리
-- [[mobile-advanced-security-tips]] - 시니어용 보안 심화 팁 (RASP 구현 등)
-- [[apple-boot-flow-and-images]] - Secure Boot 및 하드웨어 보안 근간
+- [apple-security-sandbox](apple-security-sandbox.md) - 샌드박스 기본 개념 및 MAC 프레임워크
+- [apple-security-entitlements](apple-security-entitlements.md) - 권한 증명 및 프로비저닝 프로파일
+- [apple-security-tcc-compliance](apple-security-tcc-compliance.md) - 프라이버시 승인 및 TCC 데몬 관리
+- [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - 시니어용 보안 심화 팁 (RASP 구현 등)
+- [apple-boot-flow-and-images](../00_foundations/apple-boot-flow-and-images.md) - Secure Boot 및 하드웨어 보안 근간

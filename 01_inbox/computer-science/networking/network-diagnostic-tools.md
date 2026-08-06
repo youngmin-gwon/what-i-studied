@@ -263,7 +263,7 @@ sudo ip link set eth0 promisc off
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[icmp-protocol]] - ping, traceroute 동작 원리
-- [[tcp-udp-protocols]] - TCP 상태 코드
-- [[routing-basics]] - 라우팅과 게이트웨이
-- [[arp-protocol]] - ARP 테이블
+- [icmp-protocol](icmp-protocol.md) - ping, traceroute 동작 원리
+- [tcp-udp-protocols](tcp-udp-protocols.md) - TCP 상태 코드
+- [routing-basics](routing-basics.md) - 라우팅과 게이트웨이
+- [arp-protocol](arp-protocol.md) - ARP 테이블

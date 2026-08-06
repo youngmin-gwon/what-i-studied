@@ -25,17 +25,20 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ### 스코프 제약 구조 (How)
 
-```text
-[AndroidManifest.xml 선언 스코프]
-  └─ Scheme: https
-  └─ Host: example.com
-  └─ PathPrefix: /share
+```mermaid
+flowchart TD
+    subgraph ManifestScope ["AndroidManifest.xml 선언 정적 스코프"]
+        Scheme["Scheme: https"]
+        Host["Host: example.com"]
+        Path["PathPrefix: /share"]
+    end
 
-      │ (세분화 가능 - Refine)
-      ▼
-[Dynamic / Server Routing]
-  ├─ https://example.com/share?campaign=summer & target=item/42 (가능)
-  └─ https://unregistered-domain.com/share (불가능 - OS 매칭 실패)
+    ManifestScope -->|OS Intent Resolver 매칭| DynamicRouting["Dynamic / Server Routing"]
+
+    subgraph DynamicRouting
+        ValidRoute["https://example.com/share?campaign=summer (성공)"]
+        InvalidRoute["https://unregistered-domain.com/share (실패 - Manifest 미선언)"]
+    end
 ```
 
 ---

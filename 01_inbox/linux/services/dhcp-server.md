@@ -157,6 +157,6 @@ nmcli device reapply eth0
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[dns-bind-server]] - DNS 서버 설정
-- [[network-commands]] - 네트워크 명령어
-- [[network-configuration]] - 네트워크 인터페이스 설정
+- [dns-bind-server](dns-bind-server.md) - DNS 서버 설정
+- [network-commands](../commands/network-commands.md) - 네트워크 명령어
+- [network-configuration](../network-configuration.md) - 네트워크 인터페이스 설정

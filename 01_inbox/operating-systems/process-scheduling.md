@@ -359,6 +359,6 @@ chrt -p 1234
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[process-states-lifecycle]] - 프로세스 상태와 생명주기
-- [[deadlock]] - 교착상태와 해결 방법
-- [[kernel-structure]] - 운영체제 커널 구조
+- [process-states-lifecycle](process-states-lifecycle.md) - 프로세스 상태와 생명주기
+- [deadlock](deadlock.md) - 교착상태와 해결 방법
+- [kernel-structure](kernel-structure.md) - 운영체제 커널 구조

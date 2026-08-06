@@ -248,5 +248,5 @@ sudo chmod 2775 /shared            # setgid + rwxrwxr-x
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[file-operations-commands]] - chmod, chown 상세
-- [[process-job-control-commands]] - 프로세스 소유자
+- [file-operations-commands](file-operations-commands.md) - chmod, chown 상세
+- [process-job-control-commands](process-job-control-commands.md) - 프로세스 소유자

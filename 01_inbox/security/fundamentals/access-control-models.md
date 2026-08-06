@@ -184,6 +184,6 @@ Biba (무결성): "아래는 못 읽고, 위는 못 쓴다"
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[authentication-authorization]] - 접근통제 정책 (DAC, MAC, RBAC)
-- [[security-fundamentals]] - CIA Triad
-- [[linux-account-security]] - Linux 접근통제
+- [authentication-authorization](authentication-authorization.md) - 접근통제 정책 (DAC, MAC, RBAC)
+- [security-fundamentals](security-fundamentals.md) - CIA Triad
+- [linux-account-security](../../linux/security/linux-account-security.md) - Linux 접근통제

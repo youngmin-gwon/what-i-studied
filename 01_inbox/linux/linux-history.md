@@ -83,6 +83,6 @@ lsb_release -a
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[opensource-licenses]] - GPL, MIT, Apache 등 오픈소스 라이선스
-- [[linux-characteristics]] - 리눅스의 기술적 특징
-- [[boot-sequence]] - 리눅스 부팅 과정
+- [opensource-licenses](opensource-licenses.md) - GPL, MIT, Apache 등 오픈소스 라이선스
+- [linux-characteristics](linux-characteristics.md) - 리눅스의 기술적 특징
+- [boot-sequence](../operating-systems/boot-sequence.md) - 리눅스 부팅 과정

@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:14:34 +09:00
 date created: 2026-04-05 17:08:33 +09:00
 ---
 
-## [[mobile-security]] > [[apple-security-swift6-safety]]
+## [mobile-security](../../mobile-security.md) > [apple-security-swift6-safety](apple-security-swift6-safety.md)
 
 ### Swift 6: Strict Concurrency & Memory Safety
 
@@ -40,6 +40,6 @@ Swift 6 의 **엄격한 동시성 검사(Strict Concurrency Checking)**는 단�
 
 #### 연관 문서
 
-- [[apple-memory-management]] - ARC 및 내부 구조
-- [[apple-foundations]] - 애플 보안 기본 철학
-- [[mobile-advanced-security-tips]] - 메모리 보안 팁
+- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC 및 내부 구조
+- [apple-foundations](../00_foundations/apple-foundations.md) - 애플 보안 기본 철학
+- [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - 메모리 보안 팁

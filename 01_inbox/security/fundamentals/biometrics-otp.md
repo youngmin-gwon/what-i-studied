@@ -156,7 +156,7 @@ H^N(S) → H^(N-1)(S) 불가능 (역산 불가)
 
 ## 🎫 Kerberos 인증 요약
 
-[[authentication-authorization]] 참조
+[authentication-authorization](authentication-authorization.md) 참조
 
 ### 구성 요소
 
@@ -205,6 +205,6 @@ sequenceDiagram
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[authentication-authorization]] - 인증과 인가
-- [[cryptography-basics]] - 해시와 암호화
-- [[access-control-models]] - 접근통제 모델
+- [authentication-authorization](authentication-authorization.md) - 인증과 인가
+- [cryptography-basics](cryptography-basics.md) - 해시와 암호화
+- [access-control-models](access-control-models.md) - 접근통제 모델

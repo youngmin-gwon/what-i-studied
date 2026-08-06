@@ -94,6 +94,6 @@ server {
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[apache-server]] - 아파치 웹 서버 HTTPS 설정
-- [[network-fundamentals]] - TCP/IP 및 포트 번호(443)
-- [[security-commands]] - 방화벽 설정
+- [apache-server](../services/apache-server.md) - 아파치 웹 서버 HTTPS 설정
+- [network-fundamentals](../network-fundamentals.md) - TCP/IP 및 포트 번호(443)
+- [security-commands](../commands/security-commands.md) - 방화벽 설정

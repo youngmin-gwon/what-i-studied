@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:14:34 +09:00
 date created: 2026-04-05 12:45:00 +09:00
 ---
 
-## [[mobile-security]] > [[mobile-apple-secure-storage]]
+## [mobile-security](../../mobile-security.md) > [mobile-apple-secure-storage](mobile-apple-secure-storage.md)
 
 ### Apple Secure Storage: Keychain & Biometrics
 
@@ -150,6 +150,6 @@ iOS 16+ 부터 도입된 **Passkeys**는 피싱 불가능한 자격 증명을 �
 
 #### 📚 연관 문서 및 가이드
 
-- [[mobile-apple-foundation-security]] - Apple 기초 보안 모델 및 샌드박싱
-- [[mobile-vulnerability-check]] - 모바일 취약점 종합 진단 가이드
-- [[mobile-advanced-security-tips]] - RASP 및 심화 보안 기술
+- [mobile-apple-foundation-security](mobile-apple-foundation-security.md) - Apple 기초 보안 모델 및 샌드박싱
+- [mobile-vulnerability-check](../../cross-platform/mobile-vulnerability-check.md) - 모바일 취약점 종합 진단 가이드
+- [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - RASP 및 심화 보안 기술

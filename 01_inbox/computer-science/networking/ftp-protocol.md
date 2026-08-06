@@ -178,7 +178,7 @@ lftp -u user,password ftp.example.com
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[osi-7-layer-model]] - OSI 7 계층 (응용 계층)
-- [[tcp-udp-protocols]] - TCP 프로토콜
-- [[network-security-protocols]] - SFTP, FTPS
-- [[http-protocol]] - HTTP 프로토콜
+- [osi-7-layer-model](osi-7-layer-model.md) - OSI 7 계층 (응용 계층)
+- [tcp-udp-protocols](tcp-udp-protocols.md) - TCP 프로토콜
+- [network-security-protocols](../../security/protocols/network-security-protocols.md) - SFTP, FTPS
+- [http-protocol](http-protocol.md) - HTTP 프로토콜

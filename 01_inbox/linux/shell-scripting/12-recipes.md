@@ -39,7 +39,7 @@ parse_args() {
 
 | 기능      | Bash 확장       | POSIX 호환 대안               |
 | :------ | :------------ | :------------------------ |
-| **조건문** | `[[ ... ]]`   | `[ … ]` (인용 필수)           |
+| **조건문** | `**...**`   | `[ … ]` (인용 필수)           |
 | **배열**  | `arr=(…)`     | `set -- …` (위치 매개변수 활용)   |
 | **실행**  | `local var`   | 전역 변수 초기화로 관리             |
 | **경로**  | `readlink -f` | `perl` 또는 `python` 활용 스니펫 |
@@ -58,5 +58,5 @@ parse_args() {
 
 ### 🔗 연결 문서
 
-- [[11-security-performance]] - 보안 및 성능 최적화
-- [[13-mock-exam-qa]] - 모의고사 Q&A
+- [11-security-performance](11-security-performance.md) - 보안 및 성능 최적화
+- [13-mock-exam-qa](13-mock-exam-qa.md) - 모의고사 Q&A

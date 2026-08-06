@@ -81,8 +81,8 @@ M3 Expressive 슬라이더는 단순한 수치 조절 도구를 넘어, 풍부�
 
 ## 🔗 관련 문서
 
-- [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]
-- [[components-actions|Actions: 버튼과 FAB]]
-- [[components-containment-navigation|Containment & Navigation]]
-- [[components-typography|Typography: 의미론적 가독성과 폰트 역할]]
-- [[components-color-theme|Color & Theme: 지능적인 컬러 시스템과 HCT]]
+- **Material Design 3 개요 (Expressive Deep Dive)**
+- [Actions: 버튼과 FAB](components-actions.md)
+- [Containment & Navigation](components-containment-navigation.md)
+- [Typography: 의미론적 가독성과 폰트 역할](components-typography.md)
+- [Color & Theme: 지능적인 컬러 시스템과 HCT](components-color-theme.md)

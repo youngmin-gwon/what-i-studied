@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:13:54 +09:00
 date created: 2026-04-05 17:07:50 +09:00
 ---
 
-## [[mobile-security]] > [[apple-security-entitlements]]
+## [mobile-security](../../mobile-security.md) > [apple-security-entitlements](apple-security-entitlements.md)
 
 ### Code Signing & Entitlements
 
@@ -41,6 +41,6 @@ Apple 기기에서 암호화 키는 **Secure Enclave** 내부에서만 생성 �
 
 #### 연관 문서
 
-- [[apple-security-sandbox]] - 격리 계층
-- [[apple-security-app-attest]] - 앱 무결성 증명
-- [[apple-keychain-biometrics]] - 키체인 및 생체 인증
+- [apple-security-sandbox](apple-security-sandbox.md) - 격리 계층
+- [apple-security-app-attest](apple-security-app-attest.md) - 앱 무결성 증명
+- [apple-keychain-biometrics](apple-keychain-biometrics.md) - 키체인 및 생체 인증

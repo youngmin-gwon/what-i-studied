@@ -451,6 +451,6 @@ Absolute Timeout: 8시간
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[cryptography-basics]] - 인증에 사용되는 암호화 기술
-- [[network-security-protocols]] - HTTPS, TLS 에서의 인증
-- [[process-states-lifecycle]] - 시스템 레벨 권한과 프로세스
+- [cryptography-basics](cryptography-basics.md) - 인증에 사용되는 암호화 기술
+- [network-security-protocols](../protocols/network-security-protocols.md) - HTTPS, TLS 에서의 인증
+- [process-states-lifecycle](../../operating-systems/process-states-lifecycle.md) - 시스템 레벨 권한과 프로세스

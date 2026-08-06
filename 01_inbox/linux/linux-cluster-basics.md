@@ -50,6 +50,6 @@ date created: 2026-01-06 00:02:44 +09:00
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[process-states-lifecycle]] - 병렬 처리와 프로세스 관리
-- [[service-management-commands]] - 클러스터 노드 내 서비스 관리
-- [[network-commands]] - 로드 밸런싱을 위한 네트워크 설정
+- [process-states-lifecycle](../operating-systems/process-states-lifecycle.md) - 병렬 처리와 프로세스 관리
+- [service-management-commands](commands/service-management-commands.md) - 클러스터 노드 내 서비스 관리
+- [network-commands](commands/network-commands.md) - 로드 밸런싱을 위한 네트워크 설정

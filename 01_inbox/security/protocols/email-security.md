@@ -262,7 +262,7 @@ _dmarc.example.com TXT "v=DMARC1; p=reject; rua=mailto:report@example.com"
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[cryptography-basics]] - 암호화 알고리즘
-- [[authentication-authorization]] - 인증 메커니즘
-- [[network-security-protocols]] - TLS/SSL
-- [[malware-types]] - 이메일을 통한 악성코드 전파
+- [cryptography-basics](../fundamentals/cryptography-basics.md) - 암호화 알고리즘
+- [authentication-authorization](../fundamentals/authentication-authorization.md) - 인증 메커니즘
+- [network-security-protocols](network-security-protocols.md) - TLS/SSL
+- [malware-types](../attacks/malware/malware-types.md) - 이메일을 통한 악성코드 전파

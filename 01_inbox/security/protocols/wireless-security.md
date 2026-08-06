@@ -276,7 +276,7 @@ aireplay-ng --deauth 100 -a [AP MAC] -c [Client MAC] wlan0mon
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[osi-7-layer-model]] - OSI 7 계층
-- [[network-security-protocols]] - TLS/SSL
-- [[cryptography-basics]] - 암호화 알고리즘
-- [[attack-types]] - 네트워크 공격 유형
+- [osi-7-layer-model](../../computer-science/networking/osi-7-layer-model.md) - OSI 7 계층
+- [network-security-protocols](network-security-protocols.md) - TLS/SSL
+- [cryptography-basics](../fundamentals/cryptography-basics.md) - 암호화 알고리즘
+- [attack-types](../attacks/attack-types.md) - 네트워크 공격 유형

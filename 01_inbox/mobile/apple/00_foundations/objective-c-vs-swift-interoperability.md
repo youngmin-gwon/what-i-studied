@@ -6,7 +6,7 @@ date modified: 2026-04-07 18:59:07 +09:00
 date created: 2026-04-07 19:10:00 +09:00
 ---
 
-## [[apple-runtime-and-swift]] > Objective-C vs Swift: Interoperability & Compilation
+## [apple-runtime-and-swift](apple-runtime-and-swift.md) > Objective-C vs Swift: Interoperability & Compilation
 
 Apple 플랫폼의 두 주요 언어인 Objective-C 와 Swift 가 어떻게 공존하며, 바이너리 수준에서 어떻게 상호 호환성을 구현하는지 심층 비교 분석합니다.
 
@@ -27,7 +27,7 @@ Apple 플랫폼의 두 주요 언어인 Objective-C 와 Swift 가 어떻게 공�
 
 1. **Preprocessor**: 매크로(`#define`) 및 헤더(`#import`) 처리.
 2. **Clang Frontend**: 코드를 구문 분석하여 AST(Abstract Syntax Tree)를 생성.
-3. **LLVM IR Generation**: LLVM 중간 표현으로 변환. 이때 **Dynamic Dispatch**(런타임에 어떤 메서드를 실행할지 결정하는 과정)를 위해 `objc_msgSend`라는 특수 함수 호출 코드를 삽입합니다. 이는 컴파일 시점이 아닌, 앱이 실행되는 중에 실제 어떤 코드를 호출할지 런타임에 물어보고 실행한다는 의미입니다. (상세 비유는 [[apple-runtime-and-swift]] 의 '초보자를 위한 Dispatch 이해하기' 참고)
+3. **LLVM IR Generation**: LLVM 중간 표현으로 변환. 이때 **Dynamic Dispatch**(런타임에 어떤 메서드를 실행할지 결정하는 과정)를 위해 `objc_msgSend`라는 특수 함수 호출 코드를 삽입합니다. 이는 컴파일 시점이 아닌, 앱이 실행되는 중에 실제 어떤 코드를 호출할지 런타임에 물어보고 실행한다는 의미입니다. (상세 비유는 [apple-runtime-and-swift](apple-runtime-and-swift.md) 의 '초보자를 위한 Dispatch 이해하기' 참고)
 4. **Mach-O Binary**: 클래스 데이터가 `__objc_` 섹션에 저장됨.
 
 #### 🏗️ Swift (Swift Compiler Pipeline)
@@ -65,5 +65,5 @@ Apple 은 앱 개발자가 두 언어를 한 프로젝트에서 섞어 쓸 수 �
 
 ### 📚 연관 문서
 
-- [[apple-runtime-and-swift]] - 런타임 내부 동작 원리
-- [[apple-foundations]] - Apple 플랫폼 공통 설계 철학
+- [apple-runtime-and-swift](apple-runtime-and-swift.md) - 런타임 내부 동작 원리
+- [apple-foundations](apple-foundations.md) - Apple 플랫폼 공통 설계 철학

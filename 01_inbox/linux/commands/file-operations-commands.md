@@ -305,7 +305,7 @@ ln -s /var/log/nginx ~/web_logs
 ```
 
 > [!TIP]
-> **하드 링크 vs 심볼릭 링크**의 차이와 **inode**의 원리에 대한 상세한 설명은 [[inode]] 및 [[file-types-links]] 문서를 참조하세요.
+> **하드 링크 vs 심볼릭 링크**의 차이와 **inode**의 원리에 대한 상세한 설명은 [inode](../inode.md) 및 [file-types-links](../file-types-links.md) 문서를 참조하세요.
 
 ## 🔍 File Search
 
@@ -536,7 +536,7 @@ chown -R www-data:www-data /var/www/html
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[filesystem-hierarchy-standard]] - 디렉토리 구조 이해
-- [[inode]] - 파일 시스템 내부 구조
-- [[file-types-links]] - 파일 타입과 링크
-- [[text-processing-commands]] - 텍스트 파일 처리
+- [filesystem-hierarchy-standard](../filesystem-hierarchy-standard.md) - 디렉토리 구조 이해
+- [inode](../inode.md) - 파일 시스템 내부 구조
+- [file-types-links](../file-types-links.md) - 파일 타입과 링크
+- [text-processing-commands](text-processing-commands.md) - 텍스트 파일 처리

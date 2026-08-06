@@ -2,7 +2,7 @@
 title: pure-function
 tags: [computer-science, functional-programming, software-architecture]
 aliases: [Pure Function, 순수 함수, Purity]
-date modified: 2026-08-06 16:55:00 +09:00
+date modified: 2026-08-06 18:15:00 +09:00
 date created: 2026-08-06 16:25:00 +09:00
 ---
 
@@ -22,8 +22,8 @@ date created: 2026-08-06 16:25:00 +09:00
 
 ```mermaid
 flowchart LR
-    Input[Input: x, y] --> PureFn[Pure Function: f x, y = x + y]
-    PureFn --> Output[Output: x + y]
+    Input["Input: x, y"] --> PureFn["Pure Function: f(x, y) = x + y"]
+    PureFn --> Output["Output: x + y"]
 ```
 
 ---
@@ -47,12 +47,9 @@ flowchart LR
 
 ### 순수 함수 vs 비순수 함수 (Impure Function) 비교
 
-| 구분 | 순수 함수 (Pure Function) | 비순수 함수 (Impure Function) |
-| :--- | :--- | :--- |
-| **결과 예측성** | 100% 결정론적 (Deterministic) | 매개변수 외 외부 환경/전역 상태에 따라 변함 |
-| **외부 상태 변이** | ❌ 절대 없음 ([Immutability](immutability.md) 보장) | ⭕ 전역 변수 수정, DB 변경, 객체 필드 변경 |
-| **I/O 작업** | ❌ 없음 | ⭕ 콘솔 로그 출력, 네트워크 API 요청, 파일 읽기/쓰기 |
-| **Kotlin 예시** | `fun add(a: Int, b: Int) = a + b` | `fun addAndLog(a: Int, b: Int) = (a + b).also { println(it) }` |
+동일 입력에 따른 결과 결정론 및 부작용 유무에 따른 비순수 함수(Impure Function)와의 비교와 실무 활용은 별도 문서로 분리되어 있습니다.
+
+- **[Pure vs Impure Function](pure-vs-impure-function.md)** - 순수 함수와 비순수 함수의 기술 비교표 및 실무 적용 지침
 
 ---
 
@@ -66,8 +63,8 @@ UI 런타임은 성능 최적화를 위해 컴포넌트를 언제든 임의의 �
 
 ### 연관 노트
 
+- [Pure vs Impure Function](pure-vs-impure-function.md) - 순수 함수와 비순수 함수 비교
 - [Side Effect](../../02_references/computer-science/side-effect.md) - 순수 함수의 자격 요건인 부작용 부재에 관한 레퍼런스
 - [Idempotency](../../02_references/computer-science/idempotency.md) - 순수성과 멱등성의 개념적 차이점 비교
 - [Immutability](immutability.md) - 순수 함수가 의존하는 불변 데이터 구조
 - [Composable Body Must Be Fast, Idempotent and Side-Effect Free](../mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md) - Compose 런타임에서 Composable 본문이 순수해야 하는 이유
-

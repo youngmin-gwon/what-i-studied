@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:21:13 +09:00
 date created: 2026-04-05 12:45:01 +09:00
 ---
 
-## [[mobile-security]] > [[cross-platform-ai-privacy-comparison]]
+## [mobile-security](../mobile-security.md) > [cross-platform-ai-privacy-comparison](cross-platform-ai-privacy-comparison.md)
 
 ### AI Privacy: Gemini Nano vs Apple Private Cloud Compute (PCC)
 
@@ -39,14 +39,14 @@ date created: 2026-04-05 12:45:01 +09:00
 안드로이드는 OS 레벨에서 네트워크 접근권이 차단된 특수 격리 샌드박스인 **Android PCC**를 제공합니다.
 
 - **AICore Isolation**: Gemini Nano 와 같은 모델이 개별 앱의 민감 데이터를 처리할 때 외부 전송을 물리적으로 차단합니다.
-- **Ephemeral Context**: 에이전트가 `AppFunctions` 를 호출할 때 생성되는 모든 추론 컨텍스트는 작업 완료 즉시 메모리에서 소멸됩니다. ([[android-appfunctions-and-ai-agents]])
+- **Ephemeral Context**: 에이전트가 `AppFunctions` 를 호출할 때 생성되는 모든 추론 컨텍스트는 작업 완료 즉시 메모리에서 소멸됩니다. (**android-appfunctions-and-ai-agents**)
 
 ##### 2. Apple: Private Cloud Compute (Apple PCC)
 
 애플은 고성능 연산이 필요한 경우 자체 설계한 보안 서버 노드인 **Apple PCC**로 작업을 위임합니다.
 
 - **Diskless Computing**: PCC 서버는 영구 저장 장치가 없으며(Diskless), 모든 데이터는 휘발성 메모리(RAM)에서만 처리됩니다.
-- **Cryptographic Attestation**: 서버 소프트웨어의 무결성이 암호학적으로 증명되지 않으면 기기에서 데이터를 전송하지 않는 강력한 투명성을 제공합니다. ([[apple-intelligence-and-agentic-intents]])
+- **Cryptographic Attestation**: 서버 소프트웨어의 무결성이 암호학적으로 증명되지 않으면 기기에서 데이터를 전송하지 않는 강력한 투명성을 제공합니다. ([apple-intelligence-and-agentic-intents](../apple/04_system_services/apple-intelligence-and-agentic-intents.md))
 
 ---
 
@@ -62,7 +62,7 @@ date created: 2026-04-05 12:45:01 +09:00
 
 #### 📚 연관 분석 가이드
 
-- [[android-apple-2026-comparison]] - 2026 년 차세대 플랫폼 통합 비교
-- [[mobile-advanced-security-tips]] - 전문가를 위한 보안 심화 구현 팁
-- [[mobile-vulnerability-check]] - 플랫폼 공통 취약점 점검 리스트
-- [[mobile-security]] - 통합 모바일 보안 가이드
+- [android-apple-2026-comparison](android-apple-2026-comparison.md) - 2026 년 차세대 플랫폼 통합 비교
+- [mobile-advanced-security-tips](mobile-advanced-security-tips.md) - 전문가를 위한 보안 심화 구현 팁
+- [mobile-vulnerability-check](mobile-vulnerability-check.md) - 플랫폼 공통 취약점 점검 리스트
+- [mobile-security](../mobile-security.md) - 통합 모바일 보안 가이드

@@ -276,7 +276,7 @@ fi
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[systemd]] - systemd timer (cron 대안)
-- [[linux-log-management]] - cron 로그 분석
-- [[backup-strategies]] - 백업 자동화
-- [[service-management-commands]] - 서비스 관리
+- [systemd](systemd.md) - systemd timer (cron 대안)
+- [linux-log-management](security/linux-log-management.md) - cron 로그 분석
+- [backup-strategies](../operating-systems/backup-strategies.md) - 백업 자동화
+- [service-management-commands](commands/service-management-commands.md) - 서비스 관리

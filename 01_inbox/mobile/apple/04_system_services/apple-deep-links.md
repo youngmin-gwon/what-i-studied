@@ -6,7 +6,7 @@ date modified: 2026-04-07 10:55:00 +09:00
 date created: 2026-04-05 14:10:00 +09:00
 ---
 
-## [[apple-foundations]] > [[apple-deep-links]]
+## [apple-foundations](../00_foundations/apple-foundations.md) > [apple-deep-links](apple-deep-links.md)
 
 ### iOS Deep Linking: URL Schemes & Universal Links
 
@@ -48,6 +48,6 @@ Apple 은 보안을 위해 HTTPS 기반의 **Universal Links**를 사용하도�
 ---
 
 #### 📚 See Also
-- [[android-deep-links]] - 안드로이드 앱 링크와의 비교
-- [[apple-foundations]] - Apple 보안 철학 (Default Deny)
-- [[mobile-security]] - 통합 모바일 보안 가이드
+- [android-deep-links](../../android/02_app_framework/navigation/intents-and-deep-links/android-deep-links.md) - 안드로이드 앱 링크와의 비교
+- [apple-foundations](../00_foundations/apple-foundations.md) - Apple 보안 철학 (Default Deny)
+- [mobile-security](../../mobile-security.md) - 통합 모바일 보안 가이드

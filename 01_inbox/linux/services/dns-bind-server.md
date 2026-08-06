@@ -141,6 +141,6 @@ rndc flush
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[network-fundamentals]] - 네트워크 기본 개념 및 DNS 설정
-- [[commands/network-commands|네트워크 명령어 (dig, nslookup)]]
-- [[network-security-protocols]] - DNSSEC
+- [network-fundamentals](../network-fundamentals.md) - 네트워크 기본 개념 및 DNS 설정
+- **네트워크 명령어 (dig, nslookup)**
+- [network-security-protocols](../../security/protocols/network-security-protocols.md) - DNSSEC

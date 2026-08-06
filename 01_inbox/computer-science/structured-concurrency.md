@@ -2,7 +2,7 @@
 title: structured-concurrency
 tags: [computer-science, concurrency, coroutines, async]
 aliases: [Structured Concurrency, 구조적 동시성, CoroutineScope, Parent-Child Cancellation]
-date modified: 2026-08-06 16:55:00 +09:00
+date modified: 2026-08-06 18:15:00 +09:00
 date created: 2026-08-06 16:25:00 +09:00
 ---
 
@@ -21,16 +21,16 @@ date created: 2026-08-06 16:25:00 +09:00
 
 ```mermaid
 flowchart TD
-    subgraph Unstructured [Unstructured Async: Risk of Leaks]
-        Caller1[Caller] --> LaunchChild1[Launch Child Task 1]
-        Caller1 --> LaunchChild2[Launch Child Task 2]
-        LaunchChild2 -->|Exception Error| Orphan[Silent Fail / Lost Orphan Task]
+    subgraph Unstructured ["Unstructured Async: Risk of Leaks"]
+        Caller1["Caller"] --> LaunchChild1["Launch Child Task 1"]
+        Caller1 --> LaunchChild2["Launch Child Task 2"]
+        LaunchChild2 -->|Exception Error| Orphan["Silent Fail / Lost Orphan Task"]
     end
 
-    subgraph Structured [Structured Concurrency: Scope Boundary]
-        ParentScope[Parent Scope / Job] --> Child1[Child Task 1]
-        ParentScope --> Child2[Child Task 2]
-        Child2 -->|Exception Error| CancelProp[Cancel Siblings & Propagate to Parent]
+    subgraph Structured ["Structured Concurrency: Scope Boundary"]
+        ParentScope["Parent Scope / Job"] --> Child1["Child Task 1"]
+        ParentScope --> Child2["Child Task 2"]
+        Child2 -->|Exception Error| CancelProp["Cancel Siblings & Propagate to Parent"]
     end
 ```
 
@@ -54,19 +54,15 @@ flowchart TD
 
 ### Unstructured Async vs Structured Concurrency 비교
 
-| 구분 | Unstructured Async (비구조적) | Structured Concurrency (구조적) |
-| :--- | :--- | :--- |
-| **생명주기 관리** | 백그라운드에서 고아(Orphan) 상태로 무한 실행 위험 | 부모 Scope의 생명주기에 완벽 종속 |
-| **자원 누수 (Leak)** | 스레드/작업이 메모리와 CPU 자원을 무한 점유 가능 | 부모 Scope 취소 시 모든 자식 작업 즉시 취소 |
-| **예외 처리** | 예외가 유실(Silent Failure)되거나 전역 크래시 발생 | 부모 계층을 타고 안전하게 전파되어 캡처 가능 |
-| **완료 수집** | `join()`이나 `Future.get()`을 수동 호출하여 대기 | 부모 작업이 자식들의 완료를 자동 대기 및 취합 |
-| **Kotlin 예시** | `GlobalScope.launch { ... }` | `coroutineScope { launch { ... } }` |
+비구조적 비동기 실행(Unstructured Async)과 구조적 동시성(Structured Concurrency)의 세부 기술 비교표, 예외 전파 메커니즘, 그리고 Kotlin 실무 예시는 별도 문서로 분리되어 있습니다.
+
+- **[Structured vs Unstructured Concurrency](structured-vs-unstructured-concurrency.md)** - 구조적 동시성과 비구조적 동시성의 비교 및 실무 가이드
 
 ---
 
 ### 연관 노트
 
+- [Structured vs Unstructured Concurrency](structured-vs-unstructured-concurrency.md) - 구조적 vs 비구조적 동시성 비교
 - [Context](context.md) - 부모-자식 간 공유되는 실행 환경 및 Job 계층 구조
 - [Race Condition and Deadlock](race-condition-and-deadlock.md) - 자원 경쟁 및 무한 대기 문제 해결
 - [Immutability](immutability.md) - 동시성 환경에서의 데이터 안전성
-

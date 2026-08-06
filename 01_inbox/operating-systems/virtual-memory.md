@@ -385,7 +385,7 @@ sudo sysctl vm.swappiness=10
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[kernel-structure]] - 운영체제 커널과 메모리 보호
-- [[process-states-lifecycle]] - 프로세스 메모리 구조
-- [[filesystems]] - 스왑 파일/파티션
-- [[lvm]] - 논리 볼륨과 스왑: 관리
+- [kernel-structure](kernel-structure.md) - 운영체제 커널과 메모리 보호
+- [process-states-lifecycle](process-states-lifecycle.md) - 프로세스 메모리 구조
+- [filesystems](../linux/filesystems.md) - 스왑 파일/파티션
+- [lvm](../linux/lvm.md) - 논리 볼륨과 스왑: 관리

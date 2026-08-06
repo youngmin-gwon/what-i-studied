@@ -233,7 +233,7 @@ sequenceDiagram
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[tcp-ip-model]] - TCP/IP 4 계층 모델
-- [[ip-header-structure]] - IP 헤더 구조
-- [[tcp-udp-protocols]] - TCP/UDP 상세
-- [[arp-protocol]] - ARP 프로토콜
+- [tcp-ip-model](tcp-ip-model.md) - TCP/IP 4 계층 모델
+- [ip-header-structure](ip-header-structure.md) - IP 헤더 구조
+- [tcp-udp-protocols](tcp-udp-protocols.md) - TCP/UDP 상세
+- [arp-protocol](arp-protocol.md) - ARP 프로토콜

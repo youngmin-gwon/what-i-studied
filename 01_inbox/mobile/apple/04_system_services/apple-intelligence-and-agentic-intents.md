@@ -67,12 +67,12 @@ struct ApplyFilterIntent: AppIntent {
 애플의 클라우드 기반 보안(PCC)과 구글의 온디바이스 중심 보안에 대한 상세 비교는 아래 문서를 참고하세요.
 
 >[!TIP] **상세 비교 문서**
-> - [[cross-platform-ai-privacy-comparison]] - Apple PCC vs Gemini Nano 심층 분석
+> - [cross-platform-ai-privacy-comparison](../../cross-platform/cross-platform-ai-privacy-comparison.md) - Apple PCC vs Gemini Nano 심층 분석
 
 #### 3) 에이전틱 보안 (Agentic Security) 실무
 
 - **App Intents 샌드박싱**: Siri 가 앱 인텐트를 실행할 때, 해당 앱은 오직 `Intent` 수행에 필요한 최소한의 데이터만 공유받습니다.
-- **심화 보안 팁**: [[mobile-advanced-security-tips]] - 전문가용 RASP 및 API 보안 가이드
+- **심화 보안 팁**: [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - 전문가용 RASP 및 API 보안 가이드
 
 ---
 

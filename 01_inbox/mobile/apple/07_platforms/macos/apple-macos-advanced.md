@@ -13,7 +13,7 @@ macOS 데스크탑 앱을 더 깊게 만들 때 필요한 내용을 쉽게 정�
 ### 샌드박스 vs 비샌드박스
 
 - Mac App Store 앱은 샌드박스 필수. 파일은 Security-scoped bookmark/파일 선택기로 접근.
-- 비샌드박스 배포는 더 많은 권한이 있지만, [[apple-glossary#Code Signing|서명]] 과 노타리제이션이 필요하고 Gatekeeper 가 검사한다.
+- 비샌드박스 배포는 더 많은 권한이 있지만, [서명](../../00_foundations/apple-glossary.md) 과 노타리제이션이 필요하고 Gatekeeper 가 검사한다.
 - 시스템 확장/드라이버/네트워크 확장은 별도 Entitlement/승인 절차가 필요.
 
 ### 파일/권한

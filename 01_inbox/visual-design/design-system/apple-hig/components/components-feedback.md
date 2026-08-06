@@ -66,6 +66,6 @@ date created: 2025-12-28 00:36:10 +09:00
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[components-views|Views: 리스트와 테이블]]
-- [[components-controls|Controls: 버튼과 전환]]
+- **Apple HIG 개요**
+- [Views: 리스트와 테이블](components-views.md)
+- [Controls: 버튼과 전환](components-controls.md)

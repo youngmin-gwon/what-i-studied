@@ -300,7 +300,7 @@ runlevel 6 → reboot.target
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[systemd]] - systemd 상세 설명 (Unit, Service, Target)
-- [[boot-sequence]] - 리눅스 부팅 과정
-- [[grub-bootloader]] - GRUB 부트로더 설정
-- [[kernel-structure]] - 커널과 운영체제 구조
+- [systemd](systemd.md) - systemd 상세 설명 (Unit, Service, Target)
+- [boot-sequence](../operating-systems/boot-sequence.md) - 리눅스 부팅 과정
+- [grub-bootloader](grub-bootloader.md) - GRUB 부트로더 설정
+- [kernel-structure](../operating-systems/kernel-structure.md) - 커널과 운영체제 구조

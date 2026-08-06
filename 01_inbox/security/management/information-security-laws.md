@@ -230,7 +230,7 @@ date created: 2026-01-08 18:03:34 +09:00
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[security-fundamentals]] - 정보보호 기초
-- [[isms-certification]] - ISMS 인증 제도
-- [[security-evaluation-criteria]] - 보안 평가 기준
-- [[risk-management]] - 위험 관리
+- [security-fundamentals](../fundamentals/security-fundamentals.md) - 정보보호 기초
+- [isms-certification](isms-certification.md) - ISMS 인증 제도
+- [security-evaluation-criteria](security-evaluation-criteria.md) - 보안 평가 기준
+- [risk-management](risk-management.md) - 위험 관리

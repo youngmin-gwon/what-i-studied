@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:14:43 +09:00
 date created: 2026-04-05 17:08:07 +09:00
 ---
 
-## [[mobile-security]] > [[apple-security-tcc-compliance]]
+## [mobile-security](../../mobile-security.md) > [apple-security-tcc-compliance](apple-security-tcc-compliance.md)
 
 ### TCC & Privacy Compliance
 
@@ -48,6 +48,6 @@ Apple 의 프라이버시 보호를 위한 핵심 프레임워크입니다.
 
 #### 연관 문서
 
-- [[apple-security-sandbox]] - 샌드박싱 격리
-- [[apple-security-app-attest]] - 무결성 검증
-- [[mobile-advanced-security-tips]] - RASP 구현 팁
+- [apple-security-sandbox](apple-security-sandbox.md) - 샌드박싱 격리
+- [apple-security-app-attest](apple-security-app-attest.md) - 무결성 검증
+- [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - RASP 구현 팁

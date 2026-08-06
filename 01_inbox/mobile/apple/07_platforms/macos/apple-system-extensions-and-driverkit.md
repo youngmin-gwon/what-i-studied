@@ -12,7 +12,7 @@ macOS 에서 시스템 확장/드라이버를 만들 때 알아야 할 내용을
 
 ### 왜 바뀌었나?
 
-- 커널 확장(kext)은 안정성/보안 위험이 커서, 사용자 공간으로 옮긴 [[apple-glossary#Kext/DriverKit|DriverKit]]/시스템 확장이 권장된다.
+- 커널 확장(kext)은 안정성/보안 위험이 커서, 사용자 공간으로 옮긴 [DriverKit](../../00_foundations/apple-glossary.md)/시스템 확장이 권장된다.
 - Hardened Runtime/SIP/노타리제이션으로 서명/검증이 강화되었다.
 
 ### 시스템 확장 종류

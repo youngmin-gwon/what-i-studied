@@ -200,7 +200,7 @@ graph TD
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[security-fundamentals]] - 정보보호 기초 (가용성)
-- [[risk-management]] - 위험 관리
-- [[backup-strategies]] - 백업 전략
-- [[system-attacks]] - 시스템 공격과 가용성 침해
+- [security-fundamentals](../fundamentals/security-fundamentals.md) - 정보보호 기초 (가용성)
+- [risk-management](../management/risk-management.md) - 위험 관리
+- [backup-strategies](../../operating-systems/backup-strategies.md) - 백업 전략
+- [system-attacks](../attacks/system-attacks.md) - 시스템 공격과 가용성 침해

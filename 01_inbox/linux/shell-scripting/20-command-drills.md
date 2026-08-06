@@ -47,5 +47,5 @@ date created: 2025-12-28 20:46:42 +09:00
 
 ---
 ### 🔗 연결 문서
-- [[19-quick-review]] - 초압축 회독 노트
-- [[21-posix-compat]] - POSIX sh 호환 가이드
+- [19-quick-review](19-quick-review.md) - 초압축 회독 노트
+- [21-posix-compat](21-posix-compat.md) - POSIX sh 호환 가이드

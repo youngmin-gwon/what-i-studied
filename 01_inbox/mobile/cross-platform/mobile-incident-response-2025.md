@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:21:51 +09:00
 date created: 2026-04-05 20:10:00 +09:00
 ---
 
-## [[mobile-security]] > [[mobile-incident-response-2025]]
+## [mobile-security](../mobile-security.md) > [mobile-incident-response-2025](mobile-incident-response-2025.md)
 
 ### Mobile Security Incident Response: 2024-2025 Trends & Cases
 
@@ -57,6 +57,6 @@ date created: 2026-04-05 20:10:00 +09:00
 
 #### 📚 관련 문서
 
-- [[mobile-dev-security-checkpoints]] - 개발 시 예방 가이드
-- [[mobile-vulnerability-check]] - 보안 진단 체크리스트
-- [[android-security-play-integrity]] - 실시간 무결성 검증 실무
+- [mobile-dev-security-checkpoints](mobile-dev-security-checkpoints.md) - 개발 시 예방 가이드
+- [mobile-vulnerability-check](mobile-vulnerability-check.md) - 보안 진단 체크리스트
+- **android-security-play-integrity** - 실시간 무결성 검증 실무

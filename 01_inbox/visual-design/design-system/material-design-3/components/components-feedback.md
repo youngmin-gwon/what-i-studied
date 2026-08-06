@@ -60,8 +60,8 @@ M3 Expressive 에서 피드백 컴포넌트는 사용자의 대기 시간을 지
 
 ## 🔗 관련 문서
 
-- [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]
-- [[components-actions|Actions: 버튼과 FAB]]
-- [[components-selection-inputs|Selection & Inputs]]
-- [[components-typography|Typography: 의미론적 가독성과 폰트 역할]]
-- [[components-color-theme|Color & Theme: 지능적인 컬러 시스템과 HCT]]
+- **Material Design 3 개요 (Expressive Deep Dive)**
+- [Actions: 버튼과 FAB](components-actions.md)
+- [Selection & Inputs](components-selection-inputs.md)
+- [Typography: 의미론적 가독성과 폰트 역할](components-typography.md)
+- [Color & Theme: 지능적인 컬러 시스템과 HCT](components-color-theme.md)

@@ -70,6 +70,6 @@ visionOS 는 별도의 컨트롤러 없이 가장 자연스러운 인체 동작�
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[../foundations/foundations-layout|Layout: 공간의 레이아웃]]
-- [[../foundations/foundations-color-typography|Materials: Liquid Glass 와 물성]]
+- **Apple HIG 개요**
+- **Layout: 공간의 레이아웃**
+- **Materials: Liquid Glass 와 물성**

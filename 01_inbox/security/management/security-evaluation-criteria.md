@@ -143,6 +143,6 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[security-fundamentals]] - 정보보호 기초 (CIA)
-- [[isms-certification]] - ISMS 인증 제도
-- [[cryptography-basics]] - 암호화 기초
+- [security-fundamentals](../fundamentals/security-fundamentals.md) - 정보보호 기초 (CIA)
+- [isms-certification](isms-certification.md) - ISMS 인증 제도
+- [cryptography-basics](../fundamentals/cryptography-basics.md) - 암호화 기초

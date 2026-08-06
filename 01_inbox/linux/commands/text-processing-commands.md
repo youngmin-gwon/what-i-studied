@@ -414,5 +414,5 @@ tr 'A-Z' 'a-z' < file.txt
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[file-operations-commands]] - 파일 작업
-- [[system-monitoring-commands]] - 로그 모니터링
+- [file-operations-commands](file-operations-commands.md) - 파일 작업
+- [system-monitoring-commands](system-monitoring-commands.md) - 로그 모니터링

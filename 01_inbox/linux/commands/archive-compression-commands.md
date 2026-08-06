@@ -184,5 +184,5 @@ ls -lh file.*
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[file-operations-commands]] - 파일 작업
-- [[process-job-control-commands]] - 백그라운드 실행
+- [file-operations-commands](file-operations-commands.md) - 파일 작업
+- [process-job-control-commands](process-job-control-commands.md) - 백그라운드 실행

@@ -6,7 +6,7 @@ date modified: 2026-04-07 10:41:49 +09:00
 date created: 2026-04-05 12:50:00 +09:00
 ---
 
-## [[mobile-security]] > [[mobile-advanced-security-tips]]
+## [mobile-security](../mobile-security.md) > [mobile-advanced-security-tips](mobile-advanced-security-tips.md)
 
 ### Mobile Advanced Security: RASP & Hardening
 
@@ -75,8 +75,8 @@ date created: 2026-04-05 12:50:00 +09:00
 
 #### See Also
 
-- [[android-foundations]]
-- [[apple-foundations]]
-- [[cross-platform-ai-privacy-comparison]]
-- [[mobile-vulnerability-check]]
-- [[mobile-security]]
+- **android-foundations**
+- [apple-foundations](../apple/00_foundations/apple-foundations.md)
+- [cross-platform-ai-privacy-comparison](cross-platform-ai-privacy-comparison.md)
+- [mobile-vulnerability-check](mobile-vulnerability-check.md)
+- [mobile-security](../mobile-security.md)

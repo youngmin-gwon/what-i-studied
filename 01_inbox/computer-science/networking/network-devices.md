@@ -273,8 +273,8 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[osi-7-layer-model]] - OSI 7계층
-- [[routing-basics]] - 라우팅 기초
-- [[routing-protocols]] - 라우팅 프로토콜
-- [[router-acl-security]] - 라우터 ACL 보안
-- [[arp-protocol]] - MAC 주소 해석
+- [osi-7-layer-model](osi-7-layer-model.md) - OSI 7계층
+- [routing-basics](routing-basics.md) - 라우팅 기초
+- [routing-protocols](routing-protocols.md) - 라우팅 프로토콜
+- [router-acl-security](../../security/attacks/router-acl-security.md) - 라우터 ACL 보안
+- [arp-protocol](arp-protocol.md) - MAC 주소 해석

@@ -327,7 +327,7 @@ lvcreate -L 10G -s -n snap_daily /dev/vg0/lv_data
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[filesystem-hierarchy-standard]] - 파일시스템 구조
-- [[raid-technologies]] - RAID 레벨 및 하드웨어/소프트웨어 방식 비교
-- [[file-operations-commands]] - 디스크 관련 명령어
-- [[system-monitoring-commands]] - `df`, `du`로 공간 확인
+- [filesystem-hierarchy-standard](filesystem-hierarchy-standard.md) - 파일시스템 구조
+- [raid-technologies](raid-technologies.md) - RAID 레벨 및 하드웨어/소프트웨어 방식 비교
+- [file-operations-commands](commands/file-operations-commands.md) - 디스크 관련 명령어
+- [system-monitoring-commands](commands/system-monitoring-commands.md) - `df`, `du`로 공간 확인

@@ -315,10 +315,10 @@ XNU (X is Not Unix)
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[linux-history]] - 리눅스 역사 상세
-- [[kernel-structure]] - 운영체제 커널 구조
-- [[boot-sequence]] - 부팅 과정
-- [[init-systems]] - Init 시스템의 진화 (SysV, systemd)
-- [[filesystems]] - 파일시스템 (FAT, NTFS, ext4)
-- [[windows-client-security]] - Windows 보안
-- [[secure-operating-systems]] - 보안 운영체제
+- [linux-history](../linux/linux-history.md) - 리눅스 역사 상세
+- [kernel-structure](kernel-structure.md) - 운영체제 커널 구조
+- [boot-sequence](boot-sequence.md) - 부팅 과정
+- [init-systems](init-systems.md) - Init 시스템의 진화 (SysV, systemd)
+- [filesystems](../linux/filesystems.md) - 파일시스템 (FAT, NTFS, ext4)
+- [windows-client-security](../security/windows-client-security.md) - Windows 보안
+- [secure-operating-systems](secure-operating-systems.md) - 보안 운영체제

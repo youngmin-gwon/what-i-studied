@@ -189,7 +189,7 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[security-fundamentals]] - 정보보호 기초
-- [[bcp-disaster-recovery]] - 업무 연속성 및 재해 복구
-- [[firewall-ids-ips]] - 위험 감소 대책
-- [[backup-strategies]] - 백업 전략
+- [security-fundamentals](../fundamentals/security-fundamentals.md) - 정보보호 기초
+- [bcp-disaster-recovery](../incident-response/bcp-disaster-recovery.md) - 업무 연속성 및 재해 복구
+- [firewall-ids-ips](../attacks/firewall-ids-ips.md) - 위험 감소 대책
+- [backup-strategies](../../operating-systems/backup-strategies.md) - 백업 전략

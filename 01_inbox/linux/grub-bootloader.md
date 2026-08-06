@@ -69,6 +69,6 @@ GRUB_DISABLE_RECOVERY="true" # 복구 모드 메뉴 숨김
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[boot-sequence]] - 전체 부팅 단계 (BIOS -> GRUB -> Kernel)
-- [[kernel]] - 부트로더가 로드하는 리눅스 커널 상세
-- [[filesystem-hierarchy-standard]] - `/boot` 디렉토리의 의미
+- [boot-sequence](../operating-systems/boot-sequence.md) - 전체 부팅 단계 (BIOS -> GRUB -> Kernel)
+- **kernel** - 부트로더가 로드하는 리눅스 커널 상세
+- [filesystem-hierarchy-standard](filesystem-hierarchy-standard.md) - `/boot` 디렉토리의 의미

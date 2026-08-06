@@ -188,7 +188,7 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[risk-management]] - 위험 관리
-- [[bcp-disaster-recovery]] - 업무 연속성 및 재해 복구
-- [[authentication-authorization]] - 인증과 인가
-- [[cryptography-basics]] - 암호화 기초
+- [risk-management](../management/risk-management.md) - 위험 관리
+- [bcp-disaster-recovery](../incident-response/bcp-disaster-recovery.md) - 업무 연속성 및 재해 복구
+- [authentication-authorization](authentication-authorization.md) - 인증과 인가
+- [cryptography-basics](cryptography-basics.md) - 암호화 기초

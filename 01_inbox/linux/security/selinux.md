@@ -585,8 +585,8 @@ SELinux 는 **복잡하지만 강력하다**. 초기 설정과 정책 이해에 
 
 ## 연결 문서
 
-[[kernel]] - 리눅스 커널의 보안 메커니즘
+**kernel** - 리눅스 커널의 보안 메커니즘
 
-[[cpu-privilege-levels]] - 하드웨어 권한 레벨과 MAC 의 조합
+**cpu-privilege-levels** - 하드웨어 권한 레벨과 MAC 의 조합
 
-[[android-kernel]] - 안드로이드에서의 SELinux 활용
+**android-kernel** - 안드로이드에서의 SELinux 활용

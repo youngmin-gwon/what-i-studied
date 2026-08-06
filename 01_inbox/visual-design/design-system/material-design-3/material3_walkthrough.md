@@ -81,15 +81,15 @@ M3 는 고정된 Easing 곡선 대신 **물리 기반 스프링(Motion Springs)*
 
 각 컴포넌트가 Expressive 철학 아래 어떻게 구현되었는지 확인해 보세요.
 
-- [[components/components-actions|M3 Actions: 표현력이 풍부한 버튼과 위계]]
-- [[components/components-containment-navigation|M3 Containment: 몰입과 적응형 레이아웃]]
-- [[components/components-selection-inputs|M3 Selection: 직관적인 입력과 동적 피드백]]
-- [[components/components-selection-inputs|Selection & Inputs]]: 슬라이더(Sliders)와 입력 도구.
-- [[components/components-feedback|Feedback]]: 로딩(Loading)과 진행률(Progress) 인디케이터.
-- [[components/components-search|Search]]: 검색바(Search Bar)와 검색 뷰(Search View).
-- [[components/components-communication|Communication]]: 다이얼로그, 시트, 툴팁 및 알림.
-- [[components/components-typography|M3 Typography: 의미론적 가독성과 폰트 역할]]
-- [[components/components-color-theme|Color & Theme]]: HCT 컬러 시스템과 다이나믹 컬러.
+- **M3 Actions: 표현력이 풍부한 버튼과 위계**
+- **M3 Containment: 몰입과 적응형 레이아웃**
+- **M3 Selection: 직관적인 입력과 동적 피드백**
+- **Selection & Inputs**: 슬라이더(Sliders)와 입력 도구.
+- **Feedback**: 로딩(Loading)과 진행률(Progress) 인디케이터.
+- **Search**: 검색바(Search Bar)와 검색 뷰(Search View).
+- **Communication**: 다이얼로그, 시트, 툴팁 및 알림.
+- **M3 Typography: 의미론적 가독성과 폰트 역할**
+- **Color & Theme**: HCT 컬러 시스템과 다이나믹 컬러.
 
 ---
 

@@ -191,7 +191,7 @@ arping 192.168.1.100
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[osi-7-layer-model]] - OSI 7 계층 (2, 3 계층)
-- [[ip-header-structure]] - IP 헤더 구조
-- [[icmp-protocol]] - ICMP 프로토콜
-- [[network-security-protocols]] - 네트워크 보안
+- [osi-7-layer-model](osi-7-layer-model.md) - OSI 7 계층 (2, 3 계층)
+- [ip-header-structure](ip-header-structure.md) - IP 헤더 구조
+- [icmp-protocol](icmp-protocol.md) - ICMP 프로토콜
+- [network-security-protocols](../../security/protocols/network-security-protocols.md) - 네트워크 보안

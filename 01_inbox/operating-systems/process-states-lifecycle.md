@@ -77,7 +77,7 @@ graph TD
 
 ### 5. PCB (Process Control Block)
 
-[[kernel|커널]] 이 프로세스를 관리하기 위해 유지하는 자료구조:
+**커널** 이 프로세스를 관리하기 위해 유지하는 자료구조:
 
 - **PID (Process ID)**: 프로세스 고유 식별자
 - **PPID (Parent Process ID)**: 부모 프로세스 ID
@@ -180,7 +180,7 @@ sequenceDiagram
     Child->>Child: 새 프로그램 실행
     
     Child->>Kernel: exit() 시스템 콜
-    Child->>Parent: 종료 [[signals|시그널]] (SIGCHLD)
+    Child->>Parent: 종료 [시그널](signals.md) (SIGCHLD)
     Parent->>Kernel: wait() 시스템 콜
     Kernel-->>Parent: 자식 종료 상태 반환
 ```
@@ -282,7 +282,7 @@ if (fork() == 0) {
 |------|----------|--------|
 | **메모리** | 독립적 | 공유 (코드, 데이터, 힙) |
 | **생성 비용** | 높음 (fork) | 낮음 |
-| **통신** | [[ipc-mechanisms\|IPC]] 필요 | 공유 메모리로 쉬움 |
+| **통신** | **IPC** 필요 | 공유 메모리로 쉬움 |
 | **안정성** | 격리됨 (충돌 시 다른 프로세스 영향 없음) | 한 스레드 충돌 시 전체 프로세스 종료 |
 | **컨텍스트 스위칭** | 느림 (페이지 테이블 교체) | 빠름 |
 
@@ -313,7 +313,7 @@ renice 5 -p PID
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[signals]] - 프로세스 간 통신과 제어를 위한 시그널
-- [[ipc-mechanisms]] - 프로세스 간 통신 메커니즘
-- [[kernel]] - 커널의 프로세스 스케줄링
-- [[boot-sequence]] - init 프로세스와 부팅 과정
+- [signals](signals.md) - 프로세스 간 통신과 제어를 위한 시그널
+- [ipc-mechanisms](ipc-mechanisms.md) - 프로세스 간 통신 메커니즘
+- **kernel** - 커널의 프로세스 스케줄링
+- [boot-sequence](boot-sequence.md) - init 프로세스와 부팅 과정

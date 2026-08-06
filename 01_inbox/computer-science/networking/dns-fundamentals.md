@@ -2,13 +2,22 @@
 title: DNS Fundamentals
 tags: [networking, dns, domain, name-resolution, computer-science]
 aliases: [DNS, Domain Name System, 도메인 네임 시스템]
-date modified: 2025-12-20 00:02:18 +09:00
+date modified: 2026-08-06 18:15:00 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**DNS (Domain Name System)** 은 인터넷의 "전화번호부"입니다. 사람이 이해하기 쉬운 도메인 이름 (예: `google.com`)을 컴퓨터가 사용하는 [[ip-addressing|IP 주소]] (예: `142.250.207.46`)로 변환하는 역할을 합니다.
+**DNS (Domain Name System)** 은 인터넷의 "전화번호부"입니다. 사람이 이해하기 쉬운 도메인 이름 (예: `google.com`)을 컴퓨터가 사용하는 [IP 주소](ip-addressing.md) (예: `142.250.207.46`)로 변환하는 역할을 합니다.
+
+---
+
+### 초보자를 위한 쉽게 이해하는 비유
+
+* **DNS (전화번호부 / 스마트폰 연락처)**:
+  - 우리가 친구 이름을 누르면 스마트폰이 전화번호를 찾아 자동으로 통화를 연결하듯, 브라우저 주소창에 `google.com`을 입력하면 DNS가 실제 연결 대상인 IP 주소를 찾아 연결해 줍니다.
+
+---
 
 ## 🎯 DNS의 목적 (Purpose)
 
@@ -16,6 +25,8 @@ date created: 2025-12-20 00:02:18 +09:00
 2. **유연성**: IP 주소가 변경되어도 도메인 이름은 유지
 3. **부하 분산**: 하나의 도메인을 여러 IP로 매핑
 4. **서비스 추상화**: 서버 위치를 숨기고 서비스만 노출
+
+---
 
 ## 🏗️ DNS 계층 구조 (DNS Hierarchy)
 
@@ -33,18 +44,22 @@ graph TD
 ```
 
 ### 도메인 구조
-```
-www.example.com.
-│   │       │   └─ 루트 (.)
-│   │       └───── 최상위 도메인 (TLD: Top-Level Domain)
-│   └─────────────  2차 도메인 (SLD: Second-Level Domain)
-└─────────────────  서브도메인 (Subdomain)
+
+```mermaid
+graph LR
+    subgraph DomainStructure ["도메인 구조 (www.example.com.)"]
+        Sub["www (서브도메인)"] --> SLD["example (2차 도메인 SLD)"]
+        SLD --> TLD["com (최상위 도메인 TLD)"]
+        TLD --> Root[". (루트 Root)"]
+    end
 ```
 
 **예시**:
 - **FQDN** (Fully Qualified Domain Name): `mail.google.com.`
 - **TLD**: `.com`, `.org`, `.kr`, `.io` 등
 - **서브도메인**: `www`, `mail`, `ftp` 등
+
+---
 
 ## 🔍 DNS 조회 과정 (DNS Resolution Process)
 
@@ -79,6 +94,8 @@ sequenceDiagram
 6. **Authoritative Server**: 실제 IP 주소 보유
 7. **캐시 저장**: TTL (Time To Live) 동안 저장
 
+---
+
 ## 📋 DNS 레코드 타입 (DNS Record Types)
 
 |레코드 타입 | 용도 | 예시 |
@@ -93,17 +110,13 @@ sequenceDiagram
 | **SOA** | 권한 시작 (Start of Authority) | 도메인 관리 정보 |
 | **SRV** | 서비스 레코드 | `_sip._tcp.example.com` |
 
-### A vs CNAME 차이
-```
-A 레코드:
-example.com.     A     93.184.216.34    # IP 직접 지정
+### A vs CNAME 비교 (레코드 매핑 차이)
 
-CNAME 레코드:
-www.example.com. CNAME example.com.     # 다른 도메인 참조
-blog.example.com. CNAME example.com.
+도메인을 직접 IP 주소에 매핑하는 A 레코드와 다른 도메인 별칭에 매핑하는 CNAME 레코드의 동작 방식 차이 및 선택 기준은 별도 문서로 분리되어 있습니다.
 
-주의: CNAME은 다른 레코드(MX, NS 등)와 공존 불가!
-```
+- **[A Record vs CNAME](a-record-vs-cname.md)** - A 레코드와 CNAME 레코드 기술 비교표 및 Apex 도메인 제약사항
+
+---
 
 ## 🛠️ DNS 설정 파일 (Linux)
 
@@ -141,6 +154,8 @@ domain example.com       # 로컬 도메인
 ```bash
 hosts: files dns  # /etc/hosts 먼저, 그 다음 DNS
 ```
+
+---
 
 ## 🔧 DNS 조회 도구 (DNS Query Tools)
 
@@ -201,6 +216,8 @@ dig google.com ANY
 dig google.com +trace
 ```
 
+---
+
 ## ⚡ DNS 캐싱 (DNS Caching)
 
 ### 캐시 계층
@@ -236,6 +253,8 @@ ipconfig /flushdns
 chrome://net-internals/#dns → Clear host cache
 ```
 
+---
+
 ## 🌍 공개 DNS 서버 (Public DNS Servers)
 
 | 제공자 | IPv4 | 특징 |
@@ -256,6 +275,8 @@ sudo nmcli connection modify eth0 ipv4.dns "1.1.1.1"
 sudo nmcli connection up eth0
 ```
 
+---
+
 ## 🔐 보안 (DNS Security)
 
 ### DNS 위험
@@ -274,6 +295,8 @@ sudo nmcli connection up eth0
 # DNSSEC 확인
 dig google.com +dnssec
 ```
+
+---
 
 ## 💡 실무 활용 (Practical Examples)
 
@@ -320,8 +343,11 @@ dig google.com +short
 # (매번 새로 조회 시 순서 변경)
 ```
 
+---
+
 ## 🔗 연결 문서 (Related Documents)
 
-- [[ip-addressing]] - IP 주소와 DNS의 관계
-- [[tcp-ip-model]] - DNS가 동작하는 응용 계층
-- [[routing-basics]] - DNS 쿼리의 라우팅
+- [A Record vs CNAME](a-record-vs-cname.md) - A 레코드와 CNAME 레코드 설정 방식 비교
+- [IP 주소 체계](ip-addressing.md) - IP 주소와 DNS의 관계
+- [TCP/IP 모델](tcp-ip-model.md) - DNS가 동작하는 응용 계층
+- [라우팅 기초](routing-basics.md) - DNS 쿼리의 라우팅

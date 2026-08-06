@@ -294,7 +294,7 @@ graph TD
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[web-security]] - OWASP 웹 공격 (XSS, CSRF)
-- [[network-security-protocols]] - SSL/TLS 프로토콜
-- [[email-security]] - 피싱 이메일 대응
-- [[malware-types]] - 드라이브 바이 다운로드 악성코드
+- [web-security](../web-security.md) - OWASP 웹 공격 (XSS, CSRF)
+- [network-security-protocols](../protocols/network-security-protocols.md) - SSL/TLS 프로토콜
+- [email-security](../protocols/email-security.md) - 피싱 이메일 대응
+- [malware-types](malware/malware-types.md) - 드라이브 바이 다운로드 악성코드

@@ -2,13 +2,22 @@
 title: dhcp-nat-protocols
 tags: [dhcp, ip-allocation, nat, networking, pat, protocol]
 aliases: [DHCP, DORA, Dynamic Host Configuration Protocol, NAT, PAT]
-date modified: 2026-01-08 16:14:19 +09:00
+date modified: 2026-08-06 18:15:00 +09:00
 date created: 2026-01-08 16:06:40 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**DHCP**는 IP 주소를 동적으로 할당하고, **NAT**는 사설 IP 를 공인 IP 로 변환합니다. 두 기술 모두 IPv4 주소 부족 문제를 해결하는 데 핵심적인 역할을 합니다.
+**DHCP (Dynamic Host Configuration Protocol)** 는 네트워크 접속 시 IP 주소를 동적으로 자동 할당하며, **NAT (Network Address Translation)** 는 사설 IP 를 공인 IP 로 변환합니다. 두 기술 모두 IPv4 주소 고갈 문제를 해결하고 효율적인 네트워크 관리를 가능하게 하는 핵심 프로토콜입니다.
+
+---
+
+### 초보자를 위한 쉽게 이해하는 비유
+
+* **DHCP (카페 진동벨 시스템)**:
+  - 무기명 손님이 들어오면 카운터(DHCP 서버)가 사용 가능한 진동벨(IP 주소)을 자동으로 빌려주고, 나갈 때 진동벨을 회수하여 다음 손님에게 재할당하는 시스템.
+* **NAT (아파트 세대별 대표 주소 발송)**:
+  - 아파트의 수많은 세대(사설 IP)가 각자 편지를 외부로 보낼 때, 아파트 정문의 통합 우편함(NAT 라우터)에서 대표 주소와 세대 번호(공인 IP + Port)로 변환해 인터넷으로 전달하는 시스템.
 
 ---
 
@@ -60,14 +69,13 @@ sequenceDiagram
 
 ### IP 임대 갱신
 
-```plaintext
-임대 시간 (Lease Time) 예: 24시간
-
-50% 경과 (T1): 갱신 시도 (유니캐스트)
-    ↓ 실패 시
-87.5% 경과 (T2): 갱신 시도 (브로드캐스트)
-    ↓ 실패 시
-100% 경과: IP 반환, DORA 재시작
+```mermaid
+flowchart TD
+    T0["임대 개시 (Lease Time 예: 24시간)"] --> T1["50% 경과 (T1): 갱신 시도 (유니캐스트)"]
+    T1 -->|갱신 성공| T0
+    T1 -->|실패| T2["87.5% 경과 (T2): 갱신 시도 (브로드캐스트)"]
+    T2 -->|갱신 성공| T0
+    T2 -->|실패| Expired["100% 경과: IP 반환 및 DORA 프로세스 재시작"]
 ```
 
 ### 실무 명령어
@@ -95,10 +103,18 @@ cat /var/lib/dhcp/dhclient.leases
 
 #### 1. Static NAT (1:1)
 
-```plaintext
-내부 IP (사설)          외부 IP (공인)
-192.168.1.10     ↔     203.0.113.10
-192.168.1.11     ↔     203.0.113.11
+```mermaid
+graph LR
+    subgraph Inside ["내부망 (사설 IP)"]
+        A1["192.168.1.10"]
+        A2["192.168.1.11"]
+    end
+    subgraph Outside ["외부망 (공인 IP)"]
+        B1["203.0.113.10"]
+        B2["203.0.113.11"]
+    end
+    A1 <--> B1
+    A2 <--> B2
 ```
 
 - 1:1 고정 매핑
@@ -106,11 +122,20 @@ cat /var/lib/dhcp/dhclient.leases
 
 #### 2. Dynamic NAT (N:M)
 
-```plaintext
-내부 IP (사설)          외부 IP Pool (공인)
-192.168.1.10     →     203.0.113.10
-192.168.1.11     →     203.0.113.11
-192.168.1.12     →     203.0.113.10 (재사용)
+```mermaid
+graph LR
+    subgraph Private ["내부 IP (사설)"]
+        C1["192.168.1.10"]
+        C2["192.168.1.11"]
+        C3["192.168.1.12"]
+    end
+    subgraph PublicPool ["외부 IP Pool (공인)"]
+        P1["203.0.113.10"]
+        P2["203.0.113.11"]
+    end
+    C1 --> P1
+    C2 --> P2
+    C3 --> P1
 ```
 
 - 공인 IP 풀에서 동적 할당
@@ -118,11 +143,21 @@ cat /var/lib/dhcp/dhclient.leases
 
 #### 3. PAT / NAPT (N:1)
 
-```plaintext
-내부 IP:Port (사설)           외부 IP:Port (공인)
-192.168.1.10:1025     →     203.0.113.1:40001
-192.168.1.11:1026     →     203.0.113.1:40002
-192.168.1.12:1027     →     203.0.113.1:40003
+```mermaid
+graph LR
+    subgraph PrivatePort ["내부 IP:Port (사설)"]
+        D1["192.168.1.10:1025"]
+        D2["192.168.1.11:1026"]
+        D3["192.168.1.12:1027"]
+    end
+    subgraph PublicPort ["외부 IP:Port (공인)"]
+        E1["203.0.113.1:40001"]
+        E2["203.0.113.1:40002"]
+        E3["203.0.113.1:40003"]
+    end
+    D1 --> E1
+    D2 --> E2
+    D3 --> E3
 ```
 
 - **Port Address Translation**
@@ -193,18 +228,17 @@ cat /proc/net/nf_conntrack
 
 ---
 
-### 🆚 DHCP vs Static IP
+## 🆚 DHCP vs Static IP (주소 할당 방식 비교)
 
-| 특성 | DHCP | Static IP |
-|------|------|-----------|
-| **관리** | 자동 | 수동 |
-| **충돌** | DHCP 서버가 관리 | 관리자 책임 |
-| **용도** | 클라이언트 PC | 서버, 네트워크 장비 |
-| **이동성** | 네트워크 이동 시 편리 | 재설정 필요 |
+DHCP의 자동 주소 할당 메커니즘과 고정 수동 IP 할당 방식(Static IP)의 세부적 특성 비교 및 실무 적용 지침은 별도 문서로 분리되어 있습니다.
 
-### 🔗 연결 문서 (Related Documents)
+- **[DHCP vs Static IP](dhcp-vs-static-ip.md)** - 자동 동적 할당과 수동 고정 할당의 기술 비교표 및 선택 기준
 
-- [[ip-header-structure]] - IP 주소 체계
-- [[ip-addressing]] - IP 주소 클래스와 사설 IP
-- [[osi-7-layer-model]] - OSI 7 계층
-- [[firewall-ids-ips]] - 방화벽과 NAT
+---
+
+## 🔗 연결 문서 (Related Documents)
+
+- [DHCP vs Static IP](dhcp-vs-static-ip.md) - IP 주소 할당 방식 비교 및 선택 가이드
+- [IP 헤더 구조](ip-header-structure.md) - IP 주소 체계
+- [IP 주소 체계](ip-addressing.md) - IP 주소 클래스와 사설 IP
+- [OSI 7 계층 모델](osi-7-layer-model.md) - OSI 7 계층

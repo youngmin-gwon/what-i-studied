@@ -299,7 +299,7 @@ stegdetect image.jpg
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[linux-log-management]] - 로그 분석
-- [[malware-types]] - 악성코드 분석
-- [[cryptography-basics]] - 암호화와 해시
-- [[linux-security-tools]] - 보안 도구
+- [linux-log-management](../../linux/security/linux-log-management.md) - 로그 분석
+- [malware-types](../attacks/malware/malware-types.md) - 악성코드 분석
+- [cryptography-basics](../fundamentals/cryptography-basics.md) - 암호화와 해시
+- [linux-security-tools](../../linux/security/linux-security-tools.md) - 보안 도구

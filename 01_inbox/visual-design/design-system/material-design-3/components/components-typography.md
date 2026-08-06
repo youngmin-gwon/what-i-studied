@@ -105,7 +105,7 @@ M3 Typography 는 환경에 따라 지능적으로 반응합니다.
 
 ## 🔗 관련 문서
 
-- [[../material3_walkthrough|Material Design 3 개요 (Expressive Deep Dive)]]
-- [[components-actions|Actions: 버튼과 FAB]]
-- [[components-selection-inputs|Selection & Inputs]]
-- [[components-color-theme|Color & Theme: 지능적인 컬러 시스템과 HCT]]
+- **Material Design 3 개요 (Expressive Deep Dive)**
+- [Actions: 버튼과 FAB](components-actions.md)
+- [Selection & Inputs](components-selection-inputs.md)
+- [Color & Theme: 지능적인 컬러 시스템과 HCT](components-color-theme.md)

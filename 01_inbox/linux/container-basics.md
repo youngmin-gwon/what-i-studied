@@ -8,7 +8,7 @@ date created: 2025-12-20 14:28:26 +09:00
 
 ## 🌐 개요 (Overview)
 
-컨테이너는 애플리케이션과 그 의존성을 격리된 환경에서 실행하는 경량 가상화 기술입니다. Linux 커널의 **네임스페이스(Namespaces)**와 **컨트롤 그룹(cgroups)** 을 활용한 [[process-states-lifecycle|프로세스]] 격리 메커니즘입니다.
+컨테이너는 애플리케이션과 그 의존성을 격리된 환경에서 실행하는 경량 가상화 기술입니다. Linux 커널의 **네임스페이스(Namespaces)**와 **컨트롤 그룹(cgroups)** 을 활용한 [프로세스](../operating-systems/process-states-lifecycle.md) 격리 메커니즘입니다.
 
 ## 🆚 가상머신 vs 컨테이너
 
@@ -333,7 +333,7 @@ docker run -d -p 8000:8000 myapp:2.0
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[process-states-lifecycle]] - 프로세스 개념
-- [[ipc-mechanisms]] - 프로세스 간 통신
-- [[network-security-protocols]] - 컨테이너 네트워킹 보안
-- [[selinux]] - 컨테이너 보안 강화
+- [process-states-lifecycle](../operating-systems/process-states-lifecycle.md) - 프로세스 개념
+- [ipc-mechanisms](../operating-systems/ipc-mechanisms.md) - 프로세스 간 통신
+- [network-security-protocols](../security/protocols/network-security-protocols.md) - 컨테이너 네트워킹 보안
+- [selinux](security/selinux.md) - 컨테이너 보안 강화

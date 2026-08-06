@@ -474,8 +474,8 @@ findtime = 600
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[service-management-commands]] - journalctl (systemd 로그)
-- [[system-monitoring-commands]] - dmesg (커널 로그)
-- [[security-commands]] - auditd (보안 감사)
-- [[user-permission-commands]] - 사용자 관리
-- [[network-commands]] - 네트워크 연결 로그
+- [service-management-commands](service-management-commands.md) - journalctl (systemd 로그)
+- [system-monitoring-commands](system-monitoring-commands.md) - dmesg (커널 로그)
+- [security-commands](security-commands.md) - auditd (보안 감사)
+- [user-permission-commands](user-permission-commands.md) - 사용자 관리
+- [network-commands](network-commands.md) - 네트워크 연결 로그

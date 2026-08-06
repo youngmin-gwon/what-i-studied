@@ -1,14 +1,14 @@
 ---
 title: compile-time-code-generation
-tags: [apt, code-generation, computer-science, di, ksp, metaprogramming]
-aliases: [Annotation Processing, APT, Code Generation, KSP, 컴파일 타임 코드 생성]
-date modified: 2026-08-06 17:35:50 +09:00
+tags: [computer-science, metaprogramming, code-generation, ksp, apt, di]
+aliases: [Code Generation, KSP, APT, 컴파일 타임 코드 생성, Annotation Processing]
+date modified: 2026-08-06 18:08:00 +09:00
 date created: 2026-08-06 17:31:00 +09:00
 ---
 
-## Compile-time Code Generation (컴파일 타임 코드 생성 & KSP / APT)
+# Compile-time Code Generation (컴파일 타임 코드 생성 & KSP / APT)
 
-### 1. 개요 (Overview)
+## 1. 개요 (Overview)
 
 **Compile-time Code Generation (컴파일 타임 코드 생성)** 은 애플리케이션을 빌드(컴파일)하는 시점에 어노테이션(Annotation)이나 코틀린 심볼(Symbol)을 분석하여, **런타임에 필요한 소스 코드를 자동으로 미리 생성(Generate)해 두는 메타프로그래밍 기술**이다.
 
@@ -16,11 +16,11 @@ date created: 2026-08-06 17:31:00 +09:00
 
 ---
 
-#### 초보자를 위한 쉽게 이해하는 비유
+### 초보자를 위한 쉽게 이해하는 비유
 
-- **런타임 리플렉션 (Reflection)**:
+* **런타임 리플렉션 (Reflection)**:
   - 주문이 들어올 때마다 매번 주방장이 손님의 의도를 파악하려고 손님 가방을 엑스레이로 스캔하고 레시피를 런타임에 즉석 추정하는 방식 (느리고 에러 위험).
-- **컴파일 타임 코드 생성 (KSP / APT / Metro DI)**:
+* **컴파일 타임 코드 생성 (KSP / APT / Metro DI)**:
   - 공장 출하(컴파일) 전에 모든 주문 조합에 맞는 **정밀 밀키트 레시피 조립 코드를 미리 프린트해서 박스에 넣어두는 방식** (런타임에는 꺼내서 쓰기만 하므로 초고속!).
 
 ```mermaid
@@ -33,25 +33,17 @@ graph TD
 
 ---
 
-### 2. 핵심 생성 도구: APT vs KSP
+## 2. 코드 생성 도구 비교 (APT vs KSP)
 
-#### 1) APT (Annotation Processing Tool / `kapt`)
-
-- **Java 시절 표준 방식**: 자바 컴파일러(`javac`)의 어노테이션 프로세싱 API 기반 도구이다.
-- **`kapt` (Kotlin Annotation Processing Tool)**: Kotlin 코드를 APT 에서 처리하기 위해 임시로 Java Stubs(가짜 자바 코드)를 생성한 뒤 스캔해야 하므로 **빌드 속도가 느린 단점**이 있었다.
-
-#### 2) KSP (Kotlin Symbol Processing)
-
-- **Kotlin 공식 차세대 도구**: Kotlin 컴파일러(K2)에 직접 통합되어 작동하는 Kotlin 전용 메타프로그래밍 도구이다.
-- **장점**: Java Stub 생성 단계가 없어 `kapt` 대비 **빌드 속도가 최대 2 배 이상 빠르며**, Kotlin 언어의 전용 특성(Nullability, Sealed Class 등)을 완벽하게 파악한다.
+Java 의 대표적 어노테이션 프로세서인 **APT (`kapt`)** 와 Kotlin 전용으로 발전한 **KSP (Kotlin Symbol Processing)** 의 성능 및 작동 원리 비교는 독립된 [APT vs KSP 비교 문서](apt-vs-ksp.md)를 참고한다.
 
 ---
 
-### 3. 현대 DI (Dependency Injection) 패러다임의 변화: Metro / Dagger / Hilt
+## 3. 현대 DI (Dependency Injection) 패러다임의 변화: Metro / Dagger / Hilt
 
 의존성 주입(DI) 프레임워크는 리플렉션 사용 여부에 따라 세대가 나뉜다.
 
-| 구분 | 1 세대 런타임 DI (Spring / Guice) | 2/3 세대 컴파일 타임 DI (Dagger2 / Hilt / Metro) |
+| 구분 | 1세대 런타임 DI (Spring / Guice) | 2/3세대 컴파일 타임 DI (Dagger2 / Hilt / Metro) |
 | :--- | :--- | :--- |
 | **의존성 탐색 시점** | **런타임 (Runtime)** | **컴파일 타임 (Compile Time)** |
 | **작동 원리** | [Reflection](reflection.md)으로 생성자/필드 동적 주입 | KSP / APT 로 **`_Factory` 및 `_MembersInjector` 소스 코드를 사전 생성** |
@@ -59,13 +51,14 @@ graph TD
 | **안정성** | 누락된 의존성이 앱 실행 중 런타임 크래시 유발 | **컴파일 시점에 의존성 그래프 검증 (빌드 실패로 예방)** |
 
 - **Metro DI / Dagger / Hilt**:
-  - 개발자가 `@Inject` 어노테이션을 붙이면, 컴파일 타임에 KSP/APT 가 팩토리 소스 코드를 생성한다.
+  - 개발자가 `@Inject` 어노테이션을 붙이면, 컴파일 타임에 [APT vs KSP](apt-vs-ksp.md)가 팩토리 소스 코드를 생성한다.
   - 앱이 실행될 때는 수식이나 리플렉션 없이 미리 생성된 팩토리 코드를 호출하여 객체를 즉시 주입한다.
 
 ---
 
-### 4. 연결 문서 (Related Links)
+## 4. 연결 문서 (Related Links)
 
+- [APT vs KSP 비교](apt-vs-ksp.md) - APT (`kapt`) 와 KSP 의 세부 원리 및 빌드 속도 비교
 - [Reflection (런타임 리플렉션)](reflection.md) - 컴파일 타임 코드 생성 기술이 대체하는 런타임 리플렉션의 한계
 - [Serializable](../mobile/android/00_foundations/glossary/android-glossary/19-serializable.md) - KSP 기반 kotlinx.serialization 이 런타임 직렬화를 대체하는 원리
 - [Parcelable](../mobile/android/00_foundations/glossary/android-glossary/18-parcelable.md) - `@Parcelize` 컴파일러 플러그인이 코드를 자동 생성하는 사례

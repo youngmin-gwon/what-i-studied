@@ -37,11 +37,11 @@ date created: 2025-12-28 20:45:09 +09:00
 
 ### 4. 프롬프트 구성 요소 (PS1)
 
-셸 프롬프트에 표시될 정보와 색상을 설정하는 특수 코드들입니다. 상세 목록과 설정 예시는 [[shell-environment-commands#프롬프트-구성-요소-ps1-특수-문자]]를 참조하세요.
+셸 프롬프트에 표시될 정보와 색상을 설정하는 특수 코드들입니다. 상세 목록과 설정 예시는 [shell-environment-commands#프롬프트-구성-요소-ps1-특수-문자](../commands/shell-environment-commands.md)를 참조하세요.
 
 ---
 
 ### 🔗 연결 문서
 
-- [[08-process-control]] - 프로세스 및 잡 제어
-- [[10-debugging-style]] - 디버깅 및 스타일 가이드
+- [08-process-control](08-process-control.md) - 프로세스 및 잡 제어
+- [10-debugging-style](10-debugging-style.md) - 디버깅 및 스타일 가이드

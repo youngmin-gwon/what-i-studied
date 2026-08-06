@@ -8,7 +8,7 @@ date created: 2025-12-18 16:21:20 +09:00
 
 ## iPadOS Productivity Deep Dive apple ipados productivity
 
-iPadOS 의 큰 화면과 멀티태스킹을 살려 생산성 앱을 만들기 위한 가이드. 용어는 [[apple-glossary]].
+iPadOS 의 큰 화면과 멀티태스킹을 살려 생산성 앱을 만들기 위한 가이드. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
 ### 큰 화면 전략
 
@@ -62,4 +62,4 @@ iPadOS 의 큰 화면과 멀티태스킹을 살려 생산성 앱을 만들기 �
 
 ### 링크
 
-[[apple-ipados-multitasking]], [[apple-app-lifecycle-and-ui]], [[apple-storage-and-filesystems]], [[apple-networking-and-cloud]], [[apple-performance-and-debug]].
+[apple-ipados-multitasking](../../04_system_services/apple-ipados-multitasking.md), [apple-app-lifecycle-and-ui](../../02_ui_frameworks/apple-app-lifecycle-and-ui.md), [apple-storage-and-filesystems](../../03_data_networking/apple-storage-and-filesystems.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).

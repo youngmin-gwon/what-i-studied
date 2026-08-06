@@ -207,7 +207,7 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[malware-types]] - 악성코드 유형
-- [[ddos-attacks]] - DDoS 공격
-- [[email-security]] - 피싱 방어
-- [[digital-forensics]] - 침해사고 분석
+- [malware-types](../malware/malware-types.md) - 악성코드 유형
+- [ddos-attacks](ddos-attacks.md) - DDoS 공격
+- [email-security](../../protocols/email-security.md) - 피싱 방어
+- [digital-forensics](../../incident-response/digital-forensics.md) - 침해사고 분석

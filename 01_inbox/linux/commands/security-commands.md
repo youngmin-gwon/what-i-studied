@@ -17,7 +17,7 @@ Linux 시스템 보안 관련 명령어들입니다. 방화벽, SELinux, 보안 
 | `iptables` | 방화벽 규칙 관리 |
 | `firewall-cmd` | firewalld 관리 (RHEL/CentOS) |
 | `ufw` | 방화벽 (Ubuntu) |
-| `getenforce`/`setenforce` | [[selinux]] 모드 확인/변경 |
+| `getenforce`/`setenforce` | [selinux](../security/selinux.md) 모드 확인/변경 |
 | `chcon`/`restorecon` | SELinux 컨텍스트 |
 | `ausearch`/`aureport` | 보안 감사 로그 |
 
@@ -433,7 +433,7 @@ restorecon -Rv /var/www/html
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[selinux]] - SELinux 상세 개념
-- [[network-commands]] - 네트워크 명령어
-- [[system-monitoring-commands]] - 로그 모니터링
-- [[firewall-ids-ips]] - 방화벽/IDS/IPS 개념
+- [selinux](../security/selinux.md) - SELinux 상세 개념
+- [network-commands](network-commands.md) - 네트워크 명령어
+- [system-monitoring-commands](system-monitoring-commands.md) - 로그 모니터링
+- [firewall-ids-ips](../../security/attacks/firewall-ids-ips.md) - 방화벽/IDS/IPS 개념

@@ -103,7 +103,7 @@ zone "example.com" {
 
 ### 3. DNS Amplification Attack (증폭 공격)
 
-[[ddos-attacks]] DRDoS 의 일종입니다.
+[ddos-attacks](../attacks/network-attacks/ddos-attacks.md) DRDoS 의 일종입니다.
 
 ```plaintext
 1. 공격자: Src IP를 피해자로 위조
@@ -179,6 +179,6 @@ graph TD
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[ddos-attacks]] - DNS Amplification
-- [[attack-types]] - 네트워크 공격 유형
-- [[network-diagnostic-tools]] - nslookup, dig
+- [ddos-attacks](../attacks/network-attacks/ddos-attacks.md) - DNS Amplification
+- [attack-types](../attacks/attack-types.md) - 네트워크 공격 유형
+- [network-diagnostic-tools](../../computer-science/networking/network-diagnostic-tools.md) - nslookup, dig

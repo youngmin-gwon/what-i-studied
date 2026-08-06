@@ -125,7 +125,7 @@ scp -P 2222 localfile.txt user@host:/path/to/remote/
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[network-commands]] - 기본 네트워크 명령어
-- [[security-commands]] - 방화벽 및 보안 설정
-- [[vnc-remote-access]] - VNC와 SSH 터널링
-- [[x-window-system]] - X11 포워딩 개념
+- [network-commands](../commands/network-commands.md) - 기본 네트워크 명령어
+- [security-commands](../commands/security-commands.md) - 방화벽 및 보안 설정
+- [vnc-remote-access](vnc-remote-access.md) - VNC와 SSH 터널링
+- [x-window-system](../x-window-system.md) - X11 포워딩 개념

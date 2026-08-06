@@ -8,7 +8,7 @@ date created: 2025-12-20 00:02:18 +09:00
 
 ## 🌐 개요 (Overview)
 
-**IP 주소 (Internet Protocol Address)** 는 [[tcp-ip-model|TCP/IP 네트워크]]에서 장치를 식별하는 고유한 주소입니다. 우편 주소처럼 네트워크에서 데이터가 올바른 목적지에 도달하도록 하는 역할을 합니다.
+**IP 주소 (Internet Protocol Address)** 는 [TCP/IP 네트워크](tcp-ip-model.md)에서 장치를 식별하는 고유한 주소입니다. 우편 주소처럼 네트워크에서 데이터가 올바른 목적지에 도달하도록 하는 역할을 합니다.
 
 ## 📍 IPv4 주소 체계
 
@@ -219,10 +219,10 @@ ping6 2001:4860:4860::8888  # Google Public DNS
 
 ## 🏠 IoT와 IP 주소
 
-**[[IPv6]] 는 IoT의 핵심**:
+****IPv6** 는 IoT의 핵심**:
 - 센서 하나하나에 공인 IP 할당 가능
 - end-to-end 통신 (NAT 불필요)
-- [[Thread]], [[Matter]] 프로토콜의 기반
+- [Thread](../thread.md), **Matter** 프로토콜의 기반
 
 **6LoWPAN**:
 - IPv6를 IEEE 802.15.4 (저전력 무선)로 압축
@@ -230,7 +230,7 @@ ping6 2001:4860:4860::8888  # Google Public DNS
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[tcp-ip-model]] - TCP/IP 프로토콜 스택
-- [[routing-basics]] - IP 라우팅과 게이트웨이
-- [[dns-fundamentals]] - IP 주소와 도메인 이름 매핑
-- [[IPv6]] - IPv6 상세 설명
+- [tcp-ip-model](tcp-ip-model.md) - TCP/IP 프로토콜 스택
+- [routing-basics](routing-basics.md) - IP 라우팅과 게이트웨이
+- [dns-fundamentals](dns-fundamentals.md) - IP 주소와 도메인 이름 매핑
+- **IPv6** - IPv6 상세 설명

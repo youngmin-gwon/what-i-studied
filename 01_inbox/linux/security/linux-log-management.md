@@ -433,7 +433,7 @@ lastlog -b 30
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[linux-account-security]] - 계정 및 패스워드 보안
-- [[log-analysis-commands]] - 로그 분석 명령어
-- [[service-management-commands]] - journalctl 상세
-- [[selinux]] - SELinux 감사 로그
+- [linux-account-security](linux-account-security.md) - 계정 및 패스워드 보안
+- [log-analysis-commands](../commands/log-analysis-commands.md) - 로그 분석 명령어
+- [service-management-commands](../commands/service-management-commands.md) - journalctl 상세
+- [selinux](selinux.md) - SELinux 감사 로그

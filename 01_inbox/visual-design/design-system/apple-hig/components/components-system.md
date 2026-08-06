@@ -69,6 +69,6 @@ Apple 시스템과의 깊은 통합을 통해 앱을 열지 않고도 중요한 
 
 ## 🔗 관련 문서
 
-- [[../hig_walkthrough|Apple HIG 개요]]
-- [[components-feedback|Feedback: 알림과 햅틱]]
-- [[components-bars|Bars: 탭 바 배지]]
+- **Apple HIG 개요**
+- [Feedback: 알림과 햅틱](../../material-design-3/components/components-feedback.md)
+- [Bars: 탭 바 배지](components-bars.md)

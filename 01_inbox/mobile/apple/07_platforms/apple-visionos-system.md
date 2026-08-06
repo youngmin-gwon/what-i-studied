@@ -57,5 +57,5 @@ visionOS 앱 개발에 있어서 UIKit 은 사실상 레거시 브릿지에 불�
 
 ### 더 보기
 
-- [[apple-rendering-and-media]] - Metal 렌더링 파이프라인
-- [[apple-ipados-multitasking]] - 멀티 윈도우 관리 (비슷한 개념)
+- [apple-rendering-and-media](../02_ui_frameworks/apple-rendering-and-media.md) - Metal 렌더링 파이프라인
+- [apple-ipados-multitasking](../04_system_services/apple-ipados-multitasking.md) - 멀티 윈도우 관리 (비슷한 개념)

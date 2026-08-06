@@ -164,6 +164,6 @@ mount -t cifs //192.168.1.10/public /mnt/samba -o username=user,password=pass
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[nfs-autofs]] - 리눅스 간 파일 공유 (NFS)
-- [[user-permission-commands]] - 사용자/그룹 관리
-- [[security-commands]] - 방화벽 설정 (SMB 포트 445)
+- [nfs-autofs](nfs-autofs.md) - 리눅스 간 파일 공유 (NFS)
+- [user-permission-commands](../commands/user-permission-commands.md) - 사용자/그룹 관리
+- [security-commands](../commands/security-commands.md) - 방화벽 설정 (SMB 포트 445)

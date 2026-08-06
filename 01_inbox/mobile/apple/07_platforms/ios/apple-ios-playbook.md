@@ -13,7 +13,7 @@ iPhone 을 위한 앱을 만들 때 알아야 할 실전 가이드를 쉽게 모
 ### 기기 특성
 
 - 터치/제스처, 카메라/마이크/센서가 핵심. 한 손 사용/짧은 세션이 많다.
-- 셀룰러 환경: 데이터/배터리 제약, [[apple-glossary#ATS|ATS]]/백그라운드 정책 엄격.
+- 셀룰러 환경: 데이터/배터리 제약, [ATS](../../00_foundations/apple-glossary.md)/백그라운드 정책 엄격.
 - 화면 크기가 다양하지만, iPad 보다 작고 휴대성이 크다.
 
 ### 앱 구조
@@ -29,9 +29,9 @@ iPhone 을 위한 앱을 만들 때 알아야 할 실전 가이드를 쉽게 모
 
 ### 백그라운드 작업
 
-- 허용된 [[apple-glossary#Background Modes|백그라운드 모드]]: 오디오, 위치, VoIP 푸시, BLE, 다운로드, PiP 등.
+- 허용된 [백그라운드 모드](../../00_foundations/apple-glossary.md): 오디오, 위치, VoIP 푸시, BLE, 다운로드, PiP 등.
 - Background App Refresh/Push 로 짧게 깨워서 동기화. 과도한 사용은 제한/거절.
-- [[apple-glossary#JetSam|Jetsam]] 이 언제든 앱을 종료할 수 있으니 작업 단위를 짧게.
+- [Jetsam](../../00_foundations/apple-glossary.md) 이 언제든 앱을 종료할 수 있으니 작업 단위를 짧게.
 
 ### 네트워크
 

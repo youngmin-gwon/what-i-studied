@@ -6,7 +6,7 @@ date modified: 2026-04-06 18:14:08 +09:00
 date created: 2026-04-05 17:08:24 +09:00
 ---
 
-## [[mobile-security]] > [[apple-security-pcc]]
+## [mobile-security](../../mobile-security.md) > [apple-security-pcc](apple-security-pcc.md)
 
 ### PCC: Private Cloud Compute
 
@@ -36,6 +36,6 @@ date created: 2026-04-05 17:08:24 +09:00
 
 #### 연관 문서
 
-- [[cryptography-basics]] - 암호학 기초
-- [[mobile-security]] - 모바일 보안 허브
-- [[cross-platform-ai-privacy-comparison]] - Gemini Nano vs Apple PCC 프라이버시 모델 심층 분석
+- [cryptography-basics](../../../security/fundamentals/cryptography-basics.md) - 암호학 기초
+- [mobile-security](../../mobile-security.md) - 모바일 보안 허브
+- [cross-platform-ai-privacy-comparison](../../cross-platform/cross-platform-ai-privacy-comparison.md) - Gemini Nano vs Apple PCC 프라이버시 모델 심층 분석

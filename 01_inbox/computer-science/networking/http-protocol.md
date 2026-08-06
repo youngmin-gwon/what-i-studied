@@ -194,7 +194,7 @@ curl --http2 https://example.com
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[osi-7-layer-model]] - OSI 7 계층 (응용 계층)
-- [[network-security-protocols]] - TLS/SSL
-- [[web-security]] - 웹 보안 (XSS, CSRF)
-- [[ftp-protocol]] - FTP 프로토콜
+- [osi-7-layer-model](osi-7-layer-model.md) - OSI 7 계층 (응용 계층)
+- [network-security-protocols](../../security/protocols/network-security-protocols.md) - TLS/SSL
+- [web-security](../../security/web-security.md) - 웹 보안 (XSS, CSRF)
+- [ftp-protocol](ftp-protocol.md) - FTP 프로토콜

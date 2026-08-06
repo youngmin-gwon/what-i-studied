@@ -52,5 +52,5 @@ date created: 2025-12-28 20:45:33 +09:00
 
 ### 🔗 연결 문서
 
-- [[10-debugging-style]] - 디버깅 및 스타일 가이드
-- [[12-recipes]] - 실전 레시피 및 체크리스트
+- [10-debugging-style](10-debugging-style.md) - 디버깅 및 스타일 가이드
+- [12-recipes](12-recipes.md) - 실전 레시피 및 체크리스트

@@ -272,7 +272,7 @@ graph LR
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[dos-attacks]] - 서비스 거부 공격 (단일)
-- [[malware-types]] - 봇넷과 악성코드
-- [[router-acl-security]] - ACL 과 Ingress Filtering
-- [[firewall-ids-ips]] - 방화벽과 IDS/IPS
+- [dos-attacks](dos-attacks.md) - 서비스 거부 공격 (단일)
+- [malware-types](../malware/malware-types.md) - 봇넷과 악성코드
+- [router-acl-security](../router-acl-security.md) - ACL 과 Ingress Filtering
+- [firewall-ids-ips](../firewall-ids-ips.md) - 방화벽과 IDS/IPS

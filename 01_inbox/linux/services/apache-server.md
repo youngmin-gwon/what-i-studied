@@ -193,6 +193,6 @@ httpd -M
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[dns-bind-server]] - DNS 서버 설정
-- [[security-commands]] - 방화벽 설정 (HTTP 80, HTTPS 443)
-- [[security/ssl-tls|ssl-tls]] - HTTPS 인증서 설정 (OpenSSL, Certbot)
+- [dns-bind-server](dns-bind-server.md) - DNS 서버 설정
+- [security-commands](../commands/security-commands.md) - 방화벽 설정 (HTTP 80, HTTPS 443)
+- **ssl-tls** - HTTPS 인증서 설정 (OpenSSL, Certbot)

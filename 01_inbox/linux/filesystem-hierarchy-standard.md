@@ -201,6 +201,6 @@ du -sh /var/log/*
 
 ## 🔗 연결 문서 (Related Documents)
 
-- [[inode]] - 파일시스템의 내부 구조
-- [[file-types-links]] - Linux 파일 타입과 링크
-- [[kernel]] - 커널의 VFS(Virtual File System) 레이어
+- [inode](inode.md) - 파일시스템의 내부 구조
+- [file-types-links](file-types-links.md) - Linux 파일 타입과 링크
+- **kernel** - 커널의 VFS(Virtual File System) 레이어

@@ -62,5 +62,5 @@ Bash 전용 기능으로, 명령의 결과를 파일처럼 취급할 수 있게 
 
 ---
 ### 🔗 연결 문서
-- [[05-functions]] - 함수 및 모듈화
-- [[07-text-processing]] - 텍스트 처리 툴킷
+- [05-functions](05-functions.md) - 함수 및 모듈화
+- [07-text-processing](07-text-processing.md) - 텍스트 처리 툴킷

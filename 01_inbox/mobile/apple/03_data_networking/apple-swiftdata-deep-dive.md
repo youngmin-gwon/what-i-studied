@@ -157,7 +157,7 @@ class Todo {
     var createdAt: Date
     
     // 인덱스 선언 (개별 또는 복합)
-    static let indexes: [[IndexColumn<Todo>]] = [
+    static let indexes: **IndexColumn<Todo>** = [
         [.init(\.createdAt)],
         [.init(\.title), .init(\.createdAt)]
     ]
