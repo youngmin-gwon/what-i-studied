@@ -2,7 +2,7 @@
 title: aes-gcm-requires-unique-iv-and-authentication-tag
 tags: ["android", "android/security-privacy"]
 aliases: ["AES-GCM 은 고유한 IV 와 Authentication Tag 를 요구한다"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 

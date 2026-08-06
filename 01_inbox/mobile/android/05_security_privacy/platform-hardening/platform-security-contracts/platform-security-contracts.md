@@ -2,11 +2,12 @@
 title: platform-security-contracts
 tags: ["android", "android/security-privacy"]
 aliases: ["Android 플랫폼 보안 경계 계약"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 
 ## Android 플랫폼 보안 경계 계약
+배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md), [Device Mapper와 dm-verity](02_references/operating-systems/device-mapper-and-dm-verity.md)
 
 Android 플랫폼 보안은 앱 UID 샌드박스(Linux Kernel Isolation), Binder IPC 통신 경계, SELinux Mandatory Access Control(MAC), Verified Boot(AVB) Chain of Trust가 상호 보완적으로 작동하는 계층형 보호 모델이다. 어느 한 계층이 우회되더라도 상위/하위 계층이 피해 범위를 국소적으로 억제한다.
 
@@ -21,7 +22,7 @@ flowchart TD
 
 ### 내부 동작 메커니즘
 
-1. **Hardware RoT & AVB**: 기기 전원 온 시 Boot ROM이 부트로더와 시스템 파티션의 해시 서명을 dm-verity로 체인 검증한다.
+1. **Hardware RoT & AVB**: 기기 전원 온 시 Boot ROM(칩 제조 단계에 새겨져 소프트웨어 업데이트로도 바뀌지 않는 최초 부트 코드)이 부트로더와 시스템 파티션의 해시 서명을 **dm-verity**(디스크 블록을 읽을 때마다 미리 계산해 둔 해시 트리와 실시간으로 비교해 변조를 탐지하는 커널 Device Mapper 타겟)로 체인 검증한다.
 2. **Kernel & SELinux Domain**: 부팅된 커널은 모든 앱 프로세스를 `u:r:untrusted_app:s0` 도메인으로 라벨링하고, `neverallow` 규칙으로 커널 노드 접근 및 raw socket 생성을 원천 금지한다.
 3. **Linux UID Sandbox**: 앱 설치 시 고유 UID(`u0_a150`)를 부여하여 `/data/data/<package>` 디렉터리를 `0700` 권한으로 격리한다.
 

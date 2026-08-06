@@ -2,7 +2,7 @@
 title: android-security-practice-is-defense-in-depth-not-client-trust
 tags: ["android", "android/security-privacy"]
 aliases: ["Android 보안 실무는 클라이언트 신뢰가 아니라 방어 계층 설계다"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 
@@ -35,7 +35,7 @@ flowchart TD
 ### 내부 동작 메커니즘
 
 1. **Client Control Limits**: 클라이언트는 공격자의 손(Rooted Device, Frida Instrumentation, Memory Inspection)에 노출될 수 있으므로, 인스펙션 탐지 코드는 항상 바이패스될 수 있다는 위협 모델을 전제한다.
-2. **Network Layer Binding (Network Security Config)**: `network_security_config.xml`을 통한 Strict TLS 1.3 강제 및 Certificate Pinning 적용으로 중간자 공격(MITM)을 예방한다.
+2. **Network Layer Binding (Network Security Config)**: `network_security_config.xml`을 통한 Strict TLS 1.3 강제 및 **Certificate Pinning**(OS 신뢰 저장소의 아무 CA나 믿는 대신, 서버 인증서 또는 공개키의 해시값을 앱 안에 미리 고정해 두고 그 값과 일치할 때만 연결을 신뢰하는 방식) 적용으로 중간자 공격(MITM)을 예방한다.
 3. **Server-Side SSOT Authorization**: 중요한 비즈니스 로직(결제, 비밀번호 변경, 자산 이체 등)은 앱의 검증 완료 국기(flag)를 믿지 않고, 서버에서 Play Integrity Token, SSL Pinning, Nonce, HMAC 서명을 종합 판단하여 최종 승인한다.
 
 ### 다계층 네트워크 보안 설정 예시 (XML & Kotlin OkHttp)

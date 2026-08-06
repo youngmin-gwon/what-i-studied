@@ -2,7 +2,7 @@
 title: chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-08-03 17:29:56 +09:00
 ---
 
@@ -10,11 +10,13 @@ date created: 2026-08-03 17:29:56 +09:00
 
 상위 문서: [Android 폼 팩터와 플랫폼 확장 지도](../../android-platforms-and-form-factors.md)
 
+배경 지식: [컨테이너와 가상머신(VM)의 차이](01_inbox/linux/container-basics.md)
+
 관련 지도: [ChromeOS 고유 계약](./chromeos-contracts.md)
 
 ### 핵심 정의
 
-ChromeOS 는 ARC(Android Runtime for Chrome) 컨테이너/ARCVM 안에서 Android 앱을 실행하고, 앱의 각 Activity/Task 창을 ChromeOS 데스크톱 환경의 일반 윈도우처럼 리사이즈·이동·최소화 가능한 창으로 매핑한다. 사용자 입장에서는 크롬 브라우저 창, 리눅스 앱 창과 함께 Android 앱 창이 동일한 데스크톱 윈도우 매니저 아래 공존한다.
+ChromeOS 는 Android 앱을 두 가지 방식 중 하나로 격리해서 실행한다. ARC++ 는 **컨테이너**(container; 호스트 Linux 커널을 그대로 공유하면서 네임스페이스와 cgroup 으로 프로세스·파일시스템만 격리하는 경량 가상화 방식) 안에서 Android 시스템을 띄우고, ARCVM 은 별도의 게스트 Linux 커널 전체를 통째로 띄우는 가상머신(VM) 방식으로 Android 를 격리한다. 컨테이너는 호스트와 커널을 공유해 가볍지만 격리 경계가 상대적으로 얕고, VM 은 커널까지 분리해 격리는 강하지만 오버헤드가 더 크다. 두 방식 모두 결과적으로 앱의 각 Activity/Task 창은 ChromeOS 데스크톱 환경의 일반 윈도우처럼 리사이즈·이동·최소화 가능한 창으로 매핑된다. 사용자 입장에서는 크롬 브라우저 창, 리눅스 앱 창과 함께 Android 앱 창이 동일한 데스크톱 윈도우 매니저 아래 공존한다.
 
 ### ARC++ 컨테이너 vs ARCVM 시스템 아키텍처
 

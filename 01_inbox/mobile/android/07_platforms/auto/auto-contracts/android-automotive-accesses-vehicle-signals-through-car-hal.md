@@ -2,7 +2,7 @@
 title: android-automotive-accesses-vehicle-signals-through-car-hal
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-08-03 17:29:23 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2026-08-03 17:29:23 +09:00
 
 ### 핵심 정의
 
-AAOS 에서 앱이 차량 속도, 기어 위치, 연료/배터리 잔량 같은 차량 신호(Vehicle Property)에 접근하려면 `Car` API(`android.car`)를 통해 Vehicle HAL(VHAL)이 노출하는 프로퍼티를 조회한다. 이 신호는 일반 시스템 서비스가 아니라 차량 제조사가 구현한 별도 HAL 계층에서 온다.
+AAOS 에서 앱이 차량 속도, 기어 위치, 연료/배터리 잔량 같은 차량 신호(Vehicle Property)에 접근하려면 `Car` API(`android.car`)를 통해 **HAL**(Hardware Abstraction Layer; 상위 프레임워크가 칩셋/보드별 하드웨어 구현 차이를 몰라도 되도록 표준 인터페이스로 감싸주는 중간 계층)의 한 종류인 Vehicle HAL(VHAL)이 노출하는 프로퍼티를 조회한다. 이 신호는 일반 시스템 서비스가 아니라 차량 제조사가 구현한 별도 HAL 계층에서 온다.
 
 ### 메커니즘 및 `CarPropertyManager` 구현
 

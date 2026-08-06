@@ -2,7 +2,7 @@
 title: chromeos-contracts
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-08-03 17:29:41 +09:00
 ---
 
@@ -53,7 +53,7 @@ adb shell pm list features | grep -E "hardware.camera|hardware.sensor"
 ### 책임 경계
 
 - 창 크기별 레이아웃 적응 자체는 이 지도가 아니라 `07_platforms/large-screens/large-screen-contracts` 와 `07_platforms/large-screens/windowing-multitasking-contracts` 가 담당한다. 이 지도는 그 위에 얹히는 ChromeOS 만의 실행 환경·배포·입력 차이만 다룬다.
-- ChromeOS 는 Android 앱을 가상화가 아니라 컨테이너 방식으로 실행하지만, 이 격리 메커니즘의 세부 구현은 다루지 않는다.
+- ChromeOS 는 Android 앱을 실행 방식(ARC++ 의 컨테이너 또는 ARCVM 의 가상머신)에 따라 서로 다른 격리 메커니즘으로 실행하지만, 이 격리 메커니즘의 세부 구현은 다루지 않는다.
 
 ### 정본 노트
 
@@ -62,4 +62,6 @@ adb shell pm list features | grep -E "hardware.camera|hardware.sensor"
 - [ChromeOS 입력은 마우스/트랙패드/키보드를 우선하고 터치는 보조 입력이다](./chromeos-input-prioritizes-mouse-trackpad-and-keyboard-over-touch.md)
 
 검증일: 2026-08-03. [ChromeOS에서 Android 앱 최적화](https://developer.android.com/topic/arc) 를 기준으로 확인했다.
+
+검증일: 2026-08-06. "가상화가 아니라 컨테이너"라는 이전 서술이 ARCVM(가상머신 방식)의 존재와 모순되어 "실행 방식에 따라 컨테이너 또는 가상머신"으로 수정했다. 두 방식의 구조는 [ChromeOS는 Android 앱을 컨테이너에서 실행하고 창을 데스크톱 윈도우로 매핑한다](./chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows.md) 참고.
 

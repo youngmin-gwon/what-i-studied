@@ -2,11 +2,12 @@
 title: secure-storage-contracts
 tags: ["android", "android/security-privacy"]
 aliases: ["보안 저장소 계약"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## 보안 저장소 계약
+배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md)
 
 Android 보안 저장소 계약은 단순히 파일 경로를 선택하는 것에 그치지 않고, 민감 데이터 분류, 암호키 비추출성 관리(Hardware Keystore), AES-GCM 인증 암호화, 생체 인증 연동, 자동 백업 제외(Backup Rules), 그리고 키 무효화 시 재인증 복구 전략을 체계적으로 결합하는 보안 모델이다.
 
@@ -23,7 +24,7 @@ flowchart TD
 
 ### 내부 동작 메커니즘
 
-1. **Hardware Key Binding**: Android Keystore 시스템은 Master Key 원본 바이트를 Linux RAM 공간에 노출하지 않고 TEE 또는 StrongBox 하드웨어 보안 칩 내에 비추출성(`isExportable = false`) 상태로 고정한다.
+1. **Hardware Key Binding**: Android Keystore 시스템은 Master Key 원본 바이트를 Linux RAM 공간에 노출하지 않고 **TEE**(Trusted Execution Environment, 메인 프로세서 안의 격리된 보안 실행 영역) 또는 **StrongBox**(전용 보안 칩) 하드웨어 보안 칩 내에 비추출성(`isExportable = false`) 상태로 고정한다.
 2. **Authenticated Encryption (AEAD)**: AES-GCM 알고리즘을 적용하여 Confidentiality(비밀성)와 Integrity(무결성)를 동시 보장하며, 매 암호화 시마다 12-byte 무작위 IV(Initialization Vector)와 128-bit Authentication Tag를 필수 생성한다.
 3. **Backup Protection Boundary**: Keystore 생성 키는 기기 고유(Device-bound) 속성을 가져 백업/복원 시 다른 기기로 복사되지 않는다. 따라서 암호문 데이터는 백업 대상에서 명시적으로 제외해야 한다.
 

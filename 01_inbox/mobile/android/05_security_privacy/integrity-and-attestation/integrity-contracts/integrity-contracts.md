@@ -2,11 +2,12 @@
 title: integrity-contracts
 tags: ["android", "android/security-privacy"]
 aliases: ["무결성과 attestation 계약"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 
 ## 무결성과 attestation 계약
+배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md)
 
 무결성 검증(Integrity & Attestation)은 앱 바이너리 변조, 루팅/커스텀 ROM 환경, 계정 및 요청 재조작 위험을 하드웨어 및 서버 신호로 변환하는 계층이다. 클라이언트에 전달되는 attestation 토큰은 신뢰의 최종 인가가 아니며, 반드시 백엔드 서버에서 독립적으로 검증해야 한다.
 
@@ -30,7 +31,7 @@ sequenceDiagram
 
 ### 내부 동작 메커니즘
 
-1. **Hardware-Backed Key Attestation**: TEE(Trusted Execution Environment) 및 StrongBox 보안 칩셋에서 생성된 비대칭 키 쌍을 바탕으로 부팅 상태(AVB) 및 펌웨어 서명 체인을 X.509 인증서 체인 형태로 증명한다.
+1. **Hardware-Backed Key Attestation**: **TEE**(Trusted Execution Environment — 메인 프로세서에서 물리적으로 격리된 보안 실행 영역) 및 **StrongBox**(자체 CPU와 저장소를 가진 전용 보안 칩)에서 생성된 비대칭 키 쌍을 바탕으로 부팅 상태(AVB) 및 펌웨어 서명 체인을 X.509 인증서 체인 형태로 증명한다.
 2. **Play Integrity API 핸드셰이크**: Play Services가 기기의 하드웨어 판정 결과, 부트로더 상태, 앱 바이너리의 SHA-256 인증서 디지스트, 계정 위험 신호를 수집하여 서명된 JWS(JSON Web Signature) 토큰을 생성한다.
 3. **서버 측 검증(Server Verification)**: 백엔드는 Play Developer API 호출 또는 Google 공개키 검증을 통해 JWS의 암호학적 서명을 확인하고, 내부 payload의 Nonce 일치 여부와 `deviceRecognitionVerdict`를 평가한다.
 

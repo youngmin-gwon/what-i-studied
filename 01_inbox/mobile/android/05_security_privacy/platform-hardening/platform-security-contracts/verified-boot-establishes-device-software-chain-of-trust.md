@@ -2,13 +2,14 @@
 title: verified-boot-establishes-device-software-chain-of-trust
 tags: ["android", "android/security-privacy"]
 aliases: ["Verified Boot 는 기기 소프트웨어의 chain of trust 를 만든다"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 
 ## Verified Boot 는 기기 소프트웨어의 chain of trust 를 만든다
+배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md), [Device Mapper와 dm-verity](02_references/operating-systems/device-mapper-and-dm-verity.md), [Merkle Tree](02_references/computer-science/merkle-tree.md)
 
-Android **Verified Boot(AVB, Android Verified Boot 2.0)**는 전원이 켜지는 순간부터 하드웨어 기반 **Root of Trust(RoT)**를 시작으로 Bootloader, Kernel, System/Vendor 파티션 바이너리가 정품 하드웨어 제조업체(OEM)의 암호학적 서명과 해시 체인을 통과했는지를 검증하는 체인 오브 트러스트(Chain of Trust)를 구축한다.
+Android **Verified Boot(AVB, Android Verified Boot 2.0)**는 전원이 켜지는 순간부터 하드웨어 기반 **Root of Trust(RoT — 더 이상 다른 무언가로 검증되지 않고 그 자체로 신뢰될 수밖에 없는, 하드웨어에 물리적으로 각인된 검증의 출발점)**를 시작으로 Bootloader, Kernel, System/Vendor 파티션 바이너리가 정품 하드웨어 제조업체(OEM)의 암호학적 서명과 해시 체인을 통과했는지를 검증하는 체인 오브 트러스트(Chain of Trust)를 구축한다.
 
 ```mermaid
 sequenceDiagram
@@ -29,7 +30,7 @@ sequenceDiagram
 ### 내부 동작 메커니즘
 
 1. **`vbmeta` Partition**: AVB 2.0은 `vbmeta` 파티션에 각 파티션(boot, system, vendor, product)의 서명과 Merkle Tree Root Hash를 저장한다.
-2. **Real-time `dm-verity`**: 커널의 `dm-verity` 드라이버가 디스크 블록을 읽을 때마다 블록의 SHA-256 해시를 Merkle Tree 노드와 실시간 비교하여, 파티션이 1비트라도 변조되면 I/O 에러를 발생시키거나 기기를 리부팅시킨다.
+2. **Real-time `dm-verity`**: 커널의 `dm-verity`(디스크 블록 I/O 를 가로채 사전에 계산된 해시와 실시간으로 비교하는 Device Mapper 타겟) 드라이버가 디스크 블록을 읽을 때마다 블록의 SHA-256 해시를 **Merkle Tree**(개별 블록 해시들을 이진 트리로 계속 묶어 올려 단 하나의 루트 해시로 전체 파티션의 무결성을 표현하는 자료구조) 노드와 실시간 비교하여, 파티션이 1비트라도 변조되면 I/O 에러를 발생시키거나 기기를 리부팅시킨다.
 3. **Boot State Evaluation**:
    - `GREEN`: 락된 부트로더 및 OEM 서명 일치. 완전 신뢰 상태.
    - `YELLOW`: 사용자가 커스텀 Root 서명 키를 등록함.

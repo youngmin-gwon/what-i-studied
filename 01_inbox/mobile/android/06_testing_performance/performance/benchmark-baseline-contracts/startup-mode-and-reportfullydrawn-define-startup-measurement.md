@@ -3,7 +3,7 @@ title: startup-mode-and-reportfullydrawn-define-startup-measurement
 tags: ["android", "android/testing-performance"]
 aliases: ["Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 ---
 
 ## Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다
@@ -17,13 +17,13 @@ Macrobenchmark에서 시작 성능 지표를 도출하기 위해서는 `StartupM
 ### 1. StartupMode별 리셋 동작 및 측정 구체 메커니즘
 
 - **`StartupMode.COLD`**:
-  - 매 반복(iteration) 전 `adb shell am force-stop <package>`를 실행하여 앱 프로세스를 강제 종료하고 힙/정적 클래스 변수를 백지화한다. Zygote Fork부터 완전히 새로 시작하는 최고 측정 비용 조건이다.
+  - 매 반복(iteration) 전 `adb shell am force-stop <package>`를 실행하여 앱 프로세스를 강제 종료하고 힙/정적 클래스 변수를 백지화한다. **Zygote**(모든 앱 프로세스가 공통으로 상속하는 사전 초기화된 부모 프로세스 — 시스템 부팅 시 미리 뜬 채로 대기하다가 새 앱을 실행할 때마다 `fork()`로 자신을 복제해 준다) Fork부터 완전히 새로 시작하는 최고 측정 비용 조건이다.
 - **`StartupMode.WARM`**:
   - 프로세스는 힙 메모리에 생존시켜 두고, `Activity` 인스턴스만 `finish()` 후 다시 Launch한다. 정적 싱글톤/DI 그래프 재사용성을 검증한다.
 - **`StartupMode.HOT`**:
   - `Activity`와 프로세스가 모두 대기 상태에 있는 백그라운드 상태에서 `startActivity`로 전면(Foreground) 전환 비용만 측정한다.
 - **`reportFullyDrawn()` 신호 경계**:
-  - Choreographer의 단순 첫 프레임 draw(TTID)를 넘어 비동기 데이터 렌더링(TTFD) 완료 시점을 `StartupTimingMetric`에 포착시킨다.
+  - **Choreographer**(하드웨어 VSYNC 신호를 받아 매 프레임 `doFrame()` 콜백을 호출해 입력·애니메이션·그리기 작업을 하나의 타이밍 축에 정렬시키는 Android 프레임 스케줄러)의 단순 첫 프레임 draw(TTID)를 넘어 비동기 데이터 렌더링(TTFD) 완료 시점을 `StartupTimingMetric`에 포착시킨다.
 
 ### 2. StartupMode 상태 전환 모델
 

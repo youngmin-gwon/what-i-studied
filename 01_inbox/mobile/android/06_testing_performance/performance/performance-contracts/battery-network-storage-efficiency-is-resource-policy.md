@@ -3,7 +3,7 @@ title: battery-network-storage-efficiency-is-resource-policy
 tags: ["android", "android/testing-performance"]
 aliases: ["배터리, 네트워크, 저장소 성능은 자원 정책이다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 ---
 
 ## 배터리, 네트워크, 저장소 성능은 자원 정책이다
@@ -23,7 +23,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 - **배터리 저감 정책**:
   - **WorkManager Batching**: 개별 네트워크 작업을 묶어 무선 라디오 깨움 횟수를 최소화.
   - **Constraints 적용**: `NetworkType.UNMETERED`, `RequiresCharging`, `RequiresDeviceIdle` 등의 조건 부여.
-  - **Doze Mode Compliance**: `AlarmManager.setAndAllowWhileIdle()`의 과도한 사용을 지양하고 시스템 배치 작업 활용.
+  - **Doze Mode**(화면이 꺼진 채 기기가 오래 정지해 있으면 시스템이 자동으로 진입시키는 절전 상태 — 앱의 네트워크 접속과 백그라운드 작업, 알람을 주기적인 짧은 유지보수 구간(maintenance window)으로 묶어 지연시킨다) **Compliance**: `AlarmManager.setAndAllowWhileIdle()`처럼 Doze 를 우회해 즉시 깨우는 API 의 과도한 사용을 지양하고 시스템 배치 작업 활용.
 - **저장소 I/O 최적화**:
   - SQLite WAL (Write-Ahead Logging) 모드를 통한 읽기/쓰기 동시성 확보.
   - `@Transaction` 블록 내 소형 쓰기 묶음 처리로 디스크 fsync overhead 저감.

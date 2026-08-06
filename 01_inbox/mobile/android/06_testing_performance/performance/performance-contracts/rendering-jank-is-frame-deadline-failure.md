@@ -3,7 +3,7 @@ title: rendering-jank-is-frame-deadline-failure
 tags: ["android", "android/testing-performance"]
 aliases: ["렌더링 성능은 프레임 지연의 원인을 분리한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 ---
 
 ## 렌더링 성능은 프레임 지연의 원인을 분리한다
@@ -22,12 +22,14 @@ date modified: 2026-08-04 22:00:00 +09:00
 - **렌더링 파이프라인 단계**:
   1. **Input & Animation**: 터치 이벤트 처리 및 애니메이션 값 계산.
   2. **Measure & Layout**: View 트리의 크기 계산 및 위치 배치 (Compose에서는 Recomposition 및 Measure/Layout).
-  3. **Draw**: DisplayList 명령 생성.
+  3. **Draw**: **DisplayList**(실제 픽셀을 즉시 그리는 대신 "무엇을 어떻게 그릴지"를 기록해 두는 중간 표현 — 다음 단계에서 RenderThread가 이 기록을 재생하듯 소비한다) 명령 생성.
   4. **RenderThread Sync & Issue**: RenderThread가 DisplayList를 받아 OpenGLES/Vulkan 명령어로 변환 후 GPU 명령 큐 제출.
   5. **SurfaceFlinger Composition**: 하드웨어 컴포저(HWC)를 거쳐 실제 패널 표출.
 - **Jank 정의**: UI 스레드 작업 지연 또는 RenderThread sync 지연으로 VSYNC 신호 내에 프레임을 완성하지 못해 이전 프레임이 화면에 재표출(Dropped Frame)되는 현상.
 
 ### 2. Choreographer 프레임 파이프라인 및 데드라인 초과 흐름
+
+**Choreographer**는 하드웨어 VSYNC 신호를 받아 매 프레임 `doFrame()` 콜백을 호출함으로써 입력 처리, 애니메이션, 측정/배치, 그리기를 하나의 타이밍 축에 정렬시키는 Android 프레임 스케줄러다. 아래 시퀀스는 VSYNC 신호가 들어온 뒤 데드라인 안에 프레임을 완성하는 경로와, 데드라인을 넘겨 잔크가 발생하는 경로를 대비해서 보여준다.
 
 ```mermaid
 sequenceDiagram

@@ -2,11 +2,12 @@
 title: android-security-and-privacy
 tags: ["android", "android/security-privacy"]
 aliases: ["Android 보안과 개인정보 지도"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 
 ## Android 보안과 개인정보 지도
+배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md)
 
 Android 보안 아키텍처는 단일 보안 장치에 의존하지 않는 다계층 심층 방어(Defense in Depth) 모델을 따른다. 권한(Permissions), 샌드박스(Sandbox), 플랫폼 하드닝(Platform Hardening), 무결성 검증(Integrity & Attestation), 보안 저장소(Secure Storage)는 각기 다른 공격 표면과 관찰 경계를 담당한다.
 
@@ -21,9 +22,9 @@ flowchart TD
 
 ### 내부 동작 메커니즘
 
-1. **하드웨어 및 커널 경계**: Verified Boot(AVB)가 Bootloader부터 Root of Trust 체인을 검증하며, Linux Kernel UID/GID 및 SELinux MAC(Mandatory Access Control) 정책이 프로세스 간 메모리와 자원 접근을 차단한다.
+1. **하드웨어 및 커널 경계**: Verified Boot(AVB)가 Bootloader부터 **Root of Trust**(RoT — 더 이상 다른 무언가로 검증되지 않고 그 자체로 신뢰되는, 하드웨어에 물리적으로 새겨진 검증 체인의 출발점) 체인을 검증하며, Linux Kernel UID/GID 및 SELinux MAC(Mandatory Access Control) 정책이 프로세스 간 메모리와 자원 접근을 차단한다.
 2. **프레임워크 및 OS 서비스 계층**: PermissionManagerService와 AppOpsService가 런타임 권한 승인 상태와 민감 API(카메라, 마이크, 위치 등)의 실제 호출 동작을 감시 및 제한한다.
-3. **데이터 및 키 보안 계층**: File-Based Encryption(FBE)을 통해 데이터 저장소를 CE(Credential Encrypted)와 DE(Device Encrypted)로 분리하고, 암호키는 Hardware-backed Keystore(TEE/StrongBox)에서 보호한다.
+3. **데이터 및 키 보안 계층**: File-Based Encryption(FBE)을 통해 데이터 저장소를 CE(Credential Encrypted)와 DE(Device Encrypted)로 분리하고, 암호키는 Hardware-backed Keystore(**TEE**(Trusted Execution Environment — 메인 프로세서 안에 물리적으로 격리된 보안 실행 영역) 또는 **StrongBox**(자체 CPU와 저장소를 가진 전용 보안 칩))에서 보호한다.
 4. **원격 무결성 검증 계층**: Play Integrity API가 기기 펌웨어 무결성과 앱 패키지 서명을 토큰 형태로 캡슐화하여 백엔드 서버에서 원격 인가를 결정하게 만든다.
 
 ### 진단 및 디버깅 스크립트

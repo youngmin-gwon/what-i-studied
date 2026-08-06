@@ -3,7 +3,7 @@ title: startup-performance-is-measured-by-ttid-and-ttfd
 tags: ["android", "android/testing-performance"]
 aliases: ["Android 시작 성능은 TTID와 TTFD로 나눈다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 ---
 
 ## Android 시작 성능은 TTID와 TTFD로 나눈다
@@ -15,7 +15,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 
 ### 1. TTID와 TTFD의 내부 동작 메커니즘
 
-- **TTID (Time To Initial Display)**: OS 프로세스 생성(Zygote Fork) $\rightarrow$ `ActivityThread.main()` $\rightarrow$ `Application.onCreate()` $\rightarrow$ `Activity.onCreate()` $\rightarrow$ Choreographer 첫 바인딩 프레임 렌더링 시점까지의 시간이다.
+- **TTID (Time To Initial Display)**: OS 프로세스 생성(**Zygote** Fork — 모든 앱 프로세스가 공통으로 상속하는, 시스템 부팅 시 미리 초기화되어 대기 중인 부모 프로세스를 `fork()`로 복제해 새 앱 프로세스를 만드는 것) $\rightarrow$ `ActivityThread.main()` $\rightarrow$ `Application.onCreate()` $\rightarrow$ `Activity.onCreate()` $\rightarrow$ **Choreographer**(하드웨어 VSYNC 신호에 맞춰 매 프레임 그리기 작업을 스케줄링하는 Android 프레임 스케줄러) 첫 바인딩 프레임 렌더링 시점까지의 시간이다.
 - **TTFD (Time To Fully Displayed)**: 첫 프레임 표출 후 비동기 데이터 로딩(네트워크/DB), 비동기 이미지 디코딩 및 UI 바인딩이 완료되어 사용자가 실제 기능을 조작할 수 있는 시점까지의 시간이다.
 - **Cold vs Warm vs Hot Start**:
   - **Cold Start**: 앱 프로세스가 존재하지 않는 상태에서 Zygote에서 새 VM 프로세스를 Fork하고 전체 클래스 및 단일 인스턴스를 초기화한다.

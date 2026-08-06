@@ -2,7 +2,7 @@
 title: android-app-sandbox-is-uid-and-process-boundary
 tags: ["android", "android/security-privacy"]
 aliases: ["Android app sandbox 는 UID 와 프로세스 경계로 앱을 격리한다"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-08-01 00:03:59 +09:00
 ---
 
@@ -33,7 +33,7 @@ flowchart LR
 
 1. **UID Allocation**: `PackageManagerService`는 앱 설치 시 `FIRST_APPLICATION_UID(10000)` 이상 범위에서 고유한 UID를 부여한다 (`u0_a` + `(UID - 10000)`).
 2. **Unix File DAC**: 앱 내부 저장소(`/data/data/<package>`)의 파일 owner는 `u0_a150:u0_a150`으로 설정되며, 권한 모드는 `0700` (`rwx------`)이 적용된다.
-3. **Zygote Forking & Isolated Processes**: 앱 실행 시 Zygote 프로세스가 `fork()`를 호출한 직후 `setuid()` 및 `setgid()`를 실행하여 커널 레벨 Privileges를 하강시킨다. WebView나 민감 컴포넌트는 `android:isolatedProcess="true"` 속성을 지정하여 무권한 UID(90000번대)로 추가 격리할 수 있다.
+3. **Zygote Forking & Isolated Processes**: 앱 실행 시 **Zygote**(모든 앱 프로세스의 부모가 되는, 공통 프레임워크 클래스를 미리 적재해 둔 상태로 대기하는 시스템 프로세스)가 `fork()`를 호출한 직후 `setuid()` 및 `setgid()`를 실행하여 커널 레벨 Privileges를 하강시킨다. WebView나 민감 컴포넌트는 `android:isolatedProcess="true"` 속성을 지정하여 무권한 UID(90000번대)로 추가 격리할 수 있다.
 
 ### 샌드박스 밖 데이터 교환 및 Manifest 설정 예시
 

@@ -2,13 +2,14 @@
 title: logcat-crash-anr-and-debugger-answer-different-questions
 tags: ["android", "android/testing-performance"]
 aliases: ["logcat-crash-anr-and-debugger-answer-different-questions"]
-date modified: 2026-08-04 16:22:56 +09:00
+date modified: 2026-08-06 13:00:00 +09:00
 date created: 2026-07-31 17:32:53 +09:00
 ---
 
 ## Logcat, crash, ANR, debugger 는 서로 다른 질문에 답한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md)
+배경 지식: [순환 버퍼(Ring Buffer)](02_references/operating-systems/buffer.md), [POSIX 시그널](01_inbox/operating-systems/ipc-contracts/posix-signal-contracts.md)
 
 관련 지도: [디버깅 도구 계약](./debugging-contracts.md)
 
@@ -19,15 +20,15 @@ date created: 2026-07-31 17:32:53 +09:00
 ### 1. 진단 도구별 역할 및 메커니즘
 
 - **Logcat (시간축 이벤트 관측)**:
-  - Android 시스템 링 버퍼(`main`, `system`, `crash`, `events`)에서 실행 순서대로 수집되는 1 차 시퀀스 로그.
+  - Android 시스템 **링 버퍼**(Ring Buffer — 크기가 고정돼 있어 꽉 차면 가장 오래된 항목부터 덮어쓰며 순환하는 버퍼. 그래서 오래 켜둔 세션일수록 과거 로그가 새 로그에 밀려 사라진다)(`main`, `system`, `crash`, `events`)에서 실행 순서대로 수집되는 1 차 시퀀스 로그.
   - `--pid=$(adb shell pidof -s <package>)` 로 해당 프로세스 로그만 격리 수집.
 - **Crash Report (치명적 크래시 디코딩)**:
   - `UncaughtExceptionHandler` 에 의해 힙 포인터 및 예외 스택 수집.
   - **R8 Mapping De-obfuscation (`retrace`)**: ProGuard/R8 난독화된 릴리스 덤프를 `mapping.txt` 와 결합하여 라인 번호 및 원본 클래스/메서드 심볼 복원.
 - **ANR (Application Not Responding Trace)**:
-  - 메인 스레드가 5 초 이상 블로킹될 때 OS 가 전달하는 `SIGQUIT` (Signal 3) 트레이스. `/data/anr/traces.txt` 및 Android 11+ `ApplicationExitInfo` 수집.
+  - 메인 스레드가 5 초 이상 블로킹될 때 OS 가 전달하는 **`SIGQUIT`**(Signal 3 — 커널이 프로세스에 비동기로 보내는 POSIX 시그널 중 하나로, 기본 동작은 프로세스의 현재 스레드 상태를 스택 덤프로 남기는 것이다) 트레이스. `/data/anr/traces.txt` 및 Android 11+ `ApplicationExitInfo` 수집.
 - **Debugger (JDWP Breakpoint)**:
-  - JDWP (Java Debug Wire Protocol) 기반 인터랙티브 인스펙션. 브레이크포인트 연결 시 인터프리터 런타임 스위칭으로 타이밍이 왜곡(Heisenbugs)되므로 동기화/레이스 조건 진단에는 불리함.
+  - JDWP (Java Debug Wire Protocol) 기반 인터랙티브 인스펙션. 브레이크포인트 연결 시 인터프리터 런타임 스위칭으로 타이밍이 왜곡되어 **Heisenbug**(디버거를 붙이거나 로그를 추가하는 등 "관찰"하려는 행위 자체가 실행 타이밍을 바꿔서, 관찰하지 않을 때는 재현되던 버그가 관찰하는 순간 사라지거나 다르게 동작하는 현상)가 발생하기 쉬우므로 동기화/레이스 조건 진단에는 불리함.
 
 ### 2. 결함 증상별 진단 도구 선택 매트릭스
 
