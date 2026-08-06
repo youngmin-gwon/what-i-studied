@@ -86,6 +86,7 @@ sequenceDiagram
 
 - 상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../../architecture/android-app-architecture.md)
 - 관련 계약 문서:
+  - [RemoteViews vs Jetpack Glance 비교](../glance-vs-remoteviews.md)
   - [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](./appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md)
   - [Glance는 Compose UI가 아니라 RemoteViews를 통해 위젯을 렌더링한다](./glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
   - [RemoteViews는 위젯 layout을 고정된 View 부분집합으로 제한한다](./remoteviews-restricts-widget-layouts-to-a-fixed-view-subset.md)

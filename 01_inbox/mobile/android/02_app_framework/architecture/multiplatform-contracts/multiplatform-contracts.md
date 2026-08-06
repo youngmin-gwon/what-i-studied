@@ -12,7 +12,7 @@ date created: 2026-08-05 10:00:00 +09:00
 
 ### 정본 노트
 
-- [Kotlin Multiplatform은 공유 로직과 플랫폼 UI 또는 Compose Multiplatform 공유 UI를 선택할 수 있다](./kmp-can-share-logic-with-native-ui-or-share-ui-with-compose-multiplatform.md)
+- **Kotlin Multiplatform은 공유 로직과 플랫폼 UI 또는 Compose Multiplatform 공유 UI를 선택할 수 있다**
 - [expect/actual은 공통 코드가 플랫폼별 구현을 요구하는 컴파일 타임 계약이다](./expect-actual-is-compile-time-contract-for-platform-specific-implementation.md)
 
 ### 읽는 기준

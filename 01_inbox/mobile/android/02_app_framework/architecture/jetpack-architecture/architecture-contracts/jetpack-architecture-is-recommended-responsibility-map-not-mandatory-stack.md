@@ -62,7 +62,7 @@ graph LR
 - 상위 문서: [Architecture Contracts](./architecture-contracts.md)
 - 관련 계약 문서:
   - [UI, domain, data layer는 rendering, policy, source of truth를 분리한다](./ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md)
-  - [KMP는 공유 로직과 플랫폼 UI 또는 공유 UI를 선택할 수 있다](../../multiplatform-contracts/kmp-can-share-logic-with-native-ui-or-share-ui-with-compose-multiplatform.md)
+  - **KMP는 공유 로직과 플랫폼 UI 또는 공유 UI를 선택할 수 있다**
 - 공식 문서: [Guide to App Architecture - Architecture Principles](https://developer.android.com/topic/architecture#architecture-principles)
 
 검증일: 2026-08-05. 아키텍처 유연성 및 책임 분리 가이드 원문 확인 완료.

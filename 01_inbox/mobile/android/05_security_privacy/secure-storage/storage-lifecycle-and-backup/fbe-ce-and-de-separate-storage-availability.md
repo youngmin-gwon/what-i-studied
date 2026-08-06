@@ -2,13 +2,13 @@
 title: fbe-ce-and-de-separate-storage-availability
 tags: ["android", "android/security-privacy"]
 aliases: ["FBE 에서 CE 와 DE 를 나누는 저장소 경계"]
-date modified: 2026-08-06 13:00:00 +09:00
+date modified: 2026-08-06 18:20:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## FBE 에서 CE 와 DE 를 나누는 저장소 경계
 
-Android **FBE(File-Based Encryption)**는 기기의 파일 저장소를 **Credential Encrypted(CE) storage**와 **Device Encrypted(DE) storage**의 두 가지 물리적/암호학적 경계로 분리한다. CE는 사용자가 PIN/비밀번호로 잠금을 해제해야만 암호키가 로드되는 기본 경계이며, DE는 부팅 직후 사용자 잠금과 상관없이 하드웨어 키로 바로 접근 가능한 경계다.
+Android **FBE(File-Based Encryption)**는 기기의 파일 저장소를 **Credential Encrypted(CE) storage**와 **Device Encrypted(DE) storage**의 두 가지 물리적/암호학적 경계로 분리한다. CE는 사용자가 PIN/비밀번호로 잠금을 해제해야만 암호키가 로드되는 기본 경계이며, DE는 부팅 직후 사용자 잠금과 상관없이 하드웨어 키로 바로 접근 가능한 경계다. 두 저장소의 비교와 초보자용 비유는 [CE vs DE Storage](../ce-vs-de-storage.md) 노트를 참조한다.
 
 ```mermaid
 flowchart TD
@@ -27,11 +27,10 @@ flowchart TD
 2. **CE Key Unlocking**: CE 마스터키는 사용자의 PIN/패스워드/패턴 기반의 **Synthetic Password**(사용자가 입력한 PIN/패턴 원문이 아니라 그로부터 파생된 고정 길이의 중간 비밀값 — 사용자가 PIN을 바꿔도 이 값에 연결된 키 체인 자체는 재사용할 수 있게 해주는 간접 계층)와 TEE 게이트키퍼에 의해 이중 암호화되어 보관된다. 따라서 사용자가 첫 잠금을 풀기 전에는 커널 메모리에 키 자체가 존재하지 않는다.
 3. **DE Key Unlocking**: DE 마스터키는 부트로더/TEE 검증 성공 직후 커널 키링에 자동 언락되므로, 부팅 직후 곧바로 파일 IO 연산이 가능하다.
 
-### CE vs DE Context 접근 및 상태 확인 구현 예시 (Kotlin)
+### 저장소 가용성 상태 검사 구현 예시 (Kotlin)
 
 ```kotlin
 import android.content.Context
-import android.os.Build
 import android.os.UserManager
 
 fun inspectStorageAvailability(context: Context) {
@@ -70,4 +69,6 @@ Storage lifecycle 노트는 FBE CE/DE 가용 시점, Direct Boot 단계, 캐시 
 
 상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup.md)
 
-관련 노트: [Direct Boot에서 허용되는 데이터와 실행 수명](direct-boot-requires-minimal-device-protected-data.md)
+관련 노트:
+- [CE vs DE Storage](../ce-vs-de-storage.md)
+- [Direct Boot에서 허용되는 데이터와 실행 수명](direct-boot-requires-minimal-device-protected-data.md)

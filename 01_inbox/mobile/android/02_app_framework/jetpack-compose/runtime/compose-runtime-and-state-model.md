@@ -78,5 +78,5 @@ Compose Runtime은 Composable을 개별 UI 뷰 객체로 다루지 않고, 상�
 - [flow-contracts](../../data/async-flow/flow/flow-contracts.md)
 - [paging-contracts](../../data/paging/paging-contracts/paging-contracts.md)
 - [di-contracts](../../dependency-injection/di-contracts/di-contracts.md)
-- [dsl-syntax-does-not-change-ownership-lifetime-contracts](../../dependency-injection/di-contracts/dsl-syntax-does-not-change-ownership-lifetime-contracts.md)
-- [modular-di-follows-module-dependency-direction-and-feature-entry-contracts](../../dependency-injection/di-contracts/modular-di-follows-module-dependency-direction-and-feature-entry-contracts.md)
+- **dsl-syntax-does-not-change-ownership-lifetime-contracts**
+- **modular-di-follows-module-dependency-direction-and-feature-entry-contracts**

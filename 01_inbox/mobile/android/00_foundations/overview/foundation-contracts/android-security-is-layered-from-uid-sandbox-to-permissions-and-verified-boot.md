@@ -37,7 +37,7 @@ flowchart LR
 3. **[Runtime Permission & AppOps](../../../05_security_privacy/appops-and-permissions.md) (동적 권한 및 세밀한 기능 통제)**:
    - 위치, 카메라, 마이크 등 민감한 기능에 접근할 때 사용자 동의를 받는 **Runtime Permission**과, 백그라운드 카메라 사용 금지/개인정보 토글 등을 개별 제어하는 **[AppOps](../../../05_security_privacy/appops-and-permissions.md)** 정책이 적용된다.
 4. **SELinux (강제 접근 제어 - MAC)**:
-   - 커널 수준에서 정의된 [SELinux](file:///dev/null) 정책으로, 루트(root) 권한을 가진 프로세스라 할지라도 허용되지 않은 시스템 리소스나 서비스에 접근할 수 없도록 강제 통제한다.
+   - 커널 수준에서 정의된 [SELinux](../../../../../../../../../../../dev/null) 정책으로, 루트(root) 권한을 가진 프로세스라 할지라도 허용되지 않은 시스템 리소스나 서비스에 접근할 수 없도록 강제 통제한다.
 5. **Verified Boot & Hardware KeyStore (하드웨어 무결성 및 암호화)**:
    - 부팅 시 OS 시스템 이미지의 개조 여부를 암호학적으로 검증(Verified Boot)하고, 민감한 암호화 키를 보안 칩셋(TEE/StrongBox)에 안전하게 격리 보관한다.
 

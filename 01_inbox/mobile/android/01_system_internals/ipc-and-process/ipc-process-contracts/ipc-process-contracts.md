@@ -24,7 +24,7 @@ date created: 2026-08-01 00:00:00 +09:00
 - "service 가 멈췄다/응답이 없다" → [Binder thread pool](binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md), boot-and-runtime 의 [ANR은 responsiveness 계약 위반이다](../../boot-and-runtime/system-server-contracts/anr-is-responsiveness-contract-violation-not-single-timeout.md)
 - "이벤트를 보냈는데 유실/지연된다" → [oneway Binder](oneway-binder-removes-caller-waiting-not-server-backpressure.md)
 - "서비스 호출이 permission/등록 단계에서 실패한다" → [IPC 디버깅](ipc-debugging-starts-from-service-registration-call-path-and-thread-state.md)
-- "Binder와 socket/shared memory 중 무엇이 다른가" → [Binder는 Android framework의 typed RPC이고 POSIX IPC를 배제하지 않는다](posix-ipc-vs-android-binder-contracts.md)
+- "Binder와 socket/shared memory 중 무엇이 다른가" → **Binder는 Android framework의 typed RPC이고 POSIX IPC를 배제하지 않는다**
 - "이 프로세스가 왜 죽었는가" → 이 묶음이 아니라 아래 Process/system service 링크로 이동한다.
 
 ### Binder 와 AIDL
@@ -35,7 +35,7 @@ date created: 2026-08-01 00:00:00 +09:00
 - [oneway Binder는 caller 대기를 없애지만 server backpressure를 없애지 않는다](oneway-binder-removes-caller-waiting-not-server-backpressure.md)
 - [Binder thread pool은 service concurrency와 deadlock 경계다](binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)
 - [IPC 디버깅은 service 등록, call path, thread state에서 시작한다](ipc-debugging-starts-from-service-registration-call-path-and-thread-state.md)
-- [Binder는 Android framework의 typed RPC이고 POSIX IPC를 배제하지 않는다](posix-ipc-vs-android-binder-contracts.md) - Binder, Unix domain socket, shared memory와 FD 전달의 identity·copy·lifetime 차이를 비교한다.
+- **Binder는 Android framework의 typed RPC이고 POSIX IPC를 배제하지 않는다** - Binder, Unix domain socket, shared memory와 FD 전달의 identity·copy·lifetime 차이를 비교한다.
 
 ### Process 와 system service 경계
 

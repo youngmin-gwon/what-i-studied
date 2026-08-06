@@ -53,6 +53,7 @@ adb shell pm list features | grep -i "android.software.xr"
 
 ### 정본 노트
 - [Android XR은 평면 앱 포트가 아니라 공간 폼 팩터다](./android-xr-is-spatial-form-factor-not-flat-port.md)
+- [Home Space vs Full Space 공간 모드 전환](../xr-home-space-vs-full-space.md)
 - [2D 호환 실행은 XR 공간화의 시작점일 뿐이다](./two-dimensional-compatibility-is-only-start-of-xr-spatialization.md)
 - [Jetpack XR SDK는 preview 성숙도를 전제로 채택해야 한다](./jetpack-xr-sdk-adoption-depends-on-preview-maturity.md)
 - [Compose for XR은 기존 Compose를 subspace와 spatial component로 확장한다](./compose-for-xr-extends-compose-with-subspace-and-spatial-components.md)

@@ -98,7 +98,7 @@ actual class PlatformUUID actual constructor() {
 
 - 상위 문서: [Multiplatform Contracts](./multiplatform-contracts.md)
 - 관련 계약 문서:
-  - [KMP는 공유 로직과 플랫폼 UI 또는 공유 UI를 선택할 수 있다](./kmp-can-share-logic-with-native-ui-or-share-ui-with-compose-multiplatform.md)
+  - **KMP는 공유 로직과 플랫폼 UI 또는 공유 UI를 선택할 수 있다**
 - 공식 문서: [Kotlin Multiplatform Expect and Actual](https://kotlinlang.org/docs/multiplatform-expect-actual.html)
 
 검증일: 2026-08-06. Kotlin 공식 expect/actual 규칙과 인터페이스·factory 대안을 대조하고, 모든 타깃에서 동일한 서명으로 컴파일 가능한 예제로 교체했다.

@@ -22,9 +22,9 @@ date created: 2025-12-18 17:05:18 +09:00
 
 ### 실기 문제
 
-1. [시스템 보안 문제](quiz-system)
-2. [네트워크 보안 문제](quiz-network)
-3. [응용프로그램 보안 문제](quiz-application)
+1. [시스템 보안 문제](quizzes/quiz-system.md)
+2. [네트워크 보안 문제](quizzes/quiz-network.md)
+3. [응용프로그램 보안 문제](quizzes/quiz-application.md)
 
 ### 🎯 시험 정보
 

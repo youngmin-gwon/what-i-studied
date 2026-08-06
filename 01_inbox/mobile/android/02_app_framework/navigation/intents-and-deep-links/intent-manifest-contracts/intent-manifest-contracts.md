@@ -35,6 +35,7 @@ date created: 2026-08-01 00:00:00 +09:00
 - [Intent filter는 action, category, data를 매칭한다](intent-filter-matches-action-category-data.md)
 - [Intent 입력은 명시적 타입과 신뢰 경계가 필요하다](intent-inputs-need-explicit-type-and-trust-boundaries.md)
 - [PendingIntent는 위임된 미래 intent 토큰이다](pendingintent-is-delegated-future-intent-token.md)
+- [PendingIntent FLAG_IMMUTABLE vs FLAG_MUTABLE 보안 비교](../pendingintent-immutable-vs-mutable.md)
 - [Activity Result API는 수명주기를 인식하는 결과 계약을 정의한다](activity-result-api-defines-lifecycle-aware-result-contract.md)
 - [Package visibility는 조회 가능한 앱을 제한한다](package-visibility-limits-which-apps-can-be-queried.md)
 

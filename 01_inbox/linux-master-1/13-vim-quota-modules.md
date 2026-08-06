@@ -451,4 +451,4 @@ lsattr -d dir/                  # 디렉토리 속성
 
 ---
 
-**메인으로**: [리눅스마스터 1급 자격증 학습 가이드](../bash-scripting-summary/README.md)
+**메인으로**: [리눅스마스터 1급 자격증 학습 가이드](README.md)

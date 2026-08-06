@@ -2,7 +2,7 @@
 title: storage-lifecycle-and-backup
 tags: ["android", "android/security-privacy"]
 aliases: ["저장소 생명주기와 백업 계약"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 18:20:00 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
@@ -45,6 +45,7 @@ adb shell ls -ld /data/user/0/com.example.app
 
 ### 정본 노트
 
+- [CE vs DE Storage](../ce-vs-de-storage.md)
 - [FBE에서 CE와 DE를 나누는 저장소 경계](fbe-ce-and-de-separate-storage-availability.md)
 - [Direct Boot에서 허용되는 데이터와 실행 수명](direct-boot-requires-minimal-device-protected-data.md)
 - [캐시와 재생성 가능한 데이터의 수명](cache-is-recreatable-data-not-source-of-truth.md)

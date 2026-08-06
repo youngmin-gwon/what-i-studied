@@ -58,6 +58,7 @@ adb shell pm list features | grep -E "hardware.camera|hardware.sensor"
 ### 정본 노트
 
 - [ChromeOS는 Android 앱을 컨테이너에서 실행하고 창을 데스크톱 윈도우로 매핑한다](./chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows.md)
+- [ARC++ vs ARCVM: 공유 컨테이너와 격리된 가상머신](../arc-plus-plus-vs-arcvm.md)
 - [ChromeOS 전용 배포는 Play 콘솔에서 Chromebook 지원 여부를 별도로 선언한다](./chromeos-distribution-requires-a-separate-play-console-declaration.md)
 - [ChromeOS 입력은 마우스/트랙패드/키보드를 우선하고 터치는 보조 입력이다](./chromeos-input-prioritizes-mouse-trackpad-and-keyboard-over-touch.md)
 

@@ -117,7 +117,7 @@ Apple 의 접근성 구조와 유사한 기능을 Android Compose 에서는 **Se
 > - `AccessibilityTrait` ≃ Android 의 `Role` (Button, Image 등)
 > - `accessibilityLabel` ≃ Android 의 `contentDescription`
 > - `accessibilityValue` ≃ Slider 나 Progress 의 현재 상태 값
->상세 비교는 [android-accessibility-compose](../../android/02_app_framework/android-accessibility-compose.md) 를 참고하세요.
+>상세 비교는 **android-accessibility-compose** 를 참고하세요.
 
 ### 📚 더 보기
 

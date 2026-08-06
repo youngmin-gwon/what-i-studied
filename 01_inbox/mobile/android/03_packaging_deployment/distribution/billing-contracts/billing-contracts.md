@@ -35,7 +35,7 @@ flowchart TD
 ```
 
 ### 관련 세부 계약 문서
-1. [Play billing 적용 여부는 상품, 사용자 지역, 등록 프로그램에 따라 결정된다](play-billing-requirement-depends-on-product-region-and-enrolled-program.md)
+1. **Play billing 적용 여부는 상품, 사용자 지역, 등록 프로그램에 따라 결정된다**
 2. [제품과 구독 구매는 서로 다른 라이프사이클을 가진다](product-and-subscription-purchases-have-different-lifecycles.md)
 3. [서버 측 purchase token 검증이 필요하며 클라이언트 판단은 안 된다](server-side-purchase-token-verification-is-required-not-client-judgment.md)
 4. [승인되지 않은 구매는 3일 이내에 환불된다](unacknowledged-purchases-are-refunded-within-three-days.md)

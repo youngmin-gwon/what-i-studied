@@ -159,7 +159,7 @@ Apple 의 WidgetKit 과 유사한 기능을 Android 에서는 **Jetpack Glance**
 > - `TimelineProvider` ≃ Android 위젯의 데이터 갱신 스케줄링 (WorkManager 등 활용)
 > - `ActivityKit` (Live Activities) ≃ Android 에서는 고정된 **Foreground Service Notification** 이 유사한 역할을 함
 > - `AppIntent` ≃ Glance 의 `Action` 인터페이스
->상세 비교는 [android-widgets-glance](../../android/02_app_framework/android-widgets-glance.md) 를 참고하세요.
+>상세 비교는 **android-widgets-glance** 를 참고하세요.
 
 ### 📚 더 보기
 

@@ -2,13 +2,15 @@
 title: cryptography-basics
 tags: [cryptography, encryption, hash, pki, security]
 aliases: [Encryption, 암호학, 암호화, 해시]
-date modified: 2026-04-06 18:13:36 +09:00
+date modified: 2026-08-06 18:15:00 +09:00
 date created: 2025-12-20 00:17:40 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
 **암호학 (Cryptography)** 은 정보를 보호하기 위해 데이터를 변환하는 과학입니다. 기밀성(Confidentiality), 무결성(Integrity), 인증(Authentication), 부인방지(Non-repudiation)를 제공하여 안전한 통신을 가능하게 합니다.
+
+---
 
 ## 🔑 암호화의 목적 (Cryptographic Goals)
 
@@ -38,11 +40,14 @@ graph TB
 3. **인증 (Authentication)**: 통신 상대방의 신원 확인
 4. **부인방지 (Non-repudiation)**: 송신자가 메시지 전송을 부인하지 못하도록 방지
 
+---
+
 ## 🔐 대칭키 암호화 (Symmetric Encryption)
 
 ### 개념
-
 **같은 키**로 암호화와 복호화를 수행하는 방식입니다.
+
+👉 **상세 비교 노트**: [Symmetric vs Asymmetric Encryption](symmetric-vs-asymmetric-crypto.md)
 
 ```mermaid
 sequenceDiagram
@@ -75,26 +80,27 @@ sequenceDiagram
 - **키 길이**: 128, 192, 256 비트
 - **블록 크기**: 128 비트
 - **상태**: **현재 표준** (2001 년 채택)
-- **특징**:
-  - Rijndael 알고리즘 기반
-  - 하드웨어 가속 지원 (AES-NI)
-  - 정부 및 금융 기관 표준
+- **특징**: Rijndael 알고리즘 기반, 하드웨어 가속 지원 (AES-NI)
 
-```
-AES-128: 10라운드
-AES-192: 12라운드
-AES-256: 14라운드
-
-각 라운드: SubBytes → ShiftRows → MixColumns → AddRoundKey
+```mermaid
+graph TD
+    subgraph "AES 라운드 구조"
+        R1[AES-128: 10라운드]
+        R2[AES-192: 12라운드]
+        R3[AES-256: 14라운드]
+    end
+    
+    subgraph "라운드별 내부 연산 순서"
+        Step1[SubBytes 바이트 대치] --> Step2[ShiftRows 행 이동]
+        Step2 --> Step3[MixColumns 열 혼합]
+        Step3 --> Step4[AddRoundKey 라운드 키 결합]
+    end
 ```
 
 #### ChaCha20
 - **키 길이**: 256 비트
 - **타입**: 스트림 암호
-- **특징**:
-  - 소프트웨어에서 매우 빠름
-  - TLS 1.3 에서 지원
-  - 모바일 기기에 적합
+- **특징**: 소프트웨어에서 매우 빠름, TLS 1.3 지원, 모바일 기기에 적합
 
 ### 블록 암호 운영 모드 (Block Cipher Modes)
 
@@ -103,7 +109,7 @@ AES-256: 14라운드
 | **ECB** | 각 블록 독립 암호화 | ✅ 가능 | ❌ 취약 (패턴 노출) | 사용 금지 |
 | **CBC** | 이전 블록과 XOR | ❌ 불가 | ✅ 안전 | 파일 암호화 |
 | **CTR** | 카운터 기반 스트림 | ✅ 가능 | ✅ 안전 | 디스크 암호화 |
-| **GCM** | 인증 암호화 (AEAD) | ✅ 가능 | ✅ 매우 안전 | **TLS**, VPN |
+| **GCM** | 인증 암호화 (AEAD) | ✅ 가능 | ✅ 매우 안전 | [TLS](../protocols/network-security-protocols.md), VPN |
 
 ### 장단점
 
@@ -113,11 +119,14 @@ AES-256: 14라운드
 | ✅ 대용량 데이터에 적합 | ❌ n 명이 통신 시 n(n-1)/2 개 키 필요 |
 | ✅ 낮은 계산 비용 | ❌ 키 관리 복잡도 증가 |
 
+---
+
 ## 🔓 비대칭키 암호화 (Asymmetric Encryption)
 
 ### 개념
-
 **공개키**와 **개인키** 쌍을 사용하는 방식입니다.
+
+👉 **상세 비교 노트**: [Symmetric vs Asymmetric Encryption](symmetric-vs-asymmetric-crypto.md)
 
 ```mermaid
 graph LR
@@ -143,36 +152,31 @@ graph LR
 #### RSA (Rivest-Shamir-Adleman)
 - **키 길이**: 2048, 3072, 4096 비트
 - **기반**: 큰 소수의 곱셈의 인수분해 어려움
-- **용도**:
-  - 디지털 서명
-  - 키 교환
-  - 소량 데이터 암호화
+- **용도**: 디지털 서명, 키 교환, 소량 데이터 암호화
 
 **RSA 동작 원리**:
 
-```
-1. 키 생성:
-   - 두 큰 소수 p, q 선택
-   - n = p × q 계산
-   - φ(n) = (p-1)(q-1)
-   - e 선택 (보통 65537)
-   - d 계산: d × e ≡ 1 (mod φ(n))
-   - 공개키: (e, n), 개인키: (d, n)
-
-2. 암호화: C = M^e mod n
-3. 복호화: M = C^d mod n
+```mermaid
+graph TD
+    subgraph "1. 키 생성 단계"
+        KeyGen["1. 두 소수 p, q 선택<br/>2. n = p × q, φ(n) = (p-1)(q-1)<br/>3. e 선택 (보통 65537)<br/>4. d 계산: d × e ≡ 1 (mod φ(n))"]
+    end
+    
+    subgraph "2. 암복호화 단계"
+        Enc["공개키(e, n)로 암호화: C = M^e mod n"]
+        Dec["개인키(d, n)로 복호화: M = C^d mod n"]
+    end
+    
+    KeyGen --> Enc
+    Enc --> Dec
 ```
 
 #### ECC (Elliptic Curve Cryptography)
 - **키 길이**: 256, 384, 521 비트
 - **기반**: 타원곡선 이산로그 문제
-- **특징**:
-  - RSA 보다 짧은 키로 같은 보안 강도
-  - ECC-256 ≈ RSA-3072
-  - 모바일/IoT 에 적합
+- **특징**: RSA 보다 짧은 키로 같은 보안 강도 (ECC-256 ≈ RSA-3072)
 
 **주요 곡선**:
-
 - **secp256r1** (NIST P-256): 일반적 사용
 - **Curve25519**: 고속, EdDSA 서명
 - **secp256k1**: Bitcoin 에서 사용
@@ -180,9 +184,7 @@ graph LR
 #### Diffie-Hellman (DH)
 - **용도**: 키 교환 전용 (암호화 불가)
 - **기반**: 이산로그 문제
-- **변형**:
-  - DHE (Ephemeral): 일회용 키
-  - ECDHE: 타원곡선 기반
+- **변형**: DHE (Ephemeral), ECDHE
 
 ```mermaid
 sequenceDiagram
@@ -203,14 +205,14 @@ sequenceDiagram
     Note over A,B: 동일한 공유 비밀키 K 획득
 ```
 
+---
+
 ## 🔨 해시 함수 (Hash Functions)
 
 ### 개념
-
 임의 길이의 데이터를 고정 길이의 값으로 변환하는 **일방향 함수**입니다.
 
 ### 해시 함수의 요구사항
-
 1. **일방향성 (Pre-image Resistance)**: 해시값으로부터 원본 복원 불가
 2. **충돌 저항성 (Collision Resistance)**: 같은 해시값을 갖는 두 입력 찾기 어려움
 3. **약한 충돌 저항성 (Second Pre-image Resistance)**: 특정 입력과 같은 해시값을 갖는 다른 입력 찾기 어려움
@@ -240,18 +242,17 @@ echo "hash_value file.iso" | sha256sum -c
 
 ### 패스워드 해싱 전용 함수
 
-일반 해시 함수는 **너무 빠르기** 때문에 패스워드 해싱에 부적합합니다.
-
 | 함수 | 특징 | 보안 강도 |
 |------|------|-----------|
 | **bcrypt** | Blowfish 기반, 비용 조절 가능 | ✅ 안전 |
 | **scrypt** | 메모리 집약적 (ASIC 저항) | ✅ 매우 안전 |
 | **Argon2** | 최신 표준 (PHC 우승) | ✅ 가장 안전 |
 
+---
+
 ## ✍️ 디지털 서명 (Digital Signature)
 
 ### 목적
-
 1. **인증**: 서명자의 신원 확인
 2. **무결성**: 메시지가 변조되지 않았음을 보증
 3. **부인방지**: 서명자가 서명 사실을 부인할 수 없음
@@ -288,17 +289,15 @@ sequenceDiagram
 ```
 
 ### 서명 알고리즘
-
 - **RSA 서명**: RSA 개인키로 서명
 - **ECDSA**: ECC 기반 디지털 서명
 - **EdDSA**: Curve25519 기반 (빠르고 안전)
-  - Ed25519: 서명
-  - X25519: 키 교환
+
+---
 
 ## 🏢 PKI (Public Key Infrastructure)
 
 ### 개념
-
 공개키 암호화를 실제 환경에서 사용하기 위한 **인프라**입니다.
 
 ### PKI 구성 요소
@@ -326,7 +325,6 @@ graph TB
 ```
 
 #### 주요 구성 요소
-
 1. **CA (Certificate Authority)**: 인증서 발급 기관
 2. **RA (Registration Authority)**: 인증서 등록 기관
 3. **Certificate**: 공개키 + 신원 정보 + CA 서명
@@ -335,7 +333,7 @@ graph TB
 
 ### X.509 인증서 구조
 
-```
+```yaml
 Certificate:
     Version: 3
     Serial Number: 0x1234567890abcdef
@@ -348,13 +346,6 @@ Certificate:
     Subject Public Key Info:
         Public Key Algorithm: rsaEncryption
         RSA Public Key: (2048 bit)
-    X509v3 Extensions:
-        X509v3 Subject Alternative Name:
-            DNS:www.example.com, DNS:example.com
-        X509v3 Key Usage:
-            Digital Signature, Key Encipherment
-        X509v3 Extended Key Usage:
-            TLS Web Server Authentication
 ```
 
 ### 인증서 체인 검증
@@ -370,22 +361,7 @@ graph LR
     TrustStore -->|5. 신뢰 안 됨| Invalid[❌ 검증 실패]
 ```
 
-### 실무 명령어
-
-```bash
-# 인증서 정보 확인
-openssl x509 -in cert.pem -text -noout
-
-# 인증서 유효성 검증
-openssl verify -CAfile ca.pem cert.pem
-
-# 개인키와 인증서 매칭 확인
-openssl x509 -noout -modulus -in cert.pem | openssl md5
-openssl rsa -noout -modulus -in key.pem | openssl md5
-
-# CSR (Certificate Signing Request) 생성
-openssl req -new -key private.key -out request.csr
-```
+---
 
 ## 🔗 하이브리드 암호화 (Hybrid Encryption)
 
@@ -414,10 +390,11 @@ sequenceDiagram
     B->>B: Message = Decrypt(Session Key)
 ```
 
-**사용 예**: TLS/SSL, PGP, S/MIME
+---
 
 ## 🔗 연결 문서 (Related Documents)
 
+- [symmetric-vs-asymmetric-crypto](symmetric-vs-asymmetric-crypto.md) - 대칭키 vs 비대칭키 암호화 비교 노트
 - [network-security-protocols](../protocols/network-security-protocols.md) - TLS/SSL 에서의 암호화 활용
 - [authentication-authorization](authentication-authorization.md) - 인증에서의 암호화 역할
-- [tcp-ip-model](../../computer-science/networking/tcp-ip-model.md) - 네트워크 계층과 암호화
+- [osi-vs-tcpip](../../computer-science/networking/osi-vs-tcpip.md) - 네트워크 계층과 암호화

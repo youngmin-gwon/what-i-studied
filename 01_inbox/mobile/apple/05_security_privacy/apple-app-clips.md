@@ -15,7 +15,7 @@ date created: 2026-04-04 00:28:00 +09:00
 >[!NOTE] **Android 비교: Instant Apps vs App Clips**
 > - **iOS**: `App Clips` 는 강력한 시스템 통합(NFC, QR, Apple Pay)을 바탕으로 여전히 활발하게 사용되고 있으며, 용량 제한도 최대 50MB(iOS 17+)까지 확장되었다.
 > - **Android**: 유사한 기술인 `Instant Apps` 가 있었으나, 구글은 **2025 년 12 월 서비스 종료**를 발표했다. 이제 안드로이드에서는 별도의 인스턴트 모듈 대신 **딥링크(App Links)**를 통한 매끄러운 전체 앱 설치 및 진입을 권장하는 추세다.
->자세한 내용은 [android-app-bundles-and-optimization](../../android/02_app_framework/android-app-bundles-and-optimization.md) 를 참고하세요.
+>자세한 내용은 **android-app-bundles-and-optimization** 를 참고하세요.
 
 ### 1. 설계 및 크기 제한
 

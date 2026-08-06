@@ -68,7 +68,7 @@ graph TD
 
 ### 🌐 하위 도메인 확장 (Sub-domain Extensions)
 
-- **Android OS IPC 아키텍처 결정**: Android 환경에서는 커널 레벨 UID/PID 신원 검증, 참조 카운팅 기반 수명 관리, 커널 스레드 풀 제어를 위해 전통적 POSIX IPC 대신 Binder 와 Ashmem 을 도입했다. 세부 내용은 [POSIX IPC vs Android Binder 구조적 비교](../mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/posix-ipc-vs-android-binder-contracts.md) 문서를 참조한다.
+- **Android OS IPC 아키텍처 결정**: Android 환경에서는 커널 레벨 UID/PID 신원 검증, 참조 카운팅 기반 수명 관리, 커널 스레드 풀 제어를 위해 전통적 POSIX IPC 대신 Binder 와 Ashmem 을 도입했다. 세부 내용은 **POSIX IPC vs Android Binder 구조적 비교** 문서를 참조한다.
 
 ---
 
@@ -78,4 +78,4 @@ graph TD
 - [공유 메모리와 mmap 계약](./ipc-contracts/shared-memory-and-mmap-contracts.md)
 - [Unix Domain Socket 계약](./ipc-contracts/unix-domain-socket-contracts.md)
 - [POSIX Signal 계약](./ipc-contracts/posix-signal-contracts.md)
-- [POSIX IPC vs Android Binder & Ashmem 계약](../mobile/android/01_system_internals/ipc-and-process/ipc-process-contracts/posix-ipc-vs-android-binder-contracts.md)
+- **POSIX IPC vs Android Binder & Ashmem 계약**

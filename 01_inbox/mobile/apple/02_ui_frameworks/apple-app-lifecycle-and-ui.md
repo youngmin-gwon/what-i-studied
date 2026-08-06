@@ -169,7 +169,7 @@ struct MyApp: App {
 > - **iOS**: `apple-app-site-association` (AASA) → Apple CDN 캐싱
 > - **Android**: `assetlinks.json` → Google 서버 검증
 >두 플랫폼 모두 HTTPS 도메인 소유를 증명하는 JSON 파일 호스팅이 필요하다.
->Android 딥링크 상세는 [android-deep-links](../../android/02_app_framework/android-deep-links.md) 참고.
+>Android 딥링크 상세는 [android-deep-links](../../android/02_app_framework/navigation/intents-and-deep-links/android-deep-links.md) 참고.
 
 ### 📚 더 보기
 
