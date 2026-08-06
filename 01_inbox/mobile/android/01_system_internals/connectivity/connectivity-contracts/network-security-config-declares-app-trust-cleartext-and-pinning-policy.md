@@ -2,13 +2,15 @@
 title: network-security-config-declares-app-trust-cleartext-and-pinning-policy
 tags: [android, android/connectivity, android/security]
 aliases: [Network Security Config, Cleartext Traffic, Certificate Pinning]
-date modified: 2026-08-05 16:00:00 +09:00
+date modified: 2026-08-06 14:00:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
 ## Network Security Config는 앱 신뢰, cleartext, pinning 정책을 선언한다
 
 상위 문서: [Connectivity contracts](connectivity-contracts.md)
+
+배경 지식: [Certificate Pinning(인증서 고정)](01_inbox/security/fundamentals/certificate-pinning.md)
 
 Android 7.0(API 24)부터 도입된 **Network Security Configuration**은 소스 코드에 인증서 처리 로직을 자바 코드로 하드코딩하지 않고, **선언적 XML 파일(`res/xml/network_security_config.xml`)을 통해 앱의 TLS/SSL 암호화 연결 정책, 암호화되지 않은 HTTP (Cleartext) 차단, 디버그 CA 신뢰 범위, 인증서 핀 세트(Certificate Pinning)**를 강제 적용하는 보안 계약이다.
 

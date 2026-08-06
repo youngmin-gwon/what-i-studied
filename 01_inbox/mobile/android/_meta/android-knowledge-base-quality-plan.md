@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-06 11:40:00 +09:00
+date modified: 2026-08-06 14:15:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -1343,4 +1343,24 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 - `03_packaging_deployment` "완료" 로그(43 개 파일 기록)와 실제 폴더 파일 수(55 개)가 불일치 — `optimization/build-optimization-contracts/` 클러스터(8 개)와 top-level hub 가 로그 집계에서 누락된 것으로 보인다. 다만 55 개 파일 전부 동일 배치 타임스탬프(`16:15:00`)를 갖고 있어 실제로는 처리된 것으로 판단되며, 샘플(`r8-shrinks-optimizes-and-obfuscates-release-builds.md`) 확인 결과 내용 품질은 이미 양호(자기완결적)했다. → **로그의 파일 수 집계 오류일 뿐 작업 누락은 아닌 것으로 판단**(단, `date modified`/`updated` 이중 필드는 2026-08-04 부터 이 폴더에 존재해온 기존 컨벤션 드리프트이며 Phase 11 이 새로 만든 문제는 아님).
 - 이전에 사용자가 "수박 겉핥기"라 지적했던 `02_app_framework` 재감사 주장을 대표 사례(`composable-body-must-be-fast-idempotent-and-side-effect-free.md`)로 표본 검증 — 안티패턴/올바른 패턴 코드 비교, 실행 단계별 메커니즘, 공식 문서 대조 "검증일:" 기록까지 포함된 실질적 재작성이 확인됐다(재감사 주장은 사실). 다만 3 번 항목("부작용이 일어난다")에 남아있던 서술 누락(금지 의미가 빠짐)을 발견해 "일어나서는 안 된다"로 수정.
 - **`05_security_privacy`/`06_testing_performance`/`07_platforms` Phase 11 착수 여부를 직접 재확인**(로그 누락 가능성 대비): 세 폴더 전체(28+33+43=104 개 파일)의 `date modified` 가 전부 2026-08-04 값에 머물러 있고 `배경 지식:` 링크가 0 건이었다 — **위 "수정된 진행 순서" 3 번의 기록대로 정말 미착수 상태임을 확인했다.**
-- **종합 결론**: 다른 세션들의 "완료" 보고는 대체로 사실이었다. 발견된 결함(broken link 2 건, 문장 누락 1 건)은 모두 이번에 즉시 수정했고, `03_packaging_deployment` 파일 수 불일치는 작업 누락이 아니라 로그 집계 오류로 판정했다. **미해결로 확인된 항목은 두 가지뿐이다: (1) idempotency 일반 노트 부재, (2) Security/Testing/Platforms(총 104 개 파일) Phase 11 pass 미착수.**
+- **종합 결론**: 다른 세션들의 "완료" 보고는 대체로 사실이었다. 발견된 결함(broken link 2 건, 문장 누락 1 건)은 모두 이번에 즉시 수정했고, `03_packaging_deployment` 파일 수 불일치는 작업 누락이 아니라 로그 집계 오류로 판정했다. **미해결로 확인된 항목은 두 가지뿐이다: (1) idempotency 일반 노트 부재, (2) Security/Testing/Platforms(총 104 개 파일) Phase 11 pass 미착수.** 아래에서 순서대로 처리했다.
+
+**진행 기록(2026-08-06): idempotency(멱등성) 일반 CS 노트 신설 및 핵심 사용처 연결 완료.**
+
+`02_references/computer-science/idempotency.md` 를 `merkle-tree.md` 형식(역사적 배경/필요성, Mermaid, 코드 예시, 실제 사용처, 연결 문서)으로 신설했다 — 정의, "왜 필요했나"(at-least-once delivery 와 재시도 안전성), 멱등성을 만드는 3 가지 방법(자연히 멱등한 연산/Idempotency Key/조건부 쓰기), 순수 함수(purity)와의 차이 비교표, 실제 사용처(HTTP 메서드 규약, 분산 메시지 큐, WorkManager 재시도, Binder `oneway`, 선언적 인프라)를 다뤘다.
+
+이 개념을 가장 핵심적으로 쓰는 3 개 android 파일에 `배경 지식:` 링크를 추가했다: `aidl-defines-process-boundary-contract-not-business-protocol.md`, `oneway-binder-removes-caller-waiting-not-server-backpressure.md`(둘 다 기존 인라인 gloss는 이미 있었고 링크만 추가), `composable-body-must-be-fast-idempotent-and-side-effect-free.md`(링크 추가). 나머지 사용처(17 개 파일, 주로 `04_system_services`/`00_foundations`)는 이번 라운드에서 건드리지 않았다 — 대부분 "재시도 가능해야 한다"는 스치는 언급 수준이라 우선순위가 낮다고 판단했다.
+
+**진행 기록(2026-08-06): Security/Testing/Platforms(총 104 개 파일) Phase 11 pass 완료 — plan 의 "수정된 진행 순서" 3 번 항목 해소.** 3 개 subagent 에 폴더 단위로 병렬 위임했다.
+
+- **`05_security_privacy`(28 개)**: 9 개 파일 수정(Root of Trust/TEE/StrongBox/dm-verity/Merkle Tree 배경지식 링크+gloss, Zygote/Synthetic Password/Certificate Pinning gloss-only), 19 개는 이미 자기완결적이라 보존. **새 gap 발견: Certificate Pinning 일반 노트 부재**(android/apple/cross-platform 6 개 이상 파일에서 각자 개별 gloss 로 해결 중 — 급하지 않다고 판단, 미착수). broken link 0/81 건.
+- **`06_testing_performance`(33 개)**: 5 개 파일 수정(순환 버퍼/POSIX 시그널 배경지식 링크+gloss, Zygote/Choreographer/DisplayList/Doze Mode gloss-only), 28 개는 이미 촘촘한 템플릿(약어 즉시 전개)으로 자기완결적이라 보존. 새 gap 없음(통계적 유의성/percentile 은 일반 프로그래밍 상식으로 판단해 미대상). broken link agent 자체 검증 0 건(폴더 단위 통합 재검증은 아래 참고).
+- **`07_platforms`(43 개)**: 3 개 파일 수정(HAL gloss-only, 컨테이너 vs VM 배경지식 링크+재작성). **부수 발견 및 수정**: `chromeos-contracts.md` 허브가 "가상화가 아니라 컨테이너 방식"이라고 서술했는데, 같은 파일의 Mermaid 다이어그램은 ARCVM 을 "Virtual Machine"으로 표시하고 있어 자기모순이었다 — "실행 방식(ARC++ 컨테이너 또는 ARCVM 가상머신)에 따라 서로 다른 격리 메커니즘"으로 정정하고 기존 "검증일:" 줄은 보존한 채 새 검증일 줄을 추가했다. 40 개는 이미 form-factor 용어를 첫 등장 지점에서 전부 정의하고 있어 보존. 새 gap 없음. broken link 0 건.
+
+**최종 재검증(저작 세션 직접 수행, 3 개 agent 의 자체 검증과 별개).** `05_security_privacy`/`06_testing_performance`/`07_platforms` 3 개 폴더 전체(379 개 비-http 마크다운 링크)를 file-relative/vault-root-relative 이중 방식으로 재스캔: **broken link 0 건.** 오늘 배치 타임스탬프(`date modified: 2026-08-06 13:00:00 +09:00`)를 가진 파일 수를 직접 세어 각 agent 의 "수정 파일 수" 주장과 대조: security 9/9, testing 5/5, platforms 3/3 — 전부 일치.
+
+**Coverage/Phase 11 상태 갱신:** `01_inbox/mobile/android/` 전체 category(System Internals, App Framework, System Services, Security, Packaging, Testing, Platforms) 가 이제 전부 Phase 11 pass 를 거쳤다.
+
+**진행 기록(2026-08-06): Certificate Pinning 일반 노트 신설 및 연결 완료.** `01_inbox/security/fundamentals/certificate-pinning.md` 를 `root-of-trust-and-chain-of-trust.md` 와 같은 폴더·형식으로 신설했다 — 정의, "왜 필요했나"(CA 신뢰 모델의 구조적 약점, DigiNotar 사례), 인증서 고정 vs 공개키 고정 비교표, Android Network Security Config 구현 예시, 백업 pin 이 필수인 이유, 대가(강제 업데이트 위험/디버깅 방해/단계적 롤아웃)를 다뤘다. 이미 인라인 gloss 는 있었지만 링크가 없던 2 개 android 파일에 `배경 지식:` 링크를 추가했다: `android-security-practice-is-defense-in-depth-not-client-trust.md`, `network-security-config-declares-app-trust-cleartext-and-pinning-policy.md`(pinning 의 Android 구현을 가장 깊게 다루는 정본이라 이 파일 자체가 "심화 경로" 역할을 겸한다). 링크 재검증 0 건 broken. `apple`/`cross-platform` 쪽 4 개 파일은 이번 라운드 범위 밖이라 손대지 않았다.
+
+**최종 상태(2026-08-06): plan.md 가 추적하던 모든 실행 가능한(AI 가 처리 가능한) 항목이 완료됐다.** 남은 것은 Learning Spine/Worked Example 의 사용자 최종 검수뿐이며, 이는 사람이 직접 읽어야 하는 게이트라 AI 세션이 대신 처리할 수 없다.
