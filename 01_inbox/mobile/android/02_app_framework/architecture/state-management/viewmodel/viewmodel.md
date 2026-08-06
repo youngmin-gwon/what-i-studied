@@ -1,5 +1,5 @@
 ---
-title: viewmodel
+title: [viewmodel](../../../viewmodel.md)
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["Android ViewModel"]
 date modified: 2026-08-03 17:28:02 +09:00

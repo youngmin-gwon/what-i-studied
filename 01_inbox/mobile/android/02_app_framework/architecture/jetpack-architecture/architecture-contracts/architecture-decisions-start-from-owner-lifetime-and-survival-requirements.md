@@ -16,7 +16,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 - **소유자 수명 (Owner Lifetime)**:
   - **Composition Lifetime**: 컴포저블 노드가 UI 트리에 활성화되어 있는 동안만 유효 (`remember`, `rememberSaveable`).
-  - **ViewModel Lifetime**: 화면 회전(Configuration Change)을 넘어서 살아남는 UI 관산자 수명.
+  - **[viewmodel](../../../viewmodel.md) Lifetime**: 화면 회전(Configuration Change)을 넘어서 살아남는 UI 관산자 수명.
   - **Process Lifetime**: 앱 프로세스 시작부터 종료까지 지속되는 수명 (Application Context, Hilt Singleton Component).
   - **Persistent Storage Lifetime**: 기기 재부팅, 앱 업데이트, 프로세스 사멸 시에도 보존되는 영속 수명 (Room, DataStore).
 - **생존 요구조건 (Survival Requirements)**:
@@ -40,7 +40,7 @@ flowchart TD
     B -- "예" --> D{"프로세스 데스(Process Death)에 생존 필요한가?"}
     D -- "예 (소량의 상태: ID, 입력 텍스트)" --> E["ViewModel SavedStateHandle"]
     D -- "예 (대용량/핵심 도메인 데이터)" --> F["Repository + Persistent Storage (Room / DataStore)"]
-    D -- "아니오 (화면 회전에만 대응)" --> G["ViewModel In-Memory StateFlow"]
+    D -- "아니오 (화면 회전에만 대응)" --> G["ViewModel In-Memory [stateflow](../../../stateflow-and-sharedflow.md)"]
 ```
 
 ---
@@ -57,7 +57,7 @@ class OrderViewModel @Inject constructor(
     // 1. Process Death 생존 필요 소량 상태 -> SavedStateHandle
     val orderId: StateFlow<String> = savedStateHandle.getStateFlow("order_id", "")
 
-    // 2. Persistent 생존 대용량 상태 -> Repository Single Source of Truth
+    // 2. Persistent 생존 대용량 상태 -> Repository [single source of truth](../../../single-source-of-truth.md)
     val orderDetail: StateFlow<OrderDetailUiState> = orderId
         .flatMapLatest { id -> orderRepository.observeOrderDetail(id) }
         .map { order -> OrderDetailUiState.Success(order) }

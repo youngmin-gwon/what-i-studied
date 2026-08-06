@@ -19,10 +19,10 @@ date created: 2026-08-04 11:00:00 +09:00
 
 ### 가능한 실패 경계와 우선순위
 
-1. **UI 스레드(Compose recomposition/layout 또는 View measure/layout/draw) 병목.** 가장 흔한 원인. 상위 노드 상태 읽기로 인한 광범위 recomposition 또는 heavy layout 계산.
+1. **UI 스레드(Compose [recomposition](../../02_app_framework/jetpack-compose/runtime/recomposition.md)/layout 또는 View measure/layout/draw) 병목.** 가장 흔한 원인. 상위 노드 상태 읽기로 인한 광범위 recomposition 또는 heavy layout 계산.
 2. **RenderThread / GPU 병목.** 대형 비트맵 디코딩, 과도한 Overdraw, 복잡한 Canvas 렌더링 노드, 셰이더 컴파일 지연 (Jank during shader compilation).
 3. **`BufferQueue` 및 SurfaceFlinger frame deadline 초과.** App (Producer) 이 렌더링을 제때 닫지 못해 SurfaceFlinger (Consumer) 합성 시점을 놓침.
-4. **Main Thread 가 비렌더링 작업(동기 I/O, 무거운 JSON 파싱, Binder IPC)으로 블록됨.** 렌더링 계산 자체는 가벼우나 메인 스레드 작업 큐가 밀린 경우.
+4. **Main Thread 가 비렌더링 작업(동기 I/O, 무거운 JSON 파싱, [binder ipc](../../01_system_internals/binder-ipc.md))으로 블록됨.** 렌더링 계산 자체는 가벼우나 메인 스레드 작업 큐가 밀린 경우.
 
 ### 진단 플로우차트 및 신호 판정 기준
 

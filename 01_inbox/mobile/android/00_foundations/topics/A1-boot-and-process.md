@@ -2,7 +2,7 @@
 title: A1-boot-and-process
 tags: [android, boot, system-internals, topic-synthesis]
 aliases: [Android 부팅, Boot Topic, 프로세스 생성]
-date modified: 2026-08-05 13:00:00 +09:00
+date modified: 2026-08-06 16:27:57 +09:00
 date created: 2026-08-04 16:00:00 +09:00
 ---
 
@@ -14,11 +14,11 @@ date created: 2026-08-04 16:00:00 +09:00
 
 ### 이 주제를 읽기 전에
 
-| 선행 개념 | 필요한 이유 |
-|---|---|
-| Linux 프로세스 모델 (fork, PID, UID) | Zygote fork 와 샌드박스 격리 이해 |
-| Binder IPC | AMS-Zygote, ActivityThread-AMS 통신 이해 |
-| SELinux 기초 | init 보안 도메인과 앱 격리 이해 |
+| 선행 개념                                                                                                                            | 필요한 이유                               |     |
+| -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --- |
+| Linux 프로세스 모델 (fork, PID, UID)                                                                                                   | Zygote fork 와 샌드박스 격리 이해             |     |
+| [binder ipc](../../01_system_internals/binder-ipc.md) | AMS-Zygote, ActivityThread-AMS 통신 이해 |     |
+| SELinux 기초                                                                                                                       | init 보안 도메인과 앱 격리 이해                 |     |
 
 관련 토픽: [A2 · Binder 와 IPC](./A2-binder-and-ipc.md) · A3 · 커널·HAL·드라이버 계층(Phase 10 미착수, 아직 없음)
 

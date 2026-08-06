@@ -9,7 +9,7 @@ date created: 2026-08-06 15:22:00 +09:00
 ## DI Ownership and Scope Contracts
 
 ### Scope는 owner lifetime에 맞춘 재사용 계약이다
-`@Scope` 메커니즘은 "어떤 graph/component instance 안에서 재사용되는가"를 정의한다. Application scope, Activity scope, ViewModel scope 는 서로 다른 owner lifetime 을 가진다. 짧은 lifetime 객체를 긴 graph 에 넣으면 leak 이 생긴다.
+`@Scope` 메커니즘은 "어떤 graph/component instance 안에서 재사용되는가"를 정의한다. Application scope, Activity scope, [viewmodel](../../viewmodel.md) scope 는 서로 다른 owner lifetime 을 가진다. 짧은 lifetime 객체를 긴 graph 에 넣으면 leak 이 생긴다.
 
 ### Android Context는 graph lifetime과 맞아야 한다
 Activity 나 Fragment Context 를 app-wide graph 에 넣으면 화면이 사라진 뒤에도 UI owner 가 붙잡힐 수 있으므로, Context의 주입은 component lifetime과 맞아야 한다.

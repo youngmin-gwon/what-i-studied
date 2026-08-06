@@ -39,7 +39,7 @@ fun PhotoFeed(items: List<FeedItem>) {
 ```text
 Macrobenchmark FrameTimingMetric에서 느린 스크롤 확인
   -> Perfetto frame timeline에서 UI/RenderThread 구간 확인
-  -> Layout Inspector로 recomposition·layout 구조 확인
+  -> Layout Inspector로 [recomposition](../../runtime/recomposition.md)·layout 구조 확인
   -> 한 가지 변경 후 같은 release 빌드와 여정으로 재측정
 ```
 

@@ -21,7 +21,7 @@ Android NDK(Native Development Kit)는 Java/Kotlin 기반의 Android 앱 아키�
 ```mermaid
 graph TD
     subgraph Managed App Layer (ART VM)
-        A1["Kotlin / Java Application Code\n(Activity, Compose, ViewModel)"]
+        A1["Kotlin / Java Application Code\n(Activity, Compose, [viewmodel](../../../02_app_framework/viewmodel.md))"]
         A2["Android Framework API\n(ActivityManager, MediaCodec, Camera2)"]
         A1 --> A2
     end

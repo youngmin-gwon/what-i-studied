@@ -77,7 +77,7 @@ RenderThread 는 UI thread 가 만든 그리기 명령을 실제로 GPU 에 제�
 | 물리 입력 → EventHub → InputReader → InputDispatcher | system_server 입력 파이프라인 | 4 장의 프로세스와는 별개로, system_server 가 어느 윈도우로 보낼지 먼저 판단한다 |
 | InputDispatcher → 대상 윈도우의 ViewRootImpl | WindowManagerService 가 관리하는 윈도우 상태 | 5 장의 task/윈도우와 연결되는 지점 |
 | ViewRootImpl → main thread 이벤트 큐 | Looper/Handler(6 장) | 6 장의 "유일한 큐" 제약이 그대로 적용된다 |
-| 입력 처리 → UI 상태 갱신(View 또는 Compose) | 앱 코드, Compose composition/layout/draw | 여기서 만들어진 상태가 5 장의 ViewModel/transient state 와 연결된다 |
+| 입력 처리 → UI 상태 갱신(View 또는 Compose) | 앱 코드, Compose composition/layout/draw | 여기서 만들어진 상태가 5 장의 [viewmodel](../../02_app_framework/viewmodel.md)/transient state 와 연결된다 |
 | 그리기 명령 → RenderThread → Surface 버퍼 제출 | RenderThread, GPU | 6 장에서 본 "UI thread 와 분리되지만 비용이 사라지지 않는" 계층 |
 | Surface 버퍼 → BufferQueue → SurfaceFlinger/HWC 합성 → display | SurfaceFlinger, WindowManagerService(SurfaceControl) | 앱은 surface 만 갖고 최종 배치는 WindowManager 가 갖는다 |
 
@@ -97,7 +97,7 @@ configuration change 는 이 루프 전체를 다시 타게 만드는 별도의 
 
 ### 실패 사례: jank 를 구간별로 분류한다
 
-사용자가 스크롤할 때 화면이 끊긴다는 증상은 이 루프의 여러 지점 중 하나가 프레임 예산을 넘겼다는 뜻이다. UI thread 의 과도한 measure/layout, RenderThread 의 지연, GPU 작업, `BufferQueue` 의 backpressure, SurfaceFlinger/HWC 합성 지연 중 어디가 원인인지에 따라 처방이 다르다. "recomposition 이 많다"와 "합성이 느리다"는 같은 "jank"라는 이름 아래 있어도 관찰 지점과 해결 방법이 다르다.
+사용자가 스크롤할 때 화면이 끊긴다는 증상은 이 루프의 여러 지점 중 하나가 프레임 예산을 넘겼다는 뜻이다. UI thread 의 과도한 measure/layout, RenderThread 의 지연, GPU 작업, `BufferQueue` 의 backpressure, SurfaceFlinger/HWC 합성 지연 중 어디가 원인인지에 따라 처방이 다르다. "[recomposition](../../02_app_framework/jetpack-compose/runtime/recomposition.md) 이 많다"와 "합성이 느리다"는 같은 "jank"라는 이름 아래 있어도 관찰 지점과 해결 방법이 다르다.
 
 ### 조사 방법: 입력에서 프레임까지 어디서 지연이 생겼는지 분류한다
 

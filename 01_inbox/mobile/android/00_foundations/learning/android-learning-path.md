@@ -36,7 +36,7 @@ Android learning path 는 resource 목록이 아니라 프로젝트에서 내려
 ### 문제별 경로
 
 - Android 자체가 처음이면 시작 경로를 그대로 따른다.
-- Flutter 에서 넘어왔다면 1, 2 뒤에 개념 경계 매핑을 먼저 읽고 Context, ViewModel, Compose state 를 각각 비교한다.
+- Flutter 에서 넘어왔다면 1, 2 뒤에 개념 경계 매핑을 먼저 읽고 Context, [viewmodel](../../02_app_framework/viewmodel.md), Compose state 를 각각 비교한다.
 - 기존 앱 문제를 해결하려면 전체 경로를 순회하지 않고 [Android System Map](../overview/android-system-map.md) 에서 소유 계층을 찾은 뒤 공식 guide/API reference 로 contract 를 확인한다.
 - 새 프로젝트를 설계한다면 state owner, persistence, background guarantee, security boundary, test/release gate 를 문장으로 결정할 수 있을 때 학습을 종료한다.
 

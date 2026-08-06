@@ -35,7 +35,7 @@ flowchart TD
 - [ShortcutManager caps dynamic shortcut count and rate limits background updates](../../04_system_services/device-capabilities/app-shortcuts-contracts/shortcutmanager-caps-dynamic-shortcut-count-and-rate-limits-background-updates.md)
 
 ### 4. 이 주제와 연결된 Worked Example
-- [03 Deep Link to Correct Task and Screen State](../worked-examples/03-deep-link-to-correct-task-and-screen-state.md) (숏컷 클릭 시 인텐트 라우팅과 백스택 재구성)
+- [03 Deep Link to Correct Task and Screen State](../worked-examples/03-deep-link-to-correct-task-and-screen-state.md) (숏컷 클릭 시 인텐트 라우팅과 백스택 [재구성](../../02_app_framework/jetpack-compose/runtime/recomposition.md))
 - [01 App Icon Tap to First Frame](../worked-examples/01-app-icon-tap-to-first-frame.md) (앱 실행 엔트리 포인트 변화)
 
 ### 5. 이 주제와 연결된 Diagnostic Runbook

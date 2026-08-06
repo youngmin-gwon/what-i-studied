@@ -12,13 +12,13 @@ date created: 2026-07-31 23:38:40 +09:00
 
 RecyclerView 에서는 adapter 가 목록 변경을 전달하고 ViewHolder 가 기존 view 에 데이터를 bind 한다. LazyColumn 에서는 item content 가 composable 로 선언되고, Compose runtime 이 필요한 item composition 을 유지하거나 다시 계산한다.
 
-Compose 목록에서 중요한 것은 stable key 와 state 위치다. item 내부 state 가 목록 이동, 삽입, 삭제 중에도 보존되어야 하면 key 를 명시하고, 화면 전체 상태는 ViewModel 이나 상위 state holder 가 소유한다.
+Compose 목록에서 중요한 것은 stable key 와 state 위치다. item 내부 state 가 목록 이동, 삽입, 삭제 중에도 보존되어야 하면 key 를 명시하고, 화면 전체 상태는 [viewmodel](../../../viewmodel.md) 이나 상위 state holder 가 소유한다.
 
 따라서 RecyclerView 최적화 습관을 그대로 옮기기보다 "목록 identity 는 key 로, UI 는 state 에서, side effect 는 effect boundary 에서"라는 Compose 계약으로 다시 설계한다.
 
 ### 판단 기준
 
-- RecyclerView 는 View 객체 재사용(Recycling & Binding)을 통해 뷰 객체 생성을 최소화하고, LazyColumn 은 화면에 보이는 아이템의 Composable 함수만 Composition 및 Recomposition 하는 방식으로 목록 렌더링을 최적화한다.
+- RecyclerView 는 View 객체 재사용(Recycling & Binding)을 통해 뷰 객체 생성을 최소화하고, LazyColumn 은 화면에 보이는 아이템의 Composable 함수만 Composition 및 [recomposition](../../../jetpack-compose/runtime/recomposition.md) 하는 방식으로 목록 렌더링을 최적화한다.
 - LazyColumn 에서 아이템의 스크롤 위치 보존 및 무효화(Invalidation) 방지를 위해 `key = { item.id }` 파라미터를 통한 고유 식별자(Stable Key) 지정을 기본 규칙으로 적용한다.
 
 ### 경계

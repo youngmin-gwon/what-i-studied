@@ -9,7 +9,7 @@ date created: 2026-07-31 23:59:00 +09:00
 ## Compose UI는 상태의 선언적 함수다
 
 ### 1. 개념 정의 (What)
-Jetpack Compose에서 UI는 명령형 View 객체의 집합을 수동으로 탐색하여 속성을 변경하는 대상이 아니라, **현재 앱 상태(State)를 입력으로 받아 트리를 계산하고 기술하는 선언적 함수($UI = f(State)$)**다. `@Composable` 함수는 데이터를 수신하여 UI 구조(Composition)를 생성하며, 상태가 변경되면 Compose Runtime이 수신된 새 상태를 기반으로 영향을 받는 함수를 다시 호출(Recomposition)하여 UI 설명을 갱신한다.
+Jetpack Compose에서 UI는 명령형 View 객체의 집합을 수동으로 탐색하여 속성을 변경하는 대상이 아니라, **현재 앱 상태(State)를 입력으로 받아 트리를 계산하고 기술하는 선언적 함수($UI = f(State)$)**다. `@Composable` 함수는 데이터를 수신하여 UI 구조(Composition)를 생성하며, 상태가 변경되면 Compose Runtime이 수신된 새 상태를 기반으로 영향을 받는 함수를 다시 호출([recomposition](../recomposition.md))하여 UI 설명을 갱신한다.
 
 ---
 
@@ -18,7 +18,7 @@ Jetpack Compose에서 UI는 명령형 View 객체의 집합을 수동으로 탐�
 
 이 방식은 다음과 같은 치명적 한계를 안고 있었다:
 - **상태 불일치(State-UI Desynchronization)**: 데이터 모델의 값과 화면에 표시된 뷰 상태가 동기화되지 않아 예외적인 UI 버그(예: 비동기 데이터 로딩 후 숨겨져야 할 로딩 프로그레스바가 여전히 표시됨)가 자주 발생한다.
-- **높은 상태 복잡도**: 뷰 자체도 내부 상태(예: `EditText` 입력 텍스트, `CheckBox` 체크 여부)를 가질 수 있어, 별도 모델과 함께 사용할 때 단일 진실 출처(Single Source of Truth, SSOT)를 일관되게 유지하려면 추가 동기화 코드가 필요하다.
+- **높은 상태 복잡도**: 뷰 자체도 내부 상태(예: `EditText` 입력 텍스트, `CheckBox` 체크 여부)를 가질 수 있어, 별도 모델과 함께 사용할 때 단일 진실 출처([single source of truth](../../../single-source-of-truth.md), SSOT)를 일관되게 유지하려면 추가 동기화 코드가 필요하다.
 
 Compose의 선언적 모델은 현재 상태에 대응하는 UI를 Composable 함수로 기술하게 하여, 개발자가 개별 UI 객체의 변경 절차(How)보다 **현재 상태에서 보여 줄 내용(What)**에 집중하도록 돕는다. 런타임은 매번 전체 화면을 다시 만드는 대신 필요한 scope와 후속 단계만 갱신할 수 있다.
 

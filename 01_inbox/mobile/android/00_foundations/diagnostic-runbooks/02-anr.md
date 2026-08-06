@@ -50,7 +50,7 @@ Android 시스템이 판정하는 대표적인 ANR 계약과 조사 우선순위
 4. **JobScheduler slow response (우선순위 4)**
    - `JobService.onStartJob()`, `onStopJob()` 또는 필요한 `setNotification()` 호출에 main thread가 제때 응답하지 못한다. 고정 숫자를 앱 계약으로 외우기보다 ANR subject와 실행 OS의 공식 문서를 확인한다.
 5. **Main Thread Lock Contention / Binder Synchronous IPC Wait (우선순위 5)**
-   - 메인 스레드가 백그라운드 스레드가 쥐고 있는 Synchronized Lock 이나 Mutex 를 기다리거나(`waiting to lock`), 시스템 서버/외부 프로세스와의 동기 Binder IPC 응답 (`BinderProxy.transact`) 대기 중 타임아웃 발생.
+   - 메인 스레드가 백그라운드 스레드가 쥐고 있는 Synchronized Lock 이나 Mutex 를 기다리거나(`waiting to lock`), 시스템 서버/외부 프로세스와의 동기 [binder ipc](../../01_system_internals/binder-ipc.md) 응답 (`BinderProxy.transact`) 대기 중 타임아웃 발생.
 
 ---
 

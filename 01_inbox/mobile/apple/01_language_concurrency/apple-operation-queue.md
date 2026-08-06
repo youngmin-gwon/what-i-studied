@@ -10,7 +10,7 @@ date created: 2025-12-16 17:01:32 +09:00
 
 >[!CAUTION] **Devil's Advocate : GCD 보다 더 깊은 레거시**
 >OperationQueue 는 GCD 위에 구축된 고수준 래퍼로, GCD 가 레거시가 된 현재 **이중으로 레거시**입니다.
-> 1. **의존성 관리**: `addDependency` 는 `TaskGroup` 또는 `async let` 의 구조적 동시성(Structured Concurrency)으로 더 안전하게 대체됩니다.
+> 1. **의존성 관리**: `addDependency` 는 `TaskGroup` 또는 `async let` 의 구조적 동시성([structured concurrency](../../../computer-science/structured-concurrency.md))으로 더 안전하게 대체됩니다.
 > 2. **취소**: `isCancelled` 수동 체크 대신 Swift Concurrency 의 `Task.checkCancellation()` 이 자동으로 전파됩니다.
 > 3. **KVO 기반 상태 머신**: Objective-C 런타임에 의존하며, Swift 6 의 Strict Concurrency 와 충돌합니다.
 >신규 코드에서는 사용을 피하고, 레거시 유지보수 목적으로만 참고하세요.

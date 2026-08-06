@@ -16,8 +16,8 @@ date created: 2026-08-04 16:00:00 +09:00
 
 | 선행 개념 | 필요한 이유 |
 |---|---|
-| Kotlin Coroutines (suspend, Flow) | Effect API 와 StateFlow 수집에 직접 등장 |
-| Android Activity/Fragment 생명주기 | Composable 수명과 ViewModel 연결 이해 |
+| Kotlin Coroutines (suspend, Flow) | Effect API 와 [stateflow](../../02_app_framework/stateflow-and-sharedflow.md) 수집에 직접 등장 |
+| Android Activity/Fragment 생명주기 | Composable 수명과 [viewmodel](../../02_app_framework/viewmodel.md) 연결 이해 |
 | ViewModel + UiState 패턴 | 화면 상태 소유권 결정 기준 이해 |
 
 관련 토픽: [B1 · 컴포넌트 생명주기와 Task](./B1-component-lifecycle-and-task.md) · [B3 · 데이터 레이어](./B3-data-layer.md)
@@ -40,7 +40,7 @@ flowchart TD
 
 Compose 의 실행 모델은 크게 세 단계다.
 
-**State 가 바뀌면** → **영향받는 Composable scope 만 재실행(Recomposition)** → **Layout/Draw 단계를 거쳐 화면에 반영**.
+**State 가 바뀌면** → **영향받는 Composable scope 만 재실행([recomposition](../../02_app_framework/jetpack-compose/runtime/recomposition.md))** → **Layout/Draw 단계를 거쳐 화면에 반영**.
 
 ---
 

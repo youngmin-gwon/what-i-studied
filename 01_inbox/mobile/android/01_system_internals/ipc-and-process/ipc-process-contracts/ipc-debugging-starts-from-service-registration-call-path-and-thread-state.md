@@ -49,7 +49,7 @@ flowchart TD
 adb shell service check status_bar
 adb shell service list | grep -i "telephony"
 
-# 2. Binder IPC 스레드 상태 및 버퍼 현황 덤프
+# 2. [binder ipc](../../binder-ipc.md) 스레드 상태 및 버퍼 현황 덤프
 adb shell dumpsys binder stats
 adb shell dumpsys binder failed-transactions
 

@@ -1,5 +1,5 @@
 ---
-title: cachedin-ties-pagingdata-flow-to-viewmodel-lifetime
+title: cachedin-ties-pagingdata-flow-to-[viewmodel](../../../viewmodel.md)-lifetime
 tags: [android, android/data, android/paging]
 aliases: ["cachedIn은 PagingData Flow를 ViewModel 수명에 묶는다"]
 date modified: 2026-08-04 14:00:00 +09:00
@@ -22,7 +22,7 @@ class BenefitListViewModel(
 }
 ```
 
-`cachedIn` 을 빼고 `repository.pagedBenefits()` 를 화면 회전마다 새로 `collect` 하면, 매번 `Pager` 의 `pagingSourceFactory` 가 다시 호출되어 첫 페이지부터 네트워크 요청이 다시 발생한다. `cachedIn(viewModelScope)` 를 두면 `PagingData` 스트림이 `viewModelScope` 안의 `SharedFlow` 로 공유되어, 같은 화면을 다시 구독해도 이미 로드된 페이지를 다시 요청하지 않는다.
+`cachedIn` 을 빼고 `repository.pagedBenefits()` 를 화면 회전마다 새로 `collect` 하면, 매번 `Pager` 의 `pagingSourceFactory` 가 다시 호출되어 첫 페이지부터 네트워크 요청이 다시 발생한다. `cachedIn(viewModelScope)` 를 두면 `PagingData` 스트림이 `viewModelScope` 안의 `[sharedflow](../../../stateflow-and-sharedflow.md)` 로 공유되어, 같은 화면을 다시 구독해도 이미 로드된 페이지를 다시 요청하지 않는다.
 
 ### 판단 기준
 

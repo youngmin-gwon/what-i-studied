@@ -23,5 +23,5 @@ date created: 2026-08-01 00:00:00 +09:00
 - [Android ViewModel](./viewmodel/viewmodel.md)
 - [Android UI State](./ui-state/ui-state.md)
 - [Android Reducer](./reducer/reducer.md)
-- [Flow와 StateFlow 상태 계약](../../data/async-flow/flow-state-contracts/flow-state-contracts.md)
+- [Flow와 [stateflow](../../stateflow-and-sharedflow.md) 상태 계약](../../data/async-flow/flow-state-contracts/flow-state-contracts.md)
 - [Compose 상태와 Effect 계약](../../jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)

@@ -23,7 +23,7 @@ flowchart LR
         CryptoEngine[Software, TEE, or StrongBox backend]
     end
 
-    AppCode -->|Binder IPC Request with Key Alias| KeystoreDaemon
+    AppCode -->|[binder ipc](../../../01_system_internals/binder-ipc.md) Request with Key Alias| KeystoreDaemon
     KeystoreDaemon --> CryptoEngine
     KeyMaterial -. Not returned to app .-> AppProcess
     CryptoEngine -->|Result Ciphertext / Plaintext| AppCode

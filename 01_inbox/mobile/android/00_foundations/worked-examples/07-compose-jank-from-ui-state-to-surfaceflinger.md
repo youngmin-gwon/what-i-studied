@@ -32,7 +32,7 @@ date created: 2026-08-04 03:10:00 +09:00
    - 텍스트 셰이더 빌드, 대용량 비트맵 디코딩, Overdraw 비트맵 합성 등이 일어나는 경우 RenderThread 가 병목이 되어 VSync deadline 을 놓치게 된다.
 
 3. **System Server & IPC Layer (BufferQueue & SurfaceFlinger Composition)**
-   - RenderThread 가 렌더링을 마친 GraphicBuffer 를 Binder IPC (`IGraphicBufferProducer`)를 통해 `BufferQueue` 에 `queueBuffer` 한다.
+   - RenderThread 가 렌더링을 마친 GraphicBuffer 를 [binder ipc](../../01_system_internals/binder-ipc.md) (`IGraphicBufferProducer`)를 통해 `BufferQueue` 에 `queueBuffer` 한다.
    - VSync-sf 신호가 도착하면 `SurfaceFlinger` 가 consumer 로서 `dequeueBuffer` / `acquireBuffer` 수행 후 앱의 Surface 와 다른 시스템 UI Surface(StatusBar, NavigationBar)를 레이어 합성한다.
    - UI Thread 나 RenderThread 의 대기가 길어져 VSync-sf 시점에 큐에 준비된 버퍼가 없으면, SurfaceFlinger 는 이전 프레임을 재사용하여 화면 스태터(Jank / Stutter)가 발생한다.
 
@@ -47,7 +47,7 @@ date created: 2026-08-04 03:10:00 +09:00
 | 평가 항목 | 성공 경로 (State Read Deferral to Draw Phase) | 실패 분기 (Unscoped Composition Phase Read) |
 | :--- | :--- | :--- |
 | **Compose Phase** | Draw Phase 로 상태 읽기 지연 (`graphicsLayer { alpha = ... }`) | Composition Phase 에서 상태 읽기 (`alpha = state.value`) |
-| **Recomposition Scope** | 스크롤 시 Recomposition 0 회 (Composition/Layout 단계 건너뜀) | 스크롤 시 `LazyColumn` 및 모든 child 노드 매 프레임 Recomposition |
+| **[recomposition](../../02_app_framework/jetpack-compose/runtime/recomposition.md) Scope** | 스크롤 시 Recomposition 0 회 (Composition/Layout 단계 건너뜀) | 스크롤 시 `LazyColumn` 및 모든 child 노드 매 프레임 Recomposition |
 | **UI Thread 시간** | `Choreographer#doFrame` duration < 2.0ms | `Choreographer#doFrame` duration > 16.6ms (VSync 예산 초과) |
 | **`frameOverrunMs`** | 음수 (-) 값 유지 (충분한 프레임 헤드룸 확보) | 양수 (+) 값 발생 (Jank / Frame Missed) |
 | **SurfaceFlinger 상태** | `BufferQueue` 에 매 VSync 마다 새 버퍼 래치 완료 | `BufferQueue` 버퍼 부족으로 이전 프레임 latch (Frame Drop) |

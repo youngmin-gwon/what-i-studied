@@ -76,7 +76,7 @@ class ThreadSafeCache {
 
 #### 2. DispatchGroup: 여러 작업 기다리기 (🚧 대안: `TaskGroup` 또는 `async let`)
 
-과거에는 여러 비동기 호출이 끝나기를 기다릴 때 `DispatchGroup` 을 썼으나 완료 전에 `leave()` 를 빠뜨리는 등의 실수가 잦았습니다. 현재는 `TaskGroup` 배열 반환이나 구조적 동시성(Structured Concurrency)을 활용합니다.
+과거에는 여러 비동기 호출이 끝나기를 기다릴 때 `DispatchGroup` 을 썼으나 완료 전에 `leave()` 를 빠뜨리는 등의 실수가 잦았습니다. 현재는 `TaskGroup` 배열 반환이나 구조적 동시성([structured concurrency](../../../computer-science/structured-concurrency.md))을 활용합니다.
 
 ```swift
 let group = DispatchGroup()

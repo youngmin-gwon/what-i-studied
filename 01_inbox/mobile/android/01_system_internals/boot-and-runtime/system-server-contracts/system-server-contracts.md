@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## system_server 와 ActivityManager 계약
 
-`system_server`는 Android 시스템 프레임워크 핵심 서비스들(AMS, ATMS, PKMS, WMS 등 100여 개 이상)을 단일 프로세스 안에서 구동하고, Binder IPC 엔드포인트를 제공하여 앱 프로세스의 컴포넌트 생명주기, Task 백스택, 시스템 자원 할당, ANR 타임아웃 감지, 그리고 OOM Reclaim 우선순위 정책을 통합 제어하는 중추이다.
+`system_server`는 Android 시스템 프레임워크 핵심 서비스들(AMS, ATMS, PKMS, WMS 등 100여 개 이상)을 단일 프로세스 안에서 구동하고, [binder ipc](../../binder-ipc.md) 엔드포인트를 제공하여 앱 프로세스의 컴포넌트 생명주기, Task 백스택, 시스템 자원 할당, ANR 타임아웃 감지, 그리고 OOM Reclaim 우선순위 정책을 통합 제어하는 중추이다.
 
 ```mermaid
 flowchart TD

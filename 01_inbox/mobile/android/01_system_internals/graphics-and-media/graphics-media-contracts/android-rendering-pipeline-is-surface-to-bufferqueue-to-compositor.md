@@ -19,7 +19,7 @@ Android 화면 렌더링의 핵심 구조는 애플리케이션이 픽셀을 직
    - `ANativeWindow` 인터페이스를 통해 BufferQueue로부터 비어 있는 버퍼를 요청(`dequeueBuffer`)하고, 렌더링 후 완료된 버퍼를 제출(`queueBuffer`)한다.
 
 2. **BufferQueue (Shared Memory Buffer Pool)**:
-   - `GraphicBuffer` 메모리 슬롯을 관리하며 `IGraphicBufferProducer`와 `IGraphicBufferConsumer` Binder IPC 인터페이스로 생산자와 소비자를 격리한다.
+   - `GraphicBuffer` 메모리 슬롯을 관리하며 `IGraphicBufferProducer`와 `IGraphicBufferConsumer` [binder ipc](../../binder-ipc.md) 인터페이스로 생산자와 소비자를 격리한다.
    - 렌더링 동기화를 위해 **Fence**(GPU 작업이 끝났음을 알리는 동기화 신호 — 이 신호가 signal 되기 전까지는 그 버퍼를 아직 안전하게 읽거나 쓸 수 없다는 뜻)인 EGLFence/Sync FD를 버퍼와 함께 전달하여 CPU-GPU 비동기 대기 시간을 최소화한다.
 
 3. **Consumer (SurfaceFlinger / HWC)**:

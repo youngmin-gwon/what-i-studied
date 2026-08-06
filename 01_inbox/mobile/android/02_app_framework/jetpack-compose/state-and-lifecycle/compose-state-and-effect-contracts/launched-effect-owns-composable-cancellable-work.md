@@ -18,7 +18,7 @@ date created: 2026-07-31 16:53:16 +09:00
 
 Composable 바디 내부에서 `CoroutineScope().launch { … }` 를 직접 실행하는 것은 매우 치명적이다:
 
-- **코루틴 누수(Leak)**: Recomposition 이 일어날 때마다 새로운 코루틴이 무한 생성되고, 화면을 벗어나도 비동기 작업이 취소되지 않아 백그라운드 자원을 점유한다.
+- **코루틴 누수(Leak)**: [recomposition](../../runtime/recomposition.md) 이 일어날 때마다 새로운 코루틴이 무한 생성되고, 화면을 벗어나도 비동기 작업이 취소되지 않아 백그라운드 자원을 점유한다.
 - **Side-Effect 규칙 위반**: Composition 계산 파이프라인 중간에 비동기 작업을 직접 구동하므로 멱등성과 순수성이 깨진다.
 
 `LaunchedEffect` 는 코루틴 수명주기를 Composition 수명주기와 정확히 일치시켜 자동 취소 및 안전한 비동기 작업 실행을 보장한다.
@@ -65,7 +65,7 @@ sequenceDiagram
 @Composable
 fun UserDetailScreen(
     userId: String,
-    viewModel: UserDetailViewModel = hiltViewModel()
+    [viewmodel](../../../viewmodel.md): UserDetailViewModel = hiltViewModel()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 

@@ -9,10 +9,10 @@ date created: 2026-08-01 00:00:00 +09:00
 ## Dispatcher는 실행 위치를 고르고 Scope는 작업 수명을 소유한다
 
 ### 개념 (What)
-`CoroutineDispatcher`는 Coroutine이 **어느 스레드 또는 스레드 풀(Execution Context)에서 실행될지** 결정하는 요소다. 반면 `CoroutineScope`는 Coroutine의 **수명(Lifetime)과 트리 형태의 부모-자식 관계(Structured Concurrency)**를 소유한다. 이 둘은 완전히 직교(Orthogonal)하는 개념이며, Dispatcher를 변경한다고 해서 Coroutine의 수명이나 취소 정책이 변경되지 않는다.
+`CoroutineDispatcher`는 Coroutine이 **어느 스레드 또는 스레드 풀(Execution Context)에서 실행될지** 결정하는 요소다. 반면 `CoroutineScope`는 Coroutine의 **수명(Lifetime)과 트리 형태의 부모-자식 관계([structured concurrency](../../../../../../computer-science/structured-concurrency.md))**를 소유한다. 이 둘은 완전히 직교(Orthogonal)하는 개념이며, Dispatcher를 변경한다고 해서 Coroutine의 수명이나 취소 정책이 변경되지 않는다.
 
 ### 왜 필요한가 (Why)
-1. **관심사의 완벽한 분리**: 비동기 코드를 작성할 때 "얼마나 오랫동안 살아야 하는가(ViewModel 범위인가, Global 범위인가)"와 "CPU/I/O 중 어떤 자원을 사용하는가"를 따로 관리해야 코드 직관성과 재사용성이 확보된다.
+1. **관심사의 완벽한 분리**: 비동기 코드를 작성할 때 "얼마나 오랫동안 살아야 하는가([viewmodel](../../../viewmodel.md) 범위인가, Global 범위인가)"와 "CPU/I/O 중 어떤 자원을 사용하는가"를 따로 관리해야 코드 직관성과 재사용성이 확보된다.
 2. **Main-Safety 보장**: UI 레이어나 Repository API 호출 시 외부에서 Dispatcher 전환을 신경 쓰지 않도록 suspend 함수 내부에서 `withContext(Dispatchers.IO)`를 적용하여 Main-safe API 계약을 제공한다.
 3. **테스트 용이성**: Dispatcher를 고정 스레드 풀로 하드코딩하지 않고 주입받게 설계하면, 단위 테스트 시 `StandardTestDispatcher`나 `UnconfinedTestDispatcher`로 교체하여 비동기 시간을 결정론적(Deterministic)으로 제어할 수 있다.
 

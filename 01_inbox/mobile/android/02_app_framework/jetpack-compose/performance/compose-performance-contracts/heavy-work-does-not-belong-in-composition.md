@@ -37,7 +37,7 @@ class ReportViewModel(
 }
 
 @Composable
-fun ReportScreen(viewModel: ReportViewModel) {
+fun ReportScreen([viewmodel](../../../viewmodel.md): ReportViewModel) {
     val summary by viewModel.summary.collectAsStateWithLifecycle()
     Text(summary)
 }

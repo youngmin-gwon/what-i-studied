@@ -49,6 +49,6 @@ Jetpack Compose 런타임은 상태(State) 변경을 감지하고 UI를 재구�
 
 ## 연결 문서
 
-- [Pure Function](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/computer-science/pure-function.md) - 불변 데이터를 기반으로 동작하는 순수 함수 레퍼런스
-- [Side Effect](file:///Users/youngmin/Documents/Obsidian/what-i-studied/02_references/computer-science/side-effect.md) - 불변성이 차단하는 상태 변이와 부작용
-- [Composable Body Must Be Fast, Idempotent and Side-Effect Free](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md) - Compose 본문 규약
+- [Pure Function](pure-function.md) - 불변 데이터를 기반으로 동작하는 순수 함수 레퍼런스
+- [Side Effect](../../02_references/computer-science/side-effect.md) - 불변성이 차단하는 상태 변이와 부작용
+- [Composable Body Must Be Fast, Idempotent and Side-Effect Free](../mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-must-be-fast-idempotent-and-side-effect-free.md) - Compose 본문 규약

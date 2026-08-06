@@ -19,7 +19,7 @@ Compose 에서는 composable 함수가 state 를 읽고 UI tree 를 다시 계�
 ### 판단 기준
 
 - View System 의 가변 객체 트리(Mutable View Tree) 변형 방식 대신 Compose 의 불변(Immutable) 상태 기반 UI 렌더링 재계산 모델을 적용한다.
-- 뷰 객체 참조(View Reference)를 저장하는 대신 State 읽기 스코프(Snapshot State Read Scope)를 명확히 분리하여 Recomposition 성능을 높인다.
+- 뷰 객체 참조(View Reference)를 저장하는 대신 State 읽기 스코프(Snapshot State Read Scope)를 명확히 분리하여 [recomposition](../../../jetpack-compose/runtime/recomposition.md) 성능을 높인다.
 
 ### 경계
 

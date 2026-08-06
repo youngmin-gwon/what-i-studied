@@ -28,7 +28,7 @@ date created: 2026-08-04 03:00:00 +09:00
    - 앱이 화면에 떠 있는 동안 `FusedLocationProviderClient.requestLocationUpdates()` 는 정상 동작한다.
 
 2. **App Framework & IPC Layer (Background Transition & Permission Gate Split)**
-   - 사용자가 앱을 떠나 백그라운드로 전환되는 순간, `FusedLocationProviderClient` 는 위치 업데이트 요청을 Binder IPC 를 통해 System Server 의 `LocationManagerService` (LMS) 로 전달한다.
+   - 사용자가 앱을 떠나 백그라운드로 전환되는 순간, `FusedLocationProviderClient` 는 위치 업데이트 요청을 [binder ipc](../../01_system_internals/binder-ipc.md) 를 통해 System Server 의 `LocationManagerService` (LMS) 로 전달한다.
    - LMS 는 요청을 처리하기 전 9 장의 **다단계 Security Gate Check** 를 수행한다.
      - **Gate 1 (PackageManagerService)**: `checkSelfPermission(ACCESS_FINE_LOCATION)` → **Pass (`PERMISSION_GRANTED`)**
      - **Gate 2 (PermissionManagerService)**: `checkSelfPermission(ACCESS_BACKGROUND_LOCATION)` → **Fail (`PERMISSION_DENIED`)**

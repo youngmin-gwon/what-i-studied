@@ -14,7 +14,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 Reducer 는 모든 화면에 기본으로 추가하는 계층이 아니다.
 
-작은 화면은 ViewModel 의 `_uiState.update { it.copy(…) }` 가 가장 읽기 쉽고, 상태 계산이 반복되거나 전이 규칙을 한 곳에서 읽어야 할 때만 Reducer 를 도입한다.
+작은 화면은 [viewmodel](../../../viewmodel.md) 의 `_uiState.update { it.copy(…) }` 가 가장 읽기 쉽고, 상태 계산이 반복되거나 전이 규칙을 한 곳에서 읽어야 할 때만 Reducer 를 도입한다.
 
 ### 아직 필요하지 않은 경우
 

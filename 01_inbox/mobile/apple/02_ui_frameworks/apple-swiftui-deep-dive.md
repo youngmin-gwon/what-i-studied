@@ -77,7 +77,7 @@ struct ChildView: View { @ObservedObject var vm: MyViewModel; ... }
 @Observable class MyViewModel { var data = 0 } // @Published 불필요
 
 struct ParentView: View {
-    @State private var viewModel = MyViewModel() // @StateObject 대신 @State 사용 가능
+    @State private var [viewmodel](../../android/02_app_framework/viewmodel.md) = MyViewModel() // @StateObject 대신 @State 사용 가능
     var body: some View { ChildView(viewModel: viewModel) }
 }
 struct ChildView: View { 

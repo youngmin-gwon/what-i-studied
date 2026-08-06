@@ -29,7 +29,7 @@ date created: 2026-08-04 18:00:00 +09:00
 ```mermaid
 flowchart TB
     subgraph AppProc["호출한 앱 프로세스 (App PID)"]
-        A1["Activity / Composable"] -->|"CustomTabsIntent.launchUrl()"| A2["Intent / Binder IPC"]
+        A1["Activity / Composable"] -->|"CustomTabsIntent.launchUrl()"| A2["Intent / [binder ipc](../../../../01_system_internals/binder-ipc.md)"]
         W1["WebView (View)"] -.->|"같은 PID, 같은 UID 실행"| W2["웹 콘텐츠 실행 엔진"]
         W2 -.->|"addJavascriptInterface() 보안 취약 경로"| W1
     end

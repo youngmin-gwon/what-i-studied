@@ -33,7 +33,7 @@ sequenceDiagram
 
     AMS->>ZYG: Socket Write: startProcess(abi, uid, gids, processName)
     ZYG->>APP: fork() & specialize
-    APP->>AMS: Binder IPC: attachApplication(IApplicationThread)
+    APP->>AMS: [binder ipc](../../binder-ipc.md): attachApplication(IApplicationThread)
     AMS->>APP: Binder IPC: bindApplication()
     AMS->>APP: Binder IPC: scheduleCreateService() / scheduleReceiver()
     Note over AMS: Monitor Component Lifecycle & ANR Timeouts

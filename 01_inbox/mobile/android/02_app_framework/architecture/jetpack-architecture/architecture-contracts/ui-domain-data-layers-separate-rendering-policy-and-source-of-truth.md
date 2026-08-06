@@ -8,14 +8,14 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## UI, domain, data layer는 rendering, policy, source of truth를 분리한다
 
-안드로이드 권장 레이어드 아키텍처(Layered Architecture)의 핵심 원칙은 **UI Layer 는 선언적 렌더링(Rendering)만 담당하고, Domain Layer 는 비즈니스 정책(Policy/Rules)을 관장하며, Data Layer 는 데이터의 단일 출처(Single Source of Truth)를 보장**하여 관심사를 완벽히 분리하는 것이다.
+안드로이드 권장 레이어드 아키텍처(Layered Architecture)의 핵심 원칙은 **UI Layer 는 선언적 렌더링(Rendering)만 담당하고, Domain Layer 는 비즈니스 정책(Policy/Rules)을 관장하며, Data Layer 는 데이터의 단일 출처([single source of truth](../../../single-source-of-truth.md))를 보장**하여 관심사를 완벽히 분리하는 것이다.
 
 ---
 
 ### 1. 개념 및 핵심 명제 (What)
 
 1. **UI Layer (Rendering & State Interaction)**:
-   Jetpack Compose UI 및 StateHolder(ViewModel)로 구성된다. UI State 를 화면에 렌더링하고, 사용자의 인터랙션 이벤트를 인텐트/액션으로 변환하여 하위 레이어로 전달한다.
+   Jetpack Compose UI 및 StateHolder([viewmodel](../../../viewmodel.md))로 구성된다. UI State 를 화면에 렌더링하고, 사용자의 인터랙션 이벤트를 인텐트/액션으로 변환하여 하위 레이어로 전달한다.
 2. **Domain Layer (Optional Policy & pure Kotlin Logic)**:
    UseCase 단위로 작성되며 복잡한 비즈니스 규칙(예: 할인율 계산, 복수 리포지토리 데이터 조합)을 캡슐화한다. Android SDK 에 독립적인 순수 Kotlin 모듈이다.
 3. **Data Layer (Single Source of Truth & Data Operations)**:
@@ -48,7 +48,7 @@ sequenceDiagram
     Repo-->>UC: "Domain Model 변환 후 반환"
     UC-->>VM: "최종 비즈니스 결과 반환"
     VM->>VM: "MutableStateFlow.value = NewUiState"
-    VM-->>UI: "StateFlow 관찰을 통한 Recomposition (렌더링)"
+    VM-->>UI: "[stateflow](../../../stateflow-and-sharedflow.md) 관찰을 통한 [recomposition](../../../jetpack-compose/runtime/recomposition.md) (렌더링)"
 ```
 
 ---

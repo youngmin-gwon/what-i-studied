@@ -16,7 +16,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 1. **Native ANativeWindow 바인딩 및 IPC**:
    - Java `Surface` 클래스는 C++ NDK 레벨의 `ANativeWindow`를 래핑한다.
-   - 내부적으로 `IGraphicBufferProducer` Binder IPC 핸들을 소유하여 다른 프로세스(예: CameraService, MediaServer)로 마샬링(Parcelable) 전달이 가능하다.
+   - 내부적으로 `IGraphicBufferProducer` [binder ipc](../../binder-ipc.md) 핸들을 소유하여 다른 프로세스(예: CameraService, MediaServer)로 마샬링(Parcelable) 전달이 가능하다.
 
 2. **생명주기 및 SurfaceHolder / SurfaceTexture**:
    - `SurfaceView`는 별도의 전용 Surface(`SurfaceHolder`)를 생성하여 SurfaceFlinger 레이어로 바로 결합된다.

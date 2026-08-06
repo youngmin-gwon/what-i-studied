@@ -32,7 +32,7 @@ date created: 2026-08-04 03:20:00 +09:00
 
 3. **App Framework & IPC Layer (PackageInstaller Session & Signature Validation)**
    - 사용자 기기의 Google Play Store 클라이언트는 `PackageInstaller` API 를 통해 `PackageInstaller.Session` 을 생성하고 재서명된 APK 분할 파일들을 랭크 스트리밍한다.
-   - Binder IPC 를 통해 System Server 의 `PackageManagerService` (PMS) 및 `InstallPackageHelper` 로 업데이트 요청이 전달된다.
+   - [binder ipc](../../01_system_internals/binder-ipc.md) 를 통해 System Server 의 `PackageManagerService` (PMS) 및 `InstallPackageHelper` 로 업데이트 요청이 전달된다.
    - PMS 는 다음 3 가지 게이트를 엄격히 검증한다:
      - **Gate 1 (Identity)**: 기존 설치된 패키지의 `applicationId` 와 일치하는가?
      - **Gate 2 (Version)**: 새 APK 의 `versionCode` 가 기존 버전보다 높은가?

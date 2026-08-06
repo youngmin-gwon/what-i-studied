@@ -22,7 +22,7 @@ date modified: 2026-08-06 14:48:27 +09:00
   - **Graphics**: EGL, GL Malloc, SurfaceFlinger 렌더 버퍼.
   - **PSS (Proportional Set Size)**: 프로세스 고유 메모리 + 공유 라이브러리(Shared Page)를 공유 프로세스 수로 나눈 합산 지표.
 - **LeakCanary 누수 탐지 원리**:
-  - 파괴된 Activity/Fragment/View와 cleared ViewModel 등 더 이상 필요하지 않은 객체를 `ObjectWatcher`가 weak reference로 감시한다.
+  - 파괴된 Activity/Fragment/View와 cleared [viewmodel](../../../02_app_framework/viewmodel.md) 등 더 이상 필요하지 않은 객체를 `ObjectWatcher`가 weak reference로 감시한다.
   - 기본 retained delay는 5초지만 구성 가능한 값이다. 지연 뒤 GC 후에도 남은 객체를 retained 후보로 분류하며, 곧바로 모든 후보마다 heap dump를 뜨는 것은 아니다. 기본적으로 앱이 보일 때 5개, 보이지 않을 때 1개의 retained-object 임계값에 도달하면 heap dump를 만들고 Shark가 GC root 경로를 분석한다.
 
 ### 2. 메모리 누수 GC Root 참조 사슬 흐름

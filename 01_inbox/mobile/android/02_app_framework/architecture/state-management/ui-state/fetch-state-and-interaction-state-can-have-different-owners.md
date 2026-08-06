@@ -14,7 +14,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 Repository 에서 오는 fetch 상태와 사용자의 입력·선택·검증·submit 상태는 같은 화면에 있어도 성격이 다를 수 있다.
 
-전자는 데이터 계층이나 공유 관찰자가 소유하고, 후자는 screen ViewModel 이 소유하는 편이 자연스럽다.
+전자는 데이터 계층이나 공유 관찰자가 소유하고, 후자는 screen [viewmodel](../../../viewmodel.md) 이 소유하는 편이 자연스럽다.
 
 ```text
 Repository Flow -> App/session 또는 screen data state

@@ -2,13 +2,13 @@
 title: functional programming
 tags: [concept, fp]
 aliases: []
-date modified: 2024-12-16 15:31:49 +09:00
+date modified: 2026-08-06 16:27:13 +09:00
 date created: 2024-12-09 21:31:10 +09:00
 ---
 
 ## Motive
 
-> keep the computation and business logic pure and free from side effects.
+>keep the computation and business logic pure and free from side effects.
 
 All of the API calls, database transactions and stuff with side effects move towards the external layer of the application
 
@@ -18,19 +18,19 @@ In Mathematics, functions are mappers i.e., they map inputs to outputs
 
 ### Total Function
 
-> A function defined for all its inputs
+>A function defined for all its inputs
 
 ![total_fn](../../_assets/functional-programming/total_fn.png)
 
 ### Partial Function
 
-> A function that is not defined for some of its inputs
+>A function that is not defined for some of its inputs
 
 ![partial_fn.png](../../_assets/functional-programming/partial_fn.png)
 
 ## Pure function
 
-> A function that is deterministic(always giving same output) and has no side effects.
+>A function that is deterministic(always giving same output) and has no side effects.
 
 ### Feature 1: deterministic
 
@@ -109,7 +109,7 @@ num partialDivide(int dividend, int divider) => dividend ~/ divider;
 
 ### Referential transparency
 
-> a function call can be reduced by its return value and not affect the rest of the program
+>a function call can be reduced by its return value and not affect the rest of the program
 
 another way to determine if a function is pure
 
@@ -117,15 +117,15 @@ another way to determine if a function is pure
 
 ### Parameter
 
-> part of function declaration
+>part of function declaration
 
 ### Argument
 
-> values passed to function
+>values passed to function
 
 ## Arity
 
-> the number of arguments a function takes
+>the number of arguments a function takes
 
 ```dart
 int increment(int number) => number+1; // arity: 1(unary)
@@ -139,7 +139,7 @@ bool isOdd(int number) => number %2 == 1;// arity: 1(unary), predicate function(
 
 ## Closure
 
-> when a function is defined into another function, that inner function remembers the scope of the outer function even if the outer function is executed and no longer available
+>when a function is defined into another function, that inner function remembers the scope of the outer function even if the outer function is executed and no longer available
 
 ```dart
 typedef IntCallback = int Function(int number);
@@ -171,7 +171,7 @@ IntCallback add(int a) {
 
 ## Partial Application
 
-> a function applied to some of its inputs
+>a function applied to some of its inputs
 
 closure helps us to achieve partial application
 
@@ -181,7 +181,7 @@ The `add` function above needs two arguments in series to return the result, bu
 
 ## Point-free style
 
-> a function without needing to pass in the arguments explicitly
+>a function without needing to pass in the arguments explicitly
 
 ```dart
 void main() {
@@ -197,7 +197,7 @@ int increment(int number) => number+1;
 
 ## Currying
 
-> Breaking down a multi-argument function into a series of single-argument functions
+>Breaking down a multi-argument function into a series of single-argument functions
 
 ```dart
 void main(List‹String> args) {
@@ -221,14 +221,14 @@ StringCallback curriedGreet(String salutation) {
 
 ## Currying vs Partial Application
 
-> The partial application can take more than one argument at a time,
-> whereas the curried function always has to return a unary function
+>The partial application can take more than one argument at a time,
+>whereas the curried function always has to return a unary function
 
 Curried functions are used to create partial applications, but all partial applications are not curried functions.
 
 ## Composition
 
-> a pipeline through which the data flows
+>a pipeline through which the data flows
 
 In FP, small general-purpose functions are defined and they can be combined to make complex functions. The output of one function becomes the input of another function, and so on. The input gets passed from function to function and finally returns the result.
 
@@ -295,7 +295,7 @@ Function pipe(Function f, Function g) => (x) => g(f(x));
 
 ## Immutability
 
-> something that cannot be changed
+>something that cannot be changed
 
 <-> mutability
 
@@ -307,11 +307,11 @@ Both value cannot be modified after being set
 
 ### final
 
-> `final` variable is evaluated at runtime
+>`final` variable is evaluated at runtime
 
 ### const
 
-> `const` variable is compile-time constant and is implicitly final
+>`const` variable is compile-time constant and is implicitly final
 
 ## Why prefer immutability
 
@@ -321,7 +321,7 @@ Both value cannot be modified after being set
 
 ## How to update immutable states
 
-> Instead of changing values, create of a copy of the instance we need to access and use it
+>Instead of changing values, create of a copy of the instance we need to access and use it
 
 eg. copyWith()
 
@@ -383,14 +383,14 @@ void main() {
 
 ## Equality
 
-> check if two objects are equal by using the `==` operator
+>check if two objects are equal by using the `==` operator
 
 - Referential equality: two objects refer to the same object
 - Value equality: both two objects have the same value
 
 ## Recursion
 
-> when a function calls itself again and again until a specific condition is met
+>when a function calls itself again and again until a specific condition is met
 
 - Base Condition: acts as an exit point for the recursive function. it is used to stop the recursive function calls.
 - Recursive Condition: the place where the function keeps calling itself again and again
@@ -410,7 +410,7 @@ int _recursiveSum(int number) {
 
 ## Iteration vs Recursion
 
-> Iteration is imperative, and recursion is declarative
+>Iteration is imperative, and recursion is declarative
 
 Iteration has to mange state, so it's stateful.
 
@@ -420,19 +420,19 @@ Reading and making sense of a code is easier when it is declarative. Whereas in 
 
 ### Performance
 
-> Recursive functions are not as efficient as iterative ones
+>Recursive functions are not as efficient as iterative ones
 
 How to make recursive functions scalable and performant? -> Memoization
 
 ## Higher-Order Function(HOF)
 
-> A function that takes a function as an argument or returns a function.
+>A function that takes a function as an argument or returns a function.
 
 It is possible when functions are treated as first-class citizens.
 
 ### higher order functions: filter
 
-> The filter takes a predicate function and an array and returns a new list with only those values for which the predicate function returns true.
+>The filter takes a predicate function and an array and returns a new list with only those values for which the predicate function returns true.
 
 ```dart
 const _arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -461,7 +461,7 @@ bool isOdd(int number) = !isEven(number);
 
 ### higher order functions: map
 
-> The map works the same way as a filter, except that instead of taking a predicate function, it takes a mapper function, applies it to each element from the list, and returns a new list.
+>The map works the same way as a filter, except that instead of taking a predicate function, it takes a mapper function, applies it to each element from the list, and returns a new list.
 
 ```dart
 import '../utilities/utilities.dart';
@@ -501,7 +501,7 @@ int doubleIt(int number) => number * 2;
 
 ### higher order functions: flatMap
 
-> The **flatMap** takes a function and applies it to every element in the collection, and its sub-collection. After mapping, it flattens the list.
+>The **flatMap** takes a function and applies it to every element in the collection, and its sub-collection. After mapping, it flattens the list.
 
 ```dart
 import 'package:dartz/dartz.dart';
@@ -587,7 +587,7 @@ print(_result2);
 
 ### higher order functions: reduce
 
-> It reduces a collection into a single value by combining all the elements using the passed-in function.
+>It reduces a collection into a single value by combining all the elements using the passed-in function.
 
 ```dart
 // Sum all the numbers in the list

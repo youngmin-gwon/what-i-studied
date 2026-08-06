@@ -72,7 +72,7 @@ func uploadUser(user: UserData) async throws {
 SwiftUI 의 `.task` 나 `Task { … }` 블록이 해제되면, 내부의 URLSession 요청도 자동으로 취소됩니다. 별도의 `cancel()` 호출이 필요 없습니다.
 
 ```swift
-// ViewModel
+// [viewmodel](../../android/02_app_framework/viewmodel.md)
 func load() async {
     // 뷰가 사라지면 이 Task가 취소(Cancel)됨 -> URLSession도 자동 취소 에러(URLError.cancelled) 발생
     let data = try await session.data(from: url)

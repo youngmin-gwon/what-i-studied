@@ -1,5 +1,5 @@
 ---
-title: viewmodel-and-repository-should-not-retain-ui-context
+title: [viewmodel](../../../viewmodel.md)-and-repository-should-not-retain-ui-context
 tags: [android, android/architecture, android/context, android/viewmodel]
 aliases: ["ViewModel과 Repository는 UI Context를 보관하지 않는다"]
 date modified: 2026-08-05 16:15:00 +09:00
@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## ViewModel과 Repository는 UI Context를 보관하지 않는다
 
-안드로이드 권장 앱 아키텍처(Guide to App Architecture)에서 **`ViewModel` 은 화면 상태(UI State)와 비즈니스 로직을 조율하는 오너(Owner)이고, `Repository` 는 데이터의 단일 출처(Single Source of Truth)를 다루는 계층이다. 두 계층 모두 Activity, Fragment, View 등 UI 수명과 연동된 UI Context 참조를 필드로 보관해서는 안 된다.**
+안드로이드 권장 앱 아키텍처(Guide to App Architecture)에서 **`ViewModel` 은 화면 상태(UI State)와 비즈니스 로직을 조율하는 오너(Owner)이고, `Repository` 는 데이터의 단일 출처([single source of truth](../../../single-source-of-truth.md))를 다루는 계층이다. 두 계층 모두 Activity, Fragment, View 등 UI 수명과 연동된 UI Context 참조를 필드로 보관해서는 안 된다.**
 
 ---
 
@@ -42,7 +42,7 @@ graph LR
         Repo --> Local["DataStore / Room (ApplicationContext Only)"]
     end
     
-    VM -->|Exposes Immutable StateFlow| UI
+    VM -->|Exposes Immutable [stateflow](../../../stateflow-and-sharedflow.md)| UI
 ```
 
 ---

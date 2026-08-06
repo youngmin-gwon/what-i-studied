@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## UI 는 상태를 아래로 받고 사용자 행동을 위로 전달한다 (단방향 데이터 흐름: UDF)
 
-Jetpack Compose 및 현대 안드로이드 아키텍처의 UI 레이어 디자인은 **단방향 데이터 흐름 (Unidirectional Data Flow: UDF)** 패턴을 핵심 축으로 갖는다. UI 컴포넌트는 자신이 표시할 상태(State)를 상위 소유자(ViewModel 등)로부터 아래 방향으로 받아 렌더링하고, 사용자의 모든 입력을 행동(Action/Event)이라는 형태로 상위 소유자에게 위로 전달한다.
+Jetpack Compose 및 현대 안드로이드 아키텍처의 UI 레이어 디자인은 **단방향 데이터 흐름 (Unidirectional Data Flow: UDF)** 패턴을 핵심 축으로 갖는다. UI 컴포넌트는 자신이 표시할 상태(State)를 상위 소유자([viewmodel](../../../viewmodel.md) 등)로부터 아래 방향으로 받아 렌더링하고, 사용자의 모든 입력을 행동(Action/Event)이라는 형태로 상위 소유자에게 위로 전달한다.
 
 ---
 
@@ -23,9 +23,9 @@ Jetpack Compose 및 현대 안드로이드 아키텍처의 UI 레이어 디자�
 
 ### 2. 왜 UDF 패턴이 필요한가? (Why)
 
-1. **상태 불일치 및 경쟁 상태(Race Condition) 방지**: 과거 View 시스템이나 양방향 바인딩 방식에서는 Activity, Fragment, Custom View, ViewModel 이 저마다 상태를 따로 소유하며 직접 수정해 상태 파편화와 버그가 빈번했다. UDF 는 **단일 진실 공급원(Single Source of Truth: SSOT)** 을 둠으로써 상태 불일치를 근본적으로 차단한다.
+1. **상태 불일치 및 경쟁 상태(Race Condition) 방지**: 과거 View 시스템이나 양방향 바인딩 방식에서는 Activity, Fragment, Custom View, ViewModel 이 저마다 상태를 따로 소유하며 직접 수정해 상태 파편화와 버그가 빈번했다. UDF 는 **단일 진실 공급원([single source of truth](../../../single-source-of-truth.md): SSOT)** 을 둠으로써 상태 불일치를 근본적으로 차단한다.
 2. **UI 테스트 및 예측 가능성 향상**: UI 컴포넌트가 불변 `UiState` 만 받아 렌더링하므로, 특정 상태값만 주입하면 화면이 어떻게 그려질지 100% 동기적으로 예측하고 가상 UI 테스트(Screenshot Test, Compose UI Test)를 쉽게 작성할 수 있다.
-3. **화면 회전 및 프로세스 재시작(Process Death) 대응**: ViewModel 이 독립적으로 보존하는 `StateFlow` 로부터 상태를 수신하므로, 화면이 회전되거나 재구성되어도 UI 컴포넌트는 오직 최신 상태를 받아 복원만 하면 된다.
+3. **화면 회전 및 프로세스 재시작(Process Death) 대응**: ViewModel 이 독립적으로 보존하는 `[stateflow](../../../stateflow-and-sharedflow.md)` 로부터 상태를 수신하므로, 화면이 회전되거나 재구성되어도 UI 컴포넌트는 오직 최신 상태를 받아 복원만 하면 된다.
 
 ---
 
@@ -43,13 +43,13 @@ sequenceDiagram
     UI->>VM: Action 전달 (onSubmitClick())
     VM->>SF: 상태 변경 (uiState.update { copy(isSubmitting = true) })
     SF-->>UI: StateFlow 수집 (collectAsStateWithLifecycle)
-    UI->>UI: Recomposition 수행 (로딩 스피너 및 최신 UI 렌더링)
+    UI->>UI: [recomposition](../../../jetpack-compose/runtime/recomposition.md) 수행 (로딩 스피너 및 최신 UI 렌더링)
 ```
 
 1. **상태 관찰의 생명주기 안전성 (`collectAsStateWithLifecycle`)**:
    - UI 는 단순히 `StateFlow.collectAsState()` 를 쓰는 것이 아니라, `androidx.lifecycle.compose` 패키지의 `collectAsStateWithLifecycle()` API 를 사용한다.
    - 이는 화면이 백그라운드(`STARTED` 미만)로 내려갔을 때 코루틴 수집을 자동으로 중단하여 불필요한 백그라운드 CPU 및 메모리 소모를 방지한다.
-2. **캡슐화 및 불변성 유지**:
+2. **캡슐화 및 [불변성](../../../../../../computer-science/immutability.md) 유지**:
    - ViewModel 내부에서는 가변 `MutableStateFlow<SignInUiState>` 를 유지하지만, 외부 UI 에는 읽기 전용 `StateFlow<SignInUiState>` 로 캡슐화하여 노출한다.
    - UI 는 절대로 `uiState.value = ...` 와 같이 직접 상태를 Mutation 할 수 없다.
 

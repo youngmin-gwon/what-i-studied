@@ -54,7 +54,7 @@ graph TD
 @Composable
 fun PhaseOptimizationExample(scrollState: ScrollState) {
     // ❌ 1. Composition Phase Read (비효율적인 방식)
-    // scrollState.value를 Composition 단계에서 읽음 -> 스크롤할 때마다 전체 Box Recomposition 발생!
+    // scrollState.value를 Composition 단계에서 읽음 -> 스크롤할 때마다 전체 Box [recomposition](../recomposition.md) 발생!
     Box(
         modifier = Modifier
             .offset(y = scrollState.value.dp) // Recomposition 재실행 원인

@@ -23,7 +23,7 @@ sealed interface SignInEvent {
 }
 ```
 
-ViewModel 은 이벤트를 발행하고, Composable 은 UI 실행기를 소유해 수집한다.
+[viewmodel](../../../viewmodel.md) 은 이벤트를 발행하고, Composable 은 UI 실행기를 소유해 수집한다.
 
 ```kotlin
 LaunchedEffect(viewModel) {
@@ -49,7 +49,7 @@ ViewModel 은 실행기 대신 목적을 전달한다.
 
 이 값들은 `UiState` 가 표현한다. event 는 상태의 대체 저장소가 아니라 소비가 발생한 순간에 의미가 있는 신호다.
 
-SharedFlow, Channel 같은 도구의 선택은 재전달 정책과 collector 수명까지 검토한 뒤 정한다.
+[sharedflow](../../../stateflow-and-sharedflow.md), Channel 같은 도구의 선택은 재전달 정책과 collector 수명까지 검토한 뒤 정한다.
 
 ### 이벤트를 설계하는 질문
 

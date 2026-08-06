@@ -13,7 +13,7 @@ Retrofit interface 메서드를 `suspend fun` 으로 선언하면, 그 호출을
 ### 내부 동작 메커니즘
 
 - `suspend fun getBenefits(): List<BenefitDto>` 처럼 선언하면, Retrofit 은 호출 시점에 `okhttp3.Call` 을 만들고 `suspendCancellableCoroutine { continuation -> ... }` 로 그 결과를 기다린다. 이때 `continuation.invokeOnCancellation { call.cancel() }` 을 등록해, 감싸는 coroutine 이 취소되면 진행 중인 `Call` 도 함께 `cancel()` 된다.
-- `viewModelScope.launch { api.getBenefits() }` 로 호출했다면, 화면이 사라져 `ViewModel.onCleared()` 가 호출되고 `viewModelScope` 가 취소되는 순간 이 네트워크 요청도 실제로 중단된다. 소켓 연결이 끊기고 이후 응답을 기다리지 않는다 — 단순히 "결과를 무시하는" 것이 아니라 진짜로 취소된다.
+- `viewModelScope.launch { api.getBenefits() }` 로 호출했다면, 화면이 사라져 `[viewmodel](../../../viewmodel.md).onCleared()` 가 호출되고 `viewModelScope` 가 취소되는 순간 이 네트워크 요청도 실제로 중단된다. 소켓 연결이 끊기고 이후 응답을 기다리지 않는다 — 단순히 "결과를 무시하는" 것이 아니라 진짜로 취소된다.
 - 이 자동 취소는 메서드가 `suspend fun` 일 때만 성립한다. 같은 인터페이스를 `fun getBenefits(): Call<List<BenefitDto>>` 처럼 콜백 기반으로 선언했다면, coroutine 이 취소돼도 `Call` 은 자동으로 `cancel()` 되지 않는다. 이 경우 호출자가 직접 `call.cancel()` 을 호출해야 한다.
 - 취소된 요청은 내부적으로 `java.io.IOException`(OkHttp 의 "Canceled")을 던지지만, coroutine 취소 경로에서는 이것이 `CancellationException` 으로 전파되어 일반적인 예외 처리 로직(`catch (e: Exception)`)에서 잡혀 버그처럼 보이지 않도록 주의해야 한다. `CancellationException` 은 다시 던져 취소를 상위로 전파하는 것이 구조적 동시성의 기본 규칙이다.
 

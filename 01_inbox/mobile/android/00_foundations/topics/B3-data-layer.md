@@ -17,7 +17,7 @@ date created: 2026-08-04 16:00:00 +09:00
 | 선행 개념 | 필요한 이유 |
 |---|---|
 | Kotlin suspend 함수 기초 | Coroutine 이 왜 필요한지 이해 |
-| ViewModel + UiState 패턴 (B1) | Repository → ViewModel → UI 연결 이해 |
+| [viewmodel](../../02_app_framework/viewmodel.md) + UiState 패턴 (B1) | Repository → ViewModel → UI 연결 이해 |
 | Compose State 수집 (B2 § 2) | collectAsStateWithLifecycle 이해 |
 
 관련 토픽: [B1 · 컴포넌트 생명주기](./B1-component-lifecycle-and-task.md) · [B2 · Jetpack Compose](./B2-jetpack-compose.md)
@@ -30,7 +30,7 @@ date created: 2026-08-04 16:00:00 +09:00
 flowchart TD
     network["Network / Remote DB"] --> repo["Repository — 단일 source of truth 관리"]
     repo -- "Flow&lt;T&gt; 노출" --> vm["ViewModel"]
-    vm -- "combine / map / stateIn" --> stateflow["StateFlow&lt;UiState&gt;"]
+    vm -- "combine / map / stateIn" --> [stateflow](../../02_app_framework/stateflow-and-sharedflow.md)["StateFlow&lt;UiState&gt;"]
     stateflow -- "collectAsStateWithLifecycle()" --> composable["Composable / View"]
 
     storage["Room / DataStore — 영속 저장소 (source of truth)"] --> repo
@@ -44,7 +44,7 @@ flowchart TD
 
 Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 coroutine 이 `suspend` 함수 호출을 만날 때마다 다른 coroutine 에 실행을 양보한다. 스레드를 블로킹하지 않으므로 메인 스레드에서도 네트워크 대기가 가능하다.
 
-**Structured Concurrency**: 모든 coroutine 은 부모 scope 안에서 시작한다. 부모가 취소되면 자식 coroutine 이 모두 취소된다. `viewModelScope`, `lifecycleScope` 는 각 컴포넌트 수명에 맞춰 자동으로 취소되는 scope 다.
+**[structured concurrency](../../../../computer-science/structured-concurrency.md)**: 모든 coroutine 은 부모 scope 안에서 시작한다. 부모가 취소되면 자식 coroutine 이 모두 취소된다. `viewModelScope`, `lifecycleScope` 는 각 컴포넌트 수명에 맞춰 자동으로 취소되는 scope 다.
 
 **Dispatcher**: 어느 스레드에서 실행할지 결정한다. `Dispatchers.Main` 은 UI 스레드, `Dispatchers.IO` 는 블로킹 I/O, `Dispatchers.Default` 는 CPU 집약 작업. Dispatcher 는 실행 위치, Scope 는 취소 정책 — 이 둘을 혼동하지 않는다.
 

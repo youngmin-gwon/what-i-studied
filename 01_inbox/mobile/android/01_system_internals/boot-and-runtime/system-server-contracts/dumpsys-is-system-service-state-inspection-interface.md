@@ -30,7 +30,7 @@ sequenceDiagram
 
     CLI->>SM: getService("activity")
     SM-->>CLI: Return IBinder Handle
-    CLI->>SS: Binder IPC: IBinder.dump(stdout_fd, args)
+    CLI->>SS: [binder ipc](../../binder-ipc.md): IBinder.dump(stdout_fd, args)
     Note over SS: Execute Service.dump() on Binder Thread
     SS->>CLI: Stream Service State (Text Format) to stdout_fd
     CLI-->>User: Display Formatted Output

@@ -19,4 +19,4 @@ Kotlin `Flow` 정본은 연속적인 데이터 스트림(Data Stream)을 비동�
 
 ### 연결된 상태 계약
 
-- 화면 상태 유도 및 ViewModel 연동: [Flow와 StateFlow 상태 계약](../flow-state-contracts/flow-state-contracts.md) 정본 노트 참조.
+- 화면 상태 유도 및 [viewmodel](../../../viewmodel.md) 연동: [Flow와 [stateflow](../../../stateflow-and-sharedflow.md) 상태 계약](../flow-state-contracts/flow-state-contracts.md) 정본 노트 참조.

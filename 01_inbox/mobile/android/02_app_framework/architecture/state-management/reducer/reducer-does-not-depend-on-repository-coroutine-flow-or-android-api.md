@@ -30,7 +30,7 @@ Reducer에 금지
 - 현재 시간, 파일, 네트워크, 랜덤값 직접 참조
 ```
 
-외부 작업은 ViewModel 이나 UseCase 가 수행하고 그 결과를 action 으로 변환한다.
+외부 작업은 [viewmodel](../../../viewmodel.md) 이나 UseCase 가 수행하고 그 결과를 action 으로 변환한다.
 
 ```mermaid
 flowchart TD

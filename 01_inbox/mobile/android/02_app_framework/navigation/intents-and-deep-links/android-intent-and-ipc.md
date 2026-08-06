@@ -32,7 +32,7 @@ graph TD
     C -->|Explicit Intent| D["Target Component Direct Launch"]
     C -->|Implicit Intent| E["PackageManager (PM) matching action/category/data"]
     E --> F["Security Check: android:exported & Package Visibility"]
-    F -->|Allowed| G["Target Component (App Process B via Binder IPC)"]
+    F -->|Allowed| G["Target Component (App Process B via [binder ipc](../../../01_system_internals/binder-ipc.md))"]
     F -->|Denied| H["SecurityException / ActivityNotFoundException"]
 ```
 

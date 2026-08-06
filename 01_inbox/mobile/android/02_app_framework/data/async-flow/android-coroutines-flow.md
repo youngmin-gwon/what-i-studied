@@ -8,19 +8,19 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Android Coroutine 과 Flow 는 비동기 작업의 수명과 stream sharing 을 분리한다
 
-Android 비동기 프로그래밍 패러다임은 **Kotlin Coroutines**와 **Flow**를 핵심 아키텍처 표준으로 삼는다. 이전의 `Thread`, `Handler`, `AsyncTask`, `RxJava`, `LiveData` 조합이 지니던 리소스 누수, 스레드 차단(Blocking), 복잡한 상태 관리 문제를 해결하고, **(1) 작업 수명 관리(Structured Concurrency)**, **(2) 실행 환경 분리(Dispatchers)**, **(3) 반응형 데이터 스트림(Cold Flow / Hot Stream)**을 완전하게 분리하여 제공한다.
+Android 비동기 프로그래밍 패러다임은 **Kotlin Coroutines**와 **Flow**를 핵심 아키텍처 표준으로 삼는다. 이전의 `Thread`, `Handler`, `AsyncTask`, `RxJava`, `LiveData` 조합이 지니던 리소스 누수, 스레드 차단(Blocking), 복잡한 상태 관리 문제를 해결하고, **(1) 작업 수명 관리([structured concurrency](../../../../../computer-science/structured-concurrency.md))**, **(2) 실행 환경 분리(Dispatchers)**, **(3) 반응형 데이터 스트림(Cold Flow / Hot Stream)**을 완전하게 분리하여 제공한다.
 
 ### 정본 지도
 
 - [Coroutine Contracts](./coroutines/coroutine-contracts.md) - Coroutine Scope, suspend 함수 메커니즘, Dispatcher 선택, 예외 전파 및 병렬 작업 계약.
 - [Flow Contracts](./flow/flow-contracts.md) - Cold Flow 실행 메커니즘, 연산자 파이프라인, callbackFlow 소멸 처리, shareIn 공유 정책.
-- [Flow와 StateFlow 상태 계약](./flow-state-contracts/flow-state-contracts.md) - Repository stream 데이터 공급, ViewModel의 StateFlow 조합, UI Lifecycle-aware 수집 계약.
+- [Flow와 [stateflow](../../stateflow-and-sharedflow.md) 상태 계약](./flow-state-contracts/flow-state-contracts.md) - Repository stream 데이터 공급, ViewModel의 StateFlow 조합, UI Lifecycle-aware 수집 계약.
 - [Coroutine/Flow 테스트 계약](../../../06_testing_performance/testing/coroutine-flow-tests-control-dispatchers-and-virtual-time.md) - TestDispatcher 와 Virtual Time 제어를 통한 결정론적 비동기 검증.
 
 ```mermaid
 graph TD
     A["Data Layer (Repository/DataSource)"] -->|"Cold Flow (Data Stream)"| B["Domain / UseCase"]
-    B -->|"Cold Flow / Suspend Result"| C["UI Layer (ViewModel)"]
+    B -->|"Cold Flow / Suspend Result"| C["UI Layer ([viewmodel](../../viewmodel.md))"]
     C -->|"stateIn() / combine()"| D["StateFlow (UiState)"]
     D -->|"collectAsStateWithLifecycle()"| E["UI Layer (Compose / View)"]
 

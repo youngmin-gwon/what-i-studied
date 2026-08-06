@@ -6,7 +6,7 @@ date modified: 2026-08-05 18:58:24 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
-## UI controller 와 effect runner 는 ViewModel 이 아니라 UI 수명에 둔다
+## UI controller 와 effect runner 는 [viewmodel](../../../viewmodel.md) 이 아니라 UI 수명에 둔다
 
 ### 1. 개념 정의 (What)
 
@@ -36,7 +36,7 @@ graph TD
     end
 
     subgraph VM["ViewModel / Domain Layer"]
-        B["State Holders: StateFlow&lt;ScreenUiState&gt;<br/>수명주기: Screen / Activity Navigation Lifetime<br/>역할: 서버 데이터 연동, 비즈니스 검증, 도메인 변환"]
+        B["State Holders: [stateflow](../../../stateflow-and-sharedflow.md)&lt;ScreenUiState&gt;<br/>수명주기: Screen / Activity Navigation Lifetime<br/>역할: 서버 데이터 연동, 비즈니스 검증, 도메인 변환"]
     end
 
     A -->|"Pure UI Events / Screen State"| B

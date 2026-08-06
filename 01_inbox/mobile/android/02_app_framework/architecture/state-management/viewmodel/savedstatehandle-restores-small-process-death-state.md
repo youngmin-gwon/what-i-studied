@@ -14,7 +14,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 `SavedStateHandle` 은 프로세스가 종료된 뒤 화면을 다시 만들 때
 
-복원해야 하는 작은 상태를 ViewModel 과 함께 저장한다.
+복원해야 하는 작은 상태를 [viewmodel](../../../viewmodel.md) 과 함께 저장한다.
 
 대표적인 값은 선택된 ID, 검색어, 필터, 탭 위치, 페이징 위치다.
 
@@ -25,7 +25,7 @@ class DetailViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val repository: UserRepository
 ) : ViewModel() {
-    val userId: StateFlow<String?> = savedStateHandle
+    val userId: [stateflow](../../../stateflow-and-sharedflow.md)<String?> = savedStateHandle
         .getStateFlow("user_id", null)
 
     fun selectUser(id: String) {

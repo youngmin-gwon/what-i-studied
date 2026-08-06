@@ -41,7 +41,7 @@ val fullName by remember(firstName, lastName) {
 
 단순 문자열은 composition에서 계산하면 된다. `derivedStateOf`에도 state 객체·dependency 추적 비용이 있다.
 
-관찰 증거는 도입 전후 Layout Inspector의 recomposition count와 Macrobenchmark frame timing이다. 같은 스크롤 동작으로 비교하고, count가 줄어도 사용자 metric이 같고 코드만 복잡해졌다면 유지할 근거가 약하다.
+관찰 증거는 도입 전후 Layout Inspector의 [recomposition](../../runtime/recomposition.md) count와 Macrobenchmark frame timing이다. 같은 스크롤 동작으로 비교하고, count가 줄어도 사용자 metric이 같고 코드만 복잡해졌다면 유지할 근거가 약하다.
 
 관련 노트: [Compose 상태 읽기 위치는 다시 실행할 phase와 범위를 결정한다](./compose-state-read-location-controls-recomposition-scope.md), [Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다](./compose-performance-starts-with-measure-debug-improve-loop.md)
 

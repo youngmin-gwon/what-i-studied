@@ -24,7 +24,7 @@ Jetpack Compose 에서 사용하는 **`LocalContext.current` 는 CompositionLoca
 
 ### 2. 왜 이 개념적 차이를 명확히 해야 하는가? (Why)
 
-1. **비동기 람다 및 ViewModel 캡처로 인한 누수 방지**:
+1. **비동기 람다 및 [viewmodel](../../../viewmodel.md) 캡처로 인한 누수 방지**:
    `LocalContext.current` 로 얻은 Activity Context 인스턴스를 ViewModel 람다나 이벤트 처리용 백그라운드 콜백에 임의로 캡처하여 저장하면 컴포저블이 화면에서 해제된 후에도 Activity 참조가 유실되지 않아 Context Leak 이 일어난다.
 2. **Compose 의 명시적 상태 흐름 보존**:
    컴포저블 내부에서 `LocalContext.current` 를 이용해 비즈니스 로직이나 DB 조회를 직접 호출하는 것은 Compose 의 단방향 데이터 흐름(UDF) 및 UI-Logic 분리 원칙을 훼손한다.
@@ -76,7 +76,7 @@ fun UserProfileScreen(
 ### 5. 관측 가능 증거 및 진단 (Observability)
 
 - **LocalContext 캡처 시 Memory Profiler 관측**:
-  컴포저블 내 람다가 `LocalContext.current` 를 캡처하여 외부 싱글톤 상태로 넘길 때, Compose Recomposition 및 화면 이동 후에도 Activity 인스턴스가 힙에 보존되는 현상 확인.
+  컴포저블 내 람다가 `LocalContext.current` 를 캡처하여 외부 싱글톤 상태로 넘길 때, Compose [recomposition](../../../jetpack-compose/runtime/recomposition.md) 및 화면 이동 후에도 Activity 인스턴스가 힙에 보존되는 현상 확인.
 
 ---
 

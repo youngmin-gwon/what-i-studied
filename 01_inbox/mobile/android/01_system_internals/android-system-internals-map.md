@@ -34,7 +34,7 @@ date created: 2026-08-04 18:00:00 +09:00
 ### 포함하지 않는 범위
 
 - 앱이 직접 호출하는 Jetpack API 사용법은 다루지 않는다. `Context.getSystemService()` 이후의 앱 관점 서비스 사용은 [App Framework Map](../02_app_framework/android-app-framework-map.md) 또는 `04_system_services` 로 간다.
-- Compose/View 렌더링의 앱 코드 관점(recomposition, layout modifier)은 다루지 않는다. graphics-and-media 는 Surface 이하의 native 합성만 다루고, 그 위의 UI 코드는 [App Framework Map](../02_app_framework/android-app-framework-map.md) 의 jetpack-compose 클러스터로 간다.
+- Compose/View 렌더링의 앱 코드 관점([recomposition](../02_app_framework/jetpack-compose/runtime/recomposition.md), layout modifier)은 다루지 않는다. graphics-and-media 는 Surface 이하의 native 합성만 다루고, 그 위의 UI 코드는 [App Framework Map](../02_app_framework/android-app-framework-map.md) 의 jetpack-compose 클러스터로 간다.
 - 커스텀 ROM 빌드 실습 절차나 특정 SoC vendor 의 개별 driver 소스는 다루지 않는다. platform-customization 은 계약과 경계까지만 설명한다.
 
 ### 문제 분류

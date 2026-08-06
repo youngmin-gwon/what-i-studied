@@ -14,7 +14,7 @@ date created: 2026-08-03 20:45:00 +09:00
 
 >화면, 컴포넌트, 프로세스, task 와 사용자 상태는 왜 함께 시작하고 함께 끝나지 않는가?
 
-이 장은 각 상태 저장 API 의 사용법을 처음부터 가르치지 않는다. `ViewModel`, `rememberSaveable`, `SavedStateHandle` 의 구체적인 사용법은 각 원자 노트가 다루는 수준으로 남겨두고, 여기서는 서로 다른 사건이 서로 다른 lifetime 을 어떻게 끊는지 하나의 모델로 연결한다.
+이 장은 각 상태 저장 API 의 사용법을 처음부터 가르치지 않는다. `[viewmodel](../../02_app_framework/viewmodel.md)`, `rememberSaveable`, `SavedStateHandle` 의 구체적인 사용법은 각 원자 노트가 다루는 수준으로 남겨두고, 여기서는 서로 다른 사건이 서로 다른 lifetime 을 어떻게 끊는지 하나의 모델로 연결한다.
 
 ### 1. 겹쳐 있는 여러 lifetime 을 구분한다
 
@@ -74,7 +74,7 @@ uninstall 은 여기서 한 단계 더 나아가 3 장이 다룬 설치된 패�
 | Configuration change | 유지 | 유지 | 파괴 후 즉시 재생성 | ViewModel 유지, transient state 는 저장해 둔 것만 복원 | 무관 |
 | 뒤로 가기로 화면 finish | 유지 | 해당 항목만 제거 | 그 화면만 파괴 | 그 화면의 ViewModel 만 정리 | 무관 |
 | Task 제거(recents 에서 스와이프) | 연관 Service 유무에 따라 다름 | 제거 | task 내 모든 Activity 파괴 | 모두 정리 | 무관 |
-| 시스템에 의한 process death | 종료(정리 콜백 보장 없음) | 시스템이 기록만 유지, 복귀 시 재구성 | 파괴, 복귀 시 새 인스턴스 | ViewModel 소실, 저장해 둔 값만 복원 | 유지 |
+| 시스템에 의한 process death | 종료(정리 콜백 보장 없음) | 시스템이 기록만 유지, 복귀 시 [재구성](../../02_app_framework/jetpack-compose/runtime/recomposition.md) | 파괴, 복귀 시 새 인스턴스 | ViewModel 소실, 저장해 둔 값만 복원 | 유지 |
 | force-stop | 종료 | 제거 | 모두 파괴 | 모두 소실 | 유지(3 장 참고) |
 | uninstall | 종료 | 제거 | 모두 파괴, registry 에서도 제거 | 모두 소실 | 삭제(3 장 참고) |
 

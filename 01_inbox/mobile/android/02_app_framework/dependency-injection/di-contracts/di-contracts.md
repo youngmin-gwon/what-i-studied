@@ -16,7 +16,7 @@ DI를 읽을 때는 프레임워크 문법보다 세 질문을 먼저 고정한�
    - 의존성 생성, Constructor Injection, Binds/Provides, Qualifier, Assisted Injection, 그리고 컴파일 에러 검증에 대한 원칙.
 
 2. [DI 소유권과 스코프 계약](./di-ownership-scope-contracts.md)
-   - Scope, Android Context 주입, ViewModel 및 Worker 소유권 경계, Entry Point, 멀티 모듈 및 Dynamic Feature DI 적용 규칙.
+   - Scope, Android Context 주입, [viewmodel](../../viewmodel.md) 및 Worker 소유권 경계, Entry Point, 멀티 모듈 및 Dynamic Feature DI 적용 규칙.
 
 3. [DI 도구 및 엔진 비교](./di-tool-comparison.md)
    - Dagger, Hilt, Koin, Metro 비교 및 Compile-time vs Runtime DI, DSL의 의미.

@@ -38,7 +38,7 @@ date created: 2025-12-16 16:10:59 +09:00
 func testLoginSuccess() {
     let mockAPI = MockAPIService()
     mockAPI.shouldSucceed = true
-    let viewModel = LoginViewModel(api: mockAPI)
+    let [viewmodel](../../android/02_app_framework/viewmodel.md) = LoginViewModel(api: mockAPI)
     
     viewModel.login(id: "test", pw: "1234")
     

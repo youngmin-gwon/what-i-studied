@@ -40,7 +40,7 @@ graph TD
 1. **Window Token 및 UI Theme 정확성**:
    `Dialog` 또는 `PopupWindow` 는 OS WindowManager 에 자신을 등록하기 위해 유효한 Window Token 을 필요로 한다. Application Context 로 Dialog 를 띄우면 Window Token 이 존재하지 않아 `WindowManager.BadTokenException` 이 발생한다.
 2. **메모리 누수 방지 (Memory Leak Prevention)**:
-   Activity 가 화면 회전(Configuration Change)으로 Destroy 될 때, 싱글톤 객체나 ViewModel 이 해당 Activity Context 참조를 들고 있으면 GC(Garbage Collector)가 이를 회수하지 못해 메모리 누수가 발생한다.
+   Activity 가 화면 회전(Configuration Change)으로 Destroy 될 때, 싱글톤 객체나 [viewmodel](../../viewmodel.md) 이 해당 Activity Context 참조를 들고 있으면 GC(Garbage Collector)가 이를 회수하지 못해 메모리 누수가 발생한다.
 
 ---
 

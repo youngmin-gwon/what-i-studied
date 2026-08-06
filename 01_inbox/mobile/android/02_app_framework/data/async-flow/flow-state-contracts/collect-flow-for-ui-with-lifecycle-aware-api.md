@@ -9,7 +9,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ## UI는 lifecycle-aware API로 Flow를 수집해야 한다
 
 ### 개념 (What)
-Android UI 레이어(Activity, Fragment, Jetpack Compose)에서 `Flow` / `StateFlow`를 수집할 때, 단순한 `lifecycleScope.launch { flow.collect() }`를 사용하지 않고 **화면 수명주기 상태(Lifecycle State, 예: `STARTED`)에 연동하여 백그라운드에서는 데이터 수집 코루틴을 자동 일시 정지/취소하고 화면이 다시 활성화될 때 재개하는 API 계약**이다.
+Android UI 레이어(Activity, Fragment, Jetpack Compose)에서 `Flow` / `[stateflow](../../../stateflow-and-sharedflow.md)`를 수집할 때, 단순한 `lifecycleScope.launch { flow.collect() }`를 사용하지 않고 **화면 수명주기 상태(Lifecycle State, 예: `STARTED`)에 연동하여 백그라운드에서는 데이터 수집 코루틴을 자동 일시 정지/취소하고 화면이 다시 활성화될 때 재개하는 API 계약**이다.
 
 ### 왜 필요한가 (Why)
 1. **백그라운드 크래시 및 뷰 조작 에러 방지**: 앱이 홈 화면으로 나가 백그라운드로 전환(Lifecycle `STOPPED`)되었는데도 Flow 수집이 계속되면, 파괴되거나 멈춘 View/Fragment 상태를 업데이트하려다 `IllegalStateException` 크래시가 일어난다.
@@ -21,7 +21,7 @@ Android UI 레이어(Activity, Fragment, Jetpack Compose)에서 `Flow` / `StateF
    - Lifecycle이 다시 `STARTED` 상태로 상향 진입하면 새 코루틴을 생성하여 수집을 처음부터 다시 시작한다.
 2. **Compose `collectAsStateWithLifecycle()`**:
    - `androidx.lifecycle.compose` 패키지에서 제공하는 Compose 전용 API다.
-   - 내부적으로 `repeatOnLifecycle`을 사용하여 Compose Recomposition scope 내에서 수명주기 안전하게 `StateFlow`를 State로 변환한다.
+   - 내부적으로 `repeatOnLifecycle`을 사용하여 Compose [recomposition](../../../jetpack-compose/runtime/recomposition.md) scope 내에서 수명주기 안전하게 `StateFlow`를 State로 변환한다.
 
 ```mermaid
 graph TD
@@ -52,7 +52,7 @@ graph TD
 // 1. Jetpack Compose UI에서의 표준 수집 방식
 @Composable
 fun UserProfileScreen(
-    viewModel: UserProfileViewModel = hiltViewModel()
+    [viewmodel](../../../viewmodel.md): UserProfileViewModel = hiltViewModel()
 ) {
     // collectAsStateWithLifecycle: Lifecycle.State.STARTED 이상일 때만 상태 수집
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

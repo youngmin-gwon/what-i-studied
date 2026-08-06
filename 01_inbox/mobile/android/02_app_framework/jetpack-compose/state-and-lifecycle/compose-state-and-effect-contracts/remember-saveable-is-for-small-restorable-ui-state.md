@@ -18,7 +18,7 @@ date created: 2026-07-31 16:53:16 +09:00
 
 일반 `remember` 는 RAM 메모리의 Slot Table 에만 보존되므로 Activity 가 재생성되면 파괴된다.
 
-반면 `rememberSaveable` 은 Binder IPC 통신을 통해 OS 의 `SavedStateRegistry` 로 상태를 전달한다. 따라서:
+반면 `rememberSaveable` 은 [binder ipc](../../../../01_system_internals/binder-ipc.md) 통신을 통해 OS 의 `SavedStateRegistry` 로 상태를 전달한다. 따라서:
 
 - **Bundle 바인딩 한계**: Android 시스템 Binder 버퍼는 앱 전체 합산 약 **1MB 미만의 크기 제약**을 가진다.
 - **TransactionTooLargeException 위험**: 이미지 라이브러리 객체, 대용량 리스트 전체, 비트맵 데이터를 `rememberSaveable` 에 넣으면 앱이 크래시된다.

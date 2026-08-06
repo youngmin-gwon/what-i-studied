@@ -13,7 +13,7 @@ Android DI 문서는 프레임워크별 사용법 목록이 아니라 객체 gra
 ### 읽는 순서
 
 1. DI의 기본 계약과 컴파일 타임 안전성을 먼저 이해한다.
-2. 프레임워크 생명주기(Android Context, ViewModel, Worker)와 DI가 만나는 경계를 파악한다.
+2. 프레임워크 생명주기(Android Context, [viewmodel](../viewmodel.md), Worker)와 DI가 만나는 경계를 파악한다.
 3. 멀티 모듈, Dynamic feature, 테스트 환경에서의 교체 전략을 이해한다.
 
 ### Contract Groups

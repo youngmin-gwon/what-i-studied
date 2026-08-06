@@ -8,7 +8,7 @@ date created: 2026-08-03 16:59:23 +09:00
 
 ## Compose 성능 계약
 
-이 지도는 Compose 성능을 API 팁 목록이 아니라 recomposition, stability, composition work, layout/image 비용의 판단 단위로 나눈다.
+이 지도는 Compose 성능을 API 팁 목록이 아니라 [recomposition](../../runtime/recomposition.md), stability, composition work, layout/image 비용의 판단 단위로 나눈다.
 
 ### 정본 노트
 - [Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다](./compose-performance-starts-with-measure-debug-improve-loop.md)

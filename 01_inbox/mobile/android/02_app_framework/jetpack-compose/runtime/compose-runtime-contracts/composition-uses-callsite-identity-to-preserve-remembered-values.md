@@ -35,7 +35,7 @@ fun CounterList() {
 ```
 
 1. **컴파일러 정적 키 생성**: Compose Compiler는 컴파일 타임에 AST(Abstract Syntax Tree)를 스캔하여 모든 `@Composable` 함수 호출부와 `remember` 블록에 고유한 정수 키(Integer Key)를 할당하고 `$composer.startReplaceableGroup(generatedKey)` 코드를 주입한다.
-2. **Slot Table 커서 대조**: Recomposition 동안 `$composer`는 이전 프레임에서 기록된 Slot Table의 그룹 키와 새로 주입된 키를 비교한다. 키가 동일하면 동일한 Callsite로 판단하여 해당 슬롯의 `remember` 객체 및 하위 트리를 유지한다.
+2. **Slot Table 커서 대조**: [recomposition](../recomposition.md) 동안 `$composer`는 이전 프레임에서 기록된 Slot Table의 그룹 키와 새로 주입된 키를 비교한다. 키가 동일하면 동일한 Callsite로 판단하여 해당 슬롯의 `remember` 객체 및 하위 트리를 유지한다.
 3. **루프와 key() 연산자**: `for` 문이나 `LazyColumn` 항목과 같이 동일한 Callsite에서 여러 개가 생성되는 동적 구조의 경우, 소스 코드 위치만으로는 구별할 수 없다. 이때 `key(item.id) { ... }`를 감싸면 외부 식별자(Explicit Key)가 Callsite Identity에 결합되어, 순서가 재정렬되더라도 상태 오염 없이 정확히 기존 상태를 매핑한다.
 
 ---

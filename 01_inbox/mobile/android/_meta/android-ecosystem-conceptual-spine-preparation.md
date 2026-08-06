@@ -60,7 +60,7 @@ AAR 은 보통 앱 build 의 입력이지 설치 산출물이 아니다. AAB 는
 - Linux process 와 ART instance
 - task 와 back stack
 - Activity, Service, Receiver, Provider instance
-- ViewModel, saved state 와 persistent state
+- [viewmodel](../02_app_framework/viewmodel.md), saved state 와 persistent state
 - Compose composition, View tree, Window 와 Surface
 - coroutine 의 취소 가능한 작업 lifetime
 - Service/foreground service 의 component 와 사용자 가시성 계약
@@ -545,7 +545,7 @@ Android 플랫폼 계층을 모든 요청이 끝까지 통과하는 고정 파�
 
 ```plaintext
 → 앱 프로세스의 관리 객체
-→ Binder IPC 경계
+→ [binder ipc](../01_system_internals/binder-ipc.md) 경계
 → 서비스 구현
 → 즉시 응답 또는 나중의 콜백
 ```

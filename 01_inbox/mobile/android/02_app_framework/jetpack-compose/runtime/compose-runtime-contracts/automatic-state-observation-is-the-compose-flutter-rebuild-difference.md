@@ -56,7 +56,7 @@ fun AutomaticObservationCounter() {
 }
 ```
 
-- Android Studio의 **Layout Inspector**를 연결하면 recomposition count 열에서 실제로 어떤 Composable이 재구성되고 어떤 Composable이 Skip 되었는지 숫자로 직관적으로 확인할 수 있다.
+- Android Studio의 **Layout Inspector**를 연결하면 [recomposition](../recomposition.md) count 열에서 실제로 어떤 Composable이 재구성되고 어떤 Composable이 Skip 되었는지 숫자로 직관적으로 확인할 수 있다.
 
 ---
 

@@ -140,7 +140,7 @@ Atomic Reference 는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 
 **원자적 구조(Atomic Structure)와 중복 배제의 원칙**:
 
-- **단일 정본(Single Source of Truth, SSOT)**: 문서 간 지식 중복을 근본적으로 제거하기 위해 문서를 원자화한다. 동일한 개념, 코드, 또는 메커니즘 설명이 여러 파일에 파편화되어 중복 작성되는 것을 방지하고, 하나의 개념은 반드시 하나의 정본(Atomic Note)에서만 다룬다.
+- **단일 정본([single source of truth](../02_app_framework/single-source-of-truth.md), SSOT)**: 문서 간 지식 중복을 근본적으로 제거하기 위해 문서를 원자화한다. 동일한 개념, 코드, 또는 메커니즘 설명이 여러 파일에 파편화되어 중복 작성되는 것을 방지하고, 하나의 개념은 반드시 하나의 정본(Atomic Note)에서만 다룬다.
 - **단일 책임(Single Responsibility)**: 하나의 원자 노트는 오직 하나의 명확한 명제/주제에만 집중한다.
 - **명확한 참조 경계**: 다른 개념이 필요할 때는 중복해서 복사·작성하지 않고 해당 정본 원자 노트를 식별 가능하게 참조한다.
 
@@ -408,9 +408,9 @@ Atomic Reference 는 안드로이드의 특정 원리, 메커니즘, 또는 규�
 2. [사진 촬영, preview, 저장, 업로드까지](../00_foundations/worked-examples/02-photo-capture-preview-save-upload.md) — 7·8·9·10 장 연결. 실패 분기: 카메라 접근 실패(권한/AppOps/점유 중 3 원인 구분).
 3. [deep link가 올바른 task와 화면 상태로 열리기까지](../00_foundations/worked-examples/03-deep-link-to-correct-task-and-screen-state.md) — 3·4·5 장 연결. 실패 분기 대신 성공/인증필요 두 경로를 대비.
 4. [FCM 전송에서 notification 표시와 탭 복구까지](../00_foundations/worked-examples/04-fcm-to-notification-display-and-tap-recovery.md) — 5·6·9·10·11 장 연결. 실패 분기: 전달은 성공했지만 권한/채널로 표시가 막히는 사례.
-5. [process death 뒤 편집 상태와 background work 복구](../00_foundations/worked-examples/05-process-death-recovery-of-edit-state-and-background-work.md) — 4·5·6·8 장 연결. 실패 분기: draft 텍스트가 ViewModel 에만 있어 소실되는 사례.
+5. [process death 뒤 편집 상태와 background work 복구](../00_foundations/worked-examples/05-process-death-recovery-of-edit-state-and-background-work.md) — 4·5·6·8 장 연결. 실패 분기: draft 텍스트가 [viewmodel](../02_app_framework/viewmodel.md) 에만 있어 소실되는 사례.
 6. [permission이 있는데 API가 실패하는 사례](../00_foundations/worked-examples/06-permission-granted-but-api-fails.md) — 9·10 장 연결. foreground/background 위치 권한 분리를 실제 버그 리포트로 추적.
-7. [Compose jank를 UI state에서 SurfaceFlinger까지 좁히는 사례](../00_foundations/worked-examples/07-compose-jank-from-ui-state-to-surfaceflinger.md) — 7·11 장 연결. 실패 분기: recomposition 횟수만 보고 잘못 진단하는 사례.
+7. [Compose jank를 UI state에서 SurfaceFlinger까지 좁히는 사례](../00_foundations/worked-examples/07-compose-jank-from-ui-state-to-surfaceflinger.md) — 7·11 장 연결. 실패 분기: [recomposition](../02_app_framework/jetpack-compose/runtime/recomposition.md) 횟수만 보고 잘못 진단하는 사례.
 8. [signed artifact가 Play delivery를 거쳐 update되는 과정](../00_foundations/worked-examples/08-signed-artifact-through-play-delivery-to-update.md) — 3·11 장 연결. 실패 분기: 로컬 서명 빌드와 Play 서명 빌드 간 서명 불일치로 업데이트가 거부되는 사례.
 
 각 예시는 최소 3 개 이상의 Android 책임 계층(요청/데이터/identity/thread-process/lifecycle/실패 신호)을 끊기지 않는 서사로 연결했고, 코드 예시와 관찰 가능한 신호(adb/dumpsys 명령, 로그, trace)를 포함했다. 새로 도입한 사실 주장은 WebFetch 로 공식 문서 원문을 대조했고(예: TTID/TTFD 와 `reportFullyDrawn()`, cold/warm/hot start 정의, `am start -W` 출력), 나머지는 Learning Spine 각 장에서 이미 검증한 인용을 재사용했다. 8 개 파일 전체의 내부 링크(원자 노트·Learning Spine 장)와 외부 공식 문서 링크를 전수 확인해 broken 0 건이다.
@@ -1321,7 +1321,7 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 **시정 및 재작업 지침**:
 1. **`02_app_framework` 255 개 파일 전체 심층 재감사 및 보강 (완료)**:
    - `02_app_framework` 전체 255 개 노트를 전수 심층 감사(Deep Substantive Audit & Rewrite) 완료.
-   - `Side Effect` / `Effect` / `Idempotent` / `Pure Function` 등 컴퓨터 과학 및 Compose runtime 핵심 원리 노트들에 **근본 개념 정의, 순수 함수와 부수 효과의 차이, Compose execution lifecycle 과의 인과관계, 비결정론적 실행 규칙**을 서술식으로 대폭 보강 (`composable-body-must-be-fast-idempotent-and-side-effect-free.md` 등).
+   - `Side Effect` / `Effect` / `Idempotent` / `[pure function](../../../computer-science/pure-function.md)` 등 컴퓨터 과학 및 Compose runtime 핵심 원리 노트들에 **근본 개념 정의, 순수 함수와 부수 효과의 차이, Compose execution lifecycle 과의 인과관계, 비결정론적 실행 규칙**을 서술식으로 대폭 보강 (`composable-body-must-be-fast-idempotent-and-side-effect-free.md` 등).
    - `app-widgets` 노트 전체를 **Jetpack Glance 우선(Modern Standard)** 으로 재구성 (`remoteviews-restricts-widget-layouts-to-a-fixed-view-subset.md`, `app-widget-contracts.md`, `glance-renders-app-widgets-through-remoteviews-not-compose-ui.md`). XML layout 예시는 레거시/유지보수용 RemoteViews IPC 계약 설명용으로만 한정하고, Glance Compose DSL 코드를 주력 예시로 교체.
    - `navigation/` (45 개) 전 구역을 **Navigation 3 (타입 안전 `@Serializable NavKey`, 앱 소유 `NavBackStack`, `NavDisplay` 분리)** 및 **Verified App Links / Custom Tabs** 현대 아키텍처 표준으로 전면 재작성.
    - `ui-state/` 의 **UDF (단방향 데이터 흐름)**, `dependency-injection/` 의 **Hilt 컴포넌트 계층 및 KSP 연동**을 서술식과 Mermaid sequence/graph 다이어그램으로 완벽 보강.

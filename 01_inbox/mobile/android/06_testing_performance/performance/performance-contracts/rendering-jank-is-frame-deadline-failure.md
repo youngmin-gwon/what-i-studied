@@ -21,7 +21,7 @@ date modified: 2026-08-06 13:00:00 +09:00
   - 120Hz 디스플레이: $1000\text{ms} / 120 \approx 8.33\text{ms}$
 - **렌더링 파이프라인 단계**:
   1. **Input & Animation**: 터치 이벤트 처리 및 애니메이션 값 계산.
-  2. **Measure & Layout**: View 트리의 크기 계산 및 위치 배치 (Compose에서는 Recomposition 및 Measure/Layout).
+  2. **Measure & Layout**: View 트리의 크기 계산 및 위치 배치 (Compose에서는 [recomposition](../../../02_app_framework/jetpack-compose/runtime/recomposition.md) 및 Measure/Layout).
   3. **Draw**: **DisplayList**(실제 픽셀을 즉시 그리는 대신 "무엇을 어떻게 그릴지"를 기록해 두는 중간 표현 — 다음 단계에서 RenderThread가 이 기록을 재생하듯 소비한다) 명령 생성.
   4. **RenderThread Sync & Issue**: RenderThread가 DisplayList를 받아 OpenGLES/Vulkan 명령어로 변환 후 GPU 명령 큐 제출.
   5. **SurfaceFlinger Composition**: 하드웨어 컴포저(HWC)를 거쳐 실제 패널 표출.

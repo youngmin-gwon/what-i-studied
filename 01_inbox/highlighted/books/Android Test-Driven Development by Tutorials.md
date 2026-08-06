@@ -42,7 +42,7 @@ those decisions may be difficult to modify once they’re implemented
 high cohesion
 
 ---
-Testing ViewModel and LiveData
+Testing [viewmodel](../../mobile/android/02_app_framework/viewmodel.md) and LiveData
 
 
 

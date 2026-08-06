@@ -20,7 +20,7 @@ Compose 가 도입되지 않은 기존 서드파티 라이브러리나 래거시
 
 이를 `@Composable` 내부로 직접 가져오면:
 
-- 상태 변경 시 Recomposition 을 유발할 수 없음.
+- 상태 변경 시 [recomposition](../../runtime/recomposition.md) 을 유발할 수 없음.
 - 코루틴 수명주기 취소 관리가 수동으로 이루어져 코드가 지저분해짐.
 
 `produceState` 는 `LaunchedEffect` 와 `mutableStateOf` 의 기능을 조합하여, 외부 스트림을 깔끔하게 `State<T>` 로 변환해 선언적 UI 에 제공한다.

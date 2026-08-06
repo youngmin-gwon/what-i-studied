@@ -39,7 +39,7 @@ flowchart TD
     end
 
     subgraph SYS["System Server / IPC Layer"]
-        sys1["Binder IPC to CameraService (cameraserver)"] --> sys2["AppOpsService Privacy Switch Check"]
+        sys1["[binder ipc](../../01_system_internals/binder-ipc.md) to CameraService (cameraserver)"] --> sys2["AppOpsService Privacy Switch Check"]
         sys2 --> sys3["MediaProvider IPC for MediaStore insertion"]
         sys3 --> sys4["WorkManager JobScheduler persistence"]
     end

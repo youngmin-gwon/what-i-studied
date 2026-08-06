@@ -9,7 +9,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ## Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다
 
 ### 개념 (What)
-`Structured Concurrency`(구조화된 동시성)는 비동기 작업들을 파편화된 독립 스레드가 아니라, **엄격한 부모-자식 트리 구조(Parent-Child Tree Hierarchy)**로 조직화하여 수명과 취소, 실패를 관리하는 파라다임이다. "부모 Scope는 모든 자식 작업이 완전히 끝날 때까지 완료되지 않으며, 부모가 취소되면 모든 자식도 함께 취소된다"는 대원칙을 가진다.
+`[structured concurrency](../../../../../../computer-science/structured-concurrency.md)`(구조화된 동시성)는 비동기 작업들을 파편화된 독립 스레드가 아니라, **엄격한 부모-자식 트리 구조(Parent-Child Tree Hierarchy)**로 조직화하여 수명과 취소, 실패를 관리하는 파라다임이다. "부모 Scope는 모든 자식 작업이 완전히 끝날 때까지 완료되지 않으며, 부모가 취소되면 모든 자식도 함께 취소된다"는 대원칙을 가진다.
 
 ### 왜 필요한가 (Why)
 1. **비동기 작업 누수(Coroutine Leak) 박멸**: 과거 `Thread`나 `GlobalScope.launch`는 실행된 비동기 작업이 Activity나 ViewModel의 수명을 초과하여 백그라운드에서 계속 실행되는 누수 현상을 유발했다. Structured Concurrency는 컴포넌트 파괴 시 Scope만 cancel 하면 하위의 모든 작업이 100% 자동 정지되도록 보장한다.
@@ -31,7 +31,7 @@ graph TD
     B -->|"attachChild()"| C["Child Job 1 (Network Fetch)"]
     B -->|"attachChild()"| D["Child Job 2 (DB Query)"]
     
-    E["ViewModel.onCleared()"] -->|"1. cancel()"| B
+    E["[viewmodel](../../../viewmodel.md).onCleared()"] -->|"1. cancel()"| B
     B -->|"2. Recursive cancel()"| C
     B -->|"2. Recursive cancel()"| D
 

@@ -2,21 +2,21 @@
 title: composable-body-must-be-fast-idempotent-and-side-effect-free
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Fast, Idempotent, Side-effect-free]
-date modified: 2026-08-06 16:20:28 +09:00
+date modified: 2026-08-06 16:26:53 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
 ## Composable body 는 빠르고 idempotent 하며 side-effect free 해야 한다
 
-배경 지식: [Idempotency(멱등성)](file:///Users/youngmin/Documents/Obsidian/what-i-studied/02_references/computer-science/idempotency.md), [Side Effect(부작용)](file:///Users/youngmin/Documents/Obsidian/what-i-studied/02_references/computer-science/side-effect.md), [Pure Function(순수 함수)](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/computer-science/pure-function.md), [Immutability(불변성)](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/computer-science/immutability.md), [Recomposition(재구성)](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/recomposition.md)
+배경 지식: [Idempotency(멱등성)](../../../../../../../02_references/computer-science/idempotency.md), [Side Effect(부작용)](../../../../../../../02_references/computer-science/side-effect.md), [Pure Function(순수 함수)](../../../../../../computer-science/pure-function.md), [Immutability(불변성)](../../../../../../computer-science/immutability.md), [Recomposition(재구성)](../recomposition.md)
 
 ### 1. 핵심 원칙 용어 서술 (What)
 
 Composable 함수의 본문(Body)은 다음 세 가지 정밀한 규약을 반드시 준수해야 한다:
 
 1. **빠름 (Fast)**: 16.6ms(60fps) 또는 8.3ms(120fps) 프레임 타임 내에 완료될 수 있도록 본문 내에 I/O, 디스크 읽기/쓰기, 정렬/복잡한 연산 등의 무거운 동작이 없어야 한다.
-2. **멱등성 (Idempotent)**: 동일한 입력 파라미터가 전달되면 항상 동일한 UI 트리를 생성해야 하며, 몇 번을 실행하더라도 동일한 결과를 보장해야 한다. ([Idempotency](file:///Users/youngmin/Documents/Obsidian/what-i-studied/02_references/computer-science/idempotency.md) 레퍼런스 참고)
-3. **부작용 없음 (Side-Effect Free)**: 함수 본문 직접 실행 과정에서 외부 상태를 변경하거나(전역 변수 수정, 파일 쓰기, 분석 이벤트 전송), 비동기 코루틴 작업을 시작하는 등의 **[부작용(Side Effect)](file:///Users/youngmin/Documents/Obsidian/what-i-studied/02_references/computer-science/side-effect.md)** 이 일어나서는 안 된다. 즉, Composition 단계에서는 [순수 함수(Pure Function)](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/computer-science/pure-function.md)처럼 반환값(UI Description)만을 생성해야 한다.
+2. **멱등성 (Idempotent)**: 동일한 입력 파라미터가 전달되면 항상 동일한 UI 트리를 생성해야 하며, 몇 번을 실행하더라도 동일한 결과를 보장해야 한다. ([Idempotency](../../../../../../../02_references/computer-science/idempotency.md) 레퍼런스 참고)
+3. **부작용 없음 (Side-Effect Free)**: 함수 본문 직접 실행 과정에서 외부 상태를 변경하거나(전역 변수 수정, 파일 쓰기, 분석 이벤트 전송), 비동기 코루틴 작업을 시작하는 등의 **[부작용(Side Effect)](../../../../../../../02_references/computer-science/side-effect.md)** 이 일어나서는 안 된다. 즉, Composition 단계에서는 [순수 함수(Pure Function)](../../../../../../computer-science/pure-function.md) 처럼 반환값(UI Description)만을 생성해야 한다.
 
 ---
 
@@ -48,7 +48,7 @@ Compose Runtime 은 성능 및 동시성 최적화를 위해 다음과 같은 �
 ```
 
 - **Effect APIs 에 격리**: 데이터 로딩, 네트워크 요청, 분석 이벤트 전송 등 부작용이 수반되는 모든 동작은 `LaunchedEffect`, `DisposableEffect`, 또는 `SideEffect` 블록으로 감싸서 Composition 파이프라인 외부로 격리해야 한다.
-- **연산 메모제이션**: 계산 비용이 큰 로직은 `remember { … }` 나 `derivedStateOf { … }` 로 메모제이션하거나 ViewModel 등의 영역으로 이관한다.
+- **연산 메모제이션**: 계산 비용이 큰 로직은 `remember { … }` 나 `derivedStateOf { … }` 로 메모제이션하거나 [viewmodel](../../../viewmodel.md) 등의 영역으로 이관한다.
 
 ---
 

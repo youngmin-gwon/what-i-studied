@@ -9,7 +9,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ## SharedFlow와 Channel은 상태 저장소가 아니라 이벤트 신호다
 
 ### 개념 (What)
-`StateFlow`가 화면에 지속적으로 노출되는 **상태(State)**를 다루는 반면, `SharedFlow` 및 `Channel`은 토스트 메시지 출력, SnackBar 표시, 화면 이동(Navigation)과 같이 **단 1번만 소비되어야 하는 일회성 이벤트 신호(One-off Event Signal)**를 다룬다.
+`[stateflow](../../../stateflow-and-sharedflow.md)`가 화면에 지속적으로 노출되는 **상태(State)**를 다루는 반면, `SharedFlow` 및 `Channel`은 토스트 메시지 출력, SnackBar 표시, 화면 이동(Navigation)과 같이 **단 1번만 소비되어야 하는 일회성 이벤트 신호(One-off Event Signal)**를 다룬다.
 
 ### 왜 필요한가 (Why)
 1. **화면 회전 시 이벤트 재발동 방지**: `StateFlow`나 `LiveData`로 1회성 네비게이션 이벤트를 처리하면, 화면 회전 시 `value`가 힙에 남아있어 화면이 다시 복구될 때 수집자가 이벤트를 재수신하여 사용자가 원치 않는 네비게이션이 중복 실행된다.

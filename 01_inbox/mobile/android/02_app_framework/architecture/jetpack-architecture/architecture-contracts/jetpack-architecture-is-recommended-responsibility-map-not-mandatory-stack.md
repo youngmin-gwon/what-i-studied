@@ -8,14 +8,14 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Jetpack Architecture는 필수 stack이 아니라 책임 분리 지도다
 
-안드로이드 공식 **Jetpack Architecture 권장 사항은 특정 프레임워크(Room, Hilt, Navigation 등)를 강제로 사용해야 하는 고정된 필수 기술 스택(Mandatory Stack)이 아니다.** 본질은 **관심사 분리(Separation of Concerns), 단방향 데이터 흐름(Unidirectional Data Flow), 데이터 단일 출처(Single Source of Truth) 원칙을 실현하기 위한 책임 분리 지도(Responsibility Map)**다.
+안드로이드 공식 **Jetpack Architecture 권장 사항은 특정 프레임워크(Room, Hilt, Navigation 등)를 강제로 사용해야 하는 고정된 필수 기술 스택(Mandatory Stack)이 아니다.** 본질은 **관심사 분리(Separation of Concerns), 단방향 데이터 흐름(Unidirectional Data Flow), 데이터 단일 출처([single source of truth](../../../single-source-of-truth.md)) 원칙을 실현하기 위한 책임 분리 지도(Responsibility Map)**다.
 
 ---
 
 ### 1. 개념 및 핵심 명제 (What)
 
 - **프레임워크 독립적 원칙**:
-  `ViewModel` 대신 KMP 전용 StateHolder 를 쓸 수도 있고, `Room` 대신 `SQLDelight` 를 쓸 수 있으며, `Hilt` 대신 `Metro` 나 `Koin` 을 쓸 수 있다. 기술 스택이 바뀌어도 **UI 계층, 비즈니스 계층, 데이터 계층 간의 책임 경계**가 유지된다면 권장 아키텍처 원칙을 완벽히 준수하는 것이다.
+  `[viewmodel](../../../viewmodel.md)` 대신 KMP 전용 StateHolder 를 쓸 수도 있고, `Room` 대신 `SQLDelight` 를 쓸 수 있으며, `Hilt` 대신 `Metro` 나 `Koin` 을 쓸 수 있다. 기술 스택이 바뀌어도 **UI 계층, 비즈니스 계층, 데이터 계층 간의 책임 경계**가 유지된다면 권장 아키텍처 원칙을 완벽히 준수하는 것이다.
 - **수준별 유연한 아키텍처 설계**:
   간단한 도메인을 가진 화면은 Domain Layer(UseCase)를 생략하고 ViewModel 이 Repository 를 직접 참조할 수 있다. 필수 레이어는 **UI Layer 와 Data Layer** 이다.
 
@@ -40,7 +40,7 @@ graph LR
 
     subgraph Flexible Implementations ["구현 기술 스택 (Flexible Choice)"]
         UI_Choice["Compose / Native View"]
-        State_Choice["StateFlow / KMP StateHolder"]
+        State_Choice["[stateflow](../../../stateflow-and-sharedflow.md) / KMP StateHolder"]
         DI_Choice["Hilt / Koin / Metro / Manual DI"]
         DB_Choice["Room DB / SQLDelight / DataStore"]
     end

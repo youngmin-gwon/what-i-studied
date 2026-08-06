@@ -22,7 +22,7 @@ date created: 2026-08-03 23:00:00 +09:00
 
 ### 2. Sandbox 는 가장 먼저 있는 기본 격리다
 
-Android app sandbox 는 각 앱을 별도 Linux UID 와 프로세스 경계 안에 둔다. 기본 상태에서 앱은 다른 앱의 private data, process memory 에 직접 접근할 수 없다. 앱 간 협력은 직접 접근이 아니라 Binder IPC, Intent, ContentProvider, permission 같은 명시적 경계를 통해서만 일어난다. 이 장에서 다루는 permission, AppOps, SELinux 는 모두 이 기본 격리 위에 쌓이는 추가 gate 이지, sandbox 를 대체하는 것이 아니다.
+Android app sandbox 는 각 앱을 별도 Linux UID 와 프로세스 경계 안에 둔다. 기본 상태에서 앱은 다른 앱의 private data, process memory 에 직접 접근할 수 없다. 앱 간 협력은 직접 접근이 아니라 [binder ipc](../../01_system_internals/binder-ipc.md), Intent, ContentProvider, permission 같은 명시적 경계를 통해서만 일어난다. 이 장에서 다루는 permission, AppOps, SELinux 는 모두 이 기본 격리 위에 쌓이는 추가 gate 이지, sandbox 를 대체하는 것이 아니다.
 
 ### 3. Binder 호출은 호출자가 주장한 것이 아니라 커널이 확인한 UID/PID 로 판정된다
 

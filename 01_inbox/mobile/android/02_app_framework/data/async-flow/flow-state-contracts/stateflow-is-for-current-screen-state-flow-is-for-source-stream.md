@@ -1,5 +1,5 @@
 ---
-title: stateflow-is-for-current-screen-state-flow-is-for-source-stream
+title: [stateflow](../../../stateflow-and-sharedflow.md)-is-for-current-screen-state-flow-is-for-source-stream
 tags: [android, android/async, android/flow, android/state]
 aliases: ["StateFlow는 화면의 현재 상태를 다루고 Flow는 데이터 저장소 스트림을 다룬다"]
 date modified: 2026-08-05 16:15:00 +09:00
@@ -22,14 +22,14 @@ date created: 2026-08-01 00:00:00 +09:00
    - `_state.value = newValue`로 값을 변경하면 `oldValue == newValue` 비교를 거치고, 값이 다를 경우에만 시퀀스 번호를 올린 뒤 대기 중인 수집자들을 재운다(Wake Up).
 2. **`StateFlow` 대 `LiveData` 차이점**:
    - LiveData는 안드로이드 SDK 의존성(`android.arch.lifecycle`)을 지니며 UI 스레드 메인 큐(`Dispatchers.Main`) 위주로 동작한다.
-   - StateFlow는 순수 Kotlin Standard Library 기반이므로 Multiplatform(KMP), Domain, ViewModel 단위 테스트에서 Android SDK mock 없이 동작한다.
+   - StateFlow는 순수 Kotlin Standard Library 기반이므로 Multiplatform(KMP), Domain, [viewmodel](../../../viewmodel.md) 단위 테스트에서 Android SDK mock 없이 동작한다.
 
 ```mermaid
 graph TD
     A["Repository Cold Flow (DB / Network Stream)"] -->|"stateIn() in ViewModel"| B["StateFlow<UiState> (Hot Stream)"]
     B -->|"Holds .value in Memory"| C["State Property (Read Anytime)"]
     B -->|"Equals Check (Conflation)"| D["Emit to UI only if Value Changed"]
-    D --> E["Jetpack Compose Recomposition"]
+    D --> E["Jetpack Compose [recomposition](../../../jetpack-compose/runtime/recomposition.md)"]
 
     style A fill:#e1f5fe,stroke:#0288d1,color:#01579b
     style B fill:#fff3e0,stroke:#f57c00,color:#e65100

@@ -16,7 +16,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ### 내부 동작 메커니즘 (Internal Mechanism)
 
 1. **Shared Memory Read (mmap `/dev/__properties__`)**:
-   - 속성 값 읽기(`SystemProperties.get()`) 시 Binder IPC 오버헤드를 없애기 위해, `init`은 Trie 트리가 구축된 Trie 데이터 구조체의 속성 영역을 `/dev/__properties__` 공유 메모리로 마운트한다.
+   - 속성 값 읽기(`SystemProperties.get()`) 시 [binder ipc](../../binder-ipc.md) 오버헤드를 없애기 위해, `init`은 Trie 트리가 구축된 Trie 데이터 구조체의 속성 영역을 `/dev/__properties__` 공유 메모리로 마운트한다.
    - 모든 프로세스는 libc(Bionic) 초기화 과정에서 읽기 전용(`O_RDONLY`)으로 이 메모리를 `mmap`하여 lock-free 직렬화 노드인 `prop_info` 포인터를 통해 직접 1초 미만의 고속 조회를 수행한다.
 2. **Socket Write IPC & SELinux Permission Check**:
    - 속성 쓰기(`setprop` / `SystemProperties.set()`) 시 client는 `/dev/socket/property_service` 유닉스 소켓으로 `PROP_MSG_SETPROP2` 패킷을 송신한다.

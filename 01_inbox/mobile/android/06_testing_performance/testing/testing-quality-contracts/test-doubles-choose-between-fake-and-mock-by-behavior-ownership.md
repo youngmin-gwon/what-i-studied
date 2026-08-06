@@ -12,7 +12,7 @@ date created: 2026-08-04 20:00:00 +09:00
 
 ### 핵심 주장
 
-Fake 는 실제 로직을 간단하게라도 스스로 구현한 대역이고(예: in-memory `Map` 기반 Repository), Mock/Stub 는 호출을 기록하거나 미리 정한 값만 반환하는 대역이다. 이 vault 의 ViewModel 테스트가 "fake repository 만으로 충분하다"고 반복해서 말하는 이유는, Fake 가 실제 행동(성공/실패/빈 값 조건 분기)을 스스로 소유해서 `Repository` interface 가 조금만 바뀌어도 Fake 코드 자체가 컴파일 에러로 드러나는 반면, Mock 은 `every { ... } returns ...` 스텁이 interface 변경과 무관하게 계속 통과할 수 있어 리팩터링 안전성이 낮기 때문이다.
+Fake 는 실제 로직을 간단하게라도 스스로 구현한 대역이고(예: in-memory `Map` 기반 Repository), Mock/Stub 는 호출을 기록하거나 미리 정한 값만 반환하는 대역이다. 이 vault 의 [viewmodel](../../../02_app_framework/viewmodel.md) 테스트가 "fake repository 만으로 충분하다"고 반복해서 말하는 이유는, Fake 가 실제 행동(성공/실패/빈 값 조건 분기)을 스스로 소유해서 `Repository` interface 가 조금만 바뀌어도 Fake 코드 자체가 컴파일 에러로 드러나는 반면, Mock 은 `every { ... } returns ...` 스텁이 interface 변경과 무관하게 계속 통과할 수 있어 리팩터링 안전성이 낮기 때문이다.
 
 Kotlin/Android 생태계에서 이 역할을 실제로 수행하는 라이브러리는 MockK(Kotlin 우선, `mockk`/`coEvery`)와 Mockito(Java 우선, `mockito-kotlin` 으로 Kotlin 사용)다. 두 라이브러리는 서로 대체 가능하지만 이 vault 의 다른 코루틴 테스트 노트들이 `coEvery`/`coVerify` 를 전제로 예시를 들 때는 MockK 를 기준으로 한다.
 

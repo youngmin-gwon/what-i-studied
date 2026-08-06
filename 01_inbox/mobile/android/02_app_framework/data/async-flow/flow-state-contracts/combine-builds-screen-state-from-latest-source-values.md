@@ -27,7 +27,7 @@ graph TD
     D["Flow 3: Network Status"] --> C
     
     C -->|"Any source updates -> Compute with latest values"| E["HomeScreenUiState"]
-    E --> F["StateFlow -> Jetpack Compose UI"]
+    E --> F["[stateflow](../../../stateflow-and-sharedflow.md) -> Jetpack Compose UI"]
 
     style A fill:#e1f5fe,stroke:#0288d1,color:#01579b
     style B fill:#e1f5fe,stroke:#0288d1,color:#01579b

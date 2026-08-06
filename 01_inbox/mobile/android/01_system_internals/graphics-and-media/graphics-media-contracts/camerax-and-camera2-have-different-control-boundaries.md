@@ -30,7 +30,7 @@ graph TD
     App -->|Explicit Control| Camera2[Camera2 Framework API]
 
     CameraX -->|CameraPipe & Quirks Engine| Camera2
-    Camera2 -->|Binder IPC| CameraService[system_server / CameraService]
+    Camera2 -->|[binder ipc](../../binder-ipc.md)| CameraService[system_server / CameraService]
     CameraService -->|HIDL / AIDL| CameraHAL3[Vendor Camera HAL3]
 ```
 

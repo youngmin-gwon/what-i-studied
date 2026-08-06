@@ -17,7 +17,7 @@ date created: 2026-07-31 16:43:35 +09:00
 문제는 다음과 같다.
 
 - 원본 문서명을 폴더로 보존한 구조가 많다.
-- 같은 개념이 ViewModel, Flow, Compose State 문서에 반복된다.
+- 같은 개념이 [viewmodel](../02_app_framework/viewmodel.md), Flow, Compose State 문서에 반복된다.
 - Storage, Security, Performance, Navigation 영역에서 개념 노트와 실무 가이드가 섞여 있다.
 - 숫자 prefix 파일은 원자 노트라기보다 원본 heading 조각에 가깝다.
 - 허브 문서와 원자 노트가 같은 계층에서 혼재한다.
@@ -133,7 +133,7 @@ Canonical note 후보:
 - 복원해야 하는 진행 상태는 일회성 이벤트가 아니라 UiState 로 표현한다
 - Snackbar 와 Navigation 처럼 소비 시점이 중요한 신호만 이벤트 스트림으로 분리한다
 - Repository 는 데이터 흐름을 Flow 로 제공하고 ViewModel 은 화면 상태로 조합한다
-- StateFlow 는 현재값이 필요한 화면 상태에 사용하고 Flow 는 원천 데이터 흐름에 사용한다
+- [stateflow](../02_app_framework/stateflow-and-sharedflow.md) 는 현재값이 필요한 화면 상태에 사용하고 Flow 는 원천 데이터 흐름에 사용한다
 - SharedFlow 와 Channel 은 상태 저장소가 아니라 일회성 신호 전달 수단이다
 - Flow 를 StateFlow 로 바꿀 때는 stateIn 의 수명과 공유 정책을 명시한다
 - Reducer 는 이전 상태와 Action 만 받아 새 상태를 계산한다
@@ -359,7 +359,7 @@ Canonical note 후보:
 ### Phase 13A 적용 기록
 
 - 적용일: 2026-07-31
-- 범위: Compose mental model, recomposition, snapshot state observation, remember, Slot Table/positional identity, Compose compiler/restart/skip, frame phases, state owner, Flutter rebuild comparison, effect API overlap, strong skipping wording
+- 범위: Compose mental model, [recomposition](../02_app_framework/jetpack-compose/runtime/recomposition.md), snapshot state observation, remember, Slot Table/positional identity, Compose compiler/restart/skip, frame phases, state owner, Flutter rebuild comparison, effect API overlap, strong skipping wording
 - 정본 지도: [Compose runtime and state model](../02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md)
 - 상태/Effect 정본 지도: [Compose 상태와 Effect 계약](../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
 - 성능 정본 지도: [Compose 성능 계약](../02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-contracts.md)
@@ -378,7 +378,7 @@ Canonical note 후보:
 ### Phase 28 적용 기록
 
 - 적용일: 2026-08-01
-- 범위: Binder IPC, Binder transaction, AIDL, oneway call, Binder thread pool, IPC debugging, process/system service 경계 연결
+- 범위: [binder ipc](../01_system_internals/binder-ipc.md), Binder transaction, AIDL, oneway call, Binder thread pool, IPC debugging, process/system service 경계 연결
 - 정본 지도: [IPC and process contracts](../01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
 - 원칙: IPC 고유 계약은 Binder/AIDL/process boundary 로 새로 정리하고, Zygote, system_server, LMKD, sandbox, graphics/media, storage/security 같은 이미 정본이 있는 주제는 중복 작성하지 않고 해당 정본으로 연결한다.
 - 추가 정리: Android 전체 문서에서 `관련 정본:` 을 `관련 노트:` 로 통일하고, `- 정본:` 형식의 legacy redirect stub 을 표준 redirect 문서로 변환했다.

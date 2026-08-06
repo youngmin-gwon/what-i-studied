@@ -9,7 +9,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ## stateIn은 명시적 수명 scope와 sharing policy를 요구한다
 
 ### 개념 (What)
-`stateIn`은 **Cold Flow 스트림을 Hot `StateFlow`로 변환**하는 핵심 연산자다. 이를 안전하게 동작시키기 위해 **(1) 공유 코루틴이 실행될 `CoroutineScope`**, **(2) 업스트림 활성화/정지 시점을 정하는 `SharingStarted` 전략**, **(3) 초기 상태인 `initialValue`**를 필수 요구한다.
+`stateIn`은 **Cold Flow 스트림을 Hot `[stateflow](../../../stateflow-and-sharedflow.md)`로 변환**하는 핵심 연산자다. 이를 안전하게 동작시키기 위해 **(1) 공유 코루틴이 실행될 `CoroutineScope`**, **(2) 업스트림 활성화/정지 시점을 정하는 `SharingStarted` 전략**, **(3) 초기 상태인 `initialValue`**를 필수 요구한다.
 
 ### 왜 필요한가 (Why)
 1. **백그라운드 리소스 및 쿼리 누수 차단**: 앱이 백그라운드로 내려가거나 사용자가 화면을 이탈했을 때도 업스트림 데이터베이스 수집이나 네트워크 스트리밍이 계속 실행되는 것은 심각한 자원 낭비다.
@@ -43,7 +43,7 @@ graph TD
 | :--- | :--- | :--- |
 | **업스트림 유지** | `refCount()` 사용 시 구독자 0 즉시 취소되어 회전 시 문제 발생 | `WhileSubscribed(5000)`으로 화면 회전 유예 시간 확보 |
 | **초기값 설정** | LiveData 생성 시 초기값 설정 불가능 | `stateIn` 파라미터로 필수 초기값 지정 강제 |
-| **Scope 바인딩** | CompositeDisposable을 수동 관리하여 에러 가능성 존재 | `viewModelScope` 결합으로 ViewModel 파괴 시 100% 자동 소멸 |
+| **Scope 바인딩** | CompositeDisposable을 수동 관리하여 에러 가능성 존재 | `viewModelScope` 결합으로 [viewmodel](../../../viewmodel.md) 파괴 시 100% 자동 소멸 |
 
 ### Idiomatic Kotlin 코드 예시
 

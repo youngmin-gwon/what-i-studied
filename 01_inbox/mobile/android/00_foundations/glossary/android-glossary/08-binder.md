@@ -1,7 +1,7 @@
 ---
 title: 08-binder
 tags: ["android", "android/glossary"]
-aliases: ["Binder IPC"]
+aliases: ["[binder ipc](../../../01_system_internals/binder-ipc.md)"]
 date modified: 2026-08-03 17:21:39 +09:00
 date created: 2026-07-31 15:29:55 +09:00
 ---

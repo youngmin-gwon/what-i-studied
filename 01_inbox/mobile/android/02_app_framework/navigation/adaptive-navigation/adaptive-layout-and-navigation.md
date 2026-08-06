@@ -47,7 +47,7 @@ graph TD
    - **Compact**: `< 600dp` (일반 스마트폰 세로 모드, 멀티윈도우 좁은 창)
    - **Medium**: `600dp ~ 840dp` (스마트폰 가로 모드, 소형 태블릿, 폴더블 펼친 모드)
    - **Expanded**: `>= 840dp` (대형 태블릿, 데스크톱/크롬북)
-3. **Scaffold 수신 및 UI 재구성**:
+3. **Scaffold 수신 및 UI [재구성](../../jetpack-compose/runtime/recomposition.md)**:
    - `NavigationSuiteScaffold`: 창 크기에 따라 하단 바(Bottom Bar) $\rightarrow$ 내비게이션 레일(Navigation Rail) $\rightarrow$ 영구 드로어(Persistent Drawer)로 탐색 크롬을 자동 교체한다.
    - `ListDetailPaneScaffold`: Compact 창에서는 Single Pane(목록 $\rightarrow$ 상세 화면으로 Push/Pop 전이), Medium/Expanded 창에서는 Dual Pane(목록과 상세 화면 동시 노출)으로 레이아웃을 변환한다.
 

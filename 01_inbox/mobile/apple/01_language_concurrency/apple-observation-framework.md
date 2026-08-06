@@ -19,7 +19,7 @@ SwiftUI 의 **상태 관리 패러다임 자체를 바꾼** 혁명적 변화입�
 ### 💡 왜 이것을 알아야 하나요? (Context)
 - **성능 혁신**: 대규모 앱에서 불필요한 뷰 재평가가 80% 이상 줄어들 수 있습니다. "왜 내 리스트가 버벅이지?"의 근본 원인이 사라집니다.
 - **코드 단순화**: `@Published`, `@StateObject`, `@ObservedObject` 삼총사가 사라집니다. 그냥 `@State` 와 `@Environment` 만 있으면 됩니다.
-- **Combine 탈출**: ViewModel → View 데이터 흐름에 Combine (`objectWillChange.send()`) 이 더 이상 필요 없습니다.
+- **Combine 탈출**: [viewmodel](../../android/02_app_framework/viewmodel.md) → View 데이터 흐름에 Combine (`objectWillChange.send()`) 이 더 이상 필요 없습니다.
 
 ---
 

@@ -10,7 +10,7 @@ date created: 2026-07-31 23:59:00 +09:00
 
 ### 1. 개념 정의 (What)
 
-`rememberUpdatedState(newValue)` 는 `LaunchedEffect` 나 `DisposableEffect` 처럼 작업 실행 시간이 길거나 수명주기가 긴 Side Effect 블록 내부에서, **이펙트를 취소하고 재시작(Restart)하지 않으면서도 항상 매 Recomposition 시 전달된 최신 파라미터 상태를 참조할 수 있도록 감싸주는 캡쳐 API**다.
+`rememberUpdatedState(newValue)` 는 `LaunchedEffect` 나 `DisposableEffect` 처럼 작업 실행 시간이 길거나 수명주기가 긴 Side Effect 블록 내부에서, **이펙트를 취소하고 재시작(Restart)하지 않으면서도 항상 매 [recomposition](../../runtime/recomposition.md) 시 전달된 최신 파라미터 상태를 참조할 수 있도록 감싸주는 캡쳐 API**다.
 
 ---
 
@@ -46,7 +46,7 @@ graph TD
 ```
 
 1. **내부 State 래핑**: `rememberUpdatedState` 는 내부적으로 `remember { mutableStateOf(newValue) }` 를 생성하고, 매 Recomposition 마다 `.value = newValue` 를 업데이트한다.
-2. **참조 불변성**: 반환된 `State<T>` 객체 자체의 참조는 바뀌지 않으므로, 이펙트의 `key` 로 지정되거나 이펙트 내부에서 참조되어도 이펙트 재시작을 유발하지 않는다.
+2. **참조 [불변성](../../../../../../computer-science/immutability.md)**: 반환된 `State<T>` 객체 자체의 참조는 바뀌지 않으므로, 이펙트의 `key` 로 지정되거나 이펙트 내부에서 참조되어도 이펙트 재시작을 유발하지 않는다.
 
 ---
 

@@ -23,7 +23,7 @@ Compose 상태 API 와 부작용(Side Effect) 관리 API 는 **데이터의 보�
    - **특징**: 화면 회전(Activity Recreation) 및 시스템 프로세스 종료(Process Death) 시에도 Bundle 을 통해 상태 보존.
 
 3. **화면 수명 (Screen/Business State)**
-   - **API**: `ViewModel`, `SavedStateHandle`, `collectAsStateWithLifecycle()`
+   - **API**: `[viewmodel](../../../viewmodel.md)`, `SavedStateHandle`, `collectAsStateWithLifecycle()`
    - **특징**: 화면 설정 변경에도 유지되며 도메인 데이터와 비즈니스 로직을 연결.
 
 ---
@@ -39,7 +39,7 @@ Compose 상태 API 와 부작용(Side Effect) 관리 API 는 **데이터의 보�
 - [rememberUpdatedState는 effect를 최신 값으로 유지한다](./remember-updated-state-keeps-effect-on-latest-value.md)
 - [snapshotFlow는 Compose 상태를 Cold Flow로 변환한다](./snapshot-flow-converts-compose-state-to-cold-flow.md)
 - [UI controller와 effect runner는 ViewModel이 아니라 UI 수명에 둔다](./ui-controllers-and-effect-runners-live-with-ui-lifetime.md)
-- [ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다](./viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md)
+- [ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다](./viewmodel-[stateflow](../../../stateflow-and-sharedflow.md)-becomes-screen-state-with-lifecycle-collection.md)
 
 ---
 

@@ -15,7 +15,7 @@ date created: 2026-08-01 00:00:00 +09:00
 | 상태 위치 | configuration change | process death |
 | --- | --- | --- |
 | Activity field / Compose `remember` | 새 instance에서 소실 | 소실 |
-| ViewModel | 같은 `ViewModelStore` 경계를 통해 유지 | 소실 |
+| [viewmodel](../../../viewmodel.md) | 같은 `ViewModelStore` 경계를 통해 유지 | 소실 |
 | `rememberSaveable` / `SavedStateHandle`의 저장 가능 값 | 복원 | saved snapshot에서 복원 가능 |
 | Room/DataStore/file | 유지 | 유지 |
 

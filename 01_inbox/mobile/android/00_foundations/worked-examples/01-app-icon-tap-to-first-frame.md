@@ -36,7 +36,7 @@ flowchart TD
     end
 
     subgraph SYS["System Server / IPC Layer"]
-        sys1["Launcher calls ATMS via Binder IPC"] --> sys2["PMS Manifest Check"]
+        sys1["Launcher calls ATMS via [binder ipc](../../01_system_internals/binder-ipc.md)"] --> sys2["PMS Manifest Check"]
         sys2 --> sys3["AMS checks process state (Cold Start)"]
         sys3 --> sys4["AMS requests Zygote via Socket (/dev/socket/zygote)"]
     end
@@ -222,7 +222,7 @@ class MainActivity : ComponentActivity() {
 
         // 비동기 데이터 로딩 완료 시 TTFD (Time To Full Display) 신호 전송
         lifecycleScope.launch {
-            viewModel.isDataFullyLoaded.first { it }
+            [viewmodel](../../02_app_framework/viewmodel.md).isDataFullyLoaded.first { it }
             // OS 에 앱의 실질적 준비 완료 신호를 전달 (Macrobenchmark / Vitals 측정 기준)
             reportFullyDrawn()
         }

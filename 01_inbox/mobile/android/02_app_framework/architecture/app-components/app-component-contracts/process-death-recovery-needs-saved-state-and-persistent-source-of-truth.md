@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Process death 복구는 최소 saved state와 영속 source of truth를 결합한다
 
-시스템이 background process를 회수하면 `Application`, singleton, ViewModel, coroutine과 in-memory cache가 함께 사라진다. 정리 callback이나 마지막 저장 기회는 보장되지 않는다. task 기록이 남아 사용자가 돌아왔을 때 화면처럼 보일 수 있어도 실제로는 새 PID와 새 component instance다.
+시스템이 background process를 회수하면 `Application`, singleton, [viewmodel](../../../viewmodel.md), coroutine과 in-memory cache가 함께 사라진다. 정리 callback이나 마지막 저장 기회는 보장되지 않는다. task 기록이 남아 사용자가 돌아왔을 때 화면처럼 보일 수 있어도 실제로는 새 PID와 새 component instance다.
 
 ### 복구 메커니즘
 

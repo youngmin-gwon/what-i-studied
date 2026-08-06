@@ -107,7 +107,7 @@ private var importantTodos: [Todo]
 
 #### `FetchDescriptor` (비 -SwiftUI 환경)
 
-ViewModel 이나 Service 레이어에서 데이터를 가져올 때 사용합니다.
+[viewmodel](../../android/02_app_framework/viewmodel.md) 이나 Service 레이어에서 데이터를 가져올 때 사용합니다.
 
 ```swift
 func fetchIncompleteTodos(context: ModelContext) throws -> [Todo] {

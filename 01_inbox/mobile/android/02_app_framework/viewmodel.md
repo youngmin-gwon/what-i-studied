@@ -48,6 +48,6 @@ Android AAC(Android Architecture Components)의 `ViewModel` 은 특히 **Activit
 
 ## 연결 문서
 
-- [Pure Function](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/computer-science/pure-function.md) - ViewModel 과 대비되는 순수 UI 컴포넌트 성질
-- [Side Effect](file:///Users/youngmin/Documents/Obsidian/what-i-studied/02_references/computer-science/side-effect.md) - ViewModel 이 비동기 작업을 처리하는 스코프와 부작용
-- [Recomposition](file:///Users/youngmin/Documents/Obsidian/what-i-studied/01_inbox/mobile/android/02_app_framework/jetpack-compose/runtime/recomposition.md) - ViewModel UiState 에 반응하여 일어나는 UI 재구성
+- [Pure Function](../../../computer-science/pure-function.md) - ViewModel 과 대비되는 순수 UI 컴포넌트 성질
+- [Side Effect](../../../../02_references/computer-science/side-effect.md) - ViewModel 이 비동기 작업을 처리하는 스코프와 부작용
+- [Recomposition](jetpack-compose/runtime/recomposition.md) - ViewModel UiState 에 반응하여 일어나는 UI 재구성

@@ -10,7 +10,7 @@ date created: 2026-04-03 22:15:19 +09:00
 
 ### Swift Concurrency: Modern Asynchronous Programming
 
-Swift 5.5 부터 도입된 **구조적 비동기 프로그래밍(Structured Concurrency)**의 핵심 원리와 내부 동작을 심층 분석합니다.
+Swift 5.5 부터 도입된 **구조적 비동기 프로그래밍([structured concurrency](../../../computer-science/structured-concurrency.md))**의 핵심 원리와 내부 동작을 심층 분석합니다.
 
 ### Swift Concurrency Deep Dive
 
@@ -220,7 +220,7 @@ class ViewController {
 | **핵심 키워드** | `suspend`, `launch`, `async` | `async`, `await`, `task` |
 | **스레드 전환** | `withContext(Dispatchers.IO)` (명시적) | `actor` / `@MainActor` (격리 기반 자동 전환) |
 | **데이터 경합** | 개발자가 주의 (MutableStateFlow 등 활용) | **컴파일 타임 차단** (Sendable, Actor Isolation) |
-| **비동기 스트림** | `Flow` (Cold), `StateFlow` (Hot) | `AsyncSequence`, `AsyncStream` |
+| **비동기 스트림** | `Flow` (Cold), `[stateflow](../../android/02_app_framework/stateflow-and-sharedflow.md)` (Hot) | `AsyncSequence`, `AsyncStream` |
 | **취소 전파** | Structured Concurrency (Job hierarchy) | Task hierarchy & Cooperative cancellation |
 
 >[!TIP] **Android 개발자를 위한 Swift Concurrency**

@@ -36,7 +36,7 @@ flowchart TD
         paused --> stopped["STOPPED"]
         stopped --> destroyed["DESTROYED"]
 
-        stopped -- "설정 변경 (화면 회전, 언어)" --> configChange["Activity 재생성, ViewModel 유지"]
+        stopped -- "설정 변경 (화면 회전, 언어)" --> configChange["Activity 재생성, [viewmodel](../../02_app_framework/viewmodel.md) 유지"]
         stopped -- "프로세스 종료 (메모리 부족, 오래된 백그라운드)" --> processDeath["Activity + ViewModel 모두 소멸"]
         processDeath --> restore["SavedStateHandle / Storage 만 복원 가능"]
     end
@@ -93,7 +93,7 @@ ViewModel 은 화면(Activity/Fragment/Composable) 의 생명주기보다 오래
 
 **ViewModel 의 두 가지 핵심 규칙**:
 
-1. **Mutable 상태는 내부에 숨긴다**: `_uiState: MutableStateFlow` 는 private, `uiState: StateFlow` 만 공개
+1. **Mutable 상태는 내부에 숨긴다**: `_uiState: MutableStateFlow` 는 private, `uiState: [stateflow](../../02_app_framework/stateflow-and-sharedflow.md)` 만 공개
 2. **UI Context 를 보유하지 않는다**: Activity, Fragment, View, Context 참조를 field 에 저장하면 메모리 누수가 발생한다
 
 `viewModelScope` 는 ViewModel 이 소멸될 때 자동으로 취소되는 CoroutineScope 다. `SavedStateHandle` 은 프로세스 종료 후에도 작은 직렬화 가능한 값을 복원하고, Navigation argument 접근에도 쓰인다.

@@ -25,7 +25,7 @@ date created: 2026-08-04 02:50:00 +09:00
 
 1. **UI & Framework Layer (화면 이탈 시점 - SavedState vs Persistent Storage)**
    - 앱이 background 로 전환될 때, `ActivityThread.handleStopActivity()` 가 호출되며 `SavedStateRegistryController` 에 의해 UI 컴포넌트들의 `onSaveInstanceState(Bundle)` 가 트리거된다.
-   - **경량 편집 상태 (Draft Text)**: `SavedStateHandle` 에 담긴 데이터는 `ActivityRecord.icicle` (Bundle)로 직렬화되어 Binder IPC 를 통해 `ActivityTaskManagerService` (ATMS) 로 전달된다.
+   - **경량 편집 상태 (Draft Text)**: `SavedStateHandle` 에 담긴 데이터는 `ActivityRecord.icicle` (Bundle)로 직렬화되어 [binder ipc](../../01_system_internals/binder-ipc.md) 를 통해 `ActivityTaskManagerService` (ATMS) 로 전달된다.
    - **중량 작업 상태 (Media Upload)**: 만약 미디어 업로드가 화면의 `viewModelScope` 나 `lifecycleScope` 에 바인딩된 coroutine 으로 실행 중이었다면, process death 시 프로세스 메모리가 해제되면서 작업이 즉시 취소된다. 따라서 이 작업은 enqueue 시점에 `WorkManager` (App Framework)에 위임되어 SQLite DB (`/data/data/<pkg>/databases/FrameworkWorkManager.db`) 에 영속 저장(Persistent Storage)되어야 한다.
 
 2. **System Server & IPC Layer (Process Death 발생 시점)**
@@ -35,10 +35,10 @@ date created: 2026-08-04 02:50:00 +09:00
 
 3. **Kernel & Framework Layer (앱 재진입 및 프로세스 재생성)**
    - 사용자가 외부 picker 에서 작업 후 작성 앱으로 복귀하면, ATMS 는 해당 `ActivityRecord` 의 상태를 확인하고 Zygote 에 `fork()` IPC 요청을 보내 새 프로세스를 생성한다.
-   - 새로 생성된 프로세스의 `ActivityThread.main()` 이 실행되고, `attach()` → `handleLaunchActivity()` 흐름을 거쳐 `Activity` 및 `ViewModel` 이 새로 인스턴스화된다.
+   - 새로 생성된 프로세스의 `ActivityThread.main()` 이 실행되고, `attach()` → `handleLaunchActivity()` 흐름을 거쳐 `Activity` 및 `[viewmodel](../../02_app_framework/viewmodel.md)` 이 새로 인스턴스화된다.
 
 4. **UI & Work Recovery Layer (상태 및 작업 복원)**
-   - **Draft Text 복원**: ATMS 에서 전달받은 `SavedState` Bundle 이 `SavedStateHandle` 로 재주입되어 `ViewModel` 이 생성된다. Compose UI 의 `TextField` 는 `SavedStateHandle` 의 `StateFlow` 를 관찰하여 작성 중이던 글을 다시 화면에 복원한다.
+   - **Draft Text 복원**: ATMS 에서 전달받은 `SavedState` Bundle 이 `SavedStateHandle` 로 재주입되어 `ViewModel` 이 생성된다. Compose UI 의 `TextField` 는 `SavedStateHandle` 의 `[stateflow](../../02_app_framework/stateflow-and-sharedflow.md)` 를 관찰하여 작성 중이던 글을 다시 화면에 복원한다.
    - **Work Manager 복원**: `WorkManager` 가 초기화되면서 SQLite DB 에 남아 있던 기존 업로드 작업 ID (`pending_upload_id`) 의 최신 `WorkInfo` 상태를 `SystemJobService` / `JobScheduler` 와 동기화한다. 화면은 `getWorkInfoByIdFlow()` 를 통해 업로드 진행률 또는 완료 상태를 다시 관찰한다.
 
 ---

@@ -40,7 +40,7 @@ sequenceDiagram
     end
 
     rect rgb(255, 245, 235)
-        note over Tree, Cleanup: 2. Recomposition (Key 변경 발생 시)
+        note over Tree, Cleanup: 2. [recomposition](../../runtime/recomposition.md) (Key 변경 발생 시)
         Tree->>Cleanup: 보존된 이전 onDispose 구동 (Teardown)
         Cleanup->>Listener: 이전 리스너 해제 (Unregister)
         Tree->>Effect: 새 DisposableEffect 람다 재실행

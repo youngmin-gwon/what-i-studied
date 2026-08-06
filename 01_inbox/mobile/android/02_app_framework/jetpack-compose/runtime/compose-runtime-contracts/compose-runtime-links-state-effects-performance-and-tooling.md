@@ -39,7 +39,7 @@ flowchart TD
 1. **State & Runtime**: `mutableStateOf`는 Snapshot 트랜잭션과 직접 연결되어 RecomposeScope를 무효화한다.
 2. **Effects & Runtime**: `LaunchedEffect` 및 `DisposableEffect`는 Composition 수명주기에 바인딩되어 코루틴의 시작과 취소를 관리에 연동한다.
 3. **Performance & Runtime**: Compiler의 stability 분석 지표(`stable`/`unstable`)와 Strong Skipping 옵션이 Runtime의 Skip 여부를 결정한다.
-4. **Tooling & Runtime**: Android Studio의 Layout Inspector 및 Compose Compiler Metrics는 Runtime의 Recomposition 횟수 및 Skip 로그를 픽셀/텍스트 레벨로 시각화한다.
+4. **Tooling & Runtime**: Android Studio의 Layout Inspector 및 Compose Compiler Metrics는 Runtime의 [recomposition](../recomposition.md) 횟수 및 Skip 로그를 픽셀/텍스트 레벨로 시각화한다.
 
 ---
 

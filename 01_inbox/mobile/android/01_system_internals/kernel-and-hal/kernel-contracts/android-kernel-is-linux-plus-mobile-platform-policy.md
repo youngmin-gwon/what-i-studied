@@ -29,7 +29,7 @@ graph TD
         A4[Standard DAC / POSIX Permissions]
     end
     subgraph Android Kernel Platform Policy
-        B1["Binder IPC (/dev/binderfs)\n(Kernel-mediated capability & zero-copy transfer)"]
+        B1["[binder ipc](../../binder-ipc.md) (/dev/binderfs)\n(Kernel-mediated capability & zero-copy transfer)"]
         B2["SystemSuspend / Suspend Blockers\n(Wakelocks & Autosleep)"]
         B3["PSI (Pressure Stall Information) + LMKD\n(Userspace Memory Reclaim)"]
         B4["SELinux MAC Policy + Android Sandbox\n(App Isolation by UID/GID)"]

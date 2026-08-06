@@ -43,7 +43,7 @@ Macrobenchmark는 앱과 다른 test process에서 실제 사용자 동작을 �
 4. Re-measure: 같은 benchmark 분포와 trace를 baseline과 비교
 ```
 
-Layout Inspector의 recomposition/skip count는 원인 후보를 찾는 진단 자료이지 사용자 성능 metric 자체가 아니다. `remember`, `derivedStateOf`, lazy layout 교체도 frame timing이나 startup 결과가 개선되지 않으면 성공으로 기록하지 않는다. 평균 하나보다 반복 측정 분포와 느린 frame 지표를 함께 본다.
+Layout Inspector의 [recomposition](../../runtime/recomposition.md)/skip count는 원인 후보를 찾는 진단 자료이지 사용자 성능 metric 자체가 아니다. `remember`, `derivedStateOf`, lazy layout 교체도 frame timing이나 startup 결과가 개선되지 않으면 성공으로 기록하지 않는다. 평균 하나보다 반복 측정 분포와 느린 frame 지표를 함께 본다.
 
 관련 노트: [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](./compose-layout-and-image-cost-must-be-budgeted.md), [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../../06_testing_performance/performance/performance-contracts/rendering-jank-is-frame-deadline-failure.md)
 

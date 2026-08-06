@@ -20,7 +20,7 @@ Compose Runtime은 Composable을 개별 UI 뷰 객체로 다루지 않고, 상�
 1. **선언적 상태 모델 ($UI = f(State)$)**
    - **What**: UI를 직접 변경(`textView.text = ...`)하지 않고, 현재 앱 상태를 인수로 받아 UI 구조를 묘사하는 함수식 모델이다.
    - **Why**: 상태 변화와 UI 갱신 간의 상태 불일치(State-UI Desynchronization) 버그를 구조적으로 방지한다.
-   - **How**: Compose Compiler가 `@Composable` 함수에 `$composer` 객체를 주입하여 실행 결과를 Slot Table에 기록하고, 상태 변경 시 무효화된 Scope만 선별 재실행(Recomposition)한다.
+   - **How**: Compose Compiler가 `@Composable` 함수에 `$composer` 객체를 주입하여 실행 결과를 Slot Table에 기록하고, 상태 변경 시 무효화된 Scope만 선별 재실행([recomposition](recomposition.md))한다.
 
 2. **Snapshot 기반 자동 상태 관찰 시스템**
    - **What**: 개발자가 리스너나 `setState()`를 명시하지 않아도, Composition 단계에서 읽어들인 State 객체를 런타임이 자동으로 추적하는 메커니즘이다.

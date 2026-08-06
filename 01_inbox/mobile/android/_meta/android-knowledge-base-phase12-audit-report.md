@@ -101,7 +101,7 @@ date created: 2026-08-06 14:45:00 +09:00
 - `02_app_framework/architecture/multiplatform-contracts/kmp-shares-business-logic-and-data-layer-while-ui-stays-native-by-default.md`
   - native UI를 KMP의 기본·100% 품질 보장으로 단정한다. Compose Multiplatform과 platform UI를 선택지로 분리해야 한다.
 - `02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-ui-is-declarative-function-of-state.md`
-  - Slot Table, recomposition, Applier, measure/layout/draw invalidation을 하나의 UI tree diff 단계처럼 설명한다.
+  - Slot Table, [recomposition](../02_app_framework/jetpack-compose/runtime/recomposition.md), Applier, measure/layout/draw invalidation을 하나의 UI tree diff 단계처럼 설명한다.
 - `03_packaging_deployment/distribution/billing-contracts/play-billing-library-is-the-only-approved-in-app-purchase-path.md`
   - 정책 제목이 지역별 예외를 무시한다. Billing 6.2.1과 제거된 무인자 `enablePendingPurchases()` 예제도 갱신해야 한다.
 - `03_packaging_deployment/android-packaging-deployment.md`

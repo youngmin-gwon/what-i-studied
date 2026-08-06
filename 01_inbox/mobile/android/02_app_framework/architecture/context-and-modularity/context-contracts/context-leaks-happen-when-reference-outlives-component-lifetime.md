@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Context leak은 참조가 컴포넌트 수명보다 오래 살 때 발생한다
 
-**`Context Leak` (메모리 누수)**의 근본 원인은 단순한 안드로이드 API 호출 실패가 아니라, **상대적으로 수명이 짧은 컴포넌트 Context(예: Activity Context) 참조가 수명이 더 긴 객체(예: Singleton, Static Variable, ViewModel, Background Coroutine Scope)에 의해 캡처되어 지속적으로 참조되는 수명 불일치(Lifetime Mismatch)**에 있다.
+**`Context Leak` (메모리 누수)**의 근본 원인은 단순한 안드로이드 API 호출 실패가 아니라, **상대적으로 수명이 짧은 컴포넌트 Context(예: Activity Context) 참조가 수명이 더 긴 객체(예: Singleton, Static Variable, [viewmodel](../../../viewmodel.md), Background Coroutine Scope)에 의해 캡처되어 지속적으로 참조되는 수명 불일치(Lifetime Mismatch)**에 있다.
 
 ---
 

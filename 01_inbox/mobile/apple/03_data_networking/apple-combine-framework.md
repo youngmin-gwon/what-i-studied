@@ -194,5 +194,5 @@ for await location in stream {
 ### 더 보기
 
 - [[apple-swift-concurrency]] - 비동기 작업의 또 다른 축 (단발성 작업)
-- [[apple-observation-framework]] - Combine 의 ViewModel 역할을 대체하는 @Observable
+- [[apple-observation-framework]] - Combine 의 [viewmodel](../../android/02_app_framework/viewmodel.md) 역할을 대체하는 @Observable
 - [[apple-uikit-lifecycle]] - MVVM 패턴과 Combine 의 결합

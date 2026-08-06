@@ -61,7 +61,7 @@ timeline
 ### 4. HAL 아키텍처: HIDL → AIDL HAL (2019+)
 
 - **HIDL (Android 8.0 Treble)**: C++ 전용 프레임워크 인터페이스 언어로 Vendor 와 System 분리.
-- **AIDL HAL (Android 11+)**: Java, C++, Rust 멀티 언어를 공식 지원하며 Binder IPC 인프라로 HAL 통신 단일화.
+- **AIDL HAL (Android 11+)**: Java, C++, Rust 멀티 언어를 공식 지원하며 [binder ipc](../../01_system_internals/binder-ipc.md) 인프라로 HAL 통신 단일화.
 
 ### 5. 보안 & 프라이버시: 권한 및 저장소 모델의 진화
 

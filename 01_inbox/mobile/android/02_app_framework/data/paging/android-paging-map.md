@@ -17,7 +17,7 @@ Paging 문서는 대량 목록을 한 번에 모두 읽지 않고 page 단위로
 ### Layer Boundary
 
 - Repository 는 `PagingSource` 와 `RemoteMediator` 를 통해 data source 와 cache 정책을 소유한다.
-- ViewModel 은 `Pager.flow` 를 화면 상태에 연결하고 `cachedIn` 으로 화면 수명 안의 공유 범위를 정한다.
+- [viewmodel](../../viewmodel.md) 은 `Pager.flow` 를 화면 상태에 연결하고 `cachedIn` 으로 화면 수명 안의 공유 범위를 정한다.
 - UI 는 `PagingData` 를 표시하고 `LoadState`, retry, empty state, item identity 를 표현한다.
 
 공식 문서: [Paging library overview](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)

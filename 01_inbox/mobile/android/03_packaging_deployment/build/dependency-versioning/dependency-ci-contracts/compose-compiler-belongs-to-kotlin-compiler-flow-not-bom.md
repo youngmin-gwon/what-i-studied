@@ -13,7 +13,7 @@ updated: 2026-08-05 16:15:00 +09:00
 상위 문서: [의존성 및 CI 계약](dependency-ci-contracts.md)
 
 ### 개념 및 필요성 (What & Why)
-**Compose Compiler(컴포즈 컴파일러)** 는 Kotlin IR(Intermediate Representation) 단계를 확장하여 `@Composable` 함수를 추적하고, 상태 변경 시 리컴포지션(Recomposition) 트리 및 가변 상태 주입 코드를 바이트코드로 변환하는 **Kotlin 컴파일러 플러그인**이다.
+**Compose Compiler(컴포즈 컴파일러)** 는 Kotlin IR(Intermediate Representation) 단계를 확장하여 `@Composable` 함수를 추적하고, 상태 변경 시 리컴포지션([recomposition](../../../../02_app_framework/jetpack-compose/runtime/recomposition.md)) 트리 및 가변 상태 주입 코드를 바이트코드로 변환하는 **Kotlin 컴파일러 플러그인**이다.
 흔히 하는 오해 중 하나는 Compose Compiler가 Compose BOM에 포함되어 제어된다고 생각하는 것이다. 그러나 Compose Compiler는 UI 런타임 라이브러리가 아니라 컴파일러 코드 생성 도구이므로, **Kotlin 컴파일러 버전과 1:1로 엄격하게 매핑**되어 작동한다. (Kotlin 2.0.0부터는 Compose Compiler가 Kotlin 저장소로 전격 이관되어 `org.jetbrains.kotlin.plugin.compose` 플러그인으로 관리됨).
 
 ### 내부 메커니즘 (Internal Mechanism)

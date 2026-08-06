@@ -25,7 +25,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ### 2. 왜 단순 화면 클래스로 보면 안 되는가? (Why)
 
-- 회전(Configuration Change) 시 Activity 객체 자체가 파기되고 새로 인스턴스화되므로, 화면 내 데이터나 뷰 상태가 안전하게 이전되는 아키텍처 수명 분리(`ViewModel`, `SavedStateHandle`)가 필수적이기 때문이다.
+- 회전(Configuration Change) 시 Activity 객체 자체가 파기되고 새로 인스턴스화되므로, 화면 내 데이터나 뷰 상태가 안전하게 이전되는 아키텍처 수명 분리(`[viewmodel](../../../viewmodel.md)`, `SavedStateHandle`)가 필수적이기 때문이다.
 
 ---
 

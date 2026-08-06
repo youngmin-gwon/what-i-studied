@@ -36,7 +36,7 @@ class SignUpReducer {
 
 현재 시각, 랜덤값, 네트워크 응답처럼 입력에 포함되지 않은 외부 상태를 읽으면 이 계약이 깨진다.
 
-ViewModel 은 action 을 dispatch 하고, Repository 결과를 다시 action 으로 바꾸는 조정자다.
+[viewmodel](../../../viewmodel.md) 은 action 을 dispatch 하고, Repository 결과를 다시 action 으로 바꾸는 조정자다.
 
 ```mermaid
 flowchart TD

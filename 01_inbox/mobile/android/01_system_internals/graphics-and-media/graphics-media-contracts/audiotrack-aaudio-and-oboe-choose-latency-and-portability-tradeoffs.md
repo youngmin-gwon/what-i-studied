@@ -29,7 +29,7 @@ Android 오디오 출력 파이프라인은 높은 이식성과 편의성을 제
 ```mermaid
 graph TD
     AppJava[Java / Kotlin App] -->|JNI| AudioTrack[AudioTrack Java API]
-    AudioTrack -->|Binder IPC| AudioFlinger[AudioFlinger MixerThread]
+    AudioTrack -->|[binder ipc](../../binder-ipc.md)| AudioFlinger[AudioFlinger MixerThread]
     AudioFlinger -->|Software Mix| ALSA_Standard["ALSA Driver (Standard)"]
 
     AppNative[C++ Game / Audio App] --> Oboe[Oboe C++ Library]

@@ -8,7 +8,7 @@ date created: 2026-07-31 17:04:40 +09:00
 
 ## 캐시와 재생성 가능한 데이터의 수명
 
-캐시 디렉터리(`context.cacheDir`, `context.externalCacheDir`, `codeCacheDir`)에 보관되는 데이터는 **임시적이며(Transient) 언제든지 재구성이 가능한 부차적 데이터**여야 한다. OS는 저장 공간 부족(Low Disk Space) 상황이 발생하면 사용자 동의 없이 캐시 디렉터리의 파일을 수시로 자동 트리밍(Trimming) 및 삭제하므로, 캐시를 앱 데이터의 유일한 정본(Single Source of Truth)으로 설계해서는 안 된다.
+캐시 디렉터리(`context.cacheDir`, `context.externalCacheDir`, `codeCacheDir`)에 보관되는 데이터는 **임시적이며(Transient) 언제든지 재구성이 가능한 부차적 데이터**여야 한다. OS는 저장 공간 부족(Low Disk Space) 상황이 발생하면 사용자 동의 없이 캐시 디렉터리의 파일을 수시로 자동 트리밍(Trimming) 및 삭제하므로, 캐시를 앱 데이터의 유일한 정본([single source of truth](../../../02_app_framework/single-source-of-truth.md))으로 설계해서는 안 된다.
 
 ```mermaid
 flowchart TD

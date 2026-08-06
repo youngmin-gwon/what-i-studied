@@ -44,7 +44,7 @@ sequenceDiagram
 - Set SELinux Context
     APP->>AT: Invoke ActivityThread.main()
     AT->>AT: Looper.prepareMainLooper()
-    AT->>AMS: Binder IPC: attachApplication(IApplicationThread)
+    AT->>AMS: [binder ipc](../../binder-ipc.md): attachApplication(IApplicationThread)
     AMS->>AT: bindApplication() & Launch Activity/Service
 ```
 
