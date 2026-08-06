@@ -2,7 +2,7 @@
 title: android-release-history
 tags: []
 aliases: []
-date modified: 2026-08-06 15:36:14 +09:00
+date modified: 2026-08-06 15:36:41 +09:00
 date created: 2026-08-04 16:16:52 +09:00
 ---
 
