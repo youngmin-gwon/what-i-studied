@@ -8,7 +8,7 @@ date created: 2026-07-31 23:59:00 +09:00
 
 ## Composable body 는 빠르고 idempotent 하며 side-effect free 해야 한다
 
-배경 지식: [Idempotency(멱등성)](02_references/computer-science/idempotency.md)
+배경 지식: [Idempotency(멱등성)](../../../../../../../02_references/computer-science/idempotency.md)
 
 ### 1. 핵심 원칙 용어 서술 (What)
 

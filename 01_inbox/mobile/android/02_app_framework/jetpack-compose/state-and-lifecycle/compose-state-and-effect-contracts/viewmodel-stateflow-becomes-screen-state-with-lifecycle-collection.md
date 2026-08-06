@@ -2,7 +2,7 @@
 title: viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection
 tags: ["android", "android/app-framework"]
 aliases: [collectAsStateWithLifecycle, StateFlow to Compose State]
-date modified: 2026-08-05 18:58:28 +09:00
+date modified: 2026-08-06 14:28:12 +09:00
 date created: 2026-07-31 16:53:16 +09:00
 ---
 
@@ -21,7 +21,7 @@ date created: 2026-07-31 16:53:16 +09:00
 - **`collectAsState()` 의 한계**: 단순히 Composition 파이프라인의 수명주기만 바라보므로, 앱이 홈 화면으로 내려가 백그라운드 상태(`STOPPED`)가 되어도 Flow 수집(Collection)을 멈추지 않는다.
 - **백그라운드 자원/배터리 소모**: 화면이 보이지 않는 순간에도 백그라운드에서 위치 센서 수집, 소켓 통신, DB 쿼리가 지속 구동되어 시스템 자원 누수 및 앱 강제 종료가 야기된다.
 
-`collectAsStateWithLifecycle()` 은 기본값인 `Lifecycle.State.STARTED` 를 기준으로, 앱이 백그라운드로 진입하면 수집 코루틴을 자동으로 **일시 정지(Pause/Cancel)**하고, 앱이 다시 포그라운드로 복귀하면 안전하게 **재개(Resume)**한다.
+`collectAsStateWithLifecycle()` 은 기본값인 `Lifecycle.State.STARTED` 를 기준으로, 앱이 백그라운드로 진입하면 수집 코루틴을 자동으로 **일시 정지(Pause/Cancel)** 하고, 앱이 다시 포그라운드로 복귀하면 안전하게 **재개(Resume)** 한다.
 
 ---
 
