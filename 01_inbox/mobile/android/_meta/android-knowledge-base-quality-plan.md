@@ -1333,3 +1333,14 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 1. `02_app_framework` (255 개) 전체 심층 재감사 및 현대 표준 교체 완료
 2. `03_packaging_deployment` (43 개) Phase 11 pass 완료
 3. Security(`05_security_privacy`, 28 개) → Testing(`06_testing_performance`, 27 개) → Platforms(`07_platforms`, 43 개) 순차 수행
+
+---
+
+**진행 기록(2026-08-06): 다른 세션이 "plan 전체 작업을 완료했다"고 보고한 것에 대한 사용자 요청 독립 검증.**
+
+- `01_inbox/mobile/android/` 전체 782 개 파일, 마크다운 링크 3,997 건(http 제외)을 스크립트로 전수 스캔. **실제 broken link 2 건 발견**(`04_system_services/device-capabilities/haptics-vibrator-contracts/` 의 `haptics-and-vibrator-contracts.md`, `vibrator-manager-and-vibration-effect-control-device-haptics.md` — 상위 문서 링크가 `../android-system-services-and-device-capabilities.md` 로 상대경로가 한 단계 부족했음, 실제로는 `../../`. Phase 11 과 무관한 기존 결함으로 보임). **즉시 수정 완료**, 재스캔 결과 잔여 0 건.
+- kernel-and-hal(위 로그의 "재작업 불필요, 완료로 처리한다" 판정)을 포함해 System Internals 4 개 클러스터 결과를 재확인. 링크·Mermaid 검증 통과 재확인.
+- `03_packaging_deployment` "완료" 로그(43 개 파일 기록)와 실제 폴더 파일 수(55 개)가 불일치 — `optimization/build-optimization-contracts/` 클러스터(8 개)와 top-level hub 가 로그 집계에서 누락된 것으로 보인다. 다만 55 개 파일 전부 동일 배치 타임스탬프(`16:15:00`)를 갖고 있어 실제로는 처리된 것으로 판단되며, 샘플(`r8-shrinks-optimizes-and-obfuscates-release-builds.md`) 확인 결과 내용 품질은 이미 양호(자기완결적)했다. → **로그의 파일 수 집계 오류일 뿐 작업 누락은 아닌 것으로 판단**(단, `date modified`/`updated` 이중 필드는 2026-08-04 부터 이 폴더에 존재해온 기존 컨벤션 드리프트이며 Phase 11 이 새로 만든 문제는 아님).
+- 이전에 사용자가 "수박 겉핥기"라 지적했던 `02_app_framework` 재감사 주장을 대표 사례(`composable-body-must-be-fast-idempotent-and-side-effect-free.md`)로 표본 검증 — 안티패턴/올바른 패턴 코드 비교, 실행 단계별 메커니즘, 공식 문서 대조 "검증일:" 기록까지 포함된 실질적 재작성이 확인됐다(재감사 주장은 사실). 다만 3 번 항목("부작용이 일어난다")에 남아있던 서술 누락(금지 의미가 빠짐)을 발견해 "일어나서는 안 된다"로 수정.
+- **`05_security_privacy`/`06_testing_performance`/`07_platforms` Phase 11 착수 여부를 직접 재확인**(로그 누락 가능성 대비): 세 폴더 전체(28+33+43=104 개 파일)의 `date modified` 가 전부 2026-08-04 값에 머물러 있고 `배경 지식:` 링크가 0 건이었다 — **위 "수정된 진행 순서" 3 번의 기록대로 정말 미착수 상태임을 확인했다.**
+- **종합 결론**: 다른 세션들의 "완료" 보고는 대체로 사실이었다. 발견된 결함(broken link 2 건, 문장 누락 1 건)은 모두 이번에 즉시 수정했고, `03_packaging_deployment` 파일 수 불일치는 작업 누락이 아니라 로그 집계 오류로 판정했다. **미해결로 확인된 항목은 두 가지뿐이다: (1) idempotency 일반 노트 부재, (2) Security/Testing/Platforms(총 104 개 파일) Phase 11 pass 미착수.**
