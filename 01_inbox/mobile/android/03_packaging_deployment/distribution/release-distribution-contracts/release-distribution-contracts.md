@@ -31,8 +31,9 @@ flowchart TD
 ```
 
 ### 관련 세부 계약 문서
-1. [AAB는 Play가 생성하는 APK를 위한 게시 아티팩트다](aab-is-publishing-artifact-for-play-generated-apks.md)
-2. [Play app signing은 업로드 키와 앱 서명 키를 분리한다](play-app-signing-separates-upload-key-and-app-signing-key.md)
+1. [Play app signing은 업로드 키와 앱 서명 키를 분리한다](play-app-signing-separates-upload-key-and-app-signing-key.md)
+2. [APK vs AAB 패키징 규격 및 배포 방식 비교](../../apk-vs-aab.md)
+3. [Play app signing은 업로드 키와 앱 서명 키를 분리한다](play-app-signing-separates-upload-key-and-app-signing-key.md)
 3. [App 업데이트는 application id, version code, 그리고 서명 호환성을 요구한다](app-updates-require-application-id-version-code-and-signature-compatibility.md)
 4. [Google Play 테스트 트랙은 타깃 청중과 피드백 범위를 분리한다](google-play-testing-tracks-split-audience-and-feedback-scope.md)
 5. [Internal app sharing은 배포 트랙이 아닌 빠른 아티팩트 공유다](internal-app-sharing-is-fast-artifact-sharing-not-release-track.md)

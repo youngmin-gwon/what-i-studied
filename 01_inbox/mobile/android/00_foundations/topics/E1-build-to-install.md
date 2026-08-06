@@ -39,7 +39,7 @@ CI(Continuous Integration) 환경에서의 빌드는 로컬 개발 환경과 달
 
 #### 3.3. 패키징 포맷과 스토어 배포 (AAB & APK)
 AAB(Android App Bundle)는 스토어 제출용 아티팩트이며, 기기에 직접 설치할 수 없습니다. Play Store는 AAB를 바탕으로 사용자의 기기 사양에 맞춘 최적화된 분할 APK를 생성해 전달합니다.
-- [AAB는 Play가 APK를 생성하기 위한 퍼블리싱 아티팩트이다](../../03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
+- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md)
 
 #### 3.4. 앱 서명과 아이덴티티
 Play App Signing을 사용하면 개발자는 업로드 키로 AAB에 서명하고, 구글 플레이가 앱 서명 키로 최종 APK에 서명합니다. 이는 키 분실 시의 복구와 보안을 강화합니다.

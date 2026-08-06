@@ -2,7 +2,7 @@
 title: android-glossary
 tags: ["android", "android/foundations", "android/glossary"]
 aliases: ["Android Glossary", "Android 용어집"]
-date modified: 2026-08-06 18:38:06 +09:00
+date modified: 2026-08-06 18:51:13 +09:00
 date created: 2026-04-07 11:06:51 +09:00
 ---
 
@@ -65,7 +65,7 @@ date created: 2026-04-07 11:06:51 +09:00
 ### 패키징과 업데이트
 
 - [APEX](../../01_system_internals/platform-modularity/android-platform-modularity.md)
-- [APK와 AAB](../../03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
+- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md)
 - [OTA](../../01_system_internals/platform-modularity/android-platform-modularity.md)
 
 ### 패키징과 리소스

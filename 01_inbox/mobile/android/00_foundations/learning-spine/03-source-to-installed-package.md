@@ -172,7 +172,7 @@ Google Play 를 통한 배포에서는 개발자가 서명하는 **업로드 키
 - [Android 패키징과 배포 지도](../../03_packaging_deployment/android-packaging-deployment.md)
 - [Android 기본 설정은 식별자와 버전 계약을 만든다](../../03_packaging_deployment/build/gradle/gradle-build-contracts/android-default-config-defines-identity-and-version-contracts.md)
 - [Build type, product flavor, build variant는 서로 다른 축이다](../../03_packaging_deployment/build/gradle/gradle-build-contracts/build-type-product-flavor-and-build-variant-are-different-axes.md)
-- [AAB는 Play가 생성하는 APK를 위한 퍼블리싱 아티팩트다](../../03_packaging_deployment/distribution/release-distribution-contracts/aab-is-publishing-artifact-for-play-generated-apks.md)
+- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md)
 - [앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다](../../03_packaging_deployment/distribution/release-distribution-contracts/app-updates-require-application-id-version-code-and-signature-compatibility.md)
 - [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md)
 - [R8은 release 빌드를 축소·최적화·난독화한다](../../03_packaging_deployment/optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md)
