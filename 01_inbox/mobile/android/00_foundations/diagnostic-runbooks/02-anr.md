@@ -2,7 +2,7 @@
 title: 02-anr
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: ANR"]
-date modified: 2026-08-06 18:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-08-04 10:35:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-04 10:35:00 +09:00
 다음 중 하나 이상이 관찰된다.
 
 - 앱 사용 중 또는 백그라운드 전환 직후 "앱이 응답하지 않습니다" (Application Not Responding) 시스템 다이얼로그가 표시된다.
-- 화면 터치, 버튼 클릭, 키 입력 후 5 초 동안 UI 응답이 완전히 멈춘다.
+- 화면 터치, 버튼 클릭, 키 입력 뒤 UI가 멈춘다. AOSP/Pixel의 input dispatch 기본 timeout은 5초지만 OEM에서 다를 수 있으므로 ANR subject와 trace를 확인한다.
 - Google Play Console / Android Vitals에서 user-perceived ANR rate가 전체 bad-behavior threshold 0.47% 또는 특정 phone model threshold 8%를 넘는다. 이는 최근 기간의 품질 지표이며 개별 ANR timeout 값이 아니다.
 - Foreground service 관련 예외·ANR이 보인다. background에서 시작 자체가 금지된 경우, foreground 승격을 제때 하지 않은 경우, service type별 실행 제한을 넘긴 경우를 서로 분리한다.
 
@@ -35,19 +35,20 @@ date created: 2026-08-04 10:35:00 +09:00
 
 ### 3. 실패 경계 및 원인 우선순위 (Failure Boundaries & Priority)
 
-Android 시스템 서버(ActivityManagerService / WindowManagerService)가 ANR 을 판정하는 5 가지 계약 위반 조건 및 우선순위:
+Android 시스템이 판정하는 대표적인 ANR 계약과 조사 우선순위:
 
 1. **Input Dispatching Timeout (5 초) (우선순위 1)**
    - 전면(Foreground) Activity 가 키/터치 입력 이벤트를 5 초 이내에 처리 완료(또는 다음 이벤트 dequeue)하지 못함. 메인 스레드 블로킹의 가장 흔한 원인.
-2. **BroadcastReceiver Timeout (Foreground 10 초 / Background 60 초) (우선순위 2)**
+2. **BroadcastReceiver Timeout (우선순위 2)**
    - `BroadcastReceiver.onReceive()` 메인 스레드 콜백에서 무거운 DB/네트워크 작업이나 동기 블로킹 코드를 실행함.
+   - AOSP/Pixel 기준 Android 13 이하는 foreground-priority intent 10초, background-priority intent 60초다. Android 14+는 process가 CPU-starved인지에 따라 각각 10~20초, 60~120초 범위다. `goAsync()`는 무제한 연장이 아니며 `PendingResult.finish()`까지 같은 timeout에 포함된다.
 3. **Service 실행 또는 FGS 계약 위반 (우선순위 3)**
    - service callback이 main thread를 오래 점유하면 service ANR이 될 수 있다.
    - background FGS start가 허용되지 않으면 `ForegroundServiceStartNotAllowedException`이 호출 지점에서 발생한다.
    - `startForegroundService()` 뒤 짧은 시간 안에 `startForeground()`로 승격하지 않으면 `ForegroundServiceDidNotStartInTimeException` 계열의 internal exception이 발생한다. 이것을 ANR이나 start-not-allowed와 같은 실패로 분류하지 않는다.
    - `shortService`, `dataSync`, `mediaProcessing`의 실행 시간 제한과 종료 방식은 service type 및 OS version별 공식 문서를 확인한다.
-4. **JobScheduler Execution Timeout (JobService 10 초~20 초) (우선순위 4)**
-   - `JobService.onStartJob()` 또는 `onStopJob()` 콜백에서 메인 스레드를 반환하지 않음.
+4. **JobScheduler slow response (우선순위 4)**
+   - `JobService.onStartJob()`, `onStopJob()` 또는 필요한 `setNotification()` 호출에 main thread가 제때 응답하지 못한다. 고정 숫자를 앱 계약으로 외우기보다 ANR subject와 실행 OS의 공식 문서를 확인한다.
 5. **Main Thread Lock Contention / Binder Synchronous IPC Wait (우선순위 5)**
    - 메인 스레드가 백그라운드 스레드가 쥐고 있는 Synchronized Lock 이나 Mutex 를 기다리거나(`waiting to lock`), 시스템 서버/외부 프로세스와의 동기 Binder IPC 응답 (`BinderProxy.transact`) 대기 중 타임아웃 발생.
 
@@ -153,7 +154,7 @@ ApplicationExitInfo #0:
 | **Main Thread Trace State** | `RUNNABLE` (Choreographer frame handling) | `BLOCKED` (`waiting to lock`) | 메인 스레드와 백그라운드 스레드 간 Shared Lock 범위 축소 또는 Concurrent Data Structure 사용 |
 | **Binder Call on Main** | Async Binder call 또는 Binder 미호출 | `BinderProxy.transact` 대기 상태 지속 | 메인 스레드에서의 AIDL/System Server 동기 호출 금지, 비동기 콜백 체인 전환 |
 | **FGS 승격** | service 생성 직후 notification 준비와 `startForeground()` 완료 | `ForegroundServiceDidNotStartInTimeException` 계열 로그 | 긴 초기화 전에 먼저 foreground 승격하고 실패 경로에서도 service 정리 |
-| **BroadcastReceiver Execution** | `onReceive()` 실행 시간 < 100ms | Foreground > 10s / Background > 60s | `onReceive()` 내에서 `goAsync()` 사용 또는 WorkManager / Coroutine Scope 로 작업 이관 |
+| **BroadcastReceiver Execution** | `onReceive()`에서 빠르게 반환하고 `goAsync()` 사용 시 반드시 `finish()` | 실행 OS의 foreground/background broadcast timeout 초과 | 짧은 비동기 정리만 `goAsync()`로 넘기고 durable work는 WorkManager 등으로 이관 |
 
 ---
 
@@ -192,6 +193,7 @@ ApplicationExitInfo #0:
 ### 10. 공식 근거 (Official References)
 
 - [Diagnose ANRs (Android Developers)](https://developer.android.com/topic/performance/vitals/anr)
+- [ANR 유형별 timeout과 진단](https://developer.android.com/topic/performance/anrs/diagnose-and-fix-anrs)
 - [ApplicationExitInfo (Android API reference)](https://developer.android.com/reference/android/app/ApplicationExitInfo)
 - [Android vitals bad-behavior thresholds](https://developer.android.com/topic/performance/vitals)
 - [Foreground service 시작과 예외](https://developer.android.com/develop/background-work/services/fgs/launch)

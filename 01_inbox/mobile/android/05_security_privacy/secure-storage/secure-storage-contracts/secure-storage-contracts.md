@@ -2,7 +2,7 @@
 title: secure-storage-contracts
 tags: ["android", "android/security-privacy"]
 aliases: ["보안 저장소 계약"]
-date modified: 2026-08-06 13:00:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
@@ -13,7 +13,7 @@ Android 보안 저장소 계약은 단순히 파일 경로를 선택하는 것�
 
 ```mermaid
 flowchart TD
-    DataInput[민감 데이터 분류: Token / PII / Credential] --> KeyGen[Keystore TEE / StrongBox MasterKey 생성]
+    DataInput[민감 데이터 분류: Token / PII / Credential] --> KeyGen[Android Keystore 키 생성]
     KeyGen --> AuthPolicy{Biometric / User Lock 인증 요구?}
     AuthPolicy -- Yes --> BioPrompt[BiometricPrompt + CryptoObject 바인딩]
     AuthPolicy -- No --> CipherEngine[AES-256-GCM authenticated cipher]
@@ -24,7 +24,7 @@ flowchart TD
 
 ### 내부 동작 메커니즘
 
-1. **Hardware Key Binding**: Android Keystore 시스템은 Master Key 원본 바이트를 Linux RAM 공간에 노출하지 않고 **TEE**(Trusted Execution Environment, 메인 프로세서 안의 격리된 보안 실행 영역) 또는 **StrongBox**(전용 보안 칩) 하드웨어 보안 칩 내에 비추출성(`isExportable = false`) 상태로 고정한다.
+1. **Key Non-exportability와 보안 수준**: Android Keystore는 키 원본 바이트를 앱 프로세스에 반환하지 않는다. 키가 **TEE** 또는 **StrongBox**에 실제로 격리되는지는 기기와 키 구성에 따라 다르며 `KeyInfo.securityLevel`로 확인한다. 공개 API에 `isExportable` 속성은 없다.
 2. **Authenticated Encryption (AEAD)**: AES-GCM 알고리즘을 적용하여 Confidentiality(비밀성)와 Integrity(무결성)를 동시 보장하며, 매 암호화 시마다 12-byte 무작위 IV(Initialization Vector)와 128-bit Authentication Tag를 필수 생성한다.
 3. **Backup Protection Boundary**: Keystore 생성 키는 기기 고유(Device-bound) 속성을 가져 백업/복원 시 다른 기기로 복사되지 않는다. 따라서 암호문 데이터는 백업 대상에서 명시적으로 제외해야 한다.
 
@@ -40,7 +40,7 @@ adb shell dumpsys package com.example.app | grep -i "backup"
 
 ### 관찰 가능한 증거 (Observable Evidence)
 
-- Keystore 키 사용 시 앱 프로세스 덤프(`heap dump`)에서 키 바이트 원본(`byte[]`)이 탐지되지 않음.
+- Keystore 키 사용 시 앱 코드에는 원본 키 바이트 대신 provider가 관리하는 키 객체가 전달된다. 일반 heap dump에서 키 바이트가 보이지 않는다는 관찰만으로 hardware-backed 여부를 증명하지는 못한다.
 - 기기 변경 복원 후 Keystore 키 부재로 인해 `UnrecoverableKeyException` 또는 `AEADBadTagException` 예외 발생.
 
 ### 정본 노트
@@ -53,3 +53,7 @@ adb shell dumpsys package com.example.app | grep -i "backup"
 - [보안 저장소 정책은 저장하지 말아야 할 데이터와 백업 금지 항목을 포함한다](secure-storage-policy-includes-what-not-to-store-and-backup.md)
 
 관련 지도: [저장소 수명과 백업 경계](../storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
+
+공식 문서: [Android Keystore system](https://developer.android.com/privacy-and-security/keystore)
+
+검증일: 2026-08-06. Android Keystore 비추출성과 TEE/StrongBox 보안 수준을 분리해 기술했다.

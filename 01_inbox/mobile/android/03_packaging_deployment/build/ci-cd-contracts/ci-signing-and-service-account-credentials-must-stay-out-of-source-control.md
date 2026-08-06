@@ -3,9 +3,9 @@ title: ci-signing-and-service-account-credentials-must-stay-out-of-source-contro
 tags: ["android", "security", "ci-cd", "signing"]
 aliases: ["CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:50:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
+updated: 2026-08-06 14:50:00 +09:00
 ---
 
 ## CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다
@@ -26,7 +26,7 @@ Android 앱 서명 키스토어 파일(`.jks`/`.keystore`), 키 비밀번호, �
 flowchart LR
     GitHubSecret["GitHub Secrets (Base64 Encoded Key)"] --> CIRunner["CI Runner Ephemeral Environment"]
     CIRunner -->|Decode Base64| TempKeystore["Ephemeral Keystore File (/tmp/release.keystore)"]
-    TempKeystore --> AGPSigning["AGP apksigner / Fastlane Supply"]
+    TempKeystore --> AGPSigning["AGP release signing / Fastlane Supply"]
     AGPSigning --> Cleanup["Post Job Cleanup (Delete Temp Files)"]
 ```
 

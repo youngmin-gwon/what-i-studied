@@ -2,29 +2,49 @@
 title: di-contracts
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:55:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
 ## DI 계약은 전역 객체 접근이 아니라 조립 경계다
 
-- [DI는 전역 객체 접근이 아니라 조립 경계다](./dependency-injection-is-composition-boundary-not-global-object-access.md)
-- [소비자는 의존성을 생성하지 말고 생성자로 요구한다](./consumers-should-declare-dependencies-in-constructors.md)
-- [**Constructor injection**(생성자 주입 — 필요한 의존성을 생성자 매개변수로 명시하여 필수 의존성을 주입받는 기본 주입 방식)은 기본 binding 경로다](./constructor-injection-is-default-binding-path.md)
-- [**Provider method**(`@Provides` — 외부 라이브러리 타입이나 런타임 설정 객체의 생성 로직을 명시하는 모듈 메서드)는 외부 타입, 런타임 값, 설정된 객체를 만들 때 쓴다](./provider-methods-create-external-runtime-or-configured-objects.md)
-- [Binds는 interface와 implementation을 연결하고 생성 코드는 추가하지 않는다](./binds-connects-interface-to-implementation-without-construction-code.md)
-- [**Qualifier**(한정자 — 동일한 타입의 의존성이 여러 개 존재할 때 특정 바인딩 대상을 구별하기 위한 식별 어노테이션)는 같은 타입의 서로 다른 의미를 구분한다](./qualifiers-distinguish-values-that-share-the-same-type.md)
-- [**Scope**(스코프 — 의존성 객체의 생명주기를 특정 DI 컨테이너 수명과 일치시켜 재사용을 제어하는 어노테이션)는 singleton 장식이 아니라 owner lifetime에 맞춘 재사용 계약이다](./scope-matches-object-reuse-to-owner-lifetime.md)
-- [DI graph에 넣는 Android Context는 graph lifetime과 맞아야 한다](./android-context-in-di-must-match-graph-lifetime.md)
-- [**Hilt**(**Dagger**(컴파일 타임에 의존성 그래프를 정적으로 검증하고 코드 생성을 수행하는 Java/Kotlin용 DI 엔진)를 안드로이드 컴포넌트 생명주기에 맞춰 의존성 그래프 생성을 자동화하는 구글의 공식 DI 라이브러리)는 Android용 공식 Dagger 통합 경로다](./hilt-is-official-android-dagger-integration.md)
-- [Dagger는 정적 graph 엔진이지 Android lifecycle 정책 자체가 아니다](./dagger-is-static-graph-engine-not-android-lifecycle-policy.md)
-- [**Koin**(코드 생성 없이 런타임에 서비스 로케이터 방식으로 의존성을 주입하는 Kotlin 전용 DSL 기반 DI 프레임워크)은 런타임 DSL 편의와 정적 graph 검증의 트레이드오프를 가진다](./koin-trades-compile-time-graph-generation-for-runtime-dsl-convenience.md)
-- [Compile-time DI와 runtime DI는 실패 시점이 다르다](./compile-time-and-runtime-di-fail-at-different-points.md)
-- [**Metro**(Kotlin Multiplatform 환경 등에서 컴파일 타임 그래프 검증을 수행하는 정적 DI 프레임워크)는 get_it식 전역 locator가 아니라 compile-time Kotlin DI로 이해한다](./metro-is-compile-time-kotlin-di-not-get-it-style-global-locator.md)
-- [ViewModel DI는 dependency 주입이지 ViewModel 소유권을 DI graph로 옮기는 일이 아니다](./viewmodel-di-injects-dependencies-not-viewmodel-ownership.md)
-- [**Entry Point**(`@EntryPoint` — 안드로이드 OS가 생성하는 프레임워크 객체에서 Hilt DI 그래프에 접근하기 위한 비상 인터페이스 경계)는 framework-owned 객체와 DI graph를 잇는 예외 경계다](./entry-points-bridge-framework-owned-objects-to-the-graph.md)
-- [Worker 주입은 WorkManager factory boundary를 지난다](./worker-injection-crosses-workmanager-factory-boundary.md)
-- [DI 테스트는 내부 구현을 건드리지 않고 graph boundary에서 binding을 교체한다](./di-tests-replace-bindings-at-graph-boundary.md)
-- [멀티 모듈 DI는 module dependency 방향과 feature entry 계약을 따른다](./modular-di-follows-module-dependency-direction-and-feature-entry-contracts.md)
-- [DSL 문법은 ownership과 lifetime 계약을 바꾸지 않는다](./dsl-syntax-does-not-change-ownership-lifetime-contracts.md)
-- [Dynamic feature DI는 base-owned contract와 install boundary를 분리해야 한다](./dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries.md)
+DI를 읽을 때는 프레임워크 문법보다 세 질문을 먼저 고정한다. **누가 객체를 만드는가**, **어느 component instance가 재사용과 폐기를 소유하는가**, **잘못된 연결은 빌드와 실행 중 언제 드러나는가**다.
+
+### 1. 생성과 binding
+
+- [DI는 전역 조회가 아니라 composition root에서 객체를 조립하는 경계다](./dependency-injection-is-composition-boundary-not-global-object-access.md)
+- [소비자는 구체 객체를 만들지 않고 생성자로 요구한다](./consumers-should-declare-dependencies-in-constructors.md)
+- [Constructor injection은 소유한 구체 타입의 기본 생성 경로다](./constructor-injection-is-default-binding-path.md)
+- [`@Binds`는 생성 가능한 구현을 interface key에 연결한다](./binds-connects-interface-to-implementation-without-construction-code.md)
+- [`@Provides`는 외부 타입·설정·런타임 입력의 생성 정책을 캡슐화한다](./provider-methods-create-external-runtime-or-configured-objects.md)
+- [Qualifier는 동일한 타입을 의미가 다른 binding key로 분리한다](./qualifiers-distinguish-values-that-share-the-same-type.md)
+
+### 2. 소유권과 scope
+
+- [Scope는 component instance 안의 재사용 계약이다](./scope-matches-object-reuse-to-owner-lifetime.md)
+- [Android Context는 graph lifetime과 UI capability에 맞춰 넣는다](./android-context-in-di-must-match-graph-lifetime.md)
+- [ViewModel DI는 dependency를 제공하지만 ViewModelStore 소유권을 대신하지 않는다](./viewmodel-di-injects-dependencies-not-viewmodel-ownership.md)
+- [Entry point는 Hilt가 소유하지 않는 framework 객체의 제한된 bridge다](./entry-points-bridge-framework-owned-objects-to-the-graph.md)
+- [Worker 주입은 WorkManager의 WorkerFactory 경계를 지난다](./worker-injection-crosses-workmanager-factory-boundary.md)
+- [DI 테스트는 unit test의 직접 생성과 graph test의 binding 교체를 구분한다](./di-tests-replace-bindings-at-graph-boundary.md)
+- [멀티 모듈 graph는 Gradle 의존 방향과 feature API 경계를 따른다](./modular-di-follows-module-dependency-direction-and-feature-entry-contracts.md)
+- [Dynamic feature는 base의 provision contract와 설치 뒤 feature graph를 연결한다](./dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries.md)
+
+### 3. 엔진과 검증 시점
+
+- [Dagger는 정적 graph 엔진이며 Android lifecycle 정책은 직접 설계해야 한다](./dagger-is-static-graph-engine-not-android-lifecycle-policy.md)
+- [Hilt는 Dagger graph를 표준 Android component hierarchy에 통합한다](./hilt-is-official-android-dagger-integration.md)
+- [Koin classic DSL은 runtime resolution이고 compiler plugin을 쓰면 일부 오류를 build에서 검증할 수 있다](./koin-trades-compile-time-graph-generation-for-runtime-dsl-convenience.md)
+- [Metro는 Kotlin compiler plugin이 graph를 생성·검증하는 compile-time DI다](./metro-is-compile-time-kotlin-di-not-get-it-style-global-locator.md)
+- [Compile-time DI와 runtime DI는 실패가 드러나는 시점과 검증 범위가 다르다](./compile-time-and-runtime-di-fail-at-different-points.md)
+- [DSL 문법 자체는 owner와 lifetime을 결정하지 않는다](./dsl-syntax-does-not-change-ownership-lifetime-contracts.md)
+
+### 진단 순서
+
+1. 요청한 타입과 qualifier가 정확히 같은 binding key인지 확인한다.
+2. 그 binding을 생성할 constructor, `@Binds`, `@Provides`가 graph에 포함됐는지 확인한다.
+3. binding의 scope와 설치 component가 일치하는지 확인한다.
+4. Android framework가 생성하는 타입이면 지원 annotation, entry point 또는 factory가 연결됐는지 확인한다.
+5. compile-time graph는 compiler diagnostic을, runtime graph는 module verification과 실제 entry flow 테스트를 근거로 삼는다.
+
+상위 문서: [Android 의존성 주입 지도](../android-dependency-injection-map.md)

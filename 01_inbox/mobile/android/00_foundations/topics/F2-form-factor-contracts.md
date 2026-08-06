@@ -3,7 +3,7 @@ title: F2-form-factor-contracts
 tags: [topic, wear-os, android-tv, android-auto, chromeos, xr]
 aliases: [F2: 폼 팩터별 계약 (Form Factor Contracts), Form Factor Contracts]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-06 18:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 ---
 
 ## F2: 폼 팩터별 계약 (Wear OS / TV / Auto / ChromeOS / XR)

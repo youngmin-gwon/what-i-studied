@@ -3,9 +3,9 @@ title: gradle-build-contracts
 tags: ["android", "android/packaging-deployment", "gradle"]
 aliases: ["Gradle 빌드 계약"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:50:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
+updated: 2026-08-06 14:50:00 +09:00
 ---
 
 ## Gradle 빌드 계약
@@ -19,7 +19,7 @@ Gradle은 범용 빌드 자동화 시스템이며, Android 앱을 빌드하기 �
 
 ### 내부 메커니즘 (How / Internal Mechanism)
 Gradle 빌드 계약은 다음과 같은 핵심 층위와 규칙으로 작동한다:
-1. **AGP(Android Gradle Plugin)**: Gradle DAG(Directed Acyclic Graph) 태스크 그래프에 Kotlin/Java 컴파일(`kotlinc`), 리소스 컴파일 및 링크(`AAPT2`), 바이트코드 최적화 및 덱싱(`R8/D8`), 서명(`apksigner`) 태스크를 자동 구성한다.
+1. **AGP(Android Gradle Plugin)**: Gradle DAG(Directed Acyclic Graph)에 Kotlin/Java 컴파일, 리소스 컴파일·링크(`AAPT2`), 바이트코드 최적화·덱싱(`R8/D8`), APK/AAB 패키징과 산출물별 서명 단계를 구성한다. `apksigner`는 APK용이며 AAB 업로드 서명과 Play App Signing 이후의 delivery APK 서명은 별도 흐름이다.
 2. **DSL 분리 (Project vs Module)**: 루트 `build.gradle.kts`에서는 전체 프로젝트 공통 플러그인과 레포지토리를 관리하며, 모듈 `build.gradle.kts`에서는 해당 모듈의 의존성과 AGP 설정(`android {}`)을 전담한다.
 3. **Build Variant 매트릭스**: 빌드 환경 축(`buildTypes`)과 기능/제품 변종 축(`productFlavors`)의 카테시안 곱(Cartesian Product)을 통해 독립된 산출물 변형(`FreeRelease`, `PaidDebug` 등)을 형성한다.
 4. **SourceSet 우선순위 결합**: `variant` > `flavor` > `buildType` > `main` > `dependencies` 순서로 리소스를 병합하며 소스 코드와 리소스 충돌을 제어한다.

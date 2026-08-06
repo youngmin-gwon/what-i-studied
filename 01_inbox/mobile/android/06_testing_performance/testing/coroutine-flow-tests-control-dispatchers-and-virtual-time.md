@@ -3,7 +3,7 @@ title: coroutine-flow-tests-control-dispatchers-and-virtual-time
 tags: ["android", "android/testing-performance"]
 aliases: ["Coroutine 과 Flow 테스트는 dispatcher 와 virtual time 을 통제해야 한다"]
 date created: 2026-07-31 23:24:22 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 ---
 
 ## Coroutine 과 Flow 테스트는 dispatcher 와 virtual time 을 통제해야 한다
@@ -115,6 +115,13 @@ BUILD SUCCESSFUL in 140ms
 
 ### 5. Coroutine 테스트 가이던스
 
-- **Hardcoded Dispatchers 금지**: `Dispatchers.IO`나 `Dispatchers.Default`를 코루틴 내부에서 직접 하드코딩하지 않고, 항상 DI(`Hilt`/`Koin`)로 주입받는다.
+- **교체 가능한 Dispatcher 경계**: 가상 시간으로 제어해야 하는 repository/use case의 `IO`·`Default` dispatcher는 constructor parameter, default parameter, 수동 factory, service locator 또는 DI container 등 프로젝트에 맞는 방식으로 교체 가능하게 만든다. Hilt/Koin 사용은 필수가 아니다. `viewModelScope`처럼 라이브러리가 `Dispatchers.Main`을 제공하는 경우에는 제품 코드에 dispatcher를 억지로 주입하지 않고 테스트에서 `Dispatchers.setMain()`으로 교체할 수 있다.
 - **Turbine 라이브러리 활용**: Cold Flow나 복잡한 SharedFlow 연산 테스트 시에는 `app.cash.turbine:turbine` 라이브러리의 `awaitItem()` 및 `cancelAndIgnoreRemainingEvents()` 연동을 권장한다.
 
+### 공식 문서
+
+- https://developer.android.com/kotlin/coroutines/coroutines-best-practices
+- https://developer.android.com/kotlin/coroutines/test
+- https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/
+
+검증일: 2026-08-06. Dispatcher 교체 가능성은 유지하되 Hilt/Koin을 모든 코드에 강제하지 않고, `viewModelScope`의 Main dispatcher는 테스트에서 교체하는 공식 패턴을 반영했다.

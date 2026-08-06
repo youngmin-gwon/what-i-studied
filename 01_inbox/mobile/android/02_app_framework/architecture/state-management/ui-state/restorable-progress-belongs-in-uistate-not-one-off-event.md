@@ -2,7 +2,7 @@
 title: restorable-progress-belongs-in-uistate-not-one-off-event
 tags: [android, android/architecture, android/state-management, android/ui-state]
 aliases: ["복원해야 하는 진행 상태는 일회성 이벤트가 아니라 UiState로 표현한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 15:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -34,10 +34,13 @@ data class VerificationUiState(
 
 ### 적용 예
 
-```text
-SubmitStarted  -> step = VERIFYING
-SubmitSuccess  -> step = VERIFIED
-SubmitFailure  -> step = FAILED, errorMessage 설정
+```mermaid
+stateDiagram-v2
+    [*] --> INPUT
+    INPUT --> VERIFYING: SubmitStarted
+    VERIFYING --> VERIFIED: SubmitSuccess
+    VERIFYING --> FAILED: SubmitFailure / errorMessage 기록
+    FAILED --> VERIFYING: Retry
 ```
 
 복원 대상이 작으면 `SavedStateHandle` 이나 `rememberSaveable` 로 저장하고, 서버 데이터나 영속 데이터는 Repository/DataStore/Room 이 소유한다.

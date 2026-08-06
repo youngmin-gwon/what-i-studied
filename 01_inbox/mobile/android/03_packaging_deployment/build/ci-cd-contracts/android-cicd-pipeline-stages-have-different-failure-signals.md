@@ -3,9 +3,9 @@ title: android-cicd-pipeline-stages-have-different-failure-signals
 tags: ["android", "ci-cd", "quality-gate", "testing"]
 aliases: ["Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:50:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
+updated: 2026-08-06 14:50:00 +09:00
 ---
 
 ## Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다
@@ -23,7 +23,7 @@ Android CI/CD 파이프라인에서 발생하는 원인 모를 빌드 실패를 
 2. **Compile Stage (`compileDebugKotlin`)**: 타입 불일치, 구문 오류, KSP 심볼 처리 오류로 발생함.
 3. **Unit Test Stage (`testDebugUnitTest`)**: 비즈니스 로직 단정문(Assertion) 실패로 발생함.
 4. **R8 / Packaging Stage (`minifyReleaseWithR8`)**: R8 난독화 과정에서 리플렉션 대상 클래스의 Keep 규칙 누락이나 인터페이스 파괴로 발생함.
-5. **Signing & Deployment Stage (`apksigner`, Fastlane `supply`)**: Keystore 비밀번호 불일치, Google Play Developer API OAuth 토큰 만료, `versionCode` 중복으로 발생함.
+5. **Signing & Deployment Stage (AGP signing, APK `apksigner` 검증, Fastlane `supply`)**: Keystore 비밀번호 불일치, APK 서명 검증 실패, Google Play Developer API OAuth 토큰 만료, `versionCode` 중복 등으로 발생한다. AAB 배포 파이프라인에서 `apksigner`를 AAB 서명 도구로 취급하지 않는다.
 
 ```mermaid
 flowchart TD

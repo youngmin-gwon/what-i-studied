@@ -2,7 +2,7 @@
 title: 06-notification-missing
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: notification missing despite successful FCM delivery"]
-date modified: 2026-08-06 18:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-08-04 10:55:00 +09:00
 ---
 
@@ -93,9 +93,7 @@ graph TD
   - Background Activity Launch (BAL) 제약 강화: 백그라운드 FCM `onMessageReceived` 수신 시 액티비티 직접 실행(`startActivity`)이 거부되므로, 반드시 Notification 과 `PendingIntent` 로 전달해야 한다.
   - non-dismissible 알림 정책 변경: 포그라운드 서비스 알림이 아닌 경우 사용자가 대부분 스와이프로 닫을 수 있도록 변경됨.
 - **Android 15 (API 35)**:
-  - Notification Cooldown 및 채널 그룹 제한: 짧은 시간 내 과도한 알림 발생 시 시스템이 진동/소리를 자동 감쇄(Cooldown)한다.
-- **Android 16**:
-  - 알림 영역 UI 컴팩트화 및 알림 상태 쿼리 API 세분화.
+  - 앱이 stopped state에 들어가면 system이 pending intent를 취소하고, 직접·간접적인 사용자 동작으로 stopped state가 해제될 때까지 동작이 제한된다. 일반적인 process reclaim과 stopped state를 구분한다.
 
 ### 다음 조사 경로
 
@@ -118,5 +116,6 @@ graph TD
 - [알림 채널 생성과 관리](https://developer.android.com/develop/ui/compose/notifications/channels)
 - [FCM 메시지 처리와 우선순위](https://firebase.google.com/docs/cloud-messaging/android/receive)
 - [FCM 등록 관리와 invalid response](https://firebase.google.com/docs/cloud-messaging/manage-tokens)
+- [Android 15 stopped-state 변경](https://developer.android.com/about/versions/15/behavior-changes-all)
 
 검증일: 2026-08-06. `dumpsys notification`, `POST_NOTIFICATIONS`, notification/data payload 차이, FCM 우선순위와 invalid token 판정 경계를 공식 문서 기준으로 검증했다.

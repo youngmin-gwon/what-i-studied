@@ -2,7 +2,7 @@
 title: haptics-and-vibrator-contracts
 tags: [android, android/device-capabilities, android/haptics, android/vibrator]
 aliases: ["Haptics 및 Vibrator 계약"]
-date modified: 2026-08-05 15:06:16 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 date created: 2026-08-05 14:00:00 +09:00
 ---
 
@@ -18,8 +18,8 @@ date created: 2026-08-05 14:00:00 +09:00
   - **UI/시스템 햅틱 계층**: `HapticFeedbackConstants` (View) 및 `LocalHapticFeedback` (Jetpack Compose)을 통해 클릭, 롱클립, 텍스트 선택, 모드 전환 등 OS 표준 햅틱 패턴을 간편하게 요청한다.
   - **저수준 Vibrator 시스템 서비스 계층**: `VibratorManager` (Android 12+ / API 31+) 및 `VibrationEffect` 를 통해 커스텀 진동 진폭, 파형(Waveform), 진동수(Frequency), 파동 컴포지션(Primitive Effects)을 정밀 제어한다.
 - **권한 및 샌드박스 계약**:
-  - 표준 터치 피드백(`HapticFeedbackConstants`) 및 사전 정의된 햅틱(`VibrationEffect.createPredefined()`)은 사용자 터치 인터랙션과 직접 연동될 경우 `VIBRATE` 권한 없이 동작할 수 있다.
-  - 임의 커스텀 파형 진동(`vibrate(effect)`)을 직접 실행하기 위해서는 `AndroidManifest.xml` 에 `android.permission.VIBRATE` (`normal` 보호 수준) 권한 선언이 필수적이다.
+  - `View.performHapticFeedback()`/Compose `LocalHapticFeedback`의 의미 기반 피드백은 `VIBRATE` 권한이 필요 없다.
+  - `VibrationEffect.createPredefined()`를 포함해 `Vibrator.vibrate(effect)`를 직접 호출하는 경로는 `android.permission.VIBRATE` (`normal` 보호 수준) 선언이 필요하다.
 
 ---
 
@@ -42,8 +42,8 @@ sequenceDiagram
     participant Actuator as Vibrator Actuator (LRA / ERM)
 
     UI->>HF: performHapticFeedback(HapticFeedbackType.LongPress)
-    HF->>VM: vibrate(VibrationEffect.createPredefined(EFFECT_DOUBLE_CLICK), attributes)
-    VM->>VM: 하드웨어 기능 검증 (hasAmplitudeControl / hasCustomEffects)
+    HF->>VM: View.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+    VM->>VM: 사용자 설정·기기별 효과/폴백 선택
     VM->>HAL: Vibrator HAL (AIDL / HIDL) 에 주파수 및 진폭 명령 전달
     HAL->>Actuator: 물리 전압/파동 신호 구동
 ```
@@ -106,10 +106,10 @@ fun triggerCustomVibration(context: Context) {
 
 - 상위 문서: [Android System Services & Device Capabilities](../../android-system-services-and-device-capabilities.md)
 - 관련 계약 문서:
-  - [HapticFeedbackType은 UX 인터랙션과 안드로이드 플랫폼 햅틱 패턴을 1:1 매핑한다](./haptic-feedback-types-map-ux-interactions-to-platform-patterns.md)
+  - [HapticFeedbackType은 UX 인터랙션 의미를 플랫폼 햅틱에 전달한다](./haptic-feedback-types-map-ux-interactions-to-platform-patterns.md)
   - [VibratorManager와 VibrationEffect는 기기의 정밀 햅틱과 진동 파형을 제어한다](./vibrator-manager-and-vibration-effect-control-device-haptics.md)
   - [InputManager는 물리 입력 장치를 이벤트 소스로 추상화한다](../input-accessibility-contracts/inputmanager-abstracts-physical-input-devices-as-event-sources.md)
   - [권한 보호 수준은 누가 접근을 승인받는지를 정의한다](../../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-protection-level-defines-who-can-grant-access.md)
 - 공식 가이드: [Android Haptics Overview](https://developer.android.com/develop/ui/views/haptics/haptics-overview), [Vibrator API](https://developer.android.com/reference/android/os/Vibrator)
 
-검증일: 2026-08-05. 안드로이드 12+ VibratorManager 및 HapticFeedback API 기준 공식 검증 반영 완료.
+검증일: 2026-08-06. HapticFeedback의 의미 기반 경로와 직접 `Vibrator` 경로의 권한·구현 차이를 Android haptics guide로 재확인했다.

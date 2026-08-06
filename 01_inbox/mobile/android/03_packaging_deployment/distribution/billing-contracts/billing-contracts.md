@@ -3,9 +3,9 @@ title: billing-contracts
 tags: ["android", "android/packaging-deployment", "billing", "play-billing"]
 aliases: ["인앱 결제 계약"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:50:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
+updated: 2026-08-06 14:50:00 +09:00
 ---
 
 ## 인앱 결제 계약
@@ -13,8 +13,8 @@ updated: 2026-08-05 16:15:00 +09:00
 상위 문서: [Android 패키징과 배포 지도](../../android-packaging-deployment.md)
 
 ### 개념 및 필요성 (What & Why)
-**인앱 결제 계약(Billing Contracts)** 은 Google Play 스토어를 통해 디지털 상품, 아이템, 정기 구독(Subscription) 서비스를 판매할 때 반드시 준수해야 하는 Google 정책 및 시스템 통합 기술 명정 규약이다.
-Google Play 정책 정책상 디지털 재화 판매는 **Google Play Billing Library**를 전적으로 사용하여 처리해야 한다.
+**인앱 결제 계약(Billing Contracts)** 은 Google Play 스토어를 통해 디지털 상품, 아이템, 정기 구독(Subscription) 서비스를 판매할 때 검토해야 하는 Google 정책과 시스템 통합 규약이다.
+Play 배포 앱의 앱 내 디지털 재화는 원칙적으로 Google Play billing system을 사용하지만, 실물 상품처럼 정책상 대상이 아닌 결제와 지역·프로그램별 alternative billing, billing choice, external link 예외가 존재한다. 결제 엔진을 정하기 전에 상품 유형, 사용자 지역, 프로그램 자격과 Play Console 등록 상태를 판정해야 한다.
 클라이언트 단에서의 단순 서명 판단에 의존할 경우 어뷰징과 위변조 결제 승인이 발생할 수 있으므로, 반드시 서버 대 서버(Server-to-Server) 결제 토큰 검증과 3일 이내 승인(Acknowledge) 보장 메커니즘을 준수해야 한다.
 
 ### 내부 메커니즘 (How / Internal Mechanism)
@@ -35,7 +35,7 @@ flowchart TD
 ```
 
 ### 관련 세부 계약 문서
-1. [Play billing library는 유일하게 승인된 인앱 구매 경로다](play-billing-library-is-the-only-approved-in-app-purchase-path.md)
+1. [Play billing 적용 여부는 상품, 사용자 지역, 등록 프로그램에 따라 결정된다](play-billing-requirement-depends-on-product-region-and-enrolled-program.md)
 2. [제품과 구독 구매는 서로 다른 라이프사이클을 가진다](product-and-subscription-purchases-have-different-lifecycles.md)
 3. [서버 측 purchase token 검증이 필요하며 클라이언트 판단은 안 된다](server-side-purchase-token-verification-is-required-not-client-judgment.md)
 4. [승인되지 않은 구매는 3일 이내에 환불된다](unacknowledged-purchases-are-refunded-within-three-days.md)

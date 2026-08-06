@@ -2,7 +2,7 @@
 title: navigation-contracts
 tags: [android, android/navigation]
 aliases: ["Android Navigation 진입 계약", "Android Navigation Entry Contracts"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 15:00:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -47,6 +47,8 @@ flowchart TD
 ---
 
 ### 계층별 핵심 역할 및 책임 (What & Why)
+
+이전 종합 색인과의 호환 경로는 [Intent와 Deep Link 종합 색인](../intents-and-deep-links/intent-and-deep-link.md)에 유지한다. 새로운 읽기 흐름은 이 문서를 기준으로 한다.
 
 1. **[Intent & Manifest 계약 계층](../intents-and-deep-links/intent-manifest-contracts/intent-manifest-contracts.md)**:
    - **역할**: 안드로이드 OS가 애플리케이션 컴포넌트(Activity, Service)를 인식하고 실행하는 수신 경계를 통제한다.

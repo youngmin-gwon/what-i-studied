@@ -2,7 +2,7 @@
 title: cameramanager-access-starts-with-availability-and-characteristics
 tags: ["android", "android/system-services"]
 aliases: ["CameraManager 접근은 가용성 콜백과 캐릭터리스틱 조회로 시작한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -13,15 +13,17 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 핵심 정의
 
-`CameraManager`(기기에 연결된 카메라 장치 목록을 열거하고 가용성을 관리하는 시스템 서비스)는 각 카메라의 `CameraCharacteristics`(해상도, 지원 포맷, 렌즈 방향 등 카메라의 하드웨어 물리 특성을 담은 메타데이터 객체)를 조회한 뒤, `AvailabilityCallback`(카메라 장치의 물리적 연결 및 타 앱 점유 상태 변화를 통지받는 리스너)으로 사용 가능 여부 변화를 감지하는 구조로 설계돼 있다. 카메라는 시스템에서 한 번에 하나의 클라이언트만 독점적으로 열 수 있는 자원이다.
+`CameraManager`(기기에 연결된 카메라 장치 목록을 열거하고 가용성을 관리하는 시스템 서비스)는 각 카메라의 `CameraCharacteristics`(해상도, 지원 포맷, 렌즈 방향 등 카메라의 하드웨어 물리 특성을 담은 메타데이터 객체)를 조회하고, `AvailabilityCallback`으로 장치 연결·점유·접근 우선순위 변화를 관찰하도록 설계돼 있다. 단일 카메라 ID의 점유는 경쟁 자원이지만, 기기가 `getConcurrentCameraIds()`로 공개한 카메라 조합은 같은 클라이언트가 동시에 열어 세션을 구성할 수 있다.
 
 ### 메커니즘
 
-카메라를 열기 전 `getCameraIdList()`로 사용 가능한 카메라 ID 목록을, `getCameraCharacteristics(id)`로 해당 카메라의 능력을 조회한다. `registerAvailabilityCallback()`으로 등록한 콜백은 다른 프로세스가 카메라를 점유하거나 해제할 때 `onCameraAvailable()`/`onCameraUnavailable()`로 통지된다. `openCamera()` 호출 후 이미 다른 앱이나 시스템 컴포넌트가 카메라를 점유 중이면 `onDisconnected()` 또는 `ERROR_CAMERA_IN_USE`로 실패한다.
+카메라를 열기 전 `getCameraIdList()`로 카메라 ID 목록을, `getCameraCharacteristics(id)`로 해당 카메라의 능력을 조회한다. `registerAvailabilityCallback()`은 다른 클라이언트의 점유와 해제 등을 `onCameraAvailable()`/`onCameraUnavailable()`로 알린다. 그러나 콜백은 예약(lock)이 아니다. 상태 확인과 `openCamera()` 사이에 연결 상태나 우선순위가 바뀔 수 있고, foreground 우선순위가 더 높은 클라이언트가 낮은 우선순위 클라이언트를 밀어낼 수도 있다. 따라서 최종 성공·실패는 `CameraDevice.StateCallback`과 `CameraAccessException`으로 처리한다.
+
+API 30 이상에서 여러 카메라를 동시에 써야 한다면 `getConcurrentCameraIds()`의 조합인지 확인하고, 필요하면 `isConcurrentSessionConfigurationSupported()`로 실제 세션 구성을 검사한다. 지원되지 않는 조합을 임의로 동시에 열 수 있다고 가정하지 않는다.
 
 ### 판단 기준
 
-- 카메라를 열기 전 가용성 콜백으로 다른 앱의 점유 여부를 먼저 확인하면, 무작정 `openCamera()`를 호출해 실패를 다루는 것보다 더 나은 사용자 피드백(예: "다른 앱이 카메라를 사용 중입니다")을 줄 수 있다.
+- 가용성 콜백은 사용자 피드백과 재시도 시점을 정하는 힌트로 사용한다. `onCameraAvailable()` 직후의 성공을 보장하지 않으므로 `openCamera()` 결과를 반드시 처리한다.
 - 다중 카메라 기기에서는 렌즈 방향, 초점 거리, 지원 해상도가 카메라 ID마다 다르므로 `CameraCharacteristics`를 조회하지 않고 카메라 ID를 하드코딩하지 않는다.
 - 대부분의 앱 개발에는 `Camera2`(수동 노출 및 제어를 지원하는 Android 기본 저수준 카메라 API)를 직접 다루기보다 `CameraX`(생명주기 자동 연동과 기기 호환성 추상화를 제공하는 Jetpack 라이브러리)가 제공하는 lifecycle-aware 추상화를 우선 검토한다. Camera2 직접 제어가 필요한 경우만 저수준 API로 내려간다.
 
@@ -38,3 +40,6 @@ date created: 2026-08-03 17:29:24 +09:00
 
 - https://developer.android.com/media/camera/camera2
 - https://developer.android.com/media/camera/camerax
+- https://developer.android.com/reference/android/hardware/camera2/CameraManager
+
+검증일: 2026-08-06. 동시 카메라 조합, 접근 우선순위, 가용성 콜백과 실제 열기 사이의 경쟁 조건을 `CameraManager` API reference와 대조했다.

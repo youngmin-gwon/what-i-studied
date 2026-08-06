@@ -3,7 +3,7 @@ title: memory-performance-requires-leak-and-allocation-evidence
 tags: ["android", "android/testing-performance"]
 aliases: ["Android 메모리는 사용량보다 회수되지 않는 객체를 본다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 ---
 
 ## Android 메모리는 사용량보다 회수되지 않는 객체를 본다
@@ -15,15 +15,15 @@ date modified: 2026-08-04 22:00:00 +09:00
 
 ### 1. ART GC 및 메모리 측정 메커니즘
 
-- **ART GC 메커니즘**: Generational Concurrent Copying (CC) GC 기반. Young Generation(Eden/Survivor)에서 생성된 단기 객체가 잦은 GC 소탕 대상이 되며, 대량 할당 발생 시 CPU 주기를 점유하여 프레임 Drop을 유발한다.
+- **ART GC 메커니즘**: ART는 Android 버전과 런타임 구성에 따라 collector를 선택한다. Android 10 이상에서 Concurrent Copying(CC)은 기본적으로 generational mode로 동작하지만, 이를 모든 Android 기기·버전의 고정 구현으로 가정하지 않는다. allocation churn은 어떤 collector에서도 CPU 사용과 pause/메모리 압력을 키울 수 있으므로 trace와 GC 로그로 확인한다.
 - **메모리 분류 지표**:
   - **Java Heap**: Android Dalvik/ART 힙 객체 (Bitmap 버퍼 제외한 표준 객체).
   - **Native Heap**: C/C++ `malloc` allocation, Native Bitmaps (Android 8.0+), Webview/RenderThread 버퍼.
   - **Graphics**: EGL, GL Malloc, SurfaceFlinger 렌더 버퍼.
   - **PSS (Proportional Set Size)**: 프로세스 고유 메모리 + 공유 라이브러리(Shared Page)를 공유 프로세스 수로 나눈 합산 지표.
 - **LeakCanary 누수 탐지 원리**:
-  - `Activity.onDestroy()` 시 해당 객체에 대한 `WeakReference`를 생성하고 `ReferenceQueue`에 등록.
-  - 5초 후 명시적 `Runtime.getRuntime().gc()` 후에도 `ReferenceQueue`로 이탈하지 않은 객체를 GC Root 탐색 알고리즘(Shark Hprof Parser)으로 힙 덤프 추적.
+  - 파괴된 Activity/Fragment/View와 cleared ViewModel 등 더 이상 필요하지 않은 객체를 `ObjectWatcher`가 weak reference로 감시한다.
+  - 기본 retained delay는 5초지만 구성 가능한 값이다. 지연 뒤 GC 후에도 남은 객체를 retained 후보로 분류하며, 곧바로 모든 후보마다 heap dump를 뜨는 것은 아니다. 기본적으로 앱이 보일 때 5개, 보이지 않을 때 1개의 retained-object 임계값에 도달하면 heap dump를 만들고 Shark가 GC root 경로를 분석한다.
 
 ### 2. 메모리 누수 GC Root 참조 사슬 흐름
 
@@ -108,6 +108,12 @@ adb shell dumpsys meminfo com.example.app
 
 ### 5. 메모리 최적화 가이던스
 
-- **Activities 카운트 관측**: 화면을 모두 백버튼으로 이탈한 후에도 `Activities` 수치가 1 이상으로 지속 유지되면 힙 덤프(.hprof)를 즉시 수집한다.
+- **Activities 카운트 관측**: `dumpsys meminfo`의 Activity 개수는 힌트일 뿐이다. 화면 전환·캐시·다중 창 때문에 1 이상인 것만으로 누수를 판정하지 않고, 파괴된 특정 인스턴스가 계속 도달 가능한지 heap dump와 lifecycle 로그로 확인한다.
 - **Bitmap Config**: Compose/View 이미지 표현 시 필요 이상의 Resolution 디코딩을 방지하고 `Bitmap.Config.HARDWARE` 설정을 적용한다.
 
+### 공식/정본 문서
+
+- https://source.android.com/docs/core/runtime/gc-debug
+- https://square.github.io/leakcanary/fundamentals-how-leakcanary-works/
+
+검증일: 2026-08-06. ART의 generational CC 적용 범위를 Android 10+ 기본값으로 한정하고, LeakCanary의 retained delay와 heap-dump 임계값을 구분했다.

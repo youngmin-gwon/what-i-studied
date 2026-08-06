@@ -3,9 +3,9 @@ title: android-gradle-plugin-adds-android-build-rules-to-gradle
 tags: ["android", "agp", "gradle", "plugin"]
 aliases: ["Android Gradle Plugin은 Android 빌드 규칙을 Gradle에 추가한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:50:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
+updated: 2026-08-06 14:50:00 +09:00
 ---
 
 ## Android Gradle Plugin은 Android 빌드 규칙을 Gradle에 추가한다
@@ -14,7 +14,7 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ### 개념 및 필요성 (What & Why)
 **AGP(Android Gradle Plugin)** 는 범용 빌드 자동화 도구인 Gradle에 Android 애플리케이션 및 라이브러리 빌드를 위한 도메인 특화 태스크 파이프라인과 규칙(Rules)을 주입하는 핵심 빌드 플러그인(`com.android.application`, `com.android.library`)이다.
-Gradle 자체는 단순한 태스크 의존성 엔진(DAG 실행기)일 뿐, Android APK/AAB 아티팩트를 합성하는 개별 도구들(AAPT2, R8, Manifest Merger, apksigner 등)의 구체적 실행법을 알지 못한다.
+Gradle 자체는 범용 태스크 실행·의존성 엔진이며, Android APK/AAB를 만드는 AAPT2, R8/D8, Manifest Merger와 패키징·서명 단계의 구체적인 연결은 알지 못한다. AGP가 이 도구와 규칙을 Gradle 태스크 그래프에 구성한다. 이때 `apksigner`는 APK 서명·검증 도구이지 AAB 서명 도구가 아니다.
 AGP는 이러한 Android 전용 도구 체인을 Gradle의 태스크 시스템으로 추상화하고 연결함으로써 개발자가 `build.gradle.kts` DSL 기반의 단순화된 빌드 환경을 누릴 수 있게 만든다.
 
 ### 내부 메커니즘 (Internal Mechanism)
@@ -30,10 +30,14 @@ flowchart LR
     Source["Kotlin/Java Sources + Res"] --> AAPT2["AAPT2 (Resource Compile & Link)"]
     Source --> Kotlinc["Kotlinc / Javac (Compile to Class)"]
     Kotlinc --> R8["R8 / D8 (Class to DEX Optimization)"]
-    AAPT2 --> Package["AGP Packaging Engine (APK / AAB)"]
+    AAPT2 --> Package["AGP Packaging Engine"]
     R8 --> Package
-    Package --> Signer["apksigner (V2 / V3 Signing)"]
-    Signer --> Artifact[".apk / .aab"]
+    Package --> APK["APK"]
+    Package --> AAB["AAB"]
+    APK --> APKSigner["APK signing schemes<br/>apksigner로 검증 가능"]
+    AAB --> UploadSign["Upload key로 bundle 서명"]
+    UploadSign --> Play["Play App Signing"]
+    Play --> ServedAPK["App signing key로 서명된 device APK"]
 ```
 
 ### 코드 예시 (build.gradle.kts & Variant API)
@@ -77,3 +81,7 @@ AGP가 Gradle 태스크 그래프에 등록한 Android 전용 태스크 목록�
 ```
 
 관련 노트: [AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다](agp-dsl-checklist-verifies-effective-release-variant-values.md), [Gradle 빌드 계약](gradle-build-contracts.md)
+
+공식 문서: [apksigner](https://developer.android.com/tools/apksigner), [Sign your app](https://developer.android.com/studio/publish/app-signing), [Android App Bundle format](https://developer.android.com/guide/app-bundle/app-bundle-format)
+
+검증일: 2026-08-06. APK의 플랫폼 서명과 AAB 업로드 서명·Play App Signing 후 device APK 서명 흐름을 분리했다.

@@ -2,7 +2,7 @@
 title: cmake-gradle-and-abi-define-native-build-and-packaging
 tags: [android, android/native, android/system-internals]
 aliases: [ABI, CMake, externalNativeBuild]
-date modified: 2026-08-05 16:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -28,7 +28,7 @@ graph TD
 ```
 
 1. **Cross-Compilation Binding**: CMake 실행 시 AGP는 NDK 내부의 toolchain file(`android.toolchain.cmake`)을 주입하고 `-DANDROID_ABI=arm64-v8a` 및 `-DANDROID_PLATFORM=android-24` 옵션을 전달하여 기기 타깃 아키텍처에 맞게 C/C++ 바이너리를 빌드한다.
-2. **APK Packaging Contract**: APK 내부의 Native 라이브러리는 반드시 `lib/<abi_name>/lib<name>.so` 디렉터리 구조를 유지해야 한다. `extractNativeLibs="false"` 설정 시 APK 내부의 압축되지 않은 `.so` 파일을 ART 런타임이 `mmap()`(파일 내용을 별도로 복사하지 않고 프로세스의 가상 주소 공간에 그대로 매핑해, 파일을 마치 메모리처럼 직접 읽고 실행할 수 있게 하는 시스템 콜)으로 직접 읽어 실행한다.
+2. **APK Packaging Contract**: APK 내부의 native library는 `lib/<abi_name>/lib<name>.so` 구조로 패키징된다. 압축되지 않고 적절히 ZIP-aligned된 `.so`는 platform dynamic linker가 APK에서 직접 `mmap()`할 수 있다. ART가 ELF shared object를 직접 로딩한다고 설명하지 않는다. AGP가 생성한 manifest·packaging 설정과 16KB ZIP/ELF alignment를 artifact에서 검증한다.
 
 ---
 
@@ -79,7 +79,7 @@ target_link_libraries(native-lib ${log-lib} ${android-lib})
 ### 실무 규칙
 
 - 64비트 아키텍처 지원이 필수이므로, APK 배포 시 `armeabi-v7a`만 포함하고 `arm64-v8a` 라이브러리를 누락하면 Google Play 스토어 등록이 거부되거나 최신 64-bit only 디바이스(Pixel 7+)에서 `UnsatisfiedLinkError` 패닉이 발생한다.
-- `c++_shared` STL을 사용하는 제3자 Native SDK 라이브러리를 포팅하는 경우, 중복된 `libc++_shared.so`가 APK에 패키징되어 버전 충돌이 일어날 수 있으므로 AGP의 `pickFirsts` 또는 `stl "c++_static"` 방침을 정립해야 한다.
+- 여러 native dependency가 `libc++_shared.so`를 포함하면 하나의 호환되는 libc++ runtime으로 버전과 packaging을 통일한다. `pickFirsts`는 중복 파일 중 하나를 임의 정책으로 선택할 뿐 ABI 호환성을 증명하지 않으므로 마지막 수단으로만 쓴다. `c++_static`도 여러 shared library에 각각 포함하면 allocation·exception·RTTI 객체를 library 경계로 넘길 때 문제가 생길 수 있어 전체 dependency 구성을 검토해야 한다.
 
 ---
 
@@ -105,5 +105,4 @@ target_link_libraries(native-lib ${log-lib} ${android-lib})
 - [NDK는 앱 아키텍처가 아니라 native library toolchain 경계다](ndk-is-native-library-toolchain-not-app-architecture.md)
 - [Native 성능과 crash debugging은 경계 비용에서 시작한다](native-performance-and-crash-debugging-start-at-the-boundary.md)
 
-공식 문서: [Add C and C++ Code to Your Project](https://developer.android.com/studio/projects/add-native-code), [Android ABIs](https://developer.android.com/ndk/guides/abis)
-
+공식 문서: [Add C and C++ Code to Your Project](https://developer.android.com/studio/projects/add-native-code), [Android ABIs](https://developer.android.com/ndk/guides/abis), [C++ library support](https://developer.android.com/ndk/guides/cpp-support), [16KB page-size packaging](https://developer.android.com/guide/practices/page-sizes)

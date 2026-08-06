@@ -2,7 +2,7 @@
 title: jetpack-architecture-is-recommended-responsibility-map-not-mandatory-stack
 tags: [android, android/architecture, android/jetpack]
 aliases: ["Jetpack Architecture는 필수 stack이 아니라 책임 분리 지도다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:50:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -62,7 +62,7 @@ graph LR
 - 상위 문서: [Architecture Contracts](./architecture-contracts.md)
 - 관련 계약 문서:
   - [UI, domain, data layer는 rendering, policy, source of truth를 분리한다](./ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md)
-  - [KMP는 비즈니스 로직과 데이터 레이어를 공유한다](../../multiplatform-contracts/kmp-shares-business-logic-and-data-layer-while-ui-stays-native-by-default.md)
+  - [KMP는 공유 로직과 플랫폼 UI 또는 공유 UI를 선택할 수 있다](../../multiplatform-contracts/kmp-can-share-logic-with-native-ui-or-share-ui-with-compose-multiplatform.md)
 - 공식 문서: [Guide to App Architecture - Architecture Principles](https://developer.android.com/topic/architecture#architecture-principles)
 
 검증일: 2026-08-05. 아키텍처 유연성 및 책임 분리 가이드 원문 확인 완료.

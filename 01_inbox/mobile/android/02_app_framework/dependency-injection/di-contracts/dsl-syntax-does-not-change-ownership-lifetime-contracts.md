@@ -2,12 +2,12 @@
 title: dsl-syntax-does-not-change-ownership-lifetime-contracts
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 15:05:00 +09:00
 date created: 2026-08-03 16:28:45 +09:00
 ---
 
 ## DSL 문법은 ownership 과 lifetime 계약을 바꾸지 않는다
-배경 지식: [메모리 레이아웃 및 캐시](../../../../../../02_references/computer-science/memory-layout-and-cache.md)
+배경 지식: [의존성 역전 원칙](../../../../../../02_references/oop/solid/DIP%28Dependency%20Inversion%20Principle%29.md), [독립 수명 모델](../../../00_foundations/learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md)
 
 Compose, Gradle Kotlin DSL, **Koin**(코드 생성 없이 런타임에 서비스 로케이터 방식으로 의존성을 주입하는 Kotlin 전용 DSL 기반 DI 프레임워크) DSL, Navigation DSL 은 선언을 읽기 쉽게 만들지만 owner 와 lifetime 을 자동으로 올바르게 만들어 주지는 않는다. DSL 안에 쓰였다는 이유만으로 state, graph, route, build configuration 의 책임이 사라지지 않는다.
 

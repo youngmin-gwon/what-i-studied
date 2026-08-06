@@ -2,7 +2,7 @@
 title: on-device-ai-feature-availability-must-be-checked-before-use
 tags: ["android", "android/system-services"]
 aliases: ["온디바이스 AI 기능 가용성은 사용 전에 반드시 확인해야 한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 핵심 정의
 
-`00_foundations/learning-spine`의 10장은 "기능 사용은 발견에서 시작하지, 권한 확인에서 시작하지 않는다"는 원칙을 다룬다. 온디바이스 AI는 이 원칙이 가장 직접적으로 적용되는 영역 중 하나다. 모델이 이미 다운로드돼 있는지, 이 기기가 애초에 이 기능을 지원하는지는 API 호출 전에 반드시 확인해야 하는 별도의 상태다. ML Kit GenAI API는 이 상태를 `FeatureStatus`(모델의 기기 내 존재 및 다운로드 상태를 노출하는 enum 객체)라는 명시적인 enum으로 노출한다.
+`00_foundations/learning-spine`의 10장은 "기능 사용은 발견에서 시작하지, 권한 확인에서 시작하지 않는다"는 원칙을 다룬다. 온디바이스 AI는 이 원칙이 가장 직접적으로 적용되는 영역 중 하나다. 모델이 이미 다운로드돼 있는지, 현재 기기와 `SummarizerOptions` 조합이 이 기능을 지원하는지는 추론 전에 확인해야 하는 별도 상태다. ML Kit GenAI API는 이 상태를 `FeatureStatus` 상수로 노출한다.
 
 > 상태값: "UNAVAILABLE, DOWNLOADABLE, DOWNLOADING, AVAILABLE"
 
@@ -31,11 +31,11 @@ if (featureStatus == FeatureStatus.DOWNLOADABLE) {
 }
 ```
 
-`UNAVAILABLE`은 이 기기/OS 조합에서 해당 기능 자체를 지원하지 않는다는 뜻이다. `DOWNLOADABLE`은 기능은 지원하지만 모델이 아직 기기에 없다는 뜻이며, `downloadFeature()`로 명시적으로 받아야 한다. `DOWNLOADING`은 진행 중, `AVAILABLE`이어야만 실제 추론(`runInference()`)을 호출할 수 있다. 이 네 상태는 Learning Spine 10장이 구분한 세 가지 실패 축과 정확히 대응한다.
+`UNAVAILABLE`은 현재 기기와 옵션 조합에서 기능을 사용할 수 없다는 뜻이다. `DOWNLOADABLE`은 필요한 모델 자산을 받을 수 있다는 뜻이고, `downloadFeature()`로 미리 받을 수 있다. 다만 공식 API는 첫 추론 요청도 필요한 다운로드를 시작할 수 있다. `DOWNLOADING` 상태에서도 `runInference()`를 호출할 수 있으며 요청은 다운로드가 끝난 뒤 실행된다. `AVAILABLE`은 필요한 자산이 이미 준비된 상태다.
 
-- `UNAVAILABLE` → 10장의 "하드웨어/기능 자체가 없다" 축. 대체 기능이나 기능 비활성화가 맞는 처리다.
+- `UNAVAILABLE` → 현재 구성에서는 사용할 수 없음. 대체 기능이나 기능 비활성화가 맞는 처리지만 시스템/AICore 업데이트 뒤에도 영구히 같다고 단정하지 않는다.
 - `DOWNLOADABLE`/`DOWNLOADING` → 10장의 "하드웨어는 있지만 사용자(또는 시스템) 쪽 사전 조건이 아직 채워지지 않았다" 축과 유사하다. 다만 사용자 설정이 아니라 모델 다운로드 완료가 조건이라는 점이 다르다.
-- `AVAILABLE` → 이 상태에서만 실제 추론 API를 호출한다.
+- `AVAILABLE` → 다운로드 대기 없이 추론을 시작할 수 있다.
 
 이 요구사항은 API 레벨과도 얽혀 있다. ML Kit GenAI Summarization API는 최소 API 레벨을 요구한다.
 
@@ -50,29 +50,25 @@ suspend fun runSummarizationSafely(
     summarizer: Summarizer,
     articleText: String,
 ): String? {
-    // 1. Learning Spine 10장의 원칙: 권한이 아니라 기능 발견부터 시작한다.
+    // summarizer의 소유자는 ViewModel.onCleared()/Activity.onDestroy() 등에서 close()한다.
     when (summarizer.checkFeatureStatus().await()) {
-        FeatureStatus.UNAVAILABLE -> {
-            // 이 기기/OS는 이 기능을 지원하지 않는다. 대체 UI로 폴백한다.
-            return null
-        }
+        FeatureStatus.UNAVAILABLE -> return null
         FeatureStatus.DOWNLOADABLE -> {
-            // 모델이 없다. 사용자에게 다운로드가 필요함을 알리고 명시적으로 받는다.
+            // 데이터 비용과 대기 시간을 UI에서 알린 뒤 명시적으로 완료를 기다린다.
             summarizer.downloadFeature(object : DownloadCallback {
-                override fun onDownloadCompleted() { /* 완료 후 재시도 */ }
-                override fun onDownloadFailed(e: GenAiException) { /* 실패 처리 */ }
-            })
-            return null
+                override fun onDownloadStarted(bytesToDownload: Long) = Unit
+                override fun onDownloadProgress(totalBytesDownloaded: Long) = Unit
+                override fun onDownloadCompleted() = Unit
+                override fun onDownloadFailed(e: GenAiException) = Unit
+            }).await()
         }
-        FeatureStatus.DOWNLOADING -> return null // 진행 중, 대기 UI 표시
-        FeatureStatus.AVAILABLE -> {
-            val request = SummarizationRequest.builder(articleText).build()
-            var result: String? = null
-            summarizer.runInference(request) { partial -> result = partial }
-            return result
-        }
+        // DOWNLOADING이면 아래 추론 Future가 다운로드 완료까지 기다린다.
+        FeatureStatus.DOWNLOADING, FeatureStatus.AVAILABLE -> Unit
         else -> return null
     }
+
+    val request = SummarizationRequest.builder(articleText).build()
+    return summarizer.runInference(request).await().summary
 }
 ```
 
@@ -86,15 +82,17 @@ flowchart TD
     C --> D{"FeatureStatus"}
     D -->|"UNAVAILABLE"| E["이 기기/OS는 미지원. 대체 기능/비활성화."]
     D -->|"DOWNLOADABLE"| F["downloadFeature() 호출 → DOWNLOADING"]
-    D -->|"DOWNLOADING"| G["대기 UI, 폴링 또는 콜백 대기"]
-    D -->|"AVAILABLE"| H["runInference() 호출 가능"]
+    D -->|"DOWNLOADING"| G["runInference() 가능; 다운로드 완료 뒤 실행"]
+    D -->|"AVAILABLE"| H["다운로드 대기 없이 runInference()"]
 ```
 
 ### 판단 기준
 
 - 추론 API를 호출하기 전에 항상 `checkFeatureStatus()` 결과를 먼저 분기한다. `AVAILABLE`을 가정하고 바로 `runInference()`를 호출하지 않는다.
 - `DOWNLOADABLE` 상태에서 자동으로 큰 모델을 즉시 다운로드하는 것이 사용자 경험/데이터 비용에 적절한지 판단한다 — 필요하면 Wi-Fi 연결 시에만 다운로드하도록 조건을 건다.
-- `UNAVAILABLE`과 `DOWNLOADABLE`을 같은 오류 메시지로 처리하지 않는다. 전자는 이 기기에서 영구히 쓸 수 없는 것이고, 후자는 사용자 조치(다운로드 대기)로 해결된다 — Learning Spine 10장이 강조하는 것과 같은 구분이다.
+- `UNAVAILABLE`과 `DOWNLOADABLE`을 같은 오류 메시지로 처리하지 않는다. 전자는 현재 기기·옵션 조합에서 사용할 수 없고, 후자는 다운로드로 해결할 수 있다.
+- `runInference()`는 비동기 `ListenableFuture`를 반환한다. 콜백에서 지역 변수를 바꾼 직후 반환하지 말고 Future 완료를 `await()`하거나 성공/실패 콜백에서 UI 상태를 갱신한다.
+- 지원 기기라도 unlocked bootloader에서는 지원되지 않을 수 있고, foreground 사용, 동시 요청의 `BUSY`, 할당량·안전 필터 실패를 포함한 `GenAiException` 처리가 필요하다.
 
 ### 경계
 
@@ -103,11 +101,11 @@ flowchart TD
 
 ### 관찰 가능한 신호
 
-`checkFeatureStatus()`가 반환하는 `FeatureStatus` 값을 로그로 남기면 특정 기기에서 기능이 왜 동작하지 않는지(미지원 vs 다운로드 대기 vs 다운로드 실패) 바로 구분할 수 있다. `downloadFeature()` 실패는 `DownloadCallback.onDownloadFailed()`에 전달되는 예외로 관찰하며, `AVAILABLE` 상태를 확인하지 않고 `runInference()`를 호출하면 모델이 준비되지 않았다는 실패가 즉시 발생한다.
+`checkFeatureStatus()`가 반환하는 `FeatureStatus` 값을 로그로 남기면 특정 기기에서 기능이 왜 동작하지 않는지(미지원 vs 다운로드 대기 vs 다운로드 실패) 구분할 수 있다. `downloadFeature()`와 `runInference()`가 반환하는 Future의 실패 원인 및 `DownloadCallback.onDownloadFailed()`를 함께 기록한다.
 
 ### 공식 문서
 
 - [ML Kit GenAI Summarization for Android](https://developers.google.com/ml-kit/genai/summarization/android)
 - [10장 기기 기능 발견과 background execution](../../../00_foundations/learning-spine/10-device-capability-discovery-and-background-execution.md)
 
-검증일: 2026-08-04. `FeatureStatus` API 표면은 베타 단계로 변경될 수 있으므로 적용 시점에 원문을 다시 확인한다.
+검증일: 2026-08-06. `FeatureStatus`, 비동기 `ListenableFuture`, 다운로드 중 추론 대기, 자원 `close()` 계약을 공식 ML Kit 문서와 API reference로 재확인했다. API 표면은 베타 단계이므로 적용 시점에 원문을 다시 확인한다.

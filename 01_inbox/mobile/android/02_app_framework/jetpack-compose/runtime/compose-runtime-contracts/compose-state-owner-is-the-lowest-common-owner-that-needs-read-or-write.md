@@ -2,7 +2,7 @@
 title: compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [State hoisting, Lowest common owner]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 15:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
@@ -24,19 +24,15 @@ date created: 2026-07-31 23:59:00 +09:00
 
 ### 3. 내부 동작 및 UDF 데이터 흐름 (How)
 
-```
-             +------------------------------+
-             |  Lowest Common Parent Owner  |  <-- State 정의 (val state, onEvent)
-             +------------------------------+
-               /                          \
-   State Down /                            \ State Down
-             v                              v
-   +-------------------+          +-------------------+
-   | Child A (Read)    |          | Child B (Control) |
-   +-------------------+          +-------------------+
-                                            |
-                                Event Up    | (onEvent)
-                                            v
+```mermaid
+flowchart TD
+    Owner["Lowest Common Parent Owner<br/>state와 onEvent 소유"]
+    Reader["Child A<br/>상태 읽기"]
+    Controller["Child B<br/>사용자 입력"]
+
+    Owner -->|State down| Reader
+    Owner -->|State down| Controller
+    Controller -->|Event up: onEvent| Owner
 ```
 
 1. **State Down, Events Up**: 부모 노드가 `State` 상태 값을 자식 컴포넌트로 내려보내고(State Down), 자식 컴포넌트는 이벤트 콜백 람다(`onEvent: () -> Unit`)를 상위 부모로 전달(Events Up)한다.

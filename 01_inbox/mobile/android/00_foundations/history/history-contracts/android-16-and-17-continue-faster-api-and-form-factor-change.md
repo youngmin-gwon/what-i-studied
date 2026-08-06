@@ -2,7 +2,7 @@
 title: android-16-and-17-continue-faster-api-and-form-factor-change
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-06 18:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 

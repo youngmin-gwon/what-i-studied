@@ -2,7 +2,7 @@
 title: cellular-connectivity-is-shaped-by-plan-and-system-policy
 tags: [android, android/connectivity, android/telephony]
 aliases: [Cellular Policy, SubscriptionManager, Carrier Config, Metered Cellular]
-date modified: 2026-08-05 16:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -15,14 +15,14 @@ Android의 셀룰러(LTE/5G) 네트워크 연결성은 단순한 물리적 무�
 ### 메커니즘: Telephony와 NetworkPolicy의 통합 제어 흐름
 
 1. **CarrierConfigManager & SubscriptionManager**:
-   - SIM 카드가 삽입되면 RIL(Radio Interface Layer)을 통해 통신사 식별자(MCC/MNC)를 읽고 `CarrierConfigManager`가 통신사 특화 APN, Roaming 정책, VoLTE/5G 슬라이싱 규격을 로드한다.
+   - telephony stack과 carrier configuration은 subscription별 동작을 구성한다. 일반 앱은 APN, radio, carrier policy를 직접 제어하지 않고 공개된 capability와 자신의 권한 범위만 관찰한다.
 
 2. **SubscriptionPlan & Metered Status**:
-   - `SubscriptionManager.setSubscriptionPlans()`를 통해 요금제의 데이터 한도(Limit) 및 소진 여부를 감지한다.
-   - 데이터 소진 시 셀룰러 네트워크는 `NET_CAPABILITY_NOT_METERED`를 잃고 종량제(Metered) 네트워크로 전환된다.
+   - `SubscriptionManager.setSubscriptionPlans(int, List)`는 API 33에서 deprecated됐고, replacement overload도 carrier privilege 또는 명시적으로 위임된 carrier app만 호출할 수 있다. 일반 앱의 요금제 조회·설정 API로 사용하지 않는다.
+   - meteredness는 carrier와 system이 `NetworkCapabilities`로 노출하는 비용 힌트다. 데이터 한도 소진이 항상 capability 전환이나 Wi-Fi 전환을 일으킨다고 보장할 수 없다.
 
 3. **NetworkPolicyManagerService & Data Saver**:
-   - 데이터 한도 초과 또는 데이터 절약 모드(Data Saver) 활성화 시 백그라운드 앱의 셀룰러 소켓 생성을 **eBPF**(커널을 재컴파일하지 않고 커널 안에서 UID별 패킷 필터링을 실행하는 메커니즘 — 자세한 정의는 [netd 문서](netd-enforces-routing-dns-firewall-and-tethering-operations.md) 참고)로 차단하고, `ConnectivityService`의 네트워크 점수(Score)를 감점하여 가용한 Wi-Fi가 있을 때 즉시 우회 전환하도록 유도한다.
+   - Data Saver가 켜지고 active network가 metered이면 system은 allowlist가 아닌 앱의 background data를 제한한다. AOSP는 UID firewall과 traffic accounting에 eBPF를 사용할 수 있지만, 앱이 의존할 공개 계약은 `isActiveNetworkMetered`, `restrictBackgroundStatus`, `NetworkCallback`이다. 이 정책이 Wi-Fi로 즉시 전환시킨다고 가정하지 않는다.
 
 ```mermaid
 graph TD
@@ -42,20 +42,24 @@ graph TD
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
-fun checkCellularPolicy(connectivityManager: ConnectivityManager) {
+fun observeNetworkCost(connectivityManager: ConnectivityManager) {
     val activeNetwork = connectivityManager.activeNetwork
     val caps = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return
 
     val isCellular = caps.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
-    val isMetered = !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
-    val isUnmetered5G = caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED)
+    val isPermanentlyUnmetered = caps.hasCapability(
+        NetworkCapabilities.NET_CAPABILITY_NOT_METERED
+    )
+    val isTemporarilyUnmetered = caps.hasCapability(
+        NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
+    )
 
-    if (isCellular && isMetered) {
-        // 셀룰러 종량제 네트워크: 대용량 동영상 다운로드 보류 및 압축 적용
-        enableDataSavingStrategy()
-    } else if (isUnmetered5G) {
-        // 5G 무제한 요금제 상태: 최고 화질 스트리밍 허용
+    if (isPermanentlyUnmetered || isTemporarilyUnmetered) {
+        // 현재 permanent 또는 temporary unmetered로 보고된다. 5G 여부를 보장하지 않는다.
         enableHighQualityStrategy()
+    } else if (isCellular) {
+        // 현재 셀룰러가 metered로 보고된다. 대용량 전송을 보류하거나 축소한다.
+        enableDataSavingStrategy()
     }
 }
 
@@ -83,3 +87,5 @@ adb shell dumpsys netpolicy
 - [ConnectivityService는 네트워크를 선택하고 정책을 적용한다](connectivityservice-selects-networks-and-applies-policy.md)
 
 공식 문서: [Android Carrier Configuration](https://source.android.com/docs/core/connect/carrier-config)
+
+추가 공식 문서: [SubscriptionManager](https://developer.android.com/reference/android/telephony/SubscriptionManager), [NetworkCapabilities](https://developer.android.com/reference/android/net/NetworkCapabilities), [Data Saver](https://developer.android.com/develop/connectivity/network-ops/data-saver), [eBPF traffic monitoring](https://source.android.com/docs/core/data/ebpf-traffic-monitor)

@@ -2,7 +2,7 @@
 title: android-system-internals-map
 tags: ["android", "android/system-internals"]
 aliases: ["Android System Internals Map 은 7개 하위 클러스터를 부팅부터 커스터마이징까지 순서대로 연결하는 통합 지도다"]
-date modified: 2026-08-04 18:00:00 +09:00
+date modified: 2026-08-06 15:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
@@ -49,4 +49,8 @@ date created: 2026-08-04 18:00:00 +09:00
 ### 관련 지도
 
 - [Android Foundation Map](../00_foundations/android-foundation-map.md) — 전체 canonical area 로 돌아가는 최상위 지도.
+- [Learning Spine 2장](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md) — 앱 API 호출이 framework, Binder, native service, kernel로 내려가는 실행 계층.
+- [Learning Spine 6장](../00_foundations/learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) — main thread와 Binder thread의 독립 수명·실패 경계.
+- [Learning Spine 7장](../00_foundations/learning-spine/07-input-resource-selection-and-display-frame.md) — input에서 SurfaceFlinger frame까지의 렌더링 경로.
+- [Learning Spine 12장](../00_foundations/learning-spine/12-compatibility-update-and-form-factor.md) — system image, Mainline, target SDK와 form factor compatibility.
 - [App Framework Map](../02_app_framework/android-app-framework-map.md) — 이 지도가 다루는 native/platform 계층 위에서 앱 코드가 어떻게 그 계층을 호출하는지.

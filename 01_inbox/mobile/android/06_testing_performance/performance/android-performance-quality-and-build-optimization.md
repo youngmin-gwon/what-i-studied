@@ -3,12 +3,16 @@ title: android-performance-quality-and-build-optimization
 tags: ["android", "android/testing-performance"]
 aliases: ["Android 성능, 품질, 빌드 최적화 지도"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 15:00:00 +09:00
 ---
 
 ## Android 성능, 품질, 빌드 최적화 지도
 
 이 지도는 Android 앱 품질을 한 덩어리로 보지 않고 사용자 성능, 반복 가능한 측정, 테스트 피드백, 진단 도구, 배포 산출물 최적화로 분리한다.
+
+배경 지식: [Learning Spine 11장 — 관찰·테스트·품질 feedback](../../00_foundations/learning-spine/11-observation-testing-and-quality-feedback.md)
+
+빌드 산출물 최적화의 소유권은 [Packaging and Deployment](../../03_packaging_deployment/android-packaging-deployment.md)에 있다. 이 지도는 runtime quality와 검증 feedback을 중심으로 하고 R8·Gradle은 성능 결과와 만나는 경계만 연결한다.
 
 ### 품질 및 성능 체계도
 
@@ -36,4 +40,3 @@ flowchart TD
 - [테스트 품질 계약](../testing/testing-quality-contracts/testing-quality-contracts.md)
 - [디버깅 도구 계약](../debugging/debugging-contracts/debugging-contracts.md)
 - [R8와 Gradle 빌드 최적화 계약](../../03_packaging_deployment/optimization/build-optimization-contracts/build-optimization-contracts.md)
-

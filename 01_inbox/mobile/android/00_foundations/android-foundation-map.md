@@ -2,7 +2,7 @@
 title: android-foundation-map
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-05 11:27:44 +09:00
+date modified: 2026-08-06 15:00:00 +09:00
 date created: 2026-08-03 16:59:22 +09:00
 ---
 
@@ -13,9 +13,25 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 ### 읽는 순서
 
 1. [Android System Map](overview/android-system-map.md) 에서 kernel 부터 app 까지 책임 계층을 구분한다.
-2. [Android Learning Path](learning/android-learning-path.md) 에서 자신의 배경과 프로젝트 질문에 맞는 경로를 고른다.
-3. 버전 의존 동작이면 [Android Release History](history/android-release-history.md) 에서 API level, target SDK, extension/minor SDK 축을 분리한다.
-4. 낯선 약어는 [Android Glossary](glossary/android-glossary.md) 에서 뜻만 확인하고 연결된 정본으로 이동한다.
+2. 아래 12장 Learning Spine을 순서대로 읽어 source, process, component, state, concurrency, UI, data, security, capability, testing, compatibility의 인과 관계를 잡는다.
+3. [Android Learning Path](learning/android-learning-path.md) 에서 자신의 배경과 프로젝트 질문에 맞는 보충 경로를 고른다.
+4. 버전 의존 동작이면 [Android Release History](history/android-release-history.md) 에서 API level, target SDK, extension/minor SDK 축을 분리한다.
+5. 낯선 약어는 [Android Glossary](glossary/android-glossary.md) 에서 뜻만 확인하고 연결된 정본으로 이동한다.
+
+### Learning Spine
+
+1. [Android 생태계와 계약 표면](learning-spine/01-android-ecosystem-and-contract-surfaces.md)
+2. [플랫폼 실행 계층과 호출 경로](learning-spine/02-android-platform-execution-layers-and-call-paths.md)
+3. [소스에서 설치 패키지까지](learning-spine/03-source-to-installed-package.md)
+4. [Manifest에서 component 실행까지](learning-spine/04-manifest-to-component-execution.md)
+5. [화면·프로세스·task·state의 독립 수명](learning-spine/05-independent-lifetimes-of-screen-process-task-and-state.md)
+6. [Main thread·Binder·coroutine·durable work 수명](learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md)
+7. [입력·리소스 선택·display frame](learning-spine/07-input-resource-selection-and-display-frame.md)
+8. [Data·storage·network·offline recovery](learning-spine/08-data-storage-network-and-offline-recovery.md)
+9. [Identity·permission·독립 security gate](learning-spine/09-identity-permission-and-independent-security-gates.md)
+10. [Device capability 발견과 background execution](learning-spine/10-device-capability-discovery-and-background-execution.md)
+11. [관찰·테스트·품질 feedback](learning-spine/11-observation-testing-and-quality-feedback.md)
+12. [Compatibility·update·form factor](learning-spine/12-compatibility-update-and-form-factor.md)
 
 ### Maps
 

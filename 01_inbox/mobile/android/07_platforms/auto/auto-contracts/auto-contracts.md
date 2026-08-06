@@ -2,7 +2,7 @@
 title: auto-contracts
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 date created: 2026-08-03 17:28:39 +09:00
 ---
 
@@ -53,7 +53,7 @@ adb shell pm list features | grep -i "android.hardware.type.automotive"
 
 ### 책임 경계
 
-- Android Auto 는 휴대폰의 앱 화면을 차량 디스플레이에 투영하는 것이고, Android Automotive OS 는 차량 자체에 내장되어 독립적으로 부팅되는 Android 다. 같은 이름의 "Auto"로 묶어 생각하면 배포·개발 모델을 혼동한다.
+- Android Auto는 휴대폰 앱과 차량 host가 통신하는 projection 환경이며, Car App Library에서는 host가 template model을 렌더링한다. Android Automotive OS는 차량 자체에 내장되어 독립적으로 부팅되는 Android다. 같은 이름의 "Auto"로 묶어 생각하면 manifest, artifact, 배포 track을 혼동한다.
 - 운전 중 방해 최소화(driver distraction) 정책은 디자인 선호가 아니라 Car App Library 가 강제하는 템플릿 제약으로 구현된다.
 
 ### 정본 노트
@@ -62,5 +62,4 @@ adb shell pm list features | grep -i "android.hardware.type.automotive"
 - [Car App Library는 운전 중 배포 콘텐츠를 제한된 템플릿으로만 허용한다](./car-app-library-restricts-content-to-approved-templates.md)
 - [Android Automotive는 Car HAL을 통해 차량 신호에 접근한다](./android-automotive-accesses-vehicle-signals-through-car-hal.md)
 
-검증일: 2026-08-03. [Android for Cars 개발 가이드](https://developer.android.com/training/cars) 를 기준으로 확인했다.
-
+검증일: 2026-08-06. [Android for Cars 개발 가이드](https://developer.android.com/training/cars), [Android Auto 지원](https://developer.android.com/training/cars/apps/auto), [AAOS 지원](https://developer.android.com/training/cars/apps/automotive-os)을 기준으로 projection 렌더링과 플랫폼별 packaging 경계를 재확인했다.

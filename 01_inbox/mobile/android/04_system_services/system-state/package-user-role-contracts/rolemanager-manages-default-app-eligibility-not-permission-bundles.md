@@ -2,7 +2,7 @@
 title: rolemanager-manages-default-app-eligibility-not-permission-bundles
 tags: ["android", "android/system-services"]
 aliases: ["RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -28,7 +28,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 경계
 
-- 이 노트는 역할 자격과 사용자 선택 흐름을 다룬다. 역할 승인 이후 실제 permission 검사 메커니즘은 [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](../../service-lookup/service-lookup-contracts/system-server-checks-caller-uid-and-pid-for-every-call.md)가 다룬다.
+- 이 노트는 역할 자격과 사용자 선택 흐름을 다룬다. 역할 승인 이후 실제 permission 검사 메커니즘은 [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](../../service-lookup/service-lookup-contracts/system-server-checks-caller-uid-and-pid-for-every-call.md)가 다룬다.
 - 다중 사용자/work profile에서 역할이 프로필별로 별도 관리된다는 점은 [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./usermanager-separates-users-and-work-profiles-by-userhandle.md)와 연결해서 읽는다.
 
 ### 관찰 가능한 신호

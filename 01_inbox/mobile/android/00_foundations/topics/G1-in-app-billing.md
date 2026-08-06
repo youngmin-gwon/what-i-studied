@@ -3,7 +3,7 @@ title: G1-in-app-billing
 tags: [topic-synthesis, in-app-billing, monetization, google-play]
 aliases: [인앱 결제 (Google Play Billing), In-App Billing, Google Play Billing]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-06 18:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 ---
 
 ## 인앱 결제 (Google Play Billing)
@@ -29,7 +29,7 @@ flowchart TD
 
 **Play 배포와 결제 프로그램의 경계를 먼저 확인**
 Google Play에서 배포되는 앱의 디지털 상품·서비스 결제에는 Google Play Billing이 기본 경로다. 그러나 2026년 현재 eligible app·region·program에 따라 alternative billing, user choice billing, external offers 같은 승인된 경로도 존재한다. 앱의 배포 채널, 사용자 Play country, 상품 유형, 프로그램 등록 여부를 확인하지 않고 모든 외부 결제를 정책 위반이라고 단정하지 않는다. 프로그램 API를 쓰는 경우에도 지원되는 Play Billing Library 버전, 정보 화면, backend reporting 같은 별도 계약을 따라야 한다.
-- [Play Billing Library is the only approved in-app purchase path](../../03_packaging_deployment/distribution/billing-contracts/play-billing-library-is-the-only-approved-in-app-purchase-path.md)
+- [Play billing 적용 여부는 상품, 사용자 지역, 등록 프로그램에 따라 결정된다](../../03_packaging_deployment/distribution/billing-contracts/play-billing-requirement-depends-on-product-region-and-enrolled-program.md)
 
 **제품 및 구독의 수명 주기**
 일회성 상품(In-app Products)과 정기 결제(Subscriptions)는 서로 다른 상태 및 수명 주기를 가집니다. 구독은 갱신, 취소, 유예 상태 등을 추적해야 합니다.

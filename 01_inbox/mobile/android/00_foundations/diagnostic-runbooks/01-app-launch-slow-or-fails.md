@@ -2,7 +2,7 @@
 title: 01-app-launch-slow-or-fails
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: app launch is slow or fails"]
-date modified: 2026-08-06 18:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-08-04 10:30:00 +09:00
 ---
 
@@ -63,9 +63,9 @@ flowchart TD
     G -- "예 (DB/I/O/Lock)" --> G_ERR["ANR / Launch Freeze\n(Refer: 02-anr.md)"]
     G -- "아니오" --> H["첫 프레임 렌더링 (TTID 출사)"]
     
-    H --> I{"Displayed 로그 및 TTID 시간 판단"}
-    I -- "TotalTime > 2000ms" --> J["Application/Activity onCreate 병목 프로파일링"]
-    I -- "TTID 양호 (<500ms)" --> K{"reportFullyDrawn() 호출 여부 (TTFD)"}
+    H --> I{"기준선 대비 TTID 회귀인가?"}
+    I -- "예" --> J["Application/Activity onCreate 병목 프로파일링"]
+    I -- "아니오" --> K{"reportFullyDrawn() 시점과 TTFD 회귀 여부"}
     
     K -- "TTFD 지연 / 미호출" --> L["데이터 계층 비동기 파이프라인 점검\n(Refer: Spine Ch 8)"]
     K -- "TTFD 정상" --> M["시작 성능 검증 완료"]
@@ -94,7 +94,7 @@ TotalTime: 842
 WaitTime: 845
 Complete
 ```
-- `TotalTime`: 시스템이 시작 요청을 수신한 시점부터 첫 프레임 렌 der 완료까지의 시간(TTID, ms 단위).
+- `TotalTime`: 시스템이 시작 요청을 수신한 시점부터 launch가 완료될 때까지 보고되는 시간으로 TTID 진단에 사용한다. OS version과 launch path에 따른 필드 정의를 함께 확인한다.
 - `LaunchState`: `COLD`, `WARM`, `HOT` 상태를 확인하여 재현 환경이 타당한지 검증.
 
 #### 2 단계: Logcat 의 `Displayed` 및 `Fully drawn` 태그 관찰

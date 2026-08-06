@@ -2,7 +2,7 @@
 title: viewmodel-di-injects-dependencies-not-viewmodel-ownership
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:55:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -14,10 +14,29 @@ ViewModel 은 화면 상태 owner 이며 lifecycle 은 ViewModelStoreOwner 가 �
 
 관련 노트: [ViewModel](../../architecture/state-management/viewmodel/viewmodel.md), [Compose runtime/state](../../jetpack-compose/runtime/compose-runtime-and-state-model.md).
 
-### 판단 기준
+### 최소 예시
 
-- ViewModel 에 대한 DI 는 의존성을 주입하는 역할일 뿐이며, ViewModel 의 실제 소유권과 생명주기 관리는 DI 컨테이너가 아니라 안드로이드 ViewModelProvider(ViewModelStore)가 담당한다.
+```kotlin
+@HiltViewModel
+class FeedViewModel @Inject constructor(
+    private val refreshFeed: RefreshFeed,
+    savedStateHandle: SavedStateHandle,
+) : ViewModel()
 
-### 경계
+@AndroidEntryPoint
+class FeedFragment : Fragment() {
+    private val viewModel: FeedViewModel by viewModels()
+}
+```
 
-- ViewModel 내부에 `@Inject` 로 의존성을 선언하되, Activity 나 Fragment 에 주입할 때는 직접 주입받지 않고 `by viewModels()` 델리게이트나 프레임워크 지원 팩토리를 통해 생성해야 생명주기가 유지된다.
+Hilt는 factory에 dependency를 공급하지만 instance cache와 `onCleared()` 호출은 `ViewModelStoreOwner`가 맡는다. Compose Navigation에서는 `viewModel()`/`hiltViewModel()`에 어느 `NavBackStackEntry`가 owner로 전달되는지가 instance 공유 범위를 결정한다.
+
+### 실패와 관찰 신호
+
+- `@Inject lateinit var viewModel: FeedViewModel`처럼 직접 주입하면 ViewModel API를 우회하므로 Hilt는 직접 요청을 금지하는 compile error를 낸다.
+- 같은 route인데 ViewModel이 예상보다 자주 새로 생기면 owner key/back-stack entry가 달라졌는지 constructor log와 `onCleared()`를 관찰한다.
+- app singleton에 ViewModel을 저장하면 back stack에서 제거돼도 해제되지 않으므로 금지한다.
+
+상위 문서: [DI 계약](./di-contracts.md)
+
+공식 문서: [Hilt and Jetpack — ViewModel](https://developer.android.com/training/dependency-injection/hilt-jetpack#viewmodels)

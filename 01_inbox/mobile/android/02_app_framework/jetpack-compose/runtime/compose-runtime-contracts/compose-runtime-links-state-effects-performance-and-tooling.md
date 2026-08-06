@@ -2,7 +2,7 @@
 title: compose-runtime-links-state-effects-performance-and-tooling
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Compose runtime contracts map, Runtime subsystem integration]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 15:15:00 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
@@ -22,20 +22,18 @@ Compose의 개별 기술들(`remember`, `LaunchedEffect`, `derivedStateOf`, Comp
 
 ### 3. 서브시스템 간 상호작용 메커니즘 (How)
 
-```
-                       +-------------------------+
-                       |     Compose Runtime     |
-                       |  (Slot Table, Compiler) |
-                       +-------------------------+
-                                    |
-     +-----------------+------------+------------+-----------------+
-     |                 |                         |                 |
-     v                 v                         v                 v
-+----------+   +---------------+        +-----------------+   +----------+
-|  State   |   |    Effects    |        |   Performance   |   | Tooling  |
-| (Snapshot|   | (Launched     |        | (Stability,     |   | (Layout  |
-|  State)  |   |  Effect)      |        |  Skipping)      |   | Inspector|
-+----------+   +---------------+        +-----------------+   +----------+
+```mermaid
+flowchart TD
+    Runtime["Compose Runtime<br/>Composition metadata와 Snapshot"]
+    State["State<br/>Snapshot state와 invalidation"]
+    Effects["Effects<br/>Composition 수명과 coroutine"]
+    Performance["Performance<br/>Stability와 skipping"]
+    Tooling["Tooling<br/>Inspector와 compiler report"]
+
+    Runtime --> State
+    Runtime --> Effects
+    Runtime --> Performance
+    Runtime --> Tooling
 ```
 
 1. **State & Runtime**: `mutableStateOf`는 Snapshot 트랜잭션과 직접 연결되어 RecomposeScope를 무효화한다.

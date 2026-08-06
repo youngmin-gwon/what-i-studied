@@ -2,7 +2,7 @@
 title: 08-install-update-failure
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: install or update failure"]
-date modified: 2026-08-06 18:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-08-04 11:05:00 +09:00
 ---
 
@@ -20,8 +20,8 @@ date created: 2026-08-04 11:05:00 +09:00
 ### 가능한 실패 경계와 우선순위
 
 1. **서명 인증서 불일치 (`INSTALL_FAILED_UPDATE_INCOMPATIBLE`).** 가장 흔한 원인. `applicationId` 가 동일해도 APK 서명이 다르면 패키지 매니저는 업데이트를 거부한다. (Play App Signing 서명 vs 로컬 서명 충돌).
-2. **`versionCode` 다운그레이드 (`INSTALL_FAILED_VERSION_DOWNGRADE`).** 설치하려는 APK 의 `versionCode` 가 이미 설치된 버전보다 낮거나 같음.
-3. **최저 타겟 SDK 미달 (`INSTALL_FAILED_DEPRECATED_SDK_VERSION`).** Android 14(API 34)+ 부터 보안 강화를 위해 `targetSdkVersion < 23` (Android 6.0 미만) 앱의 설치를 플랫폼 차원에서 차단한다.
+2. **`versionCode` 다운그레이드 (`INSTALL_FAILED_VERSION_DOWNGRADE`).** 설치하려는 APK의 `versionCode`가 이미 설치된 버전보다 낮다. 같은 `versionCode`의 재설치 허용 여부는 설치 경로와 option에 따라 별도로 확인한다.
+3. **최저 target SDK 미달 (`INSTALL_FAILED_DEPRECATED_SDK_VERSION`).** Android 14는 `targetSdkVersion < 23`, Android 15는 `< 24`인 앱의 설치를 차단한다. 실행 기기 version에 맞는 minimum installable target을 확인한다.
 4. **기기와 APK의 ABI가 맞지 않는다 (`INSTALL_FAILED_NO_MATCHING_ABIS`).** 예를 들어 APK에 `arm64-v8a` 라이브러리가 없는데 arm64 전용 기기에 설치하는 경우다.
 5. **16KB page-size 호환성이 없다.** Android 15부터 16KB page-size 기기가 지원된다. 4KB ELF/ZIP 정렬만 가진 앱은 호환 모드로 실행될 수도 있으므로 설치 실패나 `UnsatisfiedLinkError` 하나로 단정하지 않는다. 실제 page size, package compat mode, ELF segment와 ZIP alignment를 함께 확인한다.
 6. **Manifest 또는 split 구성이 잘못됐다.** `android:exported` 누락은 target SDK 31+ 앱을 빌드할 때 manifest merge 오류가 되는 것이 보통이며, 이미 빌드된 artifact의 설치 오류와 혼동하지 않는다.
@@ -33,7 +33,7 @@ graph TD
     A[설치/업데이트 실패] --> B{adb install 오류 코드 확인}
     B -- INSTALL_FAILED_UPDATE_INCOMPATIBLE --> C[apksigner 및 dumpsys package 로 서명 지문 비교]
     B -- INSTALL_FAILED_VERSION_DOWNGRADE --> D[build.gradle versionCode 확인]
-    B -- INSTALL_FAILED_DEPRECATED_SDK_VERSION --> E[Android 14+ 타겟 SDK 23 이상 상향]
+    B -- INSTALL_FAILED_DEPRECATED_SDK_VERSION --> E[실행 OS의 minimum installable target 확인]
     B -- INSTALL_FAILED_NO_MATCHING_ABIS --> F[기기 ABI와 APK lib ABI 대조]
     B -- 기타 native load 실패 --> G[실제 PAGE_SIZE, ELF와 ZIP alignment, compat mode 확인]
 ```
@@ -44,7 +44,7 @@ graph TD
 | --- | --- | --- |
 | **`adb install` 상태** | `Success` | `INSTALL_FAILED_UPDATE_INCOMPATIBLE` (서명 불일치) |
 | **`versionCode`** | `New versionCode > Installed versionCode` | `INSTALL_FAILED_VERSION_DOWNGRADE` |
-| **`targetSdkVersion`** | `targetSdkVersion >= 23` | `INSTALL_FAILED_DEPRECATED_SDK_VERSION` (Android 14+) |
+| **`targetSdkVersion`** | 실행 OS의 minimum installable target 이상 | `INSTALL_FAILED_DEPRECATED_SDK_VERSION` |
 | **Native ABI** | 기기 지원 ABI에 해당하는 `lib/<abi>/` 존재 | `INSTALL_FAILED_NO_MATCHING_ABIS` |
 | **16KB page size** | ELF LOAD segment와 APK ZIP이 16KB 호환 정렬 | compat-mode 경고, linker 오류 또는 native crash. 설치 오류 코드는 구현·artifact 상태별로 확인 |
 | **Signature Fingerprint** | `SHA-256 Fingerprint 일치` | `Signatures mismatch between APK and installed package` |
@@ -90,6 +90,7 @@ graph TD
 - **Android 14 (API 34)**:
   - `INSTALL_FAILED_DEPRECATED_SDK_VERSION`: `targetSdkVersion < 23` 앱 설치 차단 (`adb install --bypass-low-target-sdk-block` 으로 디버깅 시만 우회 가능).
 - **Android 15 (API 35)**:
+  - 플랫폼의 minimum installable target은 `targetSdkVersion >= 24`다. low-target block을 16KB나 ABI 오류로 오인하지 않는다.
   - AOSP가 16KB page-size 기기를 지원한다. 2025년 11월 1일부터 Google Play에 제출하면서 Android 15+ 기기를 target하는 새 앱·업데이트에는 16KB 지원 요구사항이 적용된다. 이는 모든 Android 15 설치가 즉시 거부된다는 뜻이 아니다.
 - **Android 17**:
   - 16KB backcompat mode를 기기 또는 앱별로 제어할 수 있으며, 호환되지 않는 binary를 즉시 중단시키는 테스트 설정도 제공한다.

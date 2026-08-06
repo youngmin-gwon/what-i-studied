@@ -2,13 +2,13 @@
 title: biometricprompt-authorizes-keystore-key-use
 tags: ["android", "android/security-privacy"]
 aliases: ["BiometricPrompt 는 Keystore 키 사용을 인가한다"]
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## BiometricPrompt 는 Keystore 키 사용을 인가한다
 
-`BiometricPrompt`는 단순한 인증 UI 팝업이 아니며, 하드웨어 **Keystore에 보관된 암호키의 사용 잠금을 해제(Unlock)**하는 cryptographic gatekeeper로 작동한다. `setUserAuthenticationRequired(true)` 옵션으로 생성된 Keystore 키는 사용자가 지문, 지문 센서, 얼굴 인식 성공 시 TEE/Gatekeeper가 발행하는 **HAT(Hardware Authentication Token)**에 의해서만 암복호화 연산 권한이 동적으로 인가된다.
+`BiometricPrompt`는 시스템 인증 UI이며, `CryptoObject`와 함께 사용하면 auth-per-use Android Keystore 키의 특정 암호 연산을 인증 성공과 결합할 수 있다. Android Keystore 키는 하드웨어 또는 소프트웨어 보안 수준일 수 있다. `setUserAuthenticationRequired(true)`만으로 모든 키가 매 연산마다 BiometricPrompt를 요구하는 것은 아니며, `setUserAuthenticationParameters(timeout, authenticators)`의 timeout과 허용 인증 수단이 auth-per-use와 time-based 정책을 결정한다.
 
 ```mermaid
 sequenceDiagram
@@ -31,9 +31,9 @@ sequenceDiagram
 
 ### 내부 동작 메커니즘
 
-1. **HAT (Hardware Authentication Token)**: 생체 인증 성공 시 Gatekeeper/Fingerprint HAL이 HMAC-SHA256 기반 타임스탬프 토큰을 생성하여 TEE Keystore에 바인딩한다.
-2. **Authentication Validity Duration**: `setUserAuthenticationParameters(timeoutSeconds, AUTH_BIOMETRIC_STRONG)` 설정을 통해 인증 후 N초간 키를 재사용 가능하게 하거나, `timeout = 0`으로 매 Cipher 연산마다 BiometricPrompt 승인을 강제할 수 있다.
-3. **CryptoObject Binding**: `BiometricPrompt.CryptoObject(cipher)` 형태로 Cipher 객체를 인가 래핑하여 전달함으로써, 프론트엔드 UI 승인 성공 시점에만 정확히 해당 Cipher 연산을 수행할 수 있도록 바인딩한다.
+1. **인증 토큰 전달**: Android 인증 구성요소가 성공 결과를 Keystore/KeyMint가 검증할 수 있는 인증 토큰으로 전달한다. 앱은 토큰 형식이나 특정 HAL 구현에 의존하지 않는다.
+2. **Authentication Validity Duration**: `setUserAuthenticationParameters(timeoutSeconds, authenticators)`에서 `timeout = 0`인 auth-per-use 키와, 인증 후 일정 시간 재사용하는 time-based 키를 구분한다.
+3. **CryptoObject Binding**: `BiometricPrompt.CryptoObject(cipher)`는 auth-per-use 키의 해당 연산을 프롬프트와 연결한다. time-based 키나 기기 자격 증명 fallback 흐름에서는 CryptoObject 없는 인증이 맞을 수 있다.
 
 ### BiometricPrompt + CryptoObject 바인딩 연동 예시 (Kotlin)
 
@@ -46,6 +46,7 @@ import javax.crypto.Cipher
 fun authenticateAndDecrypt(
     activity: FragmentActivity,
     cipher: Cipher,
+    encryptedData: ByteArray,
     onSuccess: (ByteArray) -> Unit,
     onError: (String) -> Unit
 ) {
@@ -56,10 +57,10 @@ fun authenticateAndDecrypt(
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
                 val authenticatedCipher = result.cryptoObject?.cipher
-                if (authenticatedCipher != null) {
-                    val decryptedBytes = authenticatedCipher.doFinal(encryptedData)
-                    onSuccess(decryptedBytes)
-                }
+                    ?: return onError("인증된 암호 연산을 받지 못했습니다")
+                runCatching { authenticatedCipher.doFinal(encryptedData) }
+                    .onSuccess(onSuccess)
+                    .onFailure { onError("복호화에 실패했습니다") }
             }
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 onError(errString.toString())
@@ -103,3 +104,11 @@ Secure storage 노트는 키 소유권(Key Ownership), 인증 암호화(AEAD), �
 상위 문서: [보안 저장소 계약](secure-storage-contracts.md)
 
 관련 노트: [Android Keystore는 추출 불가능성으로 키를 보호한다](android-keystore-protects-keys-by-non-exportability.md)
+
+### 공식 문서
+
+- https://developer.android.com/identity/sign-in/biometric-auth
+- https://developer.android.com/reference/androidx/biometric/BiometricPrompt.CryptoObject
+- https://developer.android.com/privacy-and-security/keystore
+
+검증일: 2026-08-06. CryptoObject를 auth-per-use 키 연산으로 한정하고 time-based 키·기기 자격 증명 흐름과 구분했다.

@@ -2,7 +2,7 @@
 title: kernel-builds-depend-on-branch-toolchain-and-build-system
 tags: [android, android/build, android/kernel]
 aliases: [Kernel Build, Kleaf, Bazel Kernel Build]
-date modified: 2026-08-04 15:52:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-07-31 23:45:00 +09:00
 ---
 
@@ -10,9 +10,9 @@ date created: 2026-07-31 23:45:00 +09:00
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
 
-Android kernel 빌드는 단순한 커널 소스상의 `make ARCH=arm64` 실행이 아니다. 올바른 ACK 커널 매니페스트 브랜치, Hermetic(밀폐된) AOSP LLVM Clang 툴체인, Kleaf(Bazel 기반 커널 빌드 시스템), 그리고 boot/vendor_dlkm 이미지 패키징 규격이 완벽히 맞물려야 실행 가능한 비트가 생성된다.
+Android kernel 빌드는 단순한 커널 소스상의 `make ARCH=arm64` 실행이 아니다. 대상 ACK 또는 device-kernel branch, 해당 branch가 지원하는 toolchain과 build system, 그리고 boot/vendor module 이미지 패키징 규격을 함께 맞춰야 한다.
 
-Android 13+부터 기존 레거시 `build/build.sh` 스크립트 기반 빌드가 지원 중단(Deprecated)되고, 재현성(Reproducibility)과 빌드 캐싱 성능을 보장하는 **Kleaf / Bazel** 빌드 시스템이 표준으로 강제되었다.
+Kleaf/Bazel 적용 여부는 Android release 번호만으로 결정하지 않고 branch support matrix로 확인한다. `common-android13-5.10`과 `common-android13-5.15`는 Kleaf와 `build/build.sh`를 모두 공식 지원한다. `common-android14-5.15`, `common-android14-6.1`, `common-android15-6.6`, `common-android-mainline`은 Kleaf를 지원하고 `build/build.sh`를 지원하지 않는다. 일부 board·module branch는 같은 release 계열이어도 표가 다르다.
 
 ---
 
@@ -69,8 +69,8 @@ ls -la out/kernel_aarch64/dist/Image
 
 ### 실무 규칙
 
-- Android 14 이상 타깃 ACK 개발 시 `build/build.sh`를 직접 실행해서는 안 되며, 반드시 `tools/bazel` 스크립트를 사용하여 툴체인 밀폐성과 파티션 이미지 빌드 호환성을 유지해야 한다.
-- 커널 플래싱 테스트 시 `fastboot boot boot.img` 명령을 우선 사용하여 휘발성 테스트를 수행해야 한다. 잘못된 커널 빌드를 `fastboot flash boot`로 정적 반영하면 Verified Boot(AVB) 체크 실패로 인한 Bootloop 상태에 빠질 수 있다.
+- 먼저 [kernel branch/build-system support matrix](https://source.android.com/docs/setup/reference/bazel-support)를 확인한다. 표에서 `build/build.sh`가 지원되지 않는 branch는 repository가 제공하는 Kleaf target과 wrapper를 사용한다.
+- `fastboot boot` 지원 여부, boot image 구성, AVB와 unlock 상태는 기기별로 다르다. 휘발성 boot가 가능하다고 가정하지 말고 제조사 flash/restore 절차와 복구 가능한 artifact를 먼저 확보한다.
 
 ---
 
@@ -95,5 +95,4 @@ ls -la out/kernel_aarch64/dist/Image
 - [GKI는 공통 core kernel과 vendor module을 분리한다](gki-splits-generic-core-from-vendor-modules.md)
 - [Kernel debugging은 logcat 이전의 신호에서 시작한다](kernel-debugging-starts-before-logcat-with-bootloader-dmesg-and-trace.md)
 
-공식 문서: [Building Kernels with Kleaf](https://source.android.com/docs/setup/build/building-kernels)
-
+공식 문서: [Building Kernels with Kleaf](https://source.android.com/docs/setup/build/building-kernels), [Kernel branches and build systems](https://source.android.com/docs/setup/reference/bazel-support)

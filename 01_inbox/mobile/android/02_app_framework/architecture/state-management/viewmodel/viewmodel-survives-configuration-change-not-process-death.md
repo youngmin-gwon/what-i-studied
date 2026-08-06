@@ -2,7 +2,7 @@
 title: viewmodel-survives-configuration-change-not-process-death
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 15:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -22,11 +22,14 @@ ViewModel 은 기존 `ViewModelStore` 에 남아 상태를 유지한다.
 
 ### 생명주기
 
-```text
-화면 생성 -> ViewModel 생성
-설정 변경 -> 화면 재생성, ViewModel 재사용
-화면 종료 -> ViewModel 제거, onCleared 호출
-프로세스 사망 -> 인스턴스와 메모리 상태 소실
+```mermaid
+stateDiagram-v2
+    [*] --> Active: 화면 생성 / ViewModel 생성
+    Active --> Active: 설정 변경 / 새 owner가 ViewModelStore 재사용
+    Active --> Cleared: finish 또는 owner 제거
+    Active --> ProcessGone: 프로세스 사망
+    Cleared --> [*]: onCleared 호출
+    ProcessGone --> [*]: 메모리 상태 소실
 ```
 
 `finish()` 로 화면이 완전히 종료되거나,
@@ -39,7 +42,7 @@ Fragment 가 해당 소유자에서 제거되면 ViewModel 은 정리 대상이 
 
 `ViewModelStoreOwner`(Activity/Fragment/NavBackStackEntry)는 `ViewModelStore` 객체를 소유하며, `ViewModelStore` 는 `Map<String, ViewModel>` 형태로 생성된 ViewModel 인스턴스를 유지한다.
 
-- **NonConfigurationInstances 를 통한 보존**: Activity 의 경우, 설정 변경(Configuration Change) 시 OS 가 Activity 인스턴스를 재해석/재생성하지만 `ComponentActivity` 는 `onRetainNonConfigurationInstance()` 를 통해 `ViewModelStore` 참조를 새 인스턴스로 전달한다.
+- **NonConfigurationInstances 를 통한 보존**: Activity 의 경우 설정 변경 시 AndroidX `ComponentActivity`가 `onRetainNonConfigurationInstance()` 경로로 `ViewModelStore`를 보존하고 새 Activity가 이를 다시 사용한다. OS가 ViewModel을 직렬화하거나 ViewModel 내부 상태를 직접 이전하는 것은 아니다.
 - **최종 파괴 시 Cleanup**: 설정 변경이 아닌 액티비티 종료(`isFinishing == true`) 또는 프래그먼트 완전 제거(`isRemoving == true`) 시, `ViewModelStoreOwner` 의 `LifecycleOwner` 가 `ON_DESTROY` 이벤트 상태에 도달할 때 `ViewModelStore.clear()` 가 호출된다. `clear()` 는 저장된 각 ViewModel 의 `onCleared()` 를 실행하고 맵을 비운다.
 
 ```kotlin

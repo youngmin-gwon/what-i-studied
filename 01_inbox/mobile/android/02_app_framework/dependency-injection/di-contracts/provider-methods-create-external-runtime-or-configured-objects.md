@@ -2,7 +2,7 @@
 title: provider-methods-create-external-runtime-or-configured-objects
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:55:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -12,12 +12,33 @@ date created: 2026-08-03 16:59:23 +09:00
 
 **Provider method**(`@Provides` — 외부 라이브러리 타입이나 런타임 설정 객체의 생성 로직을 명시하는 모듈 메서드) 가 많아지면 graph 가 service locator 처럼 변한다. 먼저 constructor injection 이 가능한 타입인지 확인하고, provider 는 외부 library type 이나 construction policy 가 의미 있는 타입에 제한한다.
 
-관련 노트: [Context boundaries](../../architecture/context-and-modularity/android-context-boundaries.md).
+### 최소 예시
 
-### 판단 기준
+```kotlin
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+    @Provides
+    @Singleton
+    fun provideUserApi(client: OkHttpClient, @ApiBaseUrl baseUrl: String): UserApi =
+        Retrofit.Builder()
+            .client(client)
+            .baseUrl(baseUrl)
+            .build()
+            .create(UserApi::class.java)
+}
+```
 
-- `@Provides` 는 생성자 주입이 불가능한 외부 라이브러리 클래스, Builder 패턴으로 초기화해야 하는 객체, 또는 런타임 설정 값이 필요한 객체를 생성할 때 사용한다.
+provider의 parameter는 graph dependency이고 return type과 qualifier는 제공하는 binding key다. provider body가 던지는 잘못된 URL·파일·초기화 예외는 graph compile이 아니라 해당 binding이 실제 생성되는 런타임에 드러난다.
 
-### 경계
+### 실패와 관찰 신호
 
-- 내가 소유한 구체 클래스에 단순히 인스턴스를 반환하는 `@Provides` 를 작성하는 것은 중복(Boilerplate)이므로 피하고, 이러한 경우에는 `@Inject` 생성자나 인터페이스 바인딩(`@Binds`)을 우선한다.
+- `@ApiBaseUrl String`이 없으면 compile-time graph는 qualified missing binding으로 실패한다.
+- 같은 key의 provider를 둘 등록하면 duplicate binding이 된다.
+- provider body에 환경 분기와 전역 lookup이 쌓이면 생성 정책이 숨겨진 service locator가 되므로 configuration value를 factory parameter나 별도 binding으로 끌어낸다.
+
+관련 노트: [Context boundaries](../../architecture/context-and-modularity/android-context-boundaries.md)
+
+상위 문서: [DI 계약](./di-contracts.md)
+
+공식 문서: [Dagger basic usage — `@Provides`](https://dagger.dev/dev-guide/basic-usage)

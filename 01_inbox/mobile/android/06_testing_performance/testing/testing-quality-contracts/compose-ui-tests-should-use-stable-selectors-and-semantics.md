@@ -3,7 +3,7 @@ title: compose-ui-tests-should-use-stable-selectors-and-semantics
 tags: ["android", "android/testing-performance"]
 aliases: ["Compose UI 테스트는 testTag 와 semantics 를 분리한다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 ---
 
 ## Compose UI 테스트는 testTag 와 semantics 를 분리한다
@@ -111,5 +111,10 @@ D/COMPOSE_TREE: printToLog:
 ### 5. Compose 테스트 선택자 작성 원칙
 
 - **문구 기반 Selector 지양**: UI 텍스트(예: `"로그인하기"`)로 버튼을 클릭하는 셀렉터는 i18n 번역 파일 수정만으로 테스트가 깨지므로 `testTag`를 사용한다.
-- **의미 검증엔 Semantics 사용**: 버튼의 비활성화 상태(`assertIsNotEnabled`), 체크박스의 체크 상태(`assertIsSelected`)는 반드시 Semantics Property를 검증한다.
+- **의미 검증엔 Semantics 사용**: 버튼의 비활성화 상태는 `assertIsNotEnabled()`로 검증한다. 체크박스·스위치처럼 `ToggleableState`를 노출하는 노드는 `assertIsOn()`/`assertIsOff()`를 사용한다. `assertIsSelected()`는 탭·라디오 항목처럼 `Selected` semantics를 노출하는 selectable 노드용이며 체크 상태 assertion이 아니다.
 
+### 공식 문서
+
+- https://developer.android.com/reference/kotlin/androidx/compose/ui/test/package-summary
+
+검증일: 2026-08-06. Compose UI test API의 toggleable assertion과 selectable assertion을 구분했다.

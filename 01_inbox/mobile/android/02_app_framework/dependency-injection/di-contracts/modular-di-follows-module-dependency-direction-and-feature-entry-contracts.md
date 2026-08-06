@@ -2,7 +2,7 @@
 title: modular-di-follows-module-dependency-direction-and-feature-entry-contracts
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-03 18:09:07 +09:00
+date modified: 2026-08-06 14:55:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -14,33 +14,30 @@ Navigation, dynamic feature, feature API module, implementation module 이 섞�
 
 관련 노트: [Navigation contracts](../../navigation/navigation-contracts/navigation-contracts.md), [Dynamic feature module](../../../03_packaging_deployment/distribution/play-delivery-contracts/dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md).
 
-### 판단 기준
+### 최소 계약 예시
 
-- 모듈화된 프로젝트에서 DI 그래프는 Gradle 모듈 의존성 방향과 일치해야 하며, 피쳐 모듈은 자체적인 내부 DI 를 구성하고 외부에 필요한 의존성만 인터페이스 계약으로 요구해야 한다.
+```kotlin
+// :feature:payments:api — app과 impl 양쪽이 볼 수 있는 안정된 계약
+interface PaymentsEntry {
+    fun open(orderId: String)
+}
 
-### 경계
+// :feature:payments:impl — 내부 graph와 구현을 소유
+class RealPaymentsEntry @Inject constructor(
+    private val checkout: Checkout,
+) : PaymentsEntry
+```
 
-- 피쳐 모듈이 애플리케이션 전체의 DI 그래프 확장을 강제하지 않도록, Component Dependencies 나 인터페이스 기반 Entry Point 를 활용해 모듈 간 DI 결합도를 최소화해야 한다.
+`:app -> :feature:payments:impl -> :feature:payments:api` 같은 Gradle 방향에서 app root가 구현 binding을 조립할 수 있다. 반대로 feature가 app concrete type을 import해야만 만들어지면 dependency direction이 깨진다. feature가 필요한 app-owned dependency는 작은 provision interface나 component dependency로 표현한다.
 
+### 실패와 관찰 신호
 
-### Detailed Contracts
-- [di-tests-replace-bindings-at-graph-boundary.md](di-tests-replace-bindings-at-graph-boundary.md)
-- [scope-matches-object-reuse-to-owner-lifetime.md](scope-matches-object-reuse-to-owner-lifetime.md)
-- [viewmodel-di-injects-dependencies-not-viewmodel-ownership.md](viewmodel-di-injects-dependencies-not-viewmodel-ownership.md)
-- [dagger-is-static-graph-engine-not-android-lifecycle-policy.md](dagger-is-static-graph-engine-not-android-lifecycle-policy.md)
-- [koin-trades-compile-time-graph-generation-for-runtime-dsl-convenience.md](koin-trades-compile-time-graph-generation-for-runtime-dsl-convenience.md)
-- [metro-is-compile-time-kotlin-di-not-get-it-style-global-locator.md](metro-is-compile-time-kotlin-di-not-get-it-style-global-locator.md)
-- [di-contracts.md](di-contracts.md)
-- [binds-connects-interface-to-implementation-without-construction-code.md](binds-connects-interface-to-implementation-without-construction-code.md)
-- [dependency-injection-is-composition-boundary-not-global-object-access.md](dependency-injection-is-composition-boundary-not-global-object-access.md)
-- [compile-time-and-runtime-di-fail-at-different-points.md](compile-time-and-runtime-di-fail-at-different-points.md)
-- [hilt-is-official-android-dagger-integration.md](hilt-is-official-android-dagger-integration.md)
-- [dsl-syntax-does-not-change-ownership-lifetime-contracts.md](dsl-syntax-does-not-change-ownership-lifetime-contracts.md)
-- [entry-points-bridge-framework-owned-objects-to-the-graph.md](entry-points-bridge-framework-owned-objects-to-the-graph.md)
-- [android-context-in-di-must-match-graph-lifetime.md](android-context-in-di-must-match-graph-lifetime.md)
-- [constructor-injection-is-default-binding-path.md](constructor-injection-is-default-binding-path.md)
-- [worker-injection-crosses-workmanager-factory-boundary.md](worker-injection-crosses-workmanager-factory-boundary.md)
-- [qualifiers-distinguish-values-that-share-the-same-type.md](qualifiers-distinguish-values-that-share-the-same-type.md)
-- [provider-methods-create-external-runtime-or-configured-objects.md](provider-methods-create-external-runtime-or-configured-objects.md)
-- [consumers-should-declare-dependencies-in-constructors.md](consumers-should-declare-dependencies-in-constructors.md)
-- [dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries.md](dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries.md)
+- Gradle circular dependency가 나면 graph 선언으로 module 방향을 우회하려 하지 말고 contract의 소유 module을 다시 정한다.
+- feature API가 Retrofit, Room, Hilt component 같은 구현 세부를 노출하면 교체 경계가 아니다.
+- generated component의 dependency trace에 금지된 상위 module concrete type이 나타나는지 확인한다.
+
+관련 노트: [Navigation contracts](../../navigation/navigation-contracts/navigation-contracts.md), [Dynamic feature DI](./dynamic-feature-di-needs-base-owned-contracts-and-install-boundaries.md)
+
+상위 문서: [DI 계약](./di-contracts.md)
+
+공식 문서: [Dagger in multi-module apps](https://developer.android.com/training/dependency-injection/dagger-multi-module)

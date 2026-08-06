@@ -2,7 +2,7 @@
 title: ndk-is-native-library-toolchain-not-app-architecture
 tags: [android, android/native, android/system-internals]
 aliases: [NDK, Native Development Kit]
-date modified: 2026-08-05 16:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-07-31 23:58:00 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-07-31 23:58:00 +09:00
 
 Android NDK(Native Development Kit)는 Java/Kotlin 기반의 Android 앱 아키텍처 전체를 대체하는 프레임워크가 아니라, C/C++ 소스 코드를 Android 아키텍처(ARM64, x86_64)용 공유 라이브러리(`.so`)로 크로스 컴파일하고 NDK Stable C API 헤더에 링크하기 위한 **툴체인 및 빌드 도구 집합**이다.
 
-앱의 뷰 라이프사이클, 권한 관리, UI 컴포지션(Jetpack Compose/View)은 여전히 Managed ART 런타임 위에서 실행되어야 하며, 무조건 "C++이 빠르다"는 맹목적 이유로 NDK를 도입하면 JNI 마샬링 비용, 메모리 파편화, 복잡한 ABI 빌드 관리 비용이 발생한다.
+일반적인 Android 앱은 Activity·View/Compose·permission 같은 framework API를 Kotlin/Java layer에서 사용하고 성능 또는 기존 codebase가 필요한 경계만 native로 둔다. `NativeActivity`처럼 Java/Kotlin component가 거의 없는 구성도 가능하므로 UI가 반드시 ART 위의 Compose/View로 작성돼야 한다고 단정하지 않는다. 다만 Android component·lifecycle·permission 계약 자체가 사라지는 것은 아니며, 근거 없이 NDK를 도입하면 JNI 전환, 별도 memory safety, ABI별 build·debugging 비용이 커진다.
 
 ---
 
@@ -40,7 +40,7 @@ graph TD
     B1 --> C1
 ```
 
-1. **Stable NDK APIs**: Android OS 버전 간 **ABI**(Application Binary Interface — 함수 호출 규약, 데이터 타입 크기·정렬 등 소스 코드가 아니라 컴파일된 바이너리 수준에서 지켜야 하는 규약. `arm64-v8a`, `x86_64` 같은 CPU 아키텍처별 값으로 나타난다) 호환성을 보장하는 공식 NDK API(`liblog.so`, `libandroid.so`, `libvulkan.so`, `libaaudio.so` 등)만 앱 라이브러리가 정적으로 링크할 수 있다. 비공개 내부 C++ 라이브러리(`libcutils.so`, `libutils.so`)를 동적 링크하면 OS 업데이트 시 앱이 크래시된다.
+1. **Stable NDK APIs**: 앱은 NDK sysroot가 노출하는 public header와 library를 사용한다. `liblog`, `libandroid`, `libvulkan`, `libaaudio` 같은 API는 보통 기기의 public shared library에 동적으로 링크된다. NDK가 제공하는 `libz.a`나 자체 library처럼 static archive를 링크하는 경우도 있으므로 public NDK API를 모두 static link한다고 일반화하지 않는다. 비공개 platform library는 public app ABI가 아니며 linker namespace와 non-SDK restriction 때문에 로드 실패나 release 간 호환성 문제가 생길 수 있다.
 2. **Proper Use-cases**: NDK 도입이 정당화되는 영역은 (1) C/C++ 크로스 플랫폼 물리/게임 엔진 포팅, (2) 오디오 저지연(AAudio) 및 Vulkan 그래픽 렌더링, (3) 신호 처리 및 암호화 연산 같은 CPU 집약적 연산 영역이다.
 
 ---
@@ -110,5 +110,4 @@ Java_com_example_app_NativeEngine_initSurface(
 - [JNI는 managed runtime과 native code 사이의 명시적 호출 경계다](jni-is-explicit-boundary-between-managed-runtime-and-native-code.md)
 - [Native 성능과 crash debugging은 경계 비용에서 시작한다](native-performance-and-crash-debugging-start-at-the-boundary.md)
 
-공식 문서: [Android NDK Concepts](https://developer.android.com/ndk/guides/concepts), [Android ABIs](https://developer.android.com/ndk/guides/abis)
-
+공식 문서: [Android NDK Concepts](https://developer.android.com/ndk/guides/concepts), [Native APIs](https://developer.android.com/ndk/guides/stable_apis), [Android ABIs](https://developer.android.com/ndk/guides/abis)

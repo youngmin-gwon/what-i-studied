@@ -3,7 +3,7 @@ title: unit-integration-ui-e2e-tests-have-different-failure-signals
 tags: ["android", "android/testing-performance"]
 aliases: ["Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다"]
 date created: 2026-07-31 17:32:53 +09:00
-date modified: 2026-08-04 22:00:00 +09:00
+date modified: 2026-08-06 14:48:27 +09:00
 ---
 
 ## Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다
@@ -91,6 +91,7 @@ Node #1 at (l=0, t=0, r=1080, b=2400)px
 
 ### 5. 실패 대응 가이던스
 
-- **E2E 실패의 단위 테스트 이관**: E2E 테스트에서 발견된 결함은 항상 해당 조건을 검증하는 단위 테스트(Unit Test)를 먼저 작성하여 재현한 뒤 수정한다.
+- **E2E 실패의 가장 낮은 적절한 레이어로 회귀 테스트 추가**: 순수 도메인 규칙이면 unit test로 축소하지만, DB migration·직렬화·DI wiring은 integration test가, semantics·navigation·system UI 상호작용은 UI test가 더 정확할 수 있다. 서버 장애나 실제 네트워크/기기 통합처럼 낮은 레이어로 동일하게 재현할 수 없는 실패는 E2E 계약 자체와 관측성을 보강한다. 모든 E2E 실패를 unit test로 재현할 수 있다고 강제하지 않는다.
 - **Flaky Exception 분류**: UI 스레드 타임아웃 예외(`ComposeTimeoutException`) 발생 시 단순 타임아웃을 늘리기보다 로직 내 무한 루프나 코루틴 교착 상태(Deadlock)를 우선 의심한다.
 
+검증일: 2026-08-06. 실패 원인이 실제로 존재하는 가장 낮은 테스트 레이어에 회귀 테스트를 두도록 절대 규칙을 교정했다.

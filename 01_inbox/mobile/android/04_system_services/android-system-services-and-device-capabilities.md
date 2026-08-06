@@ -2,11 +2,13 @@
 title: android-system-services-and-device-capabilities
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-05 14:05:24 +09:00
+date modified: 2026-08-06 15:05:00 +09:00
 date created: 2026-08-03 17:31:11 +09:00
 ---
 
 ## Android 시스템 서비스와 기기 기능 지도
+
+배경 지식: [Learning Spine 10장 — device capability 발견과 background execution](../00_foundations/learning-spine/10-device-capability-discovery-and-background-execution.md)
 
 이 지도는 앱이 Android 시스템 또는 기기 기능과 맞닿는 지점을 서비스 접근 공통 계약, 백그라운드 작업, 알림/메시징, Assistant/agent 실행 표면, 위치·센서·전력·패키지/사용자/역할·미디어/오디오/카메라·생체인증/자격증명·텔레포니·입력/접근성·Bluetooth·온디바이스 AI·App Shortcuts·Health Connect, NFC 로 나눈다.
 

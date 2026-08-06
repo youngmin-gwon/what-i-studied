@@ -2,7 +2,7 @@
 title: process-priority-is-memory-reclaim-policy-input-not-app-state-truth
 tags: [android, android/boot-runtime, android/system-internals, android/system-server]
 aliases: ["프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다"]
-date modified: 2026-08-05 16:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -16,16 +16,19 @@ date created: 2026-08-01 00:00:00 +09:00
 ### 내부 동작 메커니즘 (Internal Mechanism)
 
 1. **OOM Adjustment Scored Spectrum (`oom_score_adj`)**:
-   - `-1000` (`SYSTEM_ADJ`): `system_server` 및 핵심 루트 데몬 (절대 희생되지 않음).
+   - `-1000` (`NATIVE_ADJ`): system의 native process에 사용하는 가장 낮은 조정치.
+   - `-900` (`SYSTEM_ADJ`): `system_server`에 사용하는 조정치.
    - `0` (`FOREGROUND_APP_ADJ`): 현재 화면 전면에 활성화된 앱 Activity.
    - `100` (`VISIBLE_APP_ADJ`): 화면 일부에 보이지만 포커스는 없는 앱(Dialog, Split-Screen).
    - `200` (`PERCEPTIBLE_APP_ADJ`): 음악 재생, 포그라운드 서비스(Foreground Service).
    - `500` (`SERVICE_ADJ`): 백그라운드 구동 중인 서비스.
-   - `900~999` (`CACHED_APP_MAX_ADJ`): 캐시된 백그라운드 프로세스 (OOM 발생 시 최우선 희생).
+   - `900~999` (`CACHED_APP_MIN_ADJ`~`CACHED_APP_MAX_ADJ`): 캐시된 프로세스 범위. 구체적인 순서는 현재 상태와 platform 구현에 따라 달라진다.
+
+낮은 조정치는 회수 가능성이 낮다는 뜻이지 생존 보장이 아니다. AOSP `lmkd`의 critical 설정은 `oom_score_adj >= 0`까지 후보로 삼을 수 있고, kernel OOM, crash, watchdog, 사용자의 force stop 같은 다른 종료 경로도 존재한다. 앱은 foreground process조차 영구히 산다고 가정해서는 안 된다.
 2. **`applyOomAdjLSP()` Execution**:
    - 액티비티 전환, 서비스 생성/파괴, 바인딩 연결 시 AMS는 `OomAdjuster.java`를 실행하여 프로세스 트리의 `oom_score_adj` 값을 동적 재계산한다.
-3. **Kernel LMKD (Low Memory Killer Daemon) Interface**:
-   - AMS는 계산된 `oom_score_adj` 값을 Unix Domain Socket을 통해 `lmkd` 데몬으로 전달하고, `lmkd`는 커널 **[PSI](02_references/operating-systems/oom-killer-and-memory-pressure.md)**(Pressure Stall Information — 프로세스들이 CPU/메모리/IO 자원을 기다리며 멈춰있는 시간 비율을 측정해, 메모리가 실제로 고갈되기 전에 압박 상태를 조기 감지하는 커널 지표) 이벤트 발생 시 해당 조정치 순서대로 프로세스에 `SIGKILL`을 발송한다.
+3. **Userspace `lmkd` interface**:
+   - framework는 process 중요도 변화를 `lmkd`에 알리고 `lmkd`는 `/proc/<pid>/oom_score_adj`와 process metadata를 관리한다. Android 10+의 일반적인 구성은 kernel **[PSI](02_references/operating-systems/oom-killer-and-memory-pressure.md)** event, thrashing, swap과 device tuning을 함께 보고 kill 대상과 시점을 정한다. 점수가 가장 큰 process를 언제나 기계적으로 하나 고르는 단순 정렬은 아니다.
 
 ```mermaid
 flowchart LR
@@ -43,17 +46,13 @@ flowchart LR
 
 ### 코드 및 구체 예시 (Concrete Snippets)
 
-AMS `OomAdjuster` 조정치 전달 코드 스니펫 (`frameworks/base/services/core/java/com/android/server/am/OomAdjuster.java`):
+release마다 `OomAdjuster` 내부 type과 method 이름이 달라지므로 다음은 개념적 흐름만 나타낸다. 실제 상수와 구현은 대상 branch의 `ProcessList.java`, `OomAdjuster` 계열 source, `lmkd` source에서 확인한다.
 
 ```java
-// OomAdjuster.java
-private boolean applyOomAdjLSP(ProcessRecord app, boolean doingAll, long now, long nowRealtime) {
-    if (app.getSetAdj() != app.getCurRawAdj()) {
-        // Write calculated oom_score_adj to lmkd or proc filesystem
-        ProcessList.setOomScoreAdjs(new int[] { app.getPid() }, new int[] { app.getCurRawAdj() });
-        app.setSetAdj(app.getCurRawAdj());
-    }
-    return true;
+adj = computeFromActiveComponentsBindingsAndCapabilities(process)
+if (adj != process.lastAppliedAdj) {
+    notifyLmkdOfProcessPriority(process.pid, process.uid, adj)
+    process.lastAppliedAdj = adj
 }
 ```
 
@@ -80,4 +79,4 @@ adb logcat -s lmkd
 - [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](ams-coordinates-app-process-and-component-lifecycle.md)
 - [ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](anr-is-responsiveness-contract-violation-not-single-timeout.md)
 
-공식 문서: [Processes and App Lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle)
+공식 문서: [Processes and App Lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle), [Low memory killer daemon](https://source.android.com/docs/core/perf/lmkd), [AOSP ProcessList constants](https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java)

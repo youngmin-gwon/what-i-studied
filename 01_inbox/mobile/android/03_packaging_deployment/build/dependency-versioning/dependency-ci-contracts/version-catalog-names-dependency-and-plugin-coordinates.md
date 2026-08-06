@@ -3,9 +3,9 @@ title: version-catalog-names-dependency-and-plugin-coordinates
 tags: ["android", "gradle", "version-catalog"]
 aliases: ["Version catalog는 의존성과 플러그인 좌표를 명명한다"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:50:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
+updated: 2026-08-06 14:50:00 +09:00
 ---
 
 ## Version catalog는 의존성과 플러그인 좌표를 명명한다
@@ -13,9 +13,9 @@ updated: 2026-08-05 16:15:00 +09:00
 상위 문서: [의존성 및 CI 계약](dependency-ci-contracts.md)
 
 ### 개념 및 필요성 (What & Why)
-**Version Catalog(버전 카탈로그 - `gradle/libs.versions.toml`)** 는 Gradle 7.0+ 이상에서 도입된 표준 의존성 중앙 관리 시스템이다.
+**Version Catalog(버전 카탈로그 - `gradle/libs.versions.toml`)** 는 Gradle 빌드에서 의존성과 플러그인의 좌표에 이름을 부여해 중앙에서 관리하는 표준 기능이다.
 프로젝트의 수많은 서브모듈에 하드코딩되어 파편화되던 의존성 좌표(`group:artifact:version`)와 플러그인 정보를 단일 위치에 정돈하여 선언한다.
-이를 통해 모듈 간 버전 불일치를 방지하고, IDE의 자동완성 지원 및 타입 세이프한 Kotlin DSL 접근자(`libs.retrofit`, `libs.plugins.kotlin.android`)를 통해 안전한 의존성 주입을 달성한다.
+이를 통해 요청 버전을 일관되게 선언하고 IDE 자동완성과 타입 세이프 Kotlin DSL 접근자(`libs.retrofit`, `libs.plugins.android.application`)를 얻는다. 다만 version catalog는 최종 dependency graph의 버전을 강제하지 않는다. 충돌 해결, constraint, platform/BOM에 의해 실제 선택 버전이 달라질 수 있다.
 
 ### 내부 메커니즘 (Internal Mechanism)
 TOML 규격 파일은 4가지 핵심 섹션으로 구성된다:
@@ -36,8 +36,7 @@ flowchart LR
 ```toml
 # gradle/libs.versions.toml
 [versions]
-agp = "8.4.0"
-kotlin = "2.0.0"
+agp = "9.3.0"
 coreKtx = "1.13.1"
 
 [libraries]
@@ -45,14 +44,14 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ```
 
 ```kotlin
 // app/build.gradle.kts
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    // AGP 9.0+에서는 Kotlin 지원이 내장되므로
+    // org.jetbrains.kotlin.android alias를 적용하지 않는다.
 }
 
 dependencies {
@@ -61,9 +60,15 @@ dependencies {
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
-버전 카탈로그가 정상 인식되었는지는 생성된 accessors 태스크 검증으로 관측할 수 있다:
+버전 카탈로그가 정상 인식되고 plugin alias가 해석되는지는 Gradle 구성 단계에서 확인할 수 있다:
 ```bash
-./gradlew generateCatalogAsKotlinDsl
+./gradlew :app:tasks
 ```
 
+AGP 8 이하를 유지하는 빌드에서는 `org.jetbrains.kotlin.android` 플러그인과 그 버전 alias가 여전히 필요할 수 있다. 반대로 AGP 9 built-in Kotlin을 사용하는 Android 모듈에 해당 플러그인을 함께 적용하면 충돌하므로, AGP major 전환과 catalog 정리를 같은 마이그레이션으로 다룬다. Kotlin/JVM, Kotlin Multiplatform 또는 Kotlin compiler plugin은 별도 계약이며 필요한 플러그인을 그대로 선언한다.
+
 관련 노트: [Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다](../../gradle/gradle-build-contracts/convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md), [의존성 및 CI 계약](dependency-ci-contracts.md)
+
+공식 문서: [Gradle Version Catalogs](https://docs.gradle.org/current/userguide/version_catalogs.html), [Migrate to built-in Kotlin](https://developer.android.com/build/migrate-to-built-in-kotlin)
+
+검증일: 2026-08-06. Version catalog가 좌표를 명명하지만 해석 결과를 강제하지 않는다는 경계와 AGP 9 built-in Kotlin 구성을 반영했다.

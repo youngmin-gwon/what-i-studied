@@ -2,11 +2,13 @@
 title: android-platforms-and-form-factors
 tags: ["android", "android/platforms"]
 aliases: []
-date modified: 2026-08-04 15:35:00 +09:00
+date modified: 2026-08-06 15:20:00 +09:00
 date created: 2026-08-03 17:31:28 +09:00
 ---
 
 ## Android 폼 팩터와 플랫폼 확장 지도
+
+배경 지식: [Learning Spine 12장 — compatibility, update, form factor](../00_foundations/learning-spine/12-compatibility-update-and-form-factor.md)
 
 Android 앱은 더 이상 단일 휴대폰 화면만 대상으로 하지 않는다. 이 지도는 큰 화면, 폴더블, 데스크톱 윈도잉, XR, TV, Wear OS, Auto/Automotive, ChromeOS 처럼 앱 창과 입력 환경이 바뀌는 플랫폼 표면을 나눈다.
 
@@ -21,16 +23,16 @@ Android 앱은 더 이상 단일 휴대폰 화면만 대상으로 하지 않는�
 | **Wear OS** | Circular/Square Compact + Ambient | Touch, Rotary (RSB), Voice | Wear Compose, Horologist, ProtoLayout | `adb shell dumpsys wear` |
 | **Android Auto** | Projection Template UI | Touch, Rotary, Steering Controls | Android Auto App Library (`CarAppService`) | `adb shell dumpsys activity service` |
 | **Android Automotive OS** | Embedded Vehicle Systems | Touch, Rotary, VHAL Signals | CarPropertyManager, Car API | `adb shell dumpsys car_service` |
-| **ChromeOS** | ARC++ / ARCVM Container Windowing | Mouse, Keyboard, Touch | Android Framework / ChromeOS Extensions | `adb shell getprop ro.sys.muted` / `dumpsys window` |
+| **ChromeOS** | ARC++ container 또는 ARCVM virtual machine의 resizable window | Mouse, Keyboard, Touch | Android Framework / ChromeOS integration | `adb shell dumpsys window displays` / `dumpsys input` |
 
 ### 폼 팩터 판단 및 런타임 수신 흐름
 
 ```mermaid
 graph TD
     A["App Process Launch"] --> B{"Check System Features & Hardware"}
-    B -- "PackageManager.HAS_FEATURE_AUTOMOTIVE" --> C["Automotive Native Route (CarPropertyManager)"]
-    B -- "PackageManager.HAS_FEATURE_LEANBACK" --> D["TV Focus/D-Pad Route (Compose for TV)"]
-    B -- "PackageManager.HAS_FEATURE_WATCH" --> E["Wear OS Route (Ambient / Tile / Complication)"]
+    B -- "PackageManager.FEATURE_AUTOMOTIVE" --> C["Automotive Native Route (CarPropertyManager)"]
+    B -- "PackageManager.FEATURE_LEANBACK" --> D["TV Focus/D-Pad Route (Compose for TV)"]
+    B -- "PackageManager.FEATURE_WATCH" --> E["Wear OS Route (Ambient / Tile / Complication)"]
     B -- "XR Session Available" --> F["Spatial XR Route (SceneCore / Subspace)"]
     B -- "Standard Display" --> G{"Window Metrics & Bounds Check"}
     G -- "Freeform / Desktop Mode" --> H["Desktop Windowing (CaptionBar / Insets / Multi-Instance)"]
@@ -97,4 +99,4 @@ adb shell pm list features | grep -E "automotive|leanback|watch|hardware.type"
 6. Auto/Automotive 계약에서 투영과 내장 OS 를 구분하고 Car App Library 템플릿, 차량 신호 접근을 확인한다.
 7. ChromeOS 계약에서 large-screen/windowing 위에 얹히는 실행 환경, 배포, 입력 우선순위 차이를 확인한다.
 
-검증일: 2026-08-03. 현재 공식 품질 기준은 큰 화면을 포함한 [Adaptive app quality](https://developer.android.com/docs/quality-guidelines/adaptive-app-quality) 와 별도의 [Android XR app quality](https://developer.android.com/docs/quality-guidelines/android-xr) 로 나뉜다. 이 지도는 `_meta/android-knowledge-base-quality-plan.md` Phase 1(2026-08-03)에서 확정한 "이름 유지 + 범위 확장" 결정에 따라 TV/Wear OS/Auto·Automotive/ChromeOS 클러스터를 모두 갖췄다.
+검증일: 2026-08-06. 현재 공식 품질 기준은 큰 화면을 포함한 [Adaptive app quality](https://developer.android.com/docs/quality-guidelines/adaptive-app-quality) 와 별도의 [Android XR app quality](https://developer.android.com/docs/quality-guidelines/android-xr) 로 나뉜다. 런타임 기능 상수는 `PackageManager.FEATURE_AUTOMOTIVE`, `FEATURE_LEANBACK`, `FEATURE_WATCH`로 공식 API reference와 재대조했다.

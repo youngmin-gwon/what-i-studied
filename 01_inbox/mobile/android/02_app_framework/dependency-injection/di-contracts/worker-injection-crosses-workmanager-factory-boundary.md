@@ -2,7 +2,7 @@
 title: worker-injection-crosses-workmanager-factory-boundary
 tags: ["android", "android/app-framework"]
 aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:55:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
@@ -14,10 +14,34 @@ Worker 에 Activity, Fragment, screen-scoped object 를 넣으면 background exe
 
 관련 노트: [WorkManager](../../../04_system_services/background-and-notifications/background-work-contracts/workmanager-is-default-for-deferrable-guaranteed-work.md).
 
-### 판단 기준
+### 최소 예시
 
-- WorkManager 의 Worker 는 백그라운드 환경에서 시스템에 의해 인스턴스화되므로, 커스텀 WorkerFactory 나 Hilt 의 `@HiltWorker` 를 통해 Worker 생성 시점에 의존성을 주입하도록 연결해야 한다.
+```kotlin
+@HiltWorker
+class UploadWorker @AssistedInject constructor(
+    @Assisted appContext: Context,
+    @Assisted params: WorkerParameters,
+    private val uploader: Uploader,
+) : CoroutineWorker(appContext, params) {
+    override suspend fun doWork(): Result = uploader.upload().toWorkerResult()
+}
 
-### 경계
+@HiltAndroidApp
+class App : Application(), Configuration.Provider {
+    @Inject lateinit var workerFactory: HiltWorkerFactory
+    override val workManagerConfiguration =
+        Configuration.Builder().setWorkerFactory(workerFactory).build()
+}
+```
 
-- Worker 생성자에는 일반적인 비즈니스 의존성뿐만 아니라 `Context` 와 `WorkerParameters` 를 반드시 함께 전달해야 하며, 시스템이 팩토리를 인식할 수 있도록 초기화 과정(Configuration)을 커스텀해야 한다.
+`Context`와 `WorkerParameters`만 assisted parameter이고, Hilt Worker에는 `SingletonComponent`의 unscoped 또는 `@Singleton` binding만 주입할 수 있다. custom configuration을 쓰면 manifest의 기본 WorkManager initializer도 공식 절차대로 제거해야 factory가 사용된다.
+
+### 실패와 관찰 신호
+
+- factory가 등록되지 않으면 WorkManager가 Worker constructor를 찾지 못해 생성 실패 log를 남기고 작업이 실행되지 않는다.
+- Activity/ViewModel scoped dependency를 요청하면 component에서 binding을 볼 수 없어 build가 실패한다.
+- `WorkInfo` state와 WorkManager log에서 `FAILED` 이전의 worker instantiation 예외를 먼저 확인한다.
+
+상위 문서: [DI 계약](./di-contracts.md)
+
+공식 문서: [Hilt and WorkManager](https://developer.android.com/training/dependency-injection/hilt-jetpack#workmanager)

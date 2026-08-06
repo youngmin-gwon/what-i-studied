@@ -1,12 +1,12 @@
 ---
 title: haptic-feedback-types-map-ux-interactions-to-platform-patterns
 tags: [android, android/device-capabilities, android/haptics, compose/ui]
-aliases: ["HapticFeedbackType은 UX 인터랙션과 안드로이드 플랫폼 햅틱 패턴을 1:1 매핑한다"]
-date modified: 2026-08-05 15:16:06 +09:00
+aliases: ["HapticFeedbackType은 UX 인터랙션 의미를 플랫폼 햅틱에 전달한다"]
+date modified: 2026-08-06 14:48:27 +09:00
 date created: 2026-08-05 14:38:00 +09:00
 ---
 
-## HapticFeedbackType 은 UX 인터랙션과 안드로이드 플랫폼 햅틱 패턴을 1:1 매핑한다
+## HapticFeedbackType 은 UX 인터랙션 의미를 플랫폼 햅틱에 전달한다
 
 Jetpack Compose 의 `HapticFeedbackType` 및 안드로이드 View 의 `HapticFeedbackConstants` 는 개발자가 개별 모터 진동수나 파형을 직접 계산하지 않고도, **사용자의 UX 행동 맥락(Confirm, Reject, Toggle, Gesture 등)에 따라 OS 표준 촉각 패턴을 일관되게 전달**할 수 있도록 설계된 상위 햅틱 시맨틱 API 계약이다.
 
@@ -15,7 +15,7 @@ Jetpack Compose 의 `HapticFeedbackType` 및 안드로이드 View 의 `HapticFee
 ### 1. 개념 및 핵심 명제 (What)
 
 - **상위 햅틱 추상화 (Semantic Haptic Mapping)**: `LocalHapticFeedback.current.performHapticFeedback(type)` 호출은 하드웨어 모터 제어 이전에 **"이 조작이 어떤 UX 용도인가?"**를 OS 에 전달한다.
-- **안드로이드 시스템 설정 및 모터 튜닝 일치**: OS 는 지정된 `HapticFeedbackType` 을 수신한 후, 기기의 햅틱 엔진(LRA/ERM)에 최적화된 하드웨어 파동 효과(`VibrationEffect.EFFECT_CLICK`, `EFFECT_DOUBLE_CLICK`, `EFFECT_HEAVY_CLICK` 등)로 안전하게 변환 및 연동한다.
+- **구현 세부는 기기별로 다름**: Compose 구현은 타입을 대응하는 `HapticFeedbackConstants` 동작으로 전달한다. 프레임워크와 기기 구현이 실제 촉각 효과와 폴백을 고르므로 특정 `VibrationEffect` 상수와 1:1로 대응한다고 가정하지 않는다.
 
 ---
 
@@ -48,7 +48,7 @@ Jetpack Compose 의 `HapticFeedbackType` 및 안드로이드 View 의 `HapticFee
 | **노출 범위** | 시스템 내부 전용(`@hide`) 및 플래그 포함 전체 | 일반 일반 앱 개발에 유용한 표준 13 종 전용 정제 |
 | **실행 방식** | `view.performHapticFeedback(int feedbackConstant, int flags)` | `LocalHapticFeedback.current.performHapticFeedback(type)` |
 
-Compose 의 `HapticFeedbackType` 은 내부적으로 `PlatformHapticFeedback` 구현체를 거쳐, 안드로이드 OS 의 `HapticFeedbackConstants` `int` 정수 값으로 변환(Mapping)되어 `ViewRootImpl` 및 `VibratorService` 로 최종 전달된다.
+Android용 Compose 구현은 `PlatformHapticFeedback`을 거쳐 대응하는 `HapticFeedbackConstants`를 `View.performHapticFeedback()`에 전달한다. 그 뒤 실제 파형과 강도는 SDK 버전, 시스템 정책, 기기 하드웨어 구현에 따라 달라질 수 있다. 이는 앱이 직접 `VibrationEffect.createPredefined()`를 호출하는 경로와 별개의 API 계약이다.
 
 ---
 
@@ -87,15 +87,15 @@ sequenceDiagram
 
     UI->>LHF: performHapticFeedback(HapticFeedbackType.Confirm)
     LHF->>PHF: performHapticFeedback(HapticFeedbackConstants.CONFIRM)
-    PHF->>VM: vibrate(VibrationEffect.createPredefined(EFFECT_CLICK))
-    VM->>VM: 시스템 설정 '터치 진동 피드백' 활성 상태 확인
-    VM-->>UI: LRA 모터 정밀 확정 파동 발사
+    PHF->>VM: View.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
+    VM->>VM: View 설정·사용자 설정·기기 구현 확인
+    VM-->>UI: 기기가 선택한 효과 또는 지원되는 폴백
 ```
 
 1. **시스템 '터치 진동' 설정 연동**:
    - `HapticFeedbackType` 을 사용하는 모든 피드백은 안드로이드 OS 설정의 `Settings.System.HAPTIC_FEEDBACK_ENABLED` (터치 진동) 옵션을 자동 준수한다. 사용자가 터치 진동을 끈 경우 코드가 실행되어도 부작용 없이 조용히 무시된다.
-2. **Platform Fallback 보장**:
-   - 구형 안드로이드 OS 버전이나 `Confirm`/`Reject` 상수를 지원하지 않는 구형 런처 환경에서는 OS 가 이를 가장 유사한 `LongPress` 또는 `VirtualKey` 물리 파동으로 자동 폴백(Fallback) 처리한다.
+2. **Platform Fallback**:
+   - `HapticFeedbackConstants`는 지원되는 SDK 상수를 사용하면 앱이 파형별 지원 여부를 따로 검사하지 않아도 프레임워크가 기기별 구현 또는 폴백을 선택한다. 다만 `Confirm`이 반드시 `LongPress`, `Reject`가 반드시 `VirtualKey`로 대체된다는 식의 구체적인 매핑은 공개 API 계약이 아니다.
 
 ---
 
@@ -161,4 +161,4 @@ fun InteractiveFormScreen() {
 
 공식 가이드: [Jetpack Compose HapticFeedbackType](https://developer.android.com/reference/kotlin/androidx/compose/ui/hapticfeedback/HapticFeedbackType), [android.view.HapticFeedbackConstants](https://developer.android.com/reference/android/view/HapticFeedbackConstants)
 
-검증일: 2026-08-05. HapticFeedbackConstants 프레임워크 클래스 및 특수 플래그/시스템 @hide 상수 사양 대조 검증 완료.
+검증일: 2026-08-06. Android haptics guide와 `HapticFeedbackConstants` API를 기준으로 의미 기반 상수와 실제 `VibrationEffect`가 1:1 대응하지 않음을 반영했다.

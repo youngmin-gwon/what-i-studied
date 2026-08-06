@@ -3,14 +3,14 @@ title: posix-ipc-vs-android-binder-contracts
 tags: [android, android/binder, ipc, posix-ipc, security, architecture-decision]
 aliases: [POSIX IPC vs Android Binder Contracts, POSIX IPC와 Android Binder 구조적 비교]
 date created: 2026-08-05 11:42:00 +09:00
-date modified: 2026-08-05 16:00:00 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 ---
 
-## Android는 보안·자원 수명·Zero-Copy 우수를 위해 전통적 POSIX IPC 대신 Binder와 Ashmem을 도입했다
+## Binder는 Android framework의 typed RPC이고 POSIX IPC를 배제하지 않는다
 
 배경 지식: [IPC 메커니즘](01_inbox/operating-systems/ipc-mechanisms.md)
 
-> **핵심 명제**: Linux 커널 기반인 Android가 전통적인 POSIX IPC(System V / POSIX Message Queue, Shared Memory)를 배제하고 Binder와 **Ashmem**(Anonymous Shared Memory — 이름 없이 file descriptor 로 참조하는, 프로세스 간에 공유되는 메모리 영역)/**DMA-BUF**(디바이스 드라이버들이 물리 메모리 버퍼를 복사 없이 공유하도록 하는 Linux 커널 프레임워크)를 자체 IPC 패러다임으로 선택한 이유는 커널 레벨 신원 검증(UID/PID), 참조 카운팅 기반 수명 관리, 복사 오버헤드 최소화(Single-Copy), 그리고 동시성 스레드 풀 제어 때문이다.
+Android는 pipe, Unix domain socket, shared memory, file descriptor 전달 같은 Linux IPC도 사용한다. Binder는 이들을 없애는 대체물이 아니라 framework·app·service 사이에 object reference, typed RPC, caller identity, death notification을 함께 제공하는 주 IPC다. 큰 payload는 Binder transaction에 직접 넣기보다 `SharedMemory`/`ASharedMemory`, hardware buffer, DMA-BUF 같은 별도 buffer의 file descriptor를 Binder나 Unix socket으로 전달한다.
 
 ---
 
@@ -18,10 +18,10 @@ date modified: 2026-08-05 16:00:00 +09:00
 
 | 축 (Axis) | 전통적 POSIX IPC (SHM / MQ / Pipe) | Android Binder / Ashmem (DMA-BUF) |
 | :--- | :--- | :--- |
-| **보안 및 신원 (Security & Identity)** | 유저 공간에 명시적 토큰/키(`ftok`: 파일 경로와 프로젝트 ID로 System V IPC 키를 생성하는 POSIX 함수, Key ID) 공유. Caller의 UID/PID를 커널이 자동 검증해주지 않음. | 커널 드라이버(`/dev/binder`)가 트랜잭션 수신 시 **Caller의 UID/PID를 위변조 불가능하게 주입**. |
-| **데이터 복사 (Data Copy)** | Pipe/MQ: 2-Copy (User→Kernel→User)<br/>POSIX SHM: 0-Copy (동기화 락 필요) | Binder: **1-Copy** (mmap 기반 callee 버퍼 전송)<br/>Ashmem/DMA-BUF: **0-Copy** (Large payload) |
-| **자원 수명 (Resource Lifetime)** | 프로세스가 파괴되어도 IPC 메모리/큐가 커널 상에 **영구 잔류** (`ipcrm` 필히 수행). | **Reference Counting & Death Recipient**: Process death 시 커널이 자원을 자동 수거하고 사망 알림. |
-| **호출 모델 및 동시성** | Byte Stream 또는 Raw Struct 전송.<br/>스레드 풀 처리 모델 부재. | **RPC (Remote Procedure Call)** 및 AIDL 기반 Interface. 커널 중재 **Binder Thread Pool (최대 15개)** 제어. |
+| **보안 및 신원** | mechanism별로 다르다. Unix domain socket은 `SO_PEERCRED`/`SCM_CREDENTIALS`, SELinux label과 filesystem permission을 사용할 수 있다. | Binder driver가 transaction caller의 UID/PID를 전달하고 SELinux binder policy와 service permission 검사를 결합한다. PID는 one-way call 등 조건에 따라 보안 판단에 부적합할 수 있어 UID/permission 중심으로 본다. |
+| **데이터 이동** | pipe/socket은 kernel buffer를 거치며, shared memory는 mapping 후 명시적 동기화가 필요하다. | 일반 Binder transaction은 kernel이 target address space로 transaction을 복사한다. Android 8의 scatter-gather는 일부 serialization copy를 줄인다. 큰 payload에는 별도 shared buffer를 쓴다. |
+| **자원 수명** | pipe/socket/FD-backed memory는 마지막 FD가 닫히면 정리된다. named POSIX/System V object는 unlink·remove 정책이 별도로 필요할 수 있다. | Binder object reference와 FD는 process death 때 정리되고 `linkToDeath()`로 remote binder death를 관찰할 수 있다. 앱이 가진 모든 논리 자원을 자동 정리해 주는 것은 아니다. |
+| **호출 모델 및 동시성** | stream/message/shared-memory protocol과 worker model을 애플리케이션이 설계한다. | AIDL이 interface와 marshalling을 생성한다. server process의 Binder thread pool 크기와 shared-state synchronization은 구현자가 구성·관리한다. 고정 15개가 보편 계약은 아니다. |
 
 ---
 
@@ -32,42 +32,39 @@ graph TB
     subgraph "POSIX IPC Architecture (System V / POSIX)"
         P1["Process A"] -- "1. write/msgsnd" --> KB["Kernel IPC Buffer"]
         KB -- "2. read/msgrcv" --> P2["Process B"]
-        P1 -- "Key ID 공유 (보안 취약)" --> P2
+        P1 -- "protocol별 permission / peer credential" --> P2
     end
 
     subgraph "Android Binder Architecture"
         Client["Client App Process"] -- "1. transact(Parcel)" --> BD["/dev/binder Driver"]
-        BD -- "2. Kernel Injected UID/PID Verification" --> Server["Server SystemServer Process"]
-        BD -- "Single-Copy mmap" --> ServerBuf["Server mmap Buffer"]
+        BD -- "2. caller identity + transaction copy" --> Server["Server Process / Binder Thread"]
+        BD --> ServerBuf["Target Binder Buffer"]
         BD -- "Process Death 감지" --> Death["Death Recipient Notification"]
     end
 ```
 
 ---
 
-### 3. 핵심 아키텍처 결정을 이끈 4가지 이유
+### 3. 선택 기준
 
 1. **커널 중재 신원 확인 (Kernel-Injected Identity & App Sandbox)**
-   - POSIX IPC는 수신 측 프로세스가 메시지를 보낸 송신 측의 실제 UID/PID를 신뢰성 있게 검증할 수 없다.
-   - Android의 App Sandbox 모델에서는 권한(Permission) 및 **AppOps**(AppOpsManager 가 추적하는, 카메라·위치 등 민감한 동작의 실행 여부와 빈도를 세밀하게 통제하는 런타임 정책 계층) 검사를 위해 **"이 호출을 한 앱의 UID가 누구인가?"**를 반드시 알아야 한다. Binder 커널 드라이버는 caller의 패킷에 UID/PID를 자동으로 강제 주입하여 보안 위변조를 차단한다.
+   - Unix domain socket도 kernel-verified peer credential을 제공할 수 있다. Binder의 장점은 caller identity가 RPC transaction 및 Android permission/SELinux model과 통합된다는 점이다.
 2. **참조 카운팅과 사망 통지 (Reference Counting & Death Recipient)**
-   - POSIX 공유 메모리/메시지 큐는 프로세스가 무단 종료(Crash)되었을 때 자원이 커널에 누수된다.
-   - Binder는 커널 드라이버 레벨에서 `linkToDeath()`를 통해 서비스 프로세스가 사망하면 클라이언트의 참조 카운트를 즉시 정리하고 알림을 발생시킨다.
-3. **메모리 복사 최적화 (Single-Copy & Ashmem Pinning)**
-   - Binder는 Sender 프로세스의 메모리에서 Receiver 프로세스의 `mmap` 영역(기본 1016KB)으로 **단 1회만 커널이 복사(Single-Copy)**한다.
-   - 대용량 비트맵/비디오의 경우 `Ashmem`/`DMA-BUF` 공유 메모리 링 버퍼와 `ParcelFileDescriptor`를 결합하여 **Zero-Copy**로 전달한다.
+   - FD 기반 POSIX 자원도 process death 때 FD가 닫힌다. Binder는 remote object reference와 death notification을 RPC model의 일부로 제공한다는 차이가 있다.
+3. **작은 RPC와 큰 buffer의 분리**
+   - Binder transaction은 크기 제한이 있고 serialization·copy 비용이 있으므로 작은 control message와 handle 전달에 적합하다.
+   - 큰 데이터는 `SharedMemory`/`ASharedMemory`, hardware buffer 또는 DMA-BUF를 사용하고 FD/handle만 전달한다. mapping이 copy를 줄일 수 있지만 producer·consumer나 device 사이의 모든 단계가 자동으로 zero-copy가 되는 것은 아니다. Android 17의 `ASharedMemory`는 조건에 따라 legacy ashmem 또는 memfd를 사용한다.
 4. **동시성 스레드 풀 관리 (Concurrency Control)**
-   - POSIX IPC는 IPC 전송 후 수신 측 스레드 할당을 유저 앱이 직접 관리해야 한다.
-   - Binder는 프로세스당 최대 15개의 **Binder Thread Pool**을 커널 드라이버가 직접 스케줄링하여 IPC 대기열 및 ANR 방지를 제어한다.
+   - Binder driver는 대기 중인 Binder thread에 transaction을 전달하지만 thread-pool 설정과 service method의 동시성 안전성은 userspace 책임이다. synchronous nested call과 lock 순서가 잘못되면 Binder도 deadlock과 ANR을 만들 수 있다.
 
 ---
 
 ### 4. 관측 가능한 증거 (Observable Evidence)
 
 ```bash
-# 1. Android 커널의 Binder IPC 통계 및 1-Copy mmap 버퍼 확인
-adb shell dumpsys activity processes | grep -i "binder"
-adb shell cat /d/binder/stats
+# 1. Binder service와 transaction 상태 확인(경로·권한은 build type에 따라 다름)
+adb shell dumpsys activity processes
+adb shell ls /sys/kernel/debug/binder /dev/binderfs 2>/dev/null
 
 # 2. Binder를 통한 UID/PID 검증 실패 시 발생 로그 (Logcat)
 adb logcat | grep "SecurityException"
@@ -82,3 +79,5 @@ adb logcat | grep "SecurityException"
 - [Binder 핵심 계약](./binder-is-kernel-mediated-object-capability-ipc.md)
 - [Binder Transaction Lifetime](./binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)
 - [OS IPC 메커니즘 지도](../../../../../operating-systems/ipc-mechanisms.md)
+
+공식 문서: [Binder overview](https://source.android.com/docs/core/architecture/ipc/binder-overview), [Binder IPC details](https://source.android.com/docs/core/architecture/hidl/binder-ipc), [ASharedMemory](https://developer.android.com/ndk/reference/group/memory), [Android 17 shared-memory transition](https://source.android.com/docs/security/features/selinux/compatibility#shared_memory_changes_for_android_17).

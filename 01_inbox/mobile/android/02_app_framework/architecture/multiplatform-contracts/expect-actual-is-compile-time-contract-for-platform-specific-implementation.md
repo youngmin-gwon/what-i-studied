@@ -17,9 +17,9 @@ Kotlin Multiplatform (KMP)에서 **`expect` / `actual` 바인딩 메커니즘은
 - **`expect` 선언 (`commonMain`)**:
   공통 코드 영역에서 플랫폼 특정 기능(예: 디바이스 고유 UUID 획득, 파일 경로 조회, 암호화)의 클래스, 함수, 또는 인터페이스 형태를 선언한다.
 - **`actual` 구현 (`androidMain`, `iosMain`)**:
-  각 타깃 플랫폼 소스 세트에서 `expect` 선언과 완벽하게 일치하는 클래스/함수 패키지 구조와 서명을 가져 구현을 제공한다.
+  각 타깃 플랫폼 소스 세트에서 `expect` 선언에 대응하는 패키지·이름·서명의 구현을 제공한다.
 - **인터페이스 DI 와의 차이점**:
-  인터페이스 주입은 런타임에 다형성으로 주입되는 반면, `expect`/`actual` 은 **컴파일 타임 바인딩**이므로 추가적인 런타임 인디렉션(Indirection) 오버헤드가 없다.
+  인터페이스 주입은 런타임에 구현체를 조립하는 반면, `expect`/`actual`의 대응 관계는 **컴파일 타임**에 결정된다. 이것만으로 실제 호출 비용이나 전체 성능이 보장되는 것은 아니므로, 성능보다 API 경계와 조립 책임을 기준으로 선택한다.
 
 ---
 
@@ -28,7 +28,7 @@ Kotlin Multiplatform (KMP)에서 **`expect` / `actual` 바인딩 메커니즘은
 1. **컴파일 타임 안전성 (Compile-Time Safety)**:
    특정 타깃에서 대응하는 `actual` 선언이 없거나 선언의 패키지·이름·매개변수·반환 타입 등 계약이 맞지 않으면 컴파일 오류가 발생한다. 다만 이것이 구현 내부의 `TODO()`나 런타임 실패까지 막아 주는 것은 아니다.
 2. **플랫폼 고유 API 직접 접근**:
-   `androidMain` 에서는 Android SDK API 를, `iosMain` 에서는 iOS Foundation / CoreCrypto API 를 다이렉트로 호스팅하여 공통 모듈로 연결할 수 있다.
+   `androidMain`에서는 Android SDK API를, `iosMain`에서는 iOS Foundation 같은 플랫폼 API를 사용해 공통 선언의 구현을 제공할 수 있다.
 
 ---
 
@@ -72,7 +72,7 @@ package com.example
 
 import platform.Foundation.NSUUID
 
-actual fun randomUuid(): String = NSUUID().UUIDString()
+actual fun randomUuid(): String = NSUUID().UUIDString
 ```
 
 `expect`와 `actual`의 서명은 타깃별로 대응해야 한다. 예를 들어 `expect class PlatformNotifier()`에 대해 Android `actual` 생성자에만 `Context` 매개변수를 추가하면 동일한 계약이 아니므로 컴파일되지 않는다. `Context`나 네트워크 클라이언트처럼 플랫폼에서 조립해야 하는 의존성이 필요하면, 공통 코드에는 일반 인터페이스를 두고 Android composition root에서 구현체를 생성·주입하는 방식이 보통 더 명확하다. `expect`/`actual`은 플랫폼 타입 자체를 공통 API로 노출해야 할 때 선택적으로 사용한다.

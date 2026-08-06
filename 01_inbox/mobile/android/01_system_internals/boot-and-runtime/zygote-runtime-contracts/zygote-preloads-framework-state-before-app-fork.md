@@ -2,7 +2,7 @@
 title: zygote-preloads-framework-state-before-app-fork
 tags: [android, android/boot-runtime, android/runtime, android/system-internals]
 aliases: ["Zygote는 framework 공통 상태를 preload한 뒤 앱 프로세스를 fork한다"]
-date modified: 2026-08-03 17:24:07 +09:00
+date modified: 2026-08-06 14:54:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,18 +10,18 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [Zygote 런타임 계약](zygote-runtime-contracts.md)
 
-Zygote 부팅 초기화의 핵심 계약은 앱 구동 전 수 천 개의 안드로이드 공통 프레임워크 Java 클래스, 그래픽/UI 시스템 리소스(`framework-res.apk`), 그리고 Native C/C++ 공유 라이브러리(`libandroid_runtime.so`, `libhwui.so` 등)를 사전 메모리에 로드(Preload)해 두고, 이후 모든 앱 생성 시 이 상태를 통째로 `fork()` 복제하여 앱 스타트업 속도를 극대화하는 메커니즘이다.
+Zygote는 앱 프로세스보다 먼저 시작해 공통 class와 resource 일부를 preload하고, 같은 ABI의 system·app process가 공유할 수 있는 parent가 된다. 이후 process는 필요할 때 fork되거나, 기기 설정에 따라 미리 fork된 USAP(unspecialized app process) pool에서 specialization된다. preload 범위와 수치는 제품 구성에 따라 달라지며 앱별 class·resource·native initialization까지 준비해 주는 것은 아니다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 
-1. **`preload-classes` Parsing**:
-   - Zygote 부팅 시 `ZygoteInit.java`는 `/system/etc/preload-classes` 목록 파일을 읽어 정적 클래스 6,000여 개 이상을 JVM ClassLoader 메모리로 사전 로딩한다.
+1. **`preloaded-classes` parsing**:
+   - Zygote 부팅 시 `ZygoteInit`은 기본적으로 `/system/etc/preloaded-classes` 목록을 사용한다. 목록은 일반 phone workload에 맞춰 조정되며 wearable 등 제품에서는 다를 수 있다. 고정된 class 수를 platform 계약으로 보지 않는다.
 2. **`preloadResources()` Execution**:
    - 공통 테마, 드로어블, 서체, 레이아웃 XML 메타데이터를 담고 있는 `framework-res.apk`를 로드하여 정적 자원 테이블을 초기화한다.
-3. **OpenGL / Vulkan / HAL Driver Preload**:
-   - `ZygoteInit.nativePreload()`를 호출하여 그래픽 드라이버 및 ART 런타임 C++ 공유 라이브러리를 메모리에 매핑한다.
+3. **Native/runtime preload hook**:
+   - platform 구현은 native preload hook과 shared-library preload를 수행할 수 있다. 특정 GPU driver나 모든 HAL이 항상 이 단계에서 초기화된다고 일반화하지 않는다.
 4. **App Fork Acceleration**:
-   - 모든 사전 로딩이 완료되면 Zygote는 Unix Socket에서 앱 생성 요청을 대기한다. 앱 구동 요청 시 이미 공통 환경이 100% 로딩된 메모리 상태에서 `fork()`만 수행하므로 앱 생성 시간이 수십 밀리초 이내로 단축된다.
+   - preload가 끝나면 Zygote는 Unix domain socket을 통해 process 생성 요청을 받는다. fork 후에는 UID/GID, SELinux domain, cgroup, runtime flags, app class path 등을 specialization하고 앱별 초기화를 계속한다. preload와 copy-on-write는 중복 작업과 private memory를 줄일 수 있지만 고정된 startup 시간이나 완성된 앱 환경을 보장하지 않는다.
 
 ```mermaid
 sequenceDiagram
@@ -31,7 +31,7 @@ sequenceDiagram
     participant Memory as Zygote Heap / RAM
 
     Init->>Zygote: Exec /system/bin/app_process64
-    Zygote->>Memory: 1. parse & load /system/etc/preload-classes (6000+ Classes)
+    Zygote->>Memory: 1. parse & load /system/etc/preloaded-classes
     Zygote->>Memory: 2. preloadResources() (framework-res.apk)
     Zygote->>Memory: 3. nativePreload() (Graphics & Native Drivers)
     Note over Zygote,Memory: Preload Complete (Warm State)
@@ -40,25 +40,14 @@ sequenceDiagram
 
 ### 코드 및 구체 예시 (Concrete Snippets)
 
-`ZygoteInit.java` 내부의 Preload 초기화 메서드 스니펫 (`frameworks/base/core/java/com/android/internal/os/ZygoteInit.java`):
+다음은 release마다 달라지는 세부 method 이름을 생략한 개념적 순서다. 실제 코드는 대상 branch의 `frameworks/base/core/java/com/android/internal/os/ZygoteInit.java`와 `ZygoteServer.java`에서 확인한다.
 
 ```java
-// ZygoteInit.java (Preload Framework State)
-public static void main(String argv[]) {
-    // 1. Register Zygote Socket
-    zygoteServer.registerServerSocketAtUserSpace();
-
-    // 2. Preload shared classes and resources
-    preload(bootTimingsTraceLog);
-
-    // 3. Start SystemServer (First Child Fork)
-    if (startSystemServer) {
-        forkSystemServer(abiList, socketName, zygoteServer);
-    }
-
-    // 4. Run main Zygote loop
-    zygoteServer.runSelectLoop(abiList);
-}
+registerZygoteCommandSocket()
+preloadConfiguredClassesResourcesAndLibraries()
+if (startSystemServer) forkAndSpecializeSystemServer()
+if (usapPoolEnabled) maintainUnspecializedAppProcessPool()
+runCommandLoopAndForkOrSpecializeApps()
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
@@ -66,14 +55,14 @@ public static void main(String argv[]) {
 `adb shell`을 통해 Zygote가 사전 로드한 클래스 파일 및 로깅 이력을 관측할 수 있다:
 
 ```bash
-# Zygote가 부팅 시 로딩하는 preload-classes 목록 파일 점검
-adb shell head -n 20 /system/etc/preload-classes
+# Zygote가 부팅 시 로딩하는 기본 preloaded-classes 목록 점검
+adb shell head -n 20 /system/etc/preloaded-classes
 
 # Zygote 부팅 초기화 및 Preload 소요 시간 로그 확인 (logcat)
 adb logcat -s Zygote | grep -i "preload"
 # 출력 예시:
-# Zygote: Preloaded 6450 classes in 1250ms.
-# Zygote: Preloaded 320 resources in 210ms.
+# Zygote: Preloaded ... classes in ...ms.
+# 구체적인 tag와 출력 형식은 release·제품별로 다를 수 있다.
 ```
 
 ### 관련 문서
@@ -81,4 +70,4 @@ adb logcat -s Zygote | grep -i "preload"
 - [zygote-fork-saves-memory-while-copy-on-write-pages-stay-clean](zygote-fork-saves-memory-while-copy-on-write-pages-stay-clean.md)
 - [zygote-socket-is-system-server-process-factory-interface](zygote-socket-is-system-server-process-factory-interface.md)
 
-공식 문서: [Zygote Optimization Overview](https://source.android.com/docs/core/runtime)
+공식 문서: [About the Zygote processes](https://source.android.com/docs/core/runtime/zygote), [Configure ART preloaded classes](https://source.android.com/docs/core/runtime/configure)
