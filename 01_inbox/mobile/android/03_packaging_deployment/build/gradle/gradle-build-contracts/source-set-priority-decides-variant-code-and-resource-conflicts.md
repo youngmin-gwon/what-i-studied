@@ -19,7 +19,7 @@ AGP는 명확하게 정의된 **SourceSet 우선순위 계층구조(Priority Cas
 
 ### 내부 메커니즘 (Internal Mechanism)
 1. **우선순위 계층구조 (Cascade Rule)**:
-   $$	ext{Variant} (	ext{freeRelease}) > 	ext{Flavor} (	ext{free}) > 	ext{BuildType} (	ext{release}) > 	ext{Main} (	ext{main}) > 	ext{Dependencies (AAR)}$$
+   $$\text{Variant} (\text{freeRelease}) > \text{Flavor} (\text{free}) > \text{BuildType} (\text{release}) > \text{Main} (\text{main}) > \text{Dependencies (AAR)}$$
 2. **리소스(Resource) 병합 규칙**: 높은 우선순위 소스 세트의 XML 리소스나 이미지 아셋이 낮은 우선순위의 리소스를 완전 대체(Override)한다.
 3. **소스 코드(Java/Kotlin) 중복 금지 규칙**: 리소스와 달리 동일한 완전 수식 클래스명(Fully Qualified Class Name)을 갖는 `.kt` / `.java` 파일이 `main`과 `flavor`/`buildType` 소스 세트에 동시에 존재하면 **Duplicate Class 컴파일 에러**가 발생한다. 변형별 코드는 `main`에서 제거하고 해당 변형 소스 세트들에만 각각 배치해야 한다.
 

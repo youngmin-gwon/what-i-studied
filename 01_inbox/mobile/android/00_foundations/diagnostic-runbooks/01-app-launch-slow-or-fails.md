@@ -2,7 +2,7 @@
 title: 01-app-launch-slow-or-fails
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: app launch is slow or fails"]
-date modified: 2026-08-04 16:27:25 +09:00
+date modified: 2026-08-06 18:00:00 +09:00
 date created: 2026-08-04 10:30:00 +09:00
 ---
 
@@ -15,7 +15,7 @@ date created: 2026-08-04 10:30:00 +09:00
 - 앱 아이콘을 탭한 뒤 첫 화면(첫 프레임)이 뜨기까지 체감상 오래 걸린다(TTID 지연).
 - 첫 화면(첫 프레임)은 빨리 뜨지만 콘텐츠가 없는 빈 화면/스켈레톤 상태가 오래 유지된다(TTFD 지연).
 - 앱 실행 직후 하얀 화면(Blank Screen) 상태에서 응답이 없다가 ANR 다이얼로그가 뜨거나 앱이 즉시 종료된다(이 경우 [ANR runbook](02-anr.md) 또는 Crash 분석으로 전환한다).
-- Android 15 기기에서 실행 직후 native `.so` 라이브러리 로딩 시 크래시(`UnsatisfiedLinkError`)가 발생하며 종료된다.
+- 16KB page-size 기기에서 실행 직후 native `.so` 로딩 경고나 `UnsatisfiedLinkError`, native crash가 발생한다.
 
 ---
 
@@ -37,8 +37,8 @@ date created: 2026-08-04 10:30:00 +09:00
    - 가장 흔한 원인. DI 그래프 생성(Dagger/Hilt/Koin), SDK 초기화, SharedPreferences 읽기, SQLite/DB 동기 쿼리, 원격 설정(RemoteConfig) 동기 차단 등.
 2. **TTID 는 정상이나 TTFD 가 지연됨 (우선순위 2)**
    - 첫 프레임은 즉시 그려지지만, 메인 화면 UI 가 비동기 네트워크/DB 데이터 응답에 직렬로 의존하여 렌더링을 미루는 경우 ([Worked Example: 앱 아이콘 탭에서 첫 프레임까지](../worked-examples/01-app-icon-tap-to-first-frame.md) 참고).
-3. **Android 15+ 16KB Page Size 미보응에 따른 Native Library Loading 실패 (우선순위 3)**
-   - Android 15(API 35) 이상 기기에서 native `.so` 파일의 ELF segment 가 16KB boundary 로 정렬(alignment)되지 않아 프로세스 시작 중 `dlopen` 실패 및 `UnsatisfiedLinkError` 발생.
+3. **16KB Page Size 미대응 native library (우선순위 3)**
+   - Android 15부터 지원되는 16KB page-size 기기에서 ELF segment 또는 APK ZIP alignment가 호환되지 않으면 호환 모드 경고, linker 오류, native crash 등이 나타날 수 있다. 모든 Android 15+ 기기가 16KB인 것도, 미정렬 앱이 항상 `dlopen`에서 실패하는 것도 아니다.
 4. **Zygote Fork 및 프로세스 생성 지연 (우선순위 4)**
    - 시스템 전반의 메모리 부족(Low Memory Pressure)으로 인한 Zygote specialization 지연 또는 OEM OS 차원의 프로세스 생성을 방해하는 저전력 모드 정책.
 5. **메인 스레드 교착 상태(Deadlock) 또는 무한 루프 (우선순위 5)**
@@ -55,7 +55,7 @@ flowchart TD
     B -- "있음 (Warm/Hot)" --> F["Activity.onCreate / onStart"]
     
     C --> D{"Native .so 16KB 정렬 통과?"}
-    D -- "실패 (Android 15+)" --> D_ERR["UnsatisfiedLinkError / Crash 발생\n(Check: readelf -l *.so)"]
+    D -- "미호환 가능성" --> D_ERR["compat 경고 / linker·native crash 확인\n(getconf, APK Analyzer, zipalign, readelf)"]
     D -- "성공" --> E["Application.onCreate()"]
     
     E --> F
@@ -144,10 +144,10 @@ ui.perfetto.dev 에서 트레이스를 열고 `ActivityThread.main` -> `Applicat
 
 | 진단 지표 / 신호 (Signal) | 정상 기준 (Success Criteria) | 실패 기준 (Failure Criteria) | 주 원인 및 즉시 조치 (Action Boundary) |
 | :--- | :--- | :--- | :--- |
-| **am start -W TotalTime (TTID)** | Cold Launch < 1000ms<br>Warm Launch < 500ms | Cold Launch > 2500ms<br>Warm Launch > 1000ms | `Application.onCreate()` 및 DI 그래프 동기 초기화 로직 분산/비동기화 |
-| **Fully drawn (TTFD)** | TTID 직후 (< 500ms 이내 차이) | TTID 대비 > 3000ms 이상 지연 또는 미호출 | 첫 프레임 렌더링 후 비동기 데이터 쿼리 파이프라인 전환 ([Worked Example 01](../worked-examples/01-app-icon-tap-to-first-frame.md)) |
+| **am start -W TotalTime (TTID)** | 앱·기기군별 기준선과 release SLO 이내 | 동일 조건의 기준선 또는 Android Vitals 분포에서 유의하게 회귀 | `Application.onCreate()` 및 DI 그래프 동기 초기화 로직을 trace로 분해 |
+| **Fully drawn (TTFD)** | 앱이 정의한 fully usable 상태에서 `reportFullyDrawn()` 호출 | 호출 누락 또는 앱·기기군별 SLO 회귀 | first frame 이후 데이터·렌더링 critical path를 trace로 분해 ([Worked Example 01](../worked-examples/01-app-icon-tap-to-first-frame.md)) |
 | **Logcat Displayed 라인** | 단일 `Displayed` 출력 기록 | 복수의 `Displayed` 유발 또는 `(total …)` 괄호 지연 존재 | SplashActivity 등 릴레이 액티비티 체인 단축 |
-| **Android 15 16KB Page Alignment** | `readelf -l *.so` 커스텀 정렬 통과 | `UnsatisfiedLinkError` 또는 `dlopen failed: alignment…` | NDK/C++ `.so` 빌드 시 `-z max-page-size=16384` 링커 플래그 적용 |
+| **16KB Page Compatibility** | 실제 16KB 환경에서 ELF·ZIP alignment 검사와 launch test 통과 | compat 경고, linker 오류 또는 native crash | 최신 AGP/NDK와 호환 SDK로 재빌드하고 APK Analyzer·`zipalign`·`readelf`로 검증 |
 | **ApplicationExitInfo Reason** | N/A (정상 종료 없음) | `REASON_INITIALIZATION_FAILURE`<br>`REASON_CRASH_NATIVE` | 시작 시 Native Crash 로그 및 C++ crash dump 분석 |
 
 ---
@@ -155,14 +155,13 @@ ui.perfetto.dev 에서 트레이스를 열고 `ActivityThread.main` -> `Applicat
 ### 7. OS / API (Android 14 / 15 / 16) 특화 제약 및 진단 신호
 
 - **Android 14 (API 34)**:
-  - **시작 시 Foreground Service (FGS) 시작 제약**: `Application.onCreate()` 또는 `Activity.onCreate()` 시점에 백그라운드 상태 판정으로 `Context.startForegroundService()` 호출 시 `ForegroundServiceStartNotAllowedException` 예외가 발생하여 시작 직후 프로세스가 종료될 수 있음.
-  - **SplashScreen API 필수화**: 커스텀 테마 기반 스플래시 구현 시 시스템 스플래시 창과의 이중 렌더링으로 TTID 가 왜곡될 수 있으므로 `androidx.core.splashscreen` API 로 통합 필수.
+  - **Foreground Service 시작 제약**: target과 앱 상태에 따라 background FGS start가 허용되지 않으면 `ForegroundServiceStartNotAllowedException`이 발생할 수 있다. Activity가 사용자에게 보이는 정상 launch와 background start를 구분한다.
+  - Android 12부터 system splash screen이 모든 앱 cold/warm start에 적용된다. `androidx.core:core-splashscreen`은 이전 버전까지 일관된 API를 제공하지만 모든 앱에 특정 library 사용이 강제되는 것은 아니다.
 - **Android 15 (API 35)**:
-  - **16KB Page Size 지원 의무화**: NDK/C++ 라이브러리를 포함하는 앱은 ELF segment 가 16KB boundary 로 정렬되지 않은 경우 Android 15+ 기기/에뮬레이터에서 앱 프로세스가 시작 도중 즉시 사망함.
-    - CLI 확인: `readelf -l libexample.so | grep LOAD` 명령으로 `Align` 값이 `0x4000` (16384) 이상인지 검증.
+  - **16KB Page Size 지원 시작**: 실제 16KB mode인지 `adb shell getconf PAGE_SIZE`로 확인한다. ELF LOAD segment와 APK ZIP alignment를 모두 검사하며 backcompat mode 존재도 고려한다.
   - **Edge-to-Edge 기본 적용**: Android 15 target SDK 앱은 Edge-to-edge 가 기본 활성화되어 첫 Activity 의 WindowInset 계산 및 UI layout pass 시간축이 변경될 수 있음.
-- **Android 16 (API 36)**:
-  - **Advanced Cached Apps Freezer**: 백그라운드 태스크 초기화 후 동결(Freezer) 정책이 강화되어, 시작 시점에 비동기로 띄운 초기화 Coroutine 이 시스템에 의해 동결되어 TTFD 가 기하급수적으로 느려질 수 있음.
+- **Android 16/17**:
+  - page-size 호환성과 startup 회귀는 release별 공식 behavior-change 문서와 실제 target/runtime 조합에서 검증한다. cached-process 정책을 foreground launch coroutine 지연의 단일 원인으로 단정하지 않는다.
 
 ---
 
@@ -191,4 +190,4 @@ ui.perfetto.dev 에서 트레이스를 열고 `ActivityThread.main` -> `Applicat
 - [Support 16 KB page sizes (Android Developers)](https://developer.android.com/guide/practices/page-sizes)
 - [Diagnose ANRs (Android Developers)](https://developer.android.com/topic/performance/vitals/anr)
 
-검증일: 2026-08-04. `Displayed` 로그 형식, `am start-activity -W` 사용법, Android 15 16KB Page Alignment 요구사항 및 ApplicationExitInfo API 쿼리는 공식 문서와 실기기 진단 CLI 로 검증 완료함.
+검증일: 2026-08-06. TTID/TTFD, 16KB 호환성, system splash와 FGS 시작 제한의 적용 조건을 공식 문서 기준으로 검증했다.

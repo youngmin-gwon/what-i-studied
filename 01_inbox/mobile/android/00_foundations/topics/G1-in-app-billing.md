@@ -3,7 +3,7 @@ title: G1-in-app-billing
 tags: [topic-synthesis, in-app-billing, monetization, google-play]
 aliases: [인앱 결제 (Google Play Billing), In-App Billing, Google Play Billing]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-06 18:00:00 +09:00
 ---
 
 ## 인앱 결제 (Google Play Billing)
@@ -27,16 +27,16 @@ flowchart TD
 
 ### 3. 하위 개념 및 원자 노트 합성
 
-**Play Billing Library 필수 사용**
-Android 앱에서 디지털 콘텐츠를 판매하기 위해선 반드시 Google Play Billing Library를 사용해야 합니다. 다른 우회 결제 수단을 제공하는 것은 정책 위반입니다.
+**Play 배포와 결제 프로그램의 경계를 먼저 확인**
+Google Play에서 배포되는 앱의 디지털 상품·서비스 결제에는 Google Play Billing이 기본 경로다. 그러나 2026년 현재 eligible app·region·program에 따라 alternative billing, user choice billing, external offers 같은 승인된 경로도 존재한다. 앱의 배포 채널, 사용자 Play country, 상품 유형, 프로그램 등록 여부를 확인하지 않고 모든 외부 결제를 정책 위반이라고 단정하지 않는다. 프로그램 API를 쓰는 경우에도 지원되는 Play Billing Library 버전, 정보 화면, backend reporting 같은 별도 계약을 따라야 한다.
 - [Play Billing Library is the only approved in-app purchase path](../../03_packaging_deployment/distribution/billing-contracts/play-billing-library-is-the-only-approved-in-app-purchase-path.md)
 
 **제품 및 구독의 수명 주기**
 일회성 상품(In-app Products)과 정기 결제(Subscriptions)는 서로 다른 상태 및 수명 주기를 가집니다. 구독은 갱신, 취소, 유예 상태 등을 추적해야 합니다.
 - [Product and subscription purchases have different lifecycles](../../03_packaging_deployment/distribution/billing-contracts/product-and-subscription-purchases-have-different-lifecycles.md)
 
-**서버 측 검증 필수**
-클라이언트에서 받은 구매 결과는 조작될 수 있으므로, 반드시 보안 백엔드 서버를 통해 Google Play Developer API와 통신하여 Purchase Token을 검증해야 합니다.
+**서버 측 검증을 권한 부여의 신뢰 경계로 사용**
+클라이언트 callback만으로 entitlement를 부여하지 않는다. 보안 backend에서 purchase token과 purchase state를 확인하고, Real-time Developer Notifications와 주기적 reconciliation으로 환불·취소·갱신을 동기화하는 구성이 권장된다.
 - [Server-side purchase token verification is required, not client judgment](../../03_packaging_deployment/distribution/billing-contracts/server-side-purchase-token-verification-is-required-not-client-judgment.md)
 
 **구매 승인(Acknowledge)의 중요성**
@@ -54,3 +54,11 @@ Android 앱에서 디지털 콘텐츠를 판매하기 위해선 반드시 Google
 - [03 Source to Installed Package](../learning-spine/03-source-to-installed-package.md) (Play Store 정책과 연관)
 - [08 Data Storage Network and Offline Recovery](../learning-spine/08-data-storage-network-and-offline-recovery.md) (결제 내역의 안전한 로컬/서버 동기화)
 - [09 Identity Permission and Independent Security Gates](../learning-spine/09-identity-permission-and-independent-security-gates.md) (위변조 방지와 검증 모델)
+
+### 공식 근거
+
+- [Google Play Billing integration](https://developer.android.com/google/play/billing/integrate)
+- [External offers integration](https://developer.android.com/google/play/billing/external/integration)
+- [Google Play 외부 결제 backend reporting](https://developer.android.com/google/play/billing/outside-gpb-backend)
+
+검증일: 2026-08-06. 기본 Play Billing 경로와 지역·프로그램별 승인 경로를 구분했다.

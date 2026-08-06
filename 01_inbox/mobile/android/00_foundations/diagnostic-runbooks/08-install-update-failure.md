@@ -2,7 +2,7 @@
 title: 08-install-update-failure
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: install or update failure"]
-date modified: 2026-08-04 16:26:49 +09:00
+date modified: 2026-08-06 18:00:00 +09:00
 date created: 2026-08-04 11:05:00 +09:00
 ---
 
@@ -22,8 +22,9 @@ date created: 2026-08-04 11:05:00 +09:00
 1. **서명 인증서 불일치 (`INSTALL_FAILED_UPDATE_INCOMPATIBLE`).** 가장 흔한 원인. `applicationId` 가 동일해도 APK 서명이 다르면 패키지 매니저는 업데이트를 거부한다. (Play App Signing 서명 vs 로컬 서명 충돌).
 2. **`versionCode` 다운그레이드 (`INSTALL_FAILED_VERSION_DOWNGRADE`).** 설치하려는 APK 의 `versionCode` 가 이미 설치된 버전보다 낮거나 같음.
 3. **최저 타겟 SDK 미달 (`INSTALL_FAILED_DEPRECATED_SDK_VERSION`).** Android 14(API 34)+ 부터 보안 강화를 위해 `targetSdkVersion < 23` (Android 6.0 미만) 앱의 설치를 플랫폼 차원에서 차단한다.
-4. **16KB Memory Page Alignment 미지원 또는 ABI 미지원 (`INSTALL_FAILED_NO_MATCHING_ABIS`).** Android 15(API 35)+ 16KB 페이지 사이즈 커널 기기에서 C/C++ 네이티브 라이브러리(`.so`)가 16KB 링커 정렬(`-z max-page-size=16384`)없이 빌드된 경우 설치 거부 또는 즉시 크래시.
-5. **Manifest 컴포넌트 Export 명시 누락.** Target SDK 31+ 빌드 시 intent-filter 가 포함된 컴포넌트에 `android:exported` 가 명시되지 않은 경우 패키지 파싱 타임 오류.
+4. **기기와 APK의 ABI가 맞지 않는다 (`INSTALL_FAILED_NO_MATCHING_ABIS`).** 예를 들어 APK에 `arm64-v8a` 라이브러리가 없는데 arm64 전용 기기에 설치하는 경우다.
+5. **16KB page-size 호환성이 없다.** Android 15부터 16KB page-size 기기가 지원된다. 4KB ELF/ZIP 정렬만 가진 앱은 호환 모드로 실행될 수도 있으므로 설치 실패나 `UnsatisfiedLinkError` 하나로 단정하지 않는다. 실제 page size, package compat mode, ELF segment와 ZIP alignment를 함께 확인한다.
+6. **Manifest 또는 split 구성이 잘못됐다.** `android:exported` 누락은 target SDK 31+ 앱을 빌드할 때 manifest merge 오류가 되는 것이 보통이며, 이미 빌드된 artifact의 설치 오류와 혼동하지 않는다.
 
 ### 진단 플로우차트 및 신호 판정 기준
 
@@ -33,7 +34,8 @@ graph TD
     B -- INSTALL_FAILED_UPDATE_INCOMPATIBLE --> C[apksigner 및 dumpsys package 로 서명 지문 비교]
     B -- INSTALL_FAILED_VERSION_DOWNGRADE --> D[build.gradle versionCode 확인]
     B -- INSTALL_FAILED_DEPRECATED_SDK_VERSION --> E[Android 14+ 타겟 SDK 23 이상 상향]
-    B -- INSTALL_FAILED_NO_MATCHING_ABIS --> F[16KB Page Size Alignment 및 ABI .so 검증]
+    B -- INSTALL_FAILED_NO_MATCHING_ABIS --> F[기기 ABI와 APK lib ABI 대조]
+    B -- 기타 native load 실패 --> G[실제 PAGE_SIZE, ELF와 ZIP alignment, compat mode 확인]
 ```
 
 #### 신호 판정 기준 (Success / Failure Signals)
@@ -43,7 +45,8 @@ graph TD
 | **`adb install` 상태** | `Success` | `INSTALL_FAILED_UPDATE_INCOMPATIBLE` (서명 불일치) |
 | **`versionCode`** | `New versionCode > Installed versionCode` | `INSTALL_FAILED_VERSION_DOWNGRADE` |
 | **`targetSdkVersion`** | `targetSdkVersion >= 23` | `INSTALL_FAILED_DEPRECATED_SDK_VERSION` (Android 14+) |
-| **Native ABI / Page Size** | `16KB Aligned (.so ELF header)` | `INSTALL_FAILED_NO_MATCHING_ABIS` / Alignment fault (Android 15+) |
+| **Native ABI** | 기기 지원 ABI에 해당하는 `lib/<abi>/` 존재 | `INSTALL_FAILED_NO_MATCHING_ABIS` |
+| **16KB page size** | ELF LOAD segment와 APK ZIP이 16KB 호환 정렬 | compat-mode 경고, linker 오류 또는 native crash. 설치 오류 코드는 구현·artifact 상태별로 확인 |
 | **Signature Fingerprint** | `SHA-256 Fingerprint 일치` | `Signatures mismatch between APK and installed package` |
 
 ### 조사 절차
@@ -78,17 +81,18 @@ graph TD
    ```bash
    readelf -l libapp.so | grep LOAD
    ```
-   - Align 필드가 `0x4000` (16KB) 이상인지 확인한다. (`0x1000` 은 4KB 정렬로 16KB 커널 디바이스에서 실패 원인).
+   - 먼저 `adb shell getconf PAGE_SIZE`로 기기가 실제 16KB mode인지 확인한다.
+   - ELF LOAD segment의 `Align`뿐 아니라 `zipalign -c -P 16 -v 4 app.apk` 또는 APK Analyzer로 ZIP alignment도 확인한다.
+   - 4KB 정렬 라이브러리가 있더라도 Android 16KB backcompat mode가 앱을 실행할 수 있다. 경고·호환 모드 여부와 실제 linker/crash 로그를 함께 본다.
 
 ### OS/API/target SDK 조건
 
 - **Android 14 (API 34)**:
   - `INSTALL_FAILED_DEPRECATED_SDK_VERSION`: `targetSdkVersion < 23` 앱 설치 차단 (`adb install --bypass-low-target-sdk-block` 으로 디버깅 시만 우회 가능).
-  - Update Ownership 기능 도입 (`android:grantUserOwnership`): 특정 이니셜 인스톨러(예: Play Store)만 업데이트 권한을 가질 수 있도록 제한 가능.
 - **Android 15 (API 35)**:
-  - 16KB 페이지 사이즈 메모리 시스템 지원 필수화: 네이티브 C/C++ 코드(`.so`) 포함 앱은 16KB 링커 정렬 필수. 미정렬 시 패키지 매니저 차단 또는 메모리 파싱 크래시.
-- **Android 16**:
-  - APK Signature Scheme v4 및 통합 디지털 서명 체인 검증 강화.
+  - AOSP가 16KB page-size 기기를 지원한다. 2025년 11월 1일부터 Google Play에 제출하면서 Android 15+ 기기를 target하는 새 앱·업데이트에는 16KB 지원 요구사항이 적용된다. 이는 모든 Android 15 설치가 즉시 거부된다는 뜻이 아니다.
+- **Android 17**:
+  - 16KB backcompat mode를 기기 또는 앱별로 제어할 수 있으며, 호환되지 않는 binary를 즉시 중단시키는 테스트 설정도 제공한다.
 
 ### 다음 조사 경로
 
@@ -108,5 +112,6 @@ graph TD
 
 - [앱 서명](https://developer.android.com/studio/publish/app-signing)
 - [Play App Signing 사용](https://support.google.com/googleplay/android-developer/answer/9842756)
+- [16KB page size 지원과 검증](https://developer.android.com/guide/practices/page-sizes)
 
-검증일: 2026-08-04. `adb install`, `apksigner`, Android 14 `targetSdkVersion < 23` 차단 및 Android 15 16KB page alignment 요구사항 스펙을 반영해 검증 완료.
+검증일: 2026-08-06. `adb install`, `apksigner`, Android 14 low-target 차단, ABI mismatch와 16KB 호환성의 서로 다른 실패 경계를 공식 문서 기준으로 검증했다.

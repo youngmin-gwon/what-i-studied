@@ -69,11 +69,11 @@ flowchart TD
 ### 의사 결정 판단 체계 (Decision Flow Tree)
 
 - **Q1. 처리하고자 하는 요청의 출처가 어디인가?**
-  - **외부 시스템 / 타 앱 / 웹**: $ightarrow$ **Layer 1 (Intent)** 및 **Layer 2 (Deep Link / App Link)** 진입 절차 수행.
-  - **앱 내부 화면 간 이동**: $ightarrow$ **Layer 3 (Navigation 3)** 타입 안정 `NavKey` 전이 수행.
-  - **앱 내부 외부 웹 페이지 열람**: $ightarrow$ **Layer 5 (Custom Tabs)** 런칭.
+  - **외부 시스템 / 타 앱 / 웹**: $\rightarrow$ **Layer 1 (Intent)** 및 **Layer 2 (Deep Link / App Link)** 진입 절차 수행.
+  - **앱 내부 화면 간 이동**: $\rightarrow$ **Layer 3 (Navigation 3)** 타입 안정 `NavKey` 전이 수행.
+  - **앱 내부 외부 웹 페이지 열람**: $\rightarrow$ **Layer 5 (Custom Tabs)** 런칭.
 - **Q2. 화면이 반응형 대화면/폴더블에 대응해야 하는가?**
-  - **YES**: $ightarrow$ **Layer 4 (Adaptive Navigation)** 표준 Scaffold 연동.
+  - **YES**: $\rightarrow$ **Layer 4 (Adaptive Navigation)** 표준 Scaffold 연동.
 
 ---
 

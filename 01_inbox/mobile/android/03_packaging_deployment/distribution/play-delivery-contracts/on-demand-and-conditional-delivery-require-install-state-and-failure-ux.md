@@ -19,7 +19,7 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ### 내부 메커니즘 (Internal Mechanism)
 1. **`SplitInstallStateUpdatedListener` 상태 기계**:
-   - `PENDING` $ightarrow$ `DOWNLOADING` $ightarrow$ `INSTALLING` $ightarrow$ `INSTALLED` 상태 변경을 추적하고 프로그레스 바 UI를 갱신함.
+   - `PENDING` $\rightarrow$ `DOWNLOADING` $\rightarrow$ `INSTALLING` $\rightarrow$ `INSTALLED` 상태 변경을 추적하고 프로그레스 바 UI를 갱신함.
 2. **대용량 다운로드 모바일 데이터 승인**: 다운로드 용량이 클 경우 Google Play 표준 네트워크 승인 다이얼로그(`startConfirmationDialogForResult`)를 띄워 대용량 다운로드 동의를 구함.
 3. **다운로드 실패 에러 핸들링**: `REQUIRES_USER_CONFIRMATION`, `NETWORK_ERROR`, `INSUFFICIENT_STORAGE` 에러 발생 시 재시도 버튼 및 대안 안내 화면을 제공함.
 

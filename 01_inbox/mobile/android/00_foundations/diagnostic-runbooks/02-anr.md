@@ -2,7 +2,7 @@
 title: 02-anr
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: ANR"]
-date modified: 2026-08-04 16:26:31 +09:00
+date modified: 2026-08-06 18:00:00 +09:00
 date created: 2026-08-04 10:35:00 +09:00
 ---
 
@@ -14,8 +14,8 @@ date created: 2026-08-04 10:35:00 +09:00
 
 - 앱 사용 중 또는 백그라운드 전환 직후 "앱이 응답하지 않습니다" (Application Not Responding) 시스템 다이얼로그가 표시된다.
 - 화면 터치, 버튼 클릭, 키 입력 후 5 초 동안 UI 응답이 완전히 멈춘다.
-- Google Play Console / Android Vitals 에서 ANR 발생률이 임계치(0.47% 비상 임계치, 0.24% 일반 임계치)를 초과한다는 경고를 수신한다.
-- Foreground Service 시작 시 5 초 이내에 `startForeground()` 를 호출하지 않아 ANR 또는 `ForegroundServiceStartNotAllowedException` 이 발생한다.
+- Google Play Console / Android Vitals에서 user-perceived ANR rate가 전체 bad-behavior threshold 0.47% 또는 특정 phone model threshold 8%를 넘는다. 이는 최근 기간의 품질 지표이며 개별 ANR timeout 값이 아니다.
+- Foreground service 관련 예외·ANR이 보인다. background에서 시작 자체가 금지된 경우, foreground 승격을 제때 하지 않은 경우, service type별 실행 제한을 넘긴 경우를 서로 분리한다.
 
 ---
 
@@ -41,8 +41,11 @@ Android 시스템 서버(ActivityManagerService / WindowManagerService)가 ANR �
    - 전면(Foreground) Activity 가 키/터치 입력 이벤트를 5 초 이내에 처리 완료(또는 다음 이벤트 dequeue)하지 못함. 메인 스레드 블로킹의 가장 흔한 원인.
 2. **BroadcastReceiver Timeout (Foreground 10 초 / Background 60 초) (우선순위 2)**
    - `BroadcastReceiver.onReceive()` 메인 스레드 콜백에서 무거운 DB/네트워크 작업이나 동기 블로킹 코드를 실행함.
-3. **Service Execution / FGS Timeout (Foreground Service startForeground 5 초 / Service Execution 20 초~200 초) (우선순위 3)**
-   - `Service.onCreate()`, `onStartCommand()` 가 메인 스레드를 오래 점유하거나, `Context.startForegroundService()` 호출 후 5 초 이내 `Service.startForeground()` 를 부르지 못함.
+3. **Service 실행 또는 FGS 계약 위반 (우선순위 3)**
+   - service callback이 main thread를 오래 점유하면 service ANR이 될 수 있다.
+   - background FGS start가 허용되지 않으면 `ForegroundServiceStartNotAllowedException`이 호출 지점에서 발생한다.
+   - `startForegroundService()` 뒤 짧은 시간 안에 `startForeground()`로 승격하지 않으면 `ForegroundServiceDidNotStartInTimeException` 계열의 internal exception이 발생한다. 이것을 ANR이나 start-not-allowed와 같은 실패로 분류하지 않는다.
+   - `shortService`, `dataSync`, `mediaProcessing`의 실행 시간 제한과 종료 방식은 service type 및 OS version별 공식 문서를 확인한다.
 4. **JobScheduler Execution Timeout (JobService 10 초~20 초) (우선순위 4)**
    - `JobService.onStartJob()` 또는 `onStopJob()` 콜백에서 메인 스레드를 반환하지 않음.
 5. **Main Thread Lock Contention / Binder Synchronous IPC Wait (우선순위 5)**
@@ -149,7 +152,7 @@ ApplicationExitInfo #0:
 | **Input Dispatching Time** | 이벤트 수신 후 UI 반응 < 100ms | 이벤트 미처리 상태 > 5000ms 지속 | 메인 스레드 내 복잡한 계산/동기 DB 접근을 Coroutines `Dispatchers.Default` / `IO` 로 이관 |
 | **Main Thread Trace State** | `RUNNABLE` (Choreographer frame handling) | `BLOCKED` (`waiting to lock`) | 메인 스레드와 백그라운드 스레드 간 Shared Lock 범위 축소 또는 Concurrent Data Structure 사용 |
 | **Binder Call on Main** | Async Binder call 또는 Binder 미호출 | `BinderProxy.transact` 대기 상태 지속 | 메인 스레드에서의 AIDL/System Server 동기 호출 금지, 비동기 콜백 체인 전환 |
-| **FGS startForeground()** | `startForegroundService()` 후 < 1000ms 내 호출 | `startForeground()` 호출 없이 5000ms 경과 | Service `onCreate()` 직후 첫 줄에서 `startForeground()` 즉시 실행 보장 |
+| **FGS 승격** | service 생성 직후 notification 준비와 `startForeground()` 완료 | `ForegroundServiceDidNotStartInTimeException` 계열 로그 | 긴 초기화 전에 먼저 foreground 승격하고 실패 경로에서도 service 정리 |
 | **BroadcastReceiver Execution** | `onReceive()` 실행 시간 < 100ms | Foreground > 10s / Background > 60s | `onReceive()` 내에서 `goAsync()` 사용 또는 WorkManager / Coroutine Scope 로 작업 이관 |
 
 ---
@@ -157,13 +160,13 @@ ApplicationExitInfo #0:
 ### 7. OS / API (Android 14 / 15 / 16) 특화 제약 및 진단 신호
 
 - **Android 14 (API 34)**:
-  - **Foreground Service 타입별 타임아웃 및 strict enforcement**: `foregroundServiceType` 선언 규제가 강화되어 서비스 생성 후 지정된 타입 권한 검사 및 `startForeground()` 호출이 5 초 이내에 완료되지 않으면 즉시 시스템 타임아웃 예외(`ForegroundServiceStartNotAllowedException`) 또는 ANR 을 발생시킴.
+  - **Foreground Service type 계약 강화**: 선언된 type, 해당 permission, runtime prerequisite를 충족해야 한다. background start 금지, foreground 승격 지연, type별 실행 timeout은 서로 다른 예외·ANR 경계다.
   - **Unregistered Receiver 타임아웃 축소**: 백그라운드 런타임 동적 등록 브로드캐스트 리시버에 대한 타임아웃 처리가 엄격해짐.
 - **Android 15 (API 35)**:
   - **`ApplicationExitInfo.getTraceInputStream()` 활용성 증대**: 앱 런타임 내에서 이전 세선의 ANR 트레이스 스트림을 직접 읽어 자체 에러 분석 서버로 전송 가능 (`reason == REASON_ANR`).
   - **새로운 ANR Subreason 세분화**: ApplicationExitInfo 조회 시 `SUBREASON_INPUT_DISPATCHING_TIMEOUT`, `SUBREASON_SERVICE_START_BACKGROUND`, `SUBREASON_WAIT_FOR_DEBUGGER` 등 정확한 시스템 트리거 세부 사유 제공.
-- **Android 16 (API 36)**:
-  - **High-Core SoC 프로세스 동결/해제 반응 지연 ANR**: Multi-core 환경에서 Cached Apps Freezer 에 의해 동결 해제되는 직후 시스템 서버 입력 채널(InputChannel) 바인딩 지연으로 발생하는 찰나의 ANR 신호 감지 기능 추가.
+- **Android 16/17**:
+  - release별 ANR·FGS 변경은 공식 behavior-change 문서에서 target/runtime 조건을 확인한다. CPU core 수나 cached-app freezer를 trace 없이 ANR 원인으로 단정하지 않는다.
 
 ---
 
@@ -190,5 +193,8 @@ ApplicationExitInfo #0:
 
 - [Diagnose ANRs (Android Developers)](https://developer.android.com/topic/performance/vitals/anr)
 - [ApplicationExitInfo (Android API reference)](https://developer.android.com/reference/android/app/ApplicationExitInfo)
+- [Android vitals bad-behavior thresholds](https://developer.android.com/topic/performance/vitals)
+- [Foreground service 시작과 예외](https://developer.android.com/develop/background-work/services/fgs/launch)
+- [Foreground service timeouts](https://developer.android.com/develop/background-work/services/fgs/timeout)
 
-검증일: 2026-08-04. ANR 트리거 5 가지 조건, Logcat 및 ApplicationExitInfo CLI 쿼리, Trace 파싱 기법 및 Android 14/15/16 FGS/Freezer 행동 변화는 공식 문서 원문과 실기기 검증을 통해 확인함.
+검증일: 2026-08-06. Android Vitals의 전체 0.47%·phone-model별 8% 기준과 FGS start-not-allowed·승격 실패·type별 timeout을 공식 문서 기준으로 분리했다.

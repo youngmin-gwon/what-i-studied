@@ -2,7 +2,7 @@
 title: android-knowledge-base-quality-plan
 tags: ["android", "knowledge-base", "quality-plan"]
 aliases: []
-date modified: 2026-08-06 14:15:00 +09:00
+date modified: 2026-08-06 14:47:00 +09:00
 date created: 2026-08-03 16:20:03 +09:00
 ---
 
@@ -1445,4 +1445,40 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 - 축 2(실무 공백)에서 새 클러스터/신규 노트가 필요하다고 판단되면 Phase 9 방식대로 항목화만 하고, 실제 저작은 사용자 확인 후 별도 phase 로 진행한다.
 - 축 3(문체)에서 다수 파일에 공통되는 패턴이 발견되면, Phase 11 처럼 "좋은 예/나쁜 예"를 먼저 하나 확정해 사용자 승인을 받은 뒤에 나머지에 일괄 적용한다.
 
-**진행 기록(2026-08-06): Phase 12 착수, 13 개 subagent 병렬 감사 진행 중.**
+### 진행 기록(2026-08-06): Phase 12 전수 감사 완료
+
+상세 결과: [Android 지식 베이스 Phase 12 전수 감사 보고서](android-knowledge-base-phase12-audit-report.md)
+
+#### 실제 실행 범위와 모델 분담
+
+- 감사 입력 Markdown 782/782개를 확인했다. 지식 문서 778개와 `_meta` 4개다. 상세 보고서 추가 후 최종 재검사 대상은 783개다.
+- 당초 13개 범위 계획은 동시성·비용 정책에 맞춰 3개 subagent로 재구성했다.
+  - 저비용·낮은 reasoning agent 1개: 782개 전체의 frontmatter, 링크, 중복, H1, fence, Mermaid, 제어문자, 도달성 같은 형식 검사만 담당했다.
+  - 고비용·높은 reasoning agent 2개: 778개 지식 문서를 341개와 437개로 분할해 다섯 감사 축을 전수 의미 검수했다.
+  - 고비용·매우 높은 reasoning agent 1개: Git 복구 이력, 고아 문서, 중복 hub, 병합·분할·삭제 판단을 담당했다.
+  - 저작 세션은 원문, Git 이력, 공식 1차 문서와 agent 판정을 교차 검증했다.
+
+#### 핵심 판정
+
+- P0 데이터 손상 2건을 확인했다.
+  - KMP contracts hub는 절대경로 한 줄로 덮어써져 있어 Git 정상본으로 복구했다.
+  - Android 16/17 history atomic은 History hub 본문으로 덮어써져 있다. 정상본이 있지만 현재 Android 17 상태 재검증이 필요해 다음 수정 phase의 첫 항목으로 남겼다.
+- 이전 “전량 A/B” 선언과 달리 App Components 10개, DI 19개, Compose 20개, System Services 27개, Foundation overview 6개는 atomic reference의 mechanism/code/diagram/evidence 기준을 실질적으로 충족하지 못했다.
+- 최신 정책·API·도구와 충돌하거나 컴파일되지 않는 고위험 사실/코드 오류를 Foundations, System Internals, App Framework, Packaging, System Services, Security, Testing, Platforms에서 확인했다.
+- 실제 앱 개발 공백은 networking 운영 계약, DI 실제 graph failure, KMP interop, PBL/AGP migration, supply chain, connectivity/Wi-Fi/USB/UWB, Media3/CameraX, managed device/test orchestrator, field performance gate, passkey, form-factor migration에 집중돼 있다.
+- 문체 배치 불일치는 Foundations topics 27개와 Packaging 55개에서 가장 크다.
+- Mermaid 전환 가치가 있는 관계·상태 ASCII 표현은 App Framework의 5개 문서다.
+- top-level map과 Learning Spine 연결이 약하고 Packaging·Testing의 fundamental 기반이 특히 부족하다.
+- Foundation map 기준 도달 불가능한 지식 문서는 3개다. 각각 Binder 정본 흡수 후 삭제, Data map 연결, 중복 router 삭제로 판정했다.
+- exact body duplicate는 덮어써진 Android 16/17–History 한 쌍뿐이다.
+
+#### 즉시 수정한 확정 결함
+
+- KMP hub 1개 복구
+- API identifier 오염 4행 복구
+- CR로 깨진 `\rightarrow` 13곳/7파일 복구
+- tab으로 깨진 `\text`·`\times` 3행/3파일 복구
+- frontmatter title 4개, `date created` 1개 수정
+- H2보다 앞선 `배경 지식:` 11개 이동
+
+주관적 판단이 필요한 본문 사실 교정, 문체 통일, 문서 병합·분할·삭제, Mermaid 전환, fundamental 신설, root-style 링크 변환은 감사 전용 원칙에 따라 실행하지 않았다. 다음 phase는 상세 보고서의 P0 순서부터 진행한다.

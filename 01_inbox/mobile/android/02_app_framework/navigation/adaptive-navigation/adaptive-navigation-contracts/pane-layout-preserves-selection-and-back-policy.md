@@ -82,7 +82,7 @@ fun ArticleListDetailScreen() {
 | :--- | :--- | :--- |
 | **선택 상태 소유** | `Fragment` 내부 로컬 변수로 소유하여 Fragment `replace()` 시 선택 상태 손실 | `rememberSaveable` 기반 Screen State로 Hoist하여 윈도우 변환 시 유지 |
 | **뒤로가기 처리** | `if (isTablet)` 분기를 타며 수동 `popBackStack()` 호출로 백스택 꼬임 | `ListDetailPaneScaffoldNavigator`가 창 크기별 백 스택 및 Predictive Back 자동 조율 |
-| **화면 전환 시 동작** | Expanded $ightarrow$ Compact 전환 시 선택했던 항목이 사라지고 초기 목록으로 튕김 | Compact 전환 시 보던 상세 화면 유지, Back 클릭 시 목록으로 돌아가도 선택 상태 보존 |
+| **화면 전환 시 동작** | Expanded $\rightarrow$ Compact 전환 시 선택했던 항목이 사라지고 초기 목록으로 튕김 | Compact 전환 시 보던 상세 화면 유지, Back 클릭 시 목록으로 돌아가도 선택 상태 보존 |
 
 ---
 

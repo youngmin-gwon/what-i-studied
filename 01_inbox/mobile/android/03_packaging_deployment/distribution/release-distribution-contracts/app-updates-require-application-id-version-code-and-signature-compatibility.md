@@ -19,7 +19,7 @@ Android OS 및 Google Play 스토어에서 사용자의 스마트폰에 이미 �
 ### 내부 메커니즘 (Internal Mechanism)
 **안드로이드 앱 업데이트 3대 필수 계약조건**:
 1. **Application ID 동일성 (`applicationId`)**: 기존 설치된 앱의 `applicationId`와 새로 설치하려는 앱의 `applicationId`가 정확히 100% 일치해야 함 (문자 하나라도 다르면 별개의 완전히 독립된 앱으로 취급됨).
-2. **Version Code 단조 증가 (`versionCode`)**: 신규 앱의 `versionCode` 정수값이 기존에 설치된 앱의 `versionCode`보다 엄격하게 커야 함 ($	ext{versionCode}_{	ext{new}} > 	ext{versionCode}_{	ext{old}}$). 동일하거나 낮으면 다운그레이드 공격으로 판단하여 rejection 발생.
+2. **Version Code 단조 증가 (`versionCode`)**: 신규 앱의 `versionCode` 정수값이 기존에 설치된 앱의 `versionCode`보다 엄격하게 커야 함 ($\text{versionCode}_{\text{new}} > \text{versionCode}_{\text{old}}$). 동일하거나 낮으면 다운그레이드 공격으로 판단하여 rejection 발생.
 3. **디지털 서명 호환성 (Certificate Compatibility)**: 새로 설치하려는 APK를 서명한 디지털 인증서(App Signing Key Fingerprint)가 이미 설치된 앱을 서명한 인증서와 일치해야 함 (앱 신뢰성 및 데이터 샌드박스 보안 핵심).
 
 ```mermaid

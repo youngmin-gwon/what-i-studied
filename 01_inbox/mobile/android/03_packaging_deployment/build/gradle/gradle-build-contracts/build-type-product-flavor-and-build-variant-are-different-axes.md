@@ -21,7 +21,7 @@ Android AGP 빌드 시스템에서 **Build Type**, **Product Flavor**, **Build V
 ### 내부 메커니즘 (Internal Mechanism)
 1. **Flavor Dimensions**: 여러 차원의 Product Flavor를 조합할 때 `flavorDimensions`를 통해 구체적인 차원 순서를 지정한다 (예: `dimension("mode")`, `dimension("tier")`).
 2. **Variant 매트릭스 계산 공식**:
-   $$	ext{Total Variants} = 	ext{Count}(	ext{BuildTypes}) 	imes \prod 	ext{Count}(	ext{Flavors in Dimension}_i)$$
+   $$\text{Total Variants} = \text{Count}(\text{BuildTypes}) \times \prod \text{Count}(\text{Flavors in Dimension}_i)$$
 3. **태스크 생성 자동화**: AGP는 형성된 각 Variant마다 고유한 빌드 태스크(`assembleFreeRelease`, `bundlePaidDebug` 등) 및 SourceSet 디렉터리 구조를 자동 생성한다.
 
 ```mermaid

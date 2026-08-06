@@ -56,8 +56,8 @@ flowchart TD
 7. **[Google Play Billing 계약](distribution/billing-contracts/billing-contracts.md)**: Billing Library v6+, 서버 대 서버 Purchase Token 검증, 3일 이내 Acknowledge/Consume 환불 방지, 구독 라이프사이클.
 
 ### 추천 탐색 가이드
-- **초급/개념 습득**: `Gradle 빌드 계약` $ightarrow$ `의존성 및 CI 계약` $ightarrow$ `Play 릴리스와 배포 계약`
-- **심화/배포 자동화**: `CI/CD 계약` $ightarrow$ `R8와 Gradle 빌드 최적화 계약` $ightarrow$ `Play Delivery 계약` $ightarrow$ `Google Play Billing 계약`
+- **초급/개념 습득**: `Gradle 빌드 계약` $\rightarrow$ `의존성 및 CI 계약` $\rightarrow$ `Play 릴리스와 배포 계약`
+- **심화/배포 자동화**: `CI/CD 계약` $\rightarrow$ `R8와 Gradle 빌드 최적화 계약` $\rightarrow$ `Play Delivery 계약` $\rightarrow$ `Google Play Billing 계약`
 
 ### 관측 가능 증거 (Observable Evidence)
 전체 빌드 및 배포 산출물 검증 스크립트:

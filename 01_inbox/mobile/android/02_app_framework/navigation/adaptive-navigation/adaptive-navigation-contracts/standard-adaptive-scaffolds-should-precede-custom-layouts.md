@@ -39,7 +39,7 @@ graph TD
 
 1. **`NavigationSuiteScaffold`**:
    - `material3-adaptive-navigation-suite` 라이브러리가 제공한다.
-   - 창 너비에 따라 Compact(Bottom Navigation Bar) $ightarrow$ Medium(Navigation Rail) $ightarrow$ Expanded(Navigation Drawer)로 앱 레벨 내비게이션 크롬을 자동 적응시킨다.
+   - 창 너비에 따라 Compact(Bottom Navigation Bar) $\rightarrow$ Medium(Navigation Rail) $\rightarrow$ Expanded(Navigation Drawer)로 앱 레벨 내비게이션 크롬을 자동 적응시킨다.
 2. **`ListDetailPaneScaffold`**:
    - `material3-adaptive-layout` 라이브러리가 제공한다.
    - Primary Pane(List)과 Secondary Pane(Detail), Extra Pane(Option)의 3패널 구조를 관리하며 window breakpoint에 맞춰 패널 분할 비율을 자동 계산한다.

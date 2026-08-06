@@ -3,7 +3,7 @@ title: F2-form-factor-contracts
 tags: [topic, wear-os, android-tv, android-auto, chromeos, xr]
 aliases: [F2: 폼 팩터별 계약 (Form Factor Contracts), Form Factor Contracts]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-06 18:00:00 +09:00
 ---
 
 ## F2: 폼 팩터별 계약 (Wear OS / TV / Auto / ChromeOS / XR)
@@ -47,7 +47,7 @@ TV 앱은 터치스크린이 없음을 명시적으로 선언해야 하며, 사�
 - [Android Auto는 프로젝션이고, Android Automotive OS는 임베디드 OS이다](../../07_platforms/auto/auto-contracts/android-auto-is-projection-android-automotive-os-is-an-embedded-os.md)
 
 #### 3.4. ChromeOS (데스크톱)
-크롬북 등에서 안드로이드 앱은 데스크톱 윈도우 환경에 매핑된 컨테이너 내부에서 실행되며, 키보드와 마우스 입력이 터치보다 우선시됩니다.
+ChromeOS의 Android runtime은 세대와 기기 구성에 따라 다르다. 초기 ARC++는 container 기반이었고, 최신 ARCVM 구현은 Android stack을 별도 virtual machine에서 실행한다. 앱은 구현 방식을 추측하기보다 resizable window, 키보드·마우스·터치, focus, density와 lifecycle 변화 같은 관찰 가능한 desktop contract에 대응한다.
 - [ChromeOS는 데스크톱 윈도우에 매핑된 컨테이너에서 안드로이드 앱을 실행한다](../../07_platforms/chromeos/chromeos-contracts/chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows.md)
 
 #### 3.5. Android XR (공간 컴퓨팅)
@@ -63,3 +63,10 @@ XR(혼합현실) 환경은 기존 2D 평면을 넘어선 공간적 폼 팩터입
 ### 6. 더 깊이 들어갈 때 (Learning Spine)
 - [12. Compatibility, Update, and Form Factor](../learning-spine/12-compatibility-update-and-form-factor.md)
 - [07. Input, Resource Selection, and Display Frame](../learning-spine/07-input-resource-selection-and-display-frame.md)
+
+### 공식 근거
+
+- [ARC++와 ARCVM resource management](https://chromeos.dev/en/posts/improving-performance-with-new-arc-resource-management-features)
+- [ChromeOS에서 Android 앱 최적화](https://developer.android.com/topic/arc)
+
+검증일: 2026-08-06. ARC++의 container 세대와 ARCVM virtual-machine 구현을 분리했다.

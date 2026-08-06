@@ -2,7 +2,7 @@
 title: expect-actual-is-compile-time-contract-for-platform-specific-implementation
 tags: [android, android/architecture, android/multiplatform]
 aliases: ["expect/actual은 공통 코드가 플랫폼별 구현을 요구하는 컴파일 타임 계약이다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-06 14:50:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
@@ -26,7 +26,7 @@ Kotlin Multiplatform (KMP)에서 **`expect` / `actual` 바인딩 메커니즘은
 ### 2. 왜 expect/actual 메커니즘이 필요한가? (Why)
 
 1. **컴파일 타임 안전성 (Compile-Time Safety)**:
-   특정 플랫폼(iOS 등)에서 `actual` 구현을 누락하면 빌드 타임 컴파일러 오류가 발생하여 런타임 `UnimplementedError` 를 완벽히 예방한다.
+   특정 타깃에서 대응하는 `actual` 선언이 없거나 선언의 패키지·이름·매개변수·반환 타입 등 계약이 맞지 않으면 컴파일 오류가 발생한다. 다만 이것이 구현 내부의 `TODO()`나 런타임 실패까지 막아 주는 것은 아니다.
 2. **플랫폼 고유 API 직접 접근**:
    `androidMain` 에서는 Android SDK API 를, `iosMain` 에서는 iOS Foundation / CoreCrypto API 를 다이렉트로 호스팅하여 공통 모듈로 연결할 수 있다.
 
@@ -58,29 +58,31 @@ graph TD
 
 ```kotlin
 // commonMain/kotlin/com/example/Platform.kt
-expect class PlatformNotifier() {
-    fun sendLocalNotification(title: String, message: String)
-}
+package com.example
+
+expect fun randomUuid(): String
 
 // androidMain/kotlin/com/example/Platform.kt
-actual class PlatformNotifier(private val context: Context) {
-    actual fun sendLocalNotification(title: String, message: String) {
-        val builder = NotificationCompat.Builder(context, "CHANNEL_ID")
-            .setContentTitle(title)
-            .setContentText(message)
-            .setSmallIcon(R.drawable.ic_notification)
-        NotificationManagerCompat.from(context).notify(1001, builder.build())
-    }
-}
+package com.example
+
+actual fun randomUuid(): String = java.util.UUID.randomUUID().toString()
+
+// iosMain/kotlin/com/example/Platform.kt
+package com.example
+
+import platform.Foundation.NSUUID
+
+actual fun randomUuid(): String = NSUUID().UUIDString()
 ```
+
+`expect`와 `actual`의 서명은 타깃별로 대응해야 한다. 예를 들어 `expect class PlatformNotifier()`에 대해 Android `actual` 생성자에만 `Context` 매개변수를 추가하면 동일한 계약이 아니므로 컴파일되지 않는다. `Context`나 네트워크 클라이언트처럼 플랫폼에서 조립해야 하는 의존성이 필요하면, 공통 코드에는 일반 인터페이스를 두고 Android composition root에서 구현체를 생성·주입하는 방식이 보통 더 명확하다. `expect`/`actual`은 플랫폼 타입 자체를 공통 API로 노출해야 할 때 선택적으로 사용한다.
 
 ---
 
 ### 5. 관측 가능 증거 및 진단 (Observability)
 
 - **컴파일 미구현 오류 확인**:
-  `iosMain` 에서 `actual` 선언 누락 시 KMP 빌드 타임 오류 출력:
-  `e: Target Kotlin/Native target iosX64 failed to compile: Expected class PlatformNotifier has no actual declaration in module`
+  타깃 소스 세트에서 `actual` 선언을 제거하거나 서명을 다르게 만든 뒤 해당 타깃 컴파일 태스크를 실행한다. 정확한 진단 문자열은 Kotlin 버전에 따라 달라질 수 있지만, 대응하는 actual 선언이 없다는 컴파일 오류로 빌드가 실패해야 한다.
 
 ---
 
@@ -88,7 +90,7 @@ actual class PlatformNotifier(private val context: Context) {
 
 - 상위 문서: [Multiplatform Contracts](./multiplatform-contracts.md)
 - 관련 계약 문서:
-  - [KMP는 비즈니스 로직과 데이터 레이어를 공유한다](./kmp-shares-business-logic-and-data-layer-while-ui-stays-native-by-default.md)
+  - [KMP는 공유 로직과 플랫폼 UI 또는 공유 UI를 선택할 수 있다](./kmp-can-share-logic-with-native-ui-or-share-ui-with-compose-multiplatform.md)
 - 공식 문서: [Kotlin Multiplatform Expect and Actual](https://kotlinlang.org/docs/multiplatform-expect-actual.html)
 
-검증일: 2026-08-05. KMP expect/actual 컴파일 타임 바인딩 동작 확인 완료.
+검증일: 2026-08-06. Kotlin 공식 expect/actual 규칙과 인터페이스·factory 대안을 대조하고, 모든 타깃에서 동일한 서명으로 컴파일 가능한 예제로 교체했다.
