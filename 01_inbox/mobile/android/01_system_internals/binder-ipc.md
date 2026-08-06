@@ -2,7 +2,7 @@
 title: binder-ipc
 tags: [android, binder, ipc, os, system-internals]
 aliases: [Android Binder Architecture, Binder IPC]
-date modified: 2026-08-06 17:08:30 +09:00
+date modified: 2026-08-06 17:25:23 +09:00
 date created: 2026-08-06 16:26:01 +09:00
 ---
 
@@ -22,20 +22,29 @@ Binder 통신은 **Client-Server 모델**을 기본 구조로 갖는다.
 
 ```mermaid
 graph TD
-    subgraph ClientProcess ["Client Process (App Process)"]
-        Proxy["Proxy Object"]
+    subgraph ClientProc ["Client Process (App Process)"]
+        AppUI["App UI / Business Logic"] --> Proxy["AIDL Proxy Object"]
     end
 
-    subgraph ServerProcess ["Server Process (ActivityManagerService)"]
-        Stub["Stub Object"]
+    subgraph KernelSpace ["Linux Kernel Space"]
+        BinderDriver["/dev/binder Kernel Driver (mmap 1회 복사 및 IPC 전달)"]
     end
 
-    subgraph KernelBoundary ["User / Kernel Boundary"]
-        Driver["/dev/binder (Binder Kernel Driver)"]
+    subgraph ServerProc ["Server Process (system_server)"]
+        ThreadPool["Binder Thread Pool"]
+        
+        subgraph SystemServices ["Registered Core System Services (Stubs)"]
+            AMS["ActivityManagerService (AMS Stub)"]
+            WMS["WindowManagerService (WMS Stub)"]
+            PMS["PackageManagerService (PMS Stub)"]
+        end
     end
 
-    Proxy -->|1. transact| Driver
-    Driver -->|2. onTransact| Stub
+    Proxy -->|"1. transact (IPC 요청)"| BinderDriver
+    BinderDriver -->|"2. 수신 스레드 디스패치"| ThreadPool
+    ThreadPool -->|"3. onTransact 호출"| AMS
+    ThreadPool -->|"3. onTransact 호출"| WMS
+    ThreadPool -->|"3. onTransact 호출"| PMS
 ```
 
 #### 주요 구성 요소를 통한 통신 흐름
@@ -54,11 +63,11 @@ graph TD
 - `User Space (Client) -> Kernel Space` (1 회 복사)
 - `Kernel Space -> User Space (Server)` (2 회 복사)
 
-반면 Android Binder 는 커널 모듈인 `/dev/binder`와 `mmap()` 시스템 콜을 활용하여 **단 1 회의 메모리 복사(Single Copy)**만으로 데이터를 전달한다.
+반면 Android Binder 는 커널 모듈인 `/dev/binder`와 [mmap](../../../computer-science/mmap.md) 시스템 콜을 활용하여 **단 1 회의 메모리 복사(Single Copy)** 만으로 데이터를 전달한다.
 
-#### `mmap()` 기반 메모리 공유 메커니즘
+#### [mmap](../../../computer-science/mmap.md) 기반 메모리 공유 메커니즘
 
-- 프로세스가 시작될 때 수신자(Server) 프로세스는 `/dev/binder` 드라이버에 대해 `mmap()` 을 호출하여 자신의 사용자 공간 메모리 영역 일부를 커널 메모리 공간에 직접 매핑한다.
+- 프로세스가 시작될 때 수신자(Server) 프로세스는 `/dev/binder` 드라이버에 대해 [mmap](../../../computer-science/mmap.md) 을 호출하여 자신의 사용자 공간 메모리 영역 일부를 커널 메모리 공간에 직접 매핑한다.
 - 클라이언트 프로세스가 데이터를 송신하면, 커널 드라이버는 클라이언트 메모리에서 수신 프로세스가 매핑해 둔 해당 커널 - 사용자 매핑 메모리 공간으로 데이터를 **직접 1 회 복사**한다.
 - 수신 프로세스는 추후 별도의 메모리 복사 없이 커널이 작성해 둔 사용자 메모리 영역을 즉시 읽어들인다.
 
@@ -85,20 +94,30 @@ Binder 드라이버는 각 프로세스당 Binder 트랜잭션용으로 공유�
   - 주의할 점은 1MB 한도가 단일 요청 기준이 아니라 **동시에 진행 중인 해당 프로세스의 모든 Binder 트랜잭션 합산 기준**이라는 점이다. 따라서 실제 안전 구역은 약 512KB 미만이다.
 - **해결 전략**:
   - 큰 데이터(이미지, 파일 내용)는 Binder 로 직접 전달하지 않고, Disk 캐시 저장 후 파일 경로 전달 또는 `ContentProvider` / `SharedMemory` (ashmem) 이용.
-  - 단일 화면의 상태 데이터 구조 단순화 및 [single-source-of-truth](../02_app_framework/single-source-of-truth.md) 아키텍처 준수.
+  - 단일 화면의 상태 데이터 구조 단순화 및 [Single Source of Truth (단일 진실 출처)](../02_app_framework/single-source-of-truth.md) 아키텍처 준수.
 
 ---
 
-### 6. `Parcelable` vs `Serializable`
+### 6. 객체 전달을 위한 직렬화 (Parcelable & Serializable)
 
-Android 에서 Binder IPC 를 통해 객체를 전송하려면 직렬화 인터페이스를 구현해야 한다.
+Android 환경에서 Binder IPC 를 통류해 직렬화된 데이터 객체를 전송하려면 직렬화 인터페이스를 지정해야 한다.
 
-| 비교 항목 | `Parcelable` | `Serializable` |
-| :--- | :--- | :--- |
-| **소속** | `android.os.Parcelable` (Android SDK) | `java.io.Serializable` (Standard Java) |
-| **메커니즘** | 명시적인 마샬링/언마샬링 코드 작성 (`writeToParcel`, `Creator`) | 자바 리플렉션(Reflection)을 통한 자동 직렬화 |
-| **성능** | **매우 빠름** (Garbage Collection 부담 감소, 메모리 최적화) | **느림** (리플렉션으로 인한 런타임 오버헤드 및 임시 객체 생성이 많음) |
-| **용도** | Android 프로세스 간(IPC) / 컴포넌트 간 메모리 데이터 전달 | 파일 저장, 네트워크 전송 등 디스크/외부 시스템 영속성 저장 |
+- **[Parcelable](../00_foundations/glossary/android-glossary/18-parcelable.md)**: Android SDK 에 최적화된 고속 직렬화 인터페이스로, 런타임 리플렉션 없이 명시적 마샬링 코드로 작동하여 Binder IPC 전송 시 우수한 성능을 제공한다.
+- **[Serializable](../00_foundations/glossary/android-glossary/19-serializable.md)**: Java 표준 마커 인터페이스로, 런타임 리플렉션(Reflection)을 기반으로 동작하여 작성은 용이하나 IPC 전송 시 오버헤드와 임시 객체 생성이 커 Android IPC 에서는 사용을 지양한다.
+
+각 직렬화 방식의 상세 동작 메커니즘과 구현 가이드는 [Parcelable](../00_foundations/glossary/android-glossary/18-parcelable.md) 및 [Serializable](../00_foundations/glossary/android-glossary/19-serializable.md) 연관 문서를 참고한다.
+
+---
+
+### 7. 연관 문서 및 참고 (Related Links)
+
+- [mmap (메모리 맵핑)](../../../computer-science/mmap.md) - Binder IPC 의 1 회 복사(Single Copy)를 가능케 하는 메모리 매핑 시스템 콜
+- [Parcelable 레퍼런스](../00_foundations/glossary/android-glossary/18-parcelable.md) - Android IPC 최적화 고속 직렬화 규약
+- [Serializable 레퍼런스](../00_foundations/glossary/android-glossary/19-serializable.md) - Java 표준 리플렉션 기반 직렬화 규약
+- [system_server 레퍼런스](../04_system_services/system-server.md) - Binder IPC 를 통해 핵심 시스템 서비스를 제공하는 백본 프로세스
+- [Zygote 레퍼런스](zygote.md) - 독립된 샌드박스 메모리를 제공하는 마스터 프로세스
+- [HAL 레퍼런스](hal.md) - Stable AIDL/HIDL 을 통해 하드웨어를 통제하는 Binder IPC 경계
+- [Single Source of Truth](../02_app_framework/single-source-of-truth.md) - 트랜잭션 제한 예방을 위한 단일 진실 출처 설계 원칙
 
 Android 내부 IPC 환경에서는 성능 최적화를 위해 무조건 `Parcelable`을 사용하거나, Kotlin `@Parcelize` 어노테이션(KOTLIN Parcelize 플러그인)을 활용해 자동 생성하는 방식을 권장한다.
 
