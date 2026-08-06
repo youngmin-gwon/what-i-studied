@@ -2,7 +2,7 @@
 title: hal
 tags: [android, hal, hardware, system-internals]
 aliases: []
-date modified: 2026-08-06 17:04:36 +09:00
+date modified: 2026-08-06 17:06:30 +09:00
 date created: 2026-08-06 16:31:18 +09:00
 ---
 
@@ -45,23 +45,24 @@ date created: 2026-08-06 16:31:18 +09:00
 
 ### 4. 구조 요약 (Architecture Stack)
 
-```text
-+---------------------------------------------------+
-|             Android Application Layer             |
-+---------------------------------------------------+
-|         Java / Kotlin Framework Services          |
-+---------------------------------------------------+
-|      Stable HAL Interface (AIDL / HIDL)           |  <-- Treble 경계선
-+---------------------------------------------------+
-|         Vendor HAL Implementation (.so)           |
-+---------------------------------------------------+
-|        Linux Kernel Device Drivers                |
-+---------------------------------------------------+
+```mermaid
+graph TD
+    AppLayer["Android Application Layer"]
+    Framework["Java / Kotlin Framework Services"]
+    StableHAL["Stable HAL Interface (AIDL / HIDL) - Treble 경계선"]
+    VendorHAL["Vendor HAL Implementation (.so)"]
+    KernelDriver["Linux Kernel Device Drivers"]
+
+    AppLayer --> Framework
+    Framework --> StableHAL
+    StableHAL --> VendorHAL
+    VendorHAL --> KernelDriver
 ```
 
 ---
 
 ### 5. 연관 개념 (Related Notes)
+
 - [Linux Kernel](../../../operating-systems/linux-kernel.md) - HAL 아래에서 하드웨어 장치 제어 드라이버를 제공하는 하위 운영체제 커널
 - [ART (Android Runtime)](art.md) - HAL 위 프레임워크 및 앱 프로세스를 구동하는 런타임 환경
 - [Binder IPC](binder-ipc.md) - Stable HAL(HIDL/AIDL) 통신에 쓰이는 IPC 메커니즘

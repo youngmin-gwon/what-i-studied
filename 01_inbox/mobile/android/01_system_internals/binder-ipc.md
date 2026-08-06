@@ -2,7 +2,7 @@
 title: binder-ipc
 tags: [android, binder, ipc, os, system-internals]
 aliases: [Android Binder Architecture, Binder IPC]
-date modified: 2026-08-06 16:43:23 +09:00
+date modified: 2026-08-06 17:08:30 +09:00
 date created: 2026-08-06 16:26:01 +09:00
 ---
 
@@ -20,25 +20,26 @@ Android 환경에서 각 애플리케이션 프로세스는 보안과 안정성�
 
 Binder 통신은 **Client-Server 모델**을 기본 구조로 갖는다.
 
-```
-+-------------------+                 +-------------------+
-|  Client Process   |                 |  Server Process   |
-| (e.g., App Process)|                 | (e.g., ActivityManagerService)
-|  +-------------+  |                 |  +-------------+  |
-|  | Proxy Object|  |                 |  | Stub Object |  |
-|  +------+------+  |                 |  +------+------+  |
-+---------|---------+                 +---------|---------+
-          | (transact)                          | (onTransact)
-          v                                     ^
-+---------------------------------------------------------+
-|                  User / Kernel Boundary                 |
-+---------------------------------------------------------+
-|                    /dev/binder                          |
-|             (Binder Kernel Driver)                      |
-+---------------------------------------------------------+
+```mermaid
+graph TD
+    subgraph ClientProcess ["Client Process (App Process)"]
+        Proxy["Proxy Object"]
+    end
+
+    subgraph ServerProcess ["Server Process (ActivityManagerService)"]
+        Stub["Stub Object"]
+    end
+
+    subgraph KernelBoundary ["User / Kernel Boundary"]
+        Driver["/dev/binder (Binder Kernel Driver)"]
+    end
+
+    Proxy -->|1. transact| Driver
+    Driver -->|2. onTransact| Stub
 ```
 
 #### 주요 구성 요소를 통한 통신 흐름
+
 1. **Client Process (Proxy)**: 호출하려는 IPC 메서드를 표준 인터페이스 호출처럼 보이게 Wrapping 한 Proxy 객체를 통해 트랜잭션을 요청한다.
 2. **ServiceManager**: Android 시스템 내 등록된 서비스(예: `ActivityManagerService`, `WindowManagerService`)의 Binder 핸들(Handle)을 관리하는 네임서버 및 시스템 디렉터리 역할을 수행한다.
 3. **Binder Driver (`/dev/binder`)**: 커널 공간에서 실행되며, 프로세스 간 메모리 맵핑, 스레드 풀 관리, UID/PID 기반 보안 검증 및 IPC 데이터 전달을 담당한다.
@@ -56,6 +57,7 @@ Binder 통신은 **Client-Server 모델**을 기본 구조로 갖는다.
 반면 Android Binder 는 커널 모듈인 `/dev/binder`와 `mmap()` 시스템 콜을 활용하여 **단 1 회의 메모리 복사(Single Copy)**만으로 데이터를 전달한다.
 
 #### `mmap()` 기반 메모리 공유 메커니즘
+
 - 프로세스가 시작될 때 수신자(Server) 프로세스는 `/dev/binder` 드라이버에 대해 `mmap()` 을 호출하여 자신의 사용자 공간 메모리 영역 일부를 커널 메모리 공간에 직접 매핑한다.
 - 클라이언트 프로세스가 데이터를 송신하면, 커널 드라이버는 클라이언트 메모리에서 수신 프로세스가 매핑해 둔 해당 커널 - 사용자 매핑 메모리 공간으로 데이터를 **직접 1 회 복사**한다.
 - 수신 프로세스는 추후 별도의 메모리 복사 없이 커널이 작성해 둔 사용자 메모리 영역을 즉시 읽어들인다.
@@ -102,6 +104,7 @@ Android 내부 IPC 환경에서는 성능 최적화를 위해 무조건 `Parcela
 
 ---
 ### 연관 문서
+
 - [system_server 레퍼런스](../04_system_services/system-server.md)
 - [Zygote 레퍼런스](zygote.md)
 - [HAL 레퍼런스](hal.md)
