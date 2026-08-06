@@ -31,7 +31,7 @@ flowchart LR
 ### 각 보안 게이트별 독립적 역할
 
 1. **Linux UID Sandbox (프로세스 격리 게이트)**:
-   - 안드로이드는 각 앱마다 서로 다른 전용 [Linux UID(User ID)](../../../../../../operating-systems/linux-kernel.md)를 부여하여, 기본적으로 타 앱의 파일이나 메모리 공간에 직접 접근하는 것을 하부 [Linux Kernel](../../../../../../operating-systems/linux-kernel.md) 차원에서 완전 차단한다.
+   - 안드로이드는 각 앱마다 서로 다른 전용 [Linux UID(User ID)](../../../../../operating-systems/linux-kernel.md)를 부여하여, 기본적으로 타 앱의 파일이나 메모리 공간에 직접 접근하는 것을 하부 [Linux Kernel](../../../../../operating-systems/linux-kernel.md) 차원에서 완전 차단한다.
 2. **Manifest & Component Access Gate (컴포넌트 진입 게이트)**:
    - 앱 내부의 Activity, Service, BroadcastReceiver 등을 외부로 노출할지 여부(`android:exported="true/false"`)와 컴포넌트 접근 권한을 정의한다.
 3. **[Runtime Permission & AppOps](../../../05_security_privacy/appops-and-permissions.md) (동적 권한 및 세밀한 기능 통제)**:
@@ -68,7 +68,7 @@ flowchart LR
 ## 연결 문서 (Reference Links)
 
 - [AppOps & 권한 레퍼런스](../../../05_security_privacy/appops-and-permissions.md) - 안드로이드 동적 권한 및 AppOps 통제 메커니즘
-- [Linux Kernel 레퍼런스](../../../../../../operating-systems/linux-kernel.md) - UID 샌드박스와 커널 레벨 보안 토대
+- [Linux Kernel 레퍼런스](../../../../../operating-systems/linux-kernel.md) - UID 샌드박스와 커널 레벨 보안 토대
 - [system_server 레퍼런스](../../../04_system_services/system-server.md) - 시스템 권한 검사를 수행하는 프로세스
 - [Binder IPC 레퍼런스](../../../01_system_internals/binder-ipc.md) - 보안 컨텍스트(UID/PID)를 전달하는 IPC
 

@@ -2,7 +2,7 @@
 title: android-is-layered-mobile-platform-not-just-an-app-sdk
 tags: ["android", "android/foundations", "architecture", "platform"]
 aliases: ["Android Platform Architecture", "Android 계층형 플랫폼"]
-date modified: 2026-08-06 16:34:32 +09:00
+date modified: 2026-08-06 16:55:00 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 role: atomic-reference
 ---
@@ -11,7 +11,7 @@ role: atomic-reference
 
 Android 를 단순한 UI 라이브러리나 앱 개발 API(SDK) 목록으로만 이해하면, 시스템의 실제 동작 원리와 장애 원인을 파악하기 어렵다.
 
-Android 는 하드웨어부터 최상위 UI 애플리케이션까지 **책임과 보안 경계가 엄격히 분리된 계층형(Layered) 모바일 플랫폼**이다. 위 계층에서 API 를 호출하면, 요청이 경계를 지날 때마다 수명주기(Lifecycle), [보안 권한(Permissions)](../../../05_security_privacy/appops-and-permissions.md), [스레드(Thread)](../../../../../../02_references/computer-science/thread.md), 그리고 하드웨어 조건이 겹겹이 적용된다.
+Android 는 하드웨어부터 최상위 UI 애플리케이션까지 **책임과 보안 경계가 엄격히 분리된 계층형(Layered) 모바일 플랫폼**이다. 위 계층에서 API 를 호출하면, 요청이 경계를 지날 때마다 수명주기(Lifecycle), [보안 권한(Permissions)](../../../05_security_privacy/appops-and-permissions.md), [스레드(Thread)](../../../../../computer-science/thread.md), 그리고 하드웨어 조건이 겹겹이 적용된다.
 
 ---
 
@@ -39,11 +39,11 @@ flowchart TD
 3. **System Services & [`system_server`](../../../04_system_services/system-server.md)**:
    - 안드로이드의 핵심인 `ActivityManagerService(AMS)`, `WindowManagerService(WMS)`, `PackageManagerService(PMS)` 등이 동작하는 핵심 프로세스. 앱과 시스템 서비스는 [`Binder IPC`](../../../01_system_internals/binder-ipc.md) 를 통해 통신한다.
 4. **Android Runtime ([ART](../../../01_system_internals/art.md)) & Native Userspace**:
-   - DEX 바이트코드를 실행하는 가상 머신 런타임. AOT/JIT 컴파일 및 [가비지 컬렉션(GC)](../../../01_system_internals/art.md) 을 담당한다.
+   - DEX 바이트코드를 실행하는 가상 머신 런타임. AOT/JIT 컴파일 및 [가비지 컬렉션(GC)](../../../../../computer-science/garbage-collection.md) 을 담당한다.
 5. **Hardware Abstraction Layer ([HAL](../../../01_system_internals/hal.md))**:
    - 카메라, 블루투스, 오디오 등 하드웨어 제조사(Qualcomm, Samsung 등)의 구체적인 C/C++ 드라이버 코드를 안드로이드 프레임워크와 완전히 분리해 주는 추상화 인터페이스 계층.
 6. **[Linux Kernel](../../../../../operating-systems/linux-kernel.md)**:
-   - 디바이스 드라이버, 메모리 관리, [프로세스/스레드 스케줄링](../../../../../../02_references/computer-science/thread.md), 전원 관리(Low Memory Killer, Ashmem 등)를 담당하는 하부 OS 기반.
+   - 디바이스 드라이버, 메모리 관리, [프로세스/스레드 스케줄링](../../../../../computer-science/thread.md), 전원 관리(Low Memory Killer, Ashmem 등)를 담당하는 하부 OS 기반.
 
 ---
 
@@ -67,7 +67,7 @@ flowchart TD
 
 | 문제 상황 | 우선 확인할 시스템 증거 | 소유 및 담당 영역 |
 | :--- | :--- | :--- |
-| 프로세스 생성 및 메인 [스레드](../../../../../../02_references/computer-science/thread.md) 동작 확인 | `logcat`, `dumpsys activity`, Perfetto 트레이스 | Boot / [`ART Runtime`](../../../01_system_internals/art.md) |
+| 프로세스 생성 및 메인 [스레드](../../../../../computer-science/thread.md) 동작 확인 | `logcat`, `dumpsys activity`, Perfetto 트레이스 | Boot / [`ART Runtime`](../../../01_system_internals/art.md) |
 | Framework 호출이 거절되거나 권한 오류 발생 | Exception 로그, [`Binder`](../../../01_system_internals/binder-ipc.md) 호출 기록, [`dumpsys <service>`](../../../04_system_services/system-server.md), [`AppOps`](../../../05_security_privacy/appops-and-permissions.md) | [`system_server`](../../../04_system_services/system-server.md) & Security |
 | 특정 기기에서만 센서/하드웨어 경로 실패 | Service/[`HAL`](../../../01_system_internals/hal.md) error 로그, [`Linux Kernel`](../../../../../operating-systems/linux-kernel.md) dmesg | [`Linux Kernel`](../../../../../operating-systems/linux-kernel.md) / [`HAL`](../../../01_system_internals/hal.md) |
 | APK 서명 및 타겟 SDK 조건 오류 | APK metadata, `PackageManager`, Play Console | Packaging / Deployment |

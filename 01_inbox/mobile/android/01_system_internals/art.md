@@ -2,7 +2,7 @@
 title: art
 tags: [android, art, runtime, system-internals, vm]
 aliases: []
-date modified: 2026-08-06 16:37:29 +09:00
+date modified: 2026-08-06 16:54:57 +09:00
 date created: 2026-08-06 16:31:22 +09:00
 ---
 

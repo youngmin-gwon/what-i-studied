@@ -26,7 +26,7 @@ date created: 2026-07-31 23:58:00 +09:00
 ### 2. 문제 발생 시 추적 경로 (Debugging Boundaries)
 
 - **Native Service 생성 또는 등록 실패**: `init.rc`, [Binder IPC](../binder-ipc.md), SELinux `avc: denied` 또는 Native Crash(Tombstone) 확인.
-- **NDK / JNI 앱 Crash (SIGSEGV / Local Reference Leak)**: C/C++ 메모리 해제 실수, [스레드](../../../../../../02_references/computer-science/thread.md) 바인딩 위반, JNI 참조 수명주기 위반 조사.
+- **NDK / JNI 앱 Crash (SIGSEGV / Local Reference Leak)**: C/C++ 메모리 해제 실수, [스레드](../../../../computer-science/thread.md) 바인딩 위반, JNI 참조 수명주기 위반 조사.
 
 ---
 

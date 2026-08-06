@@ -43,6 +43,6 @@ Android OS에서 **Zygote (자이고트)** 는 **"모든 안드로이드 앱 프
 
 ## 연결 문서
 
-- [ART (Android Runtime)](../art.md) - Zygote 가 미리 로딩해 두는 가상 머신 런타임
-- [system_server](../../04_system_services/system-server.md) - Zygote 에게 process fork 를 요청하는 관리 주체
-- [Binder IPC](../binder-ipc.md) - 프로세스 생성 후 통신을 담당하는 IPC
+- [ART (Android Runtime)](art.md) - Zygote 가 미리 로딩해 두는 가상 머신 런타임
+- [system_server](../04_system_services/system-server.md) - Zygote 에게 process fork 를 요청하는 관리 주체
+- [Binder IPC](binder-ipc.md) - 프로세스 생성 후 통신을 담당하는 IPC

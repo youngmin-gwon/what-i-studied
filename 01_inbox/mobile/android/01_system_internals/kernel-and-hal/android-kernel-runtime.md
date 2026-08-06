@@ -10,7 +10,7 @@ date created: 2026-07-31 23:45:00 +09:00
 
 안드로이드의 최하단에 위치하는 **Android Kernel 영역**은 표준 [Linux Kernel](../../../../operating-systems/linux-kernel.md) 기술과 안드로이드 특화 모바일 시스템 정책(GKI, LMKD, Binder 등)이 교차하는 최하위 시스템 영역이다.
 
-이 인덱스는 [Linux Kernel](../../../../operating-systems/linux-kernel.md) 드라이버, 전원 관리(Power/Suspend), 메모리 관리(zRAM/LMKD), 프로세스 간 통신([Binder IPC](../binder-ipc.md)), [SELinux 보안](../../../05_security_privacy/appops-and-permissions.md) 정책 계약을 하나로 연결하는 허브 역할을 수행한다.
+이 인덱스는 [Linux Kernel](../../../../operating-systems/linux-kernel.md) 드라이버, 전원 관리(Power/Suspend), 메모리 관리(zRAM/LMKD), 프로세스 간 통신([Binder IPC](../binder-ipc.md)), [SELinux 보안](../../05_security_privacy/appops-and-permissions.md) 정책 계약을 하나로 연결하는 허브 역할을 수행한다.
 
 ---
 

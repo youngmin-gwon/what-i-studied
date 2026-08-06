@@ -50,9 +50,9 @@ Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 corou
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Coroutine 은 가볍고 취소 가능한 작업이지 스레드가 아니다](../../02_app_framework/data/async-flow/coroutines/coroutine-is-lightweight-cancellable-work-not-thread.md) | suspension vs blocking 차이 |
+| [Coroutine 은 가볍고 취소 가능한 작업이지 스레드가 아니다](../../../../computer-science/thread.md) | suspension vs blocking 차이 |
 | [Structured concurrency 에서 부모는 자식 수명을 소유한다](../../02_app_framework/data/async-flow/coroutines/structured-concurrency-parent-owns-child-lifetime.md) | scope 취소 전파 원리 |
-| [suspend 함수는 스레드를 블로킹하지 않고 coroutine 을 일시 중단한다](../../02_app_framework/data/async-flow/coroutines/suspend-function-suspends-coroutine-without-blocking-thread.md) | suspend 의 정확한 의미 |
+| [suspend 함수는 스레드를 블로킹하지 않고 coroutine 을 일시 중단한다](../../../../computer-science/thread.md) | suspend 의 정확한 의미 |
 | [Dispatcher 는 실행 컨텍스트를 선택하지 작업 수명을 선택하지 않는다](../../02_app_framework/data/async-flow/coroutines/dispatcher-selects-execution-context-not-work-lifetime.md) | Dispatcher vs Scope 구분 |
 | [병렬 coroutine 은 명시적 부모와 실패 정책이 필요하다](../../02_app_framework/data/async-flow/coroutines/parallel-coroutines-need-explicit-parent-and-failure-policy.md) | async/await 와 SupervisorJob |
 | [예외 전파는 supervision 경계가 필요하다](../../02_app_framework/data/async-flow/coroutines/exception-propagation-needs-supervision-boundary.md) | CoroutineExceptionHandler, SupervisorScope |
