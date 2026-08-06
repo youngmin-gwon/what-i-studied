@@ -54,9 +54,9 @@ graph LR
         HIGH[High Interaction]
     end
     
-    LOW -->|단순| SIM[서비스 에뮬레이션]
-    MED -->|부분| PARTIAL[일부 기능 제공]
-    HIGH -->|완전| FULL[실제 OS/서비스]
+    LOW -->|"단순"| SIM[서비스 에뮬레이션]
+    MED -->|"부분"| PARTIAL[일부 기능 제공]
+    HIGH -->|"완전"| FULL[실제 OS/서비스]
     
     style LOW fill:#9f9
     style HIGH fill:#f99

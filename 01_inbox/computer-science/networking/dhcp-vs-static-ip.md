@@ -24,12 +24,12 @@ date created: 2026-08-06 18:15:00 +09:00
 ```mermaid
 graph TD
     subgraph DHCP ["DHCP (동적 IP 할당)"]
-        Client1["클라이언트 PC"] -->|1. IP 할당 요청| DHCPServer["DHCP 서버"]
-        DHCPServer -->|2. 유효기간(Lease)과 함께 IP 임대| Client1
+        Client1["클라이언트 PC"] -->|"1. IP 할당 요청"| DHCPServer["DHCP 서버"]
+        DHCPServer -->|"2. 유효기간(Lease)과 함께 IP 임대"| Client1
     end
 
     subgraph Static ["Static IP (고정 IP 지정)"]
-        Admin["네트워크 관리자"] -->|수동으로 IP 직접 입력| Server["서버 / 네트워크 장비"]
+        Admin["네트워크 관리자"] -->|"수동으로 IP 직접 입력"| Server["서버 / 네트워크 장비"]
     end
 ```
 

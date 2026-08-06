@@ -12,12 +12,12 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 flowchart TD
-    BL["Bootloader (PBL/SBL/ABL)"] -->|1. Slot Selection & Bootconfig| AVB["Android Verified Boot (AVB 2.0)"]
-    AVB -->|2. Hash / Signature Verification| KERNEL["Linux Kernel Boot"]
-    KERNEL -->|3. Mount devtmpfs / Parse bootconfig| FS_INIT["First-Stage Init"]
-    FS_INIT -->|4. liblp / dm-linear Setup| DM["Dynamic Partitions (super)"]
-    DM -->|5. dm-user / snapuserd| VAB["Virtual A/B Snapshots"]
-    VAB -->|6. Switch Root & Exec| SS_INIT["Second-Stage Init (PID 1)"]
+    BL["Bootloader (PBL/SBL/ABL)"] -->|"1. Slot Selection & Bootconfig"| AVB["Android Verified Boot (AVB 2.0)"]
+    AVB -->|"2. Hash / Signature Verification"| KERNEL["Linux Kernel Boot"]
+    KERNEL -->|"3. Mount devtmpfs / Parse bootconfig"| FS_INIT["First-Stage Init"]
+    FS_INIT -->|"4. liblp / dm-linear Setup"| DM["Dynamic Partitions (super)"]
+    DM -->|"5. dm-user / snapuserd"| VAB["Virtual A/B Snapshots"]
+    VAB -->|"6. Switch Root & Exec"| SS_INIT["Second-Stage Init (PID 1)"]
 ```
 
 ---

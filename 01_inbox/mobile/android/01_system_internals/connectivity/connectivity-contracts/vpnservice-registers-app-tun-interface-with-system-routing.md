@@ -25,11 +25,11 @@ Android의 **VpnService**는 시스템 권한 없이 애플리케이션 레벨�
 
 ```mermaid
 graph TD
-    App[Target App Sockets] -->|Kernel IP Packet Routing| TUN[VpnService TUN Interface: tun0]
-    TUN -->|ParcelFileDescriptor Read| VpnApp[VpnService App Thread]
+    App[Target App Sockets] -->|"Kernel IP Packet Routing"| TUN[VpnService TUN Interface: tun0]
+    TUN -->|"ParcelFileDescriptor Read"| VpnApp[VpnService App Thread]
     
-    VpnApp -->|Protect Socket: protect()| PhysicalSocket[Encrypted Tunnel Socket]
-    PhysicalSocket -->|Physical Interface| ExternalServer[Remote VPN Gateway Server]
+    VpnApp -->|"Protect Socket: protect()"| PhysicalSocket[Encrypted Tunnel Socket]
+    PhysicalSocket -->|"Physical Interface"| ExternalServer[Remote VPN Gateway Server]
 ```
 
 ### Kotlin VpnService TUN 인터페이스 생성 및 Socket Protect 코드

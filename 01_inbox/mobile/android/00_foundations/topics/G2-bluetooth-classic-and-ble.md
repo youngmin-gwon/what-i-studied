@@ -17,12 +17,12 @@ date modified: 2026-08-04 21:30:00 +09:00
 ### 2. 전체 조망도
 ```mermaid
 flowchart TD
-    App[App] -->|1. Request Permission| OS[Android OS]
-    OS -->|2. BLUETOOTH_SCAN/CONNECT| App
-    App -->|3. Start Scan| Adapter[BluetoothAdapter]
-    Adapter -->|4. BLE / Classic| Device[Bluetooth Device]
-    App -->|5. Connect GATT| GATT[BluetoothGatt]
-    GATT -->|6. Read/Write/Notify| Characteristic[Characteristic]
+    App[App] -->|"1. Request Permission"| OS[Android OS]
+    OS -->|"2. BLUETOOTH_SCAN/CONNECT"| App
+    App -->|"3. Start Scan"| Adapter[BluetoothAdapter]
+    Adapter -->|"4. BLE / Classic"| Device[Bluetooth Device]
+    App -->|"5. Connect GATT"| GATT[BluetoothGatt]
+    GATT -->|"6. Read/Write/Notify"| Characteristic[Characteristic]
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

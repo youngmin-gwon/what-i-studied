@@ -28,8 +28,8 @@ flowchart TD
     end
 
     subgraph DeadlockScenario [Deadlock: Circular Wait]
-        Th1[Thread 1: Holds Lock A] -->|Wants Lock B| WaitLockB[Blocked on Lock B held by Thread 2]
-        Th2[Thread 2: Holds Lock B] -->|Wants Lock A| WaitLockA[Blocked on Lock A held by Thread 1]
+        Th1[Thread 1: Holds Lock A] -->|"Wants Lock B"| WaitLockB[Blocked on Lock B held by Thread 2]
+        Th2[Thread 2: Holds Lock B] -->|"Wants Lock A"| WaitLockA[Blocked on Lock A held by Thread 1]
     end
 ```
 

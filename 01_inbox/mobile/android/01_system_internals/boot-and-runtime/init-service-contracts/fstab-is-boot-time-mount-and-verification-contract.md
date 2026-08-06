@@ -29,13 +29,13 @@ Android의 `fstab`(File System Table)은 단순한 파일시스템 마운트 경
 ```mermaid
 flowchart TD
     FSTAB["fstab File
-(fstab.hardware)"] -->|ReadDefaultFstab()| PARSER["fs_mgr Parser"]
-    PARSER -->|FstabEntry.fs_mgr_flags| ENTRY["FstabEntry Struct"]
-    ENTRY -->|first_stage_mount| STAGE1["First-stage Mount
+(fstab.hardware)"] -->|"ReadDefaultFstab()"| PARSER["fs_mgr Parser"]
+    PARSER -->|"FstabEntry.fs_mgr_flags"| ENTRY["FstabEntry Struct"]
+    ENTRY -->|"first_stage_mount"| STAGE1["First-stage Mount
 (/system, /vendor)"]
-    ENTRY -->|avb / avb_keys| AVB["AVB / dm-verity Verification"]
-    ENTRY -->|fileencryption| FBE["FBE Encryption Manager (/data)"]
-    ENTRY -->|latemount| STAGE2["Second-stage Mount
+    ENTRY -->|"avb / avb_keys"| AVB["AVB / dm-verity Verification"]
+    ENTRY -->|"fileencryption"| FBE["FBE Encryption Manager (/data)"]
+    ENTRY -->|"latemount"| STAGE2["Second-stage Mount
 (/data, /sdcard)"]
 
     style FSTAB fill:#f9f,stroke:#333,stroke-width:2px

@@ -26,12 +26,12 @@ date created: 2026-08-06 18:43:00 +09:00
 ```mermaid
 graph TD
     subgraph APKFlow ["레거시 APK 배포"]
-        APKDev["빌드된 단일 APK (모든 ABI/Res 포함)"] -->|직접 전송| DevInst["기기에 거대한 통합 APK 그대로 설치"]
+        APKDev["빌드된 단일 APK (모든 ABI/Res 포함)"] -->|"직접 전송"| DevInst["기기에 거대한 통합 APK 그대로 설치"]
     end
 
     subgraph AABFlow ["현대 표준 AAB 배포"]
         AABDev["빌드된 AAB 업로드"] --> Play["Google Play Dynamic Delivery"]
-        Play -->|기기 사양 분석| Split["기기 맞춤형 Split APK 조립 생성"]
+        Play -->|"기기 사양 분석"| Split["기기 맞춤형 Split APK 조립 생성"]
         Split --> AppInst["기기에 꼭 필요한 최소 용량 조각만 설치"]
     end
 ```

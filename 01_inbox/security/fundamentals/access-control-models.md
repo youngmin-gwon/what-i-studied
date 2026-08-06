@@ -46,13 +46,13 @@ graph LR
         Conf[Confidential]
         Unclass[Unclassified]
         
-        User -.->|❌ 읽기 불가 No Read Up| TS
-        User -->|✅ 읽기 가능| Conf
-        User -->|✅ 읽기 가능| Unclass
+        User -.->|"❌ 읽기 불가 No Read Up"| TS
+        User -->|"✅ 읽기 가능"| Conf
+        User -->|"✅ 읽기 가능"| Unclass
         
-        User -->|✅ 쓰기 가능| TS
-        User -.->|❌ 쓰기 불가 No Write Down| Conf
-        User -.->|❌ 쓰기 불가 No Write Down| Unclass
+        User -->|"✅ 쓰기 가능"| TS
+        User -.->|"❌ 쓰기 불가 No Write Down"| Conf
+        User -.->|"❌ 쓰기 불가 No Write Down"| Unclass
     end
 ```
 
@@ -79,10 +79,10 @@ graph LR
         HI[High Integrity 객체]
         LI[Low Integrity 객체]
         
-        User -->|✅ 읽기 가능| HI
-        User -.->|❌ 읽기 불가 No Read Down| LI
+        User -->|"✅ 읽기 가능"| HI
+        User -.->|"❌ 읽기 불가 No Read Down"| LI
         
-        User -.->|❌ 쓰기 불가 No Write Up| HI
+        User -.->|"❌ 쓰기 불가 No Write Up"| HI
     end
 ```
 

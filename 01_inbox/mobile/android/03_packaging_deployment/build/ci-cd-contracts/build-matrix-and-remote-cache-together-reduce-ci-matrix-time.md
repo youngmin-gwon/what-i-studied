@@ -30,10 +30,10 @@ flowchart TD
     BuildTrigger["CI Build Trigger (Matrix Jobs)"] --> Runner1["CI Runner 1 (Module A-F)"]
     BuildTrigger --> Runner2["CI Runner 2 (Module G-M)"]
     
-    Runner1 <-->|Check & Hit| RemoteCache["Gradle Remote Build Cache (S3 / HTTP)"]
-    Runner2 <-->|Check & Hit| RemoteCache
+    Runner1 <-->|"Check & Hit"| RemoteCache["Gradle Remote Build Cache (S3 / HTTP)"]
+    Runner2 <-->|"Check & Hit"| RemoteCache
     
-    RemoteCache -->|Skip Re-compilation| FastResult["CI Matrix Time Reduced (up to 70%)"]
+    RemoteCache -->|"Skip Re-compilation"| FastResult["CI Matrix Time Reduced (up to 70%)"]
 ```
 
 ### 코드 예시 (settings.gradle.kts)

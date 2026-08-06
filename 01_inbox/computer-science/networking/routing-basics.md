@@ -52,10 +52,10 @@ default         192.168.1.1     0.0.0.0         UG     eth0
 
 ```mermaid
 graph LR
-    PC[PC<br/>192.168.1.100] -->|모든 외부 트래픽| GW[Gateway<br/>192.168.1.1]
+    PC[PC<br/>192.168.1.100] -->|"모든 외부 트래픽"| GW[Gateway<br/>192.168.1.1]
     GW --> Internet[인터넷]
     
-    PC -->|내부 트래픽| Local[Local Network<br/>192.168.1.x]
+    PC -->|"내부 트래픽"| Local[Local Network<br/>192.168.1.x]
 ```
 
 **설정**:
@@ -79,13 +79,13 @@ ip route | grep default
 ```mermaid
 flowchart TD
     Start[패킷 수신:<br/>목적지 IP] --> Local{로컬<br/>네트워크?}
-    Local -->|Yes| Direct[직접 전달]
-    Local -->|No| Table{라우팅<br/>테이블 검색}
+    Local -->|"Yes"| Direct[직접 전달]
+    Local -->|"No"| Table{라우팅<br/>테이블 검색}
     Table --> Match{매칭되는<br/>경로 있음?}
-    Match -->|Yes| Forward[해당 게이트웨이로<br/>전달]
-    Match -->|No| Default{기본 게이트웨이<br/>설정됨?}
-    Default -->|Yes| Gateway[기본 게이트웨이로<br/>전달]
-    Default -->|No| Drop[패킷 폐기<br/>Network Unreachable]
+    Match -->|"Yes"| Forward[해당 게이트웨이로<br/>전달]
+    Match -->|"No"| Default{기본 게이트웨이<br/>설정됨?}
+    Default -->|"Yes"| Gateway[기본 게이트웨이로<br/>전달]
+    Default -->|"No"| Drop[패킷 폐기<br/>Network Unreachable]
 ```
 
 **예시**: PC (`192.168.1.100`)에서 `8.8.8.8`로 패킷 전송
@@ -153,7 +153,7 @@ sudo ip route change 10.0.0.0/8 via 192.168.1.200
 
 ```mermaid
 graph LR
-    R1[Router 1] <-->|경로 정보 교환| R2[Router 2]
+    R1[Router 1] <-->|"경로 정보 교환"| R2[Router 2]
     R2 <--> R3[Router 3]
     R3 <--> R4[Router 4]
     R4 <--> R1

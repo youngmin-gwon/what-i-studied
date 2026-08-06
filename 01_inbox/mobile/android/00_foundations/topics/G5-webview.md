@@ -17,10 +17,10 @@ date modified: 2026-08-04 21:30:00 +09:00
 ### 2. 전체 조망도
 ```mermaid
 flowchart LR
-    App[App Process / Activity] <-->|JavascriptInterface| Web[WebView Core]
-    Web -->|Render| DOM[HTML/CSS/JS]
-    Web -->|Network Request| Internet[Web Server]
-    Internet -->|Mixed Content Policy| Web
+    App[App Process / Activity] <-->|"JavascriptInterface"| Web[WebView Core]
+    Web -->|"Render"| DOM[HTML/CSS/JS]
+    Web -->|"Network Request"| Internet[Web Server]
+    Internet -->|"Mixed Content Policy"| Web
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

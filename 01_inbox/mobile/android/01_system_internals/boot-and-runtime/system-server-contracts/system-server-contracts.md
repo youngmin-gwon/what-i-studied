@@ -12,14 +12,14 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 flowchart TD
-    ZYGOTE["Zygote Process"] -->|Fork & Exec| SS["system_server Process (SYSTEM_UID)"]
-    SS -->|SystemServer.java main()| SM["SystemServiceManager"]
-    SM -->|1. Start Bootstrap Services| BOOT["AMS, ATMS, PKMS, DisplayManager"]
-    SM -->|2. Start Core Services| CORE["BatteryService, UsageStatsService"]
-    SM -->|3. Start Other Services| OTHER["WMS, PackageManager, AlarmManager, ConnectivityService"]
-    BOOT -->|Register Binder IPC| REG["ServiceManager (Binder IPC Endpoints)"]
-    REG -->|Coordinate App Processes| APP["App Processes (ActivityThread)"]
-    AMS["AMS / ATMS"] -->|OOM Score Adj / ANR Trace| POLICY["LowMemoryKiller / Rescue Party"]
+    ZYGOTE["Zygote Process"] -->|"Fork & Exec"| SS["system_server Process (SYSTEM_UID)"]
+    SS -->|"SystemServer.java main()"| SM["SystemServiceManager"]
+    SM -->|"1. Start Bootstrap Services"| BOOT["AMS, ATMS, PKMS, DisplayManager"]
+    SM -->|"2. Start Core Services"| CORE["BatteryService, UsageStatsService"]
+    SM -->|"3. Start Other Services"| OTHER["WMS, PackageManager, AlarmManager, ConnectivityService"]
+    BOOT -->|"Register Binder IPC"| REG["ServiceManager (Binder IPC Endpoints)"]
+    REG -->|"Coordinate App Processes"| APP["App Processes (ActivityThread)"]
+    AMS["AMS / ATMS"] -->|"OOM Score Adj / ANR Trace"| POLICY["LowMemoryKiller / Rescue Party"]
 ```
 
 ---

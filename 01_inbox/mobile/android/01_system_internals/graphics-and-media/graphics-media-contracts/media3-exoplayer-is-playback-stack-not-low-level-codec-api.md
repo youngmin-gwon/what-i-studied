@@ -32,8 +32,8 @@ graph TD
     TS --> VR[MediaCodecVideoRenderer]
     TS --> AR[MediaCodecAudioRenderer]
 
-    VR -->|MediaCodec Surface Mode| MC_Video[Framework MediaCodec]
-    AR -->|Decoded PCM| AT[Framework AudioTrack]
+    VR -->|"MediaCodec Surface Mode"| MC_Video[Framework MediaCodec]
+    AR -->|"Decoded PCM"| AT[Framework AudioTrack]
 
     MC_Video --> SurfaceFlinger[SurfaceFlinger / Display]
     AT --> AudioFlinger[AudioFlinger / Speaker]

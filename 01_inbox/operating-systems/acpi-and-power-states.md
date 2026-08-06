@@ -27,9 +27,9 @@ graph TD
         Parser["ACPI 인터프리터\n(예: Linux ACPICA)"]
         Policy["전원 관리 정책\n(스케줄러, 디바이스 드라이버와 연동)"]
     end
-    Tables -->|부팅 시 로드| Parser
+    Tables -->|"부팅 시 로드"| Parser
     Parser --> Policy
-    Policy -->|AML 메소드 호출| HW[실제 하드웨어 레지스터 제어]
+    Policy -->|"AML 메소드 호출"| HW[실제 하드웨어 레지스터 제어]
 ```
 
 ## ACPI 전원 상태 (S-States)
@@ -47,12 +47,12 @@ ACPI 는 시스템 전체의 전원 상태를 **S0 ~ S5** 로 정의한다.
 
 ```mermaid
 graph LR
-    S0["S0: Working\n(정상 동작)"] -->|절전 진입| S3["S3: Suspend to RAM\n(메모리만 통전)"]
-    S0 -->|절전 진입| S4["S4: Hibernate\n(디스크에 저장 후 완전 차단)"]
-    S3 -->|사용자 입력/타이머| S0
-    S4 -->|전원 버튼| S0
-    S0 -->|종료| S5["S5: Soft Off\n(대기전력만)"]
-    S5 -->|전원 버튼/WoL| S0
+    S0["S0: Working\n(정상 동작)"] -->|"절전 진입"| S3["S3: Suspend to RAM\n(메모리만 통전)"]
+    S0 -->|"절전 진입"| S4["S4: Hibernate\n(디스크에 저장 후 완전 차단)"]
+    S3 -->|"사용자 입력/타이머"| S0
+    S4 -->|"전원 버튼"| S0
+    S0 -->|"종료"| S5["S5: Soft Off\n(대기전력만)"]
+    S5 -->|"전원 버튼/WoL"| S0
 ```
 
 디바이스 단위에도 별도의 전원 상태(**D0~D3**, D0가 완전 동작, D3가 완전 차단)가 있고, 프로세서 단위 유휴 상태(**C-states**, C0가 실행 중, C1~C3+ 로 갈수록 더 깊은 유휴 상태)도 ACPI 가 정의한다. 시스템 S-state 는 이런 하위 디바이스/프로세서 상태들을 조합해 만들어지는 상위 개념이다.

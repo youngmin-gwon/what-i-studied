@@ -27,13 +27,13 @@ Android 네트워크 문제 진단 시, 애플리케이션의 HTTP 클라이언�
 graph TD
     Failure[Network Connection Failure] --> Check1{App Layer Log: OkHttp EventListener}
     
-    Check1 -->|DNS Timeout| SysDNS[Private DNS Validation Fail / netd Resolv Check]
-    Check1 -->|SSLHandshakeException| SysTLS[Network Security Config Trust / Cleartext Block]
-    Check1 -->|SocketTimeoutException| Check2{System State Check}
+    Check1 -->|"DNS Timeout"| SysDNS[Private DNS Validation Fail / netd Resolv Check]
+    Check1 -->|"SSLHandshakeException"| SysTLS[Network Security Config Trust / Cleartext Block]
+    Check1 -->|"SocketTimeoutException"| Check2{System State Check}
 
     Check2 --> Dumpsys[dumpsys connectivity & dumpsys netpolicy]
-    Dumpsys -->|eBPF Penalty Box| Firewall[Data Saver / Background Restrict Active]
-    Dumpsys -->|Validation False| Portal[Captive Portal / Internet Unvalidated]
+    Dumpsys -->|"eBPF Penalty Box"| Firewall[Data Saver / Background Restrict Active]
+    Dumpsys -->|"Validation False"| Portal[Captive Portal / Internet Unvalidated]
 ```
 
 ### OkHttp EventListener 타임라인 추적 Kotlin 코드

@@ -29,7 +29,7 @@ Android CI/CD 빌드 파이프라인에서 모든 검증 작업(단위 테스트
 flowchart TD
     PRTrigger["Pull Request Created"] --> FastGate["Fast Validation Gate (< 5 mins)"]
     FastGate --> LintTest["Lint Check + Unit Test (testDebugUnitTest)"]
-    LintTest -->|Pass| PRMerge["PR Merge Allowed"]
+    LintTest -->|"Pass"| PRMerge["PR Merge Allowed"]
     
     PRMerge --> MainBranch["Merged to main Branch"]
     MainBranch --> ReleaseGate["Release Validation Gate"]

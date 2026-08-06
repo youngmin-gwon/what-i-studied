@@ -21,12 +21,12 @@ Android에서는 시스템 부팅 시 `bpfloader` 서비스가 `/system/etc/bpf/
 
 ```mermaid
 graph TD
-    A["eBPF C Source Code\n(bpf_netd.c)"] -->|Clang BPF Target| B["BPF Bytecode (.o)\n(/system/etc/bpf/netd.o)"]
-    B -->|Android Init Boot Stage| C["bpfloader daemon\n(bpf system service)"]
-    C -->|bpf syscall: BPF_PROG_LOAD| D["Kernel BPF Verifier\n(Check memory safety & bounded loops)"]
-    D -->|Passed| E["Kernel BPF JIT Compiler\n(Convert to Native ARM64 Machine Code)"]
-    E -->|Attach to Socket/Kprobe/Tracepoint| F["Kernel Execution Engine"]
-    C -->|Pin BPF Maps| G["/sys/fs/bpf/\n(bpf_netd_tag_map, bpf_app_uid_map)"]
+    A["eBPF C Source Code\n(bpf_netd.c)"] -->|"Clang BPF Target"| B["BPF Bytecode (.o)\n(/system/etc/bpf/netd.o)"]
+    B -->|"Android Init Boot Stage"| C["bpfloader daemon\n(bpf system service)"]
+    C -->|"bpf syscall: BPF_PROG_LOAD"| D["Kernel BPF Verifier\n(Check memory safety & bounded loops)"]
+    D -->|"Passed"| E["Kernel BPF JIT Compiler\n(Convert to Native ARM64 Machine Code)"]
+    E -->|"Attach to Socket/Kprobe/Tracepoint"| F["Kernel Execution Engine"]
+    C -->|"Pin BPF Maps"| G["/sys/fs/bpf/\n(bpf_netd_tag_map, bpf_app_uid_map)"]
 ```
 
 1. **Safety Verification (검증)**: 커널의 BPF Verifier가 프로그램 내 유효하지 않은 포인터 참조, 정지하지 않는 루프(Unbounded Loop), 승인되지 않은 메모리 접근을 사전에 검증하여 커널 패닉(Kernel Crash)을 원천 차단한다.

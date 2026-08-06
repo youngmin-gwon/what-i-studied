@@ -38,7 +38,7 @@ graph TD
         C3["Settings Destination Stack: [SettingsRootKey, ProfileKey]"]
     end
     
-    B -->|Renders active stack| C1
+    B -->|"Renders active stack"| C1
 ```
 
 - **Multiple Back Stacks 패턴**: 각 최상위 탭별로 별도의 `NavBackStack<NavKey>` 목록을 소지하거나, Navigation 3의 state saveable 개체로 저장하여 탭 전환 시 기존 백스택을 파기하지 않고 스와핑한다.

@@ -19,14 +19,14 @@ date modified: 2026-08-04 21:30:00 +09:00
 
 ```mermaid
 flowchart TD
-    App[App] -->|Time-critical User Event| AM[AlarmManager]
-    App -->|Deferrable Guaranteed Work| WM[WorkManager]
-    App -->|Visible Continuous Work| FS[Foreground Service]
+    App[App] -->|"Time-critical User Event"| AM[AlarmManager]
+    App -->|"Deferrable Guaranteed Work"| WM[WorkManager]
+    App -->|"Visible Continuous Work"| FS[Foreground Service]
     
-    Cloud[Server] -->|Push Message| FCM[Firebase Cloud Messaging]
-    FCM -->|Data Payload| App
-    FCM -->|Notification Payload| NM[NotificationManager]
-    App -->|Local Notification| NM
+    Cloud[Server] -->|"Push Message"| FCM[Firebase Cloud Messaging]
+    FCM -->|"Data Payload"| App
+    FCM -->|"Notification Payload"| NM[NotificationManager]
+    App -->|"Local Notification"| NM
     
     NM --> UI[System UI / Lockscreen]
 ```

@@ -20,11 +20,11 @@ NDK의 `AndroidBitmap_*` API는 Java/Kotlin Managed 영역의 `android.graphics.
 
 ```mermaid
 graph TD
-    A["Java Bitmap Object (jobject bitmap)"] -->|JNI Entry| B["AndroidBitmap_getInfo(env, bitmap, &info)"]
-    B -->|Check Format & Stride| C["AndroidBitmap_lockPixels(env, bitmap, &pixels)"]
-    C -->|Pixel Buffer Pinned| D["Native Processing Loop\n(row_ptr = (char*)pixels + y * info.stride)"]
-    D -->|Processing Complete| E["AndroidBitmap_unlockPixels(env, bitmap)"]
-    E -->|GC Unpinned| F["Return to Managed Runtime"]
+    A["Java Bitmap Object (jobject bitmap)"] -->|"JNI Entry"| B["AndroidBitmap_getInfo(env, bitmap, &info)"]
+    B -->|"Check Format & Stride"| C["AndroidBitmap_lockPixels(env, bitmap, &pixels)"]
+    C -->|"Pixel Buffer Pinned"| D["Native Processing Loop\n(row_ptr = (char*)pixels + y * info.stride)"]
+    D -->|"Processing Complete"| E["AndroidBitmap_unlockPixels(env, bitmap)"]
+    E -->|"GC Unpinned"| F["Return to Managed Runtime"]
 ```
 
 1. **Stride Padding (행 폭 패딩)**: 메모리 정렬(Memory Alignment) 제약으로 인해 `info.stride` (한 행의 실제 바이트 크기)는 `width * bytesPerPixel` 수치보다 클 수 있다. 단순 `width * 4` 바이트 오프셋으로 주소를 계산하면 이미지 왜곡(Skewing)이나 Segfault 패닉이 유발된다.

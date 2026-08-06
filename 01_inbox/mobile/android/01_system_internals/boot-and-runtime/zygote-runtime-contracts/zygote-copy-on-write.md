@@ -30,14 +30,14 @@ Zygote의 **[`fork()`](../../../../../operating-systems/process-states-lifecycle
 ```mermaid
 flowchart TD
     ZYG["Zygote Parent Memory
-(Preloaded Classes & Resources)"] -->|fork()| APP1["App 1 Virtual Memory"]
-    ZYG -->|fork()| APP2["App 2 Virtual Memory"]
+(Preloaded Classes & Resources)"] -->|"fork()"| APP1["App 1 Virtual Memory"]
+    ZYG -->|"fork()"| APP2["App 2 Virtual Memory"]
     
-    APP1 & APP2 -->|Read Only (Shared)| PHY["Physical RAM: Shared Clean Pages
+    APP1 & APP2 -->|"Read Only (Shared)"| PHY["Physical RAM: Shared Clean Pages
 (Single Memory Copy)"]
     
-    APP1 -->|Write to Preloaded Object| FAULT["MMU Page Fault (COW Trigger)"]
-    FAULT -->|Duplicate 4KB Page| DIRTY["App 1 Private Dirty Page
+    APP1 -->|"Write to Preloaded Object"| FAULT["MMU Page Fault (COW Trigger)"]
+    FAULT -->|"Duplicate 4KB Page"| DIRTY["App 1 Private Dirty Page
 (RAM Consumed Independently)"]
 
     style PHY fill:#e8f5e9,stroke:#388e3c

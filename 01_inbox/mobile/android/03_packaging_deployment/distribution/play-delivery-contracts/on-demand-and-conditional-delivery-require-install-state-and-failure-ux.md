@@ -26,10 +26,10 @@ updated: 2026-08-05 16:15:00 +09:00
 ```mermaid
 flowchart TD
     ReqModule["Request On-Demand Module"] --> Listener["SplitInstallStateUpdatedListener"]
-    Listener -->|DOWNLOADING| UpdateProgress["Update Progress Bar UI (bytesDownloaded / totalBytes)"]
-    Listener -->|REQUIRES_USER_CONFIRMATION| ShowConfirm["Show Mobile Data Download Consent Dialog"]
-    Listener -->|INSTALLED| LaunchModule["Call SplitCompat.install() & Launch Screen"]
-    Listener -->|FAILED| ShowRetryUX["Show Error Snackbar & Retry Button"]
+    Listener -->|"DOWNLOADING"| UpdateProgress["Update Progress Bar UI (bytesDownloaded / totalBytes)"]
+    Listener -->|"REQUIRES_USER_CONFIRMATION"| ShowConfirm["Show Mobile Data Download Consent Dialog"]
+    Listener -->|"INSTALLED"| LaunchModule["Call SplitCompat.install() & Launch Screen"]
+    Listener -->|"FAILED"| ShowRetryUX["Show Error Snackbar & Retry Button"]
 ```
 
 ### 코드 예시 (SplitInstallManager Listener)

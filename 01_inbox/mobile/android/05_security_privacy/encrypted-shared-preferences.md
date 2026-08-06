@@ -40,16 +40,16 @@ Android Jetpack Security 라이브러리에서 제공하는 **EncryptedSharedPre
 ```mermaid
 flowchart TD
     subgraph AppProcess["앱 프로세스 (Application Process)"]
-        A["EncryptedSharedPreferences"] -->|1. Key-Value 읽기/쓰기 요청| B["Tink EncryptedKeysetManager"]
+        A["EncryptedSharedPreferences"] -->|"1. Key-Value 읽기/쓰기 요청"| B["Tink EncryptedKeysetManager"]
     end
 
     subgraph HardwareSecurity["하드웨어 보안 구역 (Keystore / TEE / StrongBox)"]
-        C["MasterKey (Android Keystore)"] <-->|2. DEK (Data Encryption Key) 암호화/복호화| B
+        C["MasterKey (Android Keystore)"] <-->|"2. DEK (Data Encryption Key) 암호화/복호화"| B
     end
 
     subgraph FileSystem["앱 샌드박스 파일 시스템"]
-        B -->|3. Key: AES-256-SIV 암호화| D["shared_prefs.xml"]
-        B -->|4. Value: AES-256-GCM 암호화| D
+        B -->|"3. Key: AES-256-SIV 암호화"| D["shared_prefs.xml"]
+        B -->|"4. Value: AES-256-GCM 암호화"| D
     end
 ```
 

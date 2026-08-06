@@ -35,13 +35,13 @@ Android 햅틱 제어는 **촉각 악기 연주**와 매우 유사합니다.
 graph TD
     A[사용자 이벤트 발생 Touch / Action] --> B{어떤 피드백이 필요한가?}
     
-    B -->|표준 UI 피드백 Click/LongPress| C[View.performHapticFeedback]
+    B -->|"표준 UI 피드백 Click/LongPress"| C[View.performHapticFeedback]
     C --> D[시스템 설정 및 권한 없이 즉시 출력]
     
-    B -->|커스텀 패턴/성공/실패 피드백| E[Vibrator / VibratorManager 획득]
+    B -->|"커스텀 패턴/성공/실패 피드백"| E[Vibrator / VibratorManager 획득]
     E --> F{Vibrate 권한 및 하드웨어 지원 여부}
-    F -->|VibrationEffect| G[createOneShot / createWaveform]
-    F -->|API 31+ Rich Haptics| H[VibrationEffect.Composition / Primitives]
+    F -->|"VibrationEffect"| G[createOneShot / createWaveform]
+    F -->|"API 31+ Rich Haptics"| H[VibrationEffect.Composition / Primitives]
 ```
 
 ### 접근 방식 비교

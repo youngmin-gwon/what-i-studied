@@ -140,8 +140,8 @@ graph LR
         B_Pub[Bob 공개키<br/>공개 배포]
     end
     
-    Plain[평문] -->|Bob 공개키로<br/>암호화| Cipher[암호문]
-    Cipher -->|Bob 개인키로<br/>복호화| Plain2[평문]
+    Plain[평문] -->|"Bob 공개키로<br/>암호화"| Cipher[암호문]
+    Cipher -->|"Bob 개인키로<br/>복호화"| Plain2[평문]
     
     style A_Priv fill:#faa
     style B_Priv fill:#faa
@@ -313,11 +313,11 @@ graph TB
     Cert2[End-Entity<br/>Certificate 2]
     Cert3[End-Entity<br/>Certificate 3]
     
-    Root -->|서명| Int1
-    Root -->|서명| Int2
-    Int1 -->|서명| Cert1
-    Int1 -->|서명| Cert2
-    Int2 -->|서명| Cert3
+    Root -->|"서명"| Int1
+    Root -->|"서명"| Int2
+    Int1 -->|"서명"| Cert1
+    Int1 -->|"서명"| Cert2
+    Int2 -->|"서명"| Cert3
     
     style Root fill:#f99
     style Int1 fill:#9f9
@@ -352,13 +352,13 @@ Certificate:
 
 ```mermaid
 graph LR
-    Browser[웹 브라우저] -->|1. 서버 인증서 수신| Server[www.example.com]
-    Browser -->|2. Issuer 확인| Int[Intermediate CA]
-    Browser -->|3. Issuer 확인| Root[Root CA]
-    Browser -->|4. Root CA 신뢰 여부| TrustStore[Trust Store]
+    Browser[웹 브라우저] -->|"1. 서버 인증서 수신"| Server[www.example.com]
+    Browser -->|"2. Issuer 확인"| Int[Intermediate CA]
+    Browser -->|"3. Issuer 확인"| Root[Root CA]
+    Browser -->|"4. Root CA 신뢰 여부"| TrustStore[Trust Store]
     
-    TrustStore -->|5. 신뢰됨| Valid[✅ 검증 성공]
-    TrustStore -->|5. 신뢰 안 됨| Invalid[❌ 검증 실패]
+    TrustStore -->|"5. 신뢰됨"| Valid[✅ 검증 성공]
+    TrustStore -->|"5. 신뢰 안 됨"| Invalid[❌ 검증 실패]
 ```
 
 ---

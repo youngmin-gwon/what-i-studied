@@ -29,7 +29,7 @@ flowchart TD
     Freeze1 --> Freeze2{"2. AGP & Signing Audit Pass?"}
     Freeze2 --> Freeze3{"3. Staged Track & Release Note Freeze Pass?"}
     Freeze3 --> Freeze4{"4. Rollback & Halt Trigger Agreed?"}
-    Freeze4 -->|All Passed| DeployPlay["Publish to Google Play Store Track"]
+    Freeze4 -->|"All Passed"| DeployPlay["Publish to Google Play Store Track"]
 ```
 
 ### 코드 예시 (Release Check Verification Command)

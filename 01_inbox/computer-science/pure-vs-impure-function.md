@@ -26,14 +26,14 @@ graph TD
     subgraph Pure ["Pure Function (순수 함수)"]
         In1["입력 (Input: a, b)"] --> Fn1["f(a, b) = a + b"]
         Fn1 --> Out1["출력 (a + b)"]
-        Fn1 -.->|외부 영향 없음| Safe["Side Effect Free"]
+        Fn1 -.->|"외부 영향 없음"| Safe["Side Effect Free"]
     end
 
     subgraph Impure ["Impure Function (비순수 함수)"]
         In2["입력 (Input: a, b)"] --> Fn2["f(a, b) = a + b + GlobalVar"]
         Global["전역 변수 / DB / Network / Time"] --> Fn2
         Fn2 --> Out2["출력 (예측 불가)"]
-        Fn2 -->|외부 상태 변이 / I/O| SideEff["Console Log / DB Write / State Change"]
+        Fn2 -->|"외부 상태 변이 / I/O"| SideEff["Console Log / DB Write / State Change"]
     end
 ```
 

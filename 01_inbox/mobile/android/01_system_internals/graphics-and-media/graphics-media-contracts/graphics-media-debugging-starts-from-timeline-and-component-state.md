@@ -28,10 +28,10 @@ Android 그래픽 및 미디어 파이프라인 디버깅은 특정 단일 함�
 graph TD
     Issue[그래픽 / 미디어 문제 발생] --> Choice{문제 성격}
 
-    Choice -->|프레임 끊김 / 지연| Timeline[Timeline 분석: Perfetto Trace]
+    Choice -->|"프레임 끊김 / 지연"| Timeline[Timeline 분석: Perfetto Trace]
     Timeline --> PerfettoTrace[VSync - UIThread - RenderThread - SF 타이밍 측정]
 
-    Choice -->|블랙 스크린 / 소리 안남 / 코덱 에러| Component[Component State 분석: dumpsys]
+    Choice -->|"블랙 스크린 / 소리 안남 / 코덱 에러"| Component[Component State 분석: dumpsys]
     Component --> SF_Dump[dumpsys SurfaceFlinger: Layer visibility & HWC]
     Component --> Codec_Dump[dumpsys media.codec: Buffer queue starvation]
     Component --> Audio_Dump[dumpsys audio: Focus stack & AudioTrack state]

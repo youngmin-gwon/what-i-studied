@@ -26,10 +26,10 @@ Play App Signing 은 개발자가 사용하는 **업로드 키(Upload Key)** 와
 
 ```mermaid
 graph TD
-    DevMachine["개발자 / CI 환경 (Upload Key 보유)"] -->|1. Upload Key 서명| AAB["Android App Bundle (.aab 제출)"]
+    DevMachine["개발자 / CI 환경 (Upload Key 보유)"] -->|"1. Upload Key 서명"| AAB["Android App Bundle (.aab 제출)"]
     AAB --> PlayConsole["Google Play Console (Dynamic Delivery)"]
-    PlayConsole -->|2. Upload Key 검증 및 제거| HSM["Google 보안 인프라 (HSM)"]
-    HSM -->|3. App Signing Key 최종 재서명| SplitAPKs["기기 맞춤형 Split APKs 조립 (용량 15~35% 절감)"]
+    PlayConsole -->|"2. Upload Key 검증 및 제거"| HSM["Google 보안 인프라 (HSM)"]
+    HSM -->|"3. App Signing Key 최종 재서명"| SplitAPKs["기기 맞춤형 Split APKs 조립 (용량 15~35% 절감)"]
     SplitAPKs --> UserDevice["사용자 스마트폰 배포"]
 ```
 

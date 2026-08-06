@@ -35,7 +35,7 @@ flowchart LR
     DEX2OAT --> OAT[".oat Native ELF File
 (speed-profile)"]
 
-    CLOUD["Cloud Baseline Profile"] -.->|Pre-load on Install| DEX2OAT
+    CLOUD["Cloud Baseline Profile"] -.->|"Pre-load on Install"| DEX2OAT
 
     style INSTALL fill:#e1f5fe,stroke:#0288d1
     style RUN fill:#fff3e0,stroke:#f57c00

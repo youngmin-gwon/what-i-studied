@@ -26,8 +26,8 @@ Android 앱 성능 측정에서 앱 실행 시 사용자 경험을 결정짓는 
 ```mermaid
 graph LR
     UserTap["앱 아이콘 탭 (Launch Intent)"] --> ActivityLaunch["Application / Activity onCreate()"]
-    ActivityLaunch -->|첫 Window Frame 렌더링| TTID["1. TTID (Time To Initial Display) - 첫 화면 노출"]
-    TTID -->|네트워크 Async 로딩 & 이미지 채우기| TTFD["2. TTFD (Time To Fully Drawn) - 완벽 조작 가능"]
+    ActivityLaunch -->|"첫 Window Frame 렌더링"| TTID["1. TTID (Time To Initial Display) - 첫 화면 노출"]
+    TTID -->|"네트워크 Async 로딩 & 이미지 채우기"| TTFD["2. TTFD (Time To Fully Drawn) - 완벽 조작 가능"]
 ```
 
 ---

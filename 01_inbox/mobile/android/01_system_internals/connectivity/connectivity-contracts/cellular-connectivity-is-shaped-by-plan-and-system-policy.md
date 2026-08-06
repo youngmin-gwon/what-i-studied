@@ -29,11 +29,11 @@ graph TD
     SIM[SIM Card / RIL Driver] --> Telephony[TelephonyRegistry / TelephonyManager]
     Telephony --> SubManager[SubscriptionManager / CarrierConfigManager]
     
-    SubManager -->|Carrier Plans & Limits| Policy[NetworkPolicyManagerService]
-    Policy -->|Metered Capability & eBPF Rules| CS[ConnectivityService]
+    SubManager -->|"Carrier Plans & Limits"| Policy[NetworkPolicyManagerService]
+    Policy -->|"Metered Capability & eBPF Rules"| CS[ConnectivityService]
 
-    CS -->|Network Score Evaluation| Route[Default Cellular Network Selection]
-    Policy -->|Background Traffic Limit| netd[netd eBPF Penalty Box]
+    CS -->|"Network Score Evaluation"| Route[Default Cellular Network Selection]
+    Policy -->|"Background Traffic Limit"| netd[netd eBPF Penalty Box]
 ```
 
 ### Kotlin 셀룰러 종량제 및 네트워크 특성 관찰 코드

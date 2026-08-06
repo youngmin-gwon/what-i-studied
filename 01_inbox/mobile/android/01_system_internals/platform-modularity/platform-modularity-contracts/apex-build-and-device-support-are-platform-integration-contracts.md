@@ -37,8 +37,8 @@ graph TD
     D --> E["Device Integration (device.mk)\nPRODUCT_PACKAGES += com.android.foo"]
     
     E --> F{"Kernel Support Check"}
-    F -->|Loopback / dm-verity OK| G["Boot-time Mount (/apex/com.android.foo)"]
-    F -->|Kernel Feature Missing| H["Flattened Fallback / Boot Failure"]
+    F -->|"Loopback / dm-verity OK"| G["Boot-time Mount (/apex/com.android.foo)"]
+    F -->|"Kernel Feature Missing"| H["Flattened Fallback / Boot Failure"]
 ```
 
 #### Soong `Android.bp` & `device.mk` 선언 예시

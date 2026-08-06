@@ -27,8 +27,8 @@ updated: 2026-08-05 16:15:00 +09:00
 ```mermaid
 flowchart TD
     subgraph GradleDependency ["Reverse Dependency Structure"]
-        AppBase[":app (Base Module)"] -->|dynamicFeatures += :feature_ar| DFMModule[":feature_ar (Dynamic Feature Module)"]
-        DFMModule -->|implementation project(:app)| AppBase
+        AppBase[":app (Base Module)"] -->|"dynamicFeatures += :feature_ar"| DFMModule[":feature_ar (Dynamic Feature Module)"]
+        DFMModule -->|"implementation project(:app)"| AppBase
     end
 
     subgraph RuntimeInstall ["Runtime Dynamic Loading"]

@@ -23,15 +23,15 @@ Android **테더링(Tethering / SoftAP / USB Tethering / Bluetooth Tethering)**�
 
 ```mermaid
 graph LR
-    ClientDevice[External Laptop / Tablet] -->|WiFi / USB| Downstream[Downstream Interface: wlan1 / rndis0]
+    ClientDevice[External Laptop / Tablet] -->|"WiFi / USB"| Downstream[Downstream Interface: wlan1 / rndis0]
     
     subgraph Android Tethering Core System
         Downstream --> DHCP[NetworkStack DHCP / DNS Server]
         Downstream --> eBPF_Tether[netd eBPF Tethering Offload]
-        eBPF_Tether -->|IPv4 NAT / IPv6 Forward| Upstream[Upstream Interface: rmnet0]
+        eBPF_Tether -->|"IPv4 NAT / IPv6 Forward"| Upstream[Upstream Interface: rmnet0]
     end
 
-    Upstream -->|Cellular Tower| Internet[Public Internet]
+    Upstream -->|"Cellular Tower"| Internet[Public Internet]
 ```
 
 ### Kotlin TetheringManager 상태 감지 코드

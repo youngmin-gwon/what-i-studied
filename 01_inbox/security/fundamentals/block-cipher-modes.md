@@ -35,9 +35,9 @@ date created: 2026-01-08 18:18:17 +09:00
 ```mermaid
 graph LR
     subgraph "공격 난이도 및 공격자 권한"
-        COA[COA<br/>암호문 단독] -->|공격 난이도 증가| KPA[KPA<br/>기지 평문]
-        KPA -->|공격자 권한 증가| CPA[CPA<br/>선택 평문]
-        CPA -->|최대 권한| CCA[CCA<br/>선택 암호문]
+        COA[COA<br/>암호문 단독] -->|"공격 난이도 증가"| KPA[KPA<br/>기지 평문]
+        KPA -->|"공격자 권한 증가"| CPA[CPA<br/>선택 평문]
+        CPA -->|"최대 권한"| CCA[CCA<br/>선택 암호문]
     end
 ```
 

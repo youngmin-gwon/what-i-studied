@@ -37,18 +37,18 @@ date created: 2025-12-20 00:02:18 +09:00
 ```mermaid
 graph TD
     Start["IPC 필요"]
-    Start -->|이벤트 알림만 필요| Signal["POSIX Signal"]
-    Start -->|데이터 전송 필요| Data["Data Transfer"]
+    Start -->|"이벤트 알림만 필요"| Signal["POSIX Signal"]
+    Start -->|"데이터 전송 필요"| Data["Data Transfer"]
 
-    Data -->|단일 시스템 로컬| Local["Local IPC"]
-    Data -->|원격 네트워크| Network["TCP/IP Socket"]
+    Data -->|"단일 시스템 로컬"| Local["Local IPC"]
+    Data -->|"원격 네트워크"| Network["TCP/IP Socket"]
 
-    Local -->|고성능 대용량 Zero-Copy| FastMemory["Zero-Copy Memory"]
-    Local -->|메시지/스트림 전달| Stream["Stream / Message"]
+    Local -->|"고성능 대용량 Zero-Copy"| FastMemory["Zero-Copy Memory"]
+    Local -->|"메시지/스트림 전달"| Stream["Stream / Message"]
 
-    FastMemory -->|공유 메모리| SHM["POSIX Shared Memory + Semaphore"]
-    Stream -->|부모-자식 관계| Pipe["Anonymous Pipe"]
-    Stream -->|양방향 전이중 / FD 전달| UnixSock["Unix Domain Socket"]
+    FastMemory -->|"공유 메모리"| SHM["POSIX Shared Memory + Semaphore"]
+    Stream -->|"부모-자식 관계"| Pipe["Anonymous Pipe"]
+    Stream -->|"양방향 전이중 / FD 전달"| UnixSock["Unix Domain Socket"]
 
     Signal --- RefSignal["POSIX Signal 계약"]
     SHM --- RefSHM["공유 메모리와 mmap 계약"]

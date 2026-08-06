@@ -22,14 +22,14 @@ C/C++ Native 코드의 성능 병목(Performance Bottleneck) 및 불투명한 �
 ```mermaid
 graph TD
     subgraph Native Performance Profiling
-        A1["High Frequency JNI Calls / String Copy"] -->|Batching JNI Calls| B1["Pass DirectByteBuffer / Bulk Primitive Array"]
-        A2["C++ CPU Hotspots"] -->|simpleperf record / Perfetto| B2["Neon SIMD / Multithreading Parallelization"]
+        A1["High Frequency JNI Calls / String Copy"] -->|"Batching JNI Calls"| B1["Pass DirectByteBuffer / Bulk Primitive Array"]
+        A2["C++ CPU Hotspots"] -->|"simpleperf record / Perfetto"| B2["Neon SIMD / Multithreading Parallelization"]
     end
 
     subgraph Native Crash Analysis
         C1["Native Crash Event (SIGSEGV / SIGABRT)"] --> C2["debuggerd Daemon captures Crash State"]
         C2 --> C3["Generate Tombstone Log\n(/data/tombstones/tombstone_xx)"]
-        C3 -->|Unstripped .so + ndk-stack| C4["Symbolicated Stack Trace\n(File & Line Number)"]
+        C3 -->|"Unstripped .so + ndk-stack"| C4["Symbolicated Stack Trace\n(File & Line Number)"]
     end
 ```
 

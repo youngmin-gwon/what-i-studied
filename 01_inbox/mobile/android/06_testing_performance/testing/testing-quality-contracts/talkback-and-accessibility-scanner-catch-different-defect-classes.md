@@ -40,7 +40,7 @@ flowchart LR
         TalkBack --> M4["FLAG_SECURE 윈도우 - Scanner 는 검사 불가"]
     end
 
-    Automated -.->|겹치지 않음| Manual
+    Automated -.->|"겹치지 않음"| Manual
 ```
 
 ### 3. CI 게이트에 넣는 자동 검사와 릴리스 체크리스트의 수동 검증 예시

@@ -24,7 +24,7 @@ role: atomic-reference
 
 ```mermaid
 graph TD
-    Zygote["Zygote 마스터 프로세스"] -->|fork| SS["system_server 프로세스"]
+    Zygote["Zygote 마스터 프로세스"] -->|"fork"| SS["system_server 프로세스"]
     SS --> AMS["1. ActivityManagerService (AMS/ATMS) - 앱 수명주기"]
     SS --> WMS["2. WindowManagerService (WMS) - 화면/터치 관제"]
     SS --> PMS["3. PackageManagerService (PMS) - APK/권한 관리"]

@@ -33,8 +33,8 @@ graph TD
         RemoteDS["Remote DataSource (Ktor / Retrofit API)"]
     end
 
-    UI -->|Sends User Actions| VM
-    VM -->|Exposes [stateflow](../stateflow-and-sharedflow.md)| UI
+    UI -->|"Sends User Actions"| VM
+    VM -->|"Exposes [stateflow](../stateflow-and-sharedflow.md)"| UI
     VM --> UC
     UC --> Repo
     VM --> Repo

@@ -29,8 +29,8 @@ graph TD
         VA_B["Virtual Memory Page B"]
     end
 
-    VA_A -->|PTE Mapping| RAM
-    VA_B -->|PTE Mapping| RAM
+    VA_A -->|"PTE Mapping"| RAM
+    VA_B -->|"PTE Mapping"| RAM
     RAM -- "동기화 필수" --> SEM["POSIX Semaphore / Mutex"]
 ```
 

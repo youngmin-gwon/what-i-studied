@@ -89,7 +89,7 @@ graph LR
         PF3[Frame 3]
     end
     
-    LP0 -->|Page Table| PF2
+    LP0 -->|"Page Table"| PF2
     LP1 --> PF0
     LP2 --> PF3
     LP3 --> PF1

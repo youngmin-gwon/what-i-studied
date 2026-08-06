@@ -17,12 +17,12 @@ date modified: 2026-08-06 14:54:00 +09:00
 ### 2. 전체 조망도
 ```mermaid
 flowchart TD
-    App[Android App\nPlay Billing Library] -->|1. Request Purchase| Play[Google Play App]
-    Play -->|2. Purchase Token| App
-    App -->|3. Send Token| Backend[Backend Server]
-    Backend -->|4. Verify API| GoogleAPI[Google Play Developer API]
-    GoogleAPI -->|5. Valid Token| Backend
-    Backend -->|6. Grant Entitlement\n& Acknowledge| App
+    App[Android App\nPlay Billing Library] -->|"1. Request Purchase"| Play[Google Play App]
+    Play -->|"2. Purchase Token"| App
+    App -->|"3. Send Token"| Backend[Backend Server]
+    Backend -->|"4. Verify API"| GoogleAPI[Google Play Developer API]
+    GoogleAPI -->|"5. Valid Token"| Backend
+    Backend -->|"6. Grant Entitlement\n& Acknowledge"| App
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

@@ -55,14 +55,14 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    A[Alice] -->|신뢰| B[Bob]
-    B -->|신뢰| C[Charlie]
-    A -->|간접 신뢰| C
+    A[Alice] -->|"신뢰"| B[Bob]
+    B -->|"신뢰"| C[Charlie]
+    A -->|"간접 신뢰"| C
     
-    D[David] -->|신뢰| E[Eve]
-    E -->|신뢰| F[Frank]
+    D[David] -->|"신뢰"| E[Eve]
+    E -->|"신뢰"| F[Frank]
     
-    B -->|신뢰| E
+    B -->|"신뢰"| E
 ```
 
 **특징**:

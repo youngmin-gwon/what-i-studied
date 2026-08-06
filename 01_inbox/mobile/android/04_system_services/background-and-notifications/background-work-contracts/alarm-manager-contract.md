@@ -6,16 +6,22 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
+# Alarm Manager Contract
+
+## 1. 개요 (Overview)
+
 ### 초보자를 위한 쉽게 이해하는 비유
 * **AlarmManager (정확한 시각에 울리는 정밀 자상 모닝콜)**:
   - 배터리 상태와 관계없이 정확히 지정된 시각(RTC_WAKEUP)에 CPU 를 깨워 알람이나 정시 사용자 이벤트를 처리하는 시스템 모닝콜 서비스.
 
 ```mermaid
 graph TD
-    App["앱 프로세스"] -->|setExactAndAllowWhileIdle| AlarmManager["AlarmManager 시스템 서비스"]
-    AlarmManager -->|지정 시각 도착| RTC["RTC 하드웨어 타이머 깨움 (RTC_WAKEUP)"]
-    RTC -->|PendingIntent 전달| Receiver["BroadcastReceiver 또는 Activity 실행"]
+    App["앱 프로세스"] -->|"setExactAndAllowWhileIdle"| AlarmManager["AlarmManager 시스템 서비스"]
+    AlarmManager -->|"지정 시각 도착"| RTC["RTC 하드웨어 타이머 깨움 (RTC_WAKEUP)"]
+    RTC -->|"PendingIntent 전달"| Receiver["BroadcastReceiver 또는 Activity 실행"]
 ```
+
+---
 
 ---
 

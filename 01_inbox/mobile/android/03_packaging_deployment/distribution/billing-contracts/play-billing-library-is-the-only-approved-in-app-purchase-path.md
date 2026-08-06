@@ -29,10 +29,10 @@ Google Play의 기본 Payments 정책에서 Play 배포 앱이 앱 안에서 소
 
 ```mermaid
 flowchart LR
-    AppClient["App BillingClient"] -->|1. startConnection| PlayIPC["Google Play Service IPC"]
-    AppClient -->|2. queryProductDetailsAsync| PlayIPC
-    AppClient -->|3. launchBillingFlow| PlayUI["Google Play Secure Payment BottomSheet"]
-    PlayUI -->|4. Purchase update| Listener["PurchasesUpdatedListener.onPurchasesUpdated()"]
+    AppClient["App BillingClient"] -->|"1. startConnection"| PlayIPC["Google Play Service IPC"]
+    AppClient -->|"2. queryProductDetailsAsync"| PlayIPC
+    AppClient -->|"3. launchBillingFlow"| PlayUI["Google Play Secure Payment BottomSheet"]
+    PlayUI -->|"4. Purchase update"| Listener["PurchasesUpdatedListener.onPurchasesUpdated()"]
 ```
 
 ### 코드 예시 (build.gradle.kts & BillingClient)

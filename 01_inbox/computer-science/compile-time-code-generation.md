@@ -27,7 +27,7 @@ date created: 2026-08-06 17:31:00 +09:00
 graph TD
     Source["개발자 소스 코드 (@Inject, @Entity 등)"] --> Compiler["Kotlin / Java 컴파일러 빌드 시작"]
     Compiler --> Processor["KSP / APT / Metro Compiler Plugin"]
-    Processor -->|어노테이션 & 심볼 분석| GenCode["보일러플레이트 소스 코드 자동 생성 (_Factory, _Impl)"]
+    Processor -->|"어노테이션 & 심볼 분석"| GenCode["보일러플레이트 소스 코드 자동 생성 (_Factory, _Impl)"]
     GenCode --> FinalBuild["최종 바이트코드(DEX/JAR) 패키징 (런타임 리플렉션 0%)"]
 ```
 

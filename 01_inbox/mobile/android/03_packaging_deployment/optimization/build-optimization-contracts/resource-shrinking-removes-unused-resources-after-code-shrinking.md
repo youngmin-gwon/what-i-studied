@@ -28,8 +28,8 @@ flowchart TD
     R8Shrink --> AliveCode["Surviving DEX Code Base"]
     AliveCode --> ResScanner["2. AGP Resource Shrinker (Scans R.java References)"]
     ResScanner --> FilterRes{"Resource Referenced?"}
-    FilterRes -->|Yes| KeepRes["Keep Original Resource Asset"]
-    FilterRes -->|No| StripRes["Replace Unused Resource with Tiny Dummy Asset"]
+    FilterRes -->|"Yes"| KeepRes["Keep Original Resource Asset"]
+    FilterRes -->|"No"| StripRes["Replace Unused Resource with Tiny Dummy Asset"]
 ```
 
 ### 코드 예시 (build.gradle.kts & res/raw/keep.xml)

@@ -21,10 +21,10 @@ CMake는 C/C++ 소스 컴파일 대상과 링킹 타깃을 정의하고, AGP의 
 
 ```mermaid
 graph TD
-    A["build.gradle.kts\n(ndkVersion, abiFilters)"] -->|Pass ANDROID_ABI & Toolchain File| B["AGP NDK Toolchain Integration"]
-    B -->|Invoke NDK Clang Cross-compiler| C["CMake (CMakeLists.txt)\n(add_library, target_link_libraries)"]
-    C -->|Generate Architecture .so| D["Native Shared Libraries\n(build/intermediates/cxx/...)"]
-    D -->|Package into APK/AAB| E["APK Structure\n(lib/arm64-v8a/libnative-lib.so)"]
+    A["build.gradle.kts\n(ndkVersion, abiFilters)"] -->|"Pass ANDROID_ABI & Toolchain File"| B["AGP NDK Toolchain Integration"]
+    B -->|"Invoke NDK Clang Cross-compiler"| C["CMake (CMakeLists.txt)\n(add_library, target_link_libraries)"]
+    C -->|"Generate Architecture .so"| D["Native Shared Libraries\n(build/intermediates/cxx/...)"]
+    D -->|"Package into APK/AAB"| E["APK Structure\n(lib/arm64-v8a/libnative-lib.so)"]
 ```
 
 1. **Cross-Compilation Binding**: CMake 실행 시 AGP는 NDK 내부의 toolchain file(`android.toolchain.cmake`)을 주입하고 `-DANDROID_ABI=arm64-v8a` 및 `-DANDROID_PLATFORM=android-24` 옵션을 전달하여 기기 타깃 아키텍처에 맞게 C/C++ 바이너리를 빌드한다.

@@ -26,15 +26,15 @@ graph TD
     App[App Network Engine: OkHttp] -->|1. getByName("api.example.com")| NetdDNS[netd DnsResolver]
     
     subgraph Private DNS Layer (Port 853)
-        NetdDNS -->|Encrypted DoT Query| PrivateDNSServer[Private DNS Server: dns.google]
+        NetdDNS -->|"Encrypted DoT Query"| PrivateDNSServer[Private DNS Server: dns.google]
         PrivateDNSServer -->>NetdDNS: IP: 93.184.216.34 (Encrypted Result)
     end
 
     NetdDNS -->>App: IP Address Returned
 
     subgraph Application TLS Layer (Port 443)
-        App -->|2. TCP Connect & TLS Handshake| WebServer[Target Web Server]
-        App -->|3. Certificate Chain & Pinning Check| TrustManager[Conscrypt TrustManager]
+        App -->|"2. TCP Connect & TLS Handshake"| WebServer[Target Web Server]
+        App -->|"3. Certificate Chain & Pinning Check"| TrustManager[Conscrypt TrustManager]
         TrustManager -->>App: Valid TLS Session Established
     end
 ```

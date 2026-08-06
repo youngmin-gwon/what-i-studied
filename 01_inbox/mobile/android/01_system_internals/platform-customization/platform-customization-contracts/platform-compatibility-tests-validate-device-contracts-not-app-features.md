@@ -30,7 +30,7 @@ CTS(Compatibility Test Suite), VTS(Vendor Test Suite), GTS(Google Test Suite), S
 
 ```mermaid
 graph TD
-    A["Host Environment\n(tradefed harness)"] -->|ADB Connection| B["Target Android Device"]
+    A["Host Environment\n(tradefed harness)"] -->|"ADB Connection"| B["Target Android Device"]
     
     subgraph "Compatibility Test Execution"
         A --> C["CTS Engine\n(Framework & App API)"]
@@ -38,16 +38,16 @@ graph TD
         A --> E["GTS Engine\n(GMS Core & Certification)"]
     end
     
-    C -->|Verify API Contract| F["App Layer / Framework Services"]
-    D -->|Verify HAL / Kernel Contract| G["Vendor HAL & GKI Kernel Layer"]
-    E -->|Verify Licensing Contract| H["GMS Core System Layer"]
+    C -->|"Verify API Contract"| F["App Layer / Framework Services"]
+    D -->|"Verify HAL / Kernel Contract"| G["Vendor HAL & GKI Kernel Layer"]
+    E -->|"Verify Licensing Contract"| H["GMS Core System Layer"]
 
     F --> I{"Pass / Fail Evaluation"}
     G --> I
     H --> I
     
-    I -->|All Passed| J["Platform Certification Approved"]
-    I -->|Failed| K["Block Release / Issue Contract Violation"]
+    I -->|"All Passed"| J["Platform Certification Approved"]
+    I -->|"Failed"| K["Block Release / Issue Contract Violation"]
 ```
 
 #### Tradefed 실행 및 XML 테스트 구성 예시

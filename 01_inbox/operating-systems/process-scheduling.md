@@ -154,14 +154,14 @@ MLQ 를 개선하여 **큐 간 이동이 가능**한 방식입니다.
 ```mermaid
 graph TD
     NEW[새 프로세스] --> Q0[Queue 0: 높은 우선순위\nTime Slice = 8]
-    Q0 -->|할당량 초과| Q1[Queue 1: 중간 우선순위\nTime Slice = 16]
-    Q1 -->|할당량 초과| Q2[Queue 2: 낮은 우선순위\nFCFS]
+    Q0 -->|"할당량 초과"| Q1[Queue 1: 중간 우선순위\nTime Slice = 16]
+    Q1 -->|"할당량 초과"| Q2[Queue 2: 낮은 우선순위\nFCFS]
     
     Q0 --> CPU[CPU]
     Q1 --> CPU
     Q2 --> CPU
     
-    Q2 -->|I/O 발생| Q0
+    Q2 -->|"I/O 발생"| Q0
 ```
 
 **동작 방식**:

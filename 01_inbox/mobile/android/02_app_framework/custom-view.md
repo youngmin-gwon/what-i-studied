@@ -39,14 +39,14 @@ Android View의 렌더링 시스템은 뷰 트리를 순회하면서 세 가지 
 graph TD
     A[View 생성자 호출 Init] --> B[onMeasure - 크기 측정]
     B --> C{MeasureSpec 계산}
-    C -->|setMeasuredDimension| D[onLayout - 위치 배치]
+    C -->|"setMeasuredDimension"| D[onLayout - 위치 배치]
     D --> E[onDraw - 2D 그래픽 렌더링]
     
     E --> F[화면 출력 완료]
     
-    F -->|데이터 변경 시| G{업데이트 요청}
-    G -->|크기/배치 변경 필요| B
-    G -->|단순 그림 재렌더링| E
+    F -->|"데이터 변경 시"| G{업데이트 요청}
+    G -->|"크기/배치 변경 필요"| B
+    G -->|"단순 그림 재렌더링"| E
 ```
 
 ### `invalidate()` vs `requestLayout()`

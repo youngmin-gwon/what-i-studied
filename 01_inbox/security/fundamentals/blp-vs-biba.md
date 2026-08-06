@@ -41,11 +41,11 @@ graph TD
         U[Unclassified 일반비분류]
     end
     
-    TS -->|No Read Up 위쪽 읽기 금지| S
-    S -->|No Read Up 위쪽 읽기 금지| C
-    C -->|No Read Up 위쪽 읽기 금지| U
+    TS -->|"No Read Up 위쪽 읽기 금지"| S
+    S -->|"No Read Up 위쪽 읽기 금지"| C
+    C -->|"No Read Up 위쪽 읽기 금지"| U
     
-    S -.->|No Write Down 아래쪽 쓰기 금지| U
+    S -.->|"No Write Down 아래쪽 쓰기 금지"| U
     
     style TS fill:#f9d5d5,stroke:#333
     style U fill:#d5f9d5,stroke:#333
@@ -64,8 +64,8 @@ graph TD
         LI[Low Integrity 낮은 신뢰도/오염됨]
     end
     
-    HI -.->|No Read Down 아래쪽 읽기 금지| LI
-    LI -->|No Write Up 위쪽 쓰기 금지| HI
+    HI -.->|"No Read Down 아래쪽 읽기 금지"| LI
+    LI -->|"No Write Up 위쪽 쓰기 금지"| HI
     
     style HI fill:#d5f9d5,stroke:#333
     style LI fill:#f9d5d5,stroke:#333

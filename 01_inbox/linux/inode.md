@@ -26,10 +26,10 @@ Unix의 설계자들은 **메타데이터를 분리**하는 방법을 고안했�
 
 ```mermaid
 graph LR
-    D1[Directory Entry<br/>'file.txt'] -->|inode #12345| I[inode #12345]
-    D2[Directory Entry<br/>'hardlink.txt'] -->|inode #12345| I
-    I -->|Data Block Pointers| DB1[Data Block 1]
-    I -->|Data Block Pointers| DB2[Data Block 2]
+    D1[Directory Entry<br/>'file.txt'] -->|"inode #12345"| I[inode #12345]
+    D2[Directory Entry<br/>'hardlink.txt'] -->|"inode #12345"| I
+    I -->|"Data Block Pointers"| DB1[Data Block 1]
+    I -->|"Data Block Pointers"| DB2[Data Block 2]
 ```
 
 ## 🔑 inode에 저장되는 정보 (inode Contents)
@@ -56,12 +56,12 @@ graph LR
 
 ```mermaid
 graph TD
-    I[inode] -->|Direct| DB1[Data Block 1]
-    I -->|Direct| DB2[Data Block 2]
-    I -->|Single Indirect| IB1[Indirect Block]
+    I[inode] -->|"Direct"| DB1[Data Block 1]
+    I -->|"Direct"| DB2[Data Block 2]
+    I -->|"Single Indirect"| IB1[Indirect Block]
     IB1 --> DB3[Data Block 3]
     IB1 --> DB4[Data Block 4]
-    I -->|Double Indirect| DIB[Double Indirect Block]
+    I -->|"Double Indirect"| DIB[Double Indirect Block]
     DIB --> IB2[Indirect Block]
     IB2 --> DB5[Data Block 5]
 ```

@@ -226,9 +226,9 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    USER[사용자] -->|회사_WiFi 접속| EVIL[Evil Twin AP<br/>SSID: 회사_WiFi]
-    EVIL -->|트래픽 가로채기| ATK[공격자]
-    ATK -->|실제 AP로 전달| REAL[정상 AP]
+    USER[사용자] -->|"회사_WiFi 접속"| EVIL[Evil Twin AP<br/>SSID: 회사_WiFi]
+    EVIL -->|"트래픽 가로채기"| ATK[공격자]
+    ATK -->|"실제 AP로 전달"| REAL[정상 AP]
 ```
 
 **피해**:

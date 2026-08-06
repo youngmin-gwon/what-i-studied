@@ -6,6 +6,10 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
 ---
 
+# Work Manager Contract
+
+## 1. 개요 (Overview)
+
 ### 초보자를 위한 쉽게 이해하는 비유
 * **WorkManager (스마트 예약 택배 시스템)**:
   - 당장 배달하지 않아도 되지만 WiFi 연결 및 충전 중이라는 조건이 맞춰지면 앱이 종료되거나 스마트폰이 재부팅되어도 반드시 완료해 주는 지연 보장 예약 택배.
@@ -14,8 +18,10 @@ date created: 2026-08-03 16:59:23 +09:00
 graph TD
     WorkReq["WorkRequest 제출 (제약조건 설정)"] --> WorkDB["Room DB 내 Persistent 저장"]
     WorkDB --> Scheduler["JobScheduler / AlarmManager 연동 스케줄링"]
-    Scheduler -->|조건 충족 (WiFi + 충전)| Exec["Worker execution 및 작업 보장 완료"]
+    Scheduler -->|"조건 충족 (WiFi + 충전)"| Exec["Worker execution 및 작업 보장 완료"]
 ```
+
+---
 
 ---
 

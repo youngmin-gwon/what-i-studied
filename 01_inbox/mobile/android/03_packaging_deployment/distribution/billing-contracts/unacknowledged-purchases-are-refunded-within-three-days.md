@@ -27,8 +27,8 @@ Google Play Billing Library v3 이상부터 도입된 최우선 핵심 규약은
 flowchart TD
     UserPay["User Completes Payment"] --> Timer["72-Hour Auto-Refund Timer Starts"]
     Timer --> AppCheck{"App / Server calls Acknowledge or Consume?"}
-    AppCheck -->|Yes within 72 hrs| AckSuccess["Purchase Confirmed & Settled"]
-    AppCheck -->|No after 72 hrs| AutoRefund["Google Play Force Cancels & Refund Money to User"]
+    AppCheck -->|"Yes within 72 hrs"| AckSuccess["Purchase Confirmed & Settled"]
+    AppCheck -->|"No after 72 hrs"| AutoRefund["Google Play Force Cancels & Refund Money to User"]
 ```
 
 ### 코드 예시 (BillingClient Acknowledge Integration)

@@ -45,12 +45,12 @@ date created: 2026-08-06 16:31:15 +09:00
 
 ```mermaid
 flowchart TD
-    App[App Process] -->|1. Protected API Call| FrameworkAPI[Framework Client API]
-    FrameworkAPI -->|2. Binder IPC Request| SystemServer[System Server Process]
-    SystemServer -->|3. Check Permission & AppOps| AuthCheck{Permission & AppOps Granted?}
-    AuthCheck -->|Yes| HardwareResource[Execute Hardware Resource / Return Data]
-    AuthCheck -->|No| SecurityEx[Throw SecurityException via Binder]
-    SecurityEx -->|4. Uncaught Exception| AppCrash[App Crash or Handled by Try-Catch]
+    App[App Process] -->|"1. Protected API Call"| FrameworkAPI[Framework Client API]
+    FrameworkAPI -->|"2. Binder IPC Request"| SystemServer[System Server Process]
+    SystemServer -->|"3. Check Permission & AppOps"| AuthCheck{Permission & AppOps Granted?}
+    AuthCheck -->|"Yes"| HardwareResource[Execute Hardware Resource / Return Data]
+    AuthCheck -->|"No"| SecurityEx[Throw SecurityException via Binder]
+    SecurityEx -->|"4. Uncaught Exception"| AppCrash[App Crash or Handled by Try-Catch]
 ```
 
 #### 검증 및 발생 4 단계

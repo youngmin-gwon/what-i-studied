@@ -48,7 +48,7 @@ Compose는 부작용이나 비동기 작업을 수반해야 할 때 이를 안�
 
 ```mermaid
 graph TD
-    CompPhase["1. Composition Phase (Composable Body 실행)"] -->|순수 UI Description 계산만 수행| EffectReg["Side Effect 실행 금지 및 Effect 람다 등록 (LaunchedEffect)"]
+    CompPhase["1. Composition Phase (Composable Body 실행)"] -->|"순수 UI Description 계산만 수행"| EffectReg["Side Effect 실행 금지 및 Effect 람다 등록 (LaunchedEffect)"]
     EffectReg --> Commit["2. Composition 완료 및 Slot Table 커밋"]
     Commit --> EffectExec["3. Effect Execution Phase (등록된 Side Effect 안전 실행)"]
 ```

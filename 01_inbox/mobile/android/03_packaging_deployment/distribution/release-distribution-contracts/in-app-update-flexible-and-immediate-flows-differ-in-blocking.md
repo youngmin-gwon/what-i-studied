@@ -27,14 +27,14 @@ In-App Update는 UX 사용성 관점에서 **Flexible(유연한 업데이트)** 
 ```mermaid
 flowchart TD
     CheckUpdate["App Launches & Checks AppUpdateManager"] --> HasUpdate{"Update Available?"}
-    HasUpdate -->|No| NormalUse["Proceed to App Use"]
-    HasUpdate -->|Yes| PriorityCheck{"Update Priority Level"}
+    HasUpdate -->|"No"| NormalUse["Proceed to App Use"]
+    HasUpdate -->|"Yes"| PriorityCheck{"Update Priority Level"}
     
-    PriorityCheck -->|Low / Medium Priority| Flexible["Flexible Update Flow"]
+    PriorityCheck -->|"Low / Medium Priority"| Flexible["Flexible Update Flow"]
     Flexible --> DownloadBG["Download in Background (User Can Use App)"]
     DownloadBG --> CompleteSnackBar["Show Complete Snack-bar -> Restart"]
     
-    PriorityCheck -->|High / Security Critical| Immediate["Immediate Update Flow"]
+    PriorityCheck -->|"High / Security Critical"| Immediate["Immediate Update Flow"]
     Immediate --> BlockUI["Full Screen Blocking UI (User Cannot Use App)"]
     BlockUI --> RestartApp["Force Install & Restart App"]
 ```

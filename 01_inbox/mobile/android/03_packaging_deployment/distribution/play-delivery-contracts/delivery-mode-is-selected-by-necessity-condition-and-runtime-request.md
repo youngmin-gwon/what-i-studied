@@ -26,12 +26,12 @@ Android 앱을 개발할 때 모든 모듈을 어떤 **배포 모드(Delivery Mo
 ```mermaid
 flowchart TD
     FeatureRequirement["Evaluate New Feature Requirement"] --> Essential{"Is it Essential for App Startup?"}
-    Essential -->|Yes| BaseMod["Base Module (:app)"]
-    Essential -->|No| HWCheck{"Is it HW / Country Specific?"}
-    HWCheck -->|Yes| CondDelivery["Conditional Delivery DFM"]
-    HWCheck -->|No| UsageFreq{"Is Usage Frequency > 80%?"}
-    UsageFreq -->|Yes| InstallTimeDFM["Install-Time Delivery DFM"]
-    UsageFreq -->|No| OnDemandDFM["On-Demand Delivery DFM"]
+    Essential -->|"Yes"| BaseMod["Base Module (:app)"]
+    Essential -->|"No"| HWCheck{"Is it HW / Country Specific?"}
+    HWCheck -->|"Yes"| CondDelivery["Conditional Delivery DFM"]
+    HWCheck -->|"No"| UsageFreq{"Is Usage Frequency > 80%?"}
+    UsageFreq -->|"Yes"| InstallTimeDFM["Install-Time Delivery DFM"]
+    UsageFreq -->|"No"| OnDemandDFM["On-Demand Delivery DFM"]
 ```
 
 ### 코드 예시 (Architecture Decision Record)

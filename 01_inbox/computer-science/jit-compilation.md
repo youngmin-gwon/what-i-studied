@@ -24,7 +24,7 @@ JIT 컴파일러는 프로그램의 모든 코드를 무조건 번역하지 않�
 graph TD
     Bytecode["중간 바이트코드 (Bytecode)"] --> Interpreter["인터프리터 (Interpreter) 즉시 실행"]
     Interpreter --> Profiler["런타임 카운터 프로파일링 (Hotspot Detector)"]
-    Profiler -->|호출 횟수 / 루프 반복 횟수 초과| JIT["JIT 컴파일러 (Hotspot Compilation)"]
+    Profiler -->|"호출 횟수 / 루프 반복 횟수 초과"| JIT["JIT 컴파일러 (Hotspot Compilation)"]
     JIT --> NativeCode["네이티브 기계어 캐싱 (Code Cache)"]
     NativeCode --> OSR["On-Stack Replacement (OSR) 기계어 직행"]
 ```

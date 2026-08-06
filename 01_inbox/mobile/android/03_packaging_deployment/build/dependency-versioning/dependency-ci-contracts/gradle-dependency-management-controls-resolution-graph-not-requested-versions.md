@@ -29,8 +29,8 @@ flowchart TD
     ReqA["Module A requests Lib X:1.0.0"] --> Engine["Gradle Dependency Engine"]
     ReqB["Module B requests Lib X:1.2.0"] --> Engine
     Engine --> Strategy{"Resolution Strategy"}
-    Strategy -->|Default| Highest["Resolved to Lib X:1.2.0"]
-    Strategy -->|Strictly Rule| StrictFail["Strict Verification Fail if mismatched"]
+    Strategy -->|"Default"| Highest["Resolved to Lib X:1.2.0"]
+    Strategy -->|"Strictly Rule"| StrictFail["Strict Verification Fail if mismatched"]
 ```
 
 ### 코드 예시 (build.gradle.kts)

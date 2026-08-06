@@ -35,14 +35,14 @@ date created: 2026-08-01 00:00:00 +09:00
 ```mermaid
 graph LR
     subgraph UI Layer
-        UI["Compose / Activity"] -->|User Action| VM["ViewModel (No Context!)"]
+        UI["Compose / Activity"] -->|"User Action"| VM["ViewModel (No Context!)"]
     end
     subgraph Domain & Data Layer
         VM --> Repo["Repository (No UI Context!)"]
         Repo --> Local["DataStore / Room (ApplicationContext Only)"]
     end
     
-    VM -->|Exposes Immutable [stateflow](../../../stateflow-and-sharedflow.md)| UI
+    VM -->|"Exposes Immutable [stateflow](../../../stateflow-and-sharedflow.md)"| UI
 ```
 
 ---

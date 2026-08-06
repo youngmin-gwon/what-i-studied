@@ -30,8 +30,8 @@ graph LR
         B2["Framework Manifest\n(/system/etc/vintf/manifest.xml)\n'What Framework Provides'"]
     end
 
-    A1 <-->|Match Check| B1
-    A2 <-->|Match Check| B2
+    A1 <-->|"Match Check"| B1
+    A2 <-->|"Match Check"| B2
 ```
 
 1. **Vendor Manifest vs Framework Matrix (주방향 검증)**: Device Vendor가 제공하는 HAL 서비스/인스턴스(`manifest.xml`)가 Framework가 실행 시 필요로 하는 필수 HAL 버전(`compatibility_matrix.xml`)을 모두 만족하는지 검증.

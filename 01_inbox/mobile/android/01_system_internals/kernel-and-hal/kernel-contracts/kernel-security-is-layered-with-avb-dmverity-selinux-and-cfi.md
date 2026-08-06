@@ -21,9 +21,9 @@ Android Verified Boot(AVB), `dm-verity`(Hash Tree 기반 블록 레벨 무결성
 
 ```mermaid
 graph TD
-    A["Bootloader Stage\n(AVB 2.0: RSA Signature & Rollback Index Check)"] -->|Pass| B["Kernel Loading & dm-verity Mount\n(Check Root Hash of system.img / vendor.img)"]
-    B -->|Clean Block Read| C["Userspace Init & SELinux MAC\n(Enforce Domain/Type transition & AVC checks)"]
-    C -->|Runtime Execution| D["Kernel Memory Exploit Protection\n(KCFI: Verify Indirect Call Targets & Shadow Call Stack)"]
+    A["Bootloader Stage\n(AVB 2.0: RSA Signature & Rollback Index Check)"] -->|"Pass"| B["Kernel Loading & dm-verity Mount\n(Check Root Hash of system.img / vendor.img)"]
+    B -->|"Clean Block Read"| C["Userspace Init & SELinux MAC\n(Enforce Domain/Type transition & AVC checks)"]
+    C -->|"Runtime Execution"| D["Kernel Memory Exploit Protection\n(KCFI: Verify Indirect Call Targets & Shadow Call Stack)"]
 ```
 
 1. **AVB 2.0 (Android Verified Boot)**: 부트로더 단계에서 `boot.img`, `dtbo`, `vendor_boot` 파티션의 RSA 서명과 롤백 인덱스(Rollback Protection)를 검증하여 변조된 부팅 이미지 실행을 차단한다. 이 서명 검증 자체를 누가 보증하느냐는 문제가 남는데, 그 답은 소프트웨어로는 절대 바꿀 수 없는 하드웨어상의 최초 신뢰 지점인 **root of trust**(신뢰의 뿌리)에서 시작해 각 부팅 단계가 다음 단계의 서명을 검증하며 이어지는 **chain of trust**(신뢰 사슬) 구조다.

@@ -25,14 +25,14 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 flowchart TD
-    KP["Kernel Panic / Panic Trigger"] -->|Write to Reserved RAM| RAM["Persistent Storage (RAMoops)"]
-    RAM -->|Reboot & Mount| PS["/sys/fs/pstore/dmesg-ramoops-0
+    KP["Kernel Panic / Panic Trigger"] -->|"Write to Reserved RAM"| RAM["Persistent Storage (RAMoops)"]
+    RAM -->|"Reboot & Mount"| PS["/sys/fs/pstore/dmesg-ramoops-0
 /sys/fs/pstore/console-ramoops"]
     
-    INIT["init (PID 1) Logs"] -->|Write to /dev/kmsg| KMSG["Kernel Ring Buffer (/dev/kmsg)"]
-    KMSG -->|adb dmesg| LOGS["Kernel Log Output (dmesg)"]
+    INIT["init (PID 1) Logs"] -->|"Write to /dev/kmsg"| KMSG["Kernel Ring Buffer (/dev/kmsg)"]
+    KMSG -->|"adb dmesg"| LOGS["Kernel Log Output (dmesg)"]
     
-    LOGD["logd Daemon Started (Late Stage 2)"] -->|adb logcat| LOGCAT["Standard Logcat"]
+    LOGD["logd Daemon Started (Late Stage 2)"] -->|"adb logcat"| LOGCAT["Standard Logcat"]
 
     style RAM fill:#f9f,stroke:#333,stroke-width:2px
     style PS fill:#bbf,stroke:#333,stroke-width:2px

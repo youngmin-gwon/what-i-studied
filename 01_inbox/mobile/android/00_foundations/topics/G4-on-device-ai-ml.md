@@ -17,9 +17,9 @@ date modified: 2026-08-04 21:30:00 +09:00
 ### 2. 전체 조망도
 ```mermaid
 flowchart TD
-    App[App Process] -->|Inference Call| TFLite[TensorFlow Lite / ML Kit]
-    App -->|Prompt Request| AICore[AICore System Service]
-    AICore -->|Loads| Nano[Gemini Nano Model]
+    App[App Process] -->|"Inference Call"| TFLite[TensorFlow Lite / ML Kit]
+    App -->|"Prompt Request"| AICore[AICore System Service]
+    AICore -->|"Loads"| Nano[Gemini Nano Model]
     TFLite --> CPU/GPU[Local CPU / GPU / NPU]
     AICore --> NPU[Local NPU]
 ```

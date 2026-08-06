@@ -25,16 +25,16 @@ flowchart TD
     Commit["커밋 / PR 트리거"] --> BuildAPK["앱 APK + test APK 빌드"]
     BuildAPK --> LocalStage{"CI 단계 선택"}
 
-    LocalStage -->|빠른 피드백, 매 커밋| LocalEmu["로컬 에뮬레이터 매트릭스<br/>(CI runner 가 직접 AVD 부팅)"]
-    LocalStage -->|릴리스 게이트, 병합 전| CloudLab["Firebase Test Lab 업로드<br/>(device model x API level x locale 매트릭스)"]
+    LocalStage -->|"빠른 피드백, 매 커밋"| LocalEmu["로컬 에뮬레이터 매트릭스<br/>(CI runner 가 직접 AVD 부팅)"]
+    LocalStage -->|"릴리스 게이트, 병합 전"| CloudLab["Firebase Test Lab 업로드<br/>(device model x API level x locale 매트릭스)"]
 
     LocalEmu --> LocalResult["logcat + JUnit XML"]
     CloudLab --> CloudResult["기기별 로그 + 영상 + 스크린샷 + JUnit XML"]
 
     LocalResult --> Gate{"릴리스 게이트"}
     CloudResult --> Gate
-    Gate -->|모두 통과| Merge["병합/배포 허용"]
-    Gate -->|하나라도 실패| Block["차단, 실패 매트릭스 셀 식별"]
+    Gate -->|"모두 통과"| Merge["병합/배포 허용"]
+    Gate -->|"하나라도 실패"| Block["차단, 실패 매트릭스 셀 식별"]
 ```
 
 ### 3. 클라우드 매트릭스 실행 설정 예시

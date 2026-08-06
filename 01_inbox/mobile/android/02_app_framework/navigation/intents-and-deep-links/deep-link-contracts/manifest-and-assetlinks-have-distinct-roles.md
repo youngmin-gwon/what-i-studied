@@ -27,7 +27,7 @@ graph LR
         B["https://domain/.well-known/assetlinks.json<br/>(Declares Package Name & SHA-256 Fingerprint)"]
     end
     
-    A <-->|Android OS Domain Verification Service Matching| B
+    A <-->|"Android OS Domain Verification Service Matching"| B
 ```
 
 | 구분 | AndroidManifest.xml (클라이언트 선언) | assetlinks.json (웹 서버 도메인 증명) |

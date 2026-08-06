@@ -24,12 +24,12 @@ graph TD
     M2 --> A5[좀비 PC 5]
     M2 --> A6[좀비 PC 6]
     
-    A1 -->|공격| V[공격 대상<br/>Victim]
-    A2 -->|공격| V
-    A3 -->|공격| V
-    A4 -->|공격| V
-    A5 -->|공격| V
-    A6 -->|공격| V
+    A1 -->|"공격"| V[공격 대상<br/>Victim]
+    A2 -->|"공격"| V
+    A3 -->|"공격"| V
+    A4 -->|"공격"| V
+    A5 -->|"공격"| V
+    A6 -->|"공격"| V
     
     style V fill:#f99
 ```
@@ -244,9 +244,9 @@ a  (1바이트씩 천천히 전송...)
 
 ```mermaid
 graph LR
-    BOT[감염 PC] -->|C&C 도메인 조회| DNS[DNS 서버]
-    DNS -->|실제 C&C IP 대신<br/>Sinkhole IP 응답| BOT
-    BOT -->|접속| SINK[Sinkhole 서버]
+    BOT[감염 PC] -->|"C&C 도메인 조회"| DNS[DNS 서버]
+    DNS -->|"실제 C&C IP 대신<br/>Sinkhole IP 응답"| BOT
+    BOT -->|"접속"| SINK[Sinkhole 서버]
     
     Note["• 봇넷 명령 체계 차단<br/>• 감염 PC 목록 확보"]
 ```

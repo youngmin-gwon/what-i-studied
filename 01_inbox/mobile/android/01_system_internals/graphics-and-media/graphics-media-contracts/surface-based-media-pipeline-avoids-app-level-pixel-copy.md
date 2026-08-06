@@ -25,14 +25,14 @@ date created: 2026-07-31 23:20:00 +09:00
 ```mermaid
 graph TD
     subgraph Bad Path: App CPU Memory Copy
-        Camera1[Camera Hardware] -->|Copy Pixel| AppRAM[App JVM ByteArray]
-        AppRAM -->|GC & CPU Overhead| MediaCodec1[Software Codec Buffer]
+        Camera1[Camera Hardware] -->|"Copy Pixel"| AppRAM[App JVM ByteArray]
+        AppRAM -->|"GC & CPU Overhead"| MediaCodec1[Software Codec Buffer]
     end
 
     subgraph Optimal Path: Surface Zero-Copy Pipeline
-        Camera2[Camera Sensor ISP] -->|GraphicBuffer FD| NativeBuffer[Shared Hardware Buffer / dmabuf]
-        NativeBuffer -->|Pass FD via Binder| Decoder[MediaCodec HW Encoder]
-        NativeBuffer -->|Pass FD via Binder| SurfaceFlinger[SurfaceFlinger Display]
+        Camera2[Camera Sensor ISP] -->|"GraphicBuffer FD"| NativeBuffer[Shared Hardware Buffer / dmabuf]
+        NativeBuffer -->|"Pass FD via Binder"| Decoder[MediaCodec HW Encoder]
+        NativeBuffer -->|"Pass FD via Binder"| SurfaceFlinger[SurfaceFlinger Display]
     end
 ```
 

@@ -23,8 +23,8 @@ flowchart TD
     B --> C[Configuration Change]
     C --> D[Window Size Classes]
     D --> E{Adaptive UI}
-    E -->|Compact| F[Single Pane]
-    E -->|Medium/Expanded| G[Multi Pane / Sliders]
+    E -->|"Compact"| F[Single Pane]
+    E -->|"Medium/Expanded"| G[Multi Pane / Sliders]
     B --> H[Input Modalities]
     H --> I[Touch / Stylus / Mouse / Keyboard]
 ```

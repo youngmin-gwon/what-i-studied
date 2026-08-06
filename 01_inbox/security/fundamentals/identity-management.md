@@ -200,7 +200,7 @@ SSO ⊂ EAM ⊂ IAM (포함 관계)
 
 ```mermaid
 graph LR
-    TAG[태그 Tag] -->|무선| READER[리더 Reader]
+    TAG[태그 Tag] -->|"무선"| READER[리더 Reader]
     READER --> DB[백엔드 DB]
 ```
 

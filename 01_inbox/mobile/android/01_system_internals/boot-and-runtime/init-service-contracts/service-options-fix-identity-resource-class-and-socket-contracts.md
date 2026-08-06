@@ -28,12 +28,12 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 flowchart TD
-    SVC_DEF["init.rc Service Options"] -->|1. Socket Pre-creation| SOCK["Pre-create /dev/socket/<name>
+    SVC_DEF["init.rc Service Options"] -->|"1. Socket Pre-creation"| SOCK["Pre-create /dev/socket/<name>
 (Pass FD via ANDROID_SOCKET_<name>)"]
-    SVC_DEF -->|2. Identity Change| ID["setuid / setgid (user/group)
+    SVC_DEF -->|"2. Identity Change"| ID["setuid / setgid (user/group)
 Drop Root Capabilities"]
-    SVC_DEF -->|3. Resource Binding| CGROUP["Write PID to Cgroup / Cpuset"]
-    SVC_DEF -->|4. Class Grouping| CLASS["Group into Class (core/main/hal)"]
+    SVC_DEF -->|"3. Resource Binding"| CGROUP["Write PID to Cgroup / Cpuset"]
+    SVC_DEF -->|"4. Class Grouping"| CLASS["Group into Class (core/main/hal)"]
 
     style SVC_DEF fill:#f9f,stroke:#333,stroke-width:2px
     style SOCK fill:#bbf,stroke:#333,stroke-width:2px

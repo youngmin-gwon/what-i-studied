@@ -24,11 +24,11 @@ graph TD
     Kernel[Linux Kernel<br/><br/>Routing/iptables/eBPF]
     Network[Physical Network<br/><br/>Wi-Fi/Cellular]
 
-    App -->|NetworkRequest / NetworkCallback| CS
-    App -->|Socket Traffic| Kernel
-    CS -->|Policy & Routing Config| Netd
-    Netd -->|Netlink / eBPF Config| Kernel
-    Kernel -->|Data Packets| Network
+    App -->|"NetworkRequest / NetworkCallback"| CS
+    App -->|"Socket Traffic"| Kernel
+    CS -->|"Policy & Routing Config"| Netd
+    Netd -->|"Netlink / eBPF Config"| Kernel
+    Kernel -->|"Data Packets"| Network
     
     classDef framework fill:#e3f2fd,stroke:#1e88e5;
     classDef native fill:#fff3e0,stroke:#fb8c00;

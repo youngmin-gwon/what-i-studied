@@ -25,15 +25,15 @@ graph TD
         B["GKI Kernel v6.6.25 SPL Update\n(KMI Preserved)"]
         C["Vendor Module (.ko)\n(Built against v6.6.10 KMI)"]
         
-        A -->|Compatible| C
-        B -->|Compatible without recompile| C
+        A -->|"Compatible"| C
+        B -->|"Compatible without recompile"| C
     end
     
     subgraph "Cross Major Branch Boundary"
         D["GKI Kernel v6.6 (Android 15)"]
         E["GKI Kernel v6.1 (Android 14)"]
         
-        D -.->|KMI Incompatible / Must Rebuild| C
+        D -.->|"KMI Incompatible / Must Rebuild"| C
     end
 ```
 

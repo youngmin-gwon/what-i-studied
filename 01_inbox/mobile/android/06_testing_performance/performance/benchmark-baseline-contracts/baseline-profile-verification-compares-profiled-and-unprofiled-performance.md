@@ -38,8 +38,8 @@ flowchart TD
     CollectA --> Compare["3. 통계 대조 & Delta % 계산"]
     CollectB --> Compare
     Compare --> Decision{"개선율이 팀 정의 임계값 이상 & Flakiness < 5%?"}
-    Decision -->|Yes| GatePass["Release Gate PASS"]
-    Decision -->|No| ProfileRegenerate["프로필 규칙 누락 진단 및 재생성"]
+    Decision -->|"Yes"| GatePass["Release Gate PASS"]
+    Decision -->|"No"| ProfileRegenerate["프로필 규칙 누락 진단 및 재생성"]
 ```
 
 ### 3. Profiled 대조 검증 Kotlin 테스트 코드 구체 예시

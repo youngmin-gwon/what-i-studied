@@ -25,8 +25,8 @@ Android `init.rc` 언어는 init 프로세스에 의해 파싱되는 선언형 D
 
 ```mermaid
 flowchart TD
-    INIT_RC["/system/etc/init/hw/init.rc"] -->|import| VENDOR["/vendor/etc/init/*.rc"]
-    INIT_RC -->|import| APPS["/system/etc/init/*.rc"]
+    INIT_RC["/system/etc/init/hw/init.rc"] -->|"import"| VENDOR["/vendor/etc/init/*.rc"]
+    INIT_RC -->|"import"| APPS["/system/etc/init/*.rc"]
     
     subgraph Structure ["init.rc Structure"]
         ACT["Actions (on <trigger>)

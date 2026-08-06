@@ -26,14 +26,14 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 flowchart TD
-    INIT["init Main Event Loop (epoll_wait)"] -->|1. Signal Event| SIG["SIGCHLD Handler
+    INIT["init Main Event Loop (epoll_wait)"] -->|"1. Signal Event"| SIG["SIGCHLD Handler
 (waitpid & Process Supervision)"]
-    INIT -->|2. IPC Event| PROP["Property Service Socket
+    INIT -->|"2. IPC Event"| PROP["Property Service Socket
 (Read/Write System Properties)"]
-    INIT -->|3. Trigger Event| QUEUE["Action Queue Execution
+    INIT -->|"3. Trigger Event"| QUEUE["Action Queue Execution
 (Exec commands in init.rc)"]
 
-    SIG -->|Check Restart Policy| RESTART["Restart Crashed Service
+    SIG -->|"Check Restart Policy"| RESTART["Restart Crashed Service
 (e.g., Zygote, SurfaceFlinger)"]
 
     style INIT fill:#f9f,stroke:#333,stroke-width:2px

@@ -25,15 +25,15 @@ Android 개발 시 `ConnectivityManager.registerDefaultNetworkCallback()`과 `Co
 ```mermaid
 graph TD
     subgraph Passive Observer (Default Network)
-        App1[App] -->|registerDefaultNetworkCallback| CS1[ConnectivityService]
-        CS1 -->|System Switches Default| App1
+        App1[App] -->|"registerDefaultNetworkCallback"| CS1[ConnectivityService]
+        CS1 -->|"System Switches Default"| App1
         NoteOver1[네트워크 수명에 영향 없음 / 배터리 안전]
     end
 
     subgraph Active Pinning (Requested Network)
-        App2[App] -->|requestNetwork(Cellular)| CS2[ConnectivityService]
-        CS2 -->|Force Power On| Modem[Cellular Radio Modem]
-        Modem -->|Keep Alive active| App2
+        App2[App] -->|"requestNetwork(Cellular)"| CS2[ConnectivityService]
+        CS2 -->|"Force Power On"| Modem[Cellular Radio Modem]
+        Modem -->|"Keep Alive active"| App2
         NoteOver2[unregister 미호출 시 배터리/데이터 지속 누수!]
     end
 ```

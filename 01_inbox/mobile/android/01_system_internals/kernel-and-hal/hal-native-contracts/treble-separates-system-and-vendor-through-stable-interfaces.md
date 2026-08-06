@@ -23,7 +23,7 @@ graph TD
     subgraph Pre-Treble Monolithic System (Android 7.0 이전)
         A1["Android Framework (system.img)"]
         A2["Vendor HAL (.so) & Device Drivers"]
-        A1 -->|Direct Shared Library Link| A2
+        A1 -->|"Direct Shared Library Link"| A2
         note1["OS Upgrade requires vendor code rebuild"]
     end
 
@@ -32,8 +32,8 @@ graph TD
         B2["Stable Interfaces (Stable AIDL / HIDL)\n(VINTF Alignment & IPC Boundary)"]
         B3["Vendor Partition (vendor.img)\n(Vendor HAL Services & Drivers)"]
         
-        B1 <-->|IPC via /dev/binder| B2
-        B2 <-->|Binderized HAL| B3
+        B1 <-->|"IPC via /dev/binder"| B2
+        B2 <-->|"Binderized HAL"| B3
         note2["Independent Framework OTA Upgrade Supported"]
     end
 ```

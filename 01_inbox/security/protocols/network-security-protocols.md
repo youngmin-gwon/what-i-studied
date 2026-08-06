@@ -203,8 +203,8 @@ AllowedIPs = 0.0.0.0/0
 
 ```mermaid
 graph TB
-    Root[Root CA<br/>신뢰 저장소] -->|서명| Int[Intermediate CA]
-    Int -->|서명| Leaf[www.example.com<br/>End-Entity 인증서]
+    Root[Root CA<br/>신뢰 저장소] -->|"서명"| Int[Intermediate CA]
+    Int -->|"서명"| Leaf[www.example.com<br/>End-Entity 인증서]
     
     Browser[브라우저] -.검증.-> Leaf
     Browser -.검증.-> Int

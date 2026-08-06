@@ -29,8 +29,8 @@ flowchart TD
     ObtainInfo --> LaunchFlow["2. launchReviewFlow(activity, reviewInfo)"]
     
     LaunchFlow --> PlayQuotaCheck{"Google Play Quota & Internal Policy Check"}
-    PlayQuotaCheck -->|Quota Passed| ShowUI["Show In-App Review BottomSheet Dialog"]
-    PlayQuotaCheck -->|Quota Exceeded / Policy Block| SkipUI["Silently Skip Dialog (No Error Thrown)"]
+    PlayQuotaCheck -->|"Quota Passed"| ShowUI["Show In-App Review BottomSheet Dialog"]
+    PlayQuotaCheck -->|"Quota Exceeded / Policy Block"| SkipUI["Silently Skip Dialog (No Error Thrown)"]
     
     ShowUI & SkipUI --> ContinueApp["App Flow Continues Smoothly"]
 ```

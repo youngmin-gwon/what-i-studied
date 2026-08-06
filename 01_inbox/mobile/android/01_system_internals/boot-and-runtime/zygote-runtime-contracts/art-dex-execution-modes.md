@@ -28,14 +28,14 @@ Android Runtime(ART)은 앱 실행 효율을 극대화하기 위해 초기의 �
 
 ```mermaid
 flowchart TD
-    DEX["DEX Bytecode"] -->|1. Initial Launch| INTERP["ART Interpreter
+    DEX["DEX Bytecode"] -->|"1. Initial Launch"| INTERP["ART Interpreter
 (Zero Startup Latency)"]
-    INTERP -->|2. Hotspot Detected| JIT["ART JIT Compiler"]
-    JIT -->|Cache Native Code| JITCACHE["JIT Code Cache (RAM)"]
-    JIT -->|Record Hot Methods| PROF[".prof Profile File"]
+    INTERP -->|"2. Hotspot Detected"| JIT["ART JIT Compiler"]
+    JIT -->|"Cache Native Code"| JITCACHE["JIT Code Cache (RAM)"]
+    JIT -->|"Record Hot Methods"| PROF[".prof Profile File"]
     
-    PROF & DEX -->|3. Device Idle & Charging| DEX2OAT["dex2oat (Background Maintenance)"]
-    DEX2OAT -->|Compile Hot Code Only| AOT[".oat / .odex ELF Native File"]
+    PROF & DEX -->|"3. Device Idle & Charging"| DEX2OAT["dex2oat (Background Maintenance)"]
+    DEX2OAT -->|"Compile Hot Code Only"| AOT[".oat / .odex ELF Native File"]
 
     style INTERP fill:#fff59d,stroke:#fbc02d
     style JIT fill:#81c784,stroke:#388e3c

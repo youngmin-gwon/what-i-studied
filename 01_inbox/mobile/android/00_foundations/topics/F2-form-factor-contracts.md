@@ -25,11 +25,11 @@ flowchart TD
     A --> E[ChromeOS]
     A --> F[Android XR]
 
-    B -.->|Glanceable, Circular UI| B1[Watch Face, Tiles]
-    C -.->|10-Foot UI, D-Pad| C1[Focus Navigation]
-    D -.->|Driver Safety, Projection/Embedded| D1[Templates / Car HAL]
-    E -.->|Desktop Windows, Mouse/KB| E1[Freeform Multi-window]
-    F -.->|Spatial, 3D, Hand/Gaze| F1[Spatial Capabilities]
+    B -.->|"Glanceable, Circular UI"| B1[Watch Face, Tiles]
+    C -.->|"10-Foot UI, D-Pad"| C1[Focus Navigation]
+    D -.->|"Driver Safety, Projection/Embedded"| D1[Templates / Car HAL]
+    E -.->|"Desktop Windows, Mouse/KB"| E1[Freeform Multi-window]
+    F -.->|"Spatial, 3D, Hand/Gaze"| F1[Spatial Capabilities]
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

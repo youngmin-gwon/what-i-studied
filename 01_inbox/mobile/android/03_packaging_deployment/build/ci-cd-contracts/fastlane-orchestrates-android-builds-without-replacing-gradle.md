@@ -24,10 +24,10 @@ Gradle은 Android APK/AAB 아티팩트를 컴파일하고 수축하는 실제 �
 
 ```mermaid
 flowchart LR
-    FastlaneLane["Fastlane Lane (:deploy)"] -->|1. Shell Dispatch| GradleEngine["Gradle Engine (./gradlew bundleRelease)"]
-    GradleEngine -->|2. Returns AAB Artifact| FastlaneLane
-    FastlaneLane -->|3. Supply Action| PlayAPI["Google Play Developer API"]
-    PlayAPI -->|4. Publish| PlayConsole["Google Play Console Track"]
+    FastlaneLane["Fastlane Lane (:deploy)"] -->|"1. Shell Dispatch"| GradleEngine["Gradle Engine (./gradlew bundleRelease)"]
+    GradleEngine -->|"2. Returns AAB Artifact"| FastlaneLane
+    FastlaneLane -->|"3. Supply Action"| PlayAPI["Google Play Developer API"]
+    PlayAPI -->|"4. Publish"| PlayConsole["Google Play Console Track"]
 ```
 
 ### 코드 예시 (fastlane/Fastfile)

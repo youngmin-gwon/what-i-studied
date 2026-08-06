@@ -20,7 +20,7 @@ Navigation 3의 **Scene / SceneStrategy**와 Material 3의 **Adaptive Scaffold**
 graph TD
     subgraph App Architecture Layers
         A["1. App Navigation State Layer<br/>(NavBackStack: List of NavKey)"] --> B["2. Navigation 3 Rendering Layer<br/>(NavDisplay & SceneStrategy)"]
-        B -->|Encapsulates Entries into Visual Scenes| C["3. Material 3 Adaptive UI Layer<br/>(NavigationSuiteScaffold & ListDetailPaneScaffold)"]
+        B -->|"Encapsulates Entries into Visual Scenes"| C["3. Material 3 Adaptive UI Layer<br/>(NavigationSuiteScaffold & ListDetailPaneScaffold)"]
     end
 ```
 

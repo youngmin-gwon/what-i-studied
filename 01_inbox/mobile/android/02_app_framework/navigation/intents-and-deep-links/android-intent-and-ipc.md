@@ -27,13 +27,13 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 graph TD
-    A["Intent 발신자 (App Process A)"] -->|startActivity(intent)| B["Android OS ActivityManagerService (AMS)"]
+    A["Intent 발신자 (App Process A)"] -->|"startActivity(intent)"| B["Android OS ActivityManagerService (AMS)"]
     B --> C{"Intent Filter Resolution"}
-    C -->|Explicit Intent| D["Target Component Direct Launch"]
-    C -->|Implicit Intent| E["PackageManager (PM) matching action/category/data"]
+    C -->|"Explicit Intent"| D["Target Component Direct Launch"]
+    C -->|"Implicit Intent"| E["PackageManager (PM) matching action/category/data"]
     E --> F["Security Check: android:exported & Package Visibility"]
-    F -->|Allowed| G["Target Component (App Process B via [binder ipc](../../../01_system_internals/binder-ipc.md))"]
-    F -->|Denied| H["SecurityException / ActivityNotFoundException"]
+    F -->|"Allowed"| G["Target Component (App Process B via [binder ipc](../../../01_system_internals/binder-ipc.md))"]
+    F -->|"Denied"| H["SecurityException / ActivityNotFoundException"]
 ```
 
 1. **Intent Resolution (해상도 매칭)**:

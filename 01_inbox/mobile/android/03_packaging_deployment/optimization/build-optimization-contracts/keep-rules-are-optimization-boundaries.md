@@ -28,8 +28,8 @@ R8은 컴파일 타임의 정적 호출 그래프만 추적할 수 있으므로,
 flowchart LR
     SourceCode["App Source & DTO Classes"] --> R8Engine["R8 Engine Tree Shaking"]
     R8Engine --> CheckKeep{"Keep Rule / @Keep Annotation Match?"}
-    CheckKeep -->|Matched| Preserve["Preserve Original Name & Member Signatures"]
-    CheckKeep -->|Not Matched| ObfuscateShrink["Apply Minification & Obfuscation"]
+    CheckKeep -->|"Matched"| Preserve["Preserve Original Name & Member Signatures"]
+    CheckKeep -->|"Not Matched"| ObfuscateShrink["Apply Minification & Obfuscation"]
 ```
 
 ### 코드 예시 (proguard-rules.pro)

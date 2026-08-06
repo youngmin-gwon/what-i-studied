@@ -122,8 +122,8 @@ graph LR
         HW[하드웨어 제어]
     end
     
-    APP1 -->|시스템 콜| SYSCALL
-    APP2 -->|시스템 콜| SYSCALL
+    APP1 -->|"시스템 콜"| SYSCALL
+    APP2 -->|"시스템 콜"| SYSCALL
     SYSCALL --> KERNEL
     KERNEL --> HW
     

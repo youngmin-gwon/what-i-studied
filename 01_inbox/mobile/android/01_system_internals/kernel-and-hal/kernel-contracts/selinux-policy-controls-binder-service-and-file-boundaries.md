@@ -36,9 +36,9 @@ graph TD
     end
 
     A --> B
-    B -->|Passed Handle| C
+    B -->|"Passed Handle"| C
     C --> D
-    D -->|Passed AVC Check| E
+    D -->|"Passed AVC Check"| E
 ```
 
 1. **Service Lookup Stage (`service_manager`)**: Client가 ServiceManager에 정수 Handle을 요청할 때 `service_manager` 객체 클래스의 `find` 권한 검증.

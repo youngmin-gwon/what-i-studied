@@ -26,14 +26,14 @@ Android의 **Always-on VPN** 및 **Lockdown VPN** 모드는 단순한 네트워�
 graph TD
     App[App Sockets / Traffic] --> Firewall{Lockdown VPN active?}
     
-    Firewall -->|VPN Active| TUN[TUN Interface: tun0]
+    Firewall -->|"VPN Active"| TUN[TUN Interface: tun0]
     TUN --> Encrypted[VpnService Encrypted Tunnel]
     Encrypted --> PhysicalNet[Physical Interface: wlan0 / Cellular]
 
-    Firewall -->|VPN Dropped & Lockdown ON| eBPF[netd eBPF / iptables Lockdown Drop Rule]
-    eBPF -->|Packet Dropped| Blocked[EPERM / Network Unreachable Error]
+    Firewall -->|"VPN Dropped & Lockdown ON"| eBPF[netd eBPF / iptables Lockdown Drop Rule]
+    eBPF -->|"Packet Dropped"| Blocked[EPERM / Network Unreachable Error]
 
-    Firewall -->|VPN Dropped & Lockdown OFF| Cleartext[Default Physical Network / Data Leak Risk]
+    Firewall -->|"VPN Dropped & Lockdown OFF"| Cleartext[Default Physical Network / Data Leak Risk]
 ```
 
 ### Kotlin DevicePolicyManager Always-on VPN 설정 예시

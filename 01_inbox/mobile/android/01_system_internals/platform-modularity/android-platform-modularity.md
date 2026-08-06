@@ -23,11 +23,11 @@ graph TD
     end
 
     subgraph "Treble & Vendor Layer (Vendor OTA)"
-        F["Framework Partition (/system)"] <-->|Stable AIDL / HIDL| G["Vendor Partition (/vendor)"]
+        F["Framework Partition (/system)"] <-->|"Stable AIDL / HIDL"| G["Vendor Partition (/vendor)"]
     end
 
     subgraph "GKI Kernel Layer (Kernel OTA)"
-        H["Generic Kernel Image (GKI)"] <-->|KMI Interface| I["Vendor Drivers & Modules"]
+        H["Generic Kernel Image (GKI)"] <-->|"KMI Interface"| I["Vendor Drivers & Modules"]
     end
 ```
 

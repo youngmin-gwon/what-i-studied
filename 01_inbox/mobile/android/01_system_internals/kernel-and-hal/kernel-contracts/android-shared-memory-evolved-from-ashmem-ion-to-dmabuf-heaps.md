@@ -29,8 +29,8 @@ graph TD
         B1["memfd (memfd_create)\n(Linux Upstream POSIX Shared Memory File Descriptor)"]
         B2["DMA-BUF Heaps (/dev/dma_heap/*)\n(Upstream Linux DMA-BUF Interface & Independent Sepolicy)"]
     end
-    A1 -->|Replaced by| B1
-    A2 -->|Replaced by| B2
+    A1 -->|"Replaced by"| B1
+    A2 -->|"Replaced by"| B2
 ```
 
 1. **`ashmem` -> `memfd`**:

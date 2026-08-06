@@ -86,12 +86,12 @@ NSA 가 Flask 을 리눅스 커널에 포팅해 **SELinux**로 공개.
 
 ```mermaid
 graph TD
-    VFS[VFS Layer] -->|syscall| LSM[LSM Hooks]
-    LSM -->|정책 검사| SELinux[SELinux Module]
-    LSM -->|또는| AppArmor[AppArmor Module]
-    LSM -->|또는| SMACK[SMACK]
+    VFS[VFS Layer] -->|"syscall"| LSM[LSM Hooks]
+    LSM -->|"정책 검사"| SELinux[SELinux Module]
+    LSM -->|"또는"| AppArmor[AppArmor Module]
+    LSM -->|"또는"| SMACK[SMACK]
     
-    SELinux -->|Allow/Deny| Decision[접근 결정]
+    SELinux -->|"Allow/Deny"| Decision[접근 결정]
 ```
 
 ### 3. 배포판 채택

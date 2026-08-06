@@ -24,13 +24,13 @@ flowchart TD
     subgraph Unstructured ["Unstructured Async: Risk of Leaks"]
         Caller1["Caller"] --> LaunchChild1["Launch Child Task 1"]
         Caller1 --> LaunchChild2["Launch Child Task 2"]
-        LaunchChild2 -->|Exception Error| Orphan["Silent Fail / Lost Orphan Task"]
+        LaunchChild2 -->|"Exception Error"| Orphan["Silent Fail / Lost Orphan Task"]
     end
 
     subgraph Structured ["Structured Concurrency: Scope Boundary"]
         ParentScope["Parent Scope / Job"] --> Child1["Child Task 1"]
         ParentScope --> Child2["Child Task 2"]
-        Child2 -->|Exception Error| CancelProp["Cancel Siblings & Propagate to Parent"]
+        Child2 -->|"Exception Error"| CancelProp["Cancel Siblings & Propagate to Parent"]
     end
 ```
 

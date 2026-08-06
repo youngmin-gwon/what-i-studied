@@ -26,12 +26,12 @@ Android에서 **종량제 네트워크(Metered Network)**와 **데이터 절약 
 graph TD
     App[App Network Traffic] --> CheckDS{Data Saver Active & Metered Network?}
 
-    CheckDS -->|No / Unmetered| Allow[Allow All Traffic]
-    CheckDS -->|Yes| CheckState{App UI State?}
+    CheckDS -->|"No / Unmetered"| Allow[Allow All Traffic]
+    CheckDS -->|"Yes"| CheckState{App UI State?}
 
-    CheckState -->|Foreground TOP App| Allow
-    CheckState -->|Allowlisted App| Allow
-    CheckState -->|Background App| eBPF[netd eBPF bw_penalty_box Drop]
+    CheckState -->|"Foreground TOP App"| Allow
+    CheckState -->|"Allowlisted App"| Allow
+    CheckState -->|"Background App"| eBPF[netd eBPF bw_penalty_box Drop]
     eBPF --> Blocked[Socket Connect Error: EPERM / EACCES]
 ```
 

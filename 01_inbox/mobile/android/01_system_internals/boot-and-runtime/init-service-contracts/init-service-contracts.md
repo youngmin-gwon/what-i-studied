@@ -12,14 +12,14 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 flowchart TD
-    KERNEL["Linux Kernel Init"] -->|Run /system/bin/init| FS_INIT["First-Stage Init"]
-    FS_INIT -->|1. Read fstab / Mount VBMeta & Dynamic Partitions| MOUNT["Mount Essential File Systems"]
-    MOUNT -->|2. Switch Root & Exec Second-Stage| SS_INIT["Second-Stage Init (PID 1)"]
-    SS_INIT -->|3. Load Policy & Contexts| SELINUX["SELinux Security Domain"]
-    SS_INIT -->|4. Init Shared Memory Trie| PROP["Property Service (/dev/__properties__)"]
-    SS_INIT -->|5. Start Netlink Monitor| UE["ueventd (/dev/ Node Handler)"]
-    SS_INIT -->|6. Parse init.rc & Evaluate Triggers| ACTION["Action Queue & Trigger Gates"]
-    ACTION -->|7. Fork Supervised Daemons| SERVICES["Native Services (servicemanager, surfaceflinger, Zygote)"]
+    KERNEL["Linux Kernel Init"] -->|"Run /system/bin/init"| FS_INIT["First-Stage Init"]
+    FS_INIT -->|"1. Read fstab / Mount VBMeta & Dynamic Partitions"| MOUNT["Mount Essential File Systems"]
+    MOUNT -->|"2. Switch Root & Exec Second-Stage"| SS_INIT["Second-Stage Init (PID 1)"]
+    SS_INIT -->|"3. Load Policy & Contexts"| SELINUX["SELinux Security Domain"]
+    SS_INIT -->|"4. Init Shared Memory Trie"| PROP["Property Service (/dev/__properties__)"]
+    SS_INIT -->|"5. Start Netlink Monitor"| UE["ueventd (/dev/ Node Handler)"]
+    SS_INIT -->|"6. Parse init.rc & Evaluate Triggers"| ACTION["Action Queue & Trigger Gates"]
+    ACTION -->|"7. Fork Supervised Daemons"| SERVICES["Native Services (servicemanager, surfaceflinger, Zygote)"]
 ```
 
 ---

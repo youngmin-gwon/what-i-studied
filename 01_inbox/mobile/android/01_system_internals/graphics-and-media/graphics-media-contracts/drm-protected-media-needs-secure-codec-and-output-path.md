@@ -27,15 +27,15 @@ Widevine L1과 같은 저작권 보호(DRM) 미디어 재생 시, Android 시스
 ```mermaid
 graph LR
     EncryptedStream[Encrypted Media Stream] --> MediaDrm[MediaDrm Key Request]
-    MediaDrm -->|Session Keys| TEE[TEE / Secure World TrustZone]
+    MediaDrm -->|"Session Keys"| TEE[TEE / Secure World TrustZone]
     
-    EncryptedStream -->|Secure Buffer| SecureCodec[Secure MediaCodec Hardware]
-    TEE -->|Decrypt in TEE| SecureCodec
+    EncryptedStream -->|"Secure Buffer"| SecureCodec[Secure MediaCodec Hardware]
+    TEE -->|"Decrypt in TEE"| SecureCodec
     
-    SecureCodec -->|Secure GraphicBuffer| SecureMemory[Protected Hardware Memory]
-    SecureMemory -->|HDCP Verification| HWC_Display[Hardware Composer / HDCP Display]
+    SecureCodec -->|"Secure GraphicBuffer"| SecureMemory[Protected Hardware Memory]
+    SecureMemory -->|"HDCP Verification"| HWC_Display[Hardware Composer / HDCP Display]
     
-    ScreenRecord[Screen Capture / VirtualDisplay] -.->|Blocked / Black Pixel| SecureMemory
+    ScreenRecord[Screen Capture / VirtualDisplay] -.->|"Blocked / Black Pixel"| SecureMemory
 ```
 
 ### ExoPlayer Widevine DRM 세션 빌드 Kotlin 예시

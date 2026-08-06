@@ -17,14 +17,14 @@ date modified: 2026-08-04 21:30:00 +09:00
 ### 2. 전체 조망도 (Diagram)
 ```mermaid
 flowchart TD
-    OS[OS Boot] -->|dm-verity / AVB| K[Kernel & OS Integrity]
+    OS[OS Boot] -->|"dm-verity / AVB"| K[Kernel & OS Integrity]
     K --> App[App Execution]
-    App -->|Request Token| Play[Play Integrity API]
-    Play -->|Device / App Status| T[Integrity Token 생성]
+    App -->|"Request Token"| Play[Play Integrity API]
+    Play -->|"Device / App Status"| T[Integrity Token 생성]
     T --> Backend[Backend Server]
-    Backend -->|구글 서버로 검증 요청| Google[Google Play Servers]
-    Google -->|Verdict 반환| Backend
-    Backend -->|결과에 따른 API 허용/차단| App
+    Backend -->|"구글 서버로 검증 요청"| Google[Google Play Servers]
+    Google -->|"Verdict 반환"| Backend
+    Backend -->|"결과에 따른 API 허용/차단"| App
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

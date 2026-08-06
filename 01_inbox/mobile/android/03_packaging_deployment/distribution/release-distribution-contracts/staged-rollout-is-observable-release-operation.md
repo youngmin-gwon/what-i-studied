@@ -28,9 +28,9 @@ updated: 2026-08-05 16:15:00 +09:00
 flowchart TD
     Release["New Version Release"] --> StartRollout["Start Staged Rollout (1%)"]
     StartRollout --> Observe{"Monitor Crash Free Rate"}
-    Observe -->|Crash Rate > Threshold| Halt["Halt Rollout (Stop Distribution)"]
+    Observe -->|"Crash Rate > Threshold"| Halt["Halt Rollout (Stop Distribution)"]
     Halt --> Hotfix["Submit Hotfix Build (versionCode++)"]
-    Observe -->|Metrics Healthy| Increase["Increase Rollout (5% -> 20% -> 50%)"]
+    Observe -->|"Metrics Healthy"| Increase["Increase Rollout (5% -> 20% -> 50%)"]
     Increase --> FullRelease["Complete Full Release (100%)"]
 ```
 

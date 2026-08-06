@@ -32,16 +32,16 @@ date created: 2026-08-06 18:15:00 +09:00
 ```mermaid
 graph TD
     subgraph "대칭키 암호화 (Symmetric Crypto)"
-        P1[평문 Plaintext] -->|비밀키 K로 암호화| E1[암호화 엔진]
+        P1[평문 Plaintext] -->|"비밀키 K로 암호화"| E1[암호화 엔진]
         E1 --> C1[암호문 Ciphertext]
-        C1 -->|동일 비밀키 K로 복호화| D1[복호화 엔진]
+        C1 -->|"동일 비밀키 K로 복호화"| D1[복호화 엔진]
         D1 --> P1_out[원문 복원]
     end
 
     subgraph "비대칭키 암호화 (Asymmetric Crypto)"
-        P2[평문 Plaintext] -->|수신자 공개키 K_pub로 암호화| E2[암호화 엔진]
+        P2[평문 Plaintext] -->|"수신자 공개키 K_pub로 암호화"| E2[암호화 엔진]
         E2 --> C2[암호문 Ciphertext]
-        C2 -->|수신자 개인키 K_priv로 복호화| D2[복호화 엔진]
+        C2 -->|"수신자 개인키 K_priv로 복호화"| D2[복호화 엔진]
         D2 --> P2_out[원문 복원]
     end
 ```

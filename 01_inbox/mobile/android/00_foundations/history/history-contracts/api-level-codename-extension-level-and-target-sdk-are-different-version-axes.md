@@ -21,8 +21,8 @@ Android version 을 말할 때 API level, dessert codename, SDK Extension level,
 
 ```mermaid
 flowchart TD
-    BuildTime["Build Time: compileSdk (35)"] -->|Bytecode Compilation| APK["App APK"]
-    APK -->|Manifest Metadata| OS["Android OS Runtime"]
+    BuildTime["Build Time: compileSdk (35)"] -->|"Bytecode Compilation"| APK["App APK"]
+    APK -->|"Manifest Metadata"| OS["Android OS Runtime"]
     
     subgraph OSEngine [OS Version Evaluation Engine]
         SDK_INT["Build.VERSION.SDK_INT (Device API Level)"]
@@ -31,9 +31,9 @@ flowchart TD
     end
 
     OS --> OSEngine
-    TargetSDK -->|Target-Gated Rule| CompatLayer["Compatibility Shim Layer"]
-    SDK_INT -->|Unconditional Rule| SecurityPolicy["Mandatory Security & Sandbox Enforcement"]
-    ExtVersion -->|Feature Availability| AdServices["Mainline Backported APIs (e.g. PhotoPicker / AdServices)"]
+    TargetSDK -->|"Target-Gated Rule"| CompatLayer["Compatibility Shim Layer"]
+    SDK_INT -->|"Unconditional Rule"| SecurityPolicy["Mandatory Security & Sandbox Enforcement"]
+    ExtVersion -->|"Feature Availability"| AdServices["Mainline Backported APIs (e.g. PhotoPicker / AdServices)"]
 ```
 
 ### 코드 예시 (Runtime Version Guard & Extension Check)

@@ -29,8 +29,8 @@ date created: 2026-08-06 16:36:00 +09:00
 
 ```mermaid
 graph TD
-    StateData["State<T> 데이터 변경"] -->|Compose Snapshot 관찰| ScopeDetect["해당 상태를 읽은 Composable Scope 감지"]
-    ScopeDetect -->|스킵 및 최적화 검사| RecompExec["해당 Composable 함수만 선별 재실행"]
+    StateData["State<T> 데이터 변경"] -->|"Compose Snapshot 관찰"| ScopeDetect["해당 상태를 읽은 Composable Scope 감지"]
+    ScopeDetect -->|"스킵 및 최적화 검사"| RecompExec["해당 Composable 함수만 선별 재실행"]
     RecompExec --> LayoutDraw["레이아웃 및 드로잉 노드 갱신"]
 ```
 

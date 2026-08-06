@@ -22,11 +22,11 @@ Bootloader는 단순한 이미지 로더가 아니라 A/B Slot의 검증 상태�
 
 ```mermaid
 flowchart LR
-    BL["Bootloader"] -->|Append Trailer (#BOOTCONFIG\n)| RD["Ramdisk (init_boot / vendor_boot)"]
-    RD -->|Kernel Boot| KERNEL["Linux Kernel Bootconfig Engine"]
-    KERNEL -->|Expose Tree| PROC["/proc/bootconfig"]
-    PROC -->|ProcessBootconfig()| INIT["init (PID 1)"]
-    INIT -->|Set Read-Only Prop| PROP["ro.boot.* Properties"]
+    BL["Bootloader"] -->|"Append Trailer (#BOOTCONFIG\n)"| RD["Ramdisk (init_boot / vendor_boot)"]
+    RD -->|"Kernel Boot"| KERNEL["Linux Kernel Bootconfig Engine"]
+    KERNEL -->|"Expose Tree"| PROC["/proc/bootconfig"]
+    PROC -->|"ProcessBootconfig()"| INIT["init (PID 1)"]
+    INIT -->|"Set Read-Only Prop"| PROP["ro.boot.* Properties"]
 
     style BL fill:#f9f,stroke:#333,stroke-width:2px
     style PROC fill:#bbf,stroke:#333,stroke-width:2px

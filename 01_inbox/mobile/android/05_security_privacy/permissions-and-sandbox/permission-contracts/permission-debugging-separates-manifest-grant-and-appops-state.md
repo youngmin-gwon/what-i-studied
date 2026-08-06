@@ -12,9 +12,9 @@ Android 권한 관련 실패나 API 거부 문제를 디버깅할 때는 **1) Ma
 
 ```mermaid
 flowchart LR
-    Sub1[1. Manifest Layer] -->|declared?| Sub2[2. Grant State Layer]
-    Sub2 -->|checkSelfPermission == GRANTED?| Sub3[3. AppOps Layer]
-    Sub3 -->|checkOp == MODE_ALLOWED?| Success[API 실행 성공]
+    Sub1[1. Manifest Layer] -->|"declared?"| Sub2[2. Grant State Layer]
+    Sub2 -->|"checkSelfPermission == GRANTED?"| Sub3[3. AppOps Layer]
+    Sub3 -->|"checkOp == MODE_ALLOWED?"| Success[API 실행 성공]
     
     Sub1 -- No --> Err1[SecurityException: Permission not declared in manifest]
     Sub2 -- No --> Err2[SecurityException: Need runtime permission grant]

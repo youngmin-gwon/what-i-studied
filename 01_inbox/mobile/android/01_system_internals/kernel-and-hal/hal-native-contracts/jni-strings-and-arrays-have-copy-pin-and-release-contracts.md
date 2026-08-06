@@ -20,17 +20,17 @@ JNI 환경에서 Java String 및 Primitive Array(`byte[]`, `int[]` 등)를 C/C++
 
 ```mermaid
 graph TD
-    A["Java jbyteArray Object"] -->|GetByteArrayElements| B{"ART Runtime Decision"}
-    B -->|Copy Mode (isCopy=JNI_TRUE)| C["Allocate Native Buffer & Copy Bytes"]
-    B -->|Pin Mode (isCopy=JNI_FALSE)| D["Pin Heap Pointer (Block GC Movement)"]
+    A["Java jbyteArray Object"] -->|"GetByteArrayElements"| B{"ART Runtime Decision"}
+    B -->|"Copy Mode (isCopy=JNI_TRUE)"| C["Allocate Native Buffer & Copy Bytes"]
+    B -->|"Pin Mode (isCopy=JNI_FALSE)"| D["Pin Heap Pointer (Block GC Movement)"]
 
     C --> E["Native Processing"]
     D --> E
 
-    E -->|ReleaseByteArrayElements| F{"Release Mode Flag"}
-    F -->|0| G["Copy Back to Java Heap & Free Native Buffer / Unpin"]
-    F -->|JNI_COMMIT| H["Copy Back to Java Heap & Keep Native Buffer Pinned"]
-    F -->|JNI_ABORT| I["Discard Native Changes & Free Native Buffer / Unpin"]
+    E -->|"ReleaseByteArrayElements"| F{"Release Mode Flag"}
+    F -->|"0"| G["Copy Back to Java Heap & Free Native Buffer / Unpin"]
+    F -->|"JNI_COMMIT"| H["Copy Back to Java Heap & Keep Native Buffer Pinned"]
+    F -->|"JNI_ABORT"| I["Discard Native Changes & Free Native Buffer / Unpin"]
 ```
 
 1. **`GetPrimitiveArrayCritical` / `GetStringCritical`**: 복사 없이 GC 힙을 직접 잠그고(Pinning) 픽셀/배열 버퍼에 초저지연으로 접근하지만, 이 `Critical Section`(일반적인 mutex 기반 상호배제 구간이 아니라, JNI 가 GC 힙을 잠그고 native 코드의 직접 접근을 허용하는 JNI 고유의 특별 구간을 가리키는 용어다) 내부에서는 이종 JNI 함수 호출, 블로킹 I/O, 메모리 할당이 엄격히 금지되며 GC를 일시 정지(Suspend)시킨다.

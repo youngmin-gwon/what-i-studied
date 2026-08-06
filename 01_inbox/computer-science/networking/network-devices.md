@@ -53,10 +53,10 @@ graph TD
     PC3[PC 3] --> HUB
     PC4[PC 4] --> HUB
     
-    HUB -.->|신호 복제| PC1
-    HUB -.->|신호 복제| PC2
-    HUB -.->|신호 복제| PC3
-    HUB -.->|신호 복제| PC4
+    HUB -.->|"신호 복제"| PC1
+    HUB -.->|"신호 복제"| PC2
+    HUB -.->|"신호 복제"| PC3
+    HUB -.->|"신호 복제"| PC4
 ```
 
 **Dummy Hub 특징**:

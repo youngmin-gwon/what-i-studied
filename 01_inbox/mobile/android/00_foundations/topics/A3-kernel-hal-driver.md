@@ -25,11 +25,11 @@ graph TD
     Drivers[Vendor Kernel Drivers]
     Hardware[Physical Hardware]
 
-    Framework -->|[binder ipc](../../01_system_internals/binder-ipc.md)| SystemServices
-    SystemServices -->|AIDL/HIDL| HAL
-    HAL -->|Syscalls/IOCTL| Kernel
-    Kernel -->|VFS/Subsystem| Drivers
-    Drivers -->|Register Access| Hardware
+    Framework -->|"[binder ipc](../../01_system_internals/binder-ipc.md)"| SystemServices
+    SystemServices -->|"AIDL/HIDL"| HAL
+    HAL -->|"Syscalls/IOCTL"| Kernel
+    Kernel -->|"VFS/Subsystem"| Drivers
+    Drivers -->|"Register Access"| Hardware
     
     classDef framework fill:#e3f2fd,stroke:#1e88e5;
     classDef hal fill:#fff3e0,stroke:#fb8c00;

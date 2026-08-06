@@ -38,10 +38,10 @@ flowchart TD
         E["Custom Tabs Contracts<br/>(CustomTabsIntent, Browser Process Isolation, Cookie Jar)"]
     end
 
-    Layer1 -->|Dispatches External Intent| Layer2
-    Layer2 -->|Converts Verified URI to NavKey| Layer3
-    Layer3 -->|Provides Scenes to Responsive Shell| Layer4
-    Layer1 -.->|Out-of-Process Web Launch| Layer5
+    Layer1 -->|"Dispatches External Intent"| Layer2
+    Layer2 -->|"Converts Verified URI to NavKey"| Layer3
+    Layer3 -->|"Provides Scenes to Responsive Shell"| Layer4
+    Layer1 -.->|"Out-of-Process Web Launch"| Layer5
 ```
 
 ---

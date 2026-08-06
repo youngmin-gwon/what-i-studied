@@ -28,7 +28,7 @@ graph TD
         C --> D["[HomeKey, ProductListKey, ProductDetailKey(id=42)]"]
     end
 
-    A -->|Hosts Single Activity| C
+    A -->|"Hosts Single Activity"| C
 ```
 
 1. **OS Task Stack (Activity Task Stack)**:

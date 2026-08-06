@@ -145,8 +145,8 @@ srwxrwxrwx 1 user group 0 Dec 20 00:00 /var/run/docker.sock
 
 ```mermaid
 graph LR
-    D1[file1.txt] -->|inode 12345| I[inode 12345]
-    D2[file2.txt] -->|inode 12345| I
+    D1[file1.txt] -->|"inode 12345"| I[inode 12345]
+    D2[file2.txt] -->|"inode 12345"| I
     I --> DB[Data Blocks]
     
     style I fill:#f9f,stroke:#333,stroke-width:2px
@@ -188,9 +188,9 @@ rm source.txt
 
 ```mermaid
 graph LR
-    D1[symlink.txt] -->|inode 67890| I1[inode 67890]
+    D1[symlink.txt] -->|"inode 67890"| I1[inode 67890]
     I1 --> Path["/path/to/source.txt"]
-    D2[source.txt] -->|inode 12345| I2[inode 12345]
+    D2[source.txt] -->|"inode 12345"| I2[inode 12345]
     I2 --> DB[Data Blocks]
     
     style I1 fill:#fbb,stroke:#333,stroke-width:2px

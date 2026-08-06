@@ -38,8 +38,8 @@ graph LR
         ThreadPool["Binder Thread Pool (최대 16개 스레드)"]
     end
 
-    ClientProxy -->|1. binder_transaction| BinderDriver
-    BinderDriver -->|2. IPCThreadState 분배| BinderStub
+    ClientProxy -->|"1. binder_transaction"| BinderDriver
+    BinderDriver -->|"2. IPCThreadState 분배"| BinderStub
     BinderStub --> ThreadPool
 ```
 

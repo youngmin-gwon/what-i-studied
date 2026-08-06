@@ -32,11 +32,11 @@ Android의 뷰 그리기는 최상위 컨트롤러인 `ViewRootImpl`에서 시�
 ```mermaid
 graph TD
     A[ViewRootImpl] --> B{ViewTreeObserver 관제실}
-    B -->|1. Layout 완료 감지| C[OnGlobalLayoutListener]
-    B -->|2. Draw 직전 감지| D[OnPreDrawListener]
-    B -->|3. Draw 완료 감지| E[OnDrawListener]
-    B -->|4. Scroll 이동 감지| F[OnScrollChangedListener]
-    B -->|5. Focus 변경 감지| G[OnWindowFocusChangeListener]
+    B -->|"1. Layout 완료 감지"| C[OnGlobalLayoutListener]
+    B -->|"2. Draw 직전 감지"| D[OnPreDrawListener]
+    B -->|"3. Draw 완료 감지"| E[OnDrawListener]
+    B -->|"4. Scroll 이동 감지"| F[OnScrollChangedListener]
+    B -->|"5. Focus 변경 감지"| G[OnWindowFocusChangeListener]
 
     C --> H[실제 View 크기/위치 측정 코드 실행]
     D --> I[애니메이션 실행 또는 Draw 취소 처리]

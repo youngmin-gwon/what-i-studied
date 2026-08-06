@@ -46,15 +46,15 @@ flowchart TD
         ACT[@AndroidEntryPoint MainActivity]
     end
 
-    APP_COMP -->|Parent of| VM_COMP
-    VM_COMP -->|Parent of| ACT_COMP
+    APP_COMP -->|"Parent of"| VM_COMP
+    VM_COMP -->|"Parent of"| ACT_COMP
 
-    MOD -->|Provides OkHttpClient / Retrofit| APP_COMP
-    BIND -->|Binds UserRepository Interface| VM_COMP
+    MOD -->|"Provides OkHttpClient / Retrofit"| APP_COMP
+    BIND -->|"Binds UserRepository Interface"| VM_COMP
 
-    APP -->|Initializes Graph Root| APP_COMP
-    VM -->|Injects Repository| VM_COMP
-    ACT -->|Injects ViewModel / Analytics| ACT_COMP
+    APP -->|"Initializes Graph Root"| APP_COMP
+    VM -->|"Injects Repository"| VM_COMP
+    ACT -->|"Injects ViewModel / Analytics"| ACT_COMP
 ```
 
 ---

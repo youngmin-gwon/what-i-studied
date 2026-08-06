@@ -25,12 +25,12 @@ Android OS 및 Google Play 스토어에서 사용자의 스마트폰에 이미 �
 ```mermaid
 flowchart TD
     UpdateReq["New APK Installation Request"] --> CheckAppID{"1. Application ID Matches?"}
-    CheckAppID -->|No| TreatNew["Installed as Separate New App"]
-    CheckAppID -->|Yes| CheckVer{"2. versionCode New > Old?"}
-    CheckVer -->|No| InstallFail1["Reject: INSTALL_FAILED_VERSION_DOWNGRADE"]
-    CheckVer -->|Yes| CheckSig{"3. Signing Certificate Matches?"}
-    CheckSig -->|No| InstallFail2["Reject: INSTALL_FAILED_UPDATE_INCOMPATIBLE"]
-    CheckSig -->|Yes| Success["Update App Preserving App Data"]
+    CheckAppID -->|"No"| TreatNew["Installed as Separate New App"]
+    CheckAppID -->|"Yes"| CheckVer{"2. versionCode New > Old?"}
+    CheckVer -->|"No"| InstallFail1["Reject: INSTALL_FAILED_VERSION_DOWNGRADE"]
+    CheckVer -->|"Yes"| CheckSig{"3. Signing Certificate Matches?"}
+    CheckSig -->|"No"| InstallFail2["Reject: INSTALL_FAILED_UPDATE_INCOMPATIBLE"]
+    CheckSig -->|"Yes"| Success["Update App Preserving App Data"]
 ```
 
 ### 코드 예시 (build.gradle.kts & Manifest Check)

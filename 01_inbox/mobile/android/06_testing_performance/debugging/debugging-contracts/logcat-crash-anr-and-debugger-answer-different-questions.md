@@ -36,10 +36,10 @@ date created: 2026-07-31 17:32:53 +09:00
 flowchart TD
     Symptom{"결함 증상 (Failure Symptom)"}
     
-    Symptom -->|시간 순서 이벤트 / 상태 전이 추적| Logcat["Logcat 로그 필터링<br/>(adb logcat --pid)"]
-    Symptom -->|앱 프로세스 비정상 종료 NullPointer / Fatal| Crash["Crash Stack Trace<br/>(retrace mapping.txt)"]
-    Symptom -->|화면 멈춤 및 Input Timeout  UI Block| ANR["ANR Signal 3 Trace<br/>(ApplicationExitInfo / traces.txt)"]
-    Symptom -->|특정 변수 힙 상태 & 로직 조건 검증| Debugger["JDWP Debugger<br/>(Conditional Breakpoint)"]
+    Symptom -->|"시간 순서 이벤트 / 상태 전이 추적"| Logcat["Logcat 로그 필터링<br/>(adb logcat --pid)"]
+    Symptom -->|"앱 프로세스 비정상 종료 NullPointer / Fatal"| Crash["Crash Stack Trace<br/>(retrace mapping.txt)"]
+    Symptom -->|"화면 멈춤 및 Input Timeout  UI Block"| ANR["ANR Signal 3 Trace<br/>(ApplicationExitInfo / traces.txt)"]
+    Symptom -->|"특정 변수 힙 상태 & 로직 조건 검증"| Debugger["JDWP Debugger<br/>(Conditional Breakpoint)"]
 ```
 
 ### 3. Logcat 및 Retrace 디코딩 Shell Command 구체 예시

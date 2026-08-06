@@ -199,9 +199,9 @@ graph LR
         R3[Router C]
     end
     
-    R1 <-->|eBGP| R2
-    R2 <-->|eBGP| R3
-    R3 <-->|eBGP| R1
+    R1 <-->|"eBGP"| R2
+    R2 <-->|"eBGP"| R3
+    R3 <-->|"eBGP"| R1
 ```
 
 ---

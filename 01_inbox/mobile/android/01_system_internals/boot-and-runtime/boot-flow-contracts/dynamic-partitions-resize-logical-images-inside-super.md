@@ -22,12 +22,12 @@ Dynamic Partitions는 물리 저장소 파티션인 `super` 내부에 논리 파
 
 ```mermaid
 flowchart TD
-    SUPER["Physical 'super' Partition"] -->|Header & LP Metadata| LIBLP["liblp Parser (First-stage init)"]
-    LIBLP -->|Create Mappings via dmctl| DM["dm-linear Kernel Driver"]
-    DM -->|Logical Block Nodes| BLK["/dev/block/mapper/system_a
+    SUPER["Physical 'super' Partition"] -->|"Header & LP Metadata"| LIBLP["liblp Parser (First-stage init)"]
+    LIBLP -->|"Create Mappings via dmctl"| DM["dm-linear Kernel Driver"]
+    DM -->|"Logical Block Nodes"| BLK["/dev/block/mapper/system_a
 /dev/block/mapper/vendor_a
 /dev/block/mapper/product_a"]
-    BLK -->|Mount Points| FS["/system, /vendor, /product Filesystems"]
+    BLK -->|"Mount Points"| FS["/system, /vendor, /product Filesystems"]
 
     style SUPER fill:#f9f,stroke:#333,stroke-width:2px
     style DM fill:#bbf,stroke:#333,stroke-width:2px

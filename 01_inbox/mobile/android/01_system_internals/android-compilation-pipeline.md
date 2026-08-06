@@ -23,9 +23,9 @@ date created: 2026-08-06 17:58:00 +09:00
 ```mermaid
 graph TD
     APK["APK 내 DEX 바이트코드"] --> Step1["1단계: 설치 직후 (Interpreting)"]
-    Step1 -->|초고속 앱 설치 및 인터프리팅 구동| Step2["2단계: 앱 사용 중 (JIT + Profiling)"]
-    Step2 -->|핫코드 프로파일 파일 .prof 생성| Step3["3단계: 충전/유휴 백그라운드 (dex2oat AOT)"]
-    Step3 -->|프로파일 기반 선별 컴파일| OatFile["최종 네이티브 기계어 (.oat / .vdex)"]
+    Step1 -->|"초고속 앱 설치 및 인터프리팅 구동"| Step2["2단계: 앱 사용 중 (JIT + Profiling)"]
+    Step2 -->|"핫코드 프로파일 파일 .prof 생성"| Step3["3단계: 충전/유휴 백그라운드 (dex2oat AOT)"]
+    Step3 -->|"프로파일 기반 선별 컴파일"| OatFile["최종 네이티브 기계어 (.oat / .vdex)"]
 ```
 
 #### 1 단계: 앱 설치 직후 (Interpreting)

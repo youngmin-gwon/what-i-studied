@@ -28,13 +28,13 @@ Android 카메라 시스템에서 앱은 카메라 센서 데이터를 단일 �
 graph LR
     CameraSensor[Camera Hardware Sensor] --> ISP[Hardware ISP / Camera HAL3]
 
-    ISP -->|PRIVATE Format| SF_Surface[SurfaceView / Preview Surface]
+    ISP -->|"PRIVATE Format"| SF_Surface[SurfaceView / Preview Surface]
     SF_Surface --> SurfaceFlinger[SurfaceFlinger / Display]
 
-    ISP -->|YUV_420_888 Format| IR_Surface[ImageReader Surface]
+    ISP -->|"YUV_420_888 Format"| IR_Surface[ImageReader Surface]
     IR_Surface --> AppAnalysis[App CPU/GPU ML Analysis]
 
-    ISP -->|Encoder Buffer| MC_Surface[MediaCodec Input Surface]
+    ISP -->|"Encoder Buffer"| MC_Surface[MediaCodec Input Surface]
     MC_Surface --> HW_Encoder[H.264 / HEVC Hardware Codec]
 ```
 

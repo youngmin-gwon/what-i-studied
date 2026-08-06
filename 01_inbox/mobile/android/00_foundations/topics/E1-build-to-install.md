@@ -20,11 +20,11 @@ date modified: 2026-08-05 12:00:00 +09:00
 ```mermaid
 flowchart TD
     A[Source Code & Resources] --> B["Gradle Build (AGP)"]
-    B -->|Compile & Package| C[AAB / APK]
+    B -->|"Compile & Package"| C[AAB / APK]
     C --> D["Play Console (Upload)"]
-    D -->|Play App Signing| E[Signed APKs for Device]
-    E -->|Play Delivery| F[Device PackageManager]
-    F -->|Install/Update| G[Installed App]
+    D -->|"Play App Signing"| E[Signed APKs for Device]
+    E -->|"Play Delivery"| F[Device PackageManager]
+    F -->|"Install/Update"| G[Installed App]
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

@@ -30,8 +30,8 @@ flowchart TD
     PlayServer --> PurchaseSuccess["Return PurchaseToken to Client"]
     Client --> Backend["App Backend Server"]
     Backend --> PlayAPI["Google Play Developer API (Verify PurchaseToken)"]
-    PlayAPI -->|Valid| Ack["Call Acknowledge API & Grant Item"]
-    PlayAPI -->|Invalid| Fraud["Reject Item Delivery & Fraud Alert"]
+    PlayAPI -->|"Valid"| Ack["Call Acknowledge API & Grant Item"]
+    PlayAPI -->|"Invalid"| Fraud["Reject Item Delivery & Fraud Alert"]
 ```
 
 ### 관련 세부 계약 문서

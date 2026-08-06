@@ -17,11 +17,11 @@ date modified: 2026-08-04 21:30:00 +09:00
 ### 2. 전체 조망도
 ```mermaid
 flowchart TD
-    Launcher[Home Screen Launcher] -->|Broadcast: UPDATE| Provider[AppWidgetProvider]
-    Provider -->|Build Layout| RV[RemoteViews]
-    RV -->|AppWidgetManager.updateAppWidget| Launcher
-    App[Glance App Widget] -->|Compose-like UI| Compiler[Glance Compiler]
-    Compiler -.->|Generates| RV
+    Launcher[Home Screen Launcher] -->|"Broadcast: UPDATE"| Provider[AppWidgetProvider]
+    Provider -->|"Build Layout"| RV[RemoteViews]
+    RV -->|"AppWidgetManager.updateAppWidget"| Launcher
+    App[Glance App Widget] -->|"Compose-like UI"| Compiler[Glance Compiler]
+    Compiler -.->|"Generates"| RV
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

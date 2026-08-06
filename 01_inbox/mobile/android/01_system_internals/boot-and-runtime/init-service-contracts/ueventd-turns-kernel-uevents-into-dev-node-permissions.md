@@ -28,13 +28,13 @@ date created: 2026-08-01 00:00:00 +09:00
 ```mermaid
 flowchart LR
     KERN["Linux Kernel Drivers
-(Hardware Hotplug / Coldboot)"] -->|Netlink KOBJECT_UEVENT| UE["ueventd (DeviceHandler)"]
+(Hardware Hotplug / Coldboot)"] -->|"Netlink KOBJECT_UEVENT"| UE["ueventd (DeviceHandler)"]
     CONF["ueventd.rc Configuration
-(Device Permissions & Ownership)"] -->|Parse Rules| UE
-    UE -->|mknod & chmod/chown| DEV["/dev/ Node Created
+(Device Permissions & Ownership)"] -->|"Parse Rules"| UE
+    UE -->|"mknod & chmod/chown"| DEV["/dev/ Node Created
 (e.g. /dev/binder 0666 root root)"]
-    UE -->|selabel_lookup & restorecon| SELINUX["SELinux Label Applied"]
-    UE -->|Firmware Request| FW["Load Firmware to Sysfs"]
+    UE -->|"selabel_lookup & restorecon"| SELINUX["SELinux Label Applied"]
+    UE -->|"Firmware Request"| FW["Load Firmware to Sysfs"]
 
     style KERN fill:#f9f,stroke:#333,stroke-width:2px
     style UE fill:#bbf,stroke:#333,stroke-width:2px

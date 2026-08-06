@@ -17,10 +17,10 @@ date modified: 2026-08-04 21:30:00 +09:00
 ### 2. 전체 조망도
 ```mermaid
 flowchart TD
-    Manifest[shortcuts.xml] -->|Static| Launcher[Home Screen Launcher]
-    AppCode[App Runtime] -->|ShortcutManager API| Dynamic[Dynamic Shortcuts]
+    Manifest[shortcuts.xml] -->|"Static"| Launcher[Home Screen Launcher]
+    AppCode[App Runtime] -->|"ShortcutManager API"| Dynamic[Dynamic Shortcuts]
     Dynamic --> Launcher
-    User[User action] -->|Pin to Home| Pinned[Pinned Shortcuts]
+    User[User action] -->|"Pin to Home"| Pinned[Pinned Shortcuts]
     Pinned --> Launcher
 ```
 

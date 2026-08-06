@@ -33,12 +33,12 @@ date created: 2026-08-01 00:00:00 +09:00
 ```mermaid
 flowchart LR
     AMS["ActivityManagerService
-(OomAdjuster.java)"] -->|1. Calculate oom_score_adj| SCORE["OOM Score Range
+(OomAdjuster.java)"] -->|"1. Calculate oom_score_adj"| SCORE["OOM Score Range
 (0: Foreground -> 999: Cached)"]
-    AMS -->|2. Socket Command| LMKD["lmkd Daemon (C++)"]
-    LMKD -->|3. Write to Proc Node| PROC["/proc/<pid>/oom_score_adj"]
-    KERNEL["Kernel PSI (Pressure Stall Info)"] -->|Memory Pressure High| LMKD
-    LMKD -->|4. Send SIGKILL to Max Score| APP["Target Cached Process (SIGKILL)"]
+    AMS -->|"2. Socket Command"| LMKD["lmkd Daemon (C++)"]
+    LMKD -->|"3. Write to Proc Node"| PROC["/proc/<pid>/oom_score_adj"]
+    KERNEL["Kernel PSI (Pressure Stall Info)"] -->|"Memory Pressure High"| LMKD
+    LMKD -->|"4. Send SIGKILL to Max Score"| APP["Target Cached Process (SIGKILL)"]
 
     style AMS fill:#f9f,stroke:#333,stroke-width:2px
     style LMKD fill:#bbf,stroke:#333,stroke-width:2px

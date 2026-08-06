@@ -6,17 +6,23 @@ date modified: 2026-08-04 15:00:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
+# Fcm High Priority
+
+## 1. 개요 (Overview)
+
 ### 초보자를 위한 쉽게 이해하는 비유
 * **FCM High Priority (긴급 신호 사이렌)**:
   - Doze 모드로 잠든 앱을 즉시 깨우는 긴급 사이렌 메시지로, 반드시 사용자 화면에 눈에 보이는 알림(User-visible Notification)을 띄워야만 구글이 우선순위 강등을 방지해 주는 규약.
 
 ```mermaid
 graph TD
-    FCMServer["FCM 서버 (high_priority 설정)"] -->|Push 메시지 전달| Device["Doze 모드 사용자 기기"]
-    Device -->|앱 즉시 깨움| Service["FirebaseMessagingService"]
-    Service -->|Notification 표시| Pass["우선순위 유지"]
-    Service -->|Notification 미표시 지속| Downgrade["Google 에 의해 일반 우선순위로 자동 강등"]
+    FCMServer["FCM 서버 (high_priority 설정)"] -->|"Push 메시지 전달"| Device["Doze 모드 사용자 기기"]
+    Device -->|"앱 즉시 깨움"| Service["FirebaseMessagingService"]
+    Service -->|"Notification 표시"| Pass["우선순위 유지"]
+    Service -->|"Notification 미표시 지속"| Downgrade["Google 에 의해 일반 우선순위로 자동 강등"]
 ```
+
+---
 
 ---
 

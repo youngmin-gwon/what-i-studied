@@ -27,8 +27,8 @@ flowchart TD
         Auth[User Auth & Scope ID]
     end
 
-    Environment -->|Encapsulate into| Ctx[Context Bundle]
-    Ctx -->|Provide Context to| Task[Task / Execution Unit]
+    Environment -->|"Encapsulate into"| Ctx[Context Bundle]
+    Ctx -->|"Provide Context to"| Task[Task / Execution Unit]
 ```
 
 ---
@@ -70,12 +70,12 @@ Context는 편리한 통로이지만, 무분별하게 전달하면 다음과 같
 ```mermaid
 flowchart TD
     subgraph BadPattern [Bad: Universal God Context]
-        ServiceBad[Service Class] -->|Pass Whole Context| GodCtx[God Context Object]
+        ServiceBad[Service Class] -->|"Pass Whole Context"| GodCtx[God Context Object]
         GodCtx --> SysAPIs[Access System API, DB, Resources...]
     end
 
     subgraph GoodPattern [Good: Narrow Interface Injection]
-        ServiceGood[Service Class] -->|Inject Specific Interface| Interface[ResourceProvider Interface]
+        ServiceGood[Service Class] -->|"Inject Specific Interface"| Interface[ResourceProvider Interface]
     end
 ```
 

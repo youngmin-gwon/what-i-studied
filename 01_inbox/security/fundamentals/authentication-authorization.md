@@ -138,13 +138,13 @@ graph TB
 
 ```mermaid
 graph LR
-    Client[클라이언트] -->|1. Access Request| NAS[Network Access Server]
-    NAS -->|2. Auth Request| AAA[AAA Server<br/>RADIUS/TACACS+]
-    AAA -->|3. Challenge| NAS
-    NAS -->|4. Credentials| AAA
-    AAA -->|5. Accept/Reject| NAS
-    NAS -->|6. Access Grant/Deny| Client
-    AAA -->|7. Accounting| Log[로그 서버]
+    Client[클라이언트] -->|"1. Access Request"| NAS[Network Access Server]
+    NAS -->|"2. Auth Request"| AAA[AAA Server<br/>RADIUS/TACACS+]
+    AAA -->|"3. Challenge"| NAS
+    NAS -->|"4. Credentials"| AAA
+    AAA -->|"5. Accept/Reject"| NAS
+    NAS -->|"6. Access Grant/Deny"| Client
+    AAA -->|"7. Accounting"| Log[로그 서버]
 ```
 
 #### RADIUS (Remote Authentication Dial-In User Service)
@@ -215,7 +215,7 @@ DN: cn=John Doe,ou=Users,dc=example,dc=com
 
 ```mermaid
 graph TB
-    User[사용자] -->|1. 로그인 1회| IdP[Identity Provider<br/>SSO 서버]
+    User[사용자] -->|"1. 로그인 1회"| IdP[Identity Provider<br/>SSO 서버]
     IdP -.인증 토큰.-> SP1[Service Provider 1<br/>Gmail]
     IdP -.인증 토큰.-> SP2[Service Provider 2<br/>Drive]
     IdP -.인증 토큰.-> SP3[Service Provider 3<br/>Calendar]
@@ -334,16 +334,16 @@ chown user:group myfile.txt
 
 ```mermaid
 graph LR
-    U1[User: Alice] -->|has role| R1[Role: Admin]
-    U2[User: Bob] -->|has role| R2[Role: Editor]
-    U3[User: Carol] -->|has role| R2
+    U1[User: Alice] -->|"has role"| R1[Role: Admin]
+    U2[User: Bob] -->|"has role"| R2[Role: Editor]
+    U3[User: Carol] -->|"has role"| R2
     
-    R1 -->|permissions| P1[Delete Files]
-    R1 -->|permissions| P2[Edit Files]
-    R1 -->|permissions| P3[Read Files]
+    R1 -->|"permissions"| P1[Delete Files]
+    R1 -->|"permissions"| P2[Edit Files]
+    R1 -->|"permissions"| P3[Read Files]
     
-    R2 -->|permissions| P2
-    R2 -->|permissions| P3
+    R2 -->|"permissions"| P2
+    R2 -->|"permissions"| P3
 ```
 
 **예시**:

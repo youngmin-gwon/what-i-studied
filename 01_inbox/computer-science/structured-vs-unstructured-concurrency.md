@@ -24,16 +24,16 @@ date created: 2026-08-06 18:15:00 +09:00
 ```mermaid
 graph TD
     subgraph Unstructured ["Unstructured Async (비구조적)"]
-        Caller1["Caller (호출자)"] -->|Fire and Forget| Task1["독립 작업 1"]
-        Caller1 -->|Fire and Forget| Task2["독립 작업 2 (오류 발생)"]
-        Task2 -.->|예외 유실 / 제어 불능| Orphan["고아 작업 / 메모리 누수"]
+        Caller1["Caller (호출자)"] -->|"Fire and Forget"| Task1["독립 작업 1"]
+        Caller1 -->|"Fire and Forget"| Task2["독립 작업 2 (오류 발생)"]
+        Task2 -.->|"예외 유실 / 제어 불능"| Orphan["고아 작업 / 메모리 누수"]
     end
 
     subgraph Structured ["Structured Concurrency (구조적)"]
         ParentScope["Parent Scope (부모)"] --> Child1["자식 작업 1"]
         ParentScope --> Child2["자식 작업 2 (오류 발생)"]
-        Child2 -->|예외 상향 전파| ParentScope
-        ParentScope -->|취소 신호 하향 전파| Child1
+        Child2 -->|"예외 상향 전파"| ParentScope
+        ParentScope -->|"취소 신호 하향 전파"| Child1
     end
 ```
 

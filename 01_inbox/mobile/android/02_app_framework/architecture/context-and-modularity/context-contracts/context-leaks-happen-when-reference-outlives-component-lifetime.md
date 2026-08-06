@@ -36,7 +36,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 graph TD
-    A["GC Root (Singleton Manager / Static)"] -->|Strong Reference 참조 유지| B["Activity Context (Destroyed)"]
+    A["GC Root (Singleton Manager / Static)"] -->|"Strong Reference 참조 유지"| B["Activity Context (Destroyed)"]
     B --> C["Window / View Tree / Bitmaps"]
     
     style B fill:#f88,stroke:#333,stroke-width:2f

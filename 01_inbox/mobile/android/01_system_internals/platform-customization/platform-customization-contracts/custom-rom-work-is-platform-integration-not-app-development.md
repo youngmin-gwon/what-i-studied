@@ -40,9 +40,9 @@ graph TD
     F --> G["Target Hardware Device"]
     
     G --> H{"Security & Integration Check"}
-    H -->|AVB Key Mismatch| I["Bootloader Lock Error"]
-    H -->|SELinux Denial| J["HAL Service Crash"]
-    H -->|Uncertified Fingerprint| K["Play Integrity Failure (CTS Fail)"]
+    H -->|"AVB Key Mismatch"| I["Bootloader Lock Error"]
+    H -->|"SELinux Denial"| J["HAL Service Crash"]
+    H -->|"Uncertified Fingerprint"| K["Play Integrity Failure (CTS Fail)"]
 ```
 
 #### Device & Policy Configuration 예시 (`BoardConfig.mk` & `sepolicy/custom_daemon.te`)

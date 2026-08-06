@@ -31,10 +31,10 @@ Android Studio Profiler, Perfetto, `dumpsys`는 원인을 탐색하고 병목 �
 flowchart TD
     Question{"성능 탐색 질문의 종류"}
     
-    Question -->|전체 시스템 스케줄링 & 타임라인 병목은?| Perfetto["Perfetto (ATrace / ftrace)<br/>시간축 추적"]
-    Question -->|메모리 힙 누수 및 인스턴스 그래프는?| Profiler["Android Studio Profiler<br/>Memory Heap Dump"]
-    Question -->|현재 OS 서비스의 실시간 요약 상태는?| Dumpsys["dumpsys (gfxinfo, meminfo)<br/>서비스 스냅샷"]
-    Question -->|릴리스 간 성능 회귀 수치 비교는?| Macrobench["Macrobenchmark<br/>통제된 10+회 반복 벤치마크"]
+    Question -->|"전체 시스템 스케줄링 & 타임라인 병목은?"| Perfetto["Perfetto (ATrace / ftrace)<br/>시간축 추적"]
+    Question -->|"메모리 힙 누수 및 인스턴스 그래프는?"| Profiler["Android Studio Profiler<br/>Memory Heap Dump"]
+    Question -->|"현재 OS 서비스의 실시간 요약 상태는?"| Dumpsys["dumpsys (gfxinfo, meminfo)<br/>서비스 스냅샷"]
+    Question -->|"릴리스 간 성능 회귀 수치 비교는?"| Macrobench["Macrobenchmark<br/>통제된 10+회 반복 벤치마크"]
 ```
 
 ### 3. Trace 섹션 바인딩 Kotlin 구체 코드 예시

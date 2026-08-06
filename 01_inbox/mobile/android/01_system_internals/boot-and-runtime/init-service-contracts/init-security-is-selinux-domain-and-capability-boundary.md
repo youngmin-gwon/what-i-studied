@@ -27,12 +27,12 @@ init 보안 모델은 서비스 프로세스 실행 시 Linux의 root 권한 남
 flowchart LR
     INIT["init Process
 (Domain: u:r:init:s0)
-[Full Capabilities]"] -->|fork & SetSecurityContext()| TRANS["SELinux Domain Transition
+[Full Capabilities]"] -->|"fork & SetSecurityContext()"| TRANS["SELinux Domain Transition
 + CapSet / Seccomp Filter"]
-    TRANS -->|Zygote Service| ZYGOTE["Zygote Daemon
+    TRANS -->|"Zygote Service"| ZYGOTE["Zygote Daemon
 (Domain: u:r:zygote:s0)
 [CAP_KILL, CAP_SETUID]"]
-    TRANS -->|Vendor Daemon| VEND["Vendor Service
+    TRANS -->|"Vendor Daemon"| VEND["Vendor Service
 (Domain: u:r:hal_foo:s0)
 [No Capabilities]"]
 

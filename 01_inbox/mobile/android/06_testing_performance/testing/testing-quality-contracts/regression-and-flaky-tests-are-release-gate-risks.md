@@ -33,8 +33,8 @@ flowchart TD
     
     BuildPass --> FlakyDetect{"동일 커밋 재실행 시 성공/실패 무작위 교차?"}
     
-    FlakyDetect -->|No| ValidFail["실제 코드 결함 / 회귀 (Regression Bug) Fix"]
-    FlakyDetect -->|Yes| Quarantine["1. Quarantine 태그 부여 (@FlakyTest)<br/>Release Gate 스위트에서 즉시 이격"]
+    FlakyDetect -->|"No"| ValidFail["실제 코드 결함 / 회귀 (Regression Bug) Fix"]
+    FlakyDetect -->|"Yes"| Quarantine["1. Quarantine 태그 부여 (@FlakyTest)<br/>Release Gate 스위트에서 즉시 이격"]
 
     Quarantine --> RootCause["2. 원인 파악 (Race / Global State / Thread.sleep)"]
     RootCause --> Refactor["3. Compose waitUntil / Fake Test rule 적용"]

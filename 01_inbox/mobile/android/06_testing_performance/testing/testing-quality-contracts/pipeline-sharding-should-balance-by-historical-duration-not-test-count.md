@@ -35,7 +35,7 @@ flowchart TD
         A2["Shard 2: 4개 unit test (합 60ms)"]
         A3["Shard 3: 2개 unit test + 2개 E2E test (합 42분)"]
         A4["Shard 4: 4개 unit test (합 55ms)"]
-        A3 -.->|병목, 나머지 shard 대기| Done1["파이프라인 완료: 42분"]
+        A3 -.->|"병목, 나머지 shard 대기"| Done1["파이프라인 완료: 42분"]
     end
 
     subgraph "시간 기반 (누적 시간 균형)"

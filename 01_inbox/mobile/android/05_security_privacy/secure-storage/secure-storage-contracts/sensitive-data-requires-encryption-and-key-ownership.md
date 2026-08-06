@@ -20,7 +20,7 @@ flowchart LR
         MasterKey[Master Key - Non-Exportable]
     end
 
-    MasterKey ==>|Envelope Decrypt DEK| CryptoEngine[In-Memory Crypto Operation]
+    MasterKey ==>|"Envelope Decrypt DEK"| CryptoEngine[In-Memory Crypto Operation]
     CipherData --> CryptoEngine
     CryptoEngine --> Plaintext[Plaintext in RAM: Minimize lifetime and copies]
 ```

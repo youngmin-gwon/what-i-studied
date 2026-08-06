@@ -28,16 +28,16 @@ Android 오디오 출력 파이프라인은 높은 이식성과 편의성을 제
 
 ```mermaid
 graph TD
-    AppJava[Java / Kotlin App] -->|JNI| AudioTrack[AudioTrack Java API]
-    AudioTrack -->|[binder ipc](../../binder-ipc.md)| AudioFlinger[AudioFlinger MixerThread]
-    AudioFlinger -->|Software Mix| ALSA_Standard["ALSA Driver (Standard)"]
+    AppJava[Java / Kotlin App] -->|"JNI"| AudioTrack[AudioTrack Java API]
+    AudioTrack -->|"[binder ipc](../../binder-ipc.md)"| AudioFlinger[AudioFlinger MixerThread]
+    AudioFlinger -->|"Software Mix"| ALSA_Standard["ALSA Driver (Standard)"]
 
     AppNative[C++ Game / Audio App] --> Oboe[Oboe C++ Library]
-    Oboe -->|API 27+| AAudio[AAudio NDK API]
-    Oboe -->|API <27| OpenSLES[OpenSL ES NDK API]
+    Oboe -->|"API 27+"| AAudio[AAudio NDK API]
+    Oboe -->|"API <27"| OpenSLES[OpenSL ES NDK API]
     
-    AAudio -->|MMAP Mode| SharedRingBuffer[Shared Memory Ring Buffer]
-    SharedRingBuffer -->|Bypass AudioFlinger| DSP_Driver[Audio DSP / ALSA Hardware Driver]
+    AAudio -->|"MMAP Mode"| SharedRingBuffer[Shared Memory Ring Buffer]
+    SharedRingBuffer -->|"Bypass AudioFlinger"| DSP_Driver[Audio DSP / ALSA Hardware Driver]
 ```
 
 ### Oboe C++ 초저지연 오디오 스트림 생성 코드

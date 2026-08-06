@@ -24,11 +24,11 @@ Android 프레임워크의 화면 구성 방식은 레거시 **XML 기반 명령
 ```mermaid
 graph TD
     subgraph Imperative ["레거시 명령형 View System (XML)"]
-        State1["Data / Event 변경"] -->|findViewByID & setText 명령| ViewTree["View 객체 트리 직접 수정"]
+        State1["Data / Event 변경"] -->|"findViewByID & setText 명령"| ViewTree["View 객체 트리 직접 수정"]
     end
 
     subgraph Declarative ["현대 선언적 Jetpack Compose"]
-        State2["UiState 데이터 변경"] -->|자동 감지| Recomp["Recomposition (새 화면 그리기)"]
+        State2["UiState 데이터 변경"] -->|"자동 감지"| Recomp["Recomposition (새 화면 그리기)"]
         Recomp --> UIOutput["최종 UI 렌더링"]
     end
 ```

@@ -27,10 +27,10 @@ updated: 2026-08-05 16:15:00 +09:00
 ```mermaid
 flowchart TD
     DepChange["Dependency PR Triggered"] --> GraphCheck{"1. Graph Audit Pass?"}
-    GraphCheck -->|No Unexpected Transitives| ABICheck{"2. ABI Compatibility Pass?"}
-    ABICheck -->|No Signature Break| TestCheck{"3. R8 Release Test Pass?"}
-    TestCheck -->|No Runtime Crash| SecCheck{"4. License & Vulnerability Audit Pass?"}
-    SecCheck -->|All Approved| Merge["Approve Dependency PR"]
+    GraphCheck -->|"No Unexpected Transitives"| ABICheck{"2. ABI Compatibility Pass?"}
+    ABICheck -->|"No Signature Break"| TestCheck{"3. R8 Release Test Pass?"}
+    TestCheck -->|"No Runtime Crash"| SecCheck{"4. License & Vulnerability Audit Pass?"}
+    SecCheck -->|"All Approved"| Merge["Approve Dependency PR"]
 ```
 
 ### 코드 예시 (build.gradle.kts - Dependency Diff Detection)

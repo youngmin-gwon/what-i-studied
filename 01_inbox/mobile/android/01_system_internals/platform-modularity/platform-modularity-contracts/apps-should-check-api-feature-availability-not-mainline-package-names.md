@@ -28,10 +28,10 @@ date created: 2026-07-31 23:05:30 +09:00
 flowchart TD
     A[App Wants to Use PhotoPicker / Extension Feature] --> B{Inspection Method?}
     B -- Fragile: Check PM Package Name --> C["pm.getPackageInfo('com.google.android.mediaprovider')"]
-    C -->|Fails on AOSP / OEM Device| D[False Negative / App Crash]
+    C -->|"Fails on AOSP / OEM Device"| D[False Negative / App Crash]
     
     B -- Robust: Check API Capability --> E["SdkExtensions.getExtensionVersion(R) >= 2"]
-    E -->|Valid on All Android Devices| F[Safe Execution / Safe Fallback]
+    E -->|"Valid on All Android Devices"| F[Safe Execution / Safe Fallback]
 ```
 
 ---

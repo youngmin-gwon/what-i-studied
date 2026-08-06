@@ -24,12 +24,12 @@ Android의 **TrafficStats** 및 **NetworkStatsManager**는 개별 소켓 및 UID
 
 ```mermaid
 graph TD
-    AppThread[App Thread / OkHttp Socket] -->|setThreadStatsTag(0x0123)| Socket[Socket Creation]
-    Socket -->|Traffic Flow| KernelBPF[Kernel eBPF netstat Module]
+    AppThread[App Thread / OkHttp Socket] -->|"setThreadStatsTag(0x0123)"| Socket[Socket Creation]
+    Socket -->|"Traffic Flow"| KernelBPF[Kernel eBPF netstat Module]
     
-    KernelBPF -->|Accumulate Bytes| SysStats[Linux Socket Stats / proc / net / xt_qtaguid]
+    KernelBPF -->|"Accumulate Bytes"| SysStats[Linux Socket Stats / proc / net / xt_qtaguid]
     SysStats --> TrafficStatsAPI[TrafficStats API: Realtime Raw Counter]
-    SysStats -->|Persist to System DB| NetStatsAPI[NetworkStatsManager API: Historical Query]
+    SysStats -->|"Persist to System DB"| NetStatsAPI[NetworkStatsManager API: Historical Query]
 ```
 
 ### Kotlin Socket Tagging 및 TrafficStats 사용 예시

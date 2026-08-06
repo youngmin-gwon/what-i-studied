@@ -32,11 +32,11 @@ graph TD
     AppSocket[App Network Socket Connection] --> Conscrypt[Conscrypt SSL Engine]
     Conscrypt --> CheckCleartext{Cleartext HTTP?}
 
-    CheckCleartext -->|Yes & Permitted=false| Err1[UnknownServiceException: CLEARTEXT Blocked]
-    CheckCleartext -->|No (HTTPS)| CheckTrust[TrustManager & Certificate Pinning Check]
+    CheckCleartext -->|"Yes & Permitted=false"| Err1[UnknownServiceException: CLEARTEXT Blocked]
+    CheckCleartext -->|"No (HTTPS)"| CheckTrust[TrustManager & Certificate Pinning Check]
 
-    CheckTrust -->|Invalid CA / Pin Mismatch| Err2[SSLHandshakeException: Certificate Check Failed]
-    CheckTrust -->|Valid Trust Anchor| Pass[Secure TLS Session Established]
+    CheckTrust -->|"Invalid CA / Pin Mismatch"| Err2[SSLHandshakeException: Certificate Check Failed]
+    CheckTrust -->|"Valid Trust Anchor"| Pass[Secure TLS Session Established]
 ```
 
 ### XML 선언예: `network_security_config.xml`

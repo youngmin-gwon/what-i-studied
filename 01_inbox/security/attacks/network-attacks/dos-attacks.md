@@ -103,16 +103,16 @@ iptables -A INPUT -p udp -j DROP
 
 ```mermaid
 graph TD
-    ATK[공격자] -->|ICMP Echo Request<br/>Src IP: 피해자| BC[브로드캐스트 주소]
+    ATK[공격자] -->|"ICMP Echo Request<br/>Src IP: 피해자"| BC[브로드캐스트 주소]
     BC --> H1[Host 1]
     BC --> H2[Host 2]
     BC --> H3[Host 3]
     BC --> HN[Host N]
     
-    H1 -->|Echo Reply| V[피해자]
-    H2 -->|Echo Reply| V
-    H3 -->|Echo Reply| V
-    HN -->|Echo Reply| V
+    H1 -->|"Echo Reply"| V[피해자]
+    H2 -->|"Echo Reply"| V
+    H3 -->|"Echo Reply"| V
+    HN -->|"Echo Reply"| V
     
     style V fill:#f99
 ```

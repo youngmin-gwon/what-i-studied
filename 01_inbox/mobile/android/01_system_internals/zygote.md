@@ -23,8 +23,8 @@ graph TD
         ZygoteInit --> Socket["Unix Domain Socket 대기"]
     end
     
-    Socket -->|4. 앱 실행 요청| SystemServer["system_server (AMS)"]
-    SystemServer -->|5. Socket으로 fork 요청| ZygoteFork["6. Zygote.fork() 수ms 만에 분가!"]
+    Socket -->|"4. 앱 실행 요청"| SystemServer["system_server (AMS)"]
+    SystemServer -->|"5. Socket으로 fork 요청"| ZygoteFork["6. Zygote.fork() 수ms 만에 분가!"]
     ZygoteFork --> AppProc["7. 독립 앱 프로세스 (ActivityThread)"]
 ```
 

@@ -112,16 +112,16 @@ graph TB
 
 ```mermaid
 graph LR
-    A[공격자] -->|ICMP Echo\n위조 Source IP| B[브로드캐스트\n192.168.1.255]
+    A[공격자] -->|"ICMP Echo\n위조 Source IP"| B[브로드캐스트\n192.168.1.255]
     B --> C1[Host 1]
     B --> C2[Host 2]
     B --> C3[Host 3]
     B --> C4[Host ...]
     
-    C1 -->|Echo Reply| V[피해자]
-    C2 -->|Echo Reply| V
-    C3 -->|Echo Reply| V
-    C4 -->|Echo Reply| V
+    C1 -->|"Echo Reply"| V[피해자]
+    C2 -->|"Echo Reply"| V
+    C3 -->|"Echo Reply"| V
+    C4 -->|"Echo Reply"| V
     
     style V fill:#f99
 ```

@@ -27,12 +27,12 @@ Android 뷰 시스템과 Jetpack Compose의 `Canvas` 또는 `DrawScope`는 화�
 
 ```mermaid
 graph TD
-    AppUI[UI Thread: Compose DrawScope / Canvas] -->|Record Commands| DL[DisplayList / RenderNode]
-    DL -->|Sync at VSync-UI| RT[RenderThread: HWUI Skia Engine]
-    RT -->|GLES / Vulkan Execution| GPU[GPU Graphics Buffer]
-    GPU -->|queueBuffer| BQ[BufferQueue / Surface]
-    BQ -->|acquireBuffer| SF[SurfaceFlinger Compositor]
-    SF -->|Display Frame| Screen[Physical Display Screen]
+    AppUI[UI Thread: Compose DrawScope / Canvas] -->|"Record Commands"| DL[DisplayList / RenderNode]
+    DL -->|"Sync at VSync-UI"| RT[RenderThread: HWUI Skia Engine]
+    RT -->|"GLES / Vulkan Execution"| GPU[GPU Graphics Buffer]
+    GPU -->|"queueBuffer"| BQ[BufferQueue / Surface]
+    BQ -->|"acquireBuffer"| SF[SurfaceFlinger Compositor]
+    SF -->|"Display Frame"| Screen[Physical Display Screen]
 ```
 
 ### RenderNode 및 Canvas 그리기 기록 Kotlin 코드

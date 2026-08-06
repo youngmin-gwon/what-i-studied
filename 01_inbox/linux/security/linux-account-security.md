@@ -213,9 +213,9 @@ ls -l /usr/bin/passwd
 **동작 원리**:
 ```mermaid
 graph LR
-    USER[일반 사용자] -->|실행| PASSWD[/usr/bin/passwd]
-    PASSWD -->|SetUID| ROOT[root 권한으로 실행]
-    ROOT -->|수정| SHADOW[/etc/shadow]
+    USER[일반 사용자] -->|"실행"| PASSWD[/usr/bin/passwd]
+    PASSWD -->|"SetUID"| ROOT[root 권한으로 실행]
+    ROOT -->|"수정"| SHADOW[/etc/shadow]
 ```
 
 ```plaintext

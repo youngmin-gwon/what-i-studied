@@ -24,14 +24,14 @@ date created: 2026-08-06 18:10:00 +09:00
 ```mermaid
 graph TD
     subgraph TCP ["TCP Protocol (등기 우편)"]
-        TCPSender["송신자"] -->|1. SYN 연결 요청| TCPReceiver["수신자"]
-        TCPReceiver -->|2. SYN-ACK 승인| TCPSender
-        TCPSender -->|3. ACK 확인 및 데이터 전송| TCPReceiver
-        TCPReceiver -->|4. 잘 받음 서명 보내기| TCPSender
+        TCPSender["송신자"] -->|"1. SYN 연결 요청"| TCPReceiver["수신자"]
+        TCPReceiver -->|"2. SYN-ACK 승인"| TCPSender
+        TCPSender -->|"3. ACK 확인 및 데이터 전송"| TCPReceiver
+        TCPReceiver -->|"4. 잘 받음 서명 보내기"| TCPSender
     end
 
     subgraph UDP ["UDP Protocol (전단지 투척)"]
-        UDPSender["송신자"] -->|연결 확인 없이 일방적 보냄| UDPReceiver["수신자 (손실 감수)"]
+        UDPSender["송신자"] -->|"연결 확인 없이 일방적 보냄"| UDPReceiver["수신자 (손실 감수)"]
     end
 ```
 

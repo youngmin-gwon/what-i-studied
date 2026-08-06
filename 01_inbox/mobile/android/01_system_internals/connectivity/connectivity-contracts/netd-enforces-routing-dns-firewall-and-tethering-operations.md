@@ -30,12 +30,12 @@ Native C++ 데몬인 **netd (Network Daemon)** 및 Mainline **NetworkStack** 모
 
 ```mermaid
 graph TD
-    CS[ConnectivityService / system_server] -->|Binder / Socket IPC| Netd[netd C++ Daemon / NetworkStack]
+    CS[ConnectivityService / system_server] -->|"Binder / Socket IPC"| Netd[netd C++ Daemon / NetworkStack]
     
-    Netd -->|Netlink Socket| KernelRoute[Linux IP Route / Multiple Tables]
-    Netd -->|eBPF Maps / Netfilter| KernelFW[eBPF / iptables Firewall]
-    Netd -->|Resolv Module| NativeDNS[Native DnsResolver / DoT]
-    Netd -->|NAT Command| KernelNAT[IP Forwarding / Masquerade]
+    Netd -->|"Netlink Socket"| KernelRoute[Linux IP Route / Multiple Tables]
+    Netd -->|"eBPF Maps / Netfilter"| KernelFW[eBPF / iptables Firewall]
+    Netd -->|"Resolv Module"| NativeDNS[Native DnsResolver / DoT]
+    Netd -->|"NAT Command"| KernelNAT[IP Forwarding / Masquerade]
 ```
 
 ### Native C++ NDK Socket Fwmark 바인딩 코드

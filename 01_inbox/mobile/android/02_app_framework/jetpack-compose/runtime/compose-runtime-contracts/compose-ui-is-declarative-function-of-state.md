@@ -28,8 +28,8 @@ Compose의 선언적 모델은 현재 상태에 대응하는 UI를 Composable �
 
 ```mermaid
 flowchart LR
-    State["Snapshot State"] -->|composition 단계에서 읽음| Scope["RecomposeScope 의존성"]
-    State -->|값 변경| Invalidated["해당 scope 무효화"]
+    State["Snapshot State"] -->|"composition 단계에서 읽음"| Scope["RecomposeScope 의존성"]
+    State -->|"값 변경"| Invalidated["해당 scope 무효화"]
     Invalidated --> Recompose["필요한 Composable 재실행"]
     Recompose --> Composition["Composition 변경 계산"]
     Composition --> Apply["Applier가 노드 삽입·삭제·이동·갱신 적용"]

@@ -46,14 +46,14 @@ flowchart TD
         STATE[LoadState: Loading / Error / NotLoading]
     end
 
-    API -->|Fetch Next Page| RM
-    RM -->|Cache Data| DB
-    DB -->|Read Cached Page| PS
-    PS -->|Emit Page Chunks| PGR
-    PGR -->|cachedIn viewModelScope| PDF
-    PDF -->|Collect Streams| UI
-    UI -->|Scroll Threshold Trigger| PS
-    UI -->|Render Loading Spinner / Error Toast| STATE
+    API -->|"Fetch Next Page"| RM
+    RM -->|"Cache Data"| DB
+    DB -->|"Read Cached Page"| PS
+    PS -->|"Emit Page Chunks"| PGR
+    PGR -->|"cachedIn viewModelScope"| PDF
+    PDF -->|"Collect Streams"| UI
+    UI -->|"Scroll Threshold Trigger"| PS
+    UI -->|"Render Loading Spinner / Error Toast"| STATE
 ```
 
 ---

@@ -69,9 +69,9 @@ graph TD
     AppCode["App: context.getSystemService(Context.WINDOW_SERVICE)"] --> ServiceManagerClient["ServiceManager.getService('window')"]
     ServiceManagerClient -->|"Binder IPC (Handle 0)"| BinderDriver["/dev/binder 커널 드라이버"]
     BinderDriver --> ServiceManagerNative["servicemanager (Native Daemon / C++)"]
-    ServiceManagerNative -->|서비스 맵 검색| FindHandle["WMS Binder Handle 반환"]
-    FindHandle -->|IPC Proxy 전달| AppProxy["WindowManagerImpl / IWindowManager Proxy 생성"]
-    AppProxy -->|직접 Binder IPC| WMS["system_server : WindowManagerService"]
+    ServiceManagerNative -->|"서비스 맵 검색"| FindHandle["WMS Binder Handle 반환"]
+    FindHandle -->|"IPC Proxy 전달"| AppProxy["WindowManagerImpl / IWindowManager Proxy 생성"]
+    AppProxy -->|"직접 Binder IPC"| WMS["system_server : WindowManagerService"]
 ```
 
 1. **Context.getSystemService() 호출**: 앱 개발자가 자바/코틀린 코드에서 시스템 서비스 사용을 요청한다.

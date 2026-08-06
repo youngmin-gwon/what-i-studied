@@ -29,7 +29,7 @@ updated: 2026-08-05 16:15:00 +09:00
 ```mermaid
 flowchart LR
     Artifact["Debug / Release APK or AAB"] --> UploadSharing["Upload to Internal App Sharing Page / API"]
-    UploadSharing -->|No Review, No Version Check| UniqueURL["Generated Test Link URL"]
+    UploadSharing -->|"No Review, No Version Check"| UniqueURL["Generated Test Link URL"]
     UniqueURL --> QATester["QA / Designer Click Link & Install in Seconds"]
 ```
 

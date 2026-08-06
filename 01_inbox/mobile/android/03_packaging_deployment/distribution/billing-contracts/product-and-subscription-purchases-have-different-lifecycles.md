@@ -29,11 +29,11 @@ Google Play Billing 시스템에서 제공하는 재화는 단발성 제품 구�
 ```mermaid
 flowchart TD
     SubStart["Subscription Started (ACTIVE)"] --> Renewal{"Renewal Payment Success?"}
-    Renewal -->|Yes| SubStart
-    Renewal -->|No| GracePeriod["IN_GRACE_PERIOD (Service Retained)"]
+    Renewal -->|"Yes"| SubStart
+    Renewal -->|"No"| GracePeriod["IN_GRACE_PERIOD (Service Retained)"]
     GracePeriod --> PaymentFix{"Card Updated?"}
-    PaymentFix -->|Yes| SubStart
-    PaymentFix -->|No| AccountHold["ON_HOLD (Service Suspended)"]
+    PaymentFix -->|"Yes"| SubStart
+    PaymentFix -->|"No"| AccountHold["ON_HOLD (Service Suspended)"]
     AccountHold --> Expired["EXPIRED (Subscription Terminated)"]
 ```
 

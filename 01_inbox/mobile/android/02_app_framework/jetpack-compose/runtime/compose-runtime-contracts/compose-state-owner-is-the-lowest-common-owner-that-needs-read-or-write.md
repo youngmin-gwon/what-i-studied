@@ -30,9 +30,9 @@ flowchart TD
     Reader["Child A<br/>상태 읽기"]
     Controller["Child B<br/>사용자 입력"]
 
-    Owner -->|State down| Reader
-    Owner -->|State down| Controller
-    Controller -->|Event up: onEvent| Owner
+    Owner -->|"State down"| Reader
+    Owner -->|"State down"| Controller
+    Controller -->|"Event up: onEvent"| Owner
 ```
 
 1. **State Down, Events Up**: 부모 노드가 `State` 상태 값을 자식 컴포넌트로 내려보내고(State Down), 자식 컴포넌트는 이벤트 콜백 람다(`onEvent: () -> Unit`)를 상위 부모로 전달(Events Up)한다.

@@ -455,8 +455,8 @@ graph TD
     SYSTEMD --> DEFAULT[기본 target 확인]
     DEFAULT --> GRAPH{graphical.target?}
     
-    GRAPH -->|Yes| GUI[GUI 모드]
-    GRAPH -->|No| CLI[CLI 모드]
+    GRAPH -->|"Yes"| GUI[GUI 모드]
+    GRAPH -->|"No"| CLI[CLI 모드]
     
     GUI --> MULTI[multi-user.target]
     CLI --> MULTI

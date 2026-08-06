@@ -22,8 +22,8 @@ Kleaf/Bazel 전면 적용 여부는 Android 14+ 공통 커널(common kernel)부�
 graph TD
     A["kernel/manifest\n(android15-6.6 branch repo sync)"] --> B["Prebuilt Hermetic Toolchain\n(AOSP LLVM Clang + prebuilt GCC lib)"]
     B --> C["Kleaf Bazel Rules\n(//common:kernel_aarch64)"]
-    C -->|Hermetic Sandbox Build| D["Kernel Binary Outputs\n(vmlinux, Image, System.map)"]
-    C -->|KMI Symbol Check| E["abi_symbol_list Validation"]
+    C -->|"Hermetic Sandbox Build"| D["Kernel Binary Outputs\n(vmlinux, Image, System.map)"]
+    C -->|"KMI Symbol Check"| E["abi_symbol_list Validation"]
     D --> F["Distribution Packaging\n(boot.img, vendor_dlkm.img, initramfs.img)"]
     E --> F
 ```

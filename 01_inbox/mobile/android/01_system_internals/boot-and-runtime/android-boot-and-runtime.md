@@ -15,29 +15,29 @@ Android 부팅과 런타임은 기기 전원이 켜지는 시점부터 사용자
 ```mermaid
 flowchart TD
     subgraph STAGE1["1. Boot Flow (Hardware & Kernel)"]
-        BL["Bootloader / ROM"] -->|Trust & Slot Selection| AVB["Android Verified Boot (AVB)"]
-        AVB -->|Load Kernel & Ramdisk| KERNEL["Linux Kernel Boot"]
-        KERNEL -->|Mount devtmpfs / proc| FS_INIT["First-Stage Init (PID 1)"]
+        BL["Bootloader / ROM"] -->|"Trust & Slot Selection"| AVB["Android Verified Boot (AVB)"]
+        AVB -->|"Load Kernel & Ramdisk"| KERNEL["Linux Kernel Boot"]
+        KERNEL -->|"Mount devtmpfs / proc"| FS_INIT["First-Stage Init (PID 1)"]
     end
 
     subgraph STAGE2["2. Init & Native Services"]
-        FS_INIT -->|Switch Root & Load SELinux| SS_INIT["Second-Stage Init"]
-        SS_INIT -->|Start| PROP["Property Service & ueventd"]
-        SS_INIT -->|Parse init.rc| DAEMONS["Native Services (servicemanager, hwservicemanager, surfaceflinger)"]
-        SS_INIT -->|Fork| ZYGOTE_DAEMON["Zygote Service"]
+        FS_INIT -->|"Switch Root & Load SELinux"| SS_INIT["Second-Stage Init"]
+        SS_INIT -->|"Start"| PROP["Property Service & ueventd"]
+        SS_INIT -->|"Parse init.rc"| DAEMONS["Native Services (servicemanager, hwservicemanager, surfaceflinger)"]
+        SS_INIT -->|"Fork"| ZYGOTE_DAEMON["Zygote Service"]
     end
 
     subgraph STAGE3["3. Zygote & ART Runtime"]
-        ZYGOTE_DAEMON -->|Initialize ART| ART["ART Runtime Initialization"]
-        ART -->|Preload Classes & Resources| PRELOAD["Preloaded State (CoW Shared Memory)"]
-        PRELOAD -->|Listen on Socket| ZYGOTE_SOCK["/dev/socket/zygote"]
+        ZYGOTE_DAEMON -->|"Initialize ART"| ART["ART Runtime Initialization"]
+        ART -->|"Preload Classes & Resources"| PRELOAD["Preloaded State (CoW Shared Memory)"]
+        PRELOAD -->|"Listen on Socket"| ZYGOTE_SOCK["/dev/socket/zygote"]
     end
 
     subgraph STAGE4["4. System Server & App Specialization"]
-        ZYGOTE_SOCK -->|Fork Request| SYS_SERVER["system_server Process"]
-        SYS_SERVER -->|Start Bootstrap Services| AMS["AMS / ATMS / PKMS / WMS"]
-        ZYGOTE_SOCK -->|Fork Request via AMS| APP_PROC["App Process (specialized)"]
-        APP_PROC -->|Attach to AMS| ACT_THREAD["ActivityThread.main()"]
+        ZYGOTE_SOCK -->|"Fork Request"| SYS_SERVER["system_server Process"]
+        SYS_SERVER -->|"Start Bootstrap Services"| AMS["AMS / ATMS / PKMS / WMS"]
+        ZYGOTE_SOCK -->|"Fork Request via AMS"| APP_PROC["App Process (specialized)"]
+        APP_PROC -->|"Attach to AMS"| ACT_THREAD["ActivityThread.main()"]
     end
 ```
 

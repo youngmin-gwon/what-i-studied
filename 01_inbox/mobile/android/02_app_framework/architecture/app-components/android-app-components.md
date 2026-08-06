@@ -18,10 +18,10 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 graph TD
-    AMS["Android OS (ActivityManagerService / ATMS)"] -->|User Visible Window| Act["Activity (UI Window Entry Point)"]
-    AMS -->|Background / Remote IPC| Svc["Service (Background / IPC Work)"]
-    AMS -->|System/App Event Broadcast| Rec["BroadcastReceiver (Short Event Listener)"]
-    AMS -->|URI Data Access & Permissions| CP["ContentProvider (Structured Data Access)"]
+    AMS["Android OS (ActivityManagerService / ATMS)"] -->|"User Visible Window"| Act["Activity (UI Window Entry Point)"]
+    AMS -->|"Background / Remote IPC"| Svc["Service (Background / IPC Work)"]
+    AMS -->|"System/App Event Broadcast"| Rec["BroadcastReceiver (Short Event Listener)"]
+    AMS -->|"URI Data Access & Permissions"| CP["ContentProvider (Structured Data Access)"]
 
     style Act fill:#e1f5fe,stroke:#01579b,stroke-width:2f
     style Svc fill:#fff3e0,stroke:#e65100,stroke-width:2f

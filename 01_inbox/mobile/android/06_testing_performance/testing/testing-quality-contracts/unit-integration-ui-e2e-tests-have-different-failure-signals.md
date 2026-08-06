@@ -37,10 +37,10 @@ flowchart TD
     
     Failure --> CheckType{"발생 예외 및 스택 트레이스 분석"}
     
-    CheckType -->|AssertionError / Local logic| UnitBug["Unit Test Signal<br/>(해당 Domain Class / Reducer 직진 수정)"]
-    CheckType -->|Room DB Constraint / Moshi JSON| IntegrationBug["Integration Test Signal<br/>(Repository DB / Network Contract 수정)"]
-    CheckType -->|No Node Found / Compose Timeout| UIBug["UI Test Signal<br/>(Semantics TestTag / waitForIdle 보정)"]
-    CheckType -->|SocketTimeout / Server 500| E2EBug["E2E Test Signal<br/>(외부 Mock Server / CI 네트워크 점검)"]
+    CheckType -->|"AssertionError / Local logic"| UnitBug["Unit Test Signal<br/>(해당 Domain Class / Reducer 직진 수정)"]
+    CheckType -->|"Room DB Constraint / Moshi JSON"| IntegrationBug["Integration Test Signal<br/>(Repository DB / Network Contract 수정)"]
+    CheckType -->|"No Node Found / Compose Timeout"| UIBug["UI Test Signal<br/>(Semantics TestTag / waitForIdle 보정)"]
+    CheckType -->|"SocketTimeout / Server 500"| E2EBug["E2E Test Signal<br/>(외부 Mock Server / CI 네트워크 점검)"]
 ```
 
 ### 3. 레이어별 실패 assertion Kotlin 코드 구체 예시

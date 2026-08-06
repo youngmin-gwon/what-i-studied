@@ -28,12 +28,12 @@ updated: 2026-08-05 16:15:00 +09:00
 ```mermaid
 flowchart TD
     BuildReq["Gradle Build Triggered"] --> ConfigCheck{"Configuration Cache Valid?"}
-    ConfigCheck -->|Yes| SkipConfig["Reused Configuration State (Skip Eval)"]
-    ConfigCheck -->|No| RunConfig["Run Configuration Phase"]
+    ConfigCheck -->|"Yes"| SkipConfig["Reused Configuration State (Skip Eval)"]
+    ConfigCheck -->|"No"| RunConfig["Run Configuration Phase"]
     
     SkipConfig & RunConfig --> TaskCheck{"Task Input Hashed: Cache Hit?"}
-    TaskCheck -->|Hit| FromCache["FROM-CACHE (Skip Execution)"]
-    TaskCheck -->|Miss| ExecTask["Execute Task & Update Cache"]
+    TaskCheck -->|"Hit"| FromCache["FROM-CACHE (Skip Execution)"]
+    TaskCheck -->|"Miss"| ExecTask["Execute Task & Update Cache"]
 ```
 
 ### 코드 예시 (gradle.properties)

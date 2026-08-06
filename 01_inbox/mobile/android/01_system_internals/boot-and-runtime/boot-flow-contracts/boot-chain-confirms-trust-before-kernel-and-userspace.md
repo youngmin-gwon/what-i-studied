@@ -23,13 +23,13 @@ date created: 2026-08-01 00:00:00 +09:00
 ```mermaid
 flowchart LR
     PBL["1. Boot ROM (PBL)
-[Hardware RoT]"] -->|Verify Signature| SBL["2. Secondary BL / UEFI
+[Hardware RoT]"] -->|"Verify Signature"| SBL["2. Secondary BL / UEFI
 [DRAM Init]"]
-    SBL -->|Verify AVB / vbmeta| BL["3. Android Bootloader
+    SBL -->|"Verify AVB / vbmeta"| BL["3. Android Bootloader
 [Slot & Bootconfig]"]
-    BL -->|Load & Jump| KERN["4. Linux Kernel
+    BL -->|"Load & Jump"| KERN["4. Linux Kernel
 [start_kernel]"]
-    KERN -->|Mount Ramdisk| INIT["5. init (PID 1)
+    KERN -->|"Mount Ramdisk"| INIT["5. init (PID 1)
 [Userspace Stage 1]"]
 
     style PBL fill:#f9f,stroke:#333,stroke-width:2px

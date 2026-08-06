@@ -17,10 +17,10 @@ date modified: 2026-08-04 21:30:00 +09:00
 ### 2. 전체 조망도
 ```mermaid
 flowchart LR
-    App[Host App] -->|Intent| CustomTabs[Custom Tabs API]
+    App[Host App] -->|"Intent"| CustomTabs[Custom Tabs API]
     CustomTabs --> Browser[Default Browser Engine]
     Browser --> WebContent[Web Site]
-    Browser -.->|Session Storage/Cookies| Browser
+    Browser -.->|"Session Storage/Cookies"| Browser
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

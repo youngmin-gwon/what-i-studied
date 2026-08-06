@@ -29,11 +29,11 @@ date created: 2026-08-06 18:30:00 +09:00
 
 ```mermaid
 graph TD
-    AppActivity["앱 액티비티 (ViewRootImpl)"] -->|1. relayoutWindow / Surface 요청| WMS["WindowManagerService (WMS)"]
-    WMS -->|2. Window Z-Order & 레이아웃 계산| LayoutEngine["Layout Engine"]
-    WMS -->|3. Surface 생성 및 배치 요청| SF["SurfaceFlinger (Native Compositor)"]
-    IMS["InputManagerService (IMS)"] -->|4. Focused Window 터치 이벤트 전달| WMS
-    WMS -->|5. MotionEvent 전달| AppActivity
+    AppActivity["앱 액티비티 (ViewRootImpl)"] -->|"1. relayoutWindow / Surface 요청"| WMS["WindowManagerService (WMS)"]
+    WMS -->|"2. Window Z-Order & 레이아웃 계산"| LayoutEngine["Layout Engine"]
+    WMS -->|"3. Surface 생성 및 배치 요청"| SF["SurfaceFlinger (Native Compositor)"]
+    IMS["InputManagerService (IMS)"] -->|"4. Focused Window 터치 이벤트 전달"| WMS
+    WMS -->|"5. MotionEvent 전달"| AppActivity
 ```
 
 ---

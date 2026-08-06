@@ -6,18 +6,24 @@ date modified: 2026-08-06 18:58:06 +09:00
 date created: 2026-08-03 17:17:26 +09:00
 ---
 
+# System Server Uid Pid Check
+
+## 1. 개요 (Overview)
+
 ### 초보자를 위한 쉽게 이해하는 비유
 * **UID/PID 검사 (시청 민원창구 신분증 및 지장 검인)**:
   - 민원인(앱)이 서류를 제출할 때, 시청 창구(system_server)가 민원인의 신분증 번호(UID)와 현재 방문한 구체적 신원(PID)을 확인하고 IPC 호출을 승인하는 절차.
 
 ```mermaid
 graph TD
-    Caller["호출자 앱 프로세스"] -->|Binder IPC 호출| BinderDriver["/dev/binder 커널 드라이버"]
-    BinderDriver -->|getCallingUid / getCallingPid 전달| SystemServer["system_server 서비스"]
-    SystemServer -->|checkCallingPermission| AuthCheck{"UID/PID 권한 검증"}
-    AuthCheck -->|Pass| Execute["요청 서비스 기능 실행"]
-    AuthCheck -->|Fail| Throw["SecurityException 예외 발생"]
+    Caller["호출자 앱 프로세스"] -->|"Binder IPC 호출"| BinderDriver["/dev/binder 커널 드라이버"]
+    BinderDriver -->|"getCallingUid / getCallingPid 전달"| SystemServer["system_server 서비스"]
+    SystemServer -->|"checkCallingPermission"| AuthCheck{"UID/PID 권한 검증"}
+    AuthCheck -->|"Pass"| Execute["요청 서비스 기능 실행"]
+    AuthCheck -->|"Fail"| Throw["SecurityException 예외 발생"]
 ```
+
+---
 
 ---
 

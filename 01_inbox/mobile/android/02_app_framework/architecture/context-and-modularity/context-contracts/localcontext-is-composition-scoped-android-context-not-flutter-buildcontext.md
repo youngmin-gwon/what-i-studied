@@ -35,9 +35,9 @@ Jetpack Compose 에서 사용하는 **`LocalContext.current` 는 CompositionLoca
 
 ```mermaid
 graph TD
-    A["ComponentActivity / ComposeView"] -->|Provides| B["CompositionLocalProvider(LocalContext provides activityContext)"]
+    A["ComponentActivity / ComposeView"] -->|"Provides"| B["CompositionLocalProvider(LocalContext provides activityContext)"]
     B --> C["Composable Tree"]
-    C -->|LocalContext.current 호출| D["Activity Context 인스턴스 반환"]
+    C -->|"LocalContext.current 호출"| D["Activity Context 인스턴스 반환"]
     
     D --> E{"사용처 할당"}
     E -- "UI 이벤트 / Toast / Intent 시작" --> F["안전하게 사용"]

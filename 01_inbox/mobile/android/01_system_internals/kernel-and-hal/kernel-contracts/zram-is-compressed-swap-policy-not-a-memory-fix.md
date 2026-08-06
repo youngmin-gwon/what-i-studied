@@ -22,14 +22,14 @@ zRAM은 모바일 물리 RAM의 일부를 압축 가상 블록 디바이스(RAM-
 ```mermaid
 graph TD
     A["Anonymous Memory Allocation\n(App Heap & Stack Pages)"] --> B{"Kernel Memory Pressure (PSI High)"}
-    B -->|Page Swap-Out| C["zRAM Driver (/dev/block/zram0)"]
-    C -->|Compress Engine: LZ4 / ZSTD| D["Compressed RAM Block"]
+    B -->|"Page Swap-Out"| C["zRAM Driver (/dev/block/zram0)"]
+    C -->|"Compress Engine: LZ4 / ZSTD"| D["Compressed RAM Block"]
     
-    E["App accesses swapped page"] -->|Page Fault| F["Decompress Page from zRAM"]
-    F -->|Restore Page to Uncompressed RAM| A
+    E["App accesses swapped page"] -->|"Page Fault"| F["Decompress Page from zRAM"]
+    F -->|"Restore Page to Uncompressed RAM"| A
 
     subgraph Modern Android (Android 15+)
-        G["mmd (Memory Management Daemon)"] -->|Idle Recompression & Writeback| H["Flash Storage (/dev/block/zram_wb)"]
+        G["mmd (Memory Management Daemon)"] -->|"Idle Recompression & Writeback"| H["Flash Storage (/dev/block/zram_wb)"]
     end
     C --> G
 ```

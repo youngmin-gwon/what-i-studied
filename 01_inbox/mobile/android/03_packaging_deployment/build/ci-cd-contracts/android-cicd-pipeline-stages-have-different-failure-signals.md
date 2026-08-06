@@ -28,15 +28,15 @@ Android CI/CD 파이프라인에서 발생하는 원인 모를 빌드 실패를 
 ```mermaid
 flowchart TD
     Pipeline["CI Pipeline Execution"] --> Stage1{"1. Static Analysis"}
-    Stage1 -->|Fail| Signal1["Signal: Code Style / Permission Violation"]
-    Stage1 -->|Pass| Stage2{"2. Compilation & KSP"}
-    Stage2 -->|Fail| Signal2["Signal: Syntax / Type Mismatch"]
-    Stage2 -->|Pass| Stage3{"3. Unit Tests"}
-    Stage3 -->|Fail| Signal3["Signal: Business Logic Regression"]
-    Stage3 -->|Pass| Stage4{"4. R8 Minification"}
-    Stage4 -->|Fail| Signal4["Signal: Missing Keep Rules / Class Missing"]
-    Stage4 -->|Pass| Stage5{"5. Store Upload"}
-    Stage5 -->|Fail| Signal5["Signal: Auth Token / VersionCode Collision"]
+    Stage1 -->|"Fail"| Signal1["Signal: Code Style / Permission Violation"]
+    Stage1 -->|"Pass"| Stage2{"2. Compilation & KSP"}
+    Stage2 -->|"Fail"| Signal2["Signal: Syntax / Type Mismatch"]
+    Stage2 -->|"Pass"| Stage3{"3. Unit Tests"}
+    Stage3 -->|"Fail"| Signal3["Signal: Business Logic Regression"]
+    Stage3 -->|"Pass"| Stage4{"4. R8 Minification"}
+    Stage4 -->|"Fail"| Signal4["Signal: Missing Keep Rules / Class Missing"]
+    Stage4 -->|"Pass"| Stage5{"5. Store Upload"}
+    Stage5 -->|"Fail"| Signal5["Signal: Auth Token / VersionCode Collision"]
 ```
 
 ### 코드 예시 (Pipeline Failure Exit Code Handling)

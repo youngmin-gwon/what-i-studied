@@ -23,9 +23,9 @@ flowchart TD
     A --> C[Integration Tests]
     A --> D[UI / E2E Tests]
     
-    B -->|Local JVM| E[Fast Feedback, Low Fidelity]
-    C -->|Robolectric / Emulators| F[Medium Feedback, Medium Fidelity]
-    D -->|Physical/Cloud Devices| G[Slow Feedback, High Fidelity]
+    B -->|"Local JVM"| E[Fast Feedback, Low Fidelity]
+    C -->|"Robolectric / Emulators"| F[Medium Feedback, Medium Fidelity]
+    D -->|"Physical/Cloud Devices"| G[Slow Feedback, High Fidelity]
     
     E --> H[Test Doubles: Fakes/Mocks]
     D --> I[Espresso / Compose UI Test]

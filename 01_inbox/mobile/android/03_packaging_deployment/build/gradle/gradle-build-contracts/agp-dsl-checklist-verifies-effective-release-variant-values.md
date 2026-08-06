@@ -27,10 +27,10 @@ updated: 2026-08-05 16:15:00 +09:00
 ```mermaid
 flowchart TD
     BuildReq["Release Build Triggered"] --> DSLCheck{"AGP DSL Audit Pass?"}
-    DSLCheck -->|isMinifyEnabled == false| Fail1["Build Reject: R8 Disabled"]
-    DSLCheck -->|isDebuggable == true| Fail2["Build Reject: Security Leak"]
-    DSLCheck -->|signingConfig == debug| Fail3["Build Reject: Invalid Keystore"]
-    DSLCheck -->|All Validated| Pass["Generate Secure Production Release Artifact (.aab)"]
+    DSLCheck -->|"isMinifyEnabled == false"| Fail1["Build Reject: R8 Disabled"]
+    DSLCheck -->|"isDebuggable == true"| Fail2["Build Reject: Security Leak"]
+    DSLCheck -->|"signingConfig == debug"| Fail3["Build Reject: Invalid Keystore"]
+    DSLCheck -->|"All Validated"| Pass["Generate Secure Production Release Artifact (.aab)"]
 ```
 
 ### 코드 예시 (build.gradle.kts)

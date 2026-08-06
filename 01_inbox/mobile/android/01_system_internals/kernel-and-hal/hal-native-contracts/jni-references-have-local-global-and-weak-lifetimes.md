@@ -18,19 +18,19 @@ JNI object reference 는 native pointer 가 아니라 **runtime handle**(실제 
 graph TD
     subgraph JNI Local Reference
         A["Native Method Entry (jobject obj)"] --> B["Local Ref Table"]
-        B -->|Method Return| C["Auto Released by ART GC"]
+        B -->|"Method Return"| C["Auto Released by ART GC"]
     end
 
     subgraph JNI Global Reference
         D["NewGlobalRef(obj)"] --> E["Global Ref Table"]
-        E -->|Prevents GC Collection| F["ART Managed Heap"]
-        G["DeleteGlobalRef(ref)"] -->|Explicit Release| C
+        E -->|"Prevents GC Collection"| F["ART Managed Heap"]
+        G["DeleteGlobalRef(ref)"] -->|"Explicit Release"| C
     end
 
     subgraph JNI Weak Global Reference
         H["NewWeakGlobalRef(obj)"] --> I["Weak Ref Table"]
-        I -.->|Can be GC Collected| F
-        I -->|IsSameObject(ref, NULL)| J["Check Alive before Use"]
+        I -.->|"Can be GC Collected"| F
+        I -->|"IsSameObject(ref, NULL)"| J["Check Alive before Use"]
     end
 ```
 

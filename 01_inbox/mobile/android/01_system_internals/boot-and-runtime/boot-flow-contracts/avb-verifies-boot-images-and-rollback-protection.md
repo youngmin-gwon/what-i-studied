@@ -24,11 +24,11 @@ AVB(Android Verified Boot 2.0)는 하드웨어 **[Root of Trust](../../../../../
 
 ```mermaid
 flowchart TD
-    eFUSE["HW Root of Trust (eFUSE / Secure Storage)"] -->|Public Key / Rollback Index| BL[Bootloader / libavb]
-    VBMeta["vbmeta Partition (RSA Signature & Hash Tree Root)"] -->|Signature & Rollback Index| BL
-    BL -->|Verification Pass| KERNEL["Kernel / boot.img Verified"]
-    KERNEL -->|dm-verity Mount| DM["dm-verity (Logical System/Vendor Filesystem)"]
-    DM -->|On-demand Block Hash Verify| US["Userspace init (PID 1)"]
+    eFUSE["HW Root of Trust (eFUSE / Secure Storage)"] -->|"Public Key / Rollback Index"| BL[Bootloader / libavb]
+    VBMeta["vbmeta Partition (RSA Signature & Hash Tree Root)"] -->|"Signature & Rollback Index"| BL
+    BL -->|"Verification Pass"| KERNEL["Kernel / boot.img Verified"]
+    KERNEL -->|"dm-verity Mount"| DM["dm-verity (Logical System/Vendor Filesystem)"]
+    DM -->|"On-demand Block Hash Verify"| US["Userspace init (PID 1)"]
 
     style eFUSE fill:#f9f,stroke:#333,stroke-width:2px
     style BL fill:#bbf,stroke:#333,stroke-width:2px

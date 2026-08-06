@@ -12,14 +12,14 @@ Zygote와 ART(Android Runtime) 서브시스템은 공통 Java/Kotlin 프레임�
 
 ```mermaid
 flowchart TD
-    INIT["init (PID 1)"] -->|Start Service| ZYGOTE["Zygote Daemon Process"]
-    ZYGOTE -->|1. Init ART Virtual Machine| ART_INIT["ART Runtime Init (libart.so)"]
-    ART_INIT -->|2. Preload Classes & Resources| PRELOAD["Preloaded Classes & Boot Image OAT/VDEX"]
-    PRELOAD -->|3. Create Unix Domain Socket| SOCK["/dev/socket/zygote (Zygote Server)"]
-    SOCK -->|4. Fork Request from system_server| FORK["fork() Child Process"]
-    FORK -->|5. Copy-On-Write Memory Sharing| COW["Clean CoW Pages Shared with Zygote"]
-    FORK -->|6. Specialize UID/GID/SELinux| SPEC["Specialize (untrusted_app, cgroups)"]
-    SPEC -->|7. Invoke Java Entrypoint| ACT_THREAD["ActivityThread.main() -> App Loop"]
+    INIT["init (PID 1)"] -->|"Start Service"| ZYGOTE["Zygote Daemon Process"]
+    ZYGOTE -->|"1. Init ART Virtual Machine"| ART_INIT["ART Runtime Init (libart.so)"]
+    ART_INIT -->|"2. Preload Classes & Resources"| PRELOAD["Preloaded Classes & Boot Image OAT/VDEX"]
+    PRELOAD -->|"3. Create Unix Domain Socket"| SOCK["/dev/socket/zygote (Zygote Server)"]
+    SOCK -->|"4. Fork Request from system_server"| FORK["fork() Child Process"]
+    FORK -->|"5. Copy-On-Write Memory Sharing"| COW["Clean CoW Pages Shared with Zygote"]
+    FORK -->|"6. Specialize UID/GID/SELinux"| SPEC["Specialize (untrusted_app, cgroups)"]
+    SPEC -->|"7. Invoke Java Entrypoint"| ACT_THREAD["ActivityThread.main() -> App Loop"]
 ```
 
 ---

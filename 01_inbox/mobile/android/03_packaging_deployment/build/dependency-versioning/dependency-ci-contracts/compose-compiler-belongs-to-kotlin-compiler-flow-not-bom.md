@@ -33,7 +33,7 @@ flowchart LR
         ComposeBOM["Compose BOM (2024.05.00)"] --> UILibs["compose.ui / compose.material3"]
     end
 
-    CompileTime -->|Generates Composable IR Code| RunTime
+    CompileTime -->|"Generates Composable IR Code"| RunTime
 ```
 
 ### 코드 예시 (build.gradle.kts - Kotlin 2.0+ 방식)

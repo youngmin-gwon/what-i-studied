@@ -23,9 +23,9 @@ Native Daemon 및 HAL 서비스의 부팅 거부, 무응답(Hang), 사망 반복
 graph TD
     A["Native / HAL Service Failure Event"] --> B{"1. Process Running? (ps -eZ)"}
     B -- No --> C{"2. Check init logs (dmesg / logcat -s init)"}
-    C -->|Init Exec Failed| C1["Fix init.rc binary path & permissions"]
-    C -->|SELinux Denied| C2["Fix sepolicy (.te domain transition)"]
-    C -->|SIGSEGV Crash| C3["Analyze Tombstone (/data/tombstones/)"]
+    C -->|"Init Exec Failed"| C1["Fix init.rc binary path & permissions"]
+    C -->|"SELinux Denied"| C2["Fix sepolicy (.te domain transition)"]
+    C -->|"SIGSEGV Crash"| C3["Analyze Tombstone (/data/tombstones/)"]
     
     B -- Yes --> D{"3. VINTF Compliant? (checkvintf / lshal)"}
     D -- No --> D1["Fix VINTF manifest.xml & matrix.xml"]

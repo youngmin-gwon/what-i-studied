@@ -39,8 +39,8 @@ graph TD
     B -. "GmsCore 미탑재 / 실행 불가" .-> E
     
     subgraph "App Runtime Layer"
-        F["App Check: GoogleApiAvailability"] -->|GMS Available| G["Execute GMS Code (FCM Push)"]
-        F -->|GMS Unavailable| H["Execute Fallback Code (WebSocket / Polling)"]
+        F["App Check: GoogleApiAvailability"] -->|"GMS Available"| G["Execute GMS Code (FCM Push)"]
+        F -->|"GMS Unavailable"| H["Execute Fallback Code (WebSocket / Polling)"]
     end
 ```
 

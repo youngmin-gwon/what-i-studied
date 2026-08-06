@@ -29,12 +29,12 @@ date created: 2026-08-06 18:30:00 +09:00
 
 ```mermaid
 graph TD
-    APKInstall["APK 설치 파일 (.apk)"] -->|1. PackageParser 파싱| PMS["PackageManagerService (PMS)"]
-    PMS -->|2. 신규 리눅스 UID 부여 & SHA256 서명 검증| SecurityEngine["보안 & 서명 검증"]
-    SecurityEngine -->|3. 패키지 데이터베이스 저장| PkgXML["/data/system/packages.xml"]
+    APKInstall["APK 설치 파일 (.apk)"] -->|"1. PackageParser 파싱"| PMS["PackageManagerService (PMS)"]
+    PMS -->|"2. 신규 리눅스 UID 부여 & SHA256 서명 검증"| SecurityEngine["보안 & 서명 검증"]
+    SecurityEngine -->|"3. 패키지 데이터베이스 저장"| PkgXML["/data/system/packages.xml"]
     
-    AppRequest["App: Implicit Intent (Action/Data)"] -->|4. resolveActivity()| PMS
-    PMS -->|5. Intent Filter 매칭| ResolvedTarget["최적 액티비티 컴포넌트 반환"]
+    AppRequest["App: Implicit Intent (Action/Data)"] -->|"4. resolveActivity()"| PMS
+    PMS -->|"5. Intent Filter 매칭"| ResolvedTarget["최적 액티비티 컴포넌트 반환"]
 ```
 
 ---

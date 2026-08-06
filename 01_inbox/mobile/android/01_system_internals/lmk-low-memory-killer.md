@@ -25,7 +25,7 @@ date created: 2026-08-06 18:25:00 +09:00
 graph TD
     RAMCheck["가용 메모리 (Free RAM) 임계값 저하 감지"] --> LMKD["lmkd 데몬 (Low Memory Killer Daemon) 구동"]
     LMKD --> ScoreCheck["프로세스별 oom_score_adj 수치 스캔"]
-    ScoreCheck -->|oom_adj 높은 순 (가장 안전하게 지워도 되는 프로세스)| KillTarget["Cached / Background 앱 프로세스 SIGKILL 사살"]
+    ScoreCheck -->|"oom_adj 높은 순 (가장 안전하게 지워도 되는 프로세스)"| KillTarget["Cached / Background 앱 프로세스 SIGKILL 사살"]
     KillTarget --> FreeRAM["RAM 메모리 확보 완료"]
 ```
 

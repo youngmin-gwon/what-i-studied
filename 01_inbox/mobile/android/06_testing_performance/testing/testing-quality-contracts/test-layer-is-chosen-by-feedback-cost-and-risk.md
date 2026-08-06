@@ -37,10 +37,10 @@ date created: 2026-07-31 17:32:53 +09:00
 flowchart TD
     FeatureCheck{"검증하려는 코드 및 기능의 특성"}
     
-    FeatureCheck -->|도메인 로직 & 순수 비즈니스 규칙| JVMUnit["JVM Local Unit Test<br/>(Execution: < 5ms / Feedback: Instant)"]
-    FeatureCheck -->|Android Framework & [viewmodel](../../../02_app_framework/viewmodel.md) / DB| Robolectric["Robolectric Integration Test<br/>(Execution: ~200ms / Feedback: Fast)"]
-    FeatureCheck -->|Compose UI 렌더링 & 사용자 제스처| ComposeRule["ComposeTestRule UI Test<br/>(Execution: ~2s / Feedback: Medium)"]
-    FeatureCheck -->|서버/네트워크 통합 & 결제/인증 E2E| OnDeviceE2E["On-Device Instrumentation E2E<br/>(Execution: > 15s / Feedback: Slow)"]
+    FeatureCheck -->|"도메인 로직 & 순수 비즈니스 규칙"| JVMUnit["JVM Local Unit Test<br/>(Execution: < 5ms / Feedback: Instant)"]
+    FeatureCheck -->|"Android Framework & [viewmodel](../../../02_app_framework/viewmodel.md) / DB"| Robolectric["Robolectric Integration Test<br/>(Execution: ~200ms / Feedback: Fast)"]
+    FeatureCheck -->|"Compose UI 렌더링 & 사용자 제스처"| ComposeRule["ComposeTestRule UI Test<br/>(Execution: ~2s / Feedback: Medium)"]
+    FeatureCheck -->|"서버/네트워크 통합 & 결제/인증 E2E"| OnDeviceE2E["On-Device Instrumentation E2E<br/>(Execution: > 15s / Feedback: Slow)"]
 ```
 
 ### 3. JVM Unit vs Instrumented UI 테스트 Kotlin 코드 구체 예시

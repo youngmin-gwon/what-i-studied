@@ -46,17 +46,17 @@ flowchart TD
         WAS[App Server / WAS]
     end
 
-    APP -->|1. Request FCM Token| FCM
-    FCM -->|2. Issue Token| APP
-    APP -->|3. Register Token| WAS
+    APP -->|"1. Request FCM Token"| FCM
+    FCM -->|"2. Issue Token"| APP
+    APP -->|"3. Register Token"| WAS
 
-    WAS -->|4. Send Push Payload + Token| FCM
-    FCM -->|5. Deliver Push Packet| FMS
+    WAS -->|"4. Send Push Payload + Token"| FCM
+    FCM -->|"5. Deliver Push Packet"| FMS
 
-    FMS -->|6. Foreground: onMessageReceived| APP
-    FMS -->|7. Build Notification UI| NM
-    FCM -->|8. Background: OS Auto System Tray| NM
-    NM -->|9. Display Banner / Sound| USER((User Screen))
+    FMS -->|"6. Foreground: onMessageReceived"| APP
+    FMS -->|"7. Build Notification UI"| NM
+    FCM -->|"8. Background: OS Auto System Tray"| NM
+    NM -->|"9. Display Banner / Sound"| USER((User Screen))
 ```
 
 ---

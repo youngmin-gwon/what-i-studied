@@ -36,7 +36,7 @@ graph TD
         C1 --> C2
     end
 
-    A1 -->|Invoke Native Method| B1
+    A1 -->|"Invoke Native Method"| B1
     B1 --> C1
 ```
 

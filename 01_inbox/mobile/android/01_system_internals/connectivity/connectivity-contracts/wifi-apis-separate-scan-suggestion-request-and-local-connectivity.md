@@ -32,10 +32,10 @@ Android 10(API 29)부터 기존의 비보안적인 글로벌 Wi-Fi 관리 API(`W
 graph TD
     App[App Requirement] --> Choice{Wi-Fi 사용 목적}
 
-    Choice -->|자동 연결 추천| Suggestion[WifiNetworkSuggestion: Enterprise / Carrier Wi-Fi]
-    Choice -->|IoT 기기 1:1 direct 설정| Specifier[WifiNetworkSpecifier: Provisioning without Internet]
-    Choice -->|파일 전송용 Local AP 생성| Hotspot[LocalOnlyHotspot: P2P High-speed Data Transfer]
-    Choice -->|주변 AP 탐색| Scanner[WifiScanner / RTT Positioning]
+    Choice -->|"자동 연결 추천"| Suggestion[WifiNetworkSuggestion: Enterprise / Carrier Wi-Fi]
+    Choice -->|"IoT 기기 1:1 direct 설정"| Specifier[WifiNetworkSpecifier: Provisioning without Internet]
+    Choice -->|"파일 전송용 Local AP 생성"| Hotspot[LocalOnlyHotspot: P2P High-speed Data Transfer]
+    Choice -->|"주변 AP 탐색"| Scanner[WifiScanner / RTT Positioning]
 ```
 
 ### Kotlin WifiNetworkSpecifier IoT 연결 코드

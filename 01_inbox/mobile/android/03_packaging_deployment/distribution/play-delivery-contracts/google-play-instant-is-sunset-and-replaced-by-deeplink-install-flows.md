@@ -25,8 +25,8 @@ updated: 2026-08-05 16:15:00 +09:00
 ```mermaid
 flowchart LR
     WebClick["User Clicks Web Link (https://example.com/item/42)"] --> AppCheck{"App Installed?"}
-    AppCheck -->|Yes| LaunchDirect["Open Installed App Screen Directly"]
-    AppCheck -->|No| PlayStore["Redirect to Play Store with Referrer Parameter"]
+    AppCheck -->|"Yes"| LaunchDirect["Open Installed App Screen Directly"]
+    AppCheck -->|"No"| PlayStore["Redirect to Play Store with Referrer Parameter"]
     PlayStore --> InstallApp["User Installs App"]
     InstallApp --> DeferredDeepLink["Launch App & Parse Referrer -> Land on /item/42"]
 ```

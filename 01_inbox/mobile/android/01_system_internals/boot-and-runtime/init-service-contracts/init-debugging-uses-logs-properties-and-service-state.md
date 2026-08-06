@@ -23,12 +23,12 @@ init 디버깅은 단일 로그 관측에 의존할 경우 서비스 재시작 �
 
 ```mermaid
 flowchart LR
-    CMD["setprop ctl.start my_service"] -->|Unix Socket| PS["Property Service (init)"]
-    PS -->|State Change| MON["Service Monitor"]
-    MON -->|Fork & Exec| PROC["my_service Process"]
-    MON -->|Update Property| PROP["init.svc.my_service = running"]
-    PROC -->|Crash / Exit| MON
-    MON -->|Update Property| PROP2["init.svc.my_service = restarting"]
+    CMD["setprop ctl.start my_service"] -->|"Unix Socket"| PS["Property Service (init)"]
+    PS -->|"State Change"| MON["Service Monitor"]
+    MON -->|"Fork & Exec"| PROC["my_service Process"]
+    MON -->|"Update Property"| PROP["init.svc.my_service = running"]
+    PROC -->|"Crash / Exit"| MON
+    MON -->|"Update Property"| PROP2["init.svc.my_service = restarting"]
 
     style PS fill:#f9f,stroke:#333,stroke-width:2px
     style MON fill:#bbf,stroke:#333,stroke-width:2px

@@ -40,18 +40,18 @@ Android 보안 아키텍처의 **MasterKey**는 [EncryptedSharedPreferences](./e
 ```mermaid
 flowchart TD
     subgraph AppLevel["앱 응용 계층 (Application Level)"]
-        A["MasterKey.Builder / Jetpack Security"] -->|1. 암호화 연산 요청| B["Android Keystore Provider"]
+        A["MasterKey.Builder / Jetpack Security"] -->|"1. 암호화 연산 요청"| B["Android Keystore Provider"]
     end
 
     subgraph SecureHardware["하드웨어 보안 구역 (Secure Hardware Layer)"]
-        B -->|2. Keymaster / Keymint IPC 통신| C{"보안 하드웨어 모듈 선택"}
-        C -->|기본 보안 격리| D["TEE (ARM TrustZone)"]
-        C -->|StrongBox 옵션 활성화| E["StrongBox (독립 HSM 칩셋)"]
+        B -->|"2. Keymaster / Keymint IPC 통신"| C{"보안 하드웨어 모듈 선택"}
+        C -->|"기본 보안 격리"| D["TEE (ARM TrustZone)"]
+        C -->|"StrongBox 옵션 활성화"| E["StrongBox (독립 HSM 칩셋)"]
     end
 
     subgraph OperationResult["암호화 수행 결과"]
-        D -->|3. AES-256 GCM 연산 수행 (키 바이트 노출 없음)| F["Encrypted Data Key (DEK)"]
-        E -->|3. AES-256 GCM 연산 수행 (키 바이트 노출 없음)| F
+        D -->|"3. AES-256 GCM 연산 수행 (키 바이트 노출 없음)"| F["Encrypted Data Key (DEK)"]
+        E -->|"3. AES-256 GCM 연산 수행 (키 바이트 노출 없음)"| F
     end
 ```
 

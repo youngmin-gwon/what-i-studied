@@ -27,9 +27,9 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ```mermaid
 graph LR
-    Producer[App RenderThread / Camera / MediaCodec] -->|dequeueBuffer / queueBuffer| Surface[android.view.Surface]
-    Surface -->|IGraphicBufferProducer Binder IPC| BQ[BufferQueue Shared Memory]
-    BQ -->|IGraphicBufferConsumer Binder IPC| Consumer[SurfaceFlinger / ImageReader / MediaEncoder]
+    Producer[App RenderThread / Camera / MediaCodec] -->|"dequeueBuffer / queueBuffer"| Surface[android.view.Surface]
+    Surface -->|"IGraphicBufferProducer Binder IPC"| BQ[BufferQueue Shared Memory]
+    BQ -->|"IGraphicBufferConsumer Binder IPC"| Consumer[SurfaceFlinger / ImageReader / MediaEncoder]
 ```
 
 ### Kotlin 코드 예시: Surface 목적별 생성 및 Native 전달

@@ -22,10 +22,10 @@ ViewModel 은 **"상태 보관 창고 & 화면 회전 생존자 (State Store & C
 
 ```mermaid
 graph TD
-    UI["UI 계층 (Composable / Activity)"] -->|1. User Action 이벤트 전달| VM["ViewModel (상태 소유자 & 화면 회전 생존자)"]
-    VM -->|2. 불변 UI State 전달| UI
-    VM -->|3. 비즈니스 로직 및 데이터 요청| Data["Domain / Data 계층 (Repository)"]
-    Data -->|4. 데이터 스트림 전달| VM
+    UI["UI 계층 (Composable / Activity)"] -->|"1. User Action 이벤트 전달"| VM["ViewModel (상태 소유자 & 화면 회전 생존자)"]
+    VM -->|"2. 불변 UI State 전달"| UI
+    VM -->|"3. 비즈니스 로직 및 데이터 요청"| Data["Domain / Data 계층 (Repository)"]
+    Data -->|"4. 데이터 스트림 전달"| VM
 ```
 
 ---

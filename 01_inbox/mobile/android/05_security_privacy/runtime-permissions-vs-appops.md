@@ -40,13 +40,13 @@ date created: 2026-08-06 18:15:00 +09:00
 
 ```mermaid
 flowchart TD
-    App[앱 프로세스] -->|1. checkSelfPermission| PermCheck{Permission Granted?}
-    PermCheck -->|No| RequestPerm[사용자 팝업 대화상자 요청]
-    PermCheck -->|Yes| CallAPI[보호된 시스템 API 호출]
-    CallAPI -->|2. Binder IPC| AppOpsCheck{AppOps noteOp / checkOp}
-    AppOpsCheck -->|MODE_ALLOWED| ResourceAccess[하드웨어 자원 접근 / 데이터 반환]
-    AppOpsCheck -->|MODE_IGNORED| SilentIgnore[크래시 없이 빈 데이터 / 0 반환]
-    AppOpsCheck -->|MODE_ERRORED| ThrowSecurityException[SecurityException 발생]
+    App[앱 프로세스] -->|"1. checkSelfPermission"| PermCheck{Permission Granted?}
+    PermCheck -->|"No"| RequestPerm[사용자 팝업 대화상자 요청]
+    PermCheck -->|"Yes"| CallAPI[보호된 시스템 API 호출]
+    CallAPI -->|"2. Binder IPC"| AppOpsCheck{AppOps noteOp / checkOp}
+    AppOpsCheck -->|"MODE_ALLOWED"| ResourceAccess[하드웨어 자원 접근 / 데이터 반환]
+    AppOpsCheck -->|"MODE_IGNORED"| SilentIgnore[크래시 없이 빈 데이터 / 0 반환]
+    AppOpsCheck -->|"MODE_ERRORED"| ThrowSecurityException[SecurityException 발생]
 ```
 
 ### 상호작용 검증 3단계

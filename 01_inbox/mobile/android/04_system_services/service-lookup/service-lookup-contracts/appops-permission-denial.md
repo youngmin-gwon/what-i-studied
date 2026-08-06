@@ -6,6 +6,10 @@ date modified: 2026-08-06 14:59:18 +09:00
 date created: 2026-08-03 17:17:39 +09:00
 ---
 
+# Appops Permission Denial
+
+## 1. 개요 (Overview)
+
 ### 초보자를 위한 쉽게 이해하는 비유
 * **AppOps 권한 거부 (출입증은 있으나 내부 세부 구역 출입 통제)**:
   - 건물 출입증(런타임 권한)을 받았더라도, 특정 보안 구역(위치 추적, 카메라 등) 진입 시 개별 센서 관리자(AppOps)가 실시간으로 통제하여 동작을 거부시키는 2차 보안 거부 메커니즘.
@@ -13,11 +17,13 @@ date created: 2026-08-03 17:17:39 +09:00
 ```mermaid
 graph TD
     App["앱 요청"] --> PermCheck{"1. Runtime Permission 허용 여부"}
-    PermCheck -->|No| Reject1["SecurityException 발생"]
-    PermCheck -->|Yes| AppOpsCheck{"2. AppOps 2차 실시간 상태 검사"}
-    AppOpsCheck -->|MODE_IGNORED| SilentFail["무응답 또는 0/null 빈 데이터 반환"]
-    AppOpsCheck -->|MODE_ALLOWED| Execute["정상 하드웨어/서비스 수행"]
+    PermCheck -->|"No"| Reject1["SecurityException 발생"]
+    PermCheck -->|"Yes"| AppOpsCheck{"2. AppOps 2차 실시간 상태 검사"}
+    AppOpsCheck -->|"MODE_IGNORED"| SilentFail["무응답 또는 0/null 빈 데이터 반환"]
+    AppOpsCheck -->|"MODE_ALLOWED"| Execute["정상 하드웨어/서비스 수행"]
 ```
+
+---
 
 ---
 

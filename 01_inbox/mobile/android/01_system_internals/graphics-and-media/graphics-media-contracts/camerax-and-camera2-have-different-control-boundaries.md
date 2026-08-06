@@ -26,12 +26,12 @@ Android 카메라 API 시스템에서 **Camera2**는 명시적인 상태 머신�
 
 ```mermaid
 graph TD
-    App[Android App] -->|Use Cases| CameraX[CameraX Jetpack Library]
-    App -->|Explicit Control| Camera2[Camera2 Framework API]
+    App[Android App] -->|"Use Cases"| CameraX[CameraX Jetpack Library]
+    App -->|"Explicit Control"| Camera2[Camera2 Framework API]
 
-    CameraX -->|CameraPipe & Quirks Engine| Camera2
-    Camera2 -->|[binder ipc](../../binder-ipc.md)| CameraService[system_server / CameraService]
-    CameraService -->|HIDL / AIDL| CameraHAL3[Vendor Camera HAL3]
+    CameraX -->|"CameraPipe & Quirks Engine"| Camera2
+    Camera2 -->|"[binder ipc](../../binder-ipc.md)"| CameraService[system_server / CameraService]
+    CameraService -->|"HIDL / AIDL"| CameraHAL3[Vendor Camera HAL3]
 ```
 
 ### Kotlin CameraX 사용 및 Camera2Interop 고급 설정 코드

@@ -40,17 +40,17 @@ date created: 2026-08-06 18:20:00 +09:00
 ```mermaid
 graph TD
     subgraph Legacy ["레거시 RemoteViews 방식"]
-        L1["AppWidgetProvider (BroadcastReceiver)"] -->|1. 수동 객체 생성| L2["RemoteViews(packageName, layoutId)"]
-        L2 -->|2. 명령형 뷰 바인딩| L3["setTextViewText / setOnClickPendingIntent"]
-        L3 -->|3. IPC 전송| L4["AppWidgetManager.updateAppWidget()"]
-        L4 -->|4. 원격 렌더링| L5["AppWidgetHostView (Launcher)"]
+        L1["AppWidgetProvider (BroadcastReceiver)"] -->|"1. 수동 객체 생성"| L2["RemoteViews(packageName, layoutId)"]
+        L2 -->|"2. 명령형 뷰 바인딩"| L3["setTextViewText / setOnClickPendingIntent"]
+        L3 -->|"3. IPC 전송"| L4["AppWidgetManager.updateAppWidget()"]
+        L4 -->|"4. 원격 렌더링"| L5["AppWidgetHostView (Launcher)"]
     end
 
     subgraph Modern ["현대 Jetpack Glance 방식"]
-        M1["GlanceAppWidget.provideGlance()"] -->|1. Compose DSL 작성| M2["Glance AST Node Tree (GlanceNode)"]
-        M2 -->|2. 자동 번역| M3["RemoteViewsTranslator"]
-        M3 -->|3. IPC 전송| M4["AppWidgetManager.updateAppWidget()"]
-        M4 -->|4. 원격 렌더링| M5["AppWidgetHostView (Launcher)"]
+        M1["GlanceAppWidget.provideGlance()"] -->|"1. Compose DSL 작성"| M2["Glance AST Node Tree (GlanceNode)"]
+        M2 -->|"2. 자동 번역"| M3["RemoteViewsTranslator"]
+        M3 -->|"3. IPC 전송"| M4["AppWidgetManager.updateAppWidget()"]
+        M4 -->|"4. 원격 렌더링"| M5["AppWidgetHostView (Launcher)"]
     end
 ```
 

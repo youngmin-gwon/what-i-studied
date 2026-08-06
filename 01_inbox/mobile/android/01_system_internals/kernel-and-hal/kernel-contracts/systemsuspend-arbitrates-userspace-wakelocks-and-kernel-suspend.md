@@ -21,8 +21,8 @@ Android 10부터 도입된 `system_suspend` 네이티브 데몬(SystemSuspend Se
 
 ```mermaid
 graph TD
-    A["Java App / Framework (PowerManagerService)"] -->|AIDL: ISystemSuspend.acquireWakeLock| B["system_suspend Daemon\n(system/gsid domain)"]
-    B -->|Register Binder Death Recipient| C["WakeLock Reference Count Table"]
+    A["Java App / Framework (PowerManagerService)"] -->|"AIDL: ISystemSuspend.acquireWakeLock"| B["system_suspend Daemon\n(system/gsid domain)"]
+    B -->|"Register Binder Death Recipient"| C["WakeLock Reference Count Table"]
     
     subgraph Suspend Thread Loop
         D["1. Read /sys/power/wakeup_count (val)"] --> E{"Active WakeLock Count == 0?"}

@@ -28,11 +28,11 @@ date created: 2026-08-01 00:00:00 +09:00
 ```mermaid
 flowchart TD
     CRASH["system_server / Bootloop Repeated (5 times in 5 mins)"] --> RP["Rescue Party Engine"]
-    RP -->|Attempt 1| L1["Level 1: Reset DeviceConfig Flags"]
-    L1 -->|Fail / Re-crash| L2["Level 2: Reset Settings Provider"]
-    L2 -->|Fail / Re-crash| L3["Level 3: Reset All Custom Settings"]
-    L3 -->|Fail / Re-crash| L4["Level 4: Rollback OTA / App Updates"]
-    L4 -->|Fail / Re-crash| L5["Level 5: Factory Reset (Recovery Mode)"]
+    RP -->|"Attempt 1"| L1["Level 1: Reset DeviceConfig Flags"]
+    L1 -->|"Fail / Re-crash"| L2["Level 2: Reset Settings Provider"]
+    L2 -->|"Fail / Re-crash"| L3["Level 3: Reset All Custom Settings"]
+    L3 -->|"Fail / Re-crash"| L4["Level 4: Rollback OTA / App Updates"]
+    L4 -->|"Fail / Re-crash"| L5["Level 5: Factory Reset (Recovery Mode)"]
 
     style RP fill:#f9f,stroke:#333,stroke-width:2px
     style L5 fill:#ffcdd2,stroke:#b71c1c,stroke-width:2px

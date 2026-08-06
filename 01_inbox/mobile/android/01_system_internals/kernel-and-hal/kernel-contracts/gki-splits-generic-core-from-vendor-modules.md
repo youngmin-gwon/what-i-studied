@@ -27,9 +27,9 @@ graph TD
         B["vendor_boot.img\n(First-stage RAMDisk & Init Kernel Modules)"]
         C["vendor_dlkm.img\n(Second-stage Vendor Drivers: GPU, Camera, Wi-Fi .ko)"]
     end
-    A -->|Boot & Export KMI Symbols| D["Kernel Core Execution State"]
-    B -->|First-stage init loads modules| D
-    C -->|Second-stage init loads modules| D
+    A -->|"Boot & Export KMI Symbols"| D["Kernel Core Execution State"]
+    B -->|"First-stage init loads modules"| D
+    C -->|"Second-stage init loads modules"| D
 ```
 
 1. **GKI 1.0 (Android 11)**: 커널 파티션 분리의 첫 단계로 도입되었으나 일부 디바이스로 제한적 적용.

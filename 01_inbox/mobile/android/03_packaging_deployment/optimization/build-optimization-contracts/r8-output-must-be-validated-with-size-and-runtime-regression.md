@@ -25,10 +25,10 @@ R8 최적화 컴파일러를 적용한 빌드가 에러 없이 완료되었다�
 ```mermaid
 flowchart TD
     BuildR8["Build R8 Release Artifact"] --> Gate1{"1. Size Regression Check (apkanalyzer)"}
-    Gate1 -->|Size Exploded| Fail1["Reject: Unexpected Library Leak"]
-    Gate1 -->|Size Valid| Gate2{"2. Runtime Regression Test (Release Build E2E)"}
-    Gate2 -->|ClassNotFound Crash| Fail2["Reject: Missing ProGuard Keep Rule"]
-    Gate2 -->|Pass All Tests| Pass["Ready for Store Release"]
+    Gate1 -->|"Size Exploded"| Fail1["Reject: Unexpected Library Leak"]
+    Gate1 -->|"Size Valid"| Gate2{"2. Runtime Regression Test (Release Build E2E)"}
+    Gate2 -->|"ClassNotFound Crash"| Fail2["Reject: Missing ProGuard Keep Rule"]
+    Gate2 -->|"Pass All Tests"| Pass["Ready for Store Release"]
 ```
 
 ### 코드 예시 (CI Size & Crash Verification Script)

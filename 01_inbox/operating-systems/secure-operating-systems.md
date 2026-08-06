@@ -38,8 +38,8 @@ Secure OS 의 핵심 이론으로, **주체(Subject)와 객체(Object) 사이의
 
 ```mermaid
 graph LR
-    SUBJECT[주체\nSubject] -->|접근 요청| RM[참조 모니터\nReference Monitor]
-    RM -->|허용/거부| OBJECT[객체\nObject]
+    SUBJECT[주체\nSubject] -->|"접근 요청"| RM[참조 모니터\nReference Monitor]
+    RM -->|"허용/거부"| OBJECT[객체\nObject]
     
     RM --> POLICY[보안 정책\nSecurity Policy]
     RM --> AUDIT[감사 로그\nAudit Log]
@@ -128,9 +128,9 @@ graph LR
         RNG[난수 생성기]
     end
     
-    BOOT[부트 프로세스] -->|측정값| PCR
-    APP[애플리케이션] -->|암호화 요청| CRYPTO
-    OS[운영체제] -->|키 요청| KEY
+    BOOT[부트 프로세스] -->|"측정값"| PCR
+    APP[애플리케이션] -->|"암호화 요청"| CRYPTO
+    OS[운영체제] -->|"키 요청"| KEY
 ```
 
 ### TPM 의 주요 기능

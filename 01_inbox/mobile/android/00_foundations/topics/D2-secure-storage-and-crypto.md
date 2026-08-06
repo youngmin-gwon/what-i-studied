@@ -17,10 +17,10 @@ date modified: 2026-08-05 12:00:00 +09:00
 ### 2. 전체 조망도 (Diagram)
 ```mermaid
 flowchart LR
-    App[App Layer] -->|EncryptedData| Store[(Storage)]
-    App -->|Biometric Auth| Bio[BiometricPrompt]
-    Bio -->|Authorize| KS[Android Keystore]
-    KS -->|Provide Key / Sign| CryptoOp[Crypto Operation]
+    App[App Layer] -->|"EncryptedData"| Store[(Storage)]
+    App -->|"Biometric Auth"| Bio[BiometricPrompt]
+    Bio -->|"Authorize"| KS[Android Keystore]
+    KS -->|"Provide Key / Sign"| CryptoOp[Crypto Operation]
     CryptoOp --> App
     
     subgraph FBE [File-Based Encryption]

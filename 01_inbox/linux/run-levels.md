@@ -51,12 +51,12 @@ graph TD
     DEFAULT --> R3
     DEFAULT --> R5
     
-    R3 <-->|init 5| R5
-    R5 <-->|init 3| R3
-    R3 -->|init 1| R1
-    R1 -->|init 3| R3
-    R5 -->|init 0| R0
-    R3 -->|init 6| R6
+    R3 <-->|"init 5"| R5
+    R5 <-->|"init 3"| R3
+    R3 -->|"init 1"| R1
+    R1 -->|"init 3"| R3
+    R5 -->|"init 0"| R0
+    R3 -->|"init 6"| R6
 ```
 
 ### SysVinit 명령어

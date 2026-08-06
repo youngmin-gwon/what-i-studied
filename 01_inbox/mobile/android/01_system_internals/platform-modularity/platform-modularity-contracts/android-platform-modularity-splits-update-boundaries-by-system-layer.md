@@ -44,9 +44,9 @@ graph TD
         GKI[GKI Core Kernel] <--> KMI[KMI Symbol Boundary] <--> VKM[Vendor Kernel Modules]
     end
 
-    APK -->|SDK / Extension API| APEX
-    APEX -->|Binder / Stable AIDL| HAL
-    HAL -->|Syscall / ioctl| GKI
+    APK -->|"SDK / Extension API"| APEX
+    APEX -->|"Binder / Stable AIDL"| HAL
+    HAL -->|"Syscall / ioctl"| GKI
 ```
 
 ---

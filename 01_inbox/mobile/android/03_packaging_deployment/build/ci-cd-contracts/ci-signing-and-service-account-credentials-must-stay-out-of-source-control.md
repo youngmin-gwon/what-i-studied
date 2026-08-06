@@ -25,7 +25,7 @@ Android 앱 서명 키스토어 파일(`.jks`/`.keystore`), 키 비밀번호, �
 ```mermaid
 flowchart LR
     GitHubSecret["GitHub Secrets (Base64 Encoded Key)"] --> CIRunner["CI Runner Ephemeral Environment"]
-    CIRunner -->|Decode Base64| TempKeystore["Ephemeral Keystore File (/tmp/release.keystore)"]
+    CIRunner -->|"Decode Base64"| TempKeystore["Ephemeral Keystore File (/tmp/release.keystore)"]
     TempKeystore --> AGPSigning["AGP release signing / Fastlane Supply"]
     AGPSigning --> Cleanup["Post Job Cleanup (Delete Temp Files)"]
 ```

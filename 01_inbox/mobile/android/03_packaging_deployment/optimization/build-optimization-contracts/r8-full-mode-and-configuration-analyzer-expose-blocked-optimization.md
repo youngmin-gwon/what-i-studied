@@ -27,8 +27,8 @@ R8 Configuration Analyzer 및 Full Mode를 활용하면 보수적 규칙에 의�
 ```mermaid
 flowchart TD
     Rules["ProGuard Rules"] --> ModeCheck{"R8 Mode Selection"}
-    ModeCheck -->|Compat Mode| LowOpt["Conservative Optimization (Keep Default Constructors)"]
-    ModeCheck -->|Full Mode| HighOpt["Aggressive Optimization (Argument Stripping + Class Merging)"]
+    ModeCheck -->|"Compat Mode"| LowOpt["Conservative Optimization (Keep Default Constructors)"]
+    ModeCheck -->|"Full Mode"| HighOpt["Aggressive Optimization (Argument Stripping + Class Merging)"]
     HighOpt --> Analyzer["Configuration Analyzer (Expose Blocked Optimization)"]
 ```
 

@@ -30,15 +30,15 @@ ART 런타임 환경에서 발생하는 앱 스타트업 지연, 프레임 드�
 
 ```mermaid
 flowchart LR
-    APP["Running App Process"] -->|Inspect JIT Cache| JIT["JIT Code Cache & Compiler Thread"]
-    APP -->|Inspect Filter| CF["Compile Filter
+    APP["Running App Process"] -->|"Inspect JIT Cache"| JIT["JIT Code Cache & Compiler Thread"]
+    APP -->|"Inspect Filter"| CF["Compile Filter
 (verify / speed-profile / speed)"]
-    APP -->|Inspect Profile| PROF["Profile Binary
+    APP -->|"Inspect Profile"| PROF["Profile Binary
 (/data/misc/profiles/...)"]
 
-    JIT -->|dumpsys meminfo| LOG1["JIT Memory Footprint"]
-    CF -->|dumpsys package| LOG2["Installed Filter Target"]
-    PROF -->|profman| LOG3["Profile Dump Analysis"]
+    JIT -->|"dumpsys meminfo"| LOG1["JIT Memory Footprint"]
+    CF -->|"dumpsys package"| LOG2["Installed Filter Target"]
+    PROF -->|"profman"| LOG3["Profile Dump Analysis"]
 ```
 
 ### 코드 및 구체 예시 (Concrete Snippets)

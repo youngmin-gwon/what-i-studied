@@ -24,12 +24,12 @@ DNS(Domain Name System)에서 도메인 이름을 대상과 연결할 때 사용
 ```mermaid
 graph TD
     subgraph ARecord ["A 레코드 (직접 IP 매핑)"]
-        DomainA["example.com"] -->|A Record| IP["93.184.216.34 (IPv4)"]
+        DomainA["example.com"] -->|"A Record"| IP["93.184.216.34 (IPv4)"]
     end
 
     subgraph CNAMERecord ["CNAME 레코드 (도메인 별칭 매핑)"]
-        SubDomain["www.example.com"] -->|CNAME Record| MainDomain["example.com"]
-        MainDomain -->|A Record| IP
+        SubDomain["www.example.com"] -->|"CNAME Record"| MainDomain["example.com"]
+        MainDomain -->|"A Record"| IP
     end
 ```
 

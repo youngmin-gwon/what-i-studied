@@ -26,15 +26,15 @@ graph TD
         A2["Kernel hwbinder / binderfs\n(IPC Transaction & Memory Copy)"]
         A3["Vendor HAL Process (/vendor/bin/hw/android.hardware.camera-service)\n(scontext=u:r:hal_camera_default:s0)"]
         
-        A1 -->|IPC Call| A2
-        A2 -->|Dispatch| A3
+        A1 -->|"IPC Call"| A2
+        A2 -->|"Dispatch"| A3
     end
 
     subgraph Passthrough HAL (Legacy / Direct Load)
         B1["Framework Process"]
         B2["Vendor Shared Library (.so)\n(dlopen / Same Address Space)"]
         
-        B1 -->|Direct C/C++ Function Call| B2
+        B1 -->|"Direct C/C++ Function Call"| B2
     end
 ```
 

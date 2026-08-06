@@ -27,12 +27,12 @@ date created: 2026-07-31 23:20:00 +09:00
 graph LR
     subgraph Video Decoder Pipeline
         EncodedStream[MP4 Video Bitstream] --> DecCodec[Hardware Video Decoder]
-        DecCodec -->|Direct GraphicBuffer Write| OutputSurface[SurfaceView / TextureView Surface]
+        DecCodec -->|"Direct GraphicBuffer Write"| OutputSurface[SurfaceView / TextureView Surface]
         OutputSurface --> SurfaceFlinger[SurfaceFlinger Compositor]
     end
 
     subgraph Video Encoder Pipeline
-        CameraSource[Camera Sensor / GLES Renderer] -->|Native Render| InputSurface[MediaCodec Input Surface]
+        CameraSource[Camera Sensor / GLES Renderer] -->|"Native Render"| InputSurface[MediaCodec Input Surface]
         InputSurface --> EncCodec[Hardware Video Encoder]
         EncCodec --> MP4Muxer[MediaMuxer / File Output]
     end

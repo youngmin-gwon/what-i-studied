@@ -33,7 +33,7 @@ flowchart TD
         Path["PathPrefix: /share"]
     end
 
-    ManifestScope -->|OS Intent Resolver 매칭| DynamicRouting["Dynamic / Server Routing"]
+    ManifestScope -->|"OS Intent Resolver 매칭"| DynamicRouting["Dynamic / Server Routing"]
 
     subgraph DynamicRouting
         ValidRoute["https://example.com/share?campaign=summer (성공)"]

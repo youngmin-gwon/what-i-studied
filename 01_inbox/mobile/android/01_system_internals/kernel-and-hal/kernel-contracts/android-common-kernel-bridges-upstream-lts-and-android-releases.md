@@ -20,9 +20,9 @@ ACK를 이해할 때는 단순 브랜치 이름을 제품 지식처럼 외우기
 
 ```mermaid
 graph TD
-    A["Kernel.org Upstream LTS\n(e.g., Linux 6.6.y)"] -->|Merge Upstream Security/Bugfixes| B["ACK repository (kernel/common)\n(android-mainline / android15-6.6)"]
-    B -->|Add Android Out-of-Tree Features\n& Apply KMI Freeze| C["GKI Kernel Binary\n(Image / boot.img)"]
-    D["SoC / Vendor Drivers\n(Qualcomm / Exynos / Tensor)"] -->|Build against ACK KMI| E["Vendor Kernel Modules (.ko)\n(vendor_dlkm.img)"]
+    A["Kernel.org Upstream LTS\n(e.g., Linux 6.6.y)"] -->|"Merge Upstream Security/Bugfixes"| B["ACK repository (kernel/common)\n(android-mainline / android15-6.6)"]
+    B -->|"Add Android Out-of-Tree Features\n& Apply KMI Freeze"| C["GKI Kernel Binary\n(Image / boot.img)"]
+    D["SoC / Vendor Drivers\n(Qualcomm / Exynos / Tensor)"] -->|"Build against ACK KMI"| E["Vendor Kernel Modules (.ko)\n(vendor_dlkm.img)"]
     C --> F["Final Device Boot\n(GKI Core + Vendor Modules)"]
     E --> F
 ```

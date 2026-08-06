@@ -111,7 +111,7 @@ graph TB
     
     DOS --> W1 --> W3 --> W95
     NT --> NT4 --> W2K --> XP --> VISTA --> W7 --> W8 --> W10 --> W11
-    W95 -.->|통합| XP
+    W95 -.->|"통합"| XP
 ```
 
 ### 주요 버전별 특징
@@ -173,9 +173,9 @@ graph TB
     SYSV --> SOLARIS[Solaris]
     SYSV --> AIX[AIX]
     SYSV --> HPUX[HP-UX]
-    UNIX -.->|영감| LINUX[Linux 1991]
-    UNIX -.->|영감| MINIX[MINIX 1987]
-    MINIX -.->|영감| LINUX
+    UNIX -.->|"영감"| LINUX[Linux 1991]
+    UNIX -.->|"영감"| MINIX[MINIX 1987]
+    MINIX -.->|"영감"| LINUX
 ```
 
 ### Unix 역사

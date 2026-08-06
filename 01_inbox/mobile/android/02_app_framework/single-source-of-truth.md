@@ -37,10 +37,10 @@ SSOT 원칙을 실전 코드에 적용할 때 세트로 결합되는 핵심 패�
 
 ```mermaid
 graph TD
-    UI["UI 계층 (Compose / View)"] -->|1. 이벤트 상향 전달 (Events Flow Up)| VM["ViewModel (UI State 소유자)"]
-    VM -->|2. 데이터 읽기/수정 요청| Repo["Repository (Data Level SSOT)"]
-    Repo -->|3. 최신 데이터 스트림| VM
-    VM -->|4. 상태 하향 전달 (State Flows Down)| UI
+    UI["UI 계층 (Compose / View)"] -->|"1. 이벤트 상향 전달 (Events Flow Up)"| VM["ViewModel (UI State 소유자)"]
+    VM -->|"2. 데이터 읽기/수정 요청"| Repo["Repository (Data Level SSOT)"]
+    Repo -->|"3. 최신 데이터 스트림"| VM
+    VM -->|"4. 상태 하향 전달 (State Flows Down)"| UI
 ```
 
 ### UDF가 주는 3가지 이점

@@ -29,10 +29,10 @@ graph TD
     App2[System UI Layer] --> BQ2[BufferQueue 2]
     App3[Dialog Window Layer] --> BQ3[BufferQueue 3]
 
-    BQ1 & BQ2 & BQ3 -->|latchBuffer| SF[SurfaceFlinger Native Service]
+    BQ1 & BQ2 & BQ3 -->|"latchBuffer"| SF[SurfaceFlinger Native Service]
     
-    SF -->|Validate / Present| HWC[Hardware Composer HWC2 HAL]
-    HWC -->|Scanout| Panel[Display Panel Driver]
+    SF -->|"Validate / Present"| HWC[Hardware Composer HWC2 HAL]
+    HWC -->|"Scanout"| Panel[Display Panel Driver]
 ```
 
 ### SurfaceFlinger Transaction C++ / NDK 구조 개념

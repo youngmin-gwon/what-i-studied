@@ -32,13 +32,13 @@ Project Mainline(Modular System Components)은 Android 10(API 29)부터 도입�
 
 ```mermaid
 graph TD
-    A["Google Cloud / Play Update Pipeline"] -->|Deliver Staged APEX| B["Target Device (/data/apex/active)"]
+    A["Google Cloud / Play Update Pipeline"] -->|"Deliver Staged APEX"| B["Target Device (/data/apex/active)"]
     
     subgraph "Device System Boundary"
         B --> C["apexd Native Daemon (Boot Time)"]
         D["System Partition Built-in APEX\n(/system/apex/com.android.media.apex)"] --> C
         
-        C -->|Version Selection & Verification| E["Mount Active Version\n(/apex/com.android.media@340000000)"]
+        C -->|"Version Selection & Verification"| E["Mount Active Version\n(/apex/com.android.media@340000000)"]
         E --> F["Symlink Update\n(/apex/com.android.media)"]
         
         F --> G["SystemServer & App Process Runtime"]

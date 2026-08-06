@@ -33,14 +33,14 @@ flowchart TD
     
     ComposeContent --> ModeCheck{"Roborazzi Task Mode"}
     
-    ModeCheck -->|Record Task| RecordImage["Golden Image PNG 생성<br/>(src/test/snapshots/golden.png)"]
-    ModeCheck -->|Verify Task| ComparePixel["현재 렌더링 캡처 vs Golden PNG"]
+    ModeCheck -->|"Record Task"| RecordImage["Golden Image PNG 생성<br/>(src/test/snapshots/golden.png)"]
+    ModeCheck -->|"Verify Task"| ComparePixel["현재 렌더링 캡처 vs Golden PNG"]
 
     ComparePixel --> SSIMCalc["SSIM & Structural Pixel Diff 계산"]
     SSIMCalc --> ResultCheck{"Pixel Variance < 0.01%?"}
 
-    ResultCheck -->|Pass| Success["Test PASS (No Visual Regression)"]
-    ResultCheck -->|Fail| FailDiff["Test FAIL & Generate Diff HTML Report"]
+    ResultCheck -->|"Pass"| Success["Test PASS (No Visual Regression)"]
+    ResultCheck -->|"Fail"| FailDiff["Test FAIL & Generate Diff HTML Report"]
 ```
 
 ### 3. Roborazzi 스크린샷 테스트 Kotlin 코드 구체 예시

@@ -27,9 +27,9 @@ graph TD
     GKI[Generic Kernel Image<br/><br/>boot.img]
     VendorKernel[Vendor Kernel Modules]
 
-    Mainline -.->|Play Store Update| Framework
+    Mainline -.->|"Play Store Update"| Framework
     SystemExt --> Framework
-    Framework -->|Stable IPC| TrebleBoundary
+    Framework -->|"Stable IPC"| TrebleBoundary
     TrebleBoundary --> Vendor
     Vendor --> GKIBoundary
     GKIBoundary --> GKI

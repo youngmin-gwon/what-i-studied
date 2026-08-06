@@ -26,12 +26,12 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ```mermaid
 flowchart LR
-    APP["App / Native Process"] -->|Read: mmap (Fast Lock-Free)| SHM["/dev/__properties__
+    APP["App / Native Process"] -->|"Read: mmap (Fast Lock-Free)"| SHM["/dev/__properties__
 Shared Memory (Read-Only)"]
-    APP -->|Write: Unix Socket (PROP_MSG_SETPROP2)| SOCKET["/dev/socket/property_service"]
-    SOCKET -->|HandlePropertySetMessage() + SELinux Check| PS["Property Service (init - PID 1)"]
-    PS -->|Update prop_info Trie| SHM
-    PS -->|Trigger Action / Control| INIT["init Control Loop (ctl.*)"]
+    APP -->|"Write: Unix Socket (PROP_MSG_SETPROP2)"| SOCKET["/dev/socket/property_service"]
+    SOCKET -->|"HandlePropertySetMessage() + SELinux Check"| PS["Property Service (init - PID 1)"]
+    PS -->|"Update prop_info Trie"| SHM
+    PS -->|"Trigger Action / Control"| INIT["init Control Loop (ctl.*)"]
 
     style SHM fill:#e8f5e9,stroke:#388e3c
     style PS fill:#f9f,stroke:#333,stroke-width:2px

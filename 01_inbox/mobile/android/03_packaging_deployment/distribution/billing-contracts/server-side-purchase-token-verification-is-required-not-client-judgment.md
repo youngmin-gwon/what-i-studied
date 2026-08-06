@@ -27,12 +27,12 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ```mermaid
 flowchart TD
-    Client["App Client"] -->|1. Returns PurchaseToken| Server["App Backend Server"]
-    Server -->|2. GET purchases.products.get| GoogleAPI["Google Play Developer REST API"]
-    GoogleAPI -->|3. Return JSON purchaseState| Server
+    Client["App Client"] -->|"1. Returns PurchaseToken"| Server["App Backend Server"]
+    Server -->|"2. GET purchases.products.get"| GoogleAPI["Google Play Developer REST API"]
+    GoogleAPI -->|"3. Return JSON purchaseState"| Server
     Server --> CheckState{"purchaseState == 0 (PURCHASED)?"}
-    CheckState -->|Yes| GrantItem["4. DB Transaction: Grant Item to User"]
-    CheckState -->|No| BlockItem["4. Reject & Log Fraud Attempt"]
+    CheckState -->|"Yes"| GrantItem["4. DB Transaction: Grant Item to User"]
+    CheckState -->|"No"| BlockItem["4. Reject & Log Fraud Attempt"]
 ```
 
 ### 코드 예시 (Server Backend Kotlin / Node.js API Call)

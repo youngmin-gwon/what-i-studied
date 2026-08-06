@@ -22,11 +22,11 @@ date created: 2026-08-06 16:25:00 +09:00
 ```mermaid
 flowchart TD
     subgraph MutableObj [Mutable Object: Modify In Place]
-        User1[var user = User Alice] -->|Modify Field| User1Mod[user.name = Bob Same Reference]
+        User1[var user = User Alice] -->|"Modify Field"| User1Mod[user.name = Bob Same Reference]
     end
 
     subgraph ImmutableObj [Immutable Object: Create New Copy]
-        User2[val user1 = User Alice] -->|Create Copy| User3[val user2 = user1.copy name = Bob New Reference]
+        User2[val user1 = User Alice] -->|"Create Copy"| User3[val user2 = user1.copy name = Bob New Reference]
     end
 ```
 

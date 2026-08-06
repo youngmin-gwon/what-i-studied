@@ -48,8 +48,8 @@ graph TD
         ActIos["actual class PlatformUUID() { actual fun get() = NSUUID().UUIDString }"]
     end
 
-    Exp -.->|Compile Time Binding| ActAndroid
-    Exp -.->|Compile Time Binding| ActIos
+    Exp -.->|"Compile Time Binding"| ActAndroid
+    Exp -.->|"Compile Time Binding"| ActIos
 ```
 
 ---

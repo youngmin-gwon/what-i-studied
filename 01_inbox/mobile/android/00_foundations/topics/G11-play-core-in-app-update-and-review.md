@@ -18,9 +18,9 @@ date modified: 2026-08-04 21:30:00 +09:00
 ```mermaid
 flowchart LR
     App[App Runtime] --> PlayCore[Play Core Library]
-    PlayCore -->|Check Update| PlayStore[Google Play Store]
-    PlayStore -->|Flexible/Immediate| App
-    PlayCore -->|Request Review| Review[Review Dialog UI]
+    PlayCore -->|"Check Update"| PlayStore[Google Play Store]
+    PlayStore -->|"Flexible/Immediate"| App
+    PlayCore -->|"Request Review"| Review[Review Dialog UI]
 ```
 
 ### 3. 하위 개념 및 원자 노트 합성

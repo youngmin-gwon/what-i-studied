@@ -31,8 +31,8 @@ flowchart TD
     DefaultConfig["defaultConfig { applicationId, versionCode, minSdk }"] --> AGPMerger["AGP Manifest Merger"]
     AGPMerger --> FinalManifest["Final Merged AndroidManifest.xml"]
     FinalManifest --> OSValidator["Android OS / Google Play Verifier"]
-    OSValidator -->|versionCode > currentVersionCode| UpgradeSuccess["App Upgrade Allowed"]
-    OSValidator -->|versionCode <= currentVersionCode| UpgradeReject["App Upgrade Rejected"]
+    OSValidator -->|"versionCode > currentVersionCode"| UpgradeSuccess["App Upgrade Allowed"]
+    OSValidator -->|"versionCode <= currentVersionCode"| UpgradeReject["App Upgrade Rejected"]
 ```
 
 ### 코드 예시 (build.gradle.kts)

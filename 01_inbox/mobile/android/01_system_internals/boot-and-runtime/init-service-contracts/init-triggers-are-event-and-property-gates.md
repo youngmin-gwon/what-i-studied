@@ -33,11 +33,11 @@ date created: 2026-08-01 00:00:00 +09:00
 ```mermaid
 flowchart TD
     EV["Event Trigger
-(e.g., on boot)"] -->|Queue Event| AM["ActionManager (init)"]
+(e.g., on boot)"] -->|"Queue Event"| AM["ActionManager (init)"]
     PROP["Property Trigger
-(e.g., on property:sys.boot_completed=1)"] -->|Property Service Match| AM
-    AM -->|Match Action Blocks| QUEUE["Action Queue"]
-    QUEUE -->|Execute Sequentially| CMD["Run Commands
+(e.g., on property:sys.boot_completed=1)"] -->|"Property Service Match"| AM
+    AM -->|"Match Action Blocks"| QUEUE["Action Queue"]
+    QUEUE -->|"Execute Sequentially"| CMD["Run Commands
 (mkdir, setprop, start service)"]
 
     style AM fill:#f9f,stroke:#333,stroke-width:2px
