@@ -31,9 +31,9 @@ if (featureStatus == FeatureStatus.DOWNLOADABLE) {
 }
 ```
 
-`UNAVAILABLE`은 현재 기기와 옵션 조합에서 기능을 사용할 수 없다는 뜻이다. `DOWNLOADABLE`은 필요한 모델 자산을 받을 수 있다는 뜻이고, `downloadFeature()`로 미리 받을 수 있다. 다만 공식 API는 첫 추론 요청도 필요한 다운로드를 시작할 수 있다. `DOWNLOADING` 상태에서도 `runInference()`를 호출할 수 있으며 요청은 다운로드가 끝난 뒤 실행된다. `AVAILABLE`은 필요한 자산이 이미 준비된 상태다.
+`UNAVAILABLE`은 현재 기기와 옵션 조합에서 기능을 사용할 수 없다는 뜻이다. `DOWNLOADABLE`은 필요한 모델 자산을 받을 수 있다는 뜻이고, `downloadFeature()`로 다운로드를 시작할 수 있다. `DOWNLOADING` 상태에서 `runInference()`를 호출하면 실패하므로 다운로드 완료를 기다려야 한다. `AVAILABLE`은 필요한 자산이 이미 준비된 상태다.
 
-- `UNAVAILABLE` → 현재 구성에서는 사용할 수 없음. 대체 기능이나 기능 비활성화가 맞는 처리지만 시스템/AICore 업데이트 뒤에도 영구히 같다고 단정하지 않는다.
+- `UNAVAILABLE` → 기기 사양 미달 등으로 지원하지 않음. 클라우드 모델 호출 등 대체 기능으로 폴백(fallback)하거나 기능을 비활성화한다.
 - `DOWNLOADABLE`/`DOWNLOADING` → 10장의 "하드웨어는 있지만 사용자(또는 시스템) 쪽 사전 조건이 아직 채워지지 않았다" 축과 유사하다. 다만 사용자 설정이 아니라 모델 다운로드 완료가 조건이라는 점이 다르다.
 - `AVAILABLE` → 다운로드 대기 없이 추론을 시작할 수 있다.
 
@@ -62,8 +62,9 @@ suspend fun runSummarizationSafely(
                 override fun onDownloadFailed(e: GenAiException) = Unit
             }).await()
         }
-        // DOWNLOADING이면 아래 추론 Future가 다운로드 완료까지 기다린다.
-        FeatureStatus.DOWNLOADING, FeatureStatus.AVAILABLE -> Unit
+        // DOWNLOADING 상태에서 바로 추론을 요청하면 실패하므로 완료를 기다려야 한다.
+        FeatureStatus.DOWNLOADING -> return null // UI에서 다운로드 중임을 표시하고 대기
+        FeatureStatus.AVAILABLE -> Unit
         else -> return null
     }
 
@@ -82,7 +83,7 @@ flowchart TD
     C --> D{"FeatureStatus"}
     D -->|"UNAVAILABLE"| E["이 기기/OS는 미지원. 대체 기능/비활성화."]
     D -->|"DOWNLOADABLE"| F["downloadFeature() 호출 → DOWNLOADING"]
-    D -->|"DOWNLOADING"| G["runInference() 가능; 다운로드 완료 뒤 실행"]
+    D -->|"DOWNLOADING"| G["다운로드 완료 대기 (바로 runInference 불가)"]
     D -->|"AVAILABLE"| H["다운로드 대기 없이 runInference()"]
 ```
 

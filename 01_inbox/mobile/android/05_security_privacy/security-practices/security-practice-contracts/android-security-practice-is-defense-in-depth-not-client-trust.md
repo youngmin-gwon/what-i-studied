@@ -8,7 +8,7 @@ date created: 2026-08-01 00:03:59 +09:00
 
 ## Android 보안 실무는 클라이언트 신뢰가 아니라 방어 계층 설계다
 
-배경 지식: [Certificate Pinning(인증서 고정)](01_inbox/security/fundamentals/certificate-pinning.md)
+배경 지식: [Certificate Pinning(인증서 고정)](../../../../../security/fundamentals/certificate-pinning.md)
 
 Android 보안 실무의 핵심 철학은 **클라이언트(앱)를 절대 100% 신뢰할 수 있는 구역으로 보지 않는 다계층 심층 방어(Defense in Depth)**다. 코드 난독화(R8/DexGuard), 루팅 검사, Frida/Xposed 동적 훅킹 탐지 등은 공격 비용(Attacker Cost)을 증대시키는 보조적 수단일 뿐이며, 최종 보안 결정 및 권한 인가(Authorization)는 **백엔드 서버 검증, Hardware Root of Trust(Play Integrity), cryptographic 키 경계**에 기반해야 한다.
 

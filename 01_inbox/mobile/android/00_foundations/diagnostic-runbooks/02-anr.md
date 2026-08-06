@@ -44,7 +44,7 @@ Android 시스템이 판정하는 대표적인 ANR 계약과 조사 우선순위
    - AOSP/Pixel 기준 Android 13 이하는 foreground-priority intent 10초, background-priority intent 60초다. Android 14+는 process가 CPU-starved인지에 따라 각각 10~20초, 60~120초 범위다. `goAsync()`는 무제한 연장이 아니며 `PendingResult.finish()`까지 같은 timeout에 포함된다.
 3. **Service 실행 또는 FGS 계약 위반 (우선순위 3)**
    - service callback이 main thread를 오래 점유하면 service ANR이 될 수 있다.
-   - background FGS start가 허용되지 않으면 `ForegroundServiceStartNotAllowedException`이 호출 지점에서 발생한다.
+   - background FGS start가 허용되지 않는 상태(예: 엄격한 백그라운드 제약 상태)에서 시작을 시도하면 ANR이 아니라 `ForegroundServiceStartNotAllowedException`이 호출 지점에서 발생한다.
    - `startForegroundService()` 뒤 짧은 시간 안에 `startForeground()`로 승격하지 않으면 `ForegroundServiceDidNotStartInTimeException` 계열의 internal exception이 발생한다. 이것을 ANR이나 start-not-allowed와 같은 실패로 분류하지 않는다.
    - `shortService`, `dataSync`, `mediaProcessing`의 실행 시간 제한과 종료 방식은 service type 및 OS version별 공식 문서를 확인한다.
 4. **JobScheduler slow response (우선순위 4)**

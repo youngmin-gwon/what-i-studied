@@ -9,7 +9,7 @@ date created: 2026-07-31 23:45:00 +09:00
 ## SELinux는 domain/type 정책으로 mandatory access control을 강제한다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
-배경 지식: [SELinux/DAC/MAC](01_inbox/linux/security/selinux.md)
+배경 지식: [SELinux/DAC/MAC](../../../../../linux/security/selinux.md)
 
 
 SELinux 는 Linux **discretionary access control**(DAC — 파일 소유자가 자기 판단으로 다른 사용자에게 권한을 나눠줄 수 있는 전통적 UNIX 권한 모델. `chmod`/`chown` 이 대표적이다)을 대체하는 것이 아니라, 그 위에 **mandatory access control**(MAC — 파일 소유자의 의사와 무관하게 시스템 전체에 걸쳐 고정된 정책이 접근을 강제하는 모델)을 추가한다. 즉 파일 소유자가 `chmod 777` 로 권한을 다 열어줘도, SELinux policy 가 막으면 여전히 접근이 거부된다. root 권한이나 **Linux capability**(전통적으로 root 에게만 허용됐던 권한 묶음을 `CAP_NET_ADMIN` 처럼 세분화해서 개별적으로 부여할 수 있게 만든 커널 메커니즘)가 있더라도 policy 가 허용하지 않은 동작은 차단될 수 있다.

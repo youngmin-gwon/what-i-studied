@@ -22,7 +22,7 @@ Android의 셀룰러(LTE/5G) 네트워크 연결성은 단순한 물리적 무�
    - meteredness는 carrier와 system이 `NetworkCapabilities`로 노출하는 비용 힌트다. 데이터 한도 소진이 항상 capability 전환이나 Wi-Fi 전환을 일으킨다고 보장할 수 없다.
 
 3. **NetworkPolicyManagerService & Data Saver**:
-   - Data Saver가 켜지고 active network가 metered이면 system은 allowlist가 아닌 앱의 background data를 제한한다. AOSP는 UID firewall과 traffic accounting에 eBPF를 사용할 수 있지만, 앱이 의존할 공개 계약은 `isActiveNetworkMetered`, `restrictBackgroundStatus`, `NetworkCallback`이다. 이 정책이 Wi-Fi로 즉시 전환시킨다고 가정하지 않는다.
+   - Data Saver가 켜지고 active network가 metered이면 system은 allowlist가 아닌 앱의 background data를 제한한다. AOSP는 UID firewall과 traffic accounting에 eBPF를 사용할 수 있지만, 앱이 의존할 공개 계약은 ConnectivityManager의 `isActiveNetworkMetered`, `restrictBackgroundStatus`, 그리고 `NetworkCallback`이다. 이 정책이 Wi-Fi로 즉시 전환시킨다고 가정하지 않는다.
 
 ```mermaid
 graph TD

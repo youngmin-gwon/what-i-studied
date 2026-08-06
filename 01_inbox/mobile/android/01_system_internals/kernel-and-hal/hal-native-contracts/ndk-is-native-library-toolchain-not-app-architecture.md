@@ -40,7 +40,7 @@ graph TD
     B1 --> C1
 ```
 
-1. **Stable NDK APIs**: 앱은 NDK sysroot가 노출하는 public header와 library를 사용한다. `liblog`, `libandroid`, `libvulkan`, `libaaudio` 같은 API는 보통 기기의 public shared library에 동적으로 링크된다. NDK가 제공하는 `libz.a`나 자체 library처럼 static archive를 링크하는 경우도 있으므로 public NDK API를 모두 static link한다고 일반화하지 않는다. 비공개 platform library는 public app ABI가 아니며 linker namespace와 non-SDK restriction 때문에 로드 실패나 release 간 호환성 문제가 생길 수 있다.
+1. **Stable NDK APIs**: 앱은 NDK sysroot가 노출하는 public header와 library를 사용한다. `liblog`, `libandroid`, `libvulkan`, `libaaudio` 같은 API는 앱 패키지에 포함되지 않고, 실행 시점에 Android 시스템의 Bionic dynamic linker(linker64)를 통해 시스템 내장 public shared library로 동적 링킹된다. 반면 NDK가 제공하는 `libz.a`나 자체 library처럼 static archive를 링킹해 앱의 .so에 포함시키는 경우도 있으므로 모든 NDK 의존성이 동적 링킹된다고 일반화하지 않는다. 비공개 platform library는 public app ABI가 아니며 strict linker namespace와 non-SDK restriction 때문에 로드 실패나 release 간 호환성 문제가 생길 수 있다.
 2. **Proper Use-cases**: NDK 도입이 정당화되는 영역은 (1) C/C++ 크로스 플랫폼 물리/게임 엔진 포팅, (2) 오디오 저지연(AAudio) 및 Vulkan 그래픽 렌더링, (3) 신호 처리 및 암호화 연산 같은 CPU 집약적 연산 영역이다.
 
 ---

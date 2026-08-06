@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-배경 지식: [Idempotency(멱등성)](02_references/computer-science/idempotency.md)
+배경 지식: [Idempotency(멱등성)](../../../../../../02_references/computer-science/idempotency.md)
 
 AIDL 은 **client proxy**(호출자 프로세스에서 원격 객체를 마치 로컬 객체처럼 부를 수 있게 감싸는 대리 클래스)와 **server stub**(수신 프로세스에서 그 호출을 실제 구현 메서드로 연결해주는 뼈대 클래스)을 생성해 Binder transaction 형식을 맞춰주는 interface definition(인터페이스 정의)이다. 이것은 process boundary 의 호출 모양을 고정하지만, 비즈니스 의미, retry, **idempotency**(멱등성 — 같은 요청을 여러 번 보내도 결과가 한 번 보낸 것과 같아야 한다는 성질), authorization, version compatibility 를 자동으로 설계해주지는 않는다.
 

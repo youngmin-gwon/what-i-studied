@@ -106,4 +106,17 @@ public void performRestrictedOperation() {
 - 큰 payload, file descriptor, long-running work 는 transaction 비용과 lifetime 을 분리한다.
 - native/HAL Binder 는 앱 AIDL 과 같은 단어를 쓰더라도 안정성, 버전, SELinux 경계가 다르다.
 
+---
+
+### POSIX IPC vs Android Binder/Ashmem 비교 매트릭스
+
+| 축 (Axis) | 전통적 POSIX IPC (SHM / MQ / Pipe) | Android Binder / Ashmem (DMA-BUF) |
+| :--- | :--- | :--- |
+| **보안 및 신원** | mechanism별로 다르다. Unix domain socket은 `SO_PEERCRED`/`SCM_CREDENTIALS`, SELinux label과 filesystem permission을 사용할 수 있다. | Binder driver가 transaction caller의 UID/PID를 전달하고 SELinux binder policy와 service permission 검사를 결합한다. |
+| **데이터 이동** | pipe/socket은 kernel buffer를 거치며, shared memory는 mapping 후 명시적 동기화가 필요하다. | 일반 Binder transaction은 kernel이 target address space로 transaction을 복사한다. 큰 payload에는 별도 shared buffer를 쓴다. |
+| **자원 수명** | pipe/socket/FD-backed memory는 마지막 FD가 닫히면 정리된다. named POSIX/System V object는 unlink·remove 정책이 별도로 필요할 수 있다. | Binder object reference와 FD는 process death 때 정리되고 `linkToDeath()`로 remote binder death를 관찰할 수 있다. |
+| **호출 모델 및 동시성** | stream/message/shared-memory protocol과 worker model을 애플리케이션이 설계한다. | AIDL이 interface와 marshalling을 생성한다. server process의 Binder thread pool 크기와 shared-state synchronization은 구현자가 구성·관리한다. |
+
+- **작은 RPC와 큰 buffer의 분리**: Binder transaction은 크기 제한이 있고 serialization·copy 비용이 있으므로 작은 control message와 handle 전달에 적합하다. 큰 데이터는 `SharedMemory`/`ASharedMemory`, hardware buffer 또는 DMA-BUF를 사용하고 FD/handle만 전달한다.
+
 관련 노트: [SELinux policy는 Binder service와 file boundary를 함께 제어한다](../../kernel-and-hal/kernel-contracts/selinux-policy-controls-binder-service-and-file-boundaries.md)

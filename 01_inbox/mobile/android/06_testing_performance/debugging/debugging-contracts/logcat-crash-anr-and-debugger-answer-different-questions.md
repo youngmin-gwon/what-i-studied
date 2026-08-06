@@ -9,7 +9,7 @@ date created: 2026-07-31 17:32:53 +09:00
 ## Logcat, crash, ANR, debugger 는 서로 다른 질문에 답한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../../performance/android-performance-quality-and-build-optimization.md)
-배경 지식: [순환 버퍼(Ring Buffer)](02_references/operating-systems/buffer.md), [POSIX 시그널](01_inbox/operating-systems/ipc-contracts/posix-signal-contracts.md)
+배경 지식: [순환 버퍼(Ring Buffer)](../../../../../../02_references/operating-systems/buffer.md), [POSIX 시그널](../../../../../operating-systems/ipc-contracts/posix-signal-contracts.md)
 
 관련 지도: [디버깅 도구 계약](./debugging-contracts.md)
 

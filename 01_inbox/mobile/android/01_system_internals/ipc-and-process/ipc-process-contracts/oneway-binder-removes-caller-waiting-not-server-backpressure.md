@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-배경 지식: [Idempotency(멱등성)](02_references/computer-science/idempotency.md)
+배경 지식: [Idempotency(멱등성)](../../../../../../02_references/computer-science/idempotency.md)
 
 `oneway` AIDL 호출은 caller 가 reply 를 기다리지 않는 비동기 transaction 으로 바뀐다. 하지만 이것은 server 의 queue, Binder thread pool, 처리 비용, 순서 제약을 사라지게 하지 않는다 — 즉 **backpressure**(수신 측이 처리 속도를 따라가지 못해 큐가 쌓이고, 그 압박이 결국 송신 측 호출에도 영향을 주는 현상)는 여전히 존재한다.
 

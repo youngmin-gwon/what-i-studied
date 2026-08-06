@@ -12,7 +12,7 @@ date created: 2026-07-31 23:45:00 +09:00
 
 Android kernel 빌드는 단순한 커널 소스상의 `make ARCH=arm64` 실행이 아니다. 대상 ACK 또는 device-kernel branch, 해당 branch가 지원하는 toolchain과 build system, 그리고 boot/vendor module 이미지 패키징 규격을 함께 맞춰야 한다.
 
-Kleaf/Bazel 적용 여부는 Android release 번호만으로 결정하지 않고 branch support matrix로 확인한다. `common-android13-5.10`과 `common-android13-5.15`는 Kleaf와 `build/build.sh`를 모두 공식 지원한다. `common-android14-5.15`, `common-android14-6.1`, `common-android15-6.6`, `common-android-mainline`은 Kleaf를 지원하고 `build/build.sh`를 지원하지 않는다. 일부 board·module branch는 같은 release 계열이어도 표가 다르다.
+Kleaf/Bazel 전면 적용 여부는 Android 14+ 공통 커널(common kernel)부터이며, 이전 버전은 branch support matrix로 구분해야 한다. `common-android13-5.10`과 `common-android13-5.15`는 Kleaf와 `build/build.sh`를 모두 공식 지원한다. 반면 `common-android14-5.15`, `common-android14-6.1`, `common-android15-6.6`, `common-android-mainline`은 Kleaf만 지원하고 `build/build.sh` 방식은 지원하지 않는다. 일부 board·module branch는 같은 release 계열이어도 표가 다르다.
 
 ---
 

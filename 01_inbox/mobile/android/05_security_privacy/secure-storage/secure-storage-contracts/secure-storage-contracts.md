@@ -7,7 +7,7 @@ date created: 2026-07-31 17:04:40 +09:00
 ---
 
 ## 보안 저장소 계약
-배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md)
+배경 지식: [Root of Trust](../../../../../security/fundamentals/root-of-trust-and-chain-of-trust.md)
 
 Android 보안 저장소 계약은 단순히 파일 경로를 선택하는 것에 그치지 않고, 민감 데이터 분류, 암호키 비추출성 관리(Hardware Keystore), AES-GCM 인증 암호화, 생체 인증 연동, 자동 백업 제외(Backup Rules), 그리고 키 무효화 시 재인증 복구 전략을 체계적으로 결합하는 보안 모델이다.
 

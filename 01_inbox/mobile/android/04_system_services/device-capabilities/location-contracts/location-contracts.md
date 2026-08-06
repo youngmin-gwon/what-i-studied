@@ -10,6 +10,25 @@ date created: 2026-08-03 17:19:24 +09:00
 
 이 지도는 Android 위치 접근을 위치 소스 합성, 권한 단계, 정확도/전력 트레이드오프로 분리한다. **FusedLocationProviderClient**(GPS, Wi-Fi, 셀룰러, 기기 센서 등 다양한 측위 소스를 통합 계산하여 최적의 위치 스트림을 산출하는 Google 위치 서비스 클라이언트)는 이 위치 접근의 핵심 구현 엔티티다.
 
+### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
+
+- **FusedLocationProviderClient**: 배터리 소모와 정확도를 최적화하여 위치 계산. `LocationRequest`로 우선순위 지정.
+- **권한 단계 (Permissions)**: Foreground(`ACCESS_COARSE_LOCATION`, `ACCESS_FINE_LOCATION`)와 Background(`ACCESS_BACKGROUND_LOCATION`) 분리 요청.
+
+```kotlin
+// FusedLocationProviderClient 예시
+val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000).build()
+
+// 권한 확인 후 위치 업데이트 요청
+fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+```
+
+### 관찰 신호 (Observation Signals)
+
+- Logcat에서 `LocationManager` 또는 `FusedLocationProvider` 관련 위치 갱신 빈도 확인.
+- 배터리 소모량 추적 도구를 통한 웨이크락(Wakelock) 점유 시간 관찰.
+
 ### 읽는 순서
 
 1. [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fusedlocationproviderclient-merges-multiple-location-sources.md)에서 GPS/네트워크/센서를 앱이 직접 고르지 않는 이유를 본다.

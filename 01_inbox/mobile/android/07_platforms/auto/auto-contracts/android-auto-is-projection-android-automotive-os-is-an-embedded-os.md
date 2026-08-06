@@ -20,6 +20,8 @@ Android Auto는 휴대폰의 앱과 차량 host가 통신하는 projection 환�
 
 Android Auto용 phone/mobile 모듈과 AAOS용 automotive 모듈은 플랫폼별 manifest와 dependency가 다르다. `CarAppService` 구현은 shared module로 재사용할 수 있다.
 
+#### Android Auto (phone/mobile module)
+
 ```xml
 <!-- phone/mobile module: Android Auto -->
 <application>
@@ -34,6 +36,8 @@ Android Auto용 phone/mobile 모듈과 AAOS용 automotive 모듈은 플랫폼별
     </service>
 </application>
 ```
+
+#### Android Automotive OS (automotive module)
 
 ```xml
 <!-- automotive module: Android Automotive OS templated app -->

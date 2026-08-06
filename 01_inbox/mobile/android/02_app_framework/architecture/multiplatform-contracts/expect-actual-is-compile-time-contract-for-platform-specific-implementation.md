@@ -57,22 +57,30 @@ graph TD
 ### 4. 현대 표준 코드 예시 (KMP expect / actual)
 
 ```kotlin
-// commonMain/kotlin/com/example/Platform.kt
+// commonMain/kotlin/com/example/PlatformUUID.kt
 package com.example
 
-expect fun randomUuid(): String
+expect class PlatformUUID() {
+    fun get(): String
+}
 
-// androidMain/kotlin/com/example/Platform.kt
+// androidMain/kotlin/com/example/PlatformUUID.kt
 package com.example
 
-actual fun randomUuid(): String = java.util.UUID.randomUUID().toString()
+import java.util.UUID
 
-// iosMain/kotlin/com/example/Platform.kt
+actual class PlatformUUID actual constructor() {
+    actual fun get(): String = UUID.randomUUID().toString()
+}
+
+// iosMain/kotlin/com/example/PlatformUUID.kt
 package com.example
 
 import platform.Foundation.NSUUID
 
-actual fun randomUuid(): String = NSUUID().UUIDString
+actual class PlatformUUID actual constructor() {
+    actual fun get(): String = NSUUID().UUIDString
+}
 ```
 
 `expect`와 `actual`의 서명은 타깃별로 대응해야 한다. 예를 들어 `expect class PlatformNotifier()`에 대해 Android `actual` 생성자에만 `Context` 매개변수를 추가하면 동일한 계약이 아니므로 컴파일되지 않는다. `Context`나 네트워크 클라이언트처럼 플랫폼에서 조립해야 하는 의존성이 필요하면, 공통 코드에는 일반 인터페이스를 두고 Android composition root에서 구현체를 생성·주입하는 방식이 보통 더 명확하다. `expect`/`actual`은 플랫폼 타입 자체를 공통 API로 노출해야 할 때 선택적으로 사용한다.

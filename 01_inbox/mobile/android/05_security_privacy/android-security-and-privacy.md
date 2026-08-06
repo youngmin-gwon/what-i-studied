@@ -7,7 +7,7 @@ date created: 2026-08-01 00:03:59 +09:00
 ---
 
 ## Android 보안과 개인정보 지도
-배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md)
+배경 지식: [Root of Trust](../../../security/fundamentals/root-of-trust-and-chain-of-trust.md)
 
 학습 경로: [Learning Spine 9장 — identity, permission, 독립 security gate](../00_foundations/learning-spine/09-identity-permission-and-independent-security-gates.md)
 

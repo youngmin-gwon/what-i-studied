@@ -7,7 +7,7 @@ date created: 2026-08-01 00:03:59 +09:00
 ---
 
 ## 무결성과 attestation 계약
-배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md)
+배경 지식: [Root of Trust](../../../../../security/fundamentals/root-of-trust-and-chain-of-trust.md)
 
 무결성 검증(Integrity & Attestation)은 앱 바이너리 변조, 루팅/커스텀 ROM 환경, 계정 및 요청 재조작 위험을 하드웨어 및 서버 신호로 변환하는 계층이다. 클라이언트에 전달되는 attestation 토큰은 신뢰의 최종 인가가 아니며, 반드시 백엔드 서버에서 독립적으로 검증해야 한다.
 

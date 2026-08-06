@@ -82,7 +82,7 @@ graph TD
    readelf -l libapp.so | grep LOAD
    ```
    - 먼저 `adb shell getconf PAGE_SIZE`로 기기가 실제 16KB mode인지 확인한다.
-   - ELF LOAD segment의 `Align`뿐 아니라 `zipalign -c -P 16 -v 4 app.apk` 또는 APK Analyzer로 ZIP alignment도 확인한다.
+   - ELF LOAD segment의 Align뿐 아니라 zipalign -c -p 16384 -v 4 app.apk 또는 APK Analyzer로 ZIP alignment도 확인한다.
    - 4KB 정렬 라이브러리가 있더라도 Android 16KB backcompat mode가 앱을 실행할 수 있다. 경고·호환 모드 여부와 실제 linker/crash 로그를 함께 본다.
 
 ### OS/API/target SDK 조건

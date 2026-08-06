@@ -19,7 +19,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 카메라를 열기 전 `getCameraIdList()`로 카메라 ID 목록을, `getCameraCharacteristics(id)`로 해당 카메라의 능력을 조회한다. `registerAvailabilityCallback()`은 다른 클라이언트의 점유와 해제 등을 `onCameraAvailable()`/`onCameraUnavailable()`로 알린다. 그러나 콜백은 예약(lock)이 아니다. 상태 확인과 `openCamera()` 사이에 연결 상태나 우선순위가 바뀔 수 있고, foreground 우선순위가 더 높은 클라이언트가 낮은 우선순위 클라이언트를 밀어낼 수도 있다. 따라서 최종 성공·실패는 `CameraDevice.StateCallback`과 `CameraAccessException`으로 처리한다.
 
-API 30 이상에서 여러 카메라를 동시에 써야 한다면 `getConcurrentCameraIds()`의 조합인지 확인하고, 필요하면 `isConcurrentSessionConfigurationSupported()`로 실제 세션 구성을 검사한다. 지원되지 않는 조합을 임의로 동시에 열 수 있다고 가정하지 않는다.
+API 30 이상에서 여러 카메라를 동시에 써야 한다면 `getConcurrentCameraIds()`가 반환하는 조합 내에 속하는지 확인하고, 필요하면 `isConcurrentSessionConfigurationSupported()`로 세션 구성을 검증한다. 단, 동시 카메라 조합(concurrent cameras)을 열 때도 각 카메라 장치는 개별적인 우선순위 경쟁 대상이므로 하나라도 열기에 실패하거나 중간에 회수되면 전체 동시 세션을 안전하게 종료하고 복구하는 로직이 필요하다.
 
 ### 열기와 종료 흐름
 
@@ -44,7 +44,7 @@ fun openCamera(cameraId: String) {
 }
 ```
 
-`onOpened()` 전까지 성공으로 표시하지 않고 모든 terminal callback에서 `close()`한다. `SecurityException`, 동기 `CameraAccessException`, callback의 `ERROR_CAMERA_IN_USE`/`ERROR_MAX_CAMERAS_IN_USE`를 각각 권한·경쟁·자원 한도로 분류한다.
+`onOpened()` 전까지 성공으로 표시하지 않고 모든 terminal callback에서 `close()`한다. `SecurityException`, 동기 `CameraAccessException`, callback의 `ERROR_CAMERA_IN_USE`/`ERROR_MAX_CAMERAS_IN_USE`를 각각 권한·우선순위 경쟁 실패·동시 사용 한도 초과로 분류한다. 열려 있던 카메라도 우선순위가 더 높은 클라이언트(예: 포그라운드 전환된 앱)가 요청하면 `onDisconnected()`가 호출되어 강제로 회수된다(priority race).
 
 ### 판단 기준
 

@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-배경 지식: [Deadlock](01_inbox/operating-systems/deadlock.md)
+배경 지식: [Deadlock](../../../../../operating-systems/deadlock.md)
 
 Binder service 는 들어오는 transaction 을 Binder thread pool 에서 처리한다. thread pool 은 동시성을 제공하지만, blocking call 이 쌓이면 service 전체 응답성이 떨어지고 caller 와 callee 가 서로 기다리는 **deadlock**(교착 상태 — 서로가 서로의 자원이나 응답을 기다리며 아무도 더 진행하지 못하는 상태) 구조도 만들 수 있다.
 

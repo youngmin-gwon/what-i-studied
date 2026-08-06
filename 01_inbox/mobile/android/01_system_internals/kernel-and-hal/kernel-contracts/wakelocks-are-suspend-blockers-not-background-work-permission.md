@@ -9,7 +9,7 @@ date created: 2026-07-31 23:45:00 +09:00
 ## Wakelock은 background work 권한이 아니라 suspend blocker다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
-배경 지식: [ACPI/전원 상태](01_inbox/operating-systems/acpi-and-power-states.md)
+배경 지식: [ACPI/전원 상태](../../../../../operating-systems/acpi-and-power-states.md)
 
 Wakelock 은 \"작업을 실행해도 된다\"는 권한이 아니라, 특정 조건에서 device 가 **system suspend**(CPU 를 비롯한 대부분의 하드웨어 전원을 낮춰 배터리를 아끼는 저전력 대기 상태로 전환하는 것 — 전원 상태 일반에 대한 배경은 위 링크 참고)로 들어가지 않도록 막는 **suspend blocker**(그 전환 자체를 유예시키는 잠금)다.
 

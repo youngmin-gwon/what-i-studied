@@ -7,7 +7,7 @@ date created: 2026-08-01 00:03:59 +09:00
 ---
 
 ## Android 플랫폼 보안 경계 계약
-배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md), [Device Mapper와 dm-verity](02_references/operating-systems/device-mapper-and-dm-verity.md)
+배경 지식: [Root of Trust](../../../../../security/fundamentals/root-of-trust-and-chain-of-trust.md), [Device Mapper와 dm-verity](../../../../../../02_references/operating-systems/device-mapper-and-dm-verity.md)
 
 Android 플랫폼 보안은 앱 UID 샌드박스(Linux Kernel Isolation), Binder IPC 통신 경계, SELinux Mandatory Access Control(MAC), Verified Boot(AVB) Chain of Trust가 상호 보완적으로 작동하는 계층형 보호 모델이다. 어느 한 계층이 우회되더라도 상위/하위 계층이 피해 범위를 국소적으로 억제한다.
 

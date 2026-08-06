@@ -10,6 +10,30 @@ date created: 2026-08-03 17:16:58 +09:00
 
 이 지도는 location, sensors, telephony 같은 개별 시스템 서비스를 읽기 전에 알아야 하는 공통 기반을 다룬다. `Context.getSystemService()`로 핸들을 얻는 단계, Binder 서비스가 필요한 경계에서 수행하는 신원·권한 검사, AppOps의 실행 시점 정책을 구분한다.
 
+### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
+
+- **getSystemService()**: Context를 통해 싱글톤 형태로 관리되는 매니저 객체 반환. 내부적으로 `ServiceManager` 및 Binder IPC 활용.
+- **Binder 검사**: 시스템 서버가 호출자의 `Binder.getCallingUid()`와 `Pid`를 확인하여 권한 승인 검증.
+- **AppOpsManager**: `checkOp` 혹은 `noteOp`를 통해 런타임에 동적으로 앱의 권한 접근이 허용되어 있는지 확인.
+
+```kotlin
+// getSystemService 예시
+val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+val appOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+
+// AppOps 상태 확인 예시
+val mode = appOpsManager.unsafeCheckOpNoThrow(
+    AppOpsManager.OPSTR_FINE_LOCATION,
+    Process.myUid(),
+    context.packageName
+)
+```
+
+### 관찰 신호 (Observation Signals)
+
+- `adb shell dumpsys activity services` 등을 통한 매니저 상태와 등록된 옵저버 로그 분석.
+- SecurityException 발생 시 호출자의 UID와 요청된 Permission/AppOps 로그.
+
 ### 읽는 순서
 
 1. [getSystemService는 서비스 핸들을 반환하며 범위와 통신 방식은 서비스마다 다르다](./getsystemservice-returns-a-cached-manager-backed-by-binder-ipc.md) 에서 공개 API 계약과 구현 세부를 분리한다.

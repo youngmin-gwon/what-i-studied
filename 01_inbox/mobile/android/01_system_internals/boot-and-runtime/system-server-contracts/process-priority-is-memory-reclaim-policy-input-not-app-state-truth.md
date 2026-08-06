@@ -9,15 +9,15 @@ date created: 2026-08-01 00:00:00 +09:00
 ## 프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다
 
 상위 문서: [system_server 계약](system-server-contracts.md)
-배경 지식: [OOM Killer / 메모리 압박 / PSI](02_references/operating-systems/oom-killer-and-memory-pressure.md)
+배경 지식: [OOM Killer / 메모리 압박 / PSI](../../../../../../02_references/operating-systems/oom-killer-and-memory-pressure.md)
 
-프로세스 우선순위(`oom_score_adj`)는 앱 개발자가 직접 제어하거나 프로세스 내부에서 주관적으로 지정하는 상태가 아니며, `AMS`가 컴포넌트 실행 상태(Foreground Activity, Visible, Service, Broadcast 등) 및 시스템 메모리 압박 상태를 종합 판단하여 커널 **[Low Memory Killer Daemon(LMKD)](02_references/operating-systems/oom-killer-and-memory-pressure.md)**(리눅스 표준 OOM Killer가 "메모리 할당이 완전히 실패한 뒤"에야 개입하는 것과 달리, 메모리 압박 초기 신호(PSI)를 보고 선제적으로 프로세스를 죽이는 Android userspace 데몬)의 수거 우선순위 입력값으로 지속 계산·전송하는 수치 정책이다.
+프로세스 우선순위(`oom_score_adj`)는 앱 개발자가 직접 제어하거나 프로세스 내부에서 주관적으로 지정하는 상태가 아니며, `AMS`가 컴포넌트 실행 상태(Foreground Activity, Visible, Service, Broadcast 등) 및 시스템 메모리 압박 상태를 종합 판단하여 커널 **[Low Memory Killer Daemon(LMKD)](../../../../../../02_references/operating-systems/oom-killer-and-memory-pressure.md)**(리눅스 표준 OOM Killer가 "메모리 할당이 완전히 실패한 뒤"에야 개입하는 것과 달리, 메모리 압박 초기 신호(PSI)를 보고 선제적으로 프로세스를 죽이는 Android userspace 데몬)의 수거 우선순위 입력값으로 지속 계산·전송하는 수치 정책이다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 
 1. **OOM Adjustment Scored Spectrum (`oom_score_adj`)**:
-   - `-1000` (`NATIVE_ADJ`): system의 native process에 사용하는 가장 낮은 조정치.
-   - `-900` (`SYSTEM_ADJ`): `system_server`에 사용하는 조정치.
+   - `-1000` (`NATIVE_ADJ`): init 등 핵심 네이티브 프로세스용. 리눅스 커널 수준에서 OOM 킬 대상에서 완전히 제외(면제)되는 특수 값이다.
+   - `-900` (`SYSTEM_ADJ`): `system_server`에 사용하는 조정치. 일반적인 시스템 환경에서 lmkd가 죽이지 않는 가장 안전한 우선순위다.
    - `0` (`FOREGROUND_APP_ADJ`): 현재 화면 전면에 활성화된 앱 Activity.
    - `100` (`VISIBLE_APP_ADJ`): 화면 일부에 보이지만 포커스는 없는 앱(Dialog, Split-Screen).
    - `200` (`PERCEPTIBLE_APP_ADJ`): 음악 재생, 포그라운드 서비스(Foreground Service).
@@ -28,7 +28,7 @@ date created: 2026-08-01 00:00:00 +09:00
 2. **`applyOomAdjLSP()` Execution**:
    - 액티비티 전환, 서비스 생성/파괴, 바인딩 연결 시 AMS는 `OomAdjuster.java`를 실행하여 프로세스 트리의 `oom_score_adj` 값을 동적 재계산한다.
 3. **Userspace `lmkd` interface**:
-   - framework는 process 중요도 변화를 `lmkd`에 알리고 `lmkd`는 `/proc/<pid>/oom_score_adj`와 process metadata를 관리한다. Android 10+의 일반적인 구성은 kernel **[PSI](02_references/operating-systems/oom-killer-and-memory-pressure.md)** event, thrashing, swap과 device tuning을 함께 보고 kill 대상과 시점을 정한다. 점수가 가장 큰 process를 언제나 기계적으로 하나 고르는 단순 정렬은 아니다.
+   - framework는 process 중요도 변화를 `lmkd`에 알리고 `lmkd`는 `/proc/<pid>/oom_score_adj`와 process metadata를 관리한다. Android 10+의 일반적인 구성은 kernel **[PSI](../../../../../../02_references/operating-systems/oom-killer-and-memory-pressure.md)** event, thrashing, swap과 device tuning을 함께 보고 kill 대상과 시점을 정한다. 점수가 가장 큰 process를 언제나 기계적으로 하나 고르는 단순 정렬은 아니다.
 
 ```mermaid
 flowchart LR

@@ -1,14 +1,14 @@
 ---
-title: play-billing-requirement-depends-on-product-region-and-enrolled-program
+title: play-billing-library-is-the-only-approved-in-app-purchase-path
 tags: ["android", "billing", "play-billing", "policy"]
-aliases: ["Play billing 적용 여부는 상품, 사용자 지역, 등록 프로그램에 따라 결정된다", "Play billing library는 유일하게 승인된 인앱 구매 경로다"]
+aliases: ["Play billing library는 유일하게 승인된 인앱 구매 경로다"]
 date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-06 14:50:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-06 14:50:00 +09:00
 ---
 
-## Play billing 적용 여부는 상품, 사용자 지역, 등록 프로그램에 따라 결정된다
+## Play billing library는 유일하게 승인된 인앱 구매 경로다
 
 상위 문서: [인앱 결제 계약](billing-contracts.md)
 
@@ -39,7 +39,8 @@ flowchart LR
 ```kotlin
 // app/build.gradle.kts
 dependencies {
-    implementation("com.android.billingclient:billing-ktx:9.1.0")
+    // 2024년 8월 31일 이후 신규 앱 및 업데이트는 PBL 6.2.1 이상을 사용해야 함
+    implementation("com.android.billingclient:billing-ktx:6.2.1")
 }
 ```
 

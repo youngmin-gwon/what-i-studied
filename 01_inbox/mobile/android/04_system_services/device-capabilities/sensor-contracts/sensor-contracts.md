@@ -10,6 +10,26 @@ date created: 2026-08-03 17:19:24 +09:00
 
 이 지도는 Android 센서 접근을 raw/synthetic 센서 구분, 배칭/전력 트레이드오프, 좌표계 문제로 분리한다.
 
+### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
+
+- **SensorManager**: 기기의 센서 목록 조회 및 리스너 등록 (`getSystemService(Context.SENSOR_SERVICE)`).
+- **센서 배칭 (Batching)**: 하드웨어 FIFO 큐에 이벤트를 모아두었다가 한 번에 전달하여 AP(Application Processor) 절전 유지.
+- **좌표계 리매핑**: 기기 방향에 무관하게 디스플레이 기준 방향으로 값을 회전시킬 때 `remapCoordinateSystem` 사용.
+
+```kotlin
+// SensorManager 예시
+val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+// 배칭을 위해 maxReportLatencyUs 지정 (예: 10초)
+sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL, 10_000_000)
+```
+
+### 관찰 신호 (Observation Signals)
+
+- 센서 이벤트 딜레이 및 타임스탬프를 통한 뱃치(batch) 전송 여부 확인.
+- `SensorEventListener`의 `onSensorChanged` 호출 주기와 실제 이벤트의 간격 비교.
+
 ### 읽는 순서
 
 1. [SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다](./sensormanager-exposes-raw-and-synthetic-sensors-through-one-api.md)에서 두 종류의 센서가 신뢰도와 지연에서 어떻게 다른지 본다.

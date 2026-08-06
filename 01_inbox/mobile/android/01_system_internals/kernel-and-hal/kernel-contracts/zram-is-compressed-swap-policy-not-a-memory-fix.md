@@ -9,7 +9,7 @@ date created: 2026-07-31 23:45:00 +09:00
 ## zRAM은 메모리 부족 해결책이 아니라 압축 swap 정책이다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
-배경 지식: [가상 메모리/swap](02_references/operating-systems/virtual-memory.md)
+배경 지식: [가상 메모리/swap](../../../../../../02_references/operating-systems/virtual-memory.md)
 
 zRAM은 모바일 물리 RAM의 일부를 압축 가상 블록 디바이스(RAM-backed Compressed Block Device)로 마운트하여 익명 메모리(Anonymous Memory: 앱 힙, 스택, 공유 메모리) 페이지를 압축 **스왑-아웃**(Swap-out — 물리 메모리가 부족할 때 당장 쓰지 않는 페이지를 다른 저장 공간으로 밀어내 RAM 을 비우는 커널 동작. 전통적으로는 디스크로 내보내지만 zRAM 은 그 대상을 압축된 RAM 영역으로 바꾼다. 배경은 위 링크 참고)하는 커널 기술이다.
 

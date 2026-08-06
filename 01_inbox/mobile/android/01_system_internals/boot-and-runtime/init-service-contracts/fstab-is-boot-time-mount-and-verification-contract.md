@@ -9,9 +9,9 @@ date created: 2026-08-01 00:00:00 +09:00
 ## fstab 은 mount 와 검증 플래그를 묶은 부팅 계약이다
 
 상위 문서: [init 서비스 계약](init-service-contracts.md)
-배경 지식: [Device Mapper / dm-verity](02_references/operating-systems/device-mapper-and-dm-verity.md)
+배경 지식: [Device Mapper / dm-verity](../../../../../../02_references/operating-systems/device-mapper-and-dm-verity.md)
 
-Android의 `fstab`(File System Table)은 단순한 파일시스템 마운트 경로 지정을 넘어, First-stage init 마운트 여부, **[dm-verity](02_references/operating-systems/device-mapper-and-dm-verity.md)**(Device Mapper 위에 얹힌 target 중 하나로, 블록을 읽을 때마다 미리 계산해둔 Hash Tree 루트와 대조해 그 블록이 변조되지 않았는지 실시간 검증하는 읽기 전용 무결성 계층) 무결성 검증, File-Based Encryption(FBE) 암호화 옵션, A/B Slot 선택 정책을 init 프로세스에 지시하는 부팅 계약(Boot Contract) 서식이다.
+Android의 `fstab`(File System Table)은 단순한 파일시스템 마운트 경로 지정을 넘어, First-stage init 마운트 여부, **[dm-verity](../../../../../../02_references/operating-systems/device-mapper-and-dm-verity.md)**(Device Mapper 위에 얹힌 target 중 하나로, 블록을 읽을 때마다 미리 계산해둔 Hash Tree 루트와 대조해 그 블록이 변조되지 않았는지 실시간 검증하는 읽기 전용 무결성 계층) 무결성 검증, File-Based Encryption(FBE) 암호화 옵션, A/B Slot 선택 정책을 init 프로세스에 지시하는 부팅 계약(Boot Contract) 서식이다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 

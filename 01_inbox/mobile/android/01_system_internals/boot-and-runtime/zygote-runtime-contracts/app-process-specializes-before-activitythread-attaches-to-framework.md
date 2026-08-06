@@ -9,7 +9,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ## 앱 프로세스는 specialization 뒤 ActivityThread 로 framework 에 attach 한다
 
 상위 문서: [Zygote 런타임 계약](zygote-runtime-contracts.md)
-배경 지식: [네임스페이스(mount namespace)](01_inbox/linux/container-basics.md), [SELinux](01_inbox/linux/security/selinux.md), [seccomp](02_references/operating-systems/seccomp.md)
+배경 지식: [네임스페이스(mount namespace)](../../../../../linux/container-basics.md), [SELinux](../../../../../linux/security/selinux.md), [seccomp](../../../../../../02_references/operating-systems/seccomp.md)
 
 앱 프로세스 생성 과정은 단순히 Zygote의 `fork()`로 끝나지 않으며, 고유 UID/GID 적용, SELinux 도메인 강등, Cgroup 바인딩, App-specific ClassLoader 로딩으로 고유 샌드박스 환경을 구체화하는 **Specialization** 단계를 거친 직후, `ActivityThread.main()`에서 AMS로 Binder `attachApplication()`을 호출하여 비로소 Android 프레임워크 프로세스로 통합되는 메커니즘이다.
 
@@ -20,9 +20,9 @@ date created: 2026-08-01 00:00:00 +09:00
    - 자식 프로세스 내에서 순차적으로 샌드박스 격리(Specialization)를 진행한다:
      a. **Identity Transition**: `setresgid()` 및 `setresuid()`로 root/zygote 권한에서 앱 고유 UID/GID(`u0_aXXX`)로 전이한다.
      b. **Capability Drop**: `capset()`을 호출하여 리눅스 root 캡파빌리티(CAP_SYS_ADMIN 등)를 전부 제거한다.
-     c. **Seccomp Filtering**: `SetSeccompPolicy()`를 통해 **[seccomp](02_references/operating-systems/seccomp.md)**(프로세스가 호출 가능한 시스템 콜을 화이트리스트로 제한해 커널 공격 표면을 줄이는 커널 기능)로 미승인 시스템 콜 호출을 차단하는 커널 샌드박스 필터를 적용한다.
-     d. **Storage Mount Isolation**: `unshare(CLONE_NEWNS)` 및 mount propagation 설정을 통해 앱 전용 격리 파일시스템 **[네임스페이스](01_inbox/linux/container-basics.md)**(프로세스가 보는 마운트 테이블 뷰를 다른 프로세스와 분리해, 같은 경로라도 서로 다른 실체를 보게 만드는 커널 격리 기법)를 구축한다.
-     e. **SELinux Domain Transition**: `selinux_android_setcontext()`로 Zygote 도메인(`u:r:zygote:s0`)에서 앱 샌드박스 도메인(`u:r:untrusted_app:s0`)으로 **[SELinux](01_inbox/linux/security/selinux.md)** 보안 컨텍스트를 강등 전환한다.
+     c. **Seccomp Filtering**: `SetSeccompPolicy()`를 통해 **[seccomp](../../../../../../02_references/operating-systems/seccomp.md)**(프로세스가 호출 가능한 시스템 콜을 화이트리스트로 제한해 커널 공격 표면을 줄이는 커널 기능)로 미승인 시스템 콜 호출을 차단하는 커널 샌드박스 필터를 적용한다.
+     d. **Storage Mount Isolation**: `unshare(CLONE_NEWNS)` 및 mount propagation 설정을 통해 앱 전용 격리 파일시스템 **[네임스페이스](../../../../../linux/container-basics.md)**(프로세스가 보는 마운트 테이블 뷰를 다른 프로세스와 분리해, 같은 경로라도 서로 다른 실체를 보게 만드는 커널 격리 기법)를 구축한다.
+     e. **SELinux Domain Transition**: `selinux_android_setcontext()`로 Zygote 도메인(`u:r:zygote:s0`)에서 앱 샌드박스 도메인(`u:r:untrusted_app:s0`)으로 **[SELinux](../../../../../linux/security/selinux.md)** 보안 컨텍스트를 강등 전환한다.
 2. **`ActivityThread` Entrypoint Invocation**:
    - Specialization이 완료되면 `ZygoteInit`은 `ActivityThread.main(args)` 메서드를 리플렉션(Reflection)으로 호출한다.
    - `ActivityThread.main()`은 `Looper.prepareMainLooper()`를 호출해 앱의 메인 스레드 MessageQueue 및 Handler를 생성한다.

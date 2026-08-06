@@ -77,6 +77,11 @@ class LoginScreenTest {
                 hasRole(Role.Button)
             )
             .assertIsNotEnabled()
+            
+        // 3. ToggleableState (Checkbox, Switch) assertion
+        composeTestRule
+            .onNodeWithTag("login:rememberMeCheckbox")
+            .assertIsOff()
     }
 
     @Test

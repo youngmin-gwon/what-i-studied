@@ -7,7 +7,7 @@ date created: 2026-08-01 00:03:59 +09:00
 ---
 
 ## Verified Boot 는 기기 소프트웨어의 chain of trust 를 만든다
-배경 지식: [Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md), [Device Mapper와 dm-verity](02_references/operating-systems/device-mapper-and-dm-verity.md), [Merkle Tree](02_references/computer-science/merkle-tree.md)
+배경 지식: [Root of Trust](../../../../../security/fundamentals/root-of-trust-and-chain-of-trust.md), [Device Mapper와 dm-verity](../../../../../../02_references/operating-systems/device-mapper-and-dm-verity.md), [Merkle Tree](../../../../../../02_references/computer-science/merkle-tree.md)
 
 Android **Verified Boot(AVB, Android Verified Boot 2.0)**는 전원이 켜지는 순간부터 하드웨어 기반 **Root of Trust(RoT — 더 이상 다른 무언가로 검증되지 않고 그 자체로 신뢰될 수밖에 없는, 하드웨어에 물리적으로 각인된 검증의 출발점)**를 시작으로 Bootloader, Kernel, System/Vendor 파티션 바이너리가 정품 하드웨어 제조업체(OEM)의 암호학적 서명과 해시 체인을 통과했는지를 검증하는 체인 오브 트러스트(Chain of Trust)를 구축한다.
 

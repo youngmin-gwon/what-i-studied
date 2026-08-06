@@ -9,7 +9,7 @@ date created: 2026-07-31 23:45:00 +09:00
 ## SELinux policy는 Binder service와 file boundary를 함께 제어한다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
-배경 지식: [SELinux](01_inbox/linux/security/selinux.md), [IPC](01_inbox/operating-systems/ipc-mechanisms.md)
+배경 지식: [SELinux](../../../../../linux/security/selinux.md), [IPC](../../../../../operating-systems/ipc-mechanisms.md)
 
 Android SELinux(Security-Enhanced Linux) 정책은 파일 디렉터리 및 문자/블록 디바이스 액세스뿐만 아니라, **binderfs**(전통적인 `/dev/binder` 캐릭터 디바이스 대신, 마운트 가능한 pseudo-filesystem 형태로 Binder 디바이스 노드를 동적으로 관리하는 커널 드라이버)를 통한 Binder IPC 통신(Binder 자체의 동작 방식은 아래 관련 문서 참고), **ServiceManager**(시스템 서비스들이 자신을 등록하고 client 가 서비스 이름으로 handle 을 찾을 수 있게 해주는 Android 의 Binder 서비스 registry) 서비스 등록/조회(`add`/`find`), 그리고 **System Property**(기기 전역에서 공유되는 key-value 설정값. `getprop`/`setprop` 으로 조회·설정한다) 읽기/쓰기에 이르는 Android 전용 경계를 통합 강제한다.
 

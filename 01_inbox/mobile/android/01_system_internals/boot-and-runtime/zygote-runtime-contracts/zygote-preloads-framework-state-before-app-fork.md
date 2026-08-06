@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [Zygote 런타임 계약](zygote-runtime-contracts.md)
 
-Zygote는 앱 프로세스보다 먼저 시작해 공통 class와 resource 일부를 preload하고, 같은 ABI의 system·app process가 공유할 수 있는 parent가 된다. 이후 process는 필요할 때 fork되거나, 기기 설정에 따라 미리 fork된 USAP(unspecialized app process) pool에서 specialization된다. preload 범위와 수치는 제품 구성에 따라 달라지며 앱별 class·resource·native initialization까지 준비해 주는 것은 아니다.
+Zygote는 앱 프로세스보다 먼저 시작해 공통 class와 resource 일부를 preload하고, 같은 ABI의 system·app process가 공유할 수 있는 parent가 된다. Fork 시점의 공통 환경은 메모리에 로드된 프레임워크 클래스, 리소스, 네이티브 라이브러리의 Copy-on-Write(CoW) 매핑으로 구성된다. 이후 process는 필요할 때 fork되거나, 기기 설정에 따라 미리 fork된 USAP(unspecialized app process) pool에서 specialization된다. preload 범위와 수치는 제품 구성에 따라 달라지며 앱별 class·resource·native initialization까지 준비해 주는 것은 아니다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 

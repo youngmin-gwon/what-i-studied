@@ -99,6 +99,6 @@ Secure storage 노트는 키 소유권(Key Ownership), 인증 암호화(AEAD), �
 암호화 라이브러리 적용 자체를 안전 보장으로 오해하지 않고, 키 수명주기와 데이터 백업 경계를 별도로 설계한다.
 
 상위 문서: [보안 저장소 계약](secure-storage-contracts.md)
-배경 지식: [암호학 기초 (AEAD/GCM)](01_inbox/security/fundamentals/cryptography-basics.md)
+배경 지식: [암호학 기초 (AEAD/GCM)](../../../../../security/fundamentals/cryptography-basics.md)
 
 관련 노트: [Android Keystore는 추출 불가능성으로 키를 보호한다](android-keystore-protects-keys-by-non-exportability.md)

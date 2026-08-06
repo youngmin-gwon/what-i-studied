@@ -37,8 +37,8 @@ prompt.authenticate(promptInfo, BiometricPrompt.CryptoObject(cipher))
 
 ### 판단 기준
 
-- 복호화·서명처럼 특정 auth-per-use 키 연산을 인증과 원자적으로 결합해야 하면 CryptoObject를 사용한다.
-- 단순 앱 기능 접근 제어 또는 time-based 키 사용에는 CryptoObject 없는 인증이 올바를 수 있다. 인증 결과를 클라이언트의 유일한 서버 권한 검사로 재사용하지는 않는다.
+- **CryptoObject가 필수인 경우**: `setUserAuthenticationRequired(true)`와 함께 timeout을 0(auth-per-use)으로 설정한 Keystore 키를 사용할 때. 이 경우 `CryptoObject` 없이 프롬프트를 띄우면 키 연산 시 `UserNotAuthenticatedException`이 발생한다.
+- **CryptoObject가 불필요한 경우**: timeout을 0보다 크게(time-based) 설정한 키를 사용하거나, 키 없이 단순 앱 화면 진입(기능 접근 제어)만 제한할 때. 이 때는 `CryptoObject` 없는 `authenticate()` 호출만으로 충분하다.
 - `DEVICE_CREDENTIAL` fallback이 필요한 time-based 키 흐름은 CryptoObject를 전달할 수 없는 구성도 있으므로 키의 `setUserAuthenticationParameters()`와 `setAllowedAuthenticators()` 조합을 함께 설계한다.
 - 생체 정보가 변경되면(지문 추가/삭제 등) 키 무효화 여부(`setInvalidatedByBiometricEnrollment`)를 설계 시점에 결정해야 한다.
 

@@ -9,7 +9,7 @@ date created: 2026-07-31 23:58:00 +09:00
 ## CMake, Gradle, ABI는 native build와 packaging 계약을 나눈다
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
-배경 지식: [가상 메모리](02_references/operating-systems/virtual-memory.md)
+배경 지식: [가상 메모리](../../../../../../02_references/operating-systems/virtual-memory.md)
 
 Android 앱 개발 환경에서 Native C/C++ 코드를 컴파일하고 패키징할 때 CMake, AGP(Android Gradle Plugin), 그리고 ABI(Application Binary Interface)는 명확히 책임이 분리된 빌드 계약을 이룬다.
 
@@ -28,7 +28,7 @@ graph TD
 ```
 
 1. **Cross-Compilation Binding**: CMake 실행 시 AGP는 NDK 내부의 toolchain file(`android.toolchain.cmake`)을 주입하고 `-DANDROID_ABI=arm64-v8a` 및 `-DANDROID_PLATFORM=android-24` 옵션을 전달하여 기기 타깃 아키텍처에 맞게 C/C++ 바이너리를 빌드한다.
-2. **APK Packaging Contract**: APK 내부의 native library는 `lib/<abi_name>/lib<name>.so` 구조로 패키징된다. 압축되지 않고 적절히 ZIP-aligned된 `.so`는 platform dynamic linker가 APK에서 직접 `mmap()`할 수 있다. ART가 ELF shared object를 직접 로딩한다고 설명하지 않는다. AGP가 생성한 manifest·packaging 설정과 16KB ZIP/ELF alignment를 artifact에서 검증한다.
+2. **APK Packaging Contract**: APK 내부의 native library는 `lib/<abi_name>/lib<name>.so` 구조로 패키징된다. 압축되지 않고 적절히 page-aligned된 `.so`는 앱이 `System.loadLibrary()`를 호출할 때 platform dynamic linker(Bionic)가 APK에서 직접 `mmap()`할 수 있다. ART VM이 ELF shared object를 직접 로딩한다고 설명하지 않으며 단지 Bionic linker로 위임할 뿐이다. AGP가 생성한 manifest·packaging 설정과 16KB ZIP/ELF alignment를 artifact에서 검증한다.
 
 ---
 
@@ -79,7 +79,7 @@ target_link_libraries(native-lib ${log-lib} ${android-lib})
 ### 실무 규칙
 
 - 64비트 아키텍처 지원이 필수이므로, APK 배포 시 `armeabi-v7a`만 포함하고 `arm64-v8a` 라이브러리를 누락하면 Google Play 스토어 등록이 거부되거나 최신 64-bit only 디바이스(Pixel 7+)에서 `UnsatisfiedLinkError` 패닉이 발생한다.
-- 여러 native dependency가 `libc++_shared.so`를 포함하면 하나의 호환되는 libc++ runtime으로 버전과 packaging을 통일한다. `pickFirsts`는 중복 파일 중 하나를 임의 정책으로 선택할 뿐 ABI 호환성을 증명하지 않으므로 마지막 수단으로만 쓴다. `c++_static`도 여러 shared library에 각각 포함하면 allocation·exception·RTTI 객체를 library 경계로 넘길 때 문제가 생길 수 있어 전체 dependency 구성을 검토해야 한다.
+- 여러 native dependency가 `libc++_shared.so`를 포함하면 하나의 호환되는 libc++ runtime으로 버전과 packaging을 통일한다. `packagingOptions`의 `pickFirsts`는 중복 파일 중 하나를 임의로 선택해 빌드 오류만 우회할 뿐 런타임의 ABI 호환성을 증명하거나 충돌을 해결해주지 않으므로 근본적 해결책이 아니다. `c++_static`도 여러 shared library에 각각 포함하면 allocation·exception·RTTI 객체를 library 경계로 넘길 때 문제가 생길 수 있어 전체 dependency 구성을 검토해야 한다.
 
 ---
 

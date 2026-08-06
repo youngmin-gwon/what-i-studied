@@ -9,7 +9,7 @@ date created: 2026-07-31 23:58:00 +09:00
 ## HAL은 framework와 vendor 구현 사이의 안정된 userspace contract다
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
-배경 지식: [커널/유저 모드](02_references/operating-systems/kernel.md)
+배경 지식: [커널/유저 모드](../../../../../../02_references/operating-systems/kernel.md)
 
 HAL 은 하드웨어 제조사 구현을 Android framework 코드와 분리하기 위한 표준 **userspace**(유저 모드 — CPU 의 특권 명령 실행 권한이 없어 하드웨어에 직접 접근하지 못하고, 커널이 제공하는 시스템 콜을 통해서만 그 기능을 사용할 수 있는 일반 프로세스 실행 영역) interface 다.
 

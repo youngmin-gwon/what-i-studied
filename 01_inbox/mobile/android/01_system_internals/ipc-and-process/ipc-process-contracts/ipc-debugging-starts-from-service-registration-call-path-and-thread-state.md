@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [IPC and process contracts](ipc-process-contracts.md)
 
-배경 지식: [SELinux](01_inbox/linux/security/selinux.md)
+배경 지식: [SELinux](../../../../../linux/security/selinux.md)
 
 IPC 문제는 "호출이 실패했다"만 보면 원인이 넓다. service 가 등록됐는지, caller 가 **handle**(원격 객체를 가리키는 정수 토큰 — 자세한 내용은 [Binder는 객체 참조를 커널이 중재하는 capability IPC다](binder-is-kernel-mediated-object-capability-ipc.md) 참고)을 얻었는지, permission 이 통과했는지, Binder thread 가 막혔는지, callee process 가 살아 있는지를 순서대로 좁혀야 한다.
 

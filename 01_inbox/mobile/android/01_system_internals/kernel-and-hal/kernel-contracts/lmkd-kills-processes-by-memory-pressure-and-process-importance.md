@@ -9,7 +9,7 @@ date created: 2026-07-31 23:45:00 +09:00
 ## LMKD는 free memory가 아니라 memory pressure와 process importance로 종료를 결정한다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
-배경 지식: [OOM Killer와 메모리 압박/PSI](02_references/operating-systems/oom-killer-and-memory-pressure.md)
+배경 지식: [OOM Killer와 메모리 압박/PSI](../../../../../../02_references/operating-systems/oom-killer-and-memory-pressure.md)
 
 Low memory killer daemon(lmkd)은 Android 시스템의 **memory pressure**(메모리 압박 — 가용 메모리가 줄어들어 커널이 페이지 회수·swap 을 계속 시도해야 하는 상태. 리눅스 커널의 전통적 OOM Killer 와 PSI 에 대한 일반 설명은 위 배경 지식 참고)를 감시하고, 압력이 높을 때 덜 중요한 process 를 종료해 사용자 체감 성능을 유지한다. lmkd 는 커널의 일부가 아니라 userspace 데몬이며, 커널의 최후 안전망인 OOM Killer 가 개입하기 *전에* 선제적으로 프로세스를 죽여 화면 멈춤을 막는 역할을 한다.
 

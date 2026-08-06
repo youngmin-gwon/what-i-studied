@@ -9,7 +9,7 @@ date created: 2026-07-31 23:58:00 +09:00
 ## Native system service는 init이 띄우고 Binder로 발견되는 endpoint다
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
-배경 지식: [fork/exec](01_inbox/operating-systems/process-states-lifecycle.md)
+배경 지식: [fork/exec](../../../../../operating-systems/process-states-lifecycle.md)
 
 Native System Service(SurfaceFlinger, AudioFlinger/audioserver, media.extractor, installd, keystore2 등)는 C++/Rust로 작성되어 `init` 데몬의 실행 스크립트(`init.rc`)에 의해 독립된 프로세스로 출범하고, `ServiceManager`에 IPC 바인더 서비스로 등록되는 시스템 엔드포인트다.
 

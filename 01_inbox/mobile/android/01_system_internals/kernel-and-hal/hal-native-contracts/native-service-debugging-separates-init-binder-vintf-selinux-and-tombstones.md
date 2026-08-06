@@ -9,7 +9,7 @@ date created: 2026-07-31 23:58:00 +09:00
 ## Native service 디버깅은 init, Binder, VINTF, SELinux, tombstone을 분리한다
 
 상위 문서: [HAL native contracts](hal-native-contracts.md)
-배경 지식: [SELinux](01_inbox/linux/security/selinux.md)
+배경 지식: [SELinux](../../../../../linux/security/selinux.md)
 
 Native Daemon 및 HAL 서비스의 부팅 거부, 무응답(Hang), 사망 반복(Crash Loop) 장애를 분석할 때는 모든 현상을 단순한 "서비스 미작동"으로 뭉뚱그려 진단해서는 안 된다.
 

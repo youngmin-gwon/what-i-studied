@@ -10,6 +10,27 @@ date created: 2026-08-03 17:29:24 +09:00
 
 이 지도는 생체 인증 표준 UI를 제공하고 키 해제를 담당하는 **BiometricPrompt**, 프롬프트 표시 전 기기의 하드웨어 상태를 확인하는 사전 검증 API인 **BiometricManager**, 그리고 비밀번호·패스키·SSO 로그인을 통합 시트로 다루는 **CredentialManager**라는 세 핵심 계약을 분리한다. 실제 물리 키 저장 및 암호화 알고리즘 자체는 다루지 않는다.
 
+### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
+
+- **BiometricManager**: 하드웨어 가용성과 등록 여부를 `canAuthenticate()`로 확인.
+- **BiometricPrompt**: 시스템이 제공하는 인증 UI 표시 및 `CryptoObject`를 통한 키 해제.
+- **CredentialManager**: `GetCredentialRequest`를 통해 패스키와 비밀번호 등을 단일 인터페이스로 요청.
+
+```kotlin
+// BiometricPrompt 예시
+val biometricPrompt = BiometricPrompt(activity, executor, callback)
+val promptInfo = BiometricPrompt.PromptInfo.Builder()
+    .setTitle("생체 인증")
+    .setNegativeButtonText("취소")
+    .build()
+biometricPrompt.authenticate(promptInfo) // 암호화 연동 시 cryptoObject 전달
+```
+
+### 관찰 신호 (Observation Signals)
+
+- `canAuthenticate()`가 `BIOMETRIC_ERROR_NONE_ENROLLED`를 반환하는지 로그 확인.
+- `BiometricPrompt.AuthenticationCallback`의 `onAuthenticationSucceeded` 호출 시점 추적.
+
 ### 읽는 순서
 
 1. [BiometricPrompt는 인증 UI와 키 사용 승인을 함께 처리한다](./biometricprompt-couples-authentication-ui-with-key-authorization.md)에서 인증과 crypto 객체의 관계를 본다.

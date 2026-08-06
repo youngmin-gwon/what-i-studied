@@ -9,7 +9,7 @@ date created: 2026-07-31 23:45:00 +09:00
 ## PSI는 free memory가 아니라 stall time을 측정한다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
-배경 지식: [OOM Killer와 메모리 압박/PSI](02_references/operating-systems/oom-killer-and-memory-pressure.md)
+배경 지식: [OOM Killer와 메모리 압박/PSI](../../../../../../02_references/operating-systems/oom-killer-and-memory-pressure.md)
 
 Pressure Stall Information(PSI)은 memory, CPU, I/O 자원이 부족해서 **task**(커널이 스케줄링하는 프로세스/스레드 실행 단위)가 실제로 얼마나 오래 실행되지 못하고 멈춰(stall) 있었는지를 측정하는 kernel signal(여기서 signal 은 POSIX 시그널이 아니라, 커널이 노출하는 관측 가능한 지표라는 뜻의 관용적 표현)이다. free memory 같은 정적 수치는 "지금 얼마나 남았는가"만 보여줄 뿐 실제 체감 성능을 잘 설명하지 못하는데(왜 그런지는 위 배경 지식 참고), PSI 는 그 대안으로 "자원 부족 때문에 작업이 대기한 시간" 자체를 직접 측정한다.
 
@@ -57,7 +57,7 @@ write(fd, "some 150000 1000000", 19);
 // epoll로 fd 감시 → 임계치 초과 시 lmkd가 kill 결정
 ```
 
-이렇게 등록한 임계치는 lmkd 가 반복적으로 파일을 읽어 폴링(polling)할 필요 없이, `epoll` 같은 이벤트 통지 메커니즘으로 감시할 수 있다(배경: [epoll/I·O 멀티플렉싱](02_references/operating-systems/epoll-and-io-multiplexing.md)) — 임계치를 넘는 순간 커널이 곧바로 fd 를 깨워주므로 lmkd 는 CPU 를 낭비하며 상태를 반복 확인하지 않아도 된다.
+이렇게 등록한 임계치는 lmkd 가 반복적으로 파일을 읽어 폴링(polling)할 필요 없이, `epoll` 같은 이벤트 통지 메커니즘으로 감시할 수 있다(배경: [epoll/I·O 멀티플렉싱](../../../../../../02_references/operating-systems/epoll-and-io-multiplexing.md)) — 임계치를 넘는 순간 커널이 곧바로 fd 를 깨워주므로 lmkd 는 CPU 를 낭비하며 상태를 반복 확인하지 않아도 된다.
 
 ### 판단 기준
 

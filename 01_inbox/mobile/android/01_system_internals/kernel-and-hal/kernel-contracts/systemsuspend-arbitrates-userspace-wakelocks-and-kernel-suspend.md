@@ -9,7 +9,7 @@ date created: 2026-07-31 23:45:00 +09:00
 ## SystemSuspend는 userspace wakelock과 kernel suspend를 중재한다
 
 상위 문서: [Kernel contracts](kernel-contracts.md)
-배경 지식: [ACPI/전원 상태](01_inbox/operating-systems/acpi-and-power-states.md)
+배경 지식: [ACPI/전원 상태](../../../../../operating-systems/acpi-and-power-states.md)
 
 Android 10부터 도입된 `system_suspend` 네이티브 데몬(SystemSuspend Service)은 userspace 프로세스의 **WakeLock**(디바이스가 suspend 로 들어가지 못하게 막는 잠금 — 정의는 [Wakelock은 background work 권한이 아니라 suspend blocker다](wakelocks-are-suspend-blockers-not-background-work-permission.md) 참고) 요청과 커널 수준의 **Deep Sleep**(Suspend-to-RAM — CPU 를 포함한 대부분의 하드웨어 전원을 끄고 RAM 내용만 유지하는 저전력 상태. 전원 상태 일반에 대한 배경은 위 링크 참고) 진입 사이를 중간에서 중재하는 **AIDL/HIDL**(Android/HAL 인터페이스를 코드 생성 형태로 정의하는 IDL — Binder 로 오가는 메서드 시그니처를 언어 중립적으로 선언한다. HIDL 은 HAL 전용 옛 버전이고 지금은 AIDL 로 통합되는 추세다) 기반 파워 관리 서비스다.
 

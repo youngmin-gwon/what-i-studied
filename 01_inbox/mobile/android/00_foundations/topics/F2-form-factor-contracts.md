@@ -48,7 +48,7 @@ TV 앱은 터치스크린이 없음을 명시적으로 선언해야 하며, 사�
 
 #### 3.4. ChromeOS (데스크톱)
 ChromeOS의 Android runtime은 세대와 기기 구성에 따라 다르다. 초기 ARC++는 container 기반이었고, 최신 ARCVM 구현은 Android stack을 별도 virtual machine에서 실행한다. 앱은 구현 방식을 추측하기보다 resizable window, 키보드·마우스·터치, focus, density와 lifecycle 변화 같은 관찰 가능한 desktop contract에 대응한다.
-- [ChromeOS는 데스크톱 윈도우에 매핑된 컨테이너에서 안드로이드 앱을 실행한다](../../07_platforms/chromeos/chromeos-contracts/chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows.md)
+- [ChromeOS는 데스크톱 윈도우에 매핑된 컨테이너/가상머신에서 안드로이드 앱을 실행한다](../../07_platforms/chromeos/chromeos-contracts/chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows.md)
 
 #### 3.5. Android XR (공간 컴퓨팅)
 XR(혼합현실) 환경은 기존 2D 평면을 넘어선 공간적 폼 팩터입니다. 앱은 런타임에 기기의 공간 표시(Spatial) 능력을 확인하고 3D 상호작용에 대응해야 합니다.

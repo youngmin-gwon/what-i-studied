@@ -95,7 +95,8 @@ sequenceDiagram
 1. **시스템 '터치 진동' 설정 연동**:
    - `HapticFeedbackType` 을 사용하는 모든 피드백은 안드로이드 OS 설정의 `Settings.System.HAPTIC_FEEDBACK_ENABLED` (터치 진동) 옵션을 자동 준수한다. 사용자가 터치 진동을 끈 경우 코드가 실행되어도 부작용 없이 조용히 무시된다.
 2. **Platform Fallback**:
-   - `HapticFeedbackConstants`는 지원되는 SDK 상수를 사용하면 앱이 파형별 지원 여부를 따로 검사하지 않아도 프레임워크가 기기별 구현 또는 폴백을 선택한다. 다만 `Confirm`이 반드시 `LongPress`, `Reject`가 반드시 `VirtualKey`로 대체된다는 식의 구체적인 매핑은 공개 API 계약이 아니다.
+   - `HapticFeedbackConstants`는 의미(Semantic) 기반이므로 기기의 모터 특성에 맞춰 OS가 가장 적절한 패턴이나 폴백을 알아서 선택한다. 앱이 파형별 지원 여부를 직접 검사할 필요가 없다.
+   - 반면 `VibrationEffect.createPredefined()` 같은 저수준 API는 기기가 해당 파형을 지원하지 않으면 진동이 무시될 수 있으므로 `Vibrator.areAllEffectsSupported()` 등으로 미리 확인하고 직접 폴백을 구현해야 한다.
 
 ---
 

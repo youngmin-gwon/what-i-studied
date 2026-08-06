@@ -9,9 +9,9 @@ date created: 2026-08-01 00:00:00 +09:00
 ## AVB 는 부팅 이미지의 신뢰와 rollback 방지를 검증한다
 
 상위 문서: [부팅 흐름 계약](boot-flow-contracts.md)
-배경 지식: [Root of Trust/Chain of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md), [Merkle Tree](02_references/computer-science/merkle-tree.md)
+배경 지식: [Root of Trust/Chain of Trust](../../../../../security/fundamentals/root-of-trust-and-chain-of-trust.md), [Merkle Tree](../../../../../../02_references/computer-science/merkle-tree.md)
 
-AVB(Android Verified Boot 2.0)는 하드웨어 **[Root of Trust](01_inbox/security/fundamentals/root-of-trust-and-chain-of-trust.md)**(RoT — 더 이상 다른 무언가로 검증되지 않고 그 자체로 신뢰될 수밖에 없는 출발점. 보통 SoC 제조 시점에 물리적으로 새겨 소프트웨어로는 바꿀 수 없는 공개키/해시)로부터 시작하여 Bootloader, Kernel, System 파티션에 이르기까지 부팅 단계별 암호화 서명과 **[Hash Tree](02_references/computer-science/merkle-tree.md)**(Merkle Tree — 데이터를 블록 단위로 해싱한 뒤 이진 트리로 계속 묶어 올려 루트 해시 하나로 전체 무결성을 표현하는 구조)를 검증하고, 보완적으로 버전 다운그레이드 공격을 막는 Rollback Protection을 수행하는 부팅 보안 메커니즘이다.
+AVB(Android Verified Boot 2.0)는 하드웨어 **[Root of Trust](../../../../../security/fundamentals/root-of-trust-and-chain-of-trust.md)**(RoT — 더 이상 다른 무언가로 검증되지 않고 그 자체로 신뢰될 수밖에 없는 출발점. 보통 SoC 제조 시점에 물리적으로 새겨 소프트웨어로는 바꿀 수 없는 공개키/해시)로부터 시작하여 Bootloader, Kernel, System 파티션에 이르기까지 부팅 단계별 암호화 서명과 **[Hash Tree](../../../../../../02_references/computer-science/merkle-tree.md)**(Merkle Tree — 데이터를 블록 단위로 해싱한 뒤 이진 트리로 계속 묶어 올려 루트 해시 하나로 전체 무결성을 표현하는 구조)를 검증하고, 보완적으로 버전 다운그레이드 공격을 막는 Rollback Protection을 수행하는 부팅 보안 메커니즘이다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 

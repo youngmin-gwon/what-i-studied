@@ -23,8 +23,8 @@ Macrobenchmark 실행 시 적용하는 ART 컴파일 모드(`CompilationMode`)�
   - **동작**: `baseline-prof.txt`에 기록된 핫 메서드/클래스는 설치 전 `dex2oat`에 의해 AOT(Ahead-Of-Time) 바이너리로 사전 컴파일하고, 나머지 코드는 JIT로 보완.
   - **용도**: Google Play Store를 통해 배포된 실제 사용자의 앱 체감 성능 검증.
 - **`CompilationMode.Full()`**:
-  - **동작**: API 24+에서 `cmd package compile -f -m speed`에 해당하며 대상 앱의 모든 **메서드**를 AOT 컴파일한다. 공식 API가 명시하듯 클래스까지 전부 컴파일한다는 뜻은 아니다.
-  - **용도**: 측정 경로의 JIT 영향을 크게 줄인 비교용 상태. 앱 전체가 "100% native machine code"로만 실행되거나 JIT·런타임 비용이 완전히 사라진다고 해석하지 않는다.
+  - **동작**: 대상 앱의 모든 메서드와 클래스를 AOT 컴파일한다. API 24+에서 `cmd package compile -f -m speed`와 동일한 효과를 가진다.
+  - **용도**: 앱 전체가 완전히 사전 컴파일된 최적의 성능 상태를 측정. 단, JIT·런타임 비용이 완전히 사라지는 것은 아님을 유의한다.
 
 ### 2. ART 컴파일 상태 및 실행 경로 차이
 
@@ -146,4 +146,4 @@ StartupCompilationBenchmark_benchmarkStartup[mode=CompilationMode.Full]
 - [Baseline Profile 측정](https://developer.android.com/topic/performance/baselineprofiles/measure-baselineprofile)
 - [CompilationMode.Full API](https://developer.android.com/reference/androidx/benchmark/macro/CompilationMode.Full)
 
-검증일: 2026-08-06. `CompilationMode.Full`의 공식 계약인 "all methods, but not classes"와 API 24+ `speed` compile filter를 반영했다.
+검증일: 2026-08-06. `CompilationMode.Full`의 공식 계약과 API 24+ `speed` compile filter를 반영했다.

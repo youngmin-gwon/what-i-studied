@@ -1,22 +1,22 @@
 ---
-title: kmp-can-share-logic-with-native-ui-or-share-ui-with-compose-multiplatform
+title: kmp-shares-business-logic-and-data-layer-while-ui-stays-native-by-default
 tags: [android, android/architecture, android/multiplatform]
-aliases: ["Kotlin Multiplatform은 공유 로직과 플랫폼 UI 또는 Compose Multiplatform 공유 UI를 선택할 수 있다", "Kotlin Multiplatform은 비즈니스 로직과 데이터 레이어를 공유하고 UI는 기본적으로 플랫폼별로 유지한다"]
+aliases: ["Kotlin Multiplatform은 비즈니스 로직과 데이터 레이어를 공유하고 UI는 기본적으로 플랫폼별로 유지한다"]
 date modified: 2026-08-06 14:50:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
-## Kotlin Multiplatform은 공유 로직과 플랫폼 UI 또는 Compose Multiplatform 공유 UI를 선택할 수 있다
+## Kotlin Multiplatform은 비즈니스 로직과 데이터 레이어를 공유하고 UI는 기본적으로 플랫폼별로 유지한다
 
-**Kotlin Multiplatform(KMP)은 공유 범위를 고정하지 않는다.** 팀은 계산·도메인·데이터 계층 일부만 공유할 수도 있고, Android의 Jetpack Compose와 iOS의 SwiftUI처럼 플랫폼 UI를 유지하면서 로직을 공유할 수도 있으며, Compose Multiplatform으로 UI까지 공유할 수도 있다. 선택 기준은 플랫폼별 UX 요구, 접근성·interop 검증 비용, 팀 역량, 기존 코드와 출시 전략이다.
+**Kotlin Multiplatform(KMP)**의 기본 원칙은 공통 비즈니스 로직(도메인, 데이터 계층)을 공유하고 UI는 각 플랫폼의 네이티브(Android Jetpack Compose, iOS SwiftUI)로 작성하는 것이다. 하지만 팀의 요구사항에 따라 **Compose Multiplatform**을 사용하여 UI까지 공유하는 선택을 할 수도 있다. 두 가지 접근 방식의 차이를 인지해야 한다.
 
 ---
 
 ### 1. 개념 및 핵심 명제 (What)
 
-- **공유 로직 + 플랫폼 UI**:
+- **공유 로직 + 플랫폼 UI (Native by Default)**:
   공통 비즈니스 규칙과 데이터 접근을 재사용하면서 Android와 iOS의 UI 코드·탐색·플랫폼 관례를 독립적으로 설계한다. 플랫폼 특화 UX가 중요하거나 기존 UI를 점진적으로 유지해야 할 때 유용하지만, UI 구현과 테스트는 중복될 수 있다.
-- **공유 로직 + 공유 UI**:
+- **공유 로직 + 공유 UI (Compose Multiplatform)**:
   Compose Multiplatform을 사용해 화면이나 컴포넌트, 경우에 따라 앱 UI 대부분을 공유한다. 일관성과 개발 속도를 높일 수 있지만 플랫폼별 동작, 접근성, 입력, 성능과 native interop을 대상 플랫폼에서 실제로 검증해야 한다.
 - **단계적 공유**:
   한 계산 모듈이나 데이터 계층부터 시작해 효과가 확인된 경계만 넓힐 수 있다. KMP 자체가 특정 공유 비율이나 UI 전략을 요구하지 않는다.

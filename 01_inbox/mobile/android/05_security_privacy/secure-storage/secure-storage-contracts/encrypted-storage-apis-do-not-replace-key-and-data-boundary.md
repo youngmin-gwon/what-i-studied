@@ -8,7 +8,7 @@ date created: 2026-07-31 17:04:40 +09:00
 
 ## 암호화 저장소 API 는 키와 데이터 경계 설계를 대체하지 않는다
 
-암호화 저장소 추상화는 디스크 암호화를 쉽게 만들 수 있지만, **키 수명주기(Key Lifecycle), 키 회전(Key Rotation), 데이터 분류 및 예외 복구 경계 설계**를 자동으로 해결하지 않는다. 특히 `androidx.security:security-crypto` 1.1.0에서 `EncryptedSharedPreferences`, `EncryptedFile`, `MasterKey`를 포함한 모든 API가 deprecated 되었다. 새 코드는 플랫폼 `SharedPreferences`/`File`과 Android Keystore·표준 JCA 암호 API를 조합하거나, 보안 검토된 별도 저장소 계층을 사용한다.
+암호화 저장소 추상화는 디스크 암호화를 쉽게 만들 수 있지만, **키 수명주기(Key Lifecycle), 키 회전(Key Rotation), 데이터 분류 및 예외 복구 경계 설계**를 자동으로 해결하지 않는다. 특히 `androidx.security:security-crypto` 1.1.0에서 `EncryptedSharedPreferences`, `EncryptedFile`, `MasterKey`를 포함한 모든 API가 deprecated 되었다. 새 코드는 Jetpack DataStore와 Android Keystore·표준 JCA 암호 API를 조합하거나, 보안 검토된 별도 저장소 계층을 사용한다.
 
 ```mermaid
 flowchart TD
