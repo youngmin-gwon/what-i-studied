@@ -8,7 +8,7 @@ date created: 2026-07-31 23:59:30 +09:00
 
 ## 프로젝트 Adaptive Local 은 Android 표준이 아닌 설계 결정이다
 
-`LocalWindowSizeClass`, `LocalAdaptiveInfo` 같은 Jetpack 제공 Local 외에, 프로젝트가 자체적으로 정의한 `**CompositionLocal**(UI 트리 상위에서 하위로 매개변수 전달 없이 암시적으로 데이터를 전파하는 스코프 메커니즘)` 값(예: 화면 크기 구간, 레이아웃 모드, 브랜드 토큰)은 Android SDK 나 Compose 표준 API 가 아니라 프로젝트의 design-system 결정이다.
+`LocalWindowSizeClass`, `LocalAdaptiveInfo` 같은 Jetpack 제공 Local 외에, 프로젝트가 자체적으로 정의한 `CompositionLocal`(UI 트리 상위에서 하위로 매개변수 전달 없이 암시적으로 데이터를 전파하는 스코프 메커니즘) 값(예: 화면 크기 구간, 레이아웃 모드, 브랜드 토큰)은 Android SDK 나 Compose 표준 API 가 아니라 프로젝트의 design-system 결정이다.
 
 이런 값은 다른 프로젝트에서 동일한 이름이나 분할 방식을 가정하지 않는다. 정본 노트에는 API 규칙이 아니라 "이 프로젝트가 왜 이 값을 Local 로 제공하는가"와 함께 type, default, provider 위치, consumer, recomposition 비용을 실제 구현과 맞춰 기록한다.
 

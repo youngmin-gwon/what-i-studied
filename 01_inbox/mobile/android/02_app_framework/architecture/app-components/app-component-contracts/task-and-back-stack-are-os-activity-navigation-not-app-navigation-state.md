@@ -1,5 +1,5 @@
 ---
-title: task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md
+title: task-and-back-stack-are-os-activity-navigation-not-app-navigation-state
 tags: [android, android/app-components, android/architecture, android/navigation]
 aliases: ["Android task와 app back stack은 OS activity 내비게이션이다"]
 date modified: 2026-08-05 16:15:00 +09:00

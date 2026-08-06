@@ -6,10 +6,9 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md)
-
-
 ## Timeout·재시도 정책은 UI 에 노출할 실패 상태를 결정하고 offline-first 로컬 쓰기와 연결된다
+
+배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md)
 
 네트워크 클라이언트 계층의 실패는 한 가지 종류가 아니다. `OkHttpClient` 의 `connectTimeout`/`readTimeout` 은 소켓 수준에서 "얼마나 기다릴지"를 정하고, HTTP 상태 코드는 서버가 요청을 거부했는지 성공했는지를 알려주며, `IOException` 은 서버에 도달조차 못했다는 뜻이다. 이 세 종류를 구분하지 않고 하나의 "실패"로 뭉뚱그리면, [Learning Spine 8장](../../../../00_foundations/learning-spine/08-data-storage-network-and-offline-recovery.md)이 다루는 offline-first 모델에서 로컬 쓰기 이후 어떤 동기화 상태를 사용자에게 보여줄지 결정할 수 없다.
 

@@ -6,10 +6,9 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-배경 지식: [웹 브라우저 보안](../../../../../../security/attacks/web-browser-security.md)
-
-
 ## WebView는 신뢰된 앱 프로세스 안에서 신뢰되지 않은 웹 콘텐츠를 실행한다
+
+배경 지식: [웹 브라우저 보안](../../../../../../security/attacks/web-browser-security.md)
 
 `WebView` 는 Chromium 기반 렌더링 엔진으로 HTML/JavaScript 를 화면에 그린다. 문제는 그 콘텐츠의 출처다. 앱 자체는 서명, 권한, UID 로 신뢰되지만 `WebView` 가 로드하는 URL 은 공격자가 통제하는 서버일 수 있고, 리다이렉트나 mixed content 로 콘텐츠가 중간에 뒤바뀔 수도 있다. 즉 `WebView` 는 신뢰 경계(OS 권한을 가진 앱 프로세스 영역과 신뢰할 수 없는 외부 웹 사이트 영역 사이의 경계선)가 다른 두 세계 — 신뢰된 네이티브 앱 프로세스와 신뢰할 수 없는 웹 콘텐츠 — 를 하나의 화면 안에 붙여 넣는 컴포넌트다.
 

@@ -1,5 +1,5 @@
 ---
-title: context-is-android-environment-capability-not-dependency-container.md
+title: context-is-android-environment-capability-not-dependency-container
 tags: [android, android/architecture, android/context]
 aliases: ["Context는 안드로이드 환경 역량이지 의존성 주입 용기가 아니다"]
 date modified: 2026-08-05 16:15:00 +09:00

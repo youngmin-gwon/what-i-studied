@@ -109,6 +109,7 @@ def audit(vault: Path, android: Path):
     edges: dict[Path, set[Path]] = collections.defaultdict(set)
     stems: dict[str, list[Path]] = collections.defaultdict(list)
     bodies: dict[str, list[Path]] = collections.defaultdict(list)
+    paragraphs: dict[str, list[tuple[Path, str]]] = collections.defaultdict(list)
     metrics = collections.Counter()
 
     for path in files:
@@ -151,10 +152,62 @@ def audit(vault: Path, android: Path):
         body = re.sub(r"\s+", " ", "\n".join(lines[fm_end:])).strip()
         if body:
             bodies[hashlib.sha256(body.encode()).hexdigest()].append(path)
+        for paragraph in re.split(r"\n\s*\n", prose_only("\n".join(lines[fm_end:]))):
+            normalized = re.sub(r"\s+", " ", paragraph).strip()
+            if len(normalized) >= 120 and not normalized.startswith(("#", "|", "- [", "검증일:")):
+                digest = hashlib.sha256(normalized.encode()).hexdigest()
+                paragraphs[digest].append((path, normalized))
         if len(lines) <= 14:
             issues["very_short_14"].append({"file": rel, "detail": len(lines)})
         if len(lines) > 120 and not re.search(r"(?:map|contracts|glossary|topics|learning-spine|worked-examples|diagnostic-runbooks)", rel):
             issues["long_nonhub_120"].append({"file": rel, "detail": len(lines)})
+
+        is_atomic = (
+            "_meta" not in path.parts
+            and "glossary" not in path.parts
+            and "topics" not in path.parts
+            and "learning-spine" not in path.parts
+            and "worked-examples" not in path.parts
+            and "diagnostic-runbooks" not in path.parts
+            and not path.stem.endswith("contracts")
+            and not path.stem.endswith("map")
+            and not path.stem.startswith("android-")
+        )
+        if is_atomic:
+            code_languages = [
+                language
+                for inside, language, _, _ in split_fences(text)
+                if inside and language not in ("", "text", "plaintext", "mermaid")
+            ]
+            has_diagram = "```mermaid" in text or bool(
+                re.search(r"[┌┐└┘├┤┬┴┼│─]|(?:-->|=>|→).*(?:-->|=>|→)", text)
+            )
+            has_evidence = bool(
+                re.search(
+                    r"\b(?:adb|dumpsys|logcat|perfetto|bugreport|apkanalyzer|apksigner|"
+                    r"Exception|Error|trace|profiler)\b|관찰|출력 예시|정상 신호|실패 신호",
+                    text,
+                    re.I,
+                )
+            )
+            has_mechanism = bool(
+                re.search(r"메커니즘|동작 흐름|상태 전이|호출 경로|실행 흐름|내부 동작|작동 원리", text)
+            )
+            score = sum((bool(code_languages), has_diagram, has_evidence, has_mechanism))
+            if score < 3:
+                issues["atomic_substance_signal_lt3"].append(
+                    {
+                        "file": rel,
+                        "detail": {
+                            "score": score,
+                            "code": bool(code_languages),
+                            "diagram": has_diagram,
+                            "evidence": has_evidence,
+                            "mechanism_phrase": has_mechanism,
+                            "lines": len(lines),
+                        },
+                    }
+                )
 
         for inside, language, start, block in split_fences(text):
             if not inside:
@@ -181,6 +234,17 @@ def audit(vault: Path, android: Path):
     for digest, paths in bodies.items():
         if len(paths) > 1:
             issues["duplicate_body"].append({"hash": digest[:12], "files": [p.relative_to(vault).as_posix() for p in paths]})
+    for digest, occurrences in paragraphs.items():
+        distinct = sorted({path for path, _ in occurrences})
+        if len(distinct) >= 3:
+            issues["repeated_paragraph_3plus"].append(
+                {
+                    "hash": digest[:12],
+                    "count": len(distinct),
+                    "sample": occurrences[0][1][:240],
+                    "files": [path.relative_to(vault).as_posix() for path in distinct],
+                }
+            )
 
     root = android / "00_foundations" / "android-foundation-map.md"
     seen = {root}

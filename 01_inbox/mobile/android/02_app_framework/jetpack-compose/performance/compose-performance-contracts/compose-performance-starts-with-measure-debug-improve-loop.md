@@ -25,7 +25,7 @@ trace 는 Android Studio Profiler 의 System Trace(Perfetto 기반)나 Macrobenc
 
 마지막으로 작은 변경을 적용하고 같은 조건에서 다시 측정한다.
 
-이 순환이 없으면 `remember`, `**derivedStateOf**(고빈도 입력 상태 변경 중 최종 결과값이 뒤집힐 때만 Recomposition 스코프를 무효화하는 파생 상태 생성 API)`, lazy layout 교체 같은 처방이 실제 사용자 성능을 개선했는지 알 수 없다.
+이 순환이 없으면 `remember`, `derivedStateOf`(고빈도 입력 상태 변경 중 최종 결과값이 뒤집힐 때만 Recomposition 스코프를 무효화하는 파생 상태 생성 API), lazy layout 교체 같은 처방이 실제 사용자 성능을 개선했는지 알 수 없다.
 
 Compose 는 필요한 부분만 다시 실행할 수 있지만, 모든 코드가 자동으로 빠르다는 뜻은 아니다.
 

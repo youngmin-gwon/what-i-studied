@@ -1,5 +1,5 @@
 ---
-title: product-and-subscription-purchases-have-different-lifecycles.md
+title: product-and-subscription-purchases-have-different-lifecycles
 tags: ["android", "billing", "subscription", "inapp-product"]
 aliases: ["제품과 구독 구매는 서로 다른 라이프사이클을 가진다"]
 date created: 2026-07-31 17:52:17 +09:00

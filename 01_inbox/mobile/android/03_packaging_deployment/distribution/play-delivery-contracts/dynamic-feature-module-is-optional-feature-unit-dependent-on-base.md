@@ -1,5 +1,5 @@
 ---
-title: dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md
+title: dynamic-feature-module-is-optional-feature-unit-dependent-on-base
 tags: ["android", "agp", "dfm", "dynamic-feature"]
 aliases: ["Dynamic feature module은 base에 의존하는 선택적 기능 단위다"]
 date created: 2026-07-31 17:52:17 +09:00

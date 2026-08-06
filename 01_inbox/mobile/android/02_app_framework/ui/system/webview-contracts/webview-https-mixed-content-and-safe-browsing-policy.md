@@ -6,10 +6,9 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md), [SSL/TLS](../../../../../../linux/security/ssl-tls.md)
-
-
 ## WebView는 HTTPS와 Safe Browsing으로 신뢰할 수 없는 콘텐츠를 걸러낸다
+
+배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md), [SSL/TLS](../../../../../../linux/security/ssl-tls.md)
 
 [WebView는 신뢰된 앱 프로세스 안에서 신뢰되지 않은 웹 콘텐츠를 실행한다](./webview-runs-untrusted-web-content-inside-the-trusted-app-process.md) 에서 설명한 신뢰 경계 문제를 완화하는 두 번째 축은 브리지 설계가 아니라 어떤 콘텐츠를 애초에 로드하고 실행할지 걸러내는 정책이다. `WebView` 는 이를 mixed content 정책과 Safe Browsing 두 메커니즘으로 제공한다.
 

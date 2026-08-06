@@ -6,10 +6,9 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md), [SSL/TLS](../../../../../../linux/security/ssl-tls.md)
-
-
 ## Retrofit 인터페이스는 API 계약을 선언하고 OkHttp 가 실제 전송을 담당한다
+
+배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md), [SSL/TLS](../../../../../../linux/security/ssl-tls.md)
 
 Retrofit(인터페이스 애노테이션 기반으로 HTTP 요청을 조립하는 API 선언 프레임워크)은 스스로 소켓을 열거나 TLS 를 처리하지 않는다. Retrofit 은 "type-safe HTTP client for Android and Java"로 소개되지만, 실제 네트워크 전송은 항상 OkHttp 에 위임한다. Retrofit 이 하는 일은 애노테이션이 달린 인터페이스를 읽어 HTTP 요청을 어떻게 만들지 결정하는 것이고, 그 요청을 실제로 보내고 응답을 받는 것은 `OkHttpClient` 다. 이 분리 덕분에 API 계약(인터페이스)과 전송 정책(timeout, 캐시, 커넥션 풀, interceptor)을 독립적으로 다룰 수 있다.
 

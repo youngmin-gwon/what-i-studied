@@ -6,10 +6,9 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
-배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md)
-
-
 ## gRPC 는 Protobuf 기반 강타입 스트리밍 계약을 선언하고 REST 는 단발성 request-response 계약에 머문다
+
+배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md)
 
 [Retrofit/OkHttp](./retrofit-interface-declares-api-contract-while-okhttp-executes-transport.md) 조합이 다루는 REST 계약은 애노테이션이 달린 인터페이스로 엔드포인트를 선언하고, JSON 을 매 호출마다 직렬화/역직렬화하며, 기본적으로 "요청 하나에 응답 하나"만 표현한다. gRPC 는 같은 문제(API 계약 선언과 실제 전송 분리)를 다른 계약으로 푼다 — `.proto` 파일이 서비스와 메시지를 강타입으로 선언하고, 전송은 처음부터 HTTP/2 위에서 이뤄지며, 프로토콜 자체가 스트리밍을 1 급 시민으로 지원한다. gRPC 공식 문서는 gRPC 를 "a modern open source high performance Remote Procedure Call (RPC) framework that can run in any environment"로 소개하고, "Bi-directional streaming and fully integrated pluggable authentication with HTTP/2-based transport"를 핵심 특징으로 명시한다.
 

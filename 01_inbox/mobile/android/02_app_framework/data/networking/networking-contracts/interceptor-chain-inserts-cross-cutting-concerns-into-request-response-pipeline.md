@@ -6,10 +6,9 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-배경 지식: [인증과 인가](../../../../../../security/fundamentals/authentication-authorization.md)
-
-
 ## Interceptor 체인은 인증, 로깅, 재시도를 요청·응답 파이프라인에 끼워 넣는다
+
+배경 지식: [인증과 인가](../../../../../../security/fundamentals/authentication-authorization.md)
 
 OkHttp `Interceptor` 는 요청이 나가고 응답이 돌아오는 파이프라인 중간에 끼어들어 관찰하거나 바꿀 수 있는 지점이다. 인증 헤더 추가, 로깅, 재시도, 캐시 정책처럼 여러 API 호출에 공통으로 적용해야 하는 관심사(cross-cutting concern)를 매 호출마다 반복해서 쓰지 않고 한 곳에 모아 둘 수 있다.
 

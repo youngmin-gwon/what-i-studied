@@ -6,10 +6,9 @@ date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md)
-
-
 ## 네트워크 클라이언트 계층 계약
+
+배경 지식: [HTTP 프로토콜](../../../../../../computer-science/networking/http-protocol.md)
 
 네트워크 클라이언트 계층은 "서버에 어떤 요청을 보낼지 선언하는 계약(Retrofit: 안드로이드 타입 세이프 HTTP 클라이언트 라이브러리)"과 "실제로 그 요청을 전송하는 엔진(OkHttp: TLS 핸드셰이크 및 커넥션 풀링을 직접 다루는 저수준 통신 엔진)"을 나눠서 다룬다. 그 사이에 interceptor 체인이 인증·로깅·재시도를 끼워 넣고, suspend 함수로 선언한 호출은 coroutine 취소와 실제로 연결된다. 이 계층의 실패 분류는 [Android Data Layer](../../android-data-layer-map.md)의 offline-first 로컬 우선 쓰기 모델과 맞닿아 있다.
 

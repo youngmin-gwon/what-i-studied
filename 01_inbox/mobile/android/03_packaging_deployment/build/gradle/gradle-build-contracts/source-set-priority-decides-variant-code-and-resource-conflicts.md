@@ -2,6 +2,7 @@
 title: source-set-priority-decides-variant-code-and-resource-conflicts
 tags: ["agp", "android", "gradle", "sourceset"]
 aliases: ["Source set 우선순위는 variant별 코드와 리소스 충돌을 결정한다"]
+date created: 2026-07-31 17:52:17 +09:00
 date modified: 2026-08-05 16:15:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-05 16:15:00 +09:00
