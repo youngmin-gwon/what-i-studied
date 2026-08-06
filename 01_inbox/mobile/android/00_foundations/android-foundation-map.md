@@ -2,7 +2,7 @@
 title: android-foundation-map
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-06 15:00:00 +09:00
+date modified: 2026-08-06 15:35:57 +09:00
 date created: 2026-08-03 16:59:22 +09:00
 ---
 
@@ -13,7 +13,7 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 ### 읽는 순서
 
 1. [Android System Map](overview/android-system-map.md) 에서 kernel 부터 app 까지 책임 계층을 구분한다.
-2. 아래 12장 Learning Spine을 순서대로 읽어 source, process, component, state, concurrency, UI, data, security, capability, testing, compatibility의 인과 관계를 잡는다.
+2. 아래 12 장 Learning Spine 을 순서대로 읽어 source, process, component, state, concurrency, UI, data, security, capability, testing, compatibility 의 인과 관계를 잡는다.
 3. [Android Learning Path](learning/android-learning-path.md) 에서 자신의 배경과 프로젝트 질문에 맞는 보충 경로를 고른다.
 4. 버전 의존 동작이면 [Android Release History](history/android-release-history.md) 에서 API level, target SDK, extension/minor SDK 축을 분리한다.
 5. 낯선 약어는 [Android Glossary](glossary/android-glossary.md) 에서 뜻만 확인하고 연결된 정본으로 이동한다.
@@ -63,6 +63,7 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 이 폴더에는 여러 영역을 잇는 학습·분류 기준만 둔다. 특정 API 사용법, 구현 recipe, subsystem 내부 동작은 해당 canonical area 에 둔다.
 
 ### Runbooks and Worked Examples
+
 - [04-permission-denial.md](diagnostic-runbooks/04-permission-denial.md)
 - [07-jank-dropped-frames.md](diagnostic-runbooks/07-jank-dropped-frames.md)
 - [08-install-update-failure.md](diagnostic-runbooks/08-install-update-failure.md)
