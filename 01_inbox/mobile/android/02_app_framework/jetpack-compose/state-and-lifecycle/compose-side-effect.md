@@ -1,8 +1,8 @@
 ---
 title: compose-side-effect
-tags: [android, benchmark, compose, perfetto, pure-composable, recomposition, side-effect, SideEffect, system-ui]
+tags: [android, benchmark, compose, perfetto, performance, pure-composable, recomposition, side-effect, SideEffect, system-ui]
 aliases: [Compose Side Effect, Compose 부수 효과, SideEffect API]
-date modified: 2026-08-07 18:35:12 +09:00
+date modified: 2026-08-07 18:37:33 +09:00
 date created: 2026-08-07 16:10:00 +09:00
 ---
 
@@ -23,6 +23,14 @@ Composable 함수는 성능 최적화를 위해 재구성(Recomposition) 과정�
 
 ---
 
+#### ⚠️ 성능 경고: 매 Recomposition 시 OS System Flag 재설정 병목 주의
+
+- `SideEffect { … }` 는 Composition 이 성공할 때마다(매 Recomposition 마다) 실행된다.
+- 만약 `SideEffect` 내부에서 `WindowInsetsController.isAppearanceLightStatusBars = …` 와 같이 **안드로이드 OS Window Flag 를 매 재구성마다 재설정하면 내부 OS Framework 통신 및 윈도우 재계산으로 인해 성능 병목(Performance Bottleneck)** 이 발생할 수 있다.
+- 따라서 상태바 색상처럼 **"값(isDarkTheme)이 실제로 바뀔 때만 OS System Flag 를 터치해야 하는 작업"은 `SideEffect` 대신 `LaunchedEffect(isDarkTheme)` 을 사용하여 값이 변할 때만 1 회 실행하도록 최적화**하는 것이 올바르다.
+
+---
+
 #### 초보자를 위한 쉽게 이해하는 비유
 
 - **SideEffect API (무대 연출 완료 후 조명 기사의 상태바 스위치 조작 & 스톱워치 틱)**:
@@ -32,35 +40,36 @@ Composable 함수는 성능 최적화를 위해 재구성(Recomposition) 과정�
 graph TD
     Recomposition["Composable 함수 재실행 (Recomposition)"] --> BodyExec["Composable 본문 순수 UI 트리 계산"]
     BodyExec --> CompositionSuccess["Composition 무사 완료 & 렌더링 트리 반영"]
-    CompositionSuccess --> SideEffectAPI["SideEffect { ... } 블록 실행"]
-    SideEffectAPI --> SystemSync["1. OS 시스템 상태바 아이콘 색상 동기화"]
-    SideEffectAPI --> PerfettoSync["2. Perfetto / Benchmark 렌더링 프레임 틱 기록 (Trace.begin/endSection)"]
+    CompositionSuccess --> SideEffectAPI["SideEffect { ... } 블록 실행 (매번 실행)"]
+    SideEffectAPI --> PerfettoSync["Perfetto / Benchmark 렌더링 프레임 틱 기록 (Trace.begin/endSection)"]
+
+    CompositionSuccess --> KeyCheck{"값(isDarkTheme)이 실제 변경되었는가?"}
+    KeyCheck -->|"Yes (LaunchedEffect(isDarkTheme) 최적화)"| SystemSync["OS 시스템 상태바 아이콘 색상 1회만 변경 (성능 병목 방지)"]
 ```
 
 ---
 
-### 2. `SideEffect { … }` 의 정당한 3 대 실전 사용 사례
+### 2. `SideEffect { … }` vs `LaunchedEffect(key)` 최적화 선택 기준
 
-1. **안드로이드 OS 시스템 UI 상태바 / 네비게이션 바 동기화**:
-   - Compose 의 `isDarkTheme` 스태이트가 변경되었을 때, 매 Composition 성공 완료 직후 안드로이드 OS 의 `WindowInsetsController` 시스템 상단 상태바(StatusBar) 아이콘 색상(다크/라이트)을 매핑 동기화할 때.
-2. **Perfetto & Macrobenchmark 렌더링 성능 트레이싱 Metrics 관측**:
-   - Composable 화면 렌더링 트리가 무사히 완성되어 렌더링을 끝마친 직후 `Trace.beginSection()` 과 `Trace.endSection()` 을 호출하거나, Perfetto / Macrobenchmark 성능 측정 도구에 프레임 완료 틱(Tick) 이벤트를 기록할 때.
-3. **레거시 커스텀 Android View (Canvas / Map SDK) 속성 주입**:
-   - `AndroidView` 로 래핑된 레거시 지도 뷰나 커스텀 C++ 캔버스의 내부 뷰 속성에 Compose `State` 변경을 매번 반영해 주어야 할 때.
+1. **매 Composition 무사 완료 시 틱 기록 (SideEffect)**:
+   - Perfetto / Macrobenchmark 트레이싱 지표 수집처럼 **매 프레임 렌더링 완료 타이밍 자체를 기록해야 할 때** `SideEffect` 가 정당하다.
+2. **특정 값 변경 시 1 회 OS System Flag 터치 (LaunchedEffect(key) 최적화)**:
+   - OS 상태바 색상 변경, 윈도우 인셋 제어처럼 **OS Framework Flag 를 계속 재설정하면 병목이 생기는 작업은 `LaunchedEffect(isDarkTheme)` 으로 키가 변경될 때만 1 회 실행**해야 한다.
 
 ---
 
 ### 3. 실전 코드 예시
 
-#### 예시 1: `SideEffect` 기반 안드로이드 OS 시스템 상태바 색상 동기화
+#### 예시 1: `LaunchedEffect` 기반 OS 시스템 상태바 색상 변경 최적화 (성능 병목 방지)
 
 ```kotlin
 @Composable
 fun SystemBarThemeSyncScreen(isDarkTheme: Boolean) {
     val view = LocalView.current
 
-    // Composition 이 무사히 완료된 직후에만 안드로이드 OS 시스템 상태바 아이콘 색상 동기화
-    SideEffect {
+    // ⭕ 매 Recomposition 마다 OS Window Flag 를 터치하여 병목을 만드는 SideEffect 대신,
+    // isDarkTheme 값이 실제로 변경될 때만 1회 OS Window Flag 를 설정하도록 최적화!
+    LaunchedEffect(isDarkTheme) {
         val window = (view.context as Activity).window
         val insetsController = WindowCompat.getInsetsController(window, view)
         insetsController.isAppearanceLightStatusBars = !isDarkTheme
@@ -77,7 +86,7 @@ import androidx.tracing.trace
 
 @Composable
 fun MetricTracedFeedScreen(feedState: FeedUiState) {
-    // 렌더링 트리가 무사히 완성된 직후 Perfetto / Benchmark 툴에 렌더링 완료 틱 기록
+    // 매 프레임 Composition 이 무사히 완료된 직후 Perfetto / Benchmark 툴에 렌더링 완료 틱 기록
     SideEffect {
         trace("FeedScreen:CompositionCompleted") {
             // Perfetto 트레이스 뷰어 및 Macrobenchmark 렌더링 메트릭 리포트에 전송
