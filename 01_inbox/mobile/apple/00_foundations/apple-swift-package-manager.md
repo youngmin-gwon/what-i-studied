@@ -86,7 +86,7 @@ MyApp/
 │   ├── DesignSystem/           # 공통 UI 컴포넌트, 색상, 폰트
 │   │   └── Package.swift
 │   └── Features/
-│       ├── LoginFeature/       # 로그인 화면 + [viewmodel](../../android/02_app_framework/viewmodel.md)
+│       ├── LoginFeature/       # 로그인 화면 + ViewModel
 │       └── HomeFeature/        # 홈 화면 + ViewModel
 ```
 

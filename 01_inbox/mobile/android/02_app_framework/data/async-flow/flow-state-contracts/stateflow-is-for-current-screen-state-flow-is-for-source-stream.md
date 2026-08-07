@@ -29,7 +29,7 @@ graph TD
     A["Repository Cold Flow (DB / Network Stream)"] -->|"stateIn() in ViewModel"| B["StateFlow<UiState> (Hot Stream)"]
     B -->|"Holds .value in Memory"| C["State Property (Read Anytime)"]
     B -->|"Equals Check (Conflation)"| D["Emit to UI only if Value Changed"]
-    D --> E"Jetpack Compose [recomposition"]
+    D --> E["Jetpack Compose Recomposition"]
 
     style A fill:#e1f5fe,stroke:#0288d1,color:#01579b
     style B fill:#fff3e0,stroke:#f57c00,color:#e65100

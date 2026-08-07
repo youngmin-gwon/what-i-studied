@@ -188,7 +188,7 @@ cp file1.txt file2.txt file3.txt /destination/
 # 확인하며 복사
 cp -i source.txt dest.txt
 
-/최신 파일만 업데이트
+# 최신 파일만 업데이트
 cp -u source/* destination/
 
 # 심볼릭 링크 생성

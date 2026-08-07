@@ -285,7 +285,7 @@ fio --name=random-read --ioengine=libaio --iodepth=32 \
 3. 인덱스 할당 (Indexed Allocation)
    - 인덱스 블록에 위치 저장
    - 랜덤 접근 효율적
-   - [inode](../linux/inode.md) 방식이 이에 해당
+   - inode 방식이 이에 해당
 ```
 
 ## 🔗 연결 문서 (Related Documents)

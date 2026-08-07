@@ -1,7 +1,7 @@
 ---
 title: flow-state-contracts
 tags: [android, android/async, android/flow, android/state]
-aliases: ["Flow와 [stateflow](../../../stateflow-and-sharedflow.md) 상태 계약"]
+aliases: ["Flow와 StateFlow 상태 계약"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---

@@ -73,7 +73,9 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 >     }
 >     var body: some Scene { WindowGroup { ContentView() } }
 > }
+> ```
 
+```swift
 func scheduleProcessing() {
 
     let request = BGProcessingTaskRequest(identifier: "com.example.db_cleanup")

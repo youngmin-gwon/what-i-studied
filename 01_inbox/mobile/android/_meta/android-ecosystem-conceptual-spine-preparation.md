@@ -545,7 +545,7 @@ Android 플랫폼 계층을 모든 요청이 끝까지 통과하는 고정 파�
 
 ```plaintext
 → 앱 프로세스의 관리 객체
-→ [binder ipc](../01_system_internals/binder-ipc.md) 경계
+→ binder ipc 경계
 → 서비스 구현
 → 즉시 응답 또는 나중의 콜백
 ```

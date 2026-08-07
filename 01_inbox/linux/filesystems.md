@@ -370,45 +370,36 @@ btrfs-convert -r /dev/sdb1
 
 ### ext4
 
-```bash
-# ✅ DO
+**✅ DO**
 - 안정성이 중요한 시스템에 사용
 - 정기적인 fsck (재부팅 시 자동)
 - noatime 옵션으로 성능 향상
 
-# ❌ DON'T
+**❌ DON'T**
 - 매우 큰 파일 (>1TB) 처리에는 XFS 고려
 - 스냅샷 필요 시 [lvm](lvm.md) 또는 Btrfs 사용
-```
 
 ### XFS
 
-```bash
-# ✅ DO
+**✅ DO**
 - 대용량 파일 처리에 사용
 - 충분한 공간 확보 (축소 불가)
 - 정기적인 xfs_repair
 
-# ❌ DON'T
+**❌ DON'T**
 - 크기 조정이 빈번한 환경
 - 작은 파일 위주의 워크로드
-```
 
 ### Btrfs
 
-```bash
-# ✅ DO
+**✅ DO**
 - 스냅샷 활용 (백업, 테스트)
-- 정기적인 스크러빙 (월 1회)
-btrfs scrub start /mnt/data
+- 정기적인 스크러빙 (월 1회): `btrfs scrub start /mnt/data`
+- 압축 활성화 (공간 절약): `mount -o compress=zstd`
 
-- 압축 활성화 (공간 절약)
-mount -o compress=zstd
-
-# ❌ DON'T
+**❌ DON'T**
 - RAID 5/6 사용 (불안정)
 - 프로덕션 DB 서버 (성능 이슈)
-```
 
 ## 🔗 연결 문서 (Related Documents)
 

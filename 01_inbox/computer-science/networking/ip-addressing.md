@@ -233,4 +233,4 @@ ping6 2001:4860:4860::8888  # Google Public DNS
 - [tcp-ip-model](tcp-ip-model.md) - TCP/IP 프로토콜 스택
 - [routing-basics](routing-basics.md) - IP 라우팅과 게이트웨이
 - [dns-fundamentals](dns-fundamentals.md) - IP 주소와 도메인 이름 매핑
-- **IPv6** - IPv6 상세 설명
+- [IPv4 vs IPv6](ipv4-vs-ipv6.md) - IPv4 와 IPv6 주소 체계 비교

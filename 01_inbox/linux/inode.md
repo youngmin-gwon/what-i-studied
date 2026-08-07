@@ -238,4 +238,4 @@ find /path -type l ! -exec test -e {} \; -print
 
 - [filesystem-hierarchy-standard](filesystem-hierarchy-standard.md) - Linux 파일시스템 구조
 - [file-types-links](file-types-links.md) - 파일 타입과 링크의 상세 설명
-- **kernel** - VFS와 inode의 커널 레벨 구현
+- [kernel-structure](../operating-systems/kernel-structure.md) - VFS와 inode의 커널 레벨 구현

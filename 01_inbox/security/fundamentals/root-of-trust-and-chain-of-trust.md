@@ -68,5 +68,5 @@ Chain of Trust 는 이 문제를 "가장 먼저 실행되는 것부터 검증한
 
 ## 연결 문서
 
-- **merkle-tree** - Chain of Trust 의 각 단계에서 대량 데이터 무결성을 효율적으로 검증하는 자료구조
-- **device-mapper-and-dm-verity** - Chain of Trust 가 커널 진입 이후 파일시스템 계층까지 확장되는 구체적 메커니즘
+- [merkle-tree](../../../02_references/computer-science/merkle-tree.md) - Chain of Trust 의 각 단계에서 대량 데이터 무결성을 효율적으로 검증하는 자료구조
+- [device-mapper-and-dm-verity](../../../02_references/operating-systems/device-mapper-and-dm-verity.md) - Chain of Trust 가 커널 진입 이후 파일시스템 계층까지 확장되는 구체적 메커니즘
