@@ -23,7 +23,7 @@ date created: 2026-08-07 13:10:00 +09:00
 
 ```mermaid
 graph TD
-    AppSocket["앱 소켓 (Socket)"] -->|setsockopt SO_MARK| Fwmark["NetId 표식 부여 (fwmark: 0x64)"]
+    AppSocket["앱 소켓 (Socket)"] -->|"setsockopt SO_MARK"| Fwmark["NetId 표식 부여 (fwmark: 0x64)"]
     Fwmark --> KernelIPRule["Linux Kernel ip rule 체인"]
     KernelIPRule -->|"1. fwmark 0x64 매칭"| RoutingTable100["NetId 100 전용 라우팅 테이블 (wlan0)"]
     KernelIPRule -->|"2. fwmark 0x65 매칭"| RoutingTable101["NetId 101 전용 라우팅 테이블 (tun0 VPN)"]

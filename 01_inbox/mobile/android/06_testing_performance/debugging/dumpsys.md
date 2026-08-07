@@ -24,10 +24,10 @@ date created: 2026-08-07 13:10:00 +09:00
 ```mermaid
 graph TD
     UserCmd["adb shell dumpsys <service>"] --> DumpsysBin["/system/bin/dumpsys 진단 실행 파일"]
-    DumpsysBin -->|1. ServiceManager.checkService()| ServiceManager["ServiceManager (Handle 0)"]
-    ServiceManager -->|2. IBinder 프록시 반환| DumpsysBin
-    DumpsysBin -->|3. binder.dump(fd, args) 호출| SystemServer["system_server / Native Daemon"]
-    SystemServer -->|4. 각 서비스 내부 dump() 실행| ResultText["터미널로 텍스트 진단 결과 출력"]
+    DumpsysBin -->|"1. ServiceManager.checkService()"| ServiceManager["ServiceManager (Handle 0)"]
+    ServiceManager -->|"2. IBinder 프록시 반환"| DumpsysBin
+    DumpsysBin -->|"3. binder.dump(fd, args) 호출"| SystemServer["system_server / Native Daemon"]
+    SystemServer -->|"4. 각 서비스 내부 dump() 실행"| ResultText["터미널로 텍스트 진단 결과 출력"]
 ```
 
 ---

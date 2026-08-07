@@ -23,9 +23,9 @@ Android 9(Pie) 이상부터 기존 `iptables` 규칙 관리의 CPU 오버헤드�
 
 ```mermaid
 graph TD
-    NetPolicy["NetworkPolicyManagerService (system_server)"] -->|UID 차단 명령| NetdDaemon["netd 데몬 (BpfHandler)"]
-    NetdDaemon -->|bpf_map_update_elem| BpfMap["eBPF BPF_MAP (penalty_box)"]
-    BpfMap -->|커널 공간 매칭| KernelProg["cgroup_skb/egress eBPF 바이트코드"]
+    NetPolicy["NetworkPolicyManagerService (system_server)"] -->|"UID 차단 명령"| NetdDaemon["netd 데몬 (BpfHandler)"]
+    NetdDaemon -->|"bpf_map_update_elem"| BpfMap["eBPF BPF_MAP (penalty_box)"]
+    BpfMap -->|"커널 공간 매칭"| KernelProg["cgroup_skb/egress eBPF 바이트코드"]
     KernelProg -->|"블록 대상 UID 패킷"| DropPacket["커널 단 패킷 즉시 Drop (0ms)"]
 ```
 
