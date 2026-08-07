@@ -2,7 +2,7 @@
 title: remember-updated-state-keeps-effect-on-latest-value
 tags: [android, compose/state, jetpack-compose]
 aliases: [Latest Value Capture, rememberUpdatedState]
-date modified: 2026-08-05 18:56:27 +09:00
+date modified: 2026-08-07 16:03:39 +09:00
 date created: 2026-07-31 23:59:00 +09:00
 ---
 
