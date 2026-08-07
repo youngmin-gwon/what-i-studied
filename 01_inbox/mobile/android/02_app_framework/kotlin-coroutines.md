@@ -2,7 +2,7 @@
 title: kotlin-coroutines
 tags: [android, async, compose, concurrency, coroutines, kotlin, LaunchedEffect, rememberCoroutineScope, structured-concurrency]
 aliases: [Kotlin Coroutines, Kotlin 비동기, 코루틴]
-date modified: 2026-08-07 13:51:01 +09:00
+date modified: 2026-08-07 14:12:35 +09:00
 date created: 2026-08-07 13:50:00 +09:00
 ---
 
@@ -24,8 +24,8 @@ date created: 2026-08-07 13:50:00 +09:00
 
 ```mermaid
 graph TD
-    Start["coroutineScope.launch 시작"] --> SuspendPoint["suspend 함수 호출 (예: Delay/IO)"]
-    SuspendPoint -->|"1. 스레드 차단 없이 일시 중단 (Suspend)"| CPS["Continuation Passing Style 상태 머신 전환"]
+    Start["coroutineScope.launch 시작"] --> SuspendPoint["suspend 함수 호출<br/>(예: Delay/IO)"]
+    SuspendPoint -->|"1. 스레드 차단 없이 일시 중단<br/>(Suspend)"| CPS["Continuation Passing Style 상태 머신 전환"]
     CPS -->|"2. 비동기 I/O 완료"| ResumePoint["스레드 재할당 및 재개 (Resume)"]
     ResumePoint --> UIUpdate["[StateFlow / Compose UI] 상태 반영"]
 ```
