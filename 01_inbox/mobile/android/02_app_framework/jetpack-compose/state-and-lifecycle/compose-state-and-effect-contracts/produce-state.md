@@ -1,8 +1,8 @@
 ---
 title: produce-state
-tags: [android, compose, external-state, flow, produce-state, rxjava, side-effects, sms, state, timer]
+tags: [android, architecture, callback, compose, external-state, flow, listener, optimization, produce-state, rxjava, side-effects, sms, state, timer]
 aliases: [produceState, 외부 상태 변환, 프로듀스 스테이트]
-date modified: 2026-08-07 18:44:58 +09:00
+date modified: 2026-08-07 18:53:04 +09:00
 date created: 2026-08-07 16:07:00 +09:00
 ---
 
@@ -12,7 +12,19 @@ date created: 2026-08-07 16:07:00 +09:00
 
 **produceState** 는 RxJava, LiveData, 콜백 리스너, 네트워크 서스펜드(Suspend) 호출 등 **Compose 외부의 비동기 데이터 소스를 수집하여 컴포지션이 읽을 수 있는 불변 `State<T>` 로 변환(Convert)해 주는 Jetpack Compose [부수 효과](../compose-side-effect.md)(Side-Effect) API**이다.
 
-`produceState` 내부적으로 `LaunchedEffect` 와 `mutableStateOf` 가 융합되어 작동한다. 비동기 데이터 생산자(Producer) 블록을 캡슐화하여, 외부 데이터 소스가 변경될 때마다 새 `value` 를 발행함으로써 유연하게 [Compose SSOT](../../../compose-ssot.md) 를 생성해 준다.
+`produceState` 내부적으로 `LaunchedEffect` 와 `mutableStateOf` 가 direct 로 융합되어 작동한다. 비동기 데이터 생산자(Producer) 블록을 캡슐화하여, 외부 데이터 소스가 변경될 때마다 새 `value` 를 발행함으로써 유연하게 [Compose SSOT](../../../compose-ssot.md) 를 생성해 준다.
+
+---
+
+#### 💡 실무 아키텍처 관점 총평: `produceState` vs `Flow` 변환
+
+>**"C++ Native SDK 나 센서, DB 데이터를 Data 레이어에서 `Flow` 로 변환하여 ViewModel 로 올려주는 것이 더 나은 실무적 선택이 아닌가?"**
+
+- **사용자님의 지적이 100% 실무적 정답(Best Practice)입니다.**
+- C++ Native SDK, DB, 센서 등의 데이터 소스는 **Data/Infra 레이어에서 `callbackFlow { … }` 나 `Flow` 로 변환하여 ViewModel 에 `StateFlow` 로 전달**하는 것이 테스트 가능성(Testability)과 레이어 분리 관점에서 훨씬 우수합니다.
+- **그렇다면 `produceState` 는 실무에서 언제 쓰이는가?**:
+  1. **UI 전용 서드파티 Compose 라이브러리 제작 (예: Coil 이미지 로더)**: ViewModel 없이 Composable UI 단에서 비동기 다운로드를 `State<ImageResult>` 로 직관적으로 노출해야 할 때.
+  2. **ViewModel 을 거칠 필요가 없는 순수 UI 전용 비동기 연산**: Lottie 애니메이션 패키지 비동기 파싱, UI 레이아웃 비동기 폰트 계산 등 도메인 로직과 무관한 Pure UI 헬퍼 연산.
 
 ---
 
@@ -23,7 +35,7 @@ date created: 2026-08-07 16:07:00 +09:00
 
 ```mermaid
 graph TD
-    ExternalSource["외부 데이터 소스 (Network / Timer / Callback)"] --> ProduceBlock["produceState(initialValue) 코루틴 실행"]
+    ExternalSource["외부 데이터 소스 (Network / Timer / Callback / RxJava / C++)"] --> ProduceBlock["produceState(initialValue) 코루틴 실행"]
     ProduceBlock --> YieldValue["value = newValue 상태 발행"]
     YieldValue --> StateHolder["State<T> 가 Recomposition 트리거"]
     StateHolder --> UIRead["Composable UI 화면 재렌더링"]
@@ -44,10 +56,10 @@ graph TD
 
 ### 3. 실전 코드 예시
 
-#### 예시 1: 비동기 네트워크 이미지 로드 변환 및 UI 소모
+#### 예시 1: UI 서드파티 라이브러리 전용 비동기 이미지 로드 변환 및 UI 소모
 
 ```kotlin
-// 1. produceState 기반 헬퍼 함수 선언
+// 1. produceState 기반 UI 전용 이미지 로더 헬퍼 함수 선언 (Coil 라이브러리 스타일)
 @Composable
 fun loadNetworkImage(
     url: String, 
@@ -82,7 +94,7 @@ fun UserProfileImageScreen(
 }
 ```
 
-#### 예시 2: SMS 인증번호 3 분(180 초) 카운트다운 타이머 변환 및 UI 소모
+#### 예시 2: 순수 UI 카운트다운 타이머 (SMS 인증 등) 변환 및 UI 소모
 
 ```kotlin
 // 1. 180초부터 1초씩 줄어드는 SMS 타이머 produceState 선언
@@ -97,7 +109,6 @@ fun produceSmsAuthTimer(
             value-- // 1초 감소된 상태 발행
         }
 
-        // 컴포지션 이탈 시 타이머 코루틴 자동 정리
         awaitDispose {
             // 필요시 타이머 자원 해제 로깅
         }
@@ -107,7 +118,6 @@ fun produceSmsAuthTimer(
 // 2. SMS 인증 입력 화면 UI Composable 에서 타이머 소모
 @Composable
 fun SmsVerificationScreen() {
-    // produceState 가 1초마다 발행하는 남은 초(Int)를 "by" 키워드로 관측!
     val secondsLeft by produceSmsAuthTimer(totalSeconds = 180)
 
     val minutes = secondsLeft / 60
