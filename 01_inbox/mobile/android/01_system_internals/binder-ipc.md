@@ -2,7 +2,7 @@
 title: binder-ipc
 tags: [android, binder, ipc, kernel, os, system-internals]
 aliases: [Binder, Binder IPC, 바인더 IPC, 안드로이드 바인더]
-date modified: 2026-08-06 18:53:55 +09:00
+date modified: 2026-08-07 13:28:35 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 role: single-source-of-truth
 ---

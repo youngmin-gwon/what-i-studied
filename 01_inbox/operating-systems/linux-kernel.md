@@ -2,7 +2,7 @@
 title: linux-kernel
 tags: [kernel, linux, memory, operating-systems, OS, process, vfs]
 aliases: [Linux Kernel, Linux 커널, 커널]
-date modified: 2026-08-07 13:21:12 +09:00
+date modified: 2026-08-07 13:30:35 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 **Linux Kernel (리눅스 커널)** 은 컴퓨터 하드웨어(CPU, RAM, 디바이스)와 사용자 응용 소프트웨어 사이를 중재하며, **프로세스 스케줄링, 가상 메모리 관리, 가상 파일 시스템(VFS), 네트워크 스택, 디바이스 드라이버를 제공하는 모놀리식(Monolithic) 하이브리드 운영체제 핵심 엔지니어링 시스템**이다.
 
-서버 OS, 락탑 Linux, 모바일 OS([Android Kernel](../mobile/android/01_system_internals/android-kernel.md)) 및 임베디드 기기 전반의 기초 실행 기반을 담당한다.
+서버 OS, 락탑 Linux, 모바일 OS([Android Kernel](../mobile/android/01_system_internals/kernel-and-hal/android-kernel-runtime.md)) 및 임베디드 기기 전반의 기초 실행 기반을 담당한다.
 
 ---
 
@@ -70,4 +70,4 @@ sudo dmesg | tail -n 20
 - [eBPF 커널 런타임 엔진](../computer-science/operating-systems/ebpf.md) - 커널 내부 0ms 실행 엔진
 - [소켓 (Socket)](../computer-science/networking/socket.md) - 커널 네트워크 VFS 엔드포인트
 - [커널 이벤트 (Kernel Event)](../computer-science/operating-systems/kernel-event.md) - kprobes & tracepoints 훅
-- [Android Kernel 특화 구조](../mobile/android/01_system_internals/android-kernel.md) - 안드로이드 특화 커널 확장 (LMK, WakeLocks, Binder, Ashmem)
+- [Android Kernel 특화 구조](../mobile/android/01_system_internals/kernel-and-hal/android-kernel-runtime.md) - 안드로이드 특화 커널 확장 (LMK, WakeLocks, Binder, Ashmem)

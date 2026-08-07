@@ -446,7 +446,7 @@ Canonical note 후보:
 
 - 적용일: 2026-08-01
 - 범위: Android glossary 품질 보강, 용어 노트 frontmatter/H1 정규화, redirect 경유 링크 보정
-- 정본 지도: [Android Glossary](../00_foundations/glossary/android-glossary.md)
+- 정본 지도: [Android Glossary](../04_system_services/activity-manager-service.md)
 - 원칙: Glossary 는 정본을 대체하지 않고 용어별 진입점 역할만 한다. 각 용어 노트는 짧은 정의, 혼동 방지, 정본 링크로 제한해 중복 설명을 만들지 않는다.
 - 추가 정리: Glossary 활성 문서 32 개에 frontmatter 를 추가하고, Binder/AppOps/SELinux/UID/Verified Boot 등 redirect 로 향하던 링크를 실제 정본 노트로 직접 보정했다.
 - 검증: Glossary 활성 frontmatter 누락 0 개, 14 줄 이하 얇은 정본 0 개, redirect 경유 링크 0 개, Android 전체 링크/중복/legacy syntax 검증 통과.

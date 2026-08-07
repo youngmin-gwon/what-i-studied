@@ -16,7 +16,7 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 2. 아래 12 장 Learning Spine 을 순서대로 읽어 source, process, component, state, concurrency, UI, data, security, capability, testing, compatibility 의 인과 관계를 잡는다.
 3. [Android Learning Path](learning/android-learning-path.md) 에서 자신의 배경과 프로젝트 질문에 맞는 보충 경로를 고른다.
 4. 버전 의존 동작이면 [Android Release History](history/android-release-history.md) 에서 API level, target SDK, extension/minor SDK 축을 분리한다.
-5. 낯선 약어는 [Android Glossary](glossary/android-glossary.md) 에서 뜻만 확인하고 연결된 정본으로 이동한다.
+5. 낯선 약어는 [Android Glossary](../04_system_services/activity-manager-service.md) 에서 뜻만 확인하고 연결된 정본으로 이동한다.
 
 ### Learning Spine
 
@@ -37,7 +37,7 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 
 - [Android System Map](overview/android-system-map.md) - Android stack 과 문제 boundary.
 - [Android Release History](history/android-release-history.md) - version/API/behavior-change timeline.
-- [Android Glossary](glossary/android-glossary.md) - 용어의 짧은 정의와 정본 링크.
+- [Android Glossary](../04_system_services/activity-manager-service.md) - 용어의 짧은 정의와 정본 링크.
 - [Android Learning Path](learning/android-learning-path.md) - 학습 resource 선택과 순서.
 
 ### Canonical Areas

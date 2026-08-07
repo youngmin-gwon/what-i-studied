@@ -2,7 +2,7 @@
 title: ebpf
 tags: [computer-science, ebpf, kernel, linux, networking, operating-systems, syscall]
 aliases: [eBPF, Extended Berkeley Packet Filter, 커널 패킷 필터]
-date modified: 2026-08-07 13:17:51 +09:00
+date modified: 2026-08-07 13:32:07 +09:00
 date created: 2026-08-07 13:10:00 +09:00
 ---
 
