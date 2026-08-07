@@ -220,7 +220,7 @@ class ViewController {
 | **핵심 키워드** | `suspend`, `launch`, `async` | `async`, `await`, `task` |
 | **스레드 전환** | `withContext(Dispatchers.IO)` (명시적) | `actor` / `@MainActor` (격리 기반 자동 전환) |
 | **데이터 경합** | 개발자가 주의 (MutableStateFlow 등 활용) | **컴파일 타임 차단** (Sendable, Actor Isolation) |
-| **비동기 스트림** | `Flow` (Cold), `[stateflow](../../android/02_app_framework/stateflow-and-sharedflow.md)` (Hot) | `AsyncSequence`, `AsyncStream` |
+| **비동기 스트림** | `Flow` (Cold), `StateFlow` (Hot) | `AsyncSequence`, `AsyncStream` |
 | **취소 전파** | Structured Concurrency (Job hierarchy) | Task hierarchy & Cooperative cancellation |
 
 >[!TIP] **Android 개발자를 위한 Swift Concurrency**

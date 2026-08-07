@@ -180,7 +180,7 @@ sequenceDiagram
     Child->>Child: 새 프로그램 실행
     
     Child->>Kernel: exit() 시스템 콜
-    Child->>Parent: 종료 [시그널](signals.md) (SIGCHLD)
+    Child->>Parent: 종료 시그널 (SIGCHLD)
     Parent->>Kernel: wait() 시스템 콜
     Kernel-->>Parent: 자식 종료 상태 반환
 ```

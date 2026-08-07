@@ -310,10 +310,10 @@ echo -e "Line1\nLine2"             # 이스케이프 해석
 # 리다이렉션
 echo "text" > file.txt
 echo "append" >> file.txt
+```
 
 > [!TIP]
 > **표준 스트림(FD 0, 1, 2)**과 **히어독(Here-doc)** 등 상세한 데이터 흐름 제어는 [06-io-redirection](../shell-scripting/06-io-redirection.md) 가이드를 참조하세요.
-```
 
 ### printf
 
