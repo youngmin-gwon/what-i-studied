@@ -2,7 +2,7 @@
 title: 01-app-launch-slow-or-fails
 tags: ["android", "android/foundations", "diagnostic-runbook"]
 aliases: ["Runbook: app launch is slow or fails"]
-date modified: 2026-08-07 15:36:00 +09:00
+date modified: 2026-08-07 15:36:30 +09:00
 date created: 2026-08-04 10:30:00 +09:00
 ---
 
