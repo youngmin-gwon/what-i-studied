@@ -1,14 +1,14 @@
 ---
 title: disposable-effect
-tags: [android, compose, disposable-effect, side-effects, cleanup, listeners, lifecycle]
+tags: [android, cleanup, compose, disposable-effect, lifecycle, listeners, side-effects]
 aliases: [DisposableEffect, 디스포저블 이펙트, 자원 해제 이펙트]
-date modified: 2026-08-07 16:07:00 +09:00
+date modified: 2026-08-07 18:11:48 +09:00
 date created: 2026-08-07 16:07:00 +09:00
 ---
 
-# DisposableEffect (Compose 자원 해제 및 리스너 정리 이펙트)
+## DisposableEffect (Compose 자원 해제 및 리스너 정리 이펙트)
 
-## 1. 개요 (Overview)
+### 1. 개요 (Overview)
 
 **DisposableEffect** 는 Composable 이 컴포지션(Composition)에 진입할 때 리스너/이벤트를 등록하고, **화면에서 이탈(Disposition)하거나 키(Key)가 변경될 때 `onDispose {}` 블록을 통해 반드시 자원을 정돈(Cleanup/Unregister)하기 위해 사용하는 Jetpack Compose [부수 효과](../compose-side-effect.md)(Side-Effect) API**이다.
 
@@ -16,9 +16,9 @@ date created: 2026-08-07 16:07:00 +09:00
 
 ---
 
-### 초보자를 위한 쉽게 이해하는 비유
+#### 초보자를 위한 쉽게 이해하는 비유
 
-* **DisposableEffect (대여소의 반납 보증금 제도)**:
+- **DisposableEffect (대여소의 반납 보증금 제도)**:
   - 장비(리스너)를 빌릴 때 대여 도장을 찍고, 반납할 때 보증금을 되찾는 시스템. `onDispose {}` 라는 반납 창구가 없으면 반납을 잊어버리고 장비를 분실(메모리 누수)하는 상황을 막아줌.
 
 ```mermaid
@@ -33,10 +33,10 @@ graph TD
 
 ---
 
-## 2. DisposableEffect 사용 규칙 및 주의사항
+### 2. DisposableEffect 사용 규칙 및 주의사항
 
 1. **`onDispose {}` 블록 필수 포함**:
-   - `DisposableEffect` 블록의 마지막 구문은 반드시 `onDispose { ... }` 이어야 한다. `onDispose` 가 없다면 `DisposableEffect` 가 아니라 `LaunchedEffect` 를 사용해야 한다.
+   - `DisposableEffect` 블록의 마지막 구문은 반드시 `onDispose { … }` 이어야 한다. `onDispose` 가 없다면 `DisposableEffect` 가 아니라 `LaunchedEffect` 를 사용해야 한다.
 2. **`key` 변경 시 재실행 흐름**:
    - `key` 값이 변경되면 이전 `key` 기반의 `onDispose {}` 가 먼저 실행되어 기존 자원을 정돈한 뒤, 새로운 `key` 기반으로 `DisposableEffect` 몸체가 재실행된다.
 3. **무거운 작업 금지**:
@@ -44,7 +44,7 @@ graph TD
 
 ---
 
-## 3. 실전 코드 예시 (Lifecycle Observer 등록 및 해제)
+### 3. 실전 코드 예시 (Lifecycle Observer 등록 및 해제)
 
 ```kotlin
 @Composable
@@ -68,7 +68,7 @@ fun SystemObserverScreen(lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.cu
 
 ---
 
-## 4. 연결 문서 (Related Links)
+### 4. 연결 문서 (Related Links)
 
 - [launched-effect](launched-effect.md) - 코루틴 비동기 전용 이펙트 API
 - [remember-updated-state](remember-updated-state.md) - 이펙트 내부 최신 콜백 참조 API

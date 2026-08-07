@@ -1,14 +1,14 @@
 ---
 title: remember-saveable
-tags: [android, compose, rememberSaveable, state, process-death, configuration-change, saver]
-aliases: [rememberSaveable, 리멤버 세이브블, UI 상태 복원]
-date modified: 2026-08-07 16:07:00 +09:00
+tags: [android, compose, configuration-change, process-death, rememberSaveable, saver, state]
+aliases: [rememberSaveable, UI 상태 복원, 리멤버 세이브블]
+date modified: 2026-08-07 18:14:57 +09:00
 date created: 2026-08-07 16:07:00 +09:00
 ---
 
-# rememberSaveable (프로세스 재생성 및 화면 회전 대응 UI 상태 복원)
+## rememberSaveable (프로세스 재생성 및 화면 회전 대응 UI 상태 복원)
 
-## 1. 개요 (Overview)
+### 1. 개요 (Overview)
 
 **rememberSaveable** 은 일반 `remember` 가 보존하지 못하는 **화면 회전(Configuration Change) 및 시스템에 의한 프로세스 강제 종료/재생성(System-initiated Process Death) 시에도 UI 소형 상태를 `SavedStateRegistry` (Bundle)에 직렬화하여 안전하게 복원(Restoration)해 주는 Jetpack Compose State API**이다.
 
@@ -16,9 +16,9 @@ date created: 2026-08-07 16:07:00 +09:00
 
 ---
 
-### 초보자를 위한 쉽게 이해하는 비유
+#### 초보자를 위한 쉽게 이해하는 비유
 
-* **rememberSaveable (비상 백업용 타임캡슐)**:
+- **rememberSaveable (비상 백업용 타임캡슐)**:
   - 전원이 꺼지면 지워지는 램(RAM, `remember`)과 달리, 지진(화면 회전)이나 재난(프로세스 수거)이 발생해도 상태를 작은 주머니(`Bundle`)에 보관했다가 다시 켜졌을 때 그대로 복원해 내는 비상 타임캡슐.
 
 ```mermaid
@@ -32,7 +32,7 @@ graph TD
 
 ---
 
-## 2. rememberSaveable 지원 타입 및 커스텀 Saver
+### 2. rememberSaveable 지원 타입 및 커스텀 Saver
 
 1. **기본 지원 타입 (Bundle 직렬화 가능)**:
    - `Primitive` (Int, String, Boolean 등), `Parcelable`, `Serializable` 객체는 별도 설정 없이 자동 보존된다.
@@ -43,7 +43,7 @@ graph TD
 
 ---
 
-## 3. 실전 코드 예시 (커스텀 Saver 활용)
+### 3. 실전 코드 예시 (커스텀 Saver 활용)
 
 ```kotlin
 data class UserDraft(val name: String, val age: Int)
@@ -64,7 +64,7 @@ fun RegistrationScreen() {
 
 ---
 
-## 4. 연결 문서 (Related Links)
+### 4. 연결 문서 (Related Links)
 
 - [compose-state-api-selection](compose-state-api-selection.md) - 수명주기별 State API 선택
 - [viewmodel-stateflow-lifecycle-collection](viewmodel-stateflow-lifecycle-collection.md) - ViewModel 기반 데이터 스트림

@@ -1,14 +1,14 @@
 ---
 title: snapshot-flow
-tags: [android, compose, snapshotFlow, state, flow, cold-flow, reactive]
-aliases: [snapshotFlow, 스냅샷 플로우, Compose State 변환]
-date modified: 2026-08-07 16:07:00 +09:00
+tags: [android, cold-flow, compose, flow, reactive, snapshotFlow, state]
+aliases: [Compose State 변환, snapshotFlow, 스냅샷 플로우]
+date modified: 2026-08-07 18:14:25 +09:00
 date created: 2026-08-07 16:07:00 +09:00
 ---
 
-# snapshotFlow (Compose State 관측값을 Cold Flow 로 변환)
+## snapshotFlow (Compose State 관측값을 Cold Flow 로 변환)
 
-## 1. 개요 (Overview)
+### 1. 개요 (Overview)
 
 **snapshotFlow** 는 Compose 스냅샷 시스템이 관리하는 **`State<T>` 상태 객체의 관측값을 읽어서, 값이 변경될 때마다 새로운 데이터를 방출하는 Cold [Kotlin Coroutines](../../../kotlin-coroutines.md) `Flow<T>` 데이터 스트림으로 역변환해 주는 Jetpack Compose API**이다.
 
@@ -16,9 +16,9 @@ date created: 2026-08-07 16:07:00 +09:00
 
 ---
 
-### 초보자를 위한 쉽게 이해하는 비유
+#### 초보자를 위한 쉽게 이해하는 비유
 
-* **snapshotFlow (Compose 상태 모니터링 안테나)**:
+- **snapshotFlow (Compose 상태 모니터링 안테나)**:
   - Compose 화면의 상태(`State`)를 지켜보다가, 값이 바뀌는 순간 이를 Kotlin Flow 파이프라인으로 전송하여 디바운싱(디바운스 처리)이나 필터링 연산을 할 수 있도록 도와주는 감시 안테나.
 
 ```mermaid
@@ -32,10 +32,10 @@ graph TD
 
 ---
 
-## 2. snapshotFlow 작동 원리 및 주요 활용법
+### 2. snapshotFlow 작동 원리 및 주요 활용법
 
 1. **State 읽기 자동 등록**:
-   - `snapshotFlow { ... }` 블록 내부에서 접근한 모든 Compose `State` 객체의 구독이 자동으로 등록된다.
+   - `snapshotFlow { … }` 블록 내부에서 접근한 모든 Compose `State` 객체의 구독이 자동으로 등록된다.
 2. **연속 동일 값 필터링**:
    - `snapshotFlow` 는 내부적으로 `distinctUntilChanged()` 가 작동하여, 실제 읽은 `State` 값이 변경되었을 때만 새 요소를 방출한다.
 3. **Flow 연산자 결합**:
@@ -43,7 +43,7 @@ graph TD
 
 ---
 
-## 3. 실전 코드 예시 (스크롤 포지션 디바운스 관측)
+### 3. 실전 코드 예시 (스크롤 포지션 디바운스 관측)
 
 ```kotlin
 @Composable
@@ -62,7 +62,7 @@ fun LazyListAnalytics(listState: LazyListState) {
 
 ---
 
-## 4. 연결 문서 (Related Links)
+### 4. 연결 문서 (Related Links)
 
 - [produce-state](produce-state.md) - 외부 데이터를 State 로 변환하는 반대 API
 - [launched-effect](launched-effect.md) - snapshotFlow 를 수집하는 비동기 이펙트

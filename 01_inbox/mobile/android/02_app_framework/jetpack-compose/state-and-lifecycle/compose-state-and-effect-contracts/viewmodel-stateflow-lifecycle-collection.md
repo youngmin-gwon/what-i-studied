@@ -1,14 +1,14 @@
 ---
 title: viewmodel-stateflow-lifecycle-collection
-tags: [android, compose, viewmodel, stateflow, collectAsStateWithLifecycle, lifecycle, battery-saving]
-aliases: [collectAsStateWithLifecycle, ViewModel StateFlow 수집, Lifecycle 안전 수집]
-date modified: 2026-08-07 16:07:00 +09:00
+tags: [android, battery-saving, collectAsStateWithLifecycle, compose, lifecycle, stateflow, viewmodel]
+aliases: [collectAsStateWithLifecycle, Lifecycle 안전 수집, ViewModel StateFlow 수집]
+date modified: 2026-08-07 18:14:48 +09:00
 date created: 2026-08-07 16:07:00 +09:00
 ---
 
-# viewmodel-stateflow-lifecycle-collection (`collectAsStateWithLifecycle` 기반 안전 수집 규약)
+## viewmodel-stateflow-lifecycle-collection (`collectAsStateWithLifecycle` 기반 안전 수집 규약)
 
-## 1. 개요 (Overview)
+### 1. 개요 (Overview)
 
 **viewmodel-stateflow-lifecycle-collection** 은 ViewModel 의 `StateFlow` 비동기 상태 스트림을 Compose UI 화면 상태로 변환할 때, **안드로이드 앱 수명주기(Lifecycle)가 `STARTED` 이상일 때만 수집(Collect)을 수행하고, 백그라운드 전환 시 수집을 자동으로 중단(Pause/Stop)하여 자원 및 배터리 낭비를 막는 표준 안전 수집 규약**이다.
 
@@ -16,9 +16,9 @@ date created: 2026-08-07 16:07:00 +09:00
 
 ---
 
-### 초보자를 위한 쉽게 이해하는 비유
+#### 초보자를 위한 쉽게 이해하는 비유
 
-* **collectAsStateWithLifecycle (스마트 자동 일시정지 밸브)**:
+- **collectAsStateWithLifecycle (스마트 자동 일시정지 밸브)**:
   - 관객이 극장 의자에 앉아 시청 중일 때만 수도 밸브(`StateFlow`)를 열어 전광판(UI)을 갱신하고, 관객이 나가거나 외출(앱 백그라운드)하면 자동으로 밸브를 닫아 불필요한 물(배터리/CPU) 낭비를 정지시키는 스마트 자동 밸브.
 
 ```mermaid
@@ -32,7 +32,7 @@ graph TD
 
 ---
 
-## 2. `collectAsState()` 대 `collectAsStateWithLifecycle()` 비교
+### 2. `collectAsState()` 대 `collectAsStateWithLifecycle()` 비교
 
 | 구분 | `collectAsState()` | `collectAsStateWithLifecycle()` |
 | :--- | :--- | :--- |
@@ -42,7 +42,7 @@ graph TD
 
 ---
 
-## 3. 실전 코드 예시 (Compose UI 수집 구현)
+### 3. 실전 코드 예시 (Compose UI 수집 구현)
 
 ```kotlin
 @Composable
@@ -62,7 +62,7 @@ fun UserProfileScreen(
 
 ---
 
-## 4. 연결 문서 (Related Links)
+### 4. 연결 문서 (Related Links)
 
 - [Compose SSOT](../../../compose-ssot.md) - ViewModel 단일 진실 출처
 - [StateFlow & SharedFlow](../../../stateflow-and-sharedflow.md) - StateFlow 데이터 스트림

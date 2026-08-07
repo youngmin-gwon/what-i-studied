@@ -1,14 +1,14 @@
 ---
 title: compose-state-api-selection
-tags: [android, compose, state, remember, rememberSaveable, ViewModel, state-selection]
+tags: [android, compose, remember, rememberSaveable, state, state-selection, ViewModel]
 aliases: [Compose State API Selection, Compose 상태 저장 API 선택]
-date modified: 2026-08-07 16:07:00 +09:00
+date modified: 2026-08-07 18:15:04 +09:00
 date created: 2026-08-07 16:07:00 +09:00
 ---
 
-# Compose State API Selection (Compose 상태 저장 API 선택 가이드)
+## Compose State API Selection (Compose 상태 저장 API 선택 가이드)
 
-## 1. 개요 (Overview)
+### 1. 개요 (Overview)
 
 **Compose State API Selection** 은 Jetpack Compose 앱을 설계할 때 **UI 상태(State)의 생존 범위(Lifetime)와 복원 필요성(Restoration)에 맞춰 최적의 State 보유 API (`remember`, `rememberSaveable`, `ViewModel StateFlow`)를 선택하기 위한 판단 기준**이다.
 
@@ -16,9 +16,9 @@ date created: 2026-08-07 16:07:00 +09:00
 
 ---
 
-### 초보자를 위한 쉽게 이해하는 비유
+#### 초보자를 위한 쉽게 이해하는 비유
 
-* **Compose State API 선택 (수명주기에 따른 보관함 선택)**:
+- **Compose State API 선택 (수명주기에 따른 보관함 선택)**:
   - **`remember` (임시 메모지)**: 화면이 켜져 있는 동안만 유지되고, 화면을 돌리거나 끄면 지워지는 순간 메모지.
   - **`rememberSaveable` (가방 안의 수첩)**: 화면을 회전하거나 잠시 앱이 죽었다 살아나도 가방에 들어있어 복원되는 소형 수첩.
   - **`ViewModel StateFlow` (금고 전산망)**: 앱 화면이 통째로 닫히고 재구성되어도 안전하게 영구 보호되는 중앙 전산 데이터베이스.
@@ -34,7 +34,7 @@ graph TD
 
 ---
 
-## 2. API별 수명주기 및 적재 기준 비교
+### 2. API 별 수명주기 및 적재 기준 비교
 
 | 구분 | `remember` | `rememberSaveable` | `ViewModel StateFlow` |
 | :--- | :--- | :--- | :--- |
@@ -44,7 +44,7 @@ graph TD
 
 ---
 
-## 3. 실전 코드 예시 (선택 가이드 구현)
+### 3. 실전 코드 예시 (선택 가이드 구현)
 
 ```kotlin
 @Composable
@@ -69,7 +69,7 @@ fun SearchScreen(
 
 ---
 
-## 4. 연결 문서 (Related Links)
+### 4. 연결 문서 (Related Links)
 
 - [rememberSaveable](remember-saveable.md) - Process Death 복원 소형 UI 상태 API
 - [viewmodel-stateflow-lifecycle-collection](viewmodel-stateflow-lifecycle-collection.md) - ViewModel 스트림 수집
