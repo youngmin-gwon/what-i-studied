@@ -64,6 +64,6 @@ fun UserProfileScreen(
 ### 4. 연결 문서 (Related Links)
 
 - [Kotlin Coroutines](../../../kotlin-coroutines.md) - 코루틴 비동기 런타임
-- [remember-coroutine-scope](remember-coroutine-scope.md) - 버튼 이벤트 핸들러용 스코프
+- [rememberCoroutineScope](remember-coroutine-scope.md) - 버튼 이벤트 핸들러용 스코프
 - [disposable-effect](disposable-effect.md) - 리스너 해제 Cleanup 전용 이펙트
 - [remember-updated-state](remember-updated-state.md) - 이펙트 내 최신 값 참조
