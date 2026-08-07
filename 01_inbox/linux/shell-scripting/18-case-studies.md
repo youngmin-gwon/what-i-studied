@@ -41,7 +41,7 @@ readonly SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 set -eu
 IFS='
 	'
-# Bash 전용 문법 피하기 (배열, ****, local 등)
+# Bash 전용 문법 피하기 (배열, [[ ]], local 등)
 ```
 
 ### 3. 템플릿 활용 가이드
