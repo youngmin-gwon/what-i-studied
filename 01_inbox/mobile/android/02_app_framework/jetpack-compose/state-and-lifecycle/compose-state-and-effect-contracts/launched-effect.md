@@ -2,7 +2,7 @@
 title: launched-effect
 tags: [android, async, cancellation, compose, coroutines, launched-effect, side-effects]
 aliases: [LaunchedEffect, 런치드 이펙트, 비동기 이펙트]
-date modified: 2026-08-07 16:18:22 +09:00
+date modified: 2026-08-07 17:26:19 +09:00
 date created: 2026-08-07 16:07:00 +09:00
 ---
 
@@ -65,5 +65,5 @@ fun UserProfileScreen(
 
 - [Kotlin Coroutines](../../../kotlin-coroutines.md) - 코루틴 비동기 런타임
 - [rememberCoroutineScope](remember-coroutine-scope.md) - 버튼 이벤트 핸들러용 스코프
-- [disposable-effect](disposable-effect.md) - 리스너 해제 Cleanup 전용 이펙트
-- [remember-updated-state](remember-updated-state.md) - 이펙트 내 최신 값 참조
+- [DisposableEffect](disposable-effect.md) - 리스너 해제 Cleanup 전용 이펙트
+- [rememberUpdatedState](remember-updated-state.md) - 이펙트 내 최신 값 참조
