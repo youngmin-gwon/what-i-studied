@@ -2,7 +2,7 @@
 title: android-system-services-and-device-capabilities
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-06 15:05:00 +09:00
+date modified: 2026-08-07 11:37:52 +09:00
 date created: 2026-08-03 17:31:11 +09:00
 ---
 

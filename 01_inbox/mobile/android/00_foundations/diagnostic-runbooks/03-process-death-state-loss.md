@@ -21,7 +21,7 @@ date created: 2026-08-04 10:40:00 +09:00
 ### 2. 재현 조건 및 환경 격리 (Reproduction & Isolation)
 
 - **Configuration Change vs True Process Death 명확한 구분**:
-  - **Configuration Change (설정 변경)**: 화면 회전, 다크모드 전환, 언어 변경. Activity 는 파괴되지만 `[viewmodel](../../02_app_framework/viewmodel.md)` 및 메모리 인스턴스는 그대로 유지됨.
+  - **Configuration Change (설정 변경)**: 화면 회전, 다크모드 전환, 언어 변경. Activity 는 파괴되지만 `ViewModel` 및 메모리 인스턴스는 그대로 유지됨.
   - **Process Death (프로세스 사멸)**: 메모리 압박(Low Memory Killer, LMK)으로 인해 OS 가 백그라운드 프로세스를 강제 종료. Activity 및 `ViewModel` 을 포함한 프로세스 내 모든 인스턴스가 파괴됨.
 - **재현 도구의 올바른 선택**:
   - **"활동 유지 안함" (Don't keep activities)**: 개발자 옵션의 이 기능은 화면을 벗어나는 즉시 Activity 만 파괴하고 프로세스는 남겨둔다. Configuration Change 복구 로직 검증에는 유용하나, **진짜 Process Death 재현 도구가 아니다**.
@@ -53,12 +53,12 @@ flowchart TD
     A["앱 백그라운드 복귀 후 상태 소실 발생"] --> B["PID 변화 확인 (adb shell pidof <pkg>)"]
     
     B --> C{"재현 전후 PID 가 동일한가?"}
-    C -- "동일함 (PID 유지)" --> D["Configuration Change / Compose [recomposition](../../02_app_framework/jetpack-compose/runtime/recomposition.md) 문제"]
+    C -- "동일함 (PID 유지)" --> D"Configuration Change / Compose [recomposition 문제"]
     D --> D_CHECK["rememberSaveable 미사용 여부 점검"]
     
     C -- "다름 (PID 변경 = Process Death)" --> E{"상태 저장 위치 코드 확인"}
     
-    E -- "ViewModel 의 일반 var / [stateflow](../../02_app_framework/stateflow-and-sharedflow.md) 에만 존재" --> F["SavedStateHandle 또는 Room DB 로 이관 필요"]
+    E -- "ViewModel 의 일반 var / stateflow 에만 존재" --> F["SavedStateHandle 또는 Room DB 로 이관 필요"]
     E -- "SavedStateHandle 에 저장되어 있음" --> G{"Saved State 용량 및 복원 로직 점검"}
     
     G -- "Bundle 용량 > 500KB" --> H["TransactionTooLargeException 발생\n(대용량 데이터는 Room/DataStore 저장)"]

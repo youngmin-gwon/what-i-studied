@@ -20,21 +20,21 @@ date created: 2026-08-01 00:00:00 +09:00
 graph TD
     subgraph UI Layer ["UI Layer (Single Activity + Compose Window)"]
         UI["Compose UI (Declarative Render)"]
-        VM["StateHolder / [viewmodel](../viewmodel.md) (UiState Provider)"]
+        VM"StateHolder / [viewmodel (UiState Provider)"]
     end
     
     subgraph Domain Layer ["Domain Layer (Optional Business Logic)"]
         UC["UseCases (Pure Business Rules)"]
     end
     
-    subgraph Data Layer ["Data Layer ([single source of truth](../single-source-of-truth.md))"]
+    subgraph Data Layer "Data Layer ([single source of truth)"]
         Repo["Repository (Data Aggregation & Caching)"]
         LocalDS["Local DataSource (Room DB / DataStore)"]
         RemoteDS["Remote DataSource (Ktor / Retrofit API)"]
     end
 
     UI -->|"Sends User Actions"| VM
-    VM -->|"Exposes [stateflow](../stateflow-and-sharedflow.md)"| UI
+    VM -->|"Exposes stateflow"| UI
     VM --> UC
     UC --> Repo
     VM --> Repo

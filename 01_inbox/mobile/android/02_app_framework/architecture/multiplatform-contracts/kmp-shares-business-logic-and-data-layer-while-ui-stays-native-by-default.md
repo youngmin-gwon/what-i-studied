@@ -43,7 +43,7 @@ graph TD
 
     subgraph Android App ["Android App Target"]
         ComposeUI["Jetpack Compose UI"]
-        AndroidVM["Android [viewmodel](../../viewmodel.md) / [stateflow](../../stateflow-and-sharedflow.md)"]
+        AndroidVM"Android [viewmodel / stateflow"]
     end
 
     subgraph iOS App ["iOS App Target"]

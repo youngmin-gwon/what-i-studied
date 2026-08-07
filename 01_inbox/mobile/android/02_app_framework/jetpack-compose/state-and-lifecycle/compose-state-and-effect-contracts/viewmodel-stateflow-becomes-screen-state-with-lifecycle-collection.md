@@ -1,5 +1,5 @@
 ---
-title: [viewmodel](../../../viewmodel.md)-[stateflow](../../../stateflow-and-sharedflow.md)-becomes-screen-state-with-lifecycle-collection
+title: viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection
 tags: ["android", "android/app-framework"]
 aliases: [collectAsStateWithLifecycle, StateFlow to Compose State]
 date modified: 2026-08-06 14:28:12 +09:00

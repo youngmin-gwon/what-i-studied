@@ -48,7 +48,7 @@ sequenceDiagram
     Repo-->>UC: "Domain Model 변환 후 반환"
     UC-->>VM: "최종 비즈니스 결과 반환"
     VM->>VM: "MutableStateFlow.value = NewUiState"
-    VM-->>UI: "[stateflow](../../../stateflow-and-sharedflow.md) 관찰을 통한 [recomposition](../../../jetpack-compose/runtime/recomposition.md) (렌더링)"
+    VM-->>UI: "stateflow 관찰을 통한 recomposition (렌더링)"
 ```
 
 ---

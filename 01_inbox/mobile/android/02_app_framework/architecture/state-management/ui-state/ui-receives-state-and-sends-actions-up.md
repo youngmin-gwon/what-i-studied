@@ -25,7 +25,7 @@ Jetpack Compose 및 현대 안드로이드 아키텍처의 UI 레이어 디자�
 
 1. **상태 불일치 및 경쟁 상태(Race Condition) 방지**: 과거 View 시스템이나 양방향 바인딩 방식에서는 Activity, Fragment, Custom View, ViewModel 이 저마다 상태를 따로 소유하며 직접 수정해 상태 파편화와 버그가 빈번했다. UDF 는 **단일 진실 공급원([single source of truth](../../../single-source-of-truth.md): SSOT)** 을 둠으로써 상태 불일치를 근본적으로 차단한다.
 2. **UI 테스트 및 예측 가능성 향상**: UI 컴포넌트가 불변 `UiState` 만 받아 렌더링하므로, 특정 상태값만 주입하면 화면이 어떻게 그려질지 100% 동기적으로 예측하고 가상 UI 테스트(Screenshot Test, Compose UI Test)를 쉽게 작성할 수 있다.
-3. **화면 회전 및 프로세스 재시작(Process Death) 대응**: ViewModel 이 독립적으로 보존하는 `[stateflow](../../../stateflow-and-sharedflow.md)` 로부터 상태를 수신하므로, 화면이 회전되거나 재구성되어도 UI 컴포넌트는 오직 최신 상태를 받아 복원만 하면 된다.
+3. **화면 회전 및 프로세스 재시작(Process Death) 대응**: ViewModel 이 독립적으로 보존하는 `StateFlow` 로부터 상태를 수신하므로, 화면이 회전되거나 재구성되어도 UI 컴포넌트는 오직 최신 상태를 받아 복원만 하면 된다.
 
 ---
 
@@ -43,7 +43,7 @@ sequenceDiagram
     UI->>VM: Action 전달 (onSubmitClick())
     VM->>SF: 상태 변경 (uiState.update { copy(isSubmitting = true) })
     SF-->>UI: StateFlow 수집 (collectAsStateWithLifecycle)
-    UI->>UI: [recomposition](../../../jetpack-compose/runtime/recomposition.md) 수행 (로딩 스피너 및 최신 UI 렌더링)
+    UI->>UI: recomposition 수행 (로딩 스피너 및 최신 UI 렌더링)
 ```
 
 1. **상태 관찰의 생명주기 안전성 (`collectAsStateWithLifecycle`)**:

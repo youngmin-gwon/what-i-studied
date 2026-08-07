@@ -20,7 +20,7 @@ Android 비동기 프로그래밍 패러다임은 **Kotlin Coroutines**와 **Flo
 ```mermaid
 graph TD
     A["Data Layer (Repository/DataSource)"] -->|"Cold Flow (Data Stream)"| B["Domain / UseCase"]
-    B -->|"Cold Flow / Suspend Result"| C["UI Layer ([viewmodel](../../viewmodel.md))"]
+    B -->|"Cold Flow / Suspend Result"| C"UI Layer ([viewmodel)"]
     C -->|"stateIn() / combine()"| D["StateFlow (UiState)"]
     D -->|"collectAsStateWithLifecycle()"| E["UI Layer (Compose / View)"]
 

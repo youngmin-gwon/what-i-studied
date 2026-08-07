@@ -39,7 +39,7 @@ flowchart TD
     end
 
     subgraph KERNEL["Kernel / Framework Layer"]
-        k1["[binder ipc](../../01_system_internals/binder-ipc.md)"] --> k2["ActivityThread.main()"]
+        k1"[binder ipc"] --> k2["ActivityThread.main()"]
         k2 --> k3["Target Activity"]
         k3 --> k4["Navigation 3 Route Parser / Canonicalization"]
     end

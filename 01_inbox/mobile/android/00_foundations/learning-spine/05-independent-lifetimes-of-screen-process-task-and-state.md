@@ -14,7 +14,7 @@ date created: 2026-08-03 20:45:00 +09:00
 
 >화면, 컴포넌트, 프로세스, task 와 사용자 상태는 왜 함께 시작하고 함께 끝나지 않는가?
 
-이 장은 각 상태 저장 API 의 사용법을 처음부터 가르치지 않는다. `[viewmodel](../../02_app_framework/viewmodel.md)`, `rememberSaveable`, `SavedStateHandle` 의 구체적인 사용법은 각 원자 노트가 다루는 수준으로 남겨두고, 여기서는 서로 다른 사건이 서로 다른 lifetime 을 어떻게 끊는지 하나의 모델로 연결한다.
+이 장은 각 상태 저장 API 의 사용법을 처음부터 가르치지 않는다. `ViewModel`, `rememberSaveable`, `SavedStateHandle` 의 구체적인 사용법은 각 원자 노트가 다루는 수준으로 남겨두고, 여기서는 서로 다른 사건이 서로 다른 lifetime 을 어떻게 끊는지 하나의 모델로 연결한다.
 
 ### 1. 겹쳐 있는 여러 lifetime 을 구분한다
 

@@ -54,7 +54,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun MainFeedScreen(
-    [viewmodel](../../../02_app_framework/viewmodel.md): MainFeedViewModel,
+    viewModel: MainFeedViewModel,
     modifier: Modifier = Modifier
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value

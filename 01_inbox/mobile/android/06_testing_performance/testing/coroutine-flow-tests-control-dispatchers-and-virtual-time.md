@@ -77,7 +77,7 @@ class UserViewModelTest {
     @Test
     fun fetchUser_updatesState_withVirtualTimeDelay() = runTest {
         // ViewModel에 TestDispatcher / TestScope 제공
-        val [viewmodel](../../02_app_framework/viewmodel.md) = UserViewModel(
+        val viewModel = UserViewModel(
             ioDispatcher = mainDispatcherRule.testDispatcher
         )
 

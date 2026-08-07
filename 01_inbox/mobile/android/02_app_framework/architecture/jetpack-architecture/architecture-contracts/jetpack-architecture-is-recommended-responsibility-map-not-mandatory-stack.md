@@ -15,7 +15,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ### 1. 개념 및 핵심 명제 (What)
 
 - **프레임워크 독립적 원칙**:
-  `[viewmodel](../../../viewmodel.md)` 대신 KMP 전용 StateHolder 를 쓸 수도 있고, `Room` 대신 `SQLDelight` 를 쓸 수 있으며, `Hilt` 대신 `Metro` 나 `Koin` 을 쓸 수 있다. 기술 스택이 바뀌어도 **UI 계층, 비즈니스 계층, 데이터 계층 간의 책임 경계**가 유지된다면 권장 아키텍처 원칙을 완벽히 준수하는 것이다.
+  `ViewModel` 대신 KMP 전용 StateHolder 를 쓸 수도 있고, `Room` 대신 `SQLDelight` 를 쓸 수 있으며, `Hilt` 대신 `Metro` 나 `Koin` 을 쓸 수 있다. 기술 스택이 바뀌어도 **UI 계층, 비즈니스 계층, 데이터 계층 간의 책임 경계**가 유지된다면 권장 아키텍처 원칙을 완벽히 준수하는 것이다.
 - **수준별 유연한 아키텍처 설계**:
   간단한 도메인을 가진 화면은 Domain Layer(UseCase)를 생략하고 ViewModel 이 Repository 를 직접 참조할 수 있다. 필수 레이어는 **UI Layer 와 Data Layer** 이다.
 
@@ -40,7 +40,7 @@ graph LR
 
     subgraph Flexible Implementations ["구현 기술 스택 (Flexible Choice)"]
         UI_Choice["Compose / Native View"]
-        State_Choice["[stateflow](../../../stateflow-and-sharedflow.md) / KMP StateHolder"]
+        State_Choice"[stateflow / KMP StateHolder"]
         DI_Choice["Hilt / Koin / Metro / Manual DI"]
         DB_Choice["Room DB / SQLDelight / DataStore"]
     end

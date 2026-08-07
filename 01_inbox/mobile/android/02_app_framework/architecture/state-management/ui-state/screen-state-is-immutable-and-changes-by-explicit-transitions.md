@@ -25,7 +25,7 @@ data class LoginUiState(
 )
 ```
 
-[viewmodel](../../../viewmodel.md) 내부에서는 `MutableStateFlow` 를 숨기고 읽기 전용 `[stateflow](../../../stateflow-and-sharedflow.md)` 만 공개한다.
+[viewmodel](../../../viewmodel.md) 내부에서는 `MutableStateFlow` 를 숨기고 읽기 전용 `StateFlow` 만 공개한다.
 
 ```kotlin
 private val _uiState = MutableStateFlow(LoginUiState())

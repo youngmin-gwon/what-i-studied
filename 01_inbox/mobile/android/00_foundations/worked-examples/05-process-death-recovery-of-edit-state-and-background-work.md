@@ -35,10 +35,10 @@ date created: 2026-08-04 02:50:00 +09:00
 
 3. **Kernel & Framework Layer (앱 재진입 및 프로세스 재생성)**
    - 사용자가 외부 picker 에서 작업 후 작성 앱으로 복귀하면, ATMS 는 해당 `ActivityRecord` 의 상태를 확인하고 Zygote 에 `fork()` IPC 요청을 보내 새 프로세스를 생성한다.
-   - 새로 생성된 프로세스의 `ActivityThread.main()` 이 실행되고, `attach()` → `handleLaunchActivity()` 흐름을 거쳐 `Activity` 및 `[viewmodel](../../02_app_framework/viewmodel.md)` 이 새로 인스턴스화된다.
+   - 새로 생성된 프로세스의 `ActivityThread.main()` 이 실행되고, `attach()` → `handleLaunchActivity()` 흐름을 거쳐 `Activity` 및 `ViewModel` 이 새로 인스턴스화된다.
 
 4. **UI & Work Recovery Layer (상태 및 작업 복원)**
-   - **Draft Text 복원**: ATMS 에서 전달받은 `SavedState` Bundle 이 `SavedStateHandle` 로 재주입되어 `ViewModel` 이 생성된다. Compose UI 의 `TextField` 는 `SavedStateHandle` 의 `[stateflow](../../02_app_framework/stateflow-and-sharedflow.md)` 를 관찰하여 작성 중이던 글을 다시 화면에 복원한다.
+   - **Draft Text 복원**: ATMS 에서 전달받은 `SavedState` Bundle 이 `SavedStateHandle` 로 재주입되어 `ViewModel` 이 생성된다. Compose UI 의 `TextField` 는 `SavedStateHandle` 의 `StateFlow` 를 관찰하여 작성 중이던 글을 다시 화면에 복원한다.
    - **Work Manager 복원**: `WorkManager` 가 초기화되면서 SQLite DB 에 남아 있던 기존 업로드 작업 ID (`pending_upload_id`) 의 최신 `WorkInfo` 상태를 `SystemJobService` / `JobScheduler` 와 동기화한다. 화면은 `getWorkInfoByIdFlow()` 를 통해 업로드 진행률 또는 완료 상태를 다시 관찰한다.
 
 ---

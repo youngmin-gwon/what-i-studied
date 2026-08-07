@@ -1,5 +1,5 @@
 ---
-title: [viewmodel](../../../viewmodel.md)-exposes-read-only-state
+title: viewmodel-exposes-read-only-state
 tags: [android, android/architecture, android/state-management, android/viewmodel]
 aliases: ["Mutable 상태 홀더는 ViewModel 내부에 숨기고 외부에는 읽기 전용 상태만 노출한다"]
 date modified: 2026-08-05 16:15:00 +09:00
@@ -14,7 +14,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상태를 변경할 수 있는 홀더는 ViewModel 의 private 필드로 제한한다.
 
-UI 와 다른 호출자는 읽기 전용 `[stateflow](../../../stateflow-and-sharedflow.md)`, `LiveData` 또는 동등한 인터페이스만 받는다.
+UI 와 다른 호출자는 읽기 전용 `StateFlow`, `LiveData` 또는 동등한 인터페이스만 받는다.
 
 이 구조는 상태 변경의 단일 진입점을 만들고,
 

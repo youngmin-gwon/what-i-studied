@@ -36,7 +36,7 @@ graph TD
     end
 
     subgraph VM["ViewModel / Domain Layer"]
-        B["State Holders: [stateflow](../../../stateflow-and-sharedflow.md)&lt;ScreenUiState&gt;<br/>수명주기: Screen / Activity Navigation Lifetime<br/>역할: 서버 데이터 연동, 비즈니스 검증, 도메인 변환"]
+        B"State Holders: [stateflow&lt;ScreenUiState&gt;<br/>수명주기: Screen / Activity Navigation Lifetime<br/>역할: 서버 데이터 연동, 비즈니스 검증, 도메인 변환"]
     end
 
     A -->|"Pure UI Events / Screen State"| B

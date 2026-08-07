@@ -1,5 +1,5 @@
 ---
-title: repository-exposes-flow-and-[viewmodel](../../../viewmodel.md)-composes-screen-state
+title: repository-exposes-flow-and-viewmodel-composes-screen-state
 tags: [android, android/async, android/flow, android/architecture]
 aliases: ["Repository는 Flow를 노출하고 ViewModel은 화면 상태를 조합한다"]
 date modified: 2026-08-05 16:15:00 +09:00
@@ -9,7 +9,7 @@ date created: 2026-08-01 00:00:00 +09:00
 ## Repository는 Flow를 노출하고 ViewModel은 화면 상태를 조합한다
 
 ### 개념 (What)
-Android Recommended App Architecture에 따라 **Repository 레이어는 무상태(Stateless) 또는 Cold Stream 형태의 `Flow<T>`를 노출**하고, **ViewModel 레이어는 비즈니스 로직에 맞춰 복수의 데이터 소스를 `[stateflow](../../../stateflow-and-sharedflow.md)<UiState>` 단일 화면 상태로 조합(Compose)**하는 아키텍처 경계 계약이다.
+Android Recommended App Architecture에 따라 **Repository 레이어는 무상태(Stateless) 또는 Cold Stream 형태의 `Flow<T>`를 노출**하고, **ViewModel 레이어는 비즈니스 로직에 맞춰 복수의 데이터 소스를 `StateFlow<UiState>` 단일 화면 상태로 조합(Compose)**하는 아키텍처 경계 계약이다.
 
 ### 왜 필요한가 (Why)
 1. **단방향 데이터 흐름 (Unidirectional Data Flow - UDF)**: UI -> ViewModel(Event), ViewModel -> UI(State)의 명확한 데이터 선순환을 보장하여 상태 불일치 버그를 근본적으로 방지한다.

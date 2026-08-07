@@ -86,7 +86,7 @@ Android 앱은 `LocationManager`, `SensorManager`, `PackageManager` 처럼 이�
 
 `앱의 관리 객체`
 
-→ `[binder ipc](../../01_system_internals/binder-ipc.md) 경계`
+→ `Binder IPC 경계`
 
 → `원격 시스템 서비스`
 

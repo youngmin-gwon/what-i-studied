@@ -50,7 +50,7 @@ suspend fun runSummarizationSafely(
     summarizer: Summarizer,
     articleText: String,
 ): String? {
-    // summarizer의 소유자는 [viewmodel](../../../02_app_framework/viewmodel.md).onCleared()/Activity.onDestroy() 등에서 close()한다.
+    // summarizer의 소유자는 ViewModel.onCleared()/Activity.onDestroy() 등에서 close()한다.
     when (summarizer.checkFeatureStatus().await()) {
         FeatureStatus.UNAVAILABLE -> return null
         FeatureStatus.DOWNLOADABLE -> {

@@ -26,7 +26,7 @@ data class ProfileUiState(
 )
 ```
 
-`[stateflow](../../../stateflow-and-sharedflow.md)` 는 최신 상태를 보관하고 새 collector 에게 현재 값을 전달하므로 이 목적에 맞다.
+`StateFlow` 는 최신 상태를 보관하고 새 collector 에게 현재 값을 전달하므로 이 목적에 맞다.
 
 UI 는 collector 가 잠시 없어졌다가 다시 생겨도 최신 `UiState` 를 받아 동일한 화면을 그린다.
 

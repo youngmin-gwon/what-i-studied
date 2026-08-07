@@ -44,7 +44,7 @@ graph TD
    - `provideGlance()` 함수가 실행되면 Glance 컴포저블 블록이 컴파일되어 `GlanceNode` 트리로 구성된다.
    - `RemoteViewsTranslator` 는 `GlanceNode` 를 순회하며 `LinearLayout`, `RelativeLayout`, `TextView`, `ImageView` 등 호환 가능한 View 레이아웃으로 대응시킨다.
 2. **GlanceStateDefinition 을 통한 상태 관리**:
-   - 위젯은 [viewmodel](../../viewmodel.md) 의 `[stateflow](../../stateflow-and-sharedflow.md)` 나 인메모리 반응형 상태를 직접 관찰할 수 없다.
+   - 위젯은 [viewmodel](../../viewmodel.md) 의 `StateFlow` 나 인메모리 반응형 상태를 직접 관찰할 수 없다.
    - Glance 는 `PreferencesGlanceStateDefinition` 또는 커스텀 DataStore 기반의 `GlanceStateDefinition` 을 통해 영속화된 상태(State)를 로딩하고, 상태 변경 발생 시 `GlanceAppWidget.update(context, glanceId)` 를 통해 재컴포지션 및 RemoteViews 재생성을 수행한다.
 
 ---

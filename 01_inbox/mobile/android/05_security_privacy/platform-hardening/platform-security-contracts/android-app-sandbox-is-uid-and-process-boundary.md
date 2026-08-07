@@ -26,7 +26,7 @@ flowchart LR
     
     AppA -- Direct File Access Blocked --> KernelBoundary
     KernelBoundary -- Permission Denied --> PrivateB
-    AppA ==>|"[binder ipc](../../../01_system_internals/binder-ipc.md) / ContentProvider / Intent"| AppB
+    AppA ==>|"binder ipc / ContentProvider / Intent"| AppB
 ```
 
 ### 내부 동작 메커니즘

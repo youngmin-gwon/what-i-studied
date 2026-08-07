@@ -30,7 +30,7 @@ date created: 2026-08-04 16:00:00 +09:00
 flowchart TD
     network["Network / Remote DB"] --> repo["Repository — 단일 source of truth 관리"]
     repo -- "Flow&lt;T&gt; 노출" --> vm["ViewModel"]
-    vm -- "combine / map / stateIn" --> [stateflow](../../02_app_framework/stateflow-and-sharedflow.md)["StateFlow&lt;UiState&gt;"]
+    vm -- "combine / map / stateIn" --> stateflow["StateFlow&lt;UiState&gt;"]
     stateflow -- "collectAsStateWithLifecycle()" --> composable["Composable / View"]
 
     storage["Room / DataStore — 영속 저장소 (source of truth)"] --> repo

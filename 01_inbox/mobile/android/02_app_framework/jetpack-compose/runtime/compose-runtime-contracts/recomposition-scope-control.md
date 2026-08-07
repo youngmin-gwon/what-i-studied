@@ -1,5 +1,5 @@
 ---
-title: [recomposition](../recomposition.md)-reruns-needed-composable-scopes-not-the-whole-ui
+title: recomposition-reruns-needed-composable-scopes-not-the-whole-ui
 tags: [android, compose/runtime, jetpack-compose]
 aliases: [Recomposition, RecomposeScope]
 date modified: 2026-08-05 16:15:00 +09:00

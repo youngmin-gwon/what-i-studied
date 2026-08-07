@@ -48,7 +48,7 @@ ANR 은 느린 메서드 하나의 문제가 아니라, 입력·화면 갱신·�
 
 Coroutine 자체는 스레드가 아니다. 어떤 스레드에서 실행될지는 `Dispatcher` 가 고르고, 그 작업이 언제까지 살아 있어야 하는지는 `CoroutineScope` 가 정한다. 이 둘을 같은 문제로 섞으면 안 된다.
 
-이 구분은 5 장이 다룬 lifetime 모델과 바로 연결된다. 공식 문서는 `[viewmodel](../../02_app_framework/viewmodel.md)` 에서 coroutine 을 시작해야 하는 이유를 이렇게 설명한다.
+이 구분은 5 장이 다룬 lifetime 모델과 바로 연결된다. 공식 문서는 `ViewModel` 에서 coroutine 을 시작해야 하는 이유를 이렇게 설명한다.
 
 >"Views shouldn't directly trigger any coroutines to perform business logic. Instead, defer that responsibility to the ViewModel."
 >

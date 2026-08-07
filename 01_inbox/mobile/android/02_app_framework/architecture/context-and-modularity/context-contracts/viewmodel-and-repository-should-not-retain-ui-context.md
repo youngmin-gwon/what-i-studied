@@ -1,5 +1,5 @@
 ---
-title: [viewmodel](../../../viewmodel.md)-and-repository-should-not-retain-ui-context
+title: viewmodel-and-repository-should-not-retain-ui-context
 tags: [android, android/architecture, android/context, android/viewmodel]
 aliases: ["ViewModel과 Repository는 UI Context를 보관하지 않는다"]
 date modified: 2026-08-05 16:15:00 +09:00
@@ -42,7 +42,7 @@ graph LR
         Repo --> Local["DataStore / Room (ApplicationContext Only)"]
     end
     
-    VM -->|"Exposes Immutable [stateflow](../../../stateflow-and-sharedflow.md)"| UI
+    VM -->|"Exposes Immutable stateflow"| UI
 ```
 
 ---

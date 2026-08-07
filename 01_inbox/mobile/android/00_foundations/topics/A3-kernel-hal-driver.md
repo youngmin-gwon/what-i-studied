@@ -25,7 +25,7 @@ graph TD
     Drivers[Vendor Kernel Drivers]
     Hardware[Physical Hardware]
 
-    Framework -->|"[binder ipc](../../01_system_internals/binder-ipc.md)"| SystemServices
+    Framework -->|"binder ipc"| SystemServices
     SystemServices -->|"AIDL/HIDL"| HAL
     HAL -->|"Syscalls/IOCTL"| Kernel
     Kernel -->|"VFS/Subsystem"| Drivers

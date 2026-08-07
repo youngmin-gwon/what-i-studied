@@ -1,5 +1,5 @@
 ---
-title: compose-state-read-location-controls-[recomposition](../../runtime/recomposition.md)-scope
+title: compose-state-read-location-controls-recomposition-scope
 tags: [android, compose/performance, jetpack-compose]
 aliases: []
 date modified: 2026-08-06 14:48:00 +09:00

@@ -50,7 +50,7 @@ class SearchViewModel(
     private val searchQuery = MutableStateFlow("")
 
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
-    val searchResultUiState: [stateflow](../../../stateflow-and-sharedflow.md)<SearchResultUiState> = searchQuery
+    val searchResultUiState: StateFlow<SearchResultUiState> = searchQuery
         .debounce(300L) // 300ms 핑거 타핑 대기
         .distinctUntilChanged() // 동일 검색어 연속 입력 방지
         .flatMapLatest { query ->

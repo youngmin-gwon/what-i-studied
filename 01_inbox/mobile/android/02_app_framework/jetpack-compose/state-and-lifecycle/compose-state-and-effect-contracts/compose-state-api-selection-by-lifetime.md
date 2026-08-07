@@ -38,7 +38,7 @@ graph TD
     end
 
     subgraph L3["Level 3: ViewModel 수명 (Screen Business State)"]
-        C["API: ViewModel + SavedStateHandle + [stateflow](../../../stateflow-and-sharedflow.md)<br/><br/>멸실 시점: 화면 (NavBackStackEntry / Host Activity) 이 Pop 될 때"]
+        C"API: ViewModel + SavedStateHandle + [stateflow<br/><br/>멸실 시점: 화면 (NavBackStackEntry / Host Activity) 이 Pop 될 때"]
     end
 
     subgraph L4["Level 4: Application / Persistent 수명 (Global Domain State)"]

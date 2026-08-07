@@ -25,7 +25,7 @@ class DetailViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val repository: UserRepository
 ) : ViewModel() {
-    val userId: [stateflow](../../../stateflow-and-sharedflow.md)<String?> = savedStateHandle
+    val userId: StateFlow<String?> = savedStateHandle
         .getStateFlow("user_id", null)
 
     fun selectUser(id: String) {

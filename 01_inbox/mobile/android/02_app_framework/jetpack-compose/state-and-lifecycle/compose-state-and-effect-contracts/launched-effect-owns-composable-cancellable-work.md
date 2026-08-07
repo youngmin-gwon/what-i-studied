@@ -65,7 +65,7 @@ sequenceDiagram
 @Composable
 fun UserDetailScreen(
     userId: String,
-    [viewmodel](../../../viewmodel.md): UserDetailViewModel = hiltViewModel()
+    viewModel: UserDetailViewModel = hiltViewModel()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 

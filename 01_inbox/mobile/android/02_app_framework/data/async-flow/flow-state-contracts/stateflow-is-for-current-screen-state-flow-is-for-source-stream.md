@@ -1,5 +1,5 @@
 ---
-title: [stateflow](../../../stateflow-and-sharedflow.md)-is-for-current-screen-state-flow-is-for-source-stream
+title: stateflow-is-for-current-screen-state-flow-is-for-source-stream
 tags: [android, android/async, android/flow, android/state]
 aliases: ["StateFlow는 화면의 현재 상태를 다루고 Flow는 데이터 저장소 스트림을 다룬다"]
 date modified: 2026-08-05 16:15:00 +09:00
@@ -29,7 +29,7 @@ graph TD
     A["Repository Cold Flow (DB / Network Stream)"] -->|"stateIn() in ViewModel"| B["StateFlow<UiState> (Hot Stream)"]
     B -->|"Holds .value in Memory"| C["State Property (Read Anytime)"]
     B -->|"Equals Check (Conflation)"| D["Emit to UI only if Value Changed"]
-    D --> E["Jetpack Compose [recomposition](../../../jetpack-compose/runtime/recomposition.md)"]
+    D --> E"Jetpack Compose [recomposition"]
 
     style A fill:#e1f5fe,stroke:#0288d1,color:#01579b
     style B fill:#fff3e0,stroke:#f57c00,color:#e65100
