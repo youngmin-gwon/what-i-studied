@@ -54,4 +54,4 @@ date created: 2025-12-28 20:45:40 +09:00
 ## 🔗 연결 문서
 
 - [12-recipes](12-recipes.md) - 실전 레시피 및 체크리스트
-- **../shell-scripting** - 전체 가이드 목록
+- [shell-scripting](../shell-scripting.md) - 전체 가이드 목록

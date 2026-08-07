@@ -51,4 +51,4 @@ done < input.txt
 ### 🔗 연결 문서
 
 - [20-command-drills](20-command-drills.md) - 커맨드 드릴 세트
-- **../shell-scripting** - 전체 가이드 목록
+- [shell-scripting](../shell-scripting.md) - 전체 가이드 목록

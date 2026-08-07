@@ -72,4 +72,4 @@ date created: 2025-12-28 20:44:10 +09:00
 ### 🔗 연결 문서
 
 - [02-expansions](02-expansions.md) - 명령 확장 및 인용 규칙
-- **../shell-scripting** - 전체 가이드 목록
+- [shell-scripting](../shell-scripting.md) - 전체 가이드 목록

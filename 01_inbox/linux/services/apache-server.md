@@ -195,4 +195,4 @@ httpd -M
 
 - [dns-bind-server](dns-bind-server.md) - DNS 서버 설정
 - [security-commands](../commands/security-commands.md) - 방화벽 설정 (HTTP 80, HTTPS 443)
-- **ssl-tls** - HTTPS 인증서 설정 (OpenSSL, Certbot)
+- [ssl-tls](../security/ssl-tls.md) - HTTPS 인증서 설정 (OpenSSL, Certbot)

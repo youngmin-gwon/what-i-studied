@@ -211,6 +211,6 @@ https         443/tcp
 ## 🔗 연결 문서 (Related Documents)
 
 - [network-standards](network-standards.md) - OSI 모델 및 표준
-- **네트워크 명령어**
+- [network-commands](commands/network-commands.md) - 네트워크 명령어
 - [네트워크 설정 파일 (상세)](network-configuration.md)
-- **DNS 서버 설정**
+- [dns-bind-server](services/dns-bind-server.md) - DNS 서버 설정

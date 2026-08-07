@@ -242,14 +242,11 @@ graphical.target에 도달하려면:
 
 ### multi-user.target 예시
 
-```bash
-# 서버 모드 (GUI 없음)
-# 포함되는 것들:
+서버 모드 (GUI 없음)에 포함되는 것들:
 - 네트워크
 - SSH
 - 각종 서버 서비스 (nginx, mysql 등)
 - cron
-```
 
 ### Target 명령어
 

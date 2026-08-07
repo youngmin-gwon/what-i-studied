@@ -504,62 +504,46 @@ ss -tan | grep TIME_WAIT
 
 ### 1. Unix Domain Socket
 
-```bash
-# ✅ DO
+**✅ DO**
 - 로컬 IPC에는 Unix Socket 사용 (성능 우수)
-- 소켓 파일 권한 설정
-chmod 660 /var/run/app.sock
-chown www-data:www-data /var/run/app.sock
+- 소켓 파일 권한 설정: `chmod 660 /var/run/app.sock`, `chown www-data:www-data /var/run/app.sock`
+- 종료 시 소켓 파일 삭제: `trap "rm -f /var/run/app.sock" EXIT`
 
-- 종료 시 소켓 파일 삭제
-trap "rm -f /var/run/app.sock" EXIT
-
-# ❌ DON'T
+**❌ DON'T**
 - 원격 통신에 Unix Socket 사용 (불가능)
 - 소켓 파일을 /tmp에 생성 (보안 위험)
-```
 
 ### 2. TCP Socket
 
-```bash
-# ✅ DO
+**✅ DO**
 - SO_REUSEADDR 설정 (빠른 재시작)
-- 타임아웃 설정 (무한 대기 방지)
-sock.settimeout(30)
-
+- 타임아웃 설정 (무한 대기 방지): `sock.settimeout(30)`
 - 연결 풀 사용 (재사용)
 
-# ❌ DON'T
+**❌ DON'T**
 - 소켓 닫지 않고 종료 (리소스 누수)
 - 에러 처리 없이 recv() (블로킹)
-```
 
 ### 3. UDP Socket
 
-```bash
-# ✅ DO
+**✅ DO**
 - 패킷 손실 대비 재전송 로직
 - 패킷 크기 제한 (MTU 고려, 보통 1472 bytes)
 
-# ❌ DON'T
+**❌ DON'T**
 - 신뢰성 필요한 데이터 전송
 - 대용량 파일 전송
-```
 
 ### 4. 보안
 
-```bash
-# ✅ DO
+**✅ DO**
 - Unix Socket 파일 권한 최소화
-- 방화벽 설정 (iptables, firewalld)
-iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
-
+- 방화벽 설정 (iptables, firewalld): `iptables -A INPUT -p tcp --dport 8080 -j ACCEPT`
 - TLS/SSL 사용 (민감 데이터)
 
-# ❌ DON'T
+**❌ DON'T**
 - 0.0.0.0으로 바인딩 (불필요한 노출)
 - 인증 없이 외부 접근 허용
-```
 
 ## 🔗 연결 문서 (Related Documents)
 
