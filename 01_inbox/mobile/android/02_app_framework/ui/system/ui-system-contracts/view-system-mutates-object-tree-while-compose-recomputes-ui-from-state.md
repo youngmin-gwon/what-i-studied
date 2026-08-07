@@ -23,7 +23,7 @@ Compose 에서는 composable 함수가 state 를 읽고 UI tree 를 다시 계�
 
 ### 경계
 
-- Composable 실행 중 외부 상태나 객체 속성을 수동으로 변경(Side Effect)하려는 시도는 렌더링 예측 가능성을 훼손하므로, `SideEffect` 또는 `LaunchedEffect` 블록으로 경계를 획정해야 한다.
+- Composable 실행 중 외부 상태나 객체 속성을 수동으로 변경([Side Effect](../../../../../../computer-science/side-effect.md))하려는 시도는 렌더링 예측 가능성을 훼손하므로, `SideEffect` 또는 `LaunchedEffect` 블록으로 경계를 획정해야 한다.
 
 ```kotlin
 // View: 객체 reference를 저장해두고 이벤트가 오면 그 reference를 mutate한다

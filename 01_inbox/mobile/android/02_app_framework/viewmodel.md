@@ -121,5 +121,5 @@ gantt
 - [StateFlow & SharedFlow](stateflow-and-sharedflow.md) - ViewModel 에서 UI 로 상태를 안전하게 전달하기 위한 반응형 스트림
 - [Recomposition (재구성)](jetpack-compose/runtime/recomposition.md) - ViewModel 의 UiState 변경에 반응하여 발생하는 Compose UI 재렌더링 메커니즘
 - [Pure Function (순수 함수)](../../../computer-science/pure-function.md) - ViewModel 과 대비되는 순수 UI 컴포넌트의 성질
-- [Side Effect (부작용)](../../../../02_references/computer-science/side-effect.md) - ViewModel 이 비동기 작업을 안전하게 격리하여 처리하는 범위
+- [Side Effect (부작용)](../../../computer-science/side-effect.md) - ViewModel 이 비동기 작업을 안전하게 격리하여 처리하는 범위
 - [Immutability (불변성)](../../../computer-science/immutability.md) - UiState 모델링 시 예측 가능성을 높이는 데이터 불변성 원칙

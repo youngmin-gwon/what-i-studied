@@ -1314,14 +1314,14 @@ Phase 5 의 "4 대 필수 구성요소"(내부 메커니즘/코드 예시/다이
 #### Phase 11 재감사 및 보강 계획 (2026-08-05 사용자 피드백 반영)
 
 **사용자 지적 결함 사항**:
-1. **`02_app_framework` 수박 겉핥기식 편집 경고**: 단순 1 문장 용어 정의나 날짜 변경 위주의 시늉(superficial edit)이 다수 발견됨. 예: `Side Effect`(부수 효과), `Effect`(효과/에시), `Purity`(순수성), `Idempotency`(멱등성) 같은 핵심 개념이 언급되면서도 정작 그 개념 자체에 대한 깊이 있는 인과와 정의 설명이 빠져 있음.
+1. **`02_app_framework` 수박 겉핥기식 편집 경고**: 단순 1 문장 용어 정의나 날짜 변경 위주의 시늉(superficial edit)이 다수 발견됨. 예: `Side Effect`([부수 효과](../../../computer-science/side-effect.md)), `Effect`(효과/에시), `Purity`(순수성), `Idempotency`(멱등성) 같은 핵심 개념이 언급되면서도 정작 그 개념 자체에 대한 깊이 있는 인과와 정의 설명이 빠져 있음.
 2. **구시대 XML View 예시 오용**: `app-widgets` 노트 등에 낡은 XML Layout 기반예시만 작성되어 있어, 현대 안드로이드 표준인 **Jetpack Glance(Compose UI for App Widgets)** 가 명확한 정본으로 제시되지 않고 XML RemoteViews 가 주력인 것처럼 오해를 유발함. (RemoteViews IPC 계약과 현대 Glance 프레임워크 렌더링 구분을 재정립해야 함)
 3. **`03_packaging_deployment` 무단 건너뜀**: 계획된 순서(Packaging & Deployment)를 스킵하고 작성 순서가 뒤틀림. (2026-08-05 완료)
 
 **시정 및 재작업 지침**:
 1. **`02_app_framework` 255 개 파일 전체 심층 재감사 및 보강 (완료)**:
    - `02_app_framework` 전체 255 개 노트를 전수 심층 감사(Deep Substantive Audit & Rewrite) 완료.
-   - `Side Effect` / `Effect` / `Idempotent` / `[pure function](../../../computer-science/pure-function.md)` 등 컴퓨터 과학 및 Compose runtime 핵심 원리 노트들에 **근본 개념 정의, 순수 함수와 부수 효과의 차이, Compose execution lifecycle 과의 인과관계, 비결정론적 실행 규칙**을 서술식으로 대폭 보강 (`composable-body-must-be-fast-idempotent-and-side-effect-free.md` 등).
+   - `Side Effect` / `Effect` / `Idempotent` / `[pure function](../../../computer-science/pure-function.md)` 등 컴퓨터 과학 및 Compose runtime 핵심 원리 노트들에 **근본 개념 정의, 순수 함수와 [부수 효과](../../../computer-science/side-effect.md)의 차이, Compose execution lifecycle 과의 인과관계, 비결정론적 실행 규칙**을 서술식으로 대폭 보강 (`composable-body-must-be-fast-idempotent-and-side-effect-free.md` 등).
    - `app-widgets` 노트 전체를 **Jetpack Glance 우선(Modern Standard)** 으로 재구성 (`remoteviews-restricts-widget-layouts-to-a-fixed-view-subset.md`, `app-widget-contracts.md`, `glance-renders-app-widgets-through-remoteviews-not-compose-ui.md`). XML layout 예시는 레거시/유지보수용 RemoteViews IPC 계약 설명용으로만 한정하고, Glance Compose DSL 코드를 주력 예시로 교체.
    - `navigation/` (45 개) 전 구역을 **Navigation 3 (타입 안전 `@Serializable NavKey`, 앱 소유 `NavBackStack`, `NavDisplay` 분리)** 및 **Verified App Links / Custom Tabs** 현대 아키텍처 표준으로 전면 재작성.
    - `ui-state/` 의 **UDF (단방향 데이터 흐름)**, `dependency-injection/` 의 **Hilt 컴포넌트 계층 및 KSP 연동**을 서술식과 Mermaid sequence/graph 다이어그램으로 완벽 보강.

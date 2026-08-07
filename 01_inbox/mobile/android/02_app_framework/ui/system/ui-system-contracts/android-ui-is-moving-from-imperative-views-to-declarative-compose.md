@@ -12,7 +12,7 @@ Android 의 기존 View System 은 화면 객체를 만들고 나중에 속성�
 
 이 변화는 단순히 XML 을 Kotlin 함수로 바꾸는 문제가 아니다. View System 에서는 view reference, adapter, listener, mutation 순서가 중요하다. Compose 에서는 state 읽기, [recomposition](../../../jetpack-compose/runtime/recomposition.md), effect boundary 가 중요하다.
 
-그래서 Compose UI 는 가능한 한 `UI = f(state)` 형태로 유지한다. 네트워크 호출, 저장소 변경, analytics 같은 부수 효과는 composable 본문이 아니라 [viewmodel](../../../viewmodel.md), repository, 또는 effect API 의 명시적인 경계로 옮긴다.
+그래서 Compose UI 는 가능한 한 `UI = f(state)` 형태로 유지한다. 네트워크 호출, 저장소 변경, analytics 같은 [부수 효과](../../../../../../computer-science/side-effect.md)는 composable 본문이 아니라 [viewmodel](../../../viewmodel.md), repository, 또는 effect API 의 명시적인 경계로 옮긴다.
 
 Compose 의 runtime 관점은 [Automatic State Observation은 Compose와 Flutter rebuild 모델의 핵심 차이다](../../../jetpack-compose/runtime/compose-runtime-contracts/automatic-state-observation-is-the-compose-flutter-rebuild-difference.md) 와 연결된다.
 

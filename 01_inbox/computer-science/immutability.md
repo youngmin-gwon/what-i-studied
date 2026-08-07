@@ -36,7 +36,7 @@ flowchart TD
 
 1. **스레드 안전성 (Thread Safety) 100% 보장**
    * 수많은 스레드가 동시에 읽더라도 데이터가 도중에 바뀌지 않으므로, 복잡한 Lock/Mutex 동기화 없이도 동시성 환경에서 안전하게 공유할 수 있습니다.
-2. **예측 가능성과 부작용([Side Effect](../../02_references/computer-science/side-effect.md)) 방지**
+2. **예측 가능성과 부작용([Side Effect](side-effect.md)) 방지**
    * 함수나 외부 라이브러리에 불변 객체를 넘겨주더라도, 외부에서 이 객체의 상태를 몰래 변경(Mutation)할 위험이 전혀 없습니다.
 3. **고성능 변경 감지 (Reference Equality Optimization)**
    * 데이터가 변경되었는지 확인하기 위해 모든 필드를 일일이 비교(Structural Equality)할 필요 없이, 메모리 주소(Reference, `===`)만 비교해서 바뀐 새로운 객체인지를 즉시 파악할 수 있습니다.
@@ -57,6 +57,6 @@ Jetpack Compose 런타임은 상태(State) 변경을 감지하고 UI를 다시 �
 ### 연관 노트
 
 - [Pure Function](pure-function.md) - 불변 데이터를 기반으로 동작하는 순수 함수 레퍼런스
-- [Side Effect](../../02_references/computer-science/side-effect.md) - 불변성이 차단하는 상태 변이와 부작용
+- [Side Effect](side-effect.md) - 불변성이 차단하는 상태 변이와 부작용
 - [Composable Body Must Be Fast, Idempotent and Side-Effect Free](../mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-purity.md) - Compose 본문 규약
 

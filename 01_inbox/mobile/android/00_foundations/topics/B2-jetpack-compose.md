@@ -89,12 +89,12 @@ State 는 Compose 가 UI 를 다시 그려야 할지 결정하는 기준이다. 
 | [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/snapshot-state-observation-invalidates-state-read-scopes.md) | Runtime 의 State 추적 메커니즘 |
 | [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/recomposition-scope-control.md) | State read 위치가 recomposition 범위를 결정 |
 | [Compose State Owner는 읽거나 쓰는 최하위 공통 소유자다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write.md) | State hoisting 판단 기준 |
-| [Compose 상태 API는 필요한 수명에 맞춰 선택한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-api-selection-by-lifetime.md) | API 선택표 (remember → rememberSaveable → ViewModel → 영속) |
+| [Compose 상태 API는 필요한 수명에 맞춰 선택한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-api-selection.md) | API 선택표 (remember → rememberSaveable → ViewModel → 영속) |
 | [remember는 composition-scoped 저장소이지 일반 캐시가 아니다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/remember-is-composition-scoped-storage-not-general-cache.md) | remember 의 수명 경계 |
-| [Composable보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-saveable-is-for-small-restorable-ui-state.md) | 적합한 값과 anti-pattern |
+| [Composable보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-saveable.md) | 적합한 값과 anti-pattern |
 | [derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다](../../02_app_framework/jetpack-compose/performance/compose-performance-contracts/derivedstateof-is-for-high-frequency-derived-values.md) | 스크롤 → 버튼 노출 패턴 |
-| [snapshotFlow는 Compose 상태를 Cold Flow로 변환한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/snapshot-flow-converts-compose-state-to-cold-flow.md) | State → Flow bridge (analytics, debounce 연결) |
-| [ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/viewmodel-stateflow-becomes-screen-state-with-lifecycle-collection.md) | ViewModel ↔ Compose 연결 패턴 |
+| [snapshotFlow는 Compose 상태를 Cold Flow로 변환한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/snapshot-flow.md) | State → Flow bridge (analytics, debounce 연결) |
+| [ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/viewmodel-stateflow-lifecycle-collection.md) | ViewModel ↔ Compose 연결 패턴 |
 
 ---
 
@@ -120,12 +120,12 @@ Composable 본문은 side effect 가 없어야 한다. 그래서 Compose 는 "�
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md) | LaunchedEffect 사용 기준과 key 규칙 |
-| [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/disposable-effect-pairs-registration-and-cleanup.md) | listener/observer 의 안전한 생명주기 관리 |
-| [rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md) | 클릭 이벤트에서 시작하는 coroutine |
-| [rememberUpdatedState는 effect를 최신 값으로 유지한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-updated-state-keeps-effect-on-latest-value.md) | 재시작 없이 최신 람다 유지 |
-| [produceState는 외부 상태를 Compose 상태로 변환한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/produce-state-converts-external-state-to-compose-state.md) | 외부 비동기 source → State 변환 |
-| [UI controller와 effect runner는 UI 수명에 둔다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/ui-controllers-and-effect-runners-live-with-ui-lifetime.md) | SnackbarHostState 등의 소유권 |
+| [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/launched-effect.md) | LaunchedEffect 사용 기준과 key 규칙 |
+| [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/disposable-effect.md) | listener/observer 의 안전한 생명주기 관리 |
+| [rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-coroutine-scope.md) | 클릭 이벤트에서 시작하는 coroutine |
+| [rememberUpdatedState는 effect를 최신 값으로 유지한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/remember-updated-state.md) | 재시작 없이 최신 람다 유지 |
+| [produceState는 외부 상태를 Compose 상태로 변환한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/produce-state.md) | 외부 비동기 source → State 변환 |
+| [UI controller와 effect runner는 UI 수명에 둔다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/ui-controllers-and-effect-runners.md) | SnackbarHostState 등의 소유권 |
 | [무거운 작업은 composition 안에 두지 않는다](../../02_app_framework/jetpack-compose/performance/compose-performance-contracts/heavy-work-does-not-belong-in-composition.md) | composition 에서 금지된 작업 유형 |
 
 ---

@@ -1,8 +1,8 @@
 ---
 title: idempotency
-tags: [computer-science, distributed-systems, api-design, concurrency]
-aliases: [Idempotency, 멱등성, Idempotent]
-date modified: 2026-08-06 12:00:00 +09:00
+tags: [api-design, computer-science, concurrency, distributed-systems]
+aliases: [Idempotency, Idempotent, 멱등성]
+date modified: 2026-08-07 16:14:25 +09:00
 date created: 2026-08-06 12:00:00 +09:00
 ---
 
@@ -38,7 +38,7 @@ graph LR
 
 1. **자연히 멱등한 연산을 쓴다**: `SET x = 5` 는 몇 번을 실행해도 결과가 같다. 반면 `x += 1` 은 실행 횟수만큼 결과가 달라진다. 가능하면 "증가/감소" 대신 "절대값 지정"으로 설계한다.
 2. **Idempotency Key(멱등성 키)**: 클라이언트가 요청마다 고유 ID(UUID 등)를 함께 보내고, 서버는 "이미 처리한 ID 목록"을 저장해뒀다가 같은 ID 가 다시 오면 실제 로직을 건너뛰고 이전 결과를 그대로 반환한다. 결제 API(Stripe 등)가 표준적으로 쓰는 방식이다.
-3. **조건부 쓰기(Conditional Write)**: "현재 상태가 X 일 때만 Y 로 바꿔라" 처럼 사전 조건을 거는 방식(DB 의 `UPDATE ... WHERE version = 3`, 낙관적 잠금). 같은 요청이 중복 도착해도 두 번째 시도는 조건이 이미 깨져 있어 아무 효과가 없다.
+3. **조건부 쓰기(Conditional Write)**: "현재 상태가 X 일 때만 Y 로 바꿔라" 처럼 사전 조건을 거는 방식(DB 의 `UPDATE … WHERE version = 3`, 낙관적 잠금). 같은 요청이 중복 도착해도 두 번째 시도는 조건이 이미 깨져 있어 아무 효과가 없다.
 
 ```python
 processed_ids: set[str] = set()
@@ -67,7 +67,7 @@ def charge_payment(idempotency_key: str, amount: int) -> str:
 - **HTTP 메서드 규약**: `GET`/`PUT`/`DELETE`/`HEAD` 는 스펙상 멱등해야 하고(같은 `PUT` 을 여러 번 보내도 결과는 동일), `POST`/`PATCH` 는 일반적으로 멱등하지 않다(같은 `POST` 를 두 번 보내면 리소스가 두 개 생길 수 있다). 이 구분이 HTTP 캐시·재시도·프록시 설계의 기본 전제다.
 - **분산 메시지 큐(Kafka, SQS 등)**: 대부분 "at-least-once delivery" 를 보장하므로(정확히 한 번 전달은 비용이 훨씬 크다) consumer 쪽 처리 로직이 멱등하지 않으면 메시지 중복 처리가 반드시 발생한다.
 - **작업 재시도 프레임워크(Android WorkManager, `Result.retry()`)**: 실패한 작업은 다시 실행될 수 있다는 전제이므로, `Worker.doWork()` 내부 로직이 멱등하지 않으면 재시도가 데이터를 중복시킨다.
-- **분산 클라이언트-서버 IPC(Android Binder 의 `oneway` 호출)**: 응답을 기다리지 않는 호출은 실패 여부를 호출자가 알 수 없어 재시도 판단 자체가 어렵다. 재시도 가능한 API 로 설계하려면 그 호출이 멱등해야 한다.
+- **분산 클라이언트 - 서버 IPC(Android Binder 의 `oneway` 호출)**: 응답을 기다리지 않는 호출은 실패 여부를 호출자가 알 수 없어 재시도 판단 자체가 어렵다. 재시도 가능한 API 로 설계하려면 그 호출이 멱등해야 한다.
 - **Kubernetes/Terraform 같은 선언적(declarative) 시스템**: "원하는 최종 상태"를 선언하고 시스템이 현재 상태와 비교해 필요한 만큼만 조정하는 구조 자체가 멱등성을 기본 설계 원칙으로 삼는다(같은 매니페스트를 몇 번 적용해도 결과는 같다).
 
 ## 연결 문서

@@ -157,7 +157,7 @@ Canonical note 후보:
 - SharedFlow/Channel 선택은 Flow 영역이 정본이다.
 - 화면 상태와 일회성 이벤트 구분은 ViewModel/Reducer 영역이 정본이다.
 
-### Phase 2. Compose Runtime / State / Side Effects
+### Phase 2. Compose Runtime / State / [Side Effect](../../../computer-science/side-effect.md)s
 
 Compose 문서는 Flutter 비교, state lifetime, runtime internals 가 섞여 있다.
 
@@ -302,7 +302,7 @@ Canonical note 후보:
 ### 우선순위
 
 1. State / ViewModel / Flow / Reducer
-2. Compose State / Runtime / Side Effects
+2. Compose State / Runtime / [Side Effect](../../../computer-science/side-effect.md)s
 3. Storage / Persistence / Secure Storage
 4. Navigation / Intent / Deep Link / Manifest
 5. Performance / Debugging / Build Optimization

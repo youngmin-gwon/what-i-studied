@@ -52,7 +52,7 @@ graph TD
 Jetpack Compose 환경에서는 Composable 의 Recomposition 수명주기와 안전하게 동기화되는 2 가지 핵심 코루틴 빌더를 제공한다:
 
 1. **`LaunchedEffect(key)`**:
-   - Composable 이 화면에 진입(Composition)할 때 부수 효과(Side-Effect)로 비동기 작업을 시작하고, 화면을 이탈(Recomposition/Disposition)하거나 `key` 가 변경되면 진행 중인 코루틴을 자동으로 취소한다.
+   - Composable 이 화면에 진입(Composition)할 때 [부수 효과](../../../computer-science/side-effect.md)(Side-Effect)로 비동기 작업을 시작하고, 화면을 이탈(Recomposition/Disposition)하거나 `key` 가 변경되면 진행 중인 코루틴을 자동으로 취소한다.
 2. **`rememberCoroutineScope()`**:
    - 사용자 이벤트 클릭 핸들러(Button onClick 등) 내부에서 일회성 비동기 코루틴을 시작할 때, 현재 Composition 의 수명주기에 바인딩된 `CoroutineScope` 를 획득한다.
 

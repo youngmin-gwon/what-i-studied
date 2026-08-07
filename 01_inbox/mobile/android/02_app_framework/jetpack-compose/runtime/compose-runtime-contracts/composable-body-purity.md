@@ -8,7 +8,7 @@ date created: 2026-07-31 23:59:00 +09:00
 
 ## Composable body 는 빠르고 idempotent 하며 side-effect free 해야 한다
 
-**배경 지식 개념**: [Idempotency (멱등성)](../../../../../../../02_references/computer-science/idempotency.md), [Side Effect (부작용)](../../../../../../../02_references/computer-science/side-effect.md), [Pure Function (순수 함수)](../../../../../../computer-science/pure-function.md), [Immutability (불변성)](../../../../../../computer-science/immutability.md), [Recomposition (재구성)](../recomposition.md)
+**배경 지식 개념**: [Idempotency (멱등성)](../../../../../../../02_references/computer-science/idempotency.md), [Side Effect (부작용)](../../../../../../computer-science/side-effect.md), [Pure Function (순수 함수)](../../../../../../computer-science/pure-function.md), [Immutability (불변성)](../../../../../../computer-science/immutability.md), [Recomposition (재구성)](../recomposition.md)
 
 ---
 
@@ -25,7 +25,7 @@ Jetpack Compose 의 모든 `@Composable` 함수 본문(Body)은 초당 60fps ~ 1
 - 실행할 때마다 결과가 달라지거나 내부 난수/시간 상태에 의존해서는 안 된다. 자세한 개념은 [Idempotency (멱등성)](../../../../../../../02_references/computer-science/idempotency.md) 문서를 참고한다.
 
 #### 3) 부작용 없음 (Side-Effect Free)
-- 함수 본문이 직접 실행되는 과정에서 **외부 상태를 변경하거나(전역 변수 수정, 파일 저장, 분석 이벤트 전송), 관리되지 않는 코루틴 작업을 시작하는 등의 [Side Effect (부작용)](../../../../../../../02_references/computer-science/side-effect.md)** 이 발생해서는 안 된다.
+- 함수 본문이 직접 실행되는 과정에서 **외부 상태를 변경하거나(전역 변수 수정, 파일 저장, 분석 이벤트 전송), 관리되지 않는 코루틴 작업을 시작하는 등의 [Side Effect (부작용)](../../../../../../computer-science/side-effect.md)** 이 발생해서는 안 된다.
 - Composable 함수는 오직 입력된 상태 데이터를 반환용 UI 구조(UI Description)로 변환하는 [Pure Function (순수 함수)](../../../../../../computer-science/pure-function.md) 처럼 작동해야 한다.
 
 ---
@@ -92,11 +92,11 @@ fun GoodUserProfile(userId: String, analytics: Analytics) {
 
 - [Recomposition (재구성)](../recomposition.md) - 규약이 적용되는 런타임 재구성 메커니즘
 - [Jetpack Compose 런타임과 상태 모델](../compose-runtime-and-state-model.md) - Compose 런타임의 기본 동작 규약
-- [LaunchedEffect 실행 규약](../../state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md) - 취소 가능한 부작용을 관리하는 LaunchedEffect
+- [LaunchedEffect 실행 규약](../../state-and-lifecycle/compose-state-and-effect-contracts/launched-effect.md) - 취소 가능한 부작용을 관리하는 LaunchedEffect
 - [Composition 내 무거운 작업 처리 규약](../../performance/compose-performance-contracts/heavy-work-does-not-belong-in-composition.md) - Fast 규약 준수를 위한 성능 가이드
 - [ViewModel](../../../viewmodel.md) - 무거운 데이터 작업과 비즈니스 로직을 이관받는 상태 관리자
 - [Compose SSOT](../../../compose-ssot.md) - Composable 이 관찰해야 하는 상태 원천
 - [Idempotency (멱등성)](../../../../../../../02_references/computer-science/idempotency.md) - 동일한 입력에 대해 항상 동일한 결과를 생성하는 성질
-- [Side Effect (부작용)](../../../../../../../02_references/computer-science/side-effect.md) - Composable 함수 본문에서 배제해야 하는 부작용 개념
+- [Side Effect (부작용)](../../../../../../computer-science/side-effect.md) - Composable 함수 본문에서 배제해야 하는 부작용 개념
 - [Pure Function (순수 함수)](../../../../../../computer-science/pure-function.md) - Composable 함수가 준수해야 하는 순수함수 규약
 - [Immutability (불변성)](../../../../../../computer-science/immutability.md) - 스마트 재구성 스킵 및 안전성을 보장하는 데이터 불변성

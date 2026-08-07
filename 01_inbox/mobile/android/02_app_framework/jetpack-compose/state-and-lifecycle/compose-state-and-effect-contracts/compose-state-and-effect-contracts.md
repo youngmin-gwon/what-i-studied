@@ -1,48 +1,71 @@
 ---
 title: compose-state-and-effect-contracts
-tags: [android, compose/state, jetpack-compose]
-aliases: [Compose 상태와 Effect 계약]
-date modified: 2026-08-05 13:49:44 +09:00
-date created: 2026-07-31 23:59:00 +09:00
+tags: [android, compose, state, side-effects, contracts, index]
+aliases: [Compose State & Effect Contracts, Compose 상태와 이펙트 규약 지도]
+date modified: 2026-08-07 16:07:00 +09:00
+date created: 2026-08-07 16:07:00 +09:00
 ---
 
-## Compose 상태와 Effect 계약
+# Compose State & Effect Contracts (Compose 상태와 [부수 효과](../compose-side-effect.md) 아키텍처 규약 지도)
 
-Compose 상태 API 와 부작용(Side Effect) 관리 API 는 **데이터의 보유 수명주기(Lifetime)** 와 **작업의 소유자(Owner)** 를 기준으로 엄격히 선택되어야 한다. 이 묶음은 `remember`, `rememberSaveable`, `LaunchedEffect`, `DisposableEffect`, `produceState`, `snapshotFlow` 등 핵심 상태/이펙트 API 의 정본 계약을 바인딩한다.
+## 1. 개요 (Overview)
 
----
+**Compose State & Effect Contracts** 는 Jetpack Compose 의 단방향 데이터 흐름([Compose SSOT](../../../compose-ssot.md)) 및 컴포지션 수명주기(Composition Lifecycle) 내에서 **UI 상태(State)를 안전하게 유지·복원하고, 스레드 [부수 효과](../compose-side-effect.md)(Side-Effects)를 제어하기 위한 표준 규약 묶음 지도**이다.
 
-### 수명주기별 상태 및 이펙트 선택 매트릭스 (What / Why / How)
-
-1. **Composition 수명 (Transient UI State)**
-   - **API**: `remember { mutableStateOf(…) }`, `rememberCoroutineScope()`, `DisposableEffect`
-   - **특징**: Composable 이 화면 트리에 존재하는 동안만 유지됨. 화면 이탈 시 즉시 메모리 파괴.
-
-2. **프로세스 재창조 수명 (Restorable Local UI State)**
-   - **API**: `rememberSaveable { mutableStateOf(…) }`
-   - **특징**: 화면 회전(Activity Recreation) 및 시스템 프로세스 종료(Process Death) 시에도 Bundle 을 통해 상태 보존.
-
-3. **화면 수명 (Screen/Business State)**
-   - **API**: `ViewModel`, `SavedStateHandle`, `collectAsStateWithLifecycle()`
-   - **특징**: 화면 설정 변경에도 유지되며 도메인 데이터와 비즈니스 로직을 연결.
+Composable 함수는 순수하고 예측 가능하며 [부수 효과](../compose-side-effect.md)가 없어야 한다([Composable Body Purity](../../runtime/compose-runtime-contracts/composable-body-purity.md)). 화면 진입, 이탈, 수명주기 변경 또는 외부 비동기 스트림 수신 시 발생하는 [부수 효과](../compose-side-effect.md)는 반드시 전용 Effect API (`LaunchedEffect`, `DisposableEffect`, `rememberCoroutineScope` 등) 내부에 캡슐화되어 렌더링 파이프라인의 오염을 막아야 한다.
 
 ---
 
-### 정본 계약 목록
+### 초보자를 위한 쉽게 이해하는 비유
 
-- [Compose 상태 API는 필요한 수명에 맞춰 선택한다](./compose-state-api-selection-by-lifetime.md)
-- [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](./launched-effect-owns-composable-cancellable-work.md)
-- [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](./disposable-effect-pairs-registration-and-cleanup.md)
-- [produceState는 외부 상태를 Compose 상태로 변환한다](./produce-state-converts-external-state-to-compose-state.md)
-- [rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다](./remember-coroutine-scope-owns-manually-controlled-ui-coroutines.md)
-- [Composable 수명보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](./remember-saveable-is-for-small-restorable-ui-state.md)
-- [rememberUpdatedState는 effect를 최신 값으로 유지한다](./remember-updated-state-keeps-effect-on-latest-value.md)
-- [snapshotFlow는 Compose 상태를 Cold Flow로 변환한다](./snapshot-flow-converts-compose-state-to-cold-flow.md)
-- [UI controller와 effect runner는 ViewModel이 아니라 UI 수명에 둔다](./ui-controllers-and-effect-runners-live-with-ui-lifetime.md)
-- [ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다](../../../stateflow-and-sharedflow.md)-becomes-screen-state-with-lifecycle-collection.md)
+* **Compose State & Effect 규약 (스마트 오케스트라 렌더링 지휘소)**:
+  - **State (연주 악보)**: 악보가 바뀌면 악단(Composable)이 새 화면을 연주(Recomposition)함.
+  - **Effect API (특수 비동기 이펙트 조명 기사)**: 연주가 시작되거나 끝날 때, 무대 외부 조명을 켜고 끄는 부수적인 일을 오케스트라 연주자를 방해하지 않고 전담 조명 기사(`LaunchedEffect`, `DisposableEffect`)가 안전하게 처리하는 모델.
+
+```mermaid
+graph TD
+    StateDecision["UI 상태 / 부수 효과 필요"] --> StateOrEffect{"처리 목적 구분"}
+    StateOrEffect -->|"1. UI 상태 보존/복원"| StateAPIs["State APIs"]
+    StateOrEffect -->|"2. 비동기/자원 해제 부수 효과"| EffectAPIs["Effect APIs"]
+
+    StateAPIs -->|"Recomposition 수명주기"| RememberState["[remember-saveable](remember-saveable.md)"]
+    StateAPIs -->|"ViewModel 스트림"| LifecycleState["[viewmodel-stateflow-lifecycle-collection](viewmodel-stateflow-lifecycle-collection.md)"]
+
+    EffectAPIs -->|"비동기 작업 / 자동 취소"| Launched["[launched-effect](launched-effect.md)"]
+    EffectAPIs -->|"자원 등록 & Cleanup"| Disposable["[disposable-effect](disposable-effect.md)"]
+    EffectAPIs -->|"이벤트 핸들러 스코프"| Scope["[remember-coroutine-scope](remember-coroutine-scope.md)"]
+```
 
 ---
 
-관련 상위 문서: [Jetpack Compose 런타임과 상태 모델의 기본 개념](../../runtime/compose-runtime-and-state-model.md)
+## 2. Compose State & Effect 세부 계약 노드 지도
 
-검증일: 2026-08-05. Compose State & Side Effect 공식 가이드를 기반으로 수명주기 매트릭스와 계약 목록 구조 서술을 정밀 보강했다.
+1. **[compose-state-api-selection](compose-state-api-selection.md)**:
+   - UI 수명주기와 복원 범위에 따른 State 저장 API (`remember`, `rememberSaveable`, `StateFlow`) 선택 기준.
+2. **[remember-saveable](remember-saveable.md)**:
+   - 프로세스 재생성(Death) 및 화면 회전(Configuration Change) 시 UI 소형 상태를 `SavedStateHandle` 로 복원하는 규약.
+3. **[launched-effect](launched-effect.md)**:
+   - Composable 진입 시 취소 가능한 비동기 코루틴 작업을 안전하게 실행하고 관리하는 [부수 효과](../compose-side-effect.md) 규약.
+4. **[disposable-effect](disposable-effect.md)**:
+   - 뷰 이탈 시 `onDispose {}` 블록으로 리스너 등록 해제 및 리소스 Cleanup 을 보장하는 [부수 효과](../compose-side-effect.md) 규약.
+5. **[remember-coroutine-scope](remember-coroutine-scope.md)**:
+   - UI 버튼 클릭 등 수동 이벤트 핸들러에서 안전한 `CoroutineScope` 를 획득하는 규약.
+6. **[remember-updated-state](remember-updated-state.md)**:
+   - 진행 중인 Effect 내부에서 최신 콜백/상태값을 재시작 없이 참조하는 규약.
+7. **[produce-state](produce-state.md)**:
+   - RxJava / 엑토르 외부 비동기 데이터 소스를 Compose `State` 로 변환하는 규약.
+8. **[snapshot-flow](snapshot-flow.md)**:
+   - Compose `State` 변경 감지를 Cold Kotlin `Flow` 스트림으로 변환하는 규약.
+9. **[viewmodel-stateflow-lifecycle-collection](viewmodel-stateflow-lifecycle-collection.md)**:
+   - `collectAsStateWithLifecycle()` 로 안드로이드 Lifecycle 과 연동하여 배터리 수거를 보장하는 규약.
+10. **[ui-controllers-and-effect-runners](ui-controllers-and-effect-runners.md)**:
+   - UI 컨트롤러 및 Effect Runner 의 수명주기 바인딩 규약.
+
+---
+
+## 3. 연결 문서 (Related Links)
+
+- [Compose SSOT](../../../compose-ssot.md) - Compose UI 단일 진실 출처
+- [Kotlin Coroutines](../../../kotlin-coroutines.md) - 코루틴 비동기 런타임 엔진
+- [StateFlow & SharedFlow](../../../stateflow-and-sharedflow.md) - 반응형 데이터 스트림
+- [Composable Body Purity](../../runtime/compose-runtime-contracts/composable-body-purity.md) - Pure Composable 함수 준칙

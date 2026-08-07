@@ -69,7 +69,7 @@ fun StorageComparisonExample() {
 
 ---
 
-관련 노트: [Composition은 호출 위치 identity로 remember 값을 보존한다](./composition-uses-callsite-identity-to-preserve-remembered-values.md), [rememberSaveable은 small restorable UI state를 위한 것이다](../../state-and-lifecycle/compose-state-and-effect-contracts/remember-saveable-is-for-small-restorable-ui-state.md)
+관련 노트: [Composition은 호출 위치 identity로 remember 값을 보존한다](./composition-uses-callsite-identity-to-preserve-remembered-values.md), [rememberSaveable은 small restorable UI state를 위한 것이다](../../state-and-lifecycle/compose-state-and-effect-contracts/remember-saveable.md)
 
 출처: [State and Jetpack Compose](https://developer.android.com/develop/ui/compose/state#state-in-composables)
 

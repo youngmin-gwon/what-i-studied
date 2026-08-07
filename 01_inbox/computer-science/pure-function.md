@@ -11,7 +11,7 @@ date created: 2026-08-06 16:25:00 +09:00
 소프트웨어 공학 및 함수형 프로그래밍(FP)에서 **Pure Function (순수 함수)**이란 다음 두 가지 조건을 엄격하게 만족하는 함수를 말합니다.
 
 1. **동일 입력 - 동일 출력 (Deterministic)**: 동일한 매개변수(Argument)가 전달되면 몇 번을 실행하더라도 항상 100% 동일한 결과값을 반환합니다.
-2. **부작용 없음 ([Side Effect](../../02_references/computer-science/side-effect.md)-Free)**: 함수 실행 과정에서 함수 외부의 변수/상태를 변경하지 않으며, I/O 작업(파일 읽기/쓰기, 네트워크 통신, 콘솔 출력 등)을 일으키지 않습니다.
+2. **부작용 없음 ([Side Effect](side-effect.md)-Free)**: 함수 실행 과정에서 함수 외부의 변수/상태를 변경하지 않으며, I/O 작업(파일 읽기/쓰기, 네트워크 통신, 콘솔 출력 등)을 일으키지 않습니다.
 
 ---
 
@@ -64,7 +64,7 @@ UI 런타임은 성능 최적화를 위해 컴포넌트를 언제든 임의의 �
 ### 연관 노트
 
 - [Pure vs Impure Function](pure-vs-impure-function.md) - 순수 함수와 비순수 함수 비교
-- [Side Effect](../../02_references/computer-science/side-effect.md) - 순수 함수의 자격 요건인 부작용 부재에 관한 레퍼런스
+- [Side Effect](side-effect.md) - 순수 함수의 자격 요건인 부작용 부재에 관한 레퍼런스
 - [Idempotency](../../02_references/computer-science/idempotency.md) - 순수성과 멱등성의 개념적 차이점 비교
 - [Immutability](immutability.md) - 순수 함수가 의존하는 불변 데이터 구조
 - [Composable Body Must Be Fast, Idempotent and Side-Effect Free](../mobile/android/02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/composable-body-purity.md) - Compose 런타임에서 Composable 본문이 순수해야 하는 이유
