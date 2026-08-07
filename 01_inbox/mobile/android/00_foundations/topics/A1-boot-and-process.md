@@ -17,7 +17,7 @@ date created: 2026-08-04 16:00:00 +09:00
 | 선행 개념                                                                                                                            | 필요한 이유                               |     |
 | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --- |
 | Linux 프로세스 모델 (fork, PID, UID)                                                                                                   | Zygote fork 와 샌드박스 격리 이해             |     |
-| [binder ipc](../../01_system_internals/binder-ipc.md) | AMS-Zygote, ActivityThread-AMS 통신 이해 |     |
+| [binder ipc](../../01_system_internals/binder-ipc.md) | [AMS](../../04_system_services/activity-manager-service.md)-Zygote, ActivityThread-[AMS](../../04_system_services/activity-manager-service.md) 통신 이해 |     |
 | SELinux 기초                                                                                                                       | init 보안 도메인과 앱 격리 이해                 |     |
 
 관련 토픽: [A2 · Binder 와 IPC](./A2-binder-and-ipc.md) · A3 · 커널·HAL·드라이버 계층(Phase 10 미착수, 아직 없음)
@@ -89,7 +89,7 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 **Copy-on-Write(CoW) 최적화**: fork 직후 자식 프로세스는 부모(Zygote) 의 메모리 페이지를 공유한다. 자식이 특정 페이지를 수정할 때만 실제 복사가 일어나므로, 앱마다 프레임워크 클래스를 독립적으로 로드하는 오버헤드가 없다.
 
-**Zygote 소켓**: `system_server`(AMS) 가 새 앱 프로세스가 필요할 때 Unix domain socket 으로 fork 요청을 보낸다. Zygote 는 이 소켓을 감시하다가 요청이 오면 fork 한다.
+**Zygote 소켓**: `system_server`([AMS](../../04_system_services/activity-manager-service.md)) 가 새 앱 프로세스가 필요할 때 Unix domain socket 으로 fork 요청을 보낸다. Zygote 는 이 소켓을 감시하다가 요청이 오면 fork 한다.
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
@@ -101,13 +101,13 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 ### 4. SystemServer: 프레임워크 서비스의 기원
 
-`system_server` 는 Zygote 에서 fork 된 특수 프로세스로, AMS(ActivityManagerService), PMS(PackageManagerService), WMS(WindowManagerService) 등 100 개 이상의 핵심 프레임워크 서비스를 **단일 프로세스 내 스레드** 로 실행한다.
+`system_server` 는 Zygote 에서 fork 된 특수 프로세스로, [AMS](../../04_system_services/activity-manager-service.md)([ActivityManagerService](../../04_system_services/activity-manager-service.md)), PMS(PackageManagerService), WMS(WindowManagerService) 등 100 개 이상의 핵심 프레임워크 서비스를 **단일 프로세스 내 스레드** 로 실행한다.
 
-서비스 초기화는 3 단계로 나뉜다: Bootstrap Services(AMS, PMS 등) → Core Services(DropBoxManager 등) → Other Services(Camera, WiFi, Bluetooth 등). 초기화 순서가 의존성을 결정한다.
+서비스 초기화는 3 단계로 나뉜다: Bootstrap Services([AMS](../../04_system_services/activity-manager-service.md), PMS 등) → Core Services(DropBoxManager 등) → Other Services(Camera, WiFi, Bluetooth 등). 초기화 순서가 의존성을 결정한다.
 
 `system_server` 가 크래시되면 그 안에 있는 모든 서비스가 함께 종료되고, 커널이 Zygote 를 포함한 자식 프로세스들을 종료시킨다. 이후 init 이 Zygote 를 재시작한다.
 
-**ATMS(ActivityTaskManagerService)** 는 Android 10 에서 AMS 로부터 분리된 서비스로, Activity 생명주기 전환, Task 계층 구조, Back Stack, Multi-Window 를 담당한다.
+**ATMS(ActivityTaskManagerService)** 는 Android 10 에서 [AMS](../../04_system_services/activity-manager-service.md) 로부터 분리된 서비스로, Activity 생명주기 전환, Task 계층 구조, Back Stack, Multi-Window 를 담당한다.
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
@@ -124,11 +124,11 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 사용자가 앱 아이콘을 탭하면:
 
 1. **ATMS** 가 Intent 를 처리해 대상 Activity 를 결정한다
-2. 해당 앱 프로세스가 없으면 **AMS** 가 Zygote 소켓으로 fork 요청을 보낸다
+2. 해당 앱 프로세스가 없으면 **[AMS](../../04_system_services/activity-manager-service.md)** 가 Zygote 소켓으로 fork 요청을 보낸다
 3. **Zygote** 가 fork 해 자식 프로세스를 만든다
 4. 자식 프로세스는 **Specialization** 단계를 거친다: UID/GID 설정, SELinux 도메인 강등, Cgroup 바인딩, 앱 ClassLoader 로드
-5. `ActivityThread.main()` 이 시작되고 AMS 에 `attachApplication()` Binder 호출을 보낸다
-6. AMS 가 응답해 Activity 시작 지시를 보내고, 첫 프레임이 그려진다
+5. `ActivityThread.main()` 이 시작되고 [AMS](../../04_system_services/activity-manager-service.md) 에 `attachApplication()` Binder 호출을 보낸다
+6. [AMS](../../04_system_services/activity-manager-service.md) 가 응답해 Activity 시작 지시를 보내고, 첫 프레임이 그려진다
 
 **ART 런타임**: 앱 코드는 DEX 바이트코드 형태로 배포되고 ART 가 실행한다. ART 는 Interpreter(초기 실행) → JIT(핫스팟 감지) → AOT(idle 시 dex2oat) 조합으로 성능을 최적화한다.
 
@@ -144,7 +144,7 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 Android 는 필요 없는 프로세스를 즉시 종료하지 않고 캐시로 유지한다. 메모리 압박이 생기면 LMKD(Low Memory Killer Daemon) 가 `oom_score_adj` 값이 높은(우선순위 낮은) 프로세스부터 종료한다.
 
-`oom_score_adj` 는 AMS 가 컴포넌트 실행 상태(Foreground Activity, Visible, Service, Cached) 를 종합해 계산한다. 앱 개발자가 직접 제어할 수 있는 값이 아니다.
+`oom_score_adj` 는 [AMS](../../04_system_services/activity-manager-service.md) 가 컴포넌트 실행 상태(Foreground Activity, Visible, Service, Cached) 를 종합해 계산한다. 앱 개발자가 직접 제어할 수 있는 값이 아니다.
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
@@ -187,7 +187,7 @@ adb shell ps -A | grep -E "system_server|zygote|com\."
 
 | Worked Example | 연결 포인트 |
 |---|---|
-| [WE 01 · App Icon Tap to First Frame](../worked-examples/01-app-icon-tap-to-first-frame.md) | ATMS → AMS → Zygote fork → ActivityThread 전체 흐름 |
+| [WE 01 · App Icon Tap to First Frame](../worked-examples/01-app-icon-tap-to-first-frame.md) | ATMS → [AMS](../../04_system_services/activity-manager-service.md) → Zygote fork → ActivityThread 전체 흐름 |
 
 ---
 
@@ -195,12 +195,12 @@ adb shell ps -A | grep -E "system_server|zygote|com\."
 
 | Runbook | 연결 포인트 |
 |---|---|
-| [RB 01 · 앱 실행 느리거나 실패](../diagnostic-runbooks/01-app-launch-slow-or-fails.md) | 프로세스 생성 지연, AMS 병목, Zygote fork 실패 |
-| [RB 02 · ANR](../diagnostic-runbooks/02-anr.md) | AMS ANR 감지, main thread 블로킹 신호 |
+| [RB 01 · 앱 실행 느리거나 실패](../diagnostic-runbooks/01-app-launch-slow-or-fails.md) | 프로세스 생성 지연, [AMS](../../04_system_services/activity-manager-service.md) 병목, Zygote fork 실패 |
+| [RB 02 · ANR](../diagnostic-runbooks/02-anr.md) | [AMS](../../04_system_services/activity-manager-service.md) ANR 감지, main thread 블로킹 신호 |
 
 ---
 
 ### 더 깊이 들어갈 때 (Learning Spine)
 
-- [4장 매니페스트에서 컴포넌트 실행까지](../learning-spine/04-manifest-to-component-execution.md) — 컴포넌트 활성화 요청이 AMS→Zygote fork→specialization→ActivityThread attach 순으로 프로세스 상태를 확인하는 전체 흐름
+- [4장 매니페스트에서 컴포넌트 실행까지](../learning-spine/04-manifest-to-component-execution.md) — 컴포넌트 활성화 요청이 [AMS](../../04_system_services/activity-manager-service.md)→Zygote fork→specialization→ActivityThread attach 순으로 프로세스 상태를 확인하는 전체 흐름
 - [9장 Identity, 권한과 독립적인 security gate](../learning-spine/09-identity-permission-and-independent-security-gates.md) — SELinux mandatory policy, UID 샌드박스가 다른 보안 게이트와 독립적으로 판정되는 이유

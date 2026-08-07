@@ -2,7 +2,7 @@
 title: system-server
 tags: [ams, android, framework, pms, system-server, system-services, wms]
 aliases: [system_server, 시스템 서버]
-date modified: 2026-08-07 13:33:09 +09:00
+date modified: 2026-08-07 13:38:38 +09:00
 date created: 2026-08-06 16:31:19 +09:00
 role: atomic-reference
 ---
@@ -20,7 +20,7 @@ role: atomic-reference
 #### 초보자를 위한 쉽게 이해하는 비유
 
 - **`system_server` (안드로이드 시청 종합 민원 행정 타워)**:
-  - 스마트폰이라는 도시에서 여권 발급(PMS - 앱 설치/권한), 도로 건축/위치 지적(WMS - 화면 창 배치), 주민 관리(AMS - 앱 생명주기) 업무를 **한 건물(`system_server` 프로세스) 안의 각 과(스레드)에서 종합 처리하는 통합 행정 타워**.
+  - 스마트폰이라는 도시에서 여권 발급(PMS - 앱 설치/권한), 도로 건축/위치 지적(WMS - 화면 창 배치), 주민 관리([AMS](activity-manager-service.md) - 앱 생명주기) 업무를 **한 건물(`system_server` 프로세스) 안의 각 과(스레드)에서 종합 처리하는 통합 행정 타워**.
 
 ```mermaid
 graph TD

@@ -12,7 +12,7 @@ date created: 2026-08-06 18:30:00 +09:00
 
 **ServiceManager**는 Android OS 부팅 과정에서 가장 먼저 등록되는 **전역 시스템 서비스 디렉토리(Central Service Registry)**이다. Binder IPC 통신 아키텍처의 뿌리이며, **특별한 예약 Binder 핸들 번호인 `Handle 0`**을 점유한다.
 
-`system_server` 에 의해 생성되는 AMS(ActivityManagerService), WMS(WindowManagerService), PMS(PackageManagerService) 등 수많은 시스템 서비스들은 부팅 시 자신의 Binder 참조를 ServiceManager 에 등록(`addService`)하고, 일반 앱 프로세스는 ServiceManager 를 거쳐 필요한 시스템 서비스의 Binder 객체(Proxy)를 조회(`getService`)하여 Binder IPC 통신을 시작한다.
+`system_server` 에 의해 생성되는 [AMS](activity-manager-service.md)([ActivityManagerService](activity-manager-service.md)), WMS(WindowManagerService), PMS(PackageManagerService) 등 수많은 시스템 서비스들은 부팅 시 자신의 Binder 참조를 ServiceManager 에 등록(`addService`)하고, 일반 앱 프로세스는 ServiceManager 를 거쳐 필요한 시스템 서비스의 Binder 객체(Proxy)를 조회(`getService`)하여 Binder IPC 통신을 시작한다.
 
 ---
 
@@ -21,9 +21,9 @@ date created: 2026-08-06 18:30:00 +09:00
 - **`ServiceManager` (중앙 114 전화번호부 안내센터)**:
   - 기기 내 모든 관공서(시스템 서비스)의 전화번호(Binder Handle)를 독점 관리하는 **중앙 안내상담소**.
 - **`Handle 0` (전국 공통 114 직통 전화번호)**:
-  - 사전 조회 없이 누구나 바로 걸 수 있는 **114 번호**. 앱 프로세스는 114(Handle 0)에 전화를 걸어 "경찰서(AMS) 번호 주세요" 하고 물어본다.
+  - 사전 조회 없이 누구나 바로 걸 수 있는 **114 번호**. 앱 프로세스는 114(Handle 0)에 전화를 걸어 "경찰서([AMS](activity-manager-service.md)) 번호 주세요" 하고 물어본다.
 - **`addService` (신규 관공서 개업 신고 및 번호 등록)**:
-  - `system_server` 부팅 시 AMS, WMS 등의 관공서가 오픈하면서 114 에 내 번호를 등록하는 과정.
+  - `system_server` 부팅 시 [AMS](activity-manager-service.md), WMS 등의 관공서가 오픈하면서 114 에 내 번호를 등록하는 과정.
 - **`getService` (안내소 번호 문의 및 연락처 획득)**:
   - 일반 앱이 시스템 서비스를 이용하기 위해 114 에 번호를 물어보고 직통 연통선(Binder Proxy)을 얻어오는 과정.
 

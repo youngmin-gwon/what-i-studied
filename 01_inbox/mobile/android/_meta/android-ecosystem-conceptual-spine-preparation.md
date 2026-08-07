@@ -440,7 +440,7 @@ process death, callback 누락과 중복 실행을 정상 조건으로 두고 id
 
 뒤 장으로 미룬다.
 
-- Zygote, ART, ActivityThread, AMS/ATMS
+- Zygote, ART, ActivityThread, [AMS](../04_system_services/activity-manager-service.md)/ATMS
 - Binder driver 와 thread pool
 - NDK/JNI, HAL, VINTF 와 GKI 세부 계약
 - PackageManager 설치 transaction 과 UID 계산

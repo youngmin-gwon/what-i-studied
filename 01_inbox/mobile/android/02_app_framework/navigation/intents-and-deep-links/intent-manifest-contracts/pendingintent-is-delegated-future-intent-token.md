@@ -93,7 +93,7 @@ NotificationManagerCompat.from(context).notify(101, notification)
 
 ### 5. 관측 가능 증거 및 진단 (Observability)
 
-- **OS 시스템 서비스(AMS)에 등록된 PendingIntent 토큰 확인**:
+- **OS 시스템 서비스([AMS](../../../../04_system_services/activity-manager-service.md))에 등록된 PendingIntent 토큰 확인**:
   ```bash
   adb shell dumpsys activity intents
   ```

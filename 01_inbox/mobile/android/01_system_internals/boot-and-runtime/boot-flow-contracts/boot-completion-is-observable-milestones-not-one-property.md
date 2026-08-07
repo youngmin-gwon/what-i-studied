@@ -23,7 +23,7 @@ Android의 부팅 완료는 하나의 단일한 Boolean 속성이 아니라, 커
    - 시스템은 `Intent.ACTION_LOCKED_BOOT_COMPLETED` 브로드캐스트를 전송한다.
 3. **User Unlock 마일스톤 (`BOOT_COMPLETED`)**:
    - 사용자가 잠금을 해제하면 CE 키가 키마스터에 의해 복호화된다.
-   - AMS가 `Intent.ACTION_BOOT_COMPLETED` 브로드캐스트를 시스템 및 서드파티 앱에 디스패치한다.
+   - [AMS](../../../04_system_services/activity-manager-service.md)가 `Intent.ACTION_BOOT_COMPLETED` 브로드캐스트를 시스템 및 서드파티 앱에 디스패치한다.
 
 ```mermaid
 sequenceDiagram

@@ -343,7 +343,7 @@ Canonical note 후보:
 ### Phase 9 적용 기록
 
 - 적용일: 2026-07-31
-- 범위: bootloader, bootconfig, partitions, AVB, A/B and Virtual A/B OTA, first-stage/second-stage init, init rc language, triggers, services, property service, ueventd, fstab, SELinux/capabilities, Zygote, ART, app process specialization, system_server, AMS/ATMS, process priority, ANR, Rescue Party, dumpsys
+- 범위: bootloader, bootconfig, partitions, AVB, A/B and Virtual A/B OTA, first-stage/second-stage init, init rc language, triggers, services, property service, ueventd, fstab, SELinux/capabilities, Zygote, ART, app process specialization, system_server, [AMS](../04_system_services/activity-manager-service.md)/ATMS, process priority, ANR, Rescue Party, dumpsys
 - 정본 지도: [Android 부팅과 런타임 지도](../01_system_internals/boot-and-runtime/android-boot-and-runtime.md)
 - 원칙: 부팅 순서 조각을 나열하지 않고, 신뢰 검증, mount/update 경계, init 선언, 프로세스 생성, framework service 운영 계약으로 나눈다.
 - 참고한 공식 문서: [Bootloader overview](https://source.android.com/docs/core/architecture/bootloader), [Android Verified Boot](https://source.android.com/docs/security/features/verifiedboot/avb), [A/B system updates](https://source.android.com/docs/core/ota/ab), [Android Init Language](https://android.googlesource.com/platform/system/core/+/master/init/README.md), [About the Zygote processes](https://source.android.com/docs/core/runtime/zygote), [Android runtime and Dalvik](https://source.android.com/docs/core/runtime)

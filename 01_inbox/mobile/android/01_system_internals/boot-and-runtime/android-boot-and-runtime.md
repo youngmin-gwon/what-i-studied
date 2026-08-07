@@ -50,7 +50,7 @@ flowchart TD
 | **[부팅 흐름 계약](boot-flow-contracts/boot-flow-contracts.md)** | Root of Trust 확립, 파티션 검증, A/B 슬롯 선택 및 OTA Snapshot 관리 | Bootloader, AVB 2.0, Bootconfig, Dynamic Partitions, Virtual A/B | `/proc/bootconfig`, `dmesg`, `pstore`, `snapshotctl` |
 | **[init와 네이티브 서비스 계약](init-service-contracts/init-service-contracts.md)** | PID 1 기반 userspace 부트스트랩, SELinux 보안 정책 적용, 네이티브 데몬 라이프사이클 관리 | First/Second Stage Init, `init.rc`, Property Service, `ueventd` | `getprop`, `ctl.start`, `dmesg \| grep init`, `/proc/1/` |
 | **[Zygote와 ART 런타임 계약](zygote-runtime-contracts/zygote-runtime-contracts.md)** | 공통 프레임워크 클래스/자원 사전 로딩, Copy-On-Write 메모리 공유 앱 프로세스 Fork 및 JIT/AOT 컴파일 | Zygote Socket, `AppRuntime`, Preload Classes, ART Compiler, Profile-Guided Dexopt | `dumpsys meminfo`, `cmd package compile`, `smaps_rollup` |
-| **[system_server와 ActivityManager 계약](system-server-contracts/system-server-contracts.md)** | 프레임워크 서비스 단일 프로세스 호스팅, Binder Endpoint 제공, 앱 라이프사이클 및 ANR/OOM-Score 조율 | `SystemServer`, AMS, ATMS, ServiceManager, Rescue Party | `dumpsys activity`, `dumpsys alarm`, `/data/anr/traces.txt` |
+| **[system_server와 ActivityManager 계약](system-server-contracts/system-server-contracts.md)** | 프레임워크 서비스 단일 프로세스 호스팅, Binder Endpoint 제공, 앱 라이프사이클 및 ANR/OOM-Score 조율 | `SystemServer`, [AMS](../../04_system_services/activity-manager-service.md), ATMS, ServiceManager, Rescue Party | `dumpsys activity`, `dumpsys alarm`, `/data/anr/traces.txt` |
 
 ---
 
@@ -69,7 +69,7 @@ flowchart TD
    - 관측 명령: `dumpsys package <package_name>`, `dumpsys meminfo <pid>`, `cmd package compile -m speed-profile`.
 
 4. **앱 API 호출 시 SecurityException 발생 또는 ANR / OOM Killer에 의해 프로세스가 강제 종료되는 경우**
-   - [system_server와 ActivityManager 계약](system-server-contracts/system-server-contracts.md)의 AMS/ATMS 컴포넌트 상태, `oom_score_adj` 재계산 로직, ANR responsiveness 계약 위반 덤프를 점검한다.
+   - [system_server와 ActivityManager 계약](system-server-contracts/system-server-contracts.md)의 [AMS](../../04_system_services/activity-manager-service.md)/ATMS 컴포넌트 상태, `oom_score_adj` 재계산 로직, ANR responsiveness 계약 위반 덤프를 점검한다.
    - 관측 명령: `dumpsys activity processes`, `dumpsys activity broadcasts`, `/data/anr/traces.txt`.
 
 ---

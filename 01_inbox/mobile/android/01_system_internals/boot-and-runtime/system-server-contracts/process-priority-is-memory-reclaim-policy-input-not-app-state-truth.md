@@ -26,7 +26,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 낮은 조정치는 회수 가능성이 낮다는 뜻이지 생존 보장이 아니다. AOSP `lmkd`의 critical 설정은 `oom_score_adj >= 0`까지 후보로 삼을 수 있고, kernel OOM, crash, watchdog, 사용자의 force stop 같은 다른 종료 경로도 존재한다. 앱은 foreground process조차 영구히 산다고 가정해서는 안 된다.
 2. **`applyOomAdjLSP()` Execution**:
-   - 액티비티 전환, 서비스 생성/파괴, 바인딩 연결 시 AMS는 `OomAdjuster.java`를 실행하여 프로세스 트리의 `oom_score_adj` 값을 동적 재계산한다.
+   - 액티비티 전환, 서비스 생성/파괴, 바인딩 연결 시 [AMS](../../../04_system_services/activity-manager-service.md)는 `OomAdjuster.java`를 실행하여 프로세스 트리의 `oom_score_adj` 값을 동적 재계산한다.
 3. **Userspace `lmkd` interface**:
    - framework는 process 중요도 변화를 `lmkd`에 알리고 `lmkd`는 `/proc/<pid>/oom_score_adj`와 process metadata를 관리한다. Android 10+의 일반적인 구성은 kernel **[PSI](../../../../../../02_references/operating-systems/oom-killer-and-memory-pressure.md)** event, thrashing, swap과 device tuning을 함께 보고 kill 대상과 시점을 정한다. 점수가 가장 큰 process를 언제나 기계적으로 하나 고르는 단순 정렬은 아니다.
 

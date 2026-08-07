@@ -51,11 +51,11 @@ registry 에 등록됐고 Intent 가 해석까지 됐다고 해서 호출이 항
 
 ### 4. 컴포넌트 활성화 요청은 프로세스가 이미 살아 있는지 확인부터 시작한다
 
-registry 조회와 exported 검사를 통과했다고 곧바로 앱 코드가 실행되는 것도 아니다. 이 요청은 앱이 아니라 system_server 의 ActivityManagerService(AMS)가 조율한다.
+registry 조회와 exported 검사를 통과했다고 곧바로 앱 코드가 실행되는 것도 아니다. 이 요청은 앱이 아니라 system_server 의 [ActivityManagerService](../../04_system_services/activity-manager-service.md)([AMS](../../04_system_services/activity-manager-service.md))가 조율한다.
 
-1. AMS 는 대상 컴포넌트가 속한 패키지의 프로세스가 이미 실행 중인지 확인한다.
+1. [AMS](../../04_system_services/activity-manager-service.md) 는 대상 컴포넌트가 속한 패키지의 프로세스가 이미 실행 중인지 확인한다.
 2. 이미 실행 중이면 그 프로세스 안에 컴포넌트 인스턴스를 만들도록 요청한다. 이 경로는 새 프로세스를 만드는 비용이 없다.
-3. 실행 중이 아니면(최초 실행이거나, 메모리 부족으로 이미 회수된 cached 프로세스였다면) AMS 는 Zygote socket 에 fork 를 요청한다. Zygote 는 새 프로세스를 만들고 UID/GID, 프로세스 이름 같은 specialization 을 마친다.
+3. 실행 중이 아니면(최초 실행이거나, 메모리 부족으로 이미 회수된 cached 프로세스였다면) [AMS](../../04_system_services/activity-manager-service.md) 는 Zygote socket 에 fork 를 요청한다. Zygote 는 새 프로세스를 만들고 UID/GID, 프로세스 이름 같은 specialization 을 마친다.
 4. specialization 이 끝난 프로세스는 `ActivityThread.main()` 경로로 framework 에 attach 하고, 그 뒤에야 요청된 컴포넌트가 그 프로세스 안에서 생성된다.
 
 같은 컴포넌트를 실행하는 요청이라도, 대상 프로세스가 foreground/visible 상태로 살아 있었는지 아니면 메모리 압박으로 회수된 cached 상태였는지에 따라 체감 지연이 크게 달라지는 이유가 여기 있다. 프로세스 중요도(foreground → visible → service → cached)는 어떤 프로세스가 먼저 회수될지를 정하는 시스템 쪽 정책일 뿐, 앱이 그 생존을 보장받는다는 뜻은 아니다.

@@ -1,26 +1,26 @@
 ---
 title: ams-coordinates-app-process-and-component-lifecycle
 tags: [android, android/boot-runtime, android/system-internals, android/system-server]
-aliases: ["AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다"]
+aliases: ["[AMS](../../../04_system_services/activity-manager-service.md)는 앱 프로세스와 컴포넌트 lifecycle을 조율한다"]
 date modified: 2026-08-03 17:23:50 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
-## AMS 는 앱 프로세스 와 컴포넌트 lifecycle 을 조율한다
+## [AMS](../../../04_system_services/activity-manager-service.md) 는 앱 프로세스 와 컴포넌트 lifecycle 을 조율한다
 
 상위 문서: [system_server 계약](system-server-contracts.md)
 
-`ActivityManagerService`(AMS)는 `system_server` 내부에서 앱 프로세스의 바인딩, 4대 컴포넌트(Service, BroadcastReceiver, ContentProvider, Activity 지원)의 수명주기 및 의존성, 프로세스 OOM Adj 우선순위 동적 재계산을 조율하는 중앙 프레임워크 컨트롤러다.
+`ActivityManagerService`([AMS](../../../04_system_services/activity-manager-service.md))는 `system_server` 내부에서 앱 프로세스의 바인딩, 4대 컴포넌트(Service, BroadcastReceiver, ContentProvider, Activity 지원)의 수명주기 및 의존성, 프로세스 OOM Adj 우선순위 동적 재계산을 조율하는 중앙 프레임워크 컨트롤러다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 
 1. **Process Fork Request via Zygote Socket**:
-   - 컴포넌트 구동(예: `startService` 또는 Broadcast 바인딩) 요청 시, 해당 앱의 프로세스가 존재하지 않으면 AMS(`ProcessList.java`)는 Zygote Unix Socket으로 Process Fork 요청 메세지를 전송한다.
+   - 컴포넌트 구동(예: `startService` 또는 Broadcast 바인딩) 요청 시, 해당 앱의 프로세스가 존재하지 않으면 [AMS](../../../04_system_services/activity-manager-service.md)(`ProcessList.java`)는 Zygote Unix Socket으로 Process Fork 요청 메세지를 전송한다.
 2. **`ActivityThread` Attach & Application Initialized**:
-   - fork된 앱 프로세스는 `ActivityThread.main()`을 실행한 후 AMS에 Binder IPC인 `attachApplication(IApplicationThread thread)`을 호출한다.
-   - AMS는 `ApplicationThread` 인터페이스 핸들을 수신하여 해당 프로세스와 Binder 통신 채널을 확립한다.
+   - fork된 앱 프로세스는 `ActivityThread.main()`을 실행한 후 [AMS](../../../04_system_services/activity-manager-service.md)에 Binder IPC인 `attachApplication(IApplicationThread thread)`을 호출한다.
+   - [AMS](../../../04_system_services/activity-manager-service.md)는 `ApplicationThread` 인터페이스 핸들을 수신하여 해당 프로세스와 Binder 통신 채널을 확립한다.
 3. **Component LifeCycle Dispatch**:
-   - AMS는 Binder 콜백(`scheduleCreateService`, `scheduleReceiver` 등)을 통해 앱 프로세스 Main Looper로 컴포넌트 생성을 지시하고, 타임아웃 메커니즘(ANR Timer)을 관리한다.
+   - [AMS](../../../04_system_services/activity-manager-service.md)는 Binder 콜백(`scheduleCreateService`, `scheduleReceiver` 등)을 통해 앱 프로세스 Main Looper로 컴포넌트 생성을 지시하고, 타임아웃 메커니즘(ANR Timer)을 관리한다.
 4. **OOM Adjustment (`applyOomAdjLSP`)**:
    - 컴포넌트 구동 상태 및 포그라운드 여부에 따라 `oom_score_adj`를 재계산하여 커널 LMKD에 전달한다.
 
@@ -41,7 +41,7 @@ sequenceDiagram
 
 ### 코드 및 구체 예시 (Concrete Snippets)
 
-AMS의 프로세스 요청 및 attach 콜백 메서드 정의 (`frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java`):
+[AMS](../../../04_system_services/activity-manager-service.md)의 프로세스 요청 및 attach 콜백 메서드 정의 (`frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java`):
 
 ```java
 // ActivityManagerService.java (Attach Application Lifecycle)

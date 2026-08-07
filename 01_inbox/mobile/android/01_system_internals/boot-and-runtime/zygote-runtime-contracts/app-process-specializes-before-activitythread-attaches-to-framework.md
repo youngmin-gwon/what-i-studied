@@ -11,7 +11,7 @@ date created: 2026-08-01 00:00:00 +09:00
 상위 문서: [Zygote 런타임 계약](zygote-runtime-contracts.md)
 배경 지식: [네임스페이스(mount namespace)](../../../../../linux/container-basics.md), [SELinux](../../../../../linux/security/selinux.md), [seccomp](../../../../../../02_references/operating-systems/seccomp.md)
 
-앱 프로세스 생성 과정은 단순히 Zygote의 `fork()`로 끝나지 않으며, 고유 UID/GID 적용, SELinux 도메인 강등, Cgroup 바인딩, App-specific ClassLoader 로딩으로 고유 샌드박스 환경을 구체화하는 **Specialization** 단계를 거친 직후, `ActivityThread.main()`에서 AMS로 Binder `attachApplication()`을 호출하여 비로소 Android 프레임워크 프로세스로 통합되는 메커니즘이다.
+앱 프로세스 생성 과정은 단순히 Zygote의 `fork()`로 끝나지 않으며, 고유 UID/GID 적용, SELinux 도메인 강등, Cgroup 바인딩, App-specific ClassLoader 로딩으로 고유 샌드박스 환경을 구체화하는 **Specialization** 단계를 거친 직후, `ActivityThread.main()`에서 [AMS](../../../04_system_services/activity-manager-service.md)로 Binder `attachApplication()`을 호출하여 비로소 Android 프레임워크 프로세스로 통합되는 메커니즘이다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 
@@ -26,8 +26,8 @@ date created: 2026-08-01 00:00:00 +09:00
 2. **`ActivityThread` Entrypoint Invocation**:
    - Specialization이 완료되면 `ZygoteInit`은 `ActivityThread.main(args)` 메서드를 리플렉션(Reflection)으로 호출한다.
    - `ActivityThread.main()`은 `Looper.prepareMainLooper()`를 호출해 앱의 메인 스레드 MessageQueue 및 Handler를 생성한다.
-3. **AMS Attach (`attachApplication`)**:
-   - `ActivityThread` 인스턴스는 AMS로 Binder IPC인 `attachApplication(mAppThread)`을 호출하여 자식 프로세스가 구동 완료되었음을 프레임워크에 알린다.
+3. **[AMS](../../../04_system_services/activity-manager-service.md) Attach (`attachApplication`)**:
+   - `ActivityThread` 인스턴스는 [AMS](../../../04_system_services/activity-manager-service.md)로 Binder IPC인 `attachApplication(mAppThread)`을 호출하여 자식 프로세스가 구동 완료되었음을 프레임워크에 알린다.
 
 ```mermaid
 sequenceDiagram

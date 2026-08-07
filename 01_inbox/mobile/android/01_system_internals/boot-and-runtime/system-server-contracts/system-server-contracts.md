@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## system_server 와 ActivityManager 계약
 
-`system_server`는 Android 시스템 프레임워크 핵심 서비스들(AMS, ATMS, PKMS, WMS 등 100여 개 이상)을 단일 프로세스 안에서 구동하고, [binder ipc](../../binder-ipc.md) 엔드포인트를 제공하여 앱 프로세스의 컴포넌트 생명주기, Task 백스택, 시스템 자원 할당, ANR 타임아웃 감지, 그리고 OOM Reclaim 우선순위 정책을 통합 제어하는 중추이다.
+`system_server`는 Android 시스템 프레임워크 핵심 서비스들([AMS](../../../04_system_services/activity-manager-service.md), ATMS, PKMS, WMS 등 100여 개 이상)을 단일 프로세스 안에서 구동하고, [binder ipc](../../binder-ipc.md) 엔드포인트를 제공하여 앱 프로세스의 컴포넌트 생명주기, Task 백스택, 시스템 자원 할당, ANR 타임아웃 감지, 그리고 OOM Reclaim 우선순위 정책을 통합 제어하는 중추이다.
 
 ```mermaid
 flowchart TD
@@ -43,7 +43,7 @@ flowchart TD
 
 - **App Framework와 정책의 분리**: `Activity`, `Service`, `BroadcastReceiver` 등 앱 측 API 구문은 App Framework 정본 문서가 다루며, 이 묶음은 `system_server` 내부에서 이들 프로세스 및 생명주기를 강제 집행하는 정책에 집중한다.
 - **Binder IPC 세부 분리**: Binder IPC 커널 드라이버, `Parcel`, `transact()` 멀티스레드 웅덩이는 IPC 정본으로 위임하고, 이 묶음은 시스템 서비스가 등록된 Binder Endpoint라는 계약 사실만 연동한다.
-- **메모리 회수 구현체 분리**: Linux Kernel의 `PSI` (Pressure Stall Information) 및 `LMKD` 데몬 커널 모듈 세부는 Kernel/HAL 정본으로 이관하고, AMS가 계산하여 건네는 `oom_score_adj` 입력 인터페이스에 집중한다.
+- **메모리 회수 구현체 분리**: Linux Kernel의 `PSI` (Pressure Stall Information) 및 `LMKD` 데몬 커널 모듈 세부는 Kernel/HAL 정본으로 이관하고, [AMS](../../../04_system_services/activity-manager-service.md)가 계산하여 건네는 `oom_score_adj` 입력 인터페이스에 집중한다.
 
 상위 지도: [Android 부팅과 런타임 지도](../android-boot-and-runtime.md)  
 관련 지도: [IPC and process contracts](../../ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
