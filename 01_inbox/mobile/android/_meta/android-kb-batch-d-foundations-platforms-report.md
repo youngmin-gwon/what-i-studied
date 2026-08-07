@@ -51,7 +51,7 @@ date created: 2026-08-03 16:35:00 +09:00
 - `Context.getSystemService()`, Binder 와 `system_server`, caller UID, permission/AppOps, service death 와 callback lifetime 의 공통 모델이 없다.
 - connectivity, location, sensor, Bluetooth, power, package/user, media, biometrics, telephony 같은 주요 capability 가 빠져 있다.
 - Background work 선택 모델에서 JobScheduler, user-initiated data transfer job, DownloadManager 와 task-specific API 가 누락됐다.
-- [AlarmManager 노트](../04_system_services/background-and-notifications/background-work-contracts/alarmmanager-is-for-time-based-user-events.md) 에서 확인된 PendingIntent 식별과 exact alarm 조건 오류는 Phase 0 에서 수정했다.
+- [AlarmManager 노트](../04_system_services/background-and-notifications/background-work-contracts/alarm-manager-contract.md) 에서 확인된 PendingIntent 식별과 exact alarm 조건 오류는 Phase 0 에서 수정했다.
 
 #### Platforms
 

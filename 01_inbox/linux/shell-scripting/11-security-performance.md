@@ -28,7 +28,7 @@ date created: 2025-12-28 20:45:33 +09:00
 | :----------- | :------------------- | :-------------- | :-------------------- |
 | **sed -i**   | `-i[SUFFIX]` (공백 없음) | `-i ''` (공백 필수) | 공백 없는 `-i.bak` 사용     |
 | **readlink** | `readlink -f`        | `-f` 옵션 없음      | `perl` 또는 `python` 활용 |
-| **date**     | `date -d '…`         | `date -v '…`    | `perl` 시용 또는 GNU 설치   |
+| **date**     | `date -d '…`         | `date -v '…`    | `perl` 사용 또는 GNU 설치   |
 | **timeout**  | `timeout` 명령 존재      | 미지원             | Perl/Python 기반 스크립트   |
 
 ### 3. 성능 최적화 (Efficiency)

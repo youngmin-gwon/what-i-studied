@@ -585,8 +585,6 @@ SELinux 는 **복잡하지만 강력하다**. 초기 설정과 정책 이해에 
 
 ## 연결 문서
 
-**kernel** - 리눅스 커널의 보안 메커니즘
-
-**cpu-privilege-levels** - 하드웨어 권한 레벨과 MAC 의 조합
-
-**android-kernel** - 안드로이드에서의 SELinux 활용
+- [kernel-structure](../../operating-systems/kernel-structure.md) - 리눅스 커널의 보안 메커니즘
+- **cpu-privilege-levels** - 하드웨어 권한 레벨과 MAC 의 조합 (링크 대상 확인 필요: `02_references/operating-systems/cpu-privilege-levels.md`에만 존재)
+- **android-kernel** - 안드로이드에서의 SELinux 활용 (링크 대상 확인 필요: 정확히 일치하는 문서 없음, `mobile/android/.../android-kernel-runtime.md` 등이 후보)
