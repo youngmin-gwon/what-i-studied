@@ -2,7 +2,7 @@
 title: compose-side-effect
 tags: [android, compose, DisposableEffect, LaunchedEffect, pure-composable, recomposition, side-effect, SideEffect]
 aliases: [Compose Side Effect, Compose 부수 효과, SideEffect API]
-date modified: 2026-08-07 16:15:27 +09:00
+date modified: 2026-08-07 16:17:40 +09:00
 date created: 2026-08-07 16:10:00 +09:00
 ---
 
@@ -30,8 +30,8 @@ graph TD
     DirectMutate -->|"No (Effect API 사용)"| EffectControl["Effect API 로 격리 캡슐화"]
 
     EffectControl -->|"성공적인 Composition 직후 실행"| SideEffectAPI["SideEffect { ... }"]
-    EffectControl -->|"비동기 코루틴 실행"| Launched["[launched-effect](compose-state-and-effect-contracts/launched-effect.md)"]
-    EffectControl -->|"자원 정리 필요"| Disposable["[disposable-effect](compose-state-and-effect-contracts/disposable-effect.md)"]
+    EffectControl -->|"비동기 코루틴 실행"| Launched["LaunchedEffect"]
+    EffectControl -->|"자원 정리 필요"| Disposable["DisposableEffect"]
 ```
 
 ---
@@ -41,7 +41,7 @@ graph TD
 1. **Composable Body 에 Side Effect 절대 엄금**:
    - Composable 함수 본문에서는 상태 읽기(Read)와 UI 구성요소 반환만 수행해야 하며, Analytics 이벤트를 보내거나 외부 객체를 수정하면 안 된다.
 2. **`SideEffect {}` API 의 역할**:
-   - `SideEffect { … }` 는 **현재 Composition 이 성공적으로 완료(Recomposition Success)되어 렌더링 트리에 반영된 직후**에 매번 실행되는 부수 효과 전용 블록이다. Compose 상태를 비 -Compose 관리 객체(Firebase Analytics, 사용자 정의 뷰 시스템 상태)에 동기화할 때 주로 사용된다.
+   - `SideEffect { … }` 는 **현재 Composition 이 성공적으로 완료(Recomposition Success)되어 렌더링 트리에 반영된 직후**에 매번 실행되는 부수 효과 전용 블록이다. Compose 상태를 비 Compose 관리 객체(Firebase Analytics, 사용자 정의 뷰 시스템 상태)에 동기화할 때 주로 사용된다.
 
 ---
 
