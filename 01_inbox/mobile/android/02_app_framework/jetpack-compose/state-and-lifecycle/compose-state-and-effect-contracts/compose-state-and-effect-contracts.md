@@ -41,12 +41,14 @@ graph TD
 ## 2. Compose State & Effect 세부 계약 노드 지도
 
 1. **[compose-state-api-selection](compose-state-api-selection.md)**:
-   - UI 수명주기와 복원 범위에 따른 State 저장 API (`remember`, `rememberSaveable`, `StateFlow`) 선택 기준.
-2. **[remember-saveable](remember-saveable.md)**:
+   - UI 수명주기와 복원 범위에 따른 State 저장 API (`remember`, `rememberSaveable`, `ViewModel StateFlow`) 선택 기준.
+2. **[compose-effect-api-selection](compose-effect-api-selection.md)**:
+   - 상황과 시나리오에 따른 부수 효과 API (`LaunchedEffect`, `DisposableEffect`, `SideEffect`, `rememberCoroutineScope` 등) 선택 가이드 결정 트리.
+3. **[remember-saveable](remember-saveable.md)**:
    - 프로세스 재생성(Death) 및 화면 회전(Configuration Change) 시 UI 소형 상태를 `SavedStateHandle` 로 복원하는 규약.
-3. **[launched-effect](launched-effect.md)**:
+4. **[launched-effect](launched-effect.md)**:
    - Composable 진입 시 취소 가능한 비동기 코루틴 작업을 안전하게 실행하고 관리하는 [부수 효과](../compose-side-effect.md) 규약.
-4. **[disposable-effect](disposable-effect.md)**:
+5. **[disposable-effect](disposable-effect.md)**:
    - 뷰 이탈 시 `onDispose {}` 블록으로 리스너 등록 해제 및 리소스 Cleanup 을 보장하는 [부수 효과](../compose-side-effect.md) 규약.
 5. **[remember-coroutine-scope](remember-coroutine-scope.md)**:
    - UI 버튼 클릭 등 수동 이벤트 핸들러에서 안전한 `CoroutineScope` 를 획득하는 규약.
@@ -58,8 +60,10 @@ graph TD
    - Compose `State` 변경 감지를 Cold Kotlin `Flow` 스트림으로 변환하는 규약.
 9. **[viewmodel-stateflow-lifecycle-collection](viewmodel-stateflow-lifecycle-collection.md)**:
    - `collectAsStateWithLifecycle()` 로 안드로이드 Lifecycle 과 연동하여 배터리 수거를 보장하는 규약.
-10. **[ui-controllers-and-effect-runners](ui-controllers-and-effect-runners.md)**:
-   - UI 컨트롤러 및 Effect Runner 의 수명주기 바인딩 규약.
+10. **[derived-state-of](derived-state-of.md)**:
+    - 고빈도 스크롤/입력 State 연산 결과를 Recomposition 오버헤드 없이 파생 State 로 줄여주는 최적화 API.
+11. **[ui-controllers-and-effect-runners](ui-controllers-and-effect-runners.md)**:
+    - UI 컨트롤러 및 Effect Runner 의 수명주기 바인딩 규약.
 
 ---
 

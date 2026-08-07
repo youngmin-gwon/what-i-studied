@@ -2,7 +2,7 @@
 title: compose-state-api-selection
 tags: [android, compose, remember, rememberSaveable, state, state-selection, ViewModel]
 aliases: [Compose State API Selection, Compose 상태 저장 API 선택]
-date modified: 2026-08-07 18:15:04 +09:00
+date modified: 2026-08-07 18:22:30 +09:00
 date created: 2026-08-07 16:07:00 +09:00
 ---
 
@@ -28,8 +28,8 @@ graph TD
     StateReq["새로운 UI 상태 필요"] --> Decision1{"화면 회전/프로세스 수거 후 복원 필요?"}
     Decision1 -->|"No (애니메이션/임시 UI 상태)"| Remember["remember { mutableStateOf() }"]
     Decision1 -->|"Yes"| Decision2{"비즈니스 로직 / 도메인 데이터인가?"}
-    Decision2 -->|"No (스크롤 위치 / 텍스트 입력 소형 UI)"| Saveable["[rememberSaveable](remember-saveable.md)"]
-    Decision2 -->|"Yes (유저 정보 / DB 데이터)"| VMState["[ViewModel StateFlow](viewmodel-stateflow-lifecycle-collection.md)"]
+    Decision2 -->|"No (스크롤 위치 / 텍스트 입력 소형 UI)"| Saveable["rememberSaveable"]
+    Decision2 -->|"Yes (유저 정보 / DB 데이터)"| VMState["ViewModel StateFlow"]
 ```
 
 ---
@@ -71,6 +71,7 @@ fun SearchScreen(
 
 ### 4. 연결 문서 (Related Links)
 
+- [compose-effect-api-selection](compose-effect-api-selection.md) - Compose 부수 효과 API 선택 가이드 결정 트리
 - [rememberSaveable](remember-saveable.md) - Process Death 복원 소형 UI 상태 API
 - [viewmodel-stateflow-lifecycle-collection](viewmodel-stateflow-lifecycle-collection.md) - ViewModel 스트림 수집
 - [Compose SSOT](../../../compose-ssot.md) - 단방향 데이터 흐름 아키텍처
