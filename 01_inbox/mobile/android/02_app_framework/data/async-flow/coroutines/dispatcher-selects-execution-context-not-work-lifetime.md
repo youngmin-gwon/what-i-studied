@@ -40,7 +40,7 @@ graph TD
 
 ### 현대 표준 vs 레거시 비교
 
-| 비교 항목 | 레거시 (AsyncTask / RxJava) | 현대 표준 (Kotlin Coroutines) |
+| 비교 항목 | 레거시 (AsyncTask / RxJava) | 현대 표준 ([Kotlin Coroutines](../../../kotlin-coroutines.md)) |
 | :--- | :--- | :--- |
 | **스레드 지정 방식** | `subscribeOn(Schedulers.io())` / `observeOn(AndroidSchedulers.mainThread())` | `withContext(Dispatchers.IO)` (suspend 함수 내부 감싸기) |
 | **수명주기 결합** | 스레드 생성 시점에 UI Context 주입 파라미터 필요 | `CoroutineScope`가 수명 관리, Dispatcher는 Context만 변경 |

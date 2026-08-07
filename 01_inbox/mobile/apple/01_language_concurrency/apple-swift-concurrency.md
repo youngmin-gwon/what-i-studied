@@ -211,11 +211,11 @@ class ViewController {
 - **[Swift Concurrency Documentation](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/)**: 공식 문서.
 - **[WWDC 2021: Swift concurrency: Behind the scenes](https://developer.apple.com/videos/play/wwdc2021/10254/)**: 내부 스레딩 모델을 이해하려면 필수.
 
-#### ⚡️ Coroutines (Android) vs Swift Concurrency (iOS)
+#### ⚡️ [Coroutines](../../android/02_app_framework/kotlin-coroutines.md) (Android) vs Swift Concurrency (iOS)
 
 두 플랫폼 모두 "함수 실행을 일시 중단하고 나중에 재개"하는 개념을 공유하지만, 철학적 차이가 있습니다.
 
-| 특징 | Kotlin Coroutines | Swift Concurrency |
+| 특징 | [Kotlin Coroutines](../../android/02_app_framework/kotlin-coroutines.md) | Swift Concurrency |
 | :--- | :--- | :--- |
 | **핵심 키워드** | `suspend`, `launch`, `async` | `async`, `await`, `task` |
 | **스레드 전환** | `withContext(Dispatchers.IO)` (명시적) | `actor` / `@MainActor` (격리 기반 자동 전환) |

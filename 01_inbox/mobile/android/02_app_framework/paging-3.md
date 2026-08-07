@@ -8,7 +8,7 @@ tags: [android, architecture, paging3, flow, room, infinity-scroll]
 ## 1. 개념 & 비유 (Concept & Real-World Analogy)
 
 ### 개념
-**Paging 3**는 Android Jetpack 라이브러리의 일부로, 서버나 로컬 수천~수만 개의 대용량 데이터를 메모리 효율적으로 나누어(Chunk) 차례대로 로딩(Lazy Loading)하는 아키텍처 구성 요소입니다. Kotlin Flow 및 Coroutines와 완벽하게 결합되어 네트워크/DB 데이터 로딩 상태(Loading, Error, Idle) 관리 및 중복 요청 방지, 메모리 캐싱을 자동으로 처리합니다.
+**Paging 3**는 Android Jetpack 라이브러리의 일부로, 서버나 로컬 수천~수만 개의 대용량 데이터를 메모리 효율적으로 나누어(Chunk) 차례대로 로딩(Lazy Loading)하는 아키텍처 구성 요소입니다. Kotlin Flow 및 [Coroutines](kotlin-coroutines.md)와 완벽하게 결합되어 네트워크/DB 데이터 로딩 상태(Loading, Error, Idle) 관리 및 중복 요청 방지, 메모리 캐싱을 자동으로 처리합니다.
 
 ### 실생활 비유: 뷔페 음식 접시 교체 (Buffet Food Tray Replacement)
 뷔페 식당에서 손님들에게 10,000인분의 음식을 한꺼번에 식탁에 차려놓지 않습니다. 식탁 공간(메모리)도 부족하고 음식도 굳어버리기 때문입니다.

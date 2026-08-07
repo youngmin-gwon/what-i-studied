@@ -95,7 +95,7 @@ fun GoodUserProfile(userId: String, analytics: Analytics) {
 - [LaunchedEffect 실행 규약](../../state-and-lifecycle/compose-state-and-effect-contracts/launched-effect-owns-composable-cancellable-work.md) - 취소 가능한 부작용을 관리하는 LaunchedEffect
 - [Composition 내 무거운 작업 처리 규약](../../performance/compose-performance-contracts/heavy-work-does-not-belong-in-composition.md) - Fast 규약 준수를 위한 성능 가이드
 - [ViewModel](../../../viewmodel.md) - 무거운 데이터 작업과 비즈니스 로직을 이관받는 상태 관리자
-- [Single Source of Truth (단일 진실 출처)](../../../single-source-of-truth.md) - Composable 이 관찰해야 하는 상태 원천
+- [Compose SSOT](../../../compose-ssot.md) - Composable 이 관찰해야 하는 상태 원천
 - [Idempotency (멱등성)](../../../../../../../02_references/computer-science/idempotency.md) - 동일한 입력에 대해 항상 동일한 결과를 생성하는 성질
 - [Side Effect (부작용)](../../../../../../../02_references/computer-science/side-effect.md) - Composable 함수 본문에서 배제해야 하는 부작용 개념
 - [Pure Function (순수 함수)](../../../../../../computer-science/pure-function.md) - Composable 함수가 준수해야 하는 순수함수 규약

@@ -1,68 +1,82 @@
 ---
 title: structured-concurrency
-tags: [computer-science, concurrency, coroutines, async]
-aliases: [Structured Concurrency, 구조적 동시성, CoroutineScope, Parent-Child Cancellation]
-date modified: 2026-08-06 18:15:00 +09:00
-date created: 2026-08-06 16:25:00 +09:00
+tags: [async, cancellation-propagation, computer-science, concurrency, coroutines, structured-concurrency]
+aliases: [Structured Concurrency, 구조화된 동시성, 비구조화 동시성 비교]
+date modified: 2026-08-07 13:53:25 +09:00
+date created: 2026-08-07 13:53:00 +09:00
 ---
 
-## Structured Concurrency (구조적 동시성) 이란 무엇인가
+## Structured Concurrency (구조화된 동시성 & 비구조화 동시성 비교)
 
-**Structured Concurrency (구조적 동시성)**는 비동기(Asynchronous) 작업의 생명주기(Lifetime)를 단일 스레드 코드의 코드 블록(`{ ... }`) 범위처럼 **명확한 부모-자식(Parent-Child) 계층 구조**로 묶어서 관리하는 비동기 프로그래밍 패러다임입니다.
+### 1. 개요 (Overview)
 
-구조적 프로그래밍(Structured Programming)에서 `if`, `for`, `try-catch` 같은 블록이 코드 실행 흐름의 시작과 끝을 제한하여 과거 `goto` 문의 무질서함을 해결했듯, Structured Concurrency는 비동기 스레드/코루틴의 **"언제 어디서 시작하고 끝나는지 알 수 없는 난잡함(Unstructured Async)"**을 해결합니다.
+**Structured Concurrency (구조화된 동시성)** 는 비동기(Asynchronous) 동시성 작업의 수명주기(Lifecycle)를 명확한 부모 - 자식 계층 구조(Parent-Child Hierarchy)로 묶어 관리하는 **컴퓨터 공학 동시성 프로그래밍 패러다임**이다.
+
+과거의 **Unstructured Concurrency (비구조화된 동시성)** 에서는 스레드나 백그라운드 작업(`GlobalScope`, `Thread`)이 통제 없이 산발적으로 생성되어 부모가 종료되어도 자식 작업이 고아(Orphan Task)로 남아 메모리 누수(Memory Leak)나 자원 낭비를 유발했다. Structured Concurrency 는 **"부모 스코프는 모든 자식 작업이 완료될 때까지 종료되지 않으며, 부모가 취소되면 자식도 함께 취소된다"**는 엄격한 약속을 보장한다.
 
 ---
 
-### 초보자를 위한 쉽게 이해하는 비유
+#### 초보자를 위한 쉽게 이해하는 비유
 
-* **비구조적 비동기 (Unstructured Async)**: **"부모 없이 혼자 놀이공원에 간 아이들"**과 같습니다. 부모가 집에 가자고 해도(Scope 종료) 아이들이 어디 있는지 알 수 없으며, 아이 하나가 길을 잃거나 사고가 나도(예외 발생) 부모가 알 수 없어 고아 작업(Orphan Task)이 됩니다.
-* **구조적 동시성 (Structured Concurrency)**: **"손을 꼬옥 잡고 놀이공원에 간 가족"**과 같습니다. 부모는 모든 자식이 놀이기구를 다 탈 때까지 기다렸다가 함께 집으로 돌아가며, 자식 하나가 울거나 사고가 나면 부모가 즉시 다른 자식들의 손을 잡고 안전하게 상황을 수습(취소 전파)합니다.
+- **Structured vs Unstructured Concurrency (직속 상사 팀 구조 vs 무책임한 용역 기사)**:
+  - **Unstructured Concurrency (무책임한 용역 기사)**: 작업 반장(부모)이 일을 시키고 집으로 퇴근(종료)해 버려도, 혼자 남아 밤새도록 엔진을 켜두고 전기를 낭비하는 고아 기사.
+  - **Structured Concurrency (직속 상사 팀 구조)**: 부모 팀장이 모든 부하 팀원(자식 작업)이 일을 끝낼 때까지 곁을 지키며, 팀장이 작업 중단 명령(취소)을 내리면 모든 팀원이 즉시 도구를 놓고 함께 퇴근하는 엄격한 수명주기 팀 모델.
 
 ```mermaid
-flowchart TD
-    subgraph Unstructured ["Unstructured Async: Risk of Leaks"]
-        Caller1["Caller"] --> LaunchChild1["Launch Child Task 1"]
-        Caller1 --> LaunchChild2["Launch Child Task 2"]
-        LaunchChild2 -->|"Exception Error"| Orphan["Silent Fail / Lost Orphan Task"]
-    end
-
-    subgraph Structured ["Structured Concurrency: Scope Boundary"]
-        ParentScope["Parent Scope / Job"] --> Child1["Child Task 1"]
-        ParentScope --> Child2["Child Task 2"]
-        Child2 -->|"Exception Error"| CancelProp["Cancel Siblings & Propagate to Parent"]
+graph TD
+    subgraph "Structured Concurrency (부모-자식 트리 수명주기)"
+        ParentScope["Parent CoroutineScope"] -->|"1. Child Launch"| ChildA["Child Job A"]
+        ParentScope -->|"2. Child Launch"| ChildB["Child Job B"]
+        ParentScope -->|"3. Cancel Signal"| CancelProp["취소 신호 자식으로 일괄 자동 전파"]
+        CancelProp --> ChildA
+        CancelProp --> ChildB
     end
 ```
 
 ---
 
-### 핵심 원칙 및 작동 메커니즘
+### 2. Structured vs Unstructured Concurrency 비교
 
-1. **부모-자식 생명주기 계층 구조 (Parent-Child Hierarchy)**
-   * 모든 코루틴 비동기 작업은 부모 `CoroutineScope` 내에서만 생성될 수 있습니다.
-   * 부모 작업은 내부에서 생성된 모든 자식 작업의 상태를 추적합니다.
-   * **완료 보장**: 부모 작업은 모든 자식 작업이 완전히 끝날 때까지 자신의 종료를 자동으로 미룹니다.
-
-2. **양방향 취소 및 예외 전파 (Cancellation & Exception Propagation)**
-   * **부모 ➔ 자식 (하향 취소)**: 부모 작업이 취소되면 모든 자식 작업에 취소 신호가 즉시 전파됩니다.
-   * **자식 ➔ 부모 (상향 예외 전파)**: 자식 작업 중 하나에서 예기치 못한 에러가 터지면:
-     1. 부모 작업에게 예외가 즉시 전달됩니다.
-     2. 부모 작업은 다른 모든 자식(형제) 작업들을 즉시 취소시킵니다.
-     3. 부모 작업 자신도 예외 상태로 안전하게 종료됩니다. (`SupervisorJob` 사용 시 예외 상향 전파 억제 가능)
+| 구분 | Unstructured Concurrency (비구조화) | Structured Concurrency (구조화) |
+| :--- | :--- | :--- |
+| **수명주기 결합** | 독립적 (부모 종료와 자식 실행이 따로 돎) | **명확한 계층적 결합 (Parent-Child Hierarchy)** |
+| **고아 작업 (Orphan Task)** | 발생 가능 (`GlobalScope`, 독립 Thread) | **원천 차단 (부모 스코프 범위 내 캡슐화)** |
+| **취소 전파 (Cancellation)** | 수동으로 일일이 취소 제어해야 함 | **부모 취소 시 자식으로 자동 전파 (Propagation)** |
+| **예외 처리 (Exception)** | 자식의 에외가 허공으로 사라지거나 미처리 크래시 | **자식의 예외가 부모로 전파되어 안전 수집** |
+| **실제 대표 예시** | `Thread.start()`, `GlobalScope.launch` | `coroutineScope {}`, `viewModelScope` |
 
 ---
 
-### Unstructured Async vs Structured Concurrency 비교
+### 3. 실전 코드 예시 (Kotlin Coroutines)
 
-비구조적 비동기 실행(Unstructured Async)과 구조적 동시성(Structured Concurrency)의 세부 기술 비교표, 예외 전파 메커니즘, 그리고 Kotlin 실무 예시는 별도 문서로 분리되어 있습니다.
+```kotlin
+// 1. Unstructured Concurrency (위험: 부모가 끝나도 GlobalScope 작업은 죽지 않음)
+fun runUnstructured() {
+    GlobalScope.launch {
+        delay(5000)
+        println("부모가 죽어도 혼자 계속 실행됨 (메모리 누수 위험)")
+    }
+}
 
-- **[Structured vs Unstructured Concurrency](structured-vs-unstructured-concurrency.md)** - 구조적 동시성과 비구조적 동시성의 비교 및 실무 가이드
+// 2. Structured Concurrency (안전: coroutineScope 가 자식 완료를 보장)
+suspend fun runStructured() = coroutineScope {
+    launch {
+        delay(1000)
+        println("자식 작업 1 완료")
+    }
+    launch {
+        delay(2000)
+        println("자식 작업 2 완료")
+    }
+    // 두 자식이 모두 끝날 때까지 runStructured() 는 종료되지 않음
+}
+```
 
 ---
 
-### 연관 노트
+### 4. 연결 문서 (Related Links)
 
-- [Structured vs Unstructured Concurrency](structured-vs-unstructured-concurrency.md) - 구조적 vs 비구조적 동시성 비교
-- [Context](context.md) - 부모-자식 간 공유되는 실행 환경 및 Job 계층 구조
-- [Race Condition and Deadlock](race-condition-and-deadlock.md) - 자원 경쟁 및 무한 대기 문제 해결
-- [Immutability](immutability.md) - 동시성 환경에서의 데이터 안전성
+- [Kotlin Coroutines](../mobile/android/02_app_framework/kotlin-coroutines.md) - Structured Concurrency 기반 안드로이드 비동기 엔진
+- [Compose SSOT](../mobile/android/02_app_framework/compose-ssot.md) - ViewModel / StateScope 수명주기 연동
+- [Race Condition & Deadlock](race-condition-and-deadlock.md) - 동시성 레이스 조건 및 교착 상태
+- [Pure Function](pure-function.md) - Side-Effect 없는 부수 효과 통제

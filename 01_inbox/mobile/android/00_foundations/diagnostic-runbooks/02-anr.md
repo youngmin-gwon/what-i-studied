@@ -150,7 +150,7 @@ ApplicationExitInfo #0:
 
 | ANR 진단 지표 / 신호 | 정상 기준 (Success Criteria) | 실패 기준 (Failure Criteria) | 주 원인 및 즉시 조치 (Action Boundary) |
 | :--- | :--- | :--- | :--- |
-| **Input Dispatching Time** | 이벤트 수신 후 UI 반응 < 100ms | 이벤트 미처리 상태 > 5000ms 지속 | 메인 스레드 내 복잡한 계산/동기 DB 접근을 Coroutines `Dispatchers.Default` / `IO` 로 이관 |
+| **Input Dispatching Time** | 이벤트 수신 후 UI 반응 < 100ms | 이벤트 미처리 상태 > 5000ms 지속 | 메인 스레드 내 복잡한 계산/동기 DB 접근을 [Coroutines](../../02_app_framework/kotlin-coroutines.md) `Dispatchers.Default` / `IO` 로 이관 |
 | **Main Thread Trace State** | `RUNNABLE` (Choreographer frame handling) | `BLOCKED` (`waiting to lock`) | 메인 스레드와 백그라운드 스레드 간 Shared Lock 범위 축소 또는 Concurrent Data Structure 사용 |
 | **Binder Call on Main** | Async Binder call 또는 Binder 미호출 | `BinderProxy.transact` 대기 상태 지속 | 메인 스레드에서의 AIDL/System Server 동기 호출 금지, 비동기 콜백 체인 전환 |
 | **FGS 승격** | service 생성 직후 notification 준비와 `startForeground()` 완료 | `ForegroundServiceDidNotStartInTimeException` 계열 로그 | 긴 초기화 전에 먼저 foreground 승격하고 실패 경로에서도 service 정리 |

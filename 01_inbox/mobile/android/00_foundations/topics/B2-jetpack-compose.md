@@ -16,7 +16,7 @@ date created: 2026-08-04 16:00:00 +09:00
 
 | 선행 개념 | 필요한 이유 |
 |---|---|
-| Kotlin Coroutines (suspend, Flow) | Effect API 와 [stateflow](../../02_app_framework/stateflow-and-sharedflow.md) 수집에 직접 등장 |
+| [Kotlin Coroutines](../../02_app_framework/kotlin-coroutines.md) (suspend, Flow) | Effect API 와 [stateflow](../../02_app_framework/stateflow-and-sharedflow.md) 수집에 직접 등장 |
 | Android Activity/Fragment 생명주기 | Composable 수명과 [viewmodel](../../02_app_framework/viewmodel.md) 연결 이해 |
 | ViewModel + UiState 패턴 | 화면 상태 소유권 결정 기준 이해 |
 

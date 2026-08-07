@@ -12,7 +12,7 @@ date created: 2026-08-07 13:38:00 +09:00
 
 **BroadcastReceiver (브로드캐스트 리시버)** 는 OS 시스템 이벤트(배터리 부족, 비행기 모드, 부팅 완료 `BOOT_COMPLETED`)나 다른 앱의 전역 방송 메시지를 수신하여 비동기적으로 응답하기 위한 **안드로이드 4 대 앱 컴포넌트**이다.
 
-현대 안드로이드 개발에서는 보안(Implicit Broadcast 낚시 방지)과 배터리 절감을 위해 **매니페스트 암시적 브로드캐스트 선언이 대부분 전면 금지**되었으며, 앱 내부 컴포넌트 간 이벤트 전달에는 `LocalBroadcastManager` 대신 **Kotlin Coroutines `SharedFlow` / `StateFlow`** 로 대전환되었다.
+현대 안드로이드 개발에서는 보안(Implicit Broadcast 낚시 방지)과 배터리 절감을 위해 **매니페스트 암시적 브로드캐스트 선언이 대부분 전면 금지**되었으며, 앱 내부 컴포넌트 간 이벤트 전달에는 `LocalBroadcastManager` 대신 **[Kotlin Coroutines](../../kotlin-coroutines.md) `SharedFlow` / `StateFlow`** 로 대전환되었다.
 
 ---
 

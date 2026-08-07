@@ -1,14 +1,14 @@
 ---
 title: android-coroutines-flow
 tags: [android, android/async, android/data]
-aliases: ["Android Coroutines and Flow"]
+aliases: ["Android [Coroutines](../../kotlin-coroutines.md) and Flow"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
 ## Android Coroutine 과 Flow 는 비동기 작업의 수명과 stream sharing 을 분리한다
 
-Android 비동기 프로그래밍 패러다임은 **Kotlin Coroutines**와 **Flow**를 핵심 아키텍처 표준으로 삼는다. 이전의 `Thread`, `Handler`, `AsyncTask`, `RxJava`, `LiveData` 조합이 지니던 리소스 누수, 스레드 차단(Blocking), 복잡한 상태 관리 문제를 해결하고, **(1) 작업 수명 관리([structured concurrency](../../../../../computer-science/structured-concurrency.md))**, **(2) 실행 환경 분리(Dispatchers)**, **(3) 반응형 데이터 스트림(Cold Flow / Hot Stream)**을 완전하게 분리하여 제공한다.
+Android 비동기 프로그래밍 패러다임은 **[Kotlin Coroutines](../../kotlin-coroutines.md)**와 **Flow**를 핵심 아키텍처 표준으로 삼는다. 이전의 `Thread`, `Handler`, `AsyncTask`, `RxJava`, `LiveData` 조합이 지니던 리소스 누수, 스레드 차단(Blocking), 복잡한 상태 관리 문제를 해결하고, **(1) 작업 수명 관리([structured concurrency](../../../../../computer-science/structured-concurrency.md))**, **(2) 실행 환경 분리(Dispatchers)**, **(3) 반응형 데이터 스트림(Cold Flow / Hot Stream)**을 완전하게 분리하여 제공한다.
 
 ### 정본 지도
 

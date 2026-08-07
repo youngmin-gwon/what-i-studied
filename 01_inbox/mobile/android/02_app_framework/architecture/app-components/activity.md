@@ -2,7 +2,7 @@
 title: activity
 tags: [activity, android, app-framework, compose, lifecycle, single-activity, ui]
 aliases: [Activity, ComponentActivity, 액티비티]
-date modified: 2026-08-07 13:42:20 +09:00
+date modified: 2026-08-07 13:46:52 +09:00
 date created: 2026-08-07 13:38:00 +09:00
 ---
 
@@ -36,7 +36,7 @@ graph TD
 1. **Single Activity Architecture (SAA)**:
    - 앱 전체에서 단 하나(또는 기능별 최소한)의 `ComponentActivity`만 선언하고, 화면 이동은 Navigation Compose 가 담당하여 [ATMS](../../../04_system_services/activity-manager-service.md) 의 무거운 Activity 전환 오버헤드를 최소화한다.
 2. **`setContent` 및 State/ViewModel 분리**:
-   - Activity 내부에서 직접 View 레이아웃을 다루지 않고 `setContent {}` 블록으로 Compose 런타임에 호스팅하며, 상태관리는 [ViewModel](../../viewmodel.md) 및 [Single Source of Truth](../../single-source-of-truth.md) 로 이관한다.
+   - Activity 내부에서 직접 View 레이아웃을 다루지 않고 `setContent {}` 블록으로 Compose 런타임에 호스팅하며, 상태관리는 [ViewModel](../../viewmodel.md) 및 [Compose SSOT](../../compose-ssot.md) 로 이관한다.
 3. **Activity 수명주기(Lifecycle)와 Compose**:
    - `ON_START`, `ON_RESUME`, `ON_PAUSE`, `ON_STOP` 수명주기는 Compose 의 `DisposableEffect` / `LifecycleEventObserver` 또는 `repeatOnLifecycle` 과 조합되어 리소스 leak 을 예방한다.
 
@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
 ### 4. 연결 문서 (Related Links)
 
 - [ATMS & AMS](../../../04_system_services/activity-manager-service.md) - Activity 백스택 및 수명주기 통제
-- [Single Source of Truth (SSOT)](../../single-source-of-truth.md) - ViewModel 기반 UDF 상태 관리
+- [Compose SSOT](../../compose-ssot.md) - ViewModel 기반 UDF 상태 관리
 - [ViewModel](../../viewmodel.md) - Configuration Change 견디는 UI 상태 저장소
 - [Composable Body Purity](../../jetpack-compose/runtime/compose-runtime-contracts/composable-body-purity.md) - Compose UI 작성 준칙
 - [Low Memory Killer (LMK)](../../../01_system_internals/lmk-low-memory-killer.md) - Activity 프로세스 OOM 수거

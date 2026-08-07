@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Jetpack Architecture는 필수 stack이 아니라 책임 분리 지도다
 
-안드로이드 공식 **Jetpack Architecture 권장 사항은 특정 프레임워크(Room, Hilt, Navigation 등)를 강제로 사용해야 하는 고정된 필수 기술 스택(Mandatory Stack)이 아니다.** 본질은 **관심사 분리(Separation of Concerns), 단방향 데이터 흐름(Unidirectional Data Flow), 데이터 단일 출처([single source of truth](../../../single-source-of-truth.md)) 원칙을 실현하기 위한 책임 분리 지도(Responsibility Map)**다.
+안드로이드 공식 **Jetpack Architecture 권장 사항은 특정 프레임워크(Room, Hilt, Navigation 등)를 강제로 사용해야 하는 고정된 필수 기술 스택(Mandatory Stack)이 아니다.** 본질은 **관심사 분리(Separation of Concerns), 단방향 데이터 흐름(Unidirectional Data Flow), 데이터 단일 출처([single source of truth](../../../compose-ssot.md)) 원칙을 실현하기 위한 책임 분리 지도(Responsibility Map)**다.
 
 ---
 

@@ -104,6 +104,6 @@ HSLLandroidx/compose/runtime/SlotTable;->open()V
 
 ### 5. 생성 품질 가이던스
 
-- **신규 릴리스 재생성**: 주요 의존성(Compose, Coroutines, Room) 업그레이드 또는 CUJ 로직 변경 시 반드시 프로필을 재생성하여 형상 관리에 저장한다.
+- **신규 릴리스 재생성**: 주요 의존성(Compose, [Coroutines](../../../02_app_framework/kotlin-coroutines.md), Room) 업그레이드 또는 CUJ 로직 변경 시 반드시 프로필을 재생성하여 형상 관리에 저장한다.
 - **불필요 코드 제외**: 에러 처리 경로나 일회성 개발자 화면은 생성 시나리오에서 제외하여 AOT 바이너리 용량 및 디스크 오버헤드를 예방한다.
 

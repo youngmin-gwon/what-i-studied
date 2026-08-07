@@ -47,7 +47,7 @@ graph TD
 
 ### 현대 표준 vs 레거시 비교
 
-| 비교 항목 | 레거시 (RxJava / UncaughtExceptionHandler) | 현대 표준 (Kotlin Coroutines) |
+| 비교 항목 | 레거시 (RxJava / UncaughtExceptionHandler) | 현대 표준 ([Kotlin Coroutines](../../../kotlin-coroutines.md)) |
 | :--- | :--- | :--- |
 | **실패 전파** | `onError` 미구현 시 RxJavaPlugins 전역 에러 훅으로 크래시 | [structured concurrency](../../../../../../computer-science/structured-concurrency.md) 트리를 따라 부모/형제 자동 취소 |
 | **독립 격리** | `onErrorResumeNext()`로 개별 스트림 처리 | `supervisorScope` 또는 `SupervisorJob`으로 하부 트리 실패 격리 |

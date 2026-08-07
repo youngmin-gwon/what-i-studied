@@ -10,7 +10,7 @@ date created: 2026-08-06 18:20:00 +09:00
 
 ### 1. 개요 (Overview)
 
-Kotlin Coroutines 환경에서 구독자(Subscriber)가 없어도 데이터를 유지하고 발행하는 Hot Stream 의 두 핵심 클래스인 **`StateFlow`** 와 **`SharedFlow`** 는 **상태(State)를 보관하느냐, 이벤트(Event)를 발행하느냐**라는 서로 다른 목적을 갖는다.
+[Kotlin Coroutines](kotlin-coroutines.md) 환경에서 구독자(Subscriber)가 없어도 데이터를 유지하고 발행하는 Hot Stream 의 두 핵심 클래스인 **`StateFlow`** 와 **`SharedFlow`** 는 **상태(State)를 보관하느냐, 이벤트(Event)를 발행하느냐**라는 서로 다른 목적을 갖는다.
 
 ---
 
@@ -51,4 +51,4 @@ graph TD
 ### 3. 연결 문서 (Related Links)
 
 - [ViewModel](viewmodel.md) - StateFlow 를 활용하여 UI 상태를 관리하는 컴포넌트
-- [Single Source of Truth](single-source-of-truth.md) - StateFlow 기반 단일 진실 출처 원칙
+- [Compose SSOT](compose-ssot.md) - StateFlow 기반 단일 진실 출처 원칙

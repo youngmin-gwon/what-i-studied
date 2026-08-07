@@ -38,7 +38,7 @@ graph TD
 
 ### 현대 표준 vs 레거시 비교
 
-| 비교 항목 | 레거시 (Thread / AsyncTask / RxJava) | 현대 표준 (Kotlin Coroutines) |
+| 비교 항목 | 레거시 (Thread / AsyncTask / RxJava) | 현대 표준 ([Kotlin Coroutines](../../../kotlin-coroutines.md)) |
 | :--- | :--- | :--- |
 | **실행 단위** | OS 커널 스레드 (1MB 스택 소비) | 유저스페이스 Continuation 힙 객체 (~수백 바이트) |
 | **취소 방식** | `Thread.interrupt()` 수동 검사 또는 `CompositeDisposable.clear()` | Scope 기반 자동 취소 및 `CancellationException` 협조적 전파 |

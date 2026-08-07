@@ -14,8 +14,8 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ### 1. 개념 및 핵심 명제 (What)
 
-- **단일 정보 출처 ([single source of truth](../../../single-source-of-truth.md) in Knowledge Base)**:
-  [viewmodel](../../../viewmodel.md), Compose Runtime, Room, Coroutines 등의 상세 기술 서술은 각 하위 도메인 정본 파일에 단 한 번 작성하며, Architecture Map 은 링크와 의사결정 인과관계만 정리한다.
+- **단일 정보 출처 ([single source of truth](../../../compose-ssot.md) in Knowledge Base)**:
+  [viewmodel](../../../viewmodel.md), Compose Runtime, Room, [Coroutines](../../../kotlin-coroutines.md) 등의 상세 기술 서술은 각 하위 도메인 정본 파일에 단 한 번 작성하며, Architecture Map 은 링크와 의사결정 인과관계만 정리한다.
 
 ---
 

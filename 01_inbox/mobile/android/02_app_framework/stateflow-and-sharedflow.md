@@ -10,7 +10,7 @@ date created: 2026-08-06 16:35:00 +09:00
 
 ### 1. 개요 (Overview)
 
-Kotlin Coroutines 환경에서 **Cold Stream(구독 시점에 구동)** 과 달리, 데이터 생산자가 생성되는 즉시 데이터를 전송할 준비가 된 흐름을 **Hot Stream** 이라고 부르며, 대표적인 클래스로 **`StateFlow`** 와 **`SharedFlow`** 가 존재한다.
+[Kotlin Coroutines](kotlin-coroutines.md) 환경에서 **Cold Stream(구독 시점에 구동)** 과 달리, 데이터 생산자가 생성되는 즉시 데이터를 전송할 준비가 된 흐름을 **Hot Stream** 이라고 부르며, 대표적인 클래스로 **`StateFlow`** 와 **`SharedFlow`** 가 존재한다.
 
 UI 상태 관리와 이벤트 전송을 분리하여 안드로이드 아키텍처의 반응형 데이터 흐름을 만드는 데 핵심적인 역할을 한다.
 
@@ -42,4 +42,4 @@ UI 상태 관리와 이벤트 전송을 분리하여 안드로이드 아키텍�
 
 - [StateFlow vs SharedFlow 비교](stateflow-vs-sharedflow.md) - StateFlow 와 SharedFlow 의 특성 및 비유 비교표
 - [ViewModel](viewmodel.md) - StateFlow 기반 상태 관리를 총괄하는 UI 아키텍처 컴포넌트
-- [Single Source of Truth](single-source-of-truth.md) - UDF 데이터 흐름과 단일 진실 출처 원칙
+- [Compose SSOT](compose-ssot.md) - UDF 데이터 흐름과 단일 진실 출처 원칙

@@ -49,7 +49,7 @@ graph TD
 
 ### 현대 표준 vs 레거시 비교
 
-| 비교 항목 | 레거시 (RxJava Zip / ExecutorService) | 현대 표준 (Kotlin Coroutines) |
+| 비교 항목 | 레거시 (RxJava Zip / ExecutorService) | 현대 표준 ([Kotlin Coroutines](../../../kotlin-coroutines.md)) |
 | :--- | :--- | :--- |
 | **병렬 수집** | `Observable.zip()` 또는 `Future.get()` 차단 대기 | `coroutineScope` 내 `async` + `awaitAll()` 비차단 대기 |
 | **부분 실패 처리** | `onErrorReturn()`을 각 Observables에 복잡하게 체이닝 | `supervisorScope` 내 `runCatching { deferred.await() }` |

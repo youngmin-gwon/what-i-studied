@@ -8,7 +8,7 @@ date created: 2026-08-04 16:00:00 +09:00
 
 ## B3 · 데이터 레이어: Flow · Room · DataStore · Paging
 
->**이 문서의 목적**: Android 앱의 데이터 레이어 전체 구조를 이해한다. Kotlin Coroutines 와 Flow 가 어떻게 비동기 데이터 흐름을 만드는지, Repository 가 어떻게 data source 를 추상화하는지, 그리고 각 저장소(Room, DataStore)가 언제 선택되는지를 체계적으로 정리한다.
+>**이 문서의 목적**: Android 앱의 데이터 레이어 전체 구조를 이해한다. [Kotlin Coroutines](../../02_app_framework/kotlin-coroutines.md) 와 Flow 가 어떻게 비동기 데이터 흐름을 만드는지, Repository 가 어떻게 data source 를 추상화하는지, 그리고 각 저장소(Room, DataStore)가 언제 선택되는지를 체계적으로 정리한다.
 
 ---
 
@@ -40,7 +40,7 @@ flowchart TD
 
 ---
 
-### 1. Kotlin Coroutines: 가볍고 취소 가능한 비동기 작업
+### 1. [Kotlin Coroutines](../../02_app_framework/kotlin-coroutines.md): 가볍고 취소 가능한 비동기 작업
 
 Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 coroutine 이 `suspend` 함수 호출을 만날 때마다 다른 coroutine 에 실행을 양보한다. 스레드를 블로킹하지 않으므로 메인 스레드에서도 네트워크 대기가 가능하다.
 

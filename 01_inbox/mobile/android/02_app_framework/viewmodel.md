@@ -37,7 +37,7 @@ ViewModel 은 UI 와 데이터 레이어 사이에서 다음과 같은 3 가지 
 #### 1) UI 상태(UiState) 관리 및 단일 진실 출처 역할
 
 - 화면 전반에서 필요한 데이터를 `StateFlow`나 `LiveData` 형태로 캡슐화하여 UI 에 노출합니다.
-- UI 계층이 직접 상태 데이터를 mutating(수정)하지 못하게 방지하며, [Single Source of Truth (단일 진실 출처)](single-source-of-truth.md) 원칙을 준수합니다.
+- UI 계층이 직접 상태 데이터를 mutating(수정)하지 못하게 방지하며, [Compose SSOT](compose-ssot.md) 원칙을 준수합니다.
 
 #### 2) UI 라이프사이클과의 안전한 분리 (Configuration Change 생존 & 메모리 누수 방지)
 
@@ -111,13 +111,13 @@ gantt
 2. **모든 단순 UI 임시 상태를 ViewModel 에 보관하려는 오버엔지니어링**:
    - 아코디언 메뉴의 열림/닫힘 토글, TextField 가공 중 임시 커서 위치, 팝업 애니메이션 유무 등 pure UI 상태는 ViewModel 에 넣지 않고 Composable 내부에서 `remember { mutableStateOf(…) }` 로 관리하는 것이 바람직합니다.
 3. **가변 상태(`MutableStateFlow`)를 외부에 직접 노출**:
-   - 외부 UI 컴포넌트가 `viewModel.uiState.value = …` 로 직접 상태를 수정할 수 있게 되면 [Single Source of Truth (단일 진실 출처)](single-source-of-truth.md) 원칙이 깨지고 상태 예측이 불가능해집니다.
+   - 외부 UI 컴포넌트가 `viewModel.uiState.value = …` 로 직접 상태를 수정할 수 있게 되면 [Compose SSOT](compose-ssot.md) 원칙이 깨지고 상태 예측이 불가능해집니다.
 
 ---
 
 ### 5. 연결 문서 (Related Links)
 
-- [Single Source of Truth (단일 진실 출처)](single-source-of-truth.md) - ViewModel 이 UiState 의 단일 진실 출처가 되는 아키텍처 원칙
+- [Compose SSOT](compose-ssot.md) - ViewModel 이 UiState 의 단일 진실 출처가 되는 아키텍처 원칙
 - [StateFlow & SharedFlow](stateflow-and-sharedflow.md) - ViewModel 에서 UI 로 상태를 안전하게 전달하기 위한 반응형 스트림
 - [Recomposition (재구성)](jetpack-compose/runtime/recomposition.md) - ViewModel 의 UiState 변경에 반응하여 발생하는 Compose UI 재렌더링 메커니즘
 - [Pure Function (순수 함수)](../../../computer-science/pure-function.md) - ViewModel 과 대비되는 순수 UI 컴포넌트의 성질

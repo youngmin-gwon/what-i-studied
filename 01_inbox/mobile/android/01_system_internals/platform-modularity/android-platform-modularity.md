@@ -2,13 +2,13 @@
 title: android-platform-modularity
 tags: ["android", "android/system-internals"]
 aliases: ["Android Platform Modularity", "Android 플랫폼 모듈화 Hub"]
+date modified: 2026-08-07 13:50:39 +09:00
 date created: 2026-07-31 23:05:30 +09:00
-date modified: 2026-08-04 15:50:00 +09:00
 ---
 
 ## Android Platform Modularity
 
-Android platform modularity는 단일 애플리케이션의 모듈 구조가 아니라, OS 배포, 파편화(Fragmentation) 방지, 보안 패치 속도 향상, 그리고 시스템 구성 요소 간의 호환성 경계를 규정하는 System Internals 핵심 주제다.
+Android platform modularity 는 단일 애플리케이션의 모듈 구조가 아니라, OS 배포, 파편화(Fragmentation) 방지, 보안 패치 속도 향상, 그리고 시스템 구성 요소 간의 호환성 경계를 규정하는 System Internals 핵심 주제다.
 
 ---
 
@@ -60,8 +60,8 @@ graph TD
 
 ### 문제 분류 기준
 
-- **"이 API 가 왜 이 기기에서만 없지"처럼 앱 API 존재 여부가 궁금하면**: [SDK Extensions](platform-modularity-contracts/sdk-extensions-express-api-availability-beyond-sdk-int.md)와 [앱은 Mainline package 이름보다 API와 feature availability를 확인해야 한다](platform-modularity-contracts/apps-should-check-api-feature-availability-not-mainline-package-names.md)로 이동한다.
-- **OTA/Play system update 이후 기기 동작이 바뀌었다면**: [Mainline](platform-modularity-contracts/mainline-updates-selected-system-components-outside-normal-platform-releases.md)과 [APEX activation](platform-modularity-contracts/apex-activation-uses-boot-time-mounting-version-selection-and-rollback.md)으로 이동한다.
-- **플랫폼/기기 빌드 관점에서 module 을 새로 추가하거나 지원해야 한다면**: [APEX build/device support](platform-modularity-contracts/apex-build-and-device-support-are-platform-integration-contracts.md)로 이동한다.
+- **"이 API 가 왜 이 기기에서만 없지"처럼 앱 API 존재 여부가 궁금하면**: [SDK Extensions](platform-modularity-contracts/sdk-extensions-express-api-availability-beyond-sdk-int.md)와 [앱은 Mainline package 이름보다 API와 feature availability를 확인해야 한다](platform-modularity-contracts/apps-should-check-api-feature-availability-not-mainline-package-names.md) 로 이동한다.
+- **OTA/Play system update 이후 기기 동작이 바뀌었다면**: [Mainline](platform-modularity-contracts/mainline-updates-selected-system-components-outside-normal-platform-releases.md)과 [APEX activation](platform-modularity-contracts/apex-activation-uses-boot-time-mounting-version-selection-and-rollback.md) 으로 이동한다.
+- **플랫폼/기기 빌드 관점에서 module 을 새로 추가하거나 지원해야 한다면**: [APEX build/device support](platform-modularity-contracts/apex-build-and-device-support-are-platform-integration-contracts.md) 로 이동한다.
 
 공식 문서: [Mainline](https://source.android.com/docs/core/ota/modular-system), [APEX file format](https://source.android.com/docs/core/ota/apex), [SDK Extensions](https://developer.android.com/guide/sdk-extensions)

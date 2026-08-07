@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## UI, domain, data layer는 rendering, policy, source of truth를 분리한다
 
-안드로이드 권장 레이어드 아키텍처(Layered Architecture)의 핵심 원칙은 **UI Layer 는 선언적 렌더링(Rendering)만 담당하고, Domain Layer 는 비즈니스 정책(Policy/Rules)을 관장하며, Data Layer 는 데이터의 단일 출처([single source of truth](../../../single-source-of-truth.md))를 보장**하여 관심사를 완벽히 분리하는 것이다.
+안드로이드 권장 레이어드 아키텍처(Layered Architecture)의 핵심 원칙은 **UI Layer 는 선언적 렌더링(Rendering)만 담당하고, Domain Layer 는 비즈니스 정책(Policy/Rules)을 관장하며, Data Layer 는 데이터의 단일 출처([single source of truth](../../../compose-ssot.md))를 보장**하여 관심사를 완벽히 분리하는 것이다.
 
 ---
 
