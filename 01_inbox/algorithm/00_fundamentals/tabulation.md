@@ -2,7 +2,7 @@
 title: tabulation
 tags: [algorithm, dp, fundamentals, iteration, optimization, tabulation]
 aliases: [도표 채우기, 바텀업, 타블레이션]
-date modified: 2025-12-19 18:13:06 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 19:17:00 +09:00
 ---
 
@@ -58,14 +58,7 @@ def fib_tab(n):
 
 ## ⚖️ 타블레이션 vs 메모이제이션
 
-두 기법은 모두 중복 계산을 피하기 위해 결과를 저장하지만, 접근 방향이 정반대이다.
-
-| 특징 | 타블레이션 (Tabulation) | 메모이제이션 (Memoization) |
-| :--- | :--- | :--- |
-| **방향** | Bottom-Up (작은 것 → 큰 것) | Top-Down (큰 것 → 작은 것) |
-| **기법** | 반복문 (Iteration) | 재귀 (Recursion) |
-| **장점** | 스택 안전, 오버헤드 적음 | 필요한 부분만 계산 (Sparse DP 에 유리) |
-| **단점** | 불필요한 부분 문제까지 모두 계산 | 스택 오버플로우 위험, 호출 비용 발생 |
+**정본 참고**: 두 기법의 상세한 비교표는 [메모이제이션 (Memoization)](memoization.md)의 "메모이제이션 vs 타블레이션" 섹션을 참조하세요.
 
 ---
 

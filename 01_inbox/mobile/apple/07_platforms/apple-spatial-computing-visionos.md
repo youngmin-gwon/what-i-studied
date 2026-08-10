@@ -2,7 +2,7 @@
 title: apple-spatial-computing-visionos
 tags: [apple, apple/26, arkit, spatial-computing, vision-pro, visionos]
 aliases: [Apple Vision Pro, ARKit, Spatial Computing, visionOS]
-date modified: 2026-04-06 18:20:53 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-04-04 00:33:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ visionOS 는 Apple Vision Pro 를 위한 전용 운영체제로, 2025 년 버전
 >[!NOTE] **Android 비교: Android XR vs visionOS**
 > - **Android/Android XR**: Google, Samsung, Qualcomm 의 협업 플랫폼. Gemini AI 기반의 멀티모달(Multimodal) 에이전트 경험과 개방적인 생태계가 강점이다.
 > - **iOS/visionOS**: Apple 의 전용 칩셋(R1, M2)을 활용한 12ms 이내의 극도로 낮은 지연 시간과 **Foveated Streaming**을 통한 초고지연성 경험이 강점이다. (visionOS 26+)
->자세한 내용은 **android-xr-and-spatial-computing** 를 참고하세요.
+>자세한 내용은 [**android-xr-and-spatial-computing**](../../android/07_platforms/xr/xr-contracts/xr-contracts.md) 를 참고하세요.
 
 ### 1. visionOS 26 신규 기능 (2026 Standard)
 
@@ -22,39 +22,7 @@ visionOS 는 Apple Vision Pro 를 위한 전용 운영체제로, 2025 년 버전
 
 ### 2. 공간 컴퓨팅 앱 구조 (Spatial App Architecture)
 
-visionOS 앱 개발은 기존 SwiftUI 지식을 기반으로 하지만, "공간(Volume/Window)"에 대한 개념이 추가된다.
-
-#### Window, Volume, Space
-
-| 요소 | 설명 | 비유 |
-| :--- | :--- | :--- |
-| **Window** | 2D 평면 콘텐츠 | 벽에 붙은 디지털 포스터 |
-| **Volume** | 3D 경계가 있는 정육면체 공간 | 거실 테이블 위의 디지털 조각상 |
-| **Space** | 전체 시야를 점유하는 몰입형 환경 | 공간 전체가 영화관이나 숲으로 변함 |
-
-```swift
-// SwiftUI for visionOS 예시
-@main
-struct SpatialApp: App {
-    var body: some Scene {
-        WindowGroup {
-            MainView() // 2D 윈도우
-        }
-        
-        WindowGroup(id: "model-viewer") {
-            ModelView() // 3D 볼륨으로 확장 가능
-        }
-        .windowStyle(.volumetric)
-    }
-}
-```
-
-### 3. 입력 방식: 시선과 제스처 (Eyes & Hands)
-
-가장 자연스러운 인터페이스인 **Look & Tap**을 사용한다.
-
-- **Eye Tracking**: 시선은 곧 "포커스"이다.
-- **Hand Gestures**: 검지와 엄지를 부딪치는 것(Tap)은 곧 "클릭"이다.
+visionOS의 Window/Volume/Space 개념과 입력 방식(Eyes & Hands)은 [apple-visionos-system.md](apple-visionos-system.md)에서 자세히 다룹니다.
 
 ---
 

@@ -2,13 +2,20 @@
 title: posix-signal-contracts
 tags: [async-signal-safe, execution-context, ipc, operating-systems, posix, signal]
 aliases: [POSIX Signal Contracts, 시그널과 비동기 이벤트 계약]
-date modified: 2026-08-05 11:43:03 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-08-05 11:42:00 +09:00
 ---
 
 ## POSIX Signal 은 커널이 프로세스의 실행 맥락을 제어하는 비동기 이벤트 알림 메커니즘이다
 
->**핵심 명제**: POSIX Signal 은 프로세스에 예외적인 사건(Hardware Exception, Software Interrupt, User Command)이 발생했음을 알리는 비동기 신호 메커니즘이다. 대용량 데이터 전달 용도가 아니며, 커널이 수신 프로세스의 실행 맥락(Execution Context)을 즉각 정지시키고 등록된 시그널 핸들러로 스레드를 전환시킨다. 시그널 핸들러 내부에서는 비동기 신호 안전(Async-Signal-Safe) 함수만 사용할 수 있는 엄격한 제약이 따른다.
+>**핵심 명제**: POSIX Signal은 프로세스에 예외적인 사건(하드웨어 예외, 소프트웨어 인터럽트, 사용자 명령)이 발생했음을 알리는 비동기 신호 메커니즘이다. 대용량 데이터 전달 용도가 아니며, 커널이 수신 프로세스의 실행 맥락(현재 실행 중인 코드의 상태와 위치)을 즉각 정지시키고 등록된 시그널 핸들러로 스레드를 전환시킨다. 시그널 핸들러 내부에서는 비동기 신호 안전(Async-Signal-Safe: 언제 어디서 호출되어도 안전한) 함수만 사용할 수 있는 엄격한 제약이 따른다.
+
+### 초보자를 위한 쉽게 이해하는 비유
+
+- **시그널 (긴급 벨)**:
+  - 프로세스가 작업 중일 때 갑자기 벨이 울리고, 그 즉시 현재 작업을 멈추고 벨에 대응해야 한다.
+  - 예: Ctrl+C를 누르면 (SIGINT) 실행 중인 프로그램이 즉시 중단된다.
+  - 벨에 대응하는 방법(시그널 핸들러)은 매우 제한적이어야 한다. 복잡한 작업을 하다가 다른 작업이 끼어들면 큰 문제가 생기기 때문이다.
 
 ---
 
@@ -30,13 +37,13 @@ sequenceDiagram
 ```
 
 1. **Signal 전달 및 비동기 인터럽트 흐름**
-   - 시그널이 발송되면 커널은 대상 프로세스의 `task_struct` 내 시그널 펜딩 비트마스크(Pending Signal Mask)를 갱신한다.
-   - 프로세스가 시스템 콜 처리나 인터럽트 후 커널 공간에서 유저 공간으로 복귀하는 시점에 시그널을 감지하고, 유저 스레드의 EIP/RIP 레지스터를 시그널 핸들러 주소로 재설정하여 점프시킨다.
+   - 시그널이 발송되면 커널은 대상 프로세스의 `task_struct`(커널이 프로세스를 나타내기 위해 사용하는 데이터 구조) 내 시그널 펜딩 비트마스크(프로세스에 대기 중인 시그널이 있음을 표시하는 비트 패턴)를 갱신한다.
+   - 프로세스가 시스템 콜 처리나 인터럽트 후 커널 공간에서 유저 공간으로 복귀하는 시점에 시그널을 감지하고, 유저 스레드의 EIP/RIP 레지스터(현재 실행 중인 코드 주소를 가리키는 CPU 레지스터)를 시그널 핸들러 주소로 재설정하여 점프시킨다.
 2. **데이터 전달의 한계**
-   - 표준 POSIX 시그널(`SIGINT`, `SIGKILL`, `SIGSEGV` 등)은 단지 "시그널 번호(Integer)"만 전달할 수 있으며 데이터 바이트를 실을 수 없다. (POSIX Real-time Signal `sigqueue()` 의 `union sigval` 을 제외하고는 순수 이벤트 알림 기능만 수행)
+   - 표준 POSIX 시그널(`SIGINT`, `SIGKILL`, `SIGSEGV` 등)은 단지 "시그널 번호(정수)"만 전달할 수 있으며 실제 데이터 바이트를 실을 수 없다. (POSIX Real-time Signal `sigqueue()`의 `union sigval`을 제외하고는 순수 이벤트 알림 기능만 수행)
 3. **비동기 신호 안전성 (Async-Signal-Safe)**
    - 시그널 핸들러는 언제 유저 코드의 어느 지점(예: `malloc()` 내부에서 락을 쥐고 있는 도중)에서나 실행될 수 있다.
-   - 따라서 시그널 핸들러 안에서 Reentrant(재진입 가능)하지 않거나 내부 락을 사용하는 함수(예: `printf`, `malloc`, `free`, `pthread_mutex_lock`)를 호출하면 **데드락(Deadlock)** 또는 **메모리 오염**이 발생한다. `write()`, `read()`, `_exit()` 등 POSIX 가 지정한 **Async-Signal-Safe 함수**만 호출해야 한다.
+   - 따라서 시그널 핸들러 안에서 Reentrant(재진입 가능: 동일 함수를 여러 번 호출해도 안전한)하지 않거나 내부 락을 사용하는 함수(예: `printf`, `malloc`, `free`, `pthread_mutex_lock`)를 호출하면 **데드락(상호 대기로 인한 영구 멈춤)** 또는 **메모리 오염**이 발생한다. `write()`, `read()`, `_exit()` 등 POSIX가 지정한 **Async-Signal-Safe 함수**만 호출해야 한다.
 
 ---
 

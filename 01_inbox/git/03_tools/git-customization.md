@@ -81,5 +81,5 @@ Git 은 실행 시 특정 환경 변수를 참조하여 설정을 덮어쓰거�
 ### 📚 연결 문서
 
 - [커밋 메시지](../01_strategies/commit-messages.md) - 훅을 이용한 메시지 규칙 강제화
-- [고급 워크플로우](../02_advanced/advanced-workflows.md) - 환경 변수를 이용한 자동화 스크립트 작성
+- [Git 학습 가이드](../git-study-guide.md) - 고급 워크플로우 및 자동화 스크립트 작성
 - [Git 인턴십](../00_fundamentals/git-internals.md) - 설정과 환경 변수가 조회되는 순서 이해

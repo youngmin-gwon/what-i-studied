@@ -2,7 +2,7 @@
 title: stack-and-queue
 tags: [algorithm, data-structure, fifo, lifo, linear, queue, stack]
 aliases: [FIFO, LIFO, Queue, Stack, 스택, 큐]
-date modified: 2025-12-22 10:06:41 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 12:04:02 +09:00
 ---
 
@@ -135,6 +135,9 @@ q.popleft()    # Dequeue (O(1))
 ### 📚 연결 문서
 
 - [재귀와 스택](../00_fundamentals/recursion-and-stack.md) - 논리적/물리적 실행 스택의 이해
-- [특수 큐/스택](specialized-queues.md) - Deque, Monotonic Stack, Monotonic Queue
+- [특수 큐/스택](specialized-queues.md) - Deque, Monotonic Stack, Monotonic Queue 개요
+  - [Deque](deque.md) - 양쪽 끝에서 O(1) 삽입/삭제
+  - [Monotonic Stack](monotonic-stack.md) - 다음 큰/작은 값 찾기
+  - [Monotonic Queue](monotonic-queue.md) - 슬라이딩 윈도우 최댓값/최솟값
 - [그래프 탐색](../02_algorithms/graph-traversal.md) - BFS(Queue 사용) vs DFS(Stack 사용)
 - [선형 자료구조](linear.md) - Array 와 Linked List 를 이용한 구현 원리

@@ -2,7 +2,7 @@
 title: mobile-incident-response-2025
 tags: [case-study, incident-response, mobile, security]
 aliases: []
-date modified: 2026-04-06 18:21:51 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-04-05 20:10:00 +09:00
 ---
 
@@ -59,4 +59,4 @@ date created: 2026-04-05 20:10:00 +09:00
 
 - [mobile-dev-security-checkpoints](mobile-dev-security-checkpoints.md) - 개발 시 예방 가이드
 - [mobile-vulnerability-check](mobile-vulnerability-check.md) - 보안 진단 체크리스트
-- **android-security-play-integrity** - 실시간 무결성 검증 실무
+- [**android-security-play-integrity**](../android/05_security_privacy/integrity-and-attestation/integrity-contracts/integrity-contracts.md) - 실시간 무결성 검증 실무

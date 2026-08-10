@@ -2,7 +2,7 @@
 title: boot-sequence
 tags: [boot, bootloader, grub, linux, operating-systems, systemd]
 aliases: [Boot Process, System Startup, 부팅 프로세스]
-date modified: 2026-04-06 18:52:41 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 
@@ -341,7 +341,7 @@ systemd-analyze plot > boot.svg
 
 ## 🔗 연결 문서 (Related Documents)
 
-- **kernel** - 리눅스 커널의 상세 설명
+- [kernel-structure](kernel-structure.md) - 리눅스 커널의 상세 설명
 - [init-systems](init-systems.md) - systemd 와 init 시스템
 - [filesystem-hierarchy-standard](../linux/filesystem-hierarchy-standard.md) - `/boot` 디렉토리 구조
 - [process-states-lifecycle](process-states-lifecycle.md) - init 프로세스 (PID 1)

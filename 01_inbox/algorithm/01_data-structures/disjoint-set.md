@@ -2,7 +2,7 @@
 title: disjoint-set
 tags: [algorithm, cycle-detection, data-structures, disjoint-set, mst, union-find]
 aliases: [Path Compression, Union-Find, 분리 집합, 서로소 집합]
-date modified: 2025-12-19 15:59:26 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 
@@ -30,21 +30,46 @@ Union-Find 는 **"이 두 노드가 연결되어 있나?"** 를 **거의 O(1)** 
 
 각 노드는 **대표자 (Representative)** 를 가집니다. 같은 집합의 모든 노드는 같은 대표자를 가리킵니다.
 
+```mermaid
+graph TD
+    A["상태 1: 초기 (각자 독립)"]
+    B["0"]
+    C["1"]
+    D["2"]
+    E["3"]
+    F["4"]
+    A --> B
+    A --> C
+    A --> D
+    A --> E
+    A --> F
 ```
-초기 상태 (각자 독립):
-0  1  2  3  4
 
-Union(0, 1), Union(2, 3):
-  0     2    4
- /     /
-1     3
+Union(0, 1), Union(2, 3) 후:
 
-Union(0, 2):
-    0
-   / \
-  1   2
-     /
-    3       4
+```mermaid
+graph TD
+    R0["0<br/>(root)"]
+    N1["1"]
+    R2["2<br/>(root)"]
+    N3["3"]
+    N4["4"]
+    R0 --> N1
+    R2 --> N3
+```
+
+Union(0, 2) 후:
+
+```mermaid
+graph TD
+    R0["0<br/>(root)"]
+    N1["1"]
+    N2["2"]
+    N3["3"]
+    N4["4"]
+    R0 --> N1
+    R0 --> N2
+    N2 --> N3
 ```
 
 **핵심 연산**:
@@ -79,9 +104,19 @@ class UnionFind:
 
 **문제점**: 트리가 한쪽으로 치우치면 (Skewed) `Find` 가 `O(N)` 이 됨
 
-```
-최악의 경우:
-0 → 1 → 2 → 3 → 4  (체인 형태)
+최악의 경우 (체인 형태):
+
+```mermaid
+graph TD
+    N0["0<br/>(root)"]
+    N1["1"]
+    N2["2"]
+    N3["3"]
+    N4["4"]
+    N0 --> N1
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
 ```
 
 ---
@@ -137,17 +172,34 @@ def find(self, x):
 
 **과정**:
 
-```plaintext
-Before:        After (find(4) 호출 후):
-    0              0
-   /              /|\
-  1              1 2 3 4
- /
-2
-/
-3
-/
-4
+find(4) 호출 전:
+
+```mermaid
+graph TD
+    N0["0"]
+    N1["1"]
+    N2["2"]
+    N3["3"]
+    N4["4"]
+    N0 --> N1
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+```
+
+find(4) 호출 후 (경로 압축):
+
+```mermaid
+graph TD
+    N0["0"]
+    N1["1"]
+    N2["2"]
+    N3["3"]
+    N4["4"]
+    N0 --> N1
+    N0 --> N2
+    N0 --> N3
+    N0 --> N4
 ```
 
 **효과**: 다음 `Find` 는 `O(1)`!

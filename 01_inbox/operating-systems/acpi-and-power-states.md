@@ -2,7 +2,7 @@
 title: acpi-and-power-states
 tags: [operating-systems, linux, kernel, power-management, firmware]
 aliases: [ACPI, Advanced Configuration and Power Interface, 전원 상태, Sleep States, S-States]
-date modified: 2026-08-05 15:00:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-08-05 15:00:00 +09:00
 ---
 
@@ -81,5 +81,5 @@ acpidump > acpi_dump.dat
 
 ## 연결 문서
 
-- **kernel** - Tickless kernel 등 커널의 전력 관리 관련 설계
+- [kernel-structure](kernel-structure.md) - Tickless kernel 등 커널의 전력 관리 관련 설계
 - [boot-sequence](boot-sequence.md) - 펌웨어가 부팅 시 ACPI 테이블을 준비하는 과정과의 관계

@@ -2,7 +2,7 @@
 title: inbox-documentation-and-link-audit-plan
 tags: ["vault", "documentation", "quality-plan", "meta"]
 aliases: ["Vault 문서 품질 통합 계획", "Master Vault Documentation Plan v3"]
-date modified: 2026-08-08 00:00:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-08-06 16:45:53 +09:00
 ---
 
@@ -114,7 +114,8 @@ date created: 2026-08-06 16:45:53 +09:00
 #### `algorithm` (41개) — 상태: 코드 정확성 결함 발견, 원자성/중복 이슈 다수
 
 - **가장 심각한 발견**: `greedy.md`의 Huffman coding 코드가 마크다운 볼드 문법 침투로 `SyntaxError` 상태였음 — `ast.parse`로 검증하며 복구 완료.
-- **백로그**: DP/Greedy/분할정복 3자 비교가 3개 파일에 중복 산재, 메모이제이션/타뷸레이션 비교가 3개 파일에 중복, "N 크기별 허용 복잡도" 표가 3개 파일에서 서로 다른 숫자로 존재(사실 불일치, 최우선), `segment-tree.md`(Fenwick Tree 결합), `two-pointers.md`(Sliding Window 결합), `specialized-queues.md`(Deque+Monotonic Stack+Monotonic Queue 결합) 분리 검토. Union-Find/Heap/Trie의 ASCII 트리 3곳을 Mermaid로.
+- **백로그**: DP/Greedy/분할정복 3자 비교가 3개 파일에 중복 산재, 메모이제이션/타뷸레이션 비교가 3개 파일에 중복, "N 크기별 허용 복잡도" 표가 3개 파일에서 서로 다른 숫자로 존재(사실 불일치, 최우선). Union-Find/Heap/Trie의 ASCII 트리 3곳을 Mermaid로.
+  - ✅ **완료 (2026-08-10)**: `segment-tree.md`(Fenwick Tree → `fenwick-tree.md` 분리), `two-pointers.md`(Sliding Window → `sliding-window.md` 분리), `specialized-queues.md`(Deque → `deque.md`, Monotonic Stack → `monotonic-stack.md`, Monotonic Queue → `monotonic-queue.md` 각각 분리). 관련 링크 11개 파일에서 업데이트(`algorithm-study-guide.md`, `stack-and-queue.md`, `linear.md`, `prefix-sum.md` 등).
 
 ### 처리 원칙 (다음 실행 단계에서 지킬 것)
 

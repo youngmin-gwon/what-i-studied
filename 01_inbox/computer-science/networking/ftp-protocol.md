@@ -139,17 +139,9 @@ sequenceDiagram
 
 ## 🔧 TFTP (Trivial FTP)
 
-**간단한 파일 전송**을 위한 경량 프로토콜입니다.
+TFTP의 개념, FTP와의 상세 비교, 동작 방식, 보안 주의사항, 펌웨어 업로드 및 네트워크 부팅 시나리오는 별도 문서로 분리되어 있습니다.
 
-| 특성 | FTP | TFTP |
-|------|-----|------|
-| **프로토콜** | TCP | **UDP** |
-| **포트** | 21/20 | **69** |
-| **인증** | ID/Password | **없음** |
-| **기능** | 풍부함 | 최소화 |
-| **용도** | 일반 파일 전송 | 펌웨어 업로드, PXE 부팅 |
-
-**⚠️ 보안 주의**: TFTP 는 인증이 없어 네트워크 부팅 등 제한된 환경에서만 사용
+- **[TFTP Protocol](tftp-protocol.md)** - 간단한 파일 전송 프로토콜의 구조와 사용 시나리오
 
 ---
 
@@ -178,6 +170,7 @@ lftp -u user,password ftp.example.com
 
 ## 🔗 연결 문서 (Related Documents)
 
+- [TFTP Protocol](tftp-protocol.md) - 경량 파일 전송 프로토콜
 - [osi-7-layer-model](osi-7-layer-model.md) - OSI 7 계층 (응용 계층)
 - [tcp-udp-protocols](tcp-udp-protocols.md) - TCP 프로토콜
 - [network-security-protocols](../../security/protocols/network-security-protocols.md) - SFTP, FTPS

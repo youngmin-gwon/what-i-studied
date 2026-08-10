@@ -2,13 +2,26 @@
 title: arp-protocol
 tags: [address-resolution, arp, mac, networking, protocol]
 aliases: [Address Resolution Protocol, ARP, GARP, RARP]
-date modified: 2026-01-08 16:12:51 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-01-08 16:06:40 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**ARP (Address Resolution Protocol)** 는 논리적 주소 (IP)를 물리적 주소 (MAC)로 변환하는 프로토콜입니다.
+**ARP (Address Resolution Protocol)** 는 논리적 주소 (IP)를 물리적 주소 (MAC)로 변환하는 프로토콜입니다. 같은 네트워크 상에서 IP 주소만 알고 있을 때, 실제 통신에 필요한 MAC 주소를 찾아내는 역할을 합니다.
+
+---
+
+### 초보자를 위한 쉽게 이해하는 비유
+
+* **아파트 복도의 우편함 찾기**:
+  - 편지를 보낼 때 "304호 김철수" 이름만 알고 있다. (IP 주소)
+  - 하지만 실제로 편지를 넣으려면 304호의 우편함이 어디 있는지 알아야 한다. (MAC 주소)
+  - "304호가 어디예요?"라고 복도에 큰 목소리로 외친다. → **ARP Request (브로드캐스트)**
+  - 304호 주인이 "제가 304호예요, 우편함은 여기 있어요"라고 답한다. → **ARP Reply (유니캐스트)**
+  - 이제 우편함 위치를 알았으니 편지를 넣을 수 있다.
+
+---
 
 ## 📋 ARP 동작 원리
 
@@ -40,24 +53,23 @@ sequenceDiagram
 
 ## 📦 ARP 패킷 구조
 
-```plaintext
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       Hardware Type (16)      |       Protocol Type (16)      |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| HW Len (8)    | Proto Len (8) |       Operation (16)          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                    Sender Hardware Address (48)               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       Sender Hardware Address |     Sender IP Address (32)    |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       Sender IP Address       |  Target Hardware Address (48) |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                    Target Hardware Address                    |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                    Target IP Address (32)                     |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+```mermaid
+graph TD
+    ARP["ARP 패킷 (28바이트 + Ethernet 헤더)"]
+    
+    ARP --> Block1["Hardware Type 16bit<br/>Protocol Type 16bit"]
+    ARP --> Block2["HW Length 8bit<br/>Proto Length 8bit<br/>Operation 16bit"]
+    ARP --> Block3["Sender MAC Address<br/>48bit"]
+    ARP --> Block4["Sender IP Address<br/>32bit"]
+    ARP --> Block5["Target MAC Address<br/>48bit"]
+    ARP --> Block6["Target IP Address<br/>32bit"]
+    
+    style Block1 fill:#e1f5ff
+    style Block2 fill:#b3e5fc
+    style Block3 fill:#81d4fa
+    style Block4 fill:#4fc3f7
+    style Block5 fill:#29b6f6
+    style Block6 fill:#03a9f4
 ```
 
 ### 주요 필드

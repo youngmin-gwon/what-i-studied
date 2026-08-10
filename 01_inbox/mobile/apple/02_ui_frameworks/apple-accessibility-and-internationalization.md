@@ -2,7 +2,7 @@
 title: apple-accessibility-and-internationalization
 tags: [a11y, apple, color, i18n, localization, quality, sf-symbols]
 aliases: []
-date modified: 2026-04-06 18:02:20 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-16 16:11:46 +09:00
 ---
 
@@ -117,7 +117,7 @@ Apple 의 접근성 구조와 유사한 기능을 Android Compose 에서는 **Se
 > - `AccessibilityTrait` ≃ Android 의 `Role` (Button, Image 등)
 > - `accessibilityLabel` ≃ Android 의 `contentDescription`
 > - `accessibilityValue` ≃ Slider 나 Progress 의 현재 상태 값
->상세 비교는 **android-accessibility-compose** 를 참고하세요.
+>상세 비교는 [**android-accessibility-compose**](../../android/02_app_framework/jetpack-compose/layout-and-ui/compose-ui-contracts/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md) 를 참고하세요.
 
 ### 📚 더 보기
 

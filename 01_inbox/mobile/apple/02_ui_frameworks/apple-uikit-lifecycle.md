@@ -2,7 +2,7 @@
 title: apple-uikit-lifecycle
 tags: [apple, internals, ios, lifecycle, optimization, uikit]
 aliases: []
-date modified: 2026-04-06 18:03:16 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -154,6 +154,34 @@ iOS 는 `Run Loop` 의 한 사이클마다 **Layout -> Display -> Commit** 단�
 2. **Layout Pass**: 프레임 계산 (`setNeedsLayout`) -> `layoutSubviews()`
 3. **Display Pass**: 실제 그리기 (`setNeedsDisplay`) -> `draw(_:)` (CPU 드로잉 시)
 4. **Commit**: 렌더링 트리(Render Tree)를 렌더 서버(Render Server)로 전송 (GPU 합성)
+
+#### 렌더 루프의 단계별 흐름
+
+```mermaid
+stateDiagram-v2
+    [*] --> UpdateConstraints: setNeedsUpdateConstraints()
+    UpdateConstraints --> Layout: updateConstraints() called
+    Layout --> Display: setNeedsLayout() ➜ layoutSubviews()
+    Display --> Prepare: setNeedsDisplay() ➜ draw() or CALayer
+    Prepare --> Commit: Render tree ready
+    Commit --> [*]: GPU compositing ➜ Screen render
+    
+    note right of UpdateConstraints
+        Constraint 변경 사항 확인
+    end note
+    
+    note right of Layout
+        Frame 계산 및 적용
+    end note
+    
+    note right of Display
+        CPU/GPU 드로잉
+    end note
+    
+    note right of Commit
+        Render Server에 전송
+    end note
+```
 
 ```swift
 class CustomView: UIView {

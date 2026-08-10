@@ -2,7 +2,7 @@
 title: apple-sandbox-and-security
 tags: [apple, apple/security, mobile-security, sandbox]
 aliases: [apple-security-models, apple-sandbox-and-security, App Sandbox Model, 보안 모듈]
-date modified: 2026-04-06 18:13:28 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-04-06 17:50:00 +09:00
 ---
 
@@ -10,20 +10,9 @@ date created: 2026-04-06 17:50:00 +09:00
 
 ### Apple Sandbox & Security Diagnosis
 
-Apple 플랫폼의 보안은 격리된 실행 환경인 **App Sandbox** 와 시스템 무결성을 보호하기 위한 실시간 **보안 진단(Security Diagnosis)** 기법의 결합으로 완성됩니다. 앱이 시스템 리소스에 접근하는 커널 수준의 차단과, 외부 공격(탈옥, 디버깅)으로부터 앱 자체를 보호하는 전략을 다룹니다.
+Apple 플랫폼의 보안은 격리된 실행 환경인 **App Sandbox** 와 시스템 무결성을 보호하기 위한 실시간 **보안 진단(Security Diagnosis)** 기법의 결합으로 완성됩니다.
 
----
-
-#### 🛡️ 메커니즘: App Sandbox (Seatbelt)
-
-모바일 플랫폼(iOS/iPadOS)의 모든 앱은 **Container** 라는 격리된 공간 내에서만 동작하며, 외부 리소스 접근은 **Seatbelt** 엔진이 관리하는 정책(Sandbox Profile)에 따라 철저히 통제됩니다.
-
-1. **MAC (Mandatory Access Control)**: 사용자 권한과 상관없이 커널이 강제로 리소스 접근을 제한하는 방식입니다. **TrustedBSD MAC** 프레임워크를 기반으로 합니다.
-2. **Entitlements (권한 명세)**: 앱이 샌드박스를 넘어서 특정 시스템 기능(Push, iCloud, HealthKit 등)을 사용하겠다고 선언한 명세서입니다. Code Signing 시 포함되어 위변조가 불가능합니다.
-3. **Container 격리**:
-    - **Bundle Container**: 앱의 바이너리와 정적 리소스가 포함된 읽기 전용 영역.
-    - **Data Container**: 앱이 생성한 데이터를 저장하는 영역 (`Documents`, `Library`, `tmp`).
-    - **Cloud Container**: iCloud 싱크를 위한 전용 영역.
+App Sandbox의 기본 메커니즘(Container, MAC, Entitlements 등)은 [apple-security-sandbox.md](apple-security-sandbox.md)를 참고하세요. 본 문서는 **보안 진단 기법**과 **다중 방어 체계**에 집중합니다.
 
 ---
 

@@ -2,7 +2,7 @@
 title: network-fundamentals
 tags: [dns, ip, linux, networking, tcp, udp]
 aliases: [IP Addressing, Network Fundamentals, TCP/IP, 네트워크 기본]
-date modified: 2026-04-07 10:49:17 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-01-06 21:45:00 +09:00
 ---
 
@@ -190,21 +190,7 @@ https         443/tcp
 
 ## 🌍 국제 표준 기구
 
-| 기구 | 역할 |
-| :--- | :--- |
-| **ISO** | OSI 7 계층 모델 제정 |
-| **IEEE** | LAN/MAN 표준 (802.3 이더넷 등) |
-| **EIA** | RS-232C, UTP 케이블 규격 |
-| **ITU-T** | 국제 전기 통신 표준화 |
-| **ICANN** | **IP 주소 할당, 도메인 관리** |
-| **IANA** | 포트 번호, 프로토콜 번호 관리 |
-
->[!TIP]
->**시험 포인트**:
-> - OSI 모델 제정 → **ISO**
-> - IP 주소/도메인 관리 → **ICANN**
-> - LAN 표준 (802.x) → **IEEE**
-> - 케이블 규격 (RS-232C) → **EIA**
+네트워크 표준화에 관여하는 국제 기구들에 대한 상세 설명은 [network-standards.md](network-standards.md#-국제-표준화-기구)를 참고하세요.
 
 ---
 

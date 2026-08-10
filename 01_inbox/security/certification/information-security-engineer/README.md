@@ -2,7 +2,7 @@
 title: README
 tags: []
 aliases: []
-date modified: 2026-04-06 18:59:18 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 17:05:18 +09:00
 ---
 
@@ -25,6 +25,9 @@ date created: 2025-12-18 17:05:18 +09:00
 1. [시스템 보안 문제](quizzes/quiz-system.md)
 2. [네트워크 보안 문제](quizzes/quiz-network.md)
 3. [응용프로그램 보안 문제](quizzes/quiz-application.md)
+4. [정보보안 일반/관리 문제](quizzes/quiz-information-protection.md)
+5. [정보보안 법규 문제](quizzes/quiz-laws.md)
+6. [보안장비 운영 문제](quizzes/quiz-vulnerability.md)
 
 ### 🎯 시험 정보
 
@@ -46,9 +49,5 @@ date created: 2025-12-18 17:05:18 +09:00
 - 이론과 실습을 병행하여 실무 역량을 기르시길 권합니다.
 
 ### 참조
-
-```bash
-docker run -it alpine /bin/sh
-```
 
 [실기 레퍼런스 사이트](https://blog.naver.com/stereok2/224130288134)

@@ -86,4 +86,6 @@ fun UserProfileScreen(userId: String, viewModel: UserViewModel = viewModel()) {
 - [Compose SSOT](compose-ssot.md) - Coroutines 과 ViewModel 기반 UI 단일 진실 출처
 - [ViewModel](viewmodel.md) - `viewModelScope` 를 제공하는 안드로이드 아키텍처 노드
 - [Activity](architecture/app-components/activity.md) - `lifecycleScope` 를 제공하는 Compose UI 루트
-- [Race Condition & Deadlock](../../../computer-science/race-condition-and-deadlock.md) - 스레드 동시성 및 레이스 조건
+- [Race Condition](../../../computer-science/race-condition.md) - 스레드 동시성 레이스 조건
+- [Deadlock](../../../computer-science/deadlock.md) - 교착 상태
+- [Mutex/Lock](../../../computer-science/mutex-lock.md) - 상호 배제를 통한 동시성 제어

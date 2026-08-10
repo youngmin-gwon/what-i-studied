@@ -2,7 +2,7 @@
 title: linear
 tags: [algorithm, array, cache, data-structures, linked-list]
 aliases: [Array, Linked List, 배열, 연결 리스트]
-date modified: 2025-12-22 09:52:26 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-17 19:10:00 +09:00
 ---
 
@@ -77,7 +77,7 @@ Python 의 문자열은 **불변(Immutable)** 자료형입니다. 슬라이싱�
 2. **Linked List 의 메모리 누수**
    - C++/Swift 처럼 직접 관리하는 언어에서 이전 노드의 참조를 끊지 않아 메모리가 해제되지 않는 경우.
 3. **Array 중간 삽입을 O(1)로 착각** ❌
-   - `list.insert(0, x)` 는 최악의 경우 O(N)입니다. 성능이 중요하다면 [Stack/Queue](stack-and-queue.md) 나 [Deque](specialized-queues.md) 를 고려하세요.
+   - `list.insert(0, x)` 는 최악의 경우 O(N)입니다. 성능이 중요하다면 [Stack/Queue](stack-and-queue.md) 나 [Deque](deque.md) 를 고려하세요.
 4. **포인터 소실**
    - 연결 리스트 노드 삭제 시 `prev.next = current.next` 를 하기 전 `current` 를 먼저 지워버려 연결이 끊기는 실수.
 
@@ -87,5 +87,5 @@ Python 의 문자열은 **불변(Immutable)** 자료형입니다. 슬라이싱�
 
 - [메모리 계층 구조](../../../02_references/computer-science/memory-layout-and-cache.md) - 캐시 지역성과 하드웨어 기초
 - [스택과 큐](stack-and-queue.md) - 선형 구조를 활용한 ADT
-- [덱(Deque)](specialized-queues.md) - 양방향 삽입/삭제 최적화
+- [덱(Deque)](deque.md) - 양방향 삽입/삭제 최적화
 - [복잡도](../00_fundamentals/complexity-and-big-o.md) - 선형 탐색의 비용

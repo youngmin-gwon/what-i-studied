@@ -2,7 +2,7 @@
 title: string-advanced-1
 tags: [algorithm, data-structures, kmp, string, trie]
 aliases: [KMP 알고리즘, Trie, 문자열 검색, 접두사 트리, 트라이]
-date modified: 2025-12-19 15:14:54 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 
@@ -16,23 +16,36 @@ Trie 는 **"공통 접두사를 공유하는"** 문자열들을 효율적으로 
 
 #### 구조
 
-```plaintext
-         (root)
-        /  |  \
-       c   t   a
-      /    |    \
-     a     o     p
-    /      |      \
-   t       p      p
-          /        \
-         (top)    (app)
-        /
-       s
-      /
-    (tops)
-```
-
 단어: `["cat", "top", "tops", "app"]`
+
+```mermaid
+graph TD
+    root["(root)"]
+    c["c"]
+    t["t"]
+    a1["a"]
+    ca["a"]
+    to["o"]
+    ap1["p"]
+    cat["t (cat)"]
+    top["p (top)"]
+    tops["s (tops)"]
+    app["p (app)"]
+    
+    root --> c
+    root --> t
+    root --> a1
+    
+    c --> ca
+    ca --> cat
+    
+    t --> to
+    to --> top
+    top --> tops
+    
+    a1 --> ap1
+    ap1 --> app
+```
 
 **핵심**:
 - `top` 과 `tops` 는 `to` 까지 같은 경로 공유

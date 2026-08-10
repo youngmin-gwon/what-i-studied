@@ -2,7 +2,7 @@
 title: divide-and-conquer
 tags: [algorithm, paradigm, divide-and-conquer, recursion]
 aliases: [분할 정복, Divide and Conquer, D&C]
-date modified: 2025-12-18 12:05:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 12:05:00 +09:00
 ---
 
@@ -66,12 +66,7 @@ date created: 2025-12-18 12:05:00 +09:00
 
 ## ⚖️ D&C vs Dynamic Programming
 
-| 특징 | Divide & Conquer | Dynamic Programming |
-|:---|:---|:---|
-| **중복 여부** | 하위 문제가 겹치지 않음 | 하위 문제가 **자주 겹침** |
-| **저장** | 결과를 별도로 저장하지 않음 | 결과를 저장(Memoization) |
-| **방향** | 주로 Top-Down (재귀) | Top-Down 및 Bottom-Up |
-| **예시** | Merge Sort | Fibonacci, Knapsack |
+**정본 참고**: 분할 정복과 동적 계획법의 상세한 비교는 [DP vs Greedy vs 분할정복](dp-vs-greedy-vs-divide-and-conquer.md)을 참조하세요.
 
 ---
 

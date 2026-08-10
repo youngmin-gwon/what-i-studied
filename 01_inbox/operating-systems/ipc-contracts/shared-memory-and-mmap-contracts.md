@@ -2,13 +2,22 @@
 title: shared-memory-and-mmap-contracts
 tags: [ipc, mmap, operating-systems, semaphore, shared-memory, synchronization, zero-copy]
 aliases: [Shared Memory and mmap Contracts, 공유 메모리와 mmap 계약]
-date modified: 2026-08-05 11:42:34 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-08-05 11:42:00 +09:00
 ---
 
-## 공유 메모리와 mmap 은 가상 메모리 페이지 테이블 매핑을 통한 최단 경로 Zero-Copy IPC 다
+## 공유 메모리와 mmap 은 가상 메모리 페이지 테이블 매핑을 통한 최단 경로 Zero-Copy IPC다
 
->**핵심 명제**: 공유 메모리(Shared Memory)와 `mmap` 은 커널을 통한 데이터 복사(Copy) 오버헤드 없이, 독립된 두 프로세스의 가상 주소 공간이 동일한 물리 메모리 프레임을 가리키도록 페이지 테이블(PTE)을 직접 매핑하는 가장 빠른 IPC 메커니즘이다. 데이터 전송 자체는 Zero-Copy 로 이루어지나, 동기화 Primitives(Semaphore, Mutex) 없이는 Race Condition 이 유발된다.
+>**핵심 명제**: 공유 메모리(Shared Memory)와 `mmap`은 커널을 통한 데이터 복사 오버헤드 없이, 독립된 두 프로세스의 가상 주소 공간(Virtual Address Space: 프로세스가 사용하는 메모리 주소 범위)이 동일한 물리 메모리 프레임을 가리키도록 페이지 테이블(PTE: 가상 주소를 실제 메모리 주소로 변환하는 매핑 테이블)을 직접 매핑하는 가장 빠른 IPC 메커니즘이다. 데이터 전송 자체는 Zero-Copy(복사 없음)로 이루어지나, 동기화 Primitives(Semaphore, Mutex) 없이는 Race Condition(여러 프로세스가 동시에 접근하여 데이터가 손상되는 현상)이 유발된다.
+
+### 초보자를 위한 쉽게 이해하는 비유
+
+- **공유 메모리 (공동 화이트보드)**:
+  - 두 명의 학생이 같은 화이트보드를 함께 보고 수정한다. 한 학생이 쓴 내용은 즉시 다른 학생의 화이트보드에도 보인다.
+  - 복사 없이 직접 보기 때문에 매우 빠르지만, 둘이 동시에 쓰면 내용이 엉망이 된다.
+  
+- **동기화 (조정자)**:
+  - 화이트보드를 안전하게 사용하려면 조정자(세마포어)가 "지금 너만 쓸 차례"라고 정해줘야 한다.
 
 ---
 
@@ -35,12 +44,12 @@ graph TD
 ```
 
 1. **페이지 테이블 매핑 (Page Table Mapping)**
-   - `shmat()` 또는 `mmap(MAP_SHARED)` 호출 시, 커널 MMU(Memory Management Unit)는 두 프로세스의 가상 메모리 공간(Virtual Address Space) 상에 있는 페이지 엔트리(PTE)가 동일한 물리 메모리 페이지 프레임(Physical Page Frame)을 가리키도록 설정한다.
+   - `shmat()`또는 `mmap(MAP_SHARED)` 호출 시, 커널 MMU(Memory Management Unit: 가상 주소를 실제 메모리로 변환하는 하드웨어)는 두 프로세스의 가상 메모리 공간 상에 있는 페이지 엔트리(PTE)가 동일한 물리 메모리 페이지 프레임(실제 RAM에 할당된 메모리 블록)을 가리키도록 설정한다.
 2. **Zero-Copy 이점과 버퍼 오버헤드 부재**
-   - Socket, Pipe, Message Queue 가 커널 메모리 버퍼를 거치는 2-Copy 또는 1-Copy(mmap) 방식을 사용하는 것과 달리, 공유 메모리는 한 프로세스가 해당 메모리에 데이터를 쓰는 순간 즉시 다른 프로세스의 메모리 공간에 반영된다(Zero-Copy).
-3. **Race Condition 과 동기화(Synchronization)의 필수성**
+   - Socket, Pipe, Message Queue가 커널 메모리 버퍼를 거치는 복사 방식을 사용하는 것과 달리, 공유 메모리는 한 프로세스가 해당 메모리에 데이터를 쓰는 순간 즉시 다른 프로세스의 메모리 공간에 반영된다(Zero-Copy: 복사 비용 없음).
+3. **Race Condition(경쟁 조건)과 동기화(Synchronization)의 필수성**
    - 공유 메모리는 데이터 전달 채널일 뿐 동기화 메커니즘을 제공하지 않는다.
-   - 따라서 두 개 이상의 프로세스가 동시에 읽고 쓸 때 데이터 오염을 막기 위해 **POSIX Semaphore**나 **Process-Shared Mutex (`PTHREAD_PROCESS_SHARED`)**를 함께 결합하여 임계 영역(Critical Section)을 보호해야 한다.
+   - 따라서 두 개 이상의 프로세스가 동시에 읽고 쓸 때 데이터 오염을 막기 위해 **POSIX Semaphore**(진입 권한을 제한하는 신호)나 **Process-Shared Mutex**(여러 프로세스가 공유하는 상호 배제 락)을 함께 결합하여 임계 영역(Critical Section: 한 번에 하나의 프로세스만 접근해야 하는 코드)을 보호해야 한다.
 
 ---
 

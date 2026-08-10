@@ -68,5 +68,5 @@ git add external/lib  # 서브모듈이 가리키는 커밋 해시가 변경됨�
 ### 📚 연결 문서
 
 - [브랜치 전략](../01_strategies/branching-strategies.md) - 대규모 프로젝트에서의 모듈 구조 설계
-- [고급 워크플로우](advanced-workflows.md) - 서브모듈을 포함한 복잡한 히스토리 관리
+- [Git 학습 가이드](../git-study-guide.md) - 서브모듈을 포함한 복잡한 고급 워크플로우
 - [Git 인턴십](../00_fundamentals/git-internals.md) - 서브모듈이 왜 '파일'이 아닌 '커밋 해시 포인터'로 저장되는지 이해

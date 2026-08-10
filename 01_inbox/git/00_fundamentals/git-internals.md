@@ -93,4 +93,4 @@ Git 은 데이터베이스의 건강을 위해 주기적으로 '청소' 작업�
 
 - [트러블슈팅](../02_advanced/troubleshooting.md) - `fsck` 로 댕글링 오브젝트 찾기
 - [Reset 완벽 분석](../02_advanced/reset-demystified.md) - 영역별 데이터 이동
-- [보안 및 스테이징](../03_tools/git-security-and-staging.md) - 서명된 객체의 내부 구조
+- [GPG 서명](../03_tools/git-gpg-signing.md) - 서명된 객체의 내부 구조

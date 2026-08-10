@@ -2,7 +2,7 @@
 title: algorithm-study-guide
 tags: [algorithm, data-structures, index]
 aliases: [알고리즘 인덱스, 자료구조 인덱스]
-date modified: 2025-12-22 09:53:05 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 11:33:14 +09:00
 ---
 
@@ -86,9 +86,10 @@ date created: 2025-12-18 11:33:14 +09:00
 3. [세그먼트 트리](01_data-structures/segment-tree.md) ⭐
    - 구간 합, 최소/최대 $O(\log N)$ 업데이트 및 조회
    - 동적 데이터의 구간 쿼리 끝판왕
+   - [Fenwick Tree (Binary Indexed Tree)](01_data-structures/fenwick-tree.md): 간결하고 메모리 효율적인 대안
 
 4. [특수 큐와 스택](01_data-structures/specialized-queues.md)
-   - Deque, Monotonic Stack/Queue
+   - [Deque](01_data-structures/deque.md), [Monotonic Stack](01_data-structures/monotonic-stack.md), [Monotonic Queue](01_data-structures/monotonic-queue.md)
    - Sliding Window Maximum, Next Greater Element
 
 ---
@@ -110,8 +111,8 @@ date created: 2025-12-18 11:33:14 +09:00
     - 어떤 알고리즘을 쓸 것인가? (N 에 따른 선택)
     - Caching, Pruning, Heuristics
 
-2. [투 포인터 & 슬라이딩 윈도우](03_patterns/two-pointers.md)
-    - Fast & Slow Runner, Sliding Window
+2. [투 포인터](03_patterns/two-pointers.md) & [슬라이딩 윈도우](03_patterns/sliding-window.md)
+    - Fast & Slow Runner, Fixed/Variable Size Window
     - O(n^2) 을 O(n) 으로 최적화
 
 3. [누적합(Prefix Sum)](03_patterns/prefix-sum.md)
@@ -148,8 +149,8 @@ date created: 2025-12-18 11:33:14 +09:00
 
 | 문제 유형 | 추천 자료구조/알고리즘 | 파일 링크 |
 |:---|:---|:---|
-| **"다음으로 큰/작은 값"** | Monotonic Stack | [specialized-queues](01_data-structures/specialized-queues.md) |
-| **"윈도우 최댓값/최솟값"** | Monotonic Queue | [specialized-queues](01_data-structures/specialized-queues.md) |
+| **"다음으로 큰/작은 값"** | Monotonic Stack | [monotonic-stack](01_data-structures/monotonic-stack.md) |
+| **"윈도우 최댓값/최솟값"** | Monotonic Queue | [monotonic-queue](01_data-structures/monotonic-queue.md) |
 | **"가장 큰 K 개"** | Min Heap | [heap-and-priority-queue](01_data-structures/heap-and-priority-queue.md) |
 | **"실시간 중앙값"** | 2 Heaps | [heap-and-priority-queue](01_data-structures/heap-and-priority-queue.md) |
 | **"접두사 검색/자동완성"** | Trie | [string-advanced-1](01_data-structures/string-advanced-1.md) |
@@ -170,13 +171,13 @@ date created: 2025-12-18 11:33:14 +09:00
 1. [complexity-and-big-o](00_fundamentals/complexity-and-big-o.md)
 2. [linear](01_data-structures/linear.md)
 3. [hash-and-map](01_data-structures/hash-and-map.md)
-4. [two-pointers](03_patterns/two-pointers.md)
+4. [two-pointers](03_patterns/two-pointers.md) & [sliding-window](03_patterns/sliding-window.md)
 
 ##### 🟡 Medium (실전 준비)
 1. [tree-and-graph](01_data-structures/tree-and-graph.md)
 2. [search-and-sort](02_algorithms/search-and-sort.md)
 3. [heap-and-priority-queue](01_data-structures/heap-and-priority-queue.md)
-4. [specialized-queues](01_data-structures/specialized-queues.md)
+4. [deque](01_data-structures/deque.md), [monotonic-stack](01_data-structures/monotonic-stack.md), [monotonic-queue](01_data-structures/monotonic-queue.md)
 
 ##### 🔴 Hard (고득점 목표)
 1. [string-advanced1](01_data-structures/string-advanced-1.md)

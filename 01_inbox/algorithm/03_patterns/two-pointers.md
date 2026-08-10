@@ -2,7 +2,7 @@
 title: two-pointers
 tags: [algorithm, array, pattern, sliding-window, two-pointers]
 aliases: [슬라이딩 윈도우, 투 포인터, Two Pointers, Sliding Window]
-date modified: 2025-12-18 11:53:38 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-17 20:00:00 +09:00
 ---
 
@@ -60,44 +60,9 @@ def two_sum_sorted(nums, target):
 
 ## 🪟 Sliding Window (창문 밀기)
 
-연속된 구간(Subarray)을 처리할 때, 창문을 오른쪽으로 밀어가며 **새로 들어오는 값**과 **나가는 값**만 갱신합니다.
+연속된 구간(Subarray)을 처리할 때, 창문을 오른쪽으로 밀어가며 **새로 들어오는 값**과 **나가는 값**만 갱신하는 기법입니다. 고정 길이 및 가변 길이 윈도우 두 가지 패턴에 대한 자세한 설명과 구현은 별도 문서로 분리되어 있습니다.
 
-### 1. 고정 길이 윈도우 (Fixed Size)
-
-```python
-def fixed_sliding_window(arr, k):
-    # 첫 k개 합 구하기
-    current_sum = sum(arr[:k])
-    max_sum = current_sum
-    
-    for i in range(k, len(arr)):
-        # 나가는 놈(arr[i-k]) 빼고, 들어오는 놈(arr[i]) 더하기
-        current_sum += arr[i] - arr[i-k]
-        max_sum = max(max_sum, current_sum)
-    return max_sum
-```
-
-### 2. 가변 길이 윈도우 (Variable Size)
-
-"합이 S 이상인 가장 짧은 구간의 길이 구하기"
-
-```python
-def min_subarray_len(target, nums):
-    left = 0
-    current_sum = 0
-    min_len = float('inf')
-    
-    for right in range(len(nums)):
-        current_sum += nums[right]
-        
-        # 조건을 만족하는 동안 왼쪽 포인터를 당김
-        while current_sum >= target:
-            min_len = min(min_len, right - left + 1)
-            current_sum -= nums[left]
-            left += 1
-            
-    return min_len if min_len != float('inf') else 0
-```
+- **[Sliding Window](sliding-window.md)** - 고정/가변 길이 윈도우 패턴 및 실전 예제
 
 ---
 
@@ -111,16 +76,6 @@ def min_subarray_len(target, nums):
    - 가변 길이 윈도우에서 `left`를 옮기기 전/후에 값을 뺄 때 인덱스 주의.
 4. **무한 루프**
    - `left`나 `right`가 특정 조건에서 멈추어 루프가 끝나지 않는 경우.
-
----
-
-## ⚔️ Two Pointers vs Sliding Window
-
-| 특징 | Two Pointers | Sliding Window |
-|:---|:---|:---|
-| **배열 상태** | 보통 정렬됨 | 정렬 안 되어도 무관 |
-| **관심 영역** | 두 지점의 **값** (쌍) | 두 지점 사이의 **구간** |
-| **포인터 방향** | 양 끝에서 안으로 (보통) | 같은 방향으로 (Slide) |
 
 ---
 

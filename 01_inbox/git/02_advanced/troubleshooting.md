@@ -82,5 +82,5 @@ git fsck --full --unreachable
 
 - [Git 인턴십](../00_fundamentals/git-internals.md) - 객체가 물리적으로 어떻게 저장되는지
 - [Reset 완벽 분석](reset-demystified.md) - 영역별 데이터 이동의 원리
-- [고급 워크플로우](advanced-workflows.md) - Rebase 중 발생하는 충돌 해결
+- [Interactive Rebase](interactive-rebase.md) - Rebase 중 발생하는 충돌 해결
 - [Git 커스텀](../03_tools/git-customization.md) - 사고를 예방하는 훅(Hook) 설정

@@ -2,7 +2,7 @@
 title: dynamic-programming
 tags: [algorithm, dp, dynamic-programming, memoization, optimization]
 aliases: [DP, Memoization, 다이나믹 프로그래밍, 동적 계획법]
-date modified: 2025-12-18 19:07:20 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 11:43:01 +09:00
 ---
 
@@ -126,19 +126,7 @@ def fib_tab(n):
 
 ## ⚖️ 한눈에 비교: Top-Down vs Bottom-Up
 
-| 특징 | Top-Down (Memoization) | Bottom-Up (Tabulation) |
-| :--- | :--- | :--- |
-| **핵심 기법** | 재귀 (Recursion) | 반복문 (Iteration) |
-| **저장 방식** | 메모이제이션 (필요할 때만 저장) | 타블레이션 (순서대로 표 채우기) |
-| **방향** | 큰 문제 → 작은 문제 | 작은 문제 → 큰 문제 |
-| **성능** | 상대적으로 느림 (재귀 오버헤드) | 상대적으로 빠름 |
-| **메모리** | 스택 메모리 사용 (오버플로우 위험) | 배열/테이블 메모리 사용 |
-| **특징** | 필요한 부분 문제만 계산 가능 | 모든 부분 문제를 차례대로 계산 |
-
-### 🤔 어떤 것을 선택해야 할까?
-
-- **Top-Down**: 문제의 상태 공간이 너무 커서 어떤 부분을 계산해야 할지 미리 알기 어려울 때, 또는 재귀적인 사고가 더 직관적일 때 사용합니다.
-- **Bottom-Up**: 모든 부분 문제를 풀어야 하거나, 스택 오버플로우 걱정 없이 안정적인 성능이 필요할 때 권장됩니다. (대부분의 알고리즘 대회나 실무 최적화는 이 방식을 선호합니다.)
+**정본 참고**: Top-Down (메모이제이션) vs Bottom-Up (타블레이션)의 상세한 비교표와 선택 기준은 [메모이제이션 (Memoization)](../00_fundamentals/memoization.md)의 "메모이제이션 vs 타블레이션" 섹션을 참조하세요.
 
 ---
 
@@ -480,14 +468,7 @@ for i in range(1, n+1):
 
 ## 💡 DP vs Greedy vs Divide & Conquer
 
-| 기법 | 특징 | 예시 |
-|:---|:---|:---|
-| **DP** | 모든 부분 문제 해결, 최적 보장 | Knapsack, LCS |
-| **Greedy** | 매 순간 최선, 최적 **불보장** | Activity Selection |
-| **Divide & Conquer** | 분할 → 정복 → 병합, 중복 X | Merge Sort |
-
->[!WARNING] **Greedy 는 언제 쓸 수 있나?**
->Greedy 가 최적해를 보장하려면 **Greedy Choice Property**와 **Optimal Substructure**가 모두 필요합니다. 대부분은 DP 가 안전합니다.
+**정본 참고**: 동적 계획법, 그리디 알고리즘, 분할 정복 세 기법의 상세한 비교와 선택 기준은 [DP vs Greedy vs 분할정복](dp-vs-greedy-vs-divide-and-conquer.md)을 참조하세요.
 
 ---
 

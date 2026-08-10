@@ -2,7 +2,7 @@
 title: complexity-and-big-o
 tags: [algorithm, big-o, complexity, optimization, performance]
 aliases: [Big-O, 공간 복잡도, 시간 복잡도]
-date modified: 2025-12-19 17:40:40 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-17 19:00:00 +09:00
 ---
 
@@ -254,11 +254,11 @@ List<String> stuffList(int length) {
 
 | 데이터 크기 ($N$) | 허용 복잡도 | 대표 알고리즘 및 패턴 |
 | :--- | :--- | :--- |
-| **$N \le 10$** | $O(N!)$, $O(2^N)$ | 브루트 포스 (전체 순회), 순열 생성 |
+| **$N \le 10$** | $O(N!)$ | 브루트 포스 (전체 순회), 순열 생성 |
 | **$N \le 20$** | $O(2^N)$ | 비트마스킹 DP, 일반적인 백트래킹 (N-Queens 등) |
 | **$N \le 500$** | $O(N^3)$ | 플로이드 - 워셜 (모든 정점 간 최단 경로) |
-| **$N \le 2,000$** | $O(N^2)$ | 2 차원 배열 탐색, 버블/삽입 정렬, 단순 DP |
-| **$N \le 1,000,000$** | $O(N \log N)$ | 퀵/병합/힙 정렬, 이진 탐색 최적화(Parametric Search), 다익스트라, 세그먼트 트리 |
+| **$N \le 5,000$** | $O(N^2)$ | 2 차원 배열 탐색, 버블/삽입 정렬, 단순 DP |
+| **$N \le 100,000$** | $O(N \log N)$ | 퀵/병합/힙 정렬, 이진 탐색 최적화(Parametric Search), 다익스트라, 세그먼트 트리 |
 | **$N \le 10,000,000$** | $O(N)$ | 투 포인터, 슬라이딩 윈도우, 누적 합, BFS/DFS |
 | **$N > 10,000,000$** | $O(\log N)$ | 이진 탐색 (Binary Search), 거듭제곱 ($O(\log N)$) |
 

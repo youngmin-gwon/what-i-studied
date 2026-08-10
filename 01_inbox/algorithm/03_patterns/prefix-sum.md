@@ -2,7 +2,7 @@
 title: prefix-sum
 tags: [algorithm, array, pattern, prefix-sum]
 aliases: [누적 합, 구간 합, Prefix Sum]
-date modified: 2025-12-18 11:53:38 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 11:53:38 +09:00
 ---
 
@@ -105,8 +105,8 @@ def query_2d_sum(s, r1, c1, r2, c2):
 
 ## 📚 관련 문서
 
-- [투 포인터](two-pointers.md) - 가변 구간 탐색 및 슬라이딩 윈도우와의 차이점
+- [투 포인터](two-pointers.md) & [슬라이딩 윈도우](sliding-window.md) - 가변 구간 탐색 및 패턴 비교
 - [복잡도 분석](../00_fundamentals/complexity-and-big-o.md) - $O(N)$ 전처리 후 $O(1)$ 조회의 성능 이점
 - [배열과 리스트](../01_data-structures/linear.md) - 연속된 메모리 공간에서의 구간 데이터 처리
 - [동적 계획법](../02_algorithms/dynamic-programming.md) - 누적 합을 활용한 상태 전이 식 설계
-- [세그먼트 트리](../01_data-structures/segment-tree.md) - 데이터 업데이트가 잦은 환경에서의 구간 합 대안
+- [세그먼트 트리](../01_data-structures/segment-tree.md) & [펜윅 트리](../01_data-structures/fenwick-tree.md) - 데이터 업데이트가 잦은 환경에서의 구간 합 대안

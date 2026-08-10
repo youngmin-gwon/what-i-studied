@@ -2,7 +2,7 @@
 title: linux-log-management
 tags: [audit, linux, log, security, syslog]
 aliases: [lastlog, syslog, utmp, wtmp, 로그 관리]
-date modified: 2026-01-08 15:56:58 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-01-08 10:15:25 +09:00
 ---
 
@@ -45,28 +45,9 @@ graph TB
 
 **현재 시스템에 로그인한 사용자** 정보를 저장합니다.
 
-```bash
-# 위치
-/var/run/utmp  또는  /run/utmp
+**파일 위치**: `/var/run/utmp` 또는 `/run/utmp`
 
-# 확인 명령어
-who              # 현재 로그인 사용자
-w                # 로그인 사용자 + 활동 정보
-users            # 사용자 이름만
-```
-
-**출력 예시**:
-```bash
-$ who
-youngmin pts/0   2026-01-08 10:00 (192.168.1.100)
-admin    pts/1   2026-01-08 09:30 (192.168.1.101)
-
-$ w
- 10:15:25 up 5 days,  2:30,  2 users,  load average: 0.15, 0.10, 0.05
-USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-youngmin pts/0    192.168.1.100    10:00    0.00s  0.05s  0.00s w
-admin    pts/1    192.168.1.101    09:30    45:00  0.02s  0.02s vim
-```
+**상세 명령어 및 사용법**: [log-analysis-commands.md](../commands/log-analysis-commands.md#utmp---현재-로그인-사용자) 참고
 
 ---
 
@@ -74,30 +55,9 @@ admin    pts/1    192.168.1.101    09:30    45:00  0.02s  0.02s vim
 
 **모든 로그인/로그아웃, 시스템 부팅/종료 이력**을 저장합니다.
 
-```bash
-# 위치
-/var/log/wtmp
+**파일 위치**: `/var/log/wtmp`
 
-# 확인 명령어
-last              # 전체 이력
-last -n 10        # 최근 10개
-last youngmin     # 특정 사용자
-last reboot       # 재부팅 이력
-last shutdown     # 종료 이력
-```
-
-**출력 예시**:
-```bash
-$ last -n 5
-youngmin pts/0    192.168.1.100    Mon Jan  8 10:00   still logged in
-admin    pts/1    192.168.1.101    Mon Jan  8 09:30   still logged in
-youngmin pts/0    192.168.1.100    Sun Jan  7 22:00 - 23:30  (01:30)
-reboot   system boot  5.15.0-generic  Sun Jan  7 21:55   still running
-
-$ last reboot
-reboot   system boot  5.15.0-generic  Sun Jan  7 21:55   still running
-reboot   system boot  5.15.0-generic  Sat Jan  6 10:00 - 21:54 (1+11:54)
-```
+**상세 명령어 및 사용법**: [log-analysis-commands.md](../commands/log-analysis-commands.md#wtmp---로그인-히스토리) 참고
 
 ---
 
@@ -105,29 +65,11 @@ reboot   system boot  5.15.0-generic  Sat Jan  6 10:00 - 21:54 (1+11:54)
 
 **로그인 실패 기록**을 저장합니다. 무차별 대입 공격 탐지에 중요합니다.
 
-```bash
-# 위치
-/var/log/btmp
+**파일 위치**: `/var/log/btmp` (root만 읽기 가능)
 
-# 확인 명령어 (root 권한 필요)
-lastb             # 전체 실패 이력
-lastb -n 20       # 최근 20개
-lastb youngmin    # 특정 사용자
-```
+**상세 명령어 및 사용법**: [log-analysis-commands.md](../commands/log-analysis-commands.md#btmp---실패한-로그인-시도) 참고
 
-**출력 예시**:
-```bash
-$ sudo lastb -n 5
-admin    ssh:notty    192.168.1.50     Mon Jan  8 10:05 - 10:05  (00:00)
-root     ssh:notty    192.168.1.50     Mon Jan  8 10:04 - 10:04  (00:00)
-root     ssh:notty    192.168.1.50     Mon Jan  8 10:03 - 10:03  (00:00)
-root     ssh:notty    192.168.1.50     Mon Jan  8 10:02 - 10:02  (00:00)
-root     ssh:notty    192.168.1.50     Mon Jan  8 10:01 - 10:01  (00:00)
-
-# → 192.168.1.50에서 무차별 대입 공격 의심!
-```
-
-**공격 탐지**:
+**침입 탐지 관점**:
 ```bash
 # 실패 횟수 집계 (IP별)
 sudo lastb | awk '{print $3}' | sort | uniq -c | sort -rn | head
@@ -142,26 +84,13 @@ sudo lastb | awk '{print $1}' | sort | uniq -c | sort -rn | head
 
 **각 사용자의 마지막 로그인 시간**을 저장합니다.
 
+**파일 위치**: `/var/log/lastlog`
+
+**상세 명령어 및 사용법**: [log-analysis-commands.md](../commands/log-analysis-commands.md#lastlog---마지막-로그인) 참고
+
+**보안 관점** - 30일 이상 미접속 계정 탐지:
 ```bash
-# 위치
-/var/log/lastlog
-
-# 확인 명령어
-lastlog           # 전체 사용자
-lastlog -u youngmin   # 특정 사용자
-lastlog -b 30     # 30일 이상 미접속 사용자
-```
-
-**출력 예시**:
-```bash
-$ lastlog -u youngmin
-Username         Port     From             Latest
-youngmin         pts/0    192.168.1.100    Mon Jan  8 10:00:00 +0900 2026
-
-$ lastlog -b 90
-Username         Port     From             Latest
-olduser                                     **Never logged in**
-testuser                                    **Never logged in**
+lastlog -b 30
 ```
 
 ---
@@ -170,34 +99,25 @@ testuser                                    **Never logged in**
 
 **인증 관련 이벤트** (SSH 접근, sudo 사용 등)를 기록합니다.
 
-```bash
-# 위치
-/var/log/secure      # RHEL/CentOS
-/var/log/auth.log    # Debian/Ubuntu
+**파일 위치**:
+- `/var/log/secure` (RHEL/CentOS)
+- `/var/log/auth.log` (Debian/Ubuntu)
 
-# 확인
-grep "sshd" /var/log/auth.log
-grep "sudo" /var/log/auth.log
-grep "Failed" /var/log/auth.log
-```
-
-**출력 예시**:
-```plaintext
-Jan  8 10:00:01 server sshd[1234]: Accepted publickey for youngmin from 192.168.1.100
-Jan  8 10:05:22 server sshd[1235]: Failed password for root from 192.168.1.50
-Jan  8 10:10:15 server sudo: youngmin : TTY=pts/0 ; PWD=/home/youngmin ; USER=root ; COMMAND=/bin/cat /etc/shadow
-```
+**상세 명령어 및 사용법**: [log-analysis-commands.md](../commands/log-analysis-commands.md#var-log-authlog-debian-ubuntu) 참고
 
 **침입 탐지 분석**:
 ```bash
-# SSH 실패 시도 IP 추출
+# SSH 실패 시도 IP 추출 및 집계
 grep "Failed password" /var/log/auth.log | awk '{print $(NF-3)}' | sort | uniq -c | sort -rn
 
-# 성공한 SSH 로그인
+# 성공한 SSH 로그인만 확인
 grep "Accepted" /var/log/auth.log
 
-# sudo 명령 사용 이력
+# 권한 상승 시도: sudo 명령 사용 이력
 grep "sudo" /var/log/auth.log | grep "COMMAND"
+
+# su 사용 이력
+grep "su\[" /var/log/auth.log
 ```
 
 ---
@@ -333,52 +253,36 @@ kern.*               /var/log/kern.log
 
 ### journalctl (systemd)
 
+**systemd 로그 관리 명령어**
+
+**상세 명령어 및 사용법**: [service-management-commands.md](../commands/service-management-commands.md#-journalctl---systemd-logs) 참고
+
+**보안 분석**:
 ```bash
-# 전체 로그
-journalctl
-
-# 실시간 (tail -f)
-journalctl -f
-
-# 특정 서비스
+# 인증 관련 로그 필터
 journalctl -u sshd
-journalctl -u nginx
+journalctl -u sshd -p err            # SSH 에러만
 
-# 시간 필터
-journalctl --since "1 hour ago"
-journalctl --since "2026-01-01" --until "2026-01-08"
-journalctl --since today
-
-# 우선순위 필터
-journalctl -p err            # 에러 이상
-journalctl -p warning        # 경고 이상
-
-# 부팅별
-journalctl -b                # 현재 부팅
-journalctl -b -1             # 이전 부팅
-journalctl --list-boots      # 부팅 목록
+# 시간대별 침입 탐지
+journalctl -u sshd --since "1 hour ago"
+journalctl -u sshd --since today -p warning
 ```
 
 ### 로그 순환 (logrotate)
 
+**로그 파일 자동 관리 및 아카이브**
+
+**설정 파일 위치**: `/etc/logrotate.conf`, `/etc/logrotate.d/*`
+
+**상세 설정 및 명령어**: [log-analysis-commands.md](../commands/log-analysis-commands.md#-로그-로테이션) 참고
+
+**보안 관점** - 로그 무결성 유지:
 ```bash
-# 설정 파일
-/etc/logrotate.conf
-/etc/logrotate.d/*
-
-# 예시 설정
-/var/log/auth.log {
-    weekly           # 주간 순환
-    rotate 4         # 4개 유지
-    compress         # gzip 압축
-    delaycompress    # 다음 순환 시 압축
-    missingok        # 파일 없어도 OK
-    notifempty       # 빈 파일은 순환 안 함
-    create 640 root adm  # 새 파일 권한
-}
-
-# 수동 실행
+# 로그 순환 강제 실행
 logrotate -f /etc/logrotate.conf
+
+# 디버그 모드 (실제 실행 안함)
+logrotate -d /etc/logrotate.conf
 ```
 
 ---

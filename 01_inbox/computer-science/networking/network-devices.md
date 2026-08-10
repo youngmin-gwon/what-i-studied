@@ -2,13 +2,25 @@
 title: network-devices
 tags: [networking, router, switch, hub, bridge, vlan, layer]
 aliases: [네트워크 장비, 스위치, 라우터, 허브, 브리지, VLAN]
-date modified: 2026-01-08 16:15:32 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-01-08 16:15:32 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
 네트워크 장비는 OSI 계층에 따라 동작하는 레이어가 다릅니다. 이 문서에서는 각 계층별 장비의 기능과 특징을 다룹니다.
+
+---
+
+### 초보자를 위한 쉽게 이해하는 비유
+
+* **우편 배송 시스템의 각 부서**:
+  - **리피터/허브 (1계층)**: 우편물이 도착하면 그냥 복사해서 모든 곳에 일단 전달. "일단 복사해서 다 보내자!"
+  - **스위치 (2계층)**: 우편물의 받는 사람 이름(MAC)을 보고 "이 사람은 우리 지점에 있으니 여기로 보낸다"
+  - **라우터 (3계층)**: 도시 간 배송을 담당. "이 우편물은 서울이 아니라 부산으로 가야 하니 부산 센터로 보내자"
+  - **L4 스위치/로드 밸런싱**: 여러 배송 센터 중에 "오늘 센터1은 바쁘니까 센터2로 보내자" 하며 부하를 분산
+
+---
 
 ## 🔌 전송 매체
 
@@ -216,13 +228,32 @@ graph TD
 스위치 간 연결된 하나의 링크로 **여러 VLAN 트래픽**을 전송하는 기술입니다.
 
 **802.1Q 태깅**:
-```plaintext
-Original Frame:
-[Dest MAC][Src MAC][Type][Data][FCS]
 
-Tagged Frame:
-[Dest MAC][Src MAC][802.1Q Tag][Type][Data][FCS]
-                    └── VLAN ID (12bit) + Priority (3bit)
+```mermaid
+graph TB
+    subgraph Original["원본 Ethernet 프레임"]
+        OM1["Dest MAC"]
+        OM2["Src MAC"]
+        OM3["Type/Length"]
+        OM4["Data"]
+        OM5["FCS"]
+        OM1 --> OM2 --> OM3 --> OM4 --> OM5
+    end
+    
+    subgraph Tagged["802.1Q 태그가 추가된 프레임"]
+        TM1["Dest MAC"]
+        TM2["Src MAC"]
+        VTAG["802.1Q Tag"]
+        TM3["Type/Length"]
+        TM4["Data"]
+        TM5["FCS"]
+        VTAG2["VLAN ID 12bit<br/>Priority 3bit<br/>CFI 1bit"]
+        TM1 --> TM2 --> VTAG --> TM3 --> TM4 --> TM5
+        VTAG --> VTAG2
+    end
+    
+    style VTAG fill:#ff9800
+    style VTAG2 fill:#ffe0b2
 ```
 
 ---

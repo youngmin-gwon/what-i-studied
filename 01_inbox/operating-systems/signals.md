@@ -2,7 +2,7 @@
 title: signals
 tags: [ipc, linux, operating-systems, process-management, signals]
 aliases: [POSIX Signals, Signal Handling, 시그널]
-date modified: 2026-08-06 19:00:07 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 
@@ -390,4 +390,4 @@ kill -9 PID
 
 - [process-states-lifecycle](process-states-lifecycle.md) - 프로세스 상태와 시그널의 영향
 - [ipc-mechanisms](ipc-mechanisms.md) - 시그널 외의 프로세스 간 통신 방법
-- **kernel** - 커널의 시그널 처리 메커니즘
+- [kernel-structure](kernel-structure.md) - 커널의 시그널 처리 메커니즘

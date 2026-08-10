@@ -66,5 +66,7 @@ Android 앱 프로세스는 기본적으로 단 하나의 **메인 스레드 (Ma
 
 - [Process & Binder IPC](../mobile/android/01_system_internals/binder-ipc.md) - 독립 메모리를 갖는 프로세스 간 통신
 - [Immutability](immutability.md) - 스레드 안전성을 보장하는 불변성
-- [Race Condition & Deadlock](race-condition-and-deadlock.md) - 스레드 동시성 문제와 교착 상태
+- [Race Condition](race-condition.md) - 스레드 동시성 레이스 조건
+- [Deadlock](deadlock.md) - 교착 상태
+- [Mutex/Lock](mutex-lock.md) - 상호 배제를 통한 동시성 제어
 - [Structured Concurrency](structured-concurrency.md) - 코루틴 기반 구조적 스레드 관리

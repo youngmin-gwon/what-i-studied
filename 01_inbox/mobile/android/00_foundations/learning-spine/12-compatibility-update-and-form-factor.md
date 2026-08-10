@@ -2,7 +2,7 @@
 title: 12-compatibility-update-and-form-factor
 tags: ["android", "android/foundations", "learning-spine"]
 aliases: ["Compatibility, update, and form factor"]
-date modified: 2026-08-04 10:10:49 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-08-04 00:30:00 +09:00
 ---
 
@@ -62,7 +62,7 @@ SDK Extension 은 modular system component update 를 통해 일부 API 가 더 
 
 ### 8. Form factor 는 이 모든 축 위에 추가되는 입력·창 모델의 차이다
 
-지금까지의 축이 모두 같은 "휴대폰 형태의 실행 환경"을 전제로 했다면, form factor 축은 그 전제 자체를 바꾼다. 큰 화면과 폴더블에서는 창의 width/height class 와 hinge posture 가, 데스크톱 윈도잉에서는 resize 와 여러 창 인스턴스가, XR 에서는 2D 화면 실행과 공간 UI 가 분리된 문제다. TV/Wear OS/Auto 처럼 터치가 없거나 제한된 표면에서는 대체 입력 경로(d-pad, 리모컨, 음성, 마우스/키보드)로 모든 기능에 도달 가능한지를 별도로 검증해야 한다.
+지금까지의 축이 모두 같은 "휴대폰 형태의 실행 환경"을 전제로 했다면, form factor 축은 그 전제 자체를 바꾼다. 큰 화면과 폴더블에서는 창의 width/height class 와 hinge posture 가, 데스크톱 윈도잉에서는 resize 와 여러 창 인스턴스가, XR 에서는 2D 화면 실행과 공간 UI 가 분리된 문제다. TV/Wear OS/Auto 처럼 터치가 없거나 제한된 표면에서는 대체 입력 경로(d-pad, 리모컨, 음성, 마우스/키보드)로 모든 기능에 도달 가능한지를 별도로 검증해야 한다. 같은 기기에서도 창 크기나 방향이 바뀔 때마다 해당 **lifecycle**(생명주기, 앱/창의 시작-실행-정지-종료) 계약이 어떻게 바뀌는지도 주의해야 한다.
 
 문제를 조사할 때는 기기 이름이 아니라 현재 앱 창의 크기·비율, 그리고 해당 폼 팩터가 요구하는 입력·lifecycle 계약에서 원인을 찾아야 한다.
 
@@ -70,7 +70,7 @@ SDK Extension 은 modular system component update 를 통해 일부 API 가 더 
 
 | 축 | 언제 결정되는가 | 누가 통제하는가 | 무엇을 제한하는가 |
 | --- | --- | --- | --- |
-| `compileSdk` | 빌드 시점 | 개발자 | 소스가 참조할 수 있는 API 표면 |
+| `compileSdk` | 빌드 시점 | 개발자 | 소스가 참조할 수 있는 API **표면**(surface) |
 | `minSdk` | 빌드 시점 | 개발자 | 설치 가능한 기기의 하한 |
 | `targetSdkVersion` | 빌드 시점 | 개발자 | 시스템이 적용할 compatibility 동작의 기준 |
 | 기기 실제 API level(`SDK_INT`) | 기기 실행 시점 | 사용자·OEM 의 OS 업데이트 | 실제로 존재하는 platform API |

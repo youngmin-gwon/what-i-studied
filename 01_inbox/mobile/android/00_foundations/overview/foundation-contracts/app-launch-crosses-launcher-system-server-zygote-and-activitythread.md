@@ -72,7 +72,7 @@ sequenceDiagram
 | **Intent 및 권한 검사** | `ActivityNotFoundException`, `SecurityException` | `AndroidManifest.xml` 내 `exported` 설정 및 [AppOps / 권한](../../../05_security_privacy/appops-and-permissions.md) 확인 |
 | **프로세스 Fork 실패** | PID가 생기지 않고 앱 미실행 | [Zygote](../../../01_system_internals/zygote.md) crash, SELinux 거부 정책, 메모리 부족([LMK](../../../01_system_internals/lmk-low-memory-killer.md)) |
 | **App Attach & 초기화** | PID는 생성되나 화면 진입 전 바로 튕김 | `Application.onCreate()` 내 무거운 synchronous I/O, Third-party SDK 초기화 crash |
-| **Activity Lifecycle** | `onCreate()` 진입 후 화면 멈춤 (ANR) | [ActivityThread 메인 스레드](../../../02_app_framework/activity-thread.md) 블로킹, 교착 상태([Deadlock](../../../../../computer-science/race-condition-and-deadlock.md)) 또는 DB 락 |
+| **Activity Lifecycle** | `onCreate()` 진입 후 화면 멈춤 (ANR) | [ActivityThread 메인 스레드](../../../02_app_framework/activity-thread.md) 블로킹, 교착 상태([Deadlock](../../../../../computer-science/deadlock.md)) 또는 DB 락 |
 | **렌더링 제출 (TTID)** | Activity는 실행되었으나 검은 화면만 지속 | Layout/Rendering 파이프라인 과부하, `Surface` 뷰 초기화 지연 |
 
 ---

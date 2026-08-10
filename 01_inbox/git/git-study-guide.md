@@ -52,8 +52,8 @@ Git 의 내부 구조를 이해하여 모든 명령어의 작동 원리를 파�
    - `reflog` 와 `fsck` 를 이용한 전문 데이터 복구.
 4. [Git 서브모듈](02_advanced/submodules.md)
    - 의존성 관리 및 서브프로젝트 제어.
-5. [고급 워크플로우](02_advanced/advanced-workflows.md)
-   - `bisect`, `rerere`, **Worktree**, **Blame**, **Replace**, **Bundling**.
+5. [고급 워크플로우](02_advanced/interactive-rebase.md) ⭐
+   - [Interactive Rebase](02_advanced/interactive-rebase.md), [Stash vs Worktree](02_advanced/stash-vs-worktree.md), [Git Bisect](02_advanced/git-bisect.md), [Git Blame](02_advanced/git-blame.md), [Git Rerere](02_advanced/git-rerere.md), [Git Filter-repo & Replace](02_advanced/git-filter-repo-and-replace.md), [Git Bundle](02_advanced/git-bundle.md), [Git Grep & Pickaxe](02_advanced/git-grep-and-pickaxe.md).
 6. [주요 명령어 비교](02_advanced/command-comparisons.md)
    - Merge vs. Rebase 등 결정적 차이 요약.
 
@@ -63,8 +63,10 @@ Git 의 내부 구조를 이해하여 모든 명령어의 작동 원리를 파�
 
 생산성, 보안, 그리고 시스템 전화를 위한 도구들입니다.
 
-1. [보안 및 상세 스테이징](03_tools/git-security-and-staging.md) ⭐
-   - **GPG 서명**, **Interactive Staging(`add -p`)**.
+1. [GPG 서명](03_tools/git-gpg-signing.md) ⭐
+   - **디지털 서명**, 커밋 신뢰성.
+2. [대화형 스테이징](03_tools/interactive-staging.md) ⭐
+   - **Interactive Staging(`add -p`)**, 정제된 커밋.
 2. [Git 커스텀 및 자동화](03_tools/git-customization.md)
    - Config, Attributes, Hooks, **환경 변수**.
 3. [인증 및 보안 가이드](03_tools/credential-storage.md)

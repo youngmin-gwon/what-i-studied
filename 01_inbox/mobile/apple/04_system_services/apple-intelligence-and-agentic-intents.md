@@ -2,7 +2,7 @@
 title: apple-intelligence-and-agentic-intents
 tags: [app-intents, apple, apple-intelligence, ios/26, siri]
 aliases: [App Entities, Apple Intelligence, iOS 26, Siri Campos]
-date modified: 2026-04-06 18:10:32 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-04-04 00:33:00 +09:00
 ---
 
@@ -13,7 +13,7 @@ iOS 26(버전 대점프)의 출시와 함께, 애플의 생태계는 개인화�
 >[!NOTE] **Android 비교: AppFunctions vs Apple Intelligence**
 > - **Android**: `AppFunctions` (Android 16+)를 통해 모델 컨텍스트 프로토콜(MCP)과 유사한 구조로 앱의 기능을 도구화한다.
 > - **iOS**: `App Intents` 프레임워크를 고도화하여 Siri 가 앱 내부의 상세 액션을 수행한다. **Private Cloud Compute (PCC)**를 통한 보안과 온디바이스 연산의 결합이 특징이다. (iOS 26+)
->자세한 내용은 **android-appfunctions-and-ai-agents** 를 참고하세요.
+>자세한 내용은 [**android-appfunctions-and-ai-agents**](../../android/04_system_services/agents-and-assistant/assistant-agent-contracts/appfunctions-are-app-capability-contracts-for-agents.md) 를 참고하세요.
 
 ### 1. Liquid Glass 디자인 언어 (iOS 26+)
 

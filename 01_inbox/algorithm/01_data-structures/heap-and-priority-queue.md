@@ -2,7 +2,7 @@
 title: heap-and-priority-queue
 tags: [algorithm, data-structures, heap, heapify, priority-queue, top-k]
 aliases: [Max Heap, Min Heap, 우선순위 큐, 힙]
-date modified: 2025-12-18 16:24:49 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 11:22:52 +09:00
 ---
 
@@ -30,12 +30,19 @@ Heap 은 "부모가 자식보다 크다 (Max Heap)" 또는 "부모가 자식보�
 
 #### 완전 이진 트리 (Complete Binary Tree)
 
-```plaintext
-        90 (Max Heap)
-       /  \
-     60    80
-    / \    /
-   30 50  70
+```mermaid
+graph TD
+    N0["90<br/>(Max Heap)"]
+    N1["60"]
+    N2["80"]
+    N3["30"]
+    N4["50"]
+    N5["70"]
+    N0 --> N1
+    N0 --> N2
+    N1 --> N3
+    N1 --> N4
+    N2 --> N5
 ```
 
 **규칙 (Max Heap)**:

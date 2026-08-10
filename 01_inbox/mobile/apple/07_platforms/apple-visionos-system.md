@@ -2,7 +2,7 @@
 title: apple-visionos-system
 tags: [apple, immersive, mrr, privacy, spatial, visionos]
 aliases: []
-date modified: 2026-04-06 18:21:07 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 00:00:00 +09:00
 ---
 
@@ -57,5 +57,12 @@ visionOS 앱 개발에 있어서 UIKit 은 사실상 레거시 브릿지에 불�
 
 ### 더 보기
 
+**visionOS 관련 문서**
+- [apple-visionos-spatial.md](../../02_ui_frameworks/apple-visionos-spatial.md) - 개발 프레임워크 및 SwiftUI 활용
+- [apple-spatial-computing-visionos.md](apple-spatial-computing-visionos.md) - visionOS 26 신규 기능
+- [apple-visionos-design-patterns.md](visionos/apple-visionos-design-patterns.md) - 공간 설계 패턴
+- [apple-visionos-immersion-guide.md](visionos/apple-visionos-immersion-guide.md) - 몰입형 앱 개발 가이드
+
+**관련 기술**
 - [apple-rendering-and-media](../02_ui_frameworks/apple-rendering-and-media.md) - Metal 렌더링 파이프라인
 - [apple-ipados-multitasking](../04_system_services/apple-ipados-multitasking.md) - 멀티 윈도우 관리 (비슷한 개념)

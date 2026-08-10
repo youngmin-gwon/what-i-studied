@@ -2,7 +2,7 @@
 title: apple-app-lifecycle-and-ui
 tags: [appdelegate, apple, lifecycle, scenedelegate, swiftui, uikit]
 aliases: []
-date modified: 2026-04-06 18:02:27 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-16 16:08:54 +09:00
 ---
 
@@ -60,6 +60,23 @@ iPadOS 와 visionOS 에서는 하나의 앱이 여러 개의 창(Scene)을 가�
 3. **Active**: 활성화됨. UI 업데이트 가능.
 4. **Background**: 화면에 없지만 코드는 돎. (음악 재생, 위치 추적 등 권한 필요).
 5. **Suspended**: 메모리에는 있지만 CPU 는 멈춤. 언제든 삭제(Terminated)될 수 있음.
+
+#### 상태 전이 흐름
+
+```mermaid
+stateDiagram-v2
+    [*] --> NotRunning: 앱 시작 준비
+    NotRunning --> Inactive: didFinishLaunching
+    Inactive --> Active: App takes focus
+    Active --> Inactive: Phone call / Notification
+    Inactive --> Active: User resumes
+    Active --> Background: App backgrounded
+    Background --> Active: App returns to foreground
+    Background --> Suspended: OS memory pressure
+    Suspended --> Active: App relaunched
+    Suspended --> [*]: OS kills app (Jetsam)
+    Inactive --> Background: App backgrounded
+```
 
 #### ⚠️ 백그라운드 작업의 골든 타임
 

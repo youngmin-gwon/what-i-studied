@@ -37,14 +37,9 @@ date created: 2026-01-08 16:06:40 +09:00
 
 ### GET vs POST
 
-| 특성 | GET | POST |
-|------|-----|------|
-| **데이터 위치** | URL (Query String) | 본문 (Body) |
-| **데이터 길이** | 제한 있음 (~2KB) | 제한 없음 |
-| **캐시** | 가능 | 불가능 |
-| **보안** | URL 에 노출 | 상대적 안전 |
-| **북마크** | 가능 | 불가능 |
-| **용도** | 조회 | 생성/수정 |
+GET과 POST 메서드의 상세한 기술 비교, 사용 사례, 실무 선택 기준은 별도 문서로 분리되어 있습니다.
+
+- **[GET vs POST](get-vs-post.md)** - GET과 POST의 데이터 위치, 보안, 캐싱, 성능 비교
 
 ---
 
@@ -130,23 +125,9 @@ Connection: keep-alive
 
 ## 🔄 HTTP 버전 비교
 
-| 특성 | HTTP/1.0 | HTTP/1.1 | HTTP/2 | HTTP/3 |
-|------|----------|----------|--------|--------|
-| **연결** | 매 요청마다 연결 | **Keep-Alive** | 다중화 | QUIC |
-| **파이프라이닝** | 없음 | 있음 | 스트림 다중화 | 스트림 다중화 |
-| **헤더 압축** | 없음 | 없음 | **HPACK** | QPACK |
-| **암호화** | 선택 | 선택 | 사실상 필수 | **필수 (QUIC)** |
-| **HOL 블로킹** | 있음 | 있음 | TCP 레벨 | 없음 |
+HTTP/1.0, 1.1, 2, 3의 진화 과정과 각 버전별 성능, 특징, 실무 선택 기준은 별도 문서로 분리되어 있습니다.
 
-### Keep-Alive
-
-```http
-# HTTP/1.0 - 매 요청마다 연결
-요청1 → 응답1 → 연결 종료 → 연결 → 요청2 → ...
-
-# HTTP/1.1 - 지속 연결
-연결 → 요청1 → 응답1 → 요청2 → 응답2 → ... → 연결 종료
-```
+- **[HTTP 버전 비교](http-1-vs-2-vs-3.md)** - HTTP/1.0부터 HTTP/3까지의 역사, 성능 비교, 적용 기준
 
 ---
 
@@ -194,6 +175,8 @@ curl --http2 https://example.com
 
 ## 🔗 연결 문서 (Related Documents)
 
+- [GET vs POST](get-vs-post.md) - HTTP 요청 메서드 상세 비교
+- [HTTP 버전 비교](http-1-vs-2-vs-3.md) - HTTP/1.0, 1.1, 2, 3의 진화와 성능 비교
 - [osi-7-layer-model](osi-7-layer-model.md) - OSI 7 계층 (응용 계층)
 - [network-security-protocols](../../security/protocols/network-security-protocols.md) - TLS/SSL
 - [web-security](../../security/web-security.md) - 웹 보안 (XSS, CSRF)

@@ -1,12 +1,12 @@
 ---
 title: kernel-structure
 tags: [dual-mode, kernel, operating-systems, security, shell]
-aliases: [Dual Mode, Kernel Mode, User Mode, 이중 모드, 커널]
-date modified: 2026-01-08 15:55:31 +09:00
+aliases: [Dual Mode, Kernel Mode, User Mode, 이중 모드, 커널, OS 개론과 커널 구조]
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-01-08 10:15:25 +09:00
 ---
 
-## 🌐 개요 (Overview)
+## 🌐 OS 개론과 커널 구조 (Operating Systems Overview and Kernel Architecture)
 
 운영체제(OS)는 사용자가 컴퓨터 하드웨어를 효율적으로 사용할 수 있도록 인터페이스를 제공하고, 시스템 자원(CPU, 메모리, 입출력 장치 등)을 관리하는 시스템 소프트웨어입니다.
 
@@ -261,7 +261,7 @@ graph TD
 3. **인증**: 사용자/프로세스의 신원 확인
 4. **암호화**: 데이터 보호
 
->💡 **Reference Monitor**에 대한 자세한 내용은 [secure-operating-systems](secure-operating-systems.md) 참조
+>💡 **Reference Monitor**에 대한 자세한 내용은 [reference-monitor-and-tcb](reference-monitor-and-tcb.md) 참조
 
 ## 💡 실무 예시
 
@@ -311,5 +311,6 @@ cat /proc/sys/kernel/kptr_restrict       # 커널 포인터 제한
 - [process-states-lifecycle](process-states-lifecycle.md) - 프로세스 상태와 생명주기
 - [process-scheduling](process-scheduling.md) - CPU 스케줄링 알고리즘
 - [virtual-memory](virtual-memory.md) - 가상 메모리와 메모리 보호
-- [secure-operating-systems](secure-operating-systems.md) - 보안 운영체제와 Reference Monitor
+- [reference-monitor-and-tcb](reference-monitor-and-tcb.md) - 참조 모니터와 TCB
+- [secure-operating-systems](secure-operating-systems.md) - 보안 운영체제 개념 허브
 - [init-systems](init-systems.md) - 리눅스의 init 시스템 및 systemd 상세

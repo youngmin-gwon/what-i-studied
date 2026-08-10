@@ -2,7 +2,7 @@
 title: line-sweep
 tags: [algorithm, pattern, geometry, sweep-line]
 aliases: [평면 스위핑, 라인 스위핑, Sweep Line]
-date modified: 2025-12-18 15:52:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 15:52:00 +09:00
 ---
 
@@ -49,6 +49,6 @@ x축으로 이동하며, 현재 점 주변($d$ 거리 이내)의 점들만 후�
 ## 📚 관련 문서
 
 - [구간 패턴](../03_patterns/interval-patterns.md) - 1차원 스윕 라인의 기초
-- [세그먼트 트리](../01_data-structures/segment-tree.md) - 사각형 넓이 등 면적 계산의 파트너
+- [세그먼트 트리](../01_data-structures/segment-tree.md) & [펜윅 트리](../01_data-structures/fenwick-tree.md) - 사각형 넓이 등 면적 계산의 파트너
 - [검색과 정렬](../02_algorithms/search-and-sort.md) - 이벤트 큐 관리를 위한 정렬
 - [기하 기초](geometry-fundamentals.md) - 점과 선의 기본 관계

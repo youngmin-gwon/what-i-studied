@@ -2,7 +2,7 @@
 title: apple-ios-system
 tags: [apple, ios, jetsam, memory, springboard, system]
 aliases: []
-date modified: 2026-04-06 18:20:05 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-17 23:30:00 +09:00
 ---
 
@@ -66,6 +66,32 @@ iOS 는 스왑(Disk Swap)이 없습니다. 메모리가 부족하면 누군가�
 5. **UIKit (`UIApplication`)**: `UIEvent` 객체 생성.
 6. **Hit Testing**: `window.hitTest()` -> `view.pointInside()` 재귀 호출로 터치된 뷰 찾기.
 7. **Responder Chain**: 버튼이 처리 안 하면 상위 뷰로 전달.
+
+#### Touch Event Loop 시퀀스
+
+```mermaid
+sequenceDiagram
+    participant Hardware as "Hardware<br/>(Capacitive Sensor)"
+    participant IOKit as "IOKit<br/>(Kernel)"
+    participant SpringBoard as "SpringBoard<br/>(Backboardd)"
+    participant IPC as "IPC<br/>(Mach Message)"
+    participant UIKit as "UIKit<br/>(UIApplication)"
+    participant HitTest as "Hit Testing<br/>(window.hitTest)"
+    participant Responder as "Responder Chain"
+    participant Button as "UIButton<br/>(Action)"
+    
+    Hardware->>IOKit: 전압 변화 감지
+    IOKit->>SpringBoard: IOHIDEvent 변환
+    SpringBoard->>SpringBoard: Active App 확인
+    SpringBoard->>IPC: Event forward
+    IPC->>UIKit: Mach Message 전달
+    UIKit->>UIKit: UIEvent 객체 생성
+    UIKit->>HitTest: window.hitTest() 시작
+    HitTest->>HitTest: pointInside() 재귀 호출
+    HitTest->>Responder: 터치된 view 반환
+    Responder->>Button: touchUpInside 이벤트
+    Button->>Button: Action 실행
+```
 
 ### 더 보기
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱 생명주기

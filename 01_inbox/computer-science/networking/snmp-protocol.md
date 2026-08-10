@@ -2,13 +2,26 @@
 title: snmp-protocol
 tags: [management, monitoring, networking, protocol, snmp]
 aliases: [MIB, OID, Simple Network Management Protocol, SNMP]
-date modified: 2026-01-08 16:15:33 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-01-08 16:06:40 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**SNMP (Simple Network Management Protocol)** 는 네트워크 장비를 모니터링하고 관리하기 위한 프로토콜입니다.
+**SNMP (Simple Network Management Protocol)** 는 네트워크 장비를 모니터링하고 관리하기 위한 프로토콜입니다. 라우터, 스위치, 서버 등의 상태를 원격으로 확인하고 설정을 변경할 수 있습니다.
+
+---
+
+### 초보자를 위한 쉽게 이해하는 비유
+
+* **회사 건물 관리 시스템**:
+  - 관리자(Manager)가 각 층의 온도계, 조명, 전기 사용량을 확인하고 싶다.
+  - 각 층에 센서(Agent)가 설치되어 있고, 관리자가 요청하면 현재 상태를 보고해준다. → **Get 요청**
+  - 관리자가 "3층 온도를 24도로 설정해줘"라고 명령하면 센서가 실행한다. → **Set 요청**
+  - 만약 화재 감지기가 연기를 감지하면 즉시 관리실에 알람을 보낸다. → **Trap 알림**
+  - 각 센서는 일련번호 체계(OID)로 구분된다. 예: "건물.3층.온도계.현재값"
+
+---
 
 ## 📋 SNMP 포트
 

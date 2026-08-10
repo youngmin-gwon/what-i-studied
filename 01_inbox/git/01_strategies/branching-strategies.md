@@ -72,20 +72,6 @@ Pro Git 에서는 서비스 규모와 참여 방식에 따른 세 가지 주요 
 
 ---
 
-## 🛠️ 프로젝트 유지보수와 패치 워크플로우 (Maintenance)
-
-대규모 프로젝트나 이메일 기반의 협업(예: Linux 커널) 환경에서는 브랜치 직접 병합 외에 패치(Patch)를 주고받는 방식을 사용합니다.
-
-### 1. 패치 생성 및 적용
-- **패치 생성 (`git format-patch`)**: 특정 커밋들을 이메일에 첨부하기 좋은 형식의 텍스트 파일로 만듭니다.
-- **패치 적용 (`git am`)**: 이메일 등으로 받은 패치 파일을 읽어 작성자 정보와 커밋 메시지를 유지하면서 내 히스토리에 반영합니다.
-
-### 2. 프로젝트 관리자의 검토 흐름
-- **Sign-off**: `git commit -s` 옵션을 사용해 이 코드를 검토하고 승인했음을 기록합니다.
-- **선형 히스토리 유지**: 병합 시 `merge --no-ff` 를 쓸지, `rebase` 후 깔끔하게 합칠지를 프로젝트 성격에 맞춰 결정합니다.
-
----
-
 ## 🚨 흔한 실수 (Common Mistakes)
 
 1. **Long-lived Feature Branches** ❌
@@ -102,4 +88,5 @@ Pro Git 에서는 서비스 규모와 참여 방식에 따른 세 가지 주요 
 - [Git 기본 개념](../00_fundamentals/basic-concepts.md) - 브랜치 포인터와 Three Trees 이해
 - [Reset 완벽 분석](../02_advanced/reset-demystified.md) - 브랜치 이동과 데이터 흐름
 - [커밋 메시지](commit-messages.md) - 브랜치 작업의 기록 방식
-- [고급 워크플로우](../02_advanced/advanced-workflows.md) - Rebase vs Merge 선택 기준
+- [명령어 비교](../02_advanced/command-comparisons.md) - Merge vs Rebase 선택 기준
+- [패치 기반 워크플로우](patch-based-workflow.md) - 이메일 기반의 협업 방식

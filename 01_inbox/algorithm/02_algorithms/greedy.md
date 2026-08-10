@@ -2,7 +2,7 @@
 title: greedy-algorithm
 tags: [algorithm, greedy, optimization, heuristic]
 aliases: [그리디, 탐욕법, Greedy Choice, 최적해]
-date modified: 2025-12-18 11:48:24 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 11:48:24 +09:00
 ---
 
@@ -169,12 +169,7 @@ def build_huffman_tree(frequencies):
 
 ## ⚖️ Greedy vs Dynamic Programming
 
-| 특징 | Greedy | Dynamic Programming |
-|:---|:---|:---|
-| **결정 방식** | 매 순간 가장 좋은 하나를 선택 | 모든 가능성을 고려하여 최적을 선택 |
-| **속도** | 매우 빠름 (O(n) 또는 O(n log n)) | 느림 (O(n²) 등 중첩 반복문) |
-| **최적성** | 보장되지 않을 때가 많음 | 항상 전역 최적해 보장 |
-| **정렬** | 보통 정렬이 수반됨 | 메모이제이션/테이블 활용 |
+**정본 참고**: 그리디 알고리즘과 동적 계획법의 상세한 비교는 [DP vs Greedy vs 분할정복](dp-vs-greedy-vs-divide-and-conquer.md)을 참조하세요.
 
 ---
 

@@ -2,24 +2,42 @@
 title: icmp-protocol
 tags: [icmp, networking, ping, protocol, traceroute]
 aliases: [ICMP, Internet Control Message Protocol, ping]
-date modified: 2026-01-08 16:13:22 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-01-08 16:06:40 +09:00
 ---
 
 ## 🌐 개요 (Overview)
 
-**ICMP (Internet Control Message Protocol)** 는 IP 패킷 전송 중 발생하는 **오류를 보고**하거나 **네트워크 상태를 진단**하는 프로토콜입니다.
+**ICMP (Internet Control Message Protocol)** 는 IP 패킷 전송 중 발생하는 **오류를 보고**하거나 **네트워크 상태를 진단**하는 프로토콜입니다. IP 계층에서 문제가 발생했을 때 송신자에게 피드백을 제공하는 역할을 합니다.
+
+---
+
+### 초보자를 위한 쉽게 이해하는 비유
+
+* **우편물 반송 시스템 (Return to Sender)**:
+  - 편지를 보냈는데 받는 사람의 주소가 없거나 이사를 가서 받을 수 없다.
+  - 우체국이 "이 주소는 없습니다"라는 메모와 함께 편지를 보낸사람에게 돌려보낸다. → **ICMP Destination Unreachable (Type 3)**
+  - 또는 중간 우체국이 너무 오래 다루다가 "처리 시간 초과"라는 메모를 붙여 돌려보낸다. → **ICMP Time Exceeded (Type 11)**
+  - 또한 우체국이 "더 빠른 배송 방법이 있어요"라고 알려준다. → **ICMP Redirect (Type 5)**
+  - Ping은 마치 편지를 보내고 "잘 받았어?"라고 직접 확인하는 것과 같다.
+
+---
 
 ## 📦 ICMP 메시지 구조
 
-```plaintext
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type (8)  |     Code (8)  |        Checksum (16)          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                    Message Body (가변)                         |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+```mermaid
+graph TD
+    ICMP["ICMP 메시지"]
+    
+    ICMP --> H1["Type 8bit<br/>메시지 종류"]
+    ICMP --> H2["Code 8bit<br/>세부 정보"]
+    ICMP --> H3["Checksum 16bit<br/>오류 검사"]
+    ICMP --> H4["Message Body 가변<br/>메시지 본문<br/>(Type에 따라 다름)"]
+    
+    style H1 fill:#fff3e0
+    style H2 fill:#ffe0b2
+    style H3 fill:#ffcc80
+    style H4 fill:#ffb74d
 ```
 
 | 필드 | 크기 | 설명 |

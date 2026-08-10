@@ -2,7 +2,7 @@
 title: process-states-lifecycle
 tags: [linux, operating-systems, os, process, process-management]
 aliases: [PCB, Process Lifecycle, 프로세스 상태]
-date modified: 2026-08-06 18:30:17 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-20 00:02:18 +09:00
 ---
 
@@ -315,5 +315,5 @@ renice 5 -p PID
 
 - [signals](signals.md) - 프로세스 간 통신과 제어를 위한 시그널
 - [ipc-mechanisms](ipc-mechanisms.md) - 프로세스 간 통신 메커니즘
-- **kernel** - 커널의 프로세스 스케줄링
+- [kernel-structure](kernel-structure.md) - 커널의 프로세스 스케줄링
 - [boot-sequence](boot-sequence.md) - init 프로세스와 부팅 과정

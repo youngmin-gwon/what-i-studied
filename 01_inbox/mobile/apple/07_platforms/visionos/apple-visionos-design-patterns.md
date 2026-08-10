@@ -2,7 +2,7 @@
 title: apple-visionos-design-patterns
 tags: [apple, design, visionos]
 aliases: []
-date modified: 2026-04-06 18:18:43 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
 
@@ -58,4 +58,4 @@ date created: 2025-12-18 16:21:20 +09:00
 
 ### 링크
 
-[apple-visionos-immersion-guide](apple-visionos-immersion-guide.md), [apple-visionos-spatial](../../02_ui_frameworks/apple-visionos-spatial.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+[apple-visionos-system](../apple-visionos-system.md) - 기본 개념, [apple-visionos-immersion-guide](apple-visionos-immersion-guide.md), [apple-visionos-spatial](../../02_ui_frameworks/apple-visionos-spatial.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).

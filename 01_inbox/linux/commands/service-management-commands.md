@@ -2,7 +2,7 @@
 title: Service Management Commands
 tags: [linux, commands, service, systemctl, systemd]
 aliases: [서비스 관리, systemctl, systemd]
-date modified: 2025-12-20 14:17:48 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-20 14:17:48 +09:00
 ---
 
@@ -161,20 +161,7 @@ systemctl isolate multi-user.target
 systemctl isolate rescue.target            # 단일 사용자 모드
 ```
 
-**주요 타겟**:
-
-| 타겟 | Runlevel | 설명 |
-| :--- | :---: | :--- |
-| **`poweroff.target`** | **0** | **종료 (Halt)**: 시스템의 모든 프로세스를 종료하고 전원을 끌 준비를 함 |
-| **`rescue.target`** | **1** | **단일 사용자 모드 (Single-User)**: 시스템 복구용. 네트워크가 꺼지고 root만 사용 가능 |
-| **`multi-user.target`** | **2** | **다중 사용자 모드 (NFS 미지원)**: 네트워크기능이 제한된 텍스트 모드 (잘 안 쓰임) |
-| **`multi-user.target`** | **3** | **다중 사용자 모드 (NFS 지원, CLI)**: 표준 텍스트 기반 서버 환경 |
-| **`multi-user.target`** | **4** | **미정의 (Unused)**: 사용자가 정의하여 사용할 수 있도록 비워둔 레벨 |
-| **`graphical.target`** | **5** | **다중 사용자 모드 (GUI)**: X Window 시스템이 실행되는 그래픽 환경 |
-| **`reboot.target`** | **6** | **재부팅 (Reboot)**: 시스템을 즉시 재시작 |
-
-> [!TIP]
-> **런레벨 숫자의 의미**: 숫자가 높을수록 시스템의 기능(네트워크, 그래픽 등)이 더 많이 활성화된 상태를 의미한다고 이해하면 쉽습니다. (0: 꺼짐 -> 1: 최소 복구 -> 3: 서버 환경 -> 5: 그래픽 환경)
+**Run Level ↔ systemd Target 매핑**: [run-levels.md](../run-levels.md#-systemd-target-현대-시스템) 참고
 
 ## 📜 journalctl - systemd Logs
 
