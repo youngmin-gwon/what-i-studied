@@ -8,6 +8,8 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## init 와 네이티브 서비스 계약
 
+배경 지식: 일반 Linux/SysVinit·systemd의 init 개념은 [init systems](../../../../../operating-systems/init-systems.md)가 정본이다. 이 묶음은 Android의 `init.rc` 기반 커스텀 init만 다룬다.
+
 `init`은 Android userspace의 첫 프로세스(PID 1)이자 부트스트랩 정책 엔진으로, `/etc/init/` 및 `/vendor/etc/init/`의 `.rc` 선언을 해석하여 파일시스템 마운트, SELinux Policy 로드, System Property 저장소, 그리고 네이티브 데몬 서비스의 수명주기를 총괄 관리한다.
 
 ```mermaid
