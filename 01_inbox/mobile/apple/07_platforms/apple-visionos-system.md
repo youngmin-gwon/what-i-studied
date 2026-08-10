@@ -58,7 +58,7 @@ visionOS 앱 개발에 있어서 UIKit 은 사실상 레거시 브릿지에 불�
 ### 더 보기
 
 **visionOS 관련 문서**
-- [apple-visionos-spatial.md](../../02_ui_frameworks/apple-visionos-spatial.md) - 개발 프레임워크 및 SwiftUI 활용
+- **visionOS Spatial Computing** - 공간 연산 컴포지션 및 SwiftUI 활용
 - [apple-spatial-computing-visionos.md](apple-spatial-computing-visionos.md) - visionOS 26 신규 기능
 - [apple-visionos-design-patterns.md](visionos/apple-visionos-design-patterns.md) - 공간 설계 패턴
 - [apple-visionos-immersion-guide.md](visionos/apple-visionos-immersion-guide.md) - 몰입형 앱 개발 가이드

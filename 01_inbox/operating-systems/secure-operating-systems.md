@@ -39,7 +39,7 @@ date created: 2026-01-08 10:15:25 +09:00
 
 ### 접근 통제 모델
 
-**[접근 통제 모델](../../security/fundamentals/access-control-models.md)** (DAC, MAC, RBAC)
+- [접근 통제 모델](../security/fundamentals/access-control-models.md) - MAC, DAC, RBAC 기반 액세스 제어 모델
 - DAC (Discretionary Access Control): 소유자 중심의 임의적 통제
 - MAC (Mandatory Access Control): 관리자 중심의 강제적 통제
 - RBAC (Role-Based Access Control): 역할 기반의 권한 부여

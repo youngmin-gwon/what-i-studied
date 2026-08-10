@@ -409,5 +409,5 @@ class ThreadSafeCounter {
 - [Race Condition](race-condition.md) - Lock으로 해결하는 Race Condition
 - [Deadlock](deadlock.md) - Lock 오용으로 인한 교착 상태
 - [Immutability](immutability.md) - Lock을 대체하는 불변성 접근
-- [Atomic Operations](atomic-operations.md) - Lock-free 동기화
+- **Atomic Operations** - 원자적 연산 기본 원리
 - [Structured Concurrency](structured-concurrency.md) - 안전한 동시성 제어

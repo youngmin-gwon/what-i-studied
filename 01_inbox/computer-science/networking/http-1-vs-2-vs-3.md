@@ -198,4 +198,4 @@ HTTP/3: Chrome, Firefox, Safari, Edge (2020+)
 
 - [HTTP Protocol](http-protocol.md) - HTTP 개요, 메서드, 상태 코드
 - [GET vs POST](get-vs-post.md) - HTTP 요청 메서드 비교
-- [HTTPS/TLS](../security/protocols/network-security-protocols.md) - 암호화 프로토콜
+- **HTTPS / TLS** - 전송 계층 암호화 보안 프로토콜
