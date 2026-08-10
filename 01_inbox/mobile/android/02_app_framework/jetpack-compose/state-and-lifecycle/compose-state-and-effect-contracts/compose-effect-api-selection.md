@@ -2,7 +2,7 @@
 title: compose-effect-api-selection
 tags: [android, compose, derivedStateOf, DisposableEffect, effect-selection, LaunchedEffect, produceState, rememberCoroutineScope, rememberUpdatedState, side-effects, SideEffect, snapshotFlow]
 aliases: [Compose Effect API Selection, Compose 이펙트 API 선택]
-date modified: 2026-08-07 18:29:06 +09:00
+date modified: 2026-08-10 11:36:28 +09:00
 date created: 2026-08-07 18:22:00 +09:00
 ---
 
@@ -52,16 +52,16 @@ graph TD
 
 ### 2. Effect & 변환 API 별 종합 선택 기준표
 
-| API 명칭 | 주요 목적 | 실행 / 작동 시점 | 종료 / 정리 방식 |
-| :--- | :--- | :--- | :--- |
-| **`LaunchedEffect`** | 1 회성 비동기 요청, Flow 수집 | Composition 진입 시 또는 `key` 변경 시 | 화면 이탈 시 코루틴 자동 `cancel()` |
-| **`DisposableEffect`** | 센서/Observer 등록 및 해제 | Composition 진입 시 또는 `key` 변경 시 | `onDispose {}` 블록으로 반드시 Cleanup |
-| **`SideEffect`** | 비 -Compose 외부 객체(Analytics) 상태 동기화 | 매 Composition 무사 완료 직후 | 별도 종료 구문 없음 |
-| **`rememberCoroutineScope`** | 버튼 클릭, 스크롤 컨트롤 이벤트 | 클릭 콜백 이벤트 실행 시 | Composition 이탈 시 스코프 내 코루틴 일괄 취소 |
-| **`rememberUpdatedState`** | 카운트다운 타이머, 롱 폴링 | 이펙트 내부 실행 중 실시간 | 이펙트 수명주기와 별개로 최신 람다 유지 |
-| **`produceState`** | RxJava / LiveData / 콜백 ➔ `State<T>` 변환 | Composition 진입 시 | `awaitDispose {}` 블록으로 외부 구독 해제 |
-| **`snapshotFlow`** | Compose `State<T>` ➔ Cold `Flow<T>` 변환 | 관측 중인 `State` 변경 시 | Flow 수집 코루틴 취소 시 자동 종료 |
-| **`derivedStateOf`** | 고빈도 스크롤/입력 파생 연산 Recomposition 최적화 | 파생 결과값(Boolean 등) 변경 시 | `remember` 스코프 수명주기와 동기화 |
+| API 명칭                                                | 주요 목적                                  | 실행 / 작동 시점                     | 종료 / 정리 방식                       |
+| :---------------------------------------------------- | :------------------------------------- | :----------------------------- | :------------------------------- |
+| [LaunchedEffect](launched-effect.md)                  | 1 회성 비동기 요청, Flow 수집                   | Composition 진입 시 또는 `key` 변경 시 | 화면 이탈 시 코루틴 자동 `cancel()`        |
+| [DisposableEffect](disposable-effect.md)              | 센서/Observer 등록 및 해제                    | Composition 진입 시 또는 `key` 변경 시 | `onDispose {}` 블록으로 반드시 Cleanup  |
+| [SideEffect](compose-side-effect.md)                  | 비 -Compose 외부 객체(Analytics) 상태 동기화     | 매 Composition 무사 완료 직후         | 별도 종료 구문 없음                      |
+| [rememberCoroutineScope](remember-coroutine-scope.md) | 버튼 클릭, 스크롤 컨트롤 이벤트                     | 클릭 콜백 이벤트 실행 시                 | Composition 이탈 시 스코프 내 코루틴 일괄 취소 |
+| [rememberUpdatedState](remember-updated-state.md)     | 카운트다운 타이머, 롱 폴링                        | 이펙트 내부 실행 중 실시간                | 이펙트 수명주기와 별개로 최신 람다 유지           |
+| [produceState](produce-state.md)                      | RxJava / LiveData / 콜백 ➔ `State<T>` 변환 | Composition 진입 시               | `awaitDispose {}` 블록으로 외부 구독 해제  |
+| [snapshotFlow](snapshot-flow.md)                      | Compose `State<T>` ➔ Cold `Flow<T>` 변환 | 관측 중인 `State` 변경 시             | Flow 수집 코루틴 취소 시 자동 종료           |
+| [derivedStateOf](derived-state-of.md)                 | 고빈도 스크롤/입력 파생 연산 Recomposition 최적화     | 파생 결과값(Boolean 등) 변경 시         | `remember` 스코프 수명주기와 동기화         |
 
 ---
 

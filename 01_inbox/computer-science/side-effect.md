@@ -2,11 +2,11 @@
 title: side-effect
 tags: [computer-science, functional-programming, idempotency, io, pure-function, side-effect, software-engineering, state-mutation]
 aliases: [Side Effect, Side-effect, 부수 효과, 부작용]
-date modified: 2026-08-07 16:15:01 +09:00
+date modified: 2026-08-10 11:36:03 +09:00
 date created: 2026-08-07 16:10:00 +09:00
 ---
 
-## Side Effect (소프트웨어 공학 부수 효과 & 멱등성)
+## Side Effect
 
 ### 1. 개요 (Overview)
 

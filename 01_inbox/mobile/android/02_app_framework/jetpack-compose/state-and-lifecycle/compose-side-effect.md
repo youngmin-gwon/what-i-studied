@@ -6,7 +6,7 @@ date modified: 2026-08-07 18:37:33 +09:00
 date created: 2026-08-07 16:10:00 +09:00
 ---
 
-## Compose Side Effect (Jetpack Compose 부수 효과 원리 & SideEffect API)
+## Compose Side Effect
 
 ### 1. 개요 (Overview)
 
