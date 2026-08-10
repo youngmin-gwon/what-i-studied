@@ -24,7 +24,7 @@ date created: 2026-08-01 00:00:00 +09:00
 - "service 가 멈췄다/응답이 없다" → [Binder thread pool](binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md), boot-and-runtime 의 [ANR은 responsiveness 계약 위반이다](../../boot-and-runtime/system-server-contracts/anr-responsiveness-contract.md)
 - "이벤트를 보냈는데 유실/지연된다" → [oneway Binder](oneway-binder-removes-caller-waiting-not-server-backpressure.md)
 - "서비스 호출이 permission/등록 단계에서 실패한다" → [IPC 디버깅](ipc-debugging-starts-from-service-registration-call-path-and-thread-state.md)
-- "Binder와 socket/shared memory 중 무엇이 다른가" → **Binder는 Android framework의 typed RPC이고 POSIX IPC를 배제하지 않는다**
+- "Binder와 socket/shared memory 중 무엇이 다른가" → [POSIX IPC vs Android Binder 구조적 비교](../../../../../operating-systems/ipc-contracts/posix-ipc-vs-android-binder.md)
 - "이 프로세스가 왜 죽었는가" → 이 묶음이 아니라 아래 Process/system service 링크로 이동한다.
 
 ### Binder 와 AIDL

@@ -78,4 +78,4 @@ graph TD
 - [공유 메모리와 mmap 계약](./ipc-contracts/shared-memory-and-mmap-contracts.md)
 - [Unix Domain Socket 계약](./ipc-contracts/unix-domain-socket-contracts.md)
 - [POSIX Signal 계약](./ipc-contracts/posix-signal-contracts.md)
-- **POSIX IPC vs Android Binder & Ashmem 계약**
+- [POSIX IPC vs Android Binder 구조적 비교](./ipc-contracts/posix-ipc-vs-android-binder.md)
