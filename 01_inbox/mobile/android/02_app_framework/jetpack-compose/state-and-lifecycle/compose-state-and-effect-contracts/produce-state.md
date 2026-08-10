@@ -2,7 +2,7 @@
 title: produce-state
 tags: [android, architecture, callback, compose, external-state, flow, listener, optimization, produce-state, rxjava, side-effects, sms, state, timer]
 aliases: [produceState, 외부 상태 변환, 프로듀스 스테이트]
-date modified: 2026-08-07 18:53:04 +09:00
+date modified: 2026-08-10 15:36:27 +09:00
 date created: 2026-08-07 16:07:00 +09:00
 ---
 
@@ -19,8 +19,6 @@ date created: 2026-08-07 16:07:00 +09:00
 #### 💡 실무 아키텍처 관점 총평: `produceState` vs `Flow` 변환
 
 >**"C++ Native SDK 나 센서, DB 데이터를 Data 레이어에서 `Flow` 로 변환하여 ViewModel 로 올려주는 것이 더 나은 실무적 선택이 아닌가?"**
-
-- **사용자님의 지적이 100% 실무적 정답(Best Practice)입니다.**
 - C++ Native SDK, DB, 센서 등의 데이터 소스는 **Data/Infra 레이어에서 `callbackFlow { … }` 나 `Flow` 로 변환하여 ViewModel 에 `StateFlow` 로 전달**하는 것이 테스트 가능성(Testability)과 레이어 분리 관점에서 훨씬 우수합니다.
 - **그렇다면 `produceState` 는 실무에서 언제 쓰이는가?**:
   1. **UI 전용 서드파티 Compose 라이브러리 제작 (예: Coil 이미지 로더)**: ViewModel 없이 Composable UI 단에서 비동기 다운로드를 `State<ImageResult>` 로 직관적으로 노출해야 할 때.
