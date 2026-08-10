@@ -35,7 +35,7 @@ date created: 2026-08-01 00:00:00 +09:00
 - [oneway Binder는 caller 대기를 없애지만 server backpressure를 없애지 않는다](oneway-binder-removes-caller-waiting-not-server-backpressure.md)
 - [Binder thread pool은 service concurrency와 deadlock 경계다](binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)
 - [IPC 디버깅은 service 등록, call path, thread state에서 시작한다](ipc-debugging-starts-from-service-registration-call-path-and-thread-state.md)
-- **Binder는 Android framework의 typed RPC이고 POSIX IPC를 배제하지 않는다** - Binder, Unix domain socket, shared memory와 FD 전달의 identity·copy·lifetime 차이를 비교한다.
+- [POSIX IPC vs Android Binder 구조적 비교](../../../../../operating-systems/ipc-contracts/posix-ipc-vs-android-binder.md) - Binder, Unix domain socket, shared memory와 FD 전달의 identity·copy·lifetime 차이를 비교한다.
 
 ### Process 와 system service 경계
 
