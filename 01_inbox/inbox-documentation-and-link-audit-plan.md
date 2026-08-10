@@ -125,6 +125,23 @@ date created: 2026-08-06 16:45:53 +09:00
 4. **"완료" 선언 전에 표본을 직접 열어 대조한다.** 로그나 체크박스만으로 상태를 판단하지 않는다.
 5. 이 문서 자체도 시간이 지나면 stale해진다 — 다음 세션은 이 문서의 "도메인별 현재 상태"를 무조건 믿지 말고, 특히 오래된 항목(작성일 기준 한 달 이상)은 재확인 후 갱신한다.
 
+### 백로그 실행 완료 (2026-08-10)
+
+위 "도메인별 현재 상태와 백로그"에 나열됐던 항목을 16개 작업 단위로 나눠 저비용 subagent(haiku)로 실행했다. 결과:
+
+- **CS**: dhcp-nat-protocols/http-protocol/ftp-protocol/race-condition-and-deadlock 분리 완료(`nat-protocol.md`, `get-vs-post.md`, `http-1-vs-2-vs-3.md`, `tftp-protocol.md`, `race-condition.md`/`mutex-lock.md`/`deadlock.md` 신설). 구형 networking 6개 파일에 비유 섹션 추가 + ASCII 3곳 Mermaid 전환 완료.
+- **algorithm**: segment-tree/two-pointers/specialized-queues 분리 완료(`fenwick-tree.md`, `sliding-window.md`, `deque.md`/`monotonic-stack.md`/`monotonic-queue.md` 신설). N-크기별 복잡도표 3파일 불일치를 재계산해 통일(`complexity-and-big-o.md` 정본). 메모이제이션/타뷸레이션, DP/Greedy/D&amp;C 비교 통합(`dp-vs-greedy-vs-divide-and-conquer.md` 신설). disjoint-set/heap/trie ASCII 3곳 Mermaid 전환.
+- **git**: advanced-workflows.md를 8개 파일로 분리(interactive-rebase/stash-vs-worktree/git-bisect/git-blame/git-rerere/git-filter-repo-and-replace/git-bundle/git-grep-and-pickaxe). git-security-and-staging.md를 gpg-signing/interactive-staging으로 분리. branching-strategies.md의 패치 워크플로우를 `patch-based-workflow.md`로 분리. rebase/squash 최초 등장 정의 추가, `git-cherry-pick.md` 신설.
+- **operating-systems**: secure-operating-systems.md를 `reference-monitor-and-tcb.md`/`tpm-hardware-security.md`/`windows-security-subsystem.md`로 분리(access-control은 기존 security 폴더 파일로 링크, 중복 생성 안 함). kernel-structure.md 제목을 실제 범위(OS 개론+커널 구조)로 확장. ipc-contracts/ 4개 파일에 비유+용어 정의 추가. `**kernel**` 등 bold-only 참조 4건을 링크로 전환(대상 문서 없는 3건은 미생성 상태로 남김, 아래 참고).
+- **linux**: log-analysis-commands↔linux-log-management, network-standards↔network-fundamentals, run-levels↔service-management-commands 중복을 각각 정본+링크로 정리.
+- **android**: `00_foundations/topics/` 27개(A3~G12) 전체 문체를 `-다`체+커스텀 절 제목으로 통일. `livedata.md` 신설, `di-tool-comparison.md`에 코드+Mermaid 결정 트리 추가. top-level map의 Learning Spine 링크는 재확인 결과 이미 존재해 추가 작업 불필요했음.
+- **apple**: 가짜 android 참조 13건 중 12건을 실제 파일로 재연결, 1건(App Clips, 서비스 종료됨)은 링크 없이 문장 처리. `07_platforms/` 11개 파일 전체 재작성 완료(코드 예시, 정의, Mermaid 다이어그램 보강). visionOS 5개 문서·샌드박스 2개 문서 역할 재분담 완료. 앱생명주기/렌더루프/터치이벤트/워치OS 다이어그램 신규 추가.
+- **security**: README 실기 문제 색인에 누락 3건 추가, 무관한 docker 코드블록 제거.
+
+**재검증(2026-08-10 최종)**: 스코프 전체 1,145개 파일(신규 분리로 1,097→1,145 증가) 재스캔 — frontmatter/Mermaid/코드펜스/인라인 코드 오염 0건, broken link 0건 확인.
+
+**의도적으로 남겨둔 것**: operating-systems의 `**POSIX IPC vs Android Binder 구조적 비교**`, `**android-init-and-services**` 등 3건은 대상 문서가 아직 vault에 없어 링크로 전환하지 못했다(지어내지 않고 그대로 둠 — 필요 시 후속 세션이 문서를 만든 뒤 연결).
+
 ### 폐기 결정
 
 - `01_inbox/mobile/android/_meta/android-knowledge-base-quality-plan.md` — **삭제**(이 문서로 대체됨, 필요 시 git 이력에서 복구 가능: 삭제 직전 커밋 참고).
