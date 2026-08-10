@@ -2,7 +2,7 @@
 title: compose-side-effect
 tags: [android, benchmark, compose, perfetto, performance, pure-composable, recomposition, side-effect, SideEffect, system-ui]
 aliases: [Compose Side Effect, Compose 부수 효과, SideEffect API]
-date modified: 2026-08-07 18:37:33 +09:00
+date modified: 2026-08-10 11:38:17 +09:00
 date created: 2026-08-07 16:10:00 +09:00
 ---
 
@@ -19,7 +19,7 @@ Composable 함수는 성능 최적화를 위해 재구성(Recomposition) 과정�
 #### 🚨 아키텍처 경고: UI 레이어에서 비즈니스 Analytics 호출은 안티패턴
 
 - 비즈니스 로직(결제 완료, 로깅 등)을 UI Composable 안에서 직접 `analytics.logEvent()` 로 처리하는 것은 **UI 레이어에 도메인 로직이 침범하는 아키텍처 안티패턴**이다. (비즈니스 이벤트는 ViewModel/Repository 에서 처리되어야 한다.)
-- 그렇다면 `SideEffect { … }` 는 왜 존재하는가? `SideEffect` 의 정당한 존재 이유는 **"Compose `State` 를 Compose 가 다루지 않는 안드로이드 OS 시스템 영역(상태바 색상)이나 레거시 뷰(Custom View/Canvas), 또는 Perfetto / Benchmark 렌더링 성능 관측 도구에 매 Composition 완료 직후 안전하게 동기화(Synchronize)하기 위함"**이다.
+- 그렇다면 `SideEffect { … }` 는 왜 존재하는가? `SideEffect` 의 정당한 존재 이유는 **"Compose `State` 를 Compose 가 다루지 않는 안드로이드 OS 시스템 영역(상태바 색상)이나 레거시 뷰(Custom View/Canvas), 또는 Perfetto / Benchmark 렌더링 성능 관측 도구에 매 Composition 완료 직후 안전하게 동기화(Synchronize)하기 위함"** 이다.
 
 ---
 
