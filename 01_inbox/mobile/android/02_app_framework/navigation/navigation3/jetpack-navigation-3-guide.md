@@ -72,3 +72,6 @@ graph TD
 
 - [Android Navigation 진입 계약](../navigation-contracts/navigation-contracts.md)
 - [Adaptive Layout and Navigation](../adaptive-navigation/adaptive-layout-and-navigation.md)
+
+
+- [navigation-suite-scaffold-vs-navigation3-scene](../navigation-suite-scaffold-vs-navigation3-scene.md) - NavigationSuiteScaffold vs Navigation 3 Scene 역할 비교 및 결합 가이드
