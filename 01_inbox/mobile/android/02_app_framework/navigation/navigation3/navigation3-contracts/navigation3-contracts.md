@@ -35,6 +35,9 @@ Jetpack Navigation 3 환경에서 타입 안전 내비게이션, 앱 소유 백�
 - [Navigation 3 transition과 back policy는 같은 stack 상태를 공유해야 한다](navigation3-transition-and-back-policy-must-share-stack-state.md)
 - [Android task와 app back stack은 서로 다른 스택이다](android-task-and-app-back-stack-are-different-stacks.md)
 - [Navigation 3 metadata 예시는 Kotlin 문법을 쓰지만 문법 자체가 navigation 계약은 아니다](navigation3-metadata-examples-use-kotlin-syntax-but-syntax-is-not-navigation-contract.md)
+- [Navigation 3 Scene & SceneStrategy](navigation3-scene-and-strategy.md) - window size에 따른 single/multi-pane 실전 적용
+- [NavigationSuiteScaffold](navigation-suite-scaffold.md) - Material3 Top-Level Navigation Chrome adaptive 전환
+- [NavigationSuiteScaffold vs Navigation 3 Scene](navigation-suite-scaffold-vs-navigation3-scene.md) - Outer Chrome과 Inner Content Layout의 역할 비교 및 결합 아키텍처
 
 ---
 

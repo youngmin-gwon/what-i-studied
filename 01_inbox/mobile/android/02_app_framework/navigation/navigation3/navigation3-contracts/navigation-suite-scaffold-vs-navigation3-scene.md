@@ -2,7 +2,7 @@
 title: navigation-suite-scaffold-vs-navigation3-scene
 tags: [android, compose, navigation, navigation-suite-scaffold, navigation3, scene, scene-strategy, adaptive, architecture]
 aliases: [NavigationSuiteScaffold vs Navigation 3 Scene, Adaptive Navigation 아키텍처 비교]
-date modified: 2026-08-10 17:28:00 +09:00
+date modified: 2026-08-10 18:00:00 +09:00
 date created: 2026-08-10 17:28:00 +09:00
 ---
 

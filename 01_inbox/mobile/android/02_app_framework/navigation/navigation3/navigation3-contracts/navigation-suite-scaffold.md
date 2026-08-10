@@ -2,7 +2,7 @@
 title: navigation-suite-scaffold
 tags: [android, compose, navigation, navigation-suite-scaffold, adaptive, material3, chrome, window-size]
 aliases: [NavigationSuiteScaffold, 네비게이션 스위트 스캐폴드, Top-Level Navigation Chrome]
-date modified: 2026-08-10 17:28:00 +09:00
+date modified: 2026-08-10 18:00:00 +09:00
 date created: 2026-08-10 17:28:00 +09:00
 ---
 

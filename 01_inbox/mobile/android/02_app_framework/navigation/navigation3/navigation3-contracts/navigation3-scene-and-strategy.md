@@ -2,7 +2,7 @@
 title: navigation3-scene-and-strategy
 tags: [android, compose, navigation3, scene, scene-strategy, multi-pane, list-detail, adaptive]
 aliases: [Navigation 3 Scene, SceneStrategy, Navigation3 Scenes, Multi-Pane Layout]
-date modified: 2026-08-10 17:28:00 +09:00
+date modified: 2026-08-10 18:00:00 +09:00
 date created: 2026-08-10 17:28:00 +09:00
 ---
 
