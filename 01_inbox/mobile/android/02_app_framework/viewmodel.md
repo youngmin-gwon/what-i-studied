@@ -2,7 +2,7 @@
 title: viewmodel
 tags: [android, architecture, mvvm, presentation-layer]
 aliases: [View Model, ViewModel, 뷰모델]
-date modified: 2026-08-10 16:06:43 +09:00
+date modified: 2026-08-10 16:07:13 +09:00
 date created: 2026-08-06 16:25:00 +09:00
 ---
 

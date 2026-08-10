@@ -3,12 +3,12 @@ title: G11-play-core-in-app-update-and-review
 tags: [android, play-core, in-app-update, in-app-review, google-play]
 aliases: [Play Core (In-App Update/Review), 앱 내 업데이트, 앱 내 리뷰]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 ---
 
-## Play Core 서비스와 배포 및 리뷰 관리
+## G11 · Play Core 서비스와 배포 및 리뷰 관리
 
-이 문서는 사용자가 앱 스토어를 방문하지 않고도 앱 내에서 최신 버전으로 업데이트하거나 리뷰를 남길 수 있도록 돕는 Google Play Core 기능의 설계와 동작 방식을 종합합니다.
+> **이 문서의 목적**: 사용자가 앱 스토어를 방문하지 않고도 앱 내에서 최신 버전으로 업데이트하거나 리뷰를 남길 수 있도록 돕는 Google Play Core 기능의 설계와 동작 방식을 종합한다.
 
 ### 1. 이 주제를 읽기 전에
 - **사전 지식**: Google Play Console 배포, 앱 버전 코드 관리, AAB 패키징.
@@ -23,9 +23,9 @@ flowchart LR
     PlayCore -->|"Request Review"| Review[Review Dialog UI]
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### 3. 앱 내 업데이트와 리뷰의 할당량 제어
 
-In-App Update와 In-App Review는 사용자 경험을 방해하지 않고 적절한 시점에 최신 버전을 유도하거나 피드백을 수집하는 데 중요한 역할을 합니다. 각 기능은 Play Store의 할당량 정책과 사용자 방해 방지 규칙에 의해 엄격하게 제한됩니다.
+In-App Update와 In-App Review는 사용자 경험을 방해하지 않고 적절한 시점에 최신 버전을 유도하거나 피드백을 수집하는 데 중요한 역할을 한다. 각 기능은 Play Store의 할당량 정책과 사용자 방해 방지 규칙에 의해 엄격하게 제한된다.
 
 - [인앱 업데이트의 유연한(Flexible) 흐름과 즉각적인(Immediate) 흐름은 차단 방식이 다름](../../03_packaging_deployment/distribution/release-distribution-contracts/in-app-update-flexible-and-immediate-flows-differ-in-blocking.md): 백그라운드 다운로드를 허용하는 방식과 필수 업데이트를 위해 앱 사용을 완전히 차단하는 방식의 차이점을 정의합니다.
 - [인앱 리뷰 API는 리뷰를 요청할 뿐 보장하지 않음](../../03_packaging_deployment/distribution/release-distribution-contracts/in-app-review-api-can-only-request-not-guarantee-a-review.md): 사용자에게 리뷰 창을 띄울지 여부는 시스템의 내부 할당량과 알고리즘이 결정하며, 개발자가 호출을 강제할 수 없음을 이해합니다.

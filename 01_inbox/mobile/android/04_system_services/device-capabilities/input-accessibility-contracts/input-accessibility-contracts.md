@@ -2,7 +2,7 @@
 title: input-accessibility-contracts
 tags: ["android", "android/system-services"]
 aliases: ["입력 장치와 접근성 서비스 계약"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-10 16:08:18 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
@@ -12,9 +12,9 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 읽는 순서
 
-1. [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](./inputmanager-abstracts-physical-input-devices-as-event-sources.md)에서 키보드/마우스/게임패드가 시스템에 어떻게 보이는지 본다.
-2. [AccessibilityService는 다른 앱의 UI 이벤트를 관찰하고 조작할 수 있는 특권 서비스다](./accessibilityservice-observes-and-acts-on-other-apps-ui.md)에서 이 특권과 사용자 승인 절차를 본다.
-3. [InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다](./inputmethodservice-is-a-separate-contract-from-accessibilityservice.md)에서 두 특권 서비스를 혼동하지 않는 법을 본다.
+1. [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](./inputmanager-abstracts-physical-input-devices-as-event-sources.md) 에서 키보드/마우스/게임패드가 시스템에 어떻게 보이는지 본다.
+2. [AccessibilityService는 다른 앱의 UI 이벤트를 관찰하고 조작할 수 있는 특권 서비스다](./accessibilityservice-observes-and-acts-on-other-apps-ui.md) 에서 이 특권과 사용자 승인 절차를 본다.
+3. [InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다](./inputmethodservice-is-a-separate-contract-from-accessibilityservice.md) 에서 두 특권 서비스를 혼동하지 않는 법을 본다.
 
 ### 문제 분류
 
@@ -26,7 +26,7 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 책임 경계
 
-- AccessibilityService와 InputMethodService는 둘 다 사용자의 명시적 활성화가 필요한 특권 서비스이지만 목적이 다르다. 하나가 다른 하나의 대체재가 아니다.
+- AccessibilityService 와 InputMethodService 는 둘 다 사용자의 명시적 활성화가 필요한 특권 서비스이지만 목적이 다르다. 하나가 다른 하나의 대체재가 아니다.
 - 입력 장치 추상화(InputManager)는 하드웨어 종류를 가리는 계층이고, 그 위에서 무엇을 할 수 있는지는 일반 앱 권한 범위 안에 있다.
 
 ### 노트 목록
@@ -35,4 +35,4 @@ date created: 2026-08-03 17:29:24 +09:00
 - [AccessibilityService는 다른 앱의 UI 이벤트를 관찰하고 조작할 수 있는 특권 서비스다](./accessibilityservice-observes-and-acts-on-other-apps-ui.md)
 - [InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다](./inputmethodservice-is-a-separate-contract-from-accessibilityservice.md)
 
-검증일: 2026-08-03. [AccessibilityService 문서](https://developer.android.com/guide/topics/ui/accessibility/service)와 [InputMethod 개발 가이드](https://developer.android.com/develop/ui/views/touch-and-input/creating-input-method)를 기준으로 확인했다.
+검증일: 2026-08-03. [AccessibilityService 문서](https://developer.android.com/guide/topics/ui/accessibility/service)와 [InputMethod 개발 가이드](https://developer.android.com/develop/ui/views/touch-and-input/creating-input-method) 를 기준으로 확인했다.

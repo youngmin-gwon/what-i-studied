@@ -2,7 +2,7 @@
 title: assistant-agent-contracts
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 18:13:12 +09:00
+date modified: 2026-08-10 16:07:45 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 

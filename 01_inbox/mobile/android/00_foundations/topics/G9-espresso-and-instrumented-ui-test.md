@@ -3,12 +3,12 @@ title: G9-espresso-and-instrumented-ui-test
 tags: [android, testing, espresso, ui-test, instrumentation]
 aliases: [Espresso와 계측 UI 테스트, Instrumented UI Test, UI 테스팅]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 ---
 
-## Espresso와 기기 기반 UI 테스트 전략
+## G9 · Espresso와 기기 기반 UI 테스트 전략
 
-이 문서는 Android 앱의 화면 구성과 사용자 상호작용을 실제 기기 환경에서 검증하는 UI 테스트 방법에 대해 종합합니다. 비동기 작업 대기(Idling Resource)와 테스트 신뢰성, 그리고 계측 테스트 환경의 특성을 다룹니다.
+> **이 문서의 목적**: Android 앱의 화면 구성과 사용자 상호작용을 실제 기기 환경에서 검증하는 UI 테스트 방법에 대해 종합한다. 비동기 작업 대기(Idling Resource)와 테스트 신뢰성, 그리고 계측 테스트 환경의 특성을 다룬다.
 
 ### 1. 이 주제를 읽기 전에
 - **사전 지식**: 안드로이드 뷰 계층 구조, JUnit 4/5 테스트 작성, ADB 커맨드.
@@ -24,9 +24,9 @@ flowchart LR
     Idling --> Verify[Assertions & Matchers]
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### 3. UI 테스트의 신뢰성과 계측 환경
 
-계측 테스트는 앱 프로세스 내에서 직접 UI를 조작하고 검증하기 때문에 강력하지만, 비동기 처리에 의한 Flaky Test 문제가 자주 발생합니다. 안정적인 테스트를 위해 적절한 대기 전략과 명확한 테스트 분리가 필요합니다.
+계측 테스트는 앱 프로세스 내에서 직접 UI를 조작하고 검증하기 때문에 강력하지만, 비동기 처리에 의한 Flaky Test 문제가 자주 발생한다. 안정적인 테스트를 위해 적절한 대기 전략과 명확한 테스트 분리가 필요하다.
 
 - [Espresso는 동기식 View UI 테스트를 담당하며 비동기 대기를 위해 Idling Resource를 사용함](../../06_testing_performance/testing/testing-quality-contracts/espresso-owns-synchronous-view-ui-tests-with-idling-resource-for-async-waits.md): 화면 업데이트 타이밍 문제를 해결하기 위해 시스템 스레드와 동기화하는 구조적 방법을 적용합니다.
 - [Compose UI 테스트는 안정적인 선택자와 시맨틱을 사용해야 함](../../06_testing_performance/testing/testing-quality-contracts/compose-ui-tests-should-use-stable-selectors-and-semantics.md): 뷰 ID 대신 접근성 노드(Semantics)를 기준으로 요소에 접근해 리팩토링에 강건한 테스트를 작성합니다.

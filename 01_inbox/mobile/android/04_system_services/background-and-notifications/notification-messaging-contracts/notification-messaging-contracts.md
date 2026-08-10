@@ -2,7 +2,7 @@
 title: notification-messaging-contracts
 tags: ["android", "android/system-services"]
 aliases: []
-date modified: 2026-08-03 17:36:24 +09:00
+date modified: 2026-08-10 16:07:41 +09:00
 date created: 2026-07-31 17:42:24 +09:00
 ---
 
