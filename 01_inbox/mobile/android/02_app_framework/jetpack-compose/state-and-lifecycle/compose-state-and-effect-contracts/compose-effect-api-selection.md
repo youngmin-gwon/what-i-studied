@@ -56,7 +56,7 @@ graph TD
 | :---------------------------------------------------- | :------------------------------------- | :----------------------------- | :------------------------------- |
 | [LaunchedEffect](launched-effect.md)                  | 1 회성 비동기 요청, Flow 수집                   | Composition 진입 시 또는 `key` 변경 시 | 화면 이탈 시 코루틴 자동 `cancel()`        |
 | [DisposableEffect](disposable-effect.md)              | 센서/Observer 등록 및 해제                    | Composition 진입 시 또는 `key` 변경 시 | `onDispose {}` 블록으로 반드시 Cleanup  |
-| [SideEffect](compose-side-effect.md)                  | 비 -Compose 외부 객체(Analytics) 상태 동기화     | 매 Composition 무사 완료 직후         | 별도 종료 구문 없음                      |
+| [SideEffect](../compose-side-effect.md)                  | 비 -Compose 외부 객체(Analytics) 상태 동기화     | 매 Composition 무사 완료 직후         | 별도 종료 구문 없음                      |
 | [rememberCoroutineScope](remember-coroutine-scope.md) | 버튼 클릭, 스크롤 컨트롤 이벤트                     | 클릭 콜백 이벤트 실행 시                 | Composition 이탈 시 스코프 내 코루틴 일괄 취소 |
 | [rememberUpdatedState](remember-updated-state.md)     | 카운트다운 타이머, 롱 폴링                        | 이펙트 내부 실행 중 실시간                | 이펙트 수명주기와 별개로 최신 람다 유지           |
 | [produceState](produce-state.md)                      | RxJava / LiveData / 콜백 ➔ `State<T>` 변환 | Composition 진입 시               | `awaitDispose {}` 블록으로 외부 구독 해제  |

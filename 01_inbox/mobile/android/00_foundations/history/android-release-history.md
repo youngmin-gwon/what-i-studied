@@ -109,3 +109,5 @@ timeline
 - [ContentProvider 컴포넌트](../../02_app_framework/architecture/app-components/content-provider.md)
 - [AppOps & Permissions](../../05_security_privacy/appops-and-permissions.md)
 - [CE vs DE Secure Storage](../../05_security_privacy/secure-storage/ce-vs-de-storage.md)
+
+- [android-16kb-page-alignment](../../01_system_internals/kernel-and-hal/android-16kb-page-alignment.md) - Android 15+ 16KB 가상 메모리 페이지 정렬 규약

@@ -25,7 +25,7 @@ date created: 2026-08-06 16:45:53 +09:00
    - 인라인 코드 스팬(백틱) 안에 링크 삽입
    - 존재하지 않는 문서를 굵은 텍스트(`**android-xxx-yyy**`)로 참조(링크는 아니라 안 깨지지만 막다른 참조) — apple 폴더에서 13건, android `00_foundations/topics/`에서도 과거에 동일 패턴(지어낸 Learning Spine 장 인용) 발견 이력 있음
    **앞으로 vault 전체에 적용하는 어떤 자동 치환 스크립트도 frontmatter/코드펜스/Mermaid 블록/인라인 코드 스팬을 제외하고 실행하거나, 최소한 이 4개 영역만 별도로 dry-run 검토해야 한다.**
-4. **"완료" 표시가 있다고 실제로 그런 것은 아니다 — 그러나 정반대로 과도하게 의심할 필요도 없다.** 이번 재검증에서 android는 실제로 상당수(사실 오류 30건 중 26건, 원자 노트 4대 요소 등)가 진짜로 좋아져 있었다. computer-science도 v2.0이 "손도 안 댔다"고 적은 4개 파일이 실제로는 이미 올바르게 분리돼 있었다. **과거 세션을 무조건 불신하지 말고, 표본 검증으로 실제 상태를 확인한 뒤 판단한다.**
+4. **"완료" 표시가 있다고 실제로 그런 것은 아니다 — 그러나 정반대로 과도하게 의심할 필요도 없다.** 이번 재검증에서 android는 실제로 상당수(사실 오류 30건 중 26건, 원자 노트 4대 요소 등)가 진짜로 좋아져 있었다. computer-science도 v2.0이 "손도 안 댔다"고 적은 4개 파일 중 3개는 실제로 이미 올바르게 분리돼 있었다(단, 나머지 1개 `structured-concurrency.md`는 검증 subagent도 "이미 됐다"고 잘못 보고했다가 2026-08-10 재검증에서 실제로는 안 돼 있었음이 드러나 그때 가서야 분리했다 — 아래 computer-science 절 참고). **과거 세션도, subagent의 검증 보고도 무조건 믿지 말고, 표본을 직접 열어 확인한 뒤 판단한다.**
 
 ### 적용 범위
 
@@ -86,7 +86,9 @@ date created: 2026-08-06 16:45:53 +09:00
 
 #### `computer-science` (38개) — 상태: 핵심부 우수, 구형 networking 잔재만 남음
 
-- 오염 0건. jit-compilation 패턴이 핵심 CS 개념 4종 + 네트워킹 5쌍(TCP/UDP, OSI/TCPIP, A/CNAME, IPv4/IPv6, DHCP/StaticIP)에 이미 정확히 적용돼 있었음(v2.0의 "미완료" 기록은 틀림, 체크박스만 안 갱신됨).
+- 오염 0건. jit-compilation 패턴이 핵심 CS 개념 3종(`compile-time-code-generation`/`apt-vs-ksp`, `reflection`/`java-vs-kotlin-reflection`, `pure-function`/`pure-vs-impure-function`) + 네트워킹 5쌍(TCP/UDP, OSI/TCPIP, A/CNAME, IPv4/IPv6, DHCP/StaticIP)에 이미 정확히 적용돼 있었음(v2.0의 "미완료" 기록은 틀림, 체크박스만 안 갱신됨).
+- **2026-08-10 재검증에서 발견·수정**: `structured-concurrency.md`는 사실 분리가 **안 돼 있었다** — 이전 라운드의 subagent 보고가 이 파일도 이미 분리됐다고 잘못 판단했다(4종이 아니라 3종만 진짜였음). 제목 자체가 "구조화된 동시성 & 비구조화 동시성 비교"였고 본문에 전체 비교 섹션(비유/표/코드)이 그대로 있었다. `structured-vs-unstructured-concurrency.md`를 신설해 비교 섹션을 옮기고 원본은 개념 설명만 남기도록 이번에 실제로 분리했다. **교훈: subagent의 "이미 완료됨" 판단도 파일을 직접 열어 재확인해야 한다 — 이 문서 자체가 그 교훈을 스스로 증명한 사례다.**
+- 재검증 중 별도로 `mobile/android/.../compose-state-and-effect-contracts.md`의 Mermaid 다이어그램 라벨 5곳에 남아있던 자동 링크화 오염(존재하는 파일을 가리키는 링크였지만 Mermaid 노드 라벨 안이라 깨짐)도 추가로 발견해 수정했다. 1,119개 파일 전체 재스캔 결과 frontmatter/Mermaid/코드펜스/인라인 코드 오염과 broken link는 모두 0건으로 재확인됨(2026-08-10).
 - **백로그(진짜 남은 것)**: `networking/dhcp-nat-protocols.md`(NAT 미분리), `ip-addressing.md`(IPv4/IPv6 표가 `ipv4-vs-ipv6.md`와 완전 중복 — 링크로 대체, 완료), `http-protocol.md`(GET/POST, HTTP버전 비교 내장 → 분리), `ftp-protocol.md`(TFTP 결합 → 분리), `race-condition-and-deadlock.md`(3개 개념 결합 → 분리). 구형 networking 5개 파일(`arp`, `icmp`, `snmp`, `network-devices`, `routing-basics/protocols`)은 비유/친절 서술 표준이 적용 안 됨 + ASCII 박스 5곳을 Mermaid로.
 
 #### `operating-systems` (19개) — 상태: 좋은 예(IPC)와 나쁜 예(보안/커널)가 공존

@@ -28,12 +28,12 @@ graph TD
     StateOrEffect -->|"1. UI 상태 보존/복원"| StateAPIs["State APIs"]
     StateOrEffect -->|"2. 비동기/자원 해제 부수 효과"| EffectAPIs["Effect APIs"]
 
-    StateAPIs -->|"Recomposition 수명주기"| RememberState["[remember-saveable](remember-saveable.md)"]
-    StateAPIs -->|"ViewModel 스트림"| LifecycleState["[viewmodel-stateflow-lifecycle-collection](viewmodel-stateflow-lifecycle-collection.md)"]
+    StateAPIs -->|"Recomposition 수명주기"| RememberState["rememberSaveable"]
+    StateAPIs -->|"ViewModel 스트림"| LifecycleState["ViewModel StateFlow Lifecycle Collection"]
 
-    EffectAPIs -->|"비동기 작업 / 자동 취소"| Launched["[launched-effect](launched-effect.md)"]
-    EffectAPIs -->|"자원 등록 & Cleanup"| Disposable["[disposable-effect](disposable-effect.md)"]
-    EffectAPIs -->|"이벤트 핸들러 스코프"| Scope["[remember-coroutine-scope](remember-coroutine-scope.md)"]
+    EffectAPIs -->|"비동기 작업 / 자동 취소"| Launched["LaunchedEffect"]
+    EffectAPIs -->|"자원 등록 & Cleanup"| Disposable["DisposableEffect"]
+    EffectAPIs -->|"이벤트 핸들러 스코프"| Scope["rememberCoroutineScope"]
 ```
 
 ---
