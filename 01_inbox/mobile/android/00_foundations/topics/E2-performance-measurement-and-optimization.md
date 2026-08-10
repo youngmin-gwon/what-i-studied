@@ -3,19 +3,19 @@ title: E2-performance-measurement-and-optimization
 tags: [topic, performance, baseline-profile, macrobenchmark]
 aliases: [E2: 성능 측정과 최적화 (Performance Measurement and Optimization), Performance Measurement and Optimization]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-05 12:00:00 +09:00
+date modified: 2026-08-10 12:00:00 +09:00
 ---
 
 ## E2: 성능 측정과 최적화 (Baseline Profile, Macrobenchmark)
 
-**목적:** 안드로이드 환경에서 앱의 성능(시작 시간, 렌더링 등)을 측정하고, Baseline Profile과 Macrobenchmark를 통해 이를 안정적으로 최적화하는 전략과 계약을 이해합니다.
+**목적:** 안드로이드 환경에서 앱의 성능(시작 시간, 렌더링 등)을 측정하고, Baseline Profile과 Macrobenchmark를 통해 이를 안정적으로 최적화하는 전략과 계약을 이해한다.
 
-### 1. 이 주제를 읽기 전에
+### 이 주제를 읽기 전에
 - **JIT/AOT 컴파일**: ART(Android Runtime)가 앱을 실행할 때 컴파일하는 방식의 차이
 - **렌더링 파이프라인**: 프레임을 기기 화면에 그리기까지의 마감 시간(Deadline) 개념
 - **관련 주제**: [A1: 부팅과 프로세스](A1-boot-and-process.md), [B2: 젯팩 컴포즈](B2-jetpack-compose.md)
 
-### 2. 전체 조망도
+### 전체 조망도
 
 ```mermaid
 flowchart TD
@@ -27,7 +27,7 @@ flowchart TD
     F --> G["Measure Again (Verify)"]
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### 측정, Baseline Profile, 최적화
 
 #### 3.1. 최적화의 원칙: 측정 우선
 성능 최적화는 추측이 아닌 데이터에 기반해야 합니다. 최적화를 시작하기 전 항상 현재 상태를 측정하는 것이 안드로이드 성능 개선의 첫 번째 원칙입니다.

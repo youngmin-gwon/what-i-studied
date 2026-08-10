@@ -3,19 +3,19 @@ title: F1-large-screen-adaptive-layout
 tags: [topic, large-screens, foldable, adaptive-layout]
 aliases: [F1: 대화면과 적응형 레이아웃 (Large Screen & Adaptive Layout), Large Screen Adaptive Layout]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-10 21:30:00 +09:00
 ---
 
 ## F1: 대화면·폴더블 적응형 레이아웃
 
-**목적:** 폼 팩터의 다양화(폴더블, 태블릿, 데스크톱 윈도우 모드)에 대응하여 앱이 다양한 창 크기와 자세(Posture)에 적응하는 원리와 계약을 이해합니다.
+**목적:** 폼 팩터의 다양화(폴더블, 태블릿, 데스크톱 윈도우 모드)에 대응하여 앱이 다양한 창 크기와 자세(Posture)에 적응하는 원리와 계약을 이해한다.
 
-### 1. 이 주제를 읽기 전에
+### 이 주제를 읽기 전에
 - **뷰와 레이아웃 시스템**: 화면을 그리는 기본 단위와 크기 계산 원리
 - **Configuration Changes**: 화면 회전, 크기 변경 시 안드로이드 시스템이 컴포넌트 생명주기를 어떻게 다루는지의 원리
 - **관련 주제**: [B1: 컴포넌트 생명주기와 태스크](B1-component-lifecycle-and-task.md)
 
-### 2. 전체 조망도
+### 전체 조망도
 
 ```mermaid
 flowchart TD

@@ -2,7 +2,7 @@
 title: stateflow-and-sharedflow
 tags: [android, coroutines, flow, kotlin, sharedflow, stateflow]
 aliases: [StateFlow and SharedFlow, StateFlow와 SharedFlow]
-date modified: 2026-08-07 13:44:13 +09:00
+date modified: 2026-08-10 13:23:06 +09:00
 date created: 2026-08-06 16:35:00 +09:00
 ---
 

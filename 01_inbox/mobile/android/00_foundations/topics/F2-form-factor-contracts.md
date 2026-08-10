@@ -3,19 +3,19 @@ title: F2-form-factor-contracts
 tags: [topic, wear-os, android-tv, android-auto, chromeos, xr]
 aliases: [F2: 폼 팩터별 계약 (Form Factor Contracts), Form Factor Contracts]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-06 14:54:00 +09:00
+date modified: 2026-08-10 14:54:00 +09:00
 ---
 
 ## F2: 폼 팩터별 계약 (Wear OS / TV / Auto / ChromeOS / XR)
 
-**목적:** 모바일 기기를 넘어 웨어러블, TV, 자동차, 데스크톱, 혼합현실 등 각 안드로이드 폼 팩터가 요구하는 고유한 입력 방식과 런타임 제약(Contract)을 이해합니다.
+**목적:** 모바일 기기를 넘어 웨어러블, TV, 자동차, 데스크톱, 혼합현실 등 각 안드로이드 폼 팩터가 요구하는 고유한 입력 방식과 런타임 제약(Contract)을 이해한다.
 
-### 1. 이 주제를 읽기 전에
+### 이 주제를 읽기 전에
 - **안드로이드 생태계**: 안드로이드 OS가 다양한 하드웨어에 어떻게 커스텀되어 배포되는지에 대한 기초
 - **UI 입력 이벤트**: 터치, 키보드, 마우스 등 입력 이벤트 처리 흐름
 - **관련 주제**: [F1: 대화면·폴더블 적응형 레이아웃](F1-large-screen-adaptive-layout.md)
 
-### 2. 전체 조망도
+### 전체 조망도
 
 ```mermaid
 flowchart TD

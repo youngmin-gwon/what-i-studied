@@ -3,19 +3,19 @@ title: E1-build-to-install
 tags: [topic, packaging, deployment, build]
 aliases: [E1: 빌드에서 설치까지 (Build to Install), Build to Install]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-05 12:00:00 +09:00
+date modified: 2026-08-10 12:00:00 +09:00
 ---
 
 ## E1: 빌드에서 설치까지 (Gradle → APK/AAB → PackageManager)
 
-**목적:** 안드로이드 앱의 소스코드가 컴파일되고 패키징되어 스토어를 거쳐 사용자 기기에 설치, 업데이트되는 전체 흐름과 각 단계의 계약(Contract)을 이해합니다.
+**목적:** 안드로이드 앱의 소스코드가 컴파일되고 패키징되어 스토어를 거쳐 사용자 기기에 설치, 업데이트되는 전체 흐름과 각 단계의 계약(Contract)을 이해한다.
 
-### 1. 이 주제를 읽기 전에
+### 이 주제를 읽기 전에
 - **소스코드에서 패키지까지**: 소스코드가 어떻게 바이너리(DEX, 리소스)로 변환되는지 기본 개념
 - **서명(Signing)의 중요성**: 안드로이드에서 앱의 신원을 증명하고 업데이트 연속성을 보장하는 서명 메커니즘
 - **관련 주제**: [A1: 부팅과 프로세스](A1-boot-and-process.md)
 
-### 2. 전체 조망도
+### 전체 조망도
 
 ```mermaid
 flowchart TD
@@ -27,7 +27,7 @@ flowchart TD
     F -->|"Install/Update"| G[Installed App]
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### 빌드, 패키징, 서명, 설치
 
 #### 3.1. 빌드 도구와 플러그인 (Gradle & AGP)
 안드로이드 빌드는 Gradle 위에 Android Gradle Plugin(AGP)을 올려 수행됩니다. AGP는 안드로이드 특유의 컴파일, 리소스 병합, 패키징 규칙을 Gradle 태스크로 제공합니다.

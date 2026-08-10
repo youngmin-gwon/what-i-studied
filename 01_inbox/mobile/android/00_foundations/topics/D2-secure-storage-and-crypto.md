@@ -3,18 +3,18 @@ title: D2-secure-storage-and-crypto
 tags: [topic, security, storage, crypto]
 aliases: [안전한 저장소와 암호화, Secure Storage and Crypto]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-05 12:00:00 +09:00
+date modified: 2026-08-10 12:00:00 +09:00
 ---
 
 ## D2: 안전한 저장소와 암호화
 
-모바일 기기는 분실 위험이 높기 때문에, 안드로이드는 데이터의 생명주기와 보호 수준에 맞춰 다양한 암호화 및 저장소 정책을 제공합니다. 이 문서는 파일 기반 암호화(FBE), Keystore 시스템, 생체 인증, 그리고 데이터 백업 정책을 관통하는 암호화 및 안전한 저장소 활용 방안을 종합합니다.
+모바일 기기는 분실 위험이 높기 때문에, 안드로이드는 데이터의 생명주기와 보호 수준에 맞춰 다양한 암호화 및 저장소 정책을 제공한다. 이 문서는 파일 기반 암호화(FBE), Keystore 시스템, 생체 인증, 그리고 데이터 백업 정책을 관통하는 암호화 및 안전한 저장소 활용 방안을 종합한다.
 
-### 1. 이 주제를 읽기 전에 (Prerequisite & Related Topics)
+### 이 주제를 읽기 전에 (Prerequisite & Related Topics)
 - 안드로이드 저장소 모델: 내부/외부 저장소 및 Scoped Storage
 - 암호학 기초: 대칭키/비대칭키, AES-GCM 동작 원리
 
-### 2. 전체 조망도 (Diagram)
+### 전체 조망도 (Diagram)
 ```mermaid
 flowchart LR
     App[App Layer] -->|"EncryptedData"| Store[(Storage)]
@@ -30,10 +30,10 @@ flowchart LR
     Store -.-> FBE
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### Keystore, 생체 인증, 파일 기반 암호화
 
 #### 안드로이드 Keystore와 생체 인증 연동 (Keystore & Biometrics)
-비밀키는 메모리에 노출되어서는 안 되며, Android Keystore(하드웨어 지원 환경) 내부에서 생성되고 관리되어야 합니다. 민감한 키 사용 시 사용자의 생체 인증을 필수 조건으로 결합할 수 있습니다.
+비밀키는 메모리에 노출되어서는 안 되며, Android Keystore(하드웨어 지원 환경) 내부에서 생성되고 관리되어야 한다. 민감한 키 사용 시 사용자의 생체 인증을 필수 조건으로 결합할 수 있다.
 - [Android Keystore protects keys by non-exportability](../../05_security_privacy/secure-storage/secure-storage-contracts/android-keystore-protects-keys-by-non-exportability.md)
 - [BiometricPrompt authorizes Keystore key use](../../05_security_privacy/secure-storage/secure-storage-contracts/biometricprompt-authorizes-keystore-key-use.md)
 - [Sensitive data requires encryption and key ownership](../../05_security_privacy/secure-storage/secure-storage-contracts/sensitive-data-requires-encryption-and-key-ownership.md)

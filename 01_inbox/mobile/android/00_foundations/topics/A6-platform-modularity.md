@@ -60,21 +60,21 @@ graph TD
     - [AOSP build는 source, device, vendor configuration으로 product image를 조립한다](../../01_system_internals/platform-customization/platform-customization-contracts/aosp-build-assembles-product-images-from-source-device-and-vendor-configuration.md): AOSP 빌드는 소스와 벤더 설정을 조합하여 여러 파티션 이미지를 조립한다.
     - [product, vendor, odm, system_ext 는 customization ownership 을 나눈다](../../01_system_internals/platform-customization/platform-customization-contracts/product-vendor-odm-and-system-ext-split-customization-ownership.md): 다양한 파티션 분리를 통해 구글, 칩셋 벤더, 기기 제조사의 커스터마이징 소유권을 명확히 나눈다.
 
-### 4. 이 주제와 연결된 Worked Example
+### 이 주제와 연결된 Worked Example
 
-실제 시스템 업데이트나 앱의 배포 과정에서 이러한 모듈화가 어떻게 작동하는지 사례를 통해 살펴봅니다.
+실제 시스템 업데이트나 앱의 배포 과정에서 이러한 모듈화가 어떻게 작동하는지 사례를 통해 살펴본다.
 
-- [signed artifact 가 Play delivery 를 거쳐 update 되는 과정](../worked-examples/08-signed-artifact-through-play-delivery-to-update.md): Play 스토어를 통해 서명된 아티팩트(APK/APEX)가 다운로드되고 검증을 거쳐 시스템 업데이트로 이어지는 흐름을 보여줍니다.
+- [signed artifact 가 Play delivery 를 거쳐 update 되는 과정](../worked-examples/08-signed-artifact-through-play-delivery-to-update.md): Play 스토어를 통해 서명된 아티팩트(APK/APEX)가 다운로드되고 검증을 거쳐 시스템 업데이트로 이어지는 흐름을 보여준다.
 
-### 5. 이 주제와 연결된 Diagnostic Runbook
+### 이 주제와 연결된 Diagnostic Runbook
 
-시스템 업데이트, APEX 설치 또는 파티션 마운트 등 모듈화로 인해 발생할 수 있는 문제를 진단합니다.
+시스템 업데이트, APEX 설치 또는 파티션 마운트 등 모듈화로 인해 발생할 수 있는 문제를 진단한다.
 
-- [설치 또는 업데이트가 실패한다](../diagnostic-runbooks/08-install-update-failure.md): 패키지 설치 실패나 APEX 롤백 등 업데이트 과정에서 발생하는 다양한 실패 사례를 진단합니다.
+- [설치 또는 업데이트가 실패한다](../diagnostic-runbooks/08-install-update-failure.md): 패키지 설치 실패나 APEX 롤백 등 업데이트 과정에서 발생하는 다양한 실패 사례를 진단한다.
 
-### 6. 더 깊이 들어갈 때 (Learning Spine)
+### 더 깊이 들어갈 때 (Learning Spine)
 
-디바이스의 호환성을 검증하고(CTS) 플랫폼 파편화를 어떻게 관리하는지 전체적인 생태계 관점에서 확장 학습하려면 다음 챕터를 참고하세요.
+디바이스의 호환성을 검증하고(CTS) 플랫폼 파편화를 어떻게 관리하는지 전체적인 생태계 관점에서 확장 학습하려면 다음 챕터를 참고한다.
 
 - [호환성, update 와 form factor](../learning-spine/12-compatibility-update-and-form-factor.md)
 - [소스에서 설치된 패키지까지](../learning-spine/03-source-to-installed-package.md)

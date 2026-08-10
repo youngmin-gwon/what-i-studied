@@ -2,19 +2,19 @@
 title: D1-permission-model
 tags: [permissions, security, topic]
 aliases: [Permission and Sandbox, 권한 모델 완전 이해]
-date modified: 2026-08-05 12:00:00 +09:00
+date modified: 2026-08-10 12:00:00 +09:00
 date created: 2026-08-04 16:00:00 +09:00
 ---
 
 ## D1: 권한 모델 완전 이해 (Permission → AppOps → SELinux)
 
-안드로이드의 권한 시스템은 단순한 매니페스트 선언(Manifest Declaration)을 넘어, 런타임 권한, AppOps(백그라운드 제어/프라이버시 제어), 그리고 커널 수준의 SELinux 샌드박스로 이어지는 다층적 보안 구조를 가집니다. 이 주제는 앱이 시스템 자원에 접근하기 위해 통과해야 하는 독립적인 보안 게이트(Security Gates)들을 조망합니다.
+안드로이드의 권한 시스템은 단순한 매니페스트 선언(Manifest Declaration)을 넘어, 런타임 권한, AppOps(백그라운드 제어/프라이버시 제어), 그리고 커널 수준의 SELinux 샌드박스로 이어지는 다층적 보안 구조를 가진다. 이 주제는 앱이 시스템 자원에 접근하기 위해 통과해야 하는 독립적인 보안 게이트(Security Gates)들을 조망한다.
 
-### 1. 이 주제를 읽기 전에 (Prerequisite & Related Topics)
+### 이 주제를 읽기 전에 (Prerequisite & Related Topics)
 - 안드로이드 컴포넌트 모델과 매니페스트: 앱의 기본 구조와 권한 선언 방식
 - 프로세스 생명주기: 권한 부여 및 취소가 프로세스에 미치는 영향
 
-### 2. 전체 조망도 (Diagram)
+### 전체 조망도 (Diagram)
 ```mermaid
 flowchart TD
     A[앱 자원 접근 요청] --> B{Manifest 권한 선언?}
@@ -28,11 +28,11 @@ flowchart TD
     E -- Yes --> F[자원 접근 성공]
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### 권한 보호 수준과 보안 게이트
 
 #### 보호 수준과 런타임 권한 (Protection Levels & Runtime Permissions)
 
-안드로이드는 권한의 보호 수준(Normal, Signature, Dangerous 등)에 따라 권한 부여의 주체를 결정합니다. 위험(Dangerous) 권한은 반드시 사용자의 명시적인 승인(Runtime Permission)을 거쳐야 합니다.
+안드로이드는 권한의 보호 수준(Normal, Signature, Dangerous 등)에 따라 권한 부여의 주체를 결정한다. 위험(Dangerous) 권한은 반드시 사용자의 명시적인 승인(Runtime Permission)을 거쳐야 한다.
 
 - [Permission protection level defines who can grant access](../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-protection-level-defines-who-can-grant-access.md)
 - [Runtime permission is user-mediated access contract](../../05_security_privacy/permissions-and-sandbox/permission-contracts/runtime-permission-is-user-mediated-access-contract.md)
