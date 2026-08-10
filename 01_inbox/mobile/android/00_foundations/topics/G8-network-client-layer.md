@@ -3,7 +3,7 @@ title: G8-network-client-layer
 tags: [android, network, retrofit, okhttp, interceptor]
 aliases: [네트워크 클라이언트 계층 (Retrofit/OkHttp/Interceptor), Network Client Layer, 네트워킹]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-05 12:00:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 ---
 
 ## 네트워크 클라이언트 계층과 통신 규약

@@ -3,11 +3,12 @@ title: G6-app-shortcuts
 tags: [topic-synthesis, app-shortcuts, launcher, shortcut-manager]
 aliases: [App Shortcuts, App Shortcut]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 ---
 
-## App Shortcuts
-**Purpose Statement**: 앱의 주요 기능으로 빠르게 진입하는 통로인 App Shortcuts의 유형(정적, 동적, 핀)을 구별하고, 시스템의 노출 제한 정책을 이해한다.
+## G6 · App Shortcuts
+
+> **이 문서의 목적**: 앱의 주요 기능으로 빠르게 진입하는 통로인 App Shortcuts의 유형(정적, 동적, 핀)을 구별하고, 시스템의 노출 제한 정책을 이해한다.
 
 ### 1. 이 주제를 읽기 전에
 - Android Manifest와 메타데이터 선언
@@ -24,14 +25,14 @@ flowchart TD
     Pinned --> Launcher
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### 3. 숏컷의 유형과 시스템 제약
 
 **정적, 동적, 그리고 고정(Pinned) 숏컷의 차이**
-앱 배포 시 고정된 `Static` 숏컷, 사용자 상태에 따라 코드로 업데이트되는 `Dynamic` 숏컷, 그리고 사용자가 직접 바탕화면에 끌어다 놓아 런처가 소유권을 갖는 `Pinned` 숏컷은 서로 다른 관리 방식과 생명주기를 갖습니다.
+앱 배포 시 고정된 `Static` 숏컷, 사용자 상태에 따라 코드로 업데이트되는 `Dynamic` 숏컷, 그리고 사용자가 직접 바탕화면에 끌어다 놓아 런처가 소유권을 갖는 `Pinned` 숏컷은 서로 다른 관리 방식과 생명주기를 가진다.
 - [Static, dynamic, and pinned shortcuts have different ownership and lifecycle](../../04_system_services/device-capabilities/app-shortcuts-contracts/static-dynamic-and-pinned-shortcuts-have-different-ownership-and-lifecycle.md)
 
 **개수 제한 및 Rate Limiting**
-런처가 지원할 수 있는 숏컷의 개수에는 상한선(통상 4~5개)이 있으며, 백그라운드에서 동적 숏컷을 무한정 업데이트하는 것을 방지하기 위해 시스템 차원의 엄격한 Rate Limit가 적용됩니다.
+런처가 지원할 수 있는 숏컷의 개수에는 상한선(통상 4~5개)이 있으며, 백그라운드에서 동적 숏컷을 무한정 업데이트하는 것을 방지하기 위해 시스템 차원의 엄격한 Rate Limit가 적용된다.
 - [ShortcutManager caps dynamic shortcut count and rate limits background updates](../../04_system_services/device-capabilities/app-shortcuts-contracts/shortcutmanager-caps-dynamic-shortcut-count-and-rate-limits-background-updates.md)
 
 ### 4. 이 주제와 연결된 Worked Example

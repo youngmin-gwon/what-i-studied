@@ -3,11 +3,12 @@ title: G3-app-widget-and-glance
 tags: [topic-synthesis, app-widget, glance, remoteviews, homescreen]
 aliases: [App Widget과 Glance, App Widget, Glance]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 ---
 
-## App Widget과 Glance
-**Purpose Statement**: 홈 스크린에 제공되는 App Widget의 수명 주기, RemoteViews의 렌더링 한계, 그리고 이를 Compose 스타일로 추상화한 Glance 프레임워크를 이해한다.
+## G3 · App Widget과 Glance
+
+> **이 문서의 목적**: 홈 스크린에 제공되는 App Widget의 수명 주기, RemoteViews의 렌더링 한계, 그리고 이를 Compose 스타일로 추상화한 Glance 프레임워크를 이해한다.
 
 ### 1. 이 주제를 읽기 전에
 - BroadcastReceiver의 수명 주기
@@ -24,22 +25,22 @@ flowchart TD
     Compiler -.->|"Generates"| RV
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### 3. 위젯의 수명 주기와 RemoteViews의 한계
 
 **AppWidgetProvider는 BroadcastReceiver다**
-위젯 컴포넌트(`AppWidgetProvider`)는 상주하는 프로세스가 아니라 인텐트 발생 시 잠깐 깨어나는 BroadcastReceiver 기반이므로, 오래 걸리는 작업은 WorkManager 등으로 위임해야 합니다.
+위젯 컴포넌트(`AppWidgetProvider`)는 상주하는 프로세스가 아니라 인텐트 발생 시 잠깐 깨어나는 BroadcastReceiver 기반이므로, 오래 걸리는 작업은 WorkManager 등으로 위임해야 한다.
 - [AppWidgetProvider lifecycle runs through broadcasts, not a persistent process](../../02_app_framework/app-widgets/app-widget-contracts/appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md)
 
 **위젯 설정 화면 (Configuration Activity)**
-사용자가 홈 스크린에 위젯을 핀(Pin)할 때 단 한 번 실행되어 초기 환경(색상, 타겟 데이터 등)을 세팅하는 Configuration Activity를 제공할 수 있습니다.
+사용자가 홈 스크린에 위젯을 핀(Pin)할 때 단 한 번 실행되어 초기 환경(색상, 타겟 데이터 등)을 세팅하는 Configuration Activity를 제공할 수 있다.
 - [Widget configuration Activity runs once at pin time](../../02_app_framework/app-widgets/app-widget-contracts/widget-configuration-activity-runs-once-at-pin-time.md)
 
 **RemoteViews의 태생적 한계**
-위젯 UI는 홈 화면(Launcher)의 프로세스에서 렌더링되므로, Custom View를 사용할 수 없으며 시스템이 허용한 일부 뷰(TextView, ImageView 등) 패밀리만 직렬화된 `RemoteViews`로 전달해야 합니다.
+위젯 UI는 홈 화면(Launcher)의 프로세스에서 렌더링되므로, Custom View를 사용할 수 없으며 시스템이 허용한 일부 뷰(TextView, ImageView 등) 패밀리만 직렬화된 `RemoteViews`로 전달해야 한다.
 - [RemoteViews restricts widget layouts to a fixed View subset](../../02_app_framework/app-widgets/app-widget-contracts/remoteviews-restricts-widget-layouts-to-a-fixed-view-subset.md)
 
 **Glance의 역할**
-Jetpack Glance는 Compose의 문법을 위젯 작성에 사용할 수 있게 해주지만, 내부적으로는 여전히 `RemoteViews`로 번역되므로 Compose UI의 모든 기능(애니메이션 등)이 지원되지는 않습니다.
+Jetpack Glance는 Compose의 문법을 위젯 작성에 사용할 수 있게 해주지만, 내부적으로는 여전히 `RemoteViews`로 번역되므로 Compose UI의 모든 기능(애니메이션 등)이 지원되지 않는다.
 - [Glance renders App Widgets through RemoteViews, not Compose UI](../../02_app_framework/app-widgets/app-widget-contracts/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
 
 **최소 업데이트 주기의 한계**

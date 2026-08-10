@@ -3,11 +3,12 @@ title: G2-bluetooth-classic-and-ble
 tags: [topic-synthesis, bluetooth, ble, hardware-communication]
 aliases: [Bluetooth Classic·BLE, Bluetooth, BLE, Bluetooth Low Energy]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 ---
 
-## Bluetooth Classic·BLE
-**Purpose Statement**: Android 시스템에서 Bluetooth Classic과 BLE(Bluetooth Low Energy)의 차이를 이해하고, 스캔, 연결, 통신에 이르는 하드웨어 제어 및 권한 관리를 파악한다.
+## G2 · Bluetooth Classic·BLE
+
+> **이 문서의 목적**: Android 시스템에서 Bluetooth Classic과 BLE(Bluetooth Low Energy)의 차이를 이해하고, 스캔, 연결, 통신에 이르는 하드웨어 제어 및 권한 관리를 파악한다.
 
 ### 1. 이 주제를 읽기 전에
 - Android 위치 권한과 하드웨어 스캔의 관계
@@ -25,22 +26,22 @@ flowchart TD
     GATT -->|"6. Read/Write/Notify"| Characteristic[Characteristic]
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### 3. Bluetooth 통신의 권한과 배터리 제약
 
 **Bluetooth 권한의 변화 (Android 12+)**
-과거에는 Bluetooth 스캔을 위해 위치 권한이 필요했으나, Android 12부터는 물리적 위치를 유추하지 않는 한 새로운 런타임 권한(`BLUETOOTH_SCAN`, `BLUETOOTH_CONNECT`)으로 대체할 수 있습니다.
+과거에는 Bluetooth 스캔을 위해 위치 권한이 필요했으나, Android 12부터는 물리적 위치를 유추하지 않는 한 새로운 런타임 권한(`BLUETOOTH_SCAN`, `BLUETOOTH_CONNECT`)으로 대체할 수 있다.
 - [Android 12 Bluetooth runtime permissions conditionally replace location permission](../../04_system_services/device-capabilities/bluetooth-contracts/android-12-bluetooth-runtime-permissions-conditionally-replace-location-permission.md)
 
 **배터리 제약과 BLE 스캔 필터**
-백그라운드에서 진행되는 무분별한 BLE 스캔은 배터리를 급격히 소모하므로, OS는 Scan Filter가 없는 백그라운드 스캔을 엄격히 차단하거나 지연시킵니다.
+백그라운드에서 진행되는 무분별한 BLE 스캔은 배터리를 급격히 소모하므로, OS는 Scan Filter가 없는 백그라운드 스캔을 엄격히 차단하거나 지연시킨다.
 - [BLE background scanning is battery-constrained and needs scan filters](../../04_system_services/device-capabilities/bluetooth-contracts/ble-background-scanning-is-battery-constrained-and-needs-scan-filters.md)
 
 **Classic vs BLE (GATT)**
-대용량 데이터 스트리밍(오디오 등)에 적합한 Bluetooth Classic과, 간헐적인 소량 데이터 전송에 특화된 BLE(GATT 기반 구조)는 전혀 다른 연결 모델을 가집니다.
+대용량 데이터 스트리밍(오디오 등)에 적합한 Bluetooth Classic과, 간헐적인 소량 데이터 전송에 특화된 BLE(GATT 기반 구조)는 전혀 다른 연결 모델을 가진다.
 - [Bluetooth Classic and BLE GATT are different connection models](../../04_system_services/device-capabilities/bluetooth-contracts/bluetooth-classic-and-ble-gatt-are-different-connection-models.md)
 
 **GATT 콜백 상태 머신 관리**
-BLE 통신에서 `BluetoothGattCallback`은 비동기적이고 순차적으로 동작합니다. 연결 상태, 서비스 발견, 읽기/쓰기 완료 등을 추적하는 명시적인 상태 머신(State Machine)이 필수입니다.
+BLE 통신에서 `BluetoothGattCallback`은 비동기적이고 순차적으로 동작한다. 연결 상태, 서비스 발견, 읽기/쓰기 완료 등을 추적하는 명시적인 상태 머신(State Machine)이 필수다.
 - [BluetoothGatt callback connection needs an explicit state machine](../../04_system_services/device-capabilities/bluetooth-contracts/bluetoothgatt-callback-connection-needs-an-explicit-state-machine.md)
 
 ### 4. 이 주제와 연결된 Worked Example

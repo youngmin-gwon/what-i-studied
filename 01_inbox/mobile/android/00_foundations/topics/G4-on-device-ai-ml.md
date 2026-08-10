@@ -3,11 +3,12 @@ title: G4-on-device-ai-ml
 tags: [topic-synthesis, on-device-ai, aicore, ml-kit, tflite]
 aliases: [온디바이스 AI/ML (ML Kit, TFLite, AICore), On-Device AI/ML, AICore]
 date created: 2026-08-04 16:00:00 +09:00
-date modified: 2026-08-04 21:30:00 +09:00
+date modified: 2026-08-10 00:00:00 +09:00
 ---
 
-## 온디바이스 AI/ML (ML Kit, TFLite, AICore)
-**Purpose Statement**: 네트워크 연결 없이 디바이스 내에서 AI/ML 추론을 수행하는 방법론과, 시스템 서비스인 AICore 및 TFLite의 구조적 특징을 이해한다.
+## G4 · 온디바이스 AI/ML (ML Kit, TFLite, AICore)
+
+> **이 문서의 목적**: 네트워크 연결 없이 디바이스 내에서 AI/ML 추론을 수행하는 방법론과, 시스템 서비스인 AICore 및 TFLite의 구조적 특징을 이해한다.
 
 ### 1. 이 주제를 읽기 전에
 - 안드로이드 시스템 메모리 제약과 NDK/GPU 활용
@@ -24,10 +25,10 @@ flowchart TD
     AICore --> NPU[Local NPU]
 ```
 
-### 3. 하위 개념 및 원자 노트 합성
+### 3. 오프라인 추론과 시스템 모델 공유
 
 **네트워크 통신 없는 오프라인 추론**
-온디바이스 AI는 데이터가 기기 외부로 유출되지 않으므로 프라이버시가 보호되며, 네트워크 대기 시간이 없어 실시간 피드백(카메라 렌즈 분석 등)이 가능합니다.
+온디바이스 AI는 데이터가 기기 외부로 유출되지 않으므로 프라이버시가 보호되며, 네트워크 대기 시간이 없어 실시간 피드백(카메라 렌즈 분석 등)이 가능하다.
 - [On-device inference skips the network round-trip cloud inference needs](../../04_system_services/device-capabilities/on-device-ai-contracts/on-device-inference-skips-the-network-round-trip-cloud-inference-needs.md)
 
 **AICore와 공유 시스템 모델 (Gemini Nano)**
@@ -35,7 +36,7 @@ flowchart TD
 - [AICore manages Gemini Nano as a shared system model, not a bundled asset](../../04_system_services/device-capabilities/on-device-ai-contracts/aicore-manages-gemini-nano-as-a-shared-system-model-not-a-bundled-asset.md)
 
 **기능 가용성 (Availability) 검사 필수**
-모든 안드로이드 기기가 NPU를 갖추고 있거나 시스템 AI 모델을 다운로드해 둔 것은 아닙니다. 따라서 On-device API를 호출하기 전에 하드웨어 지원 여부와 모델 가용성을 먼저 확인하고 다운로드를 트리거해야 합니다.
+모든 안드로이드 기기가 NPU를 갖추고 있거나 시스템 AI 모델을 다운로드해 둔 것은 아니다. 따라서 On-device API를 호출하기 전에 하드웨어 지원 여부와 모델 가용성을 먼저 확인하고 다운로드를 트리거해야 한다.
 - [On-device AI feature availability must be checked before use](../../04_system_services/device-capabilities/on-device-ai-contracts/on-device-ai-feature-availability-must-be-checked-before-use.md)
 
 ### 4. 이 주제와 연결된 Worked Example
