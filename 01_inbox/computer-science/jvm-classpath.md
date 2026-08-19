@@ -2,7 +2,7 @@
 title: jvm-classpath
 tags: ["build-system", "classloader", "classpath", "computer-science", "java", "jvm"]
 aliases: ["Classpath", "Jar Hell", "JVM Classpath", "클래스패스", "파일시스템 경로 목록"]
-date modified: 2026-08-19 16:09:02 +09:00
+date modified: 2026-08-19 16:09:55 +09:00
 date created: 2026-08-19 14:40:00 +09:00
 ---
 
@@ -84,7 +84,7 @@ flowchart LR
 
 ### 3. 클래스패스 탐색 규칙과 Jar Hell (클래스 충돌)
 
-클래스로더는 클래스패스에 지정된 순서대로 탐색하며, **가장 먼저 발견된 클래스를 로드하고 탐색을 즉시 종료(First-match wins)**한다.
+클래스로더는 클래스패스에 지정된 순서대로 탐색하며, **가장 먼저 발견된 클래스를 로드하고 탐색을 즉시 종료(First-match wins)** 한다.
 
 ```text
 클래스패스: [ lib-v1.0.jar : lib-v2.0.jar ]
