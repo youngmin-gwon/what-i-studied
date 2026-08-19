@@ -10,7 +10,7 @@ updated: 2026-08-06 14:50:00 +09:00
 
 ## CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다
 
-상위 문서: [CI/CD 계약](ci-cd-contracts.md)
+상위 문서: [Android CI/CD](ci-cd.md)
 
 ### 개념 및 필요성 (What & Why)
 Android 앱 서명 키스토어 파일(`.jks`/`.keystore`), 키 비밀번호, 그리고 Google Play Console API 서비스 계정 자격증명 JSON 키(`service-account.json`)는 앱의 배포 권한 및 정체성을 결정짓는 **최상위 기밀 자산(Secret Asset)** 이다.
@@ -73,4 +73,4 @@ Git 커밋 이력 내 자격증명 파일 누출 유무는 `git log` 수색 도�
 git log -p -- "*.keystore" "*.jks" "*service-account*.json"
 ```
 
-관련 노트: [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](../gradle/gradle-build-contracts/signing-config-connects-local-signing-and-play-release-identity.md), [CI/CD 계약](ci-cd-contracts.md)
+관련 노트: [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](../gradle/gradle-build-contracts/signing-config-connects-local-signing-and-play-release-identity.md), [Android CI/CD](ci-cd.md)

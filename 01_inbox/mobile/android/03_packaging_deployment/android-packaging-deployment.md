@@ -51,7 +51,7 @@ flowchart TD
 ### 정본 MOC 영역 (Master Map of Content)
 1. **[Gradle 빌드 계약](build/gradle/gradle-build-contracts/gradle-build-contracts.md)**: AGP, `defaultConfig`, Build Variant 매트릭스, SourceSet 우선순위, Convention Plugin, `signingConfigs`.
 2. **[의존성 및 CI 계약](build/dependency-versioning/dependency-ci-contracts/dependency-ci-contracts.md)**: Version Catalog, KSP vs KAPT, Compose BOM/Compiler, `kotlinx.serialization`, Resolution Strategy, CI 게이트.
-3. **[CI/CD 계약](build/ci-cd-contracts/ci-cd-contracts.md)**: Fastlane 오케스트레이션, CI 자격증명 보안, Remote Cache & Build Matrix, 파이프라인 실패 시그널.
+3. **[Android CI/CD](build/ci-cd/ci-cd.md)**: Fastlane 오케스트레이션, CI 자격증명 보안, Remote Cache & Build Matrix, 파이프라인 실패 시그널.
 4. **[R8와 Gradle 빌드 최적화 계약](optimization/build-optimization-contracts/build-optimization-contracts.md)**: R8 수축/최적화/난독화, Resource Shrinker, ProGuard Keep Rules, R8 Full Mode, Incremental/Build/Configuration Cache.
 5. **[Play 릴리스와 배포 계약](distribution/release-distribution-contracts/release-distribution-contracts.md)**: AAB vs APK, Play App Signing, 업그레이드 호환성, 테스트 트랙, Staged Rollout, In-App Update/Review API.
 6. **[Play Delivery 계약](distribution/play-delivery-contracts/play-delivery-contracts.md)**: Play Feature Delivery(PFD), Dynamic Feature Module(DFM), Play Asset Delivery(PAD), SplitInstallManager.

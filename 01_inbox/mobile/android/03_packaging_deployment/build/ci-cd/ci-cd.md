@@ -1,14 +1,13 @@
 ---
-title: ci-cd-contracts
+title: ci-cd
 tags: ["android", "android/packaging-deployment", "ci-cd"]
-aliases: ["CI/CD 계약"]
+aliases: ["Android CI/CD"]
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-05 16:15:00 +09:00
-created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-19 10:45:00 +09:00
 ---
 
-## CI/CD 계약
+## Android CI/CD
+
 
 상위 문서: [Android 패키징과 배포 지도](../../android-packaging-deployment.md)
 
@@ -33,11 +32,14 @@ flowchart TD
     GradleBuild --> PlaySupply["Fastlane Supply (Upload AAB to Play Console)"]
 ```
 
-### 관련 세부 계약 문서
-1. [Fastlane은 Gradle을 대체하지 않고 Android 빌드를 조율한다](fastlane-orchestrates-android-builds-without-replacing-gradle.md)
-2. [CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다](ci-signing-and-service-account-credentials-must-stay-out-of-source-control.md)
-3. [빌드 매트릭스와 원격 캐시는 함께 CI 매트릭스 시간을 줄인다](build-matrix-and-remote-cache-together-reduce-ci-matrix-time.md)
-4. [Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다](android-cicd-pipeline-stages-have-different-failure-signals.md)
+### 관련 세부 문서
+1. [Gradle 코어 엔진 및 아키텍처](../gradle/gradle-build-contracts/gradle-core-engine-and-architecture.md)
+2. [Fastlane Android 코어 및 Actions](fastlane-android-core-and-actions.md)
+3. [Gradle 과 Fastlane CI/CD 파이프라인](gradle-fastlane-ci-cd-pipeline.md)
+4. [Fastlane은 Gradle을 대체하지 않고 Android 빌드를 조율한다](fastlane-orchestrates-android-builds-without-replacing-gradle.md)
+5. [CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다](ci-signing-and-service-account-credentials-must-stay-out-of-source-control.md)
+6. [빌드 매트릭스와 원격 캐시는 함께 CI 매트릭스 시간을 줄인다](build-matrix-and-remote-cache-together-reduce-ci-matrix-time.md)
+7. [Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다](android-cicd-pipeline-stages-have-different-failure-signals.md)
 
 ### 관측 가능 증거 (Observable Evidence)
 CI 파이프라인의 캐시 히트율 및 Fastlane 레인 실행 이력은 다음 명령어로 관측할 수 있다:

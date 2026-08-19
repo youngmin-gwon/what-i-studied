@@ -50,4 +50,4 @@ org.gradle.parallel=true
 ./gradlew app:assembleDebug --info | grep -E "UP-TO-DATE|FROM-CACHE|Reusing configuration cache"
 ```
 
-관련 노트: [빌드 매트릭스와 원격 캐시는 함께 CI 매트릭스 시간을 줄인다](../../build/ci-cd-contracts/build-matrix-and-remote-cache-together-reduce-ci-matrix-time.md), [빌드 최적화 계약](build-optimization-contracts.md)
+관련 노트: [빌드 매트릭스와 원격 캐시는 함께 CI 매트릭스 시간을 줄인다](../../build/ci-cd/build-matrix-and-remote-cache-together-reduce-ci-matrix-time.md), [빌드 최적화 계약](build-optimization-contracts.md)

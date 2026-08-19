@@ -10,7 +10,7 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ## 빌드 매트릭스와 원격 캐시는 함께 CI 매트릭스 시간을 줄인다
 
-상위 문서: [CI/CD 계약](ci-cd-contracts.md)
+상위 문서: [Android CI/CD](ci-cd.md)
 
 ### 개념 및 필요성 (What & Why)
 안드로이드 대규모 프로젝트에서 단일 CI 러너가 모든 빌드 변형(Build Variant)과 테스트 작업을 순차 실행하면 빌드 시간이 극도로 증가한다.
@@ -60,4 +60,4 @@ Gradle 빌드 시 캐시 히트율 및 FROM-CACHE 태스크 적용 현황을 관
 ./gradlew app:assembleDebug --build-cache --info | grep "FROM-CACHE"
 ```
 
-관련 노트: [증분 빌드, 빌드 캐시, configuration 캐시는 빌드 작업을 줄인다](../../optimization/build-optimization-contracts/incremental-build-cache-and-configuration-cache-reduce-build-work.md), [CI/CD 계약](ci-cd-contracts.md)
+관련 노트: [증분 빌드, 빌드 캐시, configuration 캐시는 빌드 작업을 줄인다](../../optimization/build-optimization-contracts/incremental-build-cache-and-configuration-cache-reduce-build-work.md), [Android CI/CD](ci-cd.md)

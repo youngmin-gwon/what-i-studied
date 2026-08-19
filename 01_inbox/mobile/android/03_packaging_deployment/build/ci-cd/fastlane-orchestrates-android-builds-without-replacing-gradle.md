@@ -10,7 +10,7 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ## Fastlane은 Gradle을 대체하지 않고 Android 빌드를 조율한다
 
-상위 문서: [CI/CD 계약](ci-cd-contracts.md)
+상위 문서: [Android CI/CD](ci-cd.md)
 
 ### 개념 및 필요성 (What & Why)
 **Fastlane(패스트레인)** 은 모바일 앱의 빌드, 서명, 스크린샷 생성, Google Play Console 업로드 파이프라인을 자동화하는 상위 오케스트레이션 도구 도메인이다.
@@ -64,4 +64,4 @@ Fastlane 레인 셋업 및 드라이런 검증은 터미널 명령으로 관측�
 bundle exec fastlane android internal_deploy --dry_run
 ```
 
-관련 노트: [CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다](ci-signing-and-service-account-credentials-must-stay-out-of-source-control.md), [CI/CD 계약](ci-cd-contracts.md)
+관련 노트: [CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다](ci-signing-and-service-account-credentials-must-stay-out-of-source-control.md), [Android CI/CD](ci-cd.md)

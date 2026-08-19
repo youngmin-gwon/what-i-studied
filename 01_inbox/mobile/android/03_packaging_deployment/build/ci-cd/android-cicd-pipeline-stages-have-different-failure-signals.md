@@ -10,7 +10,7 @@ updated: 2026-08-06 14:50:00 +09:00
 
 ## Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다
 
-상위 문서: [CI/CD 계약](ci-cd-contracts.md)
+상위 문서: [Android CI/CD](ci-cd.md)
 
 ### 개념 및 필요성 (What & Why)
 Android CI/CD 파이프라인에서 발생하는 원인 모를 빌드 실패를 신속하게 해결하기 위해서는 각 스테이지별로 유발되는 **실패 시그널(Failure Signal)** 의 고유 패턴을 정확히 구별해야 한다.
@@ -64,4 +64,4 @@ fi
 ./gradlew bundleRelease --stacktrace
 ```
 
-관련 노트: [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](../dependency-versioning/dependency-ci-contracts/android-cicd-gates-separate-fast-validation-and-release-validation.md), [CI/CD 계약](ci-cd-contracts.md)
+관련 노트: [Android CI/CD 게이트는 빠른 검증과 릴리스 검증을 분리한다](../dependency-versioning/dependency-ci-contracts/android-cicd-gates-separate-fast-validation-and-release-validation.md), [Android CI/CD](ci-cd.md)
