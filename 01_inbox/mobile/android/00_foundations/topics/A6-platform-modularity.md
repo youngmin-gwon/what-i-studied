@@ -51,14 +51,14 @@ graph TD
 
 - **플랫폼 모듈화와 Mainline (APEX)**
     Project Mainline 은 안드로이드 프레임워크의 핵심 구성 요소(예: 미디어 코덱, 네트워킹 구성 요소 등)를 구글 플레이 시스템 업데이트를 통해 직접 업데이트할 수 있게 한다. 일반 APK 로는 시스템 하위 레벨(네이티브 라이브러리 등)을 교체할 수 없어 APEX 라는 새로운 패키징 포맷이 사용된다.
-    - [Android 플랫폼 모듈화는 system, vendor, kernel 업데이트 경계를 층위별로 나눈다](../../01_system_internals/platform-modularity/platform-modularity-contracts/android-platform-modularity-splits-update-boundaries-by-system-layer.md): 플랫폼 모듈화는 시스템 계층별로 업데이트 경계를 분리한다.
-    - [Mainline은 선택된 system component를 정규 플랫폼 release 밖에서 업데이트한다](../../01_system_internals/platform-modularity/platform-modularity-contracts/mainline-updates-selected-system-components-outside-normal-platform-releases.md): Mainline 은 전체 OS 업데이트 없이 특정 시스템 컴포넌트만을 업데이트한다.
-    - [APEX 는 APK 모델로 다루기 어려운 lower-level system module 을 담는다](../../01_system_internals/platform-modularity/platform-modularity-contracts/apex-packages-lower-level-system-modules-that-apk-cannot-model-well.md): APEX 는 기존 APK 가 감당할 수 없는 하위 레벨 시스템 모듈을 패키징한다.
-    - [APEX activation 은 boot-time mount, version selection, rollback 경계다](../../01_system_internals/platform-modularity/platform-modularity-contracts/apex-activation-uses-boot-time-mounting-version-selection-and-rollback.md): APEX 는 초기 부팅 시에 마운트되며 안전한 롤백 매커니즘을 지원한다.
+    - [Android 플랫폼 모듈화는 system, vendor, kernel 업데이트 경계를 층위별로 나눈다](../../01_system_internals/platform-modularity/platform-modularity/android-platform-modularity-splits-update-boundaries-by-system-layer.md): 플랫폼 모듈화는 시스템 계층별로 업데이트 경계를 분리한다.
+    - [Mainline은 선택된 system component를 정규 플랫폼 release 밖에서 업데이트한다](../../01_system_internals/platform-modularity/platform-modularity/mainline-updates-selected-system-components-outside-normal-platform-releases.md): Mainline 은 전체 OS 업데이트 없이 특정 시스템 컴포넌트만을 업데이트한다.
+    - [APEX 는 APK 모델로 다루기 어려운 lower-level system module 을 담는다](../../01_system_internals/platform-modularity/platform-modularity/apex-packages-lower-level-system-modules-that-apk-cannot-model-well.md): APEX 는 기존 APK 가 감당할 수 없는 하위 레벨 시스템 모듈을 패키징한다.
+    - [APEX activation 은 boot-time mount, version selection, rollback 경계다](../../01_system_internals/platform-modularity/platform-modularity/apex-activation-uses-boot-time-mounting-version-selection-and-rollback.md): APEX 는 초기 부팅 시에 마운트되며 안전한 롤백 매커니즘을 지원한다.
 - **파트너 커스터마이징과 이미지 분리 (Vendor & Product)**
     기기 제조사(OEM)는 AOSP 코드베이스를 바탕으로 자사 기기만의 고유 기능(Product)과 하드웨어 제어(Vendor)를 추가한다. 이들의 소유권을 분리하기 위해 파티션(system, vendor, product, system_ext 등)이 나뉘어져 있다.
-    - [AOSP build는 source, device, vendor configuration으로 product image를 조립한다](../../01_system_internals/platform-customization/platform-customization-contracts/aosp-build-assembles-product-images-from-source-device-and-vendor-configuration.md): AOSP 빌드는 소스와 벤더 설정을 조합하여 여러 파티션 이미지를 조립한다.
-    - [product, vendor, odm, system_ext 는 customization ownership 을 나눈다](../../01_system_internals/platform-customization/platform-customization-contracts/product-vendor-odm-and-system-ext-split-customization-ownership.md): 다양한 파티션 분리를 통해 구글, 칩셋 벤더, 기기 제조사의 커스터마이징 소유권을 명확히 나눈다.
+    - [AOSP build는 source, device, vendor configuration으로 product image를 조립한다](../../01_system_internals/platform-customization/platform-customization/aosp-build-assembles-product-images-from-source-device-and-vendor-configuration.md): AOSP 빌드는 소스와 벤더 설정을 조합하여 여러 파티션 이미지를 조립한다.
+    - [product, vendor, odm, system_ext 는 customization ownership 을 나눈다](../../01_system_internals/platform-customization/platform-customization/product-vendor-odm-and-system-ext-split-customization-ownership.md): 다양한 파티션 분리를 통해 구글, 칩셋 벤더, 기기 제조사의 커스터마이징 소유권을 명확히 나눈다.
 
 ### 이 주제와 연결된 Worked Example
 

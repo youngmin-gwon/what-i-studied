@@ -66,17 +66,17 @@ graph TD
 
 ### 핵심 정본 지도 (Contract Index)
 
-- [Adaptive Navigation 계약](adaptive-navigation-contracts/adaptive-navigation-contracts.md)
-- [Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다](adaptive-navigation-contracts/adaptive-navigation-is-driven-by-window-and-posture.md)
-- [Top-level destination은 adaptive navigation chrome의 단위다](adaptive-navigation-contracts/top-level-destination-owns-adaptive-navigation-chrome.md)
-- [표준 adaptive scaffold를 먼저 검토하고 custom layout은 명시적 이유가 있을 때 둔다](adaptive-navigation-contracts/standard-adaptive-scaffolds-should-precede-custom-layouts.md)
-- [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](adaptive-navigation-contracts/pane-layout-preserves-selection-and-back-policy.md)
-- [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](adaptive-navigation-contracts/navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
+- [Adaptive Navigation 계약](adaptive-navigation/adaptive-navigation.md)
+- [Adaptive navigation은 device type이 아니라 현재 window와 posture로 결정한다](adaptive-navigation/adaptive-navigation-is-driven-by-window-and-posture.md)
+- [Top-level destination은 adaptive navigation chrome의 단위다](adaptive-navigation/top-level-destination-owns-adaptive-navigation-chrome.md)
+- [표준 adaptive scaffold를 먼저 검토하고 custom layout은 명시적 이유가 있을 때 둔다](adaptive-navigation/standard-adaptive-scaffolds-should-precede-custom-layouts.md)
+- [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](adaptive-navigation/pane-layout-preserves-selection-and-back-policy.md)
+- [Navigation 3 Scene과 adaptive scaffold는 서로 다른 레이아웃 문제를 푼다](adaptive-navigation/navigation3-scenes-and-adaptive-scaffolds-solve-different-layout-problems.md)
 
 ---
 
 ### 관련 상위 및 연관 노트
 
-- [Android Navigation 진입 계약](../navigation-contracts/navigation-contracts.md)
-- [Navigation 3 계약](../navigation3/navigation3-contracts/navigation3-contracts.md)
-- [Large Screen Contracts](../../../07_platforms/large-screens/large-screen-contracts/large-screen-contracts.md)
+- [Android Navigation 진입 계약](../navigation/navigation.md)
+- [Navigation 3 계약](../navigation3/navigation3/navigation3.md)
+- [Large Screen Contracts](../../../07_platforms/large-screens/large-screens/large-screen.md)

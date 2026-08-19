@@ -12,9 +12,9 @@ Android 비동기 프로그래밍 패러다임은 **[Kotlin Coroutines](../../ko
 
 ### 정본 지도
 
-- [Coroutine Contracts](./coroutines/coroutine-contracts.md) - Coroutine Scope, suspend 함수 메커니즘, Dispatcher 선택, 예외 전파 및 병렬 작업 계약.
-- [Flow Contracts](./flow/flow-contracts.md) - Cold Flow 실행 메커니즘, 연산자 파이프라인, callbackFlow 소멸 처리, shareIn 공유 정책.
-- [Flow와 [stateflow](../../stateflow-and-sharedflow.md) 상태 계약](./flow-state-contracts/flow-state-contracts.md) - Repository stream 데이터 공급, ViewModel의 StateFlow 조합, UI Lifecycle-aware 수집 계약.
+- [Coroutine Contracts](./coroutines/coroutine.md) - Coroutine Scope, suspend 함수 메커니즘, Dispatcher 선택, 예외 전파 및 병렬 작업 계약.
+- [Flow Contracts](./flow/flow.md) - Cold Flow 실행 메커니즘, 연산자 파이프라인, callbackFlow 소멸 처리, shareIn 공유 정책.
+- [Flow와 [stateflow](../../stateflow-and-sharedflow.md) 상태 계약](./flow-state/flow-state.md) - Repository stream 데이터 공급, ViewModel의 StateFlow 조합, UI Lifecycle-aware 수집 계약.
 - [Coroutine/Flow 테스트 계약](../../../06_testing_performance/testing/coroutine-flow-tests-control-dispatchers-and-virtual-time.md) - TestDispatcher 와 Virtual Time 제어를 통한 결정론적 비동기 검증.
 
 ```mermaid
@@ -34,7 +34,7 @@ graph TD
 1. **작업의 수명과 취소 경계**: 작업이 언제 시작되어 언제 취소되어야 하는가? $\rightarrow$ [Structured Concurrency 계약](./coroutines/structured-concurrency-parent-owns-child-lifetime.md)과 `viewModelScope` / `lifecycleScope` 소유권을 확인한다.
 2. **스레드 및 실행 위치**: CPU 연산인가, I/O 차단인가, UI 렌더링인가? $\rightarrow$ [Dispatcher 선택 계약](./coroutines/dispatcher-selects-execution-context-not-work-lifetime.md)을 통해 실행 위치를 고른다.
 3. **실패 격리 범위**: 자식 작업 하나가 실패했을 때 전체 작업을 취소할 것인가? $\rightarrow$ [Supervision Boundary 계약](./coroutines/exception-propagation-needs-supervision-boundary.md)을 적용한다.
-4. **스트림 발행 동작**: 수집자가 있을 때만 실행하는가, 아니면 항상 최신 상태를 유지하는가? $\rightarrow$ [Cold Flow](./flow/cold-flow-runs-when-collected.md) vs [StateFlow / SharedFlow](./flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md)를 구분한다.
-5. **UI 백그라운드 자원 낭비 방지**: 화면이 안 보일 때 수집을 중단하는가? $\rightarrow$ [Lifecycle-aware Collection](./flow-state-contracts/collect-flow-for-ui-with-lifecycle-aware-api.md) API를 사용한다.
+4. **스트림 발행 동작**: 수집자가 있을 때만 실행하는가, 아니면 항상 최신 상태를 유지하는가? $\rightarrow$ [Cold Flow](./flow/cold-flow-runs-when-collected.md) vs [StateFlow / SharedFlow](./flow-state/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md)를 구분한다.
+5. **UI 백그라운드 자원 낭비 방지**: 화면이 안 보일 때 수집을 중단하는가? $\rightarrow$ [Lifecycle-aware Collection](./flow-state/collect-flow-for-ui-with-lifecycle-aware-api.md) API를 사용한다.
 
 관련 지도: [Android Data Layer Map](../android-data-layer-map.md), [Android State Management](../../architecture/state-management/android-state-management.md)

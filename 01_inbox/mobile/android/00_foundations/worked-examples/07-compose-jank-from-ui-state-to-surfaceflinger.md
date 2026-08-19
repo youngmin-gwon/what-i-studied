@@ -183,12 +183,12 @@ class ScrollWatermarkBenchmark {
 
 ### 관련 원자 노트
 
-- [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/graphics-media-contracts/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)
-- [VSync와 Choreographer는 frame deadline을 정의한다](../../01_system_internals/graphics-and-media/graphics-media-contracts/vsync-and-choreographer-define-frame-deadline.md)
-- [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-state-read-location-controls-recomposition-scope.md)
-- [Recomposition은 전체 UI 재그리가 아니라 필요한 Composable scope 재실행이다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/recomposition-scope-control.md)
-- [Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다](../../02_app_framework/jetpack-compose/performance/compose-performance-contracts/compose-performance-starts-with-measure-debug-improve-loop.md)
-- [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../../06_testing_performance/performance/performance-contracts/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
+- [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/graphics-media/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)
+- [VSync와 Choreographer는 frame deadline을 정의한다](../../01_system_internals/graphics-and-media/graphics-media/vsync-and-choreographer-define-frame-deadline.md)
+- [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-state-read-location-controls-recomposition-scope.md)
+- [Recomposition은 전체 UI 재그리가 아니라 필요한 Composable scope 재실행이다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/recomposition-scope-control.md)
+- [Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-performance-starts-with-measure-debug-improve-loop.md)
+- [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../../06_testing_performance/performance/performance/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
 
 ### 공식 근거
 

@@ -46,7 +46,7 @@ graph TD
 
 ### 3. 주의사항 및 안티패턴 (UI Thread Blocking)
 
-- [ANR (Application Not Responding)](../01_system_internals/boot-and-runtime/system-server-contracts/anr-responsiveness-contract.md) - ActivityThread 메인 스레드 응답성 계약 위반 예방 가이드
+- [ANR (Application Not Responding)](../01_system_internals/boot-and-runtime/system-server/anr-responsiveness.md) - ActivityThread 메인 스레드 응답성 계약 위반 예방 가이드
 - **Context 참조 누수 주의**:
   - `ActivityThread` 가 관리하는 `Activity` 참조를 백그라운드 싱글톤에 넘기면 메모리 누수(Memory Leak)가 발생한다.
 

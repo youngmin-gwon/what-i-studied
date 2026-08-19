@@ -37,7 +37,7 @@ graph TD
 
 1. **`ActivityManagerService (AMS / ATMS)`**:
    - 앱 컴포넌트(`Activity`, `Service`, `BroadcastReceiver`, `ContentProvider`)의 생명주기와 프로세스 복제(`Zygote fork`)를 관리.
-   - 상세 내용: [앱 생명주기 및 실행 파이프라인](../00_foundations/overview/foundation-contracts/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md)
+   - 상세 내용: [앱 생명주기 및 실행 파이프라인](../00_foundations/overview/foundation/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md)
 2. **`WindowManagerService (WMS)`**:
    - 화면 창(Window)의 z-order 겹침 순서, SurfaceFlinger 연동 서피스 할당, 터치/키보드 입력 이벤트 전달.
    - 상세 내용: [WindowManagerService 레퍼런스](window-manager-service.md)

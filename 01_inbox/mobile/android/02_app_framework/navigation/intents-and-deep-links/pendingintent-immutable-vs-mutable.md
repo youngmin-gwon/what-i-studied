@@ -133,10 +133,10 @@ val action = NotificationCompat.Action.Builder(
 
 ### 6. 관련 문서 및 참조
 
-- 상위 계약 문서: [Intent & Manifest 계약](./intent-manifest-contracts/intent-manifest-contracts.md)
+- 상위 계약 문서: [Intent & Manifest 계약](./intent-manifest/intent-manifest.md)
 - 연관 atomic 계약 문서:
-  - [PendingIntent는 위임된 미래 intent 토큰이다](./intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md)
-  - [Notification deep link는 명시적 task와 back stack 정책이 필요하다](./deep-link-contracts/notification-deep-link-needs-explicit-task-and-back-stack-policy.md)
+  - [PendingIntent는 위임된 미래 intent 토큰이다](./intent-manifest/pendingintent-is-delegated-future-intent-token.md)
+  - [Notification deep link는 명시적 task와 back stack 정책이 필요하다](./deep-link/notification-deep-link-needs-explicit-task-and-back-stack-policy.md)
 - 상위 개요 문서: [Android Intent와 IPC 커뮤니케이션](./android-intent-and-ipc.md)
 
 검증일: 2026-08-06. Android 12+ PendingIntent immutability 보안 규격 검증 완료.

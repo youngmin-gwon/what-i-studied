@@ -71,5 +71,5 @@ adb logcat -d -s ActivityTaskManager | grep Displayed
 
 ## 4. 연결 문서 (Related Links)
 
-- [앱 실행 경로 계약](../00_foundations/overview/foundation-contracts/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md) - Launcher 에서 TTID/TTFD 로 이어지는 앱 구동 시퀀스
+- [앱 실행 경로 계약](../00_foundations/overview/foundation/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md) - Launcher 에서 TTID/TTFD 로 이어지는 앱 구동 시퀀스
 - [ActivityThread](../02_app_framework/activity-thread.md) - 앱 구동 및 렌더링 제출을 주도하는 메인 스레드

@@ -239,12 +239,12 @@ class DeepLinkNavigationHandler(
 
 ### 관련 원자 노트
 
-- [Android App Link는 검증된 HTTPS 딥 링크다](../../02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md)
-- [매니페스트 선언과 assetlinks.json의 역할](../../02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/manifest-and-assetlinks-have-distinct-roles.md)
-- [외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다](../../02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/external-uri-must-be-validated-before-navigation.md)
-- [인증이 필요한 딥 링크의 pending destination과 백 스택](../../02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/authenticated-deep-links-require-pending-destination-and-back-stack.md)
-- [Task와 back stack은 OS가 관리하는 Activity 작업 기록이지 앱 내부 navigation state가 아니다](../../02_app_framework/architecture/app-components/app-component-contracts/task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md)
-- [AndroidManifest.xml은 OS에 앱의 컴포넌트를 선언한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md)
+- [Android App Link는 검증된 HTTPS 딥 링크다](../../02_app_framework/navigation/intents-and-deep-links/deep-link/app-link-is-verified-https-deep-link.md)
+- [매니페스트 선언과 assetlinks.json의 역할](../../02_app_framework/navigation/intents-and-deep-links/deep-link/manifest-and-assetlinks-have-distinct-roles.md)
+- [외부 URI는 navigation 전에 allowlist와 canonicalization을 거쳐야 한다](../../02_app_framework/navigation/intents-and-deep-links/deep-link/external-uri-must-be-validated-before-navigation.md)
+- [인증이 필요한 딥 링크의 pending destination과 백 스택](../../02_app_framework/navigation/intents-and-deep-links/deep-link/authenticated-deep-links-require-pending-destination-and-back-stack.md)
+- [Task와 back stack은 OS가 관리하는 Activity 작업 기록이지 앱 내부 navigation state가 아니다](../../02_app_framework/architecture/app-components/app-component/task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md)
+- [AndroidManifest.xml은 OS에 앱의 컴포넌트를 선언한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest/android-manifest-declares-os-visible-components-and-entry-points.md)
 
 ---
 

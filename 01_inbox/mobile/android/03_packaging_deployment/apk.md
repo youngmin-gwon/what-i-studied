@@ -48,5 +48,5 @@ APK 와 현대 표준 배포 아티팩트인 AAB (Android App Bundle) 의 용량
 ### 4. 연결 문서 (Related Links)
 
 - [APK vs AAB 비교](apk-vs-aab.md) - APK 와 AAB 패키징 규격 상세 비교표
-- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md) - Google Play 표준 맞춤형 앱 분할 배포 아티팩트
-- [R8 코드 최적화 및 축소](optimization/build-optimization-contracts/r8-shrinks-optimizes-and-obfuscates-release-builds.md) - R8 을 통한 코드 최적화 및 난독화 contract
+- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md) - Google Play 표준 맞춤형 앱 분할 배포 아티팩트
+- [R8 코드 최적화 및 축소](optimization/build-optimization/r8-shrinks-optimizes-and-obfuscates-release-builds.md) - R8 을 통한 코드 최적화 및 난독화 contract

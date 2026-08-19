@@ -94,7 +94,7 @@ Android 앱은 `LocationManager`, `SensorManager`, `PackageManager` 처럼 이�
 
 Binder 는 요청을 대상 프로세스에 전달하고 호출자 UID 같은 식별 정보를 보존한다. 실제 시스템 서비스는 공유 상태를 소유하고 해당 기능의 정책과 동작을 결정한다. 즉, Binder 는 **전달 경계**이고 서비스는 **상태와 정책의 소유자**다.
 
-Android 내부의 `ServiceManager` 는 이름으로 Binder 서비스 접점을 등록하고 찾는 장부 역할을 한다. 앱이 사용하는 `PackageManager` 같은 관리 객체나 앱 `Service` 컴포넌트와는 다른 개념이다. 등록·조회와 Binder 호출의 세부 구현은 [IPC와 프로세스 계약](../../01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md) 에서 다룬다.
+Android 내부의 `ServiceManager` 는 이름으로 Binder 서비스 접점을 등록하고 찾는 장부 역할을 한다. 앱이 사용하는 `PackageManager` 같은 관리 객체나 앱 `Service` 컴포넌트와는 다른 개념이다. 등록·조회와 Binder 호출의 세부 구현은 [IPC와 프로세스 계약](../../01_system_internals/ipc-and-process/ipc-process/ipc-process.md) 에서 다룬다.
 
 #### 결과가 돌아오는 두 단계를 분리한다
 
@@ -269,15 +269,15 @@ Binder 가 흔한 경로지만 모든 시스템 통신이 Binder 인 것은 아�
 ### 관련 정본
 
 - [Android System Map](../overview/android-system-map.md)
-- [Android는 계층형 모바일 플랫폼이다](../overview/foundation-contracts/android-is-layered-mobile-platform-not-just-an-app-sdk.md)
-- [Android 계층 경계는 문제 위치를 분류한다](../overview/foundation-contracts/android-stack-boundaries-explain-where-a-problem-belongs.md)
-- [IPC와 프로세스 계약](../../01_system_internals/ipc-and-process/ipc-process-contracts/ipc-process-contracts.md)
+- [Android는 계층형 모바일 플랫폼이다](../overview/foundation/android-is-layered-mobile-platform-not-just-an-app-sdk.md)
+- [Android 계층 경계는 문제 위치를 분류한다](../overview/foundation/android-stack-boundaries-explain-where-a-problem-belongs.md)
+- [IPC와 프로세스 계약](../../01_system_internals/ipc-and-process/ipc-process/ipc-process.md)
 - [Binder IPC](../../01_system_internals/binder-ipc.md)
-- [시스템 서비스는 Binder 접점이자 플랫폼 정책 집행자다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-service-is-binder-endpoint-and-platform-policy-enforcer.md)
+- [시스템 서비스는 Binder 접점이자 플랫폼 정책 집행자다](../../01_system_internals/boot-and-runtime/system-server/system-service-is-binder-endpoint-and-platform-policy-enforcer.md)
 - [HAL과 네이티브 경계](../../01_system_internals/kernel-and-hal/hal-native-boundary.md)
-- [HAL은 프레임워크와 공급자 구현 사이의 사용자 공간 계약이다](../../01_system_internals/kernel-and-hal/hal-native-contracts/hal-is-stable-userspace-contract-between-framework-and-vendor.md)
+- [HAL은 프레임워크와 공급자 구현 사이의 사용자 공간 계약이다](../../01_system_internals/kernel-and-hal/hal-native/hal-is-stable-userspace-between-framework-and-vendor.md)
 - [Android 커널 실행 지도](../../01_system_internals/kernel-and-hal/android-kernel-runtime.md)
-- [센서 접근 계약](../../04_system_services/device-capabilities/sensor-contracts/sensor-contracts.md)
+- [센서 접근 계약](../../04_system_services/device-capabilities/sensors/sensor.md)
 
 ### 공식 근거
 

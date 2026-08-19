@@ -89,4 +89,4 @@ Storage lifecycle 노트는 FBE CE/DE 가용 시점, Direct Boot 단계, 캐시 
 
 상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup.md)
 
-관련 노트: [보안 저장소 정책은 저장하지 말아야 할 데이터와 백업 금지 항목을 포함한다](../secure-storage-contracts/secure-storage-policy-includes-what-not-to-store-and-backup.md)
+관련 노트: [보안 저장소 정책은 저장하지 말아야 할 데이터와 백업 금지 항목을 포함한다](../secure-storage/secure-storage-policy-includes-what-not-to-store-and-backup.md)

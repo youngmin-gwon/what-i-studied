@@ -10,9 +10,9 @@ date created: 2026-08-06 18:20:00 +09:00
 
 상위 문서: [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)
 
-관련 지도: [ChromeOS 고유 계약](./chromeos-contracts/chromeos-contracts.md)
+관련 지도: [ChromeOS 고유 계약](./chromeos/chromeos.md)
 
-실행 환경 노트: [ChromeOS는 Android 앱을 컨테이너에서 실행하고 창을 데스크톱 윈도우로 매핑한다](./chromeos-contracts/chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows.md)
+실행 환경 노트: [ChromeOS는 Android 앱을 컨테이너에서 실행하고 창을 데스크톱 윈도우로 매핑한다](./chromeos/chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows.md)
 
 ---
 
@@ -111,6 +111,6 @@ ps aux | grep crosvm
 - `adb shell dumpsys activity displays`: ARC 실행 체계 아래에서 생성된 Window Surface 매핑 정보 관측.
 
 #### 관련 노트
-- [ChromeOS는 Android 앱을 컨테이너에서 실행하고 창을 데스크톱 윈도우로 매핑한다](./chromeos-contracts/chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows.md)
-- [ChromeOS 고유 계약](./chromeos-contracts/chromeos-contracts.md)
+- [ChromeOS는 Android 앱을 컨테이너에서 실행하고 창을 데스크톱 윈도우로 매핑한다](./chromeos/chromeos-runs-android-apps-in-a-container-mapped-to-desktop-windows.md)
+- [ChromeOS 고유 계약](./chromeos/chromeos.md)
 - [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)

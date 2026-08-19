@@ -61,9 +61,9 @@ Android 의 모든 앱 컴포넌트(Activity, Service, BroadcastReceiver, Conten
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Activity 생명주기 콜백은 가시성과 상호작용 경계를 설명한다](../../02_app_framework/architecture/app-components/app-component-contracts/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md) | 각 콜백의 의미와 올바른 작업 배치 |
-| [Activity 는 사용자 가시 진입점이자 프로세스 우선순위 신호다](../../02_app_framework/architecture/app-components/app-component-contracts/activity-is-user-visible-entry-point-and-process-priority-signal.md) | Activity 상태가 OOM adj 에 미치는 영향 |
-| [Android 앱 컴포넌트는 프로세스 내 객체가 아니라 시스템 진입점이다](../../02_app_framework/architecture/app-components/app-component-contracts/android-app-components-are-system-entry-points-not-in-process-objects.md) | 컴포넌트 = 시스템 진입점 관점 |
+| [Activity 생명주기 콜백은 가시성과 상호작용 경계를 설명한다](../../02_app_framework/architecture/app-components/app-component/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md) | 각 콜백의 의미와 올바른 작업 배치 |
+| [Activity 는 사용자 가시 진입점이자 프로세스 우선순위 신호다](../../02_app_framework/architecture/app-components/app-component/activity-is-user-visible-entry-point-and-process-priority-signal.md) | Activity 상태가 OOM adj 에 미치는 영향 |
+| [Android 앱 컴포넌트는 프로세스 내 객체가 아니라 시스템 진입점이다](../../02_app_framework/architecture/app-components/app-component/android-app-components-are-system-entry-points-not-in-process-objects.md) | 컴포넌트 = 시스템 진입점 관점 |
 
 ---
 
@@ -82,8 +82,8 @@ Android 의 모든 앱 컴포넌트(Activity, Service, BroadcastReceiver, Conten
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [설정 변경은 Activity 를 재생성하지만 모든 화면 상태를 재생성하지는 않는다](../../02_app_framework/architecture/app-components/app-component-contracts/configuration-change-recreates-activity-but-not-all-screen-state.md) | 설정 변경 시 상태 생존 여부 분류 |
-| [프로세스 종료 복구에는 saved state 와 영속 source of truth 가 필요하다](../../02_app_framework/architecture/app-components/app-component-contracts/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md) | 복구 전략 결정 기준 |
+| [설정 변경은 Activity 를 재생성하지만 모든 화면 상태를 재생성하지는 않는다](../../02_app_framework/architecture/app-components/app-component/configuration-change-recreates-activity-but-not-all-screen-state.md) | 설정 변경 시 상태 생존 여부 분류 |
+| [프로세스 종료 복구에는 saved state 와 영속 source of truth 가 필요하다](../../02_app_framework/architecture/app-components/app-component/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md) | 복구 전략 결정 기준 |
 
 ---
 
@@ -119,7 +119,7 @@ Android 의 Task 는 "사용자가 함께 수행하는 Activity 들의 묶음"�
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Task 와 Back Stack 은 앱 내비게이션 상태가 아닌 OS 의 Activity 내비게이션이다](../../02_app_framework/architecture/app-components/app-component-contracts/task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md) | OS Task vs app navigation 층위 구분 |
+| [Task 와 Back Stack 은 앱 내비게이션 상태가 아닌 OS 의 Activity 내비게이션이다](../../02_app_framework/architecture/app-components/app-component/task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md) | OS Task vs app navigation 층위 구분 |
 
 ---
 
@@ -137,7 +137,7 @@ Android 권장 아키텍처의 핵심은 **State Down, Action Up** 이다:
 |---|---|
 | [UI 는 상태를 아래로 받고 사용자 행동을 위로 전달한다](../../02_app_framework/architecture/state-management/ui-state/ui-receives-state-and-sends-actions-up.md) | State down / Action up 패턴 |
 | [화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다](../../02_app_framework/architecture/state-management/ui-state/screen-state-is-immutable-and-changes-by-explicit-transitions.md) | immutable UiState 설계 원칙 |
-| [UI, domain, data layer 는 rendering, policy, source of truth 를 분리한다](../../02_app_framework/architecture/jetpack-architecture/architecture-contracts/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md) | 3 개 레이어의 책임 분리 |
+| [UI, domain, data layer 는 rendering, policy, source of truth 를 분리한다](../../02_app_framework/architecture/jetpack-architecture/architecture/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md) | 3 개 레이어의 책임 분리 |
 | [소비 가능한 신호는 event stream 에 둔다](../../02_app_framework/architecture/state-management/ui-state/consumable-signals-belong-in-event-stream.md) | Toast/Navigation 같은 일회성 이벤트 처리 |
 
 ---
@@ -154,10 +154,10 @@ Android 권장 아키텍처의 핵심은 **State Down, Action Up** 이다:
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Context 는 Android 환경 접근 능력이지 의존성 컨테이너가 아니다](../../02_app_framework/architecture/context-and-modularity/context-contracts/context-is-android-environment-capability-not-dependency-container.md) | Context 의 올바른 이해 |
-| [Activity Context 는 Window, Theme, 짧은 수명을 갖는다](../../02_app_framework/architecture/context-and-modularity/context-contracts/activity-context-carries-window-theme-and-short-lifetime.md) | Activity Context 적합 범위 |
-| [Context 누수는 참조가 컴포넌트 수명보다 오래 살 때 발생한다](../../02_app_framework/architecture/context-and-modularity/context-contracts/context-leaks-happen-when-reference-outlives-component-lifetime.md) | 누수 패턴과 방지 원칙 |
-| [ViewModel 과 Repository 는 UI Context 를 보유하지 않아야 한다](../../02_app_framework/architecture/context-and-modularity/context-contracts/viewmodel-and-repository-should-not-retain-ui-context.md) | 메모리 누수 방지 실천 |
+| [Context 는 Android 환경 접근 능력이지 의존성 컨테이너가 아니다](../../02_app_framework/architecture/context-and-modularity/context/context-is-android-environment-capability-not-dependency-container.md) | Context 의 올바른 이해 |
+| [Activity Context 는 Window, Theme, 짧은 수명을 갖는다](../../02_app_framework/architecture/context-and-modularity/context/activity-context-carries-window-theme-and-short-lifetime.md) | Activity Context 적합 범위 |
+| [Context 누수는 참조가 컴포넌트 수명보다 오래 살 때 발생한다](../../02_app_framework/architecture/context-and-modularity/context/context-leaks-happen-when-reference-outlives-component-lifetime.md) | 누수 패턴과 방지 원칙 |
+| [ViewModel 과 Repository 는 UI Context 를 보유하지 않아야 한다](../../02_app_framework/architecture/context-and-modularity/context/viewmodel-and-repository-should-not-retain-ui-context.md) | 메모리 누수 방지 실천 |
 
 ---
 

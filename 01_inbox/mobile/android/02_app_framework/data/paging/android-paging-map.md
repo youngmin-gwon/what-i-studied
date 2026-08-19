@@ -17,7 +17,7 @@ Android Paging 3 라이브러리는 대용량 데이터를 메모리 효율적�
 ## 2. Paging 3 단일 진실 출처 (SSOT) 및 세부 계약 노드
 
 - **[Paging 3 표준 레퍼런스](../../paging-3.md)** - Paging 3 아키텍처 및 뷔페 음식 접시 비유 (SSOT)
-- [Pager 및 PagingData Flow 생성 규칙](paging-contracts/pager-exposes-pagingdata-flow-from-pagingsource-factory.md)
-- [PagingSource 청크 로딩 규칙](paging-contracts/paging-source-loads-one-page-and-returns-keys.md)
-- [Paging Item Identity 및 Diffing 규칙](paging-contracts/paging-item-identity-and-content-drive-diffing.md)
-- [cachedIn 수명주기 결합 규칙](paging-contracts/cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md)
+- [Pager 및 PagingData Flow 생성 규칙](paging/pager-exposes-pagingdata-flow-from-pagingsource-factory.md)
+- [PagingSource 청크 로딩 규칙](paging/paging-source-loads-one-page-and-returns-keys.md)
+- [Paging Item Identity 및 Diffing 규칙](paging/paging-item-identity-and-content-drive-diffing.md)
+- [cachedIn 수명주기 결합 규칙](paging/cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md)

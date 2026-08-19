@@ -55,9 +55,9 @@ adb shell appops get com.example.app
 
 ### 정본 지도
 
-- [Android 권한 계약](permissions-and-sandbox/permission-contracts/permission-contracts.md)
-- [Android 플랫폼 보안 경계 계약](platform-hardening/platform-security-contracts/platform-security-contracts.md)
-- [무결성과 attestation 계약](integrity-and-attestation/integrity-contracts/integrity-contracts.md)
-- [보안 저장소 계약](secure-storage/secure-storage-contracts/secure-storage-contracts.md)
+- [Android 권한 계약](permissions-and-sandbox/permissions/permission.md)
+- [Android 플랫폼 보안 경계 계약](platform-hardening/platform-security/platform-security.md)
+- [무결성과 attestation 계약](integrity-and-attestation/integrity/integrity.md)
+- [보안 저장소 계약](secure-storage/secure-storage/secure-storage.md)
 - [저장소 수명과 백업 경계](secure-storage/storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
-- [Android 보안 실무는 클라이언트 신뢰가 아니라 방어 계층 설계다](security-practices/security-practice-contracts/android-security-practice-is-defense-in-depth-not-client-trust.md)
+- [Android 보안 실무는 클라이언트 신뢰가 아니라 방어 계층 설계다](security-practices/security-practice/android-security-practice-is-defense-in-depth-not-client-trust.md)

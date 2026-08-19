@@ -98,4 +98,4 @@ sequenceDiagram
 
 - [system_server](system-server.md) - JobSchedulerService 가 상주하는 메인 시스템 프로세스
 - [ServiceManager](service-manager.md) - JobSchedulerService 의 Binder 참조를 관리하는 전역 디렉토리
-- [WorkManager 레퍼런스](background-and-notifications/background-work-contracts/work-manager-contract.md) - 보장된 지연 가능 백그라운드 작업 표준 래퍼 라이브러리
+- [WorkManager 레퍼런스](background-and-notifications/background-work/work-manager.md) - 보장된 지연 가능 백그라운드 작업 표준 래퍼 라이브러리

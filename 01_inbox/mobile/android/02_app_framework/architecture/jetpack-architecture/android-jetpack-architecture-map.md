@@ -14,26 +14,26 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ### 1. 정본 계약 노드 하위 지형도
 
-- [Jetpack Architecture는 필수 stack이 아니라 책임 분리 지도다](./architecture-contracts/jetpack-architecture-is-recommended-responsibility-map-not-mandatory-stack.md)
-- [아키텍처 결정은 owner, lifetime, survival 요구에서 시작한다](./architecture-contracts/architecture-decisions-start-from-owner-lifetime-and-survival-requirements.md)
-- [UI, domain, data layer는 rendering, policy, source of truth를 분리한다](./architecture-contracts/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md)
-- [Jetpack Architecture 문서는 세부 구현을 반복하지 않는 map이어야 한다](./architecture-contracts/jetpack-architecture-map-links-to-canonical-android-guides.md)
+- [Jetpack Architecture는 필수 stack이 아니라 책임 분리 지도다](./architecture/jetpack-architecture-is-recommended-responsibility-map-not-mandatory-stack.md)
+- [아키텍처 결정은 owner, lifetime, survival 요구에서 시작한다](./architecture/architecture-decisions-start-from-owner-lifetime-and-survival-requirements.md)
+- [UI, domain, data layer는 rendering, policy, source of truth를 분리한다](./architecture/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md)
+- [Jetpack Architecture 문서는 세부 구현을 반복하지 않는 map이어야 한다](./architecture/jetpack-architecture-map-links-to-canonical-android-guides.md)
 
 ---
 
 ### 2. 세부 도메인별 정본 맵
 
 1. **UI & State Holder**:
-   - [Jetpack Compose UI & State](../../jetpack-compose/state-and-lifecycle/compose-state-and-effect-contracts/compose-state-and-effect-contracts.md)
+   - [Jetpack Compose UI & State](../../jetpack-compose/state-and-lifecycle/compose-state-and-effect/compose-state-and-effect.md)
    - [ViewModel & State Flow](../state-management/viewmodel/viewmodel.md)
 2. **Data & Async Stream**:
-   - [Kotlin Coroutines & Flow](../../data/async-flow/coroutines/coroutine-contracts.md)
-   - [Persistence (Room / DataStore)](../../data/storage/persistence-contracts/persistence-contracts.md)
+   - [Kotlin Coroutines & Flow](../../data/async-flow/coroutines/coroutine.md)
+   - [Persistence (Room / DataStore)](../../data/storage/persistence/persistence.md)
 3. **Dependency Injection**:
    - [Android Dependency Injection (Hilt / Dagger)](../../dependency-injection/android-dependency-injection-map.md)
 4. **Navigation & Multiplatform**:
-   - [Navigation 3 Contracts](../../navigation/navigation3/navigation3-contracts/navigation3-contracts.md)
-   - [Multiplatform Contracts](../multiplatform-contracts/multiplatform-contracts.md)
+   - [Navigation 3 Contracts](../../navigation/navigation3/navigation3/navigation3.md)
+   - [Multiplatform Contracts](../multiplatform/multiplatform.md)
 
 ---
 

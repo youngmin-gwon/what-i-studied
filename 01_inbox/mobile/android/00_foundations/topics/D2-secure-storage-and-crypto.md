@@ -34,14 +34,14 @@ flowchart LR
 
 #### 안드로이드 Keystore와 생체 인증 연동 (Keystore & Biometrics)
 비밀키는 메모리에 노출되어서는 안 되며, Android Keystore(하드웨어 지원 환경) 내부에서 생성되고 관리되어야 한다. 민감한 키 사용 시 사용자의 생체 인증을 필수 조건으로 결합할 수 있다.
-- [Android Keystore protects keys by non-exportability](../../05_security_privacy/secure-storage/secure-storage-contracts/android-keystore-protects-keys-by-non-exportability.md)
-- [BiometricPrompt authorizes Keystore key use](../../05_security_privacy/secure-storage/secure-storage-contracts/biometricprompt-authorizes-keystore-key-use.md)
-- [Sensitive data requires encryption and key ownership](../../05_security_privacy/secure-storage/secure-storage-contracts/sensitive-data-requires-encryption-and-key-ownership.md)
+- [Android Keystore protects keys by non-exportability](../../05_security_privacy/secure-storage/secure-storage/android-keystore-protects-keys-by-non-exportability.md)
+- [BiometricPrompt authorizes Keystore key use](../../05_security_privacy/secure-storage/secure-storage/biometricprompt-authorizes-keystore-key-use.md)
+- [Sensitive data requires encryption and key ownership](../../05_security_privacy/secure-storage/secure-storage/sensitive-data-requires-encryption-and-key-ownership.md)
 
 #### 암호화 동작과 래퍼 API (Crypto Operations & Wrapper APIs)
 암호화(특히 AES-GCM) 시 IV(초기화 벡터) 재사용 방지와 인증 태그 검증은 데이터 무결성을 보장하는 핵심입니다. EncryptedSharedPreferences와 같은 래퍼 API는 유용하지만 한계점도 명확히 이해해야 합니다.
-- [AES-GCM requires unique IV and authentication tag](../../05_security_privacy/secure-storage/secure-storage-contracts/aes-gcm-requires-unique-iv-and-authentication-tag.md)
-- [Encrypted storage APIs do not replace key and data boundary](../../05_security_privacy/secure-storage/secure-storage-contracts/encrypted-storage-apis-do-not-replace-key-and-data-boundary.md)
+- [AES-GCM requires unique IV and authentication tag](../../05_security_privacy/secure-storage/secure-storage/aes-gcm-requires-unique-iv-and-authentication-tag.md)
+- [Encrypted storage APIs do not replace key and data boundary](../../05_security_privacy/secure-storage/secure-storage/encrypted-storage-apis-do-not-replace-key-and-data-boundary.md)
 
 #### 데이터 생명주기와 백업 (Storage Lifecycle & FBE)
 기기가 부팅되었으나 잠금 해제되지 않은 Direct Boot 상태(Device Encrypted, DE)와, 잠금 해제 후 사용자 데이터(Credential Encrypted, CE)의 접근 가능 시점은 구분됩니다. 또한 앱 백업 정책은 저장소 생명주기와 밀접하게 닿아 있습니다.

@@ -1,5 +1,5 @@
 ---
-title: shared-memory-and-mmap-contracts
+title: shared-memory-and-mmap
 tags: [ipc, mmap, operating-systems, semaphore, shared-memory, synchronization, zero-copy]
 aliases: [Shared Memory and mmap Contracts, 공유 메모리와 mmap 계약]
 date modified: 2026-08-10 00:00:00 +09:00

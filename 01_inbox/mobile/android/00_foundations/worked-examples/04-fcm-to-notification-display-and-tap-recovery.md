@@ -246,12 +246,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 ### 관련 원자 노트
 
-- [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](../../04_system_services/background-and-notifications/notification-messaging-contracts/fcm-delivery-guarantee.md)
-- [FCM notification payload와 data payload는 처리 지점이 다르다](../../04_system_services/background-and-notifications/notification-messaging-contracts/fcm-payload-handling.md)
-- [Android 알림은 권한과 채널이 표시 가능성을 결정한다](../../04_system_services/background-and-notifications/notification-messaging-contracts/notification-permission-channel.md)
-- [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](../../04_system_services/background-and-notifications/notification-messaging-contracts/fcm-delivery-lifecycle.md)
-- [알림은 PendingIntent로 딥 링크 여정을 시작한다](../../02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/notification-deep-link-needs-explicit-task-and-back-stack-policy.md)
-- [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](../../04_system_services/background-and-notifications/notification-messaging-contracts/fcm-registration-token.md)
+- [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](../../04_system_services/background-and-notifications/notification-messaging/fcm-delivery-guarantee.md)
+- [FCM notification payload와 data payload는 처리 지점이 다르다](../../04_system_services/background-and-notifications/notification-messaging/fcm-payload-handling.md)
+- [Android 알림은 권한과 채널이 표시 가능성을 결정한다](../../04_system_services/background-and-notifications/notification-messaging/notification-permission-channel.md)
+- [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](../../04_system_services/background-and-notifications/notification-messaging/fcm-delivery-lifecycle.md)
+- [알림은 PendingIntent로 딥 링크 여정을 시작한다](../../02_app_framework/navigation/intents-and-deep-links/deep-link/notification-deep-link-needs-explicit-task-and-back-stack-policy.md)
+- [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](../../04_system_services/background-and-notifications/notification-messaging/fcm-registration-token.md)
 
 ---
 

@@ -97,13 +97,13 @@ Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 corou
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [StateFlow 는 현재값이 필요한 화면 상태에 사용하고 Flow 는 원천 데이터 흐름에 사용한다](../../02_app_framework/data/async-flow/flow-state-contracts/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md) | 두 API 의 정확한 용도 구분 |
-| [Repository 는 데이터 흐름을 Flow 로 제공하고 ViewModel 은 화면 상태로 조합한다](../../02_app_framework/data/async-flow/flow-state-contracts/repository-exposes-flow-and-viewmodel-composes-screen-state.md) | 레이어별 역할 분담 패턴 |
-| [SharedFlow 와 Channel 은 상태 저장소가 아니라 일회성 신호 전달 수단이다](../../02_app_framework/data/async-flow/flow-state-contracts/sharedflow-and-channel-are-event-signals-not-state-stores.md) | 이벤트 vs 상태 구분 |
-| [화면에 그릴 Flow 는 lifecycle-aware API 로 수집한다](../../02_app_framework/data/async-flow/flow-state-contracts/collect-flow-for-ui-with-lifecycle-aware-api.md) | collectAsStateWithLifecycle vs collectAsState |
-| [stateIn 은 명시적 수명과 공유 정책이 필요하다](../../02_app_framework/data/async-flow/flow-state-contracts/statein-requires-explicit-lifetime-and-sharing-policy.md) | WhileSubscribed(5000) 이유 |
-| [flatMapLatest 는 새 입력에 의한 구식 작업을 취소한다](../../02_app_framework/data/async-flow/flow-state-contracts/flatmaplatest-cancels-obsolete-work-for-new-input.md) | 검색 입력 취소 패턴 |
-| [combine 은 최신 소스값으로 화면 상태를 만든다](../../02_app_framework/data/async-flow/flow-state-contracts/combine-builds-screen-state-from-latest-source-values.md) | 다중 flow 조합 패턴 |
+| [StateFlow 는 현재값이 필요한 화면 상태에 사용하고 Flow 는 원천 데이터 흐름에 사용한다](../../02_app_framework/data/async-flow/flow-state/stateflow-is-for-current-screen-state-flow-is-for-source-stream.md) | 두 API 의 정확한 용도 구분 |
+| [Repository 는 데이터 흐름을 Flow 로 제공하고 ViewModel 은 화면 상태로 조합한다](../../02_app_framework/data/async-flow/flow-state/repository-exposes-flow-and-viewmodel-composes-screen-state.md) | 레이어별 역할 분담 패턴 |
+| [SharedFlow 와 Channel 은 상태 저장소가 아니라 일회성 신호 전달 수단이다](../../02_app_framework/data/async-flow/flow-state/sharedflow-and-channel-are-event-signals-not-state-stores.md) | 이벤트 vs 상태 구분 |
+| [화면에 그릴 Flow 는 lifecycle-aware API 로 수집한다](../../02_app_framework/data/async-flow/flow-state/collect-flow-for-ui-with-lifecycle-aware-api.md) | collectAsStateWithLifecycle vs collectAsState |
+| [stateIn 은 명시적 수명과 공유 정책이 필요하다](../../02_app_framework/data/async-flow/flow-state/statein-requires-explicit-lifetime-and-sharing-policy.md) | WhileSubscribed(5000) 이유 |
+| [flatMapLatest 는 새 입력에 의한 구식 작업을 취소한다](../../02_app_framework/data/async-flow/flow-state/flatmaplatest-cancels-obsolete-work-for-new-input.md) | 검색 입력 취소 패턴 |
+| [combine 은 최신 소스값으로 화면 상태를 만든다](../../02_app_framework/data/async-flow/flow-state/combine-builds-screen-state-from-latest-source-values.md) | 다중 flow 조합 패턴 |
 
 ---
 
@@ -117,10 +117,10 @@ Room 은 SQLite 위에서 동작하는 Jetpack ORM 이다. `@Entity`, `@Dao`, `@
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Room 은 누적되고 조회되는 로컬 데이터를 저장한다](../../02_app_framework/data/storage/persistence-contracts/room-stores-accumulated-queryable-local-data.md) | Entity/DAO/Database 구조와 Flow 통합 |
-| [SQLite 는 저장 엔진이고 Room 은 앱 접근 레이어다](../../02_app_framework/data/storage/persistence-contracts/sqlite-is-storage-engine-room-is-app-access-layer.md) | Room 이 SQLite 위에서 하는 일 |
-| [Repository 는 Room 과 DataStore 를 Flow 로 연결한다](../../02_app_framework/data/storage/persistence-contracts/repository-connects-room-and-datastore-as-flow.md) | Repository 패턴 구현 |
-| [DataStore 와 Room migration 은 시간 경계다](../../02_app_framework/data/storage/persistence-contracts/datastore-and-room-migrations-are-time-boundaries.md) | Migration 설계 원칙 |
+| [Room 은 누적되고 조회되는 로컬 데이터를 저장한다](../../02_app_framework/data/storage/persistence/room-stores-accumulated-queryable-local-data.md) | Entity/DAO/Database 구조와 Flow 통합 |
+| [SQLite 는 저장 엔진이고 Room 은 앱 접근 레이어다](../../02_app_framework/data/storage/persistence/sqlite-is-storage-engine-room-is-app-access-layer.md) | Room 이 SQLite 위에서 하는 일 |
+| [Repository 는 Room 과 DataStore 를 Flow 로 연결한다](../../02_app_framework/data/storage/persistence/repository-connects-room-and-datastore-as-flow.md) | Repository 패턴 구현 |
+| [DataStore 와 Room migration 은 시간 경계다](../../02_app_framework/data/storage/persistence/datastore-and-room-migrations-are-time-boundaries.md) | Migration 설계 원칙 |
 
 ---
 
@@ -137,10 +137,10 @@ DataStore 는 `SharedPreferences` 를 대체하는 Jetpack 저장소다. 비동�
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [DataStore 는 작은 설정과 현재 상태를 저장한다](../../02_app_framework/data/storage/persistence-contracts/datastore-stores-small-settings-and-current-state.md) | DataStore 적합 범위와 Flow 통합 |
-| [저장소는 데이터 수명과 소유권으로 선택한다](../../02_app_framework/data/storage/persistence-contracts/choose-storage-by-data-lifetime-and-ownership.md) | Room vs DataStore vs File 선택 기준 |
-| [앱 전용 디렉터리는 앱이 소유하는 파일에 사용한다](../../02_app_framework/data/storage/file-access-contracts/app-specific-directory-is-for-app-owned-files.md) | filesDir vs cacheDir 구분 |
-| [Scoped Storage 는 공유 저장소 직접 접근을 제한한다](../../02_app_framework/data/storage/file-access-contracts/scoped-storage-limits-direct-shared-storage-access.md) | Android 10+ 파일 접근 정책 |
+| [DataStore 는 작은 설정과 현재 상태를 저장한다](../../02_app_framework/data/storage/persistence/datastore-stores-small-settings-and-current-state.md) | DataStore 적합 범위와 Flow 통합 |
+| [저장소는 데이터 수명과 소유권으로 선택한다](../../02_app_framework/data/storage/persistence/choose-storage-by-data-lifetime-and-ownership.md) | Room vs DataStore vs File 선택 기준 |
+| [앱 전용 디렉터리는 앱이 소유하는 파일에 사용한다](../../02_app_framework/data/storage/file-access/app-specific-directory-is-for-app-owned-files.md) | filesDir vs cacheDir 구분 |
+| [Scoped Storage 는 공유 저장소 직접 접근을 제한한다](../../02_app_framework/data/storage/file-access/scoped-storage-limits-direct-shared-storage-access.md) | Android 10+ 파일 접근 정책 |
 
 ---
 
@@ -158,11 +158,11 @@ Paging 3 은 무한 스크롤처럼 데이터를 페이지 단위로 로드하�
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Pager 는 PagingSource factory 로 PagingData Flow 를 만든다](../../02_app_framework/data/paging/paging-contracts/pager-exposes-pagingdata-flow-from-pagingsource-factory.md) | Pager 구조와 ViewModel 연결 |
-| [PagingSource 는 한 페이지를 로드하고 키를 반환한다](../../02_app_framework/data/paging/paging-contracts/paging-source-loads-one-page-and-returns-keys.md) | LoadParams/LoadResult 구조 |
-| [RemoteMediator 는 network page 와 local cache 를 연결한다](../../02_app_framework/data/paging/paging-contracts/remote-mediator-connects-network-pages-to-local-cache.md) | 오프라인 + 네트워크 레이어드 소스 |
-| [LoadState 는 refresh, append, prepend UI 상태를 모델링한다](../../02_app_framework/data/paging/paging-contracts/loadstate-models-refresh-append-and-prepend-ui-states.md) | 로딩/에러/완료 UI 표현 |
-| [cachedIn 은 PagingData Flow 를 ViewModel 수명에 묶는다](../../02_app_framework/data/paging/paging-contracts/cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md) | 설정 변경 시 페이지 캐시 유지 |
+| [Pager 는 PagingSource factory 로 PagingData Flow 를 만든다](../../02_app_framework/data/paging/paging/pager-exposes-pagingdata-flow-from-pagingsource-factory.md) | Pager 구조와 ViewModel 연결 |
+| [PagingSource 는 한 페이지를 로드하고 키를 반환한다](../../02_app_framework/data/paging/paging/paging-source-loads-one-page-and-returns-keys.md) | LoadParams/LoadResult 구조 |
+| [RemoteMediator 는 network page 와 local cache 를 연결한다](../../02_app_framework/data/paging/paging/remote-mediator-connects-network-pages-to-local-cache.md) | 오프라인 + 네트워크 레이어드 소스 |
+| [LoadState 는 refresh, append, prepend UI 상태를 모델링한다](../../02_app_framework/data/paging/paging/loadstate-models-refresh-append-and-prepend-ui-states.md) | 로딩/에러/완료 UI 표현 |
+| [cachedIn 은 PagingData Flow 를 ViewModel 수명에 묶는다](../../02_app_framework/data/paging/paging/cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md) | 설정 변경 시 페이지 캐시 유지 |
 
 ---
 

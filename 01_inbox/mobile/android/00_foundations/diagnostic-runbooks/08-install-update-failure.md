@@ -104,9 +104,9 @@ graph TD
 ### 관련 자료
 
 - [Worked Example: signed artifact가 Play delivery를 거쳐 update되는 과정](../worked-examples/08-signed-artifact-through-play-delivery-to-update.md)
-- [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md)
-- [앱 업데이트는 applicationId, versionCode, 서명 호환성을 요구한다](../../03_packaging_deployment/distribution/release-distribution-contracts/app-updates-require-application-id-version-code-and-signature-compatibility.md)
-- [Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다](../../03_packaging_deployment/distribution/release-distribution-contracts/play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md)
+- [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md)
+- [앱 업데이트는 applicationId, versionCode, 서명 호환성을 요구한다](../../03_packaging_deployment/distribution/release-distribution/app-updates-require-application-id-version-code-and-signature-compatibility.md)
+- [Play 릴리스 체크리스트는 산출물, 서명, 트랙, 롤백 조건을 고정한다](../../03_packaging_deployment/distribution/release-distribution/play-release-checklist-freezes-artifact-signing-track-and-rollback-conditions.md)
 - [Learning Spine 3장 소스에서 설치된 패키지까지](../learning-spine/03-source-to-installed-package.md)
 
 ### 공식 근거

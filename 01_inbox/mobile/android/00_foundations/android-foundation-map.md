@@ -20,7 +20,7 @@ Android foundations 는 세부 API 설명이 아니라 전체 Android 지식 지
 
 ### Learning Spine
 
-1. [Android 생태계와 계약 표면](learning-spine/01-android-ecosystem-and-contract-surfaces.md)
+1. [Android 생태계와 계약 표면](learning-spine/01-android-ecosystem-and-surfaces.md)
 2. [플랫폼 실행 계층과 호출 경로](learning-spine/02-android-platform-execution-layers-and-call-paths.md)
 3. [소스에서 설치 패키지까지](learning-spine/03-source-to-installed-package.md)
 4. [Manifest에서 component 실행까지](learning-spine/04-manifest-to-component-execution.md)

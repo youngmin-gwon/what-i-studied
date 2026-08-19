@@ -12,7 +12,7 @@ date created: 2026-08-07 16:10:00 +09:00
 
 **Compose Side Effect (부수 효과)** 는 Jetpack Compose 의 Composable 함수 내부에서 **[CS Side Effect](../../../../../computer-science/side-effect.md) 개념이 적용된 것으로, Composable 스코프 외부의 상태(State)를 변경하거나 시스템 I/O 작업을 수행하는 모든 동작**을 의미한다.
 
-Composable 함수는 성능 최적화를 위해 재구성(Recomposition) 과정에서 언제든지, 임의의 순서로, 병렬 스레드에서 수차례 재실행되거나 중단될 수 있다([Composable Body Purity](../runtime/compose-runtime-contracts/composable-body-purity.md)). 따라서 Composable 본문 내부에서 직접 외부 변수를 수정하거나 상태를 조작하면 무한 재구성이나 상태 오염 버그가 발생한다.
+Composable 함수는 성능 최적화를 위해 재구성(Recomposition) 과정에서 언제든지, 임의의 순서로, 병렬 스레드에서 수차례 재실행되거나 중단될 수 있다([Composable Body Purity](../runtime/compose-runtime/composable-body-purity.md)). 따라서 Composable 본문 내부에서 직접 외부 변수를 수정하거나 상태를 조작하면 무한 재구성이나 상태 오염 버그가 발생한다.
 
 ---
 
@@ -106,9 +106,9 @@ fun MetricTracedFeedScreen(feedState: FeedUiState) {
 
 ### 4. 연결 문서 (Related Links)
 
-- [compose-effect-api-selection](compose-state-and-effect-contracts/compose-effect-api-selection.md) - 상황별 Effect API 선택 가이드 결정 트리
+- [compose-effect-api-selection](compose-state-and-effect/compose-effect-api-selection.md) - 상황별 Effect API 선택 가이드 결정 트리
 - [CS Side Effect](../../../../../computer-science/side-effect.md) - 소프트웨어 공학 부수 효과 원자 노드
-- [compose-state-and-effect-contracts](compose-state-and-effect-contracts/compose-state-and-effect-contracts.md) - Compose 이펙트 규약 통합 인덱스
-- [launched-effect](compose-state-and-effect-contracts/launched-effect.md) - 비동기 취소 가능 이펙트
-- [disposable-effect](compose-state-and-effect-contracts/disposable-effect.md) - 자원 해제 정리 이펙트
-- [Composable Body Purity](../runtime/compose-runtime-contracts/composable-body-purity.md) - Composable 함수 순수성 규칙
+- [compose-state-and-effect](compose-state-and-effect/compose-state-and-effect.md) - Compose 이펙트 규약 통합 인덱스
+- [launched-effect](compose-state-and-effect/launched-effect.md) - 비동기 취소 가능 이펙트
+- [disposable-effect](compose-state-and-effect/disposable-effect.md) - 자원 해제 정리 이펙트
+- [Composable Body Purity](../runtime/compose-runtime/composable-body-purity.md) - Composable 함수 순수성 규칙

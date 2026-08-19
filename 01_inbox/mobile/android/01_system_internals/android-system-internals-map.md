@@ -15,12 +15,12 @@ date created: 2026-08-04 18:00:00 +09:00
 | 클러스터 | hub 노트 | 다루는 범위 |
 |---|---|---|
 | [boot-and-runtime](boot-and-runtime/android-boot-and-runtime.md) | `boot-and-runtime/android-boot-and-runtime.md` | bootloader/AVB 검증부터 init, Zygote/ART, system_server 까지의 부팅·런타임 초기화 체인 |
-| [ipc-and-process](ipc-and-process/ipc-process-contracts/ipc-process-contracts.md) | `ipc-and-process/ipc-process-contracts/ipc-process-contracts.md` | Binder 가 중재하는 process 경계, transaction lifetime, AIDL, oneway/thread pool |
+| [ipc-and-process](ipc-and-process/ipc-process/ipc-process.md) | `ipc-and-process/ipc-process/ipc-process.md` | Binder 가 중재하는 process 경계, transaction lifetime, AIDL, oneway/thread pool |
 | [kernel-and-hal](kernel-and-hal/android-kernel-runtime.md) | `kernel-and-hal/android-kernel-runtime.md` (커널) + `kernel-and-hal/hal-native-boundary.md` (HAL/native) | Linux kernel 이 Android 플랫폼 정책과 만나는 지점, HAL/Treble/VINTF 와 NDK/JNI 경계 |
 | [graphics-and-media](graphics-and-media/android-graphics-media-runtime.md) | `graphics-and-media/android-graphics-media-runtime.md` | Surface/BufferQueue, SurfaceFlinger/HWC 합성, 미디어 파이프라인의 버퍼 소유권과 VSync 마감 |
 | [connectivity](connectivity/android-connectivity.md) | `connectivity/android-connectivity.md` | ConnectivityService, NetworkPolicyManager, netd, kernel 라우팅까지의 4개 계층 네트워크 가용성 계약 |
 | [platform-modularity](platform-modularity/android-platform-modularity.md) | `platform-modularity/android-platform-modularity.md` | APEX/Mainline module 을 통한 OS 배포와 Google Play system update |
-| [platform-customization](platform-customization/platform-customization-contracts/platform-customization-contracts.md) | `platform-customization/platform-customization-contracts/platform-customization-contracts.md` | AOSP/GMS/OEM 계층, product/vendor/system_ext 분리, 서명·CTS 호환성 |
+| [platform-customization](platform-customization/platform-customization/platform-customization.md) | `platform-customization/platform-customization/platform-customization.md` | AOSP/GMS/OEM 계층, product/vendor/system_ext 분리, 서명·CTS 호환성 |
 
 ### 읽는 순서
 

@@ -55,22 +55,22 @@ graph TD
 
 ### 핵심 정본 지도 (Contract Index)
 
-- [Navigation 3 계약](navigation3-contracts/navigation3-contracts.md)
-- [NavKey와 back stack은 앱이 소유하는 navigation 상태다](navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md)
-- [Route key는 안정적인 직렬화 식별자다](navigation3-contracts/route-key-should-be-stable-and-serializable.md)
-- [NavDisplay와 entry provider는 렌더링과 route registry를 분리한다](navigation3-contracts/navdisplay-and-entry-provider-separate-rendering-from-route-registry.md)
-- [Metadata와 SceneStrategy는 표시 정책을 전달한다](navigation3-contracts/metadata-and-scene-strategy-carry-display-policy.md)
-- [SceneStrategy는 entry를 조합하고 decorator는 렌더링을 감싼다](navigation3-contracts/scene-strategy-composes-entries-while-decorator-wraps-rendering.md)
-- [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](navigation3-contracts/navigation3-back-stack-needs-saveable-restoration.md)
-- [Navigation 3 deep link는 URI를 NavKey로 변환한다](navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md)
-- [Navigation 3 transition과 back policy는 같은 stack 상태를 공유해야 한다](navigation3-contracts/navigation3-transition-and-back-policy-must-share-stack-state.md)
-- [Android task와 app back stack은 서로 다른 스택이다](navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md)
+- [Navigation 3 계약](navigation3/navigation3.md)
+- [NavKey와 back stack은 앱이 소유하는 navigation 상태다](navigation3/navkey-and-back-stack-are-app-owned-navigation-state.md)
+- [Route key는 안정적인 직렬화 식별자다](navigation3/route-key-should-be-stable-and-serializable.md)
+- [NavDisplay와 entry provider는 렌더링과 route registry를 분리한다](navigation3/navdisplay-and-entry-provider-separate-rendering-from-route-registry.md)
+- [Metadata와 SceneStrategy는 표시 정책을 전달한다](navigation3/metadata-and-scene-strategy-carry-display-policy.md)
+- [SceneStrategy는 entry를 조합하고 decorator는 렌더링을 감싼다](navigation3/scene-strategy-composes-entries-while-decorator-wraps-rendering.md)
+- [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](navigation3/navigation3-back-stack-needs-saveable-restoration.md)
+- [Navigation 3 deep link는 URI를 NavKey로 변환한다](navigation3/navigation3-deep-link-converts-uri-to-navkey.md)
+- [Navigation 3 transition과 back policy는 같은 stack 상태를 공유해야 한다](navigation3/navigation3-transition-and-back-policy-must-share-stack-state.md)
+- [Android task와 app back stack은 서로 다른 스택이다](navigation3/android-task-and-app-back-stack-are-different-stacks.md)
 
 ---
 
 ### 연관 상위 및 관련 가이드
 
-- [Android Navigation 진입 계약](../navigation-contracts/navigation-contracts.md)
+- [Android Navigation 진입 계약](../navigation/navigation.md)
 - [Adaptive Layout and Navigation](../adaptive-navigation/adaptive-layout-and-navigation.md)
 
 

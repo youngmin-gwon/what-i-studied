@@ -56,9 +56,9 @@ flowchart TD
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [부팅 신뢰 체인은 커널과 userspace 이전에 신뢰를 확인한다](../../01_system_internals/boot-and-runtime/boot-flow-contracts/boot-chain-confirms-trust-before-kernel-and-userspace.md) | Bootloader → AVB → dm-verity 신뢰 단계 |
-| [Bootloader 는 검증된 슬롯을 선택하고 bootconfig 를 전달한다](../../01_system_internals/boot-and-runtime/boot-flow-contracts/bootloader-selects-verified-slot-and-passes-bootconfig.md) | A/B 슬롯 선택과 커널 파라미터 전달 |
-| [AVB 는 boot image 를 검증하고 롤백 보호를 제공한다](../../01_system_internals/boot-and-runtime/boot-flow-contracts/avb-verifies-boot-images-and-rollback-protection.md) | 서명 검증과 롤백 인덱스 |
+| [부팅 신뢰 체인은 커널과 userspace 이전에 신뢰를 확인한다](../../01_system_internals/boot-and-runtime/boot-flow/boot-chain-confirms-trust-before-kernel-and-userspace.md) | Bootloader → AVB → dm-verity 신뢰 단계 |
+| [Bootloader 는 검증된 슬롯을 선택하고 bootconfig 를 전달한다](../../01_system_internals/boot-and-runtime/boot-flow/bootloader-selects-verified-slot-and-passes-bootconfig.md) | A/B 슬롯 선택과 커널 파라미터 전달 |
+| [AVB 는 boot image 를 검증하고 롤백 보호를 제공한다](../../01_system_internals/boot-and-runtime/boot-flow/avb-verifies-boot-images-and-rollback-protection.md) | 서명 검증과 롤백 인덱스 |
 
 ---
 
@@ -72,14 +72,14 @@ init 은 두 단계로 나뉜다. **1 단계(first-stage init)** 는 최소 파�
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [init 은 PID 1 이자 userspace 부트스트랩 정책 엔진이다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-is-pid1-and-userspace-bootstrap-policy-engine.md) | init 의 역할과 두 단계 구조 |
-| [1단계 init 은 2단계를 위한 최소 파일시스템을 구성한다](../../01_system_internals/boot-and-runtime/init-service-contracts/first-stage-init-builds-minimal-filesystem-for-second-stage.md) | /dev, /proc, /sys 마운트 순서 |
-| [init rc 언어는 actions, services, options, imports 를 선언한다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-rc-language-declares-actions-services-options-and-imports.md) | .rc DSL 4 가지 구문 요소 |
-| [init trigger 는 event 와 property 조건을 결합하는 실행 gate 다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-triggers-are-event-and-property-gates.md) | 부팅 마일스톤별 서비스 시작 제어 |
-| [init 서비스는 명시적 수명주기를 가진 감독 프로세스다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-service-is-supervised-process-with-explicit-lifecycle.md) | init 의 서비스 재시작 정책 |
-| [property service 는 전역 상태 저장소이자 제한된 제어 평면이다](../../01_system_internals/boot-and-runtime/init-service-contracts/property-service-is-global-state-store-and-restricted-control-plane.md) | sys.boot_completed 등 property 역할 |
-| [init 보안은 SELinux 도메인과 capability 경계다](../../01_system_internals/boot-and-runtime/init-service-contracts/init-security-is-selinux-domain-and-capability-boundary.md) | 서비스별 SELinux 도메인 격리 |
-| [ueventd 는 커널 uevents 를 /dev 노드 권한으로 변환한다](../../01_system_internals/boot-and-runtime/init-service-contracts/ueventd-turns-kernel-uevents-into-dev-node-permissions.md) | 하드웨어 이벤트 → 디바이스 노드 생성 |
+| [init 은 PID 1 이자 userspace 부트스트랩 정책 엔진이다](../../01_system_internals/boot-and-runtime/init-service/init-is-pid1-and-userspace-bootstrap-policy-engine.md) | init 의 역할과 두 단계 구조 |
+| [1단계 init 은 2단계를 위한 최소 파일시스템을 구성한다](../../01_system_internals/boot-and-runtime/init-service/first-stage-init-builds-minimal-filesystem-for-second-stage.md) | /dev, /proc, /sys 마운트 순서 |
+| [init rc 언어는 actions, services, options, imports 를 선언한다](../../01_system_internals/boot-and-runtime/init-service/init-rc-language-declares-actions-services-options-and-imports.md) | .rc DSL 4 가지 구문 요소 |
+| [init trigger 는 event 와 property 조건을 결합하는 실행 gate 다](../../01_system_internals/boot-and-runtime/init-service/init-triggers-are-event-and-property-gates.md) | 부팅 마일스톤별 서비스 시작 제어 |
+| [init 서비스는 명시적 수명주기를 가진 감독 프로세스다](../../01_system_internals/boot-and-runtime/init-service/init-service-is-supervised-process-with-explicit-lifecycle.md) | init 의 서비스 재시작 정책 |
+| [property service 는 전역 상태 저장소이자 제한된 제어 평면이다](../../01_system_internals/boot-and-runtime/init-service/property-service-is-global-state-store-and-restricted-control-plane.md) | sys.boot_completed 등 property 역할 |
+| [init 보안은 SELinux 도메인과 capability 경계다](../../01_system_internals/boot-and-runtime/init-service/init-security-is-selinux-domain-and-capability-boundary.md) | 서비스별 SELinux 도메인 격리 |
+| [ueventd 는 커널 uevents 를 /dev 노드 권한으로 변환한다](../../01_system_internals/boot-and-runtime/init-service/ueventd-turns-kernel-uevents-into-dev-node-permissions.md) | 하드웨어 이벤트 → 디바이스 노드 생성 |
 
 ---
 
@@ -93,9 +93,9 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Zygote 는 앱 fork 이전에 framework 상태를 preload 한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-preload-state.md) | 클래스/리소스 preload 의 이유 |
-| [Zygote fork 는 Copy-on-Write 페이지를 유지하며 메모리를 절약한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-copy-on-write.md) | CoW 메커니즘과 메모리 절감 효과 |
-| [Zygote 소켓은 system_server 의 프로세스 생성 factory 인터페이스다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-socket-interface.md) | Unix socket 기반 fork 요청 프로토콜 |
+| [Zygote 는 앱 fork 이전에 framework 상태를 preload 한다](../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-preload-state.md) | 클래스/리소스 preload 의 이유 |
+| [Zygote fork 는 Copy-on-Write 페이지를 유지하며 메모리를 절약한다](../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-copy-on-write.md) | CoW 메커니즘과 메모리 절감 효과 |
+| [Zygote 소켓은 system_server 의 프로세스 생성 factory 인터페이스다](../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-socket-interface.md) | Unix socket 기반 fork 요청 프로토콜 |
 
 ---
 
@@ -111,11 +111,11 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [system_server 는 framework service 를 한 프로세스 안에서 시작한다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-server-startup.md) | 단일 프로세스 구조와 3 단계 초기화 |
-| [AMS 는 앱 프로세스와 컴포넌트 lifecycle 을 조율한다](../../01_system_internals/boot-and-runtime/system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md) | fork 요청, attachApplication, OOM adj |
-| [ATMS 는 activity, task, back stack 전이를 담당한다](../../01_system_internals/boot-and-runtime/system-server-contracts/atms-owns-activity-task-and-back-stack-transitions.md) | Android 10+ Activity 관리 분리 |
-| [시스템 서비스는 Binder endpoint 이자 플랫폼 정책 집행자다](../../01_system_internals/boot-and-runtime/system-server-contracts/system-service-is-binder-endpoint-and-platform-policy-enforcer.md) | 서비스 = Binder 서버 + 정책 |
-| [Rescue Party 는 반복되는 system failure 를 단계적으로 복구한다](../../01_system_internals/boot-and-runtime/system-server-contracts/rescue-party-recovers-repeated-system-failures-in-stages.md) | 부팅 루프 자가 복구 메커니즘 |
+| [system_server 는 framework service 를 한 프로세스 안에서 시작한다](../../01_system_internals/boot-and-runtime/system-server/system-server-startup.md) | 단일 프로세스 구조와 3 단계 초기화 |
+| [AMS 는 앱 프로세스와 컴포넌트 lifecycle 을 조율한다](../../01_system_internals/boot-and-runtime/system-server/ams-coordinates-app-process-and-component-lifecycle.md) | fork 요청, attachApplication, OOM adj |
+| [ATMS 는 activity, task, back stack 전이를 담당한다](../../01_system_internals/boot-and-runtime/system-server/atms-owns-activity-task-and-back-stack-transitions.md) | Android 10+ Activity 관리 분리 |
+| [시스템 서비스는 Binder endpoint 이자 플랫폼 정책 집행자다](../../01_system_internals/boot-and-runtime/system-server/system-service-is-binder-endpoint-and-platform-policy-enforcer.md) | 서비스 = Binder 서버 + 정책 |
+| [Rescue Party 는 반복되는 system failure 를 단계적으로 복구한다](../../01_system_internals/boot-and-runtime/system-server/rescue-party-recovers-repeated-system-failures-in-stages.md) | 부팅 루프 자가 복구 메커니즘 |
 
 ---
 
@@ -134,9 +134,9 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [앱 프로세스는 specialization 뒤 ActivityThread 로 framework 에 attach 한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/app-process-specializes-before-activitythread-attaches-to-framework.md) | fork 이후 6 단계 specialization 과정 |
-| [ART 는 DEX 를 interpretation, JIT, AOT 조합으로 실행한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/art-dex-execution-modes.md) | Interpreter/JIT/AOT 하이브리드 전략 |
-| [Profile guided compilation 은 설치, 실행, idle compile 비용을 나눈다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/profile-guided-compilation-splits-install-runtime-and-idle-costs.md) | Baseline Profile / dex2oat 타이밍 |
+| [앱 프로세스는 specialization 뒤 ActivityThread 로 framework 에 attach 한다](../../01_system_internals/boot-and-runtime/zygote-runtime/app-process-specializes-before-activitythread-attaches-to-framework.md) | fork 이후 6 단계 specialization 과정 |
+| [ART 는 DEX 를 interpretation, JIT, AOT 조합으로 실행한다](../../01_system_internals/boot-and-runtime/zygote-runtime/art-dex-execution-modes.md) | Interpreter/JIT/AOT 하이브리드 전략 |
+| [Profile guided compilation 은 설치, 실행, idle compile 비용을 나눈다](../../01_system_internals/boot-and-runtime/zygote-runtime/profile-guided-compilation-splits-install-runtime-and-idle-costs.md) | Baseline Profile / dex2oat 타이밍 |
 
 ---
 
@@ -148,8 +148,8 @@ Android 는 필요 없는 프로세스를 즉시 종료하지 않고 캐시로 �
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../01_system_internals/boot-and-runtime/system-server-contracts/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md) | oom_score_adj 계산 주체와 의미 |
-| [ANR 은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server-contracts/anr-responsiveness-contract.md) | 컴포넌트별 timeout 기준과 신호 |
+| [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../01_system_internals/boot-and-runtime/system-server/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md) | oom_score_adj 계산 주체와 의미 |
+| [ANR 은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server/anr-responsiveness.md) | 컴포넌트별 timeout 기준과 신호 |
 
 ---
 
@@ -176,10 +176,10 @@ adb shell ps -A | grep -E "system_server|zygote|com\."
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [부팅 완료는 하나의 property 가 아니라 관찰 가능한 마일스톤이다](../../01_system_internals/boot-and-runtime/boot-flow-contracts/boot-completion-is-observable-milestones-not-one-property.md) | sys.boot_completed 외 부팅 완료 신호 |
-| [부팅 디버깅은 logcat 이전의 kernel, pstore, init 로그에서 시작한다](../../01_system_internals/boot-and-runtime/boot-flow-contracts/boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs.md) | dmesg, pstore, init 콘솔 활용법 |
-| [dumpsys 는 system service 의 현재 상태를 보는 inspection interface 다](../../01_system_internals/boot-and-runtime/system-server-contracts/dumpsys-is-system-service-state-inspection-interface.md) | dumpsys 동작 원리와 활용 패턴 |
-| [런타임 디버깅은 profile, compile filter, JIT 상태를 분리한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/runtime-debugging-separates-profile-compile-filter-and-jit-state.md) | ART 컴파일 상태 확인 명령어 |
+| [부팅 완료는 하나의 property 가 아니라 관찰 가능한 마일스톤이다](../../01_system_internals/boot-and-runtime/boot-flow/boot-completion-is-observable-milestones-not-one-property.md) | sys.boot_completed 외 부팅 완료 신호 |
+| [부팅 디버깅은 logcat 이전의 kernel, pstore, init 로그에서 시작한다](../../01_system_internals/boot-and-runtime/boot-flow/boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs.md) | dmesg, pstore, init 콘솔 활용법 |
+| [dumpsys 는 system service 의 현재 상태를 보는 inspection interface 다](../../01_system_internals/boot-and-runtime/system-server/dumpsys-is-system-service-state-inspection-interface.md) | dumpsys 동작 원리와 활용 패턴 |
+| [런타임 디버깅은 profile, compile filter, JIT 상태를 분리한다](../../01_system_internals/boot-and-runtime/zygote-runtime/runtime-debugging-separates-profile-compile-filter-and-jit-state.md) | ART 컴파일 상태 확인 명령어 |
 
 ---
 

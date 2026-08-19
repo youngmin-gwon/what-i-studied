@@ -67,5 +67,5 @@ class MainActivity : ComponentActivity() {
 - [ATMS & AMS](../../../04_system_services/activity-manager-service.md) - Activity 백스택 및 수명주기 통제
 - [Compose SSOT](../../compose-ssot.md) - ViewModel 기반 UDF 상태 관리
 - [ViewModel](../../viewmodel.md) - Configuration Change 견디는 UI 상태 저장소
-- [Composable Body Purity](../../jetpack-compose/runtime/compose-runtime-contracts/composable-body-purity.md) - Compose UI 작성 준칙
+- [Composable Body Purity](../../jetpack-compose/runtime/compose-runtime/composable-body-purity.md) - Compose UI 작성 준칙
 - [Low Memory Killer (LMK)](../../../01_system_internals/lmk-low-memory-killer.md) - Activity 프로세스 OOM 수거

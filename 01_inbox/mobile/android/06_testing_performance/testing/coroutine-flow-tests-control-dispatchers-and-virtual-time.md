@@ -9,7 +9,7 @@ date modified: 2026-08-06 14:48:27 +09:00
 ## Coroutine 과 Flow 테스트는 dispatcher 와 virtual time 을 통제해야 한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../performance/android-performance-quality-and-build-optimization.md)
-관련 지도: [테스트 품질 계약](./testing-quality-contracts/testing-quality-contracts.md)
+관련 지도: [테스트 품질 계약](./testing-quality/testing-quality.md)
 
 Coroutine 및 Flow 단위 테스트가 실제 `Dispatchers.IO`, `Dispatchers.Main`, 또는 비동기 `delay()`에 직접 의존하면 스레드 스케줄링 레이스 조건에 의해 플래키(Flaky) 테스트가 유발되므로, `TestDispatcher`와 가상 시간(`TestCoroutineScheduler` Virtual Time)으로 비동기 실행을 결정론적으로 제어해야 한다.
 

@@ -140,18 +140,18 @@ configuration change 는 이 루프 전체를 다시 타게 만드는 별도의 
 
 ### 관련 정본
 
-- [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](../../04_system_services/device-capabilities/input-accessibility-contracts/inputmanager-abstracts-physical-input-devices-as-event-sources.md)
-- [설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다](../../02_app_framework/architecture/app-components/app-component-contracts/configuration-change-recreates-activity-but-not-all-screen-state.md)
-- [View System은 object tree를 변경하고 Compose는 state에서 UI를 재계산한다](../../02_app_framework/ui/system/ui-system-contracts/view-system-mutates-object-tree-while-compose-recomputes-ui-from-state.md)
-- [Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-contracts/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)
-- [Canvas, Skia, Compose는 합성기가 아니라 그리기 명령의 생산자다](../../01_system_internals/graphics-and-media/graphics-media-contracts/canvas-skia-and-compose-produce-drawing-commands-not-display-composition.md)
-- [RenderThread는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다](../../01_system_internals/graphics-and-media/graphics-media-contracts/renderthread-submits-render-work-without-making-ui-thread-free.md)
-- [Surface는 그래픽 버퍼 producer 측 계약이다](../../01_system_internals/graphics-and-media/graphics-media-contracts/surface-is-producer-side-contract-for-graphic-buffers.md)
-- [BufferQueue는 producer와 consumer를 버퍼 소유권으로 분리한다](../../01_system_internals/graphics-and-media/graphics-media-contracts/bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md)
-- [SurfaceFlinger는 보이는 레이어를 HWC와 함께 합성한다](../../01_system_internals/graphics-and-media/graphics-media-contracts/surfaceflinger-composes-visible-layers-with-hwc.md)
-- [VSync와 Choreographer는 frame deadline을 정의한다](../../01_system_internals/graphics-and-media/graphics-media-contracts/vsync-and-choreographer-define-frame-deadline.md)
-- [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/graphics-media-contracts/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)
-- [Android 렌더링 파이프라인은 Surface 버퍼를 합성기로 넘기는 계약이다](../../01_system_internals/graphics-and-media/graphics-media-contracts/android-rendering-pipeline-is-surface-to-bufferqueue-to-compositor.md)
+- [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](../../04_system_services/device-capabilities/input-accessibility/inputmanager-abstracts-physical-input-devices-as-event-sources.md)
+- [설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다](../../02_app_framework/architecture/app-components/app-component/configuration-change-recreates-activity-but-not-all-screen-state.md)
+- [View System은 object tree를 변경하고 Compose는 state에서 UI를 재계산한다](../../02_app_framework/ui/system/ui-system/view-system-mutates-object-tree-while-compose-recomputes-ui-from-state.md)
+- [Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)
+- [Canvas, Skia, Compose는 합성기가 아니라 그리기 명령의 생산자다](../../01_system_internals/graphics-and-media/graphics-media/canvas-skia-and-compose-produce-drawing-commands-not-display-composition.md)
+- [RenderThread는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다](../../01_system_internals/graphics-and-media/graphics-media/renderthread-submits-render-work-without-making-ui-thread-free.md)
+- [Surface는 그래픽 버퍼 producer 측 계약이다](../../01_system_internals/graphics-and-media/graphics-media/surface-is-producer-side-for-graphic-buffers.md)
+- [BufferQueue는 producer와 consumer를 버퍼 소유권으로 분리한다](../../01_system_internals/graphics-and-media/graphics-media/bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md)
+- [SurfaceFlinger는 보이는 레이어를 HWC와 함께 합성한다](../../01_system_internals/graphics-and-media/graphics-media/surfaceflinger-composes-visible-layers-with-hwc.md)
+- [VSync와 Choreographer는 frame deadline을 정의한다](../../01_system_internals/graphics-and-media/graphics-media/vsync-and-choreographer-define-frame-deadline.md)
+- [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/graphics-media/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)
+- [Android 렌더링 파이프라인은 Surface 버퍼를 합성기로 넘기는 계약이다](../../01_system_internals/graphics-and-media/graphics-media/android-rendering-pipeline-is-surface-to-bufferqueue-to-compositor.md)
 
 ### 공식 근거
 

@@ -79,4 +79,4 @@ Storage lifecycle 노트는 FBE CE/DE 가용 시점, Direct Boot 단계, 캐시 
 
 상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup.md)
 
-관련 노트: [Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다](../secure-storage-contracts/sensitive-data-requires-encryption-and-key-ownership.md)
+관련 노트: [Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다](../secure-storage/sensitive-data-requires-encryption-and-key-ownership.md)

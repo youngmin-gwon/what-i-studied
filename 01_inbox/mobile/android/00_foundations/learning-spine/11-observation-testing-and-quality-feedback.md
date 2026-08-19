@@ -142,14 +142,14 @@ date created: 2026-08-03 23:55:00 +09:00
 
 ### 관련 정본
 
-- [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](../../06_testing_performance/debugging/debugging-contracts/logcat-crash-anr-and-debugger-answer-different-questions.md)
-- [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../../06_testing_performance/performance/performance-contracts/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
-- [Android 성능은 측정 후 최적화한다](../../06_testing_performance/performance/performance-contracts/measure-before-optimizing-android-performance.md)
-- [테스트 레이어는 피드백 비용으로 선택한다](../../06_testing_performance/testing/testing-quality-contracts/test-layer-is-chosen-by-feedback-cost-and-risk.md)
-- [Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다](../../06_testing_performance/testing/testing-quality-contracts/unit-integration-ui-e2e-tests-have-different-failure-signals.md)
-- [회귀와 flaky 테스트는 릴리즈 게이트의 신뢰도를 낮춘다](../../06_testing_performance/testing/testing-quality-contracts/regression-and-flaky-tests-are-release-gate-risks.md)
-- [Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다](../../03_packaging_deployment/distribution/release-distribution-contracts/google-play-testing-tracks-split-audience-and-feedback-scope.md)
-- [단계적 출시는 관측 가능한 릴리스 운영 절차다](../../03_packaging_deployment/distribution/release-distribution-contracts/staged-rollout-is-observable-release-operation.md)
+- [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](../../06_testing_performance/debugging/debugging/logcat-crash-anr-and-debugger-answer-different-questions.md)
+- [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../../06_testing_performance/performance/performance/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
+- [Android 성능은 측정 후 최적화한다](../../06_testing_performance/performance/performance/measure-before-optimizing-android-performance.md)
+- [테스트 레이어는 피드백 비용으로 선택한다](../../06_testing_performance/testing/testing-quality/test-layer-is-chosen-by-feedback-cost-and-risk.md)
+- [Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다](../../06_testing_performance/testing/testing-quality/unit-integration-ui-e2e-tests-have-different-failure-signals.md)
+- [회귀와 flaky 테스트는 릴리즈 게이트의 신뢰도를 낮춘다](../../06_testing_performance/testing/testing-quality/regression-and-flaky-tests-are-release-gate-risks.md)
+- [Google Play 테스트 트랙은 배포 대상과 피드백 범위를 나눈다](../../03_packaging_deployment/distribution/release-distribution/google-play-testing-tracks-split-audience-and-feedback-scope.md)
+- [단계적 출시는 관측 가능한 릴리스 운영 절차다](../../03_packaging_deployment/distribution/release-distribution/staged-rollout-is-observable-release-operation.md)
 
 ### 공식 근거
 

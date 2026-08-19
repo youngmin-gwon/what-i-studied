@@ -58,5 +58,5 @@ adb shell dumpsys batterystats
 
 - [Android Kernel 특화 구조](kernel-and-hal/android-kernel-runtime.md) - 안드로이드 커널 전력 관리
 - [Linux 커널](../../../operating-systems/linux-kernel.md) - CS 범용 Linux 커널 Power Management
-- [WorkManager 예약 작업](../04_system_services/background-and-notifications/background-work-contracts/work-manager-contract.md) - 내부적으로 SafeWakeLock 적용
+- [WorkManager 예약 작업](../04_system_services/background-and-notifications/background-work/work-manager.md) - 내부적으로 SafeWakeLock 적용
 - [dumpsys 시스템 진단 도구](../06_testing_performance/debugging/dumpsys.md) - dumpsys power 진단

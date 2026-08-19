@@ -121,18 +121,18 @@ registry 조회와 exported 검사를 통과했다고 곧바로 앱 코드가 �
 
 ### 관련 정본
 
-- [AndroidManifest.xml은 OS에 앱의 컴포넌트를 선언한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/android-manifest-declares-os-visible-components-and-entry-points.md)
-- [AndroidManifest는 OS가 발견할 컴포넌트와 권한 경계를 선언한다](../../02_app_framework/architecture/app-components/app-component-contracts/manifest-declares-components-permissions-features-and-exported-boundaries.md)
-- [안드로이드 앱 컴포넌트는 OS가 호출하는 실행 경계다](../../02_app_framework/architecture/app-components/app-component-contracts/android-app-components-are-system-entry-points-not-in-process-objects.md)
-- [명시적 Intent와 암시적 Intent를 선택하는 기준](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/explicit-intent-targets-known-component-implicit-intent-declares-capability.md)
-- [action, category, data 매칭은 서로 다른 조건이다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-filter-matches-action-category-data.md)
-- [exported는 컴포넌트의 외부 호출 경계를 결정한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md)
-- [Package visibility는 다른 앱 조회 범위를 제한한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/package-visibility-limits-which-apps-can-be-queried.md)
-- [컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다](../../02_app_framework/architecture/app-components/app-component-contracts/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md)
-- [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](../../01_system_internals/boot-and-runtime/system-server-contracts/ams-coordinates-app-process-and-component-lifecycle.md)
-- [Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/zygote-socket-interface.md)
-- [앱 프로세스는 specialization 뒤 ActivityThread로 framework에 attach한다](../../01_system_internals/boot-and-runtime/zygote-runtime-contracts/app-process-specializes-before-activitythread-attaches-to-framework.md)
-- [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../01_system_internals/boot-and-runtime/system-server-contracts/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)
+- [AndroidManifest.xml은 OS에 앱의 컴포넌트를 선언한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest/android-manifest-declares-os-visible-components-and-entry-points.md)
+- [AndroidManifest는 OS가 발견할 컴포넌트와 권한 경계를 선언한다](../../02_app_framework/architecture/app-components/app-component/manifest-declares-components-permissions-features-and-exported-boundaries.md)
+- [안드로이드 앱 컴포넌트는 OS가 호출하는 실행 경계다](../../02_app_framework/architecture/app-components/app-component/android-app-components-are-system-entry-points-not-in-process-objects.md)
+- [명시적 Intent와 암시적 Intent를 선택하는 기준](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest/explicit-intent-targets-known-component-implicit-intent-declares-capability.md)
+- [action, category, data 매칭은 서로 다른 조건이다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest/intent-filter-matches-action-category-data.md)
+- [exported는 컴포넌트의 외부 호출 경계를 결정한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest/exported-attribute-defines-external-component-boundary.md)
+- [Package visibility는 다른 앱 조회 범위를 제한한다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest/package-visibility-limits-which-apps-can-be-queried.md)
+- [컴포넌트 통신은 Intent, Binder, URI, PendingIntent 경계로 나눈다](../../02_app_framework/architecture/app-components/app-component/component-communication-uses-intent-binder-uri-and-pendingintent-by-boundary.md)
+- [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](../../01_system_internals/boot-and-runtime/system-server/ams-coordinates-app-process-and-component-lifecycle.md)
+- [Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다](../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-socket-interface.md)
+- [앱 프로세스는 specialization 뒤 ActivityThread로 framework에 attach한다](../../01_system_internals/boot-and-runtime/zygote-runtime/app-process-specializes-before-activitythread-attaches-to-framework.md)
+- [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../01_system_internals/boot-and-runtime/system-server/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)
 
 ### 공식 근거
 

@@ -44,17 +44,17 @@ graph TD
 
 - **ConnectivityService 와 정책 (Policy & Selection)**
     ConnectivityService 는 기기의 모든 네트워크 연결 상태를 관리하고, 사용 가능한 네트워크 중 최적의 기본 네트워크(Default Network)를 선택한다. 또한 데이터 절약 모드(Data Saver)나 종량제(Metered) 정책을 적용한다.
-    - [ConnectivityService 는 네트워크를 선택하고 정책을 적용한다](../../01_system_internals/connectivity/connectivity-contracts/connectivityservice-selects-networks-and-applies-policy.md): ConnectivityService 는 최적의 네트워크를 선택하고 정책을 적용하는 두뇌 역할을 한다.
-    - [Metered와 Data Saver는 백그라운드 네트워크 비용 정책이다](../../01_system_internals/connectivity/connectivity-contracts/metered-and-data-saver-are-background-network-cost-policy.md): 종량제 네트워크와 데이터 절약 모드는 백그라운드 네트워크 비용 정책으로 작용한다.
+    - [ConnectivityService 는 네트워크를 선택하고 정책을 적용한다](../../01_system_internals/connectivity/connectivity/connectivityservice-selects-networks-and-applies-policy.md): ConnectivityService 는 최적의 네트워크를 선택하고 정책을 적용하는 두뇌 역할을 한다.
+    - [Metered와 Data Saver는 백그라운드 네트워크 비용 정책이다](../../01_system_internals/connectivity/connectivity/metered-and-data-saver-are-background-network-cost-policy.md): 종량제 네트워크와 데이터 절약 모드는 백그라운드 네트워크 비용 정책으로 작용한다.
 - **네트워크 객체와 생명주기 (Network Object & Lifecycle)**
     안드로이드에서 네트워크는 단순한 전송 방식(Transport)이 아니라 구체적인 연결 인스턴스(Network)다. 기본 네트워크와 특정 앱이 요청한 네트워크는 생명주기가 다르며, 앱은 콜백을 통해 이 상태를 추적해야 한다.
-    - [Network는 연결 인스턴스이고 transport는 하나의 capability일 뿐이다](../../01_system_internals/connectivity/connectivity-contracts/network-is-connection-instance-and-transport-is-only-one-capability.md): 네트워크는 단순한 전송 타입(Wi-Fi 등)이 아닌 독립된 연결 인스턴스다.
-    - [Default Network와 Requested Network는 수명이 다르다](../../01_system_internals/connectivity/connectivity-contracts/default-network-and-requested-network-have-different-lifetimes.md): 기본 네트워크와 명시적으로 요청된 네트워크는 서로 다른 생명주기를 갖는다.
-    - [NetworkCallback 수명과 콜백 데이터 일관성은 관리되어야 한다](../../01_system_internals/connectivity/connectivity-contracts/networkcallback-lifetime-and-callback-data-consistency-must-be-managed.md): NetworkCallback 의 생명주기와 반환된 데이터의 일관성은 신중하게 관리되어야 한다.
-    - [Validated와 Captive Portal은 관찰된 인터넷 상태다](../../01_system_internals/connectivity/connectivity-contracts/validated-and-captive-portal-are-observed-internet-states.md): 시스템은 네트워크가 실제로 인터넷에 연결되어 있는지(Validated/Captive Portal) 검증한다.
+    - [Network는 연결 인스턴스이고 transport는 하나의 capability일 뿐이다](../../01_system_internals/connectivity/connectivity/network-is-connection-instance-and-transport-is-only-one-capability.md): 네트워크는 단순한 전송 타입(Wi-Fi 등)이 아닌 독립된 연결 인스턴스다.
+    - [Default Network와 Requested Network는 수명이 다르다](../../01_system_internals/connectivity/connectivity/default-network-and-requested-network-have-different-lifetimes.md): 기본 네트워크와 명시적으로 요청된 네트워크는 서로 다른 생명주기를 갖는다.
+    - [NetworkCallback 수명과 콜백 데이터 일관성은 관리되어야 한다](../../01_system_internals/connectivity/connectivity/networkcallback-lifetime-and-callback-data-consistency-must-be-managed.md): NetworkCallback 의 생명주기와 반환된 데이터의 일관성은 신중하게 관리되어야 한다.
+    - [Validated와 Captive Portal은 관찰된 인터넷 상태다](../../01_system_internals/connectivity/connectivity/validated-and-captive-portal-are-observed-internet-states.md): 시스템은 네트워크가 실제로 인터넷에 연결되어 있는지(Validated/Captive Portal) 검증한다.
 - **netd 데몬과 커널 라우팅 (Native Daemon & Kernel)**
     ConnectivityService 의 정책은 네이티브 데몬인 netd 로 전달되어 커널 수준의 라우팅 테이블(iptables/eBPF) 설정으로 변환된다. 모든 앱의 소켓 트래픽은 이 라우팅 규칙에 따라 특정 네트워크 인터페이스로 강제(bind)된다.
-    - [netd는 라우팅, DNS, 방화벽, tethering 명령을 실행한다](../../01_system_internals/connectivity/connectivity-contracts/netd-enforces-routing-dns-firewall-and-tethering-operations.md): netd 는 라우팅, DNS, 방화벽 및 테더링 정책을 커널 수준에서 강제한다.
+    - [netd는 라우팅, DNS, 방화벽, tethering 명령을 실행한다](../../01_system_internals/connectivity/connectivity/netd-enforces-routing-dns-firewall-and-tethering-operations.md): netd 는 라우팅, DNS, 방화벽 및 테더링 정책을 커널 수준에서 강제한다.
 
 ### 이 주제와 연결된 Worked Example
 

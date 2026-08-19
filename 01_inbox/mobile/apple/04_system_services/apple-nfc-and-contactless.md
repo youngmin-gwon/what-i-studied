@@ -13,7 +13,7 @@ date created: 2026-04-04 00:33:00 +09:00
 >[!NOTE] **Android 비교: NFC HCE vs Apple SE Entitlement**
 > - **Android**: 소프트웨어 기반의 HCE(Host-based Card Emulation)를 통해 누구나 자유롭게 결제 앱을 만들 수 있다. (개방적)
 > - **iOS**: 하드웨어 보안 칩인 **Secure Element (SE)**에 직접 접근할 수 있는 권한을 제공한다. 애플과 상업적 계약을 맺고 특정 자격(Entitlement)을 획득한 앱만 결제 기능을 구현할 수 있다. (통제된 개방)
->자세한 내용은 [**android-nfc-and-contactless**](../../android/04_system_services/device-capabilities/nfc-contracts/nfc-contracts.md) 를 참고하세요.
+>자세한 내용은 [**android-nfc-and-contactless**](../../android/04_system_services/device-capabilities/nfc/nfc.md) 를 참고하세요.
 
 ### 1. SE Entitlement & 제 3 자 비접촉 결제 (iOS 26+)
 

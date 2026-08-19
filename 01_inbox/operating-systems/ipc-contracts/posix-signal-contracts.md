@@ -1,5 +1,5 @@
 ---
-title: posix-signal-contracts
+title: posix-signal
 tags: [async-signal-safe, execution-context, ipc, operating-systems, posix, signal]
 aliases: [POSIX Signal Contracts, 시그널과 비동기 이벤트 계약]
 date modified: 2026-08-10 00:00:00 +09:00

@@ -151,17 +151,17 @@ Android 보안 실무의 목적은 클라이언트를 완전히 신뢰하게 만
 
 ### 관련 정본
 
-- [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](../../05_security_privacy/platform-hardening/platform-security-contracts/android-app-sandbox-is-uid-and-process-boundary.md)
-- [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](../../04_system_services/service-lookup/service-lookup-contracts/system-server-uid-pid-check.md)
-- [Permission protection level은 접근 승인 주체를 정의한다](../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-protection-level-defines-who-can-grant-access.md)
-- [Runtime permission은 사용자에게 기능 사용 시점에 요청하는 접근 계약이다](../../05_security_privacy/permissions-and-sandbox/permission-contracts/runtime-permission-is-user-mediated-access-contract.md)
-- [AppOps는 권한 이후의 민감 작업 실행 상태를 관찰하고 제어한다](../../05_security_privacy/permissions-and-sandbox/permission-contracts/appops-observes-and-gates-sensitive-operations-after-permission.md)
-- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup-contracts/appops-permission-denial.md)
-- [Special app access는 일반 runtime permission이 아니라 설정 기반 capability다](../../05_security_privacy/permissions-and-sandbox/permission-contracts/special-app-access-is-settings-mediated-capability.md)
-- [권한 디버깅은 manifest, grant state, AppOps를 분리해 확인한다](../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-debugging-separates-manifest-grant-and-appops-state.md)
-- [SELinux는 Linux 사용자 권한을 넘어 mandatory policy를 강제한다](../../05_security_privacy/platform-hardening/platform-security-contracts/selinux-enforces-mandatory-policy-beyond-linux-user-permissions.md)
-- [Play Integrity token은 서버가 검증하는 위험 신호이지 권한 자체가 아니다](../../05_security_privacy/integrity-and-attestation/integrity-contracts/play-integrity-token-is-server-verified-risk-signal-not-authorization.md)
-- [Android 보안 실무는 클라이언트 신뢰가 아니라 방어 계층 설계다](../../05_security_privacy/security-practices/security-practice-contracts/android-security-practice-is-defense-in-depth-not-client-trust.md)
+- [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](../../05_security_privacy/platform-hardening/platform-security/android-app-sandbox-is-uid-and-process-boundary.md)
+- [system_server의 서비스는 호출자 UID/PID로 권한을 검사한다](../../04_system_services/service-lookup/service-lookup/system-server-uid-pid-check.md)
+- [Permission protection level은 접근 승인 주체를 정의한다](../../05_security_privacy/permissions-and-sandbox/permissions/permission-protection-level-defines-who-can-grant-access.md)
+- [Runtime permission은 사용자에게 기능 사용 시점에 요청하는 접근 계약이다](../../05_security_privacy/permissions-and-sandbox/permissions/runtime-permission-is-user-mediated-access.md)
+- [AppOps는 권한 이후의 민감 작업 실행 상태를 관찰하고 제어한다](../../05_security_privacy/permissions-and-sandbox/permissions/appops-observes-and-gates-sensitive-operations-after-permission.md)
+- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup/appops-permission-denial.md)
+- [Special app access는 일반 runtime permission이 아니라 설정 기반 capability다](../../05_security_privacy/permissions-and-sandbox/permissions/special-app-access-is-settings-mediated-capability.md)
+- [권한 디버깅은 manifest, grant state, AppOps를 분리해 확인한다](../../05_security_privacy/permissions-and-sandbox/permissions/permission-debugging-separates-manifest-grant-and-appops-state.md)
+- [SELinux는 Linux 사용자 권한을 넘어 mandatory policy를 강제한다](../../05_security_privacy/platform-hardening/platform-security/selinux-enforces-mandatory-policy-beyond-linux-user-permissions.md)
+- [Play Integrity token은 서버가 검증하는 위험 신호이지 권한 자체가 아니다](../../05_security_privacy/integrity-and-attestation/integrity/play-integrity-token-is-server-verified-risk-signal-not-authorization.md)
+- [Android 보안 실무는 클라이언트 신뢰가 아니라 방어 계층 설계다](../../05_security_privacy/security-practices/security-practice/android-security-practice-is-defense-in-depth-not-client-trust.md)
 - [Context.getSystemService()](../../04_system_services/get-system-service.md)
 
 ### 공식 근거

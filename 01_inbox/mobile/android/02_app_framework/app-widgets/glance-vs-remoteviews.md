@@ -129,11 +129,11 @@ class StockGlanceWidget : GlanceAppWidget() {
 
 ### 6. 관련 문서 및 참조
 
-- 상위 계약 문서: [App Widget 계약](./app-widget-contracts/app-widget-contracts.md)
+- 상위 계약 문서: [App Widget 계약](./app-widget/app-widget.md)
 - 연관 atomic 계약 문서:
-  - [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](./app-widget-contracts/appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md)
-  - [Glance는 Compose UI가 아니라 RemoteViews를 통해 위젯을 렌더링한다](./app-widget-contracts/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
-  - [RemoteViews는 위젯 layout을 고정된 View 부분집합으로 제한한다](./app-widget-contracts/remoteviews-restricts-widget-layouts-to-a-fixed-view-subset.md)
+  - [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](./app-widget/appwidgetprovider-lifecycle-runs-through-broadcasts-not-a-persistent-process.md)
+  - [Glance는 Compose UI가 아니라 RemoteViews를 통해 위젯을 렌더링한다](./app-widget/glance-renders-app-widgets-through-remoteviews-not-compose-ui.md)
+  - [RemoteViews는 위젯 layout을 고정된 View 부분집합으로 제한한다](./app-widget/remoteviews-restricts-widget-layouts-to-a-fixed-view-subset.md)
 - 상위 구조 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../architecture/android-app-architecture.md)
 
 검증일: 2026-08-06. RemoteViews(원격 청사진)와 Glance(선언형 위젯) 비교 분석 검증 완료.

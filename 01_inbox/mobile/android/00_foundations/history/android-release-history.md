@@ -87,13 +87,13 @@ timeline
 - **Android 5.0 Lollipop (2014)**: [ART 런타임](../../01_system_internals/art.md) 기본 적용, Material Design, SELinux Enforcing.
 - **Android 6.0 Marshmallow (2015)**: [AppOps & 런타임 권한](../../05_security_privacy/appops-and-permissions.md), [Doze 배터리 모드](../../04_system_services/job-scheduler.md).
 - **Android 7.0 Nougat (2016)**: [Activity 멀티 윈도우](../../02_app_framework/architecture/app-components/activity.md), Vulkan API, A/B Updates.
-- **Android 8.0 Oreo (2017)**: [Project Treble](../../01_system_internals/platform-modularity/android-platform-modularity.md), [Foreground Service 제약](../../04_system_services/background-and-notifications/background-work-contracts/foreground-service-contract.md).
+- **Android 8.0 Oreo (2017)**: [Project Treble](../../01_system_internals/platform-modularity/android-platform-modularity.md), [Foreground Service 제약](../../04_system_services/background-and-notifications/background-work/foreground-service.md).
 - **Android 9.0 Pie (2018)**: 제스처 네비게이션, BiometricPrompt 통합.
 - **Android 10 (2019)**: [Scoped Storage & ContentProvider](../../02_app_framework/architecture/app-components/content-provider.md), [Project Mainline APEX](../../01_system_internals/platform-modularity/android-platform-modularity.md).
 - **Android 11 (2020)**: 일회성 권한, AIDL HAL 통합.
 - **Android 12 (2021)**: Material You, Splash Screen, Privacy Dashboard.
 - **Android 13 (2022)**: Photo Picker, `POST_NOTIFICATIONS` 알림 권한.
-- **Android 14 (2023)**: [Foreground Service Type 선언](../../04_system_services/background-and-notifications/background-work-contracts/foreground-service-contract.md), 예측적 뒤로가기.
+- **Android 14 (2023)**: [Foreground Service Type 선언](../../04_system_services/background-and-notifications/background-work/foreground-service.md), 예측적 뒤로가기.
 - **Android 15 (2024)**: 16KB Page Size 지원, Private Space.
 - **Android 16 (2025/2026)**: Baklava - Major/Minor API release 분리.
 

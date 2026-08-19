@@ -60,13 +60,13 @@ graph TD
 
 Context 아키텍처는 아래의 세부 계약 노드를 통해 구체화된다.
 
-- [Context 기본 경계](./context-contracts/context-is-android-environment-capability-not-dependency-container.md)
-- [Application Context 경계](./context-contracts/application-context-fits-process-lifetime-work-not-themed-ui.md)
-- [Activity Context 경계](./context-contracts/activity-context-carries-window-theme-and-short-lifetime.md)
-- [컴포넌트 Context 경계](./context-contracts/component-context-lifetime-follows-service-receiver-provider-boundary.md)
-- [LocalContext 경계](./context-contracts/localcontext-is-composition-scoped-android-context-not-flutter-buildcontext.md)
-- [ViewModel/Repository Context 경계](./context-contracts/viewmodel-and-repository-should-not-retain-ui-context.md)
-- [Context leak 경계](./context-contracts/context-leaks-happen-when-reference-outlives-component-lifetime.md)
+- [Context 기본 경계](./context/context-is-android-environment-capability-not-dependency-container.md)
+- [Application Context 경계](./context/application-context-fits-process-lifetime-work-not-themed-ui.md)
+- [Activity Context 경계](./context/activity-context-carries-window-theme-and-short-lifetime.md)
+- [컴포넌트 Context 경계](./context/component-context-lifetime-follows-service-receiver-provider-boundary.md)
+- [LocalContext 경계](./context/localcontext-is-composition-scoped-android-context-not-flutter-buildcontext.md)
+- [ViewModel/Repository Context 경계](./context/viewmodel-and-repository-should-not-retain-ui-context.md)
+- [Context leak 경계](./context/context-leaks-happen-when-reference-outlives-component-lifetime.md)
 
 ---
 

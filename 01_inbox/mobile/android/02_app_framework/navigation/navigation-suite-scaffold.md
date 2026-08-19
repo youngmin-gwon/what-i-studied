@@ -71,5 +71,5 @@ fun AppNavigationSuiteScaffold(
 
 - [navigation3-scene-and-strategy](navigation3-scene-and-strategy.md) - Navigation 3 Scene & Multi-Pane 레이아웃
 - [navigation-suite-scaffold-vs-navigation3-scene](navigation-suite-scaffold-vs-navigation3-scene.md) - 둘의 비교 및 통합 사용 아키텍처
-- [Navigation 3 계약](navigation3/navigation3-contracts/navigation3-contracts.md) - 상위 계약 지도
+- [Navigation 3 계약](navigation3/navigation3/navigation3.md) - 상위 계약 지도
 - [jetpack-navigation-3-guide](navigation3/jetpack-navigation-3-guide.md) - Jetpack Navigation 3 가이드

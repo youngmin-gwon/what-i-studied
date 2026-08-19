@@ -77,7 +77,7 @@ date created: 2026-08-06 16:45:53 +09:00
 #### `mobile/android` (772개) — 상태: 양호, 추적 문서만 신뢰 불가였음
 
 - 사실/코드 오류 P0 30건 중 26건 기수정 확인. 자동 링크화 오염 68건(1차) + 4건(2차, frontmatter/Mermaid/코드펜스) 수정 완료.
-- **남은 백로그**: (1) `stateflow-is-...-source-stream.md`의 LiveData 비교표 — `livedata.md` 신설 또는 비교 축소 결정 필요. (2) `dependency-injection/di-contracts/di-tool-comparison.md` thin 문서(mechanism/code/evidence 없음) 보강. (3) `00_foundations/topics/`의 27개 파일이 `합니다/됩니다`체 + 영어 섹션 제목, 나머지(A1/A2/B1-B4)는 `-다`체 — 문체 통일 필요. (4) Learning Spine 11·12장의 `feedback`/`trace`/`flaky`/`surface`/`lifecycle` 인라인 풀이 누락. (5) System Internals(155)/Security(28)/Platforms(43) 전체에 Learning Spine 직접 링크 없음 — top-level map에 추가 필요. (6) DI 19개, Compose design-system/accessibility 14개 등 thin 원자 노트 병합·보강.
+- **남은 백로그**: (1) `stateflow-is-...-source-stream.md`의 LiveData 비교표 — `livedata.md` 신설 또는 비교 축소 결정 필요. (2) `dependency-injection/di/di-tool-comparison.md` thin 문서(mechanism/code/evidence 없음) 보강. (3) `00_foundations/topics/`의 27개 파일이 `합니다/됩니다`체 + 영어 섹션 제목, 나머지(A1/A2/B1-B4)는 `-다`체 — 문체 통일 필요. (4) Learning Spine 11·12장의 `feedback`/`trace`/`flaky`/`surface`/`lifecycle` 인라인 풀이 누락. (5) System Internals(155)/Security(28)/Platforms(43) 전체에 Learning Spine 직접 링크 없음 — top-level map에 추가 필요. (6) DI 19개, Compose design-system/accessibility 14개 등 thin 원자 노트 병합·보강.
 
 #### `mobile/apple` + `cross-platform` (87개) — 상태: 핵심 문서는 android와 대등, 주변부 약함
 
@@ -88,7 +88,7 @@ date created: 2026-08-06 16:45:53 +09:00
 
 - 오염 0건. jit-compilation 패턴이 핵심 CS 개념 3종(`compile-time-code-generation`/`apt-vs-ksp`, `reflection`/`java-vs-kotlin-reflection`, `pure-function`/`pure-vs-impure-function`) + 네트워킹 5쌍(TCP/UDP, OSI/TCPIP, A/CNAME, IPv4/IPv6, DHCP/StaticIP)에 이미 정확히 적용돼 있었음(v2.0의 "미완료" 기록은 틀림, 체크박스만 안 갱신됨).
 - **2026-08-10 재검증에서 발견·수정**: `structured-concurrency.md`는 사실 분리가 **안 돼 있었다** — 이전 라운드의 subagent 보고가 이 파일도 이미 분리됐다고 잘못 판단했다(4종이 아니라 3종만 진짜였음). 제목 자체가 "구조화된 동시성 & 비구조화 동시성 비교"였고 본문에 전체 비교 섹션(비유/표/코드)이 그대로 있었다. `structured-vs-unstructured-concurrency.md`를 신설해 비교 섹션을 옮기고 원본은 개념 설명만 남기도록 이번에 실제로 분리했다. **교훈: subagent의 "이미 완료됨" 판단도 파일을 직접 열어 재확인해야 한다 — 이 문서 자체가 그 교훈을 스스로 증명한 사례다.**
-- 재검증 중 별도로 `mobile/android/.../compose-state-and-effect-contracts.md`의 Mermaid 다이어그램 라벨 5곳에 남아있던 자동 링크화 오염(존재하는 파일을 가리키는 링크였지만 Mermaid 노드 라벨 안이라 깨짐)도 추가로 발견해 수정했다. 1,119개 파일 전체 재스캔 결과 frontmatter/Mermaid/코드펜스/인라인 코드 오염과 broken link는 모두 0건으로 재확인됨(2026-08-10).
+- 재검증 중 별도로 `mobile/android/.../compose-state-and-effect.md`의 Mermaid 다이어그램 라벨 5곳에 남아있던 자동 링크화 오염(존재하는 파일을 가리키는 링크였지만 Mermaid 노드 라벨 안이라 깨짐)도 추가로 발견해 수정했다. 1,119개 파일 전체 재스캔 결과 frontmatter/Mermaid/코드펜스/인라인 코드 오염과 broken link는 모두 0건으로 재확인됨(2026-08-10).
 - **백로그(진짜 남은 것)**: `networking/dhcp-nat-protocols.md`(NAT 미분리), `ip-addressing.md`(IPv4/IPv6 표가 `ipv4-vs-ipv6.md`와 완전 중복 — 링크로 대체, 완료), `http-protocol.md`(GET/POST, HTTP버전 비교 내장 → 분리), `ftp-protocol.md`(TFTP 결합 → 분리), `race-condition-and-deadlock.md`(3개 개념 결합 → 분리). 구형 networking 5개 파일(`arp`, `icmp`, `snmp`, `network-devices`, `routing-basics/protocols`)은 비유/친절 서술 표준이 적용 안 됨 + ASCII 박스 5곳을 Mermaid로.
 
 #### `operating-systems` (19개) — 상태: 좋은 예(IPC)와 나쁜 예(보안/커널)가 공존

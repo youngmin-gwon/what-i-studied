@@ -33,13 +33,14 @@ flowchart TD
 ```
 
 ### 관련 세부 문서
-1. [Gradle 코어 엔진 및 아키텍처](../gradle/gradle-build-contracts/gradle-core-engine-and-architecture.md)
-2. [Fastlane Android 코어 및 Actions](fastlane-android-core-and-actions.md)
-3. [Gradle 과 Fastlane CI/CD 파이프라인](gradle-fastlane-ci-cd-pipeline.md)
-4. [Fastlane은 Gradle을 대체하지 않고 Android 빌드를 조율한다](fastlane-orchestrates-android-builds-without-replacing-gradle.md)
-5. [CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다](ci-signing-and-service-account-credentials-must-stay-out-of-source-control.md)
-6. [빌드 매트릭스와 원격 캐시는 함께 CI 매트릭스 시간을 줄인다](build-matrix-and-remote-cache-together-reduce-ci-matrix-time.md)
-7. [Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다](android-cicd-pipeline-stages-have-different-failure-signals.md)
+1. [Gradle 코어 엔진 및 아키텍처](../gradle/gradle-build/gradle-core.md)
+2. [Fastlane 코어 엔진](fastlane.md)
+3. [Fastlane Android 플랫폼 연동](fastlane-android.md)
+4. [Gradle 과 Fastlane CI/CD 파이프라인](gradle-fastlane-pipeline.md)
+5. [Fastlane은 Gradle을 대체하지 않고 Android 빌드를 조율한다](fastlane-orchestrates-android-builds-without-replacing-gradle.md)
+6. [CI 서명과 서비스 계정 자격증명은 소스 제어에 남아선 안 된다](ci-signing-and-service-account-credentials-must-stay-out-of-source-control.md)
+7. [빌드 매트릭스와 원격 캐시는 함께 CI 매트릭스 시간을 줄인다](build-matrix-and-remote-cache-together-reduce-ci-matrix-time.md)
+8. [Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다](android-cicd-pipeline-stages-have-different-failure-signals.md)
 
 ### 관측 가능 증거 (Observable Evidence)
 CI 파이프라인의 캐시 히트율 및 Fastlane 레인 실행 이력은 다음 명령어로 관측할 수 있다:

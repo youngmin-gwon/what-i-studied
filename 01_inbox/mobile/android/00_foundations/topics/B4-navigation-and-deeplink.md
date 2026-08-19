@@ -18,8 +18,8 @@ Navigation 3 의 핵심은 back stack 자체가 프레임워크가 아니라 앱
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [NavKey와 back stack은 앱이 소유하는 navigation 상태다](../../02_app_framework/navigation/navigation3/navigation3-contracts/navkey-and-back-stack-are-app-owned-navigation-state.md) | back stack 이 Compose 상태(리스트)로 직접 관리된다 |
-| [Android Task와 앱 back stack은 다른 상태다](../../02_app_framework/navigation/navigation3/navigation3-contracts/android-task-and-app-back-stack-are-different-stacks.md) | OS task stack 과 앱 내부 NavKey 스택을 혼동하면 안 되는 이유 |
+| [NavKey와 back stack은 앱이 소유하는 navigation 상태다](../../02_app_framework/navigation/navigation3/navigation3/navkey-and-back-stack-are-app-owned-navigation-state.md) | back stack 이 Compose 상태(리스트)로 직접 관리된다 |
+| [Android Task와 앱 back stack은 다른 상태다](../../02_app_framework/navigation/navigation3/navigation3/android-task-and-app-back-stack-are-different-stacks.md) | OS task stack 과 앱 내부 NavKey 스택을 혼동하면 안 되는 이유 |
 
 ---
 
@@ -29,8 +29,8 @@ Navigation 3 의 핵심은 back stack 자체가 프레임워크가 아니라 앱
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](../../02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-back-stack-needs-saveable-restoration.md) | 프로세스 사망 복원을 견디는 back stack 저장 |
-| [Navigation 3 route key는 UI 클래스가 아니라 안정적인 직렬화 식별자다](../../02_app_framework/navigation/navigation3/navigation3-contracts/route-key-should-be-stable-and-serializable.md) | 복원 가능하고 딥링크 변환이 가능한 key 설계 |
+| [Navigation 3 back stack은 저장 가능한 navigation state로 복원해야 한다](../../02_app_framework/navigation/navigation3/navigation3/navigation3-back-stack-needs-saveable-restoration.md) | 프로세스 사망 복원을 견디는 back stack 저장 |
+| [Navigation 3 route key는 UI 클래스가 아니라 안정적인 직렬화 식별자다](../../02_app_framework/navigation/navigation3/navigation3/route-key-should-be-stable-and-serializable.md) | 복원 가능하고 딥링크 변환이 가능한 key 설계 |
 
 ---
 
@@ -40,8 +40,8 @@ Navigation 3 는 "어떤 화면을 보여줄지 결정하는 것"과 "그 화면
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [NavDisplay와 entry provider의 경계](../../02_app_framework/navigation/navigation3/navigation3-contracts/navdisplay-and-entry-provider-separate-rendering-from-route-registry.md) | route 등록과 실제 렌더링 책임을 분리 |
-| [SceneStrategy는 entry를 조합하고 SceneDecorator는 렌더링을 감싼다](../../02_app_framework/navigation/navigation3/navigation3-contracts/scene-strategy-composes-entries-while-decorator-wraps-rendering.md) | 화면 구성 정책과 렌더링 정책의 철저한 분리(대화면 적응형 레이아웃과 직결) |
+| [NavDisplay와 entry provider의 경계](../../02_app_framework/navigation/navigation3/navigation3/navdisplay-and-entry-provider-separate-rendering-from-route-registry.md) | route 등록과 실제 렌더링 책임을 분리 |
+| [SceneStrategy는 entry를 조합하고 SceneDecorator는 렌더링을 감싼다](../../02_app_framework/navigation/navigation3/navigation3/scene-strategy-composes-entries-while-decorator-wraps-rendering.md) | 화면 구성 정책과 렌더링 정책의 철저한 분리(대화면 적응형 레이아웃과 직결) |
 
 ---
 
@@ -51,8 +51,8 @@ Navigation 3 는 "어떤 화면을 보여줄지 결정하는 것"과 "그 화면
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Android 딥 링크는 외부 URI 계약이다](../../02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/deep-link-is-external-uri-contract.md) | 딥링크를 "화면 이동"이 아니라 "신뢰 경계를 넘는 외부 입력"으로 다뤄야 하는 이유 |
-| [Navigation 3 deep link는 URI를 NavKey로 변환한다](../../02_app_framework/navigation/navigation3/navigation3-contracts/navigation3-deep-link-converts-uri-to-navkey.md) | URI 파싱 결과를 back stack 에 넣기 전 거치는 변환 지점 |
+| [Android 딥 링크는 외부 URI 계약이다](../../02_app_framework/navigation/intents-and-deep-links/deep-link/deep-link-is-external-uri.md) | 딥링크를 "화면 이동"이 아니라 "신뢰 경계를 넘는 외부 입력"으로 다뤄야 하는 이유 |
+| [Navigation 3 deep link는 URI를 NavKey로 변환한다](../../02_app_framework/navigation/navigation3/navigation3/navigation3-deep-link-converts-uri-to-navkey.md) | URI 파싱 결과를 back stack 에 넣기 전 거치는 변환 지점 |
 
 ---
 
@@ -62,9 +62,9 @@ Navigation 3 는 "어떤 화면을 보여줄지 결정하는 것"과 "그 화면
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [action, category, data 매칭은 서로 다른 조건이다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest-contracts/intent-filter-matches-action-category-data.md) | Intent Filter 가 세 조건을 각각 별도로 매칭한다는 계약 |
-| [Android App Link는 검증된 HTTPS 딥 링크다](../../02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/app-link-is-verified-https-deep-link.md) | `autoVerify` 와 Digital Asset Links 검증이 대화상자를 생략시키는 조건 |
-| [매니페스트와 assetlinks는 서로 다른 역할이다](../../02_app_framework/navigation/intents-and-deep-links/deep-link-contracts/manifest-and-assetlinks-have-distinct-roles.md) | 매니페스트 선언(수신 의사)과 assetlinks.json(도메인 소유권 증명)의 책임 분리 |
+| [action, category, data 매칭은 서로 다른 조건이다](../../02_app_framework/navigation/intents-and-deep-links/intent-manifest/intent-filter-matches-action-category-data.md) | Intent Filter 가 세 조건을 각각 별도로 매칭한다는 계약 |
+| [Android App Link는 검증된 HTTPS 딥 링크다](../../02_app_framework/navigation/intents-and-deep-links/deep-link/app-link-is-verified-https-deep-link.md) | `autoVerify` 와 Digital Asset Links 검증이 대화상자를 생략시키는 조건 |
+| [매니페스트와 assetlinks는 서로 다른 역할이다](../../02_app_framework/navigation/intents-and-deep-links/deep-link/manifest-and-assetlinks-have-distinct-roles.md) | 매니페스트 선언(수신 의사)과 assetlinks.json(도메인 소유권 증명)의 책임 분리 |
 
 ---
 
@@ -74,7 +74,7 @@ Navigation 3 는 "어떤 화면을 보여줄지 결정하는 것"과 "그 화면
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Custom Tabs는 브라우저의 신뢰 경계를 공유하고 앱 WebView 프로세스와는 다르다](../../02_app_framework/navigation/custom-tabs/custom-tabs-contracts/custom-tabs-share-browser-trust-boundary-instead-of-app-webview-process.md) | 외부 링크를 열 때 Custom Tabs 와 인앱 WebView 중 무엇을 선택할지의 기준 |
+| [Custom Tabs는 브라우저의 신뢰 경계를 공유하고 앱 WebView 프로세스와는 다르다](../../02_app_framework/navigation/custom-tabs/custom-tabs/custom-tabs-share-browser-trust-boundary-instead-of-app-webview-process.md) | 외부 링크를 열 때 Custom Tabs 와 인앱 WebView 중 무엇을 선택할지의 기준 |
 
 ---
 

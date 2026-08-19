@@ -52,4 +52,4 @@ adb shell ls -ld /data/user/0/com.example.app
 - [Scoped Storage와 암호화가 나누는 서로 다른 개인정보 경계](scoped-storage-and-encryption-protect-different-boundaries.md)
 - [백업과 복원에서 데이터 경계를 설계하기](backup-restore-requires-explicit-data-boundaries.md)
 
-관련 지도: [보안 저장소 계약](../secure-storage-contracts/secure-storage-contracts.md)
+관련 지도: [보안 저장소 계약](../secure-storage/secure-storage.md)

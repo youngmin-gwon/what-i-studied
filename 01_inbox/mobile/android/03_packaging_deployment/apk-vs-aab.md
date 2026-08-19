@@ -53,6 +53,6 @@ graph TD
 
 ### 3. 연결 문서 (Related Links)
 
-- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md) - Play App Signing 필수 서명 계약
-- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](distribution/release-distribution-contracts/play-app-signing-separates-upload-key-and-app-signing-key.md) - AAB 배포 계약 노드
+- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md) - Play App Signing 필수 서명 계약
+- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md) - AAB 배포 계약 노드
 - [APK (Android Application Package)](apk.md) - 직접 설치용 패키지 레퍼런스

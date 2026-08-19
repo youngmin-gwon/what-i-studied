@@ -1,5 +1,5 @@
 ---
-title: posix-pipe-and-fifo-contracts
+title: posix-pipe-and-fifo
 tags: [fifo, ipc, kernel-buffer, operating-systems, pipe, posix]
 aliases: [Pipe and FIFO Contracts, 익명 파이프와 FIFO 계약]
 date modified: 2026-08-10 00:00:00 +09:00

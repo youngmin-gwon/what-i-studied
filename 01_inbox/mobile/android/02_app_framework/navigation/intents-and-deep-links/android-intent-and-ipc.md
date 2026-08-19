@@ -58,18 +58,18 @@ graph TD
 
 ### 핵심 정본 지도 (Contract Index)
 
-- [Intent & Manifest 계약](intent-manifest-contracts/intent-manifest-contracts.md)
-- [Intent는 컴포넌트 실행을 설명하는 메시지다](intent-manifest-contracts/intent-describes-component-action-request.md)
-- [Explicit intent는 알려진 컴포넌트를 지정하고 implicit intent는 요구 능력을 선언한다](intent-manifest-contracts/explicit-intent-targets-known-component-implicit-intent-declares-capability.md)
-- [Exported 속성은 외부 컴포넌트 경계를 정의한다](intent-manifest-contracts/exported-attribute-defines-external-component-boundary.md)
-- [Intent filter는 컴포넌트의 수신 계약이다](intent-manifest-contracts/intent-filter-is-component-receiving-contract.md)
-- [PendingIntent는 위임된 미래 intent 토큰이다](intent-manifest-contracts/pendingintent-is-delegated-future-intent-token.md)
-- [Activity Result API는 수명주기를 인식하는 결과 계약을 정의한다](intent-manifest-contracts/activity-result-api-defines-lifecycle-aware-result-contract.md)
-- [Package visibility는 조회 가능한 앱을 제한한다](intent-manifest-contracts/package-visibility-limits-which-apps-can-be-queried.md)
+- [Intent & Manifest 계약](intent-manifest/intent-manifest.md)
+- [Intent는 컴포넌트 실행을 설명하는 메시지다](intent-manifest/intent-describes-component-action-request.md)
+- [Explicit intent는 알려진 컴포넌트를 지정하고 implicit intent는 요구 능력을 선언한다](intent-manifest/explicit-intent-targets-known-component-implicit-intent-declares-capability.md)
+- [Exported 속성은 외부 컴포넌트 경계를 정의한다](intent-manifest/exported-attribute-defines-external-component-boundary.md)
+- [Intent filter는 컴포넌트의 수신 계약이다](intent-manifest/intent-filter-is-component-receiving.md)
+- [PendingIntent는 위임된 미래 intent 토큰이다](intent-manifest/pendingintent-is-delegated-future-intent-token.md)
+- [Activity Result API는 수명주기를 인식하는 결과 계약을 정의한다](intent-manifest/activity-result-api-defines-lifecycle-aware-result.md)
+- [Package visibility는 조회 가능한 앱을 제한한다](intent-manifest/package-visibility-limits-which-apps-can-be-queried.md)
 
 ---
 
 ### 연관 상위 및 관련 가이드
 
 - [Android Deep Links 종합 가이드](android-deep-links.md)
-- [Android Navigation 진입 계약](../navigation-contracts/navigation-contracts.md)
+- [Android Navigation 진입 계약](../navigation/navigation.md)

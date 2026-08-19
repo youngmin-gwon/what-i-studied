@@ -42,18 +42,18 @@ sequenceDiagram
 
 - **버퍼 큐와 Surface (BufferQueue & Surface)**
     앱과 시스템 간 그래픽 데이터의 교환은 BufferQueue 를 통해 이루어진다. 앱(Producer)은 Surface 를 통해 버퍼를 획득(Dequeue)하여 그리고 반환(Queue)하며, SurfaceFlinger(Consumer)가 이를 가져와(Acquire) 소비한다.
-    - [Android 렌더링 파이프라인은 Surface → BufferQueue → Compositor 흐름이다](../../01_system_internals/graphics-and-media/graphics-media-contracts/android-rendering-pipeline-is-surface-to-bufferqueue-to-compositor.md): 안드로이드 렌더링 파이프라인은 Surface 에서 BufferQueue, 그리고 합성기(Compositor)로 이어진다.
-    - [Surface 는 그래픽 버퍼 producer 측 계약이다](../../01_system_internals/graphics-and-media/graphics-media-contracts/surface-is-producer-side-contract-for-graphic-buffers.md): Surface 는 그래픽 버퍼를 위한 생산자 측의 계약이다.
-    - [BufferQueue는 producer와 consumer를 버퍼 소유권으로 분리한다](../../01_system_internals/graphics-and-media/graphics-media-contracts/bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md): BufferQueue 는 버퍼 소유권을 통해 생산자와 소비자를 명확히 분리한다.
+    - [Android 렌더링 파이프라인은 Surface → BufferQueue → Compositor 흐름이다](../../01_system_internals/graphics-and-media/graphics-media/android-rendering-pipeline-is-surface-to-bufferqueue-to-compositor.md): 안드로이드 렌더링 파이프라인은 Surface 에서 BufferQueue, 그리고 합성기(Compositor)로 이어진다.
+    - [Surface 는 그래픽 버퍼 producer 측 계약이다](../../01_system_internals/graphics-and-media/graphics-media/surface-is-producer-side-for-graphic-buffers.md): Surface 는 그래픽 버퍼를 위한 생산자 측의 계약이다.
+    - [BufferQueue는 producer와 consumer를 버퍼 소유권으로 분리한다](../../01_system_internals/graphics-and-media/graphics-media/bufferqueue-separates-producer-and-consumer-with-buffer-ownership.md): BufferQueue 는 버퍼 소유권을 통해 생산자와 소비자를 명확히 분리한다.
 - **앱 렌더링과 타이밍 (Choreographer & RenderThread)**
     프레임 렌더링은 VSYNC 신호에 맞춰 Choreographer 가 구동한다. UI 스레드가 렌더링 명령어(DisplayList)를 준비하면, 별도의 RenderThread 가 GPU 를 사용해 버퍼에 그림을 그린다.
-    - [VSync 와 Choreographer 는 frame deadline 을 정의한다](../../01_system_internals/graphics-and-media/graphics-media-contracts/vsync-and-choreographer-define-frame-deadline.md): VSYNC 와 Choreographer 는 프레임의 마감 시간(Deadline)을 정의한다.
-    - [RenderThread 는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다](../../01_system_internals/graphics-and-media/graphics-media-contracts/renderthread-submits-render-work-without-making-ui-thread-free.md): RenderThread 는 렌더링 작업을 제출하지만 UI 스레드의 모든 부하를 완전히 없애주지는 않는다.
+    - [VSync 와 Choreographer 는 frame deadline 을 정의한다](../../01_system_internals/graphics-and-media/graphics-media/vsync-and-choreographer-define-frame-deadline.md): VSYNC 와 Choreographer 는 프레임의 마감 시간(Deadline)을 정의한다.
+    - [RenderThread 는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다](../../01_system_internals/graphics-and-media/graphics-media/renderthread-submits-render-work-without-making-ui-thread-free.md): RenderThread 는 렌더링 작업을 제출하지만 UI 스레드의 모든 부하를 완전히 없애주지는 않는다.
 - **시스템 화면 합성 (SurfaceFlinger & HWC)**
     화면에 여러 창(StatusBar, NavigationBar, App Window)이 겹칠 때, SurfaceFlinger 가 이를 모아 하나의 화면으로 합성한다. 이때 전력 소모를 줄이기 위해 Hardware Composer(HWC)를 활용하여 레이어 합성을 오프로드한다.
-    - [SurfaceFlinger 는 보이는 레이어를 HWC 와 함께 합성한다](../../01_system_internals/graphics-and-media/graphics-media-contracts/surfaceflinger-composes-visible-layers-with-hwc.md): SurfaceFlinger 는 가시적인 레이어들을 HWC 를 사용하여 합성한다.
-    - [Hardware Composer는 기기 제약 안에서 합성을 offload한다](../../01_system_internals/graphics-and-media/graphics-media-contracts/hardware-composer-offloads-composition-under-device-constraints.md): HWC 는 기기의 제약 조건 하에서 디스플레이 합성을 하드웨어로 오프로드한다.
-    - [Jank 는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/graphics-media-contracts/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md): Jank(버벅임)는 UI, RenderThread, SF 사이에서 프레임 마감 시간을 지키지 못해 발생한다.
+    - [SurfaceFlinger 는 보이는 레이어를 HWC 와 함께 합성한다](../../01_system_internals/graphics-and-media/graphics-media/surfaceflinger-composes-visible-layers-with-hwc.md): SurfaceFlinger 는 가시적인 레이어들을 HWC 를 사용하여 합성한다.
+    - [Hardware Composer는 기기 제약 안에서 합성을 offload한다](../../01_system_internals/graphics-and-media/graphics-media/hardware-composer-offloads-composition-under-device-constraints.md): HWC 는 기기의 제약 조건 하에서 디스플레이 합성을 하드웨어로 오프로드한다.
+    - [Jank 는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/graphics-media/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md): Jank(버벅임)는 UI, RenderThread, SF 사이에서 프레임 마감 시간을 지키지 못해 발생한다.
 
 ### 이 주제와 연결된 Worked Example
 

@@ -29,11 +29,11 @@ flowchart TD
 
 **정적, 동적, 그리고 고정(Pinned) 숏컷의 차이**
 앱 배포 시 고정된 `Static` 숏컷, 사용자 상태에 따라 코드로 업데이트되는 `Dynamic` 숏컷, 그리고 사용자가 직접 바탕화면에 끌어다 놓아 런처가 소유권을 갖는 `Pinned` 숏컷은 서로 다른 관리 방식과 생명주기를 가진다.
-- [Static, dynamic, and pinned shortcuts have different ownership and lifecycle](../../04_system_services/device-capabilities/app-shortcuts-contracts/static-dynamic-and-pinned-shortcuts-have-different-ownership-and-lifecycle.md)
+- [Static, dynamic, and pinned shortcuts have different ownership and lifecycle](../../04_system_services/device-capabilities/app-shortcuts/static-dynamic-and-pinned-shortcuts-have-different-ownership-and-lifecycle.md)
 
 **개수 제한 및 Rate Limiting**
 런처가 지원할 수 있는 숏컷의 개수에는 상한선(통상 4~5개)이 있으며, 백그라운드에서 동적 숏컷을 무한정 업데이트하는 것을 방지하기 위해 시스템 차원의 엄격한 Rate Limit가 적용된다.
-- [ShortcutManager caps dynamic shortcut count and rate limits background updates](../../04_system_services/device-capabilities/app-shortcuts-contracts/shortcutmanager-caps-dynamic-shortcut-count-and-rate-limits-background-updates.md)
+- [ShortcutManager caps dynamic shortcut count and rate limits background updates](../../04_system_services/device-capabilities/app-shortcuts/shortcutmanager-caps-dynamic-shortcut-count-and-rate-limits-background-updates.md)
 
 ### 4. 이 주제와 연결된 Worked Example
 - [03 Deep Link to Correct Task and Screen State](../worked-examples/03-deep-link-to-correct-task-and-screen-state.md) (숏컷 클릭 시 인텐트 라우팅과 백스택 [재구성](../../02_app_framework/jetpack-compose/runtime/recomposition.md))

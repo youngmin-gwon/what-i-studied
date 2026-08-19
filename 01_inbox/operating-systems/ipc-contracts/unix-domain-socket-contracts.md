@@ -1,5 +1,5 @@
 ---
-title: unix-domain-socket-contracts
+title: unix-domain-socket
 tags: [file-descriptor-passing, ipc, operating-systems, scm-rights, socket, unix-domain-socket]
 aliases: [Unix Domain Socket Contracts, 유닉스 도메인 소켓과 FD 전달 계약]
 date modified: 2026-08-10 00:00:00 +09:00

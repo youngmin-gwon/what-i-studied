@@ -49,7 +49,7 @@ date created: 2026-08-05 09:00:00 +09:00
 ### F. Platforms & Form Factors
 
 - [F1 · 대화면·폴더블 적응형 레이아웃](./F1-large-screen-adaptive-layout.md)
-- [F2 · 폼 팩터별 계약 (Wear OS / TV / Auto / ChromeOS / XR)](./F2-form-factor-contracts.md)
+- [F2 · 폼 팩터별 계약 (Wear OS / TV / Auto / ChromeOS / XR)](./F2-form-factor.md)
 
 ### G. Coverage Gap 보강 주제 (Phase 9)
 
@@ -70,16 +70,16 @@ Phase 1 coverage matrix 와 사용자 요청으로 새로 신설된 클러스터
 
 ### G13~G17. Tier 2 보강 주제
 
-Phase 9 에서 우선순위가 낮다고 판단해 보류했다가, 사용자 요청으로 뒤이어 착수한 5 개 주제다. 원자 노트는 대응하는 기존 클러스터(networking-contracts, 신설 multiplatform-contracts/appsearch-contracts/speech-contracts/downloadable-fonts-contracts)에 있다.
+Phase 9 에서 우선순위가 낮다고 판단해 보류했다가, 사용자 요청으로 뒤이어 착수한 5 개 주제다. 원자 노트는 대응하는 기존 클러스터(networking-contracts, 신설 multiplatform/appsearch/speech/downloadable-fonts)에 있다.
 
-- [gRPC는 REST와 다른 타입 세이프 스트리밍 계약을 선언한다](../../02_app_framework/data/networking/networking-contracts/grpc-declares-typed-streaming-contract-while-rest-stays-single-shot-request-response.md)
-- [Kotlin Multiplatform 계약](../../02_app_framework/architecture/multiplatform-contracts/multiplatform-contracts.md)
-- [AppSearch 접근 계약](../../04_system_services/device-capabilities/appsearch-contracts/appsearch-contracts.md)
-- [음성 합성/인식 접근 계약](../../04_system_services/device-capabilities/speech-contracts/speech-contracts.md)
-- [Downloadable Fonts 접근 계약](../../02_app_framework/ui/system/downloadable-fonts-contracts/downloadable-fonts-contracts.md)
+- [gRPC는 REST와 다른 타입 세이프 스트리밍 계약을 선언한다](../../02_app_framework/data/networking/networking/grpc-declares-typed-streaming-while-rest-stays-single-shot-request-response.md)
+- [Kotlin Multiplatform 계약](../../02_app_framework/architecture/multiplatform/multiplatform.md)
+- [AppSearch 접근 계약](../../04_system_services/device-capabilities/appsearch/appsearch.md)
+- [음성 합성/인식 접근 계약](../../04_system_services/device-capabilities/speech/speech.md)
+- [Downloadable Fonts 접근 계약](../../02_app_framework/ui/system/downloadable-fonts/downloadable-fonts.md)
 
 ### 이 지도가 다루지 않는 것
 
-- 순서를 갖고 처음부터 끝까지 읽는 커리큘럼은 [Learning Spine](../learning-spine/01-android-ecosystem-and-contract-surfaces.md) 이 다룬다.
+- 순서를 갖고 처음부터 끝까지 읽는 커리큘럼은 [Learning Spine](../learning-spine/01-android-ecosystem-and-surfaces.md) 이 다룬다.
 - 여러 계층을 하나의 실패/성공 흐름으로 추적하는 서사는 [Worked Examples](../worked-examples/01-app-icon-tap-to-first-frame.md) 가 다룬다.
 - 증상에서 조사 절차로 바로 이어지는 진단은 [Diagnostic Runbooks](../diagnostic-runbooks/01-app-launch-slow-or-fails.md) 가 다룬다.

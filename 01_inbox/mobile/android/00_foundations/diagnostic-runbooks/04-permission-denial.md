@@ -174,8 +174,8 @@ adb shell dumpsys media.camera
 
 - [Worked Example: permission이 있는데 API가 실패하는 사례](../worked-examples/06-permission-granted-but-api-fails.md)
 - [Worked Example: 사진 촬영, preview, 저장, 업로드까지](../worked-examples/02-photo-capture-preview-save-upload.md)
-- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup-contracts/appops-permission-denial.md)
-- [권한 디버깅은 manifest, grant state, AppOps를 분리해 확인한다](../../05_security_privacy/permissions-and-sandbox/permission-contracts/permission-debugging-separates-manifest-grant-and-appops-state.md)
+- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup/appops-permission-denial.md)
+- [권한 디버깅은 manifest, grant state, AppOps를 분리해 확인한다](../../05_security_privacy/permissions-and-sandbox/permissions/permission-debugging-separates-manifest-grant-and-appops-state.md)
 - [Learning Spine 9장 Identity, 권한과 독립적인 security gate](../learning-spine/09-identity-permission-and-independent-security-gates.md)
 
 ---

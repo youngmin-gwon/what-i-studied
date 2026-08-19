@@ -76,4 +76,4 @@ fun UserProfileScreen(
 - [ViewModel](viewmodel.md) - Configuration Change 를 견디는 Compose SSOT 상태 홀더
 - [StateFlow & SharedFlow](stateflow-and-sharedflow.md) - Compose SSOT 상태 방출 스트림
 - [Activity](architecture/app-components/activity.md) - Compose UI 루트 호스트
-- [Composable Body Purity](jetpack-compose/runtime/compose-runtime-contracts/composable-body-purity.md) - Compose UI 함수 작성 준칙
+- [Composable Body Purity](jetpack-compose/runtime/compose-runtime/composable-body-purity.md) - Compose UI 함수 작성 준칙

@@ -51,11 +51,11 @@ Binder IPC 시스템은 역할에 따라 4 개의 전용 하위 원자 노드로
 
 1. **[Binder IPC](binder-ipc.md)**:
    - 커널 `/dev/binder` 드라이버 및 `mmap()` 을 활용한 사용자 공간 ➔ 커널 공간 1 회 복사(Single Copy) 메모리 최적화 원리.
-2. **[Binder 트랜잭션 버퍼 & 1MB 제한](ipc-and-process/ipc-process-contracts/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)**:
+2. **[Binder 트랜잭션 버퍼 & 1MB 제한](ipc-and-process/ipc-process/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)**:
    - 프로세스당 1MB (공유 시 ~512KB)로 제한된 Binder 트랜잭션 버퍼 및 `TransactionTooLargeException` 원인과 해결책.
-3. **[Binder 스레드 풀 & 교착 상태](ipc-and-process/ipc-process-contracts/binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)**:
+3. **[Binder 스레드 풀 & 교착 상태](ipc-and-process/ipc-process/binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)**:
    - 수신 서버 프로세스의 Binder Thread Pool (기본 16 개 스레드) 스케줄링 및 중첩 동기 호출 시 Deadlock 예방 메커니즘.
-4. **[Oneway 비동기 바인더 통신](ipc-and-process/ipc-process-contracts/oneway-binder-removes-caller-waiting-not-server-backpressure.md)**:
+4. **[Oneway 비동기 바인더 통신](ipc-and-process/ipc-process/oneway-binder-removes-caller-waiting-not-server-backpressure.md)**:
    - `oneway` 키워드를 이용한 비동기 블로킹 해제 통신 및 서버 백프레셔(Backpressure) 처리.
 
 ---

@@ -53,8 +53,8 @@ date created: 2026-04-04 00:42:26 +09:00
 
 #### 🏛️ 결론: 차세대 모바일 개발의 3 대 핵심
 
-1. **Functionality-as-Tool**: 앱의 핵심 기능을 AI 에이전트가 호출할 수 있는 '도구' 형태로 설계하십시오. ([**android-appfunctions-and-ai-agents**](../android/04_system_services/agents-and-assistant/assistant-agent-contracts/appfunctions-are-app-capability-contracts-for-agents.md), [apple-intelligence-and-agentic-intents](../apple/04_system_services/apple-intelligence-and-agentic-intents.md))
-2. **Adaptive Interaction**: 고정된 화면이 아닌 창 모드(Windowing)와 공간(XR) 환경에 최적화된 레이아웃을 구축하십시오. ([**android-xr-and-spatial-computing**](../android/07_platforms/xr/xr-contracts/xr-contracts.md), [apple-spatial-computing-visionos](../apple/07_platforms/apple-spatial-computing-visionos.md))
+1. **Functionality-as-Tool**: 앱의 핵심 기능을 AI 에이전트가 호출할 수 있는 '도구' 형태로 설계하십시오. ([**android-appfunctions-and-ai-agents**](../android/04_system_services/agents-and-assistant/assistant-agent/appfunctions-are-app-capability-for-agents.md), [apple-intelligence-and-agentic-intents](../apple/04_system_services/apple-intelligence-and-agentic-intents.md))
+2. **Adaptive Interaction**: 고정된 화면이 아닌 창 모드(Windowing)와 공간(XR) 환경에 최적화된 레이아웃을 구축하십시오. ([**android-xr-and-spatial-computing**](../android/07_platforms/xr/xr/xr.md), [apple-spatial-computing-visionos](../apple/07_platforms/apple-spatial-computing-visionos.md))
 3. **Security Literacy**: NFC SE 개방이나 PCC 같은 보안 기술을 이해하여 사용자 데이터 주권을 보호하십시오. ([mobile-vulnerability-check](mobile-vulnerability-check.md))
 
 ---
@@ -62,6 +62,6 @@ date created: 2026-04-04 00:42:26 +09:00
 #### 📚 연관 비교 분석
 
 - [cross-platform-ai-privacy-comparison](cross-platform-ai-privacy-comparison.md) - 플랫폼별 AI 프라이버시 기술 비교
-- [**android-nfc-and-contactless**](../android/04_system_services/device-capabilities/nfc-contracts/nfc-contracts.md) vs [apple-nfc-and-contactless](../apple/04_system_services/apple-nfc-and-contactless.md)
+- [**android-nfc-and-contactless**](../android/04_system_services/device-capabilities/nfc/nfc.md) vs [apple-nfc-and-contactless](../apple/04_system_services/apple-nfc-and-contactless.md)
 - [mobile-advanced-security-tips](mobile-advanced-security-tips.md) - 시대를 앞서가는 보안 구현 팁
 - [mobile-security](../mobile-security.md) - 통합 모바일 보안 허브

@@ -27,7 +27,7 @@ flowchart LR
 
 Custom Tabs는 앱의 프로세스를 벗어나 기본 브라우저의 신뢰 경계 안에서 웹 페이지를 띄운다. 이를 통해 비밀번호 자동 완성, 로그인 세션 공유 등 브라우저 고유의 보안과 편의성을 앱 내부 경험처럼 제공할 수 있다.
 
-- [Custom Tabs는 앱 WebView 프로세스가 아닌 브라우저 신뢰 경계를 공유함](../../02_app_framework/navigation/custom-tabs/custom-tabs-contracts/custom-tabs-share-browser-trust-boundary-instead-of-app-webview-process.md): WebView가 앱 내부에 격리된 샌드박스라면, Custom Tabs는 시스템 브라우저의 엔진과 세션을 그대로 활용하여 보안 인증과 사용자 경험을 향상시킨다는 차이를 설명합니다.
+- [Custom Tabs는 앱 WebView 프로세스가 아닌 브라우저 신뢰 경계를 공유함](../../02_app_framework/navigation/custom-tabs/custom-tabs/custom-tabs-share-browser-trust-boundary-instead-of-app-webview-process.md): WebView가 앱 내부에 격리된 샌드박스라면, Custom Tabs는 시스템 브라우저의 엔진과 세션을 그대로 활용하여 보안 인증과 사용자 경험을 향상시킨다는 차이를 설명합니다.
 
 ### 4. 이 주제와 연결된 Worked Example
 - [03 Deep Link to Correct Task and Screen State](../worked-examples/03-deep-link-to-correct-task-and-screen-state.md)

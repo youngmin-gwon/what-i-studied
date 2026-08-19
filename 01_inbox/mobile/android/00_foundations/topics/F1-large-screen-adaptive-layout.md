@@ -33,23 +33,23 @@ flowchart TD
 
 #### 3.1. 크기 변경은 스케일링이 아닌 구조의 재배치
 적응형 레이아웃은 단순히 요소의 크기를 늘리는 것이 아니라, 화면 공간에 맞춰 내비게이션, 콘텐츠 목록, 세부 정보 창 등 전체적인 구조를 재배치하는 과정입니다.
-- [적응형 레이아웃은 스케일이 아니라 구조를 변경한다](../../07_platforms/large-screens/large-screen-contracts/adaptive-layout-changes-structure-not-scale.md)
+- [적응형 레이아웃은 스케일이 아니라 구조를 변경한다](../../07_platforms/large-screens/large-screens/adaptive-layout-changes-structure-not-scale.md)
 
 #### 3.2. Window Size Class (WSC)
 앱은 기기 모델이 아닌, 앱이 현재 점유하고 있는 '창 크기(Window Size)'를 기준으로 컴팩트(Compact), 미디엄(Medium), 확장(Expanded) 클래스로 나누어 대응해야 합니다.
-- [Window Size Class는 기기 타입이 아니라 앱 창을 분류한다](../../07_platforms/large-screens/large-screen-contracts/window-size-class-classifies-app-window-not-device-type.md)
+- [Window Size Class는 기기 타입이 아니라 앱 창을 분류한다](../../07_platforms/large-screens/large-screens/window-size-class-classifies-app-window-not-device-type.md)
 
 #### 3.3. 폴더블 기기의 자세(Posture)
 폴더블 기기는 화면이 접힌 상태, 반쯤 접힌 테이블탑(Tabletop) 모드, 완전히 펼친 상태 등 다양한 자세(Posture)를 가지며, 이는 크기 변경과 더불어 중요한 레이아웃 입력으로 작용합니다.
-- [폴더블 자세(Posture)는 기기 카테고리가 아니라 레이아웃 입력이다](../../07_platforms/large-screens/large-screen-contracts/foldable-posture-is-layout-input-not-device-category.md)
+- [폴더블 자세(Posture)는 기기 카테고리가 아니라 레이아웃 입력이다](../../07_platforms/large-screens/large-screens/foldable-posture-is-layout-input-not-device-category.md)
 
 #### 3.4. 멀티 윈도우와 생명주기 분리
 큰 화면에서는 여러 앱이 동시에 띄워지는 멀티 윈도우 모드가 활성화됩니다. 이는 앱이 항상 전체 화면을 독점하고 포커스를 갖는다는 기존의 단일 화면 가정을 깹니다.
-- [멀티 윈도우 생명주기는 단일 전체 화면 가정을 깬다](../../07_platforms/large-screens/windowing-multitasking-contracts/multi-window-lifecycle-breaks-single-fullscreen-assumption.md)
+- [멀티 윈도우 생명주기는 단일 전체 화면 가정을 깬다](../../07_platforms/large-screens/windowing-multitasking/multi-window-lifecycle-breaks-single-fullscreen-assumption.md)
 
 #### 3.5. 대화면 환경의 다양한 입력 장치
 태블릿과 데스크톱 모드 등에서는 터치뿐만 아니라 물리 키보드, 마우스(포인터), 스타일러스 펜이 필수적인 일차 입력 장치로 사용됩니다.
-- [키보드, 포인터, 스타일러스는 대화면의 주요 입력 장치이다](../../07_platforms/large-screens/large-screen-contracts/keyboard-pointer-and-stylus-are-primary-large-screen-inputs.md)
+- [키보드, 포인터, 스타일러스는 대화면의 주요 입력 장치이다](../../07_platforms/large-screens/large-screens/keyboard-pointer-and-stylus-are-primary-large-screen-inputs.md)
 
 ### 4. 이 주제와 연결된 Worked Example
 - [03. 딥링크에서 올바른 Task와 Screen State로 연결 (멀티 윈도우 환경 포함)](../worked-examples/03-deep-link-to-correct-task-and-screen-state.md)
