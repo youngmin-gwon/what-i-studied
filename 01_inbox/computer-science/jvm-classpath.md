@@ -1,0 +1,96 @@
+---
+title: jvm-classpath
+tags: ["jvm", "classpath", "classloader", "java", "build-system", "computer-science"]
+aliases: ["클래스패스", "JVM Classpath", "Classpath", "클래스로더", "ClassLoader"]
+date created: 2026-08-19 14:40:00 +09:00
+date modified: 2026-08-19 14:40:00 +09:00
+---
+
+## JVM 클래스패스 (Classpath)와 클래스 로딩 메커니즘
+
+### 개요
+
+**클래스패스(Classpath)**는 JVM(Java Virtual Machine) 및 Java/Kotlin 컴파일러가 프로그램을 컴파일하거나 실행할 때, 참조할 **바이트코드 파일(`.class`)과 아카이브 파일(`.jar`, `.zip`)을 탐색하는 파일 시스템 경로 목록**이다.
+
+C/C++ 과 같은 네이티브 컴파일 언어는 링커(Linker)가 컴파일 시점에 라이브러리 심볼을 하나의 실행 파일로 정적/동적 결합하지만, JVM 생태계는 **런타임에 클래스로더(ClassLoader)가 클래스패스에 정의된 경로를 순차적으로 스캔하여 클래스를 동적으로 메모리에 적재(Lazy Dynamic Loading)**한다.
+
+```mermaid
+flowchart TD
+    Req["클래스 로드 요청<br/>(예: import com.example.NetworkClient)"] --> CL["ClassLoader"]
+    CL --> CP["Classpath 탐색 목록<br/>[/libs/ktor.jar : /build/classes : /libs/core.jar]"]
+    CP -->|첫 번째 매칭 파일 발견| Load["바이트코드(.class) 읽기 ➔ JVM Metaspace 메모리 적재"]
+    CP -->|전체 경로에 없음| Error["ClassNotFoundException / NoClassDefFoundError"]
+```
+
+---
+
+### 1. 빌드 도구 관점에서의 3단계 클래스패스 분리
+
+현대 빌드 시스템(Gradle, Bazel)은 클래스 오염과 불필요한 빌드 전파를 방지하기 위해 클래스패스를 3단계로 엄격히 분리하여 관리한다.
+
+```mermaid
+flowchart LR
+    subgraph "1. Buildscript Classpath (빌드 런타임)"
+        AGP["AGP / Kotlin Plugin / Detekt"] --> Daemon["Gradle Daemon 실행"]
+    end
+
+    subgraph "2. Compile Classpath (컴파일 시점)"
+        Sources["src/main/kotlin"] --> K2["Kotlin Compiler"]
+        Deps1["implementation / api / compileOnly"] --> K2
+        K2 --> Classes["build/classes (.class)"]
+    end
+
+    subgraph "3. Runtime Classpath (실행 시점)"
+        Classes --> App["App Process / Test Runner"]
+        Deps2["implementation / api / runtimeOnly"] --> App
+    end
+```
+
+| 구분 | 목적 | 포함 대상 | 배제 대상 |
+|---|---|---|---|
+| **Buildscript / Plugin Classpath** | 빌드 도구 자체 및 플러그인 구동 | AGP, Detekt, Compose Compiler Plugin, Kotlin Gradle Plugin | 앱 소스 코드, 앱 런타임 라이브러리 |
+| **Compile Classpath** | 소스 코드(`src/`)의 문법 검증 및 바이트코드 생성 | `api`, `implementation`, `compileOnly` | `runtimeOnly` (컴파일 시점에 불필요한 구현체) |
+| **Runtime Classpath** | 컴파일된 코드가 실제 실행/테스트될 때 클래스 로딩 | `api`, `implementation`, `runtimeOnly` | `compileOnly` (어노테이션, 빌드 전용 타입) |
+
+---
+
+### 2. 클래스패스 탐색 규칙과 Jar Hell (클래스 충돌)
+
+클래스로더는 클래스패스에 지정된 순서대로 디렉터리와 JAR 파일을 탐색하며, **가장 먼저 발견된 클래스를 로드하고 탐색을 중단(First-match wins)**한다.
+
+```text
+클래스패스: [ lib-v1.0.jar : lib-v2.0.jar ]
+             └── com.example.Util.class 가 양쪽에 존재할 때
+                 ➔ 항상 lib-v1.0.jar 의 Util 이 로드됨 (Class Shadowing)
+```
+
+#### Jar Hell (의존성 지옥)과 클래스 섀도잉
+- 서로 다른 라이브러리가 동일한 패키지/클래스명을 가진 구버전과 신버전 클래스를 각각 포함할 경우, 클래스패스 순서에 따라 런타임에 예기치 않은 메서드 누락(`NoSuchMethodError`)이나 비정상 동작이 발생한다.
+- 빌드 도구는 이를 해결하기 위해 **단일 버전 해결 규칙(Dependency Conflict Resolution)**을 사용하여 전이적 의존성 그래프에서 최신 버전을 선택하거나 버전을 강제 통일한다.
+
+---
+
+### 3. ClassNotFoundException vs NoClassDefFoundError
+
+클래스패스 설정 오류로 발생하는 대표적인 두 에러는 원인이 다르다.
+
+- **`ClassNotFoundException` (런타임 동적 탐색 실패)**:
+  - `Class.forName("com.example.MyClass")` 또는 리플렉션을 통해 동적으로 클래스명을 조회했으나, 클래스패스 상에 해당 `.class` 파일이 존재하지 않을 때 발생한다.
+- **`NoClassDefFoundError` (컴파일 성공 후 런타임 로드 실패)**:
+  - 컴파일 시점에는 클래스패스에 클래스가 존재하여 컴파일에 성공했으나, **런타임 클래스패스에서 해당 클래스나 의존 클래스가 누락되었거나 정적 초기화(`static {}`) 블록에서 예외가 발생**하여 클래스 정의를 읽지 못할 때 발생한다.
+
+---
+
+### 4. Classpath vs Modulepath (Java 9+ JPMS)
+
+- **Classpath**: 평면적인(Flat) 경로 구조로, 모든 JAR의 패키지가 하나의 전역 네임스페이스로 병합된다. 캡슐화가 없고 런타임 클래스 누락을 기동 전에 검증할 수 없다.
+- **Modulepath**: Java 9 JPMS(Java Platform Module System)에서 도입된 명시적 모듈 경로(`module-info.java`)로, 모듈 간 공개 패키지와 의존성을 명시적으로 선언하여 컴파일/기동 시점에 캡슐화와 의존성 완전성을 엄격히 검증한다.
+
+---
+
+### 상위 및 연관 문서
+
+- [API vs ABI](api-vs-abi.md)
+- [링커와 로더 (Linker & Loader)](linker-and-loader.md)
+- [Gradle 의존성 구성 및 클래스패스 격리](../mobile/android/03_packaging_deployment/build/gradle/gradle-build/gradle-dependency-configurations.md)
+- [Gradle 플러그인 및 모듈화 아키텍처](../mobile/android/03_packaging_deployment/build/gradle/gradle-build/gradle-plugins.md)

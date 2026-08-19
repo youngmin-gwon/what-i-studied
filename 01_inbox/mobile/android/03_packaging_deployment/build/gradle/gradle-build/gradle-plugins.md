@@ -1,8 +1,8 @@
 ---
 title: gradle-plugins
 tags: ["build-logic", "convention-plugin", "gradle", "modularization", "plugins"]
-aliases: ["build-logic", "Composite Build", "Convention Plugin", "Gradle 플러그인 아키텍처", "Gradle 플러그인"]
-date modified: 2026-08-19 11:45:45 +09:00
+aliases: ["apply false", "build-logic", "Composite Build", "Convention Plugin", "Gradle 플러그인 아키텍처", "Gradle 플러그인"]
+date modified: 2026-08-19 14:34:38 +09:00
 date created: 2026-08-19 11:15:00 +09:00
 ---
 
@@ -16,10 +16,11 @@ date created: 2026-08-19 11:15:00 +09:00
 
 ```mermaid
 flowchart TD
-    Settings["settings.gradle.kts<br/>(includeBuild: build-logic)"] --> BuildLogic["build-logic Module<br/>(컴파일 및 단위 테스트 격리)"]
-    BuildLogic --> ConvPlugin["Convention Plugin<br/>(JavaLibraryConventionPlugin / KotlinConventionPlugin)"]
-    ConvPlugin --> VersionCatalog["Version Catalog<br/>(libs.versions.toml)"]
-    ConvPlugin --> Subprojects["Submodules (:core, :api, :service, :app)"]
+    RootSettings["settings.gradle.kts<br/>(includeBuild: build-logic)"] --> BuildLogic["build-logic Module<br/>(compileOnly 바이너리 참조 & 타입 세이프 DSL)"]
+    RootBuild["루트 build.gradle.kts<br/>(plugins { alias(...) apply false })"] --> Classpath["루트 플러그인 Classpath 준비"]
+    BuildLogic --> ConvPlugin["Convention Plugin<br/>(JavaLibrary / AndroidCompose / FeatureUI)"]
+    Classpath --> ConvPlugin
+    ConvPlugin --> Subprojects["Submodules (:core, :feature, :app)"]
 ```
 
 ---
@@ -35,91 +36,85 @@ flowchart TD
 
 ---
 
-### 2. Convention Plugin 패턴 및 `build-logic` 구조
+### 2. 루트 `build.gradle.kts`와 `apply false` 의 클래스패스 메커니즘
 
-**Convention Plugin(컨벤션 플러그인)** 은 프로젝트 고유의 빌드 규칙(컴파일러 옵션, 린트, 테스트 설정 등)을 캡슐화한 커스텀 플러그인이다.
+루트 `build.gradle.kts`에서 선언하는 `apply false` 는 메인 빌드 전체에 플러그인 바이너리 클래스패스를 제공하는 핵심 게이트웨이다.
 
-#### `build-logic` 프로젝트 디렉토리 계층
+```kotlin
+// 루트 build.gradle.kts
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.detekt) apply false
+}
+```
+
+- **`apply false` 의 본질**:
+  - 플러그인의 버전과 구현 바이너리를 빌드 런타임 클래스패스에 준비하되, **루트 프로젝트 자체에는 적용하지 않는다**.
+  - 덕분에 하위 모듈이나 Convention Plugin 내부에서 `pluginManager.apply("com.android.library")` 를 호출할 때 버전 명시 없이도 루트가 준비해 둔 검증된 플러그인을 즉시 로드할 수 있다.
+
+---
+
+### 3. `build-logic` 프로젝트 구조 및 `compileOnly` 플러그인 의존성
+
+`build-logic` 은 메인 빌드와 독립된 Gradle Build(Included Build)로 동작한다.
+
+#### `build-logic/convention/build.gradle.kts` 설정
+
+```kotlin
+// build-logic/convention/build.gradle.kts
+plugins {
+    `kotlin-dsl`
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+dependencies {
+    // 💡 compileOnly 로 플러그인 API 타입을 참조 (런타임 JAR 중복 방지)
+    compileOnly(libs.android.gradle.plugin)
+    compileOnly(libs.kotlin.gradle.plugin)
+    compileOnly(libs.kotlin.compose.gradle.plugin)
+    compileOnly(libs.detekt.gradle.plugin)
+}
+
+tasks.validatePlugins {
+    enableStricterValidation = true
+    failOnWarning = true // 플러그인 디스크립터 검증 경고도 실패 처리
+}
+```
+
+- **`compileOnly` 의 필요성**:
+  - Convention Plugin Kotlin 코드에서 `LibraryExtension`, `ApplicationExtension`, `DetektExtension` 등의 **빌드 API 타입을 컴파일 시점에 참조**하기 위해 필요하다.
+  - 실제 플러그인 구현 바이너리는 메인 빌드가 이미 로드하므로, Convention Plugin JAR 에 중복 포함되지 않도록 `compileOnly` 로 격리한다.
+
+---
+
+### 4. Convention Plugin 설계 시 "의도적으로 넣지 말아야 할 경계 (Boundary Principles)"
+
+Convention Plugin 의 목적은 모듈 `build.gradle.kts` 를 완전히 빈 파일로 만드는 것이 아니라, **공통 규칙은 캡슐화하고 모듈의 고유한 정체성과 차이점만 투명하게 드러내는 것**이다.
 
 ```text
-my-project/
-├── build-logic/
-│   ├── settings.gradle.kts        # Version Catalog 명시 임포트
-│   ├── convention/
-│   │   ├── build.gradle.kts       # kotlin-dsl 플러그인 적용
-│   │   └── src/main/kotlin/
-│   │       ├── JvmLibraryConventionPlugin.kt
-│   │       └── SpringBootConventionPlugin.kt
-├── gradle/
-│   └── libs.versions.toml         # 라이브러리 및 플러그인 의존성 SSOT
-└── settings.gradle.kts            # includeBuild("build-logic") 선언
+모든 모듈이 공통으로 따르는 표준 규칙
+    ➔ Convention Plugin 에 캡슐화 (compileSdk, minSdk, Java 21, Compose Compiler, 공통 테스트 번들)
+
+모듈의 고유한 정체성과 프로젝트 간 의존 관계
+    ➔ 각 모듈의 build.gradle.kts 에 명시적으로 유지
 ```
 
-#### `build-logic/settings.gradle.kts` 설정
-
-```kotlin
-// build-logic/settings.gradle.kts
-dependencyResolutionManagement {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-    }
-    versionCatalogs {
-        create("libs") {
-            from(files("../gradle/libs.versions.toml"))
-        }
-    }
-}
-```
-
----
-
-### 3. Binary Plugin 작성 및 Extension DSL 설계
-
-플러그인은 `Extension` 객체를 등록하여 빌드 스크립트 사용자에게 타입 세이프한 커스텀 DSL 블록을 제공할 수 있다.
-
-```kotlin
-// build-logic/convention/src/main/kotlin/JvmLibraryConventionPlugin.kt
-import org.gradle.api.Plugin
-import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.jvm.toolchain.JavaLanguageVersion
-import org.gradle.kotlin.dsl.configure
-
-class JvmLibraryConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) {
-        with(target) {
-            // 1. 공통 플러그인 적용
-            pluginManager.apply("java-library")
-            pluginManager.apply("org.jetbrains.kotlin.jvm")
-
-            // 2. 공통 자바 툴체인 설정
-            extensions.configure<JavaPluginExtension> {
-                toolchain {
-                    languageVersion.set(JavaLanguageVersion.of(21))
-                }
-            }
-        }
-    }
-}
-```
-
-```kotlin
-// subproject/build.gradle.kts 에서의 사용
-plugins {
-    id("myproject.jvm.library") // Convention Plugin 단 한 줄로 공통 설정 적용
-}
-```
-
----
-
-### 4. 프로젝트 격리 (Project Isolation)와 멀티모듈 설계 원칙
-
-1. **상호 프로젝트 직접 참조 금지 (Decoupling)**:
-   - `project(":other").tasks…` 형태로 다른 모듈의 내부 상태를 직접 수정하지 않는다.
-   - 모듈 간의 통신은 오직 `dependencies { implementation(project(":other")) }` 와 Artifact 선언을 통해서만 수행한다.
-2. **Version Catalog (`libs.versions.toml`) 연동**:
-   - 하드코딩된 버전 문자열 대신 Version Catalog 를 통해 전역 의존성 버전을 동기화한다.
+#### 모듈 `build.gradle.kts` 에 명시적으로 남겨두어야 하는 항목들
+1. **프로젝트 내부 모듈 간 의존성 (`implementation(project(":core:network"))`)**:
+   - 내부 의존성을 Convention Plugin 안에 숨기면, 파일만 보고는 이 모듈이 시스템의 어느 부분과 결합되어 있는지 알 수 없게 된다 (의존성 불투명성 방지).
+2. **`namespace` 및 `applicationId`**:
+   - 모듈 고유의 식별자이므로 각 모듈 파일에 명시.
+3. **`api` vs `implementation` 선택**:
+   - 인터페이스 노출 여부는 모듈 설계자의 명시적 판단이 필요함.
+4. **서명(Signing Config), Flavor(Staging/Production), Base URL**:
+   - 배포 환경 및 변형별 고유 설정.
 
 ---
 
@@ -128,5 +123,5 @@ plugins {
 - [Gradle 코어 엔진 및 아키텍처](gradle-core.md)
 - [Gradle 실행 생명주기](gradle-lifecycle.md)
 - [Gradle Task 모델 및 Provider API](gradle-task-api.md)
-- [Gradle 캐싱 및 최적화](gradle-caching-and-optimization.md)
+- [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md)
 - [Convention Plugin과 build-logic](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md)

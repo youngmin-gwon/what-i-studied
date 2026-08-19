@@ -65,8 +65,12 @@ Gradle 빌드의 최소 실행 단위인 Task 는 지연 평가와 상태 계약
 ### 상위 및 연관 문서
 
 - [유향 비순환 그래프 (DAG)](../../../../../../computer-science/directed-acyclic-graph.md)
+- [JVM 클래스패스와 클래스 로딩 메커니즘](../../../../../../computer-science/jvm-classpath.md)
+- [API vs ABI](../../../../../../computer-science/api-vs-abi.md)
+- [Android 빌드 파이프라인과 핵심 빌드 용어 해설](android-build-pipeline.md)
 - [Gradle 실행 생명주기](gradle-lifecycle.md)
 - [Gradle Task 모델 및 Provider API](gradle-task-api.md)
+- [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md)
 - [Gradle 캐싱 및 빌드 최적화](gradle-caching-and-optimization.md)
 - [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
 - [Fastlane 코어 엔진](../../ci-cd/fastlane.md)
