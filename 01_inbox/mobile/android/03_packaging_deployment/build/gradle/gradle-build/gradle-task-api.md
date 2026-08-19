@@ -1,9 +1,9 @@
 ---
 title: gradle-task-api
-tags: ["gradle", "build-engine", "task-api", "jvm", "performance"]
-aliases: ["Gradle Task API", "TaskProvider", "Property API", "Worker API", "증분 태스크"]
+tags: ["build-engine", "gradle", "jvm", "performance", "task-api"]
+aliases: ["Gradle Task API", "Property API", "TaskProvider", "Worker API", "증분 태스크"]
+date modified: 2026-08-19 11:12:09 +09:00
 date created: 2026-08-19 11:00:00 +09:00
-date modified: 2026-08-19 11:00:00 +09:00
 ---
 
 ## Gradle Task 모델 및 Provider API
@@ -18,11 +18,11 @@ Gradle 빌드 시스템에서 실행 가능한 최소 단위는 **Task**이다. 
 
 Gradle 은 Task 등록을 위한 두 가지 API 를 제공하며, 성능 관점에서 명확한 차이가 존재한다.
 
-| 비교 항목 | `tasks.register("myTask")` (권장) | `tasks.create("myTask")` (지양) |
-|---|---|---|
-| **생성 시점** | **지연 생성 (Lazy)** — 실제 실행 대상일 때 인스턴스화 | **즉시 생성 (Eager)** — Configuration 단계에서 무조건 인스턴스화 |
-| **반환 타입** | `TaskProvider<T>` (지연 핸들러) | `Task` (실제 인스턴스) |
-| **빌드 성능** | 수백 개의 태스크가 있어도 요청된 것만 구성하므로 빠름 | 요청하지 않은 태스크까지 메모리에 올려 구성 오버헤드 유발 |
+| 비교 항목 | `tasks.register("myTask")` (권장)      | `tasks.create("myTask")` (지양)                    |
+| ----- | ------------------------------------ | ------------------------------------------------ |
+| 생성 시점 | **지연 생성 (Lazy)** — 실제 실행 대상일 때 인스턴스화 | **즉시 생성 (Eager)** — Configuration 단계에서 무조건 인스턴스화 |
+| 반환 타입 | `TaskProvider<T>` (지연 핸들러)           | `Task` (실제 인스턴스)                                 |
+| 빌드 성능 | 수백 개의 태스크가 있어도 요청된 것만 구성하므로 빠름       | 요청하지 않은 태스크까지 메모리에 올려 구성 오버헤드 유발                 |
 
 ```kotlin
 // Lazy Task Registration 예시
@@ -37,12 +37,12 @@ val generateVersionInfo = tasks.register<GenerateVersionInfoTask>("generateVersi
 
 ### 2. Property & Provider API (지연 값 바인딩)
 
-Gradle 의 `Property<T>`와 `Provider<T>`는 태스크 간의 입출력 데이터를 결합할 때, **실제 값이 결정되는 시점(Execution Phase)까지 평가를 지연(Lazy Evaluation)**시키는 함수형 컨테이너이다.
+Gradle 의 `Property<T>`와 `Provider<T>` 는 태스크 간의 입출력 데이터를 결합할 때, **실제 값이 결정되는 시점(Execution Phase)까지 평가를 지연(Lazy Evaluation)** 시키는 함수형 컨테이너이다.
 
 - **`Property<T>`**: 읽기/쓰기가 가능한 컨테이너 (`set()`, `convention()`).
 - **`Provider<T>`**: 읽기 전용 지연 값 공급자 (`get()`, `map()`, `flatMap()`).
 - **태스크 간 자동 의존성 전파(Implicit Dependency)**:
-  - Task B의 `@InputFile`에 Task A의 `TaskProvider<T>.flatMap { it.outputFile }`을 대입하면, Gradle 은 명시적인 `dependsOn` 선언 없이도 **자동으로 Task A ➔ Task B 의 DAG 의존관계를 수립**한다.
+  - Task B 의 `@InputFile`에 Task A 의 `TaskProvider<T>.flatMap { it.outputFile }`을 대입하면, Gradle 은 명시적인 `dependsOn` 선언 없이도 **자동으로 Task A ➔ Task B 의 DAG 의존관계를 수립**한다.
 
 ```kotlin
 // Task A의 출력을 Task B의 입력으로 암시적 바인딩
@@ -99,7 +99,7 @@ abstract class TransformDataTask : DefaultTask() {
 
 ### 4. Worker API 기반 병렬 및 프로세스 격리 실행
 
-무거운 작업(컴파일러 호출, 바이트코드 가공, 이미지 압축 등)을 태스크 메인 스레드에서 직접 돌리지 않고 `WorkerExecutor`를 통해 비동기/병렬 프로세스로 격리 실행한다.
+무거운 작업(컴파일러 호출, 바이트코드 가공, 이미지 압축 등)을 태스크 메인 스레드에서 직접 돌리지 않고 `WorkerExecutor` 를 통해 비동기/병렬 프로세스로 격리 실행한다.
 
 ```mermaid
 flowchart TD
