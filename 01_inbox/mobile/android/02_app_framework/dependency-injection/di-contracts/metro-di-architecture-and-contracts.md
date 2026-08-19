@@ -34,7 +34,19 @@ date created: 2026-08-13 16:35:00 +09:00
 
 #### 범용 멀티모듈 Aggregation 구조
 
-Metro 는 Anvil 스타일의 **Aggregating Code Generation**을 제공한다. Feature 모듈은 최상위 `app` 모듈이나 최종 `AppGraph` 클래스 타입을 몰라도, 단지 `@ContributesIntoMap(AppScope::class)` 또는 `@ContributesBinding(AppScope::class)` 어노테이션을 통해 자신이 제공하는 객체를 스코프에 등록한다.
+Metro 는 Anvil 스타일의 **Aggregating Code Generation(성분 합성 코드 생성)**을 제공한다. Feature 모듈은 최상위 `app` 모듈이나 최종 `AppGraph` 클래스 타입을 몰라도, 단지 `@ContributesIntoMap(AppScope::class)` 또는 `@ContributesBinding(AppScope::class)` 어노테이션을 통해 자신이 제공하는 객체를 스코프에 등록한다.
+
+##### Anvil 스타일 Aggregation 메커니즘이란?
+
+- **기존 Dagger 방식의 한계 (중앙 수동 등록)**:
+  - 전통적인 Dagger 에서는 최상위 `@Component` 선언부에 모든 하위 모듈의 `@Module` 목록(`modules = [ProfileModule::class, SearchModule::class, ...]`)을 명시적으로 수동 나열해야 했다.
+  - 이 방식은 새 모듈이 추가될 때마다 최상위 그래프 파일을 직접 수정해야 하며, 모듈 간 결합도가 높아져 멀티모듈 경계를 훼손하는 원인이 되었다.
+- **Anvil 스타일 Aggregation (분산 선언 및 컴파일 타임 합성)**:
+  - 각 Feature 모듈은 최상위 그래프(`AppGraph`)의 존재나 구현 타입을 알 필요 없이, **"나는 `AppScope`라는 스코프 경계에 이 바인딩을 기여한다"**라는 사실(`@ContributesTo`, `@ContributesBinding`, `@ContributesIntoMap`)만 선언한다.
+  - Metro 컴파일러 플러그인이 컴파일 타임(FIR/IR 분석 단계)에 프로젝트 전체의 어노테이션 힌트(Hint)를 스캔하여, `AppScope`로 선언된 최종 `@DependencyGraph` 인터페이스 구현체에 바인딩 코드를 **자동으로 합성(Aggregation)**해 넣는다.
+- **멀티모듈 아키텍처에서의 핵심 이점**:
+  - `feature:profile:impl` 같은 하위 모듈이 `app` 모듈(최상위 그래프 소유 모듈)을 참조하면 순환 의존성(Circular Dependency)으로 컴파일 에러가 발생한다.
+  - Anvil 스타일 Aggregation 은 하위 모듈이 상위 모듈을 참조하지 않고도 역방향 기여를 가능하게 하여, **모듈 간 단방향 의존성 규칙을 완벽히 지키면서 컴파일 타임 DI 배선**을 완수한다.
 
 ```mermaid
 graph TD
@@ -58,11 +70,12 @@ graph TD
     A_VM -. "AppScope 기여<br/>(Direct App Dependency 없음)" .-> MP
     B_VM -. "AppScope 기여<br/>(Direct App Dependency 없음)" .-> MP
     C_Repo -. "AppScope 기여" .-> MP
-    MP ==>|컴파일 타임 자동 합성| AG
+    MP ==>|컴파일 타임 자동 합성 (Anvil Style Aggregation)| AG
 ```
 
 - **모듈 의존성 단방향 제약 준수**: Feature 모듈(`feature:*:impl`)은 `app` 모듈을 참조하지 않는다 (참조 시 순환 의존성 컴파일 에러).
 - **컴파일 타임 스캔**: Metro 컴파일러 플러그인이 프로젝트 내 `AppScope::class`로 기여된 모든 바인딩 힌트(Hint)를 스캔하여 최종 `AppGraph` 구현체에 자동으로 합성한다.
+
 
 ---
 
