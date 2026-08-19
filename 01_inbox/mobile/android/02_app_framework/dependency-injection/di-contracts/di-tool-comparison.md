@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity() {
 ```
 
 ### Metro
-**Metro**는 Kotlin compiler plugin 기반의 compile-time DI로, get_it 식 전역 locator가 아니라 graph가 생성자를 호출하고 binding을 검증하게 두는 도구다.
+**Metro**는 Kotlin compiler plugin 기반의 compile-time DI로, get_it 식 전역 locator가 아니라 graph가 생성자를 호출하고 binding을 검증하게 두는 도구다. 상세 아키텍처와 멀티모듈 바인딩 계약은 [Metro DI 아키텍처와 멀티모듈 바인딩 계약](./metro-di-architecture-and-contracts.md)을 참조한다.
+
 
 #### Metro 코드 예시
 ```kotlin

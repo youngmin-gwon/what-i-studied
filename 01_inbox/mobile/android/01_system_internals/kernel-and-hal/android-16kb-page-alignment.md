@@ -1,8 +1,8 @@
 ---
 title: android-16kb-page-alignment
-tags: [android, system-internals, kernel, memory, 16kb-page-size, ndk, elf-alignment, performance]
+tags: [android, system-internals, kernel, memory, 16kb-page-size, ndk, elf-alignment, performance, agp]
 aliases: [16KB Page Alignment, Android 16KB 페이지 정렬, 16KB Memory Page]
-date modified: 2026-08-10 11:54:00 +09:00
+date modified: 2026-08-18 10:13:00 +09:00
 date created: 2026-08-10 11:48:00 +09:00
 ---
 
@@ -33,28 +33,31 @@ graph TD
 
 ---
 
-## 2. NDK 빌드 및 16KB Alignment 검증 방법
+## 2. NDK 빌드 버전별 설정 및 써드파티 호환성
 
-### 1) Android NDK 빌드 설정 (NDK r27 이상 권장)
+### 1) NDK 버전별 링커 플래그 적용
 
-C/C++ NDK 프로젝트의 `Android.mk` 또는 `CMakeLists.txt` 에 16KB 링커 플래그를 추가한다:
+- **NDK r28 이상**: 기본적(Default)으로 16KB ELF Alignment 가 자동 적용된다.
+- **NDK r27 이하**: C/C++ NDK 프로젝트의 `CMakeLists.txt` 에 16KB 링커 플래그를 명시해야 한다:
+  ```cmake
+  # CMakeLists.txt 예시 (NDK r27 이하)
+  target_link_options(my_native_lib PRIVATE "-Wl,-z,max-page-size=16384")
+  # NDK r22 이하 구버전의 경우 다음 플래그도 추가 필요
+  # "-Wl,-z,common-page-size=16384"
+  ```
+- **AGP (Android Gradle Plugin) 8.5.1+ 필수**: 최신 AGP 는 빌드 시 16KB 정렬을 자동 검증해 준다.
 
-```cmake
-# CMakeLists.txt 예시
-target_link_options(my_native_lib PRIVATE "-Wl,-z,max-page-size=16384")
-```
+### 2) 써드파티 Prebuilt `.so` 라이브러리 검증 및 16KB Alignment (llvm-objdump)
 
-### 2) 16KB Alignment 검증 터미널 명령 (objdump)
-
-빌드된 `.so` 공유 라이브러리가 16KB 정렬을 준수하는지 검증한다:
+본인 코드뿐만 아니라 사용 중인 외부 서드파티 prebuilt `.so` 파일도 16KB 로 정렬되었는지 검증해야 한다:
 
 ```bash
-# LOAD 세그먼트의 Align 값이 2^14 (16384 = 0x4000) 인지 확인
-objdump -p libmy_native_lib.so | grep LOAD
+# NDK 내 llvm-objdump 로 LOAD 세그먼트 Align 값 확인
+$NDK_PATH/toolchains/llvm/prebuilt/<host>/bin/llvm-objdump -p libmy_native_lib.so | grep LOAD
 ```
 
-- **합격 기준**: output 의 `align 2^14` 또는 `align 0x4000` 표시.
-- **불합격 기준**: `align 2^12` (0x1000 = 4KB 정렬).
+- **합격 기준**: output 의 `align 2**14` 또는 `align 0x4000` 표시 (16384 바운더리).
+- **불합격 기준**: `align 2**12` (0x1000 = 4KB 정렬 ➔ 해당 서드파티 SDK 업데이트 필수).
 
 ---
 

@@ -25,10 +25,12 @@ Android DI 문서는 프레임워크별 사용법 목록이 아니라 객체 gra
 
 ### DI Contracts
 
-모든 세부 원칙은 3개의 문서로 통합되었다:
+세부 원칙과 프레임워크 계약은 다음 핵심 문서들로 정리되어 있다:
 - [DI 바인딩과 생성 계약](di-contracts/di-binding-creation-contracts.md)
 - [DI 소유권과 스코프 계약](di-contracts/di-ownership-scope-contracts.md)
 - [DI 도구 및 엔진 비교](di-contracts/di-tool-comparison.md)
+- [Metro DI 아키텍처와 멀티모듈 바인딩 계약](di-contracts/metro-di-architecture-and-contracts.md)
 
 ### 상위 문서
 - [DI Contracts 전체 보기](di-contracts/di-contracts.md)
+

@@ -36,4 +36,4 @@ graph TD
 
 - 상위 계약: [Navigation 3 계약](navigation3-contracts.md)
 - 연관 계약: [Metadata와 SceneStrategy는 표시 정책을 전달한다](metadata-and-scene-strategy-carry-display-policy.md)
-- 실전 적용: [Navigation 3 Scene & SceneStrategy](navigation3-scene-and-strategy.md) - window size class에 따라 `rememberListDetailSceneStrategy()`가 single-pane/multi-pane을 전환하는 실제 사용법
+- 실전 적용: [Navigation 3 Scene & SceneStrategy](../../navigation3-scene-and-strategy.md) - window size class에 따라 `rememberListDetailSceneStrategy()`가 single-pane/multi-pane을 전환하는 실제 사용법

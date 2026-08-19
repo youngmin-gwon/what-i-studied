@@ -1,14 +1,14 @@
 ---
 title: navigation-suite-scaffold-vs-navigation3-scene
-tags: [android, compose, navigation, navigation-suite-scaffold, navigation3, scene, scene-strategy, adaptive, architecture]
+tags: [android, compose, navigation, navigation-suite-scaffold, navigation3, scene, scene-strategy, adaptive, architecture, metadata]
 aliases: [NavigationSuiteScaffold vs Navigation 3 Scene, Adaptive Navigation 아키텍처 비교]
-date modified: 2026-08-10 18:00:00 +09:00
+date modified: 2026-08-18 10:13:00 +09:00
 date created: 2026-08-10 17:28:00 +09:00
 ---
 
-## NavigationSuiteScaffold vs Navigation 3 Scene (Adaptive Navigation 역할 비교 및 결합)
+# NavigationSuiteScaffold vs Navigation 3 Scene (Adaptive Navigation 역할 비교 및 결합)
 
-### 1. 개요 (Overview)
+## 1. 개요 (Overview)
 
 **NavigationSuiteScaffold vs Navigation 3 Scene** 은 안드로이드 Modern Compose Adaptive 앱 개발 시 헷갈리기 쉬운 두 개념의 **역할(Role), 라이브러리(Library), 관심사(Concern)를 명확히 비교하고, 실무에서 이 둘을 어떻게 계층 구조로 결합(Combine)하여 사용하는지 정의하는 아키텍처 가이드 노드**이다.
 
@@ -17,7 +17,7 @@ date created: 2026-08-10 17:28:00 +09:00
 
 ---
 
-#### 초보자를 위한 쉽게 이해하는 비유
+### 초보자를 위한 쉽게 이해하는 비유
 
 * **Navigation Chrome vs Content Layout (건물 외관 창문 테두리 대 건물 내부 방 배치)**:
   - **NavigationSuiteScaffold**: 건물 입구 조종 버튼 위치(하단 계단 vs 좌측 복도)를 외관 구조에 맞게 바뀌는 외관 테두리.
@@ -30,41 +30,40 @@ graph TD
     SuiteScaffold --> InnerContent["Inner Content Area"]
     
     InnerContent --> NavDisplay["NavDisplay (Navigation 3)"]
-    NavDisplay --> SceneStrategy["SceneStrategy (Content Layout)"]
+    NavDisplay --> SceneStrategy["SceneStrategy (Content Layout & metadata)"]
     SceneStrategy --> SinglePane["Single-Pane (폰)"]
     SceneStrategy --> MultiPane["List-Detail 2-Pane / 3-Pane (태블릿)"]
 ```
 
 ---
 
-### 2. 8대 핵심 차이점 비교표
+## 2. 8대 핵심 차이점 비교표
 
 | 구분 | [NavigationSuiteScaffold](navigation-suite-scaffold.md) | [Navigation 3 Scene](navigation3-scene-and-strategy.md) |
 | :--- | :--- | :--- |
 | **해결 문제** | Navigation UI (Top-Level Chrome) 위치 | Screen Content Layout 배치 |
-| **관심사** | Bottom Bar / Rail / Drawer | List / Detail / Supporting Pane |
+| **관심사** | Bottom Bar / Rail / Drawer | List / Detail / Extra(Supporting) Pane |
 | **Adaptive 대상** | Navigation Outer Component | Screen Content Inner Layout |
 | **대표 변환 예시** | `NavigationBar` ➔ `NavigationRail` | 1-Pane Detail ➔ List + Detail 2-Pane |
 | **핵심 API** | `NavigationSuiteScaffold` | `Scene`, `SceneStrategy`, `NavDisplay` |
-| **의존 라이브러리** | `adaptive-navigationsuite` | `adaptive-navigation3`, `navigation3-ui` |
+| **의존 라이브러리** | `adaptive-navigation-suite` | `adaptive-navigation3`, `navigation3-ui` |
 | **Navigation 3 필수 여부** | ❌ 선택 사항 | ✅ 필수 |
-| **Multi-Pane 동시 배치** | ❌ 미지언 | ✅ 지원 |
+| **Multi-Pane 동시 배치** | ❌ 미지원 | ✅ 지원 |
 
 ---
 
-### 3. 실무에서의 계층 결합 아키텍처 (Combined Architecture)
+## 3. 실무에서의 계층 결합 아키텍처 (Combined Architecture)
 
-두 API 는 상호 경쟁 관계가 아니라, **`NavigationSuiteScaffold` 가 외곽 Chrome 을 감싸고, 내부 `NavDisplay` 가 `SceneStrategy` 를 적용하여 결합**되는 아키텍처 구조로 사용된다.
+두 API 는 상호 경쟁 관계가 아니라, **`NavigationSuiteScaffold` 가 외곽 Chrome 을 감싸고, 내부 `NavDisplay` 가 `SceneStrategy` 및 `metadata` 역할을 적용하여 결합**되는 아키텍처 구조로 사용된다.
 
 ### 실전 결합 구조 코드
 
 ```kotlin
 @Composable
 fun AdaptiveGmailApp(
-    topLevelBackStack: List<NavKey>,
+    topLevelBackStack: SnapshotStateList<NavKey>,
     currentTopLevel: AppDestination,
-    onTopLevelSelected: (AppDestination) -> Unit,
-    onBackPressed: () -> Unit
+    onTopLevelSelected: (AppDestination) -> Unit
 ) {
     // 1. Outer Chrome Adaptive: NavigationSuiteScaffold (BottomBar ↔ Rail)
     NavigationSuiteScaffold(
@@ -79,13 +78,20 @@ fun AdaptiveGmailApp(
             }
         }
     ) {
-        // 2. Inner Content Layout Adaptive: Navigation 3 SceneStrategy (1-Pane ↔ 2-Pane ListDetail)
+        // 2. Inner Content Layout Adaptive: Navigation 3 SceneStrategy + metadata (1-Pane ↔ 2-Pane ListDetail)
         val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
 
         NavDisplay(
             backStack = topLevelBackStack,
             sceneStrategy = listDetailStrategy,
-            onBack = onBackPressed
+            entryProvider = entryProvider {
+                entry<NavKey.Inbox>(metadata = ListDetailSceneStrategy.listPane()) {
+                    InboxScreen()
+                }
+                entry<NavKey.EmailDetail>(metadata = ListDetailSceneStrategy.detailPane()) { entry ->
+                    EmailDetailScreen(id = entry.key.id)
+                }
+            }
         )
     }
 }
@@ -93,10 +99,9 @@ fun AdaptiveGmailApp(
 
 ---
 
-### 4. 연결 문서 (Related Links)
+## 4. 연결 문서 (Related Links)
 
 - [navigation-suite-scaffold](navigation-suite-scaffold.md) - Material3 Top-Level Chrome API
 - [navigation3-scene-and-strategy](navigation3-scene-and-strategy.md) - Navigation 3 Scene & Multi-Pane API
-- [Navigation 3 계약](navigation3-contracts.md) - 상위 계약 지도
-- [jetpack-navigation-3-guide](../jetpack-navigation-3-guide.md) - Jetpack Navigation 3 가이드
-- [adaptive-layout-and-navigation](../../adaptive-navigation/adaptive-layout-and-navigation.md) - Compose Adaptive 가이드
+- [jetpack-navigation-3-guide](navigation3/jetpack-navigation-3-guide.md) - Jetpack Navigation 3 가이드
+- [adaptive-layout-and-navigation](adaptive-navigation/adaptive-layout-and-navigation.md) - Compose Adaptive 가이드

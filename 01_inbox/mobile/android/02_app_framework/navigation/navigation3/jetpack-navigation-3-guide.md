@@ -74,4 +74,4 @@ graph TD
 - [Adaptive Layout and Navigation](../adaptive-navigation/adaptive-layout-and-navigation.md)
 
 
-- [navigation-suite-scaffold-vs-navigation3-scene](navigation3-contracts/navigation-suite-scaffold-vs-navigation3-scene.md) - NavigationSuiteScaffold vs Navigation 3 Scene 역할 비교 및 결합 가이드
+- [navigation-suite-scaffold-vs-navigation3-scene](../navigation-suite-scaffold-vs-navigation3-scene.md) - NavigationSuiteScaffold vs Navigation 3 Scene 역할 비교 및 결합 가이드
