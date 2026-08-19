@@ -1,16 +1,16 @@
 ---
 title: gradle-plugins
-tags: ["gradle", "build-logic", "plugins", "convention-plugin", "modularization"]
-aliases: ["Gradle 플러그인", "Gradle 플러그인 아키텍처", "Convention Plugin", "build-logic", "Composite Build"]
+tags: ["build-logic", "convention-plugin", "gradle", "modularization", "plugins"]
+aliases: ["build-logic", "Composite Build", "Convention Plugin", "Gradle 플러그인 아키텍처", "Gradle 플러그인"]
+date modified: 2026-08-19 11:45:45 +09:00
 date created: 2026-08-19 11:15:00 +09:00
-date modified: 2026-08-19 11:15:00 +09:00
 ---
 
 ## Gradle 플러그인 및 모듈화 아키텍처 (Plugins & Modularity)
 
 ### 개요
 
-대규모 멀티프로젝트 환경에서 수십, 수백 개의 서브모듈마다 중복된 빌드 스크립트를 복사-붙여넣기하는 것은 유지보수성을 극도로 저하시킨다. 과거의 `allprojects {}`, `subprojects {}` 방식은 모듈 간 결합도를 높이고 병렬 구성 및 캐싱을 방해한다.
+대규모 멀티프로젝트 환경에서 수십, 수백 개의 서브모듈마다 중복된 빌드 스크립트를 복사 - 붙여넣기하는 것은 유지보수성을 극도로 저하시킨다. 과거의 `allprojects {}`, `subprojects {}` 방식은 모듈 간 결합도를 높이고 병렬 구성 및 캐싱을 방해한다.
 
 현대 Gradle 은 **Binary Plugin (`Plugin<Project>`)**, **Composite Build 기반의 `build-logic`**, **Convention Plugin 패턴**을 결합하여 타입 세이프하고 독립적으로 테스트 가능한 빌드 로직 모듈화를 실현한다.
 
@@ -37,7 +37,7 @@ flowchart TD
 
 ### 2. Convention Plugin 패턴 및 `build-logic` 구조
 
-**Convention Plugin(컨벤션 플러그인)**은 프로젝트 고유의 빌드 규칙(컴파일러 옵션, 린트, 테스트 설정 등)을 캡슐화한 커스텀 플러그인이다.
+**Convention Plugin(컨벤션 플러그인)** 은 프로젝트 고유의 빌드 규칙(컴파일러 옵션, 린트, 테스트 설정 등)을 캡슐화한 커스텀 플러그인이다.
 
 #### `build-logic` 프로젝트 디렉토리 계층
 
@@ -116,8 +116,8 @@ plugins {
 ### 4. 프로젝트 격리 (Project Isolation)와 멀티모듈 설계 원칙
 
 1. **상호 프로젝트 직접 참조 금지 (Decoupling)**:
-   - `project(":other").tasks...` 형태로 다른 모듈의 내부 상태를 직접 수정하지 않는다.
-   - 모듈 간의 통신은 오직 `dependencies { implementation(project(":other")) }`와 Artifact 선언을 통해서만 수행한다.
+   - `project(":other").tasks…` 형태로 다른 모듈의 내부 상태를 직접 수정하지 않는다.
+   - 모듈 간의 통신은 오직 `dependencies { implementation(project(":other")) }` 와 Artifact 선언을 통해서만 수행한다.
 2. **Version Catalog (`libs.versions.toml`) 연동**:
    - 하드코딩된 버전 문자열 대신 Version Catalog 를 통해 전역 의존성 버전을 동기화한다.
 
