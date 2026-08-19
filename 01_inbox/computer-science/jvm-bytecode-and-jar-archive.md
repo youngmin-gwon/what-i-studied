@@ -2,7 +2,7 @@
 title: jvm-bytecode-and-jar-archive
 tags: ["archive", "build-lifecycle", "bytecode", "class-file", "computer-science", "jar", "jvm", "zip"]
 aliases: [".class vs .jar", "Class 파일", "JAR 포맷", "Java Archive", "바이트코드 파일과 아카이브", "언제 class와 jar가 되는가"]
-date modified: 2026-08-19 15:17:39 +09:00
+date modified: 2026-08-19 15:47:27 +09:00
 date created: 2026-08-19 15:05:00 +09:00
 ---
 
@@ -74,19 +74,19 @@ flowchart TD
 #### 3) 기술적 핵심: 압축 해제 없는 O(1) 무작위 접근 (Central Directory)
 
 - JVM [클래스로더(ClassLoader)](jvm-classloader.md)는 `.jar` 파일을 실행할 때 디스크에 압축을 풀지 않는다.
-- ZIP 파일의 끝에 위치한 **중앙 디렉터리 색인(Central Directory Index)**만 메모리에 로드한 뒤, 특정 클래스(예: `com/example/User.class`)가 필요할 때 해당 파일의 오프셋 위치로 즉시 점프하여 O(1) 스트림으로 압축을 풀어 메모리(Metaspace)에 적재한다.
+- ZIP 파일의 끝에 위치한 **중앙 디렉터리 색인(Central Directory Index)** 만 메모리에 로드한 뒤, 특정 클래스(예: `com/example/User.class`)가 필요할 때 해당 파일의 오프셋 위치로 즉시 점프하여 O(1) 스트림으로 압축을 풀어 메모리(Metaspace)에 적재한다.
 
 ---
 
 ### 3. `.class` vs `.jar` 선택 및 변환 기준 정리
 
-| 구분 | 개별 바이트코드 파일 (`.class`) | 아카이브 파일 (`.jar`) |
-|---|---|---|
-| **역할 및 성격** | **컴파일러의 기본 출력 단위** (중간 산출물) | **배포 및 공유의 기본 단위** (최종 아티팩트) |
-| **생성 주체** | `javac`, `kotlinc`, K2 컴파일러 | `jar` 도구, Gradle/Maven 패키징 태스크 |
-| **저장 위치** | 로컬 `build/classes/` 디렉터리 트리 | `build/libs/`, 로컬 캐시(`.m2`, `.gradle`), 원격 저장소 |
-| **언제 사용하는가?** | 로컬 빠른 코드 수정, 증분 컴파일, IDE 단위 테스트 | 모듈 간 의존성 주입, Maven 배포, 서버 릴리스 실행 |
-| **물리적 구조** | 단일 클래스 바이트코드 바이너리 파일 | 수천 개의 `.class` + `MANIFEST.MF` 가 묶인 표준 ZIP 포맷 |
+| 구분            | 개별 바이트코드 파일 (`.class`)          | 아카이브 파일 (`.jar`)                               |
+| ------------- | ------------------------------- | ---------------------------------------------- |
+| **역할 및 성격**   | **컴파일러의 기본 출력 단위** (중간 산출물)     | **배포 및 공유의 기본 단위** (최종 아티팩트)                   |
+| **생성 주체**     | `javac`, `kotlinc`, K2 컴파일러     | `jar` 도구, Gradle/Maven 패키징 태스크                 |
+| **저장 위치**     | 로컬 `build/classes/` 디렉터리 트리     | `build/libs/`, 로컬 캐시(`.m2`, `.gradle`), 원격 저장소 |
+| **언제 사용하는가?** | 로컬 빠른 코드 수정, 증분 컴파일, IDE 단위 테스트 | 모듈 간 의존성 주입, Maven 배포, 서버 릴리스 실행               |
+| **물리적 구조**    | 단일 클래스 바이트코드 바이너리 파일            | 수천 개의 `.class` + `MANIFEST.MF` 가 묶인 표준 ZIP 포맷  |
 
 ---
 
