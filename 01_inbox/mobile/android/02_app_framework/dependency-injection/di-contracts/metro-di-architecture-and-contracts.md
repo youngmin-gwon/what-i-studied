@@ -1,8 +1,8 @@
 ---
 title: metro-di-architecture-and-contracts
 tags: ["android", "android/app-framework", "android/dependency-injection"]
-aliases: ["Metro DI", "Metro DI 계약", "Metro ViewModel Multibinding", "Metro Aggregation"]
-date modified: 2026-08-13 16:35:00 +09:00
+aliases: ["Metro Aggregation", "Metro DI 계약", "Metro DI", "Metro ViewModel Multibinding"]
+date modified: 2026-08-19 09:59:05 +09:00
 date created: 2026-08-13 16:35:00 +09:00
 ---
 
@@ -99,7 +99,7 @@ class ProfileViewModel(
 ) : ViewModel()
 ```
 
-> **가시성(Visibility) 계약**: Feature 모듈의 ViewModel 은 `internal`이 아닌 **`public`**으로 선언해야 한다. `app` 모듈에서 생성되는 Metro 의 바인딩 코드가 모듈 경계를 넘어 해당 생성자를 직접 호출해야 하기 때문이다.
+>**가시성(Visibility) 계약**: Feature 모듈의 ViewModel 은 `internal`이 아닌 **`public`**으로 선언해야 한다. `app` 모듈에서 생성되는 Metro 의 바인딩 코드가 모듈 경계를 넘어 해당 생성자를 직접 호출해야 하기 때문이다.
 
 #### Compose 인프라 및 주입 흐름
 
@@ -120,13 +120,13 @@ sequenceDiagram
     Factory-->>Screen: ProfileViewModel 주입 완료
 ```
 
-Compose 최상위에서 `LocalMetroViewModelFactory`를 통해 팩토리를 전역 제공하면, 하위 어떠한 Feature 컴포저블에서도 `app` 모듈에 대한 직접적인 import 없이 `metroViewModel()`로 안전하게 ViewModel 을 주입받을 수 있다.
+Compose 최상위에서 `LocalMetroViewModelFactory`를 통해 팩토리를 전역 제공하면, 하위 어떠한 Feature 컴포저블에서도 `app` 모듈에 대한 직접적인 import 없이 `metroViewModel()` 로 안전하게 ViewModel 을 주입받을 수 있다.
 
 ---
 
 ### ViewModel 배선 패턴 선택 계약 (Pattern A vs Pattern B)
 
-의존성 주입 시 진입 시점과 타이밍 요구사항에 따라 2가지 ViewModel 배선 방식을 명확히 구분하여 적용한다.
+의존성 주입 시 진입 시점과 타이밍 요구사항에 따라 2 가지 ViewModel 배선 방식을 명확히 구분하여 적용한다.
 
 ```mermaid
 flowchart TD
