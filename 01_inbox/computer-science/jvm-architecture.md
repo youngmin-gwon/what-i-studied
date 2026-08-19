@@ -2,7 +2,7 @@
 title: jvm-architecture
 tags: ["architecture", "computer-science", "garbage-collection", "java", "jit", "jvm", "kotlin", "metaspace"]
 aliases: ["Java Virtual Machine Architecture", "JVM Runtime", "JVM 구조", "JVM 아키텍처"]
-date modified: 2026-08-19 15:07:28 +09:00
+date modified: 2026-08-19 15:13:09 +09:00
 date created: 2026-08-19 15:05:00 +09:00
 ---
 
@@ -48,13 +48,13 @@ flowchart TD
 
 JVM 이 프로그램을 실행하기 위해 OS 로부터 할당받은 메모리 공간이다.
 
-| 메모리 영역 | 스레드 공유 여부 | 저장 대상 및 역할 | 관리 주체 |
-|---|---|---|---|
-| **Metaspace (Method Area)** | **모든 스레드 공유** | 클래스 메타데이터, 메서드 바이트코드, 런타임 상수 풀(Constant Pool), 정적(`static`) 변수 | JVM (Native Memory) |
-| **Heap Memory** | **모든 스레드 공유** | `new` 키워드로 생성된 모든 객체 인스턴스와 배열 | [Garbage Collector (GC)](garbage-collection.md) |
-| **JVM Stack** | 스레드별 독립 생성 | 메서드 호출 시마다 생성되는 **스택 프레임(Stack Frame)**: 지역 변수(Local Variables), 연산자 스택(Operand Stack), 프레임 데이터 | 메서드 종료 시 자동 반환 |
-| **PC Register** | 스레드별 독립 생성 | 현재 스레드가 실행 중인 JVM 바이트코드 명령의 메모리 주소 | CPU/JVM 스케줄러 |
-| **Native Method Stack** | 스레드별 독립 생성 | C/C++ 네이티브 메서드 호출 시 사용되는 C 스택 | C 런타임 |
+| 메모리 영역                      | 스레드 공유 여부     | 저장 대상 및 역할                                                                                      | 관리 주체                                           |
+| --------------------------- | ------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| **Metaspace (Method Area)** | **모든 스레드 공유** | 클래스 메타데이터, 메서드 바이트코드, 런타임 상수 풀(Constant Pool), 정적(`static`) 변수                                  | JVM (Native Memory)                             |
+| **Heap Memory**             | **모든 스레드 공유** | `new` 키워드로 생성된 모든 객체 인스턴스와 배열                                                                   | [Garbage Collector (GC)](garbage-collection.md) |
+| **JVM Stack**               | 스레드별 독립 생성    | 메서드 호출 시마다 생성되는 **스택 프레임(Stack Frame)**: 지역 변수(Local Variables), 연산자 스택(Operand Stack), 프레임 데이터 | 메서드 종료 시 자동 반환                                  |
+| **PC Register**             | 스레드별 독립 생성    | 현재 스레드가 실행 중인 JVM 바이트코드 명령의 메모리 주소                                                              | CPU/JVM 스케줄러                                    |
+| **Native Method Stack**     | 스레드별 독립 생성    | C/C++ 네이티브 메서드 호출 시 사용되는 C 스택                                                                   | C 런타임                                           |
 
 #### 3) 실행 엔진 (Execution Engine)
 

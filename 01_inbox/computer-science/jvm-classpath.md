@@ -2,7 +2,7 @@
 title: jvm-classpath
 tags: ["build-system", "classloader", "classpath", "computer-science", "java", "jvm"]
 aliases: ["Classpath", "Jar Hell", "JVM Classpath", "클래스패스", "파일시스템 경로 목록"]
-date modified: 2026-08-19 15:02:34 +09:00
+date modified: 2026-08-19 15:16:00 +09:00
 date created: 2026-08-19 14:40:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-19 14:40:00 +09:00
 
 ### 개요
 
-**클래스패스(Classpath)** 는 [JVM(Java Virtual Machine)](jvm-architecture.md) 및 Java/Kotlin 컴파일러가 특정 클래스를 필요로 할 때, 해당 클래스의 [바이트코드(`.class`)와 아카이브(`.jar`)](jvm-bytecode-and-jar-archive.md) 를 찾기 위해 탐색하는 **물리적 파일 시스템 경로들의 순서 있는 목록(Ordered List of File System Paths)** 이다.
+**클래스패스(Classpath)** 는 [JVM(Java Virtual Machine)](jvm-architecture.md) 및 Java/Kotlin 컴파일러가 특정 클래스를 필요로 할 때, 해당 클래스의 [바이트코드(.class)와 아카이브(.jar)](jvm-bytecode-and-jar-archive.md) 를 찾기 위해 탐색하는 **물리적 파일 시스템 경로들의 순서 있는 목록(Ordered List of File System Paths)** 이다.
 
 C/C++ 과 같은 정적 링크 언어가 빌드 시점에 모든 라이브러리를 단일 바이너리로 묶는 것과 달리, JVM 은 **런타임에 [클래스로더(ClassLoader)](jvm-classloader.md) 가 클래스패스에 나열된 경로를 순차적으로 스캔하여 클래스를 동적으로 메모리에 적재(Dynamic Class Loading)** 한다.
 
