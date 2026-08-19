@@ -1,16 +1,16 @@
 ---
 title: gradle-caching-and-optimization
-tags: ["gradle", "build-cache", "optimization", "performance", "jvm"]
-aliases: ["Gradle 캐싱 및 최적화", "Gradle Build Cache", "Incremental Build", "증분 빌드", "Configuration Cache"]
+tags: ["build-cache", "gradle", "jvm", "optimization", "performance"]
+aliases: ["Configuration Cache", "Gradle Build Cache", "Gradle 캐싱 및 최적화", "Incremental Build", "증분 빌드"]
+date modified: 2026-08-19 11:34:00 +09:00
 date created: 2026-08-19 11:15:00 +09:00
-date modified: 2026-08-19 11:15:00 +09:00
 ---
 
 ## Gradle 캐싱 및 빌드 최적화 (Caching & Optimization)
 
 ### 개요
 
-대규모 프로젝트에서 빌드 속도는 개발자의 피드백 루프와 CI 파이프라인 처리량을 결정하는 핵심 척도이다. Gradle 은 최소한의 연산만 수행하는 **증분 빌드(Incremental Build)**, 태스크 결과를 저장하고 재사용하는 **빌드 캐시(Build Cache)**, 그래프 구축 과정을 생략하는 **구성 캐시(Configuration Cache)**를 결합하여 다계층 빌드 최적화를 실현한다.
+대규모 프로젝트에서 빌드 속도는 개발자의 피드백 루프와 CI 파이프라인 처리량을 결정하는 핵심 척도이다. Gradle 은 최소한의 연산만 수행하는 **증분 빌드(Incremental Build)**, 태스크 결과를 저장하고 재사용하는 **빌드 캐시(Build Cache)**, 그래프 구축 과정을 생략하는 **구성 캐시(Configuration Cache)** 를 결합하여 다계층 빌드 최적화를 실현한다.
 
 ```mermaid
 flowchart TD
@@ -31,7 +31,7 @@ flowchart TD
 
 ---
 
-### 1. 3계층 캐시 비교 및 동작 원리
+### 1. 3 계층 캐시 비교 및 동작 원리
 
 | 캐시 계층 | 대상 단계 | 캐시 히트 조건 | 상태 표시 | 저장소 위치 |
 |---|---|---|---|---|
@@ -68,9 +68,9 @@ buildCache {
 
 #### 캐시 키 계산 및 Relocatability (재배치 가능성)
 
-- **`@PathSensitive`의 중요성**:
+- **`@PathSensitive` 의 중요성**:
   - 파일의 절대 경로(`/Users/alice/repo/src/File.kt` vs `/ci/runner/repo/src/File.kt`)를 해시에 포함하면 로컬과 CI 간 캐시가 공유되지 않는다.
-  - `@PathSensitive(PathSensitivity.RELATIVE)` 또는 `NAME_ONLY`를 사용하여 **작업 경로와 무관하게 동일한 캐시 키가 생성(Relocatable)**되도록 보장해야 한다.
+  - `@PathSensitive(PathSensitivity.RELATIVE)` 또는 `NAME_ONLY` 를 사용하여 **작업 경로와 무관하게 동일한 캐시 키가 생성(Relocatable)** 되도록 보장해야 한다.
 
 ---
 
