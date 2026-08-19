@@ -2,7 +2,7 @@
 title: metro-di-architecture-and-contracts
 tags: ["android", "android/app-framework", "android/dependency-injection"]
 aliases: ["Metro Aggregation", "Metro DI 계약", "Metro DI", "Metro ViewModel Multibinding"]
-date modified: 2026-08-19 09:59:05 +09:00
+date modified: 2026-08-19 10:28:04 +09:00
 date created: 2026-08-13 16:35:00 +09:00
 ---
 
@@ -20,29 +20,29 @@ date created: 2026-08-13 16:35:00 +09:00
 
 ### 핵심 어노테이션과 범용 멀티모듈 Aggregation 계약
 
-| 어노테이션 / 타입 | 역할 및 경계 계약 |
-|---|---|
-| `@DependencyGraph(Scope::class)` | 최종 그래프 인터페이스 선언. 최상위 조립 지점 역할. |
-| `@Provides` | 팩토리 함수 선언. 외부 라이브러리(Retrofit, Room)나 Context 등 생성자 주입이 불가능한 객체 생성. |
-| `@Inject constructor` | 생성자 주입. 그래프가 알고 있는 타입들로 Metro 가 자동 생성. |
-| `@SingleIn(Scope::class)` | 특정 스코프 그래프 인스턴스 내에서 객체를 재사용(싱글턴)하도록 제약. |
-| `AppScope` | 애플리케이션 전체 수명을 나타내는 표준 스코프 마커. |
-| `@ContributesTo(Scope::class)` | 특정 스코프의 최종 그래프에 인터페이스 바인딩을 기여(Mix-in). |
-| `@ContributesBinding(Scope::class)` | 구현체를 인터페이스 타입으로 최종 그래프에 바인딩. |
-| `@ContributesIntoMap(Scope::class)` | 여러 모듈이 각자 타입을 Map 의 한 엔트리로 기여. 멀티바인딩의 핵심 메커니즘. |
-| `@GraphExtension` | 부모 그래프보다 좁은 수명의 하위 서브그래프(Sub-graph) 확장. |
+| 어노테이션 / 타입                          | 역할 및 경계 계약                                                         |
+| ----------------------------------- | ------------------------------------------------------------------ |
+| `@DependencyGraph(Scope::class)`    | 최종 그래프 인터페이스 선언. 최상위 조립 지점 역할.                                     |
+| `@Provides`                         | 팩토리 함수 선언. 외부 라이브러리(Retrofit, Room)나 Context 등 생성자 주입이 불가능한 객체 생성. |
+| `@Inject constructor`               | 생성자 주입. 그래프가 알고 있는 타입들로 Metro 가 자동 생성.                             |
+| `@SingleIn(Scope::class)`           | 특정 스코프 그래프 인스턴스 내에서 객체를 재사용(싱글턴)하도록 제약.                            |
+| `AppScope`                          | 애플리케이션 전체 수명을 나타내는 표준 스코프 마커.                                      |
+| `@ContributesTo(Scope::class)`      | 특정 스코프의 최종 그래프에 인터페이스 바인딩을 기여(Mix-in).                             |
+| `@ContributesBinding(Scope::class)` | 구현체를 인터페이스 타입으로 최종 그래프에 바인딩.                                       |
+| `@ContributesIntoMap(Scope::class)` | 여러 모듈이 각자 타입을 Map 의 한 엔트리로 기여. 멀티바인딩의 핵심 메커니즘.                     |
+| `@GraphExtension`                   | 부모 그래프보다 좁은 수명의 하위 서브그래프(Sub-graph) 확장.                            |
 
 #### 범용 멀티모듈 Aggregation 구조
 
-Metro 는 Anvil 스타일의 **Aggregating Code Generation(성분 합성 코드 생성)**을 제공한다. Feature 모듈은 최상위 `app` 모듈이나 최종 `AppGraph` 클래스 타입을 몰라도, 단지 `@ContributesIntoMap(AppScope::class)` 또는 `@ContributesBinding(AppScope::class)` 어노테이션을 통해 자신이 제공하는 객체를 스코프에 등록한다.
+Metro 는 Anvil 스타일의 **Aggregating Code Generation(성분 합성 코드 생성)** 을 제공한다. Feature 모듈은 최상위 `app` 모듈이나 최종 `AppGraph` 클래스 타입을 몰라도, 단지 `@ContributesIntoMap(AppScope::class)` 또는 `@ContributesBinding(AppScope::class)` 어노테이션을 통해 자신이 제공하는 객체를 스코프에 등록한다.
 
 ##### Anvil 스타일 Aggregation 메커니즘이란?
 
 - **기존 Dagger 방식의 한계 (중앙 수동 등록)**:
-  - 전통적인 Dagger 에서는 최상위 `@Component` 선언부에 모든 하위 모듈의 `@Module` 목록(`modules = [ProfileModule::class, SearchModule::class, ...]`)을 명시적으로 수동 나열해야 했다.
+  - 전통적인 Dagger 에서는 최상위 `@Component` 선언부에 모든 하위 모듈의 `@Module` 목록(`modules = [ProfileModule::class, SearchModule::class, …]`)을 명시적으로 수동 나열해야 했다.
   - 이 방식은 새 모듈이 추가될 때마다 최상위 그래프 파일을 직접 수정해야 하며, 모듈 간 결합도가 높아져 멀티모듈 경계를 훼손하는 원인이 되었다.
 - **Anvil 스타일 Aggregation (분산 선언 및 컴파일 타임 합성)**:
-  - 각 Feature 모듈은 최상위 그래프(`AppGraph`)의 존재나 구현 타입을 알 필요 없이, **"나는 `AppScope`라는 스코프 경계에 이 바인딩을 기여한다"**라는 사실(`@ContributesTo`, `@ContributesBinding`, `@ContributesIntoMap`)만 선언한다.
+  - 각 Feature 모듈은 최상위 그래프(`AppGraph`)의 존재나 구현 타입을 알 필요 없이, **"나는 `AppScope` 라는 스코프 경계에 이 바인딩을 기여한다"**라는 사실(`@ContributesTo`, `@ContributesBinding`, `@ContributesIntoMap`)만 선언한다.
   - Metro 컴파일러 플러그인이 컴파일 타임(FIR/IR 분석 단계)에 프로젝트 전체의 어노테이션 힌트(Hint)를 스캔하여, `AppScope`로 선언된 최종 `@DependencyGraph` 인터페이스 구현체에 바인딩 코드를 **자동으로 합성(Aggregation)**해 넣는다.
 - **멀티모듈 아키텍처에서의 핵심 이점**:
   - `feature:profile:impl` 같은 하위 모듈이 `app` 모듈(최상위 그래프 소유 모듈)을 참조하면 순환 의존성(Circular Dependency)으로 컴파일 에러가 발생한다.
@@ -70,12 +70,11 @@ graph TD
     A_VM -. "AppScope 기여<br/>(Direct App Dependency 없음)" .-> MP
     B_VM -. "AppScope 기여<br/>(Direct App Dependency 없음)" .-> MP
     C_Repo -. "AppScope 기여" .-> MP
-    MP ==>|컴파일 타임 자동 합성 (Anvil Style Aggregation)| AG
+    MP ==>|"컴파일 타임 자동 합성 (Anvil Style Aggregation)"| AG
 ```
 
 - **모듈 의존성 단방향 제약 준수**: Feature 모듈(`feature:*:impl`)은 `app` 모듈을 참조하지 않는다 (참조 시 순환 의존성 컴파일 에러).
 - **컴파일 타임 스캔**: Metro 컴파일러 플러그인이 프로젝트 내 `AppScope::class`로 기여된 모든 바인딩 힌트(Hint)를 스캔하여 최종 `AppGraph` 구현체에 자동으로 합성한다.
-
 
 ---
 
