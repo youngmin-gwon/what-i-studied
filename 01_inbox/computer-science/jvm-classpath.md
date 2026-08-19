@@ -2,7 +2,7 @@
 title: jvm-classpath
 tags: ["build-system", "classloader", "classpath", "computer-science", "java", "jvm"]
 aliases: ["Classpath", "Jar Hell", "JVM Classpath", "클래스패스", "파일시스템 경로 목록"]
-date modified: 2026-08-19 15:16:00 +09:00
+date modified: 2026-08-19 15:50:23 +09:00
 date created: 2026-08-19 14:40:00 +09:00
 ---
 
@@ -41,10 +41,12 @@ java -classpath "/app/build/classes:/libs/ktor.jar:/libs/core.jar" com.example.M
 클래스로더는 찾고자 하는 클래스의 완전한 패키지명(FQCN, 예: `com.example.util.MathUtils`)을 파일 경로 형태(`com/example/util/MathUtils.class`)로 변환한 후, 클래스패스에 나열된 항목을 **왼쪽부터 오른쪽으로 순차 탐색**한다.
 
 #### 1) 경로가 '디렉터리'인 경우 (`/app/build/classes`)
+
 - 해당 디렉터리를 **패키지 루트 디렉터리**로 간주한다.
 - 디렉터리 경로 뒤에 클래스 상대 경로를 이어 붙여 물리 파일(`/app/build/classes/com/example/util/MathUtils.class`)이 존재하는지 `stat` 파일 시스템 호출로 확인한다.
 
 #### 2) 경로가 'JAR 아카이브 파일'인 경우 (`/libs/ktor.jar`)
+
 - 해당 JAR(ZIP 파일)을 **패키지 루트 컨테이너**로 간주한다.
 - JAR 파일을 디스크에 풀지 않고, JAR 내부의 **중앙 디렉터리 헤더(Central Directory Header)**에서 엔트리 이름(`com/example/util/MathUtils.class`)이 존재하는지 O(1) 메모리 인덱스로 검색한다.
 
