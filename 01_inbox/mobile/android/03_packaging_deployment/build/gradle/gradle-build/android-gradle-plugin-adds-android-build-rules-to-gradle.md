@@ -80,7 +80,7 @@ AGP가 Gradle 태스크 그래프에 등록한 Android 전용 태스크 목록�
 # transformClassesWithAsmForRelease - AGP ASM Bytecode Transformation.
 ```
 
-관련 노트: [AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다](agp-dsl-checklist-verifies-effective-release-variant-values.md), [Gradle 빌드 계약](gradle-build.md)
+관련 노트: [Android 빌드 파이프라인과 핵심 빌드 용어 해설](android-build-pipeline.md), [AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다](agp-dsl-checklist-verifies-effective-release-variant-values.md), [Gradle 빌드 계약](gradle-build.md)
 
 공식 문서: [apksigner](https://developer.android.com/tools/apksigner), [Sign your app](https://developer.android.com/studio/publish/app-signing), [Android App Bundle format](https://developer.android.com/guide/app-bundle/app-bundle-format)
 

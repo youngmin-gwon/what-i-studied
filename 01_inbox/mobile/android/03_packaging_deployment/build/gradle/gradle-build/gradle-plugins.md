@@ -2,7 +2,7 @@
 title: gradle-plugins
 tags: ["build-logic", "convention-plugin", "gradle", "modularization", "plugins"]
 aliases: ["apply false", "build-logic", "Composite Build", "Convention Plugin", "Gradle 플러그인 아키텍처", "Gradle 플러그인"]
-date modified: 2026-08-19 14:34:38 +09:00
+date modified: 2026-08-19 14:48:30 +09:00
 date created: 2026-08-19 11:15:00 +09:00
 ---
 
@@ -27,18 +27,18 @@ flowchart TD
 
 ### 1. Script Plugin vs Binary Plugin
 
-| 비교 항목 | Script Plugin (`apply(from = "common.gradle.kts")`) | Binary Plugin (`class MyPlugin : Plugin<Project>`) |
-|---|---|---|
-| **구현 방식** | 단순 스크립트 파일 참조 | 독립 Kotlin/Java 클래스 및 패키징 |
-| **타입 안정성** | 동적 평가로 인해 IDE 자동완성 및 컴파일 검증 취약 | 완전한 정적 타입 검증 및 IDE 리팩토링 지원 |
-| **재사용성 및 테스트** | 단위 테스트 불가, 다른 빌드 간 공유 어려움 | JUnit/TestKit 을 통한 빌드 로직 단위 테스트 및 배포 가능 |
-| **권장 여부** | **지양 (Legacy)** | **표준 권장 (Modern)** |
+| 비교 항목          | Script Plugin (`apply(from = "common.gradle.kts")`) | Binary Plugin (`class MyPlugin : Plugin<Project>`) |
+| -------------- | --------------------------------------------------- | -------------------------------------------------- |
+| **구현 방식**      | 단순 스크립트 파일 참조                                       | 독립 Kotlin/Java 클래스 및 패키징                           |
+| **타입 안정성**     | 동적 평가로 인해 IDE 자동완성 및 컴파일 검증 취약                      | 완전한 정적 타입 검증 및 IDE 리팩토링 지원                         |
+| **재사용성 및 테스트** | 단위 테스트 불가, 다른 빌드 간 공유 어려움                           | JUnit/TestKit 을 통한 빌드 로직 단위 테스트 및 배포 가능            |
+| **권장 여부**      | **지양 (Legacy)**                                     | **표준 권장 (Modern)**                                 |
 
 ---
 
 ### 2. 루트 `build.gradle.kts`와 `apply false` 의 클래스패스 메커니즘
 
-루트 `build.gradle.kts`에서 선언하는 `apply false` 는 메인 빌드 전체에 플러그인 바이너리 클래스패스를 제공하는 핵심 게이트웨이다.
+루트 `build.gradle.kts`에서 선언하는 `apply false`는 메인 빌드 전체에 플러그인 바이너리 [클래스패스(Classpath)](../../../../../../computer-science/jvm-classpath.md) 를 제공하는 핵심 게이트웨이다.
 
 ```kotlin
 // 루트 build.gradle.kts

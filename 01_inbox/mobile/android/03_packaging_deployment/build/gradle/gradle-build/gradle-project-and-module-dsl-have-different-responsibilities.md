@@ -14,7 +14,7 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ### 개념 및 필요성 (What & Why)
 Gradle 기반 안드로이드 프로젝트는 **루트 프로젝트 DSL(Root Project DSL)** 과 **개별 서브모듈 DSL(Submodule DSL)** 의 책임을 엄격히 구분하여 설계된다.
-- **루트 `build.gradle.kts`**: 멀티 모듈 전체에 적용되는 플러그인의 클래스패스 관리(`apply false`), 전역 린트/청소 태스크, 외부 레포지토리 정의 등 **전역 빌드 컨텍스트**를 설정한다.
+- **루트 `build.gradle.kts`**: 멀티 모듈 전체에 적용되는 플러그인의 [클래스패스(Classpath)](../../../../../../computer-science/jvm-classpath.md) 관리(`apply false`), 전역 린트/청소 태스크, 외부 레포지토리 정의 등 **전역 빌드 컨텍스트**를 설정한다.
 - **모듈 `build.gradle.kts`**: 특정 모듈(예: `:app`, `:core:database`)의 실제 빌드 플러그인 적용(`apply true`), 안드로이드 SDK 레벨 설정(`android {}`), 하위 의존성 선언(`dependencies {}`) 등 **독립 모듈 구현**을 담당한다.
 
 ### 내부 메커니즘 (Internal Mechanism)

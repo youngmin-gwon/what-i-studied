@@ -1,18 +1,18 @@
 ---
 title: jvm-classpath
-tags: ["jvm", "classpath", "classloader", "java", "build-system", "computer-science"]
-aliases: ["클래스패스", "JVM Classpath", "Classpath", "클래스로더", "ClassLoader"]
+tags: ["build-system", "classloader", "classpath", "computer-science", "java", "jvm"]
+aliases: ["ClassLoader", "Classpath", "JVM Classpath", "클래스로더", "클래스패스"]
+date modified: 2026-08-19 14:48:58 +09:00
 date created: 2026-08-19 14:40:00 +09:00
-date modified: 2026-08-19 14:40:00 +09:00
 ---
 
 ## JVM 클래스패스 (Classpath)와 클래스 로딩 메커니즘
 
 ### 개요
 
-**클래스패스(Classpath)**는 JVM(Java Virtual Machine) 및 Java/Kotlin 컴파일러가 프로그램을 컴파일하거나 실행할 때, 참조할 **바이트코드 파일(`.class`)과 아카이브 파일(`.jar`, `.zip`)을 탐색하는 파일 시스템 경로 목록**이다.
+**클래스패스(Classpath)** 는 JVM(Java Virtual Machine) 및 Java/Kotlin 컴파일러가 프로그램을 컴파일하거나 실행할 때, 참조할 **바이트코드 파일(`.class`)과 아카이브 파일(`.jar`, `.zip`)을 탐색하는 파일 시스템 경로 목록**이다.
 
-C/C++ 과 같은 네이티브 컴파일 언어는 링커(Linker)가 컴파일 시점에 라이브러리 심볼을 하나의 실행 파일로 정적/동적 결합하지만, JVM 생태계는 **런타임에 클래스로더(ClassLoader)가 클래스패스에 정의된 경로를 순차적으로 스캔하여 클래스를 동적으로 메모리에 적재(Lazy Dynamic Loading)**한다.
+C/C++ 과 같은 네이티브 컴파일 언어는 링커(Linker)가 컴파일 시점에 라이브러리 심볼을 하나의 실행 파일로 정적/동적 결합하지만, JVM 생태계는 **런타임에 클래스로더(ClassLoader)가 클래스패스에 정의된 경로를 순차적으로 스캔하여 클래스를 동적으로 메모리에 적재(Lazy Dynamic Loading)** 한다.
 
 ```mermaid
 flowchart TD
@@ -24,9 +24,9 @@ flowchart TD
 
 ---
 
-### 1. 빌드 도구 관점에서의 3단계 클래스패스 분리
+### 1. 빌드 도구 관점에서의 3 단계 클래스패스 분리
 
-현대 빌드 시스템(Gradle, Bazel)은 클래스 오염과 불필요한 빌드 전파를 방지하기 위해 클래스패스를 3단계로 엄격히 분리하여 관리한다.
+현대 빌드 시스템(Gradle, Bazel)은 클래스 오염과 불필요한 빌드 전파를 방지하기 위해 클래스패스를 3 단계로 엄격히 분리하여 관리한다.
 
 ```mermaid
 flowchart LR
@@ -83,7 +83,7 @@ flowchart LR
 
 ### 4. Classpath vs Modulepath (Java 9+ JPMS)
 
-- **Classpath**: 평면적인(Flat) 경로 구조로, 모든 JAR의 패키지가 하나의 전역 네임스페이스로 병합된다. 캡슐화가 없고 런타임 클래스 누락을 기동 전에 검증할 수 없다.
+- **Classpath**: 평면적인(Flat) 경로 구조로, 모든 JAR 의 패키지가 하나의 전역 네임스페이스로 병합된다. 캡슐화가 없고 런타임 클래스 누락을 기동 전에 검증할 수 없다.
 - **Modulepath**: Java 9 JPMS(Java Platform Module System)에서 도입된 명시적 모듈 경로(`module-info.java`)로, 모듈 간 공개 패키지와 의존성을 명시적으로 선언하여 컴파일/기동 시점에 캡슐화와 의존성 완전성을 엄격히 검증한다.
 
 ---

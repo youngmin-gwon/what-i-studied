@@ -19,7 +19,7 @@ updated: 2026-08-06 14:50:00 +09:00
 
 ### 내부 메커니즘 (Internal Mechanism)
 1. **Composite Build (`includeBuild`)**: `settings.gradle.kts`에서 `includeBuild("build-logic")`을 통해 빌드 로직 전용 모듈을 메인 빌드의 인클루드 빌드로 선언한다.
-2. **루트 `build.gradle.kts`와 `apply false`**: 루트 스크립트에서 `alias(...) apply false`를 선언하여 플러그인 구현 바이너리를 클래스패스에 준비하되 루트 프로젝트에는 적용하지 않으며, 자식 모듈 및 컨벤션 플러그인이 `pluginManager.apply(...)`로 즉시 로드할 수 있게 한다.
+2. **루트 `build.gradle.kts`와 `apply false`**: 루트 스크립트에서 `alias(...) apply false`를 선언하여 플러그인 구현 바이너리를 [클래스패스(Classpath)](../../../../../../computer-science/jvm-classpath.md)에 준비하되 루트 프로젝트에는 적용하지 않으며, 자식 모듈 및 컨벤션 플러그인이 `pluginManager.apply(...)`로 즉시 로드할 수 있게 한다.
 3. **`compileOnly` 기반 플러그인 타입 참조**: `build-logic/convention/build.gradle.kts`에서 `compileOnly(libs.android.gradle.plugin)`을 선언하여, 컨벤션 플러그인 컴파일 시점에 `ApplicationExtension` 등의 타입을 참조하되 플러그인 바이너리 JAR가 중복 패키징되지 않도록 격리한다.
 4. **Version Catalog 경계**: included build인 `build-logic`은 메인 빌드의 version catalog를 자동 상속하지 않는다. `build-logic/settings.gradle.kts`에서 루트의 `gradle/libs.versions.toml`을 명시적으로 import한다.
 5. **설계 경계 원칙 (Boundary Principles - 의도적으로 플러그인에 넣지 않는 것)**:

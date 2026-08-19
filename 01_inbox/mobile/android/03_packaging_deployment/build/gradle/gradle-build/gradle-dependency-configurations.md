@@ -10,9 +10,9 @@ date modified: 2026-08-19 14:35:00 +09:00
 
 ### 개요
 
-Gradle 에서 라이브러리나 모듈 의존성을 추가할 때 사용하는 **의존성 구성(Configuration)**은 단순히 파일을 다운로드하는 목록이 아니라, **컴파일 타임 클래스패스(Compile Classpath), 런타임 클래스패스(Runtime Classpath), 그리고 최종 배포 아티팩트(APK/AAB/JAR) 포함 여부를 결정하는 엄격한 격리 계약(Isolation Contract)**이다.
+Gradle 에서 라이브러리나 모듈 의존성을 추가할 때 사용하는 **의존성 구성(Configuration)**은 단순히 파일을 다운로드하는 목록이 아니라, **컴파일 타임 [클래스패스(Classpath)](../../../../../../computer-science/jvm-classpath.md), 런타임 클래스패스, 그리고 최종 배포 아티팩트(APK/AAB/JAR) 포함 여부를 결정하는 엄격한 격리 계약(Isolation Contract)**이다.
 
-올바른 의존성 구성을 선택하면 **불필요한 재컴파일 연쇄 방지(Build Speed)**, **API 캡슐화(Encapsulation)**, **릴리스 아티팩트 크기 및 보안 최적화(Binary Hygiene)**를 달성할 수 있다.
+올바른 의존성 구성을 선택하면 **불필요한 재컴파일 연쇄 방지(Build Speed)**, **[API vs ABI](../../../../../../computer-science/api-vs-abi.md) 캡슐화(Encapsulation)**, **릴리스 아티팩트 크기 및 보안 최적화(Binary Hygiene)**를 달성할 수 있다.
 
 ---
 
@@ -31,7 +31,7 @@ Gradle 에서 라이브러리나 모듈 의존성을 추가할 때 사용하는 
 
 ---
 
-### 1. `implementation` vs `api` (ABI 캡슐화와 빌드 속도)
+### 1. `implementation` vs `api` ([ABI](../../../../../../computer-science/api-vs-abi.md) 캡슐화와 빌드 속도)
 
 ```mermaid
 flowchart TD
@@ -50,7 +50,7 @@ flowchart TD
 
 - **`implementation` (권장)**:
   - 라이브러리를 모듈 내부 구현에서만 소비하고, 이 모듈을 참조하는 상위 모듈에는 해당 타입을 노출하지 않는다.
-  - 라이브러리의 구현 세부사항이 변경되어도 상위 모듈들의 컴파일 클래스패스 해시가 바뀌지 않아 **불필요한 연쇄 재컴파일(Recompilation Cascade)을 원천 차단**한다.
+  - 라이브러리의 구현 세부사항이 변경되어도 상위 모듈들의 컴파일 [클래스패스](../../../../../../computer-science/jvm-classpath.md) 해시가 바뀌지 않아 **불필요한 연쇄 재컴파일(Recompilation Cascade)을 원천 차단**한다.
 - **`api` (신중히 사용)**:
   - 현재 모듈의 `public` 함수/클래스 시그니처(반환값, 인자, 상속)에 해당 라이브러리의 타입이 직접 노출될 때만 사용한다.
   - 예: `:core:navigation` 모듈이 Navigation 3의 `NavKey` 타입을 상속받아 외부로 공개하는 경우.
@@ -89,6 +89,9 @@ dependencies {
 
 ### 상위 및 연관 문서
 
+- [JVM 클래스패스와 클래스 로딩 메커니즘](../../../../../../computer-science/jvm-classpath.md)
+- [API vs ABI](../../../../../../computer-science/api-vs-abi.md)
+- [Android 빌드 파이프라인과 핵심 빌드 용어 해설](android-build-pipeline.md)
 - [Gradle 코어 엔진 및 아키텍처](gradle-core.md)
 - [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
 - [Convention Plugin과 build-logic](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md)

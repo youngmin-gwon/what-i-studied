@@ -53,4 +53,4 @@ Compose BOM에 의해 해소된 최종 모듈 버전 세트는 다음 명령어�
 ./gradlew app:dependencies | grep "androidx.compose"
 ```
 
-관련 노트: [Compose compiler는 BOM이 아니라 Kotlin 컴파일러 흐름에 속한다](compose-compiler-belongs-to-kotlin-compiler-flow-not-bom.md), [의존성 및 CI 계약](dependency-ci.md)
+관련 노트: [Compose compiler는 BOM이 아니라 Kotlin 컴파일러 흐름에 속한다](compose-compiler-belongs-to-kotlin-compiler-flow-not-bom.md), [Android 빌드 파이프라인과 핵심 빌드 용어 해설](../../gradle/gradle-build/android-build-pipeline.md), [의존성 및 CI 계약](dependency-ci.md)
