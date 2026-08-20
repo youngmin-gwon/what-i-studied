@@ -10,7 +10,7 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ## AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다
 
-상위 문서: [Gradle 빌드 계약](gradle-build.md)
+상위 문서: [Gradle 빌드 시스템](gradle-build.md)
 
 ### 개념 및 필요성 (What & Why)
 상용 프로덕션 앱을 빌드하여 출시할 때 `build.gradle.kts`의 `release` 빌드 타입에 설정된 AGP DSL 플래그들의 **실효값(Effective Values)** 을 반드시 정밀 검증해야 한다.

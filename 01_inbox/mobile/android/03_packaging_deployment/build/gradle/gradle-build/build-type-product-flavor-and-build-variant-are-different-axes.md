@@ -10,7 +10,7 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ## Build type, product flavor, build variant는 서로 다른 축이다
 
-상위 문서: [Gradle 빌드 계약](gradle-build.md)
+상위 문서: [Gradle 빌드 시스템](gradle-build.md)
 
 ### 개념 및 필요성 (What & Why)
 Android AGP 빌드 시스템에서 **Build Type**, **Product Flavor**, **Build Variant**는 서로 다른 직교(Orthogonal) 축을 형성한다.
@@ -77,4 +77,4 @@ android {
 # assemblePaidRelease - Builds the PaidRelease APK.
 ```
 
-관련 노트: [Source set 우선순위는 variant별 코드와 리소스 충돌을 결정한다](source-set-priority-decides-variant-code-and-resource-conflicts.md), [Gradle 빌드 계약](gradle-build.md)
+관련 노트: [Source set 우선순위는 variant별 코드와 리소스 충돌을 결정한다](source-set-priority-decides-variant-code-and-resource-conflicts.md), [Gradle 빌드 시스템](gradle-build.md)

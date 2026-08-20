@@ -10,7 +10,7 @@ updated: 2026-08-06 14:50:00 +09:00
 
 ## Signing config는 로컬 서명과 Play 배포 정체성을 연결한다
 
-상위 문서: [Gradle 빌드 계약](gradle-build.md)
+상위 문서: [Gradle 빌드 시스템](gradle-build.md)
 
 ### 개념 및 필요성 (What & Why)
 Android OS가 설치·업데이트하는 단위는 서명된 APK다. AAB는 기기에 설치되는 파일이 아니라 앱 스토어가 기기별 APK를 생성하기 위한 게시 아티팩트다.
@@ -62,7 +62,7 @@ android {
 ./gradlew app:signingReport
 ```
 
-관련 노트: [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../../distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md), [Gradle 빌드 계약](gradle-build.md)
+관련 노트: [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../../distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md), [Gradle 빌드 시스템](gradle-build.md)
 
 공식 문서: [Sign your app](https://developer.android.com/studio/publish/app-signing), [apksigner](https://developer.android.com/tools/apksigner)
 

@@ -10,7 +10,7 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ## Gradle 프로젝트와 모듈 DSL은 서로 다른 책임을 가진다
 
-상위 문서: [Gradle 빌드 계약](gradle-build.md)
+상위 문서: [Gradle 빌드 시스템](gradle-build.md)
 
 ### 개념 및 필요성 (What & Why)
 Gradle 기반 안드로이드 프로젝트는 **루트 프로젝트 DSL(Root Project DSL)** 과 **개별 서브모듈 DSL(Submodule DSL)** 의 책임을 엄격히 구분하여 설계된다.
@@ -54,4 +54,4 @@ android {
 ./gradlew projects
 ```
 
-관련 노트: [Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md), [Gradle 빌드 계약](gradle-build.md)
+관련 노트: [Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md), [Gradle 빌드 시스템](gradle-build.md)

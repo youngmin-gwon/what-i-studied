@@ -10,7 +10,7 @@ updated: 2026-08-05 16:15:00 +09:00
 
 ## Source set 우선순위는 variant 별 코드와 리소스 충돌을 결정한다
 
-상위 문서: [Gradle 빌드 계약](gradle-build.md)
+상위 문서: [Gradle 빌드 시스템](gradle-build.md)
 
 ### 개념 및 필요성 (What & Why)
 **SourceSet(소스 세트)** 은 특정한 빌드 변형(Build Variant)이나 환경을 위해 결합되는 소스 코드, 리소스, 매니페스트 파일의 디렉터리 모음이다 (예: `src/main`, `src/debug`, `src/free`, `src/freeRelease`).
@@ -60,4 +60,4 @@ android {
 ./gradlew app:processFreeReleaseResources
 ```
 
-관련 노트: [Build type, product flavor, build variant는 서로 다른 축이다](build-type-product-flavor-and-build-variant-are-different-axes.md), [Gradle 빌드 계약](gradle-build.md)
+관련 노트: [Build type, product flavor, build variant는 서로 다른 축이다](build-type-product-flavor-and-build-variant-are-different-axes.md), [Gradle 빌드 시스템](gradle-build.md)

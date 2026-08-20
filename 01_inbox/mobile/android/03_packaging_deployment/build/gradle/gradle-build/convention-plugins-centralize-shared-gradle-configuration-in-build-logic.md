@@ -10,7 +10,7 @@ updated: 2026-08-06 14:50:00 +09:00
 
 ## Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다
 
-상위 문서: [Gradle 빌드 계약](gradle-build.md)
+상위 문서: [Gradle 빌드 시스템](gradle-build.md)
 
 ### 개념 및 필요성 (What & Why)
 대규모 안드로이드 멀티 모듈 프로젝트에서 모듈별 `build.gradle.kts` 파일에 공통 AGP 설정, Kotlin 컴파일러 옵션, 의존성 설정을 반복 복사-붙여넣기하는 것은 심각한 코드 중복과 유지보수 부채를 야기한다.
@@ -79,7 +79,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 ./gradlew :app:tasks --all
 ```
 
-관련 노트: [Version catalog는 의존성과 플러그인 좌표를 명명한다](../../dependency-versioning/dependency-ci/version-catalog-names-dependency-and-plugin-coordinates.md), [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md), [Gradle 빌드 계약](gradle-build.md)
+관련 노트: [Version catalog는 의존성과 플러그인 좌표를 명명한다](../../dependency-versioning/dependency-ci/version-catalog-names-dependency-and-plugin-coordinates.md), [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md), [Gradle 빌드 시스템](gradle-build.md)
 
 공식 문서: [Migrate to built-in Kotlin](https://developer.android.com/build/migrate-to-built-in-kotlin), [AGP 9.0 release notes](https://developer.android.com/build/releases/agp-9-0-0-release-notes), [Gradle Version Catalogs](https://docs.gradle.org/current/userguide/version_catalogs.html), [Convention Plugins](https://docs.gradle.org/current/userguide/implementing_gradle_plugins_convention.html)
 

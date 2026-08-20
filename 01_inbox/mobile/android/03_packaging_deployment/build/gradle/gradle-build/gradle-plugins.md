@@ -2,7 +2,7 @@
 title: gradle-plugins
 tags: ["build-logic", "convention-plugin", "gradle", "modularization", "plugins"]
 aliases: ["apply false", "build-logic", "Composite Build", "Convention Plugin", "Gradle 플러그인 아키텍처", "Gradle 플러그인"]
-date modified: 2026-08-20 17:57:17 +09:00
+date modified: 2026-08-20 18:12:12 +09:00
 date created: 2026-08-19 11:15:00 +09:00
 ---
 
@@ -80,6 +80,7 @@ plugins {
 ```
 
 #### `apply false` 의 동작 과정
+
 1. **[클래스패스(Classpath)](../../../../../../computer-science/jvm-classpath.md) 로딩**: Gradle 은 Version Catalog(`libs.versions.toml`)에 정의된 AGP, Kotlin 등의 플러그인 바이너리 JAR 를 원격 저장소에서 다운로드하여 **전체 빌드의 루트 클래스패스에 적재**한다.
 2. **`apply(target)` 실행 차단 (`false`)**: 플러그인 바이너리는 준비하되, **루트 프로젝트 자체에는 `apply(project)` 메서드를 호출하지 않는다**. 루트 프로젝트는 앱도 라이브러리도 아니므로 Android 빌드 태스크나 DSL 이 적용되면 안 되기 때문이다.
 3. **버전 일관성 상속**: 루트가 플러그인의 버전을 이미 메모리에 로드해 두었으므로, 하위 서브모듈이나 Convention Plugin 내부에서는 `pluginManager.apply("com.android.library")` 처럼 **버전 번호를 생략하고 플러그인 ID 만으로 즉시 안전하게 적용**할 수 있다.
@@ -188,11 +189,13 @@ flowchart TD
 ```
 
 #### 1) Convention Plugin 에 캡슐화해야 하는 것 (조직 공통 표준)
+
 - **표준 SDK 레벨**: `compileSdk`, `minSdk`
 - **컴파일러 옵션**: Java 21 Toolchain, Kotlin 컴파일러 경고 플래그
 - **공통 플러그인 번들**: Compose 컴파일러, Detekt 룰셋 설정, 공통 테스트 라이브러리 세트
 
 #### 2) 각 모듈 `build.gradle.kts` 에 명시적으로 유지해야 하는 것 (모듈 고유 경계)
+
 1. **프로젝트 내부 모듈 의존성 (`implementation(projects.core.database)`)**:
    - 모듈 간 아키텍처 결합도와 의존성 그래프를 한눈에 파악할 수 있도록 모듈 파일에 투명하게 드러나야 한다.
 2. **`namespace` 및 `applicationId`**:
