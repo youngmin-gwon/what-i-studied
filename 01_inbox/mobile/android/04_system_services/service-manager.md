@@ -2,7 +2,7 @@
 title: service-manager
 tags: [android, binder, servicemanager, system-services]
 aliases: [Handle 0, ServiceManager, 서비스매니저]
-date modified: 2026-08-06 18:34:45 +09:00
+date modified: 2026-08-20 17:09:50 +09:00
 date created: 2026-08-06 18:30:00 +09:00
 ---
 

@@ -1,9 +1,9 @@
 ---
 title: binder-framework
-tags: ["android", "binder", "framework", "libbinder", "ipc", "aidl", "parcel", "system-internals"]
-aliases: ["Binder 프레임워크", "Binder Framework", "libbinder", "ProcessState", "IPCThreadState", "BpBinder", "BBinder"]
+tags: ["aidl", "android", "binder", "framework", "ipc", "libbinder", "parcel", "system-internals"]
+aliases: ["BBinder", "Binder Framework", "Binder 프레임워크", "BpBinder", "IPCThreadState", "libbinder", "ProcessState"]
+date modified: 2026-08-20 17:09:52 +09:00
 date created: 2026-08-20 17:00:00 +09:00
-date modified: 2026-08-20 17:00:00 +09:00
 ---
 
 ## Binder 유저스페이스 프레임워크 아키텍처 (Binder Userspace Framework)
@@ -12,7 +12,7 @@ date modified: 2026-08-20 17:00:00 +09:00
 
 **Binder 유저스페이스 프레임워크**는 [Binder 커널 드라이버](binder-kernel-driver.md)의 로우레벨 `ioctl` 시스템 콜을 추상화하여, 애플리케이션 및 시스템 서비스 개발자에게 객체 지향적인 원격 프로시저 호출(RPC, Remote Procedure Call) 환경을 제공하는 C++ 네이티브(`libbinder`) 및 Java/Kotlin 프레임워크 계층이다.
 
-클라이언트와 서버가 서로 다른 프로세스 메모리 공간에 격리되어 있더라도, **Proxy / Stub 패턴(`BpBinder` / `BBinder`)**, **타입 세이프 직렬화 컨테이너(`Parcel`)**, **중앙 서비스 등록소([ServiceManager](../../../04_system_services/service-manager.md))**, 그리고 **자동화된 인터페이스 정의 언어(AIDL)**를 통해 마치 로컬 객체의 메서드를 호출하는 것처럼 투명한 IPC 를 가능하게 한다.
+클라이언트와 서버가 서로 다른 프로세스 메모리 공간에 격리되어 있더라도, **Proxy / Stub 패턴(`BpBinder` / `BBinder`)**, **타입 세이프 직렬화 컨테이너(`Parcel`)**, **중앙 서비스 등록소([ServiceManager](../../../04_system_services/service-manager.md))**, 그리고 **자동화된 인터페이스 정의 언어(AIDL)** 를 통해 마치 로컬 객체의 메서드를 호출하는 것처럼 투명한 IPC 를 가능하게 한다.
 
 ```mermaid
 flowchart TD
@@ -42,7 +42,7 @@ flowchart TD
 
 ### 1. `libbinder` 핵심 엔진: `ProcessState` 와 `IPCThreadState`
 
-C++ 네이티브 레이어의 `libbinder`는 프로세스 단위와 스레드 단위의 두 가지 핵심 싱글톤 객체로 바인더 통신을 구동한다.
+C++ 네이티브 레이어의 `libbinder` 는 프로세스 단위와 스레드 단위의 두 가지 핵심 싱글톤 객체로 바인더 통신을 구동한다.
 
 ```mermaid
 classDiagram
@@ -68,15 +68,15 @@ classDiagram
     IPCThreadState --> ProcessState : 참조
 ```
 
-#### 1) `ProcessState` (프로세스당 단 1개 생성되는 싱글톤)
-- 프로세스가 처음 바인더를 사용할 때 `/dev/binder`를 `open()`하고 `mmap()`을 호출하여 약 1MB 크기의 수신 공유 버퍼를 초기화한다.
+#### 1) `ProcessState` (프로세스당 단 1 개 생성되는 싱글톤)
+- 프로세스가 처음 바인더를 사용할 때 `/dev/binder`를 `open()`하고 `mmap()` 을 호출하여 약 1MB 크기의 수신 공유 버퍼를 초기화한다.
 - 커널 드라이버가 발급한 정수형 핸들(`Handle`)을 바탕으로 클라이언트 프록시(`BpBinder`) 객체를 캐싱하고 관리한다.
-- `startThreadPool()`을 호출하여 바인더 작업 수신 스레드들을 가동한다.
+- `startThreadPool()` 을 호출하여 바인더 작업 수신 스레드들을 가동한다.
 
-#### 2) `IPCThreadState` (스레드당 단 1개 생성되는 Thread-Local 싱글톤)
-- 실제로 커널 드라이버와 `ioctl(BINDER_WRITE_READ)`을 주고받으며 바인더 프로토콜 루프를 실행하는 엔진이다.
+#### 2) `IPCThreadState` (스레드당 단 1 개 생성되는 Thread-Local 싱글톤)
+- 실제로 커널 드라이버와 `ioctl(BINDER_WRITE_READ)` 을 주고받으며 바인더 프로토콜 루프를 실행하는 엔진이다.
 - `talkWithDriver()`: 송신할 명령 버퍼(`mOut`)를 커널에 보내고, 커널로부터 도착한 응답 버퍼(`mIn`)를 채워온다.
-- `executeCommand()`: 커널이 보낸 `BR_TRANSACTION` 명령을 해석하여 대상 `BBinder::transact()`로 작업을 디스패치한다.
+- `executeCommand()`: 커널이 보낸 `BR_TRANSACTION` 명령을 해석하여 대상 `BBinder::transact()` 로 작업을 디스패치한다.
 
 ---
 
@@ -109,7 +109,7 @@ myService.getUser(100)
 ### 3. 직렬화 컨테이너 (`Parcel`)와 AIDL
 
 - **`Parcel`**:
-  - 원시 타입(int, float 등), 문자열, 바이트 배열을 직렬화할 뿐만 아니라, **파일 디스크립터(File Descriptor - `dup()`을 통한 프로세스 간 공유)**와 **다른 `IBinder` 객체 참조 자체(`writeStrongBinder`)**를 바이트 스트림 안에 포함하여 전송할 수 있는 안드로이드 특화 고속 직렬화 컨테이너이다.
+  - 원시 타입(int, float 등), 문자열, 바이트 배열을 직렬화할 뿐만 아니라, **파일 디스크립터(File Descriptor - `dup()`을 통한 프로세스 간 공유)** 와 **다른 `IBinder` 객체 참조 자체(`writeStrongBinder`)** 를 바이트 스트림 안에 포함하여 전송할 수 있는 안드로이드 특화 고속 직렬화 컨테이너이다.
 - **AIDL (Android Interface Definition Language)**:
   - 개발자가 인터페이스 정의 파일(`.aidl`)을 작성하면, 컴파일러가 위 Proxy/Stub 마샬링 및 언마샬링 보일러플레이트 코드를 Java, C++, Rust 로 자동 생성해 주는 도구이다.
 
@@ -139,10 +139,10 @@ sequenceDiagram
 
 서버 프로세스(예: `system_server`)는 동시에 쏟아지는 클라이언트의 바인더 요청을 병렬 처리하기 위해 **Binder Thread Pool**을 유지한다.
 
-- **스레드 개수**: 기본 최대 15개 스레드 + 메인 스레드 1개 = **총 16개 스레드**.
+- **스레드 개수**: 기본 최대 15 개 스레드 + 메인 스레드 1 개 = **총 16 개 스레드**.
 - **스레드 이름**: `binder:PID_N` (예: `binder:1234_1`, `binder:1234_2`).
 - 커널 드라이버가 유휴(Idle) 스레드가 부족하다고 판단하면 `BR_SPAWN_LOOPER` 명령을 유저스페이스로 보내 동적으로 스레드를 추가 생성한다.
-- 동기 호출이 16개를 초과하면 클라이언트는 서버 스레드가 반환될 때까지 블로킹 대기 상태에 빠지므로, 장시간 소요 작업은 `oneway` 비동기 통신을 사용해야 한다.
+- 동기 호출이 16 개를 초과하면 클라이언트는 서버 스레드가 반환될 때까지 블로킹 대기 상태에 빠지므로, 장시간 소요 작업은 `oneway` 비동기 통신을 사용해야 한다.
 
 ---
 

@@ -2,7 +2,7 @@
 title: system-server
 tags: [ams, android, framework, pms, system-server, system-services, wms]
 aliases: [system_server, 시스템 서버]
-date modified: 2026-08-07 13:38:38 +09:00
+date modified: 2026-08-20 17:12:50 +09:00
 date created: 2026-08-06 16:31:19 +09:00
 role: atomic-reference
 ---

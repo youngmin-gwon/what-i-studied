@@ -2,7 +2,7 @@
 title: binder-kernel-driver
 tags: ["android", "binder", "driver", "ipc", "kernel", "mmap", "system-internals"]
 aliases: ["/dev/binder", "Binder Kernel Driver", "Binder 커널 드라이버", "binder_node", "binder_proc", "mmap 1회 복사"]
-date modified: 2026-08-20 17:05:24 +09:00
+date modified: 2026-08-20 17:09:05 +09:00
 date created: 2026-08-20 17:00:00 +09:00
 ---
 
@@ -95,12 +95,12 @@ classDiagram
     binder_ref --> binder_node : 참조
 ```
 
-| 구조체 | 역할 및 저장 위치 |
-|---|---|
-| **`binder_proc`** | 바인더를 사용하는 각 프로세스의 상태 (스레드 풀, 메모리 버퍼, 노드/참조 목록) |
-| **`binder_thread`** | IPC 호출을 수행하거나 수신 대기 중인 개별 작업 스레드 상태 |
-| **`binder_node`** | 서버 프로세스 내에 존재하는 **실제 C++ `BBinder` 객체의 커널 내 표현** |
-| **`binder_ref`** | 클라이언트 프로세스가 특정 `binder_node` 를 가리키기 위해 사용하는 **정수형 토큰(`Handle`, Descriptor)** |
+| 구조체                 | 역할 및 저장 위치                                                                   |
+| ------------------- | ---------------------------------------------------------------------------- |
+| **`binder_proc`**   | 바인더를 사용하는 각 프로세스의 상태 (스레드 풀, 메모리 버퍼, 노드/참조 목록)                               |
+| **`binder_thread`** | IPC 호출을 수행하거나 수신 대기 중인 개별 작업 스레드 상태                                          |
+| **`binder_node`**   | 서버 프로세스 내에 존재하는 **실제 C++ `BBinder` 객체의 커널 내 표현**                             |
+| **`binder_ref`**    | 클라이언트 프로세스가 특정 `binder_node` 를 가리키기 위해 사용하는 **정수형 토큰(`Handle`, Descriptor)** |
 
 - 클라이언트가 정수 핸들 `0`을 지정하여 전송하면, 커널은 `refs_by_desc` 트리에서 `Handle 0`에 해당하는 `binder_node` 를 찾아 **[ServiceManager](../../../04_system_services/service-manager.md)** 프로세스로 라우팅한다.
 

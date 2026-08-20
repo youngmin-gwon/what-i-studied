@@ -2,7 +2,7 @@
 title: binder-ipc
 tags: [android, binder, ipc, kernel, os, system-internals]
 aliases: [Binder, Binder IPC, Binder 아키텍처, 바인더 IPC, 안드로이드 바인더]
-date modified: 2026-08-20 16:54:51 +09:00
+date modified: 2026-08-20 17:11:34 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 role: single-source-of-truth
 ---
@@ -43,6 +43,7 @@ flowchart TD
 Binder IPC 시스템은 역할과 실행 공간에 따라 **커널 드라이버 계층**과 **유저스페이스 프레임워크 계층**의 2 대 축으로 명확히 나뉜다:
 
 #### 1. [Binder 커널 드라이버 및 메모리 매핑 메커니즘](ipc-and-process/ipc-process/binder-kernel-driver.md) *(Linux Kernel Space)*
+
 - `/dev/binder` 캐릭터 디바이스 드라이버의 물리적 동작
 - `mmap()` 을 활용한 수신 프로세스 가상 메모리 매핑 및 1 회 복사(`copy_from_user`) 원리
 - 커널 내부 핵심 자료구조 (`binder_proc`, `binder_thread`, `binder_node`, `binder_ref`)
@@ -50,6 +51,7 @@ Binder IPC 시스템은 역할과 실행 공간에 따라 **커널 드라이버 
 - `BC_TRANSACTION`, `BR_REPLY` 등 커널 바인더 명령어 프로토콜 및 3 종 디바이스 분리 (`/dev/binder`, `/dev/hwbinder`, `/dev/vndbinder`)
 
 #### 2. [Binder 유저스페이스 프레임워크 아키텍처](ipc-and-process/ipc-process/binder-framework.md) *(Android Userspace)*
+
 - C++ `libbinder` 코어: `ProcessState`(프로세스당 1 개)와 `IPCThreadState`(스레드당 1 개)
 - 객체 지향 Proxy/Stub 패턴: `BpBinder`(클라이언트 Proxy)와 `BBinder`(서버 Stub)
 - `Parcel` 고속 직렬화 컨테이너 및 AIDL 컴파일러

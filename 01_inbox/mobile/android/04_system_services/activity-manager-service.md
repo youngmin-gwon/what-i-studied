@@ -2,7 +2,7 @@
 title: activity-manager-service
 tags: [activity-manager, ams, android, atms, backstack, lifecycle, system-services]
 aliases: [ActivityManagerService, ActivityTaskManagerService, AMS, ATMS]
-date modified: 2026-08-07 13:36:55 +09:00
+date modified: 2026-08-20 17:13:06 +09:00
 date created: 2026-08-07 13:34:00 +09:00
 ---
 
