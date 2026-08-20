@@ -1,16 +1,16 @@
 ---
 title: gradle-lifecycle
-tags: ["gradle", "build-engine", "build-lifecycle", "jvm", "performance"]
-aliases: ["Gradle 생명주기", "Gradle 실행 단계", "Gradle Execution Lifecycle", "Configuration Cache"]
+tags: ["build-engine", "build-lifecycle", "gradle", "jvm", "performance"]
+aliases: ["Configuration Cache", "Gradle Execution Lifecycle", "Gradle 생명주기", "Gradle 실행 단계"]
+date modified: 2026-08-20 18:26:10 +09:00
 date created: 2026-08-19 11:00:00 +09:00
-date modified: 2026-08-19 11:15:00 +09:00
 ---
 
 ## Gradle 실행 생명주기 (Execution Lifecycle)
 
 ### 개요
 
-Gradle 은 단순한 순차적 스크립트 실행기가 아니라, 프로젝트 계층 구조를 파싱하고 태스크 간 의존성을 정적 분석하여 그래프를 구축한 후 선별적으로 작업을 디스패치하는 **3단계(Phase) 생명주기 아키텍처**를 엄격히 준수한다.
+Gradle 은 단순한 순차적 스크립트 실행기가 아니라, 프로젝트 계층 구조를 파싱하고 태스크 간 의존성을 정적 분석하여 그래프를 구축한 후 선별적으로 작업을 디스패치하는 **3 단계(Phase) 생명주기 아키텍처**를 엄격히 준수한다.
 
 ```mermaid
 flowchart TD
@@ -57,13 +57,13 @@ includeBuild("build-logic")
 
 - **동작 원리**:
   - `settings.gradle.kts`를 평가하여 루트 및 서브프로젝트의 `ProjectDescriptor` 트리를 메모리에 구성한다.
-  - `includeBuild(...)`를 통해 독립된 빌드를 복합 빌드로 연결하고, 바이너리 라이브러리 의존성을 프로젝트 소스 레벨 직접 의존성으로 자동 치환한다.
+  - `includeBuild(…)` 를 통해 독립된 빌드를 복합 빌드로 연결하고, 바이너리 라이브러리 의존성을 프로젝트 소스 레벨 직접 의존성으로 자동 치환한다.
 
 ---
 
 ### 2. 구성 단계 (Configuration Phase)
 
-구성 단계의 목표는 **빌드에 참여하는 모든 프로젝트의 `build.gradle.kts`를 평가하여 Task 객체 모델을 구성하고 Task DAG (방향성 비순환 그래프)를 완성**하는 것이다.
+구성 단계의 목표는 **빌드에 참여하는 모든 프로젝트의 `build.gradle.kts` 를 평가하여 Task 객체 모델을 구성하고 Task DAG (방향성 비순환 그래프)를 완성**하는 것이다.
 
 ```kotlin
 // build.gradle.kts
@@ -93,7 +93,7 @@ tasks.register("packageApp") {
 
 #### 주의 및 안티패턴: `afterEvaluate` vs `Provider API`
 
-구성 단계에서 무거운 I/O(외부 네트워크 조회, 파일 읽기, Git 명령)를 실행하면 `./gradlew help`만 쳐도 빌드 전체가 멈추거나 느려진다. 또한 다른 플러그인의 구성을 기다리기 위해 `afterEvaluate`를 남용하면 실행 순서의 비결정성과 Configuration Cache 위반이 발생한다.
+구성 단계에서 무거운 I/O(외부 네트워크 조회, 파일 읽기, Git 명령)를 실행하면 `./gradlew help`만 쳐도 빌드 전체가 멈추거나 느려진다. 또한 다른 플러그인의 구성을 기다리기 위해 `afterEvaluate` 를 남용하면 실행 순서의 비결정성과 Configuration Cache 위반이 발생한다.
 
 ```kotlin
 // ❌ 안티패턴: afterEvaluate 남용 및 구성 단계 I/O 실행
@@ -142,7 +142,7 @@ org.gradle.configuration-cache.problems=fail
 ```
 
 1. **Task 실행 중 `Project` 인스턴스 직접 참조 금지**:
-   - Task 내부 `@TaskAction`에서 `project.file(...)`, `project.property(...)`를 직접 조회하면 직렬화가 불가능하여 캐시 에러가 발생한다. 모든 입력/출력은 `@Input`, `@OutputFile` 등의 Property 로 선언해야 한다.
+   - Task 내부 `@TaskAction`에서 `project.file(…)`, `project.property(…)`를 직접 조회하면 직렬화가 불가능하여 캐시 에러가 발생한다. 모든 입력/출력은 `@Input`, `@OutputFile` 등의 Property 로 선언해야 한다.
 2. **빌드 입력(Build Inputs)의 불변성 추적**:
    - 환경변수(`providers.environmentVariable`), 시스템 프로퍼티, 빌드 스크립트가 변경되지 않으면 Configuration Phase 를 100% 생략하고 즉시 Execution Phase 로 직행한다.
 
