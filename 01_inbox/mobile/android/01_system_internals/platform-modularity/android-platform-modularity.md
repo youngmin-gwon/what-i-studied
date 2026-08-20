@@ -2,7 +2,7 @@
 title: android-platform-modularity
 tags: ["android", "android/system-internals"]
 aliases: ["Android Platform Modularity", "Android 플랫폼 모듈화 Hub"]
-date modified: 2026-08-07 13:50:39 +09:00
+date modified: 2026-08-20 16:46:39 +09:00
 date created: 2026-07-31 23:05:30 +09:00
 ---
 

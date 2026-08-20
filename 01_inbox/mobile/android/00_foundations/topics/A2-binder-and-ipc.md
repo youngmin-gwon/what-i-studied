@@ -31,9 +31,11 @@ graph TD
 
 ### 3. 핵심 원자 레퍼런스 노드 연결
 
-- **[Binder IPC 표준 레퍼런스](../../01_system_internals/binder-ipc.md)** - Binder IPC 메인 SSOT 종합 레퍼런스
+- **[Binder IPC 종합 허브](../../01_system_internals/binder-ipc.md)** - Binder IPC 메인 SSOT 종합 레퍼런스
+- **[Binder 커널 드라이버](../../01_system_internals/ipc-and-process/ipc-process/binder-kernel-driver.md)** - `/dev/binder`, `mmap` 1회 복사, 커널 구조체, UID/PID 강제 주입
+- **[Binder 유저스페이스 프레임워크](../../01_system_internals/ipc-and-process/ipc-process/binder-framework.md)** - `libbinder`, `ProcessState`, `IPCThreadState`, Proxy/Stub, AIDL
 - **[ServiceManager](../../04_system_services/service-manager.md)** - 바인더 Handle 0 중앙 서비스 디렉토리
-- **[Binder IPC](../../01_system_internals/binder-ipc.md)** - 1 회 메모리 복사 커널 원리
-- **[Binder 트랜잭션 1MB 제한](../../01_system_internals/ipc-and-process/ipc-process/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)** - 1MB 버퍼 및 TransactionTooLargeException
-- **[Binder 스레드 풀 및 교착상태](../../01_system_internals/ipc-and-process/ipc-process/binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)** - 16 개 스레드 풀 및 Deadlock 방지
+- **[Binder 트랜잭션 수명과 1MB 제한](../../01_system_internals/ipc-and-process/ipc-process/binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)** - 1MB 버퍼 및 `TransactionTooLargeException`
+- **[Binder 스레드 풀 및 교착상태](../../01_system_internals/ipc-and-process/ipc-process/binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)** - 16개 스레드 풀 및 Deadlock 방지
 - **[Oneway 비동기 바인더](../../01_system_internals/ipc-and-process/ipc-process/oneway-binder-removes-caller-waiting-not-server-backpressure.md)** - 비동기 바인더 및 백프레셔
+- **[POSIX IPC vs Android Binder](../../../../operating-systems/ipc-contracts/posix-ipc-vs-android-binder.md)** - 전통적 POSIX IPC와 Android Binder 비교

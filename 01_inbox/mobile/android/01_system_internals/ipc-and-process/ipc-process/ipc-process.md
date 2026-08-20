@@ -29,7 +29,9 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ### Binder 와 AIDL
 
-- [Binder IPC](../../binder-ipc.md)
+- [Binder IPC](../../binder-ipc.md) — Binder 종합 허브
+- [Binder 커널 드라이버](binder-kernel-driver.md) — `/dev/binder`, `mmap` 1회 복사, 커널 구조체, UID 주입
+- [Binder 유저스페이스 프레임워크](binder-framework.md) — `libbinder`, `ProcessState`, `IPCThreadState`, Proxy/Stub, AIDL
 - [Binder transaction lifetime은 call, copy, dispatch, reply로 나뉜다](binder-transaction-lifetime-is-call-copy-dispatch-and-reply.md)
 - [AIDL은 process boundary 계약이지 비즈니스 프로토콜이 아니다](aidl-defines-process-boundary-not-business-protocol.md)
 - [oneway Binder는 caller 대기를 없애지만 server backpressure를 없애지 않는다](oneway-binder-removes-caller-waiting-not-server-backpressure.md)
