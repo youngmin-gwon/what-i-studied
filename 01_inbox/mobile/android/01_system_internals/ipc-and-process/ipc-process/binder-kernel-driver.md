@@ -2,7 +2,7 @@
 title: binder-kernel-driver
 tags: ["android", "binder", "driver", "ipc", "kernel", "mmap", "system-internals"]
 aliases: ["/dev/binder", "Binder Kernel Driver", "Binder 커널 드라이버", "binder_node", "binder_proc", "mmap 1회 복사"]
-date modified: 2026-08-20 16:56:00 +09:00
+date modified: 2026-08-20 17:05:24 +09:00
 date created: 2026-08-20 17:00:00 +09:00
 ---
 
@@ -51,7 +51,8 @@ void* mmap_addr = mmap(NULL, BINDER_VM_SIZE, PROT_READ, MAP_PRIVATE, fd, 0);
 ```
 
 #### 물리적 동작 원리
-1. **수신 버퍼 매핑**: 수신 프로세스가 `/dev/binder` 디바이스 파일에 대해 `mmap()` 을 호출하면, 커널 드라이버는 해당 프로세스를 위한 물리 메모리 페이지를 할당하고 **수신 프로세스의 유저 공간 가상 메모리와 커널 공간 가상 메모리에 동일한 물리 페이지를 동시 매핑**한다.
+
+1. **수신 버퍼 매핑**: 수신 프로세스가 `/dev/binder` 디바이스 파일에 대해 `mmap()` 을 호출하면, 커널 드라이버는 해당 프로세스를 위한 물리 메모리 페이지를 할당하고 **수신 프로세스의 유저 공간 가상 메모리와 커널 공간 가상 메모리에 동일한 물리 페이지를 동시 매핑** 한다.
 2. **단 1 회 복사 (`copy_from_user`)**: 클라이언트 프로세스가 데이터를 전송하면, 커널 드라이버는 클라이언트 유저 공간의 데이터를 수신 프로세스에 미리 매핑된 커널 버퍼로 `copy_from_user()` 를 통해 복사한다.
 3. **복사 없는 수신**: 수신 프로세스는 이미 자신의 유저 공간 가상 메모리에 매핑되어 있으므로, 커널에서 유저 공간으로 다시 복사(`copy_to_user`)할 필요 없이 포인터를 역참조하여 데이터를 즉시 읽는다.
 
