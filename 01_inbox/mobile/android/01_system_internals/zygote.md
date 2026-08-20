@@ -2,7 +2,7 @@
 title: zygote
 tags: [android, process, system-internals, vm, zygote]
 aliases: [Zygote, 자이고트]
-date modified: 2026-08-06 18:51:33 +09:00
+date modified: 2026-08-20 17:25:48 +09:00
 date created: 2026-08-06 16:40:00 +09:00
 ---
 
