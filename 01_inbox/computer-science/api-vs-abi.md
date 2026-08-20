@@ -1,16 +1,16 @@
 ---
 title: api-vs-abi
-tags: ["api", "abi", "compiler", "binary-compatibility", "computer-science", "build-system"]
-aliases: ["API vs ABI", "Application Binary Interface", "바이너리 호환성", "ABI 호환성", "ABI Fingerprinting"]
+tags: ["abi", "api", "binary-compatibility", "build-system", "compiler", "computer-science"]
+aliases: ["ABI Fingerprinting", "ABI 호환성", "API vs ABI", "Application Binary Interface", "바이너리 호환성"]
+date modified: 2026-08-20 17:46:09 +09:00
 date created: 2026-08-19 14:40:00 +09:00
-date modified: 2026-08-19 14:40:00 +09:00
 ---
 
 ## API vs ABI (Application Programming Interface vs Application Binary Interface)
 
 ### 개요
 
-소프트웨어 아키텍처와 빌드 시스템에서 모듈 간의 결합과 변경 전파를 이해하는 데 있어 **API(소스 코드 수준의 계약)**와 **ABI(바이너리 수준의 계약)**의 구분은 매우 중요하다.
+소프트웨어 아키텍처와 빌드 시스템에서 모듈 간의 결합과 변경 전파를 이해하는 데 있어 **API(소스 코드 수준의 계약)** 와 **ABI(바이너리 수준의 계약)** 의 구분은 매우 중요하다.
 
 현대 빌드 시스템(Gradle, Bazel 등)은 소스 코드의 단순 변경 여부가 아니라, **컴파일된 산출물의 ABI 가 변경되었는가(ABI Fingerprinting)**를 기준으로 하위 의존 모듈의 재컴파일 여부를 결정한다.
 
@@ -62,8 +62,8 @@ class UserProfile(val id: String) {
 ```
 
 - **위 시나리오의 결과**:
-  - `fetchDetails()`의 시그니처(이름, 파라미터 없음, 반환타입 String)가 동일하므로 **API 도 호환되고 ABI 도 100% 동일**하다.
-  - 따라서 `UserProfile`을 사용하는 다른 수십 개의 모듈들은 **재컴파일할 필요가 전혀 없다**.
+  - `fetchDetails()` 의 시그니처(이름, 파라미터 없음, 반환타입 String)가 동일하므로 **API 도 호환되고 ABI 도 100% 동일**하다.
+  - 따라서 `UserProfile` 을 사용하는 다른 수십 개의 모듈들은 **재컴파일할 필요가 전혀 없다**.
 
 ```kotlin
 // Version 3.0 (기본값 인자 추가)
@@ -73,9 +73,9 @@ class UserProfile(val id: String) {
 ```
 
 - **위 시나리오의 결과**:
-  - 소스 레벨에서는 기존 코드 `userProfile.fetchDetails()`가 그대로 컴파일되므로 **소스 호환성(API)은 유지**된다.
-  - 하지만 컴파일된 바이트코드(ABI) 관점에서는 파라미터가 1개 추가된 신규 메서드 `fetchDetails(Z)Ljava/lang/String;`가 생성되고 기존 매개변수 없는 메서드는 사라지거나 합성(synthetic) 메서드로 대체된다.
-  - 따라서 이전 1.0 버전에 바인딩되어 있던 다른 모듈들은 재컴파일하지 않고 런타임에 실행하면 `NoSuchMethodError`가 발생한다 (**바이너리 호환성(ABI) 파괴**).
+  - 소스 레벨에서는 기존 코드 `userProfile.fetchDetails()` 가 그대로 컴파일되므로 **소스 호환성(API)은 유지**된다.
+  - 하지만 컴파일된 바이트코드(ABI) 관점에서는 파라미터가 1 개 추가된 신규 메서드 `fetchDetails(Z)Ljava/lang/String;` 가 생성되고 기존 매개변수 없는 메서드는 사라지거나 합성(synthetic) 메서드로 대체된다.
+  - 따라서 이전 1.0 버전에 바인딩되어 있던 다른 모듈들은 재컴파일하지 않고 런타임에 실행하면 `NoSuchMethodError` 가 발생한다 (**바이너리 호환성(ABI) 파괴**).
 
 ---
 
@@ -92,8 +92,8 @@ flowchart TD
     CheckABI -->|Yes: public 메서드/타입 변경됨| Recompile["상위 의존 모듈 연쇄 재컴파일 실행"]
 ```
 
-- **`implementation` vs `api`의 결정적 차이**:
-  - `implementation`으로 선언된 의존성의 ABI 가 바뀌더라도, 현재 모듈의 공개 ABI 에 누출되지 않았다면 상위 모듈로의 재컴파일 전파를 차단할 수 있다.
+- **`implementation` vs `api` 의 결정적 차이**:
+  - `implementation` 으로 선언된 의존성의 ABI 가 바뀌더라도, 현재 모듈의 공개 ABI 에 누출되지 않았다면 상위 모듈로의 재컴파일 전파를 차단할 수 있다.
 
 ---
 

@@ -2,7 +2,7 @@
 title: activity-thread
 tags: [activity-thread, android, app-framework, lifecycle, main-thread]
 aliases: [ActivityThread, 앱 메인 스레드 진입점]
-date modified: 2026-08-06 18:40:04 +09:00
+date modified: 2026-08-20 17:39:34 +09:00
 date created: 2026-08-06 18:25:00 +09:00
 ---
 

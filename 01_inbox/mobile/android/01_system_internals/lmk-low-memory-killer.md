@@ -2,7 +2,7 @@
 title: lmk-low-memory-killer
 tags: [android, lmk, lmkd, memory, oom-score, system-internals]
 aliases: [LMK, lmkd, Low Memory Killer, 로우 메모리 킬러]
-date modified: 2026-08-07 13:36:32 +09:00
+date modified: 2026-08-20 17:38:33 +09:00
 date created: 2026-08-06 18:25:00 +09:00
 ---
 
@@ -48,6 +48,7 @@ LMK 는 `oom_score_adj` 수치가 **높은 프로세스(우선순위가 가장 �
 ### 3. LMK 사살 관측 및 앱 대비책
 
 #### 1) 관찰 명령어
+
 ```bash
 # 특정 앱의 현재 oom_score_adj 조회
 adb shell cat /proc/<PID>/oom_score_adj
@@ -57,6 +58,7 @@ adb logcat -d | grep lmkd
 ```
 
 #### 2) 앱 관점에서의 대비책
+
 - 화면이 백그라운드로 전환될 때 `onTrimMemory(TRIM_MEMORY_UI_HIDDEN)` 콜백을 수신하여 뷰 캐시 및 대용량 비트맵 메모리를 즉시 해제해야 LMK 사살 대상 1 순위에서 벗어난다.
 
 ---

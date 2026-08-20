@@ -2,7 +2,7 @@
 title: binder-ipc
 tags: [android, binder, ipc, kernel, os, system-internals]
 aliases: [Binder, Binder IPC, Binder 아키텍처, 바인더 IPC, 안드로이드 바인더]
-date modified: 2026-08-20 17:11:34 +09:00
+date modified: 2026-08-20 17:39:56 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 role: single-source-of-truth
 ---
@@ -17,14 +17,14 @@ role: single-source-of-truth
 
 ```mermaid
 flowchart TD
-    subgraph "1. Linux Kernel Driver 계층 (binder-kernel-driver.md)"
+    subgraph "1. Linux Kernel Driver 계층"
         Driver["/dev/binder 드라이버"]
         Mmap["mmap() 수신 버퍼 매핑 (1회 복사)"]
         KernelStruct["binder_proc, binder_thread, binder_node, binder_ref"]
         Security["커널 수준 호출자 UID / PID 강제 주입"]
     end
 
-    subgraph "2. Android Userspace Framework 계층 (binder-framework.md)"
+    subgraph "2. Android Userspace Framework 계층"
         Native["libbinder (ProcessState, IPCThreadState)"]
         Pattern["Proxy / Stub 패턴 (BpBinder, BBinder)"]
         Data["Parcel 직렬화 및 AIDL"]

@@ -2,7 +2,7 @@
 title: linux-kernel
 tags: [kernel, linux, memory, operating-systems, OS, process, vfs]
 aliases: [Linux Kernel, Linux 커널, 커널]
-date modified: 2026-08-10 00:00:00 +09:00
+date modified: 2026-08-20 17:39:24 +09:00
 date created: 2026-07-31 21:50:22 +09:00
 ---
 

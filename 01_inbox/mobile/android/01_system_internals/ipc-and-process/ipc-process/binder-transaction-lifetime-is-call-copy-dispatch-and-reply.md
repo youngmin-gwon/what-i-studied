@@ -2,7 +2,7 @@
 title: binder-transaction-lifetime-is-call-copy-dispatch-and-reply
 tags: [android, android/binder, android/ipc]
 aliases: ["Binder transaction lifetime은 call, copy, dispatch, reply로 나뉜다", Binder transaction]
-date modified: 2026-08-05 16:00:00 +09:00
+date modified: 2026-08-20 17:43:13 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -20,19 +20,19 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ### 내부 동작 메커니즘 (Single-Copy mmap & 4-Phase Lifecycle)
 
-Binder transaction 은 **Single-Copy (단 1회의 메모리 복사)** 구조로 동작한다. 일반 서드파티 앱 프로세스는 오픈 시 커널 `/dev/binder`에 대해 `mmap()`을 수행하며, 수신 전용 Binder buffer 공간은 커널 소스 코드(`ProcessState.cpp`)에 의해 정확히 `(1MB - 8KB)`인 **1016 KB (`1024 * 1024 - 2 * PAGE_SIZE`)**로 제한 할당된다.
+Binder transaction 은 **Single-Copy (단 1 회의 메모리 복사)** 구조로 동작한다. 일반 서드파티 앱 프로세스는 오픈 시 커널 `/dev/binder`에 대해 `mmap()`을 수행하며, 수신 전용 Binder buffer 공간은 커널 소스 코드(`ProcessState.cpp`)에 의해 정확히 `(1MB - 8KB)` 인 **1016 KB (`1024 * 1024 - 2 * PAGE_SIZE`)**로 제한 할당된다.
 
 1. **Call Phase (Client Userspace)**:
-   - Client가 Parcel 데이터 작성 후 `IPCThreadState::transact()` 호출 $\rightarrow$ `BC_TRANSACTION` 헤더와 함께 `ioctl(fd, BINDER_WRITE_READ, ...)` 실행 $\rightarrow$ Client 스레드 대기(Blocked).
+   - Client 가 Parcel 데이터 작성 후 `IPCThreadState::transact()` 호출 $\rightarrow$ `BC_TRANSACTION` 헤더와 함께 `ioctl(fd, BINDER_WRITE_READ, …)` 실행 $\rightarrow$ Client 스레드 대기(Blocked).
 2. **Copy Phase & Buffer Allocation (Kernel Space)**:
    - Binder 드라이버 커널 모듈(`binder_alloc.c`)이 수신자(Server) 프로세스의 공유 `mmap` **ring buffer**(양 끝이 이어진 것처럼 앞에서부터 다시 채워 넣는 고정 크기 순환 버퍼) 영역(`binder_proc->alloc`)에서 `binder_buffer` 블록을 할당한다.
-   - Client 사용자 공간 메모리 데이터를 Server의 mmap 버퍼 영역으로 **직접 copy_from_user** 수행 (중간 커널 임시 버퍼를 거치지 않는 1회 복사).
+   - Client 사용자 공간 메모리 데이터를 Server 의 mmap 버퍼 영역으로 **직접 copy_from_user** 수행 (중간 커널 임시 버퍼를 거치지 않는 1 회 복사).
    - **Buffer Exhaustion Boundary**: 1016 KB 제한은 단일 트랜잭션 수치일 뿐만 아니라 프로세스 내 실행 중인 **모든 동시성 Binder 수신 스레드가 공유하는 총량**이다. 단일 호출이 1MB 미만이라도 다수의 스레드가 동시 처리 중이면 버퍼 고갈로 `TransactionTooLargeException` 또는 커널 `NO_MEMORY (-ENOMEM)` 에러가 발생한다.
 3. **Dispatch Phase (Server Userspace)**:
-   - 드라이버가 Server 프로세스의 `todo` 큐에 `BR_TRANSACTION`을 추가하고 Binder 스레드 풀에서 자고 있는 스레드를 깨운다.
-   - Server 스레드가 `BBinder::onTransact()` / Java `Stub.onTransact()`를 수행하여 비즈니스 로직을 처리한다.
+   - 드라이버가 Server 프로세스의 `todo` 큐에 `BR_TRANSACTION` 을 추가하고 Binder 스레드 풀에서 자고 있는 스레드를 깨운다.
+   - Server 스레드가 `BBinder::onTransact()` / Java `Stub.onTransact()` 를 수행하여 비즈니스 로직을 처리한다.
 4. **Reply Phase (Server $\rightarrow$ Kernel $\rightarrow$ Client)**:
-   - Server가 `BC_REPLY`로 결과를 커널에 전달 $\rightarrow$ 커널이 Client mmap 버퍼로 결과 복사 후 `BR_REPLY` 발송 $\rightarrow$ Client 스레드 unblock 및 커널 `binder_buffer` 해제.
+   - Server 가 `BC_REPLY`로 결과를 커널에 전달 $\rightarrow$ 커널이 Client mmap 버퍼로 결과 복사 후 `BR_REPLY` 발송 $\rightarrow$ Client 스레드 unblock 및 커널 `binder_buffer` 해제.
 
 ```mermaid
 sequenceDiagram
@@ -105,4 +105,3 @@ status_t IPCThreadState::transact(int32_t handle, uint32_t code, const Parcel& d
 - trace 에서는 caller block 시간과 callee 처리 시간을 분리해서 본다.
 
 관련 노트: [IPC 디버깅은 service 등록, call path, thread state에서 시작한다](ipc-debugging-starts-from-service-registration-call-path-and-thread-state.md)
-
