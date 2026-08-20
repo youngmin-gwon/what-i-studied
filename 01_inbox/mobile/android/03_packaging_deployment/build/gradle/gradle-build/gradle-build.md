@@ -37,7 +37,7 @@ flowchart TD
     Signing --> ReleaseArtifact["Release Artifact (.aab / .apk)"]
 ```
 
-### 관련 세부 계약 문서
+### 관련 세부 문서
 1. [Gradle 코어 엔진 및 아키텍처](gradle-core.md)
 2. [Android 빌드 파이프라인과 핵심 빌드 용어 해설](android-build-pipeline.md)
 3. [Gradle 실행 생명주기](gradle-lifecycle.md)
@@ -45,7 +45,7 @@ flowchart TD
 5. [Gradle 캐싱 및 빌드 최적화](gradle-caching-and-optimization.md)
 6. [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
 7. [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md)
-8. [AGP는 Android 빌드 규칙을 Gradle에 추가한다](android-gradle-plugin-adds-android-build-rules-to-gradle.md)
+8. [Android Gradle Plugin (AGP) 아키텍처 및 확장 모델](android-gradle-plugin.md)
 9. [Android 기본 설정은 식별자와 버전 계약을 만든다](android-default-config-defines-identity-and-version.md)
 10. [Build type, product flavor, build variant는 서로 다른 축이다](build-type-product-flavor-and-build-variant-are-different-axes.md)
 11. [Source set 우선순위는 variant별 코드와 리소스 충돌을 결정한다](source-set-priority-decides-variant-code-and-resource-conflicts.md)

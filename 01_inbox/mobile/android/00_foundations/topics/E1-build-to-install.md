@@ -31,7 +31,7 @@ flowchart TD
 
 #### 3.1. 빌드 도구와 플러그인 (Gradle & AGP)
 안드로이드 빌드는 Gradle 위에 Android Gradle Plugin(AGP)을 올려 수행됩니다. AGP는 안드로이드 특유의 컴파일, 리소스 병합, 패키징 규칙을 Gradle 태스크로 제공합니다.
-- [Android Gradle Plugin은 Gradle에 안드로이드 빌드 규칙을 추가한다](../../03_packaging_deployment/build/gradle/gradle-build/android-gradle-plugin-adds-android-build-rules-to-gradle.md)
+- [Android Gradle Plugin (AGP) 아키텍처 및 확장 모델](../../03_packaging_deployment/build/gradle/gradle-build/android-gradle-plugin.md)
 
 #### 3.2. CI/CD 파이프라인
 CI(Continuous Integration) 환경에서의 빌드는 로컬 개발 환경과 달리 빠른 검증(Fast Validation)과 릴리스 검증(Release Validation)으로 나뉩니다.

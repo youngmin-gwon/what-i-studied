@@ -96,4 +96,4 @@ flowchart TD
 - [API vs ABI](../../../../../../computer-science/api-vs-abi.md)
 - [Gradle 코어 엔진 및 아키텍처](gradle-core.md)
 - [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md)
-- [AGP는 Android 빌드 규칙을 Gradle에 추가한다](android-gradle-plugin-adds-android-build-rules-to-gradle.md)
+- [Android Gradle Plugin (AGP) 아키텍처 및 확장 모델](android-gradle-plugin.md)

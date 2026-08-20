@@ -2,7 +2,7 @@
 title: api-vs-abi
 tags: ["abi", "api", "binary-compatibility", "build-system", "compiler", "computer-science"]
 aliases: ["ABI Fingerprinting", "ABI 호환성", "API vs ABI", "Application Binary Interface", "바이너리 호환성"]
-date modified: 2026-08-20 17:46:09 +09:00
+date modified: 2026-08-20 17:49:15 +09:00
 date created: 2026-08-19 14:40:00 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-08-19 14:40:00 +09:00
 
 소프트웨어 아키텍처와 빌드 시스템에서 모듈 간의 결합과 변경 전파를 이해하는 데 있어 **API(소스 코드 수준의 계약)** 와 **ABI(바이너리 수준의 계약)** 의 구분은 매우 중요하다.
 
-현대 빌드 시스템(Gradle, Bazel 등)은 소스 코드의 단순 변경 여부가 아니라, **컴파일된 산출물의 ABI 가 변경되었는가(ABI Fingerprinting)**를 기준으로 하위 의존 모듈의 재컴파일 여부를 결정한다.
+현대 빌드 시스템(Gradle, Bazel 등)은 소스 코드의 단순 변경 여부가 아니라, **컴파일된 산출물의 ABI 가 변경되었는가(ABI Fingerprinting)** 를 기준으로 하위 의존 모듈의 재컴파일 여부를 결정한다.
 
 ```mermaid
 flowchart LR
@@ -34,12 +34,12 @@ flowchart LR
 
 ### 1. API 와 ABI 핵심 비교
 
-| 비교 항목 | API (Application Programming Interface) | ABI (Application Binary Interface) |
-|---|---|---|
-| **정의** | **소스 코드 레벨**에서 프로그래머가 호출하고 구현할 수 있는 인터페이스 명세 | **컴파일된 바이너리 레벨**에서 프로그램 컴포넌트 간에 상호작용하는 물리적 규약 |
-| **표현 형식** | 텍스트 기반 소스 코드 (`.kt`, `.java`, `.h`, `.h.in`) | 바이트코드/기계어 심볼 (`.class`, `.dex`, `.so`, JVM Method Descriptor) |
-| **호환성 기준** | 소스 코드를 다시 컴파일했을 때 컴파일 에러 없이 빌드되는가? (**소스 호환성**) | 이미 컴파일된 다른 모듈을 재컴파일하지 않고도 런타임에 정상 링크/실행되는가? (**바이너리 호환성**) |
-| **주요 변경 요인** | 함수명 변경, 파라미터 개수/타입 변경, 인터페이스 메서드 추가 | 메서드 바이트코드 시그니처 변경, 클래스 필드 레이아웃 오프셋 변경, 가상 메서드 테이블(vtable) 순서 변경 |
+| 비교 항목        | API (Application Programming Interface)         | ABI (Application Binary Interface)                              |
+| ------------ | ----------------------------------------------- | --------------------------------------------------------------- |
+| **정의**       | **소스 코드 레벨**에서 프로그래머가 호출하고 구현할 수 있는 인터페이스 명세    | **컴파일된 바이너리 레벨**에서 프로그램 컴포넌트 간에 상호작용하는 물리적 규약                   |
+| **표현 형식**    | 텍스트 기반 소스 코드 (`.kt`, `.java`, `.h`, `.h.in`)    | 바이트코드/기계어 심볼 (`.class`, `.dex`, `.so`, JVM Method Descriptor)   |
+| **호환성 기준**   | 소스 코드를 다시 컴파일했을 때 컴파일 에러 없이 빌드되는가? (**소스 호환성**) | 이미 컴파일된 다른 모듈을 재컴파일하지 않고도 런타임에 정상 링크/실행되는가? (**바이너리 호환성**)      |
+| **주요 변경 요인** | 함수명 변경, 파라미터 개수/타입 변경, 인터페이스 메서드 추가             | 메서드 바이트코드 시그니처 변경, 클래스 필드 레이아웃 오프셋 변경, 가상 메서드 테이블(vtable) 순서 변경 |
 
 ---
 
@@ -81,7 +81,7 @@ class UserProfile(val id: String) {
 
 ### 3. Gradle 빌드 최적화에서의 ABI 지문 (ABI Fingerprinting)
 
-Gradle 은 멀티모듈 증분 빌드 시 **ABI Fingerprint(공개 바이너리 시그니처 해시)**를 계산한다.
+Gradle 은 멀티모듈 증분 빌드 시 **ABI Fingerprint(공개 바이너리 시그니처 해시)** 를 계산한다.
 
 ```mermaid
 flowchart TD
