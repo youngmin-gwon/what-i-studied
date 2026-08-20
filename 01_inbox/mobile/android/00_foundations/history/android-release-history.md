@@ -2,7 +2,7 @@
 title: android-release-history
 tags: [android, foundations, history, platform-timeline, release-history, sdk-versions]
 aliases: [Android Release History, 안드로이드 릴리스 히스토리, 플랫폼 진화사]
-date modified: 2026-08-07 13:50:08 +09:00
+date modified: 2026-08-20 16:45:59 +09:00
 date created: 2026-08-04 16:16:52 +09:00
 ---
 
@@ -66,7 +66,7 @@ timeline
 
 #### 4. HAL 아키텍처: HIDL → AIDL HAL (2019+)
 
-- **HIDL (Android 8.0 [Project Treble](../../01_system_internals/platform-modularity/android-platform-modularity.md))**: C++ 언어 기반 시스템과 Vendor 하드웨어 물리 분리.
+- HIDL (Android 8.0 [Project Treble](../../01_system_internals/platform-modularity/android-platform-modularity.md)): C++ 언어 기반 시스템과 Vendor 하드웨어 물리 분리.
 - **AIDL HAL (Android 11+)**: Java, C++, Rust 지원 및 [Binder IPC](../../01_system_internals/binder-ipc.md) 인프라로 단일화.
 
 #### 5. 보안 & 프라이버시: 권한 및 저장소 모델의 진화
@@ -109,5 +109,4 @@ timeline
 - [ContentProvider 컴포넌트](../../02_app_framework/architecture/app-components/content-provider.md)
 - [AppOps & Permissions](../../05_security_privacy/appops-and-permissions.md)
 - [CE vs DE Secure Storage](../../05_security_privacy/secure-storage/ce-vs-de-storage.md)
-
 - [android-16kb-page-alignment](../../01_system_internals/kernel-and-hal/android-16kb-page-alignment.md) - Android 15+ 16KB 가상 메모리 페이지 정렬 규약
