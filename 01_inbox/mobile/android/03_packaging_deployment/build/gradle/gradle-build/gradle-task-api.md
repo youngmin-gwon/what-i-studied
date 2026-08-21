@@ -2,7 +2,7 @@
 title: gradle-task-api
 tags: ["build-engine", "gradle", "jvm", "performance", "task-api", "worker-api"]
 aliases: ["Gradle Task API", "Lazy Task Registration", "Property API", "TaskProvider", "Worker API", "증분 태스크"]
-date modified: 2026-08-21 14:57:11 +09:00
+date modified: 2026-08-21 16:57:50 +09:00
 date created: 2026-08-19 11:00:00 +09:00
 ---
 
@@ -42,7 +42,7 @@ val generateVersionInfo = tasks.register<GenerateVersionInfoTask>("generateVersi
 
 ### 2. Property & Provider API (지연 값 바인딩 및 자동 의존성 수립)
 
-Gradle 의 `Property<T>`와 `Provider<T>` 는 태스크 간의 입출력 데이터를 결합할 때, **실제 값이 결정되는 시점(Execution Phase)까지 평가를 지연(Lazy Evaluation)**시키는 함수형 컨테이너이다.
+Gradle 의 `Property<T>`와 `Provider<T>` 는 태스크 간의 입출력 데이터를 결합할 때, **실제 값이 결정되는 시점(Execution Phase)까지 평가를 지연(Lazy Evaluation)** 시키는 함수형 컨테이너이다.
 
 - **`Property<T>`**: 읽기/쓰기가 가능한 컨테이너 (`set()`, `convention()`).
 - **`Provider<T>`**: 읽기 전용 지연 값 공급자 (`get()`, `map()`, `flatMap()`).
