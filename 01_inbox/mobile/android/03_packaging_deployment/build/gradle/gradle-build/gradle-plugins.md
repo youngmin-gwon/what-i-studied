@@ -215,5 +215,6 @@ flowchart TD
 - [Gradle 실행 생명주기](gradle-lifecycle.md)
 - [Gradle Task 모델 및 Provider API](gradle-task-api.md)
 - [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md)
+- [Gradle 플러그인(Plugin)과 의존성(Dependency)의 차이](gradle-plugins-vs-dependencies.md)
 - [Android Gradle Plugin (AGP) 아키텍처 및 확장 모델](android-gradle-plugin.md)
 - [JVM 클래스패스 (Classpath)](../../../../../../computer-science/jvm-classpath.md)

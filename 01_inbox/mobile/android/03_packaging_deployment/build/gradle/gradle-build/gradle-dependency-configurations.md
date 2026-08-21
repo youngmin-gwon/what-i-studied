@@ -95,3 +95,4 @@ dependencies {
 - [Gradle 코어 엔진 및 아키텍처](gradle-core.md)
 - [Gradle Project DSL 및 빌드 스크립트 API](gradle-project-dsl.md)
 - [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
+- [Gradle 플러그인(Plugin)과 의존성(Dependency)의 차이](gradle-plugins-vs-dependencies.md)

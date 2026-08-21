@@ -1,20 +1,8 @@
 ---
 title: gradle-project-dsl
-tags:
-  - agp
-  - api
-  - build-engine
-  - dsl
-  - gradle
-  - project
-  - build-gradle-kts
-aliases:
-  - build.gradle.kts
-  - Gradle Project DSL
-  - Project API
-  - Project 스크립트
-  - 기본 Gradle vs AGP DSL
-date modified: 2026-08-21 17:26:10 +09:00
+tags: [agp, api, build-engine, build-gradle-kts, dsl, gradle, project]
+aliases: [build.gradle.kts, Gradle Project DSL, Project API, Project 스크립트, 기본 Gradle vs AGP DSL]
+date modified: 2026-08-21 17:40:15 +09:00
 date created: 2026-08-20 18:25:00 +09:00
 ---
 
@@ -178,3 +166,4 @@ flowchart TD
 - [Android Gradle Plugin (AGP) 아키텍처 및 확장 모델](android-gradle-plugin.md)
 - [Gradle Task 모델 및 Provider API](gradle-task-api.md)
 - [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
+- [Gradle 플러그인(Plugin)과 의존성(Dependency)의 차이](gradle-plugins-vs-dependencies.md)
