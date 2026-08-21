@@ -2,7 +2,7 @@
 title: gradle-task-api
 tags: ["build-engine", "gradle", "jvm", "performance", "task-api", "worker-api"]
 aliases: ["Gradle Task API", "Gradle 작업 단위", "Property API", "TaskProvider", "Worker API", "증분 태스크", "태스크 계층 구조"]
-date modified: 2026-08-20 18:25:39 +09:00
+date modified: 2026-08-21 13:33:22 +09:00
 date created: 2026-08-19 11:00:00 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-08-19 11:00:00 +09:00
 
 Gradle 빌드 시스템을 정확히 이해하기 위해서는 **Gradle 이 작업을 어떤 계층 구조(Hierarchy of Work Units)로 쪼개어 관리하고 실행하는지**를 파악해야 한다.
 
-Gradle 의 작업 단위는 **"Build(빌드) ➔ Project(모듈) ➔ Task(태스크) ➔ TaskAction(액션) ➔ WorkItem(워커)"**의 5 단계 계층으로 구성된다. 이 중 **Task**는 빌드 엔진이 [DAG(유향 비순환 그래프)](../../../../../../computer-science/directed-acyclic-graph.md) 상에서 의존성을 분석하고, 병렬로 스케줄링하며, 증분 빌드(`UP-TO-DATE`) 및 빌드 캐시(`FROM-CACHE`)를 판별하는 **최소 독립 스케줄링 및 캐싱 단위**이다.
+Gradle 의 작업 단위는 **"Build(빌드) ➔ Project(모듈) ➔ Task(태스크) ➔ TaskAction(액션) ➔ WorkItem(워커)"** 의 5 단계 계층으로 구성된다. 이 중 **Task**는 빌드 엔진이 [DAG(유향 비순환 그래프)](../../../../../../computer-science/directed-acyclic-graph.md) 상에서 의존성을 분석하고, 병렬로 스케줄링하며, 증분 빌드(`UP-TO-DATE`) 및 빌드 캐시(`FROM-CACHE`)를 판별하는 **최소 독립 스케줄링 및 캐싱 단위**이다.
 
 ```mermaid
 flowchart TD
