@@ -2,7 +2,7 @@
 title: gradle-plugins-vs-dependencies
 tags: ["architecture", "build-engine", "classpath", "dependencies", "gradle", "jvm", "plugins"]
 aliases: ["Buildscript Classpath vs Application Classpath", "Gradle Plugin vs Dependency", "Plugin vs Dependency", "플러그인과 의존성의 차이"]
-date modified: 2026-08-21 17:53:44 +09:00
+date modified: 2026-08-21 18:05:25 +09:00
 date created: 2026-08-21 17:40:00 +09:00
 ---
 
@@ -79,8 +79,8 @@ flowchart LR
    - **Plugin (`org.jetbrains.kotlin.plugin.serialization`)**: Kotlin 컴파일러가 `@Serializable` 어노테이션을 보고 컴파일 시점에 직렬화/역직렬화 바이트코드를 자동 생성하도록 만드는 **컴파일러 플러그인**이다.
    - **Dependency (`org.jetbrains.kotlinx:kotlinx-serialization-json`)**: 앱 코드에서 `Json.decodeFromString<User>(jsonStr)` 함수를 런타임에 호출하기 위한 JSON 파서 라이브러리이다.
 3. **KSP (Kotlin Symbol Processing)**:
-   - **Plugin (`com.google.devtools.ksp`)**: 빌드 파이프라인에서 Kotlin 심볼 파싱 태스크를 생성하고 컴파일러와 연결하는 **빌드 플러그인**이다.
-   - **Dependency (`ksp(libs.room.compiler)`)**: Room 라이브러리의 코드 생성기 엔진 바이너리를 KSP 워커에 주입하는 **의존성**이다.
+   - **Plugin (`com.google.devtools.ksp`)**: 빌드 파이프라인에서 Kotlin 심볼 파싱 태스크를 생성하고 컴파일러와 연결하는 **빌드 플러그인** 이다.
+   - **Dependency (`ksp(libs.room.compiler)`)**: Room 라이브러리의 코드 생성기 엔진 바이너리를 KSP 워커에 주입하는 **의존성** 이다.
 
 ---
 
