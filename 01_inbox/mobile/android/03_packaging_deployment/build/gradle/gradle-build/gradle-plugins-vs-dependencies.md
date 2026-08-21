@@ -12,7 +12,7 @@ date created: 2026-08-21 17:40:00 +09:00
 
 Gradle 빌드 스크립트(`build.gradle.kts`)를 작성할 때 개발자가 가장 흔히 혼동하는 두 축이 바로 **`plugins {}`** 와 **`dependencies {}`** 이다.
 
-둘 다 Maven Central 이나 Google 저장소에서 외부 JAR 파일을 다운로드받는다는 공통점이 있지만, **그 코드가 '누구에 의해', '언제', '어떤 [classpath](jvm-classpath.md) 상에서' 실행되는지**가 완전히 다른 별개의 층위이다.
+둘 다 Maven Central 이나 Google 저장소에서 외부 JAR 파일을 다운로드받는다는 공통점이 있지만, **그 코드가 '누구에 의해', '언제', '어떤 [classpath](../../../../../../computer-science/jvm-classpath.md) 상에서' 실행되는지**가 완전히 다른 별개의 층위이다.
 
 - **Plugin (`plugins {}`)**: **"빌드 시스템(Gradle) 자체의 기능을 확장하고 빌드 규칙을 제어하는 프로그램"** (실행 주체: Gradle JVM).
 - **Dependency (`dependencies {}`)**: **"내 애플리케이션 소스 코드가 컴파일되거나 런타임에 실행되기 위해 필요한 라이브러리 바이너리"** (실행 주체: Android OS / 기기 ART 런타임).
