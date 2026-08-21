@@ -2,7 +2,7 @@
 title: gradle-task-api
 tags: ["build-engine", "gradle", "jvm", "performance", "task-api", "worker-api"]
 aliases: ["Gradle Task API", "Lazy Task Registration", "Property API", "TaskProvider", "Worker API", "증분 태스크"]
-date modified: 2026-08-21 14:26:59 +09:00
+date modified: 2026-08-21 14:57:11 +09:00
 date created: 2026-08-19 11:00:00 +09:00
 ---
 
@@ -120,6 +120,7 @@ flowchart TD
 ```
 
 #### Worker API 3 가지 격리 모드
+
 1. **`noIsolation()`**: 현재 Gradle 데몬 JVM 스레드 풀에서 경량 비동기 병렬 실행.
 2. **`classLoaderIsolation()`**: 별도의 격리된 `ClassLoader` 인스턴스를 생성하여 라이브러리 JAR 충돌(`Jar Hell`)을 차단하며 실행.
 3. **`processIsolation()`**: 별도의 독립 자식 JVM 프로세스를 포크하여 대용량 힙 메모리 할당 및 네이티브 컴파일러 도구를 격리 실행.
