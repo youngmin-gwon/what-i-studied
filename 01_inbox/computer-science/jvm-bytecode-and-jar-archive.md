@@ -47,7 +47,7 @@ flowchart TD
 - **증분 컴파일(Incremental Compilation)**:
   - 개발자가 `User.kt` 1 개 파일만 수정했을 때, 빌드 도구는 전체 프로젝트를 다시 묶지 않고 오직 `User.class` 1 개 파일만 디스크에 덮어쓴다.
 - **로컬 단위 테스트 실행**:
-  - IDE(IntelliJ)나 Gradle 이 로컬에서 JUnit 테스트를 실행할 때는, 굳이 무거운 JAR 압축 과정을 거치지 않고 `build/classes/` 디렉터리 자체를 [클래스패스(Classpath)](jvm-classpath.md)에 바로 등록하여 `.class` 파일을 즉시 로드한다 (패키징 오버헤드 0 초).
+  - IDE(IntelliJ)나 Gradle 이 로컬에서 JUnit 테스트를 실행할 때는, 굳이 무거운 JAR 압축 과정을 거치지 않고 `build/classes/` 디렉터리 자체를 [클래스패스(Classpath)](jvm-classpath.md) 에 바로 등록하여 `.class` 파일을 즉시 로드한다 (패키징 오버헤드 0 초).
 
 ---
 
