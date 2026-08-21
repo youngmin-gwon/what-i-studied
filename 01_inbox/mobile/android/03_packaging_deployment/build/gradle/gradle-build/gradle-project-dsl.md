@@ -2,7 +2,7 @@
 title: gradle-project-dsl
 tags: ["agp", "api", "build-engine", "build.gradle.kts", "dsl", "gradle", "project"]
 aliases: ["build.gradle.kts", "Gradle Project DSL", "Project API", "Project 스크립트", "기본 Gradle vs AGP DSL"]
-date modified: 2026-08-21 14:31:46 +09:00
+date modified: 2026-08-21 17:24:32 +09:00
 date created: 2026-08-20 18:25:00 +09:00
 ---
 
@@ -10,9 +10,9 @@ date created: 2026-08-20 18:25:00 +09:00
 
 ### 개요
 
-**`build.gradle.kts`**는 Gradle 의 [구성 단계(Configuration Phase)](gradle-lifecycle.md) 에서 각 서브모듈(및 루트 프로젝트)마다 개별적으로 평가되는 빌드 스크립트 파일이다.
+**`build.gradle.kts`** 는 Gradle 의 [구성 단계(Configuration Phase)](gradle-lifecycle.md) 에서 각 서브모듈(및 루트 프로젝트)마다 개별적으로 평가되는 빌드 스크립트 파일이다.
 
-이 스크립트는 **`org.gradle.api.Project`** 인터페이스를 위임 객체(Delegate Object)로 삼아 동작한다. 안드로이드 프로젝트의 `build.gradle.kts` 는 **순수 Gradle 코어 API(`Project`)**와 플러그인이 주입한 **[AGP 확장 DSL(`android {}`)](android-gradle-plugin.md)**의 2 개 층위가 결합된 구조로 동작한다.
+이 스크립트는 **`org.gradle.api.Project`** 인터페이스를 위임 객체(Delegate Object)로 삼아 동작한다. 안드로이드 프로젝트의 `build.gradle.kts` 는 **순수 Gradle 코어 API(`Project`)** 와 플러그인이 주입한 [AGP 확장 DSL(`android {}`)](android-gradle-plugin.md) 의 2 개 층위가 결합된 구조로 동작한다.
 
 ```mermaid
 flowchart TD
