@@ -144,5 +144,5 @@ AGP가 등록한 태스크 목록과 서명 상태는 다음 CLI 명령으로 �
 - [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md)
 - [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
 - [Gradle Task 모델 및 Provider API](gradle-task-api.md)
-- [Build Type, Product Flavor, Build Variant의 축 분리](build-type-product-flavor-and-build-variant-are-different-axes.md)
-- [AGP DSL 체크리스트](agp-dsl-checklist-verifies-effective-release-variant-values.md)
+- [AGP Build Variant 아키텍처 및 변형 매트릭스](agp-build-variants.md)
+- [AGP 릴리스 빌드 점검 체크리스트](agp-release-checklist.md)

@@ -96,7 +96,7 @@ android {
     namespace = "com.example.myapp"
     compileSdk = 35
 
-    // 2. [기본 식별자 및 앱 버전 명세](android-default-config-defines-identity-and-version.md)
+    // 2. [기본 식별자 및 앱 버전 명세](agp-default-config.md)
     defaultConfig {
         applicationId = "com.example.myapp"
         minSdk = 26
@@ -105,7 +105,7 @@ android {
         versionName = "1.0.1"
     }
 
-    // 3. [빌드 환경(BuildType)과 제품 변종(ProductFlavor)](build-type-product-flavor-and-build-variant-are-different-axes.md)
+    // 3. [빌드 환경(BuildType)과 제품 변종(ProductFlavor)](agp-build-variants.md)
     buildTypes {
         release {
             isMinifyEnabled = true
