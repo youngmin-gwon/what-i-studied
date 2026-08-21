@@ -1,18 +1,18 @@
 ---
 title: gradle-project-dsl
-tags: ["gradle", "project", "dsl", "api", "agp", "build.gradle.kts", "build-engine"]
+tags: ["agp", "api", "build-engine", "build.gradle.kts", "dsl", "gradle", "project"]
 aliases: ["build.gradle.kts", "Gradle Project DSL", "Project API", "Project 스크립트", "기본 Gradle vs AGP DSL"]
+date modified: 2026-08-21 14:31:46 +09:00
 date created: 2026-08-20 18:25:00 +09:00
-date modified: 2026-08-20 18:25:00 +09:00
 ---
 
 ## Gradle Project DSL 및 빌드 스크립트 API (build.gradle.kts)
 
 ### 개요
 
-**`build.gradle.kts`**는 Gradle 의 [구성 단계(Configuration Phase)](gradle-lifecycle.md)에서 각 서브모듈(및 루트 프로젝트)마다 개별적으로 평가되는 빌드 스크립트 파일이다.
+**`build.gradle.kts`**는 Gradle 의 [구성 단계(Configuration Phase)](gradle-lifecycle.md) 에서 각 서브모듈(및 루트 프로젝트)마다 개별적으로 평가되는 빌드 스크립트 파일이다.
 
-이 스크립트는 **`org.gradle.api.Project`** 인터페이스를 위임 객체(Delegate Object)로 삼아 동작한다. 안드로이드 프로젝트의 `build.gradle.kts`는 **순수 Gradle 코어 API(`Project`)**와 플러그인이 주입한 **[AGP 확장 DSL(`android {}`)](android-gradle-plugin.md)**의 2개 층위가 결합된 구조로 동작한다.
+이 스크립트는 **`org.gradle.api.Project`** 인터페이스를 위임 객체(Delegate Object)로 삼아 동작한다. 안드로이드 프로젝트의 `build.gradle.kts` 는 **순수 Gradle 코어 API(`Project`)**와 플러그인이 주입한 **[AGP 확장 DSL(`android {}`)](android-gradle-plugin.md)**의 2 개 층위가 결합된 구조로 동작한다.
 
 ```mermaid
 flowchart TD
@@ -39,16 +39,16 @@ flowchart TD
 
 ### 1. 표준 Gradle 코어 `Project` API
 
-어떤 플러그인을 적용하지 않더라도 순수 Gradle이 기본으로 제공하는 핵심 빌드 API이다.
+어떤 플러그인을 적용하지 않더라도 순수 Gradle 이 기본으로 제공하는 핵심 빌드 API 이다.
 
 | 블록 / 프로퍼티 | 수신 인터페이스 | 주요 역할 및 용도 |
 |---|---|---|
-| **`plugins { ... }`** | `PluginDependenciesSpec` | 이 모듈에 적용할 바이너리 플러그인(`com.android.library`, `kotlin-android`) 선언 |
-| **`dependencies { ... }`** | `DependencyHandler` | `implementation`, `api`, `testImplementation` 등 [의존성 구성](gradle-dependency-configurations.md)에 라이브러리 추가 |
-| **`tasks { ... }`** | `TaskContainer` | `tasks.register<T>("name")`을 통한 [지연 태스크 생성 및 스케줄링](gradle-task-api.md) |
+| **`plugins { … }`** | `PluginDependenciesSpec` | 이 모듈에 적용할 바이너리 플러그인(`com.android.library`, `kotlin-android`) 선언 |
+| **`dependencies { … }`** | `DependencyHandler` | `implementation`, `api`, `testImplementation` 등 [의존성 구성](gradle-dependency-configurations.md) 에 라이브러리 추가 |
+| **`tasks { … }`** | `TaskContainer` | `tasks.register<T>("name")` 을 통한 [지연 태스크 생성 및 스케줄링](gradle-task-api.md) |
 | **`layout`** | `ProjectLayout` | `layout.projectDirectory`, `layout.buildDirectory` 기반 상대 파일/폴더 경로 참조 |
 | **`providers`** | `ProviderFactory` | 환경변수, 시스템 프로퍼티, CLI 인자를 지연 평가(`Provider<T>`)로 조회 |
-| **`extensions`** | `ExtensionContainer` | 플러그인이 등록한 확장 객체(`project.extensions.getByType(...)`) 접근 |
+| **`extensions`** | `ExtensionContainer` | 플러그인이 등록한 확장 객체(`project.extensions.getByType(…)`) 접근 |
 
 #### 표준 Gradle Core 코드 예시
 ```kotlin
@@ -72,9 +72,9 @@ tasks.register<Copy>("backupDocs") {
 
 ### 2. AGP(Android Gradle Plugin) 확장 DSL (`android {}`)
 
-모듈에 `com.android.application` 또는 `com.android.library` 플러그인을 적용하면, AGP 는 Gradle `Project`의 `ExtensionContainer`에 `android`라는 이름으로 **`ApplicationExtension`** 또는 **`LibraryExtension`** 객체를 등록한다.
+모듈에 `com.android.application` 또는 `com.android.library` 플러그인을 적용하면, AGP 는 Gradle `Project`의 `ExtensionContainer`에 `android` 라는 이름으로 **`ApplicationExtension`** 또는 **`LibraryExtension`** 객체를 등록한다.
 
-이 확장 객체가 바로 우리가 사용하는 `android { ... }` 블록의 기술적 실체이다.
+이 확장 객체가 바로 우리가 사용하는 `android { … }` 블록의 기술적 실체이다.
 
 ```mermaid
 flowchart LR

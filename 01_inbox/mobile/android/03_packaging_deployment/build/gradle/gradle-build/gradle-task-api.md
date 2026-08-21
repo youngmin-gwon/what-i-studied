@@ -1,9 +1,9 @@
 ---
 title: gradle-task-api
 tags: ["build-engine", "gradle", "jvm", "performance", "task-api", "worker-api"]
-aliases: ["Gradle Task API", "Property API", "TaskProvider", "Worker API", "증분 태스크", "Lazy Task Registration"]
+aliases: ["Gradle Task API", "Lazy Task Registration", "Property API", "TaskProvider", "Worker API", "증분 태스크"]
+date modified: 2026-08-21 14:26:59 +09:00
 date created: 2026-08-19 11:00:00 +09:00
-date modified: 2026-08-21 14:15:00 +09:00
 ---
 
 ## Gradle Task 모델 및 Provider API (Task & Provider API)
@@ -12,16 +12,16 @@ date modified: 2026-08-21 14:15:00 +09:00
 
 Gradle 빌드 시스템에서 [DAG(유향 비순환 그래프)](../../../../../../computer-science/directed-acyclic-graph.md) 상의 노드로 동작하며 독립적으로 스케줄링 및 캐싱되는 최소 단위는 **Task**이다.
 
-현대 Gradle은 대규모 멀티 모듈 프로젝트의 빌드 구성 오버헤드를 제거하고 최대 성능을 달성하기 위해 **지연 생성(Lazy Task Configuration)**, **`Property<T>`/`Provider<T>` 기반의 지연 값 바인딩**, **증분 빌드 어노테이션 모델**, 그리고 **Worker API 격리 실행**을 표준 Task 아키텍처로 채택하고 있다.
+현대 Gradle 은 대규모 멀티 모듈 프로젝트의 빌드 구성 오버헤드를 제거하고 최대 성능을 달성하기 위해 **지연 생성(Lazy Task Configuration)**, **`Property<T>`/`Provider<T>` 기반의 지연 값 바인딩**, **증분 빌드 어노테이션 모델**, 그리고 **Worker API 격리 실행**을 표준 Task 아키텍처로 채택하고 있다.
 
-> [!NOTE]
-> Gradle의 전체 작업 단위 계층 구조(Build ➔ Project ➔ Task ➔ TaskAction ➔ WorkItem)에 대한 조망은 [Gradle 작업 단위 계층 구조](gradle-work-units.md) 문서를 참조한다.
+>[!NOTE]
+>Gradle 의 전체 작업 단위 계층 구조(Build ➔ Project ➔ Task ➔ TaskAction ➔ WorkItem)에 대한 조망은 [Gradle 작업 단위 계층 구조](gradle-work-units.md) 문서를 참조한다.
 
 ---
 
 ### 1. Task 등록 및 지연 생성 메커니즘 (`tasks.register`)
 
-과거 Gradle의 `tasks.create` 방식은 빌드 구성 단계(Configuration Phase)에서 모든 태스크 인스턴스를 무조건 메모리에 생성하여 멀티 모듈 프로젝트의 초기 기동 속도를 크게 저하시켰다. 현대 Gradle은 **지연 생성(Lazy Configuration)**을 표준으로 사용한다.
+과거 Gradle 의 `tasks.create` 방식은 빌드 구성 단계(Configuration Phase)에서 모든 태스크 인스턴스를 무조건 메모리에 생성하여 멀티 모듈 프로젝트의 초기 기동 속도를 크게 저하시켰다. 현대 Gradle 은 **지연 생성(Lazy Configuration)** 을 표준으로 사용한다.
 
 | 비교 항목 | `tasks.register("myTask")` (표준 권장) | `tasks.create("myTask")` (지양) |
 |---|---|---|
@@ -42,12 +42,12 @@ val generateVersionInfo = tasks.register<GenerateVersionInfoTask>("generateVersi
 
 ### 2. Property & Provider API (지연 값 바인딩 및 자동 의존성 수립)
 
-Gradle의 `Property<T>`와 `Provider<T>`는 태스크 간의 입출력 데이터를 결합할 때, **실제 값이 결정되는 시점(Execution Phase)까지 평가를 지연(Lazy Evaluation)**시키는 함수형 컨테이너이다.
+Gradle 의 `Property<T>`와 `Provider<T>` 는 태스크 간의 입출력 데이터를 결합할 때, **실제 값이 결정되는 시점(Execution Phase)까지 평가를 지연(Lazy Evaluation)**시키는 함수형 컨테이너이다.
 
 - **`Property<T>`**: 읽기/쓰기가 가능한 컨테이너 (`set()`, `convention()`).
 - **`Provider<T>`**: 읽기 전용 지연 값 공급자 (`get()`, `map()`, `flatMap()`).
 - **태스크 간 자동 암시적 의존성 수립 (Implicit Dependency)**:
-  - Task B의 `@InputFile`에 Task A의 `TaskProvider<T>.flatMap { it.outputDoc }`을 대입하면, Gradle은 명시적인 `dependsOn("taskA")` 선언 없이도 **자동으로 Task A ➔ Task B의 DAG 의존관계를 수립**한다.
+  - Task B 의 `@InputFile`에 Task A 의 `TaskProvider<T>.flatMap { it.outputDoc }`을 대입하면, Gradle 은 명시적인 `dependsOn("taskA")` 선언 없이도 **자동으로 Task A ➔ Task B 의 DAG 의존관계를 수립**한다.
 
 ```kotlin
 // Task A의 출력을 Task B의 입력으로 암시적 바인딩
@@ -109,7 +109,7 @@ abstract class TransformDataTask : DefaultTask() {
 
 ### 4. Worker API 기반 비동기 병렬 및 프로세스 격리 실행
 
-무거운 작업(컴파일러 호출, 리소스 압축, C++ 네이티브 빌드 등)을 태스크 메인 스레드에서 순차 실행하지 않고, `WorkerExecutor`를 통해 비동기/병렬 워커(WorkItem)로 분할 실행한다.
+무거운 작업(컴파일러 호출, 리소스 압축, C++ 네이티브 빌드 등)을 태스크 메인 스레드에서 순차 실행하지 않고, `WorkerExecutor` 를 통해 비동기/병렬 워커(WorkItem)로 분할 실행한다.
 
 ```mermaid
 flowchart TD
@@ -119,7 +119,7 @@ flowchart TD
     WorkQueue --> Worker3["WorkItem 3 (Forked Child JVM Process)"]
 ```
 
-#### Worker API 3가지 격리 모드:
+#### Worker API 3 가지 격리 모드
 1. **`noIsolation()`**: 현재 Gradle 데몬 JVM 스레드 풀에서 경량 비동기 병렬 실행.
 2. **`classLoaderIsolation()`**: 별도의 격리된 `ClassLoader` 인스턴스를 생성하여 라이브러리 JAR 충돌(`Jar Hell`)을 차단하며 실행.
 3. **`processIsolation()`**: 별도의 독립 자식 JVM 프로세스를 포크하여 대용량 힙 메모리 할당 및 네이티브 컴파일러 도구를 격리 실행.
