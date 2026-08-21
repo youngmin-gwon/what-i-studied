@@ -2,7 +2,7 @@
 title: gradle-work-units
 tags: ["architecture", "build-engine", "gradle", "jvm", "task", "work-units"]
 aliases: ["Build Project Task WorkItem", "Gradle Work Units", "Gradle 작업 단위", "작업 단위 계층 구조", "태스크 계층 구조"]
-date modified: 2026-08-21 14:27:20 +09:00
+date modified: 2026-08-21 14:36:01 +09:00
 date created: 2026-08-21 14:15:00 +09:00
 ---
 
@@ -51,13 +51,13 @@ flowchart TD
 
 ### 1. 5 단계 작업 단위별 기술적 실체와 역할
 
-| 계층 | 작업 단위 (Unit) | 위임/담당 API | 주요 역할 및 기술적 의미 |
-|---|---|---|---|
-| **Level 1** | **Build (빌드)** | `org.gradle.api.invocation.Gradle`<br/>[`settings.gradle.kts`](gradle-settings-dsl.md) | `./gradlew` 명령 1 회 호출로 시작되는 전체 실행 세션. `includeBuild("build-logic")` 로 묶인 여러 독립 빌드들을 포함하는 **복합 빌드(Composite Build)** 전체를 포괄 |
-| **Level 2** | **Project (모듈)** | `org.gradle.api.Project`<br/>[`build.gradle.kts`](gradle-project-dsl.md) | `settings.gradle.kts`에 선언된 개별 모듈(`:app`, `:core:model`). 자체적인 `build.gradle.kts`, `PluginManager`, `DependencyHandler`, `TaskContainer` 를 소유하는 구성 컨테이너 |
-| **Level 3** | **Task (태스크)** | `org.gradle.api.Task`<br/>`TaskProvider<T>` | **Gradle DAG 의 노드(Node)**.<br/> 빌드 엔진이 선후행 의존관계를 분석하고, 독립 분기를 병렬 디스패치하며, **증분 실행(`UP-TO-DATE`) 및 빌드 캐시(`FROM-CACHE`)를 판별하는 최소 독립 단위** |
-| **Level 4** | **TaskAction (액션)** | `@TaskAction`, `Action<T>` | 단일 Task 내부에서 **순차(Sequential) 실행**되는 메서드/람다 블록 (`doFirst`, `@TaskAction`, `doLast`) |
-| **Level 5** | **WorkItem (워커)** | `org.gradle.workers.WorkerExecutor`<br/>`WorkAction<T>` | 단일 Task 내부에서 수십~수백 개의 파일 컴파일/변환 작업을 **멀티스레드 또는 포크된 자식 프로세스에서 비동기 병렬 처리**하기 위한 **최소 병렬 분할 단위** |
+| 계층          | 작업 단위 (Unit)        | 위임/담당 API                                                                                   | 주요 역할 및 기술적 의미                                                                                                                                         |
+| ----------- | ------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Level 1** | **Build (빌드)**      | `org.gradle.api.invocation.Gradle`<br/><br/>[`settings.gradle.kts`](gradle-settings-dsl.md) | `./gradlew` 명령 1 회 호출로 시작되는 전체 실행 세션. `includeBuild("build-logic")` 로 묶인 여러 독립 빌드들을 포함하는 **복합 빌드(Composite Build)** 전체를 포괄                             |
+| **Level 2** | **Project (모듈)**    | `org.gradle.api.Project`<br/><br/>[`build.gradle.kts`](gradle-project-dsl.md)               | `settings.gradle.kts`에 선언된 개별 모듈(`:app`, `:core:model`). 자체적인 `build.gradle.kts`, `PluginManager`, `DependencyHandler`, `TaskContainer` 를 소유하는 구성 컨테이너 |
+| **Level 3** | **Task (태스크)**      | `org.gradle.api.Task`<br/><br/>`TaskProvider<T>`                                            | **Gradle DAG 의 노드(Node)**.<br/> 빌드 엔진이 선후행 의존관계를 분석하고, 독립 분기를 병렬 디스패치하며, **증분 실행(`UP-TO-DATE`) 및 빌드 캐시(`FROM-CACHE`)를 판별하는 최소 독립 단위**                  |
+| **Level 4** | **TaskAction (액션)** | `@TaskAction`, `Action<T>`                                                                  | 단일 Task 내부에서 **순차(Sequential) 실행**되는 메서드/람다 블록 (`doFirst`, `@TaskAction`, `doLast`)                                                                    |
+| **Level 5** | **WorkItem (워커)**   | `org.gradle.workers.WorkerExecutor`<br/><br/>`WorkAction<T>`                                | 단일 Task 내부에서 수십~수백 개의 파일 컴파일/변환 작업을 **멀티스레드 또는 포크된 자식 프로세스에서 비동기 병렬 처리**하기 위한 **최소 병렬 분할 단위**                                                          |
 
 ---
 
