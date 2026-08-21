@@ -14,14 +14,12 @@ date created: 2026-08-06 18:43:00 +09:00
 
 레거시 무차별 포함 아티팩트인 APK 와 달리, AAB 는 Google Play 의 Dynamic Delivery 기술과 결합하여 기기 맞춤형 **Split APKs** 를 생성해 내는 현대 안드로이드 게시 표준이다.
 
----
+### 2. 배포 및 전달 아키텍처의 차이
 
-#### 초보자를 위한 쉽게 이해하는 비유
-
-- **APK (통째로 다 넣어놓은 무거운 종합 선물 상자)**:
-  - 어떤 스마트폰에 설치될지 모르니 모든 해상도의 이미지와 모든 CPU 지원 코드를 한 상자에 다 담아서 배달하는 방식 (설치용 용량 커짐).
-- **AAB (주문 즉시 기기 사양에 맞춰 조립해 주는 맞춤 뷔페)**:
-  - 개발자는 원재료 조립법(AAB)만 구글 플레이에 올려두고, 구글 플레이가 사용자의 기기 사양(arm64, xxxhdpi 등)에 꼭 필요한 조각(Split APKs)만 딱 조립해서 전송해 주는 방식 (설치 용량 대폭 감소).
+- **APK (모든 자원 통합 패키지 방식)**:
+  - 기기의 화면 밀도, 언어, CPU ABI(arm64, x86 등)에 상관없이 모든 리소스와 네이티브 바이너리를 단일 파일에 모두 포함하여 배포하므로 다운로드 및 설치 용량이 비효율적으로 증가한다.
+- **AAB (기기 맞춤형 Dynamic Delivery 조립 방식)**:
+  - 개발자는 앱의 전체 구성 요소(AAB)를 Google Play 에 업로드하고, Google Play 가 사용자의 기기 사양(`arm64-v8a`, `xxhdpi`, `ko`)을 분석하여 꼭 필요한 조각들로 구성된 맞춤형 **Split APKs** 를 온디맨드로 생성하여 전달한다 (용량 15~30% 절감).
 
 ```mermaid
 graph TD
@@ -38,7 +36,7 @@ graph TD
 
 ---
 
-### 2. APK vs AAB 핵심 비교표
+### 3. APK vs AAB 핵심 비교표
 
 | 비교 항목 | APK (Android Application Package) | AAB (Android App Bundle) |
 | :--- | :--- | :--- |
@@ -51,7 +49,7 @@ graph TD
 
 ---
 
-### 3. 연결 문서 (Related Links)
+### 4. 연결 문서 (Related Links)
 
 - [Play app signing은 업로드 키와 앱 서명 키를 분리한다](distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md) - Play App Signing 필수 서명 계약
 - [Play app signing은 업로드 키와 앱 서명 키를 분리한다](distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md) - AAB 배포 계약 노드

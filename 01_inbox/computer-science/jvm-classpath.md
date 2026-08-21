@@ -2,7 +2,7 @@
 title: jvm-classpath
 tags: ["build-system", "classloader", "classpath", "computer-science", "java", "jvm"]
 aliases: ["AppClassLoader", "Classpath", "Jar Hell", "java.class.path", "JVM Classpath", "클래스패스", "파일시스템 경로 목록"]
-date modified: 2026-08-21 18:28:53 +09:00
+date modified: 2026-08-21 18:54:08 +09:00
 date created: 2026-08-19 14:40:00 +09:00
 ---
 
@@ -32,11 +32,12 @@ flowchart TD
 
 ### 1. 클래스패스의 본질: 파일인가, 개념인가?
 
->**"Classpath 는 물리적인 파일이 아니라, JVM 과 컴파일러에게 클래스 탐색 위치를 알려주는 '명령행 파라미터(-cp) 또는 환경변수 형식의 개념(Concept)'이다."**
+>Classpath 는 물리적인 파일이 아니라, JVM 과 컴파일러에게 클래스 탐색 위치를 알려주는 '명령행 파라미터(-cp) 또는 환경변수 형식의 개념(Concept)'이다.
 
 Eclipse 의 `.classpath`나 IntelliJ 의 `.idea/libraries` 처럼 파일명에 classpath 가 들어가는 경우가 있어 파일로 오해하기 쉬우나, 이는 IDE 가 프로젝트를 관리하기 위해 만든 자체 메타데이터 설정 파일일 뿐 JVM 스펙상의 Classpath 가 아니다.
 
 #### 1) 운영체제의 `PATH` 환경변수와의 직접적인 비교
+
 - **OS 의 `PATH`**: 터미널에서 `ls`나 `git` 을 입력했을 때, 운영체제가 실행 가능한 바이너리 파일이 디스크의 어느 폴더에 있는지 탐색하는 디렉터리 목록이다.
 - **JVM 의 `CLASSPATH`**: 소스 코드에서 `import com.example.MyClass;` 를 만났을 때, JVM 이 해당 클래스의 바이트코드(`.class`)가 디스크의 어느 위치에 있는지 탐색하는 **Java 전용 경로 목록**이다.
 
@@ -179,8 +180,9 @@ flowchart LR
 ```
 
 #### Jar Hell (의존성 지옥)과 클래스 섀도잉
+
 - 서로 다른 라이브러리가 동일한 패키지/클래스명을 가진 구버전과 신버전 클래스를 각각 포함할 경우, 클래스패스 순서에 따라 런타임에 예기치 않은 메서드 누락(`NoSuchMethodError`)이나 비정상 동작이 발생한다.
-- Gradle 은 이를 해결하기 위해 **의존성 그래프 단일 버전 해결 규칙(Dependency Conflict Resolution)**을 사용하여 최신 버전을 선택하거나 버전을 강제 통일한다.
+- Gradle 은 이를 해결하기 위해 **의존성 그래프 단일 버전 해결 규칙(Dependency Conflict Resolution)** 을 사용하여 최신 버전을 선택하거나 버전을 강제 통일한다.
 
 ---
 
