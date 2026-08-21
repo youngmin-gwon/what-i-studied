@@ -2,7 +2,7 @@
 title: gradle-plugins-vs-dependencies
 tags: ["architecture", "build-engine", "classpath", "dependencies", "gradle", "jvm", "plugins"]
 aliases: ["Buildscript Classpath vs Application Classpath", "Gradle Plugin vs Dependency", "Plugin vs Dependency", "플러그인과 의존성의 차이"]
-date modified: 2026-08-21 17:41:07 +09:00
+date modified: 2026-08-21 17:53:44 +09:00
 date created: 2026-08-21 17:40:00 +09:00
 ---
 
@@ -20,20 +20,20 @@ Gradle 빌드 스크립트(`build.gradle.kts`)를 작성할 때 개발자가 가
 ```mermaid
 flowchart TD
     subgraph BuildTime ["1. 빌드 타임 (호스트 PC / CI 환경의 Gradle 데몬 JVM)"]
-        PluginJAR["Plugin (com.android.application, ksp, detekt)<br/>org.gradle.api.Plugin<Project>"]
+        PluginJAR["Plugin<br/><br/>(com.android.application, ksp, detekt)<br/><br/>org.gradle.api.Plugin<Project>"]
         PluginJAR -->|"1) DSL 등록 (android {})<br/>2) Task 생성 (compile, package)<br/>3) 빌드 파이프라인 조율"| GradleEngine["Gradle Core Build Engine"]
     end
 
     subgraph CompileTime ["2. 컴파일 타임 (Compile Classpath)"]
-        AppSource["내 앱 소스 코드 (MainActivity.kt)"]
-        DepCompile["Dependency (implementation, api)<br/>OkHttp, Compose, Coroutines"]
+        AppSource["내 앱 소스 코드<br/><br/>(MainActivity.kt)"]
+        DepCompile["Dependency<br/><br/>(implementation, api)<br/>OkHttp, Compose, Coroutines"]
         AppSource -->|"import 참조 & 타입 검증"| DepCompile
     end
 
     subgraph RunTime ["3. 기기 런타임 (사용자 스마트폰의 Android OS / ART VM)"]
         FinalAPK["최종 패키징된 APK / DEX"]
         DepCompile -->|"DEX로 변환되어 APK에 포함"| FinalAPK
-        FinalAPK -->|"기기 메모리에 적재되어 실제 로직 수행"| DeviceApp["앱 실행 (Network 통신, UI 렌더링)"]
+        FinalAPK -->|"기기 메모리에 적재되어 실제 로직 수행"| DeviceApp["앱 실행<br/><br/>(Network 통신, UI 렌더링)"]
     end
 
     GradleEngine -->|"D8/R8 컴파일 & 패키징 오케스트레이션"| FinalAPK
@@ -57,7 +57,7 @@ flowchart TD
 
 ### 2. 왜 개발자들에게 혼란을 주는가? (동일 도구의 플러그인/라이브러리 쌍)
 
-많은 모던 안드로이드 라이브러리들이 **빌드 타임을 담당하는 '플러그인'**과 **런타임을 담당하는 '의존성 라이브러리'**를 한 쌍(Pair)으로 함께 제공하기 때문에 혼란이 발생한다.
+많은 모던 안드로이드 라이브러리들이 **빌드 타임을 담당하는 '플러그인'** 과 **런타임을 담당하는 '의존성 라이브러리'** 를 한 쌍(Pair)으로 함께 제공하기 때문에 혼란이 발생한다.
 
 ```mermaid
 flowchart LR
