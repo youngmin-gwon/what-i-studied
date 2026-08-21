@@ -164,5 +164,5 @@ flowchart TD
 - [Gradle 실행 생명주기](gradle-lifecycle.md)
 - [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md)
 - [Android Gradle Plugin (AGP) 아키텍처 및 확장 모델](android-gradle-plugin.md)
+- [Gradle Task 모델 및 Provider API](gradle-task-api.md)
 - [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
-- [Convention Plugin과 build-logic](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md)

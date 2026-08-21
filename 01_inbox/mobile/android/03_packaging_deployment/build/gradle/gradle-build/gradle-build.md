@@ -51,7 +51,6 @@ flowchart TD
 13. [Source set 우선순위는 variant별 코드와 리소스 충돌을 결정한다](source-set-priority-decides-variant-code-and-resource-conflicts.md)
 14. [Signing config는 로컬 서명과 Play 배포 정체성을 연결한다](signing-config-connects-local-signing-and-play-release-identity.md)
 15. [AGP DSL 체크리스트는 릴리스 변형의 실제 값을 확인한다](agp-dsl-checklist-verifies-effective-release-variant-values.md)
-16. [Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md)
 
 ### 관측 가능 증거 (Observable Evidence)
 전체 프로젝트의 빌드 변형 매트릭스와 등록된 태스크 구조는 다음 명령어로 관측할 수 있다:

@@ -118,7 +118,7 @@ Gradle의 프로젝트 평가(Evaluation) 단계가 완료되면, AGP는 `BuildT
    - 과거에는 `com.android.application`과 `org.jetbrains.kotlin.android` 두 플러그인을 각각 선언해야 했으나, 최신 AGP는 Kotlin 지원이 내장되어 AGP 적용만으로 Kotlin 컴파일이 자동으로 활성화된다.
 2. **Configuration Cache 100% 호환**:
    - 모든 빌드 입력과 출력은 `Property<T>`와 `Provider<T>`를 통해 지연 평가(Lazy Evaluation)되며, 빌드 스크립트 실행 중 `Project` 인스턴스를 태스크 실행부로 캡처하는 안티패턴을 철저히 금지한다.
-3. **[Convention Plugin](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md) 기반 중앙 집중화**:
+3. **[Convention Plugin](gradle-plugins.md) 기반 중앙 집중화**:
    - 개별 모듈마다 반복되는 `android {}` 공통 설정을 복사-붙여넣기하지 않고, `build-logic` 모듈의 커스텀 플러그인에서 `ApplicationExtension` 및 `LibraryExtension`을 타입 세이프하게 구성한다.
 
 ---
@@ -142,7 +142,7 @@ AGP가 등록한 태스크 목록과 서명 상태는 다음 CLI 명령으로 �
 - [Android 빌드 파이프라인과 핵심 빌드 용어 해설](android-build-pipeline.md)
 - [Gradle 코어 엔진 및 아키텍처](gradle-core.md)
 - [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md)
-- [Convention Plugin과 build-logic](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md)
+- [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
 - [Gradle Task 모델 및 Provider API](gradle-task-api.md)
 - [Build Type, Product Flavor, Build Variant의 축 분리](build-type-product-flavor-and-build-variant-are-different-axes.md)
 - [AGP DSL 체크리스트](agp-dsl-checklist-verifies-effective-release-variant-values.md)

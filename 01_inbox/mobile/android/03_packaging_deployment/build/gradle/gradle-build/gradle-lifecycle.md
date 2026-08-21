@@ -2,7 +2,7 @@
 title: gradle-lifecycle
 tags: ["build-engine", "build-lifecycle", "gradle", "jvm", "performance"]
 aliases: ["Configuration Cache", "Gradle Execution Lifecycle", "Gradle 생명주기", "Gradle 실행 단계"]
-date modified: 2026-08-20 18:26:40 +09:00
+date modified: 2026-08-21 11:49:14 +09:00
 date created: 2026-08-19 11:00:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-19 11:00:00 +09:00
 
 ### 개요
 
-Gradle 은 단순한 순차적 스크립트 실행기가 아니라, 프로젝트 계층 구조를 파싱하고 태스크 간 의존성을 정적 분석하여 그래프를 구축한 후 선별적으로 작업을 디스패치하는 **3 단계(Phase) 생명주기 아키텍처**를 엄격히 준수한다.
+Gradle 은 단순한 순차적 스크립트 실행기가 아니라, 프로젝트 계층 구조를 파싱하고 [Task](gradle-task-api.md) 간 의존성을 정적 분석하여 그래프를 구축한 후 선별적으로 작업을 디스패치하는 **3 단계(Phase) 생명주기 아키텍처**를 엄격히 준수한다.
 
 ```mermaid
 flowchart TD

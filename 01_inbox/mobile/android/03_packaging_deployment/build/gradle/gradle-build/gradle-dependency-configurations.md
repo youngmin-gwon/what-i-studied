@@ -93,5 +93,5 @@ dependencies {
 - [API vs ABI](../../../../../../computer-science/api-vs-abi.md)
 - [Android 빌드 파이프라인과 핵심 빌드 용어 해설](android-build-pipeline.md)
 - [Gradle 코어 엔진 및 아키텍처](gradle-core.md)
+- [Gradle Project DSL 및 빌드 스크립트 API](gradle-project-dsl.md)
 - [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
-- [Convention Plugin과 build-logic](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md)

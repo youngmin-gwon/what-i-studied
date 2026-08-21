@@ -138,5 +138,5 @@ buildCache {
 - [Gradle 실행 생명주기](gradle-lifecycle.md)
 - [Gradle Project DSL 및 빌드 스크립트 API](gradle-project-dsl.md)
 - [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
-- [Convention Plugin과 build-logic](convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md)
+- [Gradle Task 모델 및 Provider API](gradle-task-api.md)
 - [Gradle 캐싱 및 빌드 최적화](gradle-caching-and-optimization.md)

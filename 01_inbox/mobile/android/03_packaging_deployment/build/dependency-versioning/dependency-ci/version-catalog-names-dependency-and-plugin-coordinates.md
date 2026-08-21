@@ -67,7 +67,7 @@ dependencies {
 
 AGP 8 이하를 유지하는 빌드에서는 `org.jetbrains.kotlin.android` 플러그인과 그 버전 alias가 여전히 필요할 수 있다. 반대로 AGP 9 built-in Kotlin을 사용하는 Android 모듈에 해당 플러그인을 함께 적용하면 충돌하므로, AGP major 전환과 catalog 정리를 같은 마이그레이션으로 다룬다. Kotlin/JVM, Kotlin Multiplatform 또는 Kotlin compiler plugin은 별도 계약이며 필요한 플러그인을 그대로 선언한다.
 
-관련 노트: [Convention plugin은 build-logic 모듈에서 공통 Gradle 설정을 한 곳에서 관리한다](../../gradle/gradle-build/convention-plugins-centralize-shared-gradle-configuration-in-build-logic.md), [의존성 및 CI 계약](dependency-ci.md)
+관련 노트: [Gradle 플러그인 및 모듈화 아키텍처](../../gradle/gradle-build/gradle-plugins.md), [의존성 및 CI 계약](dependency-ci.md)
 
 공식 문서: [Gradle Version Catalogs](https://docs.gradle.org/current/userguide/version_catalogs.html), [Migrate to built-in Kotlin](https://developer.android.com/build/migrate-to-built-in-kotlin)
 
