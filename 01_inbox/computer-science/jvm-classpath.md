@@ -2,7 +2,7 @@
 title: jvm-classpath
 tags: ["build-system", "classloader", "classpath", "computer-science", "java", "jvm"]
 aliases: ["Classpath", "Jar Hell", "JVM Classpath", "클래스패스", "파일시스템 경로 목록"]
-date modified: 2026-08-19 16:09:55 +09:00
+date modified: 2026-08-21 18:23:27 +09:00
 date created: 2026-08-19 14:40:00 +09:00
 ---
 
@@ -93,6 +93,7 @@ flowchart LR
 ```
 
 #### Jar Hell (의존성 지옥)과 클래스 섀도잉
+
 - 서로 다른 라이브러리가 동일한 패키지/클래스명을 가진 구버전과 신버전 클래스를 각각 포함할 경우, 클래스패스 순서에 따라 런타임에 예기치 않은 메서드 누락(`NoSuchMethodError`)이나 비정상 동작이 발생한다.
 - Gradle 은 이를 해결하기 위해 **의존성 그래프 단일 버전 해결 규칙(Dependency Conflict Resolution)**을 사용하여 최신 버전을 선택하거나 버전을 강제 통일한다.
 
