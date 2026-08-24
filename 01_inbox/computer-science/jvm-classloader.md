@@ -2,7 +2,7 @@
 title: jvm-classloader
 tags: ["classloader", "computer-science", "delegation-model", "direct-reference", "initialization", "jvm", "linking", "loading", "symbolic-reference"]
 aliases: ["ClassLoader", "JVM ClassLoader", "심볼릭 참조", "위임 모델", "직접 참조", "클래스 로딩 메커니즘", "클래스로더"]
-date modified: 2026-08-19 16:20:25 +09:00
+date modified: 2026-08-24 16:13:56 +09:00
 date created: 2026-08-19 15:05:00 +09:00
 ---
 
@@ -53,7 +53,7 @@ flowchart LR
 #### 2) 런타임 실행 시점 (Lazy Dynamic Loading Phase)
 
 - 사용자가 작성한 수백, 수천 개의 비즈니스 클래스(예: `UserRepository`, `PaymentService`)는 시작할 때 메모리에 올라가지 않는다.
-- 코드가 실행되다가 특정 클래스를 **최초로 참조하는 순간(Trigger Points)**에 동적으로 로딩된다:
+- 코드가 실행되다가 특정 클래스를 **최초로 참조하는 순간(Trigger Points)** 에 동적으로 로딩된다:
   1. `new MyService()` 인스턴스를 생성할 때
   2. `MyUtils.calculate()` 정적(static) 메서드를 호출할 때
   3. `MyConfig.MAX_SIZE` 정적(static) 필드에 접근할 때
