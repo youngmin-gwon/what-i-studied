@@ -60,4 +60,4 @@ Gradle 빌드 시 캐시 히트율 및 FROM-CACHE 태스크 적용 현황을 관
 ./gradlew app:assembleDebug --build-cache --info | grep "FROM-CACHE"
 ```
 
-관련 노트: [증분 빌드, 빌드 캐시, configuration 캐시는 빌드 작업을 줄인다](../../optimization/build-optimization/incremental-build-cache-and-configuration-cache-reduce-build-work.md), [Android CI/CD](ci-cd.md)
+관련 노트: [Gradle 캐싱 및 빌드 최적화](../gradle/gradle-build/gradle-caching-and-optimization.md), [Android CI/CD](ci-cd.md)

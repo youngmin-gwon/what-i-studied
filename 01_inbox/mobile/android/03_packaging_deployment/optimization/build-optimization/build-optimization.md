@@ -32,13 +32,14 @@ flowchart TD
 ```
 
 ### 관련 세부 계약 문서
-1. [Gradle 빌드 성능과 앱 런타임 성능은 같지 않다](gradle-build-performance-is-not-app-runtime-performance.md)
-2. [증분 빌드, 빌드 캐시, configuration 캐시는 빌드 작업을 줄인다](incremental-build-cache-and-configuration-cache-reduce-build-work.md)
+1. [빌드 성능과 런타임 성능의 트레이드오프](build-vs-runtime-performance.md)
+2. [Gradle 캐싱 및 빌드 최적화](../../build/gradle/gradle-build/gradle-caching-and-optimization.md)
 3. [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](d8-and-r8.md)
-4. [Resource shrinking은 코드 수축 이후 미사용 리소스를 제거한다](resource-shrinking-removes-unused-resources-after-code-shrinking.md)
-5. [Keep 규칙은 최적화 경계다](keep-rules-are-optimization-boundaries.md)
-6. [R8 full mode와 configuration analyzer는 블록된 최적화를 드러낸다](r8-full-mode-and-configuration-analyzer-expose-blocked-optimization.md)
-7. [R8 결과물은 용량 및 런타임 회귀로 검증해야 한다](r8-output-must-be-validated-with-size-and-runtime-regression.md)
+4. [ProGuard의 본질과 R8과의 관계](proguard.md)
+5. [R8 리소스 수축과 keep.xml 관리](r8-resource-shrinking.md)
+6. [R8 Keep 규칙과 최적화 경계](r8-keep-rules.md)
+7. [R8 Full Mode와 Configuration Analyzer](r8-full-mode.md)
+8. [R8 릴리스 검증과 De-obfuscation](r8-validation.md)
 
 ### 관측 가능 증거 (Observable Evidence)
 R8 최적화 보고서(`usage.txt`, `seeds.txt`, `mapping.txt`)와 APK 용량 절감 분석은 `apkanalyzer` 도구로 관측할 수 있다:

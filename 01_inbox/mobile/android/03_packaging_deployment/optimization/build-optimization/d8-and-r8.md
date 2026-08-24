@@ -2,7 +2,7 @@
 title: d8-and-r8
 tags: ["android", "bytecode", "d8", "desugaring", "dexing", "optimization", "proguard", "r8"]
 aliases: ["D8 and R8", "D8 컴파일러", "D8과 R8", "Desugaring", "DEX 변환", "Dexing", "R8 최적화", "덱싱"]
-date modified: 2026-08-24 14:53:28 +09:00
+date modified: 2026-08-24 15:01:19 +09:00
 date created: 2026-08-24 14:25:00 +09:00
 ---
 
@@ -39,7 +39,7 @@ flowchart TD
 
 ### 1. 덱싱(Dexing)이란 무엇이며, 왜 필요한가?
 
->**"Android 기기는 JVM 바이트코드(`.class`)를 직접 실행하지 못하며, 모바일 하드웨어에 최적화된 `.dex` 포맷만을 실행할 수 있다."**
+>Android 기기는 JVM 바이트코드(`.class`)를 직접 실행하지 못하며, 모바일 하드웨어에 최적화된 `.dex` 포맷만을 실행할 수 있다.
 
 | 비교 항목                   | JVM 표준 바이트코드 (`.class`)              | Android 런타임 바이너리 (`.dex`)                  |
 | ----------------------- | ------------------------------------ | ------------------------------------------ |
@@ -103,14 +103,63 @@ Google 컴파일러 팀이 부여한 **"핵심 기능 머리글자(Prefix)" + "�
 
 ---
 
-### 5. D8 컴파일러: 초고속 덱싱 및 디슈가링(Desugaring)
+### 5. D8 컴파일러와 디슈가링(Desugaring) 메커니즘
 
-**D8**은 주로 **Debug 빌드** 또는 코드 축소가 비활성화된 빌드에서 동작한다:
+#### 1) 디슈가링(Desugaring)이란?
 
-1. **고속 증분 덱싱(Incremental Dexing)**:
-   - 변경된 `.class` 파일만 빠르게 `.dex` 슬라이스로 변환하여 빌드 시간을 단축한다.
-2. **코어 라이브러리 디슈가링 (Core Library Desugaring)**:
-   - Java 8+ 문법(람다식, Method Reference, 인터페이스 `default` 메서드, `java.time` API 등)을 구버전 안드로이드 OS(`minSdk < 26`)에서도 크래시 없이 실행될 수 있도록, D8 이 컴파일 시점에 하위 호환 바이트코드로 재작성(Backporting)한다.
+>Syntactic Sugar(문법적 설탕)에서 Sugar(설탕)를 De-(제거하다/풀어헤치다)한다는 의미의 컴파일러 기법.
+
+- **문법적 설탕(Syntactic Sugar)**: 개발자가 코드를 간결하고 읽기 쉽게 작성할 수 있도록 제공되는 최신 언어 문법 (람다식, 메서드 참조, 인터페이스 `default` 메서드, `try-with-resources`, 최신 `java.time` API 등).
+- **구버전 Android 런타임의 한계**: 구버전 Android 기기(`minSdk < 26` 등)의 가상 머신(Dalvik/초기 ART)은 최신 JVM 바이트코드 명령어(`invokedynamic`)나 최신 Java 표준 라이브러리를 OS 프레임워크(`bootclasspath`)에 가지고 있지 않다.
+- **D8/R8 의 역할**: 컴파일 시점에 이 **달콤한 문법(Sugar)을 걷어내고(De-sugar)**, 구버전 안드로이드 OS 도 안전하게 실행할 수 있는 투박하고 원시적인 하위 호환 구조(익명 클래스, 정적 헬퍼 메서드, `j$.*` 리라이팅)로 바이트코드를 재작성(Backporting)한다.
+
+---
+
+#### 2) 디슈가링의 2 대 계층 구조
+
+```mermaid
+flowchart TD
+    Java8Code["최신 Java 8+ 문법 코드"] --> D8Desugar["D8 / R8 디슈가링 엔진"]
+    
+    subgraph Layer1 ["1. 언어 문법 디슈가링 (Language Desugaring)"]
+        D8Desugar --> Lambda["람다식 / 메서드 참조"] -->|"invokedynamic 제거"| AnonClass["합성 익명 클래스 변환"]
+        D8Desugar --> DefMethod["인터페이스 default 메서드"] -->|"인터페이스 바이트코드 분리"| HelperClass["동반 정적 헬퍼 클래스 합성<br/>(Interface$-CC.class)"]
+        D8Desugar --> TryRes["try-with-resources"] -->|"addSuppressed 에뮬레이션"| SafeTry["하위 호환 예외 처리"]
+    end
+    
+    subgraph Layer2 ["2. 코어 라이브러리 디슈가링 (Core Library Desugaring)"]
+        D8Desugar --> JavaTime["java.time / java.util.stream API"]
+        JavaTime -->|"패키지 호출 리라이팅"| JDollar["j$.time.* / j$.util.stream.* 로 변경"]
+        JDollar --> DesugarJar["desugar_jdk_libs 백포트 구현체를 DEX에 번들링"]
+    end
+    
+    AnonClass & HelperClass & SafeTry & DesugarJar --> FinalCompatDEX["구버전 OS(API 21+) 완벽 호환 DEX"]
+```
+
+1. **언어 문법 디슈가링 (Language Feature Desugaring - D8 기본 내장)**:
+   - **람다식(Lambda)**: 구버전 VM 이 지원하지 않는 `invokedynamic` 호출을 D8 이 컴파일 타임에 `합성 익명 내부 클래스(Synthetic Anonymous Class)` 형태로 변환.
+   - **인터페이스 `default`/`static` 메서드**: 인터페이스에 구현 코드가 들어간 Java 8 문법을, D8 이 `동반 정적 헬퍼 클래스(예: MyInterface$-CC.class)` 를 생성하여 정적 메서드 호출로 변환.
+2. **코어 라이브러리 디슈가링 (Core Library Desugaring / API Desugaring)**:
+   - Java 8+ 표준 라이브러리(`java.time.LocalDate`, `java.util.stream.Stream` 등)는 구버전 OS 에 아예 존재하지 않아 `NoClassDefFoundError` 크래시를 유발한다.
+   - `coreLibraryDesugaring` 옵션 활성화 시, D8 이 소스 코드의 `java.time.*` 호출을 `j$.time.*` 네임스페이스로 자동 리라이팅(Rewriting)하고, Google 의 백포트 런타임 라이브러리(`desugar_jdk_libs`)를 앱의 `classes.dex` 에 함께 패키징한다.
+
+#### `build.gradle.kts` 코어 라이브러리 디슈가링 설정 예시
+```kotlin
+// app/build.gradle.kts
+android {
+    compileOptions {
+        // 코어 라이브러리 디슈가링 활성화
+        isCoreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // 백포트 구현체 의존성 주입
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+}
+```
 
 ---
 
@@ -167,5 +216,6 @@ dexdump -d build/intermediates/dex/release/minifyReleaseWithR8/classes.dex | hea
 - [AGP 릴리스 빌드 점검 체크리스트](../../build/gradle/gradle-build/agp-release-checklist.md)
 - [바이트코드 파일(.class)과 아카이브 파일(.jar)의 본질](../../../../../computer-science/jvm-bytecode-and-jar-archive.md)
 - [APK vs AAB (안드로이드 배포 규격 비교)](../../apk-vs-aab.md)
-- [Keep 규칙은 최적화 경계다](keep-rules-are-optimization-boundaries.md)
-- [Resource shrinking은 코드 수축 이후 미사용 리소스를 제거한다](resource-shrinking-removes-unused-resources-after-code-shrinking.md)
+- [ProGuard의 본질과 R8과의 관계](proguard.md)
+- [R8 Keep 규칙과 최적화 경계](r8-keep-rules.md)
+- [R8 리소스 수축과 keep.xml 관리](r8-resource-shrinking.md)
