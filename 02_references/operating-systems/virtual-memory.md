@@ -2,7 +2,7 @@
 title: virtual-memory
 tags: [memory-management, os, paging, virtual-memory]
 aliases: [Virtual Memory, 가상 메모리, 가상 주소 공간]
-date modified: 2026-01-08 15:56:26 +09:00
+date modified: 2026-08-24 18:32:43 +09:00
 date created: 2025-12-16 21:21:23 +09:00
 ---
 
@@ -59,6 +59,7 @@ graph LR
 ```
 
 **예시**:
+
 - 프로그램 A 의 가상 주소 `0x1000` → 물리 주소 `0x5000`
 - 프로그램 B 의 가상 주소 `0x1000` → 물리 주소 `0x8000`
 
@@ -77,6 +78,7 @@ graph LR
 ```
 
 **페이지 테이블 엔트리 (PTE)** 구조:
+
 - **물리 페이지 번호**: RAM 의 어디에 있는가.
 - **Present Bit**: RAM 에 있는가, 아니면 디스크에 있는가.
 - **Read/Write Bit**: 읽기 전용인가, 쓰기 가능한가.
@@ -119,6 +121,7 @@ block-beta
 | **Text** | 컴파일된 기계어 코드가 저장되는 읽기 전용 영역. | 시스템 | 프로그램 소스 코드 |
 
 **장점**:
+
 - **격리**: 스택과 힙이 서로 반대 방향에서 성장하여 충돌 가능성 최소화.
 - **보안**: 코드 영역은 읽기 전용으로 보호하여 임의 코드 수정을 방지.
 - **ASLR**: (Address Space Layout Randomization) 각 영역의 시작 주소를 랜덤화하여 해킹 방어.
@@ -141,6 +144,7 @@ block-beta
 ```
 
 **페이징 해결책**:
+
 - 고정 크기 (4KB) 로 나누면, 어디든 자유로운 페이지에 할당 가능.
 - 외부 단편화 해결. 대신 **내부 단편화**(프로그램이 페이지를 다 채우지 못함) 는 최대 4KB-1B 로 제한적.
 
@@ -186,11 +190,13 @@ graph TD
 프로그램 실행 시 모든 코드를 메모리에 로드하지 않는다. **실제로 접근할 때**(on-demand) 페이지를 로드한다.
 
 **이유**:
+
 - 프로그램은 모든 코드를 실행하지 않는다 (에러 처리, 드물게 쓰는 기능).
 - **지역성 (Locality)**: 코드와 데이터는 시간적/공간적으로 인접한 부분을 반복 사용.
 - 메모리 절약.
 
 **프로세스 시작**:
+
 1. `exec()` 시스템 콜로 프로그램 로드.
 2. 페이지 테이블 생성, 모든 페이지를 "Present=0"(디스크에 있음) 으로 표시.
 3. 첫 명령어 실행 시도 → **Page Fault** 발생.
@@ -221,6 +227,7 @@ sequenceDiagram
 ```
 
 **잘못된 접근 시**:
+
 - 범위 밖 주소 → **Segmentation Fault** (SIGSEGV 시그널).
 - 쓰기 금지 페이지에 쓰기 → 프로세스 종료.
 
@@ -261,6 +268,7 @@ graph LR
 FIFO + Accessed Bit. 순환 리스트를 돌며, Accessed=1 이면 0 으로 바꾸고 넘어감. Accessed=0 인 페이지 발견 시 교체.
 
 **Linux 는 복잡한 변형 사용**:
+
 - **Active/Inactive 리스트**: 최근 사용 여부로 분류.
 - **File-backed vs Anonymous**: 파일은 디스크에 원본 있으므로 dirty 면 쓰고 회수. Anonymous(힙, 스택) 는 swap 필요.
 
@@ -295,6 +303,7 @@ cat /proc/sys/vm/swappiness  # 0~100, 기본 60
 프로세스가 `fork()` 하면 자식 프로세스가 생성된다. 초기 구현은 부모의 메모리를 **전부 복사**했다.
 
 **비효율**:
+
 - 프로세스가 100MB 메모리 사용 → 복사에 수십 밀리초 소요.
 - `fork()` 직후 `exec()` 를 호출하면, 복사한 메모리는 즉시 버려진다 (새 프로그램 로드).
 
@@ -318,12 +327,14 @@ graph LR
 ```
 
 **동작**:
+
 1. `fork()` 즉시 반환 (복사 없음).
 2. 부모 또는 자식이 메모리를 **쓰려고 시도** → Page Fault.
 3. OS 가 페이지를 복사하고, 쓰는 쪽에 새 페이지 할당.
 4. 읽기만 하는 페이지는 계속 공유.
 
 **이점**:
+
 - `fork()` 속도 극적 향상.
 - 메모리 절약 (공유 라이브러리는 수백 개 프로세스가 공유).
 
@@ -343,6 +354,7 @@ munmap(map, filesize);
 ```
 
 **동작**:
+
 1. `mmap()` 호출 시 페이지 테이블 엔트리만 생성, 페이지는 로드 안 함.
 2. `map[0]` 접근 → Page Fault.
 3. OS 가 파일의 해당 부분을 읽어 RAM 에 로드.
@@ -350,6 +362,7 @@ munmap(map, filesize);
 5. Dirty 페이지는 주기적으로 또는 `munmap()` 시 파일에 기록.
 
 **장점**:
+
 - `read()`/`write()` 시스템 콜 오버헤드 제거.
 - 커널의 페이지 캐시 활용.
 - 큰 파일도 부분적으로만 로드.
@@ -382,6 +395,7 @@ void *ptr = mmap(NULL, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
 - **Execute**: 코드 실행 가능.
 
 **NX/DEP(Data Execution Prevention)**:
+
 - 스택과 힙을 "실행 불가"로 표시.
 - 버퍼 오버플로우로 스택에 쉘코드를 삽입해도 실행 불가.
 
@@ -514,10 +528,12 @@ perf stat -e page-faults ./my_program
 ## 학습 리소스
 
 **책**:
+
 - *Operating System Concepts* (Silberschatz): 가상 메모리 이론.
 - *Understanding the Linux Virtual Memory Manager* (Gorman): Linux 구현 상세.
 
 **온라인**:
+
 - [Linux mm Documentation](https://www.kernel.org/doc/html/latest/admin-guide/mm/index.html)
 - [What Every Programmer Should Know About Memory](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
 
@@ -525,8 +541,6 @@ perf stat -e page-faults ./my_program
 
 ## 연결 문서
 
-[[kernel]] - 커널의 메모리 관리 서브시스템
-
-[[android-kernel]] - 안드로이드의 메모리 최적화 (zRAM, LMKD)
-
-[[buffer]] - 버퍼와 메모리 활용
+- [kernel](kernel.md) - 커널의 메모리 관리 서브시스템
+- [android-kernel](android-kernel-runtime.md) - 안드로이드의 메모리 최적화 (zRAM, LMKD)
+- [buffer](buffer.md) - 버퍼와 메모리 활용

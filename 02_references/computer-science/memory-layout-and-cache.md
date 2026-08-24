@@ -2,7 +2,7 @@
 title: memory-layout-and-cache
 tags: [cache, computer-science, hardware, heap, locality, memory, stack]
 aliases: [Cache Locality, Memory Hierarchy, 메모리 계층 구조, 스택과 힙, 캐시 지역성]
-date modified: 2025-12-19 17:41:09 +09:00
+date modified: 2026-08-24 18:33:54 +09:00
 date created: 2025-12-19 15:21:00 +09:00
 ---
 
@@ -79,7 +79,7 @@ CPU 가 캐시에 데이터를 쓸 때 메모리와의 데이터 일관성을 �
 
 ---
 
-### 3. 주기억장치 (DRAM): 실행의 중심 (책상)
+### 3. 주기억장치(DRAM): 실행의 중심 (책상)
 
 실행 중인 프로그램과 데이터가 머무는 **DRAM(Dynamic RAM)** 입니다. CPU 가 프로그램을 실행하기 위해 명령어와 데이터가 반드시 머물러야 하는 공간입니다.
 
