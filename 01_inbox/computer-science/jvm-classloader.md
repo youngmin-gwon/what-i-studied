@@ -2,7 +2,7 @@
 title: jvm-classloader
 tags: ["classloader", "computer-science", "delegation-model", "direct-reference", "initialization", "jvm", "linking", "loading", "symbolic-reference"]
 aliases: ["ClassLoader", "JVM ClassLoader", "심볼릭 참조", "위임 모델", "직접 참조", "클래스 로딩 메커니즘", "클래스로더"]
-date modified: 2026-08-24 16:30:58 +09:00
+date modified: 2026-08-24 16:35:00 +09:00
 date created: 2026-08-19 15:05:00 +09:00
 ---
 
@@ -178,7 +178,7 @@ flowchart TD
 
 ### 5. 클래스로더 격리와 빌드 도구 (Gradle ClassLoader Isolation)
 
-Gradle 과 같은 고도화된 빌드 도구는 프로젝트 의존성과 빌드 도구 플러그인 간의 라이브러리 충돌(Jar Hell)을 방지하기 위해 **클래스로더 계층을 수평으로 분리하는 클래스로더 격리(ClassLoader Isolation)**를 사용한다.
+Gradle 과 같은 고도화된 빌드 도구는 프로젝트 의존성과 빌드 도구 플러그인 간의 라이브러리 충돌(Jar Hell)을 방지하기 위해 **클래스로더 계층을 수평으로 분리하는 클래스로더 격리(ClassLoader Isolation)** 를 사용한다.
 
 ```mermaid
 flowchart TD

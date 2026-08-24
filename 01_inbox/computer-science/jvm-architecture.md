@@ -2,7 +2,7 @@
 title: jvm-architecture
 tags: ["architecture", "computer-science", "garbage-collection", "java", "jit", "jvm", "kotlin", "metaspace"]
 aliases: ["Java Virtual Machine Architecture", "JVM Runtime", "JVM 구조", "JVM 아키텍처"]
-date modified: 2026-08-19 15:13:09 +09:00
+date modified: 2026-08-24 16:42:42 +09:00
 date created: 2026-08-19 15:05:00 +09:00
 ---
 
@@ -65,6 +65,7 @@ JVM 이 프로그램을 실행하기 위해 OS 로부터 할당받은 메모리 
 - **[가비지 컬렉터 (Garbage Collector)](garbage-collection.md)**: Heap 메모리에서 더 이상 참조되지 않는 무효 객체를 백그라운드에서 주기적으로 탐색하여 메모리를 자동 회수한다.
 
 #### 4) JNI (Java Native Interface) 및 네이티브 라이브러리
+
 - C, C++, Rust 등으로 작성된 OS 네이티브 라이브러리(`.so`, `.dylib`, `.dll`)를 Java/Kotlin 코드에서 호출할 수 있도록 브릿지 역할을 수행한다.
 
 ---
