@@ -46,13 +46,15 @@ adb shell dumpsys package com.example.app | grep -i "backup"
 ### 정본 노트
 
 - [Android Keystore는 추출 불가능성으로 키를 보호한다](keystore-key-non-exportability.md)
+- [MasterKey (하드웨어 기반 마스터 암호화 키)](master-key.md)
 - [AES-GCM은 고유한 IV와 Authentication Tag를 요구한다](aes-gcm-encryption-iv.md)
 - [BiometricPrompt는 Keystore 키 사용을 인가한다](biometric-prompt-keystore-auth.md)
+- [EncryptedSharedPreferences (보안 Key-Value 저장소)](encrypted-shared-preferences.md)
 - [암호화 저장소 API는 키와 데이터 경계 설계를 대체하지 않는다](encrypted-storage-boundaries.md)
 - [민감 데이터는 암호화와 키 소유권을 요구한다](sensitive-data-encryption.md)
 - [보안 저장소 정책은 저장하지 말아야 할 데이터와 백업 금지 항목을 포함한다](secure-storage-policies.md)
 
-관련 지도: [저장소 수명과 백업 경계](storage-lifecycle-and-backup.md)
+관련 지도: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup.md)
 
 공식 문서: [Android Keystore system](https://developer.android.com/privacy-and-security/keystore)
 

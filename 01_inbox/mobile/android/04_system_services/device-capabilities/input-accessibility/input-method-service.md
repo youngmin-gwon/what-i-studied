@@ -19,6 +19,22 @@ date created: 2026-08-03 17:29:24 +09:00
 
 포커스가 있는 텍스트 필드는 **InputConnection**(텍스트 편집 뷰와 현재 활성화된 IME 사이에서 텍스트 전달, 커서 이동, 조합 문자 입력을 처리하는 통신 통로)을 통해 현재 활성 IME와 통신한다. IME는 이 연결을 통해서만 텍스트를 커밋하거나 커서를 이동할 수 있으며, 텍스트 필드가 아닌 임의의 화면 요소를 클릭하거나 다른 앱의 상태를 읽는 것은 이 API의 범위 밖이다. 사용자가 기본 키보드를 전환하면 새 IME가 이 `InputConnection`을 이어받는다.
 
+### 다이어그램
+
+```mermaid
+sequenceDiagram
+    participant UserUI as 포커스된 EditText (앱)
+    participant IMMS as InputMethodManagerService
+    participant IME as InputMethodService (소프트 키보드)
+
+    UserUI->>IMMS: View 포커스 획득 (showSoftInput)
+    IMMS->>IME: showWindow() 요청 & InputConnection 바인딩
+    IME->>UserUI: InputConnection.commitText("가", 1)
+    IME->>UserUI: InputConnection.sendKeyEvent(KeyEvent)
+    UserUI->>IMMS: View 포커스 상실 (hideSoftInput)
+    IMMS->>IME: onFinishInput()
+```
+
 ### 선언과 안전한 커밋 흐름
 
 ```xml
@@ -59,7 +75,18 @@ override fun onFinishInput() {
 
 ### 관찰 가능한 신호
 
-`adb shell ime list -s`로 설치된 IME 목록과 현재 기본 IME를 확인할 수 있다. 텍스트 필드에 포커스가 갔는데 키보드가 뜨지 않으면 `adb shell dumpsys input_method`에서 현재 바인딩된 IME와 클라이언트 상태를 확인한다.
+`adb shell ime list -s`로 설치된 IME 목록과 현재 기본 IME를 확인할 수 있다.
+
+```bash
+# 1. 기기에 등록된 IME 목록 확인
+adb shell ime list -s
+
+# 2. 현재 활성 IME 바인딩 및 InputConnection 상태 덤프
+adb shell dumpsys input_method | grep -A 10 "mCurMethodId"
+
+# 3. 특정 IME 서비스로 기본 키보드 설정
+adb shell ime set <ime_component_name>
+```
 
 ### 공식 문서
 

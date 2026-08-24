@@ -2,13 +2,85 @@
 title: nfc
 tags: ["android", "android/system-services"]
 aliases: ["NFC와 비접촉 기능 계약"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-24 18:05:00 +09:00
 date created: 2026-07-31 17:46:00 +09:00
 ---
 
 ## NFC와 비접촉 기능 계약
 
-이 지도는 Android NFC를 태그 읽기/쓰기, NDEF, HCE/APDU, Observe Mode, 결제 엔지니어링으로 분리한다.
+이 지도는 Android NFC를 태그 읽기/쓰기(Reader/Writer), 구조화된 레코드 교환(NDEF), 호스트 기반 카드 에뮬레이션(HCE/APDU), Android 15 폴링 관찰(Observe Mode), 그리고 비접촉 결제 엔지니어링 계약으로 분리한다.
+
+### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
+
+- **Reader Mode**: `NfcAdapter.enableReaderMode`를 통해 시스템 태그 디스패치를 우회하고 포그라운드 액티비티에서 직접 태그와 통신.
+- **NDEF**: 표준화된 바이너리 레코드 포맷(`NdefMessage`, `NdefRecord`)을 통한 URI/MIME 데이터 송수신.
+- **HCE (Host Card Emulation)**: 물리적 Secure Element 없이 `HostApduService`로 외부 리더의 ISO 7816-4 APDU 명령 처리.
+- **Observe Mode (Android 15+)**: 결제 단말과의 거래 전 폴링 루프를 관찰하여 사전 준비 및 최적 카드 활성화.
+
+```kotlin
+// NfcAdapter 획득 및 Reader Mode 활성화
+val nfcAdapter = NfcAdapter.getDefaultAdapter(context)
+if (nfcAdapter?.isEnabled == true) {
+    val flags = NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK
+    nfcAdapter.enableReaderMode(
+        activity,
+        { tag ->
+            val isoDep = IsoDep.get(tag)
+            isoDep?.use {
+                it.connect()
+                val response = it.transceive(byteArrayOf(0x00, 0xA4.toByte(), 0x04, 0x00, 0x00))
+                println("Tag response: ${response.toHexString()}")
+            }
+        },
+        flags,
+        null
+    )
+}
+```
+
+### 아키텍처 다이어그램
+
+```mermaid
+flowchart TD
+    subgraph HardwareLayer["NFC 하드웨어 & 무선 안테나 (13.56 MHz)"]
+        Controller["NFC Controller (NCI / HAL)"]
+    end
+
+    subgraph OperatingModes["NFC 3대 동작 모드"]
+        ReaderMode["리더/라이터 모드 (Reader/Writer)\n(수동 태그 읽기/쓰기)"]
+        P2PMode["P2P / 태그 디스패치 모드\n(NDEF 메시지 교환)"]
+        HCEMode["카드 에뮬레이션 (HCE / ISO-DEP)\n(외부 POS 단말에 카드처럼 응답)"]
+    end
+
+    subgraph SystemAndApp["Android 프레임워크 & 서비스"]
+        NfcService["NfcService / CardEmulation"]
+        NdefParser["NDEF Parser & Intent Dispatch"]
+        HostService["HostApduService\n(processCommandApdu / Observe Mode)"]
+    end
+
+    Controller --> ReaderMode
+    Controller --> P2PMode
+    Controller --> HCEMode
+    ReaderMode --> NfcService
+    P2PMode --> NdefParser
+    HCEMode --> HostService
+```
+
+### 관찰 신호 (Observation Signals)
+
+- **ADB 및 dumpsys 진단**:
+  ```bash
+  # 1. NFC 어댑터 상태, 등록된 HCE 서비스 및 AID 라우팅 테이블 덤프
+  adb shell dumpsys nfc
+  # 2. 기본 결제 지갑 및 CardEmulation 라우팅 확인
+  adb shell dumpsys nfc | grep -A 15 "Card Emulation"
+  # 3. NFC 설정 상태 점검 (1: ON, 0: OFF)
+  adb shell settings get global nfc_on
+  ```
+- **Logcat 로그 확인**:
+  ```bash
+  adb logcat -s NfcService HostApduService CardEmulation
+  ```
 
 ### 읽는 순서
 
@@ -44,4 +116,9 @@ date created: 2026-07-31 17:46:00 +09:00
 - [Android 15 Observe Mode는 HCE 거래 전 폴링을 관찰한다](nfc-observe-mode-android15.md)
 - [비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다](contactless-payment-boundaries.md)
 
-검증일: 2026-08-03. Android 15의 기본 지갑 역할과 Observe Mode는 [HCE 공식 문서](https://developer.android.com/develop/connectivity/nfc/hce)를 기준으로 확인했다.
+### 공식 문서
+
+- [Android NFC 가이드](https://developer.android.com/develop/connectivity/nfc)
+- [HCE 공식 문서](https://developer.android.com/develop/connectivity/nfc/hce)
+
+검증일: 2026-08-03. Android 15의 기본 지갑 역할과 Observe Mode는 HCE 공식 문서를 기준으로 확인했다.

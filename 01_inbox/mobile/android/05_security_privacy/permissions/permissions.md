@@ -49,6 +49,8 @@ adb shell appops set com.example.app CAMERA ignore
 
 ### 정본 노트
 
+- [안드로이드 권한 시스템 & AppOps](appops-and-permissions.md)
+- [Runtime Permissions vs AppOps 비교](runtime-permissions-vs-appops.md)
 - [Permission protection level은 접근 승인 주체를 정의한다](permission-protection-levels.md)
 - [Runtime permission은 사용자에게 기능 사용 시점에 요청하는 접근 계약이다](runtime-permissions-user-mediation.md)
 - [Special app access는 일반 runtime permission이 아니라 설정 기반 capability다](special-app-access-settings.md)

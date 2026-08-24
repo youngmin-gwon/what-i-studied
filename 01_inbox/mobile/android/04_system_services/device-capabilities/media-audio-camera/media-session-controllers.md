@@ -22,6 +22,29 @@ date created: 2026-08-03 17:29:24 +09:00
 
 미디어 알림(Notification)의 재생 컨트롤 스타일도 이 세션의 토큰을 참조해 시스템이 자동으로 잠금화면과 동기화한다.
 
+### 다이어그램
+
+```mermaid
+flowchart LR
+    subgraph MediaService["미디어 재생 앱 (MediaSessionService)"]
+        Player["ExoPlayer / 재생 엔진"]
+        Session["MediaSession (Media3)"]
+        Player <--> Session
+    end
+
+    subgraph SystemUI["시스템 UI 및 외부 컨트롤러"]
+        Lockscreen["잠금화면 미디어 위젯"]
+        Notification["미디어 알림 (MediaStyle)"]
+        BT["블루투스 리모트 / 헤드셋"]
+    end
+
+    Session -->|PlaybackState & Metadata| Lockscreen
+    Session -->|PlaybackState & Metadata| Notification
+    Session -->|PlaybackState & Metadata| BT
+    Lockscreen -.->|Play / Pause / Seek| Session
+    BT -.->|Next / Prev Track| Session
+```
+
 ### Media3 세션 소유 흐름
 
 ```kotlin
@@ -60,7 +83,15 @@ Media3에서는 player의 상태·timeline이 session에 연결된다. 외부 co
 
 ### 관찰 가능한 신호
 
-`adb shell dumpsys media_session`으로 현재 활성 미디어 세션 목록과 각 세션의 `PlaybackState`를 확인할 수 있다. 잠금화면 미디어 위젯이 실제 재생 상태와 다르게 보이면 이 덤프에서 세션 상태 갱신 누락을 먼저 확인한다.
+`adb shell dumpsys media_session`으로 현재 활성 미디어 세션 목록과 각 세션의 `PlaybackState`를 확인할 수 있다.
+
+```bash
+# 1. 활성 MediaSession 및 PlaybackState 전체 덤프
+adb shell dumpsys media_session
+
+# 2. 특정 패키지의 미디어 세션 상태 확인
+adb shell dumpsys media_session | grep -A 10 "<package_name>"
+```
 
 ### 공식 문서
 

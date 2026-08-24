@@ -1,40 +1,38 @@
 ---
 title: work-manager
-tags: ["android", "android/system-services"]
-aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+tags: ["android", "android/system-services", "workmanager", "background", "jetpack"]
+aliases: ["WorkManager", "WorkManager 는 지연 가능한 보장 작업의 기본 선택이다", "워크매니저"]
+date modified: 2026-08-24 18:35:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
----
-
-# Work Manager Contract
-
-## 1. 개요 (Overview)
-
-### 초보자를 위한 쉽게 이해하는 비유
-* **WorkManager (스마트 예약 택배 시스템)**:
-  - 당장 배달하지 않아도 되지만 WiFi 연결 및 충전 중이라는 조건이 맞춰지면 앱이 종료되거나 스마트폰이 재부팅되어도 반드시 완료해 주는 지연 보장 예약 택배.
-
-```mermaid
-graph TD
-    WorkReq["WorkRequest 제출 (제약조건 설정)"] --> WorkDB["Room DB 내 Persistent 저장"]
-    WorkDB --> Scheduler["JobScheduler / AlarmManager 연동 스케줄링"]
-    Scheduler -->|"조건 충족 (WiFi + 충전)"| Exec["Worker execution 및 작업 보장 완료"]
-```
-
----
-
 ---
 
 ## WorkManager 는 지연 가능한 보장 작업의 기본 선택이다
 
-상위 지도: [백그라운드 작업 계약](./background-work.md)
-배경 지식: [프로세스 스케줄링](../../../../operating-systems/process-scheduling.md)
+### 1. 개요 (Overview)
 
-선택 비교: [백그라운드 실행 수단은 실패 비용으로 결정한다](./background-api-selection.md)
+**WorkManager**는 앱이 종료되거나 기기가 재부팅되어도 지정된 조건(네트워크 연결, 충전 상태 등)이 충족될 때 실행을 보장하는 **지연 가능(deferrable) 백그라운드 작업 스케줄링 표준 라이브러리**이다.
 
-### 핵심 명제
+내부 SQLite/Room DB 에 작업 사양(`WorkSpec`)을 영속화하고, OS 버전에 따라 플랫폼 최적 스케줄러(API 23+ `JobScheduler`, 구버전 `AlarmManager`+`BroadcastReceiver`)에 실행을 위임하므로 UI 관찰자가 없어도 작업 수명주기가 안전하게 보존된다.
 
-**WorkManager**는 앱이 종료되거나 기기가 재부팅되어도 지정된 조건(네트워크 연결, 충전 상태 등)이 충족될 때 실행을 보장하는 지연 가능(deferrable) 백그라운드 작업 스케줄링 라이브러리다. 내부 DB에 `WorkSpec`을 저장하고 플랫폼 스케줄러에 위임하므로 UI 관찰자가 없어도 작업 상태가 안정적으로 보존된다.
+---
+
+#### 초보자를 위한 쉽게 이해하는 비유
+
+- **WorkManager (스마트 예약 택배 시스템)**:
+  - 당장 배달하지 않아도 되지만 "Wi-Fi 연결 + 배터리 충전 중"이라는 조건이 맞춰지면, 앱이 강제 종료되거나 스마트폰이 재부팅되어도 반드시 완료해 주는 영속적 지연 보장 택배.
+
+```mermaid
+graph TD
+    WorkReq["WorkRequest 제출 (Constraints 설정)"] --> WorkDB["내부 Room DB (WorkSpec 영속화)"]
+    WorkDB --> Scheduler["플랫폼 스케줄러 (JobScheduler / AlarmManager)"]
+    Scheduler -->|"제약조건 충족 (Wi-Fi + Charging)"| Exec["Worker 실행 (CoroutineWorker / ListenableWorker)"]
+    Exec -->|"성공/재시도/실패"| Result["Result.success() / Result.retry() / Result.failure()"]
+```
+
+---
+
+### 2. 핵심 메커니즘 (Key Mechanisms)
+
 
 여기서 보장은 "언젠가 한 번 끊김 없이 성공"이 아니다. constraint 와 시스템 제한 아래 실행을 다시 시도하도록 관리한다는 뜻이다. 즉시 시작, 정확한 시각, 프로세스 생존, 강제 중지·앱 제거 뒤 실행은 보장하지 않는다.
 

@@ -2,7 +2,7 @@
 title: d8-and-r8
 tags: ["android", "bytecode", "d8", "desugaring", "dexing", "optimization", "proguard", "r8"]
 aliases: ["D8 and R8", "D8 컴파일러", "D8과 R8", "Desugaring", "DEX 변환", "Dexing", "R8 최적화", "덱싱"]
-date modified: 2026-08-24 17:57:49 +09:00
+date modified: 2026-08-24 18:10:56 +09:00
 date created: 2026-08-24 14:25:00 +09:00
 ---
 
@@ -184,12 +184,12 @@ dependencies {
 
 R8 이 실행되면 `app/build/outputs/mapping/release/` 디렉터리에 다음 4 가지 핵심 분석 보고서가 생성된다:
 
-| 파일명 | 내용 및 주요 용도 |
-|---|---|
-| **`mapping.txt`** | 원본 클래스/메서드명과 난독화된 이름 간의 매핑 테이블. (Play Console 에 업로드하여 크래시 난독화 스택 트레이스 복원 시 필수) |
-| **`seeds.txt`** | ProGuard Keep 규칙(`-keep`)에 의해 제거되거나 난독화되지 않고 온전히 보존된 진입점 심볼 목록 |
-| **`usage.txt`** | R8 의 Tree Shaking 에 의해 미사용으로 판정되어 **실제 APK 에서 완전히 삭제된 클래스 및 메서드 목록** |
-| **`configuration.txt`** | AGP 기본 최적화 파일, 라이브러리 내장 AAR 룰, 앱 커스텀 `proguard-rules.pro` 가 모두 병합된 최종 실효 규칙 |
+| 파일명                     | 내용 및 주요 용도                                                                     |
+| ----------------------- | ------------------------------------------------------------------------------ |
+| **`mapping.txt`**       | 원본 클래스/메서드명과 난독화된 이름 간의 매핑 테이블. (Play Console 에 업로드하여 크래시 난독화 스택 트레이스 복원 시 필수) |
+| **`seeds.txt`**         | ProGuard Keep 규칙(`-keep`)에 의해 제거되거나 난독화되지 않고 온전히 보존된 진입점 심볼 목록                 |
+| **`usage.txt`**         | R8 의 Tree Shaking 에 의해 미사용으로 판정되어 **실제 APK 에서 완전히 삭제된 클래스 및 메서드 목록**           |
+| **`configuration.txt`** | AGP 기본 최적화 파일, 라이브러리 내장 AAR 룰, 앱 커스텀 `proguard-rules.pro` 가 모두 병합된 최종 실효 규칙    |
 
 ---
 

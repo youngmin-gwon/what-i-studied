@@ -91,6 +91,18 @@ flowchart TD
 
 ### 관찰 가능한 신호
 
+```bash
+# 1. 기기에 설치된 TTS 엔진 패키지 목록 조회
+adb shell pm list packages | grep tts
+
+# 2. 기본 TTS 엔진 설정 확인
+adb shell settings get secure tts_default_synth
+
+# 3. TextToSpeech 바인딩 및 음성 합성 로그 확인
+adb logcat -s TextToSpeech
+```
+
+
 `onInit(TextToSpeech.ERROR)`를 받으면 이 `TextToSpeech` 인스턴스는 초기화에 실패한 것이므로 이후 `speak()` 호출은 신뢰할 수 없다. `setLanguage()` 반환값을 `LANG_AVAILABLE` 계열 상수와 직접 비교하는 로그를 남기면, 특정 언어에서만 무음이거나 엉뚱한 언어로 발화되는 문제를 초기화 실패가 아니라 언어팩 부재로 정확히 좁힐 수 있다.
 
 ### 공식 문서

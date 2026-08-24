@@ -1,29 +1,30 @@
 ---
 title: encrypted-shared-preferences
-tags:
-  - android
-  - security
-  - storage
-  - encryptedsharedpreferences
-  - jetpack-security
+tags: ["android", "android/security-privacy", "security", "storage", "encryptedsharedpreferences", "jetpack-security"]
+aliases: ["EncryptedSharedPreferences", "보안 Key-Value 저장소"]
+date modified: 2026-08-24 18:00:00 +09:00
+date created: 2026-08-06 18:20:00 +09:00
 ---
 
-# encrypted-shared-preferences
+## EncryptedSharedPreferences (보안 Key-Value 저장소)
 
 Android Jetpack Security 라이브러리에서 제공하는 **EncryptedSharedPreferences**는 MasterKey와 Android Keystore 기반으로 데이터를 하드웨어 수준에서 안전하게 저장하는 보안 Key-Value 저장소입니다.
 
+> [!NOTE]
+> `androidx.security:security-crypto:1.1.0` 버전부터 `EncryptedSharedPreferences`를 포함한 관련 API가 Deprecated 되었습니다. 신규 프로젝트에서는 Android Keystore + 표준 JCA AES-GCM 또는 Jetpack DataStore 기반의 암호화 저장소 설계를 권장합니다. 상세한 경계 설계와 마이그레이션 전략은 [암호화 저장소 API는 키와 데이터 경계 설계를 대체하지 않는다](encrypted-storage-boundaries.md)를 참조하십시오.
+
 ---
 
-## 1단계: 개념 및 비유 (Concept & Analogy)
+### 1단계: 개념 및 비유 (Concept & Analogy)
 
-### 개념
+#### 개념
 `EncryptedSharedPreferences`는 기존 Android의 `SharedPreferences` 인터페이스를 그대로 유지하면서, 저장되는 모든 **Key(키)**와 **Value(값)**를 고성능 암호화 알고리즘으로 자동 암호화/복호화하는 Jetpack Security 객체입니다.
 
 - **Key 암호화**: `AES256_SIV` (Synthetic Initialization Vector) 기반 결정론적 암호화를 사용하여 고속 검색을 지원합니다.
 - **Value 암호화**: `AES256_GCM` (Galois/Counter Mode) 기반 비결정론적 무결성 암호화를 사용하여 데이터 위변조 방지 및 높은 보안 수준을 보장합니다.
 - **키 관리**: 저장소 내부의 데이터 암호화 키(DEK)는 하드웨어에 저장된 [MasterKey](./master-key.md)로 감싸져(Key Wrapping) 관리됩니다.
 
-### 직관적 비유: 이중 잠금 은행 금고 (Double-locked Bank Safe Box)
+#### 직관적 비유: 이중 잠금 은행 금고 (Double-locked Bank Safe Box)
 - **일반 SharedPreferences**: 누구나 읽을 수 있는 투명한 락커룸 상자입니다. 이름표(Key)와 내용물(Value)이 평문으로 나열되어 있어 루팅이나 백업 추출 시 쉽게 유출됩니다.
 - **EncryptedSharedPreferences**: 은행의 **이중 잠금 안전 금고**입니다.
   - 상자 바깥의 이름표(Key)는 암호화 표기되어 있고, 내부의 서류(Value)는 엄격히 암호화 봉인되어 있습니다.
@@ -31,11 +32,11 @@ Android Jetpack Security 라이브러리에서 제공하는 **EncryptedSharedPre
 
 ---
 
-## 2단계: 동작 원리 및 아키텍처 (How It Works & Architecture)
+### 2단계: 동작 원리 및 아키텍처 (How It Works & Architecture)
 
 `EncryptedSharedPreferences`는 Google의 암호화 라이브러리인 **Tink**를 내부 엔진으로 사용하며, Android Keystore에 존재하는 `MasterKey`와 연동하여 데이터를 보호합니다.
 
-### 데이터 읽기/쓰기 시퀀스
+#### 데이터 읽기/쓰기 시퀀스
 
 ```mermaid
 flowchart TD
@@ -53,7 +54,7 @@ flowchart TD
     end
 ```
 
-### 키 및 데이터 암호화 방식 비교
+#### 키 및 데이터 암호화 방식 비교
 
 | 구분 | 대상 | 사용 알고리즘 | 암호화 특성 | 주요 목적 |
 | :--- | :--- | :--- | :--- | :--- |
@@ -62,9 +63,9 @@ flowchart TD
 
 ---
 
-## 3단계: 핵심 코드 및 사용법 (Core Implementation)
+### 3단계: 핵심 코드 및 사용법 (Core Implementation)
 
-### 1. Build Gradle 의존성 추가
+#### 1. Build Gradle 의존성 추가
 ```kotlin
 // build.gradle.kts (app)
 dependencies {
@@ -72,7 +73,7 @@ dependencies {
 }
 ```
 
-### 2. EncryptedSharedPreferences 생성 및 데이터 저장/조회
+#### 2. EncryptedSharedPreferences 생성 및 데이터 저장/조회
 ```kotlin
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -117,15 +118,27 @@ class SecureStorageManager(context: Context) {
 
 ---
 
-## 4단계: 주요 특징 및 내부 기술 사양 (Key Features & Technical Deep Dive)
+### 4단계: CLI 진단 및 디버깅 명령어 (ADB Verification)
 
-### 1. 하드웨어 기반 마스터 키 연동
+```bash
+# 1. 암호화되어 저장된 SharedPreference XML 파일 내용 확인 (Key/Value 암호화 확인)
+adb shell cat /data/data/com.example.app/shared_prefs/secure_user_prefs.xml
+
+# 2. Keystore2 서비스에서 마스터 키 바인딩 확인
+adb shell dumpsys keystore2 | grep com.example.app
+```
+
+---
+
+### 5단계: 주요 특징 및 내부 기술 사양 (Key Features & Technical Deep Dive)
+
+#### 1. 하드웨어 기반 마스터 키 연동
 `EncryptedSharedPreferences`는 단독으로 동작하지 않고, 시스템 수준의 하드웨어 보안 키인 [MasterKey](./master-key.md)에 의존합니다. 하드웨어가 지원하는 경우 TEE(Trusted Execution Environment) 또는 StrongBox HSM 칩셋 내부에서 키가 관리됩니다.
 
-### 2. Google Tink 암호화 엔진 적용
+#### 2. Google Tink 암호화 엔진 적용
 개발자가 직접 암호화 블록 알고리즘이나 바이트 스트림을 처리할 필요 없이, Google의 오픈소스 암호화 라이브러리인 Tink가 주입되어 표준화된 키 세트(Keyset)를 안전하게 순환(Rotation) 및 관리합니다.
 
-### 3. 장점 및 단점 비교
+#### 3. 장점 및 단점 비교
 
 | 장점 (Pros) | 단점 및 한계점 (Cons) |
 | :--- | :--- |
@@ -135,9 +148,9 @@ class SecureStorageManager(context: Context) {
 
 ---
 
-## 5단계: 실무 주의사항 및 관련 문서 (Best Practices & Related Links)
+### 6단계: 실무 주의사항 및 관련 문서 (Best Practices & Related Links)
 
-### 1. 키셋 손상(KeySet Corruption) 예외 처리
+#### 1. 키셋 손상(KeySet Corruption) 예외 처리
 기기 펌웨어 업데이트, OS 복원, Keystore 락 해제 실패 등으로 인해 암호화 키셋이 손상될 수 있습니다. 이에 대응하는 안전한 팩토리 메서드 구현이 필수적입니다.
 
 ```kotlin
@@ -173,8 +186,11 @@ fun getSafeEncryptedSharedPreferences(context: Context): SharedPreferences {
 }
 ```
 
-### 2. 백업 옵션 제외 필수 (`AndroidManifest.xml`)
+#### 2. 백업 옵션 제외 필수 (`AndroidManifest.xml`)
 안드로이드 자동 백업 기능에 의해 암호화 파일만 클라우드에 백업되고 Keystore 마스터키는 백업되지 않아, 기기 복원 시 데이터 복호화가 실패할 수 있습니다. `xml/data_extraction_rules.xml`에서 암호화된 SharedPreference 파일을 백업 대상에서 제외해야 합니다.
 
-### 3. 관련 개념 노트
+#### 3. 관련 개념 노트
 - [MasterKey - 하드웨어 기반 마스터 키 구조](./master-key.md)
+- [암호화 저장소 API는 키와 데이터 경계 설계를 대체하지 않는다](encrypted-storage-boundaries.md)
+- [보안 저장소 계약](secure-storage.md)
+- [백업과 복원에서 데이터 경계를 설계하기](backup-restore-boundaries.md)

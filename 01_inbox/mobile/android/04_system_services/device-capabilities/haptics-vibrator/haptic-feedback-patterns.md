@@ -144,7 +144,19 @@ fun InteractiveFormScreen() {
 
 ---
 
-### 7. 관련 문서 및 참조
+### 7. 관찰 가능한 신호 및 진단 도구 (Observation Signals)
+
+```bash
+# 1. 시스템 설정의 터치 진동 피드백 활성화 여부 확인
+adb shell settings get system haptic_feedback_enabled
+
+# 2. 최근 실행된 햅틱 피드백 이벤트 덤프
+adb shell dumpsys vibrator | grep -A 10 "Previous vibrations"
+```
+
+---
+
+### 8. 관련 문서 및 참조
 
 상위 문서: [Haptics 및 Vibrator 계약](./haptics-and-vibrator.md)
 

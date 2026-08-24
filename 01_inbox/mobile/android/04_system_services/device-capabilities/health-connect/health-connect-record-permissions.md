@@ -68,6 +68,14 @@ flowchart TD
 
 `client.permissionController.getGrantedPermissions()` 로 실제 승인된 권한 집합을 조회해, 요청한 전체 집합과 차집합을 구하면 어떤 레코드 타입이 거부됐는지 코드로 바로 확인할 수 있다. 권한 없이 특정 레코드 타입을 `readRecords()` 하면 `SecurityException` 이 발생한다.
 
+```bash
+# 특정 패키지의 Health Connect 권한 부여 현황 덤프
+adb shell dumpsys package <package_name> | grep -E "permission.health|android.permission.HEALTH"
+
+# 앱 권한 관리 화면 직접 실행
+adb shell am start -a android.health.connect.action.MANAGE_HEALTH_PERMISSIONS --es android.intent.extra.PACKAGE_NAME "<package_name>"
+```
+
 ### 공식 문서
 
 - [Health Connect permissions](https://developer.android.com/health-and-fitness/guides/health-connect/develop/get-started)

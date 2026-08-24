@@ -21,6 +21,37 @@ date created: 2026-08-03 17:29:24 +09:00
 
 게임패드/키보드 같은 비-포인터 장치는 `KeyEvent`로 전달되며, 여러 장치가 동시에 연결된 경우 각 이벤트는 `getDeviceId()`로 어느 장치에서 왔는지 구분할 수 있다.
 
+### 다이어그램
+
+```mermaid
+flowchart LR
+    subgraph KernelInput["Linux 커널 (/dev/input/event*)"]
+        DevTouch["Touch Screen"]
+        DevKey["Keyboard / Mouse / Gamepad"]
+    end
+
+    subgraph NativeInput["EventHub & InputReader"]
+        EH["EventHub"]
+        IR["InputReader"]
+    end
+
+    subgraph Dispatcher["InputDispatcher"]
+        ID["InputDispatcher (Window Focus 확인)"]
+    end
+
+    subgraph FrameworkApp["App Layer"]
+        IM["InputManager / InputDevice"]
+        ViewRoot["ViewRootImpl / MotionEvent / KeyEvent"]
+    end
+
+    DevTouch --> EH
+    DevKey --> EH
+    EH --> IR
+    IR --> ID
+    ID --> ViewRoot
+    IM -.->|장치 속성 조회| ViewRoot
+```
+
 ### 연결 변화와 이벤트 소스 확인
 
 ```kotlin
@@ -58,6 +89,14 @@ changed 콜백에서는 이전 객체를 재사용하지 말고 `getInputDevice(
 ### 관찰 가능한 신호
 
 `adb shell dumpsys input`으로 현재 연결된 입력 장치 목록과 각 장치의 소스 타입, 최근 이벤트 라우팅 대상을 확인할 수 있다.
+
+```bash
+# 1. 연결된 물리 입력 장치 목록 및 드라이버 정보 덤프
+adb shell dumpsys input | grep -A 10 "Input Devices"
+
+# 2. 실시간 입력 이벤트 라우팅 및 윈도우 포커스 디스패치 상태 확인
+adb shell dumpsys input | grep -A 8 "FocusedApplication"
+```
 
 ### 공식 문서
 

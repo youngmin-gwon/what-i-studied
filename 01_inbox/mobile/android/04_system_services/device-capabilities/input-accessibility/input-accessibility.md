@@ -2,13 +2,81 @@
 title: input-accessibility
 tags: ["android", "android/system-services"]
 aliases: ["입력 장치와 접근성 서비스 계약"]
-date modified: 2026-08-10 16:08:18 +09:00
+date modified: 2026-08-24 18:05:00 +09:00
 date created: 2026-08-03 17:29:24 +09:00
 ---
 
 ## 입력 장치와 접근성 서비스 계약
 
 이 지도는 물리 입력 장치 추상화를 담당하는 **InputManager**, 다른 앱 화면의 UI 이벤트를 관찰하고 조작하는 보조 기술용 특권 서비스인 **AccessibilityService**, 그리고 가상 키보드 텍스트 입력을 담당하는 **IME**(Input Method Editor, InputMethodService)라는 세 개의 서로 다른 특권 계층을 분리한다.
+
+### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
+
+- **InputManager**: 물리 하드웨어 입력 장치(마우스, 키보드, 게임패드, 스타일러스) 열거 및 연결 수명주기 감지.
+- **AccessibilityService**: 시스템 전역 UI 이벤트 스트림 수신(`AccessibilityEvent`), 가상 뷰 트리 순회(`AccessibilityNodeInfo`), 접근성 액션 실행.
+- **InputMethodService**: 포커스된 에디터와의 양방향 IPC(`InputConnection`)를 통한 텍스트 커밋 및 키 이벤트 주입.
+
+```kotlin
+// InputManager 장치 조회 예시
+val inputManager = getSystemService(Context.INPUT_SERVICE) as InputManager
+val deviceIds = inputManager.inputDeviceIds
+for (id in deviceIds) {
+    val device = inputManager.getInputDevice(id)
+    if (device != null && (device.sources and InputDevice.SOURCE_GAMEPAD) != 0) {
+        println("Gamepad detected: ${device.name}")
+    }
+}
+```
+
+### 아키텍처 다이어그램
+
+```mermaid
+flowchart TD
+    subgraph HardwareLayer["하드웨어 / 커널 레이어"]
+        TouchScreen["터치스크린"]
+        PhysicalKeys["물리 키보드 / 게임패드"]
+    end
+
+    subgraph SystemServer["system_server"]
+        InputReader["InputReader / InputDispatcher"]
+        InputMgr["InputManagerService"]
+        A11yMgr["AccessibilityManagerService"]
+        IMEMgr["InputMethodManagerService"]
+    end
+
+    subgraph PrivilegeServices["특권 서비스 / 클라이언트"]
+        AppView["일반 앱 UI (View / Compose)"]
+        A11yService["AccessibilityService\n(화면 읽기 & 노드 제어)"]
+        IMEService["InputMethodService\n(가상 키보드 텍스트 커밋)"]
+    end
+
+    TouchScreen --> InputReader
+    PhysicalKeys --> InputReader
+    InputReader --> InputMgr
+    InputMgr --> AppView
+    AppView -.->|AccessibilityEvent| A11yMgr
+    A11yMgr --> A11yService
+    AppView <-->|InputConnection| IMEService
+    IMEMgr -.->|IME 전환 및 바인딩| IMEService
+```
+
+### 관찰 신호 (Observation Signals)
+
+- **ADB 및 dumpsys 진단**:
+  ```bash
+  # 1. 연결된 물리 입력 장치 및 이벤트 라우팅 덤프
+  adb shell dumpsys input
+  # 2. 활성화된 접근성 서비스 목록 및 이벤트 구독 설정
+  adb shell dumpsys accessibility
+  # 3. 현재 활성 IME 및 InputConnection 바인딩 상태
+  adb shell dumpsys input_method
+  # 4. 활성화된 접근성 서비스 보안 설정 조회
+  adb shell settings get secure enabled_accessibility_services
+  ```
+- **Logcat 로그**:
+  ```bash
+  adb logcat -s InputReader InputDispatcher AccessibilityService InputMethodService
+  ```
 
 ### 읽는 순서
 
@@ -34,5 +102,11 @@ date created: 2026-08-03 17:29:24 +09:00
 - [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](input-manager-physical-devices.md)
 - [AccessibilityService는 다른 앱의 UI 이벤트를 관찰하고 조작할 수 있는 특권 서비스다](accessibility-service-ui-inspection.md)
 - [InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다](input-method-service.md)
+
+### 공식 문서
+
+- [AccessibilityService 문서](https://developer.android.com/guide/topics/ui/accessibility/service)
+- [InputMethod 개발 가이드](https://developer.android.com/develop/ui/views/touch-and-input/creating-input-method)
+- [InputManager](https://developer.android.com/reference/android/hardware/input/InputManager)
 
 검증일: 2026-08-03. [AccessibilityService 문서](https://developer.android.com/guide/topics/ui/accessibility/service)와 [InputMethod 개발 가이드](https://developer.android.com/develop/ui/views/touch-and-input/creating-input-method) 를 기준으로 확인했다.

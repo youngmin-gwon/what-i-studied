@@ -2,7 +2,7 @@
 title: location
 tags: ["android", "android/system-services"]
 aliases: ["위치 접근 계약"]
-date modified: 2026-08-10 16:07:53 +09:00
+date modified: 2026-08-24 18:05:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
@@ -14,20 +14,74 @@ date created: 2026-08-03 17:19:24 +09:00
 
 - **FusedLocationProviderClient**: 배터리 소모와 정확도를 최적화하여 위치 계산. `LocationRequest` 로 우선순위 지정.
 - **권한 단계 (Permissions)**: Foreground(`ACCESS_COARSE_LOCATION`, `ACCESS_FINE_LOCATION`)와 Background(`ACCESS_BACKGROUND_LOCATION`) 분리 요청.
+- **정확도 선택 (Accuracy Tiers)**: Android 12+ 대략적(Approximate) 및 정밀(Precise) 위치 사용자 선택 처리.
 
 ```kotlin
 // FusedLocationProviderClient 예시
 val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000).build()
+val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
+    .setMinUpdateIntervalMillis(5000)
+    .build()
 
 // 권한 확인 후 위치 업데이트 요청
-fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+fusedLocationClient.requestLocationUpdates(
+    locationRequest,
+    locationCallback,
+    Looper.getMainLooper()
+)
+```
+
+### 아키텍처 다이어그램
+
+```mermaid
+flowchart TD
+    subgraph LocationSources["하드웨어 및 네트워크 소스"]
+        GPS["GNSS / GPS 위성"]
+        WiFi["Wi-Fi AP RTT / RSSI"]
+        Cell["셀룰러 기지국 타워"]
+        Sensors["가속도/기압계 센서"]
+    end
+
+    subgraph FusionEngine["Fused Location Provider (GMS Core / NLP)"]
+        Engine["위치 퓨전 알고리즘\n(배터리 vs 정확도 최적화 & 캐싱)"]
+    end
+
+    subgraph PermissionGate["권한 및 프라이버시 정책 검증"]
+        FG["Foreground Tier\n(COARSE / FINE)"]
+        BG["Background Tier\n(ACCESS_BACKGROUND_LOCATION)"]
+        PreciseToggle["Android 12+ 정밀 위치 토글\n(Approximate vs Precise)"]
+    end
+
+    subgraph AppStream["앱 계층"]
+        Client["FusedLocationProviderClient\n(requestLocationUpdates / getCurrentLocation)"]
+    end
+
+    GPS --> Engine
+    WiFi --> Engine
+    Cell --> Engine
+    Sensors --> Engine
+    Engine --> PermissionGate
+    PermissionGate --> FG
+    PermissionGate --> BG
+    PermissionGate --> PreciseToggle
+    PreciseToggle --> Client
 ```
 
 ### 관찰 신호 (Observation Signals)
 
-- Logcat 에서 `LocationManager` 또는 `FusedLocationProvider` 관련 위치 갱신 빈도 확인.
-- 배터리 소모량 추적 도구를 통한 웨이크락(Wakelock) 점유 시간 관찰.
+- **ADB 및 dumpsys 진단**:
+  ```bash
+  # 1. 시스템 전역 위치 제공자 상태 및 활성 요청 목록 덤프
+  adb shell dumpsys location
+  # 2. 특정 패키지의 위치 권한 및 AppOps 허용 상태 점검
+  adb shell cmd appops get <package_name> COARSE_LOCATION
+  adb shell cmd appops get <package_name> FINE_LOCATION
+  adb shell cmd appops get <package_name> MONITOR_LOCATION
+  ```
+- **Logcat 로그**:
+  ```bash
+  adb logcat -s LocationManagerService FusedLocationProvider LocationCallback
+  ```
 
 ### 읽는 순서
 
@@ -55,5 +109,10 @@ fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Lo
 - [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fused-location-provider.md)
 - [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-tiers.md)
 - [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](precise-vs-approximate-location.md)
+
+### 공식 문서
+
+- [위치 데이터 접근 요청](https://developer.android.com/develop/sensors-and-location/location/permissions)
+- [FusedLocationProviderClient 문서](https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderClient)
 
 검증일: 2026-08-03. [위치 데이터 접근 요청](https://developer.android.com/develop/sensors-and-location/location/permissions)과 [FusedLocationProviderClient 문서](https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderClient) 를 기준으로 확인했다.

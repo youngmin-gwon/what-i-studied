@@ -19,6 +19,25 @@ date created: 2026-08-03 17:29:24 +09:00
 
 앱이 CryptoObject 없이 `authenticate()`를 호출하면 인증 결과를 앱 로직의 gate로 사용할 수 있다. 이것이 곧 취약하거나 우회 가능하다는 뜻은 아니다. 반면 timeout 0으로 구성한 auth-per-use Keystore 키는 `CryptoObject`를 전달한 프롬프트로 해당 연산을 승인한다. 일정 시간 동안 재사용하는 time-based 키는 최근 기기 자격 증명 또는 허용된 인증 수단으로 잠금이 해제되며, CryptoObject 없는 프롬프트를 사용할 수 있다. 어떤 흐름을 쓸지는 보호 대상이 암호키 연산인지, 단순 앱 기능 접근인지에 따라 결정한다.
 
+### 다이어그램
+
+```mermaid
+sequenceDiagram
+    participant App as 앱 클라이언트
+    participant BP as BiometricPrompt
+    participant KeyStore as AndroidKeyStore / TEE
+    participant BioService as BiometricService / HAL
+
+    App->>KeyStore: Cipher 초기화 (auth-per-use Key)
+    KeyStore-->>App: Unauthenticated Cipher 반환
+    App->>BP: authenticate(PromptInfo, CryptoObject(cipher))
+    BP->>BioService: 생체 인증 다이얼로그 노출 & 센서 대기
+    BioService-->>BioService: 지문/얼굴 인식 성공 및 인증 토큰(Auth Token) 발급
+    BioService->>KeyStore: Auth Token 전달 (키 잠금 해제 승인)
+    BP-->>App: onAuthenticationSucceeded(AuthenticationResult)
+    App->>KeyStore: result.cryptoObject.cipher.doFinal(data) (암호 연산 성공)
+```
+
 ### auth-per-use 호출 흐름
 
 ```kotlin
@@ -49,7 +68,15 @@ prompt.authenticate(promptInfo, BiometricPrompt.CryptoObject(cipher))
 
 ### 관찰 가능한 신호
 
-인증 실패/취소/오류는 `AuthenticationCallback`의 `onAuthenticationError`, `onAuthenticationFailed`로 구분되어 전달된다. 인증이 필요한 키를 정책 밖에서 사용하면 `UserNotAuthenticatedException`이 발생할 수 있으며, 생체 등록 변경·키 무효화는 별도의 예외 경로로 테스트한다.
+인증 실패/취소/오류는 `AuthenticationCallback`의 `onAuthenticationError`, `onAuthenticationFailed`로 구분되어 전달된다.
+
+```bash
+# 1. 생체 인증 성공/실패 이벤트 및 AuthToken 전달 로그
+adb logcat -s BiometricPrompt KeyStore AndroidKeyStore
+
+# 2. 에뮬레이터에서 지문 인식 성공 이벤트 주입 (핑거프린트 ID: 1)
+adb emu finger touch 1
+```
 
 ### 공식 문서
 

@@ -19,6 +19,34 @@ date created: 2026-08-03 17:19:24 +09:00
 
 raw 센서(`TYPE_ACCELEROMETER`, `TYPE_GYROSCOPE`, `TYPE_MAGNETIC_FIELD`)는 하드웨어 값을 그대로 전달하며 노이즈와 드리프트가 있다. 합성 센서(`TYPE_ROTATION_VECTOR`, `TYPE_GRAVITY`, `TYPE_LINEAR_ACCELERATION`, `TYPE_GAME_ROTATION_VECTOR`)는 센서 퓨전 알고리즘이 여러 raw 센서를 결합해 만든 값으로, 벤더 HAL 또는 플랫폼 센서 허브가 계산을 담당한다. 이 계산은 앱이 관여할 수 없는 블랙박스다.
 
+### 다이어그램
+
+```mermaid
+flowchart TD
+    subgraph RawSensors["Raw Hardware Sensors"]
+        Acc["가속도계 (TYPE_ACCELEROMETER)"]
+        Gyro["자이로스코프 (TYPE_GYROSCOPE)"]
+        Mag["지자기 센서 (TYPE_MAGNETIC_FIELD)"]
+    end
+
+    subgraph SensorHub["HAL / Sensor Hub Fusion Algorithm"]
+        Filter["칼만 필터 / 쿼터니언 계산"]
+    end
+
+    subgraph SyntheticSensors["Synthetic / Composite Sensors"]
+        RotVec["회전 벡터 (TYPE_ROTATION_VECTOR)"]
+        Grav["중력 (TYPE_GRAVITY)"]
+        LinAcc["선형 가속도 (TYPE_LINEAR_ACCELERATION)"]
+    end
+
+    Acc --> Filter
+    Gyro --> Filter
+    Mag --> Filter
+    Filter --> RotVec
+    Filter --> Grav
+    Filter --> LinAcc
+```
+
 ### capability 확인과 리스너 수명
 
 ```kotlin
@@ -55,7 +83,15 @@ override fun onPause() {
 
 ### 관찰 가능한 신호
 
-`adb shell dumpsys sensorservice`로 기기에 등록된 전체 센서 목록, 각 센서의 벤더/버전, 현재 활성 리스너 수를 확인할 수 있다.
+`adb shell dumpsys sensorservice`로 기기에 등록된 전체 센서 목록, 각 센서의 벤더/버전, 합성 센서 여부(Composite), 현재 활성 리스너 수를 확인할 수 있다.
+
+```bash
+# 1. 전체 센서 목록 및 합성 센서 식별
+adb shell dumpsys sensorservice | grep -E "Sensor List|composite"
+
+# 2. 센서 HAL 및 하드웨어 정보 덤프
+adb shell dumpsys sensorservice
+```
 
 ### 공식 문서
 

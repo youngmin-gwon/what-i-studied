@@ -80,6 +80,15 @@ flowchart TD
 
 ### 관찰 가능한 신호
 
+```bash
+# 1. PlatformStorage 전역 색인 상태 및 패키지별 노출 스키마 덤프
+adb shell dumpsys app_search
+
+# 2. 특정 패키지의 등록된 문서 수 및 스키마 검증
+adb shell dumpsys app_search | grep -A 10 "<package_name>"
+```
+
+
 `LocalStorage`만 사용한 상태에서는 설정 앱 검색이나 다른 시스템 UI 표면에 해당 데이터가 절대 나타나지 않는다 — 이는 저장소 선택 자체의 문제이지 `setSchemaTypeDisplayedBySystem()` 설정 여부와 무관하다. `PlatformStorage`/`PlayServicesStorage`를 쓰고도 데이터가 안 보이면 해당 스키마 타입에 `setSchemaTypeDisplayedBySystem(type, true)`를 호출했는지 먼저 확인한다.
 
 ### 공식 문서

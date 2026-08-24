@@ -25,6 +25,30 @@ date created: 2026-08-03 17:29:24 +09:00
 - subscription ID를 캐싱해서 오래 재사용하지 않는다. eSIM 전환이나 SIM 교체로 ID가 바뀔 수 있으므로 `SubscriptionManager.addOnSubscriptionsChangedListener()`로 `OnSubscriptionsChangedListener`를 등록해 변경을 갱신한다.
 - 슬롯 번호(물리적 위치)와 구독 ID(논리적 회선)를 혼동하지 않는다. UI에 "SIM 1/SIM 2"를 보여줄 때도 내부 로직은 구독 ID를 기준으로 동작해야 한다.
 
+### 다이어그램
+
+```mermaid
+flowchart TD
+    subgraph LogicalSubs["논리적 구독 (Subscription ID)"]
+        Sub1["Subscription ID 1\n(개인용 회선, 통화/SMS 기본값)"]
+        Sub2["Subscription ID 2\n(업무용 회선, 데이터 기본값)"]
+    end
+
+    subgraph SubMgr["SubscriptionManager"]
+        SMMap["activeSubscriptionInfoList\n(SubscriptionInfo 매핑)"]
+    end
+
+    subgraph PhysicalSlots["물리 슬롯 (SIM Slot Index)"]
+        Slot0["Slot 0 (물리 nano-SIM)"]
+        Slot1["Slot 1 (내장 e-SIM 프로필)"]
+    end
+
+    Sub1 --> SMMap
+    Sub2 --> SMMap
+    SMMap --> Slot0
+    SMMap --> Slot1
+```
+
 ### 최소 안전 갱신 흐름
 
 활성 목록 조회에는 `READ_PHONE_STATE` 또는 해당 구독의 carrier privilege가 필요할 수 있다. 목록을 한 번 읽고 끝내지 말고, 프로세스 수명에 맞춰 리스너를 등록·해제하면서 구독별 `TelephonyManager`를 다시 만든다.

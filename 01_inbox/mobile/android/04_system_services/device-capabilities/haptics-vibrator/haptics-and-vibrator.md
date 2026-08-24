@@ -102,7 +102,20 @@ fun triggerCustomVibration(context: Context) {
 
 ---
 
-### 5. 관련 문서 및 참조
+### 5. 관찰 신호 및 진단 (Observation Signals)
+
+```bash
+# 1. 기기 내 하드웨어 진동기/액추에이터 스펙 및 현재 동작 덤프
+adb shell dumpsys vibrator
+# 2. Android 12+ VibratorManager 다중 진동기 관리자 덤프
+adb shell dumpsys vibrator_manager
+# 3. 글로벌 햅틱 피드백 설정 확인 (1: 활성, 0: 비활성)
+adb shell settings get system haptic_feedback_enabled
+```
+
+---
+
+### 6. 관련 문서 및 참조
 
 - 상위 문서: [Android System Services & Device Capabilities](../../android-system-services-and-device-capabilities.md)
 - 관련 계약 문서:

@@ -87,6 +87,15 @@ flowchart TD
 
 ### 관찰 가능한 신호
 
+```bash
+# 1. AICore 서비스 등록 및 모델 적재 상태 덤프
+adb shell dumpsys aicore
+
+# 2. AICore 바인더 통신 및 온디바이스 추론 로그 확인
+adb logcat -s AICore AICoreService GeminiNano
+```
+
+
 AICore 기반 기능은 앱 APK 용량 분석(APK Analyzer)에서 대형 모델 가중치 파일이 보이지 않는다는 점으로 LiteRT 번들 모델과 구분할 수 있다 — 모델이 앱 자산이 아니라 시스템 자산이기 때문이다. 반면 LiteRT 로 번들한 모델은 APK Analyzer 의 assets/lib 목록에서 `.tflite` 파일 크기로 직접 확인된다.
 
 ### 공식 문서

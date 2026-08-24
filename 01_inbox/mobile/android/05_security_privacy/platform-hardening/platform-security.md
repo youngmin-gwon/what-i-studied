@@ -49,5 +49,7 @@ adb shell "logcat | grep avc"
 - [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](app-sandbox-uid-process-boundary.md)
 - [SELinux는 Linux 사용자 권한을 넘어 mandatory policy를 강제한다](selinux-mandatory-access-control.md)
 - [Verified Boot는 기기 소프트웨어의 chain of trust를 만든다](verified-boot-trust-chain.md)
+- [VPN Always-on vs Lockdown](vpn-always-on-vs-lockdown.md)
+- [Android 보안 실무는 클라이언트 신뢰가 아니라 방어 계층 설계다](defense-in-depth-principles.md)
 
 관련 지도: [Android 권한 계약](../permissions/permissions.md), [무결성과 attestation 계약](../integrity/integrity.md)

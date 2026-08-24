@@ -105,6 +105,15 @@ flowchart TD
 
 ### 관찰 가능한 신호
 
+```bash
+# 1. 마이크 권한 AppOps 상태 확인
+adb shell cmd appops get <package_name> RECORD_AUDIO
+
+# 2. 음성 인식 및 AudioRecord 스트림 로그 실시간 필터링
+adb logcat -s SpeechRecognizer SpeechRecognizerImpl AudioRecord
+```
+
+
 `onError(error)`에서 `ERROR_INSUFFICIENT_PERMISSIONS`를 받으면 `RECORD_AUDIO`가 실제로 거부됐다는 뜻이고, `ERROR_NO_MATCH`를 받으면 권한과 네트워크는 정상이지만 인식할 발화 자체가 없었다는 뜻이라 두 실패는 원인이 다르다. `setRecognitionListener()`를 `startListening()` 이후에 등록하거나 누락하면 `onReadyForSpeech`조차 호출되지 않는 것으로 등록 순서 위반을 관찰할 수 있다.
 
 ### 공식 문서

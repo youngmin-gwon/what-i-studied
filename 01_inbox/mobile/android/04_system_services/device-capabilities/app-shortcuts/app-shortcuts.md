@@ -2,13 +2,79 @@
 title: app-shortcuts
 tags: ["android", "android/system-services"]
 aliases: ["App Shortcuts 접근 계약"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-24 18:05:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
 ## App Shortcuts 접근 계약
 
 이 지도는 앱 아이콘을 길게 누르거나 시스템 검색을 통해 특정 화면/기능으로 즉시 진입하도록 지원하는 **App Shortcuts**(앱 단축 경로)를 소유권과 생명주기(lifecycle), 개수/호출 빈도 제약(rate limit) 두 가지 핵심 계약으로 나눈다. static, dynamic, pinned shortcut은 이름은 유사하지만 선언 위치, 갱신 주체, 삭제 가능 여부가 모두 다르며, 시스템 서비스인 **ShortcutManager**(dynamic/pinned shortcut의 등록·갱신·삭제 및 시스템 rate limit 제어를 총괄하는 시스템 서비스)는 이 셋을 하나의 카운트 상한과 rate limit 기준 아래 통합 관리한다.
+
+### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
+
+ShortcutManager는 정적(XML), 동적(코드), 핀(사용자 고정) 숏컷을 관리하며, Jetpack `ShortcutManagerCompat`을 사용하여 하위 버전 호환성을 보장한다.
+
+```kotlin
+// 동적 숏컷 생성 및 등록
+val shortcut = ShortcutInfoCompat.Builder(context, "shortcut_chat_123")
+    .setShortLabel("대화방: Alice")
+    .setLongLabel("Alice님과의 1:1 대화방으로 바로 이동")
+    .setIcon(IconCompat.createWithResource(context, R.drawable.ic_chat))
+    .setIntent(
+        Intent(context, ChatActivity::class.java).apply {
+            action = Intent.ACTION_VIEW
+            putExtra("chat_id", "123")
+        }
+    )
+    .build()
+
+// ShortcutManagerCompat을 통한 동적 숏컷 푸시 (자동 랭킹 및 상한 관리)
+ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
+```
+
+### 아키텍처 다이어그램
+
+```mermaid
+flowchart TD
+    subgraph ShortcutTypes["Shortcut 종류 및 소유권"]
+        Static["정적 숏컷 (Static)\n(AndroidManifest / res/xml)"]
+        Dynamic["동적 숏컷 (Dynamic)\n(앱 런타임 코드)"]
+        Pinned["핀 숏컷 (Pinned)\n(사용자가 홈 화면에 고정)"]
+    end
+
+    subgraph SystemLayer["시스템 계층 (ShortcutService)"]
+        SM["ShortcutManager\n(상한 관리: getMaxShortcutCountPerActivity\n백그라운드 Rate Limiting 제어)"]
+    end
+
+    subgraph LauncherLayer["시스템 런처 (Launcher UI)"]
+        IconMenu["앱 아이콘 길게 누름 팝업"]
+        HomeScreen["홈 화면 바로가기 아이콘"]
+    end
+
+    Static --> SM
+    Dynamic --> SM
+    Pinned --> SM
+    SM --> IconMenu
+    SM --> HomeScreen
+```
+
+### 관찰 신호 (Observation Signals)
+
+- **ADB 숏컷 진단 및 쓰로틀링 리셋**:
+  ```bash
+  # 1. 특정 패키지의 등록된 정적/동적/핀 숏컷 상태 전체 덤프
+  adb shell dumpsys shortcut | grep -A 20 "<package_name>"
+
+  # 2. 백그라운드 Rate Limiting (Throttling) 강제 초기화
+  adb shell cmd shortcut reset-throttling --user 0
+
+  # 3. 등록된 숏컷 목록 CLI 확인
+  adb shell cmd shortcut get-shortcuts <package_name>
+  ```
+- **Logcat 로그**:
+  ```bash
+  adb logcat -s ShortcutManager ShortcutService ShortcutManagerCompat
+  ```
 
 ### 읽는 순서
 
@@ -28,11 +94,16 @@ date created: 2026-08-04 18:00:00 +09:00
 
 - 이 지도는 `ShortcutManager`/`ShortcutManagerCompat`을 통한 shortcut 선언·갱신·소유권 계약만 다룬다. 런처 UI가 shortcut을 어떻게 렌더링하는지의 세부는 런처 구현체마다 다르므로 다루지 않는다.
 - **App Widget**(런처 홈 화면에 상주하며 실시간 정보나 컨트롤 UI를 지속적으로 제공하는 별도의 뷰 컴포넌트)은 별도 계약이며 이 지도가 다루지 않는다. shortcut은 "탭하면 앱의 특정 화면/동작으로 진입하는 진입점"이고, widget은 "홈 화면에서 지속적으로 콘텐츠를 보여주는 표면"이라는 점에서 목적이 다르다.
-- shortcut이 실행할 Intent가 유효한 target(Activity)을 가리키는지에 대한 일반적인 Intent/Task 계약은 `00_foundations/learning-spine/04-manifest-to-component-execution.md`가 다룬다.
+- shortcut이 실행할 Intent가 유효한 target(Activity)을 가리키는지에 대한 일반적인 Intent/Task 계약은 액티비티/인텐트 실행 프레임워크가 다룬다.
 
 ### 노트 목록
 
 - [static/dynamic/pinned shortcut은 소유권과 lifecycle이 다르다](shortcut-ownership-lifecycles.md)
 - [ShortcutManager는 동적 shortcut 개수를 제한하고 백그라운드 갱신에 rate limit을 건다](shortcut-manager-rate-limits.md)
 
-검증일: 2026-08-04. [Shortcuts overview](https://developer.android.com/develop/ui/views/launch/shortcuts), [Manage shortcuts](https://developer.android.com/develop/ui/views/launch/shortcuts/managing-shortcuts)를 기준으로 확인했다.
+### 공식 문서
+
+- [Shortcuts overview](https://developer.android.com/develop/ui/views/launch/shortcuts)
+- [Manage shortcuts](https://developer.android.com/develop/ui/views/launch/shortcuts/managing-shortcuts)
+
+검증일: 2026-08-04. Shortcuts 수명주기, Rate limiting 및 dumpsys 진단 도구를 공식 문서를 기준으로 확인했다.

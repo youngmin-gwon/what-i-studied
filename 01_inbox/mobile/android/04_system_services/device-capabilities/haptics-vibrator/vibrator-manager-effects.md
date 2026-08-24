@@ -89,7 +89,19 @@ fun playAdvancedHaptic(context: Context) {
 
 ---
 
-### 5. 관련 문서 및 참조
+### 5. 관찰 가능한 신호 및 진단 도구 (Observation Signals)
+
+```bash
+# 1. VibratorManagerService 진동 파형 및 컴포지션 지원 여부 덤프
+adb shell dumpsys vibrator_manager
+
+# 2. 개별 진동 모터의 진폭 제어 및 주파수 제어 능력치 확인
+adb shell dumpsys vibrator | grep -E "capabilities|hasAmplitudeControl|hasFrequencyControl"
+```
+
+---
+
+### 6. 관련 문서 및 참조
 
 상위 문서: [Haptics 및 Vibrator 계약](./haptics-and-vibrator.md)
 

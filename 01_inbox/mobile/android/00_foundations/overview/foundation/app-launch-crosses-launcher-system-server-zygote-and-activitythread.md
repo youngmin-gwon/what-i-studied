@@ -26,9 +26,9 @@ role: atomic-reference
 3. **[`ActivityThread`](../../../02_app_framework/architecture/app-components/activity-thread.md) 메인 루프 시작 및 Attach**:
    - 새로 태어난 앱 프로세스는 메인 스레드인 [`ActivityThread.main()`](../../../02_app_framework/architecture/app-components/activity-thread.md) 을 실행하여 안드로이드 이벤트 루프([`Handler & Looper & MessageQueue`](../../../02_app_framework/data/async-flow/handler-looper-message-queue.md))를 가동한다.
    - 앱 프로세스가 `system_server`에 "나 생성 완료되었음"을 알리는 `attachApplication()`을 호출하면, `system_server`가 `Application` 및 `Activity` 생성을 지시한다.
-4. **`Application` 및 `Activity` 라이프사이클 실행 ➔ 화면 표시 ([TTID & TTFD](../../../06_testing_performance/performance/ttid-and-ttfd.md))**:
+4. **`Application` 및 `Activity` 라이프사이클 실행 ➔ 화면 표시 ([TTID & TTFD](../../../06_testing_performance/performance/startup-performance-metrics.md))**:
    - `Application.onCreate()`와 `Activity.onCreate() ~ onResume()` 이 순차적으로 실행된다.
-   - 첫 번째 프레임이 화면 렌더링 시스템(`WindowManager` / `SurfaceFlinger`)에 전달되어 첫 화면이 노출되는 시점을 [TTID (Time To Initial Display)](../../../06_testing_performance/performance/ttid-and-ttfd.md) 라 부르며, 실제 사용 가능함을 알리는 시점을 [TTFD (Time To Fully Drawn)](../../../06_testing_performance/performance/ttid-and-ttfd.md) 라 부른다.
+   - 첫 번째 프레임이 화면 렌더링 시스템(`WindowManager` / `SurfaceFlinger`)에 전달되어 첫 화면이 노출되는 시점을 [TTID (Time To Initial Display)](../../../06_testing_performance/performance/startup-performance-metrics.md) 라 부르며, 실제 사용 가능함을 알리는 시점을 [TTFD (Time To Fully Drawn)](../../../06_testing_performance/performance/startup-performance-metrics.md) 라 부른다.
 
 ---
 
@@ -98,7 +98,7 @@ adb logcat -d -s ActivityTaskManager ActivityManager Zygote
 
 - [ActivityThread 레퍼런스](../../../02_app_framework/architecture/app-components/activity-thread.md) - 안드로이드 앱 메인 스레드 총괄 지휘자
 - [Handler & Looper & MessageQueue](../../../02_app_framework/data/async-flow/handler-looper-message-queue.md) - 안드로이드 메인 이벤트 루프
-- [TTID & TTFD 성능 지표](../../../06_testing_performance/performance/ttid-and-ttfd.md) - 앱 구동 2 대 성능 측정 지표
+- [TTID & TTFD 성능 지표 (시작 성능)](../../../06_testing_performance/performance/startup-performance-metrics.md) - 앱 구동 2 대 성능 측정 지표
 - [LMK (Low Memory Killer)](../../../01_system_internals/kernel-and-hal/kernel/lmkd-memory-pressure.md) - 안드로이드 커널/데몬 메모리 회수 메커니즘
 - [system_server 레퍼런스](../../../01_system_internals/boot-and-runtime/system-server/system-server.md) - 앱 실행 및 Lifecycle 관리 주체
 - [Zygote 와 ART 런타임 심층 계약](../../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md) - 프로세스 fork 및 가상 머신 공유 주체

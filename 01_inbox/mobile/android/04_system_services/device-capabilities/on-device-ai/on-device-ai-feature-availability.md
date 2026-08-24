@@ -102,6 +102,15 @@ flowchart TD
 
 ### 관찰 가능한 신호
 
+```bash
+# 1. 온디바이스 기능 가용성 및 다운로드 큐 상태 덤프
+adb shell dumpsys aicore | grep -E "FeatureStatus|download_progress"
+
+# 2. 모델 다운로드 진행 상태 logcat 실시간 모니터링
+adb logcat -s AICoreDownloadManager FeatureAvailability
+```
+
+
 `checkFeatureStatus()`가 반환하는 `FeatureStatus` 값을 로그로 남기면 특정 기기에서 기능이 왜 동작하지 않는지(미지원 vs 다운로드 대기 vs 다운로드 실패) 구분할 수 있다. `downloadFeature()`와 `runInference()`가 반환하는 Future의 실패 원인 및 `DownloadCallback.onDownloadFailed()`를 함께 기록한다.
 
 ### 공식 문서

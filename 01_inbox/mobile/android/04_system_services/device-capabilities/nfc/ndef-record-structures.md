@@ -2,7 +2,7 @@
 title: ndef-record-structures
 tags: ["android", "android/system-services"]
 aliases: ["NDEF는 태그 데이터를 메시지와 레코드로 구조화한다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-24 18:05:00 +09:00
 date created: 2026-07-31 17:46:00 +09:00
 ---
 
@@ -11,54 +11,82 @@ date created: 2026-07-31 17:46:00 +09:00
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 관련 지도: [NFC와 비접촉 기능 계약](./nfc.md)
 
-### 개념
+### 핵심 정의
 
-`NDEF`(NFC Data Exchange Format, NFC 태그나 기기 간 교환용 바이너리 포맷 규격)는 NFC 데이터를 하나 이상의 표준 레코드로 구조화한다.
-NDEF 메시지는 하나 이상의 NDEF 레코드로 구성된다.
-레코드는 `TNF`(Type Name Format, NDEF 레코드 헤더에서 타입 필드의 바이너리 구조 및 해석 규칙을 지정하는 3비트 데이터), type, id, payload 필드를 가진다.
-첫 레코드는 Android가 메시지의 MIME 타입이나 URI를 추론하는 기준이 된다.
-따라서 여러 레코드 메시지를 만들 때 첫 레코드의 의미를 명확히 해야 한다.
+`NDEF`(NFC Data Exchange Format, NFC 태그나 기기 간 교환용 경량 바이너리 포맷 규격)는 NFC 데이터를 하나 이상의 표준 레코드로 구조화한다. 하나의 `NdefMessage`는 1개 이상의 `NdefRecord`로 구성되며, 각 레코드는 `TNF`(Type Name Format: 3-bit 헤더), Type, ID, Payload 바이트 배열을 갖는다.
 
-### 읽기 흐름
+### 다이어그램
 
-1. 장치에서 NFC가 지원되고 켜져 있는지 확인한다.
-2. 태그가 발견되면 인텐트에서 Tag 객체를 얻는다.
-3. Ndef.get(tag)으로 NDEF 접근 가능 여부를 확인한다.
-4. connect 후 ndefMessage를 읽고 close한다.
-5. 레코드의 TNF와 타입을 검증한 뒤 payload를 애플리케이션 모델로 변환한다.
-예외와 연결 종료를 처리해야 하며, 블로킹 I/O는 메인 스레드에서 수행하지 않는다.
+```mermaid
+flowchart TD
+    subgraph NdefMsg["NdefMessage"]
+        subgraph Rec1["NdefRecord 1 (Primary / Root)"]
+            TNF1["TNF: TNF_WELL_KNOWN / TNF_MIME_MEDIA"]
+            Type1["Type: RTD_URI / text/plain"]
+            Payload1["Payload: https://example.com"]
+        end
+        subgraph Rec2["NdefRecord 2 (Optional)"]
+            TNF2["TNF: TNF_EXTERNAL_TYPE"]
+            Type2["Type: com.example:custom"]
+            Payload2["Payload: Binary Data"]
+        end
+    end
 
-### 디스패치
+    Rec1 --> AndroidDispatch["Android Intent Dispatcher (ACTION_NDEF_DISCOVERED 결정)"]
+```
 
-ACTION_NDEF_DISCOVERED는 NDEF 데이터가 MIME 타입 또는 URI로 매핑될 때 사용된다.
-ACTION_TECH_DISCOVERED는 기술 목록을 기준으로 처리할 때 사용된다.
-ACTION_TAG_DISCOVERED는 더 일반적인 최후의 처리 경로다.
-인텐트 필터를 넓게 잡으면 다른 앱과의 선택 충돌이 늘어날 수 있다.
-업무에 필요한 MIME 타입이나 URI 스킴만 선언하는 편이 예측 가능하다.
+### 코드 예시: NDEF 레코드 생성 및 쓰기
 
-### 쓰기 흐름
+```kotlin
+fun writeUriToTag(tag: Tag, uri: Uri): Boolean {
+    val ndefRecord = NdefRecord.createUri(uri)
+    val ndefMessage = NdefMessage(arrayOf(ndefRecord))
+    
+    val ndef = Ndef.get(tag) ?: return false
+    return try {
+        ndef.connect()
+        if (ndef.isWritable && ndef.maxSize >= ndefMessage.toByteArray().size) {
+            ndef.writeNdefMessage(ndefMessage)
+            true
+        } else {
+            false
+        }
+    } catch (e: Exception) {
+        false
+    } finally {
+        ndef.close()
+    }
+}
+```
 
-쓰기 전 태그의 isWritable과 maxSize를 확인한다.
-기존 메시지를 덮어쓸 수 있는지와 새 메시지 크기를 검증한다.
-NdefMessage를 만든 뒤 connect, writeNdefMessage, close 순으로 처리한다.
-쓰기 실패가 발생할 수 있으므로 사용자에게 성공을 확정하기 전에 결과를 확인한다.
-읽기 전용 태그는 쓰기 시도 자체를 하지 않는다.
+### 읽기 흐름과 디스패치
 
-### 레코드 선택
+1. `ACTION_NDEF_DISCOVERED` 인텐트에서 `Intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)` 추출.
+2. 각 `NdefMessage`의 첫 레코드 TNF 및 Type 검증.
+3. Payload 디코딩 시 언어 코드 바이트, UTF-8/UTF-16 인코딩 헤더 검증.
 
-URI는 가능하면 Android의 URI 레코드 생성 도우미를 사용한다.
-MIME 데이터는 앱이 소유한 타입을 명확히 정하고 payload 버전을 포함할 수 있다.
-외부 타입 레코드는 네임스페이스와 타입을 안정적으로 관리해야 한다.
-payload를 신뢰하지 말고 길이, 인코딩, 스키마, 버전을 검증한다.
-태그에는 비밀값이나 장기 인증 토큰을 평문으로 저장하지 않는다.
+### 판단 기준
 
-### NDEF가 아닌 태그
+- 웹 URL은 `NdefRecord.createUri()`를 사용하고, 자체 데이터 교환은 `NdefRecord.createMime()` 또는 Android Application Record(`NdefRecord.createApplicationRecord`)를 조합한다.
+- NDEF 태그에는 비밀번호, 개인 인증 토큰 등 민감 정보를 평문으로 기록하지 않는다.
 
-NDEF로 해석되지 않는 태그는 android.nfc.tech 클래스로 직접 다룰 수 있다.
-이 경우 앱이 태그별 원시 프로토콜과 프레이밍을 직접 책임진다.
-지원 범위와 실패 동작이 넓어지므로 NDEF로 충분한 요구에는 저수준 API를 피한다.
+### 경계
+
+- 이 노트는 NDEF 레코드 바이너리 구조 및 입출력을 다룬다. 외부 결제 리더와의 APDU 교환은 [HCE는 HostApduService가 APDU 거래를 처리하는 모델이다](hce-host-apdu-service.md)가 다룬다.
+
+### 관찰 가능한 신호
+
+```bash
+# 1. NFC 서비스의 NDEF 디스패치 등록 내역 덤프
+adb shell dumpsys nfc | grep -A 10 "Registered NDEF"
+
+# 2. 태그 탭 시 인텐트 발화 로그 확인
+adb logcat -s NfcDispatcher TagMonitor
+```
 
 ### 공식 문서
 
 - https://developer.android.com/develop/connectivity/nfc/nfc
 - https://developer.android.com/develop/connectivity/nfc/advanced-nfc
+
+검증일: 2026-08-03. NDEF 메시지/레코드 구조 및 태그 I/O 계약을 공식 문서로 확인했다.

@@ -1,64 +1,100 @@
 ---
 title: service-lookup
 tags: ["android", "android/system-services"]
-aliases: []
-date modified: 2026-08-10 16:07:30 +09:00
+aliases: ["시스템 서비스 접근 공통 계약"]
+date modified: 2026-08-24 18:15:00 +09:00
 date created: 2026-08-03 17:16:58 +09:00
 ---
 
 ## 시스템 서비스 접근 공통 계약
 
-이 지도는 location, sensors, telephony 같은 개별 시스템 서비스를 읽기 전에 알아야 하는 공통 기반을 다룬다. `Context.getSystemService()` 로 핸들을 얻는 단계, Binder 서비스가 필요한 경계에서 수행하는 신원·권한 검사, AppOps 의 실행 시점 정책을 구분한다.
+이 지도는 location, sensors, telephony, power, background 등 모든 개별 시스템 서비스와 하드웨어 기능을 탐색하기 전에 반드시 이해해야 하는 공통 프레임워크 기반을 다룬다. `Context.getSystemService()` 로 클라이언트 프록시를 획득하는 메커니즘, `ServiceManager` (Handle 0)의 중앙 레지스트리 역할, `system_server` 바운더리에서의 호출자 신원(UID/PID) 및 권한 검증, 그리고 실행 시점에 동적으로 개입하는 `AppOpsManager` 정책 계층을 체계적으로 연결한다.
+
+```mermaid
+graph TD
+    App["앱 프로세스 (Client Process)"] -->|"1. context.getSystemService(Context.XXX_SERVICE)"| ContextImpl["ContextImpl (Cached Service Fetcher)"]
+    ContextImpl -->|"2. getService('name') / Binder Handle 0"| ServiceManager["ServiceManager (Handle 0 Daemon)"]
+    ServiceManager -->|"3. IBinder Remote Proxy Handle 반환"| ContextImpl
+    ContextImpl -->|"4. Manager Proxy 인스턴스 반환"| App
+    App -->|"5. manager.executeAction() [Binder IPC]"| SystemServer["system_server / Native Daemons"]
+    
+    subgraph SystemServerSecurity ["system_server 보안 및 정책 검증 경계"]
+        SystemServer -->|"6. Binder.getCallingUid() / getCallingPid()"| IdentityCheck["UID / PID 호출자 신원 확인"]
+        IdentityCheck -->|"7. enforceCallingPermission()"| PermCheck{"Manifest 런타임 권한 승인?"}
+        PermCheck -->|"No"| SecEx["SecurityException 발생"]
+        PermCheck -->|"Yes"| AppOps["8. AppOpsManager.noteOp / checkOp"]
+        AppOps -->|"MODE_IGNORED / MODE_ERRORED"| SilentFail["동적 거부 (null / 빈 데이터 반환)"]
+        AppOps -->|"MODE_ALLOWED"| Hardware["9. 하드웨어 HAL / 실제 서비스 기능 집행"]
+    end
+```
 
 ### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
 
-- **getSystemService()**: Context 를 통해 싱글톤 형태로 관리되는 매니저 객체 반환. 내부적으로 `ServiceManager` 및 [binder ipc](../../01_system_internals/ipc-and-process/binder-ipc.md) 활용.
-- **Binder 검사**: 시스템 서버가 호출자의 `Binder.getCallingUid()`와 `Pid` 를 확인하여 권한 승인 검증.
-- **AppOpsManager**: `checkOp` 혹은 `noteOp` 를 통해 런타임에 동적으로 앱의 권한 접근이 허용되어 있는지 확인.
+1. **`Context.getSystemService()`**: Context 싱글톤 형태로 관리되는 매니저 객체 반환. 내부적으로 `SystemServiceRegistry` 및 Binder IPC 프록시를 활용.
+2. **`ServiceManager` (Handle 0)**: 부팅 시 Context Manager 로 등록되는 전역 Binder 서비스 디렉토리.
+3. **호출자 신원 및 권한 검증**: `system_server` 내부에서 커널이 보증하는 `Binder.getCallingUid()` / `getCallingPid()` 로 호출자의 패키지 귀속 및 권한을 검증.
+4. **`AppOpsManager` 동적 정책**: 런타임 권한이 승인된 후에도 백그라운드 상태, 사용자 개별 설정, 프라이버시 인디케이터에 따라 `noteOp()` / `startOp()` 를 통해 실행 시점 접근을 허용하거나 조용히 무시(`MODE_IGNORED`).
 
 ```kotlin
-// getSystemService 예시
-val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-val appOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+// 1. 타입 세이프한 시스템 서비스 획득
+val alarmManager = context.getSystemService(AlarmManager::class.java)
+val appOpsManager = context.getSystemService(AppOpsManager::class.java)
 
-// AppOps 상태 확인 예시
+// 2. 실행 시점 AppOps 상태 사전 확인
 val mode = appOpsManager.unsafeCheckOpNoThrow(
     AppOpsManager.OPSTR_FINE_LOCATION,
     Process.myUid(),
     context.packageName
 )
+when (mode) {
+    AppOpsManager.MODE_ALLOWED -> { /* 기능 정상 실행 */ }
+    AppOpsManager.MODE_IGNORED -> { /* 데이터 빈 값 처리 또는 안내 UI 표시 */ }
+    AppOpsManager.MODE_ERRORED -> { /* 명시적 권한 오류 처리 */ }
+}
 ```
 
-### 관찰 신호 (Observation Signals)
+### 관찰 신호 및 CLI 검증 (Observation Signals)
 
-- `adb shell dumpsys activity services` 등을 통한 매니저 상태와 등록된 옵저버 로그 분석.
-- SecurityException 발생 시 호출자의 UID 와 요청된 Permission/AppOps 로그.
+- **등록된 서비스 전체 조회**: `adb shell service list`
+- **시스템 서비스 상세 덤프**: `adb shell dumpsys activity services`, `adb shell dumpsys package <package_name>`
+- **AppOps 상태 및 이력 조회**: `adb shell dumpsys appops <package_name>`
+- **AppOps 모드 강제 변경 (테스트용)**: `adb shell cmd appops set <package_name> <OP_NAME> <allow|ignore|deny|default>`
 
-### 읽는 순서
+### 읽는 순서 (Recommended Reading Order)
 
-1. [Context.getSystemService()](get-system-service.md) 에서 공개 API 계약과 구현 세부를 분리한다.
-2. [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](./system-server-uid-pid-check.md) 에서 permission 검사가 어디서 일어나는지 확인한다.
-3. [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-permission-denial.md) 에서 permission 통과와 실제 실행 허용이 다른 이유를 본다.
+1. [ServiceManager (중앙 서비스 디렉토리 & Handle 0)](./service-manager.md): 커널 레벨 Handle 0 등록 및 전역 Binder 디렉토리 메커니즘 확인.
+2. [Context.getSystemService (시스템 서비스 획득 매커니즘)](./get-system-service.md): 앱 관점에서의 서비스 조회, Context 타입별 캐싱 및 IPC 오버헤드 이해.
+3. [ActivityManagerService (AMS) & ATMS](./activity-manager-service.md): 컴포넌트 수명주기, Task 백스택, 프로세스 OOM 점수 관리 확인.
+4. [PackageManagerService (PMS)](./package-manager-service.md): APK 파싱, `packages.xml`, UID 할당, Intent 해소 메커니즘 확인.
+5. [WindowManagerService (WMS)](./window-manager-service.md): 윈도우 계층 구조, Z-order, Surface 할당 및 입력 이벤트 디스패칭 확인.
+6. [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](./system-server-uid-pid-check.md): `system_server`의 UID/PID 검증과 `clearCallingIdentity()` 보안 경계 확인.
+7. [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-permission-denial.md): 권한 통과 후 실행 시점 AppOps 개입과 `MODE_IGNORED` 처리 확인.
 
-### 문제 분류
+### 문제 분류 (Troubleshooting Matrix)
 
-| 증상 | 먼저 확인할 경계 |
-| --- | --- |
-| `getSystemService` 가 null 을 반환 | Context 종류(Application/Activity/Service)와 서비스 존재 여부 |
-| permission 은 granted 인데 API 가 조용히 실패하거나 빈 값 반환 | AppOps mode, 사용자 설정에서의 개별 취소, background 제한 |
-| 서비스 호출이 오래 걸리거나 ANR | Binder 왕복이 main thread 를 막고 있는지 |
-| 같은 API 가 기기마다 다르게 동작 | system_server 구현이 OEM 커스터마이징의 영향을 받는지 |
+| 증상 | 먼저 확인할 경계 | 점검 CLI / 진단 신호 |
+| :--- | :--- | :--- |
+| `getSystemService()` 가 null 반환 | 지원되지 않는 하드웨어 피처 또는 유효하지 않은 Context | `pm has-system-feature <FEATURE>` |
+| UI 관련 서비스에서 토큰 오류 발생 | `ApplicationContext` 에서 윈도우/다이얼로그 획득 시도 | `WindowManager.BadTokenException` 로그 확인 |
+| permission 승인 상태인데 데이터가 0/null/무응답 | AppOps 실시간 거부 (`MODE_IGNORED`) | `adb shell dumpsys appops <pkg>` |
+| 시스템 서비스 호출 시 UI 프리징/ANR | 메인 스레드에서의 동기 Binder IPC 폴링 루프 | `anr/traces.txt` 내 Binder 트랜잭션 대기 스택 |
+| `SecurityException: Permission Denial` | UID 에 필요한 권한 미선언 또는 권한 철회 | `dumpsys package <pkg>` 권한 부여 상태 |
 
-### 책임 경계
+### 책임 경계 (Architectural Boundaries)
 
-- 매니저 객체는 앱 쪽 핸들이지만 메서드마다 로컬 처리, Binder IPC, 공유 메모리/소켓 채널이 다를 수 있고 원격 서비스가 항상 system_server 에 있는 것도 아니다.
-- permission 은 "이 기능을 요청할 자격이 있는가"를, AppOps 는 "지금 이 순간 실행을 허용하는가"를 각각 답한다. 이 지도의 개별 서비스 노트는 이 둘의 차이를 반복 설명하지 않고 여기로 링크한다.
-- 이 노트는 Binder IPC 메커니즘 자체(marshalling, thread pool, death recipient)를 다루지 않는다. 그 내용은 `01_system_internals/ipc-and-process` 가 담당한다.
+- 매니저 객체(`LocationManager`, `NotificationManager` 등)는 클라이언트 프록시이며, 실제 상태와 연산은 `system_server` 또는 하위 네이티브 데몬(SurfaceFlinger, AudioFlinger)에서 실행된다.
+- **Permission**은 "이 앱이 해당 기능을 사용할 정적/동적 자격이 있는가"를 검증하고, **AppOps**는 "지금 이 순간(포그라운드 여부, 배터리 상태, 개인정보 토글) 해당 동작을 허용할 것인가"를 판정한다.
+- 저수준 Binder IPC 구조(Driver ioctl, Binder 스레드 풀, Marshalling, Parcel)는 `01_system_internals/ipc-and-process/binder-ipc.md`가 담당한다.
 
-### 노트 목록
+### 노트 목록 (Topic Notes)
 
-- [Context.getSystemService()](get-system-service.md)
+- [ServiceManager (중앙 서비스 디렉토리 & Handle 0)](./service-manager.md)
+- [Context.getSystemService (시스템 서비스 획득 매커니즘)](./get-system-service.md)
+- [ActivityManagerService (AMS) & ATMS](./activity-manager-service.md)
+- [PackageManagerService (PMS)](./package-manager-service.md)
+- [WindowManagerService (WMS)](./window-manager-service.md)
 - [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](./system-server-uid-pid-check.md)
 - [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-permission-denial.md)
 
-검증일: 2026-08-06. `Context.getSystemService()`, Binder caller identity, AppOps 모델을 공식 API 및 Binder 문서와 재대조했다.
+검증일: 2026-08-24. `Context.getSystemService()`, `ServiceManager`, Binder caller identity, AppOps 모델을 Android Open Source Project (AOSP) 공식 소스 및 API 문서와 대조 검증 완료.
+

@@ -2,7 +2,7 @@
 title: contactless-payment-boundaries
 tags: ["android", "android/system-services"]
 aliases: ["비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-24 18:05:00 +09:00
 date created: 2026-07-31 17:46:00 +09:00
 ---
 
@@ -13,54 +13,81 @@ date created: 2026-07-31 17:46:00 +09:00
 
 ### 결제와 태깅의 차이
 
-NDEF 태깅은 URI, MIME, 애플리케이션 데이터를 읽고 쓰는 흐름이다.
-비접촉 결제는 리더가 카드 애플리케이션을 선택하고 APDU를 교환하는 흐름이다.
-따라서 태그 읽기 코드를 확장한다고 결제 기능이 완성되지 않는다.
-결제는 HCE, `Secure Element`(기기 내부에 위치하여 암호화 키와 결제 자격 증명을 물리적으로 안전하게 보호하는 전용 하드웨어 보안 칩), 결제 네트워크 규격의 조합을 별도로 설계한다.
+NDEF 태깅은 단순 URI나 MIME 데이터를 읽고 쓰는 흐름인 반면, 비접촉 결제는 결제 단말(POS)과 EMV 표준 기반 ISO 7816-4 APDU를 교환하며 암호화된 토큰을 검증하는 복합 엔지니어링 영역이다. HCE, Secure Element, 키스토어, 백엔드 토큰화(Tokenization)가 결합된다.
 
-### 구현 전 확인
+### 다이어그램
 
-기기에 NFC 하드웨어와 필요한 카드 에뮬레이션 기능이 있는지 확인한다.
-HCE 기능 필수 여부는 uses-feature와 제품의 핵심 경로를 기준으로 결정한다.
-기본 지갑 역할, payment AID, 화면 잠금 정책을 제품 요구와 대조한다.
-사용할 리더가 ISO-DEP와 요구 APDU를 지원하는지 테스트 장비로 확인한다.
+```mermaid
+flowchart TD
+    subgraph ClientAndApp["결제 앱 (Client Application)"]
+        WalletApp["지갑 앱 (RoleManager.ROLE_WALLET)"]
+        Keystore["AndroidKeyStore (인증 키 / 세션 토큰)"]
+    end
 
-### 거래 상태
+    subgraph SystemHCE["Android 시스템 HCE 프레임워크"]
+        HostService["HostApduService (Payment Category)"]
+        CardEmulationService["CardEmulation (Default Wallet 라우팅)"]
+    end
 
-거래 시작, 리더 선택, 인증, 데이터 교환, 승인, 종료를 명시적인 상태로 둔다.
-각 상태에 진입할 수 있는 APDU와 반환할 상태 워드를 문서화한다.
-onDeactivated가 호출되면 진행 중 상태와 임시 데이터를 안전하게 정리한다.
-네트워크 지연이 NFC 시간 제한을 넘지 않도록 사전 토큰화나 캐시를 고려한다.
-캐시된 결제 자격은 재사용, 만료, 폐기 정책을 가져야 한다.
+    subgraph ExternalPOS["외부 환경 & 결제망"]
+        POSTerminal["POS 결제 단말 (ISO-DEP 리더)"]
+        PaymentServer["결제 네트워크 서버 (토큰 검증 및 승인)"]
+    end
 
-### 보안
+    WalletApp --> HostService
+    Keystore --> HostService
+    HostService --> CardEmulationService
+    CardEmulationService <-->|NFC RF (APDU)| POSTerminal
+    POSTerminal -->|온라인 승인 요청| PaymentServer
+```
 
-NFC 통신이 짧은 거리라는 사실만으로 도청과 릴레이 위험이 사라지지 않는다.
-민감한 자격 증명은 평문 APDU나 NDEF payload에 넣지 않는다.
-앱 샌드박스, Android Keystore, 서버 측 토큰 검증을 역할에 맞게 사용한다.
-서비스 입력은 신뢰하지 않고 길이, 순서, 인증 상태, 재전송을 검증한다.
-거래 로그에는 원본 PAN이나 비밀 키 대신 추적 가능한 비민감 식별자를 남긴다.
+### 코드 예시: 기본 결제 서비스 확인 및 설정 유도
 
-### 기기 호환성
+```kotlin
+val cardEmulation = CardEmulation.getInstance(nfcAdapter)
+val paymentComponent = ComponentName(context, MyPaymentService::class.java)
 
-NFC 안테나 위치와 감도, 화면 및 잠금 상태, 제조사 구현이 기기마다 다르다.
-여러 제조사와 OS 버전에서 탭 위치, 성공률, 응답 시간, 중단 복구를 측정한다.
-리더 종류, 카드 시뮬레이터, 실제 POS를 나눠 테스트한다.
-Observe Mode를 사용하는 경우 폴링 프레임과 실제 APDU를 각각 수집한다.
+// 1. 현재 앱이 기본 결제 서비스인지 확인
+val isDefault = cardEmulation.isDefaultServiceForCategory(
+    paymentComponent,
+    CardEmulation.CATEGORY_PAYMENT
+)
+
+if (!isDefault) {
+    // 2. 기본 결제 서비스 등록 설정 다이얼로그 팝업
+    val intent = Intent(CardEmulation.ACTION_CHANGE_DEFAULT).apply {
+        putExtra(CardEmulation.EXTRA_CATEGORY, CardEmulation.CATEGORY_PAYMENT)
+        putExtra(CardEmulation.EXTRA_SERVICE_COMPONENT, paymentComponent)
+    }
+    context.startActivity(intent)
+}
+```
+
+### 거래 상태와 보안 원칙
+
+1. **상태 머신**: SELECT AID -> GET PROCESSING OPTIONS -> READ RECORD -> GENERATE AC(Application Cryptogram)로 이어지는 EMV 거래 상태를 명시적으로 관리한다.
+2. **토큰 보안**: 민감한 실제 카드 번호(PAN)를 기기에 저장하지 않고, 결제망(TSP)에서 발급받은 제한적 사용 토큰(LUPC)을 활용한다.
+3. **네트워크 지연 격리**: NFC 탭 시간(보통 500ms 이내)을 만족하기 위해 거래 시점에는 오프라인 암호 토큰으로 응답하고 백엔드 승인은 비동기로 처리한다.
+
+### 경계
+
+- 이 노트는 비접촉 결제 시스템의 엔지니어링 경계를 다룬다. 저수준 HCE 구현은 [HCE는 HostApduService가 APDU 거래를 처리하는 모델이다](hce-host-apdu-service.md)가 다룬다.
+- 키 관리 및 생체 인증 연동은 [생체 인증/자격 증명 계약](../biometrics-credential/biometrics-credential.md)이 다룬다.
 
 ### 관찰 가능한 신호
 
-`adb shell dumpsys nfc`의 카드 에뮬레이션 섹션에서 등록된 AID 라우팅 테이블과 현재 기본으로 선택된 payment 서비스를 확인할 수 있다. 거래가 중단되는 시점은 `HostApduService.onDeactivated(int reason)`에 전달되는 `DEACTIVATION_LINK_LOSS`(리더에서 태그가 물리적으로 이탈)와 `DEACTIVATION_DESELECTED`(다른 AID/서비스로 전환)를 구분해 로그로 남기면, 태깅 실패와 서비스 선택 충돌을 서로 다른 원인으로 재현할 수 있다.
+```bash
+# 1. 결제 카테고리 기본 서비스 확인
+adb shell dumpsys nfc | grep -A 10 "Payment Defaults"
 
-### 운영 기준
-
-성공만이 아니라 실패 원인, 타임아웃, 취소, 서비스 선택 충돌을 관찰한다.
-결제 실패 시 사용자가 재시도할 수 있는 명확한 경로를 제공한다.
-공식 Android API와 대상 API 수준의 변경점을 릴리스마다 다시 확인한다.
-문서에 없는 미래 기능이나 마케팅 주장은 구현 요구 사항으로 사용하지 않는다.
+# 2. 기본 결제 서비스 변경 인텐트 로그 확인
+adb logcat -s CardEmulation PaymentService
+```
 
 ### 공식 문서
 
 - https://developer.android.com/develop/connectivity/nfc
 - https://developer.android.com/develop/connectivity/nfc/hce
 - https://developer.android.com/develop/connectivity/nfc/advanced-nfc
+
+검증일: 2026-08-03. CardEmulation 결제 카테고리 및 기본 지갑 설정을 공식 문서를 기준으로 확인했다.

@@ -1,14 +1,14 @@
 ---
 title: vpn-always-on-vs-lockdown
-tags: [android, security, vpn, vpnservice, always-on, lockdown, firewall]
-aliases: [VPN Always-on vs Lockdown, Always-on VPN, VPN Lockdown]
-date modified: 2026-08-07 13:10:00 +09:00
+tags: ["android", "android/security-privacy", "security", "vpn", "vpnservice", "always-on", "lockdown", "firewall"]
+aliases: ["VPN Always-on vs Lockdown", "Always-on VPN", "VPN Lockdown"]
+date modified: 2026-08-24 18:00:00 +09:00
 date created: 2026-08-07 13:10:00 +09:00
 ---
 
-# VPN Always-on vs Lockdown (안드로이드 VPN 트래픽 차단 메커니즘)
+## VPN Always-on vs Lockdown (안드로이드 VPN 트래픽 차단 메커니즘)
 
-## 1. 개요 (Overview)
+### 1. 개요 (Overview)
 
 **VPN Always-on 과 Lockdown** 은 기업 보안 및 프라이버시 보호를 위해 Android OS 가 제공하는 **두 가지 수준의 전역 가상 사설망(VPN) 자동 연결 및 트래픽 통제 정책**이다.
 
@@ -35,7 +35,7 @@ graph TD
 
 ---
 
-## 2. Always-on 대 Lockdown 모드 핵심 상세 비교표
+### 2. Always-on 대 Lockdown 모드 핵심 상세 비교표
 
 | 비교 항목 | Always-on VPN | Lockdown Mode (VPN 전면 봉쇄) |
 | :--- | :--- | :--- |
@@ -47,23 +47,73 @@ graph TD
 
 ---
 
-## 3. 코드 예시 및 CLI 진단 명령어
+### 3. VpnService 구현 및 Manifest 설정 (Kotlin & XML)
 
-`adb shell` 로 안드로이드 기기 내 활성화된 Always-on 및 Lockdown VPN 의 상태를 진단할 수 있다:
+```xml
+<!-- AndroidManifest.xml: VpnService 선언 및 BIND_VPN_SERVICE 권한 바인딩 -->
+<service
+    android:name=".MySecureVpnService"
+    android:permission="android.permission.BIND_VPN_SERVICE"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.net.VpnService" />
+    </intent-filter>
+</service>
+```
 
-```bash
-# dumpsys vpn 을 통해 Always-on 패키지명 및 Lockdown 활성화 현황 덤프
-adb shell dumpsys vpn
+```kotlin
+// MySecureVpnService.kt
+import android.net.VpnService
+import android.os.ParcelFileDescriptor
+import java.net.InetAddress
 
-# 글로벌 시스템 설정에서 Always-on 패키지 및 Lockdown 상태 조회
-adb shell settings get secure always_on_vpn_app
-adb shell settings get secure always_on_vpn_lockdown
+class MySecureVpnService : VpnService() {
+    private var vpnInterface: ParcelFileDescriptor? = null
+
+    override fun onStartCommand(intent: android.content.Intent?, flags: Int, startId: Int): Int {
+        if (vpnInterface == null) {
+            vpnInterface = Builder()
+                .setSession("SecureEnterpriseVPN")
+                .addAddress("10.0.0.2", 24)
+                .addRoute("0.0.0.0", 0) // 모든 IPv4 트래픽을 tun0로 라우팅
+                .addDnsServer("1.1.1.1")
+                .setBlocking(true)
+                .establish()
+        }
+        return START_STICKY
+    }
+
+    override fun onDestroy() {
+        vpnInterface?.close()
+        vpnInterface = null
+        super.onDestroy()
+    }
+}
 ```
 
 ---
 
-## 4. 연결 문서 (Related Links)
+### 4. CLI 진단 명령어 (ADB Verification)
 
+`adb shell` 로 안드로이드 기기 내 활성화된 Always-on 및 Lockdown VPN 의 상태를 진단할 수 있다:
+
+```bash
+# 1. dumpsys vpn 을 통해 Always-on 패키지명 및 Lockdown 활성화 현황 덤프
+adb shell dumpsys vpn
+
+# 2. 글로벌 시스템 설정에서 Always-on 패키지 및 Lockdown 상태 조회
+adb shell settings get secure always_on_vpn_app
+adb shell settings get secure always_on_vpn_lockdown
+
+# 3. 네트워크 인터페이스 목록 중 tun0(VPN 인터페이스) 활성화 여부 확인
+adb shell ip addr show tun0
+```
+
+---
+
+### 5. 연결 문서 (Related Links)
+
+- [Android 플랫폼 보안 경계 계약](platform-security.md) - 플랫폼 보안 아키텍처 허브
 - [Android Connectivity 런타임](../../01_system_internals/connectivity/android-connectivity.md) - Connectivity 서비스 계층
 - [NetId & Multi-Routing Table](../../01_system_internals/connectivity/netid-routing-table.md) - VPN tun0 라우팅 테이블
 - [Private DNS & DNS-over-TLS](../../../../computer-science/networking/dns-over-tls-dot.md) - VPN 환경에서의 DNS 통제

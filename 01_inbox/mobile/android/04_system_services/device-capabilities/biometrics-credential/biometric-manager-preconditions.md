@@ -21,6 +21,18 @@ date created: 2026-08-03 17:29:24 +09:00
 
 인증 강도 비트마스크(**Authenticators**: 요구되는 보안 수준으로 `BIOMETRIC_STRONG`은 암호화 키 해제용 강한 생체 인증, `BIOMETRIC_WEAK`는 미인증 시도가 쉬운 약한 생체 인증, `DEVICE_CREDENTIAL`은 기기 PIN/패턴/비밀번호) 조합에 따라 결과가 달라질 수 있다. `BIOMETRIC_STRONG`만 요청하면 얼굴 인식처럼 약한 등급으로 분류된 방식은 지원하지 않는다는 결과가 나올 수 있다.
 
+### 다이어그램
+
+```mermaid
+flowchart TD
+    Start["canAuthenticate(authenticators) 호출"] --> Decision{"반환 코드 판별"}
+    Decision -- "BIOMETRIC_SUCCESS" --> Action["인증 실행 (BiometricPrompt.authenticate)"]
+    Decision -- "BIOMETRIC_ERROR_NONE_ENROLLED" --> Enroll["설정의 생체 정보 등록 화면으로 유도\n(ACTION_BIOMETRIC_ENROLL)"]
+    Decision -- "BIOMETRIC_ERROR_HW_UNAVAILABLE" --> Retry["잠시 후 재시도 UI 노출"]
+    Decision -- "BIOMETRIC_ERROR_NO_HARDWARE" --> Fallback["PIN / 비밀번호 일반 로그인 대체"]
+    Decision -- "BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED" --> SecUpdate["보안 패치 / 업데이트 안내"]
+```
+
 ### 최소 안전 호출 흐름
 
 ```kotlin
@@ -51,7 +63,15 @@ when (BiometricManager.from(context).canAuthenticate(authenticators)) {
 
 ### 관찰 가능한 신호
 
-`canAuthenticate()`의 반환 코드를 로그로 남겨 QA 단계에서 하드웨어 부재/미등록 상태를 구분해 재현할 수 있다. 에뮬레이터는 기본적으로 생체 하드웨어가 없어 `BIOMETRIC_ERROR_NO_HARDWARE`가 반환되므로, 실기기 테스트가 필요하다.
+`canAuthenticate()`의 반환 코드를 로그로 남겨 QA 단계에서 하드웨어 부재/미등록 상태를 구분해 재현할 수 있다.
+
+```bash
+# 1. 생체 인증 센서 지원 상태 및 현재 등록된 템플릿(Enrollment) 덤프
+adb shell dumpsys biometric | grep -A 10 "Sensor modalities"
+
+# 2. 지문 센서 등록 데이터 확인
+adb shell dumpsys fingerprint | grep -A 5 "current user"
+```
 
 ### 공식 문서
 

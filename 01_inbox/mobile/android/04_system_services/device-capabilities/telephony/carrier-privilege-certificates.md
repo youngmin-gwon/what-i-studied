@@ -25,6 +25,21 @@ SIM 카드는 `ARA-M`/`ARF` 규격에 따라 신뢰할 특정 서명 인증서 �
 - 통신사와 협업하는 앱(운영사 자체 앱)을 개발하는 경우, SIM에 서명 해시를 심는 절차는 개발자가 아니라 통신사와의 협의 및 SIM 프로파일링 과정에서 결정된다.
 - carrier privilege 여부가 SIM 교체나 eSIM 프로필 전환에 따라 바뀔 수 있다는 점을 상태 확인 로직에 반영한다.
 
+### 다이어그램
+
+```mermaid
+sequenceDiagram
+    participant CarrierApp as 통신사 앱 (APK)
+    participant TM as TelephonyManager
+    participant UICC as SIM 카드 (ARAM / ARAD 규칙)
+
+    CarrierApp->>TM: hasCarrierPrivileges() 호출
+    TM->>CarrierApp: 앱 서명 인증서의 SHA-1 / SHA-256 해시 추출
+    TM->>UICC: SIM 내부에 저장된 통신사 허용 서명 인증서 목록 조회
+    UICC-->>TM: 규칙 일치 확인 (Match)
+    TM-->>CarrierApp: Carrier Privileges 권한 승인 (true 반환)
+```
+
 ### 최소 안전 확인 흐름
 
 `hasCarrierPrivileges()`는 현재 `TelephonyManager`가 가리키는 구독에 대해 `Boolean`을 반환한다. 멀티 SIM에서는 활성 `subscriptionId`를 다시 얻은 뒤 구독별 인스턴스로 확인하고, 전화 기능 자체가 없는 기기도 먼저 제외한다.

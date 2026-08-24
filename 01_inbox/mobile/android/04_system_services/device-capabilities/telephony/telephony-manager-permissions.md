@@ -25,6 +25,16 @@ date created: 2026-08-03 17:29:24 +09:00
 - 기기 식별을 목적으로 IMEI를 시도하지 말고, 앱 고유 식별에는 앱 설치 범위 식별자나 앱이 생성한 UUID를 사용한다. IMEI 접근은 대부분의 일반 앱 시나리오에서 정당화되지 않는다.
 - 통화 상태만 필요하면(예: 통화 중 알림 음소거) `READ_PHONE_STATE`로 충분하며 더 넓은 권한을 요청하지 않는다.
 
+### 다이어그램
+
+```mermaid
+flowchart TD
+    Req["Telephony 정보 접근 요청"] --> CheckType{"요청 정보 유형"}
+    CheckType -- "통화 상태 (CALL_STATE_RINGING/OFFHOOK)" --> BasicState["READ_PHONE_STATE 또는\nAndroid 12+ READ_BASIC_PHONE_STATE"]
+    CheckType -- "기기 전화번호 (Line1Number)" --> PhoneNum["Android 11+ READ_PHONE_NUMBERS\n(READ_PHONE_STATE로 대체 불가)"]
+    CheckType -- "기기 고유 식별자 (IMEI / MEID)" --> Privileged["READ_PRIVILEGED_PHONE_STATE\n(일반 서드파티 앱 접근 불가, 시스템 앱 전용)"]
+```
+
 ### 최소 권한별 호출 흐름
 
 전화번호와 통화 상태는 같은 승인 결과로 묶지 않는다. API 33+의 회선 번호는 `SubscriptionManager.getPhoneNumber(subscriptionId)`를 사용하고, 보안 인증에는 반환 번호를 신뢰하지 말고 별도 검증을 거친다. 번호는 사용할 수 없으면 빈 문자열일 수 있다.

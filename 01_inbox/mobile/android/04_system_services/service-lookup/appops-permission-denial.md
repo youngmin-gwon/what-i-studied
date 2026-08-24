@@ -1,92 +1,127 @@
 ---
 title: appops-permission-denial
-tags: ["android", "android/system-services"]
-aliases: []
-date modified: 2026-08-06 14:59:18 +09:00
+tags: ["android", "android/system-services", "appops", "security", "permissions"]
+aliases: ["AppOps 권한 거부", "AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다"]
+date modified: 2026-08-24 18:20:00 +09:00
 date created: 2026-08-03 17:17:39 +09:00
 ---
 
-# Appops Permission Denial
+## AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다
 
-## 1. 개요 (Overview)
+### 1. 개요 (Overview)
 
-### 초보자를 위한 쉽게 이해하는 비유
-* **AppOps 권한 거부 (출입증은 있으나 내부 세부 구역 출입 통제)**:
-  - 건물 출입증(런타임 권한)을 받았더라도, 특정 보안 구역(위치 추적, 카메라 등) 진입 시 개별 센서 관리자(AppOps)가 실시간으로 통제하여 동작을 거부시키는 2차 보안 거부 메커니즘.
+**AppOps**(App Operations, `AppOpsManager`)는 Android 플랫폼의 정적/동적 런타임 권한(Permission) 승인 상태와 별개로 동작하는 **동적 실행 시점 정책 계층(Dynamic Runtime Policy Layer)**이다.
+
+앱이 Manifest 에 권한을 선언하고 사용자가 런타임 권한 대화상자에서 "허용"을 부여했더라도, 해당 동작에 매핑된 App-Op 모드가 `MODE_IGNORED` 또는 `MODE_ERRORED` 상태이면 시스템 서비스는 크래시 없이 조용히 무시(Silent Failure)하거나 빈 데이터/기본값을 반환한다.
+
+---
+
+#### 초보자를 위한 쉽게 이해하는 비유
+
+- **AppOps 권한 거부 (출입증은 있으나 내부 세부 구역 출입 통제)**:
+  - 회사 사원증(런타임 권한)을 받았더라도, 특정 보안 구역(카메라, 마이크, 위치 센서) 진입 시 보안실 관리자(AppOps)가 "현재 회의 중 아님", "백그라운드 상태임" 등의 실시간 조건을 따져 문을 열어주지 않거나 더미 데이터를 주는 2차 실시간 통제 메커니즘.
 
 ```mermaid
 graph TD
-    App["앱 요청"] --> PermCheck{"1. Runtime Permission 허용 여부"}
-    PermCheck -->|"No"| Reject1["SecurityException 발생"]
-    PermCheck -->|"Yes"| AppOpsCheck{"2. AppOps 2차 실시간 상태 검사"}
-    AppOpsCheck -->|"MODE_IGNORED"| SilentFail["무응답 또는 0/null 빈 데이터 반환"]
-    AppOpsCheck -->|"MODE_ALLOWED"| Execute["정상 하드웨어/서비스 수행"]
+    App["앱 요청 (Location / Camera 등)"] --> PermCheck{"1. Runtime Permission 허용 여부"}
+    PermCheck -->|"No (미승인)"| Reject1["SecurityException 발생 (Fail-Fast)"]
+    PermCheck -->|"Yes (승인됨)"| AppOpsCheck{"2. AppOps 실시간 모드 검사 (noteOp / checkOp)"}
+    
+    AppOpsCheck -->|"MODE_ALLOWED"| Execute["정상 하드웨어/센서 데이터 반환"]
+    AppOpsCheck -->|"MODE_IGNORED"| SilentFail["조용한 무시 (null / 빈 리스트 / 0 반환)"]
+    AppOpsCheck -->|"MODE_ERRORED"| ThrowSec["SecurityException 발생"]
+    AppOpsCheck -->|"MODE_FOREGROUND"| FGCheck{"앱이 현재 포그라운드 상태인가?"}
+    FGCheck -->|"Yes"| Execute
+    FGCheck -->|"No"| SilentFail
 ```
 
 ---
 
+### 2. 핵심 메커니즘 (Key Mechanisms)
+
+#### 1) 런타임 Permission 과 App-Op 의 매핑
+- 플랫폼이 정의한 런타임 dangerous permission 에는 추적 및 통제용 App-Op 이 1:1 또는 1:N 으로 연결된다 (`AppOpsManager.permissionToOp()`, 예: `android.permission.CAMERA` ↔ `OPSTR_CAMERA`).
+- `noteOp()`: 1회성 데이터 접근(예: 마지막 위치 조회) 시 사용.
+- `startOp()` & `finishOp()`: 지속적인 세션(예: 마이크 녹음, 카메라 스트리밍) 동안 사용되며, 상태바의 프라이버시 인디케이터(초록색 점)를 활성화한다.
+
+#### 2) AppOps 모드 4대 상태
+- **`MODE_ALLOWED` (0)**: 정상 접근 허용.
+- **`MODE_IGNORED` (1)**: 조용히 무시 (Silent Ignore). 예외를 던지지 않고 0, null, 빈 리스트를 반환하여 앱 충돌을 방지하면서 프라이버시를 보호.
+- **`MODE_ERRORED` (2)**: 명시적 `SecurityException` 발생.
+- **`MODE_DEFAULT` (3)**: 플랫폼 기본 권한 결정 규칙을 따름.
+- **`MODE_FOREGROUND` (4)**: 앱이 포그라운드(화면 상단 액티비티 또는 FGS)에 있을 때만 허용.
+
 ---
 
-## AppOps 는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다
+### 3. 코드 레벨 흐름 (Kotlin Code Example)
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
-
-관련 지도: [시스템 서비스 접근 공통 계약](./service-lookup.md)
-
-### 핵심 정의
-
-**AppOps**(App Operations, `AppOpsManager`)는 런타임 권한(Permission) 승인 상태와 별개로 동작하는 동적 실행 시점 정책 계층이다. 앱이 dangerous permission을 정상적으로 부여받았더라도, 해당 동작에 대응하는 app-op이 `MODE_IGNORED` 또는 `MODE_ERRORED` 상태면 시스템은 데이터 접근 요청을 조용히 무시하거나 거부한다.
-
-### 메커니즘
-
-플랫폼이 정의한 런타임 permission에는 background modifier를 제외하고 추적용 app-op이 연결되며, 대응 관계는 `AppOpsManager.permissionToOp()`으로 확인할 수 있다(예: `android.permission.CAMERA` ↔ 카메라 op). 실제 보호 API 제공자는 permission 검사와 별도로 `noteOp()`/`startOp()`의 결과를 적용한다. 한 번의 접근은 `noteOp()`, 녹음처럼 지속되는 세션은 `startOp()`와 `finishOp()`가 맞다.
-
-app-op 모드는 사용자의 세부 설정(예: 위치 접근을 "이 앱 사용 중에만 허용"), 배터리/개인정보 관리 기능의 자동 개입, 또는 OS 의 background 제한에 의해 permission grant 상태와 독립적으로 바뀔 수 있다. `noteOp()` 호출 시점은 대개 실제 데이터 접근 순간이며, 이 시점 기록이 시스템 설정의 "최근 접근" UI 에 나타난다.
-
-### 판단 기준
-
-- permission 이 granted 인데 API 가 예외 없이 빈 데이터나 stale 데이터를 반환하면 permission 보다 AppOps 모드를 먼저 의심한다.
-- app-op 모드는 사용자가 설정 화면에서 앱별로 개별 조정할 수 있으므로, 같은 permission 을 가진 두 사용자 기기에서 동작이 다를 수 있다.
-- Android 10+ 위치의 "이 앱 사용 중에만" 옵션처럼, 하나의 permission 이 여러 app-op 세분화 상태를 가질 수 있다.
-
-### 제공자와 앱의 안전한 확인 흐름
-
-보호 API를 구현하는 시스템·플랫폼 제공자는 실제 접근 직전에 op을 기록하고 반환 모드를 적용해야 한다. 아래는 API 30+ 형태의 축약 예다.
+#### 플랫폼 서비스 제공자 관점의 검증 흐름
 
 ```kotlin
-val op = AppOpsManager.permissionToOp(requiredPermission)
-    ?: throw SecurityException("No app-op mapping")
+// 시스템 서비스 및 ContentProvider 에서의 보호 API 구현 예시
+fun readProtectedData(context: Context, requiredPermission: String): List<DataItem> {
+    val callingUid = Binder.getCallingUid()
+    val callingPackage = context.packageManager.getPackagesForUid(callingUid)?.firstOrNull()
+        ?: throw SecurityException("Unknown calling UID")
 
-context.enforceCallingPermission(requiredPermission, "permission required")
-val mode = appOps.noteOpNoThrow(
-    op,
-    Binder.getCallingUid(),
-    verifiedCallingPackage,
-    attributionTag,
-    "read protected data"
-)
-if (mode != AppOpsManager.MODE_ALLOWED) return emptyList()
-return readProtectedData()
+    // 1. 1차 정적 런타임 권한 강제
+    context.enforceCallingPermission(requiredPermission, "Permission required")
+
+    // 2. 2차 동적 AppOps 모드 확인
+    val appOps = context.getSystemService(AppOpsManager::class.java)
+    val op = AppOpsManager.permissionToOp(requiredPermission)
+        ?: return executeInternalQuery() // 매핑 op 없으면 진행
+
+    val mode = appOps.noteOpNoThrow(
+        op,
+        callingUid,
+        callingPackage,
+        null, // attributionTag (API 30+)
+        "Accessing protected items"
+    )
+
+    return when (mode) {
+        AppOpsManager.MODE_ALLOWED -> executeInternalQuery()
+        AppOpsManager.MODE_IGNORED -> emptyList() // 프라이버시 보호: 조용한 빈 리스트 반환
+        else -> throw SecurityException("AppOps denied execution: mode=$mode")
+    }
+}
 ```
 
-일반 앱은 이 코드를 permission 확인의 대체물로 복제하지 않는다. 앱 자신의 사전 check와 실제 사용 사이에도 상태가 바뀔 수 있으므로 보호 API의 콜백 부재·빈 결과·`SecurityException`을 최종 신호로 처리한다. `MODE_FOREGROUND`는 앱 상태에 따라 실제 note 시 `MODE_ALLOWED` 또는 `MODE_IGNORED`로 해석될 수 있다.
+---
 
-### 경계
+### 4. 관측 신호 및 CLI 명령어 (CLI Verification)
 
-- 이 노트는 AppOps 가 permission 과 별도 계층이라는 사실과 관찰 지점까지만 다룬다. 개별 서비스(location, camera 등)에서 AppOps 가 구체적으로 어떤 실패로 나타나는지는 각 클러스터 노트가 다룬다.
-- 앱이 스스로 AppOps 를 우회하거나 임의로 재정의하는 것은 시스템 권한 없이는 불가능하며, 이 노트는 그런 우회 방법을 다루지 않는다.
+```bash
+# 1. 특정 패키지의 모든 AppOps 모드 및 최근 접근 시각 덤프
+adb shell dumpsys appops <package_name>
 
-### 관찰 가능한 신호
+# 2. 특정 권한의 AppOps 모드를 수동으로 변경하여 '조용한 무시' 경로 테스트
+# 위치 권한을 승인한 상태에서 AppOps 모드를 ignore 로 강제
+adb shell cmd appops set <package_name> FINE_LOCATION ignore
 
-permission grant, 보호 API 결과, app-op 모드의 세 값을 함께 기록한다. `adb shell dumpsys appops`로 패키지별 모드와 마지막 접근 시각을 확인하고, 테스트 기기에서는 `adb shell cmd appops set <pkg> <op> <mode>`로 `allow`/`ignore`를 바꿔 "grant인데 콜백 없음" 경로를 재현한다.
+# 3. AppOps 모드를 다시 허용으로 원복
+adb shell cmd appops set <package_name> FINE_LOCATION allow
 
-### 공식 문서
+# 4. AppOps 상태를 시스템 기본값으로 초기화
+adb shell cmd appops reset <package_name>
+```
 
-- https://developer.android.com/reference/android/app/AppOpsManager
+---
 
-검증일: 2026-08-06. 런타임 permission과 app-op의 관계, `MODE_IGNORED`의 placeholder 동작, 실제 접근을 기록하는 `noteOp()`과 지속 접근용 `startOp()`/`finishOp()` 계약을 확인했다.
+### 5. 트러블슈팅 및 책임 경계 (Troubleshooting & Boundaries)
 
+- **증상: `checkSelfPermission` 은 GRANTED 인데 LocationListener 로 콜백이 전혀 오지 않음**:
+  - 원인: 백그라운드 제한 또는 사용자의 "앱 사용 중에만 허용" 설정으로 인해 AppOps 가 `MODE_IGNORED` 로 처리 중.
+  - 대책: 사전 check 의존을 지양하고, 타임아웃 fallback 및 포그라운드 서비스 전환을 적용.
+- **경계**: 일반 앱이 시스템 API 없이 스스로 타 앱의 AppOps 를 조작하거나 우회할 수 없으며, SELinux 커널 통제는 `05_security_privacy/platform-hardening` 에서 다룬다.
 
-## 4. 연결 문서 (Related Links)
-- [AppOps 및 권한 표준 레퍼런스](../../05_security_privacy/permissions/appops-and-permissions.md)
+---
+
+### 6. 연관 문서 (Related Links)
+
+- [시스템 서비스 접근 공통 계약](service-lookup.md)
+- [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](system-server-uid-pid-check.md)
+- [Context.getSystemService](get-system-service.md)
+- [안드로이드 권한 시스템 & AppOps](../../05_security_privacy/permissions/appops-and-permissions.md)
 - [system_server 표준 레퍼런스](../../01_system_internals/boot-and-runtime/system-server/system-server.md)

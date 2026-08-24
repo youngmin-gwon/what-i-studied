@@ -21,6 +21,21 @@ date created: 2026-08-03 17:29:24 +09:00
 
 `wakeup 센서`는 FIFO가 차는 등 전달이 필요할 때 AP를 깨울 수 있다. non-wakeup 센서는 AP를 스스로 깨우지 않지만 FIFO가 있다면 이벤트를 모아 두었다가 AP가 다른 이유로 깨어났을 때 전달할 수 있다. 두 카테고리는 `Sensor.isWakeUpSensor()`로 구분한다.
 
+### 다이어그램
+
+```mermaid
+sequenceDiagram
+    participant HW as Hardware Sensor / FIFO Buffer
+    participant AP as Application Processor (Sleep)
+    participant App as SensorEventListener
+
+    Note over HW: 센서 이벤트 지속 발생 (샘플링)
+    HW->>HW: FIFO 버퍼에 이벤트 누적 (AP 깨우지 않음)
+    Note over HW: maxReportLatencyUs 도달 또는 FIFO 만료
+    HW->>AP: 하드웨어 인터럽트 발화 (AP Wakeup)
+    AP->>App: onSensorChanged() 배치 일괄 전달
+```
+
 ### 배칭 등록과 flush 완료 확인
 
 ```kotlin
@@ -51,7 +66,17 @@ sensorManager.flush(listener) // 결과는 onFlushCompleted()까지 기다린다
 
 ### 관찰 가능한 신호
 
-`adb shell dumpsys sensorservice`에서 센서별 FIFO 최대 이벤트 수와 현재 등록된 리스너의 실제 요청 latency를 확인할 수 있다. 배칭이 기대대로 동작하는지는 이벤트 수신 타임스탬프 간격으로 직접 확인한다.
+`adb shell dumpsys sensorservice`에서 센서별 FIFO 최대 이벤트 수와 현재 등록된 리스너의 실제 요청 latency를 확인할 수 있다.
+
+```bash
+# 1. 센서 서비스 상태 및 활성 리스너의 latency 덤프
+adb shell dumpsys sensorservice
+
+# 2. 특정 패키지의 센서 점유 및 배칭 동작 실시간 확인
+adb shell dumpsys sensorservice | grep -A 10 "<package_name>"
+```
+
+배칭이 기대대로 동작하는지는 수신된 `event.timestamp` 목록 간격과 실제 콜백 호출 주기를 비교하여 직접 검증한다.
 
 ### 공식 문서
 

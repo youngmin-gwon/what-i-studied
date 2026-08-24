@@ -1,8 +1,8 @@
 ---
 title: appops-and-permissions
-tags: [android, appops, permissions, security]
-aliases: [Android Permission System, AppOps와 권한 시스템]
-date modified: 2026-08-06 18:57:26 +09:00
+tags: ["android", "android/security-privacy", "appops", "permissions", "security"]
+aliases: ["Android Permission System", "AppOps와 권한 시스템"]
+date modified: 2026-08-24 18:00:00 +09:00
 date created: 2026-08-06 16:31:15 +09:00
 ---
 
@@ -63,7 +63,24 @@ flowchart TD
 
 ---
 
-### 4. 초보자가 범하기 쉬운 안티패턴 및 주의사항 (Anti-Patterns & Pitfalls)
+### 4. CLI 진단 및 디버깅 명령어 (ADB Verification)
+
+```bash
+# 1. 앱의 전체 AppOps 상태 덤프
+adb shell appops get com.example.app
+
+# 2. 특정 민감 작업 AppOps 상태 조회 (카메라, 마이크, 위치)
+adb shell appops get com.example.app CAMERA
+adb shell appops get com.example.app RECORD_AUDIO
+adb shell appops get com.example.app COARSE_LOCATION
+
+# 3. 런타임 권한 승인 상태 확인
+adb shell dumpsys package com.example.app | grep -A 15 "runtime permissions:"
+```
+
+---
+
+### 5. 초보자가 범하기 쉬운 안티패턴 및 주의사항 (Anti-Patterns & Pitfalls)
 
 1. **런타임 권한만 체크하고 AppOps 의 Silent Ignore 상태를 간과하는 행위**:
    - 권한이 동의되어 있더라도 AppOps 가 `MODE_IGNORED` 상태이면 API 가 `SecurityException` 을 던지는 대신 빈 데이터나 null 을 반환합니다. 데이터가 비어 있을 때 앱이 튕기거나 무한 루프에 빠지지 않게 처리해야 합니다.
@@ -74,8 +91,11 @@ flowchart TD
 
 ---
 
-### 5. 연결 문서 (Related Links)
+### 6. 연결 문서 (Related Links)
 
 - [Runtime Permissions vs AppOps](runtime-permissions-vs-appops.md) - 런타임 권한과 AppOps 의 역할 및 동작 차이 상세 비교
+- [AppOps는 권한 이후의 민감 작업 실행 상태를 관찰하고 제어한다](appops-sensitive-operations.md) - AppOps 상세 동작 및 차단 모드
+- [권한 디버깅은 manifest, grant state, AppOps를 분리해 확인한다](permission-debugging-appops.md) - 권한 문제 3단계 디버깅
+- [Android 권한 계약](permissions.md) - Android 권한 체계 허브
 - [안드로이드 시스템 서비스 (system-server)](../../01_system_internals/boot-and-runtime/system-server/system-server.md) - 권한 및 AppOps 검증을 수행하는 프레임워크 프로세스
 - [Binder IPC](../../01_system_internals/ipc-and-process/binder-ipc.md) - 앱 프로세스와 system-server 간 보안 검증 요청을 전달하는 IPC 메커니즘

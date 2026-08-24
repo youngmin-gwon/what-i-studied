@@ -1,37 +1,38 @@
 ---
 title: alarm-manager
-tags: ["android", "android/system-services"]
-aliases: []
-date modified: 2026-08-05 16:15:00 +09:00
+tags: ["android", "android/system-services", "alarm-manager", "background", "exact-alarm"]
+aliases: ["AlarmManager", "AlarmManager 는 시간 자체가 기능인 이벤트에 쓴다", "알람매니저"]
+date modified: 2026-08-24 18:35:00 +09:00
 date created: 2026-08-03 16:59:23 +09:00
----
-
-# Alarm Manager Contract
-
-## 1. 개요 (Overview)
-
-### 초보자를 위한 쉽게 이해하는 비유
-* **AlarmManager (정확한 시각에 울리는 정밀 자상 모닝콜)**:
-  - 배터리 상태와 관계없이 정확히 지정된 시각(RTC_WAKEUP)에 CPU 를 깨워 알람이나 정시 사용자 이벤트를 처리하는 시스템 모닝콜 서비스.
-
-```mermaid
-graph TD
-    App["앱 프로세스"] -->|"setExactAndAllowWhileIdle"| AlarmManager["AlarmManager 시스템 서비스"]
-    AlarmManager -->|"지정 시각 도착"| RTC["RTC 하드웨어 타이머 깨움 (RTC_WAKEUP)"]
-    RTC -->|"PendingIntent 전달"| Receiver["BroadcastReceiver 또는 Activity 실행"]
-```
-
----
-
 ---
 
 ## AlarmManager 는 시간 자체가 기능인 이벤트에 쓴다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
+### 1. 개요 (Overview)
 
-관련 지도: [백그라운드 작업 계약](./background-work.md)
+**AlarmManager**는 특정 시각 또는 정밀한 시간 간격에 OS 가 기기의 CPU 를 깨워(`RTC_WAKEUP` / `ELAPSED_REALTIME_WAKEUP`) 등록된 `PendingIntent` 또는 `OnAlarmListener` 를 실행하도록 예약하는 Android 전원/시간 관리 시스템 서비스이다.
 
-### 핵심 주장
+알람 시계, 약 복용 리마인더, 정시 캘린더 알림처럼 **"정확한 시각 도달" 자체가 제품의 핵심 기능**일 때 사용하며, 일반적인 지연 가능한 데이터 동기화나 백업 작업에는 배터리 효율을 위해 [WorkManager](work-manager.md) 를 사용해야 한다.
+
+---
+
+#### 초보자를 위한 쉽게 이해하는 비유
+
+- **AlarmManager (정확한 시각에 울리는 정밀 시스템 모닝콜)**:
+  - 기기가 깊은 절전(Doze 모드)에 빠져 있더라도 정확히 지정된 시각에 하드웨어 RTC 타이머를 울려 앱을 깨우는 정밀 모닝콜 서비스.
+
+```mermaid
+graph TD
+    App["앱 프로세스"] -->|"1. setExactAndAllowWhileIdle(RTC_WAKEUP)"| AlarmManager["AlarmManager 시스템 서비스"]
+    AlarmManager -->|"2. 지정 시각 도착 (Doze 모드 중)"| RTC["하드웨어 RTC 알람 인터럽트"]
+    RTC -->|"3. CPU 깨움 & PendingIntent 발송"| Receiver["앱 BroadcastReceiver / Activity 실행"]
+    Receiver -->|"4. 짧은 알림 생성 / 긴 작업은 WorkManager 위임"| Done["사용자 가시 알림 표출"]
+```
+
+---
+
+### 2. 핵심 원칙 및 제약 (Core Principles)
+
 
 - AlarmManager 는 특정 시각 또는 시간 간격에 시스템이 앱을 깨워야 하는 기능에 적합하다.
 - 알람 시계, 약 복용 알림, 캘린더 리마인더처럼 시간 자체가 기능의 핵심인 경우를 우선 검토한다.

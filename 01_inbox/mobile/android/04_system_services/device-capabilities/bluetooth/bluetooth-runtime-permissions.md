@@ -57,6 +57,26 @@ Android 12+는 이 결합을 끊는다. 앱이 스캔 결과로 물리적 위치
 </manifest>
 ```
 
+```kotlin
+// Android 12 (API 31) 이상 런타임 권한 요청 흐름
+fun requestBluetoothPermissions(launcher: ActivityResultLauncher<Array<String>>) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        launcher.launch(
+            arrayOf(
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.BLUETOOTH_CONNECT
+            )
+        )
+    } else {
+        launcher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        )
+    }
+}
+```
+
 ### 다이어그램
 
 ```mermaid

@@ -1,8 +1,8 @@
 ---
-title: fusedlocationproviderclient-merges-multiple-location-sources
+title: fused-location-provider
 tags: ["android", "android/system-services"]
 aliases: ["FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다"]
-date modified: 2026-08-06 14:59:18 +09:00
+date modified: 2026-08-24 18:05:00 +09:00
 date created: 2026-08-03 17:19:24 +09:00
 ---
 
@@ -20,6 +20,25 @@ date created: 2026-08-03 17:19:24 +09:00
 앱은 `Priority`(예: `PRIORITY_HIGH_ACCURACY`, `PRIORITY_BALANCED_POWER_ACCURACY`)와 업데이트 interval을 지정해 **LocationRequest**(위치 요청 빈도, 요구 정확도 수준, 배터리 소모 정책을 설정하는 데이터 객체)를 만든다. 내부적으로 시스템은 이 요청을 다른 앱의 동시 요청과 병합해 실제 하드웨어(GPS 칩, 네트워크 위치 조회)에 필요한 최소한의 작업만 수행한다. 즉 여러 앱이 비슷한 정확도를 요청하면 시스템이 하드웨어 사용을 공유해 배터리를 아낀다.
 
 `getLastLocation()`은 캐시된 최근 위치를 즉시 반환하고, `requestLocationUpdates()`는 콜백으로 새 위치를 스트리밍한다. 두 API는 지연과 정확도 트레이드오프가 다르다.
+
+### 다이어그램
+
+```mermaid
+sequenceDiagram
+    participant App as 앱 클라이언트
+    participant FLP as FusedLocationProviderClient
+    participant Engine as GMS Core Location Engine
+    participant HW as GPS / Wi-Fi / Cell 모뎀
+
+    App->>FLP: requestLocationUpdates(LocationRequest)
+    FLP->>Engine: IPC 위치 요청 등록 (Priority, Interval)
+    Engine->>Engine: 다른 앱의 요청과 파라미터 병합 (Coalescing)
+    Engine->>HW: 최적화된 하드웨어 칩셋 활성화
+    HW-->>Engine: Raw 위성/기지국 신호 수신
+    Engine->>Engine: 칼만 필터 및 보정 연산
+    Engine-->>FLP: Location 콜백 전달
+    FLP-->>App: onLocationResult(LocationResult)
+```
 
 ### 신선도와 수명주기를 포함한 호출 흐름
 
@@ -51,6 +70,14 @@ suspend fun currentLocation(client: FusedLocationProviderClient): Location? {
 ### 관찰 가능한 신호
 
 `adb shell dumpsys location`으로 현재 등록된 위치 요청 목록과 마지막 위치 갱신 시각을 확인할 수 있다. 여러 앱이 등록한 요청과 그 priority/interval이 이 출력에 함께 나타난다.
+
+```bash
+# 1. Fused Location 공급자 상태 및 활성 리스너 목록 덤프
+adb shell dumpsys location | grep -A 15 "Geofences / Requests"
+
+# 2. 위치 제공자 전역 설정 확인
+adb shell settings get secure location_providers_allowed
+```
 
 ### 공식 문서
 

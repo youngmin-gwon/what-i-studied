@@ -21,6 +21,21 @@ date created: 2026-08-03 17:29:24 +09:00
 
 API 30 이상에서 여러 카메라를 동시에 써야 한다면 `getConcurrentCameraIds()`가 반환하는 조합 내에 속하는지 확인하고, 필요하면 `isConcurrentSessionConfigurationSupported()`로 세션 구성을 검증한다. 단, 동시 카메라 조합(concurrent cameras)을 열 때도 각 카메라 장치는 개별적인 우선순위 경쟁 대상이므로 하나라도 열기에 실패하거나 중간에 회수되면 전체 동시 세션을 안전하게 종료하고 복구하는 로직이 필요하다.
 
+### 다이어그램
+
+```mermaid
+flowchart TD
+    Start["카메라 사용 필요"] --> QueryList["CameraManager.getCameraIdList()"]
+    QueryList --> QueryChar["CameraManager.getCameraCharacteristics(id)"]
+    QueryChar --> CheckFacing{"렌즈 방향 / 해상도 확인"}
+    CheckFacing --> RegAvail["registerAvailabilityCallback() (점유 상태 감지)"]
+    RegAvail --> Open["openCamera(id, executor, StateCallback)"]
+    Open --> Callback{"StateCallback 결과"}
+    Callback -- "onOpened" --> Session["CameraCaptureSession 생성"]
+    Callback -- "onDisconnected" --> Close["camera.close() 및 세션 정리"]
+    Callback -- "onError" --> ErrorHandler["에러 코드 분석 & 자원 해제"]
+```
+
 ### 열기와 종료 흐름
 
 ```kotlin
@@ -59,7 +74,15 @@ fun openCamera(cameraId: String) {
 
 ### 관찰 가능한 신호
 
-`adb shell dumpsys media.camera`로 현재 카메라 서비스의 활성 클라이언트, 점유 상태를 확인할 수 있다. 카메라 열기 실패 시 logcat의 `CameraAccessException` 에러 코드로 원인(권한, 점유 중, 비활성화 등)을 구분한다.
+`adb shell dumpsys media.camera`로 현재 카메라 서비스의 활성 클라이언트, 점유 상태를 확인할 수 있다.
+
+```bash
+# 1. 카메라 서비스 활성 클라이언트 및 디바이스 상태 덤프
+adb shell dumpsys media.camera
+
+# 2. 카메라 열기 실패 및 예외 로그 필터링
+adb logcat -s CameraService CameraDeviceImpl CameraManager
+```
 
 ### 공식 문서
 

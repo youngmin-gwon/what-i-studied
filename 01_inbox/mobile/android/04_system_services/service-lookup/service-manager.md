@@ -93,9 +93,45 @@ graph TD
 
 ---
 
-### 5. 연관 문서 (Related Links)
+### 5. 코드 레벨 및 관측 CLI (Code & CLI Verification)
+
+#### Native/Framework 서비스 등록 및 조회 (C++ / Java)
+
+```cpp
+// Native C++ 데몬에서 ServiceManager 접근 (SurfaceFlinger 등)
+sp<IServiceManager> sm = defaultServiceManager();
+sm->addService(String16("SurfaceFlinger"), new SurfaceFlinger(), false);
+```
+
+```java
+// Java/Framework 레벨 ServiceManager 조회
+IBinder binder = ServiceManager.getService("activity");
+IActivityManager am = IActivityManager.Stub.asInterface(binder);
+```
+
+#### CLI 관측 신호 (ADB Commands)
+
+```bash
+# 1. 등록된 모든 Binder 시스템 서비스 이름과 핸들 상태 목록 조회
+adb shell service list
+
+# 2. 특정 서비스가 현재 등록되어 응답 가능한지 확인 (존재 시 'found', 부재 시 'not found')
+adb shell service check activity
+adb shell service check window
+adb shell service check package
+
+# 3. servicemanager 데몬의 PID 및 SELinux 컨텍스트 확인
+adb shell ps -AZ | grep servicemanager
+```
+
+---
+
+### 6. 연관 문서 (Related Links)
 
 - [system_server](../../01_system_internals/boot-and-runtime/system-server/system-server.md) - ServiceManager 에 시스템 서비스를 대량 등록하는 메인 프로세스
 - [Binder IPC 레퍼런스](../../01_system_internals/ipc-and-process/binder-ipc.md) - Handle 0 및 /dev/binder 커널 드라이버의 작동 원리
+- [Context.getSystemService](get-system-service.md) - ServiceManager 를 래핑하여 매니저 인스턴스를 캐싱하는 API
+- [ActivityManagerService](activity-manager-service.md) - ServiceManager 를 통해 조회하는 수명주기 및 프로세스 관리 서비스
 - [WindowManagerService](window-manager-service.md) - ServiceManager 를 통해 조회하는 화면 관리 시스템 서비스
 - [PackageManagerService](package-manager-service.md) - ServiceManager 를 통해 조회하는 앱 패키지 관리 시스템 서비스
+

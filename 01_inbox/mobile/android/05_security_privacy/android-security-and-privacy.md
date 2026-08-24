@@ -59,5 +59,5 @@ adb shell appops get com.example.app
 - [Android 플랫폼 보안 경계 계약](platform-hardening/platform-security.md)
 - [무결성과 attestation 계약](integrity/integrity.md)
 - [보안 저장소 계약](secure-storage/secure-storage.md)
-- [저장소 수명과 백업 경계](secure-storage/storage-lifecycle-and-backup.md)
+- [저장소 생명주기와 백업 계약](secure-storage/storage-lifecycle-and-backup.md)
 - [Android 보안 실무는 클라이언트 신뢰가 아니라 방어 계층 설계다](platform-hardening/defense-in-depth-principles.md)

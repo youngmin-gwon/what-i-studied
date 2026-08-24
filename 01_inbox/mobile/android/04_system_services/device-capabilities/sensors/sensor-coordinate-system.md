@@ -19,6 +19,31 @@ date created: 2026-08-03 17:29:24 +09:00
 
 기본 방향은 기기 종류에 따라 다르다. 대부분의 휴대전화는 세로가 기본 방향이고, 일부 태블릿은 가로가 기본 방향이다. 센서 값은 항상 이 기본 방향 기준의 축으로 전달되므로, 화면이 회전된 상태에서 "화면 기준 위/아래"를 알고 싶은 앱은 센서 raw 값을 그대로 UI 좌표에 대응시키면 안 된다.
 
+### 다이어그램
+
+```mermaid
+flowchart LR
+    subgraph NaturalCoords["기기 고정 물리 좌표계 (Natural Orientation)"]
+        NX["+X: 오른쪽"]
+        NY["+Y: 위쪽"]
+        NZ["+Z: 화면 앞쪽 (수직)"]
+    end
+
+    subgraph Remap["SensorManager.remapCoordinateSystem"]
+        Rot["Display.getRotation()\n(0°, 90°, 180°, 270°)"]
+    end
+
+    subgraph ScreenCoords["디스플레이 기준 UI 좌표계"]
+        SX["화면 기준 가로축"]
+        SY["화면 기준 세로축"]
+        SZ["화면 수직축"]
+    end
+
+    NaturalCoords --> Remap
+    Rot --> Remap
+    Remap --> ScreenCoords
+```
+
 ### 회전 벡터를 화면 좌표로 변환
 
 ```kotlin
@@ -51,6 +76,14 @@ fun screenRotationMatrix(event: SensorEvent, rotation: Int): FloatArray {
 ### 관찰 가능한 신호
 
 기기를 물리적으로 회전시키지 않고 화면 회전만 발생시킨 뒤(예: 자동 회전 켠 상태에서 옆으로 눕히기) 가속도계 raw 값의 축이 그대로인지 로그로 확인하면 이 계약을 직접 검증할 수 있다.
+
+```bash
+# 디스플레이 현재 회전 상태 확인 (0: 세로, 1: 90도, 2: 180도, 3: 270도)
+adb shell dumpsys display | grep "mCurrentOrientation"
+
+# 센서 원시값 실시간 모니터링
+adb logcat -s SensorEventListener
+```
 
 ### 공식 문서
 

@@ -94,6 +94,18 @@ flowchart TD
 
 ### 관찰 가능한 신호
 
+```bash
+# 1. 기기를 비행기 모드로 전환하여 완전한 오프라인 환경 테스트
+adb shell cmd connectivity airplane-mode enable
+
+# 2. 온디바이스 추론 수행 및 NPU/CPU 소요 시간 로그 확인
+adb logcat -s LiteRT MLKit InferenceTimer
+
+# 3. 비행기 모드 원복
+adb shell cmd connectivity airplane-mode disable
+```
+
+
 Android Studio Network Profiler 로 추론 호출을 관찰하면, 온디바이스 경로는 호출 시점에 네트워크 트래픽이 발생하지 않는 반면 클라우드 경로는 HTTPS 요청/응답이 기록된다. 이 차이로 "이 기능이 실제로 온디바이스로 도는지"를 코드를 보지 않고도 검증할 수 있다.
 
 ### 공식 문서

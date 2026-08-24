@@ -21,6 +21,24 @@ date created: 2026-08-03 17:29:24 +09:00
 
 초기 Android에서는 협력적 성격이 강했지만 현재는 일부 전환을 시스템이 집행한다. Android 12+는 조건에 따라 기존 재생을 fade out하거나 자동 duck할 수 있다. Android 15(API 35)을 target하는 앱은 top app이거나 foreground service를 실행 중일 때만 audio focus를 요청할 수 있으며, 아니면 요청이 실패한다. 콜백 처리는 여전히 앱 책임이다.
 
+### 다이어그램
+
+```mermaid
+sequenceDiagram
+    participant MusicApp as 음악 앱 (기존 재생 중)
+    participant AudioMgr as AudioManagerService
+    participant NavApp as 내비게이션 앱 (신규 안내)
+
+    NavApp->>AudioMgr: requestAudioFocus(GAIN_TRANSIENT_MAY_DUCK)
+    AudioMgr->>MusicApp: onAudioFocusChange(LOSS_TRANSIENT_CAN_DUCK)
+    MusicApp->>MusicApp: 재생 볼륨 일시 감소 (Ducking)
+    AudioMgr-->>NavApp: AUDIOFOCUS_REQUEST_GRANTED
+    NavApp->>NavApp: 음성 길안내 출력 완료
+    NavApp->>AudioMgr: abandonAudioFocusRequest()
+    AudioMgr->>MusicApp: onAudioFocusChange(AUDIOFOCUS_GAIN)
+    MusicApp->>MusicApp: 정상 볼륨 복구
+```
+
 ### 요청·상실·해제 흐름
 
 ```kotlin
@@ -58,6 +76,14 @@ if (audioManager.requestAudioFocus(request) == AUDIOFOCUS_REQUEST_GRANTED) {
 ### 관찰 가능한 신호
 
 `adb shell dumpsys audio`에서 현재 포커스 스택(어떤 패키지가 포커스를 보유 중인지)과 최근 포커스 변화 이력을 확인할 수 있다.
+
+```bash
+# 1. 오디오 포커스 스택 보유자 및 요청 내역 덤프
+adb shell dumpsys audio | grep -A 10 "Audio Focus stack"
+
+# 2. 오디오 포커스 변화 실시간 로그 확인
+adb logcat -s AudioService AudioFocus
+```
 
 ### 공식 문서
 

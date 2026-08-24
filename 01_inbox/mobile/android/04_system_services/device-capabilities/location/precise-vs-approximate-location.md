@@ -19,6 +19,18 @@ Android 12(API 31)부터 사용자는 앱이 위치를 요청할 때 **ACCESS_FI
 
 권한 요청 대화상자에 "정확한 위치"와 "대략적 위치" 두 개의 별도 스위치가 나타난다. 사용자가 대략적 위치만 켜면, 시스템은 `ACCESS_FINE_LOCATION`이 매니페스트에 있어도 좌표를 의도적으로 낮은 해상도로 반올림해 반환한다. 앱 코드 입장에서는 API 호출 자체가 실패하지 않고 조용히 낮은 정확도의 값을 받는 형태로 나타난다.
 
+### 다이어그램
+
+```mermaid
+flowchart TD
+    Req["앱 권한 요청:\narrayOf(ACCESS_COARSE, ACCESS_FINE)"] --> Dialog["Android 12+ 통합 권한 다이얼로그"]
+    Dialog --> Choice{"사용자 선택"}
+    Choice -- "정확한 위치 (ON)" --> Fine["FINE_LOCATION 부여 (정밀도: 수 미터)"]
+    Choice -- "대략적 위치 (OFF)" --> Coarse["COARSE_LOCATION만 부여 (정밀도: 수 km²)"]
+    Fine --> AppReceive["앱이 고해상도 좌표 수신"]
+    Coarse --> AppDegrade["시스템이 좌표를 반올림/격자화하여 앱에 전달"]
+```
+
 ### 권한 결과와 위치 품질 분리
 
 ```kotlin
@@ -50,7 +62,16 @@ Android 12+에서는 fine만 단독 요청하지 말고 coarse와 함께 요청�
 
 ### 관찰 가능한 신호
 
-권한 대화상자를 실기기/에뮬레이터에서 직접 띄워 "정확한 위치" 스위치를 껐다 켰다 하며 반환되는 `Location.getAccuracy()` 값의 변화를 관찰한다. `adb shell dumpsys location`에도 마지막으로 부여된 정확도 등급이 나타난다.
+권한 대화상자를 실기기/에뮬레이터에서 직접 띄워 "정확한 위치" 스위치를 껐다 켰다 하며 반환되는 `Location.getAccuracy()` 값의 변화를 관찰한다.
+
+```bash
+# 1. 위치 정확도 관련 AppOps 상태 점검 (FINE vs COARSE)
+adb shell cmd appops get <package_name> FINE_LOCATION
+adb shell cmd appops get <package_name> COARSE_LOCATION
+
+# 2. 시스템 위치 매니저의 최근 Fix 정확도 덤프
+adb shell dumpsys location | grep -A 5 "Last Known Locations"
+```
 
 ### 공식 문서
 

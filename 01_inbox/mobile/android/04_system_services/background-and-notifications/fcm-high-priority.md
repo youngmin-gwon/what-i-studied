@@ -1,40 +1,38 @@
 ---
 title: fcm-high-priority
-tags: ["android", "android/system-services"]
-aliases: []
-date modified: 2026-08-04 15:00:00 +09:00
+tags: ["android", "android/system-services", "fcm", "push-notification", "doze"]
+aliases: ["FCM High Priority", "FCM high priority 는 사용자 가시 알림에만 정당화된다"]
+date modified: 2026-08-24 18:35:00 +09:00
 date created: 2026-07-31 17:42:24 +09:00
----
-
-# Fcm High Priority
-
-## 1. 개요 (Overview)
-
-### 초보자를 위한 쉽게 이해하는 비유
-* **FCM High Priority (긴급 신호 사이렌)**:
-  - Doze 모드로 잠든 앱을 즉시 깨우는 긴급 사이렌 메시지로, 반드시 사용자 화면에 눈에 보이는 알림(User-visible Notification)을 띄워야만 구글이 우선순위 강등을 방지해 주는 규약.
-
-```mermaid
-graph TD
-    FCMServer["FCM 서버 (high_priority 설정)"] -->|"Push 메시지 전달"| Device["Doze 모드 사용자 기기"]
-    Device -->|"앱 즉시 깨움"| Service["FirebaseMessagingService"]
-    Service -->|"Notification 표시"| Pass["우선순위 유지"]
-    Service -->|"Notification 미표시 지속"| Downgrade["Google 에 의해 일반 우선순위로 자동 강등"]
-```
-
----
-
 ---
 
 ## FCM high priority 는 사용자 가시 알림에만 정당화된다
 
-상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
+### 1. 개요 (Overview)
 
-관련 지도: [알림과 FCM 메시징 계약](./notification-messaging.md)
+**FCM High Priority (우선순위 높음)** 는 기기가 Doze 모드(휴면 상태)에 진입해 있더라도 네트워크 제한을 일시적으로 해제하고 앱 인스턴스에 즉각 메시지를 전달하는 특수 다운스트림 전송 옵션이다.
 
-관련 노트: [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](./fcm-delivery-guarantee.md), [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./notification-permission-channel.md)
+그러나 high priority 는 무제한 백그라운드 연산 권한이 아니며, **수신 후 즉각 사용자에게 눈에 보이는 알림(User-visible Notification)을 게시할 때만 정당화**된다. 지속적으로 알림을 띄우지 않고 백그라운드 데이터 동기화용으로만 high priority 푸시를 남용하면, Google FCM 인프라에 의해 우선순위가 `normal` 로 자동 강등(Deprioritization)된다.
 
-### normal 과 high
+---
+
+#### 초보자를 위한 쉽게 이해하는 비유
+
+- **FCM High Priority (긴급 신호 사이렌)**:
+  - Doze 모드로 잠든 앱을 즉시 깨우는 긴급 사이렌 메시지로, 반드시 사용자 화면에 눈에 보이는 알림(User-visible Notification)을 띄워야만 구글이 우선순위 강등을 방지해 주는 규약.
+
+```mermaid
+graph TD
+    FCMServer["FCM 서버 (priority: high)"] -->|"1. Doze 모드 뚫고 Push 전달"| Device["사용자 기기 (Doze 상태)"]
+    Device -->|"2. 앱 일시 깨움 & onMessageReceived"| Service["FirebaseMessagingService"]
+    Service -->|"3. NotificationManager.notify()"| UserNotice["사용자 상단 알림 표출"]
+    Service -->|"알림 미표시 지속"| Downgrade["FCM 인프라에 의해 normal 로 자동 강등"]
+```
+
+---
+
+### 2. normal vs high 우선순위 비교 (Comparison)
+
 
 Android FCM downstream 메시지의 전송 우선순위는 normal 과 high 로 나뉜다.
 

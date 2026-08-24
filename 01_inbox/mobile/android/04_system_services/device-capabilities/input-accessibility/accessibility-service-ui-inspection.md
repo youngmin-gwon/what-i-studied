@@ -19,6 +19,21 @@ date created: 2026-08-03 17:29:24 +09:00
 
 앱이 접근성 서비스를 선언해도 자동으로 동작하지 않는다. 사용자가 설정의 접근성 메뉴에서 해당 서비스를 명시적으로 찾아 켜야 하며, 이 과정에서 시스템은 이 서비스가 화면 내용을 읽고 조작할 수 있다는 강한 경고를 보여준다. 활성화되면 서비스는 `AccessibilityEvent`(창 전환, 콘텐츠 변경, 클릭 등)를 시스템으로부터 스트리밍받고, **AccessibilityNodeInfo**(현재 화면에 노출된 UI 뷰의 텍스트, 바운딩 박스, 포커스 가능 상태 및 부모-자식 트리 구조를 담은 가상 DOM 노드) 트리를 통해 화면 요소 구조를 조회하거나 `performAction()`으로 조작할 수 있다.
 
+### 다이어그램
+
+```mermaid
+sequenceDiagram
+    participant TargetApp as Target App UI (View/Node)
+    participant A11yServiceMgr as AccessibilityManagerService
+    participant MyA11y as MyAccessibilityService
+
+    TargetApp->>A11yServiceMgr: UI 이벤트 발생 (onWindowStateChanged / onFocused)
+    A11yServiceMgr->>MyA11y: onAccessibilityEvent(AccessibilityEvent)
+    MyA11y->>MyA11y: event.source (AccessibilityNodeInfo 트리 순회)
+    MyA11y->>TargetApp: node.performAction(ACTION_CLICK) (IPC 제어)
+    TargetApp-->>MyA11y: 액션 실행 결과 (Boolean)
+```
+
 ### 최소 서비스 구성과 이벤트 처리
 
 ```xml
@@ -55,7 +70,18 @@ override fun onAccessibilityEvent(event: AccessibilityEvent) {
 
 ### 관찰 가능한 신호
 
-`adb shell settings get secure enabled_accessibility_services`로 현재 활성화된 접근성 서비스 목록을 확인할 수 있다. `adb shell dumpsys accessibility`로 이벤트 스트림 상태와 등록된 서비스의 상세 설정(어떤 이벤트 타입을 구독하는지)을 볼 수 있다.
+`adb shell settings get secure enabled_accessibility_services`로 현재 활성화된 접근성 서비스 목록을 확인할 수 있다.
+
+```bash
+# 1. 활성화된 접근성 서비스 목록 확인
+adb shell settings get secure enabled_accessibility_services
+
+# 2. 접근성 서비스 덤프 및 이벤트 구독 세부 사항 점검
+adb shell dumpsys accessibility | grep -A 15 "<package_name>"
+
+# 3. 접근성 서비스 로그 실시간 필터링
+adb logcat -s AccessibilityManager AccessibilityService
+```
 
 ### 공식 문서
 

@@ -2,13 +2,86 @@
 title: appsearch
 tags: ["android", "android/system-services"]
 aliases: ["AppSearch 접근 계약"]
-date modified: 2026-08-05 16:15:00 +09:00
+date modified: 2026-08-24 18:05:00 +09:00
 date created: 2026-08-05 10:00:00 +09:00
 ---
 
 ## AppSearch 접근 계약
 
-이 지도는 AndroidX **AppSearch**(앱의 구조화된 로컬 데이터를 색인하여 오프라인 전문 검색과 시스템 전역 통합 검색을 제공하는 온디바이스 검색 엔진 라이브러리)가 데이터를 색인해 오프라인 전문 검색과 시스템 전역 검색(설정 앱 검색, 향후 Assistant 연동)에 노출하는 계약을 저장소 선택과 스키마 마이그레이션 두 가지로 나눈다. AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이며, 이 전제를 놓치면 저장소 선택과 스키마 변경 배포 모두 잘못된 모델을 기준으로 하게 된다.
+이 지도는 AndroidX **AppSearch**(앱의 구조화된 로컬 데이터를 색인하여 오프라인 전문 검색과 시스템 전역 통합 검색을 제공하는 온디바이스 검색 엔진 라이브러리)가 데이터를 색인해 오프라인 전문 검색과 시스템 전역 검색(설정 앱 검색, Launcher/Assistant 연동)에 노출하는 계약을 저장소 선택과 스키마 마이그레이션 두 가지로 나눈다. AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이며, 이 전제를 놓치면 저장소 선택과 스키마 변경 배포 모두 잘못된 모델을 기준으로 하게 된다.
+
+### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
+
+AppSearch는 스키마 선언(`@Document`), 세션 생성(`LocalStorage` 또는 `PlatformStorage`), 문서 색인(`put`), 쿼리 검색(`search`)의 4단계 파이프라인으로 동작한다.
+
+```kotlin
+// 1. 비동기 AppSearch 세션 획득
+val sessionFuture = LocalStorage.createSearchSessionAsync(
+    LocalStorage.SearchContext.Builder(context, "my_database").build()
+)
+
+Futures.addCallback(sessionFuture, object : FutureCallback<AppSearchSession> {
+    override fun onSuccess(session: AppSearchSession) {
+        // 2. 스키마 등록
+        session.setSchemaAsync(
+            SetSchemaRequest.Builder().addDocumentClasses(Note::class.java).build()
+        )
+        
+        // 3. 검색 쿼리 실행
+        val searchSpec = SearchSpec.Builder()
+            .addFilterNamespaces("notes")
+            .setResultCountPerPage(20)
+            .build()
+        val searchResults = session.search("android", searchSpec)
+    }
+
+    override fun onFailure(t: Throwable) {
+        // 세션 생성 실패 처리
+    }
+}, ContextCompat.getMainExecutor(context))
+```
+
+### 아키텍처 다이어그램
+
+```mermaid
+flowchart TD
+    subgraph ClientApp["앱 프로세스"]
+        Doc["@Document 엔티티"]
+        AppSearchClient["AppSearchSession (Jetpack API)"]
+    end
+
+    subgraph StorageSelection["저장소 백엔드 선택"]
+        LS["LocalStorage\n(Icing Search Engine, 앱 샌드박스 내부)"]
+        PS["PlatformStorage (Android 12+)\n(system_server 전역 검색)"]
+        GMS["PlayServicesStorage\n(GMS 전역 색인)"]
+    end
+
+    subgraph SystemSurfaces["시스템 UI 표면"]
+        Settings["설정 앱 검색"]
+        Launcher["시스템 런처 / Assistant"]
+    end
+
+    Doc --> AppSearchClient
+    AppSearchClient -->|앱 내부 전용| LS
+    AppSearchClient -->|시스템 공유 옵트인| PS
+    AppSearchClient -->|레거시 기기 공유| GMS
+    PS -.->|setSchemaTypeDisplayedBySystem(true)| Settings
+    PS -.->|setSchemaTypeDisplayedBySystem(true)| Launcher
+```
+
+### 관찰 신호 (Observation Signals)
+
+- **ADB 및 dumpsys 진단**:
+  ```bash
+  # PlatformStorage 시스템 색인 상태 및 패키지별 문서 통계 덤프
+  adb shell dumpsys app_search
+  # 특정 앱의 AppSearch 색인 및 스키마 세부 정보 확인
+  adb shell dumpsys app_search --package <package_name>
+  ```
+- **Logcat 로그 확인**:
+  ```bash
+  adb logcat -s AppSearchSession LocalStorage PlatformStorage
+  ```
 
 ### 읽는 순서
 
@@ -34,5 +107,10 @@ date created: 2026-08-05 10:00:00 +09:00
 
 - [AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다](appsearch-on-device-indexing.md)
 - [Document 스키마 변경은 명시적 마이그레이션이 없으면 호환되지 않는 데이터를 삭제한다](appsearch-schema-migrations.md)
+
+### 공식 문서
+
+- [AppSearch overview](https://developer.android.com/guide/topics/search/appsearch)
+- [SetSchemaResponse.MigrationFailure](https://developer.android.com/reference/androidx/appsearch/app/SetSchemaResponse.MigrationFailure)
 
 검증일: 2026-08-05. [AppSearch overview](https://developer.android.com/guide/topics/search/appsearch), [SetSchemaResponse.MigrationFailure](https://developer.android.com/reference/androidx/appsearch/app/SetSchemaResponse.MigrationFailure)를 기준으로 확인했다.

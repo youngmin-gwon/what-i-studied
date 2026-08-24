@@ -101,7 +101,17 @@ flowchart TD
 
 ### 관찰 가능한 신호
 
-`onConnectionStateChange`나 `onServicesDiscovered`의 `status` 파라미터가 `BluetoothGatt.GATT_SUCCESS`(0)가 아니면 오퍼레이션이 실패한 것이다. `logcat`에서 GATT 관련 태그(`BluetoothGatt`)를 필터링하면 연결 시도, 상태 전이, 실패 코드를 시간순으로 확인할 수 있다. `close()`를 누락하면 이후 새 연결 시도가 실패하거나 이전 콜백이 계속 발화하는 것으로 리소스 누수를 관찰할 수 있다.
+`onConnectionStateChange`나 `onServicesDiscovered`의 `status` 파라미터가 `BluetoothGatt.GATT_SUCCESS`(0)가 아니면 오퍼레이션이 실패한 것이다.
+
+```bash
+# 1. 블루투스 GATT 연결 상태 및 활성 클라이언트 덤프
+adb shell dumpsys bluetooth_manager
+
+# 2. GATT 연결 시도, 콜백 수신 및 상태 코드 실시간 로그
+adb logcat -s BluetoothGatt BluetoothGattCallback bt_stack
+```
+
+`close()`를 누락하면 이후 새 연결 시도가 실패하거나 이전 콜백이 계속 발화하는 것으로 리소스 누수를 관찰할 수 있다.
 
 ### 공식 문서
 

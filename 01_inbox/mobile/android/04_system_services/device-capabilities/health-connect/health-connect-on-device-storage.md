@@ -64,7 +64,18 @@ flowchart LR
 
 ### 관찰 가능한 신호
 
-`HealthConnectClient.getSdkStatus()` 가 `SDK_UNAVAILABLE` 을 반환하는데 이를 확인하지 않고 API 를 호출하면 클라이언트 생성 또는 첫 호출 시점에 예외가 발생한다. Health Connect 앱이 설치돼 있는지는 실기기/에뮬레이터의 앱 목록에서 "Health Connect" 패키지 존재 여부로 직접 확인할 수 있다.
+`HealthConnectClient.getSdkStatus()` 가 `SDK_UNAVAILABLE` 을 반환하는데 이를 확인하지 않고 API 를 호출하면 클라이언트 생성 또는 첫 호출 시점에 예외가 발생한다. Health Connect 앱이 설치돼 있는지는 실기기/에뮬레이터의 패키지 목록이나 dumpsys 로 직접 확인할 수 있다.
+
+```bash
+# 1. Health Connect 패키지 설치 여부 점검
+adb shell pm list packages | grep healthconnect
+
+# 2. Health Connect 서비스 상태 및 바인더 연결 확인
+adb shell dumpsys activity service com.google.android.apps.healthdata
+
+# 3. Health Connect 홈 설정 화면 직접 호출 (테스트 환경)
+adb shell am start -a android.health.connect.action.HEALTH_HOME_SETTINGS
+```
 
 ### 공식 문서
 

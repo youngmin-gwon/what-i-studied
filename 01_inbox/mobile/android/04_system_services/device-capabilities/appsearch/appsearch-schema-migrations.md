@@ -85,6 +85,15 @@ flowchart TD
 
 ### 관찰 가능한 신호
 
+```bash
+# 1. AppSearch 스키마 버전 및 데이터 건수 확인
+adb shell dumpsys app_search | grep -E "schema_version|num_documents"
+
+# 2. 마이그레이션 관련 logcat 에러 태그 필터링
+adb logcat -s AppSearchMigrator AppSearchImpl
+```
+
+
 `SetSchemaResponse.getMigrationFailures()`는 마이그레이션 중 저장에 실패한 문서 목록을 `SetSchemaResponse.MigrationFailure`로 돌려준다. `getIncompatibleTypes()`로는 이번 요청에서 비호환으로 판정된 스키마 타입 이름을 확인할 수 있다. `Migrator` 없이 비호환 변경을 `forceOverride` 없이 배포하면 `setSchema()` 호출 자체가 `AppSearchException`을 던지므로, 이 예외 발생 여부로 스키마 변경이 안전한지 배포 전에 확인할 수 있다.
 
 ### 공식 문서
