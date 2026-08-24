@@ -2,7 +2,7 @@
 title: jvm-classloader
 tags: ["classloader", "computer-science", "delegation-model", "direct-reference", "initialization", "jvm", "linking", "loading", "symbolic-reference"]
 aliases: ["ClassLoader", "JVM ClassLoader", "심볼릭 참조", "위임 모델", "직접 참조", "클래스 로딩 메커니즘", "클래스로더"]
-date modified: 2026-08-24 16:22:58 +09:00
+date modified: 2026-08-24 16:30:58 +09:00
 date created: 2026-08-19 15:05:00 +09:00
 ---
 
@@ -110,7 +110,7 @@ flowchart TD
 
 - 클래스가 동작하기 위해서는 해당 클래스가 소유한 모든 **정적 변수(`static` fields)가 위치할 물리적 메모리 공간**이 Metaspace 에 미리 확정되어 있어야 한다.
 - **기본 초깃값(Default Zero Value) 할당**:
-  - 코드에 `public static int timeout = 5000;`이라고 작성되어 있더라도, 이 단계에서는 `5000` 을 넣지 않고 **`0` (참조형은 `null`, boolean 은 `false`)**을 기록한다.
+  - 코드에 `public static int timeout = 5000;`이라고 작성되어 있더라도, 이 단계에서는 `5000` 을 넣지 않고 **`0` (참조형은 `null`, boolean 은 `false`)** 을 기록한다.
   - *이유*: 아직 다음 단계인 해석(Resolution)과 사용자 초기화 코드(`timeout = 5000`)가 실행되기 전이므로, 만약 다른 스레드나 클래스가 이 시점에 정적 메모리를 참조하더라도 쓰레기 값(Garbage memory)이 아닌 예측 가능한 기본 상태(`0`/`null`)를 보장하기 위함이다.
   - *예외*: `static final int MAX = 100;` 과 같은 컴파일 타임 상수는 런타임 초기화가 필요 없으므로 이 단계에서 상수 풀의 실제 값(`100`)이 즉시 기록된다.
 
@@ -118,7 +118,7 @@ flowchart TD
 
 컴파일러(`javac`/`kotlinc`)가 소스 코드를 컴파일할 때, `OrderService`가 호출하는 `PaymentGateway` 클래스나 `pay()` 메서드가 **런타임 JVM 메모리의 어느 물리적 주소(Pointer)에 적재될지는 컴파일 시점에는 물리적으로 알 수 없다**.
 
-따라서 컴파일러는 `.class` 파일 내부의 **런타임 상수 풀(Constant Pool)**에 단순 텍스트 문자열 형태로 기록해 둔다. 이를 **심볼릭 참조(Symbolic Reference)**라 한다.
+따라서 컴파일러는 `.class` 파일 내부의 **런타임 상수 풀(Constant Pool)** 에 단순 텍스트 문자열 형태로 기록해 둔다. 이를 **심볼릭 참조(Symbolic Reference)** 라 한다.
 
 ```text
 // 컴파일된 바이트코드의 상수 풀 (문자열 심볼릭 참조 상태)
