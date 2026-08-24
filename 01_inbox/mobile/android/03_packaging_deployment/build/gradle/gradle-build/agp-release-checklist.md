@@ -1,9 +1,9 @@
 ---
 title: agp-release-checklist
-tags: ["android", "agp", "release", "gradle", "security", "r8"]
-aliases: ["AGP Release Checklist", "AGP 릴리스 체크리스트", "Release Variant Verification", "릴리스 실효값 점검", "isMinifyEnabled", "isDebuggable"]
+tags: ["agp", "android", "gradle", "r8", "release", "security"]
+aliases: ["AGP Release Checklist", "AGP 릴리스 체크리스트", "isDebuggable", "isMinifyEnabled", "Release Variant Verification", "릴리스 실효값 점검"]
+date modified: 2026-08-24 17:32:42 +09:00
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-21 14:15:00 +09:00
 ---
 
 ## AGP 릴리스 빌드 점검 체크리스트 (Release Variant Checklist)
@@ -25,7 +25,7 @@ flowchart TD
 
 ---
 
-### 1. 릴리스 변형 파이프라인 5대 필수 점검 항목
+### 1. 릴리스 변형 파이프라인 5 대 필수 점검 항목
 
 | 점검 항목 | 권장 설정값 | 미준수 시 발생하는 리스크 |
 |---|---|---|

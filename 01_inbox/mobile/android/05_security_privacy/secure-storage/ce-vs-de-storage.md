@@ -2,7 +2,7 @@
 title: ce-vs-de-storage
 tags: ["android", "android/security-privacy"]
 aliases: ["CE vs DE 저장소 비교", "Credential Encrypted vs Device Encrypted Storage"]
-date modified: 2026-08-24 17:24:16 +09:00
+date modified: 2026-08-24 17:25:38 +09:00
 date created: 2026-08-06 18:20:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-06 18:20:00 +09:00
 
 Android **FBE(File-Based Encryption)** 환경에서 디바이스 저장소는 **CE(Credential Encrypted)** 저장소와 **DE(Device Encrypted)** 저장소의 두 물리적/암호학적 경계로 구분된다.
 
-### 1. 초보자를 위한 비유와 핵심 개념 (Concept & Analogy)
+### 1. 비유와 핵심 개념 (Concept & Analogy)
 
 - 🔐 **CE (Credential Encrypted) 저장소 = 사용자 비밀번호로 잠긴 개인 금고**
   - **원리**: 사용자가 기기 잠금(PIN/패턴/비밀번호)을 해제해야만 커널 메모리에 암호화 키가 로드되어 금고가 열린다.
@@ -21,11 +21,11 @@ Android **FBE(File-Based Encryption)** 환경에서 디바이스 저장소는 **
 
 ```mermaid
 flowchart TD
-    Boot[기기 전원 On / 부팅 완료] --> HWKey[하드웨어 마스터 키 자동 언락]
+    Boot["기기 전원 On / 부팅 완료"] --> HWKey["하드웨어 마스터 키 자동 언락"]
     HWKey --> DE_Storage["DE 저장소 (/data/user_de/0/)<br/>Direct Boot 상태 접근 가능 (알람, 긴급 서비스)"]
     
-    UserUnlock[사용자 PIN/비밀번호 잠금 해제] --> SyntheticPass[Synthetic Password 파생 및 TEE 검증]
-    SyntheticPass --> CE_Key[CE 마스터 키 언락 (커널 메모리 로드)]
+    UserUnlock["사용자 PIN/비밀번호 잠금 해제"] --> SyntheticPass["Synthetic Password 파생 및 TEE 검증"]
+    SyntheticPass --> CE_Key["CE 마스터 키 언락 (커널 메모리 로드)"]
     CE_Key --> CE_Storage["CE 저장소 (/data/user/0/)<br/>기본 앱 데이터, 개인정보, DB, SharedPreferences"]
 ```
 

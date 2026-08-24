@@ -1,9 +1,9 @@
 ---
 title: agp-default-config
-tags: ["android", "gradle", "agp", "defaultconfig", "manifest"]
-aliases: ["AGP DefaultConfig", "defaultConfig", "Android 기본 설정", "applicationId", "namespace", "minSdk", "targetSdk", "compileSdk"]
+tags: ["agp", "android", "defaultconfig", "gradle", "manifest"]
+aliases: ["AGP DefaultConfig", "Android 기본 설정", "applicationId", "compileSdk", "defaultConfig", "minSdk", "namespace", "targetSdk"]
+date modified: 2026-08-24 17:32:40 +09:00
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-21 14:15:00 +09:00
 ---
 
 ## AGP defaultConfig 및 앱 식별자·버전 명세 (DefaultConfig & Versioning)
@@ -30,10 +30,10 @@ flowchart TD
 #### 1) `applicationId` vs `namespace` (식별자와 소스 패키지 분리)
 - **`namespace`**: 생성되는 `R.java`, `BuildConfig` 클래스의 패키지 경로이자 Kotlin/Java 소스 코드의 기본 패키지를 지정한다.
 - **`applicationId`**: Google Play 스토어 및 Android OS 단에서 앱을 구별하는 **고유 패키지 식별자**이다.
-- 과거에는 매니페스트의 `package` 속성이 두 역할을 모두 수행했으나, 최신 AGP는 소스 패키지 구조(`namespace`)와 배포 식별자(`applicationId`)를 명확히 분리하여 `build.gradle.kts`에서 관리한다.
+- 과거에는 매니페스트의 `package` 속성이 두 역할을 모두 수행했으나, 최신 AGP 는 소스 패키지 구조(`namespace`)와 배포 식별자(`applicationId`)를 명확히 분리하여 `build.gradle.kts` 에서 관리한다.
 
-#### 2) 3대 SDK 레벨의 동작 및 차이점
-- **`compileSdk`**: 소스 코드를 컴파일할 때 바인딩할 Android API 버전. (예: `compileSdk = 35`이면 Android 15 신규 API 클래스와 메서드를 컴파일 시점에 호출 가능).
+#### 2) 3 대 SDK 레벨의 동작 및 차이점
+- **`compileSdk`**: 소스 코드를 컴파일할 때 바인딩할 Android API 버전. (예: `compileSdk = 35` 이면 Android 15 신규 API 클래스와 메서드를 컴파일 시점에 호출 가능).
 - **`minSdk`**: 이 앱을 설치하고 실행할 수 있는 **최소 Android OS API 버전**. (예: `minSdk = 26`이면 Android 8.0 이상 기기에서만 설치 허용. 하위 버전 미지원 API 호출 시 런타임 OS 버전 분기 `Build.VERSION.SDK_INT` 필요).
 - **`targetSdk`**: 앱이 검증되고 호환 동작을 보장하는 **Android OS 보안/동작 정책 기준점**. (예: 신규 백그라운드 서비스 제한, 런타임 권한 요구 정책의 기준).
 
@@ -46,7 +46,7 @@ flowchart TD
 - **`versionName`**: 사용자에게 노출되는 표기용 버전 문자열 (예: `"1.2.0"`).
 
 #### 5) 매니페스트 주입 (Manifest Injection)
-- `defaultConfig`에 선언된 값들은 AGP 빌드 시 `AndroidManifest.xml`의 `<manifest package="...">`, `android:versionCode`, `android:versionName` 속성에 자동 주입(Merge)된다.
+- `defaultConfig`에 선언된 값들은 AGP 빌드 시 `AndroidManifest.xml`의 `<manifest package="…">`, `android:versionCode`, `android:versionName` 속성에 자동 주입(Merge)된다.
 
 ---
 

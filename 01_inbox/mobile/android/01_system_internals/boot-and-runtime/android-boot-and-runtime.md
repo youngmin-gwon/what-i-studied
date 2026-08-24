@@ -2,7 +2,7 @@
 title: android-boot-and-runtime
 tags: [android, android/boot-runtime, android/system-internals]
 aliases: ["Android 부팅과 런타임 지도"]
-date modified: 2026-08-04 15:00:00 +09:00
+date modified: 2026-08-24 17:29:21 +09:00
 date created: 2026-08-01 00:00:00 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 Android 부팅과 런타임은 기기 전원이 켜지는 시점부터 사용자 앱 프로세스가 구동될 때까지의 하드웨어 신뢰 검증, 네이티브 프로세스 트리 구축, 프레임워크 서브시스템 초기화, 그리고 가상 머신(ART) 실행 환경 특화까지의 전체 생애주기를 다룬다.
 
-전체 부팅 및 런타임 체인은 4개의 명확한 계약 계층으로 구분되며, 각 계층은 상위 계층이 신뢰하고 동작할 수 있는 부팅 조건(Contract)을 보장한다.
+전체 부팅 및 런타임 체인은 4 개의 명확한 계약 계층으로 구분되며, 각 계층은 상위 계층이 신뢰하고 동작할 수 있는 부팅 조건(Contract)을 보장한다.
 
 ```mermaid
 flowchart TD
@@ -57,7 +57,7 @@ flowchart TD
 ## 부팅 및 런타임 장애 탐색 가이드 (Troubleshooting Decision Matrix)
 
 1. **기기가 부팅 루프(Bootloop)에 빠지거나 OTA 업데이트 직후 켜지지 않는 경우**
-   - [부팅 흐름 계약](boot-flow/boot-flow.md)의 AVB 검증 실패, Bootconfig 매핑 오류, 또는 Virtual A/B Merge 상태를점검한다.
+   - [부팅 흐름 계약](boot-flow/boot-flow.md) 의 AVB 검증 실패, Bootconfig 매핑 오류, 또는 Virtual A/B Merge 상태를점검한다.
    - 관측 명령: `adb reboot bootloader`, `/proc/bootconfig`, Kernel `pstore` (`/sys/fs/pstore`).
 
 2. **특정 Native Daemon(예: SurfaceFlinger, AudioFlinger)이나 HAL 서비스가 실행되지 않는 경우**
@@ -65,10 +65,10 @@ flowchart TD
    - 관측 명령: `getprop init.svc.<service_name>`, `dmesg | grep auditd` (SELinux Denials).
 
 3. **앱 프로세스 생성 속도가 지나치게 느리거나, 메모리 풋프린트가 비정상적으로 큰 경우**
-   - [Zygote와 ART 런타임 계약](zygote-runtime/zygote-runtime.md)의 Preload Class 무효화, Zygote Specialization(UID/SELinux/cgroup) 전환, 그리고 ART Compile Filter 상태(`speed-profile` vs `verify`)를 점검한다.
+   - [Zygote와 ART 런타임 계약](zygote-runtime/zygote-runtime.md) 의 Preload Class 무효화, Zygote Specialization(UID/SELinux/cgroup) 전환, 그리고 ART Compile Filter 상태(`speed-profile` vs `verify`)를 점검한다.
    - 관측 명령: `dumpsys package <package_name>`, `dumpsys meminfo <pid>`, `cmd package compile -m speed-profile`.
 
-4. **앱 API 호출 시 SecurityException 발생 또는 ANR / OOM Killer에 의해 프로세스가 강제 종료되는 경우**
+4. **앱 API 호출 시 SecurityException 발생 또는 ANR / OOM Killer 에 의해 프로세스가 강제 종료되는 경우**
    - [system_server와 ActivityManager 계약](system-server/system-server.md)의 [AMS](../../04_system_services/activity-manager-service.md)/ATMS 컴포넌트 상태, `oom_score_adj` 재계산 로직, ANR responsiveness 계약 위반 덤프를 점검한다.
    - 관측 명령: `dumpsys activity processes`, `dumpsys activity broadcasts`, `/data/anr/traces.txt`.
 

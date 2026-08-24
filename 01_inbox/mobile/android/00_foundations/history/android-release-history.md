@@ -2,7 +2,7 @@
 title: android-release-history
 tags: [android, foundations, history, platform-timeline, release-history, sdk-versions]
 aliases: [Android Release History, 안드로이드 릴리스 히스토리, 플랫폼 진화사]
-date modified: 2026-08-24 17:23:44 +09:00
+date modified: 2026-08-24 17:27:46 +09:00
 date created: 2026-08-04 16:16:52 +09:00
 ---
 
@@ -94,7 +94,7 @@ timeline
 - **Android 12 (2021)**: Material You, Splash Screen, Privacy Dashboard.
 - **Android 13 (2022)**: Photo Picker, `POST_NOTIFICATIONS` 알림 권한.
 - **Android 14 (2023)**: [Foreground Service Type 선언](../../04_system_services/background-and-notifications/background-work/foreground-service.md), 예측적 뒤로가기.
-- **Android 15 (2024)**: 16KB Page Size 지원, Private Space.
+- **Android 15 (2024)**: [16KB Page Size](android-16kb-page-alignment.md) 지원, Private Space.
 - **Android 16 (2025/2026)**: Baklava - Major/Minor API release 분리.
 
 ---

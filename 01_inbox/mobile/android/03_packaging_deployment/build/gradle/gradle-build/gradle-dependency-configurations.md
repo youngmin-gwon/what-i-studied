@@ -1,9 +1,9 @@
 ---
 title: gradle-dependency-configurations
-tags: ["gradle", "dependency-management", "build-configurations", "android", "jvm"]
-aliases: ["Gradle 의존성 구성", "implementation vs api", "debugImplementation", "Dependency Configurations"]
+tags: ["android", "build-configurations", "dependency-management", "gradle", "jvm"]
+aliases: ["debugImplementation", "Dependency Configurations", "Gradle 의존성 구성", "implementation vs api"]
+date modified: 2026-08-24 17:32:52 +09:00
 date created: 2026-08-19 14:35:00 +09:00
-date modified: 2026-08-19 14:35:00 +09:00
 ---
 
 ## Gradle 의존성 구성 및 클래스패스 격리 (Dependency Configurations)
@@ -26,7 +26,7 @@ Gradle 에서 라이브러리나 모듈 의존성을 추가할 때 사용하는 
 | **`runtimeOnly`** | X | O | X | O | 로깅 구현체, 런타임 드라이버 |
 | **`testImplementation`** | O (단위테스트) | O (단위테스트) | X | **X (배제)** | 로컬 JVM 단위 테스트 (JUnit, MockK, Coroutines Test) |
 | **`androidTestImplementation`** | O (계측테스트) | O (계측테스트) | X | **X (테스트 APK 전용)** | 기기/에뮬레이터 통합 테스트 (Espresso, Compose Test) |
-| **`debugImplementation`** | O (Debug만) | O (Debug만) | X | **X (Release 배제)** | Compose Preview 툴링, LeakCanary, Test Manifest |
+| **`debugImplementation`** | O (Debug 만) | O (Debug 만) | X | **X (Release 배제)** | Compose Preview 툴링, LeakCanary, Test Manifest |
 | **`detektPlugins`** | X (정적분석) | X | X | **X (배제)** | Detekt 정적 분석 전용 커스텀 룰셋 플러그인 |
 
 ---
@@ -53,13 +53,13 @@ flowchart TD
   - 라이브러리의 구현 세부사항이 변경되어도 상위 모듈들의 컴파일 [클래스패스](../../../../../../computer-science/jvm-classpath.md) 해시가 바뀌지 않아 **불필요한 연쇄 재컴파일(Recompilation Cascade)을 원천 차단**한다.
 - **`api` (신중히 사용)**:
   - 현재 모듈의 `public` 함수/클래스 시그니처(반환값, 인자, 상속)에 해당 라이브러리의 타입이 직접 노출될 때만 사용한다.
-  - 예: `:core:navigation` 모듈이 Navigation 3의 `NavKey` 타입을 상속받아 외부로 공개하는 경우.
+  - 예: `:core:navigation` 모듈이 Navigation 3 의 `NavKey` 타입을 상속받아 외부로 공개하는 경우.
 
 ---
 
 ### 2. `debugImplementation` (릴리스 바이너리 오염 방지)
 
-Compose 개발 시 사용하는 프리뷰 툴링이나 디버깅 인프라는 **반드시 `debugImplementation`으로 격리**해야 한다.
+Compose 개발 시 사용하는 프리뷰 툴링이나 디버깅 인프라는 **반드시 `debugImplementation` 으로 격리**해야 한다.
 
 ```kotlin
 dependencies {

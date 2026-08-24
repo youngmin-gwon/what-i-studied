@@ -2,13 +2,13 @@
 title: android-system-internals-map
 tags: ["android", "android/system-internals"]
 aliases: ["Android System Internals Map 은 7개 하위 클러스터를 부팅부터 커스터마이징까지 순서대로 연결하는 통합 지도다"]
-date modified: 2026-08-06 15:00:00 +09:00
+date modified: 2026-08-24 17:29:20 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-## Android System Internals Map 은 7개 하위 클러스터를 부팅부터 커스터마이징까지 순서대로 연결하는 통합 지도다
+## Android System Internals Map 은 7 개 하위 클러스터를 부팅부터 커스터마이징까지 순서대로 연결하는 통합 지도다
 
-`01_system_internals` 는 앱 코드가 호출하는 API 가 아니라 그 API 뒤에서 실제로 실행되는 플랫폼 계층을 다룬다. 전원이 켜지는 순간부터 앱 프로세스가 화면에 첫 frame 을 그리기까지, 그리고 OEM 이 그 플랫폼을 커스터마이징하는 지점까지를 7개 클러스터로 나눈다. 이 지도가 신설되기 전에는 각 클러스터가 개별 hub 만 있고 폴더 전체를 조망하는 진입점이 없어 Foundation map 에서 2 단계 이내 도달이 보장되지 않았다(Phase 1 coverage matrix 지적, Phase 9 항목 1 로 해소).
+`01_system_internals` 는 앱 코드가 호출하는 API 가 아니라 그 API 뒤에서 실제로 실행되는 플랫폼 계층을 다룬다. 전원이 켜지는 순간부터 앱 프로세스가 화면에 첫 frame 을 그리기까지, 그리고 OEM 이 그 플랫폼을 커스터마이징하는 지점까지를 7 개 클러스터로 나눈다. 이 지도가 신설되기 전에는 각 클러스터가 개별 hub 만 있고 폴더 전체를 조망하는 진입점이 없어 Foundation map 에서 2 단계 이내 도달이 보장되지 않았다(Phase 1 coverage matrix 지적, Phase 9 항목 1 로 해소).
 
 ### 하위 클러스터와 hub 경로
 
@@ -18,7 +18,7 @@ date created: 2026-08-04 18:00:00 +09:00
 | [ipc-and-process](ipc-and-process/binder-ipc.md) | `ipc-and-process/binder-ipc.md` | Binder 가 중재하는 process 경계, transaction lifetime, AIDL, oneway/thread pool |
 | [kernel-and-hal](kernel-and-hal/android-kernel-runtime.md) | `kernel-and-hal/android-kernel-runtime.md` (커널) + `kernel-and-hal/hal-native-boundary.md` (HAL/native) | Linux kernel 이 Android 플랫폼 정책과 만나는 지점, HAL/Treble/VINTF 와 NDK/JNI 경계 |
 | [graphics-and-media](graphics-and-media/android-graphics-media-runtime.md) | `graphics-and-media/android-graphics-media-runtime.md` | Surface/BufferQueue, SurfaceFlinger/HWC 합성, 미디어 파이프라인의 버퍼 소유권과 VSync 마감 |
-| [connectivity](connectivity/android-connectivity.md) | `connectivity/android-connectivity.md` | ConnectivityService, NetworkPolicyManager, netd, kernel 라우팅까지의 4개 계층 네트워크 가용성 계약 |
+| [connectivity](connectivity/android-connectivity.md) | `connectivity/android-connectivity.md` | ConnectivityService, NetworkPolicyManager, netd, kernel 라우팅까지의 4 개 계층 네트워크 가용성 계약 |
 | [platform-modularity](platform-modularity/android-platform-modularity.md) | `platform-modularity/android-platform-modularity.md` | APEX/Mainline module 을 통한 OS 배포와 Google Play system update |
 | [platform-customization](platform-customization/platform-customization.md) | `platform-customization/platform-customization.md` | AOSP/GMS/OEM 계층, product/vendor/system_ext 분리, 서명·CTS 호환성 |
 
@@ -49,8 +49,8 @@ date created: 2026-08-04 18:00:00 +09:00
 ### 관련 지도
 
 - [Android Foundation Map](../00_foundations/android-foundation-map.md) — 전체 canonical area 로 돌아가는 최상위 지도.
-- [Learning Spine 2장](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md) — 앱 API 호출이 framework, Binder, native service, kernel로 내려가는 실행 계층.
-- [Learning Spine 6장](../00_foundations/learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) — main thread와 Binder thread의 독립 수명·실패 경계.
-- [Learning Spine 7장](../00_foundations/learning-spine/07-input-resource-selection-and-display-frame.md) — input에서 SurfaceFlinger frame까지의 렌더링 경로.
-- [Learning Spine 12장](../00_foundations/learning-spine/12-compatibility-update-and-form-factor.md) — system image, Mainline, target SDK와 form factor compatibility.
+- [Learning Spine 2장](../00_foundations/learning-spine/02-android-platform-execution-layers-and-call-paths.md) — 앱 API 호출이 framework, Binder, native service, kernel 로 내려가는 실행 계층.
+- [Learning Spine 6장](../00_foundations/learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md) — main thread 와 Binder thread 의 독립 수명·실패 경계.
+- [Learning Spine 7장](../00_foundations/learning-spine/07-input-resource-selection-and-display-frame.md) — input 에서 SurfaceFlinger frame 까지의 렌더링 경로.
+- [Learning Spine 12장](../00_foundations/learning-spine/12-compatibility-update-and-form-factor.md) — system image, Mainline, target SDK 와 form factor compatibility.
 - [App Framework Map](../02_app_framework/android-app-framework-map.md) — 이 지도가 다루는 native/platform 계층 위에서 앱 코드가 어떻게 그 계층을 호출하는지.

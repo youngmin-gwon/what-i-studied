@@ -1,9 +1,9 @@
 ---
 title: agp-build-variants
-tags: ["android", "gradle", "agp", "variant", "flavor", "buildtype"]
-aliases: ["AGP Build Variants", "Build Variant", "Product Flavor", "Build Type", "빌드 변형", "카테시안 곱"]
+tags: ["agp", "android", "buildtype", "flavor", "gradle", "variant"]
+aliases: ["AGP Build Variants", "Build Type", "Build Variant", "Product Flavor", "빌드 변형", "카테시안 곱"]
+date modified: 2026-08-24 17:32:35 +09:00
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-21 14:15:00 +09:00
 ---
 
 ## AGP Build Variant 아키텍처 및 변형 매트릭스 (Build Variants & Flavors)
@@ -26,7 +26,7 @@ flowchart TD
 
 ---
 
-### 1. Build Type, Product Flavor, Build Variant의 3대 핵심 개념
+### 1. Build Type, Product Flavor, Build Variant 의 3 대 핵심 개념
 
 | 구분 | 주요 목적 | 주요 설정 속성 | 예시 |
 |---|---|---|---|
@@ -39,11 +39,11 @@ flowchart TD
 ### 2. 내부 동작 메커니즘
 
 1. **Flavor Dimensions (다차원 변종 결합)**:
-   - 여러 축의 Flavor를 결합해야 할 경우 `flavorDimensions`를 선언하여 차원 우선순위를 지정한다 (예: `flavorDimensions += listOf("tier", "api")`).
+   - 여러 축의 Flavor 를 결합해야 할 경우 `flavorDimensions` 를 선언하여 차원 우선순위를 지정한다 (예: `flavorDimensions += listOf("tier", "api")`).
 2. **Variant 매트릭스 계산 공식**:
    $$\text{Total Variants} = \text{Count}(\text{BuildTypes}) \times \prod_{i} \text{Count}(\text{Flavors in Dimension}_i)$$
 3. **태스크 및 SourceSet 자동 생성**:
-   - AGP 는 계산된 각 Variant 마다 고유한 빌드 태스크(`assembleFreeRelease`, `bundlePaidRelease` 등) 및 [SourceSet 디렉터리 구조](agp-source-sets.md)를 자동 생성한다.
+   - AGP 는 계산된 각 Variant 마다 고유한 빌드 태스크(`assembleFreeRelease`, `bundlePaidRelease` 등) 및 [SourceSet 디렉터리 구조](agp-source-sets.md) 를 자동 생성한다.
 
 ---
 
