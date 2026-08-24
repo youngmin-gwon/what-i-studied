@@ -2,7 +2,7 @@
 title: jvm-classloader
 tags: ["classloader", "computer-science", "delegation-model", "direct-reference", "initialization", "jvm", "linking", "loading", "symbolic-reference"]
 aliases: ["ClassLoader", "JVM ClassLoader", "심볼릭 참조", "위임 모델", "직접 참조", "클래스 로딩 메커니즘", "클래스로더"]
-date modified: 2026-08-24 16:13:56 +09:00
+date modified: 2026-08-24 16:22:58 +09:00
 date created: 2026-08-19 15:05:00 +09:00
 ---
 
@@ -47,7 +47,7 @@ flowchart LR
 #### 1) JVM 기동 시점 (Bootstrap Phase)
 
 - OS 가 `java` 명령을 실행하면 C/C++ 로 구현된 JVM 네이티브 엔진이 초기화된다.
-- **Bootstrap ClassLoader**가 가장 먼저 구동되어 `java.lang.Object`, `java.lang.String`, `java.lang.Class`, `java.lang.System` 등 Java 플랫폼 실행에 필수적인 핵심 런타임 클래스들을 모듈 저장소(`lib/modules` 또는 레거시 `rt.jar`)에서 읽어 Metaspace 에 즉시 적재한다.
+- **Bootstrap ClassLoader** 가 가장 먼저 구동되어 `java.lang.Object`, `java.lang.String`, `java.lang.Class`, `java.lang.System` 등 Java 플랫폼 실행에 필수적인 핵심 런타임 클래스들을 모듈 저장소(`lib/modules` 또는 레거시 `rt.jar`)에서 읽어 Metaspace 에 즉시 적재한다.
 - 이후 `Platform ClassLoader`와 `Application ClassLoader` 인스턴스가 JVM 힙에 생성되고, 애플리케이션의 진입점인 `Main` 클래스를 로드하여 `main()` 메서드를 호출한다.
 
 #### 2) 런타임 실행 시점 (Lazy Dynamic Loading Phase)
