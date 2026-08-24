@@ -2,7 +2,7 @@
 title: d8-and-r8
 tags: ["android", "bytecode", "d8", "desugaring", "dexing", "optimization", "proguard", "r8"]
 aliases: ["D8 and R8", "D8 컴파일러", "D8과 R8", "Desugaring", "DEX 변환", "Dexing", "R8 최적화", "덱싱"]
-date modified: 2026-08-24 14:23:39 +09:00
+date modified: 2026-08-24 14:44:18 +09:00
 date created: 2026-08-24 14:25:00 +09:00
 ---
 
@@ -69,7 +69,21 @@ flowchart TD
 
 ---
 
-### 3. D8 컴파일러: 초고속 덱싱 및 디슈가링(Desugaring)
+### 3. D8 과 R8 이름의 어원과 명명 규칙 (Why D8 and R8?)
+
+Google 컴파일러 팀이 부여한 **"핵심 기능 머리글자(Prefix)" + "차세대 컴파일러 시리즈 식별자 `8`(Suffix)"** 의 결합 구조이다:
+
+| 컴파일러 이름 | 머리글자 의미 (Prefix) | 숫자 `8` 의 의미 (Suffix) | 핵심 정체성 |
+|---|---|---|---|
+| **`D8`** | **D**ex / **D**exer | 과거 1 세대 **`dx`** 를 대체하며, **Java 8** 언어 기능(람다, 스트림)의 [Desugaring](#4-d8-컴파일러-초고속-덱싱-및-디슈가링desugaring) 을 지원하는 차세대 덱서 | **D**exing Engine (DEX 변환기) |
+| **`R8`** | **R**eduction / **R**eplacing ProGuard | D8 컴파일러 패밀리 제품군으로서의 세대 번호 일치 (`D8`에 `Reduction` 을 결합) | **R**eduction + Dexing (수축·난독화 통합 엔진) |
+
+- **`D8`**: '`D`ex'를 만드는 도구로서, 과거 Dalvik 시절의 `dx` 명령어를 계승하면서 구글 V8 자바스크립트 엔진 개발팀(Google Aarhus)의 네이밍 전통을 따라 명명되었다.
+- **`R8`**: 기존 ProGuard 가 수행하던 **코드 축소(Reduction / Shrinking)** 와 최적화를 D8 덱싱 파이프라인과 하나로 결합했음을 나타내기 위해 `R` + `8` 로 명명되었다.
+
+---
+
+### 4. D8 컴파일러: 초고속 덱싱 및 디슈가링(Desugaring)
 
 **D8**은 주로 **Debug 빌드** 또는 코드 축소가 비활성화된 빌드에서 동작한다:
 
@@ -80,7 +94,7 @@ flowchart TD
 
 ---
 
-### 4. R8 컴파일러: 4 대 통합 최적화 메커니즘
+### 5. R8 컴파일러: 4 대 통합 최적화 메커니즘
 
 **R8**은 **Release 빌드(`isMinifyEnabled = true`)** 시 활성화되며, ProGuard 의 모든 기능을 대체하고 덱싱까지 한 번에 수행한다:
 
@@ -97,7 +111,7 @@ flowchart TD
 
 ---
 
-### 5. R8 빌드 산출물 4 대 리포트
+### 6. R8 빌드 산출물 4 대 리포트
 
 R8 이 실행되면 `app/build/outputs/mapping/release/` 디렉터리에 다음 4 가지 핵심 분석 보고서가 생성된다:
 
@@ -110,7 +124,7 @@ R8 이 실행되면 `app/build/outputs/mapping/release/` 디렉터리에 다음 
 
 ---
 
-### 6. 관측 가능 증거 (Observable Evidence)
+### 7. 관측 가능 증거 (Observable Evidence)
 
 DEX 내부의 클래스 구조와 R8 의 최적화 결과는 터미널 명령어로 직접 검증할 수 있다:
 
