@@ -2,7 +2,7 @@
 title: jvm-bytecode-and-jar-archive
 tags: ["archive", "build-lifecycle", "bytecode", "class-file", "computer-science", "jar", "jvm", "zip"]
 aliases: [".class vs .jar", "Class 파일", "JAR 포맷", "Java Archive", "바이트코드 파일과 아카이브", "언제 class와 jar가 되는가"]
-date modified: 2026-08-21 18:58:43 +09:00
+date modified: 2026-08-24 11:35:06 +09:00
 date created: 2026-08-19 15:05:00 +09:00
 ---
 
@@ -38,14 +38,34 @@ flowchart TD
 #### 1) 생성 시점: 컴파일 단계 (Compilation Phase)
 
 - Java 컴파일러(`javac`)나 Kotlin 컴파일러(`kotlinc`)가 소스 코드를 읽어 문법 검증을 마치고 **JVM 바이트코드 명령어로 번역하는 즉시** 생성된다.
-- **1 개 소스 파일 ≠ 1 개 `.class` 파일**:
-  - 소스 파일 하나 안에 내부 클래스(Inner Class), 익명 클래스(Anonymous Class), 람다식, 컴패니언 객체가 포함되어 있으면 컴파일러는 `User.class`, `User$1.class`, `User$Companion.class`처럼 여러 개의 `.class` 파일을 쪼개어 생성한다.
-  - 패키지 경로(`com.example.util`)는 디스크의 실제 폴더 구조(`build/classes/kotlin/main/com/example/util/`)로 그대로 투영된다.
+- **소스 파일 1 개당 생성 개수 공식 ($1 + N$ 원칙)**:
+  - 클래스나 함수가 정의된 일반적인 소스 파일 1 개는 **기본 1 개 + 내부/익명/동반 객체/람다 $N$개 = 최소 1 개 이상($1 + N$개)** 의 `.class` 파일을 생성한다.
+  - **왜 1 개 파일로 합치지 못하고 $1 + N$ 개로 쪼개지는가? (JVM 스펙의 한계)**:
+    - JVM 스펙 상의 [Class File Format](jvm-architecture.md) 은 "파일 단위"가 아니라 **"단일 타입(Class/Interface/Record/Enum) 단위"** 로만 정의되어 있다. 하나의 `.class` 파일은 오직 하나의 클래스 헤더, 단일 상수 풀(Constant Pool), 해당 클래스에 속한 필드/메서드 테이블만 가질 수 있다.
+    - 따라서 소스 파일 하나에 여러 클래스나 내부 구조가 존재하면, JVM 클래스로더가 개별적으로 로드하고 식별할 수 있도록 컴파일러가 물리적으로 각각 다른 `.class` 파일로 분리하여 디스크에 출력한다.
+
+| 소스 코드 구성 요소 | 생성되는 `.class` 파일명 규칙 | 예시 |
+|---|---|---|
+| **최상위 클래스** | `ClassName.class` | `User.class` |
+| **내부 / 중첩 클래스** | `Outer$Inner.class` | `User$Address.class` |
+| **익명 클래스 (Anonymous Class)** | `Outer$1.class`, `Outer$2.class` | `User$1.class` (OnClickListener 구현체) |
+| **Kotlin 동반 객체 (Companion Object)** | `Outer$Companion.class` | `User$Companion.class` |
+| **Kotlin 최상위(Top-level) 함수/프로퍼티** | `FileNameKt.class` (Façade Class) | `UtilsKt.class` (`Utils.kt` 에 정의된 최상위 함수들) |
+| **Kotlin 람다식 / SAM 변환** | `Outer$Method$1.class` | `User$calculate$1.class` |
+
+>[!NOTE]
+>**예외적으로 `.class` 파일이 0 개 생성되는 경우**:
+> - 소스 파일에 주석이나 `package com.example;` 선언만 있고 어떠한 클래스, 함수, 변수도 없는 빈 파일인 경우.
+> - Kotlin 에서 오직 컴파일 타임 메타데이터인 `typealias` 만 선언된 파일인 경우 (`typealias UserId = String`).
+> - 위와 같은 극단적인 경우를 제외하면, 의미 있는 코드가 포함된 소스 파일은 **무조건 1 개 이상($1 + N$)** 의 `.class` 파일이 생성된다.
+
+- **패키지 디렉터리 투영**:
+  - 패키지 경로(`package com.example.util`)는 디스크의 실제 폴더 구조(`build/classes/kotlin/main/com/example/util/`)로 그대로 투영된다.
 
 #### 2) 사용 시점: 로컬 개발 및 초고속 증분 빌드 (Incremental Feedback)
 
 - **증분 컴파일(Incremental Compilation)**:
-  - 개발자가 `User.kt` 1 개 파일만 수정했을 때, 빌드 도구는 전체 프로젝트를 다시 압축하지 않고 오직 변경된 `User.class` 파일만 디스크에 갱신한다.
+  - 개발자가 `User.kt` 1 개 파일만 수정했을 때, 빌드 도구는 전체 프로젝트를 다시 압축하지 않고 오직 변경된 `User.class` 및 관련 내부 클래스 파일만 디스크에 갱신한다.
 - **로컬 단위 테스트 실행**:
   - IDE(IntelliJ)나 Gradle 이 로컬에서 JUnit 테스트를 실행할 때는, 굳이 무거운 JAR 압축 과정을 거치지 않고 `build/classes/` 디렉터리 자체를 [클래스패스(Classpath)](jvm-classpath.md)에 바로 등록하여 `.class` 파일을 즉시 로드한다 (패키징 오버헤드 0 초).
 
