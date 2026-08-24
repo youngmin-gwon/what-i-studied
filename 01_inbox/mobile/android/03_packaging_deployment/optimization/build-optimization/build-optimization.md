@@ -34,7 +34,7 @@ flowchart TD
 ### 관련 세부 계약 문서
 1. [Gradle 빌드 성능과 앱 런타임 성능은 같지 않다](gradle-build-performance-is-not-app-runtime-performance.md)
 2. [증분 빌드, 빌드 캐시, configuration 캐시는 빌드 작업을 줄인다](incremental-build-cache-and-configuration-cache-reduce-build-work.md)
-3. [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md)
+3. [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](d8-and-r8.md)
 4. [Resource shrinking은 코드 수축 이후 미사용 리소스를 제거한다](resource-shrinking-removes-unused-resources-after-code-shrinking.md)
 5. [Keep 규칙은 최적화 경계다](keep-rules-are-optimization-boundaries.md)
 6. [R8 full mode와 configuration analyzer는 블록된 최적화를 드러낸다](r8-full-mode-and-configuration-analyzer-expose-blocked-optimization.md)

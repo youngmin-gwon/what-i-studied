@@ -88,4 +88,4 @@ apkanalyzer manifest print build/outputs/apk/release/app-release.apk | grep "and
 - [AGP 서명 설정 및 키 관리](agp-signing-config.md)
 - [AGP Build Variant 아키텍처 및 변형 매트릭스](agp-build-variants.md)
 - [AGP defaultConfig 및 앱 식별자·버전 명세](agp-default-config.md)
-- [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](../../../optimization/build-optimization/r8-shrinks-optimizes-and-obfuscates-release-builds.md)
+- [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](../../../optimization/build-optimization/d8-and-r8.md)

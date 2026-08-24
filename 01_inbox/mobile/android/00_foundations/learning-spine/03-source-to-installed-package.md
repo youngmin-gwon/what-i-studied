@@ -175,7 +175,7 @@ Google Play 를 통한 배포에서는 개발자가 서명하는 **업로드 키
 - [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md)
 - [앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다](../../03_packaging_deployment/distribution/release-distribution/app-updates-require-application-id-version-code-and-signature-compatibility.md)
 - [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md)
-- [R8은 release 빌드를 축소·최적화·난독화한다](../../03_packaging_deployment/optimization/build-optimization/r8-shrinks-optimizes-and-obfuscates-release-builds.md)
+- [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](../../03_packaging_deployment/optimization/build-optimization/d8-and-r8.md)
 - [패키지 가시성 제한](../../04_system_services/system-state/package-user-role/package-visibility-queries.md)
 
 ### 공식 근거

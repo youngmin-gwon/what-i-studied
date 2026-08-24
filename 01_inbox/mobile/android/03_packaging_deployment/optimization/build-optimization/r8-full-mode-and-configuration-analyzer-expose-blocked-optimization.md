@@ -48,7 +48,7 @@ AGP 9.3 이상에서는 standalone 분석 태스크가 APK/AAB를 만들지 않�
 
 `assembleRelease` 또는 `bundleRelease` 같은 R8 릴리스 빌드도 `build/outputs/mapping/release/configanalyzer.html`을 생성한다. AGP 9.2 이하에는 전용 태스크가 없으므로 공식 문서의 해당 버전용 system property를 사용해야 하며, 존재하지 않는 진단 플래그를 추정해서 사용하면 안 된다. 보고서에서 넓은 package wildcard, 중복·미사용 규칙을 좁힌 뒤에는 반드시 난독화된 릴리스 아티팩트로 회귀 테스트한다.
 
-관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md), [빌드 최적화 계약](build-optimization.md)
+관련 노트: [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](d8-and-r8.md), [빌드 최적화 계약](build-optimization.md)
 
 공식 문서: [Use R8 in full mode](https://developer.android.com/topic/performance/app-optimization/full-mode), [Use R8 Configuration Analyzer](https://developer.android.com/topic/performance/app-optimization/r8-configuration-analyzer)
 

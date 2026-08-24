@@ -44,4 +44,4 @@ R8 난독화 덤프 복원 검증은 `retrace` 도구로 관측 및 수행할 �
 retrace.sh build/outputs/mapping/release/mapping.txt obfuscated_trace.txt
 ```
 
-관련 노트: [R8은 릴리즈 코드의 수축, 최적화, 난독화를 수행한다](r8-shrinks-optimizes-and-obfuscates-release-builds.md), [빌드 최적화 계약](build-optimization.md)
+관련 노트: [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](d8-and-r8.md), [빌드 최적화 계약](build-optimization.md)
