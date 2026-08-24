@@ -2,7 +2,7 @@
 title: linear
 tags: [algorithm, array, cache, data-structures, linked-list]
 aliases: [Array, Linked List, 배열, 연결 리스트]
-date modified: 2026-08-10 00:00:00 +09:00
+date modified: 2026-08-24 18:36:44 +09:00
 date created: 2025-12-17 19:10:00 +09:00
 ---
 
