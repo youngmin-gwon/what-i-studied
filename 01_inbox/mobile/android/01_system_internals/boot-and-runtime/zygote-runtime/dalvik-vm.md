@@ -69,5 +69,5 @@ flowchart TD
 - [JVM 아키텍처와 런타임 실행 엔진](../../../../../computer-science/jvm-architecture.md)
 - [Dalvik vs ART 비교](dalvik-vs-art.md)
 - [ART (Android Runtime)](art.md)
-- [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](../../../03_packaging_deployment/optimization/build-optimization/d8-and-r8.md)
+- [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](../../../03_packaging_deployment/optimization/d8-and-r8.md)
 - [바이트코드 파일(.class)과 아카이브 파일(.jar)의 본질](../../../../../computer-science/jvm-bytecode-and-jar-archive.md)

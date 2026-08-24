@@ -131,9 +131,9 @@ date modified: 2026-08-24 17:09:00 +09:00
 
 - [JDK vs JRE vs JVM 의 차이와 런타임의 본질](../../../../computer-science/jdk-vs-jre-vs-jvm.md)
 - [JVM 아키텍처와 런타임 실행 엔진](../../../../computer-science/jvm-architecture.md)
-- [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](../../03_packaging_deployment/optimization/build-optimization/d8-and-r8.md)
-- [ProGuard의 본질과 R8과의 관계](../../03_packaging_deployment/optimization/build-optimization/proguard.md)
-- [R8 Keep 규칙과 최적화 경계](../../03_packaging_deployment/optimization/build-optimization/r8-keep-rules.md)
+- [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](../../03_packaging_deployment/optimization/d8-and-r8.md)
+- [ProGuard의 본질과 R8과의 관계](../../03_packaging_deployment/optimization/proguard.md)
+- [R8 Keep 규칙과 최적화 경계](../../03_packaging_deployment/optimization/r8-keep-rules.md)
 - [ART (Android Runtime)](../../01_system_internals/boot-and-runtime/zygote-runtime/art.md)
 - [Dalvik VM (Dalvik 가상 머신)](../../01_system_internals/boot-and-runtime/zygote-runtime/dalvik-vm.md)
 - [Zygote 와 ART 런타임 심층 계약](../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md)

@@ -16,6 +16,6 @@ Compose artifact 와 package 경계는 어떤 계층에 의존하는지 보여�
 
 정확한 artifact 이름과 내부 구성은 Compose 버전에 따라 달라질 수 있다. 일반 정본에는 계층 사고만 두고, 프로젝트 dependency version 과 build 설정은 별도 build 문서에서 확인한다.
 
-관련 노트: [Compose는 상위 컴포넌트가 맞지 않을 때 낮은 계층으로 내려갈 수 있게 설계됐다](./compose-layers-let-you-drop-down-when-higher-level-components-do-not-fit.md), [Gradle build contracts](../../../../03_packaging_deployment/build/gradle/gradle-build/gradle-build.md)
+관련 노트: [Compose는 상위 컴포넌트가 맞지 않을 때 낮은 계층으로 내려갈 수 있게 설계됐다](./compose-layers-let-you-drop-down-when-higher-level-components-do-not-fit.md), [Gradle build contracts](../../../../03_packaging_deployment/build/gradle/gradle-build.md)
 
 출처: [Compose architectural layering](https://developer.android.com/develop/ui/compose/layering)

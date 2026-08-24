@@ -34,13 +34,13 @@ flowchart TD
 ```
 
 ### 관련 세부 계약 문서
-1. [Dynamic feature module은 base에 의존하는 선택적 기능 단위다](dynamic-feature-module-is-optional-feature-unit-dependent-on-base.md)
-2. [Play feature delivery는 동적 기능 설치 시점을 제어한다](play-feature-delivery-controls-dynamic-feature-install-timing.md)
-3. [Delivery mode는 필요성, 조건, 그리고 런타임 요청으로 선택된다](delivery-mode-is-selected-by-necessity-condition-and-runtime-request.md)
-4. [Play asset delivery는 코드가 아닌 대용량 아셋 팩을 전달한다](play-asset-delivery-delivers-large-asset-packs-not-code.md)
-5. [On-demand 및 conditional delivery는 설치 상태와 실패 UX를 요구한다](on-demand-and-conditional-delivery-require-install-state-and-failure-ux.md)
-6. [Google Play Instant는 sunset 되었으며 딥링크 설치 흐름으로 대체된다](google-play-instant-is-sunset-and-replaced-by-deeplink-install-flows.md)
-7. [Play delivery 검증은 UX, 테스트, 그리고 Play 설치 경로를 확인한다](play-delivery-operations-validate-ux-testing-and-play-install-path.md)
+1. [Dynamic feature module은 base에 의존하는 선택적 기능 단위다](dynamic-feature-modules.md)
+2. [Play feature delivery는 동적 기능 설치 시점을 제어한다](play-feature-delivery.md)
+3. [Delivery mode는 필요성, 조건, 그리고 런타임 요청으로 선택된다](play-delivery-modes.md)
+4. [Play asset delivery는 코드가 아닌 대용량 아셋 팩을 전달한다](play-asset-delivery.md)
+5. [On-demand 및 conditional delivery는 설치 상태와 실패 UX를 요구한다](on-demand-conditional-delivery.md)
+6. [Google Play Instant는 sunset 되었으며 딥링크 설치 흐름으로 대체된다](google-play-instant.md)
+7. [Play delivery 검증은 UX, 테스트, 그리고 Play 설치 경로를 확인한다](play-delivery-operations.md)
 
 ### 관측 가능 증거 (Observable Evidence)
 동적 모듈 분판 아티팩트 구조는 `bundletool` 및 `FakeSplitInstallManager`로 관측할 수 있다:

@@ -49,11 +49,11 @@ flowchart TD
 ```
 
 ### 정본 MOC 영역 (Master Map of Content)
-1. **[Gradle 빌드 계약](build/gradle/gradle-build/gradle-build.md)**: AGP, `defaultConfig`, Build Variant 매트릭스, SourceSet 우선순위, Convention Plugin, `signingConfigs`.
-2. **[의존성 및 CI 계약](build/dependency-versioning/dependency-ci/dependency-ci.md)**: Version Catalog, KSP vs KAPT, Compose BOM/Compiler, `kotlinx.serialization`, Resolution Strategy, CI 게이트.
+1. **[Gradle 빌드 계약](build/gradle/gradle-build.md)**: AGP, `defaultConfig`, Build Variant 매트릭스, SourceSet 우선순위, Convention Plugin, `signingConfigs`.
+2. **[의존성 및 CI 계약](build/dependencies/dependencies.md)**: Version Catalog, KSP vs KAPT, Compose BOM/Compiler, `kotlinx.serialization`, Resolution Strategy, CI 게이트.
 3. **[Android CI/CD](build/ci-cd/ci-cd.md)**: Fastlane 오케스트레이션, CI 자격증명 보안, Remote Cache & Build Matrix, 파이프라인 실패 시그널.
-4. **[R8와 Gradle 빌드 최적화 계약](optimization/build-optimization/build-optimization.md)**: R8 수축/최적화/난독화, Resource Shrinker, ProGuard Keep Rules, R8 Full Mode, Incremental/Build/Configuration Cache.
-5. **[Play 릴리스와 배포 계약](distribution/release-distribution/release-distribution.md)**: AAB vs APK, Play App Signing, 업그레이드 호환성, 테스트 트랙, Staged Rollout, In-App Update/Review API.
+4. **[R8와 Gradle 빌드 최적화 계약](optimization/build-optimization.md)**: R8 수축/최적화/난독화, Resource Shrinker, ProGuard Keep Rules, R8 Full Mode, Incremental/Build/Configuration Cache.
+5. **[Play 릴리스와 배포 계약](distribution/release/release-distribution.md)**: AAB vs APK, Play App Signing, 업그레이드 호환성, 테스트 트랙, Staged Rollout, In-App Update/Review API.
 6. **[Play Delivery 계약](distribution/play-delivery/play-delivery.md)**: Play Feature Delivery(PFD), Dynamic Feature Module(DFM), Play Asset Delivery(PAD), SplitInstallManager.
 7. **[Google Play Billing 계약](distribution/billing/billing.md)**: 2026-08-06 기준 최신 Play Billing Library 9.1.0, 상품·지역·등록 프로그램별 결제 경로 판정, 서버 측 Purchase Token 검증, 구매 완료 후 3일 이내 Acknowledge/Consume, 구독 라이프사이클. 라이브러리 버전과 정책은 출시 시점에 다시 확인한다.
 

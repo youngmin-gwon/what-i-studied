@@ -61,8 +61,8 @@ timeline
 
 #### 3. 배포 포맷: APK → Android App Bundle (AAB, 2018+)
 
-- **Monolithic [APK](apk.md)**: 모든 CPU ABI(arm64, x86) 및 리소스를 포괄하여 용량 비대.
-- **[AAB & Dynamic Delivery](apk-vs-aab.md)**: 게시 산출물로 `.aab` 를 수용하고 Google Play 가 기기 맞춤형 Dynamic Split APK 만 분할 다운로드.
+- **Monolithic [APK](../../03_packaging_deployment/distribution/apk.md)**: 모든 CPU ABI(arm64, x86) 및 리소스를 포괄하여 용량 비대.
+- **[AAB & Dynamic Delivery](../../03_packaging_deployment/distribution/apk-vs-aab.md)**: 게시 산출물로 `.aab` 를 수용하고 Google Play 가 기기 맞춤형 Dynamic Split APK 만 분할 다운로드.
 
 #### 4. HAL 아키텍처: HIDL → AIDL HAL (2019+)
 
@@ -94,7 +94,7 @@ timeline
 - **Android 12 (2021)**: Material You, Splash Screen, Privacy Dashboard.
 - **Android 13 (2022)**: Photo Picker, `POST_NOTIFICATIONS` 알림 권한.
 - **Android 14 (2023)**: [Foreground Service Type 선언](../../04_system_services/background-and-notifications/background-work/foreground-service.md), 예측적 뒤로가기.
-- **Android 15 (2024)**: [16KB Page Size](android-16kb-page-alignment.md) 지원, Private Space.
+- **Android 15 (2024)**: [16KB Page Size](../../01_system_internals/kernel-and-hal/android-16kb-page-alignment.md) 지원, Private Space.
 - **Android 16 (2025/2026)**: Baklava - Major/Minor API release 분리.
 
 ---

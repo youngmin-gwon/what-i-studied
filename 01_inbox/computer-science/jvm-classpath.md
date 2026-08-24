@@ -208,5 +208,5 @@ flowchart LR
 - [JVM 클래스로더 메커니즘 (ClassLoader)](jvm-classloader.md)
 - [바이트코드 파일(.class)과 아카이브 파일(.jar)의 본질](jvm-bytecode-and-jar-archive.md)
 - [API vs ABI](api-vs-abi.md)
-- [Gradle 의존성 구성 및 클래스패스 격리](../mobile/android/03_packaging_deployment/build/gradle/gradle-build/gradle-dependency-configurations.md)
-- [Gradle 플러그인(Plugin)과 의존성(Dependency)의 차이](../mobile/android/03_packaging_deployment/build/gradle/gradle-build/gradle-plugins-vs-dependencies.md)
+- [Gradle 의존성 구성 및 클래스패스 격리](../mobile/android/03_packaging_deployment/build/gradle/gradle-dependency-configurations.md)
+- [Gradle 플러그인(Plugin)과 의존성(Dependency)의 차이](../mobile/android/03_packaging_deployment/build/gradle/gradle-plugins-vs-dependencies.md)

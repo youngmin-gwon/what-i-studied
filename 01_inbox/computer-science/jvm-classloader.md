@@ -200,4 +200,4 @@ flowchart TD
 - [JVM 클래스패스 (Classpath)](jvm-classpath.md)
 - [바이트코드 파일(.class)과 아카이브 파일(.jar)의 본질](jvm-bytecode-and-jar-archive.md)
 - [API vs ABI](api-vs-abi.md)
-- [Gradle 태스크 모델과 Provider API](../mobile/android/03_packaging_deployment/build/gradle/gradle-build/gradle-task-api.md)
+- [Gradle 태스크 모델과 Provider API](../mobile/android/03_packaging_deployment/build/gradle/gradle-task-api.md)

@@ -135,11 +135,11 @@ flowchart LR
 |---|---|---|
 | **`.class`** | **`.dex` (Dalvik Executable)** | 수많은 `.class` 파일들의 중복 상수 풀을 단일 파일로 통합하고, 모바일 CPU 에 최적화된 레지스터 기반 바이트코드로 변환 (D8/R8) |
 | **`.jar`** | **`.aar` (Android Archive)** | 순수 Java 바이트코드 외에 Android 레이아웃 XML, `res/` 이미지, `AndroidManifest.xml`, C/C++ JNI `.so` 라이브러리를 함께 포함하는 모바일 전용 라이브러리 |
-| **`Fat JAR`** | **`.apk` (Android Package)** | 스마트폰 OS([PackageManager](../mobile/android/03_packaging_deployment/distribution/release-distribution/app-updates-require-application-id-version-code-and-signature-compatibility.md))에 직접 설치되어 실행되는 최종 서명 패키지 |
-| **`Fat JAR`** | **`.aab` (Android App Bundle)** | 기기에 직접 설치되지 않고, Google Play Console 에 업로드하여 기기 사양별 최적화된 맞춤형 [Split APKs](../mobile/android/03_packaging_deployment/apk-vs-aab.md) 를 생성하기 위한 표준 게시 아티팩트 |
+| **`Fat JAR`** | **`.apk` (Android Package)** | 스마트폰 OS([PackageManager](../mobile/android/03_packaging_deployment/distribution/release/app-update-compatibility.md))에 직접 설치되어 실행되는 최종 서명 패키지 |
+| **`Fat JAR`** | **`.aab` (Android App Bundle)** | 기기에 직접 설치되지 않고, Google Play Console 에 업로드하여 기기 사양별 최적화된 맞춤형 [Split APKs](../mobile/android/03_packaging_deployment/distribution/apk-vs-aab.md) 를 생성하기 위한 표준 게시 아티팩트 |
 
 >[!NOTE]
->Android 의 상세 패키징 및 배포 파이프라인에 대해서는 [Android 빌드 파이프라인](../mobile/android/03_packaging_deployment/build/gradle/gradle-build/android-build-pipeline.md) 및 [APK vs AAB](../mobile/android/03_packaging_deployment/apk-vs-aab.md) 문서를 참조한다.
+>Android 의 상세 패키징 및 배포 파이프라인에 대해서는 [Android 빌드 파이프라인](../mobile/android/03_packaging_deployment/build/gradle/android-build-pipeline.md) 및 [APK vs AAB](../mobile/android/03_packaging_deployment/distribution/apk-vs-aab.md) 문서를 참조한다.
 
 ---
 
@@ -149,5 +149,5 @@ flowchart LR
 - [JVM 클래스로더 메커니즘 (ClassLoader)](jvm-classloader.md)
 - [JVM 클래스패스 (Classpath)](jvm-classpath.md)
 - [API vs ABI](api-vs-abi.md)
-- [Android 빌드 파이프라인과 핵심 빌드 용어 해설](../mobile/android/03_packaging_deployment/build/gradle/gradle-build/android-build-pipeline.md)
-- [APK vs AAB (안드로이드 배포 규격 비교)](../mobile/android/03_packaging_deployment/apk-vs-aab.md)
+- [Android 빌드 파이프라인과 핵심 빌드 용어 해설](../mobile/android/03_packaging_deployment/build/gradle/android-build-pipeline.md)
+- [APK vs AAB (안드로이드 배포 규격 비교)](../mobile/android/03_packaging_deployment/distribution/apk-vs-aab.md)

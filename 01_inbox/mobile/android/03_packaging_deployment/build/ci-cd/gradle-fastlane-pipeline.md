@@ -10,7 +10,7 @@ date modified: 2026-08-19 10:50:00 +09:00
 
 ### 개요 및 통합 아키텍처
 
-소프트웨어 지속적 통합 및 배포(CI/CD) 파이프라인은 빌드 엔진인 **Gradle**과 릴리스 오케스트레이터인 **Fastlane**의 명확한 역할 분담을 기반으로 작동한다.
+**Fastlane은 Gradle을 대체하지 않고 빌드를 조율하는 상위 레이어**이며, 소프트웨어 지속적 통합 및 배포(CI/CD) 파이프라인은 빌드 엔진인 **Gradle**과 릴리스 오케스트레이터인 **Fastlane**의 명확한 역할 분담을 기반으로 작동한다.
 
 CI 서브시스템(GitHub Actions, GitLab CI 등)은 두 도구를 쉘 환경에서 디스패치하며, 전체 프로세스는 아래 구조로 흐른다.
 
@@ -72,7 +72,7 @@ CI 파이프라인의 속도를 극대화하기 위해 CI 러너에서는 2가�
 
 ### 상위 및 연관 문서
 
-- [Gradle 코어 엔진 및 아키텍처](../gradle/gradle-build/gradle-core.md)
+- [Gradle 코어 엔진 및 아키텍처](../gradle/gradle-core.md)
 - [Fastlane 코어 엔진](fastlane.md)
-- [Fastlane Android 플랫폼 연동](fastlane-android.md)
+- [Fastlane Android 플랫폼 연동](fastlane.md)
 - [Android CI/CD](ci-cd.md)

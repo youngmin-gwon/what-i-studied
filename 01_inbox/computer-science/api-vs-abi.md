@@ -101,5 +101,5 @@ flowchart TD
 
 - [JVM 클래스패스와 클래스 로딩 메커니즘](jvm-classpath.md)
 - [링커와 로더 (Linker & Loader)](linker-and-loader.md)
-- [Gradle 의존성 구성 및 클래스패스 격리](../mobile/android/03_packaging_deployment/build/gradle/gradle-build/gradle-dependency-configurations.md)
-- [Gradle 태스크 모델과 지연 평가](../mobile/android/03_packaging_deployment/build/gradle/gradle-build/gradle-task-api.md)
+- [Gradle 의존성 구성 및 클래스패스 격리](../mobile/android/03_packaging_deployment/build/gradle/gradle-dependency-configurations.md)
+- [Gradle 태스크 모델과 지연 평가](../mobile/android/03_packaging_deployment/build/gradle/gradle-task-api.md)

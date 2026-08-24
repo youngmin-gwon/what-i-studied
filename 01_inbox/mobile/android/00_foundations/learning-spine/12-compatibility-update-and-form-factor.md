@@ -130,7 +130,7 @@ SDK Extension 은 modular system component update 를 통해 일부 API 가 더 
 - [SDK Extensions는 SDK_INT만으로 표현되지 않는 API availability를 나타낸다](../../01_system_internals/platform-modularity/sdk-extensions.md)
 - [Mainline은 선택된 system component를 정규 플랫폼 release 밖에서 업데이트한다](../../01_system_internals/platform-modularity/project-mainline-updates.md)
 - [앱은 Mainline package 이름보다 API와 feature availability를 확인해야 한다](../../01_system_internals/platform-modularity/mainline-api-feature-checks.md)
-- [AGP defaultConfig 및 앱 식별자·버전 명세](../../03_packaging_deployment/build/gradle/gradle-build/agp-default-config.md)
+- [AGP defaultConfig 및 앱 식별자·버전 명세](../../03_packaging_deployment/build/gradle/agp-default-config.md)
 - [Android history는 기능 목록이 아니라 platform contract 변화 지도다](../history/history/android-history-is-a-map-of-platform-changes-not-a-feature-list.md)
 - [Android 폼 팩터와 플랫폼 확장 지도](../../07_platforms/android-platforms-and-form-factors.md)
 

@@ -170,12 +170,12 @@ Google Play 를 통한 배포에서는 개발자가 서명하는 **업로드 키
 ### 관련 정본
 
 - [Android 패키징과 배포 지도](../../03_packaging_deployment/android-packaging-deployment.md)
-- [AGP defaultConfig 및 앱 식별자·버전 명세](../../03_packaging_deployment/build/gradle/gradle-build/agp-default-config.md)
-- [AGP Build Variant 아키텍처 및 변형 매트릭스](../../03_packaging_deployment/build/gradle/gradle-build/agp-build-variants.md)
-- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md)
-- [앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다](../../03_packaging_deployment/distribution/release-distribution/app-updates-require-application-id-version-code-and-signature-compatibility.md)
-- [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release-distribution/play-app-signing-separates-upload-key-and-app-signing-key.md)
-- [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](../../03_packaging_deployment/optimization/build-optimization/d8-and-r8.md)
+- [AGP defaultConfig 및 앱 식별자·버전 명세](../../03_packaging_deployment/build/gradle/agp-default-config.md)
+- [AGP Build Variant 아키텍처 및 변형 매트릭스](../../03_packaging_deployment/build/gradle/agp-build-variants.md)
+- [Play app signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release/play-app-signing.md)
+- [앱 업데이트는 applicationId, versionCode, 서명 호환성으로 결정된다](../../03_packaging_deployment/distribution/release/app-update-compatibility.md)
+- [Play App Signing은 업로드 키와 앱 서명 키를 분리한다](../../03_packaging_deployment/distribution/release/play-app-signing.md)
+- [D8과 R8 컴파일러 및 덱싱(Dexing) 메커니즘](../../03_packaging_deployment/optimization/d8-and-r8.md)
 - [패키지 가시성 제한](../../04_system_services/system-state/package-user-role/package-visibility-queries.md)
 
 ### 공식 근거

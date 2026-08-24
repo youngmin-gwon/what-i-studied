@@ -39,4 +39,4 @@ flowchart TD
 - [Compose 성능 계약](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-performance.md)
 - [테스트 품질 계약](../testing/testing-quality/testing-quality.md)
 - [디버깅 도구 계약](../debugging/debugging/debugging.md)
-- [R8와 Gradle 빌드 최적화 계약](../../03_packaging_deployment/optimization/build-optimization/build-optimization.md)
+- [R8와 Gradle 빌드 최적화 계약](../../03_packaging_deployment/optimization/build-optimization.md)

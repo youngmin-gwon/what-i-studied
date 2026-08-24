@@ -34,15 +34,15 @@ Google Play에서 배포되는 앱의 디지털 상품·서비스 결제에는 G
 
 **제품 및 구독의 수명 주기**
 일회성 상품(In-app Products)과 정기 결제(Subscriptions)는 서로 다른 상태 및 수명 주기를 가진다. 구독은 갱신, 취소, 유예 상태 등을 추적해야 한다.
-- [Product and subscription purchases have different lifecycles](../../03_packaging_deployment/distribution/billing/product-and-subscription-purchases-have-different-lifecycles.md)
+- [Product and subscription purchases have different lifecycles](../../03_packaging_deployment/distribution/billing/in-app-purchase-lifecycles.md)
 
 **서버 측 검증을 권한 부여의 신뢰 경계로 사용**
 클라이언트 callback만으로 entitlement를 부여하지 않는다. 보안 backend에서 purchase token과 purchase state를 확인하고, Real-time Developer Notifications와 주기적 reconciliation으로 환불·취소·갱신을 동기화하는 구성이 권장된다.
-- [Server-side purchase token verification is required, not client judgment](../../03_packaging_deployment/distribution/billing/server-side-purchase-token-verification-is-required-not-client-judgment.md)
+- [Server-side purchase token verification is required, not client judgment](../../03_packaging_deployment/distribution/billing/purchase-token-verification.md)
 
 **구매 승인(Acknowledge)의 중요성**
 결제 완료 후 3일 이내에 앱 또는 서버에서 구매 승인(Acknowledge)을 하지 않으면, 결제가 자동으로 환불되고 사용자의 권한이 회수된다.
-- [Unacknowledged purchases are refunded within three days](../../03_packaging_deployment/distribution/billing/unacknowledged-purchases-are-refunded-within-three-days.md)
+- [Unacknowledged purchases are refunded within three days](../../03_packaging_deployment/distribution/billing/purchase-acknowledgement-policy.md)
 
 ### 4. 이 주제와 연결된 Worked Example
 - [08 Signed Artifact through Play Delivery to Update](../worked-examples/08-signed-artifact-through-play-delivery-to-update.md) (결제 및 배포 파이프라인 연관)
