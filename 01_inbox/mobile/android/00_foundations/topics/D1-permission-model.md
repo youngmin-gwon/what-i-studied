@@ -34,17 +34,17 @@ flowchart TD
 
 안드로이드는 권한의 보호 수준(Normal, Signature, Dangerous 등)에 따라 권한 부여의 주체를 결정한다. 위험(Dangerous) 권한은 반드시 사용자의 명시적인 승인(Runtime Permission)을 거쳐야 한다.
 
-- [Permission protection level defines who can grant access](../../05_security_privacy/permissions-and-sandbox/permissions/permission-protection-level-defines-who-can-grant-access.md)
-- [Runtime permission is user-mediated access contract](../../05_security_privacy/permissions-and-sandbox/permissions/runtime-permission-is-user-mediated-access.md)
-- [Permission request UX uses minimal point-of-use explanation](../../05_security_privacy/permissions-and-sandbox/permissions/permission-request-ux-uses-minimal-point-of-use-explanation.md)
+- [Permission protection level defines who can grant access](../../05_security_privacy/permissions/permission-protection-levels.md)
+- [Runtime permission is user-mediated access contract](../../05_security_privacy/permissions/runtime-permissions-user-mediation.md)
+- [Permission request UX uses minimal point-of-use explanation](../../05_security_privacy/permissions/permission-request-ux.md)
 
 #### AppOps 와 특별 접근 권한 (AppOps & Special App Access)
 
 권한이 부여되었더라도, 백그라운드 상태나 프라이버시 설정(예: 마이크/카메라 사용 중 차단)에 의해 AppOps 레벨에서 접근이 차단될 수 있습니다. 또한, 다른 앱 위에 그리기와 같은 강력한 기능은 설정 앱을 통한 특별 권한(Special Access)을 요구합니다.
 
-- [AppOps observes and gates sensitive operations after permission](../../05_security_privacy/permissions-and-sandbox/permissions/appops-observes-and-gates-sensitive-operations-after-permission.md)
-- [Special app access is settings-mediated capability](../../05_security_privacy/permissions-and-sandbox/permissions/special-app-access-is-settings-mediated-capability.md)
-- [Permission debugging separates manifest grant and AppOps state](../../05_security_privacy/permissions-and-sandbox/permissions/permission-debugging-separates-manifest-grant-and-appops-state.md)
+- [AppOps observes and gates sensitive operations after permission](../../05_security_privacy/permissions/appops-sensitive-operations.md)
+- [Special app access is settings-mediated capability](../../05_security_privacy/permissions/special-app-access-settings.md)
+- [Permission debugging separates manifest grant and AppOps state](../../05_security_privacy/permissions/permission-debugging-appops.md)
 
 ### 4. 이 주제와 연결된 Worked Example
 - [Worked Example: Permission granted but API fails](../worked-examples/06-permission-granted-but-api-fails.md)

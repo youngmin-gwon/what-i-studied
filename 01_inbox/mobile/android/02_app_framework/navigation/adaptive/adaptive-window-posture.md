@@ -90,5 +90,5 @@ def AdaptiveScreenContainer() {
 ### 관련 상위 및 연관 노트
 
 - 상위 계약: [Adaptive Navigation 계약](adaptive-layout-and-navigation.md)
-- 관련 노트: [Large screen contracts](../../../07_platforms/large-screens/large-screens/large-screen.md)
+- 관련 노트: [Large screen contracts](../../../07_platforms/large-screens/large-screen.md)
 - 관련 노트: [Pane layout은 선택 상태와 back policy를 분리해 보존해야 한다](pane-layout-selection-back-policy.md)

@@ -77,8 +77,8 @@ flowchart TD
 2. **System Server 및 IPC 레이어**:
    - 런처는 Binder IPC 라인을 통해 `ActivityTaskManagerService`(ATMS)에 Activity 시작 요청을 보낸다.
    - `PackageManagerService`(PMS)는 앱의 identity(UID, 패키지 서명, 설치 상태)를 검증하고 해당 컴포넌트가 존재하며 실행 가능한지 확인한다.
-   - `ActivityManagerService`([AMS](../../04_system_services/activity-manager-service.md))는 해당 UID 의 프로세스가 생존해 있는지 `ProcessRecord` 수신함에서 검색한다. 냉시작 상태이므로 프로세스가 존재하지 않는다.
-   - [AMS](../../04_system_services/activity-manager-service.md) 는 Zygote Socket(`dev/socket/zygote`)에 연결하여 프로세스 생성을 요청한다.
+   - `ActivityManagerService`([AMS](../../04_system_services/service-lookup/activity-manager-service.md))는 해당 UID 의 프로세스가 생존해 있는지 `ProcessRecord` 수신함에서 검색한다. 냉시작 상태이므로 프로세스가 존재하지 않는다.
+   - [AMS](../../04_system_services/service-lookup/activity-manager-service.md) 는 Zygote Socket(`dev/socket/zygote`)에 연결하여 프로세스 생성을 요청한다.
 
 3. **Kernel 및 커스텀 런타임 레이어**:
    - Zygote 는 `fork()` 시스템 콜을 호출하여 사전 로딩된 ART VM 과 공통 자바 클래스/리소스 매핑을 가진 프로세스를 복제한다(Copy-On-Write 메모리 최적화).
@@ -242,7 +242,7 @@ class MainActivity : ComponentActivity() {
 - [Activity 콜백은 화면 인스턴스의 visibility와 interaction 경계를 알린다](../../02_app_framework/architecture/app-components/activity-lifecycle-callbacks.md)
 - [Android 렌더링 파이프라인은 Surface 버퍼를 합성기로 넘기는 계약이다](../../01_system_internals/graphics-and-media/android-rendering-pipeline.md)
 - [ANR은 단일 timeout이 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server/anr-responsiveness.md)
-- [Android 시작 성능은 TTID와 TTFD로 나눈다](../../06_testing_performance/performance/performance/startup-performance-is-measured-by-ttid-and-ttfd.md)
+- [Android 시작 성능은 TTID와 TTFD로 나눈다](../../06_testing_performance/performance/startup-performance-metrics.md)
 
 ---
 

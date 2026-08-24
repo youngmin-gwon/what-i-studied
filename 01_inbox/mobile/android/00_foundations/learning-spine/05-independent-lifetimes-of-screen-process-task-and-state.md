@@ -23,7 +23,7 @@ date created: 2026-08-03 20:45:00 +09:00
 | Lifetime | 누가 관리하는가 | 끝나는 조건의 예 |
 | --- | --- | --- |
 | 설치된 패키지 identity 와 사용자 데이터 | PackageManager, 영속 저장소(3 장) | 삭제(uninstall) |
-| Linux process | Zygote/[AMS](../../04_system_services/activity-manager-service.md)(4 장) | 시스템의 메모리 회수, force-stop, crash |
+| Linux process | Zygote/[AMS](../../04_system_services/service-lookup/activity-manager-service.md)(4 장) | 시스템의 메모리 회수, force-stop, crash |
 | Task 와 back stack | ActivityTaskManagerService | 사용자의 task 제거, 마지막 Activity 의 finish |
 | Activity/Service/Receiver/Provider 인스턴스 | 각 컴포넌트 계약 | configuration change, finish, task 제거, 프로세스 종료 |
 | ViewModel | Jetpack 아키텍처 컴포넌트 | 소유자(Activity/Fragment/Navigation 진입점)가 완전히 종료될 때 |

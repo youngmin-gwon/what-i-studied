@@ -12,11 +12,11 @@ date created: 2026-07-31 17:46:00 +09:00
 
 ### 읽는 순서
 
-1. [Android NFC는 리더, 태그, 카드 에뮬레이션 모드로 나뉜다](./android-nfc-splits-reader-tag-and-card-emulation-modes.md)로 상대 장치와 프로토콜 역할을 고른다.
-2. 태그 데이터라면 [NDEF는 태그 데이터를 메시지와 레코드로 구조화한다](./ndef-structures-tag-data-as-messages-and-records.md)를 읽는다.
-3. 외부 리더에 카드처럼 응답한다면 [HCE는 HostApduService가 APDU 거래를 처리하는 모델이다](./hce-uses-hostapduservice-to-handle-apdu-transactions.md)를 읽는다.
-4. Android 15+ 결제 준비 흐름이라면 [Android 15 Observe Mode는 HCE 거래 전 폴링을 관찰한다](./android-15-observe-mode-observes-polling-before-hce-transactions.md)를 읽는다.
-5. 실제 결제 제품이라면 [비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다](./contactless-payment-is-separate-from-nfc-tagging.md)에서 인증, 토큰, 리더, 네트워크 경계를 추가한다.
+1. [Android NFC는 리더, 태그, 카드 에뮬레이션 모드로 나뉜다](nfc-modes-reader-tag-hce.md)로 상대 장치와 프로토콜 역할을 고른다.
+2. 태그 데이터라면 [NDEF는 태그 데이터를 메시지와 레코드로 구조화한다](ndef-record-structures.md)를 읽는다.
+3. 외부 리더에 카드처럼 응답한다면 [HCE는 HostApduService가 APDU 거래를 처리하는 모델이다](hce-host-apdu-service.md)를 읽는다.
+4. Android 15+ 결제 준비 흐름이라면 [Android 15 Observe Mode는 HCE 거래 전 폴링을 관찰한다](nfc-observe-mode-android15.md)를 읽는다.
+5. 실제 결제 제품이라면 [비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다](contactless-payment-boundaries.md)에서 인증, 토큰, 리더, 네트워크 경계를 추가한다.
 
 ### 문제 분류
 
@@ -38,10 +38,10 @@ date created: 2026-07-31 17:46:00 +09:00
 
 ### 노트 목록
 
-- [Android NFC는 리더, 태그, 카드 에뮬레이션 모드로 나뉜다](./android-nfc-splits-reader-tag-and-card-emulation-modes.md)
-- [NDEF는 태그 데이터를 메시지와 레코드로 구조화한다](./ndef-structures-tag-data-as-messages-and-records.md)
-- [HCE는 HostApduService가 APDU 거래를 처리하는 모델이다](./hce-uses-hostapduservice-to-handle-apdu-transactions.md)
-- [Android 15 Observe Mode는 HCE 거래 전 폴링을 관찰한다](./android-15-observe-mode-observes-polling-before-hce-transactions.md)
-- [비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다](./contactless-payment-is-separate-from-nfc-tagging.md)
+- [Android NFC는 리더, 태그, 카드 에뮬레이션 모드로 나뉜다](nfc-modes-reader-tag-hce.md)
+- [NDEF는 태그 데이터를 메시지와 레코드로 구조화한다](ndef-record-structures.md)
+- [HCE는 HostApduService가 APDU 거래를 처리하는 모델이다](hce-host-apdu-service.md)
+- [Android 15 Observe Mode는 HCE 거래 전 폴링을 관찰한다](nfc-observe-mode-android15.md)
+- [비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다](contactless-payment-boundaries.md)
 
 검증일: 2026-08-03. Android 15의 기본 지갑 역할과 Observe Mode는 [HCE 공식 문서](https://developer.android.com/develop/connectivity/nfc/hce)를 기준으로 확인했다.

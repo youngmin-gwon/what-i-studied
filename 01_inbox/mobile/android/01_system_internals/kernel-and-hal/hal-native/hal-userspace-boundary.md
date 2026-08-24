@@ -127,4 +127,4 @@ graph TD
 - [Linux Kernel](../../../../../operating-systems/linux-kernel.md) - HAL 아래에서 하드웨어 장치 제어 드라이버를 제공하는 하위 운영체제 커널
 - [ART (Android Runtime)](../../boot-and-runtime/zygote-runtime/art.md) - HAL 위 프레임워크 및 앱 프로세스를 구동하는 런타임 환경
 - [Binder IPC](../../ipc-and-process/binder-ipc.md) - Stable HAL(HIDL/AIDL) 통신에 쓰이는 IPC 메커니즘
-- [system_server](../../../04_system_services/system-server.md) - HAL 을 사용하는 시스템 서비스 프로세스
+- [system_server](../../boot-and-runtime/system-server/system-server.md) - HAL 을 사용하는 시스템 서비스 프로세스

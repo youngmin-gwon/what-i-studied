@@ -12,8 +12,8 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 읽는 순서
 
-1. [static/dynamic/pinned shortcut은 소유권과 lifecycle이 다르다](./static-dynamic-and-pinned-shortcuts-have-different-ownership-and-lifecycle.md)에서 세 종류가 각각 누구에 의해 만들어지고 누구만 지울 수 있는지 본다.
-2. [ShortcutManager는 동적 shortcut 개수를 제한하고 백그라운드 갱신에 rate limit을 건다](./shortcutmanager-caps-dynamic-shortcut-count-and-rate-limits-background-updates.md)에서 개수 상한과 rate limiting 조건, 디버깅 명령을 본다.
+1. [static/dynamic/pinned shortcut은 소유권과 lifecycle이 다르다](shortcut-ownership-lifecycles.md)에서 세 종류가 각각 누구에 의해 만들어지고 누구만 지울 수 있는지 본다.
+2. [ShortcutManager는 동적 shortcut 개수를 제한하고 백그라운드 갱신에 rate limit을 건다](shortcut-manager-rate-limits.md)에서 개수 상한과 rate limiting 조건, 디버깅 명령을 본다.
 
 ### 문제 분류
 
@@ -32,7 +32,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 노트 목록
 
-- [static/dynamic/pinned shortcut은 소유권과 lifecycle이 다르다](./static-dynamic-and-pinned-shortcuts-have-different-ownership-and-lifecycle.md)
-- [ShortcutManager는 동적 shortcut 개수를 제한하고 백그라운드 갱신에 rate limit을 건다](./shortcutmanager-caps-dynamic-shortcut-count-and-rate-limits-background-updates.md)
+- [static/dynamic/pinned shortcut은 소유권과 lifecycle이 다르다](shortcut-ownership-lifecycles.md)
+- [ShortcutManager는 동적 shortcut 개수를 제한하고 백그라운드 갱신에 rate limit을 건다](shortcut-manager-rate-limits.md)
 
 검증일: 2026-08-04. [Shortcuts overview](https://developer.android.com/develop/ui/views/launch/shortcuts), [Manage shortcuts](https://developer.android.com/develop/ui/views/launch/shortcuts/managing-shortcuts)를 기준으로 확인했다.

@@ -88,9 +88,9 @@ class StorageContextHelper(private val context: Context) {
 - **DE 저장소 선택 기준**: Direct Boot 모드에서 반드시 작동해야 하는 아침 알람 시각, 푸시 토큰 갱신용 보조 데이터 등 극히 일부의 non-sensitive 데이터에만 제한 사용한다.
 - **보안 경계 원칙**: DE 저장소는 기기 부팅만 되면 언제든 접근할 수 있으므로, 복호화 키, PII(개인식별정보), 비밀번호, Access Token 등을 절대로 DE 저장소에 저장해선 안 된다.
 
-상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
+상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup.md)
 
 관련 노트:
 
-- [FBE에서 CE와 DE를 나누는 저장소 경계](storage-lifecycle-and-backup/fbe-ce-and-de-separate-storage-availability.md)
-- [Direct Boot에서 허용되는 데이터와 실행 수명](storage-lifecycle-and-backup/direct-boot-requires-minimal-device-protected-data.md)
+- [FBE에서 CE와 DE를 나누는 저장소 경계](fbe-ce-de-storage.md)
+- [Direct Boot에서 허용되는 데이터와 실행 수명](direct-boot-de-storage.md)

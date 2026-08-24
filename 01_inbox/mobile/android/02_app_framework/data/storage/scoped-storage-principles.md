@@ -11,7 +11,7 @@ date created: 2026-08-01 00:00:00 +09:00
 상위 문서: [파일 접근 계약](./file-access.md)
 배경 지식: [리눅스 파일 시스템](../../../../../linux/filesystems.md)
 
-관련 노트: [Scoped Storage와 암호화는 서로 다른 경계를 보호한다](../../../05_security_privacy/secure-storage/storage-lifecycle-and-backup/scoped-storage-and-encryption-protect-different-boundaries.md)
+관련 노트: [Scoped Storage와 암호화는 서로 다른 경계를 보호한다](../../../05_security_privacy/secure-storage/scoped-storage-vs-encryption.md)
 
 Scoped Storage 는 앱이 기기 전체 파일을 직접 훑는 모델에서 벗어나게 한 저장소 규칙이다.
 

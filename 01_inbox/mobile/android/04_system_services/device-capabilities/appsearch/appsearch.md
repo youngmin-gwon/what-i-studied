@@ -12,8 +12,8 @@ date created: 2026-08-05 10:00:00 +09:00
 
 ### 읽는 순서
 
-1. [AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다](./appsearch-is-an-on-device-search-index-not-a-cloud-search-engine.md)에서 `LocalStorage`(앱 전용 저장소), `PlatformStorage`(Android 12+ 시스템 전역 저장소), `PlayServicesStorage`(구형 기기용 전역 저장소) 선택과 System UI 노출 옵트인 계약을 먼저 본다.
-2. [Document 스키마 변경은 명시적 마이그레이션이 없으면 호환되지 않는 데이터를 삭제한다](./document-schema-changes-require-explicit-migration-or-forceoverride-deletes-data.md)에서 `Migrator`와 `forceOverride`가 스키마 버전 변경을 어떻게 다르게 처리하는지 본다.
+1. [AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다](appsearch-on-device-indexing.md)에서 `LocalStorage`(앱 전용 저장소), `PlatformStorage`(Android 12+ 시스템 전역 저장소), `PlayServicesStorage`(구형 기기용 전역 저장소) 선택과 System UI 노출 옵트인 계약을 먼저 본다.
+2. [Document 스키마 변경은 명시적 마이그레이션이 없으면 호환되지 않는 데이터를 삭제한다](appsearch-schema-migrations.md)에서 `Migrator`와 `forceOverride`가 스키마 버전 변경을 어떻게 다르게 처리하는지 본다.
 
 ### 문제 분류
 
@@ -32,7 +32,7 @@ date created: 2026-08-05 10:00:00 +09:00
 
 ### 노트 목록
 
-- [AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다](./appsearch-is-an-on-device-search-index-not-a-cloud-search-engine.md)
-- [Document 스키마 변경은 명시적 마이그레이션이 없으면 호환되지 않는 데이터를 삭제한다](./document-schema-changes-require-explicit-migration-or-forceoverride-deletes-data.md)
+- [AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다](appsearch-on-device-indexing.md)
+- [Document 스키마 변경은 명시적 마이그레이션이 없으면 호환되지 않는 데이터를 삭제한다](appsearch-schema-migrations.md)
 
 검증일: 2026-08-05. [AppSearch overview](https://developer.android.com/guide/topics/search/appsearch), [SetSchemaResponse.MigrationFailure](https://developer.android.com/reference/androidx/appsearch/app/SetSchemaResponse.MigrationFailure)를 기준으로 확인했다.

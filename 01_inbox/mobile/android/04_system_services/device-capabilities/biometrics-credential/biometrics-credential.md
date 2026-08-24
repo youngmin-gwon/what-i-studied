@@ -33,9 +33,9 @@ biometricPrompt.authenticate(promptInfo) // 암호화 연동 시 cryptoObject �
 
 ### 읽는 순서
 
-1. [BiometricPrompt는 인증 UI와 키 사용 승인을 함께 처리한다](./biometricprompt-couples-authentication-ui-with-key-authorization.md) 에서 인증과 crypto 객체의 관계를 본다.
-2. [BiometricManager.canAuthenticate는 실행 전에 확인해야 하는 사전 조건이다](./biometricmanager-canauthenticate-is-a-precondition-check.md) 에서 프롬프트를 띄우기 전 실패를 막는 법을 본다.
-3. [CredentialManager는 비밀번호/패스키/연동 로그인을 하나의 API로 통합한다](./credentialmanager-unifies-password-passkey-and-federated-sign-in.md) 에서 로그인 흐름 통합 모델을 본다.
+1. [BiometricPrompt는 인증 UI와 키 사용 승인을 함께 처리한다](biometric-prompt-key-auth.md) 에서 인증과 crypto 객체의 관계를 본다.
+2. [BiometricManager.canAuthenticate는 실행 전에 확인해야 하는 사전 조건이다](biometric-manager-preconditions.md) 에서 프롬프트를 띄우기 전 실패를 막는 법을 본다.
+3. [CredentialManager는 비밀번호/패스키/연동 로그인을 하나의 API로 통합한다](credential-manager-unification.md) 에서 로그인 흐름 통합 모델을 본다.
 
 ### 문제 분류
 
@@ -52,8 +52,8 @@ biometricPrompt.authenticate(promptInfo) // 암호화 연동 시 cryptoObject �
 
 ### 노트 목록
 
-- [BiometricPrompt는 인증 UI와 키 사용 승인을 함께 처리한다](./biometricprompt-couples-authentication-ui-with-key-authorization.md)
-- [BiometricManager.canAuthenticate는 실행 전에 확인해야 하는 사전 조건이다](./biometricmanager-canauthenticate-is-a-precondition-check.md)
-- [CredentialManager는 비밀번호/패스키/연동 로그인을 하나의 API로 통합한다](./credentialmanager-unifies-password-passkey-and-federated-sign-in.md)
+- [BiometricPrompt는 인증 UI와 키 사용 승인을 함께 처리한다](biometric-prompt-key-auth.md)
+- [BiometricManager.canAuthenticate는 실행 전에 확인해야 하는 사전 조건이다](biometric-manager-preconditions.md)
+- [CredentialManager는 비밀번호/패스키/연동 로그인을 하나의 API로 통합한다](credential-manager-unification.md)
 
 검증일: 2026-08-03. [BiometricPrompt 문서](https://developer.android.com/identity/sign-in/biometric-auth)와 [CredentialManager 문서](https://developer.android.com/identity/sign-in/credential-manager) 를 기준으로 확인했다.

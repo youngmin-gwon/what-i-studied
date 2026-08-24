@@ -168,7 +168,7 @@ Apple 의 App Intents 와 유사한 기능을 Android 에서는 **App Actions** 
 > - `AppIntent.perform()` ≃ `shortcuts.xml` 에 정의된 Intent Fulfillment 처리 logic
 > - `AppShortcut` ≃ Android 의 **Static Shortcut** (`shortcuts.xml`)
 > - `AppEntity` ≃ 시스템이 검색할 수 있는 앱 내 데이터 (Search Indexing)
->상세 비교는 [**android-app-actions-assistant**](../../android/04_system_services/agents-and-assistant/assistant-agent/app-actions-map-assistant-queries-to-app-fulfillment.md) 를 참고하세요.
+>상세 비교는 [**android-app-actions-assistant**](../../android/04_system_services/assistant-agent/app-actions-fulfillment.md) 를 참고하세요.
 
 ### 더 보기
 - [apple-widgets-live-activities](../02_ui_frameworks/apple-widgets-live-activities.md) - WidgetKit 기본 아키텍처 및 타임라인

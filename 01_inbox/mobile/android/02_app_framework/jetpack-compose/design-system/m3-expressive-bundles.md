@@ -168,7 +168,7 @@ fun FeedbackButton(
 
 - [Size modifier는 들어오는 constraints 안에서 요청 크기를 해석한다](../layout-and-ui/size-modifiers-constraints.md)
 - [Modifier 순서는 레이아웃, 그리기, 입력 래퍼를 바꾼다](../layout-and-ui/modifier-chain-order.md)
-- [HapticFeedbackType은 UX 인터랙션과 안드로이드 플랫폼 햅틱 패턴을 1:1 매핑한다](../../../04_system_services/device-capabilities/haptics-vibrator/haptic-feedback-types-map-ux-interactions-to-platform-patterns.md)
+- [HapticFeedbackType은 UX 인터랙션과 안드로이드 플랫폼 햅틱 패턴을 1:1 매핑한다](../../../04_system_services/device-capabilities/haptics-vibrator/haptic-feedback-patterns.md)
 
 공식 가이드: [Material Design 3 - Buttons Specs](https://m3.material.io/components/buttons/specs), [Material Design 3 - Shape System Overview](https://m3.material.io/styles/shape/overview)
 

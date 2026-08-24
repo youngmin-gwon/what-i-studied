@@ -15,7 +15,7 @@ Android 비동기 프로그래밍 패러다임은 **[Kotlin Coroutines](coroutin
 - [Coroutine Contracts](coroutines/coroutine.md) - Coroutine Scope, suspend 함수 메커니즘, Dispatcher 선택, 예외 전파 및 병렬 작업 계약.
 - [Flow Contracts](flow/flow.md) - Cold Flow 실행 메커니즘, 연산자 파이프라인, callbackFlow 소멸 처리, shareIn 공유 정책.
 - [Flow와 [stateflow](flow-state/stateflow-and-sharedflow.md) 상태 계약](./flow-state/flow-state.md) - Repository stream 데이터 공급, ViewModel의 StateFlow 조합, UI Lifecycle-aware 수집 계약.
-- [Coroutine/Flow 테스트 계약](../../../06_testing_performance/testing/coroutine-flow-tests-control-dispatchers-and-virtual-time.md) - TestDispatcher 와 Virtual Time 제어를 통한 결정론적 비동기 검증.
+- [Coroutine/Flow 테스트 계약](../../../06_testing_performance/testing/coroutine-flow-testing.md) - TestDispatcher 와 Virtual Time 제어를 통한 결정론적 비동기 검증.
 
 ```mermaid
 graph TD

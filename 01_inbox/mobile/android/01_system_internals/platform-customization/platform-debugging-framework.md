@@ -87,4 +87,4 @@ adb shell getprop | grep "init.svc" | grep -v "stopped"
 ### 관련 문서
 
 - [IPC 디버깅은 service 등록, call path, thread state에서 시작한다](../ipc-and-process/ipc-service-debugging.md)
-- [Debugging contracts](../../06_testing_performance/debugging/debugging/debugging.md)
+- [Debugging contracts](../../06_testing_performance/debugging/debugging.md)

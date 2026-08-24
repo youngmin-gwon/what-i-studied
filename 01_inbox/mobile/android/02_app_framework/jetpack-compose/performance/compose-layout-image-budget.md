@@ -45,6 +45,6 @@ Macrobenchmark FrameTimingMetric에서 느린 스크롤 확인
 
 Developer Options의 막대 하나를 Compose measure/layout/draw 시간으로 해석하지 않는다. 60Hz의 16.67ms도 모든 기기의 고정 기준이 아니다. refresh rate와 frame deadline을 포함한 trace·benchmark 결과를 증거로 사용한다.
 
-관련 노트: [Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다](compose-performance-loop.md), [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../06_testing_performance/performance/performance/rendering-jank-is-frame-deadline-failure.md)
+관련 노트: [Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다](compose-performance-loop.md), [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../06_testing_performance/performance/rendering-jank-frame-deadlines.md)
 
 출처: [Compose lazy list 성능](https://developer.android.com/develop/ui/compose/lists#performance), [Compose 성능](https://developer.android.com/develop/ui/compose/performance)

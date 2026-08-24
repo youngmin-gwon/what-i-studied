@@ -12,9 +12,9 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 읽는 순서
 
-1. [온디바이스 추론은 클라우드 추론이 필요로 하는 네트워크 왕복을 건너뛴다](./on-device-inference-skips-the-network-round-trip-cloud-inference-needs.md) 에서 ML Kit/LiteRT 와 클라우드 API 의 근본적인 차이를 본다.
-2. [AICore는 Gemini Nano를 앱마다 번들되지 않는 공유 시스템 모델로 관리한다](./aicore-manages-gemini-nano-as-a-shared-system-model-not-a-bundled-asset.md) 에서 모델 배포 주체가 앱에서 OS 로 이동하는 계약을 본다.
-3. [온디바이스 AI 기능 가용성은 사용 전에 반드시 확인해야 한다](./on-device-ai-feature-availability-must-be-checked-before-use.md) 에서 기기·OS 버전에 따른 가용성 차이와 capability 확인 패턴을 본다.
+1. [온디바이스 추론은 클라우드 추론이 필요로 하는 네트워크 왕복을 건너뛴다](on-device-inference-low-latency.md) 에서 ML Kit/LiteRT 와 클라우드 API 의 근본적인 차이를 본다.
+2. [AICore는 Gemini Nano를 앱마다 번들되지 않는 공유 시스템 모델로 관리한다](aicore-gemini-nano.md) 에서 모델 배포 주체가 앱에서 OS 로 이동하는 계약을 본다.
+3. [온디바이스 AI 기능 가용성은 사용 전에 반드시 확인해야 한다](on-device-ai-feature-availability.md) 에서 기기·OS 버전에 따른 가용성 차이와 capability 확인 패턴을 본다.
 
 ### 문제 분류
 
@@ -33,8 +33,8 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 노트 목록
 
-- [온디바이스 추론은 클라우드 추론이 필요로 하는 네트워크 왕복을 건너뛴다](./on-device-inference-skips-the-network-round-trip-cloud-inference-needs.md)
-- [AICore는 Gemini Nano를 앱마다 번들되지 않는 공유 시스템 모델로 관리한다](./aicore-manages-gemini-nano-as-a-shared-system-model-not-a-bundled-asset.md)
-- [온디바이스 AI 기능 가용성은 사용 전에 반드시 확인해야 한다](./on-device-ai-feature-availability-must-be-checked-before-use.md)
+- [온디바이스 추론은 클라우드 추론이 필요로 하는 네트워크 왕복을 건너뛴다](on-device-inference-low-latency.md)
+- [AICore는 Gemini Nano를 앱마다 번들되지 않는 공유 시스템 모델로 관리한다](aicore-gemini-nano.md)
+- [온디바이스 AI 기능 가용성은 사용 전에 반드시 확인해야 한다](on-device-ai-feature-availability.md)
 
 검증일: 2026-08-04. [Android AI overview](https://developer.android.com/ai), [AICore overview](https://developer.android.com/ai/aicore), [ML Kit GenAI Summarization](https://developers.google.com/ml-kit/genai/summarization/android) 을 기준으로 확인했다.

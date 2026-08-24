@@ -38,13 +38,13 @@ graph TD
 2. **`LocalBroadcastManager` Deprecated 및 Kotlin Flow 대전환**:
    - 동일 앱 내부 컴포넌트 간 비동기 이벤트 수신에는 낡은 `LocalBroadcastManager` 대신 [SharedFlow 및 StateFlow](../../data/async-flow/flow-state/stateflow-and-sharedflow.md) 를 사용하는 것이 현대 안드로이드 아키텍처의 표준이다.
 3. **`onReceive()` 실행 타임아웃 (10 초)**:
-   - `onReceive()` 는 메인 UI 스레드에서 10 초 이내에 짧게 끝나야 하며, 긴 작업이 필요한 경우 `goAsync()` 와 [WorkManager](../../../04_system_services/background-and-notifications/background-work/work-manager.md) 를 조합해야 ANR 을 예방할 수 있다.
+   - `onReceive()` 는 메인 UI 스레드에서 10 초 이내에 짧게 끝나야 하며, 긴 작업이 필요한 경우 `goAsync()` 와 [WorkManager](../../../04_system_services/background-and-notifications/work-manager.md) 를 조합해야 ANR 을 예방할 수 있다.
 
 ---
 
 ### 3. 연결 문서 (Related Links)
 
 - [StateFlow & SharedFlow](../../data/async-flow/flow-state/stateflow-and-sharedflow.md) - 현대 앱 내부 이벤트 전파 메커니즘 (SSOT)
-- [AMS (ActivityManagerService)](../../../04_system_services/activity-manager-service.md) - 브로드캐스트 디스패처
+- [AMS (ActivityManagerService)](../../../04_system_services/service-lookup/activity-manager-service.md) - 브로드캐스트 디스패처
 - [ANR 약속](../../../01_system_internals/boot-and-runtime/system-server/anr-responsiveness.md) - onReceive 10 초 초과 시 ANR 발생
-- [WorkManager 예약 작업](../../../04_system_services/background-and-notifications/background-work/work-manager.md) - 리시버 수신 후 장시간 작업 위임
+- [WorkManager 예약 작업](../../../04_system_services/background-and-notifications/work-manager.md) - 리시버 수신 후 장시간 작업 위임

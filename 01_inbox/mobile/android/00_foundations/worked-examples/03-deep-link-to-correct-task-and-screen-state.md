@@ -69,7 +69,7 @@ flowchart TD
    - `DomainVerificationManager` 및 `PackageManagerService`(PMS)는 수신된 HTTPS 도메인이 사전 검증(App Link Verification)된 호스트인지 확인한다.
    - 도메인 검증이 `verified` 상태이면, 사용자에게 앱 선택 대화상자(Disambiguation Dialog)나 웹 브라우저를 띄우지 않고 곧바로 해당 앱 패키지를 최종 수신자로 단독 지정한다.
    - `ActivityTaskManagerService`(ATMS)는 해당 Activity 의 `launchMode` 와 Intent 플래그(`FLAG_ACTIVITY_NEW_TASK` 등)를 참조하여 딥 링크가 실행될 Task 와 백 스택을 계산한다.
-   - 앱 프로세스가 죽어있는 경우 [AMS](../../04_system_services/activity-manager-service.md) 가 Zygote fork 경로를 실행한다 (WE1 냉시작 참조).
+   - 앱 프로세스가 죽어있는 경우 [AMS](../../04_system_services/service-lookup/activity-manager-service.md) 가 Zygote fork 경로를 실행한다 (WE1 냉시작 참조).
 
 3. **App Framework 레이어**:
    - Intent 가 대상 Activity(`MainActivity`)로 전달되면, 앱은 `Intent.data` URI 를 정규화(Canonicalization)하고 쿼리 파라미터/경로를 Allowlist 와 비교 검증한다.

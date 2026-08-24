@@ -73,4 +73,4 @@ thread {
 ### 4. 연결 문서 (Related Links)
 
 - [ActivityThread](../../architecture/app-components/activity-thread.md) - Handler/Looper 메인 이벤트 루프를 구동하는 메인 스레드 진입점
-- [system_server](../../../04_system_services/system-server.md) - Handler 를 통해 앱 프로세스로 트랜잭션을 전송하는 시스템 서비스
+- [system_server](../../../01_system_internals/boot-and-runtime/system-server/system-server.md) - Handler 를 통해 앱 프로세스로 트랜잭션을 전송하는 시스템 서비스

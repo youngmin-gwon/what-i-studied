@@ -106,10 +106,10 @@ fun triggerCustomVibration(context: Context) {
 
 - 상위 문서: [Android System Services & Device Capabilities](../../android-system-services-and-device-capabilities.md)
 - 관련 계약 문서:
-  - [HapticFeedbackType은 UX 인터랙션 의미를 플랫폼 햅틱에 전달한다](./haptic-feedback-types-map-ux-interactions-to-platform-patterns.md)
-  - [VibratorManager와 VibrationEffect는 기기의 정밀 햅틱과 진동 파형을 제어한다](./vibrator-manager-and-vibration-effect-control-device-haptics.md)
-  - [InputManager는 물리 입력 장치를 이벤트 소스로 추상화한다](../input-accessibility/inputmanager-abstracts-physical-input-devices-as-event-sources.md)
-  - [권한 보호 수준은 누가 접근을 승인받는지를 정의한다](../../../05_security_privacy/permissions-and-sandbox/permissions/permission-protection-level-defines-who-can-grant-access.md)
+  - [HapticFeedbackType은 UX 인터랙션 의미를 플랫폼 햅틱에 전달한다](haptic-feedback-patterns.md)
+  - [VibratorManager와 VibrationEffect는 기기의 정밀 햅틱과 진동 파형을 제어한다](vibrator-manager-effects.md)
+  - [InputManager는 물리 입력 장치를 이벤트 소스로 추상화한다](../input-accessibility/input-manager-physical-devices.md)
+  - [권한 보호 수준은 누가 접근을 승인받는지를 정의한다](../../../05_security_privacy/permissions/permission-protection-levels.md)
 - 공식 가이드: [Android Haptics Overview](https://developer.android.com/develop/ui/views/haptics/haptics-overview), [Vibrator API](https://developer.android.com/reference/android/os/Vibrator)
 
 검증일: 2026-08-06. HapticFeedback의 의미 기반 경로와 직접 `Vibrator` 경로의 권한·구현 차이를 Android haptics guide로 재확인했다.

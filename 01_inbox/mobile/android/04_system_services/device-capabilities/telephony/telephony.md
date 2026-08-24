@@ -12,9 +12,9 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 읽는 순서
 
-1. [TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다](./telephonymanager-permissions-split-into-phone-state-and-phone-numbers.md) 에서 필요한 정보에 맞는 최소 권한을 고른다.
-2. [SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다](./subscriptionmanager-separates-logical-subscriptions-from-physical-slots.md) 에서 듀얼 SIM 기기의 데이터 모델을 본다.
-3. [Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다](./carrier-privilege-is-granted-by-carrier-signed-certificates-not-runtime-permission.md) 에서 통신사 앱의 특권 모델을 본다.
+1. [TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다](telephony-manager-permissions.md) 에서 필요한 정보에 맞는 최소 권한을 고른다.
+2. [SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다](subscription-manager-slots.md) 에서 듀얼 SIM 기기의 데이터 모델을 본다.
+3. [Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다](carrier-privilege-certificates.md) 에서 통신사 앱의 특권 모델을 본다.
 
 ### 문제 분류
 
@@ -31,8 +31,8 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 노트 목록
 
-- [TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다](./telephonymanager-permissions-split-into-phone-state-and-phone-numbers.md)
-- [SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다](./subscriptionmanager-separates-logical-subscriptions-from-physical-slots.md)
-- [Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다](./carrier-privilege-is-granted-by-carrier-signed-certificates-not-runtime-permission.md)
+- [TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다](telephony-manager-permissions.md)
+- [SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다](subscription-manager-slots.md)
+- [Carrier privilege는 런타임 권한 없이 통신사 서명 인증서로 부여된다](carrier-privilege-certificates.md)
 
 검증일: 2026-08-03. [TelephonyManager 문서](https://developer.android.com/reference/android/telephony/TelephonyManager)와 [UICC carrier privileges](https://source.android.com/docs/core/connect/uicc) 를 기준으로 확인했다.

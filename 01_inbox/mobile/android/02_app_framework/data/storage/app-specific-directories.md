@@ -11,7 +11,7 @@ date created: 2026-08-01 00:00:00 +09:00
 상위 문서: [파일 접근 계약](./file-access.md)
 배경 지식: [리눅스 파일 시스템](../../../../../linux/filesystems.md)
 
-관련 노트: [캐시는 정본이 아니라 재생성 가능한 데이터다](../../../05_security_privacy/secure-storage/storage-lifecycle-and-backup/cache-is-recreatable-data-not-source-of-truth.md)
+관련 노트: [캐시는 정본이 아니라 재생성 가능한 데이터다](../../../05_security_privacy/secure-storage/cache-data-policies.md)
 
 앱 전용 디렉터리는 파일의 소유자와 수명이 앱에 묶인 저장 영역이다.
 

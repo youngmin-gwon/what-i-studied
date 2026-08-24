@@ -29,15 +29,15 @@ flowchart TD
 
 **네트워크 통신 없는 오프라인 추론**
 온디바이스 AI는 데이터가 기기 외부로 유출되지 않으므로 프라이버시가 보호되며, 네트워크 대기 시간이 없어 실시간 피드백(카메라 렌즈 분석 등)이 가능하다.
-- [On-device inference skips the network round-trip cloud inference needs](../../04_system_services/device-capabilities/on-device-ai/on-device-inference-skips-the-network-round-trip-cloud-inference-needs.md)
+- [On-device inference skips the network round-trip cloud inference needs](../../04_system_services/device-capabilities/on-device-ai/on-device-inference-low-latency.md)
 
 **AICore와 공유 시스템 모델 (Gemini Nano)**
 개별 앱이 거대한 파운데이션 모델을 직접 포함(Bundle)하면 APK 크기가 비대해집니다. Android 14+의 AICore는 시스템 수준에서 Gemini Nano 모델을 관리하고 앱들에게 API를 통해 공유합니다.
-- [AICore manages Gemini Nano as a shared system model, not a bundled asset](../../04_system_services/device-capabilities/on-device-ai/aicore-manages-gemini-nano-as-a-shared-system-model-not-a-bundled-asset.md)
+- [AICore manages Gemini Nano as a shared system model, not a bundled asset](../../04_system_services/device-capabilities/on-device-ai/aicore-gemini-nano.md)
 
 **기능 가용성 (Availability) 검사 필수**
 모든 안드로이드 기기가 NPU를 갖추고 있거나 시스템 AI 모델을 다운로드해 둔 것은 아니다. 따라서 On-device API를 호출하기 전에 하드웨어 지원 여부와 모델 가용성을 먼저 확인하고 다운로드를 트리거해야 한다.
-- [On-device AI feature availability must be checked before use](../../04_system_services/device-capabilities/on-device-ai/on-device-ai-feature-availability-must-be-checked-before-use.md)
+- [On-device AI feature availability must be checked before use](../../04_system_services/device-capabilities/on-device-ai/on-device-ai-feature-availability.md)
 
 ### 4. 이 주제와 연결된 Worked Example
 - [02 Photo Capture Preview Save Upload](../worked-examples/02-photo-capture-preview-save-upload.md) (카메라 프레임과 실시간 ML Vision 분석)

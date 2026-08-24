@@ -12,9 +12,9 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 읽는 순서
 
-1. [AudioManager는 포커스 요청으로 여러 앱의 동시 재생을 조정한다](./audiomanager-arbitrates-concurrent-playback-through-focus-requests.md) 에서 여러 앱이 소리를 낼 때의 중재 모델을 본다.
-2. [CameraManager 접근은 가용성 콜백과 캐릭터리스틱 조회로 시작한다](./cameramanager-access-starts-with-availability-and-characteristics.md) 에서 카메라를 열기 전에 확인해야 할 것을 본다.
-3. [MediaSession은 재생 상태를 시스템 UI와 외부 컨트롤러에 노출하는 계약이다](./mediasession-exposes-playback-state-to-system-and-external-controllers.md) 에서 잠금화면/블루투스 컨트롤 연동 모델을 본다.
+1. [AudioManager는 포커스 요청으로 여러 앱의 동시 재생을 조정한다](audio-manager-focus-arbitration.md) 에서 여러 앱이 소리를 낼 때의 중재 모델을 본다.
+2. [CameraManager 접근은 가용성 콜백과 캐릭터리스틱 조회로 시작한다](camera-manager-characteristics.md) 에서 카메라를 열기 전에 확인해야 할 것을 본다.
+3. [MediaSession은 재생 상태를 시스템 UI와 외부 컨트롤러에 노출하는 계약이다](media-session-controllers.md) 에서 잠금화면/블루투스 컨트롤 연동 모델을 본다.
 
 ### 문제 분류
 
@@ -32,8 +32,8 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 노트 목록
 
-- [AudioManager는 포커스 요청으로 여러 앱의 동시 재생을 조정한다](./audiomanager-arbitrates-concurrent-playback-through-focus-requests.md)
-- [CameraManager 접근은 가용성 콜백과 캐릭터리스틱 조회로 시작한다](./cameramanager-access-starts-with-availability-and-characteristics.md)
-- [MediaSession은 재생 상태를 시스템 UI와 외부 컨트롤러에 노출하는 계약이다](./mediasession-exposes-playback-state-to-system-and-external-controllers.md)
+- [AudioManager는 포커스 요청으로 여러 앱의 동시 재생을 조정한다](audio-manager-focus-arbitration.md)
+- [CameraManager 접근은 가용성 콜백과 캐릭터리스틱 조회로 시작한다](camera-manager-characteristics.md)
+- [MediaSession은 재생 상태를 시스템 UI와 외부 컨트롤러에 노출하는 계약이다](media-session-controllers.md)
 
 검증일: 2026-08-03. [오디오 포커스 관리](https://developer.android.com/media/optimize/audio-focus)와 [Camera2 문서](https://developer.android.com/media/camera/camera2) 를 기준으로 확인했다.

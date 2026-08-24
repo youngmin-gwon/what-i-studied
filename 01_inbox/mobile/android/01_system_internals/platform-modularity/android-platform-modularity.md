@@ -101,4 +101,4 @@ graph TD
 ### 경계 규칙
 
 - Mainline/APEX/SDK Extensions 는 이 폴더가 정본이다. Treble/VINTF/HAL, GKI/KMI 는 [HAL native contracts](../kernel-and-hal/hal-native/hal-native.md), [kernel 정본](../kernel-and-hal/android-kernel-runtime.md) 이 정본이므로 여기서 재설명하지 않는다.
-- 앱 개발자 관점 판단(package 이름 대신 API/feature 확인)은 이 폴더에 남기고, 권한/AppOps 판단 기준은 [permission 정본](../../05_security_privacy/permissions-and-sandbox/permissions/permission.md) 으로 넘긴다.
+- 앱 개발자 관점 판단(package 이름 대신 API/feature 확인)은 이 폴더에 남기고, 권한/AppOps 판단 기준은 [permission 정본](../../05_security_privacy/permissions/permissions.md) 으로 넘긴다.

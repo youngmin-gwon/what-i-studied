@@ -103,6 +103,6 @@ graph TD
 - CTS 실패 로그 분석 시 `junit.framework.AssertionFailedError`가 발생하면 테스트 자체의 무작위 실패(Flaky)인지, 타겟 OEM ROM의 Framework 코드 수정으로 인한 표준 비헤이비어 파괴인지 구분해야 한다.
 - VTS 실패 시 `lshal`로 원인 대상 HAL이 죽었거나 VINTF 선언 버전과 실제 실행 바이너리 버전이 일치하는지 점검한다.
 
-관련 노트: [Platform debugging은 build, boot, service, VINTF, sepolicy, CTS를 분리한다](platform-debugging-framework.md), [Testing and quality contracts](../../06_testing_performance/testing/testing-quality/testing-quality.md).
+관련 노트: [Platform debugging은 build, boot, service, VINTF, sepolicy, CTS를 분리한다](platform-debugging-framework.md), [Testing and quality contracts](../../06_testing_performance/testing/testing-quality.md).
 
 공식 문서: [Android Compatibility Test Suite](https://source.android.com/docs/compatibility/cts)

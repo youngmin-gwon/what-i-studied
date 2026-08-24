@@ -19,7 +19,7 @@ date created: 2026-08-07 13:10:00 +09:00
 ### 초보자를 위한 쉽게 이해하는 비유
 
 * **`dumpsys` (시청 종합 현황 실시간 관제 대장)**:
-  - 스마트폰이라는 시청 내부의 모든 부서(건축과-WMS, 주민과-[AMS](../../04_system_services/activity-manager-service.md), 교통과-ConnectivityService)에 **"현재 처리 중인 모든 장부와 상태 서류를 당장 출력해 제출하라"**고 명령하여 관제실 모니터에 한눈에 출력시키는 정밀 진단 시스템.
+  - 스마트폰이라는 시청 내부의 모든 부서(건축과-WMS, 주민과-[AMS](../../04_system_services/service-lookup/activity-manager-service.md), 교통과-ConnectivityService)에 **"현재 처리 중인 모든 장부와 상태 서류를 당장 출력해 제출하라"**고 명령하여 관제실 모니터에 한눈에 출력시키는 정밀 진단 시스템.
 
 ```mermaid
 graph TD
@@ -39,9 +39,9 @@ graph TD
 | **`dumpsys connectivity`** | 활성 네트워크 score, Capabilities, Default Network 디스패치 상태 | [Android Connectivity](../../01_system_internals/connectivity/android-connectivity.md) |
 | **`dumpsys netd`** | eBPF penalty_box 맵 상태, NetId 라우팅 테이블 룰 | [NetId 라우팅 테이블](../../01_system_internals/connectivity/netid-routing-table.md) |
 | **`dumpsys dnsresolver`** | Private DNS (DNS-over-TLS) Validation 및 캐싱 상태 | [DNS-over-TLS DoT](../../../../computer-science/networking/dns-over-tls-dot.md) |
-| **`dumpsys activity`** | 앱 컴포넌트 수명주기, Task 백스택, Process OOM 점수 | [system_server](../../04_system_services/system-server.md) |
-| **`dumpsys window`** | 화면 Window z-order, Focus 상태, Surface 위치 | [WindowManagerService](../../04_system_services/window-manager-service.md) |
-| **`dumpsys vpn`** | Always-on 및 Lockdown VPN 설정 및 active 상태 | [VPN Always-on vs Lockdown](../../05_security_privacy/vpn-always-on-vs-lockdown.md) |
+| **`dumpsys activity`** | 앱 컴포넌트 수명주기, Task 백스택, Process OOM 점수 | [system_server](../../01_system_internals/boot-and-runtime/system-server/system-server.md) |
+| **`dumpsys window`** | 화면 Window z-order, Focus 상태, Surface 위치 | [WindowManagerService](../../04_system_services/service-lookup/window-manager-service.md) |
+| **`dumpsys vpn`** | Always-on 및 Lockdown VPN 설정 및 active 상태 | [VPN Always-on vs Lockdown](../../05_security_privacy/platform-hardening/vpn-always-on-vs-lockdown.md) |
 
 ---
 
@@ -62,7 +62,7 @@ adb shell dumpsys netd
 
 ## 4. 연결 문서 (Related Links)
 
-- [system_server 표준 레퍼런스](../../04_system_services/system-server.md) - dumpsys 가 조회하는 자바 시스템 서비스 종합 프로세스
-- [ServiceManager](../../04_system_services/service-manager.md) - dumpsys 가 바인더 핸들을 조회하는 등록소
+- [system_server 표준 레퍼런스](../../01_system_internals/boot-and-runtime/system-server/system-server.md) - dumpsys 가 조회하는 자바 시스템 서비스 종합 프로세스
+- [ServiceManager](../../04_system_services/service-lookup/service-manager.md) - dumpsys 가 바인더 핸들을 조회하는 등록소
 - [Android Connectivity 런타임](../../01_system_internals/connectivity/android-connectivity.md) - 네트워크 덤프 수집
 - [Binder IPC](../../01_system_internals/ipc-and-process/binder-ipc.md) - dumpsys 가 호출하는 IBinder.dump() 인터페이스

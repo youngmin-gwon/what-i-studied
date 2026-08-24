@@ -24,6 +24,6 @@ Android 17 을 target 하는 앱은 API 37 의 target-gated 변화도 별도로 
 
 이 노트는 기능 목록을 복제하지 않고 빠르게 변하는 checkpoint 와 확인 축만 소유한다.
 
-관련 노트: [API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다](./api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md), [large screen contracts](../../../07_platforms/large-screens/large-screens/large-screen.md).
+관련 노트: [API level, codename, extension level, targetSdkVersion은 서로 다른 version 축이다](./api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md), [large screen contracts](../../../07_platforms/large-screens/large-screen.md).
 
 공식 문서(2026-08-06 검증): [Android 16 features](https://developer.android.com/about/versions/16/features), [Android 17](https://developer.android.com/about/versions/17), [Android 17 SDK setup](https://developer.android.com/about/versions/17/setup-sdk), [Android 17 large-screen behavior change](https://developer.android.com/about/versions/17/changes/ff-restrictions-ignored), [Android 17 QPR1 release notes](https://developer.android.com/about/versions/17/qpr1/release-notes).

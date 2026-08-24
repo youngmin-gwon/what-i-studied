@@ -44,6 +44,6 @@ semantics assertion -> 자동 접근성 검사 -> Scanner -> TalkBack 실제 탐
 
 TalkBack에서는 포커스 순서, 한 노드의 발화, 가능한 action, 상태 변경 후 안내를 기록한다. `testTag`는 테스트 선택자이고 사용자 label이 아니므로 테스트 편의를 위해 `contentDescription`을 추가하지 않는다. artifact와 API 버전이 맞지 않으면 자동 검사를 생략했다고 숨기지 말고 지원 범위를 기록한다.
 
-관련 노트: [Semantics 트리는 UI 의미를 접근성 서비스와 테스트에 드러낸다](semantics-tree-accessibility.md), [Testing quality contracts](../../../06_testing_performance/testing/testing-quality/testing-quality.md)
+관련 노트: [Semantics 트리는 UI 의미를 접근성 서비스와 테스트에 드러낸다](semantics-tree-accessibility.md), [Testing quality contracts](../../../06_testing_performance/testing/testing-quality.md)
 
 출처: [Compose 접근성 테스트](https://developer.android.com/develop/ui/compose/accessibility/testing), [Compose 접근성](https://developer.android.com/develop/ui/compose/accessibility)

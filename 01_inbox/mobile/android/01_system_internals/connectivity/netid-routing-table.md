@@ -63,5 +63,5 @@ adb shell ip route show table 100
 
 - [Android Connectivity 런타임](android-connectivity.md) - Connectivity 전체 아키텍처
 - [eBPF 커널 패킷 필터](../../../../computer-science/operating-systems/ebpf.md) - UID 패킷 필터링 및 penalty_box
-- [VPN Always-on vs Lockdown](../../05_security_privacy/vpn-always-on-vs-lockdown.md) - VPN tun0 라우팅 및 봉쇄
+- [VPN Always-on vs Lockdown](../../05_security_privacy/platform-hardening/vpn-always-on-vs-lockdown.md) - VPN tun0 라우팅 및 봉쇄
 - [dumpsys 시스템 진단 도구](../../06_testing_performance/debugging/dumpsys.md) - dumpsys netd 진단

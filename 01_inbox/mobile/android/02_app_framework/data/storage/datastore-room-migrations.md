@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [영속 저장소 계약](./persistence.md)
 
-관련 노트: [백업과 복원은 데이터 경계를 명시적으로 설계해야 한다](../../../05_security_privacy/secure-storage/storage-lifecycle-and-backup/backup-restore-requires-explicit-data-boundaries.md)
+관련 노트: [백업과 복원은 데이터 경계를 명시적으로 설계해야 한다](../../../05_security_privacy/secure-storage/backup-restore-boundaries.md)
 
 저장소를 선택하면 새 설치만 고려해서는 안 된다. 이미 배포된 앱의 기존 값, 스키마 변경, 복원 시점의 데이터 호환성까지 저장소 계약에 포함된다.
 

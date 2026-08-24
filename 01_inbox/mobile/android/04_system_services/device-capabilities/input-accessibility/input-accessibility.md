@@ -12,9 +12,9 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 읽는 순서
 
-1. [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](./inputmanager-abstracts-physical-input-devices-as-event-sources.md) 에서 키보드/마우스/게임패드가 시스템에 어떻게 보이는지 본다.
-2. [AccessibilityService는 다른 앱의 UI 이벤트를 관찰하고 조작할 수 있는 특권 서비스다](./accessibilityservice-observes-and-acts-on-other-apps-ui.md) 에서 이 특권과 사용자 승인 절차를 본다.
-3. [InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다](./inputmethodservice-is-a-separate-service-from-accessibilityservice.md) 에서 두 특권 서비스를 혼동하지 않는 법을 본다.
+1. [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](input-manager-physical-devices.md) 에서 키보드/마우스/게임패드가 시스템에 어떻게 보이는지 본다.
+2. [AccessibilityService는 다른 앱의 UI 이벤트를 관찰하고 조작할 수 있는 특권 서비스다](accessibility-service-ui-inspection.md) 에서 이 특권과 사용자 승인 절차를 본다.
+3. [InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다](input-method-service.md) 에서 두 특권 서비스를 혼동하지 않는 법을 본다.
 
 ### 문제 분류
 
@@ -31,8 +31,8 @@ date created: 2026-08-03 17:29:24 +09:00
 
 ### 노트 목록
 
-- [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](./inputmanager-abstracts-physical-input-devices-as-event-sources.md)
-- [AccessibilityService는 다른 앱의 UI 이벤트를 관찰하고 조작할 수 있는 특권 서비스다](./accessibilityservice-observes-and-acts-on-other-apps-ui.md)
-- [InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다](./inputmethodservice-is-a-separate-service-from-accessibilityservice.md)
+- [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](input-manager-physical-devices.md)
+- [AccessibilityService는 다른 앱의 UI 이벤트를 관찰하고 조작할 수 있는 특권 서비스다](accessibility-service-ui-inspection.md)
+- [InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다](input-method-service.md)
 
 검증일: 2026-08-03. [AccessibilityService 문서](https://developer.android.com/guide/topics/ui/accessibility/service)와 [InputMethod 개발 가이드](https://developer.android.com/develop/ui/views/touch-and-input/creating-input-method) 를 기준으로 확인했다.

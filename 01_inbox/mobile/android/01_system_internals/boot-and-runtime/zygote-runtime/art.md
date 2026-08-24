@@ -10,7 +10,7 @@ date created: 2026-08-06 16:31:22 +09:00
 
 ### 1. 개요 및 런타임(Runtime)의 본질
 
-**ART (Android Runtime)** 는 Android 운영체제에서 모든 애플리케이션과 프레임워크 시스템 서비스([system_server](../../../04_system_services/system-server.md))를 구동하는 **모바일 전용 관리형 런타임(Managed Runtime Environment)** 이다.
+**ART (Android Runtime)** 는 Android 운영체제에서 모든 애플리케이션과 프레임워크 시스템 서비스([system_server](../system-server/system-server.md))를 구동하는 **모바일 전용 관리형 런타임(Managed Runtime Environment)** 이다.
 
 기존 레거시 가상 머신이었던 **[Dalvik VM](dalvik-vm.md)** 을 완전히 대체하기 위해 Android 4.4(KitKat)에서 시험 도입된 후, **Android 5.0(Lollipop)** 부터 안드로이드의 기본 표준 런타임으로 전면 적용되었다.
 
@@ -70,5 +70,5 @@ ART 는 이를 극복하기 위해 다음과 같은 최적화 GC 기법을 탑�
 - [DEX (Dalvik Executable)](android-compilation-pipeline.md) - ART 런타임이 구동하는 안드로이드 압축 바이트코드
 - [Garbage Collection (GC)](../../../../../computer-science/garbage-collection.md) - ART Concurrent GC 가 수거하는 메모리 관리 메커니즘
 - [Zygote 와 ART 런타임 심층 계약](zygote-runtime.md) - ART 런타임 인스턴스를 미리 프리워밍(Pre-warm)하여 앱을 초고속 포크하는 마스터 프로세스
-- [system_server](../../../04_system_services/system-server.md) - ART 런타임 상에서 동작하는 안드로이드 백본 시스템 서비스
+- [system_server](../system-server/system-server.md) - ART 런타임 상에서 동작하는 안드로이드 백본 시스템 서비스
 - [Linux Kernel](../../../../../operating-systems/linux-kernel.md) - ART 런타임 프로세스가 구동되는 하위 OS 커널

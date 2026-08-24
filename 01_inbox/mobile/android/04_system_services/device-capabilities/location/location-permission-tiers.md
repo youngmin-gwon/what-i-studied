@@ -49,7 +49,7 @@ API 30+에서는 foreground와 background를 한 번에 요청하지 않는다. 
 
 ### 경계
 
-- 이 노트는 권한 단계 자체를 다룬다. 권한이 승인된 뒤에도 시스템이 실행을 막을 수 있는 AppOps 계층은 [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../service-lookup/service-lookup/appops-permission-denial.md)가 다룬다.
+- 이 노트는 권한 단계 자체를 다룬다. 권한이 승인된 뒤에도 시스템이 실행을 막을 수 있는 AppOps 계층은 [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../service-lookup/appops-permission-denial.md)가 다룬다.
 - 백그라운드에서 위치를 계속 수집하기 위한 실행 수단(포그라운드 서비스 vs WorkManager) 선택은 `04_system_services/background-and-notifications/background-work-contracts`가 다룬다.
 
 ### 관찰 가능한 신호

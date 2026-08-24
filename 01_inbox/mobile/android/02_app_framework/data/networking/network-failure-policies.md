@@ -81,7 +81,7 @@ class ClaimSyncWorker(
 
 상위 지도: [네트워크 클라이언트 계층 계약](./networking.md)
 
-관련 노트: [데이터, 저장소, 네트워크와 offline recovery](../../../00_foundations/learning-spine/08-data-storage-network-and-offline-recovery.md), [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../../04_system_services/background-and-notifications/background-work/work-manager.md), [Retrofit 인터페이스는 API 계약을 선언하고 OkHttp가 실제 전송을 담당한다](retrofit-okhttp-boundaries.md)
+관련 노트: [데이터, 저장소, 네트워크와 offline recovery](../../../00_foundations/learning-spine/08-data-storage-network-and-offline-recovery.md), [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../../04_system_services/background-and-notifications/work-manager.md), [Retrofit 인터페이스는 API 계약을 선언하고 OkHttp가 실제 전송을 담당한다](retrofit-okhttp-boundaries.md)
 
 공식 문서: [Build an offline-first app](https://developer.android.com/topic/architecture/data-layer/offline-first), [Persistent work with WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)
 

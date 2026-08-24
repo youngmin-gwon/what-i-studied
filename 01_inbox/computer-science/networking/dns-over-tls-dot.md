@@ -64,4 +64,4 @@ openssl s_client -connect dns.google:853 -brief
 - [Android Connectivity 런타임](../../mobile/android/01_system_internals/connectivity/android-connectivity.md) - Connectivity 전체 계층 구조
 - [NetId & Multi-Routing Table](../../mobile/android/01_system_internals/connectivity/netid-routing-table.md) - DNS 쿼리가 전송되는 NetId 라우팅
 - [dumpsys 시스템 진단 도구](../../mobile/android/06_testing_performance/debugging/dumpsys.md) - dumpsys dnsresolver 진단
-- [VPN Always-on vs Lockdown](../../mobile/android/05_security_privacy/vpn-always-on-vs-lockdown.md) - VPN 환경에서의 DNS 누출 방지
+- [VPN Always-on vs Lockdown](../../mobile/android/05_security_privacy/platform-hardening/vpn-always-on-vs-lockdown.md) - VPN 환경에서의 DNS 누출 방지

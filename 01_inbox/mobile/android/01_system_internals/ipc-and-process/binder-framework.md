@@ -12,7 +12,7 @@ date created: 2026-08-20 17:00:00 +09:00
 
 **Binder 유저스페이스 프레임워크**는 [Binder 커널 드라이버](binder-kernel-driver.md)의 로우레벨 `ioctl` 시스템 콜을 추상화하여, 애플리케이션 및 시스템 서비스 개발자에게 객체 지향적인 원격 프로시저 호출(RPC, Remote Procedure Call) 환경을 제공하는 C++ 네이티브(`libbinder`) 및 Java/Kotlin 프레임워크 계층이다.
 
-클라이언트와 서버가 서로 다른 프로세스 메모리 공간에 격리되어 있더라도, **Proxy / Stub 패턴(`BpBinder` / `BBinder`)**, **타입 세이프 직렬화 컨테이너(`Parcel`)**, **중앙 서비스 등록소([ServiceManager](../../04_system_services/service-manager.md))**, 그리고 **자동화된 인터페이스 정의 언어(AIDL)** 를 통해 마치 로컬 객체의 메서드를 호출하는 것처럼 투명한 IPC 를 가능하게 한다.
+클라이언트와 서버가 서로 다른 프로세스 메모리 공간에 격리되어 있더라도, **Proxy / Stub 패턴(`BpBinder` / `BBinder`)**, **타입 세이프 직렬화 컨테이너(`Parcel`)**, **중앙 서비스 등록소([ServiceManager](../../04_system_services/service-lookup/service-manager.md))**, 그리고 **자동화된 인터페이스 정의 언어(AIDL)** 를 통해 마치 로컬 객체의 메서드를 호출하는 것처럼 투명한 IPC 를 가능하게 한다.
 
 ```mermaid
 flowchart TD
@@ -115,7 +115,7 @@ myService.getUser(100)
 
 ---
 
-### 4. 서비스 등록 및 탐색 ([ServiceManager](../../04_system_services/service-manager.md))
+### 4. 서비스 등록 및 탐색 ([ServiceManager](../../04_system_services/service-lookup/service-manager.md))
 
 원격 프로세스와 통신하려면 먼저 상대방의 `IBinder` 객체(핸들)를 알아야 한다. 이 주소록 역할을 전담하는 데몬이 **`ServiceManager` (정수 Handle `0`)**이다.
 
@@ -153,4 +153,4 @@ sequenceDiagram
 - [Binder 트랜잭션 생명주기와 1MB 버퍼 제한](binder-transaction-lifetime.md)
 - [Binder 스레드 풀과 서비스 동시성 경계](binder-thread-pool.md)
 - [Oneway 비동기 바인더 통신](oneway-binder-transactions.md)
-- [ServiceManager](../../04_system_services/service-manager.md)
+- [ServiceManager](../../04_system_services/service-lookup/service-manager.md)

@@ -56,6 +56,6 @@ fun switch_updates_checked_semantics() {
 
 관찰 증거로 UI test는 semantics의 on/off 전환을 검증한다. 햅틱은 기기 설정과 하드웨어에 좌우되므로 실제 기기에서 on/off 각각 한 번만 발생하는지 확인하거나, wrapper에 피드백 함수를 주입해 호출 type을 단위 테스트한다. custom thumb의 press shape를 추가한다면 그것은 `Switch` 기본 계약이 아니라 앱 wrapper의 애니메이션·성능 책임이다.
 
-관련 노트: [Material 3 Expressive 디자인 시스템 및 컴포넌트 아키텍처](m3-expressive-architecture.md), [HapticFeedbackType은 UX 인터랙션을 플랫폼 햅틱 type에 매핑한다](../../../04_system_services/device-capabilities/haptics-vibrator/haptic-feedback-types-map-ux-interactions-to-platform-patterns.md)
+관련 노트: [Material 3 Expressive 디자인 시스템 및 컴포넌트 아키텍처](m3-expressive-architecture.md), [HapticFeedbackType은 UX 인터랙션을 플랫폼 햅틱 type에 매핑한다](../../../04_system_services/device-capabilities/haptics-vibrator/haptic-feedback-patterns.md)
 
 출처: [Material 3 Switch API](https://developer.android.com/reference/kotlin/androidx/compose/material3/Switch.composable), [HapticFeedbackType API](https://developer.android.com/reference/kotlin/androidx/compose/ui/hapticfeedback/HapticFeedbackType)

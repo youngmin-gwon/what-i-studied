@@ -130,7 +130,7 @@ class WeatherGlanceWidgetReceiver : GlanceAppWidgetReceiver() {
 - 연관 atomic 계약 문서:
   - [Glance는 Compose UI가 아니라 RemoteViews를 통해 위젯을 렌더링한다](glance-remoteviews-rendering.md)
   - [RemoteViews는 위젯 layout을 고정된 View 부분집합으로 제한한다](remoteviews-layout-restrictions.md)
-  - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/background-work/work-manager.md)
+  - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/work-manager.md)
 - 상위 구조 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../architecture/android-app-architecture.md)
 - 공식 문서: [AppWidgetProvider API Reference](https://developer.android.com/reference/android/appwidget/AppWidgetProvider)
 

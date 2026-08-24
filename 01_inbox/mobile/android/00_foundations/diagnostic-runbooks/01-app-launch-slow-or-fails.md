@@ -176,8 +176,8 @@ ui.perfetto.dev 에서 트레이스를 열고 `ActivityThread.main` -> `Applicat
 ### 9. 관련 자료 및 연결 노트 (Related Notes & Worked Examples)
 
 - [Worked Example: 앱 아이콘 탭에서 첫 프레임까지](../worked-examples/01-app-icon-tap-to-first-frame.md)
-- [Android 시작 성능은 TTID와 TTFD로 나눈다](../../06_testing_performance/performance/performance/startup-performance-is-measured-by-ttid-and-ttfd.md)
-- [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../../06_testing_performance/performance/performance/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
+- [Android 시작 성능은 TTID와 TTFD로 나눈다](../../06_testing_performance/performance/startup-performance-metrics.md)
+- [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../../06_testing_performance/performance/profiler-perfetto-diagnosis.md)
 - [Learning Spine 6장 메인 스레드, Binder, coroutine과 durable scheduler](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md)
 - [Learning Spine 8장 데이터 저장소, 네트워크와 offline recovery](../learning-spine/08-data-storage-network-and-offline-recovery.md)
 - [Learning Spine 11장 관찰, 테스트와 품질 feedback](../learning-spine/11-observation-testing-and-quality-feedback.md)

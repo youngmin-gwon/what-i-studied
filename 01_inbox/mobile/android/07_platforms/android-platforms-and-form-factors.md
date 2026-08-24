@@ -53,13 +53,13 @@ graph TD
 
 ### 정본 노트
 
-- [큰 화면 적응 계약](./large-screens/large-screens/large-screen.md)
-- [데스크톱 윈도잉과 멀티태스킹 계약](./large-screens/windowing-multitasking/windowing-multitasking.md)
-- [Android XR 계약](./xr/xr/xr.md)
-- [Android TV 계약](./tv/tv/tv.md)
-- [Wear OS 계약](./wear/wear/wear.md)
-- [Android Auto/Automotive 계약](./auto/auto/auto.md)
-- [ChromeOS 고유 계약](./chromeos/chromeos/chromeos.md)
+- [큰 화면 적응 계약](large-screens/large-screen.md)
+- [데스크톱 윈도잉과 멀티태스킹 계약](large-screens/windowing-multitasking.md)
+- [Android XR 계약](xr/xr.md)
+- [Android TV 계약](tv/tv.md)
+- [Wear OS 계약](wear/wear.md)
+- [Android Auto/Automotive 계약](auto/auto.md)
+- [ChromeOS 고유 계약](chromeos/chromeos.md)
 
 ### 관측 가능한 증거 (Observable Evidence)
 

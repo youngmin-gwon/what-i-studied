@@ -62,7 +62,7 @@ adb shell cat /proc/net/unix | grep "camera"
 ### 경계
 
 - Binder service 와 file boundary를 제어하는 SELinux 정책 세부 사항은 [SELinux policy는 Binder service와 file boundary를 함께 제어한다](selinux-policy-boundaries.md)가 다룬다.
-- 앱 sandbox 와 UID 격리는 [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](../../../05_security_privacy/platform-hardening/platform-security/android-app-sandbox-is-uid-and-process-boundary.md)가 다룬다.
+- 앱 sandbox 와 UID 격리는 [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](../../../05_security_privacy/platform-hardening/app-sandbox-uid-process-boundary.md)가 다룬다.
 
 ### 관측 가능한 증거 (Observable Evidence)
 
@@ -91,6 +91,6 @@ denial 로그 형식: `avc: denied { read } for pid=1234 comm="app" name="file" 
 ### 관련 문서
 
 - [SELinux policy는 Binder service와 file boundary를 함께 제어한다](selinux-policy-boundaries.md)
-- [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](../../../05_security_privacy/platform-hardening/platform-security/android-app-sandbox-is-uid-and-process-boundary.md)
+- [Android app sandbox는 UID와 프로세스 경계로 앱을 격리한다](../../../05_security_privacy/platform-hardening/app-sandbox-uid-process-boundary.md)
 
 공식 문서: [Security-Enhanced Linux in Android](https://source.android.com/docs/security/features/selinux), [SELinux concepts](https://source.android.com/docs/security/features/selinux/concepts)

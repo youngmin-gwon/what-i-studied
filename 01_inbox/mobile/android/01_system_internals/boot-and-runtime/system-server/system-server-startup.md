@@ -11,7 +11,7 @@ date created: 2026-08-01 00:00:00 +09:00
 상위 문서: [system_server 계약](system-server.md)
 배경 지식: [프로세스 vs 스레드](../../../../../../02_references/operating-systems/kernel.md)
 
-`system_server`는 Android 프레임워크의 거의 모든 핵심 시스템 서비스([AMS](../../../04_system_services/activity-manager-service.md), PMS, WMS, DisplayManager, BatteryService 등 100여 개 이상)를 단일 Java **[프로세스](../../../../../../02_references/operating-systems/kernel.md)** 공간 내부에서 **[스레드](../../../../../../02_references/operating-systems/kernel.md)** 형태로 구동하여 — 즉 서비스마다 독립된 주소 공간(프로세스)을 새로 만드는 대신, 하나의 주소 공간을 공유하는 실행 흐름(스레드) 여러 개로 나눈다 — 서비스 간 고속 메모리 참조와 체계적인 3단계 수명주기 초기화 메커니즘을 제공하는 통합 프로세스다.
+`system_server`는 Android 프레임워크의 거의 모든 핵심 시스템 서비스([AMS](../../../04_system_services/service-lookup/activity-manager-service.md), PMS, WMS, DisplayManager, BatteryService 등 100여 개 이상)를 단일 Java **[프로세스](../../../../../../02_references/operating-systems/kernel.md)** 공간 내부에서 **[스레드](../../../../../../02_references/operating-systems/kernel.md)** 형태로 구동하여 — 즉 서비스마다 독립된 주소 공간(프로세스)을 새로 만드는 대신, 하나의 주소 공간을 공유하는 실행 흐름(스레드) 여러 개로 나눈다 — 서비스 간 고속 메모리 참조와 체계적인 3단계 수명주기 초기화 메커니즘을 제공하는 통합 프로세스다.
 
 ### 내부 동작 메커니즘 (Internal Mechanism)
 

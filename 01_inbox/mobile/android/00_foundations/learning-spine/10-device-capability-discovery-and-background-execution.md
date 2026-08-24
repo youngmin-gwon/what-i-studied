@@ -133,13 +133,13 @@ date created: 2026-08-03 23:30:00 +09:00
 ### 관련 정본
 
 - [Android 시스템 서비스와 기기 기능 지도](../../04_system_services/android-system-services-and-device-capabilities.md)
-- [시스템 서비스 접근 공통 계약](../../04_system_services/service-lookup/service-lookup/service-lookup.md)
+- [시스템 서비스 접근 공통 계약](../../04_system_services/service-lookup/service-lookup.md)
 - [앱은 Mainline package 이름보다 API와 feature availability를 확인해야 한다](../../01_system_internals/platform-modularity/mainline-api-feature-checks.md)
-- [BiometricManager.canAuthenticate는 실행 전에 확인해야 하는 사전 조건이다](../../04_system_services/device-capabilities/biometrics-credential/biometricmanager-canauthenticate-is-a-precondition-check.md)
+- [BiometricManager.canAuthenticate는 실행 전에 확인해야 하는 사전 조건이다](../../04_system_services/device-capabilities/biometrics-credential/biometric-manager-preconditions.md)
 - [센서 접근 계약](../../04_system_services/device-capabilities/sensors/sensor.md)
 - [위치 접근 계약](../../04_system_services/device-capabilities/location/location.md)
-- [백그라운드 작업 계약](../../04_system_services/background-and-notifications/background-work/background-work.md)
-- [알림과 FCM 메시징 계약](../../04_system_services/background-and-notifications/notification-messaging/notification-messaging.md)
+- [백그라운드 작업 계약](../../04_system_services/background-and-notifications/background-work.md)
+- [알림과 FCM 메시징 계약](../../04_system_services/background-and-notifications/notification-messaging.md)
 
 ### 공식 근거
 

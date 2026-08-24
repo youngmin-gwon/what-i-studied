@@ -108,6 +108,6 @@ class LocationPushManager(private val context: Context) {
 - 앱 실행 중 `java.lang.ClassNotFoundException` 또는 GMS Binder 서비스 연결 실패(`API_UNAVAILABLE`)가 보고될 경우, 타겟 기기의 GMS 설치 상태 및 `GoogleApiAvailability` 반환 코드를 가장 먼저 검증한다.
 - FCM 푸시 전송 실패 시 디바이스가 GMS 인스턴스를 유지하고 있는지 `dumpsys activity service com.google.android.gms` 로 백그라운드 연결 상태를 확인한다.
 
-관련 노트: [AOSP는 완성된 Google 기기 경험이 아니라 기본 플랫폼이다](aosp-vs-google-experience.md), [Play Integrity token은 서버 검증용 risk signal이지 authorization 자체가 아니다](../../05_security_privacy/integrity-and-attestation/integrity/play-integrity-token-is-server-verified-risk-signal-not-authorization.md).
+관련 노트: [AOSP는 완성된 Google 기기 경험이 아니라 기본 플랫폼이다](aosp-vs-google-experience.md), [Play Integrity token은 서버 검증용 risk signal이지 authorization 자체가 아니다](../../05_security_privacy/integrity/play-integrity-token-verification.md).
 
 공식 문서: [Google Mobile Services](https://www.android.com/gms/)

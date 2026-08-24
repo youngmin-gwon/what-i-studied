@@ -12,8 +12,8 @@ date created: 2026-08-04 20:15:00 +09:00
 
 ### 읽는 순서
 
-1. [Health Connect는 클라우드 동기화가 아니라 앱 간 공유 온디바이스 저장소다](./health-connect-is-a-shared-on-device-store-not-a-cloud-sync-service.md)에서 데이터가 어디에 있고 누가 접근하는지부터 본다.
-2. [Health Connect 권한은 레코드 타입별로 개별 부여된다](./health-connect-permissions-are-granted-per-record-type-not-as-a-single-grant.md)에서 왜 "건강 데이터 접근 허용" 같은 단일 권한이 없는지 본다.
+1. [Health Connect는 클라우드 동기화가 아니라 앱 간 공유 온디바이스 저장소다](health-connect-on-device-storage.md)에서 데이터가 어디에 있고 누가 접근하는지부터 본다.
+2. [Health Connect 권한은 레코드 타입별로 개별 부여된다](health-connect-record-permissions.md)에서 왜 "건강 데이터 접근 허용" 같은 단일 권한이 없는지 본다.
 
 ### 문제 분류
 
@@ -32,7 +32,7 @@ date created: 2026-08-04 20:15:00 +09:00
 
 ### 노트 목록
 
-- [Health Connect는 클라우드 동기화가 아니라 앱 간 공유 온디바이스 저장소다](./health-connect-is-a-shared-on-device-store-not-a-cloud-sync-service.md)
-- [Health Connect 권한은 레코드 타입별로 개별 부여된다](./health-connect-permissions-are-granted-per-record-type-not-as-a-single-grant.md)
+- [Health Connect는 클라우드 동기화가 아니라 앱 간 공유 온디바이스 저장소다](health-connect-on-device-storage.md)
+- [Health Connect 권한은 레코드 타입별로 개별 부여된다](health-connect-record-permissions.md)
 
 검증일: 2026-08-04. [Health Connect overview](https://developer.android.com/health-and-fitness/guides/health-connect), [Get started](https://developer.android.com/health-and-fitness/guides/health-connect/develop/get-started)를 기준으로 확인했다.

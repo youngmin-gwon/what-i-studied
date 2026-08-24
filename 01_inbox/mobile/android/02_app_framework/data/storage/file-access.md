@@ -20,6 +20,6 @@ date created: 2026-08-01 00:00:00 +09:00
 - [SAF는 사용자가 고른 문서와 폴더에 접근한다](storage-access-framework.md)
 - [Photo Picker는 필요한 미디어 접근 범위를 줄인다](photo-picker-media-access.md)
 - [Scoped Storage는 공유 저장소 직접 접근을 제한한다](scoped-storage-principles.md)
-- [캐시는 정본이 아니라 재생성 가능한 데이터다](../../../05_security_privacy/secure-storage/storage-lifecycle-and-backup/cache-is-recreatable-data-not-source-of-truth.md)
+- [캐시는 정본이 아니라 재생성 가능한 데이터다](../../../05_security_privacy/secure-storage/cache-data-policies.md)
 
 상위 지도: [Android 저장소와 영속성](android-storage-and-persistence.md)

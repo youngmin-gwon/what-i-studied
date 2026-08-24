@@ -29,7 +29,7 @@ date created: 2026-08-04 02:50:00 +09:00
    - **중량 작업 상태 (Media Upload)**: 만약 미디어 업로드가 화면의 `viewModelScope` 나 `lifecycleScope` 에 바인딩된 coroutine 으로 실행 중이었다면, process death 시 프로세스 메모리가 해제되면서 작업이 즉시 취소된다. 따라서 이 작업은 enqueue 시점에 `WorkManager` (App Framework)에 위임되어 SQLite DB (`/data/data/<pkg>/databases/FrameworkWorkManager.db`) 에 영속 저장(Persistent Storage)되어야 한다.
 
 2. **System Server & IPC Layer (Process Death 발생 시점)**
-   - 앱이 background 로 이동하면 `ActivityManagerService` ([AMS](../../04_system_services/activity-manager-service.md)) 는 프로세스의 OOM adjustment score (`adj`) 를 `cached` (900~999) 레벨로 낮춘다.
+   - 앱이 background 로 이동하면 `ActivityManagerService` ([AMS](../../04_system_services/service-lookup/activity-manager-service.md)) 는 프로세스의 OOM adjustment score (`adj`) 를 `cached` (900~999) 레벨로 낮춘다.
    - 시스템 메모리가 부족해지면 Kernel LMK (Low Memory Killer) / PSI (Pressure Stall Information) 가 signal 9 (`SIGKILL`) 를 보내 프로세스를 강제 종료한다.
    - 이때 ATMS 는 RAM 에서 프로세스가 제거되어도, 시스템 서버 메모리의 `ActivityRecord` 내부에 직렬화된 `SavedState` Bundle (`icicle`) 을 영속적으로 보관한다. 동시에 `JobSchedulerService` 는 WorkManager 에 의해 등록된 `JobInfo` 스케줄링을 계속 유지한다.
 
@@ -168,8 +168,8 @@ class ComposePostViewModel(
 - [프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다](../../02_app_framework/architecture/app-components/process-death-state-recovery.md)
 - [ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](../../02_app_framework/architecture/state-management/viewmodel-lifecycle-survival.md)
 - [SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](../../02_app_framework/architecture/state-management/savedstatehandle-state-restoration.md)
-- [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/background-work/work-manager.md)
-- [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](../../04_system_services/background-and-notifications/background-work/background-restrictions-state.md)
+- [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/work-manager.md)
+- [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](../../04_system_services/background-and-notifications/background-restrictions-state.md)
 
 ### 공식 근거
 

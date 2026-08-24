@@ -12,7 +12,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 **Android 4 대 앱 컴포넌트**는 Android OS 기기에서 애플리케이션이 시스템 및 사용자와 상호작용하기 위해 제공하는 **4 가지 핵심 빌딩 블록([Activity](activity.md), [Service](service.md), [BroadcastReceiver](broadcast-receiver.md), [ContentProvider](content-provider.md))** 이다.
 
-각 컴포넌트는 안드로이드 [system_server](../../../04_system_services/system-server.md) 내부의 [AMS / ATMS](../../../04_system_services/activity-manager-service.md) 에 의해 독립적으로 수명주기(Lifecycle)가 관리되며, [Intent](../../navigation/intents-and-deep-links/pendingintent-tokens.md) 와 [Binder IPC](../../../01_system_internals/ipc-and-process/binder-ipc.md) 를 매개체로 통신한다.
+각 컴포넌트는 안드로이드 [system_server](../../../01_system_internals/boot-and-runtime/system-server/system-server.md) 내부의 [AMS / ATMS](../../../04_system_services/service-lookup/activity-manager-service.md) 에 의해 독립적으로 수명주기(Lifecycle)가 관리되며, [Intent](../../navigation/intents-and-deep-links/pendingintent-tokens.md) 와 [Binder IPC](../../../01_system_internals/ipc-and-process/binder-ipc.md) 를 매개체로 통신한다.
 
 ---
 
@@ -44,4 +44,4 @@ graph TD
 - [Service](service.md)
 - [BroadcastReceiver](broadcast-receiver.md)
 - [ContentProvider](content-provider.md)
-- [AMS & ATMS](../../../04_system_services/activity-manager-service.md) - 4 대 컴포넌트 수명주기 및 프로세스 통제
+- [AMS & ATMS](../../../04_system_services/service-lookup/activity-manager-service.md) - 4 대 컴포넌트 수명주기 및 프로세스 통제

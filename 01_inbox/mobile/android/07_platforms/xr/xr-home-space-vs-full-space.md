@@ -10,9 +10,9 @@ date created: 2026-08-06 18:20:00 +09:00
 
 상위 문서: [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)
 
-관련 지도: [Android XR 계약](./xr/xr.md)
+관련 지도: [Android XR 계약](xr.md)
 
-개념 노트: [Android XR은 평면 앱 포트가 아니라 공간 폼 팩터다](./xr/android-xr-is-spatial-form-factor-not-flat-port.md)
+개념 노트: [Android XR은 평면 앱 포트가 아니라 공간 폼 팩터다](android-xr-spatial-computing.md)
 
 ---
 
@@ -155,6 +155,6 @@ adb shell dumpsys activity top | grep -E "SpatialCapabilities|SpaceMode"
 
 #### 관련 노트
 
-- [Android XR은 평면 앱 포트가 아니라 공간 폼 팩터다](./xr/android-xr-is-spatial-form-factor-not-flat-port.md)
-- [Android XR 계약](./xr/xr.md)
+- [Android XR은 평면 앱 포트가 아니라 공간 폼 팩터다](android-xr-spatial-computing.md)
+- [Android XR 계약](xr.md)
 - [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)

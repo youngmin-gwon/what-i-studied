@@ -35,23 +35,23 @@ flowchart TD
 
 #### 백그라운드 작업 API 선택 기준
 작업의 지연 가능성과 실행 보장성, 그리고 사용자 가시성에 따라 백그라운드 실행 수단을 선택해야 한다. 각 수단은 실패 비용과 시스템 제약(Doze 모드 등)을 고려해 설계되었다.
-- [백그라운드 작업 계약](../../04_system_services/background-and-notifications/background-work/background-work.md)
-- [Background Work API selection is a failure cost decision](../../04_system_services/background-and-notifications/background-work/background-api-selection.md)
-- [Background execution is selected by guarantee, delay, and visibility](../../04_system_services/background-and-notifications/background-work/background-execution-selection.md)
-- [WorkManager is default for deferrable guaranteed work](../../04_system_services/background-and-notifications/background-work/work-manager.md)
-- [AlarmManager is for time-based user events](../../04_system_services/background-and-notifications/background-work/alarm-manager.md)
-- [Foreground Service is for visible continuous work](../../04_system_services/background-and-notifications/background-work/foreground-service.md)
-- [Background restrictions require persistent work state](../../04_system_services/background-and-notifications/background-work/background-restrictions-state.md)
+- [백그라운드 작업 계약](../../04_system_services/background-and-notifications/background-work.md)
+- [Background Work API selection is a failure cost decision](../../04_system_services/background-and-notifications/background-api-selection.md)
+- [Background execution is selected by guarantee, delay, and visibility](../../04_system_services/background-and-notifications/background-execution-selection.md)
+- [WorkManager is default for deferrable guaranteed work](../../04_system_services/background-and-notifications/work-manager.md)
+- [AlarmManager is for time-based user events](../../04_system_services/background-and-notifications/alarm-manager.md)
+- [Foreground Service is for visible continuous work](../../04_system_services/background-and-notifications/foreground-service.md)
+- [Background restrictions require persistent work state](../../04_system_services/background-and-notifications/background-restrictions-state.md)
 
 #### 알림 및 메시징 처리 (FCM & Notification)
 FCM(Firebase Cloud Messaging)과 알림은 사용자의 주의를 끌고 작업을 재개하는 진입점이다. FCM 메시지는 페이로드 유형에 따라 처리 주체가 다르며, 메시지 전달 자체는 비즈니스 로직 실행을 보장하지 않는다.
-- [알림과 FCM 메시징 계약](../../04_system_services/background-and-notifications/notification-messaging/notification-messaging.md)
-- [Android notification permission and channel control visibility](../../04_system_services/background-and-notifications/notification-messaging/notification-permission-channel.md)
-- [FCM operations observe delivery, display, tap, and recovery separately](../../04_system_services/background-and-notifications/notification-messaging/fcm-delivery-lifecycle.md)
-- [FCM registration identifier targets app instance, not user account](../../04_system_services/background-and-notifications/notification-messaging/fcm-registration-token.md)
-- [FCM high priority is justified by user-visible notification](../../04_system_services/background-and-notifications/notification-messaging/fcm-high-priority.md)
-- [FCM notification and data payloads have different handling points](../../04_system_services/background-and-notifications/notification-messaging/fcm-payload-handling.md)
-- [FCM is message delivery, not business execution guarantee](../../04_system_services/background-and-notifications/notification-messaging/fcm-delivery-guarantee.md)
+- [알림과 FCM 메시징 계약](../../04_system_services/background-and-notifications/notification-messaging.md)
+- [Android notification permission and channel control visibility](../../04_system_services/background-and-notifications/notification-permission-channel.md)
+- [FCM operations observe delivery, display, tap, and recovery separately](../../04_system_services/background-and-notifications/fcm-delivery-lifecycle.md)
+- [FCM registration identifier targets app instance, not user account](../../04_system_services/background-and-notifications/fcm-registration-token.md)
+- [FCM high priority is justified by user-visible notification](../../04_system_services/background-and-notifications/fcm-high-priority.md)
+- [FCM notification and data payloads have different handling points](../../04_system_services/background-and-notifications/fcm-payload-handling.md)
+- [FCM is message delivery, not business execution guarantee](../../04_system_services/background-and-notifications/fcm-delivery-guarantee.md)
 
 ### 이 주제와 연결된 Worked Example
 - [04-fcm-to-notification-display-and-tap-recovery.md](../worked-examples/04-fcm-to-notification-display-and-tap-recovery.md)

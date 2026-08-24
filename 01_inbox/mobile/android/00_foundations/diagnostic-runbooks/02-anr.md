@@ -184,7 +184,7 @@ ApplicationExitInfo #0:
 
 - [ANR은 단일 timeout이 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server/anr-responsiveness.md)
 - [Binder thread pool은 service concurrency와 deadlock 경계다](../../01_system_internals/ipc-and-process/binder-thread-pool.md)
-- [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](../../06_testing_performance/debugging/debugging/logcat-crash-anr-and-debugger-answer-different-questions.md)
+- [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](../../06_testing_performance/debugging/logcat-crash-anr-diagnosis.md)
 - [Worked Example: 앱 아이콘 탭에서 첫 프레임까지](../worked-examples/01-app-icon-tap-to-first-frame.md)
 - [Learning Spine 6장 메인 스레드, Binder, coroutine과 durable scheduler](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md)
 

@@ -102,7 +102,7 @@ classDiagram
 | **`binder_node`**   | 서버 프로세스 내에 존재하는 **실제 C++ `BBinder` 객체의 커널 내 표현**                             |
 | **`binder_ref`**    | 클라이언트 프로세스가 특정 `binder_node` 를 가리키기 위해 사용하는 **정수형 토큰(`Handle`, Descriptor)** |
 
-- 클라이언트가 정수 핸들 `0`을 지정하여 전송하면, 커널은 `refs_by_desc` 트리에서 `Handle 0`에 해당하는 `binder_node` 를 찾아 **[ServiceManager](../../04_system_services/service-manager.md)** 프로세스로 라우팅한다.
+- 클라이언트가 정수 핸들 `0`을 지정하여 전송하면, 커널은 `refs_by_desc` 트리에서 `Handle 0`에 해당하는 `binder_node` 를 찾아 **[ServiceManager](../../04_system_services/service-lookup/service-manager.md)** 프로세스로 라우팅한다.
 
 ---
 

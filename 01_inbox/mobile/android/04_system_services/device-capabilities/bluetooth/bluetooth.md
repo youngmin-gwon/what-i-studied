@@ -12,10 +12,10 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 읽는 순서
 
-1. [Bluetooth Classic과 BLE(GATT)는 서로 다른 연결 모델이다](./bluetooth-classic-and-ble-gatt-are-different-connection-models.md) 에서 두 연결 모델의 API 표면과 선택 기준을 먼저 본다.
-2. [Android 12+ Bluetooth 런타임 권한은 조건부로만 위치 권한을 대체한다](./android-12-bluetooth-runtime-permissions-conditionally-replace-location-permission.md)에서 `BLUETOOTH_SCAN`/`BLUETOOTH_CONNECT`와 `ACCESS_FINE_LOCATION` 의 관계를 확인한다.
-3. [BluetoothGatt 콜백 기반 연결은 명시적 상태 머신이 필요하다](./bluetoothgatt-callback-connection-needs-an-explicit-state-machine.md) 에서 비동기 콜백이 왜 상태 추적을 강제하는지 본다.
-4. [BLE 백그라운드 스캔은 배터리 제약을 받으며 ScanFilter가 필요하다](./ble-background-scanning-is-battery-constrained-and-needs-scan-filters.md) 에서 스캔 지속성과 배터리 사이의 트레이드오프를 본다.
+1. [Bluetooth Classic과 BLE(GATT)는 서로 다른 연결 모델이다](bluetooth-classic-vs-ble-gatt.md) 에서 두 연결 모델의 API 표면과 선택 기준을 먼저 본다.
+2. [Android 12+ Bluetooth 런타임 권한은 조건부로만 위치 권한을 대체한다](bluetooth-runtime-permissions.md)에서 `BLUETOOTH_SCAN`/`BLUETOOTH_CONNECT`와 `ACCESS_FINE_LOCATION` 의 관계를 확인한다.
+3. [BluetoothGatt 콜백 기반 연결은 명시적 상태 머신이 필요하다](bluetooth-gatt-state-machine.md) 에서 비동기 콜백이 왜 상태 추적을 강제하는지 본다.
+4. [BLE 백그라운드 스캔은 배터리 제약을 받으며 ScanFilter가 필요하다](ble-background-scanning.md) 에서 스캔 지속성과 배터리 사이의 트레이드오프를 본다.
 
 ### 문제 분류
 
@@ -34,9 +34,9 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ### 노트 목록
 
-- [Bluetooth Classic과 BLE(GATT)는 서로 다른 연결 모델이다](./bluetooth-classic-and-ble-gatt-are-different-connection-models.md)
-- [Android 12+ Bluetooth 런타임 권한은 조건부로만 위치 권한을 대체한다](./android-12-bluetooth-runtime-permissions-conditionally-replace-location-permission.md)
-- [BluetoothGatt 콜백 기반 연결은 명시적 상태 머신이 필요하다](./bluetoothgatt-callback-connection-needs-an-explicit-state-machine.md)
-- [BLE 백그라운드 스캔은 배터리 제약을 받으며 ScanFilter가 필요하다](./ble-background-scanning-is-battery-constrained-and-needs-scan-filters.md)
+- [Bluetooth Classic과 BLE(GATT)는 서로 다른 연결 모델이다](bluetooth-classic-vs-ble-gatt.md)
+- [Android 12+ Bluetooth 런타임 권한은 조건부로만 위치 권한을 대체한다](bluetooth-runtime-permissions.md)
+- [BluetoothGatt 콜백 기반 연결은 명시적 상태 머신이 필요하다](bluetooth-gatt-state-machine.md)
+- [BLE 백그라운드 스캔은 배터리 제약을 받으며 ScanFilter가 필요하다](ble-background-scanning.md)
 
 검증일: 2026-08-04. [Bluetooth overview](https://developer.android.com/develop/connectivity/bluetooth), [Bluetooth permissions](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions), [Connect to a GATT server](https://developer.android.com/develop/connectivity/bluetooth/ble/connect-gatt-server), [Communicate with a BLE device in background](https://developer.android.com/develop/connectivity/bluetooth/ble/background) 를 기준으로 확인했다.

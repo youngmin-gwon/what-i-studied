@@ -13,7 +13,7 @@ visionOS 는 Apple Vision Pro 를 위한 전용 운영체제로, 2025 년 버전
 >[!NOTE] **Android 비교: Android XR vs visionOS**
 > - **Android/Android XR**: Google, Samsung, Qualcomm 의 협업 플랫폼. Gemini AI 기반의 멀티모달(Multimodal) 에이전트 경험과 개방적인 생태계가 강점이다.
 > - **iOS/visionOS**: Apple 의 전용 칩셋(R1, M2)을 활용한 12ms 이내의 극도로 낮은 지연 시간과 **Foveated Streaming**을 통한 초고지연성 경험이 강점이다. (visionOS 26+)
->자세한 내용은 [**android-xr-and-spatial-computing**](../../android/07_platforms/xr/xr/xr.md) 를 참고하세요.
+>자세한 내용은 [**android-xr-and-spatial-computing**](../../android/07_platforms/xr/xr.md) 를 참고하세요.
 
 ### 1. visionOS 26 신규 기능 (2026 Standard)
 

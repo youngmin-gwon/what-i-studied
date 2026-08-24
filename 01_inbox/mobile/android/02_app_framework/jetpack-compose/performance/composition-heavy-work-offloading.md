@@ -85,7 +85,7 @@ fun ReportScreen(
 
 - [Composable 본문은 빠르고 멱등성을 가지며 부작용이 없어야 한다](../runtime/composable-body-purity.md)
 - [Compose 성능 최적화는 측정·진단·개선 순환으로 진행한다](compose-performance-loop.md)
-- [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../06_testing_performance/performance/performance/rendering-jank-is-frame-deadline-failure.md)
+- [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../06_testing_performance/performance/rendering-jank-frame-deadlines.md)
 
 ---
 

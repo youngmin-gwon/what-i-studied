@@ -31,7 +31,7 @@ flowchart TD
 
 #### Play Integrity와 증명(Attestation) 메커니즘 (Play Integrity API)
 기기가 루팅되었거나, 앱이 변조(Tampered)되었는지를 클라이언트 스스로 판단하는 것은 안전하지 않다. Play Integrity API가 생성한 토큰은 반드시 신뢰할 수 있는 백엔드 서버에서 검증(Server-verified)해야 하며, 이는 인가(Authorization)와는 분리된 위험 신호(Risk Signal)로 활용되어야 한다.
-- [Play Integrity token is server-verified risk signal, not authorization](../../05_security_privacy/integrity-and-attestation/integrity/play-integrity-token-is-server-verified-risk-signal-not-authorization.md)
+- [Play Integrity token is server-verified risk signal, not authorization](../../05_security_privacy/integrity/play-integrity-token-verification.md)
 
 #### OS 무결성과 커널 보호 (AVB & dm-verity)
 기기 자체의 펌웨어나 부트 파티션이 변조되지 않았음을 증명하기 위해, 기기 부팅 시점부터 Android Verified Boot (AVB)와 dm-verity 커널 기능이 동작하여 신뢰 체인(Chain of Trust)을 구축한다. 이는 이후 하드웨어 기반 Key Attestation과 Play Integrity의 신뢰 기반이 된다.

@@ -46,5 +46,5 @@ graph TD
 ### 3. 연결 문서 (Related Links)
 
 - [CE vs DE Secure Storage](../../../05_security_privacy/secure-storage/ce-vs-de-storage.md) - 안드로이드 기기 파일 암호화 스토리지
-- [AMS (ActivityManagerService)](../../../04_system_services/activity-manager-service.md) - ContentProvider 발행 및 Binder IPC 매개체
-- [AppOps & Permissions](../../../05_security_privacy/appops-and-permissions.md) - URI 권한 부여 및 런타임 권한 제어
+- [AMS (ActivityManagerService)](../../../04_system_services/service-lookup/activity-manager-service.md) - ContentProvider 발행 및 Binder IPC 매개체
+- [AppOps & Permissions](../../../05_security_privacy/permissions/appops-and-permissions.md) - URI 권한 부여 및 런타임 권한 제어

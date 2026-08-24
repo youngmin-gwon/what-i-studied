@@ -10,7 +10,7 @@ date created: 2026-08-07 13:38:00 +09:00
 
 ### 1. 개요 (Overview)
 
-**Activity (액티비티)** 는 사용자가 시각적으로 상호작용할 수 있는 UI 윈도우 화면을 제공하고, 시스템 이벤트([ATMS](../../../04_system_services/activity-manager-service.md))의 진입점 역할을 수행하는 **안드로이드 4 대 앱 컴포넌트의 핵심 엔트리 포인트**이다.
+**Activity (액티비티)** 는 사용자가 시각적으로 상호작용할 수 있는 UI 윈도우 화면을 제공하고, 시스템 이벤트([ATMS](../../../04_system_services/service-lookup/activity-manager-service.md))의 진입점 역할을 수행하는 **안드로이드 4 대 앱 컴포넌트의 핵심 엔트리 포인트**이다.
 
 현대 안드로이드 아키텍처(Modern Android Development - MAD)에서는 전통적인 XML 기반의 다중 Activity 구조 대신, 단 하나의 `ComponentActivity` 위에 **Jetpack Compose 와 Navigation Compose 를 올리는 Single Activity Architecture (SAA)** 가 표준으로 정립되었다.
 
@@ -34,7 +34,7 @@ graph TD
 ### 2. 현대 관점의 Activity 핵심 변경 및 설계 원칙
 
 1. **Single Activity Architecture (SAA)**:
-   - 앱 전체에서 단 하나(또는 기능별 최소한)의 `ComponentActivity`만 선언하고, 화면 이동은 Navigation Compose 가 담당하여 [ATMS](../../../04_system_services/activity-manager-service.md) 의 무거운 Activity 전환 오버헤드를 최소화한다.
+   - 앱 전체에서 단 하나(또는 기능별 최소한)의 `ComponentActivity`만 선언하고, 화면 이동은 Navigation Compose 가 담당하여 [ATMS](../../../04_system_services/service-lookup/activity-manager-service.md) 의 무거운 Activity 전환 오버헤드를 최소화한다.
 2. **`setContent` 및 State/ViewModel 분리**:
    - Activity 내부에서 직접 View 레이아웃을 다루지 않고 `setContent {}` 블록으로 Compose 런타임에 호스팅하며, 상태관리는 [ViewModel](../state-management/viewmodel.md) 및 [Compose SSOT](../../jetpack-compose/runtime/compose-ssot.md) 로 이관한다.
 3. **Activity 수명주기(Lifecycle)와 Compose**:
@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
 
 ### 4. 연결 문서 (Related Links)
 
-- [ATMS & AMS](../../../04_system_services/activity-manager-service.md) - Activity 백스택 및 수명주기 통제
+- [ATMS & AMS](../../../04_system_services/service-lookup/activity-manager-service.md) - Activity 백스택 및 수명주기 통제
 - [Compose SSOT](../../jetpack-compose/runtime/compose-ssot.md) - ViewModel 기반 UDF 상태 관리
 - [ViewModel](../state-management/viewmodel.md) - Configuration Change 견디는 UI 상태 저장소
 - [Composable Body Purity](../../jetpack-compose/runtime/composable-body-purity.md) - Compose UI 작성 준칙

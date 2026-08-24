@@ -22,12 +22,12 @@ Android storage 는 저장 대상의 수명, 소유권, 공개 목적, 보안 �
 6. [MediaStore는 공유 미디어를 등록한다](mediastore-shared-media.md)
 7. [SAF는 사용자가 고른 문서와 폴더에 접근한다](storage-access-framework.md)
 8. [Photo Picker는 미디어 접근 범위를 줄인다](photo-picker-media-access.md)
-9. [민감 데이터는 암호화와 키 소유권을 함께 설계한다](../../../05_security_privacy/secure-storage/secure-storage/sensitive-data-requires-encryption-and-key-ownership.md)
-10. [백업과 복원은 데이터 경계를 명시한다](../../../05_security_privacy/secure-storage/storage-lifecycle-and-backup/backup-restore-requires-explicit-data-boundaries.md)
+9. [민감 데이터는 암호화와 키 소유권을 함께 설계한다](../../../05_security_privacy/secure-storage/sensitive-data-encryption.md)
+10. [백업과 복원은 데이터 경계를 명시한다](../../../05_security_privacy/secure-storage/backup-restore-boundaries.md)
 
 ### 정본 지도
 
 - [영속 저장소 계약](persistence.md)
 - [파일 접근 계약](file-access.md)
-- [보안 저장소 계약](../../../05_security_privacy/secure-storage/secure-storage/secure-storage.md)
+- [보안 저장소 계약](../../../05_security_privacy/secure-storage/secure-storage.md)
 - [Android Data Layer Map](../android-data-layer-map.md)

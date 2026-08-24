@@ -71,7 +71,7 @@ timeline
 
 #### 5. 보안 & 프라이버시: 권한 및 저장소 모델의 진화
 
-- **[AppOps & 런타임 권한](../../05_security_privacy/appops-and-permissions.md) (Android 6.0+)**: 앱 설치 시점이 아닌 실제 실행 시점에 유저가 승인.
+- **[AppOps & 런타임 권한](../../05_security_privacy/permissions/appops-and-permissions.md) (Android 6.0+)**: 앱 설치 시점이 아닌 실제 실행 시점에 유저가 승인.
 - **[Scoped Storage & FileProvider](../../02_app_framework/architecture/app-components/content-provider.md) (Android 10+)**: SDCard 전체 접근을 차단하고 `MediaStore` 및 `content://` 임시 권한 공유로 전환.
 - **[CE vs DE Encrypted Storage](../../05_security_privacy/secure-storage/ce-vs-de-storage.md) (Android 7.0+)**: 기기 잠금 해제 전후의 파일 시스템 분리 암호화.
 
@@ -85,15 +85,15 @@ timeline
 ### 3. 버전별 핵심 패러다임 연대기
 
 - **Android 5.0 Lollipop (2014)**: [ART 런타임](../../01_system_internals/boot-and-runtime/zygote-runtime/art.md) 기본 적용, Material Design, SELinux Enforcing.
-- **Android 6.0 Marshmallow (2015)**: [AppOps & 런타임 권한](../../05_security_privacy/appops-and-permissions.md), [Doze 배터리 모드](../../04_system_services/job-scheduler.md).
+- **Android 6.0 Marshmallow (2015)**: [AppOps & 런타임 권한](../../05_security_privacy/permissions/appops-and-permissions.md), [Doze 배터리 모드](../../04_system_services/background-and-notifications/job-scheduler.md).
 - **Android 7.0 Nougat (2016)**: [Activity 멀티 윈도우](../../02_app_framework/architecture/app-components/activity.md), Vulkan API, A/B Updates.
-- **Android 8.0 Oreo (2017)**: [Project Treble](../../01_system_internals/platform-modularity/android-platform-modularity.md), [Foreground Service 제약](../../04_system_services/background-and-notifications/background-work/foreground-service.md).
+- **Android 8.0 Oreo (2017)**: [Project Treble](../../01_system_internals/platform-modularity/android-platform-modularity.md), [Foreground Service 제약](../../04_system_services/background-and-notifications/foreground-service.md).
 - **Android 9.0 Pie (2018)**: 제스처 네비게이션, BiometricPrompt 통합.
 - **Android 10 (2019)**: [Scoped Storage & ContentProvider](../../02_app_framework/architecture/app-components/content-provider.md), [Project Mainline APEX](../../01_system_internals/platform-modularity/android-platform-modularity.md).
 - **Android 11 (2020)**: 일회성 권한, AIDL HAL 통합.
 - **Android 12 (2021)**: Material You, Splash Screen, Privacy Dashboard.
 - **Android 13 (2022)**: Photo Picker, `POST_NOTIFICATIONS` 알림 권한.
-- **Android 14 (2023)**: [Foreground Service Type 선언](../../04_system_services/background-and-notifications/background-work/foreground-service.md), 예측적 뒤로가기.
+- **Android 14 (2023)**: [Foreground Service Type 선언](../../04_system_services/background-and-notifications/foreground-service.md), 예측적 뒤로가기.
 - **Android 15 (2024)**: [16KB Page Size](../../01_system_internals/kernel-and-hal/android-16kb-page-alignment.md) 지원, Private Space.
 - **Android 16 (2025/2026)**: Baklava - Major/Minor API release 분리.
 
@@ -107,6 +107,6 @@ timeline
 - [Activity 컴포넌트](../../02_app_framework/architecture/app-components/activity.md)
 - [Service 컴포넌트](../../02_app_framework/architecture/app-components/service.md)
 - [ContentProvider 컴포넌트](../../02_app_framework/architecture/app-components/content-provider.md)
-- [AppOps & Permissions](../../05_security_privacy/appops-and-permissions.md)
+- [AppOps & Permissions](../../05_security_privacy/permissions/appops-and-permissions.md)
 - [CE vs DE Secure Storage](../../05_security_privacy/secure-storage/ce-vs-de-storage.md)
 - [android-16kb-page-alignment](../../01_system_internals/kernel-and-hal/android-16kb-page-alignment.md) - Android 15+ 16KB 가상 메모리 페이지 정렬 규약

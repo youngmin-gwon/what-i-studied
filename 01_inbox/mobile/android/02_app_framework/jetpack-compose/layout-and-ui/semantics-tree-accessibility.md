@@ -49,6 +49,6 @@ Compose test는 기본적으로 merged tree를 조회한다. 예상 노드를 �
 
 장식 이미지는 `contentDescription = null`로 두고, 의미 있는 이미지는 주변 문맥과 중복되지 않는 설명을 제공한다. 관찰 증거는 semantics assertion, merged/unmerged tree 로그, TalkBack의 실제 발화 세 가지다.
 
-관련 노트: [Semantics 병합·재정의·탐색 순서는 의미 단위를 조절한다](semantics-traversal-merging.md), [Testing quality contracts](../../../06_testing_performance/testing/testing-quality/testing-quality.md)
+관련 노트: [Semantics 병합·재정의·탐색 순서는 의미 단위를 조절한다](semantics-traversal-merging.md), [Testing quality contracts](../../../06_testing_performance/testing/testing-quality.md)
 
 출처: [Compose Semantics](https://developer.android.com/develop/ui/compose/accessibility/semantics)

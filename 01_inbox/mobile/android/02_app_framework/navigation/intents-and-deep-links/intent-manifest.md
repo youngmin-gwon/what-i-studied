@@ -37,7 +37,7 @@ date created: 2026-08-01 00:00:00 +09:00
 - [PendingIntent는 위임된 미래 intent 토큰이다](pendingintent-tokens.md)
 - [PendingIntent FLAG_IMMUTABLE vs FLAG_MUTABLE 보안 비교](pendingintent-immutable-vs-mutable.md)
 - [Activity Result API는 수명주기를 인식하는 결과 계약을 정의한다](activity-result-api.md)
-- [Package visibility는 조회 가능한 앱을 제한한다](../../../04_system_services/system-state/package-user-role/package-visibility-queries.md)
+- [Package visibility는 조회 가능한 앱을 제한한다](../../../04_system_services/system-state/package-visibility-queries.md)
 
 ---
 

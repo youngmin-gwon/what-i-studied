@@ -10,7 +10,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 상위 문서: [Android 저장소와 영속성](android-storage-and-persistence.md)
 
-관련 노트: [저장소 선택은 파일의 소유권과 공개 목적을 먼저 묻는다](storage-selection-criteria.md), [Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다](../../../05_security_privacy/secure-storage/secure-storage/sensitive-data-requires-encryption-and-key-ownership.md)
+관련 노트: [저장소 선택은 파일의 소유권과 공개 목적을 먼저 묻는다](storage-selection-criteria.md), [Android 민감 데이터는 암호화와 키 소유권을 함께 설계한다](../../../05_security_privacy/secure-storage/sensitive-data-encryption.md)
 
 Android 저장소 선택은 API 이름보다 데이터의 수명과 소유권을 먼저 묻는 문제다.
 

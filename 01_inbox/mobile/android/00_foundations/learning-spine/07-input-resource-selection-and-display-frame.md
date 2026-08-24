@@ -140,7 +140,7 @@ configuration change 는 이 루프 전체를 다시 타게 만드는 별도의 
 
 ### 관련 정본
 
-- [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](../../04_system_services/device-capabilities/input-accessibility/inputmanager-abstracts-physical-input-devices-as-event-sources.md)
+- [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](../../04_system_services/device-capabilities/input-accessibility/input-manager-physical-devices.md)
 - [설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다](../../02_app_framework/architecture/app-components/configuration-change-handling.md)
 - [View System은 object tree를 변경하고 Compose는 state에서 UI를 재계산한다](../../02_app_framework/ui/view-system/view-tree-vs-compose-state.md)
 - [Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다](../../02_app_framework/jetpack-compose/runtime/compose-frame-pipeline.md)

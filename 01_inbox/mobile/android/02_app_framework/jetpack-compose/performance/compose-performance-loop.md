@@ -45,6 +45,6 @@ Macrobenchmark는 앱과 다른 test process에서 실제 사용자 동작을 �
 
 Layout Inspector의 [recomposition](../runtime/recomposition.md)/skip count는 원인 후보를 찾는 진단 자료이지 사용자 성능 metric 자체가 아니다. `remember`, `derivedStateOf`, lazy layout 교체도 frame timing이나 startup 결과가 개선되지 않으면 성공으로 기록하지 않는다. 평균 하나보다 반복 측정 분포와 느린 frame 지표를 함께 본다.
 
-관련 노트: [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](compose-layout-image-budget.md), [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../06_testing_performance/performance/performance/rendering-jank-is-frame-deadline-failure.md)
+관련 노트: [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](compose-layout-image-budget.md), [렌더링 성능은 프레임 지연의 원인을 분리한다](../../../06_testing_performance/performance/rendering-jank-frame-deadlines.md)
 
 출처: [Compose 성능](https://developer.android.com/develop/ui/compose/performance), [Macrobenchmark](https://developer.android.com/topic/performance/benchmarking/macrobenchmark-overview)

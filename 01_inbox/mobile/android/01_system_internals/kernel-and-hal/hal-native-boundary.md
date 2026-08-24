@@ -8,7 +8,7 @@ date created: 2026-07-31 23:58:00 +09:00
 
 ## HAL and Native Boundary 개요 및 역할
 
-안드로이드의 **HAL & Native Boundary**는 최하단 [Linux Kernel](../../../../operating-systems/linux-kernel.md) 드라이버 위에 위치하여, 상위 [자바 프레임워크](../../04_system_services/system-server.md) 및 [ART 런타임](../boot-and-runtime/zygote-runtime/art.md), NDK/C++ 라이브러리, 그리고 제조사 [HAL 하드웨어 코드](hal-native/hal-userspace-boundary.md)가 서로 통신하는 유저스페이스(Userspace) 경계 지점이다.
+안드로이드의 **HAL & Native Boundary**는 최하단 [Linux Kernel](../../../../operating-systems/linux-kernel.md) 드라이버 위에 위치하여, 상위 [자바 프레임워크](../boot-and-runtime/system-server/system-server.md) 및 [ART 런타임](../boot-and-runtime/zygote-runtime/art.md), NDK/C++ 라이브러리, 그리고 제조사 [HAL 하드웨어 코드](hal-native/hal-userspace-boundary.md)가 서로 통신하는 유저스페이스(Userspace) 경계 지점이다.
 
 이 인덱스는 [HAL 레퍼런스](hal-native/hal-userspace-boundary.md), Project Treble, Stable AIDL/HIDL, NDK/JNI 네이티브 라이브러리 인터페이스를 체계적으로 연결하는 허브 역할을 수행한다.
 
