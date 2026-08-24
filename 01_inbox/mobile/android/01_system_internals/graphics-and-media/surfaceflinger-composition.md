@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## SurfaceFlinger 는 보이는 레이어를 HWC 와 함께 합성한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 **SurfaceFlinger**는 Android 시스템의 코어 native 서비스로, 시스템 내에서 동작하는 모든 애플리케이션, 시스템 UI(Status Bar, Navigation Bar), 팝업 윈도우가 생산한 각각의 **Surface 레이어를 Z-order 순서에 따라 정렬하고 Hardware Composer(HWC)와 함께 최종 디스플레이 프레임버퍼로 합성(Composition)하는 전담 디스플레이 컴포지터**다.
 

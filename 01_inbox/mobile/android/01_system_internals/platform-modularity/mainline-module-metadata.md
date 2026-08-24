@@ -8,7 +8,7 @@ date modified: 2026-08-04 15:50:00 +09:00
 
 ## ModuleMetadata는 기기에 있는 Mainline module 목록을 설명한다
 
-상위 문서: [Platform modularity contracts](platform-modularity.md)
+상위 문서: [Platform modularity contracts](android-platform-modularity.md)
 
 ModuleMetadata (`com.android.modulemetadata` 또는 `com.google.android.modulemetadata`)는 특정 타겟 디바이스에 탑재되고 활성화된 Mainline 모듈들의 상세 메타데이터(Module Name, Package Name, Hidden 여부, 업그레이드 지원 여부 등)를 구조화하여 제공하는 시스템 컴포넌트 패키지다.
 
@@ -98,6 +98,80 @@ fun printInstalledMainlineModules(context: Context) {
 - 앱의 호환성 디버깅 시 `pm list modules` 출력을 사용하여 해당 기기 제조사가 특정 메인라인 모듈(예: `com.google.android.tethering`)을 순정 AOSP 모듈로 유지했는지, custom 벤더 바이너리로 교체했는지 추적한다.
 - 특정 API 사용 여부를 결정할 때는 `ModuleInfo` 패키지 이름 비교 대신 `SdkExtensions.getExtensionVersion()` 또는 `PackageManager.hasSystemFeature()`를 사용하는 것이 Google 호환성 지침에 부합한다.
 
-관련 노트: [Mainline module 목록은 release와 device에 따라 달라지는 metadata다](mainline-module-list.md), [앱은 Mainline 패키지 이름이 아니라 API/feature availability를 검사해야 한다](mainline-api-feature-checks.md).
+관련 노트: [Mainline module 목록은 release와 device에 따라 달라지는 metadata다](mainline-module-metadata.md), [앱은 Mainline 패키지 이름이 아니라 API/feature availability를 검사해야 한다](mainline-api-feature-checks.md).
 
 공식 문서: [ModuleMetadata Specs](https://source.android.com/docs/core/ota/modular-system/metadata)
+
+---
+
+### 올바른 모듈 가용성 확인 방법
+
+```kotlin
+// 잘못된 방법 ❌: 패키지 이름으로 모듈 존재 여부 확인
+fun checkDnsResolverWrong(pm: PackageManager): Boolean {
+    return try {
+        pm.getPackageInfo("com.google.android.resolv", 0)
+        true
+    } catch (e: PackageManager.NameNotFoundException) {
+        false  // AOSP 기기에서는 "com.android.resolv" 이름이 다름
+    }
+}
+
+// 올바른 방법 ✅: API/Feature availability check
+fun checkNetworkFeature(pm: PackageManager): Boolean {
+    // 패키지 이름이 아닌 feature flag나 API level로 판단
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+        || pm.hasSystemFeature(PackageManager.FEATURE_WIFI)
+}
+
+// ModuleMetadata API로 현재 기기의 Mainline 모듈 목록 조회
+fun listMainlineModules(pm: PackageManager): List<ModuleInfo> {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        pm.getInstalledModules(0)  // Android 10+ API
+    } else emptyList()
+}
+```
+
+### 대표적인 Mainline 모듈 (Android 12+ 기준)
+
+| 모듈 기능 | Google 패키지명 (참고용) | 업데이트 주기 |
+|:---|:---|:---:|
+| ART Runtime | `com.google.android.art` | Play Store |
+| DNS Resolver | `com.google.android.resolv` | Play Store |
+| Media | `com.google.android.media` | Play Store |
+| Wi-Fi | `com.google.android.wifi` | Play Store |
+| SDK Extensions | `com.google.android.sdkext` | Play Store |
+
+> ⚠️ 이 목록은 예시이며 release/device마다 다르다. 실제 기기의 모듈 목록은 항상 런타임에서 확인한다.
+
+### 판단 기준
+
+- 앱 기능 분기는 package name 나열보다 API/feature availability check 를 우선한다. 패키지 이름은 기기/빌드 flavor에 따라 다르다.
+- 기기에서 module identity 가 필요하면 `PackageManager.getInstalledModules()`로 조회한다.
+- 특정 모듈이 설치됐는지보다 해당 API 가 동작하는지 직접 확인하는 것이 더 강건한 방어 코드다.
+
+### 경계
+
+- 기기의 Mainline 모듈을 조회하는 `ModuleMetadata` 구현체는 [ModuleMetadata는 기기에 설치된 Mainline 모듈을 나타낸다](mainline-module-metadata.md)가 다룬다.
+- SDK extension과 feature availability 확인 패턴은 [앱은 Mainline 패키지 이름이 아닌 API/feature availability를 확인해야 한다](mainline-api-feature-checks.md)가 다룬다.
+
+### 관측 가능한 증거 (Observable Evidence)
+
+```bash
+# 기기에 설치된 Mainline 모듈 목록 확인
+adb shell pm list packages --apex-only
+
+# 특정 모듈 버전 확인
+adb shell pm list packages --show-versioncode --apex-only | grep -i "media\|art\|dns"
+
+# ModuleMetadata 파일 직접 확인
+adb shell cat /system/etc/vintf/packages.xml | grep "module"
+```
+
+### 관련 문서
+
+- [ModuleMetadata는 기기에 설치된 Mainline 모듈을 나타낸다](mainline-module-metadata.md)
+- [앱은 Mainline 패키지 이름이 아닌 API/feature availability를 확인해야 한다](mainline-api-feature-checks.md)
+- [Mainline은 정규 플랫폼 릴리스 외부에서 선택된 시스템 컴포넌트를 업데이트한다](project-mainline-updates.md)
+
+공식 문서: [Mainline available modules](https://source.android.com/docs/core/ota/modular-system), [ModuleMetadata](https://source.android.com/docs/core/ota/modular-system/metadata)

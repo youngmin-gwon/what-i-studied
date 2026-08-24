@@ -111,3 +111,30 @@ int allocate_dmabuf_heap(size_t size) {
 
 공식 문서: [AOSP DMA-BUF Heaps](https://source.android.com/docs/core/architecture/kernel/dma-buf-heaps)
 
+
+---
+
+### 2. Ashmem 의 핵심 특수 기능: Pin & Unpin
+
+1. **`ASHMEM_PIN`**: 프로세스가 현재 이 공유 메모리를 읽고/쓰는 중이므로 커널이 절대로 수거해서는 안 됨을 지정.
+2. **`ASHMEM_UNPIN`**: 프로세스가 공유 메모리 사용을 일시 중단했으므로, 메모리가 응급으로 부족해지면 커널이 이 영역의 페이지만 자유롭게 수거(Purge)할 수 있도록 허용.
+
+---
+
+### 3. 관측 가능 증거 및 CLI 명령어
+
+`adb shell` 로 현재 안드로이드 프로세스가 소유한 ashmem / memfd 공유 메모리 디스크립터를 진단할 수 있다:
+
+```bash
+# 특정 프로세스의 공유 메모리 파일 디스크립터(fd) 현황 조회
+adb shell ls -l /proc/<pid>/fd | grep -E "ashmem|memfd"
+```
+
+---
+
+### 4. 연결 문서 (Related Links)
+
+- [Android Kernel 특화 구조](../android-kernel-runtime.md) - 안드로이드 커널 메모리 아키텍처
+- [Linux 커널](../../../../../operating-systems/linux-kernel.md) - CS 범용 Linux 커널 Shared Memory (POSIX shm)
+- [Binder IPC](../../ipc-and-process/binder-ipc.md) - Ashmem 파일 디스크립터(FD) 전송 매개체
+- [Low Memory Killer (LMK)](lmkd-memory-pressure.md) - unpin 된 ashmem 수거 엔진

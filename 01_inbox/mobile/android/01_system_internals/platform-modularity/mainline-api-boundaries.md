@@ -8,7 +8,7 @@ date created: 2026-07-31 23:05:30 +09:00
 
 ## Mainline module update 는 임의의 새 public API 배포와 같지 않다
 
-상위 문서: [Platform Modularity 계약](platform-modularity.md)
+상위 문서: [Platform Modularity 계약](android-platform-modularity.md)
 
 Mainline module update 가 곧 앱이 바로 호출할 수 있는 새 public SDK API 를 뜻하지는 않는다.
 
@@ -62,7 +62,7 @@ fun checkExtensionVersion(): Boolean {
 ### 경계
 
 - SDK Extensions의 compile-time/runtime 가용성 모델은 [SDK Extensions는 SDK_INT를 넘어서는 API 가용성을 표현한다](sdk-extensions.md)가 다룬다.
-- Mainline 모듈 목록과 기기별 메타데이터는 [Mainline module 목록은 release와 device에 따라 달라지는 metadata다](mainline-module-list.md)가 다룬다.
+- Mainline 모듈 목록과 기기별 메타데이터는 [Mainline module 목록은 release와 device에 따라 달라지는 metadata다](mainline-module-metadata.md)가 다룬다.
 
 ### 관측 가능한 증거 (Observable Evidence)
 
@@ -82,6 +82,6 @@ adb logcat | grep "NoSuchMethodError"
 
 - [SDK Extensions는 SDK_INT를 넘어서는 API 가용성을 표현한다](sdk-extensions.md)
 - [앱은 Mainline 패키지 이름이 아닌 API/feature availability를 확인해야 한다](mainline-api-feature-checks.md)
-- [Mainline module 목록은 release와 device에 따라 달라지는 metadata다](mainline-module-list.md)
+- [Mainline module 목록은 release와 device에 따라 달라지는 metadata다](mainline-module-metadata.md)
 
 공식 문서: [Mainline](https://source.android.com/docs/core/ota/modular-system), [SDK Extensions](https://developer.android.com/guide/sdk-extensions)

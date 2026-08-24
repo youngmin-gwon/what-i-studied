@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## Media3 ExoPlayer 는 playback stack 이지 저수준 codec API 가 아니다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android **Media3 ExoPlayer**는 하드웨어 인코더/디코더 자체를 직접 구동하는 C/C++ 저수준 디코더 엔진이 아니다. 미디어 컨테이너 파싱(Demuxing), 가변 비트레이트 응답(Adaptive Bitrate Streaming: HLS/DASH), 오디오/비디오 트랙 동기화, 오디오 렌더링, DRM 키 관리, 그리고 하부 프레임워크의 저수준 **MediaCodec 및 AudioTrack**을 총괄 조율하는 **애플리케이션 계층 미디어 재생 스택(App-Level Playback Stack)**이다.
 

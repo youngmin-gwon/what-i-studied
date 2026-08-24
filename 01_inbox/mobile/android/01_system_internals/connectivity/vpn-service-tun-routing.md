@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## VpnService는 앱이 만든 TUN interface를 시스템 라우팅에 등록한다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Android의 **VpnService**는 시스템 권한 없이 애플리케이션 레벨에서 가상 사설망(VPN)을 구축할 수 있도록 제공하는 프레임워크 계약이다. 앱이 가상 네트워크 인터페이스(**TUN Interface**: 커널이 제공하는 소프트웨어 네트워크 인터페이스로, 물리 하드웨어 없이도 IP 계층 패킷을 앱 프로세스와 주고받을 수 있게 해준다 — 일반 물리 인터페이스가 하드웨어로 패킷을 내보내는 자리에, TUN은 그 패킷을 파일처럼 읽고 쓸 수 있는 사용자공간 프로그램에 넘긴다)를 생성하고 이를 **`netd` 및 system_server 라우팅 테이블 최상단(Priority Route)에 가상 네트워크 인스턴스로 등록**하여 모든 단말 IP 패킷을 파일 디스크립터(`ParcelFileDescriptor`) 파일 읽기/쓰기 바이트로 획득하도록 중계한다.
 

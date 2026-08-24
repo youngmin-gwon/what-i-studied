@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## 그래픽과 미디어 디버깅은 timeline 과 component state 에서 시작한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android 그래픽 및 미디어 파이프라인 디버깅은 특정 단일 함수 호출이나 스택 트레이스에 의존해서는 해결되지 않는다. 프레임 드롭, 블랙 스크린, 오디오/비디오 싱크 불일치 등의 문제는 반드시 시간축을 추적하는 **Timeline 분석(Perfetto Trace)**과 구성 요소의 정적 상태를 파악하는 **Component State 분석(dumpsys)**을 교차 검증하여 진단한다.
 

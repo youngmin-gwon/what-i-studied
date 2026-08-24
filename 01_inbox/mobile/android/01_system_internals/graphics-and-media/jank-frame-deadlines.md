@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## Jank 는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 **Jank(프레임 버벅임)** 는 사용자가 시각적으로 프레임 끊김을 느끼는 현상으로, 단일 코드 지점의 오버헤드가 아니라 **UI Thread, RenderThread, BufferQueue, SurfaceFlinger 파이프라인 전체에서 VSync 프레임 마감 시간(Frame Deadline)** 을 놓쳤을 때 발생하는 시스템 합산 결과다.
 

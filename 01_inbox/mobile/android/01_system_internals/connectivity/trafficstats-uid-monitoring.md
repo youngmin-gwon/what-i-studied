@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## TrafficStats는 UID 사용량을 관찰하며 비용 정책을 반영하지 않는다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Android의 **TrafficStats** 및 **NetworkStatsManager**는 개별 소켓 및 UID 레벨의 물리적 **송수신 바이트/패킷 통계(Raw Byte Counter)**를 수집하는 통계 관찰 도구다. 이 API는 **사용자의 종량제 요금 제한, 데이터 절약 모드 차단 상태, 통신사 과금 적용 여부(비용 정책)를 판단하거나 제어하는 기준이 아니다.**
 

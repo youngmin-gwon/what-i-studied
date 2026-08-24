@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## Surface 는 그래픽 버퍼 producer 측 계약이다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 `android.view.Surface`는 화면 디스플레이 윈도우나 뷰 컴포넌트 자체를 의미하지 않는다. **BufferQueue의 Producer 측 끝단(Endpoint)을 래핑한 객체**로서, 그리기 주체(RenderThread, Camera HAL, MediaCodec, Canvas)가 그래픽 버퍼(`GraphicBuffer`)를 생산하여 큐에 삽입할 수 있도록 인터페이스를 제공하는 생산자 계약 객체다.
 

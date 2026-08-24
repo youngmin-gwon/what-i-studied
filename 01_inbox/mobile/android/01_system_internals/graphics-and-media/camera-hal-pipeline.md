@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## Camera HAL 은 capture request 를 result 와 output buffer 로 변환한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android Camera2 및 CameraX 아키텍처의 핵심 백엔드인 **Camera HAL3**는 프레임워크(`CameraService`)가 전달한 캡처 요청(`CaptureRequest`)을 수신하여 렌즈/센서/**ISP**(Image Signal Processor — 센서가 받은 원시 광 신호를 노출/초점/화이트밸런스가 보정된 이미지로 변환하는 전용 하드웨어) 파이프라인을 제어한 뒤, 비동기적으로 이미지 데이터 버퍼(`GraphicBuffer`)와 캡처 메타데이터(`CaptureResult`)로 변환하여 반환하는 상태 머신 파이프라인이다.
 

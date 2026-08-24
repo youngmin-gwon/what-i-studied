@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## 네트워크 디버깅은 앱 API 상태와 시스템 네트워크 상태를 비교한다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Android 네트워크 문제 진단 시, 애플리케이션의 HTTP 클라이언트(OkHttp, Cronet) 레벨 타임아웃/에러 로그만으로는 근본 원인을 파악할 수 없다. 반드시 **앱 관점의 API 통신 상태**와 **시스템 레벨의 네트워크/라우팅 상태(dumpsys, ip route, tcpdump)**를 교차 비교하여 원인 지점을 격리해야 한다.
 

@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## ConnectivityService 는 네트워크를 선택하고 정책을 적용한다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 `system_server` (또는 Mainline 모듈) 내부에서 동작하는 **ConnectivityService**는 Android 네트워크 시스템의 중앙 통제 허브다. 물리적/가상 인터페이스(`NetworkAgent`)들이 제공하는 네트워크 상태를 수집하고, **점수 산정 엔진(Network Offer / Score Engine)**을 통해 최선의 기본 네트워크(Default Network)를 결정한 뒤, 그 결과를 라우팅 테이블(`netd`)과 애플리케이션 콜백(`NetworkCallback`)으로 전파한다.
 

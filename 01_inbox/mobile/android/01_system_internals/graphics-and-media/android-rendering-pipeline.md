@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## Android 렌더링 파이프라인은 Surface → BufferQueue → Compositor 흐름이다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android 화면 렌더링의 핵심 구조는 애플리케이션이 픽셀을 직접 디스플레이에 전송하지 않고, **Surface**를 통해 생산한 그래픽 버퍼를 **BufferQueue**에 enqueue하면, **SurfaceFlinger**와 **Hardware Composer(HWC)**가 VSync 신호에 맞춰 최적의 방식으로 최종 화면을 합성하는 흐름이다.
 

@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## IPC 디버깅은 service 등록, call path, thread state 에서 시작한다
 
-상위 문서: [IPC and process contracts](ipc-process.md)
+상위 문서: [IPC and process contracts](binder-ipc.md)
 
 배경 지식: [SELinux](../../../../linux/security/selinux.md)
 

@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Binder transaction lifetime 은 call, copy, dispatch, reply 로 나뉜다
 
-상위 문서: [IPC and process contracts](ipc-process.md)
+상위 문서: [IPC and process contracts](binder-ipc.md)
 
 배경 지식: [Buffer](../../../../../02_references/operating-systems/buffer.md)
 

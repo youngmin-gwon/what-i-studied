@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## 카메라 출력 Surface 는 프리뷰, 분석, 녹화 파이프라인을 정의한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android 카메라 시스템에서 앱은 카메라 센서 데이터를 단일 통합 스트림으로 받지 않는다. 대신 **목적에 따라 별도로 등록된 복수의 Output Surface**를 카메라 캡처 세션에 바인딩하여, 카메라 하드웨어 ISP(Image Signal Processor)가 동일한 렌더링 노출 프레임을 프리뷰, ML/컴퓨터 비전 분석, MP4 인코딩 버퍼로 멀티캐스팅하도록 파이프라인을 구성한다.
 

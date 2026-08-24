@@ -116,7 +116,7 @@ adb shell cat /proc/<PID>/maps | grep -E "socket|/dev/ashmem|/dev/shm"
 - [공유 메모리와 mmap 계약](./shared-memory-and-mmap-contracts.md)
 - [Unix Domain Socket 계약](./unix-domain-socket-contracts.md)
 - [Binder IPC](../../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md) — Android 쪽 정본
-- [IPC and process contracts](../../mobile/android/01_system_internals/ipc-and-process/ipc-process.md) — Android IPC 전체 지도
+- [IPC and process contracts](../../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md) — Android IPC 전체 지도
 - [Deadlock](../deadlock.md)
 
 공식 문서: [Android Binder(AOSP)](https://source.android.com/docs/core/architecture/hidl/binder-ipc), [Unix man 7 unix (SO_PEERCRED)](https://man7.org/linux/man-pages/man7/unix.7.html)

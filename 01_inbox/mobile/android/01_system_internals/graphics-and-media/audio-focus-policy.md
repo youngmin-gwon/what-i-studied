@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## AudioFocus 는 공유 출력 정책이지 오디오 재생 권한이 아니다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android에서 **AudioFocus**는 하드웨어 수준의 오디오 출력을 강제로 차단하는 하드웨어 접근 권한이 아니다. 여러 앱이 동시에 소리를 낼 때 사용자 경험을 보호하기 위해 **시스템과 앱이 협력하여 지키는 상호 약속(Cooperative Policy)**이다. Focus를 잃은 앱이 이를 무시하고 소리를 낼 경우 물리적으로 소리가 섞여 출력될 수 있으므로, 앱은 반드시 Focus 변화 이벤트에 따라 재생을 일시 중단, 볼륨 감소(Ducking), 또는 세션 종료를 수행해야 한다.
 

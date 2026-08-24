@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## NetworkCallback 수명과 콜백 데이터 일관성은 관리되어야 한다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 `ConnectivityManager.NetworkCallback`은 단순 일회성 상태 조회가 아닌 **비동기 이벤트 스트림(Asynchronous Event Stream)**이다. 애플리케이션 수명주기(Lifecycle)에 맞춘 등록/해제 관리와, `onAvailable()` 호출 이후에도 `NetworkCapabilities`나 `LinkProperties`가 동적으로 변동될 때 발생하는 **콜백 데이터 경합 상태(Race Condition 및 Partial State)**를 일관되게 처리하는 방어적 계약이 필수적이다.
 

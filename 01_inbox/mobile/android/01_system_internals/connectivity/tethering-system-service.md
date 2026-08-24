@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## Tethering은 브리지 업스트림과 다운스트림을 시스템 서비스를 통해 연결한다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Android **테더링(Tethering / SoftAP / USB Tethering / Bluetooth Tethering)**은 단일 앱 기능이 아니다. 외부 연결 업스트림(Upstream: 셀룰러 `rmnet0`)과 내부 클라이언트 다운스트림(Downstream: SoftAP `wlan1` 또는 USB `rndis0`) 사이에서 **Tethering System Service와 netd가 커널 IP 포워딩, `dhcpd`/`dnsmasq`(다운스트림 클라이언트에 IP를 나눠주고 이름을 풀어주는 DHCP/DNS 서버 데몬) 서버, BPF 하드웨어 오프로드(패킷 전달을 CPU 대신 eBPF/하드웨어 경로에서 처리해 배터리·발열을 줄이는 최적화)를 브리징 관리하는 시스템 계약**이다.
 

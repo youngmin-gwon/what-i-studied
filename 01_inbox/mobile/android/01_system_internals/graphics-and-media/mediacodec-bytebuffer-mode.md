@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## MediaCodec ByteBuffer 모드는 앱이 sample 흐름을 소유한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 **MediaCodec ByteBuffer 모드**는 애플리케이션이 코덱 입력 및 출력 버퍼 메모리에 직접 접근하여 **인코딩/디코딩 샘플 데이터(RAW PCM / YUV / NAL Unit) 패킷 흐름을 동기식 또는 비동기식으로 제어하는 계약**이다. 비디오 Surface 모드와 달리 앱 CPU 메모리 공간을 통과하므로 오디오 처리, 패킷 변형, 커스텀 프로토콜 스트리밍(RTP/WebRTC)에 주로 사용된다.
 

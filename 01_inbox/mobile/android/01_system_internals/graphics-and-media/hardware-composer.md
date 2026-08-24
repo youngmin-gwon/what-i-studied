@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## Hardware Composer는 기기 제약 안에서 합성을 offload한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 **Hardware Composer (HWC / HWC2 HAL)**는 디스플레이 합성 작업을 칩셋 벤더의 전용 디스플레이 오버레이 파이프라인(MDP/DPU)으로 전달하여 GPU 전력 소모와 렌더링 지연을 획기적으로 줄이는 하드웨어 추상화 계층이다. SurfaceFlinger는 모든 레이어를 GPU로 그리지 않고, 가능한 최대한의 레이어를 HWC 오버레이로 오프로드한다.
 

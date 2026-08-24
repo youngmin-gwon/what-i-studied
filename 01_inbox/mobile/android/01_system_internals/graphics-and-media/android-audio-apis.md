@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## AudioTrack, AAudio, Oboe는 지연 시간과 포터빌리티 트레이드오프를 선택한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android 오디오 출력 파이프라인은 높은 이식성과 편의성을 제공하는 Java/Kotlin 계층의 **AudioTrack**부터, NDK C 기반으로 커널 버퍼에 직접 접근하여 초저지연을 달성하는 **AAudio**, 그리고 두 API의 장점을 래핑한 Google의 C++ 라이브러리 **Oboe**로 구분된다.
 

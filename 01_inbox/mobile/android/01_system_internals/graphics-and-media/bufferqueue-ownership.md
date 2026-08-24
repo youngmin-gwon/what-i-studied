@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## BufferQueue는 producer와 consumer를 버퍼 소유권으로 분리한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android 그래픽 시스템의 핵심 추상화 구조인 **BufferQueue**는 그래픽 버퍼를 생성하는 생산자(Producer)와 이를 소비하는 소비자(Consumer) 사이에서 **GraphicBuffer의 소유권(Ownership)**을 명시적인 상태 머신으로 관리한다. 프로세스 간 [binder ipc](../ipc-and-process/binder-ipc.md) 통신을 최소화하면서 shared memory(`ion` / `dmabuf`) 기반으로 픽셀 데이터를 전달한다.
 

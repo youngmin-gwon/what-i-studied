@@ -2,12 +2,12 @@
 title: binder-ipc
 tags: [android, binder, ipc, kernel, os, system-internals]
 aliases: [Binder, Binder IPC, Binder 아키텍처, 바인더 IPC, 안드로이드 바인더]
-date modified: 2026-08-20 17:39:56 +09:00
+date modified: 2026-08-24 17:21:15 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 role: single-source-of-truth
 ---
 
-## Binder IPC 아키텍처 (Binder Inter-Process Communication)
+## Binder IPC 아키텍처
 
 ### 개요
 
@@ -91,3 +91,22 @@ Binder IPC 시스템은 역할과 실행 공간에 따라 **커널 드라이버 
 - [system_server](../../04_system_services/system-server.md)
 - [Zygote 와 ART 런타임 심층 계약](../boot-and-runtime/zygote-runtime/zygote-runtime.md)
 - [mmap 시스템 콜과 가상 메모리 매핑](../../../../computer-science/mmap.md)
+
+---
+
+### 읽는 순서
+
+1. Binder 가 무엇을 중재하는지(객체 참조, kernel 경계)를 먼저 본다.
+2. transaction lifetime(call, copy, dispatch, reply)으로 비용이 어디서 생기는지 본다.
+3. AIDL 이 만드는 것은 process boundary 계약이지 비즈니스 로직이 아님을 확인한다.
+4. oneway 와 thread pool 로 동시성/backpressure 한계를 본다.
+5. 문제가 생기면 IPC 디버깅 노트로 service 등록, call path, thread state 를 좁힌다.
+
+### 문제 분류 기준
+
+- "이 API 호출이 왜 이렇게 느린가" → [Binder transaction lifetime](binder-transaction-lifetime.md), [Binder thread pool](binder-thread-pool.md)
+- "service 가 멈췄다/응답이 없다" → [Binder thread pool](binder-thread-pool.md), boot-and-runtime 의 [ANR은 responsiveness 계약 위반이다](../boot-and-runtime/system-server/anr-responsiveness.md)
+- "이벤트를 보냈는데 유실/지연된다" → [oneway Binder](oneway-binder-transactions.md)
+- "서비스 호출이 permission/등록 단계에서 실패한다" → [IPC 디버깅](ipc-service-debugging.md)
+- "Binder 와 socket/shared memory 중 무엇이 다른가" → [POSIX IPC vs Android Binder 구조적 비교](../../../../operating-systems/ipc-contracts/posix-ipc-vs-android-binder.md)
+- "이 프로세스가 왜 죽었는가" → 이 묶음이 아니라 아래 Process/system service 링크로 이동한다.

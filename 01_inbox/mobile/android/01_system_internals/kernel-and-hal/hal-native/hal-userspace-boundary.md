@@ -83,3 +83,48 @@ adb logcat | grep -E "HAL|service died|hidl_death"
 - [AIDL HAL은 새로운 HAL의 현재 stable interface 표준이다](aidl-hal.md)
 
 공식 문서: [AOSP HAL overview](https://source.android.com/docs/core/architecture/hal)
+
+---
+
+### 3. HIDL 및 AIDL Stable HAL
+
+안드로이드 8.0(Project Treble) 이전에는 HAL 이 상위 프레임워크와 동일한 프로세스 내에서 동작하는 공유 라이브러리(`.so`) 형태였습니다. 이로 인해 OS 업데이트 시 벤더 코드까지 모두 재작성해야 하는 문제가 발생했습니다. 이를 해결하기 위해 **Stable HAL** 인터페이스 개념이 도입되었습니다.
+
+#### ① HIDL (HAL Interface Definition Language) - Android 8.0+
+
+- 안드로이드 8.0(Project Treble)에서 도입된 바인더(Binder) 기반 인터페이스 정의 언어입니다.
+- **프레임워크 - 벤더 분리**: 프레임워크 프로세스와 HAL 프로세스가 서로 분리되어 IPC(Binder)로 통신하게 되었습니다.
+- **독립적 업데이트**: OS(프레임워크)를 업데이트하더라도 벤더 HAL 코드를 수정하거나 다시 빌드할 필요가 없어졌습니다.
+
+#### ② AIDL (Android Interface Definition Language) Stable HAL - Android 11+
+
+- 안드로이드 11 부터 기존의 HIDL 을 대체하고, 안드로이드 전반의 IPC 인터페이스 언어를 **AIDL**로 통일했습니다.
+- 기존 앱 간 통신에 쓰이던 AIDL 을 시스템 및 벤더 영역까지 확장하여 **Stable AIDL** 구조를 성립시켰습니다.
+- 버전 관리(Versioning)와 이전 버전 호환성이 대폭 강화되어, 안정적인 하드웨어 인터페이스 정의가 가능해졌습니다.
+
+---
+
+### 4. 구조 요약 (Architecture Stack)
+
+```mermaid
+graph TD
+    AppLayer["Android Application Layer"]
+    Framework["Java / Kotlin Framework Services"]
+    StableHAL["Stable HAL Interface (AIDL / HIDL) - Treble 경계선"]
+    VendorHAL["Vendor HAL Implementation (.so)"]
+    KernelDriver["Linux Kernel Device Drivers"]
+
+    AppLayer --> Framework
+    Framework --> StableHAL
+    StableHAL --> VendorHAL
+    VendorHAL --> KernelDriver
+```
+
+---
+
+### 5. 연관 개념 (Related Notes)
+
+- [Linux Kernel](../../../../../operating-systems/linux-kernel.md) - HAL 아래에서 하드웨어 장치 제어 드라이버를 제공하는 하위 운영체제 커널
+- [ART (Android Runtime)](../../boot-and-runtime/zygote-runtime/art.md) - HAL 위 프레임워크 및 앱 프로세스를 구동하는 런타임 환경
+- [Binder IPC](../../ipc-and-process/binder-ipc.md) - Stable HAL(HIDL/AIDL) 통신에 쓰이는 IPC 메커니즘
+- [system_server](../../../04_system_services/system-server.md) - HAL 을 사용하는 시스템 서비스 프로세스

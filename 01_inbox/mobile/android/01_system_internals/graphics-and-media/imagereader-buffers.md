@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## ImageReader 는 앱이 접근할 수 있는 이미지 버퍼를 제공한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 **ImageReader**는 카메라, 비디오 디코더, 렌더 스크립트 등 그래픽 버퍼 생산자가 생성한 `GraphicBuffer` 메모리 평면에 **애플리케이션 CPU/GPU 메모리 공간이 직접 접근할 수 있도록 래핑한 Consumer 계약**이다.
 

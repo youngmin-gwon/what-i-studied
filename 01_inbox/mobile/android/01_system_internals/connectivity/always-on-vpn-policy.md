@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## Always-on 과 lockdown VPN 은 연결 실패를 보안 정책으로 바꾼다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Android 의 **Always-on VPN** 및 **Lockdown VPN** 모드는 단순한 네트워크편의 기능이 아니다. VPN 서비스 장애나 네트워크 인터페이스 전환(Handover) 시 데이터가 암호화되지 않은 디폴트 네트워크(Wi-Fi/Cellular)로 유출되는 것을 차단하기 위해 **연결 실패 상황을 전면 네트워크 차단 보안 정책(Drop-All Rule)으로 승화시키는 커널 레벨 통제 계약**이다.
 

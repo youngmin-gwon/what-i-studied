@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## Network Security Config는 앱 신뢰, cleartext, pinning 정책을 선언한다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 배경 지식: [Certificate Pinning(인증서 고정)](../../../../security/fundamentals/certificate-pinning.md)
 
@@ -89,7 +89,7 @@ adb logcat -s Conscrypt NetworkSecurityConfig
 
 ### 관련 문서
 
-- [Private DNS는 DNS를 암호화하지만 앱 TLS 검증을 대체하지 않는다](private-dns-tls.md)
+- [Private DNS는 DNS를 암호화하지만 앱 TLS 검증을 대체하지 않는다](android-private-dns.md)
 - [네트워크 디버깅은 앱 API 상태와 시스템 네트워크 상태를 비교한다](network-debugging.md)
 
 공식 문서: [Android Network Security Configuration](https://developer.android.com/training/articles/security-config)

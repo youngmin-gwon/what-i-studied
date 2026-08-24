@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## oneway Binder 는 caller 대기를 없애지만 server backpressure 를 없애지 않는다
 
-상위 문서: [IPC and process contracts](ipc-process.md)
+상위 문서: [IPC and process contracts](binder-ipc.md)
 
 배경 지식: [Idempotency(멱등성)](../../../../../02_references/computer-science/idempotency.md)
 

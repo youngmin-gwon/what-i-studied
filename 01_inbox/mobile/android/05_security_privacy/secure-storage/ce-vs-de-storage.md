@@ -2,7 +2,7 @@
 title: ce-vs-de-storage
 tags: ["android", "android/security-privacy"]
 aliases: ["CE vs DE 저장소 비교", "Credential Encrypted vs Device Encrypted Storage"]
-date modified: 2026-08-06 18:20:00 +09:00
+date modified: 2026-08-24 17:24:16 +09:00
 date created: 2026-08-06 18:20:00 +09:00
 ---
 
@@ -12,12 +12,12 @@ Android **FBE(File-Based Encryption)** 환경에서 디바이스 저장소는 **
 
 ### 1. 초보자를 위한 비유와 핵심 개념 (Concept & Analogy)
 
-* 🔐 **CE (Credential Encrypted) 저장소 = 사용자 비밀번호로 잠긴 개인 금고**
-  * **원리**: 사용자가 기기 잠금(PIN/패턴/비밀번호)을 해제해야만 커널 메모리에 암호화 키가 로드되어 금고가 열린다.
-  * **용도**: 개인 사진, 메시지 DB, 사용자 인증 토큰 등 개인정보와 기밀성이 보장되어야 하는 대부분의 앱 데이터.
-* 🔓 **DE (Device Encrypted) 저장소 = 기기 하드웨어가 관리하는 공용 물품 보관함**
-  * **원리**: 사용자가 잠금을 해제하지 않아도(전원 켜진 부팅 직후 Direct Boot 상태) 기기 하드웨어 자물쇠로 즉시 열린다.
-  * **용도**: 기기가 부팅되었을 때 사용자가 비밀번호를 입력하기 전이라도 울려야 하는 알람, 긴급 전화/통화 서비스 데이터 등 최소한의 실행 데이터.
+- 🔐 **CE (Credential Encrypted) 저장소 = 사용자 비밀번호로 잠긴 개인 금고**
+  - **원리**: 사용자가 기기 잠금(PIN/패턴/비밀번호)을 해제해야만 커널 메모리에 암호화 키가 로드되어 금고가 열린다.
+  - **용도**: 개인 사진, 메시지 DB, 사용자 인증 토큰 등 개인정보와 기밀성이 보장되어야 하는 대부분의 앱 데이터.
+- 🔓 **DE (Device Encrypted) 저장소 = 기기 하드웨어가 관리하는 공용 물품 보관함**
+  - **원리**: 사용자가 잠금을 해제하지 않아도(전원 켜진 부팅 직후 Direct Boot 상태) 기기 하드웨어 자물쇠로 즉시 열린다.
+  - **용도**: 기기가 부팅되었을 때 사용자가 비밀번호를 입력하기 전이라도 울려야 하는 알람, 긴급 전화/통화 서비스 데이터 등 최소한의 실행 데이터.
 
 ```mermaid
 flowchart TD
@@ -35,11 +35,11 @@ flowchart TD
    - **CE Key**: 사용자가 입력한 PIN/패스워드 기반의 **Synthetic Password**와 TEE(Trusted Execution Environment) 게이트키퍼에 의해 이중 암호화된다. 첫 잠금 해제 전에는 마스터 키가 존재하지 않아 파일 접근이 불가능하다.
    - **DE Key**: 사용자의 비밀번호와 무관하게 부트로더 및 TEE 하드웨어 Root of Trust 검증 성공 직후 커널 키링(Keyring)에 자동 로드된다.
 2. **저장소 파일 경로 및 컨텍스트 격리**:
-   - **CE 경로**: `/data/user/0/<package_name>/` (`context.filesDir`로 접근하는 기본 영역)
-   - **DE 경로**: `/data/user_de/0/<package_name>/` (`context.createDeviceProtectedStorageContext()`로 접근하는 보호 영역)
+   - **CE 경로**: `/data/user/0/<package_name>/` (`context.filesDir` 로 접근하는 기본 영역)
+   - **DE 경로**: `/data/user_de/0/<package_name>/` (`context.createDeviceProtectedStorageContext()` 로 접근하는 보호 영역)
 3. **가용성(Availability) 및 접근 시점 차이**:
-   - **Direct Boot 단계 (User Locked)**: `UserManager.isUserUnlocked`가 `false`이며, 오직 DE 저장소만 읽기/쓰기가 가능하다.
-   - **User Unlocked 단계**: `UserManager.isUserUnlocked`가 `true`가 되며 CE 저장소와 DE 저장소 모두 접근 가능하다.
+   - **Direct Boot 단계 (User Locked)**: `UserManager.isUserUnlocked`가 `false` 이며, 오직 DE 저장소만 읽기/쓰기가 가능하다.
+   - **User Unlocked 단계**: `UserManager.isUserUnlocked`가 `true` 가 되며 CE 저장소와 DE 저장소 모두 접근 가능하다.
 
 ### 3. CE vs DE 저장소 분기 구현 예시 (Kotlin)
 
@@ -91,5 +91,6 @@ class StorageContextHelper(private val context: Context) {
 상위 문서: [저장소 생명주기와 백업 계약](storage-lifecycle-and-backup/storage-lifecycle-and-backup.md)
 
 관련 노트:
+
 - [FBE에서 CE와 DE를 나누는 저장소 경계](storage-lifecycle-and-backup/fbe-ce-and-de-separate-storage-availability.md)
 - [Direct Boot에서 허용되는 데이터와 실행 수명](storage-lifecycle-and-backup/direct-boot-requires-minimal-device-protected-data.md)

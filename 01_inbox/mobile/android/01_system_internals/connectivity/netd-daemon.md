@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## netd는 라우팅, DNS, 방화벽, tethering 명령을 실행한다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Native C++ 데몬인 **netd (Network Daemon)** 및 Mainline **NetworkStack** 모듈은 Java 계층의 ConnectivityService 요청을 받아 Linux 커널 네트워크 서브시스템에 구체적인 IP 라우팅, DNS 해석기(DnsResolver), 소켓 방화벽, 테더링 NAT 제어를 직접 커맨드 및 커널 소켓으로 저수준 반영하는 네이티브 실행 엔진이다. 여기서 말하는 커널 네트워크 서브시스템은 세 가지다: **`netfilter`**(패킷이 커널 네트워크 스택을 지나갈 때 후킹해서 필터링/변형하는 Linux 커널 프레임워크로, `iptables` 규칙이 실제로 실행되는 곳), **`ebpf`**(커널을 재컴파일하지 않고도 커널 안에서 안전하게 샌드박스된 소규모 프로그램을 실행할 수 있게 해주는 메커니즘 — netd는 이걸로 UID별 패킷 필터링을 구현한다), **`resolv`**(DNS 질의를 처리하는 리졸버 모듈)다.
 

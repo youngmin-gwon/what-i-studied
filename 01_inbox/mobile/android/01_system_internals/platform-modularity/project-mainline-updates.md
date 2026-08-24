@@ -8,7 +8,7 @@ date modified: 2026-08-05 16:00:00 +09:00
 
 ## Mainline은 선택된 system component를 정규 플랫폼 release 밖에서 업데이트한다
 
-상위 문서: [Platform modularity contracts](platform-modularity.md)
+상위 문서: [Platform modularity contracts](android-platform-modularity.md)
 
 Project Mainline(Modular System Components)은 Android 10(API 29)부터 도입되어 연간 정규 OS 메이저 업데이트 및 OEM 통신사 OTA 배포 주기와 독립적으로, 핵심 시스템 컴포넌트를 모듈 단위로 분리하여 Google Play System Updates(또는 오프라인 팩)를 통해 신속하게 배포할 수 있도록 설계된 모듈화 아키텍처다.
 
@@ -97,6 +97,6 @@ fun checkMainlineFeatureAvailability(): Boolean {
 - "특정 기기에서 최신 시스템 API 호환성 문제"가 보고될 경우 `Build.VERSION.SDK_INT` 판단에만 의존하지 않고, `SdkExtensions.getExtensionVersion()`을 사용하여 해당 Mainline 모듈의 Extension 버전을 독립 확인한다.
 - 롤백(Rollback)이 의심되는 경우 `adb shell dumpsys apexservice`에서 `Rollback History` 레코드를 조회하여 부팅 루프 방지 로직 작동 여부를 점검한다.
 
-관련 노트: [Mainline module 목록은 release와 device에 따라 달라지는 metadata다](mainline-module-list.md), [APEX는 APK 모델로 다루기 어려운 lower-level system module을 담는다](apex-module-packaging.md), [SDK Extensions는 SDK_INT만으로 표현되지 않는 API availability를 나타낸다](sdk-extensions.md).
+관련 노트: [Mainline module 목록은 release와 device에 따라 달라지는 metadata다](mainline-module-metadata.md), [APEX는 APK 모델로 다루기 어려운 lower-level system module을 담는다](apex-module-packaging.md), [SDK Extensions는 SDK_INT만으로 표현되지 않는 API availability를 나타낸다](sdk-extensions.md).
 
 공식 문서: [Modular System Components](https://source.android.com/docs/core/ota/modular-system)

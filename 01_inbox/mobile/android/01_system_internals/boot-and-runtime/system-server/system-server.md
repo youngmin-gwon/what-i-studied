@@ -47,4 +47,4 @@ flowchart TD
 
 상위 지도: [Android 부팅과 런타임 지도](../android-boot-and-runtime.md)
 
-관련 지도: [IPC and process contracts](../../ipc-and-process/ipc-process.md)
+관련 지도: [IPC and process contracts](../../ipc-and-process/binder-ipc.md)

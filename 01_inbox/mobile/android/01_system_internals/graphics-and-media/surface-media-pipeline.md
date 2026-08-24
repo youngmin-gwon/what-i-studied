@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 카메라 촬영, 영상 재생, 하드웨어 트랜스코딩, OpenGL/Vulkan 렌더 텍스처 처리 시 **Surface 기반 미디어 파이프라인**을 구성하는 핵심 목적은 **대용량 픽셀 데이터(YUV/RGB)가 앱 프로세스의 CPU JVM 메모리로 복사되는 것을 원천 차단(Zero-Copy Pass-through)**하는 것이다.
 

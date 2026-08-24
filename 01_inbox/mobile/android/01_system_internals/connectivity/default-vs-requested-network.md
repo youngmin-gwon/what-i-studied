@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## Default Network와 Requested Network는 수명이 다르다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Android 개발 시 `ConnectivityManager.registerDefaultNetworkCallback()`과 `ConnectivityManager.requestNetwork()`는 완전히 다른 수명주기(Lifecycle) 및 시스템 영향을 갖는다. **Default Network Callback**은 시스템이 전역으로 결정한 네트워크 상태를 단순 관찰(Passive Observer)하는 반면, **Requested Network**는 시스템이 해당 특성의 네트워크 인터페이스 연결을 유지하도록 강제(Active Pinning)하는 명령이다.
 

@@ -68,4 +68,4 @@ class MainActivity : ComponentActivity() {
 - [Compose SSOT](../../compose-ssot.md) - ViewModel 기반 UDF 상태 관리
 - [ViewModel](../../viewmodel.md) - Configuration Change 견디는 UI 상태 저장소
 - [Composable Body Purity](../../jetpack-compose/runtime/compose-runtime/composable-body-purity.md) - Compose UI 작성 준칙
-- [Low Memory Killer (LMK)](../../../01_system_internals/kernel-and-hal/kernel/lmk-low-memory-killer.md) - Activity 프로세스 OOM 수거
+- [Low Memory Killer (LMK)](../../../01_system_internals/kernel-and-hal/kernel/lmkd-memory-pressure.md) - Activity 프로세스 OOM 수거

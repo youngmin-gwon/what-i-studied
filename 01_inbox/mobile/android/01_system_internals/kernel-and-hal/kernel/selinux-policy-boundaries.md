@@ -101,7 +101,7 @@ type=1400 audit(1620000000.123:45): avc: denied { call } for pid=1234 comm="app_
 
 - [SELinux는 domain/type 정책으로 mandatory access control을 강제한다](selinux-mandatory-access-control.md)
 - [Binder IPC](../../ipc-and-process/binder-ipc.md)
-- [IPC and process contracts](../../ipc-and-process/ipc-process.md)
+- [IPC and process contracts](../../ipc-and-process/binder-ipc.md)
 
 공식 문서: [AOSP SELinux for Android](https://source.android.com/docs/security/features/selinux)
 

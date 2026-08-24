@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## Metered와 Data Saver는 백그라운드 네트워크 비용 정책이다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Android에서 **종량제 네트워크(Metered Network)**와 **데이터 절약 모드(Data Saver)**는 소켓 생성 자체를 원천 막는 하드웨어 에러가 아니다. 사용자의 통신 요금과 백그라운드 데이터 소비를 방지하기 위해 **앱의 포그라운드/백그라운드 가시성 상태(UID State)에 따라 네트워크 통신을 차단하는 비용 관리 정책(Cost Control Policy)**이다.
 

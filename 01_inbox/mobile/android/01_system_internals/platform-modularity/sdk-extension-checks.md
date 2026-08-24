@@ -8,7 +8,7 @@ date created: 2026-07-31 23:05:30 +09:00
 
 ## compileSdkExtension 과 runtime check 는 별개 단계다
 
-상위 문서: [Platform modularity contracts](platform-modularity.md)
+상위 문서: [Platform modularity contracts](android-platform-modularity.md)
 
 `compileSdkExtension` 은 컴파일 타임에 특정 SDK Extension 에 포함된 심볼을 참조할 수 있게 해주는 빌드 설정이다. 하지만 그것이 앱이 실행되는 모든 기기에 해당 API 가 존재함을 보장하지는 않는다.
 

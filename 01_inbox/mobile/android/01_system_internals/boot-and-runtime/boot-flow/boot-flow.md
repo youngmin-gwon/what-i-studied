@@ -45,4 +45,4 @@ flowchart TD
 - **Userspace 전이 경계**: Kernel 및 Ramdisk 초기화 이후 PID 1 프로세스의 네이티브 서비스 시작 및 정책은 [init와 네이티브 서비스 계약](../init-service/init-service.md) 정본 노트로 넘긴다.
 
 상위 지도: [Android 부팅과 런타임 지도](../android-boot-and-runtime.md)  
-관련 지도: [init와 네이티브 서비스 계약](../init-service/init-service.md), [Platform Modularity Contracts](../../platform-modularity/platform-modularity.md)
+관련 지도: [init와 네이티브 서비스 계약](../init-service/init-service.md), [Platform Modularity Contracts](../../platform-modularity/android-platform-modularity.md)

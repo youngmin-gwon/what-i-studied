@@ -17,7 +17,7 @@ date created: 2026-08-03 16:59:22 +09:00
 ### 1. 플랫폼 계층 구조 (Platform Model)
 
 - [Android는 앱 SDK만이 아니라 계층형 모바일 플랫폼이다](android-is-layered-mobile-platform-not-just-an-app-sdk.md)
-  - 하드웨어, [Linux Kernel](../../../../../operating-systems/linux-kernel.md), [HAL](../../../01_system_internals/kernel-and-hal/hal-native/hal.md), [ART Runtime](../../../01_system_internals/boot-and-runtime/zygote-runtime/art.md), [system_server](../../../04_system_services/system-server.md), [App Framework](../../../02_app_framework/architecture/state-management/viewmodel/viewmodel.md)까지 6대 계층 스택 총괄 구조
+  - 하드웨어, [Linux Kernel](../../../../../operating-systems/linux-kernel.md), [HAL](../../../01_system_internals/kernel-and-hal/hal-native/hal-userspace-boundary.md), [ART Runtime](../../../01_system_internals/boot-and-runtime/zygote-runtime/art.md), [system_server](../../../04_system_services/system-server.md), [App Framework](../../../02_app_framework/architecture/state-management/viewmodel/viewmodel.md)까지 6대 계층 스택 총괄 구조
 - [Android 지식 지도는 runtime, app framework, services, security, tooling으로 나누어 읽는다](android-knowledge-map-is-organized-by-runtime-app-framework-services-security-and-tooling.md)
   - 저장소 전체 지식 영역(Canonical Areas) 탐색 지도
 
@@ -26,7 +26,7 @@ date created: 2026-08-03 16:59:22 +09:00
 ### 2. 장애 진단 및 보안 경계 (Diagnostic & Security Boundaries)
 
 - [Android stack boundary는 문제가 어느 층에 속하는지 판단하게 해 준다](android-stack-boundaries-explain-where-a-problem-belongs.md)
-  - 증상별로 어느 계층(App, Framework, [system_server](../../../04_system_services/system-server.md), [HAL](../../../01_system_internals/kernel-and-hal/hal-native/hal.md), [Kernel](../../../../../operating-systems/linux-kernel.md))에 문제가 발생했는지 파악하는 4단계 분류법
+  - 증상별로 어느 계층(App, Framework, [system_server](../../../04_system_services/system-server.md), [HAL](../../../01_system_internals/kernel-and-hal/hal-native/hal-userspace-boundary.md), [Kernel](../../../../../operating-systems/linux-kernel.md))에 문제가 발생했는지 파악하는 4단계 분류법
 - [Android 보안은 UID sandbox, permission, SELinux, verified boot가 나뉜 계층이다](android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md)
   - [AppOps & 권한](../../../05_security_privacy/appops-and-permissions.md), UID 샌드박스, SELinux 등 5가지 독립 보안 게이트 분해 분석
 
@@ -37,7 +37,7 @@ date created: 2026-08-03 16:59:22 +09:00
 - [앱 실행은 Launcher, system_server, Zygote, ActivityThread를 지나는 경로다](app-launch-crosses-launcher-system-server-zygote-and-activitythread.md)
   - Cold Launch 시 [system_server](../../../04_system_services/system-server.md) ➔ [Zygote IPC](../../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md) ➔ [ActivityThread](../../../../../computer-science/thread.md) 메인 루프 가동 및 TTID/TTFD 렌더링 경로
 - [사진 찍기 예시는 permission, intent, UI, media, HAL, storage 경계를 함께 지난다](camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md)
-  - 외부 카메라 Intent 위임 vs 앱 내 [CameraX / HAL 세션](../../../01_system_internals/kernel-and-hal/hal-native/hal.md) 직접 점유 2대 경로 비교
+  - 외부 카메라 Intent 위임 vs 앱 내 [CameraX / HAL 세션](../../../01_system_internals/kernel-and-hal/hal-native/hal-userspace-boundary.md) 직접 점유 2대 경로 비교
 
 ---
 

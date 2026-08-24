@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## CameraX 와 Camera2 는 제어 경계가 다르다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android 카메라 API 시스템에서 **Camera2**는 명시적인 상태 머신과 파이프라인 수동 제어를 보장하는 프레임워크 저수준 API이고, **CameraX**는 유즈케이스 라이프싸이클 중심의 고수준 Jetpack 라이브러리다. 두 API는 디바이스 파편화 대응과 제어 세밀도 영역에서 극명한 경계 차이를 갖는다.
 

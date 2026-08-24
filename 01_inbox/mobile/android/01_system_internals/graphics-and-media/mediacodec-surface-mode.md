@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## MediaCodec Surface 모드는 영상 producer 와 consumer 를 연결한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 **MediaCodec Surface 모드**는 비디오 인코딩 및 디코딩 시 픽셀 데이터를 앱 CPU 메모리(`ByteBuffer`)로 전송하지 않고, **GraphicBuffer와 BufferQueue를 이용해 하드웨어 레벨에서 비디오 생산자와 소비자를 직결하는 Zero-Copy 파이프라인**이다.
 

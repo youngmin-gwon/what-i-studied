@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Binder thread pool 은 service concurrency 와 deadlock 경계다
 
-상위 문서: [IPC and process contracts](ipc-process.md)
+상위 문서: [IPC and process contracts](binder-ipc.md)
 
 배경 지식: [Deadlock](../../../../computer-science/deadlock.md)
 

@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## RenderThread 는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android 5.0(Lollipop)부터 도입된 **RenderThread**는 UI 스레드(Main Thread)로부터 OpenGL ES / Vulkan GPU 그리기 명령 전송 오버헤드를 분리한 전용 렌더링 스레드다. 하지만 **UI 스레드의 Measure/Layout/Draw 기록 부하를 완전히 없애주는 것이 아니며**, 동기화 구획(`syncFrameState`)에서는 두 스레드가 차단(Block) 대기한다.
 

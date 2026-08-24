@@ -2,15 +2,15 @@
 title: android-release-history
 tags: [android, foundations, history, platform-timeline, release-history, sdk-versions]
 aliases: [Android Release History, 안드로이드 릴리스 히스토리, 플랫폼 진화사]
-date modified: 2026-08-24 17:13:32 +09:00
+date modified: 2026-08-24 17:23:44 +09:00
 date created: 2026-08-04 16:16:52 +09:00
 ---
 
-## Android Release History (안드로이드 플랫폼 진화사 & 연대기적 계약 변화)
+## Android Release History (안드로이드 플랫폼 진화사 & 연대기적 변화)
 
 ### 1. 개요 (Overview)
 
-**Android Release History** 는 2008 년 1.0 첫 출시 이후 현재까지 모바일 환경, 보안/프라이버시, 런타임, 빌드/배포, 하드웨어 폼 팩터의 변화에 맞춰 진화해 온 **안드로이드 플랫폼의 주요 아키텍처 전환점(Runtime, Security, HAL, Packaging)과 연대기적 SDK API 레벨 계약 변화를 기록한 타임라인 정본**이다.
+**Android Release History** 는 2008 년 1.0 첫 출시 이후 현재까지 모바일 환경, 보안/프라이버시, 런타임, 빌드/배포, 하드웨어 폼 팩터의 변화에 맞춰 진화해 온 **안드로이드 플랫폼의 주요 아키텍처 전환점(Runtime, Security, HAL, Packaging)과 연대기적 SDK API 레벨 계약 변화를 기록한 타임라인**이다.
 
 본 문서는 버전을 파편화하여 나누기보다 플랫폼의 거시적 맥락을 한눈에 조망하는 타임라인 맵 역할을 수행하며, 각 기술적 전환점은 Vault 내부의 해당 원자 레퍼런스 노드와 촘촘히 엮여 있다.
 
@@ -61,8 +61,8 @@ timeline
 
 #### 3. 배포 포맷: APK → Android App Bundle (AAB, 2018+)
 
-- **Monolithic APK**: 모든 CPU ABI(arm64, x86) 및 리소스를 포괄하여 용량 비대.
-- **AAB & Dynamic Delivery**: 게시 산출물로 `.aab` 를 수용하고 Google Play 가 기기 맞춤형 Dynamic Split APK 만 분할 다운로드.
+- **Monolithic [APK](apk.md)**: 모든 CPU ABI(arm64, x86) 및 리소스를 포괄하여 용량 비대.
+- **[AAB & Dynamic Delivery](apk-vs-aab.md)**: 게시 산출물로 `.aab` 를 수용하고 Google Play 가 기기 맞춤형 Dynamic Split APK 만 분할 다운로드.
 
 #### 4. HAL 아키텍처: HIDL → AIDL HAL (2019+)
 

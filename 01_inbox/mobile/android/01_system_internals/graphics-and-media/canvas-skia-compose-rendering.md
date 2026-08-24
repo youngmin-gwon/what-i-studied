@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## Canvas, Skia, Compose 는 합성기가 아니라 그리기 명령의 생산자다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android 뷰 시스템과 Jetpack Compose의 `Canvas` 또는 `DrawScope`는 화면 픽셀을 물리 디스플레이 프레임버퍼에 직접 렌더링하거나 레이어를 합성하는 주체가 아니다. 이들은 2D 렌더링 셰이프/텍스트 **그리기 명령(DisplayList / Skia Drawing Commands)**을 기록하는 생산자(Producer)일 뿐이며, 실제 픽셀 변환과 화면 합성은 RenderThread의 **Skia engine**과 시스템 **SurfaceFlinger** 프로세스가 나누어 담당한다.
 

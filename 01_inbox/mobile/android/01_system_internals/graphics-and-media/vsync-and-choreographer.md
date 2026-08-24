@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## VSync 와 Choreographer 는 frame deadline 을 정의한다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Android 렌더링 파이프라인의 시간축 기준점인 **VSync (Vertical Synchronization)** 하드웨어 디스플레이 신호와 이를 애플리케이션 프레임워크 스레드로 중계하는 **Choreographer**는 각 프레임이 주사율(60Hz, 90Hz, 120Hz)에 맞춰 완료되어야 하는 **마감 시간(Frame Deadline)**을 엄격하게 정의한다.
 

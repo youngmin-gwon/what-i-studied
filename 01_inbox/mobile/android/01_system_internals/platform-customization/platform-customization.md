@@ -74,6 +74,6 @@ graph TD
 ### 다른 정본으로 넘길 경계
 
 - Treble, VINTF, HAL 구현은 [HAL native contracts](../kernel-and-hal/hal-native/hal-native.md) 로 둔다.
-- Mainline, APEX, SDK Extension 은 [Platform Modularity Contracts](../platform-modularity/platform-modularity.md) 로 둔다.
+- Mainline, APEX, SDK Extension 은 [Platform Modularity Contracts](../platform-modularity/android-platform-modularity.md) 로 둔다.
 - AVB 와 boot chain 은 [AVB는 부팅 이미지의 신뢰와 rollback 방지를 검증한다](../boot-and-runtime/boot-flow/android-verified-boot.md) 로 둔다.
 - 앱 release, Play 배포, APK/AAB signing 은 [Release distribution contracts](../../03_packaging_deployment/distribution/release-distribution/release-distribution.md) 로 둔다.

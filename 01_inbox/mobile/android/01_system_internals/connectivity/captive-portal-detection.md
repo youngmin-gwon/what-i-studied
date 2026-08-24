@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## Validated와 Captive Portal은 관찰된 인터넷 상태다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Wi-Fi나 셀룰러 인터페이스가 물리적으로 연결(`CONNECTED`) 상태에 진입했다고 해서 해당 네트워크가 즉시 인터넷 통신이 가능함을 의미하지 않는다. Android는 **NetworkMonitor** 모듈을 통해 프로브(HTTP Probe)를 전송하고, **실제 인터넷 접근 가능성(`NET_CAPABILITY_VALIDATED`) 및 웹 인증 리다이렉트 여부(Captive Portal)**를 실시간 관찰하여 네트워크 상태를 판정한다.
 

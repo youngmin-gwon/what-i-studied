@@ -8,7 +8,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 ## DRM 보호 미디어는 secure codec 과 보호된 출력 경로를 요구할 수 있다
 
-상위 문서: [Graphics and media contracts](graphics-media.md)
+상위 문서: [Graphics and media contracts](android-graphics-media-runtime.md)
 
 Widevine L1과 같은 저작권 보호(DRM) 미디어 재생 시, Android 시스템은 미디어 데이터 픽셀이 애플리케이션 JVM 메모리나 일반 CPU RAM 영역에 평문(Cleartext)으로 노출되는 것을 차단하기 위해 **Secure MediaCodec** 및 **Protected Output Surface** 경로를 필수 계약으로 요구한다.
 

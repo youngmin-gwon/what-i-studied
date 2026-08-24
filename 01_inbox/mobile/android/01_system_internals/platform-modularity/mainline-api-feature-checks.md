@@ -8,7 +8,7 @@ date created: 2026-07-31 23:05:30 +09:00
 
 ## 앱은 Mainline 패키지 이름이 아니라 API/feature availability 를 검사해야 한다
 
-상위 문서: [Platform modularity contracts](platform-modularity.md)
+상위 문서: [Platform modularity contracts](android-platform-modularity.md)
 
 앱 코드가 특정 Mainline APEX 의 패키지명(예: `com.google.android.mediaprovider`)이나 설치 버전을 직접 검사해서 기능을 켜고 끄는 것은 취약한 패턴이다. 패키지 이름과 내부 구성은 AOSP 와 GMS 디바이스 사이, 혹은 빌드 타깃에 따라 다를 수 있다.
 

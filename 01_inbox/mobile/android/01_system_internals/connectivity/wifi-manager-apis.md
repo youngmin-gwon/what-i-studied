@@ -8,7 +8,7 @@ date created: 2026-07-31 21:50:22 +09:00
 
 ## WiFi APIs는 스캔, 추천, 연결 요청, 로컬 연결을 분리한다
 
-상위 문서: [Connectivity contracts](connectivity.md)
+상위 문서: [Connectivity contracts](android-connectivity.md)
 
 Android 10(API 29)부터 기존의 비보안적인 글로벌 Wi-Fi 관리 API(`WifiManager.addNetwork()`, `enableNetwork()`)가 완전히 지원 중단(Deprecated)되고, **목적과 제어 범위에 따라 명확히 격리된 4가지 와이파이 API 세트**로 분리 개편되었다.
 

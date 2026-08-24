@@ -73,3 +73,20 @@ graph TD
 - [NetId & Multi-Routing Table](netid-routing-table.md) - netd 멀티 라우팅 파이프라인
 - [VPN Always-on vs Lockdown](../../05_security_privacy/vpn-always-on-vs-lockdown.md) - VPN 전면 차단 메커니즘
 - [dumpsys 시스템 진단 도구](../../06_testing_performance/debugging/dumpsys.md) - 안드로이드 dumpsys CLI 진단
+
+---
+
+### 읽는 순서
+
+1. **네트워크 선택 및 생명주기 정본**: [ConnectivityService 원리](connectivity-service.md), [Network vs Transport](network-capabilities-and-transport.md), [Default vs Requested Network](default-vs-requested-network.md), [NetworkCallback 관리](network-callback-lifecycle.md)로 시스템 네트워크 선택 아키텍처를 이해한다.
+2. **인터넷 검증 및 백그라운드 정책**: [Validated와 Captive Portal](captive-portal-detection.md), [Metered와 Data Saver](metered-data-saver-policy.md), [셀룰러 정책](cellular-connectivity-policy.md), [TrafficStats 통계](trafficstats-uid-monitoring.md)로 비용 및 네트워크 가용성 통제를 본다.
+3. **네이티브 실행 및 보안 커널 계약**: [netd 엔진 역할](netd-daemon.md), [VpnService TUN 등록](vpn-service-tun-routing.md), [Always-on과 Lockdown VPN](always-on-vpn-policy.md), [Tethering 브리징](tethering-system-service.md)으로 라우팅과 터널링을 이해한다.
+4. **보안 통신 및 Wi-Fi 세분화**: [Network Security Config](network-security-config.md), [Private DNS의 역할](android-private-dns.md), [Wi-Fi APIs 세분화](wifi-manager-apis.md), [네트워크 디버깅 기법](network-debugging.md)을 확인한다.
+
+### 문제 분류 기준
+
+- **인터넷 미연결 / Captive Portal 문제**: [Validated와 Captive Portal](captive-portal-detection.md), [ConnectivityService 원리](connectivity-service.md)
+- **백그라운드 통신 차단 / 배터리 절약 에러**: [Metered와 Data Saver](metered-data-saver-policy.md), [netd 엔진 역할](netd-daemon.md)
+- **VPN 연결 실패 / 차단 이슈**: [Always-on과 Lockdown VPN](always-on-vpn-policy.md), [VpnService TUN 등록](vpn-service-tun-routing.md)
+- **Cleartext HTTP 차단 및 SSL 에러**: [Network Security Config](network-security-config.md), [Private DNS의 역할](android-private-dns.md)
+- **Wi-Fi / IoT 기기 직접 연결**: [Wi-Fi APIs 세분화](wifi-manager-apis.md), [Default vs Requested Network](default-vs-requested-network.md)

@@ -66,3 +66,64 @@ adb shell settings get global private_dns_specifier
 - [Android Connectivity 런타임](android-connectivity.md) - 안드로이드 네트워크 계층 구조
 - [NetId & Multi-Routing Table](netid-routing-table.md) - DNS 패킷이 전송되는 NetId 라우팅
 - [dumpsys 시스템 진단 도구](../../06_testing_performance/debugging/dumpsys.md) - dumpsys dnsresolver 진단
+
+---
+
+### Kotlin DnsResolver API 직접 사용 및 Private DNS 상태 확인
+
+```kotlin
+import android.net.DnsResolver
+import android.net.Network
+import android.os.CancellationSignal
+import java.net.InetAddress
+import java.util.concurrent.Executor
+
+fun resolveDomainWithPrivateDns(
+    network: Network,
+    domain: String,
+    executor: Executor,
+    onResolved: (List<InetAddress>) -> Unit
+) {
+    val resolver = DnsResolver.getInstance()
+    val cancellationSignal = CancellationSignal()
+
+    // system_server 및 netd Private DNS 설정이 적용된 DnsResolver 사용
+    resolver.query(
+        network,
+        domain,
+        DnsResolver.FLAG_EMPTY,
+        executor,
+        cancellationSignal,
+        object : DnsResolver.Callback<List<InetAddress>> {
+            override fun onAnswer(answer: List<InetAddress>, rcode: Int) {
+                if (rcode == 0) {
+                    onResolved(answer)
+                }
+            }
+
+            override fun onError(error: DnsResolver.DnsException) {
+                // Private DNS 서버 연결 불가 또는 strict mode 검증 실패 시 발생
+            }
+        }
+    )
+}
+```
+
+### 관찰 신호: dumpsys dnsresolver Private DNS 상태 확인
+
+```bash
+# netd dnsresolver의 Private DNS (Strict Mode vs Opportunistic Mode) 덤프
+adb shell dumpsys dnsresolver
+
+# 주요 관찰 사항:
+# - Private DNS mode: STRICT (specific provider) vs AUTOMATIC
+# - Server validation status: SUCCESS (TLS port 853 handshake OK)
+# - DnsQueryLog: 암호화된 DNS 쿼리 처리 통계
+```
+
+### 관련 문서
+
+- [Network Security Config는 앱 신뢰, cleartext, pinning 정책을 선언한다](network-security-config.md)
+- [netd는 라우팅, DNS, 방화벽, tethering 명령을 실행한다](netd-daemon.md)
+
+공식 문서: [Android Private DNS Features](https://developer.android.com/about/versions/pie/android-9.0-changes-28#private-dns)
