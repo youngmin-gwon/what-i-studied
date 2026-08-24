@@ -71,7 +71,7 @@ adb shell ls -la /data/app/*/com.example.app*/oat/arm64/
 
 ### 관련 문서
 
-- [profile-guided-compilation-splits-install-runtime-and-idle-costs](profile-guided-compilation-splits-install-runtime-and-idle-costs.md)
-- [runtime-debugging-separates-profile-compile-filter-and-jit-state](runtime-debugging-separates-profile-compile-filter-and-jit-state.md)
+- [ART 프로파일 기반 컴파일 PGO (Profile-Guided Compilation)](art-profile-guided-compilation.md)
+- [ART 런타임 디버깅과 컴파일 필터 (Runtime Debugging)](art-runtime-debugging.md)
 
 공식 문서: [ART and Dalvik](https://source.android.com/docs/core/runtime)

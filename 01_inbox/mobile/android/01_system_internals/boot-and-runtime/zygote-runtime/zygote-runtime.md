@@ -28,13 +28,13 @@ flowchart TD
 
 | 정본 계약 노트 | 핵심 보장 메커니즘 | 검증 및 관측 가능 지점 |
 | :--- | :--- | :--- |
-| **[Zygote는 framework 공통 상태를 preload한 뒤 앱 프로세스를 fork한다](zygote-preload-state.md)** | `/system/etc/preloaded-classes` 및 `framework.jar` 자원 preloading, `ZygoteInit.main()` | `logcat \| grep Zygote`, `preloaded-classes` |
-| **[Zygote fork의 메모리 이점은 copy-on-write가 유지될 때 생긴다](zygote-copy-on-write.md)** | `fork()` 페이지 테이블 복사, Clean Shared Page(OAT/VDEX) 무변경 유지 및 PSS/USS 절감 | `dumpsys meminfo`, `/proc/<pid>/smaps_rollup` |
-| **[Zygote socket은 system_server가 앱 프로세스를 요청하는 factory interface다](zygote-socket-interface.md)** | `/dev/socket/zygote` Unix Socket, `Process.start()`, `ZygoteServer` 커맨드 루프 | `ls -la /dev/socket/zygote`, `logcat -s Zygote` |
-| **[앱 프로세스는 specialization 뒤 ActivityThread로 framework에 attach한다](app-process-specializes-before-activitythread-attaches-to-framework.md)** | `ZygoteConnection.handleChildProc()`, Target UID/GID/SELinux Context 전환, `ActivityThread.attach()` | `ps -AZ`, `logcat \| grep ActivityThread` |
-| **[ART는 DEX를 interpretation, JIT, AOT 조합으로 실행한다](art-dex-execution-modes.md)** | Interpreter -> JIT Compiler (Hot Methods) -> Profile-guided AOT (`dex2oat`) 3단계 티어링 | `dumpsys package <pkg>`, `art_dispatch` |
-| **[Profile guided compilation은 설치, 실행, idle compile 비용을 나눈다](profile-guided-compilation-splits-install-runtime-and-idle-costs.md)** | JIT 프로파일링(`.prof`), Baseline Profile, `BackgroundDexOptService` 유휴 컴파일 | `cmd package compile`, `/data/misc/profiles/` |
-| **[런타임 디버깅은 profile, compile filter, JIT 상태를 분리해서 본다](runtime-debugging-separates-profile-compile-filter-and-jit-state.md)** | Compile filter(`verify`, `speed-profile`, `speed`), `profman` CLI, JIT 메모리 맵 관측 | `cmd package compile -m speed-profile`, `profman` |
+| **[Zygote 프레임워크 상태 프리로드 (Zygote Preload)](zygote-preload-state.md)** | `/system/etc/preloaded-classes` 및 `framework.jar` 자원 preloading, `ZygoteInit.main()` | `logcat \| grep Zygote`, `preloaded-classes` |
+| **[Zygote CoW 메모리 공유 (Copy-on-Write)](zygote-copy-on-write.md)** | `fork()` 페이지 테이블 복사, Clean Shared Page(OAT/VDEX) 무변경 유지 및 PSS/USS 절감 | `dumpsys meminfo`, `/proc/<pid>/smaps_rollup` |
+| **[Zygote 소켓 인터페이스 (Socket Interface)](zygote-socket-interface.md)** | `/dev/socket/zygote` Unix Socket, `Process.start()`, `ZygoteServer` 커맨드 루프 | `ls -la /dev/socket/zygote`, `logcat -s Zygote` |
+| **[앱 프로세스 특화와 ActivityThread 연결 (Specialization)](app-process-specialization.md)** | `ZygoteConnection.handleChildProc()`, Target UID/GID/SELinux Context 전환, `ActivityThread.attach()` | `ps -AZ`, `logcat \| grep ActivityThread` |
+| **[ART DEX 실행 모드와 티어링 (Execution Modes)](art-dex-execution-modes.md)** | Interpreter -> JIT Compiler (Hot Methods) -> Profile-guided AOT (`dex2oat`) 3단계 티어링 | `dumpsys package <pkg>`, `art_dispatch` |
+| **[ART 프로파일 기반 컴파일 PGO (Profile-Guided Compilation)](art-profile-guided-compilation.md)** | JIT 프로파일링(`.prof`), Baseline Profile, `BackgroundDexOptService` 유휴 컴파일 | `cmd package compile`, `/data/misc/profiles/` |
+| **[ART 런타임 디버깅과 컴파일 필터 (Runtime Debugging)](art-runtime-debugging.md)** | Compile filter(`verify`, `speed-profile`, `speed`), `profman` CLI, JIT 메모리 맵 관측 | `cmd package compile -m speed-profile`, `profman` |
 
 ---
 

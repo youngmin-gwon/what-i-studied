@@ -1,18 +1,20 @@
 ---
-title: profile-guided-compilation-splits-install-runtime-and-idle-costs
+title: art-profile-guided-compilation
 tags: [android, android/boot-runtime, android/runtime, android/system-internals]
-aliases: ["Profile guided compilation은 설치, 실행, idle compile 비용을 나눈다"]
-date modified: 2026-08-03 17:24:03 +09:00
+aliases: ["ART 프로파일 기반 컴파일(PGO)", "art-profile-guided-compilation", "Profile Guided Compilation"]
 date created: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-24 17:05:00 +09:00
 ---
 
-## Profile guided compilation 은 설치, 실행, idle compile 비용을 나눈다
+## ART 프로파일 기반 컴파일(Profile-Guided Compilation, PGO)
 
-상위 문서: [Zygote 런타임 계약](zygote-runtime.md)
+상위 문서: [Zygote 와 ART 런타임 계약](zygote-runtime.md)
 
 Profile-Guided Compilation(PGO)은 설치 단계에서 앱 전체 코드를 100% AOT 컴파일함으로써 발생하는 앱 설치 시간 지연 및 디스크 공간 낭비를 막고, **설치 시점(Install Time)**, **실행 시점(Runtime JIT)**, 그리고 **배경 컴파일(Idle System Maintenance)** 시점으로 컴파일 비용을 분산시키는 하이브리드 최적화 아키텍처다.
 
-### 내부 동작 메커니즘 (Internal Mechanism)
+---
+
+### 1. 내부 동작 메커니즘 (Internal Mechanism)
 
 1. **설치 단계 (Install Phase - `verify` / `quicken`)**:
    - APK 설치 시 `PackageManagerService`는 바이트코드 검증만 수행하여 설치 시간을 수 초 이내로 대폭 단축한다.
@@ -26,14 +28,10 @@ Profile-Guided Compilation(PGO)은 설치 단계에서 앱 전체 코드를 100%
 
 ```mermaid
 flowchart LR
-    INSTALL["1. Install Time
-(Fast Install: verify filter)"] --> RUN["2. App Execution
-(JIT & Profile Collection to .prof)"]
-    RUN --> IDLE["3. Idle Maintenance
-(Background JobScheduler)"]
+    INSTALL["1. Install Time<br/>(Fast Install: verify filter)"] --> RUN["2. App Execution<br/>(JIT & Profile Collection to .prof)"]
+    RUN --> IDLE["3. Idle Maintenance<br/>(Background JobScheduler)"]
     IDLE --> DEX2OAT["dex2oat --profile-file=primary.prof"]
-    DEX2OAT --> OAT[".oat Native ELF File
-(speed-profile)"]
+    DEX2OAT --> OAT[".oat Native ELF File<br/>(speed-profile)"]
 
     CLOUD["Cloud Baseline Profile"] -.->|"Pre-load on Install"| DEX2OAT
 
@@ -42,7 +40,9 @@ flowchart LR
     style IDLE fill:#e8f5e9,stroke:#388e3c
 ```
 
-### 코드 및 구체 예시 (Concrete Snippets)
+---
+
+### 2. 코드 및 구체 예시 (Concrete Snippets)
 
 `BackgroundDexOptService` 백그라운드 컴파일 트리거 CLI 예시:
 
@@ -51,24 +51,28 @@ flowchart LR
 adb shell cmd package bg-dexopt-job
 
 # 앱 프로파일 정보 강제 플러시 덤프
-adb shell kill -3 (adb shell pidof com.example.app)
+adb shell kill -3 $(adb shell pidof com.example.app)
 ```
 
-### 관측 가능 증거 (Observable Evidence)
+---
+
+### 3. 관측 가능 증거 (Observable Evidence)
 
 `adb shell`을 활용해 해당 패키지의 JIT Profile 크기 및 컴파일 결과를 확인할 수 있다:
 
 ```bash
-# 런타임 수집 프로파일 파일 존재 확인
-adb shell ls -la /data/misc/profiles/cur/0/com.example.app/primary.prof
+# 앱 프로파일 파일 존재 및 크기 확인
+adb shell ls -lh /data/misc/profiles/cur/0/com.example.app/primary.prof
 
-# 덤프를 통한 bg-dexopt 실행 결과 관측
-adb shell dumpsys package dexopt
+# 덤프된 프로파일 내용을 profman 도구로 텍스트 확인
+adb shell profman --dump-only --profile-file=/data/misc/profiles/cur/0/com.example.app/primary.prof
 ```
 
-### 관련 문서
+---
 
-- [Art Dex Execution Modes](art-dex-execution-modes.md)
-- [runtime-debugging-separates-profile-compile-filter-and-jit-state](runtime-debugging-separates-profile-compile-filter-and-jit-state.md)
+### 4. 관련 문서 (Related Links)
 
-공식 문서: [Profile-Guided Compilation](https://source.android.com/docs/core/runtime/jit)
+- [ART DEX 실행 모드 (ART DEX Execution Modes)](art-dex-execution-modes.md)
+- [ART 런타임 디버깅과 컴파일 필터 (ART Runtime Debugging)](art-runtime-debugging.md)
+- [Zygote 와 ART 런타임 계약](zygote-runtime.md)
+- [Android Compilation Pipeline](../../android-compilation-pipeline.md)

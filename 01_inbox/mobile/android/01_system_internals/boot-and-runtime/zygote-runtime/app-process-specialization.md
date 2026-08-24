@@ -1,19 +1,21 @@
 ---
-title: app-process-specializes-before-activitythread-attaches-to-framework
+title: app-process-specialization
 tags: [android, android/boot-runtime, android/runtime, android/system-internals]
-aliases: ["앱 프로세스는 specialization 뒤 ActivityThread로 framework에 attach한다"]
-date modified: 2026-08-05 16:00:00 +09:00
+aliases: ["앱 프로세스 특화(Specialization)와 ActivityThread 연결", "app-process-specialization", "App Process Specialization"]
 date created: 2026-08-01 00:00:00 +09:00
+date modified: 2026-08-24 17:05:00 +09:00
 ---
 
-## 앱 프로세스는 specialization 뒤 ActivityThread 로 framework 에 attach 한다
+## 앱 프로세스 특화(Specialization)와 ActivityThread 연결 메커니즘
 
-상위 문서: [Zygote 런타임 계약](zygote-runtime.md)
+상위 문서: [Zygote 와 ART 런타임 계약](zygote-runtime.md)  
 배경 지식: [네임스페이스(mount namespace)](../../../../../linux/container-basics.md), [SELinux](../../../../../linux/security/selinux.md), [seccomp](../../../../../../02_references/operating-systems/seccomp.md)
 
 앱 프로세스 생성 과정은 단순히 Zygote의 `fork()`로 끝나지 않으며, 고유 UID/GID 적용, SELinux 도메인 강등, Cgroup 바인딩, App-specific ClassLoader 로딩으로 고유 샌드박스 환경을 구체화하는 **Specialization** 단계를 거친 직후, `ActivityThread.main()`에서 [AMS](../../../04_system_services/activity-manager-service.md)로 Binder `attachApplication()`을 호출하여 비로소 Android 프레임워크 프로세스로 통합되는 메커니즘이다.
 
-### 내부 동작 메커니즘 (Internal Mechanism)
+---
+
+### 1. 내부 동작 메커니즘 (Internal Mechanism)
 
 1. **Zygote Fork & Specialize (`Zygote.nativeForkAndSpecialize`)**:
    - Zygote 프로세스는 Socket 요청에서 전달받은 `target_sdk`, `uid`, `gids`, `runtime_flags`, `seinfo`, `nice_name` 매개변수를 기반으로 자식 프로세스를 `fork()`한다.
@@ -48,7 +50,9 @@ sequenceDiagram
     AMS->>AT: bindApplication() & Launch Activity/Service
 ```
 
-### 코드 및 구체 예시 (Concrete Snippets)
+---
+
+### 2. 코드 및 구체 예시 (Concrete Snippets)
 
 `ActivityThread.main()` 프레임워크 메인 함수 스니펫 (`frameworks/base/core/java/android/app/ActivityThread.java`):
 
@@ -77,7 +81,9 @@ private void attach(boolean system, long startSeq) {
 }
 ```
 
-### 관측 가능 증거 (Observable Evidence)
+---
+
+### 3. 관측 가능 증거 (Observable Evidence)
 
 `adb shell`을 활용하여 특화(Specialized) 완료된 앱 프로세스의 UID, SELinux 도메인 및 메인 스레드 Looper 상태를 점검할 수 있다:
 
@@ -91,9 +97,11 @@ adb shell ps -Z | grep com.example.app
 adb logcat -s ActivityThread ActivityManager
 ```
 
-### 관련 문서
+---
 
-- [Zygote Socket Interface](zygote-socket-interface.md)
-- [ams-coordinates-app-process-and-component-lifecycle](../system-server/ams-coordinates-app-process-and-component-lifecycle.md)
+### 4. 관련 문서 (Related Links)
 
-공식 문서: [Android Process Lifecycle](https://developer.android.com/guide/components/activities/process-lifecycle)
+- [Zygote 소켓 인터페이스 (Zygote Socket Interface)](zygote-socket-interface.md)
+- [Zygote 와 ART 런타임 계약](zygote-runtime.md)
+- [AMS와 앱 프로세스 수명주기](../system-server/ams-coordinates-app-process-and-component-lifecycle.md)
+- [ActivityThread와 메인 스레드 메커니즘](../../../02_app_framework/activity-thread.md)

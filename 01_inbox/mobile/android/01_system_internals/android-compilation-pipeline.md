@@ -2,7 +2,7 @@
 title: android-compilation-pipeline
 tags: [android, art, compiler, dex2oat, hybrid-compilation, system-internals]
 aliases: [Android Compilation Pipeline, 안드로이드 컴파일 파이프라인]
-date modified: 2026-08-06 18:38:55 +09:00
+date modified: 2026-08-24 17:03:31 +09:00
 date created: 2026-08-06 17:58:00 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-08-06 17:58:00 +09:00
 
 **Android Compilation Pipeline (안드로이드 컴파일 파이프라인)** 은 Android 애플리케이션의 [DEX 바이트코드](android-compilation-pipeline.md)가 [ART 런타임](art.md) 환경에서 기계어로 번역되어 실행되는 전 과정을 다루는 플랫폼 특화 컴파일 시스템이다.
 
-범용 CS 의 [JIT Compilation](../../../computer-science/jit-compilation.md) 과 [AOT Compilation](../../../computer-science/aot-compilation.md) 기술을 결합하여, 모바일 기기의 **빠른 앱 설치 속도, 저장공간 절약, 런타임 최고 실행 성능**을 동시에 달성하도록 설계되었다.
+[JIT Compilation](../../../computer-science/jit-compilation.md) 과 [AOT Compilation](../../../computer-science/aot-compilation.md) 기술을 결합하여, 모바일 기기의 **빠른 앱 설치 속도, 저장공간 절약, 런타임 최고 실행 성능**을 동시에 달성하도록 설계되었다.
 
 ---
 

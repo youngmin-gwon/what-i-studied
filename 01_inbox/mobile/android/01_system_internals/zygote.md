@@ -51,6 +51,7 @@ flowchart TD
 
 ### 3. 연결 문서 (Related Links)
 
+- [Zygote 와 ART 런타임 심층 계약 (Zygote Runtime Hub)](boot-and-runtime/zygote-runtime/zygote-runtime.md)
 - [ART (Android Runtime)](art.md) - Zygote 가 미리 로딩해 두는 가상 머신 런타임
 - [Dalvik VM](dalvik-vm.md) - Dalvik 가상 머신의 독립 정의 노드
 - [system_server](../04_system_services/system-server.md) - Zygote 에게 process fork 를 요청하는 관리 주체

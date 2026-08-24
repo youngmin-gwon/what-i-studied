@@ -134,9 +134,9 @@ Zygote 는 모든 Android 앱 프로세스의 부모 프로세스다. init 이 �
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [앱 프로세스는 specialization 뒤 ActivityThread 로 framework 에 attach 한다](../../01_system_internals/boot-and-runtime/zygote-runtime/app-process-specializes-before-activitythread-attaches-to-framework.md) | fork 이후 6 단계 specialization 과정 |
+| [앱 프로세스 특화(Specialization)와 ActivityThread 연결](../../01_system_internals/boot-and-runtime/zygote-runtime/app-process-specialization.md) | fork 이후 6 단계 specialization 과정 |
 | [ART 는 DEX 를 interpretation, JIT, AOT 조합으로 실행한다](../../01_system_internals/boot-and-runtime/zygote-runtime/art-dex-execution-modes.md) | Interpreter/JIT/AOT 하이브리드 전략 |
-| [Profile guided compilation 은 설치, 실행, idle compile 비용을 나눈다](../../01_system_internals/boot-and-runtime/zygote-runtime/profile-guided-compilation-splits-install-runtime-and-idle-costs.md) | Baseline Profile / dex2oat 타이밍 |
+| [ART 프로파일 기반 컴파일(PGO)](../../01_system_internals/boot-and-runtime/zygote-runtime/art-profile-guided-compilation.md) | Baseline Profile / dex2oat 타이밍 |
 
 ---
 
@@ -179,7 +179,7 @@ adb shell ps -A | grep -E "system_server|zygote|com\."
 | [부팅 완료는 하나의 property 가 아니라 관찰 가능한 마일스톤이다](../../01_system_internals/boot-and-runtime/boot-flow/boot-completion-is-observable-milestones-not-one-property.md) | sys.boot_completed 외 부팅 완료 신호 |
 | [부팅 디버깅은 logcat 이전의 kernel, pstore, init 로그에서 시작한다](../../01_system_internals/boot-and-runtime/boot-flow/boot-debugging-starts-before-logcat-with-kernel-pstore-init-logs.md) | dmesg, pstore, init 콘솔 활용법 |
 | [dumpsys 는 system service 의 현재 상태를 보는 inspection interface 다](../../01_system_internals/boot-and-runtime/system-server/dumpsys-is-system-service-state-inspection-interface.md) | dumpsys 동작 원리와 활용 패턴 |
-| [런타임 디버깅은 profile, compile filter, JIT 상태를 분리한다](../../01_system_internals/boot-and-runtime/zygote-runtime/runtime-debugging-separates-profile-compile-filter-and-jit-state.md) | ART 컴파일 상태 확인 명령어 |
+| [ART 런타임 디버깅과 컴파일 필터](../../01_system_internals/boot-and-runtime/zygote-runtime/art-runtime-debugging.md) | ART 컴파일 상태 확인 명령어 |
 
 ---
 

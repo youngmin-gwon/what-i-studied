@@ -2,7 +2,7 @@
 title: art
 tags: [android, art, runtime, system-internals, vm]
 aliases: [Android Runtime, ART, 안드로이드 런타임]
-date modified: 2026-08-24 16:54:21 +09:00
+date modified: 2026-08-24 16:56:12 +09:00
 date created: 2026-08-06 16:31:22 +09:00
 ---
 
@@ -12,12 +12,12 @@ date created: 2026-08-06 16:31:22 +09:00
 
 **ART (Android Runtime)** 는 Android 운영체제에서 모든 애플리케이션과 프레임워크 시스템 서비스([system_server](../04_system_services/system-server.md))를 구동하는 **모바일 전용 관리형 런타임(Managed Runtime Environment)** 이다.
 
+기존 레거시 가상 머신이었던 **[Dalvik VM](dalvik-vm.md)** 을 완전히 대체하기 위해 Android 4.4(KitKat)에서 시험 도입된 후, **Android 5.0(Lollipop)** 부터 안드로이드의 기본 표준 런타임으로 전면 적용되었다.
+
 >[!IMPORTANT]
 >**왜 단순한 가상 머신(VM)이 아니라 '런타임(Runtime)'이라는 이름이 붙었는가?**
 > - **런타임(Runtime)** 이란 프로그램이 실행(Run)되는 동안 그 생명주기와 동작을 뒷받침하는 모든 소프트웨어 환경을 통틀어 부르는 말이다.
 > - ART 는 단순히 바이트코드([DEX](android-compilation-pipeline.md))를 해석하는 엔진에 머무르지 않고, **1) 3 단계 하이브리드 컴파일 파이프라인(JIT + AOT), 2) 지능형 메모리 할당 및 Concurrent GC, 3) 스레드 스케줄링 및 모니터링, 4) Android Core 프레임워크 라이브러리**를 총괄 관리하는 거대한 실행 인프라이기 때문에 'Android Runtime'이라는 이름이 붙었다.
-
-기존 레거시 가상 머신이었던 **[Dalvik VM](dalvik-vm.md)** 을 완전히 대체하기 위해 Android 4.4(KitKat)에서 시험 도입된 후, **Android 5.0(Lollipop)** 부터 안드로이드의 기본 표준 런타임으로 전면 적용되었다.
 
 ```mermaid
 flowchart TD

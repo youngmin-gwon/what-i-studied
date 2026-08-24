@@ -73,7 +73,7 @@ adb shell procrank # (디버그 빌드 환경 지원 시)
 
 ### 관련 문서
 
-- [Zygote Preload State](zygote-preload-state.md)
-- [app-process-specializes-before-activitythread-attaches-to-framework](app-process-specializes-before-activitythread-attaches-to-framework.md)
+- [Zygote 프레임워크 상태 프리로드 (Zygote Preload)](zygote-preload-state.md)
+- [앱 프로세스 특화와 ActivityThread 연결 (Specialization)](app-process-specialization.md)
 
 공식 문서: [Overview of Android Memory Management](https://developer.android.com/topic/performance/memory-overview)
