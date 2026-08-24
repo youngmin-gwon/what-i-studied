@@ -2,7 +2,7 @@
 title: jvm-bytecode-and-jar-archive
 tags: ["archive", "build-lifecycle", "bytecode", "class-file", "computer-science", "jar", "jvm", "zip"]
 aliases: [".class vs .jar", "Class 파일", "JAR 포맷", "Java Archive", "바이트코드 파일과 아카이브", "언제 class와 jar가 되는가"]
-date modified: 2026-08-24 11:35:06 +09:00
+date modified: 2026-08-24 11:55:02 +09:00
 date created: 2026-08-19 15:05:00 +09:00
 ---
 
@@ -44,14 +44,14 @@ flowchart TD
     - JVM 스펙 상의 [Class File Format](jvm-architecture.md) 은 "파일 단위"가 아니라 **"단일 타입(Class/Interface/Record/Enum) 단위"** 로만 정의되어 있다. 하나의 `.class` 파일은 오직 하나의 클래스 헤더, 단일 상수 풀(Constant Pool), 해당 클래스에 속한 필드/메서드 테이블만 가질 수 있다.
     - 따라서 소스 파일 하나에 여러 클래스나 내부 구조가 존재하면, JVM 클래스로더가 개별적으로 로드하고 식별할 수 있도록 컴파일러가 물리적으로 각각 다른 `.class` 파일로 분리하여 디스크에 출력한다.
 
-| 소스 코드 구성 요소 | 생성되는 `.class` 파일명 규칙 | 예시 |
-|---|---|---|
-| **최상위 클래스** | `ClassName.class` | `User.class` |
-| **내부 / 중첩 클래스** | `Outer$Inner.class` | `User$Address.class` |
-| **익명 클래스 (Anonymous Class)** | `Outer$1.class`, `Outer$2.class` | `User$1.class` (OnClickListener 구현체) |
-| **Kotlin 동반 객체 (Companion Object)** | `Outer$Companion.class` | `User$Companion.class` |
-| **Kotlin 최상위(Top-level) 함수/프로퍼티** | `FileNameKt.class` (Façade Class) | `UtilsKt.class` (`Utils.kt` 에 정의된 최상위 함수들) |
-| **Kotlin 람다식 / SAM 변환** | `Outer$Method$1.class` | `User$calculate$1.class` |
+| 소스 코드 구성 요소                         | 생성되는 `.class` 파일명 규칙              | 예시                                         |
+| ----------------------------------- | --------------------------------- | ------------------------------------------ |
+| **최상위 클래스**                         | `ClassName.class`                 | `User.class`                               |
+| **내부 / 중첩 클래스**                     | `Outer$Inner.class`               | `User$Address.class`                       |
+| **익명 클래스 (Anonymous Class)**        | `Outer$1.class`, `Outer$2.class`  | `User$1.class` (OnClickListener 구현체)       |
+| **Kotlin 동반 객체 (Companion Object)** | `Outer$Companion.class`           | `User$Companion.class`                     |
+| **Kotlin 최상위(Top-level) 함수/프로퍼티**   | `FileNameKt.class` (Facade Class) | `UtilsKt.class` (`Utils.kt` 에 정의된 최상위 함수들) |
+| **Kotlin 람다식 / SAM 변환**             | `Outer$Method$1.class`            | `User$calculate$1.class`                   |
 
 >[!NOTE]
 >**예외적으로 `.class` 파일이 0 개 생성되는 경우**:
