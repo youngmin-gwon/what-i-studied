@@ -38,7 +38,7 @@ fun openDocumentInNewWindow(context: Context, documentId: String) {
 
 - 새 window 로 열 수 있는 사용자 과업을 명확히 정한다.
 - 같은 항목을 두 인스턴스에서 편집할 때 충돌, 저장 순서, stale state 처리를 정의한다.
-- singleton [viewmodel](../../../02_app_framework/viewmodel.md), 전역 selection, shared mutable cache 가 여러 window 에서 섞이지 않는지 확인한다.
+- singleton [viewmodel](../../../02_app_framework/architecture/state-management/viewmodel.md), 전역 selection, shared mutable cache 가 여러 window 에서 섞이지 않는지 확인한다.
 - drag-out 으로 새 인스턴스를 만드는 UX 는 원본 창과 새 창의 소유권 이전 규칙을 함께 설계한다.
 - Android 15(API 35) 이상의 system UI multi-instance affordance 를 쓰려면 `PROPERTY_SUPPORTS_MULTI_INSTANCE_SYSTEM_UI` 와 task launch 동작을 함께 검증한다. 이 property 는 시스템 UI 에 New Window 같은 진입점을 요청할 뿐 데이터 격리나 올바른 task 생성을 구현하지 않는다.
 

@@ -72,11 +72,11 @@ Phase 1 coverage matrix 와 사용자 요청으로 새로 신설된 클러스터
 
 Phase 9 에서 우선순위가 낮다고 판단해 보류했다가, 사용자 요청으로 뒤이어 착수한 5 개 주제다. 원자 노트는 대응하는 기존 클러스터(networking-contracts, 신설 multiplatform/appsearch/speech/downloadable-fonts)에 있다.
 
-- [gRPC는 REST와 다른 타입 세이프 스트리밍 계약을 선언한다](../../02_app_framework/data/networking/networking/grpc-declares-typed-streaming-while-rest-stays-single-shot-request-response.md)
+- [gRPC는 REST와 다른 타입 세이프 스트리밍 계약을 선언한다](../../02_app_framework/data/networking/grpc-vs-rest-streaming.md)
 - [Kotlin Multiplatform 계약](../../02_app_framework/architecture/multiplatform/multiplatform.md)
 - [AppSearch 접근 계약](../../04_system_services/device-capabilities/appsearch/appsearch.md)
 - [음성 합성/인식 접근 계약](../../04_system_services/device-capabilities/speech/speech.md)
-- [Downloadable Fonts 접근 계약](../../02_app_framework/ui/system/downloadable-fonts/downloadable-fonts.md)
+- [Downloadable Fonts 접근 계약](../../02_app_framework/ui/downloadable-fonts/downloadable-fonts.md)
 
 ### 이 지도가 다루지 않는 것
 

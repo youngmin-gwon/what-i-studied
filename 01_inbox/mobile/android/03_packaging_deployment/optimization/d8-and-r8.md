@@ -2,7 +2,7 @@
 title: d8-and-r8
 tags: ["android", "bytecode", "d8", "desugaring", "dexing", "optimization", "proguard", "r8"]
 aliases: ["D8 and R8", "D8 컴파일러", "D8과 R8", "Desugaring", "DEX 변환", "Dexing", "R8 최적화", "덱싱"]
-date modified: 2026-08-24 15:05:04 +09:00
+date modified: 2026-08-24 17:47:21 +09:00
 date created: 2026-08-24 14:25:00 +09:00
 ---
 

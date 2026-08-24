@@ -77,4 +77,4 @@ fun add(a: Int, b: Int): Int {
 
 - [Pure Function](pure-function.md) - Side Effect 가 전혀 없는 순수 함수
 - [Immutability](immutability.md) - Side Effect 방지를 위한 객체 불변성 원칙
-- [Compose Side Effect](../mobile/android/02_app_framework/jetpack-compose/state-and-lifecycle/compose-side-effect.md) - 안드로이드 Compose 프레임워크 부수 효과
+- [Compose Side Effect](../mobile/android/02_app_framework/jetpack-compose/state-and-effects/compose-side-effect.md) - 안드로이드 Compose 프레임워크 부수 효과

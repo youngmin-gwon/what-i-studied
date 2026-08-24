@@ -50,4 +50,4 @@ graph TD
 ## 3. 연결 문서 (Related Links)
 
 - [Recomposition](runtime/recomposition.md) - Compose 가 상태 변화를 감지해 화면을 다시 그리는 메커니즘
-- [ViewModel](../viewmodel.md) - Compose UI 에 보낼 최신 UiState 데이터를 관제하는 컴포넌트
+- [ViewModel](../architecture/state-management/viewmodel.md) - Compose UI 에 보낼 최신 UiState 데이터를 관제하는 컴포넌트

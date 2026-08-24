@@ -10,11 +10,11 @@ date created: 2026-07-31 23:04:26 +09:00
 
 Flutter 경험이 있는 개발자는 Widget 과 Composable, BuildContext 와 Android Context, Provider/Riverpod 과 Compose state observation 을 이름으로 바로 대응시키기 쉽다. 하지만 실제 boundary 는 다르다.
 
-Compose 의 Composable 은 state 를 UI 로 계산하는 함수에 가깝고, Android Context 는 UI tree 위치가 아니라 platform capability 다. [viewmodel](../../../02_app_framework/viewmodel.md) 은 StatefulWidget 의 State 가 아니라 screen state holder 와 external work coordinator 에 가깝다.
+Compose 의 Composable 은 state 를 UI 로 계산하는 함수에 가깝고, Android Context 는 UI tree 위치가 아니라 platform capability 다. [viewmodel](../../../02_app_framework/architecture/state-management/viewmodel.md) 은 StatefulWidget 의 State 가 아니라 screen state holder 와 external work coordinator 에 가깝다.
 
 이 매핑은 Compose/state 문서와 Context 문서로 연결하고, learning resource 문서 안에서 반복 설명하지 않는다.
 
-관련 노트: [Compose runtime/state](../../../02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Context boundaries](../../../02_app_framework/architecture/context-and-modularity/android-context-boundaries.md), [ViewModel](../../../02_app_framework/architecture/state-management/viewmodel/viewmodel.md).
+관련 노트: [Compose runtime/state](../../../02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Context boundaries](../../../02_app_framework/architecture/context/context.md), [ViewModel](../../../02_app_framework/architecture/state-management/viewmodel.md).
 
 ### 판단 기준
 

@@ -11,7 +11,7 @@ date created: 2026-07-31 23:59:00 +09:00
 
 Compose Runtime은 Composable을 개별 UI 뷰 객체로 다루지 않고, 상태(State) 변화에 따라 UI 트리 구조를 선언적으로 생성 및 갱신하는 함수 실행 런타임 엔진이다. 이 문서는 Compose Runtime의 코어 작동 원리(Slot Table, Compiler 코드 변환, Snapshot State 관찰, 3-Phase 파이프라인)를 체계적으로 바인딩하는 정본 안내서다.
 
-정본 묶음: [Compose runtime contracts](./compose-runtime/compose-runtime.md)
+정본 묶음: [Compose runtime contracts](compose-runtime.md)
 
 ---
 
@@ -36,47 +36,47 @@ Compose Runtime은 Composable을 개별 UI 뷰 객체로 다루지 않고, 상�
 
 ### 정본 계약 읽는 순서
 
-- [Compose UI는 상태를 입력으로 계산되는 선언적 결과다](./compose-runtime/compose-ui-is-declarative-function-of-state.md)
-- [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](./compose-runtime/recomposition-scope-control.md)
-- [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](./compose-runtime/composable-body-purity.md)
-- [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](./compose-runtime/snapshot-state-observation-invalidates-state-read-scopes.md)
-- [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](./compose-runtime/remember-is-composition-scoped-storage-not-general-cache.md)
-- [Composition은 호출 위치 identity로 remember 값을 보존한다](./compose-runtime/composition-uses-callsite-identity-to-preserve-remembered-values.md)
-- [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](./compose-runtime/composable-compiler-restart-skip.md)
-- [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](./compose-runtime/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)
-- [Compose state owner는 읽고 쓰는 범위의 가장 낮은 공통 owner다](./compose-runtime/compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write.md)
-- [Automatic State Observation이 Flutter rebuild 사고와 Compose를 가른다](./compose-runtime/automatic-state-observation-is-the-compose-flutter-rebuild-difference.md)
-- [Compose Runtime은 state, effect, performance, tooling 정본으로 이어지는 중심 모델이다](./compose-runtime/compose-runtime-links-state-effects-performance-and-tooling.md)
+- [Compose UI는 상태를 입력으로 계산되는 선언적 결과다](compose-declarative-ui.md)
+- [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](recomposition-scope-control.md)
+- [Composable body는 빠르고 idempotent하며 side-effect free 해야 한다](composable-body-purity.md)
+- [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](snapshot-state-observation.md)
+- [remember는 일반 cache가 아니라 Composition에 귀속된 저장공간이다](remember-storage-semantics.md)
+- [Composition은 호출 위치 identity로 remember 값을 보존한다](composition-callsite-identity.md)
+- [@Composable 컴파일 결과는 restart와 skip 제어를 가능하게 한다](composable-compiler-restart-skip.md)
+- [Compose frame pipeline은 composition, layout, drawing으로 나뉜다](compose-frame-pipeline.md)
+- [Compose state owner는 읽고 쓰는 범위의 가장 낮은 공통 owner다](compose-state-ownership.md)
+- [Automatic State Observation이 Flutter rebuild 사고와 Compose를 가른다](automatic-state-observation.md)
+- [Compose Runtime은 state, effect, performance, tooling 정본으로 이어지는 중심 모델이다](compose-runtime-links.md)
 
 ---
 
 ### 범위 및 연관 정본 묶음
 
 이 묶음은 Compose Runtime 멘탈 모델의 정본이다.
-- API 바인딩과 상태/이펙트 수명주기는 [Compose 상태와 Effect 계약](../state-and-lifecycle/compose-state-and-effect/compose-state-and-effect.md)에서 다룬다.
-- Recomposition 건너뛰기 최적화 및 Stability 판단은 [Compose 성능 계약](../performance/compose-performance/compose-performance.md)으로 보낸다.
-- Layout 측정/배치, Animation, Semantics는 [Compose UI 계약](../layout-and-ui/compose-ui/compose-ui.md)에서 다룬다.
+- API 바인딩과 상태/이펙트 수명주기는 [Compose 상태와 Effect 계약](../state-and-effects/compose-state-and-effect.md)에서 다룬다.
+- Recomposition 건너뛰기 최적화 및 Stability 판단은 [Compose 성능 계약](../performance/compose-performance.md)으로 보낸다.
+- Layout 측정/배치, Animation, Semantics는 [Compose UI 계약](../layout-and-ui/compose-ui.md)에서 다룬다.
 
 ---
 
 ### Subsystem Contract Maps
-- [ui-system](../../ui/system/ui-system/ui-system.md)
-- [compose-ui](../layout-and-ui/compose-ui/compose-ui.md)
-- [compose-design-system](../design-system-and-architecture/compose-design-system/compose-design-system.md)
-- [navigation3](../../navigation/navigation3/navigation3/navigation3.md)
-- [navigation](../../navigation/navigation/navigation.md)
-- [intent-manifest](../../navigation/intents-and-deep-links/intent-manifest/intent-manifest.md)
-- [deep-link](../../navigation/intents-and-deep-links/deep-link/deep-link.md)
-- [adaptive-navigation](../../navigation/adaptive-navigation/adaptive-navigation/adaptive-navigation.md)
-- [context](../../architecture/context-and-modularity/context/context.md)
-- [architecture](../../architecture/jetpack-architecture/architecture/architecture.md)
-- [app-component](../../architecture/app-components/app-component/app-component.md)
-- [file-access](../../data/storage/file-access/file-access.md)
-- [persistence](../../data/storage/persistence/persistence.md)
+- [ui-system](../../ui/view-system/ui-system.md)
+- [compose-ui](../layout-and-ui/compose-ui.md)
+- [compose-design-system](../design-system/compose-design-system.md)
+- [navigation3](../../navigation/navigation3/navigation3.md)
+- [navigation](../../navigation/navigation.md)
+- [intent-manifest](../../navigation/intents-and-deep-links/intent-manifest.md)
+- [deep-link](../../navigation/intents-and-deep-links/deep-link.md)
+- [adaptive-navigation](../../navigation/adaptive/adaptive-layout-and-navigation.md)
+- [context](../../architecture/context/context.md)
+- [architecture](../../architecture/overview/android-jetpack-architecture-map.md)
+- [app-component](../../architecture/app-components/component-contracts.md)
+- [file-access](../../data/storage/file-access.md)
+- [persistence](../../data/storage/persistence.md)
 - [flow-state](../../data/async-flow/flow-state/flow-state.md)
 - [coroutine-contracts](../../data/async-flow/coroutines/coroutine.md)
 - [flow-contracts](../../data/async-flow/flow/flow.md)
-- [paging](../../data/paging/paging/paging.md)
-- [di](../../dependency-injection/di/di.md)
+- [paging](../../data/paging/paging.md)
+- [di](../../dependency-injection/di.md)
 - **dsl-syntax-does-not-change-ownership-lifetime-contracts**
 - **modular-di-follows-module-dependency-direction-and-feature-entry-contracts**

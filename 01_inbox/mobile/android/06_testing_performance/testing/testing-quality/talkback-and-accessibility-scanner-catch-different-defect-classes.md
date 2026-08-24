@@ -9,9 +9,9 @@ date created: 2026-08-04 18:00:00 +09:00
 ## TalkBack 수동 검증과 Accessibility Scanner 자동 검사는 서로 다른 결함군을 잡는다
 
 상위 문서: [테스트 품질 계약](./testing-quality.md)
-관련 노트: [Accessibility quality requires service scanner and Semantics verification](../../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/accessibility-quality-requires-service-scanner-and-semantics-verification.md)
+관련 노트: [Accessibility quality requires service scanner and Semantics verification](../../../02_app_framework/jetpack-compose/layout-and-ui/accessibility-service-verification.md)
 
-`Accessibility Scanner` 를 CI 에 자동으로 돌려서 통과했다고 접근성 품질이 검증된 것은 아니다. Scanner 는 측정 가능한 정적 결함만 검사하고, TalkBack 을 사람이 직접 켜서 화면을 순회해야만 드러나는 경험적 결함이 따로 존재한다. 이 노트는 두 검사 방식이 잡는 결함군의 경계를 test-strategy 관점(무엇을 CI 게이트에 넣을 수 있고 무엇을 릴리스 전 수동 QA 체크리스트에 남겨야 하는가)에서 다룬다. Compose semantics tree 와 `testTag` 를 이용한 접근성 코드 작성 방법 자체는 [Accessibility quality requires service scanner and Semantics verification](../../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/accessibility-quality-requires-service-scanner-and-semantics-verification.md) 가 정본이며 여기서 반복하지 않는다.
+`Accessibility Scanner` 를 CI 에 자동으로 돌려서 통과했다고 접근성 품질이 검증된 것은 아니다. Scanner 는 측정 가능한 정적 결함만 검사하고, TalkBack 을 사람이 직접 켜서 화면을 순회해야만 드러나는 경험적 결함이 따로 존재한다. 이 노트는 두 검사 방식이 잡는 결함군의 경계를 test-strategy 관점(무엇을 CI 게이트에 넣을 수 있고 무엇을 릴리스 전 수동 QA 체크리스트에 남겨야 하는가)에서 다룬다. Compose semantics tree 와 `testTag` 를 이용한 접근성 코드 작성 방법 자체는 [Accessibility quality requires service scanner and Semantics verification](../../../02_app_framework/jetpack-compose/layout-and-ui/accessibility-service-verification.md) 가 정본이며 여기서 반복하지 않는다.
 
 ### 1. 두 검사가 잡는 결함이 겹치지 않는 이유
 
@@ -99,6 +99,6 @@ Accessibility Scanner Report - LoginScreen
 
 ### 경계
 
-이 노트는 두 검사 방식이 CI 게이트/릴리스 체크리스트 안에서 어떤 역할을 나눠 맡아야 하는지만 다룬다. Compose 화면에서 `Modifier.semantics`, `testTag`, merged/unmerged tree 를 코드로 어떻게 구성하는지는 [Accessibility quality requires service scanner and Semantics verification](../../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/accessibility-quality-requires-service-scanner-and-semantics-verification.md) 와 [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](../../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md) 를 본다.
+이 노트는 두 검사 방식이 CI 게이트/릴리스 체크리스트 안에서 어떤 역할을 나눠 맡아야 하는지만 다룬다. Compose 화면에서 `Modifier.semantics`, `testTag`, merged/unmerged tree 를 코드로 어떻게 구성하는지는 [Accessibility quality requires service scanner and Semantics verification](../../../02_app_framework/jetpack-compose/layout-and-ui/accessibility-service-verification.md) 와 [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](../../../02_app_framework/jetpack-compose/layout-and-ui/semantics-tree-accessibility.md) 를 본다.
 
 출처: [Accessibility Scanner 지원 문서](https://support.google.com/accessibility/android/answer/6376570), [Compose 레이아웃 테스트 - Accessibility Checks](https://developer.android.com/develop/ui/compose/testing)

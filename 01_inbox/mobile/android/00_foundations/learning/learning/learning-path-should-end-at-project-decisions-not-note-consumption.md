@@ -12,7 +12,7 @@ Android 학습 경로는 많은 글을 읽는 순서가 아니라 프로젝트�
 
 그래서 foundations 는 최종 목적지가 아니라 routing layer 다. 세부 판단은 app architecture, Compose, data/storage, background work, security, testing/performance, packaging 정본에서 한다.
 
-관련 노트: [app architecture](../../../02_app_framework/architecture/android-app-architecture.md), [persistence](../../../02_app_framework/data/storage/persistence/persistence.md), [background work](../../../04_system_services/background-and-notifications/background-work/background-work.md), [performance](../../../06_testing_performance/performance/performance/performance.md), [packaging/deployment](../../../03_packaging_deployment/android-packaging-deployment.md).
+관련 노트: [app architecture](../../../02_app_framework/architecture/android-app-architecture.md), [persistence](../../../02_app_framework/data/storage/persistence.md), [background work](../../../04_system_services/background-and-notifications/background-work/background-work.md), [performance](../../../06_testing_performance/performance/performance/performance.md), [packaging/deployment](../../../03_packaging_deployment/android-packaging-deployment.md).
 
 ### 판단 기준
 

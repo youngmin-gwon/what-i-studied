@@ -10,7 +10,7 @@ date created: 2026-07-31 23:59:30 +09:00
 
 Jetpack Compose의 UI 시스템은 **레이아웃 측정 및 배치(Single-pass Layout), 값 및 상태 기반 애니메이션(Animation Pipeline), 픽셀 외적 의미를 전달하는 접근성 트리를 통한 세맨틱스(Semantics)**의 3대 핵심 기둥으로 구성된다.
 
-정본 묶음: [Compose UI contracts](./compose-ui/compose-ui.md)
+정본 묶음: [Compose UI contracts](compose-ui.md)
 
 ---
 
@@ -35,18 +35,18 @@ Jetpack Compose의 UI 시스템은 **레이아웃 측정 및 배치(Single-pass 
 
 ### 정본 계약 순서
 
-- [Compose layout measures children under parent constraints](./compose-ui/compose-layout-measures-children-under-parent-constraints.md)
-- [Modifier order changes layout draw and input wrappers](./compose-ui/modifier-order-changes-layout-draw-and-input-wrappers.md)
-- [Size modifiers interpret requested size inside incoming constraints](./compose-ui/size-modifiers-interpret-requested-size-inside-incoming-constraints.md)
-- [Custom Layout measures and places children explicitly](./compose-ui/custom-layout-measures-and-places-children-explicitly.md)
-- [Intrinsic measurement and SubcomposeLayout solve special measurement problems](./compose-ui/intrinsic-measurement-and-subcompose-layout-solve-special-measurement-problems.md)
-- [Compose animation API is selected by change unit and control level](./compose-ui/compose-animation-api-is-selected-by-change-unit-and-control-level.md)
-- [AnimationSpec defines time physics and repeat policy](./compose-ui/animation-spec-defines-time-physics-and-repeat-policy.md)
-- [Value animation APIs separate single target transition infinite and coroutine control](./compose-ui/value-animation-apis-separate-single-target-transition-infinite-and-coroutine-control.md)
-- [Semantics Tree makes UI meaning visible to accessibility and tests](./compose-ui/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md)
-- [Semantics merging clearing and traversal control the unit of meaning](./compose-ui/semantics-merging-clearing-and-traversal-control-the-unit-of-meaning.md)
-- [Accessibility quality requires service scanner and Semantics verification](./compose-ui/accessibility-quality-requires-service-scanner-and-semantics-verification.md)
-- [Visual information and gestures need readable meaning and alternate actions](./compose-ui/visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md)
+- [Compose layout measures children under parent constraints](compose-layout-constraints.md)
+- [Modifier order changes layout draw and input wrappers](modifier-chain-order.md)
+- [Size modifiers interpret requested size inside incoming constraints](size-modifiers-constraints.md)
+- [Custom Layout measures and places children explicitly](custom-layout-placement.md)
+- [Intrinsic measurement and SubcomposeLayout solve special measurement problems](intrinsic-measurements-subcompose.md)
+- [Compose animation API is selected by change unit and control level](compose-animation-apis.md)
+- [AnimationSpec defines time physics and repeat policy](animation-spec-physics.md)
+- [Value animation APIs separate single target transition infinite and coroutine control](value-animation-transitions.md)
+- [Semantics Tree makes UI meaning visible to accessibility and tests](semantics-tree-accessibility.md)
+- [Semantics merging clearing and traversal control the unit of meaning](semantics-traversal-merging.md)
+- [Accessibility quality requires service scanner and Semantics verification](accessibility-service-verification.md)
+- [Visual information and gestures need readable meaning and alternate actions](accessibility-gestures-meaning.md)
 
 ---
 

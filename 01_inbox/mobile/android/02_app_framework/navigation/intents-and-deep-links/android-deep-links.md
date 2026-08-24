@@ -61,18 +61,18 @@ sequenceDiagram
 
 ### 핵심 정본 지도 (Contract Index)
 
-- [Deep Link 계약](deep-link/deep-link.md)
-- [App Link는 검증된 https deep link다](deep-link/app-link-is-verified-https-deep-link.md)
-- [Manifest와 assetlinks는 서로 다른 역할을 가진다](deep-link/manifest-and-assetlinks-have-distinct-roles.md)
-- [Deep link는 외부 URI 계약이다](deep-link/deep-link-is-external-uri.md)
-- [External URI는 navigation 전에 검증되어야 한다](deep-link/external-uri-must-be-validated-before-navigation.md)
-- [Authenticated deep link는 대기 목적지와 back stack이 필요하다](deep-link/authenticated-deep-links-require-pending-destination-and-back-stack.md)
-- [Notification deep link는 명시적 task와 back stack 정책이 필요하다](deep-link/notification-deep-link-needs-explicit-task-and-back-stack-policy.md)
-- [Navigation 3 deep link는 URI를 NavKey로 변환한다](../navigation3/navigation3/navigation3-deep-link-converts-uri-to-navkey.md)
+- [Deep Link 계약](deep-link.md)
+- [App Link는 검증된 https deep link다](app-links-verification.md)
+- [Manifest와 assetlinks는 서로 다른 역할을 가진다](assetlinks-verification-json.md)
+- [Deep link는 외부 URI 계약이다](deep-link-uri-fundamentals.md)
+- [External URI는 navigation 전에 검증되어야 한다](external-uri-validation.md)
+- [Authenticated deep link는 대기 목적지와 back stack이 필요하다](authenticated-deep-links.md)
+- [Notification deep link는 명시적 task와 back stack 정책이 필요하다](notification-deep-link-back-stack.md)
+- [Navigation 3 deep link는 URI를 NavKey로 변환한다](../navigation3/navigation3-deep-link-routing.md)
 
 ---
 
 ### 연관 상위 및 관련 가이드
 
 - [Intent 및 IPC 가이드](android-intent-and-ipc.md)
-- [Android Navigation 진입 계약](../navigation/navigation.md)
+- [Android Navigation 진입 계약](../navigation.md)

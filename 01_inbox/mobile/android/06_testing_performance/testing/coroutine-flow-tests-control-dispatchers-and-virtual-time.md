@@ -20,7 +20,7 @@ Coroutine 및 Flow 단위 테스트가 실제 `Dispatchers.IO`, `Dispatchers.Mai
 - **`StandardTestDispatcher`**:
   - 생성된 모든 코루틴을 실행하지 않고 가상 시간 큐에 대기(Queueing)시킨다. 명시적으로 `runCurrent()` 또는 `advanceUntilIdle()`을 호출해야만 큐의 코루틴이 수행된다.
 - **`UnconfinedTestDispatcher`**:
-  - 자식 코루틴을 첫번째 중단점(Suspension point)까지 즉시 동기적(Eagerly)으로 실행한다. 코루틴 수집([stateflow](../../02_app_framework/stateflow-and-sharedflow.md) assertion) 시 `runCurrent()` 호출 횟수를 줄여주나 실행 순서 제어권은 낮다.
+  - 자식 코루틴을 첫번째 중단점(Suspension point)까지 즉시 동기적(Eagerly)으로 실행한다. 코루틴 수집([stateflow](../../02_app_framework/data/async-flow/flow-state/stateflow-and-sharedflow.md) assertion) 시 `runCurrent()` 호출 횟수를 줄여주나 실행 순서 제어권은 낮다.
 - **`Dispatchers.setMain` / `resetMain`**:
   - JVM 환경 단위 테스트 실행 시 Android UI Looper 메인 스레드가 없으므로 JUnit Rule을 통해 `Dispatchers.Main`을 `TestDispatcher`로 교체(Replace)해야 한다.
 

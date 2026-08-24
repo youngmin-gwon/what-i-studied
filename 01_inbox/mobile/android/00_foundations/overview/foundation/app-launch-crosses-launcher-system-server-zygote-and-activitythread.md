@@ -11,7 +11,7 @@ role: atomic-reference
 
 스마트폰에서 앱 아이콘을 탭하는 동작은 단순히 `MainActivity.onCreate()` 라는 자바 함수 한 줄을 호출하는 것이 아니다.
 
-안드로이드의 앱 실행(특히 프로세스가 완전히 새로 뜨는 **Cold Launch**)은 Launcher 앱부터 [시스템 서비스 (`system_server`)](../../../04_system_services/system-server.md), [마스터 프로세스 (`Zygote`)](../../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md), 그리고 앱의 메인 스레드인 [`ActivityThread`](../../../02_app_framework/activity-thread.md) 까지 시스템의 여러 계층을 교차하며 일어나는 정교한 프로세스 생명주기 여정이다.
+안드로이드의 앱 실행(특히 프로세스가 완전히 새로 뜨는 **Cold Launch**)은 Launcher 앱부터 [시스템 서비스 (`system_server`)](../../../04_system_services/system-server.md), [마스터 프로세스 (`Zygote`)](../../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md), 그리고 앱의 메인 스레드인 [`ActivityThread`](../../../02_app_framework/architecture/app-components/activity-thread.md) 까지 시스템의 여러 계층을 교차하며 일어나는 정교한 프로세스 생명주기 여정이다.
 
 ---
 
@@ -23,8 +23,8 @@ role: atomic-reference
 2. **[`system_server`](../../../04_system_services/system-server.md) ➔ [`Zygote`](../../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md) (프로세스 생성 요청)**:
    - 앱 프로세스가 아직 없다면, Unix Domain Socket 을 통해 [Zygote](../../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md) 프로세스에게 `fork()` 를 요청한다.
    - [Zygote](../../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md)는 미리 로딩해 둔 [ART 가상 머신](../../../01_system_internals/boot-and-runtime/zygote-runtime/art.md) 과 시스템 리소스 메모리를 공유한 채 몇 ms 만에 자식 프로세스를 복제해 낸다.
-3. **[`ActivityThread`](../../../02_app_framework/activity-thread.md) 메인 루프 시작 및 Attach**:
-   - 새로 태어난 앱 프로세스는 메인 스레드인 [`ActivityThread.main()`](../../../02_app_framework/activity-thread.md) 을 실행하여 안드로이드 이벤트 루프([`Handler & Looper & MessageQueue`](../../../02_app_framework/handler-looper-message-queue.md))를 가동한다.
+3. **[`ActivityThread`](../../../02_app_framework/architecture/app-components/activity-thread.md) 메인 루프 시작 및 Attach**:
+   - 새로 태어난 앱 프로세스는 메인 스레드인 [`ActivityThread.main()`](../../../02_app_framework/architecture/app-components/activity-thread.md) 을 실행하여 안드로이드 이벤트 루프([`Handler & Looper & MessageQueue`](../../../02_app_framework/data/async-flow/handler-looper-message-queue.md))를 가동한다.
    - 앱 프로세스가 `system_server`에 "나 생성 완료되었음"을 알리는 `attachApplication()`을 호출하면, `system_server`가 `Application` 및 `Activity` 생성을 지시한다.
 4. **`Application` 및 `Activity` 라이프사이클 실행 ➔ 화면 표시 ([TTID & TTFD](../../../06_testing_performance/ttid-and-ttfd.md))**:
    - `Application.onCreate()`와 `Activity.onCreate() ~ onResume()` 이 순차적으로 실행된다.
@@ -72,7 +72,7 @@ sequenceDiagram
 | **Intent 및 권한 검사** | `ActivityNotFoundException`, `SecurityException` | `AndroidManifest.xml` 내 `exported` 설정 및 [AppOps / 권한](../../../05_security_privacy/appops-and-permissions.md) 확인 |
 | **프로세스 Fork 실패** | PID 가 생기지 않고 앱 미실행 | [Zygote](../../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md) crash, SELinux 거부 정책, 메모리 부족([LMK](../../../01_system_internals/kernel-and-hal/kernel/lmkd-memory-pressure.md)) |
 | **App Attach & 초기화** | PID 는 생성되나 화면 진입 전 바로 튕김 | `Application.onCreate()` 내 무거운 synchronous I/O, Third-party SDK 초기화 crash |
-| **Activity Lifecycle** | `onCreate()` 진입 후 화면 멈춤 (ANR) | [ActivityThread 메인 스레드](../../../02_app_framework/activity-thread.md) 블로킹, 교착 상태([Deadlock](../../../../../computer-science/deadlock.md)) 또는 DB 락 |
+| **Activity Lifecycle** | `onCreate()` 진입 후 화면 멈춤 (ANR) | [ActivityThread 메인 스레드](../../../02_app_framework/architecture/app-components/activity-thread.md) 블로킹, 교착 상태([Deadlock](../../../../../computer-science/deadlock.md)) 또는 DB 락 |
 | **렌더링 제출 (TTID)** | Activity 는 실행되었으나 검은 화면만 지속 | Layout/Rendering 파이프라인 과부하, `Surface` 뷰 초기화 지연 |
 
 ---
@@ -96,8 +96,8 @@ adb logcat -d -s ActivityTaskManager ActivityManager Zygote
 
 ## 연결 문서 (Reference Links)
 
-- [ActivityThread 레퍼런스](../../../02_app_framework/activity-thread.md) - 안드로이드 앱 메인 스레드 총괄 지휘자
-- [Handler & Looper & MessageQueue](../../../02_app_framework/handler-looper-message-queue.md) - 안드로이드 메인 이벤트 루프
+- [ActivityThread 레퍼런스](../../../02_app_framework/architecture/app-components/activity-thread.md) - 안드로이드 앱 메인 스레드 총괄 지휘자
+- [Handler & Looper & MessageQueue](../../../02_app_framework/data/async-flow/handler-looper-message-queue.md) - 안드로이드 메인 이벤트 루프
 - [TTID & TTFD 성능 지표](../../../06_testing_performance/ttid-and-ttfd.md) - 앱 구동 2 대 성능 측정 지표
 - [LMK (Low Memory Killer)](../../../01_system_internals/kernel-and-hal/kernel/lmkd-memory-pressure.md) - 안드로이드 커널/데몬 메모리 회수 메커니즘
 - [system_server 레퍼런스](../../../04_system_services/system-server.md) - 앱 실행 및 Lifecycle 관리 주체

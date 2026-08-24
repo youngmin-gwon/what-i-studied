@@ -1,9 +1,9 @@
 ---
 title: build-vs-runtime-performance
-tags: ["android", "gradle", "performance", "build-time", "runtime", "tradeoff", "optimization"]
-aliases: ["빌드 성능 vs 런타임 성능", "Build Performance vs Runtime Performance", "빌드 타임과 런타임 트레이드오프", "Build Trade-off"]
+tags: ["android", "build-time", "gradle", "optimization", "performance", "runtime", "tradeoff"]
+aliases: ["Build Performance vs Runtime Performance", "Build Trade-off", "빌드 성능 vs 런타임 성능", "빌드 타임과 런타임 트레이드오프"]
+date modified: 2026-08-24 17:47:19 +09:00
 date created: 2026-08-24 15:05:00 +09:00
-date modified: 2026-08-24 15:05:00 +09:00
 ---
 
 ## 빌드 성능과 런타임 성능의 트레이드오프 (Build vs Runtime Performance)

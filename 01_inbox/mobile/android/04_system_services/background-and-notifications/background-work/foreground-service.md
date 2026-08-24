@@ -52,4 +52,4 @@ graph TD
 
 - [JobScheduler 및 백그라운드 스케줄러](../../job-scheduler.md)
 - [WorkManager 예약 작업](work-manager.md)
-- [Push Notification & FCM](../../../02_app_framework/push-notification-and-fcm.md)
+- [Push Notification & FCM](../../../02_app_framework/architecture/app-components/push-notification-and-fcm.md)

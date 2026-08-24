@@ -127,13 +127,13 @@ uninstall 은 여기서 한 단계 더 나아가 3 장이 다룬 설치된 패�
 
 ### 관련 정본
 
-- [설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다](../../02_app_framework/architecture/app-components/app-component/configuration-change-recreates-activity-but-not-all-screen-state.md)
-- [프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다](../../02_app_framework/architecture/app-components/app-component/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md)
-- [Activity 콜백은 화면 인스턴스의 visibility와 interaction 경계를 알린다](../../02_app_framework/architecture/app-components/app-component/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md)
-- [Task와 back stack은 OS가 관리하는 Activity 작업 기록이지 앱 내부 navigation state가 아니다](../../02_app_framework/architecture/app-components/app-component/task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md)
-- [ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-survives-configuration-change-not-process-death.md)
-- [SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](../../02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md)
-- [Context-registered Receiver의 수명은 등록한 Context를 따른다](../../02_app_framework/architecture/app-components/app-component/context-registered-receiver-lifetime-follows-registering-context.md)
+- [설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다](../../02_app_framework/architecture/app-components/configuration-change-handling.md)
+- [프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다](../../02_app_framework/architecture/app-components/process-death-state-recovery.md)
+- [Activity 콜백은 화면 인스턴스의 visibility와 interaction 경계를 알린다](../../02_app_framework/architecture/app-components/activity-lifecycle-callbacks.md)
+- [Task와 back stack은 OS가 관리하는 Activity 작업 기록이지 앱 내부 navigation state가 아니다](../../02_app_framework/architecture/app-components/task-and-back-stack.md)
+- [ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](../../02_app_framework/architecture/state-management/viewmodel-lifecycle-survival.md)
+- [SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](../../02_app_framework/architecture/state-management/savedstatehandle-state-restoration.md)
+- [Context-registered Receiver의 수명은 등록한 Context를 따른다](../../02_app_framework/architecture/app-components/context-registered-receivers.md)
 - [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](../../01_system_internals/boot-and-runtime/system-server/ams-app-process-lifecycle.md)
 - [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../01_system_internals/boot-and-runtime/system-server/process-priority-oom-score.md)
 

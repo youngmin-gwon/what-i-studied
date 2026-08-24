@@ -17,7 +17,7 @@ date created: 2026-08-03 16:59:22 +09:00
 ### 1. 플랫폼 계층 구조 (Platform Model)
 
 - [Android는 앱 SDK만이 아니라 계층형 모바일 플랫폼이다](android-is-layered-mobile-platform-not-just-an-app-sdk.md)
-  - 하드웨어, [Linux Kernel](../../../../../operating-systems/linux-kernel.md), [HAL](../../../01_system_internals/kernel-and-hal/hal-native/hal-userspace-boundary.md), [ART Runtime](../../../01_system_internals/boot-and-runtime/zygote-runtime/art.md), [system_server](../../../04_system_services/system-server.md), [App Framework](../../../02_app_framework/architecture/state-management/viewmodel/viewmodel.md)까지 6대 계층 스택 총괄 구조
+  - 하드웨어, [Linux Kernel](../../../../../operating-systems/linux-kernel.md), [HAL](../../../01_system_internals/kernel-and-hal/hal-native/hal-userspace-boundary.md), [ART Runtime](../../../01_system_internals/boot-and-runtime/zygote-runtime/art.md), [system_server](../../../04_system_services/system-server.md), [App Framework](../../../02_app_framework/architecture/state-management/viewmodel.md)까지 6대 계층 스택 총괄 구조
 - [Android 지식 지도는 runtime, app framework, services, security, tooling으로 나누어 읽는다](android-knowledge-map-is-organized-by-runtime-app-framework-services-security-and-tooling.md)
   - 저장소 전체 지식 영역(Canonical Areas) 탐색 지도
 

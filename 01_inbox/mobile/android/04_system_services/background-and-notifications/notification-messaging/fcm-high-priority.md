@@ -106,5 +106,5 @@ Doze 해제 직후에도 네트워크가 안정적이라고 가정하지 말고 
 
 
 ## 4. 연결 문서 (Related Links)
-- [Push Notification & FCM 표준 레퍼런스](../../../02_app_framework/push-notification-and-fcm.md)
+- [Push Notification & FCM 표준 레퍼런스](../../../02_app_framework/architecture/app-components/push-notification-and-fcm.md)
 - [JobScheduler 표준 레퍼런스](../../job-scheduler.md)

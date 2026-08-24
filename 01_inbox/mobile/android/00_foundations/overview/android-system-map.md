@@ -32,8 +32,8 @@ date created: 2026-08-03 16:59:22 +09:00
 
 - Runtime/process: [boot/runtime](../../01_system_internals/boot-and-runtime/android-boot-and-runtime.md), [system_server](../../01_system_internals/boot-and-runtime/system-server/system-server.md), [Zygote/runtime](../../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md)
 - Kernel/HAL: [kernel](../../01_system_internals/kernel-and-hal/android-kernel-runtime.md), [HAL/native boundary](../../01_system_internals/kernel-and-hal/hal-native-boundary.md)
-- App framework: [app architecture](../../02_app_framework/architecture/android-app-architecture.md), [app components](../../02_app_framework/architecture/app-components/android-app-components.md), [Context](../../02_app_framework/architecture/context-and-modularity/android-context-boundaries.md)
-- UI/data: [Compose runtime](../../02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Compose UI](../../02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md), [storage](../../02_app_framework/data/storage/persistence/persistence.md)
+- App framework: [app architecture](../../02_app_framework/architecture/android-app-architecture.md), [app components](../../02_app_framework/architecture/app-components/android-app-components.md), [Context](../../02_app_framework/architecture/context/context.md)
+- UI/data: [Compose runtime](../../02_app_framework/jetpack-compose/runtime/compose-runtime-and-state-model.md), [Compose UI](../../02_app_framework/jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md), [storage](../../02_app_framework/data/storage/persistence.md)
 - Security/debugging: [security](../../05_security_privacy/security-practices/security-practice/android-security-practice-is-defense-in-depth-not-client-trust.md), [debugging](../../06_testing_performance/debugging/debugging/debugging.md), [performance](../../06_testing_performance/performance/performance/performance.md)
 - `onCreate` 이전 launch 지연이나 process 재생성은 Runtime/process 에서 시작한다.
 - device 별 camera/audio/sensor 차이는 앱 API 사용법을 확인한 뒤 Kernel/HAL 경계로 내려간다.

@@ -11,7 +11,7 @@ date created: 2026-07-31 23:04:26 +09:00
 
 안드로이드 기반 애플리케이션이나 플랫폼을 진단할 때 가장 먼저 던져야 할 질문은 "내가 어떤 API를 호출했는가?"가 아니라, **"마지막으로 성공한 계층 경계와 최초로 실패한 계층 경계가 어디인가?"**이다.
 
-동일한 `startActivity()`나 카메라 `takePicture()` API라 하더라도 호출이 막힌 지점에 따라 [앱 프레임워크](../../../02_app_framework/architecture/state-management/viewmodel/viewmodel.md) 문제인지, [시스템 서비스(`system_server`)](../../../04_system_services/system-server.md) 문제인지, [하드웨어 추상화 계층(`HAL`)](../../../01_system_internals/kernel-and-hal/hal-native/hal-userspace-boundary.md) 문제인지, [리눅스 커널](../../../../../operating-systems/linux-kernel.md) 디바이스 드라이버 문제인지 소유 책임 영역이 완전히 달라진다.
+동일한 `startActivity()`나 카메라 `takePicture()` API라 하더라도 호출이 막힌 지점에 따라 [앱 프레임워크](../../../02_app_framework/architecture/state-management/viewmodel.md) 문제인지, [시스템 서비스(`system_server`)](../../../04_system_services/system-server.md) 문제인지, [하드웨어 추상화 계층(`HAL`)](../../../01_system_internals/kernel-and-hal/hal-native/hal-userspace-boundary.md) 문제인지, [리눅스 커널](../../../../../operating-systems/linux-kernel.md) 디바이스 드라이버 문제인지 소유 책임 영역이 완전히 달라진다.
 
 ---
 
@@ -51,7 +51,7 @@ flowchart LR
 | 마지막 성공 관찰 신호 | 최초 실패 발생 신호 | 소유 및 담당 영역 |
 | :--- | :--- | :--- |
 | Intent 객체 생성 완료 | `ActivityNotFoundException` 또는 `SecurityException` | Manifest / [권한 및 AppOps](../../../05_security_privacy/appops-and-permissions.md) |
-| Component 콜백 진입 | [메인 스레드](../../../../../computer-science/thread.md) 멈춤 (ANR) 또는 UI State 불일치 | 앱 프레임워크 / [ViewModel](../../../02_app_framework/architecture/state-management/viewmodel/viewmodel.md) |
+| Component 콜백 진입 | [메인 스레드](../../../../../computer-science/thread.md) 멈춤 (ANR) 또는 UI State 불일치 | 앱 프레임워크 / [ViewModel](../../../02_app_framework/architecture/state-management/viewmodel.md) |
 | [Binder IPC](../../../01_system_internals/ipc-and-process/binder-ipc.md) 요청 전송 | `TransactionTooLargeException` 또는 [system_server](../../../04_system_services/system-server.md) 타임아웃 | IPC / [system_server](../../../04_system_services/system-server.md) |
 | Native Service 세션 생성 | `CameraAccessException` 또는 [HAL](../../../01_system_internals/kernel-and-hal/hal-native/hal-userspace-boundary.md) status 에러 | [HAL](../../../01_system_internals/kernel-and-hal/hal-native/hal-userspace-boundary.md) / Media Native Runtime |
 | Window Frame 제출 | 화면에 픽셀 미출력 (Dropped Frame / Jank) | Rendering / [Linux Kernel Driver](../../../../../operating-systems/linux-kernel.md) |

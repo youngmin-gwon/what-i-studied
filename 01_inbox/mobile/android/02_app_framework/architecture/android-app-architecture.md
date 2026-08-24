@@ -72,11 +72,11 @@ graph TD
 
 ### 4. 서브 아키텍처 영역 지도
 
-- [Jetpack Architecture Map](./jetpack-architecture/android-jetpack-architecture-map.md)
-- [App Component Contracts](./app-components/app-component/app-component.md)
-- [Android Context Boundaries](./context-and-modularity/android-context-boundaries.md)
-- [Android State Management](./state-management/android-state-management.md)
-- [Multiplatform Contracts](./multiplatform/multiplatform.md)
+- [Jetpack Architecture Map](overview/android-jetpack-architecture-map.md)
+- [App Component Contracts](app-components/component-contracts.md)
+- [Android Context Boundaries](context/context.md)
+- [Android State Management](state-management/android-state-management.md)
+- [Multiplatform Contracts](multiplatform/multiplatform.md)
 
 ---
 

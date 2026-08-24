@@ -220,7 +220,7 @@ class CameraCaptureManager(private val context: Context) {
 - [CameraManager 접근은 가용성 콜백과 캐릭터리스틱 조회로 시작한다](../../04_system_services/device-capabilities/media-audio-camera/cameramanager-access-starts-with-availability-and-characteristics.md)
 - [카메라 출력 Surface는 프리뷰, 분석, 녹화 파이프라인을 정의한다](../../01_system_internals/graphics-and-media/camera-output-surfaces.md)
 - [Surface 기반 미디어 파이프라인은 앱 수준 픽셀 복사를 줄인다](../../01_system_internals/graphics-and-media/surface-media-pipeline.md)
-- [MediaStore: 공유 미디어의 등록과 접근](../../02_app_framework/data/storage/file-access/mediastore-registers-shared-media.md)
+- [MediaStore: 공유 미디어의 등록과 접근](../../02_app_framework/data/storage/mediastore-shared-media.md)
 - [Runtime permission은 사용자에게 기능 사용 시점에 요청하는 접근 계약이다](../../05_security_privacy/permissions-and-sandbox/permissions/runtime-permission-is-user-mediated-access.md)
 - [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](../../04_system_services/service-lookup/service-lookup/appops-permission-denial.md)
 - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/background-work/work-manager.md)

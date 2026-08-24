@@ -41,7 +41,7 @@ Jetpack Compose 의 `HapticFeedbackType` 및 안드로이드 View 의 `HapticFee
 
 ### 3. HapticFeedbackConstants 와 HapticFeedbackType 세부 메커니즘
 
-View 기반 `HapticFeedbackConstants` 와 Compose 기반 `HapticFeedbackType` 의 세부 파형 제어 및 안드로이드 촉각 피드백 메커니즘은 독립된 [HapticFeedback 레퍼런스](../../../02_app_framework/haptic-feedback.md) 문서를 참고한다.
+View 기반 `HapticFeedbackConstants` 와 Compose 기반 `HapticFeedbackType` 의 세부 파형 제어 및 안드로이드 촉각 피드백 메커니즘은 독립된 [HapticFeedback 레퍼런스](../../../02_app_framework/ui/view-system/haptic-feedback.md) 문서를 참고한다.
 
 ---
 

@@ -26,7 +26,7 @@ flowchart TD
 
 1. **FBE Keyring Unlock Phases**: 부팅 완료 직후에는 Hardware Key 기반의 DE Key만 커널에 로드되어 DE 저장소만 읽을 수 있으며, 사용자가 비밀번호를 입력해야 사용자 패스워드로 보호되는 CE Key가 해제된다.
 2. **Direct Boot Boundary**: 잠금 해제 전 실행되는 컴포넌트는 오직 `context.createDeviceProtectedStorageContext()`를 통해 생성된 DE Context만 접근해야 한다.
-3. **Cache Eviction Guarantee**: `cacheDir` 및 `codeCacheDir`에 저장된 파일은 OS에 의해 언제든지 자동 삭제될 수 있으며 SSOT([single source of truth](../../../02_app_framework/compose-ssot.md))로 다루어질 수 없다.
+3. **Cache Eviction Guarantee**: `cacheDir` 및 `codeCacheDir`에 저장된 파일은 OS에 의해 언제든지 자동 삭제될 수 있으며 SSOT([single source of truth](../../../02_app_framework/jetpack-compose/runtime/compose-ssot.md))로 다루어질 수 없다.
 
 ### 저장소 위치 진단 명령어
 

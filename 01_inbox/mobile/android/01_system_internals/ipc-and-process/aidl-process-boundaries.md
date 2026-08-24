@@ -115,4 +115,4 @@ public abstract static class Stub extends android.os.Binder implements ITaskServ
 - parcelable 은 전송 schema 이지 domain model 자체가 아니다.
 - permission 과 caller identity 검사는 service 구현에서 명시적으로 둔다.
 
-관련 노트: [Bound service는 프로세스 의존성과 IPC API를 노출한다](../../02_app_framework/architecture/app-components/app-component/bound-service-exposes-process-dependency-and-ipc-api.md)
+관련 노트: [Bound service는 프로세스 의존성과 IPC API를 노출한다](../../02_app_framework/architecture/app-components/bound-service-ipc.md)

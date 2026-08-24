@@ -144,17 +144,17 @@ Room 에 새 항목을 쓰고 DataStore 의 "마지막 동기화 시각"을 갱�
 
 ### 관련 정본
 
-- [Repository는 Room과 DataStore를 Flow로 연결한다](../../02_app_framework/data/storage/persistence/repository-connects-room-and-datastore-as-flow.md)
-- [Android 저장소는 데이터 수명과 소유권으로 선택한다](../../02_app_framework/data/storage/persistence/choose-storage-by-data-lifetime-and-ownership.md)
+- [Repository는 Room과 DataStore를 Flow로 연결한다](../../02_app_framework/data/storage/repository-flow-integration.md)
+- [Android 저장소는 데이터 수명과 소유권으로 선택한다](../../02_app_framework/data/storage/persistence-lifetime-selection.md)
 - [Android Data Layer는 데이터 흐름과 영속 저장소, Paging을 분리한다](../../02_app_framework/data/android-data-layer-map.md)
-- [Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다](../../02_app_framework/data/async-flow/flow-state/repository-exposes-flow-and-viewmodel-composes-screen-state.md)
-- [Flow를 StateFlow로 바꿀 때는 stateIn의 수명과 공유 정책을 명시한다](../../02_app_framework/data/async-flow/flow-state/statein-requires-explicit-lifetime-and-sharing-policy.md)
+- [Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다](../../02_app_framework/data/async-flow/flow-state/repository-viewmodel-flow-composition.md)
+- [Flow를 StateFlow로 바꿀 때는 stateIn의 수명과 공유 정책을 명시한다](../../02_app_framework/data/async-flow/flow-state/flow-statein-policy.md)
 - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/background-work/work-manager.md)
 - [백그라운드 실행 수단은 실패 비용으로 결정한다](../../04_system_services/background-and-notifications/background-work/background-api-selection.md)
 - [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](../../04_system_services/background-and-notifications/background-work/background-restrictions-state.md)
 - [Android 연결성과 네트워크 지도](../../01_system_internals/connectivity/android-connectivity.md)
 - [네트워크 디버깅은 앱 API 상태와 system network state를 대조한다](../../01_system_internals/connectivity/network-debugging.md)
-- [프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다](../../02_app_framework/architecture/app-components/app-component/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md)
+- [프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다](../../02_app_framework/architecture/app-components/process-death-state-recovery.md)
 
 ### 공식 근거
 

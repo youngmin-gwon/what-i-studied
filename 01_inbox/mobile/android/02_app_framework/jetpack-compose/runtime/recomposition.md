@@ -49,5 +49,5 @@ graph TD
 ## 4. 연결 문서 (Related Links)
 
 - [View System vs Jetpack Compose 비교](../view-system-vs-jetpack-compose.md) - 명령형 XML 과 선언적 Compose 비교
-- [ViewModel](../../viewmodel.md) - Recomposition 에 필요한 StateFlow 최신 상태를 관리하는 컴포넌트
-- [Compose SSOT](../../compose-ssot.md) - Compose 상태 호이스팅과 단일 진실 출처
+- [ViewModel](../../architecture/state-management/viewmodel.md) - Recomposition 에 필요한 StateFlow 최신 상태를 관리하는 컴포넌트
+- [Compose SSOT](compose-ssot.md) - Compose 상태 호이스팅과 단일 진실 출처

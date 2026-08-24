@@ -102,7 +102,7 @@ graph TD
 
 - [Worked Example: Compose jank를 UI state에서 SurfaceFlinger까지 좁히는 사례](../worked-examples/07-compose-jank-from-ui-state-to-surfaceflinger.md)
 - [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/jank-frame-deadlines.md)
-- [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-state-read-location-controls-recomposition-scope.md)
+- [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../02_app_framework/jetpack-compose/performance/compose-state-read-scope.md)
 - [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../../06_testing_performance/performance/performance/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
 - [Learning Spine 7장 입력, 리소스 선택과 화면 프레임](../learning-spine/07-input-resource-selection-and-display-frame.md)
 

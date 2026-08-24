@@ -104,4 +104,4 @@ adb logcat -s ActivityThread ActivityManager
 - [Zygote 소켓 인터페이스 (Zygote Socket Interface)](zygote-socket-interface.md)
 - [Zygote 와 ART 런타임 계약](zygote-runtime.md)
 - [AMS와 앱 프로세스 수명주기](../system-server/ams-app-process-lifecycle.md)
-- [ActivityThread와 메인 스레드 메커니즘](../../../02_app_framework/activity-thread.md)
+- [ActivityThread와 메인 스레드 메커니즘](../../../02_app_framework/architecture/app-components/activity-thread.md)

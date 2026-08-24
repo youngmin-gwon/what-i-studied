@@ -101,4 +101,4 @@ assertThat(workManager.getWorkInfoById(request.id).get().state)
 
 ## 4. 연결 문서 (Related Links)
 - [JobScheduler 표준 레퍼런스](../../job-scheduler.md)
-- [Paging 3 데이터 로딩](../../../02_app_framework/paging-3.md)
+- [Paging 3 데이터 로딩](../../../02_app_framework/data/paging/paging.md)

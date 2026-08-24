@@ -57,7 +57,7 @@ timeline
 #### 2. 언어 및 비동기: Java → Kotlin-First (2017+)
 
 - **Java 6 시대**: 보일러플레이트 코드 가중 및 콜백 지옥.
-- **Kotlin-First 전환**: 람다, Null-safety 및 [Kotlin Coroutines](../../02_app_framework/kotlin-coroutines.md) 기반 [StateFlow & SharedFlow](../../02_app_framework/stateflow-and-sharedflow.md) 비동기 수용.
+- **Kotlin-First 전환**: 람다, Null-safety 및 [Kotlin Coroutines](../../02_app_framework/data/async-flow/coroutines/kotlin-coroutines.md) 기반 [StateFlow & SharedFlow](../../02_app_framework/data/async-flow/flow-state/stateflow-and-sharedflow.md) 비동기 수용.
 
 #### 3. 배포 포맷: APK → Android App Bundle (AAB, 2018+)
 

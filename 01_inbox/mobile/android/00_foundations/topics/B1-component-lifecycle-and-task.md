@@ -17,7 +17,7 @@ date created: 2026-08-04 16:00:00 +09:00
 | 선행 개념 | 필요한 이유 |
 |---|---|
 | Android 앱 프로세스 생성 (A1) | Activity 재생성과 프로세스 종료의 차이 이해 |
-| [Kotlin Coroutines](../../02_app_framework/kotlin-coroutines.md) | viewModelScope, lifecycleScope 이해 |
+| [Kotlin Coroutines](../../02_app_framework/data/async-flow/coroutines/kotlin-coroutines.md) | viewModelScope, lifecycleScope 이해 |
 | Compose 기초 (B2 § 1~2) | State 소유권 결정 시 생명주기 고려 |
 
 관련 토픽: [A1 · 부팅과 프로세스 생성](./A1-boot-and-process.md) · [B2 · Jetpack Compose](./B2-jetpack-compose.md) · [B3 · 데이터 레이어](./B3-data-layer.md)
@@ -61,9 +61,9 @@ Android 의 모든 앱 컴포넌트(Activity, Service, BroadcastReceiver, Conten
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Activity 생명주기 콜백은 가시성과 상호작용 경계를 설명한다](../../02_app_framework/architecture/app-components/app-component/activity-lifecycle-callbacks-describe-visibility-and-interaction-boundaries.md) | 각 콜백의 의미와 올바른 작업 배치 |
-| [Activity 는 사용자 가시 진입점이자 프로세스 우선순위 신호다](../../02_app_framework/architecture/app-components/app-component/activity-is-user-visible-entry-point-and-process-priority-signal.md) | Activity 상태가 OOM adj 에 미치는 영향 |
-| [Android 앱 컴포넌트는 프로세스 내 객체가 아니라 시스템 진입점이다](../../02_app_framework/architecture/app-components/app-component/android-app-components-are-system-entry-points-not-in-process-objects.md) | 컴포넌트 = 시스템 진입점 관점 |
+| [Activity 생명주기 콜백은 가시성과 상호작용 경계를 설명한다](../../02_app_framework/architecture/app-components/activity-lifecycle-callbacks.md) | 각 콜백의 의미와 올바른 작업 배치 |
+| [Activity 는 사용자 가시 진입점이자 프로세스 우선순위 신호다](../../02_app_framework/architecture/app-components/activity-process-priority.md) | Activity 상태가 OOM adj 에 미치는 영향 |
+| [Android 앱 컴포넌트는 프로세스 내 객체가 아니라 시스템 진입점이다](../../02_app_framework/architecture/app-components/components-as-entry-points.md) | 컴포넌트 = 시스템 진입점 관점 |
 
 ---
 
@@ -82,8 +82,8 @@ Android 의 모든 앱 컴포넌트(Activity, Service, BroadcastReceiver, Conten
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [설정 변경은 Activity 를 재생성하지만 모든 화면 상태를 재생성하지는 않는다](../../02_app_framework/architecture/app-components/app-component/configuration-change-recreates-activity-but-not-all-screen-state.md) | 설정 변경 시 상태 생존 여부 분류 |
-| [프로세스 종료 복구에는 saved state 와 영속 source of truth 가 필요하다](../../02_app_framework/architecture/app-components/app-component/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md) | 복구 전략 결정 기준 |
+| [설정 변경은 Activity 를 재생성하지만 모든 화면 상태를 재생성하지는 않는다](../../02_app_framework/architecture/app-components/configuration-change-handling.md) | 설정 변경 시 상태 생존 여부 분류 |
+| [프로세스 종료 복구에는 saved state 와 영속 source of truth 가 필요하다](../../02_app_framework/architecture/app-components/process-death-state-recovery.md) | 복구 전략 결정 기준 |
 
 ---
 
@@ -100,12 +100,12 @@ ViewModel 은 화면(Activity/Fragment/Composable) 의 생명주기보다 오래
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [ViewModel 은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-survives-configuration-change-not-process-death.md) | ViewModel 생존 범위의 정확한 경계 |
-| [Mutable 상태 홀더는 ViewModel 내부에 숨기고 외부에는 읽기 전용 상태만 노출한다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-exposes-read-only-state.md) | StateFlow private/public 패턴 |
-| [ViewModel 은 화면 상태와 외부 작업을 조율한다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-orchestrates-screen-state-and-external-work.md) | ViewModel 의 역할과 책임 범위 |
-| [viewModelScope 는 외부 작업을 ViewModel 수명에 바인딩한다](../../02_app_framework/architecture/state-management/viewmodel/viewmodelscope-binds-external-work-to-viewmodel-lifetime.md) | viewModelScope 취소 타이밍 |
-| [SavedStateHandle 은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](../../02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md) | 적합한 값과 Navigation arg 접근 |
-| [ViewModel 은 UI controller 나 Context 를 보유하지 않는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-does-not-retain-ui-controller-or-context.md) | 메모리 누수 방지 규칙 |
+| [ViewModel 은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](../../02_app_framework/architecture/state-management/viewmodel-lifecycle-survival.md) | ViewModel 생존 범위의 정확한 경계 |
+| [Mutable 상태 홀더는 ViewModel 내부에 숨기고 외부에는 읽기 전용 상태만 노출한다](../../02_app_framework/architecture/state-management/viewmodel-read-only-state.md) | StateFlow private/public 패턴 |
+| [ViewModel 은 화면 상태와 외부 작업을 조율한다](../../02_app_framework/architecture/state-management/viewmodel-screen-orchestration.md) | ViewModel 의 역할과 책임 범위 |
+| [viewModelScope 는 외부 작업을 ViewModel 수명에 바인딩한다](../../02_app_framework/architecture/state-management/viewmodelscope-coroutine-binding.md) | viewModelScope 취소 타이밍 |
+| [SavedStateHandle 은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](../../02_app_framework/architecture/state-management/savedstatehandle-state-restoration.md) | 적합한 값과 Navigation arg 접근 |
+| [ViewModel 은 UI controller 나 Context 를 보유하지 않는다](../../02_app_framework/architecture/state-management/viewmodel-context-leak-prevention.md) | 메모리 누수 방지 규칙 |
 
 ---
 
@@ -119,7 +119,7 @@ Android 의 Task 는 "사용자가 함께 수행하는 Activity 들의 묶음"�
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Task 와 Back Stack 은 앱 내비게이션 상태가 아닌 OS 의 Activity 내비게이션이다](../../02_app_framework/architecture/app-components/app-component/task-and-back-stack-are-os-activity-navigation-not-app-navigation-state.md) | OS Task vs app navigation 층위 구분 |
+| [Task 와 Back Stack 은 앱 내비게이션 상태가 아닌 OS 의 Activity 내비게이션이다](../../02_app_framework/architecture/app-components/task-and-back-stack.md) | OS Task vs app navigation 층위 구분 |
 
 ---
 
@@ -135,10 +135,10 @@ Android 권장 아키텍처의 핵심은 **State Down, Action Up** 이다:
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [UI 는 상태를 아래로 받고 사용자 행동을 위로 전달한다](../../02_app_framework/architecture/state-management/ui-state/ui-receives-state-and-sends-actions-up.md) | State down / Action up 패턴 |
-| [화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다](../../02_app_framework/architecture/state-management/ui-state/screen-state-is-immutable-and-changes-by-explicit-transitions.md) | immutable UiState 설계 원칙 |
-| [UI, domain, data layer 는 rendering, policy, source of truth 를 분리한다](../../02_app_framework/architecture/jetpack-architecture/architecture/ui-domain-data-layers-separate-rendering-policy-and-source-of-truth.md) | 3 개 레이어의 책임 분리 |
-| [소비 가능한 신호는 event stream 에 둔다](../../02_app_framework/architecture/state-management/ui-state/consumable-signals-belong-in-event-stream.md) | Toast/Navigation 같은 일회성 이벤트 처리 |
+| [UI 는 상태를 아래로 받고 사용자 행동을 위로 전달한다](../../02_app_framework/architecture/state-management/unidirectional-data-flow.md) | State down / Action up 패턴 |
+| [화면 상태는 불변 모델로 만들고 변경은 명시적인 상태 전이로 제한한다](../../02_app_framework/architecture/state-management/immutable-screen-state.md) | immutable UiState 설계 원칙 |
+| [UI, domain, data layer 는 rendering, policy, source of truth 를 분리한다](../../02_app_framework/architecture/overview/layer-separation-principles.md) | 3 개 레이어의 책임 분리 |
+| [소비 가능한 신호는 event stream 에 둔다](../../02_app_framework/architecture/state-management/event-stream-signals.md) | Toast/Navigation 같은 일회성 이벤트 처리 |
 
 ---
 
@@ -154,10 +154,10 @@ Android 권장 아키텍처의 핵심은 **State Down, Action Up** 이다:
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Context 는 Android 환경 접근 능력이지 의존성 컨테이너가 아니다](../../02_app_framework/architecture/context-and-modularity/context/context-is-android-environment-capability-not-dependency-container.md) | Context 의 올바른 이해 |
-| [Activity Context 는 Window, Theme, 짧은 수명을 갖는다](../../02_app_framework/architecture/context-and-modularity/context/activity-context-carries-window-theme-and-short-lifetime.md) | Activity Context 적합 범위 |
-| [Context 누수는 참조가 컴포넌트 수명보다 오래 살 때 발생한다](../../02_app_framework/architecture/context-and-modularity/context/context-leaks-happen-when-reference-outlives-component-lifetime.md) | 누수 패턴과 방지 원칙 |
-| [ViewModel 과 Repository 는 UI Context 를 보유하지 않아야 한다](../../02_app_framework/architecture/context-and-modularity/context/viewmodel-and-repository-should-not-retain-ui-context.md) | 메모리 누수 방지 실천 |
+| [Context 는 Android 환경 접근 능력이지 의존성 컨테이너가 아니다](../../02_app_framework/architecture/context/context-environment-capability.md) | Context 의 올바른 이해 |
+| [Activity Context 는 Window, Theme, 짧은 수명을 갖는다](../../02_app_framework/architecture/context/activity-context-lifetime.md) | Activity Context 적합 범위 |
+| [Context 누수는 참조가 컴포넌트 수명보다 오래 살 때 발생한다](../../02_app_framework/architecture/context/context-memory-leak-prevention.md) | 누수 패턴과 방지 원칙 |
+| [ViewModel 과 Repository 는 UI Context 를 보유하지 않아야 한다](../../02_app_framework/architecture/context/viewmodel-repository-context-isolation.md) | 메모리 누수 방지 실천 |
 
 ---
 

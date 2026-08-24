@@ -74,8 +74,8 @@ suspend fun runStructured() = coroutineScope {
 ### 4. 연결 문서 (Related Links)
 
 - [Structured Concurrency](structured-concurrency.md) - 구조화된 동시성의 정의와 보장 사항
-- [Kotlin Coroutines](../mobile/android/02_app_framework/kotlin-coroutines.md) - Structured Concurrency 기반 안드로이드 비동기 엔진
-- [Compose SSOT](../mobile/android/02_app_framework/compose-ssot.md) - ViewModel / StateScope 수명주기 연동
+- [Kotlin Coroutines](../mobile/android/02_app_framework/data/async-flow/coroutines/kotlin-coroutines.md) - Structured Concurrency 기반 안드로이드 비동기 엔진
+- [Compose SSOT](../mobile/android/02_app_framework/jetpack-compose/runtime/compose-ssot.md) - ViewModel / StateScope 수명주기 연동
 - [Race Condition](race-condition.md) - 동시성 레이스 조건
 - [Deadlock](deadlock.md) - 교착 상태
 - [Mutex/Lock](mutex-lock.md) - 상호 배제를 통한 동시성 제어

@@ -1,20 +1,30 @@
 ---
 title: proguard
-tags: ["android", "proguard", "r8", "obfuscation", "shrinking", "optimization", "jvm", "bytecode"]
-aliases: ["ProGuard", "프로가드", "ProGuard와 R8의 관계", "proguard-rules.pro", "코드 난독화 도구"]
+tags: ["android", "bytecode", "jvm", "obfuscation", "optimization", "proguard", "r8", "shrinking"]
+aliases: ["proguard-rules.pro", "ProGuard", "ProGuard와 R8의 관계", "코드 난독화 도구", "프로가드"]
+date modified: 2026-08-24 17:46:15 +09:00
 date created: 2026-08-24 15:00:00 +09:00
-date modified: 2026-08-24 15:00:00 +09:00
 ---
 
 ## ProGuard 의 본질과 R8 과의 관계
 
 ### 개요
 
-**ProGuard(프로가드)** 는 2002년 Eric Lafortune(Guardsquare 사)이 개발한 **오픈소스 범용 Java 바이트코드(`.class` ➔ `.class`) 수축(Shrinking), 최적화(Optimization), 난독화(Obfuscation) 독립 도구**이다.
+**ProGuard(프로가드)** 는 2002 년 Eric Lafortune(Guardsquare 사)이 개발한 **오픈소스 범용 Java 바이트코드(`.class` ➔ `.class`) 수축(Shrinking), 최적화(Optimization), 난독화(Obfuscation) 독립 도구**이다.
 
 초기 Android SDK 시절 모바일 기기의 극심한 메모리·저장용량 제약과 손쉬운 역공학(디컴파일) 취약점을 해결하기 위해 표준 빌드 툴체인에 도입되었으며, 현재는 Google 이 이를 단일 패스 컴파일러로 재설계한 **[R8](d8-and-r8.md)** 로 대체되었다.
 
 그러나 ProGuard 가 확립한 **규칙 문법(`proguard-rules.pro`)** 과 최적화 개념은 오늘날 Android 빌드 시스템의 표준 규격으로 그대로 계승되어 사용되고 있다.
+
+```mermaid
+flowchart TD
+    subgraph ModernFlow ["현대 표준 빌드 파이프라인 (R8 단일 패스 통합)"]
+        Source2["소스 코드 (.java/.kt)"] --> Javac2["javac / kotlinc"]
+        Javac2 --> Class3["JVM 바이트코드 (.class)"]
+        Class3 & Rules["ProGuard 호환 규칙<br/>(proguard-rules.pro)"] --> R8["R8 통합 컴파일러<br/>(수축 + 최적화 + 난독화 + 직접 덱싱)"]
+        R8 --> Dex2["최종 classes.dex (단 1회 패스로 메모리에서 직행)"]
+    end
+```
 
 ```mermaid
 flowchart TD
@@ -25,13 +35,6 @@ flowchart TD
         ProGuard --> Class2["최적화된 .class 파일들 (디스크 쓰기)"]
         Class2 --> Dx["2. dx / D8 덱서 (디스크 다시 읽기)"]
         Dx --> Dex1["최종 classes.dex"]
-    end
-
-    subgraph ModernFlow ["현대 표준 빌드 파이프라인 (R8 단일 패스 통합)"]
-        Source2["소스 코드 (.java/.kt)"] --> Javac2["javac / kotlinc"]
-        Javac2 --> Class3["JVM 바이트코드 (.class)"]
-        Class3 & Rules["ProGuard 호환 규칙<br/>(proguard-rules.pro)"] --> R8["R8 통합 컴파일러<br/>(수축 + 최적화 + 난독화 + 직접 덱싱)"]
-        R8 --> Dex2["최종 classes.dex (단 1회 패스로 메모리에서 직행)"]
     end
 ```
 
@@ -71,7 +74,7 @@ Google 이 ProGuard 를 대체하는 R8 을 개발할 때 가장 중요하게 �
 
 - 전 세계의 수많은 오픈소스 라이브러리(Retrofit, OkHttp, Gson, Coroutines 등)의 `.aar` 아티팩트 내부에는 이미 수년간 작성된 **ProGuard 규칙(`proguard.txt`)** 이 내장되어 있었다.
 - Google 은 개발자와 라이브러리 제작자들이 설정을 다시 작성할 필요가 없도록, **R8 이 ProGuard 의 문법 지시어(`-keep`, `-dontwarn`, `-assumenosideeffects` 등)를 100% 호환하여 파싱**하도록 설계했다.
-- 이로 인해 오늘날 실제 구동 엔진은 Google 의 R8 이지만, 설정 파일 이름은 여전히 `proguard-rules.pro`이며 DSL 메서드명도 `getDefaultProguardFile("proguard-android-optimize.txt")`를 그대로 유지하고 있다.
+- 이로 인해 오늘날 실제 구동 엔진은 Google 의 R8 이지만, 설정 파일 이름은 여전히 `proguard-rules.pro`이며 DSL 메서드명도 `getDefaultProguardFile("proguard-android-optimize.txt")` 를 그대로 유지하고 있다.
 
 ---
 

@@ -16,8 +16,8 @@ date created: 2026-08-04 16:00:00 +09:00
 
 | 선행 개념 | 필요한 이유 |
 |---|---|
-| [Kotlin Coroutines](../../02_app_framework/kotlin-coroutines.md) (suspend, Flow) | Effect API 와 [stateflow](../../02_app_framework/stateflow-and-sharedflow.md) 수집에 직접 등장 |
-| Android Activity/Fragment 생명주기 | Composable 수명과 [viewmodel](../../02_app_framework/viewmodel.md) 연결 이해 |
+| [Kotlin Coroutines](../../02_app_framework/data/async-flow/coroutines/kotlin-coroutines.md) (suspend, Flow) | Effect API 와 [stateflow](../../02_app_framework/data/async-flow/flow-state/stateflow-and-sharedflow.md) 수집에 직접 등장 |
+| Android Activity/Fragment 생명주기 | Composable 수명과 [viewmodel](../../02_app_framework/architecture/state-management/viewmodel.md) 연결 이해 |
 | ViewModel + UiState 패턴 | 화면 상태 소유권 결정 기준 이해 |
 
 관련 토픽: [B1 · 컴포넌트 생명주기와 Task](./B1-component-lifecycle-and-task.md) · [B3 · 데이터 레이어](./B3-data-layer.md)
@@ -58,10 +58,10 @@ Compose 는 UI 를 "현재 상태에 대한 함수"로 선언한다. `Text("Coun
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Compose UI는 State의 선언적 함수다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/compose-ui-is-declarative-function-of-state.md) | UI = f(State). 명령형 View 와의 근본적 차이 |
-| [Composable body는 빠르고 멱등하며 side effect가 없어야 한다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/composable-body-purity.md) | Composition 의 세 가지 실행 계약 |
-| [자동 상태 관찰은 Compose와 Flutter Rebuild의 차이점이다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/automatic-state-observation-is-the-compose-flutter-rebuild-difference.md) | Runtime 이 State read 를 추적한다는 의미 |
-| [Composable compiler 출력은 재시작과 skip 제어를 가능하게 한다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/composable-compiler-restart-skip.md) | @Composable 이 실제로 하는 일 |
+| [Compose UI는 State의 선언적 함수다](../../02_app_framework/jetpack-compose/runtime/compose-declarative-ui.md) | UI = f(State). 명령형 View 와의 근본적 차이 |
+| [Composable body는 빠르고 멱등하며 side effect가 없어야 한다](../../02_app_framework/jetpack-compose/runtime/composable-body-purity.md) | Composition 의 세 가지 실행 계약 |
+| [자동 상태 관찰은 Compose와 Flutter Rebuild의 차이점이다](../../02_app_framework/jetpack-compose/runtime/automatic-state-observation.md) | Runtime 이 State read 를 추적한다는 의미 |
+| [Composable compiler 출력은 재시작과 skip 제어를 가능하게 한다](../../02_app_framework/jetpack-compose/runtime/composable-compiler-restart-skip.md) | @Composable 이 실제로 하는 일 |
 
 ---
 
@@ -86,15 +86,15 @@ State 는 Compose 가 UI 를 다시 그려야 할지 결정하는 기준이다. 
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/snapshot-state-observation-invalidates-state-read-scopes.md) | Runtime 의 State 추적 메커니즘 |
-| [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/recomposition-scope-control.md) | State read 위치가 recomposition 범위를 결정 |
-| [Compose State Owner는 읽거나 쓰는 최하위 공통 소유자다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/compose-state-owner-is-the-lowest-common-owner-that-needs-read-or-write.md) | State hoisting 판단 기준 |
-| [Compose 상태 API는 필요한 수명에 맞춰 선택한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/compose-state-api-selection.md) | API 선택표 (remember → rememberSaveable → ViewModel → 영속) |
-| [remember는 composition-scoped 저장소이지 일반 캐시가 아니다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/remember-is-composition-scoped-storage-not-general-cache.md) | remember 의 수명 경계 |
-| [Composable보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/remember-saveable.md) | 적합한 값과 anti-pattern |
-| [derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다](../../02_app_framework/jetpack-compose/performance/compose-performance/derivedstateof-is-for-high-frequency-derived-values.md) | 스크롤 → 버튼 노출 패턴 |
-| [snapshotFlow는 Compose 상태를 Cold Flow로 변환한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/snapshot-flow.md) | State → Flow bridge (analytics, debounce 연결) |
-| [ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/viewmodel-stateflow-lifecycle-collection.md) | ViewModel ↔ Compose 연결 패턴 |
+| [Snapshot State 관찰은 State를 읽은 scope를 invalidation 대상으로 만든다](../../02_app_framework/jetpack-compose/runtime/snapshot-state-observation.md) | Runtime 의 State 추적 메커니즘 |
+| [Recomposition은 전체 UI redraw가 아니라 필요한 Composable scope 재실행이다](../../02_app_framework/jetpack-compose/runtime/recomposition-scope-control.md) | State read 위치가 recomposition 범위를 결정 |
+| [Compose State Owner는 읽거나 쓰는 최하위 공통 소유자다](../../02_app_framework/jetpack-compose/runtime/compose-state-ownership.md) | State hoisting 판단 기준 |
+| [Compose 상태 API는 필요한 수명에 맞춰 선택한다](../../02_app_framework/jetpack-compose/state-and-effects/compose-state-api-selection.md) | API 선택표 (remember → rememberSaveable → ViewModel → 영속) |
+| [remember는 composition-scoped 저장소이지 일반 캐시가 아니다](../../02_app_framework/jetpack-compose/runtime/remember-storage-semantics.md) | remember 의 수명 경계 |
+| [Composable보다 오래 필요한 작은 복원 상태에만 rememberSaveable을 사용한다](../../02_app_framework/jetpack-compose/state-and-effects/remember-saveable.md) | 적합한 값과 anti-pattern |
+| [derivedStateOf는 고빈도 입력에서 저빈도 결과를 만들 때 쓴다](../../02_app_framework/jetpack-compose/performance/derived-state-of-optimization.md) | 스크롤 → 버튼 노출 패턴 |
+| [snapshotFlow는 Compose 상태를 Cold Flow로 변환한다](../../02_app_framework/jetpack-compose/state-and-effects/snapshot-flow.md) | State → Flow bridge (analytics, debounce 연결) |
+| [ViewModel의 StateFlow는 collectAsStateWithLifecycle로 화면 상태로 변환한다](../../02_app_framework/jetpack-compose/state-and-effects/viewmodel-stateflow-lifecycle-collection.md) | ViewModel ↔ Compose 연결 패턴 |
 
 ---
 
@@ -120,13 +120,13 @@ Composable 본문은 side effect 가 없어야 한다. 그래서 Compose 는 "�
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/launched-effect.md) | LaunchedEffect 사용 기준과 key 규칙 |
-| [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/disposable-effect.md) | listener/observer 의 안전한 생명주기 관리 |
-| [rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/remember-coroutine-scope.md) | 클릭 이벤트에서 시작하는 coroutine |
-| [rememberUpdatedState는 effect를 최신 값으로 유지한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/remember-updated-state.md) | 재시작 없이 최신 람다 유지 |
-| [produceState는 외부 상태를 Compose 상태로 변환한다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/produce-state.md) | 외부 비동기 source → State 변환 |
-| [UI controller와 effect runner는 UI 수명에 둔다](../../02_app_framework/jetpack-compose/state-and-lifecycle/compose-state-and-effect/ui-controllers-and-effect-runners.md) | SnackbarHostState 등의 소유권 |
-| [무거운 작업은 composition 안에 두지 않는다](../../02_app_framework/jetpack-compose/performance/compose-performance/heavy-work-does-not-belong-in-composition.md) | composition 에서 금지된 작업 유형 |
+| [Composable과 함께 취소되어야 하는 작업은 LaunchedEffect로 시작한다](../../02_app_framework/jetpack-compose/state-and-effects/launched-effect.md) | LaunchedEffect 사용 기준과 key 규칙 |
+| [등록과 해제가 쌍인 작업은 DisposableEffect로 관리한다](../../02_app_framework/jetpack-compose/state-and-effects/disposable-effect.md) | listener/observer 의 안전한 생명주기 관리 |
+| [rememberCoroutineScope는 수동 제어 UI Coroutine을 소유한다](../../02_app_framework/jetpack-compose/state-and-effects/remember-coroutine-scope.md) | 클릭 이벤트에서 시작하는 coroutine |
+| [rememberUpdatedState는 effect를 최신 값으로 유지한다](../../02_app_framework/jetpack-compose/state-and-effects/remember-updated-state.md) | 재시작 없이 최신 람다 유지 |
+| [produceState는 외부 상태를 Compose 상태로 변환한다](../../02_app_framework/jetpack-compose/state-and-effects/produce-state.md) | 외부 비동기 source → State 변환 |
+| [UI controller와 effect runner는 UI 수명에 둔다](../../02_app_framework/jetpack-compose/state-and-effects/ui-controllers-and-effect-runners.md) | SnackbarHostState 등의 소유권 |
+| [무거운 작업은 composition 안에 두지 않는다](../../02_app_framework/jetpack-compose/performance/composition-heavy-work-offloading.md) | composition 에서 금지된 작업 유형 |
 
 ---
 
@@ -146,13 +146,13 @@ Compose 레이아웃의 핵심 규칙은 **단방향 제약 전달**이다. 부�
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md) | 3 단계와 State read 가 각 단계에 미치는 영향 |
-| [Compose layout은 부모 제약 안에서 자식을 측정하고 배치한다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/compose-layout-measures-children-under-parent-constraints.md) | 단방향 제약 전달 모델 |
-| [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/modifier-order-changes-layout-draw-and-input-wrappers.md) | padding.clickable ≠ clickable.padding |
-| [Size modifier는 incoming constraint 안에서 요청 크기를 해석한다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/size-modifiers-interpret-requested-size-inside-incoming-constraints.md) | size/fillMax*/wrapContent 동작 차이 |
-| [Custom Layout은 자식 측정과 배치를 직접 책임진다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/custom-layout-measures-and-places-children-explicitly.md) | MeasurePolicy, placeRelative, alignment line |
-| [Intrinsic measurement와 SubcomposeLayout은 특수한 측정 문제를 해결한다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/intrinsic-measurement-and-subcompose-layout-solve-special-measurement-problems.md) | 일반 레이아웃으로 해결 안 되는 특수 케이스 |
-| [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-layout-and-image-cost-must-be-budgeted.md) | 레이아웃 비용을 프레임 예산 관점으로 |
+| [Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다](../../02_app_framework/jetpack-compose/runtime/compose-frame-pipeline.md) | 3 단계와 State read 가 각 단계에 미치는 영향 |
+| [Compose layout은 부모 제약 안에서 자식을 측정하고 배치한다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-layout-constraints.md) | 단방향 제약 전달 모델 |
+| [Modifier 순서는 layout, draw, input wrapper의 적용 순서를 바꾼다](../../02_app_framework/jetpack-compose/layout-and-ui/modifier-chain-order.md) | padding.clickable ≠ clickable.padding |
+| [Size modifier는 incoming constraint 안에서 요청 크기를 해석한다](../../02_app_framework/jetpack-compose/layout-and-ui/size-modifiers-constraints.md) | size/fillMax*/wrapContent 동작 차이 |
+| [Custom Layout은 자식 측정과 배치를 직접 책임진다](../../02_app_framework/jetpack-compose/layout-and-ui/custom-layout-placement.md) | MeasurePolicy, placeRelative, alignment line |
+| [Intrinsic measurement와 SubcomposeLayout은 특수한 측정 문제를 해결한다](../../02_app_framework/jetpack-compose/layout-and-ui/intrinsic-measurements-subcompose.md) | 일반 레이아웃으로 해결 안 되는 특수 케이스 |
+| [Compose layout과 image 비용은 프레임 예산 안에서 관리한다](../../02_app_framework/jetpack-compose/performance/compose-layout-image-budget.md) | 레이아웃 비용을 프레임 예산 관점으로 |
 
 ---
 
@@ -166,10 +166,10 @@ Compose 성능의 핵심 질문은 "Composable 이 skip 되는가, 되지 않는
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Compose 안정성과 strong skipping은 skippability에 영향을 준다](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-stability-and-strong-skipping-affect-skippability.md) | stable/unstable 분류 기준과 해결 방법 |
-| [Compose 성능은 측정-디버그-개선 루프로 시작한다](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-performance-starts-with-measure-debug-improve-loop.md) | 성능 도구 사용 순서 |
-| [Compose 모듈 경계는 dependency 범위와 교체 비용을 드러낸다](../../02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system/compose-module-boundaries-expose-dependency-scope-and-replacement-cost.md) | 모듈화가 Compose 성능에 미치는 영향 |
-| [Compose 레이어는 상위 컴포넌트가 맞지 않을 때 내려갈 수 있다](../../02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system/compose-layers-let-you-drop-down-when-higher-level-components-do-not-fit.md) | Foundation → 직접 측정/배치 레이어 하강 기준 |
+| [Compose 안정성과 strong skipping은 skippability에 영향을 준다](../../02_app_framework/jetpack-compose/performance/compose-stability-strong-skipping.md) | stable/unstable 분류 기준과 해결 방법 |
+| [Compose 성능은 측정-디버그-개선 루프로 시작한다](../../02_app_framework/jetpack-compose/performance/compose-performance-loop.md) | 성능 도구 사용 순서 |
+| [Compose 모듈 경계는 dependency 범위와 교체 비용을 드러낸다](../../02_app_framework/jetpack-compose/design-system/compose-module-boundaries.md) | 모듈화가 Compose 성능에 미치는 영향 |
+| [Compose 레이어는 상위 컴포넌트가 맞지 않을 때 내려갈 수 있다](../../02_app_framework/jetpack-compose/design-system/compose-layer-dropdown.md) | Foundation → 직접 측정/배치 레이어 하강 기준 |
 
 ---
 
@@ -181,9 +181,9 @@ Compose animation API 선택의 핵심은 **"무엇이 바뀌는가"** 다. Visi
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Compose animation API는 변경 단위와 제어 수준으로 선택한다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/compose-animation-api-is-selected-by-change-unit-and-control-level.md) | API 선택 기준 (무엇이 바뀌는가, 얼마나 제어할 것인가) |
-| [AnimationSpec은 시간, 물리, 반복 정책을 정의한다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/animation-spec-defines-time-physics-and-repeat-policy.md) | spring/tween/keyframes/snap 선택 기준 |
-| [Value animation API는 단일 target, transition, infinite, coroutine 제어를 분리한다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/value-animation-apis-separate-single-target-transition-infinite-and-coroutine-control.md) | animate*AsState, updateTransition, Animatable 분류 |
+| [Compose animation API는 변경 단위와 제어 수준으로 선택한다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-animation-apis.md) | API 선택 기준 (무엇이 바뀌는가, 얼마나 제어할 것인가) |
+| [AnimationSpec은 시간, 물리, 반복 정책을 정의한다](../../02_app_framework/jetpack-compose/layout-and-ui/animation-spec-physics.md) | spring/tween/keyframes/snap 선택 기준 |
+| [Value animation API는 단일 target, transition, infinite, coroutine 제어를 분리한다](../../02_app_framework/jetpack-compose/layout-and-ui/value-animation-transitions.md) | animate*AsState, updateTransition, Animatable 분류 |
 
 ---
 
@@ -197,12 +197,12 @@ Compose 의 Material 3 테마 시스템은 `MaterialTheme` provider 를 통해 `
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Design System Provider는 Material Theme과 project Local을 조합한다](../../02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system/design-system-provider-composes-material-theme-and-project-locals.md) | AppTheme = MaterialTheme + project CompositionLocals 구조 |
-| [Material 3 색상 역할은 고정된 색상이 아닌 의미적 의도를 표현한다](../../02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system/material3-color-roles-express-semantic-intent-not-fixed-colors.md) | primary/surface/error 의 semantic 의미 |
-| [Material 3 on-color와 surface는 대비와 위계를 짝지어 표현한다](../../02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system/material3-on-colors-and-surfaces-pair-contrast-with-hierarchy.md) | onPrimary/onSurface 사용 패턴 |
-| [Dynamic Color는 Material Color Scheme에 대한 플랫폼 입력이다](../../02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system/dynamic-color-is-platform-input-to-a-material-color-scheme.md) | Material You + API level 분기 패턴 |
-| [CompositionLocal은 tree-scoped UI 환경을 암묵적으로 전달한다](../../02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system/compositionlocal-passes-tree-scoped-ui-environment-implicitly.md) | CompositionLocal 적합한 값과 주의사항 |
-| [CompositionLocal 매개변수와 DI는 다른 문제를 해결한다](../../02_app_framework/jetpack-compose/design-system-and-architecture/compose-design-system/compositionlocal-parameters-and-di-solve-different-problems.md) | UI 환경 값 vs 비즈니스 의존성 분리 |
+| [Design System Provider는 Material Theme과 project Local을 조합한다](../../02_app_framework/jetpack-compose/design-system/design-system-provider-composition.md) | AppTheme = MaterialTheme + project CompositionLocals 구조 |
+| [Material 3 색상 역할은 고정된 색상이 아닌 의미적 의도를 표현한다](../../02_app_framework/jetpack-compose/design-system/material3-color-roles.md) | primary/surface/error 의 semantic 의미 |
+| [Material 3 on-color와 surface는 대비와 위계를 짝지어 표현한다](../../02_app_framework/jetpack-compose/design-system/material3-surfaces-contrast.md) | onPrimary/onSurface 사용 패턴 |
+| [Dynamic Color는 Material Color Scheme에 대한 플랫폼 입력이다](../../02_app_framework/jetpack-compose/design-system/dynamic-color-theming.md) | Material You + API level 분기 패턴 |
+| [CompositionLocal은 tree-scoped UI 환경을 암묵적으로 전달한다](../../02_app_framework/jetpack-compose/design-system/compositionlocal-tree-scope.md) | CompositionLocal 적합한 값과 주의사항 |
+| [CompositionLocal 매개변수와 DI는 다른 문제를 해결한다](../../02_app_framework/jetpack-compose/design-system/compositionlocal-vs-di.md) | UI 환경 값 vs 비즈니스 의존성 분리 |
 
 ---
 
@@ -216,10 +216,10 @@ Compose 는 화면의 픽셀 구조와 별도로 **Semantics Tree**를 유지한
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/semantics-tree-makes-ui-meaning-visible-to-accessibility-and-tests.md) | Semantics Tree 구조와 merged/unmerged 차이 |
-| [Semantics merging, clearing, traversal이 의미 단위를 제어한다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/semantics-merging-clearing-and-traversal-control-the-unit-of-meaning.md) | mergeDescendants, clearAndSetSemantics 사용 기준 |
-| [시각 정보와 제스처는 읽을 수 있는 의미와 대체 행동이 필요하다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/visual-information-and-gestures-need-readable-meaning-and-alternate-actions.md) | 장식 이미지 vs 의미 있는 이미지 분류 |
-| [접근성 품질은 서비스, 스캐너, Semantics 검증이 필요하다](../../02_app_framework/jetpack-compose/layout-and-ui/compose-ui/accessibility-quality-requires-service-scanner-and-semantics-verification.md) | TalkBack + Scanner + test 검증 루프 |
+| [Semantics Tree는 UI 의미를 접근성 서비스와 테스트에 드러낸다](../../02_app_framework/jetpack-compose/layout-and-ui/semantics-tree-accessibility.md) | Semantics Tree 구조와 merged/unmerged 차이 |
+| [Semantics merging, clearing, traversal이 의미 단위를 제어한다](../../02_app_framework/jetpack-compose/layout-and-ui/semantics-traversal-merging.md) | mergeDescendants, clearAndSetSemantics 사용 기준 |
+| [시각 정보와 제스처는 읽을 수 있는 의미와 대체 행동이 필요하다](../../02_app_framework/jetpack-compose/layout-and-ui/accessibility-gestures-meaning.md) | 장식 이미지 vs 의미 있는 이미지 분류 |
+| [접근성 품질은 서비스, 스캐너, Semantics 검증이 필요하다](../../02_app_framework/jetpack-compose/layout-and-ui/accessibility-service-verification.md) | TalkBack + Scanner + test 검증 루프 |
 
 ---
 
@@ -231,8 +231,8 @@ Compose Runtime 은 Composable 실행 결과를 **Slot Table(Gap Buffer 구조)*
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Composition은 호출 위치 identity로 remember 값을 보존한다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/composition-uses-callsite-identity-to-preserve-remembered-values.md) | Slot Table 과 call site identity 원리 |
-| [Compose Runtime은 상태, 효과, 성능, 도구를 연결한다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/compose-runtime-links-state-effects-performance-and-tooling.md) | Runtime 전체 조망 (hub note) |
+| [Composition은 호출 위치 identity로 remember 값을 보존한다](../../02_app_framework/jetpack-compose/runtime/composition-callsite-identity.md) | Slot Table 과 call site identity 원리 |
+| [Compose Runtime은 상태, 효과, 성능, 도구를 연결한다](../../02_app_framework/jetpack-compose/runtime/compose-runtime-links.md) | Runtime 전체 조망 (hub note) |
 
 ---
 

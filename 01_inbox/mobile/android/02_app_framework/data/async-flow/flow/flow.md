@@ -12,11 +12,11 @@ Kotlin `Flow` 정본은 연속적인 데이터 스트림(Data Stream)을 비동�
 
 ### 정본 노트
 
-- [Cold Flow는 collect될 때 비로소 실행된다](./cold-flow-runs-when-collected.md) - 수집 시점마다 실행되는 온디맨드(On-demand) 데이터 공급 계약과 SafeCollector 컨텍스트 보존.
-- [Flow 연산자는 선언적 취소와 조합을 유지하며 스트림을 변환한다](./flow-operators-transform-stream-with-declared-cancellation-and-combination.md) - intermediate operator 체이닝과 flowOn 을 통한 안전한 스레드 분리.
-- [callbackFlow는 리스너 등록과 해제 자원 정리를 위해 awaitClose를 필수 요구한다](./callbackflow-requires-awaitclose-for-registration-cleanup.md) - Android 콜백 기반 API 를 Coroutine Flow 로 변환할 때의 메모리 누수 방지.
-- [shareIn은 공유 스트림 수명과 replay 정책을 정의한다](./sharein-defines-shared-stream-lifetime-and-replay-policy.md) - 단일 업스트림 실행을 복수 Downstream 수집자에게 브로드캐스트하는 Hot Stream 전환.
+- [Cold Flow는 collect될 때 비로소 실행된다](cold-flow-execution.md) - 수집 시점마다 실행되는 온디맨드(On-demand) 데이터 공급 계약과 SafeCollector 컨텍스트 보존.
+- [Flow 연산자는 선언적 취소와 조합을 유지하며 스트림을 변환한다](flow-stream-operators.md) - intermediate operator 체이닝과 flowOn 을 통한 안전한 스레드 분리.
+- [callbackFlow는 리스너 등록과 해제 자원 정리를 위해 awaitClose를 필수 요구한다](callback-flow-cleanup.md) - Android 콜백 기반 API 를 Coroutine Flow 로 변환할 때의 메모리 누수 방지.
+- [shareIn은 공유 스트림 수명과 replay 정책을 정의한다](flow-sharein-policy.md) - 단일 업스트림 실행을 복수 Downstream 수집자에게 브로드캐스트하는 Hot Stream 전환.
 
 ### 연결된 상태 계약
 
-- 화면 상태 유도 및 [viewmodel](../../../viewmodel.md) 연동: [Flow](../flow-state/flow-state.md) 와 [stateflow](../../../stateflow-and-sharedflow.md) 상태 계약 노트 참조.
+- 화면 상태 유도 및 [viewmodel](../../../architecture/state-management/viewmodel.md) 연동: [Flow](../flow-state/flow-state.md) 와 [stateflow](../flow-state/stateflow-and-sharedflow.md) 상태 계약 노트 참조.

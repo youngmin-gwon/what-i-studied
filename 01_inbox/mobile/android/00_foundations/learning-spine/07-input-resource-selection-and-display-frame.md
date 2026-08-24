@@ -77,7 +77,7 @@ RenderThread 는 UI thread 가 만든 그리기 명령을 실제로 GPU 에 제�
 | 물리 입력 → EventHub → InputReader → InputDispatcher | system_server 입력 파이프라인 | 4 장의 프로세스와는 별개로, system_server 가 어느 윈도우로 보낼지 먼저 판단한다 |
 | InputDispatcher → 대상 윈도우의 ViewRootImpl | WindowManagerService 가 관리하는 윈도우 상태 | 5 장의 task/윈도우와 연결되는 지점 |
 | ViewRootImpl → main thread 이벤트 큐 | Looper/Handler(6 장) | 6 장의 "유일한 큐" 제약이 그대로 적용된다 |
-| 입력 처리 → UI 상태 갱신(View 또는 Compose) | 앱 코드, Compose composition/layout/draw | 여기서 만들어진 상태가 5 장의 [viewmodel](../../02_app_framework/viewmodel.md)/transient state 와 연결된다 |
+| 입력 처리 → UI 상태 갱신(View 또는 Compose) | 앱 코드, Compose composition/layout/draw | 여기서 만들어진 상태가 5 장의 [viewmodel](../../02_app_framework/architecture/state-management/viewmodel.md)/transient state 와 연결된다 |
 | 그리기 명령 → RenderThread → Surface 버퍼 제출 | RenderThread, GPU | 6 장에서 본 "UI thread 와 분리되지만 비용이 사라지지 않는" 계층 |
 | Surface 버퍼 → BufferQueue → SurfaceFlinger/HWC 합성 → display | SurfaceFlinger, WindowManagerService(SurfaceControl) | 앱은 surface 만 갖고 최종 배치는 WindowManager 가 갖는다 |
 
@@ -141,9 +141,9 @@ configuration change 는 이 루프 전체를 다시 타게 만드는 별도의 
 ### 관련 정본
 
 - [InputManager/InputDevice는 물리 입력 장치를 이벤트 소스로 추상화한다](../../04_system_services/device-capabilities/input-accessibility/inputmanager-abstracts-physical-input-devices-as-event-sources.md)
-- [설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다](../../02_app_framework/architecture/app-components/app-component/configuration-change-recreates-activity-but-not-all-screen-state.md)
-- [View System은 object tree를 변경하고 Compose는 state에서 UI를 재계산한다](../../02_app_framework/ui/system/ui-system/view-system-mutates-object-tree-while-compose-recomputes-ui-from-state.md)
-- [Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/compose-frame-pipeline-is-split-into-composition-layout-and-drawing.md)
+- [설정 변경은 Activity를 재생성할 수 있으므로 상태를 화면 인스턴스에서 분리해야 한다](../../02_app_framework/architecture/app-components/configuration-change-handling.md)
+- [View System은 object tree를 변경하고 Compose는 state에서 UI를 재계산한다](../../02_app_framework/ui/view-system/view-tree-vs-compose-state.md)
+- [Compose 프레임 파이프라인은 Composition, Layout, Drawing 단계로 분리된다](../../02_app_framework/jetpack-compose/runtime/compose-frame-pipeline.md)
 - [Canvas, Skia, Compose는 합성기가 아니라 그리기 명령의 생산자다](../../01_system_internals/graphics-and-media/canvas-skia-compose-rendering.md)
 - [RenderThread는 렌더 작업을 나누지만 UI 스레드 비용을 없애지 않는다](../../01_system_internals/graphics-and-media/renderthread-pipeline.md)
 - [Surface는 그래픽 버퍼 producer 측 계약이다](../../01_system_internals/graphics-and-media/surface-graphic-buffers.md)

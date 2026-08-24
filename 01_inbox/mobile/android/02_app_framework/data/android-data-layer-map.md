@@ -12,12 +12,12 @@ Android data layer 는 원천 데이터 흐름, 영속 저장소, 파일 접근,
 
 ### 정본 지도
 
-- [Android Coroutine과 Flow 지도](./async-flow/android-coroutines-flow.md) - 작업 수명, dispatcher, cold/hot stream과 UI state를 함께 선택하는 중간 지도.
-- [Flow와 [stateflow](../stateflow-and-sharedflow.md) 상태 계약](./async-flow/flow-state/flow-state.md) - repository stream 과 screen state 조합.
-- [영속 저장소 계약](./storage/persistence/persistence.md) - Room, DataStore, SQLite, migration.
-- [파일 접근 계약](./storage/file-access/file-access.md) - app-specific files, MediaStore, SAF, Photo Picker, Scoped Storage.
-- [Paging Map](./paging/android-paging-map.md) - PagingSource, Pager, PagingData, cachedIn, LoadState.
-- [네트워크 클라이언트 계층 계약](./networking/networking/networking.md) - Retrofit/OkHttp 계층 분리, interceptor, suspend 취소, timeout/retry 상태.
+- [Android Coroutine과 Flow 지도](async-flow/android-coroutines-flow.md) - 작업 수명, dispatcher, cold/hot stream과 UI state를 함께 선택하는 중간 지도.
+- [Flow와 [stateflow](async-flow/flow-state/stateflow-and-sharedflow.md) 상태 계약](./async-flow/flow-state/flow-state.md) - repository stream 과 screen state 조합.
+- [영속 저장소 계약](storage/persistence.md) - Room, DataStore, SQLite, migration.
+- [파일 접근 계약](storage/file-access.md) - app-specific files, MediaStore, SAF, Photo Picker, Scoped Storage.
+- [Paging Map](paging/paging.md) - PagingSource, Pager, PagingData, cachedIn, LoadState.
+- [네트워크 클라이언트 계층 계약](networking/networking.md) - Retrofit/OkHttp 계층 분리, interceptor, suspend 취소, timeout/retry 상태.
 
 ### 읽는 기준
 

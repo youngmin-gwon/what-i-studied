@@ -13,7 +13,7 @@ Android DI 문서는 프레임워크별 사용법 목록이 아니라 객체 gra
 ### 읽는 순서
 
 1. DI의 기본 계약과 컴파일 타임 안전성을 먼저 이해한다.
-2. 프레임워크 생명주기(Android Context, [viewmodel](../viewmodel.md), Worker)와 DI가 만나는 경계를 파악한다.
+2. 프레임워크 생명주기(Android Context, [viewmodel](../architecture/state-management/viewmodel.md), Worker)와 DI가 만나는 경계를 파악한다.
 3. 멀티 모듈, Dynamic feature, 테스트 환경에서의 교체 전략을 이해한다.
 
 ### Contract Groups
@@ -26,11 +26,11 @@ Android DI 문서는 프레임워크별 사용법 목록이 아니라 객체 gra
 ### DI Contracts
 
 세부 원칙과 프레임워크 계약은 다음 핵심 문서들로 정리되어 있다:
-- [DI 바인딩과 생성 계약](di/di-binding-creation.md)
-- [DI 소유권과 스코프 계약](di/di-ownership-scope.md)
-- [DI 도구 및 엔진 비교](di/di-tool-comparison.md)
-- [Metro DI 아키텍처와 멀티모듈 바인딩 계약](di/metro-di.md)
+- [DI 바인딩과 생성 계약](di-binding-creation.md)
+- [DI 소유권과 스코프 계약](di-ownership-scope.md)
+- [DI 도구 및 엔진 비교](di-tool-comparison.md)
+- [Metro DI 아키텍처와 멀티모듈 바인딩 계약](metro-di.md)
 
 ### 상위 문서
-- [DI Contracts 전체 보기](di/di.md)
+- [DI Contracts 전체 보기](di.md)
 
