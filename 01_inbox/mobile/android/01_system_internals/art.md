@@ -2,23 +2,48 @@
 title: art
 tags: [android, art, runtime, system-internals, vm]
 aliases: [Android Runtime, ART, 안드로이드 런타임]
-date modified: 2026-08-06 18:38:48 +09:00
+date modified: 2026-08-24 16:54:21 +09:00
 date created: 2026-08-06 16:31:22 +09:00
 ---
 
 ## ART (Android Runtime)
 
-### 1. 개요 (Overview)
+### 1. 개요 및 런타임(Runtime)의 본질
 
-**ART (Android Runtime)** 는 Android 운영체제에서 모든 애플리케이션과 프레임워크 시스템 서비스를 구동하는 관리형 런타임(Managed Runtime) 환경이다.
+**ART (Android Runtime)** 는 Android 운영체제에서 모든 애플리케이션과 프레임워크 시스템 서비스([system_server](../04_system_services/system-server.md))를 구동하는 **모바일 전용 관리형 런타임(Managed Runtime Environment)** 이다.
 
-기존 레거시 런타임이었던 **[Dalvik VM](dalvik-vm.md)** 을 완전히 대체하기 위해 Android 4.4(KitKat)에서 실험적으로 공개된 후, **Android 5.0(Lollipop)** 부터 안드로이드의 기본 런타임으로 전면 적용되었다.
+>[!IMPORTANT]
+>**왜 단순한 가상 머신(VM)이 아니라 '런타임(Runtime)'이라는 이름이 붙었는가?**
+> - **런타임(Runtime)** 이란 프로그램이 실행(Run)되는 동안 그 생명주기와 동작을 뒷받침하는 모든 소프트웨어 환경을 통틀어 부르는 말이다.
+> - ART 는 단순히 바이트코드([DEX](android-compilation-pipeline.md))를 해석하는 엔진에 머무르지 않고, **1) 3 단계 하이브리드 컴파일 파이프라인(JIT + AOT), 2) 지능형 메모리 할당 및 Concurrent GC, 3) 스레드 스케줄링 및 모니터링, 4) Android Core 프레임워크 라이브러리**를 총괄 관리하는 거대한 실행 인프라이기 때문에 'Android Runtime'이라는 이름이 붙었다.
 
-ART 는 [DEX 바이트코드](android-compilation-pipeline.md) 실행 속도, 메모리 관리 및 가비지 컬렉션(GC) 메커니즘을 획기적으로 개선하여 모바일 앱의 렌더링 성능과 전력 효율성을 극대화하였다.
+기존 레거시 가상 머신이었던 **[Dalvik VM](dalvik-vm.md)** 을 완전히 대체하기 위해 Android 4.4(KitKat)에서 시험 도입된 후, **Android 5.0(Lollipop)** 부터 안드로이드의 기본 표준 런타임으로 전면 적용되었다.
+
+```mermaid
+flowchart TD
+    subgraph ARTRuntime ["ART (Android Runtime) 관리형 런타임 인프라"]
+        DexCode["DEX 바이트코드 (.dex)"] --> CompEngine["1. 하이브리드 컴파일러<br/>(인터프리터 ➔ JIT ➔ dex2oat AOT)"]
+        
+        subgraph MemManager ["2. 메모리 & GC 관리자"]
+            Heap["ART Managed Heap"]
+            GC["Concurrent Generational GC<br/>+ Compacting GC"]
+            Heap <--> GC
+        end
+        
+        subgraph CoreLibs ["3. Core Runtime Libraries"]
+            AndroidLibs["Android Core Framework (android.*)<br/>+ Core Java API (java.*)"]
+        end
+        
+        CompEngine --> MemManager
+        CompEngine --> CoreLibs
+    end
+
+    ARTRuntime --> LinuxKernel["Linux OS Kernel (CPU / 물리 RAM)"]
+```
 
 ---
 
-### 2. ART 의 3 단계 컴파일 파이프라인
+### 2. ART 의 3 단계 하이브리드 컴파일 파이프라인
 
 ART 런타임 환경에서 애플리케이션 바이트코드가 네이티브 기계어로 바뀌어 구동되는 3 단계 프로파일 기반 파이프라인(Interpreting ➔ JIT ➔ AOT `dex2oat`)과 상세 작동 원리는 독립된 [Android Compilation Pipeline 문서](android-compilation-pipeline.md) 를 참고한다.
 
