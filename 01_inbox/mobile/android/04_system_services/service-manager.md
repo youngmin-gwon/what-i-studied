@@ -96,6 +96,6 @@ graph TD
 ### 5. 연관 문서 (Related Links)
 
 - [system_server](system-server.md) - ServiceManager 에 시스템 서비스를 대량 등록하는 메인 프로세스
-- [Binder IPC 레퍼런스](../01_system_internals/binder-ipc.md) - Handle 0 및 /dev/binder 커널 드라이버의 작동 원리
+- [Binder IPC 레퍼런스](../01_system_internals/ipc-and-process/binder-ipc.md) - Handle 0 및 /dev/binder 커널 드라이버의 작동 원리
 - [WindowManagerService](window-manager-service.md) - ServiceManager 를 통해 조회하는 화면 관리 시스템 서비스
 - [PackageManagerService](package-manager-service.md) - ServiceManager 를 통해 조회하는 앱 패키지 관리 시스템 서비스

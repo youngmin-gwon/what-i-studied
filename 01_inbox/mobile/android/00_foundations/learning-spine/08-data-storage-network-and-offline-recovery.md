@@ -153,7 +153,7 @@ Room 에 새 항목을 쓰고 DataStore 의 "마지막 동기화 시각"을 갱�
 - [백그라운드 실행 수단은 실패 비용으로 결정한다](../../04_system_services/background-and-notifications/background-work/background-api-selection.md)
 - [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](../../04_system_services/background-and-notifications/background-work/background-restrictions-state.md)
 - [Android 연결성과 네트워크 지도](../../01_system_internals/connectivity/android-connectivity.md)
-- [네트워크 디버깅은 앱 API 상태와 system network state를 대조한다](../../01_system_internals/connectivity/connectivity/network-debugging-compares-app-api-state-with-system-network-state.md)
+- [네트워크 디버깅은 앱 API 상태와 system network state를 대조한다](../../01_system_internals/connectivity/network-debugging.md)
 - [프로세스 종료 복구에는 saved state와 영속 source of truth가 필요하다](../../02_app_framework/architecture/app-components/app-component/process-death-recovery-needs-saved-state-and-persistent-source-of-truth.md)
 
 ### 공식 근거

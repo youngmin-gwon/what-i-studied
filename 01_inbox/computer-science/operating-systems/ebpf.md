@@ -12,7 +12,7 @@ date created: 2026-08-07 13:10:00 +09:00
 
 **eBPF (Extended Berkeley Packet Filter)** 는 [Linux 커널](../../operating-systems/linux-kernel.md) 소스 코드를 직접 수정하거나 커널 모듈을 재컴파일하지 않고도, **[커널 이벤트](kernel-event.md)(네트워크 패킷 입출력, [시스템 콜(syscall)](system-call.md), [소켓 트래픽](../networking/socket.md), 보안 권한 이벤트)를 커널 공간 내부에서 안전하고 고속으로 관측하고 통제하는 차세대 커널 실행 엔진**이다.
 
-서버 OS, Cloud Native (Kubernetes Cilium), 및 [Android 네트워크 런타임](../../mobile/android/01_system_internals/connectivity/ebpf-in-android-networking.md) 에 표준 적용되어 고성능 방화벽, 데이터 사용량 집계, 커널 추적(Tracing) 및 보안 패킷 드롭을 수행한다.
+서버 OS, Cloud Native (Kubernetes Cilium), 및 [Android 네트워크 런타임](../../mobile/android/01_system_internals/connectivity/ebpf-networking.md) 에 표준 적용되어 고성능 방화벽, 데이터 사용량 집계, 커널 추적(Tracing) 및 보안 패킷 드롭을 수행한다.
 
 ---
 
@@ -66,4 +66,4 @@ sudo tc filter show dev eth0 ingress
 - [시스템 콜 (System Call)](system-call.md) - eBPF 가 훅하는 시스템 콜 인터페이스
 - [소켓 (Socket)](../networking/socket.md) - eBPF 가 필터링하는 네트워크 소켓
 - [커널 이벤트 (Kernel Event)](kernel-event.md) - eBPF 가 바인딩되는 tracepoint / kprobe
-- [Android eBPF 네트워크 패킷 통제](../../mobile/android/01_system_internals/connectivity/ebpf-in-android-networking.md) - 안드로이드 eBPF 확장 노드
+- [Android eBPF 네트워크 패킷 통제](../../mobile/android/01_system_internals/connectivity/ebpf-networking.md) - 안드로이드 eBPF 확장 노드

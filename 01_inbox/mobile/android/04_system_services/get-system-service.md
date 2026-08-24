@@ -12,7 +12,7 @@ date created: 2026-08-06 18:55:00 +09:00
 
 **`Context.getSystemService()`** 는 Android 애플리케이션이 `LocationManager`, `WindowManager`, `NotificationManager` 등 OS 가 제공하는 시스템 수준 서비스의 로컬 핸들(Proxy 매니저 객체)을 획득하기 위해 사용하는 핵심 Android API 이다.
 
-내부적으로 [ServiceManager](service-manager.md) 를 통해 `system_server` 프로세스에 상주하는 Binder 프록시를 조회하며, 반환된 매니저 객체를 통해 [Binder IPC](../01_system_internals/binder-ipc.md) 통신을 수행한다.
+내부적으로 [ServiceManager](service-manager.md) 를 통해 `system_server` 프로세스에 상주하는 Binder 프록시를 조회하며, 반환된 매니저 객체를 통해 [Binder IPC](../01_system_internals/ipc-and-process/binder-ipc.md) 통신을 수행한다.
 
 ---
 
@@ -38,7 +38,7 @@ graph TD
 2. **Context Scope 의존성 (Activity vs Application)**:
    - `WindowManager` 나 `LayoutInflater` 같은 UI 관련 서비스는 반드시 화면 경계와 연결된 **`Activity Context`** 에서 획득해야 하며, `ApplicationContext` 에서 획득 시 윈도우 토큰 부재 예외가 발생할 수 있다.
 3. **매니저 호출 시의 IPC 오버헤드**:
-   - `getSystemService()` 반환 매니저의 메서드 호출은 동기적인 일반 자바 메서드처럼 보이지만, 내부는 **[Binder IPC](../01_system_internals/binder-ipc.md)** 원격 호출이다. 따라서 메인 스레드에서의 무분별한 폴링 루프 호출은 UI 블로킹을 유발할 수 있다.
+   - `getSystemService()` 반환 매니저의 메서드 호출은 동기적인 일반 자바 메서드처럼 보이지만, 내부는 **[Binder IPC](../01_system_internals/ipc-and-process/binder-ipc.md)** 원격 호출이다. 따라서 메인 스레드에서의 무분별한 폴링 루프 호출은 UI 블로킹을 유발할 수 있다.
 
 ---
 
@@ -63,6 +63,6 @@ val windowManager = activity.getSystemService(WindowManager::class.java)
 
 - [ServiceManager](service-manager.md) - Binder Handle 0 시스템 서비스 등록소
 - [system_server](system-server.md) - 시스템 서비스들을 호스팅하는 메인 자바 프로세스
-- [Binder IPC](../01_system_internals/binder-ipc.md) - getSystemService 매니저가 통신하는 IPC 파이프라인
+- [Binder IPC](../01_system_internals/ipc-and-process/binder-ipc.md) - getSystemService 매니저가 통신하는 IPC 파이프라인
 - [WindowManagerService](window-manager-service.md) - WMS 서비스 레퍼런스
 - [PackageManagerService](package-manager-service.md) - PMS 서비스 레퍼런스

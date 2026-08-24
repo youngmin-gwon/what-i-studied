@@ -112,4 +112,4 @@ int send_fd(int socket_fd, int fd_to_send) {
 
 - [IPC 메커니즘 개요](../ipc-mechanisms.md) — OS IPC 전체 지도 및 비교
 - [POSIX Pipe와 FIFO 계약](./posix-pipe-and-fifo-contracts.md) — 단방향 스트림 IPC
-- [Binder IPC](../../mobile/android/01_system_internals/binder-ipc.md) — ParcelFileDescriptor 전달과 UID 검증의 비교
+- [Binder IPC](../../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md) — ParcelFileDescriptor 전달과 UID 검증의 비교

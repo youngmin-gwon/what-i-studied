@@ -56,4 +56,4 @@ graph TD
 
 - [Handler & Looper & MessageQueue](handler-looper-message-queue.md) - ActivityThread 가 가동하는 메인 이벤트 루프
 - [system_server](../04_system_services/system-server.md) - ActivityThread 에 컴포넌트 생명주기를 지시하는 시스템 백본
-- [Zygote](../01_system_internals/zygote.md) - ActivityThread 프로세스를 fork 해 주는 마스터 프로세스
+- [Zygote 와 ART 런타임 심층 계약](../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md) - ActivityThread 프로세스를 fork 해 주는 마스터 프로세스

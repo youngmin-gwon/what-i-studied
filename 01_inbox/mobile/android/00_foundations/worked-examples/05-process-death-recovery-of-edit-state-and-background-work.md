@@ -25,7 +25,7 @@ date created: 2026-08-04 02:50:00 +09:00
 
 1. **UI & Framework Layer (화면 이탈 시점 - SavedState vs Persistent Storage)**
    - 앱이 background 로 전환될 때, `ActivityThread.handleStopActivity()` 가 호출되며 `SavedStateRegistryController` 에 의해 UI 컴포넌트들의 `onSaveInstanceState(Bundle)` 가 트리거된다.
-   - **경량 편집 상태 (Draft Text)**: `SavedStateHandle` 에 담긴 데이터는 `ActivityRecord.icicle` (Bundle)로 직렬화되어 [binder ipc](../../01_system_internals/binder-ipc.md) 를 통해 `ActivityTaskManagerService` (ATMS) 로 전달된다.
+   - **경량 편집 상태 (Draft Text)**: `SavedStateHandle` 에 담긴 데이터는 `ActivityRecord.icicle` (Bundle)로 직렬화되어 [binder ipc](../../01_system_internals/ipc-and-process/binder-ipc.md) 를 통해 `ActivityTaskManagerService` (ATMS) 로 전달된다.
    - **중량 작업 상태 (Media Upload)**: 만약 미디어 업로드가 화면의 `viewModelScope` 나 `lifecycleScope` 에 바인딩된 coroutine 으로 실행 중이었다면, process death 시 프로세스 메모리가 해제되면서 작업이 즉시 취소된다. 따라서 이 작업은 enqueue 시점에 `WorkManager` (App Framework)에 위임되어 SQLite DB (`/data/data/<pkg>/databases/FrameworkWorkManager.db`) 에 영속 저장(Persistent Storage)되어야 한다.
 
 2. **System Server & IPC Layer (Process Death 발생 시점)**

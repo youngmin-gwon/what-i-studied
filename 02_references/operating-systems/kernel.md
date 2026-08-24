@@ -520,4 +520,4 @@ dmesg | tail
 
 ## 연결 문서
 
-[Android kernel은 Linux에 모바일 플랫폼 정책을 더한 커널이다](01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel-contracts/android-kernel-is-linux-plus-mobile-platform-policy.md) - 안드로이드 특화 커널 수정 사항(Binder, LMKD, SystemSuspend 등)
+- [Android 커널 아키텍처 (Android Kernel Architecture)](../../01_inbox/mobile/android/01_system_internals/kernel-and-hal/kernel/android-kernel-architecture.md) - 안드로이드 특화 커널 수정 사항(Binder, LMKD, SystemSuspend 등)

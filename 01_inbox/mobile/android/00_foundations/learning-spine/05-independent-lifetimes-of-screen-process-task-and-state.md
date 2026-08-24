@@ -134,8 +134,8 @@ uninstall 은 여기서 한 단계 더 나아가 3 장이 다룬 설치된 패�
 - [ViewModel은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다](../../02_app_framework/architecture/state-management/viewmodel/viewmodel-survives-configuration-change-not-process-death.md)
 - [SavedStateHandle은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다](../../02_app_framework/architecture/state-management/viewmodel/savedstatehandle-restores-small-process-death-state.md)
 - [Context-registered Receiver의 수명은 등록한 Context를 따른다](../../02_app_framework/architecture/app-components/app-component/context-registered-receiver-lifetime-follows-registering-context.md)
-- [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](../../01_system_internals/boot-and-runtime/system-server/ams-coordinates-app-process-and-component-lifecycle.md)
-- [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../01_system_internals/boot-and-runtime/system-server/process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)
+- [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](../../01_system_internals/boot-and-runtime/system-server/ams-app-process-lifecycle.md)
+- [프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](../../01_system_internals/boot-and-runtime/system-server/process-priority-oom-score.md)
 
 ### 공식 근거
 

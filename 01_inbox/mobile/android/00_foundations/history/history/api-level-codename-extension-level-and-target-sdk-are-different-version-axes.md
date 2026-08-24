@@ -2,7 +2,7 @@
 title: api-level-codename-extension-level-and-target-sdk-are-different-version-axes
 tags: ["android", "android/foundations"]
 aliases: []
-date modified: 2026-08-04 16:35:50 +09:00
+date modified: 2026-08-24 17:14:12 +09:00
 date created: 2026-07-31 23:04:26 +09:00
 ---
 
@@ -73,6 +73,6 @@ adb shell getprop ro.build.version.release
 adb shell getprop ro.build.version.extensions.r
 ```
 
-관련 노트: [SDK Extensions](../../../01_system_internals/platform-modularity/platform-modularity/sdk-extensions-express-api-availability-beyond-sdk-int.md), [packaging/deployment](../../../03_packaging_deployment/android-packaging-deployment.md).
+관련 노트: [SDK Extensions](../../../01_system_internals/platform-modularity/sdk-extensions.md), [packaging/deployment](../../../03_packaging_deployment/android-packaging-deployment.md).
 
 공식 문서(2026-08-03 검증): [Build.VERSION](https://developer.android.com/reference/android/os/Build.VERSION), [Build.VERSION_CODES](https://developer.android.com/reference/android/os/Build.VERSION_CODES), [VERSION_CODES_FULL](https://developer.android.com/reference/kotlin/android/os/Build.VERSION_CODES_FULL)

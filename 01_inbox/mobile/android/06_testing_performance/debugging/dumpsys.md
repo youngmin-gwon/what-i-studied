@@ -65,4 +65,4 @@ adb shell dumpsys netd
 - [system_server 표준 레퍼런스](../../04_system_services/system-server.md) - dumpsys 가 조회하는 자바 시스템 서비스 종합 프로세스
 - [ServiceManager](../../04_system_services/service-manager.md) - dumpsys 가 바인더 핸들을 조회하는 등록소
 - [Android Connectivity 런타임](../../01_system_internals/connectivity/android-connectivity.md) - 네트워크 덤프 수집
-- [Binder IPC](../../01_system_internals/binder-ipc.md) - dumpsys 가 호출하는 IBinder.dump() 인터페이스
+- [Binder IPC](../../01_system_internals/ipc-and-process/binder-ipc.md) - dumpsys 가 호출하는 IBinder.dump() 인터페이스

@@ -96,4 +96,4 @@ sequenceDiagram
 - [system_server](system-server.md) - WMS 가 상주하여 실행되는 안드로이드 시스템 서버 프로세스
 - [ServiceManager](service-manager.md) - WMS 의 "window" Binder Handle 을 조회하는 전역 디렉토리
 - [PackageManagerService](package-manager-service.md) - 앱 패키지 구성 및 창 권한 정보 관련 상호작용 서비스
-- [Binder IPC 레퍼런스](../01_system_internals/binder-ipc.md) - 앱과 WMS 간 IWindowSession IPC 통신 통로
+- [Binder IPC 레퍼런스](../01_system_internals/ipc-and-process/binder-ipc.md) - 앱과 WMS 간 IWindowSession IPC 통신 통로

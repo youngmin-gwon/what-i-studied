@@ -86,7 +86,7 @@ adb shell dumpsys activity processes | grep -A 5 "Last ANR"
 
 ### 관련 문서
 
-- [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](ams-coordinates-app-process-and-component-lifecycle.md)
-- [process-priority-is-memory-reclaim-policy-input-not-app-state-truth](process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)
+- [AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](ams-app-process-lifecycle.md)
+- [process-priority-is-memory-reclaim-policy-input-not-app-state-truth](process-priority-oom-score.md)
 
 공식 문서: [ANR Overview](https://developer.android.com/topic/performance/vitals/anr)

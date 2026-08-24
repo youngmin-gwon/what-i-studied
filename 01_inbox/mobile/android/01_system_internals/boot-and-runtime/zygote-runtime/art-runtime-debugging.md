@@ -76,4 +76,4 @@ adb shell cmd package compile -r -f com.example.app
 - [ART 프로파일 기반 컴파일(PGO)](art-profile-guided-compilation.md)
 - [ART DEX 실행 모드](art-dex-execution-modes.md)
 - [Zygote 와 ART 런타임 계약](zygote-runtime.md)
-- [Android Compilation Pipeline](../../android-compilation-pipeline.md)
+- [Android Compilation Pipeline](android-compilation-pipeline.md)

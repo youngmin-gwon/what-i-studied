@@ -58,8 +58,8 @@ Android 는 데스크톱/서버용 표준 JVM/JRE 를 기기에 탑재하지 않
 | 개념 계층 | 표준 Java 생태계 | Android 모바일 생태계 |
 |---|---|---|
 | **개발 도구 (SDK)** | **JDK** (`javac`, `jar`, `javadoc`) | **Android SDK + AGP** (`kotlinc`, `AAPT2`, `D8/R8`, `apksigner`) |
-| **실행 런타임 (Runtime)** | **JRE** (JVM + Java 표준 라이브러리) | **[ART (Android Runtime)](../mobile/android/01_system_internals/art.md)** / [Dalvik VM](../mobile/android/01_system_internals/dalvik-vm.md) + Android Framework (`android.*`) |
-| **실행 가상 머신 (VM)** | **JVM (HotSpot 등)** (스택 기반) | **[ART / Dalvik](../mobile/android/01_system_internals/dalvik-vs-art.md)** (레지스터 기반) |
+| **실행 런타임 (Runtime)** | **JRE** (JVM + Java 표준 라이브러리) | **[ART (Android Runtime)](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/art.md)** / [Dalvik VM](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/dalvik-vm.md) + Android Framework (`android.*`) |
+| **실행 가상 머신 (VM)** | **JVM (HotSpot 등)** (스택 기반) | **[ART / Dalvik](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/dalvik-vs-art.md)** (레지스터 기반) |
 | **실행 바이너리 포맷** | **`.class` / `.jar`** (분산 바이트코드) | **[`.dex`](jvm-bytecode-and-jar-archive.md)** (단일 상수 풀 통합 압축) |
 
 ---
@@ -77,6 +77,6 @@ Android 는 데스크톱/서버용 표준 JVM/JRE 를 기기에 탑재하지 않
 - [JVM 클래스로더 메커니즘](jvm-classloader.md)
 - [JVM 클래스패스 (Classpath)](jvm-classpath.md)
 - [바이트코드 파일(.class)과 아카이브 파일(.jar)의 본질](jvm-bytecode-and-jar-archive.md)
-- [Dalvik VM (Dalvik 가상 머신)](../mobile/android/01_system_internals/dalvik-vm.md)
-- [ART (Android Runtime)](../mobile/android/01_system_internals/art.md)
-- [Dalvik vs ART 비교](../mobile/android/01_system_internals/dalvik-vs-art.md)
+- [Dalvik VM (Dalvik 가상 머신)](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/dalvik-vm.md)
+- [ART (Android Runtime)](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/art.md)
+- [Dalvik vs ART 비교](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/dalvik-vs-art.md)

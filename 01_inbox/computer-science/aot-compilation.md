@@ -61,4 +61,4 @@ graph LR
 
 - [JIT Compilation](jit-compilation.md) - 런타임에 동적으로 기계어를 번역하는 JIT 방식
 - [JIT vs AOT 비교](jit-vs-aot-compilation.md) - JIT 과 AOT 컴파일 이론 종합 비교
-- [Android Compilation Pipeline](../mobile/android/01_system_internals/android-compilation-pipeline.md) - Android ART dex2oat 기반 AOT 활용 파이프라인
+- [Android Compilation Pipeline](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/android-compilation-pipeline.md) - Android ART dex2oat 기반 AOT 활용 파이프라인

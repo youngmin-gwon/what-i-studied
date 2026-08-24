@@ -62,4 +62,4 @@ graph TD
 
 - [AOT Compilation](aot-compilation.md) - 컴파일 타임에 사전 기계어로 번역하는 AOT 방식
 - [JIT vs AOT 비교](jit-vs-aot-compilation.md) - JIT 과 AOT 컴파일 이론 종합 비교
-- [Android Compilation Pipeline](../mobile/android/01_system_internals/android-compilation-pipeline.md) - Android ART 런타임에서의 JIT 활용 파이프라인
+- [Android Compilation Pipeline](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/android-compilation-pipeline.md) - Android ART 런타임에서의 JIT 활용 파이프라인

@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## system_server 와 ActivityManager 계약
 
-`system_server`는 Android 시스템 프레임워크 핵심 서비스들([AMS](../../../04_system_services/activity-manager-service.md), ATMS, PKMS, WMS 등 100 여 개 이상)을 단일 프로세스 안에서 구동하고, [binder ipc](../../binder-ipc.md) 엔드포인트를 제공하여 앱 프로세스의 컴포넌트 생명주기, Task 백스택, 시스템 자원 할당, ANR 타임아웃 감지, 그리고 OOM Reclaim 우선순위 정책을 통합 제어하는 중추이다.
+`system_server`는 Android 시스템 프레임워크 핵심 서비스들([AMS](../../../04_system_services/activity-manager-service.md), ATMS, PKMS, WMS 등 100 여 개 이상)을 단일 프로세스 안에서 구동하고, [binder ipc](../../ipc-and-process/binder-ipc.md) 엔드포인트를 제공하여 앱 프로세스의 컴포넌트 생명주기, Task 백스택, 시스템 자원 할당, ANR 타임아웃 감지, 그리고 OOM Reclaim 우선순위 정책을 통합 제어하는 중추이다.
 
 ```mermaid
 flowchart TD
@@ -29,13 +29,13 @@ flowchart TD
 | 정본 계약 노트 | 핵심 보장 메커니즘 | 검증 및 관측 가능 지점 |
 | :--- | :--- | :--- |
 | **[system_server는 framework service를 한 프로세스 안에서 시작한다](system-server-startup.md)** | `SystemServer.main()`, 3 단계 서비스 서순(`Bootstrap` -> `Core` -> `Other`), `ServerThread` 멀티스레딩 | `ps -ef \| grep system_server`, `dumpsys system_server` |
-| **[system service는 Binder endpoint이자 플랫폼 정책 집행자다](system-service-is-binder-endpoint-and-platform-policy-enforcer.md)** | `SystemService` 수명주기, ServiceManager IPC 등록, `checkCallingPermission()` 권한 강제 | `dumpsys -l`, `service list` |
-| **[AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](ams-coordinates-app-process-and-component-lifecycle.md)** | ProcessRecord 관리, Component(Service/BroadcastReceiver/ContentProvider) 바인딩 및 생명주기 | `dumpsys activity processes`, `logcat -s ActivityManager` |
-| **[ATMS는 activity, task, back stack 전이를 담당한다](atms-owns-activity-task-and-back-stack-transitions.md)** | RootWindowContainer -> Task -> ActivityRecord 트리 구조, ClientTransaction 스케줄링 | `dumpsys activity activities`, `logcat -s ActivityTaskManager` |
-| **[프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](process-priority-is-memory-reclaim-policy-input-not-app-state-truth.md)** | `oom_score_adj` (-1000 ~ 1000) 동적 계산, ProcessState 전환, LMKD 회수 가이드라인 | `dumpsys activity processes`, `cat /proc/<pid>/oom_score_adj` |
+| **[system service는 Binder endpoint이자 플랫폼 정책 집행자다](system-service-binder-endpoint.md)** | `SystemService` 수명주기, ServiceManager IPC 등록, `checkCallingPermission()` 권한 강제 | `dumpsys -l`, `service list` |
+| **[AMS는 앱 프로세스와 컴포넌트 lifecycle을 조율한다](ams-app-process-lifecycle.md)** | ProcessRecord 관리, Component(Service/BroadcastReceiver/ContentProvider) 바인딩 및 생명주기 | `dumpsys activity processes`, `logcat -s ActivityManager` |
+| **[ATMS는 activity, task, back stack 전이를 담당한다](atms-activity-task-management.md)** | RootWindowContainer -> Task -> ActivityRecord 트리 구조, ClientTransaction 스케줄링 | `dumpsys activity activities`, `logcat -s ActivityTaskManager` |
+| **[프로세스 우선순위는 메모리 회수 정책 입력이지 앱 상태의 진실이 아니다](process-priority-oom-score.md)** | `oom_score_adj` (-1000 ~ 1000) 동적 계산, ProcessState 전환, LMKD 회수 가이드라인 | `dumpsys activity processes`, `cat /proc/<pid>/oom_score_adj` |
 | **[ANR은 단일 timeout 숫자가 아니라 responsiveness 계약 위반이다](anr-responsiveness.md)** | Event/Broadcast/Service 타임아웃 메커니즘, SIGQUIT(Signal 3) 발송, Stack Trace 덤프 | `/data/anr/traces.txt`, `logcat \| grep ANR` |
-| **[Rescue Party는 반복되는 system failure를 단계적으로 복구한다](rescue-party-recovers-repeated-system-failures-in-stages.md)** | 5 분 내 5 회 연속 크래시 감지, 4 단계 복구(Reset Settings -> Reset Namespace -> Factory Reset) | `getprop sys.rescue_level`, `logcat -s RescueParty` |
-| **[dumpsys는 system service의 현재 상태를 보는 inspection interface다](dumpsys-is-system-service-state-inspection-interface.md)** | `IBinder.dump()` 규약, 각 서브시스템 내부 메모리 및 데이터 구조 직렬화 출력 | `dumpsys <service_name>` |
+| **[Rescue Party는 반복되는 system failure를 단계적으로 복구한다](rescue-party.md)** | 5 분 내 5 회 연속 크래시 감지, 4 단계 복구(Reset Settings -> Reset Namespace -> Factory Reset) | `getprop sys.rescue_level`, `logcat -s RescueParty` |
+| **[dumpsys는 system service의 현재 상태를 보는 inspection interface다](dumpsys-service-inspection.md)** | `IBinder.dump()` 규약, 각 서브시스템 내부 메모리 및 데이터 구조 직렬화 출력 | `dumpsys <service_name>` |
 
 ---
 
@@ -47,4 +47,4 @@ flowchart TD
 
 상위 지도: [Android 부팅과 런타임 지도](../android-boot-and-runtime.md)
 
-관련 지도: [IPC and process contracts](../../ipc-and-process/ipc-process/ipc-process.md)
+관련 지도: [IPC and process contracts](../../ipc-and-process/ipc-process.md)

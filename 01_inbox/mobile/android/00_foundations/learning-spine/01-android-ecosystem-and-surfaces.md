@@ -268,9 +268,9 @@ Android SDK 의 API 를 컴파일하는지, Maven 산출물을 앱에 포함하�
 
 - [Android System Map](../overview/android-system-map.md)
 - [Android는 계층형 모바일 플랫폼이다](../overview/foundation/android-is-layered-mobile-platform-not-just-an-app-sdk.md)
-- [AOSP는 완전한 Google 기기 경험이 아니다](../../01_system_internals/platform-customization/platform-customization/aosp-is-base-platform-not-complete-google-device-experience.md)
-- [GMS는 AOSP와 분리된 사용 허가 기반 Google 서비스 계층이다](../../01_system_internals/platform-customization/platform-customization/gms-is-licensed-google-services-layer-not-aosp.md)
-- [플랫폼 호환성 테스트는 기기 계약을 검증한다](../../01_system_internals/platform-customization/platform-customization/platform-compatibility-tests-validate-device-not-app-features.md)
+- [AOSP는 완전한 Google 기기 경험이 아니다](../../01_system_internals/platform-customization/aosp-vs-google-experience.md)
+- [GMS는 AOSP와 분리된 사용 허가 기반 Google 서비스 계층이다](../../01_system_internals/platform-customization/gms-google-mobile-services.md)
+- [플랫폼 호환성 테스트는 기기 계약을 검증한다](../../01_system_internals/platform-customization/cts-vts-platform-tests.md)
 - [SDK/API/target version 축](../history/history/api-level-codename-extension-level-and-target-sdk-are-different-version-axes.md)
 
 ### 공식 근거

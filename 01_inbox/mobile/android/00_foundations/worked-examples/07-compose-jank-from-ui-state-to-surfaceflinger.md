@@ -32,7 +32,7 @@ date created: 2026-08-04 03:10:00 +09:00
    - 텍스트 셰이더 빌드, 대용량 비트맵 디코딩, Overdraw 비트맵 합성 등이 일어나는 경우 RenderThread 가 병목이 되어 VSync deadline 을 놓치게 된다.
 
 3. **System Server & IPC Layer (BufferQueue & SurfaceFlinger Composition)**
-   - RenderThread 가 렌더링을 마친 GraphicBuffer 를 [binder ipc](../../01_system_internals/binder-ipc.md) (`IGraphicBufferProducer`)를 통해 `BufferQueue` 에 `queueBuffer` 한다.
+   - RenderThread 가 렌더링을 마친 GraphicBuffer 를 [binder ipc](../../01_system_internals/ipc-and-process/binder-ipc.md) (`IGraphicBufferProducer`)를 통해 `BufferQueue` 에 `queueBuffer` 한다.
    - VSync-sf 신호가 도착하면 `SurfaceFlinger` 가 consumer 로서 `dequeueBuffer` / `acquireBuffer` 수행 후 앱의 Surface 와 다른 시스템 UI Surface(StatusBar, NavigationBar)를 레이어 합성한다.
    - UI Thread 나 RenderThread 의 대기가 길어져 VSync-sf 시점에 큐에 준비된 버퍼가 없으면, SurfaceFlinger 는 이전 프레임을 재사용하여 화면 스태터(Jank / Stutter)가 발생한다.
 
@@ -183,8 +183,8 @@ class ScrollWatermarkBenchmark {
 
 ### 관련 원자 노트
 
-- [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/graphics-media/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)
-- [VSync와 Choreographer는 frame deadline을 정의한다](../../01_system_internals/graphics-and-media/graphics-media/vsync-and-choreographer-define-frame-deadline.md)
+- [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/jank-frame-deadlines.md)
+- [VSync와 Choreographer는 frame deadline을 정의한다](../../01_system_internals/graphics-and-media/vsync-and-choreographer.md)
 - [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-state-read-location-controls-recomposition-scope.md)
 - [Recomposition은 전체 UI 재그리가 아니라 필요한 Composable scope 재실행이다](../../02_app_framework/jetpack-compose/runtime/compose-runtime/recomposition-scope-control.md)
 - [Compose 성능 최적화는 measure, debug, improve 순환으로 진행한다](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-performance-starts-with-measure-debug-improve-loop.md)

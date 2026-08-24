@@ -36,7 +36,7 @@ graph LR
 
 ## Android (ART Runtime) 에서의 GC 발전과 특성
 
-Android 런타임 환경([ART](../mobile/android/01_system_internals/art.md))에서 GC 는 앱 성능과 직결되는 매우 중요한 요소다.
+Android 런타임 환경([ART](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/art.md))에서 GC 는 앱 성능과 직결되는 매우 중요한 요소다.
 
 - **Dalvik VM 시절 (Stop-the-world GC)**:
   - 메모리를 수거하는 동안 전체 앱 스레드를 완전히 멈추어 UI 화면이 버벅이는 프레임 드롭(Jank)의 주원인이었다.
@@ -47,6 +47,6 @@ Android 런타임 환경([ART](../mobile/android/01_system_internals/art.md))에
 
 ## 연결 문서
 
-- [ART (Android Runtime)](../mobile/android/01_system_internals/art.md) - Android 가비지 컬렉션 엔진을 탑재한 런타임
+- [ART (Android Runtime)](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/art.md) - Android 가비지 컬렉션 엔진을 탑재한 런타임
 - [Thread](thread.md) - Concurrent GC 와 연동되는 앱 실행 스레드
 - [Immutability](immutability.md) - 단기 객체 생성 감소 및 GC 부담 완화 패턴

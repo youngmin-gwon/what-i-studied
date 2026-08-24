@@ -50,7 +50,7 @@ Android 시스템이 판정하는 대표적인 ANR 계약과 조사 우선순위
 4. **JobScheduler slow response (우선순위 4)**
    - `JobService.onStartJob()`, `onStopJob()` 또는 필요한 `setNotification()` 호출에 main thread 가 제때 응답하지 못한다. 고정 숫자를 앱 계약으로 외우기보다 ANR subject 와 실행 OS 의 공식 문서를 확인한다.
 5. **Main Thread Lock Contention / Binder Synchronous IPC Wait (우선순위 5)**
-   - 메인 스레드가 백그라운드 스레드가 쥐고 있는 Synchronized Lock 이나 Mutex 를 기다리거나(`waiting to lock`), 시스템 서버/외부 프로세스와의 동기 [binder ipc](../../01_system_internals/binder-ipc.md) 응답 (`BinderProxy.transact`) 대기 중 타임아웃 발생.
+   - 메인 스레드가 백그라운드 스레드가 쥐고 있는 Synchronized Lock 이나 Mutex 를 기다리거나(`waiting to lock`), 시스템 서버/외부 프로세스와의 동기 [binder ipc](../../01_system_internals/ipc-and-process/binder-ipc.md) 응답 (`BinderProxy.transact`) 대기 중 타임아웃 발생.
 
 ---
 
@@ -183,7 +183,7 @@ ApplicationExitInfo #0:
 ### 9. 관련 자료 및 연결 노트 (Related Notes & Worked Examples)
 
 - [ANR은 단일 timeout이 아니라 responsiveness 계약 위반이다](../../01_system_internals/boot-and-runtime/system-server/anr-responsiveness.md)
-- [Binder thread pool은 service concurrency와 deadlock 경계다](../../01_system_internals/ipc-and-process/ipc-process/binder-thread-pool-is-service-concurrency-and-deadlock-boundary.md)
+- [Binder thread pool은 service concurrency와 deadlock 경계다](../../01_system_internals/ipc-and-process/binder-thread-pool.md)
 - [Logcat, crash, ANR, debugger는 서로 다른 질문에 답한다](../../06_testing_performance/debugging/debugging/logcat-crash-anr-and-debugger-answer-different-questions.md)
 - [Worked Example: 앱 아이콘 탭에서 첫 프레임까지](../worked-examples/01-app-icon-tap-to-first-frame.md)
 - [Learning Spine 6장 메인 스레드, Binder, coroutine과 durable scheduler](../learning-spine/06-main-thread-binder-coroutine-and-durable-work-lifetime.md)

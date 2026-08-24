@@ -22,7 +22,7 @@ date created: 2026-08-04 11:00:00 +09:00
 1. **UI 스레드(Compose [recomposition](../../02_app_framework/jetpack-compose/runtime/recomposition.md)/layout 또는 View measure/layout/draw) 병목.** 가장 흔한 원인. 상위 노드 상태 읽기로 인한 광범위 recomposition 또는 heavy layout 계산.
 2. **RenderThread / GPU 병목.** 대형 비트맵 디코딩, 과도한 Overdraw, 복잡한 Canvas 렌더링 노드, 셰이더 컴파일 지연 (Jank during shader compilation).
 3. **`BufferQueue` 및 SurfaceFlinger frame deadline 초과.** App (Producer) 이 렌더링을 제때 닫지 못해 SurfaceFlinger (Consumer) 합성 시점을 놓침.
-4. **Main Thread 가 비렌더링 작업(동기 I/O, 무거운 JSON 파싱, [binder ipc](../../01_system_internals/binder-ipc.md))으로 블록됨.** 렌더링 계산 자체는 가벼우나 메인 스레드 작업 큐가 밀린 경우.
+4. **Main Thread 가 비렌더링 작업(동기 I/O, 무거운 JSON 파싱, [binder ipc](../../01_system_internals/ipc-and-process/binder-ipc.md))으로 블록됨.** 렌더링 계산 자체는 가벼우나 메인 스레드 작업 큐가 밀린 경우.
 
 ### 진단 플로우차트 및 신호 판정 기준
 
@@ -101,7 +101,7 @@ graph TD
 ### 관련 자료
 
 - [Worked Example: Compose jank를 UI state에서 SurfaceFlinger까지 좁히는 사례](../worked-examples/07-compose-jank-from-ui-state-to-surfaceflinger.md)
-- [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/graphics-media/jank-is-frame-deadline-failure-across-ui-renderthread-and-surfaceflinger.md)
+- [Jank는 UI, RenderThread, SurfaceFlinger 전 구간의 frame deadline 실패다](../../01_system_internals/graphics-and-media/jank-frame-deadlines.md)
 - [Compose 상태 읽기 위치는 recomposition 범위를 결정한다](../../02_app_framework/jetpack-compose/performance/compose-performance/compose-state-read-location-controls-recomposition-scope.md)
 - [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../../06_testing_performance/performance/performance/profiler-perfetto-dumpsys-are-diagnosis-tools-not-benchmarks.md)
 - [Learning Spine 7장 입력, 리소스 선택과 화면 프레임](../learning-spine/07-input-resource-selection-and-display-frame.md)

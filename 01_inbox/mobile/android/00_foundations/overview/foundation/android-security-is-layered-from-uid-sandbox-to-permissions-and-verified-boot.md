@@ -70,6 +70,6 @@ flowchart LR
 - [AppOps & 권한 레퍼런스](../../../05_security_privacy/appops-and-permissions.md) - 안드로이드 동적 권한 및 AppOps 통제 메커니즘
 - [Linux Kernel 레퍼런스](../../../../../operating-systems/linux-kernel.md) - UID 샌드박스와 커널 레벨 보안 토대
 - [system_server 레퍼런스](../../../04_system_services/system-server.md) - 시스템 권한 검사를 수행하는 프로세스
-- [Binder IPC 레퍼런스](../../../01_system_internals/binder-ipc.md) - 보안 컨텍스트(UID/PID)를 전달하는 IPC
+- [Binder IPC 레퍼런스](../../../01_system_internals/ipc-and-process/binder-ipc.md) - 보안 컨텍스트(UID/PID)를 전달하는 IPC
 
 공식 문서: [Android security model](https://source.android.com/docs/security), [Permissions overview](https://developer.android.com/guide/topics/permissions/overview)

@@ -10,7 +10,7 @@ date created: 2026-07-31 23:20:00 +09:00
 
 Android의 그래픽과 미디어 런타임 체계는 단순 UI 툴킷 뷰 작성법을 넘어 **버퍼 소유권(Buffer Ownership)과 시간축 VSync 프레임 마감 시간(Frame Deadline)**을 통제하는 하드웨어 가속 실행 계약 위에 구축되어 있다. 앱은 Surface에 프레임을 생산하고, BufferQueue는 producer/consumer를 격리하며, SurfaceFlinger와 Hardware Composer(HWC)는 최적의 오버레이 방식으로 최종 디스플레이를 합성한다.
 
-정본 묶음: [Graphics and media contracts](graphics-media/graphics-media.md)
+정본 묶음: [Graphics and media contracts](graphics-media.md)
 
 ### 계층 구분
 
@@ -29,7 +29,7 @@ graph TD
 - **Native Service**: `SurfaceFlinger`, `HWC` 서비스, `AudioFlinger`, `mediaserver`처럼 별도 Native C++ daemon 프로세스로 동작하며 Binder IPC로 통신하는 영역.
 - **HAL/Kernel**: `HWC2 HAL`, `Camera HAL3`, `Codec2`, `Widevine DRM TEE`, `ALSA/dmabuf` 커널 드라이버 등 칩셋 벤더 하드웨어 자원에 직접 닿는 영역.
 
-이 구분은 [Graphics and media contracts](graphics-media/graphics-media.md) index 문서에서 계약 단위로 세분화되어 기술된다.
+이 구분은 [Graphics and media contracts](graphics-media.md) index 문서에서 계약 단위로 세분화되어 기술된다.
 
 ### 관찰 신호 및 디버깅 접근법
 

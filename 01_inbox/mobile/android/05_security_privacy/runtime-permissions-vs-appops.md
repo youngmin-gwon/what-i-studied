@@ -51,7 +51,7 @@ flowchart TD
 
 ### 상호작용 검증 3단계
 1. **1차 런타임 권한 확인 (`checkSelfPermission`)**: 앱 개발자가 자원 접근 전 런타임 권한 동의 여부를 확인합니다. 동의를 받지 못했다면 권한 요청 팝업을 띄워야 하며, 동의 없이 API를 직접 호출하면 `SecurityException`이 발생합니다.
-2. **2차 AppOps 런타임 상태 평가 (`noteOp` / `startOp`)**: [system-server](../04_system_services/system-server.md) 내부의 서비스는 [Binder IPC](../01_system_internals/binder-ipc.md) 통신 요청을 받은 후 `AppOpsManager`를 통해 현재 앱의 호출 상태(포그라운드 여부, 센서 차단 스위치 켜짐 여부 등)를 검증합니다.
+2. **2차 AppOps 런타임 상태 평가 (`noteOp` / `startOp`)**: [system-server](../04_system_services/system-server.md) 내부의 서비스는 [Binder IPC](../01_system_internals/ipc-and-process/binder-ipc.md) 통신 요청을 받은 후 `AppOpsManager`를 통해 현재 앱의 호출 상태(포그라운드 여부, 센서 차단 스위치 켜짐 여부 등)를 검증합니다.
 3. **결과 처리 및 Silent Ignore**: AppOps 모드가 `MODE_IGNORED`인 경우 시스템은 앱 프로세스를 강제 종료하지 않고 성공 응답인 것처럼 속여 **빈 데이터(empty list, null location 등)**를 반환합니다. 이를 통해 앱의 불필요한 크래시를 방지하면서 사용자의 개인정보를 보호합니다.
 
 ---
@@ -71,4 +71,4 @@ flowchart TD
 
 - [안드로이드 권한 시스템 & AppOps](appops-and-permissions.md) - 안드로이드 2중 보안 검문소 개요 및 권한 체계
 - [안드로이드 시스템 서비스 (system-server)](../04_system_services/system-server.md) - AppOpsManagerService 및 PermissionManagerService가 실행되는 시스템 프로세스
-- [Binder IPC](../01_system_internals/binder-ipc.md) - 앱 프로세스에서 시스템 서비스로 권한 및 AppOps 검증을 요청하는 통신 경계
+- [Binder IPC](../01_system_internals/ipc-and-process/binder-ipc.md) - 앱 프로세스에서 시스템 서비스로 권한 및 AppOps 검증을 요청하는 통신 경계

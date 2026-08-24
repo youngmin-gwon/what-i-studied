@@ -70,5 +70,5 @@ $NDK_PATH/toolchains/llvm/prebuilt/<host>/bin/llvm-objdump -p libmy_native_lib.s
 - [elf-executable-and-linkable-format](../../../../computer-science/elf-executable-and-linkable-format.md) - ELF 바이너리 포맷
 - [android-kernel-runtime](android-kernel-runtime.md) - 안드로이드 커널 런타임
 - [linux-kernel](../../../../operating-systems/linux-kernel.md) - 리눅스 커널 가상 메모리 관리
-- [hal](../hal.md) - 하드웨어 추상화 레이어
-- [art](../art.md) - 안드로이드 런타임 (ART)
+- [hal](hal-native/hal.md) - 하드웨어 추상화 레이어
+- [art](../boot-and-runtime/zygote-runtime/art.md) - 안드로이드 런타임 (ART)

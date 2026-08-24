@@ -12,7 +12,7 @@ date created: 2026-08-03 17:16:58 +09:00
 
 ### 주요 메커니즘 및 코드 예시 (Mechanisms & Code Examples)
 
-- **getSystemService()**: Context 를 통해 싱글톤 형태로 관리되는 매니저 객체 반환. 내부적으로 `ServiceManager` 및 [binder ipc](../../../01_system_internals/binder-ipc.md) 활용.
+- **getSystemService()**: Context 를 통해 싱글톤 형태로 관리되는 매니저 객체 반환. 내부적으로 `ServiceManager` 및 [binder ipc](../../../01_system_internals/ipc-and-process/binder-ipc.md) 활용.
 - **Binder 검사**: 시스템 서버가 호출자의 `Binder.getCallingUid()`와 `Pid` 를 확인하여 권한 승인 검증.
 - **AppOpsManager**: `checkOp` 혹은 `noteOp` 를 통해 런타임에 동적으로 앱의 권한 접근이 허용되어 있는지 확인.
 

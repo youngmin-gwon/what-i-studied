@@ -46,7 +46,7 @@ graph LR
 
 ### 3. Android Platform 에서의 mmap 활용 (Binder IPC)
 
-Android 런타임의 핵심 통신 메커니즘인 [Binder IPC](../mobile/android/01_system_internals/binder-ipc.md) 는 `mmap()` 시스템 콜을 활용하여 **단 1 회의 메모리 복사(Single Copy)** 만으로 데이터를 수신 프로세스에 전달한다.
+Android 런타임의 핵심 통신 메커니즘인 [Binder IPC](../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md) 는 `mmap()` 시스템 콜을 활용하여 **단 1 회의 메모리 복사(Single Copy)** 만으로 데이터를 수신 프로세스에 전달한다.
 
 - 수신자(Server/`system_server`) 프로세스는 앱 구동 시 `/dev/binder` 드라이버에 대해 `mmap()` 을 호출하여 커널 공유 메모리 공간을 자신의 메모리에 미리 매핑해 둔다.
 - 송신자(Client)가 데이터를 보내면, Binder 커널 드라이버는 송신자 메모리에서 수신자가 매핑해둔 메모리로 **단 1 회만 직접 복사**하여 커널 - 유저 간의 복사 낭비를 극복한다.
@@ -55,5 +55,5 @@ Android 런타임의 핵심 통신 메커니즘인 [Binder IPC](../mobile/androi
 
 ### 4. 연결 문서 (Related Links)
 
-- [Binder IPC](../mobile/android/01_system_internals/binder-ipc.md) - mmap() 시스템 콜을 활용하는 Android 백본 IPC
+- [Binder IPC](../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md) - mmap() 시스템 콜을 활용하는 Android 백본 IPC
 - [Linux Kernel](../operating-systems/linux-kernel.md) - mmap 시스템 콜을 제공하는 가상 메모리 관리 커널

@@ -75,4 +75,4 @@ adb shell profman --dump-only --profile-file=/data/misc/profiles/cur/0/com.examp
 - [ART DEX 실행 모드 (ART DEX Execution Modes)](art-dex-execution-modes.md)
 - [ART 런타임 디버깅과 컴파일 필터 (ART Runtime Debugging)](art-runtime-debugging.md)
 - [Zygote 와 ART 런타임 계약](zygote-runtime.md)
-- [Android Compilation Pipeline](../../android-compilation-pipeline.md)
+- [Android Compilation Pipeline](android-compilation-pipeline.md)

@@ -11,7 +11,7 @@ role: atomic-reference
 
 ### 1. 개요 (Overview)
 
-**`system_server`** 는 Android OS 가 부팅될 때 [Zygote](../01_system_internals/zygote.md) 에 의해 가장 먼저 생성되는 **안드로이드 프레임워크의 핵심 총괄 자바 프로세스**이다.
+**`system_server`** 는 Android OS 가 부팅될 때 [Zygote](../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md) 에 의해 가장 먼저 생성되는 **안드로이드 프레임워크의 핵심 총괄 자바 프로세스**이다.
 
 앱의 생명주기를 관제하는 `AMS/ATMS`, 화면과 입력 이벤트를 관제하는 `WMS`, 앱 설치 및 권한을 검증하는 `PMS` 등 수십 개의 핵심 시스템 서비스(System Services)가 이 단 하나의 프로세스 내부 스레드들로 상주한다.
 
@@ -51,15 +51,15 @@ graph TD
 
 `system_server` 프로세스는 상주하는 시스템 서비스들의 인터페이스를 [ServiceManager](service-manager.md) 에 등록하고, 바인더 스레드 풀(Binder Thread Pool)을 통해 외부 앱의 요청을 처리한다.
 
-- **Binder IPC 통신 메커니즘**: `system_server` 내부 스레드와 외부 앱 프로세스 간의 1 회 메모리 복사(`mmap`), 바인더 트랜잭션 버퍼 제한 및 스레드 풀 동작 원리는 독립된 **[Binder IPC](../01_system_internals/binder-ipc.md)** 노드를 참고한다.
+- **Binder IPC 통신 메커니즘**: `system_server` 내부 스레드와 외부 앱 프로세스 간의 1 회 메모리 복사(`mmap`), 바인더 트랜잭션 버퍼 제한 및 스레드 풀 동작 원리는 독립된 **[Binder IPC](../01_system_internals/ipc-and-process/binder-ipc.md)** 노드를 참고한다.
 
 ---
 
 ### 4. 연결 문서 (Related Links)
 
-- [Binder IPC](../01_system_internals/binder-ipc.md) - system_server 통신 IPC 전용 통로 (SSOT)
+- [Binder IPC](../01_system_internals/ipc-and-process/binder-ipc.md) - system_server 통신 IPC 전용 통로 (SSOT)
 - [ServiceManager](service-manager.md) - system_server 서비스들이 등록되는 Handle 0 디렉터리
-- [Zygote](../01_system_internals/zygote.md) - system_server 프로세스를 fork 해주는 마스터 프로세스
+- [Zygote 와 ART 런타임 심층 계약](../01_system_internals/boot-and-runtime/zygote-runtime/zygote-runtime.md) - system_server 프로세스를 fork 해주는 마스터 프로세스
 - [WindowManagerService](window-manager-service.md) - system_server 호스팅 핵심 창 관리 서비스
 - [PackageManagerService](package-manager-service.md) - system_server 호스팅 핵심 패키지/권한 서비스
 - [JobScheduler](job-scheduler.md) - system_server 호스팅 백그라운드 스케줄러

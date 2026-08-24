@@ -32,7 +32,7 @@ date created: 2026-08-06 17:58:00 +09:00
 
 현대 고성능 런타임 환경은 단일 방식만을 고집하지 않고 **JIT 과 AOT 를 결합한 하이브리드 파이프라인**을 채택한다.
 
-- **[Android Compilation Pipeline](../mobile/android/01_system_internals/android-compilation-pipeline.md)**: 설치 시 인터프리터 ➔ 사용 중 JIT 프로파일링 ➔ 유휴 상태 백그라운드 AOT 컴파일 3 단계 혼합 사용.
+- **[Android Compilation Pipeline](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/android-compilation-pipeline.md)**: 설치 시 인터프리터 ➔ 사용 중 JIT 프로파일링 ➔ 유휴 상태 백그라운드 AOT 컴파일 3 단계 혼합 사용.
 - **.NET Core**: AOT(Native AOT)와 JIT(RyuJIT)을 환경 설정에 따라 유연하게 선택 가능.
 
 ---
@@ -41,4 +41,4 @@ date created: 2026-08-06 17:58:00 +09:00
 
 - [JIT Compilation](jit-compilation.md) - JIT 동적 컴파일의 CS 개념 및 원리
 - [AOT Compilation](aot-compilation.md) - AOT 정적 컴파일의 CS 개념 및 원리
-- [Android Compilation Pipeline](../mobile/android/01_system_internals/android-compilation-pipeline.md) - Android 특화 JIT + AOT 3 단계 컴파일 파이프라인
+- [Android Compilation Pipeline](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/android-compilation-pipeline.md) - Android 특화 JIT + AOT 3 단계 컴파일 파이프라인

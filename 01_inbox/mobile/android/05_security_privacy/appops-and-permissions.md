@@ -55,7 +55,7 @@ flowchart TD
 
 #### 검증 및 발생 4 단계
 1. **API 호출**: 앱이 `LocationManager.getLastKnownLocation()` 같은 보호된 함수를 호출합니다.
-2. **Binder 통신 전달**: 요청이 [Binder IPC](../01_system_internals/binder-ipc.md)를 통해 [system-server](../04_system_services/system-server.md) 내부의 해당 서비스(예: `LocationManagerService`)로 전달됩니다.
+2. **Binder 통신 전달**: 요청이 [Binder IPC](../01_system_internals/ipc-and-process/binder-ipc.md)를 통해 [system-server](../04_system_services/system-server.md) 내부의 해당 서비스(예: `LocationManagerService`)로 전달됩니다.
 3. **권한 검증 (`checkCallingPermission` & `noteOp`)**:
    - 시스템 서비스는 Binder 통신으로 넘어온 호출 앱의 UID 와 PID 를 확인합니다.
    - `Context.checkCallingPermission()` 및 `AppOpsManager.noteOp()` 을 실행해 권한과 AppOps 모드를 동시 검증합니다.
@@ -78,4 +78,4 @@ flowchart TD
 
 - [Runtime Permissions vs AppOps](runtime-permissions-vs-appops.md) - 런타임 권한과 AppOps 의 역할 및 동작 차이 상세 비교
 - [안드로이드 시스템 서비스 (system-server)](../04_system_services/system-server.md) - 권한 및 AppOps 검증을 수행하는 프레임워크 프로세스
-- [Binder IPC](../01_system_internals/binder-ipc.md) - 앱 프로세스와 system-server 간 보안 검증 요청을 전달하는 IPC 메커니즘
+- [Binder IPC](../01_system_internals/ipc-and-process/binder-ipc.md) - 앱 프로세스와 system-server 간 보안 검증 요청을 전달하는 IPC 메커니즘

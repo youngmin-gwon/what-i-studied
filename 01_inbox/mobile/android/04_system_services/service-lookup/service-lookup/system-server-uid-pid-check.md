@@ -101,4 +101,4 @@ override fun readForPackage(packageName: String): List<Item> {
 
 ## 4. 연결 문서 (Related Links)
 - [system_server 표준 레퍼런스](../../system-server.md)
-- [Binder IPC 표준 레퍼런스](../../../01_system_internals/binder-ipc.md)
+- [Binder IPC 표준 레퍼런스](../../../01_system_internals/ipc-and-process/binder-ipc.md)

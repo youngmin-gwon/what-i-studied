@@ -49,10 +49,10 @@ Kotlin 생태계에서는 **`kotlin-reflect` 사용을 가급적 피하고 컴�
 
 ### 1) 주요 활용 분야
 - **구형 의존성 주입 (DI)**: Spring Framework, Guice 등 런타임 탐색.
-- **구형 직렬화**: [java.io.Serializable](../mobile/android/01_system_internals/binder-ipc.md) 객체 자동 변환.
+- **구형 직렬화**: [java.io.Serializable](../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md) 객체 자동 변환.
 
 ### 2) 심각한 단점
-- **런타임 성능 오버헤드**: 직접 호출 대비 수십 배 이상 느리며 [ART 런타임](../mobile/android/01_system_internals/art.md) 최적화를 방해함.
+- **런타임 성능 오버헤드**: 직접 호출 대비 수십 배 이상 느리며 [ART 런타임](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/art.md) 최적화를 방해함.
 - **가비지 컬렉션(GC) 폭증**: 메타데이터 객체 남발로 [Garbage Collection](garbage-collection.md) 팝업 유발.
 - **타입 안전성 파괴**: 오타 발생 시 런타임 크래시 유발.
 
@@ -74,6 +74,6 @@ Kotlin 생태계에서는 **`kotlin-reflect` 사용을 가급적 피하고 컴�
 - [Java vs Kotlin Reflection](java-vs-kotlin-reflection.md) - Java 와 Kotlin Reflection 패키지 세부 비교
 - [Compile-time Code Generation](compile-time-code-generation.md) - 리플렉션을 대체하는 코드 생성 메커니즘
 - [APT vs KSP](apt-vs-ksp.md) - 어노테이션 및 심볼 프로세서 비교
-- [Serializable](../mobile/android/01_system_internals/binder-ipc.md) - 리플렉션 기반 구형 직렬화와 컴파일 타임 kotlinx.serialization 비교
+- [Serializable](../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md) - 리플렉션 기반 구형 직렬화와 컴파일 타임 kotlinx.serialization 비교
 - [Garbage Collection](garbage-collection.md) - 리플렉션 객체 생성으로 인해 유발되는 GC 팝업
-- [ART (Android Runtime)](../mobile/android/01_system_internals/art.md) - 리플렉션 실행 시 컴파일 최적화가 제약되는 안드로이드 런타임
+- [ART (Android Runtime)](../mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/art.md) - 리플렉션 실행 시 컴파일 최적화가 제약되는 안드로이드 런타임

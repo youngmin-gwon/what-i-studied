@@ -90,7 +90,7 @@ adb logcat -s SystemServer
 
 ### 관련 문서
 
-- [system-service-is-binder-endpoint-and-platform-policy-enforcer](system-service-is-binder-endpoint-and-platform-policy-enforcer.md)
-- [dumpsys는 system service의 현재 상태를 보는 inspection interface다](dumpsys-is-system-service-state-inspection-interface.md)
+- [system-service-is-binder-endpoint-and-platform-policy-enforcer](system-service-binder-endpoint.md)
+- [dumpsys는 system service의 현재 상태를 보는 inspection interface다](dumpsys-service-inspection.md)
 
 공식 문서: [SystemServer Source Overview](https://cs.android.com/android/platform/superproject/+/main:frameworks/base/services/java/com/android/server/SystemServer.java)

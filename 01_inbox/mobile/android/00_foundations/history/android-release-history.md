@@ -2,7 +2,7 @@
 title: android-release-history
 tags: [android, foundations, history, platform-timeline, release-history, sdk-versions]
 aliases: [Android Release History, 안드로이드 릴리스 히스토리, 플랫폼 진화사]
-date modified: 2026-08-20 16:45:59 +09:00
+date modified: 2026-08-24 17:13:32 +09:00
 date created: 2026-08-04 16:16:52 +09:00
 ---
 
@@ -48,10 +48,10 @@ timeline
 
 ### 2. 주요 아키텍처 기술 전환점 (Major Architectural Transitions)
 
-#### 1. 런타임: Dalvik (JIT) → [ART](../../01_system_internals/art.md) (AOT & Profile-Guided)
+#### 1. 런타임: Dalvik (JIT) → [ART](../../01_system_internals/boot-and-runtime/zygote-runtime/art.md) (AOT & Profile-Guided)
 
 - **Dalvik (Android 1.0~4.4)**: 앱 실행 시마다 DEX 파이프라인을 JIT 컴파일하여 CPU/배터리 소모가 높음.
-- **[ART (Android Runtime)](../../01_system_internals/art.md) 전환 (Android 5.0+)**: 앱 설치 시점에 DEX 를 미리 Native 기계어로 컴파일하는 AOT(Ahead-Of-Time) 도입 (`dex2oat`).
+- **[ART (Android Runtime)](../../01_system_internals/boot-and-runtime/zygote-runtime/art.md) 전환 (Android 5.0+)**: 앱 설치 시점에 DEX 를 미리 Native 기계어로 컴파일하는 AOT(Ahead-Of-Time) 도입 (`dex2oat`).
 - **Profile-Guided ART (Android 7.0+)**: 설치 시 부분 컴파일 + JIT 프로파일 수집(`primary.prof`) + 유휴 시 배경 컴파일로 설치 시간과 저장 공간 최적화.
 
 #### 2. 언어 및 비동기: Java → Kotlin-First (2017+)
@@ -67,7 +67,7 @@ timeline
 #### 4. HAL 아키텍처: HIDL → AIDL HAL (2019+)
 
 - HIDL (Android 8.0 [Project Treble](../../01_system_internals/platform-modularity/android-platform-modularity.md)): C++ 언어 기반 시스템과 Vendor 하드웨어 물리 분리.
-- **AIDL HAL (Android 11+)**: Java, C++, Rust 지원 및 [Binder IPC](../../01_system_internals/binder-ipc.md) 인프라로 단일화.
+- **AIDL HAL (Android 11+)**: Java, C++, Rust 지원 및 [Binder IPC](../../01_system_internals/ipc-and-process/binder-ipc.md) 인프라로 단일화.
 
 #### 5. 보안 & 프라이버시: 권한 및 저장소 모델의 진화
 
@@ -84,7 +84,7 @@ timeline
 
 ### 3. 버전별 핵심 패러다임 연대기
 
-- **Android 5.0 Lollipop (2014)**: [ART 런타임](../../01_system_internals/art.md) 기본 적용, Material Design, SELinux Enforcing.
+- **Android 5.0 Lollipop (2014)**: [ART 런타임](../../01_system_internals/boot-and-runtime/zygote-runtime/art.md) 기본 적용, Material Design, SELinux Enforcing.
 - **Android 6.0 Marshmallow (2015)**: [AppOps & 런타임 권한](../../05_security_privacy/appops-and-permissions.md), [Doze 배터리 모드](../../04_system_services/job-scheduler.md).
 - **Android 7.0 Nougat (2016)**: [Activity 멀티 윈도우](../../02_app_framework/architecture/app-components/activity.md), Vulkan API, A/B Updates.
 - **Android 8.0 Oreo (2017)**: [Project Treble](../../01_system_internals/platform-modularity/android-platform-modularity.md), [Foreground Service 제약](../../04_system_services/background-and-notifications/background-work/foreground-service.md).
@@ -101,8 +101,8 @@ timeline
 
 ### 4. 연결 문서 (Related Links)
 
-- [ART 런타임](../../01_system_internals/art.md)
-- [Binder IPC](../../01_system_internals/binder-ipc.md)
+- [ART 런타임](../../01_system_internals/boot-and-runtime/zygote-runtime/art.md)
+- [Binder IPC](../../01_system_internals/ipc-and-process/binder-ipc.md)
 - [Project Treble & Mainline APEX](../../01_system_internals/platform-modularity/android-platform-modularity.md)
 - [Activity 컴포넌트](../../02_app_framework/architecture/app-components/activity.md)
 - [Service 컴포넌트](../../02_app_framework/architecture/app-components/service.md)
