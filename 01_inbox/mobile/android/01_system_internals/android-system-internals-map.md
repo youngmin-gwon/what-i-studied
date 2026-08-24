@@ -2,7 +2,7 @@
 title: android-system-internals-map
 tags: ["android", "android/system-internals"]
 aliases: ["Android System Internals Map 은 7개 하위 클러스터를 부팅부터 커스터마이징까지 순서대로 연결하는 통합 지도다"]
-date modified: 2026-08-24 17:29:20 +09:00
+date modified: 2026-08-24 22:11:20 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 

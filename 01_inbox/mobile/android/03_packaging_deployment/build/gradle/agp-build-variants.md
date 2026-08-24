@@ -2,7 +2,7 @@
 title: agp-build-variants
 tags: ["agp", "android", "buildtype", "flavor", "gradle", "variant"]
 aliases: ["AGP Build Variants", "Build Type", "Build Variant", "Product Flavor", "빌드 변형", "카테시안 곱"]
-date modified: 2026-08-24 17:32:35 +09:00
+date modified: 2026-08-24 22:11:42 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 17:52:17 +09:00
 
 ### 개요
 
-Android AGP(Android Gradle Plugin) 빌드 시스템에서 **Build Variant(빌드 변형)**는 **Build Type(빌드 환경 축)**과 **Product Flavor(제품 변종 축)**라는 두 개의 서로 다른 직교(Orthogonal) 축의 **카테시안 곱(Cartesian Product)**으로 형성된다.
+Android AGP(Android Gradle Plugin) 빌드 시스템에서 **Build Variant(빌드 변형)** 는 **Build Type(빌드 환경 축)** 과 **Product Flavor(제품 변종 축)** 라는 두 개의 서로 다른 직교(Orthogonal) 축의 **카테시안 곱(Cartesian Product)** 으로 형성된다.
 
 이를 통해 단일 코드베이스에서 디버그/릴리스 환경뿐만 아니라 무료/유료 버전, 개발/운영 서버 엔드포인트 등을 독립된 아티팩트로 유연하게 생성 및 배포할 수 있다.
 
