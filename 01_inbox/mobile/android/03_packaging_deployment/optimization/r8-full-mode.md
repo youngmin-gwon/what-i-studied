@@ -1,25 +1,25 @@
 ---
 title: r8-full-mode
-tags: ["android", "r8", "fullmode", "optimization", "agp", "performance"]
-aliases: ["R8 Full Mode", "R8 풀 모드", "R8 Configuration Analyzer", "android.enableR8.fullMode", "R8 최적화 모드"]
+tags: ["agp", "android", "fullmode", "optimization", "performance", "r8"]
+aliases: ["android.enableR8.fullMode", "R8 Configuration Analyzer", "R8 Full Mode", "R8 최적화 모드", "R8 풀 모드"]
+date modified: 2026-08-24 18:20:37 +09:00
 date created: 2026-08-24 15:05:00 +09:00
-date modified: 2026-08-24 15:05:00 +09:00
 ---
 
-## R8 Full Mode와 Configuration Analyzer (R8 Full Mode & Rules Analysis)
+## R8 Full Mode 와 Configuration Analyzer (R8 Full Mode & Rules Analysis)
 
 ### 개요
 
 **R8 Full Mode(풀 모드)** 는 기존 호환 모드(Compatibility Mode)의 보수적인 제약을 해제하고, 더 공격적인 코드 수축(Shrinking), 인라이닝(Inlining), 클래스 병합(Class Merging), 인자 제거(Argument Removal)를 적용하는 R8 최적화 실행 모드이다.
 
-**AGP 8.0부터 기본값(Default)으로 활성화**되었으며, 과거 마이그레이션 과정에서 임시로 설정했던 `android.enableR8.fullMode=false` 플래그가 남아있다면 이를 제거하고 최신 릴리스 테스트로 검증해야 한다.
+**AGP 8.0 부터 기본값(Default)으로 활성화**되었으며, 과거 마이그레이션 과정에서 임시로 설정했던 `android.enableR8.fullMode=false` 플래그가 남아있다면 이를 제거하고 최신 릴리스 테스트로 검증해야 한다.
 
 ```mermaid
 flowchart TD
     Rules["ProGuard Keep Rules"] --> Mode{"R8 실행 모드"}
     
-    Mode -->|Compat Mode| LowOpt["보수적 최적화<br/>(클래스 Keep 시 Default Constructor 등 과도 보호)"]
-    Mode -->|Full Mode (AGP 8.0+ 기본)| HighOpt["공격적 최적화<br/>(미사용 인자 제거 + 단일 구현체 클래스 병합 + 강력 인라이닝)"]
+    Mode -->|"Compat Mode"| LowOpt["보수적 최적화<br/>(클래스 Keep 시 Default Constructor 등 과도 보호)"]
+    Mode -->|"Full Mode (AGP 8.0+ 기본)"| HighOpt["공격적 최적화<br/>(미사용 인자 제거 + 단일 구현체 클래스 병합 + 강력 인라이닝)"]
     
     HighOpt --> Analyzer["R8 Configuration Analyzer<br/>(최적화를 가로막는 병목 규칙 시각화 리포트)"]
 ```
@@ -30,7 +30,7 @@ flowchart TD
 
 | 비교 항목 | Compat Mode (호환 모드 / 과거 기본값) | Full Mode (풀 모드 / AGP 8.0+ 기본값) |
 |---|---|---|
-| **기본 생성자 처리** | 클래스가 `-keep`되면 명시되지 않은 기본 생성자(`<init>()`)도 자동으로 보호함 | 명시되지 않은 생성자는 사용되지 않을 경우 엄격히 제거 |
+| **기본 생성자 처리** | 클래스가 `-keep` 되면 명시되지 않은 기본 생성자(`<init>()`)도 자동으로 보호함 | 명시되지 않은 생성자는 사용되지 않을 경우 엄격히 제거 |
 | **미사용 인자 제거** | 메서드 시그니처를 보수적으로 유지 | 호출부에서 사용되지 않는 매개변수 바이트코드를 완전 삭제 |
 | **클래스 병합 (Class Merging)** | 제한적 병합 수행 | 단일 구현 인터페이스나 1:1 상속 클래스를 하나로 적극 병합 |
 | **DEX 크기 절감률** | 기준선 (Baseline) | **추가 5~15% 이상의 바이트코드 크기 축소 달성** |

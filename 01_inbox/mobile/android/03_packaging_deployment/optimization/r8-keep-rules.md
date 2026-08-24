@@ -1,9 +1,9 @@
 ---
 title: r8-keep-rules
-tags: ["android", "r8", "proguard", "keep-rules", "obfuscation", "reflection", "optimization"]
-aliases: ["R8 Keep Rules", "Keep Rules", "Keep 규칙", "ProGuard Keep 규칙", "proguard-rules.pro", "@Keep"]
+tags: ["android", "keep-rules", "obfuscation", "optimization", "proguard", "r8", "reflection"]
+aliases: ["@Keep", "Keep Rules", "Keep 규칙", "ProGuard Keep 규칙", "proguard-rules.pro", "R8 Keep Rules"]
+date modified: 2026-08-24 18:21:16 +09:00
 date created: 2026-08-24 15:05:00 +09:00
-date modified: 2026-08-24 15:05:00 +09:00
 ---
 
 ## R8 Keep 규칙과 최적화 경계 (Keep Rules & Optimization Boundaries)
@@ -42,7 +42,9 @@ flowchart TD
 ### 2. 핵심 실무 패턴별 Keep 규칙 예시
 
 #### 1) DTO 및 JSON 직렬화 객체 (Gson / Jackson / Moshi)
-리플렉션으로 필드명에 접근하는 DTO 클래스는 필드명이 `a`, `b`로 난독화되면 JSON 파싱 결과가 모두 `null`이 된다:
+
+리플렉션으로 필드명에 접근하는 DTO 클래스는 필드명이 `a`, `b`로 난독화되면 JSON 파싱 결과가 모두 `null` 이 된다:
+
 ```proguard
 # 클래스명은 난독화(a, b)를 허용하되, 내부 직렬화 필드만 보존
 -keepclassmembers class com.example.myapp.data.dto.** {
@@ -51,7 +53,9 @@ flowchart TD
 ```
 
 #### 2) JNI 네이티브 C/C++ 연동 메서드
-C/C++ 네이티브 코드에서 Java 메서드를 찾을 때 사용하는 `Java_com_example_...` 시그니처가 깨지지 않도록 보호:
+
+C/C++ 네이티브 코드에서 Java 메서드를 찾을 때 사용하는 `Java_com_example_…` 시그니처가 깨지지 않도록 보호:
+
 ```proguard
 # native 메서드를 하나라도 가진 클래스와 해당 native 메서드 시그니처 보존
 -keepclasseswithmembernames class * {
@@ -60,7 +64,9 @@ C/C++ 네이티브 코드에서 Java 메서드를 찾을 때 사용하는 `Java_
 ```
 
 #### 3) XML 레이아웃 커스텀 뷰 (Custom View)
-`LayoutInflater`가 런타임 리플렉션으로 2인자 생성자를 호출하므로 보존 필수:
+
+`LayoutInflater` 가 런타임 리플렉션으로 2 인자 생성자를 호출하므로 보존 필수:
+
 ```proguard
 -keepclassmembers class * extends android.view.View {
     public <init>(android.content.Context, android.util.AttributeSet);
@@ -69,7 +75,9 @@ C/C++ 네이티브 코드에서 Java 메서드를 찾을 때 사용하는 `Java_
 ```
 
 #### 4) `@Keep` 어노테이션 활용 (`androidx.annotation.Keep`)
+
 별도의 `proguard-rules.pro` 파일을 수정하지 않고 코드 수준에서 직접 경계를 지정:
+
 ```kotlin
 import androidx.annotation.Keep
 
@@ -85,9 +93,9 @@ data class PaymentResponse(
 ### 3. Keep 규칙 작성 시 주의사항과 안티패턴
 
 1. **과도한 와일드카드 사용 금지 (`-keep class com.example.** { *; }`)**:
-   - 패키지 전체를 무분별하게 `-keep`하면 R8의 코드 수축률이 급감하고 APK 용량이 폭증한다.
+   - 패키지 전체를 무분별하게 `-keep` 하면 R8 의 코드 수축률이 급감하고 APK 용량이 폭증한다.
 2. **`-dontwarn` 지시어의 올바른 사용**:
-   - `-dontwarn`은 컴파일 시점에 존재하지 않는 클래스 참조에 대한 경고를 억제하는 옵션이다.
+   - `-dontwarn` 은 컴파일 시점에 존재하지 않는 클래스 참조에 대한 경고를 억제하는 옵션이다.
    - 런타임에 실제로 호출되지 않는 선택적 서드파티 의존성에만 한정하여 사용해야 하며, 실제 누락된 필수 라이브러리를 숨기는 용도로 남용하면 안 된다.
 
 ---

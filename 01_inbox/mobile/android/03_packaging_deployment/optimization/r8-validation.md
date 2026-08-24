@@ -1,9 +1,9 @@
 ---
 title: r8-validation
-tags: ["android", "r8", "testing", "regression", "retrace", "mapping", "apkanalyzer"]
-aliases: ["R8 Validation", "R8 릴리스 검증", "De-obfuscation", "retrace", "mapping.txt", "R8 회귀 테스트"]
+tags: ["android", "apkanalyzer", "mapping", "r8", "regression", "retrace", "testing"]
+aliases: ["De-obfuscation", "mapping.txt", "R8 Validation", "R8 릴리스 검증", "R8 회귀 테스트", "retrace"]
+date modified: 2026-08-24 18:21:43 +09:00
 date created: 2026-08-24 15:05:00 +09:00
-date modified: 2026-08-24 15:05:00 +09:00
 ---
 
 ## R8 릴리스 검증과 De-obfuscation (R8 Output Validation & Retrace)
@@ -34,10 +34,12 @@ flowchart TD
 ### 1. 2 대 핵심 검증 관문
 
 #### 1) 용량 회귀 감사 (Size Diff Audit)
+
 - 이전 릴리스 아티팩트 대비 `DEX`, `res`, `assets`, `lib(.so)` 디렉터리의 바이트 단위 증감률을 분석한다.
 - 불필요한 서드파티 라이브러리나 디버그 전용 코드가 R8 에 의해 걸러지지 않고 유입되었는지를 사전에 감지한다.
 
 #### 2) 런타임 계측 회귀 테스트 (Release Variant E2E)
+
 - R8 이 적용된 실제 릴리스 아티팩트로 자동화 E2E 테스트 및 Macrobenchmark 를 실행한다.
 - 리플렉션 기반 직렬화(Gson/Moshi/Retrofit), JNI C/C++ 네이티브 연동, 커스텀 뷰 XML 인플레이션이 정상 동작하는지 검증한다.
 
@@ -52,8 +54,8 @@ R8 이 활성화된 릴리스 앱에서 크래시가 발생하면 클래스와 �
 retrace app/build/outputs/mapping/release/mapping.txt obfuscated_trace.txt
 ```
 
-> [!IMPORTANT]
-> `mapping.txt` 파일은 각 빌드마다 고유하게 생성되는 암호 해독 키와 같다. 배포된 특정 버전의 `mapping.txt`를 분실하면 해당 버전에서 발생한 사용자 크래시 로그를 영원히 복원할 수 없으므로, CI 파이프라인에서 아티팩트 저장소에 영구 아카이빙하거나 Google Play Console / Crashlytics에 자동 업로드해야 한다.
+>[!IMPORTANT]
+>`mapping.txt` 파일은 각 빌드마다 고유하게 생성되는 암호 해독 키와 같다. 배포된 특정 버전의 `mapping.txt` 를 분실하면 해당 버전에서 발생한 사용자 크래시 로그를 영원히 복원할 수 없으므로, CI 파이프라인에서 아티팩트 저장소에 영구 아카이빙하거나 Google Play Console / Crashlytics 에 자동 업로드해야 한다.
 
 ---
 

@@ -1,9 +1,9 @@
 ---
 title: r8-resource-shrinking
-tags: ["android", "agp", "resource-shrinking", "r8", "optimization", "aapt2"]
-aliases: ["Resource Shrinking", "리소스 수축", "AGP Resource Shrinker", "isShrinkResources", "keep.xml"]
+tags: ["aapt2", "agp", "android", "optimization", "r8", "resource-shrinking"]
+aliases: ["AGP Resource Shrinker", "isShrinkResources", "keep.xml", "Resource Shrinking", "리소스 수축"]
+date modified: 2026-08-24 18:21:28 +09:00
 date created: 2026-08-24 15:05:00 +09:00
-date modified: 2026-08-24 15:05:00 +09:00
 ---
 
 ## R8 리소스 수축과 keep.xml 관리 (Resource Shrinking)
@@ -12,7 +12,7 @@ date modified: 2026-08-24 15:05:00 +09:00
 
 **Resource Shrinking(리소스 수축 - `isShrinkResources = true`)** 은 AGP 빌드 파이프라인에서 실제 앱 코드에서 참조되지 않는 미사용 XML 레이아웃, 이미지, 드로어블, 원시 리소스(Asset)를 패키징 단계에서 제거하거나 더미화하여 앱 다운로드 크기를 축소하는 최적화 프로세스이다.
 
-리소스 수축은 반드시 **[R8 코드 수축(Code Shrinking)](d8-and-r8.md)이 완료된 이후에 연동 실행**되어야 한다. R8 에 의해 미사용 라이브러리나 기능 코드가 삭제되어야만, 그 코드가 참조하던 전용 리소스 파일들 역시 비참조(Unused) 상태로 식별될 수 있기 때문이다.
+리소스 수축은 반드시 **[R8 코드 수축(Code Shrinking)](d8-and-r8.md) 이 완료된 이후에 연동 실행**되어야 한다. R8 에 의해 미사용 라이브러리나 기능 코드가 삭제되어야만, 그 코드가 참조하던 전용 리소스 파일들 역시 비참조(Unused) 상태로 식별될 수 있기 때문이다.
 
 ```mermaid
 flowchart TD
@@ -38,7 +38,7 @@ flowchart TD
    - R8 코드 수축이 완료되면, Resource Shrinker 는 살아남은 DEX 파일 전체를 스캔하여 `R.drawable.*`, `R.layout.*`, `R.string.*` 등의 정수형 리소스 ID 사용처를 추적한다.
 2. **미사용 리소스 더미화 (Dummy Replacement)**:
    - 미사용 리소스를 `resources.arsc` 테이블에서 물리적으로 완전히 삭제하면 AAPT2 의 정수형 ID 인덱스가 깨질 수 있다.
-   - 따라서 Resource Shrinker 는 리소스 엔트리는 유지하되, 실제 파일 바이너리를 **1×1 픽셀 투명 PNG나 아주 작은 빈 XML 더미 파일**로 교체하여 파일 용량을 수 바이트 수준으로 압축한다.
+   - 따라서 Resource Shrinker 는 리소스 엔트리는 유지하되, 실제 파일 바이너리를 **1×1 픽셀 투명 PNG 나 아주 작은 빈 XML 더미 파일**로 교체하여 파일 용량을 수 바이트 수준으로 압축한다.
 
 ---
 
@@ -60,14 +60,14 @@ android {
 }
 ```
 
-> [!WARNING]
-> `isShrinkResources = true`는 반드시 `isMinifyEnabled = true`와 함께 선언되어야 한다. 코드 수축 없이 리소스 수축만 단독으로 켜면 빌드 에러가 발생한다.
+>[!WARNING]
+>`isShrinkResources = true`는 반드시 `isMinifyEnabled = true` 와 함께 선언되어야 한다. 코드 수축 없이 리소스 수축만 단독으로 켜면 빌드 에러가 발생한다.
 
 ---
 
 ### 3. 동적 리소스 참조와 `res/raw/keep.xml`
 
-런타임에 문자열 이름으로 리소스를 동적 조회하는 경우(`Resources.getIdentifier()`), Resource Shrinker 가 이를 미사용 리소스로 오판하여 더미화할 수 있다. 이를 방지하기 위해 `res/raw/keep.xml`을 선언한다.
+런타임에 문자열 이름으로 리소스를 동적 조회하는 경우(`Resources.getIdentifier()`), Resource Shrinker 가 이를 미사용 리소스로 오판하여 더미화할 수 있다. 이를 방지하기 위해 `res/raw/keep.xml` 을 선언한다.
 
 ```xml
 <!-- app/src/main/res/raw/keep.xml -->

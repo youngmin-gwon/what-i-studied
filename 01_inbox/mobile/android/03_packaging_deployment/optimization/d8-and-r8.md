@@ -2,7 +2,7 @@
 title: d8-and-r8
 tags: ["android", "bytecode", "d8", "desugaring", "dexing", "optimization", "proguard", "r8"]
 aliases: ["D8 and R8", "D8 컴파일러", "D8과 R8", "Desugaring", "DEX 변환", "Dexing", "R8 최적화", "덱싱"]
-date modified: 2026-08-24 18:10:56 +09:00
+date modified: 2026-08-24 18:17:11 +09:00
 date created: 2026-08-24 14:25:00 +09:00
 ---
 
@@ -41,13 +41,25 @@ flowchart TD
 
 >Android 기기는 JVM 바이트코드(`.class`)를 직접 실행하지 못하며, 모바일 하드웨어에 최적화된 `.dex` 포맷만을 실행할 수 있다.
 
-| 비교 항목                   | JVM 표준 바이트코드 (`.class`)              | Android 런타임 바이너리 (`.dex`)                  |
-| ----------------------- | ------------------------------------ | ------------------------------------------ |
-| **실행 가상 머신**            | 표준 JVM (HotSpot 등)                   | **Android ART (Android Runtime)** / Dalvik |
-| **가상 머신 구조**            | **스택 기반 (Stack-based)** (피연산자 스택 사용) | **레지스터 기반 (Register-based)** (가상 레지스터 사용)  |
-| **상수 풀(Constant Pool)** | 각 `.class` 파일마다 독립된 상수 풀 소유 (극심한 중복) | **전체 앱의 모든 클래스가 단일 상수 풀을 공유 (중복 제거)**      |
-| **파일 구조**               | 1 개 클래스 = 1 개 `.class` 파일 (수천 개 분산)  | **수천 개의 클래스가 단 하나의 `classes.dex` 로 압축 통합** |
-| **메모리 및 I/O 효율**        | 데스크톱/서버용 (메모리 사용량 큼)                 | **모바일 최적화 (RAM 절약, 캐시 지역성 향상, 빠른 검증)**     |
+| 비교 항목 | JVM 표준 바이트코드 (`.class`) | Android 런타임 바이너리 (`.dex`) |
+| :--- | :--- | :--- |
+| **실행 가상 머신** | 표준 JVM (HotSpot 등) | **Android ART (Android Runtime)** / Dalvik |
+| **가상 머신 구조** | **스택 기반 (Stack-based)** (피연산자 스택 사용) | **레지스터 기반 (Register-based)** (가상 레지스터 사용) |
+| **상수 풀(Constant Pool)** | 각 `.class` 파일마다 독립된 상수 풀 소유 (극심한 중복) | **전체 앱의 모든 클래스가 단일 상수 풀을 공유 (중복 제거)** |
+| **파일 구조** | 1 개 클래스 = 1 개 `.class` 파일 (수천 개 분산) | **수천 개의 클래스가 단 하나의 `classes.dex` 로 압축 통합** |
+| **메모리 및 I/O 효율** | 데스크톱/서버용 (메모리 사용량 큼) | **모바일 최적화 (RAM 절약, 캐시 지역성 향상, 빠른 검증)** |
+
+상세 원리: [스택 기반 vs 레지스터 기반 가상 머신 아키텍처](../../../../../02_references/computer-science/stack-vs-register-virtual-machine.md)
+
+#### 💡 스택 기반(JVM) vs 레지스터 기반(Dalvik/ART)이 Android 에 주는 3 대 핵심 이점
+1. **VM 디스패치 명령어 수 30~50% 감소 (배터리 & CPU 절약)**:
+   - 스택 머신은 `c = a + b` 연산 시 4 개의 명령어(`iload`, `iload`, `iadd`, `istore`)가 필요하지만, 레지스터 머신은 단 1 개의 명령어(`add-int v0, v1, v2`)로 처리한다.
+   - 인터프리터의 디스패치 루프(Fetch-Decode-Execute) 횟수가 줄어들어 모바일 CPU 클럭 소모와 배터리 소모를 획기적으로 낮춘다.
+2. **모바일 ARM CPU 물리 레지스터와의 1:1 직관적 매핑**:
+   - 스마트폰의 ARM 프로세서는 다수의 물리 레지스터(ARM32: 16 개, ARM64: 31 개)를 가진 레지스터 머신이다.
+   - ART 의 JIT/AOT(`dex2oat`) 컴파일러는 DEX 의 가상 레지스터(`v0`, `v1`…)를 ARM 물리 레지스터(`r0`, `x0`…)로 거의 1:1 로 직접 매핑(Linear Scan Register Allocation)하여 고성능 네이티브 코드를 생성한다.
+3. **스택 푸시/팝 메모리 오버헤드 및 캐시 트래싱 방지**:
+   - 스택 포인터 조작 및 임시 메모리 복사 없이 가상 레지스터 슬롯 배열 내에서 직접 값을 재활용하므로 CPU 캐시 적중률(Cache Locality)이 우수하다.
 
 ---
 
@@ -83,18 +95,37 @@ Google 컴파일러 팀이 부여한 **"핵심 기능 머리글자(Prefix)" + "�
 
 ---
 
-### 4. D8 과 R8 의 공존 관계: 무엇이 사라지고 무엇이 남았는가?
+### 4. D8 과 R8 의 공존 및 포함 관계: 무엇이 사라지고 무엇이 남았는가?
 
->D8 과 R8 은 단일 코드베이스 안에서 빌드 목적(Debug vs Release)에 따라 동작 모드를 달리하는 공존 관계이다.
+>D8 과 R8 은 별개의 독립된 도구가 아니라, **R8 이 내부적으로 D8 의 덱싱(Dexing) 및 디슈가링(Desugaring) 엔진을 완전히 포함(내장)하고 있는 상위 집합(Superset) 관계**이다.
 
-| 구분                       | **D8 (Debug 빌드 기본)**                                   | **R8 (Release 빌드 기본)**         |
-| ------------------------ | ------------------------------------------------------ | ------------------------------ |
-| **활성화 조건**               | `isMinifyEnabled = false`                              | `isMinifyEnabled = true`       |
-| **주요 목표**                | **개발자 생산성 극대화 (초고속 증분 빌드)**                            | **배포 크기 최소화 & 코드 보안 (난독화/수축)** |
-| **코드 수축 (Tree Shaking)** | ❌ 미수행 (모든 클래스 보존)                                      | ⭕ **수행 (미사용 코드 완전 삭제)**        |
-| **난독화 (Obfuscation)**    | ❌ 미수행 (디버깅 시 원본 이름 보존)                                 | ⭕ **수행 (`a`, `b` 등 식별자 축소)**   |
-| **증분 덱싱 지원**             | ⭕ **지원 (수정된 클래스만 즉시 덱싱)**                              | ❌ 전체 앱 그래프 분석 필요로 증분 불가        |
-| **실행되는 Gradle 태스크**      | `:app:dexBuilderDebug`<br/>`:app:mergeProjectDexDebug` | `:app:minifyReleaseWithR8`     |
+```mermaid
+graph TD
+    subgraph R8_Engine ["R8 통합 컴파일러"]
+        PG["ProGuard 영역<br/>(Shrinking, Inlining, Obfuscation)"]
+        subgraph D8_Engine ["D8 내장 엔진"]
+            Desugar["Java 8+ Desugaring"]
+            Dexer["DEX Bytecode Generation"]
+        end
+        PG --> D8_Engine
+    end
+```
+
+| 구분 | **D8 (Debug 빌드 기본)** | **R8 (Release 빌드 기본)** |
+| :--- | :--- | :--- |
+| **포함 관계** | 순수 덱서 (Dexer + Desugaring) | **D8 의 모든 기능 + ProGuard 의 최적화/난독화/수축 기능** |
+| **활성화 조건** | `isMinifyEnabled = false` | `isMinifyEnabled = true` |
+| **주요 목표** | **개발자 생산성 극대화 (초고속 증분 빌드)** | **배포 크기 최소화 & 코드 보안 (난독화/수축)** |
+| **코드 수축 (Tree Shaking)** | ❌ 미수행 (모든 클래스 보존) | ⭕ **수행 (미사용 코드 완전 삭제)** |
+| **난독화 (Obfuscation)** | ❌ 미수행 (디버깅 시 원본 이름 보존) | ⭕ **수행 (`a`, `b` 등 식별자 축소)** |
+| **증분 덱싱 (Incremental)** | ⭕ **지원 (수정된 클래스만 즉시 덱싱)** | ❌ **비활성화 (전체 프로그램 분석 필요로 일괄 덱싱)** |
+| **실행되는 Gradle 태스크** | `:app:dexBuilderDebug`<br/>`:app:mergeProjectDexDebug` | `:app:minifyReleaseWithR8` |
+
+#### 💡 왜 R8 은 D8 의 기능을 다 가지고 있으면서 증분 덱싱을 지원하지 않는가?
+
+- R8 은 전체 앱의 클래스 의존성 그래프를 한눈에 내려다보는 **전체 프로그램 분석(Whole-Program Analysis)** 을 수행합니다.
+- 특정 클래스 `A`가 수정되었을 때, `A`의 수정이 다른 클래스 `B` 의 메서드 인라이닝(Inlining), 데드 코드 제거(Dead Code Elimination), 난독화 이름 매핑(`mapping.txt`)에 연쇄적인 영향을 미치기 때문에, 릴리스 최적화 시점에는 안전성을 위해 개별 파일 단위의 증분 덱싱을 할 수 없고 전체를 일괄 최적화/덱싱해야 합니다.
+- 따라서 **Debug 빌드에서는 빠른 개발 피드백을 위해 R8 의 최적화 단계를 끄고 D8 모드로 증분 덱싱을 수행**하고, **Release 빌드에서는 D8 의 덱서 위에 R8 의 수축/최적화 단계를 올려 최종 DEX 를 생성**합니다.
 
 #### 실제로 완전히 사라진 도구들 (Deprecated & Removed)
 
