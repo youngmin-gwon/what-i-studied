@@ -2,7 +2,7 @@
 title: agp-signing-config
 tags: ["agp", "android", "play-store", "security", "signing"]
 aliases: ["AGP Signing Config", "Android 서명 설정", "Play App Signing", "signingConfigs", "앱 서명 키", "업로드 키"]
-date modified: 2026-08-25 23:42:59 +09:00
+date modified: 2026-08-25 23:43:29 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: agp-release-checklist
 tags: ["agp", "android", "gradle", "r8", "release", "security"]
 aliases: ["AGP Release Checklist", "AGP 릴리스 체크리스트", "isDebuggable", "isMinifyEnabled", "Release Variant Verification", "릴리스 실효값 점검"]
-date modified: 2026-08-25 23:42:58 +09:00
+date modified: 2026-08-25 23:43:28 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
