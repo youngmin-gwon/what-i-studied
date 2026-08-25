@@ -2,7 +2,7 @@
 title: agp-source-sets
 tags: ["agp", "android", "gradle", "resource-merging", "sourceset"]
 aliases: ["AGP SourceSets", "Duplicate Class", "SourceSet 우선순위", "SourceSet", "리소스 병합 규칙", "소스 세트"]
-date modified: 2026-08-24 17:32:43 +09:00
+date modified: 2026-08-25 23:43:47 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 

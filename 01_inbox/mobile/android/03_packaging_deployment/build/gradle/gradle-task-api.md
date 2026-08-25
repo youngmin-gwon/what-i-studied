@@ -2,7 +2,7 @@
 title: gradle-task-api
 tags: ["build-engine", "gradle", "jvm", "performance", "task-api", "worker-api"]
 aliases: ["Gradle Task API", "Lazy Task Registration", "Property API", "TaskProvider", "Worker API", "증분 태스크"]
-date modified: 2026-08-21 16:57:50 +09:00
+date modified: 2026-08-25 23:44:01 +09:00
 date created: 2026-08-19 11:00:00 +09:00
 ---
 

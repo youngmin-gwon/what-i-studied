@@ -2,7 +2,7 @@
 title: android-gradle-plugin
 tags: ["agp", "android", "build-system", "gradle", "plugin", "variant-api"]
 aliases: ["AGP 아키텍처", "AGP", "Android Gradle Plugin", "Variant API", "안드로이드 그래들 플러그인"]
-date modified: 2026-08-24 17:32:46 +09:00
+date modified: 2026-08-25 23:43:47 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
