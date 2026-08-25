@@ -2,7 +2,7 @@
 title: agp-release-checklist
 tags: ["agp", "android", "gradle", "r8", "release", "security"]
 aliases: ["AGP Release Checklist", "AGP 릴리스 체크리스트", "isDebuggable", "isMinifyEnabled", "Release Variant Verification", "릴리스 실효값 점검"]
-date modified: 2026-08-24 17:32:42 +09:00
+date modified: 2026-08-25 23:42:58 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 17:52:17 +09:00
 
 ### 개요
 
-상용 프로덕션 앱을 빌드하여 Google Play 또는 배포 채널에 출시할 때 `build.gradle.kts`의 `release` 빌드 타입에 설정된 AGP DSL 플래그들의 **실효값(Effective Values)**을 반드시 정밀 검증해야 한다.
+상용 프로덕션 앱을 빌드하여 Google Play 또는 배포 채널에 출시할 때 `build.gradle.kts` 의 `release` 빌드 타입에 설정된 AGP DSL 플래그들의 **실효값(Effective Values)**을 반드시 정밀 검증해야 한다.
 
 개발 편의를 위해 사용되던 디버그 설정(디버거 부착 허용, R8 코드 수축 비활성화, 디버그 키스토어 서명 등)이 실수로 릴리스 아티팩트에 잔존(Leak)하는 경우, 앱 용량 증가, 리버스 엔지니어링 노출, 심각한 보안 취약점이 유발될 수 있다.
 

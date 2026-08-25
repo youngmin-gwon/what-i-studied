@@ -2,7 +2,7 @@
 title: android-build-pipeline
 tags: ["aapt2", "agp", "android", "build-pipeline", "d8", "gradle", "packaging", "r8"]
 aliases: ["AAPT2", "Android Build Pipeline", "Android 빌드 파이프라인", "D8", "R8", "빌드 용어 해설"]
-date modified: 2026-08-24 17:32:45 +09:00
+date modified: 2026-08-25 23:43:00 +09:00
 date created: 2026-08-19 14:40:00 +09:00
 ---
 
@@ -83,7 +83,7 @@ flowchart TD
 
 #### 4) AAR vs JAR
 - **JAR (Java Archive)**: 순수한 Java/Kotlin 컴파일 바이트코드(`.class`)와 메타데이터만 압축한 파일.
-- **AAR (Android Archive)**: Android 전용 라이브러리 포맷으로, `classes.jar`뿐만 아니라 `AndroidManifest.xml`, `res/` 리소스, `assets/`, JNI 네이티브 라이브러리(`.so`), ProGuard 룰(`proguard.txt`)을 모두 포함한다.
+- **AAR (Android Archive)**: Android 전용 라이브러리 포맷으로, `classes.jar` 뿐만 아니라 `AndroidManifest.xml`, `res/` 리소스, `assets/`, JNI 네이티브 라이브러리(`.so`), ProGuard 룰(`proguard.txt`)을 모두 포함한다.
 
 #### 5) 디슈가링 (Desugaring)
 - 최신 Java/Kotlin 문법(Java 8+ `java.time`, 람다식, 스트림 API, 인터페이스 default 메서드)을 하위 버전 Android OS (`minSdk = 24` 등)에서도 크래시 없이 실행될 수 있도록, D8/R8 컴파일러가 바이트코드를 하위 호환 구조로 재작성(Backporting)해 주는 기술이다.
