@@ -2,7 +2,7 @@
 title: agp-build-variants
 tags: ["agp", "android", "buildtype", "flavor", "gradle", "variant"]
 aliases: ["AGP Build Variants", "Build Type", "Build Variant", "Product Flavor", "빌드 변형", "카테시안 곱"]
-date modified: 2026-08-24 22:11:42 +09:00
+date modified: 2026-08-26 17:48:00 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 

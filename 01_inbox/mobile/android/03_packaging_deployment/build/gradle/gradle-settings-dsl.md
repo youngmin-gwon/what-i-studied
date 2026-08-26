@@ -2,7 +2,7 @@
 title: gradle-settings-dsl
 tags: ["api", "build-engine", "dsl", "gradle", "initialization", "settings"]
 aliases: ["dependencyResolutionManagement", "Gradle Settings DSL", "pluginManagement", "Settings API", "Settings 스크립트", "settings.gradle.kts"]
-date modified: 2026-08-25 23:44:01 +09:00
+date modified: 2026-08-26 17:47:43 +09:00
 date created: 2026-08-20 18:25:00 +09:00
 ---
 

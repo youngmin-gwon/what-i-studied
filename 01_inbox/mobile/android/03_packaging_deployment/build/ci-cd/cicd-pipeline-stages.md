@@ -121,4 +121,4 @@ CI 단계별 성공/실패 시그널 및 빌드 소요 시간 통계는 GitHub A
 ./gradlew testDebugUnitTest lintDebug
 ```
 
-관련 노트: [Android CI/CD](ci-cd.md), [의존성 및 CI 계약](../dependencies/dependencies.md)
+관련 노트: [Android CI/CD](ci-cd.md), [의존성 및 CI 계약](../gradle/gradle-build.md)

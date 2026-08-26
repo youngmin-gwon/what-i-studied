@@ -2,7 +2,7 @@
 title: r8-resource-shrinking
 tags: ["aapt2", "agp", "android", "optimization", "r8", "resource-shrinking"]
 aliases: ["AGP Resource Shrinker", "isShrinkResources", "keep.xml", "Resource Shrinking", "리소스 수축"]
-date modified: 2026-08-24 18:21:28 +09:00
+date modified: 2026-08-26 17:47:44 +09:00
 date created: 2026-08-24 15:05:00 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-08-24 15:05:00 +09:00
 
 **Resource Shrinking(리소스 수축 - `isShrinkResources = true`)** 은 AGP 빌드 파이프라인에서 실제 앱 코드에서 참조되지 않는 미사용 XML 레이아웃, 이미지, 드로어블, 원시 리소스(Asset)를 패키징 단계에서 제거하거나 더미화하여 앱 다운로드 크기를 축소하는 최적화 프로세스이다.
 
-리소스 수축은 반드시 **[R8 코드 수축(Code Shrinking)](d8-and-r8.md) 이 완료된 이후에 연동 실행**되어야 한다. R8 에 의해 미사용 라이브러리나 기능 코드가 삭제되어야만, 그 코드가 참조하던 전용 리소스 파일들 역시 비참조(Unused) 상태로 식별될 수 있기 때문이다.
+리소스 수축은 반드시 **[R8 코드 수축(Code Shrinking)](d8-and-r8.md) 이 완료된 이후에 연동 실행** 되어야 한다. R8 에 의해 미사용 라이브러리나 기능 코드가 삭제되어야만, 그 코드가 참조하던 전용 리소스 파일들 역시 비참조(Unused) 상태로 식별될 수 있기 때문이다.
 
 ```mermaid
 flowchart TD

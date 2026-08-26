@@ -2,7 +2,7 @@
 title: gradle-core
 tags: ["architecture", "build-automation", "build-engine", "dag", "gradle", "jvm"]
 aliases: ["Gradle Core Engine", "Gradle 빌드 시스템", "Gradle 아키텍처", "Gradle 코어 엔진", "Gradle 코어"]
-date modified: 2026-08-25 23:43:54 +09:00
+date modified: 2026-08-26 17:47:35 +09:00
 date created: 2026-08-19 10:50:00 +09:00
 ---
 

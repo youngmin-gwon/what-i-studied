@@ -2,7 +2,7 @@
 title: android-build-pipeline
 tags: ["aapt2", "agp", "android", "build-pipeline", "d8", "gradle", "packaging", "r8"]
 aliases: ["AAPT2", "Android Build Pipeline", "Android 빌드 파이프라인", "D8", "R8", "빌드 용어 해설"]
-date modified: 2026-08-25 23:43:30 +09:00
+date modified: 2026-08-26 17:47:47 +09:00
 date created: 2026-08-19 14:40:00 +09:00
 ---
 

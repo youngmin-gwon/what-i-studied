@@ -2,7 +2,7 @@
 title: agp-default-config
 tags: ["agp", "android", "defaultconfig", "gradle", "manifest"]
 aliases: ["AGP DefaultConfig", "Android 기본 설정", "applicationId", "compileSdk", "defaultConfig", "minSdk", "namespace", "targetSdk"]
-date modified: 2026-08-24 22:16:19 +09:00
+date modified: 2026-08-26 17:47:51 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 

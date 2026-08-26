@@ -2,7 +2,7 @@
 title: gradle-work-units
 tags: ["architecture", "build-engine", "gradle", "jvm", "task", "work-units"]
 aliases: ["Build Project Task WorkItem", "Gradle Work Units", "Gradle 작업 단위", "작업 단위 계층 구조", "태스크 계층 구조"]
-date modified: 2026-08-25 23:44:02 +09:00
+date modified: 2026-08-26 17:47:45 +09:00
 date created: 2026-08-21 14:15:00 +09:00
 ---
 
