@@ -1,8 +1,8 @@
 ---
 title: dependency-change-checklist
 tags: ["android", "checklist", "ci-cd", "dependency", "governance"]
-aliases: ["Dependency Checklist", "의존성 변경 체크리스트", "라이브러리 검토 체크리스트", "의존성 거버넌스"]
-date modified: 2026-08-26 18:05:00 +09:00
+aliases: ["Dependency Checklist", "라이브러리 검토 체크리스트", "의존성 거버넌스", "의존성 변경 체크리스트"]
+date modified: 2026-08-26 18:07:11 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -25,7 +25,7 @@ flowchart TD
 
 ---
 
-### 1. 4단계 의존성 변경 점검 체크리스트
+### 1. 4 단계 의존성 변경 점검 체크리스트
 
 | 검토 영역 | 점검 항목 | 검증 방법 및 명령어 |
 |---|---|---|

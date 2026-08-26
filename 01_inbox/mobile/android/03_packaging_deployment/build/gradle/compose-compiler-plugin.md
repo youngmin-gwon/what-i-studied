@@ -1,8 +1,8 @@
 ---
 title: compose-compiler-plugin
 tags: ["android", "compiler", "compose", "kotlin", "plugin"]
-aliases: ["Compose Compiler Plugin", "Compose Compiler", "Kotlin Compose Plugin", "Compose 컴파일러 플러그인"]
-date modified: 2026-08-26 18:05:00 +09:00
+aliases: ["Compose Compiler Plugin", "Compose Compiler", "Compose 컴파일러 플러그인", "Kotlin Compose Plugin"]
+date modified: 2026-08-26 18:07:09 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -12,7 +12,7 @@ date created: 2026-07-31 17:52:17 +09:00
 
 **Compose Compiler Plugin(`org.jetbrains.kotlin.plugin.compose`)** 은 `@Composable` 어노테이션이 붙은 함수를 가로채어 Recomposition(재구성) 상태 추적 코드, 안정성(Stability) 메타데이터, 그리고 $Composer$ 실행 컨텍스트 바이트코드를 합성하는 Kotlin 컴파일러 플러그인이다.
 
-Compose UI 라이브러리들이 `compose-bom` 을 통해 버전이 조율되는 것과 달리, **Compose 컴파일러는 Kotlin 컴파일러 엔진(`kotlinc`)과 1:1로 엄격하게 바인딩**된다. Kotlin 2.0+ 부터는 Compose 컴파일러가 Kotlin 저장소에 공식 통합되어 별도의 호환성 매트릭스 지옥 없이 Kotlin 버전과 함께 배포된다.
+Compose UI 라이브러리들이 `compose-bom` 을 통해 버전이 조율되는 것과 달리, **Compose 컴파일러는 Kotlin 컴파일러 엔진(`kotlinc`)과 1:1 로 엄격하게 바인딩**된다. Kotlin 2.0+ 부터는 Compose 컴파일러가 Kotlin 저장소에 공식 통합되어 별도의 호환성 매트릭스 지옥 없이 Kotlin 버전과 함께 배포된다.
 
 ```mermaid
 flowchart TD

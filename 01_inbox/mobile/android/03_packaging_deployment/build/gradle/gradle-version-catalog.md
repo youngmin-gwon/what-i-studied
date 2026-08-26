@@ -1,8 +1,8 @@
 ---
 title: gradle-version-catalog
-tags: ["android", "gradle", "version-catalog", "build-logic"]
-aliases: ["Gradle Version Catalog", "Version Catalog", "libs.versions.toml", "버전 카탈로그", "중앙 의존성 관리"]
-date modified: 2026-08-26 18:05:00 +09:00
+tags: ["android", "build-logic", "gradle", "version-catalog"]
+aliases: ["Gradle Version Catalog", "libs.versions.toml", "Version Catalog", "버전 카탈로그", "중앙 의존성 관리"]
+date modified: 2026-08-26 18:16:30 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -24,7 +24,7 @@ flowchart LR
 
 ---
 
-### 1. TOML 4대 핵심 섹션 구조
+### 1. TOML 4 대 핵심 섹션 구조
 
 Version Catalog 는 4 가지 핵심 블록으로 구성된다:
 

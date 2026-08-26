@@ -1,8 +1,8 @@
 ---
 title: ksp-code-generation
-tags: ["android", "compiler", "kapt", "kotlin", "ksp", "code-generation"]
-aliases: ["KSP", "Kotlin Symbol Processing", "KAPT 대체", "코드 생성 플러그인", "KSP vs KAPT"]
-date modified: 2026-08-26 18:05:00 +09:00
+tags: ["android", "code-generation", "compiler", "kapt", "kotlin", "ksp"]
+aliases: ["KAPT 대체", "Kotlin Symbol Processing", "KSP vs KAPT", "KSP", "코드 생성 플러그인"]
+date modified: 2026-08-26 18:06:50 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -14,7 +14,7 @@ date created: 2026-07-31 17:52:17 +09:00
 
 과거 Kotlin 프로젝트에서 어노테이션 프로세싱을 위해 사용하던 **KAPT(Annotation Processing for Kotlin)** 는 Java 기반 Annotation Processor(`javac`)를 재활용하기 위해 Kotlin 코드를 더미 Java 코드로 바꾸는 비효율적인 **Java Stub 생성 단계**를 강제하여 빌드 시간을 심각하게 저하시켰다.
 
-KSP 는 Java Stub 단계를 통째로 생략하고 Kotlin AST(Abstract Syntax Tree)를 직접 탐색하여 **빌드 속도를 2~3배 가속**하며, Kotlin 특유의 Nullability, Sealed class, Value class 메타데이터를 손실 없이 완벽하게 인지한다.
+KSP 는 Java Stub 단계를 통째로 생략하고 Kotlin AST(Abstract Syntax Tree)를 직접 탐색하여 **빌드 속도를 2~3 배 가속**하며, Kotlin 특유의 Nullability, Sealed class, Value class 메타데이터를 손실 없이 완벽하게 인지한다.
 
 ```mermaid
 flowchart TD

@@ -1,8 +1,8 @@
 ---
 title: kotlinx-serialization-plugin
-tags: ["android", "compiler", "kotlin", "serialization", "reflection-free"]
-aliases: ["kotlinx.serialization", "Kotlin Serialization", "직렬화 컴파일러 플러그인", "Reflection-free Serialization"]
-date modified: 2026-08-26 18:05:00 +09:00
+tags: ["android", "compiler", "kotlin", "reflection-free", "serialization"]
+aliases: ["Kotlin Serialization", "kotlinx.serialization", "Reflection-free Serialization", "직렬화 컴파일러 플러그인"]
+date modified: 2026-08-26 18:08:46 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -19,7 +19,7 @@ flowchart TD
     Source["@Serializable data class User(val id: Long, val name: String)"] --> Plugin["Kotlin Serialization Compiler Plugin"]
     Plugin --> Gen["합성 바이트코드 생성 (User$$serializer)"]
     
-    Gen & JSONStr["Raw JSON String: '{\"id\":1, \"name\":\"Alice\"}'"] --> Engine["kotlinx.serialization.json.Json Engine (Runtime)"]
+    Gen & JSONStr["Raw JSON 문자열 ({ 'id': 1, 'name': 'Alice' })"] --> Engine["kotlinx.serialization.json.Json Engine (Runtime)"]
     Engine --> Instance["User(id = 1, name = 'Alice') 인스턴스 (Zero Reflection)"]
 ```
 

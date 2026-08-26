@@ -36,13 +36,13 @@ flowchart TD
         paused --> stopped["STOPPED"]
         stopped --> destroyed["DESTROYED"]
 
-        stopped -- "설정 변경 (화면 회전, 언어)" --> configChange"Activity 재생성, [viewmodel 유지"]
+        stopped -- "설정 변경 (화면 회전, 언어)" --> configChange["Activity 재생성, ViewModel 유지"]
         stopped -- "프로세스 종료 (메모리 부족, 오래된 백그라운드)" --> processDeath["Activity + ViewModel 모두 소멸"]
         processDeath --> restore["SavedStateHandle / Storage 만 복원 가능"]
     end
 
     subgraph TASKSTACK["Task & Back Stack"]
-        task["Task = \"사용자가 함께 수행하는 Activity 들의 묶음\""] --> backstack["Back Stack = Task 안의 Activity 순서 (LIFO)"]
+        task["Task = 사용자가 함께 수행하는 Activity 들의 묶음"] --> backstack["Back Stack = Task 안의 Activity 순서 (LIFO)"]
     end
 ```
 
