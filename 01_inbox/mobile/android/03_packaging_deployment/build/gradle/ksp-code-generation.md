@@ -1,65 +1,107 @@
 ---
 title: ksp-code-generation
-tags: ["android", "compiler", "kapt", "kotlin", "ksp"]
-aliases: ["KSP는 Kotlin 퍼스트 코드 생성이며 KAPT는 유지보수 모드다"]
-date modified: 2026-08-26 17:48:07 +09:00
+tags: ["android", "compiler", "kapt", "kotlin", "ksp", "code-generation"]
+aliases: ["KSP", "Kotlin Symbol Processing", "KAPT 대체", "코드 생성 플러그인", "KSP vs KAPT"]
+date modified: 2026-08-26 18:05:00 +09:00
 date created: 2026-07-31 17:52:17 +09:00
-created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## KSP 는 Kotlin 퍼스트 코드 생성이며 KAPT 는 유지보수 모드다
+## KSP(Kotlin Symbol Processing) 코드 생성 및 KAPT 대체 아키텍처 (KSP vs KAPT)
 
-상위 문서: [Gradle 빌드 시스템 및 아키텍처](gradle-build.md)
+### 개요
 
-### 개념 및 필요성 (What & Why)
+**KSP(Kotlin Symbol Processing - `com.google.devtools.ksp`)** 는 Kotlin 컴파일러(`kotlinc`)에 직접 내장되어 작동하는 Kotlin 퍼스트(Kotlin-First) 차세대 소스 코드 분석 및 생성 플러그인이다.
 
-**KSP(Kotlin Symbol Processing)** 는 Kotlin 컴파일러에 직접 통합되어 작동하는 Kotlin 전용 차세대 소스 코드 분석 및 생성 컴파일러 플러그인 도구이다.
+과거 Kotlin 프로젝트에서 어노테이션 프로세싱을 위해 사용하던 **KAPT(Annotation Processing for Kotlin)** 는 Java 기반 Annotation Processor(`javac`)를 재활용하기 위해 Kotlin 코드를 더미 Java 코드로 바꾸는 비효율적인 **Java Stub 생성 단계**를 강제하여 빌드 시간을 심각하게 저하시켰다.
 
-과거에 사용되던 **KAPT(Annotation Processing for Kotlin)** 는 Java 컴파일러의 Annotation Processor(`javac`)를 재활용하기 위해 비효율적인 Java Stub 클래스 생성 단계를 강제 유발하여 빌드 속도를 심각하게 저하시켰다.
-
-KSP 는 KAPT 대비 빌드 속도를 **최대 2~3 배 향상**시키며, Kotlin 언어의 널 가능성(Nullability), sealed class, value class 등의 메타데이터를 정밀하게 인지한다. 현재 KAPT 는 유지보수 모드(Maintenance Mode)로 전환되어 방치 상태이므로 신규 프로젝트에서는 반드시 KSP 를 채택해야 한다.
-
-### 내부 메커니즘 (Internal Mechanism)
-1. **Java Stub 생략**: KAPT 는 `.kt` 소스를 자바 어노테이션 프로세서가 읽을 수 있는 더미 `.java` 스텁 파일로 변환하는 작업을 거치지만, KSP 는 Kotlin AST(Abstract Syntax Tree) 심볼을 직접 분석하여 이 단계를 통째로 생략한다.
-2. **Kotlin Compiler Plugin 바인딩**: KSP 프로세서는 `kotlinc` 파이프라인 내부에서 심볼 레벨 분석 및 새 파일 작성을 처리하므로 Gradle 증분 빌드 캐싱과 완벽하게 통합된다.
-3. **주요 라이브러리 마이그레이션**: Room, Hilt, Moshi, Glide, AutoFactory 등 안드로이드 핵심 라이브러리들이 모두 KSP 전용 프로세서를 완비하고 있다.
+KSP 는 Java Stub 단계를 통째로 생략하고 Kotlin AST(Abstract Syntax Tree)를 직접 탐색하여 **빌드 속도를 2~3배 가속**하며, Kotlin 특유의 Nullability, Sealed class, Value class 메타데이터를 손실 없이 완벽하게 인지한다.
 
 ```mermaid
 flowchart TD
-    subgraph KAPT_Flow ["Legacy KAPT Flow (Slow)"]
-        KT1["Kotlin Source"] --> StubGen["Generate Java Stubs (.java)"]
+    subgraph KAPT_Flow ["1. Legacy KAPT (느림 & Stub 오버헤드)"]
+        KT1["Kotlin Source (.kt)"] --> StubGen["Java Stub Generator (더미 .java 생성)"]
         StubGen --> JavacAPT["javac Annotation Processor"]
-        JavacAPT --> Comp1["Final Bytecode"]
+        JavacAPT --> GenJava["Generated Java Files"]
+        GenJava --> FinalComp1["Final Kotlinc / Javac Compilation"]
     end
 
-    subgraph KSP_Flow ["Modern KSP Flow (2-3x Faster)"]
-        KT2["Kotlin Source"] --> KSPProc["KSP Direct Symbol Processing"]
-        KSPProc --> Comp2["Final Bytecode"]
+    subgraph KSP_Flow ["2. Modern KSP (2~3배 빠름 & 직접 AST 분석)"]
+        KT2["Kotlin Source (.kt)"] --> KSPProc["KSP Processor (Kotlin AST 직접 분석)"]
+        KSPProc --> GenKT["Generated Kotlin / Java Files"]
+        GenKT --> FinalComp2["Direct Compilation"]
     end
 ```
 
-### 코드 예시 (build.gradle.kts)
+---
+
+### 1. KAPT vs KSP 아키텍처 비교
+
+| 비교 항목 | 레거시 KAPT (`kapt`) | 현대 표준 KSP (`ksp`) |
+|---|---|---|
+| **실행 엔진** | Java `javac` Annotation Processing API 에 의존 | **Kotlin 컴파일러(`kotlinc`) 전용 심볼 프로세서 API** |
+| **Java Stub 생성** | ⭕ **필수 (전체 빌드 시간의 30~50% 낭비)** | ❌ **완전 생략 (Stub 없이 AST 직접 분석)** |
+| **빌드 속도** | 느림 | **KAPT 대비 최대 2~3 배 빠름 (증분 빌드 최적화)** |
+| **Kotlin 메타데이터** | 자바로 변환되면서 Nullability, Value class 정보 손실 | **Kotlin 타입 시스템 및 메타데이터 100% 보존** |
+| **유지보수 상태** | ⚠️ 유지보수 모드 (신규 기능 중단) | ⭕ **Google & JetBrains 공식 권장 표준** |
+
+---
+
+### 2. 코드 예시: build.gradle.kts 적용
+
+```toml
+# gradle/libs.versions.toml
+[versions]
+ksp = "2.1.0-1.0.29" # Kotlin 버전과 일치해야 함
+room = "2.7.0"
+hilt = "2.55"
+
+[plugins]
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[libraries]
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+```
+
 ```kotlin
 // app/build.gradle.kts
 plugins {
+    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.ksp) // KSP 플러그인 적용
 }
 
 dependencies {
-    // KAPT 대신 KSP 프로세서 지정
+    // 1. Room DB (KSP 프로세서 연결)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+
+    // 2. Hilt 의존성 주입 (KSP 지원)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }
 ```
 
-### 관측 가능 증거 (Observable Evidence)
+---
 
-KSP 를 통한 소스 생성 태스크 및 빌드 시간 절감은 다음 태스크 실행으로 관측 가능하다:
+### 3. 관측 가능 증거 (Observable Evidence)
+
+KSP 태스크가 생성한 소스 파일과 빌드 시간은 다음 명령어로 관측할 수 있다:
 
 ```bash
+# 1. KSP 코드 생성 전용 태스크 실행
 ./gradlew app:kspDebugKotlin
+
+# 2. KSP 가 생성한 파일 디렉터리 확인
+ls -la app/build/generated/ksp/debug/kotlin/
 ```
 
-관련 노트: [kotlinx.serialization은 컴파일러 플러그인과 런타임 포맷이 모두 필요하다](kotlinx-serialization-plugin.md), [의존성 및 CI 계약](gradle-build.md)
+---
+
+### 상위 및 연관 문서
+
+- [Gradle 빌드 시스템 및 의존성·플러그인 아키텍처](gradle-build.md)
+- [Gradle 플러그인(Plugin)과 의존성(Dependency)의 본질적 차이](gradle-plugins-vs-dependencies.md)
+- [kotlinx.serialization 컴파일러 플러그인 및 런타임 결합 아키텍처](kotlinx-serialization-plugin.md)

@@ -2,7 +2,7 @@
 title: android-gradle-plugin
 tags: ["agp", "android", "build-system", "gradle", "plugin", "variant-api"]
 aliases: ["AGP 아키텍처", "AGP", "Android Gradle Plugin", "Variant API", "안드로이드 그래들 플러그인"]
-date modified: 2026-08-25 23:43:47 +09:00
+date modified: 2026-08-26 18:05:36 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-07-31 17:52:17 +09:00
 
 ### 개요
 
-**AGP(Android Gradle Plugin)**는 범용 빌드 도구인 Gradle 에 Android 애플리케이션 및 라이브러리 빌드를 위한 도메인 특화 태스크 파이프라인, Android SDK 도구 체인, 그리고 빌드 변형(Variant) 모델을 주입하는 Google 공식 핵심 빌드 플러그인(`com.android.application`, `com.android.library`)이다.
+**AGP(Android Gradle Plugin)** 는 범용 빌드 도구인 Gradle 에 Android 애플리케이션 및 라이브러리 빌드를 위한 도메인 특화 태스크 파이프라인, Android SDK 도구 체인, 그리고 빌드 변형(Variant) 모델을 주입하는 Google 공식 핵심 빌드 플러그인(`com.android.application`, `com.android.library`)이다.
 
 Gradle 코어 엔진 자체는 Java/Kotlin 소스 컴파일과 태스크 그래프 스케줄링만을 담당하며, Android 전용 리소스 컴파일러(AAPT2), 바이트코드 덱싱/수축 엔진(D8/R8), 매니페스트 병합기(Manifest Merger), APK/AAB 패키징 메커니즘을 알지 못한다. AGP 는 이러한 Android 전용 도구 체인을 Gradle 의 태스크 시스템으로 추상화하여, 개발자가 선언적 Kotlin DSL(`android {}`)을 통해 복잡한 빌드 환경을 일관되게 제어할 수 있도록 돕는다.
 
@@ -63,6 +63,7 @@ flowchart LR
 ```
 
 #### 1) 선언적 설정 DSL (`android {}`)
+
 - `ApplicationExtension`, `LibraryExtension`, `CommonExtension` 을 통해 빌드에 필요한 정적 입력값을 선언한다.
 - **주요 설정 항목**:
   - `compileSdk`, `minSdk`, `targetSdk`

@@ -1,64 +1,96 @@
 ---
 title: compose-compiler-plugin
-tags: ["android", "compiler", "compose", "kotlin"]
-aliases: ["Compose compiler는 BOM이 아니라 Kotlin 컴파일러 흐름에 속한다"]
-date modified: 2026-08-26 17:48:10 +09:00
+tags: ["android", "compiler", "compose", "kotlin", "plugin"]
+aliases: ["Compose Compiler Plugin", "Compose Compiler", "Kotlin Compose Plugin", "Compose 컴파일러 플러그인"]
+date modified: 2026-08-26 18:05:00 +09:00
 date created: 2026-07-31 17:52:17 +09:00
-created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## Compose compiler 는 BOM 이 아니라 Kotlin 컴파일러 흐름에 속한다
+## Jetpack Compose 컴파일러 플러그인 아키텍처 (Compose Compiler Plugin)
 
-상위 문서: [Gradle 빌드 시스템 및 아키텍처](gradle-build.md)
+### 개요
 
-### 개념 및 필요성 (What & Why)
+**Compose Compiler Plugin(`org.jetbrains.kotlin.plugin.compose`)** 은 `@Composable` 어노테이션이 붙은 함수를 가로채어 Recomposition(재구성) 상태 추적 코드, 안정성(Stability) 메타데이터, 그리고 $Composer$ 실행 컨텍스트 바이트코드를 합성하는 Kotlin 컴파일러 플러그인이다.
 
-**Compose Compiler(컴포즈 컴파일러)** 는 Kotlin IR(Intermediate Representation) 단계를 확장하여 `@Composable` 함수를 추적하고, 상태 변경 시 리컴포지션([recomposition](../../../02_app_framework/jetpack-compose/runtime/recomposition.md)) 트리 및 가변 상태 주입 코드를 바이트코드로 변환하는 **Kotlin 컴파일러 플러그인**이다.
-
-흔히 하는 오해 중 하나는 Compose Compiler 가 Compose BOM 에 포함되어 제어된다고 생각하는 것이다. 그러나 Compose Compiler 는 UI 런타임 라이브러리가 아니라 컴파일러 코드 생성 도구이므로, **Kotlin 컴파일러 버전과 1:1 로 엄격하게 매핑**되어 작동한다. (Kotlin 2.0.0 부터는 Compose Compiler 가 Kotlin 저장소로 전격 이관되어 `org.jetbrains.kotlin.plugin.compose` 플러그인으로 관리됨).
-
-### 내부 메커니즘 (Internal Mechanism)
-1. **Kotlin IR Transformation**: `@Composable` 어노테이션이 붙은 함수 매개변수에 `Composer` 및 `$changed` 비트마스크를 주입하는 IR 바이트코드 갱신을 담당한다.
-2. **Kotlin Compiler Version Lock**: Kotlin 버전을 업그레이드할 때는 반드시 호환되는 Compose Compiler 버전을 맞추거나, Kotlin 2.0+ 내장 Compose Compiler Gradle Plugin 을 채택해야 한다.
-3. **BOM 과의 책임 분리**:
-   - Compose BOM: `compose.ui`, `compose.material3` 등 **런타임 UI 라이브러리** 버전 관리.
-   - Compose Compiler Plugin: `@Composable` AST/IR 변환 및 코드 생성을 담당하는 **컴파일 타임 도구**.
+Compose UI 라이브러리들이 `compose-bom` 을 통해 버전이 조율되는 것과 달리, **Compose 컴파일러는 Kotlin 컴파일러 엔진(`kotlinc`)과 1:1로 엄격하게 바인딩**된다. Kotlin 2.0+ 부터는 Compose 컴파일러가 Kotlin 저장소에 공식 통합되어 별도의 호환성 매트릭스 지옥 없이 Kotlin 버전과 함께 배포된다.
 
 ```mermaid
-flowchart LR
-    subgraph CompileTime ["Compile-Time (Kotlin Compiler Plugin)"]
-        Kotlinc["Kotlin Compiler (kotlinc 2.0.0)"] <--> ComposePlugin["Compose Compiler Plugin (kotlin-compose-compiler)"]
+flowchart TD
+    Source["@Composable fun MyScreen()"] --> Kotlinc["Kotlin Compiler (kotlinc 2.x)"]
+    
+    subgraph ComposePlugin ["org.jetbrains.kotlin.plugin.compose"]
+        ComposerInject["1. $composer 파라미터 및 재구성 코드 주입"]
+        StabilityInfer["2. 파라미터 불변성/안정성(Stability) 추론"]
+        SkipGen["3. Strong Skipping 모드 최적화 코드 생성"]
     end
-
-    subgraph RunTime ["Run-Time (UI Libraries)"]
-        ComposeBOM["Compose BOM (2024.05.00)"] --> UILibs["compose.ui / compose.material3"]
-    end
-
-    CompileTime -->|"Generates Composable IR Code"| RunTime
+    
+    Kotlinc --> ComposePlugin
+    ComposePlugin --> Bytecode["최종 최적화된 DEX / Bytecode (.class)"]
 ```
 
-### 코드 예시 (build.gradle.kts - Kotlin 2.0+ 방식)
+---
+
+### 1. Kotlin 2.0+ 컴파일러 플러그인 통합의 진화
+
+| 과거 (Kotlin 1.9 이하) | 현대 표준 (Kotlin 2.0 이상) |
+|---|---|
+| **배포 주체** | Google AndroidX (`androidx.compose.compiler:compiler`) | **JetBrains Kotlin 컴파일러 공식 통합 (`org.jetbrains.kotlin.plugin.compose`)** |
+| **호환성 문제** | 새 Kotlin 버전이 나와도 Google 의 Compose Compiler 출시를 기다려야 했음 | **Kotlin 새 버전 출시와 동시에 Compose 컴파일러가 완벽 지원됨** |
+| **Gradle 설정** | `android { composeOptions { kotlinCompilerExtensionVersion = "1.5.8" } }` | `plugins { alias(libs.plugins.kotlin.compose) }` (단 한 줄 적용) |
+
+---
+
+### 2. 코드 예시: build.gradle.kts 설정
+
+```toml
+# gradle/libs.versions.toml
+[versions]
+kotlin = "2.1.0"
+
+[plugins]
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+```
+
 ```kotlin
-// app/build.gradle.kts (Kotlin 2.0+ 메인 프로젝트 방식)
+// app/build.gradle.kts
 plugins {
+    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose.compiler) // Compose Compiler Gradle Plugin
+    alias(libs.plugins.kotlin.compose) // Compose 컴파일러 플러그인 활성화
 }
 
 android {
     buildFeatures {
-        compose = true
+        compose = true // AGP Compose 활성화
     }
+}
+
+composeCompiler {
+    // 안정성(Stability) 구성 파일 연동 (옵션)
+    stabilityConfigurationFile = rootProject.layout.projectDirectory.file("compose-stability.conf")
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 ```
 
-### 관측 가능 증거 (Observable Evidence)
+---
 
-적용된 Compose 컴파일러 호환성 플러그인 상태 및 파라미터는 다음 태스크 검증으로 관측할 수 있다:
+### 3. 관측 가능 증거 (Observable Evidence)
+
+Compose 컴파일러가 함수들을 어떻게 최적화(Skippable/Restartable)했는지와 파라미터 안정성 리포트는 다음 명령어로 관측할 수 있다:
 
 ```bash
-./gradlew app:compileDebugKotlin --info | grep "compose"
+# Compose 컴파일러의 Recomposition 최적화 메트릭 및 리포트 생성
+./gradlew app:compileReleaseKotlin -Pandroidx.enableComposeCompilerMetrics=true -Pandroidx.enableComposeCompilerReports=true
 ```
 
-관련 노트: [Compose BOM은 Compose 라이브러리 버전 세트를 관리한다](compose-bom-versioning.md), [의존성 및 CI 계약](gradle-build.md)
+생성된 리포트는 `app/build/compose_compiler/` 디렉터리에서 `app_release-classes.txt` 로 확인할 수 있다.
+
+---
+
+### 상위 및 연관 문서
+
+- [Gradle 빌드 시스템 및 의존성·플러그인 아키텍처](gradle-build.md)
+- [Jetpack Compose BOM 기반 라이브러리 버전 관리](compose-bom-versioning.md)
+- [KSP(Kotlin Symbol Processing) 코드 생성 및 KAPT 대체 아키텍처](ksp-code-generation.md)

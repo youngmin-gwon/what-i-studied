@@ -1,61 +1,99 @@
 ---
 title: compose-bom-versioning
-tags: ["android", "bom", "compose", "dependency"]
-aliases: ["Compose BOM은 Compose 라이브러리 버전 세트를 관리한다"]
-date modified: 2026-08-26 17:48:21 +09:00
+tags: ["android", "bom", "compose", "dependency", "jetpack-compose"]
+aliases: ["Bill of Materials", "BOM 플랫폼 의존성", "Compose BOM", "Compose 버전 관리", "compose-bom"]
+date modified: 2026-08-26 18:05:15 +09:00
 date created: 2026-07-31 17:52:17 +09:00
-created: 2026-07-31 17:52:17 +09:00
-updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## Compose BOM 은 Compose 라이브러리 버전 세트를 관리한다
+## Jetpack Compose BOM 기반 라이브러리 버전 관리 (Compose BOM Versioning)
 
-상위 문서: [Gradle 빌드 시스템 및 아키텍처](gradle-build.md)
+### 개요
 
-### 개념 및 필요성 (What & Why)
+**Compose BOM(Bill of Materials - `androidx.compose:compose-bom`)** 은 Jetpack Compose 의 수많은 UI 라이브러리 모듈들(`ui`, `material3`, `foundation`, `animation` 등)이 상호 완벽하게 호환되는 버전 세트를 단일 기준으로 제공하는 플랫폼 메타 아티팩트이다.
 
-**Compose BOM(Bill of Materials - `androidx.compose:compose-bom`)** 은 Jetpack Compose 의 개별 라이브러리들(`compose.ui`, `compose.material3`, `compose.foundation`, `compose.animation` 등)의 상호 호환되는 버전 집합을 단일 선언으로 정렬해주는 버전 맵이다.
-
-Compose 구성 요소들은 활발하게 진화하며 개별 라이브러리마다 버전 번호가 다르게 릴리스된다. 개별 모듈의 버전을 수동으로 명시할 경우, 라이브러리 간 버전 불일치로 인한 런타임 바이너리 비호환성이나 렌더링 에러가 유발된다.
-
-BOM 을 적용하면 개별 모듈 선언 시 버전 번호를 생략하고 검증된 세트 버전을 일관되게 주입할 수 있다.
-
-### 내부 메커니즘 (Internal Mechanism)
-1. **Platform Dependency Mapping**: `implementation(platform(libs.androidx.compose.bom))` 구문을 통해 BOM 을 Gradle 플랫폼 의존성으로 등록한다.
-2. **Version Resolution Override**: BOM 에 정의된 맵 명세가 `compose.ui`나 `compose.material3` 선언 시 개별 버전을 자동으로 덮어써서 동일 라인업 호환성을 보장한다.
-3. **특정 버전 개별 오버라이드 지원**: 알파/베타 기능을 테스트하기 위해 특정 Compose 모듈만 독립 버전을 써야 하는 경우, 해당 모듈 선언에만 명시적 버전을 적어주면 BOM 설정을 부분 오버라이드할 수 있다.
+과거에는 각 Compose 라이브러리마다 버전 번호를 따로 기재하다가 버전 불일치로 인한 런타임 크래시(`NoSuchMethodError`)가 빈번했다. BOM 을 `platform()` 으로 선언하면 개별 Compose 라이브러리의 버전 번호를 생략할 수 있어 버전 충돌을 원천 차단한다.
 
 ```mermaid
 flowchart TD
-    BOM["compose-bom:2024.05.00 (Platform BOM)"] --> Resolves["BOM Version Mapping Table"]
-    Resolves --> UI["androidx.compose.ui (1.6.7)"]
-    Resolves --> M3["androidx.compose.material3 (1.2.1)"]
-    Resolves --> Found["androidx.compose.foundation (1.6.7)"]
-    UI & M3 & Found --> App["app/build.gradle.kts (No Version Strings Needed)"]
+    BOM["androidx.compose:compose-bom:2026.02.00 (Platform Artifact)"]
+    
+    subgraph ManagedLibs ["BOM이 버전을 자동 매핑하는 라이브러리군"]
+        UI["androidx.compose.ui:ui (1.8.0)"]
+        M3["androidx.compose.material3:material3 (1.4.0)"]
+        Found["androidx.compose.foundation:foundation (1.8.0)"]
+        Anim["androidx.compose.animation:animation (1.8.0)"]
+    end
+    
+    BOM -.->|"버전 자동 조율"| UI & M3 & Found & Anim
+    UI & M3 & Found & Anim --> AppBuild["app/build.gradle.kts<br/>(버전 번호 없이 implementation)"]
 ```
 
-### 코드 예시 (build.gradle.kts)
+---
+
+### 1. Compose BOM 도입의 핵심 이점
+
+| 비교 항목 | 개별 라이브러리 버전 직접 명시 | Compose BOM 플랫폼 적용 |
+|---|---|---|
+| **버전 선언 방식** | `implementation("androidx.compose.ui:ui:1.7.0")`<br/>`implementation("androidx.compose.material3:1.3.0")` | `implementation(platform(libs.androidx.compose.bom))`<br/>`implementation(libs.androidx.compose.ui)` (버전 생략) |
+| **버전 충돌 위험** | 모듈 간 버전 불일치로 인한 런타임 크래시 위험 높음 | Google 이 사전 검증한 호환성 세트 보장 |
+| **업그레이드 비용** | 수십 개 Compose 라이브러리 버전을 일일이 검색 후 수정 | **BOM 버전 하나만 변경하면 전체 Compose 모듈 일괄 업그레이드** |
+
+---
+
+### 2. 코드 예시: libs.versions.toml 및 build.gradle.kts
+
+```toml
+# gradle/libs.versions.toml
+[versions]
+composeBom = "2026.02.00"
+
+[libraries]
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" } # 버전 명시 불필요!
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+```
+
 ```kotlin
 // app/build.gradle.kts
 dependencies {
-    // 1. Compose BOM 플랫폼 선언 (버전 지정)
+    // 1. Compose BOM 플랫폼 의존성 선언
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
-    // 2. 개별 Compose 라이브러리 선언 (버전 번호 완전 생략)
+    // 2. 개별 Compose 라이브러리는 버전 없이 선언
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui.tooling.preview)
+
+    // 3. 특정 라이브러리만 다른 최신 버전을 써야 할 경우 직접 버전을 주입하여 오버라이드 가능
+    // implementation("androidx.compose.material3:material3:1.4.0-alpha01")
 }
 ```
 
-### 관측 가능 증거 (Observable Evidence)
+---
 
-Compose BOM 에 의해 해소된 최종 모듈 버전 세트는 다음 명령어로 확인할 수 있다:
+### 3. 주의사항: Compose BOM 과 Compose Compiler 의 관계
+
+- **BOM 은 런타임 UI 라이브러리만 관리한다**: BOM 은 `ui`, `material3` 등의 런타임 의존성 버전을 조율할 뿐, **Compose 컴파일러(`compose-compiler`)** 는 관리하지 않는다.
+- Compose 컴파일러는 Kotlin 컴파일러와 1:1 로 결합되는 컴파일러 플러그인이므로 [Compose 컴파일러 플러그인 아키텍처](compose-compiler-plugin.md) 를 통해 관리해야 한다.
+
+---
+
+### 4. 관측 가능 증거 (Observable Evidence)
+
+BOM 에 의해 실제 매핑된 Compose 라이브러리들의 버전 정보는 의존성 트리 덤프로 확인할 수 있다:
 
 ```bash
-./gradlew app:dependencies | grep "androidx.compose"
+./gradlew app:dependencies --configuration releaseRuntimeClasspath | grep androidx.compose
 ```
 
-관련 노트: [Compose compiler는 BOM이 아니라 Kotlin 컴파일러 흐름에 속한다](compose-compiler-plugin.md), [Android 빌드 파이프라인과 핵심 빌드 용어 해설](../gradle/android-build-pipeline.md), [의존성 및 CI 계약](gradle-build.md)
+---
+
+### 상위 및 연관 문서
+
+- [Gradle 빌드 시스템 및 의존성·플러그인 아키텍처](gradle-build.md)
+- [Gradle Version Catalog (libs.versions.toml) 및 중앙 의존성 관리](gradle-version-catalog.md)
+- [Jetpack Compose 컴파일러 플러그인 아키텍처](compose-compiler-plugin.md)

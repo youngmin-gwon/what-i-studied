@@ -2,7 +2,7 @@
 title: agp-source-sets
 tags: ["agp", "android", "gradle", "resource-merging", "sourceset"]
 aliases: ["AGP SourceSets", "Duplicate Class", "SourceSet 우선순위", "SourceSet", "리소스 병합 규칙", "소스 세트"]
-date modified: 2026-08-26 17:47:48 +09:00
+date modified: 2026-08-26 18:06:00 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -10,9 +10,9 @@ date created: 2026-07-31 17:52:17 +09:00
 
 ### 개요
 
-**SourceSet(소스 세트)**은 특정한 [빌드 변형(Build Variant)](agp-build-variants.md) 이나 환경을 위해 결합되는 소스 코드, 리소스, 매니페스트 파일의 디렉터리 모음이다 (예: `src/main`, `src/debug`, `src/free`, `src/freeRelease`).
+**SourceSet(소스 세트)** 은 특정한 [빌드 변형(Build Variant)](agp-build-variants.md) 이나 환경을 위해 결합되는 소스 코드, 리소스, 매니페스트 파일의 디렉터리 모음이다 (예: `src/main`, `src/debug`, `src/free`, `src/freeRelease`).
 
-다양한 빌드 변형을 동시에 지원할 때 동일한 리소스 이름(예: `strings.xml` 내의 `app_name`)이나 코드가 여러 소스 세트에 중복 존재할 수 있다. AGP(Android Gradle Plugin)는 명확하게 정의된 **SourceSet 우선순위 계층구조(Priority Cascade)**를 따라 리소스를 덮어쓰고(Override) 병합함으로써 충돌을 결정론적으로 해결한다.
+다양한 빌드 변형을 동시에 지원할 때 동일한 리소스 이름(예: `strings.xml` 내의 `app_name`)이나 코드가 여러 소스 세트에 중복 존재할 수 있다. AGP(Android Gradle Plugin)는 명확하게 정의된 **SourceSet 우선순위 계층구조(Priority Cascade)** 를 따라 리소스를 덮어쓰고(Override) 병합함으로써 충돌을 결정론적으로 해결한다.
 
 ```mermaid
 flowchart TD
