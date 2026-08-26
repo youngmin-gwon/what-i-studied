@@ -2,7 +2,7 @@
 title: gradle-build
 tags: ["android", "android/packaging-deployment", "gradle"]
 aliases: ["Gradle Build System", "Gradle 빌드 및 의존성 아키텍처", "Gradle 빌드 시스템"]
-date modified: 2026-08-26 18:00:00 +09:00
+date modified: 2026-08-26 18:18:27 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 
@@ -51,6 +51,7 @@ flowchart TD
 ### 관련 세부 문서 (24 개 원자 노트)
 
 #### 1. Gradle 코어 엔진 및 생명주기
+
 1. [Gradle 코어 엔진 및 아키텍처](gradle-core.md)
 2. [Android 빌드 파이프라인과 핵심 빌드 용어 해설](android-build-pipeline.md)
 3. [Gradle Settings DSL 및 API (settings.gradle.kts)](gradle-settings-dsl.md)
@@ -61,10 +62,12 @@ flowchart TD
 8. [Gradle 캐싱 및 빌드 최적화](gradle-caching-and-optimization.md)
 
 #### 2. 플러그인 및 모듈화 아키텍처
+
 1. [Gradle 플러그인 및 모듈화 아키텍처](gradle-plugins.md)
 2. [Gradle 플러그인(Plugin)과 의존성(Dependency)의 본질적 차이](gradle-plugins-vs-dependencies.md)
 
 #### 3. Version Catalog 및 의존성 관리
+
 1. [Version catalog는 의존성과 플러그인 좌표를 명명한다](gradle-version-catalog.md)
 2. [Gradle 의존성 구성 및 클래스패스 격리](gradle-dependency-configurations.md)
 3. [Gradle 의존성 관리는 요청된 버전이 아니라 해소 그래프를 제어한다](gradle-dependency-resolution.md)
@@ -72,11 +75,13 @@ flowchart TD
 5. [의존성 변경 체크리스트는 그래프, ABI, 테스트, 릴리스 위험을 검토한다](dependency-change-checklist.md)
 
 #### 4. 컴파일러 플러그인 및 코드 생성
+
 1. [KSP는 Kotlin 퍼스트 코드 생성이며 KAPT는 유지보수 모드다](ksp-code-generation.md)
 2. [Compose compiler는 BOM이 아니라 Kotlin 컴파일러 흐름에 속한다](compose-compiler-plugin.md)
 3. [kotlinx.serialization은 컴파일러 플러그인과 런타임 포맷이 모두 필요하다](kotlinx-serialization-plugin.md)
 
 #### 5. AGP(Android Gradle Plugin) 및 릴리스 배포 설정
+
 1. [Android Gradle Plugin (AGP) 아키텍처 및 확장 모델](android-gradle-plugin.md)
 2. [AGP defaultConfig 및 앱 식별자·버전 명세](agp-default-config.md)
 3. [AGP Build Variant 아키텍처 및 변형 매트릭스](agp-build-variants.md)
