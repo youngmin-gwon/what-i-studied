@@ -1,16 +1,14 @@
 ---
 title: apple-rendering-and-media
-tags: [animation, apple, coreanimation, graphics, internals, metal, rendering]
-aliases: []
-date modified: 2026-04-06 17:59:32 +09:00
+tags: [apple, apple/ui, apple/ui/rendering, coreanimation, graphics, internals, metal, rendering]
+aliases: ["프레임은 앱 프로세스의 Commit 과 Render Server 의 합성이라는 두 예산으로 나뉜다", "Core Animation Pipeline", "렌더링과 Metal"]
+date modified: 2026-09-03 00:00:00 +09:00
 date created: 2025-12-16 16:09:09 +09:00
 ---
 
-## Rendering, Metal, and Animation
+## 프레임은 앱 프로세스의 Commit 과 Render Server 의 합성이라는 두 예산으로 나뉜다
 
-Apple 기기의 화면이 왜 그렇게 부드러운지(Smooth), 그리고 어떻게 그 부드러움을 유지할 수 있는지 기술적으로 분석합니다.
-
-Core Animation 파이프라인에서 시작해, Metal 로 가속되는 렌더링, 그리고 사용자가 느끼는 애니메이션 감각까지 **"픽셀이 눈에 보이기까지"**의 여정입니다.
+화면에 픽셀이 나오기까지의 비용은 한 덩어리가 아니다. **앱 프로세스(CPU)** 가 Layout·Display·Prepare 를 거쳐 레이어 트리를 Commit 하는 구간과, **Render Server(GPU)** 가 그 트리를 합성해 V-Sync 에 맞춰 내보내는 구간은 서로 다른 프로세스에서 일어난다. 스크롤이 버벅일 때 어느 쪽 예산을 넘겼는지 먼저 나눠야 고칠 대상이 정해진다.
 
 ### 💡 왜 이것을 알아야 하나요? (Why it matters)
 
@@ -72,24 +70,9 @@ Apple 의 로우 레벨 3D 그래픽 API 입니다. Core Animation 도 내부적
 
 ---
 
-### 🎬 Animation Principles (Motion)
-
-애니메이션은 단순히 예쁜 것이 아니라 "상태 변화를 설명하는 도구"입니다.
-
-1. **Response**: 사용자의 터치에 즉각 반응해야 합니다. (지연 시간 < 100ms)
-2. **Interruptibility**: 애니메이션 중 사용자가 다시 조작하면, 즉시 그 손가락을 따라가야 합니다. (additive animation, spring)
-3. **Spring Physics**: 실제 물리 법칙(질량, 강성, 감쇠)을 시뮬레이션하여 자연스러운 움직임을 만드세요. `UIView.animate(duration:…)` 대신 `UIViewPropertyAnimator` 나 SwiftUI `spring` 을 쓰세요.
-
----
-
-### 🎞️ Media Pipeline (AVFoundation)
-
-동영상 처리의 핵심은 **"복사하지 않는 것"**입니다.
-
-- **CVPixelBuffer**: 이미지 데이터를 담는 컨테이너입니다.
-- **Zero-copy Flow**: 카메라 -> Metal -> 인코더까지 데이터 복사 없이 메모리 주소만 넘깁니다.
-
 ### 더 보기
 
 - [apple-uikit-lifecycle](apple-uikit-lifecycle.md) - 렌더링 루프와 연동
+- [apple-animation-and-motion](apple-animation-and-motion.md) - 애니메이션 원칙과 인터럽트 가능한 모션
+- [apple-media-pipeline-deep](apple-media-pipeline-deep.md) - AVFoundation 캡처/재생 파이프라인과 zero-copy
 - [apple-instruments-profiling](../06_testing_performance/apple-instruments-profiling.md) - Core Animation FPS 및 Offscreen Rendering 감지 방법

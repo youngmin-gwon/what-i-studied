@@ -1,18 +1,14 @@
 ---
 title: apple-media-pipeline-deep
-tags: [apple, audio, avfoundation, media, video]
-aliases: []
-date modified: 2026-04-06 18:02:36 +09:00
+tags: [apple, apple/ui, apple/ui/media, audio, avfoundation, media, video]
+aliases: ["AVFoundation 은 세션이 소유한 파이프라인이고 프레임은 복사하지 않고 참조로 흐른다", "AVFoundation", "미디어 파이프라인"]
+date modified: 2026-09-03 00:00:00 +09:00
 date created: 2025-12-16 16:09:09 +09:00
 ---
 
-## Media Pipeline (AVFoundation) Deep Dive
+## AVFoundation 은 세션이 소유한 파이프라인이고 프레임은 복사하지 않고 참조로 흐른다
 
-동영상 재생이나 카메라 촬영은 단순한 API 호출이 아닙니다.
-
-`AVFoundation` 은 하드웨어와 앱 사이에서 거대한 데이터 파이프라인(Pipeline)을 관리합니다.
-
-이 흐름을 이해하지 못하면 "왜 소리가 안 나지?", "왜 화면이 검게 나오지?"라는 질문에 답할 수 없습니다.
+`AVFoundation` 은 개별 API 의 모음이 아니라 **`AVCaptureSession` / `AVAudioSession` / `AVPlayer` 가 각각 소유하는 파이프라인**이다. "왜 소리가 안 나지", "왜 화면이 검게 나오지"는 대부분 개별 호출이 아니라 세션의 구성 또는 상태 전이가 잘못된 결과다. 그리고 이 파이프라인 위를 흐르는 프레임은 **복사되지 않는다** — 4K 프레임 하나가 30MB 를 넘기 때문에, 하드웨어 버퍼의 참조(`CVPixelBuffer`)만 단계 사이를 이동한다.
 
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
@@ -66,7 +62,19 @@ session.startRunning() // Blocking Call, Main Thread에서 절대 호출 금지!
   - `.failed`: 네트워크 끊김이나 코덱 미지원.
 - **HLS (HTTP Live Streaming)**: 네트워크 상태에 따라 1080p -> 720p -> 480p 로 자동으로 갈아탑니다(Adaptive Bitrate).
 
+---
+
+### 🔗 Zero-copy 데이터 흐름
+
+동영상 처리의 핵심은 **"복사하지 않는 것"** 이다.
+
+- **CVPixelBuffer**: 이미지 데이터를 담는 컨테이너. 실제 픽셀은 GPU 가 접근 가능한 메모리에 있고, 앱은 참조만 들고 다닌다.
+- **Zero-copy Flow**: 카메라 → Metal(필터/렌더) → 인코더까지 데이터 복사 없이 메모리 주소만 넘긴다.
+- **CPU 복사가 끼어드는 순간**: `CGImage` 변환, `UIImage` 생성, `CMSampleBuffer` 를 `Data` 로 직렬화. 여기서 발열과 프레임 드랍이 시작되므로 실시간 경로에서는 피한다.
+
+---
+
 ### 더 보기
 
-- [apple-rendering-and-media](apple-rendering-and-media.md) - Metal 을 이용한 비디오 렌더링
+- [apple-rendering-and-media](apple-rendering-and-media.md) - Core Animation/Metal 렌더링 파이프라인
 - [apple-privacy-and-tcc-details](../04_system_services/apple-privacy-and-tcc-details.md) - 카메라/마이크 권한 상세
