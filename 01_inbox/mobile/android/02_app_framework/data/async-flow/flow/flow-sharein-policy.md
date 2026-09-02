@@ -62,4 +62,4 @@ class TickerRepository(
 }
 ```
 
-공식 문서: [SharedFlow and StateFlow](https://kotlinlang.org/docs/sharedflow-and-[stateflow](../../../stateflow-and-sharedflow.md).html)
+공식 문서: [SharedFlow and StateFlow](https://kotlinlang.org/docs/sharedflow-and-stateflow.html)

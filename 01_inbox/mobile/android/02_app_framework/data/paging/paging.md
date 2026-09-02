@@ -14,14 +14,14 @@ Paging 정본은 대량 목록을 "페이지 로딩 알고리즘"이 아니라 s
 
 - [PagingSource는 한 번에 한 페이지를 읽고 다음 key를 돌려준다](paging-source-key-pagination.md)
 - [Pager는 PagingSource factory로 PagingData Flow를 만든다](pager-flow-construction.md)
-- [cachedIn은 PagingData Flow를 [viewmodel](../../architecture/state-management/viewmodel.md) 수명에 묶는다](./cachedin-ties-pagingdata-flow-to-viewmodel-lifetime.md)
+- [cachedIn은 PagingData Flow를 ViewModel 수명에 묶는다](paging-cachedin-viewmodel.md)
 - [LoadState는 refresh, append, prepend 상태를 UI에 명시적으로 드러낸다](paging-loadstate-ui.md)
 - [Paging item diffing은 identity와 content 비교를 분리한다](paging-diffutil-identity.md)
 - [RemoteMediator는 network page와 local cache를 연결한다](remote-mediator-caching.md)
 
 ### 중복 방지 규칙
 
-- Flow 의 수집, 공유, `stateIn` 판단은 [Flow와 [stateflow](../async-flow/flow-state/stateflow-and-sharedflow.md) 상태 계약](../../async-flow/flow-state/flow-state.md) 로 둔다.
+- Flow 의 수집, 공유, `stateIn` 판단은 [Flow와 StateFlow 상태 계약](../async-flow/flow-state/flow-state.md) 로 둔다.
 - Room/DataStore 와 durable source of truth 는 [영속 저장소 계약](../storage/persistence.md) 로 둔다.
 - ViewModel scope 와 화면 상태 조합은 [Android ViewModel](../../architecture/state-management/viewmodel.md) 로 둔다.
 
