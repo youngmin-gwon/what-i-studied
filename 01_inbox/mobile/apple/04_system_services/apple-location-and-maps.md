@@ -1,11 +1,11 @@
 ---
 title: apple-location-and-maps
-tags: [apple, core-location, mapkit, framework, system-service]
-aliases: [Location Services, Core Location, MapKit]
+tags: [apple, apple/services, core-location, framework, mapkit, system-service]
+aliases: ["Core Location 은 좌표를 확보하고 MapKit 은 그리기만 한다 — 정확도와 배터리는 전자에서 결정된다", "Core Location", "MapKit", "Location Services"]
 date created: 2026-04-09 10:57:00 +09:00
 ---
 
-## [apple-system-services](apple-system-services.md) > Core Location & MapKit
+## Core Location 은 좌표를 확보하고 MapKit 은 그리기만 한다 — 정확도와 배터리는 전자에서 결정된다
 
 Apple 플랫폼에서 "사용자의 위치를 파악(Core Location)"하고, 그것을 "지도로 시각화(MapKit)"하는 두 기초 프레임워크를 바닥부터 심층적으로 다룹니다.
 
@@ -115,5 +115,5 @@ mapView.setRegion(region, animated: true)
 
 ### 📚 연관 문서
 - [apple-system-services](apple-system-services.md) - 다른 시스템 서비스 개요
-- [apple-privacy-and-tcc-details](apple-privacy-and-tcc-details.md) - 위치 권한과 관련된 개인정보 보호 체계
+- [apple-privacy-and-tcc-details](../05_security_privacy/apple-privacy-and-tcc-details.md) - 위치 권한과 관련된 개인정보 보호 체계
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 백그라운드에서의 앱 동작 방식

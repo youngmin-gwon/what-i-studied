@@ -1,26 +1,24 @@
 ---
 title: apple-security-swift6-safety
 tags: [apple, apple/security, concurrency, memory-safety, swift, swift6]
-aliases: []
+aliases: ["Swift 6 는 데이터 경합을 런타임 버그가 아니라 컴파일 에러로 바꾼다", "Swift 6 Strict Concurrency", "Swift 6 안전성"]
 date modified: 2026-04-06 18:14:34 +09:00
 date created: 2026-04-05 17:08:33 +09:00
 ---
 
-## [mobile-security](../../mobile-security.md) > [apple-security-swift6-safety](apple-security-swift6-safety.md)
-
-### Swift 6: Strict Concurrency & Memory Safety
+## Swift 6 는 데이터 경합을 런타임 버그가 아니라 컴파일 에러로 바꾼다
 
 Swift 6 의 **엄격한 동시성 검사(Strict Concurrency Checking)**는 단순한 개발 생산성 도구를 넘어, 현대적인 보안 프레임워크의 일부로 자리 잡고 있습니다. 메모리 안전성이 곧 보안인 컴파일 레이어의 방어막입니다.
 
 ---
 
-#### 🛡️ 배경: 메모리 안전성과 보안 위협
+### 🛡️ 배경: 메모리 안전성과 보안 위협
 
 모든 보안 취약점의 약 70% 가 메모리 관리 오류(Buffer Overflow, Use-after-free, Data Race)에서 기인합니다. Swift 6 는 이러한 오류를 **런타임이 아닌 컴파일 타임**에 차단하여 원천적으로 보안 사고를 방지합니다.
 
 ---
 
-#### ⚙️ 핵심 메커니즘 (Swift 6 Security)
+### ⚙️ 핵심 메커니즘 (Swift 6 Security)
 
 1. **데이터 레이스 차단 (Data Race Safety)**:
     - `Sendable` 프로토콜을 통해 스레드 간에 안전하게 전달될 수 있는 타입을 컴파일러가 확인합니다.
@@ -33,12 +31,12 @@ Swift 6 의 **엄격한 동시성 검사(Strict Concurrency Checking)**는 단�
 
 ---
 
-#### 🚀 보안 엔지니어 관점의 의미
+### 🚀 보안 엔지니어 관점의 의미
 
 - **방어적 코딩의 자동화**: 개발자가 실수로 보안 구멍(Race Condition)을 만들 가능성을 컴파일 에러로 안내합니다.
 - **예측 가능한 빌드**: 런타임에 불규칙하게 발생하는 크래시(OOM, 메모리 오염)가 사라져, 앱의 무결성과 가시성이 극대화됩니다.
 
-#### 연관 문서
+### 연관 문서
 
 - [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC 및 내부 구조
 - [apple-foundations](../00_foundations/apple-foundations.md) - 애플 보안 기본 철학

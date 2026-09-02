@@ -1,7 +1,7 @@
 ---
 title: apple-tvos-media
-tags: [apple, media, tvos]
-aliases: []
+tags: [apple, apple/platforms, apple/platforms/tvos, media, tvos]
+aliases: ["tvOS Media", "tvOS 미디어"]
 date modified: 2026-08-10 16:00:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---

@@ -1,7 +1,7 @@
 ---
 title: apple-instruments-profiling
-tags: [apple, instruments, performance, profiling, xcode]
-aliases: []
+tags: [apple, apple/testing, instruments, performance, profiling, xcode]
+aliases: ["Instruments", "Instruments 프로파일링"]
 date modified: 2026-04-06 18:15:13 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---

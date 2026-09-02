@@ -1,7 +1,7 @@
 ---
 title: apple-cloud-sync-patterns
-tags: [apple, architecture, cloud, cloudkit, icloud, offline-first, sync]
-aliases: []
+tags: [apple, apple/data, architecture, cloud, cloudkit, icloud, offline-first, sync]
+aliases: ["CloudKit Sync", "클라우드 동기화 패턴"]
 date modified: 2026-04-06 18:03:48 +09:00
 date created: 2025-12-16 16:09:23 +09:00
 ---

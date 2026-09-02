@@ -1,20 +1,18 @@
 ---
 title: apple-glossary
-tags: []
-aliases: []
+tags: [apple, apple/foundations]
+aliases: ["Apple Glossary", "Apple 용어 사전"]
 date modified: 2026-04-07 18:52:37 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
-## [mobile-security](../../mobile-security.md) > [apple-glossary](apple-glossary.md)
-
-### Apple Developer Glossary: Key Terms & Concepts
+## Apple Glossary 는 용어의 짧은 정의와 정본 링크만 담는다
 
 Apple 생태계의 문서를 읽을 때 마주하게 되는 핵심 기술 용어들의 맥락(Context)을 설명합니다. 이 용어들을 명확히 이해하면 시스템 로그와 에러 메시지의 근본 원인을 파악하는 데 큰 도움이 됩니다.
 
 ---
 
-#### 🏗️ Architecture & Kernel (기반 시스템)
+### 🏗️ Architecture & Kernel (기반 시스템)
 
 - **Darwin**: macOS, iOS 등 모든 Apple OS 의 뿌리가 되는 오픈소스 유닉스 운영체제입니다.
 - **XNU (X is Not Unix)**: Darwin 의 커널로, Mach 마이크로커널과 BSD 의 하이브리드 구조입니다. ([apple-architecture-stack](apple-architecture-stack.md))
@@ -23,7 +21,7 @@ Apple 생태계의 문서를 읽을 때 마주하게 되는 핵심 기술 용어
 
 ---
 
-#### 📦 App Structure (앱 구조)
+### 📦 App Structure (앱 구조)
 
 - **Bundle (번들)**: 코드, 리소스, 서명 등이 포함된 디렉토리 패키지(`.app`)입니다.
 - **Info.plist**: 앱의 구성 정보와 권한 요청 문구 등이 포함된 설정 파일입니다.
@@ -31,7 +29,7 @@ Apple 생태계의 문서를 읽을 때 마주하게 되는 핵심 기술 용어
 
 ---
 
-#### 🎨 UI & Execution (실행 및 화면)
+### 🎨 UI & Execution (실행 및 화면)
 
 - **Main Run Loop**: 터치 이벤트 처리와 UI 렌더링을 담당하는 메인 스레드의 무한 루프입니다.
 - **GCD (Grand Central Dispatch)**: 시스템이 스레드를 자동으로 관리하며 작업을 분산 처리하는 기술입니다. ([apple-gcd-deep-dive](../01_language_concurrency/apple-gcd-deep-dive.md))
@@ -39,22 +37,22 @@ Apple 생태계의 문서를 읽을 때 마주하게 되는 핵심 기술 용어
 
 ---
 
-#### 🔐 Security & Privacy (보안 및 프라이버시)
+### 🔐 Security & Privacy (보안 및 프라이버시)
 
 - **Keychain**: 암호화된 시스템 데이터베이스로 비밀번호 등 민감 정보를 안전하게 저장합니다. ([apple-keychain-biometrics](../05_security_privacy/apple-keychain-biometrics.md))
-- **TCC (Transparency, Consent, and Control)**: 사용자의 개인 데이터 접근 권한을 관리하는 시스템입니다. ([apple-privacy-and-tcc-details](../04_system_services/apple-privacy-and-tcc-details.md))
+- **TCC (Transparency, Consent, and Control)**: 사용자의 개인 데이터 접근 권한을 관리하는 시스템입니다. ([apple-privacy-and-tcc-details](../05_security_privacy/apple-privacy-and-tcc-details.md))
 - **Code Signing**: 앱의 무결성을 검증하고 개발자를 식별하기 위한 필수 서명 절차입니다.
 
 ---
 
-#### 🛠️ Development Tools (개발 도구)
+### 🛠️ Development Tools (개발 도구)
 
 - **Instruments**: 성능 분석, 메모리 누수 진단 등을 수행하는 종합 프로파일링 도구입니다. ([apple-instruments-profiling](../06_testing_performance/apple-instruments-profiling.md))
 - **TestFlight**: 정식 배포 전 베타 테스터에게 앱을 배포하고 피드백을 받는 공식 플랫폼입니다.
 
 ---
 
-#### 🔗 관련 문서
+### 🔗 관련 문서
 
 - [apple-foundations](apple-foundations.md) - Apple 플랫폼 공통 철학
 - [apple-architecture-stack](apple-architecture-stack.md) - 시스템 계층 구조 및 커널 상세

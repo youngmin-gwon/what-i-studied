@@ -1,7 +1,7 @@
 ---
 title: apple-interprocess-and-xpc
-tags: [app-groups, apple, extensions, ipc, security, xpc]
-aliases: []
+tags: [app-groups, apple, apple/services, extensions, ipc, security, xpc]
+aliases: ["XPC", "프로세스 간 통신"]
 date modified: 2026-04-06 18:10:44 +09:00
 date created: 2025-12-16 16:08:27 +09:00
 ---

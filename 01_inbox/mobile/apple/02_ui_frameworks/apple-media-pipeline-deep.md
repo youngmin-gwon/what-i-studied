@@ -77,4 +77,4 @@ session.startRunning() // Blocking Call, Main Thread에서 절대 호출 금지!
 ### 더 보기
 
 - [apple-rendering-and-media](apple-rendering-and-media.md) - Core Animation/Metal 렌더링 파이프라인
-- [apple-privacy-and-tcc-details](../04_system_services/apple-privacy-and-tcc-details.md) - 카메라/마이크 권한 상세
+- [apple-privacy-and-tcc-details](../05_security_privacy/apple-privacy-and-tcc-details.md) - 카메라/마이크 권한 상세

@@ -1,7 +1,7 @@
 ---
 title: apple-app-lifecycle-and-ui
-tags: [appdelegate, apple, lifecycle, scenedelegate, swiftui, uikit]
-aliases: []
+tags: [appdelegate, apple, apple/ui, lifecycle, scenedelegate, swiftui, uikit]
+aliases: ["App Lifecycle", "Scene Delegate", "앱 생명주기"]
 date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-16 16:08:54 +09:00
 ---

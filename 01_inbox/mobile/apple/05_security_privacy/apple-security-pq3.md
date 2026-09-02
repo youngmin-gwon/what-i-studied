@@ -1,20 +1,18 @@
 ---
 title: apple-security-pq3
 tags: [apple, apple/security, cryptography, pq3, quantum]
-aliases: []
+aliases: ["PQ3 는 하이브리드 키 교환과 주기적 리키잉으로 지금 수집해 나중에 복호화하는 공격을 막는다", "PQ3", "양자 내성 암호"]
 date modified: 2026-04-06 18:14:15 +09:00
 date created: 2026-04-05 17:08:16 +09:00
 ---
 
-## [mobile-security](../../mobile-security.md) > [apple-security-pq3](apple-security-pq3.md)
-
-### PQ3: Post-Quantum Cryptography (iMessage)
+## PQ3 는 하이브리드 키 교환과 주기적 리키잉으로 지금 수집해 나중에 복호화하는 공격을 막는다
 
 2024 년부터 iMessage 에 도입된 **PQ3**는 양자 컴퓨터의 발전에 대비한 차세대 암호 프로토콜입니다. 기존의 타원 곡선 암호(ECC)를 넘어선 극도로 높은 보안 수준(Level 3)을 제공합니다.
 
 ---
 
-#### 🛡️ 배경: "Harvest Now, Decrypt Later" 공격 방어
+### 🛡️ 배경: "Harvest Now, Decrypt Later" 공격 방어
 
 현재의 암호화된 데이터는 미래의 강력한 양자 컴퓨터로 복호화될 위험이 있습니다.
 
@@ -24,7 +22,7 @@ date created: 2026-04-05 17:08:16 +09:00
 
 ---
 
-#### ⚙️ 동작 메커니즘 (Level 3 Security)
+### ⚙️ 동작 메커니즘 (Level 3 Security)
 
 1. **Kyber 기반 암호화**: NIST 가 선정한 양자 내성 알고리즘인 **Kyber**를 사용하여 키 교환을 수행합니다.
 2. **하이브리드 암호화**: 기존의 ECC 암호와 Kyber 양자 내성 암호를 결합하여 사용합니다. (둘 중 하나가 뚫려도 보안이 유지됨)
@@ -32,12 +30,12 @@ date created: 2026-04-05 17:08:16 +09:00
 
 ---
 
-#### 🚀 개발자 및 사용자에게 갖는 의미
+### 🚀 개발자 및 사용자에게 갖는 의미
 
 - **투명성**: 사용자는 이를 인지하지 못하지만, 시스템 수준에서 이미 최고의 보안을 제공받습니다.
 - **성능 최적화**: 메시지 크기 증가를 최소화하면서도 양자 공격에 대한 강력한 방어력을 갖추고 있습니다.
 
-#### 연관 문서
+### 연관 문서
 
 - [cryptography-basics](../../../security/fundamentals/cryptography-basics.md) - 암호학 기초
 - [network-security-protocols](../../../security/protocols/network-security-protocols.md) - 네트워크 보안 프로토콜

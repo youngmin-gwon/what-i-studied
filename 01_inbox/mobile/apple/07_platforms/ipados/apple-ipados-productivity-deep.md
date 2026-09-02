@@ -1,7 +1,7 @@
 ---
 title: apple-ipados-productivity-deep
-tags: [apple, ipados, productivity]
-aliases: []
+tags: [apple, apple/platforms, apple/platforms/ipados, ipados, productivity]
+aliases: ["iPadOS Productivity", "아이패드 생산성"]
 date modified: 2026-08-10 16:00:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---

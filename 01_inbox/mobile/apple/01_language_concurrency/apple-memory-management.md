@@ -1,14 +1,12 @@
 ---
 title: apple-memory-management
-tags: []
-aliases: []
+tags: [apple, apple/concurrency, apple/language]
+aliases: ["ARC 는 컴파일러가 삽입한 retain/release 이고 참조 카운트는 객체 헤더와 Side Table 에 나뉘어 산다", "ARC", "메모리 관리"]
 date modified: 2026-04-07 18:54:47 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
-## [mobile-security](../../mobile-security.md) > [apple-memory-management](apple-memory-management.md)
-
-### Memory Management: ARC & Internals
+## ARC 는 컴파일러가 삽입한 retain/release 이고 참조 카운트는 객체 헤더와 Side Table 에 나뉘어 산다
 
 iOS 앱의 성능과 안정성을 결정짓는 핵심, **ARC(Automatic Reference Counting)**의 깊은 구조와 동작 원리를 분석합니다.
 
@@ -18,7 +16,7 @@ iOS 앱의 성능과 안정성을 결정짓는 핵심, **ARC(Automatic Reference
 
 단순히 `weak self` 를 쓰는 것을 넘어, **Side Table**이 어떻게 약한 참조를 관리하고 **Autoreleasepool**이 언제 필요한지 이해합니다.
 
-#### 💡 왜 이것을 알아야 하나요? (Why it matters)
+### 💡 왜 이것을 알아야 하나요? (Why it matters)
 
 - **앱이 자꾸 죽나요? (OOM)**: 이미지가 많은 피드를 스크롤하다 앱이 튕긴다면, 순환 참조(Retain Cycle)나 메모리 피크(Peak) 관리 실패일 확률이 높습니다.
 - **성능 저하**: 불필요한 객체 복사나 해제 지연은 프레임 드랍의 원인이 됩니다.
@@ -26,9 +24,9 @@ iOS 앱의 성능과 안정성을 결정짓는 핵심, **ARC(Automatic Reference
 
 ---
 
-#### 🔍 ARC 내부 동작 원리 (ARC Internals)
+### 🔍 ARC 내부 동작 원리 (ARC Internals)
 
-##### 1. Object Memory Layout & RefCounts
+#### 1. Object Memory Layout & RefCounts
 
 Swift 객체는 힙에 할당될 때, 메타데이터와 함께 두 개의 숨겨진 Reference Count 필드를 가집니다 (최적화에 따라 다름).
 
@@ -36,7 +34,7 @@ Swift 객체는 힙에 할당될 때, 메타데이터와 함께 두 개의 숨�
 - **Unowned Reference Count**: unowned 참조 수.
 - *Weak Reference Count?* → 객체 내부에 없고 **Side Table**에 있을 수 있습니다.
 
-##### 2. Side Table (사이드 테이블) 메커니즘
+#### 2. Side Table (사이드 테이블) 메커니즘
 
 강한 참조 카운트나 약한 참조 카운트를 위해 객체 헤더 공간이 부족하거나, **Weak Reference**가 생성될 때 "Side Table"이라는 별도의 메모리 블록이 할당됩니다.
 
@@ -47,7 +45,7 @@ Swift 객체는 힙에 할당될 때, 메타데이터와 함께 두 개의 숨�
     3. Weak 참조들은 객체가 아닌 Side Table 을 가리킵니다.
     4. 객체가 해제되어도 Side Table 은 Weak 참조 카운트가 0 이 될 때까지 살아남습니다.
 
-##### 3. Tagged Pointers
+#### 3. Tagged Pointers
 
 작은 데이터(예: 작은 숫자, 날짜, 일부 짧은 문자열)는 힙에 할당하지 않고 포인터 자체에 데이터를 저장합니다.
 
@@ -56,9 +54,9 @@ Swift 객체는 힙에 할당될 때, 메타데이터와 함께 두 개의 숨�
 
 ---
 
-#### 순환 참조 심화 및 해결 (Retain Cycles)
+### 순환 참조 심화 및 해결 (Retain Cycles)
 
-##### 클로저 캡처 (Deep Dive)
+#### 클로저 캡처 (Deep Dive)
 
 클로저는 참조 타입이므로 힙에 존재하며, 캡처된 변수들을 강하게 참조합니다.
 
@@ -94,9 +92,9 @@ class ViewController: UIViewController {
 
 ---
 
-#### 🛡️ 실무 메모리 최적화 (Memory Optimization)
+### 🛡️ 실무 메모리 최적화 (Memory Optimization)
 
-##### 1. Autoreleasepool 활용
+#### 1. Autoreleasepool 활용
 
 대량의 임시 객체가 루프 안에서 생성될 때 메모리 피크(Peak)를 낮춥니다.
 
@@ -120,7 +118,7 @@ func processLargeImages() {
 }
 ```
 
-##### 2. COW (Copy-On-Write) 커스텀 구현
+#### 2. COW (Copy-On-Write) 커스텀 구현
 
 Swift 의 `Array`, `Dictionary` 처럼 값을 수정할 때만 복사하는 동작을 커스텀 타입에 적용하기.
 
@@ -154,9 +152,9 @@ private class DataWrapper {
 
 ---
 
-#### 🐞 메모리 누수 디버깅 (Profiling)
+### 🐞 메모리 누수 디버깅 (Profiling)
 
-##### 1. Xcode Memory Graph Debugger
+#### 1. Xcode Memory Graph Debugger
 
 **사용법**:
 
@@ -165,7 +163,7 @@ private class DataWrapper {
 3. 좌측 네비게이터에서 노란색 경고(⚠️)가 뜨는 항목 확인. 보라색(🟣)은 누수 가능성 높음.
 4. 객체를 클릭하여 참조 그래프(Reference Chain)를 확인. 굵은 선이 Strong Reference. **순환 참조 고리**를 찾으세요.
 
-##### 2. Instruments - Allocations & Leaks
+#### 2. Instruments - Allocations & Leaks
 
 **Allocations**: 객체의 생존 주기를 시각적으로 확인.
 
@@ -175,7 +173,7 @@ private class DataWrapper {
 
 - 하지만 순환 참조(Retain Cycle)는 레퍼런스 카운트가 0 이 아니므로 Leaks 악기(Instrument)가 못 잡는 경우가 많습니다. Memory Graph 가 더 유용할 때가 많습니다.
 
-##### 3. 코드로 누수 탐지 (Deinit Logger)
+#### 3. 코드로 누수 탐지 (Deinit Logger)
 
 디버깅용으로 특정 객체가 제대로 해제되는지 로그를 심을 때 유용합니다.
 
@@ -202,12 +200,12 @@ private class DeinitTracker {
 }
 ```
 
-#### 📚 외부 리소스 및 참고 자료
+### 📚 외부 리소스 및 참고 자료
 
 - **[WWDC 2021: ARC in Swift](https://developer.apple.com/videos/play/wwdc2021/10216)**: Side Table 과 ARC 최적화의 바이블.
 - **[Swift Runtime Source](https://github.com/apple/swift/tree/main/stdlib/public/runtime)**: 실제 C++ 구현체 확인.
 
-#### 🔗 연관 문서 및 심화 학습
+### 🔗 연관 문서 및 심화 학습
 
 - [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - 앱 생명주기에 따른 메모리 관리 및 뷰 컨트롤러 해제 시점
 - [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - Instruments 를 활용한 메모리 누수 및 리테인 사이클 추적

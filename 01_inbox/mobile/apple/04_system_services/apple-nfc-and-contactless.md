@@ -1,7 +1,7 @@
 ---
 title: apple-nfc-and-contactless
-tags: [apple, contactless, corenfc, ios/26, nfc, payments, secure-element]
-aliases: [Contactless Payments, CoreNFC, NFC, SE Entitlement]
+tags: [apple, apple/services, contactless, corenfc, ios/26, nfc, payments, secure-element]
+aliases: ["Contactless Payments", "CoreNFC", "SE Entitlement"]
 date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-04-04 00:33:00 +09:00
 ---

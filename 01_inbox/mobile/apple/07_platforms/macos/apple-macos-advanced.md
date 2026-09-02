@@ -1,7 +1,7 @@
 ---
 title: apple-macos-advanced
-tags: [apple, desktop, macos]
-aliases: []
+tags: [apple, apple/platforms, apple/platforms/macos, desktop, macos]
+aliases: ["macOS Advanced", "macOS 심화"]
 date modified: 2026-08-10 16:00:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
@@ -521,4 +521,4 @@ UI 렌더링:
 
 ### 관련 링크
 
-[apple-macos-system](../apple-macos-system.md), [apple-build-and-distribution](../../05_security_privacy/apple-build-and-distribution.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).
+[apple-macos-system](../apple-macos-system.md), [apple-build-and-distribution](../../08_packaging_deployment/apple-build-and-distribution.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).

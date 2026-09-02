@@ -1,26 +1,24 @@
 ---
 title: mobile-apple-secure-storage
-tags: [apple, biometric, faceid, keychain, security]
-aliases: [iOS 보안 저장소, 생체인증, 키체인]
+tags: [apple, apple/security, biometric, faceid, keychain, security]
+aliases: ["Keychain 항목의 안전성은 암호화 여부가 아니라 접근성 클래스와 Secure Enclave 결합이 결정한다", "iOS 보안 저장소", "생체인증", "키체인"]
 date modified: 2026-04-06 18:14:34 +09:00
 date created: 2026-04-05 12:45:00 +09:00
 ---
 
-## [mobile-security](../../mobile-security.md) > [mobile-apple-secure-storage](mobile-apple-secure-storage.md)
-
-### Apple Secure Storage: Keychain & Biometrics
+## Keychain 항목의 안전성은 암호화 여부가 아니라 접근성 클래스와 Secure Enclave 결합이 결정한다
 
 Apple 플랫폼에서 사용자 자격 증명(Tokens, Passwords)과 암호화 키를 하드웨어 수준에서 보호하기 위한 **Keychain Services**와 **LocalAuthentication** 아키텍처 실무 가이드입니다.
 
 ---
 
-#### 🛡️ Context: 왜 Keychain & SEP 인가?
+### 🛡️ Context: 왜 Keychain & SEP 인가?
 
 iOS 는 앱의 데이터를 물리적으로 암호화하여 저장하지만, **Keychain**은 앱이 삭제되어도 암호화된 상태로 시스템 영역에 유지될 수 있으며, **Secure Enclave(SEP)**는 물리적인 키 추출을 불가능하게 만드는 최후의 방어선입니다.
 
 ---
 
-#### 1. iOS Keychain & Secure Enclave 로직
+### 1. iOS Keychain & Secure Enclave 로직
 
 - **Keychain**: 운영체제 수준에서 제공하는 암호화 보관소입니다. (앱 삭제 후에도 데이터가 유지될 수 있음)
 - **Secure Enclave (SEP)**: 메인 프로세서와 독립된 하드웨어 보안 모듈로, 암호학적 키 생성 및 생체 데이터 검증을 수행합니다.
@@ -29,11 +27,11 @@ iOS 는 앱의 데이터를 물리적으로 암호화하여 저장하지만, **K
 
 ---
 
-#### 2. [Swift] Secure Keychain Wrapper (AES-GCM/RSA)
+### 2. [Swift] Secure Keychain Wrapper (AES-GCM/RSA)
 
 전문가 수준의 **Keychain** 접근 및 **Secure Enclave** 연동 코드입니다.
 
-##### [Swift] Keychain CRUD 래퍼 예시
+#### [Swift] Keychain CRUD 래퍼 예시
 
 ```swift
 import Foundation
@@ -74,7 +72,7 @@ class KeychainManager {
 }
 ```
 
-##### [Swift] Secure Enclave 키 생성 (비공개키가 칩 밖으로 나가지 않음)
+#### [Swift] Secure Enclave 키 생성 (비공개키가 칩 밖으로 나가지 않음)
 
 ```swift
 func generateSecureEnclaveKeyPair() throws {
@@ -100,7 +98,7 @@ func generateSecureEnclaveKeyPair() throws {
 
 ---
 
-#### 3. LocalAuthentication (FaceID / TouchID)
+### 3. LocalAuthentication (FaceID / TouchID)
 
 생체 인증을 통해 앱 진입이나 중요 결제를 승인하는 코드입니다.
 
@@ -132,7 +130,7 @@ class BioAuthManager {
 
 ---
 
-#### 🔑 Passkeys & 차세대 인증 (Modern Auth)
+### 🔑 Passkeys & 차세대 인증 (Modern Auth)
 
 iOS 16+ 부터 도입된 **Passkeys**는 피싱 불가능한 자격 증명을 제공합니다.
 
@@ -141,14 +139,14 @@ iOS 16+ 부터 도입된 **Passkeys**는 피싱 불가능한 자격 증명을 �
 
 ---
 
-#### 🛡️ 정보보안기사 실무 대응 가이드
+### 🛡️ 정보보안기사 실무 대응 가이드
 
 1. **Authentication Context 취약점**: 단순히 `evaluatePolicy` 의 `Boolean` 결과만 체크하는 것은 탈옥 기기에서 **Frida 후킹**으로 우회가 가능합니다.
     - **대응**: 생체 인증 성공 시에만 해제되는 **Keychain ACL(Access Control List)**을 연동하여, 인증 성공 후에 실제 데이터(토큰)를 키체인에서 읽어오는 방식으로 구현하십시오.
 2. **biometryCurrentSet**: 사용자가 새 지문이나 얼굴을 등록하면 키가 삭제되도록 설정하여 보안성을 강화하십시오.
 3. **Data Loss on Backup**: `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` 를 사용하여 iCloud 백업이나 다른 기기로의 복원을 방지하고, 물리적 기기 바인딩을 유지하십시오.
 
-#### 📚 연관 문서 및 가이드
+### 📚 연관 문서 및 가이드
 
 - [mobile-apple-foundation-security](mobile-apple-foundation-security.md) - Apple 기초 보안 모델 및 샌드박싱
 - [mobile-vulnerability-check](../../cross-platform/mobile-vulnerability-check.md) - 모바일 취약점 종합 진단 가이드

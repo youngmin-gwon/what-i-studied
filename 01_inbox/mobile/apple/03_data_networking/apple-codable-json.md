@@ -1,7 +1,7 @@
 ---
 title: apple-codable-json
-tags: [apple, codable, json, performance, serialization, swift]
-aliases: []
+tags: [apple, apple/data, codable, json, performance, serialization, swift]
+aliases: ["Codable", "JSON 직렬화"]
 date modified: 2026-04-06 18:03:34 +09:00
 date created: 2025-12-16 16:09:23 +09:00
 ---

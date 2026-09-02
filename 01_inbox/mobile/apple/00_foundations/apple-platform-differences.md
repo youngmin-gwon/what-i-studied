@@ -1,7 +1,7 @@
 ---
 title: apple-platform-differences
-tags: [apple, cross-platform, ios, macos, platforms, visionos]
-aliases: []
+tags: [apple, apple/foundations, cross-platform, ios, macos, platforms, visionos]
+aliases: ["Platform Differences", "플랫폼 차이와 코드 공유"]
 date modified: 2026-04-07 18:54:05 +09:00
 date created: 2025-12-16 16:11:10 +09:00
 ---
@@ -90,4 +90,4 @@ Mac 앱에는 강력한 단축키 메뉴를 추가하고, iPad 앱에는 펜슬 
 ### 📚 더 보기
 
 - [apple-foundations](apple-foundations.md) - 공통 철학
-- [apple-build-and-distribution](../05_security_privacy/apple-build-and-distribution.md) - 플랫폼별 배포 방식 차이
+- [apple-build-and-distribution](../08_packaging_deployment/apple-build-and-distribution.md) - 플랫폼별 배포 방식 차이

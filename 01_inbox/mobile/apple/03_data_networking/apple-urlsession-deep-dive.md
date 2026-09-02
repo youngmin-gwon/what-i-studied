@@ -1,7 +1,7 @@
 ---
 title: apple-urlsession-deep-dive
-tags: [apple, async-await, http, networking, urlsession]
-aliases: []
+tags: [apple, apple/data, async-await, http, networking, urlsession]
+aliases: ["URLSession", "URLSession 쿡북"]
 date modified: 2026-04-06 18:08:03 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---

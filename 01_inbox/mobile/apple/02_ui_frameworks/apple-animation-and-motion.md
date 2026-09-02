@@ -1,7 +1,7 @@
 ---
 title: apple-animation-and-motion
-tags: [apple, core-animation, motion, swiftui, uikit]
-aliases: [Animation & Motion, 애니메이션 및 모션]
+tags: [apple, apple/ui, core-animation, motion, swiftui, uikit]
+aliases: ["Animation & Motion", "애니메이션 및 모션"]
 date modified: 2026-04-07 11:05:00 +09:00
 date created: 2026-04-07 11:05:00 +09:00
 ---

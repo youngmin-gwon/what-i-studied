@@ -1,7 +1,7 @@
 ---
 title: apple-cross-platform-architecture
-tags: [appkit, apple, architecture, cross-platform, spm, uikit]
-aliases: []
+tags: [appkit, apple, apple/platforms, architecture, cross-platform, spm, uikit]
+aliases: ["Cross-Platform Architecture", "크로스 플랫폼 아키텍처"]
 date modified: 2026-04-06 18:20:30 +09:00
 date created: 2025-12-18 00:10:00 +09:00
 ---
@@ -84,5 +84,5 @@ Xcode 프로젝트 하나에 여러 타겟(Target)을 둡니다.
 
 ### 더 보기
 
-- [apple-build-and-distribution](../05_security_privacy/apple-build-and-distribution.md) - 타겟별 빌드 및 배포 설정
+- [apple-build-and-distribution](../08_packaging_deployment/apple-build-and-distribution.md) - 타겟별 빌드 및 배포 설정
 - [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - SwiftUI 의 플랫폼별 동작 차이

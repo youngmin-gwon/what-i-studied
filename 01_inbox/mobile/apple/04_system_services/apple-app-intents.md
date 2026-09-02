@@ -1,7 +1,7 @@
 ---
 title: apple-app-intents
-tags: [app-intents, apple, intelligence, shortcuts, siri, spotlight, widgets]
-aliases: []
+tags: [app-intents, apple, apple/services, intelligence, shortcuts, siri, spotlight, widgets]
+aliases: ["App Intents", "Shortcuts", "앱 인텐트"]
 date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---

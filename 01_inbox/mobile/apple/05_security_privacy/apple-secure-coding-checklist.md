@@ -1,7 +1,7 @@
 ---
 title: apple-secure-coding-checklist
-tags: [apple, best-practice, checklist, security]
-aliases: []
+tags: [apple, apple/security, best-practice, checklist, security]
+aliases: ["Secure Coding Checklist", "보안 코딩 체크리스트"]
 date modified: 2026-04-06 18:13:36 +09:00
 date created: 2025-12-16 16:08:41 +09:00
 ---

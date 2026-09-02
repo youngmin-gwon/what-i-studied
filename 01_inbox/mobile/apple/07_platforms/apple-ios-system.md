@@ -1,7 +1,7 @@
 ---
 title: apple-ios-system
-tags: [apple, ios, jetsam, memory, springboard, system]
-aliases: []
+tags: [apple, apple/platforms, ios, jetsam, memory, springboard, system]
+aliases: ["iOS System Internals", "SpringBoard", "Jetsam", "iOS 시스템"]
 date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-17 23:30:00 +09:00
 ---

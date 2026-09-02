@@ -1,7 +1,7 @@
 ---
 title: apple-build-and-distribution
-tags: [apple, build, ci-cd, codesign, distribution, xcode]
-aliases: []
+tags: [apple, apple/packaging, build, ci-cd, codesign, distribution, xcode]
+aliases: ["Code Signing", "Build and Distribution", "빌드와 배포"]
 date modified: 2026-04-06 18:12:34 +09:00
 date created: 2025-12-16 16:10:06 +09:00
 ---
@@ -81,5 +81,5 @@ macOS 앱을 웹에서 배포하려면 **공증(Notarization)**을 받아야 합
 
 ### 더 보기
 
-- [apple-sandbox-and-security](apple-sandbox-and-security.md) - 서명이 완료된 앱이 실행될 때 일어나는 일
+- [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 서명이 완료된 앱이 실행될 때 일어나는 일
 - [apple-history-and-evolution](../00_foundations/apple-history-and-evolution.md) - PowerPC 에서 Apple Silicon 까지의 아키텍처 변화

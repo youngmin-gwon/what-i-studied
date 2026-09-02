@@ -1,7 +1,7 @@
 ---
 title: apple-ios-advanced-capabilities
-tags: [advanced, apple, ios]
-aliases: []
+tags: [advanced, apple, apple/platforms, apple/platforms/ios, ios]
+aliases: ["iOS Advanced Capabilities", "iOS 고급 기능"]
 date modified: 2026-08-10 16:00:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
@@ -648,4 +648,4 @@ class RemoteConfigManager {
 
 ### 관련 링크
 
-[apple-ios-playbook](apple-ios-playbook.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-distribution-and-policies](../../05_security_privacy/apple-distribution-and-policies.md).
+[apple-ios-playbook](apple-ios-playbook.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-distribution-and-policies](../../08_packaging_deployment/apple-distribution-and-policies.md).

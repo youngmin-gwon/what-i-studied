@@ -1,7 +1,7 @@
 ---
 title: apple-widgets-live-activities
-tags: [apple, dynamic-island, live-activities, widgetkit, widgets]
-aliases: []
+tags: [apple, apple/ui, dynamic-island, live-activities, widgetkit, widgets]
+aliases: ["WidgetKit", "Live Activities", "위젯과 라이브 액티비티"]
 date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---

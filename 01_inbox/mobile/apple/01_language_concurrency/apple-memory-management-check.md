@@ -1,20 +1,18 @@
 ---
 title: apple-memory-management-check
-tags: [apple, interview, memory, swift]
-aliases: []
+tags: [apple, apple/concurrency, apple/language, interview, memory, swift]
+aliases: ["메모리 관리 이해도는 순환 참조를 아느냐가 아니라 어디서 끊을지 말할 수 있느냐로 확인한다", "ARC 자가 점검", "Memory Management Check"]
 date modified: 2026-04-06 18:01:32 +09:00
 date created: 2026-04-06 17:58:00 +09:00
 ---
 
-## [apple-memory-management](apple-memory-management.md) > [apple-memory-management-check](apple-memory-management-check.md)
-
-### Memory Management Self-Diagnosis & Interview Prep
+## 메모리 관리 이해도는 순환 참조를 아느냐가 아니라 어디서 끊을지 말할 수 있느냐로 확인한다
 
 Apple 플랫폼(Swift/Obj-C)의 메모리 관리 핵심 개념을 점검하고 면접에 대비하기 위한 자가 진단 가이드입니다.
 
 ---
 
-#### ✅ 핵심 개념 체크리스트 (Self-Check)
+### ✅ 핵심 개념 체크리스트 (Self-Check)
 
 1. [ ] **ARC vs GC**: ARC 와 가비지 컬렉션(GC)의 결정적인 차이점(런타임 vs 컴파일 타임)을 설명할 수 있는가?
 2. [ ] **Reference Counting**: 객체의 참조 카운트가 0 이 되는 정확한 시점과 그 이후의 프로세스를 이해하고 있는가?
@@ -24,7 +22,7 @@ Apple 플랫폼(Swift/Obj-C)의 메모리 관리 핵심 개념을 점검하고 �
 
 ---
 
-#### 💬 실전 면접 예상 질문 (Interview Questions)
+### 💬 실전 면접 예상 질문 (Interview Questions)
 
 **Q. Swift 에서 `unowned` 보다 `weak` 사용이 권장되는 이유는 무엇인가요?**
 
@@ -40,7 +38,7 @@ Apple 플랫폼(Swift/Obj-C)의 메모리 관리 핵심 개념을 점검하고 �
 
 ---
 
-#### 🧪 실전 케이스 분석 (Case Study)
+### 🧪 실전 케이스 분석 (Case Study)
 
 *다음 코드에서 메모리 누수가 발생하는 지점은 어디일까요?*
 
@@ -66,7 +64,7 @@ class Worker {
 
 ---
 
-#### 📚 연관 학습
+### 📚 연관 학습
 
 - [apple-memory-management](apple-memory-management.md) - ARC 및 메모리 레이아웃 상세
 - [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - 실전 디버깅 및 분석 도구 활용

@@ -1,7 +1,7 @@
 ---
 title: apple-visionos-immersion-guide
-tags: [apple, spatial, visionos]
-aliases: []
+tags: [apple, apple/platforms, apple/platforms/visionos, spatial, visionos]
+aliases: ["visionOS Immersion", "visionOS 몰입 가이드"]
 date modified: 2026-08-10 18:30:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
@@ -565,4 +565,4 @@ visionOS는 **공간 맵, 사용자 시선, 손 위치** 등 민감한 정보를
 
 ### 관련 링크
 
-[apple-visionos-system](../apple-visionos-system.md), [apple-visionos-design-patterns](apple-visionos-design-patterns.md), [apple-visionos-spatial](../../02_ui_frameworks/apple-visionos-spatial.md), [apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+[apple-visionos-system](../apple-visionos-system.md), [apple-visionos-design-patterns](apple-visionos-design-patterns.md), [apple-visionos-spatial](../apple-visionos-system.md), [apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).

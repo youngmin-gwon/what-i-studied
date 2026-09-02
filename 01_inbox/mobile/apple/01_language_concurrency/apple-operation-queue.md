@@ -1,7 +1,7 @@
 ---
 title: apple-operation-queue
-tags: [apple, concurrency, dependencies, nsoperation, operation, queue]
-aliases: []
+tags: [apple, apple/concurrency, apple/language, concurrency, dependencies, nsoperation, operation, queue]
+aliases: ["Operation", "OperationQueue", "오퍼레이션 큐"]
 date modified: 2026-04-06 18:01:32 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---

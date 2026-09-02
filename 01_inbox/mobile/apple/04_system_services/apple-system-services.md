@@ -1,7 +1,7 @@
 ---
 title: apple-system-services
-tags: [apple, daemons, privacy, sensors, system, tcc]
-aliases: []
+tags: [apple, apple/services, daemons, privacy, sensors, system, tcc]
+aliases: ["System Daemons", "시스템 서비스와 센서"]
 date modified: 2026-04-06 18:12:02 +09:00
 date created: 2025-12-16 16:13:15 +09:00
 ---

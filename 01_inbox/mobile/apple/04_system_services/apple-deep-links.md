@@ -1,20 +1,18 @@
 ---
 title: apple-deep-links
-tags: [apple, ios, universal-links, deep-link]
-aliases: [iOS 유니버설 링크]
+tags: [apple, apple/services, deep-link, ios, universal-links]
+aliases: ["URL Scheme 은 다른 앱이 선점할 수 있고 Universal Link 는 도메인 소유 증명을 요구한다", "Universal Links", "iOS 유니버설 링크"]
 date modified: 2026-04-07 10:55:00 +09:00
 date created: 2026-04-05 14:10:00 +09:00
 ---
 
-## [apple-foundations](../00_foundations/apple-foundations.md) > [apple-deep-links](apple-deep-links.md)
-
-### iOS Deep Linking: URL Schemes & Universal Links
+## URL Scheme 은 다른 앱이 선점할 수 있고 Universal Link 는 도메인 소유 증명을 요구한다
 
 iOS 에서 앱 외부의 URL 을 통해 앱으로 진입하고 특정 상태로 분기하는 라우팅 메커니즘을 분석합니다.
 
 ---
 
-#### 💡 1. 딥링크의 두 종류 (Deep Link Types)
+### 💡 1. 딥링크의 두 종류 (Deep Link Types)
 
 | 종류 | 프로토콜 | 특징 | 보안성 |
 | :--- | :--- | :--- | :--- |
@@ -23,7 +21,7 @@ iOS 에서 앱 외부의 URL 을 통해 앱으로 진입하고 특정 상태로 
 
 ---
 
-#### 🌐 2. Universal Links (강력 권장)
+### 🌐 2. Universal Links (강력 권장)
 
 Apple 은 보안을 위해 HTTPS 기반의 **Universal Links**를 사용하도록 권장합니다.
 
@@ -33,21 +31,21 @@ Apple 은 보안을 위해 HTTPS 기반의 **Universal Links**를 사용하도�
 
 ---
 
-#### 🛠️ 3. SwiftUI & UIKit 에서의 처리
+### 🛠️ 3. SwiftUI & UIKit 에서의 처리
 
 - **UIKit**: `SceneDelegate` 의 `scene(_:continue:restorationHandler:)` 에서 처리.
 - **SwiftUI**: `.onOpenURL { url in ... }` modifier 를 사용하여 간결하게 처리 가능.
 
 ---
 
-#### 🔍 4. 테스트 기술
+### 🔍 4. 테스트 기술
 
 - **Link Checking**: Xcode 의 `Developer App` 섹션에서 유니버설 링크 진단 도구 제공.
 - **CLI**: `xcrun simctl openurl booted "https://myapp.com/path"` 
 
 ---
 
-#### 📚 See Also
+### 📚 See Also
 - [android-deep-links](../../android/02_app_framework/navigation/intents-and-deep-links/android-deep-links.md) - 안드로이드 앱 링크와의 비교
 - [apple-foundations](../00_foundations/apple-foundations.md) - Apple 보안 철학 (Default Deny)
 - [mobile-security](../../mobile-security.md) - 통합 모바일 보안 가이드

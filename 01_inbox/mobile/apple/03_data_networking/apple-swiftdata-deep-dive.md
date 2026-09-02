@@ -1,7 +1,7 @@
 ---
 title: apple-swiftdata-deep-dive
-tags: [apple, data, ios17, persistence, swift, swiftdata]
-aliases: []
+tags: [apple, apple/data, data, ios17, persistence, swift, swiftdata]
+aliases: ["SwiftData", "SwiftData 심화"]
 date modified: 2026-04-06 18:07:54 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---

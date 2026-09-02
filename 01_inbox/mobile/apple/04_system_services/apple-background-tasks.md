@@ -1,7 +1,7 @@
 ---
 title: apple-background-tasks
-tags: [apple, background, battery, ios, multitasking, system]
-aliases: []
+tags: [apple, apple/services, background, battery, ios, multitasking, system]
+aliases: ["BGTaskScheduler", "Background Tasks", "백그라운드 작업"]
 date modified: 2026-04-06 18:08:57 +09:00
 date created: 2025-12-16 16:50:00 +09:00
 ---

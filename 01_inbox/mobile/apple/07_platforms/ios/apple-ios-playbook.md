@@ -1,7 +1,7 @@
 ---
 title: apple-ios-playbook
-tags: [apple, ios, playbook]
-aliases: []
+tags: [apple, apple/platforms, apple/platforms/ios, ios, playbook]
+aliases: ["iOS Playbook", "iOS 실전 가이드"]
 date modified: 2026-08-10 16:00:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
@@ -1100,4 +1100,4 @@ class DeploymentChecklist {
 
 ### 관련 링크
 
-[apple-foundations](../../00_foundations/apple-foundations.md), [apple-app-lifecycle-and-ui](../../02_ui_frameworks/apple-app-lifecycle-and-ui.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-distribution-and-policies](../../05_security_privacy/apple-distribution-and-policies.md).
+[apple-foundations](../../00_foundations/apple-foundations.md), [apple-app-lifecycle-and-ui](../../02_ui_frameworks/apple-app-lifecycle-and-ui.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-distribution-and-policies](../../08_packaging_deployment/apple-distribution-and-policies.md).

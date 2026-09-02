@@ -1,20 +1,14 @@
 ---
 title: apple-swift-concurrency
-tags: []
-aliases: []
+tags: [apple, apple/concurrency, apple/language]
+aliases: ["Swift Concurrency 는 스레드를 늘리는 대신 continuation 을 저장하고 actor 격리로 데이터 경합을 컴파일 타임에 막는다", "Swift Concurrency", "async await", "Actor Isolation"]
 date modified: 2026-04-06 18:01:42 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
-## [mobile-security](../../mobile-security.md) > [apple-swift-concurrency](apple-swift-concurrency.md)
+## Swift Concurrency 는 스레드를 늘리는 대신 continuation 을 저장하고 actor 격리로 데이터 경합을 컴파일 타임에 막는다
 
-### Swift Concurrency: Modern Asynchronous Programming
-
-Swift 5.5 부터 도입된 **구조적 비동기 프로그래밍([structured concurrency](../../../computer-science/structured-concurrency.md))**의 핵심 원리와 내부 동작을 심층 분석합니다.
-
-### Swift Concurrency Deep Dive
-
-Swift 5.5 부터 도입되어 **Swift 6 에서 완전한 Data-Race Safety(엄격한 동시성 검사)** 를 통해 완성된 비동기 프로그래밍 모델입니다. 컴파일러가 언어 차원에서 **안전하고(Safe)**, **구조적인(Structured)** 동시성을 보장합니다.
+Swift 5.5 부터 도입되어 **Swift 6 에서 완전한 Data-Race Safety(엄격한 동시성 검사)** 로 완성된 [구조적 비동기 프로그래밍](../../../computer-science/structured-concurrency.md) 모델이다. 컴파일러가 언어 차원에서 **안전하고(Safe)**, **구조적인(Structured)** 동시성을 보장합니다.
 
 단순히 `async/await` 문법을 쓰는 것을 넘어, **Actor Isolation**과 **Sendable Check** 가 어떻게 데이터 경합(Data Race)을 **컴파일 타임 에러**로 막아주는지 알아봅니다.
 

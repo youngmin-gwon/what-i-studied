@@ -1,7 +1,7 @@
 ---
 title: apple-macos-system
-tags: [apple, hardened-runtime, macos, sandbox, system, window-server]
-aliases: [apple-macos-system, apple-macos-desktop, macOS System, 맥OS 시스템]
+tags: [apple, apple/platforms, hardened-runtime, macos, sandbox, system, window-server]
+aliases: ["apple-macos-desktop", "macOS System", "맥OS 시스템"]
 date modified: 2026-04-06 18:20:48 +09:00
 date created: 2025-12-17 23:40:00 +09:00
 ---
@@ -64,5 +64,5 @@ iOS 와 가장 큰 차이점입니다. "창(Window)이 없어도 앱은 살아�
 
 ### 더 보기
 
-- [apple-build-and-distribution](../05_security_privacy/apple-build-and-distribution.md) - 공증(Notarization) 과정
+- [apple-build-and-distribution](../08_packaging_deployment/apple-build-and-distribution.md) - 공증(Notarization) 과정
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 샌드박스 파일 접근 (Security Scoped Bookmark)

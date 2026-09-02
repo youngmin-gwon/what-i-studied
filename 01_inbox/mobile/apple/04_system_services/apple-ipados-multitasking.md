@@ -1,7 +1,7 @@
 ---
 title: apple-ipados-multitasking
-tags: [apple, drag-drop, ipados, multitasking, productivity, scene]
-aliases: []
+tags: [apple, apple/services, drag-drop, ipados, multitasking, productivity, scene]
+aliases: ["iPadOS Multitasking", "아이패드 멀티태스킹"]
 date modified: 2026-04-06 18:10:55 +09:00
 date created: 2025-12-16 16:14:02 +09:00
 ---

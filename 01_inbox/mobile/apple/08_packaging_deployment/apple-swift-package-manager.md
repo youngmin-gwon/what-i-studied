@@ -1,7 +1,7 @@
 ---
 title: apple-swift-package-manager
-tags: [apple, dependencies, modularization, spm, swift, xcode]
-aliases: []
+tags: [apple, apple/packaging, dependencies, modularization, spm, swift, xcode]
+aliases: ["SPM", "Swift Package Manager", "스위프트 패키지 매니저"]
 date modified: 2026-04-07 15:40:26 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
@@ -178,5 +178,5 @@ swift package generate-xcodeproj  # ⚠️ deprecated, 직접 Package.swift 를 
 ### 더 보기
 
 - [apple-cross-platform-architecture](../07_platforms/apple-cross-platform-architecture.md) - SPM 을 활용한 크로스 플랫폼 코드 공유
-- [apple-build-and-distribution](../05_security_privacy/apple-build-and-distribution.md) - 빌드 파이프라인에서 SPM 이 차지하는 위치
+- [apple-build-and-distribution](apple-build-and-distribution.md) - 빌드 파이프라인에서 SPM 이 차지하는 위치
 - [apple-testing-and-quality](../06_testing_performance/apple-testing-and-quality.md) - 모듈별 독립 테스트 전략

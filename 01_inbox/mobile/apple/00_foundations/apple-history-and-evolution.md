@@ -1,7 +1,7 @@
 ---
 title: apple-history-and-evolution
-tags: [apple, evolution, history, legacy]
-aliases: []
+tags: [apple, apple/foundations, evolution, history, legacy]
+aliases: ["Apple 플랫폼 역사", "History and Evolution"]
 date modified: 2026-04-07 18:52:46 +09:00
 date created: 2025-12-16 16:11:27 +09:00
 ---

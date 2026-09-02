@@ -1,7 +1,7 @@
 ---
 title: apple-combine-framework
-tags: [apple, backpressure, combine, frp, internals, reactive]
-aliases: []
+tags: [apple, apple/data, backpressure, combine, frp, internals, reactive]
+aliases: ["Combine", "Combine 프레임워크"]
 date modified: 2026-04-06 18:04:54 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---

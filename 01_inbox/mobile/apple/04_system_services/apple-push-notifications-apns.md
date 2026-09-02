@@ -1,7 +1,7 @@
 ---
 title: apple-push-notifications-apns
-tags: [apns, apple, ios, notifications, push]
-aliases: [APNs, Push Notifications, Remote Notifications]
+tags: [apns, apple, apple/services, ios, notifications, push]
+aliases: ["APNs", "Push Notifications", "Remote Notifications"]
 date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-04-04 00:33:00 +09:00
 ---

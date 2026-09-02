@@ -1,20 +1,18 @@
 ---
 title: apple-security-entitlements
 tags: [apple, apple/security, code-signing, entitlements]
-aliases: []
+aliases: ["Entitlement 는 코드 서명에 봉인되므로 런타임이 아니라 빌드·프로비저닝 시점에 확정된다", "Entitlements", "권한 명세"]
 date modified: 2026-04-06 18:13:54 +09:00
 date created: 2026-04-05 17:07:50 +09:00
 ---
 
-## [mobile-security](../../mobile-security.md) > [apple-security-entitlements](apple-security-entitlements.md)
-
-### Code Signing & Entitlements
+## Entitlement 는 코드 서명에 봉인되므로 런타임이 아니라 빌드·프로비저닝 시점에 확정된다
 
 앱이 사용자의 리소스를 요청할 수 있는 권리가 있음을 증명하고, 전체 시스템의 무결성을 유지하는 핵심 메커니즘입니다.
 
 ---
 
-#### 🛡️ Code Signing (코드 서명)
+### 🛡️ Code Signing (코드 서명)
 
 앱 바이너리에 대한 불변의 인장입니다.
 
@@ -23,7 +21,7 @@ date created: 2026-04-05 17:07:50 +09:00
 
 ---
 
-#### 🎟️ Entitlements (권한)
+### 🎟️ Entitlements (권한)
 
 앱의 주민등록증 뒤에 붙은 "특수 면허" 같은 것입니다.
 
@@ -32,15 +30,15 @@ date created: 2026-04-05 17:07:50 +09:00
 
 ---
 
-#### 🛠️ 하드웨어 기반 보안 (Secure Enclave)
+### 🛠️ 하드웨어 기반 보안 (Secure Enclave)
 
 Apple 기기에서 암호화 키는 **Secure Enclave** 내부에서만 생성 및 관리됩니다.
 
 - 앱은 키 자체에 접근할 수 없으며, 시스템을 통해 서명이나 복호화 결과만 요청합니다.
 - 이는 앱이 해킹되어 메모리가 유출되더라도 키 정보는 안전함을 보장합니다.
 
-#### 연관 문서
+### 연관 문서
 
-- [apple-security-sandbox](apple-security-sandbox.md) - 격리 계층
+- [apple-security-sandbox](apple-sandbox-and-security.md) - 격리 계층
 - [apple-security-app-attest](apple-security-app-attest.md) - 앱 무결성 증명
 - [apple-keychain-biometrics](apple-keychain-biometrics.md) - 키체인 및 생체 인증

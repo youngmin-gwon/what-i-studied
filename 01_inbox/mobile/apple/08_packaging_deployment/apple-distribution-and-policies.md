@@ -1,7 +1,7 @@
 ---
 title: apple-distribution-and-policies
-tags: [apple, appstore, gdpr, iap, policy, rejection]
-aliases: []
+tags: [apple, apple/packaging, appstore, gdpr, iap, policy, rejection]
+aliases: ["App Store Guidelines", "심사 정책"]
 date modified: 2026-04-06 18:13:02 +09:00
 date created: 2025-12-16 16:14:32 +09:00
 ---
@@ -83,4 +83,4 @@ App Store 가 유일한 길은 아닙니다.
 ### 더 보기
 
 - [apple-build-and-distribution](apple-build-and-distribution.md) - 심사 통과 후 기술적인 배포 과정
-- [apple-app-tracking-privacy](apple-app-tracking-privacy.md) - 심사의 또 다른 벽, 개인정보 정책
+- [apple-app-tracking-privacy](../05_security_privacy/apple-app-tracking-privacy.md) - 심사의 또 다른 벽, 개인정보 정책

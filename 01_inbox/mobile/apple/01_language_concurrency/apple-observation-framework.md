@@ -1,7 +1,7 @@
 ---
 title: apple-observation-framework
-tags: [apple, macro, observable, observation, state-management, swiftui]
-aliases: []
+tags: [apple, apple/concurrency, apple/language, macro, observable, observation, state-management, swiftui]
+aliases: ["Observation", "Observable 매크로", "Observation 프레임워크"]
 date modified: 2026-04-06 17:58:11 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---

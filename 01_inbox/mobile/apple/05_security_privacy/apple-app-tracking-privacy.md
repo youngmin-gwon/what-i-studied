@@ -1,7 +1,7 @@
 ---
 title: apple-app-tracking-privacy
-tags: [ad-tech, apple, att, permissions, privacy, tracking]
-aliases: []
+tags: [ad-tech, apple, apple/security, att, permissions, privacy, tracking]
+aliases: ["ATT", "App Tracking Transparency", "앱 추적 투명성"]
 date modified: 2026-04-06 18:12:25 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
@@ -85,4 +85,4 @@ func requestPermission() {
 ### 더 보기
 
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 권한을 관리하는 TCC 데몬의 원리
-- [apple-distribution-and-policies](apple-distribution-and-policies.md) - 앱스토어 심사 가이드라인 (Privacy 관련)
+- [apple-distribution-and-policies](../08_packaging_deployment/apple-distribution-and-policies.md) - 앱스토어 심사 가이드라인 (Privacy 관련)

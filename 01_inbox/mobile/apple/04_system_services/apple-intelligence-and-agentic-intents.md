@@ -1,7 +1,7 @@
 ---
 title: apple-intelligence-and-agentic-intents
-tags: [app-intents, apple, apple-intelligence, ios/26, siri]
-aliases: [App Entities, Apple Intelligence, iOS 26, Siri Campos]
+tags: [app-intents, apple, apple-intelligence, apple/services, ios/26, siri]
+aliases: ["App Entities", "Apple Intelligence", "Siri Campos"]
 date modified: 2026-08-10 00:00:00 +09:00
 date created: 2026-04-04 00:33:00 +09:00
 ---

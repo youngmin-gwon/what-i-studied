@@ -1,20 +1,18 @@
 ---
 title: apple-security-app-attest
 tags: [app-attest, apple, apple/security, devicecheck]
-aliases: []
+aliases: ["App Attest 는 앱의 자기 주장이 아니라 Secure Enclave 키를 서버가 Apple CA 로 검증하는 무결성이다", "App Attest", "DeviceCheck"]
 date modified: 2026-04-06 18:13:45 +09:00
 date created: 2026-04-05 17:07:59 +09:00
 ---
 
-## [mobile-security](../../mobile-security.md) > [apple-security-app-attest](apple-security-app-attest.md)
-
-### App Attest & DeviceCheck
+## App Attest 는 앱의 자기 주장이 아니라 Secure Enclave 키를 서버가 Apple CA 로 검증하는 무결성이다
 
 앱의 변조 여부를 확인하고, 실제 기기에서 실행 중인 합법적인 앱임을 서버 측에서 검증하는 메커니즘입니다.
 
 ---
 
-#### 🛡️ App Attest (DeviceCheck Framework)
+### 🛡️ App Attest (DeviceCheck Framework)
 
 Apple 은 앱의 무결성을 증명하기 위해 하드웨어 기반의 증명을 제공합니다.
 
@@ -41,7 +39,7 @@ class SecurityAttestationClient {
 
 ---
 
-#### 🌐 서버 측 검증 로직
+### 🌐 서버 측 검증 로직
 
 서버는 단순히 데이터를 받는 것이 아니라 Apple 의 **App Attest Root CA**를 통해 다음을 검증해야 합니다.
 
@@ -52,8 +50,8 @@ class SecurityAttestationClient {
 >[!IMPORTANT]
 >App Attest 는 탈옥(Jailbreak) 기기에서는 동작하지 않거나 부정확한 결과를 반환할 수 있으므로, 서버 측 로직에서 이를 고려해야 합니다.
 
-#### 연관 문서
+### 연관 문서
 
 - [apple-security-entitlements](apple-security-entitlements.md) - 권한 증명
-- [apple-security-tcc-compliance](apple-security-tcc-compliance.md) - 프라이버시 법규
+- [apple-security-tcc-compliance](apple-privacy-and-tcc-details.md) - 프라이버시 법규
 - [mobile-vulnerability-check](../../cross-platform/mobile-vulnerability-check.md) - 앱 무결성 진단

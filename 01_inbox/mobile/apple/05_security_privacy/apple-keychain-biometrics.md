@@ -1,7 +1,7 @@
 ---
 title: apple-keychain-biometrics
-tags: [apple, biometrics, cryptography, cryptokit, keychain, security, sep]
-aliases: []
+tags: [apple, apple/security, biometrics, cryptography, cryptokit, keychain, security, sep]
+aliases: ["Keychain Services", "Secure Enclave", "키체인과 생체인증"]
 date modified: 2026-04-06 18:13:16 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---

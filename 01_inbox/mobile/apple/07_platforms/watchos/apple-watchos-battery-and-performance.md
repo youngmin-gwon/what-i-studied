@@ -1,7 +1,7 @@
 ---
 title: apple-watchos-battery-and-performance
-tags: [apple, performance, watchos]
-aliases: []
+tags: [apple, apple/platforms, apple/platforms/watchos, performance, watchos]
+aliases: ["watchOS Battery", "워치 배터리와 성능"]
 date modified: 2026-08-10 18:45:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---

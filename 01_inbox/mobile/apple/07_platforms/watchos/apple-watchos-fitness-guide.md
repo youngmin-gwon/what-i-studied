@@ -1,7 +1,7 @@
 ---
 title: apple-watchos-fitness-guide
-tags: [apple, health, watchos]
-aliases: []
+tags: [apple, apple/platforms, apple/platforms/watchos, health, watchos]
+aliases: ["watchOS Fitness", "HealthKit", "워치 피트니스"]
 date modified: 2026-08-10 19:00:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---

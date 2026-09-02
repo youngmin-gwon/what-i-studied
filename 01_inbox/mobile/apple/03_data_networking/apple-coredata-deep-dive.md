@@ -1,7 +1,7 @@
 ---
 title: apple-coredata-deep-dive
-tags: [apple, coredata, database, internals, performance, persistence]
-aliases: []
+tags: [apple, apple/data, coredata, database, internals, performance, persistence]
+aliases: ["Core Data", "코어데이터 심화"]
 date modified: 2026-04-06 18:06:35 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---

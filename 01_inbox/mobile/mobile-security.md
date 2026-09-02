@@ -26,10 +26,10 @@ date created: 2026-04-05 14:48:40 +09:00
 - **Apple Ecosystem**:
 	- [apple-foundations](apple/00_foundations/apple-foundations.md) - 애플의 "기본 거부(Default Deny)" 보안 철학
 	- [mobile-apple-foundation-security](apple/05_security_privacy/mobile-apple-foundation-security.md) - Apple 보안 아키텍처 (MOC)
-	- [apple-security-sandbox](apple/05_security_privacy/apple-security-sandbox.md) - App Sandbox & MAC 프로필
+	- [apple-security-sandbox](apple/05_security_privacy/apple-sandbox-and-security.md) - App Sandbox & MAC 프로필
 	- [apple-security-entitlements](apple/05_security_privacy/apple-security-entitlements.md) - Code Signing & 하드웨어 기반 권한 증명
 	- [apple-security-app-attest](apple/05_security_privacy/apple-security-app-attest.md) - App Attest 를 통한 앱 무결성 검증
-	- [apple-security-tcc-compliance](apple/05_security_privacy/apple-security-tcc-compliance.md) - TCC 프레임워크 및 프라이버시 컴플라이언스
+	- [apple-security-tcc-compliance](apple/05_security_privacy/apple-privacy-and-tcc-details.md) - TCC 프레임워크 및 프라이버시 컴플라이언스
 
 ---
 

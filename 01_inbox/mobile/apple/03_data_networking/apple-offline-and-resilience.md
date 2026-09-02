@@ -1,7 +1,7 @@
 ---
 title: apple-offline-and-resilience
-tags: [apple, circuit-breaker, network, offline, patterns, resilience]
-aliases: []
+tags: [apple, apple/data, circuit-breaker, network, offline, patterns, resilience]
+aliases: ["Network Resilience", "오프라인과 복원력"]
 date modified: 2026-04-06 18:06:39 +09:00
 date created: 2025-12-16 16:09:23 +09:00
 ---
