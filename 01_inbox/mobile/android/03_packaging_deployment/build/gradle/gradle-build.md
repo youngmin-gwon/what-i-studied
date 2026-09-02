@@ -2,7 +2,7 @@
 title: gradle-build
 tags: ["android", "android/packaging-deployment", "gradle"]
 aliases: ["Gradle Build System", "Gradle 빌드 및 의존성 아키텍처", "Gradle 빌드 시스템"]
-date modified: 2026-08-26 18:18:27 +09:00
+date modified: 2026-09-02 23:04:57 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 

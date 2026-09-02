@@ -2,7 +2,7 @@
 title: gradle-dependency-configurations
 tags: ["android", "build-configurations", "dependency-management", "gradle", "jvm"]
 aliases: ["debugImplementation", "Dependency Configurations", "Gradle 의존성 구성", "implementation vs api"]
-date modified: 2026-08-26 18:17:19 +09:00
+date modified: 2026-09-02 23:05:50 +09:00
 date created: 2026-08-19 14:35:00 +09:00
 ---
 

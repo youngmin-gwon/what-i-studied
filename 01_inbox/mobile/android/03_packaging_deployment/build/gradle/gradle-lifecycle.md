@@ -2,7 +2,7 @@
 title: gradle-lifecycle
 tags: ["build-engine", "build-lifecycle", "gradle", "jvm", "performance"]
 aliases: ["Configuration Cache", "Gradle Execution Lifecycle", "Gradle 생명주기", "Gradle 실행 단계"]
-date modified: 2026-08-26 17:47:38 +09:00
+date modified: 2026-09-02 23:06:09 +09:00
 date created: 2026-08-19 11:00:00 +09:00
 ---
 

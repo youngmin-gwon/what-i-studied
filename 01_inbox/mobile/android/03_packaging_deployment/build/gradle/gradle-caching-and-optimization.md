@@ -2,7 +2,7 @@
 title: gradle-caching-and-optimization
 tags: ["build-cache", "gradle", "jvm", "optimization", "performance"]
 aliases: ["Configuration Cache", "Gradle Build Cache", "Gradle 캐싱 및 최적화", "Incremental Build", "증분 빌드"]
-date modified: 2026-08-26 17:48:02 +09:00
+date modified: 2026-09-02 23:05:27 +09:00
 date created: 2026-08-19 11:15:00 +09:00
 ---
 
