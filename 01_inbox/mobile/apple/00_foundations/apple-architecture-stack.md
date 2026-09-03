@@ -50,3 +50,5 @@ Apple 은 커널 레벨에서 다중 방어 체계를 구축하고 있습니다.
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 샌드박스 매커니즘과 보안 진단
 - [apple-interprocess-and-xpc](../04_system_services/apple-interprocess-and-xpc.md) - 프로세스 간 통신(XPC) 아키텍처
 - [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - Jetsam 과 메모리 최적화 전략
+- [apple-system-internals-map](../01_system_internals/apple-system-internals-map.md) - 이 계층 개괄을 클러스터별로 펼친 지도
+- [XNU 는 Mach 가 자원을, BSD 가 인터페이스를 맡는 분업 구조다](../01_system_internals/kernel-and-driver/xnu-mach-bsd-split.md) - 커널 분업의 실무적 귀결

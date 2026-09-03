@@ -76,3 +76,5 @@ Apple 의 로우 레벨 3D 그래픽 API 입니다. Core Animation 도 내부적
 - [apple-animation-and-motion](apple-animation-and-motion.md) - 애니메이션 원칙과 인터럽트 가능한 모션
 - [apple-media-pipeline-deep](apple-media-pipeline-deep.md) - AVFoundation 캡처/재생 파이프라인과 zero-copy
 - [apple-instruments-profiling](../06_testing_performance/apple-instruments-profiling.md) - Core Animation FPS 및 Offscreen Rendering 감지 방법
+- [apple-graphics-and-media](../01_system_internals/graphics-and-media/apple-graphics-and-media.md) - Render Server 이하의 합성 내부
+- [Offscreen 렌더링은 추가 패스와 컨텍스트 전환을 강제한다](../01_system_internals/graphics-and-media/offscreen-rendering-cost.md)

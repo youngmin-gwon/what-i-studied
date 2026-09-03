@@ -129,3 +129,5 @@ func handleProcessingTask(task: BGProcessingTask) {
 ### 더 보기
 - [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - 앱이 백그라운드로 가는 시점
 - [apple-networking-and-cloud](../03_data_networking/apple-networking-and-cloud.md) - Background URLSession 과의 차이 (파일 다운로드는 URLSession 이 더 유리함)
+- [RunningBoard assertion 이 프로세스의 실행 지속 여부를 결정한다](../01_system_internals/ipc-and-process/runningboard-assertions.md) - 백그라운드 작업이 실행되지 못하는 이유
+- [백그라운드 전송은 앱이 아니라 시스템 데몬이 이어서 수행한다](../01_system_internals/connectivity/background-transfer-daemon.md)

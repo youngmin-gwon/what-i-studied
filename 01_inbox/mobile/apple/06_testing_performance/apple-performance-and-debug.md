@@ -81,3 +81,5 @@ Xcode 에는 강력한 무기들이 내장되어 있습니다. `print()` 로 디
 
 - [apple-instruments-profiling](apple-instruments-profiling.md) - 범인을 잡는 정밀 분석 도구
 - [apple-rendering-and-media](../02_ui_frameworks/apple-rendering-and-media.md) - 그래픽 파이프라인 심화
+- [히치는 평균 FPS 가 아니라 사용자가 실제로 본 지연을 잰다](../01_system_internals/graphics-and-media/hitches-measure-user-visible-jank.md)
+- [pre-main 시간은 대부분 dylib 로딩과 static initializer 가 쓴다](../01_system_internals/boot-and-runtime/pre-main-launch-time-budget.md)

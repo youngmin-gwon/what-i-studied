@@ -96,3 +96,6 @@ sequenceDiagram
 ### 더 보기
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱 생명주기
 - [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - 메모리 관리 기법
+- [apple-ipc-and-process](../01_system_internals/ipc-and-process/apple-ipc-and-process.md) - 앱이 사라지는 네 가지 이유를 계층으로 구분
+- [Jetsam 은 LRU 가 아니라 우선순위 밴드로 죽일 대상을 고른다](../01_system_internals/ipc-and-process/jetsam-memory-pressure-bands.md)
+- [워치독 종료는 예외 코드로 원인 구간을 구분할 수 있다](../01_system_internals/ipc-and-process/watchdog-termination-codes.md)

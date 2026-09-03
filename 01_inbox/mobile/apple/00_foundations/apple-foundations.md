@@ -47,3 +47,4 @@ Apple 시스템의 심층적인 이해를 위해 다음 순서로 학습하는 �
 - [apple-glossary](apple-glossary.md) - Apple 기술 용어 사전
 - [apple-history-and-evolution](apple-history-and-evolution.md) - 플랫폼의 역사와 주요 변화
 - [mobile-security](../../mobile-security.md) - 모바일 보안 통합 허브
+- [apple-system-internals-map](../01_system_internals/apple-system-internals-map.md) - API 뒤에서 실제로 실행되는 6 개 플랫폼 계층

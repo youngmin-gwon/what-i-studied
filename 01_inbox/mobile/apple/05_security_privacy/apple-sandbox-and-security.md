@@ -91,3 +91,5 @@ Apple 은 샌드박스 외에도 여러 계층에서 보안을 강화한다.
 - [apple-security-app-attest](apple-security-app-attest.md) - 앱 무결성 서버 검증
 - [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - 시니어용 보안 심화 팁 (RASP 구현 등)
 - [apple-boot-flow-and-images](../00_foundations/apple-boot-flow-and-images.md) - Secure Boot 및 하드웨어 보안 근간
+- [TrustedBSD MAC 프레임워크가 sandbox 판정이 실제로 일어나는 지점이다](../01_system_internals/kernel-and-driver/trustedbsd-mac-and-sandbox-enforcement.md) - 커널에서의 집행
+- [AMFI 는 exec 시점에 코드 서명과 entitlement 를 커널에서 강제한다](../01_system_internals/kernel-and-driver/amfi-code-signature-enforcement.md)

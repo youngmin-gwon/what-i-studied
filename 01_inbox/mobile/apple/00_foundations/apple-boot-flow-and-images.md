@@ -41,3 +41,5 @@ date created: 2026-04-03 22:15:19 +09:00
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 앱 실행 이후의 보안 샌드박스 메커니즘
 - [apple-runtime-and-swift](apple-runtime-and-swift.md) - 앱 실행의 내부 런타임 구조
 - [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - 부팅 및 앱 실행 속도 분석 가이드
+- [apple-boot-and-runtime](../01_system_internals/boot-and-runtime/apple-boot-and-runtime.md) - 각 부팅 단계의 검증 대상과 실패 양상
+- [pre-main 시간은 대부분 dylib 로딩과 static initializer 가 쓴다](../01_system_internals/boot-and-runtime/pre-main-launch-time-budget.md) - 앱 시작 시간 분해

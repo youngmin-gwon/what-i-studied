@@ -78,3 +78,5 @@ session.startRunning() // Blocking Call, Main Thread에서 절대 호출 금지!
 
 - [apple-rendering-and-media](apple-rendering-and-media.md) - Core Animation/Metal 렌더링 파이프라인
 - [apple-privacy-and-tcc-details](../05_security_privacy/apple-privacy-and-tcc-details.md) - 카메라/마이크 권한 상세
+- [mediaserverd 가 오디오 라우팅과 하드웨어 코덱을 소유한다](../01_system_internals/graphics-and-media/mediaserverd-audio-arbitration.md)
+- [IOSurface 는 프로세스와 GPU 가 함께 보는 메모리다](../01_system_internals/graphics-and-media/iosurface-shared-gpu-memory.md)

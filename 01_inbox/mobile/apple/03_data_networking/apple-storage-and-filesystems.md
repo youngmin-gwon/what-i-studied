@@ -99,3 +99,5 @@ let fileURL = docDir.appendingPathComponent(fileName)
 
 - [apple-platform-differences](../00_foundations/apple-platform-differences.md) - macOS 샌드박스와 iOS 차이
 - [mobile-apple-foundation-security](../05_security_privacy/mobile-apple-foundation-security.md) - Keychain 과 파일 보안 등급
+- [apple-storage-internals](../01_system_internals/storage/apple-storage-internals.md) - APFS 와 Data Protection 클래스
+- [앱 컨테이너의 디렉터리는 백업과 정리 정책이 서로 다르다](../01_system_internals/storage/app-container-directory-policies.md)

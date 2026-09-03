@@ -93,3 +93,5 @@ XPC 가 강력한 이유는 **"아무나 연결할 수 없다"**는 점입니다
 
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 샌드박스가 IPC 를 차단하는 원리
 - [apple-storage-and-filesystems](../03_data_networking/apple-storage-and-filesystems.md) - App Group 을 이용한 파일 공유
+- [apple-ipc-and-process](../01_system_internals/ipc-and-process/apple-ipc-and-process.md) - Mach port 부터 XPC 까지의 계층
+- [XPC 연결은 launchd 가 중개하며 상대가 죽으면 함께 무효화된다](../01_system_internals/ipc-and-process/xpc-connection-lifetime.md)

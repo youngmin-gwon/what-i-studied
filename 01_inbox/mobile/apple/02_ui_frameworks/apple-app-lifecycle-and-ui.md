@@ -194,3 +194,4 @@ struct MyApp: App {
 - [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - SwiftUI 렌더링 원리
 - [apple-background-tasks](../04_system_services/apple-background-tasks.md) - 백그라운드에서 오래 살아남는 법
 - [apple-app-intents](../04_system_services/apple-app-intents.md) - Siri/Shortcuts/Apple Intelligence 연동
+- [SpringBoard 와 FrontBoard 가 앱의 전경·배경 전이를 소유한다](../01_system_internals/ipc-and-process/springboard-frontboard-lifecycle.md) - 생명주기 콜백이 통보인 이유

@@ -96,3 +96,5 @@ Apple 플랫폼은 기본적으로 평문 통신(HTTP)을 차단하고 **HTTPS (
 
 - [apple-urlsession-deep-dive](apple-urlsession-deep-dive.md) - 실무 코드 레시피 (Async/Await)
 - [apple-offline-and-resilience](apple-offline-and-resilience.md) - 오프라인 모드와 재시도 전략
+- [apple-connectivity-internals](../01_system_internals/connectivity/apple-connectivity-internals.md) - 경로·전송보안·정책 세 층의 실패 구분
+- [ATS 는 기본적으로 TLS 와 순방향 비밀성을 요구한다](../01_system_internals/connectivity/ats-transport-security-defaults.md)

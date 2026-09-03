@@ -211,3 +211,5 @@ private class DeinitTracker {
 - [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - Instruments 를 활용한 메모리 누수 및 리테인 사이클 추적
 - [apple-swift-concurrency](apple-swift-concurrency.md) - 비동기 작업에서의 강한 참조 순환 방지 및 Actor 의 메모리 안전성
 - [apple-memory-management-check](apple-memory-management-check.md) - 핵심 개념 자가 진단 및 면접 대비 질문
+- [Mach VM 은 영역 단위로 매핑하고 물리 페이지 할당을 미룬다](../01_system_internals/kernel-and-driver/mach-vm-and-memory-regions.md) - 어떤 메모리 수치를 봐야 하는가
+- [메모리 압축기는 iOS 에서 디스크 스왑을 대체한다](../01_system_internals/kernel-and-driver/memory-compressor-and-swap.md)
