@@ -783,3 +783,5 @@ stateDiagram-v2
 ### 관련 링크
 
 [apple-watchos-system](../apple-watchos-system.md), [apple-watchos-battery-and-performance](apple-watchos-battery-and-performance.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md).
+
+공식 문서: [HealthKit](https://developer.apple.com/documentation/healthkit) · [WorkoutKit](https://developer.apple.com/documentation/workoutkit)

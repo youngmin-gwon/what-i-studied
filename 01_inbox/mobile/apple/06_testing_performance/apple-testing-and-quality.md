@@ -82,6 +82,33 @@ func testLoginSuccess() {
 - **Xcode Cloud**: Apple 이 제공하는 CI. TestFlight 와 연동이 매끄럽지만 비쌉니다.
 - **GitHub Actions**: 가장 대중적입니다. PR 이 올라올 때마다 `xcodebuild test` 를 돌려서 빨간 줄(실패)이 뜨면 머지를 막으세요.
 
+### 관찰 가능한 증거
+
+```bash
+# 병렬 실행 + 결과 번들
+xcodebuild test -scheme MyApp -parallel-testing-enabled YES \
+  -destination 'platform=iOS Simulator,name=iPhone 15' \
+  -resultBundlePath TestResults.xcresult
+
+# 커버리지 리포트
+xcrun xccov view --report --json TestResults.xcresult | head -30
+
+# 시뮬레이터 상태 초기화 (플레이키 테스트 격리)
+xcrun simctl erase all
+```
+
+**플레이키 테스트를 다루는 원칙**
+
+| 원인 | 대응 |
+| :--- | :--- |
+| 테스트 간 상태 공유 | `setUp`/`tearDown` 에서 완전 초기화, `simctl erase` |
+| 비동기 타이밍 의존 | `XCTestExpectation` 대신 `await`, 고정 `sleep` 금지 |
+| 시스템 프롬프트(권한) | `addUIInterruptionMonitor` 또는 `simctl privacy` 로 사전 설정 |
+| 네트워크 의존 | 스텁/목으로 대체 |
+
+- **Xcode Organizer** 에서 릴리스별 크래시·히치·시작 시간을 비교하는 것이 실사용자 품질 지표의 기준선이다.
+- **MetricKit** 으로 실사용자 데이터를 자체 수집하면 Organizer 보다 세밀한 분석이 가능하다.
+
 ### 더 보기
 
 - [apple-performance-and-debug](apple-performance-and-debug.md) - 성능 테스트(XCTMetric) 방법

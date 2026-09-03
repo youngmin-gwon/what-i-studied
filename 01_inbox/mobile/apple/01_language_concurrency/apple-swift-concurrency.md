@@ -1,8 +1,8 @@
 ---
 title: apple-swift-concurrency
 tags: [actor, apple, apple/concurrency, apple/language, concurrency, moc, swift, swift6]
-aliases: ["Actor Isolation", "async await", "Swift Concurrency 는 스레드를 늘리는 대신 continuation 을 저장하고 actor 격리로 데이터 경합을 컴파일 타임에 막는다", "Swift Concurrency"]
-date modified: 2026-09-03 12:00:13 +09:00
+aliases: ["async await", "Swift Concurrency 는 스레드를 늘리는 대신 continuation 을 저장하고 actor 격리로 데이터 경합을 컴파일 타임에 막는다", "Swift Concurrency"]
+date modified: 2026-09-03 14:34:08 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 

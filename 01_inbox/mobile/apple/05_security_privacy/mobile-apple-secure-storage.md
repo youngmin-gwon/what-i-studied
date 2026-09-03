@@ -12,6 +12,23 @@ Apple 플랫폼에서 사용자 자격 증명(Tokens, Passwords)과 암호화 �
 
 ---
 
+```mermaid
+flowchart TD
+    B["기기 부팅"] --> L1["잠김 (최초 해제 전)"]
+    L1 -->|"사용자 암호 입력"| U["잠금 해제됨"]
+    U -->|"잠김"| L2["잠김 (최초 해제 이후)"]
+    L2 -->|"해제"| U
+
+    L1 -.->|"접근 가능"| A1["없음"]
+    L2 -.->|"접근 가능"| A2["AfterFirstUnlock 계열"]
+    U -.->|"접근 가능"| A3["WhenUnlocked 포함 전부"]
+
+    style L1 fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style U fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
+
+**"잠김"이 두 가지라는 점이 핵심이다.** 부팅 후 한 번도 안 푼 상태와, 풀었다가 다시 잠근 상태는 접근 가능 범위가 다르다. 백그라운드 작업이 토큰을 읽어야 한다면 `AfterFirstUnlock` 계열이어야 한다.
+
 ### 🛡️ Context: 왜 Keychain & SEP 인가?
 
 iOS 는 앱의 데이터를 물리적으로 암호화하여 저장하지만, **Keychain**은 앱이 삭제되어도 암호화된 상태로 시스템 영역에 유지될 수 있으며, **Secure Enclave(SEP)**는 물리적인 키 추출을 불가능하게 만드는 최후의 방어선입니다.
@@ -146,8 +163,37 @@ iOS 16+ 부터 도입된 **Passkeys**는 피싱 불가능한 자격 증명을 �
 2. **biometryCurrentSet**: 사용자가 새 지문이나 얼굴을 등록하면 키가 삭제되도록 설정하여 보안성을 강화하십시오.
 3. **Data Loss on Backup**: `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` 를 사용하여 iCloud 백업이나 다른 기기로의 복원을 방지하고, 물리적 기기 바인딩을 유지하십시오.
 
+### 관찰 가능한 증거
+
+```swift
+// 항목의 접근성 클래스가 요구사항과 맞는지 확인한다
+let query: [String: Any] = [
+    kSecClass as String: kSecClassGenericPassword,
+    kSecAttrService as String: "com.example.app.token",
+    kSecReturnAttributes as String: true
+]
+var result: CFTypeRef?
+if SecItemCopyMatching(query as CFDictionary, &result) == errSecSuccess,
+   let attrs = result as? [String: Any] {
+    print(attrs[kSecAttrAccessible as String] as Any)
+}
+```
+
+| 접근성 상수 | 백그라운드 접근 | 백업/이전 |
+| :--- | :---: | :---: |
+| `WhenUnlocked` | ✗ | O |
+| `AfterFirstUnlock` | O | O |
+| `WhenUnlockedThisDeviceOnly` | ✗ | ✗ |
+| `WhenPasscodeSetThisDeviceOnly` | ✗ | ✗ (암호 필수) |
+
+**백그라운드 작업이 토큰을 읽어야 한다면 `AfterFirstUnlock` 계열이어야 한다.** `WhenUnlocked` 로 두면 잠금 상태에서 `errSecInteractionNotAllowed` 가 난다.
+
+**테스트**: 기기를 잠근 상태에서 푸시로 백그라운드 작업을 깨워 토큰 읽기가 성공하는지 확인한다.
+
 ### 📚 연관 문서 및 가이드
 
 - [mobile-apple-foundation-security](mobile-apple-foundation-security.md) - Apple 기초 보안 모델 및 샌드박싱
 - [mobile-vulnerability-check](../../cross-platform/mobile-vulnerability-check.md) - 모바일 취약점 종합 진단 가이드
 - [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - RASP 및 심화 보안 기술
+
+공식 문서: [Restricting keychain item accessibility](https://developer.apple.com/documentation/security/restricting-keychain-item-accessibility)

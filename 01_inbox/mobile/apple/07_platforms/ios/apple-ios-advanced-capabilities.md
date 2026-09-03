@@ -10,6 +10,25 @@ date created: 2025-12-18 16:21:20 +09:00
 
 iOS 에서 고급 기능을 쓸 때 주의할 점을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
+```mermaid
+flowchart TD
+    F["고급 기능 사용"] --> G1{"entitlement 이<br/>필요한가?"}
+    G1 -->|"예"| E["Capabilities + 프로파일 재생성<br/>→ 서명에 봉인"]
+    G1 -->|"아니오"| G2
+    E --> G2{"TCC 동의가<br/>필요한가?"}
+    G2 -->|"예"| T["Usage Description +<br/>런타임 요청 + 거부 시 폴백"]
+    G2 -->|"아니오"| G3
+    T --> G3{"백그라운드에서<br/>동작해야 하는가?"}
+    G3 -->|"예"| BG["UIBackgroundModes +<br/>파일 보호 클래스 확인"]
+    G3 -->|"아니오"| OK["구현"]
+    BG --> OK
+
+    style E fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style T fill:#fff8e1,stroke:#f9a825,color:#f57f17
+```
+
+거의 모든 고급 기능이 이 세 관문을 거친다. → [06 worked example](../../00_foundations/worked-examples/06-permission-gates-in-sequence.md)
+
 ### 💡 왜 이것을 알아야 하나요?
 
 고급 기능(위치, 카메라, 센서, 결제 등)을 사용할 때는 **기기 지원 여부, 권한, Entitlement, 배터리 영향**을 반드시 확인해야 합니다. 이를 무시하면 심사 탈락, 배터리 드레인, 사용자 불만족으로 이어집니다.
@@ -649,3 +668,5 @@ class RemoteConfigManager {
 ### 관련 링크
 
 [apple-ios-playbook](apple-ios-playbook.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-distribution-and-policies](../../08_packaging_deployment/apple-distribution-and-policies.md).
+
+공식 문서: [iOS Documentation](https://developer.apple.com/documentation/ios-ipados-release-notes)

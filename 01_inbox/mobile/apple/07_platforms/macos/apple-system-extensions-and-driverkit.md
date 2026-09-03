@@ -1,7 +1,7 @@
 ---
 title: apple-system-extensions-and-driverkit
 tags: [apple, apple/platforms, apple/platforms/macos, driverkit, macos, systemextensions]
-aliases: ["System Extensions", "DriverKit", "시스템 확장"]
+aliases: ["System Extensions", "시스템 확장"]
 date modified: 2026-08-10 16:00:00 +09:00
 date created: 2025-12-18 16:21:20 +09:00
 ---
@@ -9,6 +9,21 @@ date created: 2025-12-18 16:21:20 +09:00
 ## macOS System Extensions & DriverKit
 
 macOS 에서 시스템 확장/드라이버를 만들 때 알아야 할 내용을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
+
+```mermaid
+flowchart TD
+    subgraph Old ["과거: kext"]
+        K["커널 주소 공간에서 실행"] --> KR["버그 = 커널 패닉<br/>권한 = 커널 전권"]
+    end
+    subgraph New ["현재: System Extension"]
+        A["앱 번들에 포함해 배포"] --> U["사용자 승인"]
+        U --> P["사용자 공간 프로세스로 실행<br/>(sandbox + entitlement 제한)"]
+        P --> R["버그 = 프로세스 종료<br/>시스템이 재시작 가능"]
+    end
+
+    style KR fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style R fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
 
 ### 💡 왜 이것을 알아야 하나요?
 
@@ -431,3 +446,5 @@ OS 호환성:
 ### 관련 링크
 
 [apple-macos-advanced](apple-macos-advanced.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-distribution-and-policies](../../08_packaging_deployment/apple-distribution-and-policies.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md).
+
+공식 문서: [System Extensions](https://developer.apple.com/documentation/systemextensions) · [DriverKit](https://developer.apple.com/documentation/driverkit)

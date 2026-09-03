@@ -1,7 +1,7 @@
 ---
 title: springboard-frontboard-lifecycle
 tags: [apple, apple/internals, apple/internals/ipc, backboardd, frontboard, lifecycle, springboard, system-internals]
-aliases: ["SpringBoard 와 FrontBoard 가 앱의 전경·배경 전이를 소유한다", "SpringBoard", "FrontBoard", "backboardd"]
+aliases: ["SpringBoard 와 FrontBoard 가 앱의 전경·배경 전이를 소유한다", "SpringBoard", "FrontBoard"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---

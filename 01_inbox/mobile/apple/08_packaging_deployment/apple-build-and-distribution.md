@@ -84,3 +84,5 @@ macOS 앱을 웹에서 배포하려면 **공증(Notarization)**을 받아야 합
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 서명이 완료된 앱이 실행될 때 일어나는 일
 - [apple-history-and-evolution](../00_foundations/apple-history-and-evolution.md) - PowerPC 에서 Apple Silicon 까지의 아키텍처 변화
 - [AMFI 는 exec 시점에 코드 서명과 entitlement 를 커널에서 강제한다](../01_system_internals/kernel-and-driver/amfi-code-signature-enforcement.md) - 서명이 실제로 검증되는 지점
+
+공식 문서: [Distributing your app for beta testing and releases](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)

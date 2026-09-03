@@ -16,6 +16,23 @@ SwiftUI 의 **상태 관리 패러다임 자체를 바꾼** 혁명적 변화입�
 
 `@Observable` 은 **프로퍼티 단위**로 추적합니다. 뷰의 `body` 에서 실제로 읽은 프로퍼티만 변경될 때 해당 뷰만 다시 평가됩니다.
 
+```mermaid
+flowchart TD
+    M["@Observable 매크로"] --> G["각 저장 프로퍼티를<br/>getter/setter 로 변환"]
+    G --> R["getter: 현재 추적 컨텍스트에<br/>이 프로퍼티를 접근 기록"]
+    G --> W["setter: 기록된 관찰자에게<br/>변경 통지"]
+
+    V["View.body 평가"] --> TR["추적 컨텍스트 시작"]
+    TR --> AC["실제로 읽은 프로퍼티만 기록"]
+    AC --> W
+    W --> INV["그 프로퍼티를 읽은 뷰만 무효화"]
+
+    style AC fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style INV fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+```
+
+`ObservableObject` 와의 결정적 차이는 여기다. `@Published` 는 **객체가 바뀌면 그 객체를 참조하는 모든 뷰**가 갱신되지만, `@Observable` 은 **실제로 읽은 프로퍼티가 바뀐 뷰만** 갱신된다.
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 - **성능 혁신**: 대규모 앱에서 불필요한 뷰 재평가가 80% 이상 줄어들 수 있습니다. "왜 내 리스트가 버벅이지?"의 근본 원인이 사라집니다.
 - **코드 단순화**: `@Published`, `@StateObject`, `@ObservedObject` 삼총사가 사라집니다. 그냥 `@State` 와 `@Environment` 만 있으면 됩니다.

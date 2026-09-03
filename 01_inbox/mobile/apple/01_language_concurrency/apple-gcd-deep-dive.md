@@ -15,6 +15,22 @@ date created: 2025-12-16 17:01:32 +09:00
 > 3. Swift 컴파일러의 Concurrency Check 기능을 우회함.
 >이하 내용은 레거시(Objective-C 및 구형 Swift) 코드를 유지보수하기 위한 목적으로만 참고되어야 합니다. 신규 코드는 `Swift Concurrency (async/await, Actor)` 를 우선해야 합니다.
 
+```mermaid
+flowchart TD
+    A["global().async × 100"] --> Q["동시(concurrent) 큐"]
+    Q --> W1["작업 1 실행"]
+    W1 --> B{"블로킹 발생?<br/>(sleep, semaphore, 동기 I/O)"}
+    B -->|"예"| N["스레드가 점유됨"]
+    N --> S["풀이 새 스레드 생성<br/>(다음 작업 처리를 위해)"]
+    S --> EXP["반복 → thread explosion<br/>스택 메모리 + 컨텍스트 스위칭 폭증"]
+    B -->|"아니오"| OK["스레드 재사용"]
+
+    style EXP fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style OK fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
+
+[Swift Concurrency 의 협력적 풀](../01_language_concurrency/concurrency/cooperative-thread-pool.md)은 이 경로 자체를 없앤다 — 스레드를 늘리지 않는 대신 블로킹을 금지한다.
+
 ### 💡 왜 아직도 이것을 알아야 하나요? (Context)
 
 - **Legacy Code**: 2021 년 이전에 작성된 거의 모든 iOS 앱은 GCD 를 사용합니다. 유지보수를 위해 피할 수 없습니다.

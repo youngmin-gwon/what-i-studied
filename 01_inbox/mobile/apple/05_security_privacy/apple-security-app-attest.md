@@ -1,6 +1,6 @@
 ---
 title: apple-security-app-attest
-tags: [apple, apple/security, app-attest, devicecheck, integrity]
+tags: [app-attest, apple, apple/security, devicecheck, integrity]
 aliases: ["App Attest 는 앱의 자기 주장이 아니라 Secure Enclave 키를 서버가 Apple CA 로 검증하는 무결성이다", "App Attest", "DeviceCheck"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-04-05 17:08:24 +09:00

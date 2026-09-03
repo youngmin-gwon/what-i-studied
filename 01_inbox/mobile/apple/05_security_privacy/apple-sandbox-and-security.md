@@ -84,6 +84,24 @@ Apple 은 샌드박스 외에도 여러 계층에서 보안을 강화한다.
 
 ---
 
+### 관찰 가능한 증거
+
+```bash
+# sandbox 거부 로그 (macOS)
+log stream --predicate 'senderImagePath CONTAINS "Sandbox"' --info
+log show --last 5m --predicate 'eventMessage CONTAINS "deny"' --info
+
+# 세 게이트를 구분하기 위해 산출물의 entitlement 도 함께 본다
+codesign -d --entitlements :- MyApp.app
+
+# TCC 판정 로그
+log stream --device --predicate 'subsystem == "com.apple.TCC"' --info
+```
+
+iOS 기기에서는 `sysdiagnose` 를 수집해 그 안의 로그에서 같은 항목을 찾는다.
+
+**진단 원칙**: `EPERM` 이 났다면 코드 논리가 아니라 **어느 게이트가 거부했는지**를 먼저 확정한다. sandbox 프로필 · entitlement · TCC 는 서로 독립적이며 처방이 다르다. → [04 런북](../00_foundations/diagnostic-runbooks/04-permission-granted-but-api-fails.md)
+
 ### 📚 연관 문서
 
 - [apple-security-entitlements](apple-security-entitlements.md) - 권한 증명 및 프로비저닝 프로파일
@@ -93,3 +111,5 @@ Apple 은 샌드박스 외에도 여러 계층에서 보안을 강화한다.
 - [apple-boot-flow-and-images](../00_foundations/apple-boot-flow-and-images.md) - Secure Boot 및 하드웨어 보안 근간
 - [TrustedBSD MAC 프레임워크가 sandbox 판정이 실제로 일어나는 지점이다](../01_system_internals/kernel-and-driver/trustedbsd-mac-and-sandbox-enforcement.md) - 커널에서의 집행
 - [AMFI 는 exec 시점에 코드 서명과 entitlement 를 커널에서 강제한다](../01_system_internals/kernel-and-driver/amfi-code-signature-enforcement.md)
+
+공식 문서: [App Sandbox](https://developer.apple.com/documentation/security/app-sandbox)

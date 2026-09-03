@@ -10,6 +10,22 @@ date created: 2025-12-18 16:21:20 +09:00
 
 macOS 데스크탑 앱을 더 깊게 만들 때 필요한 내용을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
+```mermaid
+flowchart TD
+    A["macOS 앱 배포 결정"] --> Q{"어디로 배포?"}
+    Q -->|"Mac App Store"| MAS["App Sandbox 필수<br/>+ 심사"]
+    Q -->|"직접 배포 (Developer ID)"| DID["Hardened Runtime +<br/>공증(notarization) 필수"]
+    Q -->|"엔터프라이즈 내부"| ENT["서명 + MDM 배포"]
+
+    MAS --> S1["파일 접근: Powerbox / 북마크"]
+    DID --> S2["Gatekeeper 통과 필요<br/>spctl 로 검증"]
+
+    style MAS fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style DID fill:#fff8e1,stroke:#f9a825,color:#f57f17
+```
+
+**배포 채널이 샌드박스 여부와 서명 요구를 결정한다.** 직접 배포는 샌드박스가 선택이지만 공증은 필수다.
+
 ### 💡 왜 이것을 알아야 하나요?
 
 macOS는 iOS와 달리 **권한 체계가 다양하고(TCC, Entitlement), 배포 경로도 여러 개**(Mac App Store, 직배포, 오픈소스)입니다. 잘못된 권한 설정이나 노타리제이션 누락은 Gatekeeper 차단과 사용자 신뢰 상실로 이어집니다.
@@ -522,3 +538,5 @@ UI 렌더링:
 ### 관련 링크
 
 [apple-macos-system](../apple-macos-system.md), [apple-build-and-distribution](../../08_packaging_deployment/apple-build-and-distribution.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).
+
+공식 문서: [macOS Documentation](https://developer.apple.com/documentation/macos-release-notes)

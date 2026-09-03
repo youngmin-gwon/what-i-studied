@@ -2,7 +2,7 @@
 title: actor-isolation-serializes-state-access
 tags: [actor, apple, apple/concurrency, apple/language, data-race, swift]
 aliases: ["Actor Isolation", "actor 격리는 가변 상태 접근을 직렬화해 데이터 경합을 컴파일 타임에 차단한다", "액터 격리"]
-date modified: 2026-09-03 11:59:41 +09:00
+date modified: 2026-09-03 14:34:22 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 

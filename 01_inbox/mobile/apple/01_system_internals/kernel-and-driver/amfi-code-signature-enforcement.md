@@ -1,6 +1,6 @@
 ---
 title: amfi-code-signature-enforcement
-tags: [apple, apple/internals, apple/internals/kernel, amfi, code-signing, entitlements, system-internals]
+tags: [amfi, apple, apple/internals, apple/internals/kernel, code-signing, entitlements, system-internals]
 aliases: ["AMFI 는 exec 시점에 코드 서명과 entitlement 를 커널에서 강제한다", "AMFI", "Apple Mobile File Integrity", "코드 서명 강제"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00

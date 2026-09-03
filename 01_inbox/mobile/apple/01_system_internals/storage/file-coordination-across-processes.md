@@ -1,6 +1,6 @@
 ---
 title: file-coordination-across-processes
-tags: [apple, apple/internals, apple/internals/storage, app-group, nsfilecoordinator, system-internals]
+tags: [app-group, apple, apple/internals, apple/internals/storage, nsfilecoordinator, system-internals]
 aliases: ["NSFileCoordinator 는 프로세스 간 파일 접근을 조정한다", "NSFileCoordinator", "NSFilePresenter", "파일 조정"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00

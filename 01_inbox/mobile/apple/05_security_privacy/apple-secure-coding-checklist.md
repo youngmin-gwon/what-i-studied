@@ -54,7 +54,39 @@ date created: 2025-12-16 16:08:41 +09:00
 - [ ] **Debug Flags**: 릴리스 빌드에서 디버그용 기능(서버 주소 변경, 로그 보기)이 모두 꺼졌는지 `#if DEBUG` 블록을 확인하세요.
 - [ ] **Strip Symbols**: 앱 바이너리에서 심볼이 제거(Strip)되었는지 Build Settings 를 확인하세요. 심볼이 있으면 해커가 코드를 분석하기 너무 쉽습니다.
 
+### 관찰 가능한 증거 (자동화 가능한 점검)
+
+```bash
+# 1) 하드코딩된 비밀 문자열 탐색
+grep -rnE '(api[_-]?key|secret|password|token)\s*[:=]\s*"' --include="*.swift" .
+
+# 2) 바이너리에서 추출 가능한 문자열 (난독화되지 않은 키가 보이는가)
+strings MyApp.app/MyApp | grep -iE 'sk_live|AKIA|-----BEGIN' | head
+
+# 3) ATS 예외가 배포 빌드에 남아 있는가
+plutil -p MyApp.app/Info.plist | grep -A10 NSAppTransportSecurity
+
+# 4) @unchecked Sendable 사용처 (동시성 안전성 우회)
+grep -rn "@unchecked Sendable" --include="*.swift" .
+
+# 5) 실제로 서명된 entitlement (설정이 아니라 산출물)
+codesign -d --entitlements :- MyApp.app
+```
+
+**런타임 점검 도구** (스킴 옵션에서 켠다)
+
+| 도구 | 잡는 것 |
+| :--- | :--- |
+| Address Sanitizer | 메모리 손상 |
+| Thread Sanitizer | 데이터 경합 |
+| Undefined Behavior Sanitizer | 정의되지 않은 동작 |
+| Main Thread Checker | 잘못된 스레드의 UI 접근 |
+
+이 다섯 개의 `grep` 을 CI 에 넣으면 회귀를 자동으로 막을 수 있다.
+
 ### 더 보기
 
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 보안 모델 개요
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 샌드박스와 권한 상세
+
+공식 문서: [Security](https://developer.apple.com/documentation/security)

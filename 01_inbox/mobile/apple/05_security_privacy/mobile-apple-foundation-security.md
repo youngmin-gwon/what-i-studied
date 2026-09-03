@@ -43,3 +43,5 @@ Apple 보안의 근간을 이루는 4 대 핵심 계층입니다.
 - [mobile-security](../../mobile-security.md) (Hub)
 - [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - 시니어용 RASP 및 안티 포렌식 팁
 - [cross-platform-ai-privacy-comparison](../../cross-platform/cross-platform-ai-privacy-comparison.md) - AI 에이전트 프라이버시 모델 비교
+
+공식 문서: [Apple Platform Security](https://support.apple.com/guide/security/welcome/web)

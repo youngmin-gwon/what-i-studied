@@ -14,6 +14,23 @@ SwiftUI 는 단순히 새로운 UI 프레임워크가 아니라, **생각하는 
 
 화면을 "어떻게(How) 그릴지"가 아니라 "무엇(What)을 보여줄지" 정의하면, 나머지는 프레임워크가 알아서 합니다.
 
+```mermaid
+flowchart TD
+    S["@State / @Observable 값 변경"] --> G["AttributeGraph 가<br/>의존하는 노드를 무효화"]
+    G --> B["해당 View 의 body 재평가"]
+    B --> V["새 View 값 트리 생성"]
+    V --> D["이전 트리와 비교"]
+    D --> L["달라진 부분만<br/>레이어 속성 변경으로 반영"]
+    L --> C["CATransaction commit"]
+    C --> R["Render Server 합성"]
+
+    style G fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style D fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style C fill:#fff8e1,stroke:#f9a825,color:#f57f17
+```
+
+`body` 는 **여러 번 호출될 수 있다.** 순수하고 값싸야 하며, 무거운 계산이 있으면 프레임마다 반복된다. 어떤 속성이 재평가를 유발했는지는 `Self._printChanges()` 로 확인한다.
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
 - **Mindset Shift**: `view.backgroundColor = .red` 라고 쓰는 습관을 버려야 합니다. "State 가 Error 일 때 배경은 레드다"라고 선언해야 합니다.

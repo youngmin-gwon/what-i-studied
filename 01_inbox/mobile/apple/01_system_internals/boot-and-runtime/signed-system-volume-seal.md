@@ -1,6 +1,6 @@
 ---
 title: signed-system-volume-seal
-tags: [apple, apple/internals, apple/internals/boot, apfs, integrity, ssv, system-internals]
+tags: [apfs, apple, apple/internals, apple/internals/boot, integrity, ssv, system-internals]
 aliases: ["SSV 는 시스템 볼륨 전체를 해시 트리로 봉인해 읽는 순간마다 검증한다", "Signed System Volume", "SSV", "시스템 볼륨 봉인"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00

@@ -10,6 +10,21 @@ date created: 2026-04-03 22:15:19 +09:00
 
 Apple 플랫폼의 실행 환경을 구성하는 **Objective-C Runtime**과 **Swift Runtime**의 내부 동작 원리를 심층 분석합니다. 이 시스템의 근간이 되는 하이브리드 커널 구조는 [apple-architecture-stack](apple-architecture-stack.md) 을 참고하시기 바랍니다.
 
+```mermaid
+flowchart TD
+    C["메서드 호출"] --> Q{"선언 형태는?"}
+    Q -->|"struct / enum / final class<br/>private / 최적화로 확정"| S["Static Dispatch<br/>주소가 컴파일 타임에 고정"]
+    Q -->|"class 상속 / protocol"| T["Table Dispatch<br/>vtable · witness table 조회"]
+    Q -->|"@objc / dynamic / ObjC 타입"| M["Message Dispatch<br/>objc_msgSend + selector 검색"]
+
+    S --> F["가장 빠름 · 인라인 가능"]
+    T --> G["한 번의 간접 참조"]
+    M --> H["가장 느림 · 대신 swizzling·KVO 가능"]
+
+    style S fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style M fill:#fff8e1,stroke:#f9a825,color:#f57f17
+```
+
 ### 🏗️ Architecture Level: How Compiled Code is Processed
 
 컴파일된 코드가 실제 하드웨어(ARM64 CPU)에서 어떻게 인식되고 실행되는지, 언어별 컴파일 과정과 바이너리 구조를 분석합니다.

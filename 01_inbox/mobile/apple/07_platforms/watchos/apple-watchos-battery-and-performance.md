@@ -10,6 +10,23 @@ date created: 2025-12-18 16:21:20 +09:00
 
 애플워치에서 배터리를 최적화하고 성능을 유지하는 기법을 다룹니다. watchOS 는 **극한의 리소스 제약** 환경이며, 모든 설계 결정이 **배터리 수명**과 **반응성**에 영향을 미칩니다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
+```mermaid
+flowchart TD
+    B["배터리 소모의 원인"] --> C["CPU<br/>연산·렌더링"]
+    B --> N["네트워크<br/>무선 라디오 기동"]
+    B --> S["센서<br/>심박·GPS·가속도"]
+    B --> D["디스플레이<br/>Always-On 갱신"]
+
+    N --> N1["가장 비쌈: 라디오를 깨우는 것 자체<br/>→ 요청을 묶어서 한 번에"]
+    S --> S1["GPS 가 압도적<br/>→ 필요한 정확도만 요청"]
+    D --> D1["Always-On 에서는<br/>갱신 빈도를 낮춘다"]
+
+    style N1 fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style S1 fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+```
+
+**라디오는 켜는 것 자체가 비싸다.** 작은 요청을 자주 보내는 것이 큰 요청을 한 번 보내는 것보다 훨씬 나쁘다.
+
 ### 💡 왜 배터리 최적화가 필수인가?
 
 - **하루 배터리 수명 보장**: 모든 watchOS 앱은 하루 사용을 목표. 1%의 최적화 실패도 누적되면 시간 단위로 줄어듭니다.
@@ -673,3 +690,26 @@ class BatteryProfiler {
 ### 관련 링크
 
 [apple-watchos-system](../apple-watchos-system.md), [apple-watchos-fitness-guide](apple-watchos-fitness-guide.md), [apple-offline-and-resilience](../../03_data_networking/apple-offline-and-resilience.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).
+
+### 관찰 가능한 증거
+
+- **Instruments의 Energy Log**: watchOS 앱을 실기기에서 프로파일링해 CPU·네트워크·센서가 만드는 소모를 구간별로 본다.
+- **실착용 테스트**: 시뮬레이터로는 배터리를 검증할 수 없다. 하루 착용하며 배터리 곡선을 관찰한다.
+
+```swift
+// 백그라운드 새로고침 예산을 실제로 받고 있는지 로그로 확인
+func handle(_ tasks: Set<WKRefreshBackgroundTask>) {
+    for t in tasks {
+        print("갱신 태스크 수신:", Date())
+        t.setTaskCompletedWithSnapshot(false)   // 반드시 완료 보고
+    }
+}
+```
+
+**`setTaskCompleted` 를 호출하지 않으면 다음 예산이 줄어든다.** 배터리 문제로 보이는 증상이 실제로는 이 누락인 경우가 흔하다.
+
+```bash
+log stream --device --predicate 'subsystem == "com.apple.watchkit"' --info
+```
+
+공식 문서: [Keeping your watchOS content up to date](https://developer.apple.com/documentation/watchkit/keeping-your-watchos-content-up-to-date)

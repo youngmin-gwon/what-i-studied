@@ -62,7 +62,37 @@ iOS 와 가장 큰 차이점입니다. "창(Window)이 없어도 앱은 살아�
 - **Delegate Method**: `applicationShouldTerminateAfterLastWindowClosed` 가 `false`(기본값)면, 빨간 버튼(X)을 눌러 창을 다 꺼도 앱은 Dock 에 살아있습니다.
 - **Menu Bar**: `Main.storyboard` 나 코드에서 메뉴 아이템을 관리해야 합니다. Responder Chain 을 통해 현재 포커스된 윈도우로 액션(`copy:`, `paste:`)이 전달됩니다.
 
+### 관찰 가능한 증거
+
+```bash
+# 샌드박스 / Hardened Runtime 플래그 확인
+codesign -d --entitlements :- /Applications/MyApp.app
+codesign -dvvv /Applications/MyApp.app 2>&1 | grep -i "flags"   # runtime 플래그
+
+# 공증(notarization) 상태
+spctl -a -vvv -t install /Applications/MyApp.app
+xcrun stapler validate /Applications/MyApp.app
+
+# 격리 속성 (다운로드한 앱에 붙는다)
+xattr -l /Applications/MyApp.app
+
+# 시스템 확장 목록
+systemextensionsctl list
+```
+
+**Gatekeeper 실패의 3 단계 구분**
+
+| `spctl` 결과 | 의미 |
+| :--- | :--- |
+| `rejected (the code is not signed)` | 서명 자체 없음 |
+| `rejected ... not notarized` | 서명은 있으나 공증 안 됨 |
+| `accepted, source=Notarized Developer ID` | 정상 |
+
+WindowServer 관련 문제(창이 안 뜨거나 화면이 갱신되지 않음)는 `log stream --predicate 'process == "WindowServer"'` 로 본다.
+
 ### 더 보기
 
 - [apple-build-and-distribution](../08_packaging_deployment/apple-build-and-distribution.md) - 공증(Notarization) 과정
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 샌드박스 파일 접근 (Security Scoped Bookmark)
+
+공식 문서: [Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution)

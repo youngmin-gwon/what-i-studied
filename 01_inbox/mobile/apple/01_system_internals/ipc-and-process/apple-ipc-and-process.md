@@ -1,7 +1,7 @@
 ---
 title: apple-ipc-and-process
 tags: [apple, apple/internals, apple/internals/ipc, ipc, jetsam, mach, process, system-internals, xpc]
-aliases: ["앱 프로세스의 통신과 수명은 Mach port, XPC, assertion, Jetsam 네 계층이 나눠 소유한다", "Apple IPC and Process", "Apple 프로세스와 통신"]
+aliases: ["앱 프로세스의 통신과 수명은 Mach port", "assertion", "Jetsam 네 계층이 나눠 소유한다", "Apple IPC and Process", "Apple 프로세스와 통신"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---

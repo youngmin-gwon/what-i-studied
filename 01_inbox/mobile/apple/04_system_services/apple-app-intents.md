@@ -14,6 +14,22 @@ date created: 2026-04-03 23:58:00 +09:00
 
 App Intents 는 단순히 Siri 용 API 가 아닙니다. **Spotlight, Shortcuts 앱, Action Button, Interactive Widgets, 그리고 Apple Intelligence** 까지 — 앱을 시스템 곳곳에 노출시키는 **유일한 관문**입니다.
 
+```mermaid
+flowchart TD
+    S["Siri / 단축어 / Spotlight /<br/>위젯 / Action 버튼"] --> R["시스템이 인텐트 해석"]
+    R --> E["AppEntity 로 대상 확정"]
+    E --> P["AppIntent.perform() 호출"]
+    P --> C{"openAppWhenRun?"}
+    C -->|"true"| APP["앱을 전경으로 띄운 뒤 실행"]
+    C -->|"false"| BG["앱 프로세스가 없어도<br/>백그라운드에서 실행"]
+    BG --> RES["IntentResult 반환<br/>(스니펫 / 값 / 대화)"]
+
+    style BG fill:#fff8e1,stroke:#f9a825,color:#f57f17
+    style RES fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
+
+**`perform()` 은 앱이 실행 중이 아닐 때도 호출된다.** 전역 상태나 이미 초기화된 싱글턴을 전제하면 실패한다. 필요한 것을 그 안에서 직접 준비해야 한다.
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
 - **Apple Intelligence (iOS 18+)**: Apple 의 온디바이스 AI 가 사용자의 의도를 파악하고 앱의 기능을 자동으로 호출합니다. 이때 사용하는 것이 App Intents 입니다. 구현하지 않으면 AI 에게 "보이지 않는" 앱이 됩니다.

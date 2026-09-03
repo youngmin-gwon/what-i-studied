@@ -1,6 +1,6 @@
 ---
 title: apple-storage-internals
-tags: [apple, apple/internals, apple/internals/storage, apfs, data-protection, storage, system-internals]
+tags: [apfs, apple, apple/internals, apple/internals/storage, data-protection, storage, system-internals]
 aliases: ["파일의 운명은 어느 디렉터리에 있고 어떤 보호 클래스를 갖느냐로 결정된다", "Apple Storage Internals", "Apple 저장소 내부"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00

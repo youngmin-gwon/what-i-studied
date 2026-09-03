@@ -12,6 +12,22 @@ CocoaPods 의 `Podfile`, Carthage 의 `Cartfile` 시대는 끝났습니다.
 
 **Swift Package Manager** 는 Apple 이 공식으로 제공하는 의존성 관리 + 모듈화 도구이며, Xcode 에 완전히 통합되어 있습니다.
 
+```mermaid
+flowchart TD
+    M["Package.swift<br/>(요구 버전 범위 선언)"] --> R["의존성 해석"]
+    R --> RES["Package.resolved<br/>(확정된 정확한 버전 + 커밋)"]
+    RES --> B["빌드"]
+    B --> T{"라이브러리 type?"}
+    T -->|".static 또는 미지정"| ST["앱 바이너리에 병합<br/>→ dylib 로딩 비용 없음"]
+    T -->|".dynamic"| DY["별도 프레임워크<br/>→ pre-main 에 로딩 비용 추가"]
+
+    CI["CI"] -.->|"Package.resolved 를<br/>커밋하지 않으면"| DRIFT["매 빌드마다 다른 버전"]
+
+    style RES fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style DY fill:#fff8e1,stroke:#f9a825,color:#f57f17
+    style DRIFT fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+```
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
 - **표준화**: Apple 의 모든 오픈소스 프레임워크(`swift-collections`, `swift-algorithms`, `swift-testing` 등)가 SPM 으로 배포됩니다. CocoaPods 는 유지보수 모드에 들어갔고, 새로운 라이브러리들은 SPM-only 가 늘어나고 있습니다.
@@ -175,8 +191,36 @@ swift package generate-xcodeproj  # ⚠️ deprecated, 직접 Package.swift 를 
 2. **Resolution 충돌**: 두 패키지가 같은 라이브러리의 다른 버전을 요구하면 빌드가 실패합니다. `Package.resolved` 파일을 커밋하여 팀 내 버전을 동기화하세요.
 3. **Access Control**: 패키지 간에는 `public` 으로 선언된 타입만 접근 가능합니다. `internal`(기본값)은 같은 모듈 내에서만 보입니다.
 
+### 관찰 가능한 증거
+
+```bash
+# 의존성 트리와 해석된 버전
+swift package show-dependencies
+cat Package.resolved | head -30
+
+# 캐시를 지우고 처음부터 해석 (해석 문제 격리)
+swift package reset
+swift package resolve
+
+# 특정 플랫폼으로 빌드해 이식성 검증
+swift build --triple arm64-apple-ios
+```
+
+**`Package.resolved` 를 반드시 커밋한다.** 커밋하지 않으면 CI 가 매번 다른 버전을 가져올 수 있고, "내 로컬에서는 되는데" 문제의 흔한 원인이 된다.
+
+**동적/정적 링크가 [앱 시작 시간](../01_system_internals/boot-and-runtime/pre-main-launch-time-budget.md)에 직접 영향을 준다.**
+
+```bash
+# 앱이 링크한 동적 라이브러리 수 (많을수록 pre-main 이 길다)
+otool -L MyApp.app/MyApp | wc -l
+```
+
+`.library(name:type:targets:)` 에서 `type` 을 지정하지 않으면 SPM 이 선택한다. 시작 시간이 문제라면 `.static` 을 명시해 병합을 유도한다.
+
 ### 더 보기
 
 - [apple-cross-platform-architecture](../07_platforms/apple-cross-platform-architecture.md) - SPM 을 활용한 크로스 플랫폼 코드 공유
 - [apple-build-and-distribution](apple-build-and-distribution.md) - 빌드 파이프라인에서 SPM 이 차지하는 위치
 - [apple-testing-and-quality](../06_testing_performance/apple-testing-and-quality.md) - 모듈별 독립 테스트 전략
+
+공식 문서: [Swift Package Manager](https://www.swift.org/documentation/package-manager/)

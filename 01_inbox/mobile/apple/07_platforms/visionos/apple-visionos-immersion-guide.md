@@ -10,6 +10,20 @@ date created: 2025-12-18 16:21:20 +09:00
 
 비전 OS 에서 몰입감 있는 앱을 만들기 위한 깊은 가이드. Apple Vision Pro 의 **공간 컴퓨팅(Spatial Computing)** 플랫폼에서 사용자를 완전히 환경에 집중시키는 기법을 다룹니다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
+```mermaid
+flowchart TD
+    L["몰입 수준 선택"] --> M1["Mixed<br/>현실 배경 + 가상 콘텐츠"]
+    L --> M2["Progressive<br/>사용자가 다이얼로 조절"]
+    L --> M3["Full<br/>현실이 완전히 대체됨"]
+
+    M1 --> C1["안전: 주변 인식 유지"]
+    M2 --> C2["사용자가 스스로 제어 → 편안함"]
+    M3 --> C3["멀미·안전 위험 최대<br/>→ 이동·회전 설계에 특히 주의"]
+
+    style C2 fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style C3 fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+```
+
 ### 💡 왜 몰입감 설계가 중요한가?
 
 - **존재감 강화**: 3D 공간을 올바르게 활용하면 사용자가 "여기 있다"는 감각을 느낍니다.
@@ -566,3 +580,5 @@ visionOS는 **공간 맵, 사용자 시선, 손 위치** 등 민감한 정보를
 ### 관련 링크
 
 [apple-visionos-system](../apple-visionos-system.md), [apple-visionos-design-patterns](apple-visionos-design-patterns.md), [apple-visionos-spatial](../apple-visionos-system.md), [apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+
+공식 문서: [Creating fully immersive experiences](https://developer.apple.com/documentation/visionos/creating-fully-immersive-experiences)

@@ -10,6 +10,22 @@ date created: 2025-12-18 16:21:20 +09:00
 
 거실 환경에 맞는 tvOS UI/UX 패턴을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
+```mermaid
+flowchart TD
+    R["리모컨 입력"] --> FE["포커스 엔진"]
+    FE --> C{"방향으로 이동 가능한<br/>포커스 가능 뷰가 있는가?"}
+    C -->|"있음"| MV["포커스 이동 + 시각적 강조"]
+    C -->|"없음"| ST["이동하지 않음<br/>(사용자에게는 '먹통'으로 보임)"]
+
+    G["포커스 가이드"] -.->|"논리적으로는 있어야 할 경로를 보완"| C
+    P["preferredFocusEnvironments"] -.->|"초기 포커스 지정"| FE
+
+    style ST fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style MV fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
+
+**tvOS 에서 "버튼이 안 눌린다"는 대부분 포커스가 그 버튼에 도달하지 못하는 것이다.** `UIFocusDebugger.checkFocusability(for:)` 가 이유를 직접 알려준다.
+
 ### 💡 왜 이것을 알아야 하나요?
 
 tvOS는 **거실의 대형 TV 화면에서 원거리(1~3m)에서 리모컨으로 조작**합니다. 스마트폰과 달리 터치 피드백이 없고, 포커스가 매우 중요하며, 사용자 경험이 전혀 다릅니다. 잘못된 디자인은 사용성 문제와 높은 이탈률로 이어집니다.
@@ -568,3 +584,25 @@ class OnDemandResourceManager {
 ### 관련 링크
 
 [apple-tvos-media](apple-tvos-media.md), [apple-animation-and-motion](../../02_ui_frameworks/apple-animation-and-motion.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+
+### 관찰 가능한 증거
+
+```swift
+// 포커스가 왜 그렇게 움직이는지 진단한다 (디버거 콘솔)
+po UIFocusDebugger.status()
+po UIFocusDebugger.checkFocusability(for: myView)
+po UIFocusDebugger.simulateFocusUpdateRequest(from: currentEnvironment)
+```
+
+`checkFocusability` 는 **왜 이 뷰가 포커스를 받을 수 없는지** 이유를 그대로 알려준다. tvOS 포커스 문제 진단의 핵심 도구다.
+
+**거실 환경 검증 체크리스트**
+
+| 항목 | 확인 |
+| :--- | :--- |
+| 3m 거리 가독성 | 실제 TV 에 연결해 확인 (시뮬레이터 불가) |
+| 오버스캔 안전 영역 | 화면 가장자리 요소가 잘리지 않는가 |
+| 리모컨만으로 모든 기능 도달 | 키보드/터치 없이 전 화면 순회 |
+| 포커스 이동의 예측 가능성 | 상하좌우가 시각적 배치와 일치하는가 |
+
+공식 문서: [tvOS Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos)

@@ -1,50 +1,114 @@
 ---
 title: apple-history-and-evolution
-tags: [apple, apple/foundations, evolution, history, legacy]
-aliases: ["Apple 플랫폼 역사", "History and Evolution"]
-date modified: 2026-09-03 11:59:35 +09:00
-date created: 2025-12-16 16:11:27 +09:00
+tags: [apple, apple/foundations, availability, deployment-target, evolution, history, versioning]
+aliases: ["Apple 플랫폼 역사", "Apple 플랫폼의 버전은 SDK·배포 타깃·런타임 확인이라는 세 개의 독립된 축으로 이루어진다", "Deployment Target", "History and Evolution"]
+date modified: 2026-09-03 14:33:50 +09:00
+date created: 2026-04-04 00:00:00 +09:00
 ---
 
-## History & Evolution of Apple Platforms
+## Apple 플랫폼의 버전은 SDK·배포 타깃·런타임 확인이라는 세 개의 독립된 축으로 이루어진다
 
-**"과거를 알면 현재의 코드가 보입니다."**
+"iOS 18 부터 되는 기능"이라는 말은 **세 가지 서로 다른 것**을 가리킬 수 있다. 이 셋을 분리하지 않으면 "빌드는 되는데 구형 기기에서 크래시"나 "왜 이 API 가 안 보이지"를 진단할 수 없다.
 
-왜 iOS 코드에 아직도 `NS`Object 가 있을까요? 왜 SwiftUI 는 갑자기 등장했을까요? 역사를 알면 **API 의 설계 의도**와 **레거시 코드**를 이해할 수 있습니다.
+| 축 | 무엇을 정하는가 | 어디서 설정 |
+| :--- | :--- | :--- |
+| **SDK 버전** | 컴파일할 때 **볼 수 있는** API 의 범위 | Xcode 버전이 결정 |
+| **Deployment Target** | 앱이 **실행될 수 있는** 최소 OS | 빌드 설정 |
+| **런타임 확인** | 실제 기기에서 그 API 가 **있는지** | `#available` / `@available` |
 
-### 💡 왜 이것을 알아야 하나요? (Why it matters)
+```mermaid
+flowchart TD
+    S["SDK (Xcode 가 제공)<br/>예: iOS 18 SDK"] --> C["컴파일: 이 범위의 API 를 볼 수 있다"]
+    D["Deployment Target<br/>예: iOS 16"] --> C
+    C --> W{"iOS 16 에 없는 API 를<br/>썼는가?"}
+    W -->|"예 + 가드 없음"| E["컴파일 에러<br/>(is only available in iOS 18 or newer)"]
+    W -->|"예 + #available 가드"| OK1["안전: 런타임에 분기"]
+    W -->|"아니오"| OK2["안전"]
 
-- **API 이름의 유래**: `NSString`, `NSArray` 의 **NS**는 NeXTSTEP 의 약자입니다. Apple 의 뿌리가 1980 년대 NeXT OS 에 있음을 알면 문서 읽기가 편해집니다.
-- **기술의 전환점**: Objective-C → Swift, OpenGL → Metal, UIKit → SwiftUI 같은 대전환의 흐름을 알면, **"앞으로 무엇을 공부해야 할지"**가 보입니다.
+    OK1 --> R["실기기 실행"]
+    OK2 --> R
+    R --> RT{"실제 OS 버전"}
+    RT -->|"iOS 18"| B1["새 경로 실행"]
+    RT -->|"iOS 16"| B2["폴백 경로 실행"]
 
-### ⏳ 시대별 대전환 (The Eras)
+    style E fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style OK1 fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
 
-#### 1. The NeXT Era (1980s ~ 1990s)
+### 실무 규칙
 
-- **Objective-C & Cocoa**: 스티브 잡스가 만든 NeXTSTEP OS 가 현대 macOS 와 iOS 의 조상입니다.
-- **Legacy**: 지금도 쓰이는 `Foundation`, `AppKit` 프레임워크의 근간이 이때 만들어졌습니다. 동적 런타임(`objc_msgSend`)의 유연함이 핵심이었습니다.
+```swift
+// 런타임 분기 — 컴파일러가 가드 안에서만 새 API 를 허용한다
+if #available(iOS 18, *) {
+    useNewAPI()
+} else {
+    useFallback()
+}
 
-#### 2. The iPhone OS (2007 ~ 2013)
+// 선언 자체에 가용성 표시
+@available(iOS 18, *)
+struct NewFeatureView: View { ... }
 
-- **Touch First**: 마우스용 AppKit 을 버리고, 멀티터치에 최적화된 **UIKit**을 새로 만들었습니다.
-- **Memory Constraint**: 초창기 아이폰은 메모리가 128MB 뿐이었습니다. 그래서 가비지 컬렉션(GC) 대신 **Reference Counting (MRC/ARC)** 방식을 채택했고, 이는 지금까지 이어져 **저전력 고효율**의 기반이 되었습니다.
+// 폐기 예고 — 사용처에 경고를 띄운다
+@available(iOS, deprecated: 17, message: "Use newMethod() instead")
+func oldMethod() { }
+```
 
-#### 3. The Swift Revolution (2014 ~ 2018)
+>[!IMPORTANT] `#available` 의 `*`
+>`*` 는 "명시하지 않은 다른 모든 플랫폼에서는 통과"를 뜻한다. 생략할 수 없으며, 멀티플랫폼 코드에서 macOS/watchOS 조건을 빠뜨리는 실수를 막아 준다.
 
-- **Safety First**: Objective-C 의 동적 특성은 버그를 만들기 쉬웠습니다. Apple 은 "안전성(Safety)"을 최우선으로 하는 **Swift**를 발표했습니다.
-- **Metal**: OpenGL 을 버리고 하드웨어에 직접 명령을 내리는 그래픽 API Metal 을 도입해 그래픽 성능을 비약적으로 높였습니다.
+### 2025 년 버전 통합
 
-#### 4. The Declarative Era (2019 ~ Present)
+2025 년부터 모든 Apple OS 의 메이저 버전 번호가 **출시 연도 기준으로 통합**되었다. iOS 26, macOS 26, watchOS 26, visionOS 26 이 같은 세대를 가리킨다.
 
-- **SwiftUI & Combine**: 화면 해상도가 다양해지고 다크 모드 등 상태가 복잡해지자, 명령형(UIKit)보다 선언형(SwiftUI)이 유리해졌습니다.
-- **Apple Silicon**: Intel 을 버리고 M1 칩을 도입하면서, 아이폰과 맥의 경계가 하드웨어 레벨에서 통합되었습니다.
+이것이 바꾸는 것과 바꾸지 않는 것:
 
-### 🔮 미래 : 공간 컴퓨팅 (Spatial Computing)
+| 바뀐 것 | 바뀌지 않은 것 |
+| :--- | :--- |
+| 버전 번호가 플랫폼 간 정렬됨 | **API 가용성은 여전히 플랫폼마다 다르다** |
+| 세대 파악이 쉬워짐 | `@available` 은 여전히 플랫폼별로 명시해야 한다 |
 
-- **visionOS**: 2D 화면을 넘어 3D 공간으로 UI 를 확장합니다.
-- 기존의 UIKit/SwiftUI 지식이 그대로 이어지지만, **"시선(Eye) + 손(Hand)"** 이라는 새로운 입력 방식에 적응해야 합니다.
+**같은 번호라고 같은 API 가 있는 것이 아니다.** watchOS 26 에 없는 iOS 26 API 가 여전히 존재한다.
 
-### 📚 더 보기
+### 시대별 대전환 — 왜 지금 구조가 이런가
 
-- [apple-platform-differences](apple-platform-differences.md) - 변화의 결과물인 플랫폼별 차이
-- [apple-runtime-and-swift](apple-runtime-and-swift.md) - Objective-C 유산과 현대적 런타임
+각 전환은 "무엇을 포기하고 무엇을 얻었는가"로 읽어야 현재 제약이 이해된다.
+
+| 시기 | 전환 | 남긴 제약 |
+| :--- | :--- | :--- |
+| 초기 | Objective-C + 수동 참조 계수 | ObjC 런타임이 여전히 하부에 있음 → [dispatch 3 종](apple-runtime-and-swift.md) |
+| ARC 도입 | 수동 retain/release 제거 | 순환 참조는 여전히 개발자 책임 |
+| Swift 도입 | 정적 타입·값 타입 중심 | ObjC 상호 운용 비용이 남음 |
+| Swift 5 ABI 안정화 | 런타임을 OS 에 내장 | 앱 번들 크기 감소, 대신 OS 버전 의존 |
+| SwiftUI | 선언형 UI | UIKit 과의 상호 운용 계층 필요 |
+| Apple Silicon | 아키텍처 전환 | Universal 바이너리, Rosetta 과도기 |
+| Swift 6 | **데이터 경합을 컴파일 에러로** | 기존 코드베이스의 [마이그레이션 부담](../01_language_concurrency/concurrency/swift6-migration-path.md) |
+| 공간 컴퓨팅 | visionOS | [Space 종류가 API 를 제한](../07_platforms/apple-visionos-system.md) |
+
+### 관찰 가능한 증거
+
+```bash
+# 산출물의 최소 지원 버전과 빌드 SDK
+otool -l MyApp.app/MyApp | grep -A4 LC_BUILD_VERSION
+#   minos  = Deployment Target
+#   sdk    = 빌드에 사용한 SDK
+
+# 설치된 SDK 목록
+xcodebuild -showsdks
+
+# 현재 Xcode 가 쓰는 툴체인
+xcrun --show-sdk-version
+xcrun --show-sdk-path
+```
+
+**`minos` 를 확인하는 습관**이 중요하다. 빌드 설정과 실제 산출물이 어긋나는 경우가 있고, 그러면 지원한다고 생각한 기기에서 설치조차 되지 않는다.
+
+### 관련 문서
+
+- [apple-platform-differences](apple-platform-differences.md) - 플랫폼 축(버전 축과 별개)
+- [apple-runtime-and-swift](apple-runtime-and-swift.md) - ObjC/Swift 런타임 공존의 뿌리
+- [Swift 6 마이그레이션은 경고를 먼저 켜서 모듈 단위로 단계적으로 한다](../01_language_concurrency/concurrency/swift6-migration-path.md)
+- [apple-foundations](apple-foundations.md) - 전체 지도
+- [android-release-history](../../android/00_foundations/history/android-release-history.md) - 안드로이드의 API level·target SDK 축과 비교
+
+공식 문서: [Availability condition](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/statements/#Availability-Condition) · [SDKs and deployment targets](https://developer.apple.com/documentation/xcode/configuring-the-build-settings-of-a-target)

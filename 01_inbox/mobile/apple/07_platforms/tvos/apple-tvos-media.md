@@ -10,6 +10,25 @@ date created: 2025-12-18 16:21:20 +09:00
 
 tvOS 에서 거실용 앱/미디어 경험을 만들 때 필요한 내용을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
+```mermaid
+flowchart TD
+    U["재생 요청"] --> P["AVPlayer 상태 머신"]
+    P --> S1[".unknown"] --> S2[".readyToPlay"] --> PL["재생"]
+    P --> S3[".failed<br/>네트워크·코덱 문제"]
+
+    PL --> H["HLS 적응형 비트레이트"]
+    H --> B1["대역폭 충분 → 상위 렌디션"]
+    H --> B2["대역폭 부족 → 하위 렌디션"]
+    H --> B3["버퍼 고갈 → 스톨 (사용자 체감 최악)"]
+
+    AL["accessLog(): numberOfStalls<br/>numberOfDroppedVideoFrames"] -.-> B3
+
+    style B3 fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style AL fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+```
+
+**평균 비트레이트가 아니라 스톨 횟수가 체감 품질이다.** `accessLog()` 로 이 값을 수집한다.
+
 ### 💡 왜 이것을 알아야 하나요?
 
 tvOS는 **거실의 큰 TV 화면에서 스트리밍 미디어를 중심**으로 사용됩니다. 비디오 품질(HDR, 4K, 돌비 비전), 네트워크 안정성, 배터리 걱정이 없는 등 iOS와 완전히 다른 요구사항이 있습니다.
@@ -452,3 +471,32 @@ class GameControllerManager {
 ### 관련 링크
 
 [apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+
+### 관찰 가능한 증거
+
+```bash
+# tvOS 시뮬레이터
+xcrun simctl list devices | grep -i tv
+
+# HLS 스트림 검증 (Apple 제공 도구)
+mediastreamvalidator "https://example.com/master.m3u8"
+```
+
+```swift
+// 재생 품질 로그 — 스톨과 비트레이트 전환을 기록한다
+if let log = player.currentItem?.accessLog() {
+    for e in log.events {
+        print(e.indicatedBitrate, e.observedBitrate,
+              e.numberOfStalls, e.numberOfDroppedVideoFrames)
+    }
+}
+if let err = player.currentItem?.errorLog() {
+    for e in err.events { print(e.errorStatusCode, e.errorComment as Any) }
+}
+```
+
+`numberOfStalls` 와 `numberOfDroppedVideoFrames` 가 실제 사용자 체감 품질 지표다. **평균 비트레이트만 보면 끊김을 놓친다.**
+
+- **포커스 엔진 디버깅**: `UIFocusDebugger.status()` 를 디버거 콘솔에서 호출하면 현재 포커스 상태와 왜 이동이 막혔는지 출력한다.
+
+공식 문서: [tvOS](https://developer.apple.com/documentation/tvos-release-notes) · [HTTP Live Streaming](https://developer.apple.com/streaming/)

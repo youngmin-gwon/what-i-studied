@@ -67,8 +67,36 @@ App Clip 은 시스템에 의해 호출된다. 각 진입 경로는 `Universal L
 >[!TIP] **Devil's Advocate : App Clip 을 앱의 홍보 수단으로 쓰지 마라**
 >App Clip 은 사용자가 당면한 특정 과제(커피 주문, 주차료 결제)를 즉시 해결하기 위한 도구이지, 전체 앱 설치를 유도하는 팝업창이 아니다. 사용자가 과제를 성공적으로 마쳤을 때 자연스럽게 전체 앱의 장점을 보여주는 것이 바람직하다.
 
+### 관찰 가능한 증거
+
+```bash
+# App Clip 의 서명·entitlement 는 본체와 별개다
+codesign -d --entitlements :- MyApp.app/AppClips/MyClip.app
+
+# 로컬 실행 테스트 (Xcode scheme > Run > Arguments 의 환경 변수)
+_XCAppClipURL = https://example.com/clip?item=42
+```
+
+**크기 제한이 가장 흔한 실패 원인이다.** App Clip 은 엄격한 상한을 가지며, 초과하면 배포 자체가 거부된다.
+
+```bash
+# 산출물 크기 확인 (압축 후 크기가 기준이다)
+xcrun bitcode_strip -r MyClip.app/MyClip -o /tmp/stripped
+du -sh MyApp.app/AppClips/MyClip.app
+```
+
+크기를 줄이는 순서: 에셋 카탈로그 최적화 → 사용하지 않는 의존성 제거 → **동적 프레임워크 제거** → 온디맨드 리소스.
+
+**검증 체크리스트**
+
+- [ ] App Clip 전용 코드 경로가 본체 코드를 과도하게 끌어오지 않는가
+- [ ] 로그인 없이 핵심 가치를 전달하는가
+- [ ] 본체 앱 설치 후 데이터가 이어지는가 (App Group 공유)
+
 ### 더 보기
 
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 딥링크/Universal Links 연동
 - [apple-distribution-and-policies](apple-distribution-and-policies.md) - 앱 배포 및 정책 가이드
 - [apple-swift-package-manager](apple-swift-package-manager.md) - 코드 공유를 위한 SPM 전략
+
+공식 문서: [App Clips](https://developer.apple.com/documentation/appclip)

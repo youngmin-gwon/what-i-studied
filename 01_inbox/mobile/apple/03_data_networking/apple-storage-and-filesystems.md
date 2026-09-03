@@ -1,7 +1,7 @@
 ---
 title: apple-storage-and-filesystems
 tags: [app-group, apple, apple/data, filemanager, filesystem, sandbox, storage]
-aliases: ["App Container", "스토리지와 파일 시스템"]
+aliases: ["스토리지와 파일 시스템"]
 date modified: 2026-04-06 18:07:30 +09:00
 date created: 2025-12-16 16:09:38 +09:00
 ---

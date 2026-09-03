@@ -1,6 +1,6 @@
 ---
 title: apfs-copy-on-write-clones
-tags: [apple, apple/internals, apple/internals/storage, apfs, clone, copy-on-write, system-internals]
+tags: [apfs, apple, apple/internals, apple/internals/storage, clone, copy-on-write, system-internals]
 aliases: ["APFS 클론은 블록을 공유하다 쓰는 순간에만 복제한다", "APFS Clone", "Copy-on-Write", "APFS 클론"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00

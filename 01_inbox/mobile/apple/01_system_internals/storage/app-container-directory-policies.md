@@ -1,6 +1,6 @@
 ---
 title: app-container-directory-policies
-tags: [apple, apple/internals, apple/internals/storage, app-group, backup, container, system-internals]
+tags: [app-group, apple, apple/internals, apple/internals/storage, backup, container, system-internals]
 aliases: ["앱 컨테이너의 디렉터리는 백업과 정리 정책이 서로 다르다", "App Container", "앱 컨테이너", "App Group"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00

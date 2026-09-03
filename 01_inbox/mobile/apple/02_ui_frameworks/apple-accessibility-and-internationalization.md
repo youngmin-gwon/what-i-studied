@@ -12,6 +12,21 @@ date created: 2025-12-16 16:11:46 +09:00
 
 이 두 가지는 **앱의 품질(Quality)** 과 **구조(Architecture)** 를 검증하는 가장 강력한 리트머스 시험지입니다.
 
+```mermaid
+flowchart TD
+    UI["뷰 계층"] --> AT["접근성 트리<br/>(VoiceOver 가 읽는 것)"]
+    AT --> E["요소마다: label · value · trait · hint"]
+    E --> V["VoiceOver 발화 순서"]
+
+    P1["장식용 이미지"] -.->|"isAccessibilityElement = false"| X["트리에서 제외"]
+    P2["여러 뷰가 한 의미"] -.->|"accessibilityElement(children: .combine)"| G["하나로 묶기"]
+
+    style AT fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style X fill:#eceff1,stroke:#546e7a,color:#263238
+```
+
+**접근성 트리는 뷰 계층과 같지 않다.** 시각적으로 하나로 보이는 카드가 트리에서는 5 개 요소로 쪼개져 VoiceOver 사용자가 5 번 스와이프해야 할 수 있다. Accessibility Inspector 로 실제 트리를 확인한다.
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
 - **코드 품질의 척도**: VoiceOver 가 읽기 좋은 앱은 코드 구조도 깔끔합니다. 뷰가 논리적으로 그룹화되어 있고, 커스텀 컨트롤이 표준 프로토콜을 따르고 있다는 증거이기 때문입니다.

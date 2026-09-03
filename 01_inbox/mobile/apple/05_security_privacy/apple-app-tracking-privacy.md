@@ -82,7 +82,38 @@ func requestPermission() {
 - **Limited Access**: 사용자가 고른 사진 3 장만 내 앱에 보입니다.
 - **문제**: 나중에 사용자가 사진을 더 추가하려 할 때, 시스템 팝업(`PHPhotoLibrary.shared().presentLimitedLibraryPicker(…)`)을 띄워줘야 합니다. 아니면 3 장만 계속 보입니다.
 
+### 관찰 가능한 증거
+
+```bash
+# ATT 상태를 시뮬레이터에서 조작해 각 분기를 테스트
+xcrun simctl privacy booted grant  user-tracking com.example.app
+xcrun simctl privacy booted revoke user-tracking com.example.app
+xcrun simctl privacy booted reset  user-tracking com.example.app
+```
+
+```swift
+// 상태를 가정하지 말고 매번 확인한다
+switch ATTrackingManager.trackingAuthorizationStatus {
+case .authorized:    /* IDFA 사용 가능 */ break
+case .denied, .restricted: /* IDFA 는 0으로 채워진 값 */ break
+case .notDetermined: /* 아직 요청 안 함 */ break
+@unknown default: break
+}
+```
+
+> [!IMPORTANT] 요청 타이밍
+> `notDetermined` 상태에서 **앱이 전경 활성 상태일 때만** 프롬프트가 뜬다. `didFinishLaunching` 에서 바로 호출하면 프롬프트가 나타나지 않고 조용히 실패한다.
+
+**심사 대비**: 서드파티 SDK 가 추적을 수행하면 그것도 ATT 대상이다. `PrivacyInfo.xcprivacy` 에 SDK 의 수집 항목까지 반영해야 한다.
+
+```bash
+# 번들에 포함된 모든 Privacy Manifest 확인
+find MyApp.app -name "PrivacyInfo.xcprivacy"
+```
+
 ### 더 보기
 
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 권한을 관리하는 TCC 데몬의 원리
 - [apple-distribution-and-policies](../08_packaging_deployment/apple-distribution-and-policies.md) - 앱스토어 심사 가이드라인 (Privacy 관련)
+
+공식 문서: [App Tracking Transparency](https://developer.apple.com/documentation/apptrackingtransparency)

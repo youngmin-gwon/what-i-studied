@@ -63,7 +63,33 @@ Watch 앱은 독립적일 수도 있지만, 여전히 iPhone(Companion)과 데�
 
 **주의**: WCSession 은 매우 불안정할 수 있습니다. iPhone 이 안 켜져 있거나 거리가 멀면 실패합니다. 반드시 에러 처리를 해야 합니다.
 
+### 관찰 가능한 증거
+
+```bash
+# watchOS 앱 로그 (페어링된 기기 연결 후)
+log stream --device --predicate 'subsystem == "com.apple.watchkit"' --info
+```
+
+```swift
+// iPhone 과의 연결 상태를 가정하지 말고 확인한다
+let s = WCSession.default
+print(s.activationState, s.isReachable, s.isCompanionAppInstalled)
+```
+
+**watchOS 특유의 검증 항목**
+
+| 항목 | 확인 방법 |
+| :--- | :--- |
+| 스냅샷 품질 | 앱을 배경으로 보낸 뒤 시계 페이스에서 확인 |
+| 실행 시간 예산 | Instruments Energy Log 로 CPU 사용 추이 |
+| 백그라운드 새로고침 빈도 | 실제 착용 상태로 하루 관찰 |
+| `isReachable == false` 경로 | iPhone 을 비행기 모드로 두고 테스트 |
+
+**시뮬레이터로는 배터리·센서 동작을 검증할 수 없다.** 실기기 착용 테스트가 필수다.
+
 ### 더 보기
 
 - [apple-ios-system](apple-ios-system.md) - iOS 백그라운드 정책 비교
 - [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - watchOS UI 의 표준인 SwiftUI
+
+공식 문서: [WatchKit](https://developer.apple.com/documentation/watchkit) · [Keeping your watchOS content up to date](https://developer.apple.com/documentation/watchkit/keeping-your-watchos-content-up-to-date)

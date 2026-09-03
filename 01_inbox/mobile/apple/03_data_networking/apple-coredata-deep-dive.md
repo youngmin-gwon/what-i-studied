@@ -17,6 +17,23 @@ date created: 2025-12-16 17:01:32 +09:00
 
 CRUD(Create, Read, Update, Delete)를 넘어, 객체 간의 **관계(Relationship)**와 **메모리 수명(Lifecycle)**을 관리하는 것이 핵심입니다.
 
+```mermaid
+flowchart TD
+    V["뷰 / UI"] --> MC["viewContext<br/>(main queue · UI 전용)"]
+    B["백그라운드 작업"] --> BC["background context<br/>(private queue)"]
+    MC --> PSC["NSPersistentStoreCoordinator"]
+    BC --> PSC
+    PSC --> ST["SQLite 저장소"]
+
+    BC -->|"save()"| N["변경 알림"]
+    N -->|"automaticallyMergesChangesFromParent"| MC
+
+    style MC fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style BC fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+```
+
+**컨텍스트는 자기 큐에서만 쓸 수 있다.** `perform`/`performAndWait` 밖에서 접근하면 조용히 데이터를 망가뜨린다. `-com.apple.CoreData.ConcurrencyDebug 1` 을 켜면 이 위반이 즉시 크래시로 드러난다.
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
 - **DB 가 아닌 이유**: SQL 을 날리는 것이 아니라, `department.employees.count` 처럼 점(dot)으로 객체에 접근하면 Core Data 가 알아서 "필요할 때" DB 를 다녀옵니다. 이 마법(Faulting)을 이해해야 성능을 잡을 수 있습니다.

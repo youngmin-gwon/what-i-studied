@@ -80,7 +80,36 @@ App Store 가 유일한 길은 아닙니다.
 - 인증서가 만료되면 전 직원의 앱이 즉시 실행 불가 상태가 됩니다.
 - Apple 이 남용(도박 앱 배포 등)을 감시하여 계정을 영구 정지시키기도 합니다.
 
+### 관찰 가능한 증거
+
+```bash
+# 업로드 전 자체 검증
+xcrun altool --validate-app -f build/export/MyApp.ipa \
+  -t ios --apiKey "$KEY_ID" --apiIssuer "$ISSUER_ID"
+
+# 번들에 포함된 Privacy Manifest 전수 확인 (SDK 것 포함)
+find MyApp.app -name "PrivacyInfo.xcprivacy"
+
+# ATS 예외가 배포 빌드에 남아 있는지
+plutil -p MyApp.app/Info.plist | grep -A10 NSAppTransportSecurity
+```
+
+**심사 전 자체 점검 목록**
+
+| 항목 | 흔한 반려 사유 |
+| :--- | :--- |
+| 권한 문구 | 구체적이지 않음 ("위치가 필요합니다") |
+| 권한 요청 시점 | 앱 진입 즉시 요청 |
+| 거부 시 동작 | 앱이 멈추거나 진행 불가 |
+| ATT | 서드파티 SDK 추적에 대한 프롬프트 누락 |
+| Privacy Manifest | Required Reason API 사유 미기재 |
+| 결제 | 디지털 재화를 외부 결제로 유도 |
+
+`App Store Connect` 의 **App Review 노트에 테스트 계정과 재현 절차**를 명시하면 반려 왕복이 줄어든다.
+
 ### 더 보기
 
 - [apple-build-and-distribution](apple-build-and-distribution.md) - 심사 통과 후 기술적인 배포 과정
 - [apple-app-tracking-privacy](../05_security_privacy/apple-app-tracking-privacy.md) - 심사의 또 다른 벽, 개인정보 정책
+
+공식 문서: [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)

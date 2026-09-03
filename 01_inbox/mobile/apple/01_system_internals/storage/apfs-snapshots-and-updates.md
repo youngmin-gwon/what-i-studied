@@ -1,6 +1,6 @@
 ---
 title: apfs-snapshots-and-updates
-tags: [apple, apple/internals, apple/internals/storage, apfs, backup, snapshot, system-internals]
+tags: [apfs, apple, apple/internals, apple/internals/storage, backup, snapshot, system-internals]
 aliases: ["APFS 스냅샷은 시스템 업데이트를 되돌릴 수 있게 만든다", "APFS Snapshot", "APFS 스냅샷"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00

@@ -98,7 +98,36 @@ let access = SecAccessControlCreateWithFlags(
 // 이 access 객체를 Keychain 저장 시 함께 넘김
 ```
 
+### 관찰 가능한 증거
+
+```bash
+# macOS: 키체인 항목 조회
+security find-generic-password -s "com.example.app.token" -g
+
+# 코드 서명의 keychain-access-groups 확인 (공유가 안 될 때 1순위)
+codesign -d --entitlements :- MyApp.app | grep -A5 keychain
+```
+
+```swift
+// 저장 실패의 원인은 status 코드가 알려준다
+let status = SecItemAdd(query as CFDictionary, nil)
+switch status {
+case errSecSuccess:       break
+case errSecDuplicateItem: /* 이미 존재 → SecItemUpdate 를 써야 한다 */ break
+case errSecInteractionNotAllowed: /* 기기 잠금 상태 + 접근성 클래스 불일치 */ break
+default: print(SecCopyErrorMessageString(status, nil) as Any)
+}
+```
+
+**`errSecInteractionNotAllowed` 가 가장 헷갈린다.** 코드 문제가 아니라 접근성 클래스와 기기 잠금 상태의 불일치다. 백그라운드에서 접근해야 한다면 `kSecAttrAccessibleAfterFirstUnlock` 계열이어야 한다.
+
+**Secure Enclave 키는 시뮬레이터에서 동작하지 않는다.** 실기기 필수.
+
+**앱을 삭제해도 Keychain 항목은 남는다.** 재설치 후 이전 토큰이 살아 있는 시나리오를 테스트한다.
+
 ### 더 보기
 
 - [apple-sandbox-and-security](apple-sandbox-and-security.md) - 앱 샌드박스 구조
 - [apple-ios-system](../07_platforms/apple-ios-system.md) - iOS 부팅 과정과 보안 체인
+
+공식 문서: [Keychain Services](https://developer.apple.com/documentation/security/keychain-services) · [LocalAuthentication](https://developer.apple.com/documentation/localauthentication)

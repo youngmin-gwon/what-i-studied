@@ -10,6 +10,26 @@ date created: 2025-12-18 16:21:20 +09:00
 
 iPhone 을 위한 앱을 만들 때 알아야 할 실전 가이드를 쉽게 모았다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
+```mermaid
+flowchart TD
+    A["iOS 앱 설계 결정"] --> B["기기 특성<br/>한 손 · 짧은 세션 · 셀룰러"]
+    A --> C["생명주기<br/>정지·종료가 정상"]
+    A --> D["권한<br/>필요할 때 · 거부에도 동작"]
+    A --> E["백그라운드<br/>보장 아닌 최적화"]
+    A --> F["성능<br/>시작 시간 · 히치 · 배터리"]
+    A --> G["배포<br/>서명 · 심사 · 프라이버시"]
+
+    C -.-> R1["03 런북: Jetsam"]
+    D -.-> R2["04 런북: 권한 게이트"]
+    E -.-> R3["05 런북: 백그라운드"]
+    F -.-> R4["01·07 런북: 시작·히치"]
+    G -.-> R5["08 런북: 서명·배포"]
+
+    style A fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+```
+
+각 영역에서 실제 문제가 생기면 [진단 런북](../../00_foundations/apple-foundations.md)으로 간다.
+
 ### 💡 왜 이것을 알아야 하나요?
 
 iOS 앱은 Android와 달리 **기기 특성이 통일되어 있고, 백그라운드 정책과 권한 체계가 매우 엄격**합니다. 사소한 배경 작업 오버헤드나 권한 요청 타이밍 미스는 App Store 심사 탈락이나 대량 클레임으로 이어질 수 있으므로, 정책을 정확히 이해하고 초기 설계에 반영해야 합니다.
@@ -1101,3 +1121,5 @@ class DeploymentChecklist {
 ### 관련 링크
 
 [apple-foundations](../../00_foundations/apple-foundations.md), [apple-app-lifecycle-and-ui](../../02_ui_frameworks/apple-app-lifecycle-and-ui.md), [apple-sandbox-and-security](../../05_security_privacy/apple-sandbox-and-security.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-distribution-and-policies](../../08_packaging_deployment/apple-distribution-and-policies.md).
+
+공식 문서: [iOS & iPadOS Release Notes](https://developer.apple.com/documentation/ios-ipados-release-notes)

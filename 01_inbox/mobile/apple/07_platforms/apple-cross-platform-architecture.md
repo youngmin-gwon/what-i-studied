@@ -82,7 +82,35 @@ Xcode 프로젝트 하나에 여러 타겟(Target)을 둡니다.
 - **Bundle ID**: `com.example.app` 하나로 통일하면 스토어에서 하나의 앱으로 인식됩니다(Universal).
 - **xcconfig**: 빌드 설정 파일로 버전 번호나 API 키를 통합 관리하세요.
 
+### 관찰 가능한 증거
+
+```bash
+# 산출물이 어느 플랫폼·아키텍처를 지원하는가
+lipo -info MyApp.app/MyApp
+otool -l MyApp.app/MyApp | grep -A4 LC_BUILD_VERSION
+
+# SPM 패키지를 여러 플랫폼으로 빌드해 공유 코드의 이식성을 검증
+swift build --triple arm64-apple-ios
+xcodebuild -scheme SharedCore -destination 'generic/platform=macOS' build
+```
+
+```swift
+// 플랫폼 분기는 컴파일 타임과 런타임 두 축이 있다
+#if os(iOS) || os(tvOS)
+    import UIKit
+#elseif os(macOS)
+    import AppKit
+#endif
+
+if ProcessInfo.processInfo.isiOSAppOnMac { }
+if ProcessInfo.processInfo.isMacCatalystApp { }
+```
+
+**공유 전략 검증**: 공유 모듈이 UIKit/AppKit 을 import 하고 있다면 그것은 공유 코드가 아니다. **공유 계층은 플랫폼 UI 프레임워크에 의존하지 않아야** 한다. CI 에서 각 플랫폼 타깃으로 빌드해 이 규칙을 강제한다.
+
 ### 더 보기
 
 - [apple-build-and-distribution](../08_packaging_deployment/apple-build-and-distribution.md) - 타겟별 빌드 및 배포 설정
 - [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - SwiftUI 의 플랫폼별 동작 차이
+
+공식 문서: [Configuring a multiplatform app target](https://developer.apple.com/documentation/xcode/configuring-a-multiplatform-app-target)

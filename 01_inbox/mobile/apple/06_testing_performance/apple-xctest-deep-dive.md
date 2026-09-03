@@ -95,7 +95,44 @@ let welcomeLabel = app.staticTexts["welcome_msg"]
 XCTAssertTrue(welcomeLabel.waitForExistence(timeout: 5.0))
 ```
 
+### 관찰 가능한 증거
+
+```bash
+# CLI 로 테스트 실행 (CI 에서 쓰는 형태)
+xcodebuild test -scheme MyApp \
+  -destination 'platform=iOS Simulator,name=iPhone 15' \
+  -resultBundlePath TestResults.xcresult
+
+# 결과 번들에서 실패 요약 추출
+xcrun xcresulttool get --path TestResults.xcresult --format json | head -40
+
+# 코드 커버리지
+xcodebuild test -scheme MyApp -enableCodeCoverage YES ...
+xcrun xccov view --report TestResults.xcresult
+```
+
+**성능 회귀를 테스트로 고정한다** — 이것이 가장 큰 가치다.
+
+```swift
+func testLaunchPerformance() {
+    measure(metrics: [XCTApplicationLaunchMetric()]) {
+        XCUIApplication().launch()
+    }
+}
+
+func testScrollPerformance() {
+    let app = XCUIApplication(); app.launch()
+    measure(metrics: [XCTOSSignpostMetric.scrollDecelerationMetric]) {
+        app.tables.firstMatch.swipeUp(velocity: .fast)
+    }
+}
+```
+
+기준선(baseline)을 잡아 두면 리팩터링이 [시작 시간](../01_system_internals/boot-and-runtime/pre-main-launch-time-budget.md)이나 [히치](../01_system_internals/graphics-and-media/hitches-measure-user-visible-jank.md)를 나쁘게 만들었을 때 CI 에서 잡힌다.
+
 ### 더 보기
 
 - [apple-testing-and-quality](apple-testing-and-quality.md) - 테스트 전략 (Pyramid)
 - [apple-instruments-profiling](apple-instruments-profiling.md) - 테스트 통과 후 성능 최적화
+
+공식 문서: [XCTest](https://developer.apple.com/documentation/xctest)

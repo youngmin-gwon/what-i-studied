@@ -1,7 +1,7 @@
 ---
 title: apple-ios-system
 tags: [apple, apple/platforms, ios, jetsam, memory, springboard, system]
-aliases: ["iOS System Internals", "SpringBoard", "Jetsam", "iOS 시스템"]
+aliases: ["iOS System Internals", "iOS 시스템"]
 date modified: 2026-08-10 00:00:00 +09:00
 date created: 2025-12-17 23:30:00 +09:00
 ---
@@ -93,9 +93,29 @@ sequenceDiagram
     Button->>Button: Action 실행
 ```
 
+### 관찰 가능한 증거
+
+```bash
+# 셸·생명주기·자원 회수 판정 로그
+log stream --device --predicate 'process == "SpringBoard" OR process == "runningboardd"' --info
+```
+
+**앱이 사라진 이유를 네 가지로 나누는 것부터 시작한다.**
+
+| 증거 | 원인 |
+| :--- | :--- |
+| `JetsamEvent-*.ips` 있음 | [메모리 회수](../01_system_internals/ipc-and-process/jetsam-memory-pressure-bands.md) |
+| 크래시 리포트 + `0x8badf00d` | [워치독](../01_system_internals/ipc-and-process/watchdog-termination-codes.md) |
+| 크래시 리포트 + `0xdeadfa11` | 사용자 강제 종료 (정상) |
+| 아무 로그도 없음 | assertion 만료 후 정상 회수 |
+
+기기의 `설정 > 개인정보 보호 및 보안 > 분석 및 향상 > 분석 데이터` 에서 위 파일들을 확인한다. MetricKit 의 `MXAppExitMetric` 이 이 분포를 자동 집계해 준다.
+
 ### 더 보기
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱 생명주기
 - [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - 메모리 관리 기법
 - [apple-ipc-and-process](../01_system_internals/ipc-and-process/apple-ipc-and-process.md) - 앱이 사라지는 네 가지 이유를 계층으로 구분
 - [Jetsam 은 LRU 가 아니라 우선순위 밴드로 죽일 대상을 고른다](../01_system_internals/ipc-and-process/jetsam-memory-pressure-bands.md)
 - [워치독 종료는 예외 코드로 원인 구간을 구분할 수 있다](../01_system_internals/ipc-and-process/watchdog-termination-codes.md)
+
+공식 문서: [Apple Platform Security](https://support.apple.com/guide/security/welcome/web)

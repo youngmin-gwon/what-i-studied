@@ -87,3 +87,5 @@ Snapshot(Mark Generation) 기능을 활용하세요.
 
 - [apple-performance-and-debug](apple-performance-and-debug.md) - 성능 최적화 목표 설정
 - [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - 메모리 누수 원리 (ARC)
+
+공식 문서: [Instruments](https://developer.apple.com/tutorials/instruments) · [Analyzing the performance of your app](https://developer.apple.com/documentation/xcode/analyzing-the-performance-of-your-app)

@@ -15,6 +15,23 @@ visionOS 의 두 가지 근본 제약이 앱 설계를 지배한다. 첫째, **�
 > - **visionOS**: Apple 의 전용 칩셋(R1, M2)을 활용한 낮은 지연 시간과 **Foveated Streaming** 이 강점이다.
 > 자세한 내용은 [android-xr-and-spatial-computing](../../android/07_platforms/xr/xr.md) 를 참고한다.
 
+```mermaid
+flowchart TD
+    A["앱 실행"] --> S{"어느 Space?"}
+    S -->|"Shared Space (기본)"| SH["RealityKit 렌더러 강제<br/>조명·그림자 공유"]
+    S -->|"Full Space (Immersive)"| FU["Metal 직접 렌더 가능<br/>Compositor Services"]
+
+    SH --> H1["ARKit 손 골격: 불가"]
+    SH --> H2["평면 인식: 불가"]
+    FU --> H3["ARKit 손 골격: 가능"]
+    FU --> H4["평면 인식: 가능"]
+
+    EY["시선 데이터"] -.->|"어느 Space 든"| NO["앱에 전달되지 않음"]
+
+    style FU fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style NO fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+```
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
 - **Eye Tracking Privacy**: "사용자가 어디를 보고 있는지 데이터를 달라"는 요청은 불가능하다. 이 제약을 이해해야 UI 를 설계할 수 있다.
@@ -79,6 +96,34 @@ UIKit 은 사실상 레거시 브릿지에 불과하며, **SwiftUI 및 RealityKi
 > [!IMPORTANT] **앱의 무게감(Mass)**
 > visionOS 에서 앱은 실제 사물처럼 "무게감"과 "공간감"을 가져야 한다. **Liquid Glass** 디자인 언어를 활용해 그림자와 반사로 앱이 실제 공간에 떠 있는 것처럼 느끼게 하는 것이 핵심이다. 단순한 2D 창 띄우기는 몰입을 방해한다.
 
+### 관찰 가능한 증거
+
+```bash
+# visionOS 시뮬레이터 실행
+xcrun simctl list devices | grep -i vision
+
+log stream --device --predicate 'subsystem == "com.apple.RealityKit"' --info
+```
+
+**시뮬레이터로 검증할 수 없는 것들** — 실기기 필수다.
+
+| 항목 | 이유 |
+| :--- | :--- |
+| 시선 기반 조준 정확도 | 시뮬레이터는 마우스로 대체 |
+| 손 추적 (Full Space) | 실제 카메라 필요 |
+| 편안함·멀미 | 착용 경험 |
+| 실제 조명·그림자 통합 | 실 공간 스캔 필요 |
+
+```swift
+// Space 종류에 따라 쓸 수 있는 API 가 다르다 — 가정하지 말고 확인한다
+// ARKit 손 추적은 Full Space 에서만 세션이 실행된다
+let session = ARKitSession()
+let provider = HandTrackingProvider()
+try await session.run([provider])   // Shared Space 에서는 실패
+```
+
+- **Instruments의 RealityKit Trace**: 렌더 부하와 프레임 예산을 본다. 공간 컴퓨팅은 프레임 마감이 특히 엄격하다.
+
 ### 더 보기
 
 **visionOS 심화**
@@ -92,3 +137,5 @@ UIKit 은 사실상 레거시 브릿지에 불과하며, **SwiftUI 및 RealityKi
 - [apple-intelligence-and-agentic-intents](../04_system_services/apple-intelligence-and-agentic-intents.md) - Siri 공간 명령 처리
 - [apple-ipados-multitasking](../04_system_services/apple-ipados-multitasking.md) - 멀티 윈도우 관리 (비슷한 개념)
 - [apple-platform-differences](../00_foundations/apple-platform-differences.md) - 다른 플랫폼과의 차이점
+
+공식 문서: [visionOS](https://developer.apple.com/documentation/visionos) · [RealityKit](https://developer.apple.com/documentation/realitykit)

@@ -1,6 +1,6 @@
 ---
 title: app-extension-process-model
-tags: [apple, apple/internals, apple/internals/ipc, app-extension, memory, sandbox, system-internals]
+tags: [app-extension, apple, apple/internals, apple/internals/ipc, memory, sandbox, system-internals]
 aliases: ["앱 확장은 호스트가 수명을 쥔 별도 프로세스다", "App Extension", "앱 확장 프로세스 모델"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00

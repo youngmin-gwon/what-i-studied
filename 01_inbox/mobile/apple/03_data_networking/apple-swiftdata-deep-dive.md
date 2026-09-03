@@ -12,6 +12,23 @@ Core Data 가 20 년간 해온 일을, Swift 네이티브 문법으로 다시 �
 
 `NSManagedObject` 를 상속받고, `.xcdatamodeld` 파일과 싸우고, `NSFetchRequest` 를 타이핑하던 시대는 끝났습니다.
 
+```mermaid
+flowchart TD
+    S["@Model 매크로"] --> C["ModelContainer<br/>(스키마 + 저장소 설정)"]
+    C --> X["ModelContext<br/>(변경 추적 · 미저장 상태 보유)"]
+    X --> Q["@Query<br/>(뷰에 결과 주입 · 자동 갱신)"]
+    X --> SV["save()"]
+    SV --> P["영속 저장소 (SQLite)"]
+
+    MC["mainContext<br/>(MainActor 격리)"] -.-> X
+    BC["ModelActor 안의 별도 context<br/>(백그라운드 작업용)"] -.-> X
+
+    style X fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style MC fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
+
+**컨텍스트는 스레드를 넘나들 수 없다.** 백그라운드에서 대량 삽입·삭제를 하려면 `@ModelActor` 로 그 컨텍스트 전용 actor 를 만들어야 하며, 메인 컨텍스트를 다른 스레드에서 쓰면 안 된다.
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
 - **Swift-First**: `@Model` 매크로 하나로 모델 정의, 스키마 생성, 변경 추적이 모두 자동화됩니다. Core Data 의 장황한 보일러플레이트가 사라집니다.

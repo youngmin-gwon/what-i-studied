@@ -12,6 +12,24 @@ date created: 2025-12-16 17:01:32 +09:00
 
 홈 화면의 **위젯(Widgets)** 과 잠금 화면/다이내믹 아일랜드의 **실시간 현황(Live Activities)** 은 앱의 재방문율을 높이는 핵심 기능입니다.
 
+```mermaid
+flowchart TD
+    A["앱: 타임라인 제공자 구현"] --> T["TimelineProvider.timeline()"]
+    T --> E["여러 시점의 엔트리 배열 + 갱신 정책 반환"]
+    E --> S["시스템(chronod)이 예산 내에서<br/>렌더링 시점 결정"]
+    S --> W["위젯 확장 프로세스 실행<br/>(짧은 시간 · 낮은 메모리 한도)"]
+    W --> R["스냅샷 렌더링 후 프로세스 종료"]
+    R --> D["홈 화면에 정적 이미지로 표시"]
+
+    RL["reloadTimelines() 요청"] -.->|"보장 아님"| S
+
+    style S fill:#fff8e1,stroke:#f9a825,color:#f57f17
+    style W fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style D fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
+
+**위젯은 항상 살아 있는 뷰가 아니라 미리 렌더링된 스냅샷이다.** 갱신은 요청할 수 있을 뿐 강제할 수 없으며, 시스템이 예산 안에서 시점을 정한다.
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
 - **Snapshot Limitation**: 위젯은 "미니 앱"이 아닙니다. 매초 움직이거나 복잡한 애니메이션을 넣으려다 실패하는 경우가 많습니다. 위젯은 **"미리 그려진 그림(Snapshot)"** 을 시간표(Timeline)에 맞춰 갈아끼우는 방식임을 이해해야 합니다.

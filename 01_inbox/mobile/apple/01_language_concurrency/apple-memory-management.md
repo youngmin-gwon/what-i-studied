@@ -16,6 +16,23 @@ iOS 앱의 성능과 안정성을 결정짓는 핵심, **ARC(Automatic Reference
 
 단순히 `weak self` 를 쓰는 것을 넘어, **Side Table**이 어떻게 약한 참조를 관리하고 **Autoreleasepool**이 언제 필요한지 이해합니다.
 
+```mermaid
+flowchart TD
+    O["객체 인스턴스"] --> H["객체 헤더<br/>isa 포인터 (non-pointer isa)"]
+    H --> I{"참조 카운트가<br/>헤더에 들어가는가?"}
+    I -->|"작은 값"| IN["헤더 인라인 비트에 저장<br/>(빠름)"]
+    I -->|"넘치거나 weak 참조 존재"| ST["Side Table 로 이동<br/>(strong/weak 카운트 분리 저장)"]
+
+    W["weak 참조 생성"] --> ST
+    D["객체 해제"] --> ZW["Side Table 을 통해<br/>모든 weak 참조를 nil 로"]
+    ST --> ZW
+
+    style IN fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style ST fill:#fff8e1,stroke:#f9a825,color:#f57f17
+```
+
+`weak` 참조를 하나라도 만들면 Side Table 이 할당된다. 그래서 `weak` 은 공짜가 아니며, 대량 객체에 무분별하게 쓰면 메모리와 접근 비용이 늘어난다. `unowned` 는 Side Table 을 쓰지 않지만 해제 후 접근 시 크래시한다.
+
 ### 💡 왜 이것을 알아야 하나요? (Why it matters)
 
 - **앱이 자꾸 죽나요? (OOM)**: 이미지가 많은 피드를 스크롤하다 앱이 튕긴다면, 순환 참조(Retain Cycle)나 메모리 피크(Peak) 관리 실패일 확률이 높습니다.

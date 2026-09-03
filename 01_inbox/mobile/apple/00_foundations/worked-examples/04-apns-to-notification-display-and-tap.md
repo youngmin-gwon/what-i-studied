@@ -1,6 +1,6 @@
 ---
 title: 04-apns-to-notification-display-and-tap
-tags: [apple, apple/foundations, apns, notifications, worked-example]
+tags: [apns, apple, apple/foundations, notifications, worked-example]
 aliases: ["Worked Example: APNs 에서 알림 표시와 탭 처리까지"]
 date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-09-03 00:00:00 +09:00

@@ -10,6 +10,20 @@ date created: 2025-12-18 16:21:20 +09:00
 
 비전 OS 에서 자주 쓰는 설계 패턴을 쉽게 정리했다. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
+```mermaid
+flowchart TD
+    D["공간 UI 설계"] --> P1["배치: 사용자 시야<br/>편안한 거리·각도"]
+    D --> P2["크기: 시선 조준이 가능한<br/>충분한 타깃"]
+    D --> P3["깊이: 정보 계층을<br/>z 축으로 표현"]
+    D --> P4["움직임: 급격한 이동은<br/>멀미를 유발"]
+
+    P2 -.->|"근거"| E["시선 데이터는 앱에 오지 않는다<br/>→ 작은 타깃은 조준 자체가 어렵다"]
+    P4 -.->|"근거"| C["시야 전체가 움직이면<br/>전정계 불일치"]
+
+    style E fill:#fff8e1,stroke:#f9a825,color:#f57f17
+    style C fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+```
+
 ### 💡 왜 이것을 알아야 하나요?
 
 visionOS는 **3D 공간, 시선 입력(gaze), 손 제스처**가 중심이므로, 2D 터치 UI와는 완전히 다른 설계 원칙이 필요합니다. 잘못된 패턴은 사용자 불편, 눈 피로, 멀미로 이어집니다.
@@ -568,3 +582,5 @@ var lowDetailMesh: MeshResource { MeshResource() }
 ### 관련 링크
 
 [apple-visionos-system](../apple-visionos-system.md), [apple-visionos-immersion-guide](apple-visionos-immersion-guide.md), [apple-visionos-spatial](../apple-visionos-system.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+
+공식 문서: [visionOS Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos)

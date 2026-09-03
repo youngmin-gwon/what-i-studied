@@ -16,6 +16,24 @@ date created: 2025-12-16 17:01:32 +09:00
 
 "시간에 따라 발생하는 값(Stream of Values)"을 처리하는 Apple 의 선언형 프레임워크입니다. 과거 **SwiftUI 의 데이터 흐름을 지탱하는 핵심 엔진**이었습니다.
 
+```mermaid
+sequenceDiagram
+    participant P as Publisher
+    participant S as Subscriber
+    participant Sub as Subscription
+
+    S->>P: subscribe(self)
+    P->>Sub: Subscription 생성
+    Sub-->>S: receive(subscription:)
+    S->>Sub: request(.max(n))
+    Note over S,Sub: 여기가 backpressure — 수요를 명시한다
+    Sub-->>S: receive(value) × n
+    S-->>Sub: 추가 수요 반환 (.max / .none)
+    Sub-->>S: receive(completion:)
+```
+
+**Combine 의 backpressure 는 구독자가 수요(demand)를 요청하는 방식이다.** `sink` 는 무제한 수요를 요청하므로 backpressure 가 사실상 없다. 제어가 필요하면 커스텀 `Subscriber` 를 구현하거나 `buffer` 연산자를 쓴다.
+
 ### 💡 왜 이것을 알아야 하나요? (Context)
 
 - **Async/Await 가 있는데 왜?**: (과거의 관점) `async/await` 는 단발성 데이터, Combine 은 "파이프라인" 데이터입니다. 하지만 현재는 `Apple Swift Async Algorithms` 라이브러리가 등장하면서 `debounce`, `combineLatest` 조차 `AsyncSequence` 체이닝으로 처리가 가능해졌습니다.

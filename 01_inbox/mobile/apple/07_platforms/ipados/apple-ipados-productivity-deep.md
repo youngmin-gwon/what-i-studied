@@ -10,6 +10,27 @@ date created: 2025-12-18 16:21:20 +09:00
 
 iPadOS 의 큰 화면과 멀티태스킹을 살려 생산성 앱을 만들기 위한 가이드. 용어는 [apple-glossary](../../00_foundations/apple-glossary.md).
 
+```mermaid
+flowchart TD
+    A["iPadOS 생산성 앱"] --> S["Scene 단위 설계<br/>(앱이 아니라 창이 생명주기 단위)"]
+    S --> M1["Split View / Slide Over"]
+    S --> M2["Stage Manager"]
+    S --> M3["외부 디스플레이"]
+
+    A --> I["입력 통합"]
+    I --> I1["터치"]
+    I --> I2["포인터 (호버 상태 존재)"]
+    I --> I3["Apple Pencil (압력·기울기)"]
+    I --> I4["하드웨어 키보드 (단축키)"]
+
+    A --> D["Drag & Drop<br/>앱 간 데이터 이동"]
+
+    style S fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style I2 fill:#fff8e1,stroke:#f9a825,color:#f57f17
+```
+
+**포인터는 터치에 없던 "호버" 상태를 만든다.** 터치 전용으로 설계한 UI 를 그대로 두면 포인터 사용자에게 피드백이 없다.
+
 ### 💡 왜 이것을 알아야 하나요?
 
 iPad는 iPhone과 달리 **큰 화면(9.7" ~ 12.9")에서 여러 개 창을 동시에 띄우고, 마우스/키보드/Apple Pencil을 사용**합니다. 생산성 앱이라면 이 장점을 최대한 활용하지 않으면 사용자 불만족으로 이어집니다.
@@ -957,3 +978,5 @@ class AccessibleCustomView: UIView {
 ### 관련 링크
 
 [apple-ipados-multitasking](../../04_system_services/apple-ipados-multitasking.md), [apple-app-lifecycle-and-ui](../../02_ui_frameworks/apple-app-lifecycle-and-ui.md), [apple-storage-and-filesystems](../../03_data_networking/apple-storage-and-filesystems.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md).
+
+공식 문서: [Multitasking on iPad](https://developer.apple.com/documentation/uikit/multitasking-on-ipad)
