@@ -1,8 +1,8 @@
 ---
 title: objective-c-vs-swift-interoperability
 tags: [apple, apple/foundations, interoperability, objective-c, runtime, swift]
-aliases: ["Swift 와 Objective-C 의 상호 운용은 Thunk 와 브릿징 비용을 바이너리에 추가하는 대가로 성립한다", "ObjC Interop", "Swift ObjC 상호운용"]
-date modified: 2026-04-07 18:59:07 +09:00
+aliases: ["ObjC Interop", "Swift ObjC 상호운용", "Swift 와 Objective-C 의 상호 운용은 Thunk 와 브릿징 비용을 바이너리에 추가하는 대가로 성립한다"]
+date modified: 2026-09-03 11:59:40 +09:00
 date created: 2026-04-07 19:10:00 +09:00
 ---
 

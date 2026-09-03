@@ -1,8 +1,8 @@
 ---
 title: apple-boot-and-runtime
 tags: [apple, apple/internals, apple/internals/boot, boot, dyld, launchd, runtime, system-internals]
-aliases: ["전원부터 첫 프레임까지는 서명 검증·프로세스 생성·심볼 바인딩·RunLoop 진입의 네 구간으로 나뉜다", "Apple Boot and Runtime", "Apple 부팅과 런타임"]
-date modified: 2026-09-03 00:00:00 +09:00
+aliases: ["Apple Boot and Runtime", "Apple 부팅과 런타임", "전원부터 첫 프레임까지는 서명 검증·프로세스 생성·심볼 바인딩·RunLoop 진입의 네 구간으로 나뉜다"]
+date modified: 2026-09-03 12:00:21 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 

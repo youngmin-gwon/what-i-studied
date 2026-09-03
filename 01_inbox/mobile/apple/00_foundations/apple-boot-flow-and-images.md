@@ -1,8 +1,8 @@
 ---
 title: apple-boot-flow-and-images
 tags: [apple, apple/foundations]
-aliases: ["부팅은 각 단계가 다음 단계의 서명을 검증하는 신뢰 사슬이고 시스템 볼륨은 읽기 전용으로 봉인된다", "Secure Boot", "Chain of Trust", "Apple 부팅 흐름"]
-date modified: 2026-04-07 18:53:24 +09:00
+aliases: ["Apple 부팅 흐름", "Chain of Trust", "Secure Boot", "부팅은 각 단계가 다음 단계의 서명을 검증하는 신뢰 사슬이고 시스템 볼륨은 읽기 전용으로 봉인된다"]
+date modified: 2026-09-03 11:59:27 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 

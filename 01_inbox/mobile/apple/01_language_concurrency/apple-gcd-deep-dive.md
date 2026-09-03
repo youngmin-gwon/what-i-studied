@@ -1,8 +1,8 @@
 ---
 title: apple-gcd-deep-dive
 tags: [apple, apple/concurrency, apple/language, concurrency, gcd, internals, performance]
-aliases: ["GCD", "Grand Central Dispatch", "GCD 심화"]
-date modified: 2026-04-07 18:54:39 +09:00
+aliases: ["GCD 심화", "GCD", "Grand Central Dispatch"]
+date modified: 2026-09-03 11:59:58 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -140,7 +140,7 @@ sample <pid> 5
 spindump <pid> 5 -file /tmp/spin.txt
 ```
 
-- **Instruments의 System Trace**: 스레드 생성·전환 이벤트를 시간축에서 본다. 스레드 수가 코어 수를 크게 넘으면 블로킹 작업이 큐를 막고 있다는 신호다.
+- **Instruments 의 System Trace**: 스레드 생성·전환 이벤트를 시간축에서 본다. 스레드 수가 코어 수를 크게 넘으면 블로킹 작업이 큐를 막고 있다는 신호다.
 - **Thread Sanitizer**: 스킴 옵션에서 켜면 데이터 경합을 런타임에 잡는다. GCD 기반 코드에서는 필수에 가깝다.
 - **Xcode Thread Performance Checker**: 우선순위 역전과 협력적 풀 블로킹을 경고한다.
 

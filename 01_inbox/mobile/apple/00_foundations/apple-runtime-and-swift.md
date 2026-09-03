@@ -1,8 +1,8 @@
 ---
 title: apple-runtime-and-swift
 tags: [apple, apple/foundations]
-aliases: ["메서드 호출 비용은 Static·Table·Message 세 dispatch 중 무엇으로 결정되느냐에 달려 있다", "Method Dispatch", "Swift ObjC 런타임"]
-date modified: 2026-04-08 13:58:50 +09:00
+aliases: ["Method Dispatch", "Swift ObjC 런타임", "메서드 호출 비용은 Static·Table·Message 세 dispatch 중 무엇으로 결정되느냐에 달려 있다"]
+date modified: 2026-09-03 12:00:58 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 

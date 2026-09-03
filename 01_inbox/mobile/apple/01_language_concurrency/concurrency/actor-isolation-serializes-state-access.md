@@ -1,8 +1,8 @@
 ---
 title: actor-isolation-serializes-state-access
-tags: [apple, apple/concurrency, apple/language, actor, data-race, swift]
-aliases: ["actor 격리는 가변 상태 접근을 직렬화해 데이터 경합을 컴파일 타임에 차단한다", "Actor Isolation", "액터 격리"]
-date modified: 2026-09-03 00:00:00 +09:00
+tags: [actor, apple, apple/concurrency, apple/language, data-race, swift]
+aliases: ["Actor Isolation", "actor 격리는 가변 상태 접근을 직렬화해 데이터 경합을 컴파일 타임에 차단한다", "액터 격리"]
+date modified: 2026-09-03 11:59:41 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -89,8 +89,8 @@ actor ImageCache {
 | 순수 값 계산 | 공유 상태가 없음 | 그냥 `struct` + `Sendable` |
 | 불변 데이터 | 경합 자체가 불가능 | `let` + `Sendable` |
 
-> [!IMPORTANT] actor 는 데드락을 막지만 불변식은 못 지킨다
-> actor 는 재진입 가능하다. `await` 사이에 다른 작업이 들어올 수 있으므로, **여러 단계에 걸친 불변식은 여전히 깨질 수 있다.** → [재진입성](actor-reentrancy-breaks-invariants.md)
+>[!IMPORTANT] actor 는 데드락을 막지만 불변식은 못 지킨다
+>actor 는 재진입 가능하다. `await` 사이에 다른 작업이 들어올 수 있으므로, **여러 단계에 걸친 불변식은 여전히 깨질 수 있다.** → [재진입성](actor-reentrancy-breaks-invariants.md)
 
 ### 연관 문서
 

@@ -2,7 +2,7 @@
 title: 02-watchdog-and-hang
 tags: [apple, apple/foundations, diagnostic-runbook, hang, watchdog]
 aliases: ["Runbook: 앱이 멈추거나 워치독으로 강제 종료된다"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 12:01:07 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -29,7 +29,7 @@ date created: 2026-09-03 00:00:00 +09:00
 | 1 | `0x8badf00d` | 생명주기 전이 시간 초과 | 해당 델리게이트 메서드의 동기 작업 |
 | 2 | `0xdead10cc` | 정지 시점에 공유 컨테이너 잠금 보유 | `didEnterBackground` 의 DB/파일 정리 |
 | 3 | — (종료 없이 멈춤) | 메인 스레드 블로킹 | `DispatchSemaphore.wait()`, 동기 XPC, 동기 I/O |
-| 4 | `0xc00010ff` | 열 부하 | 지속적 고CPU/GPU 작업 |
+| 4 | `0xc00010ff` | 열 부하 | 지속적 고 CPU/GPU 작업 |
 | 5 | `0xdeadfa11` | **사용자 강제 종료. 버그 아님** | 조치 불필요 |
 
 ### 4. 진단 의사결정 흐름도

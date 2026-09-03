@@ -1,8 +1,8 @@
 ---
 title: apple-swift-concurrency
-tags: [apple, apple/concurrency, apple/language, actor, concurrency, moc, swift, swift6]
-aliases: ["Swift Concurrency 는 스레드를 늘리는 대신 continuation 을 저장하고 actor 격리로 데이터 경합을 컴파일 타임에 막는다", "Swift Concurrency", "async await", "Actor Isolation"]
-date modified: 2026-09-03 00:00:00 +09:00
+tags: [actor, apple, apple/concurrency, apple/language, concurrency, moc, swift, swift6]
+aliases: ["Actor Isolation", "async await", "Swift Concurrency 는 스레드를 늘리는 대신 continuation 을 저장하고 actor 격리로 데이터 경합을 컴파일 타임에 막는다", "Swift Concurrency"]
+date modified: 2026-09-03 12:00:13 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 
@@ -83,12 +83,12 @@ flowchart TD
 
 마지막 줄이 가장 중요한 차이다. Kotlin 은 블로킹 작업을 위한 전용 디스패처를 두지만, **Swift 는 블로킹 자체를 허용하지 않는다.**
 
-> [!TIP] Android 개발자를 위한 대응표
+>[!TIP] Android 개발자를 위한 대응표
 > - `viewModelScope.launch` ≃ `Task { }` (`@MainActor` 컨텍스트에서)
 > - `withContext(Dispatchers.IO)` ≃ `nonisolated` 메서드 또는 별도 actor
 > - `Flow.collect` ≃ `for await in sequence`
 > - `Mutex` / `synchronized` ≃ `actor`
-> 상세 비교는 [android-coroutines-flow](../../android/02_app_framework/data/async-flow/android-coroutines-flow.md) 참고.
+>상세 비교는 [android-coroutines-flow](../../android/02_app_framework/data/async-flow/android-coroutines-flow.md) 참고.
 
 ### 연관 문서
 

@@ -2,7 +2,7 @@
 title: apple-glossary
 tags: [apple, apple/foundations]
 aliases: ["Apple Glossary", "Apple 용어 사전"]
-date modified: 2026-04-07 18:52:37 +09:00
+date modified: 2026-09-03 11:59:30 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 

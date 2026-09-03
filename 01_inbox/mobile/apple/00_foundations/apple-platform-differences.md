@@ -2,7 +2,7 @@
 title: apple-platform-differences
 tags: [apple, apple/foundations, cross-platform, ios, macos, platforms, visionos]
 aliases: ["Platform Differences", "플랫폼 차이와 코드 공유"]
-date modified: 2026-04-07 18:54:05 +09:00
+date modified: 2026-09-03 11:59:36 +09:00
 date created: 2025-12-16 16:11:10 +09:00
 ---
 

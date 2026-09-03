@@ -2,7 +2,7 @@
 title: await-suspension-stores-continuation
 tags: [apple, apple/concurrency, apple/language, async-await, continuation, swift]
 aliases: ["await 는 스레드를 막지 않고 continuation 을 힙에 저장한 뒤 스레드를 반납한다", "Continuation", "Suspension Point", "중단 지점"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 11:59:43 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -68,7 +68,7 @@ guard !items.isEmpty else { return }
 items.removeFirst()
 ```
 
-이것이 [actor 재진입성 문제](actor-reentrancy-breaks-invariants.md)의 뿌리다.
+이것이 [actor 재진입성 문제](actor-reentrancy-breaks-invariants.md) 의 뿌리다.
 
 **3. 취소는 `await` 지점에서 확인된다**
 
@@ -96,8 +96,8 @@ func loadLegacy() async throws -> Data {
 }
 ```
 
-> [!WARNING] resume 은 정확히 한 번
-> 두 번 호출하면 크래시, 한 번도 호출하지 않으면 **영원히 중단된 채 누수**된다. `withCheckedContinuation` 은 이 위반을 런타임에 잡아 주므로 개발 중에는 `unsafe` 버전 대신 이것을 쓴다.
+>[!WARNING] resume 은 정확히 한 번
+>두 번 호출하면 크래시, 한 번도 호출하지 않으면 **영원히 중단된 채 누수**된다. `withCheckedContinuation` 은 이 위반을 런타임에 잡아 주므로 개발 중에는 `unsafe` 버전 대신 이것을 쓴다.
 
 ### 연관 문서
 

@@ -2,7 +2,7 @@
 title: 08-signing-and-distribution-failure
 tags: [apple, apple/foundations, code-signing, diagnostic-runbook, distribution]
 aliases: ["Runbook: 서명·프로비저닝·배포가 실패한다"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 12:01:11 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 

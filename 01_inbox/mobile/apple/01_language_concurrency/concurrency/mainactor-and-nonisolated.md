@@ -2,7 +2,7 @@
 title: mainactor-and-nonisolated
 tags: [apple, apple/concurrency, apple/language, mainactor, swift, ui]
 aliases: ["@MainActor 는 UI 상태를 메인 스레드에 묶고 nonisolated 가 그 탈출구다", "MainActor", "nonisolated", "메인 액터"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 11:59:45 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -95,8 +95,8 @@ func someLegacyDelegateCallback() {
 }
 ```
 
-> [!WARNING] assume 은 검증이 아니다
-> 실제로 메인 스레드가 아니면 **런타임 크래시**다. 정말 확실할 때만 쓰고, 불확실하면 `Task { @MainActor in ... }` 를 쓴다.
+>[!WARNING] assume 은 검증이 아니다
+>실제로 메인 스레드가 아니면 **런타임 크래시**다. 정말 확실할 때만 쓰고, 불확실하면 `Task { @MainActor in … }` 를 쓴다.
 
 ### SwiftUI 와의 관계
 
@@ -111,7 +111,7 @@ assert(Thread.isMainThread)
 ```
 
 - **Xcode Main Thread Checker**: 스킴 옵션에서 켜면 백그라운드에서의 UIKit 접근을 런타임에 잡는다. `@MainActor` 가 컴파일 타임에 못 잡는 레거시 경로를 보완한다.
-- **Instruments의 Swift Concurrency**: 각 Task 가 어느 actor 에서 실행되는지 보여준다. `@MainActor` 작업이 과도하면 메인 스레드가 붐빈다.
+- **Instruments 의 Swift Concurrency**: 각 Task 가 어느 actor 에서 실행되는지 보여준다. `@MainActor` 작업이 과도하면 메인 스레드가 붐빈다.
 
 ### 연관 문서
 

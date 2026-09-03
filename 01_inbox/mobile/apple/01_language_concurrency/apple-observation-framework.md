@@ -1,8 +1,8 @@
 ---
 title: apple-observation-framework
 tags: [apple, apple/concurrency, apple/language, macro, observable, observation, state-management, swiftui]
-aliases: ["Observation", "Observable 매크로", "Observation 프레임워크"]
-date modified: 2026-04-06 17:58:11 +09:00
+aliases: ["Observable 매크로", "Observation 프레임워크", "Observation"]
+date modified: 2026-09-03 12:00:08 +09:00
 date created: 2026-04-03 23:58:00 +09:00
 ---
 
@@ -207,7 +207,7 @@ var body: some View {
 # Xcode: 소스에서 @Observable 우클릭 > Expand Macro
 ```
 
-- **Instruments의 SwiftUI 템플릿**: 뷰 본문 평가 횟수와 소요 시간을 집계한다.
+- **Instruments 의 SwiftUI 템플릿**: 뷰 본문 평가 횟수와 소요 시간을 집계한다.
 - 재평가가 과도하면 [커밋 구간이 길어져](../01_system_internals/graphics-and-media/layer-tree-commit-to-render-server.md) 히치로 이어진다.
 
 ### 더 보기

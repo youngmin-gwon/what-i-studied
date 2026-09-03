@@ -2,7 +2,7 @@
 title: 05-background-work-not-running
 tags: [apple, apple/foundations, background, diagnostic-runbook, runningboard]
 aliases: ["Runbook: 백그라운드 작업이 실행되지 않거나 늦는다"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 12:01:09 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -84,14 +84,14 @@ log stream --device --predicate 'subsystem == "com.apple.duetactivityscheduler"'
 - `설정 > 일반 > 백그라운드 앱 새로고침` 이 꺼져 있음
 - 앱 전환기에서 **사용자가 강제 종료함** — 이 경우 대부분의 백그라운드 실행이 중단된다
 
-> [!IMPORTANT] 설계 원칙
-> 백그라운드 실행은 **최적화이지 보장이 아니다.** "백그라운드에서 동기화되어 있을 것"을 전제로 UI 를 만들면 안 되고, 전경 복귀 시에도 동기화하는 경로가 반드시 있어야 한다.
+>[!IMPORTANT] 설계 원칙
+>백그라운드 실행은 **최적화이지 보장이 아니다.** "백그라운드에서 동기화되어 있을 것"을 전제로 UI 를 만들면 안 되고, 전경 복귀 시에도 동기화하는 경로가 반드시 있어야 한다.
 
 ### 6. 수정 후 검증
 
 - 강제 트리거로 로직을 검증한 뒤, **실기기를 하룻밤 정상 사용**하며 실제 실행 여부를 로그로 확인한다.
 - 백그라운드 `URLSession` 은 **앱을 강제 종료한 상태에서** 완료 → 재실행 → 콜백까지 이어지는지 확인한다.
-- 파일 저장 목적지의 [보호 클래스](../../01_system_internals/storage/data-protection-classes.md)가 잠금 중 쓰기를 막지 않는지 확인한다.
+- 파일 저장 목적지의 [보호 클래스](../../01_system_internals/storage/data-protection-classes.md) 가 잠금 중 쓰기를 막지 않는지 확인한다.
 
 ### 7. 연관 문서
 

@@ -2,7 +2,7 @@
 title: apple-operation-queue
 tags: [apple, apple/concurrency, apple/language, concurrency, dependencies, nsoperation, operation, queue]
 aliases: ["Operation", "OperationQueue", "오퍼레이션 큐"]
-date modified: 2026-04-06 18:01:32 +09:00
+date modified: 2026-09-03 12:00:09 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -154,7 +154,7 @@ print(op.isReady, op.isExecuting, op.isFinished, op.isCancelled)
 
 **가장 흔한 버그**: 커스텀 `Operation` 서브클래스에서 `isFinished` KVO 통지를 보내지 않아 큐가 영원히 그 작업을 진행 중으로 본다. 다음 작업이 시작되지 않으면 이것을 먼저 의심한다.
 
-- **Instruments의 System Trace** 로 큐가 실제로 병렬 실행 중인지 확인한다.
+- **Instruments 의 System Trace** 로 큐가 실제로 병렬 실행 중인지 확인한다.
 - 의존성 그래프가 순환하면 데드락이 된다. `addDependency` 호출을 전수 확인한다.
 
 ### 더 보기

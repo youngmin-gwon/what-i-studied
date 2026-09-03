@@ -1,8 +1,8 @@
 ---
 title: structured-concurrency-task-tree
 tags: [apple, apple/concurrency, apple/language, cancellation, swift, taskgroup]
-aliases: ["구조적 동시성은 작업 수명을 스코프에 묶고 취소를 트리로 전파한다", "Structured Concurrency", "TaskGroup", "구조적 동시성"]
-date modified: 2026-09-03 00:00:00 +09:00
+aliases: ["Structured Concurrency", "TaskGroup", "구조적 동시성", "구조적 동시성은 작업 수명을 스코프에 묶고 취소를 트리로 전파한다"]
+date modified: 2026-09-03 11:59:47 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -69,8 +69,8 @@ func loadImages(ids: [String]) async throws -> [UIImage] {
 }
 ```
 
-> [!TIP] 동시 실행 수를 제한하려면
-> `TaskGroup` 에 1000 개를 한 번에 넣으면 1000 개가 동시에 시작된다. 슬라이딩 윈도우로 제한한다.
+>[!TIP] 동시 실행 수를 제한하려면
+>`TaskGroup` 에 1000 개를 한 번에 넣으면 1000 개가 동시에 시작된다. 슬라이딩 윈도우로 제한한다.
 > ```swift
 > for id in ids.prefix(maxConcurrent) { group.addTask { ... } }
 > for try await r in group {

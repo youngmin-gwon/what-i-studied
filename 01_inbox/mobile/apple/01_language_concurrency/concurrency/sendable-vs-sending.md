@@ -1,8 +1,8 @@
 ---
 title: sendable-vs-sending
 tags: [apple, apple/concurrency, apple/language, sendable, swift, swift6]
-aliases: ["Sendable 은 타입 수준 보장이고 sending 은 값 수준 소유권 이전이다", "Sendable", "sending", "SE-0430"]
-date modified: 2026-09-03 00:00:00 +09:00
+aliases: ["SE-0430", "Sendable 은 타입 수준 보장이고 sending 은 값 수준 소유권 이전이다", "Sendable", "sending"]
+date modified: 2026-09-03 11:59:46 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -60,8 +60,8 @@ final class LockedCounter: @unchecked Sendable {
 }
 ```
 
-> [!WARNING] `@unchecked Sendable` 은 약속이지 보장이 아니다
-> 컴파일러는 이 선언을 그대로 믿는다. 실제로 동기화하지 않았다면 데이터 경합이 그대로 남고, **컴파일러는 더 이상 경고하지 않는다.** 반드시 락이나 큐로 실제 보호가 되어 있어야 한다.
+>[!WARNING] `@unchecked Sendable` 은 약속이지 보장이 아니다
+>컴파일러는 이 선언을 그대로 믿는다. 실제로 동기화하지 않았다면 데이터 경합이 그대로 남고, **컴파일러는 더 이상 경고하지 않는다.** 반드시 락이나 큐로 실제 보호가 되어 있어야 한다.
 
 ### `sending` — 값 수준 소유권 이전
 

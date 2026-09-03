@@ -1,8 +1,8 @@
 ---
 title: apple-memory-management-check
 tags: [apple, apple/concurrency, apple/language, interview, memory, swift]
-aliases: ["메모리 관리 이해도는 순환 참조를 아느냐가 아니라 어디서 끊을지 말할 수 있느냐로 확인한다", "ARC 자가 점검", "Memory Management Check"]
-date modified: 2026-04-06 18:01:32 +09:00
+aliases: ["ARC 자가 점검", "Memory Management Check", "메모리 관리 이해도는 순환 참조를 아느냐가 아니라 어디서 끊을지 말할 수 있느냐로 확인한다"]
+date modified: 2026-09-03 11:59:59 +09:00
 date created: 2026-04-06 17:58:00 +09:00
 ---
 

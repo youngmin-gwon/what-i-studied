@@ -2,7 +2,7 @@
 title: 01-app-launch-slow-or-fails
 tags: [apple, apple/foundations, diagnostic-runbook, launch-time, performance]
 aliases: ["Runbook: 앱 시작이 느리거나 실행되지 않는다"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 12:01:06 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 

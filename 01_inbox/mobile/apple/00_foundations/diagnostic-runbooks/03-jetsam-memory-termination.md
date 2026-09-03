@@ -2,7 +2,7 @@
 title: 03-jetsam-memory-termination
 tags: [apple, apple/foundations, diagnostic-runbook, jetsam, memory]
 aliases: ["Runbook: 앱이 메모리 때문에 종료된다"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 12:01:09 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -89,8 +89,8 @@ heap <pid> | head -40          # 힙 객체 분포
 - 이미지는 **표시 크기에 맞춰 다운샘플링해서 디코딩**했는지 확인한다.
 - 확장은 별도 스킴으로 실행해 따로 측정한다.
 
-> [!WARNING] 한도 수치를 상수로 삼지 않는다
-> 프로세스별 메모리 한도는 공개된 계약값이 아니며 기기·OS·프로세스 종류에 따라 다르다. 반드시 대상 기기에서 실측한다.
+>[!WARNING] 한도 수치를 상수로 삼지 않는다
+>프로세스별 메모리 한도는 공개된 계약값이 아니며 기기·OS·프로세스 종류에 따라 다르다. 반드시 대상 기기에서 실측한다.
 
 ### 7. 연관 문서
 

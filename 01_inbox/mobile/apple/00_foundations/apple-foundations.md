@@ -1,8 +1,8 @@
 ---
 title: apple-foundations
 tags: [apple, apple/foundations, map, moc]
-aliases: ["Apple 플랫폼의 기본값은 코드 서명·샌드박스·적극적 자원 회수이며 앱 설계는 그 위에서 시작한다", "Apple Foundations", "Apple Foundation Map", "Apple 플랫폼 기초"]
-date modified: 2026-09-03 00:00:00 +09:00
+aliases: ["Apple Foundation Map", "Apple Foundations", "Apple 플랫폼 기초", "Apple 플랫폼의 기본값은 코드 서명·샌드박스·적극적 자원 회수이며 앱 설계는 그 위에서 시작한다"]
+date modified: 2026-09-03 11:59:29 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 

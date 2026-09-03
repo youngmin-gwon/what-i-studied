@@ -1,8 +1,8 @@
 ---
 title: 06-push-notification-missing
-tags: [apple, apple/foundations, apns, diagnostic-runbook, notifications]
+tags: [apns, apple, apple/foundations, diagnostic-runbook, notifications]
 aliases: ["Runbook: 푸시 알림이 오지 않는다"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 12:01:10 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -95,7 +95,7 @@ func application(_ app: UIApplication,
 확장을 쓰면 실패 지점이 하나 늘어난다.
 
 - 확장은 **매우 짧은 시간** 안에 완료해야 한다. 초과하면 시스템이 `serviceExtensionTimeWillExpire` 를 호출하고, 여기서도 처리하지 않으면 **원본 payload 가 그대로 표시**된다.
-- 확장은 [별도 프로세스이자 훨씬 낮은 메모리 한도](../../01_system_internals/ipc-and-process/app-extension-process-model.md)를 갖는다. 큰 이미지를 받아 첨부하려다 종료되는 것이 흔하다.
+- 확장은 [별도 프로세스이자 훨씬 낮은 메모리 한도](../../01_system_internals/ipc-and-process/app-extension-process-model.md) 를 갖는다. 큰 이미지를 받아 첨부하려다 종료되는 것이 흔하다.
 - payload 에 `mutable-content: 1` 이 없으면 확장이 아예 호출되지 않는다.
 
 ### 6. 수정 후 검증

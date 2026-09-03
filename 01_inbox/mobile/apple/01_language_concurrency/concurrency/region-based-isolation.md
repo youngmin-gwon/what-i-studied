@@ -2,7 +2,7 @@
 title: region-based-isolation
 tags: [apple, apple/concurrency, apple/language, isolation, swift, swift6]
 aliases: ["region 기반 격리는 non-Sendable 값의 안전한 전송을 컴파일러가 증명한다", "Region-Based Isolation", "SE-0414", "영역 기반 격리"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 11:59:46 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 

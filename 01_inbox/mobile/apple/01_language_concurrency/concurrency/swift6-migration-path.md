@@ -1,8 +1,8 @@
 ---
 title: swift6-migration-path
 tags: [apple, apple/concurrency, apple/language, migration, swift6]
-aliases: ["Swift 6 마이그레이션은 경고를 먼저 켜서 모듈 단위로 단계적으로 한다", "Swift 6 Migration", "Strict Concurrency", "Swift 6 마이그레이션"]
-date modified: 2026-09-03 00:00:00 +09:00
+aliases: ["Strict Concurrency", "Swift 6 Migration", "Swift 6 마이그레이션", "Swift 6 마이그레이션은 경고를 먼저 켜서 모듈 단위로 단계적으로 한다"]
+date modified: 2026-09-03 11:59:56 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -50,8 +50,8 @@ flowchart TD
 
 ### 하면 안 되는 것
 
-> [!WARNING] `@unchecked Sendable` 로 경고를 끄지 않는다
-> 이것은 "내가 직접 동기화를 보장한다"는 선언이고, 컴파일러는 더 이상 검사하지 않는다. **실제 락이 없다면 데이터 경합이 그대로 남은 채 경고만 사라진다.** 정말 락으로 보호한 경우에만, 그리고 그 사실을 주석으로 남기고 쓴다.
+>[!WARNING] `@unchecked Sendable` 로 경고를 끄지 않는다
+>이것은 "내가 직접 동기화를 보장한다"는 선언이고, 컴파일러는 더 이상 검사하지 않는다. **실제 락이 없다면 데이터 경합이 그대로 남은 채 경고만 사라진다.** 정말 락으로 보호한 경우에만, 그리고 그 사실을 주석으로 남기고 쓴다.
 
 `@preconcurrency` 는 다르다. Swift 6 이전에 만들어진 모듈에서 오는 타입에 대한 경고를 **일시적으로 유예**하는 표시이며, 그 모듈이 업데이트되면 제거한다.
 

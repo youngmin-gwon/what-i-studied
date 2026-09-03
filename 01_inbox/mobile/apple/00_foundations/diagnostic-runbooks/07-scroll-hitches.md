@@ -2,7 +2,7 @@
 title: 07-scroll-hitches
 tags: [apple, apple/foundations, diagnostic-runbook, hitch, performance, rendering]
 aliases: ["Runbook: 스크롤이나 애니메이션이 끊긴다"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 12:01:10 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 

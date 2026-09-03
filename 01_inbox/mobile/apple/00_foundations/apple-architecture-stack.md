@@ -1,8 +1,8 @@
 ---
 title: apple-architecture-stack
 tags: [apple, apple/foundations]
-aliases: ["XNU 는 Mach 의 IPC·스케줄링 위에 BSD 의 POSIX 계층을 얹은 하이브리드 커널이다", "XNU", "Darwin", "Apple 아키텍처 스택"]
-date modified: 2026-04-07 18:53:39 +09:00
+aliases: ["Apple 아키텍처 스택", "Darwin", "XNU 는 Mach 의 IPC·스케줄링 위에 BSD 의 POSIX 계층을 얹은 하이브리드 커널이다", "XNU"]
+date modified: 2026-09-03 11:59:24 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 

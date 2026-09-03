@@ -2,7 +2,7 @@
 title: 04-permission-granted-but-api-fails
 tags: [apple, apple/foundations, diagnostic-runbook, entitlements, permission, tcc]
 aliases: ["Runbook: 권한을 받았는데 API 가 실패한다"]
-date modified: 2026-09-03 00:00:00 +09:00
+date modified: 2026-09-03 12:01:08 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: apple-memory-management
 tags: [apple, apple/concurrency, apple/language]
 aliases: ["ARC 는 컴파일러가 삽입한 retain/release 이고 참조 카운트는 객체 헤더와 Side Table 에 나뉘어 산다", "ARC", "메모리 관리"]
-date modified: 2026-04-07 18:54:47 +09:00
+date modified: 2026-09-03 12:00:05 +09:00
 date created: 2026-04-03 22:15:19 +09:00
 ---
 

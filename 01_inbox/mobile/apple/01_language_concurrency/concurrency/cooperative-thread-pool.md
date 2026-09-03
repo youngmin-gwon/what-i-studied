@@ -1,8 +1,8 @@
 ---
 title: cooperative-thread-pool
 tags: [apple, apple/concurrency, apple/language, concurrency, performance, swift]
-aliases: ["협력적 스레드 풀은 코어 수만큼만 스레드를 유지해 thread explosion 을 구조적으로 막는다", "Cooperative Thread Pool", "협력적 스레드 풀"]
-date modified: 2026-09-03 00:00:00 +09:00
+aliases: ["Cooperative Thread Pool", "협력적 스레드 풀", "협력적 스레드 풀은 코어 수만큼만 스레드를 유지해 thread explosion 을 구조적으로 막는다"]
+date modified: 2026-09-03 11:59:42 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 
@@ -38,8 +38,8 @@ for _ in 0..<100 {
 | 동기 파일/네트워크 I/O | async API |
 | `DispatchQueue.sync` | `await` 또는 actor |
 
-> [!WARNING] 가장 위험한 패턴
-> "async 함수를 동기처럼 쓰려고" 세마포어로 감싸는 코드가 협력적 풀에서 실행되면 데드락 가능성이 실재한다. 이 패턴은 GCD 시절에는 낭비였지만 Swift Concurrency 에서는 **버그**다.
+>[!WARNING] 가장 위험한 패턴
+>"async 함수를 동기처럼 쓰려고" 세마포어로 감싸는 코드가 협력적 풀에서 실행되면 데드락 가능성이 실재한다. 이 패턴은 GCD 시절에는 낭비였지만 Swift Concurrency 에서는 **버그**다.
 
 ### 내부 메커니즘 (How)
 
@@ -64,7 +64,7 @@ flowchart TD
     style X fill:#ffe0e0,stroke:#c62828,color:#b71c1c
 ```
 
-핵심은 `await` 지점이다. 작업이 `await` 를 만나면 **자기 상태를 힙에 저장하고 스레드를 놓아준다.** 스레드는 즉시 다른 작업을 집는다. 이것이 [continuation 메커니즘](await-suspension-stores-continuation.md)이다.
+핵심은 `await` 지점이다. 작업이 `await` 를 만나면 **자기 상태를 힙에 저장하고 스레드를 놓아준다.** 스레드는 즉시 다른 작업을 집는다. 이것이 [continuation 메커니즘](await-suspension-stores-continuation.md) 이다.
 
 ### QoS 와의 관계
 
@@ -72,7 +72,7 @@ flowchart TD
 
 ### 관찰 가능한 증거
 
-- **Instruments의 Swift Concurrency 템플릿**: 실행 중인 Task 수, 스레드 점유, 각 Task 의 상태 전이를 보여준다. 스레드 수가 코어 수를 크게 넘으면 블로킹 코드가 섞여 있다는 신호다.
+- **Instruments 의 Swift Concurrency 템플릿**: 실행 중인 Task 수, 스레드 점유, 각 Task 의 상태 전이를 보여준다. 스레드 수가 코어 수를 크게 넘으면 블로킹 코드가 섞여 있다는 신호다.
 - **Xcode 의 Thread Performance Checker**: 협력적 풀에서의 블로킹을 런타임에 경고한다. 스킴 옵션에서 켜 둔다.
 
 ### 연관 문서
