@@ -2,13 +2,13 @@
 title: build-optimization
 tags: ["android", "android/packaging-deployment", "optimization", "r8"]
 aliases: ["빌드 최적화 계약"]
-date modified: 2026-08-24 17:57:07 +09:00
+date modified: 2026-09-03 10:17:33 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-05 16:15:00 +09:00
 ---
 
-## 빌드 최적화 계약
+## 빌드 최적화
 
 상위 문서: [Android 패키징과 배포 지도](../android-packaging-deployment.md)
 
