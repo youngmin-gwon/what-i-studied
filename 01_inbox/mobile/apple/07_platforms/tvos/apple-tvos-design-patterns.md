@@ -583,7 +583,7 @@ class OnDemandResourceManager {
 
 ### 관련 링크
 
-[apple-tvos-media](apple-tvos-media.md), [apple-animation-and-motion](../../02_ui_frameworks/apple-animation-and-motion.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+[apple-tvos-media](apple-tvos-media.md), [apple-animation-and-motion](../../02_ui_frameworks/apple-animation-and-motion.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-accessibility](../../02_ui_frameworks/apple-accessibility.md).
 
 ### 관찰 가능한 증거
 

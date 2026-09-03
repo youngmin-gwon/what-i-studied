@@ -470,7 +470,7 @@ class GameControllerManager {
 
 ### 관련 링크
 
-[apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+[apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-networking-and-cloud](../../03_data_networking/apple-networking-and-cloud.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility](../../02_ui_frameworks/apple-accessibility.md).
 
 ### 관찰 가능한 증거
 

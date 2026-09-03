@@ -1,203 +1,82 @@
 ---
 title: apple-widgets-live-activities
-tags: [apple, apple/ui, dynamic-island, live-activities, widgetkit, widgets]
-aliases: ["WidgetKit", "Live Activities", "위젯과 라이브 액티비티"]
-date modified: 2026-08-10 00:00:00 +09:00
-date created: 2025-12-16 17:01:32 +09:00
+tags: [activitykit, apple, apple/ui, apple/ui/widgets, live-activities, moc, widgetkit, widgets]
+aliases: ["위젯은 시스템이 예산 안에서 렌더링하는 스냅샷이고 앱 코드는 그 순간에만 실행된다", "WidgetKit", "Live Activities", "위젯"]
+date modified: 2026-09-03 00:00:00 +09:00
+date created: 2026-04-04 00:00:00 +09:00
 ---
 
-## Widgets & Live Activities Deep Dive
+## 위젯은 시스템이 예산 안에서 렌더링하는 스냅샷이고 앱 코드는 그 순간에만 실행된다
 
-앱에 들어오지 않아도 중요한 정보를 가장 빠르게 확인할 수 있는 창구입니다.
-
-홈 화면의 **위젯(Widgets)** 과 잠금 화면/다이내믹 아일랜드의 **실시간 현황(Live Activities)** 은 앱의 재방문율을 높이는 핵심 기능입니다.
+위젯 개발의 모든 제약이 하나의 사실에서 나온다 — **사용자가 위젯을 보고 있는 동안 내 코드는 실행되고 있지 않다.** 시스템이 잠깐 확장 프로세스를 띄워 렌더링하고 종료시킨 뒤, 그 결과 이미지를 보여줄 뿐이다.
 
 ```mermaid
 flowchart TD
-    A["앱: 타임라인 제공자 구현"] --> T["TimelineProvider.timeline()"]
-    T --> E["여러 시점의 엔트리 배열 + 갱신 정책 반환"]
-    E --> S["시스템(chronod)이 예산 내에서<br/>렌더링 시점 결정"]
-    S --> W["위젯 확장 프로세스 실행<br/>(짧은 시간 · 낮은 메모리 한도)"]
-    W --> R["스냅샷 렌더링 후 프로세스 종료"]
-    R --> D["홈 화면에 정적 이미지로 표시"]
+    A["앱: 데이터 갱신 → 공유 컨테이너 저장"] --> R["reloadTimelines() 요청"]
+    R --> B{"시스템 예산 판단<br/>사용 빈도 · 배터리 · 가시성"}
+    B -->|"승인"| E["위젯 확장 프로세스 생성<br/>(짧은 시간 · 낮은 메모리)"]
+    E --> T["TimelineProvider → 미래 엔트리 배열"]
+    T --> S["SwiftUI 렌더링 → 스냅샷"]
+    S --> X["프로세스 종료"]
+    X --> H["홈 화면에 스냅샷 표시"]
+    B -->|"보류"| W["다음 예산 주기까지 대기"]
 
-    RL["reloadTimelines() 요청"] -.->|"보장 아님"| S
-
-    style S fill:#fff8e1,stroke:#f9a825,color:#f57f17
-    style W fill:#ffe0e0,stroke:#c62828,color:#b71c1c
-    style D fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style B fill:#fff8e1,stroke:#f9a825,color:#f57f17
+    style E fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style H fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
 ```
 
-**위젯은 항상 살아 있는 뷰가 아니라 미리 렌더링된 스냅샷이다.** 갱신은 요청할 수 있을 뿐 강제할 수 없으며, 시스템이 예산 안에서 시점을 정한다.
+### 정본 노트
 
-### 💡 왜 이것을 알아야 하나요? (Context)
+- [위젯은 살아 있는 뷰가 아니라 미리 렌더링된 스냅샷이다](widgets/widget-is-a-snapshot-not-a-live-view.md) — 할 수 없는 것들의 목록과 그 이유, 시간 표시만 예외인 까닭.
+- [TimelineProvider 는 현재가 아니라 미래 시점들의 상태를 미리 선언한다](widgets/timeline-provider-declares-future-states.md) — 세 메서드의 역할과 갱신 정책 선택.
+- [갱신 예산은 시스템이 정하며 reloadTimelines 는 요청이지 보장이 아니다](widgets/widget-refresh-budget-is-system-controlled.md) — **"위젯이 갱신되지 않는다"의 진짜 원인.**
+- [상호작용 위젯은 클로저가 아니라 AppIntent 를 실행한다](widgets/interactive-widgets-run-app-intents.md) — 프로세스가 없는데 버튼이 동작하는 원리.
+- [Live Activity 는 로컬과 푸시 두 경로로 갱신되며 각각 제약이 다르다](widgets/live-activity-updates-via-push-or-local.md) — `push-type.liveactivity` 토픽과 토큰 관찰.
 
-- **Snapshot Limitation**: 위젯은 "미니 앱"이 아닙니다. 매초 움직이거나 복잡한 애니메이션을 넣으려다 실패하는 경우가 많습니다. 위젯은 **"미리 그려진 그림(Snapshot)"** 을 시간표(Timeline)에 맞춰 갈아끼우는 방식임을 이해해야 합니다.
-- **Dynamic Island**: 아이폰 14 Pro 이후, 화면 상단의 펀치홀 영역이 정보 창으로 변했습니다. 이곳을 점유하지 못하면 사용자 경험에서 밀려납니다.
-- **실시간성**: 배달 현황, 스포츠 점수처럼 "지금 당장" 변하는 정보는 위젯(갱신 주기 15 분 +)으로는 불가능합니다. 이때 Live Activity 가 필요합니다.
+### 증상에서 시작하기
 
----
+| 증상 | 어느 노트로 |
+| :--- | :--- |
+| 위젯이 갱신되지 않는다 | [갱신 예산](widgets/widget-refresh-budget-is-system-controlled.md) |
+| 위젯이 비어 있거나 이전 내용이 남는다 | [스냅샷 모델](widgets/widget-is-a-snapshot-not-a-live-view.md) (확장이 메모리 한도로 죽음) |
+| 애니메이션·스크롤이 안 된다 | [스냅샷 모델](widgets/widget-is-a-snapshot-not-a-live-view.md) (구조적 제약) |
+| 버튼을 눌러도 반응이 없다 | [상호작용 위젯](widgets/interactive-widgets-run-app-intents.md) (클로저 대신 AppIntent) |
+| Live Activity 푸시가 도착하지 않는다 | [Live Activity](widgets/live-activity-updates-via-push-or-local.md) (토픽 접미사·토큰) |
+| 확장에서만 크래시한다 | [앱 확장 프로세스 모델](../01_system_internals/ipc-and-process/app-extension-process-model.md) |
 
-### 🧩 WidgetKit Internals
+### 설계 원칙
 
-위젯은 앱 프로세스와 별개로 동작하는 **App Extension**입니다.
-
-#### 1. Snapshot-based Rendering
-- 위젯 확장이 뷰를 렌더링하면, 시스템은 이를 **직렬화된 파일(Archived View)**로 저장해둡니다.
-- 홈 화면에 표시될 때는 앱 실행 없이 이 파일을 보여주기만 합니다. 그래서 배터리 효율이 극도로 좋습니다.
-- **제약**: 동영상 재생, 커스텀 제스처(스크롤, 드래그)가 불가능합니다 (단, iOS 17 부터 버튼 인터랙션 일부 허용).
-
-#### 2. Timeline Provider
-
-"미래의 뷰"를 미리 그려서 시스템에 제출합니다.
-
-```swift
-func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
-    var entries: [SimpleEntry] = []
-    
-    // 현재부터 1시간 뒤까지 5개의 뷰를 미리 생성
-    for hourOffset in 0..<5 {
-        let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: Date())!
-        let entry = SimpleEntry(date: entryDate, text: "Hour \(hourOffset)")
-        entries.append(entry)
-    }
-    
-    // 타임라인 제출 (.atEnd: 다 보여주면 다시 요청해라)
-    let timeline = Timeline(entries: entries, policy: .atEnd)
-    completion(timeline)
-}
-```
-
----
-
-### 🏝️ Live Activities (실시간 현황)
-
-단기적인 실시간 이벤트(최대 8~12 시간)를 추적합니다. (예: 택시 호출, 운동 기록, 타이머)
-
-#### 1. 구조
-- **Dynamic Island**: Compact(작게), Minimal(더 작게), Expanded(길게 누름) 3 가지 모드를 디자인해야 합니다.
-- **Lock Screen**: 잠금 화면 하단에 배너 형태로 표시됩니다.
-
-#### 2. 업데이트 메커니즘
-
-Live Activity 는 `Timeline` 을 쓰지 않습니다. **Push Notification**이나 앱 내부(`ActivityKit`)에서 즉시 업데이트합니다.
-
-- **Push Token**: 각 액티비티마다 고유의 푸시 토큰이 발급됩니다. 서버는 이 토큰으로 JSON 페이로드를 보내 UI 를 갱신합니다.
-
-```swift
-// 앱 내부에서 업데이트 (앱이 켜져 있거나 백그라운드 동작 중일 때)
-func updateLiveActivity(activity: Activity<DeliveryAttributes>) {
-    Task {
-        let newState = DeliveryAttributes.ContentState(
-            status: "배달 중",
-            estimatedTime: Date().addingTimeInterval(900)
-        )
-        
-        // 즉시 반영
-        await activity.update(using: newState)
-    }
-}
-```
-
-#### 3. Push Frequency
-
-Live Activity 푸시는 일반 푸시보다 우선순위가 높습니다(High Priority). 하지만 너무 자주 보내면 시스템이 과부하(Throttling)를 걸 수 있습니다. (권장: 정말 상태가 변했을 때만)
-
----
-
-### 🆕 Interactive Widgets (iOS 17+)
-
-iOS 17 부터 위젯에서 **버튼을 눌러 동작을 수행**할 수 있습니다. 앱을 열지 않고도 할 일을 완료하거나, 음악을 재생하거나, 타이머를 시작할 수 있습니다.
-
-핵심은 **App Intents** 프레임워크입니다.
-
-#### 1. 버튼 인터랙션
-
-```swift
-import AppIntents
-import WidgetKit
-
-// 동작 정의 (App Intent)
-struct ToggleTodoIntent: AppIntent {
-    static var title: LocalizedStringResource = "할 일 토글"
-    
-    @Parameter(title: "ID")
-    var todoId: String
-    
-    func perform() async throws -> some IntentResult {
-        TodoStore.shared.toggle(id: todoId)
-        return .result()
-    }
-}
-
-// 위젯 뷰에서 버튼으로 연결
-struct TodoWidgetView: View {
-    let todo: TodoItem
-    
-    var body: some View {
-        Button(intent: ToggleTodoIntent(todoId: todo.id)) {
-            Label(todo.title, systemImage: todo.isDone ? "checkmark.circle.fill" : "circle")
-        }
-    }
-}
-```
-
-#### 2. `AppIntentTimelineProvider` (iOS 17+)
-
-기존 `IntentTimelineProvider` 를 대체합니다. 위젯 설정(Configuration)도 App Intents 기반으로 통합됩니다.
-
-```swift
-struct MyWidgetProvider: AppIntentTimelineProvider {
-    typealias Entry = MyEntry
-    typealias Intent = MyWidgetConfigIntent
-    
-    func timeline(for configuration: MyWidgetConfigIntent, in context: Context) async -> Timeline<MyEntry> {
-        // configuration 에서 사용자 설정값을 받아 타임라인 생성
-        let entries = [MyEntry(date: .now, config: configuration)]
-        return Timeline(entries: entries, policy: .after(.now.addingTimeInterval(3600)))
-    }
-}
-```
-
->[!TIP] **Toggle/Button 제한사항**
->Interactive Widget 에서 사용할 수 있는 컨트롤은 `Button` 과 `Toggle` 뿐입니다. `TextField`, `Slider` 등 복잡한 입력은 불가능합니다. 복잡한 상호작용이 필요하면 앱을 열어야 합니다.
-
-### 🤖 Android 비교: WidgetKit vs Jetpack Glance
-
-Apple 의 WidgetKit 과 유사한 기능을 Android 에서는 **Jetpack Glance** 가 담당합니다.
-
-| 특징 | Apple WidgetKit | Android Jetpack Glance |
-| :--- | :--- | :--- |
-| **핵심 기술** | SwiftUI 기반 | Compose 기반 (Glance) |
-| **렌더링 방식** | Snapshot-based (Timeline) | RemoteViews-based (Glance) |
-| **실시간성** | Live Activities 지원 | 전용 위젯 업데이트 (제한적) |
-| **인터랙션** | iOS 17+ Button/Toggle 지원 | Glance Action API 지원 |
-
->[!TIP] **Android 개발자를 위한 WidgetKit**
-> - `TimelineProvider` ≃ Android 위젯의 데이터 갱신 스케줄링 (WorkManager 등 활용)
-> - `ActivityKit` (Live Activities) ≃ Android 에서는 고정된 **Foreground Service Notification** 이 유사한 역할을 함
-> - `AppIntent` ≃ Glance 의 `Action` 인터페이스
->상세 비교는 [**android-widgets-glance**](../../android/02_app_framework/app-widgets/glance-remoteviews-rendering.md) 를 참고하세요.
+1. **데이터는 미리 준비해 둔다.** 렌더링 시점에 네트워크를 기다릴 수 없다. 앱이 [App Group 공유 컨테이너](../01_system_internals/storage/app-container-directory-policies.md)에 써 두고 위젯은 읽기만 한다.
+2. **이미지는 미리 다운샘플링한다.** 위젯 확장의 메모리 한도는 매우 낮다.
+3. **엔트리를 미리 여러 개 선언한다.** 예산을 가장 크게 아끼는 방법이다.
+4. **시간 표시는 시스템에 맡긴다.** `Text(date, style: .timer)` 는 프로세스 없이 갱신된다.
 
 ### 관찰 가능한 증거
 
 ```bash
-# 위젯 확장 프로세스의 실행/종료 로그
-log stream --device --predicate 'process == "runningboardd"' --info | grep -i widget
-
-# 위젯 타임라인 갱신 로그
 log stream --device --predicate 'subsystem == "com.apple.chronod"' --info
+log stream --device --predicate 'process == "runningboardd"' --info | grep -i widget
+log stream --device --predicate 'subsystem == "com.apple.ActivityKit"' --info
 ```
 
-**메모리 한도가 가장 흔한 실패 원인이다.** 위젯 확장은 [호스트 앱보다 훨씬 낮은 한도](../01_system_internals/ipc-and-process/app-extension-process-model.md)를 가지므로, 이미지를 원본 해상도로 디코딩하면 즉시 종료된다.
+**Xcode 에서 위젯 스킴을 선택해 실행**해야 디버거가 붙는다. 단, 디버깅 중에는 예산이 실제와 다르게 동작하므로 **예산 문제는 Xcode 를 분리하고 실기기에서** 확인한다.
 
-- Xcode 에서 **위젯 스킴을 선택해 실행**해야 디버거가 붙는다. 앱 스킴으로는 확장 프로세스를 잡을 수 없다.
-- 타임라인 갱신 예산은 시스템이 정한다. 자주 갱신하도록 요청해도 보장되지 않는다.
+### Android 비교
 
-### 📚 더 보기
+| | WidgetKit | Jetpack Glance |
+| :--- | :--- | :--- |
+| 렌더링 | 확장 프로세스가 SwiftUI 렌더 → 스냅샷 | Composable → `RemoteViews` 변환 |
+| 갱신 | TimelineProvider + 시스템 예산 | `GlanceAppWidget.update()` / WorkManager |
+| 상호작용 | `AppIntent` | `actionRunCallback` |
+| 제약 | 메모리·시간 한도, 예산 | `RemoteViews` 표현 제약 |
 
-- [apple-app-lifecycle-and-ui](apple-app-lifecycle-and-ui.md) - Extension 의 생명주기
-- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 위젯 UI 는 100% SwiftUI
-- [apple-app-intents](../04_system_services/apple-app-intents.md) - App Intents 프레임워크 상세
+→ [android app-widget](../../android/02_app_framework/app-widgets/app-widget.md)
+
+### 연관 문서
+
+- [apple-app-intents](../04_system_services/apple-app-intents.md) - 상호작용 위젯의 실행 단위
+- [apple-push-notifications-apns](../04_system_services/apple-push-notifications-apns.md) - Live Activity 푸시
+- [앱 확장은 호스트가 수명을 쥔 별도 프로세스다](../01_system_internals/ipc-and-process/app-extension-process-model.md)
 
 공식 문서: [WidgetKit](https://developer.apple.com/documentation/widgetkit) · [ActivityKit](https://developer.apple.com/documentation/activitykit)

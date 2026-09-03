@@ -1,116 +1,113 @@
 ---
 title: apple-testing-and-quality
-tags: [apple, apple/testing, ci, quality, tdd, testing]
-aliases: ["Testing Strategy", "테스트와 품질"]
-date modified: 2026-04-06 18:15:40 +09:00
-date created: 2025-12-16 16:10:59 +09:00
+tags: [apple, apple/testing, apple/testing/testing, ci, moc, quality, swift-testing, testing, xctest]
+aliases: ["테스트는 레벨마다 잡을 수 있는 실패가 다르고 플레이키는 공유 상태와 타이밍에서 나온다", "Testing", "테스트 전략"]
+date modified: 2026-09-03 00:00:00 +09:00
+date created: 2026-04-04 00:00:00 +09:00
 ---
 
-## Testing & Quality Assurance Deep Dive
+## 테스트는 레벨마다 잡을 수 있는 실패가 다르고 플레이키는 공유 상태와 타이밍에서 나온다
 
->[!WARNING] **Devil's Advocate : Swift Testing 프레임워크의 등장**
->WWDC 2024 에서 발표된 **Swift Testing** 프레임워크(`@Test` 매크로, `#expect` 어설션)는 XCTest 를 대체하는 차세대 테스트 프레임워크입니다.
-> 1. `XCTAssertEqual` 대신 `#expect(a == b)` 로 더 자연스러운 표현식 사용.
-> 2. `@Test("설명", .tags(.networking))` 매크로로 테스트 메타데이터를 선언적으로 관리.
-> 3. 매개변수화된 테스트(`@Test(arguments: [1, 2, 3])`)를 기본 지원.
->신규 테스트 코드는 Swift Testing 을 우선 채택하되, UI Testing 은 아직 XCUITest 가 필수입니다.
+테스트 전략을 "커버리지 몇 %" 나 "피라미드 비율"로 세우면 판단 기준이 없다. 실제로 필요한 판단은 두 가지다.
 
-"테스트 코드가 없는 코드는 레거시 코드다." — 마이클 페더스
+1. **이 버그를 잡을 수 있는 가장 낮은 레벨은 어디인가**
+2. **이 테스트가 간헐적으로 실패한다면 공유 상태인가 타이밍인가**
 
-앱이 1.0 에서 끝난다면 테스트는 필요 없습니다. 하지만 2.0 을 만들 생각이라면, 테스트는 선택이 아니라 **생명 보험**입니다.
+```mermaid
+flowchart TD
+    B["버그 발견"] --> L{"어느 레벨이 잡을 수 있었나?"}
+    L -->|"순수 로직"| U["단위 테스트"]
+    L -->|"모듈 간 계약"| I["통합 테스트"]
+    L -->|"화면 흐름 · 권한"| E["UI 테스트"]
+    L -->|"느려짐"| P["성능 테스트"]
 
-### 💡 왜 이것을 알아야 하나요? (Context)
-- **회귀(Regression) 방지**: A 기능을 고쳤는데 잘 되던 B 기능이 망가진 적 있으시죠? 테스트 커버리지가 높다면, 코드를 수정하고 Cmd+U 를 누르는 것만으로 "다른 기능은 안전하다"는 확신을 얻을 수 있습니다.
-- **리팩토링의 용기**: 더러운 코드를 보고도 "건드리면 터질까 봐" 못 고치고 계신가요? 테스트가 있으면 과감하게 구조를 개선할 수 있습니다.
-- **문서화**: 테스트 코드는 그 자체로 "이 함수는 이렇게 쓰는 거야"라고 말해주는, 거짓말하지 않는 문서입니다.
+    F["간헐적 실패"] --> Q{"원인"}
+    Q --> S["공유 상태 → 격리"]
+    Q --> T["타이밍 → 조건 대기 · 가상 시계"]
 
----
+    style U fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style E fill:#fff8e1,stroke:#f9a825,color:#f57f17
+```
 
-### 🧪 주요 테스트 전략 (Testing Pyramid)
+### 정본 노트
 
-#### 1. Unit Test (단위 테스트) - 70%
+**전략**
 
-가장 빠르고 비용이 저렴합니다. 로직 하나하나를 검증합니다.
+- [테스트 레벨은 속도가 아니라 잡을 수 있는 실패의 종류로 나뉜다](testing/test-levels-differ-in-what-they-can-catch.md) — 레벨별 잡는 것/못 잡는 것, iOS 에서만 필요한 레벨, **어느 레벨도 못 잡는 것**.
+- [테스트 대역은 무엇을 검증하느냐에 따라 stub·fake·mock 으로 나뉜다](testing/test-doubles-fake-vs-mock-vs-stub.md) — **mock 남용이 만드는 구현 결합**, fake 의 재평가.
 
-- **Mocking**: 네트워크나 DB 처럼 느린 의존성은 가짜(Mock)로 대체해야 합니다. "테스트가 1 초 이상 걸리면 안 한다"는 말을 명심하세요.
+**작성**
+
+- [Swift Testing 과 XCTest 는 공존하며 각각 담당하는 영역이 다르다](testing/xctest-and-swift-testing-coexist.md) — 무엇을 어느 프레임워크로, `#expect` 와 `#require`, 병렬 실행의 함의.
+- [비동기 테스트는 완료 신호를 명시해야 하며 sleep 으로 기다리면 안 된다](testing/async-tests-need-explicit-completion-signals.md) — expectation·continuation·가상 시계.
+- [XCUITest 는 접근성 식별자로 요소를 찾으므로 식별자가 없으면 테스트가 깨진다](testing/xcuitest-depends-on-accessibility-identifiers.md) — launch 인자 주입, 시스템 프롬프트 처리, `debugDescription`.
+
+**안정화**
+
+- [플레이키 테스트는 공유 상태와 타이밍 의존 두 가지에서 나온다](testing/flaky-tests-come-from-shared-state-and-timing.md) — 격리 방법, **원인을 좁히는 5단계 순서**.
+
+### 증상에서 시작하기
+
+| 증상 | 어느 노트로 |
+| :--- | :--- |
+| 무엇을 어느 레벨로 테스트할지 모르겠다 | [테스트 레벨](testing/test-levels-differ-in-what-they-can-catch.md) |
+| 리팩터링하면 테스트가 깨진다 | [테스트 대역](testing/test-doubles-fake-vs-mock-vs-stub.md) (mock 과결합) |
+| 테스트가 느리다 | [비동기 테스트](testing/async-tests-need-explicit-completion-signals.md) (`sleep` 사용) |
+| CI 에서만 실패한다 | [플레이키](testing/flaky-tests-come-from-shared-state-and-timing.md) (환경 차이) |
+| 재시도하면 통과한다 | [플레이키](testing/flaky-tests-come-from-shared-state-and-timing.md) |
+| UI 테스트가 요소를 못 찾는다 | [XCUITest](testing/xcuitest-depends-on-accessibility-identifiers.md) (식별자·`debugDescription`) |
+| 권한 프롬프트에서 멈춘다 | [XCUITest](testing/xcuitest-depends-on-accessibility-identifiers.md) (`simctl privacy`) |
+| 성능 회귀를 못 잡는다 | [성능 지표 고정](performance/xctest-metrics-lock-performance-in-ci.md) |
+
+### 테스트 가능한 설계가 선행 조건이다
+
+레벨을 나누려면 **경계에서 대체 가능**해야 한다. 싱글턴을 직접 참조하면 단위 테스트가 불가능해지고, 결국 모든 것을 느린 UI 테스트로 검증하게 된다.
 
 ```swift
-func testLoginSuccess() {
-    let mockAPI = MockAPIService()
-    mockAPI.shouldSucceed = true
-    let viewModel = LoginViewModel(api: mockAPI)
-    
-    viewModel.login(id: "test", pw: "1234")
-    
-    XCTAssertTrue(viewModel.isLoggedIn)
+protocol UserFetching { func fetchUser() async throws -> User }
+
+final class ProfileViewModel {
+    private let api: UserFetching          // 주입
+    init(api: UserFetching) { self.api = api }
 }
 ```
 
-#### 2. Integration Test (통합 테스트) - 20%
-
-모듈 간의 연결을 테스트합니다.
-
-- 예: Core Data 에 저장하고 읽어왔을 때 데이터가 깨지지 않는지 확인.
-
-#### 3. UI Test (E2E 테스트) - 10%
-
-실제 사용자가 버튼을 누르는 것처럼 시뮬레이터를 조작합니다.
-
-- **Trade-off**: 매우 느리고 잘 깨집니다(Flaky). 중요한 사용자 흐름(로그인, 결제) 위주로 최소한만 작성하세요.
-
----
-
-### 🧱 Testable Architecture (설계)
-
-테스트를 짜기 어렵다면, 설계가 잘못된 것입니다.
-
-#### 1. Dependency Injection (DI)
-
-객체가 내부에서 의존성(`URLSession.shared`)을 직접 생성하면 테스트할 수 없습니다. 생성자로 주입받으세요.
-
-#### 2. Protocol Oriented
-
-구체 클래스(`MyDatabase`) 대신 프로토콜(`DatabaseProtocol`)에 의존해야 가짜 객체(Stub)를 끼워 넣을 수 있습니다.
-
----
-
-### 💻 CI/CD & Automation
-
-로컬에서 혼자 돌리는 테스트는 의미가 없습니다. 코드가 머지되기 전에 항상 검사해야 합니다.
-
-- **Fastlane**: 빌드, 테스트, 배포를 스크립트 하나로 자동화합니다. (`fastlane test`)
-- **Xcode Cloud**: Apple 이 제공하는 CI. TestFlight 와 연동이 매끄럽지만 비쌉니다.
-- **GitHub Actions**: 가장 대중적입니다. PR 이 올라올 때마다 `xcodebuild test` 를 돌려서 빨간 줄(실패)이 뜨면 머지를 막으세요.
-
-### 관찰 가능한 증거
+### CI 구성
 
 ```bash
-# 병렬 실행 + 결과 번들
+# 일상 잡 — 빠르게
 xcodebuild test -scheme MyApp -parallel-testing-enabled YES \
-  -destination 'platform=iOS Simulator,name=iPhone 15' \
-  -resultBundlePath TestResults.xcresult
+  -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.0' \
+  -enableCodeCoverage YES -resultBundlePath TestResults.xcresult
 
-# 커버리지 리포트
-xcrun xccov view --report --json TestResults.xcresult | head -30
+# 커버리지 (목표가 아니라 신호로)
+xcrun xccov view --report TestResults.xcresult
 
-# 시뮬레이터 상태 초기화 (플레이키 테스트 격리)
-xcrun simctl erase all
+# 플레이키 탐지 (주기적)
+xcodebuild test -scheme MyApp -test-iterations 20 -run-tests-until-failure
+
+# 야간 잡 — Sanitizer
+xcodebuild test -scheme MyApp -enableThreadSanitizer YES ...
 ```
 
-**플레이키 테스트를 다루는 원칙**
+**시뮬레이터 모델과 OS 를 고정**한다. 바뀌면 [성능 기준선](performance/xctest-metrics-lock-performance-in-ci.md)이 무의미해지고 플레이키가 늘어난다.
 
-| 원인 | 대응 |
-| :--- | :--- |
-| 테스트 간 상태 공유 | `setUp`/`tearDown` 에서 완전 초기화, `simctl erase` |
-| 비동기 타이밍 의존 | `XCTestExpectation` 대신 `await`, 고정 `sleep` 금지 |
-| 시스템 프롬프트(권한) | `addUIInterruptionMonitor` 또는 `simctl privacy` 로 사전 설정 |
-| 네트워크 의존 | 스텁/목으로 대체 |
+### 접근성도 테스트한다
 
-- **Xcode Organizer** 에서 릴리스별 크래시·히치·시작 시간을 비교하는 것이 실사용자 품질 지표의 기준선이다.
-- **MetricKit** 으로 실사용자 데이터를 자체 수집하면 Organizer 보다 세밀한 분석이 가능하다.
+```swift
+func testAccessibility() throws {
+    let app = XCUIApplication(); app.launch()
+    try app.performAccessibilityAudit()
+}
+```
 
-### 더 보기
+레이블 누락·대비·터치 타깃을 자동으로 잡는다. 다만 **구조가 유용한가**는 못 잡으므로 [실기기 VoiceOver 검증](../02_ui_frameworks/apple-accessibility.md)이 여전히 필요하다.
 
-- [apple-performance-and-debug](apple-performance-and-debug.md) - 성능 테스트(XCTMetric) 방법
-- [apple-xctest-deep-dive](apple-xctest-deep-dive.md) - XCTest 프레임워크 상세 사용법
-- [Swift Testing Documentation](https://developer.apple.com/documentation/testing) - 차세대 테스트 프레임워크 (WWDC 2024)
+### 연관 문서
+
+- [apple-performance-and-debug](apple-performance-and-debug.md) - 성능 측정과 디버깅
+- [apple-instruments-profiling](apple-instruments-profiling.md) - 원인 분석
+- [apple-accessibility](../02_ui_frameworks/apple-accessibility.md)
+- [android-testing-quality](../../android/06_testing_performance/testing/testing-quality.md) - 안드로이드 대응
+
+공식 문서: [Testing](https://developer.apple.com/documentation/xcode/testing) · [Swift Testing](https://developer.apple.com/documentation/testing) · [XCTest](https://developer.apple.com/documentation/xctest)

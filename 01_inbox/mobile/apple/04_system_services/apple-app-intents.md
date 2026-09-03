@@ -1,218 +1,77 @@
 ---
 title: apple-app-intents
-tags: [app-intents, apple, apple/services, intelligence, shortcuts, siri, spotlight, widgets]
-aliases: ["App Intents", "Shortcuts", "앱 인텐트"]
-date modified: 2026-08-10 00:00:00 +09:00
-date created: 2026-04-03 23:58:00 +09:00
+tags: [app-intents, apple, apple/services, apple/services/intents, moc, shortcuts, siri, spotlight]
+aliases: ["App Intents 는 앱의 기능과 데이터를 시스템이 실행할 수 있는 단위로 노출하는 계약이다", "App Intents", "Shortcuts", "앱 인텐트"]
+date modified: 2026-09-03 00:00:00 +09:00
+date created: 2026-04-04 00:00:00 +09:00
 ---
 
-## App Intents & Shortcuts Deep Dive
+## App Intents 는 앱의 기능과 데이터를 시스템이 실행할 수 있는 단위로 노출하는 계약이다
 
-"시리야, 오늘 운동 기록 보여줘."
-
-이 한마디가 작동하려면 **App Intents** 프레임워크가 필요합니다.
-
-App Intents 는 단순히 Siri 용 API 가 아닙니다. **Spotlight, Shortcuts 앱, Action Button, Interactive Widgets, 그리고 Apple Intelligence** 까지 — 앱을 시스템 곳곳에 노출시키는 **유일한 관문**입니다.
+App Intents 는 "Siri 연동 기능"이 아니라 **앱 기능을 시스템에 공개하는 표준 인터페이스**다. 한 번 정의하면 여러 진입점이 모두 그것을 쓴다.
 
 ```mermaid
 flowchart TD
-    S["Siri / 단축어 / Spotlight /<br/>위젯 / Action 버튼"] --> R["시스템이 인텐트 해석"]
-    R --> E["AppEntity 로 대상 확정"]
-    E --> P["AppIntent.perform() 호출"]
-    P --> C{"openAppWhenRun?"}
-    C -->|"true"| APP["앱을 전경으로 띄운 뒤 실행"]
-    C -->|"false"| BG["앱 프로세스가 없어도<br/>백그라운드에서 실행"]
-    BG --> RES["IntentResult 반환<br/>(스니펫 / 값 / 대화)"]
+    subgraph D ["앱이 정의하는 것"]
+        I["AppIntent — 동작"]
+        E["AppEntity — 대상"]
+        S["AppShortcutsProvider — 발화 문구"]
+    end
+    subgraph U ["시스템이 사용하는 곳"]
+        U1["Siri 음성"]
+        U2["단축어 · 자동화"]
+        U3["Spotlight"]
+        U4["위젯 버튼"]
+        U5["Action 버튼"]
+        U6["Apple Intelligence"]
+    end
+    D --> U
 
-    style BG fill:#fff8e1,stroke:#f9a825,color:#f57f17
-    style RES fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style D fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
 ```
 
-**`perform()` 은 앱이 실행 중이 아닐 때도 호출된다.** 전역 상태나 이미 초기화된 싱글턴을 전제하면 실패한다. 필요한 것을 그 안에서 직접 준비해야 한다.
+**핵심 전제**: `perform()` 은 [앱이 전경에 없거나 방금 깨어난 상태에서 실행될 수 있다.](intents/app-intent-runs-without-the-app-in-foreground.md) 전역 상태를 가정하면 실패한다.
 
-### 💡 왜 이것을 알아야 하나요? (Context)
+### 정본 노트
 
-- **Apple Intelligence (iOS 18+)**: Apple 의 온디바이스 AI 가 사용자의 의도를 파악하고 앱의 기능을 자동으로 호출합니다. 이때 사용하는 것이 App Intents 입니다. 구현하지 않으면 AI 에게 "보이지 않는" 앱이 됩니다.
-- **Interactive Widgets (iOS 17+)**: 위젯에서 버튼을 누르면 앱을 열지 않고도 동작이 수행됩니다. 이것도 AppIntent 기반입니다.
-- **레거시 교체**: 과거의 `SiriKit Intent Definition (.intentdefinition)` 파일 기반 방식을 **완전히 대체**합니다. 새 프로젝트에서는 .intentdefinition 파일을 만들 일이 없습니다.
+- [AppIntent 는 앱이 전경에 없어도 실행되므로 전역 상태를 가정하면 안 된다](intents/app-intent-runs-without-the-app-in-foreground.md) — `openAppWhenRun`, 반환값이 UI 를 결정하는 방식, 실행 시간 제약.
+- [AppEntity 는 앱의 데이터 모델을 시스템이 검색하고 참조할 수 있게 노출한다](intents/app-entity-exposes-your-model-to-the-system.md) — `EntityQuery` 세 가지 조회 경로, **노출 범위가 곧 프라이버시 결정**.
+- [App Shortcuts 는 provider 와 발화 문구가 있어야 설정 없이 음성으로 실행된다](intents/app-shortcuts-need-phrases-and-a-provider.md) — `\(.applicationName)` 필수, 등록 시점.
+- [시스템 인텔리전스는 온디바이스와 클라우드 처리를 스스로 나눈다](intents/system-intelligence-decides-on-device-or-cloud.md) — 앱이 통제 가능한 것과 아닌 것.
 
----
+### 증상에서 시작하기
 
-### 📐 핵심 아키텍처
+| 증상 | 어느 노트로 |
+| :--- | :--- |
+| 단축어 앱에 내 액션이 안 보인다 | [AppIntent](intents/app-intent-runs-without-the-app-in-foreground.md) (앱을 한 번 실행해야 등록됨) |
+| 앱 종료 상태에서 실행하면 크래시 | [AppIntent](intents/app-intent-runs-without-the-app-in-foreground.md) (전역 상태 가정) |
+| 매개변수 목록에 항목이 안 나온다 | [AppEntity](intents/app-entity-exposes-your-model-to-the-system.md) (`suggestedEntities`) |
+| Siri 로 항목 이름을 말해도 못 찾는다 | [AppEntity](intents/app-entity-exposes-your-model-to-the-system.md) (`EntityStringQuery` 미구현) |
+| Siri 에 대고 말해도 실행이 안 된다 | [App Shortcuts](intents/app-shortcuts-need-phrases-and-a-provider.md) (provider 없음) |
+| 실행 도중 중단된다 | [AppIntent](intents/app-intent-runs-without-the-app-in-foreground.md) (시간 초과 → 배경 작업으로 분리) |
 
-#### 1. `AppIntent` 프로토콜 (동작 정의)
+### 설계 순서
 
-"이 앱이 할 수 있는 일"을 선언합니다.
-
-```swift
-import AppIntents
-
-struct StartWorkoutIntent: AppIntent {
-    // Siri/Spotlight 에 보여질 제목
-    static var title: LocalizedStringResource = "운동 시작"
-    static var description: IntentDescription = "선택한 운동 타입으로 운동을 시작합니다."
-    
-    // 파라미터 (사용자 입력)
-    @Parameter(title: "운동 종류")
-    var workoutType: WorkoutType
-    
-    // 실행 로직
-    func perform() async throws -> some IntentResult & ProvidesDialog {
-        let session = WorkoutManager.shared.start(type: workoutType)
-        return .result(dialog: "\(workoutType.name) 운동을 시작합니다! 💪")
-    }
-}
-```
-
-#### 2. `AppEntity` 프로토콜 (데이터 노출)
-
-앱의 데이터 모델을 시스템에 노출합니다. Siri 가 "어떤 운동?"이라고 물을 때 목록을 보여주는 데 사용됩니다.
-
-```swift
-struct WorkoutType: AppEntity {
-    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "운동 종류")
-    static var defaultQuery = WorkoutTypeQuery()
-    
-    var id: String
-    var name: String
-    
-    var displayRepresentation: DisplayRepresentation {
-        DisplayRepresentation(title: "\(name)")
-    }
-}
-
-// 시스템이 엔티티를 검색할 때 사용하는 쿼리
-struct WorkoutTypeQuery: EntityQuery {
-    func entities(for ids: [String]) async throws -> [WorkoutType] {
-        WorkoutStore.shared.workouts(for: ids)
-    }
-    
-    func suggestedEntities() async throws -> [WorkoutType] {
-        WorkoutStore.shared.allWorkouts()
-    }
-}
-```
-
-#### 3. `AppShortcutsProvider` (시스템 등록)
-
-Shortcuts 앱과 Siri 에 자동으로 등록됩니다. 사용자가 별도 설정 없이 바로 쓸 수 있습니다.
-
-```swift
-struct MyAppShortcuts: AppShortcutsProvider {
-    static var appShortcuts: [AppShortcut] {
-        AppShortcut(
-            intent: StartWorkoutIntent(),
-            phrases: [
-                "운동 시작해 \(.applicationName)",
-                "\(.applicationName)에서 \(\.$workoutType) 시작"
-            ],
-            shortTitle: "운동 시작",
-            systemImageName: "figure.run"
-        )
-    }
-}
-```
-
----
-
-### 🧩 시스템 연동 포인트
-
-| 연동 대상 | 역할 | 필요한 것 |
-|-----------|------|-----------|
-| **Siri** | 음성 명령으로 앱 기능 실행 | `AppShortcutsProvider` + phrases |
-| **Spotlight** | 앱 내 콘텐츠를 검색 결과에 노출 | `AppEntity` + `IndexedEntity` |
-| **Shortcuts 앱** | 사용자가 자동화 워크플로우 구성 | `AppIntent` 등록 |
-| **Interactive Widgets** | 위젯에서 버튼 터치로 동작 실행 | `AppIntent` + `Button(intent:)` |
-| **Action Button** | iPhone 15 Pro 물리 버튼 | `AppShortcutsProvider` 에 등록 |
-| **Apple Intelligence** | AI 가 맥락에 맞는 기능 자동 제안 | `AppEntity` + `AppIntent` |
-
----
-
-### 📱 Interactive Widgets 과의 관계 (iOS 17+)
-
-위젯에서 직접 동작을 수행할 수 있습니다. `AppIntent` 를 버튼의 액션으로 연결합니다.
-
-```swift
-struct ToggleTodoIntent: AppIntent {
-    static var title: LocalizedStringResource = "할 일 완료 토글"
-    
-    @Parameter(title: "Todo ID")
-    var todoId: String
-    
-    func perform() async throws -> some IntentResult {
-        TodoStore.shared.toggle(id: todoId)
-        return .result()
-    }
-}
-
-// 위젯 뷰에서 사용
-struct TodoWidgetView: View {
-    let todo: TodoEntry
-    
-    var body: some View {
-        Button(intent: ToggleTodoIntent(todoId: todo.id)) {
-            Label(todo.title, systemImage: todo.isDone ? "checkmark.circle.fill" : "circle")
-        }
-    }
-}
-```
-
->[!TIP] **`AppIntentTimelineProvider` (iOS 17+)**
->기존 `TimelineProvider` 대신 `AppIntentTimelineProvider` 를 사용하면, 위젯 설정(Configuration)도 App Intents 기반으로 통합할 수 있습니다.
-
----
-
-### 🤖 Apple Intelligence 연동 (iOS 18+)
-
-Apple Intelligence 가 사용자의 의도를 파악하여 앱의 기능을 자동으로 제안하거나 실행합니다.
-
-- **SiriKit + App Intents**: 기존 SiriKit 도메인(메시지, 결제 등)이 App Intents 와 통합되고 있습니다.
-- **Foundation Models**: 온디바이스 LLM 이 앱의 `AppEntity` 데이터를 이해하고, 자연어 요청을 적절한 `AppIntent` 로 라우팅합니다.
-
-### 🤖 Android 비교: App Intents vs App Actions
-
-Apple 의 App Intents 와 유사한 기능을 Android 에서는 **App Actions** 와 **AppFunctions** 가 담당합니다.
-
-| 특징 | Apple App Intents | Android App Actions |
-| :--- | :--- | :--- |
-| **핵심 기술** | Swift 기반의 `AppIntent` 프로토콜 | `shortcuts.xml` 및 `capability` 선언 |
-| **시스템 통합** | Siri, Shortcuts, Spotlight, Action Button | Google Assistant, Android Shortcuts |
-| **데이터 노출** | `AppEntity` 프로토콜 | `shortcuts.xml` 의 `parameter` 매핑 |
-| **AI 연동** | Apple Intelligence (iOS 18+) | AppFunctions (Android 16+), Gemini 연동 |
-
->[!TIP] **Android 개발자를 위한 App Intents**
-> - `AppIntent.perform()` ≃ `shortcuts.xml` 에 정의된 Intent Fulfillment 처리 logic
-> - `AppShortcut` ≃ Android 의 **Static Shortcut** (`shortcuts.xml`)
-> - `AppEntity` ≃ 시스템이 검색할 수 있는 앱 내 데이터 (Search Indexing)
->상세 비교는 [**android-app-actions-assistant**](../../android/04_system_services/assistant-agent/app-actions-fulfillment.md) 를 참고하세요.
+1. **동작을 intent 로 정의**한다. 앱 없이도 실행 가능하게 작성한다.
+2. **대상을 entity 로 정의**하고 `EntityQuery` 를 구현한다. 음성 지정이 필요하면 `EntityStringQuery` 도.
+3. **자주 쓰는 것만 App Shortcut 으로** 승격하고 발화 문구를 여러 개 준다.
+4. **노출 범위를 검토**한다. 잠금 화면에 떠도 되는 내용인가?
+5. **앱 완전 종료 상태에서 전 경로를 테스트**한다.
 
 ### 관찰 가능한 증거
 
 ```bash
-# 인텐트 등록과 실행 로그
 log stream --device --predicate 'subsystem == "com.apple.AppIntents"' --info
 log stream --device --predicate 'process == "siriactionsd"' --info
 ```
 
-**등록 확인 순서**
+앱 스킴으로 Xcode 실행 중에 단축어나 위젯 버튼을 실행하면 `perform()` 에 브레이크포인트가 걸린다.
 
-1. 앱을 실행해야 인텐트가 시스템에 등록된다. 설치만으로는 부족하다.
-2. 단축어 앱에서 내 앱의 액션이 보이는지 확인한다.
-3. Spotlight 검색에서 `AppShortcutsProvider` 의 문구로 검색되는지 확인한다.
+### 연관 문서
 
-```swift
-// 인텐트가 백그라운드에서 실행될 수 있다는 전제로 작성한다
-struct OpenItem: AppIntent {
-    static var openAppWhenRun: Bool { true }   // 앱을 띄워야 한다면 명시
-    func perform() async throws -> some IntentResult { ... }
-}
-```
-
-**`perform()` 은 앱이 실행 중이 아닐 때도 호출될 수 있다.** 전역 상태가 준비되어 있다고 가정하면 실패한다.
-
-### 더 보기
-- [apple-widgets-live-activities](../02_ui_frameworks/apple-widgets-live-activities.md) - WidgetKit 기본 아키텍처 및 타임라인
-- [apple-system-services](apple-system-services.md) - 시스템 데몬과의 IPC 원리
-- [apple-swift-concurrency](../01_language_concurrency/apple-swift-concurrency.md) - `perform()` 의 `async throws` 이해
+- [상호작용 위젯은 클로저가 아니라 AppIntent 를 실행한다](../02_ui_frameworks/widgets/interactive-widgets-run-app-intents.md)
+- [apple-intelligence-and-agentic-intents](apple-intelligence-and-agentic-intents.md)
+- [apple-privacy-and-tcc-details](../05_security_privacy/apple-privacy-and-tcc-details.md)
+- [android-app-actions 대응](../../android/04_system_services/assistant-agent/assistant-agent.md)
 
 공식 문서: [App Intents](https://developer.apple.com/documentation/appintents)

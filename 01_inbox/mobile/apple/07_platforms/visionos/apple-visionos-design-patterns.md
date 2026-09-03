@@ -581,6 +581,6 @@ var lowDetailMesh: MeshResource { MeshResource() }
 
 ### 관련 링크
 
-[apple-visionos-system](../apple-visionos-system.md), [apple-visionos-immersion-guide](apple-visionos-immersion-guide.md), [apple-visionos-spatial](../apple-visionos-system.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+[apple-visionos-system](../apple-visionos-system.md), [apple-visionos-immersion-guide](apple-visionos-immersion-guide.md), [apple-visionos-spatial](../apple-visionos-system.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility](../../02_ui_frameworks/apple-accessibility.md).
 
 공식 문서: [visionOS Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos)

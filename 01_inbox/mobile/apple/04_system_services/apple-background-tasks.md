@@ -1,171 +1,87 @@
 ---
 title: apple-background-tasks
-tags: [apple, apple/services, background, battery, ios, multitasking, system]
-aliases: ["BGTaskScheduler", "Background Tasks", "백그라운드 작업"]
-date modified: 2026-04-06 18:08:57 +09:00
-date created: 2025-12-16 16:50:00 +09:00
+tags: [apple, apple/services, apple/services/background, background, bgtaskscheduler, moc, multitasking]
+aliases: ["배경 실행은 네 가지 메커니즘으로 나뉘고 어느 것을 쓰는지가 진단의 출발점이다", "Background Tasks", "백그라운드 작업"]
+date modified: 2026-09-03 00:00:00 +09:00
+date created: 2026-04-04 00:00:00 +09:00
 ---
 
-## Background Tasks Deep Dive
+## 배경 실행은 네 가지 메커니즘으로 나뉘고 어느 것을 쓰는지가 진단의 출발점이다
 
-iOS 의 앱 생명주기는 데스크톱이나 안드로이드와 다릅니다.
+"백그라운드에서 안 돈다"는 하나의 증상이지만, iOS 에는 **실행 주체와 보장 수준이 전혀 다른 네 가지 메커니즘**이 있다. 어느 것을 쓰고 있는지 확정하지 않으면 진단이 시작되지 않는다.
 
-홈 화면으로 나가는 순간 앱은 **얼음(Suspended)** 이 됩니다. 이를 깨고 작업을 수행하려면 시스템의 허락(Budget)이 필요합니다.
+| 메커니즘 | 실행 주체 | 보장 | 대표 실패 |
+| :--- | :--- | :--- | :--- |
+| `beginBackgroundTask` | 앱 프로세스 | 짧은 유예만 | 만료 핸들러 미처리 → 강제 종료 |
+| `BGTaskScheduler` | 앱 프로세스 (재실행됨) | **없음. 시스템이 시점 결정** | 등록 시점 오류 |
+| 백그라운드 `URLSession` | **시스템 데몬** | 전송은 이어짐 | 세션 재생성 누락 |
+| `UIBackgroundModes` | 앱 프로세스 | 해당 활동 지속 중에만 | 선언 누락, 활동 중단 |
 
 ```mermaid
 flowchart TD
-    Q["백그라운드에서 무언가 해야 한다"] --> A{"무엇을?"}
-    A -->|"전경 작업을 잠깐 마무리"| T1["beginBackgroundTask<br/>짧은 유예 · 만료 핸들러 필수"]
-    A -->|"주기적 데이터 갱신"| T2["BGAppRefreshTask<br/>시점은 시스템이 결정"]
-    A -->|"긴 처리 (충전 중 등)"| T3["BGProcessingTask<br/>조건 지정 가능"]
-    A -->|"대용량 다운로드/업로드"| T4["백그라운드 URLSession<br/>시스템 데몬이 대신 수행"]
-    A -->|"오디오·위치 등 지속 활동"| T5["UIBackgroundModes<br/>조건 충족 시 계속 실행"]
+    Q["배경에서 무언가 해야 한다"] --> A{"무엇을?"}
+    A -->|"전경 작업을 잠깐 마무리"| T1["beginBackgroundTask"]
+    A -->|"주기적 데이터 갱신"| T2["BGAppRefreshTask"]
+    A -->|"긴 처리 (충전 중 등)"| T3["BGProcessingTask"]
+    A -->|"대용량 전송"| T4["백그라운드 URLSession"]
+    A -->|"오디오·위치 등 지속 활동"| T5["UIBackgroundModes"]
+    A -->|"서버 변경 시 갱신"| T6["silent push"]
 
-    style T2 fill:#fff8e1,stroke:#f9a825,color:#f57f17
     style T4 fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style T2 fill:#fff8e1,stroke:#f9a825,color:#f57f17
 ```
 
-**넷은 실행 주체가 다르다.** `T4` 만 앱 프로세스 밖(시스템 데몬)에서 계속되고, 나머지는 앱 프로세스가 살아 있어야 한다. 어느 것을 쓰는지 확정하는 것이 진단의 출발점이다.
+### 정본 노트
 
-### 💡 왜 이것을 알아야 하나요? (Context)
+- [백그라운드 모드는 런타임 요청이 아니라 Info.plist 선언이며 심사 대상이다](background/background-modes-are-declared-not-requested.md) — 모드별 실제 계약, **오디오 모드의 세 조건**.
+- [BGTaskScheduler 는 앱 시작 시점에 등록을 끝내야 하고 실행 시점은 시스템이 정한다](background/bgtaskscheduler-registration-must-happen-at-launch.md) — 세 가지 필수 조건, 핸들러의 세 의무, **디버거 강제 트리거**.
+- [beginBackgroundTask 는 짧은 유예 시간을 요청하는 것이지 실행 연장이 아니다](background/background-task-assertion-has-a-grace-period.md) — 무엇을 넣고 무엇을 넣지 않는가.
+- [silent push 는 앱을 깨우지만 전달과 실행이 보장되지 않는다](background/silent-push-wakes-the-app-with-limits.md) — `.newData` 를 정직하게 반환해야 하는 이유.
 
-- **배터리 수명**: 사용자가 가장 민감해하는 부분입니다. 백그라운드에서 CPU 를 계속 쓰면 폰이 뜨거워지고 배터리가 광탈합니다. Apple 이 백그라운드 정책을 엄격하게 잡는 이유입니다.
-- **예측 불가성**: "왜 내 앱은 백그라운드 작업이 안 돌죠?" -> 시스템이 판단하기에 사용자가 이 앱을 잘 안 쓰거나, 배터리가 부족하면 실행 기회를 주지 않기 때문입니다.
-- **Jetsam**: 메모리가 부족하면 백그라운드 앱부터 죽입니다. 작업을 하다가 갑자기 죽을 수 있음을 방어적으로 코딩해야 합니다.
+### 진단 순서
 
----
+1. **어느 메커니즘인가** 확정한다 (위 표).
+2. **선언이 있는가** — `UIBackgroundModes`, `BGTaskSchedulerPermittedIdentifiers`
+3. **등록 시점이 맞는가** — `didFinishLaunching` 안에서 `register`
+4. **디버거로 강제 트리거**해 본다 → 동작하면 **로직은 정상이고 시점 문제**다
+   ```
+   e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"..."]
+   ```
+5. 여전히 안 되면 → [05 런북](../00_foundations/diagnostic-runbooks/05-background-work-not-running.md)
 
-### 🛑 주요 백그라운드 모드 (Limits & Capabilities)
+### 시스템이 시점을 주지 않는 이유 (버그 아님)
 
-Capability 탭에서 설정하는 전통적인 방식들입니다. 엄격한 심사 대상입니다.
+- 사용자가 앱을 자주 쓰지 않음 (사용 패턴 학습)
+- 저전력 모드 / 배터리 부족
+- `설정 > 일반 > 백그라운드 앱 새로고침` 꺼짐
+- **앱 전환기에서 사용자가 강제 종료** — 대부분의 배경 깨우기가 중단된다
 
-| 모드 | 용도 | 특징 |
-|------|------|------|
-| **Audio** | 음악 재생, PiP | 계속 실행됩니다. 단, 소리가 멈추면(일시정지) 10 초 뒤 suspend 될 수 있습니다. |
-| **Location** | 내비게이션, 트래킹 | 배터리 소모가 큽니다. `allowsBackgroundLocationUpdates` 가 꺼져있으면 백그라운드 진입 시 위치 업데이트가 멈춥니다. |
-| **VoIP** | 인터넷 전화 | `PushKit` 사용. 전화가 오면 앱을 깨웁니다. 일반 푸시와 달리 **반드시** CallKit UI 를 띄워야 합니다 (악용 방지). |
-| **Remote Notification** | Silent Push | 사용자에게 알리지 않고 데이터를 갱신합니다. 시간당 전송 횟수 제한(Throttling)이 있습니다. |
+> [!IMPORTANT] 배경 실행은 최적화이지 보장이 아니다
+> "배경에서 동기화되어 있을 것"을 전제로 UI 를 만들면 안 된다. **전경 복귀 시에도 동기화하는 경로가 반드시 있어야** 한다.
 
----
+### 파일 보호 클래스와의 결합
 
-### 🆕 BGTaskScheduler (Modern Background Tasks)
-
-iOS 13+ 부터 권장되는 "예약(Schedule)" 방식입니다.
-
-"지금 당장 실행해줘"가 아니라, "**이따가 충전 중이고 와이파이 연결되면** 실행해줘"라고 시스템에 부탁하는 것입니다.
-
-#### 1. BGAppRefreshTask (짧은 작업)
-- **목적**: 사용자가 앱을 켰을 때 최신 정보를 보여주기 위함 (스냅샷 갱신).
-- **제약**: 약 30 초의 실행 시간.
-- **빈도**: 사용 패턴 머신러닝에 따라 다름. 자주 쓰는 앱일수록 자주 실행됨.
-
-#### 2. BGProcessingTask (긴 작업)
-- **목적**: 사진 백업, ML 모델 학습, DB 정리 등.
-- **조건**: 주로 배터리 충전 중(Power connected) + 화면 꺼짐(Screen off) 상태일 때 실행됩니다.
-- **시간**: 수 분 ~ 수십 분까지 가능하지만, 사용자가 폰을 다시 쓰기 시작하면 중단될 수 있습니다.
-
-#### 구현 패턴 (Best Practices)
-
-1. **Info.plist 등록**: `BGTaskSchedulerPermittedIdentifiers` 에 태스크 ID 를 추가해야 합니다.
-2. **등록 (Register)**: `application(_:didFinishLaunchingWithOptions:)` 시점에 **반드시** 등록해야 합니다. 앱이 백그라운드에서 깨어날 때, 이 등록 정보를 보고 핸들러를 찾기 때문입니다.
-
-```swift
-// UIKit (AppDelegate) 방식
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.example.db_cleanup", using: nil) { task in
-        self.handleProcessingTask(task: task as! BGProcessingTask)
-    }
-    return true
-}
-```
-
->[!TIP] **SwiftUI App Lifecycle 에서의 등록**
->SwiftUI `App` 프로토콜을 사용하는 경우, `init()` 에서 동일하게 등록합니다:
-> ```swift
-> @main struct MyApp: App {
->     init() {
->         BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.example.db_cleanup", using: nil) { task in ... }
->     }
->     var body: some Scene { WindowGroup { ContentView() } }
-> }
-> ```
-
-```swift
-func scheduleProcessing() {
-
-    let request = BGProcessingTaskRequest(identifier: "com.example.db_cleanup")
-
-    request.requiresNetworkConnectivity = false
-
-    request.requiresExternalPower = true // 충전 중에만
-
-    
-    do {
-        try BGTaskScheduler.shared.submit(request)
-    } catch {
-        print("스케줄링 실패: \(error)") // 주로 10개 제한 초과 시 발생
-    }
-
-}
-
-func handleProcessingTask(task: BGProcessingTask) {
-
-    // 1. 만료 핸들러: 시스템이 "이제 그만 해"라고 할 때 호출됨
-
-    task.expirationHandler = {
-
-        // 하던 저장 작업 취소 및 정리
-
-    }
-
-    
-    // 2. 작업 수행
-    heavyJob.run { success in
-        // 3. 완료 보고
-        task.setTaskCompleted(success: success)
-    }
-
-}
-
-```
-
----
-
-### 🧠 Debugging Strategies
-
-시뮬레이터나 실기기나 백그라운드 작업은 "언제 실행될지 모른다"는 게 문제입니다. 디버그를 위해 강제로 실행해야 합니다.
-
-1. 앱 실행 후 홈 화면으로 이동(백그라운드 진입).
-2. Xcode 디버거 일시 정지(Pause).
-3. 콘솔에 명령어 입력:
-   `e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"com.example.db_cleanup"]`
-4. 디버거 재개(Resume) -> 즉시 태스크 실행됨.
+배경 작업이 파일을 쓴다면 기기가 잠긴 상태일 수 있다. 목적지의 [Data Protection 클래스](../01_system_internals/storage/data-protection-classes.md)가 `complete` 면 쓰기가 실패한다. `completeUntilFirstUserAuthentication` 이상이어야 한다.
 
 ### 관찰 가능한 증거
 
-**디버거로 강제 실행** — 시점 문제와 로직 문제를 분리하는 가장 빠른 방법이다.
-
-```
-# 앱을 실행 → 배경으로 보낸 뒤 Xcode 디버거 콘솔에서:
-e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"com.example.refresh"]
-```
-
-여기서 실행되면 **로직은 정상이고 시스템이 시점을 안 준 것**이다. 실행되지 않으면 등록/식별자 문제다.
-
 ```bash
-log stream --device --predicate 'process == "runningboardd"' --info
 log stream --device --predicate 'subsystem == "com.apple.duetactivityscheduler"' --info
+log stream --device --predicate 'process == "runningboardd"' --info
 ```
 
-**MetricKit 의 `MXBackgroundTimeMetric`** 으로 실사용자 기기에서 실제로 받은 백그라운드 시간을 집계한다.
+```swift
+BGTaskScheduler.shared.getPendingTaskRequests { print("대기:", $0.map(\.identifier)) }
+print(UIApplication.shared.backgroundTimeRemaining)
+```
 
-> [!IMPORTANT] 백그라운드 실행은 최적화이지 보장이 아니다
-> 사용 빈도, 저전력 모드, 배터리, 설정의 백그라운드 앱 새로고침, 사용자 강제 종료가 모두 실행 여부에 영향을 준다. 전경 복귀 시에도 동기화하는 경로가 반드시 있어야 한다.
+**MetricKit 의 `MXBackgroundTimeMetric`** 으로 실사용자 기기에서 실제 받은 배경 시간을 본다.
 
-### 더 보기
-- [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - 앱이 백그라운드로 가는 시점
-- [apple-networking-and-cloud](../03_data_networking/apple-networking-and-cloud.md) - Background URLSession 과의 차이 (파일 다운로드는 URLSession 이 더 유리함)
-- [RunningBoard assertion 이 프로세스의 실행 지속 여부를 결정한다](../01_system_internals/ipc-and-process/runningboard-assertions.md) - 백그라운드 작업이 실행되지 못하는 이유
+### 연관 문서
+
+- [RunningBoard assertion 이 프로세스의 실행 지속 여부를 결정한다](../01_system_internals/ipc-and-process/runningboard-assertions.md) - 시스템이 판정하는 원리
 - [백그라운드 전송은 앱이 아니라 시스템 데몬이 이어서 수행한다](../01_system_internals/connectivity/background-transfer-daemon.md)
+- [apple-push-notifications-apns](apple-push-notifications-apns.md)
+- [05-background-work-not-running](../00_foundations/diagnostic-runbooks/05-background-work-not-running.md)
 
 공식 문서: [BackgroundTasks](https://developer.apple.com/documentation/backgroundtasks)

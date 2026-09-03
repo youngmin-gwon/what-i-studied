@@ -1,8 +1,17 @@
 ---
 title: actor-reentrancy-breaks-invariants
-tags: [actor, apple, apple/concurrency, apple/language, reentrancy, swift]
-aliases: ["Actor Reentrancy", "actor 재진입성은 await 경계에서 불변식을 깬다", "액터 재진입성"]
-date modified: 2026-09-03 14:34:42 +09:00
+tags:
+  - actor
+  - apple
+  - apple/concurrency
+  - apple/language
+  - reentrancy
+  - swift
+aliases:
+  - Actor Reentrancy
+  - actor 재진입성은 await 경계에서 불변식을 깬다
+  - 액터 재진입성
+date modified: 2026-09-03 15:48:53 +09:00
 date created: 2026-09-03 00:00:00 +09:00
 ---
 

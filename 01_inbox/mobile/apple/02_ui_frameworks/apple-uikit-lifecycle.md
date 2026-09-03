@@ -1,279 +1,100 @@
 ---
 title: apple-uikit-lifecycle
-tags: [apple, apple/ui, internals, ios, lifecycle, optimization, uikit]
-aliases: ["UIKit Lifecycle", "UIViewController 생명주기"]
-date modified: 2026-08-10 00:00:00 +09:00
-date created: 2025-12-16 17:01:32 +09:00
+tags: [apple, apple/ui, apple/ui/uikit, internals, lifecycle, moc, uikit]
+aliases: ["UIKit 은 오래 사는 객체를 명령형으로 조작하고 갱신을 다음 주기까지 미룬다", "UIKit Lifecycle", "UIViewController 생명주기"]
+date modified: 2026-09-03 00:00:00 +09:00
+date created: 2026-04-04 00:00:00 +09:00
 ---
 
-## UIKit Lifecycle & Internals
+## UIKit 은 오래 사는 객체를 명령형으로 조작하고 갱신을 다음 주기까지 미룬다
 
-iOS 앱 개발의 알파이자 오메가인 **UIKit**의 생명주기(Lifecycle)와 렌더링 시스템(Rendering System)을 해부합니다.
+UIKit 의 비용 모델은 [SwiftUI 와 정확히 반대](apple-swiftui-deep-dive.md)다. 뷰는 **오래 사는 객체**라 생성이 비싸고 속성 변경은 싸다. 대신 그 변경이 **즉시 반영되지 않고 다음 갱신 주기까지 미뤄진다.**
 
-단순히 `viewDidLoad` 에 코드를 때려 박는 것을 넘어, **"뷰가 언제 메모리에 올라오고, 언제 레이아웃이 잡히며, 언제 그려지는지"**를 정확히 알게 됩니다.
-
-### 💡 왜 이것을 알아야 하나요? (Why it matters)
-
-- **레이아웃 버그**: "뷰 크기가 왜 0 으로 나오죠?" → 아직 `Layout Pass` 가 돌지 않은 시점(`viewDidLoad`)에서 프레임을 참조했기 때문입니다.
-- **성능 최적화**: "스크롤이 버벅거려요" → `Offscreen Rendering` 이나 과도한 `Layout Constraint Update` 가 원인일 수 있습니다.
-- **예측 가능성**: 뷰가 사라질 때 타이머를 끄거나(`viewDidDisappear`), 화면 회전 시 레이아웃을 고치는(`viewWillLayoutSubviews`) 정확한 타이밍을 알아야 버그 없는 앱을 만들 수 있습니다.
-
----
-
-### 📚 외부 리소스 및 참고 자료
-
-#### 공식 문서 (Official Docs)
-
-- [UIViewController - Apple Developer](https://developer.apple.com/documentation/uikit/uiviewcontroller)
-- [View Controller Programming Guide](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS)
-- [Auto Layout Guide](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG)
-- [UIView - Apple Developer](https://developer.apple.com/documentation/uikit/uiview)
-
-#### 🎥 WWDC 세션
-
-- [WWDC 2018: UIKit: Apps for Every Size and Shape](https://developer.apple.com/videos/play/wwdc2018/235)
-- [WWDC 2015: Mysteries of Auto Layout, Part 1](https://developer.apple.com/videos/play/wwdc2015/218)
-
----
-
-### UIViewController 생명주기 심화
-
-단순한 메서드 순서를 넘어, 각 단계에서 시스템이 실제로 수행하는 작업과 주의할 점을 다룹니다.
-
-```swift
-class MyViewController: UIViewController {
-    
-    // 1. 초기화 (Initialization)
-    // 스토리보드/NIB 사용 시 init(coder:)가 호출됩니다. 
-    // 이때는 아직 View가 생성되지 않았으므로 View 접근 시도 시 무한 루프나 nil 참조가 발생할 수 있습니다.
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        print("init")
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        print("init from storyboard")
-    }
-    
-    // 2. View 로딩 (Loading)
-    // view 프로퍼티가 nil일 때 접근하면 호출됩니다.
-    // 커스텀 View 계층을 코드로 "처음부터" 만들 때만 override 합니다.
-    // super.loadView()는 호출하지 않습니다 (빈 뷰를 생성함).
-    override func loadView() {
-        // self.view = MyCustomView() 
-        super.loadView() 
-        print("loadView - View 계층 생성")
-    }
-    
-    // 3. View 로드 완료 (View Loaded)
-    // View 계층이 메모리에 올라온 직후입니다.
-    // 하지만 아직 Window에 추가되지 않았고, 정확한 Frame 크기가 결정되지 않았을 수 있습니다 (Autolayout 이전).
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("viewDidLoad - 한 번만 호출")
-        setupUI()
-        setupConstraints() // 제약조건 설정은 여기서
-    }
-    
-    // 4. View 나타나기 직전 (Appearance Transition Start)
-    // 뷰 계층에 추가되기 직전입니다.
-    // 네비게이션 바 숨김 처리나, 애니메이션 준비 등을 수행합니다.
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewWillAppear")
-        // 데이터 리프레시 트리거
-    }
-    
-    // 5. Layout 결정 (Layout Pass)
-    // 뷰의 Bounds가 변경될 때마다 호출됩니다 (회전, 크기 조정 등).
-    // Subview들의 Frame을 수동으로 조정해야 한다면 이곳이 마지막 기회입니다.
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        print("viewWillLayoutSubviews")
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        print("viewDidLayoutSubviews - Frame 확정됨")
-        // 그라데이션 레이어 크기 업데이트 등 Frame 의존 로직
-    }
-
-    // 🆕 iOS 17+: viewIsAppearing
-    // viewWillAppear와 viewDidAppear 사이.
-    // View가 계층에 추가되었고 Layout도 완료된 상태.
-    // Frame에 의존적인 UI 업데이트를 하기에 가장 적절한 시점 (viewDidAppear보다 빠름).
-    /* 
-    override func viewIsAppearing(_ animated: Bool) {
-        super.viewIsAppearing(animated)
-        // Update UI based on final geometry
-    } 
-    */
-    
-    // 6. View 나타남 완료 (Appearance Transition End)
-    // 화면에 완전히 표시된 후입니다.
-    // 애니메이션 시작, 비디오 재생, 로그 수집 등을 수행합니다.
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear")
-    }
-    
-    // ... Disappear 메서드들은 대칭적으로 동작합니다.
-}
-```
-
----
-
-### 🔍 내부 동작 원리 (Deep Dive)
-
-#### 1. NIB/Storyboard 로딩 메커니즘
-
-`viewDidLoad` 가 호출되기 전, 시스템은 어떻게 NIB 파일을 로드할까요?
-
-1. **Bundle Lookup**: `Bundle.main.path(forResource:…)` 를 통해 NIB 바이너리를 찾습니다.
-2. **Unarchiving**: NIB 는 `NSKeyedArchiver` 로 직렬화된 객체 그래프입니다. `NSCoder` 를 통해 객체들이 메모리로 역직렬화(Deserialize)됩니다.
-3. **Initialization**: 각 객체의 `init(coder:)` 가 호출됩니다.
-4. **Connections**: Outlet 과 Action (`@IBOutlet`, `@IBAction`) 연결이 `setValue(_:forKey:)` (KVC)를 통해 수행됩니다.
-5. **Awake**: 모든 연결이 완료되면 `awakeFromNib()` 이 호출됩니다.
-
-#### 2. Auto Layout 엔진 (Cassowary Algorithm)
-
-Auto Layout 은 단순한 박스 모델이 아니라, **선형 방정식 해결 시스템**입니다.
-
-- **Constraint Solving**: `y = mx + b` 형태의 부등식/등식 집합을 풉니다.
-- **Simplex Algorithm**: 내부적으로 최적화 문제를 푸는 Simplex 알고리즘의 변형을 사용합니다.
-- **Cost**: 제약 조건이 n 개일 때 최악의 경우 O(n^3)까지 갈 수 있으나, 일반적으로는 선형에 가깝게 최적화되어 있습니다. 하지만 뷰 계층이 깊고 제약 조건이 복잡하면 메인 스레드 병목의 원인이 됩니다.
-
----
-
-### View 렌더링 사이클 (The Render Loop)
-
-iOS 는 `Run Loop` 의 한 사이클마다 **Layout -> Display -> Commit** 단계를 거칩니다.
-
-1. **Constraints Check**: 제약 조건 변경 사항 확인 (`setNeedsUpdateConstraints`) -> `updateConstraints()`
-2. **Layout Pass**: 프레임 계산 (`setNeedsLayout`) -> `layoutSubviews()`
-3. **Display Pass**: 실제 그리기 (`setNeedsDisplay`) -> `draw(_:)` (CPU 드로잉 시)
-4. **Commit**: 렌더링 트리(Render Tree)를 렌더 서버(Render Server)로 전송 (GPU 합성)
-
-#### 렌더 루프의 단계별 흐름
+이 두 가지 — **객체 수명**과 **지연된 갱신** — 이 UIKit 실무 문제의 대부분을 설명한다.
 
 ```mermaid
-stateDiagram-v2
-    [*] --> UpdateConstraints: setNeedsUpdateConstraints()
-    UpdateConstraints --> Layout: updateConstraints() called
-    Layout --> Display: setNeedsLayout() ➜ layoutSubviews()
-    Display --> Prepare: setNeedsDisplay() ➜ draw() or CALayer
-    Prepare --> Commit: Render tree ready
-    Commit --> [*]: GPU compositing ➜ Screen render
-    
-    note right of UpdateConstraints
-        Constraint 변경 사항 확인
-    end note
-    
-    note right of Layout
-        Frame 계산 및 적용
-    end note
-    
-    note right of Display
-        CPU/GPU 드로잉
-    end note
-    
-    note right of Commit
-        Render Server에 전송
-    end note
+flowchart TD
+    I["ViewController 생성"] --> LZ["view 첫 접근 → loadView → viewDidLoad"]
+    LZ --> AP["viewWillAppear → viewIsAppearing → viewDidAppear"]
+    AP --> CH["속성/제약 변경"]
+    CH --> DF["setNeedsLayout: 더티 표시만"]
+    DF --> RL["RunLoop 종료 직전"]
+    RL --> LS["layoutSubviews (합쳐서 1회)"]
+    LS --> CT["CATransaction commit → Render Server"]
+
+    T["터치"] --> HT["hitTest 하강 → 대상 확정"]
+    HT --> RC["처리 못 하면 responder chain 상승"]
+
+    style DF fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style LS fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
 ```
 
-```swift
-class CustomView: UIView {
-    
-    // 1. 레이아웃 필요 표시
-    // "다음 런루프 때 레이아웃 좀 다시 해줘" 라고 예약하는 것. 매우 가벼운 연산.
-    func setNeedsLayout() {
-        super.setNeedsLayout()
-    }
-    
-    // 2. 즉시 레이아웃
-    // 예약된 레이아웃 작업이 있다면 "지금 당장" 실행.
-    // 애니메이션 블록 안에서 변경된 constraint를 즉시 프레임에 반영할 때 필수적.
-    func layoutIfNeeded() {
-        super.layoutIfNeeded()
-    }
-    
-    // 3. 레이아웃 수행 (Override Point)
-    // 여기서 frame을 직접 수정하면 다음 런루프에 다시 layoutSubviews가 호출되어 무한루프 가능성 있음. 주의!
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // 서브뷰 위치/크기 조정
-        print("layoutSubviews - frame: \(frame)")
-    }
-}
+### 정본 노트
+
+**생명주기**
+
+- [ViewController 생명주기는 view 프로퍼티의 지연 로딩이 시작점이다](uikit/viewcontroller-lifecycle-is-driven-by-view-loading.md) — 단계별 계약과 `viewIsAppearing`(iOS 17+)이 해결한 문제.
+
+**레이아웃**
+
+- [레이아웃은 지연되고 합쳐진다](uikit/layout-cycle-is-deferred-and-coalesced.md) — **제약 애니메이션이 안 되는 이유**와 `layoutIfNeeded` 의 정확한 위치.
+- [Auto Layout 은 우선순위가 붙은 제약 시스템을 풀어 프레임을 정한다](uikit/autolayout-solves-a-constraint-system.md) — unsatisfiable 과 ambiguous 의 구분, Hugging vs Compression Resistance.
+
+**이벤트**
+
+- [터치는 hit-test 로 내려가 대상을 찾고 이벤트는 responder chain 을 타고 올라간다](uikit/responder-chain-routes-events-upward.md) — **"터치가 안 먹는" 네 가지 원인.**
+
+**컬렉션**
+
+- [셀 재사용은 이전 상태를 그대로 물려주므로 모든 상태를 명시적으로 되돌려야 한다](uikit/cell-reuse-requires-full-state-reset.md) — 비동기 이미지 경쟁 조건과 두 가지 해법.
+
+**상호 운용**
+
+- [UIKit 과 SwiftUI 상호 운용은 서로 다른 두 수명 모델을 잇는 일이다](uikit/uikit-swiftui-interop-bridges-two-lifetimes.md) — Coordinator 가 필요한 이유, `updateUIView` 무한 루프 방지.
+
+### 증상에서 시작하기
+
+| 증상 | 어느 노트로 |
+| :--- | :--- |
+| 제약을 바꿨는데 애니메이션이 안 된다 | [레이아웃 사이클](uikit/layout-cycle-is-deferred-and-coalesced.md) |
+| 제약을 바꾼 직후 frame 이 이전 값이다 | [레이아웃 사이클](uikit/layout-cycle-is-deferred-and-coalesced.md) |
+| 콘솔에 제약 충돌 로그가 쏟아진다 | [Auto Layout](uikit/autolayout-solves-a-constraint-system.md) |
+| 경고는 없는데 위치가 이상하다 | [Auto Layout](uikit/autolayout-solves-a-constraint-system.md) (ambiguous) |
+| 버튼이 눌리지 않는다 | [responder chain](uikit/responder-chain-routes-events-upward.md) |
+| 스크롤하면 엉뚱한 이미지가 뜬다 | [셀 재사용](uikit/cell-reuse-requires-full-state-reset.md) |
+| 자식 화면이 데이터를 갱신하지 않는다 | [생명주기](uikit/viewcontroller-lifecycle-is-driven-by-view-loading.md) (컨테이너 3단계 누락) |
+| `updateUIView` 가 무한히 호출된다 | [상호 운용](uikit/uikit-swiftui-interop-bridges-two-lifetimes.md) |
+| 스크롤이 끊긴다 | [07 런북](../00_foundations/diagnostic-runbooks/07-scroll-hitches.md) |
+
+### 진단 도구
+
+```
+Debug > View Debugging > Capture View Hierarchy
+  → 실제 프레임, User Interaction Enabled, 적용된 제약
+
+Breakpoint Navigator > Symbolic Breakpoint
+  → UIViewAlertForUnsatisfiableConstraints  (제약 충돌 지점에서 정지)
+
+디버거 콘솔
+  po view.hasAmbiguousLayout
+  po view.value(forKey: "_autolayoutTrace")
+  po UIApplication.shared.keyWindow?.recursiveDescription()
 ```
 
----
+### UIKit 을 계속 쓰는 이유
 
-### 🛡️ 실무 패턴 및 최적화 (Advanced Patterns)
+새 코드는 SwiftUI 로 가더라도, 다음은 여전히 UIKit 이 강하다.
 
-#### 1. View Controller Containment (컨테이너 패턴)
+- **복잡한 컬렉션 레이아웃**: `UICollectionViewCompositionalLayout`
+- **정밀한 스크롤 제어**: 관성, 페이징, 중첩 스크롤
+- **텍스트 편집 심화**: `TextKit 2`
+- **기존 코드베이스**: 점진적 전환에는 [상호 운용](uikit/uikit-swiftui-interop-bridges-two-lifetimes.md)이 필수
 
-비대한 ViewController(Fat VC)를 막기 위해 화면을 레고 블록처럼 쪼개 관리합니다.
+### 연관 문서
 
-**올바른 자식 VC 추가 순서:**
+- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 반대편 비용 모델
+- [apple-app-lifecycle-and-ui](apple-app-lifecycle-and-ui.md) - Scene 기반 앱 구조
+- [apple-graphics-and-media](../01_system_internals/graphics-and-media/apple-graphics-and-media.md) - commit 이후의 합성
+- [메인 스레드의 이벤트 처리와 화면 갱신은 RunLoop 한 바퀴 안에서 정해진 순서로 일어난다](../01_system_internals/boot-and-runtime/runloop-drives-main-thread.md)
 
-```swift
-func add(childVC: UIViewController) {
-    // 1. 부모-자식 관계 수립
-    addChild(childVC) 
-    
-    // 2. View 계층 추가
-    view.addSubview(childVC.view)
-    
-    // 3. Layout 설정
-    childVC.view.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-        // ... Constraints
-    ])
-    
-    // 4. 완료 알림
-    childVC.didMove(toParent: self)
-}
-
-func remove(childVC: UIViewController) {
-    // 1. 제거 시작 알림
-    childVC.willMove(toParent: nil)
-    
-    // 2. View 제거
-    childVC.view.removeFromSuperview()
-    
-    // 3. 관계 해제
-    childVC.removeFromParent()
-}
-```
-
-#### 2. 메모리 효율적인 이미지 로딩 (Optimized Image Loading)
-
-`UIImage(named:)` 는 캐싱을 하지만, 대용량 이미지를 그대로 로드하면 메모리 스파이크가 발생합니다. `ImageIO` 를 사용해 필요한 크기만큼만 다운샘플링하는 것이 좋습니다.
-
-```swift
-func loadDownsampledImage(at url: URL, for size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage? {
-    let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-    guard let imageSource = CGImageSourceCreateWithURL(url as CFURL, imageSourceOptions) else { return nil }
-    
-    let maxDimensionInPixels = max(size.width, size.height) * scale
-    
-    let downsampleOptions = [
-        kCGImageSourceCreateThumbnailFromImageAlways: true,
-        kCGImageSourceShouldCacheImmediately: true, // 디코딩을 백그라운드에서 수행
-        kCGImageSourceCreateThumbnailWithTransform: true,
-        kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
-    ] as CFDictionary
-    
-    guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions) else { return nil }
-    
-    return UIImage(cgImage: downsampledImage)
-}
-```
-
-### 더 보기
-
-- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 선언형 UI 의 생명주기
-- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC 와 메모리 관리
+공식 문서: [UIKit](https://developer.apple.com/documentation/uikit) · [UIViewController](https://developer.apple.com/documentation/uikit/uiviewcontroller)

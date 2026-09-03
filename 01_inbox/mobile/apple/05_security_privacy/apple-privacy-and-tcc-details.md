@@ -83,4 +83,4 @@ log stream --predicate 'subsystem == "com.apple.TCC"' --info
 - [apple-app-tracking-privacy](apple-app-tracking-privacy.md) - ATT 와 IDFA
 - [apple-system-services](../04_system_services/apple-system-services.md) - TCC 를 집행하는 시스템 데몬
 - [apple-distribution-and-policies](../08_packaging_deployment/apple-distribution-and-policies.md) - 심사 정책과 반려 사유
-- [apple-accessibility-and-internationalization](../02_ui_frameworks/apple-accessibility-and-internationalization.md)
+- [apple-accessibility](../02_ui_frameworks/apple-accessibility.md)

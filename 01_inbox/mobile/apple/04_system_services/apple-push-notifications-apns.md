@@ -1,88 +1,93 @@
 ---
 title: apple-push-notifications-apns
-tags: [apns, apple, apple/services, ios, notifications, push]
-aliases: ["APNs", "Push Notifications", "Remote Notifications"]
-date modified: 2026-08-10 00:00:00 +09:00
-date created: 2026-04-04 00:33:00 +09:00
+tags: [apns, apple, apple/services, apple/services/notifications, moc, notifications, push]
+aliases: ["푸시는 토큰·타입·권한·확장 네 지점 중 어디서 끊겼는지를 먼저 나눠야 한다", "APNs", "Push Notifications", "푸시 알림"]
+date modified: 2026-09-03 00:00:00 +09:00
+date created: 2026-04-04 00:00:00 +09:00
 ---
 
-## Apple Push Notifications (APNs)
+## 푸시는 토큰·타입·권한·확장 네 지점 중 어디서 끊겼는지를 먼저 나눠야 한다
 
-애플의 원격 알림 표준은 **Apple Push Notification service (APNs)** 이다. 애플은 보안과 개인정보 보호를 위해 앱의 푸시 기능을 철저히 통제하며, HTTP/2 기반의 고성능 전송 엔진을 통해 전 세계 수십억 대의 기기에 알림을 전달한다.
+"푸시가 안 온다"는 서로 다른 네 가지 실패의 공통 증상이다. 각각 확인 방법과 처방이 다르므로, **어디까지 갔는지 확정하는 것**이 진단의 전부다.
 
->[!NOTE] **Android 비교: FCM vs APNs**
-> - **Android**: `FCM` (Firebase Cloud Messaging)을 사용하며, 데이터 전용(Data-only) 메시지로 백그라운드 조작을 비교적 자유롭게 할 수 있다.
-> - **iOS**: `APNs` 를 사용한다. 애플은 푸시 알림을 단순한 '알림'뿐만 아니라 **배경 작업 수행(Silent Push)** 및 **실시간 현황 업데이트(Live Activity)**의 핵심 트리거로 활용한다.
->자세한 내용은 [**android-push-notifications-fcm**](../../android/04_system_services/background-and-notifications/notification-messaging.md) 를 참고하세요.
+```mermaid
+flowchart LR
+    A["1. 권한<br/>authorizationStatus"] --> B["2. 토큰<br/>기기·번들·환경"]
+    B --> C["3. 서버 → APNs<br/>타입·우선순위·토픽"]
+    C --> D["4. APNs → 기기"]
+    D --> E["5. Service Extension<br/>제한 시간"]
+    E --> F["6. 표시<br/>집중 모드·중요도"]
 
-### 1. APNs 아키텍처 및 인증
+    style B fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style E fill:#fff8e1,stroke:#f9a825,color:#f57f17
+```
 
-애플의 푸시를 보내려면 서버 인증 단계가 필요하다.
+### 정본 노트
 
-- **Certificate-based (.p12):** 이전 방식. 인증서가 만료되면 갱신해야 하는 번거로움이 있다.
-- **Token-based (.p8):** 권장 방식. 하나의 키(`AuthKey`)로 여러 앱에 푸시를 보낼 수 있으며 만료되지 않는다.
+- [APNs 토큰은 기기·번들·환경 세 가지에 묶이며 하나만 어긋나도 실패한다](notifications/apns-token-is-bound-to-environment-and-bundle.md) — **`BadDeviceToken` 의 진짜 원인**, 토큰이 바뀌는 시점, 서버가 처리해야 할 응답.
+- [푸시 타입이 전달 우선순위와 허용되는 동작을 결정한다](notifications/push-types-determine-delivery-behavior.md) — 타입별 topic 접미사, `apns-expiration` 과 `apns-collapse-id`.
+- [알림 권한에는 단계가 있고 중요도는 그와 별개의 축이다](notifications/notification-authorization-has-levels.md) — `.provisional` 로 거부율 낮추기, 집중 모드와 `interruptionLevel`.
+- [Notification Service Extension 은 제한 시간 안에 끝나야 한다](notifications/service-extension-runs-in-a-time-box.md) — **`bestAttempt` 패턴**, 메모리 한도.
 
-### 2. Push Notification 타입
+### 증상에서 시작하기
 
-#### 1. Alert (Standard Push)
+| 증상 | 어느 노트로 |
+| :--- | :--- |
+| 개발에서는 오는데 TestFlight 에서 안 온다 | [토큰과 환경](notifications/apns-token-is-bound-to-environment-and-bundle.md) |
+| `BadDeviceToken` 응답 | [토큰과 환경](notifications/apns-token-is-bound-to-environment-and-bundle.md) |
+| Live Activity / VoIP 푸시가 안 온다 | [푸시 타입](notifications/push-types-determine-delivery-behavior.md) (topic 접미사) |
+| 오래된 알림이 뒤늦게 온다 | [푸시 타입](notifications/push-types-determine-delivery-behavior.md) (`apns-expiration`) |
+| 같은 알림이 여러 개 쌓인다 | [푸시 타입](notifications/push-types-determine-delivery-behavior.md) (`apns-collapse-id`) |
+| 권한은 있는데 조용히 묻힌다 | [권한과 중요도](notifications/notification-authorization-has-levels.md) (집중 모드) |
+| 알림 내용이 서버가 보낸 것과 다르다 | [Service Extension](notifications/service-extension-runs-in-a-time-box.md) (시간 초과) |
+| 앱만 조용히 깨우고 싶다 | [silent push](background/silent-push-wakes-the-app-with-limits.md) |
 
-사용자에게 알림창을 띄우는 일반적인 푸시. 제목, 본문, 소리를 포함한다.
+### 첫 번째로 할 일 — 직접 보내 본다
 
-#### 2. Silent Push (Background Update)
+원인을 좁히는 가장 빠른 방법은 서버를 거치지 않고 APNs 에 직접 보내 `reason` 을 보는 것이다.
 
-사용자에게 알리지 않고 앱을 백그라운드에서 깨워 데이터를 업데이트한다.
+```bash
+curl -v --http2 \
+  --header "apns-topic: com.example.app" \
+  --header "apns-push-type: alert" \
+  --header "apns-priority: 10" \
+  --header "authorization: bearer $JWT" \
+  --data '{"aps":{"alert":{"title":"제목","body":"본문"},"sound":"default"}}' \
+  https://api.sandbox.push.apple.com/3/device/$TOKEN
+```
 
-- **Payload**: `"content-available": 1` 포함
-- **제약**: 시스템에 의해 전달이 보장되지 않으며(Best-effort), 너무 자주 보내면 쓰로틀링(Throttling)에 걸려 무시된다.
+| reason | 원인 |
+| :--- | :--- |
+| `BadDeviceToken` | 토큰-환경 불일치 |
+| `Unregistered` | 앱 삭제/토큰 만료 → 서버에서 제거 |
+| `BadTopic` | topic 이 번들 ID 와 불일치 |
+| `PayloadTooLarge` | 4KB 초과 |
+| `ExpiredProviderToken` | JWT 재발급 |
+| 200 인데 안 옴 | 기기 측 문제 → 권한·집중 모드·확장 |
 
-#### 3. Live Activity Push (iOS 16+)
+### 탭 처리는 딥링크와 같은 문제다
 
-동적으로 변화하는 정보를 실시간으로 갱신한다. (예: 축구 점수, 배달 기사 위치)
-
-- **Token**: 액티비티 시작 시 발급받은 `pushToken` 을 사용한다.
-- **iOS 18+**: 대규모 실시간 업데이트를 위한 **Broadcast Push**를 지원한다.
-
----
-
-### 🏛️ Notification Service Extension
-
-알림을 사용자에게 보여주기 직전에 컨텐츠를 가공할 수 있는 별도의 프로세스(App Extension)이다.
-
-- **기능**: 이미지/영상 첨부, 복호화(End-to-End Encryption 대응), 알림 텍스트 동적 수정.
-- **제약**: 실행 시간이 매우 짧으며 (약 30 초), 메모리 사용량이 극도로 제한된다.
-
->[!TIP] **Devil's Advocate : Silent Push 에 의존하지 마라**
->Silent Push 는 사용자의 배터리와 데이터 보호를 위해 시스템이 언제든지 지연시키거나 버릴 수 있다. 중요한 데이터 동기화는 앱이 켜질 때 직접 요청하는 방식을 병행하라.
+앱이 **종료 상태에서 알림을 탭한 경우**를 반드시 구현한다. 초기화가 끝나기 전에 라우팅이 도착하면 보류 큐에 넣었다 실행한다. → [진입 경로](../02_ui_frameworks/scene/launch-paths-differ-by-entry-point.md)
 
 ### 관찰 가능한 증거
 
 ```bash
-# APNs 에 직접 보내 reason 을 확인한다 (가장 빠른 진단)
-curl -v --http2 \
-  --header "apns-topic: com.example.app" \
-  --header "apns-push-type: alert" \
-  --header "authorization: bearer $JWT" \
-  --data '{"aps":{"alert":"test"}}' \
-  https://api.sandbox.push.apple.com/3/device/$TOKEN
-# 프로덕션: https://api.push.apple.com
-
-# 기기 측 푸시 데몬 로그
 log stream --device --predicate 'process == "apsd"' --info
+xcrun simctl push booted com.example.app payload.apns
+codesign -d --entitlements :- MyApp.app | grep aps-environment
 ```
 
-| reason | 의미 |
-| :--- | :--- |
-| `BadDeviceToken` | **토큰과 환경 불일치** (개발 토큰을 프로덕션에 보냄) 또는 잘못된 토큰 |
-| `Unregistered` | 앱 삭제/토큰 만료 → 서버에서 제거 |
-| `BadTopic` | `apns-topic` 이 번들 ID 와 불일치 |
-| `PayloadTooLarge` | payload 크기 초과 |
+```swift
+func application(_:didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    log("APNs 등록 실패: \(error)")   // 비워 두면 원인을 알 수 없다
+}
+```
 
-**개발 빌드 토큰은 sandbox 에서만, TestFlight/App Store 빌드 토큰은 프로덕션에서만** 유효하다. 서버는 토큰과 함께 환경을 저장해야 한다.
+### 연관 문서
 
-### 더 보기
+- [apple-background-tasks](apple-background-tasks.md) - silent push 와 배경 실행
+- [04-apns-to-notification-display-and-tap](../00_foundations/worked-examples/04-apns-to-notification-display-and-tap.md) - 전체 경로 추적
+- [06-push-notification-missing](../00_foundations/diagnostic-runbooks/06-push-notification-missing.md) - 진단 런북
+- [Live Activity 는 로컬과 푸시 두 경로로 갱신된다](../02_ui_frameworks/widgets/live-activity-updates-via-push-or-local.md)
 
-- [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱의 상태와 알림 처리
-- [apple-background-tasks](apple-background-tasks.md) - 백그라운드 작업과 푸시의 결합
-- [apple-widgets-live-activities](../02_ui_frameworks/apple-widgets-live-activities.md) - 위젯/실시간 현황 푸시 전략
-
-공식 문서: [Sending notification requests to APNs](https://developer.apple.com/documentation/usernotifications/sending-notification-requests-to-apns)
+공식 문서: [User Notifications](https://developer.apple.com/documentation/usernotifications) · [Sending notification requests to APNs](https://developer.apple.com/documentation/usernotifications/sending-notification-requests-to-apns)

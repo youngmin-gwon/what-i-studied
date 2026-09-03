@@ -579,6 +579,6 @@ visionOS는 **공간 맵, 사용자 시선, 손 위치** 등 민감한 정보를
 
 ### 관련 링크
 
-[apple-visionos-system](../apple-visionos-system.md), [apple-visionos-design-patterns](apple-visionos-design-patterns.md), [apple-visionos-spatial](../apple-visionos-system.md), [apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility-and-internationalization](../../02_ui_frameworks/apple-accessibility-and-internationalization.md).
+[apple-visionos-system](../apple-visionos-system.md), [apple-visionos-design-patterns](apple-visionos-design-patterns.md), [apple-visionos-spatial](../apple-visionos-system.md), [apple-rendering-and-media](../../02_ui_frameworks/apple-rendering-and-media.md), [apple-performance-and-debug](../../06_testing_performance/apple-performance-and-debug.md), [apple-accessibility](../../02_ui_frameworks/apple-accessibility.md).
 
 공식 문서: [Creating fully immersive experiences](https://developer.apple.com/documentation/visionos/creating-fully-immersive-experiences)

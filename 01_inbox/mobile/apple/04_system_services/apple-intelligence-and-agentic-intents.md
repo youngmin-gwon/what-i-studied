@@ -1,87 +1,58 @@
 ---
 title: apple-intelligence-and-agentic-intents
-tags: [app-intents, apple, apple-intelligence, apple/services, ios/26, siri]
-aliases: ["App Entities", "Apple Intelligence", "Siri Campos"]
-date modified: 2026-08-10 00:00:00 +09:00
-date created: 2026-04-04 00:33:00 +09:00
+tags: [app-intents, apple, apple-intelligence, apple/services, apple/services/intents, moc, privacy, siri]
+aliases: ["Apple Intelligence 는 앱이 노출한 intent 와 entity 위에서 동작하며 처리 위치는 시스템이 정한다", "Apple Intelligence", "Agentic Intents"]
+date modified: 2026-09-03 00:00:00 +09:00
+date created: 2026-04-04 00:00:00 +09:00
 ---
 
-## iOS 26: Apple Intelligence & Agentic Intents
+## Apple Intelligence 는 앱이 노출한 intent 와 entity 위에서 동작하며 처리 위치는 시스템이 정한다
 
-iOS 26(버전 대점프)의 출시와 함께, 애플의 생태계는 개인화된 지능형 에이전트 환경으로 완전히 전환되었다. Apple Intelligence 는 단순한 AI 비서가 아니라, 시스템 수준에서 앱의 모든 데이터(Entity)와 기능(Action)을 이해하고 실행하는 강력한 엔진이다.
+앱 개발자 관점에서 Apple Intelligence 는 **별도의 API 가 아니다.** [App Intents](apple-app-intents.md) 로 노출한 것을 시스템이 활용하는 것이며, 앱이 하는 일은 두 가지뿐이다.
 
->[!NOTE] **Android 비교: AppFunctions vs Apple Intelligence**
-> - **Android**: `AppFunctions` (Android 16+)를 통해 모델 컨텍스트 프로토콜(MCP)과 유사한 구조로 앱의 기능을 도구화한다.
-> - **iOS**: `App Intents` 프레임워크를 고도화하여 Siri 가 앱 내부의 상세 액션을 수행한다. **Private Cloud Compute (PCC)**를 통한 보안과 온디바이스 연산의 결합이 특징이다. (iOS 26+)
->자세한 내용은 [**android-appfunctions-and-ai-agents**](../../android/04_system_services/assistant-agent/appfunctions-capabilities.md) 를 참고하세요.
+1. **무엇을 노출할지 정한다** — 이것이 유일한 통제 수단이다.
+2. **인텔리전스가 없어도 동작하게 만든다** — 기기·지역·설정에 따라 사용 불가일 수 있다.
 
-### 1. Liquid Glass 디자인 언어 (iOS 26+)
+```mermaid
+flowchart TD
+    A["앱: AppIntent + AppEntity 노출"] --> S["시스템 인텔리전스"]
+    N["노출하지 않은 데이터"] -.->|"접근 불가"| S
+    S --> D{"처리 위치 — 시스템이 결정"}
+    D -->|"간단"| ON["온디바이스 모델"]
+    D -->|"큰 모델 필요"| PCC["Private Cloud Compute"]
+    PCC --> V["기기가 서버 소프트웨어를 먼저 검증"]
 
-iOS 26 의 가장 큰 시각적 변화는 **visionOS 3.0**에서 계승된 **Liquid Glass** 디자인이다.
-
-- **Translucency**: 유리 질감과 깊이감(Depth)을 강조하여 멀티태스킹 시 가독성을 높인다.
-- **Pill-shaped Bars**: 애플 워치와 비전 프로에서 검증된 알약 형태의 탭 바와 툴바가 iOS 전체의 표준이 되었다.
-
-### 2. Siri Campos (LLM & Agentic Siri)
-
-기존 Siri 는 정해진 규칙에 따라 동작했지만, iOS 26 의 **Siri Campos**는 초거대언어모델(LLM) 기반으로 사용자의 의도를 분석하고 `App Intents` 를 조합하여 실행한다.
-
-#### App Entity 와 App Intent 정의
-
-```swift
-import AppIntents
-
-struct PhotoEntity: AppEntity {
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Photo"
-    var id: String
-    var dateCreated: Date
-    // 시스템이 이 데이터의 의미를 이해하도록 메타데이터 제공
-}
-
-struct ApplyFilterIntent: AppIntent {
-    static var title: LocalizedStringResource = "필터 적용"
-
-    @Parameter(title: "필터 이름") var filterName: String
-    @Parameter(title: "대상 사진") var target: PhotoEntity
-
-    func perform() async throws -> some IntentResult {
-        // 실제 사진 편집 로직 수행
-        return .result()
-    }
-}
+    style N fill:#eceff1,stroke:#546e7a,color:#263238
+    style ON fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
 ```
 
-### 3. AI 개인정보 보호 및 보안 (AI Privacy & Security)
+### 정본 노트
 
-애플의 에이전틱 환경은 **"사용자 데이터가 애플조차 볼 수 없어야 한다"**는 무결성(Integrity) 원칙 위에 구축되었습니다.
+- [시스템 인텔리전스는 온디바이스와 클라우드 처리를 스스로 나누며 앱은 노출 범위만 통제한다](intents/system-intelligence-decides-on-device-or-cloud.md) — 통제 가능/불가 표, 노출 설계 원칙.
+- [AppEntity 는 앱의 데이터 모델을 시스템이 검색하고 참조할 수 있게 노출한다](intents/app-entity-exposes-your-model-to-the-system.md) — `displayRepresentation` 이 잠금 화면에 보인다는 점.
+- [AppIntent 는 앱이 전경에 없어도 실행된다](intents/app-intent-runs-without-the-app-in-foreground.md)
 
-#### 1) Private Cloud Compute (PCC) 아키텍처
+### 노출 판단 기준
 
-온디바이스 칩셋(Apple Silicon)만으로 처리하기 힘든 복잡한 요청은 애플의 전용 클라우드인 **PCC**로 전송됩니다.
+| 질문 | 아니라면 |
+| :--- | :--- |
+| 잠금 화면에 떠도 괜찮은가? | `displayRepresentation` 에 넣지 않는다 |
+| 사용자가 이미 화면에서 보는 것인가? | 노출을 재고한다 |
+| 제3자가 봐도 문제없는가? | 노출하지 않는다 |
+| 클라우드로 가도 되는가? | **entity 에서 제외한다** (유일한 확실한 통제) |
 
-- **Stateless Operation**: PCC 노드는 특정 요청을 처리하기 위해 데이터를 임시 로드하지만, 연산 완료 후 즉시 **휘발성 메모리(RAM)**에서 모든 흔적을 삭제합니다. (No Persistent Storage)
-- **Verifiable Transparency**: 애플은 PCC 서버의 소프트웨어 빌드를 공개하여 독립적인 보안 전문가들이 이를 분석하고 검증할 수 있도록 합니다.
+노출한 데이터 종류는 [Privacy Manifest](../05_security_privacy/apple-privacy-and-tcc-details.md) 에 반영해야 하며 심사 확인 대상이다.
 
-#### 2) 플랫폼별 보안 철학 비교
+### 가용성을 전제하지 않는다
 
-애플의 클라우드 기반 보안(PCC)과 구글의 온디바이스 중심 보안에 대한 상세 비교는 아래 문서를 참고하세요.
+Apple Intelligence 는 **기기·지역·언어·사용자 설정**에 따라 쓸 수 없을 수 있다. 인텔리전스를 전제로 핵심 흐름을 설계하면 상당수 사용자에게 앱이 동작하지 않는다.
 
->[!TIP] **상세 비교 문서**
-> - [cross-platform-ai-privacy-comparison](../../cross-platform/cross-platform-ai-privacy-comparison.md) - Apple PCC vs Gemini Nano 심층 분석
+> [!IMPORTANT] intent/entity 는 그 자체로 가치가 있다
+> 인텔리전스가 없어도 **단축어·위젯·Spotlight·Action 버튼**에서 쓰인다. 그 경로를 먼저 완성하면 인텔리전스는 부가 이득이 된다.
 
-#### 3) 에이전틱 보안 (Agentic Security) 실무
+### 신뢰 모델
 
-- **App Intents 샌드박싱**: Siri 가 앱 인텐트를 실행할 때, 해당 앱은 오직 `Intent` 수행에 필요한 최소한의 데이터만 공유받습니다.
-- **심화 보안 팁**: [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - 전문가용 RASP 및 API 보안 가이드
-
----
-
-### 🏛️ 에이전틱 시대의 사용자 경험
-
-사용자는 이제 "앱 간의 경계"를 느끼지 않고 시리에게 통합된 명령을 내린다. (예: "지난주에 찍은 제주도 사진들 중에서 제일 예쁜 거 하나 골라서 이번 주 금요일 미팅 일정에 첨부해 줘.")
-
->[!IMPORTANT] **Apple 개발자를 위한 제언 : App Intent 는 이제 선택이 아닌 필수다**
->iOS 26 환경에서 `App Intents` 와 `App Entities` 를 지원하지 않는 앱은 시스템 지능 시스템으로부터 고립된다. 앱의 UI 보다 시스템이 내 앱의 데이터를 얼마나 잘 이해하는지(**Semantic Data Modeling**)가 앱의 점유율을 결정하게 될 것이다.
+PCC 는 "데이터를 저장하지 않는다"는 약속을 **검증 가능하게** 만든 구조다. 기기가 서버 소프트웨어 이미지를 공개 로그와 대조한 뒤에만 전송한다. 상세는 [apple-security-pcc](../05_security_privacy/apple-security-pcc.md) 에 있다.
 
 ### 관찰 가능한 증거
 
@@ -89,23 +60,23 @@ struct ApplyFilterIntent: AppIntent {
 log stream --device --predicate 'subsystem == "com.apple.AppIntents"' --info
 ```
 
-**앱 개발자가 통제할 수 있는 것과 없는 것을 구분한다.**
+**검증**: 인텔리전스가 활성화된 실기기와 비활성 기기 양쪽에서 앱의 핵심 흐름이 동작하는지 확인한다.
 
-| 통제 가능 | 통제 불가 |
-| :--- | :--- |
-| 어떤 엔티티·액션을 노출할지 | 온디바이스로 처리할지 클라우드([PCC](../05_security_privacy/apple-security-pcc.md))로 보낼지 |
-| 엔티티의 어떤 속성을 포함할지 | 시스템이 언제 인텐트를 호출할지 |
-| Privacy Manifest 선언 | 모델의 응답 내용 |
+### Android 비교
 
-민감도가 매우 높은 데이터는 **애초에 엔티티로 노출하지 않는 것**이 유일한 통제 수단이다.
+| | Apple | Android |
+| :--- | :--- | :--- |
+| 노출 단위 | `AppIntent` / `AppEntity` | App Actions / `shortcuts.xml` |
+| 온디바이스 모델 | 시스템 내장 | Gemini Nano (AICore) |
+| 클라우드 처리 | PCC (검증 가능성 강조) | 서버 모델 (정책·계약 기반) |
+| 개발자 통제 | 노출 범위 | 노출 범위 + 일부 모델 선택 |
 
-- 노출한 데이터는 [Privacy Manifest](../05_security_privacy/apple-privacy-and-tcc-details.md) 에 반영해야 한다.
-- 실기기에서 Apple Intelligence 가 활성화된 상태로 테스트해야 실제 동작을 확인할 수 있다.
+→ [cross-platform-ai-privacy-comparison](../../cross-platform/cross-platform-ai-privacy-comparison.md)
 
-### 더 보기
+### 연관 문서
 
-- [apple-app-intents](apple-app-intents.md) - 기본 App Intents 구조
-- [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - Liquid Glass 디자인 구현
-- [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - PCC 및 보안 구조
+- [apple-app-intents](apple-app-intents.md) - 기반이 되는 계약
+- [apple-security-pcc](../05_security_privacy/apple-security-pcc.md)
+- [apple-privacy-and-tcc-details](../05_security_privacy/apple-privacy-and-tcc-details.md)
 
-공식 문서: [Making onscreen content available to Siri and Apple Intelligence](https://developer.apple.com/documentation/appintents)
+공식 문서: [App Intents](https://developer.apple.com/documentation/appintents) · [Private Cloud Compute](https://security.apple.com/blog/private-cloud-compute/)

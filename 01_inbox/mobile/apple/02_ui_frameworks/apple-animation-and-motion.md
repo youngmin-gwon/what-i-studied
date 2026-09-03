@@ -1,102 +1,72 @@
 ---
 title: apple-animation-and-motion
-tags: [apple, apple/ui, core-animation, motion, swiftui, uikit]
-aliases: ["Animation & Motion", "애니메이션 및 모션"]
-date modified: 2026-04-07 11:05:00 +09:00
+tags: [animation, apple, apple/ui, apple/ui/animation, core-animation, moc, motion, spring]
+aliases: ["애니메이션은 예쁨이 아니라 상태 변화를 설명하고 사용자 개입을 허용하는 장치다", "Animation & Motion", "애니메이션 및 모션"]
+date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-04-07 11:05:00 +09:00
 ---
 
-## Animation & Motion Deep Dive
+## 애니메이션은 예쁨이 아니라 상태 변화를 설명하고 사용자 개입을 허용하는 장치다
 
-Apple 플랫폼의 매력은 "부드러운 움직임"에 있습니다. 단순히 뷰를 이동시키는 것이 아니라, 물리 법칙을 따르는 자연스러운 애니메이션과 모션 그래픽을 구현하는 방법을 다룹니다.
+Apple 플랫폼의 애니메이션 설계는 두 가지 원칙 위에 있다.
 
-### 💡 왜 이것을 알아야 하나요? (Context)
+1. **연속성** — 값이 갑자기 점프하지 않는다. 그래서 곡선보다 [스프링](animation/spring-animations-model-physics-not-duration.md)이 기본이다.
+2. **개입 가능성** — 사용자가 애니메이션 도중에 다시 조작할 수 있어야 한다. 그래서 [진행률을 소유하는 애니메이터](animation/interruptible-animation-needs-a-property-animator.md)가 필요하다.
 
-- **인지된 성능 (Perceived Performance)**: 실제 데이터 로딩이 0.5 초 걸려도, 부드러운 전환 애니메이션이 있다면 사용자는 앱이 빠르다고 느낍니다.
-- **인터랙티브 애니메이션**: 사용자의 손가락 움직임에 실시간으로 반응하는 애니메이션(Interruptible Animations)은 앱의 완성도를 결정짓는 차이점입니다.
-- **접근성**: 과도한 모션은 멀미를 유발할 수 있습니다. 시스템의 '동작 줄이기(Reduce Motion)' 설정을 존중해야 합니다.
+```mermaid
+flowchart TD
+    S["상태 변경"] --> W{"누가 애니메이션을 결정하나?"}
+    W -->|"레이어가 스스로"| I["암시적 (독립 CALayer)"]
+    W -->|"개발자가 지정"| E["명시적 (withAnimation / animate)"]
+    E --> T{"사용자가 도중에 개입하나?"}
+    T -->|"아니오"| F["곡선 또는 스프링 · fire-and-forget"]
+    T -->|"예"| P["UIViewPropertyAnimator / @GestureState<br/>진행률 직접 제어"]
+    P --> V["놓을 때 속도를 반영해 완료 또는 역재생"]
 
-### 🧱 Architecture Stack
-
-| 계층 | 설명 | 특징 |
-|:---:|---|---|
-| **SwiftUI Animation** | 선언형 애니메이션. `withAnimation`, `.animation()` | 가장 쉽고 생산성이 높음. 대부분의 상황에서 권장. |
-| **UIKit (UIView)** | `UIView.animate`, `UIViewPropertyAnimator` | 인터랙티브 애니메이션 구현에 최적. |
-| **Core Animation** | `CALayer`, `CABasicAnimation`, `CAKeyframeAnimation` | GPU 가속 기반의 저수준 프레임워크. 복잡한 패스 애니메이션에 사용. |
-| **Core Motion** | 가속도계, 자이로스코프 데이터 처리 | 기기의 물리적 움직임에 반응하는 UI 구현. |
-
----
-
-### 🚀 SwiftUI: Declarative Magic
-
-SwiftUI 는 상태(State)의 변화를 애니메이션으로 바꿉니다.
-
-```swift
-@State private var isExpanded = false
-
-VStack {
-    Circle()
-        .frame(width: isExpanded ? 200 : 100)
-        .animation(.spring(response: 0.5, dampingFraction: 0.6), value: isExpanded)
-    
-    Button("Toggle") {
-        isExpanded.toggle()
-    }
-}
+    style I fill:#fff8e1,stroke:#f9a825,color:#f57f17
+    style P fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
 ```
 
-- **Spring**: Apple 이 가장 선호하는 방식. 딱딱한 선형 이동이 아닌 탄성을 가진 물리적 움직임을 제공합니다.
-- **Matched Geometry Effect**: 다른 뷰 계층 간의 자연스러운 전환(Hero Animation)을 구현할 때 사용합니다.
+### 정본 노트
 
----
+- [암시적 애니메이션은 레이어가 스스로 결정하고 명시적 애니메이션은 개발자가 지정한다](animation/implicit-and-explicit-animation-differ-in-who-decides.md) — **뷰 레이어에서는 왜 암시적 애니메이션이 안 일어나는가**, 애니메이션 가능한 속성 목록.
+- [인터럽트 가능한 애니메이션은 진행률을 소유하는 애니메이터가 필요하다](animation/interruptible-animation-needs-a-property-animator.md) — 제스처 결합 표준 형태, `.ended` 에서 속도 반영.
+- [스프링 애니메이션은 지속 시간이 아니라 물리 파라미터로 정의된다](animation/spring-animations-model-physics-not-duration.md) — 목표가 바뀌어도 연속적인 이유, `response`/`dampingFraction` 해석.
 
-### ⚙️ UIKit: Interactive & Interruptible
+### 계층 구조
 
-`UIViewPropertyAnimator` 를 사용하면 애니메이션을 중간에 멈추거나, 역재생하거나, 사용자 스크롤에 따라 진행률(Fraction)을 조절할 수 있습니다.
+| 계층 | 무엇을 쓰나 | 언제 |
+| :--- | :--- | :--- |
+| **SwiftUI** | `withAnimation`, `.animation(_:value:)` | 대부분의 상황 |
+| **UIKit** | `UIViewPropertyAnimator` | 인터랙티브·인터럽트 가능 |
+| **Core Animation** | `CABasicAnimation`, `CAKeyframeAnimation` | 레이어 직접 제어, 복잡한 경로 |
+| **Core Motion** | 가속도계·자이로 | 기기 물리 움직임에 반응 |
 
-```swift
-let animator = UIViewPropertyAnimator(duration: 1.0, dampingRatio: 0.7) {
-    self.squareView.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
-}
+### 증상에서 시작하기
 
-// 스크롤 시 진행률 조절 예시
-animator.fractionComplete = scrollOffset / totalHeight
-```
-
-### 🎨 Core Animation (Under the Hood)
-
-모든 iOS UI 는 결국 `CALayer` 위에 그려집니다.
-
-- **Render Server**: 애니메이션은 앱 프로세스가 아닌 별도의 `Render Server` 프로세스에서 독립적으로 돌아갑니다. 따라서 메인 스레드가 바빠도 애니메이션은 끊기지 않습니다.
-- **Implicit vs Explicit**: 레이어 프로퍼티(position, opacity 등)를 바꾸면 자동으로 일어나는 것이 암시적 애니메이션, `CABasicAnimation` 등으로 직접 지정하는 것이 명시적 애니메이션입니다.
-
-### ⚖️ 모션 가이드라인 & 접근성
-
-1. **Reduce Motion**: 사용자가 시스템 설정에서 동작 줄이기를 켰는지 확인하고 대응하세요. (`UIAccessibility.isReduceMotionEnabled`)
-2. **Haptic Feedback**: 애니메이션의 정점이나 완료 시점에 적절한 햅틱(`UIImpactFeedbackGenerator`)을 섞어 물리적 연결감을 높이세요.
-3. **FPS 유지**: ProMotion(120Hz) 기기에서는 애니메이션이 더욱 부드러워야 합니다. GPU 부하를 줄여 프레임 드랍을 방지하세요.
-
-### 관찰 가능한 증거
-
-Xcode 실행 중 Debug 메뉴 (또는 시뮬레이터 Debug 메뉴)의 Core Animation 옵션:
-
-| 옵션 | 확인하는 것 |
+| 증상 | 어느 노트로 |
 | :--- | :--- |
-| Color Offscreen-Rendered Yellow | 그림자·마스크가 만드는 추가 패스 |
-| Color Blended Layers | 반투명 오버드로 |
-| Color Hits Green and Misses Red | 래스터화 캐시 효율 |
+| 원치 않는 애니메이션이 일어난다 | [암시적 애니메이션](animation/implicit-and-explicit-animation-differ-in-who-decides.md) (`setDisableActions`) |
+| 커스텀 레이어는 되는데 뷰는 안 된다 | [암시적 애니메이션](animation/implicit-and-explicit-animation-differ-in-who-decides.md) |
+| 제약을 바꿨는데 애니메이션이 안 된다 | [레이아웃 사이클](uikit/layout-cycle-is-deferred-and-coalesced.md) (`layoutIfNeeded` 위치) |
+| 도중에 다시 만지면 튄다 | [인터럽트 가능](animation/interruptible-animation-needs-a-property-animator.md) |
+| 빠르게 튕겼는데 되돌아간다 | [인터럽트 가능](animation/interruptible-animation-needs-a-property-animator.md) (속도 미반영) |
+| 진행률 바가 목표를 지나친다 | [스프링](animation/spring-animations-model-physics-not-duration.md) (선형을 써야 함) |
+| 애니메이션 중 프레임이 떨어진다 | [07 런북](../00_foundations/diagnostic-runbooks/07-scroll-hitches.md) |
 
-```swift
-// 접근성 설정 존중 여부는 코드로 확인한다
-if UIAccessibility.isReduceMotionEnabled { /* 축소된 전환 사용 */ }
-```
+### 접근성은 선택이 아니다
 
-- **Instruments의 Animation Hitches**: 애니메이션이 프레임 마감을 지키는지 본다.
+동작 줄이기를 켠 사용자에게 큰 이동·확대·회전은 실제로 불편이나 어지럼을 유발한다. **전환을 없애는 것이 아니라 크로스페이드로 대체**한다. → [시스템 접근성 설정은 계약이다](accessibility/system-settings-are-contracts-not-suggestions.md)
 
-### 더 보기
+### 성능
 
-- [apple-rendering-and-media](apple-rendering-and-media.md) - 그래픽 파이프라인과 메탈(Metal) 기초
-- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 선언형 UI 프레임워크 심화
-- [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - 애니메이션 히치(Hitch) 분석 및 최적화
+애니메이션은 [Render Server 에서 독립적으로 진행](../01_system_internals/graphics-and-media/render-server-composition.md)되므로 메인 스레드가 막혀도 계속 돈다. 반대로 **애니메이션이 도는데 터치가 안 먹으면** 앱이 멈춘 것이다. → [02 런북](../00_foundations/diagnostic-runbooks/02-watchdog-and-hang.md)
 
-공식 문서: [Core Animation](https://developer.apple.com/documentation/quartzcore)
+### 연관 문서
+
+- [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md)
+- [apple-uikit-lifecycle](apple-uikit-lifecycle.md)
+- [apple-graphics-and-media](../01_system_internals/graphics-and-media/apple-graphics-and-media.md)
+- [히치는 평균 FPS 가 아니라 사용자가 실제로 본 지연을 잰다](../01_system_internals/graphics-and-media/hitches-measure-user-visible-jank.md)
+
+공식 문서: [Animating views and transitions](https://developer.apple.com/documentation/swiftui/animating-views-and-transitions) · [Core Animation](https://developer.apple.com/documentation/quartzcore)
