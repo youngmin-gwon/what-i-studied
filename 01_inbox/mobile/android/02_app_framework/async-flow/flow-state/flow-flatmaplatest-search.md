@@ -36,7 +36,7 @@ graph TD
 
 | 비교 항목 | 레거시 (RxJava switchMap) | 현대 표준 (Kotlin flatMapLatest) |
 | :--- | :--- | :--- |
-| **취소 방식** | `switchMap` 내부 구독 해제 (Unsubscribe) | Coroutine [structured concurrency](../../../../../../computer-science/structured-concurrency.md) 취소 (`Job.cancel()`) |
+| **취소 방식** | `switchMap` 내부 구독 해제 (Unsubscribe) | Coroutine [structured concurrency](../../../../../computer-science/structured-concurrency.md) 취소 (`Job.cancel()`) |
 | **Backpressure** | switchMap 스레드 스케줄러 간 동기화 이슈 존재 | Coroutine suspension으로 백프레셔 자동 조율 |
 | **가독성** | `debounce(300)` + `switchMap` 체이닝 복잡 | `searchQuery.debounce(300).flatMapLatest { api.search(it) }` |
 

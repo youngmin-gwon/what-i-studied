@@ -1,6 +1,6 @@
 ---
 title: flow
-tags: [android, android/async, android/data, android/flow]
+tags: [android, android/async, android/concurrency, android/flow]
 aliases: ["Flow Contracts"]
 date modified: 2026-08-07 18:59:19 +09:00
 date created: 2026-08-01 00:00:00 +09:00
@@ -19,4 +19,4 @@ Kotlin `Flow` 정본은 연속적인 데이터 스트림(Data Stream)을 비동�
 
 ### 연결된 상태 계약
 
-- 화면 상태 유도 및 [viewmodel](../../../architecture/state-management/viewmodel.md) 연동: [Flow](../flow-state/flow-state.md) 와 [stateflow](../flow-state/stateflow-and-sharedflow.md) 상태 계약 노트 참조.
+- 화면 상태 유도 및 [viewmodel](../../architecture/state-management/viewmodel.md) 연동: [Flow](../flow-state/flow-state.md) 와 [stateflow](../flow-state/stateflow-and-sharedflow.md) 상태 계약 노트 참조.

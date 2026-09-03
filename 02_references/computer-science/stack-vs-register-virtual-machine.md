@@ -112,5 +112,5 @@ graph TD
 ### 4. 연관 문서 및 정본 링크
 
 - [D8 과 R8 컴파일러 및 덱싱 메커니즘](../../01_inbox/mobile/android/03_packaging_deployment/optimization/d8-and-r8.md)
-- [메모리 계층 구조 및 캐시 지역성](./memory-layout-and-cache.md)
-- [Android 런타임 진화와 ART 실행 엔진](../../01_inbox/mobile/android/01_system_internals/boot-and-runtime/art-runtime-evolution.md)
+- [메모리 계층 구조 및 캐시 지역성](memory-layout-and-cache.md)
+- [Android 런타임 진화와 ART 실행 엔진](../../01_inbox/mobile/android/01_system_internals/boot-and-runtime/zygote-runtime/dalvik-vs-art.md)

@@ -136,5 +136,5 @@ int main() {
 ### 관련 문서 및 다리
 
 - [IPC 메커니즘 개요](../ipc-mechanisms.md) — OS IPC 전체 지도 및 비교
-- [POSIX Pipe와 FIFO 계약](./posix-pipe-and-fifo-contracts.md) — 커널 링 버퍼 기반 단방향 IPC
-- [POSIX IPC vs Android Binder 구조적 비교](./posix-ipc-vs-android-binder.md) — Ashmem 과 POSIX SHM 의 수명/보안 구조 차이
+- [POSIX Pipe와 FIFO 계약](posix-pipe-and-fifo-contracts.md) — 커널 링 버퍼 기반 단방향 IPC
+- [POSIX IPC vs Android Binder 구조적 비교](posix-ipc-vs-android-binder.md) — Ashmem 과 POSIX SHM 의 수명/보안 구조 차이

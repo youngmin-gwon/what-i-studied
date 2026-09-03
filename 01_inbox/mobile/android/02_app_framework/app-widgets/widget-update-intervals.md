@@ -125,7 +125,7 @@ class WeatherGlanceWidgetReceiver : GlanceAppWidgetReceiver() {
 
 - 상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../architecture/android-app-architecture.md)
 - 관련 계약 문서:
-  - [App Widget 계약](./app-widget.md)
+  - [App Widget 계약](app-widget.md)
   - [AppWidgetProvider lifecycle은 지속 프로세스가 아니라 broadcast로 갱신된다](appwidgetprovider-lifecycle.md)
   - [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../04_system_services/background-and-notifications/work-manager.md)
 - 공식 문서: [Optimize app widget updates](https://developer.android.com/develop/ui/views/appwidgets/advanced#update-provider)

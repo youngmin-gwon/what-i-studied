@@ -11,7 +11,7 @@ date created: 2026-07-31 17:42:24 +09:00
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
 배경 지식: [프로세스 스케줄링](../../../../operating-systems/process-scheduling.md)
 
-관련 지도: [백그라운드 작업 계약](./background-work.md)
+관련 지도: [백그라운드 작업 계약](background-work.md)
 
 ### 핵심 주장
 

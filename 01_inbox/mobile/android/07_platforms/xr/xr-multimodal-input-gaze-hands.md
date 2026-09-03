@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## XR 입력은 gaze, hand, controller, keyboard 를 함께 설계한다
 
-상위 문서: [Android XR 계약](./xr.md)
+상위 문서: [Android XR 계약](xr.md)
 
 XR 입력은 터치 이벤트를 공간으로 옮긴 것이 아니다. Android XR 의 기본 자연 입력인 eye tracking 과 gesture 또는 raycast hand 를 먼저 보장하고, 컨트롤러, 키보드, 마우스 같은 주변 입력으로 확장한다. focus, selection, activation, text input 을 각 경로에서 검증해야 한다.
 

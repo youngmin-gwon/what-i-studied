@@ -64,7 +64,7 @@ val benefitApi = retrofit.create(BenefitApi::class.java) // 동적 프록시 생
 - 2xx 가 아닌 응답을 suspend 함수로 받으면 Retrofit 은 `retrofit2.HttpException` 을 던진다. `exception.code()` 로 실제 HTTP 상태 코드를 확인할 수 있다.
 - Android Studio 의 Network Inspector 로 실제 소켓 레벨 요청/응답을 관찰하면, Retrofit 인터페이스 서명과 실제로 전송된 바이트가 다른 계층에서 만들어진다는 것을 직접 볼 수 있다.
 
-상위 지도: [네트워크 클라이언트 계층 계약](./networking.md)
+상위 지도: [네트워크 클라이언트 계층 계약](networking.md)
 
 관련 노트: [Interceptor 체인은 인증, 로깅, 재시도를 요청·응답 파이프라인에 끼워 넣는다](okhttp-interceptor-chain.md)
 

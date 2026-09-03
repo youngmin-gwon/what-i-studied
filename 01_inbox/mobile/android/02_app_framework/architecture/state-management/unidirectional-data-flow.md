@@ -126,7 +126,7 @@ fun SignInContent(
 
 ### 5. 관련 문서 및 참조
 
-상위 문서: [Android UI State](./ui-state.md)
+상위 문서: [Android UI State](ui-state.md)
 
 관련 계약 문서:
 - [UI 상태의 소유자는 수명주기, 변경 빈도, 공유 범위에 따라 결정된다](state-owner-selection.md)

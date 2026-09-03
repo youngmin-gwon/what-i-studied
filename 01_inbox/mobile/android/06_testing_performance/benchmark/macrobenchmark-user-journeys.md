@@ -9,7 +9,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 ## Macrobenchmark는 실제 사용자 여정을 측정한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](benchmark-baseline.md)
 관련 노트: [Android 성능은 측정 후 최적화한다](../performance/performance-measurement-principles.md)
 
 Macrobenchmark는 앱 프로세스 외부(Out-of-process)에서 UI Automator를 조작하여 앱 시작, 화면 전환, 피드 스크롤과 같은 사용자 체감 전과정을 실제 컴파일 상태(AOT/JIT)에서 반복 측정한다.

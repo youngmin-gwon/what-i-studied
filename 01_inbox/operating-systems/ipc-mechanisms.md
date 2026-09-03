@@ -25,10 +25,10 @@ date created: 2025-12-20 00:02:18 +09:00
 
 | 메커니즘 | 방향성 | 데이터 복사 오버헤드 | 주요 특징 및 한계 | 핵심 활용처 | 원자 계약 노트 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Pipe / FIFO** | 단방향 | 2-Copy (Kernel Ring Buffer) | `PIPE_BUF` 이내 Atomic Write. 혈연 프로세스 또는 경로 노드 기반 | Shell 파이프라인, 간단한 로그 전달 | [POSIX Pipe & FIFO 계약](./ipc-contracts/posix-pipe-and-fifo-contracts.md) |
-| **Shared Memory** | 양방향 | **0-Copy** (Page Table Mapping) | 가장 빠른 통신. 동기화(Semaphore) 미적용 시 Race Condition | 대용량 데이터 공유, 고성능 IPC | [공유 메모리와 mmap 계약](./ipc-contracts/shared-memory-and-mmap-contracts.md) |
-| **Unix Domain Socket** | 양방향 전이중 | 1-Copy (Kernel Socket Buffer) | 파일 디스크립터 패스스루(`SCM_RIGHTS`), `SO_PEERCRED` UID 검증 | Docker, DBus, Local Server | [Unix Domain Socket 계약](./ipc-contracts/unix-domain-socket-contracts.md) |
-| **Signal** | 단방향 | 없음 (Interrupt Signal Mask) | 비동기 이벤트 알림. 데이터 탑재 불가, 핸들러 내 Async-Signal-Safe 제한 | `SIGINT`, `SIGTERM`, ANR Trace | [POSIX Signal 계약](./ipc-contracts/posix-signal-contracts.md) |
+| **Pipe / FIFO** | 단방향 | 2-Copy (Kernel Ring Buffer) | `PIPE_BUF` 이내 Atomic Write. 혈연 프로세스 또는 경로 노드 기반 | Shell 파이프라인, 간단한 로그 전달 | [POSIX Pipe & FIFO 계약](ipc-contracts/posix-pipe-and-fifo-contracts.md) |
+| **Shared Memory** | 양방향 | **0-Copy** (Page Table Mapping) | 가장 빠른 통신. 동기화(Semaphore) 미적용 시 Race Condition | 대용량 데이터 공유, 고성능 IPC | [공유 메모리와 mmap 계약](ipc-contracts/shared-memory-and-mmap-contracts.md) |
+| **Unix Domain Socket** | 양방향 전이중 | 1-Copy (Kernel Socket Buffer) | 파일 디스크립터 패스스루(`SCM_RIGHTS`), `SO_PEERCRED` UID 검증 | Docker, DBus, Local Server | [Unix Domain Socket 계약](ipc-contracts/unix-domain-socket-contracts.md) |
+| **Signal** | 단방향 | 없음 (Interrupt Signal Mask) | 비동기 이벤트 알림. 데이터 탑재 불가, 핸들러 내 Async-Signal-Safe 제한 | `SIGINT`, `SIGTERM`, ANR Trace | [POSIX Signal 계약](ipc-contracts/posix-signal-contracts.md) |
 
 ---
 
@@ -68,14 +68,14 @@ graph TD
 
 ### 🌐 하위 도메인 확장 (Sub-domain Extensions)
 
-- **Android OS IPC 아키텍처 결정**: Android는 POSIX IPC를 배제하지 않는다(Zygote 소켓, Ashmem 등 하위 계층에서 지금도 쓰인다). 다만 앱-프레임워크 경계의 주력 통신에는 커널 레벨 UID/PID 신원 검증, 참조 카운팅 기반 수명 관리, 전용 스레드 풀 제어가 결합된 Binder를 별도로 도입했다. 세부 내용은 [POSIX IPC vs Android Binder 구조적 비교](./ipc-contracts/posix-ipc-vs-android-binder.md) 문서를 참조한다.
+- **Android OS IPC 아키텍처 결정**: Android는 POSIX IPC를 배제하지 않는다(Zygote 소켓, Ashmem 등 하위 계층에서 지금도 쓰인다). 다만 앱-프레임워크 경계의 주력 통신에는 커널 레벨 UID/PID 신원 검증, 참조 카운팅 기반 수명 관리, 전용 스레드 풀 제어가 결합된 Binder를 별도로 도입했다. 세부 내용은 [POSIX IPC vs Android Binder 구조적 비교](ipc-contracts/posix-ipc-vs-android-binder.md) 문서를 참조한다.
 
 ---
 
 ### 🔗 연결 문서 (Related Documents)
 
-- [POSIX Pipe와 FIFO 계약](./ipc-contracts/posix-pipe-and-fifo-contracts.md)
-- [공유 메모리와 mmap 계약](./ipc-contracts/shared-memory-and-mmap-contracts.md)
-- [Unix Domain Socket 계약](./ipc-contracts/unix-domain-socket-contracts.md)
-- [POSIX Signal 계약](./ipc-contracts/posix-signal-contracts.md)
-- [POSIX IPC vs Android Binder 구조적 비교](./ipc-contracts/posix-ipc-vs-android-binder.md)
+- [POSIX Pipe와 FIFO 계약](ipc-contracts/posix-pipe-and-fifo-contracts.md)
+- [공유 메모리와 mmap 계약](ipc-contracts/shared-memory-and-mmap-contracts.md)
+- [Unix Domain Socket 계약](ipc-contracts/unix-domain-socket-contracts.md)
+- [POSIX Signal 계약](ipc-contracts/posix-signal-contracts.md)
+- [POSIX IPC vs Android Binder 구조적 비교](ipc-contracts/posix-ipc-vs-android-binder.md)

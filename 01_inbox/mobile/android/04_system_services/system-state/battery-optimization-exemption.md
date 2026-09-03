@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## 배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
-관련 지도: [전력 상태 접근 계약](./power.md)
+관련 지도: [전력 상태 접근 계약](power.md)
 
 ### 핵심 정의
 
@@ -47,7 +47,7 @@ if (!power.isIgnoringBatteryOptimizations(packageName)) {
 
 ### 경계
 
-- 이 노트는 배터리 최적화 예외라는 정책적 경로를 다룬다. wake lock으로 CPU를 즉시 깨우는 것은 별개의 메커니즘이며 [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-cpu-screen-control.md)가 다룬다.
+- 이 노트는 배터리 최적화 예외라는 정책적 경로를 다룬다. wake lock으로 CPU를 즉시 깨우는 것은 별개의 메커니즘이며 [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](wakelock-cpu-screen-control.md)가 다룬다.
 - Doze/App Standby의 구체적인 단계별 제한과 백그라운드 실행 수단 선택 전체는 `04_system_services/background-and-notifications/background-work-contracts`가 다룬다.
 
 ### 관찰 가능한 신호

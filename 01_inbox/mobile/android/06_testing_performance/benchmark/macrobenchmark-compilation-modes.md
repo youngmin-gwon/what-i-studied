@@ -9,7 +9,7 @@ date modified: 2026-08-06 14:48:27 +09:00
 ## Macrobenchmark의 컴파일 모드는 테스트 계약의 일부다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](benchmark-baseline.md)
 관련 노트: [Baseline Profile 생성은 핵심 사용자 여정을 기록한다](baseline-profile-generation.md)
 
 Macrobenchmark 실행 시 적용하는 ART 컴파일 모드(`CompilationMode`)는 앱의 실행 패러다임(JIT vs Baseline Profile AOT vs Full AOT)을 결정하므로, 이를 명시하지 않는 측정 결과는 회귀 분석의 기준이 될 수 없다.

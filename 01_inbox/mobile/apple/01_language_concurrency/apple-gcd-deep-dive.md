@@ -29,7 +29,7 @@ flowchart TD
     style OK fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
 ```
 
-[Swift Concurrency 의 협력적 풀](../01_language_concurrency/concurrency/cooperative-thread-pool.md)은 이 경로 자체를 없앤다 — 스레드를 늘리지 않는 대신 블로킹을 금지한다.
+[Swift Concurrency 의 협력적 풀](concurrency/cooperative-thread-pool.md)은 이 경로 자체를 없앤다 — 스레드를 늘리지 않는 대신 블로킹을 금지한다.
 
 ### 💡 왜 아직도 이것을 알아야 하나요? (Context)
 

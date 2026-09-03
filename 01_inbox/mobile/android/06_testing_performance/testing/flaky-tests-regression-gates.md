@@ -9,7 +9,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 ## 회귀와 flaky 테스트는 릴리즈 게이트의 신뢰도를 낮춘다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [테스트 품질 계약](./testing-quality.md)
+관련 지도: [테스트 품질 계약](testing-quality.md)
 관련 노트: [테스트 레이어는 피드백 비용으로 선택한다](test-pyramid-strategy.md)
 
 동일한 소스 코드 조건에서도 환경/타이밍 경합에 의해 성공과 실패를 오가는 플래키 테스트(Flaky Test)는 배포 차단(Release Gate)에 대한 개발팀의 신뢰를 무너뜨리며, 실패 시 재실행(Retry)으로 무마하는 습관은 실제 회귀(Regression) 결함을 은폐시키는 위험한 안티패턴이다.

@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## XR 앱은 공간 capability 를 실행 중에 확인해야 한다
 
-상위 문서: [Android XR 계약](./xr.md)
+상위 문서: [Android XR 계약](xr.md)
 
 XR 앱은 어떤 공간 기능이 항상 가능하다고 가정하면 안 된다. Home Space, Full Space, 기기 종류, 사용자 조작, 시스템 상태에 따라 spatial UI, 3D content, environment, passthrough, spatial audio 같은 capability 가 달라질 수 있다.
 

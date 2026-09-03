@@ -123,7 +123,7 @@ class UserViewModel : ViewModel() {
 
 ### StateFlow와 비교
 
-자세한 비교는 [StateFlow 대 LiveData 차이점](../../data/async-flow/flow-state/stateflow-vs-flow.md)을 참고하세요.
+자세한 비교는 [StateFlow 대 LiveData 차이점](../../async-flow/flow-state/stateflow-vs-flow.md)을 참고하세요.
 
 **핵심 차이**:
 - **LiveData**: Android Framework 의존, Lifecycle-aware 자동 관리, 메인 스레드 강제

@@ -10,9 +10,9 @@ date created: 2026-07-31 17:42:24 +09:00
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
 
-관련 지도: [알림과 FCM 메시징 계약](./notification-messaging.md)
+관련 지도: [알림과 FCM 메시징 계약](notification-messaging.md)
 
-관련 노트: [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](./fcm-delivery-guarantee.md)
+관련 노트: [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](fcm-delivery-guarantee.md)
 
 ### 식별자의 의미
 

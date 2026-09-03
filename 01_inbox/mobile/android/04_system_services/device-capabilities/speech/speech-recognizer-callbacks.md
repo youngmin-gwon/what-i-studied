@@ -9,7 +9,7 @@ date created: 2026-08-05 10:00:00 +09:00
 ## SpeechRecognizer는 RECORD_AUDIO 권한을 전제로 하는 콜백 기반 비동기 계약이다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [음성 합성/인식 접근 계약](./speech.md)
+관련 지도: [음성 합성/인식 접근 계약](speech.md)
 
 ### 핵심 정의
 

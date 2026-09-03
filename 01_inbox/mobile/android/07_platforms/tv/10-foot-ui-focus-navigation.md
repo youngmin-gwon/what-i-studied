@@ -10,7 +10,7 @@ date created: 2026-08-03 17:27:04 +09:00
 
 상위 문서: [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)
 
-관련 지도: [Android TV 계약](./tv.md)
+관련 지도: [Android TV 계약](tv.md)
 
 ### 핵심 정의
 

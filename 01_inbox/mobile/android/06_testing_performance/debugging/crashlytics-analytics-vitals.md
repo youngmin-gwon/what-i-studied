@@ -8,7 +8,7 @@ date created: 2026-08-04 20:20:00 +09:00
 
 ## Crashlytics/Analytics SDK 는 Android vitals 에 없는 옵트인 컨텍스트를 더한다
 
-상위 문서: [디버깅 도구 계약](./debugging.md)
+상위 문서: [디버깅 도구 계약](debugging.md)
 
 ### 핵심 주장
 

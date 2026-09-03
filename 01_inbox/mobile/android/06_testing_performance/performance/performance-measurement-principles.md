@@ -9,7 +9,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 ## Android 성능은 측정 후 최적화한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [런타임 성능 계약](./performance.md)
+관련 지도: [런타임 성능 계약](performance.md)
 
 성능 개선 작업은 직관이나 수치적 추측이 아닌 통제된 환경에서의 반복 측정(Benchmark)과 증거 수집(Profiling Trace)에 기반해야 한다.
 

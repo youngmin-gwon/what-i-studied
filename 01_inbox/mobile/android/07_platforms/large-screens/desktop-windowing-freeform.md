@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## 데스크톱 윈도잉에서는 앱 창이 자유롭게 변한다
 
-상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](./windowing-multitasking.md)
+상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](windowing-multitasking.md)
 
 Desktop windowing 은 Android 태블릿이나 ChromeOS 류 환경에서 앱이 고정 전체 화면이 아니라 resizable window 로 실행되는 모드다. 사용자는 여러 앱을 나란히 두고 창 크기, 위치, 입력 방식을 계속 바꿀 수 있다.
 

@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## ViewModel 은 설정 변경 동안 유지되지만 프로세스 사망 복원은 보장하지 않는다
 
-상위 문서: [Android ViewModel](./viewmodel.md)
+상위 문서: [Android ViewModel](viewmodel.md)
 
 ### 핵심 주장
 

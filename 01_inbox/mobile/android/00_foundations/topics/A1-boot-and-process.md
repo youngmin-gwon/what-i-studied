@@ -20,7 +20,7 @@ date created: 2026-08-04 16:00:00 +09:00
 | [binder ipc](../../01_system_internals/ipc-and-process/binder-ipc.md) | [AMS](../../04_system_services/service-lookup/activity-manager-service.md)-Zygote, ActivityThread-[AMS](../../04_system_services/service-lookup/activity-manager-service.md) 통신 이해 |     |
 | SELinux 기초                                                                                                                       | init 보안 도메인과 앱 격리 이해                 |     |
 
-관련 토픽: [A2 · Binder 와 IPC](./A2-binder-and-ipc.md) · A3 · 커널·HAL·드라이버 계층(Phase 10 미착수, 아직 없음)
+관련 토픽: [A2 · Binder 와 IPC](A2-binder-and-ipc.md) · A3 · 커널·HAL·드라이버 계층(Phase 10 미착수, 아직 없음)
 
 ---
 

@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## SubscriptionManager는 멀티 SIM에서 논리적 구독과 물리 슬롯을 분리한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [텔레포니 접근 계약](./telephony.md)
+관련 지도: [텔레포니 접근 계약](telephony.md)
 
 ### 핵심 정의
 

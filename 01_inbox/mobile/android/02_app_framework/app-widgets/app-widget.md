@@ -52,7 +52,7 @@ sequenceDiagram
    - `AppWidgetManager` 는 [binder ipc](../../01_system_internals/ipc-and-process/binder-ipc.md) 를 통해 해당 `RemoteViews` 를 `AppWidgetHost` 프로세스로 전달한다.
    - 호스트 프로세스는 자신의 Context 상에서 `RemoteViews.apply()` 를 실행하여 기존 뷰 구조에 새로운 데이터를 반영한다.
 2. **상태 관리와 스케줄링 제약**:
-   - 위젯은 앱의 메모리 객체([stateflow](../data/async-flow/flow-state/stateflow-and-sharedflow.md), LiveData 등)를 직접 구독(Subscribe)할 수 없다. 데이터 갱신 시 `GlanceAppWidget.update(context, glanceId)` 또는 `AppWidgetManager.updateAppWidget()` 을 명시적으로 호출해야 한다.
+   - 위젯은 앱의 메모리 객체([stateflow](../async-flow/flow-state/stateflow-and-sharedflow.md), LiveData 등)를 직접 구독(Subscribe)할 수 없다. 데이터 갱신 시 `GlanceAppWidget.update(context, glanceId)` 또는 `AppWidgetManager.updateAppWidget()` 을 명시적으로 호출해야 한다.
    - 주기적 갱신 속성(`updatePeriodMillis`)은 최소 30분 단위의 배터리 최적화 스케줄만 제공하며, 즉시 갱신이 필요한 경우 `WorkManager` 또는 Push Notification 을 연동해야 한다.
 
 ---

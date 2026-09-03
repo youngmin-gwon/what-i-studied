@@ -14,59 +14,59 @@ date created: 2026-08-05 09:00:00 +09:00
 
 ### A. System Internals
 
-- [A1 · Android 부팅과 프로세스 생성](./A1-boot-and-process.md)
-- [A2 · Binder와 IPC 완전 이해](./A2-binder-and-ipc.md)
-- [A3 · 커널·HAL·드라이버 계층](./A3-kernel-hal-driver.md)
-- [A4 · 렌더링 파이프라인 (Surface → SurfaceFlinger → 화면)](./A4-rendering-pipeline.md)
-- [A5 · 네트워크 스택 (ConnectivityService → netd → 커널)](./A5-network-stack.md)
-- [A6 · 플랫폼 모듈화 (APEX, Mainline, Treble, GKI)](./A6-platform-modularity.md)
+- [A1 · Android 부팅과 프로세스 생성](A1-boot-and-process.md)
+- [A2 · Binder와 IPC 완전 이해](A2-binder-and-ipc.md)
+- [A3 · 커널·HAL·드라이버 계층](A3-kernel-hal-driver.md)
+- [A4 · 렌더링 파이프라인 (Surface → SurfaceFlinger → 화면)](A4-rendering-pipeline.md)
+- [A5 · 네트워크 스택 (ConnectivityService → netd → 커널)](A5-network-stack.md)
+- [A6 · 플랫폼 모듈화 (APEX, Mainline, Treble, GKI)](A6-platform-modularity.md)
 
 ### B. App Framework
 
-- [B1 · 컴포넌트 생명주기와 Task / Back Stack](./B1-component-lifecycle-and-task.md)
-- [B2 · Jetpack Compose 완전 이해](./B2-jetpack-compose.md)
-- [B3 · 데이터 레이어: Flow·Room·DataStore·Paging](./B3-data-layer.md)
-- [B4 · 내비게이션과 딥링크](./B4-navigation-and-deeplink.md)
+- [B1 · 컴포넌트 생명주기와 Task / Back Stack](B1-component-lifecycle-and-task.md)
+- [B2 · Jetpack Compose 완전 이해](B2-jetpack-compose.md)
+- [B3 · 데이터 레이어: Flow·Room·DataStore·Paging](B3-data-layer.md)
+- [B4 · 내비게이션과 딥링크](B4-navigation-and-deeplink.md)
 
 ### C. System Services
 
-- [C1 · 백그라운드 실행과 스케줄링 선택](./C1-background-and-scheduling.md)
-- [C2 · 디바이스 기능 접근](./C2-device-capabilities.md)
-- [C3 · 시스템 서비스 조회 패턴](./C3-system-service-lookup.md)
+- [C1 · 백그라운드 실행과 스케줄링 선택](C1-background-and-scheduling.md)
+- [C2 · 디바이스 기능 접근](C2-device-capabilities.md)
+- [C3 · 시스템 서비스 조회 패턴](C3-system-service-lookup.md)
 
 ### D. Security & Privacy
 
-- [D1 · 권한 모델 완전 이해 (Permission → AppOps → SELinux)](./D1-permission-model.md)
-- [D2 · 안전한 저장소와 암호화](./D2-secure-storage-and-crypto.md)
-- [D3 · 앱 무결성 검증 (Play Integrity, AVB, dm-verity)](./D3-app-integrity-verification.md)
+- [D1 · 권한 모델 완전 이해 (Permission → AppOps → SELinux)](D1-permission-model.md)
+- [D2 · 안전한 저장소와 암호화](D2-secure-storage-and-crypto.md)
+- [D3 · 앱 무결성 검증 (Play Integrity, AVB, dm-verity)](D3-app-integrity-verification.md)
 
 ### E. Packaging, Performance & Testing
 
-- [E1 · 빌드에서 설치까지 (Gradle → APK/AAB → PackageManager)](./E1-build-to-install.md)
-- [E2 · 성능 측정과 최적화 (Baseline Profile, Macrobenchmark)](./E2-performance-measurement-and-optimization.md)
-- [E3 · 테스트 전략 (Unit → Integration → UI → E2E)](./E3-testing-strategy.md)
+- [E1 · 빌드에서 설치까지 (Gradle → APK/AAB → PackageManager)](E1-build-to-install.md)
+- [E2 · 성능 측정과 최적화 (Baseline Profile, Macrobenchmark)](E2-performance-measurement-and-optimization.md)
+- [E3 · 테스트 전략 (Unit → Integration → UI → E2E)](E3-testing-strategy.md)
 
 ### F. Platforms & Form Factors
 
-- [F1 · 대화면·폴더블 적응형 레이아웃](./F1-large-screen-adaptive-layout.md)
-- [F2 · 폼 팩터별 계약 (Wear OS / TV / Auto / ChromeOS / XR)](./F2-form-factor.md)
+- [F1 · 대화면·폴더블 적응형 레이아웃](F1-large-screen-adaptive-layout.md)
+- [F2 · 폼 팩터별 계약 (Wear OS / TV / Auto / ChromeOS / XR)](F2-form-factor.md)
 
 ### G. Coverage Gap 보강 주제 (Phase 9)
 
 Phase 1 coverage matrix 와 사용자 요청으로 새로 신설된 클러스터를 다루는 주제다.
 
-- [G1 · 인앱 결제 (Google Play Billing)](./G1-in-app-billing.md)
-- [G2 · Bluetooth Classic·BLE](./G2-bluetooth-classic-and-ble.md)
-- [G3 · App Widget과 Glance](./G3-app-widget-and-glance.md)
-- [G4 · 온디바이스 AI/ML (ML Kit, TFLite, AICore)](./G4-on-device-ai-ml.md)
-- [G5 · WebView](./G5-webview.md)
-- [G6 · App Shortcuts](./G6-app-shortcuts.md)
-- [G7 · Android CI/CD와 자동화 배포 파이프라인](./G7-android-ci-cd.md)
-- [G8 · 네트워크 클라이언트 계층과 통신 규약 (Retrofit/OkHttp)](./G8-network-client-layer.md)
-- [G9 · Espresso와 기기 기반 UI 테스트 전략](./G9-espresso-and-instrumented-ui-test.md)
-- [G10 · 지역화(Localization)와 RTL 레이아웃 대응](./G10-localization-and-rtl.md)
-- [G11 · Play Core 서비스와 배포 및 리뷰 관리](./G11-play-core-in-app-update-and-review.md)
-- [G12 · Custom Tabs와 브라우저 통합 탐색](./G12-custom-tabs.md)
+- [G1 · 인앱 결제 (Google Play Billing)](G1-in-app-billing.md)
+- [G2 · Bluetooth Classic·BLE](G2-bluetooth-classic-and-ble.md)
+- [G3 · App Widget과 Glance](G3-app-widget-and-glance.md)
+- [G4 · 온디바이스 AI/ML (ML Kit, TFLite, AICore)](G4-on-device-ai-ml.md)
+- [G5 · WebView](G5-webview.md)
+- [G6 · App Shortcuts](G6-app-shortcuts.md)
+- [G7 · Android CI/CD와 자동화 배포 파이프라인](G7-android-ci-cd.md)
+- [G8 · 네트워크 클라이언트 계층과 통신 규약 (Retrofit/OkHttp)](G8-network-client-layer.md)
+- [G9 · Espresso와 기기 기반 UI 테스트 전략](G9-espresso-and-instrumented-ui-test.md)
+- [G10 · 지역화(Localization)와 RTL 레이아웃 대응](G10-localization-and-rtl.md)
+- [G11 · Play Core 서비스와 배포 및 리뷰 관리](G11-play-core-in-app-update-and-review.md)
+- [G12 · Custom Tabs와 브라우저 통합 탐색](G12-custom-tabs.md)
 
 ### G13~G17. Tier 2 보강 주제
 

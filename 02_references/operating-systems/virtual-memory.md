@@ -542,5 +542,5 @@ perf stat -e page-faults ./my_program
 ## 연결 문서
 
 - [kernel](kernel.md) - 커널의 메모리 관리 서브시스템
-- [android-kernel](android-kernel-runtime.md) - 안드로이드의 메모리 최적화 (zRAM, LMKD)
+- [android-kernel](../../01_inbox/mobile/android/01_system_internals/kernel-and-hal/android-kernel-runtime.md) - 안드로이드의 메모리 최적화 (zRAM, LMKD)
 - [buffer](buffer.md) - 버퍼와 메모리 활용

@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## BiometricPrompt는 인증 UI와 키 사용 승인을 함께 처리한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [생체 인증/자격 증명 계약](./biometrics-credential.md)
+관련 지도: [생체 인증/자격 증명 계약](biometrics-credential.md)
 
 ### 핵심 정의
 

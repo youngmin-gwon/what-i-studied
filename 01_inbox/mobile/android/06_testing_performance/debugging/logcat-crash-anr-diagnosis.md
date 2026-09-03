@@ -11,7 +11,7 @@ date created: 2026-07-31 17:32:53 +09:00
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
 배경 지식: [순환 버퍼(Ring Buffer)](../../../../../02_references/operating-systems/buffer.md), [POSIX 시그널](../../../../operating-systems/ipc-contracts/posix-signal-contracts.md)
 
-관련 지도: [디버깅 도구 계약](./debugging.md)
+관련 지도: [디버깅 도구 계약](debugging.md)
 
 관련 노트: [테스트 레이어는 피드백 비용으로 선택한다](../testing/test-pyramid-strategy.md)
 

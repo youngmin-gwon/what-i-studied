@@ -9,7 +9,7 @@ date created: 2026-08-04 20:15:00 +09:00
 ## Health Connect 권한은 레코드 타입별로 개별 부여된다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [Health Connect 접근 계약](./health-connect.md)
+관련 지도: [Health Connect 접근 계약](health-connect.md)
 
 ### 핵심 정의
 

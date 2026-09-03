@@ -173,5 +173,5 @@ class CircularProgressView @JvmOverloads constructor(
 ---
 
 ## 연관 참고 문서
-* [ViewTreeObserver](./view-tree-observer.md)
-* [Haptic Feedback](./haptic-feedback.md)
+* [ViewTreeObserver](view-tree-observer.md)
+* [Haptic Feedback](haptic-feedback.md)

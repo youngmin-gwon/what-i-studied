@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## SAF: 사용자가 고른 문서와 폴더에 접근하기
 
-상위 문서: [파일 접근 계약](./file-access.md)
+상위 문서: [파일 접근 계약](file-access.md)
 배경 지식: [리눅스 파일 시스템](../../../../../linux/filesystems.md)
 
 Storage Access Framework 는 앱이 저장소 전체를 탐색하는 API 가 아니다.

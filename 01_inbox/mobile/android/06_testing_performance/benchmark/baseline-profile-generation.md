@@ -9,7 +9,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 ## Baseline Profile 생성은 핵심 사용자 여정을 기록한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](benchmark-baseline.md)
 관련 노트: [Android 성능은 측정 후 최적화한다](../performance/performance-measurement-principles.md)
 
 Baseline Profile 생성은 릴리스 빌드 패키징 시 ART(Android Runtime)가 앱 설치 단계에서 `dex2oat`로 사전 AOT 컴파일할 핫 클래스 및 메서드 심볼 파일(`baseline-prof.txt`)을 핵심 사용자 여정(CUJ) 추적을 통해 산출하는 과정이다.
@@ -104,6 +104,6 @@ HSLLandroidx/compose/runtime/SlotTable;->open()V
 
 ### 5. 생성 품질 가이던스
 
-- **신규 릴리스 재생성**: 주요 의존성(Compose, [Coroutines](../../02_app_framework/data/async-flow/coroutines/kotlin-coroutines.md), Room) 업그레이드 또는 CUJ 로직 변경 시 반드시 프로필을 재생성하여 형상 관리에 저장한다.
+- **신규 릴리스 재생성**: 주요 의존성(Compose, [Coroutines](../../02_app_framework/async-flow/coroutines/kotlin-coroutines.md), Room) 업그레이드 또는 CUJ 로직 변경 시 반드시 프로필을 재생성하여 형상 관리에 저장한다.
 - **불필요 코드 제외**: 에러 처리 경로나 일회성 개발자 화면은 생성 시나리오에서 제외하여 AOT 바이너리 용량 및 디스크 오버헤드를 예방한다.
 

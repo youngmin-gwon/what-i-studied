@@ -8,7 +8,7 @@ date created: 2026-08-04 16:00:00 +09:00
 
 ## B3 · 데이터 레이어: Flow · Room · DataStore · Paging
 
->**이 문서의 목적**: Android 앱의 데이터 레이어 전체 구조를 이해한다. [Kotlin Coroutines](../../02_app_framework/data/async-flow/coroutines/kotlin-coroutines.md) 와 Flow 가 어떻게 비동기 데이터 흐름을 만드는지, Repository 가 어떻게 data source 를 추상화하는지, 그리고 각 저장소(Room, DataStore)가 언제 선택되는지를 체계적으로 정리한다.
+>**이 문서의 목적**: Android 앱의 데이터 레이어 전체 구조를 이해한다. [Kotlin Coroutines](../../02_app_framework/async-flow/coroutines/kotlin-coroutines.md) 와 Flow 가 어떻게 비동기 데이터 흐름을 만드는지, Repository 가 어떻게 data source 를 추상화하는지, 그리고 각 저장소(Room, DataStore)가 언제 선택되는지를 체계적으로 정리한다.
 
 ---
 
@@ -20,7 +20,7 @@ date created: 2026-08-04 16:00:00 +09:00
 | [viewmodel](../../02_app_framework/architecture/state-management/viewmodel.md) + UiState 패턴 (B1) | Repository → ViewModel → UI 연결 이해 |
 | Compose State 수집 (B2 § 2) | collectAsStateWithLifecycle 이해 |
 
-관련 토픽: [B1 · 컴포넌트 생명주기](./B1-component-lifecycle-and-task.md) · [B2 · Jetpack Compose](./B2-jetpack-compose.md)
+관련 토픽: [B1 · 컴포넌트 생명주기](B1-component-lifecycle-and-task.md) · [B2 · Jetpack Compose](B2-jetpack-compose.md)
 
 ---
 
@@ -40,7 +40,7 @@ flowchart TD
 
 ---
 
-### 1. [Kotlin Coroutines](../../02_app_framework/data/async-flow/coroutines/kotlin-coroutines.md): 가볍고 취소 가능한 비동기 작업
+### 1. [Kotlin Coroutines](../../02_app_framework/async-flow/coroutines/kotlin-coroutines.md): 가볍고 취소 가능한 비동기 작업
 
 Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 coroutine 이 `suspend` 함수 호출을 만날 때마다 다른 coroutine 에 실행을 양보한다. 스레드를 블로킹하지 않으므로 메인 스레드에서도 네트워크 대기가 가능하다.
 
@@ -51,11 +51,11 @@ Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 corou
 | 원자 노트 | 핵심 명제 |
 |---|---|
 | [Coroutine 은 가볍고 취소 가능한 작업이지 스레드가 아니다](../../../../computer-science/thread.md) | suspension vs blocking 차이 |
-| [Structured concurrency 에서 부모는 자식 수명을 소유한다](../../02_app_framework/data/async-flow/coroutines/structured-concurrency.md) | scope 취소 전파 원리 |
+| [Structured concurrency 에서 부모는 자식 수명을 소유한다](../../02_app_framework/async-flow/coroutines/structured-concurrency.md) | scope 취소 전파 원리 |
 | [suspend 함수는 스레드를 블로킹하지 않고 coroutine 을 일시 중단한다](../../../../computer-science/thread.md) | suspend 의 정확한 의미 |
-| [Dispatcher 는 실행 컨텍스트를 선택하지 작업 수명을 선택하지 않는다](../../02_app_framework/data/async-flow/coroutines/coroutine-dispatchers.md) | Dispatcher vs Scope 구분 |
-| [병렬 coroutine 은 명시적 부모와 실패 정책이 필요하다](../../02_app_framework/data/async-flow/coroutines/parallel-coroutine-policies.md) | async/await 와 SupervisorJob |
-| [예외 전파는 supervision 경계가 필요하다](../../02_app_framework/data/async-flow/coroutines/coroutine-exception-propagation.md) | CoroutineExceptionHandler, SupervisorScope |
+| [Dispatcher 는 실행 컨텍스트를 선택하지 작업 수명을 선택하지 않는다](../../02_app_framework/async-flow/coroutines/coroutine-dispatchers.md) | Dispatcher vs Scope 구분 |
+| [병렬 coroutine 은 명시적 부모와 실패 정책이 필요하다](../../02_app_framework/async-flow/coroutines/parallel-coroutine-policies.md) | async/await 와 SupervisorJob |
+| [예외 전파는 supervision 경계가 필요하다](../../02_app_framework/async-flow/coroutines/coroutine-exception-propagation.md) | CoroutineExceptionHandler, SupervisorScope |
 
 ---
 
@@ -73,10 +73,10 @@ Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 corou
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [Cold Flow 는 수집될 때 실행된다](../../02_app_framework/data/async-flow/flow/cold-flow-execution.md) | Cold/Hot 구분과 실행 시점 |
-| [Flow 연산자는 선언된 취소와 조합으로 스트림을 변환한다](../../02_app_framework/data/async-flow/flow/flow-stream-operators.md) | map, filter, combine, flatMapLatest |
-| [callbackFlow 는 등록 정리를 위해 awaitClose 가 필요하다](../../02_app_framework/data/async-flow/flow/callback-flow-cleanup.md) | 콜백 API → Flow 변환 패턴 |
-| [shareIn 은 공유 스트림 수명과 재생 정책을 정의한다](../../02_app_framework/data/async-flow/flow/flow-sharein-policy.md) | SharingStarted 옵션 선택 기준 |
+| [Cold Flow 는 수집될 때 실행된다](../../02_app_framework/async-flow/flow/cold-flow-execution.md) | Cold/Hot 구분과 실행 시점 |
+| [Flow 연산자는 선언된 취소와 조합으로 스트림을 변환한다](../../02_app_framework/async-flow/flow/flow-stream-operators.md) | map, filter, combine, flatMapLatest |
+| [callbackFlow 는 등록 정리를 위해 awaitClose 가 필요하다](../../02_app_framework/async-flow/flow/callback-flow-cleanup.md) | 콜백 API → Flow 변환 패턴 |
+| [shareIn 은 공유 스트림 수명과 재생 정책을 정의한다](../../02_app_framework/async-flow/flow/flow-sharein-policy.md) | SharingStarted 옵션 선택 기준 |
 
 ---
 
@@ -97,13 +97,13 @@ Coroutine 은 스레드가 아니다. 하나의 스레드 위에서 여러 corou
 
 | 원자 노트 | 핵심 명제 |
 |---|---|
-| [StateFlow 는 현재값이 필요한 화면 상태에 사용하고 Flow 는 원천 데이터 흐름에 사용한다](../../02_app_framework/data/async-flow/flow-state/stateflow-vs-flow.md) | 두 API 의 정확한 용도 구분 |
-| [Repository 는 데이터 흐름을 Flow 로 제공하고 ViewModel 은 화면 상태로 조합한다](../../02_app_framework/data/async-flow/flow-state/repository-viewmodel-flow-composition.md) | 레이어별 역할 분담 패턴 |
-| [SharedFlow 와 Channel 은 상태 저장소가 아니라 일회성 신호 전달 수단이다](../../02_app_framework/data/async-flow/flow-state/sharedflow-and-channel-signals.md) | 이벤트 vs 상태 구분 |
-| [화면에 그릴 Flow 는 lifecycle-aware API 로 수집한다](../../02_app_framework/data/async-flow/flow-state/lifecycle-aware-flow-collection.md) | collectAsStateWithLifecycle vs collectAsState |
-| [stateIn 은 명시적 수명과 공유 정책이 필요하다](../../02_app_framework/data/async-flow/flow-state/flow-statein-policy.md) | WhileSubscribed(5000) 이유 |
-| [flatMapLatest 는 새 입력에 의한 구식 작업을 취소한다](../../02_app_framework/data/async-flow/flow-state/flow-flatmaplatest-search.md) | 검색 입력 취소 패턴 |
-| [combine 은 최신 소스값으로 화면 상태를 만든다](../../02_app_framework/data/async-flow/flow-state/flow-combine-screen-state.md) | 다중 flow 조합 패턴 |
+| [StateFlow 는 현재값이 필요한 화면 상태에 사용하고 Flow 는 원천 데이터 흐름에 사용한다](../../02_app_framework/async-flow/flow-state/stateflow-vs-flow.md) | 두 API 의 정확한 용도 구분 |
+| [Repository 는 데이터 흐름을 Flow 로 제공하고 ViewModel 은 화면 상태로 조합한다](../../02_app_framework/async-flow/flow-state/repository-viewmodel-flow-composition.md) | 레이어별 역할 분담 패턴 |
+| [SharedFlow 와 Channel 은 상태 저장소가 아니라 일회성 신호 전달 수단이다](../../02_app_framework/async-flow/flow-state/sharedflow-and-channel-signals.md) | 이벤트 vs 상태 구분 |
+| [화면에 그릴 Flow 는 lifecycle-aware API 로 수집한다](../../02_app_framework/async-flow/flow-state/lifecycle-aware-flow-collection.md) | collectAsStateWithLifecycle vs collectAsState |
+| [stateIn 은 명시적 수명과 공유 정책이 필요하다](../../02_app_framework/async-flow/flow-state/flow-statein-policy.md) | WhileSubscribed(5000) 이유 |
+| [flatMapLatest 는 새 입력에 의한 구식 작업을 취소한다](../../02_app_framework/async-flow/flow-state/flow-flatmaplatest-search.md) | 검색 입력 취소 패턴 |
+| [combine 은 최신 소스값으로 화면 상태를 만든다](../../02_app_framework/async-flow/flow-state/flow-combine-screen-state.md) | 다중 flow 조합 패턴 |
 
 ---
 

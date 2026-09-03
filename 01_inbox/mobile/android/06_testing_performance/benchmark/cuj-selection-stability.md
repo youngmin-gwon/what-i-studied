@@ -9,7 +9,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 ## CUJ 선택은 벤치마크 행동을 안정화한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](benchmark-baseline.md)
 관련 노트: [Macrobenchmark는 실제 사용자 여정을 측정한다](macrobenchmark-user-journeys.md)
 
 핵심 사용자 여정(Critical User Journey, CUJ) 선택은 비즈니스 가치가 높은 대표 경로(시작, 목록 스크롤, 상세 진입, 결제)로 한정하고, UI Automator 동기화를 통해 제스처 타임아웃 플래키니스(Flakiness)를 사전에 통제하는 안정화 계약이다.

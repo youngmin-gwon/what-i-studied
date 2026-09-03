@@ -10,7 +10,7 @@ date created: 2026-08-10 00:00:00 +09:00
 
 >**핵심 명제**: Android는 POSIX IPC(Pipe, Signal, Shared Memory, Unix Domain Socket)를 배제하지 않는다 — Zygote 소켓, 표준입출력 파이프, Ashmem/`memfd_create` 공유 메모리처럼 커널 하위 계층에서 지금도 쓰인다. 다만 앱과 시스템 서비스 사이의 주력 통신 계층으로는 **Binder**라는 별도의 커널 중재 object-capability IPC를 도입했다. 둘의 차이는 "더 빠르다/느리다"가 아니라 **호출자 신원을 누가 보증하는지, 원격 객체의 생존을 누가 추적하는지, 동시 호출을 어떻게 제한하는지**가 근본적으로 다르다는 데 있다.
 
-배경 지식: 이 문서는 POSIX 쪽 4개 메커니즘 각각의 상세 동작은 [POSIX Pipe와 FIFO 계약](./posix-pipe-and-fifo-contracts.md), [POSIX Signal 계약](./posix-signal-contracts.md), [공유 메모리와 mmap 계약](./shared-memory-and-mmap-contracts.md), [Unix Domain Socket 계약](./unix-domain-socket-contracts.md)에 미룬다. Binder 쪽 상세는 [Binder IPC](../../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md)(단일 정본)와 그 하위 원자 노트([전송 버퍼와 1MB 제한](../../mobile/android/01_system_internals/ipc-and-process/binder-transaction-lifetime.md), [Thread Pool과 교착 상태](../../mobile/android/01_system_internals/ipc-and-process/binder-thread-pool.md), [oneway 통신](../../mobile/android/01_system_internals/ipc-and-process/oneway-binder-transactions.md))에 미룬다. 이 문서는 그 둘을 나란히 놓고 **왜 다른 설계를 택했는지**만 다룬다.
+배경 지식: 이 문서는 POSIX 쪽 4개 메커니즘 각각의 상세 동작은 [POSIX Pipe와 FIFO 계약](posix-pipe-and-fifo-contracts.md), [POSIX Signal 계약](posix-signal-contracts.md), [공유 메모리와 mmap 계약](shared-memory-and-mmap-contracts.md), [Unix Domain Socket 계약](unix-domain-socket-contracts.md)에 미룬다. Binder 쪽 상세는 [Binder IPC](../../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md)(단일 정본)와 그 하위 원자 노트([전송 버퍼와 1MB 제한](../../mobile/android/01_system_internals/ipc-and-process/binder-transaction-lifetime.md), [Thread Pool과 교착 상태](../../mobile/android/01_system_internals/ipc-and-process/binder-thread-pool.md), [oneway 통신](../../mobile/android/01_system_internals/ipc-and-process/oneway-binder-transactions.md))에 미룬다. 이 문서는 그 둘을 나란히 놓고 **왜 다른 설계를 택했는지**만 다룬다.
 
 ---
 
@@ -47,12 +47,12 @@ graph TD
 
 ### 2. 수명 관리: 상대가 죽으면 누가 알려주는가
 
-- **POSIX 쪽**: 대부분 스스로 확인해야 한다. Pipe는 쓰기 측이 다 닫히면 읽기 측이 EOF를 받고, Shared Memory는 상대 프로세스가 죽어도 `shm_unlink()` 전까지 커널에 잔류한다(참조 문서: [공유 메모리와 mmap 계약](./shared-memory-and-mmap-contracts.md)의 "경계 조건" 절). 능동적인 "상대가 죽었다" 통지 메커니즘은 기본으로 없다.
+- **POSIX 쪽**: 대부분 스스로 확인해야 한다. Pipe는 쓰기 측이 다 닫히면 읽기 측이 EOF를 받고, Shared Memory는 상대 프로세스가 죽어도 `shm_unlink()` 전까지 커널에 잔류한다(참조 문서: [공유 메모리와 mmap 계약](shared-memory-and-mmap-contracts.md)의 "경계 조건" 절). 능동적인 "상대가 죽었다" 통지 메커니즘은 기본으로 없다.
 - **Binder 쪽**: 클라이언트가 들고 있는 원격 객체 참조(handle)는 커널이 참조 카운트를 관리하는 대상이다. 서버 프로세스가 죽으면 커널이 `linkToDeath()`로 등록해둔 `DeathRecipient` 콜백을 클라이언트에게 자동으로 호출해준다 — 이게 없으면 클라이언트는 이미 죽은 프로세스를 향해 handle을 쥔 채 응답 없는 호출로 멈추게 된다.
 
 ### 3. 동시성 제어: 동시 호출을 어떻게 제한하는가
 
-- **POSIX 쪽**: Pipe/Socket은 커널 버퍼가 가득 차면 쓰기 측이 블록되는 자연스러운 backpressure가 있다. Shared Memory는 커널이 동시성을 전혀 통제하지 않으므로 세마포어/뮤텍스를 애플리케이션이 직접 결합해야 한다([공유 메모리와 mmap 계약](./shared-memory-and-mmap-contracts.md) 참고).
+- **POSIX 쪽**: Pipe/Socket은 커널 버퍼가 가득 차면 쓰기 측이 블록되는 자연스러운 backpressure가 있다. Shared Memory는 커널이 동시성을 전혀 통제하지 않으므로 세마포어/뮤텍스를 애플리케이션이 직접 결합해야 한다([공유 메모리와 mmap 계약](shared-memory-and-mmap-contracts.md) 참고).
 - **Binder 쪽**: 서버 프로세스마다 [Binder Thread Pool](../../mobile/android/01_system_internals/ipc-and-process/binder-thread-pool.md)이 있고 기본 최대 스레드 수(15개)가 정해져 있다. 동시 요청이 이 한도를 넘으면 대기가 걸리고, 서로 동기 호출을 주고받는 두 프로세스가 이 한도를 동시에 소진하면 [교착 상태](../deadlock.md)에 빠질 수 있다. `oneway` 키워드는 호출자의 대기만 없앨 뿐 서버 쪽 스레드 풀 한도 자체는 없애지 않는다([oneway Binder](../../mobile/android/01_system_internals/ipc-and-process/oneway-binder-transactions.md)).
 
 ---
@@ -111,10 +111,10 @@ adb shell cat /proc/<PID>/maps | grep -E "socket|/dev/ashmem|/dev/shm"
 ### 관련 문서
 
 - [IPC 메커니즘 개요](../ipc-mechanisms.md)
-- [POSIX Pipe와 FIFO 계약](./posix-pipe-and-fifo-contracts.md)
-- [POSIX Signal 계약](./posix-signal-contracts.md)
-- [공유 메모리와 mmap 계약](./shared-memory-and-mmap-contracts.md)
-- [Unix Domain Socket 계약](./unix-domain-socket-contracts.md)
+- [POSIX Pipe와 FIFO 계약](posix-pipe-and-fifo-contracts.md)
+- [POSIX Signal 계약](posix-signal-contracts.md)
+- [공유 메모리와 mmap 계약](shared-memory-and-mmap-contracts.md)
+- [Unix Domain Socket 계약](unix-domain-socket-contracts.md)
 - [Binder IPC](../../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md) — Android 쪽 정본
 - [IPC and process contracts](../../mobile/android/01_system_internals/ipc-and-process/binder-ipc.md) — Android IPC 전체 지도
 - [Deadlock](../deadlock.md)

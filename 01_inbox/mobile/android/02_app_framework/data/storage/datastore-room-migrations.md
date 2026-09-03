@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## DataStore 와 Room 마이그레이션은 저장소 계약의 시간 경계다
 
-상위 문서: [영속 저장소 계약](./persistence.md)
+상위 문서: [영속 저장소 계약](persistence.md)
 
 관련 노트: [백업과 복원은 데이터 경계를 명시적으로 설계해야 한다](../../../05_security_privacy/secure-storage/backup-restore-boundaries.md)
 

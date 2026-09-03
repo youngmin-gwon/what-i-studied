@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## ViewModel 은 UI 컨트롤러와 Android Context 를 장기 보관하지 않는다
 
-상위 문서: [Android ViewModel](./viewmodel.md)
+상위 문서: [Android ViewModel](viewmodel.md)
 
 ### 핵심 주장
 

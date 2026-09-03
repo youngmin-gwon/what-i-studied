@@ -8,7 +8,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ## Espresso 는 View 기반 UI 를 동기적으로 테스트하며 IdlingResource 로 비동기 작업 완료를 기다린다
 
-상위 문서: [테스트 품질 계약](./testing-quality.md)
+상위 문서: [테스트 품질 계약](testing-quality.md)
 관련 노트: [Compose UI 테스트는 testTag 와 semantics 를 분리한다](compose-ui-tests-semantics.md), [회귀와 flaky 테스트는 릴리즈 게이트의 신뢰도를 낮춘다](flaky-tests-regression-gates.md)
 
 `Espresso` 는 `View`/`ViewGroup` 기반 화면과 View-Compose가 혼재된 hybrid 화면을 계측(instrumented) 환경에서 동기적으로 테스트하는 도구다. Compose 전용 화면은 Espresso 가 아니라 Compose Testing API(`createComposeRule`, `onNodeWithTag`)가 담당한다. 두 도구 모두 UI 가 idle 상태가 될 때까지 자동으로 기다리지만, `MessageQueue` 에 올라오지 않는 비동기 작업(네트워크, DB, 백그라운드 스레드)은 자동으로 감지하지 못한다. 이 gap 을 `IdlingResource` 로 명시적으로 메워야 하며, 놓치면 flaky test 로 나타난다.

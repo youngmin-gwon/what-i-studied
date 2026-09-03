@@ -145,5 +145,5 @@ targetView.doOnPreDraw { view ->
 ---
 
 ## 연관 참고 문서
-* [Custom View](./custom-view.md)
-* [Haptic Feedback](./haptic-feedback.md)
+* [Custom View](custom-view.md)
+* [Haptic Feedback](haptic-feedback.md)

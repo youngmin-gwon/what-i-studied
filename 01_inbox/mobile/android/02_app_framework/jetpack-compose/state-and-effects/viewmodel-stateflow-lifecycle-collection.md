@@ -65,6 +65,6 @@ fun UserProfileScreen(
 ### 4. 연결 문서 (Related Links)
 
 - [Compose SSOT](../runtime/compose-ssot.md) - ViewModel 단일 진실 출처
-- [StateFlow & SharedFlow](../../data/async-flow/flow-state/stateflow-and-sharedflow.md) - StateFlow 데이터 스트림
+- [StateFlow & SharedFlow](../../async-flow/flow-state/stateflow-and-sharedflow.md) - StateFlow 데이터 스트림
 - [ViewModel](../../architecture/state-management/viewmodel.md) - 안드로이드 비즈니스 상태 홀더
 - [compose-state-api-selection](compose-state-api-selection.md) - Compose State 선택 가이드

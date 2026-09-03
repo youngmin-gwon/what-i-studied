@@ -8,7 +8,7 @@ date created: 2026-08-04 20:00:00 +09:00
 
 ## Test double 는 행동의 소유권으로 Fake 와 Mock 을 구분해 선택한다
 
-상위 문서: [테스트 품질 계약](./testing-quality.md)
+상위 문서: [테스트 품질 계약](testing-quality.md)
 관련 지도: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
 관련 노트: [테스트 레이어는 피드백 비용으로 선택한다](test-pyramid-strategy.md), [Coroutine 과 Flow 테스트는 dispatcher 와 virtual time 을 통제해야 한다](coroutine-flow-testing.md), [회귀와 flaky 테스트는 릴리즈 게이트의 신뢰도를 낮춘다](flaky-tests-regression-gates.md)
 

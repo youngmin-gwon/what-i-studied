@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## MediaStore: 공유 미디어의 등록과 접근
 
-상위 문서: [파일 접근 계약](./file-access.md)
+상위 문서: [파일 접근 계약](file-access.md)
 배경 지식: [리눅스 파일 시스템](../../../../../linux/filesystems.md)
 
 관련 노트: [Photo Picker는 필요한 미디어 접근 범위를 줄인다](photo-picker-media-access.md)

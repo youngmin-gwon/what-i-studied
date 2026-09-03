@@ -66,7 +66,7 @@ class BenefitViewModel(private val api: BenefitApi) : ViewModel() {
 - OkHttp 내부는 취소된 호출에 대해 "canceled" 상태를 기록한다. `Call.isCanceled()` 를 디버거로 확인하거나, 네트워크가 느린 환경(Android Studio Network profiler 의 throttling)에서 화면을 빠르게 전환하며 요청이 중간에 끊기는지 관찰하면 이 계약을 직접 검증할 수 있다.
 - `catch (e: CancellationException)` 을 다시 던지지 않고 삼키면, 화면이 이미 사라진 뒤에도 이후 코드가 실행되려다 `ViewModel` 관련 상태 접근에서 예외가 나거나, `IllegalStateException`("Job was cancelled") 이 다른 곳에서 발생할 수 있다.
 
-상위 지도: [네트워크 클라이언트 계층 계약](./networking.md)
+상위 지도: [네트워크 클라이언트 계층 계약](networking.md)
 
 관련 노트: [Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다](../../../../../computer-science/structured-concurrency.md), [Retrofit 인터페이스는 API 계약을 선언하고 OkHttp가 실제 전송을 담당한다](retrofit-okhttp-boundaries.md)
 

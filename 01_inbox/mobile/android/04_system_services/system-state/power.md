@@ -65,9 +65,9 @@ adb shell dumpsys battery reset
 
 ### 읽는 순서 (Recommended Reading Order)
 
-1. [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-cpu-screen-control.md): `PARTIAL_WAKE_LOCK`, 타임아웃 acquire, 화면 유지 플래그(`FLAG_KEEP_SCREEN_ON`) 확인.
-2. [BatteryManager는 순간 배터리 상태를 관찰 전용으로 노출한다](./battery-manager-state.md): sticky broadcast, `EXTRA_LEVEL`/`EXTRA_SCALE`, WorkManager 충전 제약 연동 확인.
-3. [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](./battery-optimization-exemption.md): Doze/App Standby 예외 요청, Play Store 정책 제약 확인.
+1. [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](wakelock-cpu-screen-control.md): `PARTIAL_WAKE_LOCK`, 타임아웃 acquire, 화면 유지 플래그(`FLAG_KEEP_SCREEN_ON`) 확인.
+2. [BatteryManager는 순간 배터리 상태를 관찰 전용으로 노출한다](battery-manager-state.md): sticky broadcast, `EXTRA_LEVEL`/`EXTRA_SCALE`, WorkManager 충전 제약 연동 확인.
+3. [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](battery-optimization-exemption.md): Doze/App Standby 예외 요청, Play Store 정책 제약 확인.
 
 ### 문제 분류 (Troubleshooting Matrix)
 
@@ -86,9 +86,9 @@ adb shell dumpsys battery reset
 
 ### 노트 목록 (Topic Notes)
 
-- [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-cpu-screen-control.md)
-- [BatteryManager는 순간 배터리 상태를 관찰 전용으로 노출한다](./battery-manager-state.md)
-- [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](./battery-optimization-exemption.md)
+- [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](wakelock-cpu-screen-control.md)
+- [BatteryManager는 순간 배터리 상태를 관찰 전용으로 노출한다](battery-manager-state.md)
+- [배터리 최적화 예외는 예외 상황을 위한 것이지 기본 설계가 아니다](battery-optimization-exemption.md)
 
 검증일: 2026-08-24. [PowerManager 문서](https://developer.android.com/reference/android/os/PowerManager)와 [배터리 최적화 가이드](https://developer.android.com/training/monitoring-device-state/doze-standby)를 기준으로 Android 15/16 최신 전력 정책 검증 완료.
 

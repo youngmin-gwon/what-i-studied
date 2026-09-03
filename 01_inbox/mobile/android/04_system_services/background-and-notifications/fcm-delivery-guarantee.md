@@ -11,9 +11,9 @@ date created: 2026-07-31 17:42:24 +09:00
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
 배경 지식: [HTTP 프로토콜](../../../../computer-science/networking/http-protocol.md)
 
-관련 지도: [알림과 FCM 메시징 계약](./notification-messaging.md)
+관련 지도: [알림과 FCM 메시징 계약](notification-messaging.md)
 
-관련 노트: [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority.md), [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](background-execution-selection.md)
+관련 노트: [FCM high priority는 사용자 가시 알림에만 정당화된다](fcm-high-priority.md), [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](background-execution-selection.md)
 
 ### 핵심 정의
 

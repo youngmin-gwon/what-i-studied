@@ -1,14 +1,14 @@
 ---
 title: android-app-framework-map
 tags: ["android", "android/app-framework"]
-aliases: ["Android App Framework Map 은 앱 코드가 소유하는 7개 하위 클러스터를 계층별로 연결하는 통합 지도다"]
+aliases: ["Android App Framework Map 은 앱 코드가 소유하는 8개 하위 클러스터를 계층별로 연결하는 통합 지도다"]
 date modified: 2026-08-06 15:00:00 +09:00
 date created: 2026-08-04 18:00:00 +09:00
 ---
 
-## Android App Framework Map 은 앱 코드가 소유하는 7개 하위 클러스터를 계층별로 연결하는 통합 지도다
+## Android App Framework Map 은 앱 코드가 소유하는 8개 하위 클러스터를 계층별로 연결하는 통합 지도다
 
-`02_app_framework` 는 `01_system_internals` 가 제공하는 실행 계층 위에서 앱 개발자가 실제로 작성하는 코드를 다룬다. entry point 를 어떻게 선언하는지(architecture), 여러 플랫폼과 공유할 경계를 어디에 둘지(multiplatform), 상태와 UI 를 어떻게 그리는지(jetpack-compose, ui), 화면 사이를 어떻게 이동하는지(navigation), 데이터를 어떻게 저장·전송하는지(data), 객체를 어떻게 조립하는지(dependency-injection), 홈 화면 표면을 어떻게 그리는지(app-widgets)를 구분한다.
+`02_app_framework` 는 `01_system_internals` 가 제공하는 실행 계층 위에서 앱 개발자가 실제로 작성하는 코드를 다룬다. entry point 를 어떻게 선언하는지(architecture), 여러 플랫폼과 공유할 경계를 어디에 둘지(multiplatform), 상태와 UI 를 어떻게 그리는지(jetpack-compose, ui), 화면 사이를 어떻게 이동하는지(navigation), 비동기 작업의 수명과 스트림을 어떻게 다루는지(async-flow), 데이터를 어떻게 저장·전송하는지(data), 객체를 어떻게 조립하는지(dependency-injection), 홈 화면 표면을 어떻게 그리는지(app-widgets)를 구분한다.
 
 ### 하위 클러스터와 hub 경로
 
@@ -17,7 +17,8 @@ date created: 2026-08-04 18:00:00 +09:00
 | [architecture](architecture/android-app-architecture.md) | `architecture/android-app-architecture.md` | Activity/Service/BroadcastReceiver/ContentProvider 같은 OS entry point, Context 경계, [viewmodel](architecture/state-management/viewmodel.md)/state 관리 |
 | [multiplatform](architecture/multiplatform/multiplatform.md) | `architecture/multiplatform/multiplatform.md` | Kotlin Multiplatform의 공유 source set과 플랫폼별 구현 경계, `expect`/`actual` 선택 |
 | [dependency-injection](dependency-injection/android-dependency-injection-map.md) | `dependency-injection/android-dependency-injection-map.md` | 객체 graph, binding, scope lifetime, Hilt/Metro, test override |
-| [data](data/android-data-layer-map.md) | `data/android-data-layer-map.md` | Flow/StateFlow 상태 조합, Room/DataStore 영속 저장소, 파일 접근, Paging |
+| [async-flow](async-flow/android-coroutines-flow.md) | `async-flow/android-coroutines-flow.md` | Coroutine 수명·dispatcher·예외 전파, Cold/Hot Flow 계약, StateFlow 로의 화면 상태 조합 |
+| [data](data/android-data-layer-map.md) | `data/android-data-layer-map.md` | Room/DataStore 영속 저장소, 파일 접근, Paging |
 | [data/networking](data/networking/networking.md) | `data/networking/networking/networking.md` | Retrofit/OkHttp 네트워크 클라이언트 계층, interceptor, suspend 통합, timeout/retry 정책 |
 | Jetpack Compose | [runtime](jetpack-compose/runtime/compose-runtime-and-state-model.md), [design system](jetpack-compose/design-system/compose-design-system.md), [layout/UI](jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md), [performance](jetpack-compose/performance/compose-performance.md), [state/effect](jetpack-compose/state-and-effects/compose-state-and-effect.md) | Composable 함수 모델, [recomposition](jetpack-compose/runtime/recomposition.md), layout/modifier/animation/accessibility, 상태-effect API 선택, 성능 예산 |
 | [ui](ui/android-ui-system.md) | `ui/system/android-ui-system.md` | View System 과 Compose 의 공존, edge-to-edge/adaptive layout, RecyclerView-LazyColumn 경계 |
@@ -28,11 +29,12 @@ date created: 2026-08-04 18:00:00 +09:00
 
 1. **architecture** 로 시작한다. Activity/Service 같은 OS entry point 와 Context/ViewModel lifetime 을 먼저 나누지 않으면 이후 UI/데이터 클러스터의 "누가 이 객체를 소유하는가"를 판단할 수 없다.
 2. **dependency-injection** 으로 이동한다. architecture 가 나눈 lifetime 을 실제 객체 조립에 어떻게 반영하는지를 본다.
-3. **data** 와 **data/networking** 을 읽는다. 화면에 그리기 전에 데이터가 어디서 오고(네트워크) 어디에 남는지(저장소)를 먼저 이해해야 UI state 흐름을 추적할 수 있다.
-4. **jetpack-compose** 로 넘어간다. runtime → design-system → layout-and-ui → state-and-lifecycle → performance 순으로 5개 하위 영역을 읽는다. state 를 읽고 UI 를 그리는 함수 호출 모델이 이 클러스터의 핵심이며, 앞서 읽은 data 클러스터의 Flow 가 여기서 UI state 로 이어진다.
-5. **ui** 를 읽는다. Compose 와 View System 이 같은 프로젝트에 공존할 때의 경계를 확인한다.
-6. **navigation** 을 읽는다. Manifest/Intent 로 OS 가 컴포넌트를 찾는 계약, deep link 가 외부 URI 를 내부 목적지로 바꾸는 계약, Navigation 3 의 back stack 을 순서대로 본다.
-7. **app-widgets** 는 마지막에 읽는다. Activity/Compose 화면과 달리 별도 프로세스 없이 broadcast 로만 갱신되는 예외적인 표면이므로, architecture 의 일반 lifecycle 모델을 먼저 이해한 뒤 그 예외를 본다.
+3. **async-flow** 를 읽는다. Coroutine 의 작업 수명과 Flow 의 스트림 계약은 data·jetpack-compose 두 클러스터가 모두 전제하는 언어·라이브러리 계층이므로 그 앞에 둔다.
+4. **data** 와 **data/networking** 을 읽는다. 화면에 그리기 전에 데이터가 어디서 오고(네트워크) 어디에 남는지(저장소)를 먼저 이해해야 UI state 흐름을 추적할 수 있다.
+5. **jetpack-compose** 로 넘어간다. runtime → design-system → layout-and-ui → state-and-lifecycle → performance 순으로 5개 하위 영역을 읽는다. state 를 읽고 UI 를 그리는 함수 호출 모델이 이 클러스터의 핵심이며, 앞서 읽은 data 클러스터의 Flow 가 여기서 UI state 로 이어진다.
+6. **ui** 를 읽는다. Compose 와 View System 이 같은 프로젝트에 공존할 때의 경계를 확인한다.
+7. **navigation** 을 읽는다. Manifest/Intent 로 OS 가 컴포넌트를 찾는 계약, deep link 가 외부 URI 를 내부 목적지로 바꾸는 계약, Navigation 3 의 back stack 을 순서대로 본다.
+8. **app-widgets** 는 마지막에 읽는다. Activity/Compose 화면과 달리 별도 프로세스 없이 broadcast 로만 갱신되는 예외적인 표면이므로, architecture 의 일반 lifecycle 모델을 먼저 이해한 뒤 그 예외를 본다.
 
 ### 포함하지 않는 범위
 

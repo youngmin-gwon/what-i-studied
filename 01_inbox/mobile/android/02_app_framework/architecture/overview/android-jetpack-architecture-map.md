@@ -27,7 +27,7 @@ date created: 2026-08-01 00:00:00 +09:00
    - [Jetpack Compose UI & State](../../jetpack-compose/state-and-effects/compose-state-and-effect.md)
    - [ViewModel & State Flow](../state-management/viewmodel.md)
 2. **Data & Async Stream**:
-   - [Kotlin Coroutines & Flow](../../data/async-flow/coroutines/coroutine.md)
+   - [Kotlin Coroutines & Flow](../../async-flow/coroutines/coroutine.md)
    - [Persistence (Room / DataStore)](../../data/storage/persistence.md)
 3. **Dependency Injection**:
    - [Android Dependency Injection (Hilt / Dagger)](../../dependency-injection/android-dependency-injection-map.md)

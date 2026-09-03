@@ -22,8 +22,8 @@ date created: 2026-08-01 00:00:00 +09:00
    - `_state.value = newValue`로 값을 변경하면 `oldValue == newValue` 비교를 거치고, 값이 다를 경우에만 시퀀스 번호를 올린 뒤 대기 중인 수집자들을 재운다(Wake Up).
 2. **`StateFlow` 대 `LiveData` 차이점**:
    - LiveData는 안드로이드 SDK 의존성(`android.arch.lifecycle`)을 지니며 lifecycle-aware 자동 관리와 메인 스레드 강제를 특징으로 한다.
-   - StateFlow는 순수 Kotlin Standard Library 기반이므로 Multiplatform(KMP), Domain, [viewmodel](../../../architecture/state-management/viewmodel.md) 단위 테스트에서 Android SDK mock 없이 동작한다.
-   - 자세한 비교는 [LiveData 문서](../../../architecture/state-management/livedata.md)를 참고하세요.
+   - StateFlow는 순수 Kotlin Standard Library 기반이므로 Multiplatform(KMP), Domain, [viewmodel](../../architecture/state-management/viewmodel.md) 단위 테스트에서 Android SDK mock 없이 동작한다.
+   - 자세한 비교는 [LiveData 문서](../../architecture/state-management/livedata.md)를 참고하세요.
 
 ```mermaid
 graph TD

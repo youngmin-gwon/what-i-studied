@@ -8,7 +8,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ## 파이프라인 sharding 은 테스트 개수가 아니라 과거 실행 시간 기준으로 분배해야 한다
 
-상위 문서: [테스트 품질 계약](./testing-quality.md)
+상위 문서: [테스트 품질 계약](testing-quality.md)
 관련 노트: [CI 는 Firebase Test Lab 같은 클라우드 디바이스 매트릭스에서 테스트를 실행하고 로컬 에뮬레이터 매트릭스와는 다른 계약을 가진다](firebase-test-lab-matrix.md)
 
 Instrumented test 수백 개를 병렬 shard 로 나눠 CI 시간을 줄이려는 시도는, shard 를 테스트 "개수" 로 균등 분배하면 오히려 병목을 만든다. shard 전체의 완료 시각은 가장 느린 shard 가 결정하므로, 개수가 아니라 과거 실행 시간(historical duration) 으로 분배해야 wall-clock 시간이 실제로 줄어든다.

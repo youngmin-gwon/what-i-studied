@@ -10,7 +10,7 @@ date created: 2026-07-31 17:32:53 +09:00
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
 
-관련 지도: [테스트 품질 계약](./testing-quality.md)
+관련 지도: [테스트 품질 계약](testing-quality.md)
 
 관련 노트: [Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다](test-levels-failure-signals.md)
 

@@ -1,6 +1,6 @@
 ---
 title: flow-stream-operators
-tags: [android, android/async, android/flow, android/data]
+tags: [android, android/async, android/concurrency, android/flow]
 aliases: ["Flow 연산자는 선언적 취소와 조합을 유지하며 스트림을 변환한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
@@ -12,7 +12,7 @@ date created: 2026-08-01 00:00:00 +09:00
 `Flow` 중간 연산자(Intermediate Operator, 예: `map`, `filter`, `transform`, `flowOn`, `catch`)는 기존 데이터 스트림을 가공하여 새로운 `Flow`를 생성하는 연산이다. 모든 intermediate operator는 **지연 평가(Lazy Evaluation)**되며, 업스트림의 **취소 신호 전파**와 **컨텍스트 보존 원칙**을 완벽하게 유지한다.
 
 ### 왜 필요한가 (Why)
-1. **가독성 높은 선언적 파이프라인**: 흩어진 비동기 데이터 변환 로직을 함수형 체인 형태로 가공하여, 사이드 이펙트(Side-effect) 없는 [순수 함수](../../../../../../computer-science/pure-function.md) 파이프라인을 구축한다.
+1. **가독성 높은 선언적 파이프라인**: 흩어진 비동기 데이터 변환 로직을 함수형 체인 형태로 가공하여, 사이드 이펙트(Side-effect) 없는 [순수 함수](../../../../../computer-science/pure-function.md) 파이프라인을 구축한다.
 2. **협조적 취소 릴레이**: intermediate operator 체인 중간에서 취소가 발생하면, 별도의 플래그 관리 없이 업스트림 데이터 생성 루틴까지 원자적으로 취소가 즉시 전파된다.
 
 ### 내부 메커니즘 (How)

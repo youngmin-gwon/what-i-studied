@@ -62,13 +62,13 @@ when (mode) {
 
 ### 읽는 순서 (Recommended Reading Order)
 
-1. [ServiceManager (중앙 서비스 디렉토리 & Handle 0)](./service-manager.md): 커널 레벨 Handle 0 등록 및 전역 Binder 디렉토리 메커니즘 확인.
-2. [Context.getSystemService (시스템 서비스 획득 매커니즘)](./get-system-service.md): 앱 관점에서의 서비스 조회, Context 타입별 캐싱 및 IPC 오버헤드 이해.
-3. [ActivityManagerService (AMS) & ATMS](./activity-manager-service.md): 컴포넌트 수명주기, Task 백스택, 프로세스 OOM 점수 관리 확인.
-4. [PackageManagerService (PMS)](./package-manager-service.md): APK 파싱, `packages.xml`, UID 할당, Intent 해소 메커니즘 확인.
-5. [WindowManagerService (WMS)](./window-manager-service.md): 윈도우 계층 구조, Z-order, Surface 할당 및 입력 이벤트 디스패칭 확인.
-6. [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](./system-server-uid-pid-check.md): `system_server`의 UID/PID 검증과 `clearCallingIdentity()` 보안 경계 확인.
-7. [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-permission-denial.md): 권한 통과 후 실행 시점 AppOps 개입과 `MODE_IGNORED` 처리 확인.
+1. [ServiceManager (중앙 서비스 디렉토리 & Handle 0)](service-manager.md): 커널 레벨 Handle 0 등록 및 전역 Binder 디렉토리 메커니즘 확인.
+2. [Context.getSystemService (시스템 서비스 획득 매커니즘)](get-system-service.md): 앱 관점에서의 서비스 조회, Context 타입별 캐싱 및 IPC 오버헤드 이해.
+3. [ActivityManagerService (AMS) & ATMS](activity-manager-service.md): 컴포넌트 수명주기, Task 백스택, 프로세스 OOM 점수 관리 확인.
+4. [PackageManagerService (PMS)](package-manager-service.md): APK 파싱, `packages.xml`, UID 할당, Intent 해소 메커니즘 확인.
+5. [WindowManagerService (WMS)](window-manager-service.md): 윈도우 계층 구조, Z-order, Surface 할당 및 입력 이벤트 디스패칭 확인.
+6. [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](system-server-uid-pid-check.md): `system_server`의 UID/PID 검증과 `clearCallingIdentity()` 보안 경계 확인.
+7. [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](appops-permission-denial.md): 권한 통과 후 실행 시점 AppOps 개입과 `MODE_IGNORED` 처리 확인.
 
 ### 문제 분류 (Troubleshooting Matrix)
 
@@ -88,13 +88,13 @@ when (mode) {
 
 ### 노트 목록 (Topic Notes)
 
-- [ServiceManager (중앙 서비스 디렉토리 & Handle 0)](./service-manager.md)
-- [Context.getSystemService (시스템 서비스 획득 매커니즘)](./get-system-service.md)
-- [ActivityManagerService (AMS) & ATMS](./activity-manager-service.md)
-- [PackageManagerService (PMS)](./package-manager-service.md)
-- [WindowManagerService (WMS)](./window-manager-service.md)
-- [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](./system-server-uid-pid-check.md)
-- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](./appops-permission-denial.md)
+- [ServiceManager (중앙 서비스 디렉토리 & Handle 0)](service-manager.md)
+- [Context.getSystemService (시스템 서비스 획득 매커니즘)](get-system-service.md)
+- [ActivityManagerService (AMS) & ATMS](activity-manager-service.md)
+- [PackageManagerService (PMS)](package-manager-service.md)
+- [WindowManagerService (WMS)](window-manager-service.md)
+- [Binder 서비스는 필요한 호출 경계에서 호출자 신원과 정책을 검사한다](system-server-uid-pid-check.md)
+- [AppOps는 permission 승인 뒤에도 실행 시점 정책을 추가로 거부할 수 있다](appops-permission-denial.md)
 
 검증일: 2026-08-24. `Context.getSystemService()`, `ServiceManager`, Binder caller identity, AppOps 모델을 Android Open Source Project (AOSP) 공식 소스 및 API 문서와 대조 검증 완료.
 

@@ -74,6 +74,6 @@ fun UserProfileScreen(
 ### 4. 연결 문서 (Related Links)
 
 - [ViewModel](../../architecture/state-management/viewmodel.md) - Configuration Change 를 견디는 Compose SSOT 상태 홀더
-- [StateFlow & SharedFlow](../../data/async-flow/flow-state/stateflow-and-sharedflow.md) - Compose SSOT 상태 방출 스트림
+- [StateFlow & SharedFlow](../../async-flow/flow-state/stateflow-and-sharedflow.md) - Compose SSOT 상태 방출 스트림
 - [Activity](../../architecture/app-components/activity.md) - Compose UI 루트 호스트
 - [Composable Body Purity](composable-body-purity.md) - Compose UI 함수 작성 준칙

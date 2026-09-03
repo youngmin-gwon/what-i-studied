@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## 적응형 레이아웃은 같은 화면을 늘리는 것이 아니라 구조를 바꾼다
 
-상위 문서: [큰 화면 적응 계약](./large-screen.md)
+상위 문서: [큰 화면 적응 계약](large-screen.md)
 
 Adaptive layout 은 compact 화면을 큰 화면에 단순 확대하는 방식이 아니다. 창이 넓어지면 navigation chrome, content pane, 보조 도구, density, modal 위치 같은 화면 구조를 바꿔야 한다.
 

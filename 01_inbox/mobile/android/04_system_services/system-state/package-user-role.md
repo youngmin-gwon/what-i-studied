@@ -59,9 +59,9 @@ adb shell cmd role get-role-holders android.app.role.SMS
 
 ### 읽는 순서 (Recommended Reading Order)
 
-1. [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](./package-visibility-queries.md): `<queries>` 요소 선언, 자동 가시성 규칙, `AppsFilter` 점검.
-2. [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./user-manager-userhandle.md): `UserHandle` 격리, `CrossProfileApps`, MDM 정책 경계 확인.
-3. [RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다](./role-manager.md): `ROLE_DIALER`, `createRequestRoleIntent()`, 역할 자격 요건 확인.
+1. [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](package-visibility-queries.md): `<queries>` 요소 선언, 자동 가시성 규칙, `AppsFilter` 점검.
+2. [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](user-manager-userhandle.md): `UserHandle` 격리, `CrossProfileApps`, MDM 정책 경계 확인.
+3. [RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다](role-manager.md): `ROLE_DIALER`, `createRequestRoleIntent()`, 역할 자격 요건 확인.
 
 ### 문제 분류 (Troubleshooting Matrix)
 
@@ -79,9 +79,9 @@ adb shell cmd role get-role-holders android.app.role.SMS
 
 ### 노트 목록 (Topic Notes)
 
-- [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](./package-visibility-queries.md)
-- [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](./user-manager-userhandle.md)
-- [RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다](./role-manager.md)
+- [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](package-visibility-queries.md)
+- [UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다](user-manager-userhandle.md)
+- [RoleManager는 권한 묶음이 아니라 기본 앱 자격을 관리한다](role-manager.md)
 
 검증일: 2026-08-24. [패키지 가시성 가이드](https://developer.android.com/training/package-visibility), [Work Profile 가이드](https://developer.android.com/work/managed-profiles), [RoleManager 문서](https://developer.android.com/reference/android/app/role/RoleManager)를 기준으로 Android 15/16 최신 플랫폼 계약 검증 완료.
 

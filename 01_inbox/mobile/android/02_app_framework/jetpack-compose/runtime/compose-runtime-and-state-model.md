@@ -73,9 +73,9 @@ Compose Runtime은 Composable을 개별 UI 뷰 객체로 다루지 않고, 상�
 - [app-component](../../architecture/app-components/component-contracts.md)
 - [file-access](../../data/storage/file-access.md)
 - [persistence](../../data/storage/persistence.md)
-- [flow-state](../../data/async-flow/flow-state/flow-state.md)
-- [coroutine-contracts](../../data/async-flow/coroutines/coroutine.md)
-- [flow-contracts](../../data/async-flow/flow/flow.md)
+- [flow-state](../../async-flow/flow-state/flow-state.md)
+- [coroutine-contracts](../../async-flow/coroutines/coroutine.md)
+- [flow-contracts](../../async-flow/flow/flow.md)
 - [paging](../../data/paging/paging.md)
 - [di](../../dependency-injection/di.md)
 - **dsl-syntax-does-not-change-ownership-lifetime-contracts**

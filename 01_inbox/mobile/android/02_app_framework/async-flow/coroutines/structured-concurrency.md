@@ -1,6 +1,6 @@
 ---
 title: structured-concurrency
-tags: [android, android/async, android/coroutines, android/data]
+tags: [android, android/async, android/concurrency, android/coroutines]
 aliases: ["Structured concurrency는 부모 scope가 자식 작업의 수명을 소유하게 한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00

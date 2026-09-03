@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## BiometricManager.canAuthenticate는 실행 전에 확인해야 하는 사전 조건이다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [생체 인증/자격 증명 계약](./biometrics-credential.md)
+관련 지도: [생체 인증/자격 증명 계약](biometrics-credential.md)
 
 ### 핵심 정의
 

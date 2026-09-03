@@ -9,7 +9,7 @@ date modified: 2026-08-06 13:00:00 +09:00
 ## 배터리, 네트워크, 저장소 성능은 자원 정책이다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [런타임 성능 계약](./performance.md)
+관련 지도: [런타임 성능 계약](performance.md)
 
 배터리 및 디바이스 자원 소비는 단순히 CPU 명령 처리 시간뿐만 아니라 무선 라디오 깨움(Radio Wakeup), 센서 활성화, 시스템 디스크 I/O 락 수명주기와 같은 시스템 정책에 의해 결정된다.
 

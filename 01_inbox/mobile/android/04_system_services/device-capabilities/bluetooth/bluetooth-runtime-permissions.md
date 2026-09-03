@@ -9,7 +9,7 @@ date created: 2026-08-04 18:00:00 +09:00
 ## Android 12+ Bluetooth 런타임 권한은 조건부로만 위치 권한을 대체한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [Bluetooth 접근 계약](./bluetooth.md)
+관련 지도: [Bluetooth 접근 계약](bluetooth.md)
 
 ### 핵심 정의
 

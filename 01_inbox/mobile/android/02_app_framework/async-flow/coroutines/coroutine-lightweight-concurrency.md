@@ -1,6 +1,6 @@
 ---
 title: coroutine-lightweight-concurrency
-tags: [android, android/async, android/coroutines, android/data]
+tags: [android, android/async, android/concurrency, android/coroutines]
 aliases: ["Coroutine은 thread가 아니라 취소 가능한 경량 작업이다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00

@@ -9,7 +9,7 @@ date modified: 2026-08-06 13:00:00 +09:00
 ## 렌더링 성능은 프레임 지연의 원인을 분리한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [런타임 성능 계약](./performance.md)
+관련 지도: [런타임 성능 계약](performance.md)
 
 매끄러운 화면 렌더링은 모든 프레임이 주사율 예산(Deadline) 내에 RenderThread와 SurfaceFlinger를 거쳐 화면에 제출(Present)되는 상태를 유지하는 것이다.
 

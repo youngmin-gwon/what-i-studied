@@ -10,7 +10,7 @@ date created: 2026-08-04 20:15:00 +09:00
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 배경 지식: [IPC 통신 메커니즘](../../../../../operating-systems/ipc-mechanisms.md)
-관련 지도: [Health Connect 접근 계약](./health-connect.md)
+관련 지도: [Health Connect 접근 계약](health-connect.md)
 
 ### 핵심 정의
 

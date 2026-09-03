@@ -17,10 +17,10 @@ date created: 2026-08-04 16:00:00 +09:00
 | 선행 개념 | 필요한 이유 |
 |---|---|
 | Android 앱 프로세스 생성 (A1) | Activity 재생성과 프로세스 종료의 차이 이해 |
-| [Kotlin Coroutines](../../02_app_framework/data/async-flow/coroutines/kotlin-coroutines.md) | viewModelScope, lifecycleScope 이해 |
+| [Kotlin Coroutines](../../02_app_framework/async-flow/coroutines/kotlin-coroutines.md) | viewModelScope, lifecycleScope 이해 |
 | Compose 기초 (B2 § 1~2) | State 소유권 결정 시 생명주기 고려 |
 
-관련 토픽: [A1 · 부팅과 프로세스 생성](./A1-boot-and-process.md) · [B2 · Jetpack Compose](./B2-jetpack-compose.md) · [B3 · 데이터 레이어](./B3-data-layer.md)
+관련 토픽: [A1 · 부팅과 프로세스 생성](A1-boot-and-process.md) · [B2 · Jetpack Compose](B2-jetpack-compose.md) · [B3 · 데이터 레이어](B3-data-layer.md)
 
 ---
 

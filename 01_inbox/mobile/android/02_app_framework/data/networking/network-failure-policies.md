@@ -79,7 +79,7 @@ class ClaimSyncWorker(
 - `adb shell dumpsys jobscheduler` 또는 `WorkManager.getWorkInfosForUniqueWorkLiveData()` 로 특정 동기화 작업이 `RUNNING`/`RETRYING`(내부적으로는 `ENQUEUED` 로 재큐잉)/`FAILED` 상태 중 어디에 있는지 확인한다. `FAILED` 상태로 멈춰 있다면 `Result.failure()` 를 반환한 영구 실패이지 재시도 대기가 아니라는 뜻이다.
 - 화면에서 "동기화됨" 배지가 계속 "대기 중"으로 남아 있다면, 8장의 조사 절차대로 `WorkInfo.state` 와 `dumpsys connectivity`/`dumpsys netpolicy` 를 대조해 constraint 미충족인지 실제 API 실패인지 구분한다.
 
-상위 지도: [네트워크 클라이언트 계층 계약](./networking.md)
+상위 지도: [네트워크 클라이언트 계층 계약](networking.md)
 
 관련 노트: [데이터, 저장소, 네트워크와 offline recovery](../../../00_foundations/learning-spine/08-data-storage-network-and-offline-recovery.md), [WorkManager는 지연 가능한 보장 작업의 기본 선택이다](../../../04_system_services/background-and-notifications/work-manager.md), [Retrofit 인터페이스는 API 계약을 선언하고 OkHttp가 실제 전송을 담당한다](retrofit-okhttp-boundaries.md)
 

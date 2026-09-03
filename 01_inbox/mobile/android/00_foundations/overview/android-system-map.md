@@ -12,21 +12,21 @@ date created: 2026-08-03 16:59:22 +09:00
 
 ### 계층과 읽는 순서
 
-1. [계층형 플랫폼](./foundation/android-is-layered-mobile-platform-not-just-an-app-sdk.md) 에서 kernel, native/HAL, runtime, framework service, app framework 를 한 그림으로 잡는다.
-2. [Stack boundary](./foundation/android-stack-boundaries-explain-where-a-problem-belongs.md) 에서 증상과 실패 계층을 분리한다.
-3. [앱 실행 경로](./foundation/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md) 로 process 생성과 component lifecycle 이 다른 책임임을 확인한다.
-4. [보안 계층](./foundation/android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md) 과 [camera 경로 예시](./foundation/camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md) 로 하나의 기능이 여러 경계를 지나는 방식을 연습한다.
+1. [계층형 플랫폼](foundation/android-is-layered-mobile-platform-not-just-an-app-sdk.md) 에서 kernel, native/HAL, runtime, framework service, app framework 를 한 그림으로 잡는다.
+2. [Stack boundary](foundation/android-stack-boundaries-explain-where-a-problem-belongs.md) 에서 증상과 실패 계층을 분리한다.
+3. [앱 실행 경로](foundation/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md) 로 process 생성과 component lifecycle 이 다른 책임임을 확인한다.
+4. [보안 계층](foundation/android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md) 과 [camera 경로 예시](foundation/camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md) 로 하나의 기능이 여러 경계를 지나는 방식을 연습한다.
 
-[Foundation Contracts](./foundation/foundation.md) 는 이 순서를 구성하는 원자 노트의 역할 차이와 추가 기준을 관리하는 하위 지도다.
+[Foundation Contracts](foundation/foundation.md) 는 이 순서를 구성하는 원자 노트의 역할 차이와 추가 기준을 관리하는 하위 지도다.
 
 ### Foundation Notes
 
-- [Android는 앱 SDK만이 아니라 계층형 모바일 플랫폼이다](./foundation/android-is-layered-mobile-platform-not-just-an-app-sdk.md)
-- [Android stack boundary는 문제가 어느 층에 속하는지 판단하게 해 준다](./foundation/android-stack-boundaries-explain-where-a-problem-belongs.md)
-- [앱 실행은 Launcher, system_server, Zygote, ActivityThread를 지나는 경로다](./foundation/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md)
-- [Android 보안은 UID sandbox, permission, SELinux, verified boot가 나뉜 계층이다](./foundation/android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md)
-- [Android 지식 지도는 runtime, app framework, services, security, tooling으로 나누어 읽는다](./foundation/android-knowledge-map-is-organized-by-runtime-app-framework-services-security-and-tooling.md)
-- [사진 찍기 예시는 permission, intent, UI, media, HAL, storage 경계를 함께 지난다](./foundation/camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md)
+- [Android는 앱 SDK만이 아니라 계층형 모바일 플랫폼이다](foundation/android-is-layered-mobile-platform-not-just-an-app-sdk.md)
+- [Android stack boundary는 문제가 어느 층에 속하는지 판단하게 해 준다](foundation/android-stack-boundaries-explain-where-a-problem-belongs.md)
+- [앱 실행은 Launcher, system_server, Zygote, ActivityThread를 지나는 경로다](foundation/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md)
+- [Android 보안은 UID sandbox, permission, SELinux, verified boot가 나뉜 계층이다](foundation/android-security-is-layered-from-uid-sandbox-to-permissions-and-verified-boot.md)
+- [Android 지식 지도는 runtime, app framework, services, security, tooling으로 나누어 읽는다](foundation/android-knowledge-map-is-organized-by-runtime-app-framework-services-security-and-tooling.md)
+- [사진 찍기 예시는 permission, intent, UI, media, HAL, storage 경계를 함께 지난다](foundation/camera-example-crosses-permission-intent-ui-media-hal-and-storage-boundaries.md)
 
 ### 문제별 진입 경로
 

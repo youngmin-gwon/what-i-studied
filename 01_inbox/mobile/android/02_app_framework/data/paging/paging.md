@@ -21,7 +21,7 @@ Paging 정본은 대량 목록을 "페이지 로딩 알고리즘"이 아니라 s
 
 ### 중복 방지 규칙
 
-- Flow 의 수집, 공유, `stateIn` 판단은 [Flow와 StateFlow 상태 계약](../async-flow/flow-state/flow-state.md) 로 둔다.
+- Flow 의 수집, 공유, `stateIn` 판단은 [Flow와 StateFlow 상태 계약](../../async-flow/flow-state/flow-state.md) 로 둔다.
 - Room/DataStore 와 durable source of truth 는 [영속 저장소 계약](../storage/persistence.md) 로 둔다.
 - ViewModel scope 와 화면 상태 조합은 [Android ViewModel](../../architecture/state-management/viewmodel.md) 로 둔다.
 
@@ -30,7 +30,7 @@ Paging 정본은 대량 목록을 "페이지 로딩 알고리즘"이 아니라 s
 ## 1. 개념 & 비유 (Concept & Real-World Analogy)
 
 ### 개념
-**Paging 3**는 Android Jetpack 라이브러리의 일부로, 서버나 로컬 수천~수만 개의 대용량 데이터를 메모리 효율적으로 나누어(Chunk) 차례대로 로딩(Lazy Loading)하는 아키텍처 구성 요소입니다. Kotlin Flow 및 [Coroutines](../async-flow/coroutines/kotlin-coroutines.md)와 완벽하게 결합되어 네트워크/DB 데이터 로딩 상태(Loading, Error, Idle) 관리 및 중복 요청 방지, 메모리 캐싱을 자동으로 처리합니다.
+**Paging 3**는 Android Jetpack 라이브러리의 일부로, 서버나 로컬 수천~수만 개의 대용량 데이터를 메모리 효율적으로 나누어(Chunk) 차례대로 로딩(Lazy Loading)하는 아키텍처 구성 요소입니다. Kotlin Flow 및 [Coroutines](../../async-flow/coroutines/kotlin-coroutines.md)와 완벽하게 결합되어 네트워크/DB 데이터 로딩 상태(Loading, Error, Idle) 관리 및 중복 요청 방지, 메모리 캐싱을 자동으로 처리합니다.
 
 ### 실생활 비유: 뷔페 음식 접시 교체 (Buffet Food Tray Replacement)
 뷔페 식당에서 손님들에게 10,000인분의 음식을 한꺼번에 식탁에 차려놓지 않습니다. 식탁 공간(메모리)도 부족하고 음식도 굳어버리기 때문입니다.

@@ -9,7 +9,7 @@ date created: 2026-07-31 17:46:00 +09:00
 ## 비접촉 결제는 NFC 태깅과 별도 엔지니어링 문제다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [NFC와 비접촉 기능 계약](./nfc.md)
+관련 지도: [NFC와 비접촉 기능 계약](nfc.md)
 
 ### 결제와 태깅의 차이
 

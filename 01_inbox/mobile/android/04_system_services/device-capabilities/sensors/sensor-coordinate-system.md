@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## 센서 좌표계는 화면 방향이 아니라 기기 고정 좌표계다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [센서 접근 계약](./sensor.md)
+관련 지도: [센서 접근 계약](sensor.md)
 
 ### 핵심 정의
 

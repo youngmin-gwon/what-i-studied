@@ -10,7 +10,7 @@ date created: 2026-08-03 17:29:56 +09:00
 
 상위 문서: [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)
 
-관련 지도: [ChromeOS 고유 계약](./chromeos.md)
+관련 지도: [ChromeOS 고유 계약](chromeos.md)
 
 세부 비교: [ARC++ vs ARCVM 기술 비교 및 선택](arc-plus-plus-vs-arcvm.md)
 
@@ -130,5 +130,5 @@ adb shell dumpsys activity displays | grep -E "mWindowingMode|mBounds"
 - [ARC++ vs ARCVM 기술 비교 및 선택](arc-plus-plus-vs-arcvm.md)
 - [ChromeOS 전용 배포는 Play 콘솔에서 Chromebook 지원 여부를 별도로 선언한다](chromeos-play-console-declaration.md)
 - [ChromeOS 입력은 마우스/트랙패드/키보드를 우선하고 터치는 보조 입력이다](chromeos-pointer-keyboard-input.md)
-- [ChromeOS 고유 계약](./chromeos.md)
+- [ChromeOS 고유 계약](chromeos.md)
 - [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)

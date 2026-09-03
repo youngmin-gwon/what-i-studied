@@ -1,6 +1,6 @@
 ---
 title: parallel-coroutine-policies
-tags: [android, android/data, android/async, android/coroutines]
+tags: [android, android/async, android/concurrency, android/coroutines]
 aliases: ["병렬 Coroutine은 부모 scope와 실패 정책을 먼저 정해야 한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00

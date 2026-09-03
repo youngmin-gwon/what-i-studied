@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## 적응형 앱 준비도는 창, posture, 입력 테스트로 판단한다
 
-상위 문서: [큰 화면 적응 계약](./large-screen.md)
+상위 문서: [큰 화면 적응 계약](large-screen.md)
 
 큰 화면 대응 완료 여부는 특정 태블릿에서 화면이 넓게 보이는지로 판단하지 않는다. compact, medium, expanded, large, extra-large 창 크기와 폴더블 posture, multi-window, 입력 장치 조합에서 핵심 과업이 유지되는지로 판단한다.
 

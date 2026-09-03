@@ -9,7 +9,7 @@ date modified: 2026-08-06 14:48:27 +09:00
 ## Benchmark 결과는 물리 기기와 CI 조건을 통제해야 한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](benchmark-baseline.md)
 관련 노트: [Macrobenchmark는 실제 사용자 여정을 측정한다](macrobenchmark-user-journeys.md)
 
 회귀 판단에 쓰는 Macrobenchmark 수치는 고정된 물리 기기 또는 실제 기기 서비스에서 수집하는 것이 원칙이다. 에뮬레이터와 Gradle Managed Virtual Device(GMD)는 실행 가능성 확인에는 쓸 수 있지만 호스트 OS·하드웨어에 종속되어 실제 사용자 성능을 대표하지 않는다. 전원, 발열, OS 이미지, 백그라운드 작업과 측정 절차를 일정하게 유지하고 분산을 함께 기록한다.

@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## 큰 화면 내비게이션은 목적지 중요도와 창 폭에 따라 chrome 을 바꾼다
 
-상위 문서: [큰 화면 적응 계약](./large-screen.md)
+상위 문서: [큰 화면 적응 계약](large-screen.md)
 
 큰 화면 내비게이션은 같은 top-level destination 을 다른 chrome 으로 표현하는 문제다. compact 의 bottom bar 가 medium 이상에서는 navigation rail 이나 drawer 로 바뀌어도 앱의 목적지 모델은 유지되어야 한다.
 

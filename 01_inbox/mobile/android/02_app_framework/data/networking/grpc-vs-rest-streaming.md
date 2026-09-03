@@ -70,7 +70,7 @@ stub.watchBenefitUpdates(benefitRequest { userId = "u1" })
 - **서버 푸시나 양방향 스트리밍이 실제로 필요한가.** 실시간 위치 업데이트, 채팅, 라이브 대시보드처럼 서버가 계속 메시지를 밀어 보내야 하는 요구가 있다면 gRPC 의 server/bidirectional streaming 이 WebSocket 을 직접 다루는 것보다 스키마 기반이라 타입 안전성을 확보하기 쉽다. 단발성 CRUD 호출만 필요하면 REST 로 충분하고 gRPC 의 스키마 관리 비용을 감수할 이유가 적다.
 - **툴링·디버깅 성숙도 차이를 감수할 수 있는가.** REST 는 `HttpLoggingInterceptor`, Android Studio Network Inspector, 브라우저 devtools 등 사람이 바로 읽을 수 있는 디버깅 도구가 풍부하다. gRPC 는 Protobuf 바이너리 wire format 때문에 `grpcurl` 이나 별도 프록시 도구 없이는 실제 페이로드를 눈으로 확인하기 어렵다. 팀이 이 도구 체인에 익숙하지 않다면 초기 디버깅 비용이 늘어난다.
 
-상위 지도: [네트워크 클라이언트 계층 계약](./networking.md)
+상위 지도: [네트워크 클라이언트 계층 계약](networking.md)
 
 관련 노트: [Retrofit 인터페이스는 API 계약을 선언하고 OkHttp가 실제 전송을 담당한다](retrofit-okhttp-boundaries.md), [suspend API 호출의 취소는 호출자의 coroutine scope를 따라간다](network-call-cancellation.md)
 

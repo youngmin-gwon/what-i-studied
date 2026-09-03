@@ -10,9 +10,9 @@ date created: 2026-07-31 17:42:24 +09:00
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
 
-관련 지도: [알림과 FCM 메시징 계약](./notification-messaging.md)
+관련 지도: [알림과 FCM 메시징 계약](notification-messaging.md)
 
-관련 노트: [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./notification-permission-channel.md), [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority.md)
+관련 노트: [Android 알림은 권한과 채널이 표시 가능성을 결정한다](notification-permission-channel.md), [FCM high priority는 사용자 가시 알림에만 정당화된다](fcm-high-priority.md)
 
 ### 두 payload 의 책임
 

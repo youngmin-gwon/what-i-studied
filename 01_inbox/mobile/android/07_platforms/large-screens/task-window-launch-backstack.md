@@ -8,7 +8,7 @@ date created: 2026-07-31 18:08:32 +09:00
 
 ## Task 와 새 창 실행은 back stack 재사용을 명시해야 한다
 
-상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](./windowing-multitasking.md)
+상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](windowing-multitasking.md)
 
 데스크톱과 multi-window 에서 `Intent` 실행은 단순 화면 이동이 아니라 어느 task, 어느 window, 어느 기존 activity 를 재사용할지 결정하는 상태 전이다. 알림, deep link, 공유, drag-out, New Window 동작이 모두 같은 back stack 으로 합쳐지면 사용자는 다른 문서나 다른 작업으로 튕긴 것처럼 느낀다.
 

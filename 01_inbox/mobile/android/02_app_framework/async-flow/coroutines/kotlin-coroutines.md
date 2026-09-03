@@ -12,7 +12,7 @@ date created: 2026-08-07 13:50:00 +09:00
 
 **Kotlin Coroutines (코루틴)** 은 스레드(Thread)를 차단(Blocking)하지 않고 비동기(Asynchronous) 코드를 마치 동기식 순차 코드처럼 작성할 수 있게 해주는 **Kotlin 언어 표준 비동기 경량 경량화 동시성(Lightweight Concurrency) 프레임워크**이다.
 
-기존의 낡은 스레드 생성 오버헤드나 콜백 지옥(Callback Hell)과 달리, 코루틴은 **[Structured Concurrency](../../../../../../computer-science/structured-concurrency.md) (구조화된 동시성)** 원칙을 준수하여 상위 스코프(Scope)가 취소되면 하위 자식 작업도 자동으로 전파 취소(Cancellation Propagation)되어 리소스 누수를 완벽히 방지한다.
+기존의 낡은 스레드 생성 오버헤드나 콜백 지옥(Callback Hell)과 달리, 코루틴은 **[Structured Concurrency](../../../../../computer-science/structured-concurrency.md) (구조화된 동시성)** 원칙을 준수하여 상위 스코프(Scope)가 취소되면 하위 자식 작업도 자동으로 전파 취소(Cancellation Propagation)되어 리소스 누수를 완벽히 방지한다.
 
 ---
 
@@ -43,7 +43,7 @@ graph TD
    - `Dispatchers.IO`: 파일/네트워크 I/O 작업용 스레드 풀.
    - `Dispatchers.Default`: CPU 집약적 연산용 스레드 풀.
 4. **Structured Concurrency (구조화된 동시성)**:
-   - [Structured Concurrency](../../../../../../computer-science/structured-concurrency.md) 계약에 따라 부모 스코프 취소 시 모든 자식 Job 이 일괄 cancellation 처리된다.
+   - [Structured Concurrency](../../../../../computer-science/structured-concurrency.md) 계약에 따라 부모 스코프 취소 시 모든 자식 Job 이 일괄 cancellation 처리된다.
 
 ---
 
@@ -52,7 +52,7 @@ graph TD
 Jetpack Compose 환경에서는 Composable 의 Recomposition 수명주기와 안전하게 동기화되는 2 가지 핵심 코루틴 빌더를 제공한다:
 
 1. **`LaunchedEffect(key)`**:
-   - Composable 이 화면에 진입(Composition)할 때 [부수 효과](../../../../../../computer-science/side-effect.md)(Side-Effect)로 비동기 작업을 시작하고, 화면을 이탈(Recomposition/Disposition)하거나 `key` 가 변경되면 진행 중인 코루틴을 자동으로 취소한다.
+   - Composable 이 화면에 진입(Composition)할 때 [부수 효과](../../../../../computer-science/side-effect.md)(Side-Effect)로 비동기 작업을 시작하고, 화면을 이탈(Recomposition/Disposition)하거나 `key` 가 변경되면 진행 중인 코루틴을 자동으로 취소한다.
 2. **`rememberCoroutineScope()`**:
    - 사용자 이벤트 클릭 핸들러(Button onClick 등) 내부에서 일회성 비동기 코루틴을 시작할 때, 현재 Composition 의 수명주기에 바인딩된 `CoroutineScope` 를 획득한다.
 
@@ -81,11 +81,11 @@ fun UserProfileScreen(userId: String, viewModel: UserViewModel = viewModel()) {
 
 ### 4. 연결 문서 (Related Links)
 
-- [Structured Concurrency](../../../../../../computer-science/structured-concurrency.md) - CS 구조화된 동시성 부모 - 자식 수명주기 원칙
+- [Structured Concurrency](../../../../../computer-science/structured-concurrency.md) - CS 구조화된 동시성 부모 - 자식 수명주기 원칙
 - [StateFlow & SharedFlow](../flow-state/stateflow-and-sharedflow.md) - Coroutines 기반 반응형 Hot Data Stream
-- [Compose SSOT](../../../jetpack-compose/runtime/compose-ssot.md) - Coroutines 과 ViewModel 기반 UI 단일 진실 출처
-- [ViewModel](../../../architecture/state-management/viewmodel.md) - `viewModelScope` 를 제공하는 안드로이드 아키텍처 노드
-- [Activity](../../../architecture/app-components/activity.md) - `lifecycleScope` 를 제공하는 Compose UI 루트
-- [Race Condition](../../../../../../computer-science/race-condition.md) - 스레드 동시성 레이스 조건
-- [Deadlock](../../../../../../computer-science/deadlock.md) - 교착 상태
-- [Mutex/Lock](../../../../../../computer-science/mutex-lock.md) - 상호 배제를 통한 동시성 제어
+- [Compose SSOT](../../jetpack-compose/runtime/compose-ssot.md) - Coroutines 과 ViewModel 기반 UI 단일 진실 출처
+- [ViewModel](../../architecture/state-management/viewmodel.md) - `viewModelScope` 를 제공하는 안드로이드 아키텍처 노드
+- [Activity](../../architecture/app-components/activity.md) - `lifecycleScope` 를 제공하는 Compose UI 루트
+- [Race Condition](../../../../../computer-science/race-condition.md) - 스레드 동시성 레이스 조건
+- [Deadlock](../../../../../computer-science/deadlock.md) - 교착 상태
+- [Mutex/Lock](../../../../../computer-science/mutex-lock.md) - 상호 배제를 통한 동시성 제어

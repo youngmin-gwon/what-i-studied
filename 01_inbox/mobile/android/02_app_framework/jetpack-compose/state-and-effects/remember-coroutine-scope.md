@@ -68,5 +68,5 @@ fun DrawerControlScreen() {
 ### 4. 연결 문서 (Related Links)
 
 - [launched-effect](launched-effect.md) - 화면 진입 시 자동 비동기 이펙트
-- [Kotlin Coroutines](../../data/async-flow/coroutines/kotlin-coroutines.md) - 코루틴 동시성 엔진
+- [Kotlin Coroutines](../../async-flow/coroutines/kotlin-coroutines.md) - 코루틴 동시성 엔진
 - [Structured Concurrency](../../../../../computer-science/structured-concurrency.md) - 부모 - 자식 취소 전파 규약

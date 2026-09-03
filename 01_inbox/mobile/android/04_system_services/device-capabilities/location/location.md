@@ -85,8 +85,8 @@ flowchart TD
 
 ### 읽는 순서
 
-1. [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fused-location-provider.md) 에서 GPS/네트워크/센서를 앱이 직접 고르지 않는 이유를 본다.
-2. [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-tiers.md) 에서 승인 UX 와 OS 버전별 차이를 확인한다.
+1. [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](fused-location-provider.md) 에서 GPS/네트워크/센서를 앱이 직접 고르지 않는 이유를 본다.
+2. [위치 권한은 foreground와 background 두 단계로 나뉜다](location-permission-tiers.md) 에서 승인 UX 와 OS 버전별 차이를 확인한다.
 3. [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](precise-vs-approximate-location.md) 에서 Android 12+ 정확도 선택 모델을 본다.
 
 ### 문제 분류
@@ -106,8 +106,8 @@ flowchart TD
 
 ### 노트 목록
 
-- [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](./fused-location-provider.md)
-- [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-tiers.md)
+- [FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다](fused-location-provider.md)
+- [위치 권한은 foreground와 background 두 단계로 나뉜다](location-permission-tiers.md)
 - [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](precise-vs-approximate-location.md)
 
 ### 공식 문서

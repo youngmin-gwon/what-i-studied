@@ -43,7 +43,7 @@ graph TD
 | :--- | :--- | :--- |
 | **업스트림 유지** | `refCount()` 사용 시 구독자 0 즉시 취소되어 회전 시 문제 발생 | `WhileSubscribed(5000)`으로 화면 회전 유예 시간 확보 |
 | **초기값 설정** | LiveData 생성 시 초기값 설정 불가능 | `stateIn` 파라미터로 필수 초기값 지정 강제 |
-| **Scope 바인딩** | CompositeDisposable을 수동 관리하여 에러 가능성 존재 | `viewModelScope` 결합으로 [viewmodel](../../../architecture/state-management/viewmodel.md) 파괴 시 100% 자동 소멸 |
+| **Scope 바인딩** | CompositeDisposable을 수동 관리하여 에러 가능성 존재 | `viewModelScope` 결합으로 [viewmodel](../../architecture/state-management/viewmodel.md) 파괴 시 100% 자동 소멸 |
 
 ### Idiomatic Kotlin 코드 예시
 

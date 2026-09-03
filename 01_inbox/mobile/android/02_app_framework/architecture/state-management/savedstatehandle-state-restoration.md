@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## SavedStateHandle 은 프로세스 사망 후 복원해야 하는 작은 상태에 사용한다
 
-상위 문서: [Android ViewModel](./viewmodel.md)
+상위 문서: [Android ViewModel](viewmodel.md)
 
 ### 핵심 주장
 

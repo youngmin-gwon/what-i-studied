@@ -9,7 +9,7 @@ date modified: 2026-08-06 14:48:27 +09:00
 ## Unit, Integration, UI, E2E 테스트는 실패 신호가 다르다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [테스트 품질 계약](./testing-quality.md)
+관련 지도: [테스트 품질 계약](testing-quality.md)
 관련 노트: [테스트 레이어는 피드백 비용으로 선택한다](test-pyramid-strategy.md)
 
 각 테스트 레이어는 서로 다른 격리 범위(Isolation Scope)를 형성하므로, 발생한 실패 신호(Failure Signal)의 스택 트레이스와 예외 유형에 따라 진단 대상(도메인 규칙 vs DI/DB 계약 vs UI 노드 및 레이스 vs 네트워크 환경)을 다르게 포착해야 한다.

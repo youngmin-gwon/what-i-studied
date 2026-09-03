@@ -1,6 +1,6 @@
 ---
 title: callback-flow-cleanup
-tags: [android, android/async, android/flow, android/data]
+tags: [android, android/async, android/concurrency, android/flow]
 aliases: ["callbackFlow는 리스너 등록과 해제 자원 정리를 위해 awaitClose를 필수 요구한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00

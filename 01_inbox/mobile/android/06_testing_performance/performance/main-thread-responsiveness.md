@@ -9,7 +9,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 ## 메인 스레드 작업은 앱 응답성을 결정한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [런타임 성능 계약](./performance.md)
+관련 지도: [런타임 성능 계약](performance.md)
 
 메인 스레드(UI Thread)는 입력 이벤트 수신, 뷰 트리 측정/배치, 프레임 바인딩을 순차 처리하는 단일 `Looper` 기반 실행 축이므로, 메인 스레드가 블로킹되면 앱 전체 응답성이 멈추고 ANR(Application Not Responding)로 이어진다.
 

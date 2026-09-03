@@ -158,7 +158,7 @@ adb shell dumpsys vibrator | grep -A 10 "Previous vibrations"
 
 ### 8. 관련 문서 및 참조
 
-상위 문서: [Haptics 및 Vibrator 계약](./haptics-and-vibrator.md)
+상위 문서: [Haptics 및 Vibrator 계약](haptics-and-vibrator.md)
 
 관련 계약 문서:
 

@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## Caption bar 와 window inset 은 데스크톱 UI 의 안전 영역이다
 
-상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](./windowing-multitasking.md)
+상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](windowing-multitasking.md)
 
 Desktop windowing 의 창 상단에는 시스템이 그리는 caption bar 와 창 제어 영역이 있다. immersive mode 에서도 이 영역은 사라진다고 가정할 수 없고, 앱 UI 는 inset 과 system gesture 영역을 기준으로 안전하게 배치되어야 한다.
 

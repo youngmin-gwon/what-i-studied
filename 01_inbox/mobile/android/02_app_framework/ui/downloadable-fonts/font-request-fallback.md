@@ -9,7 +9,7 @@ date created: 2026-08-05 10:00:00 +09:00
 ## 폰트 요청은 XML font-family 선언이나 FontRequest 코드 경로를 따르며 실패 시 폴백이 필요하다
 
 상위 문서: [Android UI System](../android-ui-system.md)
-관련 지도: [Downloadable Fonts 접근 계약](./downloadable-fonts.md)
+관련 지도: [Downloadable Fonts 접근 계약](downloadable-fonts.md)
 
 ### 핵심 정의
 

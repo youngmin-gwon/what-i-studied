@@ -13,9 +13,9 @@ Android UI 문서는 View System, Compose, system UI, adaptive layout 을 한 �
 ### 정본 지도
 
 - [Android UI System Contracts](view-system/ui-system.md)
-- [Android WebView Contracts](./webview/webview.md)
-- [Android 지역화와 RTL 계약](./localization/localization.md)
-- [Downloadable Fonts 접근 계약](./downloadable-fonts/downloadable-fonts.md)
+- [Android WebView Contracts](webview/webview.md)
+- [Android 지역화와 RTL 계약](localization/localization.md)
+- [Downloadable Fonts 접근 계약](downloadable-fonts/downloadable-fonts.md)
 - [Compose Runtime과 상태 모델](../jetpack-compose/runtime/compose-runtime-and-state-model.md)
 - [Compose Layout, Animation, Accessibility](../jetpack-compose/layout-and-ui/compose-layout-animation-accessibility.md)
 - [Android Navigation 진입 계약](../navigation/navigation.md)

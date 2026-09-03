@@ -8,7 +8,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ## CI 는 Firebase Test Lab 같은 클라우드 디바이스 매트릭스에서 테스트를 실행하고 로컬 에뮬레이터 매트릭스와는 다른 계약을 가진다
 
-상위 문서: [테스트 품질 계약](./testing-quality.md)
+상위 문서: [테스트 품질 계약](testing-quality.md)
 
 CI 파이프라인이 "instrumented test 를 통과시켰다"는 말은 어떤 실행 환경에서 통과시켰는지에 따라 의미가 다르다. CI runner 위에서 직접 부팅하는 로컬 에뮬레이터 매트릭스와, Firebase Test Lab 같은 클라우드 디바이스 매트릭스는 서로 다른 결함을 검증하며 하나가 다른 하나를 대체하지 못한다.
 

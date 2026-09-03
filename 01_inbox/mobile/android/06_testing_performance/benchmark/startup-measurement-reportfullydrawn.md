@@ -9,7 +9,7 @@ date modified: 2026-08-06 13:00:00 +09:00
 ## Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](benchmark-baseline.md)
 관련 노트: [Android 시작 성능은 TTID와 TTFD로 나눈다](../performance/startup-performance-metrics.md)
 
 Macrobenchmark에서 시작 성능 지표를 도출하기 위해서는 `StartupMode`(`COLD`, `WARM`, `HOT`)로 프로세스 힙/클래스 초기화 상대를 정의하고, `reportFullyDrawn()` 신호로 유효 렌더링 종료점을 명시해야 한다.

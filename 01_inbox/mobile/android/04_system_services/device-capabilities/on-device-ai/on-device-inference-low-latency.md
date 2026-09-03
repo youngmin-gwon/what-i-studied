@@ -10,7 +10,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
 
-관련 지도: [온디바이스 AI 접근 계약](./on-device-ai.md)
+관련 지도: [온디바이스 AI 접근 계약](on-device-ai.md)
 
 ### 핵심 정의
 

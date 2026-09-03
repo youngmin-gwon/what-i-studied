@@ -9,7 +9,7 @@ date modified: 2026-08-24 18:10:00 +09:00
 ## Android 시작 성능은 TTID와 TTFD로 나눈다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [런타임 성능 계약](./performance.md)
+관련 지도: [런타임 성능 계약](performance.md)
 관련 노트: [Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다](../benchmark/startup-measurement-reportfullydrawn.md), [앱 실행 경로 계약](../../00_foundations/overview/foundation/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md)
 
 앱 시작 시간(App Startup Time)은 사용자 이탈률과 직결되는 핵심 런타임 지표이다. Android 앱 성능 측정에서는 앱 아이콘 탭 후 첫 화면이 렌더링되는 시점인 **TTID (Time To Initial Display)** 와 실제 모든 비동기 데이터 로딩이 완료되어 사용자가 조작 가능한 시점인 **TTFD (Time To Fully Drawn)** 를 엄격히 구분하여 관측해야 한다.
@@ -175,7 +175,7 @@ Complete
 
 - [Startup mode와 reportFullyDrawn이 시작 측정 기준을 정한다](../benchmark/startup-measurement-reportfullydrawn.md) - Macrobenchmark 기반 시작 성능 자동화 테스트
 - [앱 실행 경로 계약](../../00_foundations/overview/foundation/app-launch-crosses-launcher-system-server-zygote-and-activitythread.md) - Launcher $\rightarrow$ Zygote $\rightarrow$ ActivityThread 실행 시퀀스
-- [Android 성능은 측정 후 최적화한다](./performance-measurement-principles.md) - 측정 환경 통제 및 노이즈 제거 원칙
-- [메인 스레드 작업은 앱 응답성을 결정한다](./main-thread-responsiveness.md) - Main Looper 블로킹 방지 및 StrictMode 정책
+- [Android 성능은 측정 후 최적화한다](performance-measurement-principles.md) - 측정 환경 통제 및 노이즈 제거 원칙
+- [메인 스레드 작업은 앱 응답성을 결정한다](main-thread-responsiveness.md) - Main Looper 블로킹 방지 및 StrictMode 정책
 
 

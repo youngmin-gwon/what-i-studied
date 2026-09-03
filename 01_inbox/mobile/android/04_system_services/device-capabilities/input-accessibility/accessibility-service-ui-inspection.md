@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## AccessibilityService는 다른 앱의 UI 이벤트를 관찰하고 조작할 수 있는 특권 서비스다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [입력 장치와 접근성 서비스 계약](./input-accessibility.md)
+관련 지도: [입력 장치와 접근성 서비스 계약](input-accessibility.md)
 
 ### 핵심 정의
 

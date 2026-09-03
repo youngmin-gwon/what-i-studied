@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## 상태 소유자는 화면 위치가 아니라 수명, 소유자, 변경 주기, 공유 범위로 결정한다
 
-상위 문서: [Android UI State](./ui-state.md)
+상위 문서: [Android UI State](ui-state.md)
 
 ### 핵심 주장
 

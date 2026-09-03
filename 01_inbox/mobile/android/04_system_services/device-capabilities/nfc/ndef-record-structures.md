@@ -9,7 +9,7 @@ date created: 2026-07-31 17:46:00 +09:00
 ## NDEF는 태그 데이터를 메시지와 레코드로 구조화한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [NFC와 비접촉 기능 계약](./nfc.md)
+관련 지도: [NFC와 비접촉 기능 계약](nfc.md)
 
 ### 핵심 정의
 

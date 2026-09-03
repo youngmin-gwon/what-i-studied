@@ -9,7 +9,7 @@ date modified: 2026-08-06 14:48:27 +09:00
 ## Android 메모리는 사용량보다 회수되지 않는 객체를 본다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [런타임 성능 계약](./performance.md)
+관련 지도: [런타임 성능 계약](performance.md)
 
 단순히 전체 메모리 힙 점유량이 크다고 해서 누수(Leak)는 아니며, Activity/Fragment 수명주기 파괴(Destroy) 이후에도 GC Root로부터 접근 가능하여 힙에서 회수되지 못하는 '잔존 참조 객체' 및 프레임 잔크를 유발하는 '단기 객체 대량 할당(Allocation Churn)'을 포착하는 것이 본질이다.
 

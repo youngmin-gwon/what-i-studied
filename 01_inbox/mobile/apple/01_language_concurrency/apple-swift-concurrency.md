@@ -72,7 +72,7 @@ flowchart TD
 
 ### ⚡️ Kotlin Coroutines (Android) vs Swift Concurrency
 
-| 특징 | [Kotlin Coroutines](../../android/02_app_framework/data/async-flow/coroutines/kotlin-coroutines.md) | Swift Concurrency |
+| 특징 | [Kotlin Coroutines](../../android/02_app_framework/async-flow/coroutines/kotlin-coroutines.md) | Swift Concurrency |
 | :--- | :--- | :--- |
 | **핵심 키워드** | `suspend`, `launch`, `async` | `async`, `await`, `Task` |
 | **스레드 전환** | `withContext(Dispatchers.IO)` (명시적) | actor 격리 기반 (자동) |
@@ -88,7 +88,7 @@ flowchart TD
 > - `withContext(Dispatchers.IO)` ≃ `nonisolated` 메서드 또는 별도 actor
 > - `Flow.collect` ≃ `for await in sequence`
 > - `Mutex` / `synchronized` ≃ `actor`
->상세 비교는 [android-coroutines-flow](../../android/02_app_framework/data/async-flow/android-coroutines-flow.md) 참고.
+>상세 비교는 [android-coroutines-flow](../../android/02_app_framework/async-flow/android-coroutines-flow.md) 참고.
 
 ### 연관 문서
 

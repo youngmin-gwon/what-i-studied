@@ -9,7 +9,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 ## Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [런타임 성능 계약](./performance.md)
+관련 지도: [런타임 성능 계약](performance.md)
 
 Android Studio Profiler, Perfetto, `dumpsys`는 원인을 탐색하고 병목 구간을 좁히는 **진단 도구(Diagnostic Tools)**이며, 릴리스 간 성능 회귀 여부를 통계적으로 입증하는 **벤치마크(Macrobenchmark)**와 구별해야 한다.
 

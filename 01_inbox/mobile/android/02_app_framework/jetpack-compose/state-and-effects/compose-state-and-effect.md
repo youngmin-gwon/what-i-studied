@@ -70,6 +70,6 @@ graph TD
 ## 3. 연결 문서 (Related Links)
 
 - [Compose SSOT](../runtime/compose-ssot.md) - Compose UI 단일 진실 출처
-- [Kotlin Coroutines](../../data/async-flow/coroutines/kotlin-coroutines.md) - 코루틴 비동기 런타임 엔진
-- [StateFlow & SharedFlow](../../data/async-flow/flow-state/stateflow-and-sharedflow.md) - 반응형 데이터 스트림
+- [Kotlin Coroutines](../../async-flow/coroutines/kotlin-coroutines.md) - 코루틴 비동기 런타임 엔진
+- [StateFlow & SharedFlow](../../async-flow/flow-state/stateflow-and-sharedflow.md) - 반응형 데이터 스트림
 - [Composable Body Purity](../runtime/composable-body-purity.md) - Pure Composable 함수 준칙

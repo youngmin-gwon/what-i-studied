@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## Compose for XR 은 기존 Compose 를 subspace 와 spatial component 로 확장한다
 
-상위 문서: [Android XR 계약](./xr.md)
+상위 문서: [Android XR 계약](xr.md)
 
 Compose for XR 은 Compose mental model 을 버리는 새 UI 도구가 아니다. 기존 Compose 의 선언형 UI 를 유지하면서 `Subspace`, `SpatialPanel`, `SpatialRow`, `SpatialColumn`, `Orbiter` 같은 공간 배치 개념을 추가한다.
 

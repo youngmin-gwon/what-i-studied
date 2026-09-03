@@ -1,6 +1,6 @@
 ---
 title: coroutine
-tags: [android, android/async, android/coroutines, android/data]
+tags: [android, android/async, android/concurrency, android/coroutines]
 aliases: ["Coroutine Contracts"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
@@ -23,5 +23,5 @@ Kotlin Coroutine 정본은 Android 앱 내부의 비동기 작업을 단순한 O
 
 - **단일 비동기 작업 및 실행 트랜잭션**: 본 정본 클러스터에서 다룬다.
 - **연속적 데이터 스트림 처리**: [Flow Contracts](../flow/flow.md) 정본으로 연결한다.
-- **UI 화면 상태 유도 및 [ViewModel](../../../architecture/state-management/viewmodel.md) 연동**: [Flow와 StateFlow 상태 계약](../flow-state/flow-state.md) 정본으로 연결한다.
-- **안드로이드 구성요소 수명주기 결합**: [Android ViewModel](../../../architecture/state-management/viewmodel.md) 및 `lifecycleScope` 계약을 준수한다.
+- **UI 화면 상태 유도 및 [ViewModel](../../architecture/state-management/viewmodel.md) 연동**: [Flow와 StateFlow 상태 계약](../flow-state/flow-state.md) 정본으로 연결한다.
+- **안드로이드 구성요소 수명주기 결합**: [Android ViewModel](../../architecture/state-management/viewmodel.md) 및 `lifecycleScope` 계약을 준수한다.

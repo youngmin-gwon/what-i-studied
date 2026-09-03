@@ -8,7 +8,7 @@ date created: 2026-08-06 18:20:00 +09:00
 
 ## MasterKey (하드웨어 기반 마스터 암호화 키)
 
-Android 보안 아키텍처의 **MasterKey**는 [EncryptedSharedPreferences](./encrypted-shared-preferences.md) 또는 보안 저장소의 데이터 암호화 키(DEK)를 암호화하기 위해 사용되는 최상위 AES-256 마스터 암호화 키입니다.
+Android 보안 아키텍처의 **MasterKey**는 [EncryptedSharedPreferences](encrypted-shared-preferences.md) 또는 보안 저장소의 데이터 암호화 키(DEK)를 암호화하기 위해 사용되는 최상위 AES-256 마스터 암호화 키입니다.
 
 ---
 
@@ -133,7 +133,7 @@ Android Keystore에 생성된 `MasterKey`가 소프트웨어 에뮬레이션이 
 Android 앱 백업(`Full Backup` 또는 `Auto Backup`) 시 SharedPreference XML 파일만 백업되고 Keystore의 `MasterKey`는 백업 대상에서 제외되거나 다른 기기에서 복호화가 불가능합니다. 데이터 복호화 실패 오류를 방지하기 위해 보안 저장소 관련 파일은 항상 백업 대상에서 제외하는 설정이 필요합니다.
 
 #### 3. 관련 개념 노트
-- [EncryptedSharedPreferences - 보안 Key-Value 저장소](./encrypted-shared-preferences.md)
+- [EncryptedSharedPreferences - 보안 Key-Value 저장소](encrypted-shared-preferences.md)
 - [Android Keystore는 추출 불가능성으로 키를 보호한다](keystore-key-non-exportability.md)
 - [암호화 저장소 API는 키와 데이터 경계 설계를 대체하지 않는다](encrypted-storage-boundaries.md)
 - [보안 저장소 계약](secure-storage.md)

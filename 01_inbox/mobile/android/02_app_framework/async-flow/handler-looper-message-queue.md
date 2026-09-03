@@ -12,7 +12,7 @@ date created: 2026-08-06 18:25:00 +09:00
 
 **Handler, Looper, MessageQueue** 삼총사는 Android 단일 스레드 모델에서 **스레드 간 메시지(Message) 및 작업(Runnable)을 주고받고, 순차적으로 일관성 있게 처리하기 위해 구축된 이벤트 루프(Event Loop) 아키텍처**이다.
 
-[ActivityThread](../../architecture/app-components/activity-thread.md) 메인 스레드는 시작과 동시에 이 이벤트 루프를 가동하여, 화면 터치 이벤트, 애니메이션 프레임, 생명주기 콜백 및 백그라운드 스레드 결과 전달을 일관되게 수용한다.
+[ActivityThread](../architecture/app-components/activity-thread.md) 메인 스레드는 시작과 동시에 이 이벤트 루프를 가동하여, 화면 터치 이벤트, 애니메이션 프레임, 생명주기 콜백 및 백그라운드 스레드 결과 전달을 일관되게 수용한다.
 
 ---
 
@@ -72,5 +72,5 @@ thread {
 
 ### 4. 연결 문서 (Related Links)
 
-- [ActivityThread](../../architecture/app-components/activity-thread.md) - Handler/Looper 메인 이벤트 루프를 구동하는 메인 스레드 진입점
-- [system_server](../../../01_system_internals/boot-and-runtime/system-server/system-server.md) - Handler 를 통해 앱 프로세스로 트랜잭션을 전송하는 시스템 서비스
+- [ActivityThread](../architecture/app-components/activity-thread.md) - Handler/Looper 메인 이벤트 루프를 구동하는 메인 스레드 진입점
+- [system_server](../../01_system_internals/boot-and-runtime/system-server/system-server.md) - Handler 를 통해 앱 프로세스로 트랜잭션을 전송하는 시스템 서비스

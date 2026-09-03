@@ -104,7 +104,7 @@ fun ChartWidgetContent(bitmap: Bitmap) {
 
 - 상위 문서: [Android 앱 아키텍처는 UI 패턴보다 수명과 OS 진입점을 나누는 문제다](../architecture/android-app-architecture.md)
 - 관련 계약 문서:
-  - [App Widget 계약](./app-widget.md)
+  - [App Widget 계약](app-widget.md)
   - [Glance는 Compose UI가 아니라 RemoteViews를 통해 위젯을 렌더링한다](glance-remoteviews-rendering.md)
 - 공식 문서: [RemoteViews API Reference](https://developer.android.com/reference/android/widget/RemoteViews)
 

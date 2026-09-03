@@ -1,6 +1,6 @@
 ---
 title: coroutine-exception-propagation
-tags: [android, android/async, android/coroutines, android/data]
+tags: [android, android/async, android/concurrency, android/coroutines]
 aliases: ["Coroutine 예외 전파는 builder와 supervision boundary가 결정한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00
@@ -49,7 +49,7 @@ graph TD
 
 | 비교 항목 | 레거시 (RxJava / UncaughtExceptionHandler) | 현대 표준 ([Kotlin Coroutines](kotlin-coroutines.md)) |
 | :--- | :--- | :--- |
-| **실패 전파** | `onError` 미구현 시 RxJavaPlugins 전역 에러 훅으로 크래시 | [structured concurrency](../../../../../../computer-science/structured-concurrency.md) 트리를 따라 부모/형제 자동 취소 |
+| **실패 전파** | `onError` 미구현 시 RxJavaPlugins 전역 에러 훅으로 크래시 | [structured concurrency](../../../../../computer-science/structured-concurrency.md) 트리를 따라 부모/형제 자동 취소 |
 | **독립 격리** | `onErrorResumeNext()`로 개별 스트림 처리 | `supervisorScope` 또는 `SupervisorJob`으로 하부 트리 실패 격리 |
 | **최종 예외 수집** | `Thread.setDefaultUncaughtExceptionHandler()` | `CoroutineExceptionHandler` (Root Scope 전용) |
 

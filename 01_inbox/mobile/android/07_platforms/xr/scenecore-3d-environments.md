@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## SceneCore 는 3D entity 와 공간 환경을 다루는 계층이다
 
-상위 문서: [Android XR 계약](./xr.md)
+상위 문서: [Android XR 계약](xr.md)
 
 SceneCore 는 일반 화면 컴포저블을 배치하는 계층이 아니라 XR scene graph, entity, 3D model, spatial environment, spatial audio 같은 공간 객체를 다루는 계층이다.
 

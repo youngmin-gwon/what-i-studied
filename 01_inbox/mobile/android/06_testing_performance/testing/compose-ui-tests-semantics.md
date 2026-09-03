@@ -9,7 +9,7 @@ date modified: 2026-08-06 14:48:27 +09:00
 ## Compose UI 테스트는 testTag 와 semantics 를 분리한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [테스트 품질 계약](./testing-quality.md)
+관련 지도: [테스트 품질 계약](testing-quality.md)
 
 Compose UI 테스트는 비주얼 레이아웃 트리가 아닌 접근성 및 의미 기반의 Semantics Tree를 기반으로 탐색(Matcher) 및 조작(Action)을 수행하며, 다국어/디자인 변경에 둔감하도록 엔지니어링 전용 `Modifier.testTag()`와 사용자 보조 기술용 `Semantics`를 분리 지정해야 한다.
 

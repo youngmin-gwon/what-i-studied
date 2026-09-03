@@ -68,7 +68,7 @@ val okHttpClient = OkHttpClient.Builder()
 - `HttpLoggingInterceptor(Level.BODY)` 를 등록하면 logcat 에 `-->`(요청)와 `<--`(응답) 라인이 찍힌다. `AuthInterceptor` 를 `LoggingInterceptor` 보다 먼저 등록했다면 로그에 `Authorization` 헤더가 보이고, 반대 순서면 보이지 않는 것으로 체인 순서를 직접 확인할 수 있다.
 - 인증 재시도 로직이 무한 루프에 빠지면 동일한 URL 에 대해 짧은 시간 안에 반복되는 `-->` 로그가 여러 번 찍히는 것으로 관찰된다. 재시도 횟수 상한을 두지 않으면 이 증상이 나타난다.
 
-상위 지도: [네트워크 클라이언트 계층 계약](./networking.md)
+상위 지도: [네트워크 클라이언트 계층 계약](networking.md)
 
 관련 노트: [Retrofit 인터페이스는 API 계약을 선언하고 OkHttp가 실제 전송을 담당한다](retrofit-okhttp-boundaries.md)
 

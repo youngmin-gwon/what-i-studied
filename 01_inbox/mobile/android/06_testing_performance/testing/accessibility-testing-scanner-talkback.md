@@ -8,7 +8,7 @@ date created: 2026-08-04 18:00:00 +09:00
 
 ## TalkBack 수동 검증과 Accessibility Scanner 자동 검사는 서로 다른 결함군을 잡는다
 
-상위 문서: [테스트 품질 계약](./testing-quality.md)
+상위 문서: [테스트 품질 계약](testing-quality.md)
 관련 노트: [Accessibility quality requires service scanner and Semantics verification](../../02_app_framework/jetpack-compose/layout-and-ui/accessibility-service-verification.md)
 
 `Accessibility Scanner` 를 CI 에 자동으로 돌려서 통과했다고 접근성 품질이 검증된 것은 아니다. Scanner 는 측정 가능한 정적 결함만 검사하고, TalkBack 을 사람이 직접 켜서 화면을 순회해야만 드러나는 경험적 결함이 따로 존재한다. 이 노트는 두 검사 방식이 잡는 결함군의 경계를 test-strategy 관점(무엇을 CI 게이트에 넣을 수 있고 무엇을 릴리스 전 수동 QA 체크리스트에 남겨야 하는가)에서 다룬다. Compose semantics tree 와 `testTag` 를 이용한 접근성 코드 작성 방법 자체는 [Accessibility quality requires service scanner and Semantics verification](../../02_app_framework/jetpack-compose/layout-and-ui/accessibility-service-verification.md) 가 정본이며 여기서 반복하지 않는다.

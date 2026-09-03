@@ -10,9 +10,9 @@ date created: 2026-07-31 17:42:24 +09:00
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
 
-관련 지도: [알림과 FCM 메시징 계약](./notification-messaging.md)
+관련 지도: [알림과 FCM 메시징 계약](notification-messaging.md)
 
-관련 노트: [FCM notification payload와 data payload는 처리 지점이 다르다](./fcm-payload-handling.md), [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](background-execution-selection.md)
+관련 노트: [FCM notification payload와 data payload는 처리 지점이 다르다](fcm-payload-handling.md), [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](background-execution-selection.md)
 
 ### Android 13 이상 권한
 

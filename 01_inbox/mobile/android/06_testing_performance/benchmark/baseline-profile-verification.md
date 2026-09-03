@@ -9,7 +9,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 ## Baseline Profile 검증은 profiled와 unprofiled 성능을 비교한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [Benchmark와 Baseline Profile 계약](./benchmark-baseline.md)
+관련 지도: [Benchmark와 Baseline Profile 계약](benchmark-baseline.md)
 관련 노트: [Android 성능은 측정 후 최적화한다](../performance/performance-measurement-principles.md)
 
 Baseline Profile의 유효성 검증은 단순 생성을 넘어서 동일한 기기 및 빌드 바이너리 환경에서 Profile 미적용(`BaselineProfileMode.Disable`) 대비 Profile 적용(`BaselineProfileMode.Require`) 시의 시작 및 프레임 렌더링 지표 개선율을 대조 증명하는 수량적 검증 계약이다.

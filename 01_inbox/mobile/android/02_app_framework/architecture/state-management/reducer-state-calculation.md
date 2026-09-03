@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Reducer 는 이전 상태와 Action 만 받아 새 상태를 계산한다
 
-상위 문서: [Android Reducer](./reducer.md)
+상위 문서: [Android Reducer](reducer.md)
 
 ### 핵심 주장
 

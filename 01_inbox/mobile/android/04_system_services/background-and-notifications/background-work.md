@@ -65,13 +65,13 @@ adb shell am broadcast -a "androidx.work.diagnostics.REQUEST_DIAGNOSTICS" -p "<p
 
 ### 읽는 순서 (Recommended Reading Order)
 
-1. [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](./background-execution-selection.md): 백그라운드 실행 분류 원칙 및 아키텍처 가이드.
-2. [백그라운드 실행 수단은 실패 비용으로 결정한다](./background-api-selection.md): 요구사항별 구체적 결정 매트릭스, 체크포인트 복구, 디버깅 CLI.
-3. [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](./background-restrictions-state.md): Doze, App Standby, 멱등성 및 상태 복구 설계.
-4. [WorkManager 는 지연 가능한 보장 작업의 기본 선택이다](./work-manager.md): WorkSpec, 재시도 백오프, stopReason, 테스트 헬퍼.
-5. [Foreground Service (지속 백그라운드 작업 계약)](./foreground-service.md): FGS 타입 선언, Android 12+ 시작 제한, Android 15+ 6시간 타임아웃.
-6. [JobScheduler (JobSchedulerService)](./job-scheduler.md): 4대 제약조건, 배치 최적화, JobService 수명주기.
-7. [AlarmManager 는 시간 자체가 기능인 이벤트에 쓴다](./alarm-manager.md): Exact Alarm 권한(`SCHEDULE_EXACT_ALARM`), PendingIntent identity 충돌.
+1. [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](background-execution-selection.md): 백그라운드 실행 분류 원칙 및 아키텍처 가이드.
+2. [백그라운드 실행 수단은 실패 비용으로 결정한다](background-api-selection.md): 요구사항별 구체적 결정 매트릭스, 체크포인트 복구, 디버깅 CLI.
+3. [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](background-restrictions-state.md): Doze, App Standby, 멱등성 및 상태 복구 설계.
+4. [WorkManager 는 지연 가능한 보장 작업의 기본 선택이다](work-manager.md): WorkSpec, 재시도 백오프, stopReason, 테스트 헬퍼.
+5. [Foreground Service (지속 백그라운드 작업 계약)](foreground-service.md): FGS 타입 선언, Android 12+ 시작 제한, Android 15+ 6시간 타임아웃.
+6. [JobScheduler (JobSchedulerService)](job-scheduler.md): 4대 제약조건, 배치 최적화, JobService 수명주기.
+7. [AlarmManager 는 시간 자체가 기능인 이벤트에 쓴다](alarm-manager.md): Exact Alarm 권한(`SCHEDULE_EXACT_ALARM`), PendingIntent identity 충돌.
 
 ### 문제 분류 (Troubleshooting Matrix)
 
@@ -90,14 +90,14 @@ adb shell am broadcast -a "androidx.work.diagnostics.REQUEST_DIAGNOSTICS" -p "<p
 
 ### 노트 목록 (Topic Notes)
 
-- [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](./background-execution-selection.md)
-- [백그라운드 실행 수단은 실패 비용으로 결정한다](./background-api-selection.md)
-- [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](./background-restrictions-state.md)
-- [WorkManager 는 지연 가능한 보장 작업의 기본 선택이다](./work-manager.md)
-- [Foreground Service (지속 백그라운드 작업 계약)](./foreground-service.md)
-- [JobScheduler (JobSchedulerService)](./job-scheduler.md)
-- [AlarmManager 는 시간 자체가 기능인 이벤트에 쓴다](./alarm-manager.md)
-- [알림과 FCM 메시징 계약](./notification-messaging.md)
+- [Android 백그라운드 실행은 보장, 지연, 사용자 가시성으로 선택한다](background-execution-selection.md)
+- [백그라운드 실행 수단은 실패 비용으로 결정한다](background-api-selection.md)
+- [백그라운드 제한은 작업 상태를 영속적으로 설계하게 만든다](background-restrictions-state.md)
+- [WorkManager 는 지연 가능한 보장 작업의 기본 선택이다](work-manager.md)
+- [Foreground Service (지속 백그라운드 작업 계약)](foreground-service.md)
+- [JobScheduler (JobSchedulerService)](job-scheduler.md)
+- [AlarmManager 는 시간 자체가 기능인 이벤트에 쓴다](alarm-manager.md)
+- [알림과 FCM 메시징 계약](notification-messaging.md)
 
 검증일: 2026-08-24. [Android Background Work 공식 가이드](https://developer.android.com/develop/background-work/background-tasks) 및 AOSP 프레임워크 동작 기준 검증 완료.
 

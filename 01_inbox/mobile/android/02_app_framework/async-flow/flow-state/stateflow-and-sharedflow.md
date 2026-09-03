@@ -50,5 +50,5 @@ graph TD
 
 ### 3. 연결 문서 (Related Links)
 
-- [ViewModel](../../../architecture/state-management/viewmodel.md) - StateFlow 를 활용하여 UI 상태를 관리하는 컴포넌트
-- [Compose SSOT](../../../jetpack-compose/runtime/compose-ssot.md) - StateFlow 기반 단일 진실 출처 원칙
+- [ViewModel](../../architecture/state-management/viewmodel.md) - StateFlow 를 활용하여 UI 상태를 관리하는 컴포넌트
+- [Compose SSOT](../../jetpack-compose/runtime/compose-ssot.md) - StateFlow 기반 단일 진실 출처 원칙

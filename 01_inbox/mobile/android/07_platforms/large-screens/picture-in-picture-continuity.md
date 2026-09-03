@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## PiP 는 백그라운드 UI 가 아니라 연속 시청을 위한 멀티윈도우 모드다
 
-상위 문서: [큰 화면 적응 계약](./large-screen.md)
+상위 문서: [큰 화면 적응 계약](large-screen.md)
 
 Picture-in-Picture 는 앱을 항상 위에 띄우는 임의의 overlay 가 아니다. Android 가 제공하는 특수 multi-window 모드이며 주로 동영상, 영상 통화, 내비게이션처럼 사용자가 다른 작업 중에도 계속 봐야 하는 activity 에 적용한다.
 

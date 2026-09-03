@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## AudioManager는 포커스 요청으로 여러 앱의 동시 재생을 조정한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [미디어/오디오/카메라 시스템 서비스 접근 계약](./media-audio-camera.md)
+관련 지도: [미디어/오디오/카메라 시스템 서비스 접근 계약](media-audio-camera.md)
 
 ### 핵심 정의
 

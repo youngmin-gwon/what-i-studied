@@ -1,6 +1,6 @@
 ---
 title: cold-flow-execution
-tags: [android, android/async, android/flow, android/data]
+tags: [android, android/async, android/concurrency, android/flow]
 aliases: ["Cold Flow는 collect될 때 비로소 실행된다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00

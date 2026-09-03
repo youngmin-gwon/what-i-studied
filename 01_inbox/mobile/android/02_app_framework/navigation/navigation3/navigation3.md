@@ -44,4 +44,4 @@ Jetpack Navigation 3 환경에서 타입 안전 내비게이션, 앱 소유 백�
 ### 상위 및 연관 지도
 
 - 상위 가이드: [Jetpack Navigation 3 가이드](jetpack-navigation-3-guide.md)
-- 연관 가이드: [Android Navigation 진입 계약](../../navigation/navigation.md)
+- 연관 가이드: [Android Navigation 진입 계약](../navigation.md)

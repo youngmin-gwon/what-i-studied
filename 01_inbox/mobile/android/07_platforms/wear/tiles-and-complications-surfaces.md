@@ -10,7 +10,7 @@ date created: 2026-08-03 17:28:21 +09:00
 
 상위 문서: [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)
 
-관련 지도: [Wear OS 계약](./wear.md)
+관련 지도: [Wear OS 계약](wear.md)
 
 ### 핵심 정의
 

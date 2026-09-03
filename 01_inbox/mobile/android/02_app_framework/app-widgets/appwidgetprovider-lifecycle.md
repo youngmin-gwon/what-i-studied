@@ -125,7 +125,7 @@ class WeatherGlanceWidgetReceiver : GlanceAppWidgetReceiver() {
 
 ### 6. 관련 문서 및 참조
 
-- 상위 계약 문서: [App Widget 계약](./app-widget.md)
+- 상위 계약 문서: [App Widget 계약](app-widget.md)
 - 비교 문서: [RemoteViews vs Jetpack Glance](glance-remoteviews-rendering.md)
 - 연관 atomic 계약 문서:
   - [Glance는 Compose UI가 아니라 RemoteViews를 통해 위젯을 렌더링한다](glance-remoteviews-rendering.md)

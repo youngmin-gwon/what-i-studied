@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## TelephonyManager 권한은 READ_PHONE_STATE와 READ_PHONE_NUMBERS로 세분화된다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [텔레포니 접근 계약](./telephony.md)
+관련 지도: [텔레포니 접근 계약](telephony.md)
 
 ### 핵심 정의
 

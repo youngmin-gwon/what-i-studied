@@ -9,7 +9,7 @@ date modified: 2026-08-04 22:00:00 +09:00
 ## Screenshot testing은 시각 회귀를 검출한다
 
 상위 문서: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md)
-관련 지도: [테스트 품질 계약](./testing-quality.md)
+관련 지도: [테스트 품질 계약](testing-quality.md)
 관련 노트: [Compose UI 테스트는 testTag 와 semantics 를 분리한다](compose-ui-tests-semantics.md)
 
 스크린샷 테스트(Screenshot Testing)는 픽셀 차원의 화면 렌더링 결과물(Golden Image)과의 픽셀 변위(Visual Pixel Difference)를 추적하여 시각적 회귀(UI Regression)를 포착하는 도구이며, 도메인 비즈니스 정합성(Domain Correctness)을 입증하는 단위 테스트를 대체할 수 없다.

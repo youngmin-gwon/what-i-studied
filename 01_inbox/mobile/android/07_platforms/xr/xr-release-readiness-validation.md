@@ -8,7 +8,7 @@ date created: 2026-07-31 18:08:32 +09:00
 
 ## XR 출시 준비는 기능 시연이 아니라 기기, fallback, 정책 검증이다
 
-상위 문서: [Android XR 계약](./xr.md)
+상위 문서: [Android XR 계약](xr.md)
 
 XR 앱이 한 번 실행되는 것과 출시 가능한 것은 다르다. 지원 기기, SDK 성숙도, runtime capability, 입력 fallback, 성능, 편안함, 권한, Play 배포 정책까지 반복 검증해야 출시 준비라고 볼 수 있다.
 

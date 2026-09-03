@@ -10,7 +10,7 @@ date created: 2026-08-05 10:00:00 +09:00
 
 상위 문서: [Android UI System](../android-ui-system.md)
 배경 지식: [HTTP 프로토콜](../../../../../computer-science/networking/http-protocol.md)
-관련 지도: [Downloadable Fonts 접근 계약](./downloadable-fonts.md)
+관련 지도: [Downloadable Fonts 접근 계약](downloadable-fonts.md)
 
 ### 핵심 정의
 

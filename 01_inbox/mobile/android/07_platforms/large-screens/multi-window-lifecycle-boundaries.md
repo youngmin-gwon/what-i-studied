@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## Multi-window 생명주기는 단일 전체 화면 가정을 깨뜨린다
 
-상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](./windowing-multitasking.md)
+상위 문서: [데스크톱 윈도잉과 멀티태스킹 계약](windowing-multitasking.md)
 
 Multi-window 에서는 앱이 화면 전체를 독점한다는 가정이 깨진다. 사용자는 다른 앱과 동시에 상호작용하고, Android 는 창 크기와 focus 상태를 바꾸며, 새 task 가 새 window 로 열릴 수 있다.
 

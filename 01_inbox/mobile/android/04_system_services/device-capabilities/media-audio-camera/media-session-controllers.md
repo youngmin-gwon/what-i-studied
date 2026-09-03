@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## MediaSession은 재생 상태를 시스템 UI와 외부 컨트롤러에 노출하는 계약이다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [미디어/오디오/카메라 시스템 서비스 접근 계약](./media-audio-camera.md)
+관련 지도: [미디어/오디오/카메라 시스템 서비스 접근 계약](media-audio-camera.md)
 배경 지식: [IPC 메커니즘](../../../../../operating-systems/ipc-mechanisms.md)
 
 ### 핵심 정의

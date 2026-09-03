@@ -10,7 +10,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 상위 문서: [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)
 
-관련 지도: [Android XR 계약](./xr.md)
+관련 지도: [Android XR 계약](xr.md)
 
 세부 공간 모드: [Home Space vs Full Space 공간 모드 전환](xr-home-space-vs-full-space.md)
 
@@ -135,5 +135,5 @@ adb logcat -v threadtime | grep -E "XrSession|SpaceMode|FullSpace"
 - [Home Space vs Full Space 공간 모드 전환](xr-home-space-vs-full-space.md)
 - [2D 호환 실행은 XR 공간화의 시작점일 뿐이다](xr-2d-compatibility-spatialization.md)
 - [Compose for XR은 기존 Compose를 subspace와 spatial component로 확장한다](compose-for-xr-spatial-components.md)
-- [Android XR 계약](./xr.md)
+- [Android XR 계약](xr.md)
 - [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)

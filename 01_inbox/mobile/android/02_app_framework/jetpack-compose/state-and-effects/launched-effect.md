@@ -10,7 +10,7 @@ date created: 2026-08-07 16:07:00 +09:00
 
 ### 1. 개요 (Overview)
 
-**LaunchedEffect** 는 Composable 이 컴포지션(Composition)에 진입할 때 **안전하게 [Kotlin Coroutines](../../data/async-flow/coroutines/kotlin-coroutines.md) 코루틴을 시작하고, 화면에서 이탈(Disposition)하거나 키(Key)가 변경되면 실행 중인 코루틴을 자동으로 취소(Cancellation)해 주는 [Jetpack Compose Side Effect](compose-side-effect.md) API**이다.
+**LaunchedEffect** 는 Composable 이 컴포지션(Composition)에 진입할 때 **안전하게 [Kotlin Coroutines](../../async-flow/coroutines/kotlin-coroutines.md) 코루틴을 시작하고, 화면에서 이탈(Disposition)하거나 키(Key)가 변경되면 실행 중인 코루틴을 자동으로 취소(Cancellation)해 주는 [Jetpack Compose Side Effect](compose-side-effect.md) API**이다.
 
 Composable 본문 내부에서 직접 `coroutineScope.launch` 를 호출하면 Recomposition 때마다 무한히 코루틴이 중복 실행된다. `LaunchedEffect` 는 컴포지션 수명주기에 구속된 `CoroutineScope` 를 제공하여 비동기 작업(Snackbar 표시, 서버 1 회성 요청, 수명주기 수집)을 렌더링 파이프라인과 안전하게 격리한다.
 
@@ -63,7 +63,7 @@ fun UserProfileScreen(
 
 ### 4. 연결 문서 (Related Links)
 
-- [Kotlin Coroutines](../../data/async-flow/coroutines/kotlin-coroutines.md) - 코루틴 비동기 런타임
+- [Kotlin Coroutines](../../async-flow/coroutines/kotlin-coroutines.md) - 코루틴 비동기 런타임
 - [rememberCoroutineScope](remember-coroutine-scope.md) - 버튼 이벤트 핸들러용 스코프
 - [DisposableEffect](disposable-effect.md) - 리스너 해제 Cleanup 전용 이펙트
 - [rememberUpdatedState](remember-updated-state.md) - 이펙트 내 최신 값 참조

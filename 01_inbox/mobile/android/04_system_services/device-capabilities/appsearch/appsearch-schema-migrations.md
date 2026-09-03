@@ -9,7 +9,7 @@ date created: 2026-08-05 10:00:00 +09:00
 ## Document 스키마 변경은 명시적 마이그레이션이 없으면 호환되지 않는 데이터를 삭제한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [AppSearch 접근 계약](./appsearch.md)
+관련 지도: [AppSearch 접근 계약](appsearch.md)
 
 ### 핵심 정의
 

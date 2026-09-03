@@ -9,7 +9,7 @@ date created: 2026-07-31 17:46:00 +09:00
 ## HCE는 HostApduService가 APDU 거래를 처리하는 모델이다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [NFC와 비접촉 기능 계약](./nfc.md)
+관련 지도: [NFC와 비접촉 기능 계약](nfc.md)
 
 ### 핵심 정의
 

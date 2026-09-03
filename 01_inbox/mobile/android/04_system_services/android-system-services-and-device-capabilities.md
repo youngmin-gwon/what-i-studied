@@ -18,17 +18,17 @@ date created: 2026-08-03 17:31:11 +09:00
 2. [백그라운드 작업 계약](background-and-notifications/background-work.md) 에서 프로세스 수명보다 긴 작업의 실행 수단을 고른다.
 3. [알림과 FCM 메시징 계약](background-and-notifications/notification-messaging.md) 에서 서버 전송, 앱 수신, 시스템 표시를 분리한다.
 4. [Assistant와 에이전트 통합 계약](assistant-agent/assistant-agent.md) 에서 외부 호출의 의미 해석, 전달, 권한, 실행 책임을 나눈다.
-5. [Bluetooth 접근 계약](./device-capabilities/bluetooth/bluetooth.md) 에서 Classic/BLE 연결 모델 차이와 Android 12+ 권한 재설계를 본다.
-6. [위치 접근 계약](./device-capabilities/location/location.md), [센서 접근 계약](./device-capabilities/sensors/sensor.md) 에서 위치 소스 합성과 raw/synthetic 센서 구분을 본다.
-7. [Health Connect 접근 계약](./device-capabilities/health-connect/health-connect.md) 에서 센서가 만든 값이 앱 간 공유 저장소로 넘어갈 때의 권한·소유권 모델을 본다.
+5. [Bluetooth 접근 계약](device-capabilities/bluetooth/bluetooth.md) 에서 Classic/BLE 연결 모델 차이와 Android 12+ 권한 재설계를 본다.
+6. [위치 접근 계약](device-capabilities/location/location.md), [센서 접근 계약](device-capabilities/sensors/sensor.md) 에서 위치 소스 합성과 raw/synthetic 센서 구분을 본다.
+7. [Health Connect 접근 계약](device-capabilities/health-connect/health-connect.md) 에서 센서가 만든 값이 앱 간 공유 저장소로 넘어갈 때의 권한·소유권 모델을 본다.
 8. [전력 상태 접근 계약](system-state/power.md), [패키지/사용자/역할 조회 계약](system-state/package-user-role.md) 에서 관찰 전용 상태 조회와 사용자/프로필 분리를 본다.
-9. [미디어/오디오/카메라 시스템 서비스 접근 계약](./device-capabilities/media-audio-camera/media-audio-camera.md), [생체 인증/자격 증명 계약](./device-capabilities/biometrics-credential/biometrics-credential.md), [텔레포니 접근 계약](./device-capabilities/telephony/telephony.md), [입력 장치와 접근성 서비스 계약](./device-capabilities/input-accessibility/input-accessibility.md) 에서 각 표면별 조정/승인/신뢰 모델을 확인한다.
-10. [온디바이스 AI 접근 계약](./device-capabilities/on-device-ai/on-device-ai.md) 에서 ML Kit/LiteRT 온디바이스 추론과 AICore 공유 모델, 가용성 확인 계약을 본다.
-11. [NFC와 비접촉 기능 계약](./device-capabilities/nfc/nfc.md) 에서 태그, NDEF, HCE/APDU, 결제를 서로 다른 프로토콜 문제로 본다.
-12. [App Shortcuts 접근 계약](./device-capabilities/app-shortcuts/app-shortcuts.md) 에서 static/dynamic/pinned shortcut 의 소유권 차이와 개수/rate limit 제약을 본다.
-13. [AppSearch 접근 계약](./device-capabilities/appsearch/appsearch.md) 에서 온디바이스 검색 색인 저장소 선택과 스키마 마이그레이션 계약을 본다.
-14. [음성 합성/인식 접근 계약](./device-capabilities/speech/speech.md) 에서 `TextToSpeech` 의 비동기 초기화와 `SpeechRecognizer` 의 권한/콜백 순서 계약을 본다.
-15. [Haptics 및 Vibrator 계약](./device-capabilities/haptics-vibrator/haptics-and-vibrator.md) 에서 `LocalHapticFeedback` 터치 피드백과 `VibratorManager` / `VibrationEffect` 진동 파형 제어를 본다.
+9. [미디어/오디오/카메라 시스템 서비스 접근 계약](device-capabilities/media-audio-camera/media-audio-camera.md), [생체 인증/자격 증명 계약](device-capabilities/biometrics-credential/biometrics-credential.md), [텔레포니 접근 계약](device-capabilities/telephony/telephony.md), [입력 장치와 접근성 서비스 계약](device-capabilities/input-accessibility/input-accessibility.md) 에서 각 표면별 조정/승인/신뢰 모델을 확인한다.
+10. [온디바이스 AI 접근 계약](device-capabilities/on-device-ai/on-device-ai.md) 에서 ML Kit/LiteRT 온디바이스 추론과 AICore 공유 모델, 가용성 확인 계약을 본다.
+11. [NFC와 비접촉 기능 계약](device-capabilities/nfc/nfc.md) 에서 태그, NDEF, HCE/APDU, 결제를 서로 다른 프로토콜 문제로 본다.
+12. [App Shortcuts 접근 계약](device-capabilities/app-shortcuts/app-shortcuts.md) 에서 static/dynamic/pinned shortcut 의 소유권 차이와 개수/rate limit 제약을 본다.
+13. [AppSearch 접근 계약](device-capabilities/appsearch/appsearch.md) 에서 온디바이스 검색 색인 저장소 선택과 스키마 마이그레이션 계약을 본다.
+14. [음성 합성/인식 접근 계약](device-capabilities/speech/speech.md) 에서 `TextToSpeech` 의 비동기 초기화와 `SpeechRecognizer` 의 권한/콜백 순서 계약을 본다.
+15. [Haptics 및 Vibrator 계약](device-capabilities/haptics-vibrator/haptics-and-vibrator.md) 에서 `LocalHapticFeedback` 터치 피드백과 `VibratorManager` / `VibrationEffect` 진동 파형 제어를 본다.
 
 ### 문제 분류
 
@@ -65,7 +65,7 @@ date created: 2026-08-03 17:31:11 +09:00
 - `AlarmManager`, WorkManager, foreground service 는 같은 작업의 강도 단계가 아니라 시간 정확성, 지연 허용도, 사용자 가시성이라는 서로 다른 계약이다.
 - FCM 은 전송 수단이고 Android 알림은 표시 수단이다. 둘 중 하나의 성공이 다른 하나를 보장하지 않는다.
 - App Actions 는 Assistant 질의를 앱 fulfillment 로 연결하고, AppFunctions 는 승인된 호출자가 앱 함수를 발견·실행하는 Android 16+ preview 표면이다.
-- Wi-Fi, 셀룰러, VPN 같은 IP 기반 connectivity 는 이 지도가 아니라 `01_system_internals/connectivity` 가 담당한다. Bluetooth 는 IP 스택을 거치지 않는 별도 무선 기술이므로 이 지도의 [Bluetooth 접근 계약](./device-capabilities/bluetooth/bluetooth.md) 이 다룬다.
+- Wi-Fi, 셀룰러, VPN 같은 IP 기반 connectivity 는 이 지도가 아니라 `01_system_internals/connectivity` 가 담당한다. Bluetooth 는 IP 스택을 거치지 않는 별도 무선 기술이므로 이 지도의 [Bluetooth 접근 계약](device-capabilities/bluetooth/bluetooth.md) 이 다룬다.
 - 미디어/오디오/카메라의 코덱·렌더링 파이프라인 자체는 `01_system_internals/graphics-and-media` 가 담당하며, 이 지도는 system-service 접근 표면(포커스 조정, 가용성 조회, 세션 노출)만 다룬다.
 - 온디바이스 AI 는 모델 학습이나 프롬프트 품질이 아니라 추론 위치(온디바이스/클라우드), 모델 배포 주체(앱 번들/AICore 공유), 가용성 확인이라는 접근 계약만 다룬다.
 - NFC 태그 디스패치와 HCE 는 안테나를 공유하지만 데이터 모델과 상대 장치, 보안 상태 머신이 다르다.
@@ -80,22 +80,22 @@ date created: 2026-08-03 17:31:11 +09:00
 - [백그라운드 작업 계약](background-and-notifications/background-work.md)
 - [알림과 FCM 메시징 계약](background-and-notifications/notification-messaging.md)
 - [Assistant와 에이전트 통합 계약](assistant-agent/assistant-agent.md)
-- [Bluetooth 접근 계약](./device-capabilities/bluetooth/bluetooth.md)
-- [위치 접근 계약](./device-capabilities/location/location.md)
-- [센서 접근 계약](./device-capabilities/sensors/sensor.md)
-- [Health Connect 접근 계약](./device-capabilities/health-connect/health-connect.md)
+- [Bluetooth 접근 계약](device-capabilities/bluetooth/bluetooth.md)
+- [위치 접근 계약](device-capabilities/location/location.md)
+- [센서 접근 계약](device-capabilities/sensors/sensor.md)
+- [Health Connect 접근 계약](device-capabilities/health-connect/health-connect.md)
 - [전력 상태 접근 계약](system-state/power.md)
 - [패키지/사용자/역할 조회 계약](system-state/package-user-role.md)
-- [미디어/오디오/카메라 시스템 서비스 접근 계약](./device-capabilities/media-audio-camera/media-audio-camera.md)
-- [생체 인증/자격 증명 계약](./device-capabilities/biometrics-credential/biometrics-credential.md)
-- [텔레포니 접근 계약](./device-capabilities/telephony/telephony.md)
-- [입력 장치와 접근성 서비스 계약](./device-capabilities/input-accessibility/input-accessibility.md)
-- [Haptics 및 Vibrator 계약](./device-capabilities/haptics-vibrator/haptics-and-vibrator.md)
-- [온디바이스 AI 접근 계약](./device-capabilities/on-device-ai/on-device-ai.md)
-- [NFC와 비접촉 기능 계약](./device-capabilities/nfc/nfc.md)
-- [App Shortcuts 접근 계약](./device-capabilities/app-shortcuts/app-shortcuts.md)
-- [AppSearch 접근 계약](./device-capabilities/appsearch/appsearch.md)
-- [음성 합성/인식 접근 계약](./device-capabilities/speech/speech.md)
+- [미디어/오디오/카메라 시스템 서비스 접근 계약](device-capabilities/media-audio-camera/media-audio-camera.md)
+- [생체 인증/자격 증명 계약](device-capabilities/biometrics-credential/biometrics-credential.md)
+- [텔레포니 접근 계약](device-capabilities/telephony/telephony.md)
+- [입력 장치와 접근성 서비스 계약](device-capabilities/input-accessibility/input-accessibility.md)
+- [Haptics 및 Vibrator 계약](device-capabilities/haptics-vibrator/haptics-and-vibrator.md)
+- [온디바이스 AI 접근 계약](device-capabilities/on-device-ai/on-device-ai.md)
+- [NFC와 비접촉 기능 계약](device-capabilities/nfc/nfc.md)
+- [App Shortcuts 접근 계약](device-capabilities/app-shortcuts/app-shortcuts.md)
+- [AppSearch 접근 계약](device-capabilities/appsearch/appsearch.md)
+- [음성 합성/인식 접근 계약](device-capabilities/speech/speech.md)
 
 새 노트는 특정 API 를 나열하기보다 `시스템이 보장하는 것`, `앱이 영속화·검증할 것`, `버전·권한 조건`, `관찰 가능한 실패` 중 하나의 판단 단위를 맡아야 한다.
 

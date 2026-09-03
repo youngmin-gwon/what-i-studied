@@ -103,7 +103,7 @@ NotificationManagerCompat.from(context).notify(101, notification)
 
 ### 6. 관련 문서 및 참조
 
-- 상위 계약 문서: [Intent & Manifest 계약](./intent-manifest.md)
+- 상위 계약 문서: [Intent & Manifest 계약](intent-manifest.md)
 - 연관 atomic 보안 문서: [PendingIntent FLAG_IMMUTABLE vs FLAG_MUTABLE 보안 비교](pendingintent-immutable-vs-mutable.md)
 - 연관 딥링크 계약 문서: [Notification deep link는 명시적 task와 back stack 정책이 필요하다](notification-deep-link-back-stack.md)
 - 상위 개요 문서: [Android Intent와 IPC 커뮤니케이션](android-intent-and-ipc.md)

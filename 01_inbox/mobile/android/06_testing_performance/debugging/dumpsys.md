@@ -8,7 +8,7 @@ date created: 2026-08-07 13:10:00 +09:00
 
 ## dumpsys (안드로이드 시스템 서비스 상태 진단 도구)
 
-상위 문서: [디버깅 도구 계약](./debugging.md)
+상위 문서: [디버깅 도구 계약](debugging.md)
 관련 지도: [Android 성능, 품질, 빌드 최적화 지도](../android-performance-testing-map.md), [런타임 성능 계약](../performance/performance.md)
 관련 노트: [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../performance/profiler-perfetto-diagnosis.md)
 
@@ -74,7 +74,7 @@ adb shell dumpsys connectivity
 
 ### 5. 연결 문서 (Related Links)
 
-- [디버깅 도구 계약](./debugging.md) - 디버깅 진단 체계 허브
+- [디버깅 도구 계약](debugging.md) - 디버깅 진단 체계 허브
 - [Profiler, Perfetto, dumpsys는 벤치마크가 아니라 진단 도구다](../performance/profiler-perfetto-diagnosis.md) - 진단 도구와 벤치마크의 경계
 - [system_server 표준 레퍼런스](../../01_system_internals/boot-and-runtime/system-server/system-server.md) - dumpsys 가 조회하는 시스템 서비스 총괄
 - [ServiceManager](../../04_system_services/service-lookup/service-manager.md) - dumpsys 가 바인더 핸들을 조회하는 등록소

@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## InputMethodService는 AccessibilityService와 다른 별도의 입력 계약이다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [입력 장치와 접근성 서비스 계약](./input-accessibility.md)
+관련 지도: [입력 장치와 접근성 서비스 계약](input-accessibility.md)
 
 ### 핵심 정의
 

@@ -10,7 +10,7 @@ date created: 2026-08-03 17:30:25 +09:00
 
 상위 문서: [Android 폼 팩터와 플랫폼 확장 지도](../android-platforms-and-form-factors.md)
 
-관련 지도: [ChromeOS 고유 계약](./chromeos.md)
+관련 지도: [ChromeOS 고유 계약](chromeos.md)
 
 ### 핵심 정의
 

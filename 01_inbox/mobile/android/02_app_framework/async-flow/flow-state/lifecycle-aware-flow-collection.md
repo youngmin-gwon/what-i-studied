@@ -21,7 +21,7 @@ Android UI 레이어(Activity, Fragment, Jetpack Compose)에서 `Flow` / `StateF
    - Lifecycle이 다시 `STARTED` 상태로 상향 진입하면 새 코루틴을 생성하여 수집을 처음부터 다시 시작한다.
 2. **Compose `collectAsStateWithLifecycle()`**:
    - `androidx.lifecycle.compose` 패키지에서 제공하는 Compose 전용 API다.
-   - 내부적으로 `repeatOnLifecycle`을 사용하여 Compose [recomposition](../../../jetpack-compose/runtime/recomposition.md) scope 내에서 수명주기 안전하게 `StateFlow`를 State로 변환한다.
+   - 내부적으로 `repeatOnLifecycle`을 사용하여 Compose [recomposition](../../jetpack-compose/runtime/recomposition.md) scope 내에서 수명주기 안전하게 `StateFlow`를 State로 변환한다.
 
 ```mermaid
 graph TD

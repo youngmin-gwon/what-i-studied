@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## 앱 전용 디렉터리: 소유 앱만 쓰는 파일
 
-상위 문서: [파일 접근 계약](./file-access.md)
+상위 문서: [파일 접근 계약](file-access.md)
 배경 지식: [리눅스 파일 시스템](../../../../../linux/filesystems.md)
 
 관련 노트: [캐시는 정본이 아니라 재생성 가능한 데이터다](../../../05_security_privacy/secure-storage/cache-data-policies.md)

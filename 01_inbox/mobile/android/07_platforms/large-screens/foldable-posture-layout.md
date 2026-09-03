@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## 폴더블 posture 는 레이아웃 입력이지 별도 기기 분기가 아니다
 
-상위 문서: [큰 화면 적응 계약](./large-screen.md)
+상위 문서: [큰 화면 적응 계약](large-screen.md)
 
 폴더블 지원은 폴더블 기기인지 확인하는 분기가 아니라 현재 창에 접힘, 힌지, 분리 영역이 있는지 해석하는 일이다. `FoldingFeature` 의 state, orientation, occlusionType, isSeparating, bounds 가 레이아웃 입력이 된다.
 

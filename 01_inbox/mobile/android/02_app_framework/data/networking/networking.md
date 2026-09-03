@@ -26,7 +26,7 @@ API 선언과 전송 계층이 왜 분리돼 있는지 궁금하면 Retrofit/OkH
 
 ### 중복 방지 규칙
 
-- coroutine 자체의 수명·취소·[구조적 동시성](../../../../../computer-science/structured-concurrency.md) 모델은 [Coroutine 계약](../async-flow/coroutines/coroutine.md) 에 둔다. 이 클러스터는 그 계약이 네트워크 호출에 어떻게 적용되는지만 다룬다.
+- coroutine 자체의 수명·취소·[구조적 동시성](../../../../../computer-science/structured-concurrency.md) 모델은 [Coroutine 계약](../../async-flow/coroutines/coroutine.md) 에 둔다. 이 클러스터는 그 계약이 네트워크 호출에 어떻게 적용되는지만 다룬다.
 - 로컬 우선 쓰기, WorkManager 지연 동기화, 충돌 해결 정책은 [Learning Spine 8장](../../../00_foundations/learning-spine/08-data-storage-network-and-offline-recovery.md)과 [영속 저장소 계약](../storage/persistence.md) 에 둔다. 이 클러스터는 그 흐름 중 "네트워크 클라이언트 계층"만 담당한다.
 - 시스템 연결성(`ConnectivityManager`, `NetworkCapabilities`)과 네트워크 정책 디버깅은 [Android 연결성과 네트워크 지도](../../../01_system_internals/connectivity/android-connectivity.md) 에 둔다.
 

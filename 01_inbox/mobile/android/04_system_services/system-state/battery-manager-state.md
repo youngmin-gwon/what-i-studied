@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## BatteryManager는 순간 배터리 상태를 관찰 전용으로 노출한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
-관련 지도: [전력 상태 접근 계약](./power.md)
+관련 지도: [전력 상태 접근 계약](power.md)
 
 ### 핵심 정의
 
@@ -51,7 +51,7 @@ return BatterySnapshot(percent, status, plugged)
 
 ### 경계
 
-- 이 노트는 배터리 상태 관찰까지 다룬다. CPU/화면을 실제로 켜두는 제어는 [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](./wakelock-cpu-screen-control.md)가 다룬다.
+- 이 노트는 배터리 상태 관찰까지 다룬다. CPU/화면을 실제로 켜두는 제어는 [PowerManager 웨이크락은 화면과 CPU를 분리해서 제어한다](wakelock-cpu-screen-control.md)가 다룬다.
 - 배터리 소모 자체를 분석하는 프로파일링 도구(Battery Historian 등)는 `06_testing_performance`가 다룬다.
 
 ### 관찰 가능한 신호

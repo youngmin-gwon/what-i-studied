@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Repository 는 Room 과 DataStore 를 Flow 로 연결한다
 
-상위 문서: [영속 저장소 계약](./persistence.md)
+상위 문서: [영속 저장소 계약](persistence.md)
 
 관련 노트: [Repository는 데이터 흐름을 Flow로 제공하고 ViewModel은 화면 상태로 조합한다](../../architecture/state-management/viewmodel.md)-composes-screen-state.md)
 

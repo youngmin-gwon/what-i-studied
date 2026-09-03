@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## UiState 는 새 collector 가 받아도 안전한 현재 화면의 표현이다
 
-상위 문서: [Android UI State](./ui-state.md)
+상위 문서: [Android UI State](ui-state.md)
 
 ### 핵심 주장
 

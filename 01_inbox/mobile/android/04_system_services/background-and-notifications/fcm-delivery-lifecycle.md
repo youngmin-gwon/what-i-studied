@@ -10,9 +10,9 @@ date created: 2026-07-31 17:42:24 +09:00
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
 
-관련 지도: [알림과 FCM 메시징 계약](./notification-messaging.md)
+관련 지도: [알림과 FCM 메시징 계약](notification-messaging.md)
 
-관련 노트: [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](./fcm-registration-token.md), [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./notification-permission-channel.md)
+관련 노트: [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](fcm-registration-token.md), [Android 알림은 권한과 채널이 표시 가능성을 결정한다](notification-permission-channel.md)
 
 ### 초기 설정
 

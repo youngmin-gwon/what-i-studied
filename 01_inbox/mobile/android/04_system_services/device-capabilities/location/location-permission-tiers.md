@@ -9,7 +9,7 @@ date created: 2026-08-03 17:19:24 +09:00
 ## 위치 권한은 foreground와 background 두 단계로 나뉜다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [위치 접근 계약](./location.md)
+관련 지도: [위치 접근 계약](location.md)
 
 ### 핵심 정의
 

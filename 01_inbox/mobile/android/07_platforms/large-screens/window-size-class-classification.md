@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## 창 크기 클래스는 기기 종류가 아니라 앱 창을 분류한다
 
-상위 문서: [큰 화면 적응 계약](./large-screen.md)
+상위 문서: [큰 화면 적응 계약](large-screen.md)
 
 Window size class 는 태블릿인지, 폴더블인지, ChromeOS 인지 판별하는 값이 아니다. 앱에 실제로 주어진 window bounds 를 compact, medium, expanded, large, extra-large 같은 크기 구간으로 해석하는 기준이다.
 

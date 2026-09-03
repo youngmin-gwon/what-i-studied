@@ -9,7 +9,7 @@ date created: 2026-08-05 10:00:00 +09:00
 ## TextToSpeech는 비동기로 초기화되며 사용 전 언어 가용성을 확인해야 한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [음성 합성/인식 접근 계약](./speech.md)
+관련 지도: [음성 합성/인식 접근 계약](speech.md)
 
 ### 핵심 정의
 

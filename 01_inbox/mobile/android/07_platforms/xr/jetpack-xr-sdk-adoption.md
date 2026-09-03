@@ -8,7 +8,7 @@ date created: 2026-07-31 18:06:11 +09:00
 
 ## Jetpack XR SDK 는 preview 성숙도를 전제로 채택해야 한다
 
-상위 문서: [Android XR 계약](./xr.md)
+상위 문서: [Android XR 계약](xr.md)
 
 Jetpack XR SDK 는 Android XR 개발을 위한 공식 Jetpack 계층이지만 하나의 안정성 단계로 출시되지 않는다. 제품 적용 여부는 라이브러리별 alpha/beta 상태, 기능별 experimental 표기, 지원 기기, 알려진 이슈, 배포 채널을 확인한 뒤 결정해야 한다.
 

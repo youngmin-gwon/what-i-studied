@@ -119,5 +119,5 @@ int main() {
 ### 관련 문서 및 다리
 
 - [IPC 메커니즘 개요](../ipc-mechanisms.md) — OS IPC 전체 지도 및 비교
-- [Unix Domain Socket 계약](./unix-domain-socket-contracts.md) — FD 전달과 양방향 스트림 IPC
+- [Unix Domain Socket 계약](unix-domain-socket-contracts.md) — FD 전달과 양방향 스트림 IPC
 - [Android ANR Diagnostic Runbook](../../mobile/android/00_foundations/diagnostic-runbooks/02-anr.md) — SIGQUIT 기반 ANR trace 수집

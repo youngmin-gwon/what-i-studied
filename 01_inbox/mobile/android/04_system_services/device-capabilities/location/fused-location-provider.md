@@ -9,7 +9,7 @@ date created: 2026-08-03 17:19:24 +09:00
 ## FusedLocationProviderClient는 여러 위치 소스를 하나의 API로 합성한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [위치 접근 계약](./location.md)
+관련 지도: [위치 접근 계약](location.md)
 
 ### 핵심 정의
 
@@ -64,7 +64,7 @@ suspend fun currentLocation(client: FusedLocationProviderClient): Location? {
 
 ### 경계
 
-- 이 노트는 위치 소스 합성 메커니즘까지만 다룬다. 권한 단계는 [위치 권한은 foreground와 background 두 단계로 나뉜다](./location-permission-tiers.md)가, 정확도 등급 선택은 [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](precise-vs-approximate-location.md)가 다룬다.
+- 이 노트는 위치 소스 합성 메커니즘까지만 다룬다. 권한 단계는 [위치 권한은 foreground와 background 두 단계로 나뉜다](location-permission-tiers.md)가, 정확도 등급 선택은 [정밀 위치와 대략적 위치는 별도 permission으로 요청한다](precise-vs-approximate-location.md)가 다룬다.
 - GNSS 원시 측정치나 센서 퓨전 알고리즘 자체의 구현 세부는 다루지 않는다.
 
 ### 관찰 가능한 신호

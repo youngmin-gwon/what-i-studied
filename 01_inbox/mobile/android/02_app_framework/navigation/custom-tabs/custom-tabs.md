@@ -32,6 +32,6 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ### 연관 지도 및 상위 문서
 
-- 상위 가이드: [Android Navigation 진입 계약](../../navigation/navigation.md)
+- 상위 가이드: [Android Navigation 진입 계약](../navigation.md)
 - 연관 계약: [WebView 계약](../../ui/webview/webview.md)
 - 보안 참조: [웹 보안](../../../../../security/web-security.md)

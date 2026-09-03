@@ -77,12 +77,12 @@ adb shell cmd notification set_bubbles <package_name> 0
 
 ### 읽는 순서 (Recommended Reading Order)
 
-1. [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](./fcm-delivery-guarantee.md): 전송과 실행 보장의 분리, 멱등성 설계.
-2. [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](./fcm-registration-token.md): FID 및 토큰 수명주기, 서버 정리 정책.
-3. [FCM notification payload와 data payload는 처리 지점이 다르다](./fcm-payload-handling.md): 포그라운드/백그라운드 수신 분기표, 4KB 제한.
-4. [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./notification-permission-channel.md): `POST_NOTIFICATIONS`, 채널 중요도, FGS notice.
-5. [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority.md): Doze 우회 조건, 우선순위 강등 방지.
-6. [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](./fcm-delivery-lifecycle.md): 종단간 관측 지표 및 문제 격리.
+1. [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](fcm-delivery-guarantee.md): 전송과 실행 보장의 분리, 멱등성 설계.
+2. [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](fcm-registration-token.md): FID 및 토큰 수명주기, 서버 정리 정책.
+3. [FCM notification payload와 data payload는 처리 지점이 다르다](fcm-payload-handling.md): 포그라운드/백그라운드 수신 분기표, 4KB 제한.
+4. [Android 알림은 권한과 채널이 표시 가능성을 결정한다](notification-permission-channel.md): `POST_NOTIFICATIONS`, 채널 중요도, FGS notice.
+5. [FCM high priority는 사용자 가시 알림에만 정당화된다](fcm-high-priority.md): Doze 우회 조건, 우선순위 강등 방지.
+6. [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](fcm-delivery-lifecycle.md): 종단간 관측 지표 및 문제 격리.
 
 ### 문제 분류 (Troubleshooting Matrix)
 
@@ -102,12 +102,12 @@ adb shell cmd notification set_bubbles <package_name> 0
 
 ### 노트 목록 (Topic Notes)
 
-- [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](./fcm-delivery-guarantee.md)
-- [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](./fcm-registration-token.md)
-- [FCM notification payload와 data payload는 처리 지점이 다르다](./fcm-payload-handling.md)
-- [Android 알림은 권한과 채널이 표시 가능성을 결정한다](./notification-permission-channel.md)
-- [FCM high priority는 사용자 가시 알림에만 정당화된다](./fcm-high-priority.md)
-- [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](./fcm-delivery-lifecycle.md)
+- [FCM은 메시지 전송 서비스이지 비즈니스 실행 보장이 아니다](fcm-delivery-guarantee.md)
+- [FCM 등록 식별자는 사용자 계정이 아니라 앱 인스턴스를 가리킨다](fcm-registration-token.md)
+- [FCM notification payload와 data payload는 처리 지점이 다르다](fcm-payload-handling.md)
+- [Android 알림은 권한과 채널이 표시 가능성을 결정한다](notification-permission-channel.md)
+- [FCM high priority는 사용자 가시 알림에만 정당화된다](fcm-high-priority.md)
+- [FCM 운영은 전달, 표시, 탭, 복구를 분리해 관측한다](fcm-delivery-lifecycle.md)
 
 관련 지도: [백그라운드 작업 계약](background-work.md)
 

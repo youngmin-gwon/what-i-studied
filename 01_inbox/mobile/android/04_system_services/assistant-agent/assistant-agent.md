@@ -77,12 +77,12 @@ adb shell am start -a android.intent.action.VIEW -d "myapp://exercise?type=runni
 
 ### 읽는 순서 (Recommended Reading Order)
 
-1. [Android 외부 실행 표면은 App Actions와 AppFunctions로 나뉜다](./app-actions-vs-appfunctions.md): UI fulfillment 와 함수 도구 등록의 근본적 차이 확인.
-2. [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](./app-actions-fulfillment.md): `shortcuts.xml`, BII 매핑, 파라미터 전달 및 모호성(Disambiguation) 해소.
-3. [AppFunctions는 에이전트용 앱 기능 계약이다](./appfunctions-capabilities.md): Android 16+, `@AppFunction`, KSP 컴파일러, 시스템 서비스 계약 확인.
-4. [외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다](./external-intent-execution.md): 외부 입력 정규화, 멱등성(Idempotency), 실패 복구 흐름 확인.
-5. [Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다](./agent-authorization-boundaries.md): `EXECUTE_APP_FUNCTIONS`, `BIND_APP_FUNCTION_SERVICE`, 도메인 보안.
-6. [App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다](./surface-preview-validation.md): 출시 전 체크리스트 및 검증 파이프라인.
+1. [Android 외부 실행 표면은 App Actions와 AppFunctions로 나뉜다](app-actions-vs-appfunctions.md): UI fulfillment 와 함수 도구 등록의 근본적 차이 확인.
+2. [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](app-actions-fulfillment.md): `shortcuts.xml`, BII 매핑, 파라미터 전달 및 모호성(Disambiguation) 해소.
+3. [AppFunctions는 에이전트용 앱 기능 계약이다](appfunctions-capabilities.md): Android 16+, `@AppFunction`, KSP 컴파일러, 시스템 서비스 계약 확인.
+4. [외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다](external-intent-execution.md): 외부 입력 정규화, 멱등성(Idempotency), 실패 복구 흐름 확인.
+5. [Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다](agent-authorization-boundaries.md): `EXECUTE_APP_FUNCTIONS`, `BIND_APP_FUNCTION_SERVICE`, 도메인 보안.
+6. [App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다](surface-preview-validation.md): 출시 전 체크리스트 및 검증 파이프라인.
 
 ### 문제 분류 (Troubleshooting Matrix)
 
@@ -102,12 +102,12 @@ adb shell am start -a android.intent.action.VIEW -d "myapp://exercise?type=runni
 
 ### 노트 목록 (Topic Notes)
 
-- [Android 외부 실행 표면은 App Actions와 AppFunctions로 나뉜다](./app-actions-vs-appfunctions.md)
-- [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](./app-actions-fulfillment.md)
-- [AppFunctions는 에이전트용 앱 기능 계약이다](./appfunctions-capabilities.md)
-- [외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다](./external-intent-execution.md)
-- [Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다](./agent-authorization-boundaries.md)
-- [App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다](./surface-preview-validation.md)
+- [Android 외부 실행 표면은 App Actions와 AppFunctions로 나뉜다](app-actions-vs-appfunctions.md)
+- [App Actions는 Assistant 질의를 앱 fulfillment로 연결한다](app-actions-fulfillment.md)
+- [AppFunctions는 에이전트용 앱 기능 계약이다](appfunctions-capabilities.md)
+- [외부 의도 실행은 의미 해석, 전달, 검증, 실행을 분리한다](external-intent-execution.md)
+- [Assistant와 에이전트 호출은 앱 내부 권한 검사를 대체하지 않는다](agent-authorization-boundaries.md)
+- [App Actions와 AppFunctions 도입은 preview와 호출 표면을 검증해야 한다](surface-preview-validation.md)
 
 검증일: 2026-08-24. [App Actions 공식 가이드](https://developer.android.com/develop/devices/assistant/get-started) 및 [Android 16 AppFunctions Jetpack 문서](https://developer.android.com/ai/appfunctions)를 기준으로 최신 AI 에이전트 통합 아키텍처 검증 완료.
 

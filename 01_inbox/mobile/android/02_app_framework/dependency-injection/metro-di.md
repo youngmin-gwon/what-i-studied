@@ -163,7 +163,7 @@ flowchart TD
 
 ### 상위 및 연관 문서
 
-- [DI 계약 전체 보기](./di.md)
-- [DI 도구 및 엔진 비교](./di-tool-comparison.md)
-- [DI 소유권과 스코프 계약](./di-ownership-scope.md)
+- [DI 계약 전체 보기](di.md)
+- [DI 도구 및 엔진 비교](di-tool-comparison.md)
+- [DI 소유권과 스코프 계약](di-ownership-scope.md)
 - [Android 의존성 주입 지도](android-dependency-injection-map.md)

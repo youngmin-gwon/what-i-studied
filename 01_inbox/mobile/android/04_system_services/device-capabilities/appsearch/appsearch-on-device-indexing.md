@@ -9,7 +9,7 @@ date created: 2026-08-05 10:00:00 +09:00
 ## AppSearch는 클라우드 검색 엔진이 아니라 온디바이스 검색 색인이다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [AppSearch 접근 계약](./appsearch.md)
+관련 지도: [AppSearch 접근 계약](appsearch.md)
 
 ### 핵심 정의
 

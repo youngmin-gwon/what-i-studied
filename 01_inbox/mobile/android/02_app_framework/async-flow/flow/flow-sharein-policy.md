@@ -1,6 +1,6 @@
 ---
 title: flow-sharein-policy
-tags: [android, android/async, android/flow, android/data]
+tags: [android, android/async, android/concurrency, android/flow]
 aliases: ["sharein은 공유 스트림 수명과 replay 정책을 정의한다"]
 date modified: 2026-08-05 16:15:00 +09:00
 date created: 2026-08-01 00:00:00 +09:00

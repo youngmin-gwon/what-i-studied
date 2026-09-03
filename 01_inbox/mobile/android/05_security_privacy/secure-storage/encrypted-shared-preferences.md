@@ -22,13 +22,13 @@ Android Jetpack Security 라이브러리에서 제공하는 **EncryptedSharedPre
 
 - **Key 암호화**: `AES256_SIV` (Synthetic Initialization Vector) 기반 결정론적 암호화를 사용하여 고속 검색을 지원합니다.
 - **Value 암호화**: `AES256_GCM` (Galois/Counter Mode) 기반 비결정론적 무결성 암호화를 사용하여 데이터 위변조 방지 및 높은 보안 수준을 보장합니다.
-- **키 관리**: 저장소 내부의 데이터 암호화 키(DEK)는 하드웨어에 저장된 [MasterKey](./master-key.md)로 감싸져(Key Wrapping) 관리됩니다.
+- **키 관리**: 저장소 내부의 데이터 암호화 키(DEK)는 하드웨어에 저장된 [MasterKey](master-key.md)로 감싸져(Key Wrapping) 관리됩니다.
 
 #### 직관적 비유: 이중 잠금 은행 금고 (Double-locked Bank Safe Box)
 - **일반 SharedPreferences**: 누구나 읽을 수 있는 투명한 락커룸 상자입니다. 이름표(Key)와 내용물(Value)이 평문으로 나열되어 있어 루팅이나 백업 추출 시 쉽게 유출됩니다.
 - **EncryptedSharedPreferences**: 은행의 **이중 잠금 안전 금고**입니다.
   - 상자 바깥의 이름표(Key)는 암호화 표기되어 있고, 내부의 서류(Value)는 엄격히 암호화 봉인되어 있습니다.
-  - 이 금고를 열기 위한 마스터 열쇠([MasterKey](./master-key.md))는 은행 중앙 보안실(Android Keystore)의 무장 경비원(TEE/StrongBox)이 엄격하게 지키고 있어 외부로 절대 반출되지 않습니다.
+  - 이 금고를 열기 위한 마스터 열쇠([MasterKey](master-key.md))는 은행 중앙 보안실(Android Keystore)의 무장 경비원(TEE/StrongBox)이 엄격하게 지키고 있어 외부로 절대 반출되지 않습니다.
 
 ---
 
@@ -133,7 +133,7 @@ adb shell dumpsys keystore2 | grep com.example.app
 ### 5단계: 주요 특징 및 내부 기술 사양 (Key Features & Technical Deep Dive)
 
 #### 1. 하드웨어 기반 마스터 키 연동
-`EncryptedSharedPreferences`는 단독으로 동작하지 않고, 시스템 수준의 하드웨어 보안 키인 [MasterKey](./master-key.md)에 의존합니다. 하드웨어가 지원하는 경우 TEE(Trusted Execution Environment) 또는 StrongBox HSM 칩셋 내부에서 키가 관리됩니다.
+`EncryptedSharedPreferences`는 단독으로 동작하지 않고, 시스템 수준의 하드웨어 보안 키인 [MasterKey](master-key.md)에 의존합니다. 하드웨어가 지원하는 경우 TEE(Trusted Execution Environment) 또는 StrongBox HSM 칩셋 내부에서 키가 관리됩니다.
 
 #### 2. Google Tink 암호화 엔진 적용
 개발자가 직접 암호화 블록 알고리즘이나 바이트 스트림을 처리할 필요 없이, Google의 오픈소스 암호화 라이브러리인 Tink가 주입되어 표준화된 키 세트(Keyset)를 안전하게 순환(Rotation) 및 관리합니다.
@@ -190,7 +190,7 @@ fun getSafeEncryptedSharedPreferences(context: Context): SharedPreferences {
 안드로이드 자동 백업 기능에 의해 암호화 파일만 클라우드에 백업되고 Keystore 마스터키는 백업되지 않아, 기기 복원 시 데이터 복호화가 실패할 수 있습니다. `xml/data_extraction_rules.xml`에서 암호화된 SharedPreference 파일을 백업 대상에서 제외해야 합니다.
 
 #### 3. 관련 개념 노트
-- [MasterKey - 하드웨어 기반 마스터 키 구조](./master-key.md)
+- [MasterKey - 하드웨어 기반 마스터 키 구조](master-key.md)
 - [암호화 저장소 API는 키와 데이터 경계 설계를 대체하지 않는다](encrypted-storage-boundaries.md)
 - [보안 저장소 계약](secure-storage.md)
 - [백업과 복원에서 데이터 경계를 설계하기](backup-restore-boundaries.md)

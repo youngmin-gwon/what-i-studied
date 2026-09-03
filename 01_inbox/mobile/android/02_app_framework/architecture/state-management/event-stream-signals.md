@@ -8,7 +8,7 @@ date created: 2026-08-01 00:00:00 +09:00
 
 ## Snackbar 와 Navigation 처럼 소비 시점이 중요한 신호만 이벤트 스트림으로 분리한다
 
-상위 문서: [Android UI State](./ui-state.md)
+상위 문서: [Android UI State](ui-state.md)
 
 ### 핵심 주장
 
@@ -49,7 +49,7 @@ ViewModel 은 실행기 대신 목적을 전달한다.
 
 이 값들은 `UiState` 가 표현한다. event 는 상태의 대체 저장소가 아니라 소비가 발생한 순간에 의미가 있는 신호다.
 
-[sharedflow](../../data/async-flow/flow-state/stateflow-and-sharedflow.md), Channel 같은 도구의 선택은 재전달 정책과 collector 수명까지 검토한 뒤 정한다.
+[sharedflow](../../async-flow/flow-state/stateflow-and-sharedflow.md), Channel 같은 도구의 선택은 재전달 정책과 collector 수명까지 검토한 뒤 정한다.
 
 ### 이벤트를 설계하는 질문
 

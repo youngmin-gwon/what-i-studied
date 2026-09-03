@@ -9,7 +9,7 @@ date created: 2026-08-03 17:19:24 +09:00
 ## SensorManager는 raw 센서와 합성 센서를 같은 API로 노출한다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../../android-system-services-and-device-capabilities.md)
-관련 지도: [센서 접근 계약](./sensor.md)
+관련 지도: [센서 접근 계약](sensor.md)
 
 ### 핵심 정의
 

@@ -12,19 +12,19 @@ Android learning path 는 resource 목록이 아니라 프로젝트에서 내려
 
 ### 읽는 순서
 
-1. [Boundary 중심 학습](./learning/learn-android-by-boundary-before-api-catalogs.md) 으로 lifecycle, process, state, permission, storage, background work 를 먼저 구분한다.
-2. [학습 자료의 역할](./learning/official-docs-codelabs-samples-and-talks-answer-different-learning-questions.md) 에 따라 contract 확인, 실습, 통합 예제, mental model 중 현재 필요한 자료를 고른다.
-3. Flutter 경험이 있으면 [개념 경계 매핑](./learning/flutter-developers-should-map-concepts-not-class-names.md) 으로 이름이 비슷한 API 의 lifetime 과 ownership 차이를 확인한다.
-4. [프로젝트 결정으로 끝내기](./learning/learning-path-should-end-at-project-decisions-not-note-consumption.md) 의 질문에 답하고, 답하지 못한 영역의 정본만 더 읽는다.
+1. [Boundary 중심 학습](learning/learn-android-by-boundary-before-api-catalogs.md) 으로 lifecycle, process, state, permission, storage, background work 를 먼저 구분한다.
+2. [학습 자료의 역할](learning/official-docs-codelabs-samples-and-talks-answer-different-learning-questions.md) 에 따라 contract 확인, 실습, 통합 예제, mental model 중 현재 필요한 자료를 고른다.
+3. Flutter 경험이 있으면 [개념 경계 매핑](learning/flutter-developers-should-map-concepts-not-class-names.md) 으로 이름이 비슷한 API 의 lifetime 과 ownership 차이를 확인한다.
+4. [프로젝트 결정으로 끝내기](learning/learning-path-should-end-at-project-decisions-not-note-consumption.md) 의 질문에 답하고, 답하지 못한 영역의 정본만 더 읽는다.
 
-[Learning Contracts](./learning/learning.md) 는 학습 원칙 네 가지의 역할 차이와 새 학습 노트의 경계를 관리하는 하위 지도다.
+[Learning Contracts](learning/learning.md) 는 학습 원칙 네 가지의 역할 차이와 새 학습 노트의 경계를 관리하는 하위 지도다.
 
 ### Learning Notes
 
-- [Android는 API catalog보다 boundary 단위로 먼저 배운다](./learning/learn-android-by-boundary-before-api-catalogs.md)
-- [공식 문서, Codelab, sample, talk는 서로 다른 학습 질문에 답한다](./learning/official-docs-codelabs-samples-and-talks-answer-different-learning-questions.md)
-- [Flutter 개발자는 class 이름보다 개념 경계를 대응시켜야 한다](./learning/flutter-developers-should-map-concepts-not-class-names.md)
-- [학습 경로의 끝은 문서 소비가 아니라 프로젝트 결정이어야 한다](./learning/learning-path-should-end-at-project-decisions-not-note-consumption.md)
+- [Android는 API catalog보다 boundary 단위로 먼저 배운다](learning/learn-android-by-boundary-before-api-catalogs.md)
+- [공식 문서, Codelab, sample, talk는 서로 다른 학습 질문에 답한다](learning/official-docs-codelabs-samples-and-talks-answer-different-learning-questions.md)
+- [Flutter 개발자는 class 이름보다 개념 경계를 대응시켜야 한다](learning/flutter-developers-should-map-concepts-not-class-names.md)
+- [학습 경로의 끝은 문서 소비가 아니라 프로젝트 결정이어야 한다](learning/learning-path-should-end-at-project-decisions-not-note-consumption.md)
 
 ### 시작 경로
 

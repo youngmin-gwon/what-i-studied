@@ -9,7 +9,7 @@ date created: 2026-08-03 17:29:24 +09:00
 ## UserManager는 여러 사용자와 work profile을 별도 UserHandle로 다룬다
 
 상위 문서: [Android 시스템 서비스와 기기 기능 지도](../android-system-services-and-device-capabilities.md)
-관련 지도: [패키지/사용자/역할 조회 계약](./package-user-role.md)
+관련 지도: [패키지/사용자/역할 조회 계약](package-user-role.md)
 
 ### 핵심 정의
 
@@ -46,7 +46,7 @@ renderProfileState(state)
 
 ### 경계
 
-- 이 노트는 사용자/프로필 분리 모델을 다룬다. 다른 앱의 설치 여부를 조회하는 제한은 [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](./package-visibility-queries.md)가 다룬다.
+- 이 노트는 사용자/프로필 분리 모델을 다룬다. 다른 앱의 설치 여부를 조회하는 제한은 [PackageManager 조회는 Android 11부터 패키지 가시성 제한을 받는다](package-visibility-queries.md)가 다룬다.
 - 기기 관리 정책(MDM) 자체의 API 세부는 이 클러스터의 범위 밖이며 필요 시 별도 클러스터로 확장한다.
 
 ### 관찰 가능한 신호

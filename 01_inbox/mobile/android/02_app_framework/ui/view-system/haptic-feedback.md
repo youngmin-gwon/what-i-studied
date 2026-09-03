@@ -172,5 +172,5 @@ class HapticHelper(private val context: Context) {
 ---
 
 ## 연관 참고 문서
-* [ViewTreeObserver](./view-tree-observer.md)
-* [Custom View](./custom-view.md)
+* [ViewTreeObserver](view-tree-observer.md)
+* [Custom View](custom-view.md)
