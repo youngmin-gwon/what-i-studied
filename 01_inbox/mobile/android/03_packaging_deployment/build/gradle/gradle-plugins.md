@@ -2,7 +2,7 @@
 title: gradle-plugins
 tags: ["build-logic", "convention-plugin", "gradle", "modularization", "plugins"]
 aliases: ["apply false", "build-logic", "Composite Build", "Convention Plugin", "Gradle 플러그인 아키텍처", "Gradle 플러그인"]
-date modified: 2026-08-26 17:47:40 +09:00
+date modified: 2026-08-31 19:01:43 +09:00
 date created: 2026-08-19 11:15:00 +09:00
 ---
 

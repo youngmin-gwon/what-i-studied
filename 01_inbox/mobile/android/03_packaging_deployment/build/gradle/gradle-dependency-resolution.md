@@ -1,8 +1,8 @@
 ---
 title: gradle-dependency-resolution
 tags: ["android", "dependency", "gradle", "resolution-strategy"]
-aliases: ["Gradle Dependency Resolution", "Resolution Strategy", "의존성 해소 그래프", "버전 충돌 해결", "strictly", "dependency constraints"]
-date modified: 2026-08-26 18:05:00 +09:00
+aliases: ["dependency constraints", "Gradle Dependency Resolution", "Resolution Strategy", "strictly", "버전 충돌 해결", "의존성 해소 그래프"]
+date modified: 2026-08-31 19:01:42 +09:00
 date created: 2026-07-31 17:52:17 +09:00
 ---
 

@@ -2,7 +2,7 @@
 title: apk-vs-aab
 tags: [aab, android, apk, app-bundle, deployment, packaging]
 aliases: [APK vs AAB, APK 대 AAB, APK와 AAB 비교]
-date modified: 2026-08-24 17:23:29 +09:00
+date modified: 2026-08-31 19:02:32 +09:00
 date created: 2026-08-06 18:43:00 +09:00
 ---
 

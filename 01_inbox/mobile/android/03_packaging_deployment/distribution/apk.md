@@ -2,7 +2,7 @@
 title: apk
 tags: [android, android-package, apk, deployment, packaging]
 aliases: [Android Application Package, APK, 안드로이드 패키지]
-date modified: 2026-08-06 18:43:16 +09:00
+date modified: 2026-08-31 19:02:31 +09:00
 date created: 2026-08-06 18:43:00 +09:00
 ---
 

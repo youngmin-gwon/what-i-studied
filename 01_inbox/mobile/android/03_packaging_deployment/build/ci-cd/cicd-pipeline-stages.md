@@ -2,8 +2,8 @@
 title: cicd-pipeline-stages
 tags: ["android", "ci-cd", "quality-gate", "testing"]
 aliases: ["Android CI/CD 파이프라인 단계는 서로 다른 실패 시그널을 가진다"]
+date modified: 2026-08-31 19:00:46 +09:00
 date created: 2026-07-31 17:52:17 +09:00
-date modified: 2026-08-06 14:50:00 +09:00
 created: 2026-07-31 17:52:17 +09:00
 updated: 2026-08-06 14:50:00 +09:00
 ---
@@ -13,17 +13,22 @@ updated: 2026-08-06 14:50:00 +09:00
 상위 문서: [Android CI/CD](ci-cd.md)
 
 ### 개념 및 필요성 (What & Why)
+
 Android CI/CD 파이프라인에서 발생하는 원인 모를 빌드 실패를 신속하게 해결하기 위해서는 각 스테이지별로 유발되는 **실패 시그널(Failure Signal)** 의 고유 패턴을 정확히 구별해야 한다.
+
 정적 린트 실패, 컴파일 타임 에러, 단위 테스트 실패, R8 수축 규약 위반, API 자격증명 거부 에러는 모두 상이한 원인과 대책을 갖는다.
+
 원인을 명확히 나타내는 실패 시그널 분류 체계를 수립하면 디버깅 대기 시간을 대폭 줄일 수 있다.
 
 ### 내부 메커니즘 (Internal Mechanism)
-**5대 파이프라인 스테이지별 실패 시그널 분류**:
+
+**5 대 파이프라인 스테이지별 실패 시그널 분류**:
+
 1. **Lint & Code Style Stage (`ktlint`, `detekt`, `androidLint`)**: 코드 스타일 위반, 널 위험, 권한 누락 시 발생하며, 빠른 가이드 메시지를 출력함.
 2. **Compile Stage (`compileDebugKotlin`)**: 타입 불일치, 구문 오류, KSP 심볼 처리 오류로 발생함.
 3. **Unit Test Stage (`testDebugUnitTest`)**: 비즈니스 로직 단정문(Assertion) 실패로 발생함.
 4. **R8 / Packaging Stage (`minifyReleaseWithR8`)**: R8 난독화 과정에서 리플렉션 대상 클래스의 Keep 규칙 누락이나 인터페이스 파괴로 발생함.
-5. **Signing & Deployment Stage (AGP signing, APK `apksigner` 검증, Fastlane `supply`)**: Keystore 비밀번호 불일치, APK 서명 검증 실패, Google Play Developer API OAuth 토큰 만료, `versionCode` 중복 등으로 발생한다. AAB 배포 파이프라인에서 `apksigner`를 AAB 서명 도구로 취급하지 않는다.
+5. **Signing & Deployment Stage (AGP signing, APK `apksigner` 검증, Fastlane `supply`)**: Keystore 비밀번호 불일치, APK 서명 검증 실패, Google Play Developer API OAuth 토큰 만료, `versionCode` 중복 등으로 발생한다. AAB 배포 파이프라인에서 `apksigner` 를 AAB 서명 도구로 취급하지 않는다.
 
 ```mermaid
 flowchart TD
@@ -59,7 +64,9 @@ fi
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
+
 실패 시그널 및 스택 트레이스는 CI 파이프라인로그 아티팩트에서 파악할 수 있다:
+
 ```bash
 ./gradlew bundleRelease --stacktrace
 ```
@@ -69,8 +76,10 @@ fi
 ---
 
 ### 개념 및 필요성 (What & Why)
-Android CI/CD 빌드 파이프라인에서 모든 검증 작업(단위 테스트, 정적 분석, R8 풀 최적화 컴파일, UI 계측 테스트, 서명, AAB 생성)을 모든 PR(Pull Request) 시마다 단일 파이프라인으로 실행하면 빌드 피드백 시간이 30분 이상으로 길어져 개발 생산성이 마비된다.
-**CI/CD 게이트 분리 전략**은 빠르게 피드백을 제공해야 하는 **패스트 검증 게이트(Fast Validation Gate - 5분 이내)** 와 릴리스 안정성을 보장하는 **릴리스 검증 게이트(Release Validation Gate)** 로 스테이지를 엄격히 계층화하는 전략이다.
+
+Android CI/CD 빌드 파이프라인에서 모든 검증 작업(단위 테스트, 정적 분석, R8 풀 최적화 컴파일, UI 계측 테스트, 서명, AAB 생성)을 모든 PR(Pull Request) 시마다 단일 파이프라인으로 실행하면 빌드 피드백 시간이 30 분 이상으로 길어져 개발 생산성이 마비된다.
+
+**CI/CD 게이트 분리 전략**은 빠르게 피드백을 제공해야 하는 **패스트 검증 게이트(Fast Validation Gate - 5 분 이내)** 와 릴리스 안정성을 보장하는 **릴리스 검증 게이트(Release Validation Gate)** 로 스테이지를 엄격히 계층화하는 전략이다.
 
 ### 내부 메커니즘 (Internal Mechanism)
 1. **Fast Validation Gate (PR Trigger)**:
@@ -116,7 +125,9 @@ jobs:
 ```
 
 ### 관측 가능 증거 (Observable Evidence)
+
 CI 단계별 성공/실패 시그널 및 빌드 소요 시간 통계는 GitHub Actions 워크플로 실행 이력에서 확인할 수 있다:
+
 ```bash
 ./gradlew testDebugUnitTest lintDebug
 ```

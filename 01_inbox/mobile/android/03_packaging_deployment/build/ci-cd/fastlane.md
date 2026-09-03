@@ -1,9 +1,9 @@
 ---
 title: fastlane
-tags: ["fastlane", "automation", "release-orchestration", "ci-cd", "toolchain"]
-aliases: ["Fastlane", "Fastlane 코어", "Fastfile DSL", "Fastlane 툴체인"]
+tags: ["automation", "ci-cd", "fastlane", "release-orchestration", "toolchain"]
+aliases: ["Fastfile DSL", "Fastlane 코어", "Fastlane 툴체인", "Fastlane"]
+date modified: 2026-08-31 19:01:14 +09:00
 date created: 2026-08-19 10:50:00 +09:00
-date modified: 2026-08-19 10:50:00 +09:00
 ---
 
 ## Fastlane 코어 엔진 및 툴체인
@@ -110,7 +110,8 @@ bundle exec fastlane <platform> <lane_name> --verbose
 
 Fastlane 은 Android 빌드 디스패치 및 스토어 배포를 위해 검증된 내장 Action 들을 제공한다.
 
-#### 1. `gradle(...)` Action
+#### 1. `gradle(…)` Action
+
 시스템 쉘을 통해 Android Gradle wrapper (`./gradlew`) 명령을 디스패치한다.
 
 ```ruby
@@ -126,8 +127,9 @@ gradle(
 )
 ```
 
-#### 2. `upload_to_play_store(...)` (`supply`) Action
-Google Play Developer API v3를 통해 AAB/APK 아티팩트, 트랙 설정, 릴리스 노트(Changelog), 스크린샷 메타데이터를 자동 등록한다.
+#### 2. `upload_to_play_store(…)` (`supply`) Action
+
+Google Play Developer API v3 를 통해 AAB/APK 아티팩트, 트랙 설정, 릴리스 노트(Changelog), 스크린샷 메타데이터를 자동 등록한다.
 
 ```ruby
 upload_to_play_store(
@@ -138,7 +140,8 @@ upload_to_play_store(
 )
 ```
 
-#### 3. `firebase_app_distribution(...)` Action
+#### 3. `firebase_app_distribution(…)` Action
+
 테스터 및 내부 QA 그룹에 테스트용 APK/AAB 배포물을 전달한다.
 
 ```ruby
@@ -150,7 +153,8 @@ firebase_app_distribution(
 ```
 
 #### 4. Android `SharedValues` 참조
-`gradle(...)` 실행 후 생성된 아티팩트 경로를 `lane_context`에서 직접 수집할 수 있다.
+
+`gradle(…)` 실행 후 생성된 아티팩트 경로를 `lane_context` 에서 직접 수집할 수 있다.
 
 ```ruby
 aab_path = Actions.lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
