@@ -54,8 +54,35 @@ date created: 2026-04-04 00:33:00 +09:00
 >[!TIP] **Devil's Advocate : Silent Push 에 의존하지 마라**
 >Silent Push 는 사용자의 배터리와 데이터 보호를 위해 시스템이 언제든지 지연시키거나 버릴 수 있다. 중요한 데이터 동기화는 앱이 켜질 때 직접 요청하는 방식을 병행하라.
 
+### 관찰 가능한 증거
+
+```bash
+# APNs 에 직접 보내 reason 을 확인한다 (가장 빠른 진단)
+curl -v --http2 \
+  --header "apns-topic: com.example.app" \
+  --header "apns-push-type: alert" \
+  --header "authorization: bearer $JWT" \
+  --data '{"aps":{"alert":"test"}}' \
+  https://api.sandbox.push.apple.com/3/device/$TOKEN
+# 프로덕션: https://api.push.apple.com
+
+# 기기 측 푸시 데몬 로그
+log stream --device --predicate 'process == "apsd"' --info
+```
+
+| reason | 의미 |
+| :--- | :--- |
+| `BadDeviceToken` | **토큰과 환경 불일치** (개발 토큰을 프로덕션에 보냄) 또는 잘못된 토큰 |
+| `Unregistered` | 앱 삭제/토큰 만료 → 서버에서 제거 |
+| `BadTopic` | `apns-topic` 이 번들 ID 와 불일치 |
+| `PayloadTooLarge` | payload 크기 초과 |
+
+**개발 빌드 토큰은 sandbox 에서만, TestFlight/App Store 빌드 토큰은 프로덕션에서만** 유효하다. 서버는 토큰과 함께 환경을 저장해야 한다.
+
 ### 더 보기
 
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱의 상태와 알림 처리
 - [apple-background-tasks](apple-background-tasks.md) - 백그라운드 작업과 푸시의 결합
 - [apple-widgets-live-activities](../02_ui_frameworks/apple-widgets-live-activities.md) - 위젯/실시간 현황 푸시 전략
+
+공식 문서: [Sending notification requests to APNs](https://developer.apple.com/documentation/usernotifications/sending-notification-requests-to-apns)

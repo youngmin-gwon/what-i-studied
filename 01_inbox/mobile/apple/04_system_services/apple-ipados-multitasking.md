@@ -87,7 +87,34 @@ iPad 의 트랙패드 커서는 둥근 원입니다. 버튼 위에 올라가면 
 
 - **UIKeyCommand**: 뷰 컨트롤러나 `AppDelegate` 에서 단축키를 정의하면, 사용자가 Command 를 꾹 눌렀을 때 단축키 목록(HUD)에 자동으로 뜹니다.
 
+### 관찰 가능한 증거
+
+```bash
+# scene 생명주기 전이 로그
+log stream --device --predicate 'process == "SpringBoard"' --info | grep -i scene
+```
+
+```swift
+// 현재 연결된 scene 들과 각각의 상태
+for scene in UIApplication.shared.connectedScenes {
+    print(scene.session.persistentIdentifier, scene.activationState)
+}
+```
+
+**멀티윈도우에서는 앱이 아니라 scene 이 생명주기 단위다.** 한 앱이 전경 scene 과 배경 scene 을 동시에 가질 수 있으므로, `applicationDidEnterBackground` 대신 scene 단위 콜백으로 판단해야 한다.
+
+테스트 시나리오:
+
+| 시나리오 | 확인 |
+| :--- | :--- |
+| Split View 로 두 창 열기 | 각 창이 독립적인 상태를 갖는가 |
+| Stage Manager 크기 변경 | 레이아웃이 연속적으로 적응하는가 |
+| 한 창만 닫기 | 나머지 창이 영향받지 않는가 |
+| 외부 디스플레이 연결 | scene 이 추가로 생성되는가 |
+
 ### 더 보기
 
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - Scene 아키텍처 상세
 - [apple-platform-differences](../00_foundations/apple-platform-differences.md) - iOS vs iPadOS 레이아웃 전략
+
+공식 문서: [Scenes](https://developer.apple.com/documentation/uikit/scenes)

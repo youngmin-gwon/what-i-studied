@@ -92,9 +92,29 @@ Apple 플랫폼은 기본적으로 평문 통신(HTTP)을 차단하고 **HTTPS (
 2. **Success Rate**: HTTP 200 비율뿐만 아니라 "디코딩 실패(Mapping Error)" 비율도 중요합니다. 서버가 200 을 줬는데 JSON 이 깨져서 앱이 죽는 경우가 많습니다.
 3. **Reachability**: `NWPathMonitor` 로 "인터넷 끊김"을 감지하고 UI 에 보여줍니다. 사용자가 "앱이 고장 났다"고 오해하지 않게 합니다.
 
+### 관찰 가능한 증거
+
+```bash
+# ATS 진단 — 어떤 예외가 필요한지 조합별로 시험해 준다 (macOS)
+nscurl --ats-diagnostics https://api.example.com
+
+# 서버의 실제 TLS 버전과 암호 스위트
+openssl s_client -connect api.example.com:443 -tls1_2 </dev/null 2>/dev/null | grep -E "Protocol|Cipher"
+
+# 네트워크 스택 로그
+log stream --device --predicate 'subsystem == "com.apple.network"' --info
+```
+
+`URLSessionTaskMetrics` 로 연결 재사용·DNS·TLS 소요를 측정한다. `isReusedConnection` 이 항상 `false` 면 세션 인스턴스를 재사용하지 않고 있다는 뜻이다.
+
+- **Instruments의 Network 템플릿**으로 요청 수와 전송량을 본다.
+- **Network Link Conditioner** 로 저품질 네트워크를 재현한다.
+
 ### 더 보기
 
 - [apple-urlsession-deep-dive](apple-urlsession-deep-dive.md) - 실무 코드 레시피 (Async/Await)
 - [apple-offline-and-resilience](apple-offline-and-resilience.md) - 오프라인 모드와 재시도 전략
 - [apple-connectivity-internals](../01_system_internals/connectivity/apple-connectivity-internals.md) - 경로·전송보안·정책 세 층의 실패 구분
 - [ATS 는 기본적으로 TLS 와 순방향 비밀성을 요구한다](../01_system_internals/connectivity/ats-transport-security-defaults.md)
+
+공식 문서: [Network](https://developer.apple.com/documentation/network) · [URL Loading System](https://developer.apple.com/documentation/foundation/url-loading-system)

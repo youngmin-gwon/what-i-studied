@@ -76,8 +76,27 @@ animator.fractionComplete = scrollOffset / totalHeight
 2. **Haptic Feedback**: 애니메이션의 정점이나 완료 시점에 적절한 햅틱(`UIImpactFeedbackGenerator`)을 섞어 물리적 연결감을 높이세요.
 3. **FPS 유지**: ProMotion(120Hz) 기기에서는 애니메이션이 더욱 부드러워야 합니다. GPU 부하를 줄여 프레임 드랍을 방지하세요.
 
+### 관찰 가능한 증거
+
+Xcode 실행 중 Debug 메뉴 (또는 시뮬레이터 Debug 메뉴)의 Core Animation 옵션:
+
+| 옵션 | 확인하는 것 |
+| :--- | :--- |
+| Color Offscreen-Rendered Yellow | 그림자·마스크가 만드는 추가 패스 |
+| Color Blended Layers | 반투명 오버드로 |
+| Color Hits Green and Misses Red | 래스터화 캐시 효율 |
+
+```swift
+// 접근성 설정 존중 여부는 코드로 확인한다
+if UIAccessibility.isReduceMotionEnabled { /* 축소된 전환 사용 */ }
+```
+
+- **Instruments의 Animation Hitches**: 애니메이션이 프레임 마감을 지키는지 본다.
+
 ### 더 보기
 
 - [apple-rendering-and-media](apple-rendering-and-media.md) - 그래픽 파이프라인과 메탈(Metal) 기초
 - [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 선언형 UI 프레임워크 심화
 - [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - 애니메이션 히치(Hitch) 분석 및 최적화
+
+공식 문서: [Core Animation](https://developer.apple.com/documentation/quartzcore)

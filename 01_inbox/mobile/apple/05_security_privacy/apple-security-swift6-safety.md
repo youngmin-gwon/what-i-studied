@@ -2,42 +2,89 @@
 title: apple-security-swift6-safety
 tags: [apple, apple/security, concurrency, memory-safety, swift, swift6]
 aliases: ["Swift 6 는 데이터 경합을 런타임 버그가 아니라 컴파일 에러로 바꾼다", "Swift 6 Strict Concurrency", "Swift 6 안전성"]
-date modified: 2026-04-06 18:14:34 +09:00
-date created: 2026-04-05 17:08:33 +09:00
+date modified: 2026-09-03 00:00:00 +09:00
+date created: 2026-04-05 17:08:24 +09:00
 ---
 
 ## Swift 6 는 데이터 경합을 런타임 버그가 아니라 컴파일 에러로 바꾼다
 
-Swift 6 의 **엄격한 동시성 검사(Strict Concurrency Checking)**는 단순한 개발 생산성 도구를 넘어, 현대적인 보안 프레임워크의 일부로 자리 잡고 있습니다. 메모리 안전성이 곧 보안인 컴파일 레이어의 방어막입니다.
+### 개념 (What)
 
----
+메모리 안전성은 기능 품질 문제이자 **보안 문제**다. 데이터 경합은 단순한 "가끔 이상한 값"이 아니라, 힙 손상을 통해 **임의 코드 실행으로 이어질 수 있는 취약점 계열**이다.
 
-### 🛡️ 배경: 메모리 안전성과 보안 위협
+Swift 는 이미 경계 검사와 ARC 로 버퍼 오버플로와 use-after-free 를 크게 줄였다. Swift 6 는 마지막으로 남은 큰 구멍인 **동시성 관련 메모리 안전성**을 컴파일 타임으로 옮겼다.
 
-모든 보안 취약점의 약 70% 가 메모리 관리 오류(Buffer Overflow, Use-after-free, Data Race)에서 기인합니다. Swift 6 는 이러한 오류를 **런타임이 아닌 컴파일 타임**에 차단하여 원천적으로 보안 사고를 방지합니다.
+### 왜 보안 관점에서 다루는가 (Why)
 
----
+메모리 안전성 취약점의 상당 부분은 C/C++ 계열의 수동 메모리 관리에서 나오지만, **동시 접근으로 인한 손상**은 언어를 가리지 않는다.
 
-### ⚙️ 핵심 메커니즘 (Swift 6 Security)
+| 취약점 계열 | Swift 의 방어 | 도입 시점 |
+| :--- | :--- | :--- |
+| 버퍼 오버플로 | 배열 경계 검사 | 처음부터 |
+| Use-after-free | ARC | 처음부터 |
+| 정수 오버플로 | 기본 트랩 | 처음부터 |
+| 타입 혼동 | 강한 타입 시스템 | 처음부터 |
+| **데이터 경합으로 인한 상태 손상** | **actor 격리 + Sendable** | **Swift 6** |
 
-1. **데이터 레이스 차단 (Data Race Safety)**:
-    - `Sendable` 프로토콜을 통해 스레드 간에 안전하게 전달될 수 있는 타입을 컴파일러가 확인합니다.
-    - 공유 데이터에 대한 동시 접근을 원칙적으로 금지하여 데이터 오염을 막습니다.
-2. **액터 격리 (Actor Isolation)**:
-    - `actor` 키워드를 사용하여 가변 상태를 보호합니다.
-    - 비동기 작업 중에도 데이터 무결성을 보장하며, 복잡한 락(lock) 메커니즘에서 발생할 수 있는 교착 상태나 보안 취약점을 예방합니다.
-3. **Region-based Isolation**:
-    - 컴파일러가 값의 생명주기와 접근 리전을 분석하여, 안전하다고 판단되는 시점까지는 자유롭게 사용하고 리전을 넘나들 때만 제약을 거는 지능형 고립 기술입니다.
+마지막 줄이 Swift 6 의 기여다. 이전에는 개발자의 규율에 의존했고, 규율은 대규모 코드베이스에서 반드시 깨진다.
 
----
+### 무엇이 컴파일 에러가 되는가
 
-### 🚀 보안 엔지니어 관점의 의미
+```mermaid
+flowchart TD
+    C["동시성 도메인을 넘는 접근"] --> A{"타입이 Sendable 인가?"}
+    A -->|"예"| OK1["허용"]
+    A -->|"아니오"| B{"소유권 이전인가?<br/>(sending / region 격리)"}
+    B -->|"예"| OK2["허용"]
+    B -->|"아니오"| ERR["컴파일 에러<br/>(Swift 5 에서는 경고 또는 무시)"]
 
-- **방어적 코딩의 자동화**: 개발자가 실수로 보안 구멍(Race Condition)을 만들 가능성을 컴파일 에러로 안내합니다.
-- **예측 가능한 빌드**: 런타임에 불규칙하게 발생하는 크래시(OOM, 메모리 오염)가 사라져, 앱의 무결성과 가시성이 극대화됩니다.
+    style ERR fill:#ffe0e0,stroke:#c62828,color:#b71c1c
+    style OK1 fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
+
+구체적인 규칙과 각각의 대응은 언어 계층 정본에 있다.
+
+- [actor 격리는 가변 상태 접근을 직렬화해 데이터 경합을 컴파일 타임에 차단한다](../01_language_concurrency/concurrency/actor-isolation-serializes-state-access.md)
+- [Sendable 은 타입 수준 보장이고 sending 은 값 수준 소유권 이전이다](../01_language_concurrency/concurrency/sendable-vs-sending.md)
+- [region 기반 격리는 non-Sendable 값의 안전한 전송을 컴파일러가 증명한다](../01_language_concurrency/concurrency/region-based-isolation.md)
+
+### 보안 관점의 함정: `@unchecked Sendable`
+
+> [!WARNING] 이것은 검증을 끄는 스위치다
+> `@unchecked Sendable` 은 "내가 직접 동기화를 보장한다"는 선언이며, 컴파일러는 그 뒤로 해당 타입을 검사하지 않는다. **경고를 없애려고 붙이면 취약점을 그대로 둔 채 경고만 사라진다.**
+
+보안 리뷰 체크 항목으로 삼을 것:
+
+```bash
+# 코드베이스의 @unchecked Sendable 사용처를 전수 확인
+grep -rn "@unchecked Sendable" --include="*.swift" .
+```
+
+각 사용처에 대해 다음을 확인한다.
+
+1. 실제로 락이나 직렬 큐로 보호하고 있는가?
+2. 보호 범위가 **모든** 가변 상태를 덮는가?
+3. 왜 actor 로 만들 수 없는지 주석으로 남겼는가?
+
+### 마이그레이션은 보안 작업이다
+
+경고를 급하게 억제하면 안전성이 오히려 나빠질 수 있다. 단계적 접근과 효과 순 작업 순서는 [Swift 6 마이그레이션 노트](../01_language_concurrency/concurrency/swift6-migration-path.md)에 있다.
+
+CI 에서 다음을 추적한다.
+
+```bash
+# 동시성 경고 수 (역행 방지)
+xcodebuild -scheme MyApp 2>&1 | grep -c "warning:.*concurrency"
+
+# @unchecked Sendable 사용 수 (증가하면 리뷰)
+grep -rc "@unchecked Sendable" --include="*.swift" . | awk -F: '{s+=$2} END {print s}'
+```
 
 ### 연관 문서
 
-- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC 및 내부 구조
-- [apple-foundations](../00_foundations/apple-foundations.md) - 애플 보안 기본 철학
-- [mobile-advanced-security-tips](../../cross-platform/mobile-advanced-security-tips.md) - 메모리 보안 팁
+- [apple-swift-concurrency](../01_language_concurrency/apple-swift-concurrency.md) - 동시성 모델 전체 지도
+- [Swift 6 마이그레이션은 경고를 먼저 켜서 모듈 단위로 단계적으로 한다](../01_language_concurrency/concurrency/swift6-migration-path.md)
+- [apple-secure-coding-checklist](apple-secure-coding-checklist.md) - 보안 코딩 점검
+- [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - ARC 와 메모리 안전성
+
+공식 문서: [Migrating to Swift 6](https://www.swift.org/migration/documentation/migrationguide/)

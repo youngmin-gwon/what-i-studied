@@ -161,8 +161,25 @@ Apple 의 WidgetKit 과 유사한 기능을 Android 에서는 **Jetpack Glance**
 > - `AppIntent` ≃ Glance 의 `Action` 인터페이스
 >상세 비교는 [**android-widgets-glance**](../../android/02_app_framework/app-widgets/glance-remoteviews-rendering.md) 를 참고하세요.
 
+### 관찰 가능한 증거
+
+```bash
+# 위젯 확장 프로세스의 실행/종료 로그
+log stream --device --predicate 'process == "runningboardd"' --info | grep -i widget
+
+# 위젯 타임라인 갱신 로그
+log stream --device --predicate 'subsystem == "com.apple.chronod"' --info
+```
+
+**메모리 한도가 가장 흔한 실패 원인이다.** 위젯 확장은 [호스트 앱보다 훨씬 낮은 한도](../01_system_internals/ipc-and-process/app-extension-process-model.md)를 가지므로, 이미지를 원본 해상도로 디코딩하면 즉시 종료된다.
+
+- Xcode 에서 **위젯 스킴을 선택해 실행**해야 디버거가 붙는다. 앱 스킴으로는 확장 프로세스를 잡을 수 없다.
+- 타임라인 갱신 예산은 시스템이 정한다. 자주 갱신하도록 요청해도 보장되지 않는다.
+
 ### 📚 더 보기
 
 - [apple-app-lifecycle-and-ui](apple-app-lifecycle-and-ui.md) - Extension 의 생명주기
 - [apple-swiftui-deep-dive](apple-swiftui-deep-dive.md) - 위젯 UI 는 100% SwiftUI
 - [apple-app-intents](../04_system_services/apple-app-intents.md) - App Intents 프레임워크 상세
+
+공식 문서: [WidgetKit](https://developer.apple.com/documentation/widgetkit) · [ActivityKit](https://developer.apple.com/documentation/activitykit)

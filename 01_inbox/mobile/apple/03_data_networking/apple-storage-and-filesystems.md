@@ -95,9 +95,36 @@ let fileURL = docDir.appendingPathComponent(fileName)
 - `FileHandle` 이나 `InputStream` 을 사용하여 청크(Chunk) 단위로 읽어야 합니다.
 - `Memory Mapped File` (mmap)을 쓰면 가상 메모리를 활용해 큰 파일도 빠르게 읽을 수 있습니다(`Data(contentsOf: url, options: .mappedIfSafe)`).
 
+### 관찰 가능한 증거
+
+```bash
+# 시뮬레이터의 앱 컨테이너 / App Group 컨테이너 경로
+xcrun simctl get_app_container booted com.example.app data
+xcrun simctl get_app_container booted com.example.app groups
+
+# macOS: 볼륨 구조와 공간 공유
+diskutil apfs list
+```
+
+실기기에서는 Xcode 의 **Devices and Simulators > 앱 선택 > Download Container** 로 컨테이너를 통째로 내려받아 구조와 크기를 확인한다.
+
+```swift
+// 백업에서 제외 (재다운로드 가능한 큰 파일)
+var url = fileURL
+var v = URLResourceValues(); v.isExcludedFromBackup = true
+try url.setResourceValues(v)
+
+// 보호 클래스 지정
+try data.write(to: url, options: [.completeFileProtectionUnlessOpen])
+```
+
+[디렉터리 정책](../01_system_internals/storage/app-container-directory-policies.md)과 [보호 클래스](../01_system_internals/storage/data-protection-classes.md)는 독립적인 두 축이다. 둘 다 명시한다.
+
 ### 더 보기
 
 - [apple-platform-differences](../00_foundations/apple-platform-differences.md) - macOS 샌드박스와 iOS 차이
 - [mobile-apple-foundation-security](../05_security_privacy/mobile-apple-foundation-security.md) - Keychain 과 파일 보안 등급
 - [apple-storage-internals](../01_system_internals/storage/apple-storage-internals.md) - APFS 와 Data Protection 클래스
 - [앱 컨테이너의 디렉터리는 백업과 정리 정책이 서로 다르다](../01_system_internals/storage/app-container-directory-policies.md)
+
+공식 문서: [File System Programming Guide](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/Introduction/Introduction.html)

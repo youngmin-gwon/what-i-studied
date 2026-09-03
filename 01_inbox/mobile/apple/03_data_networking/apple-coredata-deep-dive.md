@@ -142,6 +142,25 @@ class Task {
 // 앱 진입점에서 .modelContainer(for: Task.self) 호출
 ```
 
+### 관찰 가능한 증거
+
+```
+# Xcode scheme > Run > Arguments > Arguments Passed On Launch
+-com.apple.CoreData.SQLDebug 1          # 실행되는 SQL 을 전부 출력
+-com.apple.CoreData.ConcurrencyDebug 1  # 잘못된 스레드에서의 컨텍스트 접근을 즉시 크래시로
+-com.apple.CoreData.MigrationDebug 1    # 마이그레이션 과정 로그
+```
+
+**`ConcurrencyDebug 1` 은 개발 중 항상 켜 둔다.** Core Data 의 스레드 규칙 위반은 켜지 않으면 조용히 데이터를 망가뜨린다.
+
+`SQLDebug` 로 확인할 것:
+
+- N+1 쿼리가 나오는가 → `relationshipKeyPathsForPrefetching` 로 프리페치
+- 같은 쿼리가 반복되는가 → 결과 캐시 또는 `fetchBatchSize`
+- 큰 결과 집합을 한 번에 가져오는가 → `fetchLimit` / batch fetching
+
+마이그레이션은 **이전 버전 스토어로 실제 테스트**해야 한다. 새 설치에서는 마이그레이션 코드가 아예 실행되지 않는다.
+
 ### 더 보기
 
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱 종료 시 저장(`saveContext`) 시점

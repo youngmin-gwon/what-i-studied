@@ -150,7 +150,28 @@ func process(item: Runnable) { // Runnable 프로토콜 타입
 - `as?` 는 런타임 메타데이터를 순회하며 타입 호환성을 검사하므로 비용이 발생합니다.
 - 특히 `Any` 타입에서 구체 타입으로 캐스팅하는 것은 무겁습니다.
 
+### 관찰 가능한 증거
+
+```bash
+# ObjC 런타임에 등록된 클래스 목록 (Swift 클래스는 @objc 인 것만)
+otool -ov MyApp.app/MyApp | grep -A2 "Contents of (__DATA,__objc_classlist)" | head -20
+
+# 심볼 테이블에서 Swift 맹글링된 심볼 확인
+nm MyApp.app/MyApp | grep '\$s' | head -10
+
+# 맹글링된 이름을 사람이 읽는 형태로
+swift demangle '\$s7MyApp10ViewModelC4loadyyYaF'
+```
+
+dispatch 방식을 확인하려면 어셈블리를 본다. `objc_msgSend` 호출이 보이면 message dispatch, 간접 호출 테이블이면 table dispatch, 직접 `bl` 이면 static dispatch 다.
+
+```bash
+otool -tV MyApp.app/MyApp | grep -c objc_msgSend
+```
+
 ### 더 보기
 
 - [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - 객체 레이아웃과 메모리 관리
 - [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - Swizzling 이 자주 사용되는 UIKit 내부
+
+공식 문서: [Swift runtime — swift/docs/ABI](https://github.com/swiftlang/swift/blob/main/docs/ABI/TypeMetadata.rst)

@@ -191,6 +191,34 @@ for await location in stream {
 > 2. **에러 타입이 있는 스트림**: `AsyncThrowingStream` 은 에러 타입을 특정할 수 없지만(`any Error`), Combine 의 `Publisher<Output, MyError>` 는 가능합니다.
 > 3. **iOS 14 이하 지원**: AsyncSequence 는 iOS 15+ 입니다.
 
+### 관찰 가능한 증거
+
+```swift
+// 파이프라인의 모든 이벤트를 출력한다 — Combine 디버깅의 기본
+publisher
+    .print("🔵 pipeline")
+    .handleEvents(
+        receiveSubscription: { print("구독: \($0)") },
+        receiveOutput:       { print("값: \($0)") },
+        receiveCompletion:   { print("완료: \($0)") },
+        receiveCancel:       { print("취소") }
+    )
+    .sink { ... }
+```
+
+**가장 흔한 버그 두 가지**
+
+1. **`AnyCancellable` 을 보관하지 않아** 구독이 즉시 해제된다. 아무 일도 일어나지 않는데 오류도 없다.
+2. **`sink` 클로저에서 `self` 를 강하게 캡처**해 순환 참조. `[weak self]` 를 확인한다.
+
+```bash
+# 메모리 그래프에서 순환 참조 확인
+# Xcode Debug Memory Graph > 필터에 Cancellable
+```
+
+- **Instruments의 Leaks**: 구독이 해제되지 않는 순환을 잡는다.
+- AsyncSequence 로 마이그레이션하면 취소가 [Task 트리로 자동 전파](../01_language_concurrency/concurrency/structured-concurrency-task-tree.md)되어 이 문제가 줄어든다.
+
 ### 더 보기
 
 - [apple-swift-concurrency](../01_language_concurrency/apple-swift-concurrency.md) - 비동기 작업의 또 다른 축 (단발성 작업)

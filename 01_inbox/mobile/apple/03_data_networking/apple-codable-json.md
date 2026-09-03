@@ -93,7 +93,28 @@ init(from decoder: Decoder) throws {
 }
 ```
 
+### 관찰 가능한 증거
+
+```swift
+// 디코딩 실패를 뭉뚱그리지 말고 어느 키에서 났는지 본다
+do { _ = try JSONDecoder().decode(Model.self, from: data) }
+catch let DecodingError.keyNotFound(key, ctx) {
+    print("키 없음: \(key.stringValue) @ \(ctx.codingPath)")
+} catch let DecodingError.typeMismatch(type, ctx) {
+    print("타입 불일치: \(type) @ \(ctx.codingPath)")
+} catch let DecodingError.valueNotFound(type, ctx) {
+    print("null 이 아닌 값 기대: \(type) @ \(ctx.codingPath)")
+}
+```
+
+`codingPath` 가 실패 지점을 정확히 알려준다. **"디코딩 실패" 로그만 남기면 진단이 불가능하다.**
+
+- **성능**: 대용량 JSON 파싱은 Instruments Time Profiler 에서 `JSONDecoder` 프레임을 확인한다. 메인 스레드에서 하면 그대로 [히치](../01_system_internals/graphics-and-media/hitches-measure-user-visible-jank.md)가 된다.
+- **메모리**: 큰 파일은 `Data(contentsOf:options:.mappedIfSafe)` 로 매핑해 더티 메모리를 줄인다.
+
 ### 📚 더 보기
 
 - [apple-networking-and-cloud](apple-networking-and-cloud.md) - URLSession 과 Codable 연동
 - [apple-coredata-deep-dive](apple-coredata-deep-dive.md) - `NSManagedObject` 를 Codable 로 만들기 (주의사항 많음)
+
+공식 문서: [Encoding and Decoding Custom Types](https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types)

@@ -73,7 +73,31 @@ REST API 를 직접 쓴다면 아래 패턴을 구현해야 합니다.
    - 2 단계: URL 로 바이너리 직접 업로드.
 2. **Resumable**: 업로드가 99% 에서 끊기면, 처음부터가 아니라 99% 부터 다시 보내야 합니다(`Content-Range` 헤더 활용).
 
+### 관찰 가능한 증거
+
+```bash
+# CloudKit 동기화 로그
+log stream --device --predicate 'subsystem == "com.apple.cloudkit"' --info
+log stream --device --predicate 'subsystem == "com.apple.coredata.cloudkit"' --info
+```
+
+```swift
+// NSPersistentCloudKitContainer 의 동기화 이벤트를 관찰한다
+NotificationCenter.default.addObserver(
+    forName: NSPersistentCloudKitContainer.eventChangedNotification,
+    object: container, queue: .main) { note in
+    let e = note.userInfo?[NSPersistentCloudKitContainer.eventNotificationUserInfoKey]
+    print(e as Any)   // setup / import / export, succeeded, error
+}
+```
+
+- **CloudKit Console** (developer.apple.com): 실제 레코드, 스키마, 요청 로그를 서버 측에서 확인한다. 클라이언트 로그만으로는 스키마 불일치를 진단할 수 없다.
+- **개발/프로덕션 환경 분리**: 개발 환경 스키마 변경은 프로덕션에 자동 반영되지 않는다. 배포 전 스키마 배포가 필요하다.
+- 두 기기에서 동시에 수정하는 **충돌 시나리오**를 반드시 수동 테스트한다.
+
 ### 더 보기
 
 - [apple-offline-and-resilience](apple-offline-and-resilience.md) - 오프라인 큐와 회복 탄력성 상세
 - [apple-coredata-deep-dive](apple-coredata-deep-dive.md) - 로컬 데이터베이스 설계
+
+공식 문서: [CloudKit](https://developer.apple.com/documentation/cloudkit) · [Syncing a Core Data store with CloudKit](https://developer.apple.com/documentation/coredata/mirroring_a_core_data_store_with_cloudkit)

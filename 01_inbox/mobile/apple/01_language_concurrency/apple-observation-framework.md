@@ -190,7 +190,29 @@ func observeNameChanges(viewModel: UserViewModel) async {
 > 2. 새 ViewModel 부터 `@Observable` 을 적용하고, 기존 것은 자연스러운 리팩토링 시점에 전환하세요.
 > 3. `ObservableObject` 와 `@Observable` 은 같은 앱 내에서 공존할 수 있습니다.
 
+### 관찰 가능한 증거
+
+```swift
+// 어떤 속성 때문에 뷰가 다시 그려졌는지 콘솔에 출력 (디버그 전용)
+var body: some View {
+    let _ = Self._printChanges()
+    ...
+}
+```
+
+이 한 줄이 `@Observable` 진단의 핵심이다. 예상보다 자주 재평가되는 뷰를 찾을 수 있다.
+
+```bash
+# 매크로가 실제로 생성한 코드 확인
+# Xcode: 소스에서 @Observable 우클릭 > Expand Macro
+```
+
+- **Instruments의 SwiftUI 템플릿**: 뷰 본문 평가 횟수와 소요 시간을 집계한다.
+- 재평가가 과도하면 [커밋 구간이 길어져](../01_system_internals/graphics-and-media/layer-tree-commit-to-render-server.md) 히치로 이어진다.
+
 ### 더 보기
 - [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - SwiftUI 의 상태 관리 전체 그림
 - [apple-combine-framework](../03_data_networking/apple-combine-framework.md) - Combine 이 Observation 에 의해 대체되는 흐름
 - [apple-swift-concurrency](apple-swift-concurrency.md) - Actor 와 @Observable 의 결합
+
+공식 문서: [Observation](https://developer.apple.com/documentation/observation)

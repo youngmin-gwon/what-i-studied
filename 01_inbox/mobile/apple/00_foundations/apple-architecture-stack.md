@@ -42,6 +42,21 @@ Apple 은 커널 레벨에서 다중 방어 체계를 구축하고 있습니다.
 | **메모리(Swap)** | 디스크 스왑 사용 (Compressor + Swap) | **Swap 없음** (Compressor + Jetsam) |
 | **앱 생명주기**    | 사용자 명시적 종료 전까지 유지             | 백그라운드 전환 시 적극적 Suspend/Terminate  |
 
+### 관찰 가능한 증거
+
+```bash
+# 커널 버전과 빌드 (Darwin/XNU)
+uname -a
+
+# 실행 중인 시스템 데몬 (launchd 가 관리하는 것들)
+launchctl list | head -30
+
+# 하드웨어 트리 — IOKit 이 구성한 IORegistry
+ioreg -l -w 0 | head -40
+```
+
+iOS 기기에서는 이 명령들을 직접 쓸 수 없다. `sysdiagnose` 를 수집하거나 Console.app 으로 로그를 본다.
+
 ### 📚 연관 문서 및 심화 학습
 
 - [apple-foundations](apple-foundations.md) - Apple 플랫폼 공통 철학 및 기초
@@ -52,3 +67,5 @@ Apple 은 커널 레벨에서 다중 방어 체계를 구축하고 있습니다.
 - [apple-memory-management](../01_language_concurrency/apple-memory-management.md) - Jetsam 과 메모리 최적화 전략
 - [apple-system-internals-map](../01_system_internals/apple-system-internals-map.md) - 이 계층 개괄을 클러스터별로 펼친 지도
 - [XNU 는 Mach 가 자원을, BSD 가 인터페이스를 맡는 분업 구조다](../01_system_internals/kernel-and-driver/xnu-mach-bsd-split.md) - 커널 분업의 실무적 귀결
+
+공식 문서: [Kernel Architecture Overview](https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/KernelProgramming/Architecture/Architecture.html)

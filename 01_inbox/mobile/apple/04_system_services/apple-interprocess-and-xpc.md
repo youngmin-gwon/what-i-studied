@@ -89,9 +89,33 @@ XPC 가 강력한 이유는 **"아무나 연결할 수 없다"**는 점입니다
 - **Code Signing**: 연결을 요청하는 프로세스가 "진짜 내 앱"인지 서명을 확인합니다.
 - **Audit Token**: 연결 수락 여부를 결정할 때, 상대방의 PID, UID, Entitlement 를 검사할 수 있습니다.
 
+### 관찰 가능한 증거
+
+```bash
+# XPC 관련 로그 (macOS)
+log stream --predicate 'subsystem == "com.apple.xpc"' --info
+
+# 서비스가 실제로 떴는지, 마지막 종료 코드는 무엇인지
+launchctl list | grep MyService
+launchctl print gui/$(id -u)/com.example.MyService
+```
+
+**연결의 두 실패 상태를 반드시 구분해 처리한다.**
+
+| 상태 | 의미 | 대응 |
+| :--- | :--- | :--- |
+| `interrupted` | 상대가 죽었으나 연결 객체는 유효 | 진행 중이던 요청 **재시도** |
+| `invalidated` | 연결이 영구히 끝남 | 새 연결 객체 생성 |
+
+interrupted 시점의 in-flight 요청은 **응답 없이 사라진다.** 재시도 책임은 클라이언트에 있으며, 이를 처리하지 않으면 "가끔 요청이 사라진다"는 재현 어려운 버그가 된다.
+
+- `NSXPCInterface.setClasses(_:for:argumentIndex:ofReply:)` 로 역직렬화 허용 클래스를 좁힌다. 이것이 [프로세스 격리](../01_system_internals/ipc-and-process/xpc-service-isolation.md)의 일부다.
+
 ### 더 보기
 
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 샌드박스가 IPC 를 차단하는 원리
 - [apple-storage-and-filesystems](../03_data_networking/apple-storage-and-filesystems.md) - App Group 을 이용한 파일 공유
 - [apple-ipc-and-process](../01_system_internals/ipc-and-process/apple-ipc-and-process.md) - Mach port 부터 XPC 까지의 계층
 - [XPC 연결은 launchd 가 중개하며 상대가 죽으면 함께 무효화된다](../01_system_internals/ipc-and-process/xpc-connection-lifetime.md)
+
+공식 문서: [XPC](https://developer.apple.com/documentation/xpc)

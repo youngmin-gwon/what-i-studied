@@ -34,6 +34,21 @@ date created: 2026-04-03 22:15:19 +09:00
 - **DFU Mode**: `Boot ROM` 레벨에서 멈춘 상태로 펌웨어 자체를 복구하며, 완전한 시스템 벽돌 상태에서 사용됩니다.
 - **A/B Update**: 업데이트 시 새로운 파티션을 준비하고 부팅 순서를 교체하는 방식을 통해 업데이트 중 발생할 수 있는 데이터 손실 위험을 최소화합니다.
 
+### 관찰 가능한 증거
+
+```bash
+# macOS: 부팅에 사용된 시스템 스냅샷과 SSV 봉인 상태
+diskutil apfs list | grep -A3 "Snapshot"
+
+# 부팅 인자 (일반 기기에서는 서명 정책상 변경 불가)
+nvram boot-args
+
+# 부팅 관련 로그
+log show --last boot --predicate 'process == "kernel"' | head -40
+```
+
+앱 시작 시간과 dyld 단계 분해는 Xcode scheme 의 `DYLD_PRINT_STATISTICS=1` 로 본다.
+
 ### 📚 연관 문서 및 심화 학습
 
 - [apple-architecture-stack](apple-architecture-stack.md) - Darwin 커널과 시스템 계층 구조
@@ -43,3 +58,5 @@ date created: 2026-04-03 22:15:19 +09:00
 - [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - 부팅 및 앱 실행 속도 분석 가이드
 - [apple-boot-and-runtime](../01_system_internals/boot-and-runtime/apple-boot-and-runtime.md) - 각 부팅 단계의 검증 대상과 실패 양상
 - [pre-main 시간은 대부분 dylib 로딩과 static initializer 가 쓴다](../01_system_internals/boot-and-runtime/pre-main-launch-time-budget.md) - 앱 시작 시간 분해
+
+공식 문서: [Boot process for iOS and iPadOS devices](https://support.apple.com/guide/security/boot-process-for-ios-and-ipados-devices-secb3000f149/web)

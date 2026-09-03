@@ -74,9 +74,30 @@ session.startRunning() // Blocking Call, Main Thread에서 절대 호출 금지!
 
 ---
 
+### 관찰 가능한 증거
+
+```bash
+# 오디오 세션 중재 로그 (기기 연결 후 macOS 에서)
+log stream --device --predicate 'process == "mediaserverd"' --info
+
+# 카메라 관련 권한/세션 로그
+log stream --device --predicate 'subsystem == "com.apple.coremedia"' --info
+```
+
+```swift
+// 현재 실제 오디오 라우팅
+print(AVAudioSession.sharedInstance().currentRoute)
+// 다른 앱이 재생 중인지
+print(AVAudioSession.sharedInstance().secondaryAudioShouldBeSilencedHint)
+```
+
+- **Instruments의 VM Tracker**: IOSurface 영역이 계속 자라면 픽셀 버퍼를 놓아주지 않고 있는 것이다. Allocations 로는 보이지 않는다.
+
 ### 더 보기
 
 - [apple-rendering-and-media](apple-rendering-and-media.md) - Core Animation/Metal 렌더링 파이프라인
 - [apple-privacy-and-tcc-details](../05_security_privacy/apple-privacy-and-tcc-details.md) - 카메라/마이크 권한 상세
 - [mediaserverd 가 오디오 라우팅과 하드웨어 코덱을 소유한다](../01_system_internals/graphics-and-media/mediaserverd-audio-arbitration.md)
 - [IOSurface 는 프로세스와 GPU 가 함께 보는 메모리다](../01_system_internals/graphics-and-media/iosurface-shared-gpu-memory.md)
+
+공식 문서: [AVFoundation](https://developer.apple.com/documentation/avfoundation)

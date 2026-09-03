@@ -69,3 +69,5 @@ class Worker {
 - [apple-memory-management](apple-memory-management.md) - ARC 및 메모리 레이아웃 상세
 - [apple-performance-and-debug](../06_testing_performance/apple-performance-and-debug.md) - 실전 디버깅 및 분석 도구 활용
 - [apple-runtime-and-swift](../00_foundations/apple-runtime-and-swift.md) - 런타임 메타데이터와 객체 구조
+
+공식 문서: [Automatic Reference Counting](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/)

@@ -45,7 +45,37 @@ Apple 은 보안을 위해 HTTPS 기반의 **Universal Links**를 사용하도�
 
 ---
 
+### 관찰 가능한 증거
+
+```bash
+# AASA 파일을 기기가 실제로 가져왔는지
+log stream --device --predicate 'subsystem == "com.apple.swcd"' --info
+
+# 시뮬레이터에서 링크 열기
+xcrun simctl openurl booted "https://example.com/items/42"
+
+# 서버의 AASA 파일이 올바른지 (리다이렉트 없이 200, JSON, Content-Type)
+curl -sIL https://example.com/.well-known/apple-app-site-association
+```
+
+**세 가지 진입 상태를 모두 테스트한다.** 하나만 구현하면 나머지에서 조용히 실패한다.
+
+| 앱 상태 | 진입점 |
+| :--- | :--- |
+| 실행 중 / 정지 | `scene(_:continue:)` 또는 `.onOpenURL` |
+| **완전 종료** | `scene(_:willConnectTo:options:)` 의 `connectionOptions.userActivities` |
+
+세 번째가 가장 많이 누락된다. **앱을 강제 종료한 뒤 링크를 탭하는 테스트**를 반드시 한다.
+
+`applinks:` 는 entitlement 이므로 서명에 봉인된다. 실기기에서만 실패한다면 이것을 먼저 확인한다.
+
+```bash
+codesign -d --entitlements :- MyApp.app | grep -A3 associated-domains
+```
+
 ### 📚 See Also
 - [android-deep-links](../../android/02_app_framework/navigation/intents-and-deep-links/android-deep-links.md) - 안드로이드 앱 링크와의 비교
 - [apple-foundations](../00_foundations/apple-foundations.md) - Apple 보안 철학 (Default Deny)
 - [mobile-security](../../mobile-security.md) - 통합 모바일 보안 가이드
+
+공식 문서: [Supporting universal links in your app](https://developer.apple.com/documentation/xcode/supporting-universal-links-in-your-app)

@@ -132,7 +132,21 @@ DispatchQueue.main.sync {
 }
 ```
 
+### 관찰 가능한 증거
+
+```bash
+# 스레드 수와 각 스레드 상태 (thread explosion 확인)
+sample <pid> 5
+spindump <pid> 5 -file /tmp/spin.txt
+```
+
+- **Instruments의 System Trace**: 스레드 생성·전환 이벤트를 시간축에서 본다. 스레드 수가 코어 수를 크게 넘으면 블로킹 작업이 큐를 막고 있다는 신호다.
+- **Thread Sanitizer**: 스킴 옵션에서 켜면 데이터 경합을 런타임에 잡는다. GCD 기반 코드에서는 필수에 가깝다.
+- **Xcode Thread Performance Checker**: 우선순위 역전과 협력적 풀 블로킹을 경고한다.
+
 ### 더 보기
 
 - [apple-swift-concurrency](apple-swift-concurrency.md) - GCD 의 현대적 대안
 - [apple-operation-queue](apple-operation-queue.md) - GCD 기반의 객체지향 래퍼 (의존성 관리 가능)
+
+공식 문서: [Dispatch](https://developer.apple.com/documentation/dispatch)

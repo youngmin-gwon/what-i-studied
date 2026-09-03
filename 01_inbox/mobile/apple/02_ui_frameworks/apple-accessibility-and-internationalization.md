@@ -119,7 +119,24 @@ Apple 의 접근성 구조와 유사한 기능을 Android Compose 에서는 **Se
 > - `accessibilityValue` ≃ Slider 나 Progress 의 현재 상태 값
 >상세 비교는 [**android-accessibility-compose**](../../android/02_app_framework/jetpack-compose/layout-and-ui/semantics-tree-accessibility.md) 를 참고하세요.
 
+### 관찰 가능한 증거
+
+```bash
+# 시뮬레이터에서 접근성/언어 설정 조작
+xcrun simctl ui booted appearance dark
+xcrun simctl ui booted content_size accessibility-extra-extra-extra-large
+
+# 의사 언어(pseudolanguage)로 실행해 하드코딩된 문자열과 잘림을 찾는다
+# Xcode scheme > Run > Options > App Language: Double-Length Pseudolanguage
+```
+
+- **Accessibility Inspector** (Xcode > Open Developer Tool): 요소별 레이블·특성·대비를 검사하고 감사(Audit)를 실행한다.
+- **VoiceOver 실기기 테스트**: 시뮬레이터와 동작이 다르므로 반드시 실기기에서 확인한다.
+- **XCTest 접근성 감사**: `try app.performAccessibilityAudit()` 로 회귀를 CI 에 고정한다.
+
 ### 📚 더 보기
 
 - [apple-platform-differences](../00_foundations/apple-platform-differences.md) - 플랫폼별 접근성 특징 (watchOS 탭틱 등)
 - [apple-testing-and-quality](../06_testing_performance/apple-testing-and-quality.md) - UI 테스트 자동화
+
+공식 문서: [Accessibility](https://developer.apple.com/documentation/accessibility) · [Localization](https://developer.apple.com/documentation/xcode/localization)

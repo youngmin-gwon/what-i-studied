@@ -67,7 +67,39 @@ func retry<T>(maxAttempts: Int, delay: Double, task: () async throws -> T) async
 2. **Batch**: 연결이 돌아오면 하나씩 보내지 말고 배열에 담아서(`Bulk Insert`) 한 방에 보내는 게 효율적입니다.
 3. **Sequence**: 좋아요 -> 취소 -> 좋아요 순서가 꼬이면 안 됩니다. 타임스탬프나 순차 ID 로 순서를 보장해야 합니다.
 
+### 관찰 가능한 증거
+
+```swift
+// 실패 이유를 뭉뚱그리지 말고 분류한다
+if let e = error as? URLError {
+    switch e.networkUnavailableReason {
+    case .constrained: /* 저데이터 모드 */ break
+    case .expensive:   /* 셀룰러/핫스팟 */ break
+    case .cellular:    break
+    default: break
+    }
+    print(e.code)   // .timedOut / .notConnectedToInternet / .cannotFindHost ...
+}
+```
+
+```bash
+# 경로 상태 변화를 로그로 추적
+log stream --device --predicate 'subsystem == "com.apple.network"' --info
+```
+
+**Network Link Conditioner** 로 다음 시나리오를 각각 재현해 검증한다.
+
+| 프로파일 | 검증 대상 |
+| :--- | :--- |
+| 100% Loss | 오프라인 큐 적재와 UI 표시 |
+| Very Bad Network | 타임아웃·재시도 백오프 |
+| 3G / Edge | 저대역폭에서의 사용성 |
+
+[경로 감시는 요청을 막는 데 쓰지 않고 재시도 시점을 잡는 데 쓴다](../01_system_internals/connectivity/nwpathmonitor-reports-path-not-reachability.md).
+
 ### 더 보기
 
 - [apple-networking-and-cloud](apple-networking-and-cloud.md) - 네트워크 기본 원리
 - [apple-cloud-sync-patterns](apple-cloud-sync-patterns.md) - 데이터 동기화 아키텍처
+
+공식 문서: [Handling transport errors](https://developer.apple.com/documentation/foundation/url-loading-system)

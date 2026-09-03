@@ -83,8 +83,29 @@ struct ApplyFilterIntent: AppIntent {
 >[!IMPORTANT] **Apple 개발자를 위한 제언 : App Intent 는 이제 선택이 아닌 필수다**
 >iOS 26 환경에서 `App Intents` 와 `App Entities` 를 지원하지 않는 앱은 시스템 지능 시스템으로부터 고립된다. 앱의 UI 보다 시스템이 내 앱의 데이터를 얼마나 잘 이해하는지(**Semantic Data Modeling**)가 앱의 점유율을 결정하게 될 것이다.
 
+### 관찰 가능한 증거
+
+```bash
+log stream --device --predicate 'subsystem == "com.apple.AppIntents"' --info
+```
+
+**앱 개발자가 통제할 수 있는 것과 없는 것을 구분한다.**
+
+| 통제 가능 | 통제 불가 |
+| :--- | :--- |
+| 어떤 엔티티·액션을 노출할지 | 온디바이스로 처리할지 클라우드([PCC](../05_security_privacy/apple-security-pcc.md))로 보낼지 |
+| 엔티티의 어떤 속성을 포함할지 | 시스템이 언제 인텐트를 호출할지 |
+| Privacy Manifest 선언 | 모델의 응답 내용 |
+
+민감도가 매우 높은 데이터는 **애초에 엔티티로 노출하지 않는 것**이 유일한 통제 수단이다.
+
+- 노출한 데이터는 [Privacy Manifest](../05_security_privacy/apple-privacy-and-tcc-details.md) 에 반영해야 한다.
+- 실기기에서 Apple Intelligence 가 활성화된 상태로 테스트해야 실제 동작을 확인할 수 있다.
+
 ### 더 보기
 
 - [apple-app-intents](apple-app-intents.md) - 기본 App Intents 구조
 - [apple-swiftui-deep-dive](../02_ui_frameworks/apple-swiftui-deep-dive.md) - Liquid Glass 디자인 구현
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - PCC 및 보안 구조
+
+공식 문서: [Making onscreen content available to Siri and Apple Intelligence](https://developer.apple.com/documentation/appintents)

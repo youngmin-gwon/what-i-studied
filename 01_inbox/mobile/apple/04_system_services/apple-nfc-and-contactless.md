@@ -57,8 +57,36 @@ func paymentTagReaderSession(_ session: NFCPaymentTagReaderSession, didDetect ta
 >[!IMPORTANT] **Apple 개발자를 위한 제언 : UX 의 일관성**
 >제 3 자 결제를 구현하더라도 사용자가 Apple Pay 에서 경험하던 "측면 버튼 더블 클릭"과 같은 시스템 통합 경험을 제공해야 한다. 독자적인 UI 만 고집하기보다 시스템 기본 동작에 녹아드는 설계가 필수적이다.
 
+### 관찰 가능한 증거
+
+```bash
+# NFC 세션 로그
+log stream --device --predicate 'subsystem == "com.apple.nfc"' --info
+```
+
+```swift
+// 세션 무효화 사유를 분류한다 — 사용자 취소와 실제 오류는 다르다
+func tagReaderSession(_ s: NFCTagReaderSession, didInvalidateWithError error: Error) {
+    if let e = error as? NFCReaderError {
+        switch e.code {
+        case .readerSessionInvalidationErrorUserCanceled: break   // 정상
+        case .readerSessionInvalidationErrorSessionTimeout: break
+        default: log("NFC 오류: \(e)")
+        }
+    }
+}
+```
+
+**시뮬레이터에서는 NFC 를 테스트할 수 없다.** 실기기 필수이며, `com.apple.developer.nfc.readersession.formats` entitlement 가 서명에 봉인되어 있어야 한다.
+
+```bash
+codesign -d --entitlements :- MyApp.app | grep -A3 nfc
+```
+
 ### 더 보기
 
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 앱의 상태와 NFC 세션
 - [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 보안 요소(SE)의 구조
 - [apple-intelligence-and-agentic-intents](apple-intelligence-and-agentic-intents.md) - 에이전트 결제 승인
+
+공식 문서: [Core NFC](https://developer.apple.com/documentation/corenfc)

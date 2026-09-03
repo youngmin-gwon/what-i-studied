@@ -113,7 +113,30 @@ mapView.setRegion(region, animated: true)
 
 ---
 
+### 관찰 가능한 증거
+
+```bash
+# 위치 데몬 로그
+log stream --device --predicate 'process == "locationd"' --info
+
+# 시뮬레이터에서 위치 주입
+xcrun simctl location booted set 37.5665,126.9780
+xcrun simctl location booted start --speed 20 37.5665,126.9780 37.5700,126.9820
+```
+
+```swift
+// 권한과 정확도는 별개의 축이다. 둘 다 확인한다.
+print(manager.authorizationStatus)      // whenInUse / always / denied ...
+print(manager.accuracyAuthorization)    // fullAccuracy / reducedAccuracy
+```
+
+**`reducedAccuracy` 는 실패가 아니다.** 사용자가 정밀 위치를 끈 상태이며, 저정밀 좌표로 동작하는 경로가 필요하다.
+
+**배터리 검증**: Instruments 의 **Energy Log** 로 위치 갱신이 만드는 소모를 본다. `desiredAccuracy` 를 필요 이상으로 높이거나 `distanceFilter` 를 설정하지 않으면 소모가 급증한다.
+
 ### 📚 연관 문서
 - [apple-system-services](apple-system-services.md) - 다른 시스템 서비스 개요
 - [apple-privacy-and-tcc-details](../05_security_privacy/apple-privacy-and-tcc-details.md) - 위치 권한과 관련된 개인정보 보호 체계
 - [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 백그라운드에서의 앱 동작 방식
+
+공식 문서: [Core Location](https://developer.apple.com/documentation/corelocation)

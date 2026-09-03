@@ -70,6 +70,21 @@ Apple 의 로우 레벨 3D 그래픽 API 입니다. Core Animation 도 내부적
 
 ---
 
+### 관찰 가능한 증거
+
+```
+Xcode Debug 메뉴 > Core Animation
+  Color Offscreen-Rendered Yellow   → 추가 렌더 패스 발생 영역
+  Color Blended Layers              → 오버드로 영역
+
+Instruments
+  Animation Hitches   → commit 구간 vs render 구간 분리
+  Metal System Trace  → GPU 실제 작업 시간과 렌더 패스 수
+  Time Profiler       → CA::Transaction::commit 아래 스택
+```
+
+먼저 **어느 구간이 마감을 넘겼는지** 확정한 뒤 처방을 고른다. → [07 런북](../00_foundations/diagnostic-runbooks/07-scroll-hitches.md)
+
 ### 더 보기
 
 - [apple-uikit-lifecycle](apple-uikit-lifecycle.md) - 렌더링 루프와 연동
@@ -78,3 +93,5 @@ Apple 의 로우 레벨 3D 그래픽 API 입니다. Core Animation 도 내부적
 - [apple-instruments-profiling](../06_testing_performance/apple-instruments-profiling.md) - Core Animation FPS 및 Offscreen Rendering 감지 방법
 - [apple-graphics-and-media](../01_system_internals/graphics-and-media/apple-graphics-and-media.md) - Render Server 이하의 합성 내부
 - [Offscreen 렌더링은 추가 패스와 컨텍스트 전환을 강제한다](../01_system_internals/graphics-and-media/offscreen-rendering-cost.md)
+
+공식 문서: [Core Animation](https://developer.apple.com/documentation/quartzcore) · [Metal](https://developer.apple.com/documentation/metal)

@@ -126,8 +126,31 @@ func handleProcessingTask(task: BGProcessingTask) {
    `e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"com.example.db_cleanup"]`
 4. 디버거 재개(Resume) -> 즉시 태스크 실행됨.
 
+### 관찰 가능한 증거
+
+**디버거로 강제 실행** — 시점 문제와 로직 문제를 분리하는 가장 빠른 방법이다.
+
+```
+# 앱을 실행 → 배경으로 보낸 뒤 Xcode 디버거 콘솔에서:
+e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"com.example.refresh"]
+```
+
+여기서 실행되면 **로직은 정상이고 시스템이 시점을 안 준 것**이다. 실행되지 않으면 등록/식별자 문제다.
+
+```bash
+log stream --device --predicate 'process == "runningboardd"' --info
+log stream --device --predicate 'subsystem == "com.apple.duetactivityscheduler"' --info
+```
+
+**MetricKit 의 `MXBackgroundTimeMetric`** 으로 실사용자 기기에서 실제로 받은 백그라운드 시간을 집계한다.
+
+> [!IMPORTANT] 백그라운드 실행은 최적화이지 보장이 아니다
+> 사용 빈도, 저전력 모드, 배터리, 설정의 백그라운드 앱 새로고침, 사용자 강제 종료가 모두 실행 여부에 영향을 준다. 전경 복귀 시에도 동기화하는 경로가 반드시 있어야 한다.
+
 ### 더 보기
 - [apple-uikit-lifecycle](../02_ui_frameworks/apple-uikit-lifecycle.md) - 앱이 백그라운드로 가는 시점
 - [apple-networking-and-cloud](../03_data_networking/apple-networking-and-cloud.md) - Background URLSession 과의 차이 (파일 다운로드는 URLSession 이 더 유리함)
 - [RunningBoard assertion 이 프로세스의 실행 지속 여부를 결정한다](../01_system_internals/ipc-and-process/runningboard-assertions.md) - 백그라운드 작업이 실행되지 못하는 이유
 - [백그라운드 전송은 앱이 아니라 시스템 데몬이 이어서 수행한다](../01_system_internals/connectivity/background-transfer-daemon.md)
+
+공식 문서: [BackgroundTasks](https://developer.apple.com/documentation/backgroundtasks)

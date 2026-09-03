@@ -188,6 +188,23 @@ struct MyApp: App {
 >두 플랫폼 모두 HTTPS 도메인 소유를 증명하는 JSON 파일 호스팅이 필요하다.
 >Android 딥링크 상세는 [android-deep-links](../../android/02_app_framework/navigation/intents-and-deep-links/android-deep-links.md) 참고.
 
+### 관찰 가능한 증거
+
+```bash
+# 앱·scene 생명주기 전이 로그
+log stream --device --predicate 'process == "SpringBoard" OR process == "runningboardd"' --info
+```
+
+**정지와 종료를 구분해 테스트한다.**
+
+| 재현하려는 것 | 방법 |
+| :--- | :--- |
+| 정지 후 복귀 | 홈으로 나갔다가 돌아오기 |
+| **시스템 종료 후 재실행** | Xcode 분리 → 배경 전환 → 다른 앱들로 메모리 압력 → 복귀 |
+| 사용자 강제 종료 | 앱 전환기 스와이프 (`0xdeadfa11`) |
+
+Xcode 가 붙어 있으면 실제 종료가 재현되지 않는다. 상태 복원 검증은 반드시 디버거를 분리하고 한다.
+
 ### 📚 더 보기
 
 - [apple-uikit-lifecycle](apple-uikit-lifecycle.md) - UIViewController 의 상세 생명주기
@@ -195,3 +212,5 @@ struct MyApp: App {
 - [apple-background-tasks](../04_system_services/apple-background-tasks.md) - 백그라운드에서 오래 살아남는 법
 - [apple-app-intents](../04_system_services/apple-app-intents.md) - Siri/Shortcuts/Apple Intelligence 연동
 - [SpringBoard 와 FrontBoard 가 앱의 전경·배경 전이를 소유한다](../01_system_internals/ipc-and-process/springboard-frontboard-lifecycle.md) - 생명주기 콜백이 통보인 이유
+
+공식 문서: [Managing your app's life cycle](https://developer.apple.com/documentation/uikit/managing-your-app-s-life-cycle)

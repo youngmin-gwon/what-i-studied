@@ -142,7 +142,24 @@ class AsyncOperation: Operation {
 }
 ```
 
+### 관찰 가능한 증거
+
+```swift
+// 큐 상태를 로그로 확인한다
+print(queue.operationCount, queue.maxConcurrentOperationCount, queue.isSuspended)
+
+// 개별 Operation 의 상태 전이
+print(op.isReady, op.isExecuting, op.isFinished, op.isCancelled)
+```
+
+**가장 흔한 버그**: 커스텀 `Operation` 서브클래스에서 `isFinished` KVO 통지를 보내지 않아 큐가 영원히 그 작업을 진행 중으로 본다. 다음 작업이 시작되지 않으면 이것을 먼저 의심한다.
+
+- **Instruments의 System Trace** 로 큐가 실제로 병렬 실행 중인지 확인한다.
+- 의존성 그래프가 순환하면 데드락이 된다. `addDependency` 호출을 전수 확인한다.
+
 ### 더 보기
 
 - [apple-gcd-deep-dive](apple-gcd-deep-dive.md) - 더 가볍고 빠른 대안
 - [apple-swift-concurrency](apple-swift-concurrency.md) - 최신 비동기 모델 (Task Group 이 의존성 관리 대체 가능)
+
+공식 문서: [OperationQueue](https://developer.apple.com/documentation/foundation/operationqueue)

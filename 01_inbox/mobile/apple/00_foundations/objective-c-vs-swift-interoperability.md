@@ -63,7 +63,24 @@ Apple 은 앱 개발자가 두 언어를 한 프로젝트에서 섞어 쓸 수 �
 - **Bridging Cost**: Swift 와 ObjC 사이를 오갈 때(예: `String` <-> `NSString`), 값 타입과 참조 타입 사이의 변환 비용(Bridging cost)이 발생할 수 있습니다.
 - **Binary Size**: `@objc` 를 남발하면 ObjC 런타임에 등록하기 위한 추가적인 메타데이터와 Thunk 코드로 인해 바이너리 크기가 증가합니다.
 
+### 관찰 가능한 증거
+
+```bash
+# @objc 로 노출된 심볼이 얼마나 되는지 (바이너리 크기 영향)
+nm MyApp.app/MyApp | grep -c '_OBJC_CLASS_'
+
+# 자동 생성된 -Swift.h 확인 (빌드 산출물)
+find ~/Library/Developer/Xcode/DerivedData -name "*-Swift.h" | head -3
+
+# 브릿징 비용이 큰 지점 찾기: Instruments Time Profiler 에서
+# _bridgeToObjectiveC / _forceBridgeFromObjectiveC 프레임을 찾는다
+```
+
+`@objc` 를 줄이면 바이너리 크기와 시작 시간이 함께 줄어든다. → [pre-main 예산](../01_system_internals/boot-and-runtime/pre-main-launch-time-budget.md)
+
 ### 📚 연관 문서
 
 - [apple-runtime-and-swift](apple-runtime-and-swift.md) - 런타임 내부 동작 원리
 - [apple-foundations](apple-foundations.md) - Apple 플랫폼 공통 설계 철학
+
+공식 문서: [Importing Objective-C into Swift](https://developer.apple.com/documentation/swift/importing-objective-c-into-swift)

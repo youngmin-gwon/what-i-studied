@@ -170,7 +170,33 @@ Apple 의 App Intents 와 유사한 기능을 Android 에서는 **App Actions** 
 > - `AppEntity` ≃ 시스템이 검색할 수 있는 앱 내 데이터 (Search Indexing)
 >상세 비교는 [**android-app-actions-assistant**](../../android/04_system_services/assistant-agent/app-actions-fulfillment.md) 를 참고하세요.
 
+### 관찰 가능한 증거
+
+```bash
+# 인텐트 등록과 실행 로그
+log stream --device --predicate 'subsystem == "com.apple.AppIntents"' --info
+log stream --device --predicate 'process == "siriactionsd"' --info
+```
+
+**등록 확인 순서**
+
+1. 앱을 실행해야 인텐트가 시스템에 등록된다. 설치만으로는 부족하다.
+2. 단축어 앱에서 내 앱의 액션이 보이는지 확인한다.
+3. Spotlight 검색에서 `AppShortcutsProvider` 의 문구로 검색되는지 확인한다.
+
+```swift
+// 인텐트가 백그라운드에서 실행될 수 있다는 전제로 작성한다
+struct OpenItem: AppIntent {
+    static var openAppWhenRun: Bool { true }   // 앱을 띄워야 한다면 명시
+    func perform() async throws -> some IntentResult { ... }
+}
+```
+
+**`perform()` 은 앱이 실행 중이 아닐 때도 호출될 수 있다.** 전역 상태가 준비되어 있다고 가정하면 실패한다.
+
 ### 더 보기
 - [apple-widgets-live-activities](../02_ui_frameworks/apple-widgets-live-activities.md) - WidgetKit 기본 아키텍처 및 타임라인
 - [apple-system-services](apple-system-services.md) - 시스템 데몬과의 IPC 원리
 - [apple-swift-concurrency](../01_language_concurrency/apple-swift-concurrency.md) - `perform()` 의 `async throws` 이해
+
+공식 문서: [App Intents](https://developer.apple.com/documentation/appintents)

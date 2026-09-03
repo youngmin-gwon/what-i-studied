@@ -193,8 +193,31 @@ SQLite 이외의 커스텀 저장소(JSON 파일, 원격 서버 등)를 SwiftDat
 > 3. **CloudKit 동기화**: Core Data + CloudKit 은 NSPersistentCloudKitContainer 로 성숙한 반면, SwiftData 의 CloudKit 통합은 아직 초기 단계입니다.
 >**결론**: 신규 프로젝트는 SwiftData 우선, 기존 프로젝트는 점진적 마이그레이션을 권장합니다.
 
+### 관찰 가능한 증거
+
+```
+# SwiftData 는 내부적으로 Core Data 스택을 쓰므로 같은 디버그 인자가 동작한다
+-com.apple.CoreData.SQLDebug 1
+-com.apple.CoreData.ConcurrencyDebug 1
+```
+
+```swift
+// 실제 저장 위치 확인 (스키마 문제 진단 시 파일을 직접 열어본다)
+print(modelContext.container.configurations.first?.url as Any)
+```
+
+```bash
+# 저장된 SQLite 를 직접 열어 스키마 확인
+sqlite3 ~/Library/.../default.store ".schema" | head -30
+```
+
+- **마이그레이션 검증**: `VersionedSchema` 와 `MigrationPlan` 을 정의했다면 **이전 버전 스토어 파일로** 실행해야 실제로 검증된다.
+- **`@Query` 성능**: 뷰마다 쿼리가 재실행되므로, 정렬·필터가 무거우면 [뷰 재평가 비용](../00_foundations/worked-examples/07-swiftui-state-change-to-pixel.md)에 그대로 더해진다.
+
 ### 더 보기
 
 - [apple-coredata-deep-dive](apple-coredata-deep-dive.md) - SwiftData 의 기반 엔진인 Core Data 내부 동작
 - [apple-storage-and-filesystems](apple-storage-and-filesystems.md) - 앱 컨테이너와 파일 저장 정책
 - [apple-swift-concurrency](../01_language_concurrency/apple-swift-concurrency.md) - `ModelActor` 백그라운드 처리에 필요한 Actor 이해
+
+공식 문서: [SwiftData](https://developer.apple.com/documentation/swiftdata)

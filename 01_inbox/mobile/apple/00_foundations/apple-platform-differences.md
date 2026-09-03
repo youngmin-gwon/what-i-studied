@@ -87,7 +87,30 @@ Mac 앱에는 강력한 단축키 메뉴를 추가하고, iPad 앱에는 펜슬 
 - **iOS**: Pull-to-refresh, Swipe Actions.
 - **macOS**: Menu Bar Commands (`Command + S`), Drag & Drop 파일 처리.
 
+### 관찰 가능한 증거
+
+```swift
+// 컴파일 타임 분기 — 플랫폼별로 코드 자체가 달라진다
+#if os(iOS)
+    import UIKit
+#elseif os(macOS)
+    import AppKit
+#endif
+
+// 런타임 분기 — 같은 바이너리가 여러 환경에서 돈다
+if ProcessInfo.processInfo.isiOSAppOnMac { }
+if ProcessInfo.processInfo.isMacCatalystApp { }
+```
+
+```bash
+# 빌드 산출물이 어느 플랫폼·아키텍처를 지원하는지
+lipo -info MyApp.app/MyApp
+otool -l MyApp.app/MyApp | grep -A3 LC_BUILD_VERSION
+```
+
 ### 📚 더 보기
 
 - [apple-foundations](apple-foundations.md) - 공통 철학
 - [apple-build-and-distribution](../08_packaging_deployment/apple-build-and-distribution.md) - 플랫폼별 배포 방식 차이
+
+공식 문서: [Multiplatform apps](https://developer.apple.com/documentation/xcode/configuring-a-multiplatform-app-target)

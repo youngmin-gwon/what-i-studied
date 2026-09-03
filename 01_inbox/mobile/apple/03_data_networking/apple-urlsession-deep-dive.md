@@ -91,7 +91,34 @@ if httpResponse.statusCode == 401 {
 }
 ```
 
+### 관찰 가능한 증거
+
+```bash
+# URL 로딩 시스템 로그
+log stream --device --predicate 'subsystem == "com.apple.network"' --info
+
+# 서버가 ATS 요구를 만족하는지 (macOS)
+nscurl --ats-diagnostics https://api.example.com
+```
+
+```swift
+// 세션 지표: 실제로 재사용된 연결인지, DNS/TLS 에 얼마나 썼는지
+func urlSession(_ s: URLSession, task: URLSessionTask,
+                didFinishCollecting metrics: URLSessionTaskMetrics) {
+    for t in metrics.transactionMetrics {
+        print(t.isReusedConnection, t.domainLookupStartDate, t.secureConnectionStartDate)
+    }
+}
+```
+
+`isReusedConnection` 이 계속 `false` 면 세션을 매번 새로 만들고 있다는 뜻이다. **`URLSession` 인스턴스는 재사용해야** 연결 풀이 동작한다.
+
+- **Instruments의 Network 템플릿**: 연결 수립·재시도·전송량을 시간축에서 본다.
+- **Network Link Conditioner**: 저대역폭·고지연에서의 타임아웃 처리를 검증한다.
+
 ### 더 보기
 
 - [apple-networking-and-cloud](apple-networking-and-cloud.md) - URLSession 의 내부 구조와 보안
 - [apple-codable-json](apple-codable-json.md) - JSON 파싱 성능 최적화
+
+공식 문서: [URL Loading System](https://developer.apple.com/documentation/foundation/url-loading-system)

@@ -92,3 +92,5 @@ func requestCameraPermission() {
 - [apple-interprocess-and-xpc](apple-interprocess-and-xpc.md) - 데몬과 통신하는 원리
 - [apple-background-tasks](apple-background-tasks.md) - 위치 서비스를 백그라운드에서 쓰기 위한 조건
 - [apple-location-and-maps](apple-location-and-maps.md) - Core Location 과 MapKit 기초부터 상세 설명
+
+공식 문서: [Protecting the user's privacy](https://developer.apple.com/documentation/uikit/protecting-the-user-s-privacy)
