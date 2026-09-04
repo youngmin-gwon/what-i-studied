@@ -1,88 +1,94 @@
 ---
 title: apple-build-and-distribution
-tags: [apple, apple/packaging, build, ci-cd, codesign, distribution, xcode]
-aliases: ["Code Signing", "Build and Distribution", "빌드와 배포"]
-date modified: 2026-04-06 18:12:34 +09:00
+tags: [apple, apple/packaging, apple/packaging/build, apple/packaging/signing, build, ci-cd, codesign, distribution, moc, xcode]
+aliases: ["서명은 인증서·App ID·프로파일 삼각형이고 빌드는 xcconfig 계층과 순서 있는 단계로 이루어진다", "Code Signing", "Build and Distribution", "빌드와 배포"]
+date modified: 2026-09-03 00:00:00 +09:00
 date created: 2025-12-16 16:10:06 +09:00
 ---
 
-## Build, Signing & Distribution Deep Dive
+## 서명은 인증서·App ID·프로파일 삼각형이고 빌드는 xcconfig 계층과 순서 있는 단계로 이루어진다
 
-"인증서 만료됨", "Profile doesn't match the entitlements".
+"인증서 만료됨", "Profile doesn't match the entitlements" — iOS 개발자를 가장 괴롭히는 에러들이다. 이 복잡함의 근본 원인은 단순하다. **서명은 세 요소가 삼각형으로 일치해야 하고, 빌드는 여러 층의 설정과 순서 있는 단계를 거친다.** 어느 지점이 어긋났는지 나누는 것이 진단의 전부다.
 
-iOS 개발자를 가장 괴롭히는 에러들입니다.
+```mermaid
+flowchart TD
+    subgraph Sign ["서명 (누가, 무엇을, 어디서)"]
+        C["Certificate"] --> T["신뢰 삼각형"]
+        A["App ID"] --> T
+        T --> P["Provisioning Profile"]
+    end
+    subgraph Build ["빌드 (어떤 설정으로, 어떤 순서로)"]
+        X["xcconfig 계층"] --> PH["빌드 단계 파이프라인"]
+        PH --> SIGN["Code Sign (마지막 단계)"]
+    end
+    P --> SIGN
+    SIGN --> OUT["산출물 + entitlement 봉인"]
 
-하지만 이 복잡한 서명(Code Signing) 과정이야말로 Apple 생태계의 **신뢰(Trust)**를 지탱하는 기둥입니다.
+    style T fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style SIGN fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
 
-### 💡 왜 이것을 알아야 하나요? (Context)
+### 정본 노트
 
-- **배포 사고 예방**: 출시 당일에 인증서가 만료되거나, 개발용(Development) 인증서로 빌드해서 스토어 업로드가 막히는 일을 막아야 합니다.
-- **CI/CD 구축**: Jenkins 나 GitHub Actions 에서 빌드를 돌리려면, Xcode 가 자동으로 해주던 서명 과정을 수동으로 설정(`fastlane match` 등)해야 합니다.
-- **해킹 방지**: 내 앱을 누군가 풀어서 악성코드를 심고 재배포하는 것(Repackaging)을 막는 유일한 장치입니다.
+**서명**
 
----
+- [인증서·App ID·프로비저닝 프로파일 세 개가 정확히 일치해야 서명이 성립한다](signing/three-party-trust-chain-must-agree.md) — **삼각형이 어긋나는 흔한 시나리오**, 개발용/배포용 인증서의 구조적 차이.
+- [배포 채널이 서명 방식·공증 필요 여부·심사 절차를 결정한다](signing/distribution-channel-determines-signing-and-review.md) — Hardened Runtime, **macOS 공증(Notarization)** 이 iOS 에 없는 이유.
+- [dSYM 은 빌드마다 다르고 UUID 가 정확히 일치해야 크래시 스택이 복원된다](signing/dsym-must-match-the-exact-binary-slice.md) — CI 에서 dSYM 을 보관해야 하는 이유, 심볼화 절차.
 
-### ✍️ Code Signing Chain of Trust (신뢰 사슬)
+**빌드**
 
-서명은 3 가지 요소의 결합입니다. 하나라도 틀리면 빌드가 안 됩니다.
+- [빌드 설정은 프로젝트·타깃·xcconfig·스킴 네 층을 거치며 가장 구체적인 것이 이긴다](build/build-settings-resolve-through-a-layered-hierarchy.md) — **Target 설정이 xcconfig 를 덮는 함정**.
+- [빌드 단계는 정해진 순서로 실행되며 스크립트 단계가 실패를 숨길 수 있다](build/build-phases-run-in-order-and-can-hide-failures.md) — `set -e` 의 필요성, CI 에서만 실패하는 이유.
+- [App Thinning 은 기기별로 필요한 조각만 골라 전달한다](build/app-thinning-delivers-only-what-the-device-needs.md) — Asset Catalog 를 안 쓰면 자동화가 깨지는 이유.
 
-#### 1. Certificate (Who am I?)
+### 증상에서 시작하기
 
-"내가 개발자 홍길동이다"라는 신분증입니다.
+| 증상 | 어느 노트로 |
+| :--- | :--- |
+| `doesn't match the entitlements` | [신뢰 삼각형](signing/three-party-trust-chain-must-agree.md) |
+| Capabilities 를 켰는데 실행 안 됨 | [신뢰 삼각형](signing/three-party-trust-chain-must-agree.md) (프로파일 미재생성) |
+| 개발에서는 되는데 TestFlight 에서 안 됨 | [신뢰 삼각형](signing/three-party-trust-chain-must-agree.md) (인증서 종류 차이) |
+| macOS 배포 시 "확인되지 않은 개발자" | [배포 채널](signing/distribution-channel-determines-signing-and-review.md) (공증 누락) |
+| 크래시 스택이 심볼화 안 됨 | [dSYM](signing/dsym-must-match-the-exact-binary-slice.md) |
+| xcconfig 값이 안 먹힘 | [빌드 설정 계층](build/build-settings-resolve-through-a-layered-hierarchy.md) |
+| CI 에서만 빌드 실패 | [빌드 단계](build/build-phases-run-in-order-and-can-hide-failures.md) |
+| 앱 크기가 너무 크다 | [App Thinning](build/app-thinning-delivers-only-what-the-device-needs.md) |
 
-- **Private Key (.p12)**: 내 맥북 키체인에만 있는 비밀키. 절대 유출되면 안 됩니다.
-- **Public Key (.cer)**: Apple 에게 보내서 서명받은 공개키.
+### 진단 원칙
 
-#### 2. App ID (Who is this app?)
+**항상 설정이 아니라 산출물을 본다.**
 
-"이 앱은 com.example.myapp 이다"라는 앱의 주민등록번호입니다.
+```bash
+# Xcode UI 설정이 아니라 실제로 서명된 내용
+codesign -d --entitlements :- MyApp.app
+codesign -dvvv MyApp.app
+security cms -D -i MyApp.app/embedded.mobileprovision
 
-- **Entitlements**: 이 앱이 iCloud, Push 등을 쓸 수 있는지 명시된 "특수 면허"가 포함됩니다.
+# 서명 무결성 전체 검증
+codesign --verify --deep --strict --verbose=2 MyApp.app
+```
 
-#### 3. Provisioning Profile (Permission to Run)
+**개발 빌드와 배포 빌드의 출력을 diff** 하면 "TestFlight 에서만 실패한다"류 문제의 원인이 대부분 드러난다.
 
-"홍길동(Cert)이 만든 이 앱(App ID)을 이 기기(Device ID)에서 실행해도 좋다"고 Apple 이 도장을 찍어준 문서입니다.
+### 빌드 파이프라인 개괄
 
-- **Development Profile**: 등록된 테스트 기기(UDID) 목록이 들어있습니다. 여기에 없는 폰에서는 앱이 안 켜집니다.
-- **Distribution Profile**: App Store 제출용. 기기 목록이 없고, 대신 Apple 의 배포용 인증이 들어갑니다.
+```
+Pre-processing (Info.plist 가공, Asset Catalog 컴파일)
+  → Compiling (swiftc/clang → Mach-O)
+  → Linking (ld)
+  → Code Sign (entitlement 봉인)
+  → Packaging (.app → .ipa)
+```
 
----
+Bitcode 는 Xcode 14(2022)에서 완전히 제거되어 이제 완성된 바이너리를 그대로 올린다.
 
-### 🏭 Build Process (Under the Hood)
+### 연관 문서
 
-Xcode 에서 `Build` 버튼을 누르면 일어나는 일들입니다.
-
-1. **Pre-processing**: Info.plist 가공, Asset Catalog 컴파일.
-2. **Compiling**: `swiftc`(Swift)와 `clang`(Obj-C)이 소스 코드를 기계어(`Mach-O`)로 변환합니다.
-3. **Linking**: `ld` 링커가 컴파일된 파일들과 시스템 프레임워크를 합쳐서 하나의 실행 파일을 만듭니다.
-4. **Signing**: `codesign` 도구가 실행 파일에 디지털 서명을 입힙니다. 이때 Entitlement 도 바이너리에 박제(Embed)됩니다.
-5. **Packaging**: .app 폴더를 만들고 압축(.ipa)합니다.
-
----
-
-### 🚀 Distribution & Validation
-
-#### 1. Notarization (macOS 필수)
-
-macOS 앱을 웹에서 배포하려면 **공증(Notarization)**을 받아야 합니다.
-
-- 개발자가 앱을 Apple 서버에 보내면, Apple 이 악성코드 검사를 하고 "깨끗함" 티켓을 발급해줍니다.
-- 이 과정을 거치지 않으면 "확인되지 않은 개발자가 만듦" 경고가 뜨고 실행이 막힙니다.
-
-#### 2. Bitcode (Removed)
-
-과거에는 중간 언어(Bitcode)를 업로드해서 Apple 이 재컴파일하게 했으나, **Xcode 14(2022)에서 Bitcode 지원이 완전히 제거**되었습니다. 설정 옵션 자체가 사라졌으며, 이제는 완성된 바이너리를 올립니다.
-
-#### 3. dSYM (Debug Symbols)
-
-앱이 크래시 났을 때 "메모리 주소 0x1234"가 아니라 "ViewController.swift 50 번째 줄"이라고 알려면 **dSYM 파일**이 필요합니다.
-
-- App Store Connect 에 업로드할 때 체크하거나, Firebase Crashlytics 에 별도로 올려야 합니다.
-
-### 더 보기
-
-- [apple-sandbox-and-security](../05_security_privacy/apple-sandbox-and-security.md) - 서명이 완료된 앱이 실행될 때 일어나는 일
-- [apple-history-and-evolution](../00_foundations/apple-history-and-evolution.md) - PowerPC 에서 Apple Silicon 까지의 아키텍처 변화
-- [AMFI 는 exec 시점에 코드 서명과 entitlement 를 커널에서 강제한다](../01_system_internals/kernel-and-driver/amfi-code-signature-enforcement.md) - 서명이 실제로 검증되는 지점
+- [apple-swift-package-manager](apple-swift-package-manager.md) - 의존성 해석과 모듈화
+- [apple-distribution-and-policies](apple-distribution-and-policies.md) - TestFlight·심사·정책
+- [apple-packaging-deployment-map](apple-packaging-deployment-map.md) - 이 섹션 전체 지도
+- [AMFI 는 exec 시점에 코드 서명과 entitlement 를 커널에서 강제한다](../01_system_internals/kernel-and-driver/amfi-code-signature-enforcement.md)
+- [08-signing-and-distribution-failure](../00_foundations/diagnostic-runbooks/08-signing-and-distribution-failure.md)
 
 공식 문서: [Distributing your app for beta testing and releases](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)

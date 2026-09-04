@@ -1,16 +1,14 @@
 ---
 title: apple-app-clips
 tags: [app-clips, apple, apple/packaging, clips, distribution, ios]
-aliases: ["App Clips", "경량 앱"]
-date modified: 2026-08-10 00:00:00 +09:00
+aliases: ["App Clip 은 별도 서명과 엄격한 크기 상한을 가진 독립 번들이다", "App Clips", "경량 앱"]
+date modified: 2026-09-03 00:00:00 +09:00
 date created: 2026-04-04 00:28:00 +09:00
 ---
 
-## App Clips Deep Dive
+## App Clip 은 별도 서명과 엄격한 크기 상한을 가진 독립 번들이다
 
-"앱을 설치하지 않고도 즉시 사용하세요."
-
-**App Clips**는 앱의 핵심 기능을 떼어내어 사용자에게 즉석에서 제공하는 경량 버전(Mini-app)이다. NFC 태그, QR 코드, 지도 상의 위치, 사파리 배너 등을 통해 진입하며, 사용자 결제(Apple Pay) 및 로그인(Sign in with Apple)과 결합할 때 최고의 가치를 발휘한다.
+"앱을 설치하지 않고도 즉시 사용하세요." **App Clips**는 앱의 핵심 기능을 떼어내어 사용자에게 즉석에서 제공하는 경량 버전(Mini-app)이다. NFC 태그, QR 코드, 지도 상의 위치, 사파리 배너 등을 통해 진입하며, 사용자 결제(Apple Pay) 및 로그인(Sign in with Apple)과 결합할 때 최고의 가치를 발휘한다.
 
 >[!NOTE] **Android 비교: Instant Apps vs App Clips**
 > - **iOS**: `App Clips` 는 강력한 시스템 통합(NFC, QR, Apple Pay)을 바탕으로 여전히 활발하게 사용되고 있으며, 용량 제한도 최대 50MB(iOS 17+)까지 확장되었다.
@@ -93,10 +91,11 @@ du -sh MyApp.app/AppClips/MyClip.app
 - [ ] 로그인 없이 핵심 가치를 전달하는가
 - [ ] 본체 앱 설치 후 데이터가 이어지는가 (App Group 공유)
 
-### 더 보기
+### 연관 문서
 
-- [apple-app-lifecycle-and-ui](../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 딥링크/Universal Links 연동
-- [apple-distribution-and-policies](apple-distribution-and-policies.md) - 앱 배포 및 정책 가이드
-- [apple-swift-package-manager](apple-swift-package-manager.md) - 코드 공유를 위한 SPM 전략
+- [apple-app-lifecycle-and-ui](../../02_ui_frameworks/apple-app-lifecycle-and-ui.md) - 딥링크/Universal Links 연동
+- [App Thinning 은 기기별로 필요한 아키텍처와 리소스만 골라 전달한다](../build/app-thinning-delivers-only-what-the-device-needs.md) - 크기 최적화 기법
+- [apple-distribution-and-policies](../apple-distribution-and-policies.md) - 앱 배포 및 정책 가이드
+- [apple-swift-package-manager](../apple-swift-package-manager.md) - 코드 공유를 위한 SPM 전략
 
 공식 문서: [App Clips](https://developer.apple.com/documentation/appclip)

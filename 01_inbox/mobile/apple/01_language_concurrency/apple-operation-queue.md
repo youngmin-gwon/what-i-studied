@@ -1,7 +1,7 @@
 ---
 title: apple-operation-queue
 tags: [apple, apple/concurrency, apple/language, concurrency, dependencies, nsoperation, operation, queue]
-aliases: ["Operation", "OperationQueue", "오퍼레이션 큐"]
+aliases: ["오퍼레이션 큐"]
 date modified: 2026-09-03 12:00:09 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
@@ -157,9 +157,12 @@ print(op.isReady, op.isExecuting, op.isFinished, op.isCancelled)
 - **Instruments 의 System Trace** 로 큐가 실제로 병렬 실행 중인지 확인한다.
 - 의존성 그래프가 순환하면 데드락이 된다. `addDependency` 호출을 전수 확인한다.
 
+상세: [Operation 의 의존성 그래프는 DispatchGroup 으로 표현할 수 없는 순서 제약을 표현한다](concurrency/operation-dependencies-model-what-groups-cannot.md) — 취소 전파, 커스텀 비동기 Operation 의 isFinished 함정, TaskGroup 과의 선택 기준.
+
 ### 더 보기
 
 - [apple-gcd-deep-dive](apple-gcd-deep-dive.md) - 더 가볍고 빠른 대안
 - [apple-swift-concurrency](apple-swift-concurrency.md) - 최신 비동기 모델 (Task Group 이 의존성 관리 대체 가능)
+- [Operation 의 의존성 그래프는 DispatchGroup 으로 표현할 수 없는 순서 제약을 표현한다](concurrency/operation-dependencies-model-what-groups-cannot.md)
 
 공식 문서: [OperationQueue](https://developer.apple.com/documentation/foundation/operationqueue)

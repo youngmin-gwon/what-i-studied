@@ -1,115 +1,96 @@
 ---
 title: apple-distribution-and-policies
-tags: [apple, apple/packaging, appstore, gdpr, iap, policy, rejection]
-aliases: ["App Store Guidelines", "심사 정책"]
-date modified: 2026-04-06 18:13:02 +09:00
+tags: [apple, apple/packaging, apple/packaging/distribution, apple/packaging/review, appstore, gdpr, iap, moc, policy, rejection]
+aliases: ["심사 반려는 소수의 가이드라인에 몰리고 배포는 TestFlight·단계적 출시로 위험을 줄인다", "App Store Guidelines", "심사 정책"]
+date modified: 2026-09-03 00:00:00 +09:00
 date created: 2025-12-16 16:14:32 +09:00
 ---
 
-## App Store Guidelines & Policies
+## 심사 반려는 소수의 가이드라인에 몰리고 배포는 TestFlight·단계적 출시로 위험을 줄인다
 
-"Guideline 3.1.1 - In-App Purchase"
+"Guideline 3.1.1 - In-App Purchase" 메일을 받는 순간 심장이 철렁하지만, 반려는 임의적이지 않다. **소수의 가이드라인 주변에 몰려 있고**, 배포 단계 자체도 **TestFlight 와 단계적 출시라는 두 개의 안전망**을 갖도록 설계되어 있다.
 
-이 메일을 받는 순간 심장이 철렁합니다.
+```mermaid
+flowchart TD
+    subgraph Review ["심사"]
+        R1["3.1.1 결제"] --> RG["반려 사유는<br/>소수에 몰림"]
+        R2["4.8 Apple 로그인"] --> RG
+        R3["5.1.1 데이터"] --> RG
+    end
+    subgraph Deploy ["배포"]
+        D1["TestFlight<br/>(별도 자체 심사)"] --> D2["App Store 심사"]
+        D2 --> D3["단계적 출시<br/>(1% → 100%)"]
+    end
+    RG --> D2
 
-App Store 는 단순한 마켓이 아니라, 엄격한 법률이 지배하는 국가입니다. 이 법(Guideline)을 모르면 앱은 영원히 출시되지 못합니다.
+    style RG fill:#fff8e1,stroke:#f9a825,color:#f57f17
+    style D3 fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+```
 
-### 💡 왜 이것을 알아야 하나요? (Context)
+### 정본 노트
 
-- **리젝(Rejection) 방지**: 기껏 개발 다 해놨는데 "회원가입 기능이 애플 로그인(Sign in with Apple)을 지원하지 않아서 거절"당하면 오픈 일정이 2 주 밀립니다.
-- **수익 모델**: 넷플릭스처럼 외부 결제를 유도하면 앱이 잘립니다. **In-App Purchase(IAP)** 정책은 타협이 불가능한 영역입니다.
-- **Minimum Functionality**: "웹사이트를 그냥 앱으로 감싼 것(Wrapper App)"은 거절됩니다. 앱만의 네이티브 기능이 있어야 합니다.
+**심사**
 
----
+- [심사 반려는 임의적이지 않고 소수의 가이드라인 주변에 몰린다](review/rejections-cluster-around-a-few-guidelines.md) — **3.1.1 결제 규칙의 정확한 경계**, 2.1 완성도 반려를 피하는 Review 노트 작성법.
+- [수출 규정 신고는 암호학 API 사용이 아니라 실제 암호화 사용 여부로 판정한다](review/export-compliance-applies-to-encryption-not-just-cryptography-apis.md) — **HTTPS 만 써도 신고 대상**, `ITSAppUsesNonExemptEncryption`.
+- [규제는 지역마다 다르고 무엇을 신고해야 하는지가 다르다](review/regulations-differ-by-region-and-what-must-be-declared.md) — GDPR 삭제권의 실제 구현, DMA 의 EU 특별 조항, 아동 카테고리.
 
-### 🏛️ 주요 반려 사유 (Common Rejections)
+**배포**
 
-#### 1. Guideline 4.8 - Sign in with Apple
+- [TestFlight 는 자체 심사를 거치며 App Store 심사와 별개다](distribution/testflight-review-is-separate-from-app-store-review.md) — 내부/외부 테스터 차이, 90일 만료.
+- [단계적 출시는 문제를 전체 배포 전에 좁은 범위에서 잡는다](distribution/phased-release-limits-blast-radius.md) — **일시 중지는 롤백이 아니다**, 강제 업데이트는 직접 설계해야 한다.
+- [App Clip 은 별도 서명과 엄격한 크기 상한을 가진 독립 번들이다](distribution/app-clip-has-its-own-signing-and-size-limit.md)
 
-타사 소셜 로그인(구글, 페이스북, 카카오)을 지원한다면, **반드시** Apple 로그인도 동등한 크기로 붙여야 합니다.
+**인앱 구매**
 
-- 예외: 자체 아이디/비번 로그인만 있는 경우, 기업 전용 앱 등.
+- [StoreKit 2 는 서버 왕복 없이 서명된 JWS 로 구매를 로컬 검증한다](distribution/storekit2-verifies-transactions-with-signed-jws.md) — `transaction.finish()` 누락이 만드는 버그, 유예 기간 처리.
+- [서버 검증은 로컬 검증으로 부족한 환불·해지·크로스플랫폼 동기화에 필요하다](distribution/server-side-verification-is-needed-for-refunds-and-cross-platform.md) — App Store Server Notifications 웹훅.
 
-#### 2. Guideline 3.1.1 - In-App Purchase
+### 증상에서 시작하기
 
-디지털 콘텐츠(이모티콘, 멤버십, 강의 등)는 기본적으로 Apple IAP 를 써야 합니다.
+| 증상 | 어느 노트로 |
+| :--- | :--- |
+| 3.1.1 결제 반려 | [반려 가이드라인](review/rejections-cluster-around-a-few-guidelines.md) |
+| 4.8 Apple 로그인 반려 | [반려 가이드라인](review/rejections-cluster-around-a-few-guidelines.md) |
+| 심사관이 앱을 못 씀 | [반려 가이드라인](review/rejections-cluster-around-a-few-guidelines.md) (Review 노트 작성) |
+| 업로드가 `Missing Compliance` 로 막힘 | [수출 규정](review/export-compliance-applies-to-encryption-not-just-cryptography-apis.md) |
+| 계정 삭제가 법적으로 부족하다 | [규제](review/regulations-differ-by-region-and-what-must-be-declared.md) (GDPR) |
+| TestFlight 외부 테스터가 못 받는다 | [TestFlight](distribution/testflight-review-is-separate-from-app-store-review.md) (베타 심사 대기) |
+| 배포 후 크래시율이 급증했다 | [단계적 출시](distribution/phased-release-limits-blast-radius.md) |
+| 환불받은 사용자가 계속 프리미엄이다 | [서버 검증](distribution/server-side-verification-is-needed-for-refunds-and-cross-platform.md) |
+| 구매했는데 콘텐츠가 안 풀린다 | [StoreKit 2](distribution/storekit2-verifies-transactions-with-signed-jws.md) (`finish()` 누락) |
 
-- **금지 (기본)**: "웹에서 결제하세요"라고 링크를 걸거나, 결제 유도 문구를 넣는 행위.
-- **허용**: 넷플릭스처럼 "리더(Reader) 앱" 권한을 받으면 외부 링크 허용(매우 까다로움).
+### Enterprise & Custom Apps — App Store 가 유일한 길은 아니다
 
->[!WARNING] **Devil's Advocate : EU Digital Markets Act (DMA) 이후 변화**
->2024 년 EU DMA 시행 이후, **EU 지역에 한해** Apple 은 대체 결제 수단(Alternative Payment Processing)과 외부 링크(External Link Entitlement)를 조건부 허용하고 있습니다. 단, 별도의 수수료 체계(Core Technology Fee 등)가 적용되며, 규정이 빠르게 변하고 있으므로 **Apple 의 최신 정책 문서를 반드시 확인**해야 합니다. EU 외 지역에서는 기존 IAP 규칙이 그대로 적용됩니다.
+| 채널 | 심사 | 배포 대상 |
+| :--- | :--- | :--- |
+| **Custom App (ABM)** | 받음 (비공개) | 특정 조직의 VPP 계정만 |
+| **Enterprise Program** ($299/년) | **없음** | 사내 전용, MDM 배포 |
 
-#### 3. Guideline 5.1.1 - Data Collection
+Enterprise 배포는 심사가 없는 대신 **인증서 관리가 리스크의 핵심**이다. 인증서가 만료되면 전 직원의 앱이 즉시 실행 불가 상태가 되며, Apple 이 남용(사내 배포 목적 외 사용)을 감지하면 계정을 정지시킬 수 있다.
 
-"앱을 켜자마자 회원가입 강요"는 거절 사유입니다.
-
-- 둘러보기(Guest Mode)를 허용해야 합니다. (단, 기능상 가입이 필수인 SNS 등은 예외)
-- 필요한 권한(카메라 등)은 기능을 사용할 때 요청해야지, 켜자마자 요청하면 안 됩니다.
-
----
-
-### 🌍 글로벌 규제 (Regulations)
-
-#### 1. GDPR (유럽)
-
-"잊혀질 권리". 사용자가 원하면 **"계정 탈퇴" 버튼**이 앱 내에 있어야 하고, 서버의 모든 데이터가 즉시 삭제되어야 합니다. "고객센터에 문의하세요"는 더 이상 통하지 않습니다.
-
-#### 2. Export Compliance (암호화)
-
-HTTPS(TLS)만 써도 암호화 기술 수출로 간주됩니다.
-
-- App Store Connect 에서 "표준 암호화만 사용함"이라고 체크해야 제출이 가능합니다. Info.plist 에 `ITSAppUsesNonExemptEncryption` 키를 `NO` 로 설정하면 매번 묻는 걸 스킵할 수 있습니다.
-
----
-
-### 🏢 Enterprise & Custom Apps
-
-App Store 가 유일한 길은 아닙니다.
-
-#### 1. Apple Business Manager (ABM)
-
-특정 회사 임직원용 앱이나 B2B 앱은 **비공개 배포(Custom App)**를 해야 합니다.
-
-- App Store 심사는 받지만, 일반 사용자에게 노출되지 않고 특정 조직의 VPP(Volume Purchase Program) 계정으로만 다운로드 가능합니다.
-
-#### 2. Enterprise Program ($299/년)
-
-심사 없이 내부 배포가 가능하지만, 인증서 관리가 지옥입니다.
-
-- 인증서가 만료되면 전 직원의 앱이 즉시 실행 불가 상태가 됩니다.
-- Apple 이 남용(도박 앱 배포 등)을 감시하여 계정을 영구 정지시키기도 합니다.
-
-### 관찰 가능한 증거
+### 심사 전 자체 점검
 
 ```bash
-# 업로드 전 자체 검증
-xcrun altool --validate-app -f build/export/MyApp.ipa \
-  -t ios --apiKey "$KEY_ID" --apiIssuer "$ISSUER_ID"
+xcrun altool --validate-app -f build/export/MyApp.ipa -t ios \
+  --apiKey "$KEY_ID" --apiIssuer "$ISSUER_ID"
 
-# 번들에 포함된 Privacy Manifest 전수 확인 (SDK 것 포함)
 find MyApp.app -name "PrivacyInfo.xcprivacy"
-
-# ATS 예외가 배포 빌드에 남아 있는지
 plutil -p MyApp.app/Info.plist | grep -A10 NSAppTransportSecurity
 ```
 
-**심사 전 자체 점검 목록**
-
 | 항목 | 흔한 반려 사유 |
 | :--- | :--- |
-| 권한 문구 | 구체적이지 않음 ("위치가 필요합니다") |
+| 권한 문구 | 구체적이지 않음 |
 | 권한 요청 시점 | 앱 진입 즉시 요청 |
-| 거부 시 동작 | 앱이 멈추거나 진행 불가 |
-| ATT | 서드파티 SDK 추적에 대한 프롬프트 누락 |
-| Privacy Manifest | Required Reason API 사유 미기재 |
 | 결제 | 디지털 재화를 외부 결제로 유도 |
+| Privacy Manifest | Required Reason API 사유 미기재 |
 
-`App Store Connect` 의 **App Review 노트에 테스트 계정과 재현 절차**를 명시하면 반려 왕복이 줄어든다.
+### 연관 문서
 
-### 더 보기
-
-- [apple-build-and-distribution](apple-build-and-distribution.md) - 심사 통과 후 기술적인 배포 과정
-- [apple-app-tracking-privacy](../05_security_privacy/apple-app-tracking-privacy.md) - 심사의 또 다른 벽, 개인정보 정책
+- [apple-build-and-distribution](apple-build-and-distribution.md) - 서명·빌드 기술적 과정
+- [apple-app-tracking-privacy](../05_security_privacy/apple-app-tracking-privacy.md)
+- [apple-privacy-and-tcc-details](../05_security_privacy/apple-privacy-and-tcc-details.md)
+- [apple-packaging-deployment-map](apple-packaging-deployment-map.md)
 
 공식 문서: [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)

@@ -1,8 +1,8 @@
 ---
 title: apple-storage-and-filesystems
-tags: [app-group, apple, apple/data, filemanager, filesystem, sandbox, storage]
+tags: [app-group, apple, apple/data, apple/data/storage, filemanager, filesystem, sandbox, storage]
 aliases: ["스토리지와 파일 시스템"]
-date modified: 2026-04-06 18:07:30 +09:00
+date modified: 2026-09-03 00:00:00 +09:00
 date created: 2025-12-16 16:09:38 +09:00
 ---
 
@@ -67,33 +67,12 @@ iOS 는 기기가 잠겨있을 때(Lock Screen), 파일 시스템 전체를 암�
 
 ### 🛠️ 실무 패턴 및 주의사항
 
-#### 1. 절대 경로(Absolute Path)의 함정
+#### 1. 절대 경로(Absolute Path)의 함정과 2. 대용량 파일 처리
 
-앱이 업데이트되거나 재설치되면 컨테이너의 UUID 경로가 바뀝니다.
+두 개의 원자 노트로 분리했다.
 
-```swift
-// ❌ Bad: 전체 경로를 DB에 저장
-let fullPath = url.path // "/var/.../Application/UUID-1111/Documents/file.txt"
-saveToDB(fullPath) 
-
-// (앱 업데이트 후)
-// ❌ 경로가 "/var/.../Application/UUID-2222/Documents/file.txt"로 바뀌어서 못 찾음
-
-// ✅ Good: 상대 경로만 저장하고 런타임에 조합
-let fileName = "file.txt"
-saveToDB(fileName)
-
-// 불러올 때
-let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-let fileURL = docDir.appendingPathComponent(fileName)
-```
-
-#### 2. 대용량 파일 처리
-
-`Data(contentsOf: url)` 로 1GB 파일을 읽으면 메모리가 터집니다.
-
-- `FileHandle` 이나 `InputStream` 을 사용하여 청크(Chunk) 단위로 읽어야 합니다.
-- `Memory Mapped File` (mmap)을 쓰면 가상 메모리를 활용해 큰 파일도 빠르게 읽을 수 있습니다(`Data(contentsOf: url, options: .mappedIfSafe)`).
+- [앱 컨테이너의 절대 경로는 재설치·업데이트마다 바뀌므로 저장하면 안 된다](storage/container-path-is-a-uuid-that-changes-never-persist-it.md) — 안전한 저장 방식과 Security-Scoped Bookmark 와의 구분.
+- [대용량 파일은 전체를 메모리에 올리지 않고 매핑하거나 스트리밍해서 읽는다](storage/large-files-are-mapped-not-fully-loaded.md) — mmap 이 clean 메모리인 이유, FileHandle 스트리밍, 이미지 다운샘플링.
 
 ### 관찰 가능한 증거
 

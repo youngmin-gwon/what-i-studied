@@ -2,7 +2,7 @@
 title: apple-gcd-deep-dive
 tags: [apple, apple/concurrency, apple/language, concurrency, gcd, internals, performance]
 aliases: ["GCD 심화", "GCD", "Grand Central Dispatch"]
-date modified: 2026-09-03 11:59:58 +09:00
+date modified: 2026-09-03 00:00:00 +09:00
 date created: 2025-12-16 17:01:32 +09:00
 ---
 
@@ -148,6 +148,8 @@ DispatchQueue.main.sync {
 }
 ```
 
+상세: [현재 큐에 sync 를 걸면 그 큐가 자기 자신을 기다려 즉시 데드락이 된다](concurrency/dispatch-sync-on-current-queue-deadlocks.md) — 간접 발생 패턴과 barrier 방식과의 충돌, 안전한 대안.
+
 ### 관찰 가능한 증거
 
 ```bash
@@ -164,5 +166,6 @@ spindump <pid> 5 -file /tmp/spin.txt
 
 - [apple-swift-concurrency](apple-swift-concurrency.md) - GCD 의 현대적 대안
 - [apple-operation-queue](apple-operation-queue.md) - GCD 기반의 객체지향 래퍼 (의존성 관리 가능)
+- [현재 큐에 sync 를 걸면 그 큐가 자기 자신을 기다려 즉시 데드락이 된다](concurrency/dispatch-sync-on-current-queue-deadlocks.md)
 
 공식 문서: [Dispatch](https://developer.apple.com/documentation/dispatch)

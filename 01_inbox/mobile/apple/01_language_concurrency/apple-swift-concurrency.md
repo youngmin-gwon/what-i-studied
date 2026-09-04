@@ -55,6 +55,11 @@ flowchart TD
 
 - [구조적 동시성은 작업 수명을 스코프에 묶고 취소를 트리로 전파한다](concurrency/structured-concurrency-task-tree.md) - `async let` / `TaskGroup` / 비구조적 `Task` 의 구분, 동시 실행 수 제한.
 
+**GCD/Operation 마이그레이션 함정**
+
+- [현재 큐에 sync 를 걸면 그 큐가 자기 자신을 기다려 즉시 데드락이 된다](concurrency/dispatch-sync-on-current-queue-deadlocks.md)
+- [Operation 의 의존성 그래프는 DispatchGroup 으로 표현할 수 없는 순서 제약을 표현한다](concurrency/operation-dependencies-model-what-groups-cannot.md)
+
 **전환**
 
 - [Swift 6 마이그레이션은 경고를 먼저 켜서 모듈 단위로 단계적으로 한다](concurrency/swift6-migration-path.md) - 효과 순 작업 순서.
