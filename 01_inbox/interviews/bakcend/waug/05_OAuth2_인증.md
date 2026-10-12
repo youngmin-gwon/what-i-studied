@@ -11,9 +11,9 @@ date created: 2026-10-12 17:45:57 +09:00
 이 문서는 이력서의 두 경험을 구분해서 설명하도록 돕습니다.
 
 - **Hi-Tech (Go, Oracle, Redis):** JWT access·refresh 발급과 검증, Redis 에 token ID 와 사용자 연결 정보 및 만료시간 저장, 로그아웃 시 삭제, refresh 시 토큰 교체, 최종 로그인은 Oracle 프로시저 연동
-- **VMMe Pro (Kotlin, Spring Boot):** 백엔드 개발자와 API·서비스 로직을 함께 작성했고, 이력서에는 "OAuth2 인증 서버와 인증 API 도 구현·설계"했다고 기재
+- **VMMe Pro (Kotlin, Spring Boot):** 백엔드 개발자와 Spring Authorization Server 기반 인증 서버를 만들었고, 본인은 커스텀 grant 처리·claim 구성 같은 토큰 발급 코드 일부를 직접 작성. 로그인은 표준 Authorization Code 가 아니라 커스텀 Password Grant 이고, 서비스 간 호출은 client_credentials, access token 은 RSA 서명 JWT (구조는 5.1 절)
 
-앞의 Go 경험만으로 OAuth2 표준의 Authorization Code 흐름이나 Spring Authorization Server 를 구현했다고 결론 내릴 수는 없습니다. VMMe Pro 에서 실제로 만든 엔드포인트, 토큰 발급 주체, OAuth2 grant, 사용한 라이브러리와 본인의 기여 범위를 확인해 답변하세요.
+Hi-Tech 는 자체 로그인 API 의 JWT 발급이라 OAuth2 흐름이 아닙니다. OAuth2 경험은 VMMe Pro 인증 서버로 설명하고, 그 서버도 Authorization Code + PKCE 를 구현한 것은 아니라는 점을 분명히 합니다.
 
 ### 0. 큰 그림부터: identity boundary 에서 API 권한까지
 
@@ -40,10 +40,10 @@ flowchart LR
 
 #### 이력서 경험을 큰 그림에 놓기
 
-- **Hi-Tech:** 확인된 이력서 내용은 Go API 에서 JWT access·refresh 발급·검증, Redis 에 token ID- 사용자 연결 및 만료 저장, 로그아웃 시 토큰 정보 삭제, refresh 시 교체, 최종 로그인 경로의 Oracle 프로시저 연동입니다. 이는 토큰 기반 인증 및 세션 폐기 설계 경험을 보여줍니다. OAuth2 표준 역할/endpoint 의 구현 여부는 별도로 확인해야 합니다.
-- **VMMe Pro:** 이력서에는 백엔드 개발자와 Kotlin·Spring Boot API 및 서비스 로직을 함께 작성했고 "OAuth2 인증 서버와 인증 API 도 구현·설계"했다고 되어 있습니다. 지금 공유된 사실만으로는 grant, endpoint, Spring Authorization Server 사용 여부, 직접 기여한 코드 경계를 특정할 수 없습니다. 면접 전 코드·의존성·배포 구조를 확인해 어느 상자(Identity boundary, authorization server, resource server, client integration)를 맡았는지 표시하세요.
+- **Hi-Tech:** 확인된 이력서 내용은 Go API 에서 JWT access·refresh 발급·검증, Redis 에 token ID- 사용자 연결 및 만료 저장, 로그아웃 시 토큰 정보 삭제, refresh 시 교체, 최종 로그인 경로의 Oracle 프로시저 연동입니다. 이는 토큰 기반 인증 및 세션 폐기 설계 경험을 보여줍니다. OAuth2 표준 흐름은 아닙니다.
+- **VMMe Pro:** 위 그림의 **authorization server 와 resource server 상자**에 해당합니다. 한 Spring Boot 서비스 안에 Spring Authorization Server 의 토큰 발급 체인과 Resource Server 의 API 검증 체인이 함께 있고, 본인은 토큰 발급 체인의 코드 일부(커스텀 grant 처리, claim 구성 등)를 직접 작성했습니다. identity boundary 는 같은 서버의 회원·관리자·OTP 인증 서비스가 맡습니다.
 
-따라서 답변의 순서는 **큰 그림에서 맡은 경계 → 직접 만든 동작 → 라이브러리/협업자가 맡은 동작 → 확인되지 않은 부분**이 좋습니다. CV 문구를 먼저 부정하거나 과장이라고 인정할 필요는 없습니다. 문구에 대한 근거로 실제 설계 결정, 코드, 테스트, 협업 범위를 구체화하고, 표준 endpoint/grant 구현 등 확인되지 않은 부분만 제한해서 답합니다. Hi-Tech Go 구현을 VMMe Pro Spring OAuth2 경험으로 합쳐 말하지 않습니다.
+따라서 답변의 순서는 **큰 그림에서 맡은 경계 → 직접 만든 동작 → 프레임워크/협업자가 맡은 동작 → 한계**가 좋습니다. CV 문구를 먼저 부정하거나 과장이라고 인정할 필요는 없습니다. 문구의 근거로 실제 구조, 직접 작성한 코드, 협업 범위를 구체적으로 말하고, 표준 Authorization Code + PKCE 가 아니었다는 한계는 먼저 밝힙니다. Hi-Tech Go 구현을 VMMe Pro Spring OAuth2 경험으로 합쳐 말하지 않습니다.
 
 ### 1. 먼저 구분하기: 인증, 인가, OAuth2, OIDC, JWT
 
@@ -255,7 +255,9 @@ Authorization Server 설정은 "JWT 를 만드는 클래스 하나"가 아니라
 
 ### 5.1. VMMe Pro 저장소에서 확인한 실제 구조
 
-분석 기준 저장소: [`mybenefit/authorization-server`, main, `adad707`](https://github.com/mybenefit/authorization-server/tree/adad7071d1f814b95a684f7ac39d83c2dcab3601). 아래는 해당 commit 의 코드 구조 설명입니다. 저장소에 있는 모든 코드가 본인의 직접 구현이라는 뜻은 아니므로, 본인 commit·담당 파일과 공동 작업 범위를 따로 확인하세요.
+분석 기준 저장소: [`mybenefit/authorization-server`, main, `adad707`](https://github.com/mybenefit/authorization-server/tree/adad7071d1f814b95a684f7ac39d83c2dcab3601). 아래는 해당 commit 의 코드 구조 설명입니다. 이 서버는 백엔드 개발자와 함께 만들었고, 본인은 토큰 발급 체인의 코드 일부를 직접 작성했습니다.
+
+>직접 작성한 클래스 2~3 개(예: `PasswordGrantAuthenticationProvider`, `CustomJwtTokenCustomizer`, `SecurityConfiguration` 중 실제로 쓴 것)를 이름과 역할로 말할 수 있게 준비하면, "어디까지 직접 했나요?"라는 질문에 가장 강하게 답할 수 있습니다.
 
 #### 한눈에 보는 구성
 
@@ -296,11 +298,11 @@ flowchart LR
 
 **20초 버전**
 
-> “저장소는 Kotlin·Spring Boot 기반 계층형 서비스이고, Spring Authorization Server의 토큰 발급 체인과 Spring Security Resource Server의 일반 API 검증 체인을 분리했습니다. 커스텀 Password Grant 요청에서 회원·관리자·OTP 인증을 처리하고 RSA JWT에 주체별 claim 을 넣습니다. 제가 직접 구현한 범위와 기존 코드의 범위는 제 담당 코드 기준으로 구분해서 설명드리겠습니다.”
+> “인증 서버는 Kotlin·Spring Boot 기반 계층형 서비스이고, Spring Authorization Server 의 토큰 발급 체인과 Spring Security Resource Server 의 일반 API 검증 체인을 분리했습니다. 커스텀 Password Grant 요청에서 회원·관리자·OTP 인증을 처리하고 RSA JWT 에 주체별 claim 을 넣습니다. 저는 백엔드 개발자와 함께 이 서버를 만들며 커스텀 grant 처리와 claim 구성 같은 토큰 발급 코드 일부를 직접 작성했습니다.”
 
 **60초 버전**
 
-> “인증 서버라고 부르는 하나의 서비스 안에 토큰을 발급하는 authorization-server chain과 bearer JWT로 일반 API를 보호하는 resource-server chain이 있습니다. `/oauth2/token`은 Spring Authorization Server의 token endpoint에 커스텀 converter/provider를 연결해 기존 클라이언트의 Password Grant 요청을 파싱하고, 회원·센터 관리자·OTP 인증으로 분기합니다. 인증이 되면 token generator가 RSA 서명 JWT와 refresh token을 생성하고, customizer가 user·manager·device metadata를 붙이며 authorization 저장소에 상태를 저장합니다. 다른 API 체인은 JWT를 검증한 뒤 scope와 사용자 유형을 권한으로 변환합니다. CMS/기기용 client credentials도 별도 경로로 분리해 allowlist와 scope로 제한합니다. 다만 저장소 전체가 제 작업이라는 뜻은 아니며, 제가 직접 맡은 파일과 테스트는 구체적으로 나눠 말씀드리겠습니다.”
+> “인증 서버라고 부르는 하나의 서비스 안에 토큰을 발급하는 authorization-server chain과 bearer JWT로 일반 API를 보호하는 resource-server chain이 있습니다. `/oauth2/token`은 Spring Authorization Server의 token endpoint에 커스텀 converter/provider를 연결해 기존 클라이언트의 Password Grant 요청을 파싱하고, 회원·센터 관리자·OTP 인증으로 분기합니다. 인증이 되면 token generator가 RSA 서명 JWT와 refresh token을 생성하고, customizer가 user·manager·device metadata를 붙이며 authorization 저장소에 상태를 저장합니다. 다른 API 체인은 JWT를 검증한 뒤 scope와 사용자 유형을 권한으로 변환합니다. CMS/기기용 client credentials도 별도 경로로 분리해 allowlist와 scope로 제한합니다. 서버 전체를 혼자 만든 것은 아니고, 저는 이 중 토큰 발급 체인의 코드 일부를 맡았습니다.”
 
 **저장소 흐름을 코드 단위로 설명하라는 꼬리질문**
 
@@ -312,12 +314,12 @@ flowchart LR
 
 Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security Best Current Practice인 RFC 9700에서 사용해서는 안 되는 grant 로 규정합니다. 사용자의 비밀번호를 client 가 직접 다루게 해 자격증명 노출 범위를 넓히고, 다단계 인증과 상호작용형 인증에 맞지 않기 때문입니다. 레거시 앱과의 호환 때문에 유지된 코드라면 그렇게 설명하고, 새 모바일 클라이언트는 Authorization Code + PKCE 로 전환하는 계획을 제시합니다. 서버 간 호출은 필요한 scope를 제한한 Client Credentials가 적절한지 별도로 판단합니다. [RFC 9700 §2.4](https://www.rfc-editor.org/rfc/rfc9700.html#section-2.4)
 
-> “기존 앱 호환”은 그럴듯한 배경이지만 코드만으로 선택 이유를 증명할 수는 없습니다. 실제 당시 요구사항이나 담당자 설명으로 확인할 수 없다면 “이 저장소가 현재 처리하는 방식은 Password Grant이고, 선택 배경은 코드만으로 단정하지 않겠습니다”라고 말합니다.
+> Password Grant 를 쓴 이유는 당시 팀에서 실제로 논의한 이유로 말합니다. 기억나지 않으면 "기존 앱 호환" 같은 이유를 지어내지 말고, "팀에서 정한 구조였다"고 말한 뒤 한계와 전환 계획으로 넘어갑니다.
 
 **질문: Password Grant 를 썼는데, OAuth2를 안전하게 구현했다고 할 수 있나요?**
 
-- **짧은 답:** “저장소는 기존 앱 호환을 위해 Password Grant를 커스텀 처리합니다. 현재 보안 모범 사례에서는 사용을 금지하는 grant이므로, 이 선택을 최신 권장 흐름이라고 설명하지 않겠습니다.”
-- **설명형 답:** “저장소에서 확인한 현재 동작은 token endpoint가 Password Grant 요청을 받아 회원·관리자·OTP 인증으로 분기하는 것입니다. 선택 배경은 코드만으로 확정할 수 없어 기존 클라이언트 호환 때문이라고 단정하지 않겠습니다. Password Grant는 client가 사용자 비밀번호를 다루게 되고 다단계·브라우저 기반 인증과 맞지 않아 RFC 9700에서 MUST NOT으로 규정합니다. 신규 모바일 로그인은 Authorization Code + PKCE로 전환하고, 기존 앱은 클라이언트별 사용량과 호환성을 확인해 단계적으로 폐기하는 게 맞습니다.”
+- **짧은 답:** “저희 인증 서버는 Spring Authorization Server 가 기본 제공하지 않는 Password Grant 를 커스텀 converter/provider 로 처리합니다. RFC 9700 에서 쓰지 말라고 규정한 grant 라서, 이것을 최신 권장 흐름이라고 말하지는 않습니다. 새로 설계한다면 Authorization Code + PKCE 로 바꾸겠습니다.”
+- **설명형 답:** “token endpoint 가 Password Grant 요청을 받아 회원·관리자·OTP 인증으로 분기하고, RSA JWT 와 refresh token 을 발급합니다. Password Grant는 client가 사용자 비밀번호를 다루게 되고 다단계·브라우저 기반 인증과 맞지 않아 RFC 9700에서 MUST NOT으로 규정합니다. 신규 모바일 로그인은 Authorization Code + PKCE로 전환하고, 기존 앱은 클라이언트별 사용량과 호환성을 확인해 단계적으로 폐기하는 게 맞습니다.”
 
 **꼬리질문 1: 지금 다시 설계한다면 어떻게 바꾸겠어요?**
 
@@ -325,13 +327,13 @@ Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security B
 
 **꼬리질문 2: 기존 Password Grant 코드를 본인이 설계한 건가요?**
 
-**답변:** “기존 client 계약과 저장소에 구현된 흐름을 구분해서 말씀드리겠습니다. 제가 직접 작성하거나 변경한 것은 **[본인이 담당한 converter/provider/인증 분기/claim/테스트 등]**이고, 기존에 존재하던 정책과 다른 개발자가 맡은 부분은 **[사실대로 구분]**입니다. 저장소가 가진 구현을 전부 제가 설계했다고 주장하지 않겠습니다.”
+**답변:** “Password Grant 구조는 팀에서 정한 것이고, 저는 그 안에서 커스텀 grant 처리와 claim 구성 같은 토큰 발급 코드 일부를 직접 작성했습니다. 서버 전체를 혼자 설계한 것은 아니지만, 왜 이 구조로 동작하는지와 어떤 한계가 있는지는 코드 수준에서 설명드릴 수 있습니다.”
 
 #### 토큰 폐기와 키 관리에서 보수적으로 말할 부분
 
 - 코드에 `/oauth2/revoke`와 authorization DB 기록이 있어도, 일반 API 요청에서 매번 DB의 revoked 상태까지 확인한다고 단정하면 안 됩니다. Resource Server 설정은 JWT decoder 기반입니다. JWT access token의 즉시 폐기 보장은 별도 denylist/introspection/세션 확인이 있는지 확인해야 합니다.
-- `RegisteredClientEntity.create()`의 생성 기본값은 access token 5분, refresh token 14일이며 refresh 재사용을 끄도록 설정합니다. README는 서비스 토큰 만료를 100년이라고 설명하지만 `ServiceTokenService`는 `RegisteredClient`의 token generator 설정으로 토큰을 만들고, 코드 경로에서 별도의 100년 TTL을 지정하지 않습니다. 실제 client row의 `token_settings`와 발급 응답 `expires_in`을 확인하기 전에는 서비스 토큰 TTL을 단정하지 마세요.
-- 저장소는 JWKS용 public key와 서명용 private key 파일 경로를 코드에서 직접 읽습니다. **공개 저장소에는 `secrets/` 아래 개인키 파일과 자격증명처럼 보이는 설정값이 추적되고 있습니다.** 실제 운영에서 유효했는지 확인이 필요합니다. 유효했거나 재사용됐다면 안전한 secret manager/KMS로 옮기고 키·비밀번호를 회전해야 합니다. 인터뷰 답변에 실제 값은 절대 포함하지 말고, 이 구조를 안전한 key management의 모범 사례라고 설명하지 않습니다.
+- `RegisteredClientEntity.create()`의 생성 기본값은 access token 5분, refresh token 14일이며 refresh 재사용을 끄도록 설정합니다(`reuseRefreshTokens(false)`). 즉 refresh 할 때마다 새 refresh token 을 발급하는 **rotation 이 켜진 상태**입니다. README는 서비스 토큰 만료를 100년이라고 설명하지만 `ServiceTokenService`는 `RegisteredClient`의 token generator 설정으로 토큰을 만들고, 코드 경로에서 별도의 100년 TTL을 지정하지 않습니다. 실제 client row의 `token_settings`와 발급 응답 `expires_in`을 확인하기 전에는 서비스 토큰 TTL을 단정하지 마세요.
+- 저장소는 JWKS용 public key와 서명용 private key 파일 경로를 코드에서 직접 읽습니다. **비공개 저장소이지만 `secrets/` 아래 개인키 파일(`private_key.pem` 등)과 자격증명처럼 보이는 설정값이 Git 에 추적되고 있습니다.** 비공개여도 저장소 접근 권한이 있는 사람과 CI 가 모두 서명 키를 갖게 되고, Git 이력에 남아 지우기 어렵습니다. 운영 키라면 secret manager/KMS 로 옮기고 키·비밀번호를 회전하는 것이 맞습니다. 면접에서 먼저 꺼낼 필요는 없지만, "다시 만든다면 무엇을 개선하겠나요?"라는 질문에는 이 내용을 말할 수 있습니다. 실제 값은 절대 말하지 않고, 이 구조를 안전한 key management 의 모범 사례라고 설명하지 않습니다.
 
 ### 5.3. 저장소 기준으로 업데이트할 사실 확인 질문
 
@@ -345,18 +347,21 @@ Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security B
 
 ### 6. 이력서에서 사실 확인이 필요한 지점
 
-면접 전에 코드를 보거나 기억을 확인해 아래 질문에 짧게 답을 적어두세요.
+**확인된 답 (5.1 절 기준)**
 
-1. VMMe Pro 의 "OAuth2 인증 서버"에서 실제로 어떤 프로토콜 endpoint 를 만들거나 설정했나요? `/authorize`, `/token`, discovery, JWKS, revocation 등 중 무엇이 있었나요?
-2. 어떤 grant 를 사용했나요? Authorization Code + PKCE 였나요, 다른 흐름이었나요?
-3. OAuth2/OIDC 기능은 라이브러리가 제공했고 본인은 앱 연동, 보안 설정, API, 토큰 처리 중 무엇을 맡았나요?
-4. VMMe Pro 와 Hi-Tech 의 인증 구조는 서로 다른 프로젝트인가요? 기술·흐름을 섞어 말하지 않도록 경계를 정리했나요?
-5. Hi-Tech 의 JWT 발급·검증에서 서명 알고리즘과 key 관리, claim, 만료시간, refresh token 저장 방식은 어땠나요?
-6. Redis 에는 access 와 refresh 중 무엇의 ID 를 저장했나요? 매 요청에 Redis 를 조회했나요? TTL 은 토큰 만료와 어떻게 맞췄나요?
-7. 로그아웃은 어떤 토큰을 폐기했나요? refresh rotation 중 이미 사용된 refresh token 의 재사용은 탐지했나요?
-8. "최종 로그인 경로는 Oracle 프로시저 연동"은 프로시저가 사용자 자격을 검증하고 Go 서버가 토큰을 발급했다는 뜻인가요? 데이터 흐름을 정확히 복원하세요.
+1. **endpoint:** Spring Authorization Server 의 `/oauth2/token`(커스텀 Password Grant converter/provider 연결), JWKS, `/oauth2/revoke`, 그리고 CMS·기기용 서비스 토큰을 위한 별도 `/service/token`·`/service/token/revoke` 가 있습니다.
+2. **grant:** `password`(커스텀), `client_credentials`, `refresh_token`. Authorization Code + PKCE 는 쓰지 않았습니다.
+3. **역할 분담:** OAuth2 프로토콜 처리와 저장소는 Spring Authorization Server 가 맡고, 본인은 커스텀 grant 처리·claim 구성 같은 토큰 발급 코드 일부를 직접 작성했습니다.
+4. **두 프로젝트의 경계:** VMMe Pro(Spring Authorization Server, OAuth2)와 Hi-Tech(Go 자체 로그인 API, JWT + Redis)는 서로 다른 프로젝트입니다.
 
-기억이 불확실하면 "정확한 endpoint 구성은 확인이 필요하지만, 제가 직접 한 일은 …"처럼 범위를 먼저 말합니다. 구현하지 않은 PKCE, OAuth grant, Spring Authorization Server 설정을 본인 경험으로 주장할 필요는 없습니다.
+**기억으로 채울 것 (Hi-Tech)**
+
+5. JWT 의 서명 알고리즘과 key 관리, claim, 만료시간, refresh token 저장 방식
+6. Redis 에 access 와 refresh 중 무엇의 ID 를 저장했는지, TTL 을 토큰 만료와 어떻게 맞췄는지
+7. 로그아웃 때 폐기한 토큰의 종류
+8. "최종 로그인 경로는 Oracle 프로시저 연동"이 프로시저가 사용자 자격을 검증하고 Go 서버가 토큰을 발급했다는 뜻인지, 데이터 흐름
+
+Hi-Tech 세부가 기억나지 않으면 이력서 수준(token ID 와 사용자 연결을 만료시간과 함께 저장, 로그아웃 삭제, refresh 교체)으로 말하고 원리로 이어갑니다. 구현하지 않은 Authorization Code + PKCE 를 본인 경험으로 말하지 않습니다.
 
 ### 7. 예상 질문과 면접 답변 예시
 
@@ -366,9 +371,9 @@ Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security B
 
 #### Q2. 이력서에 OAuth2 인증 서버를 구현했다고 했는데, 어디까지 직접 했나요?
 
-**답변 예시 — 실제 범위로 채워 말하기:** VMMe Pro 에서 백엔드 개발자와 Kotlin·Spring Boot API 와 서비스 로직을 함께 작성했고, 인증 서버와 인증 API 설계·구현에도 참여했습니다. 제가 직접 맡은 부분은 **[실제 구현/설정/연동한 endpoint 와 로직]**이고, **[라이브러리나 다른 팀원이 맡은 부분]**은 구분해서 설명드릴 수 있습니다. Hi-Tech 에서는 별도 Go API 에서 JWT access·refresh 발급·검증, Redis 의 token ID- 사용자 매핑과 만료 관리, 로그아웃 삭제와 refresh 교체를 구현했습니다. 두 프로젝트의 구조는 다르므로 지금 말씀드린 범위를 나눠서 설명하겠습니다.
+**답변 예시:** VMMe Pro 에서 백엔드 개발자와 함께 Spring Authorization Server 기반 인증 서버를 만들었습니다. OAuth2 프로토콜 처리와 client·authorization 저장소는 Spring Authorization Server 가 맡고, 저는 그 위에서 커스텀 Password Grant 처리와 회원·관리자·기기별 claim 구성 같은 토큰 발급 코드 일부를 직접 작성했습니다. 이 서버는 토큰 발급 체인과 일반 API 를 보호하는 resource server 체인을 한 애플리케이션 안에 분리해 두었습니다. Hi-Tech 에서는 별도로 Go API 에서 JWT access·refresh 발급·검증, Redis 의 token ID- 사용자 매핑과 만료 관리, 로그아웃 삭제와 refresh 교체를 구현했습니다.
 
-대괄호 부분을 실제 사실로 채우세요. "전체 OAuth2 표준 서버를 처음부터 구현했다"는 사실이 아닐 경우 그렇게 말하지 않습니다.
+직접 작성한 클래스 이름 2~3 개를 넣어 말하면 더 구체적입니다. "OAuth2 표준 서버를 처음부터 혼자 구현했다"고는 말하지 않습니다.
 
 #### Q3. OAuth2 authorization code 흐름을 설명해 보세요
 
@@ -380,11 +385,11 @@ Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security B
 
 #### Q5. Redis 에 토큰 정보를 저장한 이유는 무엇인가요?
 
-**답변 예시:** 자체 완결형 JWT 만 쓰면 서버가 발급 뒤 세션 상태를 모를 수 있어, 만료 전 로그아웃이나 강제 폐기가 어려워집니다. 당시에는 Redis 에 token ID 와 사용자 연결 정보를 TTL 과 함께 저장해 유효 토큰을 추적하고, 로그아웃 때 서버 측 상태를 삭제하도록 했습니다. 실제 요청에서 그 상태를 어떻게 확인했는지와 access token 까지 즉시 차단했는지는 구현 범위를 정확히 말씀드리겠습니다. Redis 저장만으로 모든 JWT 가 자동 폐기되는 것은 아닙니다.
+**답변 예시:** 자체 완결형 JWT 만 쓰면 서버가 발급 뒤 세션 상태를 모를 수 있어, 만료 전 로그아웃이나 강제 폐기가 어려워집니다. 당시에는 Redis 에 token ID 와 사용자 연결 정보를 TTL 과 함께 저장해 유효 토큰을 추적하고, 로그아웃 때 서버 측 상태를 삭제하도록 했습니다. 요청마다 서명·만료를 검증한 뒤 Redis 에 그 token ID 가 있는지 확인했기 때문에, 로그아웃하면 access token 도 만료 전에 바로 거부됩니다. 반대로 Redis 를 조회하지 않는 서버라면 저장만으로는 이미 발급된 JWT 가 폐기되지 않습니다.
 
 #### Q6. Refresh token 을 rotation 하는 이유와 재사용 대응은?
 
-**답변 예시:** refresh token 은 access token 보다 수명이 길고 재발급 권한이 있어 유출 영향이 큽니다. 새 토큰을 발급할 때 기존 refresh token 을 폐기하면 탈취된 이전 토큰의 재사용 기회를 줄일 수 있습니다. 재사용 탐지를 구현했다면 해당 세션 또는 토큰 계열을 폐기한다고 설명하겠습니다. Hi-Tech 에서는 refresh 때 새 토큰으로 교체했으며, 재사용 탐지의 구체 동작은 실제 구현을 확인해 답하겠습니다.
+**답변 예시:** refresh token 은 access token 보다 수명이 길고 재발급 권한이 있어 유출 영향이 큽니다. 새 토큰을 발급할 때 기존 refresh token 을 폐기하면 탈취된 이전 토큰의 재사용 기회를 줄일 수 있습니다. Hi-Tech 에서는 refresh 때 이전 token ID 항목을 지우고 새 항목을 저장했기 때문에 이미 쓴 refresh token 은 거부됩니다. VMMe Pro 인증 서버도 `reuseRefreshTokens(false)` 로 refresh 마다 새 refresh token 을 발급합니다. 이미 쓴 토큰이 다시 들어오면 탈취 신호로 보고 그 세션이나 토큰 계열 전체를 폐기하는 재사용 탐지는 그 위에 더할 수 있는 정책입니다.
 
 #### Q7. JWT access token 을 로그아웃 즉시 무효화할 수 있나요?
 
@@ -392,7 +397,7 @@ Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security B
 
 #### Q8. Spring Security 와 Spring Authorization Server 는 어떻게 다른가요?
 
-**답변 예시:** Spring Security 는 앱의 인증·인가와 보안 필터 체인 같은 기반을 제공합니다. Resource Server 구성으로 API 가 bearer token 을 검증할 수도 있습니다. Spring Authorization Server 는 OAuth2 authorization server 를 구축하는 별도 프로젝트입니다. Spring Boot 는 설정과 실행을 돕지만 OAuth2 서버 역할을 자동으로 구현해 주는 것은 아닙니다. 제가 참여한 프로젝트에서 어느 모듈과 설정을 썼는지 확인해 구체적으로 말씀드리겠습니다.
+**답변 예시:** Spring Security 는 앱의 인증·인가와 보안 필터 체인 같은 기반을 제공합니다. Resource Server 구성으로 API 가 bearer token 을 검증할 수도 있습니다. Spring Authorization Server 는 OAuth2 authorization server 를 구축하는 별도 프로젝트입니다. Spring Boot 는 설정과 실행을 돕지만 OAuth2 서버 역할을 자동으로 구현해 주는 것은 아닙니다. VMMe Pro 인증 서버는 Spring Authorization Server 로 `/oauth2/**` 토큰 발급 체인을, Spring Security Resource Server 로 일반 API 체인을 구성해 두 SecurityFilterChain 을 분리했습니다.
 
 #### Q9. OAuth2 와 OIDC 는 어떻게 다른가요?
 
@@ -400,7 +405,9 @@ Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security B
 
 #### Q10. 직접 운영해 보지 않은 흐름이나 설정을 물으면 어떻게 답하나요?
 
-**답변 예시:** 그 구성은 직접 운영해 보지 않았습니다. 제가 구현한 범위는 **[사실]**이고, 원리는 **[알고 있는 표준 동작]**으로 이해하고 있습니다. 실제 적용한다면 지원 grant 와 callback 검증, token 수명·회전, key 관리, 로그아웃 시 폐기 동작을 코드와 테스트로 확인하겠습니다.
+**답변 예시 (Authorization Code + PKCE 를 물었을 때):** 그 흐름은 직접 운영해 보지 않았습니다. 저희 인증 서버는 Password Grant 였고, 저는 그 token endpoint 의 커스텀 grant 처리와 claim 구성 일부를 작성했습니다. Authorization Code + PKCE 는 앱이 브라우저로 로그인한 뒤 일회용 code 와 verifier 로 토큰을 교환하는 흐름으로 이해하고 있습니다. 전환한다면 redirect URI·state 검증, 토큰 수명과 rotation, 기존 앱의 단계적 전환을 함께 설계하겠습니다.
+
+같은 틀로 답합니다: **직접 운영하지 않았다는 사실 → 실제로 한 가장 가까운 일 → 원리 → 적용한다면 할 일.**
 
 ### 8. 빠른 복습 체크리스트
 
@@ -442,7 +449,7 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 **짧은 답변:** 둘 다 필요하지만 전체 보안을 보장하지 않습니다. Redirect URI, TLS, token 저장과 유출 방지, issuer·audience 검증까지 경계별로 확인해야 합니다.
 
-**경험 중심 답변:** 제가 VMMe Pro 에서 실제 적용한 state/PKCE 를 확인해 답하겠습니다. 일반적으로 state 는 요청과 callback 을 묶고 PKCE 는 code 교환을 보호합니다. 여기에 등록된 redirect URI, HTTPS, token 의 안전한 보관, resource server 의 iss·aud·만료·scope 검증이 함께 필요합니다.
+**경험 중심 답변:** VMMe Pro 인증 서버는 Password Grant 라 state 와 PKCE 를 쓰는 흐름이 아니었습니다. 일반적으로 state 는 요청과 callback 을 묶고 PKCE 는 code 교환을 보호합니다. 여기에 등록된 redirect URI, HTTPS, token 의 안전한 보관, resource server 의 iss·aud·만료·scope 검증이 함께 필요합니다.
 
 **꼬리질문 1 — "PKCE 가 있으니 state 는 빼도 되지 않나요?"**
 
@@ -456,7 +463,7 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 **짧은 답변:** 아닙니다. 서명 외에도 신뢰한 issuer, audience, 유효기간, 허용 알고리즘을 확인하고 scope 와 도메인 권한도 검사해야 합니다.
 
-**경험 중심 답변:** Hi-Tech 에서 JWT 를 검증한 경험은 있지만 실제로 검증한 claim 과 알고리즘은 코드에 근거해 답하겠습니다. 일반적인 API 에서는 서명이 유효해도 다른 서비스용 토큰일 수 있으므로 `iss`, `aud`, `exp` 등을 확인하고, 요청 사용자가 대상 데이터에 접근할 수 있는지는 별도 권한 규칙으로 확인합니다.
+**경험 중심 답변:** VMMe Pro 인증 서버는 RSA 로 access JWT 를 서명하고, 일반 API 체인은 `JwtDecoder` 로 서명을 검증한 뒤 `ManagerRoleJwtAuthenticationConverter` 로 scope 와 관리자 claim 을 권한으로 바꿉니다. 서비스 client 토큰은 `ROLE_CLIENT` 로 분리해 일반 API 를 기본 차단하고, 필요한 API 에서만 명시한 scope 를 요구합니다. 일반적인 API 에서는 서명이 유효해도 다른 서비스용 토큰일 수 있으므로 `iss`, `aud`, `exp` 등을 확인하고, 요청 사용자가 대상 데이터에 접근할 수 있는지는 별도 권한 규칙으로 확인합니다.
 
 **꼬리질문 1 — "JWT 의 role 이 `ADMIN` 이면 바로 허용하면 안 되나요?"**
 
@@ -468,27 +475,27 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 ### 9. 3 단계 면접 연습: 기본 답변과 꼬리질문
 
-각 주제는 **첫 답변 → 꼬리질문 1 → 꼬리질문 2** 순서로 연습하세요. 짧은 답변은 20~30 초, 경험 중심 답변은 45~75 초 정도가 적당합니다. 뒤의 꼬리질문은 답변을 검증하거나 반례를 묻는 면접관의 압박을 포함합니다. 대괄호는 실제 구현을 확인한 뒤 채우고, 확인되지 않은 세부사항은 만들어 넣지 마세요.
+각 주제는 **첫 답변 → 꼬리질문 1 → 꼬리질문 2** 순서로 연습하세요. 짧은 답변은 20~30 초, 경험 중심 답변은 45~75 초 정도가 적당합니다. 뒤의 꼬리질문은 답변을 검증하거나 반례를 묻는 면접관의 압박을 포함합니다. VMMe Pro 인증 서버는 5.1 절의 확인된 구조를 기준으로 답하고, 기억나지 않는 Hi-Tech 세부는 만들어 넣지 않습니다.
 
 #### A. OAuth2, OIDC, JWT 의 차이
 
 **짧은 답변:** OAuth2 는 권한 위임 절차, OIDC 는 그 위에 로그인 신원 확인을 더한 규격, JWT 는 claim 을 담을 수 있는 토큰 형식입니다. 서로 대체어가 아닙니다.
 
-**경험 중심 답변:** Hi-Tech 에서 JWT access·refresh token 을 발급·검증했고 Redis 로 token ID 와 사용자 연결 상태를 관리했습니다. 이 구현 경험이 있다고 해서 그 자체로 OAuth2 표준 authorization server 나 OIDC provider 를 구현했다고 볼 수는 없습니다. VMMe Pro 이력서의 OAuth2 기여는 실제 사용한 라이브러리와 endpoint 를 기준으로 별도로 설명하겠습니다.
+**경험 중심 답변:** Hi-Tech 에서는 자체 로그인 API 에서 JWT access·refresh token 을 발급·검증하고 Redis 로 token ID 상태를 관리했습니다. 이것은 OAuth2 흐름이 아니라 JWT 기반 세션 관리였습니다. OAuth2 경험은 VMMe Pro 에서 Spring Authorization Server 로 만든 인증 서버이고, 그 서버도 OIDC 가 아니라 access·refresh token 을 발급하는 구조입니다.
 
 **꼬리질문 1 — "JWT 를 썼으니 OAuth2 구현 경험 아닌가요?"**
 
-**답변:** JWT 는 토큰의 표현 형식이고 OAuth2 는 토큰을 발급·전달하고 권한을 위임하는 규칙입니다. JWT 를 자체 로그인 API 에서 발급해도 OAuth2 흐름이 포함되지 않을 수 있습니다. 제가 구현한 Hi-Tech 의 흐름은 JWT 기반 인증·세션 관리였고, 표준 authorization code grant 를 구현했는지는 별도 사실로 답하겠습니다.
+**답변:** JWT 는 토큰의 표현 형식이고 OAuth2 는 토큰을 발급·전달하고 권한을 위임하는 규칙입니다. JWT 를 자체 로그인 API 에서 발급해도 OAuth2 흐름이 포함되지 않을 수 있습니다. Hi-Tech 의 흐름은 JWT 기반 인증·세션 관리였고, OAuth2 경험은 VMMe Pro 인증 서버로 따로 말씀드릴 수 있습니다.
 
 **꼬리질문 2 — "그렇다면 이력서에 OAuth2 인증 서버라고 쓴 건 과장 아닌가요?"**
 
-**답변:** 그 표현은 실제 구현 범위와 정확히 일치하는지 확인할 필요가 있습니다. VMMe Pro 에서 **[직접 맡은 인증 서버 기능]**을 설계·구현했고 **[프레임워크/동료가 담당한 범위]**가 따로 있습니다. 표준 authorization endpoint 와 token endpoint 까지 만들거나 설정하지 않았다면, 전체 표준 서버를 혼자 구현했다고 주장하지 않겠습니다. 제 역할을 구체적인 컴포넌트와 코드로 설명드리겠습니다.
+**답변:** 과장은 아니라고 생각합니다. VMMe Pro 인증 서버는 Spring Authorization Server 로 token endpoint, JDBC 기반 client 등록과 발급 기록, RSA JWT 서명과 JWKS, refresh rotation, revoke 를 갖춘 OAuth2 authorization server 입니다. 저는 백엔드 개발자와 함께 이 서버를 만들며 커스텀 grant 처리와 claim 구성 같은 토큰 발급 코드 일부를 작성했습니다. 다만 로그인 흐름이 표준 Authorization Code + PKCE 가 아니라 커스텀 Password Grant 였다는 점과, 그 grant 가 RFC 9700 에서 권장되지 않는다는 한계는 분명히 말씀드립니다.
 
 #### B. Authorization Code 흐름
 
 **짧은 답변:** 사용자는 authorization server 에서 인증하고 동의합니다. Client 는 redirect 로 받은 일회성 code 를 token endpoint 에서 access token 으로 교환해 resource server API 를 호출합니다.
 
-**경험 중심 답변:** VMMe Pro 의 실제 흐름이 Authorization Code 였는지는 확인한 뒤 말하겠습니다. 표준 흐름 자체에서는 앱이 사용자 비밀번호를 직접 받지 않고 authorization server 가 code 를 발급합니다. Client 는 등록된 redirect URI 와 code 를 검증해 토큰을 교환하고, resource server 가 API 요청의 토큰을 검증합니다.
+**경험 중심 답변:** VMMe Pro 는 Authorization Code 가 아니라, 앱이 아이디·비밀번호를 token endpoint 에 직접 보내는 Password Grant 였습니다. 그래서 둘의 차이를 분명히 설명할 수 있습니다. Authorization Code 에서는 앱이 사용자 비밀번호를 받지 않고, authorization server 가 로그인 화면과 동의를 맡은 뒤 일회용 code 만 앱에 돌려줍니다. 앱은 그 code 를 token endpoint 에서 토큰으로 바꾸고, resource server 가 API 요청의 토큰을 검증합니다.
 
 **꼬리질문 1 — "왜 access token 을 redirect URL 로 바로 보내지 않나요?"**
 
@@ -496,13 +503,13 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 **꼬리질문 2 — "code 가 탈취되면 결국 토큰을 얻을 수 있지 않나요?"**
 
-**답변:** code 만으로 교환하기 어렵도록 PKCE verifier 를 요구합니다. 또한 redirect URI 를 정확히 등록·검증하고, code 를 짧은 시간만 유효하게 한 번 사용하도록 처리하며, 요청과 callback 은 state 로 연결합니다. 실제 프로젝트에서 이 항목들이 어떻게 적용됐는지는 구성과 코드로 확인해 답하겠습니다.
+**답변:** code 만으로 교환하기 어렵도록 PKCE verifier 를 요구합니다. 또한 redirect URI 를 정확히 등록·검증하고, code 를 짧은 시간만 유효하게 한 번 사용하도록 처리하며, 요청과 callback 은 state 로 연결합니다. 저희 서버는 code 를 쓰지 않는 Password Grant 라 이 방어가 해당되지 않았고, Authorization Code 로 전환한다면 세 가지를 모두 적용하겠습니다.
 
 #### C. PKCE 와 public client
 
 **짧은 답변:** 모바일 앱은 client secret 을 안전하게 숨길 수 없는 public client 입니다. PKCE 는 매 요청에 만든 verifier 와 challenge 를 연결해 authorization code 만 탈취한 공격자의 토큰 교환을 막습니다.
 
-**경험 중심 답변:** 제가 작업한 앱이 PKCE 를 실제 사용했는지는 확인해 말씀드리겠습니다. 설계 시 모바일 앱에 client secret 을 박아 두는 것은 안전하지 않으며, Authorization Code + PKCE 를 기본 선택으로 검토해야 합니다. PKCE 는 code 가로채기 방어이며, 앱에 비밀값을 안전하게 넣어주는 기능은 아닙니다.
+**경험 중심 답변:** VMMe Pro 앱은 Password Grant 로 로그인해 PKCE 를 쓰지 않았고, token endpoint 를 호출할 때 client 인증 정보를 Basic 인증으로 보냅니다. 앱에 들어간 client secret 은 추출할 수 있으므로 진짜 비밀로 볼 수 없고, 어느 앱인지 구분하는 정도의 의미입니다. 다시 설계한다면 앱을 public client 로 등록하고 Authorization Code + PKCE 를 쓰겠습니다. PKCE 는 code 가로채기를 막는 방어이며, 앱에 비밀값을 안전하게 넣어 주는 기능은 아닙니다.
 
 **꼬리질문 1 — "PKCE verifier 를 앱에 두면 그것도 탈취되는 것 아닌가요?"**
 
@@ -514,23 +521,23 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 #### D. 이력서의 "OAuth2 인증 서버 구현·설계" 주장
 
-**짧은 답변:** Kotlin·Spring Boot API 와 서비스 로직을 백엔드 개발자와 함께 작성했고 인증 서버·인증 API 에도 참여했습니다. 직접 한 endpoint 와 설정, 프레임워크가 제공한 기능을 나눠 설명하겠습니다.
+**짧은 답변:** 백엔드 개발자와 함께 Spring Authorization Server 기반 인증 서버를 만들었고, 저는 커스텀 Password Grant 처리와 claim 구성 같은 토큰 발급 코드 일부를 작성했습니다. 프로토콜 endpoint 와 저장소는 Spring Authorization Server 가 제공하고, 저희는 그 위에 회원·관리자·OTP 인증 분기와 주체별 claim 을 붙였습니다.
 
-**경험 중심 답변:** VMMe Pro 에서 제가 맡은 실제 범위는 **[구현한 API/설정/연동]**입니다. 함께 작업한 백엔드 개발자와 역할을 나누었고, **[라이브러리/공통 모듈이 맡은 프로토콜 처리]**는 제가 처음부터 작성한 코드와 구분하겠습니다. Hi-Tech 에서는 Go 로 JWT access·refresh 발급·검증, Redis token 상태, 로그아웃 삭제와 refresh 교체를 구현했습니다. 두 프로젝트는 서로 다른 경험으로 설명합니다.
+**경험 중심 답변:** 토큰 요청이 들어오면 커스텀 converter 가 password grant 파라미터를 인증 객체로 바꾸고, provider 가 `user_type` 에 따라 회원·센터 관리자·OTP 인증을 처리한 뒤 token generator 로 RSA JWT 와 refresh token 을 만듭니다. customizer 는 회원·관리자·기기·client 에 따라 다른 claim 을 붙입니다. 저는 이 토큰 발급 체인의 코드 일부를 직접 작성했고, OAuth2 프로토콜 처리 자체는 Spring Authorization Server 가 맡습니다. Hi-Tech 에서는 별도로 Go 로 JWT access·refresh 발급·검증, Redis token 상태, 로그아웃 삭제와 refresh 교체를 구현했습니다.
 
 **꼬리질문 1 — "구체적으로 authorization endpoint 와 token endpoint 를 직접 만들었나요?"**
 
-**답변:** 확인 가능한 범위로 답하겠습니다. 제가 직접 작성하거나 설정한 것은 **[정확한 endpoint 와 책임]**이고, **[라이브러리/동료가 맡은 기능]**은 별도입니다. 실제로 해당 endpoint 를 만들지 않았다면 그렇게 분명히 말씀드리고, 인증 API 구현 경험과 표준 OAuth2 서버 구성 경험을 구분하겠습니다.
+**답변:** endpoint 자체는 Spring Authorization Server 가 제공합니다. 저희는 `/oauth2/token` endpoint 에 커스텀 converter 와 provider 를 연결해 password grant 를 처리하게 했고, CMS·기기용 서비스 토큰은 별도 `/service/token` 경로로 분리했습니다. 로그인이 Password Grant 라서 authorization endpoint(`/oauth2/authorize`)를 쓰는 흐름은 아니었습니다.
 
 **꼬리질문 2 — "그럼 인증 서버를 구현했다고 쓰면 면접관이 오해하지 않겠어요?"**
 
-**답변:** 그렇게 읽힐 수 있다는 점을 인정합니다. 제가 참여한 범위를 구체적으로 설명하겠습니다. 만약 문구가 실제 기여보다 넓게 읽힌다면 이력서 표현도 "인증 서버 및 인증 API 설계·구현에 참여"처럼 정확한 범위에 맞춰 조정하는 게 맞습니다. 면접에서는 역할, 의사결정, 코드 소유 범위를 숨기지 않겠습니다.
+**답변:** 그래서 범위를 구체적으로 말씀드립니다. 인증 서버는 백엔드 개발자와 함께 만들었고, 저는 그중 토큰 발급 체인의 코드 일부를 작성했습니다. 서버 전체를 혼자 설계했다는 뜻이 아니라, 이 서버의 구조와 토큰 흐름을 코드 수준에서 설명할 수 있을 만큼 직접 다뤘다는 뜻입니다.
 
 #### E. Redis token 상태, 로그아웃, JWT 즉시 폐기
 
 **짧은 답변:** JWT 는 서명과 만료만 검사하면 서버 측 세션 상태를 모를 수 있습니다. Hi-Tech 에서는 Redis 에 token ID- 사용자 연결과 만료를 저장하고 로그아웃 때 관련 상태를 삭제했습니다. 매 요청에서 그 상태를 검사했는지에 따라 access token 의 즉시 무효화 여부가 달라집니다.
 
-**경험 중심 답변:** 이력서에 기재한 구현은 Redis 에 token ID 와 사용자 연결 정보를 만료시간과 함께 저장하고, 로그아웃 때 토큰 정보를 지운 것입니다. 실제로 access 요청마다 Redis 를 조회했는지, refresh 만 조회했는지, JWT 서명·만료 외의 폐기 확인을 어디서 했는지는 코드나 당시 흐름을 확인해 정확히 답하겠습니다. Redis 에서 값을 삭제했다는 사실만으로 모든 이미 발급된 JWT 가 자동 무효화되는 것은 아닙니다.
+**경험 중심 답변:** Hi-Tech 에서는 Redis 에 token ID 와 사용자 연결 정보를 만료시간과 함께 저장하고, 요청마다 서명·만료 검증 뒤 그 token ID 가 Redis 에 있는지 확인했습니다. 그래서 로그아웃으로 항목을 지우면 access token 도 만료 전에 바로 거부됐습니다. 반면 VMMe Pro 인증 서버의 일반 API 는 `JwtDecoder` 로 서명만 검증하므로, revoke 해도 이미 발급된 access token 은 만료까지 통과합니다. 대신 access 수명이 5 분으로 짧아 그 창이 작습니다.
 
 **꼬리질문 1 — "Redis 에서 지웠는데 왜 토큰이 계속 동작할 수 있나요?"**
 
@@ -538,17 +545,17 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 **꼬리질문 2 — "매 요청 Redis 조회는 성능과 가용성 문제 아닌가요?"**
 
-**답변:** 맞습니다. 강한 즉시 폐기 보장과 완전한 stateless 검증 사이에는 비용 차이가 있습니다. 위험도에 따라 짧은 access token 수명과 refresh 폐기만으로 충분한지, Redis 확인을 둘지 선택합니다. Redis 장애 시 fail-open 은 무효 토큰을 통과시킬 수 있고 fail-closed 는 인증 요청이 실패하므로, 시스템 보안 요구에 맞는 정책과 모니터링을 정해야 합니다. 제가 당시 사용한 정책은 확인된 사실만 말씀드리겠습니다.
+**답변:** 맞습니다. 강한 즉시 폐기 보장과 완전한 stateless 검증 사이에는 비용 차이가 있습니다. 위험도에 따라 짧은 access token 수명과 refresh 폐기만으로 충분한지, Redis 확인을 둘지 선택합니다. Redis 장애 시 fail-open 은 무효 토큰을 통과시킬 수 있고 fail-closed 는 인증 요청이 실패합니다. 인증 상태라면 기본은 fail-closed 로 두고, Redis 를 replica 와 failover 로 이중화해 장애 확률을 낮추겠습니다.
 
 #### F. Refresh token rotation
 
 **짧은 답변:** refresh token 은 재발급 권한이 있어 보호가 중요합니다. rotation 은 refresh 때 새 토큰을 발급하고 이전 토큰을 폐기해 이전 토큰의 반복 사용을 막습니다.
 
-**경험 중심 답변:** Hi-Tech 에서 refresh 때 새 토큰으로 교체하는 흐름을 구현했습니다. 재사용된 이전 토큰을 탐지해 세션 계열 전체를 폐기했는지는 별도 구현 사항이므로 확인해 답하겠습니다. 새 토큰 저장, 이전 토큰 폐기, TTL 설정이 함께 맞아야 rotation 이 의미가 있습니다.
+**경험 중심 답변:** Hi-Tech 에서는 refresh 때 이전 token ID 항목을 지우고 새 항목을 저장해, 이미 쓴 refresh token 은 거부되게 했습니다. VMMe Pro 인증 서버도 `reuseRefreshTokens(false)` 로 refresh 마다 새 refresh token 을 발급합니다. 재사용을 탈취 신호로 보고 세션 계열 전체를 폐기하는 탐지는 그 위에 더할 수 있는 정책입니다. 새 토큰 저장, 이전 토큰 폐기, TTL 설정이 함께 맞아야 rotation 이 의미가 있습니다.
 
 **꼬리질문 1 — "두 요청이 거의 동시에 같은 refresh token 으로 들어오면요?"**
 
-**답변:** 둘 다 성공하면 두 개의 유효한 후속 토큰이 생길 수 있습니다. 원자적으로 한 요청만 토큰을 교체하도록 처리하고, 이미 소비된 토큰의 재사용을 감지해야 합니다. Redis 라면 단일 원자 연산이나 Lua script, 데이터베이스라면 트랜잭션과 조건부 갱신을 검토할 수 있습니다. Hi-Tech 구현이 어느 방식이었는지 확인 없이 단정하지 않겠습니다.
+**답변:** 둘 다 성공하면 두 개의 유효한 후속 토큰이 생길 수 있습니다. 원자적으로 한 요청만 토큰을 교체하도록 처리하고, 이미 소비된 토큰의 재사용을 감지해야 합니다. Redis 라면 이전 항목 삭제와 새 항목 저장을 Lua script 하나로 묶어 원자적으로 처리하고, 데이터베이스라면 트랜잭션 안에서 "아직 사용되지 않은 토큰일 때만" 갱신하는 조건부 UPDATE 를 씁니다.
 
 **꼬리질문 2 — "재사용 탐지가 오탐이면 정상 사용자를 로그아웃시키지 않나요?"**
 
@@ -558,7 +565,7 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 **짧은 답변:** Spring Security 는 애플리케이션의 인증·인가 기반이고, Spring Authorization Server 는 OAuth2 authorization server 를 구축하기 위한 별도 프로젝트입니다. Resource Server 기능은 bearer token 을 검증해 API 를 보호합니다.
 
-**경험 중심 답변:** VMMe Pro 에서 실제 사용한 Spring Security 구성과 라이브러리는 **[확인한 의존성·버전·필터/서버 설정]**으로 말씀드리겠습니다. 제가 직접 만든 API 와 프레임워크가 처리한 OAuth 프로토콜 영역을 구분합니다. Spring Boot 를 썼다는 사실만으로 authorization server 의 protocol endpoint 를 구현했다고 보지는 않습니다.
+**경험 중심 답변:** VMMe Pro 인증 서버는 한 애플리케이션에 SecurityFilterChain 을 두 개 둡니다. 우선순위가 가장 높은 `/oauth2/**` 체인은 Spring Authorization Server 가 토큰 발급을 맡고, 나머지 일반 API 체인은 Resource Server 설정으로 bearer JWT 를 검증합니다. 프로토콜 처리는 프레임워크가, 커스텀 grant 처리와 claim 구성은 저희 코드가 맡는 구조입니다.
 
 **꼬리질문 1 — "Spring Security 에 JWT 설정만 넣으면 OAuth2 서버 아닌가요?"**
 
@@ -566,13 +573,13 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 **꼬리질문 2 — "Spring Authorization Server 를 썼다면 어떤 설정이 핵심인가요?"**
 
-**답변:** 제가 실제로 구성한 경우에만 구체적으로 말씀드리겠습니다. 일반적으로 RegisteredClient 와 허용 grant/redirect URI, issuer 및 signing key, endpoint 보안 체인, 토큰 수명과 claim 이 중요합니다. 프로젝트에서 맡지 않은 설정을 제가 직접 구성했다고 주장하지 않고, 사용한 라이브러리의 책임과 제 기여를 분리하겠습니다.
+**답변:** 저희 서버 기준으로 다섯 가지입니다. 첫째, `RegisteredClient` 에 허용 grant(password·client_credentials·refresh_token)와 토큰 수명(access 5 분, refresh 14 일, refresh 재사용 끔)을 정하고 JDBC 로 저장합니다. 둘째, `OAuth2AuthorizationService` 로 발급 기록을 JDBC 에 남깁니다. 셋째, RSA 키 쌍으로 access token 을 서명하고 공개키를 JWKS 로 공개합니다. 넷째, JWT customizer 로 회원·관리자·기기·client 별 claim 을 넣습니다. 다섯째, token endpoint 에 커스텀 converter 와 provider 를 연결해 password grant 를 처리합니다. 표준 Authorization Code 를 쓴다면 여기에 redirect URI 등록과 PKCE 요구가 더해집니다.
 
 #### H. OIDC 로그인과 ID token
 
 **짧은 답변:** OAuth2 는 권한 위임이 중심이고, OIDC 는 로그인한 사용자 신원을 표준 방식으로 확인하도록 ID token 과 관련 규칙을 추가합니다. ID token 과 access token 은 목적이 다릅니다.
 
-**경험 중심 답변:** 제가 작업한 VMMe Pro 인증이 OIDC 였는지는 실제 scope, ID token 처리, provider 설정을 확인해야 합니다. 로그인용 신원 확인 토큰과 API 접근 토큰을 같은 것으로 설명하지 않겠습니다. Hi-Tech 이력서에 적힌 JWT access·refresh 구현만으로 OIDC 경험을 주장할 수는 없습니다.
+**경험 중심 답변:** VMMe Pro 인증 서버는 Password Grant 로 access·refresh token 만 발급하는 구조라, OIDC ID token 을 쓰는 로그인은 아니었습니다. 사용자 구분 정보는 access token 의 claim 에 담았습니다. Hi-Tech 의 JWT 도 자체 로그인 토큰이라 OIDC 와는 다릅니다.
 
 **꼬리질문 1 — "ID token 을 API 에 보내면 안 되나요?"**
 
