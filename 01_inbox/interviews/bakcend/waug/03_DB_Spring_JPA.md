@@ -328,6 +328,78 @@ CREATE INDEX idx_reservation_user_created
 - **Lost update(갱신 손실):** 두 트랜잭션이 같은 오래된 값을 읽어 각자 계산한 값을 덮어쓰면서 한 변경이 사라집니다. DB 별 격리·쓰기 잠금 동작이 다르고, 버전 확인이나 조건부 갱신으로 명시적으로 막을 수 있습니다.
 - **Write skew(쓰기 편향):** 각 트랜잭션은 서로 다른 행을 수정하지만, 둘이 읽은 공통 조건을 함께 깨뜨릴 수 있습니다. 단순히 각 행의 충돌을 잠그는 것만으로 부족할 수 있어 더 강한 격리나 DB 제약·명시적 잠금이 필요할 수 있습니다.
 
+#### 표준 격리 수준 4 단계
+
+**큰 그림에서:** 동시에 실행되는 트랜잭션이 서로의 변경을 어디까지 볼 수 있는지 정하는 규칙입니다. 격리 수준이 높을수록 이상 현상은 줄지만 대기·재시도·처리량 비용이 커집니다.
+
+SQL 표준은 어떤 이상 현상을 **허용하는지**로 네 단계를 정의합니다.
+
+| 격리 수준 | Dirty read | Non-repeatable read | Phantom read | 한 줄 요약 |
+|---|---|---|---|---|
+| READ UNCOMMITTED | 발생 가능 | 발생 가능 | 발생 가능 | 커밋 안 된 값까지 보임. 실무에서 거의 쓰지 않음 |
+| READ COMMITTED | 방지 | 발생 가능 | 발생 가능 | 커밋된 값만 보지만, 다시 읽으면 바뀔 수 있음 |
+| REPEATABLE READ | 방지 | 방지 | 표준상 발생 가능 | 한 번 읽은 행은 트랜잭션 동안 같게 보임 |
+| SERIALIZABLE | 방지 | 방지 | 방지 | 트랜잭션을 하나씩 차례로 실행한 것과 같은 결과를 보장 |
+
+**DB 별 기본값과 차이**(면접에서 자주 확인합니다):
+
+- **MySQL·MariaDB InnoDB:** 기본 `REPEATABLE READ`. MVCC 스냅샷과 next-key lock 덕분에 표준이 허용하는 팬텀도 대부분 막습니다.
+- **PostgreSQL:** 기본 `READ COMMITTED`. `READ UNCOMMITTED` 를 요청해도 `READ COMMITTED` 로 동작합니다. `REPEATABLE READ` 는 스냅샷 격리라 팬텀이 보이지 않고, 같은 행을 동시에 갱신하면 뒤 트랜잭션이 직렬화 오류로 실패합니다.
+- **Oracle:** 기본 `READ COMMITTED`. `READ COMMITTED` 와 `SERIALIZABLE`(및 read-only)만 제공합니다.
+
+표의 "방지"는 표준의 최소 요구입니다. 실제 동작은 엔진 구현(잠금 기반인지 MVCC 기반인지)에 따라 다르므로 "MySQL 에서는", "PostgreSQL 에서는"처럼 엔진을 붙여 말합니다.
+
+#### MySQL InnoDB: MVCC, 일관된 읽기와 잠금 읽기
+
+**비유:** 일반 조회는 트랜잭션 초반에 찍어 둔 **사진(스냅샷)**을 보는 것이고, 잠금 읽기와 UPDATE 는 **지금 창고에 있는 실물**을 확인하며 손을 얹어 두는 것입니다.
+
+- **MVCC(Multi-Version Concurrency Control):** 행의 이전 버전을 undo log 로 보관해, 읽기가 쓰기를 기다리지 않고 자기 시점의 버전을 읽게 합니다.
+- **일관된 읽기(consistent nonlocking read):** 일반 `SELECT` 입니다. `REPEATABLE READ` 에서는 트랜잭션의 첫 읽기 때 만든 스냅샷을 끝까지 쓰고, `READ COMMITTED` 에서는 문장마다 새 스냅샷을 씁니다. 락을 잡지 않습니다.
+- **잠금 읽기(locking read):** `SELECT ... FOR UPDATE`(배타), `SELECT ... FOR SHARE`(공유)입니다. 스냅샷이 아니라 **가장 최근에 커밋된 행**을 읽고 락을 겁니다. `UPDATE`·`DELETE` 도 같은 방식으로 최신 행을 읽고 락을 겁니다.
+- **Record lock / gap lock / next-key lock:** record lock 은 인덱스 레코드 하나, gap lock 은 레코드 사이의 빈 구간, next-key lock 은 레코드와 그 앞 구간을 함께 잠급니다. `REPEATABLE READ` 에서 범위 조건의 잠금 읽기는 next-key lock 으로 다른 트랜잭션의 삽입을 막아 팬텀을 방지합니다. `READ COMMITTED` 는 gap lock 을 대부분 쓰지 않아 동시성은 좋아지지만 팬텀이 생길 수 있습니다.
+- **인덱스가 락 범위를 정합니다.** InnoDB 는 스캔한 인덱스 레코드에 락을 걸기 때문에, 조건 컬럼에 맞는 인덱스가 없으면 훨씬 많은 행(최악의 경우 사실상 테이블 전체)이 잠길 수 있습니다.
+- **Deadlock 과 락 대기:** InnoDB 는 교착을 자동으로 감지해 한 트랜잭션을 롤백시킵니다(오류 1213). 락 대기가 길면 `innodb_lock_wait_timeout`(기본 50 초) 뒤 오류(1205)가 납니다. 애플리케이션은 이 두 오류를 재시도 가능한 실패로 다룰지 정해야 합니다.
+
+**이 원리가 재고 차감에 주는 결론:**
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant T1 as 트랜잭션 A
+    participant DB as InnoDB (remaining=1)
+    participant T2 as 트랜잭션 B
+    T1->>DB: remaining 이 0 보다 클 때만 1 차감하는 UPDATE
+    DB-->>T1: 1 row, 행 X 락 획득
+    T2->>DB: 같은 UPDATE
+    Note over T2,DB: A 의 행 락을 기다림
+    T1->>DB: COMMIT (remaining=0)
+    DB-->>T2: 최신 커밋값 remaining=0 으로 조건 재평가
+    DB-->>T2: 0 rows (품절)
+```
+
+- 조건부 UPDATE 는 스냅샷이 아니라 최신 커밋값으로 조건을 평가하므로, `REPEATABLE READ` 에서도 마지막 재고를 한 번만 차감합니다.
+- 반대로 **일반 `SELECT` 로 수량을 읽고 애플리케이션에서 계산한 값을 `SET remaining = :계산값` 으로 쓰면** InnoDB `REPEATABLE READ` 에서도 lost update 가 생깁니다. 스냅샷으로 읽은 값에는 다른 트랜잭션의 커밋이 반영되지 않기 때문입니다. PostgreSQL `REPEATABLE READ` 는 이 경우 직렬화 오류로 실패시킨다는 점이 다릅니다.
+- 읽은 값을 바탕으로 여러 규칙을 판단해야 하면 `SELECT ... FOR UPDATE` 로 처음부터 최신 행을 잠그고 읽습니다.
+
+##### 질문 답변 연습
+
+**Q. 트랜잭션 격리 수준 네 가지를 설명해 주세요.**
+
+- **단답:** "READ UNCOMMITTED 는 커밋 안 된 데이터까지 읽고, READ COMMITTED 는 커밋된 것만 읽지만 다시 읽으면 값이 바뀔 수 있습니다. REPEATABLE READ 는 한 번 읽은 행이 트랜잭션 동안 같게 보이고, SERIALIZABLE 은 차례로 실행한 것과 같은 결과를 보장합니다. MySQL InnoDB 기본은 REPEATABLE READ, PostgreSQL 과 Oracle 기본은 READ COMMITTED 입니다."
+- **상세:** "표준은 dirty read, non-repeatable read, phantom 중 무엇을 허용하는지로 단계를 나눕니다. 실제 동작은 엔진마다 다릅니다. InnoDB 는 MVCC 로 일반 SELECT 를 스냅샷에서 읽고, 잠금 읽기와 UPDATE 는 최신 커밋값을 읽으며 next-key lock 으로 범위 삽입을 막습니다. 그래서 재고처럼 정합성이 중요한 쓰기는 격리 수준만 올리기보다 조건부 UPDATE 나 SELECT FOR UPDATE 로 쓰기 지점에서 보장합니다."
+
+**꼬리질문 1:** "MySQL 은 REPEATABLE READ 인데 왜 팬텀이 거의 안 생기죠?"
+
+**답변:** "일반 SELECT 는 트랜잭션의 첫 읽기 때 만든 스냅샷을 계속 보기 때문에 다른 트랜잭션이 삽입한 행이 보이지 않습니다. 잠금 읽기는 next-key lock 으로 조건 범위의 빈 구간까지 잠가 삽입 자체를 막습니다. 다만 스냅샷 읽기와 잠금 읽기·DML 을 섞으면 최신 행이 보일 수 있어서 '완전히 없다'고 단정하지는 않습니다."
+
+**꼬리질문 2:** "READ COMMITTED 로 낮추면 무엇이 좋아지고 무엇을 조심하나요?"
+
+**답변:** "gap lock 이 대부분 빠져 락 범위와 교착이 줄고, 문장마다 최신 커밋값을 보므로 긴 트랜잭션의 스냅샷 유지 부담도 줄어듭니다. 대신 같은 트랜잭션 안에서 재조회 값이 바뀌고 팬텀이 생길 수 있습니다. 정합성이 필요한 지점은 조건부 UPDATE, 유니크 제약, 잠금 읽기로 명시적으로 보호합니다."
+
+**꼬리질문 3 — 반박:** "SELECT 로 재고를 읽고 UPDATE 로 계산값을 쓰면 REPEATABLE READ 니까 안전하지 않나요?"
+
+**답변:** "InnoDB 에서는 안전하지 않습니다. 일반 SELECT 는 스냅샷이라 다른 트랜잭션이 이미 커밋한 차감을 보지 못하고, 계산한 값으로 덮어쓰면 그 차감이 사라집니다. `remaining = remaining - 1` 처럼 DB 가 최신 값으로 계산하게 하거나, 처음부터 SELECT FOR UPDATE 로 읽어야 합니다."
+
 #### 재고 경쟁: 조건부 UPDATE 와 락
 
 두 요청이 남은 수량 1 을 읽고 둘 다 "예약 가능"으로 판단한 뒤 각각 예약을 만들면 초과 판매가 됩니다. 읽기와 쓰기를 별도 단계로 두었기 때문입니다.
@@ -507,6 +579,97 @@ sequenceDiagram
 - **상세:** "생성자에 필수 협력 객체를 드러내면 객체가 필요한 조건을 명확히 하고, 컨테이너가 연결을 관리합니다. 테스트에서 Repository 나 외부 API 대역을 주입해 업무 로직을 검증할 수 있습니다."
 - **경험 연결:** "제가 공동 개발한 Spring Boot 서비스 코드에서도 API 와 업무 로직의 책임을 나눠 작업했습니다. 구체적으로 직접 작성한 클래스와 역할을 기준으로 설명하겠습니다."
 
+#### 전파 속성(propagation): 이미 트랜잭션이 있을 때 어떻게 할까
+
+**큰 그림에서:** 트랜잭션이 걸린 서비스 메서드가 다른 트랜잭션 메서드를 부를 때, 같은 DB 작업 묶음에 참여할지 따로 확정할지를 정합니다.
+
+**비유:** 이미 진행 중인 결재 서류철이 있을 때, 같은 서류철에 끼워 넣을지(`REQUIRED`), 별도 서류철로 따로 결재받을지(`REQUIRES_NEW`), 같은 서류철에 책갈피를 꽂아 그 부분만 되돌릴 수 있게 할지(`NESTED`)를 정하는 것입니다.
+
+| 속성 | 기존 트랜잭션이 있을 때 | 없을 때 | 대표 용도 |
+|---|---|---|---|
+| `REQUIRED` (기본) | 참여 | 새로 시작 | 대부분의 업무 메서드 |
+| `REQUIRES_NEW` | 기존 것을 잠시 중단하고 **독립된 새 트랜잭션** 시작 | 새로 시작 | 본 작업이 롤백돼도 남겨야 하는 감사 로그·실패 기록 |
+| `NESTED` | 같은 물리 트랜잭션 안에 savepoint 를 두고 실행 | 새로 시작 | 일부만 되돌리고 나머지는 계속할 때 |
+| `SUPPORTS` | 참여 | 트랜잭션 없이 실행 | 있어도 없어도 되는 조회 |
+| `MANDATORY` | 참여 | 예외 | 반드시 바깥 트랜잭션 안에서만 호출돼야 하는 메서드 |
+| `NOT_SUPPORTED` | 기존 것을 중단하고 트랜잭션 없이 실행 | 트랜잭션 없이 실행 | 트랜잭션이 필요 없는 긴 작업 |
+| `NEVER` | 예외 | 트랜잭션 없이 실행 | 트랜잭션 안에서 호출되면 안 되는 작업 |
+
+**알아 둘 함정:**
+
+- **`REQUIRED` 안쪽 예외는 바깥까지 롤백시킵니다.** 안쪽 메서드가 런타임 예외를 던지면 공유 중인 트랜잭션 전체에 rollback-only 표시가 붙습니다. 바깥 메서드가 그 예외를 catch 하고 정상 반환해도 커밋 시점에 `UnexpectedRollbackException`("Transaction silently rolled back because it has been marked as rollback-only")이 납니다. 일부 실패를 삼키고 계속하려면 안쪽을 `REQUIRES_NEW`/`NESTED` 로 분리하거나, 예외 대신 결과 값으로 실패를 표현합니다.
+- **`REQUIRES_NEW` 는 커넥션을 하나 더 씁니다.** 바깥 트랜잭션이 커넥션을 쥔 채 안쪽이 새 커넥션을 요청하므로, 동시 요청이 많으면 커넥션 풀이 고갈돼 서로 기다릴 수 있습니다. 또 안쪽이 먼저 커밋되므로 바깥이 롤백돼도 안쪽 변경은 남습니다. 이 성질이 꼭 필요할 때만 씁니다.
+- **`NESTED` 는 JDBC savepoint 를 씁니다.** `DataSourceTransactionManager` 에서는 자연스럽지만, `JpaTransactionManager` 에서는 savepoint 가 JDBC 커넥션에만 적용되고 영속성 컨텍스트의 엔티티 상태는 되돌리지 않기 때문에 기본으로 허용되지 않습니다.
+- 전파 속성도 프록시를 통과한 호출에만 적용됩니다. 같은 클래스 안에서 self-invocation 으로 `REQUIRES_NEW` 메서드를 부르면 새 트랜잭션이 생기지 않습니다.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Outer as 바깥 Service (REQUIRED)
+    participant Inner as 안쪽 Service (REQUIRED)
+    participant TX as 공유 트랜잭션
+    Outer->>TX: 트랜잭션 시작
+    Outer->>Inner: 호출 (같은 트랜잭션에 참여)
+    Inner-->>TX: RuntimeException 발생, rollback-only 표시
+    Inner-->>Outer: 예외 전파
+    Outer->>Outer: catch 후 정상 반환
+    Outer->>TX: commit 시도
+    TX-->>Outer: UnexpectedRollbackException
+```
+
+#### `readOnly`, `timeout`, 프록시가 적용되지 않는 메서드
+
+- **`@Transactional(readOnly = true)`:** 조회 전용이라는 힌트입니다. Spring 과 Hibernate 조합에서는 flush 를 하지 않고 변경 감지용 스냅샷을 만들지 않아 메모리와 CPU 를 아낄 수 있습니다. 드라이버·DB 에 따라 커넥션의 읽기 전용 설정이 전달되기도 하고, 읽기 전용 트랜잭션을 replica 로 보내는 라우팅에 쓰이기도 합니다. 다만 모든 환경에서 DB 가 쓰기를 막아 준다고 가정하지 않습니다.
+- **`timeout`:** 트랜잭션 제한 시간(초)입니다. 실제로 쿼리를 어떻게 끊는지는 트랜잭션 매니저와 드라이버에 따라 다르므로, DB 쿼리 타임아웃·락 대기 타임아웃·HTTP 타임아웃과 함께 설계합니다.
+- **적용되지 않는 경우:** `private` 메서드, self-invocation, Spring 빈이 아닌 객체, 그리고 Kotlin 에서 `final` 로 남은 클래스·메서드는 프록시가 가로채지 못합니다.
+
+#### Kotlin 으로 Spring·JPA 를 쓸 때의 함정
+
+Kotlin 으로 Spring Boot 서버를 작성했다면 면접관이 바로 확인할 수 있는 지점입니다.
+
+- **Kotlin 클래스와 메서드는 기본이 `final` 입니다.** Spring 의 클래스 기반(CGLIB) 프록시는 하위 클래스를 만들어 메서드를 가로채므로, `final` 이면 `@Transactional`·`@Cacheable`·`@Async` 가 적용되지 않거나, 의존성이 비어 있는 프록시 인스턴스에서 메서드가 실행돼 NPE 가 날 수 있습니다. 그래서 `kotlin("plugin.spring")`(all-open 플러그인의 Spring 프리셋)이 `@Component`·`@Transactional` 등이 붙은 클래스를 자동으로 `open` 으로 만듭니다. start.spring.io 로 만든 Kotlin 프로젝트에는 기본으로 들어 있습니다.
+- **JPA 엔티티에는 인자 없는 생성자가 필요합니다.** `kotlin("plugin.jpa")`(no-arg 플러그인의 JPA 프리셋)가 `@Entity`·`@Embeddable`·`@MappedSuperclass` 에 생성자를 만들어 줍니다.
+- **엔티티도 `open` 이어야 지연 로딩 프록시가 동작합니다.** `plugin.spring` 은 엔티티를 열어 주지 않으므로 `allOpen { annotation("jakarta.persistence.Entity") ... }` 설정을 추가합니다. 열지 않으면 Hibernate 가 `LAZY` 연관의 프록시를 만들지 못해 의도와 다르게 로딩될 수 있습니다.
+- **`data class` 를 엔티티로 쓰지 않습니다.** 모든 프로퍼티로 만든 `equals`/`hashCode`/`toString` 이 지연 연관을 건드려 추가 쿼리나 양방향 연관의 무한 재귀를 만들고, 값이 바뀌면 `Set` 안에서 같은 엔티티를 찾지 못합니다. 일반 클래스에 ID 기반 동등성을 직접 정의하는 편이 안전합니다.
+- **Kotlin 에는 checked exception 이 없지만 Spring 롤백 규칙은 예외 타입으로 판단합니다.** 업무 예외가 `RuntimeException` 이 아닌 `Exception` 을 상속하거나 `IOException` 을 그대로 던지면, Kotlin 컴파일러는 아무 경고도 하지 않지만 **기본 설정에서는 커밋됩니다.** 업무 예외는 `RuntimeException` 을 상속하게 하거나, `rollbackFor` 를 지정하거나, Spring 6.2 이상에서 `@EnableTransactionManagement(rollbackOn = RollbackOn.ALL_EXCEPTIONS)` 로 전역 정책을 바꿉니다.
+- **코루틴과 섞을 때 주의합니다.** JDBC·JPA 트랜잭션은 스레드(ThreadLocal)에 묶이므로, 트랜잭션 안에서 디스패처를 바꿔 다른 스레드에서 쿼리를 실행하면 그 쿼리는 트랜잭션 밖에서 실행될 수 있습니다.
+
+```kotlin
+// 기본 설정에서 롤백되지 않음: Exception 상속
+class SoldOutCheckedException(productId: Long) : Exception("sold out: $productId")
+
+// 의도대로 롤백됨: RuntimeException 상속
+class SoldOutException(productId: Long) : RuntimeException("sold out: $productId")
+```
+
+##### 질문 답변 연습
+
+**Q. `@Transactional` 전파 속성 REQUIRED 와 REQUIRES_NEW 는 어떻게 다른가요?**
+
+- **단답:** "REQUIRED 는 기존 트랜잭션이 있으면 참여하고 없으면 새로 만듭니다. REQUIRES_NEW 는 기존 트랜잭션을 잠시 멈추고 독립된 새 트랜잭션을 만들어 따로 커밋·롤백합니다."
+- **상세:** "REQUIRED 로 참여한 안쪽 메서드가 예외를 던지면 공유 트랜잭션이 rollback-only 가 되어, 바깥에서 예외를 잡아도 결국 UnexpectedRollbackException 과 함께 롤백됩니다. REQUIRES_NEW 는 실패 기록처럼 본 작업이 롤백돼도 남겨야 하는 작업에 쓰지만, 커넥션을 하나 더 쓰고 안쪽 커밋이 바깥 롤백과 상관없이 남는다는 점을 감수해야 합니다."
+
+**꼬리질문 1 — 반박:** "안쪽 예외를 try-catch 로 잡았는데 왜 롤백되나요?"
+
+**답변:** "안쪽 메서드도 트랜잭션 프록시를 거쳤기 때문에, 예외가 안쪽 프록시를 통과하는 순간 공유 트랜잭션에 rollback-only 가 표시됩니다. 바깥의 catch 는 그 표시를 지우지 못합니다. 안쪽 실패를 무시하고 진행해야 한다면 안쪽을 REQUIRES_NEW 로 분리하거나 예외 대신 결과 값으로 실패를 돌려주도록 바꿉니다."
+
+**꼬리질문 2:** "실패 로그를 REQUIRES_NEW 로 남기면 문제는 없나요?"
+
+**답변:** "바깥 트랜잭션이 커넥션을 쥔 채로 하나를 더 요청하므로, 부하가 몰리면 풀 고갈로 서로 기다릴 수 있습니다. 풀 크기와 동시성을 고려하고, 꼭 같은 요청 안에서 남길 필요가 없다면 커밋 후 이벤트나 비동기 기록으로 옮기는 방법도 검토합니다."
+
+**Q. Kotlin 으로 Spring 을 쓸 때 `@Transactional` 이 적용되지 않는 경우가 있나요?**
+
+- **단답:** "Kotlin 클래스는 기본이 final 이라 CGLIB 프록시가 메서드를 가로채지 못할 수 있습니다. 그래서 kotlin-spring 플러그인으로 Spring 애너테이션이 붙은 클래스를 open 으로 만들고, 엔티티는 kotlin-jpa 와 allOpen 설정으로 기본 생성자와 open 을 맞춥니다."
+- **상세:** "프록시 문제 외에 롤백 규칙도 조심합니다. Kotlin 에는 checked exception 이 없지만 Spring 은 RuntimeException 과 Error 만 기본 롤백 대상으로 보기 때문에, Exception 을 상속한 업무 예외를 던지면 조용히 커밋됩니다. 업무 예외는 RuntimeException 을 상속하게 하고, 필요하면 rollbackFor 나 Spring 6.2 의 전역 rollbackOn 설정을 씁니다."
+
+**꼬리질문 1:** "엔티티를 data class 로 만들면 안 되나요?"
+
+**답변:** "권장하지 않습니다. 자동 생성되는 equals·hashCode·toString 이 모든 프로퍼티를 쓰므로 지연 연관을 초기화해 쿼리가 늘거나 양방향 연관에서 무한 재귀가 날 수 있고, 값이 바뀌면 Set 안에서 같은 엔티티를 찾지 못합니다. 일반 클래스에 식별자 기반 동등성을 정의합니다."
+
+**꼬리질문 2:** "readOnly = true 는 왜 붙이나요?"
+
+**답변:** "조회 전용임을 알리면 Hibernate 가 flush 와 변경 감지 스냅샷을 생략해 비용을 아낄 수 있고, 구성에 따라 읽기 전용 커넥션이나 replica 라우팅에도 활용됩니다. DB 가 쓰기를 항상 막아 준다는 보장은 아니므로, 쓰기 메서드와 조회 메서드를 분명히 나누는 용도로 씁니다."
+
 ---
 
 ### 4. JPA: 엔티티 상태와 DB 동기화
@@ -625,6 +788,116 @@ flowchart TB
 
 **답변:** "맞습니다. 요구하는 일관성 수준과 격리 수준, 페이지 시점의 데이터 변경을 고려해야 합니다. 안정된 정렬 키와 트랜잭션/스냅샷 동작을 확인하고, 깊은 페이지 이동이 많으면 keyset pagination 처럼 경계 키 기반 방식을 검토하겠습니다."
 
+#### 동시성 제어를 JPA 코드로 옮기기
+
+**큰 그림에서:** 앞에서 정한 "DB 가 쓰기 지점에서 불변조건을 지킨다"는 원칙을 Spring Data JPA 코드로 표현합니다.
+
+##### ① 조건부 UPDATE: `@Modifying` + JPQL 벌크 연산
+
+```kotlin
+interface InventoryRepository : JpaRepository<Inventory, Long> {
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query(
+        """
+        update Inventory i
+           set i.remaining = i.remaining - 1
+         where i.productId = :productId
+           and i.remaining > 0
+        """
+    )
+    fun decreaseIfAvailable(@Param("productId") productId: Long): Int
+}
+
+@Service
+class ReservationService(
+    private val inventoryRepository: InventoryRepository,
+    private val reservationRepository: ReservationRepository,
+) {
+    @Transactional
+    fun reserve(command: ReserveCommand): Long {
+        // 같은 요청의 재시도면 기존 결과를 돌려준다
+        reservationRepository.findByUserIdAndRequestKey(command.userId, command.requestKey)
+            ?.let { return it.id }
+
+        val updated = inventoryRepository.decreaseIfAvailable(command.productId)
+        if (updated == 0) throw SoldOutException(command.productId) // RuntimeException 상속
+
+        // (user_id, request_key) UNIQUE 위반을 이 메서드 안에서 확인하려고 즉시 flush
+        return reservationRepository.saveAndFlush(Reservation.pending(command)).id
+    }
+}
+```
+
+- 반환값 `Int` 가 영향받은 행 수입니다. 0 이면 품절이거나 경합에서 진 것입니다.
+- JPQL `update`/`delete` 는 **영속성 컨텍스트를 거치지 않고 DB 에 바로 실행**됩니다. 이미 조회해 둔 `Inventory` 엔티티는 옛 값을 가진 채 남으므로 `clearAutomatically = true` 로 실행 후 컨텍스트를 비우고, `flushAutomatically = true` 로 실행 전에 쌓인 변경을 먼저 내보냅니다.
+- 벌크 연산은 트랜잭션 안에서 실행해야 하고, `@Version` 값을 자동으로 올리지 않습니다. 낙관적 락과 섞어 쓴다면 쿼리에서 버전도 함께 올립니다.
+- 유니크 제약 위반은 INSERT 가 실제로 실행될 때 납니다. ID 생성 전략에 따라 INSERT 가 커밋 시점으로 미뤄질 수 있으므로, 메서드 안에서 위반을 잡아 의미 있는 응답으로 바꾸려면 `saveAndFlush` 로 바로 실행합니다.
+
+##### ② 비관적 락: `@Lock(PESSIMISTIC_WRITE)`
+
+```kotlin
+interface InventoryRepository : JpaRepository<Inventory, Long> {
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select i from Inventory i where i.productId = :productId")
+    fun findForUpdate(@Param("productId") productId: Long): Inventory?
+}
+```
+
+- MySQL·PostgreSQL·Oracle 에서 `SELECT ... FOR UPDATE` 로 실행되어, 트랜잭션이 끝날 때까지 다른 트랜잭션의 잠금 읽기와 수정이 기다립니다. 읽은 값을 바탕으로 여러 규칙을 검사한 뒤 바꿔야 할 때 씁니다.
+- 반드시 `@Transactional` 안에서 호출합니다. 트랜잭션 밖에서 호출하면 예외가 나거나 락이 바로 풀려 의미가 없습니다.
+- 대기 제한은 DB 별로 다릅니다. JPA 의 `jakarta.persistence.lock.timeout` 힌트를 지원하는 정도가 DB·dialect 마다 다르고, MySQL 은 `innodb_lock_wait_timeout`(초 단위 세션 값)과 `NOWAIT`/`SKIP LOCKED` 를 씁니다. 실제로 생성된 SQL 을 로그로 확인합니다.
+
+##### ③ 낙관적 락: `@Version` 과 재시도 위치
+
+```kotlin
+@Entity
+class Inventory(
+    @Id val productId: Long,
+    var remaining: Int,
+) {
+    @Version
+    var version: Long = 0
+}
+```
+
+- 수정 시 `update inventory set remaining=?, version=? where product_id=? and version=?`(새 버전, 읽었을 때의 버전)가 실행되고, 영향 행이 0 이면 Spring 은 `ObjectOptimisticLockingFailureException` 으로 알려 줍니다.
+- **재시도는 트랜잭션 바깥에서 합니다.** 충돌한 트랜잭션은 이미 롤백 대상이고 영속성 컨텍스트의 값도 낡았으므로, 같은 트랜잭션 안에서 다시 시도해도 성공할 수 없습니다. 재시도 로직(예: Spring Retry 의 `@Retryable`)이 트랜잭션 프록시를 **감싸도록** 두어, 시도마다 새 트랜잭션과 새 조회로 시작합니다.
+- 재고처럼 경합이 잦은 행에 쓰면 대부분 요청이 충돌하고 재시도해 오히려 느려집니다. 상품 설명 편집처럼 충돌이 드문 수정에 어울립니다.
+
+분산락을 함께 쓸 때 락과 트랜잭션의 순서는 [Redis 문서](04_Redis_캐시_분산락.md)의 "분산락과 `@Transactional` 의 순서"를 참고합니다.
+
+#### 연관의 기본 fetch 전략과 OSIV
+
+- **JPA 기본값:** `@ManyToOne`·`@OneToOne` 은 기본 `EAGER`, `@OneToMany`·`@ManyToMany` 는 기본 `LAZY` 입니다. `EAGER` 인 `@ManyToOne` 은 JPQL 로 목록을 조회할 때 연관 엔티티를 행마다 추가로 조회해 N+1 을 만들기 쉽습니다. 그래서 **모든 연관을 `LAZY` 로 명시**하고, 필요한 화면에서 fetch join·EntityGraph·DTO 조회로 가져오는 것이 일반적인 원칙입니다.
+- **OSIV(Open Session/EntityManager In View):** HTTP 요청이 끝날 때까지 영속성 컨텍스트를 열어 두어, 서비스 트랜잭션이 끝난 뒤 Controller 나 JSON 직렬화 단계에서도 지연 로딩이 되게 하는 방식입니다. Spring Boot 는 `spring.jpa.open-in-view` 기본값이 `true` 이고, 켜져 있으면 시작할 때 경고 로그를 남깁니다.
+  - **장점:** `LazyInitializationException` 없이 편하게 연관을 탐색합니다.
+  - **비용:** 요청이 끝날 때까지 DB 커넥션을 붙잡을 수 있어, 느린 외부 호출이나 큰 응답 직렬화가 있으면 커넥션 풀이 빨리 고갈됩니다. 트랜잭션이 끝난 뒤의 지연 로딩 쿼리는 트랜잭션 밖에서 하나씩 실행되고, 어디서 쿼리가 나가는지 추적하기도 어려워집니다.
+  - **API 서버의 흔한 선택:** `open-in-view: false` 로 끄고, 응답에 필요한 데이터는 서비스 트랜잭션 안에서 DTO 로 만들어 반환합니다. 끄면 트랜잭션 밖 지연 로딩이 `LazyInitializationException` 으로 드러나므로 조회 범위를 명시하게 됩니다.
+
+##### 질문 답변 연습
+
+**Q. 앞에서 말한 조건부 UPDATE 를 JPA 로는 어떻게 구현하나요?**
+
+- **단답:** "Spring Data JPA 에서 `@Modifying` 과 `@Query` 로 `remaining > 0` 조건을 건 JPQL update 를 실행하고, 반환된 영향 행 수가 1 이면 성공, 0 이면 품절로 처리합니다."
+- **상세:** "벌크 update 는 영속성 컨텍스트를 거치지 않으므로 clearAutomatically 와 flushAutomatically 로 컨텍스트의 낡은 엔티티와 아직 반영하지 않은 변경을 정리합니다. 예약 저장과 같은 @Transactional 안에서 실행하고, 품절 예외는 RuntimeException 으로 던져 함께 롤백되게 합니다. 중복 요청은 (user_id, request_key) 유니크 제약으로 막고, saveAndFlush 로 위반을 메서드 안에서 확인합니다."
+
+**꼬리질문 1 — 반박:** "엔티티를 조회해서 `remaining--` 하고 변경 감지로 저장하면 안 되나요?"
+
+**답변:** "일반 조회는 락 없이 읽기 때문에 두 요청이 같은 값을 읽고 각자 계산한 값을 쓰면 lost update 가 됩니다. 그 방식을 쓰려면 @Lock(PESSIMISTIC_WRITE) 로 잠그고 읽거나 @Version 으로 충돌을 감지해야 합니다. 단순 차감이라면 조건부 update 한 문장이 락을 가장 짧게 잡고 끝납니다."
+
+**꼬리질문 2:** "낙관적 락 예외가 나면 @Transactional 메서드 안에서 다시 시도하면 되죠?"
+
+**답변:** "안 됩니다. 충돌한 트랜잭션은 이미 롤백 대상이고 컨텍스트의 값도 낡았습니다. 재시도는 트랜잭션 프록시 바깥에서 감싸 매번 새 트랜잭션으로 다시 조회하게 하고, 횟수와 간격을 제한합니다. 재고가 0 이 된 경우처럼 재시도해도 성공할 수 없는 실패는 바로 사용자에게 돌려줍니다."
+
+**Q. OSIV 는 무엇이고, 켜 두는 게 좋은가요?**
+
+- **단답:** "요청이 끝날 때까지 영속성 컨텍스트를 열어 두어 Controller 나 직렬화 단계에서도 지연 로딩을 허용하는 설정입니다. Spring Boot 는 기본으로 켜져 있지만, API 서버에서는 커넥션을 오래 붙잡는 비용 때문에 끄는 경우가 많습니다."
+- **상세:** "켜 두면 요청 전체 동안 커넥션을 쥘 수 있어 외부 호출이 느릴 때 풀이 고갈되고, 트랜잭션 밖에서 실행되는 지연 로딩 쿼리 때문에 N+1 을 찾기 어려워집니다. 끄면 서비스 트랜잭션 안에서 필요한 연관을 fetch join 이나 DTO 로 명시적으로 조회해야 하고, 빠뜨리면 LazyInitializationException 이 나서 문제를 일찍 발견할 수 있습니다."
+
+**꼬리질문:** "@ManyToOne 의 기본 fetch 전략은 무엇인가요?"
+
+**답변:** "JPA 기본은 EAGER 입니다. 목록을 JPQL 로 조회하면 연관을 행마다 추가로 조회해 N+1 이 생기기 쉬우므로, 모든 연관을 LAZY 로 명시하고 필요한 곳에서만 fetch join 이나 DTO 로 가져옵니다."
+
 ---
 
 ### 면접 전 빠른 복습
@@ -637,6 +910,10 @@ flowchart TB
 6. 본인 경험은 Spring Boot 공동 API 개발, Go/JWT/Redis, Oracle 프로시저 연동입니다. JPA 는 실무 경험이 없다고 밝힙니다.
 7. DB 병목은 SQL 시간·호출 횟수·대기와 실행 계획으로 좁힙니다. Cardinality 의 두 뜻(NDV 와 예상 행 수), 선택도, 통계 편향을 구분합니다.
 8. 인덱스는 쿼리 패턴에 맞춰 설계합니다. 복합 인덱스의 leftmost prefix, 동등/범위/정렬 조건, SARGable 조건, 읽기 이득과 쓰기 비용을 실행 계획과 지표로 검증합니다.
+9. 격리 수준 4 단계와 막는 이상 현상을 말합니다. MySQL InnoDB 기본은 REPEATABLE READ, PostgreSQL·Oracle 은 READ COMMITTED 입니다. InnoDB 의 일반 SELECT 는 스냅샷, 잠금 읽기와 UPDATE 는 최신 커밋값을 읽습니다.
+10. 전파 속성: REQUIRED 안쪽 예외는 rollback-only 로 바깥까지 롤백시키고(`UnexpectedRollbackException`), REQUIRES_NEW 는 커넥션을 하나 더 쓰는 독립 트랜잭션입니다.
+11. Kotlin: final 기본값 때문에 kotlin-spring·kotlin-jpa·allOpen 이 필요하고, `Exception` 을 상속한 업무 예외는 기본 설정에서 롤백되지 않습니다. 엔티티는 data class 로 만들지 않습니다.
+12. JPA 동시성 코드: 조건부 UPDATE 는 `@Modifying @Query`(영속성 컨텍스트 우회), 비관적 락은 `@Lock(PESSIMISTIC_WRITE)`, 낙관적 락은 `@Version` + 트랜잭션 바깥 재시도입니다. `@ManyToOne` 기본은 EAGER 이므로 LAZY 로 명시하고, OSIV 의 커넥션 점유 비용을 설명합니다.
 
 ### 공식 문서
 
@@ -657,3 +934,14 @@ flowchart TB
 - [PostgreSQL: Planner statistics](https://www.postgresql.org/docs/current/planner-stats.html)
 - [MySQL: Optimizing InnoDB queries, including covering indexes](https://dev.mysql.com/doc/refman/8.4/en/optimizing-innodb-queries.html)
 - [Oracle: SQL Tuning Guide](https://docs.oracle.com/en/database/oracle/oracle-database/23/tgsql/sql-tuning-guide.pdf)
+- [MySQL: Transaction Isolation Levels](https://dev.mysql.com/doc/refman/8.4/en/innodb-transaction-isolation-levels.html)
+- [MySQL: Consistent Nonlocking Reads](https://dev.mysql.com/doc/refman/8.4/en/innodb-consistent-read.html)
+- [MySQL: Locking Reads](https://dev.mysql.com/doc/refman/8.4/en/innodb-locking-reads.html)
+- [MySQL: InnoDB Locking (record·gap·next-key lock)](https://dev.mysql.com/doc/refman/8.4/en/innodb-locking.html)
+- [PostgreSQL: Transaction Isolation](https://www.postgresql.org/docs/current/transaction-iso.html)
+- [Spring Framework: Transaction Propagation](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/tx-propagation.html)
+- [Spring Boot: Kotlin Support](https://docs.spring.io/spring-boot/reference/features/kotlin.html)
+- [Kotlin: All-open compiler plugin](https://kotlinlang.org/docs/all-open-plugin.html), [No-arg compiler plugin](https://kotlinlang.org/docs/no-arg-plugin.html)
+- [Spring Data JPA: Modifying Queries](https://docs.spring.io/spring-data/jpa/reference/jpa/modifying-queries.html)
+- [Spring Data JPA: Locking](https://docs.spring.io/spring-data/jpa/reference/jpa/locking.html)
+- [Spring Boot: SQL Databases (Open EntityManager in View 포함)](https://docs.spring.io/spring-boot/reference/data/sql.html)

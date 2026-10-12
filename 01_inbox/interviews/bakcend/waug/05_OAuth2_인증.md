@@ -59,6 +59,64 @@ flowchart LR
 
 OAuth2 는 원래 권한 위임 프레임워크입니다. "OAuth2 로그인을 했다"고 표현하더라도 실제로 사용자 로그인과 ID 토큰을 제공하는 구조라면 OIDC 사용 여부도 살펴봐야 합니다. [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html), [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html), [RFC 7519 (JWT)](https://www.rfc-editor.org/rfc/rfc7519.html)
 
+### 1.1. 세션과 토큰, JWT 구조, 서명 알고리즘, 토큰 저장 위치
+
+#### 세션 기반 인증과 토큰 기반 인증
+
+**비유:** 세션은 **물품 보관증**입니다. 손님은 번호표(세션 ID)만 들고, 실제 정보는 보관소(서버)가 갖고 있습니다. 토큰(JWT)은 **도장 찍힌 신분증**입니다. 정보가 신분증에 적혀 있어 입구에서 도장만 확인하면 보관소에 물어볼 필요가 없지만, 한 번 발급한 신분증은 회수하기 어렵습니다.
+
+| 기준 | 세션 기반 | 자체 완결형 토큰(JWT) 기반 |
+|---|---|---|
+| 상태 위치 | 서버(메모리·Redis·DB)에 세션 저장, 클라이언트는 세션 ID 쿠키 | 클라이언트가 서명된 토큰 보관, 서버는 서명·만료만 검증 |
+| 즉시 폐기 | 서버에서 세션을 지우면 바로 가능 | 만료 전 폐기가 어려움. denylist·짧은 수명·refresh 폐기가 필요 |
+| 확장성 | 여러 서버가 세션 저장소를 공유하거나 sticky session 필요 | 공개키만 있으면 어느 서버든 검증 가능 |
+| 요청 비용 | 요청마다 세션 저장소 조회 | 요청마다 서명 검증(저장소 조회 없음) |
+| 주된 위협 | 쿠키 자동 전송에 따른 CSRF, 세션 고정 | 토큰 탈취 후 만료 전 재사용, 오래된 권한 claim |
+| 잘 맞는 곳 | 같은 도메인의 웹 앱, 즉시 로그아웃이 중요한 서비스 | 모바일 앱, 여러 API·서비스가 같은 토큰을 검증하는 구조 |
+
+실무에서는 둘을 섞는 경우가 많습니다. **짧은 수명의 access JWT 는 stateless 로 검증하고, 긴 수명의 refresh token 은 서버가 상태를 추적해 폐기**합니다. 이력서의 Hi-Tech 설계(JWT + Redis token ID)도 이 혼합형의 한 예입니다.
+
+#### JWT 구조: 서명은 위조 방지이지 암호화가 아니다
+
+JWT 는 `header.payload.signature` 세 부분을 점으로 이은 문자열입니다.
+
+```text
+eyJhbGciOiJSUzI1NiIsImtpZCI6ImtleS0yMDI2In0   ← header  (base64url)
+.eyJpc3MiOiJodHRwczovL2F1dGguZXhhbXBsZSIs...   ← payload (base64url)
+.Q3x9...                                       ← signature
+```
+
+- **header:** 서명 알고리즘(`alg`), 키 식별자(`kid`), 타입(`typ`).
+- **payload(claims):** 표준 claim 인 `iss`(발급자), `sub`(주체), `aud`(대상), `exp`(만료), `nbf`(이 시각 전에는 무효), `iat`(발급 시각), `jti`(토큰 ID)와 서비스별 claim(scope, role 등).
+- **signature:** `base64url(header) + "." + base64url(payload)` 를 서명한 값입니다. 내용이 한 글자라도 바뀌면 검증이 실패합니다.
+
+**base64url 은 인코딩일 뿐 암호화가 아닙니다.** 누구나 payload 를 디코딩해 읽을 수 있으므로 비밀번호, 개인정보, 내부 비밀값을 넣지 않습니다. 서명된 JWT(JWS)는 **무결성과 발급자 확인**을 주고, 내용을 숨기려면 JWE 같은 암호화가 따로 필요합니다.
+
+검증할 때는 `alg` 를 토큰이 주는 대로 믿지 않고 서버가 허용한 알고리즘으로 고정합니다. `alg: none` 을 받아들이거나, RS256 공개키를 HS256 비밀키처럼 쓰게 만드는 알고리즘 혼동 공격이 알려져 있습니다([RFC 8725](https://www.rfc-editor.org/rfc/rfc8725.html)).
+
+#### HS256 과 RS256·ES256: 누가 서명하고 누가 검증하나
+
+| 알고리즘 | 키 | 서명 | 검증 | 특징 |
+|---|---|---|---|---|
+| HS256 (HMAC-SHA256) | 대칭 비밀키 하나 | 비밀키 | **같은 비밀키** | 빠르고 단순. 검증하는 모든 서비스가 비밀키를 가지므로 검증자도 토큰을 위조할 수 있고, 키 유출 지점이 늘어남 |
+| RS256 (RSA-SHA256) | 개인키/공개키 | 개인키(인증 서버만) | 공개키 | 검증 서비스는 공개키만 있으면 됨. 토큰과 서명이 큼 |
+| ES256 (ECDSA P-256) | 개인키/공개키 | 개인키 | 공개키 | RSA 보다 키와 서명이 짧음 |
+
+비대칭 알고리즘에서는 인증 서버가 공개키 묶음을 **JWKS(JSON Web Key Set)** endpoint 로 공개하고, resource server 는 토큰 header 의 `kid` 로 맞는 공개키를 골라 검증합니다. 키를 교체할 때는 새 키를 JWKS 에 먼저 추가하고 옛 키도 일정 기간 함께 노출해, 이미 발급된 토큰이 만료될 때까지 검증되게 합니다.
+
+**면접 포인트:** 인증 서버와 API 서버가 분리되거나 서비스가 여러 개인 MSA 에서는 개인키를 인증 서버 한곳에만 두고 나머지는 공개키로 검증하는 비대칭 서명이 자연스럽습니다. 5.1 절의 인증 서버도 RSA 로 access JWT 를 서명하고, resource server 체인이 `JwtDecoder` 로 검증하는 구조입니다.
+
+#### 클라이언트는 토큰을 어디에 저장하나
+
+| 클라이언트 | 저장 위치 | 위험과 대응 |
+|---|---|---|
+| 브라우저 `localStorage`/`sessionStorage` | JS 로 읽고 씀 | XSS 가 생기면 스크립트가 토큰을 그대로 가져감 |
+| 브라우저 `HttpOnly` + `Secure` + `SameSite` 쿠키 | JS 가 읽을 수 없음 | XSS 로 토큰 자체를 빼가기는 어렵지만, 쿠키가 자동 전송되므로 CSRF 대비(SameSite, CSRF 토큰)가 필요 |
+| 브라우저 메모리 + refresh 는 HttpOnly 쿠키 | 새로고침하면 refresh 로 재발급 | SPA 에서 흔한 절충. 더 강하게는 토큰을 서버 쪽에 두는 BFF(Backend for Frontend) 패턴 |
+| 모바일 앱 | iOS Keychain, Android Keystore 로 보호한 저장소 | 일반 설정 파일·로그·URL 에 토큰을 남기지 않음. 루팅·탈옥 기기와 백업 포함 여부도 고려 |
+
+어디에 저장하든 **access token 은 짧게, refresh token 은 회전·폐기 가능하게** 두어 탈취됐을 때의 피해 시간을 줄입니다.
+
 ### 2. OAuth2 의 역할
 
 | 역할 | 하는 일 | 공연장 비유 |
@@ -355,6 +413,10 @@ Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security B
 - [ ] Spring Security, Resource Server, Spring Authorization Server 의 차이를 설명한다.
 - [ ] CV 문구에 대해 본인이 직접 한 일과 협업자/라이브러리가 맡은 일을 구분한다.
 - [ ] Hi-Tech Go 인증 경험과 VMMe Pro Spring 인증 경험을 섞지 않는다.
+- [ ] 세션 기반과 토큰 기반 인증의 차이(상태 위치, 즉시 폐기, 확장성, 위협)를 말한다.
+- [ ] JWT 의 header·payload·signature 구조를 말하고, base64url 은 암호화가 아니라고 설명한다.
+- [ ] HS256 과 RS256 의 차이, JWKS 와 kid 로 키를 배포·교체하는 방법을 설명한다.
+- [ ] 웹(localStorage vs HttpOnly 쿠키, XSS vs CSRF)과 모바일(Keychain/Keystore)의 토큰 저장 위치를 말한다.
 
 ### 8.1. 보안 공격·실패 상황별 사고법
 
@@ -520,6 +582,62 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 **답변:** 서명만으로 충분하지 않습니다. issuer, audience, 만료시간과 nonce 등 프로토콜 요구사항을 검증해야 합니다. 실제 OIDC 를 사용한다면 discovery metadata 와 JWKS 를 통한 키 검증 등 라이브러리의 검증 절차를 확인하고, 직접 검증을 임의로 생략하지 않겠습니다.
 
+#### I. 세션 기반 인증과 토큰 기반 인증의 차이
+
+**짧은 답변:** 세션은 서버가 상태를 저장하고 클라이언트는 세션 ID 만 갖습니다. 토큰은 서명된 토큰 자체에 정보가 있어 서버가 저장소 조회 없이 검증합니다. 세션은 즉시 폐기가 쉽고, 토큰은 여러 서버·서비스로 확장하기 쉽지만 만료 전 폐기가 어렵습니다.
+
+**상세 답변:** 세션은 로그아웃이나 강제 만료를 서버에서 바로 반영할 수 있지만 모든 요청이 세션 저장소에 의존합니다. JWT 는 공개키만 있으면 어느 서비스든 검증할 수 있어 모바일 앱과 MSA 에 잘 맞지만, 발급된 토큰은 만료까지 유효하고 claim 의 권한 정보도 그동안 바뀌지 않습니다. 그래서 짧은 access JWT 와 서버가 추적하는 refresh token 을 섞는 구성이 흔하고, Hi-Tech 에서 Redis 에 token ID 를 둔 설계도 이 절충의 한 형태입니다.
+
+**꼬리질문 1 — "세션도 Redis 에 두면 확장 문제는 없지 않나요?"**
+
+**답변:** 맞습니다. 공유 세션 저장소를 두면 sticky session 없이 서버를 늘릴 수 있습니다. 대신 모든 요청이 그 저장소에 의존하므로 지연과 장애 지점이 생깁니다. 토큰의 차이는 여러 서비스가 저장소 없이 각자 검증할 수 있다는 점이고, 결국 즉시 폐기 요구와 요청당 검증 비용 사이의 선택입니다.
+
+**꼬리질문 2 — "JWT 에 role 을 넣었는데 관리자 권한을 회수하면 어떻게 되나요?"**
+
+**답변:** 이미 발급된 토큰은 만료될 때까지 옛 role 을 가집니다. access token 수명을 짧게 두고 refresh 때 최신 권한으로 재발급하며, 권한 변경이 바로 반영돼야 하는 민감한 작업은 서버에서 현재 권한을 다시 확인하거나 denylist 로 해당 토큰을 막습니다.
+
+#### J. JWT 구조와 "암호화" 오해
+
+**짧은 답변:** header, payload, signature 를 각각 base64url 로 인코딩해 점으로 이은 것입니다. 서명은 위조를 막을 뿐 내용을 숨기지 않으므로 payload 에 민감 정보를 넣지 않습니다.
+
+**상세 답변:** header 에는 알고리즘과 키 ID, payload 에는 iss·sub·aud·exp·iat·jti 같은 표준 claim 과 scope·role 이 들어가고, signature 는 앞 두 부분을 서명한 값입니다. 내용을 숨겨야 하면 JWE 같은 암호화가 따로 필요하고, 전송 구간은 TLS 로 보호합니다. 검증할 때는 서버가 허용한 알고리즘으로 고정해 alg none 이나 알고리즘 혼동 공격을 막습니다.
+
+**꼬리질문 1 — "JWT 는 암호화돼 있으니 안전한 것 아닌가요?"**
+
+**답변:** 아닙니다. base64url 은 누구나 디코딩할 수 있는 인코딩입니다. 서명은 내용이 바뀌지 않았고 신뢰한 발급자가 만들었다는 것만 보장합니다. 개인정보나 비밀값은 넣지 않고, 꼭 필요하면 암호화된 JWE 를 쓰거나 서버에서 조회합니다.
+
+**꼬리질문 2 — "JWT 를 검증할 때 무엇을 확인하나요?"**
+
+**답변:** 허용한 알고리즘과 kid 에 맞는 키로 서명을 확인하고, iss 가 신뢰한 발급자인지, aud 가 이 API 인지, exp·nbf 가 유효한지 작은 clock skew 안에서 봅니다. 폐기 확인이 필요한 구조라면 jti 의 폐기 여부를 보고, 그 다음 scope·role 과 리소스 소유권을 별도로 판단합니다.
+
+#### K. HS256 과 RS256, 왜 비대칭 서명을 쓰나요?
+
+**짧은 답변:** HS256 은 같은 비밀키로 서명과 검증을 하는 대칭 방식이라 검증하는 서비스도 토큰을 만들 수 있습니다. RS256 은 인증 서버만 개인키로 서명하고 다른 서비스는 공개키로 검증하므로, 검증하는 서비스가 많을수록 키 관리가 안전합니다.
+
+**경험 중심 답변:** VMMe Pro 인증 서버는 RSA 개인키로 access JWT 를 서명하고, 일반 API 체인은 `JwtDecoder` 로 공개키 검증을 하는 구조입니다. 인증 서버와 API 가 분리되거나 서비스가 늘어나도 개인키는 인증 서버 한곳에만 두면 되고, 다른 서비스에는 공개키만 배포하면 된다는 점이 비대칭 서명의 장점입니다.
+
+**꼬리질문 1 — "공개키는 어떻게 배포하고 교체하나요?"**
+
+**답변:** 인증 서버가 JWKS endpoint 로 공개키 묶음을 공개하고, resource server 는 토큰 header 의 kid 로 맞는 키를 골라 검증합니다. 교체할 때는 새 키를 먼저 JWKS 에 추가하고 옛 키를 기존 토큰의 최대 수명 동안 함께 노출한 뒤 제거합니다. resource server 는 JWKS 를 캐시하되, 모르는 kid 가 오면 제한된 횟수로만 다시 받아옵니다.
+
+**꼬리질문 2 — "RS256 이 HS256 보다 항상 좋은가요?"**
+
+**답변:** 그렇지는 않습니다. 발급과 검증을 한 서비스가 모두 한다면 HS256 이 단순하고 빠릅니다. 비대칭 서명은 토큰이 커지고 서명 비용이 큽니다. 검증하는 주체가 몇 개인지, 키가 유출되면 영향이 어디까지인지를 보고 고릅니다.
+
+#### L. 토큰은 클라이언트의 어디에 저장하나요?
+
+**짧은 답변:** 웹이면 localStorage 보다 HttpOnly·Secure·SameSite 쿠키나 메모리 보관을 선호하고, 모바일이면 iOS Keychain 이나 Android Keystore 로 보호한 저장소에 둡니다. 어디에 두든 access token 은 짧게, refresh token 은 회전·폐기할 수 있게 둡니다.
+
+**상세 답변:** localStorage 는 XSS 가 생기면 스크립트가 토큰을 그대로 가져갑니다. HttpOnly 쿠키는 JS 가 읽을 수 없어 탈취는 어렵지만 브라우저가 자동으로 붙여 보내므로 CSRF 대비가 필요합니다. SPA 에서는 access 를 메모리에, refresh 를 HttpOnly 쿠키에 두는 절충이 흔하고, 더 강하게는 토큰을 서버에 두는 BFF 패턴을 씁니다. 모바일 앱은 OS 보안 저장소를 쓰고, 토큰을 로그·URL·분석 이벤트에 남기지 않습니다.
+
+**꼬리질문 1 — "HttpOnly 쿠키면 XSS 에 안전한가요?"**
+
+**답변:** 토큰을 직접 읽어 가는 것은 막지만, XSS 가 있으면 공격 스크립트가 피해자 브라우저에서 쿠키가 자동으로 붙는 요청을 보낼 수 있습니다. XSS 자체를 막는 출력 인코딩과 CSP 가 먼저이고, HttpOnly 쿠키는 피해 범위를 줄이는 수단입니다.
+
+**꼬리질문 2 — "쿠키를 쓰면 CSRF 는 어떻게 막나요?"**
+
+**답변:** SameSite=Lax 나 Strict 로 교차 사이트 요청에 쿠키가 붙지 않게 하고, 상태를 바꾸는 요청에는 CSRF 토큰이나 커스텀 헤더를 확인합니다. 모바일 앱처럼 Authorization 헤더로 토큰을 보내는 방식은 브라우저 자동 전송이 없어 CSRF 영향이 작습니다.
+
 ### 공식 참고 자료
 
 - [OAuth 2.0 Authorization Framework — RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html)
@@ -527,6 +645,11 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 - [OAuth 2.0 Security Best Current Practice — RFC 9700](https://www.rfc-editor.org/rfc/rfc9700.html)
 - [JSON Web Token (JWT) — RFC 7519](https://www.rfc-editor.org/rfc/rfc7519.html)
 - [JSON Web Token Best Current Practices — RFC 8725](https://www.rfc-editor.org/rfc/rfc8725.html)
+- [JSON Web Signature (JWS) — RFC 7515](https://www.rfc-editor.org/rfc/rfc7515.html)
+- [JSON Web Key (JWK) — RFC 7517](https://www.rfc-editor.org/rfc/rfc7517.html)
+- [OWASP Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)
+- [OWASP Cross-Site Request Forgery Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
+- [OAuth 2.0 for Browser-Based Applications (IETF draft)](https://datatracker.ietf.org/doc/draft-ietf-oauth-browser-based-apps/)
 - [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html)
 - [Spring Security Reference](https://docs.spring.io/spring-security/reference/)
 - [Spring Authorization Server Reference](https://docs.spring.io/spring-authorization-server/reference/)

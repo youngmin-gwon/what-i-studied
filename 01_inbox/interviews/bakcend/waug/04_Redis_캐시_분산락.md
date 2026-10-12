@@ -178,6 +178,138 @@ flowchart TD
 
 잔여 수량이 1 개인 예약은 DB 가 최종적으로 한 건만 성공시키도록 하는 것이 기본이다. 예를 들어 `remaining > 0` 일 때만 수량을 감소시키는 조건부 UPDATE 를 하고, 변경 행이 1 개인 경우만 예약한다. Redis 락은 여러 인스턴스에서 특정 구간을 직렬화해야 할 때 추가 검토할 수 있다. 멱등성 키나 고유 제약으로 중복 요청도 막는다. 캐시는 조회 부하 감소, 락은 경쟁 조율, DB 제약·트랜잭션은 최종 정합성을 맡는다.
 
+### Redis 기본기: 꼬리질문에서 자주 확인하는 것
+
+#### 왜 빠르고, 무엇이 원자적인가
+
+Redis 가 빠른 이유는 크게 세 가지다.
+
+1. **데이터가 메모리에 있다.** 디스크 탐색 없이 읽고 쓴다.
+2. **명령 실행이 한 스레드에서 차례로 일어난다.** 락 경쟁과 컨텍스트 전환이 없고, 덕분에 **명령 하나는 원자적**이다. `INCR`, `DECR`, `SET NX` 가 동시 요청에서도 안전한 이유다.
+3. **이벤트 루프와 I/O 다중화(epoll/kqueue)** 로 한 스레드가 많은 연결을 처리한다. Redis 6 부터 네트워크 읽기·쓰기를 별도 I/O 스레드에 맡길 수 있지만, 명령 실행 자체는 여전히 메인 스레드에서 차례로 일어난다.
+
+**비유:** 창구 직원이 한 명뿐인 은행이다. 한 명이라 서로 부딪힐 일이 없고 업무 하나하나가 끝까지 처리되지만, 한 손님이 오래 걸리는 업무를 맡기면 뒤의 모든 손님이 기다린다.
+
+그래서 **오래 걸리는 명령 하나가 전체를 멈춘다.** 운영에서 `KEYS *`, 큰 컬렉션 전체 조회(`HGETALL`, `SMEMBERS`), 큰 키의 `DEL`, 긴 Lua 스크립트는 피한다. `SCAN` 계열로 나눠 읽고, 큰 키는 백그라운드에서 지우는 `UNLINK` 로 삭제한다. 느린 명령은 `SLOWLOG` 로 찾는다.
+
+여러 명령을 묶을 때는 방법마다 보장이 다르다.
+
+| 방법 | 보장 | 주의 |
+|---|---|---|
+| Pipelining | 왕복 횟수만 줄임 | 원자성 없음. 중간에 다른 클라이언트 명령이 끼어들 수 있음 |
+| `MULTI`/`EXEC` | 묶은 명령을 끼어들기 없이 차례로 실행 | 실행 중 한 명령이 실패해도 **롤백하지 않음**. 앞 명령 결과로 분기할 수 없음 |
+| `WATCH` + `MULTI`/`EXEC` | 감시한 키가 바뀌면 `EXEC` 가 실패 | 낙관적 CAS. 실패하면 재시도해야 함 |
+| Lua 스크립트(`EVAL`)·Functions | 스크립트 전체가 원자적으로 실행되고, 중간 결과로 분기 가능 | 실행 중 다른 명령이 모두 멈추므로 짧게 유지 |
+
+TTL 이 지난 키는 접근할 때 지우는 방식(lazy)과 주기적으로 일부를 표본 검사해 지우는 방식(active)으로 정리된다. 만료된 키가 메모리에서 그 순간 바로 사라진다고 가정하지 않는다.
+
+#### 영속화와 고가용성: RDB·AOF·복제·Sentinel·Cluster
+
+- **RDB:** 특정 시점의 스냅샷을 파일로 저장한다. 파일이 작고 재시작이 빠르지만, 마지막 스냅샷 이후의 쓰기는 잃을 수 있다.
+- **AOF(Append Only File):** 쓰기 명령을 로그로 남긴다. `appendfsync everysec`(기본)이면 장애 때 약 1 초 분량을 잃을 수 있고, `always` 는 더 안전하지만 느리다. 로그가 커지면 rewrite 로 압축한다. RDB 와 함께 쓸 수 있다.
+- **복제(replication):** primary 의 쓰기를 replica 로 **비동기** 복사한다. primary 가 쓰기에 응답한 뒤 복제 전에 죽으면, failover 후 그 쓰기는 사라질 수 있다.
+- **Sentinel:** 샤딩 없는 primary/replica 구성을 감시하고, primary 장애 때 replica 를 승격하며, 클라이언트에게 현재 primary 주소를 알려 준다.
+- **Cluster:** 키를 16384 개의 hash slot(`CRC16(key) mod 16384`)으로 나눠 여러 primary 에 분산하고, 샤드마다 replica 를 둬 자동 failover 한다. 여러 키를 함께 다루는 명령·트랜잭션·Lua 는 키들이 같은 slot 에 있어야 하므로 `{user:42}:cart` 처럼 hash tag 로 같은 slot 에 모은다.
+
+**면접 포인트:** 캐시는 사라져도 원본에서 다시 채울 수 있지만, 토큰 폐기 상태·락·재고 카운터처럼 **Redis 에만 있는 상태**는 비동기 복제와 failover 때 유실될 수 있다는 점을 설계에 넣는다. 예를 들어 primary 가 락 획득에 응답한 직후 복제 전에 죽고 replica 가 승격되면, 다른 클라이언트가 같은 락을 다시 얻을 수 있다. Redlock 과 fencing token 은 이 문제에서 나온다.
+
+#### 캐시 전략의 종류
+
+| 전략 | 읽기/쓰기 흐름 | 장점 | 비용·위험 |
+|---|---|---|---|
+| Cache-aside (lazy loading) | 앱이 캐시를 먼저 읽고, miss 면 DB 를 읽어 캐시에 넣음. 쓰기는 DB 갱신 후 캐시 삭제 | 필요한 데이터만 캐시. 캐시 장애 때 DB 로 우회 가능 | 첫 요청 miss, stale refill race, 무효화 누락 |
+| Read-through | 앱은 캐시에만 묻고, **캐시 계층**이 miss 때 DB 를 읽어 채움 | 로딩 로직이 한곳에 모임 | 캐시 계층이 DB 를 알아야 함 |
+| Write-through | 쓰기를 캐시와 DB 에 **동기로** 함께 반영 | 방금 쓴 데이터의 캐시가 항상 최신 | 쓰기 지연 증가, 읽히지 않을 데이터도 캐시됨 |
+| Write-behind (write-back) | 캐시에 먼저 쓰고 DB 반영은 **나중에 비동기로** 모아서 | 쓰기가 매우 빠르고 DB 쓰기를 묶을 수 있음 | 반영 전 캐시 장애 시 **데이터 유실**, 순서·정합성 관리가 어려움 |
+| Write-around | 쓰기는 DB 에만, 캐시는 읽을 때 채움 | 잘 안 읽는 데이터로 캐시를 채우지 않음 | 쓴 직후 읽기는 miss |
+| Refresh-ahead | 만료 전에 미리 다시 읽어 갱신 | 인기 키의 miss·stampede 감소 | 읽히지 않을 키까지 갱신하는 낭비 |
+
+예약·결제처럼 **유실되면 안 되는 원장 데이터에는 write-behind 를 쓰지 않는다.** 상품 상세·목록처럼 읽기가 많고 잠깐 오래된 값을 허용하는 데이터는 cache-aside 가 가장 흔한 출발점이다.
+
+#### Spring 에서 쓰기: `@Cacheable`, Lettuce, Redisson
+
+**Spring Cache 추상화:** `@EnableCaching` 후 `@Cacheable`(조회 결과 캐시), `@CachePut`(항상 실행하고 결과로 캐시 갱신), `@CacheEvict`(삭제)를 메서드에 붙인다. Redis 를 쓰면 `RedisCacheManager` 에서 캐시별 TTL(`entryTtl`)과 직렬화 방식을 정한다. 주의점은 다음과 같다.
+
+- `@Transactional` 처럼 **프록시 기반**이라 self-invocation 에서는 동작하지 않는다.
+- 기본 JDK 직렬화는 클래스 구조가 바뀌면 역직렬화가 깨지고 사람이 읽기 어렵다. JSON 직렬화와 캐시 키 버전(예: `product:v2:{id}`)을 고려한다.
+- `@CacheEvict` 가 트랜잭션 커밋 **전에** 실행되면, 커밋 전에 다른 요청이 옛 값을 다시 캐시에 채울 수 있다. `RedisCacheManager` 의 `transactionAware()` 처럼 커밋 뒤에 put/evict 를 실행하도록 설정한다.
+- `@Cacheable(sync = true)` 는 같은 키의 동시 miss 를 줄이는 힌트지만, 보장 범위는 캐시 구현에 따르며 여러 인스턴스 사이의 stampede 까지 막는다고 가정하지 않는다.
+
+**Lettuce 와 Redisson:**
+
+- **Lettuce** 는 Spring Boot 의 기본 Redis 클라이언트다. Netty 기반 비동기 클라이언트로, 연결 하나를 여러 스레드가 안전하게 공유한다. 락 기능은 없으므로 `SET NX PX` 와 owner 비교 해제 Lua 를 직접 구현해야 하고, 락을 기다릴 때 **반복 조회(spin)** 하면 Redis 부하와 지연이 커진다.
+- **Redisson** 은 락·세마포어·rate limiter 같은 분산 객체를 제공하는 클라이언트다. `RLock` 은 Lua 로 획득·해제를 원자 처리하고, 같은 스레드의 재진입을 지원하며, 락이 풀릴 때 **pub/sub 알림**으로 대기자를 깨우므로 spin 보다 효율적이다.
+  - `tryLock(waitTime, leaseTime, unit)`: 최대 `waitTime` 만큼 기다리고, 얻으면 `leaseTime` 뒤 자동 만료된다.
+  - **watchdog:** `leaseTime` 을 지정하지 않으면, 락을 쥔 클라이언트가 살아 있는 동안 만료 시간을 주기적으로 연장한다(기본 30 초 lease 를 그 1/3 주기로 갱신). 프로세스가 죽으면 연장이 멈춰 결국 풀린다. 대신 스레드가 외부 호출에 걸려 오래 멈춰도 프로세스가 살아 있으면 락이 계속 연장되므로, 임계 구역 안의 작업에 시간 제한을 둬야 한다.
+  - `RLock` 은 획득한 **스레드**가 해제해야 한다. 코루틴·비동기 코드에서 다른 스레드가 `unlock()` 하면 예외가 날 수 있다.
+
+**분산락과 `@Transactional` 의 순서:** 락은 트랜잭션보다 **바깥**에 있어야 한다. 순서는 `락 획득 → 트랜잭션 시작 → 커밋 → 락 해제` 다. 락을 `@Transactional` 메서드 안에서 해제하면, 커밋 전에 다음 요청이 락을 얻어 아직 커밋되지 않은 이전 상태를 읽고 같은 판단을 반복할 수 있다. 그래서 락을 거는 코드는 트랜잭션 메서드를 호출하는 바깥 빈(Facade 등)에 둔다.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant F as 바깥 Facade
+    participant L as Redisson 락
+    participant S as 트랜잭션 Service
+    participant DB as DB
+    F->>L: tryLock
+    L-->>F: 획득
+    F->>S: 호출 (트랜잭션 시작)
+    S->>DB: 조회·변경
+    S->>DB: COMMIT
+    S-->>F: 반환
+    F->>L: unlock (커밋 뒤)
+```
+
+#### 트래픽이 한 재고에 몰릴 때: Redis 선차감 게이트
+
+**문제:** 오픈 특가처럼 수많은 요청이 한 상품의 재고 행 하나에 몰리면, 조건부 UPDATE 는 정합성은 지키지만 모든 요청이 **같은 행 락을 차례로 기다린다.** 대부분은 어차피 품절로 실패할 요청인데도 DB 커넥션과 락 대기를 점유해 다른 API 까지 느려진다.
+
+**패턴:** Redis 를 **입구의 번호표 발급기**로 쓰고, DB 는 여전히 **최종 장부**로 둔다.
+
+1. 판매 시작 전에 `stock:{productId}` 에 판매 가능 수량을 넣는다.
+2. 요청마다 Lua 스크립트로 "남은 수량이 0 보다 크면 1 감소"를 원자적으로 실행한다. 사용자별 중복 참여 확인(`SADD` 결과 등)도 같은 스크립트에 넣을 수 있다.
+3. 실패한 요청은 **DB 에 가지 않고 바로 품절 응답**한다.
+4. 통과한 요청만 DB 트랜잭션에서 조건부 UPDATE·유니크 제약으로 예약을 확정한다.
+5. DB 확정이 실패하거나 결제 기한이 지나 취소되면 Redis 수량을 `INCR` 로 되돌리는 보상을 한다.
+6. 주기적인 대사(reconciliation) 작업이 DB 기준 판매 수량과 Redis 카운터를 비교해 어긋남을 고친다.
+
+```lua
+-- KEYS[1] = stock:{productId}
+local stock = tonumber(redis.call('GET', KEYS[1]))
+if stock == nil or stock <= 0 then
+  return -1
+end
+return redis.call('DECR', KEYS[1])
+```
+
+`DECR` 만 쓰면 키가 없을 때 `-1` 로 새 키가 생기고 음수로 내려가므로, 초기화 여부와 0 이하 검사를 스크립트 안에서 함께 한다.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as 요청
+    participant R as Redis 게이트
+    participant DB as DB (최종 원장)
+    U->>R: Lua 스크립트로 남은 수량 확인 후 1 감소
+    alt 수량 없음
+        R-->>U: 바로 품절 응답 (DB 접근 없음)
+    else 통과
+        R-->>U: 통과
+        U->>DB: 조건부 UPDATE + 예약 INSERT (한 트랜잭션)
+        alt DB 확정 실패
+            U->>R: INCR 로 수량 되돌림
+        end
+    end
+```
+
+**이 패턴이 보장하지 않는 것:**
+
+- Redis 는 원장이 아니다. 비동기 복제 중 failover 로 감소가 유실되면 Redis 가 실제보다 많이 통과시킬 수 있다. **DB 조건부 UPDATE 가 남아 있어야 초과 판매를 막는다.**
+- Redis 감소 뒤 DB 저장 전에 프로세스가 죽으면 번호표 하나가 사라져 덜 팔릴 수 있다. 대사 작업이나 hold 만료 처리로 회수한다.
+- Redis 장애 때의 정책이 필요하다. DB 경로로 우회하되 동시 요청 수를 제한할지, 판매를 잠시 멈출지 비즈니스와 정한다.
+- 대안으로 요청을 큐에 넣고 소비자가 차례로 처리하는 방식, 대기열(waiting room), 재고를 여러 행으로 나눈 sharded counter 도 있다.
+
 ### 예상 질문과 3 단계 드릴다운
 
 #### 1. Redis 를 이력서에서 어떻게 사용했나요?
@@ -356,6 +488,78 @@ flowchart TD
 
 **답변:** "캐시 miss 가 갑자기 전체 요청으로 바뀌면 DB 가 감당하지 못할 수 있습니다. 제한된 동시 fallback, 짧은 timeout, circuit breaker, 오래된 응답 허용 여부를 정해 연쇄 장애를 막습니다. DB 용량을 포함한 장애 시나리오를 검토해야 합니다."
 
+>아래 12~16 번은 개념 질문이다. 경험 범위는 1 번 질문에서 이미 밝혔으므로 여기서는 반복하지 않고 바로 답한다.
+
+#### 12. Redis 는 싱글 스레드인데 어떻게 빠른가요?
+
+**20 초 답변:** "데이터가 메모리에 있고, 명령을 한 스레드에서 차례로 실행해 락 경쟁이 없으며, I/O 다중화로 한 스레드가 많은 연결을 처리하기 때문입니다. 한 스레드에서 실행되므로 명령 하나하나가 원자적이라는 장점도 있습니다."
+
+**60 초 답변:** "메모리 접근, 단일 스레드 명령 실행, 이벤트 루프 기반 I/O 다중화가 핵심입니다. INCR 이나 SET NX 가 동시 요청에서도 안전한 이유가 단일 스레드 실행 덕분입니다. 대신 오래 걸리는 명령 하나가 모든 요청을 멈추므로 운영에서는 KEYS, 큰 컬렉션 전체 조회, 큰 키 DEL 을 피하고 SCAN 과 UNLINK 를 씁니다. Redis 6 부터 네트워크 I/O 는 별도 스레드를 쓸 수 있지만 명령 실행은 여전히 단일 스레드입니다."
+
+**꼬리 질문 1 — 운영에서 `KEYS *` 를 쓰면 어떻게 되나요?**
+
+**답변:** "모든 키를 한 번에 훑는 O(N) 명령이라 실행되는 동안 다른 모든 명령이 기다립니다. 키가 많으면 수 초 동안 사실상 장애가 납니다. SCAN 커서로 나눠 읽고, 키 목록이 자주 필요하면 별도 set 이나 인덱스로 관리합니다."
+
+**꼬리 질문 2 — `MULTI`/`EXEC` 는 DB 트랜잭션처럼 롤백되나요?**
+
+**답변:** "아닙니다. 묶은 명령이 끼어들기 없이 차례로 실행되는 것만 보장하고, 실행 중 한 명령이 실패해도 앞 명령의 결과는 남습니다. 앞 결과로 분기해야 하면 WATCH 로 낙관적 CAS 를 하거나 Lua 스크립트로 원자 실행합니다. Pipelining 은 왕복만 줄일 뿐 원자성은 없습니다."
+
+#### 13. Redis 가 재시작되면 데이터가 사라지나요? 고가용성은 어떻게 하나요?
+
+**20 초 답변:** "영속화 설정에 따라 다릅니다. RDB 는 주기적 스냅샷, AOF 는 쓰기 로그로 복구하며, 둘 다 마지막 일부 쓰기는 잃을 수 있습니다. 가용성은 복제와 Sentinel 의 자동 failover, 또는 샤딩까지 하는 Cluster 로 확보합니다."
+
+**60 초 답변:** "RDB 는 파일이 작고 재시작이 빠르지만 스냅샷 사이 쓰기를 잃고, AOF everysec 는 약 1 초 분량을 잃을 수 있습니다. 복제는 비동기라서 primary 가 응답한 쓰기가 복제 전에 유실된 채 replica 가 승격될 수 있습니다. 캐시는 다시 채우면 되지만 토큰 폐기 상태, 락, 재고 카운터처럼 Redis 에만 있는 상태는 이 유실을 전제로 설계합니다."
+
+**꼬리 질문 1 — Sentinel 과 Cluster 는 어떻게 다른가요?**
+
+**답변:** "Sentinel 은 샤딩 없는 한 primary 구성을 감시하고 장애 때 replica 를 승격하며 현재 primary 주소를 알려 줍니다. Cluster 는 데이터를 16384 개 hash slot 으로 나눠 여러 primary 에 분산하고 샤드별로 failover 합니다. 데이터와 처리량이 한 대로 충분하면 Sentinel, 수평 확장이 필요하면 Cluster 를 씁니다. Cluster 에서 여러 키를 함께 다루려면 hash tag 로 같은 slot 에 모아야 합니다."
+
+**꼬리 질문 2 — replica 가 있으면 Redis 락은 안전한가요?**
+
+**답변:** "아닙니다. 복제가 비동기라 primary 가 락 획득에 응답한 직후 복제 전에 죽으면, 승격된 replica 에는 락이 없어 다른 클라이언트가 같은 락을 얻을 수 있습니다. 그래서 중요한 쓰기는 fencing token 이나 DB 조건부 갱신으로 마지막 방어선을 둡니다."
+
+#### 14. 캐시 전략에는 어떤 것이 있나요?
+
+**20 초 답변:** "cache-aside, read-through, write-through, write-behind 가 대표적입니다. 가장 흔한 cache-aside 는 앱이 miss 때 DB 를 읽어 캐시를 채우고 쓰기 때 캐시를 지웁니다. write-through 는 쓰기 때 캐시와 DB 를 동기로 함께 갱신하고, write-behind 는 캐시에 먼저 쓰고 DB 에는 나중에 비동기로 반영합니다."
+
+**60 초 답변:** "read-through 는 캐시 계층이 miss 를 처리한다는 점이 cache-aside 와 다릅니다. write-through 는 쓴 데이터의 캐시가 최신이지만 쓰기가 느려지고, write-behind 는 쓰기가 빠르지만 DB 반영 전에 캐시가 죽으면 데이터를 잃습니다. 그래서 상품 상세처럼 읽기가 많고 잠깐의 stale 을 허용하는 데이터는 cache-aside 와 TTL 로 시작하고, 예약·결제 같은 원장 데이터는 DB 에 먼저 커밋합니다."
+
+**꼬리 질문 1 — 예약 데이터를 write-behind 로 쓰면 빠르지 않나요?**
+
+**답변:** "빠르지만 DB 반영 전에 Redis 가 죽으면 확정된 예약이 사라지고, DB 제약과 트랜잭션으로 지키던 불변조건 검사도 뒤로 밀립니다. 원장 데이터는 DB 에 먼저 커밋하고, 캐시는 조회 최적화에만 씁니다."
+
+**꼬리 질문 2 — Spring `@Cacheable` 을 쓸 때 주의할 점은?**
+
+**답변:** "프록시 기반이라 self-invocation 에서는 동작하지 않고, 캐시별 TTL 을 따로 정해야 합니다. 기본 JDK 직렬화는 클래스가 바뀌면 깨지므로 JSON 직렬화나 키 버전을 둡니다. @CacheEvict 가 커밋 전에 실행되면 stale 값이 다시 채워질 수 있어 transactionAware 설정으로 커밋 뒤에 지웁니다."
+
+#### 15. Lettuce 와 Redisson 의 차이, 분산락은 어떻게 구현하나요?
+
+**20 초 답변:** "Lettuce 는 Spring Boot 기본 클라이언트로 락 기능이 없어서 SET NX PX 와 해제 Lua, 대기 로직을 직접 구현해야 합니다. Redisson 의 RLock 은 원자적인 획득·해제, 재진입, pub/sub 기반 대기, watchdog 자동 연장을 제공합니다."
+
+**60 초 답변:** "Lettuce 로 직접 만들면 락을 기다리는 동안 반복 조회(spin)를 하게 되어 Redis 부하가 커집니다. Redisson 은 락이 풀릴 때 pub/sub 로 대기자를 깨우고, tryLock(waitTime, leaseTime) 으로 대기 시간과 만료 시간을 정합니다. leaseTime 을 주지 않으면 watchdog 이 락을 연장합니다. 어느 쪽이든 락은 트랜잭션 바깥에서 잡고 커밋 뒤에 풀어야 합니다."
+
+**꼬리 질문 1 — watchdog 이 무엇이고, leaseTime 을 직접 주는 게 낫나요?**
+
+**답변:** "leaseTime 없이 락을 얻으면 클라이언트가 살아 있는 동안 기본 30 초 lease 를 주기적으로 연장합니다. 작업이 lease 보다 길어져 락이 먼저 풀리는 문제를 줄이지만, 스레드가 외부 호출에 묶여 멈춰도 프로세스가 살아 있으면 계속 연장됩니다. leaseTime 을 지정하면 watchdog 없이 그 시간에 무조건 만료되므로 작업 시간 상한이 분명할 때 씁니다. 어느 쪽이든 임계 구역 작업에 timeout 을 두고, 중요한 쓰기는 DB 조건으로 보호합니다."
+
+**꼬리 질문 2 — 분산락과 `@Transactional` 은 어떤 순서여야 하나요?**
+
+**답변:** "락 획득, 트랜잭션 시작, 커밋, 락 해제 순서입니다. 트랜잭션 메서드 안에서 락을 풀면 커밋 전에 다음 요청이 락을 얻어 커밋되지 않은 이전 상태를 읽고 같은 판단을 반복할 수 있습니다. 그래서 락은 트랜잭션 메서드를 호출하는 바깥 Facade 에서 잡습니다."
+
+#### 16. 선착순 특가로 요청이 한 재고에 몰려 DB 조건부 UPDATE 가 병목이면요?
+
+**20 초 답변:** "조건부 UPDATE 는 정합성은 지키지만 모든 요청이 같은 행 락을 기다립니다. Redis 에 수량 카운터를 두고 Lua 로 원자적으로 감소시켜 품절 요청은 DB 에 가기 전에 돌려보내고, 통과한 요청만 DB 조건부 UPDATE 로 최종 확정합니다."
+
+**60 초 답변:** "판매 전에 Redis 에 수량을 넣고, 요청마다 Lua 스크립트로 남은 수량을 확인하고 감소시킵니다. 실패한 요청은 바로 품절 응답을 받아 DB 커넥션과 락을 쓰지 않습니다. 통과한 요청은 DB 트랜잭션에서 조건부 UPDATE 와 유니크 제약으로 확정하고, 실패하거나 결제 기한이 지나면 Redis 수량을 되돌립니다. Redis 는 게이트일 뿐 원장이 아니므로 대사 작업으로 DB 와 카운터를 주기적으로 맞춥니다."
+
+**꼬리 질문 1 — Redis 는 감소됐는데 DB 저장이 실패하면요?**
+
+**답변:** "실패 경로에서 INCR 로 수량을 되돌립니다. 프로세스가 죽어 보상을 못 한 경우를 위해 대사 작업이 DB 에 확정된 수량을 기준으로 카운터를 맞춥니다. 이 경우는 덜 팔리는 쪽의 오차라서, hold 만료와 대사 주기를 정해 회수합니다."
+
+**꼬리 질문 2 — 그럼 DB 조건부 UPDATE 는 빼도 되지 않나요?**
+
+**답변:** "빼면 안 됩니다. Redis 복제는 비동기라 failover 때 감소가 유실되어 실제보다 많이 통과시킬 수 있고, 운영 실수로 카운터가 틀어질 수도 있습니다. 초과 판매를 막는 최종 방어선은 DB 입니다."
+
 ### 면접 직전 요약
 
 - Redis 는 key 로 value 를 찾는 빠른 메모리 자료 저장소다.
@@ -367,6 +571,12 @@ flowchart TD
 - lease 만료는 영구 점유를 막지만 늦게 살아난 작업을 막지 못한다. 중요한 쓰기는 fencing 이나 DB 조건으로 보호한다.
 - 예약 최종 정합성은 DB 조건·트랜잭션·제약으로 지킨다. Redis 락은 필요할 때만 추가한다.
 - 메모리 eviction 과 Redis 장애는 캐시 miss/DB 부하뿐 아니라 토큰 상태 저장의 신뢰성에도 영향을 줄 수 있다.
+- 빠른 이유는 메모리, 단일 스레드 명령 실행, I/O 다중화다. 명령 하나는 원자적이지만 긴 명령 하나가 전체를 멈춘다(`KEYS` 대신 `SCAN`, `DEL` 대신 `UNLINK`).
+- `MULTI`/`EXEC` 는 롤백이 없고, 분기가 필요한 원자 작업은 Lua 로 한다. Pipelining 은 원자적이지 않다.
+- RDB 는 스냅샷, AOF 는 쓰기 로그다. 복제는 비동기라 failover 때 쓰기(락 포함)가 유실될 수 있다. Sentinel 은 failover, Cluster 는 16384 slot 샤딩까지 한다.
+- 캐시 전략: cache-aside, read-through, write-through, write-behind. 원장 데이터에 write-behind 는 쓰지 않는다.
+- Redisson `RLock` 은 pub/sub 대기와 watchdog 연장을 제공한다. 락은 트랜잭션 바깥에서 잡고 커밋 뒤에 푼다.
+- 한 재고에 요청이 몰리면 Redis Lua 선차감으로 품절 요청을 먼저 걸러내고, DB 조건부 UPDATE 로 최종 확정하며, 실패 보상과 대사 작업을 둔다.
 
 ### 공식 문서
 
@@ -374,3 +584,10 @@ flowchart TD
 - [Redis Cache-Aside 가이드](https://redis.io/docs/latest/develop/use-cases/cache-aside/) — TTL, 무효화, stampede
 - [Redis 분산락 패턴](https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/) — 락 획득·해제와 장애 고려사항
 - [Redis Key Eviction 문서](https://redis.io/docs/latest/develop/reference/eviction/) — `maxmemory` 와 LRU/LFU 등 메모리 초과 정책
+- [Redis Persistence](https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/) — RDB 와 AOF
+- [Redis Replication](https://redis.io/docs/latest/operate/oss_and_stack/management/replication/) — 비동기 복제
+- [Redis Cluster Specification](https://redis.io/docs/latest/operate/oss_and_stack/reference/cluster-spec/) — hash slot 과 hash tag
+- [Redis Transactions](https://redis.io/docs/latest/develop/interact/transactions/) — `MULTI`/`EXEC`/`WATCH`
+- [Spring Framework Cache Abstraction](https://docs.spring.io/spring-framework/reference/integration/cache.html) — `@Cacheable`, `@CacheEvict`
+- [Spring Data Redis: Redis Cache](https://docs.spring.io/spring-data/redis/reference/redis/redis-cache.html) — `RedisCacheManager`, TTL, transaction-aware
+- [Redisson: Locks and Synchronizers](https://redisson.org/docs/data-and-services/locks-and-synchronizers/) — `RLock`, watchdog
