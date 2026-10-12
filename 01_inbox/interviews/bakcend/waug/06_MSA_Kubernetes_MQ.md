@@ -100,6 +100,72 @@ sequenceDiagram
 
 예약 DB 저장은 성공했는데 이벤트 발행이 실패하면 알림/결제가 영영 시작되지 않을 수 있습니다. 반대로 이벤트를 먼저 발행하고 DB 저장이 실패할 수도 있습니다. 이를 줄이는 방법으로 **Transactional Outbox**를 사용할 수 있습니다. 하나의 DB 트랜잭션에서 예약 상태와 발행 대기 이벤트를 함께 저장한 다음, 별도 릴레이가 outbox 를 브로커에 발행하고 성공 여부를 기록합니다. 소비자 멱등 처리와 함께 써야 하며, 중복 발행 가능성은 여전히 고려합니다.
 
+#### 장애 전파 막기: timeout, retry, circuit breaker, bulkhead
+
+**비유:** 협력 업체 한 곳이 전화를 받지 않을 때 모든 직원이 그 전화를 붙들고 기다리면 사무실 전체가 멈춥니다. 대기 시간을 정하고(timeout), 잠깐 뒤 다시 걸되 무작정 반복하지 않고(retry), 계속 안 받으면 한동안 전화를 걸지 않으며(circuit breaker), 그 업체 담당 인원을 따로 정해 다른 업무 인력까지 묶이지 않게(bulkhead) 합니다.
+
+```mermaid
+flowchart LR
+    A[예약 서비스] -->|"요청 (timeout)"| B{Circuit Breaker}
+    B -->|"CLOSED: 통과"| C[결제 서비스]
+    B -->|"OPEN: 즉시 실패"| D[fallback 또는 명시적 오류]
+    C -->|일시 오류| E["retry (backoff + jitter, 횟수 제한)"]
+    E --> B
+```
+
+- **Timeout:** 모든 원격 호출에 연결 timeout 과 응답(read) timeout 을 둡니다. timeout 이 없으면 느린 하위 서비스 때문에 호출자의 스레드·커넥션이 계속 묶여, 호출자까지 응답하지 못하는 **연쇄 장애**가 납니다. 값은 하위 서비스의 정상 p99 와 사용자 요청 전체의 시간 예산을 보고 정합니다.
+- **Retry:** 네트워크 끊김이나 503 처럼 **일시적이고**, 다시 보내도 결과가 같은 **멱등한** 요청만 재시도합니다. 400 같은 검증 오류는 재시도하지 않습니다. 간격은 **지수 backoff + jitter(무작위 지연)** 로 벌려, 모든 클라이언트가 같은 순간에 다시 몰리는 retry storm 을 막고 횟수를 제한합니다. 여러 계층이 각자 3 번씩 재시도하면 3×3×3 = 27 배로 부하가 커지므로 재시도는 한 계층에서만 합니다.
+- **Circuit breaker:** 최근 호출의 실패율·느린 호출 비율을 보고 상태를 바꿉니다.
+  - `CLOSED`: 정상 상태. 호출을 통과시키며 결과를 집계합니다.
+  - `OPEN`: 실패율이 임계값을 넘으면 일정 시간 호출을 보내지 않고 **즉시 실패**합니다. 망가진 하위 서비스에 부하를 더하지 않고, 호출자도 기다리지 않습니다.
+  - `HALF_OPEN`: 대기 시간이 지나면 제한된 수의 시험 호출만 보내, 성공하면 `CLOSED`, 실패하면 다시 `OPEN` 으로 갑니다.
+- **Bulkhead:** 하위 서비스별로 동시 호출 수(세마포어)나 스레드 풀을 따로 둬, 한 서비스가 느려져도 그 몫의 자원만 묶이게 합니다.
+- **Fallback:** 캐시된 값이나 기본값으로 대신 응답할 수 있지만, 결제·재고처럼 **틀린 성공을 주면 안 되는** 호출은 fallback 으로 성공을 꾸미지 않고 명확한 실패나 `처리중` 상태를 돌려줍니다.
+
+Spring 에서는 Resilience4j 로 이 패턴을 적용하는 경우가 많습니다. 애너테이션을 함께 붙이면 기본 적용 순서는 바깥부터 `Retry → CircuitBreaker → RateLimiter → TimeLimiter → Bulkhead → 실제 호출` 입니다. 즉 재시도 한 번 한 번이 circuit breaker 집계에 들어갑니다.
+
+```mermaid
+stateDiagram-v2
+    [*] --> CLOSED
+    CLOSED --> OPEN: 실패율 또는 느린 호출 비율이 임계값 초과
+    OPEN --> HALF_OPEN: 대기 시간 경과
+    HALF_OPEN --> CLOSED: 시험 호출 성공
+    HALF_OPEN --> OPEN: 시험 호출 실패
+```
+
+#### 2PC 를 쓰지 않는 이유와 Saga 의 두 방식
+
+**2PC(Two-Phase Commit)** 는 코디네이터가 모든 참여자에게 "커밋할 준비가 됐는가(prepare)"를 묻고, 모두 준비되면 "커밋하라(commit)"를 보내는 분산 트랜잭션 프로토콜입니다. MSA 에서 잘 쓰지 않는 이유는 다음과 같습니다.
+
+- **가용성:** 참여자가 모두 살아 있어야 커밋할 수 있습니다. 서비스가 늘수록 전체 성공 확률이 떨어집니다.
+- **블로킹:** prepare 뒤 코디네이터가 죽으면 참여자는 커밋할지 롤백할지 모른 채 락을 쥐고 기다립니다.
+- **지연과 락 보유:** 두 번의 왕복 동안 각 DB 의 락이 유지돼 처리량이 떨어집니다.
+- **지원 범위:** 메시지 브로커나 외부 결제사(PG) API 는 대부분 XA 같은 2PC 참여를 지원하지 않습니다.
+
+그래서 서비스마다 **로컬 트랜잭션**을 커밋하고, 실패하면 이미 끝난 단계를 **보상 트랜잭션**으로 되돌리는 **Saga** 를 씁니다. Saga 에는 격리성이 없어 중간 상태가 다른 요청에 보이므로, `결제대기` 같은 상태를 두어 아직 확정되지 않았음을 표시합니다(semantic lock).
+
+| 방식 | 동작 | 장점 | 단점 |
+|---|---|---|---|
+| Choreography(코레오그래피) | 각 서비스가 다른 서비스의 이벤트를 구독하고 반응. 중앙 조정자 없음 | 단계가 적을 때 단순하고 서비스 간 결합이 낮음 | 전체 흐름이 코드 곳곳에 흩어져 추적·변경이 어렵고, 이벤트가 순환할 수 있음 |
+| Orchestration(오케스트레이션) | 오케스트레이터가 각 서비스에 명령을 보내고 상태 머신으로 진행·타임아웃·보상을 관리 | 흐름이 한곳에 명시되어 모니터링·타임아웃·보상이 쉬움 | 오케스트레이터에 로직과 의존이 몰림 |
+
+```mermaid
+flowchart TB
+    subgraph CH[Choreography]
+      R1[예약] -->|ReservationCreated| P1[결제]
+      P1 -->|PaymentApproved| R1
+      P1 -->|PaymentApproved| N1[알림]
+    end
+    subgraph OR[Orchestration]
+      O[예약 Saga 오케스트레이터] -->|결제 승인 명령| P2[결제]
+      P2 -->|승인 결과| O
+      O -->|확정 명령| R2[예약]
+      O -->|발송 명령| N2[알림]
+    end
+```
+
+**선택 기준:** 단계가 2~3 개이고 각 서비스가 독립적으로 반응하면 choreography, 예약→결제→공급사 확정→바우처 발급처럼 단계가 많고 타임아웃·보상 순서가 중요하면 orchestration 이 관리하기 쉽습니다. 오케스트레이터는 DB 에 상태를 저장하는 직접 구현이나 Temporal 같은 워크플로 엔진으로 만들 수 있습니다.
+
 ### 3. Kubernetes 기본
 
 #### 비유: 운영자가 원하는 상태를 적으면 현장 관리자가 맞춰 가는 곳
@@ -140,6 +206,41 @@ flowchart LR
 Deployment 의 rolling update 는 새 Pod 를 준비하고 구 Pod 를 줄이며 교체할 수 있습니다. readiness 가 준비되지 않은 Pod 에 트래픽을 보내지 않도록 하고, 구·신 버전이 잠시 공존해도 API 와 DB 스키마가 호환되는지 고려해야 합니다. 롤백은 애플리케이션 이미지를 이전 버전으로 돌릴 수 있어도, 이미 수행한 DB 마이그레이션이나 외부 부작용까지 자동 취소하지 않습니다.
 
 HPA 는 Pod 개수만 늘릴 수 있습니다. DB connection pool, 외부 결제사의 한도, MQ 소비량이 병목이면 Pod 를 늘려도 해결되지 않거나 부하를 키울 수 있습니다. 적절한 requests/limits, 대시보드와 알림, 용량 한계도 같이 봐야 합니다.
+
+#### Graceful shutdown: 롤링 배포 중 요청을 잃지 않기
+
+Pod 가 종료될 때는 두 일이 **동시에** 시작됩니다. 하나는 Service 의 엔드포인트 목록에서 Pod 를 빼는 일이고, 다른 하나는 kubelet 이 컨테이너에 `SIGTERM` 을 보내는 일입니다. 엔드포인트 제거가 kube-proxy 와 Ingress 컨트롤러에 퍼지는 데 시간이 걸리므로, 앱이 `SIGTERM` 을 받자마자 종료하면 아직 그 Pod 로 오는 요청이 실패합니다.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant K as Kubernetes
+    participant LB as Service/Ingress 라우팅
+    participant P as Pod (Spring Boot)
+    K->>LB: 엔드포인트에서 Pod 제거 시작
+    K->>P: preStop hook 실행 (몇 초 sleep 등)
+    Note over LB: 라우팅 정보가 퍼지는 동안 요청이 조금 더 올 수 있음
+    K->>P: SIGTERM
+    P->>P: 새 요청 거부, 진행 중 요청 완료 대기
+    P-->>K: 정상 종료
+    Note over K,P: terminationGracePeriodSeconds(기본 30초)를 넘기면 SIGKILL
+```
+
+- **preStop hook:** `SIGTERM` 전에 몇 초 기다려 라우팅에서 빠질 시간을 줍니다.
+- **Spring Boot graceful shutdown:** `server.shutdown=graceful` 이면 새 요청을 받지 않고 진행 중 요청이 끝날 때까지 기다립니다(Spring Boot 3.4 부터 기본값). 대기 상한은 `spring.lifecycle.timeout-per-shutdown-phase`(기본 30 초)입니다.
+- **`terminationGracePeriodSeconds`:** preStop 과 앱 종료를 합친 시간의 상한입니다. 기본 30 초가 지나면 `SIGKILL` 로 강제 종료되므로, preStop 대기와 앱의 최대 종료 시간을 더한 값보다 크게 잡습니다.
+- **PID 1 이 신호를 받는지 확인:** 컨테이너를 `sh -c "java -jar ..."` 같은 셸 형식으로 띄우면 셸이 `SIGTERM` 을 Java 프로세스에 전달하지 않을 수 있습니다. Dockerfile 에서 `ENTRYPOINT ["java", "-jar", "app.jar"]` 같은 exec 형식을 씁니다.
+- **메시지 소비자·배치:** 새 메시지 수신을 멈추고, 처리 중인 메시지를 끝내 ACK 한 뒤 종료합니다. 끝내지 못한 메시지는 재전달되므로 여기서도 멱등 처리가 필요합니다.
+- **Rolling update 설정:** Deployment 의 `maxSurge`(추가로 더 띄울 수 있는 Pod 수, 기본 25%)와 `maxUnavailable`(동시에 내려가도 되는 Pod 수, 기본 25%)로 교체 속도와 가용 용량을 조절합니다.
+
+#### requests/limits, OOMKilled, JVM 메모리
+
+- **requests:** 스케줄러가 Pod 를 배치할 때 확보해야 하는 자원입니다. HPA 의 CPU 사용률(%)도 requests 를 기준으로 계산합니다.
+- **limits:** 컨테이너가 쓸 수 있는 상한입니다. **CPU 를 넘으면 throttling(느려짐)**, **메모리를 넘으면 커널이 컨테이너를 강제 종료(OOMKilled, 종료 코드 137)** 합니다.
+- **QoS 클래스:** 모든 컨테이너의 CPU·메모리 requests 와 limits 가 같으면 `Guaranteed`, 일부만 지정하면 `Burstable`, 아무것도 없으면 `BestEffort` 입니다. 노드 메모리가 부족하면 `BestEffort` 부터 축출됩니다.
+- **JVM 과 컨테이너 메모리:** 최신 JVM 은 컨테이너 메모리 limit 을 인식하지만, 메모리가 아주 작은 경우를 빼면 기본 최대 힙은 limit 의 25% 입니다. 보통 `-XX:MaxRAMPercentage` 로 힙 비율을 정하되, 힙 밖의 메타스페이스·스레드 스택·다이렉트 버퍼·코드 캐시도 limit 안에 들어가야 하므로 여유를 남깁니다.
+- **OOMKilled 와 `OutOfMemoryError` 는 다릅니다.** `OutOfMemoryError` 는 JVM 이 힙이 부족하다고 던지는 예외이고, OOMKilled 는 프로세스 전체 메모리가 컨테이너 limit 을 넘어 커널이 죽인 것입니다. 앞의 경우는 힙 덤프와 힙 크기를, 뒤의 경우는 힙 밖 메모리와 limit 설정을 먼저 봅니다.
+- **CPU limit 과 지연:** CPU limit 에 걸리면 throttling 으로 응답 지연의 꼬리(p99)가 길어질 수 있어, 팀에 따라 CPU 는 requests 만 두고 limit 을 두지 않기도 합니다. 정답이 하나인 설정은 아니므로 throttling 비율과 p99 지표로 판단합니다.
 
 ### 4. 면접 문답: MSA
 
@@ -197,6 +298,42 @@ HPA 는 Pod 개수만 늘릴 수 있습니다. DB connection pool, 외부 결제
 
 **답변:** "보상 순서와 재고 예약의 만료/확정 모델을 먼저 정의해야 합니다. 재고를 임시 hold 로 잡고 제한 시간 안에 결제가 끝나지 않으면 해제하는 방식이 후보입니다. 각 상태 전이는 조건부 갱신이나 제약으로 보호하고, 동시성 테스트로 초과 판매가 없는지 검증하겠습니다. 구체 정책은 상품의 취소 규칙에 따라 달라집니다."
 
+#### 질문 4: 결제 서비스가 느려질 때 예약 서비스까지 장애가 번지지 않게 하려면?
+
+**20 초 답변**
+
+"모든 원격 호출에 timeout 을 두고, 일시 오류만 backoff 와 jitter 를 넣어 제한적으로 재시도하며, 실패율이 높아지면 circuit breaker 로 호출을 끊어 즉시 실패시킵니다. bulkhead 로 결제 호출에 쓰는 동시 호출 수를 제한해 다른 API 의 자원까지 묶이지 않게 합니다."
+
+**상세 답변**
+
+"timeout 이 없으면 결제 응답을 기다리는 스레드와 커넥션이 쌓여 예약 서비스의 다른 API 까지 멈춥니다. 그래서 연결·응답 timeout 을 하위 서비스의 p99 와 전체 시간 예산에 맞춰 두고, 재시도는 멱등한 요청의 일시 오류에만 한 계층에서 합니다. circuit breaker 는 실패율이 임계값을 넘으면 OPEN 으로 바꿔 즉시 실패시키고, 대기 시간이 지나면 HALF_OPEN 에서 시험 호출로 회복을 확인합니다. Spring 에서는 Resilience4j 로 이 정책을 선언적으로 적용할 수 있습니다."
+
+**꼬리질문 1:** "재시도는 많이 할수록 성공률이 올라가지 않나요?"
+
+**답변:** "장애 중인 서비스에 재시도가 몰리면 오히려 회복을 방해하고, 여러 계층이 각자 재시도하면 부하가 곱으로 커집니다. 일시 오류와 멱등 요청에만, 한 계층에서, 지수 backoff 와 jitter 로 간격을 벌려 횟수와 전체 시간 예산 안에서 재시도합니다. 결제처럼 부작용이 있는 요청은 idempotency key 없이 재시도하지 않습니다."
+
+**꼬리질문 2:** "circuit breaker 가 OPEN 이면 사용자에게 무엇을 돌려주나요?"
+
+**답변:** "데이터 성격에 따라 다릅니다. 추천 목록 같은 부가 기능은 캐시나 기본값 fallback 으로 응답할 수 있습니다. 결제처럼 틀린 성공이 위험한 호출은 성공을 꾸미지 않고 '결제 처리 지연' 같은 명확한 실패나 결제대기 상태를 돌려주고 나중에 재처리합니다. fallback 이 장애를 숨기지 않도록 OPEN 전환은 지표와 알림으로 드러냅니다."
+
+#### 질문 5: 왜 2PC 대신 Saga 를 쓰고, choreography 와 orchestration 은 어떻게 고르나요?
+
+**20 초 답변**
+
+"2PC 는 모든 참여자가 살아 있어야 하고, 코디네이터가 죽으면 참여자가 락을 쥔 채 멈추며, 브로커나 외부 결제사는 참여를 지원하지 않는 경우가 많습니다. 그래서 서비스별 로컬 트랜잭션과 보상으로 이루어진 Saga 를 씁니다. 단계가 적으면 이벤트에 반응하는 choreography, 단계와 보상 순서가 복잡하면 오케스트레이터가 상태를 관리하는 orchestration 을 고릅니다."
+
+**상세 답변**
+
+"choreography 는 예약 서비스가 ReservationCreated 를 발행하고 결제 서비스가 반응하는 식이라 결합이 낮지만, 흐름이 여러 서비스에 흩어져 전체 상태를 보기 어렵습니다. orchestration 은 예약 Saga 오케스트레이터가 결제 승인, 확정, 알림 명령을 차례로 보내고 상태 머신에 진행 상황을 저장하므로 타임아웃과 보상 순서를 한곳에서 관리할 수 있습니다. 예약→결제→공급사 확정처럼 단계가 많은 흐름은 orchestration 이 더 다루기 쉽다고 생각합니다."
+
+**꼬리질문 1:** "Saga 는 격리성이 없다는데 무슨 문제가 생기나요?"
+
+**답변:** "중간 상태가 다른 요청에 보입니다. 결제 전인 예약이 확정처럼 보이거나, 보상되기 전의 값을 다른 요청이 사용할 수 있습니다. 결제대기처럼 미확정 상태를 명시하고, 상태 전이는 조건부 갱신으로 보호하며, 되돌리기 쉬운 단계를 먼저 실행하는 순서로 위험을 줄입니다."
+
+**꼬리질문 2:** "오케스트레이터가 중간에 죽으면 어떻게 되나요?"
+
+**답변:** "진행 상태를 DB 에 저장해 두면 재시작한 뒤 마지막 단계부터 이어갈 수 있습니다. 이때 같은 명령이 다시 나갈 수 있으므로 각 단계의 명령과 처리는 멱등해야 하고, 타임아웃이 지난 단계는 상대 서비스의 상태를 다시 조회해 확인합니다. Temporal 같은 워크플로 엔진은 이 상태 저장과 재시도를 기본으로 제공합니다."
+
 ### 5. 면접 문답: Kubernetes
 
 #### 질문 1: Kubernetes 를 무엇에 쓰나요? MSA 와 어떤 관계인가요?
@@ -252,6 +389,42 @@ HPA 는 Pod 개수만 늘릴 수 있습니다. DB connection pool, 외부 결제
 **꼬리질문 2:** "그럼 자동 확장의 효과는 어떻게 확인하죠?"
 
 **답변:** "요청량뿐 아니라 지연시간, 오류율, CPU·메모리, DB connection/쿼리 지연, MQ lag 같은 지표를 기준으로 부하 테스트를 하겠습니다. scale-up/down 지연과 최대 복제본 제한을 확인하고, 비정상 부하에서 비용이나 하위 시스템 보호가 되는지도 검증합니다."
+
+#### 질문 4: 롤링 배포 중 요청이 끊기지 않게 하려면 어떻게 하나요?
+
+**20 초 답변**
+
+"readiness probe 로 준비된 Pod 에만 트래픽을 보내고, 종료할 때는 preStop 으로 라우팅에서 빠질 시간을 준 뒤 SIGTERM 을 받으면 Spring Boot graceful shutdown 으로 진행 중 요청을 끝내고 종료합니다. terminationGracePeriodSeconds 는 그 시간보다 크게 잡습니다."
+
+**상세 답변**
+
+"Pod 종료 때 엔드포인트 제거와 SIGTERM 전송이 동시에 시작되기 때문에, 앱이 바로 종료하면 라우팅이 갱신되기 전에 들어온 요청이 실패합니다. preStop 에서 몇 초 기다리고, server.shutdown=graceful 로 새 요청은 거부하되 진행 중 요청은 마무리합니다. 컨테이너는 exec 형식 ENTRYPOINT 로 Java 가 직접 SIGTERM 을 받게 하고, maxSurge 와 maxUnavailable 로 교체 중 용량을 유지합니다. 구버전과 신버전이 잠시 함께 뜨므로 API 와 DB 스키마의 하위 호환도 지킵니다."
+
+**꼬리질문 1:** "graceful shutdown 만 켜면 되지 preStop 은 왜 필요하죠?"
+
+**답변:** "엔드포인트 제거와 SIGTERM 이 동시에 일어나기 때문입니다. 앱이 새 요청 거부를 시작한 뒤에도 kube-proxy 나 Ingress 의 라우팅 정보가 아직 갱신되지 않아 요청이 들어올 수 있습니다. preStop 대기가 그 틈을 메워 줍니다."
+
+**꼬리질문 2:** "배포 중 구버전과 신버전이 함께 떠 있으면 무엇을 조심하나요?"
+
+**답변:** "두 버전이 같은 API 응답, 이벤트 스키마, DB 스키마를 함께 이해해야 합니다. 필드는 선택적으로 추가하고 삭제는 나중에 하며(expand→contract), 메시지에는 버전 정보를 두고 하위 호환을 유지합니다. 그래야 배포 도중에도, 롤백할 때도 서로의 데이터를 읽을 수 있습니다."
+
+#### 질문 5: Pod 가 OOMKilled 로 계속 재시작됩니다. 어떻게 보나요?
+
+**20 초 답변**
+
+"컨테이너 메모리가 limit 을 넘어 커널이 강제 종료한 것입니다. JVM 힙과 힙 밖 메모리(메타스페이스, 스레드 스택, 다이렉트 버퍼)를 합친 크기가 limit 안에 들어가는지 보고, 실제 사용 추이에 맞춰 limit 이나 MaxRAMPercentage 를 조정합니다."
+
+**상세 답변**
+
+"먼저 Pod 이벤트와 종료 코드 137 로 OOMKilled 인지 확인하고, 메모리 사용 추이가 꾸준히 늘어나는지(누수) 아니면 특정 요청에서 급증하는지 봅니다. JVM 이 Java OutOfMemoryError 를 던진 것인지, 프로세스 전체가 limit 을 넘은 것인지 구분합니다. 힙 비율이 너무 높아 힙 밖 메모리 여유가 없으면 MaxRAMPercentage 를 낮추거나 limit 을 올리고, 누수가 의심되면 힙 덤프와 네이티브 메모리 추적으로 원인을 찾습니다."
+
+**꼬리질문 1:** "OOMKilled 와 Java 의 OutOfMemoryError 는 같은 건가요?"
+
+**답변:** "다릅니다. OutOfMemoryError 는 JVM 이 힙이나 메타스페이스가 부족하다고 던지는 예외이고, 프로세스는 살아 있을 수 있습니다. OOMKilled 는 프로세스 전체 메모리가 컨테이너 limit 을 넘어 커널이 죽인 것이라 JVM 로그 없이 사라질 수 있습니다. 앞은 힙 크기와 힙 덤프를, 뒤는 힙 밖 메모리와 limit 설정을 먼저 봅니다."
+
+**꼬리질문 2:** "requests 와 limits 는 어떻게 정하나요?"
+
+**답변:** "부하 테스트와 운영 지표에서 평소 사용량으로 requests 를, 피크와 여유분으로 limits 를 정합니다. 메모리는 넘으면 바로 죽으므로 requests 와 limits 를 같게 두어 예측 가능하게 하는 경우가 많고, CPU limit 은 throttling 이 지연을 늘릴 수 있어 지표를 보고 판단합니다. HPA 의 CPU 사용률도 requests 기준이므로 requests 가 현실과 맞아야 확장도 제대로 동작합니다."
 
 ### 6. 면접 문답: MQ
 
@@ -405,6 +578,8 @@ HPA 는 Pod 개수만 늘릴 수 있습니다. DB connection pool, 외부 결제
 2. **10 분:** 예약 생성→결제대기→결제 결과→확정/취소의 상태 흐름을 설명합니다. 중복 메시지, outbox, 멱등 처리, DLQ 를 연결합니다.
 3. **10 분:** Pod/Deployment/Service/Ingress, readiness/liveness, Secret, HPA 를 한 문장씩 말합니다.
 4. **5 분:** 개발 Jenkins 와 운영 Argo CD 가 다른 이유, 본인이 직접 맡은 범위와 제한을 정직하게 설명합니다.
+5. **추가 5 분:** timeout·retry(backoff+jitter)·circuit breaker 3 상태·bulkhead, 2PC 를 안 쓰는 이유와 choreography/orchestration 차이를 말합니다.
+6. **추가 5 분:** preStop → SIGTERM → graceful shutdown → SIGKILL 순서, requests/limits 와 OOMKilled(종료 코드 137)와 JVM `MaxRAMPercentage` 를 말합니다.
 
 ### 공식 참고 자료
 
@@ -412,5 +587,9 @@ HPA 는 Pod 개수만 늘릴 수 있습니다. DB connection pool, 외부 결제
 - RabbitMQ [AMQP concepts](https://www.rabbitmq.com/tutorials/amqp-concepts), [Acknowledgements and confirms](https://www.rabbitmq.com/docs/confirms)
 - Apache Kafka [Introduction](https://kafka.apache.org/intro), [Design](https://kafka.apache.org/documentation/#design)
 - Argo CD [Core Concepts](https://argo-cd.readthedocs.io/en/stable/core_concepts/)
+- Resilience4j [CircuitBreaker](https://resilience4j.readme.io/docs/circuitbreaker), [Bulkhead](https://resilience4j.readme.io/docs/bulkhead), [Retry](https://resilience4j.readme.io/docs/retry)
+- microservices.io [Saga pattern](https://microservices.io/patterns/data/saga.html)
+- Kubernetes [Pod termination](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), [Resource management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/), [Pod QoS classes](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/)
+- Spring Boot [Graceful Shutdown](https://docs.spring.io/spring-boot/reference/web/graceful-shutdown.html)
 
 면접 전 공식 문서를 전부 읽을 필요는 없습니다. 이 노트의 개념 대비와 답변을 먼저 연습하고, 질문이 들어온 세부만 공식 문서에서 확인하세요.

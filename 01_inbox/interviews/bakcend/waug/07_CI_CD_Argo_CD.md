@@ -114,6 +114,38 @@ Kubernetes 는 원하는 상태를 선언하고 실제 상태를 지속적으로
 
 다만 Argo CD 가 모든 배포 문제를 자동으로 해결하는 것은 아닙니다. 잘못된 선언도 그대로 적용할 수 있고, Secret 관리나 네트워크 정책, 애플리케이션의 데이터베이스 마이그레이션과 호환성은 별도로 설계해야 합니다.
 
+### 2.1. 개발 환경 쪽 개념: 여러 서비스를 함께 띄우기와 Jenkins 호출 경로
+
+#### Kubernetes 없이 여러 서비스를 띄우는 방법: Docker Compose
+
+개발 서버처럼 한 대의 VM 에서 여러 서비스를 함께 띄울 때는 Docker Compose 가 흔한 선택입니다. `compose.yaml` 에 서비스별 이미지(또는 빌드 경로), 포트, 환경 변수, 볼륨, 네트워크를 선언하고 `docker compose up -d` 로 한 번에 올립니다.
+
+- **서비스 이름이 곧 주소:** 같은 Compose 프로젝트의 컨테이너는 기본 네트워크에서 서비스 이름(`http://payment:8080`)으로 서로를 찾습니다.
+- **기동 순서와 준비 상태는 다릅니다.** `depends_on` 은 시작 순서만 정합니다. DB 가 실제로 접속을 받을 준비가 될 때까지 기다리려면 `healthcheck` 를 정의하고 `depends_on` 에 `condition: service_healthy` 를 씁니다. 앱 쪽에서도 DB 연결 재시도를 둡니다.
+- **반복 적용:** `docker compose up -d` 는 정의가 바뀐 서비스만 다시 만들고 나머지는 그대로 둡니다. 새 이미지를 쓰려면 `docker compose pull` 후 다시 `up -d` 합니다.
+- **한계:** 한 호스트 안에서만 동작하고, 재시작 정책(`restart`) 외에 여러 노드 간 재배치·롤링 업데이트·오토스케일 같은 기능은 없습니다.
+
+| 기준 | Docker Compose | Kubernetes |
+|---|---|---|
+| 범위 | 한 호스트 | 여러 노드의 클러스터 |
+| 복구 | 컨테이너 재시작 정책 | 컨트롤러가 원하는 상태로 계속 맞춤(다른 노드로 재배치 포함) |
+| 배포 | 컨테이너 재생성 | 롤링 업데이트, readiness 기반 트래픽 전환 |
+| 확장 | 수동 | HPA 등 자동 확장 |
+| 잘 맞는 곳 | 개발·테스트 환경, 소규모 단일 서버 | 운영 환경, 여러 서비스의 독립 배포·확장 |
+
+개발은 Compose, 운영은 Kubernetes 처럼 실행 기반이 다르면 **설정 주입 방식, 서비스 주소, 헬스체크, 리소스 제한**에서 차이가 생깁니다. 같은 이미지를 쓰고 주소와 설정을 환경 변수로 주입하면 차이를 줄일 수 있습니다.
+
+#### GitHub 이벤트로 Jenkins 를 실행하는 방법들
+
+| 방식 | 흐름 | 필요한 조건 | 주의점 |
+|---|---|---|---|
+| GitHub webhook → Jenkins | GitHub 서버가 Jenkins 의 webhook URL 을 직접 호출 | Jenkins 가 인터넷에서 접근 가능해야 함 | 사내망·방화벽 뒤 Jenkins 에는 닿지 않음. 서명(`X-Hub-Signature-256`) 검증 필요 |
+| GitHub Actions → Jenkins 원격 API | workflow 가 Jenkins 의 `buildWithParameters` 등을 API 토큰으로 호출 | Actions 러너에서 Jenkins 에 접근할 수 있어야 함 | 브랜치·경로 조건을 Actions 에서 걸러낼 수 있음. 토큰은 GitHub Secrets 에 두고, 권한은 해당 job 실행으로 제한 |
+| Self-hosted runner → Jenkins | 내부망에 둔 Actions 러너가 GitHub 에 **바깥으로** 접속해 작업을 받고, 내부의 Jenkins 를 호출 | 내부망에 러너 설치 | 인바운드 포트를 열지 않아도 됨. 러너 호스트의 보안과 격리가 중요 |
+| Jenkins SCM polling | Jenkins 가 주기적으로 저장소 변경을 확인 | Jenkins 에서 GitHub 로 나가는 연결 | 반영이 늦고 불필요한 조회가 늘어남 |
+
+**Jenkins 를 남겨 두는 흔한 이유:** 개발 서버에 접근하는 자격증명과 에이전트, 기존 배포 스크립트가 이미 Jenkins 에 있고, 그 서버가 외부에서 직접 접근되지 않는 경우입니다. 이때 GitHub Actions 는 "어떤 이벤트에서 배포할지"를 정하는 트리거를, Jenkins 는 "내부 서버에서 실제로 무엇을 실행할지"를 맡습니다. 대가로 파이프라인이 두 시스템에 나뉘어 비밀값 관리 위치와 로그 확인 위치가 둘이 됩니다.
+
 ### 3. 본인 배경을 설명하는 기본 답변
 
 #### 짧은 버전
@@ -332,6 +364,42 @@ flowchart TB
 
 >변경 가능한 태그는 같은 이름이 다른 이미지 내용을 가리킬 수 있어 재현성이 떨어집니다. 불변 태그나 이미지 다이제스트를 사용하고, 배포 기록에서 소스 커밋과 이미지가 연결되도록 해야 합니다. 실제 환경의 사용 여부는 확인해서 답하겠습니다.
 
+#### 질문 11: Kubernetes 가 아닌 개발 서버에서 여러 서비스를 어떻게 함께 띄우나요?
+
+**짧은 답변**
+
+>한 대의 서버라면 Docker Compose 로 서비스별 컨테이너와 네트워크를 선언하고 한 번에 올리는 방식이 일반적입니다. 컨테이너는 서비스 이름으로 서로를 찾고, healthcheck 와 `depends_on` 조건으로 DB 같은 의존 서비스가 준비된 뒤 앱을 띄웁니다.
+
+**상세 답변**
+
+>`compose.yaml` 하나에 모든 서비스의 이미지, 포트, 환경 변수, 볼륨을 선언해 두면 `docker compose up -d` 한 번으로 같은 구성을 반복해서 올릴 수 있습니다. 서비스마다 수동으로 실행하는 것과 달리 빠지는 서비스가 없고, 정의가 바뀐 서비스만 다시 만듭니다. 대신 한 호스트에서만 동작하고 롤링 업데이트나 자동 확장은 없으므로 개발·테스트 환경에 적합하고, 운영처럼 여러 노드에서 독립 배포·확장이 필요하면 Kubernetes 를 씁니다.
+
+**꼬리질문 1 — `depends_on` 만 쓰면 DB 가 준비되기 전에 앱이 뜨지 않나요?**
+
+>맞습니다. `depends_on` 은 시작 순서만 정합니다. DB 컨테이너에 healthcheck 를 정의하고 `condition: service_healthy` 로 준비될 때까지 기다리게 하며, 앱도 시작 시 DB 연결 재시도를 둬서 순서가 어긋나도 회복되게 합니다.
+
+**꼬리질문 2 — 개발은 Compose, 운영은 Kubernetes 면 무엇이 달라질 수 있나요?**
+
+>설정 주입(환경 변수 vs ConfigMap/Secret), 서비스 주소(Compose 서비스 이름 vs Kubernetes Service DNS), 헬스체크(healthcheck vs probe), 리소스 제한, 재시작과 롤링 방식이 다릅니다. 같은 이미지를 쓰고 주소와 설정을 환경 변수로 받게 하면 차이를 줄일 수 있고, 남는 차이는 문서로 남깁니다.
+
+#### 질문 12: GitHub Actions 와 Jenkins 는 어떻게 연결하나요? 왜 바로 Jenkins 로 webhook 을 보내지 않나요?
+
+**짧은 답변**
+
+>Jenkins 가 내부망에 있어 GitHub webhook 이 직접 닿지 않거나, 내부 서버 접근 권한과 배포 스크립트가 Jenkins 에 있을 때 이렇게 구성합니다. GitHub Actions 가 브랜치·경로 조건으로 이벤트를 거르고 Jenkins 원격 API 를 호출하면, Jenkins 가 내부에서 실제 배포를 실행합니다.
+
+**상세 답변**
+
+>GitHub webhook 은 GitHub 서버가 Jenkins 로 직접 요청을 보내야 하므로 Jenkins 가 인터넷에서 접근 가능해야 합니다. Actions 를 거치면 어떤 브랜치와 경로 변경에서 배포할지 workflow 에서 정하고, Jenkins API 토큰으로 특정 job 만 실행할 수 있습니다. Jenkins 를 외부에 노출하고 싶지 않다면 내부망에 self-hosted runner 를 두어 바깥으로만 연결하게 합니다. 대가로 파이프라인이 두 시스템에 나뉘므로 비밀값과 로그 위치를 정리해 둡니다.
+
+**꼬리질문 1 — Jenkins 를 외부에 노출해야 하나요? 보안은요?**
+
+>GitHub 에서 제공하는 러너가 호출하려면 Jenkins 까지 가는 경로가 필요하므로, IP 허용 목록, job 실행 권한만 가진 전용 계정과 토큰으로 범위를 좁힙니다. 노출하고 싶지 않다면 self-hosted runner 를 내부에 두어 인바운드 포트 없이 연결합니다. 어느 쪽이든 Jenkins 관리 화면은 공개하지 않습니다.
+
+**꼬리질문 2 — 같은 일을 GitHub Actions 하나로 합칠 수 있지 않나요?**
+
+>가능합니다. 개발 서버 근처에 self-hosted runner 를 두고 배포 스크립트를 workflow 로 옮기면 파이프라인이 하나가 됩니다. 대신 기존 Jenkins job 과 자격증명을 옮기는 비용과 러너 운영 비용이 생깁니다. 팀이 운영할 시스템 수를 줄이는 방향이 장기적으로는 유리하다고 봅니다.
+
 ### 5. 면접 전 설정에서 확인할 항목
 
 아래는 문서의 예시를 실제 경험으로 바꾸기 위한 체크리스트입니다. 확인하지 못한 항목은 "기억이 확실하지 않아 설정을 확인해야 합니다"라고 답해도 됩니다.
@@ -375,3 +443,8 @@ flowchart TB
 - [Kubernetes 공식 문서: Secret](https://kubernetes.io/docs/concepts/configuration/secret/)
 - [Helm 공식 문서](https://helm.sh/docs/)
 - [Kustomize 공식 문서](https://kubectl.docs.kubernetes.io/references/kustomize/)
+- [Docker Compose 문서](https://docs.docker.com/compose/)
+- [Docker Compose: 시작 순서 제어(healthcheck 와 depends_on)](https://docs.docker.com/compose/how-tos/startup-order/)
+- [Jenkins Remote Access API](https://www.jenkins.io/doc/book/using/remote-access-api/)
+- [GitHub: Self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners)
+- [GitHub: Webhook 서명 검증](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries)
