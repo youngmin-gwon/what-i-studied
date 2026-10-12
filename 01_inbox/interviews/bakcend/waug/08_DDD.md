@@ -2,7 +2,7 @@
 title: 08_DDD
 tags: []
 aliases: []
-date modified: 2026-10-12 18:18:25 +09:00
+date modified: 2026-10-12 18:18:49 +09:00
 date created: 2026-10-12 18:04:41 +09:00
 ---
 
