@@ -195,6 +195,96 @@ Authorization Server 설정은 "JWT 를 만드는 클래스 하나"가 아니라
 
 면접 전에 VMMe Pro 에서 실제로 사용한 라이브러리·버전을 확인하세요. Spring Authorization Server 를 썼다면 의존성, `SecurityFilterChain`, 등록한 `RegisteredClient`, issuer/키 설정, grant 와 endpoint 중 직접 설정·구현한 범위를 설명합니다. 일반 Spring Security 설정이나 JWT 발급 API 를 직접 작성했다면 그 사실대로 표현하고, 표준 OAuth2 authorization server 전체를 구현했다고 부풀리지 않습니다. [Spring Security Reference](https://docs.spring.io/spring-security/reference/), [Spring Authorization Server Reference](https://docs.spring.io/spring-authorization-server/reference/)
 
+### 5.1. VMMe Pro 저장소에서 확인한 실제 구조
+
+분석 기준 저장소: [`mybenefit/authorization-server`, main, `adad707`](https://github.com/mybenefit/authorization-server/tree/adad7071d1f814b95a684f7ac39d83c2dcab3601). 아래는 해당 commit 의 코드 구조 설명입니다. 저장소에 있는 모든 코드가 본인의 직접 구현이라는 뜻은 아니므로, 본인 commit·담당 파일과 공동 작업 범위를 따로 확인하세요.
+
+#### 한눈에 보는 구성
+
+이 앱은 **Authorization Server 기능과 Resource Server 기능을 한 Spring Boot 서비스 안에서 함께 수행**합니다. OAuth2 protocol endpoint 를 제공하는 체인과 일반 API 가 Bearer JWT 를 검증하는 체인을 분리했습니다.
+
+```mermaid
+flowchart LR
+  APP[모바일 앱·CMS] -->|Basic client 인증 + grant 요청| AS[Authorization Server chain<br/>/oauth2/**]
+  AS --> CONV[PasswordGrantAuthenticationConverter<br/>요청 파라미터 파싱]
+  CONV --> PROVIDER[PasswordGrantAuthenticationProvider<br/>user / manager / OTP 인증]
+  PROVIDER --> DOMAIN[User·Manager·OTP 서비스]
+  PROVIDER --> GEN[OAuth2TokenGenerator]
+  GEN --> CUSTOM[CustomJwtTokenCustomizer<br/>주체별 claim]
+  GEN --> JWT[RSA 서명 access JWT + refresh token]
+  AS --> CLIENTDB[(RegisteredClientRepository<br/>OAuth2AuthorizationService / JDBC)]
+  PROVIDER --> CLIENTDB
+  APP -->|Bearer JWT| RS[Resource Server chain<br/>일반 API]
+  RS --> DEC[JwtDecoder: JWT 검증]
+  DEC --> MAP[ManagerRoleJwtAuthenticationConverter<br/>scope·role 매핑]
+  MAP --> CTRL[Controller → Service → Repository]
+  CTRL --> DB[(OAuth MySQL / VM MySQL)]
+  PROVIDER --> REDIS[(Redisson: 중복 로그인 세션)]
+```
+
+계층은 Controller → Service → Repository 방향입니다. README 설계에 따르면 domain model 은 JPA entity 와 분리했고, persistence adapter 가 entity 변환과 MySQL 저장을 담당합니다. OAuth 관련 `RegisteredClient`와 authorization 상태도 JDBC 기반 저장소에 연결합니다. 두 MySQL datasource(`oauth2`, `vm3s`)와 Redis(Redisson)를 사용합니다.
+
+#### 코드에서 읽히는 로그인·토큰 흐름
+
+1. `/oauth2/**` 요청은 우선순위가 가장 높은 authorization-server filter chain 으로 갑니다. Token endpoint 에 등록된 converter 는 `grant_type=password` 요청을 커스텀 Authentication token 으로 바꿉니다.
+2. 커스텀 provider 는 `user_type`에 따라 회원 비밀번호(`user`), 센터 관리자(`manager`), OTP(`user_otp`) 경로를 분기합니다. 회원 로그인의 `serial_num`이 있으면 Redisson에 저장된 사용자별 기기 세션으로 중복 로그인을 확인합니다.
+3. provider 는 OAuth2 token generator 에 access token 과 refresh token 생성을 요청합니다. access token 은 RSA 기반 JWT 이며, customizer 가 회원·관리자·기기·client 주체에 따라 별도 metadata claim 을 추가합니다. Authorization 은 JDBC 저장소에 저장됩니다.
+4. 일반 API 요청은 다른 filter chain 의 Resource Server 설정을 거칩니다. `JwtDecoder`가 서명 등 토큰 검증을 수행하고 `ManagerRoleJwtAuthenticationConverter`가 `scope`를 `SCOPE_...` authority 로, 관리자 claim 을 role 로 매핑합니다. 서비스 client 토큰은 `ROLE_CLIENT`로 분리해 일반 API 를 기본 차단하고, 필요한 API 에서 명시적인 scope 를 요구합니다.
+5. 별도 `/service/token` 경로는 CMS/기기용 `client_credentials` 서비스 토큰을 발급합니다. 등록된 client 자격증명, client name allowlist, 허용 scope 를 검사하고, `/service/token/revoke`로 해당 서비스 토큰 저장 기록을 지울 수 있습니다.
+
+사용자 세션용 Redis 와 OAuth authorization 저장소는 역할이 다릅니다. Redis 항목은 코드에서 `{profile}:session:{userId}`와 180초 TTL 로 중복 로그인 여부를 저장합니다. OAuth2 access/refresh authorization 기록은 JDBC OAuth authorization 저장소에 둡니다. 이 둘을 “모든 JWT 를 Redis 에 저장해 검증한다”라고 합쳐 말하면 정확하지 않습니다.
+
+#### 이 저장소를 설명하는 답변 버전
+
+**20초 버전**
+
+> “저장소는 Kotlin·Spring Boot 기반 계층형 서비스이고, Spring Authorization Server의 토큰 발급 체인과 Spring Security Resource Server의 일반 API 검증 체인을 분리했습니다. 커스텀 Password Grant 요청에서 회원·관리자·OTP 인증을 처리하고 RSA JWT에 주체별 claim 을 넣습니다. 제가 직접 구현한 범위와 기존 코드의 범위는 제 담당 코드 기준으로 구분해서 설명드리겠습니다.”
+
+**60초 버전**
+
+> “인증 서버라고 부르는 하나의 서비스 안에 토큰을 발급하는 authorization-server chain과 bearer JWT로 일반 API를 보호하는 resource-server chain이 있습니다. `/oauth2/token`은 Spring Authorization Server의 token endpoint에 커스텀 converter/provider를 연결해 기존 클라이언트의 Password Grant 요청을 파싱하고, 회원·센터 관리자·OTP 인증으로 분기합니다. 인증이 되면 token generator가 RSA 서명 JWT와 refresh token을 생성하고, customizer가 user·manager·device metadata를 붙이며 authorization 저장소에 상태를 저장합니다. 다른 API 체인은 JWT를 검증한 뒤 scope와 사용자 유형을 권한으로 변환합니다. CMS/기기용 client credentials도 별도 경로로 분리해 allowlist와 scope로 제한합니다. 다만 저장소 전체가 제 작업이라는 뜻은 아니며, 제가 직접 맡은 파일과 테스트는 구체적으로 나눠 말씀드리겠습니다.”
+
+**저장소 흐름을 코드 단위로 설명하라는 꼬리질문**
+
+> “`SecurityConfiguration`에서 `/oauth2/**` 체인에 커스텀 converter와 provider를 연결합니다. converter는 폼 파라미터와 client 인증 문맥을 Authentication 객체로 바꾸고, provider가 실제 사용자 인증과 토큰 생성을 담당합니다. JWT customizer가 claim 을 조립합니다. 그 다음 authorization-server 체인은 발급 기록을 저장하고, 일반 API 체인은 별도의 decoder와 authentication converter로 토큰을 검증·권한화합니다.”
+
+### 5.2. 이 구현의 중요한 한계: Password Grant
+
+저장소의 `RegisteredClientEntity.create()`는 `password`, `client_credentials`, `refresh_token` grant 를 등록하고, 커스텀 provider 가 Password Grant 를 처리합니다. 코드 기준으로 Authorization Code + PKCE 흐름을 이 앱의 실제 로그인 흐름이라고 설명할 근거는 없습니다. Password Grant 를 선택한 배경은 코드만으로 확정할 수 없으니, 기존 클라이언트 계약을 유지하기 위한 것이었는지 당시 요구사항으로 확인하세요. 따라서 이력서의 “OAuth2 인증 서버”는 실제 구현을 설명하되 “최신 권장 로그인 흐름을 새로 설계했다”라고 말하지 않습니다.
+
+Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security Best Current Practice인 RFC 9700에서 사용해서는 안 되는 grant 로 규정합니다. 사용자의 비밀번호를 client 가 직접 다루게 해 자격증명 노출 범위를 넓히고, 다단계 인증과 상호작용형 인증에 맞지 않기 때문입니다. 레거시 앱과의 호환 때문에 유지된 코드라면 그렇게 설명하고, 새 모바일 클라이언트는 Authorization Code + PKCE 로 전환하는 계획을 제시합니다. 서버 간 호출은 필요한 scope를 제한한 Client Credentials가 적절한지 별도로 판단합니다. [RFC 9700 §2.4](https://www.rfc-editor.org/rfc/rfc9700.html#section-2.4)
+
+> “기존 앱 호환”은 그럴듯한 배경이지만 코드만으로 선택 이유를 증명할 수는 없습니다. 실제 당시 요구사항이나 담당자 설명으로 확인할 수 없다면 “이 저장소가 현재 처리하는 방식은 Password Grant이고, 선택 배경은 코드만으로 단정하지 않겠습니다”라고 말합니다.
+
+**질문: Password Grant 를 썼는데, OAuth2를 안전하게 구현했다고 할 수 있나요?**
+
+- **짧은 답:** “저장소는 기존 앱 호환을 위해 Password Grant를 커스텀 처리합니다. 현재 보안 모범 사례에서는 사용을 금지하는 grant이므로, 이 선택을 최신 권장 흐름이라고 설명하지 않겠습니다.”
+- **설명형 답:** “저장소에서 확인한 현재 동작은 token endpoint가 Password Grant 요청을 받아 회원·관리자·OTP 인증으로 분기하는 것입니다. 선택 배경은 코드만으로 확정할 수 없어 기존 클라이언트 호환 때문이라고 단정하지 않겠습니다. Password Grant는 client가 사용자 비밀번호를 다루게 되고 다단계·브라우저 기반 인증과 맞지 않아 RFC 9700에서 MUST NOT으로 규정합니다. 신규 모바일 로그인은 Authorization Code + PKCE로 전환하고, 기존 앱은 클라이언트별 사용량과 호환성을 확인해 단계적으로 폐기하는 게 맞습니다.”
+
+**꼬리질문 1: 지금 다시 설계한다면 어떻게 바꾸겠어요?**
+
+**답변:** “모바일 앱은 public client라 client secret을 앱에 숨겨 넣을 수 없으므로, 브라우저를 통한 Authorization Code + PKCE를 사용하겠습니다. state와 redirect URI를 검증하고, access token은 짧게, refresh token은 회전과 재사용 탐지 정책을 적용합니다. 서버 간 서비스 호출은 사용자 로그인과 분리해 최소 scope의 client credentials로 다룹니다. 기존 앱과 서버를 함께 바꿔야 하므로 client 버전·로그인 성공률·전환 기간을 관리하며 점진적으로 폐기하겠습니다.”
+
+**꼬리질문 2: 기존 Password Grant 코드를 본인이 설계한 건가요?**
+
+**답변:** “기존 client 계약과 저장소에 구현된 흐름을 구분해서 말씀드리겠습니다. 제가 직접 작성하거나 변경한 것은 **[본인이 담당한 converter/provider/인증 분기/claim/테스트 등]**이고, 기존에 존재하던 정책과 다른 개발자가 맡은 부분은 **[사실대로 구분]**입니다. 저장소가 가진 구현을 전부 제가 설계했다고 주장하지 않겠습니다.”
+
+#### 토큰 폐기와 키 관리에서 보수적으로 말할 부분
+
+- 코드에 `/oauth2/revoke`와 authorization DB 기록이 있어도, 일반 API 요청에서 매번 DB의 revoked 상태까지 확인한다고 단정하면 안 됩니다. Resource Server 설정은 JWT decoder 기반입니다. JWT access token의 즉시 폐기 보장은 별도 denylist/introspection/세션 확인이 있는지 확인해야 합니다.
+- `RegisteredClientEntity.create()`의 생성 기본값은 access token 5분, refresh token 14일이며 refresh 재사용을 끄도록 설정합니다. README는 서비스 토큰 만료를 100년이라고 설명하지만 `ServiceTokenService`는 `RegisteredClient`의 token generator 설정으로 토큰을 만들고, 코드 경로에서 별도의 100년 TTL을 지정하지 않습니다. 실제 client row의 `token_settings`와 발급 응답 `expires_in`을 확인하기 전에는 서비스 토큰 TTL을 단정하지 마세요.
+- 저장소는 JWKS용 public key와 서명용 private key 파일 경로를 코드에서 직접 읽습니다. **공개 저장소에는 `secrets/` 아래 개인키 파일과 자격증명처럼 보이는 설정값이 추적되고 있습니다.** 실제 운영에서 유효했는지 확인이 필요합니다. 유효했거나 재사용됐다면 안전한 secret manager/KMS로 옮기고 키·비밀번호를 회전해야 합니다. 인터뷰 답변에 실제 값은 절대 포함하지 말고, 이 구조를 안전한 key management의 모범 사례라고 설명하지 않습니다.
+
+### 5.3. 저장소 기준으로 업데이트할 사실 확인 질문
+
+1. 본인이 직접 작성·수정한 클래스는 무엇인가요? `SecurityConfiguration`, `PasswordGrantAuthentication`, `CustomJwtTokenCustomizer`, service/controller 중 각자 맡은 경계를 말할 수 있나요?
+2. user, manager, OTP의 인증 분기 중 본인이 구현한 것은 무엇이고, 테스트로 검증한 예외는 무엇인가요?
+3. refresh token grant의 재사용 방지와 rotation 동작을 표준 provider에 맡겼나요? 저장·재발급 결과를 어떻게 확인했나요?
+4. client credentials의 `/service/token`은 표준 `/oauth2/token`과 왜 분리했고, scope 및 client allowlist를 어디서 검사하나요?
+5. JWT revoke endpoint가 DB 레코드를 지운 뒤에도 Resource Server에서 이미 발급된 JWT가 언제까지 허용될 수 있나요?
+6. RSA signing key는 어디에서 로드되고, 환경별 분리·권한·회전·JWKS key ID 변경을 어떻게 관리하나요?
+7. 저장소에 추적된 key/config 값은 샘플인가요, 과거/현재 실제 자격증명인가요? 노출 여부와 회전 상태를 확인했나요?
+
 ### 6. 이력서에서 사실 확인이 필요한 지점
 
 면접 전에 코드를 보거나 기억을 확인해 아래 질문에 짧게 답을 적어두세요.
@@ -440,3 +530,10 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 - [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html)
 - [Spring Security Reference](https://docs.spring.io/spring-security/reference/)
 - [Spring Authorization Server Reference](https://docs.spring.io/spring-authorization-server/reference/)
+- [VMMe Pro authorization-server README, analyzed commit](https://github.com/mybenefit/authorization-server/blob/adad7071d1f814b95a684f7ac39d83c2dcab3601/README.md)
+- [SecurityConfiguration.kt](https://github.com/mybenefit/authorization-server/blob/adad7071d1f814b95a684f7ac39d83c2dcab3601/src/main/kotlin/com/mybenefit/oauth2/configuration/security/SecurityConfiguration.kt)
+- [PasswordGrantAuthentication.kt](https://github.com/mybenefit/authorization-server/blob/adad7071d1f814b95a684f7ac39d83c2dcab3601/src/main/kotlin/com/mybenefit/oauth2/configuration/security/PasswordGrantAuthentication.kt)
+- [CustomJwtTokenCustomizer.kt](https://github.com/mybenefit/authorization-server/blob/adad7071d1f814b95a684f7ac39d83c2dcab3601/src/main/kotlin/com/mybenefit/oauth2/configuration/security/CustomJwtTokenCustomizer.kt)
+- [ManagerRoleJwtAuthenticationConverter.kt](https://github.com/mybenefit/authorization-server/blob/adad7071d1f814b95a684f7ac39d83c2dcab3601/src/main/kotlin/com/mybenefit/oauth2/configuration/security/ManagerRoleJwtAuthenticationConverter.kt)
+- [ServiceTokenService.kt](https://github.com/mybenefit/authorization-server/blob/adad7071d1f814b95a684f7ac39d83c2dcab3601/src/main/kotlin/com/mybenefit/oauth2/service/client/ServiceTokenService.kt)
+- [RegisteredClientEntity.kt](https://github.com/mybenefit/authorization-server/blob/adad7071d1f814b95a684f7ac39d83c2dcab3601/src/main/kotlin/com/mybenefit/oauth2/infrastructure/persistence/oauth/entity/authorization/RegisteredClientEntity.kt)
