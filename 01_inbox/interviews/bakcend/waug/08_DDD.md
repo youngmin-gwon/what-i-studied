@@ -2,7 +2,7 @@
 title: 08_DDD
 tags: []
 aliases: []
-date modified: 2026-10-12 18:18:49 +09:00
+date modified: 2026-10-12 19:04:32 +09:00
 date created: 2026-10-12 18:04:41 +09:00
 ---
 
@@ -185,7 +185,7 @@ stateDiagram-v2
 
 **큰 그림에서:** 애플리케이션/도메인 모델이 source-of-truth 저장소를 다루는 추상화입니다.
 
-Repository 는 특정 aggregate 를 저장소에서 가져오고 저장하는 컬렉션 같은 인터페이스로 생각할 수 있습니다. 개념적으로 `BookingRepository.get(id)`와 `save(booking)` 같은 동작을 둡니다. 보통 테이블마다 repository 를 기계적으로 하나씩 만드는 게 목적이 아닙니다. 구현체는 DB, ORM, 외부 저장소와 연결하는 infrastructure 에 둘 수 있습니다.
+Repository 는 특정 aggregate 를 저장소에서 가져오고 저장하는 컬렉션 같은 인터페이스로 생각할 수 있습니다. 개념적으로 `BookingRepository.get(id)` 와 `save(booking)` 같은 동작을 둡니다. 보통 테이블마다 repository 를 기계적으로 하나씩 만드는 게 목적이 아닙니다. 구현체는 DB, ORM, 외부 저장소와 연결하는 infrastructure 에 둘 수 있습니다.
 
 쓰기 경로는 aggregate root 의 불변조건을 우회하지 않게 설계합니다. 읽기 전용 화면 조회는 반드시 aggregate 전체를 불러야 하는 것이 아니며, DTO/쿼리 전용 접근을 사용할 수 있습니다. CQRS 를 선택했다면 명령 모델의 일관성 경계와 조회 모델의 갱신 지연을 명시합니다.
 
