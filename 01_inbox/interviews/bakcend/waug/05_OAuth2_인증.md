@@ -2,7 +2,7 @@
 title: 05_OAuth2_인증
 tags: []
 aliases: []
-date modified: 2026-10-12 18:18:11 +09:00
+date modified: 2026-10-13 00:25:54 +09:00
 date created: 2026-10-12 17:45:57 +09:00
 ---
 
@@ -144,15 +144,15 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6ImtleS0yMDI2In0   ← header  (base64url)
 
 #### 요청을 실제로 따라가기
 
-1. Client 는 요청마다 높은 난수의 `state`를 만들고, Authorization Code + PKCE 에서는 `code_verifier` 도 생성합니다. 앱은 verifier 와 state 를 현재 로그인 시도에 안전하게 묶습니다.
-2. Client 는 `code_verifier`의 해시(`code_challenge`)를 계산해 authorization endpoint 로 보냅니다. 보통 `response_type=code`, `client_id`, 등록된 `redirect_uri`, `scope`, `state`, `code_challenge`, `code_challenge_method=S256` 이 포함됩니다.
+1. Client 는 요청마다 높은 난수의 `state` 를 만들고, Authorization Code + PKCE 에서는 `code_verifier` 도 생성합니다. 앱은 verifier 와 state 를 현재 로그인 시도에 안전하게 묶습니다.
+2. Client 는 `code_verifier` 의 해시(`code_challenge`)를 계산해 authorization endpoint 로 보냅니다. 보통 `response_type=code`, `client_id`, 등록된 `redirect_uri`, `scope`, `state`, `code_challenge`, `code_challenge_method=S256` 이 포함됩니다.
 3. Authorization Server 는 client ID 와 redirect URI 를 등록 정보와 정확히 대조하고, 요청을 거절하거나 사용자 인증 화면을 제공합니다. 사용자가 로그인했다고 해서 요청된 모든 scope 가 자동 승인되는 것은 아닙니다.
 4. 인증 및 동의가 끝나면 Authorization Server 는 짧고 일회용인 code 를 `redirect_uri` 로 돌려보내며 state 를 함께 반환합니다. Client 는 callback 의 state 가 원래 저장한 값과 같은지 비교합니다. 불일치면 callback 을 처리하지 않습니다.
 5. Client 는 token endpoint 에 code, 동일한 redirect URI, PKCE verifier 를 보냅니다. confidential client 라면 별도의 client authentication 도 할 수 있습니다. Authorization Server 는 code 가 발급 기록과 맞고, 미사용·미만료이며, redirect URI 및 PKCE 검증이 맞는지 확인한 뒤 token 을 발급합니다.
 6. Client 는 access token 을 보호된 API 에 bearer token 으로 보냅니다. Resource Server 는 허용한 서명 키/알고리즘 또는 introspection 결과, `iss`, `aud`, 만료시간, scope 등 자신의 정책에 필요한 조건을 검증하고 API 권한을 판단합니다.
 7. Access token 이 만료되면 client 는 refresh token 이 발급된 경우 token endpoint 에만 보냅니다. Authorization Server 가 이를 검증하고 새 access token 및 필요 시 새 refresh token 을 발급합니다.
 
-`state`와 PKCE 는 서로 대체하지 않습니다. state 는 authorization 요청과 callback 의 상관관계를 확인해 CSRF/응답 주입 위험을 줄이고, PKCE 는 가로챈 authorization code 의 교환을 방어합니다. OIDC 에서는 `nonce` 가 ID token 재생/요청 상관관계 검증에 쓰일 수 있습니다. [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html), [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636.html), [RFC 9700](https://www.rfc-editor.org/rfc/rfc9700.html)
+`state` 와 PKCE 는 서로 대체하지 않습니다. state 는 authorization 요청과 callback 의 상관관계를 확인해 CSRF/응답 주입 위험을 줄이고, PKCE 는 가로챈 authorization code 의 교환을 방어합니다. OIDC 에서는 `nonce` 가 ID token 재생/요청 상관관계 검증에 쓰일 수 있습니다. [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html), [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636.html), [RFC 9700](https://www.rfc-editor.org/rfc/rfc9700.html)
 
 #### Sequence diagram: Code + PKCE
 
@@ -180,11 +180,11 @@ sequenceDiagram
 
 그림에서 중요한 경계는 사용자 인증이 Authorization Server 에서 끝나고, API 요청 권한은 Resource Server 가 다시 검사한다는 점입니다. Client 는 토큰을 운반하지만 사용자 비밀번호를 받아 API 에 전달하는 역할은 하지 않습니다.
 
-Authorization Code 는 짧은 시간만 유효하고 한 번만 교환되도록 합니다. `state`는 요청과 callback 을 연결해 위조된 callback 을 막는 데 사용합니다. OAuth2 의 표준 역할과 흐름은 [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html) 에 정의돼 있습니다.
+Authorization Code 는 짧은 시간만 유효하고 한 번만 교환되도록 합니다. `state` 는 요청과 callback 을 연결해 위조된 callback 을 막는 데 사용합니다. OAuth2 의 표준 역할과 흐름은 [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html) 에 정의돼 있습니다.
 
 #### PKCE 는 왜 필요한가?
 
-모바일 앱이나 브라우저 앱은 client secret 을 안전하게 감출 수 없는 public client 입니다. PKCE("픽시"라고 읽음)는 앱이 매번 임의의 `code_verifier`를 만들고 그 요약인 `code_challenge` 를 authorization 요청에 보냅니다. 토큰 교환 때 verifier 도 제출해야 하므로, 중간에서 authorization code 만 훔친 공격자는 토큰으로 바꾸기 어렵습니다.
+모바일 앱이나 브라우저 앱은 client secret 을 안전하게 감출 수 없는 public client 입니다. PKCE("픽시"라고 읽음)는 앱이 매번 임의의 `code_verifier` 를 만들고 그 요약인 `code_challenge` 를 authorization 요청에 보냅니다. 토큰 교환 때 verifier 도 제출해야 하므로, 중간에서 authorization code 만 훔친 공격자는 토큰으로 바꾸기 어렵습니다.
 
 비유하면 코드 교환표를 발급받을 때 미리 봉투의 지문(code challenge)을 등록하고, 실제 교환 때 원래 표식(code verifier)을 보여줘야 하는 방식입니다. PKCE 는 client secret 을 대체하는 비밀 값이라기보다, authorization code 가로채기 공격을 줄이는 방어입니다. [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636.html), [OAuth 2.0 Security Best Current Practice, RFC 9700](https://www.rfc-editor.org/rfc/rfc9700.html)
 
@@ -216,7 +216,7 @@ stateDiagram-v2
   Expired --> Reauth: 유효한 refresh 없음
 ```
 
-JWT access token 이 자체 검증형이면 `Logout`에서 서버 측 refresh/session 을 없애도 access token 은 resource server 가 별도 폐기 상태를 확인하지 않는 한 `Expired` 까지 통과할 수 있습니다. 반면 opaque token 을 introspection 하거나 매 요청에 denylist/session 상태를 확인하면 즉시 차단을 강화할 수 있지만, 네트워크/저장소 의존성과 지연이 생깁니다. 설계는 "즉시 폐기 요구"와 "API 요청의 stateless 검증" 사이에서 결정합니다.
+JWT access token 이 자체 검증형이면 `Logout` 에서 서버 측 refresh/session 을 없애도 access token 은 resource server 가 별도 폐기 상태를 확인하지 않는 한 `Expired` 까지 통과할 수 있습니다. 반면 opaque token 을 introspection 하거나 매 요청에 denylist/session 상태를 확인하면 즉시 차단을 강화할 수 있지만, 네트워크/저장소 의존성과 지연이 생깁니다. 설계는 "즉시 폐기 요구"와 "API 요청의 stateless 검증" 사이에서 결정합니다.
 
 ### 5. Spring Security 와 Spring Authorization Server
 
@@ -229,7 +229,7 @@ Spring 면접에서는 아래 구성요소의 역할을 구분해 말할 수 있
 
 #### Spring Security 의 요청 처리 mental model
 
-Servlet 애플리케이션에서는 요청이 `FilterChainProxy`를 거쳐 적절한 `SecurityFilterChain`으로 들어갑니다. 인증 필터는 자격증명을 `AuthenticationManager`에 넘기고, 적절한 `AuthenticationProvider`가 검증합니다. 성공한 인증은 `SecurityContext` 에 반영되고, 이후 authorization 단계에서 URL/메서드 정책을 검사합니다. Resource Server 의 bearer token 필터도 이 보안 체인 안에서 token 을 읽고 JWT decoder 또는 opaque token introspection 을 통해 검증합니다. 컨트롤러까지 도달한 뒤 별도 도메인 규칙(예: 이 사용자가 이 예약을 수정할 수 있는가)도 확인해야 합니다. [Spring Security Servlet Architecture](https://docs.spring.io/spring-security/reference/servlet/architecture.html), [Authentication Architecture](https://docs.spring.io/spring-security/reference/servlet/authentication/architecture.html)
+Servlet 애플리케이션에서는 요청이 `FilterChainProxy` 를 거쳐 적절한 `SecurityFilterChain` 으로 들어갑니다. 인증 필터는 자격증명을 `AuthenticationManager` 에 넘기고, 적절한 `AuthenticationProvider` 가 검증합니다. 성공한 인증은 `SecurityContext` 에 반영되고, 이후 authorization 단계에서 URL/메서드 정책을 검사합니다. Resource Server 의 bearer token 필터도 이 보안 체인 안에서 token 을 읽고 JWT decoder 또는 opaque token introspection 을 통해 검증합니다. 컨트롤러까지 도달한 뒤 별도 도메인 규칙(예: 이 사용자가 이 예약을 수정할 수 있는가)도 확인해야 합니다. [Spring Security Servlet Architecture](https://docs.spring.io/spring-security/reference/servlet/architecture.html), [Authentication Architecture](https://docs.spring.io/spring-security/reference/servlet/authentication/architecture.html)
 
 ```mermaid
 flowchart LR
@@ -282,67 +282,67 @@ flowchart LR
   PROVIDER --> REDIS[(Redisson: 중복 로그인 세션)]
 ```
 
-계층은 Controller → Service → Repository 방향입니다. README 설계에 따르면 domain model 은 JPA entity 와 분리했고, persistence adapter 가 entity 변환과 MySQL 저장을 담당합니다. OAuth 관련 `RegisteredClient`와 authorization 상태도 JDBC 기반 저장소에 연결합니다. 두 MySQL datasource(`oauth2`, `vm3s`)와 Redis(Redisson)를 사용합니다.
+계층은 Controller → Service → Repository 방향입니다. README 설계에 따르면 domain model 은 JPA entity 와 분리했고, persistence adapter 가 entity 변환과 MySQL 저장을 담당합니다. OAuth 관련 `RegisteredClient` 와 authorization 상태도 JDBC 기반 저장소에 연결합니다. 두 MySQL datasource(`oauth2`, `vm3s`)와 Redis(Redisson)를 사용합니다.
 
 #### 코드에서 읽히는 로그인·토큰 흐름
 
 1. `/oauth2/**` 요청은 우선순위가 가장 높은 authorization-server filter chain 으로 갑니다. Token endpoint 에 등록된 converter 는 `grant_type=password` 요청을 커스텀 Authentication token 으로 바꿉니다.
-2. 커스텀 provider 는 `user_type`에 따라 회원 비밀번호(`user`), 센터 관리자(`manager`), OTP(`user_otp`) 경로를 분기합니다. 회원 로그인의 `serial_num`이 있으면 Redisson에 저장된 사용자별 기기 세션으로 중복 로그인을 확인합니다.
+2. 커스텀 provider 는 `user_type` 에 따라 회원 비밀번호(`user`), 센터 관리자(`manager`), OTP(`user_otp`) 경로를 분기합니다. 회원 로그인의 `serial_num` 이 있으면 Redisson 에 저장된 사용자별 기기 세션으로 중복 로그인을 확인합니다.
 3. provider 는 OAuth2 token generator 에 access token 과 refresh token 생성을 요청합니다. access token 은 RSA 기반 JWT 이며, customizer 가 회원·관리자·기기·client 주체에 따라 별도 metadata claim 을 추가합니다. Authorization 은 JDBC 저장소에 저장됩니다.
-4. 일반 API 요청은 다른 filter chain 의 Resource Server 설정을 거칩니다. `JwtDecoder`가 서명 등 토큰 검증을 수행하고 `ManagerRoleJwtAuthenticationConverter`가 `scope`를 `SCOPE_...` authority 로, 관리자 claim 을 role 로 매핑합니다. 서비스 client 토큰은 `ROLE_CLIENT`로 분리해 일반 API 를 기본 차단하고, 필요한 API 에서 명시적인 scope 를 요구합니다.
-5. 별도 `/service/token` 경로는 CMS/기기용 `client_credentials` 서비스 토큰을 발급합니다. 등록된 client 자격증명, client name allowlist, 허용 scope 를 검사하고, `/service/token/revoke`로 해당 서비스 토큰 저장 기록을 지울 수 있습니다.
+4. 일반 API 요청은 다른 filter chain 의 Resource Server 설정을 거칩니다. `JwtDecoder` 가 서명 등 토큰 검증을 수행하고 `ManagerRoleJwtAuthenticationConverter` 가 `scope` 를 `SCOPE_…` authority 로, 관리자 claim 을 role 로 매핑합니다. 서비스 client 토큰은 `ROLE_CLIENT` 로 분리해 일반 API 를 기본 차단하고, 필요한 API 에서 명시적인 scope 를 요구합니다.
+5. 별도 `/service/token` 경로는 CMS/기기용 `client_credentials` 서비스 토큰을 발급합니다. 등록된 client 자격증명, client name allowlist, 허용 scope 를 검사하고, `/service/token/revoke` 로 해당 서비스 토큰 저장 기록을 지울 수 있습니다.
 
-사용자 세션용 Redis 와 OAuth authorization 저장소는 역할이 다릅니다. Redis 항목은 코드에서 `{profile}:session:{userId}`와 180초 TTL 로 중복 로그인 여부를 저장합니다. OAuth2 access/refresh authorization 기록은 JDBC OAuth authorization 저장소에 둡니다. 이 둘을 “모든 JWT 를 Redis 에 저장해 검증한다”라고 합쳐 말하면 정확하지 않습니다.
+사용자 세션용 Redis 와 OAuth authorization 저장소는 역할이 다릅니다. Redis 항목은 코드에서 `{profile}:session:{userId}` 와 180 초 TTL 로 중복 로그인 여부를 저장합니다. OAuth2 access/refresh authorization 기록은 JDBC OAuth authorization 저장소에 둡니다. 이 둘을 "모든 JWT 를 Redis 에 저장해 검증한다"라고 합쳐 말하면 정확하지 않습니다.
 
 #### 이 저장소를 설명하는 답변 버전
 
-**20초 버전**
+**20 초 버전**
 
-> “인증 서버는 Kotlin·Spring Boot 기반 계층형 서비스이고, Spring Authorization Server 의 토큰 발급 체인과 Spring Security Resource Server 의 일반 API 검증 체인을 분리했습니다. 커스텀 Password Grant 요청에서 회원·관리자·OTP 인증을 처리하고 RSA JWT 에 주체별 claim 을 넣습니다. 저는 백엔드 개발자와 함께 이 서버를 만들며 커스텀 grant 처리와 claim 구성 같은 토큰 발급 코드 일부를 직접 작성했습니다.”
+>"인증 서버는 Kotlin·Spring Boot 기반 계층형 서비스이고, Spring Authorization Server 의 토큰 발급 체인과 Spring Security Resource Server 의 일반 API 검증 체인을 분리했습니다. 커스텀 Password Grant 요청에서 회원·관리자·OTP 인증을 처리하고 RSA JWT 에 주체별 claim 을 넣습니다. 저는 백엔드 개발자와 함께 이 서버를 만들며 커스텀 grant 처리와 claim 구성 같은 토큰 발급 코드 일부를 직접 작성했습니다."
 
-**60초 버전**
+**60 초 버전**
 
-> “인증 서버라고 부르는 하나의 서비스 안에 토큰을 발급하는 authorization-server chain과 bearer JWT로 일반 API를 보호하는 resource-server chain이 있습니다. `/oauth2/token`은 Spring Authorization Server의 token endpoint에 커스텀 converter/provider를 연결해 기존 클라이언트의 Password Grant 요청을 파싱하고, 회원·센터 관리자·OTP 인증으로 분기합니다. 인증이 되면 token generator가 RSA 서명 JWT와 refresh token을 생성하고, customizer가 user·manager·device metadata를 붙이며 authorization 저장소에 상태를 저장합니다. 다른 API 체인은 JWT를 검증한 뒤 scope와 사용자 유형을 권한으로 변환합니다. CMS/기기용 client credentials도 별도 경로로 분리해 allowlist와 scope로 제한합니다. 서버 전체를 혼자 만든 것은 아니고, 저는 이 중 토큰 발급 체인의 코드 일부를 맡았습니다.”
+>"인증 서버라고 부르는 하나의 서비스 안에 토큰을 발급하는 authorization-server chain 과 bearer JWT 로 일반 API 를 보호하는 resource-server chain 이 있습니다. `/oauth2/token` 은 Spring Authorization Server 의 token endpoint 에 커스텀 converter/provider 를 연결해 기존 클라이언트의 Password Grant 요청을 파싱하고, 회원·센터 관리자·OTP 인증으로 분기합니다. 인증이 되면 token generator 가 RSA 서명 JWT 와 refresh token 을 생성하고, customizer 가 user·manager·device metadata 를 붙이며 authorization 저장소에 상태를 저장합니다. 다른 API 체인은 JWT 를 검증한 뒤 scope 와 사용자 유형을 권한으로 변환합니다. CMS/기기용 client credentials 도 별도 경로로 분리해 allowlist 와 scope 로 제한합니다. 서버 전체를 혼자 만든 것은 아니고, 저는 이 중 토큰 발급 체인의 코드 일부를 맡았습니다."
 
 **저장소 흐름을 코드 단위로 설명하라는 꼬리질문**
 
-> “`SecurityConfiguration`에서 `/oauth2/**` 체인에 커스텀 converter와 provider를 연결합니다. converter는 폼 파라미터와 client 인증 문맥을 Authentication 객체로 바꾸고, provider가 실제 사용자 인증과 토큰 생성을 담당합니다. JWT customizer가 claim 을 조립합니다. 그 다음 authorization-server 체인은 발급 기록을 저장하고, 일반 API 체인은 별도의 decoder와 authentication converter로 토큰을 검증·권한화합니다.”
+>"`SecurityConfiguration` 에서 `/oauth2/**` 체인에 커스텀 converter 와 provider 를 연결합니다. converter 는 폼 파라미터와 client 인증 문맥을 Authentication 객체로 바꾸고, provider 가 실제 사용자 인증과 토큰 생성을 담당합니다. JWT customizer 가 claim 을 조립합니다. 그 다음 authorization-server 체인은 발급 기록을 저장하고, 일반 API 체인은 별도의 decoder 와 authentication converter 로 토큰을 검증·권한화합니다."
 
 ### 5.2. 이 구현의 중요한 한계: Password Grant
 
-저장소의 `RegisteredClientEntity.create()`는 `password`, `client_credentials`, `refresh_token` grant 를 등록하고, 커스텀 provider 가 Password Grant 를 처리합니다. 코드 기준으로 Authorization Code + PKCE 흐름을 이 앱의 실제 로그인 흐름이라고 설명할 근거는 없습니다. Password Grant 를 선택한 배경은 코드만으로 확정할 수 없으니, 기존 클라이언트 계약을 유지하기 위한 것이었는지 당시 요구사항으로 확인하세요. 따라서 이력서의 “OAuth2 인증 서버”는 실제 구현을 설명하되 “최신 권장 로그인 흐름을 새로 설계했다”라고 말하지 않습니다.
+저장소의 `RegisteredClientEntity.create()` 는 `password`, `client_credentials`, `refresh_token` grant 를 등록하고, 커스텀 provider 가 Password Grant 를 처리합니다. 코드 기준으로 Authorization Code + PKCE 흐름을 이 앱의 실제 로그인 흐름이라고 설명할 근거는 없습니다. Password Grant 를 선택한 배경은 코드만으로 확정할 수 없으니, 기존 클라이언트 계약을 유지하기 위한 것이었는지 당시 요구사항으로 확인하세요. 따라서 이력서의 "OAuth2 인증 서버"는 실제 구현을 설명하되 "최신 권장 로그인 흐름을 새로 설계했다"라고 말하지 않습니다.
 
-Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security Best Current Practice인 RFC 9700에서 사용해서는 안 되는 grant 로 규정합니다. 사용자의 비밀번호를 client 가 직접 다루게 해 자격증명 노출 범위를 넓히고, 다단계 인증과 상호작용형 인증에 맞지 않기 때문입니다. 레거시 앱과의 호환 때문에 유지된 코드라면 그렇게 설명하고, 새 모바일 클라이언트는 Authorization Code + PKCE 로 전환하는 계획을 제시합니다. 서버 간 호출은 필요한 scope를 제한한 Client Credentials가 적절한지 별도로 판단합니다. [RFC 9700 §2.4](https://www.rfc-editor.org/rfc/rfc9700.html#section-2.4)
+Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security Best Current Practice 인 RFC 9700 에서 사용해서는 안 되는 grant 로 규정합니다. 사용자의 비밀번호를 client 가 직접 다루게 해 자격증명 노출 범위를 넓히고, 다단계 인증과 상호작용형 인증에 맞지 않기 때문입니다. 레거시 앱과의 호환 때문에 유지된 코드라면 그렇게 설명하고, 새 모바일 클라이언트는 Authorization Code + PKCE 로 전환하는 계획을 제시합니다. 서버 간 호출은 필요한 scope 를 제한한 Client Credentials 가 적절한지 별도로 판단합니다. [RFC 9700 §2.4](https://www.rfc-editor.org/rfc/rfc9700.html#section-2.4)
 
-> Password Grant 를 쓴 이유는 당시 팀에서 실제로 논의한 이유로 말합니다. 기억나지 않으면 "기존 앱 호환" 같은 이유를 지어내지 말고, "팀에서 정한 구조였다"고 말한 뒤 한계와 전환 계획으로 넘어갑니다.
+>Password Grant 를 쓴 이유는 당시 팀에서 실제로 논의한 이유로 말합니다. 기억나지 않으면 "기존 앱 호환" 같은 이유를 지어내지 말고, "팀에서 정한 구조였다"고 말한 뒤 한계와 전환 계획으로 넘어갑니다.
 
-**질문: Password Grant 를 썼는데, OAuth2를 안전하게 구현했다고 할 수 있나요?**
+**질문: Password Grant 를 썼는데, OAuth2 를 안전하게 구현했다고 할 수 있나요?**
 
-- **짧은 답:** “저희 인증 서버는 Spring Authorization Server 가 기본 제공하지 않는 Password Grant 를 커스텀 converter/provider 로 처리합니다. RFC 9700 에서 쓰지 말라고 규정한 grant 라서, 이것을 최신 권장 흐름이라고 말하지는 않습니다. 새로 설계한다면 Authorization Code + PKCE 로 바꾸겠습니다.”
-- **설명형 답:** “token endpoint 가 Password Grant 요청을 받아 회원·관리자·OTP 인증으로 분기하고, RSA JWT 와 refresh token 을 발급합니다. Password Grant는 client가 사용자 비밀번호를 다루게 되고 다단계·브라우저 기반 인증과 맞지 않아 RFC 9700에서 MUST NOT으로 규정합니다. 신규 모바일 로그인은 Authorization Code + PKCE로 전환하고, 기존 앱은 클라이언트별 사용량과 호환성을 확인해 단계적으로 폐기하는 게 맞습니다.”
+- **짧은 답:** "저희 인증 서버는 Spring Authorization Server 가 기본 제공하지 않는 Password Grant 를 커스텀 converter/provider 로 처리합니다. RFC 9700 에서 쓰지 말라고 규정한 grant 라서, 이것을 최신 권장 흐름이라고 말하지는 않습니다. 새로 설계한다면 Authorization Code + PKCE 로 바꾸겠습니다."
+- **설명형 답:** "token endpoint 가 Password Grant 요청을 받아 회원·관리자·OTP 인증으로 분기하고, RSA JWT 와 refresh token 을 발급합니다. Password Grant 는 client 가 사용자 비밀번호를 다루게 되고 다단계·브라우저 기반 인증과 맞지 않아 RFC 9700 에서 MUST NOT 으로 규정합니다. 신규 모바일 로그인은 Authorization Code + PKCE 로 전환하고, 기존 앱은 클라이언트별 사용량과 호환성을 확인해 단계적으로 폐기하는 게 맞습니다."
 
 **꼬리질문 1: 지금 다시 설계한다면 어떻게 바꾸겠어요?**
 
-**답변:** “모바일 앱은 public client라 client secret을 앱에 숨겨 넣을 수 없으므로, 브라우저를 통한 Authorization Code + PKCE를 사용하겠습니다. state와 redirect URI를 검증하고, access token은 짧게, refresh token은 회전과 재사용 탐지 정책을 적용합니다. 서버 간 서비스 호출은 사용자 로그인과 분리해 최소 scope의 client credentials로 다룹니다. 기존 앱과 서버를 함께 바꿔야 하므로 client 버전·로그인 성공률·전환 기간을 관리하며 점진적으로 폐기하겠습니다.”
+**답변:** "모바일 앱은 public client 라 client secret 을 앱에 숨겨 넣을 수 없으므로, 브라우저를 통한 Authorization Code + PKCE 를 사용하겠습니다. state 와 redirect URI 를 검증하고, access token 은 짧게, refresh token 은 회전과 재사용 탐지 정책을 적용합니다. 서버 간 서비스 호출은 사용자 로그인과 분리해 최소 scope 의 client credentials 로 다룹니다. 기존 앱과 서버를 함께 바꿔야 하므로 client 버전·로그인 성공률·전환 기간을 관리하며 점진적으로 폐기하겠습니다."
 
 **꼬리질문 2: 기존 Password Grant 코드를 본인이 설계한 건가요?**
 
-**답변:** “Password Grant 구조는 팀에서 정한 것이고, 저는 그 안에서 커스텀 grant 처리와 claim 구성 같은 토큰 발급 코드 일부를 직접 작성했습니다. 서버 전체를 혼자 설계한 것은 아니지만, 왜 이 구조로 동작하는지와 어떤 한계가 있는지는 코드 수준에서 설명드릴 수 있습니다.”
+**답변:** "Password Grant 구조는 팀에서 정한 것이고, 저는 그 안에서 커스텀 grant 처리와 claim 구성 같은 토큰 발급 코드 일부를 직접 작성했습니다. 서버 전체를 혼자 설계한 것은 아니지만, 왜 이 구조로 동작하는지와 어떤 한계가 있는지는 코드 수준에서 설명드릴 수 있습니다."
 
 #### 토큰 폐기와 키 관리에서 보수적으로 말할 부분
 
-- 코드에 `/oauth2/revoke`와 authorization DB 기록이 있어도, 일반 API 요청에서 매번 DB의 revoked 상태까지 확인한다고 단정하면 안 됩니다. Resource Server 설정은 JWT decoder 기반입니다. JWT access token의 즉시 폐기 보장은 별도 denylist/introspection/세션 확인이 있는지 확인해야 합니다.
-- `RegisteredClientEntity.create()`의 생성 기본값은 access token 5분, refresh token 14일이며 refresh 재사용을 끄도록 설정합니다(`reuseRefreshTokens(false)`). 즉 refresh 할 때마다 새 refresh token 을 발급하는 **rotation 이 켜진 상태**입니다. README는 서비스 토큰 만료를 100년이라고 설명하지만 `ServiceTokenService`는 `RegisteredClient`의 token generator 설정으로 토큰을 만들고, 코드 경로에서 별도의 100년 TTL을 지정하지 않습니다. 실제 client row의 `token_settings`와 발급 응답 `expires_in`을 확인하기 전에는 서비스 토큰 TTL을 단정하지 마세요.
-- 저장소는 JWKS용 public key와 서명용 private key 파일 경로를 코드에서 직접 읽습니다. **비공개 저장소이지만 `secrets/` 아래 개인키 파일(`private_key.pem` 등)과 자격증명처럼 보이는 설정값이 Git 에 추적되고 있습니다.** 비공개여도 저장소 접근 권한이 있는 사람과 CI 가 모두 서명 키를 갖게 되고, Git 이력에 남아 지우기 어렵습니다. 운영 키라면 secret manager/KMS 로 옮기고 키·비밀번호를 회전하는 것이 맞습니다. 면접에서 먼저 꺼낼 필요는 없지만, "다시 만든다면 무엇을 개선하겠나요?"라는 질문에는 이 내용을 말할 수 있습니다. 실제 값은 절대 말하지 않고, 이 구조를 안전한 key management 의 모범 사례라고 설명하지 않습니다.
+- 코드에 `/oauth2/revoke` 와 authorization DB 기록이 있어도, 일반 API 요청에서 매번 DB 의 revoked 상태까지 확인한다고 단정하면 안 됩니다. Resource Server 설정은 JWT decoder 기반입니다. JWT access token 의 즉시 폐기 보장은 별도 denylist/introspection/세션 확인이 있는지 확인해야 합니다.
+- `RegisteredClientEntity.create()` 의 생성 기본값은 access token 5 분, refresh token 14 일이며 refresh 재사용을 끄도록 설정합니다(`reuseRefreshTokens(false)`). 즉 refresh 할 때마다 새 refresh token 을 발급하는 **rotation 이 켜진 상태**입니다. README 는 서비스 토큰 만료를 100 년이라고 설명하지만 `ServiceTokenService` 는 `RegisteredClient` 의 token generator 설정으로 토큰을 만들고, 코드 경로에서 별도의 100 년 TTL 을 지정하지 않습니다. 실제 client row 의 `token_settings` 와 발급 응답 `expires_in` 을 확인하기 전에는 서비스 토큰 TTL 을 단정하지 마세요.
+- 저장소는 JWKS 용 public key 와 서명용 private key 파일 경로를 코드에서 직접 읽습니다. **비공개 저장소이지만 `secrets/` 아래 개인키 파일(`private_key.pem` 등)과 자격증명처럼 보이는 설정값이 Git 에 추적되고 있습니다.** 비공개여도 저장소 접근 권한이 있는 사람과 CI 가 모두 서명 키를 갖게 되고, Git 이력에 남아 지우기 어렵습니다. 운영 키라면 secret manager/KMS 로 옮기고 키·비밀번호를 회전하는 것이 맞습니다. 면접에서 먼저 꺼낼 필요는 없지만, "다시 만든다면 무엇을 개선하겠나요?"라는 질문에는 이 내용을 말할 수 있습니다. 실제 값은 절대 말하지 않고, 이 구조를 안전한 key management 의 모범 사례라고 설명하지 않습니다.
 
 ### 5.3. 저장소 기준으로 업데이트할 사실 확인 질문
 
 1. 본인이 직접 작성·수정한 클래스는 무엇인가요? `SecurityConfiguration`, `PasswordGrantAuthentication`, `CustomJwtTokenCustomizer`, service/controller 중 각자 맡은 경계를 말할 수 있나요?
-2. user, manager, OTP의 인증 분기 중 본인이 구현한 것은 무엇이고, 테스트로 검증한 예외는 무엇인가요?
-3. refresh token grant의 재사용 방지와 rotation 동작을 표준 provider에 맡겼나요? 저장·재발급 결과를 어떻게 확인했나요?
-4. client credentials의 `/service/token`은 표준 `/oauth2/token`과 왜 분리했고, scope 및 client allowlist를 어디서 검사하나요?
-5. JWT revoke endpoint가 DB 레코드를 지운 뒤에도 Resource Server에서 이미 발급된 JWT가 언제까지 허용될 수 있나요?
-6. RSA signing key는 어디에서 로드되고, 환경별 분리·권한·회전·JWKS key ID 변경을 어떻게 관리하나요?
+2. user, manager, OTP 의 인증 분기 중 본인이 구현한 것은 무엇이고, 테스트로 검증한 예외는 무엇인가요?
+3. refresh token grant 의 재사용 방지와 rotation 동작을 표준 provider 에 맡겼나요? 저장·재발급 결과를 어떻게 확인했나요?
+4. client credentials 의 `/service/token` 은 표준 `/oauth2/token` 과 왜 분리했고, scope 및 client allowlist 를 어디서 검사하나요?
+5. JWT revoke endpoint 가 DB 레코드를 지운 뒤에도 Resource Server 에서 이미 발급된 JWT 가 언제까지 허용될 수 있나요?
+6. RSA signing key 는 어디에서 로드되고, 환경별 분리·권한·회전·JWKS key ID 변경을 어떻게 관리하나요?
 7. 저장소에 추적된 key/config 값은 샘플인가요, 과거/현재 실제 자격증명인가요? 노출 여부와 회전 상태를 확인했나요?
 
 ### 6. 이력서에서 사실 확인이 필요한 지점
@@ -356,10 +356,10 @@ Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security B
 
 **기억으로 채울 것 (Hi-Tech)**
 
-5. JWT 의 서명 알고리즘과 key 관리, claim, 만료시간, refresh token 저장 방식
-6. Redis 에 access 와 refresh 중 무엇의 ID 를 저장했는지, TTL 을 토큰 만료와 어떻게 맞췄는지
-7. 로그아웃 때 폐기한 토큰의 종류
-8. "최종 로그인 경로는 Oracle 프로시저 연동"이 프로시저가 사용자 자격을 검증하고 Go 서버가 토큰을 발급했다는 뜻인지, 데이터 흐름
+1. JWT 의 서명 알고리즘과 key 관리, claim, 만료시간, refresh token 저장 방식
+2. Redis 에 access 와 refresh 중 무엇의 ID 를 저장했는지, TTL 을 토큰 만료와 어떻게 맞췄는지
+3. 로그아웃 때 폐기한 토큰의 종류
+4. "최종 로그인 경로는 Oracle 프로시저 연동"이 프로시저가 사용자 자격을 검증하고 Go 서버가 토큰을 발급했다는 뜻인지, 데이터 흐름
 
 Hi-Tech 세부가 기억나지 않으면 이력서 수준(token ID 와 사용자 연결을 만료시간과 함께 저장, 로그아웃 삭제, refresh 교체)으로 말하고 원리로 이어갑니다. 구현하지 않은 Authorization Code + PKCE 를 본인 경험으로 말하지 않습니다.
 

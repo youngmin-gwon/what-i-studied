@@ -2,7 +2,7 @@
 title: 02_이력서_경험_API_인증
 tags: []
 aliases: []
-date modified: 2026-10-12 23:32:26 +09:00
+date modified: 2026-10-13 00:25:10 +09:00
 date created: 2026-10-12 17:47:18 +09:00
 ---
 
@@ -119,7 +119,7 @@ flowchart TB
 
 **이미 확인된 사실**
 
-- VMMe Pro 인증 서버는 Spring Authorization Server 기반이고, token endpoint 에 커스텀 Password Grant converter/provider 를 연결했습니다. grant 는 `password`, `client_credentials`, `refresh_token` 이고 access 5 분·refresh 14 일, refresh 재사용 끔(rotation)입니다. 자세한 구조는 [OAuth2 문서 5.1](05_OAuth2_인증.md)에 있습니다.
+- VMMe Pro 인증 서버는 Spring Authorization Server 기반이고, token endpoint 에 커스텀 Password Grant converter/provider 를 연결했습니다. grant 는 `password`, `client_credentials`, `refresh_token` 이고 access 5 분·refresh 14 일, refresh 재사용 끔(rotation)입니다. 자세한 구조는 [OAuth2 문서 5.1](05_OAuth2_인증.md) 에 있습니다.
 - 본인은 인증 서버 코드 일부와 서비스의 JPA 엔티티·Repository 를 직접 작성했고, 운영 Argo CD 를 직접 설치·등록·매니페스트 작성했습니다. 개발 환경은 Ansible 로 구성한 VM 에서 Jenkins 가 Docker Compose 로 전체 서비스를 띄웁니다.
 
 **면접 전 기억으로 채울 것**
