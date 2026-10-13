@@ -2,7 +2,7 @@
 title: 07_CI_CD_Argo_CD
 tags: []
 aliases: []
-date modified: 2026-10-13 10:02:50 +09:00
+date modified: 2026-10-13 14:43:00 +09:00
 date created: 2026-10-12 17:52:20 +09:00
 ---
 
@@ -55,7 +55,7 @@ flowchart LR
 
 #### Kubernetes: 원하는 상태와 실제 상태
 
-Kubernetes 에는 선언한 **원하는 상태(desired state)**와 현재 클러스터의 **실제 상태(actual state)**가 있습니다. 예를 들어 특정 애플리케이션의 복제본 수, 이미지, 서비스 연결 설정 등을 선언할 수 있습니다. Kubernetes 컨트롤러는 실제 상태를 계속 관찰하고, 가능한 범위에서 원하는 상태에 가깝게 맞춥니다. 이 반복적인 비교·조정 과정을 **reconciliation(조정/수렴)**이라고 합니다.
+Kubernetes 에는 선언한 **원하는 상태(desired state)** 와 현재 클러스터의 **실제 상태(actual state)** 가 있습니다. 예를 들어 특정 애플리케이션의 복제본 수, 이미지, 서비스 연결 설정 등을 선언할 수 있습니다. Kubernetes 컨트롤러는 실제 상태를 계속 관찰하고, 가능한 범위에서 원하는 상태에 가깝게 맞춥니다. 이 반복적인 비교·조정 과정을 **reconciliation(조정/수렴)** 이라고 합니다.
 
 Argo CD 는 Git 에 있는 선언과 클러스터 상태를 비교해 애플리케이션 상태를 `Synced` 또는 `OutOfSync` 등으로 보여줍니다. 동기화가 되었는지(Sync)와 워크로드가 정상인지(Health)는 서로 다른 축입니다. 선언 내용이 반영되어 `Synced` 여도 애플리케이션이 정상 응답한다고 보장하지 않으므로 Health 와 애플리케이션 관측도 확인해야 합니다.
 
