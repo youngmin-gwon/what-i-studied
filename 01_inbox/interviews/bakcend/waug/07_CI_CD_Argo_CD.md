@@ -2,7 +2,7 @@
 title: 07_CI_CD_Argo_CD
 tags: []
 aliases: []
-date modified: 2026-10-12 18:18:46 +09:00
+date modified: 2026-10-13 10:02:50 +09:00
 date created: 2026-10-12 17:52:20 +09:00
 ---
 
@@ -91,7 +91,7 @@ sequenceDiagram
 #### Sync, Health, Rollback
 
 - **Sync**: Git 에 선언된 상태를 클러스터에 적용하는 동기화 작업입니다. 자동 동기화 여부는 애플리케이션 설정에 따라 달라집니다.
-- **Health**: Kubernetes 리소스의 상태를 Argo CD 가 평가해 표시하는 건강 상태입니다. `Synced`와 `Healthy` 는 같은 뜻이 아닙니다.
+- **Health**: Kubernetes 리소스의 상태를 Argo CD 가 평가해 표시하는 건강 상태입니다. `Synced` 와 `Healthy` 는 같은 뜻이 아닙니다.
 - **Rollback**: 문제가 생겼을 때 이전 상태로 되돌리는 절차입니다. GitOps 에서는 이전의 정상 선언을 Git 에 되돌리는 방식이 이력과 실제 상태를 일치시키기 쉽습니다. Argo CD 의 UI 에서 이전 상태를 선택하는 기능이 있더라도, Git 을 기준으로 운영하는 환경에서는 Git 에도 그 변경을 반영해야 지속적인 재조정 때 다시 덮어써지지 않습니다. 구체적인 롤백 방식은 해당 환경의 설정과 운영 절차를 확인해야 합니다.
 
 #### Secret 과 환경 승격
