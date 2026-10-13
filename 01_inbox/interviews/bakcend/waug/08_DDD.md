@@ -2,7 +2,7 @@
 title: 08_DDD
 tags: []
 aliases: []
-date modified: 2026-10-13 10:02:51 +09:00
+date modified: 2026-10-13 15:17:48 +09:00
 date created: 2026-10-12 18:04:41 +09:00
 ---
 
@@ -19,7 +19,7 @@ date created: 2026-10-12 18:04:41 +09:00
 ```
 
 ```mermaid
-flowchart LR
+flowchart TB
     R[요청<br/>예약 의도] --> I[불변조건<br/>한 번만 예약·정원 초과 금지]
     I --> S[Source of truth<br/>예약/재고 소유 모델과 저장소]
     S --> D[전달<br/>도메인 이벤트·결제 요청]
@@ -65,7 +65,7 @@ DDD 는 복잡한 업무를 이해하고 소프트웨어 모델에 담는 방법
 **비유:** 같은 사람이 호텔에서는 "투숙객", 예약 시스템에서는 "예약자", 회계에서는 "지급 대상"으로 보일 수 있습니다. 사람이 같아도 context 마다 필요한 속성과 업무 규칙이 다릅니다.
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph Catalog[상품 카탈로그 Context]
         C1[판매 설명·사진·판매 상태]
         C2[용어: 판매 상품]
