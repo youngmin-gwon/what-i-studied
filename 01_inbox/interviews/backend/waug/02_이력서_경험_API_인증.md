@@ -103,7 +103,7 @@ flowchart TB
 
 #### 답변 B — 목적과 한계까지
 
-"JWT 는 서명 검증만으로는 서버가 발급 후 즉시 무효화하기 어렵습니다. 그래서 token ID 와 사용자 연결 상태를 Redis 에 두고, 요청 시 토큰의 유효성과 서버 측 세션 상태를 함께 확인하는 구조였습니다. 로그아웃 시 서버 측 정보를 제거하고 refresh 시 새 토큰 기준으로 갱신했습니다. VMMe Pro 인증 서버도 Redisson 으로 사용자별 기기 세션을 `{profile}:session:{userId}` 키에 180 초 TTL 로 두어 중복 로그인을 확인하는 데 Redis 를 씁니다. 두 경우 모두 인증 상태 저장 용도이고, 캐시 최적화나 분산락 운영과는 다른 쓰임입니다."
+"JWT 는 서명 검증만으로는 서버가 발급 후 즉시 무효화하기 어렵습니다. 그래서 토큰마다 UUID 로 token ID 를 만들어 claim 에 넣고, Redis 에 그 ID 와 사용자 ID 를 토큰 만료와 같은 TTL 로 저장했습니다. 서명이 유효해도 Redis 에 ID 가 없으면 거부하는 구조입니다. 로그아웃 때 access 항목을 지우고, refresh 때 이전 항목을 지운 뒤 새 토큰 기준으로 다시 저장했습니다. VMMe Pro 인증 서버도 Redisson 으로 사용자별 기기 세션을 `{profile}:session:{userId}` 키에 180 초 TTL 로 두어 중복 로그인을 확인하는 데 Redis 를 씁니다. 두 경우 모두 인증 상태 저장 용도이고, 캐시 최적화나 분산락 운영과는 다른 쓰임입니다."
 
 **꼬리질문 1:** "JWT 를 쓰는데 왜 서버 저장소가 필요한가요?"
 
@@ -121,12 +121,11 @@ flowchart TB
 
 - VMMe Pro 인증 서버는 Spring Authorization Server 기반이고, token endpoint 에 커스텀 Password Grant converter/provider 를 연결했습니다. grant 는 `password`, `client_credentials`, `refresh_token` 이고 access 5 분·refresh 14 일, refresh 재사용 끔(rotation)입니다. 자세한 구조는 [OAuth2 문서 5.1](05_OAuth2_인증.md) 에 있습니다.
 - 본인은 인증 서버 코드 일부와 서비스의 JPA 엔티티·Repository 를 직접 작성했고, 운영 Argo CD 를 직접 설치·등록·매니페스트 작성했습니다. 개발 환경은 Ansible 로 구성한 VM 에서 Jenkins 가 Docker Compose 로 전체 서비스를 띄웁니다.
+- Hi-Tech Redis 는 key 가 token ID(UUID) 그대로, value 가 사용자 ID, TTL 이 토큰의 남은 만료시간(access 15 분, refresh 7 일)입니다. refresh 때는 이전 refresh 항목을 먼저 지우고(지운 개수가 0 이면 거부) 새 토큰 한 쌍을 저장합니다. 로그아웃 때 지운 값은 **access 항목뿐**이라 refresh 항목이 남았고, Redis 확인은 업무 API 전체에 걸려 있지 않았습니다. 자세한 내용과 회고 답변은 [OAuth2 문서 4.1](05_OAuth2_인증.md) 에 있습니다.
 
 **면접 전 기억으로 채울 것**
 
 - 인증 서버에서 직접 작성한 클래스 2~3 개의 이름과 역할
-- Hi-Tech Redis key 의 실제 구성, TTL 기준, refresh 시 삭제/교체 순서
-- Hi-Tech 로그아웃 때 지운 값이 access token 의 token ID 인지 refresh 세션인지
 - DB 호출에서 프로시저가 처리한 규칙과 앱/API 계층이 처리한 규칙의 대표 예 하나
 - 운영 중 실패 사례 하나: 증상, 로그로 원인을 찾은 과정, 조치
 

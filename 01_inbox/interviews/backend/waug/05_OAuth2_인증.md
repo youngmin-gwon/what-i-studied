@@ -2,7 +2,7 @@
 title: 05_OAuth2_인증
 tags: []
 aliases: []
-date modified: 2026-10-13 00:25:54 +09:00
+date modified: 2026-10-13 20:32:42 +09:00
 date created: 2026-10-12 17:45:57 +09:00
 ---
 
@@ -10,7 +10,7 @@ date created: 2026-10-12 17:45:57 +09:00
 
 이 문서는 이력서의 두 경험을 구분해서 설명하도록 돕습니다.
 
-- **Hi-Tech (Go, Oracle, Redis):** JWT access·refresh 발급과 검증, Redis 에 token ID 와 사용자 연결 정보 및 만료시간 저장, 로그아웃 시 삭제, refresh 시 토큰 교체, 최종 로그인은 Oracle 프로시저 연동
+- **Hi-Tech (Go, Oracle, Redis):** JWT access·refresh 발급과 검증, 토큰마다 만든 UUID(token ID)를 Redis 에 사용자 ID 와 함께 토큰 만료와 같은 TTL 로 저장, 로그아웃 시 access 항목 삭제, refresh 시 토큰 교체. 2021 년 6~8 월 개발 중에 만든 흐름이고, 이후 최종 로그인 경로는 Oracle 프로시저 연동으로 바뀌었습니다(코드 확인 결과는 4.1 절)
 - **VMMe Pro (Kotlin, Spring Boot):** 백엔드 개발자와 Spring Authorization Server 기반 인증 서버를 만들었고, 본인은 커스텀 grant 처리·claim 구성 같은 토큰 발급 코드 일부를 직접 작성. 로그인은 표준 Authorization Code 가 아니라 커스텀 Password Grant 이고, 서비스 간 호출은 client_credentials, access token 은 RSA 서명 JWT (구조는 5.1 절)
 
 Hi-Tech 는 자체 로그인 API 의 JWT 발급이라 OAuth2 흐름이 아닙니다. OAuth2 경험은 VMMe Pro 인증 서버로 설명하고, 그 서버도 Authorization Code + PKCE 를 구현한 것은 아니라는 점을 분명히 합니다.
@@ -40,7 +40,7 @@ flowchart LR
 
 #### 이력서 경험을 큰 그림에 놓기
 
-- **Hi-Tech:** 확인된 이력서 내용은 Go API 에서 JWT access·refresh 발급·검증, Redis 에 token ID- 사용자 연결 및 만료 저장, 로그아웃 시 토큰 정보 삭제, refresh 시 교체, 최종 로그인 경로의 Oracle 프로시저 연동입니다. 이는 토큰 기반 인증 및 세션 폐기 설계 경험을 보여줍니다. OAuth2 표준 흐름은 아닙니다.
+- **Hi-Tech:** Go API 에서 JWT access·refresh 를 발급·검증하고, 토큰마다 붙인 token ID 를 Redis 에 두어 로그아웃 삭제와 refresh 교체를 처리했습니다. 이후 최종 로그인 경로는 Oracle 프로시저 연동으로 바뀌었습니다. 토큰 기반 인증과 세션 폐기를 직접 만들어 본 경험이고, OAuth2 표준 흐름은 아닙니다. 실제 코드와 한계는 4.1 절에 있습니다.
 - **VMMe Pro:** 위 그림의 **authorization server 와 resource server 상자**에 해당합니다. 한 Spring Boot 서비스 안에 Spring Authorization Server 의 토큰 발급 체인과 Resource Server 의 API 검증 체인이 함께 있고, 본인은 토큰 발급 체인의 코드 일부(커스텀 grant 처리, claim 구성 등)를 직접 작성했습니다. identity boundary 는 같은 서버의 회원·관리자·OTP 인증 서비스가 맡습니다.
 
 따라서 답변의 순서는 **큰 그림에서 맡은 경계 → 직접 만든 동작 → 프레임워크/협업자가 맡은 동작 → 한계**가 좋습니다. CV 문구를 먼저 부정하거나 과장이라고 인정할 필요는 없습니다. 문구의 근거로 실제 구조, 직접 작성한 코드, 협업 범위를 구체적으로 말하고, 표준 Authorization Code + PKCE 가 아니었다는 한계는 먼저 밝힙니다. Hi-Tech Go 구현을 VMMe Pro Spring OAuth2 경험으로 합쳐 말하지 않습니다.
@@ -59,7 +59,7 @@ flowchart LR
 
 OAuth2 는 원래 권한 위임 프레임워크입니다. "OAuth2 로그인을 했다"고 표현하더라도 실제로 사용자 로그인과 ID 토큰을 제공하는 구조라면 OIDC 사용 여부도 살펴봐야 합니다. [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html), [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html), [RFC 7519 (JWT)](https://www.rfc-editor.org/rfc/rfc7519.html)
 
-### 1.1. 세션과 토큰, JWT 구조, 서명 알고리즘, 토큰 저장 위치
+### 1.1. 세션과 토큰, JWT 구조·claim, 서명 알고리즘, 토큰 저장 위치
 
 #### 세션 기반 인증과 토큰 기반 인증
 
@@ -74,7 +74,7 @@ OAuth2 는 원래 권한 위임 프레임워크입니다. "OAuth2 로그인을 �
 | 주된 위협 | 쿠키 자동 전송에 따른 CSRF, 세션 고정 | 토큰 탈취 후 만료 전 재사용, 오래된 권한 claim |
 | 잘 맞는 곳 | 같은 도메인의 웹 앱, 즉시 로그아웃이 중요한 서비스 | 모바일 앱, 여러 API·서비스가 같은 토큰을 검증하는 구조 |
 
-실무에서는 둘을 섞는 경우가 많습니다. **짧은 수명의 access JWT 는 stateless 로 검증하고, 긴 수명의 refresh token 은 서버가 상태를 추적해 폐기**합니다. 이력서의 Hi-Tech 설계(JWT + Redis token ID)도 이 혼합형의 한 예입니다.
+실무에서는 둘을 섞는 경우가 많습니다. **짧은 수명의 access JWT 는 stateless 로 검증하고, 긴 수명의 refresh token 은 서버가 상태를 추적해 폐기**합니다. 이력서의 Hi-Tech 설계(JWT + Redis token ID)는 access·refresh 를 둘 다 서버가 token ID 로 추적해, JWT 에 세션처럼 폐기할 수 있는 상태를 더한 형태입니다(4.1 절).
 
 #### JWT 구조: 서명은 위조 방지이지 암호화가 아니다
 
@@ -87,12 +87,56 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6ImtleS0yMDI2In0   ← header  (base64url)
 ```
 
 - **header:** 서명 알고리즘(`alg`), 키 식별자(`kid`), 타입(`typ`).
-- **payload(claims):** 표준 claim 인 `iss`(발급자), `sub`(주체), `aud`(대상), `exp`(만료), `nbf`(이 시각 전에는 무효), `iat`(발급 시각), `jti`(토큰 ID)와 서비스별 claim(scope, role 등).
+- **payload(claims):** 표준 claim 인 `iss`(발급자), `sub`(주체), `aud`(대상), `exp`(만료), `nbf`(이 시각 전에는 무효), `iat`(발급 시각), `jti`(토큰 ID)와 서비스별 claim(scope, role 등). claim 이 무엇인지는 바로 아래에서 설명합니다.
 - **signature:** `base64url(header) + "." + base64url(payload)` 를 서명한 값입니다. 내용이 한 글자라도 바뀌면 검증이 실패합니다.
 
 **base64url 은 인코딩일 뿐 암호화가 아닙니다.** 누구나 payload 를 디코딩해 읽을 수 있으므로 비밀번호, 개인정보, 내부 비밀값을 넣지 않습니다. 서명된 JWT(JWS)는 **무결성과 발급자 확인**을 주고, 내용을 숨기려면 JWE 같은 암호화가 따로 필요합니다.
 
 검증할 때는 `alg` 를 토큰이 주는 대로 믿지 않고 서버가 허용한 알고리즘으로 고정합니다. `alg: none` 을 받아들이거나, RS256 공개키를 HS256 비밀키처럼 쓰게 만드는 알고리즘 혼동 공격이 알려져 있습니다([RFC 8725](https://www.rfc-editor.org/rfc/rfc8725.html)).
+
+#### claim 이란: 토큰이 하는 "주장"
+
+**claim 은 JWT payload 에 들어 있는 정보 한 항목입니다.** 영어로 "주장"이라는 뜻입니다. 토큰이 "이 토큰의 주인은 42 번 사용자다", "이 시각에 만료된다"라고 주장하는 내용이고, 서명이 붙어 있어서 서버는 그 주장이 위조되지 않았다고 믿을 수 있습니다. payload 를 디코딩하면 JSON 이 나오는데, 그 key-value 하나하나가 claim 입니다.
+
+Hi-Tech 코드가 만든 access token 의 payload 는 이랬습니다(값은 예시).
+
+```json
+{
+  "authorized": true,
+  "access_uuid": "3f2a…",
+  "user_id": "42",
+  "expiration": 1625000900
+}
+```
+
+넷 다 직접 지은 이름이라 **커스텀 claim** 입니다. JWT 표준(RFC 7519 §4.1)은 자주 쓰는 정보에 이름을 미리 정해 두었고, 이를 **등록된(registered) claim**, 흔히 표준 claim 이라고 부릅니다. 토큰을 작게 만들려고 모두 세 글자입니다.
+
+| claim | 뜻 | 검증 라이브러리의 동작 | Hi-Tech 코드에서 쓴 이름 |
+|---|---|---|---|
+| `sub` (subject) | 토큰의 주인. 보통 사용자 ID | 자동 처리 없음 | `user_id` |
+| `exp` (expiration time) | 만료 시각(Unix 초) | **지나면 자동으로 거부** | `expiration` |
+| `nbf` (not before) | 이 시각 전에는 무효 | 그 전이면 자동으로 거부 | 없음 |
+| `iat` (issued at) | 발급 시각 | 기록용. 일부 라이브러리는 미래 시각이면 거부 | 없음 |
+| `jti` (JWT ID) | 토큰 한 장의 고유 번호 | **자동 처리 없음.** 서버가 직접 저장·조회 | `access_uuid`, `refresh_uuid` |
+| `iss` (issuer) | 발급한 서버 | 기대값을 설정하면 확인 | 없음 |
+| `aud` (audience) | 이 토큰을 받을 대상 API | 기대값을 설정하면 확인 | 없음 |
+
+- **`exp` 는 이름이 동작을 바꿉니다.** 라이브러리는 `exp` 라는 이름을 알기 때문에 현재 시각이 그 값을 지나면 자동으로 거부합니다. Hi-Tech 코드는 `expiration` 이라고 써서 golang-jwt 가 이를 모르는 필드로 넘겼습니다. 그래서 JWT 자체의 만료 검사가 없었고, Redis TTL 이 그 역할을 대신했습니다.
+- **`jti` 는 이름만 다릅니다.** 라이브러리는 `jti` 로 아무것도 자동 처리하지 않습니다. 서버가 직접 저장하고 조회하는 용도라서, Hi-Tech 의 `access_uuid` 는 사실상 `jti` 와 똑같이 동작했습니다. 표준 이름을 쓰면 다른 개발자와 도구가 바로 알아본다는 차이만 있습니다.
+
+표준 이름으로 바꾸면 이렇게 됩니다.
+
+```json
+{ "sub": "42", "jti": "3f2a…", "iat": 1625000000, "exp": 1625000900 }
+```
+
+#### token ID: 토큰 한 장에 붙이는 고유 번호
+
+**token ID 는 서버가 특정 토큰 하나를 가리켜 "이건 이제 무효"라고 처리하기 위한 번호입니다.** JWT 는 서버가 아무것도 기억하지 않아도 서명만으로 검증되므로, 한 번 발급하면 서버가 회수할 방법이 없습니다. 그래서 토큰 안에 번호(`jti`)를 넣고, 서버는 그 번호로 "살아 있는 토큰 목록"(allowlist)이나 "폐기한 토큰 목록"(denylist)을 따로 관리합니다. 출입증 자체가 진짜여도, 안내 데스크 명단에서 그 출입증 번호가 지워졌으면 들어갈 수 없는 것과 같습니다.
+
+토큰 원문 대신 번호만 저장하는 이유는 두 가지입니다. 저장소가 유출돼도 번호만으로는 API 를 호출할 수 없고, 같은 사용자의 여러 토큰 중 하나만 지목해 지울 수 있습니다. Hi-Tech 는 Redis 에 있는 번호만 유효로 보는 allowlist 방식이었습니다.
+
+>**면접용 한 문장:** "토큰마다 UUID 를 발급해 claim 에 넣고, Redis 에는 그 UUID 를 key 로 사용자 ID 를 토큰 만료와 같은 TTL 로 저장했습니다. 로그아웃이나 refresh 때 그 key 를 지우면 서명이 유효해도 토큰을 거부할 수 있습니다."
 
 #### HS256 과 RS256·ES256: 누가 서명하고 누가 검증하나
 
@@ -197,7 +241,7 @@ Authorization Code 는 짧은 시간만 유효하고 한 번만 교환되도록 
 - **Refresh rotation:** refresh 요청마다 새 refresh token 을 주고 이전 토큰을 폐기하는 방식입니다. 이미 사용한 토큰이 다시 제출되면 탈취 가능성을 탐지하고 해당 토큰 계열을 폐기할 수 있습니다.
 - **폐기와 로그아웃:** 서버가 refresh token 이나 세션 정보를 삭제하면 이후 재발급을 막을 수 있습니다. 이미 발급된 자체 완결형 JWT access token 은 만료 전까지 검증될 수 있으므로, 즉시 무효화를 원하면 서버 측 denylist/session 상태 확인, 짧은 만료시간 등의 설계가 필요합니다.
 
-Hi-Tech 이력서의 Redis 저장은 token ID 와 사용자 연결 정보를 서버가 추적해 로그아웃 시 해당 토큰 정보를 삭제할 수 있었다는 설명과 잘 맞습니다. 다만 정확한 무효화 보장은 구현에 달려 있습니다. Resource server 가 매 요청마다 Redis 상태를 확인했는지, refresh 만 확인했는지, access JWT 자체의 만료 전 차단도 했는지 구분해서 말하세요. [RFC 6749, section 1.5](https://www.rfc-editor.org/rfc/rfc6749.html#section-1.5), [RFC 9700](https://www.rfc-editor.org/rfc/rfc9700.html)
+Hi-Tech 는 이 중 서버 측 상태를 Redis 에 두는 방식이었습니다. 실제로 무엇을 지웠고 어디서 확인했는지는 4.1 절에 코드 기준으로 정리했습니다. [RFC 6749, section 1.5](https://www.rfc-editor.org/rfc/rfc6749.html#section-1.5), [RFC 9700](https://www.rfc-editor.org/rfc/rfc9700.html)
 
 #### Lifecycle diagram: 발급, 갱신, 폐기
 
@@ -217,6 +261,82 @@ stateDiagram-v2
 ```
 
 JWT access token 이 자체 검증형이면 `Logout` 에서 서버 측 refresh/session 을 없애도 access token 은 resource server 가 별도 폐기 상태를 확인하지 않는 한 `Expired` 까지 통과할 수 있습니다. 반면 opaque token 을 introspection 하거나 매 요청에 denylist/session 상태를 확인하면 즉시 차단을 강화할 수 있지만, 네트워크/저장소 의존성과 지연이 생깁니다. 설계는 "즉시 폐기 요구"와 "API 요청의 stateless 검증" 사이에서 결정합니다.
+
+#### 로그아웃 설계: 무엇을 지우나
+
+로그아웃의 방향은 **access·refresh 둘 다 무효로 만드는 것**이 맞습니다. 다만 세 가지를 구분해야 합니다.
+
+1. **"토큰 삭제"는 서버 기록을 지우는 것입니다.** 토큰 문자열은 앱에 있어 서버가 지울 수 없습니다. 서버는 저장소에서 그 토큰의 기록을 지워 무효로 만들고, 앱은 저장해 둔 토큰(Keychain·Keystore)을 버립니다. 실제 보안 효과는 서버 쪽 삭제에서 나옵니다.
+2. **서버가 refresh 토큰의 ID 를 알아야 지울 수 있습니다.** 로그아웃 요청에는 보통 `Authorization` 헤더의 access token 만 옵니다. access 와 refresh 의 ID 를 서로 따로 만들었다면, access token 만 보고는 어떤 refresh 기록을 지울지 알 수 없습니다. Hi-Tech 코드가 access 항목만 지운 이유가 이것입니다.
+3. **access token 의 즉시 차단은 모든 보호 API 가 저장소를 확인할 때만 성립합니다.** 서명만 검증하는 API 라면 기록을 지워도 access token 은 `exp` 까지 통과합니다.
+
+2 번을 푸는 방법은 세 가지입니다.
+
+| 방법 | 장점 | 단점 |
+|---|---|---|
+| 앱이 로그아웃 요청에 refresh token 도 함께 보냄 | 가장 간단합니다 | 앱이 보내지 않으면 refresh 가 살아남습니다 |
+| access claim 에 refresh ID 도 넣음 | 서버가 혼자 둘 다 찾습니다 | 두 토큰이 서로 묶여 구조가 꼬입니다 |
+| **두 토큰을 세션 ID 하나로 묶음 (추천)** | 키 하나만 지우면 둘 다 무효가 되고, "모든 기기 로그아웃"도 쉬워집니다 | 키 설계를 다시 해야 합니다 |
+
+세션 ID 로 묶는 방식은 이렇습니다. 세션에 **현재 유효한 refresh token 의 `jti`** 도 같이 두면, rotation 뒤에 옛 refresh token 이 다시 들어왔을 때 재사용으로 알아챌 수 있습니다.
+
+```text
+로그인   : sid 생성 → access·refresh 둘 다 claim 에 sid 를 넣음
+           Redis  session:{sid} → { userId, 현재 refresh jti }   (TTL = refresh 만료)
+API 요청 : 서명·exp 검증 → session:{sid} 가 있는지 확인
+refresh  : session:{sid} 의 현재 refresh jti 와 비교
+           같으면 → 새 토큰 한 쌍 발급, 현재 refresh jti 갱신 (rotation)
+           다르면 → 이미 쓴 토큰의 재사용이므로 세션 전체 폐기 (재사용 탐지)
+로그아웃 : DEL session:{sid} → access·refresh 모두 무효
+```
+
+refresh 의 비교와 갱신은 Lua script 하나로 묶어 원자적으로 처리해야, 같은 토큰으로 두 요청이 동시에 와도 하나만 성공합니다. "모든 기기에서 로그아웃"이 필요하면 사용자별 set(`user:{userId}:sessions`)에 sid 를 모아 두고 한 번에 지웁니다.
+
+매 요청 Redis 조회 비용이 부담되면, access 는 수명을 5~15 분으로 짧게 두고 저장소 확인 없이 서명만 검증하며, 로그아웃 때는 세션(refresh)만 폐기하는 절충을 씁니다. 남는 위험은 access 수명만큼입니다. VMMe Pro 인증 서버의 access 5 분 + revoke 구조가 이 방식입니다.
+
+>**면접용 답변:** "로그아웃 때는 서버에서 refresh 토큰을 반드시 폐기하고, 앱은 저장한 토큰을 지웁니다. access token 까지 즉시 막아야 하면 두 토큰을 세션 ID 로 묶어 Redis 에 두고 매 요청 확인합니다. 그 비용이 부담되면 access 수명을 짧게 해서 남는 위험 시간을 줄입니다. Hi-Tech 에서는 access 항목만 지워 refresh 가 남는 문제가 있었고, 지금이라면 세션 ID 로 묶겠습니다."
+
+### 4.1. Hi-Tech 코드에서 확인한 실제 구조
+
+분석 기준: 로컬 저장소 `~/projects/2021_05_hwashin_nfc/backend` 의 `handler/signin.go`(2021 년 6~8 월 본인 커밋). Go(gorilla/mux) + golang-jwt v3 + go-redis v6 + twinj/uuid 를 썼습니다.
+
+#### 토큰 발급과 저장
+
+- access 15 분, refresh 7 일입니다. 둘 다 HS256 이고, access 와 refresh 의 서명 비밀키를 따로 둡니다.
+- 토큰마다 `uuid.NewV4()` 로 token ID 를 만들어 `access_uuid`, `refresh_uuid` claim 에 넣습니다. 표준 `jti` 대신 쓴 커스텀 claim 입니다. 사용자는 `user_id`, 만료는 `expiration` claim 에 넣었습니다.
+- Redis 에는 **prefix 없이 UUID 자체를 key** 로, 사용자 ID 를 value 로, 남은 만료시간을 TTL 로 저장합니다. 토큰 원문은 저장하지 않습니다.
+
+```text
+access JWT payload : { "authorized": true, "access_uuid": "3f2a…", "user_id": "42", "expiration": … }
+Redis              : SET "3f2a…" "42" EX 900          (refresh 쪽은 EX 604800, 7 일)
+```
+
+| 시점 | endpoint | 동작 |
+|---|---|---|
+| 로그인 | `/signin` → 이후 `/sign-in` | 사용자를 확인하고 토큰 한 쌍을 발급한 뒤, 두 UUID 를 Redis 에 저장 |
+| 보호 API | `/todo` (검증 흐름 확인용) | 서명 검증 → `access_uuid` 추출 → Redis GET. 없으면 401 |
+| 로그아웃 | `/signout` → 이후 `/sign-out` | Redis 에서 access UUID 를 DEL. 지운 개수가 0 이면 401 |
+| refresh | `/token/refresh` → 이후 `/token` | refresh 서명 검증 → refresh UUID 를 DEL. 지운 개수가 0 이면 401(이미 쓴 토큰 거부), 1 이면 새 토큰 한 쌍을 발급해 다시 저장 |
+
+#### 시간 순서
+
+- **2021-06-29 ~ 07-05:** JWT 로그인·로그아웃·refresh 와 Redis 저장을 구현했습니다.
+- **2021-07-09:** 로그인의 사용자 확인을 Oracle 연동으로 바꾸고, JWT 발급은 유지했습니다.
+- **2021-08 말:** 로그아웃 route 와 로그인의 JWT 발급을 제거하고, 남은 JWT 코드에 `// deprecated` 를 표시했습니다.
+- **최종:** Oracle 로그인 프로시저가 자격을 검증하고 API key 를 돌려주며, Go API 는 그 결과를 앱에 전달합니다. 이력서의 "이후 현장 인증 방식에 맞춰 최종 로그인 경로는 Oracle 프로시저 연동으로 정리"가 이 변화입니다.
+
+#### 이력서 문장보다 좁거나 다른 점
+
+면접 전에 꼭 알고 있어야 할 내용입니다. 먼저 꺼낼 필요는 없지만, 꼬리질문에는 이 사실대로 답합니다.
+
+1. **Redis 확인은 모든 API 에 걸려 있지 않았습니다.** 검증 흐름(서명 → token ID → Redis)은 `/todo` 확인용 endpoint 에만 붙어 있었고, 업무 API 전체에 거는 미들웨어로 넓히기 전에 로그인 방식이 바뀌었습니다. "모든 요청에서 Redis 를 확인해 로그아웃 즉시 차단했다"라고 말하지 않습니다.
+2. **로그아웃 때 지운 것은 access 항목뿐입니다.** refresh UUID 항목은 남아 있어서, 로그아웃 뒤에도 refresh token 으로 최대 7 일 동안 새 토큰을 받을 수 있는 구조였습니다. 이유는 위 "로그아웃 설계" 2 번입니다.
+3. **만료 claim 이 `exp` 가 아니라 `expiration` 이었습니다.** golang-jwt 는 만료를 검사하지 않았고, Redis TTL 이 만료 역할을 대신했습니다. Redis 를 거치는 경로(`/todo`·로그아웃·refresh)에서만 만료가 지켜진 셈입니다.
+4. **refresh rotation 은 코드대로 동작했습니다.** Redis DEL 은 원자적이라, 같은 refresh token 으로 두 요청이 동시에 와도 "지운 개수 1"을 받는 요청은 하나뿐입니다. 이미 쓴 토큰과 동시 재사용이 모두 거부됩니다. 다만 재사용을 탈취 신호로 보고 세션 전체를 폐기하는 탐지는 없었습니다.
+
+#### 지금 다시 만든다면 (회고 답변)
+
+>"지금 보면 세 가지를 고치겠습니다. 첫째, 표준 `sub`·`jti`·`exp` claim 을 써서 만료를 라이브러리가 검사하게 하겠습니다. 당시에는 `expiration` 이라는 이름을 써서 만료 검사가 Redis TTL 에만 의존했습니다. 둘째, access·refresh 를 세션 ID 하나로 묶어 로그아웃 때 둘 다 폐기하겠습니다. 당시에는 access 항목만 지워 refresh 가 남았습니다. 셋째, Redis 확인을 미들웨어로 만들어 보호 API 전체에 걸거나, 그 비용이 부담되면 access 수명을 짧게 두고 refresh 만 서버에서 관리하겠습니다. key 에도 `session:` 같은 prefix 를 붙여 다른 데이터와 섞이지 않게 하겠습니다."
 
 ### 5. Spring Security 와 Spring Authorization Server
 
@@ -354,14 +474,14 @@ Resource Owner Password Credentials(ROPC/Password Grant)는 OAuth 2.0 Security B
 3. **역할 분담:** OAuth2 프로토콜 처리와 저장소는 Spring Authorization Server 가 맡고, 본인은 커스텀 grant 처리·claim 구성 같은 토큰 발급 코드 일부를 직접 작성했습니다.
 4. **두 프로젝트의 경계:** VMMe Pro(Spring Authorization Server, OAuth2)와 Hi-Tech(Go 자체 로그인 API, JWT + Redis)는 서로 다른 프로젝트입니다.
 
-**기억으로 채울 것 (Hi-Tech)**
+**확인된 답 (Hi-Tech, 4.1 절 기준)**
 
-1. JWT 의 서명 알고리즘과 key 관리, claim, 만료시간, refresh token 저장 방식
-2. Redis 에 access 와 refresh 중 무엇의 ID 를 저장했는지, TTL 을 토큰 만료와 어떻게 맞췄는지
-3. 로그아웃 때 폐기한 토큰의 종류
-4. "최종 로그인 경로는 Oracle 프로시저 연동"이 프로시저가 사용자 자격을 검증하고 Go 서버가 토큰을 발급했다는 뜻인지, 데이터 흐름
+1. **서명과 claim:** HS256 이고 access·refresh 비밀키를 따로 둡니다. claim 은 `access_uuid`/`refresh_uuid`(token ID), `user_id`, `expiration`, `authorized` 이고, 만료는 access 15 분·refresh 7 일입니다.
+2. **Redis:** access 와 refresh 의 UUID 를 둘 다 저장합니다. key 는 UUID 그대로, value 는 사용자 ID, TTL 은 남은 만료시간입니다.
+3. **로그아웃:** access UUID 항목만 지웠습니다. refresh 항목은 남았습니다.
+4. **Oracle 프로시저 연동:** 처음에는 Oracle 로 사용자를 확인한 뒤 Go 서버가 JWT 를 발급했습니다. 최종 경로에서는 Oracle 로그인 프로시저가 자격을 검증하고 API key 를 돌려주며, JWT 흐름은 그때 정리됐습니다.
 
-Hi-Tech 세부가 기억나지 않으면 이력서 수준(token ID 와 사용자 연결을 만료시간과 함께 저장, 로그아웃 삭제, refresh 교체)으로 말하고 원리로 이어갑니다. 구현하지 않은 Authorization Code + PKCE 를 본인 경험으로 말하지 않습니다.
+Hi-Tech 는 위 사실과 4.1 절의 한계(Redis 확인 범위, 로그아웃 뒤 refresh 잔존, `expiration` claim)를 기준으로 말합니다. 구현하지 않은 Authorization Code + PKCE 를 본인 경험으로 말하지 않습니다.
 
 ### 7. 예상 질문과 면접 답변 예시
 
@@ -385,11 +505,11 @@ Hi-Tech 세부가 기억나지 않으면 이력서 수준(token ID 와 사용자
 
 #### Q5. Redis 에 토큰 정보를 저장한 이유는 무엇인가요?
 
-**답변 예시:** 자체 완결형 JWT 만 쓰면 서버가 발급 뒤 세션 상태를 모를 수 있어, 만료 전 로그아웃이나 강제 폐기가 어려워집니다. 당시에는 Redis 에 token ID 와 사용자 연결 정보를 TTL 과 함께 저장해 유효 토큰을 추적하고, 로그아웃 때 서버 측 상태를 삭제하도록 했습니다. 요청마다 서명·만료를 검증한 뒤 Redis 에 그 token ID 가 있는지 확인했기 때문에, 로그아웃하면 access token 도 만료 전에 바로 거부됩니다. 반대로 Redis 를 조회하지 않는 서버라면 저장만으로는 이미 발급된 JWT 가 폐기되지 않습니다.
+**답변 예시:** 자체 완결형 JWT 만 쓰면 서버가 발급 뒤 토큰을 회수할 방법이 없어, 만료 전 로그아웃이나 강제 폐기가 어렵습니다. 그래서 토큰마다 UUID 로 token ID 를 만들어 claim 에 넣고, Redis 에 그 ID 를 key 로 사용자 ID 를 토큰 만료와 같은 TTL 로 저장했습니다. 서명이 유효해도 Redis 에 ID 가 없으면 거부하는 구조라, 로그아웃이나 refresh 때 key 를 지우면 그 토큰을 무효로 만들 수 있습니다. 메모리에서 빠르게 조회되고 TTL 로 만료 항목이 자동으로 정리된다는 점이 이 용도에 Redis 가 맞는 이유입니다. 다만 이 확인은 Redis 를 조회하는 API 에서만 효과가 있어서, 모든 보호 API 에 적용하려면 미들웨어로 걸어야 합니다.
 
 #### Q6. Refresh token 을 rotation 하는 이유와 재사용 대응은?
 
-**답변 예시:** refresh token 은 access token 보다 수명이 길고 재발급 권한이 있어 유출 영향이 큽니다. 새 토큰을 발급할 때 기존 refresh token 을 폐기하면 탈취된 이전 토큰의 재사용 기회를 줄일 수 있습니다. Hi-Tech 에서는 refresh 때 이전 token ID 항목을 지우고 새 항목을 저장했기 때문에 이미 쓴 refresh token 은 거부됩니다. VMMe Pro 인증 서버도 `reuseRefreshTokens(false)` 로 refresh 마다 새 refresh token 을 발급합니다. 이미 쓴 토큰이 다시 들어오면 탈취 신호로 보고 그 세션이나 토큰 계열 전체를 폐기하는 재사용 탐지는 그 위에 더할 수 있는 정책입니다.
+**답변 예시:** refresh token 은 access token 보다 수명이 길고 재발급 권한이 있어 유출 영향이 큽니다. 새 토큰을 발급할 때 기존 refresh token 을 폐기하면 탈취된 이전 토큰의 재사용 기회를 줄일 수 있습니다. Hi-Tech 에서는 refresh 때 이전 token ID 항목을 지우고, 지운 개수가 0 이면 거부했습니다. 그래서 이미 쓴 refresh token 은 거부되고, 같은 토큰으로 두 요청이 동시에 와도 하나만 성공합니다. VMMe Pro 인증 서버도 `reuseRefreshTokens(false)` 로 refresh 마다 새 refresh token 을 발급합니다. 이미 쓴 토큰이 다시 들어오면 탈취 신호로 보고 그 세션이나 토큰 계열 전체를 폐기하는 재사용 탐지는 그 위에 더할 수 있는 정책입니다.
 
 #### Q7. JWT access token 을 로그아웃 즉시 무효화할 수 있나요?
 
@@ -424,6 +544,9 @@ Hi-Tech 세부가 기억나지 않으면 이력서 수준(token ID 와 사용자
 - [ ] JWT 의 header·payload·signature 구조를 말하고, base64url 은 암호화가 아니라고 설명한다.
 - [ ] HS256 과 RS256 의 차이, JWKS 와 kid 로 키를 배포·교체하는 방법을 설명한다.
 - [ ] 웹(localStorage vs HttpOnly 쿠키, XSS vs CSRF)과 모바일(Keychain/Keystore)의 토큰 저장 위치를 말한다.
+- [ ] claim 이 무엇인지, 표준 claim(`sub`·`exp`·`jti`·`iat`·`iss`·`aud`)의 뜻과 `exp`(라이브러리가 자동 검사)·`jti`(서버가 직접 관리)의 차이를 말한다.
+- [ ] token ID 를 저장하는 이유와, 로그아웃 때 access·refresh 를 함께 폐기하는 방법(세션 ID 로 묶기)을 설명한다.
+- [ ] Hi-Tech 구현의 한계(Redis 확인 범위, 로그아웃 뒤 refresh 잔존, `expiration` claim)를 회고 답변으로 말한다.
 
 ### 8.1. 보안 공격·실패 상황별 사고법
 
@@ -475,7 +598,7 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 ### 9. 3 단계 면접 연습: 기본 답변과 꼬리질문
 
-각 주제는 **첫 답변 → 꼬리질문 1 → 꼬리질문 2** 순서로 연습하세요. 짧은 답변은 20~30 초, 경험 중심 답변은 45~75 초 정도가 적당합니다. 뒤의 꼬리질문은 답변을 검증하거나 반례를 묻는 면접관의 압박을 포함합니다. VMMe Pro 인증 서버는 5.1 절의 확인된 구조를 기준으로 답하고, 기억나지 않는 Hi-Tech 세부는 만들어 넣지 않습니다.
+각 주제는 **첫 답변 → 꼬리질문 1 → 꼬리질문 2** 순서로 연습하세요. 짧은 답변은 20~30 초, 경험 중심 답변은 45~75 초 정도가 적당합니다. 뒤의 꼬리질문은 답변을 검증하거나 반례를 묻는 면접관의 압박을 포함합니다. VMMe Pro 인증 서버는 5.1 절, Hi-Tech 는 4.1 절의 코드 확인 결과를 기준으로 답합니다.
 
 #### A. OAuth2, OIDC, JWT 의 차이
 
@@ -535,9 +658,9 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 #### E. Redis token 상태, 로그아웃, JWT 즉시 폐기
 
-**짧은 답변:** JWT 는 서명과 만료만 검사하면 서버 측 세션 상태를 모를 수 있습니다. Hi-Tech 에서는 Redis 에 token ID- 사용자 연결과 만료를 저장하고 로그아웃 때 관련 상태를 삭제했습니다. 매 요청에서 그 상태를 검사했는지에 따라 access token 의 즉시 무효화 여부가 달라집니다.
+**짧은 답변:** JWT 는 서명과 만료만 검사하면 서버 측 세션 상태를 모를 수 있습니다. Hi-Tech 에서는 Redis 에 token ID 와 사용자 ID 를 토큰 만료와 같은 TTL 로 저장하고, 로그아웃 때 access 항목을 지웠습니다. access token 이 즉시 막히는지는 API 가 매 요청 그 항목을 확인하느냐에 달려 있습니다.
 
-**경험 중심 답변:** Hi-Tech 에서는 Redis 에 token ID 와 사용자 연결 정보를 만료시간과 함께 저장하고, 요청마다 서명·만료 검증 뒤 그 token ID 가 Redis 에 있는지 확인했습니다. 그래서 로그아웃으로 항목을 지우면 access token 도 만료 전에 바로 거부됐습니다. 반면 VMMe Pro 인증 서버의 일반 API 는 `JwtDecoder` 로 서명만 검증하므로, revoke 해도 이미 발급된 access token 은 만료까지 통과합니다. 대신 access 수명이 5 분으로 짧아 그 창이 작습니다.
+**경험 중심 답변:** Hi-Tech 에서는 토큰마다 UUID 를 claim 에 넣고, Redis 에 그 UUID 를 key 로 저장했습니다. 검증 흐름은 서명을 확인한 뒤 claim 의 UUID 가 Redis 에 있는지 보는 것이라, 로그아웃으로 key 를 지우면 이 흐름을 거치는 요청은 만료 전에도 거부됩니다. 다만 이 확인을 업무 API 전체에 미들웨어로 걸기 전에 로그인 방식이 Oracle 프로시저 기반으로 바뀌었고, 로그아웃 때 access 항목만 지워 refresh 항목이 남는 한계도 있었습니다. 반면 VMMe Pro 인증 서버의 일반 API 는 `JwtDecoder` 로 서명만 검증하므로, revoke 해도 이미 발급된 access token 은 만료까지 통과합니다. 대신 access 수명이 5 분으로 짧아 그 창이 작습니다.
 
 **꼬리질문 1 — "Redis 에서 지웠는데 왜 토큰이 계속 동작할 수 있나요?"**
 
@@ -551,11 +674,11 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 **짧은 답변:** refresh token 은 재발급 권한이 있어 보호가 중요합니다. rotation 은 refresh 때 새 토큰을 발급하고 이전 토큰을 폐기해 이전 토큰의 반복 사용을 막습니다.
 
-**경험 중심 답변:** Hi-Tech 에서는 refresh 때 이전 token ID 항목을 지우고 새 항목을 저장해, 이미 쓴 refresh token 은 거부되게 했습니다. VMMe Pro 인증 서버도 `reuseRefreshTokens(false)` 로 refresh 마다 새 refresh token 을 발급합니다. 재사용을 탈취 신호로 보고 세션 계열 전체를 폐기하는 탐지는 그 위에 더할 수 있는 정책입니다. 새 토큰 저장, 이전 토큰 폐기, TTL 설정이 함께 맞아야 rotation 이 의미가 있습니다.
+**경험 중심 답변:** Hi-Tech 에서는 refresh 때 이전 token ID 항목을 지우고, 지운 개수가 0 이면 거부해 이미 쓴 refresh token 을 막았습니다. 통과하면 새 토큰 한 쌍을 발급해 새 항목을 저장했습니다. VMMe Pro 인증 서버도 `reuseRefreshTokens(false)` 로 refresh 마다 새 refresh token 을 발급합니다. 재사용을 탈취 신호로 보고 세션 계열 전체를 폐기하는 탐지는 그 위에 더할 수 있는 정책입니다. 새 토큰 저장, 이전 토큰 폐기, TTL 설정이 함께 맞아야 rotation 이 의미가 있습니다.
 
 **꼬리질문 1 — "두 요청이 거의 동시에 같은 refresh token 으로 들어오면요?"**
 
-**답변:** 둘 다 성공하면 두 개의 유효한 후속 토큰이 생길 수 있습니다. 원자적으로 한 요청만 토큰을 교체하도록 처리하고, 이미 소비된 토큰의 재사용을 감지해야 합니다. Redis 라면 이전 항목 삭제와 새 항목 저장을 Lua script 하나로 묶어 원자적으로 처리하고, 데이터베이스라면 트랜잭션 안에서 "아직 사용되지 않은 토큰일 때만" 갱신하는 조건부 UPDATE 를 씁니다.
+**답변:** 둘 다 성공하면 두 개의 유효한 후속 토큰이 생길 수 있습니다. 원자적으로 한 요청만 토큰을 교체하도록 처리하고, 이미 소비된 토큰의 재사용을 감지해야 합니다. Hi-Tech 코드는 Redis DEL 이 원자적이라는 점을 이용해, 지운 개수 1 을 받은 요청만 새 토큰을 받게 했습니다. 그래서 동시에 두 요청이 와도 하나만 성공합니다. Redis 라면 이전 항목 삭제와 새 항목 저장을 Lua script 하나로 묶어 원자적으로 처리하고, 데이터베이스라면 트랜잭션 안에서 "아직 사용되지 않은 토큰일 때만" 갱신하는 조건부 UPDATE 를 씁니다.
 
 **꼬리질문 2 — "재사용 탐지가 오탐이면 정상 사용자를 로그아웃시키지 않나요?"**
 
@@ -593,7 +716,7 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 
 **짧은 답변:** 세션은 서버가 상태를 저장하고 클라이언트는 세션 ID 만 갖습니다. 토큰은 서명된 토큰 자체에 정보가 있어 서버가 저장소 조회 없이 검증합니다. 세션은 즉시 폐기가 쉽고, 토큰은 여러 서버·서비스로 확장하기 쉽지만 만료 전 폐기가 어렵습니다.
 
-**상세 답변:** 세션은 로그아웃이나 강제 만료를 서버에서 바로 반영할 수 있지만 모든 요청이 세션 저장소에 의존합니다. JWT 는 공개키만 있으면 어느 서비스든 검증할 수 있어 모바일 앱과 MSA 에 잘 맞지만, 발급된 토큰은 만료까지 유효하고 claim 의 권한 정보도 그동안 바뀌지 않습니다. 그래서 짧은 access JWT 와 서버가 추적하는 refresh token 을 섞는 구성이 흔하고, Hi-Tech 에서 Redis 에 token ID 를 둔 설계도 이 절충의 한 형태입니다.
+**상세 답변:** 세션은 로그아웃이나 강제 만료를 서버에서 바로 반영할 수 있지만 모든 요청이 세션 저장소에 의존합니다. JWT 는 공개키만 있으면 어느 서비스든 검증할 수 있어 모바일 앱과 MSA 에 잘 맞지만, 발급된 토큰은 만료까지 유효하고 claim 의 권한 정보도 그동안 바뀌지 않습니다. 그래서 짧은 access JWT 와 서버가 추적하는 refresh token 을 섞는 구성이 흔하고, Hi-Tech 에서 Redis 에 token ID 를 둔 설계는 JWT 에 서버 측 상태를 더해 세션처럼 폐기할 수 있게 한 형태입니다.
 
 **꼬리질문 1 — "세션도 Redis 에 두면 확장 문제는 없지 않나요?"**
 
@@ -644,6 +767,34 @@ RFC 9700 은 최신 OAuth2 보안 모범 관행으로 PKCE, redirect 처리, ref
 **꼬리질문 2 — "쿠키를 쓰면 CSRF 는 어떻게 막나요?"**
 
 **답변:** SameSite=Lax 나 Strict 로 교차 사이트 요청에 쿠키가 붙지 않게 하고, 상태를 바꾸는 요청에는 CSRF 토큰이나 커스텀 헤더를 확인합니다. 모바일 앱처럼 Authorization 헤더로 토큰을 보내는 방식은 브라우저 자동 전송이 없어 CSRF 영향이 작습니다.
+
+#### M. claim 이 뭔가요? 표준 claim 을 써 봤나요?
+
+**짧은 답변:** claim 은 JWT payload 에 담긴 정보 한 항목입니다. `sub`·`exp`·`jti`·`iss`·`aud` 같은 표준 claim 은 이름과 의미가 RFC 7519 에 정해져 있고, 검증 라이브러리가 `exp`·`nbf` 를 자동으로 확인합니다.
+
+**경험 중심 답변:** Hi-Tech 에서는 표준 이름 대신 `user_id`, `access_uuid`, `expiration` 같은 커스텀 claim 을 썼습니다. `access_uuid` 는 `jti` 와 같은 역할이라 동작에는 차이가 없었지만, `expiration` 은 라이브러리가 모르는 이름이라 JWT 자체의 만료 검사가 빠졌고 Redis TTL 이 그 역할을 대신했습니다. 지금이라면 `sub`·`jti`·`iat`·`exp` 를 표준 이름으로 쓰겠습니다. VMMe Pro 인증 서버는 Spring Authorization Server 의 JWT 생성기가 `sub`·`aud`·`iat`·`exp` 같은 표준 claim 을 채우고, `CustomJwtTokenCustomizer` 가 회원·관리자·기기별 claim 을 더합니다.
+
+**꼬리질문 1 — "`jti` 가 있으면 라이브러리가 재사용을 막아 주나요?"**
+
+**답변:** 아닙니다. 라이브러리는 `jti` 를 읽어 줄 뿐 자동으로 막지 않습니다. 폐기나 재사용 방지가 필요하면 서버가 `jti` 를 allowlist 나 denylist 에 저장하고 요청마다 조회해야 합니다. 그래서 `jti` 로 폐기를 확인하는 순간 그 검증은 완전한 stateless 가 아니게 됩니다.
+
+**꼬리질문 2 — "커스텀 claim 이름은 아무렇게나 지어도 되나요?"**
+
+**답변:** 같은 의미의 표준 claim 이 있으면 표준 이름을 씁니다. 그래야 라이브러리 검증이 동작하고 다른 서비스도 바로 읽습니다. 표준에 없는 정보는 커스텀 이름을 쓰되, 여러 발급자의 토큰이 섞이는 환경이면 충돌하지 않게 서비스 prefix 나 URI 형식 이름을 붙입니다. payload 는 누구나 디코딩할 수 있으므로 비밀번호나 개인정보는 넣지 않습니다.
+
+#### N. 로그아웃하면 refresh token 은 어떻게 되나요?
+
+**짧은 답변:** 로그아웃 때는 서버에서 refresh token 을 반드시 폐기해야 합니다. access 는 수명이 짧아 만료를 기다릴 수 있지만, refresh 가 남아 있으면 로그아웃 뒤에도 새 토큰을 계속 받을 수 있습니다.
+
+**경험 중심 답변:** Hi-Tech 에서는 로그아웃 때 access token 의 token ID 만 Redis 에서 지웠습니다. 로그아웃 요청에는 access token 만 오는데 refresh 의 ID 는 따로 만든 값이라 서버가 알 수 없었기 때문입니다. 그래서 refresh 항목이 남아 로그아웃 뒤에도 최대 7 일 동안 refresh 할 수 있는 구조였습니다. 지금이라면 로그인 때 세션 ID 를 만들어 두 토큰의 claim 에 넣고 Redis 에는 세션 단위로 저장해, 로그아웃 때 세션 key 하나를 지워 둘 다 무효로 만들겠습니다. 앱은 저장소에서 두 토큰을 모두 지웁니다.
+
+**꼬리질문 1 — "그럼 access token 은 즉시 막히나요?"**
+
+**답변:** 모든 보호 API 가 요청마다 세션 key 를 확인할 때만 즉시 막힙니다. 서명만 검증하는 API 라면 access token 은 `exp` 까지 통과합니다. 매 요청 조회 비용이 부담되면 access 수명을 5~15 분으로 짧게 두고 refresh 만 서버에서 폐기하는 절충을 씁니다. VMMe Pro 인증 서버가 access 5 분에 revoke 를 둔 구조가 이 방식입니다.
+
+**꼬리질문 2 — "여러 기기에 로그인한 사용자가 '모든 기기에서 로그아웃'을 누르면요?"**
+
+**답변:** 세션을 기기마다 따로 만들고, 사용자별 set(`user:{userId}:sessions`)에 세션 ID 를 모아 둡니다. 현재 기기 로그아웃은 그 세션 하나를, 모든 기기 로그아웃은 set 에 있는 세션 전부를 지웁니다. 비밀번호 변경이나 탈취가 의심될 때도 같은 방식으로 사용자의 모든 세션을 끊습니다.
 
 ### 공식 참고 자료
 
